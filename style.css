@@ -1,5 +1,19 @@
 /*
- * Theme Name: My Timber Starter Theme
- * Description: Starter Theme to use with Timber
- * Author: Upstatement and YOU!
+Theme Name: Timber Starter Theme
+Theme URI: https://github.com/anselmh/timber-starter-theme-child1/
+Description: Timber Starter Theme
+Author: Anselm Hannemann
+Author URI: https://helloanselm.com
+Version: 0.1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
+Text Domain: timber-starter-theme
 */
+
+body {
+    width: 1024px;
+    max-width: 100%;
+    background-color: #999;
+    color: black;
+}
