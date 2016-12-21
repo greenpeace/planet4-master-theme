@@ -16,4 +16,4 @@
 
     <link rel="stylesheet" href="{{site.theme.link}}/style.css" type="text/css">
     <link rel="pingback" href="{{site.pingback_url}}">
-    {{add_action('wp_head', site.insert_child_css(site.theme.link, 'style'))}}
+    {% do action( 'wp_head', site.insert_child_css(site.theme.link, 'style') ) %}

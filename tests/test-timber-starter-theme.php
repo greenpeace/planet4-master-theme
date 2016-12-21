@@ -25,11 +25,11 @@
 		}
 
 		static function _setupStarterTheme(){
-			$dest = WP_CONTENT_DIR.'/themes/starter-theme/';
-			$src = __DIR__.'/../../starter-theme/';
+			$dest = WP_CONTENT_DIR.'/themes/greenpeace-global-theme/';
+			$src = __DIR__.'/../../greenpeace-global-theme/';
 			if (is_dir($src)) {
 				self::_copyDirectory($src, $dest);
-				switch_theme('starter-theme');
+				switch_theme('greenpeace-global-theme');
 			} else {
 				echo 'no its not';
 			}
