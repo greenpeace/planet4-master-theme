@@ -1,19 +1,19 @@
 <!doctype html>
-<html class="no-js" {{site.language_attributes}}>
+<html class="no-js" {{ site.language_attributes }}>
 <head>
-    <meta charset="{{site.charset}}">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta charset="{{ site.charset }}">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>
-        {% if wp_title %}
-            {{ wp_title }} - {{ site.name }}
-        {% else %}
-            {{ site.name }}
-        {% endif %}
-    </title>
-    <meta name="description" content="{{site.description}}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>
+{% if wp_title %}
+		{{ wp_title }} - {{ site.name }}
+{% else %}
+		{{ site.name }}
+{% endif %}
+		</title>
+		<meta name="description" content="{{ site.description }}">
 
-    <link rel="stylesheet" href="{{site.theme.link}}/style.css" type="text/css">
-    <link rel="pingback" href="{{site.pingback_url}}">
-    {% do action( 'wp_head', site.insert_child_css(site.theme.link, 'style') ) %}
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="pingback" href="{{ site.pingback_url }}">
+		{{ wp_head }}

@@ -25,7 +25,9 @@ class StarterSite extends TimberSite {
 		add_filter( 'get_twig', array( $this, 'add_to_twig' ) );
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
-		// add_action( 'wp_head', array( $this, 'complete_header' ) );
+		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+		remove_action( 'wp_head', 'wp_generator' );
+		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 		parent::__construct();
 	}
 
@@ -46,29 +48,9 @@ class StarterSite extends TimberSite {
 		return $context;
 	}
 
-	function complete_header() {
-		die();
-		$result = array();
-		foreach( $this->child_css as $child_css_url ) {
-			$result[] = '<link rel="stylesheet" href="' . $child_css_url[ 'path' ] . '/' . $child_css_url[ 'filename' ] . '.css" type="text/css">';
-		}
-
-		return implode( "\n", $result );
-	}
-
-	function insert_child_css( $path = null, $filename = null ) {
-		if ( empty( $path ) || empty( $filename ) ) {
-			return;
-		}
-
-		$this->child_css[] = array( 'path' => $path, 'file' => $file );
-	}
-
 	function add_to_twig( $twig ) {
 		/* this is where you can add your own functions to twig */
 		$twig->addExtension( new Twig_Extension_StringLoader() );
-		$twig->addFunction('complete_header', new Twig_SimpleFunction('complete_header', array($this, 'complete_header')));
-		$twig->addFunction('insert_child_css', new Twig_SimpleFunction('insert_child_css', array($this, 'insert_child_css')));
 		return $twig;
 	}
 
