@@ -33,7 +33,8 @@ body {
 	max-width: 100%;
 	margin: 0 auto;
 	padding: 2em 4em;
-	background-color: #999;
+	background-color: #ccc;
+	border: 1px solid #999;
 	color: black;
 }
 
