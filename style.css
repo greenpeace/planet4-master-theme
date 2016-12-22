@@ -11,9 +11,45 @@ Tags: light, dark, two-columns, right-sidebar, responsive-layout, accessibility-
 Text Domain: greenpeace-global-theme
 */
 
+html,
+html::before,
+html::after {
+	box-sizing: border-box;
+}
+
+html *,
+html *::before,
+html *::after {
+	box-sizing: inherit;
+}
+
+html {
+	font-family: sans-serif;
+	background-color: white;
+}
+
 body {
-    width: 1024px;
-    max-width: 100%;
-    background-color: #999;
-    color: black;
+	width: 1024px;
+	max-width: 100%;
+	margin: 0 auto;
+	padding: 2em 4em;
+	background-color: #999;
+	color: black;
+}
+
+a,
+a:visited {
+	color: black;
+}
+
+
+/**
+ * Sections
+ */
+
+.header {
+	border-bottom: 1px solid black;
+	padding: 0 0 2em 0;
+	margin: 0 0 2em 0;
+	text-align: center;
 }
