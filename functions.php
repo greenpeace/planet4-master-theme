@@ -25,6 +25,7 @@ class StarterSite extends TimberSite {
 		add_filter( 'get_twig', array( $this, 'add_to_twig' ) );
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
+		// Default actions are in: https://core.trac.wordpress.org/browser/tags/4.5.3/src/wp-includes/default-filters.php#L0
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
