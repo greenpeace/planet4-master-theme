@@ -4,13 +4,7 @@
 		<meta charset="{{ site.charset }}">
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 
-		<title>
-{% if wp_title %}
-		{{ wp_title }} - {{ site.name }}
-{% else %}
-		{{ site.name }}
-{% endif %}
-		</title>
+		<title>{% if wp_title %}{{ wp_title }} - {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
 		<meta name="description" content="{{ site.description }}">
 
 		<meta name="viewport" content="width=device-width, initial-scale=1">
