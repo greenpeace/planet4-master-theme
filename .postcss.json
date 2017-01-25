@@ -1,0 +1,14 @@
+{
+	"autoprefixer": {
+		"browserslist": [
+			"last 2 versions",
+			"> 5%",
+			"Firefox ESR",
+			"not ExplorerMobile",
+			"not BlackBerry"
+		]
+	},
+	"postcss-custom-properties": {
+		"preserve": true
+	}
+}

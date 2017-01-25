@@ -1,2 +1,4 @@
 vendor
-wp-content
+wp-content/
+node_modules/
+dist/

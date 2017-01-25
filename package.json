@@ -1,0 +1,26 @@
+{
+	"name": "greenpeace-global-theme",
+	"version": "0.1.0",
+	"description": "Greenpeace’s Planet 4 Global Theme ",
+	"main": "index.php",
+	"repository": "git@github.com:anselmh/greenpeace-global-theme.git",
+	"author": "Anselm Hannemann <ahannema@greenpeace.org>",
+	"license": "MIT",
+	"dependencies": {},
+	"devDependencies": {
+		"autoprefixer": "^6.7.0",
+		"postcss": "^5.2.11",
+		"postcss-cli": "^2.6.0",
+		"postcss-csso": "^1.1.2",
+		"postcss-custom-properties": "^5.0.1",
+		"postcss-partial-import": "^3.1.0",
+		"yarn-run-all": "^3.1.1"
+	},
+	"scripts": {
+		"css": "postcss -o dist/css/main.css src/css/main.css --map.annotation main.css.map --config .postcss.json -u autoprefixer -u postcss-partial-import -u postcss-custom-properties -u postcss-csso",
+		"javascript": "",
+		"test": "",
+		"build:directory": "mkdirp dist/css && mkdirp dist/js && mkdirp dist/img",
+		"build": "npm-run-all build:directory --parallel lint css javascript"
+	}
+}
