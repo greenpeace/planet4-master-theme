@@ -25,13 +25,13 @@
 		}
 
 		static function _setupStarterTheme(){
-			$dest = WP_CONTENT_DIR.'/themes/greenpeace-global-theme/';
-			$src = __DIR__.'/../../greenpeace-global-theme/';
+			$dest = WP_CONTENT_DIR.'/themes/greenpeace-master-theme/';
+			$src = __DIR__.'/../../greenpeace-master-theme/';
 			if (is_dir($src)) {
 				self::_copyDirectory($src, $dest);
-				switch_theme('greenpeace-global-theme');
+				switch_theme('greenpeace-planet4-master-theme');
 			} else {
-				echo 'no its not';
+				echo 'There is an error with your theme folder directory. Please check if \'greenpeace-master-theme\' exists two levels abore this file.';
 			}
 		}
 
@@ -39,14 +39,14 @@
 			$dir = opendir($src);
 			@mkdir($dst);
 			while(false !== ( $file = readdir($dir)) ) {
-			    if (( $file != '.' ) && ( $file != '..' )) {
-			        if ( is_dir($src . '/' . $file) ) {
-			            self::_copyDirectory($src . '/' . $file,$dst . '/' . $file);
-			        }
-			        else {
-			            copy($src . '/' . $file,$dst . '/' . $file);
-			        }
-			    }
+					if (( $file != '.' ) && ( $file != '..' )) {
+							if ( is_dir($src . '/' . $file) ) {
+									self::_copyDirectory($src . '/' . $file,$dst . '/' . $file);
+							}
+							else {
+									copy($src . '/' . $file,$dst . '/' . $file);
+							}
+					}
 			}
 			closedir($dir);
 		}

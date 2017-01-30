@@ -1,9 +1,9 @@
 {
-	"name": "greenpeace-global-theme",
+	"name": "greenpeace-master-theme",
 	"version": "0.1.0",
-	"description": "Greenpeace’s Planet 4 Global Theme ",
+	"description": "Master theme for the Planet 4 Wordpress project",
 	"main": "index.php",
-	"repository": "git@github.com:anselmh/greenpeace-global-theme.git",
+	"repository": "git@github.com:greenpeace/greenpeace-planet4-master-theme.git",
 	"author": "Anselm Hannemann <ahannema@greenpeace.org>",
 	"license": "MIT",
 	"dependencies": {},

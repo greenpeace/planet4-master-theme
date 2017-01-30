@@ -1,6 +1,6 @@
 {
-  "name": "anselmh/greenpeace-global-theme",
-  "description": "Starter theme to build a Timber theme",
+  "name": "greenpeace/greenpeace-planet4-master-theme",
+  "description": "Master theme for the Planet 4 Wordpress project",
   "type":"wordpress-theme",
   "minimum-stability" : "stable",
   "authors": [
@@ -10,15 +10,22 @@
       },
       {
           "name": "Anselm Hannemann",
-          "email": "ahannema@greenpeace.org"
+          "email": "ahannema@greenpeace.org",
+					"role": "Front-End Developer"
       }
   ],
+	"license": "MIT",
   "repositories": [
     {
       "type": "composer",
       "url": "https://wpackagist.org"
     }
   ],
+	"support": {
+		"issues": "https://github.com/greenpeace/greenpeace-planet4-master-theme/issues",
+		"wiki": "https://github.com/greenpeace/greenpeace-planet4-master-theme/wiki",
+		"source": "https://github.com/greenpeace/greenpeace-planet4-master-theme"
+	},
   "extra": {
   	"installer-paths": {
       "../../plugins/{$name}/": [
