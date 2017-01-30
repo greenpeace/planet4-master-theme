@@ -1,40 +1,40 @@
 {
-  "name": "greenpeace/greenpeace-planet4-master-theme",
-  "description": "Master theme for the Planet 4 Wordpress project",
-  "type":"wordpress-theme",
-  "minimum-stability" : "stable",
-  "authors": [
-      {
-          "name": "jarednova",
-          "email": "jared@upstatement.com"
-      },
-      {
-          "name": "Anselm Hannemann",
-          "email": "ahannema@greenpeace.org",
+	"name": "greenpeace/greenpeace-planet4-master-theme",
+	"description": "Master theme for the Planet 4 Wordpress project",
+	"type":"wordpress-theme",
+	"minimum-stability" : "stable",
+	"authors": [
+			{
+					"name": "jarednova",
+					"email": "jared@upstatement.com"
+			},
+			{
+					"name": "Anselm Hannemann",
+					"email": "ahannema@greenpeace.org",
 					"role": "Front-End Developer"
-      }
-  ],
+			}
+	],
 	"license": "MIT",
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://wpackagist.org"
-    }
-  ],
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://wpackagist.org"
+		}
+	],
 	"support": {
 		"issues": "https://github.com/greenpeace/greenpeace-planet4-master-theme/issues",
 		"wiki": "https://github.com/greenpeace/greenpeace-planet4-master-theme/wiki",
 		"source": "https://github.com/greenpeace/greenpeace-planet4-master-theme"
 	},
-  "extra": {
-  	"installer-paths": {
-      "../../plugins/{$name}/": [
-        "wpackagist-plugin/*",
-        "type:wordpress-plugin"
-      ]
-  	}
+	"extra": {
+		"installer-paths": {
+			"../../plugins/{$name}/": [
+				"wpackagist-plugin/*",
+				"type:wordpress-plugin"
+			]
+		}
 	},
-  "require": {
-	  "wpackagist-plugin/timber-library": "0.22.*"
-  }
+	"require": {
+		"wpackagist-plugin/timber-library": "0.22.*"
+	}
 }
