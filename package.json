@@ -6,7 +6,9 @@
 	"repository": "git@github.com:greenpeace/greenpeace-planet4-master-theme.git",
 	"author": "Anselm Hannemann <ahannema@greenpeace.org>",
 	"license": "MIT",
-	"dependencies": {},
+	"dependencies": {
+		"mkdirp": "^0.5.1"
+	},
 	"devDependencies": {
 		"autoprefixer": "^6.7.0",
 		"postcss": "^5.2.11",
@@ -21,6 +23,6 @@
 		"javascript": "",
 		"test": "",
 		"build:directory": "mkdirp dist/css && mkdirp dist/js && mkdirp dist/img",
-		"build": "npm-run-all build:directory --parallel lint css javascript"
+		"build": "npm-run-all build:directory --parallel css"
 	}
 }
