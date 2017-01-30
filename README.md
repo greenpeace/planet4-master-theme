@@ -3,7 +3,7 @@
 This is the Planet 4 project’s Wordpress global theme. 
 It’s based on the [`timber/starter-theme`](https://github.com/timber/starter-theme) codebase and customized to our needs.
 
-_Note: This has a correlated Wordpress sample child theme in https://github.com/greenpeace/greenpeace-planet4-global-theme-child._
+_Note: This has a correlated Wordpress sample child theme in https://github.com/greenpeace/greenpeace-planet4-child-theme._
 
 ![Logo banner for this repository “Greenpeace Planet 4 Master Theme”](./screenshot.png)
 
