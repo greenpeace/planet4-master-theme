@@ -19,10 +19,10 @@
 		"yarn-run-all": "^3.1.1"
 	},
 	"scripts": {
-		"css": "postcss -o dist/css/main.css src/css/main.css --map.annotation main.css.map --config .postcss.json -u autoprefixer -u postcss-partial-import -u postcss-custom-properties -u postcss-csso",
+		"css": "postcss -o main.css src/css/main.css --map.annotation main.css.map --config .postcss.json -u autoprefixer -u postcss-partial-import -u postcss-custom-properties -u postcss-csso",
 		"javascript": "",
 		"test": "",
-		"build:directory": "mkdirp dist/css && mkdirp dist/js && mkdirp dist/img",
+		"build:directory": "mkdirp dist/js && mkdirp dist/img",
 		"build": "npm-run-all build:directory --parallel css"
 	}
 }

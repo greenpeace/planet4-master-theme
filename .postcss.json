@@ -10,5 +10,8 @@
 	},
 	"postcss-custom-properties": {
 		"preserve": true
+	},
+	"postcss-csso": {
+		"comments": "first-exclamation"
 	}
 }
