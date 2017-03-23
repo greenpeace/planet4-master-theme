@@ -1,5 +1,5 @@
 {
-	"name": "greenpeace/greenpeace-planet4-master-theme",
+	"name": "greenpeace/planet4-master-theme",
 	"description": "Master theme for the Planet 4 Wordpress project",
 	"type":"wordpress-theme",
 	"minimum-stability" : "stable",
@@ -22,9 +22,9 @@
 		}
 	],
 	"support": {
-		"issues": "https://github.com/greenpeace/greenpeace-planet4-master-theme/issues",
-		"wiki": "https://github.com/greenpeace/greenpeace-planet4-master-theme/wiki",
-		"source": "https://github.com/greenpeace/greenpeace-planet4-master-theme"
+		"issues": "https://github.com/greenpeace/planet4-master-theme/issues",
+		"wiki": "https://github.com/greenpeace/planet4-master-theme/wiki",
+		"source": "https://github.com/greenpeace/planet4-master-theme"
 	},
 	"extra": {
 		"installer-paths": {

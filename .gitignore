@@ -4,3 +4,5 @@ node_modules/
 dist/
 /main.css
 /main.css.map
+.idea
+
