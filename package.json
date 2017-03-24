@@ -1,6 +1,6 @@
 {
 	"name": "planet4-master-theme",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Master theme for the Planet 4 Wordpress project",
 	"main": "index.php",
 	"repository": "git@github.com:greenpeace/greenpeace-planet4-master-theme.git",

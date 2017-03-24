@@ -1,0 +1,14 @@
+/*!
+Theme Name: Greenpeace Planet 4 Master Theme
+Theme URI: https://github.com/greenpeace/greenpeace-planet4-master-theme
+Description: Master theme for the Planet 4 Wordpress project
+Author: Anselm Hannemann
+Author URI: https://github.com/greenpeace
+Version: 0.1.0
+License: MIT
+License URI: https://opensource.org/licenses/MIT
+Tags: light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
+Text Domain: greenpeace-planet4-master-theme
+*/
+html,html::after,html::before{box-sizing:border-box}html *,html ::after,html ::before{box-sizing:inherit}html{font-family:sans-serif;background-color:#fff}body{width:1024px;max-width:100%;margin:0 auto;padding:2em 4em;background-color:#ccc;border:1px solid #999}a,a:visited,body{color:#000}.header{border-bottom:1px solid #000;padding:0 0 2em;margin:0 0 2em;text-align:center}
+/*# sourceMappingURL=style.css.map */

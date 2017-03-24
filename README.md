@@ -1,28 +1,73 @@
 # Greenpeace Planet 4 Master Theme
 
-This is the Planet 4 project’s Wordpress global theme. 
-It’s based on the [`timber/starter-theme`](https://github.com/timber/starter-theme) codebase and customized to our needs.
-
-_Note: This has a correlated Wordpress sample child theme in https://github.com/greenpeace/greenpeace-planet4-child-theme._
-
 ![Logo banner for this repository “Greenpeace Planet 4 Master Theme”](./screenshot.png)
 
-## How to use the Theme in Wordpress
+## Introduction
 
-You can use the theme in Wordpress directly. Follow these steps:
+### What is it?
+This is a sample master Wordpress theme to be used for Greenpeace Planet4 project.
+You can learn more about this project on [the planet4 blog](https://medium.com/planet4).
 
-1. Add the scoped repository name into your Wordpress’ `composer.json`: `anselmh/greenpeace-global-theme` in the section `dependencies`. 2. Run `composer update` 
-4. Test it on your local setup
-5. If everything is fine, commit your changes and push it
+This theme is used in planet4 base [wordpress site](https://github.com/greenpeace/planet4-base).
+This theme is based on the [`timber/starter-theme`](https://github.com/timber/starter-theme) codebase.
+It has a correlated [sample child theme](https://github.com/greenpeace/greenpeace-planet4-child-theme).
+
+## How to use this theme in planet4
+
+You can use the theme in Wordpress directly.
+It is already included as a dependency for planet4 base site in composer.json
+`
+	"require": {
+		...
+		"greenpeace/planet4-wordpress": "4.7.2",
+		"greenpeace/planet4-master-theme" : "0.1.0",
+		"greenpeace/planet4-child-theme" : "0.1.2",
+		...
+	},
+`
+
+By default the child theme is used but you can activate the master theme
+by specifying it in `wp-cli.yml` like:
+`
+theme activate:
+  - planet4-master-theme
+`
+
+You can then run `composer run-script theme:activate` to activate it.
 
 ## Development
 
-### Setup
+### Pre-requisite
 
-For development, we require a couple of tools.
+For development, you will require a couple of tools.
 
+- [nodejs](https://nodejs.org) version >= 6
 - [yarn](https://yarnpkg.com/) as npm client, front-end dependency manager
 - [Composer](https://getcomposer.org/) as PHP dependency manager
+
+### Setup
+
+0. Clone this repository
+1. You then need to install the dependencies:
+`
+npm install
+`
+
+The following packages will be installed as dependencies
 - [Twig](http://twig.sensiolabs.org/)
 - [Timber](https://timber.github.io/timber/)
 - [PostCSS](http://postcss.org/) for automated CSS transformation
+
+### Change the CSS
+
+0. Link this project to your planet4 site to use this theme
+`
+    cd /path/to/planet4-base/public/wp-content/themes
+    rm -rf planet4-master-theme
+    ln -s /path/to/planet4-master-theme .
+`
+1. Edit the CSS in src/css
+2. Rebuild the main.css using `yarn build`
+3. Test it on your local setup
+4. If everything is fine, commit your changes
+5. Tag your new version

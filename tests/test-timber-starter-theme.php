@@ -25,11 +25,11 @@
 		}
 
 		static function _setupStarterTheme(){
-			$dest = WP_CONTENT_DIR.'/themes/greenpeace-master-theme/';
-			$src = __DIR__.'/../../greenpeace-master-theme/';
+			$dest = WP_CONTENT_DIR.'/themes/planet4-master-theme/';
+			$src = __DIR__.'/../../planet4-master-theme/';
 			if (is_dir($src)) {
 				self::_copyDirectory($src, $dest);
-				switch_theme('greenpeace-planet4-master-theme');
+				switch_theme('planet4-master-theme');
 			} else {
 				echo 'There is an error with your theme folder directory. Please check if \'greenpeace-master-theme\' exists two levels abore this file.';
 			}
