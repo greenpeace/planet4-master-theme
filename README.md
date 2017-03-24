@@ -1,6 +1,6 @@
 # Greenpeace Planet 4 Master Theme
 
-![Logo banner for this repository “Greenpeace Planet 4 Master Theme”](./screenshot.png)
+![Logo banner for this repository “Greenpeace Planet 4 Master Theme”](./screenshot.png =250x)
 
 ## Introduction
 
@@ -16,7 +16,7 @@ It has a correlated [sample child theme](https://github.com/greenpeace/greenpeac
 
 You can use the theme in Wordpress directly.
 It is already included as a dependency for planet4 base site in composer.json
-`
+```
 	"require": {
 		...
 		"greenpeace/planet4-wordpress": "4.7.2",
@@ -24,14 +24,14 @@ It is already included as a dependency for planet4 base site in composer.json
 		"greenpeace/planet4-child-theme" : "0.1.2",
 		...
 	},
-`
+```
 
 By default the child theme is used but you can activate the master theme
 by specifying it in `wp-cli.yml` like:
-`
+```
 theme activate:
   - planet4-master-theme
-`
+```
 
 You can then run `composer run-script theme:activate` to activate it.
 
@@ -49,9 +49,9 @@ For development, you will require a couple of tools.
 
 0. Clone this repository
 1. You then need to install the dependencies:
-`
+```
 npm install
-`
+```
 
 The following packages will be installed as dependencies
 - [Twig](http://twig.sensiolabs.org/)
@@ -61,13 +61,20 @@ The following packages will be installed as dependencies
 ### Change the CSS
 
 0. Link this project to your planet4 site to use this theme
-`
+```
     cd /path/to/planet4-base/public/wp-content/themes
     rm -rf planet4-master-theme
     ln -s /path/to/planet4-master-theme .
-`
+```
 1. Edit the CSS in src/css
-2. Rebuild the main.css using `yarn build`
+2. Rebuild the main.css
+```
+yarn build
+```
 3. Test it on your local setup
 4. If everything is fine, commit your changes
 5. Tag your new version
+```
+    git tag -a v0.x.x -m 'v0.x.x'
+    git push origin v0.x.x
+```
