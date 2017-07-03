@@ -2,55 +2,73 @@
 Theme Name: Greenpeace Planet 4 Master Theme
 Theme URI: https://github.com/greenpeace/greenpeace-planet4-master-theme
 Description: Master theme for the Planet 4 Wordpress project
-Author: Anselm Hannemann
+Author: Greenpeace International
 Author URI: https://github.com/greenpeace
-Version: 0.1.0
-License: MIT
-License URI: https://opensource.org/licenses/MIT
-Tags: light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
+Version: 0.2.0
+License: GNU General Public License v3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Tags: light, accessibility-ready
 Text Domain: greenpeace-planet4-master-theme
 */
 
-html,
-html::before,
-html::after {
-	box-sizing: border-box;
+@import "../../node_modules/normalize.css";
+@import "./helpers.css";
+
+/*
+	Display which theme is active right now in bottom right corner
+	See also planet4-child-theme. Feel free to drop or hide display
+*/
+body:after {
+	content:'theme: p4-master';
+	position:fixed;
+	background:#444;
+	color:#FFF;
+	bottom:0;
+	right:0;
+	padding:.25em .5em;
+	font-size:.75em;
 }
 
-html *,
-html *::before,
-html *::after {
-	box-sizing: inherit;
-}
-
-html {
-	font-family: sans-serif;
-	background-color: white;
-}
-
-body {
-	width: 1024px;
-	max-width: 100%;
-	margin: 0 auto;
-	padding: 2em 4em;
-	background-color: #ccc;
-	border: 1px solid #999;
-	color: black;
-}
-
-a,
-a:visited {
-	color: black;
-}
-
-
-/**
- * Sections
+/*
+	Some baseline styles waiting for final design
  */
-
+html {
+	font-family: 'Roboto', sans-serif;
+	line-height: 1.75;
+	font-size:18px;
+}
 .header {
-	border-bottom: 1px solid black;
-	padding: 0 0 2em 0;
-	margin: 0 0 2em 0;
+	border-top:15px solid #EFEFEF;
+}
+.header .wrapper,
+.content-wrapper {
+	padding:.5em 1em;
+	max-width:960px;
+	margin:auto;
+	clear: both;
+}
+.content-wrapper {
+	padding-bottom:3em;
+}
+.hdr-logo-link {
+	float:left;
+	background:transparent url('assets/img/logo-black-290.png') 0 0 no-repeat;
+	background-size: contain;
+	width:225px;
+	height:45px;
+	margin-left:.5em;
+}
+.nav-main ul {
+	float:right;
+	list-style-type: none;
+	margin-top:0;
+}
+.nav-main ul li {
+	float: left;
+	padding:0 1em;
+}
+footer {
+	background:#EFEFEF;
 	text-align: center;
+	padding: 1em 0;
 }

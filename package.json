@@ -4,10 +4,10 @@
 	"description": "Master theme for the Planet 4 Wordpress project",
 	"main": "index.php",
 	"repository": "git@github.com:greenpeace/greenpeace-planet4-master-theme.git",
-	"author": "Anselm Hannemann <ahannema@greenpeace.org>",
+	"author": "Greenpeace International",
 	"license": "MIT",
 	"dependencies": {
-		"mkdirp": "^0.5.1"
+		"normalize.css": "^7.0.0"
 	},
 	"devDependencies": {
 		"autoprefixer": "^6.7.0",
@@ -20,9 +20,6 @@
 	},
 	"scripts": {
 		"css": "postcss -o style.css src/css/style.css --map.annotation style.css.map --config .postcss.json -u autoprefixer -u postcss-partial-import -u postcss-custom-properties -u postcss-csso",
-		"javascript": "",
-		"test": "",
-		"build:directory": "mkdirp dist/js && mkdirp dist/img",
-		"build": "npm-run-all build:directory --parallel css"
+		"build": "npm-run-all --parallel css"
 	}
 }

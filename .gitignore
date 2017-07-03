@@ -1,7 +1,6 @@
 vendor
 wp-content/
 node_modules/
-dist/
 /main.css
 /main.css.map
 .idea
