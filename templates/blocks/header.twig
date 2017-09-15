@@ -1,0 +1,19 @@
+{% if page_tags %}
+   <BR><BR>
+   {% for page_tag in page_tags %}
+      #{{ page_tag.name }}
+   {% endfor %}
+   <BR>
+{% endif %}
+{% if header_title %}
+   {{header_title}} <BR><BR>
+{% endif %}
+{% if header_subtitle %}
+   {{header_subtitle}} <BR><BR>
+{% endif %}
+{% if header_description %}
+   {{header_description}} <BR><BR>
+{% endif %}
+{% if header_button_title %}
+   <a class="btn btn-danger" href="{{header_button_link}}">{{header_button_title}}</a>
+{% endif %}
