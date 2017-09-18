@@ -1,19 +1,17 @@
-{% if page_tags %}
-   <BR><BR>
-   {% for page_tag in page_tags %}
-      #{{ page_tag.name }}
-   {% endfor %}
-   <BR>
-{% endif %}
-{% if header_title %}
-   {{header_title}} <BR><BR>
-{% endif %}
-{% if header_subtitle %}
-   {{header_subtitle}} <BR><BR>
-{% endif %}
-{% if header_description %}
-   {{header_description}} <BR><BR>
-{% endif %}
-{% if header_button_title %}
-   <a class="btn btn-danger" href="{{header_button_link}}">{{header_button_title}}</a>
-{% endif %}
+<div id="take-action clearfix" class="page-content-wrap">
+  <div class="fixed-element clearfix">
+    <div class="container">
+      <div class="top-tags-wrap">
+      {% if page_tags %}
+        {% for page_tag in page_tags %}
+          <span>#{{ page_tag.name }}</span>
+        {% endfor %}
+      {% endif %}
+      </div>
+      {{header_title}}
+      <h1>Show You're a food warrior</h1>
+    </div>
+  </div>
+  <div class="container">
+  </div>
+</div>

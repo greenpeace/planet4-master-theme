@@ -7,18 +7,9 @@
 {% endblock %}
 
 <body class="{{body_class}}" data-template="base.twig">
-	<header class="header" >
-		{% block header %}
-			<div class="wrapper">
-				<h1 class="hdr-logo" role="banner">
-					<a class="hdr-logo-link" href="{{site.url}}" rel="home">{{site.name}}</a>
-				</h1>
-				<nav id="nav-main" class="nav-main" role="navigation">
-					{% include "menu.twig" with {'menu': menu.get_items} %}
-				</nav><!-- #nav -->
-			</div>
-		{% endblock %}
-	</header>
+  <div class="hero-img-wrap">
+
+	{% include 'header.twig' %}
 
 	<main id="content" role="main" class="content-wrapper">
 		{% if title %}<h1>{{title}}</h1>{% endif %}
@@ -33,12 +24,110 @@
 			</aside>
 		{% endif %}
 	</main>
-
+  </div>
 	{% block footer %}
 	<footer id="footer">
 		{% include 'footer.twig' %}
 	</footer>
 	{{ function('wp_footer') }}
 	{% endblock %}
+
+
+<!-- JS Libs that we include -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- File for all the custom JS that we write -->
+<!-- <script type="text/javascript" src="custom.js"></script> -->
+<!-- <script type="text/javascript" src="take-action.js"></script> -->
+<script type="text/javascript">
+  // Returns width of browser viewport
+  if($( window ).width() >= 768) {
+    $(window).scroll(function() {
+      if ($(this).scrollTop() > 130){
+          $('.fixed-element, .md-navigation').addClass("sticky");
+      }
+      else{
+          $('.fixed-element, .md-navigation').removeClass("sticky");
+      }
+    });
+  }
+
+  $(document).ready(function() {
+    $(".steps-action").hide();
+    $(".step-info-wrap").click(function(){
+      $('.step-info-wrap').parent('.col-md-3').removeClass('active');
+      $(this).parent().addClass('active');
+
+      $(".steps-action").slideUp();
+      $(this).find(".steps-action").slideToggle();
+    })
+
+    $(function(){
+      var $searchlink = $('#searchtoggl i');
+      var $searchbar  = $('#searchbar');
+      
+      $('#header .fa-search').on('click', function(e){
+        e.preventDefault();
+
+        if($(this).attr('id') == 'searchtoggl') {
+          if(!$searchbar.is(":visible")) {
+            // if invisible we switch the icon to appear collapsable
+            $searchlink.removeClass('fa-search').addClass('fa-search-minus');
+          } else {
+            // if visible we switch the icon to appear as a toggle
+            $searchlink.removeClass('fa-search-minus').addClass('fa-search');
+          }
+
+          $searchbar.slideToggle(300, function(){
+            // callback after search bar animation
+          });
+        }
+      });
+
+      $('#searchform').submit(function(e){
+        e.preventDefault(); // stop form submission
+      });
+    });
+  });
+
+  // Hide Header on on scroll down
+if($( window ).width() <= 768) {
+  var didScroll;
+  var lastScrollTop = 0;
+  var delta = 5;
+  var navbarHeight = $('.top-navigation').outerHeight();
+  $(window).scroll(function(event){
+      didScroll = true;
+  });
+  setInterval(function() {
+      if (didScroll) {
+          hasScrolled();
+          didScroll = false;
+      }
+  }, 250);
+  function hasScrolled() {
+      var st = $(this).scrollTop();
+      if(Math.abs(lastScrollTop - st) <= delta)
+          return;
+      if (st > lastScrollTop && st > navbarHeight){
+          $('.top-navigation').removeClass('nav-down').addClass('nav-up');
+      } else {
+          if(st + $(window).height() < $(document).height()) {
+              $('.top-navigation').removeClass('nav-up').addClass('nav-down');
+          }
+      }
+      lastScrollTop = st;
+  }
+
+  $('.menu').click(function() {
+    var $slider = $('.mobile-menus');
+    $slider.animate({
+      left: parseInt($slider.css('left'),10) == -300 ?
+       0 : -300
+    });
+  });
+
+};
+</script>
 </body>
 </html>
