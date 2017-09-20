@@ -1,9 +1,9 @@
 <?php
 
 add_post_type_support( 'page', 'excerpt' );  // Added excert option to pages
-add_action( 'init', 'taxonomies_support_all' );
-add_action( 'cmb2_admin_init', 'p4_register_theme_metabox' );
-add_action( 'pre_get_posts', 'tags_support_query' );
+add_action( 'init', 'p4_taxonomies_support_all' );
+add_action( 'cmb2_admin_init', 'p4_register_header_metabox' );
+add_action( 'pre_get_posts', 'p4_tags_support_query' );
 
 if ( ! class_exists( 'Timber' ) ) {
 	add_action( 'admin_notices', function() {
@@ -75,30 +75,30 @@ new StarterSite();
 /**
  * Hook in and add a Theme metabox. Can only happen on the 'cmb2_admin_init' or 'cmb2_init' hook.
  */
-function p4_register_theme_metabox() {
+function p4_register_header_metabox() {
 	$prefix = 'p4_';
 
-	$cmb_demo = new_cmb2_box( array(
+	$p4_header = new_cmb2_box( array(
 		'id'            => $prefix . 'metabox',
 		'title'         => esc_html__( 'Page header fields', 'cmb2' ),
 		'object_types'  => array( 'page' ), // Post type
 	) );
 
-	$cmb_demo->add_field( array(
+	$p4_header->add_field( array(
 		'name' => esc_html__( 'Title', 'cmb2' ),
 		'desc' => esc_html__( 'Header title comes here', 'cmb2' ),
 		'id'   => $prefix . 'title',
 		'type' => 'text_medium',
 	) );
 
-	$cmb_demo->add_field( array(
+	$p4_header->add_field( array(
 		'name' => esc_html__( 'Subtitle', 'cmb2' ),
 		'desc' => esc_html__( 'Header subtitle comes here', 'cmb2' ),
 		'id'   => $prefix . 'subtitle',
 		'type' => 'text_medium',
 	) );
 
-	$cmb_demo->add_field( array(
+	$p4_header->add_field( array(
 		'name'    => esc_html__( 'Description', 'cmb2' ),
 		'desc'    => esc_html__( 'Description comes here', 'cmb2' ),
 		'id'      => $prefix . 'description',
@@ -108,14 +108,14 @@ function p4_register_theme_metabox() {
 		),
 	) );
 
-	$cmb_demo->add_field( array(
+	$p4_header->add_field( array(
 		'name' => esc_html__( 'Button Title', 'cmb2' ),
 		'desc' => esc_html__( 'Button title comes here', 'cmb2' ),
 		'id'   => $prefix . 'button_title',
 		'type' => 'text_medium',
 	) );
 
-	$cmb_demo->add_field( array(
+	$p4_header->add_field( array(
 		'name' => esc_html__( 'Button Link', 'cmb2' ),
 		'desc' => esc_html__( 'Button link comes here', 'cmb2' ),
 		'id'   => $prefix . 'button_link',
@@ -123,13 +123,25 @@ function p4_register_theme_metabox() {
 	) );
 }
 
-
-function taxonomies_support_all() {
+/**
+ * To register taxonomies for page.
+ */
+function p4_taxonomies_support_all() {
 	register_taxonomy_for_object_type( 'post_tag', 'page' );
 	register_taxonomy_for_object_type( 'category', 'page' );
 }
 
-function tags_support_query( $wp_query ) {
-	if ( $wp_query->get('tag') ) $wp_query->set( 'post_type', 'any' );
-	if ( $wp_query->get('category_name') ) $wp_query->set( 'post_type', 'any' );
+/**
+ * Query on tags and categories.
+ *
+ * @param  wp_query.
+ */
+function p4_tags_support_query( $wp_query ) {
+	if ( $wp_query->get('tag') ) {
+		$wp_query->set( 'post_type', 'any' );
+	}
+
+	if ( $wp_query->get('category_name') ) {
+		$wp_query->set( 'post_type', 'any' );
+	}
 }

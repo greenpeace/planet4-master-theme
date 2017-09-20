@@ -2,21 +2,21 @@
     <div class="top-tags-wrap">
       {% if page_tags %}
         {% for page_tag in page_tags %}
-          <span>#{{ page_tag.name }}</span>
+          <span>#{{ page_tag.name|e('html') }}</span>
         {% endfor %}
       {% endif %}
     </div>
     {% if header_title %}
-        <h1>{{header_title}}</h1>
+        <h1>{{header_title|e('html')}}</h1>
     {% endif %}
     <!-- More markup to follow for header block -->
     {% if header_subtitle %}
-      {{header_subtitle}} <BR><BR>
+      {{header_subtitle|e('html')}} <BR><BR>
     {% endif %}
     {% if header_description %}
-       {{header_description}} <BR><BR>
+       {{header_description|e('html')}} <BR><BR>
     {% endif %}
     {% if header_button_title %}
-       <a class="btn btn-danger" href="{{header_button_link}}">{{header_button_title}}</a>
+       <a class="btn btn-danger" href="{{header_button_link|e('html_attr')}}">{{header_button_title|e('html')}}</a>
     {% endif %}
 </div>
