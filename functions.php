@@ -135,6 +135,7 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	public function add_to_context( $context ) {
+		$context['foo']  = 'bar';               // For unit test purposes.
 		$context['menu'] = new TimberMenu();
 		$context['site'] = $this;
 		return $context;
