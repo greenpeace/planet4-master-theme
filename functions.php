@@ -1,5 +1,6 @@
 <?php
 
+
 if ( ! class_exists( 'Timber' ) ) {
 	add_action( 'admin_notices', function() {
 		echo '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="' . esc_url( admin_url( 'plugins.php#timber' ) ) . '">' . esc_url( admin_url( 'plugins.php') ) . '</a></p></div>';
@@ -44,7 +45,7 @@ class P4_Master_Site extends TimberSite {
 	/**
 	 *
 	 */
-	protected function enqueue_parent_styles() {
+	public function enqueue_parent_styles() {
 		wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
 		wp_register_script('jquery', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), null, true);
 		wp_enqueue_script( 'main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), null, true );
@@ -71,7 +72,7 @@ class P4_Master_Site extends TimberSite {
 	 *
 	 * @param  wp_query.
 	 */
-	protected function tags_support_query( $wp_query ) {
+	public function tags_support_query( $wp_query ) {
 		if ( $wp_query->get('tag') ) {
 			$wp_query->set( 'post_type', 'any' );
 		}
@@ -133,13 +134,13 @@ class P4_Master_Site extends TimberSite {
 		) );
 	}
 
-	protected function add_to_context( $context ) {
+	public function add_to_context( $context ) {
 		$context['menu'] = new TimberMenu();
 		$context['site'] = $this;
 		return $context;
 	}
 
-	protected function add_to_twig( $twig ) {
+	public function add_to_twig( $twig ) {
 		/* this is where you can add your own functions to twig */
 		$twig->addExtension( new Twig_Extension_StringLoader() );
 		return $twig;
