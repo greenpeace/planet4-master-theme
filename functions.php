@@ -54,7 +54,7 @@ class P4_Master_Site extends TimberSite {
 	/**
 	 *
 	 */
-	protected function register_post_types() {
+	public function register_post_types() {
 		//this is where you can register custom post types
 
 	}
@@ -62,7 +62,7 @@ class P4_Master_Site extends TimberSite {
 	/**
 	 * To register taxonomies for page.
 	 */
-	protected function register_taxonomies() { 
+	public function register_taxonomies() { 
 		register_taxonomy_for_object_type( 'post_tag', 'page' );
 		register_taxonomy_for_object_type( 'category', 'page' );
 	}
