@@ -42,10 +42,9 @@ class P4_Master_Site extends TimberSite {
 		parent::__construct();
 	}
 
-	/**
-	 *
-	 */
+
 	public function enqueue_parent_styles() {
+		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', array(), '4.0.0-alpha.6' );
 		wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
 		wp_register_script('jquery', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), null, true);
 		wp_enqueue_script( 'main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), null, true );
