@@ -24,4 +24,15 @@
 $context = Timber::get_context();
 $post = new TimberPost();
 $context['post'] = $post;
+
+$page_meta_data = get_post_meta($post->ID);
+$context['header_title'] = $page_meta_data['p4_title'][0] == '' ? $post->title : $page_meta_data['P4_title'][0];
+$context['header_subtitle'] = $page_meta_data['p4_subtitle'][0];
+$context['header_description'] = $page_meta_data['p4_description'][0];
+$context['header_button_title'] = $page_meta_data['p4_button_title'][0];
+$context['header_button_link'] = $page_meta_data['p4_button_link'][0];
+
+$page_tags = wp_get_post_tags( $post->ID );
+$context['page_tags'] = $page_tags;
+
 Timber::render( array( 'page-' . $post->post_name . '.twig', 'page.twig' ), $context );
