@@ -14,13 +14,14 @@ if ( ! class_exists( 'Timber' ) ) {
 }
 
 Timber::$dirname = array('templates', 'views');
+Timber::$autoescape = true;
 
 class P4_Master_Site extends TimberSite {
 
 	protected $child_css = array();
 
 	public function __construct() {
-		
+
 		add_theme_support( 'post-formats' );
 		add_theme_support( 'post-thumbnails' );
 		add_theme_support( 'menus' );
@@ -61,7 +62,7 @@ class P4_Master_Site extends TimberSite {
 	/**
 	 * To register taxonomies for page.
 	 */
-	public function register_taxonomies() { 
+	public function register_taxonomies() {
 		register_taxonomy_for_object_type( 'post_tag', 'page' );
 		register_taxonomy_for_object_type( 'category', 'page' );
 	}
