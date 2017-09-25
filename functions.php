@@ -14,7 +14,7 @@ if ( ! class_exists( 'Timber' ) ) {
 }
 
 Timber::$dirname = array('templates', 'views');
-Timber::$autoescape = true;
+//Timber::$autoescape = true;
 
 class P4_Master_Site extends TimberSite {
 
