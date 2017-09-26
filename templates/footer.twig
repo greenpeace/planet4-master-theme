@@ -1,1 +1,14 @@
-<span class="copyright">Copyright {{"now"|date('Y')}} Greenpeace International</span>
+<ul>
+    {% for primary in footer_primary_menu %}
+        <li><a href="{{ primary.url }}">{{ primary.title }} </a></li>
+    {% endfor %}
+</ul>
+<ul>
+    {% for secondary in footer_secondary_menu %}
+        <li><a href="{{ secondary.url }}">{{ secondary.title }} </a></li>
+    {% endfor %}
+</ul>
+
+{{ copyright_text|raw }}
+<BR>
+<span class="copyright">Greenpeace {{"now"|date('Y')}}</span>

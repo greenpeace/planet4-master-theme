@@ -34,6 +34,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
 		add_action( 'cmb2_admin_init', array( $this, 'register_header_metabox' ) );
 		add_action( 'pre_get_posts', array( $this, 'tags_support_query' ) );
+		add_action( 'admin_init', array( $this, 'add_copyright_text' ) );
 
 		// Default actions are in: https://core.trac.wordpress.org/browser/tags/4.5.3/src/wp-includes/default-filters.php#L0
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
@@ -43,6 +44,46 @@ class P4_Master_Site extends TimberSite {
 		parent::__construct();
 	}
 
+	/**
+	 * Show copyright text field.
+	 *
+	 * @param array $args
+	 */
+	public function cp_show_settings( $args )
+	{
+		$data = esc_attr( get_option( 'copyright', '' ) );
+
+		printf(
+			'<input type="text" name="copyright" class="regular-text" value="%1$s" id="%2$s" />',
+			$data,
+			$args['label_for']
+		);
+	}
+
+	public function add_copyright_text() {
+		add_settings_section(
+			'cp_id',
+			'',
+			'',
+			'general'
+		);
+
+		// Register a callback
+		register_setting(
+			'general',
+			'copyright',
+			'trim'
+		);
+		// Register the field for the "copyright" section.
+		add_settings_field(
+			'copyright',
+			'Copyright Text',
+			array($this, "cp_show_settings"),
+			'general',
+			'cp_id',
+			array ( 'label_for' => 'cp_id' )
+		);
+	}
 
 	public function enqueue_parent_styles() {
 		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', array(), '4.0.0-alpha.6' );
@@ -51,17 +92,12 @@ class P4_Master_Site extends TimberSite {
 		wp_enqueue_script( 'main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), null, true );
 	}
 
-	/**
-	 *
-	 */
 	public function register_post_types() {
 		//this is where you can register custom post types
 
 	}
 
-	/**
-	 * To register taxonomies for page.
-	 */
+	//To register taxonomies for page.
 	public function register_taxonomies() {
 		register_taxonomy_for_object_type( 'post_tag', 'page' );
 		register_taxonomy_for_object_type( 'category', 'page' );
@@ -82,9 +118,7 @@ class P4_Master_Site extends TimberSite {
 		}
 	}
 
-	/**
-	 * Hook in and add a Theme metabox. Can only happen on the 'cmb2_admin_init' or 'cmb2_init' hook.
-	 */
+	//Hook in and add a Theme metabox. Can only happen on the 'cmb2_admin_init' or 'cmb2_init' hook.
 	public function register_header_metabox() {
 
 		$prefix = 'p4_';
