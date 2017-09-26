@@ -21,20 +21,20 @@
  * @since    Timber 0.1
  */
 
-$copyrightText = get_option('copyright');
+$copyrightText = get_option( 'copyright' );
 
 /* Get Menu items using their names */
 $footerPrimaryMenuName = 'Footer Primary';
 $footerSecondaryMenuName = 'Footer Secondary';
 
-$footerPrimaryMenuItems = wp_get_nav_menu_items($footerPrimaryMenuName);
-$footerSecondaryMenuItems = wp_get_nav_menu_items($footerSecondaryMenuName);
+$footerPrimaryMenuItems = wp_get_nav_menu_items( $footerPrimaryMenuName );
+$footerSecondaryMenuItems = wp_get_nav_menu_items( $footerSecondaryMenuName );
 
 $context = Timber::get_context();
 $post = new TimberPost();
 $context['post'] = $post;
 
-$page_meta_data = get_post_meta($post->ID);
+$page_meta_data = get_post_meta( $post->ID );
 $context['header_title'] = $page_meta_data['p4_title'][0] == '' ? $post->title : $page_meta_data['p4_title'][0];
 $context['header_subtitle'] = $page_meta_data['p4_subtitle'][0];
 $context['header_description'] = $page_meta_data['p4_description'][0];
