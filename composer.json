@@ -36,6 +36,7 @@
 		}
 	},
 	"require": {
+		"webdevstudios/cmb2": "^2",
 		"wpackagist-plugin/timber-library": "1.3.*"
 	}
 }
