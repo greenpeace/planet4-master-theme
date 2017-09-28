@@ -23,13 +23,13 @@
 
 $copyrightText = get_option( 'copyright' );
 
-/* Get Menu items using their names */
-$footerSocialMenuName = 'Footer Social';
-$footerPrimaryMenuName = 'Footer Primary';
-$footerSecondaryMenuName = 'Footer Secondary';
+// Get Menu items using their names.
+$footerSocialMenuName     = 'Footer Social';
+$footerPrimaryMenuName    = 'Footer Primary';
+$footerSecondaryMenuName  = 'Footer Secondary';
 
-$footerSocialMenuItems = wp_get_nav_menu_items( $footerSocialMenuName );
-$footerPrimaryMenuItems = wp_get_nav_menu_items( $footerPrimaryMenuName );
+$footerSocialMenuItems    = wp_get_nav_menu_items( $footerSocialMenuName );
+$footerPrimaryMenuItems   = wp_get_nav_menu_items( $footerPrimaryMenuName );
 $footerSecondaryMenuItems = wp_get_nav_menu_items( $footerSecondaryMenuName );
 
 $context = Timber::get_context();
@@ -37,18 +37,17 @@ $post = new TimberPost();
 $context['post'] = $post;
 
 $page_meta_data = get_post_meta( $post->ID );
-
-$context['header_title'] = $page_meta_data['p4_title'][0] == '' ? $post->title : $page_meta_data['p4_title'][0];
-$context['header_subtitle'] = $page_meta_data['p4_subtitle'][0];
-$context['header_description'] = $page_meta_data['p4_description'][0];
+$context['header_title']        = $page_meta_data['p4_title'][0] === '' ? $post->title : $page_meta_data['p4_title'][0];
+$context['header_subtitle']     = $page_meta_data['p4_subtitle'][0];
+$context['header_description']  = $page_meta_data['p4_description'][0];
 $context['header_button_title'] = $page_meta_data['p4_button_title'][0];
-$context['header_button_link'] = $page_meta_data['p4_button_link'][0];
+$context['header_button_link']  = $page_meta_data['p4_button_link'][0];
 
-/* Footer Items */
-$context['footer_social_menu'] = $footerSocialMenuItems;
-$context['footer_primary_menu'] = $footerPrimaryMenuItems;
+// Footer Items.
+$context['footer_social_menu']    = $footerSocialMenuItems;
+$context['footer_primary_menu']   = $footerPrimaryMenuItems;
 $context['footer_secondary_menu'] = $footerSecondaryMenuItems;
-$context['copyright_text'] = $copyrightText == '' ? '' : $copyrightText;
+$context['copyright_text']        = $copyrightText === '' ? '' : $copyrightText;
 
 $page_tags = wp_get_post_tags( $post->ID );
 $context['page_tags'] = $page_tags;

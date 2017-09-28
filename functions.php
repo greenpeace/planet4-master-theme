@@ -4,7 +4,7 @@
 if ( ! class_exists( 'Timber' ) ) {
 	add_action(
 		'admin_notices', function() {
-			echo '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="' . esc_url( admin_url( 'plugins.php#timber' ) ) . '">' . esc_url( admin_url( 'plugins.php' ) ) . '</a></p></div>';
+			printf('<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="' . esc_url( admin_url( 'plugins.php#timber' ) ) . '">' . esc_url( admin_url( 'plugins.php' ) ) . '</a></p></div>');
 		}
 	);
 
@@ -54,24 +54,24 @@ class P4_Master_Site extends TimberSite {
 	 * @param array $args
 	 */
 	public function cp_show_settings( $args ) {
-		$data = esc_attr( get_option( 'copyright', '' ) );
+		$copyright = esc_attr( get_option( 'copyright', '' ) );
 
 		printf(
 			'<input type="text" name="copyright" class="regular-text" value="%1$s" id="%2$s" />',
-			$data,
-			$args['label_for']
+			esc_attr( $copyright ),
+			esc_attr( $args['label_for'] )
 		);
 	}
 
 	public function add_copyright_text() {
 		add_settings_section(
-			'cp_id',
+			'copyrighttext_id',
 			'',
 			'',
 			'general'
 		);
 
-		// Register a callback
+		// Register a callback.
 		register_setting(
 			'general',
 			'copyright',
@@ -83,9 +83,9 @@ class P4_Master_Site extends TimberSite {
 			'Copyright Text',
 			array( $this, 'cp_show_settings' ),
 			'general',
-			'cp_id',
+			'copyrighttext_id',
 			array(
-				'label_for' => 'cp_id',
+				'label_for' => 'copyrighttext_id',
 			)
 		);
 	}
@@ -102,7 +102,7 @@ class P4_Master_Site extends TimberSite {
 
 	}
 
-	//To register taxonomies for page.
+	// To register taxonomies for page.
 	public function register_taxonomies() {
 		register_taxonomy_for_object_type( 'post_tag', 'page' );
 		register_taxonomy_for_object_type( 'category', 'page' );
@@ -123,18 +123,16 @@ class P4_Master_Site extends TimberSite {
 		}
 	}
 
-	//Hook in and add a Theme metabox. Can only happen on the 'cmb2_admin_init' or 'cmb2_init' hook.
+	// Hook in and add a Theme metabox. Can only happen on the 'cmb2_admin_init' or 'cmb2_init' hook.
 	public function register_header_metabox() {
 
 		$prefix = 'p4_';
 
-		$p4_header = new_cmb2_box(
-			array(
+		$p4_header = new_cmb2_box( array(
 				'id'            => $prefix . 'metabox',
 				'title'         => esc_html__( 'Page Header Fields', 'planet4-master-theme' ),
 				'object_types'  => array( 'page' ), // Post type
-			)
-		);
+		) );
 
 		$p4_header->add_field(
 			array(
