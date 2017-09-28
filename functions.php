@@ -22,6 +22,11 @@ class P4_Master_Site extends TimberSite {
 	protected $theme_dir;
 	/** @var string $theme_images_dir */
 	protected $theme_images_dir;
+	/** @var array $websites */
+	protected $websites = [
+		'en_US' => 'International (English)',
+		'el_GR' => 'Greece (Ελληνικά)',
+	];
 	/** @var array $child_css */
 	protected $child_css = array();
 
@@ -159,8 +164,12 @@ class P4_Master_Site extends TimberSite {
 	 * @return mixed
 	 */
 	public function add_to_context( $context ) {
+		$context['data_nav_bar'] = [
+			'websites' => $this->websites,
+			'images'   => $this->theme_images_dir,
+			'domain'   => 'planet4-master-theme'
+		];
 		$context['foo']  = 'bar';               // For unit test purposes.
-		$context['data_nav_bar']['images'] = $this->theme_images_dir;
 		$context['site'] = $this;
 		return $context;
 	}
