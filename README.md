@@ -49,7 +49,7 @@ For development, you will require a couple of tools.
 
 0. Clone this repository
 ```
-git clone git@github.com:greenpeace/planet4-master-theme.git
+git clone git@github.com:greenpeace/planet4-master-theme.git && cd planet4-master-theme
 ```
 1. You then need to install the dependencies:
 ```
