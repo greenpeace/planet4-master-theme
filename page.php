@@ -25,8 +25,8 @@ $context = Timber::get_context();
 $post = new TimberPost();
 $context['post'] = $post;
 
-$page_meta_data = get_post_meta($post->ID);
-$context['header_title'] = $page_meta_data['p4_title'][0] == '' ? $post->title : $page_meta_data['p4_title'][0];
+$page_meta_data = get_post_meta( $post->ID );
+$context['header_title'] = ! $page_meta_data['p4_title'][0] ? $post->title : $page_meta_data['p4_title'][0];
 $context['header_subtitle'] = $page_meta_data['p4_subtitle'][0];
 $context['header_description'] = $page_meta_data['p4_description'][0];
 $context['header_button_title'] = $page_meta_data['p4_button_title'][0];
