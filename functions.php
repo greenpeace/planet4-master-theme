@@ -4,7 +4,9 @@
 if ( ! class_exists( 'Timber' ) ) {
 	add_action(
 		'admin_notices', function() {
-			printf('<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="' . esc_url( admin_url( 'plugins.php#timber' ) ) . '">' . esc_url( admin_url( 'plugins.php' ) ) . '</a></p></div>');
+			printf( '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="%s">Plugins menu</a></p></div>',
+				esc_url( admin_url( 'plugins.php#timber' ) )
+			);
 		}
 	);
 
@@ -53,8 +55,8 @@ class P4_Master_Site extends TimberSite {
 	 *
 	 * @param array $args
 	 */
-	public function cp_show_settings( $args ) {
-		$copyright = esc_attr( get_option( 'copyright', '' ) );
+	public function copyright_show_settings( $args ) {
+		$copyright = get_option( 'copyright', '' );
 
 		printf(
 			'<input type="text" name="copyright" class="regular-text" value="%1$s" id="%2$s" />',
@@ -63,6 +65,9 @@ class P4_Master_Site extends TimberSite {
 		);
 	}
 
+	/**
+	 * Function to add copyright text block in general options
+	 */
 	public function add_copyright_text() {
 		add_settings_section(
 			'copyrighttext_id',
@@ -71,17 +76,22 @@ class P4_Master_Site extends TimberSite {
 			'general'
 		);
 
-		// Register a callback.
+	/**
+	 * Register taxonomies for page.
+	 */
 		register_setting(
 			'general',
 			'copyright',
 			'trim'
 		);
-		// Register the field for the "copyright" section.
+
+	/**
+	 * Register the field for the "copyright" section.
+	 */
 		add_settings_field(
 			'copyright',
 			'Copyright Text',
-			array( $this, 'cp_show_settings' ),
+			array( $this, 'copyright_show_settings' ),
 			'general',
 			'copyrighttext_id',
 			array(
@@ -102,7 +112,9 @@ class P4_Master_Site extends TimberSite {
 
 	}
 
-	// To register taxonomies for page.
+	/**
+	 * To register taxonomies for page.
+	 */
 	public function register_taxonomies() {
 		register_taxonomy_for_object_type( 'post_tag', 'page' );
 		register_taxonomy_for_object_type( 'category', 'page' );
@@ -123,7 +135,9 @@ class P4_Master_Site extends TimberSite {
 		}
 	}
 
-	// Hook in and add a Theme metabox. Can only happen on the 'cmb2_admin_init' or 'cmb2_init' hook.
+	/**
+	 * Hook in and add a Theme metabox. Can only happen on the 'cmb2_admin_init' or 'cmb2_init' hook.
+	 */
 	public function register_header_metabox() {
 
 		$prefix = 'p4_';

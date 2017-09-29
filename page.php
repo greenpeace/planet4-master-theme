@@ -21,16 +21,7 @@
  * @since    Timber 0.1
  */
 
-$copyrightText = get_option( 'copyright' );
-
-// Get Menu items using their names.
-$footerSocialMenuName     = 'Footer Social';
-$footerPrimaryMenuName    = 'Footer Primary';
-$footerSecondaryMenuName  = 'Footer Secondary';
-
-$footerSocialMenuItems    = wp_get_nav_menu_items( $footerSocialMenuName );
-$footerPrimaryMenuItems   = wp_get_nav_menu_items( $footerPrimaryMenuName );
-$footerSecondaryMenuItems = wp_get_nav_menu_items( $footerSecondaryMenuName );
+$context['copyright_text'] = get_option( 'copyright', '' ) ? get_option( 'copyright' ) : '';
 
 $context = Timber::get_context();
 $post = new TimberPost();
@@ -44,9 +35,9 @@ $context['header_button_title'] = $page_meta_data['p4_button_title'][0];
 $context['header_button_link']  = $page_meta_data['p4_button_link'][0];
 
 // Footer Items.
-$context['footer_social_menu']    = $footerSocialMenuItems;
-$context['footer_primary_menu']   = $footerPrimaryMenuItems;
-$context['footer_secondary_menu'] = $footerSecondaryMenuItems;
+$context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
+$context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
+$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
 $context['copyright_text']        = $copyrightText === '' ? '' : $copyrightText;
 
 $page_tags = wp_get_post_tags( $post->ID );
