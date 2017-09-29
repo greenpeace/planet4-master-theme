@@ -2,7 +2,7 @@
 	"name": "greenpeace/planet4-master-theme",
 	"description": "Master theme for the Planet 4 Wordpress project",
 	"type":"wordpress-theme",
-	"version": "0.2.6",
+	"version": "0.2.7",
 	"minimum-stability" : "stable",
 	"authors": [
 			{
@@ -18,7 +18,12 @@
 				"name": "Ashish Singh",
 				"email": "ashish.singh@greenpeace.org",
 				"role": "Front-End Developer"
-			}
+			},
+		{
+			"name": "Angelos Theodorakopoulos",
+			"email": "angelos.theodorakopoulos@greenpeace.org",
+			"role": "PHP Developer"
+		}
 	],
 	"license": "MIT",
 	"repositories": [
