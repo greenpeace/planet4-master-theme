@@ -1,129 +1,127 @@
-{% autoescape 'html' %}
-    {% block navigation_bar %}
-        <div id="header" class="top-navigation">
-            <!-- Main container for main headline -->
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="navbar navbar-toggleable-md navbar-light">
-                        <div class="mobile-header-wrap hidden-lg-up row">
-                            <div class="col text-left">
-                                <span class="menu">
-                                  Menu
-                                  <i class="fa fa-bars"></i>
-                                  <i class="fa fa-times"></i>
-                                </span>
-                                <div class="mobile-menus">
-                                    <ul class="list-unstyled">
-                                        <li>
-                                            <img class="country-icon" src="{{ data_nav_bar.images }}country-icon.png" alt=""/>
-                                            <div class="select-country styled-select">
-                                                <select>
-                                                    <option selected disabled>- {{ __( 'Select a website', domain ) }} -</option>
-                                                    {% for key, website in data_nav_bar.websites %}
-                                                        {% if key == settings.p4en_lang %}
-                                                            <option value="{{ key }}" selected>{{ website }}</option>
-                                                        {% else %}
-                                                            <option value="{{ key }}">{{ website }}</option>
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item active">
-                                            <a href="#">{{ __( 'ACT', domain ) }}</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#">{{ __( 'EXPLORE', domain ) }}</a>
-                                        </li>
-                                    </ul>
-                                    <a href="#" class="btn btn-secondary">{{ __( 'DONATE', domain ) }}</a>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <a class="navbar-brand" href="#"><img src="{{ data_nav_bar.images }}greenpeace-logo.png" alt="greenpeace" /></a>
-                            </div>
-                            <div class="col text-right">
-                                <div id="search" class="mobile-search-wrap">
-                                    <div class="search-link">
-                                        <a href="#search" id="search-trigger"><i class="fa fa-search fa-lg"></i></a>
-                                    </div>
-                                    <div class="search-box">
-                                        <form action="/search" id="search_form">
-                                            <input placeholder="{{ __( 'Search', domain ) }}" type="text" />
-                                            <input id="search-submit" type="submit" class="btn btn-green" value="Search" />
-                                        </form>
-                                    </div>
-                                </div>
+{% block navigation_bar %}
+    <div id="header" class="top-navigation">
+        <!-- Main container for main headline -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="navbar navbar-toggleable-md navbar-light">
+                    <div class="mobile-header-wrap hidden-lg-up row">
+                        <div class="col text-left">
+                            <span class="menu">
+                                {{ __( 'Menu', domain ) }}
+                                <i class="fa fa-bars"></i>
+                                <i class="fa fa-times"></i>
+                            </span>
+                            <div class="mobile-menus">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <img class="country-icon" src="{{ data_nav_bar.images }}country-icon.png" alt=""/>
+                                        <div class="select-country styled-select">
+                                            <select>
+                                                <option selected disabled>- {{ __( 'Select a website', domain ) }} -</option>
+                                                {% for key, website in data_nav_bar.websites %}
+                                                    {% if key == settings.p4en_lang %}
+                                                        <option value="{{ key }}" selected>{{ website }}</option>
+                                                    {% else %}
+                                                        <option value="{{ key }}">{{ website }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a href="#">{{ __( 'ACT', domain ) }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#">{{ __( 'EXPLORE', domain ) }}</a>
+                                    </li>
+                                </ul>
+                                <a href="#" class="btn btn-secondary">{{ __( 'DONATE', domain ) }}</a>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-xl-2 hidden-md-down">
-                            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                Menu
-                            </button>
+                        <div class="col">
                             <a class="navbar-brand" href="#"><img src="{{ data_nav_bar.images }}greenpeace-logo.png" alt="greenpeace" /></a>
                         </div>
-                        <div class="col-lg-9 col-xl-10">
-                            <nav class="navbar navbar-toggleable-md navbar-light">
-                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                    <ul class="navbar-nav">
-                                        <li>
-                                            <img class="country-icon" src="{{ data_nav_bar.images }}country-icon.png" alt=""/>
-                                            <div class="styled-select">
-                                                <select>
-                                                    <option selected disabled>- {{ __( 'Select a website', domain ) }} -</option>
-                                                    {% for key, website in data_nav_bar.websites %}
-                                                        {% if key == settings.p4en_lang %}
-                                                            <option value="{{ key }}" selected>{{ website }}</option>
-                                                        {% else %}
-                                                            <option value="{{ key }}">{{ website }}</option>
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item active hidden-md-down hidden-lg-down">
-                                            <a href="#">{{ __( 'ACT', domain ) }}</a>
-                                        </li>
-                                        <li class="nav-item hidden-md-down hidden-lg-down">
-                                            <a href="#">{{ __( 'EXPLORE', domain ) }}</a>
-                                        </li>
-                                        <li class="nav-item hidden-md-down hidden-lg-down">
-                                            <a href="#" class="btn btn-secondary">{{ __( 'DONATE', domain ) }}</a>
-                                        </li>
-                                        <li class="nav-item loginSignUpWrap">
-                                            <i class="fa fa-user-circle-o"></i>
-                                            <a href="#">{{ __( 'Log in', domain ) }}</a> <span> / </span>
-                                            <a href="#">{{ __( 'Sign up', domain ) }}</a>
-                                        </li>
-                                        <li class="nav-item nav-search-wrap">
-                                            <form class="form">
-                                                <input class="form-control" type="text" placeholder="{{ __( 'Search', domain ) }}" aria-label="Search">
-                                                <button class="top-nav-search-btn" type="submit"><i class="fa fa-search"></i></button>
-                                            </form>
-                                        </li>
-                                    </ul>
+                        <div class="col text-right">
+                            <div id="search" class="mobile-search-wrap">
+                                <div class="search-link">
+                                    <a href="#search" id="search-trigger"><i class="fa fa-search fa-lg"></i></a>
                                 </div>
-                            </nav>
+                                <div class="search-box">
+                                    <form action="/search" id="search_form">
+                                        <input placeholder="{{ __( 'Search', domain ) }}" type="text" />
+                                        <input id="search-submit" type="submit" class="btn btn-green" value="{{ __( 'Search', domain ) }}" />
+                                    </form>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="col-lg-3 col-xl-2 hidden-md-down">
+                        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            {{ __( 'Menu', domain ) }}
+                        </button>
+                        <a class="navbar-brand" href="#"><img src="{{ data_nav_bar.images }}greenpeace-logo.png" alt="greenpeace" /></a>
+                    </div>
+                    <div class="col-lg-9 col-xl-10">
+                        <nav class="navbar navbar-toggleable-md navbar-light">
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav">
+                                    <li>
+                                        <img class="country-icon" src="{{ data_nav_bar.images }}country-icon.png" alt=""/>
+                                        <div class="styled-select">
+                                            <select>
+                                                <option selected disabled>- {{ __( 'Select a website', domain ) }} -</option>
+                                                {% for key, website in data_nav_bar.websites %}
+                                                    {% if key == settings.p4en_lang %}
+                                                        <option value="{{ key }}" selected>{{ website }}</option>
+                                                    {% else %}
+                                                        <option value="{{ key }}">{{ website }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item active hidden-md-down hidden-lg-down">
+                                        <a href="#">{{ __( 'ACT', domain ) }}</a>
+                                    </li>
+                                    <li class="nav-item hidden-md-down hidden-lg-down">
+                                        <a href="#">{{ __( 'EXPLORE', domain ) }}</a>
+                                    </li>
+                                    <li class="nav-item hidden-md-down hidden-lg-down">
+                                        <a href="#" class="btn btn-secondary">{{ __( 'DONATE', domain ) }}</a>
+                                    </li>
+                                    <li class="nav-item loginSignUpWrap">
+                                        <i class="fa fa-user-circle-o"></i>
+                                        <a href="#">{{ __( 'Log in', domain ) }}</a> <span> / </span>
+                                        <a href="#">{{ __( 'Sign up', domain ) }}</a>
+                                    </li>
+                                    <li class="nav-item nav-search-wrap">
+                                        <form class="form">
+                                            <input class="form-control" type="text" placeholder="{{ __( 'Search', domain ) }}" aria-label="Search">
+                                            <button class="top-nav-search-btn" type="submit"><i class="fa fa-search"></i></button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="clearfix"></div>
-        <div class="sub-navigation-md hidden-md-down hidden-xl-up">
-            <div class="container">
-                <ul class="list-unstyled clearfix">
-                    <li class="nav-item">
-                        <a href="#">{{ __( 'ACT', domain ) }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">{{ __( 'EXPLORE', domain ) }}</a>
-                    </li>
-                    <li class="nav-item text-right donate-btn">
-                        <a href="#" class="btn btn-secondary">{{ __( 'DONATE', domain ) }}</a>
-                    </li>
-                </ul>
-            </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="sub-navigation-md hidden-md-down hidden-xl-up">
+        <div class="container">
+            <ul class="list-unstyled clearfix">
+                <li class="nav-item">
+                    <a href="#">{{ __( 'ACT', domain ) }}</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">{{ __( 'EXPLORE', domain ) }}</a>
+                </li>
+                <li class="nav-item text-right donate-btn">
+                    <a href="#" class="btn btn-secondary">{{ __( 'DONATE', domain ) }}</a>
+                </li>
+            </ul>
         </div>
-    {% endblock %}
-{% endautoescape %}
+    </div>
+{% endblock %}
