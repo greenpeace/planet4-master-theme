@@ -60,6 +60,7 @@ class P4_Master_Site extends TimberSite {
 	 * Define settings for the Planet4 Master Theme.
 	 */
 	protected function settings() {
+		Timber::$autoescape = true;
 		Timber::$dirname = array( 'templates', 'views' );
 		$this->theme_dir = get_template_directory_uri();
 		$this->theme_images_dir = $this->theme_dir . '/images/';
