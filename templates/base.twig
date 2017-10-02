@@ -7,18 +7,7 @@
 {% endblock %}
 
 <body class="{{body_class}}" data-template="base.twig">
-	<header class="header" >
-		{% block header %}
-			<div class="wrapper">
-				<h1 class="hdr-logo" role="banner">
-					<a class="hdr-logo-link" href="{{site.url}}" rel="home"></a>
-				</h1>
-				<nav id="nav-main" class="nav-main" role="navigation">
-					{% include "menu.twig" with {'menu': menu.get_items} %}
-				</nav><!-- #nav -->
-			</div>
-		{% endblock %}
-	</header>
+	{% include 'navigation-bar.twig' with data_nav_bar %}
 
 	<main id="content" role="main" class="content-wrapper">
 		{% if title %}<h1>{{title}}</h1>{% endif %}
