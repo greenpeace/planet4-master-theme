@@ -89,18 +89,14 @@ class P4_Master_Site extends TimberSite {
 			'general'
 		);
 
-	/**
-	 * Register taxonomies for page.
-	 */
+		// Register taxonomies for page.
 		register_setting(
 			'general',
 			'copyright',
 			'trim'
 		);
 
-	/**
-	 * Register the field for the "copyright" section.
-	 */
+		// Register the field for the "copyright" section.
 		add_settings_field(
 			'copyright',
 			'Copyright Text',
@@ -111,6 +107,7 @@ class P4_Master_Site extends TimberSite {
 				'label_for' => 'copyrighttext_id',
 			)
 		);
+
   /*
 	 * Define settings for the Planet4 Master Theme.
 	 */
@@ -168,21 +165,21 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_header = new_cmb2_box( array(
 			'id'            => $prefix . 'metabox',
-			'title'         => esc_html__( 'Page Header Fields', 'planet4-master-theme' ),
+			'title'         => __( 'Page Header Fields', 'planet4-master-theme' ),
 			'object_types'  => array( 'page' ), // Post type.
 		) );
 
 		$p4_header->add_field( array(
-			'name' => esc_html__( 'Header Title', 'planet4-master-theme' ),
-			'desc' => esc_html__( 'Header title comes here', 'planet4-master-theme' ),
+			'name' => __( 'Header Title', 'planet4-master-theme' ),
+			'desc' => __( 'Header title comes here', 'planet4-master-theme' ),
 			'id'   => $prefix . 'title',
 			'type' => 'text_medium',
 		) );
 
 		$p4_header->add_field(
 			array(
-				'name' => esc_html__( 'Header Subtitle', 'planet4-master-theme' ),
-				'desc' => esc_html__( 'Header subtitle comes here', 'planet4-master-theme' ),
+				'name' => __( 'Header Subtitle', 'planet4-master-theme' ),
+				'desc' => __( 'Header subtitle comes here', 'planet4-master-theme' ),
 				'id'   => $prefix . 'subtitle',
 				'type' => 'text_medium',
 			)
@@ -190,8 +187,8 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_header->add_field(
 			array(
-				'name'    => esc_html__( 'Header Description', 'planet4-master-theme' ),
-				'desc'    => esc_html__( 'Header description comes here', 'planet4-master-theme' ),
+				'name'    => __( 'Header Description', 'planet4-master-theme' ),
+				'desc'    => __( 'Header description comes here', 'planet4-master-theme' ),
 				'id'      => $prefix . 'description',
 				'type'    => 'wysiwyg',
 				'options' => array(
@@ -202,8 +199,8 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_header->add_field(
 			array(
-				'name' => esc_html__( 'Header Button Title', 'planet4-master-theme' ),
-				'desc' => esc_html__( 'Header button title comes here', 'planet4-master-theme' ),
+				'name' => __( 'Header Button Title', 'planet4-master-theme' ),
+				'desc' => __( 'Header button title comes here', 'planet4-master-theme' ),
 				'id'   => $prefix . 'button_title',
 				'type' => 'text_medium',
 			)
@@ -211,8 +208,8 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_header->add_field(
 			array(
-				'name' => esc_html__( 'Header Button Link', 'planet4-master-theme' ),
-				'desc' => esc_html__( 'Header button link comes here', 'planet4-master-theme' ),
+				'name' => __( 'Header Button Link', 'planet4-master-theme' ),
+				'desc' => __( 'Header button link comes here', 'planet4-master-theme' ),
 				'id'   => $prefix . 'button_link',
 				'type' => 'text_medium',
 			)
