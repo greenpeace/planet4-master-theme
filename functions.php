@@ -107,10 +107,11 @@ class P4_Master_Site extends TimberSite {
 				'label_for' => 'copyrighttext_id',
 			)
 		);
+	}
 
-  /*
-	 * Define settings for the Planet4 Master Theme.
-	 */
+  	/*
+	* Define settings for the Planet4 Master Theme.
+	*/
 	protected function settings() {
 		Timber::$autoescape = true;
 		Timber::$dirname = array( 'templates', 'views' );
