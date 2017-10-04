@@ -225,12 +225,14 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function add_to_context( $context ) {
 		$context['data_nav_bar'] = [
-			'websites' => $this->websites,
-			'images'   => $this->theme_images_dir,
-			'domain'   => 'planet4-master-theme',
+			'websites'     => $this->websites,
+			'images'       => $this->theme_images_dir,
+			'home_url'     => esc_url( home_url( '/' ) ),
+			'search_query' => get_search_query(),
 		];
-		$context['foo']  = 'bar';   // For unit test purposes.
-		$context['site'] = $this;
+		$context['domain'] = 'planet4-master-theme';
+		$context['foo']    = 'bar';   // For unit test purposes.
+		$context['site']   = $this;
 		return $context;
 	}
 
