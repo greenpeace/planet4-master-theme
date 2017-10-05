@@ -47,8 +47,8 @@
                                     <a href="#search" id="search-trigger"><i class="fa fa-search fa-lg"></i></a>
                                 </div>
                                 <div class="search-box">
-                                    <form action="/search" id="search_form">
-                                        <input placeholder="{{ __( 'Search', domain ) }}" type="text" />
+                                    <form action="{{ data_nav_bar.home_url }}" id="search_form">
+                                        <input class="form-control" type="search" placeholder="{{ __( 'Search', domain ) }}" value="{{ data_nav_bar.search_query }}" name="s" aria-label="Search">
                                         <input id="search-submit" type="submit" class="btn btn-green" value="{{ __( 'Search', domain ) }}" />
                                     </form>
                                 </div>
@@ -95,7 +95,7 @@
                                         <a href="#">{{ __( 'Sign up', domain ) }}</a>
                                     </li>
                                     <li class="nav-item nav-search-wrap">
-                                        <form role="search" class="form search-form" action="{{ data_nav_bar.home_url }}">
+                                        <form role="search" class="form" action="{{ data_nav_bar.home_url }}">
                                             <input class="form-control" type="search" placeholder="{{ __( 'Search', domain ) }}" value="{{ data_nav_bar.search_query }}" name="s" aria-label="Search">
                                             <button class="top-nav-search-btn" type="submit">
                                                 <i class="fa fa-search"></i>
