@@ -12,7 +12,7 @@
               <li><a href="{{ primary.url }}">{{ primary.title }}</a><span class="hidden-md-down">/</span></li>
             {% endfor %}
             {% for secondary in footer_secondary_menu %}
-              <li><a href="{{ secondary.url }}">{{ secondary.title }}</a>{% if loop.last %} {% else %}<span class="hidden-md-down">/</span>{% endif %}</li>
+              <li><a href="{{ secondary.url }}">{{ secondary.title }}</a>{% if not loop.last %}<span class="hidden-md-down">/</span>{% endif %}</li>
             {% endfor %}
           </ul>
           <p class="copyright-text">&copy; {{ copyright_text|raw }}</p>
