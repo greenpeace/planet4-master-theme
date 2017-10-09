@@ -9,7 +9,7 @@
 					<span>{{ __( 'By', domain ) }}</span><a href="{{ post.author.path }}"> {{ post.author.name }} </a><span>&bull;</span> {{ post.post_date|date }}
 				</p>
 				<div class="article-body">
-					{{ post.content|raw }}
+					{{post.content|e('wp_kses_post')|raw}}
 				</div>
 			</section>
 		{% if ( 'closed' != post.comment_status ) %}
