@@ -1,4 +1,5 @@
 <?php
+require('classes/class-p4-page.php');
 
 if ( ! class_exists( 'Timber' ) ) {
 	add_action(
@@ -53,6 +54,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
 		add_action( 'cmb2_admin_init', array( $this, 'register_header_metabox' ) );
+		add_action( 'cmb2_admin_init', array( $this, 'register_take_action_metabox' ) );
 		add_action( 'pre_get_posts', array( $this, 'tags_support_query' ) );
 		add_action( 'admin_init', array( $this, 'add_copyright_text' ) );
 
@@ -155,6 +157,30 @@ class P4_Master_Site extends TimberSite {
 		if ( $wp_query->get( 'category_name' ) ) {
 			$wp_query->set( 'post_type', 'any' );
 		}
+	}
+
+	/**
+	 * Hook in and add a Take Action metagbox. Can only happen on the 'cmb2_admin_init' or 'cmb2_init' hook.
+	 */
+	public function register_take_action_metabox() {
+
+		$prefix = 'p4_';
+
+		$p4_take_action = new_cmb2_box( array(
+			'id'            => $prefix . 'take_action_metabox',
+			'show_on'      => [ 'key' => 'page-template', 'value' => 'page_take-action.php' ],
+			'title'         => __( 'Take Action Page Fields', 'planet4-master-theme' ),
+			'object_types'  => array( 'page' ), // Post type.
+		) );
+
+		$p4_take_action->add_field( array(
+			'name'    => __( 'Background Image', 'planet4-master-theme' ),
+			'desc'    => __( 'Upload an image or enter an URL.', 'planet4-master-theme' ),
+			'id'      => $prefix . 'background_image',
+			'type'    => 'file',
+			'preview_size' => 'large',
+		) );
+
 	}
 
 	/**
