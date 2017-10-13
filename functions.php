@@ -61,7 +61,7 @@ class P4_Master_Site extends TimberSite {
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_parent_styles' ) );
 		register_nav_menus( array(
-		    'navigation-bar-menu' => __( 'Navbar Menu', 'planet4-master-theme' )
+		    'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme' )
         ) );
 		parent::__construct();
 	}
