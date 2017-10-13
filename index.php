@@ -13,8 +13,10 @@
  * @since   Timber 0.1
  */
 
-$context = Timber::get_context();
-$context['posts'] = Timber::get_posts();
+$context                     = Timber::get_context();
+$context['posts']            = Timber::get_posts();
+$context['google_tag_value'] = get_option( 'google_tag_manager_identifier', '' ) ? get_option( 'google_tag_manager_identifier' ) : '';
+
 $templates = array( 'index.twig' );
 if ( is_home() ) {
 	array_unshift( $templates, 'home.twig' );
