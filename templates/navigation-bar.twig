@@ -82,7 +82,7 @@
                                     </li>
                                     {% for item in navbar_menu.get_items %}
                                         <li class="nav-item active {{ item.classes | join(' ') }}">
-                                            <a href="{{ item.get_link }}">{{ __( item.title, domain ) }}</a>
+                                            <a href="{{ item.get_link }}">{{ item.title, domain }}</a>
                                         </li>
                                     {% endfor %}
                                     <li class="nav-item hidden-md-down hidden-lg-down">
@@ -115,7 +115,7 @@
             <ul class="list-unstyled clearfix">
                 {% for item in navbar_menu.get_items %}
                     <li class="nav-item">
-                        <a href="{{ item.get_link }}">{{ __( item.title, domain ) }}</a>
+                        <a href="{{ item.get_link }}">{{ item.title }}</a>
                     </li>
                 {% endfor %}
                 <li class="nav-item text-right donate-btn">
