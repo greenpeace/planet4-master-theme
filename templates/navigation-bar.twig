@@ -82,7 +82,7 @@
                                     </li>
                                     {% for item in navbar_menu.get_items %}
                                         <li class="nav-item active {{ item.classes | join(' ') }}">
-                                            <a href="{{ item.get_link }}">{{ item.title, domain }}</a>
+                                            <a href="{{ item.get_link }}">{{ item.title }}</a>
                                         </li>
                                     {% endfor %}
                                     <li class="nav-item hidden-md-down hidden-lg-down">
