@@ -32,6 +32,7 @@ $context['header_subtitle']     = $page_meta_data['p4_subtitle'][0];
 $context['header_description']  = $page_meta_data['p4_description'][0];
 $context['header_button_title'] = $page_meta_data['p4_button_title'][0];
 $context['header_button_link']  = $page_meta_data['p4_button_link'][0];
+$context['google_tag_value']    = get_option( 'google_tag_manager_identifier', '' ) ? get_option( 'google_tag_manager_identifier' ) : '';
 
 // Footer Items.
 $context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );

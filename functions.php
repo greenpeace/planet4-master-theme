@@ -55,6 +55,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'cmb2_admin_init', array( $this, 'register_header_metabox' ) );
 		add_action( 'pre_get_posts', array( $this, 'tags_support_query' ) );
 		add_action( 'admin_init', array( $this, 'add_copyright_text' ) );
+		add_action( 'admin_init', array( $this, 'add_google_tag_manager_identifier_setting' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -77,6 +78,21 @@ class P4_Master_Site extends TimberSite {
 		printf(
 			'<input type="text" name="copyright" class="regular-text" value="%1$s" id="%2$s" />',
 			esc_attr( $copyright ),
+			esc_attr( $args['label_for'] )
+		);
+	}
+
+	/**
+	 * Show google tag manager identifier text field.
+	 *
+	 * @param array $args
+	 */
+	public function google_tag_show_settings( $args ) {
+		$google_tag_identifier = get_option( 'google_tag_manager_identifier', '' );
+
+		printf(
+			'<input type="text" name="google_tag_manager_identifier" class="regular-text" value="%1$s" id="%2$s" />',
+			esc_attr( $google_tag_identifier ),
 			esc_attr( $args['label_for'] )
 		);
 	}
@@ -112,7 +128,41 @@ class P4_Master_Site extends TimberSite {
 		);
 	}
 
-	/*
+
+	/**
+	 * Function to add google tag manager identifier block in general options
+	 */
+	public function add_google_tag_manager_identifier_setting() {
+
+		// Add google tag manager identifier section.
+		add_settings_section(
+			'google_tag_manager_identifier',
+			'',
+			'',
+			'general'
+		);
+
+		// Register google tag manager identifier setting.
+		register_setting(
+			'general',
+			'google_tag_manager_identifier',
+			'trim'
+		);
+
+		// Register the field for the "google tag manager identifier" section.
+		add_settings_field(
+			'google_tag_manager_identifier',
+			'Google Tag Manager Identifier',
+			array( $this, 'google_tag_show_settings' ),
+			'general',
+			'google_tag_manager_identifier',
+			array(
+				'label_for' => 'google_tag_manager_identifier',
+			)
+		);
+	}
+
+  	/*
 	* Define settings for the Planet4 Master Theme.
 	*/
 	protected function settings() {
