@@ -80,12 +80,11 @@
                                             </select>
                                         </div>
                                     </li>
-                                    <li class="nav-item active hidden-md-down hidden-lg-down">
-                                        <a href="{{ data_nav_bar.act_url }}">{{ __( 'ACT', domain ) }}</a>
-                                    </li>
-                                    <li class="nav-item hidden-md-down hidden-lg-down">
-                                        <a href="{{ data_nav_bar.explore_url }}">{{ __( 'EXPLORE', domain ) }}</a>
-                                    </li>
+                                    {% for item in navbar_menu.get_items %}
+                                        <li class="nav-item active {{ item.classes | join(' ') }}">
+                                            <a href="{{ item.get_link }}">{{ item.title }}</a>
+                                        </li>
+                                    {% endfor %}
                                     <li class="nav-item hidden-md-down hidden-lg-down">
                                         <a href="#" class="btn btn-secondary">{{ __( 'DONATE', domain ) }}</a>
                                     </li>
@@ -114,12 +113,11 @@
     <div class="sub-navigation-md hidden-md-down hidden-xl-up">
         <div class="container">
             <ul class="list-unstyled clearfix">
-                <li class="nav-item">
-                    <a href="{{ data_nav_bar.act_url }}">{{ __( 'ACT', domain ) }}</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ data_nav_bar.explore_url }}">{{ __( 'EXPLORE', domain ) }}</a>
-                </li>
+                {% for item in navbar_menu.get_items %}
+                    <li class="nav-item">
+                        <a href="{{ item.get_link }}">{{ item.title }}</a>
+                    </li>
+                {% endfor %}
                 <li class="nav-item text-right donate-btn">
                     <a href="#" class="btn btn-secondary">{{ __( 'DONATE', domain ) }}</a>
                 </li>
