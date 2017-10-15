@@ -1,22 +1,21 @@
 <div class="page-header col-md-8 col-lg-8 col-sm-12">
     <div class="top-tags-wrap">
-      {% if page_tags %}
+      {% if ( page_tags ) %}
         {% for page_tag in page_tags %}
-          <span>#{{ page_tag.name|e('html') }}</span>
+          <span>#{{ page_tag.name }}</span>
         {% endfor %}
       {% endif %}
     </div>
-    {% if header_title %}
-        <h1>{{header_title|e('html')}}</h1>
+    {% if ( header_title ) %}
+        <h1>{{ header_title|e('wp_kses_post')|raw }}</h1>
     {% endif %}
-    <!-- More markup to follow for header block -->
-    {% if header_subtitle %}
-      {{header_subtitle|e('html')}} <BR><BR>
+    {% if ( header_subtitle ) %}
+      {{ header_subtitle }} <BR><BR>
     {% endif %}
-    {% if header_description %}
-       {{header_description|e('html')}} <BR><BR>
+    {% if ( header_description ) %}
+       {{ header_description }} <BR><BR>
     {% endif %}
-    {% if header_button_title %}
-       <a class="btn btn-danger" href="{{header_button_link|e('html_attr')}}">{{header_button_title|e('html')}}</a>
+    {% if ( header_button_title ) %}
+       <a class="btn btn-danger" href="{{ header_button_link }}">{{ header_button_title }}</a>
     {% endif %}
 </div>
