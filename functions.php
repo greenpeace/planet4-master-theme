@@ -215,6 +215,26 @@ class P4_Master_Site extends TimberSite {
 				'type' => 'text_medium',
 			)
 		);
+
+		$p4_header->add_field(
+			array(
+				'name'    => 'Background overide',
+				'desc'    => 'Upload an image',
+				'id'      => 'background_image',
+				'type'    => 'file',
+				// Optional
+				'options' => array(
+					'url' => false,
+				),
+				'text'    => array(
+					'add_upload_file_text' => 'Add Background Image'
+				),
+				'query_args' => array(
+					'type' => 'image',
+				),
+				'preview_size' => 'large',
+			)
+		);
 	}
 
 	/**
