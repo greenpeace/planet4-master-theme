@@ -1,13 +1,13 @@
-<!doctype html>
-<html class="no-js" {{ site.language_attributes }}>
+<!DOCTYPE html>
+<html>
 <head>
 	<meta charset="{{ site.charset }}">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-
 	<title>{% if wp_title %}{{ wp_title }} - {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
 	<meta name="description" content="{{ site.description }}">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
     {% if google_tag_value %}
 		<script>(function (w, d, s, l, i) {
                 w[l] = w[l] || [];
@@ -24,7 +24,5 @@
             })(window, document, 'script', 'dataLayer', '{{ google_tag_value }}');
 		</script>
     {% endif %}
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="pingback" href="{{ site.pingback_url }}">
 	{{ wp_head }}
+</head>

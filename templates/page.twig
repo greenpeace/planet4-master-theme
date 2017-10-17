@@ -1,9 +1,7 @@
 {% extends "base.twig" %}
 
 {% block content %}
-
-{% include 'blocks/header.twig' %}
-
+	{{ post.content|raw }}
 {% if ( background_image ) %}
 	<style>
 	@media (min-width: 1200px) {
@@ -13,15 +11,4 @@
 	}
 	</style>
 {% endif %}
-
-	<div class="hero-img-wrap">
-		<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
-			<section class="article-content">
-				<div class="article-body">
-					{{ post.content|raw }}
-				</div>
-			</section>
-		</article>
-	</div><!-- /content-wrapper -->
-
 {% endblock %}
