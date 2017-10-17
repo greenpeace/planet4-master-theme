@@ -1,33 +1,38 @@
 {% block html_head_container %}
 
 {% include 'html-header.twig' %}
-	{% block head %}
-	{% endblock %}
-</head>
+
 {% endblock %}
 
-<body class="{{body_class}}" data-template="base.twig">
-	{% include 'navigation-bar.twig' with data_nav_bar %}
+<body>
+	<div class="hero-img-wrap">
+		{% include 'navigation-bar.twig' with data_nav_bar %}
+		{% include 'blocks/header.twig' %}
+	</div>
 
-	<main id="content" role="main" class="content-wrapper">
-		{% if title %}<h1>{{title}}</h1>{% endif %}
-		<div class="wrapper {{sidebar_class}}">
-			{% block content %}
-				Sorry, no content
-			{% endblock %}
-		</div>
-		{% if sidebar %}
-			<aside class="layout-sidebar">
-				{{sidebar}}
-			</aside>
-		{% endif %}
-	</main>
+	{% block content %}
+		Sorry, no content
+	{% endblock %}
+
+	{% if sidebar %}
+		<aside class="layout-sidebar">
+			{{sidebar}}
+		</aside>
+	{% endif %}
 
 	{% block footer %}
-	<footer id="footer">
 		{% include 'footer.twig' %}
-	</footer>
 	{{ function('wp_footer') }}
 	{% endblock %}
+
+<!-- JS Libs that we include -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+<!-- File for all the custom JS that we write -->
+<script type="text/javascript" src="custom.js"></script>
+<!-- <script type="text/javascript" src="take-action.js"></script> -->
+
 </body>
 </html>
