@@ -60,6 +60,9 @@ class P4_Master_Site extends TimberSite {
 		remove_action( 'wp_head', 'wp_generator' );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_parent_styles' ) );
+		register_nav_menus( array(
+		    'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme' )
+        ) );
 		parent::__construct();
 	}
 
@@ -109,7 +112,7 @@ class P4_Master_Site extends TimberSite {
 		);
 	}
 
-  	/*
+	/*
 	* Define settings for the Planet4 Master Theme.
 	*/
 	protected function settings() {
@@ -226,12 +229,19 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function add_to_context( $context ) {
 		$context['data_nav_bar'] = [
-			'websites' => $this->websites,
-			'images'   => $this->theme_images_dir,
-			'domain'   => 'planet4-master-theme',
+			'websites'     => $this->websites,
+			'images'       => $this->theme_images_dir,
+			'home_url'     => home_url( '/' ),
+			'act_url'      => '/act',
+			'explore_url'  => '/explore',
+			'search_query' => get_search_query(),
 		];
+
 		$context['foo']  = 'bar';   // For unit test purposes.
-		$context['site'] = $this;
+		$context['domain'] = 'planet4-master-theme';
+    $context['site'] = $this;
+		$context['navbar_menu'] = new TimberMenu('navigation-bar-menu');
+
 		return $context;
 	}
 
