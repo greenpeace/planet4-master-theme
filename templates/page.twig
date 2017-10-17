@@ -2,7 +2,18 @@
 
 {% block content %}
 
-    {% include 'blocks/header.twig' %}
+{% include 'blocks/header.twig' %}
+
+{% if ( background_image ) %}
+	<style>
+	@media (min-width: 1200px) {
+		.hero-img-wrap {
+			background-image: url("{{ background_image }}");
+		}
+	}
+	</style>
+{% endif %}
+
 	<div class="hero-img-wrap">
 		<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
 			<section class="article-content">
