@@ -1,14 +1,14 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	{{ post.content|raw }}
-{% if ( background_image ) %}
-	<style>
-	@media (min-width: 1200px) {
-		.hero-img-wrap {
-			background-image: url("{{ background_image }}");
+	{% if ( background_image ) %}
+		<style>
+		@media (min-width: 1200px) {
+			.hero-img-wrap {
+				background-image: url("{{ background_image }}");
+			}
 		}
-	}
-	</style>
-{% endif %}
+		</style>
+	{% endif %}
+	{{ post.content|raw }}
 {% endblock %}
