@@ -1,27 +1,14 @@
 {% extends "base.twig" %}
 
 {% block content %}
-
-{% include 'blocks/header.twig' %}
-
-{% if ( background_image ) %}
-	<style>
-	@media (min-width: 1200px) {
-		.hero-img-wrap {
-			background-image: url("{{ background_image }}");
+	{% if ( background_image ) %}
+		<style>
+		@media (min-width: 1200px) {
+			.hero-img-wrap {
+				background-image: url("{{ background_image }}");
+			}
 		}
-	}
-	</style>
-{% endif %}
-
-	<div class="hero-img-wrap">
-		<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
-			<section class="article-content">
-				<div class="article-body">
-					{{ post.content|raw }}
-				</div>
-			</section>
-		</article>
-	</div><!-- /content-wrapper -->
-
+		</style>
+	{% endif %}
+	{{ post.content|raw }}
 {% endblock %}

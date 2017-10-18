@@ -29,17 +29,17 @@
                                         </div>
                                     </li>
                                     <li class="nav-item active">
-                                        <a href="#">{{ __( 'ACT', domain ) }}</a>
+                                        <a href="{{ data_nav_bar.act_url }}">{{ __( 'ACT', domain ) }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#">{{ __( 'EXPLORE', domain ) }}</a>
+                                        <a href="{{ data_nav_bar.explore_url }}">{{ __( 'EXPLORE', domain ) }}</a>
                                     </li>
                                 </ul>
                                 <a href="#" class="btn btn-secondary">{{ __( 'DONATE', domain ) }}</a>
                             </div>
                         </div>
                         <div class="col">
-                            <a class="navbar-brand" href="#"><img src="{{ data_nav_bar.images }}greenpeace-logo.png" alt="greenpeace" /></a>
+                            <a class="navbar-brand" href="{{ data_nav_bar.home_url }}"><img src="{{ data_nav_bar.images }}greenpeace-logo.png" alt="greenpeace" /></a>
                         </div>
                         <div class="col text-right">
                             <div id="search" class="mobile-search-wrap">
@@ -47,8 +47,8 @@
                                     <a href="#search" id="search-trigger"><i class="fa fa-search fa-lg"></i></a>
                                 </div>
                                 <div class="search-box">
-                                    <form action="/search" id="search_form">
-                                        <input placeholder="{{ __( 'Search', domain ) }}" type="text" />
+                                    <form action="{{ data_nav_bar.home_url }}" id="search_form">
+                                        <input class="form-control" type="search" placeholder="{{ __( 'Search', domain ) }}" value="{{ data_nav_bar.search_query }}" name="s" aria-label="Search">
                                         <input id="search-submit" type="submit" class="btn btn-green" value="{{ __( 'Search', domain ) }}" />
                                     </form>
                                 </div>
@@ -59,7 +59,7 @@
                         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             {{ __( 'Menu', domain ) }}
                         </button>
-                        <a class="navbar-brand" href="#"><img src="{{ data_nav_bar.images }}greenpeace-logo.png" alt="greenpeace" /></a>
+                        <a class="navbar-brand" href="{{ data_nav_bar.home_url }}"><img src="{{ data_nav_bar.images }}greenpeace-logo.png" alt="greenpeace" /></a>
                     </div>
                     <div class="col-lg-9 col-xl-10">
                         <nav class="navbar navbar-toggleable-md navbar-light">
@@ -80,12 +80,11 @@
                                             </select>
                                         </div>
                                     </li>
-                                    <li class="nav-item active hidden-md-down hidden-lg-down">
-                                        <a href="#">{{ __( 'ACT', domain ) }}</a>
-                                    </li>
-                                    <li class="nav-item hidden-md-down hidden-lg-down">
-                                        <a href="#">{{ __( 'EXPLORE', domain ) }}</a>
-                                    </li>
+                                    {% for item in navbar_menu.get_items %}
+                                        <li class="nav-item active {{ item.classes | join(' ') }}">
+                                            <a href="{{ item.get_link }}">{{ item.title }}</a>
+                                        </li>
+                                    {% endfor %}
                                     <li class="nav-item hidden-md-down hidden-lg-down">
                                         <a href="#" class="btn btn-secondary">{{ __( 'DONATE', domain ) }}</a>
                                     </li>
@@ -95,9 +94,11 @@
                                         <a href="#">{{ __( 'Sign up', domain ) }}</a>
                                     </li>
                                     <li class="nav-item nav-search-wrap">
-                                        <form class="form">
-                                            <input class="form-control" type="text" placeholder="{{ __( 'Search', domain ) }}" aria-label="Search">
-                                            <button class="top-nav-search-btn" type="submit"><i class="fa fa-search"></i></button>
+                                        <form role="search" class="form" action="{{ data_nav_bar.home_url }}">
+                                            <input class="form-control" type="search" placeholder="{{ __( 'Search', domain ) }}" value="{{ data_nav_bar.search_query }}" name="s" aria-label="Search">
+                                            <button class="top-nav-search-btn" type="submit">
+                                                <i class="fa fa-search"></i>
+                                            </button>
                                         </form>
                                     </li>
                                 </ul>
@@ -112,12 +113,11 @@
     <div class="sub-navigation-md hidden-md-down hidden-xl-up">
         <div class="container">
             <ul class="list-unstyled clearfix">
-                <li class="nav-item">
-                    <a href="#">{{ __( 'ACT', domain ) }}</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#">{{ __( 'EXPLORE', domain ) }}</a>
-                </li>
+                {% for item in navbar_menu.get_items %}
+                    <li class="nav-item">
+                        <a href="{{ item.get_link }}">{{ item.title }}</a>
+                    </li>
+                {% endfor %}
                 <li class="nav-item text-right donate-btn">
                     <a href="#" class="btn btn-secondary">{{ __( 'DONATE', domain ) }}</a>
                 </li>
