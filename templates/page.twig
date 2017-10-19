@@ -1,16 +1,5 @@
 {% extends "base.twig" %}
 
 {% block content %}
-
-    {% include 'blocks/header.twig' %}
-	<div class="hero-img-wrap">
-		<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
-			<section class="article-content">
-				<div class="article-body">
-					{{ post.content|raw }}
-				</div>
-			</section>
-		</article>
-	</div><!-- /content-wrapper -->
-
+	{{ post.content|raw }}
 {% endblock %}
