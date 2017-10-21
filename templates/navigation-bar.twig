@@ -16,15 +16,60 @@
                                     <li>
                                         <img class="country-icon" src="{{ data_nav_bar.images }}country-icon.png" alt=""/>
                                         <div class="select-country styled-select">
-                                            <select>
+                                            <select onchange="var url = $(this).val(); if (url) { window.location = url; }">
+
                                                 <option selected disabled>- {{ __( 'Select a website', domain ) }} -</option>
-                                                {% for key, website in data_nav_bar.websites %}
-                                                    {% if key == settings.p4en_lang %}
-                                                        <option value="{{ key }}" selected>{{ website }}</option>
-                                                    {% else %}
-                                                        <option value="{{ key }}">{{ website }}</option>
-                                                    {% endif %}
-                                                {% endfor %}
+                                                <option value="http://www.greenpeace.org/international">International (English)</option>
+                                                <option value="">-----------</option>
+                                                <option value="http://www.greenpeace.org/afrique/">Africa (English/Français)</option>
+                                                <option value="http://www.greenpeacearabic.org">Arabic (العربية)</option>
+                                                <option value="http://www.greenpeace.org/argentina/">Argentina (Español)</option>
+                                                <option value="http://www.greenpeace.org/australia/">Australia (English)</option>
+                                                <option value="http://www.greenpeace.org/austria/">Austria (Deutsch)</option>
+                                                <option value="http://www.greenpeace.org/belgium/">Belgium (Nederlands/Français)</option>
+                                                <option value="http://www.greenpeace.org/brasil/">Brazil (Português)</option>
+                                                <option value="http://www.greenpeace.org/bulgaria/">Bulgaria (български)</option>
+                                                <option value="http://www.greenpeace.org/canada/">Canada (English/Français)</option>
+                                                <option value="http://www.greenpeace.org/chile/">Chile (Español)</option>
+                                                <option value="http://www.greenpeace.org.cn">China Mainland (简体中文)</option>
+                                                <option value="http://www.greenpeace.org/colombia/">Colombia (Español)</option>
+                                                <option value="http://www.greenpeace.org/croatia">Croatia (Hrvatski)</option>
+                                                <option value="http://www.greenpeace.cz">Czech Republic (Česky)</option>
+                                                <option value="http://www.greenpeace.dk">Denmark (Dansk)</option>
+                                                <option value="http://www.greenpeace.org/eastasia/">East Asia (English)</option>
+                                                <option value="http://www.greenpeace.org/eu-unit">European Union (English)</option>
+                                                <option value="http://www.greenpeace.org/finland">Finland (Suomea)</option>
+                                                <option value="http://www.greenpeace.org/france">France (Français)</option>
+                                                <option value="http://www.greenpeace.de">Germany (Deutsch)</option>
+                                                <option value="http://www.greenpeace.gr">Greece (Ελληνικά)</option>
+                                                <option value="http://www.greenpeace.org/hk/">Hong Kong (繁體中文)</option>
+                                                <option value="http://www.greenpeace.hu">Hungary (Magyar)</option>
+                                                <option value="http://www.greenpeace.org/india/">India (English/Hindi)</option>
+                                                <option value="http://www.greenpeace.org/seasia/id/">Indonesia (Indonesia)</option>
+                                                <option value="http://www.greenpeace.org/israel/">Israel (עברית)</option>
+                                                <option value="http://www.greenpeace.org/italy/">Italy (Italiano)</option>
+                                                <option value="http://www.greenpeace.org/japan/">Japan (日本語)</option>
+                                                <option value="http://www.greenpeace.org/korea/">Korea (한국어)</option>
+                                                <option value="http://www.greenpeace.lu">Luxembourg (Français)</option>
+                                                <option value="http://www.greenpeace.org/mexico/">Mexico (Español)</option>
+                                                <option value="http://www.greenpeace.nl">Netherlands (Nederlands)</option>
+                                                <option value="http://www.greenpeace.org.nz">New Zealand (English)</option>
+                                                <option value="http://www.greenpeace.no">Norway (Norsk)</option>
+                                                <option value="http://www.greenpeace.org/seasia/ph/">Philippines (English)</option>
+                                                <option value="http://www.greenpeace.pl">Poland (Polska)</option>
+                                                <option value="http://www.greenpeace.ro">Romania (Român)</option>
+                                                <option value="http://www.greenpeace.org/russia/ru/">Russia (Русский)</option>
+                                                <option value="http://www.greenpeace.sk">Slovakia (Slovenčina)</option>
+                                                <option value="http://www.greenpeace.org/slovenia/">Slovenia (Slovenjia)</option>
+                                                <option value="http://www.greenpeace.org/seasia/">Southeast Asia (English)</option>
+                                                <option value="http://www.greenpeace.org/espana/">Spain (Español)</option>
+                                                <option value="http://www.greenpeace.se">Sweden (Svenska)</option>
+                                                <option value="http://www.greenpeace.org/switzerland/de/">Switzerland (Deutsch/Français)</option>
+                                                <option value="http://www.greenpeace.org/taiwan/">Taiwan (正體中文)</option>
+                                                <option value="http://www.greenpeace.org/seasia/th/">Thailand (ไทย)</option>
+                                                <option value="http://www.greenpeace.org/turkey/">Turkey (Türk)</option>
+                                                <option value="http://www.greenpeace.org.uk">United Kingdom (English)</option>
+                                                <option value="http://www.greenpeace.org/usa/">USA (English)</option>
                                             </select>
                                         </div>
                                     </li>
@@ -68,15 +113,60 @@
                                     <li>
                                         <img class="country-icon" src="{{ data_nav_bar.images }}country-icon.png" alt=""/>
                                         <div class="styled-select">
-                                            <select>
+                                            <select onchange="var url = $(this).val(); if (url) { window.location = url; }">
+
                                                 <option selected disabled>- {{ __( 'Select a website', domain ) }} -</option>
-                                                {% for key, website in data_nav_bar.websites %}
-                                                    {% if key == settings.p4en_lang %}
-                                                        <option value="{{ key }}" selected>{{ website }}</option>
-                                                    {% else %}
-                                                        <option value="{{ key }}">{{ website }}</option>
-                                                    {% endif %}
-                                                {% endfor %}
+                                                <option value="http://www.greenpeace.org/international">International (English)</option>
+                                                <option value="">-----------</option>
+                                                <option value="http://www.greenpeace.org/afrique/">Africa (English/Français)</option>
+                                                <option value="http://www.greenpeacearabic.org">Arabic (العربية)</option>
+                                                <option value="http://www.greenpeace.org/argentina/">Argentina (Español)</option>
+                                                <option value="http://www.greenpeace.org/australia/">Australia (English)</option>
+                                                <option value="http://www.greenpeace.org/austria/">Austria (Deutsch)</option>
+                                                <option value="http://www.greenpeace.org/belgium/">Belgium (Nederlands/Français)</option>
+                                                <option value="http://www.greenpeace.org/brasil/">Brazil (Português)</option>
+                                                <option value="http://www.greenpeace.org/bulgaria/">Bulgaria (български)</option>
+                                                <option value="http://www.greenpeace.org/canada/">Canada (English/Français)</option>
+                                                <option value="http://www.greenpeace.org/chile/">Chile (Español)</option>
+                                                <option value="http://www.greenpeace.org.cn">China Mainland (简体中文)</option>
+                                                <option value="http://www.greenpeace.org/colombia/">Colombia (Español)</option>
+                                                <option value="http://www.greenpeace.org/croatia">Croatia (Hrvatski)</option>
+                                                <option value="http://www.greenpeace.cz">Czech Republic (Česky)</option>
+                                                <option value="http://www.greenpeace.dk">Denmark (Dansk)</option>
+                                                <option value="http://www.greenpeace.org/eastasia/">East Asia (English)</option>
+                                                <option value="http://www.greenpeace.org/eu-unit">European Union (English)</option>
+                                                <option value="http://www.greenpeace.org/finland">Finland (Suomea)</option>
+                                                <option value="http://www.greenpeace.org/france">France (Français)</option>
+                                                <option value="http://www.greenpeace.de">Germany (Deutsch)</option>
+                                                <option value="http://www.greenpeace.gr">Greece (Ελληνικά)</option>
+                                                <option value="http://www.greenpeace.org/hk/">Hong Kong (繁體中文)</option>
+                                                <option value="http://www.greenpeace.hu">Hungary (Magyar)</option>
+                                                <option value="http://www.greenpeace.org/india/">India (English/Hindi)</option>
+                                                <option value="http://www.greenpeace.org/seasia/id/">Indonesia (Indonesia)</option>
+                                                <option value="http://www.greenpeace.org/israel/">Israel (עברית)</option>
+                                                <option value="http://www.greenpeace.org/italy/">Italy (Italiano)</option>
+                                                <option value="http://www.greenpeace.org/japan/">Japan (日本語)</option>
+                                                <option value="http://www.greenpeace.org/korea/">Korea (한국어)</option>
+                                                <option value="http://www.greenpeace.lu">Luxembourg (Français)</option>
+                                                <option value="http://www.greenpeace.org/mexico/">Mexico (Español)</option>
+                                                <option value="http://www.greenpeace.nl">Netherlands (Nederlands)</option>
+                                                <option value="http://www.greenpeace.org.nz">New Zealand (English)</option>
+                                                <option value="http://www.greenpeace.no">Norway (Norsk)</option>
+                                                <option value="http://www.greenpeace.org/seasia/ph/">Philippines (English)</option>
+                                                <option value="http://www.greenpeace.pl">Poland (Polska)</option>
+                                                <option value="http://www.greenpeace.ro">Romania (Român)</option>
+                                                <option value="http://www.greenpeace.org/russia/ru/">Russia (Русский)</option>
+                                                <option value="http://www.greenpeace.sk">Slovakia (Slovenčina)</option>
+                                                <option value="http://www.greenpeace.org/slovenia/">Slovenia (Slovenjia)</option>
+                                                <option value="http://www.greenpeace.org/seasia/">Southeast Asia (English)</option>
+                                                <option value="http://www.greenpeace.org/espana/">Spain (Español)</option>
+                                                <option value="http://www.greenpeace.se">Sweden (Svenska)</option>
+                                                <option value="http://www.greenpeace.org/switzerland/de/">Switzerland (Deutsch/Français)</option>
+                                                <option value="http://www.greenpeace.org/taiwan/">Taiwan (正體中文)</option>
+                                                <option value="http://www.greenpeace.org/seasia/th/">Thailand (ไทย)</option>
+                                                <option value="http://www.greenpeace.org/turkey/">Turkey (Türk)</option>
+                                                <option value="http://www.greenpeace.org.uk">United Kingdom (English)</option>
+                                                <option value="http://www.greenpeace.org/usa/">USA (English)</option>
                                             </select>
                                         </div>
                                     </li>
