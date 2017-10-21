@@ -13,9 +13,9 @@
  * @since   Timber 0.1
  */
 
-$context                     = Timber::get_context();
-$context['posts']            = Timber::get_posts();
-$context['google_tag_value'] = get_option( 'google_tag_manager_identifier', '' ) ? get_option( 'google_tag_manager_identifier' ) : '';
+$context                          = Timber::get_context();
+$context['posts']                 = Timber::get_posts();
+$context['google_tag_value']      = get_option( 'google_tag_manager_identifier', '' ) ? get_option( 'google_tag_manager_identifier' ) : '';
 
 // Footer Items.
 $context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
