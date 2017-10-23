@@ -55,6 +55,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'cmb2_admin_init', array( $this, 'register_header_metabox' ) );
 		add_action( 'pre_get_posts', array( $this, 'tags_support_query' ) );
 		add_action( 'admin_init', array( $this, 'add_copyright_text' ) );
+		add_action( 'admin_init', array( $this, 'add_google_tag_manager_identifier_setting' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -77,6 +78,21 @@ class P4_Master_Site extends TimberSite {
 		printf(
 			'<input type="text" name="copyright" class="regular-text" value="%1$s" id="%2$s" />',
 			esc_attr( $copyright ),
+			esc_attr( $args['label_for'] )
+		);
+	}
+
+	/**
+	 * Show google tag manager identifier text field.
+	 *
+	 * @param array $args
+	 */
+	public function google_tag_show_settings( $args ) {
+		$google_tag_identifier = get_option( 'google_tag_manager_identifier', '' );
+
+		printf(
+			'<input type="text" name="google_tag_manager_identifier" class="regular-text" value="%1$s" id="%2$s" />',
+			esc_attr( $google_tag_identifier ),
 			esc_attr( $args['label_for'] )
 		);
 	}
@@ -112,7 +128,41 @@ class P4_Master_Site extends TimberSite {
 		);
 	}
 
-	/*
+
+	/**
+	 * Function to add google tag manager identifier block in general options
+	 */
+	public function add_google_tag_manager_identifier_setting() {
+
+		// Add google tag manager identifier section.
+		add_settings_section(
+			'google_tag_manager_identifier',
+			'',
+			'',
+			'general'
+		);
+
+		// Register google tag manager identifier setting.
+		register_setting(
+			'general',
+			'google_tag_manager_identifier',
+			'trim'
+		);
+
+		// Register the field for the "google tag manager identifier" section.
+		add_settings_field(
+			'google_tag_manager_identifier',
+			'Google Tag Manager Identifier',
+			array( $this, 'google_tag_show_settings' ),
+			'general',
+			'google_tag_manager_identifier',
+			array(
+				'label_for' => 'google_tag_manager_identifier',
+			)
+		);
+	}
+
+  	/*
 	* Define settings for the Planet4 Master Theme.
 	*/
 	protected function settings() {
@@ -129,6 +179,7 @@ class P4_Master_Site extends TimberSite {
 		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', array(), '4.0.0-alpha.6' );
 		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css' );
 		wp_register_script( 'jquery', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), null, true );
+		wp_enqueue_script( 'bootstrapjs', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', array(), '4.0.0-beta', true );
 		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), null, true );
 	}
 
@@ -218,6 +269,26 @@ class P4_Master_Site extends TimberSite {
 				'type' => 'text_medium',
 			)
 		);
+
+		$p4_header->add_field(
+			array(
+				'name'    => 'Background overide',
+				'desc'    => 'Upload an image',
+				'id'      => 'background_image',
+				'type'    => 'file',
+				// Optional
+				'options' => array(
+					'url' => false,
+				),
+				'text'    => array(
+					'add_upload_file_text' => 'Add Background Image'
+				),
+				'query_args' => array(
+					'type' => 'image',
+				),
+				'preview_size' => 'large',
+			)
+		);
 	}
 
 	/**
@@ -236,12 +307,10 @@ class P4_Master_Site extends TimberSite {
 			'explore_url'  => '/explore',
 			'search_query' => get_search_query(),
 		];
-
 		$context['foo']  = 'bar';   // For unit test purposes.
 		$context['domain'] = 'planet4-master-theme';
-    $context['site'] = $this;
+		$context['site'] = $this;
 		$context['navbar_menu'] = new TimberMenu('navigation-bar-menu');
-
 		return $context;
 	}
 
