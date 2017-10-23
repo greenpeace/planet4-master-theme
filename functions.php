@@ -268,6 +268,26 @@ class P4_Master_Site extends TimberSite {
 				'type' => 'text_medium',
 			)
 		);
+
+		$p4_header->add_field(
+			array(
+				'name'    => __( 'Background overide', 'planet4-master-theme' ),
+				'desc'    => __( 'Upload an image', 'planet4-master-theme' ),
+				'id'      => 'background_image',
+				'type'    => 'file',
+				// Optional
+				'options' => array(
+					'url' => false,
+				),
+				'text'    => array(
+					'add_upload_file_text' => __( 'Add Background Image', 'planet4-master-theme' )
+				),
+				'query_args' => array(
+					'type' => 'image',
+				),
+				'preview_size' => 'large',
+			)
+		);
 	}
 
 	/**

@@ -40,6 +40,8 @@ $context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
 $context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
 $context['copyright_text']        = get_option( 'copyright', '' ) ? get_option( 'copyright' ) : '';
 
+$context['background_image']      = wp_get_attachment_url( get_post_meta( get_the_ID(), 'background_image_id', 1 ), 'medium' );
+
 $page_tags = wp_get_post_tags( $post->ID );
 $context['page_tags'] = $page_tags;
 
