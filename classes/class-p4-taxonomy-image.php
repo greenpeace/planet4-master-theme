@@ -65,9 +65,10 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 		 * @param int $term_id The ID of the WP_Term object that is added or edited.
 		 */
 		public function save_tag_meta( $term_id ) {
-			if ( isset( $_POST['tag_attachment_id'] ) ) {
-				$attachment_id = $this->validate( $_POST['tag_attachment_id'] );
-				if ( $attachment_id ) {
+			$attachment_id = filter_input( INPUT_POST, 'tag_attachment_id', FILTER_VALIDATE_INT );
+			if ( $attachment_id ) {
+				$attachment_id = $this->validate( $attachment_id );
+				if ( false !== $attachment_id ) {
 					update_term_meta( $term_id, 'tag_attachment_id', $attachment_id );
 				}
 			}
@@ -122,11 +123,11 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 		 *
 		 * @param string $input The user input to be validated.
 		 *
-		 * @return mixed Int if validation is ok, false if validation fails.
+		 * @return int|bool Int if validation is ok, false if validation fails.
 		 */
 		public function validate( $input ) {
 			$input = (int) $input;
-			if ( 0 >= $input ) {
+			if ( $input <= 0 ) {
 				return false;
 			}
 
@@ -135,10 +136,8 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 
 		/**
 		 * Load assets.
-		 *
-		 * @param string $hook The slug name of the current admin page.
 		 */
-		public function enqueue_admin_assets( $hook ) {
+		public function enqueue_admin_assets() {
 			if ( ! is_admin() || strpos( get_current_screen()->taxonomy, 'post_tag' ) === false ) {
 				return;
 			}
