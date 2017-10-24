@@ -289,6 +289,28 @@ class P4_Master_Site extends TimberSite {
 				'preview_size' => 'large',
 			)
 		);
+
+		$p4_post = new_cmb2_box( array(
+			'id'            => $prefix . 'metabox_post',
+			'title'         => __( 'Post Artciles Element Fields', 'planet4-master-theme' ),
+			'object_types'  => array( 'post' ),
+		) );
+
+		$p4_post->add_field( array(
+			'name' => __( 'Articles Title', 'planet4-master-theme' ),
+			'desc' => __( 'Covers title comes here', 'planet4-master-theme' ),
+			'id'   => $prefix . 'articles_title',
+			'type' => 'text_medium',
+		) );
+
+		$p4_post->add_field(
+			array(
+				'name'    => __( 'Articles Count', 'planet4-master-theme' ),
+				'desc'    => __( 'Covers description comes here', 'planet4-master-theme' ),
+				'id'      => $prefix . 'articles_count',
+				'type' => 'text_medium',
+			)
+		);
 	}
 
 	/**

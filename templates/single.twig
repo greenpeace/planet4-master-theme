@@ -4,7 +4,7 @@
 	<div class="content-wrapper">
 		<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
 			<section class="article-content">
-				<div><span>POST</span>
+				<div><span>{{ __('POST') }}</span>
 					{% for tag in post.tags %}
 						<span class="post-tag">
 							<a href="{{ tag.link }}">#{{ tag.title }}</a>
@@ -18,16 +18,17 @@
 					</span> <i>{{ post.post_date|date }}</i>
 				</p>
 				<div class="article-body">
-					{{post.content|e('wp_kses_post')|raw}}
+					{{ post.content|e('wp_kses_post')|raw }}
 				</div>
 				<div class="article-author">
 					<div class="row">
 						<div class="col-md-6">
 							<div>
-								ABOUT THE AUTHOR
+								{{ __('ABOUT THE AUTHOR') }}
 							</div>
 							<div>
-								<h5><a href='{{ post.author.link }}' title="{{ post.author.name }}">{{ post.author.name }}</a></h5>
+								<h5><a href='{{ post.author.link }}'
+								       title="{{ post.author.name }}">{{ post.author.name }}</a></h5>
 							</div>
 							<div class="author-description">
 								{{ post.author.description }}
@@ -37,14 +38,19 @@
 						<div class="col-md-6">
 							<div class="author-avatar">
 								{% if ( post.author.avatar ) %}
-									<img src="{{ post.author.avatar }}" class="author-thumbnail" alt="Image for {{ post.author.name }}" />
+									<img src="{{ post.author.avatar }}" class="author-thumbnail"
+									     alt="Image for {{ post.author.name }}"/>
 								{% endif %}
-
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
+			<div>
+				{% if ( post.articles ) %}
+					{{ post.articles|raw }}
+				{% endif %}
+			</div>
 			{% if ( 'closed' != post.comment_status ) %}
 				<section class="comments">
 					<div class="respond">
