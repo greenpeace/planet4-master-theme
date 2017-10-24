@@ -272,8 +272,8 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_header->add_field(
 			array(
-				'name'    => 'Background overide',
-				'desc'    => 'Upload an image',
+				'name'    => __( 'Background overide', 'planet4-master-theme' ),
+				'desc'    => __( 'Upload an image', 'planet4-master-theme' ),
 				'id'      => 'background_image',
 				'type'    => 'file',
 				// Optional
@@ -281,7 +281,7 @@ class P4_Master_Site extends TimberSite {
 					'url' => false,
 				),
 				'text'    => array(
-					'add_upload_file_text' => 'Add Background Image'
+					'add_upload_file_text' => __( 'Add Background Image', 'planet4-master-theme' )
 				),
 				'query_args' => array(
 					'type' => 'image',
