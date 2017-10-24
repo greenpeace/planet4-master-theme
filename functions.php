@@ -128,6 +128,7 @@ class P4_Master_Site extends TimberSite {
 		);
 	}
 
+
 	/**
 	 * Function to add google tag manager identifier block in general options
 	 */
@@ -306,12 +307,10 @@ class P4_Master_Site extends TimberSite {
 			'explore_url'  => '/explore',
 			'search_query' => get_search_query(),
 		];
-
 		$context['foo']  = 'bar';   // For unit test purposes.
 		$context['domain'] = 'planet4-master-theme';
 		$context['site'] = $this;
 		$context['navbar_menu'] = new TimberMenu('navigation-bar-menu');
-
 		return $context;
 	}
 
