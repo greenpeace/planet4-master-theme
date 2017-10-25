@@ -305,18 +305,22 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_post->add_field(
 			array(
-				'name'            => __( 'Articles Count', 'planet4-master-theme' ),
-				'desc'            => __( 'Articles count comes here', 'planet4-master-theme' ),
-				'id'              => $prefix . 'articles_count',
-				'type'            => 'text_medium',
-				'attributes'      => array(
-					'type'    => 'number',
-					'pattern' => '\d*',
+				'name'       => __( 'Articles Count', 'planet4-master-theme' ),
+				'desc'       => __( 'Articles count comes here', 'planet4-master-theme' ),
+				'id'         => $prefix . 'articles_count',
+				'type'       => 'text_medium',
+				'attributes' => array(
+					'type' => 'number',
 				),
-				'sanitization_cb' => 'intval',
-				'escape_cb'       => 'intval',
 			)
 		);
+
+		$p4_post->add_field( array(
+			'name' => __( 'Author Override', 'planet4-master-theme' ),
+			'desc' => __( 'Enter author name if you want to override the author', 'planet4-master-theme' ),
+			'id'   => $prefix . 'author_override',
+			'type' => 'text_medium',
+		) );
 	}
 
 	/**

@@ -14,37 +14,44 @@
 				<h1 class="article-h1">{{ post.title|raw }}</h1>
 				<p class="blog-author">
 					<span><i>{{ __( 'by', domain ) }}</i></span>
-					<a href="{{ post.author.path }}"><i>{{ post.author.name }} </i> </a><span><i>/</i>
-					</span> <i>{{ post.post_date|date }}</i>
+					{% if ( author_override ) %}
+						<i>{{ author_override }} </i>
+					{% else %}
+						<a href="{{ post.author.path }}"><i>{{ post.author.name }} </i> </a>
+					{% endif %}
+					<span><i>/</i></span> <i>{{ post.post_date|date }}</i>
 				</p>
 				<div class="article-body">
 					{{ post.content|e('wp_kses_post')|raw }}
 				</div>
-				<div class="article-author">
-					<div class="row">
-						<div class="col-md-6">
-							<div>
-								{{ __('ABOUT THE AUTHOR') }}
-							</div>
-							<div>
-								<h5><a href='{{ post.author.link }}'
-								       title="{{ post.author.name }}">{{ post.author.name }}</a></h5>
-							</div>
-							<div class="author-description">
-								{{ post.author.description }}
 
+				{% if ( author_override == '' and post.author.description ) %}
+					<div class="article-author">
+						<div class="row">
+							<div class="col-md-6">
+								<div>
+									{{ __('ABOUT THE AUTHOR') }}
+								</div>
+								<div>
+									<h5><a href='{{ post.author.link }}'
+									       title="{{ post.author.name }}">{{ post.author.name }}</a></h5>
+								</div>
+								<div class="author-description">
+									{{ post.author.description }}
+
+								</div>
 							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="author-avatar">
-								{% if ( post.author.avatar ) %}
-									<img src="{{ post.author.avatar }}" class="author-thumbnail"
-									     alt="Image for {{ post.author.name }}"/>
-								{% endif %}
+							<div class="col-md-6">
+								<div class="author-avatar">
+									{% if ( post.author.avatar ) %}
+										<img src="{{ post.author.avatar }}" class="author-thumbnail"
+										     alt="Image for {{ post.author.name }}"/>
+									{% endif %}
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				{% endif %}
 			</section>
 			<div>
 				{% if ( post.articles ) %}
