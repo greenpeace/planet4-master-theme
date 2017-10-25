@@ -24,8 +24,6 @@ if ( ! class_exists( 'Timber' ) ) {
  */
 class P4_Master_Site extends TimberSite {
 
-	/** @var array $services */
-	protected $services;
 	/** @var string $theme_dir */
 	protected $theme_dir;
 	/** @var string $theme_images_dir */
@@ -35,6 +33,8 @@ class P4_Master_Site extends TimberSite {
 		'en_US' => 'International (English)',
 		'el_GR' => 'Greece (Ελληνικά)',
 	];
+	/** @var array $services */
+	protected $services;
 	/** @var array $child_css */
 	protected $child_css = array();
 
@@ -60,7 +60,6 @@ class P4_Master_Site extends TimberSite {
 		/**
 		 * Class names need to be prefixed with P4 and should use capitalized words separated by underscores.
 		 * Any acronyms should be all upper case.
-		 * https://make.wordpress.org/core/handbook/best-practices/coding-standards/php/#naming-conventions
 		 */
 		spl_autoload_register(
 			function ( $class_name ) {
@@ -76,9 +75,9 @@ class P4_Master_Site extends TimberSite {
 	 * Define settings for the Planet4 Master Theme.
 	 */
 	protected function settings() {
-		Timber::$autoescape = true;
-		Timber::$dirname = array( 'templates', 'views' );
-		$this->theme_dir = get_template_directory_uri();
+		Timber::$autoescape     = true;
+		Timber::$dirname        = [ 'templates', 'views' ];
+		$this->theme_dir        = get_template_directory_uri();
 		$this->theme_images_dir = $this->theme_dir . '/images/';
 	}
 
@@ -91,17 +90,16 @@ class P4_Master_Site extends TimberSite {
 		add_theme_support( 'menus' );
 		add_post_type_support( 'page', 'excerpt' );  // Added excerpt option to pages.
 
-		add_filter( 'timber_context', array( $this, 'add_to_context' ) );
-		add_filter( 'get_twig', array( $this, 'add_to_twig' ) );
-
-		add_action( 'init', array( $this, 'register_post_types' ) );
-		add_action( 'init', array( $this, 'register_taxonomies' ) );
-		add_action( 'cmb2_admin_init', array( $this, 'register_header_metabox' ) );
-		add_action( 'pre_get_posts', array( $this, 'tags_support_query' ) );
-		add_action( 'admin_init', array( $this, 'add_copyright_text' ) );
-		add_action( 'admin_init', array( $this, 'add_google_tag_manager_identifier_setting' ) );
+		add_filter( 'timber_context',        array( $this, 'add_to_context' ) );
+		add_filter( 'get_twig',              array( $this, 'add_to_twig' ) );
+		add_action( 'init',                  array( $this, 'register_post_types' ) );
+		add_action( 'init',                  array( $this, 'register_taxonomies' ) );
+		add_action( 'cmb2_admin_init',       array( $this, 'register_header_metabox' ) );
+		add_action( 'pre_get_posts',         array( $this, 'tags_support_query' ) );
+		add_action( 'admin_init',            array( $this, 'add_copyright_text' ) );
+		add_action( 'admin_init',            array( $this, 'add_google_tag_manager_identifier_setting' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_assets' ) );
+		add_action( 'wp_enqueue_scripts',    array( $this, 'enqueue_public_assets' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -221,19 +219,20 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Load styling and behaviour.
+	 * Load styling and behaviour on admin pages.
 	 */
 	public function enqueue_admin_assets() {
-		wp_enqueue_script( 'admin', $this->theme_dir . '/assets/js/admin.js', array( 'jquery' ), null, true );
+		// Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
+		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 	}
 
 	/**
-	 * Load styling and behaviour.
+	 * Load styling and behaviour on website pages.
 	 */
 	public function enqueue_public_assets() {
 		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', array(), '4.0.0-alpha.6' );
 		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css' );
-		wp_register_script( 'jquery', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
+		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 		wp_enqueue_script( 'bootstrapjs', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', array(), '4.0.0-beta', true );
 		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), null, true );
 	}

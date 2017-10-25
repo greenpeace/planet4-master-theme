@@ -8,12 +8,9 @@ $(document).ready(function() {
 	$("#insert_image_tag_button").off("click").on("click", function () {
 		if ( typeof wp !== "undefined" ) {
 			var media_modal = wp.media({
-				title: "Insert Image",
+				title: localizations.media_title,
 				library: {
 					type: "image"
-				},
-				button: {
-					text: "Insert"
 				},
 				multiple: false
 			});
@@ -34,6 +31,7 @@ $(document).ready(function() {
 		$("#insert_image_tag_button").click();
 	});
 
+	// Clean up the custom fields, since the taxonomy save is made via ajax and the taxonomy page does not reload.
 	$("#submit", $("#addtag")).off("click").on("click", function () {
 		setTimeout(function () {
 			jQuery("#tag_attachment_id").val("");
