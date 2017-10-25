@@ -2,18 +2,28 @@
 	"name": "greenpeace/planet4-master-theme",
 	"description": "Master theme for the Planet 4 Wordpress project",
 	"type":"wordpress-theme",
-	"version": "0.2.1",
+	"version": "0.2.11",
 	"minimum-stability" : "stable",
 	"authors": [
-			{
-					"name": "jarednova",
-					"email": "jared@upstatement.com"
-			},
-			{
-					"name": "Anselm Hannemann",
-					"email": "ahannema@greenpeace.org",
-					"role": "Front-End Developer"
-			}
+		{
+			"name": "jarednova",
+			"email": "jared@upstatement.com"
+		},
+		{
+			"name": "Anselm Hannemann",
+			"email": "ahannema@greenpeace.org",
+			"role": "Front-End Developer"
+		},
+		{
+			"name": "Ashish Singh",
+			"email": "ashish.singh@greenpeace.org",
+			"role": "Front-End Developer"
+		},
+		{
+			"name": "Angelos Theodorakopoulos",
+			"email": "angelos.theodorakopoulos@greenpeace.org",
+			"role": "PHP Developer"
+		}
 	],
 	"license": "MIT",
 	"repositories": [
@@ -36,7 +46,7 @@
 		}
 	},
 	"require": {
+		"wpackagist-plugin/timber-library": "1.5.*"
 		"webdevstudios/cmb2": "^2",
-		"wpackagist-plugin/timber-library": "1.3.*"
 	}
 }

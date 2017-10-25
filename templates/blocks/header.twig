@@ -1,0 +1,25 @@
+<div class="page-header col-md-8 col-lg-8 col-sm-12">
+	<div class="top-tags-wrap">
+		{% if ( page_tags ) %}
+			{% for page_tag in page_tags %}
+				<span>#{{ page_tag.name }}</span>
+			{% endfor %}
+		{% endif %}
+	</div>
+	{% if ( header_title ) %}
+		<h1>{{ header_title }}</h1>
+	{% endif %}
+	{% if ( header_subtitle ) %}
+		<h3>{{ header_subtitle }}</h3>
+	{% endif %}
+	{% if ( header_description ) %}
+		<p>{{ header_description }}</p>
+	{% endif %}
+	{% if ( header_button_title ) %}
+		<div class="row clearfix">
+			<div class="col-md-4">
+				<a href="{{ header_button_link }}" class="btn btn-small btn-medium btn-primary btn-block">{{ header_button_title }}</a>
+			</div>
+		</div>
+	{% endif %}
+</div>
