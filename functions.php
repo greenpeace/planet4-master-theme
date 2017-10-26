@@ -33,38 +33,95 @@ class P4_Master_Site extends TimberSite {
 		'en_US' => 'International (English)',
 		'el_GR' => 'Greece (Ελληνικά)',
 	];
+	/** @var array $services */
+	protected $services;
 	/** @var array $child_css */
 	protected $child_css = array();
 
 	/**
 	 * P4_Master_Site constructor.
+	 *
+	 * @param array $services The dependencies to inject.
 	 */
-	public function __construct() {
+	public function __construct( $services = array() ) {
 
+		$this->load();
 		$this->settings();
+		$this->hooks();
+		$this->services( $services );
+
+		parent::__construct();
+	}
+
+	/**
+	 * Load required files.
+	 */
+	protected function load() {
+		/**
+		 * Class names need to be prefixed with P4 and should use capitalized words separated by underscores.
+		 * Any acronyms should be all upper case.
+		 */
+		spl_autoload_register(
+			function ( $class_name ) {
+				if ( strpos( $class_name, 'P4' ) !== false ) {
+					$file_name = 'class-' . str_ireplace( [ 'P4\\', '_' ], [ '', '-' ], strtolower( $class_name ) );
+					require_once 'classes/' . $file_name . '.php';
+				}
+			}
+		);
+	}
+
+	/**
+	 * Define settings for the Planet4 Master Theme.
+	 */
+	protected function settings() {
+		Timber::$autoescape     = true;
+		Timber::$dirname        = [ 'templates', 'views' ];
+		$this->theme_dir        = get_template_directory_uri();
+		$this->theme_images_dir = $this->theme_dir . '/images/';
+	}
+
+	/**
+	 * Hooks the theme.
+	 */
+	protected function hooks() {
 		add_theme_support( 'post-formats' );
 		add_theme_support( 'post-thumbnails' );
 		add_theme_support( 'menus' );
 		add_post_type_support( 'page', 'excerpt' );  // Added excerpt option to pages.
 
-		add_filter( 'timber_context', array( $this, 'add_to_context' ) );
-		add_filter( 'get_twig', array( $this, 'add_to_twig' ) );
-
-		add_action( 'init', array( $this, 'register_post_types' ) );
-		add_action( 'init', array( $this, 'register_taxonomies' ) );
-		add_action( 'cmb2_admin_init', array( $this, 'register_header_metabox' ) );
-		add_action( 'pre_get_posts', array( $this, 'tags_support_query' ) );
-		add_action( 'admin_init', array( $this, 'add_copyright_text' ) );
-		add_action( 'admin_init', array( $this, 'add_google_tag_manager_identifier_setting' ) );
+		add_filter( 'timber_context',        array( $this, 'add_to_context' ) );
+		add_filter( 'get_twig',              array( $this, 'add_to_twig' ) );
+		add_action( 'init',                  array( $this, 'register_post_types' ) );
+		add_action( 'init',                  array( $this, 'register_taxonomies' ) );
+		add_action( 'cmb2_admin_init',       array( $this, 'register_header_metabox' ) );
+		add_action( 'pre_get_posts',         array( $this, 'tags_support_query' ) );
+		add_action( 'admin_init',            array( $this, 'add_copyright_text' ) );
+		add_action( 'admin_init',            array( $this, 'add_google_tag_manager_identifier_setting' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+		add_action( 'wp_enqueue_scripts',    array( $this, 'enqueue_public_assets' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_parent_styles' ) );
+
 		register_nav_menus( array(
-		    'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme' )
-        ) );
-		parent::__construct();
+			'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme' )
+		) );
+	}
+
+	/**
+	 * Inject dependencies.
+	 *
+	 * @param array $services The dependencies to inject.
+	 */
+	private function services( $services = array() ) {
+		$this->services = $services;
+		if ( $this->services ) {
+			foreach ( $this->services as $service ) {
+				new $service();
+			}
+		}
 	}
 
 	/**
@@ -162,23 +219,21 @@ class P4_Master_Site extends TimberSite {
 		);
 	}
 
-  	/*
-	* Define settings for the Planet4 Master Theme.
-	*/
-	protected function settings() {
-		Timber::$autoescape = true;
-		Timber::$dirname = array( 'templates', 'views' );
-		$this->theme_dir = get_template_directory_uri();
-		$this->theme_images_dir = $this->theme_dir . '/images/';
+	/**
+	 * Load styling and behaviour on admin pages.
+	 */
+	public function enqueue_admin_assets() {
+		// Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
+		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 	}
 
 	/**
-	 * Load styling and behaviour.
+	 * Load styling and behaviour on website pages.
 	 */
-	public function enqueue_parent_styles() {
+	public function enqueue_public_assets() {
 		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', array(), '4.0.0-alpha.6' );
 		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css' );
-		wp_register_script( 'jquery', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), null, true );
+		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 		wp_enqueue_script( 'bootstrapjs', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', array(), '4.0.0-beta', true );
 		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), null, true );
 	}
@@ -289,6 +344,37 @@ class P4_Master_Site extends TimberSite {
 				'preview_size' => 'large',
 			)
 		);
+
+		$p4_post = new_cmb2_box( array(
+			'id'           => $prefix . 'metabox_post',
+			'title'        => __( 'Post Articles Element Fields', 'planet4-master-theme' ),
+			'object_types' => array( 'post' ),
+		) );
+
+		$p4_post->add_field( array(
+			'name' => __( 'Articles Title', 'planet4-master-theme' ),
+			'desc' => __( 'Title for articles block', 'planet4-master-theme' ),
+			'id'   => $prefix . 'articles_title',
+			'type' => 'text_medium',
+		) );
+
+		$p4_post->add_field( array(
+				'name'       => __( 'Articles Count', 'planet4-master-theme' ),
+				'desc'       => __( 'Number of articles that should be displayed for articles block', 'planet4-master-theme' ),
+				'id'         => $prefix . 'articles_count',
+				'type'       => 'text_medium',
+				'attributes' => array(
+					'type' => 'number',
+				),
+			)
+		);
+
+		$p4_post->add_field( array(
+			'name' => __( 'Author Override', 'planet4-master-theme' ),
+			'desc' => __( 'Enter author name if you want to override the author', 'planet4-master-theme' ),
+			'id'   => $prefix . 'author_override',
+			'type' => 'text_medium',
+		) );
 	}
 
 	/**
@@ -327,4 +413,6 @@ class P4_Master_Site extends TimberSite {
 	}
 }
 
-new P4_Master_Site();
+new P4_Master_Site( [
+	'P4_Taxonomy_Image',
+] );
