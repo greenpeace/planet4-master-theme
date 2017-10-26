@@ -4,27 +4,73 @@
 	<div class="content-wrapper">
 		<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
 			<section class="article-content">
-				<h1 class="article-h1">{{ post.title|raw }}</h1>
-				<p class="blog-author">
-					<span>{{ __( 'By', domain ) }}</span><a href="{{ post.author.path }}"> {{ post.author.name }} </a><span>&bull;</span> {{ post.post_date|date }}
-				</p>
-				<div class="article-body">
-					{{post.content|e('wp_kses_post')|raw}}
-				</div>
-			</section>
-		{% if ( 'closed' != post.comment_status ) %}
-			<section class="comments">
-				<div class="respond">
-					<h3 class="h2">{{ __( 'Comments', domain ) }}</h3>
-					{{ fn('comment_form') }}
-				</div>
-				<div class="responses">
-					{% for cmt in post.get_comments() %}
-						{% include "comment.twig" with {comment:cmt} %}
+				<div><span>{{ __('post', 'planet4-master-theme') }}</span>
+					{% for tag in post.tags %}
+						<span class="post-tag">
+							<a href="{{ tag.link }}">#{{ tag.title }}</a>
+						</span>
 					{% endfor %}
 				</div>
+				<h1 class="article-h1">{{ post.title|raw }}</h1>
+				<p class="blog-author">
+					<span><i>{{ __( 'by', domain ) }}</i></span>
+					{% if ( author_override ) %}
+						<i>{{ author_override }} </i>
+					{% else %}
+						<a href="{{ post.author.path }}"><i>{{ post.author.name }} </i> </a>
+					{% endif %}
+					<span><i>/</i></span> <i>{{ post.post_date|date }}</i>
+				</p>
+				<div class="article-body">
+					{{ post.content|e('wp_kses_post')|raw }}
+				</div>
+
+				{% if ( author_override == '' and post.author.description ) %}
+					<div class="article-author">
+						<div class="row">
+							<div class="col-md-6">
+								<div>
+									{{ __('about the author', 'planet4-master-theme') }}
+								</div>
+								<div>
+									<h5><a href='{{ post.author.link }}'
+									       title="{{ post.author.name }}">{{ post.author.name }}</a></h5>
+								</div>
+								<div class="author-description">
+									{{ post.author.description }}
+
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="author-avatar">
+									{% if ( post.author.avatar ) %}
+										<img src="{{ post.author.avatar }}" class="author-thumbnail"
+										     alt="Image for {{ post.author.name }}"/>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
 			</section>
-		{% endif %}
+			<div>
+				{% if ( post.articles ) %}
+					{{ post.articles|raw }}
+				{% endif %}
+			</div>
+			{% if ( 'closed' != post.comment_status ) %}
+				<section class="comments">
+					<div class="respond">
+						<h3 class="h2">{{ __( 'Comments', domain ) }}</h3>
+						{{ fn('comment_form') }}
+					</div>
+					<div class="responses">
+						{% for cmt in post.get_comments() %}
+							{% include "comment.twig" with {comment:cmt} %}
+						{% endfor %}
+					</div>
+				</section>
+			{% endif %}
 		</article>
 	</div><!-- /content-wrapper -->
 {% endblock %}

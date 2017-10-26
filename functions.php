@@ -344,6 +344,37 @@ class P4_Master_Site extends TimberSite {
 				'preview_size' => 'large',
 			)
 		);
+
+		$p4_post = new_cmb2_box( array(
+			'id'           => $prefix . 'metabox_post',
+			'title'        => __( 'Post Articles Element Fields', 'planet4-master-theme' ),
+			'object_types' => array( 'post' ),
+		) );
+
+		$p4_post->add_field( array(
+			'name' => __( 'Articles Title', 'planet4-master-theme' ),
+			'desc' => __( 'Title for articles block', 'planet4-master-theme' ),
+			'id'   => $prefix . 'articles_title',
+			'type' => 'text_medium',
+		) );
+
+		$p4_post->add_field( array(
+				'name'       => __( 'Articles Count', 'planet4-master-theme' ),
+				'desc'       => __( 'Number of articles that should be displayed for articles block', 'planet4-master-theme' ),
+				'id'         => $prefix . 'articles_count',
+				'type'       => 'text_medium',
+				'attributes' => array(
+					'type' => 'number',
+				),
+			)
+		);
+
+		$p4_post->add_field( array(
+			'name' => __( 'Author Override', 'planet4-master-theme' ),
+			'desc' => __( 'Enter author name if you want to override the author', 'planet4-master-theme' ),
+			'id'   => $prefix . 'author_override',
+			'type' => 'text_medium',
+		) );
 	}
 
 	/**

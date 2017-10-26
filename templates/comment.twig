@@ -1,4 +1,5 @@
 <div class="blog-comment {{ comment.comment_type }}" id="blog-comment-{{ comment.ID }}">
-	<h5 class="comment-author">{{ comment.author.name }} says</h5>
 	<div class="comment-content">{{ comment.comment_content|wpautop|raw }}</div>
+	<span class="comment-author">{{ comment.author.name }} </span>&nbsp; / &nbsp;
+	<span class="comment-date">{{ comment.date }} </span>
 </div>
