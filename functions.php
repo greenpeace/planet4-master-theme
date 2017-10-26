@@ -298,15 +298,14 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_post->add_field( array(
 			'name' => __( 'Articles Title', 'planet4-master-theme' ),
-			'desc' => __( 'Articles title comes here', 'planet4-master-theme' ),
+			'desc' => __( 'Title for articles block', 'planet4-master-theme' ),
 			'id'   => $prefix . 'articles_title',
 			'type' => 'text_medium',
 		) );
 
-		$p4_post->add_field(
-			array(
+		$p4_post->add_field( array(
 				'name'       => __( 'Articles Count', 'planet4-master-theme' ),
-				'desc'       => __( 'Articles count comes here', 'planet4-master-theme' ),
+				'desc'       => __( 'Number of articles that should be displayed for articles block', 'planet4-master-theme' ),
 				'id'         => $prefix . 'articles_count',
 				'type'       => 'text_medium',
 				'attributes' => array(
