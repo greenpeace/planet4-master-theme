@@ -1,0 +1,16 @@
+<tr id="result-row-{{ post.ID }}">
+	<th>
+		{% if ( post.get_thumbnail ) %}
+			<img src="{{ post.thumbnail.src }}" height="150" width="150" alt="image" />
+		{% endif %}
+	</th>
+	<td>
+		<article class="tease tease-{{ post.post_type }}" id="tease-{{ post.ID }}">
+			{% block content %}
+				<h2 class="h2"><a href="{{ post.link }}">{{ post.title|raw }}</a></h2>
+				<span class="result-post-date">{{ post.post_date|date('M d, Y') }}</span>
+				<p>{{ post.preview()|truncate( 25, true )|raw }}</p>
+			{% endblock %}
+		</article>
+	</td>
+</tr>

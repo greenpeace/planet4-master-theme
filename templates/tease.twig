@@ -1,7 +1,7 @@
 <article class="tease tease-{{ post.post_type }}" id="tease-{{ post.ID }}">
 	{% block content %}
 		<h2 class="h2"><a href="{{ post.link }}">{{ post.title|raw }}</a></h2>
-		<p>{{ post.get_preview|raw }}</p>
+		<p>{{ post.preview()|truncate( 25, true )|raw }}</p>
 		{% if ( post.get_thumbnail ) %}
 			<img src="{{ post.thumbnail.src }}" />
 		{% endif %}
