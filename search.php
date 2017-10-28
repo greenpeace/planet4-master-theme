@@ -16,16 +16,14 @@
 global $wp_query;
 
 $templates = array( 'search.twig', 'archive.twig', 'index.twig' );
-$context = Timber::get_context();
-
-$default_sort = 'relevant';
-$found_posts = $wp_query->found_posts;
-$context['title']  = $found_posts . ' results for \'' . get_search_query() . '\'';
+$context   = Timber::get_context();
 $context['sort_options'] = [
 	'relevant' => __( 'Most relevant', 'planet4-master-theme' ),
 	'recent'   => __( 'Most recent', 'planet4-master-theme' ),
 ];
 
+$search        = get_search_query();
+$default_sort  = 'relevant';
 $field         = 'search_results_sort';
 $selected_sort = filter_input( INPUT_POST, $field, FILTER_SANITIZE_STRING );
 
@@ -37,11 +35,20 @@ if ( ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) 
 
 switch ( $context['selected_sort'] ) {
 	case 'recent':
-		$context['posts']  = Timber::get_posts(); // TODO - Sort by date.
+		$context['posts']  = Timber::get_posts( [
+			's'       => $search,
+			'orderby' => 'post_date',
+			'order'   => 'DESC',
+		] );
 		break;
 	default:
-		$context['posts']  = Timber::get_posts();
+		$context['posts'] = Timber::get_posts( [
+			's' => $search,
+		] );
 }
+
+$found_posts = count( $context['posts'] );
+$context['title']  = $found_posts . ' results for \'' . get_search_query() . '\'';
 
 $context['issues'] = get_categories( [
 	'child_of' => get_category_by_slug( 'issues' )->term_id,
