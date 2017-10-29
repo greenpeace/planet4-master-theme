@@ -38,12 +38,12 @@
 		.results td {
 			vertical-align: top;
 		}
+		#results_settings {
+			float: right;
+		}
 		.result-post-date {
 			font-style: italic;
 			color: grey;
-		}
-		#search_sort_form {
-			float: right;
 		}
 	</style>
 	<div id="search-results-container" class="search-results-container">
@@ -107,12 +107,9 @@
 					<br />
 				</div>
 				<div class="results">
-					<form id="search_sort_form" name="search_sort_form" method="post">
-						{# Add Nonce verification here for protection against CSRF attacks. #}
-						<input type="hidden" name="form_submit" value="{{ form_submit }}">
-
+					<div id="results_settings" name="results_settings">
 						<h4>{{ __( 'Sort by', domain ) }}</h4>
-						<select id="search_results_sort" name="search_results_sort" class="custom-select">
+						<select id="select_order" name="select_order" class="custom-select">
 							{% for key, sort_option in sort_options %}
 								{% if key == selected_sort %}
 									<option value="{{ key }}" selected>{{ sort_option }}</option>
@@ -121,7 +118,7 @@
 								{% endif %}
 							{% endfor %}
 						</select>
-					</form>
+					</div>
 					<table>
 						{% for post in posts %}
 							{% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
@@ -137,8 +134,9 @@
 		$ = jQuery;
 
 		$(document).ready(function() {
-			$("#search_results_sort").off("change").on("change", function () {
-				this.closest("form").submit();
+			$("#select_order").on("change", function () {
+				$("#order", $("#search_form")).val( $(this).val() ).parent().submit();
+				return false;
 			});
 		} );
 	</script>
