@@ -1,0 +1,38 @@
+{% extends "base.twig" %}
+
+{% block content %}
+	{% if ( tag_image ) %}
+		<style>
+			body {
+				background-image: url("{{ tag_image }}");
+				background-size: cover;
+			}
+			.tag_template {
+				margin-top: 100px;
+			}
+			.tag_template .tag_header_container {
+				color: white;
+			}
+			.category {
+				color: #ffd920;
+				text-transform: uppercase;
+			}
+			.tag_slug {
+				padding-bottom: 50px;
+			}
+			.tag_description {
+				width: 40%;
+			}
+		</style>
+	{% endif %}
+	<div class="tag_template">
+		<div class="container tag_header_container">
+			<h5 class="category">{{ category }}</h5>
+			<h1 class="tag_slug">#{{ tag_slug }}</h1>
+			<h3 class="tag_name">{{ tag_name }}</h3>
+			<p class="tag_description">{{ tag_description }}</p>
+		</div>
+		{{ covers|raw }}<br />
+		{{ happy_point|raw }}
+	</div>
+{% endblock %}
