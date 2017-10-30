@@ -42,33 +42,36 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 		 * @param WP_Term $wp_tag The object passed to the callback when on Edit Tag page.
 		 */
 		public function add_taxonomy_form_fields( $wp_tag ) {
-			if ( isset( $wp_tag ) && $wp_tag instanceof WP_Term ) { ?>
-				<tr class="form-field term-image-wrap">
+			if ( isset( $wp_tag ) && $wp_tag instanceof WP_Term ) {
+				$attachment_id  = get_term_meta( $wp_tag->term_id, 'tag_attachment_id', true );
+				$attachment_url = get_term_meta( $wp_tag->term_id, 'tag_attachment', true ); ?>
+
+				<tr class="form-field edit-wrap term-image-wrap">
 					<th>
-						<label for="tag_attachment_id"><?php esc_html_e( 'Image', 'planet4-master-theme' ); ?></label>
+						<label><?php esc_html_e( 'Image', 'planet4-master-theme' ); ?></label>
 					</th>
 					<td>
-						<input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag_attachment_id" value="" />
+						<input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag-attachment-id" value="<?php echo esc_attr( $attachment_id ); ?>" />
+						<input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url" value="<?php echo esc_url( $attachment_url ); ?>" />
 						<button class="button insert-media add_media" name="insert_image_tag_button" id="insert_image_tag_button" type="button">
 							<?php esc_html_e( 'Select/Upload Image', 'planet4-master-theme' ); ?>
 						</button>
 						<p class="description"><?php esc_html_e( 'Associate this tag with an image.', 'planet4-master-theme' ); ?></p>
-						<p class="tag_attachment">
-							<?php echo wp_get_attachment_image( get_term_meta( $wp_tag->term_id, 'tag_attachment_id', true ) ); ?>
-						</p>
+						<img class="attachment-thumbnail size-thumbnail" src="<?php echo esc_url( $attachment_url ); ?>"/>
+						<i class="dashicons dashicons-dismiss <?php echo $attachment_url ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
 					</td>
 				</tr>
 			<?php } else { ?>
-				<div class="form-field term-image-wrap">
-					<label for="tag_attachment_id"><?php esc_html_e( 'Image', 'planet4-master-theme' ); ?></label>
+				<div class="form-field add-wrap term-image-wrap">
+					<label><?php esc_html_e( 'Image', 'planet4-master-theme' ); ?></label>
 					<input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag_attachment_id" value="" />
+					<input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url" value="" />
 					<button class="button insert-media add_media" name="insert_image_tag_button" id="insert_image_tag_button" type="button">
 						<?php esc_html_e( 'Select/Upload Image', 'planet4-master-theme' ); ?>
 					</button>
 					<p class="description"><?php esc_html_e( 'Associate this tag with an image.', 'planet4-master-theme' ); ?></p>
-					<p class="tag_attachment">
-						<img class="attachment-thumbnail size-thumbnail" src=""/>
-					</p>
+					<img class="attachment-thumbnail size-thumbnail" src="" />
+					<i class="dashicons dashicons-dismiss hidden" style="cursor: pointer;"></i>
 				</div>
 				<?php
 			}
@@ -80,11 +83,14 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 		 * @param int $term_id The ID of the WP_Term object that is added or edited.
 		 */
 		public function save_taxonomy_meta( $term_id ) {
-			$field         = 'tag_attachment_id';
-			$attachment_id = filter_input( INPUT_POST, $field, FILTER_VALIDATE_INT );
+			$field_id       = 'tag_attachment_id';
+			$field_url      = 'tag_attachment';
+			$attachment_id  = filter_input( INPUT_POST, $field_id, FILTER_VALIDATE_INT );
+			$attachment_url = filter_input( INPUT_POST, $field_url, FILTER_VALIDATE_URL );
 
 			if ( $this->validate( $attachment_id ) ) {
-				update_term_meta( $term_id, $field, $attachment_id );
+				update_term_meta( $term_id, $field_id, $attachment_id );
+				update_term_meta( $term_id, $field_url, $attachment_url );
 			}
 		}
 
@@ -132,12 +138,12 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 		/**
 		 * Validates the input.
 		 *
-		 * @param int $input The user input to be validated.
+		 * @param int    $id The attachment id to be validated.
 		 *
 		 * @return bool True if validation is ok, false if validation fails.
 		 */
-		public function validate( $input ) : bool {
-			if ( $input <= 0 ) {
+		public function validate( $id ) : bool {
+			if ( $id < 0 ) {
 				return false;
 			}
 			return true;
