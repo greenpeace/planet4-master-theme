@@ -43,8 +43,9 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 		 */
 		public function add_taxonomy_form_fields( $wp_tag ) {
 			if ( isset( $wp_tag ) && $wp_tag instanceof WP_Term ) {
-				$attachment_id  = get_term_meta( $wp_tag->term_id, 'tag_attachment_id', true );
-				$attachment_url = get_term_meta( $wp_tag->term_id, 'tag_attachment', true ); ?>
+				$attachment_id    = get_term_meta( $wp_tag->term_id, 'tag_attachment_id', true );
+				$image_attributes = wp_get_attachment_image_src( $attachment_id, 'full' );
+				$attachment_url   = $image_attributes ? $image_attributes[0] : ''; ?>
 
 				<tr class="form-field edit-wrap term-image-wrap">
 					<th>
@@ -58,7 +59,7 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 						</button>
 						<p class="description"><?php esc_html_e( 'Associate this tag with an image.', 'planet4-master-theme' ); ?></p>
 						<img class="attachment-thumbnail size-thumbnail" src="<?php echo esc_url( $attachment_url ); ?>"/>
-						<i class="dashicons dashicons-dismiss <?php echo $attachment_url ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
+						<i class="dashicons dashicons-dismiss <?php echo $image_attributes ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
 					</td>
 				</tr>
 			<?php } else { ?>
