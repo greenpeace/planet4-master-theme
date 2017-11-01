@@ -98,6 +98,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'pre_get_posts',         array( $this, 'tags_support_query' ) );
 		add_action( 'admin_init',            array( $this, 'add_copyright_text' ) );
 		add_action( 'admin_init',            array( $this, 'add_google_tag_manager_identifier_setting' ) );
+		add_action( 'admin_init',            array( $this, 'add_engaging_network_form_id' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
 		add_action( 'wp_enqueue_scripts',    array( $this, 'enqueue_public_assets' ) );
 
@@ -150,6 +151,21 @@ class P4_Master_Site extends TimberSite {
 		printf(
 			'<input type="text" name="google_tag_manager_identifier" class="regular-text" value="%1$s" id="%2$s" />',
 			esc_attr( $google_tag_identifier ),
+			esc_attr( $args['label_for'] )
+		);
+	}
+
+	/**
+	 * Show Engaging network id text field.
+	 *
+	 * @param array $args
+	 */
+	public function engaging_network_id_show_settings( $args ) {
+		$engaging_network_id = get_option( 'engaging_network_form_id', '' );
+
+		printf(
+			'<input type="text" name="engaging_network_form_id" class="regular-text" value="%1$s" id="%2$s" />',
+			esc_attr( $engaging_network_id ),
 			esc_attr( $args['label_for'] )
 		);
 	}
@@ -215,6 +231,37 @@ class P4_Master_Site extends TimberSite {
 			'google_tag_manager_identifier',
 			array(
 				'label_for' => 'google_tag_manager_identifier',
+			)
+		);
+	}
+
+/**
+	 * Function to add engaging network ID option in general options
+	 */
+	public function add_engaging_network_form_id() {
+		add_settings_section(
+			'engaging_network_form_id',
+			'',
+			'',
+			'general'
+		);
+
+		// Register taxonomies for page.
+		register_setting(
+			'general',
+			'engaging_network_form_id',
+			'trim'
+		);
+
+		// Register the field for the "copyright" section.
+		add_settings_field(
+			'engaging_network_id',
+			'Engaging Network ID',
+			array( $this, 'engaging_network_id_show_settings' ),
+			'general',
+			'engaging_network_form_id',
+			array(
+				'label_for' => 'engaging_network_form_id',
 			)
 		);
 	}
