@@ -294,7 +294,7 @@ class P4_Master_Site extends TimberSite {
 	 * @return string The customized part of the query related to the ORDER BY.
 	 */
 	function edit_searchwp_query_orderby( $sql ) {
-		global $wp_query, $wpdb;
+		global $wp_query;
 
 		$selected_sort  = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
 		$selected_order = $wp_query->get( 'order' );
