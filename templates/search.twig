@@ -1,0 +1,143 @@
+{% extends "base.twig" %}
+
+{% block content %}
+	<style>
+		#search-results-container {
+			width: 80%;
+			padding-top: 130px;
+			top:0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
+		}
+		#search-results-container > h2 {
+			text-align: center;
+		}
+		#search-results-filter {
+			display: flex;
+			justify-content: center;
+		}
+		.filters-box {
+			padding-left: 20px;
+			border: 1px solid rgba(0,0,0,0.75);
+			-webkit-box-shadow: -4px 9px 5px 0 rgba(0,0,0,0.75);
+			-moz-box-shadow: -4px 9px 5px 0 rgba(0,0,0,0.75);
+			box-shadow: -4px 9px 5px 0 rgba(0,0,0,0.75);
+		}
+		.filters {
+			display: inline-block;
+			width: 30%;
+			float:left;
+		}
+		.results {
+			display: inline-block;
+			width: 70%;
+			float:left;
+		}
+		.results td {
+			vertical-align: top;
+		}
+		#results_settings {
+			float: right;
+		}
+		.result-post-date {
+			font-style: italic;
+			color: grey;
+		}
+	</style>
+	<div id="search-results-container" class="search-results-container">
+		{% if ( posts ) %}
+			<h2>{{ title }}</h2>
+			<div id="search-results-filter" class="search-results-filter">
+				<div class="filters">
+					<h4>{{ __( 'Refine your search', domain ) }}</h4>
+					<br />
+
+					<div class="filters-box">
+						<h5>{{ __( 'Issue', domain ) }}</h5>
+					</div>
+					<br />
+					{% for issue in issues %}
+						<label class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" /> {{ issue.name }} ({{ issue.results }})
+							<span class="custom-control-indicator"></span>
+						</label>
+						<br />
+					{% endfor %}
+					<br />
+
+					<div class="filters-box">
+						<h5>{{ __( 'Campaign', domain ) }}</h5>
+					</div>
+					<br />
+					{% for campaign in campaigns %}
+						<label class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" /> {{ campaign.name }} ({{ campaign.results }})
+							<span class="custom-control-indicator"></span>
+						</label>
+						<br />
+					{% endfor %}
+					<br />
+
+					<div class="filters-box">
+						<h5>{{ __( 'Category', domain ) }}</h5>
+					</div>
+					<br />
+					{% for category in categories %}
+						<label class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" /> {{ category.name }} ({{ category.results }})
+							<span class="custom-control-indicator"></span>
+						</label>
+						<br />
+					{% endfor %}
+					<br />
+
+					<div class="filters-box">
+						<h5>{{ __( 'Content Type', domain ) }}</h5>
+					</div>
+					<br />
+					{% for content_type in content_types %}
+						<label class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" /> {{ content_type.name }} ({{ content_type.results }})
+							<span class="custom-control-indicator"></span>
+						</label>
+						<br />
+					{% endfor %}
+					<br />
+				</div>
+				<div class="results">
+					<div id="results_settings" name="results_settings">
+						<h4>{{ __( 'Sort by', domain ) }}</h4>
+						<select id="select_order" name="select_order" class="custom-select">
+							{% for key, sort_option in sort_options %}
+								{% if key == selected_sort %}
+									<option value="{{ key }}" selected>{{ sort_option }}</option>
+								{% else %}
+									<option value="{{ key }}">{{ sort_option }}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</div>
+					<table>
+						{% for post in posts %}
+							{% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
+						{% endfor %}
+					</table>
+				</div>
+			{% else %}
+				<h2>No results found.</h2>
+			{% endif %}
+		</div>
+	</div>
+	<script type="text/javascript">
+		$ = jQuery;
+
+		$(document).ready(function() {
+			$("#select_order").on("change", function () {
+				$("#order", $("#search_form")).val( $(this).val() ).parent().submit();
+				return false;
+			});
+		} );
+	</script>
+{% endblock %}
