@@ -1,7 +1,7 @@
 <tr id="result-row-{{ post.ID }}">
 	<th>
 		{% if ( post.get_thumbnail ) %}
-			<img src="{{ post.thumbnail.src }}" height="150" width="150" alt="image" />
+			<img src="{{ post.thumbnail.src }}" height="150" width="150" alt="{{ post.thumbnail.alt|default( post.title ) }}" />
 		{% endif %}
 	</th>
 	<td>

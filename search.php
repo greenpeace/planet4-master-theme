@@ -13,8 +13,6 @@
  * Planet4 - Search functionality.
  */
 
-global $wp_query;
-
 $templates = array( 'search.twig', 'archive.twig', 'index.twig' );
 $context   = Timber::get_context();
 $context['sort_options'] = [
@@ -37,15 +35,29 @@ switch ( $context['selected_sort'] ) {
 		$context['posts'] = Timber::get_posts( [
 			// TODO - Find solution for Timber bug (see https://github.com/timber/timber/issues/935).
 			// which does not include attachments to get_posts() results if we supply an array as an argument.
-			's'       => $search,
+			// This might be related to Timber not collaborating well with SearchWP. Needs further investigation.
+			's' => $search,
+			'post_type' => [
+				'post',
+				'page',
+				'attachment',
+			],
+			'post_status' => 'any',
 			'orderby' => 'post_date',
-			'order'   => 'DESC',
+			'order' => 'DESC',
+			'numberposts' => -1,
 		] );
 		break;
 	default:
+		// TODO - Add 'numberposts' option.
+		// The issue seems like it is related with Timber and SearchWP not collaborating very well here.
+		// If we add a parameter to Timber::get_posts() then it looks like it skips SearcWP and does
+		// not include attachments. So, for now I leave the default sort without parameter to
+		// be able to review the attachment searching functionality.
 		$context['posts'] = Timber::get_posts();
 }
-$found_posts = count( $context['posts'] );
+// Cast to array for forward compatibility with php 7.2 which requires count parameter to be array or object that implements Countable.
+$found_posts = count( (array) $context['posts'] );
 
 $context['title']  = "$found_posts results for '$search'";
 $context['domain'] = 'planet4-master-theme';
