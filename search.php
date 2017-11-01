@@ -38,7 +38,7 @@ if ( ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) 
   If we do not pass an argument to Timber::get_posts() then it falls back to the main WP_Query which works with SearchWP.
   If we pass an argument to Timber::get_posts() then it creates a subquery and SearchWP is not aware of that and therefore we do not get attachemnts included in search results.
   A solution is to proceed without passing query options to get_posts at all
-  and instead use the `pre_get_posts` hook to set the options to the main WP_Query directly.
+  and instead use the `edit_searchwp_query_orderby` of searchwp to edit the order by part of the main WP_Query directly.
 */
 $context['posts'] = Timber::get_posts();
 
