@@ -294,15 +294,15 @@ class P4_Master_Site extends TimberSite {
 	 * @return string The customized part of the query related to the ORDER BY.
 	 */
 	function edit_searchwp_query_orderby( $sql ) {
-		global $wp_query;
+		global $wp_query, $wpdb;
 
 		$selected_sort  = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
 		$selected_order = $wp_query->get( 'order' );
 
 		if ( $selected_sort !== $this->default_sort ) {
-			return sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order );
+			return esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
 		}
-		return $sql;
+		return esc_sql( $sql );
 	}
 
 	/**
