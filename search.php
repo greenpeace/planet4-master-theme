@@ -19,12 +19,12 @@ global $wp_query;
 $templates = array( 'search.twig', 'archive.twig', 'index.twig' );
 $context   = Timber::get_context();
 $context['sort_options'] = [
-	'relevant' => __( 'Most relevant', 'planet4-master-theme' ),
-	'recent'   => __( 'Most recent', 'planet4-master-theme' ),
+	'relevant'  => __( 'Most relevant', 'planet4-master-theme' ),
+	'post_date' => __( 'Most recent', 'planet4-master-theme' ),
 ];
 
 $default_sort  = 'relevant';
-$selected_sort = filter_input( INPUT_GET, 'order', FILTER_SANITIZE_STRING );
+$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
 $search        = get_search_query();
 
 if ( ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) ) {
@@ -34,12 +34,10 @@ if ( ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) 
 }
 
 /*
-  The issue seems like it is related with Timber and SearchWP not collaborating very well here. After investigating this we found that
-  If we do not pass an argument to Timber::get_posts() then it falls back to the main WP_Query which works with SearchWP.
-  If we pass an argument to Timber::get_posts() then it creates a subquery and SearchWP is not aware of that and therefore we do not get attachemnts included in search results.
-  A solution is to proceed without passing query options to get_posts at all
-  and instead use the `edit_searchwp_query_orderby` of searchwp to edit the order by part of the main WP_Query directly.
-*/
+ * With no args passed to this call, Timber uses the main query which we filter for customisations via P4_Master_Site class.
+ *
+ * When customising this query, use filters on the main query to avoid bypassing SearchWP's handling of the query.
+ */
 $context['posts'] = Timber::get_posts();
 
 $found_posts = $wp_query->found_posts;

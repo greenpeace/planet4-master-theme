@@ -33,6 +33,8 @@ class P4_Master_Site extends TimberSite {
 		'en_US' => 'International (English)',
 		'el_GR' => 'Greece (Ελληνικά)',
 	];
+	/** @var string $default_sort */
+	protected $default_sort;
 	/** @var int $posts_per_page */
 	protected $posts_per_page;
 	/** @var array $services */
@@ -81,6 +83,7 @@ class P4_Master_Site extends TimberSite {
 		Timber::$dirname        = [ 'templates', 'views' ];
 		$this->theme_dir        = get_template_directory_uri();
 		$this->theme_images_dir = $this->theme_dir . '/images/';
+		$this->default_sort     = 'relevant';
 		$this->posts_per_page   = 10;
 	}
 
@@ -293,10 +296,11 @@ class P4_Master_Site extends TimberSite {
 	function edit_searchwp_query_orderby( $sql ) {
 		global $wp_query;
 
-		$selected_sort = filter_input( INPUT_GET, 'order', FILTER_SANITIZE_STRING );
+		$selected_sort  = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
+		$selected_order = $wp_query->get( 'order' );
 
-		if ( 'recent' === $selected_sort ) {
-			return sprintf( 'ORDER BY post_date %s', $wp_query->get( 'order' ) );
+		if ( $selected_sort !== $this->default_sort ) {
+			return sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order );
 		}
 		return $sql;
 	}
