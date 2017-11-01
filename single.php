@@ -24,6 +24,37 @@ if ( ! empty( $articles_title ) ) {
 }
 $context['post'] = $post;
 
+// Populate the arguments array for the comment form in order to customize the form's fields
+$comments_args            = array(
+
+	'title_reply'          => __( 'Leave Your Reply', 'planet4-master-theme' ),
+	'title_reply_before'   => '<h3 id="reply-title" class="comment-reply-title">',
+	'title_reply_after'    => '</h3>',
+	'submit_button'        => '<button type="submit" class="btn btn-medium secondary-button mt-64">' . __( 'Post Comment', 'planet4-master-theme' ) . '</button>',
+	'comment_notes_before' => '',
+	'comment_notes_after'  => '',
+	'comment_field'        => '<div class="form-group mb-0">
+									<label for="comments-textarea">' . __( 'Comment', 'planet4-master-theme' ) . ' *</label>
+									<textarea class="form-control" id="comment" name="comment" rows="6" placeholder="Your Comment"></textarea>
+								</div>',
+
+	'fields' => apply_filters( 'comment_form_default_fields', array(
+
+			'author' => '<div class="form-group">
+							<label for="comments-name-input">' . __( 'Name', 'planet4-master-theme' ) . ' *</label>
+							<input id="author" name="author" type="text" class="form-control" placeholder="' . __( 'Your Name', 'planet4-master-theme' ) . '">
+						</div>',
+
+			'email' => '<div class="form-group mb-0">
+							<label for="comments-email-input">' . __( 'Email', 'planet4-master-theme' ) . ' *</label>
+							<input type="email" class="form-control" id="email" name="email" placeholder="' . __( 'Your Email', 'planet4-master-theme' ) . '">
+						</div>',
+		)
+	)
+);
+$context['comments_args'] = $comments_args;
+
+
 if ( post_password_required( $post->ID ) ) {
 	Timber::render( 'single-password.twig', $context );
 } else {

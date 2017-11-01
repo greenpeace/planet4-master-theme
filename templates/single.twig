@@ -59,17 +59,26 @@
 				{% endif %}
 			</div>
 			{% if ( 'closed' != post.comment_status ) %}
-				<section class="comments">
-					<div class="respond">
-						<h3 class="h2">{{ __( 'Comments', domain ) }}</h3>
-						{{ fn('comment_form') }}
+
+				<div class="container">
+					<div class="comments-block">
+						<h2>{{ __( 'Comments', domain ) }}</h2>
+						<div class="comments-block-inner">
+							<div class="form-section">
+								{{ fn('comment_form', comments_args) }}
+							</div>
+							<hr>
+							<div class="comments-section">
+
+								{% for cmt in post.get_comments() %}
+									{% include "comment.twig" with {comment:cmt, index: loop.index} %}
+								{% endfor %}
+
+							</div>
+						</div>
 					</div>
-					<div class="responses">
-						{% for cmt in post.get_comments() %}
-							{% include "comment.twig" with {comment:cmt} %}
-						{% endfor %}
-					</div>
-				</section>
+				</div>
+
 			{% endif %}
 		</article>
 	</div><!-- /content-wrapper -->
