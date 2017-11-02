@@ -33,6 +33,10 @@ class P4_Master_Site extends TimberSite {
 		'en_US' => 'International (English)',
 		'el_GR' => 'Greece (Ελληνικά)',
 	];
+	/** @var string $default_sort */
+	protected $default_sort;
+	/** @var int $posts_per_page */
+	protected $posts_per_page;
 	/** @var array $services */
 	protected $services;
 	/** @var array $child_css */
@@ -79,6 +83,8 @@ class P4_Master_Site extends TimberSite {
 		Timber::$dirname        = [ 'templates', 'views' ];
 		$this->theme_dir        = get_template_directory_uri();
 		$this->theme_images_dir = $this->theme_dir . '/images/';
+		$this->default_sort     = 'relevant';
+		$this->posts_per_page   = 10;
 	}
 
 	/**
@@ -90,16 +96,18 @@ class P4_Master_Site extends TimberSite {
 		add_theme_support( 'menus' );
 		add_post_type_support( 'page', 'excerpt' );  // Added excerpt option to pages.
 
-		add_filter( 'timber_context',        array( $this, 'add_to_context' ) );
-		add_filter( 'get_twig',              array( $this, 'add_to_twig' ) );
-		add_action( 'init',                  array( $this, 'register_post_types' ) );
-		add_action( 'init',                  array( $this, 'register_taxonomies' ) );
-		add_action( 'cmb2_admin_init',       array( $this, 'register_header_metabox' ) );
-		add_action( 'pre_get_posts',         array( $this, 'tags_support_query' ) );
-		add_action( 'admin_init',            array( $this, 'add_copyright_text' ) );
-		add_action( 'admin_init',            array( $this, 'add_google_tag_manager_identifier_setting' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
-		add_action( 'wp_enqueue_scripts',    array( $this, 'enqueue_public_assets' ) );
+		add_filter( 'timber_context',         array( $this, 'add_to_context' ) );
+		add_filter( 'get_twig',               array( $this, 'add_to_twig' ) );
+		add_action( 'init',                   array( $this, 'register_post_types' ) );
+		add_action( 'init',                   array( $this, 'register_taxonomies' ) );
+		add_action( 'pre_get_posts',          array( $this, 'add_search_options' ) );
+		add_filter( 'searchwp_query_orderby', array( $this, 'edit_searchwp_query_orderby' ), 10, 2 );
+		add_action( 'cmb2_admin_init',        array( $this, 'register_header_metabox' ) );
+		add_action( 'pre_get_posts',          array( $this, 'tags_support_query' ) );
+		add_action( 'admin_init',             array( $this, 'add_copyright_text' ) );
+		add_action( 'admin_init',             array( $this, 'add_google_tag_manager_identifier_setting' ) );
+		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
+		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -264,6 +272,37 @@ class P4_Master_Site extends TimberSite {
 		if ( $wp_query->get( 'category_name' ) ) {
 			$wp_query->set( 'post_type', 'any' );
 		}
+	}
+
+	/**
+	 * Add custom options to the main WP_Query.
+	 *
+	 * @param WP_Query $wp The WP Query to customize.
+	 */
+	public function add_search_options( WP_Query $wp ) {
+		if ( ! $wp->is_main_query() || ! $wp->is_search() ) {
+			return;
+		}
+		$wp->set( 'posts_per_page', $this->posts_per_page );
+	}
+
+	/**
+	 * Customize the order of search results.
+	 *
+	 * @param string $sql The part of the query related to the ORDER BY.
+	 *
+	 * @return string The customized part of the query related to the ORDER BY.
+	 */
+	function edit_searchwp_query_orderby( $sql ) {
+		global $wp_query;
+
+		$selected_sort  = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
+		$selected_order = $wp_query->get( 'order' );
+
+		if ( $selected_sort !== $this->default_sort ) {
+			return esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
+		}
+		return esc_sql( $sql );
 	}
 
 	/**

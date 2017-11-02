@@ -124,6 +124,7 @@
 							{% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
 						{% endfor %}
 					</table>
+					{{ fn( 'the_posts_pagination', pagination ) }}
 				</div>
 			{% else %}
 				<h2>No results found.</h2>
@@ -135,7 +136,7 @@
 
 		$(document).ready(function() {
 			$("#select_order").on("change", function () {
-				$("#order", $("#search_form")).val( $(this).val() ).parent().submit();
+				$("#orderby", $("#search_form")).val( $(this).val() ).parent().submit();
 				return false;
 			});
 		} );
