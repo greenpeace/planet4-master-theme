@@ -415,6 +415,20 @@ class P4_Master_Site extends TimberSite {
 			'id'   => $prefix . 'author_override',
 			'type' => 'text_medium',
 		) );
+
+		$p4_post->add_field( array(
+			'name'         => __( 'Background Image Override', 'planet4-master-theme' ),
+			'desc'         => __( 'Upload an image or select one from the media library to override the background image', 'planet4-master-theme' ),
+			'id'           => $prefix . 'background_image_override',
+			'type'         => 'file',
+			'options'      => array(
+				'url' => false,
+			),
+			'text'         => array(
+				'add_upload_file_text' => __( 'Add Image', 'planet4-master-theme' ),
+			),
+			'preview_size' => 'large',
+		) );
 	}
 
 	/**

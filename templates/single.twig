@@ -1,82 +1,120 @@
 {% extends "base.twig" %}
 
 {% block content %}
+
+	<style>
+
+		/* Temporary added here. Will be moved to main stylesheet */
+
+		.article {
+			background: none;
+		}
+
+		.post_word {
+			color: yellow;
+			text-transform: uppercase;
+			font-weight: 500;
+		}
+
+		.post_tags a:link {
+			color: yellow;
+		}
+
+		.post_tags a:focus {
+			color: yellow;
+		}
+
+		.post_tags a:active {
+			color: yellow;
+		}
+
+		.post_tags a:hover {
+			color: yellow;
+		}
+
+		.first-paragraph p:first-child {
+			color: white;
+			margin-bottom: 20px;
+			margin-top: 20px;
+		}
+
+		.post_body {
+			background-size: cover;
+			background-color: #EFEFEF;
+			background-image: linear-gradient(140deg, rgba(0, 10, 37, 0.6) 0%, rgba(0, 28, 102, 0.6) 10%, rgba(246, 255, 247, 0.6) 40%, transparent),
+			url({{ background_image }});
+		}
+
+	</style>
 	<div class="container">
 		<div class="content-wrapper">
 			<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
 				<section class="article-content">
-					<div><span>{{ __('post', 'planet4-master-theme') }}</span>
-						{% for tag in post.tags %}
-							<span class="post-tag">
+
+					<div class="row">
+						<div class="col-md-4">
+							<span class="post_word">{{ __('post', 'planet4-master-theme') }} &bull;</span>
+							{% for tag in post.tags %}
+								<span class="post-tags">
 							<a href="{{ tag.link }}">#{{ tag.title }}</a>
 						</span>
-						{% endfor %}
+							{% endfor %}
+						</div>
 					</div>
-					<h1 class="article-h1">{{ post.title|raw }}</h1>
-					<p class="blog-author">
+					<div class="row">
+						<div class="col-md-4">
+							<h1 class="article-h1" style="color: white">{{ post.title|raw }}</h1>
+						</div>
+					</div>
+
+					<p class="blog-author" style="color: white;">
 						<span><i>{{ __( 'by', domain ) }}</i></span>
 						{% if ( author_override ) %}
-							<i>{{ author_override }} </i>
+							<i>{{ author_override }}</i>
 						{% else %}
 							<a href="{{ post.author.path }}"><i>{{ post.author.name }} </i> </a>
 						{% endif %}
 						<span><i>/</i></span> <i>{{ post.post_date|date }}</i>
 					</p>
+
 					<div class="article-body">
+						{% if ( post.first_paragraph ) %}
+							<div class="row first-paragraph">
+								<div class="col-md-6">
+									<p>
+										{{ post.first_paragraph|e('wp_kses_post')|raw }}
+									</p>
+								</div>
+							</div>
+						{% endif %}
+
+						{% if ( post.first_paragraph ) %}
+							<div class="row">
+								<div class="col-md-6">
+									<p>
+										{{ post.second_paragraph|e('wp_kses_post')|raw }}
+									</p>
+								</div>
+							</div>
+						{% endif %}
+
 						{{ post.content|e('wp_kses_post')|raw }}
 					</div>
 
 					{% if ( author_override == '' and post.author.description ) %}
-						<div class="container clearfix">
-							<div class="author-block">
-								<div class="skewbox author-info">
-									<div class="author-info-inner">
-										<h2 class="author-info-heading">{{ __('about the author', 'planet4-master-theme') }}</h2>
-										<h5 class="author-name">
-											<a href='{{ post.author.link }}'
-											   title="{{ post.author.name }}">{{ post.author.name }}</a></h5>
-										<p class="author-info-brief">{{ post.author.description }}</p>
-									</div>
-								</div>
-								<div class="skewbox author-img">
-									{% if ( post.author.avatar ) %}
-										<img src="{{ post.author.avatar }}" class="author-pic"
-										     alt="Image for {{ post.author.name }}"/>
-									{% endif %}
-								</div>
-							</div>
-						</div>
+						{% include "blocks/author_profile.twig" with {post:post} %}
 					{% endif %}
 
 				</section>
 				<div>
 					{% if ( post.articles ) %}
-						{{ post.articles|raw }}
+						{{ post.articles|shortcodes|raw }}
 					{% endif %}
 				</div>
 				{% if ( 'closed' != post.comment_status ) %}
-
-					<div class="container">
-						<div class="comments-block">
-							<h2>{{ __( 'Comments', domain ) }}</h2>
-							<div class="comments-block-inner">
-								<div class="form-section">
-									{{ fn('comment_form', comments_args) }}
-								</div>
-								<hr>
-								<div class="comments-section">
-
-									{% for cmt in post.get_comments() %}
-										{% include "comment.twig" with {comment:cmt, index: loop.index} %}
-									{% endfor %}
-
-								</div>
-							</div>
-						</div>
-					</div>
-
+					{% include "comments_section.twig" with {comments:post.get_comments()} %}
 				{% endif %}
 			</article>
-		</div><!-- /content-wrapper -->
+		</div>
 	</div>
 {% endblock %}

@@ -9,46 +9,57 @@
  * @since    Timber 0.1
  */
 
-
-$context = Timber::get_context();
-$post    = Timber::query_post();
-
-$page_meta_data             = get_post_meta( $post->ID );
-$articles_title             = $page_meta_data['p4_articles_title'][0];
-$articles_count             = intval( $page_meta_data['p4_articles_count'][0] );
-$articles_count             = $articles_count == 0 ? 3 : $articles_count;
-$context['author_override'] = $page_meta_data['p4_author_override'][0];
-
-if ( ! empty( $articles_title ) ) {
-	$post->articles = do_shortcode( "[shortcake_articles article_heading='$articles_title' article_count='$articles_count' /]" );
+// Add custom css class for body element
+function add_body_classes_for_post( $classes ) {
+	$classes[] = 'post_body';
+	return $classes;
 }
-$context['post'] = $post;
+add_filter( 'body_class', 'add_body_classes_for_post' );
 
-// Populate the arguments array for the comment form in order to customize the form's fields
-$comments_args            = array(
 
-	'title_reply'          => __( 'Leave Your Reply', 'planet4-master-theme' ),
-	'title_reply_before'   => '<h3 id="reply-title" class="comment-reply-title">',
-	'title_reply_after'    => '</h3>',
-	'submit_button'        => '<button type="submit" class="btn btn-medium secondary-button mt-64">' . __( 'Post Comment', 'planet4-master-theme' ) . '</button>',
+// Initializing variables.
+$context                     = Timber::get_context();
+$post                        = Timber::query_post();
+$context['post']             = $post;
+
+
+// Get the cmb2 custom fields data
+// Articles block parameters to populate the articles block
+// Author override parameter. If this is set then the author profile section will not be displayed
+$page_meta_data              = get_post_meta( $post->ID );
+$articles_title              = $page_meta_data['p4_articles_title'][0];
+$articles_count              = intval( $page_meta_data['p4_articles_count'][0] );
+$articles_count              = $articles_count == 0 ? 3 : $articles_count;
+$context['author_override']  = $page_meta_data['p4_author_override'][0];
+$context['background_image'] = $page_meta_data['p4_background_image_override'][0];
+
+
+// Build the shortcode for articles block
+if ( ! empty( $articles_title ) ) {
+	$post->articles = "[shortcake_articles article_heading='$articles_title' article_count='$articles_count' /]";
+}
+
+
+// Breaking the content to retrieve first 2 paragraphs
+$parts = preg_split("/(\r\n|\n|\r)/", $post->post_content, 3);
+if ( count( $parts ) == 3 ) {
+	$post->first_paragraph  = $parts[0];
+	$post->second_paragraph = $parts[1];
+	$post->post_content     = $parts[2];
+}
+
+
+// Build an arguments array to customize wordpress comment form
+$comments_args = array(
+
 	'comment_notes_before' => '',
 	'comment_notes_after'  => '',
-	'comment_field'        => '<div class="form-group mb-0">
-									<label for="comments-textarea">' . __( 'Comment', 'planet4-master-theme' ) . ' *</label>
-									<textarea class="form-control" id="comment" name="comment" rows="6" placeholder="Your Comment"></textarea>
-								</div>',
-
-	'fields' => apply_filters( 'comment_form_default_fields', array(
-
-			'author' => '<div class="form-group">
-							<label for="comments-name-input">' . __( 'Name', 'planet4-master-theme' ) . ' *</label>
-							<input id="author" name="author" type="text" class="form-control" placeholder="' . __( 'Your Name', 'planet4-master-theme' ) . '">
-						</div>',
-
-			'email' => '<div class="form-group mb-0">
-							<label for="comments-email-input">' . __( 'Email', 'planet4-master-theme' ) . ' *</label>
-							<input type="email" class="form-control" id="email" name="email" placeholder="' . __( 'Your Email', 'planet4-master-theme' ) . '">
-						</div>',
+	'comment_field'        => Timber::compile( 'comment_form/comment_field.twig' ),
+	'submit_button'        => Timber::compile( 'comment_form/submit_button.twig' ),
+	'title_reply'          => __( 'Leave Your Reply', 'planet4-master-theme' ),
+	'fields'               => apply_filters( 'comment_form_default_fields', array(
+			'author' => Timber::compile( 'comment_form/author_field.twig' ),
+			'email'  => Timber::compile( 'comment_form/email_field.twig' ),
 		)
 	)
 );
