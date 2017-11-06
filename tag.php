@@ -15,8 +15,6 @@ use Timber\Timber;
  * TODO - Replace hard-coded block names with constants to be added in every block and which will
  * TODO - allow us to access easily the block's name ( e.g. Covers::BLOCK_NAME ),
  * TODO - depracate the protected $block_name property and deprecate the load() method from child blocks.
- *
- * TODO - Add custom field in Tag to allow Editors to select background images for the Happy Point block
  */
 $templates = array( 'tag.twig', 'archive.twig', 'index.twig' );
 
@@ -56,15 +54,8 @@ $campaign->add_block( 'campaign_thumbnail', [
 	'category_id' => $category->term_id ?? __( 'This Campaign is not assigned to an Issue', 'planet4-master-theme' ),
 ] );
 
-$args = array(
-	'post_type'   => 'attachment',
-	'title'       => 'Happy Point',
-	'numberposts' => 1,
-);
-$attachment = get_posts( $args );
-
 $campaign->add_block( 'happy_point', [
-	'background'       => $attachment[0]->ID,       // Use image titled as 'Happy Point' until we add a custom field in Tag.
+	'background'       => get_term_meta( $context['tag']->term_id, 'happypoint_attachment_id', true ),
 	'boxout_title'     => __( 'Get action alerts in your inbox', 'planet4-master-theme' ),
 	'boxout_descr'     => __( 'Some text here about the transparency of the communications. Opt out or contact us at any time.', 'planet4-master-theme' ),
 	'boxout_link_text' => __( 'Subscribe', 'planet4-master-theme' ),
