@@ -45,15 +45,19 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 			if ( isset( $wp_tag ) && $wp_tag instanceof WP_Term ) {
 				$attachment_id    = get_term_meta( $wp_tag->term_id, 'tag_attachment_id', true );
 				$image_attributes = wp_get_attachment_image_src( $attachment_id, 'full' );
-				$attachment_url   = $image_attributes ? $image_attributes[0] : ''; ?>
+				$attachment_url   = $image_attributes ? $image_attributes[0] : '';
+
+				$happypoint_attachment_id    = get_term_meta( $wp_tag->term_id, 'happypoint_attachment_id', true );
+				$happypoint_image_attributes = wp_get_attachment_image_src( $happypoint_attachment_id, 'full' );
+				$happypoint_attachment_url   = $happypoint_image_attributes ? $happypoint_image_attributes[0] : ''; ?>
 
 				<tr class="form-field edit-wrap term-image-wrap">
 					<th>
 						<label><?php esc_html_e( 'Image', 'planet4-master-theme' ); ?></label>
 					</th>
 					<td>
-						<input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag-attachment-id" value="<?php echo esc_attr( $attachment_id ); ?>" />
-						<input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url" value="<?php echo esc_url( $attachment_url ); ?>" />
+						<input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag-attachment-id field-id" value="<?php echo esc_attr( $attachment_id ); ?>" />
+						<input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url field-url" value="<?php echo esc_url( $attachment_url ); ?>" />
 						<button class="button insert-media add_media" name="insert_image_tag_button" id="insert_image_tag_button" type="button">
 							<?php esc_html_e( 'Select/Upload Image', 'planet4-master-theme' ); ?>
 						</button>
@@ -62,11 +66,26 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 						<i class="dashicons dashicons-dismiss <?php echo $image_attributes ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
 					</td>
 				</tr>
+				<tr class="form-field edit-wrap term-happypoint-wrap">
+					<th>
+						<label><?php esc_html_e( 'Image Subscribe', 'planet4-master-theme' ); ?></label>
+					</th>
+					<td>
+						<input type="hidden" name="happypoint_attachment_id" id="happypoint_attachment_id" class="happypoint-attachment-id field-id" value="<?php echo esc_attr( $happypoint_attachment_id ); ?>" />
+						<input type="hidden" name="happypoint_attachment" id="happypoint_attachment" class="happypoint-attachment-url field-url" value="<?php echo esc_url( $happypoint_attachment_url ); ?>" />
+						<button class="button insert-media add_media" name="insert_happypoint_image_button" id="insert_happypoint_image_button" type="button">
+							<?php esc_html_e( 'Select/Upload Image', 'planet4-master-theme' ); ?>
+						</button>
+						<p class="description"><?php esc_html_e( 'Choose a background image for the Subscribe block.', 'planet4-master-theme' ); ?></p>
+						<img class="attachment-thumbnail size-thumbnail" src="<?php echo esc_url( $happypoint_attachment_url ); ?>"/>
+						<i class="dashicons dashicons-dismiss <?php echo $happypoint_image_attributes ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
+					</td>
+				</tr>
 			<?php } else { ?>
 				<div class="form-field add-wrap term-image-wrap">
 					<label><?php esc_html_e( 'Image', 'planet4-master-theme' ); ?></label>
-					<input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag_attachment_id" value="" />
-					<input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url" value="" />
+					<input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag_attachment_id field-id" value="" />
+					<input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url field-url" value="" />
 					<button class="button insert-media add_media" name="insert_image_tag_button" id="insert_image_tag_button" type="button">
 						<?php esc_html_e( 'Select/Upload Image', 'planet4-master-theme' ); ?>
 					</button>
@@ -86,6 +105,16 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 		public function save_taxonomy_meta( $term_id ) {
 			$field_id       = 'tag_attachment_id';
 			$field_url      = 'tag_attachment';
+			$attachment_id  = filter_input( INPUT_POST, $field_id, FILTER_VALIDATE_INT );
+			$attachment_url = filter_input( INPUT_POST, $field_url, FILTER_VALIDATE_URL );
+
+			if ( $this->validate( $attachment_id ) ) {
+				update_term_meta( $term_id, $field_id, $attachment_id );
+				update_term_meta( $term_id, $field_url, $attachment_url );
+			}
+
+			$field_id       = 'happypoint_attachment_id';
+			$field_url      = 'happypoint_attachment';
 			$attachment_id  = filter_input( INPUT_POST, $field_id, FILTER_VALIDATE_INT );
 			$attachment_url = filter_input( INPUT_POST, $field_url, FILTER_VALIDATE_URL );
 

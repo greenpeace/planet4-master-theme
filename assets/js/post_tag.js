@@ -5,8 +5,12 @@ $(document).ready(function() {
 	/**
 	 * Taxonomy_Image
 	 */
-	$("#insert_image_tag_button").off("click").on("click", function () {
+	$(".insert-media").off("click").on("click", function () {
 		if ( typeof wp !== "undefined" ) {
+			var field      = $(this).closest(".form-field");
+			var add_field  = $(this).closest(".add-wrap");
+			var edit_field = $(this).closest(".edit-wrap");
+
 			var media_modal = wp.media({
 				title: localizations.media_title,
 				library: {
@@ -18,11 +22,11 @@ $(document).ready(function() {
 			media_modal
 				.on("select", function () {
 					var $selected_image = media_modal.state().get("selection").first().toJSON();
-					$("#tag_attachment_id").val($selected_image.id);
-					$("#tag_attachment").val($selected_image.url);
-					$(".add-wrap .attachment-thumbnail").attr("src", $selected_image.sizes.thumbnail.url);
-					$(".edit-wrap .attachment-thumbnail").attr("src", $selected_image.url);
-					$(".dashicons-dismiss:hidden").show();
+					$(".field-id", field).val($selected_image.id);
+					$(".field-url", field).val($selected_image.url);
+					$(".attachment-thumbnail", add_field).attr("src", $selected_image.sizes.thumbnail.url);
+					$(".attachment-thumbnail", edit_field).attr("src", $selected_image.url);
+					$(".dashicons-dismiss:hidden", field).show();
 				})
 				.open();
 		}
@@ -31,7 +35,7 @@ $(document).ready(function() {
 	});
 
 	$(".form-field .attachment-thumbnail").off("click").on("click", function () {
-		$("#insert_image_tag_button").click();
+		$(".insert-media", $(this).parent()).click();
 	});
 
 	// Clean up the custom fields, since the taxonomy save is made via ajax and the taxonomy page does not reload.
@@ -43,9 +47,11 @@ $(document).ready(function() {
 	});
 
 	$(".dashicons-dismiss").off("click").on("click", function () {
-		$("#tag_attachment_id").val(0);
-		$("#tag_attachment").val("");
-		$(".form-field .attachment-thumbnail").attr("src", "");
+		var field = $(this).closest(".form-field");
+
+		$(".field-id", field).val(0);
+		$(".field-url", field).val("");
+		$(".attachment-thumbnail", field).attr("src", "");
 		$(this).hide();
 	} );
 } );
