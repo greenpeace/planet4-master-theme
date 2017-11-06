@@ -1,5 +1,9 @@
-<div class="blog-comment {{ comment.comment_type }}" id="blog-comment-{{ comment.ID }}">
-	<div class="comment-content">{{ comment.comment_content|wpautop|raw }}</div>
-	<span class="comment-author">{{ comment.author.name }} </span>&nbsp; / &nbsp;
-	<span class="comment-date">{{ comment.date }} </span>
+<div class="single-comment {{ comment.comment_type }}" id="comment-{{ comment.ID }}">
+	<h3 class="comment-heading">{{ __( 'Comment', 'planet4-master-theme' )  }} {{ index }}</h3>
+	<p class="comment-text"> {{ comment.comment_content|wpautop|raw }}</p>
+	<a      {% if ( comment.author.id ) %}
+		href="{{ comment.author.link }}"
+	{% endif %}
+			class="author-info">{{ comment.author.name }}</a>
+	<a class="comment-date">{{ comment.date }}</a>
 </div>

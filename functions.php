@@ -242,6 +242,7 @@ class P4_Master_Site extends TimberSite {
 		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', array(), '4.0.0-alpha.6' );
 		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], '0.0.1'  );
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
+		wp_enqueue_script( 'popperjs', $this->theme_dir . '/assets/js/popper.min.js', array(), '1.11.0', true );
 		wp_enqueue_script( 'bootstrapjs', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', array(), '4.0.0-beta', true );
 		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), null, true );
 	}
@@ -384,36 +385,49 @@ class P4_Master_Site extends TimberSite {
 			)
 		);
 
-		$p4_post = new_cmb2_box( array(
+		$p4_post = new_cmb2_box( [
 			'id'           => $prefix . 'metabox_post',
 			'title'        => __( 'Post Articles Element Fields', 'planet4-master-theme' ),
-			'object_types' => array( 'post' ),
-		) );
+			'object_types' => [ 'post' ],
+		] );
 
-		$p4_post->add_field( array(
+		$p4_post->add_field( [
 			'name' => __( 'Articles Title', 'planet4-master-theme' ),
 			'desc' => __( 'Title for articles block', 'planet4-master-theme' ),
 			'id'   => $prefix . 'articles_title',
 			'type' => 'text_medium',
-		) );
+		] );
 
-		$p4_post->add_field( array(
-				'name'       => __( 'Articles Count', 'planet4-master-theme' ),
-				'desc'       => __( 'Number of articles that should be displayed for articles block', 'planet4-master-theme' ),
-				'id'         => $prefix . 'articles_count',
-				'type'       => 'text_medium',
-				'attributes' => array(
-					'type' => 'number',
-				),
-			)
-		);
+		$p4_post->add_field( [
+			'name'       => __( 'Articles Count', 'planet4-master-theme' ),
+			'desc'       => __( 'Number of articles that should be displayed for articles block', 'planet4-master-theme' ),
+			'id'         => $prefix . 'articles_count',
+			'type'       => 'text_medium',
+			'attributes' => [
+				'type' => 'number',
+			],
+		] );
 
-		$p4_post->add_field( array(
+		$p4_post->add_field( [
 			'name' => __( 'Author Override', 'planet4-master-theme' ),
 			'desc' => __( 'Enter author name if you want to override the author', 'planet4-master-theme' ),
 			'id'   => $prefix . 'author_override',
 			'type' => 'text_medium',
-		) );
+		] );
+
+		$p4_post->add_field( [
+			'name'         => __( 'Background Image Override', 'planet4-master-theme' ),
+			'desc'         => __( 'Upload an image or select one from the media library to override the background image', 'planet4-master-theme' ),
+			'id'           => $prefix . 'background_image_override',
+			'type'         => 'file',
+			'options'      => [
+				'url' => false,
+			],
+			'text'         => [
+				'add_upload_file_text' => __( 'Add Image', 'planet4-master-theme' ),
+			],
+			'preview_size' => 'large',
+		] );
 	}
 
 	/**
