@@ -1,0 +1,16 @@
+<div class="container">
+	<div class="comments-block">
+		<h2>{{ __( 'Comments', domain ) }}</h2>
+		<div class="comments-block-inner">
+			<div class="form-section">
+				{{ fn('comment_form', comments_args) }}
+			</div>
+			<hr>
+			<div class="comments-section">
+				{% for cmt in comments %}
+					{% include "comment.twig" with {comment:cmt, index: loop.index} %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
