@@ -33,7 +33,7 @@
 			<p class="tag_description">{{ tag_description }}</p>
 		</div>
 		{% for name, block in blocks %}
-			{{ block|raw }}
+			{{ block|shortcodes|raw }}
 		{% endfor %}
 	</div>
 {% endblock %}

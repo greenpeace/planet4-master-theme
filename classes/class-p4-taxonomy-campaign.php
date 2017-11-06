@@ -44,7 +44,7 @@ if ( ! class_exists( 'P4_Taxonomy_Campaign' ) ) {
 				}
 				$shortcode .= ' /]';
 
-				$this->context['blocks'][ $block_name ] = do_shortcode( $shortcode );
+				$this->context['blocks'][ $block_name ] = $shortcode;
 			}
 		}
 
