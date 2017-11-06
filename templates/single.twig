@@ -78,26 +78,6 @@
 					</p>
 
 					<div class="article-body">
-						{% if ( post.first_paragraph ) %}
-							<div class="row first-paragraph">
-								<div class="col-md-6">
-									<p>
-										{{ post.first_paragraph|e('wp_kses_post')|raw }}
-									</p>
-								</div>
-							</div>
-						{% endif %}
-
-						{% if ( post.first_paragraph ) %}
-							<div class="row">
-								<div class="col-md-6">
-									<p>
-										{{ post.second_paragraph|e('wp_kses_post')|raw }}
-									</p>
-								</div>
-							</div>
-						{% endif %}
-
 						{{ post.content|e('wp_kses_post')|raw }}
 					</div>
 
