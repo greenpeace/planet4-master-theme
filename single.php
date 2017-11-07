@@ -32,6 +32,7 @@ $context['post']             = $post;
 
 // Get the cmb2 custom fields data
 // Articles block parameters to populate the articles block
+// p4_take_action_page parameter to populate the take action boxout block
 // Author override parameter. If this is set then the author profile section will not be displayed.
 $page_meta_data              = get_post_meta( $post->ID );
 $articles_title              = $page_meta_data['p4_articles_title'][0];
@@ -39,11 +40,25 @@ $articles_count              = intval( $page_meta_data['p4_articles_count'][0] )
 $articles_count              = 0 === $articles_count ? 3 : $articles_count;
 $context['author_override']  = $page_meta_data['p4_author_override'][0];
 $context['background_image'] = $page_meta_data['p4_background_image_override'][0];
+$take_action_page            = $page_meta_data['p4_take_action_page'][0];
 
 
 // Build the shortcode for articles block.
 if ( ! empty( $articles_title ) ) {
 	$post->articles = "[shortcake_articles article_heading='$articles_title' article_count='$articles_count' /]";
+}
+
+// Build the shortcode for take action boxout block.
+if ( ! empty( $take_action_page ) ) {
+	$post->take_action_boxout = "[shortcake_take_action_boxout take_action_page='$take_action_page' /]";
+}
+
+// Breaking the content to retrieve first 2 paragraphs and split the content.
+$parts = preg_split( "/(\r\n|\n|\r)/", $post->post_content, 3 );
+if ( count( $parts ) === 3 ) {
+	$post->first_paragraph  = $parts[0];
+	$post->second_paragraph = $parts[1];
+	$post->post_content     = $parts[2];
 }
 
 // Build an arguments array to customize WordPress comment form.

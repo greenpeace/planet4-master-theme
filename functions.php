@@ -307,6 +307,41 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
+	 * Populate an associative array with all the children of the ACT page
+	 *
+	 * @return array
+	 */
+	public function populate_act_page_children_options() {
+
+		// Get the id of the ACT page. We need this to get the children posts/pages of the ACT Page.
+		$arguments = [
+			'post_type'     => 'page',
+			'post_name__in' => [ 'act', 'ACT', 'Act' ],
+		];
+
+		$query_act_page = new WP_Query( $arguments );
+		$options        = [];
+
+		// If ACT Page is found construct arguments array for the select box.
+		if ( $query_act_page->have_posts() ) {
+			$act_pages              = $query_act_page->get_posts();
+			$act_page               = $act_pages[0];
+			$take_action_pages_args = [
+				'post_type'   => 'page',
+				'post_parent' => $act_page->ID,
+			];
+
+			$query_children = new WP_Query( $take_action_pages_args );
+			$posts          = $query_children->get_posts();
+			foreach ( $posts as $post ) {
+				$options[ $post->ID ] = $post->post_title;
+			}
+		}
+
+		return $options;
+	}
+
+	/**
 	 * Hook in and add a Theme metabox. Can only happen on the 'cmb2_admin_init' or 'cmb2_init' hook.
 	 */
 	public function register_header_metabox() {
@@ -413,6 +448,15 @@ class P4_Master_Site extends TimberSite {
 			'desc' => __( 'Enter author name if you want to override the author', 'planet4-master-theme' ),
 			'id'   => $prefix . 'author_override',
 			'type' => 'text_medium',
+		] );
+
+		$p4_post->add_field( [
+			'name'             => __( 'Take Action Page Selector', 'planet4-master-theme' ),
+			'desc'             => __( 'Select a Take Action Page to populate take action boxout block', 'planet4-master-theme' ),
+			'id'               => $prefix . 'take_action_page',
+			'type'             => 'select',
+			'show_option_none' => true,
+			'options_cb'       => [ $this, 'populate_act_page_children_options' ],
 		] );
 
 		$p4_post->add_field( [
