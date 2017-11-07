@@ -10,6 +10,11 @@
  */
 
 use Timber\Timber;
+use P4BKS\Controllers\Blocks\P4BKS_Blocks_Covers_Controller as Covers;
+use P4BKS\Controllers\Blocks\P4BKS_Blocks_Articles_Controller as Articles;
+use P4BKS\Controllers\Blocks\P4BKS_Blocks_ContentFourColumn_Controller as ContentFourColumn;
+use P4BKS\Controllers\Blocks\P4BKS_Blocks_CampaignThumbnail_Controller as CampaignThumbnail;
+use P4BKS\Controllers\Blocks\P4BKS_Blocks_HappyPoint_Controller as HappyPoint;
 
 /**
  * TODO - Replace hard-coded block names with constants to be added in every block and which will
@@ -32,27 +37,27 @@ if ( is_tag() ) {
 
 $campaign = new P4_Taxonomy_Campaign( $templates, $context );
 
-$campaign->add_block( 'covers', [
+$campaign->add_block( Covers::BLOCK_NAME, [
 	'title'       => __( 'Things you can do', 'planet4-master-theme' ),
 	'description' => __( 'We want you to take action because together we\'re strong.', 'planet4-master-theme' ),
 	'select_tag'  => $context['tag']->term_id,
 ] );
 
-$campaign->add_block( 'articles', [
+$campaign->add_block( Articles::BLOCK_NAME, [
 	'article_heading' => __( 'In the news', 'planet4-master-theme' ),
 	'article_count'   => 3,
 ] );
 
-$campaign->add_block( 'content_four_column', [
+$campaign->add_block( ContentFourColumn::BLOCK_NAME, [
 	'select_tag' => $context['tag']->term_id,
 ] );
 
-$campaign->add_block( 'campaign_thumbnail', [
+$campaign->add_block( CampaignThumbnail::BLOCK_NAME, [
 	'title'       => __( 'Related Campaigns', 'planet4-master-theme' ),
 	'category_id' => $category->term_id ?? __( 'This Campaign is not assigned to an Issue', 'planet4-master-theme' ),
 ] );
 
-$campaign->add_block( 'happy_point', [
+$campaign->add_block( HappyPoint::BLOCK_NAME, [
 	'background'       => get_term_meta( $context['tag']->term_id, 'happypoint_attachment_id', true ),
 	'boxout_title'     => __( 'Get action alerts in your inbox', 'planet4-master-theme' ),
 	'boxout_descr'     => __( 'Some text here about the transparency of the communications. Opt out or contact us at any time.', 'planet4-master-theme' ),
