@@ -48,23 +48,25 @@
 							</span>
 							<span>/ {{ post.post_date|date }} </span>
 						</p>
-						{% if ( post.first_paragraph ) %}
+						{% if ( post.first_paragraph and post.take_action_page) %}
 							<p class="white-text">
 								{{ post.first_paragraph|raw }}
 							</p>
-						{% endif %}
-						{% if ( post.second_paragraph ) %}
-							<p>
-								{{ post.second_paragraph|raw }}
-							</p>
+							{% if ( post.second_paragraph ) %}
+								<p>
+									{{ post.second_paragraph|raw }}
+								</p>
+							{% endif %}
 						{% endif %}
 					</div>
 				</div>
-				<div class="col-lg-5 offset-lg-2">
-					{% if ( post.take_action_boxout ) %}
-						{{ post.take_action_boxout|shortcodes|raw }}
-					{% endif %}
-				</div>
+				{% if ( post.first_paragraph and post.take_action_page) %}
+					<div class="col-lg-5 offset-lg-2">
+						{% if ( post.take_action_boxout ) %}
+							{{ post.take_action_boxout|shortcodes|raw }}
+						{% endif %}
+					</div>
+				{% endif %}
 			</div>
 
 			<div class="row">
