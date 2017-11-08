@@ -13,12 +13,10 @@
 			.tag_template .tag_header_container {
 				color: white;
 			}
-			.category {
+			.category_link {
+				font-size: 120%;
 				color: #ffd920;
 				text-transform: uppercase;
-			}
-			.tag_slug {
-				padding-bottom: 50px;
 			}
 			.tag_description {
 				width: 40%;
@@ -27,7 +25,8 @@
 	{% endif %}
 	<div class="tag_template">
 		<div class="container tag_header_container">
-			<a class="category_name" href="/explore/{{ category_slug }}">{{ category_name }}</a>
+			{% set issue_link = '/explore/' ~ category_slug %}
+			<a class="category_link" href="{{ issue_link|default('#') }}">{{ category_name }}</a>
 			<h1 class="tag_name">#{{ tag_name }}</h1>
 			<p class="tag_description">{{ tag_description }}</p>
 		</div>
