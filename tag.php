@@ -30,7 +30,7 @@ if ( is_tag() ) {
 	$context['post']            = Timber::get_posts()[0];       // Retrieves latest Campaign.
 	$category                   = get_the_category( $context['post']->ID )[0];
 	$context['category_name']   = $category->name ?? __( 'This Campaign is not assigned to an Issue', 'planet4-master-theme' );
-	$context['category_slug']   = $category->slug ?? '#';
+	$context['category_link']   = get_permalink( get_page_by_title( $category->name ) );
 	$context['tag_name']        = single_tag_title( '', false );
 	$context['tag_description'] = $context['tag']->description;
 	$context['tag_image']       = get_term_meta( $context['tag']->term_id, 'tag_attachment', true );
