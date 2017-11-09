@@ -100,7 +100,6 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'get_twig',               array( $this, 'add_to_twig' ) );
 		add_action( 'init',                   array( $this, 'register_post_types' ) );
 		add_action( 'init',                   array( $this, 'register_taxonomies' ) );
-		add_action( 'init',                   array( $this, 'register_p4_post_type_taxonomy' ) );
 		add_action( 'pre_get_posts',          array( $this, 'add_search_options' ) );
 		add_filter( 'searchwp_query_orderby', array( $this, 'edit_searchwp_query_orderby' ), 10, 2 );
 		add_action( 'cmb2_admin_init',        array( $this, 'register_header_metabox' ) );
@@ -365,6 +364,8 @@ class P4_Master_Site extends TimberSite {
 	 * Registers taxonomies.
 	 */
 	public function register_taxonomies() {
+		// Call function for p4 post type custom taxonomy.
+		$this->register_p4_post_type_taxonomy();
 		register_taxonomy_for_object_type( 'post_tag', 'page' );
 		register_taxonomy_for_object_type( 'category', 'page' );
 	}
