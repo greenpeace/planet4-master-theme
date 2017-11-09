@@ -9,19 +9,22 @@
  * @since   Timber 0.1
  */
 
+use Timber\Timber;
 /**
  * Planet4 - Search functionality.
  */
 
+global $wp_query;
+
 $templates = array( 'search.twig', 'archive.twig', 'index.twig' );
 $context   = Timber::get_context();
 $context['sort_options'] = [
-	'relevant' => __( 'Most relevant', 'planet4-master-theme' ),
-	'recent'   => __( 'Most recent', 'planet4-master-theme' ),
+	'relevant'  => __( 'Most relevant', 'planet4-master-theme' ),
+	'post_date' => __( 'Most recent', 'planet4-master-theme' ),
 ];
 
 $default_sort  = 'relevant';
-$selected_sort = filter_input( INPUT_GET, 'order', FILTER_SANITIZE_STRING );
+$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
 $search        = get_search_query();
 
 if ( ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) ) {
@@ -30,37 +33,22 @@ if ( ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) 
 	$context['selected_sort'] = $selected_sort;
 }
 
-switch ( $context['selected_sort'] ) {
-	case 'recent':
-		$context['posts'] = Timber::get_posts( [
-			// TODO - Find solution for Timber bug (see https://github.com/timber/timber/issues/935).
-			// which does not include attachments to get_posts() results if we supply an array as an argument.
-			// This might be related to Timber not collaborating well with SearchWP. Needs further investigation.
-			's' => $search,
-			'post_type' => [
-				'post',
-				'page',
-				'attachment',
-			],
-			'post_status' => 'any',
-			'orderby' => 'post_date',
-			'order' => 'DESC',
-			'numberposts' => -1,
-		] );
-		break;
-	default:
-		// TODO - Add 'numberposts' option.
-		// The issue seems like it is related with Timber and SearchWP not collaborating very well here.
-		// If we add a parameter to Timber::get_posts() then it looks like it skips SearcWP and does
-		// not include attachments. So, for now I leave the default sort without parameter to
-		// be able to review the attachment searching functionality.
-		$context['posts'] = Timber::get_posts();
-}
-// Cast to array for forward compatibility with php 7.2 which requires count parameter to be array or object that implements Countable.
-$found_posts = count( (array) $context['posts'] );
+/*
+ * With no args passed to this call, Timber uses the main query which we filter for customisations via P4_Master_Site class.
+ *
+ * When customising this query, use filters on the main query to avoid bypassing SearchWP's handling of the query.
+ */
+$context['posts'] = Timber::get_posts();
 
+$found_posts = $wp_query->found_posts;
 $context['title']  = "$found_posts results for '$search'";
 $context['domain'] = 'planet4-master-theme';
+
+// Add pagination temporarily until we have a lazy loading solution. Use Timber::get_pagination() if we want a more customized one.
+$context['pagination'] = [
+	'screen_reader_text' => ' ',
+];
+
 $context['issues'] = get_categories( [
 	'child_of' => get_category_by_slug( 'issues' )->term_id,
 	'orderby'  => 'name',

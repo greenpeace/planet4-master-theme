@@ -33,6 +33,10 @@ class P4_Master_Site extends TimberSite {
 		'en_US' => 'International (English)',
 		'el_GR' => 'Greece (Ελληνικά)',
 	];
+	/** @var string $default_sort */
+	protected $default_sort;
+	/** @var int $posts_per_page */
+	protected $posts_per_page;
 	/** @var array $services */
 	protected $services;
 	/** @var array $child_css */
@@ -79,6 +83,8 @@ class P4_Master_Site extends TimberSite {
 		Timber::$dirname        = [ 'templates', 'views' ];
 		$this->theme_dir        = get_template_directory_uri();
 		$this->theme_images_dir = $this->theme_dir . '/images/';
+		$this->default_sort     = 'relevant';
+		$this->posts_per_page   = 10;
 	}
 
 	/**
@@ -90,17 +96,19 @@ class P4_Master_Site extends TimberSite {
 		add_theme_support( 'menus' );
 		add_post_type_support( 'page', 'excerpt' );  // Added excerpt option to pages.
 
-		add_filter( 'timber_context',        array( $this, 'add_to_context' ) );
-		add_filter( 'get_twig',              array( $this, 'add_to_twig' ) );
-		add_action( 'init',                  array( $this, 'register_post_types' ) );
-		add_action( 'init',                  array( $this, 'register_taxonomies' ) );
-		add_action( 'cmb2_admin_init',       array( $this, 'register_header_metabox' ) );
-		add_action( 'pre_get_posts',         array( $this, 'tags_support_query' ) );
-		add_action( 'admin_init',            array( $this, 'add_copyright_text' ) );
-		add_action( 'admin_init',            array( $this, 'add_google_tag_manager_identifier_setting' ) );
-		add_action( 'admin_init',            array( $this, 'add_engaging_network_form_id' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
-		add_action( 'wp_enqueue_scripts',    array( $this, 'enqueue_public_assets' ) );
+		add_filter( 'timber_context',         array( $this, 'add_to_context' ) );
+		add_filter( 'get_twig',               array( $this, 'add_to_twig' ) );
+		add_action( 'init',                   array( $this, 'register_post_types' ) );
+		add_action( 'init',                   array( $this, 'register_taxonomies' ) );
+		add_action( 'pre_get_posts',          array( $this, 'add_search_options' ) );
+		add_filter( 'searchwp_query_orderby', array( $this, 'edit_searchwp_query_orderby' ), 10, 2 );
+		add_action( 'cmb2_admin_init',        array( $this, 'register_header_metabox' ) );
+		add_action( 'pre_get_posts',          array( $this, 'tags_support_query' ) );
+		add_action( 'admin_init',             array( $this, 'add_copyright_text' ) );
+		add_action( 'admin_init',             array( $this, 'add_google_tag_manager_identifier_setting' ) );
+    add_action( 'admin_init',             array( $this, 'add_engaging_network_form_id' ) );
+		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
+		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -279,10 +287,11 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function enqueue_public_assets() {
 		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', array(), '4.0.0-alpha.6' );
-		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css' );
+		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], '0.0.2'  );
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
+		wp_enqueue_script( 'popperjs', $this->theme_dir . '/assets/js/popper.min.js', array(), '1.11.0', true );
 		wp_enqueue_script( 'bootstrapjs', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', array(), '4.0.0-beta', true );
-		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), null, true );
+		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.0.2', true );
 	}
 
 	/**
@@ -311,6 +320,72 @@ class P4_Master_Site extends TimberSite {
 		if ( $wp_query->get( 'category_name' ) ) {
 			$wp_query->set( 'post_type', 'any' );
 		}
+	}
+
+	/**
+	 * Add custom options to the main WP_Query.
+	 *
+	 * @param WP_Query $wp The WP Query to customize.
+	 */
+	public function add_search_options( WP_Query $wp ) {
+		if ( ! $wp->is_main_query() || ! $wp->is_search() ) {
+			return;
+		}
+		$wp->set( 'posts_per_page', $this->posts_per_page );
+	}
+
+	/**
+	 * Customize the order of search results.
+	 *
+	 * @param string $sql The part of the query related to the ORDER BY.
+	 *
+	 * @return string The customized part of the query related to the ORDER BY.
+	 */
+	function edit_searchwp_query_orderby( $sql ) {
+		global $wp_query;
+
+		$selected_sort  = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
+		$selected_order = $wp_query->get( 'order' );
+
+		if ( $selected_sort !== $this->default_sort ) {
+			return esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
+		}
+		return esc_sql( $sql );
+	}
+
+	/**
+	 * Populate an associative array with all the children of the ACT page
+	 *
+	 * @return array
+	 */
+	public function populate_act_page_children_options() {
+
+		// Get the id of the ACT page. We need this to get the children posts/pages of the ACT Page.
+		$arguments = [
+			'post_type'     => 'page',
+			'post_name__in' => [ 'act', 'ACT', 'Act' ],
+		];
+
+		$query_act_page = new WP_Query( $arguments );
+		$options        = [];
+
+		// If ACT Page is found construct arguments array for the select box.
+		if ( $query_act_page->have_posts() ) {
+			$act_pages              = $query_act_page->get_posts();
+			$act_page               = $act_pages[0];
+			$take_action_pages_args = [
+				'post_type'   => 'page',
+				'post_parent' => $act_page->ID,
+			];
+
+			$query_children = new WP_Query( $take_action_pages_args );
+			$posts          = $query_children->get_posts();
+			foreach ( $posts as $post ) {
+				$options[ $post->ID ] = $post->post_title;
+			}
+		}
+
+		return $options;
 	}
 
 	/**
@@ -392,36 +467,58 @@ class P4_Master_Site extends TimberSite {
 			)
 		);
 
-		$p4_post = new_cmb2_box( array(
+		$p4_post = new_cmb2_box( [
 			'id'           => $prefix . 'metabox_post',
 			'title'        => __( 'Post Articles Element Fields', 'planet4-master-theme' ),
-			'object_types' => array( 'post' ),
-		) );
+			'object_types' => [ 'post' ],
+		] );
 
-		$p4_post->add_field( array(
+		$p4_post->add_field( [
 			'name' => __( 'Articles Title', 'planet4-master-theme' ),
 			'desc' => __( 'Title for articles block', 'planet4-master-theme' ),
 			'id'   => $prefix . 'articles_title',
 			'type' => 'text_medium',
-		) );
+		] );
 
-		$p4_post->add_field( array(
-				'name'       => __( 'Articles Count', 'planet4-master-theme' ),
-				'desc'       => __( 'Number of articles that should be displayed for articles block', 'planet4-master-theme' ),
-				'id'         => $prefix . 'articles_count',
-				'type'       => 'text_medium',
-				'attributes' => array(
-					'type' => 'number',
-				),
-			)
-		);
+		$p4_post->add_field( [
+			'name'       => __( 'Articles Count', 'planet4-master-theme' ),
+			'desc'       => __( 'Number of articles that should be displayed for articles block', 'planet4-master-theme' ),
+			'id'         => $prefix . 'articles_count',
+			'type'       => 'text_medium',
+			'attributes' => [
+				'type' => 'number',
+			],
+		] );
 
-		$p4_post->add_field( array(
+		$p4_post->add_field( [
 			'name' => __( 'Author Override', 'planet4-master-theme' ),
 			'desc' => __( 'Enter author name if you want to override the author', 'planet4-master-theme' ),
 			'id'   => $prefix . 'author_override',
 			'type' => 'text_medium',
-		) );
+		] );
+
+		$p4_post->add_field( [
+			'name'             => __( 'Take Action Page Selector', 'planet4-master-theme' ),
+			'desc'             => __( 'Select a Take Action Page to populate take action boxout block', 'planet4-master-theme' ),
+			'id'               => $prefix . 'take_action_page',
+			'type'             => 'select',
+			'show_option_none' => true,
+			'options_cb'       => [ $this, 'populate_act_page_children_options' ],
+		] );
+
+		$p4_post->add_field( [
+			'name'         => __( 'Background Image Override', 'planet4-master-theme' ),
+			'desc'         => __( 'Upload an image or select one from the media library to override the background image', 'planet4-master-theme' ),
+			'id'           => $prefix . 'background_image_override',
+			'type'         => 'file',
+			'options'      => [
+				'url' => false,
+			],
+			'text'         => [
+				'add_upload_file_text' => __( 'Add Image', 'planet4-master-theme' ),
+			],
+			'preview_size' => 'large',
+		] );
 	}
 
 	/**

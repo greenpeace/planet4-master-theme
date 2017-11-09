@@ -1,0 +1,19 @@
+<div class="container clearfix">
+	<div class="author-block">
+		<div class="skewbox author-info">
+			<div class="author-info-inner">
+				<h2 class="author-info-heading">{{ __('about the author', 'planet4-master-theme') }}</h2>
+				<h5 class="author-name">
+					<a href='{{ post.author.link }}'
+					   title="{{ post.author.name }}">{{ post.author.name }}</a></h5>
+				<p class="author-info-brief">{{ post.author.description }}</p>
+			</div>
+		</div>
+		<div class="skewbox author-img">
+			{% if ( post.author.avatar ) %}
+				<img src="{{ post.author.avatar }}" class="author-pic"
+				     alt="Image for {{ post.author.name }}"/>
+			{% endif %}
+		</div>
+	</div>
+</div>
