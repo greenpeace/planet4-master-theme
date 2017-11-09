@@ -106,7 +106,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'pre_get_posts',          array( $this, 'tags_support_query' ) );
 		add_action( 'admin_init',             array( $this, 'add_copyright_text' ) );
 		add_action( 'admin_init',             array( $this, 'add_google_tag_manager_identifier_setting' ) );
-    add_action( 'admin_init',             array( $this, 'add_engaging_network_form_id' ) );
+		add_action( 'admin_init',             array( $this, 'add_engaging_network_form_id' ) );
 		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
 		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
 
