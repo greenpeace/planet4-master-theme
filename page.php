@@ -48,6 +48,8 @@ if ( $category && ( $category->name !== $post->post_title ) ) {     // Do not ad
 
 	// Get Campaigns.
 	$page_tags = wp_get_post_tags( $post->ID );
+	$tags      = [];
+
 	if ( is_array( $page_tags ) && $page_tags ) {
 		foreach ( $page_tags as $page_tag ) {
 			$tags[] = [
