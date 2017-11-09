@@ -21,14 +21,45 @@
  * @since    Timber 0.1
  */
 
+/**
+ * Category : Issue
+ * Tag      : Campaign
+ * Post     : Action
+ */
+
 use Timber\Timber;
 
 $context = Timber::get_context();
 $post = new TimberPost();
-$context['post'] = $post;
 
 $page_meta_data = get_post_meta( $post->ID );
+$category       = get_the_category( $post->ID )[0];
 
+// Handle navigation links.
+if ( $category && ( $category->name !== $post->post_title ) ) {     // Do not add links inside the Issue page itself.
+	// Get Issue.
+	$issue = get_page_by_title( $category->name );                  // Category and Issue need to have the same name.
+	if ( $issue ) {
+		$context['issue'] = [
+			'name' => $issue->post_title,
+			'link' => get_permalink( $issue ),
+		];
+	}
+
+	// Get Campaigns.
+	$page_tags = wp_get_post_tags( $post->ID );
+	if ( is_array( $page_tags ) ) {
+		foreach ( $page_tags as $page_tag ) {
+			$tags[] = [
+				'name' => $page_tag->name,
+				'link' => get_tag_link( $page_tag ),
+			];
+		}
+	}
+	$context['campaigns'] = $tags;
+}
+
+$context['post']                = $post;
 $context['header_title']        = is_front_page() ? '' : ( $page_meta_data['p4_title'][0] ?? $post->title );
 $context['header_subtitle']     = $page_meta_data['p4_subtitle'][0];
 $context['header_description']  = $page_meta_data['p4_description'][0];
@@ -43,8 +74,5 @@ $context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
 $context['copyright_text']        = get_option( 'copyright', '' ) ? get_option( 'copyright' ) : '';
 
 $context['background_image']      = wp_get_attachment_url( get_post_meta( get_the_ID(), 'background_image_id', 1 ), 'medium' );
-
-$page_tags = wp_get_post_tags( $post->ID );
-$context['page_tags'] = $page_tags;
 
 Timber::render( array( 'page-' . $post->post_name . '.twig', 'page.twig' ), $context );
