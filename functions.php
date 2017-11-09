@@ -295,6 +295,67 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
+	 * Register a custom taxonomy for planet4 post types
+	 */
+	public function register_p4_post_type_taxonomy() {
+
+		$p4_post_type = [
+			'name'              => _x( 'Planet4 Post Types', 'taxonomy general name' ),
+			'singular_name'     => _x( 'Planet4 Post Type', 'taxonomy singular name' ),
+			'search_items'      => __( 'Search in Planet4 Post Type' ),
+			'all_items'         => __( 'All Planet4 Post Types' ),
+			'most_used_items'   => null,
+			'parent_item'       => null,
+			'parent_item_colon' => null,
+			'edit_item'         => __( 'Edit Planet4 Post Type' ),
+			'update_item'       => __( 'Update Planet4 Post Type' ),
+			'add_new_item'      => __( 'Add new Planet4 Post Type' ),
+			'new_item_name'     => __( 'New Planet4 Post Type' ),
+			'menu_name'         => __( 'Planet4 Post Types' ),
+		];
+		$args         = [
+			'hierarchical' => false,
+			'labels'       => $p4_post_type,
+			'show_ui'      => true,
+			'query_var'    => true,
+			'rewrite'      => [
+				'slug' => 'p4-post-types',
+			],
+		];
+		register_taxonomy( 'p4-post-type', [ 'p4_post_type', 'post' ], $args );
+
+		$terms = [
+			'0' => [
+				'name'        => 'Story',
+				'slug'        => 'story',
+				'description' => 'A term for story post type',
+			],
+			'1' => [
+				'name'        => 'Press release',
+				'slug'        => 'press-release',
+				'description' => 'A term for press release post type',
+			],
+			'2' => [
+				'name'        => 'Publication',
+				'slug'        => 'publication',
+				'description' => 'A term for publication post type',
+			],
+		];
+
+		foreach ( $terms as $term_key => $term ) {
+			wp_insert_term(
+				$term['name'],
+				'p4-post-type',
+				[
+					'description' => $term['description'],
+					'slug'        => $term['slug'],
+				]
+			);
+			unset( $term );
+		}
+	}
+
+	/**
 	 * Registers custom post types.
 	 */
 	public function register_post_types() {}
@@ -303,6 +364,8 @@ class P4_Master_Site extends TimberSite {
 	 * Registers taxonomies.
 	 */
 	public function register_taxonomies() {
+		// Call function for p4 post type custom taxonomy.
+		$this->register_p4_post_type_taxonomy();
 		register_taxonomy_for_object_type( 'post_tag', 'page' );
 		register_taxonomy_for_object_type( 'category', 'page' );
 	}
