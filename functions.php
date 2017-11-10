@@ -295,34 +295,34 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Register a custom taxonomy for planet4 post types
+	 * Register a custom taxonomy for planet4 page types
 	 */
-	public function register_p4_post_type_taxonomy() {
+	public function register_p4_page_type_taxonomy() {
 
-		$p4_post_type = [
-			'name'              => _x( 'Planet4 Post Types', 'taxonomy general name' ),
-			'singular_name'     => _x( 'Planet4 Post Type', 'taxonomy singular name' ),
-			'search_items'      => __( 'Search in Planet4 Post Type' ),
-			'all_items'         => __( 'All Planet4 Post Types' ),
+		$p4_page_type = [
+			'name'              => _x( 'Page Types', 'taxonomy general name' ),
+			'singular_name'     => _x( 'Page Type', 'taxonomy singular name' ),
+			'search_items'      => __( 'Search in Page Type' ),
+			'all_items'         => __( 'All Page Types' ),
 			'most_used_items'   => null,
 			'parent_item'       => null,
 			'parent_item_colon' => null,
-			'edit_item'         => __( 'Edit Planet4 Post Type' ),
-			'update_item'       => __( 'Update Planet4 Post Type' ),
-			'add_new_item'      => __( 'Add new Planet4 Post Type' ),
-			'new_item_name'     => __( 'New Planet4 Post Type' ),
-			'menu_name'         => __( 'Planet4 Post Types' ),
+			'edit_item'         => __( 'Edit Page Type' ),
+			'update_item'       => __( 'Update Page Type' ),
+			'add_new_item'      => __( 'Add new Page Type' ),
+			'new_item_name'     => __( 'New Page Type' ),
+			'menu_name'         => __( 'Page Types' ),
 		];
 		$args         = [
 			'hierarchical' => false,
-			'labels'       => $p4_post_type,
+			'labels'       => $p4_page_type,
 			'show_ui'      => true,
 			'query_var'    => true,
 			'rewrite'      => [
-				'slug' => 'p4-post-types',
+				'slug' => 'p4-page-types',
 			],
 		];
-		register_taxonomy( 'p4-post-type', [ 'p4_post_type', 'post' ], $args );
+		register_taxonomy( 'p4-page-type', [ 'p4_page_type', 'post' ], $args );
 
 		$terms = [
 			'0' => [
@@ -345,7 +345,7 @@ class P4_Master_Site extends TimberSite {
 		foreach ( $terms as $term_key => $term ) {
 			wp_insert_term(
 				$term['name'],
-				'p4-post-type',
+				'p4-page-type',
 				[
 					'description' => $term['description'],
 					'slug'        => $term['slug'],
@@ -365,7 +365,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function register_taxonomies() {
 		// Call function for p4 post type custom taxonomy.
-		$this->register_p4_post_type_taxonomy();
+		$this->register_p4_page_type_taxonomy();
 		register_taxonomy_for_object_type( 'post_tag', 'page' );
 		register_taxonomy_for_object_type( 'category', 'page' );
 	}
