@@ -13,7 +13,8 @@
 			.tag_template .tag_header_container {
 				color: white;
 			}
-			.category {
+			.category_link {
+				font-size: 120%;
 				color: #ffd920;
 				text-transform: uppercase;
 			}
@@ -24,8 +25,8 @@
 	{% endif %}
 	<div class="tag_template">
 		<div class="container tag_header_container">
-			<h5 class="category">{{ category_name }}</h5>
-			<h1 class="tag_name">#{{ tag_name }}</h1>
+			<a class="category_link" href="{{ category_link|default('#') }}">{{ category_name|e('wp_kses_post')|raw }}</a>
+			<h1 class="tag_name">#{{ tag_name|e('wp_kses_post')|raw }}</h1>
 			<p class="tag_description">{{ tag_description }}</p>
 		</div>
 		{% for name, block in blocks %}
