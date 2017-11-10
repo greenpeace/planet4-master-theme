@@ -28,28 +28,8 @@ $('.country-select-box .country-list li').click(function(){
 	$(this).addClass('active');
 });
 
-$(window).scroll(function() {
-	if ($(this).scrollTop() > 130){
-		$('.fixed-element, .md-navigation').addClass("sticky");
-	}
-	else{
-		$('.fixed-element, .md-navigation').removeClass("sticky");
-	}
-});
 // Footer JS goes in this
 // Header JS goes in this.
-
-// Returns width of browser viewport
-if($( window ).width() >= 768) {
-	$(window).scroll(function() {
-		if ($(this).scrollTop() > 130){
-			$('.fixed-element, .md-navigation').addClass("sticky");
-		}
-		else{
-			$('.fixed-element, .md-navigation').removeClass("sticky");
-		}
-	});
-};
 
 // Hide Header on on scroll down
 if($( window ).width() <= 768) {
