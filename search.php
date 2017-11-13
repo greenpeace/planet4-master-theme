@@ -25,7 +25,7 @@ $context['sort_options'] = [
 
 $default_sort  = 'relevant';
 $selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
-$search        = get_search_query();
+$search_query  = get_search_query();
 
 if ( ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) ) {
 	$context['selected_sort'] = $default_sort;
@@ -38,22 +38,31 @@ if ( ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) 
  *
  * When customising this query, use filters on the main query to avoid bypassing SearchWP's handling of the query.
  */
-$context['posts'] = Timber::get_posts();
+$context['posts']        = Timber::get_posts();
+$context['search_query'] = $search_query;
+$context['found_posts']  = $wp_query->found_posts;
+$context['domain']       = 'planet4-master-theme';
 
-$found_posts = $wp_query->found_posts;
-$context['title']  = "$found_posts results for '$search'";
-$context['domain'] = 'planet4-master-theme';
-
-// Add pagination temporarily until we have a lazy loading solution. Use Timber::get_pagination() if we want a more customized one.
-$context['pagination'] = [
-	'screen_reader_text' => ' ',
+$context['filters'] = [
+//	[
+//		'name' => 'filter_name',
+//		'link' => 'filter_link',
+//	],
 ];
 
-$context['issues'] = get_categories( [
+$categories = get_categories( [
 	'child_of' => get_category_by_slug( 'issues' )->term_id,
 	'orderby'  => 'name',
 	'order'    => 'ASC',
 ] );
+
+foreach ( $categories as $category ) {
+	$context['issues'][] = [
+		'name'    => $category->name,
+		'results' => 0,
+	];
+}
+
 $context['campaigns'] = [
 	[
 		'name'    => '#CampaignName1',
@@ -95,6 +104,23 @@ $context['content_types'] = [
 		'name'    => '#3',
 		'results' => 0,
 	],
+];
+
+// Add pagination temporarily until we have a lazy loading solution. Use Timber::get_pagination() if we want a more customized one.
+$context['pagination'] = [
+	'screen_reader_text' => ' ',
+];
+
+$context['suggestions'] = [
+	'agriculture',
+	'agriculture',
+	'agriculture',
+	'food',
+	'food',
+	'food',
+	'organic',
+	'organic',
+	'organic',
 ];
 
 Timber::render( $templates, $context );

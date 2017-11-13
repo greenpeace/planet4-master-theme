@@ -1,25 +1,37 @@
-<div class="page-header col-md-8 col-lg-8 col-sm-12">
-	<div class="top-tags-wrap">
-		{% if ( page_tags ) %}
-			{% for page_tag in page_tags %}
-				<span>#{{ page_tag.name }}</span>
-			{% endfor %}
-		{% endif %}
-	</div>
-	{% if ( header_title ) %}
-		<h1>{{ header_title }}</h1>
-	{% endif %}
-	{% if ( header_subtitle ) %}
-		<h3>{{ header_subtitle }}</h3>
-	{% endif %}
-	{% if ( header_description ) %}
-		<p>{{ header_description }}</p>
-	{% endif %}
-	{% if ( header_button_title ) %}
-		<div class="row clearfix">
-			<div class="col-md-4">
-				<a href="{{ header_button_link }}" class="btn btn-small btn-medium btn-primary btn-block">{{ header_button_title }}</a>
+{% if ( header_title ) %}
+	<div class="clearfix page-content-wrap">
+		<div class="fixed-element clearfix">
+			<div class="container">
+				<div class="page-header">
+					{% if ( issue or campaigns ) %}
+						<div class="top-tags-wrap">
+							{% if ( issue ) %}
+								<a class="category_link category-topic-title" href="{{ issue.link|default('#') }}">{{ issue.name|e('wp_kses_post')|raw }}</a>
+								<span class="category-topic-title-seprater"></span>
+							{% endif %}
+							{% if ( campaigns ) %}
+								{% for campaign in campaigns %}
+									<a href="{{ campaign.link }}">#{{ campaign.name|e('wp_kses_post')|raw }}</a>
+								{% endfor %}
+							{% endif %}
+						</div>
+					{% endif %}
+					<h1>{{ header_title }}</h1>
+					{% if ( header_subtitle ) %}
+						<h3>{{ header_subtitle }}</h3>
+					{% endif %}
+					{% if ( header_description ) %}
+						<p>{{ header_description }}</p>
+					{% endif %}
+					{% if ( header_button_title ) %}
+						<div class="row clearfix">
+							<div class="col-md-4">
+								<a href="{{ header_button_link }}" class="btn btn-small btn-medium btn-primary btn-block">{{ header_button_title }}</a>
+							</div>
+						</div>
+					{% endif %}
+				</div>
 			</div>
 		</div>
-	{% endif %}
-</div>
+	</div>
+{% endif %}
