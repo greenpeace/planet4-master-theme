@@ -1,16 +1,31 @@
-<tr id="result-row-{{ post.ID }}">
-	<th>
-		{% if ( post.get_thumbnail ) %}
-			<img src="{{ post.thumbnail.src }}" height="150" width="150" alt="{{ post.thumbnail.alt|default( post.title ) }}" />
+<li id="result-row-{{ post.ID }}" class="media search-result-list-item {{ is_action ? 'search-result-list-item-bg' : '' }}">
+	{% if ( is_document ) %}
+		<div class="search-result-item-actionbox hidden-sm-down">
+			<button class="btn btn-medium btn-small btn-transparent action-btn">
+				<i class="icon-doc-ic"></i>{{ __( 'Download', domain ) }}
+			</button>
+		</div>
+	{% endif %}
+	{% if ( is_action ) %}
+		<div class="blank-block"></div>
+	{% endif %}
+	<img class="d-flex search-result-item-image" src="{{ post.thumbnail.src }}" alt="{{ post.thumbnail.alt|default( post.title ) }}" />
+	<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
+		<div class="search-result-tags">
+			<a href="#" class="search-result-item-title">{{ post.post_type }}</a>
+			<a href="#" class="search-result-item-head">{{ taxonomy }}</a>
+			<a href="#" class="search-result-item-tag">#{{ campaign }}</a>
+		</div>
+		<a href="{{ post.link }}" class="search-result-item-headline">{{ post.title|raw }}</a>
+		<div class="search-result-item-info">
+			<span class="search-result-item-date">{{ post.post_date|date('d/m/Y') }}</span>
+		</div>
+		<p class="search-result-item-content">{{ post.preview()|truncate( 25, true )|raw }}</p>
+		{% if ( is_document ) %}
+			<button class="btn btn-medium btn-small btn-transparent action-btn hidden-md-up btn-block"><i class="icon-doc-ic"></i>{{ __('Download', domain ) }}</button>
 		{% endif %}
-	</th>
-	<td>
-		<article class="tease tease-{{ post.post_type }}" id="tease-{{ post.ID }}">
-			{% block content %}
-				<h2 class="h2"><a href="{{ post.link }}">{{ post.title|raw }}</a></h2>
-				<span class="result-post-date">{{ post.post_date|date('M d, Y') }}</span>
-				<p>{{ post.preview()|truncate( 25, true )|raw }}</p>
-			{% endblock %}
-		</article>
-	</td>
-</tr>
+		{% if ( is_action ) %}
+			<button class="btn btn-primary btn-medium btn-small">TAKE ACTION</button>
+		{% endif %}
+	</div>
+</li>
