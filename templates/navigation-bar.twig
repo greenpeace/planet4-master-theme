@@ -271,7 +271,7 @@
                                         <form id="search_form" role="search" class="form" action="{{ data_nav_bar.home_url }}">
                                             <input class="form-control" type="search" placeholder="{{ __( 'Search', domain ) }}" value="{{ data_nav_bar.search_query }}" name="s" aria-label="Search">
                                             <input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? 'relevant' }}" />
-                                            <button class="top-nav-search-btn">
+                                            <button type="submit" class="top-nav-search-btn">
                                                 <i class="fa fa-search"></i>
                                             </button>
                                         </form>
