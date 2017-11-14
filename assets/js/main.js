@@ -24,12 +24,18 @@ $(document).ready(function() {
 	});
 
 	// Add click event for load more button in blocks.
-	$(".content-four-column-load-btn, .btn-load-more").off("click").on("click", function () {
-		var row = $(".c4-row-hidden", $(this).closest(".container"));
+	$(".btn-load-more").off("click").on("click", function () {
+		var button = $(this);
+		var row = $(".row-hidden", button.closest(".container"));
 
-		row.first().show("fast").removeClass('c4-row-hidden');
+		row.first().show("fast").removeClass('row-hidden');
 		if (row.size() === 0) {
-			$(this).closest(".load-more-button-div").hide("fast");
+			var ancestor = $(this).closest(".load-more-button-div");
+			if (ancestor.length > 0) {
+				ancestor.hide("fast");
+			} else {
+				button.parent().hide("fast");
+			}
 		}
 	});
 });
