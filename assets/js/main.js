@@ -30,12 +30,7 @@ $(document).ready(function() {
 
 		row.first().show("fast").removeClass('row-hidden');
 		if (row.size() === 0) {
-			var ancestor = $(this).closest(".load-more-button-div");
-			if (ancestor.length > 0) {
-				ancestor.hide("fast");
-			} else {
-				button.parent().hide("fast");
-			}
+			button.closest(".load-more-button-div").hide("fast");
 		}
 	});
 });
