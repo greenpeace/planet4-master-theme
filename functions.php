@@ -109,7 +109,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'admin_init',             array( $this, 'add_engaging_network_form_id' ) );
 		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
 		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
-		add_filter( 'wp_kses_allowed_html',   array( $this, 'allow_iframes_filter' ) );
+		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -135,26 +135,45 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Allow iframes in posts
+	 * Set attributes that should be allowed for posts filter
+	 * Allow img srcset and sizes attributes.
+	 * Allow iframes in posts.
 	 *
-	 * @param array $args
+	 * @param array $allowedposttags Default allowed tags.
+	 * @return array
 	 */
-	public function allow_iframes_filter( $allowedposttags ) {
-		// Allow iframes and the following attributes
+	public function set_custom_allowed_attributes_filter( $allowedposttags ) {
+		// Allow iframes and the following attributes.
 		$allowedposttags['iframe'] = [
-			'align' => true,
-			'width' => true,
-			'height' => true,
-			'frameborder' => true,
-			'name' => true,
-			'src' => true,
-			'id' => true,
-			'class' => true,
-			'style' => true,
-			'scrolling' => true,
-			'marginwidth' => true,
+			'align'        => true,
+			'width'        => true,
+			'height'       => true,
+			'frameborder'  => true,
+			'name'         => true,
+			'src'          => true,
+			'id'           => true,
+			'class'        => true,
+			'style'        => true,
+			'scrolling'    => true,
+			'marginwidth'  => true,
 			'marginheight' => true,
 		];
+
+		// Allow img and the following attributes.
+		$allowedposttags['img'] = [
+			'alt'    => true,
+			'class'  => true,
+			'id'     => true,
+			'height' => true,
+			'hspace' => true,
+			'name'   => true,
+			'src'    => true,
+			'srcset' => true,
+			'sizes'  => true,
+			'width'  => true,
+			'vspace' => true,
+		];
+
 		return $allowedposttags;
 	}
 
