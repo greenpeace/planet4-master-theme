@@ -43,6 +43,43 @@ $context['search_query'] = $search_query;
 $context['found_posts']  = $wp_query->found_posts;
 $context['domain']       = 'planet4-master-theme';
 
+foreach ( $context['posts'] as $post ) {
+	switch ( $post->post_type ) {
+		case 'page':
+			if ( 'act' === basename( get_permalink( $post->post_parent ) ) ) {
+				$content_type_text = __( 'ACTION', 'planet4-master-theme' );
+				$content_type = 'action';
+			} else {
+				$content_type_text = __( 'PAGE', 'planet4-master-theme' );
+				$content_type = 'page';
+			}
+			break;
+		case 'attachment':
+			$content_type_text = __( 'DOCUMENT', 'planet4-master-theme' );
+			$content_type = 'document';
+			break;
+		default:
+			$content_type_text = __( 'POST', 'planet4-master-theme' );
+			$content_type = 'post';
+	}
+
+	$page_types = get_the_terms( $post->ID, 'p4-page-type' );
+
+	$tags = get_the_terms( $post->ID, 'post_tag' );
+
+	$context['posts_data'][ $post->ID ] = [
+		'content_type_text' => $content_type_text,
+		'content_type'      => $content_type,
+		'page_types'        => $page_types,
+	];
+	foreach ( $tags as $tag ) {
+		$context['posts_data'][ $post->ID ]['tags'][] = [
+			'name' => $tag->name,
+			'link' => get_tag_link( $tag ),
+		];
+	}
+}
+
 $context['filters'] = [
 //	[
 //		'name' => 'filter_name',
@@ -76,32 +113,44 @@ $context['campaigns'] = [
 		'name'    => '#CampaignName3',
 		'results' => 0,
 	],
+	[
+		'name'    => '#CampaignName4',
+		'results' => 0,
+	],
 ];
 $context['categories'] = [
 	[
-		'name'    => '#1',
+		'name'    => 'Organisation',
 		'results' => 0,
 	],
 	[
-		'name'    => '#2',
+		'name'    => 'Press Release',
 		'results' => 0,
 	],
 	[
-		'name'    => '#3',
+		'name'    => 'Publication',
+		'results' => 0,
+	],
+	[
+		'name'    => 'Story',
 		'results' => 0,
 	],
 ];
 $context['content_types'] = [
 	[
-		'name'    => '#1',
+		'name'    => 'Action',
 		'results' => 0,
 	],
 	[
-		'name'    => '#2',
+		'name'    => 'Document',
 		'results' => 0,
 	],
 	[
-		'name'    => '#3',
+		'name'    => 'Page',
+		'results' => 0,
+	],
+	[
+		'name'    => 'Post',
 		'results' => 0,
 	],
 ];
@@ -112,15 +161,15 @@ $context['pagination'] = [
 ];
 
 $context['suggestions'] = [
-	'agriculture',
-	'agriculture',
-	'agriculture',
-	'food',
-	'food',
-	'food',
-	'organic',
-	'organic',
-	'organic',
+//	'agriculture',
+//	'agriculture',
+//	'agriculture',
+//	'food',
+//	'food',
+//	'food',
+//	'organic',
+//	'organic',
+//	'organic',
 ];
 
 Timber::render( $templates, $context );

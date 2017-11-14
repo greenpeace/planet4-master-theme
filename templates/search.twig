@@ -261,18 +261,20 @@
 								<button class="btn btn-medium btn-small btn-transparent more-btn" style="display: none;">{{ __( 'Show X more results', domain ) }}</button>
 							</div>
 						{% endif %}
-						<div class="suggested-search-terms">
-							<h3>{{ __( 'Suggested search terms', domain ) }}</h3>
-							<div class="suggested-list row">
-								{% for suggestion in suggestions %}
-									<div class="col-md-4">
-										<ul class="list-unstyled">
-											<li><a href="#"> {{ suggestion }}</a></li>
-										</ul>
-									</div>
-								{% endfor %}
+						{% if ( suggestions ) %}
+							<div class="suggested-search-terms">
+								<h3>{{ __( 'Suggested search terms', domain ) }}</h3>
+								<div class="suggested-list row">
+									{% for suggestion in suggestions %}
+										<div class="col-md-4">
+											<ul class="list-unstyled">
+												<li><a href="#"> {{ suggestion }}</a></li>
+											</ul>
+										</div>
+									{% endfor %}
+								</div>
 							</div>
-						</div>
+						{% endif %}
 					</div>
 				</div>
 			</div>
