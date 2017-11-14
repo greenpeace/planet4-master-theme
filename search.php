@@ -120,10 +120,6 @@ $context['campaigns'] = [
 ];
 $context['page_types'] = [
 	[
-		'name'    => 'Organisation',
-		'results' => 0,
-	],
-	[
 		'name'    => 'Press Release',
 		'results' => 0,
 	],
