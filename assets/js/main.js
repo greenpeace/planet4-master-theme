@@ -23,12 +23,13 @@ $(document).ready(function() {
 		return false;
 	});
 
-	// Add click event for load more button in content four column block
-	$(".content-four-column-load-btn").off("click").on("click", function () {
-		var content_four_column_row = '.c4-row-hidden';
-		$(content_four_column_row).first().css('display', '').removeClass('c4-row-hidden');
-		if ($(content_four_column_row).size() === 0) {
-			$('.load-more-button-div').css('display', 'none');
+	// Add click event for load more button in blocks.
+	$(".content-four-column-load-btn, .btn-load-more").off("click").on("click", function () {
+		var row = $(".c4-row-hidden", $(this).closest(".container"));
+
+		row.first().show("fast").removeClass('c4-row-hidden');
+		if (row.size() === 0) {
+			$(this).closest(".load-more-button-div").hide("fast");
 		}
 	});
 });
