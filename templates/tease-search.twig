@@ -1,18 +1,24 @@
 
 {% if ( 'action' == posts_data[post.ID].content_type ) %}
+	{% set is_action = true %}
+{% elseif ( 'document' == posts_data[post.ID].content_type ) %}
+	{% set is_document = true %}
+{% endif %}
+
+{% if ( is_action ) %}
 <li id="result-row-{{ post.ID }}" class="media search-result-list-item search-result-list-item-bg" style="background-image: url('{{ post.thumbnail.src }}');">
 	<div class="blank-block"></div>
 {% else %}
 <li id="result-row-{{ post.ID }}" class="media search-result-list-item">
 {% endif %}
-	{% if ( 'document' == posts_data[post.ID].content_type ) %}
+	{% if ( is_document ) %}
 		<div class="search-result-item-actionbox hidden-sm-down">
 			<a href="{{ post.guid }}" download class="btn btn-medium btn-small btn-transparent action-btn">
 				<i class="icon-doc-ic"></i>{{ __( 'Download', domain ) }}
 			</a>
 		</div>
 	{% endif %}
-	{% if ( 'action' != posts_data[post.ID].content_type ) %}
+	{% if ( not is_action ) %}
 		<img class="d-flex search-result-item-image" src="{{ post.thumbnail.src }}" alt="{{ post.thumbnail.alt|default( post.title ) }}" />
 	{% endif %}
 	<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
@@ -25,7 +31,7 @@
 				<a href="{{ tag.link }}" class="search-result-item-tag">#{{ tag.name }}</a>{% if ( not loop.last ) %},{% endif %}
 			{% endfor %}
 		</div>
-		{% if ( 'document' == posts_data[post.ID].content_type ) %}
+		{% if ( is_document ) %}
 			<a href="{{ post.guid }}" class="search-result-item-headline">{{ post.title|raw }}</a>
 		{% else %}
 			<a href="{{ post.link() }}" class="search-result-item-headline">{{ post.title|raw }}</a>
@@ -34,9 +40,9 @@
 			<span class="search-result-item-date">{{ post.post_date|date('d/m/Y') }}</span>
 		</div>
 		<p class="search-result-item-content">{{ post.preview()|truncate( 25, true )|raw }}</p>
-		{% if ( 'action' == posts_data[post.ID].content_type ) %}
+		{% if ( is_action ) %}
 			<a href="{{ post.link }}" class="btn btn-primary btn-medium btn-small">{{ __( 'Take Action', domain ) }}</a>
-		{% elseif ( 'document' == posts_data[post.ID].content_type ) %}
+		{% elseif ( is_document ) %}
 			<a href="{{ post.guid }}" download="" class="btn btn-medium btn-small btn-transparent action-btn hidden-md-up btn-block">
 				<i class="icon-doc-ic"></i>{{ __('Download', domain ) }}
 			</a>
