@@ -81,12 +81,12 @@
 														</a>
 														<div id="item-modal-category" class="collapse" role="tabpanel">
 															<ul class="list-unstyled">
-																{% for category in categories %}
+																{% for page_type in page_types %}
 																	<li>
 																		<label class="custom-control custom-checkbox">
 																			<input type="checkbox" class="custom-control-input" {{ disabled }} />
 																			<span class="custom-control-indicator"></span>
-																			<span class="custom-control-description">{{ category.name }} ({{ category.results }})</span>
+																			<span class="custom-control-description">{{ page_type.name }} ({{ page_type.results }})</span>
 																		</label>
 																	</li>
 																{% endfor %}
@@ -199,12 +199,12 @@
 								</a>
 								<div id="item-category" class="collapse" role="tabpanel">
 									<ul class="list-unstyled">
-										{% for category in categories %}
+										{% for page_type in page_types %}
 											<li>
 												<label class="custom-control custom-checkbox">
 													<input type="checkbox" class="custom-control-input" {{ disabled }} />
 													<span class="custom-control-indicator"></span>
-													<span class="custom-control-description">{{ category.name }} ({{ category.results }})</span>
+													<span class="custom-control-description">{{ page_type.name }} ({{ page_type.results }})</span>
 												</label>
 											</li>
 										{% endfor %}

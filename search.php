@@ -118,7 +118,7 @@ $context['campaigns'] = [
 		'results' => 0,
 	],
 ];
-$context['categories'] = [
+$context['page_types'] = [
 	[
 		'name'    => 'Organisation',
 		'results' => 0,
