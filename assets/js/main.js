@@ -28,10 +28,10 @@ $(document).ready(function() {
 		var button = $(this);
 		var row = $(".row-hidden", button.closest(".container"));
 
-		row.first().show("fast").removeClass('row-hidden');
-		if (row.size() === 0) {
+		if (row.size() === 1) {
 			button.closest(".load-more-button-div").hide("fast");
 		}
+		row.first().show("fast").removeClass('row-hidden');
 	});
 });
 
