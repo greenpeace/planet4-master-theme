@@ -33,7 +33,30 @@ $(document).ready(function() {
 			button.closest(".load-more-button-div").hide("fast");
 		}
 	});
+
+	// Check if user has already agreed and then hide the text.
+	if(get_cookie("agree")) {
+		$(".cookie-block").hide();
+	}
+
+	// Hide Cookies text after user agrees and set cookie.
+	$("#hidecookie").click(function () {
+		set_cookie("agree", true);
+		$(".cookie-block").slideUp("slow");
+	});
 });
+
+function set_cookie(key, value) {
+	var day     = 24 * 60 * 60 * 1000;
+	var expires = new Date();
+	expires.setTime(expires.getTime() + day);
+	document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+}
+
+function get_cookie(key) {
+	var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');	// (document.cookie.match(/^(?:.*;)?\s*agree\s*=\s*([^;]+)(?:.*)?$/)||[,null])[1];
+	return keyValue ? keyValue[2] : null;
+}
 
 $('.country-select-dropdown').click(function(){
 	$(this).parent().toggleClass('active-li');
@@ -111,7 +134,7 @@ if($( window ).width() <= 768) {
 };
 $(function() {
 	$('#search-type button').click(function() {
-		$('#search-type button').removeClass("active");
+		$(this).removeClass("active");
 		$(this).addClass("active");
 	});
 
