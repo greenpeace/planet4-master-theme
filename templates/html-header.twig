@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="{{ site.charset }}">
-	<title>{% if wp_title %}{{ wp_title }} - {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
+	<title>{% if wp_title %}{{ wp_title|e('esc_html')|raw }} - {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
 	<meta name="description" content="{{ site.description }}">
 
 	{% if google_tag_value %}
