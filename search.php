@@ -43,6 +43,12 @@ $context['search_query'] = $search_query;
 $context['found_posts']  = $wp_query->found_posts;
 $context['domain']       = 'planet4-master-theme';
 
+// Footer Items.
+$context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
+$context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
+$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
+$context['copyright_text']        = get_option( 'copyright', '' );
+
 foreach ( $context['posts'] as $post ) {
 	switch ( $post->post_type ) {
 		case 'page':
