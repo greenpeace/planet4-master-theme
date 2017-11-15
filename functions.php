@@ -107,6 +107,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'admin_init',             array( $this, 'add_copyright_text' ) );
 		add_action( 'admin_init',             array( $this, 'add_google_tag_manager_identifier_setting' ) );
 		add_action( 'admin_init',             array( $this, 'add_engaging_network_form_id' ) );
+		add_action( 'admin_init',             array( $this, 'add_cookies_field' ) );
 		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
 		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
 		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
@@ -132,6 +133,45 @@ class P4_Master_Site extends TimberSite {
 				new $service();
 			}
 		}
+	}
+
+	/**
+	 * Adds more data to the context variable that will be passed to the main template.
+	 *
+	 * @param array $context The associative array with data to be passed to the main template.
+	 *
+	 * @return mixed
+	 */
+	public function add_to_context( $context ) {
+		$context['data_nav_bar'] = [
+			'websites'     => $this->websites,
+			'images'       => $this->theme_images_dir,
+			'home_url'     => home_url( '/' ),
+			'act_url'      => '/act',
+			'explore_url'  => '/explore',
+			'search_query' => get_search_query(),
+		];
+		$context['foo']  = 'bar';   // For unit test purposes.
+		$context['domain'] = 'planet4-master-theme';
+		$context['site'] = $this;
+		$context['navbar_menu'] = new TimberMenu( 'navigation-bar-menu' );
+		$context['cookies'] = [
+			'text' => get_option( 'cookies_field', '' ),
+		];
+
+		return $context;
+	}
+
+	/**
+	 * Add your own functions to Twig.
+	 *
+	 * @param Twig_ExtensionInterface $twig The Twig object that implements the Twig_ExtensionInterface.
+	 *
+	 * @return mixed
+	 */
+	public function add_to_twig( $twig ) {
+		$twig->addExtension( new Twig_Extension_StringLoader() );
+		return $twig;
 	}
 
 	/**
@@ -223,6 +263,22 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
+	 * Show Engaging network id text field.
+	 *
+	 * @param array $args
+	 */
+	public function cookies_show_settings( $args ) {
+		$cookies_text = get_option( 'cookies_field', '' );
+		$args = [
+			'textarea_name' => 'cookies_field',
+			'media_buttons' => false,
+			'textarea_rows' => 5,
+			'teeny'         => true,
+		];
+		wp_editor( $cookies_text, 'cookies_field_id', $args );
+	}
+
+	/**
 	 * Function to add copyright text block in general options
 	 */
 	public function add_copyright_text() {
@@ -287,7 +343,7 @@ class P4_Master_Site extends TimberSite {
 		);
 	}
 
-/**
+	/**
 	 * Function to add engaging network ID option in general options
 	 */
 	public function add_engaging_network_form_id() {
@@ -319,6 +375,69 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
+	 * Adds field in Settings for adding text for cookies.
+	 */
+	public function add_cookies_field() {
+		// Add section.
+		add_settings_section(
+			'cookies_field_id',
+			'',
+			'',
+			'general'
+		);
+
+		// Register option.
+		$args = array(
+			'type'              => 'string',
+			'group'             => 'general',
+			'sanitize_callback' => array( $this, 'sanitize' ),
+			'show_in_rest'      => false,
+		);
+		register_setting( 'general', 'cookies_field', $args );
+
+		// Add the field inside the "cookies_field_id" section.
+		add_settings_field(
+			'cookies_field_id',
+			'Cookies Text',
+			array( $this, 'cookies_show_settings' ),
+			'general',
+			'cookies_field_id',
+			[
+				'label_for' => 'cookies_field_id',
+			]
+		);
+	}
+
+	/**
+	 * Sanitizes the settings input.
+	 *
+	 * @param string $setting The setting to sanitize.
+	 *
+	 * @return string The sanitized setting.
+	 */
+	public function sanitize( $setting ) : string {
+		$allowed = [
+			'ul'     => [],
+			'ol'     => [],
+			'li'     => [],
+			'strong' => [],
+			'del'    => [],
+			'span' => [
+				'style' => [],
+			],
+			'p' => [
+				'style' => [],
+			],
+			'a' => [
+				'href'   => [],
+				'target' => [],
+				'rel'    => [],
+			],
+		];
+		return wp_kses( $setting, $allowed );
+	}
+
+	/**
 	 * Load styling and behaviour on admin pages.
 	 */
 	public function enqueue_admin_assets() {
@@ -335,7 +454,7 @@ class P4_Master_Site extends TimberSite {
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 		wp_enqueue_script( 'popperjs', $this->theme_dir . '/assets/js/popper.min.js', array(), '1.11.0', true );
 		wp_enqueue_script( 'bootstrapjs', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', array(), '4.0.0-beta', true );
-		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.0.5', true );
+		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.0.6', true );
 	}
 
 	/**
@@ -626,41 +745,6 @@ class P4_Master_Site extends TimberSite {
 			],
 			'preview_size' => 'large',
 		] );
-	}
-
-	/**
-	 * Adds more data to the context variable that will be passed to the main template.
-	 *
-	 * @param array $context The associative array with data to be passed to the main template.
-	 *
-	 * @return mixed
-	 */
-	public function add_to_context( $context ) {
-		$context['data_nav_bar'] = [
-			'websites'     => $this->websites,
-			'images'       => $this->theme_images_dir,
-			'home_url'     => home_url( '/' ),
-			'act_url'      => '/act',
-			'explore_url'  => '/explore',
-			'search_query' => get_search_query(),
-		];
-		$context['foo']  = 'bar';   // For unit test purposes.
-		$context['domain'] = 'planet4-master-theme';
-		$context['site'] = $this;
-		$context['navbar_menu'] = new TimberMenu('navigation-bar-menu');
-		return $context;
-	}
-
-	/**
-	 * Add your own functions to Twig.
-	 *
-	 * @param Twig_ExtensionInterface $twig The Twig object that implements the Twig_ExtensionInterface.
-	 *
-	 * @return mixed
-	 */
-	public function add_to_twig( $twig ) {
-		$twig->addExtension( new Twig_Extension_StringLoader() );
-		return $twig;
 	}
 }
 

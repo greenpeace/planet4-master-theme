@@ -1,0 +1,12 @@
+{% if ( cookies.text ) %}
+	<div class="cookie-block" id="set-cookie">
+		<div class="row m-0">
+			<div class="col-9 col-md-10">
+				<p>{{ cookies.text|e('wp_kses_post')|raw }}</p>
+			</div>
+			<div class="col">
+				<button class="btn" id="hidecookie">{{ __( 'GOT IT!', domain ) }}</button>
+			</div>
+		</div>
+	</div>
+{% endif %}
