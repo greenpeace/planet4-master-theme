@@ -47,9 +47,9 @@ $(document).ready(function() {
 });
 
 function set_cookie(key, value) {
-	var day     = 24 * 60 * 60 * 1000;
+	var year    = 365 * 24 * 60 * 60 * 1000;
 	var expires = new Date();
-	expires.setTime(expires.getTime() + day);
+	expires.setTime(expires.getTime() + year);
 	document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
 }
 
