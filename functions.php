@@ -18,25 +18,25 @@ if ( ! class_exists( 'Timber' ) ) {
 	return;
 }
 
+use Timber\Timber;
+use Timber\Site as TimberSite;
+use Timber\Menu as TimberMenu;
+
 /**
  * Class P4_Master_Site.
  * The main class that handles Planet4 Master Theme.
  */
 class P4_Master_Site extends TimberSite {
 
+	const DEFAULT_SORT   = 'relevant';
+	const POSTS_PER_PAGE = 10;
+
 	/** @var string $theme_dir */
 	protected $theme_dir;
 	/** @var string $theme_images_dir */
 	protected $theme_images_dir;
-	/** @var array $websites */
-	protected $websites = [
-		'en_US' => 'International (English)',
-		'el_GR' => 'Greece (Ελληνικά)',
-	];
-	/** @var string $default_sort */
-	protected $default_sort;
-	/** @var int $posts_per_page */
-	protected $posts_per_page;
+	/** @var array $sort_options */
+	protected $sort_options;
 	/** @var array $services */
 	protected $services;
 	/** @var array $child_css */
@@ -83,8 +83,20 @@ class P4_Master_Site extends TimberSite {
 		Timber::$dirname        = [ 'templates', 'views' ];
 		$this->theme_dir        = get_template_directory_uri();
 		$this->theme_images_dir = $this->theme_dir . '/images/';
-		$this->default_sort     = 'relevant';
-		$this->posts_per_page   = 10;
+		$this->sort_options     = [
+			'relevant'  => [
+				'name'  => __( 'Most relevant', 'planet4-master-theme' ),
+				'order' => 'DESC',
+			],
+			'post_date' => [
+				'name'  => __( 'Most recent', 'planet4-master-theme' ),
+				'order' => 'DESC',
+			],
+			//'post_title' => [
+			//	'name'  => __( 'Title', 'planet4-master-theme' ),
+			//	'order' => 'ASC',
+			//],
+		];
 	}
 
 	/**
@@ -117,7 +129,7 @@ class P4_Master_Site extends TimberSite {
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 
 		register_nav_menus( array(
-			'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme' )
+			'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme' ),
 		) );
 	}
 
@@ -143,21 +155,21 @@ class P4_Master_Site extends TimberSite {
 	 * @return mixed
 	 */
 	public function add_to_context( $context ) {
+		$context['cookies'] = [
+			'text' => get_option( 'cookies_field', '' ),
+		];
 		$context['data_nav_bar'] = [
-			'websites'     => $this->websites,
 			'images'       => $this->theme_images_dir,
 			'home_url'     => home_url( '/' ),
 			'act_url'      => '/act',
 			'explore_url'  => '/explore',
 			'search_query' => get_search_query(),
 		];
-		$context['foo']  = 'bar';   // For unit test purposes.
-		$context['domain'] = 'planet4-master-theme';
-		$context['site'] = $this;
-		$context['navbar_menu'] = new TimberMenu( 'navigation-bar-menu' );
-		$context['cookies'] = [
-			'text' => get_option( 'cookies_field', '' ),
-		];
+		$context['domain']       = 'planet4-master-theme';
+		$context['foo']          = 'bar';   // For unit test purposes.
+		$context['navbar_menu']  = new TimberMenu( 'navigation-bar-menu' );
+		$context['site']         = $this;
+		$context['sort_options'] = $this->sort_options;
 
 		return $context;
 	}
@@ -557,26 +569,28 @@ class P4_Master_Site extends TimberSite {
 		if ( ! $wp->is_main_query() || ! $wp->is_search() ) {
 			return;
 		}
-		$wp->set( 'posts_per_page', $this->posts_per_page );
+		$wp->set( 'posts_per_page', self::POSTS_PER_PAGE );
 	}
 
 	/**
 	 * Customize the order of search results.
 	 *
-	 * @param string $sql The part of the query related to the ORDER BY.
+	 * @param string $orderby The ORDER BY sql clause.
 	 *
 	 * @return string The customized part of the query related to the ORDER BY.
 	 */
-	function edit_searchwp_query_orderby( $sql ) {
-		global $wp_query;
+	function edit_searchwp_query_orderby( $orderby ) {
+		$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
+		$selected_sort = sanitize_sql_orderby( $selected_sort );
 
-		$selected_sort  = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
-		$selected_order = $wp_query->get( 'order' );
-
-		if ( $selected_sort !== $this->default_sort ) {
-			return esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
+		if ( self::DEFAULT_SORT !== $selected_sort ) {
+			$selected_order = $this->sort_options[ $selected_sort ]['order'];
+			$orderby = esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
+		} else {
+			$orderby = esc_sql( $orderby );
 		}
-		return esc_sql( $sql );
+
+		return $orderby;
 	}
 
 	/**

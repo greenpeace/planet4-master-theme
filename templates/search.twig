@@ -240,9 +240,9 @@
 								<select id="select_order" name="select_order" class="">
 									{% for key, sort_option in sort_options %}
 										{% if key == selected_sort %}
-											<option value="{{ key }}" selected>{{ sort_option }}</option>
+											<option value="{{ key }}" selected>{{ sort_option.name }}</option>
 										{% else %}
-											<option value="{{ key }}">{{ sort_option }}</option>
+											<option value="{{ key }}">{{ sort_option.name }}</option>
 										{% endif %}
 									{% endfor %}
 								</select>
@@ -257,7 +257,9 @@
 										{% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
 									{% endfor %}
 								</ul>
-								{{ fn( 'the_posts_pagination', pagination ) }}
+								{% if ( pagination ) %}
+									{{ fn( 'the_posts_pagination', pagination ) }}
+								{% endif %}
 								<button class="btn btn-medium btn-small btn-transparent more-btn" style="display: none;">{{ __( 'Show X more results', domain ) }}</button>
 							</div>
 						{% endif %}
