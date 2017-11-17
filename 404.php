@@ -10,4 +10,7 @@
  */
 
 $context = Timber::get_context();
+
+$context['page_category']    = __( '404 Page', 'planet4-master-theme' );
+
 Timber::render( '404.twig', $context );
