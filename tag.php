@@ -41,6 +41,7 @@ if ( is_tag() ) {
 	$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
 	$context['copyright_text']        = get_option( 'copyright', '' );
 	$context['page_category']    = $category->name ?? __( 'Unknown Campaign page', 'planet4-master-theme' );
+	$context['google_tag_value'] = get_option( 'google_tag_manager_identifier', '' ) ?? '';
 
 
 	$campaign = new P4_Taxonomy_Campaign( $templates, $context );
