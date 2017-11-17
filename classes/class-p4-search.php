@@ -78,6 +78,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
 			$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
 			$context['copyright_text']        = get_option( 'copyright', '' );
+			$context['page_category']         = $category->name ?? __( 'Search page', 'planet4-master-theme' );
 		}
 
 		/**
