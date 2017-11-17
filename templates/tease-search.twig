@@ -11,6 +11,7 @@
 {% else %}
 <li id="result-row-{{ post.ID }}" class="media search-result-list-item">
 {% endif %}
+
 	{% if ( is_document ) %}
 		<div class="search-result-item-actionbox hidden-sm-down">
 			<a href="{{ post.guid }}" download class="btn btn-medium btn-small btn-transparent action-btn">
@@ -18,28 +19,35 @@
 			</a>
 		</div>
 	{% endif %}
+
 	{% if ( not is_action ) %}
-		<img class="d-flex search-result-item-image" src="{{ post.thumbnail.src }}" alt="{{ post.thumbnail.alt|default( post.title ) }}" />
+		<img class="d-flex search-result-item-image" src="{{ post.thumbnail.src }}" alt="{{ post.thumbnail.alt|default( post.title )|e('wp_kses_post')|raw }}" />
 	{% endif %}
+
 	<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
 		<div class="search-result-tags">
-			<a href="#" class="search-result-item-title">{{ posts_data[post.ID].content_type_text }}</a>
+			<span class="search-result-item-title">{{ posts_data[post.ID].content_type_text }}</span>
+
 			{% for page_type in posts_data[post.ID].page_types %}
 				<a href="#" class="search-result-item-head">{{ page_type.name }}</a>
 			{% endfor %}
+
 			{% for tag in posts_data[post.ID].tags %}
 				<a href="{{ tag.link }}" class="search-result-item-tag">#{{ tag.name }}</a>{% if ( not loop.last ) %},{% endif %}
 			{% endfor %}
 		</div>
+
 		{% if ( is_document ) %}
-			<a href="{{ post.guid }}" class="search-result-item-headline">{{ post.title|raw }}</a>
+			<a href="{{ post.guid }}" class="search-result-item-headline">{{ post.title|e('wp_kses_post')|raw }}</a>
 		{% else %}
-			<a href="{{ post.link() }}" class="search-result-item-headline">{{ post.title|raw }}</a>
+			<a href="{{ post.link() }}" class="search-result-item-headline">{{ post.title|e('wp_kses_post')|raw }}</a>
 		{% endif %}
+
 		<div class="search-result-item-info">
 			<span class="search-result-item-date">{{ post.post_date|date('d/m/Y') }}</span>
 		</div>
 		<p class="search-result-item-content">{{ post.preview()|truncate( 25, true )|raw }}</p>
+
 		{% if ( is_action ) %}
 			<a href="{{ post.link }}" class="btn btn-primary btn-medium btn-small">{{ __( 'Take Action', domain ) }}</a>
 		{% elseif ( is_document ) %}
