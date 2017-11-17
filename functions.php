@@ -28,9 +28,6 @@ use Timber\Menu as TimberMenu;
  */
 class P4_Master_Site extends TimberSite {
 
-	const DEFAULT_SORT   = 'relevant';
-	const POSTS_PER_PAGE = 10;
-
 	/** @var string $theme_dir */
 	protected $theme_dir;
 	/** @var string $theme_images_dir */
@@ -569,7 +566,7 @@ class P4_Master_Site extends TimberSite {
 		if ( ! $wp->is_main_query() || ! $wp->is_search() ) {
 			return;
 		}
-		$wp->set( 'posts_per_page', self::POSTS_PER_PAGE );
+		$wp->set( 'posts_per_page', -1 );
 	}
 
 	/**
@@ -583,7 +580,7 @@ class P4_Master_Site extends TimberSite {
 		$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
 		$selected_sort = sanitize_sql_orderby( $selected_sort );
 
-		if ( self::DEFAULT_SORT !== $selected_sort ) {
+		if ( P4_Search::DEFAULT_SORT !== $selected_sort ) {
 			$selected_order = $this->sort_options[ $selected_sort ]['order'];
 			$orderby = esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
 		} else {
