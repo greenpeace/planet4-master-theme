@@ -41,6 +41,8 @@ $articles_count              = 0 === $articles_count ? 3 : $articles_count;
 $context['author_override']  = $page_meta_data['p4_author_override'][0];
 $context['background_image'] = $page_meta_data['p4_background_image_override'][0];
 $take_action_page            = $page_meta_data['p4_take_action_page'][0];
+$context['page_category']    = ( ! empty ($category->name ) ) ? $category->name: 'Post Page';
+$context['google_tag_value'] = get_option( 'google_tag_manager_identifier', '' ) ?? '';
 
 
 // Build the shortcode for articles block.

@@ -10,4 +10,8 @@
  */
 
 $context = Timber::get_context();
+
+$context['page_category']    = __( '404 Page', 'planet4-master-theme' );
+$context['google_tag_value'] = get_option( 'google_tag_manager_identifier', '' ) ?? '';
+
 Timber::render( '404.twig', $context );
