@@ -23,6 +23,38 @@ $(document).ready(function() {
 		return false;
 	});
 
+	// Submit form on Filter click event or on Apply button click event.
+	$("input[name^='f[']:not(.modal-checkbox), .applybtn").on("click", function () {
+		$("#search_form").submit();
+	});
+
+	// Add all selected filters to the form submit.
+	$("#search_form").on("submit", function () {
+		var form = $(this);
+
+		if ( $(".filter-modal.show").length === 0 ) {
+			$("input[name^='f[']:not(.modal-checkbox):checked").each(function () {
+				form.append($(this).clone(true));
+			});
+		} else {
+			$("input[name^='f['].modal-checkbox:checked").each(function () {
+				form.append($(this).clone(true));
+			});
+		}
+	});
+
+	// Clear single selected filter.
+	$(".activefilter-tag").off("click").on("click", function () {
+		$(".custom-control-input[value=" + $(this).data("id") + "]").prop("checked", false);
+		$("#search_form").submit();
+	});
+
+	// Clear all selected filters.
+	$(".clearall").off("click").on("click", function () {
+		$("input[name^='f[']").prop("checked", false);
+		$("#search_form").submit();
+	});
+
 	// Add click event for load more button in blocks.
 	$(".btn-load-more").off("click").on("click", function () {
 		var button = $(this);
@@ -134,7 +166,7 @@ if($( window ).width() <= 768) {
 };
 $(function() {
 	$('#search-type button').click(function() {
-		$(this).removeClass("active");
+		$('#search-type button').removeClass("active");
 		$(this).addClass("active");
 	});
 
