@@ -166,7 +166,7 @@ if($( window ).width() <= 768) {
 };
 $(function() {
 	$('#search-type button').click(function() {
-		$(this).removeClass("active");
+		$('#search-type button').removeClass("active");
 		$(this).addClass("active");
 	});
 

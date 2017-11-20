@@ -244,8 +244,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 							}
 						}
 					}
-				} else {
-					$context['categories'][ $_GET['f']['cat'] ]['checked'] = 'checked';
 				}
 			}
 			return true;
