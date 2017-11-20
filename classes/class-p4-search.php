@@ -19,6 +19,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		protected $all_posts;
 		/** @var array|bool|null $posts */
 		protected $posts;
+		/** @var array $filters */
+		protected $filters;
 		/** @var array $templates */
 		public $templates;
 		/** @var array $context */
@@ -38,9 +40,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$this->templates    = $templates;
 
 			if ( $context ) {
-				$this->context  = $context;
+				$this->context = $context;
 			} else {
-				$this->context      = Timber::get_context();
+				$this->context = Timber::get_context();
 
 				/*
 				* With no args passed to this call, Timber uses the main query which we filter for customisations via P4_Master_Site class.
@@ -62,6 +64,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		protected function add_context( &$context ) {
 			$this->add_general_context( $context );
 			$this->add_results_context( $context );
+			$this->handle_submit( $context );
 			$this->add_filters_context( $context );
 		}
 
@@ -77,13 +80,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['posts']        = $this->posts;
 			$context['search_query'] = $this->search_query;
 			$context['found_posts']  = $wp_query->found_posts;
-
-			$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
-			if ( ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) ) {
-				$context['selected_sort'] = self::DEFAULT_SORT;
-			} else {
-				$context['selected_sort'] = $selected_sort;
-			}
 
 			// Footer Items.
 			$context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
@@ -104,6 +100,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$category = get_the_category( $post->ID )[0];
 				if ( $category ) {
 					$context['categories'][ $category->term_id ] = [
+						'term_id' => $category->term_id,
 						'name'    => $category->name,
 						'results' => ++$context['categories'][ $category->term_id ]['results'],
 					];
@@ -139,6 +136,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					foreach ( (array) $page_types as $page_type ) {
 						// p4-page-type filters.
 						$context['page_types'][ $page_type->term_id ] = [
+							'term_id' => $page_type->term_id,
 							'name'    => $page_type->name,
 							'results' => ++$context['page_types'][ $page_type->term_id ]['results'],
 						];
@@ -162,6 +160,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 						// Tag filters.
 						$context['tags'][ $tag->term_id ] = [
+							'term_id' => $tag->term_id,
 							'name'    => $tag->name,
 							'results' => ++$context['tags'][ $tag->term_id ]['results'],
 						];
@@ -189,12 +188,81 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			];
 
 			// Sort filters alphabetically.
-			usort( $context['categories'], function( $a, $b ) {
+			uasort( $context['categories'], function( $a, $b ) {
 				return strcmp( $a['name'], $b['name'] );
 			} );
-			usort( $context['tags'], function( $a, $b ) {
+			uasort( $context['tags'], function( $a, $b ) {
 				return strcmp( $a['name'], $b['name'] );
 			});
+		}
+
+		/**
+		 * Handle form submit.
+		 *
+		 * @param array $context Associative array with the data to be passed to the view.
+		 *
+		 * @return bool Array if validation is ok, false if validation fails.
+		 */
+		public function handle_submit( &$context ) : bool {
+			if ( 'GET' === $_SERVER['REQUEST_METHOD'] ) {
+
+				// Handle submitted sort options.
+				$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
+				if ( ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) ) {
+					$context['selected_sort'] = self::DEFAULT_SORT;
+				} else {
+					$context['selected_sort'] = $selected_sort;
+				}
+
+				// Handle submitted filter options.
+				if ( is_array( $_GET['f'] ) ) {
+					foreach ( $_GET['f'] as $type => $value ) {
+						foreach ( $value as $name => $id ) {
+
+							$id = filter_var( $id, FILTER_VALIDATE_INT );
+							if ( $this->validate( $id ) ) {
+								$this->filters[] = [
+									'type' => $type,
+									'id'   => $id,
+									'name' => $name,
+								];
+
+								switch ( $type ) {
+									case 'cat':
+										$context['categories'][ $id ]['checked'] = 'checked';
+										break;
+									case 'tag':
+										$context['tags'][ $id ]['checked'] = 'checked';
+										break;
+									case 'ptype':
+										$context['page_types'][ $id ]['checked'] = 'checked';
+										break;
+									case 'ctype':
+										$context['content_types'][ $id ]['checked'] = 'checked';
+										break;
+								}
+							}
+						}
+					}
+				} else {
+					$context['categories'][ $_GET['f']['cat'] ]['checked'] = 'checked';
+				}
+			}
+			return true;
+		}
+
+		/**
+		 * Validates the input.
+		 *
+		 * @param  int $id The id to be validated.
+		 *
+		 * @return bool True if validation is ok, false if validation fails.
+		 */
+		public function validate( $id ) : bool {
+			if ( $id < 0 ) {
+				return false;
+			}
+			return true;
 		}
 
 		/**
@@ -203,12 +271,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * @param array $context Associative array with the data to be passed to the view.
 		 */
 		protected function add_filters_context( &$context ) {
-			$context['filters'] = [
-				//	[
-				//		'name' => 'filter_name',
-				//		'link' => 'filter_link',
-				//	],
-			];
+			$context['filters'] = $this->filters;
 		}
 
 		/**

@@ -68,9 +68,9 @@
 																		{% if ( category.results > 0 ) %}
 																			<li>
 																				<label class="custom-control custom-checkbox">
-																					<input type="checkbox" class="custom-control-input" {{ disabled }} />
+																					<input type="checkbox" name="f[cat][{{ category.name }}]" value="{{ category.term_id }}" class="custom-control-input modal-checkbox" {{ category.checked }} {{ disabled }} />
 																					<span class="custom-control-indicator"></span>
-																					<span class="custom-control-description">{{ category.name }} ({{ category.results }})</span>
+																					<span class="custom-control-description {{ category.checked ? 'bold' : '' }}">{{ category.name }} ({{ category.results }})</span>
 																				</label>
 																			</li>
 																		{% endif %}
@@ -90,9 +90,9 @@
 																		{% if ( page_type.results > 0 ) %}
 																			<li>
 																				<label class="custom-control custom-checkbox">
-																					<input type="checkbox" class="custom-control-input" {{ disabled }} />
+																					<input type="checkbox" name="f[ptype][{{ page_type.name }}]" value="{{ page_type.term_id }}" class="custom-control-input modal-checkbox" {{ page_type.checked }} {{ disabled }} />
 																					<span class="custom-control-indicator"></span>
-																					<span class="custom-control-description">{{ page_type.name }} ({{ page_type.results }})</span>
+																					<span class="custom-control-description {{ page_type.checked ? 'bold' : '' }}">{{ page_type.name }} ({{ page_type.results }})</span>
 																				</label>
 																			</li>
 																		{% endif %}
@@ -112,9 +112,9 @@
 																		{% if ( content_type.results > 0 ) %}
 																			<li>
 																				<label class="custom-control custom-checkbox">
-																					<input type="checkbox" class="custom-control-input" {{ disabled }} />
+																					<input type="checkbox" name="f[ctype][{{ content_type.name }}]" value="{{ loop.index0 }}" class="custom-control-input modal-checkbox" {{ content_type.checked }} {{ disabled }} />
 																					<span class="custom-control-indicator"></span>
-																					<span class="custom-control-description">{{ content_type.name }} ({{ content_type.results }})</span>
+																					<span class="custom-control-description {{ content_type.checked ? 'bold' : '' }}">{{ content_type.name }} ({{ content_type.results }})</span>
 																				</label>
 																			</li>
 																		{% endif %}
@@ -136,9 +136,9 @@
 																{% for tag in tags %}
 																	<li>
 																		<label class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" {{ disabled }} />
+																			<input type="checkbox" name="f[tag][{{ tag.name }}]" value="{{ tag.term_id }}" class="custom-control-input modal-checkbox"{{ tag.checked }} {{ disabled }} />
 																			<span class="custom-control-indicator"></span>
-																			<span class="custom-control-description">{{ tag.name }} ({{ tag.results }})</span>
+																			<span class="custom-control-description {{ tag.checked ? 'bold' : '' }}">{{ tag.name }} ({{ tag.results }})</span>
 																		</label>
 																	</li>
 																{% endfor %}
@@ -163,11 +163,11 @@
 									<h5>{{ __( 'ACTIVE FILTERS', domain ) }}</h5>
 									<div class="activefilter-list">
 										{% for filter in filters %}
-											<a href="{{ filter.link }}" class="activefilter-tag">
+											<button class="activefilter-tag" data-id="{{ filter.id }}">
 												{{ filter.name }} <i class="icon-cross"></i>
-											</a>
+											</button>
 										{% endfor %}
-										<a href="#" class="clearall">{{ __( 'Clear All', domain ) }} <i class="icon-cross"></i></a>
+										<button class="clearall">{{ __( 'Clear All', domain ) }} <i class="icon-cross"></i></button>
 									</div>
 								</div>
 							{% endif %}
@@ -182,9 +182,9 @@
 											{% if ( category.results > 0 ) %}
 												<li>
 													<label class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" {{ disabled }} />
+														<input type="checkbox" name="f[cat][{{ category.name }}]" value="{{ category.term_id }}" class="custom-control-input" {{ category.checked }} {{ disabled }} />
 														<span class="custom-control-indicator"></span>
-														<span class="custom-control-description">{{ category.name }} ({{ category.results }})</span>
+														<span class="custom-control-description {{ category.checked ? 'bold' : '' }}">{{ category.name }} ({{ category.results }})</span>
 													</label>
 												</li>
 											{% endif %}
@@ -203,9 +203,9 @@
 											{% for tag in tags %}
 												<li>
 													<label class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" {{ disabled }} />
+														<input type="checkbox" name="f[tag][{{ tag.name }}]" value="{{ tag.term_id }}" class="custom-control-input" {{ tag.checked }} {{ disabled }} />
 														<span class="custom-control-indicator"></span>
-														<span class="custom-control-description">{{ tag.name }} ({{ tag.results }})</span>
+														<span class="custom-control-description {{ tag.checked ? 'bold' : '' }}">{{ tag.name }} ({{ tag.results }})</span>
 													</label>
 												</li>
 											{% endfor %}
@@ -224,9 +224,9 @@
 												{% if ( page_type.results > 0 ) %}
 													<li>
 														<label class="custom-control custom-checkbox">
-															<input type="checkbox" class="custom-control-input" {{ disabled }} />
+															<input type="checkbox" name="f[ptype][{{ page_type.name }}]" value="{{ page_type.term_id }}" class="custom-control-input" {{ page_type.checked }} {{ disabled }} />
 															<span class="custom-control-indicator"></span>
-															<span class="custom-control-description">{{ page_type.name }} ({{ page_type.results }})</span>
+															<span class="custom-control-description {{ page_type.checked ? 'bold' : '' }}">{{ page_type.name }} ({{ page_type.results }})</span>
 														</label>
 													</li>
 												{% endif %}
@@ -246,9 +246,9 @@
 												{% if ( content_type.results > 0 ) %}
 													<li>
 														<label class="custom-control custom-checkbox">
-															<input type="checkbox" class="custom-control-input" {{ disabled }} />
+															<input type="checkbox" name="f[ctype][{{ content_type.name }}]" value="{{ loop.index0 }}" class="custom-control-input"{{ content_type.checked }} {{ disabled }} />
 															<span class="custom-control-indicator"></span>
-															<span class="custom-control-description">{{ content_type.name }} ({{ content_type.results }})</span>
+															<span class="custom-control-description {{ content_type.checked ? 'bold' : '' }}">{{ content_type.name }} ({{ content_type.results }})</span>
 														</label>
 													</li>
 												{% endif %}
