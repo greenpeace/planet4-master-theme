@@ -70,7 +70,7 @@
 																				<label class="custom-control custom-checkbox">
 																					<input type="checkbox" name="f[cat][{{ category.name }}]" value="{{ category.term_id }}" class="custom-control-input modal-checkbox" {{ category.checked }} {{ disabled }} />
 																					<span class="custom-control-indicator"></span>
-																					<span class="custom-control-description {{ category.checked ? 'bold' : '' }}">{{ category.name }} ({{ category.results }})</span>
+																					<span class="custom-control-description {{ category.checked ? 'bold' : '' }}">{{ category.name|e('wp_kses_post')|raw }} ({{ category.results }})</span>
 																				</label>
 																			</li>
 																		{% endif %}
@@ -184,7 +184,7 @@
 													<label class="custom-control custom-checkbox">
 														<input type="checkbox" name="f[cat][{{ category.name }}]" value="{{ category.term_id }}" class="custom-control-input" {{ category.checked }} {{ disabled }} />
 														<span class="custom-control-indicator"></span>
-														<span class="custom-control-description {{ category.checked ? 'bold' : '' }}">{{ category.name }} ({{ category.results }})</span>
+														<span class="custom-control-description {{ category.checked ? 'bold' : '' }}">{{ category.name|e('wp_kses_post')|raw }} ({{ category.results }})</span>
 													</label>
 												</li>
 											{% endif %}
