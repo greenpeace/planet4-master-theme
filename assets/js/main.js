@@ -43,6 +43,13 @@ $(document).ready(function() {
 		}
 	});
 
+	// Add filter by clicking on the page type label inside a result item.
+	$(".search-result-item-head").off("click").on("click", function () {
+		//$("input[name^='f[']").prop("checked", false);
+		$(".custom-control-input[value=" + $(this).data("term_id") + "]").prop("checked", true);
+		$("#search_form").submit();
+	});
+
 	// Clear single selected filter.
 	$(".activefilter-tag").off("click").on("click", function () {
 		$(".custom-control-input[value=" + $(this).data("id") + "]").prop("checked", false);
