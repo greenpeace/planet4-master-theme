@@ -34,7 +34,7 @@
 				<span class="search-result-item-title">{{ posts_data[post.ID].content_type_text }}</span>
 
 				{% for page_type in posts_data[post.ID].page_types %}
-					<a href="#" class="search-result-item-head">{{ page_type.name }}</a>
+					<button class="search-result-item-head" data-term_id="{{ page_type.term_id }}">{{ page_type.name }}</button>
 				{% endfor %}
 
 				{% for tag in posts_data[post.ID].tags %}
