@@ -598,10 +598,19 @@ class P4_Master_Site extends TimberSite {
 	public function populate_act_page_children_options() {
 
 		// Get the id of the ACT page. We need this to get the children posts/pages of the ACT Page.
-		$arguments = [
-			'post_type'     => 'page',
-			'post_name__in' => [ 'act', 'ACT', 'Act' ],
-		];
+		$parent_act_id = planet4_get_option( 'select_act_page' );
+		if( 0 != $parent_act_id ) {
+			$act_page_object  = get_post( $parent_act_id );
+			$arguments = [
+				'post_type'     => 'page',
+				'post_name__in' => [ $act_page->post_name ],
+			];
+		} else {
+			$arguments = [
+				'post_type'     => 'page',
+				'post_name__in' => [ 'act', 'ACT', 'Act' ],
+			];
+		}
 
 		$query_act_page = new WP_Query( $arguments );
 		$options        = [];
