@@ -32,7 +32,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 
 		/**
 		 * Constructor
-		 * @since 0.1.0
 		 */
 		public function __construct() {
 
@@ -52,7 +51,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				$categories_array[$category->term_id] = __( $category->cat_name ,'planet4-master-theme' );
 			}
 
-			// Set our CMB2 fields, wrap them in a filter so others can easily tap in and add their own as well.
 			$this->fields = apply_filters( 'planet4_options', array(
 					array(
 						'name'    => __( 'Select act page', 'planet4-master-theme' ),
@@ -81,7 +79,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 
 		/**
 		 * Initiate our hooks
-		 * @since 0.1.0
 		 */
 		public function hooks() {
 			add_action( 'admin_init', array( $this, 'init' ) );
@@ -90,7 +87,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 
 		/**
 		 * Register our setting to WP
-		 * @since  1.0
 		 */
 		public function init() {
 			register_setting( $this->key, $this->key );
@@ -98,7 +94,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 
 		/**
 		 * Add menu options page
-		 * @since 0.1.0
 		 */
 		public function add_options_page() {
 			$this->options_page = add_options_page( $this->title, $this->title, 'manage_options', $this->key, array( $this, 'admin_page_display' ) );
@@ -106,7 +101,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 
 		/**
 		 * Admin page markup. Mostly handled by CMB2
-		 * @since  1.0
 		 */
 		public function admin_page_display() {
 			?>
@@ -119,7 +113,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 
 		/**
 		 * Defines the theme option metabox and field configuration
-		 * @since  1.0
 		 * @return array
 		 */
 		public function option_metabox() {
@@ -133,7 +126,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 
 		/**
 		 * Public getter method for retrieving protected/private variables
-		 * @since  1.0
 		 * @param  string  $field Field to retrieve
 		 * @return mixed          Field value or exception is thrown
 		 */
@@ -154,7 +146,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 
 /**
  * Wrapper function around cmb2_get_option
- * @since  1.0
  * @param  string  $key Options array key
  * @return mixed        Option value
  */
