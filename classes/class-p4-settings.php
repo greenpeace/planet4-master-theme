@@ -16,7 +16,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		 * Array of metaboxes/fields
 		 * @var array
 		 */
-		protected $option_metabox = array();
+		protected $option_metabox = [];
 
 		/**
 		 * Options Page title
@@ -51,29 +51,29 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				$categories_array[$category->term_id] = __( $category->cat_name ,'planet4-master-theme' );
 			}
 
-			$this->fields = apply_filters( 'planet4_options', array(
-					array(
+			$this->fields = apply_filters( 'planet4_options', [
+					[
 						'name'    => __( 'Select act page', 'planet4-master-theme' ),
 						'id'      => 'select_act_page',
 						'type'    => 'select',
-						'options' => $pages_array
-					),
+						'options' => $pages_array,
+					],
 
-					array(
+					[
 						'name'    => __( 'Select explore page', 'planet4-master-theme' ),
 						'id'      => 'select_explore_page',
 						'type'    => 'select',
-						'options' => $pages_array
-					),
+						'options' => $pages_array,
+					],
 
-					array(
+					[
 						'name'    => __( 'Select category', 'planet4-master-theme' ),
 						'id'      => 'select_category',
 						'type'    => 'select',
-						'options' => $categories_array
-					)
+						'options' => $categories_array,
+					],
 
-				) );
+				] );
 			$this->hooks();
 		}
 
@@ -81,8 +81,8 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		 * Initiate our hooks
 		 */
 		public function hooks() {
-			add_action( 'admin_init', array( $this, 'init' ) );
-			add_action( 'admin_menu', array( $this, 'add_options_page' ) );
+			add_action( 'admin_init', [ $this, 'init' ] );
+			add_action( 'admin_menu', [ $this, 'add_options_page' ] );
 		}
 
 		/**
@@ -96,7 +96,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		 * Add menu options page
 		 */
 		public function add_options_page() {
-			$this->options_page = add_options_page( $this->title, $this->title, 'manage_options', $this->key, array( $this, 'admin_page_display' ) );
+			$this->options_page = add_options_page( $this->title, $this->title, 'manage_options', $this->key, [ $this, 'admin_page_display' ] );
 		}
 
 		/**
@@ -116,12 +116,12 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		 * @return array
 		 */
 		public function option_metabox() {
-			return array(
+			return [
 				'id'         => 'option_metabox',
-				'show_on'    => array( 'key' => 'options-page', 'value' => array( $this->key, ), ),
+				'show_on'    => [ 'key' => 'options-page', 'value' => [ $this->key, ], ],
 				'show_names' => true,
 				'fields'     => $this->fields,
-			);
+			];
 		}
 
 		/**
@@ -131,7 +131,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		 */
 		public function __get( $field ) {
 			// Allowed fields to retrieve
-			if ( in_array( $field, array( 'key', 'fields', 'title', 'options_page' ), true ) ) {
+			if ( in_array( $field, [ 'key', 'fields', 'title', 'options_page' ], true ) ) {
 				return $this->{$field};
 			}
 
