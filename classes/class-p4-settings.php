@@ -39,16 +39,16 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 			$this->title   = __( 'Planet4', 'planet4-master-theme' );
 			$pages         = get_pages();
 
-			$pages_array[] = __( 'Select Page' ,'planet4-master-theme' ) ;
+			$pages_array[] = __( 'Select Page', 'planet4-master-theme' ) ;
 			foreach ( $pages as $all_pages ) {
-				$pages_array[$all_pages->ID] = __( $all_pages->post_title ,'planet4-master-theme' ) ;
+				$pages_array[$all_pages->ID] = $all_pages->post_title;
 			}
 
 			$categories         = get_categories();
 
-			$categories_array[] = __( 'Select Category' ,'planet4-master-theme' ) ;
+			$categories_array[] = __( 'Select Category', 'planet4-master-theme' ) ;
 			foreach ( $categories as $category ) {
-				$categories_array[$category->term_id] = __( $category->cat_name ,'planet4-master-theme' );
+				$categories_array[$category->term_id] = __( $category->cat_name, 'planet4-master-theme' );
 			}
 
 			$this->fields = apply_filters( 'planet4_options', [
@@ -118,7 +118,12 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		public function option_metabox() {
 			return [
 				'id'         => 'option_metabox',
-				'show_on'    => [ 'key' => 'options-page', 'value' => [ $this->key, ], ],
+				'show_on'    => [
+					'key'      => 'options-page',
+					'value'    => [
+						$this->key,
+					],
+				],
 				'show_names' => true,
 				'fields'     => $this->fields,
 			];
@@ -150,8 +155,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
  * @return mixed        Option value
  */
 function planet4_get_option( $key = '' ) {
-	global $planet4_options;
-
 	if( function_exists( 'cmb2_get_option' ) ) {
 		return cmb2_get_option( 'planet4_options', $key );
 	} else {
