@@ -64,7 +64,7 @@ class P4_Master_Site extends TimberSite {
 		 */
 		spl_autoload_register(
 			function ( $class_name ) {
-				if ( strpos( $class_name, 'P4' ) !== false ) {
+				if ( strpos( $class_name, 'P4_' ) !== false ) {
 					$file_name = 'class-' . str_ireplace( [ 'P4\\', '_' ], [ '', '-' ], strtolower( $class_name ) );
 					require_once 'classes/' . $file_name . '.php';
 				}
