@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html {{ fn('language_attributes', 'html') }}>
 <head>
 	<meta charset="{{ site.charset }}">
 	<title>{% if wp_title %}{{ wp_title|e('esc_html')|raw }} - {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
