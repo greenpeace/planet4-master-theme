@@ -566,7 +566,8 @@ class P4_Master_Site extends TimberSite {
 		if ( ! $wp->is_main_query() || ! $wp->is_search() ) {
 			return;
 		}
-		$wp->set( 'posts_per_page', -1 );
+		$wp->set( 'posts_per_page', P4_Search::POSTS_LIMIT );
+		$wp->set( 'no_found_rows', true );
 	}
 
 	/**
