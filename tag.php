@@ -10,17 +10,12 @@
  */
 
 use Timber\Timber;
-use P4BKS\Controllers\Blocks\P4BKS_Blocks_Covers_Controller as Covers;
-use P4BKS\Controllers\Blocks\P4BKS_Blocks_Articles_Controller as Articles;
-use P4BKS\Controllers\Blocks\P4BKS_Blocks_ContentFourColumn_Controller as ContentFourColumn;
-use P4BKS\Controllers\Blocks\P4BKS_Blocks_CampaignThumbnail_Controller as CampaignThumbnail;
-use P4BKS\Controllers\Blocks\P4BKS_Blocks_HappyPoint_Controller as HappyPoint;
+use P4BKS\Controllers\Blocks\Covers_Controller as Covers;
+use P4BKS\Controllers\Blocks\Articles_Controller as Articles;
+use P4BKS\Controllers\Blocks\ContentFourColumn_Controller as ContentFourColumn;
+use P4BKS\Controllers\Blocks\CampaignThumbnail_Controller as CampaignThumbnail;
+use P4BKS\Controllers\Blocks\HappyPoint_Controller as HappyPoint;
 
-/**
- * TODO - Replace hard-coded block names with constants to be added in every block and which will
- * TODO - allow us to access easily the block's name ( e.g. Covers::BLOCK_NAME ),
- * TODO - depracate the protected $block_name property and deprecate the load() method from child blocks.
- */
 $templates = array( 'tag.twig', 'archive.twig', 'index.twig' );
 
 $context = Timber::get_context();
