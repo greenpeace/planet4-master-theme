@@ -35,12 +35,12 @@ $context['post']             = $post;
 // p4_take_action_page parameter to populate the take action boxout block
 // Author override parameter. If this is set then the author profile section will not be displayed.
 $page_meta_data              = get_post_meta( $post->ID );
-$articles_title              = $page_meta_data['p4_articles_title'][0];
-$articles_count              = intval( $page_meta_data['p4_articles_count'][0] );
-$articles_count              = 0 === $articles_count ? 3 : $articles_count;
-$context['author_override']  = $page_meta_data['p4_author_override'][0];
-$context['background_image'] = $page_meta_data['p4_background_image_override'][0];
-$take_action_page            = $page_meta_data['p4_take_action_page'][0];
+$articles_title              = $page_meta_data['p4_articles_title'][0] ?? '';
+$articles_count              = $page_meta_data['p4_articles_count'][0] ?? 0;
+$articles_count              = 0 === intval( $articles_count ) ? 3 : intval( $articles_count );
+$context['author_override']  = $page_meta_data['p4_author_override'][0] ?? '';
+$context['background_image'] = $page_meta_data['p4_background_image_override'][0] ?? '';
+$take_action_page            = $page_meta_data['p4_take_action_page'][0] ?? '';
 
 // Footer Items.
 $context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
