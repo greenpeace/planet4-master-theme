@@ -120,6 +120,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
 		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
 		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
+		add_action( 'save_post', 			  array($this, 'p4_save_post_type'), 10, 2 );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -467,64 +468,125 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Register a custom taxonomy for planet4 page types
+	 * Register a custom taxonomy for planet4 post types
 	 */
-	public function register_p4_page_type_taxonomy() {
+	 public function register_p4_page_type_taxonomy() {
 
-		$p4_page_type = [
-			'name'              => _x( 'Page Types', 'taxonomy general name' ),
-			'singular_name'     => _x( 'Page Type', 'taxonomy singular name' ),
-			'search_items'      => __( 'Search in Page Type' ),
-			'all_items'         => __( 'All Page Types' ),
-			'most_used_items'   => null,
-			'parent_item'       => null,
-			'parent_item_colon' => null,
-			'edit_item'         => __( 'Edit Page Type' ),
-			'update_item'       => __( 'Update Page Type' ),
-			'add_new_item'      => __( 'Add new Page Type' ),
-			'new_item_name'     => __( 'New Page Type' ),
-			'menu_name'         => __( 'Page Types' ),
-		];
-		$args         = [
-			'hierarchical' => false,
-			'labels'       => $p4_page_type,
-			'show_ui'      => true,
-			'query_var'    => true,
-			'rewrite'      => [
-				'slug' => 'p4-page-types',
-			],
-		];
-		register_taxonomy( 'p4-page-type', [ 'p4_page_type', 'post' ], $args );
+	 		$p4_page_type = [
+	 			'name'              => _x( 'Page Types', 'taxonomy general name' ),
+	 			'singular_name'     => _x( 'Page Type', 'taxonomy singular name' ),
+	 			'search_items'      => __( 'Search in Page Type' ),
+	 			'all_items'         => __( 'All Page Types' ),
+	 			'most_used_items'   => null,
+	 			'parent_item'       => null,
+	 			'parent_item_colon' => null,
+	 			'edit_item'         => __( 'Edit Page Type' ),
+	 			'update_item'       => __( 'Update Page Type' ),
+	 			'add_new_item'      => __( 'Add new Page Type' ),
+	 			'new_item_name'     => __( 'New Page Type' ),
+	 			'menu_name'         => __( 'Page Types' ),
+	 		];
+	 		$args         = [
+	 			'hierarchical' => false,
+	 			'labels'       => $p4_page_type,
+	 			'show_ui'      => true,
+	 			'query_var'    => true,
+	 			'rewrite'      => [
+	 				'slug' => 'p4-page-types',
+	 			],
+				'meta_box_cb' => [ $this, 'p4_metabox_markup' ]
+	 		];
+	 		register_taxonomy( 'p4-page-type', [ 'p4_page_type', 'post' ], $args );
 
-		$terms = [
-			'0' => [
-				'name'        => 'Story',
-				'slug'        => 'story',
-				'description' => 'A term for story post type',
-			],
-			'1' => [
-				'name'        => 'Press release',
-				'slug'        => 'press-release',
-				'description' => 'A term for press release post type',
-			],
-			'2' => [
-				'name'        => 'Publication',
-				'slug'        => 'publication',
-				'description' => 'A term for publication post type',
-			],
-		];
+	 		$terms = [
+	 			'0' => [
+	 				'name'        => 'Story',
+	 				'slug'        => 'story',
+	 				'description' => 'A term for story post type',
+	 			],
+	 			'1' => [
+	 				'name'        => 'Press release',
+	 				'slug'        => 'press-release',
+	 				'description' => 'A term for press release post type',
+	 			],
+	 			'2' => [
+	 				'name'        => 'Publication',
+	 				'slug'        => 'publication',
+	 				'description' => 'A term for publication post type',
+	 			],
+	 		];
 
-		foreach ( $terms as $term_key => $term ) {
-			wp_insert_term(
-				$term['name'],
-				'p4-page-type',
-				[
-					'description' => $term['description'],
-					'slug'        => $term['slug'],
-				]
-			);
-			unset( $term );
-		}
+	 		foreach ( $terms as $term_key => $term ) {
+	 			wp_insert_term(
+	 				$term['name'],
+	 				'p4-page-type',
+	 				[
+	 					'description' => $term['description'],
+	 					'slug'        => $term['slug'],
+	 				]
+	 			);
+	 			unset( $term );
+	 		}
+	 	}
+
+	/**
+	 * Save custom taxonomy for planet4 post types
+	 */
+	public function p4_save_post_type( $post_id ) {
+	    // some of these checks might be redundant, but they're all nicely
+	    // separated and easy to delete so I'll leave them for now.
+	    // ignore autosave
+	    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+	        return;
+	    }
+	    // check nonce
+	    if ( ! isset( $_POST['p4-post-type-nonce'] ) || ! wp_verify_nonce( $_POST['p4-post-type-nonce'], basename( __FILE__ ) ) ) {
+	        return;
+	    }
+	    // check user's capabilities
+	    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+	        return;
+	    }
+	    // make sure there's input
+	    if ( ! isset( $_POST['p4-post-type'] ) ) {
+	        return;
+	    }
+	    // make sure the term exists
+	    if( ! $selected = get_term_by('slug', sanitize_text_field( $_POST['p4-post-type']), 'p4-post-type') ) {
+	        return;
+	    }
+	    // make sure it's not an error
+	    if ( is_wp_error( $selected ) ) {
+	        return $post_id;
+	    }
+	    // save post type
+	    $result = wp_set_post_terms( $post_id, $selected->slug, 'p4-post-type', $append = false );
+	    return;
+	}
+	/**
+	 * Add a dropdown to choose planet4 post type.
+	 */
+	public function p4_metabox_markup( $object ) {
+	    get_post_meta( $object->ID );
+	    $current = -1;
+	    if( $current_term = get_the_terms($object, 'p4-post-type') ) {
+	        if(! is_wp_error( $current_term )) {
+	            $current = $current_term[0]->slug;
+	        }
+	    }
+	    $terms = get_terms('p4-post-type', [ 'hide_empty' => false ]);
+	    wp_nonce_field( basename( __FILE__ ), 'p4-post-type-nonce' );
+	    ?><div>
+	        <select name="p4-post-type"><?
+	            foreach($terms as $k => $term) {
+	                $selected = ( $current === $term->slug ) ? 'selected="selected"' : '';
+	            ?>
+	                <option <?= $selected ?> value="<?= $term->slug ?>"><?= $term->name ?></option>
+	            <? }
+	        $selected = ( -1 === $current ) ? 'selected="selected"' : '';
+	        ?><option value="-1" <?= $selected ?> >none</option>
+	        </select>
+	    </div><?
 	}
 
 	/**
