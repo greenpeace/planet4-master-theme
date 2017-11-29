@@ -48,21 +48,11 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$this->handle_submit( $this->context );
 
 				if ( $this->search_query ) {
-					if ( $this->filters ) {
-						$this->apply_filters();
-					} else {
-						/*
-						* With no args passed to this call, Timber uses the main query which we filter for customisations via P4_Master_Site class.
-						*
-						* When customising this query, use filters on the main query to avoid bypassing SearchWP's handling of the query.
-						*/
-						$this->all_posts = Timber::get_posts();
-					}
-
+					$this->all_posts    = $this->get_posts();
 					$this->current_page = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 					$this->posts        = array_slice( $this->all_posts, ( $this->current_page - 1 ) * self::POSTS_PER_PAGE, self::POSTS_PER_PAGE );
 				}
-				$this->add_context( $this->context );
+				$this->set_context( $this->context );
 			}
 		}
 
@@ -101,17 +91,29 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		}
 
 		/**
-		 * Applies user selected filters to the search.
+		 * Applies user selected filters to the search if there are any and gets the filtered posts.
+		 * If there are not then uses Timber's get_posts to retrieve all of them (up to the limit set).
+		 *
+		 * @return array The posts of the search.
 		 */
-		protected function apply_filters() {
+		protected function get_posts() : array {
 			global $wp_query;
 
-			if ( ! $this->filters || ! $wp_query->is_main_query() || ! $wp_query->is_search() ) {
-				return;
+			if ( ! $wp_query->is_main_query() || ! $wp_query->is_search() ) {
+				return [];
+			}
+
+			if ( ! $this->filters ) {
+				/*
+				 * With no args passed to this call, Timber uses the main query which we filter for customisations via P4_Master_Site class.
+				 *
+				 * When customising this query, use filters on the main query to avoid bypassing SearchWP's handling of the query.
+				 */
+				return Timber::get_posts();
 			}
 
 			$args = [
-				's' => $this->search_query,
+				's'              => $this->search_query,
 				'posts_per_page' => self::POSTS_LIMIT,          // Set a high maximum because -1 will get ALL posts and this can be very intensive in production.
 				'no_found_rows'  => true,                       // This means that the result counters of each filter might not be 100% precise.
 			];
@@ -123,7 +125,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 							if ( count( (array) $filter_type ) > 1 ) {
 								$args['category__and'][] = $filter['id'];
 							} else {
-								//$args['cat'] = $filter['id'];
 								$args['tax_query'][] = [
 									[
 										'taxonomy' => 'category',
@@ -137,7 +138,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 							if ( count( (array) $filter_type ) > 1 ) {
 								$args['tag__and'][] = $filter['id'];
 							} else {
-								//$args['tag_id'] = $filter['id'];
 								$args['tax_query'][] = [
 									[
 										'taxonomy' => 'post_tag',
@@ -182,26 +182,31 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				}
 			}
 
-			$ids          = [];
-			$timber_posts = [];
+			/*
+			 * 1. Pass params for SWP_Query and get posts.
+			 * 2. If more params that are not supported by SWP_Query like post_parent, post_parent__not_in,
+			 *    tag__and, category__and, are required then pass them to WP_Query and get posts.
+			 * 3. Get the respective Timber Posts, so that we can use Timber functionality in our search template.
+			 */
+			$posts = ( new SWP_Query( $args ) )->posts;
 
-			$posts  = ( new SWP_Query( $args ) )->posts;
-			foreach ( $posts as $post ) {
-				$ids[] = $post->ID;
-			}
-
-			// WP_Query is not capable of searching within rich text documents.
-			if ( 'attachment' !== $args['post_type'] ) {
+			if ( 'attachment' !== $args['post_type'] ) {    // This does not happen when filtering for attachments, since WP_Query does not support searching within rich text documents.
+				$ids = [];
+				foreach ( $posts as $post ) {
+					$ids[] = $post->ID;
+				}
 				$args['post__in'] = $ids;
 				$args['orderby']  = 'post__in';
 				$posts            = ( new WP_Query( $args ) )->posts;
 			}
 
+			$timber_posts = [];
+			// Use Timber's Post instead of WP_Post so that we can make use of Timber within the template.
 			foreach ( $posts as $post ) {
-				// Use Timber's Post instead of WP_Post so that we can make use of Timber within the template.
 				$timber_posts[] = new TimberPost( $post->ID );
 			}
-			$this->all_posts = $timber_posts;
+
+			return $timber_posts;
 		}
 
 		/**
@@ -209,17 +214,17 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 *
 		 * @param array $context Associative array with the data to be passed to the view.
 		 */
-		protected function add_context( &$context ) {
-			$this->add_general_context( $context );
-			$this->add_results_context( $context );
+		protected function set_context( &$context ) {
+			$this->set_general_context( $context );
+			$this->set_results_context( $context );
 		}
 
 		/**
-		 * Adds the general context for the Search page.
+		 * Sets the general context for the Search page.
 		 *
 		 * @param array $context Associative array with the data to be passed to the view.
 		 */
-		protected function add_general_context( &$context ) {
+		protected function set_general_context( &$context ) {
 
 			// Search context.
 			$context['all_posts']    = $this->all_posts;
@@ -238,11 +243,11 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		}
 
 		/**
-		 * Adds the context for the results of the Search.
+		 * Sets the context for the results of the Search.
 		 *
 		 * @param array $context Associative array with the data to be passed to the view.
 		 */
-		protected function add_results_context( &$context ) {
+		protected function set_results_context( &$context ) {
 
 			foreach ( (array) $this->all_posts as $post ) {
 				// Category <-> Issue.
@@ -341,32 +346,38 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			}
 
 			// Track checked filters.
-			foreach ( $this->filters as $type => $filter_type ) {
-				foreach ( $filter_type as $filter ) {
-					switch ( $type ) {
-						case 'cat':
-							$context['categories'][ $filter['id'] ]['checked'] = 'checked';
-							break;
-						case 'tag':
-							$context['tags'][ $filter['id'] ]['checked'] = 'checked';
-							break;
-						case 'ptype':
-							$context['page_types'][ $filter['id'] ]['checked'] = 'checked';
-							break;
-						case 'ctype':
-							$context['content_types'][ $filter['id'] ]['checked'] = 'checked';
-							break;
+			if ( $this->filters ) {
+				foreach ( $this->filters as $type => $filter_type ) {
+					foreach ( $filter_type as $filter ) {
+						switch ( $type ) {
+							case 'cat':
+								$context['categories'][ $filter['id'] ]['checked'] = 'checked';
+								break;
+							case 'tag':
+								$context['tags'][ $filter['id'] ]['checked'] = 'checked';
+								break;
+							case 'ptype':
+								$context['page_types'][ $filter['id'] ]['checked'] = 'checked';
+								break;
+							case 'ctype':
+								$context['content_types'][ $filter['id'] ]['checked'] = 'checked';
+								break;
+						}
 					}
 				}
 			}
 
-			// Sort filters alphabetically.
-			uasort( $context['categories'], function( $a, $b ) {
-				return strcmp( $a['name'], $b['name'] );
-			} );
-			uasort( $context['tags'], function( $a, $b ) {
-				return strcmp( $a['name'], $b['name'] );
-			});
+			// Sort associative array with filters alphabetically.
+			if ( $context['categories'] ) {
+				uasort( $context['categories'], function ( $a, $b ) {
+					return strcmp( $a['name'], $b['name'] );
+				} );
+			}
+			if ( $context['tags'] ) {
+				uasort( $context['tags'], function ( $a, $b ) {
+					return strcmp( $a['name'], $b['name'] );
+				} );
+			}
 		}
 
 		/**
