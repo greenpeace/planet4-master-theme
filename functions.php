@@ -109,6 +109,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'admin_init',             array( $this, 'add_google_tag_manager_identifier_setting' ) );
 		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
 		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
+		add_action( 'save_post', 			  array($this, 'p4_save_post_type'), 10, 2 );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -274,6 +275,7 @@ class P4_Master_Site extends TimberSite {
 			'rewrite'      => [
 				'slug' => 'p4-post-types',
 			],
+			'meta_box_cb' => [$this, 'p4_metabox_markup']
 		];
 		register_taxonomy( 'p4-post-type', [ 'p4_post_type', 'post' ], $args );
 
@@ -296,7 +298,7 @@ class P4_Master_Site extends TimberSite {
 		];
 
 		foreach ( $terms as $term_key => $term ) {
-			wp_insert_term(
+			$res = wp_insert_term(
 				$term['name'],
 				'p4-post-type',
 				[
@@ -306,6 +308,74 @@ class P4_Master_Site extends TimberSite {
 			);
 			unset( $term );
 		}
+	}
+
+	/**
+	 * Save custom taxonomy for planet4 post types
+	 */
+	public function p4_save_post_type( $post_id ) {
+		// some of these checks might be redundant, but they're all nicely
+		// separated and easy to delete so I'll leave them for now.
+
+		// ignore autosave
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+		// check nonce
+		if ( ! isset( $_POST['p4-post-type-nonce'] ) || ! wp_verify_nonce( $_POST['p4-post-type-nonce'], basename( __FILE__ ) ) ) {
+			return;
+		}
+		// check user's capabilities
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+		// make sure there's input
+		if ( ! isset( $_POST['p4-post-type'] ) ) {
+			return;
+		}
+		// make sure the term exists
+		if( ! $selected = get_term_by('slug', sanitize_text_field( $_POST['p4-post-type']), 'p4-post-type') ) {
+			return;
+		}
+		// make sure it's not an error
+		if ( is_wp_error( $selected ) ) {
+			return $post_id;
+		}
+
+		// save post type
+		$result = wp_set_post_terms( $post_id, $selected->slug, 'p4-post-type', $append = false );
+		return;
+	}
+
+
+	/**
+	 * Add a dropdown to choose planet4 post type.
+	 */
+	public function p4_metabox_markup( $object ) {
+		get_post_meta( $object->ID );
+		$current = -1;
+		if( $current_term = get_the_terms($object, 'p4-post-type') ) {
+
+			if(! is_wp_error( $current_term )) {
+				$current = $current_term[0]->slug;
+			}
+		}
+
+		$terms = get_terms('p4-post-type', [ 'hide_empty' => false ]);
+
+		wp_nonce_field( basename( __FILE__ ), 'p4-post-type-nonce' );
+		?><div>
+			<select name="p4-post-type"><?
+				foreach($terms as $k => $term) {
+					$selected = ( $current === $term->slug ) ? 'selected="selected"' : '';
+				?>
+					<option <?= $selected ?> value="<?= $term->slug ?>"><?= $term->name ?></option>
+				<? }
+			$selected = ( -1 === $current ) ? 'selected="selected"' : '';
+			?><option value="-1" <?= $selected ?> >none</option>
+			</select>
+		</div><?
+
 	}
 
 	/**
