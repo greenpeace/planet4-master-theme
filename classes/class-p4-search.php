@@ -184,15 +184,19 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 			$ids          = [];
 			$timber_posts = [];
-			$swp_posts    = ( new SWP_Query( $args ) )->posts;
 
-			foreach ( $swp_posts as $post ) {
+			$posts  = ( new SWP_Query( $args ) )->posts;
+			foreach ( $posts as $post ) {
 				$ids[] = $post->ID;
 			}
-			$args['post__in'] = $ids;
-			$args['orderby'] = 'post__in';
 
-			$posts = ( new WP_Query( $args ) )->posts;
+			// WP_Query is not capable of searching within rich text documents.
+			if ( 'attachment' !== $args['post_type'] ) {
+				$args['post__in'] = $ids;
+				$args['orderby']  = 'post__in';
+				$posts            = ( new WP_Query( $args ) )->posts;
+			}
+
 			foreach ( $posts as $post ) {
 				// Use Timber's Post instead of WP_Post so that we can make use of Timber within the template.
 				$timber_posts[] = new TimberPost( $post->ID );
