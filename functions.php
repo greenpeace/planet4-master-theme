@@ -560,7 +560,7 @@ class P4_Master_Site extends TimberSite {
 	        return $post_id;
 	    }
 	    // save post type
-	    $result = wp_set_post_terms( $post_id, $selected->slug, 'p4-post-type', $append = false );
+	    wp_set_post_terms( $post_id, $selected->slug, 'p4-post-type', $append = false );
 	    return;
 	}
 	/**
@@ -578,7 +578,7 @@ class P4_Master_Site extends TimberSite {
 	    wp_nonce_field( basename( __FILE__ ), 'p4-post-type-nonce' );
 	    ?><div>
 	        <select name="p4-post-type"><?
-	            foreach($terms as $k => $term) {
+	            foreach( $terms as $term ) {
 	                $selected = ( $current === $term->slug ) ? 'selected="selected"' : '';
 	            ?>
 	                <option <?= $selected ?> value="<?= $term->slug ?>"><?= $term->name ?></option>
