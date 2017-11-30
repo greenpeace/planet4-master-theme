@@ -41,19 +41,19 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 			$this->fields = apply_filters( 'planet4_options', [
 				[
 					'name'    => __( 'Select act page', 'planet4-master-theme' ),
-					'id'      => 'select_act_page',
+					'id'      => 'act_page',
 					'type'    => 'act_page_dropdown',
 				],
 
 				[
 					'name'    => __( 'Select explore page', 'planet4-master-theme' ),
-					'id'      => 'select_explore_page',
+					'id'      => 'explore_page',
 					'type'    => 'explore_page_dropdown',
 				],
 
 				[
 					'name'    => __( 'Select issues parent category', 'planet4-master-theme' ),
-					'id'      => 'select_category',
+					'id'      => 'issues_parent_category',
 					'type'    => 'category_select_taxonomy',
 				],
 			] );
@@ -94,7 +94,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'hide_empty'       => 0,
 					'hierarchical'     => true,
 					'selected'         => $value ,
-					'name'             => 'select_act_page',
+					'name'             => 'act_page',
 				]
 			);
 		}
@@ -108,7 +108,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'hide_empty'       => 0,
 					'hierarchical'     => true,
 					'selected'         => $value ,
-					'name'             => 'select_explore_page',
+					'name'             => 'explore_page',
 				]
 			);
 		}
@@ -123,7 +123,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'hierarchical'     => true,
 					'orderby'          => 'name',
 					'selected'         => $value ,
-					'name'             => 'select_category',
+					'name'             => 'issues_parent_category',
 				]
 			);
 		}
@@ -156,24 +156,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				'show_names' => true,
 				'fields'     => $this->fields,
 			];
-		}
-
-		/**
-		 * Public getter method for retrieving protected/private variables.
-		 * @param  string  $field Field to retrieve
-		 * @return mixed          Field value or exception is thrown
-		 */
-		public function __get( $field ) {
-			// Allowed fields to retrieve.
-			if ( in_array( $field, [ 'key', 'fields', 'title', 'options_page' ], true ) ) {
-				return $this->{$field};
-			}
-
-			if ( 'option_metabox' === $field ) {
-				return $this->option_metabox();
-			}
-
-			throw new Exception( 'Invalid property: ' . $field );
 		}
 	}
 }

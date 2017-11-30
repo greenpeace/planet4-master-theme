@@ -596,10 +596,10 @@ class P4_Master_Site extends TimberSite {
 	 * @return array
 	 */
 	public function populate_act_page_children_options() {
-		$parent_act_id = planet4_get_option( 'select_act_page' );
+		$parent_act_id = planet4_get_option( 'act_page' );
 		$options       = [];
 
-		if( 0 != $parent_act_id ) {
+		if( 0 !== absint( $parent_act_id ) ) {
 			$take_action_pages_args = [
 				'post_type'   => 'page',
 				'post_parent' => $parent_act_id,
@@ -750,5 +750,6 @@ class P4_Master_Site extends TimberSite {
 }
 
 new P4_Master_Site( [
-	'P4_Taxonomy_Image','P4_Settings',
+	'P4_Taxonomy_Image',
+	'P4_Settings',
 ] );
