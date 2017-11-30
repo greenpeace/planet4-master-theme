@@ -2,17 +2,17 @@
 
 if ( ! class_exists( 'Timber' ) ) {
 	add_action(
-		'admin_notices', function() {
-			printf( '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="%s">Plugins menu</a></p></div>',
-				esc_url( admin_url( 'plugins.php#timber' ) )
-			);
-		}
+		'admin_notices', function () {
+		printf( '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="%s">Plugins menu</a></p></div>',
+			esc_url( admin_url( 'plugins.php#timber' ) )
+		);
+	}
 	);
 
 	add_filter(
-		'template_include', function( $template ) {
-			return get_stylesheet_directory() . '/static/no-timber.html';
-		}
+		'template_include', function ( $template ) {
+		return get_stylesheet_directory() . '/static/no-timber.html';
+	}
 	);
 
 	return;
@@ -105,22 +105,22 @@ class P4_Master_Site extends TimberSite {
 		add_theme_support( 'menus' );
 		add_post_type_support( 'page', 'excerpt' );  // Added excerpt option to pages.
 
-		add_filter( 'timber_context',         array( $this, 'add_to_context' ) );
-		add_filter( 'get_twig',               array( $this, 'add_to_twig' ) );
-		add_action( 'init',                   array( $this, 'register_post_types' ) );
-		add_action( 'init',                   array( $this, 'register_taxonomies' ) );
-		add_action( 'pre_get_posts',          array( $this, 'add_search_options' ) );
+		add_filter( 'timber_context', array( $this, 'add_to_context' ) );
+		add_filter( 'get_twig', array( $this, 'add_to_twig' ) );
+		add_action( 'init', array( $this, 'register_post_types' ) );
+		add_action( 'init', array( $this, 'register_taxonomies' ) );
+		add_action( 'pre_get_posts', array( $this, 'add_search_options' ) );
 		add_filter( 'searchwp_query_orderby', array( $this, 'edit_searchwp_query_orderby' ), 10, 2 );
-		add_action( 'cmb2_admin_init',        array( $this, 'register_header_metabox' ) );
-		add_action( 'pre_get_posts',          array( $this, 'tags_support_query' ) );
-		add_action( 'admin_init',             array( $this, 'add_copyright_text' ) );
-		add_action( 'admin_init',             array( $this, 'add_google_tag_manager_identifier_setting' ) );
-		add_action( 'admin_init',             array( $this, 'add_engaging_network_form_id' ) );
-		add_action( 'admin_init',             array( $this, 'add_cookies_field' ) );
-		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
-		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
-		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
-		add_action( 'save_post', 			  array($this, 'p4_save_post_type'), 10, 2 );
+		add_action( 'cmb2_admin_init', array( $this, 'register_header_metabox' ) );
+		add_action( 'pre_get_posts', array( $this, 'tags_support_query' ) );
+		add_action( 'admin_init', array( $this, 'add_copyright_text' ) );
+		add_action( 'admin_init', array( $this, 'add_google_tag_manager_identifier_setting' ) );
+		add_action( 'admin_init', array( $this, 'add_engaging_network_form_id' ) );
+		add_action( 'admin_init', array( $this, 'add_cookies_field' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_assets' ) );
+		add_filter( 'wp_kses_allowed_html', array( $this, 'set_custom_allowed_attributes_filter' ) );
+		add_action( 'save_post', array( $this, 'p4_save_post_type' ), 10, 2 );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -153,7 +153,7 @@ class P4_Master_Site extends TimberSite {
 	 * @return mixed
 	 */
 	public function add_to_context( $context ) {
-		$context['cookies'] = [
+		$context['cookies']      = [
 			'text' => get_option( 'cookies_field', '' ),
 		];
 		$context['data_nav_bar'] = [
@@ -181,6 +181,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function add_to_twig( $twig ) {
 		$twig->addExtension( new Twig_Extension_StringLoader() );
+
 		return $twig;
 	}
 
@@ -190,6 +191,7 @@ class P4_Master_Site extends TimberSite {
 	 * Allow iframes in posts.
 	 *
 	 * @param array $allowedposttags Default allowed tags.
+	 *
 	 * @return array
 	 */
 	public function set_custom_allowed_attributes_filter( $allowedposttags ) {
@@ -279,7 +281,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function cookies_show_settings( $args ) {
 		$cookies_text = get_option( 'cookies_field', '' );
-		$args = [
+		$args         = [
 			'textarea_name' => 'cookies_field',
 			'media_buttons' => false,
 			'textarea_rows' => 5,
@@ -425,25 +427,26 @@ class P4_Master_Site extends TimberSite {
 	 *
 	 * @return string The sanitized setting.
 	 */
-	public function sanitize( $setting ) : string {
+	public function sanitize( $setting ): string {
 		$allowed = [
 			'ul'     => [],
 			'ol'     => [],
 			'li'     => [],
 			'strong' => [],
 			'del'    => [],
-			'span' => [
+			'span'   => [
 				'style' => [],
 			],
-			'p' => [
+			'p'      => [
 				'style' => [],
 			],
-			'a' => [
+			'a'      => [
 				'href'   => [],
 				'target' => [],
 				'rel'    => [],
 			],
 		];
+
 		return wp_kses( $setting, $allowed );
 	}
 
@@ -460,7 +463,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function enqueue_public_assets() {
 		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', array(), '4.0.0-alpha.6' );
-		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], '0.0.5'  );
+		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], '0.0.5' );
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 		wp_enqueue_script( 'popperjs', $this->theme_dir . '/assets/js/popper.min.js', array(), '1.11.0', true );
 		wp_enqueue_script( 'bootstrapjs', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', array(), '4.0.0-beta', true );
@@ -470,129 +473,134 @@ class P4_Master_Site extends TimberSite {
 	/**
 	 * Register a custom taxonomy for planet4 post types
 	 */
-	 public function register_p4_page_type_taxonomy() {
+	public function register_p4_page_type_taxonomy() {
 
-	 		$p4_page_type = [
-	 			'name'              => _x( 'Page Types', 'taxonomy general name' ),
-	 			'singular_name'     => _x( 'Page Type', 'taxonomy singular name' ),
-	 			'search_items'      => __( 'Search in Page Type' ),
-	 			'all_items'         => __( 'All Page Types' ),
-	 			'most_used_items'   => null,
-	 			'parent_item'       => null,
-	 			'parent_item_colon' => null,
-	 			'edit_item'         => __( 'Edit Page Type' ),
-	 			'update_item'       => __( 'Update Page Type' ),
-	 			'add_new_item'      => __( 'Add new Page Type' ),
-	 			'new_item_name'     => __( 'New Page Type' ),
-	 			'menu_name'         => __( 'Page Types' ),
-	 		];
-	 		$args         = [
-	 			'hierarchical' => false,
-	 			'labels'       => $p4_page_type,
-	 			'show_ui'      => true,
-	 			'query_var'    => true,
-	 			'rewrite'      => [
-	 				'slug' => 'p4-page-types',
-	 			],
-				'meta_box_cb' => [ $this, 'p4_metabox_markup' ]
-	 		];
-	 		register_taxonomy( 'p4-page-type', [ 'p4_page_type', 'post' ], $args );
+		$p4_page_type = [
+			'name'              => _x( 'Page Types', 'taxonomy general name' ),
+			'singular_name'     => _x( 'Page Type', 'taxonomy singular name' ),
+			'search_items'      => __( 'Search in Page Type' ),
+			'all_items'         => __( 'All Page Types' ),
+			'most_used_items'   => null,
+			'parent_item'       => null,
+			'parent_item_colon' => null,
+			'edit_item'         => __( 'Edit Page Type' ),
+			'update_item'       => __( 'Update Page Type' ),
+			'add_new_item'      => __( 'Add new Page Type' ),
+			'new_item_name'     => __( 'New Page Type' ),
+			'menu_name'         => __( 'Page Types' ),
+		];
+		$args         = [
+			'hierarchical' => false,
+			'labels'       => $p4_page_type,
+			'show_ui'      => true,
+			'query_var'    => true,
+			'rewrite'      => [
+				'slug' => 'p4-page-types',
+			],
+			'meta_box_cb'  => [ $this, 'p4_metabox_markup' ]
+		];
+		register_taxonomy( 'p4-page-type', [ 'p4_page_type', 'post' ], $args );
 
-	 		$terms = [
-	 			'0' => [
-	 				'name'        => 'Story',
-	 				'slug'        => 'story',
-	 				'description' => 'A term for story post type',
-	 			],
-	 			'1' => [
-	 				'name'        => 'Press release',
-	 				'slug'        => 'press-release',
-	 				'description' => 'A term for press release post type',
-	 			],
-	 			'2' => [
-	 				'name'        => 'Publication',
-	 				'slug'        => 'publication',
-	 				'description' => 'A term for publication post type',
-	 			],
-	 		];
+		$terms = [
+			'0' => [
+				'name'        => 'Story',
+				'slug'        => 'story',
+				'description' => 'A term for story post type',
+			],
+			'1' => [
+				'name'        => 'Press release',
+				'slug'        => 'press-release',
+				'description' => 'A term for press release post type',
+			],
+			'2' => [
+				'name'        => 'Publication',
+				'slug'        => 'publication',
+				'description' => 'A term for publication post type',
+			],
+		];
 
-	 		foreach ( $terms as $term_key => $term ) {
-	 			wp_insert_term(
-	 				$term['name'],
-	 				'p4-page-type',
-	 				[
-	 					'description' => $term['description'],
-	 					'slug'        => $term['slug'],
-	 				]
-	 			);
-	 			unset( $term );
-	 		}
-	 	}
+		foreach ( $terms as $term_key => $term ) {
+			wp_insert_term(
+				$term['name'],
+				'p4-page-type',
+				[
+					'description' => $term['description'],
+					'slug'        => $term['slug'],
+				]
+			);
+			unset( $term );
+		}
+	}
 
 	/**
 	 * Save custom taxonomy for planet4 post types
 	 */
 	public function p4_save_post_type( $post_id ) {
-	    // some of these checks might be redundant, but they're all nicely
-	    // separated and easy to delete so I'll leave them for now.
-	    // ignore autosave
-	    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-	        return;
-	    }
-	    // check nonce
-	    if ( ! isset( $_POST['p4-post-type-nonce'] ) || ! wp_verify_nonce( $_POST['p4-post-type-nonce'], basename( __FILE__ ) ) ) {
-	        return;
-	    }
-	    // check user's capabilities
-	    if ( ! current_user_can( 'edit_post', $post_id ) ) {
-	        return;
-	    }
-	    // make sure there's input
-	    if ( ! isset( $_POST['p4-post-type'] ) ) {
-	        return;
-	    }
-	    // make sure the term exists
-	    if( ! $selected = get_term_by('slug', sanitize_text_field( $_POST['p4-post-type']), 'p4-post-type') ) {
-	        return;
-	    }
-	    // make sure it's not an error
-	    if ( is_wp_error( $selected ) ) {
-	        return $post_id;
-	    }
-	    // save post type
-	    wp_set_post_terms( $post_id, $selected->slug, 'p4-post-type', $append = false );
-	    return;
+		// some of these checks might be redundant, but they're all nicely
+		// separated and easy to delete so I'll leave them for now.
+		// ignore autosave
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+		// check nonce
+		if ( ! isset( $_POST['p4-page-type-nonce'] ) || ! wp_verify_nonce( $_POST['p4-page-type-nonce'], basename( __FILE__ ) ) ) {
+			return;
+		}
+		// check user's capabilities
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+		// make sure there's input
+		if ( ! isset( $_POST['p4-page-type'] ) ) { // Input var okay.
+			return;
+		}
+		// make sure the term exists
+		if ( ! $selected = get_term_by( 'slug', sanitize_text_field( $_POST['p4-page-type'] ), 'p4-page-type' ) ) { // Input var okay.
+			return;
+		}
+		// make sure it's not an error
+		if ( is_wp_error( $selected ) ) {
+			return $post_id;
+		}
+		// save post type
+		wp_set_post_terms( $post_id, $selected->slug, 'p4-page-type', $append = false );
+
+		return;
 	}
+
 	/**
 	 * Add a dropdown to choose planet4 post type.
 	 */
 	public function p4_metabox_markup( $object ) {
-	    get_post_meta( $object->ID );
-	    $current = -1;
-	    if( $current_term = get_the_terms($object, 'p4-post-type') ) {
-	        if(! is_wp_error( $current_term )) {
-	            $current = $current_term[0]->slug;
-	        }
-	    }
-	    $terms = get_terms('p4-post-type', [ 'hide_empty' => false ]);
-	    wp_nonce_field( basename( __FILE__ ), 'p4-post-type-nonce' );
-	    ?><div>
-	        <select name="p4-post-type"><?
-	            foreach( $terms as $term ) {
-	                $selected = ( $current === $term->slug ) ? 'selected="selected"' : '';
-	            ?>
-	                <option <?= $selected ?> value="<?= $term->slug ?>"><?= $term->name ?></option>
-	            <? }
-	        $selected = ( -1 === $current ) ? 'selected="selected"' : '';
-	        ?><option value="-1" <?= $selected ?> >none</option>
-	        </select>
-	    </div><?
+		get_post_meta( $object->ID );
+		$current = - 1;
+		if ( $current_term = get_the_terms( $object, 'p4-page-type' ) ) {
+			if ( ! is_wp_error( $current_term ) ) {
+				$current = $current_term[0]->slug;
+			}
+		}
+		$terms = get_terms( 'p4-page-type', [ 'hide_empty' => false ] );
+		wp_nonce_field( basename( __FILE__ ), 'p4-page-type-nonce' );
+		?>
+        <div>
+        <select name="p4-page-type"><?
+			foreach ( $terms as $term ) {
+				$selected = ( $current === $term->slug ) ? 'selected="selected"' : '';
+				?>
+                <option <?= $selected ?> value="<?= $term->slug ?>"><?= $term->name ?></option>
+			<? }
+			$selected = ( - 1 === $current ) ? 'selected="selected"' : '';
+			?>
+            <option value="-1" <?= $selected ?> >none</option>
+        </select>
+        </div><?
 	}
 
 	/**
 	 * Registers custom post types.
 	 */
-	public function register_post_types() {}
+	public function register_post_types() {
+	}
 
 	/**
 	 * Registers taxonomies.
@@ -628,7 +636,7 @@ class P4_Master_Site extends TimberSite {
 		if ( ! $wp->is_main_query() || ! $wp->is_search() ) {
 			return;
 		}
-		$wp->set( 'posts_per_page', -1 );
+		$wp->set( 'posts_per_page', - 1 );
 	}
 
 	/**
@@ -644,7 +652,7 @@ class P4_Master_Site extends TimberSite {
 
 		if ( P4_Search::DEFAULT_SORT !== $selected_sort ) {
 			$selected_order = $this->sort_options[ $selected_sort ]['order'];
-			$orderby = esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
+			$orderby        = esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
 		} else {
 			$orderby = esc_sql( $orderby );
 		}
@@ -695,9 +703,9 @@ class P4_Master_Site extends TimberSite {
 		$prefix = 'p4_';
 
 		$p4_header = new_cmb2_box( array(
-			'id'            => $prefix . 'metabox',
-			'title'         => __( 'Page Header Fields', 'planet4-master-theme' ),
-			'object_types'  => array( 'page' ), // Post type.
+			'id'           => $prefix . 'metabox',
+			'title'        => __( 'Page Header Fields', 'planet4-master-theme' ),
+			'object_types' => array( 'page' ), // Post type.
 		) );
 
 		$p4_header->add_field( array(
@@ -748,18 +756,18 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_header->add_field(
 			array(
-				'name'    => __( 'Background overide', 'planet4-master-theme' ),
-				'desc'    => __( 'Upload an image', 'planet4-master-theme' ),
-				'id'      => 'background_image',
-				'type'    => 'file',
+				'name'         => __( 'Background overide', 'planet4-master-theme' ),
+				'desc'         => __( 'Upload an image', 'planet4-master-theme' ),
+				'id'           => 'background_image',
+				'type'         => 'file',
 				// Optional
-				'options' => array(
+				'options'      => array(
 					'url' => false,
 				),
-				'text'    => array(
+				'text'         => array(
 					'add_upload_file_text' => __( 'Add Background Image', 'planet4-master-theme' )
 				),
-				'query_args' => array(
+				'query_args'   => array(
 					'type' => 'image',
 				),
 				'preview_size' => 'large',
