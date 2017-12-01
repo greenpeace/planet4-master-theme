@@ -142,17 +142,17 @@ if ( ! class_exists( 'P4_Search' ) ) {
 							case 'ctype':
 								switch ( $filter['id'] ) {
 									case 0:
-										$args['post_type'] = 'page';
-										$options = get_option( 'planet4_options' );
-										$args['post_parent'] = $options['act_page'];
+										$args['post_type']   = 'page';
+										$options             = get_option( 'planet4_options' );
+										$args['post_parent'] = esc_sql( $options['act_page'] );
 										break;
 									case 1:
-										$args['post_type'] = 'attachment';
+										$args['post_type']   = 'attachment';
 										break;
 									case 2:
-										$args['post_type'] = 'page';
-										$options = get_option( 'planet4_options' );
-										$args['post_parent__not_in'][] = $options['act_page'];
+										$args['post_type']   = 'page';
+										$options             = get_option( 'planet4_options' );
+										$args['post_parent__not_in'][] = esc_sql( $options['act_page'] );
 										break;
 									case 3:
 										$args['post_type'] = 'post';
