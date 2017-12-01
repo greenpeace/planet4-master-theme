@@ -40,22 +40,51 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 
 			$this->fields = apply_filters( 'planet4_options', [
 				[
-					'name'    => __( 'Select act page', 'planet4-master-theme' ),
+					'name'    => __( 'Select Act Page', 'planet4-master-theme' ),
 					'id'      => 'act_page',
 					'type'    => 'act_page_dropdown',
 				],
 
 				[
-					'name'    => __( 'Select explore page', 'planet4-master-theme' ),
+					'name'    => __( 'Select Explore Page', 'planet4-master-theme' ),
 					'id'      => 'explore_page',
 					'type'    => 'explore_page_dropdown',
 				],
 
 				[
-					'name'    => __( 'Select issues parent category', 'planet4-master-theme' ),
+					'name'    => __( 'Select Issues Parent Category', 'planet4-master-theme' ),
 					'id'      => 'issues_parent_category',
 					'type'    => 'category_select_taxonomy',
 				],
+
+				[
+					'name'    => __( 'Copyright Text', 'planet4-master-theme' ),
+					'id'      => 'copyright',
+					'type'    => 'text',
+				],
+
+				[
+					'name'    => __( 'Google Tag Manager Identifier', 'planet4-master-theme' ),
+					'id'      => 'google_tag_manager_identifier',
+					'type'    => 'text',
+				],
+
+				[
+					'name'    => __( 'Engaging Network ID', 'planet4-master-theme' ),
+					'id'      => 'engaging_network_form_id',
+					'type'    => 'text',
+				],
+
+				[
+					'name'    => __( 'Cookies Text', 'planet4-master-theme' ),
+					'id'      => 'cookies_field',
+					'type'    => 'wysiwyg',
+					'options' => [
+						'textarea_rows' => 5,
+						'media_buttons' => false
+					 ],
+				],
+
 			] );
 			$this->hooks();
 		}
@@ -117,6 +146,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		 * Render category dropdown.
 		 */
 		public function p4_render_category_dropdown( $field_args, $value ) {
+
 			wp_dropdown_categories( [
 					'show_option_none' => __( 'Select Category', 'planet4-master-theme' ),
 					'hide_empty'       => 0,
