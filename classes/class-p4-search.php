@@ -111,11 +111,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 									$args['category__and'][] = $filter['id'];
 								} else {
 									$args['tax_query'][] = [
-										[
-											'taxonomy' => 'category',
-											'field'    => 'term_id',
-											'terms'    => $filter['id'],
-										],
+										'taxonomy' => 'category',
+										'field'    => 'term_id',
+										'terms'    => $filter['id'],
 									];
 								}
 								break;
@@ -124,11 +122,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 									$args['tag__and'][] = $filter['id'];
 								} else {
 									$args['tax_query'][] = [
-										[
-											'taxonomy' => 'post_tag',
-											'field'    => 'term_id',
-											'terms'    => $filter['id'],
-										],
+										'taxonomy' => 'post_tag',
+										'field'    => 'term_id',
+										'terms'    => $filter['id'],
 									];
 								}
 								break;
@@ -137,26 +133,26 @@ if ( ! class_exists( 'P4_Search' ) ) {
 									$args['post__in'][] = $filter['id'];
 								} else {
 									$args['tax_query'][] = [
-										[
-											'taxonomy' => 'p4-page-type',
-											'field'    => 'term_id',
-											'terms'    => $filter['id'],
-										],
+										'taxonomy' => 'p4-page-type',
+										'field'    => 'term_id',
+										'terms'    => $filter['id'],
 									];
 								}
 								break;
 							case 'ctype':
 								switch ( $filter['id'] ) {
 									case 0:
-										$args['post_type']   = 'page';
-										$args['post_parent'] = get_page_by_path( 'act', 'OBJECT', 'page' )->ID;
+										$args['post_type'] = 'page';
+										$options = get_option( 'planet4_options' );
+										$args['post_parent'] = $options['act_page'];
 										break;
 									case 1:
 										$args['post_type'] = 'attachment';
 										break;
 									case 2:
-										$args['post_type']             = 'page';
-										$args['post_parent__not_in'][] = get_page_by_path( 'act', 'OBJECT', 'page' )->ID;
+										$args['post_type'] = 'page';
+										$options = get_option( 'planet4_options' );
+										$args['post_parent__not_in'][] = $options['act_page'];
 										break;
 									case 3:
 										$args['post_type'] = 'post';
