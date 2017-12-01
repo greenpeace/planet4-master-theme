@@ -55,7 +55,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 						$this->selected_sort = $selected_sort;
 						$this->filters       = $filters;
 					}
-					$this->all_posts     = $this->get_posts();
+					$this->all_posts     = $this->get_timber_posts();
 					$this->current_page  = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 					$this->posts         = array_slice( $this->all_posts, ( $this->current_page - 1 ) * self::POSTS_PER_PAGE, self::POSTS_PER_PAGE );
 				}
@@ -64,19 +64,37 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		}
 
 		/**
-		 * Applies user selected filters to the search if there are any and gets the filtered posts.
+		 * Gets the respective Timber Posts, to be used with the twig template.
 		 * If there are not then uses Timber's get_posts to retrieve all of them (up to the limit set).
 		 *
-		 * @return array The posts of the search.
+		 * @return array The respective Timber Posts.
 		 */
-		protected function get_posts() : array {
+		protected function get_timber_posts() : array {
+			$timber_posts = [];
+
 			if ( ! $this->filters ) {
 				/*
 				 * With no args passed to this call, Timber uses the main query which we filter for customisations via P4_Master_Site class.
 				 * When customising this query, use filters on the main query to avoid bypassing SearchWP's handling of the query.
 				 */
 				return Timber::get_posts();
+			} else {
+				$posts = $this->get_posts();
+				// Use Timber's Post instead of WP_Post so that we can make use of Timber within the template.
+				foreach ( $posts as $post ) {
+					$timber_posts[] = new TimberPost( $post->ID );
+				}
 			}
+
+			return $timber_posts;
+		}
+
+		/**
+		 * Applies user selected filters to the search if there are any and gets the filtered posts.
+		 *
+		 * @return array The posts of the search.
+		 */
+		protected function get_posts() : array {
 
 			$args = [
 				's'              => $this->search_query,
@@ -84,66 +102,68 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				'no_found_rows'  => true,                       // This means that the result counters of each filter might not be 100% precise.
 			];
 
-			foreach ( $this->filters as $type => $filter_type ) {
-				foreach ( $filter_type as $filter ) {
-					switch ( $type ) {
-						case 'cat':
-							if ( count( (array) $filter_type ) > 1 ) {
-								$args['category__and'][] = $filter['id'];
-							} else {
-								$args['tax_query'][] = [
-									[
-										'taxonomy' => 'category',
-										'field'    => 'term_id',
-										'terms'    => $filter['id'],
-									],
-								];
-							}
-							break;
-						case 'tag':
-							if ( count( (array) $filter_type ) > 1 ) {
-								$args['tag__and'][] = $filter['id'];
-							} else {
-								$args['tax_query'][] = [
-									[
-										'taxonomy' => 'post_tag',
-										'field'    => 'term_id',
-										'terms'    => $filter['id'],
-									],
-								];
-							}
-							break;
-						case 'ptype':
-							if ( count( (array) $filter_type ) > 1 ) {
-								$args['post__in'][] = $filter['id'];
-							} else {
-								$args['tax_query'][] = [
-									[
-										'taxonomy' => 'p4-page-type',
-										'field'    => 'term_id',
-										'terms'    => $filter['id'],
-									],
-								];
-							}
-							break;
-						case 'ctype':
-							switch ( $filter['id'] ) {
-								case 0:
-									$args['post_type']   = 'page';
-									$args['post_parent'] = get_page_by_path( 'act', 'OBJECT', 'page' )->ID;
-									break;
-								case 1:
-									$args['post_type'] = 'attachment';
-									break;
-								case 2:
-									$args['post_type'] = 'page';
-									$args['post_parent__not_in'][] = get_page_by_path( 'act', 'OBJECT', 'page' )->ID;
-									break;
-								case 3:
-									$args['post_type'] = 'post';
-									break;
-							}
-							break;
+			if ( $this->filters ) {
+				foreach ( $this->filters as $type => $filter_type ) {
+					foreach ( $filter_type as $filter ) {
+						switch ( $type ) {
+							case 'cat':
+								if ( count( (array) $filter_type ) > 1 ) {
+									$args['category__and'][] = $filter['id'];
+								} else {
+									$args['tax_query'][] = [
+										[
+											'taxonomy' => 'category',
+											'field'    => 'term_id',
+											'terms'    => $filter['id'],
+										],
+									];
+								}
+								break;
+							case 'tag':
+								if ( count( (array) $filter_type ) > 1 ) {
+									$args['tag__and'][] = $filter['id'];
+								} else {
+									$args['tax_query'][] = [
+										[
+											'taxonomy' => 'post_tag',
+											'field'    => 'term_id',
+											'terms'    => $filter['id'],
+										],
+									];
+								}
+								break;
+							case 'ptype':
+								if ( count( (array) $filter_type ) > 1 ) {
+									$args['post__in'][] = $filter['id'];
+								} else {
+									$args['tax_query'][] = [
+										[
+											'taxonomy' => 'p4-page-type',
+											'field'    => 'term_id',
+											'terms'    => $filter['id'],
+										],
+									];
+								}
+								break;
+							case 'ctype':
+								switch ( $filter['id'] ) {
+									case 0:
+										$args['post_type']   = 'page';
+										$args['post_parent'] = get_page_by_path( 'act', 'OBJECT', 'page' )->ID;
+										break;
+									case 1:
+										$args['post_type'] = 'attachment';
+										break;
+									case 2:
+										$args['post_type']             = 'page';
+										$args['post_parent__not_in'][] = get_page_by_path( 'act', 'OBJECT', 'page' )->ID;
+										break;
+									case 3:
+										$args['post_type'] = 'post';
+										break;
+								}
+								break;
+						}
 					}
 				}
 			}
@@ -166,26 +186,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$posts            = ( new WP_Query( $args ) )->posts;
 			}
 
-			$posts = $this->get_timber_posts( $posts );
-
 			return $posts;
-		}
-
-		/**
-		 * Gets the respective Timber Posts, to be used with the twig template.
-		 *
-		 * @param array $posts The WP_Posts to use for creating respective Timber Posts.
-		 *
-		 * @return array The respective Timber Posts.
-		 */
-		protected function get_timber_posts( $posts ) : array {
-			$timber_posts = [];
-			// Use Timber's Post instead of WP_Post so that we can make use of Timber within the template.
-			foreach ( $posts as $post ) {
-				$timber_posts[] = new TimberPost( $post->ID );
-			}
-
-			return $timber_posts;
 		}
 
 		/**
