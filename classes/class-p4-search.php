@@ -206,17 +206,12 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		protected function set_general_context( &$context ) {
 
 			// Search context.
-			$context['all_posts']    = $this->all_posts;
-			$context['posts']        = $this->posts;
-			$context['search_query'] = $this->search_query;
+			$context['all_posts']     = $this->all_posts;
+			$context['posts']         = $this->posts;
+			$context['search_query']  = $this->search_query;
 			$context['selected_sort'] = $this->selected_sort;
-			if ( ! in_array( $this->selected_sort, array_keys( $context['sort_options'] ), true ) ) {
-				$context['selected_sort'] = P4_Search::DEFAULT_SORT;
-			} else {
-				$context['selected_sort'] = $this->selected_sort;
-			}
-			$context['filters']      = $this->filters;
-			$context['found_posts']  = count( (array) $this->all_posts );
+			$context['filters']       = $this->filters;
+			$context['found_posts']   = count( (array) $this->all_posts );
 
 			// Footer context.
 			$context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
