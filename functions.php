@@ -565,6 +565,10 @@ class P4_Master_Site extends TimberSite {
 		if ( ! isset( $_POST['p4-page-type'] ) ) { // Input var okay.
 			return;
 		}
+		// If "none" was selected.
+		if ( $_POST['p4-page-type'] === '-1' ) {
+			$this->p4_remove_page_type( $post_id );
+		}
 		// Make sure the term exists and it's not an error.
         $selected = get_term_by( 'slug', sanitize_text_field( $_POST['p4-page-type'] ), 'p4-page-type' ); // Input var okay.
 
@@ -574,7 +578,18 @@ class P4_Master_Site extends TimberSite {
 		// Save post type.
 		wp_set_post_terms( $post_id, $selected->slug, 'p4-page-type', $append = false );
     }
-
+	/**
+	 * Removes primary category from a post.
+	 *
+	 * @param $post_id
+	 */
+	public function p4_remove_page_type( $post_id ) {
+		if ( $term = get_the_terms( $post_id, 'p4-page-type' ) ) {
+			if ( ! is_wp_error( $term ) ) {
+				wp_remove_object_terms( $post_id, $term[0]->term_id, 'p4-page-type' );
+			}
+		}
+	}
 	/**
 	 * Add a dropdown to choose planet4 post type.
      *
