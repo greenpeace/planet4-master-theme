@@ -115,7 +115,6 @@ class P4_Master_Site extends TimberSite {
 
 		add_filter( 'timber_context',         array( $this, 'add_to_context' ) );
 		add_filter( 'get_twig',               array( $this, 'add_to_twig' ) );
-		add_action( 'init',                   array( $this, 'register_post_types' ) );
 		add_action( 'init',                   array( $this, 'register_taxonomies' ) );
 		add_action( 'pre_get_posts',          array( $this, 'add_search_options' ) );
 		add_filter( 'searchwp_query_orderby', array( $this, 'edit_searchwp_query_orderby' ), 10, 2 );
@@ -605,12 +604,6 @@ class P4_Master_Site extends TimberSite {
             <option value="-1" <?php selected(-1, $current) ?> >none</option>
         </select>
         </div><?
-	}
-
-	/**
-	 * Registers custom post types.
-	 */
-	public function register_post_types() {
 	}
 
 	/**
