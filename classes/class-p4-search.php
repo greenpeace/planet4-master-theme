@@ -21,6 +21,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		protected $all_posts;
 		/** @var array|bool|null $posts */
 		protected $posts;
+		/** @var array $selected_sort */
+		protected $selected_sort;
 		/** @var array $filters */
 		protected $filters;
 		/** @var array $templates */
@@ -34,10 +36,12 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * P4_Search constructor.
 		 *
 		 * @param string     $search_query The searched term.
+		 * @param string     $selected_sort The selected order_by.
+		 * @param array      $filters The selected filters.
 		 * @param array      $templates An indexed array with template file names. The first to be found will be used.
 		 * @param array|null $context An associative array with all the context needed to render the template found first.
 		 */
-		public function __construct( $search_query, $templates = [ 'search.twig', 'archive.twig', 'index.twig' ], $context = null ) {
+		public function __construct( $search_query, $selected_sort, $filters, $templates = [ 'search.twig', 'archive.twig', 'index.twig' ], $context = null ) {
 			$this->search_query = $search_query;
 			$this->templates    = $templates;
 
@@ -45,48 +49,17 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$this->context = $context;
 			} else {
 				$this->context = Timber::get_context();
-				$this->handle_submit( $this->context );
 
 				if ( $this->search_query ) {
-					$this->all_posts    = $this->get_posts();
-					$this->current_page = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
-					$this->posts        = array_slice( $this->all_posts, ( $this->current_page - 1 ) * self::POSTS_PER_PAGE, self::POSTS_PER_PAGE );
+					if ( $this->validate( $this->context, $selected_sort, $filters ) ) {
+						$this->selected_sort = $selected_sort;
+						$this->filters       = $filters;
+					}
+					$this->all_posts     = $this->get_posts();
+					$this->current_page  = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+					$this->posts         = array_slice( $this->all_posts, ( $this->current_page - 1 ) * self::POSTS_PER_PAGE, self::POSTS_PER_PAGE );
 				}
 				$this->set_context( $this->context );
-			}
-		}
-
-		/**
-		 * Handle form submit.
-		 *
-		 * @param array $context Associative array with the data to be passed to the view.
-		 */
-		public function handle_submit( &$context ) {
-			if ( 'GET' === $_SERVER['REQUEST_METHOD'] ) {
-
-				// Handle submitted sort options.
-				$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
-				if ( ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) ) {
-					$context['selected_sort'] = self::DEFAULT_SORT;
-				} else {
-					$context['selected_sort'] = $selected_sort;
-				}
-
-				// Handle submitted filter options.
-				if ( is_array( $_GET['f'] ) ) {
-					foreach ( $_GET['f'] as $type => $filter_type ) {
-						foreach ( $filter_type as $name => $id ) {
-
-							$id = filter_var( $id, FILTER_VALIDATE_INT );
-							if ( $this->validate( $id ) ) {
-								$this->filters[ $type ][] = [
-									'id'   => $id,
-									'name' => $name,
-								];
-							}
-						}
-					}
-				}
 			}
 		}
 
@@ -97,16 +70,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * @return array The posts of the search.
 		 */
 		protected function get_posts() : array {
-			global $wp_query;
-
-			if ( ! $wp_query->is_main_query() || ! $wp_query->is_search() ) {
-				return [];
-			}
-
 			if ( ! $this->filters ) {
 				/*
 				 * With no args passed to this call, Timber uses the main query which we filter for customisations via P4_Master_Site class.
-				 *
 				 * When customising this query, use filters on the main query to avoid bypassing SearchWP's handling of the query.
 				 */
 				return Timber::get_posts();
@@ -200,6 +166,19 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$posts            = ( new WP_Query( $args ) )->posts;
 			}
 
+			$posts = $this->get_timber_posts( $posts );
+
+			return $posts;
+		}
+
+		/**
+		 * Gets the respective Timber Posts, to be used with the twig template.
+		 *
+		 * @param array $posts The WP_Posts to use for creating respective Timber Posts.
+		 *
+		 * @return array The respective Timber Posts.
+		 */
+		protected function get_timber_posts( $posts ) : array {
 			$timber_posts = [];
 			// Use Timber's Post instead of WP_Post so that we can make use of Timber within the template.
 			foreach ( $posts as $post ) {
@@ -230,6 +209,12 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['all_posts']    = $this->all_posts;
 			$context['posts']        = $this->posts;
 			$context['search_query'] = $this->search_query;
+			$context['selected_sort'] = $this->selected_sort;
+			if ( ! in_array( $this->selected_sort, array_keys( $context['sort_options'] ), true ) ) {
+				$context['selected_sort'] = P4_Search::DEFAULT_SORT;
+			} else {
+				$context['selected_sort'] = $this->selected_sort;
+			}
 			$context['filters']      = $this->filters;
 			$context['found_posts']  = count( (array) $this->all_posts );
 
@@ -383,13 +368,25 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		/**
 		 * Validates the input.
 		 *
-		 * @param  int $id The id to be validated.
+		 * @param array  $context Associative array with the data to be passed to the view.
+		 * @param string $selected_sort The selected orderby to be validated.
+		 * @param array  $filters The selected filters to be validated.
 		 *
 		 * @return bool True if validation is ok, false if validation fails.
 		 */
-		public function validate( $id ) : bool {
-			if ( false === $id || null === $id || $id < 0 ) {
-				return false;
+		public function validate( $context, &$selected_sort, &$filters ) : bool {
+			$selected_sort = filter_var( $selected_sort, FILTER_SANITIZE_STRING );
+			if ( ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) ) {
+				$selected_sort = P4_Search::DEFAULT_SORT;
+			}
+
+			foreach ( $filters as &$filter_type ) {
+				foreach ( $filter_type as &$filter ) {
+					$filter['id'] = filter_var( $filter['id'], FILTER_VALIDATE_INT );
+					if ( false === $filter['id'] || null === $filter['id'] || $filter['id'] < 0 ) {
+						return false;
+					}
+				}
 			}
 			return true;
 		}
@@ -427,13 +424,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		public function add_suggestions( $suggestions = null ) {
 			$this->context['suggestions'] = $suggestions ?? [
 				'agriculture',
-				'agriculture',
-				'agriculture',
 				'food',
-				'food',
-				'food',
-				'organic',
-				'organic',
 				'organic',
 			];
 		}
