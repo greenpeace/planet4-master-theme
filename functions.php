@@ -149,7 +149,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function add_to_context( $context ) {
 		$context['cookies'] = [
-			'text' => get_option( 'cookies_field', '' ),
+			'text' => planet4_get_option( 'cookies_field' ),
 		];
 		$context['data_nav_bar'] = [
 			'images'       => $this->theme_images_dir,
