@@ -107,18 +107,4 @@
         </div>
     </div>
     <div class="clearfix"></div>
-    <div class="sub-navigation-md hidden-md-down hidden-xl-up">
-        <div class="container">
-            <ul class="list-unstyled clearfix">
-                {% for item in navbar_menu.get_items %}
-                    <li class="nav-item">
-                        <a href="{{ item.get_link }}">{{ item.title }}</a>
-                    </li>
-                {% endfor %}
-                <li class="nav-item text-right donate-btn">
-                    <a href="#" class="btn btn-small btn-medium btn-secondary">{{ __( 'DONATE', domain ) }}</a>
-                </li>
-            </ul>
-        </div>
-    </div>
 {% endblock %}
