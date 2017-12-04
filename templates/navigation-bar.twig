@@ -1,5 +1,5 @@
 {% block navigation_bar %}
-    <div id="header" class="top-navigation">
+    <div id="header" class="top-navigation fixed-top">
         <!-- Main container for main headline -->
         <div class="container-fluid">
             <div class="row">
@@ -45,8 +45,8 @@
                                     <a href="#search" id="search-trigger"><i class="fa fa-search fa-lg"></i></a>
                                 </div>
                                 <div class="search-box">
-                                    <form id="search_form_mobile" action="{{ data_nav_bar.home_url }}">
-                                        <input class="form-control" type="search" placeholder="{{ __( 'Search', domain ) }}" value="{{ data_nav_bar.search_query }}" name="s" aria-label="Search">
+                                    <form id="search_form" action="{{ data_nav_bar.home_url }}">
+                                        <input type="text" placeholder="{{ __( 'Search', domain ) }}" value="{{ data_nav_bar.search_query }}" name="s" aria-label="Search">
                                         <input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? 'relevant' }}" />
                                         <input id="search-submit" type="submit" class="btn btn-green" value="{{ __( 'Search', domain ) }}" />
                                     </form>
@@ -54,13 +54,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-xl-2 hidden-md-down">
+                    <div class="hidden-md-down">
                         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             {{ __( 'Menu', domain ) }}
                         </button>
                         <a class="navbar-brand" href="{{ data_nav_bar.home_url }}"><img src="{{ data_nav_bar.images }}greenpeace-logo.png" alt="greenpeace" /></a>
                     </div>
-                    <div class="col-lg-9 col-xl-10">
+                    <div class="w-100">
                         <nav class="navbar navbar-toggleable-md navbar-light">
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav">
@@ -77,14 +77,14 @@
                                         </div>
                                     </li>
                                     {% for item in navbar_menu.get_items %}
-                                        <li class="nav-item hidden-md-down hidden-lg-down big-screen-nav-link {{ item == item.current ? 'active' : '' }} {{ item.classes | join(' ') }}">
+                                        <li class="nav-item big-screen-nav-link">
                                             <a href="{{ item.get_link }}">{{ item.title }}</a>
                                         </li>
                                     {% endfor %}
-                                    <li class="nav-item hidden-md-down hidden-lg-down">
+                                    <li class="nav-item donatebtn">
                                         <a href="#" class="btn btn-small btn-medium btn-secondary btn-block">{{ __( 'DONATE', domain ) }}</a>
                                     </li>
-                                    <li class="nav-item loginSignUpWrap">
+                                    <li class="nav-item loginSignUpWrap hidden-md-down hidden-lg-down">
                                         <i class="fa fa-user-circle-o"></i>
                                         <a href="#">{{ __( 'Log in', domain ) }}</a> <span> / </span>
                                         <a href="#">{{ __( 'Sign up', domain ) }}</a>
@@ -94,7 +94,7 @@
                                             <input class="form-control" type="search" placeholder="{{ __( 'Search', domain ) }}" value="{{ data_nav_bar.search_query }}" name="s" aria-label="Search">
                                             <input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? 'relevant' }}" />
                                             <button type="submit" class="top-nav-search-btn">
-                                                <i class="fa fa-search"></i>
+                                                <i class="icon-search"></i>
                                             </button>
                                         </form>
                                     </li>
@@ -107,18 +107,4 @@
         </div>
     </div>
     <div class="clearfix"></div>
-    <div class="sub-navigation-md hidden-md-down hidden-xl-up">
-        <div class="container">
-            <ul class="list-unstyled clearfix">
-                {% for item in navbar_menu.get_items %}
-                    <li class="nav-item">
-                        <a href="{{ item.get_link }}">{{ item.title }}</a>
-                    </li>
-                {% endfor %}
-                <li class="nav-item text-right donate-btn">
-                    <a href="#" class="btn btn-small btn-medium btn-secondary">{{ __( 'DONATE', domain ) }}</a>
-                </li>
-            </ul>
-        </div>
-    </div>
 {% endblock %}
