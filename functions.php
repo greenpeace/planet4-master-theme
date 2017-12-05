@@ -116,6 +116,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
 		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
 		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
+		add_action( 'switch_theme',           'add_role_capabilities' );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -138,6 +139,21 @@ class P4_Master_Site extends TimberSite {
 				new $service();
 			}
 		}
+	}
+
+	/**
+	 * Adds extra capabilities to roles.
+	 * As requested in PLANET-1545.
+	 */
+	function add_role_capabilities(){
+		// gets the author role
+		$role = get_role( 'author' );
+		// This only works, because it accesses the class instance.
+		$role->add_cap( 'edit_others_posts' );
+		$role->add_cap( 'delete_others_posts' );
+		$role->add_cap( 'delete_private_posts' );
+		$role->add_cap( 'edit_private_posts' );
+		$role->add_cap( 'read_private_posts' );
 	}
 
 	/**
