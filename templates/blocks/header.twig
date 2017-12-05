@@ -15,7 +15,7 @@
 
 					{% if ( campaigns ) %}
 						{% for campaign in campaigns %}
-							<a class="tag-item " href="{{ campaign.link }}">#{{ campaign.name|e('wp_kses_post')|raw }}</a>
+							<a class="tag-item " href="{{ campaign.link|default('#') }}">#{{ campaign.name|e('wp_kses_post')|raw }}</a>
 						{% endfor %}
 					{% endif %}
 				</div>
@@ -27,7 +27,7 @@
 			{% if ( header_description ) %}
 				<p class="page-header-content">{{ header_description|e('wp_kses_post')|raw }}</p>
 			{% endif %}
-			{% if ( header_button_title ) %}
+			{% if ( header_button_title and header_button_link ) %}
 				<div class="row">
 					<div class="col-md-4">
 						<a href="{{ header_button_link }}" class="btn btn-primary btn-medium page-header-btn">{{ header_button_title }}</a>
