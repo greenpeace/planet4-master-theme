@@ -170,8 +170,6 @@ class P4_Master_Site extends TimberSite {
 		$context['data_nav_bar'] = [
 			'images'       => $this->theme_images_dir,
 			'home_url'     => home_url( '/' ),
-			'act_url'      => '/act',
-			'explore_url'  => '/explore',
 			'search_query' => get_search_query(),
 		];
 		$context['domain']       = 'planet4-master-theme';
