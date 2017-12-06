@@ -26,12 +26,11 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="nav-item active act-nav-link">
-                                        <a href="{{ data_nav_bar.act_url }}">{{ __( 'Act', domain ) }}</a>
-                                    </li>
-                                    <li class="nav-item explore-nav-link">
-                                        <a href="{{ data_nav_bar.explore_url }}">{{ __( 'Explore', domain ) }}</a>
-                                    </li>
+                                    {% for key,item in navbar_menu.get_items %}
+                                        <li class="nav-item{% if key == 0 %} act-nav-link{% else %} explore-nav-link{% endif %}">
+                                            <a href="{{ item.get_link }}">{{ item.title }}</a>
+                                        </li>
+                                    {% endfor %}
                                 </ul>
                                 <a href="#" class="btn btn-small btn-medium btn-secondary">{{ __( 'DONATE', domain ) }}</a>
                             </div>
