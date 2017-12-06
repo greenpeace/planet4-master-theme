@@ -18,22 +18,6 @@ if ( ! class_exists( 'Timber' ) ) {
 	return;
 }
 
-/**
- * Adds extra capabilities to roles.
- * As requested in PLANET-1545.
- */
-function add_role_capabilities(){
-	// gets the author role
-	$role = get_role( 'author' );
-	// This only works, because it accesses the class instance.
-	$role->add_cap( 'edit_others_posts' );
-	$role->add_cap( 'delete_others_posts' );
-	$role->add_cap( 'delete_private_posts' );
-	$role->add_cap( 'edit_private_posts' );
-	$role->add_cap( 'read_private_posts' );
-}
-add_action( 'after_switch_theme',     'add_role_capabilities' );
-
 use Timber\Timber;
 use Timber\Site as TimberSite;
 use Timber\Menu as TimberMenu;
