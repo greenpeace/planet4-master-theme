@@ -27,7 +27,12 @@
                                         </div>
                                     </li>
                                     {% for key,item in navbar_menu.get_items %}
-                                        <li class="nav-item{% if key == 0 %} act-nav-link{% else %} explore-nav-link{% endif %}">
+                                        {% if key == 0 %}
+                                            {% set class_name = 'act-nav-link' %}
+                                        {% else %}
+                                            {% set class_name = 'explore-nav-link' %}
+                                        {% endif %}
+                                        <li class="nav-item {{ class_name }}">
                                             <a href="{{ item.get_link }}">{{ item.title }}</a>
                                         </li>
                                     {% endfor %}
