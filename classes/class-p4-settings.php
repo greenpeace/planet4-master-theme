@@ -86,7 +86,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name'    => __( 'Default Related Articles Block Title In Post', 'planet4-master-theme' ),
+					'name'    => __( 'Default title for related articles block in post', 'planet4-master-theme' ),
 					'id'      => 'articles_block_title',
 					'type'    => 'text',
 				],
