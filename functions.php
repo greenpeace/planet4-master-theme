@@ -114,8 +114,13 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'cmb2_admin_init',        array( $this, 'register_header_metabox' ) );
 		add_action( 'pre_get_posts',          array( $this, 'tags_support_query' ) );
 		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
+		add_action( 'admin_enqueue_scripts',  array( $this, 'dequeue_jetpack_scripts' ) );
 		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
+		add_action( 'wp_enqueue_scripts',     array( $this, 'dequeue_jetpack_scripts' ) );
 		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
+
+		// Disable jetpack jitm, not needed for photon.
+		add_filter( 'jetpack_just_in_time_msgs', '__return_false' );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -550,6 +555,16 @@ class P4_Master_Site extends TimberSite {
 			],
 			'preview_size' => 'large',
 		] );
+	}
+
+	/**
+	 * Dequeue any extra/unneeded scripts or styles that were enqueued by jetpack and are not dequeued by disabling
+	 * jetpack unneeded modules.
+	 */
+	public function dequeue_jetpack_scripts() {
+		if ( class_exists( 'Jetpack' ) && Jetpack::is_active( ) ) {
+			wp_dequeue_script( 'devicepx' );
+		}
 	}
 }
 
