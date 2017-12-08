@@ -13,7 +13,7 @@
 			</div>
 			<div class="container">
 				<div class="top-page-tags">
-					<a class="tag-item tag-item--main" href="#">{{ __('post', 'planet4-master-theme') }}</a>
+					<a class="tag-item tag-item--main" href="#">{{ __('post') }}</a>
 					{% for tag in post.tags %}
 						<a class="tag-item " href="{{ tag.link }}">#{{ tag.title }}</a>
 					{% endfor %}
@@ -27,7 +27,7 @@
 						{% set author_name = post.author.name %}
 						{% set author_url = post.author.path %}
 					{% endif %}
-					<address class="single-post-author">{{ __( 'by', domain ) }}&nbsp;<a href="{{ author_url }}">{{ author_name }}</a></address>
+					<address class="single-post-author">{{ __( 'by', 'planet4-master-theme' ) }}&nbsp;<a href="{{ author_url }}">{{ author_name }}</a></address>
 					<time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
 				</div>
 			</div>
