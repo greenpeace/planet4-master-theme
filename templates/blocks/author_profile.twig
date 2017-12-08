@@ -1,19 +1,18 @@
 <div class="container clearfix">
-	<div class="author-block">
-		<div class="skewbox author-info">
-			<div class="author-info-inner">
-				<h2 class="author-info-heading">{{ __('about the author', 'planet4-master-theme') }}</h2>
-				<h5 class="author-name">
-					<a href='{{ post.author.link }}'
-					   title="{{ post.author.name }}">{{ post.author.name }}</a></h5>
-				<p class="author-info-brief">{{ post.author.description }}</p>
-			</div>
+	<footer class="author-block" itemtype="http://schema.org/Person">
+		<div class="author-block-info">
+			<h2 class="author-block-info-title">{{ __('about the author', 'planet4-master-theme') }}</h2>
+			<h5 rel="author" class="author-block-info-name">
+				<a href="{{ post.author.link }}" itemprop="name">{{ post.author.name }}</a>
+			</h5>
+			<p class="author-block-info-bio" itemprop="description">
+				{{ post.author.description }}
+			</p>
 		</div>
-		<div class="skewbox author-img">
+		<figure class="author-block-image">
 			{% if ( post.author.avatar ) %}
-				<img src="{{ post.author.avatar }}" class="author-pic"
-				     alt="Image for {{ post.author.name }}"/>
+				<img itemprop="image" class="author-pic" src="{{ post.author.avatar }}" alt="{{ post.author.name }}">
 			{% endif %}
-		</div>
-	</div>
+		</figure>
+	</footer>
 </div>
