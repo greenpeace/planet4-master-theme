@@ -18,16 +18,16 @@ use Timber\Timber;
  * @return array
  */
 function add_body_classes_for_post( $classes ) {
-	$classes[] = 'post_body';
+	$classes[] = 'white-bg';
 	return $classes;
 }
 add_filter( 'body_class', 'add_body_classes_for_post' );
 
 
 // Initializing variables.
-$context                     = Timber::get_context();
-$post                        = Timber::query_post();
-$context['post']             = $post;
+$context         = Timber::get_context();
+$post            = Timber::query_post();
+$context['post'] = $post;
 
 
 // Get the cmb2 custom fields data
