@@ -2,9 +2,6 @@
 
 if ( ! class_exists( 'Timber' ) ) {
 	add_action(
-	/**
-	 *
-	 */
 		'admin_notices', function () {
 		    printf( '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="%s">Plugins menu</a></p></div>',
 			    esc_url( admin_url( 'plugins.php#timber' ) )
@@ -288,7 +285,7 @@ class P4_Master_Site extends TimberSite {
 
 	/**
 	 * Register a custom taxonomy for planet4 page types
-     */
+     	 */
 	public function register_p4_page_type_taxonomy() {
 
 		$p4_page_type = [
@@ -350,8 +347,8 @@ class P4_Master_Site extends TimberSite {
 
 	/**
 	 * Save custom taxonomy for planet4 post types
-     *
-     * @param int post_id
+     	 *
+     	 * @param int post_id
 	 */
 	public function p4_save_page_type( $post_id ) {
 		// Ignore autosave.
@@ -398,8 +395,8 @@ class P4_Master_Site extends TimberSite {
 
 	/**
 	 * Add a dropdown to choose planet4 post type.
-     *
-     * @param WP_Post $object
+     	 *
+     	 * @param WP_Post $object
 	 */
 	public function p4_metabox_markup( WP_Post $object ) {
 		get_post_meta( $object->ID );
