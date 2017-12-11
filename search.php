@@ -13,8 +13,23 @@
  * Planet4 - Search functionality.
  */
 
-$search = new P4_Search( get_search_query() );
-$search->add_load_more();
-//$search->add_pagination();
-//$search->add_suggestions();
-$search->view();
+if ( is_main_query() && is_search() ) {
+	if ( 'GET' === $_SERVER['REQUEST_METHOD'] ) {
+		$selected_sort = $_GET['orderby'];
+
+		// Handle submitted filter options.
+		if ( is_array( $_GET['f'] ) ) {
+			foreach ( $_GET['f'] as $type => $filter_type ) {
+				foreach ( $filter_type as $name => $id ) {
+					$filters[ $type ][] = [
+						'id'   => $id,
+						'name' => $name,
+					];
+				}
+			}
+		}
+		$search = new P4_Search( get_search_query(), $selected_sort, $filters );
+		$search->add_load_more();
+		$search->view();
+	}
+}

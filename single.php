@@ -18,16 +18,16 @@ use Timber\Timber;
  * @return array
  */
 function add_body_classes_for_post( $classes ) {
-	$classes[] = 'post_body';
+	$classes[] = 'white-bg';
 	return $classes;
 }
 add_filter( 'body_class', 'add_body_classes_for_post' );
 
 
 // Initializing variables.
-$context                     = Timber::get_context();
-$post                        = Timber::query_post();
-$context['post']             = $post;
+$context         = Timber::get_context();
+$post            = Timber::query_post();
+$context['post'] = $post;
 
 
 // Get the cmb2 custom fields data
@@ -46,9 +46,9 @@ $take_action_page            = $page_meta_data['p4_take_action_page'][0] ?? '';
 $context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
 $context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
 $context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
-$context['copyright_text']        = get_option( 'copyright', '' );
+$context['copyright_text']        = planet4_get_option( 'copyright' ) ?? '';
 $context['page_category']         = $category->name ?? __( 'Post page', 'planet4-master-theme' );
-$context['google_tag_value']      = get_option( 'google_tag_manager_identifier', '' ) ?? '';
+$context['google_tag_value']      = planet4_get_option( 'google_tag_manager_identifier' ) ?? '';
 
 
 // Build the shortcode for articles block.

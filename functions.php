@@ -120,14 +120,15 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'searchwp_query_orderby', array( $this, 'edit_searchwp_query_orderby' ), 10, 2 );
 		add_action( 'cmb2_admin_init',        array( $this, 'register_header_metabox' ) );
 		add_action( 'pre_get_posts',          array( $this, 'tags_support_query' ) );
-		add_action( 'admin_init',             array( $this, 'add_copyright_text' ) );
-		add_action( 'admin_init',             array( $this, 'add_google_tag_manager_identifier_setting' ) );
-		add_action( 'admin_init',             array( $this, 'add_engaging_network_form_id' ) );
-		add_action( 'admin_init',             array( $this, 'add_cookies_field' ) );
 		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
+		add_action( 'admin_enqueue_scripts',  array( $this, 'dequeue_jetpack_scripts' ) );
 		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
+		add_action( 'wp_enqueue_scripts',     array( $this, 'dequeue_jetpack_scripts' ) );
 		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
 		add_action( 'save_post',              array( $this, 'p4_save_page_type' ), 10, 2 );
+
+		// Disable jetpack jitm, not needed for photon.
+		add_filter( 'jetpack_just_in_time_msgs', '__return_false' );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -161,13 +162,11 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function add_to_context( $context ) {
 		$context['cookies'] = [
-			'text' => get_option( 'cookies_field', '' ),
+			'text' => planet4_get_option( 'cookies_field' ),
 		];
 		$context['data_nav_bar'] = [
 			'images'       => $this->theme_images_dir,
 			'home_url'     => home_url( '/' ),
-			'act_url'      => '/act',
-			'explore_url'  => '/explore',
 			'search_query' => get_search_query(),
 		];
 		$context['domain']       = 'planet4-master-theme';
@@ -237,197 +236,6 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Show copyright text field.
-	 *
-	 * @param array $args
-	 */
-	public function copyright_show_settings( $args ) {
-		$copyright = get_option( 'copyright', '' );
-
-		printf(
-			'<input type="text" name="copyright" class="regular-text" value="%1$s" id="%2$s" />',
-			esc_attr( $copyright ),
-			esc_attr( $args['label_for'] )
-		);
-	}
-
-	/**
-	 * Show google tag manager identifier text field.
-	 *
-	 * @param array $args
-	 */
-	public function google_tag_show_settings( $args ) {
-		$google_tag_identifier = get_option( 'google_tag_manager_identifier', '' );
-
-		printf(
-			'<input type="text" name="google_tag_manager_identifier" class="regular-text" value="%1$s" id="%2$s" />',
-			esc_attr( $google_tag_identifier ),
-			esc_attr( $args['label_for'] )
-		);
-	}
-
-	/**
-	 * Show Engaging network id text field.
-	 *
-	 * @param array $args
-	 */
-	public function engaging_network_id_show_settings( $args ) {
-		$engaging_network_id = get_option( 'engaging_network_form_id', '' );
-
-		printf(
-			'<input type="text" name="engaging_network_form_id" class="regular-text" value="%1$s" id="%2$s" />',
-			esc_attr( $engaging_network_id ),
-			esc_attr( $args['label_for'] )
-		);
-	}
-
-	/**
-	 * Show Engaging network id text field.
-	 *
-	 * @param array $args
-	 */
-	public function cookies_show_settings( $args ) {
-		$cookies_text = get_option( 'cookies_field', '' );
-		$args = [
-			'textarea_name' => 'cookies_field',
-			'media_buttons' => false,
-			'textarea_rows' => 5,
-			'teeny'         => true,
-		];
-		wp_editor( $cookies_text, 'cookies_field_id', $args );
-	}
-
-	/**
-	 * Function to add copyright text block in general options
-	 */
-	public function add_copyright_text() {
-		add_settings_section(
-			'copyrighttext_id',
-			'',
-			'',
-			'general'
-		);
-
-		// Register taxonomies for page.
-		register_setting(
-			'general',
-			'copyright',
-			'trim'
-		);
-
-		// Register the field for the "copyright" section.
-		add_settings_field(
-			'copyright',
-			'Copyright Text',
-			array( $this, 'copyright_show_settings' ),
-			'general',
-			'copyrighttext_id',
-			array(
-				'label_for' => 'copyrighttext_id',
-			)
-		);
-	}
-
-
-	/**
-	 * Function to add google tag manager identifier block in general options
-	 */
-	public function add_google_tag_manager_identifier_setting() {
-
-		// Add google tag manager identifier section.
-		add_settings_section(
-			'google_tag_manager_identifier',
-			'',
-			'',
-			'general'
-		);
-
-		// Register google tag manager identifier setting.
-		register_setting(
-			'general',
-			'google_tag_manager_identifier',
-			'trim'
-		);
-
-		// Register the field for the "google tag manager identifier" section.
-		add_settings_field(
-			'google_tag_manager_identifier',
-			'Google Tag Manager Identifier',
-			array( $this, 'google_tag_show_settings' ),
-			'general',
-			'google_tag_manager_identifier',
-			array(
-				'label_for' => 'google_tag_manager_identifier',
-			)
-		);
-	}
-
-	/**
-	 * Function to add engaging network ID option in general options
-	 */
-	public function add_engaging_network_form_id() {
-		add_settings_section(
-			'engaging_network_form_id',
-			'',
-			'',
-			'general'
-		);
-
-		// Register taxonomies for page.
-		register_setting(
-			'general',
-			'engaging_network_form_id',
-			'trim'
-		);
-
-		// Register the field for the "copyright" section.
-		add_settings_field(
-			'engaging_network_id',
-			'Engaging Network ID',
-			array( $this, 'engaging_network_id_show_settings' ),
-			'general',
-			'engaging_network_form_id',
-			array(
-				'label_for' => 'engaging_network_form_id',
-			)
-		);
-	}
-
-	/**
-	 * Adds field in Settings for adding text for cookies.
-	 */
-	public function add_cookies_field() {
-		// Add section.
-		add_settings_section(
-			'cookies_field_id',
-			'',
-			'',
-			'general'
-		);
-
-		// Register option.
-		$args = array(
-			'type'              => 'string',
-			'group'             => 'general',
-			'sanitize_callback' => array( $this, 'sanitize' ),
-			'show_in_rest'      => false,
-		);
-		register_setting( 'general', 'cookies_field', $args );
-
-		// Add the field inside the "cookies_field_id" section.
-		add_settings_field(
-			'cookies_field_id',
-			'Cookies Text',
-			array( $this, 'cookies_show_settings' ),
-			'general',
-			'cookies_field_id',
-			[
-				'label_for' => 'cookies_field_id',
-			]
-		);
-	}
-
-	/**
 	 * Sanitizes the settings input.
 	 *
 	 * @param string $setting The setting to sanitize.
@@ -469,11 +277,13 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function enqueue_public_assets() {
 		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', array(), '4.0.0-alpha.6' );
-		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], '0.0.5'  );
+		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], '0.0.8'  );
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 		wp_enqueue_script( 'popperjs', $this->theme_dir . '/assets/js/popper.min.js', array(), '1.11.0', true );
 		wp_enqueue_script( 'bootstrapjs', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', array(), '4.0.0-beta', true );
-		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.1.0', true );
+		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.2.0', true );
+		wp_enqueue_script( 'custom', $this->theme_dir . '/assets/js/custom.js', array( 'jquery' ), '0.1.0', true );
+		wp_enqueue_script( 'slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array(), '0.1.0', true );
 	}
 
 	/**
@@ -647,7 +457,9 @@ class P4_Master_Site extends TimberSite {
 		if ( ! $wp->is_main_query() || ! $wp->is_search() ) {
 			return;
 		}
-		$wp->set( 'posts_per_page', - 1 );
+
+		$wp->set( 'posts_per_page', P4_Search::POSTS_LIMIT );
+		$wp->set( 'no_found_rows', true );
 	}
 
 	/**
@@ -782,10 +594,11 @@ class P4_Master_Site extends TimberSite {
 		] );
 
 		$p4_post->add_field( [
-			'name' => __( 'Articles Title', 'planet4-master-theme' ),
-			'desc' => __( 'Title for articles block', 'planet4-master-theme' ),
-			'id'   => $prefix . 'articles_title',
-			'type' => 'text_medium',
+			'name'    => __( 'Articles Title', 'planet4-master-theme' ),
+			'desc'    => __( 'Title for articles block', 'planet4-master-theme' ),
+			'id'      => $prefix . 'articles_title',
+			'type'    => 'text_medium',
+			'default' => planet4_get_option( 'articles_block_title', '' ) ?? '',
 		] );
 
 		$p4_post->add_field( [
@@ -793,6 +606,7 @@ class P4_Master_Site extends TimberSite {
 			'desc'       => __( 'Number of articles that should be displayed for articles block', 'planet4-master-theme' ),
 			'id'         => $prefix . 'articles_count',
 			'type'       => 'text_medium',
+			'default'    => planet4_get_option( 'articles_count', '' ) ?? '',
 			'attributes' => [
 				'type' => 'number',
 			],
@@ -827,6 +641,16 @@ class P4_Master_Site extends TimberSite {
 			],
 			'preview_size' => 'large',
 		] );
+	}
+
+	/**
+	 * Dequeue any extra/unneeded scripts or styles that were enqueued by jetpack and are not dequeued by disabling
+	 * jetpack unneeded modules.
+	 */
+	public function dequeue_jetpack_scripts() {
+		if ( class_exists( 'Jetpack' ) && Jetpack::is_active( ) ) {
+			wp_dequeue_script( 'devicepx' );
+		}
 	}
 }
 

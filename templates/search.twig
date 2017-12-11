@@ -1,14 +1,14 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	{% set disabled = posts ? '' : 'disabled' %}
+	{% set disabled = all_posts ? '' : 'disabled' %}
 
 	<div class="search-block">
 		<div class="container">
 			<div class="without-search-result row clearfix">
 				<div class="col-md-12">
 					<h2 class="result-statement">{{ found_posts }} results for <span>'{{ search_query }}'</span></h2>
-					{% if ( not posts ) %}
+					{% if ( not all_posts ) %}
 						<p class="search-info">{{ __( 'We\'re sorry we couldn\'t find any matches for your search term.', domain ) }}</p>
 						<ul class="search-help-info">
 							<li>{{ __( 'Check for typos, and try your search again', domain ) }}</li>
@@ -45,9 +45,11 @@
 			<div class="search-filter-results row clearfix">
 				<div class="col-lg-4">
 					<div class="filter-sidebar">
-						<div class="filter-button hidden-lg-up">
-							<button class="btn btn-filter {{ disabled }}"><i class="icon-filter"></i> {{ __( 'Filters', domain ) }}</button>
-						</div>
+						{% if ( all_posts ) %}
+							<div class="filter-button hidden-lg-up">
+								<button class="btn btn-filter {{ disabled }}"><i class="icon-filter"></i> {{ __( 'Filters', domain ) }}</button>
+							</div>
+						{% endif %}
 						<div class="modal fade filter-modal" id="filtermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog modal-lg" role="document">
 								<div class="modal-content">
@@ -108,11 +110,11 @@
 															</a>
 															<div id="item-modal-content" class="collapse show" role="tabpanel">
 																<ul class="list-unstyled">
-																	{% for content_type in content_types %}
+																	{% for id, content_type in content_types %}
 																		{% if ( content_type.results > 0 ) %}
 																			<li>
 																				<label class="custom-control custom-checkbox">
-																					<input type="checkbox" name="f[ctype][{{ content_type.name }}]" value="{{ loop.index0 }}" class="custom-control-input modal-checkbox" {{ content_type.checked }} {{ disabled }} />
+																					<input type="checkbox" name="f[ctype][{{ content_type.name }}]" value="{{ id }}" class="custom-control-input modal-checkbox" {{ content_type.checked }} {{ disabled }} />
 																					<span class="custom-control-indicator"></span>
 																					<span class="custom-control-description {{ content_type.checked ? 'bold' : '' }}">{{ content_type.name }} ({{ content_type.results }})</span>
 																				</label>
@@ -156,148 +158,150 @@
 								</div>
 							</div>
 						</div>
-						<div id="filter-sidebar-options" class="hidden-md-down">
-							<h4>{{ __( 'Refine your search', domain ) }}</h4>
-							{% if ( filters ) %}
-								<div class="active-filter">
-									<h5>{{ __( 'ACTIVE FILTERS', domain ) }}</h5>
-									<div class="activefilter-list">
-										{% for filter in filters %}
-											<button class="activefilter-tag" data-id="{{ filter.id }}">
-												{{ filter.name|e('wp_kses_post')|raw }} <i class="icon-cross"></i>
-											</button>
-										{% endfor %}
-										<button class="clearall">{{ __( 'Clear All', domain ) }} <i class="icon-cross"></i></button>
+						{% if ( all_posts ) %}
+							<div id="filter-sidebar-options" class="hidden-md-down">
+								<h4>{{ __( 'Refine your search', domain ) }}</h4>
+								{% if ( filters ) %}
+									<div class="active-filter">
+										<h5>{{ __( 'ACTIVE FILTERS', domain ) }}</h5>
+										<div class="activefilter-list">
+											{% for filter_type in filters %}
+												{% for filter in filter_type %}
+													<button class="activefilter-tag" data-id="{{ filter.id }}">
+														{{ filter.name|e('wp_kses_post')|raw }} <i class="icon-cross"></i>
+													</button>
+												{% endfor %}
+											{% endfor %}
+											<button class="clearall">{{ __( 'Clear All', domain ) }} <i class="icon-cross"></i></button>
+										</div>
 									</div>
-								</div>
-							{% endif %}
-							{% if ( categories|length > 0 ) %}
-							<div class="filteritem">
-								<a data-toggle="collapse" href="#item-issue" aria-expanded="true">
-									{{ __( 'Issue', domain ) }} <span></span>
-								</a>
-								<div id="item-issue" class="collapse show" role="tabpanel">
-									<ul class="list-unstyled">
-										{% for category in categories %}
-											{% if ( category.results > 0 ) %}
-												<li>
-													<label class="custom-control custom-checkbox">
-														<input type="checkbox" name="f[cat][{{ category.name }}]" value="{{ category.term_id }}" class="custom-control-input" {{ category.checked }} {{ disabled }} />
-														<span class="custom-control-indicator"></span>
-														<span class="custom-control-description {{ category.checked ? 'bold' : '' }}">{{ category.name|e('wp_kses_post')|raw }} ({{ category.results }})</span>
-													</label>
-												</li>
-											{% endif %}
-										{% endfor %}
-									</ul>
-								</div>
+								{% endif %}
+								{% if ( categories|length > 0 ) %}
+									<div class="filteritem">
+										<a data-toggle="collapse" href="#item-issue" aria-expanded="true">
+											{{ __( 'Issue', domain ) }} <span></span>
+										</a>
+										<div id="item-issue" class="collapse show" role="tabpanel">
+											<ul class="list-unstyled">
+												{% for category in categories %}
+													{% if ( category.results > 0 ) %}
+														<li>
+															<label class="custom-control custom-checkbox">
+																<input type="checkbox" name="f[cat][{{ category.name }}]" value="{{ category.term_id }}" class="custom-control-input" {{ category.checked }} {{ disabled }} />
+																<span class="custom-control-indicator"></span>
+																<span class="custom-control-description {{ category.checked ? 'bold' : '' }}">{{ category.name|e('wp_kses_post')|raw }} ({{ category.results }})</span>
+															</label>
+														</li>
+													{% endif %}
+												{% endfor %}
+											</ul>
+										</div>
+									</div>
+								{% endif %}
+								{% if ( tags|length > 0 ) %}
+									<div class="filteritem">
+										<a data-toggle="collapse" href="#item-campaign" aria-expanded="true">
+											{{ __( 'Campaign', domain ) }} <span></span>
+										</a>
+										<div id="item-campaign" class="collapse show" role="tabpanel">
+											<ul class="list-unstyled">
+												{% for tag in tags %}
+													<li>
+														<label class="custom-control custom-checkbox">
+															<input type="checkbox" name="f[tag][{{ tag.name }}]" value="{{ tag.term_id }}" class="custom-control-input" {{ tag.checked }} {{ disabled }} />
+															<span class="custom-control-indicator"></span>
+															<span class="custom-control-description {{ tag.checked ? 'bold' : '' }}">{{ tag.name }} ({{ tag.results }})</span>
+														</label>
+													</li>
+												{% endfor %}
+											</ul>
+										</div>
+									</div>
+								{% endif %}
+								{% if ( page_types|length > 0 ) %}
+									<div class="filteritem">
+										<a data-toggle="collapse" href="#item-category" aria-expanded="true">
+											{{ __( 'Category', domain ) }} <span></span>
+										</a>
+										<div id="item-category" class="collapse show" role="tabpanel">
+											<ul class="list-unstyled">
+												{% for page_type in page_types %}
+													{% if ( page_type.results > 0 ) %}
+														<li>
+															<label class="custom-control custom-checkbox">
+																<input type="checkbox" name="f[ptype][{{ page_type.name }}]" value="{{ page_type.term_id }}" class="custom-control-input" {{ page_type.checked }} {{ disabled }} />
+																<span class="custom-control-indicator"></span>
+																<span class="custom-control-description {{ page_type.checked ? 'bold' : '' }}">{{ page_type.name }} ({{ page_type.results }})</span>
+															</label>
+														</li>
+													{% endif %}
+												{% endfor %}
+											</ul>
+										</div>
+									</div>
+								{% endif %}
+								{% if ( content_types|length > 0 ) %}
+									<div class="filteritem">
+										<a data-toggle="collapse" href="#item-content" aria-expanded="true">
+											{{ __( 'Content type', domain ) }} <span></span>
+										</a>
+										<div id="item-content" class="collapse show" role="tabpanel">
+											<ul class="list-unstyled">
+												{% for id, content_type in content_types %}
+													{% if ( content_type.results > 0 ) %}
+														<li>
+															<label class="custom-control custom-checkbox">
+																<input type="checkbox" name="f[ctype][{{ content_type.name }}]" value="{{ id }}" class="custom-control-input"{{ content_type.checked }} {{ disabled }} />
+																<span class="custom-control-indicator"></span>
+																<span class="custom-control-description {{ content_type.checked ? 'bold' : '' }}">{{ content_type.name }} ({{ content_type.results }})</span>
+															</label>
+														</li>
+													{% endif %}
+												{% endfor %}
+											</ul>
+										</div>
+									</div>
+								{% endif %}
 							</div>
-							{% endif %}
-							{% if ( tags|length > 0 ) %}
-								<div class="filteritem">
-									<a data-toggle="collapse" href="#item-campaign" aria-expanded="true">
-										{{ __( 'Campaign', domain ) }} <span></span>
-									</a>
-									<div id="item-campaign" class="collapse show" role="tabpanel">
-										<ul class="list-unstyled">
-											{% for tag in tags %}
-												<li>
-													<label class="custom-control custom-checkbox">
-														<input type="checkbox" name="f[tag][{{ tag.name }}]" value="{{ tag.term_id }}" class="custom-control-input" {{ tag.checked }} {{ disabled }} />
-														<span class="custom-control-indicator"></span>
-														<span class="custom-control-description {{ tag.checked ? 'bold' : '' }}">{{ tag.name }} ({{ tag.results }})</span>
-													</label>
-												</li>
-											{% endfor %}
-										</ul>
-									</div>
-								</div>
-							{% endif %}
-							{% if ( page_types|length > 0 ) %}
-								<div class="filteritem">
-									<a data-toggle="collapse" href="#item-category" aria-expanded="true">
-										{{ __( 'Category', domain ) }} <span></span>
-									</a>
-									<div id="item-category" class="collapse show" role="tabpanel">
-										<ul class="list-unstyled">
-											{% for page_type in page_types %}
-												{% if ( page_type.results > 0 ) %}
-													<li>
-														<label class="custom-control custom-checkbox">
-															<input type="checkbox" name="f[ptype][{{ page_type.name }}]" value="{{ page_type.term_id }}" class="custom-control-input" {{ page_type.checked }} {{ disabled }} />
-															<span class="custom-control-indicator"></span>
-															<span class="custom-control-description {{ page_type.checked ? 'bold' : '' }}">{{ page_type.name }} ({{ page_type.results }})</span>
-														</label>
-													</li>
-												{% endif %}
-											{% endfor %}
-										</ul>
-									</div>
-								</div>
-							{% endif %}
-							{% if ( content_types|length > 0 ) %}
-								<div class="filteritem">
-									<a data-toggle="collapse" href="#item-content" aria-expanded="true">
-										{{ __( 'Content type', domain ) }} <span></span>
-									</a>
-									<div id="item-content" class="collapse show" role="tabpanel">
-										<ul class="list-unstyled">
-											{% for content_type in content_types %}
-												{% if ( content_type.results > 0 ) %}
-													<li>
-														<label class="custom-control custom-checkbox">
-															<input type="checkbox" name="f[ctype][{{ content_type.name }}]" value="{{ loop.index0 }}" class="custom-control-input"{{ content_type.checked }} {{ disabled }} />
-															<span class="custom-control-indicator"></span>
-															<span class="custom-control-description {{ content_type.checked ? 'bold' : '' }}">{{ content_type.name }} ({{ content_type.results }})</span>
-														</label>
-													</li>
-												{% endif %}
-											{% endfor %}
-										</ul>
-									</div>
-								</div>
-							{% endif %}
-						</div>
+						{% endif %}
 					</div>
 				</div>
 				<div class="col-lg-8">
 					<div class="result-area">
-						<div class="sort-filter clearfix">
-							<div class="float-right">
-								<label class="mr-sm-2" for="select_order">{{ __('Sort by', domain ) }}</label>
-								<select id="select_order" name="select_order" class="">
-									{% for key, sort_option in sort_options %}
-										{% if key == selected_sort %}
-											<option value="{{ key }}" selected>{{ sort_option.name }}</option>
-										{% else %}
-											<option value="{{ key }}">{{ sort_option.name }}</option>
-										{% endif %}
-									{% endfor %}
-								</select>
-							</div>
-						</div>
-						{% if ( not posts ) %}
-							<div class="search-result-list"></div>
-						{% else %}
-							<div class="multiple-search-result">
-								{% if ( pagination ) %}
-									{% set all_posts = posts %}
-								{% endif %}
-								<ul class="list-unstyled">
-									{% for post in all_posts %}
-										{% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
-									{% endfor %}
-								</ul>
-								{% if ( load_more and all_posts|length > load_more.posts_per_load ) %}
-									<div class="col-lg-4 col-md-6 mb-5 load-more-button-div">
-										<button class="btn btn-block btn-medium btn-small btn-transparent btn-load-more">{{ load_more.button_text }}</button>
-									</div>
-								{% endif %}
-								{% if ( pagination ) %}
-									{{ fn( 'the_posts_pagination', pagination ) }}
-								{% endif %}
+						{% if ( all_posts ) %}
+							<div class="sort-filter clearfix">
+								<div class="float-right">
+									<label class="mr-sm-2" for="select_order">{{ __('Sort by', domain ) }}</label>
+									<select id="select_order" name="select_order" class="">
+										{% for key, sort_option in sort_options %}
+											{% if key == selected_sort %}
+												<option value="{{ key }}" selected>{{ sort_option.name }}</option>
+											{% else %}
+												<option value="{{ key }}">{{ sort_option.name }}</option>
+											{% endif %}
+										{% endfor %}
+									</select>
+								</div>
 							</div>
 						{% endif %}
+						<div class="multiple-search-result">
+							{% if ( pagination ) %}
+								{% set all_posts = posts %}
+							{% endif %}
+							<ul class="list-unstyled">
+								{% for post in all_posts %}
+									{% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
+								{% endfor %}
+							</ul>
+							{% if ( load_more and all_posts|length > load_more.posts_per_load ) %}
+								<div class="col-lg-4 col-md-6 mb-5 load-more-button-div">
+									<button class="btn btn-block btn-medium btn-small btn-transparent btn-load-more">{{ load_more.button_text }}</button>
+								</div>
+							{% endif %}
+							{% if ( pagination ) %}
+								{{ fn( 'the_posts_pagination', pagination ) }}
+							{% endif %}
+						</div>
 						{% if ( suggestions ) %}
 							<div class="suggested-search-terms">
 								<h3>{{ __( 'Suggested search terms', domain ) }}</h3>
