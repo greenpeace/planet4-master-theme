@@ -127,7 +127,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
 		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
 		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
-		add_action( 'save_post',              array( $this, 'p4_save_post_type' ), 10, 2 );
+		add_action( 'save_post',              array( $this, 'p4_save_page_type' ), 10, 2 );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -543,13 +543,8 @@ class P4_Master_Site extends TimberSite {
      *
      * @param int post_id
 	 */
-	public function p4_save_post_type( $post_id ) {
-		/**
-         * Some of these checks might be redundant, but they're all nicely
-         * separated and easy to delete so I'll leave them for now.
-         */
-
-        // Ignore autosave.
+	public function p4_save_page_type( $post_id ) {
+		// Ignore autosave.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
@@ -570,55 +565,52 @@ class P4_Master_Site extends TimberSite {
 			$this->p4_remove_page_type( $post_id );
 		}
 		// Make sure the term exists and it's not an error.
-        $selected = get_term_by( 'slug', sanitize_text_field( $_POST['p4-page-type'] ), 'p4-page-type' ); // Input var okay.
-
+		$selected = get_term_by( 'slug', sanitize_text_field( $_POST['p4-page-type'] ), 'p4-page-type' ); // Input var okay.
 		if ( false === $selected || is_wp_error( $selected ) ) {
 			return;
 		}
 		// Save post type.
 		wp_set_post_terms( $post_id, $selected->slug, 'p4-page-type', $append = false );
-    }
+	}
+
 	/**
 	 * Removes primary category from a post.
 	 *
 	 * @param $post_id
 	 */
 	public function p4_remove_page_type( $post_id ) {
-		if ( $term = get_the_terms( $post_id, 'p4-page-type' ) ) {
-			if ( ! is_wp_error( $term ) ) {
-				wp_remove_object_terms( $post_id, $term[0]->term_id, 'p4-page-type' );
-			}
+		$term = get_the_terms( $post_id, 'p4-page-type' );
+		if ( false ===  $term || is_wp_error( $term ) ) {
+			return;
 		}
+		wp_remove_object_terms( $post_id, $term[0]->term_id, 'p4-page-type' );
 	}
+
 	/**
 	 * Add a dropdown to choose planet4 post type.
      *
      * @param WP_Post $object
 	 */
-	public function p4_metabox_markup( $object ) {
-	    if( 'WP_Post' !== get_class($object)) {
-	        return;
-        }
-
+	public function p4_metabox_markup( WP_Post $object ) {
 		get_post_meta( $object->ID );
-
 		$current_term = get_the_terms( $object, 'p4-page-type' );
 		$current = ( $current_term && ! is_wp_error( $current_term ) ) ? $current_term[0]->slug : -1;
-
 		$terms = get_terms( 'p4-page-type', [ 'hide_empty' => false ] );
 		wp_nonce_field( basename( __FILE__ ), 'p4-page-type-nonce' );
 		?>
-        <div>
-        <select name="p4-page-type"><?php
-			foreach ( $terms as $term ) :
-            ?>
-                <option <?php selected($current, $term->slug) ?> value="<?php echo $term->slug ?>"><?php echo $term->name ?></option>
-			<?php
-            endforeach;
-			?>
-            <option value="-1" <?php selected(-1, $current) ?> >none</option>
+
+        <select name="p4-page-type">
+			<?php foreach ( $terms as $term ) : ?>
+                <option <?php selected( esc_html( $current ), esc_html( $term->slug ) ); ?> value="<?php echo esc_html( $term->slug ); ?>">
+					<?php echo esc_html( $term->name ); ?>
+                </option>
+			<?php endforeach; ?>
+            <option value="-1" <?php selected( -1, esc_html( $current ) ); ?> >
+                none
+            </option>
         </select>
-        </div><?php
+
+		<?php
 	}
 
 	/**
