@@ -10,7 +10,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 	 */
 	class P4_Search {
 
-		const POSTS_LIMIT    = 100;
+		const POSTS_LIMIT    = 150;
 		const POSTS_PER_PAGE = 10;
 		const POSTS_PER_LOAD = 5;
 		const DEFAULT_SORT   = 'relevant';
@@ -372,11 +372,13 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$selected_sort = P4_Search::DEFAULT_SORT;
 			}
 
-			foreach ( $filters as &$filter_type ) {
-				foreach ( $filter_type as &$filter ) {
-					$filter['id'] = filter_var( $filter['id'], FILTER_VALIDATE_INT );
-					if ( false === $filter['id'] || null === $filter['id'] || $filter['id'] < 0 ) {
-						return false;
+			if ( $filters ) {
+				foreach ( $filters as &$filter_type ) {
+					foreach ( $filter_type as &$filter ) {
+						$filter['id'] = filter_var( $filter['id'], FILTER_VALIDATE_INT );
+						if ( false === $filter['id'] || null === $filter['id'] || $filter['id'] < 0 ) {
+							return false;
+						}
 					}
 				}
 			}
