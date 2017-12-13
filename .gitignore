@@ -5,3 +5,5 @@ node_modules/
 /main.css.map
 .idea
 
+
+\.DS_Store
