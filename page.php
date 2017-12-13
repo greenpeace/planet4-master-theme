@@ -29,6 +29,18 @@
 
 use Timber\Timber;
 
+/**
+ * Add custom css class for body element hook.
+ *
+ * @param array $classes  Array of css classes passed by the hook.
+ * @return array
+ */
+function add_body_classes_for_page( $classes ) {
+	$classes[] = 'brown-bg';
+	return $classes;
+}
+add_filter( 'body_class', 'add_body_classes_for_page' );
+
 $context = Timber::get_context();
 $post = new TimberPost();
 
