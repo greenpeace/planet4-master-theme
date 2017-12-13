@@ -81,7 +81,7 @@
                                         </div>
                                     </li>
                                     {% for item in navbar_menu.get_items %}
-                                        <li class="nav-item big-screen-nav-link">
+                                        <li class="nav-item big-screen-nav-link {{ item == item.current ? 'active' : '' }} {{ item.classes | join(' ') }}">
                                             <a href="{{ item.get_link }}">{{ item.title }}</a>
                                         </li>
                                     {% endfor %}
