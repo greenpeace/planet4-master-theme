@@ -351,7 +351,7 @@ class P4_Master_Site extends TimberSite {
 			return;
 		}
 		// Check nonce.
-		if ( ! isset( $_POST['p4-page-type-nonce'] ) || ! wp_verify_nonce( $_POST['p4-page-type-nonce'], 'p4-save-page-type' ) ) {
+		if ( ! isset( $_POST['p4-page-type-nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['p4-page-type-nonce'] ) ), 'p4-save-page-type' ) ) {
 			return;
 		}
 		// Check user's capabilities.
