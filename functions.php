@@ -117,6 +117,8 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
 		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
 		add_action( 'save_post',              array( $this, 'p4_save_page_type' ) );
+		add_action( 'publish_post',           array( $this, 'send_mails_on_publish' ), 10, 2 );
+		add_action( 'phpmailer_init',         array( $this, 'configure_smtp' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -371,6 +373,42 @@ class P4_Master_Site extends TimberSite {
 		}
 		// Save post type.
 		wp_set_post_terms( $post_id, sanitize_text_field( $selected->slug ), 'p4-page-type' );
+	}
+
+	/**
+	 * Send mail via phpmailer.
+	 * TODO : SMTP parameters needs to change here. Currently they are static and will not work.
+	 */
+	public function configure_smtp( PHPMailer $phpmailer ) {
+		$phpmailer->isSMTP(); //switch to smtp
+		$phpmailer->Host        = 'SMTP HOST';
+		$phpmailer->SMTPDebug   = 2;
+		$phpmailer->SMTPAuth    = true;
+		$phpmailer->Port        = 'SMTP_PORT';
+		$phpmailer->Username    = 'SMTP USERNAME';
+		$phpmailer->Password    = 'SMTP PASSWORD';
+		$phpmailer->SMTPSecure  = false;
+		$phpmailer->SMTPOptions = [
+			'ssl' => [
+				'verify_peer'       => false,
+				'verify_peer_name'  => false,
+				'allow_self_signed' => true,
+			]
+		];
+		$phpmailer->From       = 'FROM EMAIL';
+		$phpmailer->FromName   = __( 'Greenpeace IT', 'planet4-master-theme' );
+	}
+
+	/**
+	 * Call on publish a post.
+	 */
+	public function send_mails_on_publish( $ID, $post ) {
+		$email   = 'TO EMAIL';
+		$subject =  __( 'New post published', 'planet4-master-theme' );
+		$name    = $post->post_name;
+		$body    = sprintf( 'The post %s has been published.\n\n', $name );
+		$body   .= sprintf( 'View post : %s.', get_permalink( $post ) );
+		wp_mail( $email, $subject, $body );
 	}
 
 	/**
