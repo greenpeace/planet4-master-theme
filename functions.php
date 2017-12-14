@@ -406,17 +406,14 @@ class P4_Master_Site extends TimberSite {
 		wp_nonce_field( 'p4-save-page-type', 'p4-page-type-nonce' );
 		?>
 
-        <select name="p4-page-type">
+		<select name="p4-page-type">
 			<?php foreach ( $terms as $term ) : ?>
-                <option <?php selected( $current, $term->slug ); ?> value="<?php echo esc_html( $term->slug ); ?>">
+				<option <?php selected( $current, $term->slug ); ?> value="<?php echo esc_html( $term->slug ); ?>">
 					<?php echo esc_html( $term->name ); ?>
-                </option>
+				</option>
 			<?php endforeach; ?>
-            <option value="-1" <?php selected( -1, $current ); ?> >
-                none
-            </option>
-        </select>
-
+			<option value="-1" <?php selected( -1, $current ); ?> >none</option>
+		</select>
 		<?php
 	}
 
