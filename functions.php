@@ -18,6 +18,10 @@ if ( ! class_exists( 'Timber' ) ) {
 	return;
 }
 
+use Timber\Timber;
+use Timber\Site as TimberSite;
+use Timber\Menu as TimberMenu;
+
 /**
  * Class P4_Master_Site.
  * The main class that handles Planet4 Master Theme.
@@ -28,15 +32,8 @@ class P4_Master_Site extends TimberSite {
 	protected $theme_dir;
 	/** @var string $theme_images_dir */
 	protected $theme_images_dir;
-	/** @var array $websites */
-	protected $websites = [
-		'en_US' => 'International (English)',
-		'el_GR' => 'Greece (Ελληνικά)',
-	];
-	/** @var string $default_sort */
-	protected $default_sort;
-	/** @var int $posts_per_page */
-	protected $posts_per_page;
+	/** @var array $sort_options */
+	protected $sort_options;
 	/** @var array $services */
 	protected $services;
 	/** @var array $child_css */
@@ -67,7 +64,7 @@ class P4_Master_Site extends TimberSite {
 		 */
 		spl_autoload_register(
 			function ( $class_name ) {
-				if ( strpos( $class_name, 'P4' ) !== false ) {
+				if ( strpos( $class_name, 'P4_' ) !== false ) {
 					$file_name = 'class-' . str_ireplace( [ 'P4\\', '_' ], [ '', '-' ], strtolower( $class_name ) );
 					require_once 'classes/' . $file_name . '.php';
 				}
@@ -83,8 +80,20 @@ class P4_Master_Site extends TimberSite {
 		Timber::$dirname        = [ 'templates', 'views' ];
 		$this->theme_dir        = get_template_directory_uri();
 		$this->theme_images_dir = $this->theme_dir . '/images/';
-		$this->default_sort     = 'relevant';
-		$this->posts_per_page   = 10;
+		$this->sort_options     = [
+			'relevant'  => [
+				'name'  => __( 'Most relevant', 'planet4-master-theme' ),
+				'order' => 'DESC',
+			],
+			'post_date' => [
+				'name'  => __( 'Most recent', 'planet4-master-theme' ),
+				'order' => 'DESC',
+			],
+			//'post_title' => [
+			//	'name'  => __( 'Title', 'planet4-master-theme' ),
+			//	'order' => 'ASC',
+			//],
+		];
 	}
 
 	/**
@@ -100,22 +109,26 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'get_twig',               array( $this, 'add_to_twig' ) );
 		add_action( 'init',                   array( $this, 'register_post_types' ) );
 		add_action( 'init',                   array( $this, 'register_taxonomies' ) );
-		add_action( 'init',                   array( $this, 'register_p4_post_type_taxonomy' ) );
+		add_action( 'init',                   array( $this, 'register_oembed_provider' ) );
 		add_action( 'pre_get_posts',          array( $this, 'add_search_options' ) );
 		add_filter( 'searchwp_query_orderby', array( $this, 'edit_searchwp_query_orderby' ), 10, 2 );
 		add_action( 'cmb2_admin_init',        array( $this, 'register_header_metabox' ) );
 		add_action( 'pre_get_posts',          array( $this, 'tags_support_query' ) );
-		add_action( 'admin_init',             array( $this, 'add_copyright_text' ) );
-		add_action( 'admin_init',             array( $this, 'add_google_tag_manager_identifier_setting' ) );
 		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
+		add_action( 'admin_enqueue_scripts',  array( $this, 'dequeue_jetpack_scripts' ) );
 		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
+		add_action( 'wp_enqueue_scripts',     array( $this, 'dequeue_jetpack_scripts' ) );
+		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
+
+		// Disable jetpack jitm, not needed for photon.
+		add_filter( 'jetpack_just_in_time_msgs', '__return_false' );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 
 		register_nav_menus( array(
-			'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme' )
+			'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme' ),
 		) );
 	}
 
@@ -134,98 +147,112 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Show copyright text field.
+	 * Adds more data to the context variable that will be passed to the main template.
 	 *
-	 * @param array $args
-	 */
-	public function copyright_show_settings( $args ) {
-		$copyright = get_option( 'copyright', '' );
-
-		printf(
-			'<input type="text" name="copyright" class="regular-text" value="%1$s" id="%2$s" />',
-			esc_attr( $copyright ),
-			esc_attr( $args['label_for'] )
-		);
-	}
-
-	/**
-	 * Show google tag manager identifier text field.
+	 * @param array $context The associative array with data to be passed to the main template.
 	 *
-	 * @param array $args
+	 * @return mixed
 	 */
-	public function google_tag_show_settings( $args ) {
-		$google_tag_identifier = get_option( 'google_tag_manager_identifier', '' );
+	public function add_to_context( $context ) {
+		$context['cookies'] = [
+			'text' => planet4_get_option( 'cookies_field' ),
+		];
+		$context['data_nav_bar'] = [
+			'images'       => $this->theme_images_dir,
+			'home_url'     => home_url( '/' ),
+			'search_query' => get_search_query(),
+		];
+		$context['domain']       = 'planet4-master-theme';
+		$context['foo']          = 'bar';   // For unit test purposes.
+		$context['navbar_menu']  = new TimberMenu( 'navigation-bar-menu' );
+		$context['site']         = $this;
+		$context['sort_options'] = $this->sort_options;
 
-		printf(
-			'<input type="text" name="google_tag_manager_identifier" class="regular-text" value="%1$s" id="%2$s" />',
-			esc_attr( $google_tag_identifier ),
-			esc_attr( $args['label_for'] )
-		);
+		return $context;
 	}
 
 	/**
-	 * Function to add copyright text block in general options
+	 * Add your own functions to Twig.
+	 *
+	 * @param Twig_ExtensionInterface $twig The Twig object that implements the Twig_ExtensionInterface.
+	 *
+	 * @return mixed
 	 */
-	public function add_copyright_text() {
-		add_settings_section(
-			'copyrighttext_id',
-			'',
-			'',
-			'general'
-		);
-
-		// Register taxonomies for page.
-		register_setting(
-			'general',
-			'copyright',
-			'trim'
-		);
-
-		// Register the field for the "copyright" section.
-		add_settings_field(
-			'copyright',
-			'Copyright Text',
-			array( $this, 'copyright_show_settings' ),
-			'general',
-			'copyrighttext_id',
-			array(
-				'label_for' => 'copyrighttext_id',
-			)
-		);
+	public function add_to_twig( $twig ) {
+		$twig->addExtension( new Twig_Extension_StringLoader() );
+		return $twig;
 	}
 
+	/**
+	 * Set attributes that should be allowed for posts filter
+	 * Allow img srcset and sizes attributes.
+	 * Allow iframes in posts.
+	 *
+	 * @param array $allowedposttags Default allowed tags.
+	 * @return array
+	 */
+	public function set_custom_allowed_attributes_filter( $allowedposttags ) {
+		// Allow iframes and the following attributes.
+		$allowedposttags['iframe'] = [
+			'align'        => true,
+			'width'        => true,
+			'height'       => true,
+			'frameborder'  => true,
+			'name'         => true,
+			'src'          => true,
+			'id'           => true,
+			'class'        => true,
+			'style'        => true,
+			'scrolling'    => true,
+			'marginwidth'  => true,
+			'marginheight' => true,
+		];
+
+		// Allow img and the following attributes.
+		$allowedposttags['img'] = [
+			'alt'    => true,
+			'class'  => true,
+			'id'     => true,
+			'height' => true,
+			'hspace' => true,
+			'name'   => true,
+			'src'    => true,
+			'srcset' => true,
+			'sizes'  => true,
+			'width'  => true,
+			'vspace' => true,
+		];
+
+		return $allowedposttags;
+	}
 
 	/**
-	 * Function to add google tag manager identifier block in general options
+	 * Sanitizes the settings input.
+	 *
+	 * @param string $setting The setting to sanitize.
+	 *
+	 * @return string The sanitized setting.
 	 */
-	public function add_google_tag_manager_identifier_setting() {
-
-		// Add google tag manager identifier section.
-		add_settings_section(
-			'google_tag_manager_identifier',
-			'',
-			'',
-			'general'
-		);
-
-		// Register google tag manager identifier setting.
-		register_setting(
-			'general',
-			'google_tag_manager_identifier',
-			'trim'
-		);
-
-		// Register the field for the "google tag manager identifier" section.
-		add_settings_field(
-			'google_tag_manager_identifier',
-			'Google Tag Manager Identifier',
-			array( $this, 'google_tag_show_settings' ),
-			'general',
-			'google_tag_manager_identifier',
-			array(
-				'label_for' => 'google_tag_manager_identifier',
-			)
-		);
+	public function sanitize( $setting ) : string {
+		$allowed = [
+			'ul'     => [],
+			'ol'     => [],
+			'li'     => [],
+			'strong' => [],
+			'del'    => [],
+			'span' => [
+				'style' => [],
+			],
+			'p' => [
+				'style' => [],
+			],
+			'a' => [
+				'href'   => [],
+				'target' => [],
+				'rel'    => [],
+			],
+		];
+		return wp_kses( $setting, $allowed );
 	}
 
 	/**
@@ -241,41 +268,44 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function enqueue_public_assets() {
 		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', array(), '4.0.0-alpha.6' );
-		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css' );
+		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], '0.0.11'  );
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
+		wp_enqueue_script( 'popperjs', $this->theme_dir . '/assets/js/popper.min.js', array(), '1.11.0', true );
 		wp_enqueue_script( 'bootstrapjs', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', array(), '4.0.0-beta', true );
-		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), null, true );
+		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.2.0', true );
+		wp_enqueue_script( 'custom', $this->theme_dir . '/assets/js/custom.js', array( 'jquery' ), '0.1.0', true );
+		wp_enqueue_script( 'slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array(), '0.1.0', true );
 	}
 
 	/**
-	 * Register a custom taxonomy for planet4 post types
+	 * Register a custom taxonomy for planet4 page types
 	 */
-	public function register_p4_post_type_taxonomy() {
+	public function register_p4_page_type_taxonomy() {
 
-		$p4_post_type = [
-			'name'              => _x( 'Planet4 Post Types', 'taxonomy general name' ),
-			'singular_name'     => _x( 'Planet4 Post Type', 'taxonomy singular name' ),
-			'search_items'      => __( 'Search in Planet4 Post Type' ),
-			'all_items'         => __( 'All Planet4 Post Types' ),
+		$p4_page_type = [
+			'name'              => _x( 'Page Types', 'taxonomy general name' ),
+			'singular_name'     => _x( 'Page Type', 'taxonomy singular name' ),
+			'search_items'      => __( 'Search in Page Type' ),
+			'all_items'         => __( 'All Page Types' ),
 			'most_used_items'   => null,
 			'parent_item'       => null,
 			'parent_item_colon' => null,
-			'edit_item'         => __( 'Edit Planet4 Post Type' ),
-			'update_item'       => __( 'Update Planet4 Post Type' ),
-			'add_new_item'      => __( 'Add new Planet4 Post Type' ),
-			'new_item_name'     => __( 'New Planet4 Post Type' ),
-			'menu_name'         => __( 'Planet4 Post Types' ),
+			'edit_item'         => __( 'Edit Page Type' ),
+			'update_item'       => __( 'Update Page Type' ),
+			'add_new_item'      => __( 'Add new Page Type' ),
+			'new_item_name'     => __( 'New Page Type' ),
+			'menu_name'         => __( 'Page Types' ),
 		];
 		$args         = [
 			'hierarchical' => false,
-			'labels'       => $p4_post_type,
+			'labels'       => $p4_page_type,
 			'show_ui'      => true,
 			'query_var'    => true,
 			'rewrite'      => [
-				'slug' => 'p4-post-types',
+				'slug' => 'p4-page-types',
 			],
 		];
-		register_taxonomy( 'p4-post-type', [ 'p4_post_type', 'post' ], $args );
+		register_taxonomy( 'p4-page-type', [ 'p4_page_type', 'post' ], $args );
 
 		$terms = [
 			'0' => [
@@ -298,7 +328,7 @@ class P4_Master_Site extends TimberSite {
 		foreach ( $terms as $term_key => $term ) {
 			wp_insert_term(
 				$term['name'],
-				'p4-post-type',
+				'p4-page-type',
 				[
 					'description' => $term['description'],
 					'slug'        => $term['slug'],
@@ -317,8 +347,17 @@ class P4_Master_Site extends TimberSite {
 	 * Registers taxonomies.
 	 */
 	public function register_taxonomies() {
+		// Call function for p4 post type custom taxonomy.
+		$this->register_p4_page_type_taxonomy();
 		register_taxonomy_for_object_type( 'post_tag', 'page' );
 		register_taxonomy_for_object_type( 'category', 'page' );
+	}
+
+	/**
+	 * Registers oembed provider for Carto map.
+	 */
+	public function register_oembed_provider() {
+		wp_oembed_add_provider( '#https?://(?:www\.)?[^/^\.]+\.carto(db)?\.com/\S+#i', 'https://services.carto.com/oembed', true );
 	}
 
 	/**
@@ -345,26 +384,54 @@ class P4_Master_Site extends TimberSite {
 		if ( ! $wp->is_main_query() || ! $wp->is_search() ) {
 			return;
 		}
-		$wp->set( 'posts_per_page', $this->posts_per_page );
+		$wp->set( 'posts_per_page', P4_Search::POSTS_LIMIT );
+		$wp->set( 'no_found_rows', true );
 	}
 
 	/**
 	 * Customize the order of search results.
 	 *
-	 * @param string $sql The part of the query related to the ORDER BY.
+	 * @param string $orderby The ORDER BY sql clause.
 	 *
 	 * @return string The customized part of the query related to the ORDER BY.
 	 */
-	function edit_searchwp_query_orderby( $sql ) {
-		global $wp_query;
+	function edit_searchwp_query_orderby( $orderby ) {
+		$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
+		$selected_sort = sanitize_sql_orderby( $selected_sort );
 
-		$selected_sort  = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
-		$selected_order = $wp_query->get( 'order' );
-
-		if ( $selected_sort !== $this->default_sort ) {
-			return esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
+		if ( P4_Search::DEFAULT_SORT !== $selected_sort ) {
+			$selected_order = $this->sort_options[ $selected_sort ]['order'];
+			$orderby = esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
+		} else {
+			$orderby = esc_sql( $orderby );
 		}
-		return esc_sql( $sql );
+
+		return $orderby;
+	}
+
+	/**
+	 * Populate an associative array with all the children of the ACT page
+	 *
+	 * @return array
+	 */
+	public function populate_act_page_children_options() {
+		$parent_act_id = planet4_get_option( 'act_page' );
+		$options       = [];
+
+		if( 0 !== absint( $parent_act_id ) ) {
+			$take_action_pages_args = [
+				'post_type'   => 'page',
+				'post_parent' => $parent_act_id,
+			];
+
+			$query_children = new WP_Query( $take_action_pages_args );
+			$posts          = $query_children->get_posts();
+			foreach ( $posts as $post ) {
+				$options[ $post->ID ] = $post->post_title;
+			}
+		}
+
+		return $options;
 	}
 
 	/**
@@ -446,74 +513,74 @@ class P4_Master_Site extends TimberSite {
 			)
 		);
 
-		$p4_post = new_cmb2_box( array(
+		$p4_post = new_cmb2_box( [
 			'id'           => $prefix . 'metabox_post',
 			'title'        => __( 'Post Articles Element Fields', 'planet4-master-theme' ),
-			'object_types' => array( 'post' ),
-		) );
+			'object_types' => [ 'post' ],
+		] );
 
-		$p4_post->add_field( array(
-			'name' => __( 'Articles Title', 'planet4-master-theme' ),
-			'desc' => __( 'Title for articles block', 'planet4-master-theme' ),
-			'id'   => $prefix . 'articles_title',
-			'type' => 'text_medium',
-		) );
+		$p4_post->add_field( [
+			'name'    => __( 'Articles Title', 'planet4-master-theme' ),
+			'desc'    => __( 'Title for articles block', 'planet4-master-theme' ),
+			'id'      => $prefix . 'articles_title',
+			'type'    => 'text_medium',
+			'default' => planet4_get_option( 'articles_block_title', '' ) ?? '',
+		] );
 
-		$p4_post->add_field( array(
-				'name'       => __( 'Articles Count', 'planet4-master-theme' ),
-				'desc'       => __( 'Number of articles that should be displayed for articles block', 'planet4-master-theme' ),
-				'id'         => $prefix . 'articles_count',
-				'type'       => 'text_medium',
-				'attributes' => array(
-					'type' => 'number',
-				),
-			)
-		);
+		$p4_post->add_field( [
+			'name'       => __( 'Articles Count', 'planet4-master-theme' ),
+			'desc'       => __( 'Number of articles that should be displayed for articles block', 'planet4-master-theme' ),
+			'id'         => $prefix . 'articles_count',
+			'type'       => 'text_medium',
+			'default'    => planet4_get_option( 'articles_count', '' ) ?? '',
+			'attributes' => [
+				'type' => 'number',
+			],
+		] );
 
-		$p4_post->add_field( array(
+		$p4_post->add_field( [
 			'name' => __( 'Author Override', 'planet4-master-theme' ),
 			'desc' => __( 'Enter author name if you want to override the author', 'planet4-master-theme' ),
 			'id'   => $prefix . 'author_override',
 			'type' => 'text_medium',
-		) );
+		] );
+
+		$p4_post->add_field( [
+			'name'             => __( 'Take Action Page Selector', 'planet4-master-theme' ),
+			'desc'             => __( 'Select a Take Action Page to populate take action boxout block', 'planet4-master-theme' ),
+			'id'               => $prefix . 'take_action_page',
+			'type'             => 'select',
+			'show_option_none' => true,
+			'options_cb'       => [ $this, 'populate_act_page_children_options' ],
+		] );
+
+		$p4_post->add_field( [
+			'name'         => __( 'Background Image Override', 'planet4-master-theme' ),
+			'desc'         => __( 'Upload an image or select one from the media library to override the background image', 'planet4-master-theme' ),
+			'id'           => $prefix . 'background_image_override',
+			'type'         => 'file',
+			'options'      => [
+				'url' => false,
+			],
+			'text'         => [
+				'add_upload_file_text' => __( 'Add Image', 'planet4-master-theme' ),
+			],
+			'preview_size' => 'large',
+		] );
 	}
 
 	/**
-	 * Adds more data to the context variable that will be passed to the main template.
-	 *
-	 * @param array $context The associative array with data to be passed to the main template.
-	 *
-	 * @return mixed
+	 * Dequeue any extra/unneeded scripts or styles that were enqueued by jetpack and are not dequeued by disabling
+	 * jetpack unneeded modules.
 	 */
-	public function add_to_context( $context ) {
-		$context['data_nav_bar'] = [
-			'websites'     => $this->websites,
-			'images'       => $this->theme_images_dir,
-			'home_url'     => home_url( '/' ),
-			'act_url'      => '/act',
-			'explore_url'  => '/explore',
-			'search_query' => get_search_query(),
-		];
-		$context['foo']  = 'bar';   // For unit test purposes.
-		$context['domain'] = 'planet4-master-theme';
-		$context['site'] = $this;
-		$context['navbar_menu'] = new TimberMenu('navigation-bar-menu');
-		return $context;
-	}
-
-	/**
-	 * Add your own functions to Twig.
-	 *
-	 * @param Twig_ExtensionInterface $twig The Twig object that implements the Twig_ExtensionInterface.
-	 *
-	 * @return mixed
-	 */
-	public function add_to_twig( $twig ) {
-		$twig->addExtension( new Twig_Extension_StringLoader() );
-		return $twig;
+	public function dequeue_jetpack_scripts() {
+		if ( class_exists( 'Jetpack' ) && Jetpack::is_active( ) ) {
+			wp_dequeue_script( 'devicepx' );
+		}
 	}
 }
 
 new P4_Master_Site( [
 	'P4_Taxonomy_Image',
+	'P4_Settings',
 ] );

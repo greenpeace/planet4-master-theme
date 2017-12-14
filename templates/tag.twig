@@ -1,0 +1,35 @@
+{% extends "base.twig" %}
+
+{% block content %}
+	{% if ( tag_image ) %}
+		<style>
+			body {
+				background-image: url("{{ tag_image }}");
+				background-size: cover;
+			}
+			.tag_template {
+				padding-top: 200px;
+			}
+			.tag_template > .container {
+				color: white;
+			}
+			.page-header > a {
+				font-size: 120%;
+				color: #ffd920;
+				text-transform: uppercase;
+			}
+		</style>
+	{% endif %}
+	<div class="tag_template">
+		<div class="container">
+			<div class="page-header col-md-8 col-lg-8 col-sm-12 pl-0 pr-0">
+				<a href="{{ category_link|default('#') }}">{{ category_name|e('wp_kses_post')|raw }}</a>
+				<h1>#{{ tag_name|e('wp_kses_post')|raw }}</h1>
+				<p>{{ tag_description }}</p>
+			</div>
+		</div>
+		{% for name, block in blocks %}
+			{{ block|shortcodes|raw }}
+		{% endfor %}
+	</div>
+{% endblock %}

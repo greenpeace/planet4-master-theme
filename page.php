@@ -21,28 +21,74 @@
  * @since    Timber 0.1
  */
 
+/**
+ * Category : Issue
+ * Tag      : Campaign
+ * Post     : Action
+ */
+
+use Timber\Timber;
+
+/**
+ * Add custom css class for body element hook.
+ *
+ * @param array $classes  Array of css classes passed by the hook.
+ * @return array
+ */
+function add_body_classes_for_page( $classes ) {
+	$classes[] = 'brown-bg';
+	return $classes;
+}
+add_filter( 'body_class', 'add_body_classes_for_page' );
+
 $context = Timber::get_context();
 $post = new TimberPost();
-$context['post'] = $post;
 
-$page_meta_data = get_post_meta( $post->ID );
+$page_meta_data  = get_post_meta( $post->ID );
+$temp_categories = get_the_category( $post->ID );
+$category        = count( $temp_categories ) > 0 ? $temp_categories[0] : null;
 
-$context['header_title']        = null === $page_meta_data['p4_title'][0] ? $post->title : $page_meta_data['p4_title'][0];
-$context['header_subtitle']     = $page_meta_data['p4_subtitle'][0];
-$context['header_description']  = $page_meta_data['p4_description'][0];
-$context['header_button_title'] = $page_meta_data['p4_button_title'][0];
-$context['header_button_link']  = $page_meta_data['p4_button_link'][0];
-$context['google_tag_value']    = get_option( 'google_tag_manager_identifier', '' ) ? get_option( 'google_tag_manager_identifier' ) : '';
+// Handle navigation links.
+if ( $category && ( $category->name !== $post->post_title ) ) {     // Do not add links inside the Issue page itself.
+	// Get Issue.
+	$issue = get_page_by_title( $category->name );                  // Category and Issue need to have the same name.
+	if ( $issue ) {
+		$context['issue'] = [
+			'name' => $issue->post_title,
+			'link' => get_permalink( $issue ),
+		];
+	}
+
+	// Get Campaigns.
+	$page_tags = wp_get_post_tags( $post->ID );
+	$tags      = [];
+
+	if ( is_array( $page_tags ) && $page_tags ) {
+		foreach ( $page_tags as $page_tag ) {
+			$tags[] = [
+				'name' => $page_tag->name,
+				'link' => get_tag_link( $page_tag ),
+			];
+		}
+		$context['campaigns'] = $tags;
+	}
+}
+
+$context['post']                = $post;
+$context['header_title']        = is_front_page() ? '' : ( $page_meta_data['p4_title'][0] ?? $post->title );
+$context['header_subtitle']     = $page_meta_data['p4_subtitle'][0] ?? '';
+$context['header_description']  = $page_meta_data['p4_description'][0] ?? '';
+$context['header_button_title'] = $page_meta_data['p4_button_title'][0] ?? '';
+$context['header_button_link']  = $page_meta_data['p4_button_link'][0] ?? '';
+$context['google_tag_value']    = planet4_get_option( 'google_tag_manager_identifier', '' ) ?? '';
 
 // Footer Items.
 $context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
 $context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
 $context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
-$context['copyright_text']        = get_option( 'copyright', '' ) ? get_option( 'copyright' ) : '';
+$context['copyright_text']        = planet4_get_option( 'copyright', '' ) ?? '';
+$context['page_category']         = is_front_page() ? 'Front Page' : ( $category->name ?? 'Unknown page' );
 
 $context['background_image']      = wp_get_attachment_url( get_post_meta( get_the_ID(), 'background_image_id', 1 ), 'medium' );
-
-$page_tags = wp_get_post_tags( $post->ID );
-$context['page_tags'] = $page_tags;
 
 Timber::render( array( 'page-' . $post->post_name . '.twig', 'page.twig' ), $context );

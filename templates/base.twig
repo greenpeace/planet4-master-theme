@@ -4,7 +4,7 @@
 
 {% endblock %}
 
-<body>
+<body class="{{ body_class }}">
 
 	{% if google_tag_value %}
 		<!-- Google Tag Manager (noscript) -->
@@ -16,8 +16,8 @@
 
 	<div class="hero-img-wrap">
 		{% include 'navigation-bar.twig' with data_nav_bar %}
-		{% include 'blocks/header.twig' %}
 	</div>
+	{% include 'blocks/header.twig' %}
 
 	{% block content %}
 		Sorry, no content
@@ -31,8 +31,13 @@
 
 	{% block footer %}
 		{% include 'footer.twig' %}
-	{{ function('wp_footer') }}
-	{% endblock %}
 
+		{% block cookies %}
+			{% include 'cookies.twig' %}
+		{% endblock %}
+
+		{{ function('wp_footer') }}
+	{% endblock %}
+    <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54510c710c3d3d92"></script>
 </body>
 </html>

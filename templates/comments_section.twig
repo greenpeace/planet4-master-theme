@@ -1,0 +1,13 @@
+<div class="container page-section">
+	<h2 class="page-section-header">{{ __( 'Comments' ) }}</h2>
+	<div class="comments-block">
+		<div class="form-section">
+			{{ fn('comment_form', comments_args) }}
+		</div>
+		<section class="comments-section" itemscope itemtype="http://schema.org/UserComments">
+			{% for cmt in comments %}
+				{% include "comment.twig" with {comment:cmt, index: loop.index} %}
+			{% endfor %}
+		</section>
+	</div>
+</div>
