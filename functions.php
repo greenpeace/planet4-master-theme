@@ -117,7 +117,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
 		add_action( 'wp_enqueue_scripts',     array( $this, 'dequeue_jetpack_scripts' ) );
 		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
-		add_action( 'save_post',              array( $this, 'p4_save_page_type' ), 10, 2 );
+		add_action( 'save_post',              array( $this, 'p4_save_page_type' ) );
 
 		// Disable jetpack jitm, not needed for photon.
 		add_filter( 'jetpack_just_in_time_msgs', '__return_false' );
