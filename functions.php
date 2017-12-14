@@ -356,7 +356,7 @@ class P4_Master_Site extends TimberSite {
 			return;
 		}
 		// Check nonce.
-		if ( ! isset( $_POST['p4-page-type-nonce'] ) || ! wp_verify_nonce( $_POST['p4-page-type-nonce'], basename( __FILE__ ) ) ) {
+		if ( ! isset( $_POST['p4-page-type-nonce'] ) || ! wp_verify_nonce( $_POST['p4-page-type-nonce'], 'p4-save-page-type' ) ) {
 			return;
 		}
 		// Check user's capabilities.
@@ -403,7 +403,7 @@ class P4_Master_Site extends TimberSite {
 		$current_term = get_the_terms( $object, 'p4-page-type' );
 		$current = ( $current_term && ! is_wp_error( $current_term ) ) ? $current_term[0]->slug : -1;
 		$terms = get_terms( 'p4-page-type', [ 'hide_empty' => false ] );
-		wp_nonce_field( basename( __FILE__ ), 'p4-page-type-nonce' );
+		wp_nonce_field( 'p4-save-page-type', 'p4-page-type-nonce' );
 		?>
 
         <select name="p4-page-type">
