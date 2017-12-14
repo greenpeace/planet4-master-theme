@@ -395,8 +395,8 @@ class P4_Master_Site extends TimberSite {
 
 	/**
 	 * Add a dropdown to choose planet4 post type.
-     	 *
-     	 * @param WP_Post $post
+	 *
+	 * @param WP_Post $post
 	 */
 	public function p4_metabox_markup( WP_Post $post ) {
 		$current_term = get_the_terms( $post, 'p4-page-type' );
