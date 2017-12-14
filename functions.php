@@ -107,7 +107,6 @@ class P4_Master_Site extends TimberSite {
 
 		add_filter( 'timber_context',         array( $this, 'add_to_context' ) );
 		add_filter( 'get_twig',               array( $this, 'add_to_twig' ) );
-		add_action( 'init',                   array( $this, 'register_post_types' ) );
 		add_action( 'init',                   array( $this, 'register_taxonomies' ) );
 		add_action( 'init',                   array( $this, 'register_oembed_provider' ) );
 		add_action( 'pre_get_posts',          array( $this, 'add_search_options' ) );
@@ -117,6 +116,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
 		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
 		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
+		add_action( 'save_post',              array( $this, 'p4_save_page_type' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -175,6 +175,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function add_to_twig( $twig ) {
 		$twig->addExtension( new Twig_Extension_StringLoader() );
+
 		return $twig;
 	}
 
@@ -184,6 +185,7 @@ class P4_Master_Site extends TimberSite {
 	 * Allow iframes in posts.
 	 *
 	 * @param array $allowedposttags Default allowed tags.
+	 *
 	 * @return array
 	 */
 	public function set_custom_allowed_attributes_filter( $allowedposttags ) {
@@ -235,7 +237,7 @@ class P4_Master_Site extends TimberSite {
 			'li'     => [],
 			'strong' => [],
 			'del'    => [],
-			'span' => [
+			'span'  => [
 				'style' => [],
 			],
 			'p' => [
@@ -274,7 +276,7 @@ class P4_Master_Site extends TimberSite {
 
 	/**
 	 * Register a custom taxonomy for planet4 page types
-	 */
+     	 */
 	public function register_p4_page_type_taxonomy() {
 
 		$p4_page_type = [
@@ -299,6 +301,7 @@ class P4_Master_Site extends TimberSite {
 			'rewrite'      => [
 				'slug' => 'p4-page-types',
 			],
+			'meta_box_cb'  => [ $this, 'p4_metabox_markup' ]
 		];
 		register_taxonomy( 'p4-page-type', [ 'p4_page_type', 'post' ], $args );
 
@@ -334,9 +337,63 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Registers custom post types.
+	 * Save custom taxonomy for planet4 post types
+	 *
+	 * @param int $post_id Id of the saved post.
 	 */
-	public function register_post_types() {}
+	public function p4_save_page_type( $post_id ) {
+		// Ignore autosave.
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+		// Check nonce.
+		if ( ! isset( $_POST['p4-page-type-nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['p4-page-type-nonce'] ) ), 'p4-save-page-type' ) ) {
+			return;
+		}
+		// Check user's capabilities.
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+		// Make sure there's input.
+		if ( ! isset( $_POST['p4-page-type'] ) ) { // Input var okay.
+			return;
+		}
+		// If "none" was selected, remove the term.
+		if ( $_POST['p4-page-type'] === '-1' ) {
+			wp_set_post_terms( $post_id, [], 'p4-page-type' );
+
+			return;
+		}
+		// Make sure the term exists and it's not an error.
+		$selected = get_term_by( 'slug', sanitize_text_field( wp_unslash( $_POST['p4-page-type'] ) ), 'p4-page-type' ); // Input var okay.
+		if ( false === $selected || is_wp_error( $selected ) ) {
+			return;
+		}
+		// Save post type.
+		wp_set_post_terms( $post_id, sanitize_text_field( $selected->slug ), 'p4-page-type' );
+	}
+
+	/**
+	 * Add a dropdown to choose planet4 post type.
+	 *
+	 * @param WP_Post $post
+	 */
+	public function p4_metabox_markup( WP_Post $post ) {
+		$attached_type = get_the_terms( $post, 'p4-page-type' );
+		$current_type  = ( is_array( $attached_type ) ) ? $attached_type[0]->slug : -1;
+		$all_types     = get_terms( 'p4-page-type', [ 'hide_empty' => false ] );
+		wp_nonce_field( 'p4-save-page-type', 'p4-page-type-nonce' );
+		?>
+		<select name="p4-page-type">
+			<?php foreach ( $all_types as $term ) : ?>
+				<option <?php selected( $current_type, $term->slug ); ?> value="<?php echo esc_attr( $term->slug ); ?>">
+					<?php echo esc_html( $term->name ); ?>
+				</option>
+			<?php endforeach; ?>
+			<option value="-1" <?php selected( -1, $current_type ); ?> >none</option>
+		</select>
+		<?php
+	}
 
 	/**
 	 * Registers taxonomies.
@@ -379,6 +436,7 @@ class P4_Master_Site extends TimberSite {
 		if ( ! $wp->is_main_query() || ! $wp->is_search() ) {
 			return;
 		}
+
 		$wp->set( 'posts_per_page', P4_Search::POSTS_LIMIT );
 		$wp->set( 'no_found_rows', true );
 	}
@@ -396,7 +454,7 @@ class P4_Master_Site extends TimberSite {
 
 		if ( P4_Search::DEFAULT_SORT !== $selected_sort ) {
 			$selected_order = $this->sort_options[ $selected_sort ]['order'];
-			$orderby = esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
+			$orderby        = esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
 		} else {
 			$orderby = esc_sql( $orderby );
 		}
@@ -437,9 +495,9 @@ class P4_Master_Site extends TimberSite {
 		$prefix = 'p4_';
 
 		$p4_header = new_cmb2_box( array(
-			'id'            => $prefix . 'metabox',
-			'title'         => __( 'Page Header Fields', 'planet4-master-theme' ),
-			'object_types'  => array( 'page' ), // Post type.
+			'id'           => $prefix . 'metabox',
+			'title'        => __( 'Page Header Fields', 'planet4-master-theme' ),
+			'object_types' => array( 'page' ), // Post type.
 		) );
 
 		$p4_header->add_field( array(
@@ -490,18 +548,18 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_header->add_field(
 			array(
-				'name'    => __( 'Background overide', 'planet4-master-theme' ),
-				'desc'    => __( 'Upload an image', 'planet4-master-theme' ),
-				'id'      => 'background_image',
-				'type'    => 'file',
+				'name'         => __( 'Background overide', 'planet4-master-theme' ),
+				'desc'         => __( 'Upload an image', 'planet4-master-theme' ),
+				'id'           => 'background_image',
+				'type'         => 'file',
 				// Optional
-				'options' => array(
+				'options'      => array(
 					'url' => false,
 				),
-				'text'    => array(
+				'text'         => array(
 					'add_upload_file_text' => __( 'Add Background Image', 'planet4-master-theme' )
 				),
-				'query_args' => array(
+				'query_args'   => array(
 					'type' => 'image',
 				),
 				'preview_size' => 'large',
