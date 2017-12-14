@@ -374,7 +374,7 @@ class P4_Master_Site extends TimberSite {
 			return;
 		}
 		// Save post type.
-		wp_set_post_terms( $post_id, $selected->slug, 'p4-page-type' );
+		wp_set_post_terms( $post_id, sanitize_text_field( $selected->slug ), 'p4-page-type' );
 	}
 
 	/**
