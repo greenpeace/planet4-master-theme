@@ -2,7 +2,7 @@
 
 if ( ! class_exists( 'Timber' ) ) {
 	add_action(
-		'admin_notices', function () {
+		'admin_notices', function() {
 			printf( '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="%s">Plugins menu</a></p></div>',
 				esc_url( admin_url( 'plugins.php#timber' ) )
 			);
@@ -10,7 +10,7 @@ if ( ! class_exists( 'Timber' ) ) {
 	);
 
 	add_filter(
-		'template_include', function ( $template ) {
+		'template_include', function( $template ) {
 			return get_stylesheet_directory() . '/static/no-timber.html';
 		}
 	);
