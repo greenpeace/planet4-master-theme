@@ -347,8 +347,8 @@ class P4_Master_Site extends TimberSite {
 
 	/**
 	 * Save custom taxonomy for planet4 post types
-     	 *
-     	 * @param int post_id
+	 *
+	 * @param int $post_id Id of the saved post.
 	 */
 	public function p4_save_page_type( $post_id ) {
 		// Ignore autosave.
