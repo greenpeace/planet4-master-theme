@@ -369,7 +369,7 @@ class P4_Master_Site extends TimberSite {
 			return;
 		}
 		// Make sure the term exists and it's not an error.
-		$selected = get_term_by( 'slug', sanitize_text_field( $_POST['p4-page-type'] ), 'p4-page-type' ); // Input var okay.
+		$selected = get_term_by( 'slug', sanitize_text_field( wp_unslash( $_POST['p4-page-type'] ) ), 'p4-page-type' ); // Input var okay.
 		if ( false === $selected || is_wp_error( $selected ) ) {
 			return;
 		}
