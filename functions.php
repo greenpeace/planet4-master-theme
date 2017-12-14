@@ -408,7 +408,7 @@ class P4_Master_Site extends TimberSite {
 
         <select name="p4-page-type">
 			<?php foreach ( $terms as $term ) : ?>
-                <option <?php selected( esc_html( $current ), esc_html( $term->slug ) ); ?> value="<?php echo esc_html( $term->slug ); ?>">
+                <option <?php selected( $current, $term->slug ); ?> value="<?php echo esc_html( $term->slug ); ?>">
 					<?php echo esc_html( $term->name ); ?>
                 </option>
 			<?php endforeach; ?>
