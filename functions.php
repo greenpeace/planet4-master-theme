@@ -396,10 +396,10 @@ class P4_Master_Site extends TimberSite {
 	/**
 	 * Add a dropdown to choose planet4 post type.
      	 *
-     	 * @param WP_Post $object
+     	 * @param WP_Post $post
 	 */
-	public function p4_metabox_markup( WP_Post $object ) {
-		$current_term = get_the_terms( $object, 'p4-page-type' );
+	public function p4_metabox_markup( WP_Post $post ) {
+		$current_term = get_the_terms( $post, 'p4-page-type' );
 		$current = ( $current_term && ! is_wp_error( $current_term ) ) ? $current_term[0]->slug : -1;
 		$terms = get_terms( 'p4-page-type', [ 'hide_empty' => false ] );
 		wp_nonce_field( 'p4-save-page-type', 'p4-page-type-nonce' );
