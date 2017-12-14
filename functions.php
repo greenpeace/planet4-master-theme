@@ -412,7 +412,7 @@ class P4_Master_Site extends TimberSite {
 					<?php echo esc_html( $term->name ); ?>
                 </option>
 			<?php endforeach; ?>
-            <option value="-1" <?php selected( -1, esc_html( $current ) ); ?> >
+            <option value="-1" <?php selected( -1, $current ); ?> >
                 none
             </option>
         </select>
