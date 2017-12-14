@@ -399,19 +399,18 @@ class P4_Master_Site extends TimberSite {
 	 * @param WP_Post $post
 	 */
 	public function p4_metabox_markup( WP_Post $post ) {
-		$current_term = get_the_terms( $post, 'p4-page-type' );
-		$current = ( is_array( $current_term ) ) ? $current_term[0]->slug : -1;
-		$terms = get_terms( 'p4-page-type', [ 'hide_empty' => false ] );
+		$attached_type = get_the_terms( $post, 'p4-page-type' );
+		$current_type  = ( is_array( $attached_type ) ) ? $attached_type[0]->slug : -1;
+		$all_types     = get_terms( 'p4-page-type', [ 'hide_empty' => false ] );
 		wp_nonce_field( 'p4-save-page-type', 'p4-page-type-nonce' );
 		?>
-
 		<select name="p4-page-type">
-			<?php foreach ( $terms as $term ) : ?>
-				<option <?php selected( $current, $term->slug ); ?> value="<?php echo esc_html( $term->slug ); ?>">
+			<?php foreach ( $all_types as $term ) : ?>
+				<option <?php selected( $current_type, $term->slug ); ?> value="<?php echo esc_html( $term->slug ); ?>">
 					<?php echo esc_html( $term->name ); ?>
 				</option>
 			<?php endforeach; ?>
-			<option value="-1" <?php selected( -1, $current ); ?> >none</option>
+			<option value="-1" <?php selected( -1, $current_type ); ?> >none</option>
 		</select>
 		<?php
 	}
