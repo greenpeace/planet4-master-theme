@@ -118,7 +118,6 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
 		add_action( 'save_post',              array( $this, 'p4_save_page_type' ) );
 		add_action( 'publish_post',           array( $this, 'send_mails_on_publish' ), 10, 2 );
-		add_action( 'phpmailer_init',         array( $this, 'configure_smtp' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -376,39 +375,33 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Send mail via phpmailer.
-	 * TODO : SMTP parameters needs to change here. Currently they are static and will not work.
-	 */
-	public function configure_smtp( PHPMailer $phpmailer ) {
-		$phpmailer->isSMTP(); //switch to smtp
-		$phpmailer->Host        = 'SMTP HOST';
-		$phpmailer->SMTPDebug   = 2;
-		$phpmailer->SMTPAuth    = true;
-		$phpmailer->Port        = 'SMTP_PORT';
-		$phpmailer->Username    = 'SMTP USERNAME';
-		$phpmailer->Password    = 'SMTP PASSWORD';
-		$phpmailer->SMTPSecure  = false;
-		$phpmailer->SMTPOptions = [
-			'ssl' => [
-				'verify_peer'       => false,
-				'verify_peer_name'  => false,
-				'allow_self_signed' => true,
-			]
-		];
-		$phpmailer->From       = 'FROM EMAIL';
-		$phpmailer->FromName   = __( 'Greenpeace IT', 'planet4-master-theme' );
-	}
-
-	/**
 	 * Call on publish a post.
 	 */
 	public function send_mails_on_publish( $ID, $post ) {
-		$email   = 'TO EMAIL';
-		$subject =  __( 'New post published', 'planet4-master-theme' );
-		$name    = $post->post_name;
-		$body    = sprintf( 'The post %s has been published.\n\n', $name );
-		$body   .= sprintf( 'View post : %s.', get_permalink( $post ) );
-		wp_mail( $email, $subject, $body );
+		$emails  = [];
+		$args    = [
+			'role' => 'editor'
+		];
+		$users   = get_users( $args );
+		if( $users ) {
+			foreach( $users as $user ) {
+				$emails[] = $user->user_email;
+			}
+		}
+
+		if( $emails ) {
+			$headers  = 'MIME-Version: 1.0' . "\r\n";
+			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			$name     = $post->post_name;
+			$subject  = __( 'New post published', 'planet4-master-theme' );
+			$body     = sprintf( 'Hello Team, <br><br>' );
+			$body    .= sprintf( 'The post <strong> %s </strong> has been published. <br>', $name );
+			$body    .= sprintf( 'Post link : %s <br><br>', get_permalink( $post ) );
+			$body    .= sprintf( 'Thanks<br>' );
+			$body    .= sprintf( 'Greenpeace IT' );
+
+			wp_mail( $emails, $subject, $body, $headers );
+		}
 	}
 
 	/**
