@@ -380,7 +380,7 @@ class P4_Master_Site extends TimberSite {
 	public function send_mails_on_publish( $ID, $post ) {
 		$emails  = [];
 		$args    = [
-			'role' => 'editor'
+			'role' => 'editor',
 		];
 		$users   = get_users( $args );
 		if( $users ) {
@@ -394,11 +394,11 @@ class P4_Master_Site extends TimberSite {
 			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 			$name     = $post->post_name;
 			$subject  = __( 'New post published', 'planet4-master-theme' );
-			$body     = sprintf( 'Hello Team, <br><br>' );
-			$body    .= sprintf( 'The post <strong> %s </strong> has been published. <br>', $name );
-			$body    .= sprintf( 'Post link : %s <br><br>', get_permalink( $post ) );
-			$body    .= sprintf( 'Thanks<br>' );
-			$body    .= sprintf( 'Greenpeace IT' );
+			$body     = sprintf( __('Hello Team, <br><br>', 'planet4-master-theme' ) );
+			$body    .= sprintf( __('The post <strong> %s </strong> has been published. <br>', 'planet4-master-theme' ), $name );
+			$body    .= sprintf( __('Post link : %s <br><br>', 'planet4-master-theme' ), get_permalink( $post ) );
+			$body    .= sprintf( __('Thanks<br>', 'planet4-master-theme' ) );
+			$body    .= sprintf( __('Greenpeace IT', 'planet4-master-theme' ) );
 
 			wp_mail( $emails, $subject, $body, $headers );
 		}
