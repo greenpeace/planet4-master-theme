@@ -1,23 +1,29 @@
-  <div id="footer">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <ul class="footer-social-media list-unstyled">
-            {% for social in footer_social_menu %}
-              <li><a href="{{ social.url }}"><i class="{% for class_name in social.classes %}{{ class_name }} {% endfor %}"></i></a></li>
-            {% endfor %}
-          </ul>
-          <ul class="list-unstyled footer-links">
-            {% for primary in footer_primary_menu %}
-              <li><a href="{{ primary.url }}">{{ primary.title }}</a><span class="hidden-md-down">/</span></li>
-            {% endfor %}
-            {% for secondary in footer_secondary_menu %}
-              <li><a href="{{ secondary.url }}">{{ secondary.title }}</a>{% if not loop.last %}<span class="hidden-md-down">/</span>{% endif %}</li>
-            {% endfor %}
-          </ul>
-          <p class="copyright-text">&copy; {{ copyright_text|raw }}</p>
-          <p class="text-center">Greenpeace {{"now"|date('Y')}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- Site Footer -->
+<footer class="site-footer">
+	<div class="container">
+		<ul class="footer-social-media list-unstyled col-md-8 col-lg-5">
+			{% for social in footer_social_menu %}
+				<li><a href="{{ social.url }}"><i class="{% for class_name in social.classes %}{{ class_name }} {% endfor %}"></i></a></li>
+			{% endfor %}
+		</ul>
+
+		<ul class="list-unstyled footer-links">
+			{% for primary in footer_primary_menu %}
+				<li><a href="{{ primary.url }}">{{ primary.title }}</a></li>
+			{% endfor %}
+		</ul>
+
+		<ul class="list-unstyled footer-links-secondary">
+			{% for secondary in footer_secondary_menu %}
+				<li><a href="{{ secondary.url }}">{{ secondary.title }}</a></li>
+			{% endfor %}
+		</ul>
+
+		<p class="copyright-text col-md-8">
+			<i class="fa fa-creative-commons"></i>
+			{{ copyright_text|raw }}
+		</p>
+		<p class="gp-year">Greenpeace {{"now"|date('Y')}}</p>
+	</div>
+</footer>
+<!-- Site Footer End -->
