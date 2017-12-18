@@ -17,14 +17,6 @@
 		<li id="result-row-{{ post.ID }}" class="media search-result-list-item">
 	{% endif %}
 
-		{% if ( is_document ) %}
-			<div class="search-result-item-actionbox hidden-sm-down">
-				<a href="{{ post.guid }}" download class="btn btn-medium btn-small btn-transparent action-btn">
-					<i class="icon-doc-ic"></i>{{ __( 'Download', domain ) }}
-				</a>
-			</div>
-		{% endif %}
-
 		{% if ( not is_action ) %}
 			<img class="d-flex search-result-item-image" src="{{ post.thumbnail.src }}" alt="{{ post.thumbnail.alt|default( post.title )|e('wp_kses_post')|raw }}" />
 		{% endif %}
@@ -48,16 +40,18 @@
 				<a href="{{ post.link() }}" class="search-result-item-headline">{{ post.title|e('wp_kses_post')|raw }}</a>
 			{% endif %}
 
-			<div class="search-result-item-info">
-				<span class="search-result-item-date">{{ post.post_date|date('d/m/Y') }}</span>
-			</div>
+			{% if ( not is_action ) %}
+				<div class="search-result-item-info">
+					<span class="search-result-item-date">{{ post.post_date|date('d/m/Y') }}</span>
+				</div>
+			{% endif %}
 			<p class="search-result-item-content">{{ post.preview()|truncate( 25, true )|raw }}</p>
 
 			{% if ( is_action ) %}
 				<a href="{{ post.link }}" class="btn btn-primary btn-medium btn-small">{{ __( 'Take Action', domain ) }}</a>
 			{% elseif ( is_document ) %}
-				<a href="{{ post.guid }}" download="" class="btn btn-medium btn-small btn-transparent action-btn hidden-md-up btn-block">
-					<i class="icon-doc-ic"></i>{{ __('Download', domain ) }}
+				<a href="{{ post.guid }}" download class="btn btn-small btn-secondary">
+					<i class="icon-doc-ic"></i>{{ __( 'Download', domain ) }}
 				</a>
 			{% endif %}
 		</div>
