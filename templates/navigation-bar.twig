@@ -37,7 +37,7 @@
                                         </li>
                                     {% endfor %}
                                 </ul>
-                                <a href="#" class="btn btn-small btn-medium btn-secondary">{{ __( 'DONATE', domain ) }}</a>
+                                <a href="#" class="btn btn-donate">{{ __( 'DONATE', domain ) }}</a>
                             </div>
                         </div>
                         <div class="col">
@@ -52,7 +52,7 @@
                                     <form id="search_form" action="{{ data_nav_bar.home_url }}">
                                         <input type="text" placeholder="{{ __( 'Search', domain ) }}" value="{{ data_nav_bar.search_query }}" name="s" aria-label="Search">
                                         <input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? 'relevant' }}" />
-                                        <input id="search-submit" type="submit" class="btn btn-green" value="{{ __( 'Search', domain ) }}" />
+                                        <input id="search-submit" type="submit" class="btn btn-action" value="{{ __( 'Search', domain ) }}" />
                                     </form>
                                 </div>
                             </div>
@@ -85,8 +85,8 @@
                                             <a href="{{ item.get_link }}">{{ item.title }}</a>
                                         </li>
                                     {% endfor %}
-                                    <li class="nav-item donatebtn">
-                                        <a href="#" class="btn btn-small btn-medium btn-secondary btn-block">{{ __( 'DONATE', domain ) }}</a>
+                                    <li class="nav-item">
+                                        <a href="#" class="btn btn-donate btn-block">{{ __( 'DONATE', domain ) }}</a>
                                     </li>
                                     <li class="nav-item loginSignUpWrap hidden-md-down hidden-lg-down">
                                         <i class="fa fa-user-circle-o"></i>
