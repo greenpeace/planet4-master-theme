@@ -117,7 +117,6 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
 		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
 		add_action( 'save_post',              array( $this, 'p4_save_page_type' ) );
-		add_action( 'publish_post',           array( $this, 'send_mails_on_publish' ), 10, 2 );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -372,36 +371,6 @@ class P4_Master_Site extends TimberSite {
 		}
 		// Save post type.
 		wp_set_post_terms( $post_id, sanitize_text_field( $selected->slug ), 'p4-page-type' );
-	}
-
-	/**
-	 * Call on publish a post.
-	 */
-	public function send_mails_on_publish( $ID, $post ) {
-		$emails  = [];
-		$args    = [
-			'role' => 'editor',
-		];
-		$users   = get_users( $args );
-		if( $users ) {
-			foreach( $users as $user ) {
-				$emails[] = $user->user_email;
-			}
-		}
-
-		if( $emails ) {
-			$headers  = 'MIME-Version: 1.0' . "\r\n";
-			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-			$name     = $post->post_name;
-			$subject  = __( 'New post published', 'planet4-master-theme' );
-			$body     = sprintf( __('Hello Team, <br><br>', 'planet4-master-theme' ) );
-			$body    .= sprintf( __('The post <strong> %s </strong> has been published. <br>', 'planet4-master-theme' ), $name );
-			$body    .= sprintf( __('Post link : %s <br><br>', 'planet4-master-theme' ), get_permalink( $post ) );
-			$body    .= sprintf( __('Thanks<br>', 'planet4-master-theme' ) );
-			$body    .= sprintf( __('Greenpeace IT', 'planet4-master-theme' ) );
-
-			wp_mail( $emails, $subject, $body, $headers );
-		}
 	}
 
 	/**
