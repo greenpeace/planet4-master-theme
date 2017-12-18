@@ -16,7 +16,9 @@
 							<li>{{ __( 'Search our archive. You\'ll be redirected to the archive site.', domain ) }}</li>
 						</ul>
 					{% endif %}
-					{# <p class="search-info">{{ __( 'We also included results for ', domain ) }} <span class="search-tag">{{ corrected_term }} <i class="icon-cross"></i></span></p> #}
+					{% if ( corrected_term ) %}
+						<p class="search-info">{{ __( 'We also included results for ', domain ) }} <span class="btn btn-filter-item">{{ corrected_term }} <i class="icon-cross"></i></span></p>
+					{% endif %}
 				</div>
 				<div class="col-md-12">
 					<div class="search-bar">
@@ -55,7 +57,7 @@
 								<div class="modal-content">
 									<div class="modal-body">
 										<h4 class="modal-title">{{ __( 'Refine your search', domain ) }}</h4>
-										<button type="button" class="btn btn-action closebtn" data-dismiss="modal"><i class="icon-cross"></i></button>
+										<button type="button" class="closebtn" data-dismiss="modal"><i class="icon-cross"></i></button>
 										<div class="row">
 											<div class="col-md-6">
 												<div id="filter-sidebar-options-modal">
@@ -295,7 +297,7 @@
 							</ul>
 							{% if ( load_more and all_posts|length > load_more.posts_per_load ) %}
 								<div class="col-lg-4 col-md-6 mb-5 load-more-button-div">
-									<button class="btn btn-block btn-medium btn-small btn-secondary btn-load-more">{{ load_more.button_text }}</button>
+									<button class="btn btn-medium btn-small btn-secondary more-btn btn-load-more">{{ load_more.button_text }}</button>
 								</div>
 							{% endif %}
 							{% if ( pagination ) %}
