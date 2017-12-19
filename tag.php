@@ -16,6 +16,20 @@ use P4BKS\Controllers\Blocks\ContentFourColumn_Controller as ContentFourColumn;
 use P4BKS\Controllers\Blocks\CampaignThumbnail_Controller as CampaignThumbnail;
 use P4BKS\Controllers\Blocks\HappyPoint_Controller as HappyPoint;
 
+/**
+ * Add custom css class for body element hook.
+ *
+ * @param array $classes Array of css classes passed by the hook.
+ *
+ * @return array
+ */
+function add_body_classes_for_post( $classes ) {
+	$classes[] = 'brown-bg page-issue-page';
+
+	return $classes;
+}
+add_filter( 'body_class', 'add_body_classes_for_post' );
+
 $templates = array( 'tag.twig', 'archive.twig', 'index.twig' );
 
 $context = Timber::get_context();
@@ -53,7 +67,8 @@ if ( is_tag() ) {
 	] );
 
 	$campaign->add_block( ContentFourColumn::BLOCK_NAME, [
-		'select_tag' => $context['tag']->term_id,
+		'p4_page_type_publication' => 'true',
+		'select_tag'               => $context['tag']->term_id,
 	] );
 
 	$campaign->add_block( CampaignThumbnail::BLOCK_NAME, [
