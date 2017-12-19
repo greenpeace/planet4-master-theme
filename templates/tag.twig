@@ -10,10 +10,10 @@
 		{% endif %}
 		<div class="container">
 			<div class="left">
-				<h1 class="page-header-title">
-					<a class="category_link" href="{{ category_link|default('#') }}">{{ category_name|e('wp_kses_post')|raw }}</a>
-				</h1>
-				<h3 class="page-header-subtitle">#{{ tag_name|e('wp_kses_post')|raw }}</h3>
+				<div class="top-page-tags">
+					<a class="tag-item tag-item--main" href="{{ category_link|default('#') }}">{{ category_name|e('wp_kses_post')|raw }}</a>
+				</div>
+				<h1 class="page-header-title">#{{ tag_name|e('wp_kses_post')|raw }}</h1>
 				<p class="page-header-content">{{ tag_description }}</p>
 			</div>
 			<div class="pull-right hidden-sm-down">
