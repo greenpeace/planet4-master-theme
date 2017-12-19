@@ -60,7 +60,11 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				[
 					'name'    => __( 'Copyright Text', 'planet4-master-theme' ),
 					'id'      => 'copyright',
-					'type'    => 'text',
+					'type'    => 'wysiwyg',
+					'options' => [
+						'textarea_rows' => 3,
+						'media_buttons' => false,
+					],
 				],
 
 				[
@@ -113,7 +117,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 			add_filter( 'cmb2_render_act_page_dropdown', [ $this, 'p4_render_act_page_dropdown' ], 10, 2 );
 			add_filter( 'cmb2_render_explore_page_dropdown', [ $this, 'p4_render_explore_page_dropdown' ], 10, 2 );
 			add_filter( 'cmb2_render_category_select_taxonomy', [ $this, 'p4_render_category_dropdown' ], 10, 2 );
-			add_filter( 'cmb2_sanitize_text', [ $this, 'planet4_sanitize_text_callback'], 10, 2 );
 		}
 
 		/**
@@ -172,16 +175,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'name'             => 'issues_parent_category',
 				]
 			);
-		}
-
-		/**
-		 * Sanitize the text
-		 */
-		public function planet4_sanitize_text_callback( $override_value, $value ) {
-			//convert square brackets to angle brackets
-			$value = str_replace( '[', '<', $value );
-			$value = str_replace( ']', '>', $value );
-			return $value;
 		}
 
 		/**
