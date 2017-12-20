@@ -35,11 +35,21 @@ $templates = array( 'tag.twig', 'archive.twig', 'index.twig' );
 $context = Timber::get_context();
 
 if ( is_tag() ) {
-	$context['tag']             = get_queried_object();
-	$context['post']            = Timber::get_posts()[0];       // Retrieves latest Campaign.
-	$category                   = get_the_category( $context['post']->ID )[0];
-	$context['category_name']   = $category->name ?? __( 'This Campaign is not assigned to an Issue', 'planet4-master-theme' );
-	$context['category_link']   = get_permalink( get_page_by_title( $category->name ) );
+	$context['tag']   = get_queried_object();
+	$explore_page_id  = planet4_get_option( 'explore_page' );
+
+	$posts = get_posts( [
+		'posts_per_page'   => 1,
+		'offset'           => 0,
+		'post_parent'      => $explore_page_id,
+		'post_type'        => 'page',
+		'post_status'      => 'publish',
+		'suppress_filters' => true,
+		'tag_slug__in'     => [ $context['tag']->slug ]
+	] );
+
+	$context['category_name']   = $posts[0]->post_title ?? __( 'This Campaign is not assigned to an Issue', 'planet4-master-theme' );
+	$context['category_link']   = get_permalink( $posts[0] );
 	$context['tag_name']        = single_tag_title( '', false );
 	$context['tag_description'] = $context['tag']->description;
 	$context['tag_image']       = get_term_meta( $context['tag']->term_id, 'tag_attachment', true );
@@ -49,7 +59,7 @@ if ( is_tag() ) {
 	$context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
 	$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
 	$context['copyright_text']        = planet4_get_option( 'copyright' ) ?? '';
-	$context['page_category']         = $category->name ?? __( 'Unknown Campaign page', 'planet4-master-theme' );
+	$context['page_category']         = $posts[0]->post_title ?? __( 'Unknown Campaign page', 'planet4-master-theme' );
 	$context['google_tag_value']      = planet4_get_option( 'google_tag_manager_identifier' ) ?? '';
 
 
