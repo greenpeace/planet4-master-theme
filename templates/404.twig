@@ -1,5 +1,35 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	Sorry, we couldn't find what you're looking for.
+	<div class="skewed-overlay"></div>
+	<div class="page-header">
+		<div class="page-header-background">
+			<img src="{{ page_notfound_image }}" class="page-header-image" />
+		</div>
+		<div class="container">
+			<div class="speech-bubble">
+				<h1 class="page-header-title">{{ page_notfound_title }}</h1>
+				<p>{{ page_notfound_description }}</p>
+			</div>
+			<h3 class="page-header-subtitle">{{ page_notfound_checklist }}</h3>
+			<p class="page-header-content">
+			<ul>
+				{% for item in checklist %}
+					<li>{{ item }}</li>
+				{% endfor %}
+			</ul>
+			</p>
+			<div class="row">
+				<div class="col-md-4">
+					{{ page_notfound_help }}
+					<form class="form search-form">
+						<input class="form-control" placeholder="Search" aria-label="Search" type="text">
+						<button class="search-form-btn" type="submit">
+							<i class="fa fa-search"></i>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
