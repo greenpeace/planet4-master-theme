@@ -33,11 +33,9 @@ function add_body_classes_for_evergreen_page( $classes ) {
 
 add_filter( 'body_class', 'add_body_classes_for_evergreen_page' );
 
-$context = Timber::get_context();
-$post    = new TimberPost();
-
-$page_meta_data  = get_post_meta( $post->ID );
-
+$context                        = Timber::get_context();
+$post                           = new TimberPost();
+$page_meta_data                 = get_post_meta( $post->ID );
 $context['page']                = $post;
 $context['header_title']        = is_front_page() ? '' : ( $page_meta_data['p4_title'][0] ?? $post->title );
 $context['header_subtitle']     = $page_meta_data['p4_subtitle'][0] ?? '';
