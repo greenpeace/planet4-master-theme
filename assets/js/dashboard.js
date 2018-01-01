@@ -18,12 +18,11 @@ $(function() {
 			dataType: 'json'
 		})
 		.done(function ( response ) {
-			if ( response[0] ) {
+			if ( response.message ) {
 				$response.hide().removeClass( 'cp-error cp-success' );
-
-				$response.text( response[0] );
-				if ( response[1] ) {
-					$response.addClass( response[1] );
+				$response.text( response.message );
+				if ( response.class ) {
+					$response.addClass( response.class );
 				}
 				$response.show( 'slow' );
 			}

@@ -24,15 +24,13 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 				return;
 			}
 			add_action( 'wp_dashboard_setup',           array( $this, 'add_dashboard_widgets' ), 9 );
-
 			add_action( 'wp_ajax_check_cache',          array( $this, 'check_cache' ) );
 			add_action( 'wp_ajax_check_en',             array( $this, 'check_en' ) );
-
 			add_action( 'admin_enqueue_scripts',        array( $this, 'enqueue_admin_assets' ) );
 		}
 
 		/**
-		 * .
+		 * Adds a new Dashboard widget.
 		 */
 		public function add_dashboard_widgets() {
 			wp_add_dashboard_widget(
@@ -100,23 +98,21 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 				     && isset( $_GET['cp-action'] )
 				     && 'check_cache' === $_GET['cp-action']
 				) {
-					$messages = [];
+					$response = [];
 					$info     = wp_redis_get_info();
 
 					if ( $info instanceof WP_Error ) {
-						if ( $info->errors['wp-redis'] ) {
-							foreach ( $info->errors['wp-redis'] as $index => $error ) {
-								$messages[] = $error;
-							}
-							$class = 'cp-error';
+						if ( $info->errors['wp-redis'] && is_array( $info->errors['wp-redis'] ) ) {
+							$response['message'] = $info->errors['wp-redis'][0];
+							$response['class']   = 'cp-error';
 						}
 					} elseif ( 'connected' === $info['status'] ) {
-						$messages[] = __( 'Planet 4 is connected to Redis.', 'planet4-master-theme' );
-						$class      = 'cp-success';
+						$response['message'] = __( 'Planet 4 is connected to Redis.', 'planet4-master-theme' );
+						$response['class']   = 'cp-success';
 					}
 
-					if ( $messages ) {
-						echo wp_json_encode( [ $messages, $class ] );
+					if ( $response ) {
+						echo wp_json_encode( $response );
 					}
 				}
 				wp_die();
@@ -136,25 +132,25 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 				     && isset( $_GET['cp-action'] )
 				     && 'check_en' === $_GET['cp-action']
 				) {
-					$messages = [];
+					$response      = [];
 					$main_settings = get_option( 'p4en_main_settings' );
 
 					if ( isset( $main_settings['p4en_private_api'] ) && $main_settings['p4en_private_api'] ) {
 						$ens_api           = new ENS_API();
 						$ens_private_token = $main_settings['p4en_private_api'];
-						$response          = $ens_api->authenticate( $ens_private_token );
+						$ens_response      = $ens_api->authenticate( $ens_private_token );
 
-						if ( is_array( $response ) && $response['body'] ) {
-							$messages[] = __( 'Success', 'planet4-master-theme' );
-							$class      = 'cp-success';
-						} elseif ( is_string( $response ) ) {
-							$messages[] = $response;
-							$class      = 'cp-error';
+						if ( is_array( $ens_response ) && $ens_response['body'] ) {
+							$response['message'] = __( 'Success', 'planet4-master-theme' );
+							$response['class']   = 'cp-success';
+						} elseif ( is_string( $ens_response ) ) {
+							$response['message'] = $ens_response;
+							$response['class']   = 'cp-error';
 						}
 					}
 
-					if ( $messages ) {
-						echo wp_json_encode( [ $messages, $class ] );
+					if ( $response ) {
+						echo wp_json_encode( $response );
 					}
 				}
 				wp_die();
