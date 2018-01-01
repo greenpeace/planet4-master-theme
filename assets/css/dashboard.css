@@ -1,7 +1,5 @@
 .cp-item div { background-color: rgb(250, 250, 250); }
-.cp-fix-container { display: none; }
-.cp-fix { float: right; }
 
-.cp-response { display: none; float: right; }
+.cp-subitem-response { display: none; float: right; }
 .cp-success { color: #236b2d; }
 .cp-error { color: #be2d26; }

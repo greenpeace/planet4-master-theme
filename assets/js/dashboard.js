@@ -4,15 +4,15 @@ $ = jQuery;
 $(function() {
 	$('.btn-cp-action').off('click').on('click', function (event) {
 		event.preventDefault();
-		var btn = $(this);
-		var $response = $( '.cp-response', btn.parent() );
+		var $btn      = $(this);
+		var $response = $( '.cp-subitem-response', $btn.parent() );
 
 		$.ajax({
 			url: ajaxurl,
 			type: 'GET',
 			data: {
-				action: $(this).data( 'action' ),
-				'cp-action': $(this).data( 'action' ),
+				action: $btn.data( 'action' ),
+				'cp-action': $btn.data( 'action' ),
 				'_wpnonce': $( '#_wpnonce' ).val()
 			},
 			dataType: 'json'
@@ -26,12 +26,6 @@ $(function() {
 					$response.addClass( response[1] );
 				}
 				$response.show( 'slow' );
-
-				var $fix = $( '.cp-fix', btn.parent() );
-				$fix.parent().hide();
-				if ( 'cp-error' === response[1] ) {
-					$fix.parent().show( 'slow' );
-				}
 			}
 		});
 	});

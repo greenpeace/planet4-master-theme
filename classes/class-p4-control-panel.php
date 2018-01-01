@@ -24,10 +24,12 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 				return;
 			}
 			add_action( 'wp_dashboard_setup',           array( $this, 'add_dashboard_widgets' ), 9 );
+
 			add_action( 'wp_ajax_flush_cache',          array( $this, 'flush_cache' ) );
 			add_action( 'wp_ajax_check_cache',          array( $this, 'check_cache' ) );
 			add_action( 'wp_ajax_check_en',             array( $this, 'check_en' ) );
 			add_action( 'wp_ajax_check_search_indexer', array( $this, 'check_search_indexer' ) );
+
 			add_action( 'admin_enqueue_scripts',        array( $this, 'enqueue_admin_assets' ) );
 		}
 
@@ -38,78 +40,66 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 			wp_add_dashboard_widget(
 				'planet4_control_panel',
 				__( 'Planet 4 Control Panel', 'planet4-master-theme' ),
-				array( $this, 'add_control_panel' )
+				array( $this, 'add_items' )
 			);
 		}
 
 		/**
-		 * Function that outputs the contents of the dashboard widget.
-		 *
-		 * @param $post
-		 * @param $callback_args
+		 * Outputs the contents of the dashboard widget.
 		 */
-		public function add_control_panel( $post, $callback_args ) {
+		public function add_items() {
 			wp_nonce_field( 'cp-action' );
-			$this->add_item_cache();
-			$this->add_item_engagingnetworks();
-			$this->add_item_searchwp();
+
+			$this->add_item( [
+				'title'    => __( 'Cache', 'planet4-master-theme' ),
+				'subitems' => [
+					[
+						'title'  => __( 'Flush Object Cache', 'planet4-master-theme' ),
+						'action' => 'flush_cache',
+					],
+					[
+						'title'  => __( 'Check Object Cache', 'planet4-master-theme' ),
+						'action' => 'check_cache',
+					],
+				],
+			] );
+
+			$this->add_item( [
+				'title'    => __( 'Engaging Networks', 'planet4-master-theme' ),
+				'subitems' => [
+					[
+						'title'  => __( 'Check Engaging Networks', 'planet4-master-theme' ),
+						'action' => 'check_en',
+					],
+				],
+			] );
+
+			$this->add_item( [
+				'title'    => __( 'SearchWP', 'planet4-master-theme' ),
+				'subitems' => [
+					[
+						'title'  => __( 'Check Search Indexer', 'planet4-master-theme' ),
+						'action' => 'check_search_indexer',
+					],
+				],
+			] );
 		}
 
 		/**
-		 * .
+		 * Adds a new item in the Control Panel and all of its subitems.
+		 *
+		 * @param array $data Associative array with all the data needed to add a new item in the Control Panel.
 		 */
-		public function add_item_cache() {
-			echo '<div id="control_panel_item_cache" class="cp-item">
-					<div class="welcome-panel"><span><strong>' . esc_html__( 'Cache', 'planet4-master-theme' ) . '</strong></span>
-						<div>
-							<a href="#" class="btn btn-cp-action btn-flush-cache-async" data-action="flush_cache">' . esc_html__( 'Flush Object Cache', 'planet4-master-theme' ) . '</a>
-							<span class="cp-response"></span>
-							<div class="cp-fix-container">
-								<button class="button cp-fix">' . esc_html__( 'Fix it!', 'planet4-master-theme' ) . '</button>
-							</div>
-						</div>
-						<div>
-							<a href="#" class="btn btn-cp-action btn-check-cache-async" data-action="check_cache">' . esc_html__( 'Check Object Cache', 'planet4-master-theme' ) . '</a>
-							<span class="cp-response"></span>
-							<div class="cp-fix-container">
-								<button class="button cp-fix">' . esc_html__( 'Fix it!', 'planet4-master-theme' ) . '</button>
-							</div>
-						</div>
-					</div>
-				</div>';
-		}
-
-		/**
-		 * .
-		 */
-		public function add_item_engagingnetworks() {
-			echo '<div id="control_panel_item_en" class="cp-item">
-					<div class="welcome-panel"><span><strong>' . esc_html__( 'Engaging Networks', 'planet4-master-theme' ) . '</strong></span>
-						<div>
-							<a href="#" class="btn btn-cp-action btn-check-en-async" data-action="check_en">' . esc_html__( 'Check Engaging Networks', 'planet4-master-theme' ) . '</a>
-							<span class="cp-response"></span>
-							<div class="cp-fix-container">
-								<button class="button cp-fix">' . esc_html__( 'Fix it!', 'planet4-master-theme' ) . '</button>
-							</div>
-						</div>
-					</div>
-				</div>';
-		}
-
-		/**
-		 * .
-		 */
-		public function add_item_searchwp() {
-			echo '<div id="control_panel_item_en" class="cp-item">
-					<div class="welcome-panel"><span><strong>' . esc_html__( 'SearchWP', 'planet4-master-theme' ) . '</strong></span>
-						<div>
-							<a href="#" class="btn btn-cp-action btn-check-en-async" data-action="check_search_indexer">' . esc_html__( 'Check Search Indexer', 'planet4-master-theme' ) . '</a>
-							<span class="cp-response"></span>
-							<div class="cp-fix-container">
-								<button class="button cp-fix">' . esc_html__( 'Fix it!', 'planet4-master-theme' ) . '</button>
-							</div>
-						</div>
-					</div>
+		public function add_item( $data ) {
+			echo '<div class="cp-item">
+					<div class="welcome-panel"><span><strong>' . esc_html( $data['title'] ) . '</strong></span>';
+			foreach ( $data['subitems'] as $subitem ) {
+				echo '<div>
+						<a href="#" class="btn btn-cp-action btn-' . esc_attr( $subitem['action'] ) . '-async" data-action="' . esc_attr( $subitem['action'] ) . '">' . esc_html( $subitem['title'] ) . '</a>
+						<span class="cp-subitem-response"></span>
+					</div>';
+			}
+			echo '</div>
 				</div>';
 		}
 
