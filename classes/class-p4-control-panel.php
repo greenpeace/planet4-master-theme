@@ -23,10 +23,10 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 			if ( ! current_user_can( 'manage_options' ) ) {
 				return;
 			}
-			add_action( 'wp_dashboard_setup',           array( $this, 'add_dashboard_widgets' ), 9 );
-			add_action( 'wp_ajax_check_cache',          array( $this, 'check_cache' ) );
-			add_action( 'wp_ajax_check_en',             array( $this, 'check_en' ) );
-			add_action( 'admin_enqueue_scripts',        array( $this, 'enqueue_admin_assets' ) );
+			add_action( 'wp_dashboard_setup',              array( $this, 'add_dashboard_widgets' ), 9 );
+			add_action( 'wp_ajax_check_cache',             array( $this, 'check_cache' ) );
+			add_action( 'wp_ajax_check_engaging_networks', array( $this, 'check_engaging_networks' ) );
+			add_action( 'admin_enqueue_scripts',           array( $this, 'enqueue_admin_assets' ) );
 		}
 
 		/**
@@ -61,7 +61,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 				'subitems' => [
 					[
 						'title'  => __( 'Check Engaging Networks', 'planet4-master-theme' ),
-						'action' => 'check_en',
+						'action' => 'check_engaging_networks',
 					],
 				],
 			] );
@@ -93,11 +93,11 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 				if ( ! current_user_can( 'manage_options' ) ) {
 					return;
 				}
+				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce',  FILTER_SANITIZE_STRING );
+				$cp_action = filter_input( INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING );
 
-				if ( wp_verify_nonce( $_GET['_wpnonce'], 'cp-action' )  // CSRF protection.
-				     && isset( $_GET['cp-action'] )
-				     && 'check_cache' === $_GET['cp-action']
-				) {
+				// CSRF protection.
+				if ( wp_verify_nonce( $cp_nonce, 'cp-action' ) && 'check_cache' === $cp_action ) {
 					$response = [];
 					$info     = wp_redis_get_info();
 
@@ -122,16 +122,16 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		/**
 		 * Adds a check cache button to check the ENS API.
 		 */
-		public function check_en() {
+		public function check_engaging_networks() {
 			if ( wp_doing_ajax() ) {
 				if ( ! current_user_can( 'manage_options' ) ) {
 					return;
 				}
+				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce',  FILTER_SANITIZE_STRING );
+				$cp_action = filter_input( INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING );
 
-				if ( wp_verify_nonce( $_GET['_wpnonce'], 'cp-action' )     // CSRF protection.
-				     && isset( $_GET['cp-action'] )
-				     && 'check_en' === $_GET['cp-action']
-				) {
+				// CSRF protection.
+				if ( wp_verify_nonce( $cp_nonce, 'cp-action' ) && 'check_engaging_networks' === $cp_action ) {
 					$response      = [];
 					$main_settings = get_option( 'p4en_main_settings' );
 
@@ -164,8 +164,9 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 			if ( ! is_admin() || 'dashboard' !== get_current_screen()->base ) {
 				return;
 			}
-			wp_enqueue_style( 'dashboard-style', get_template_directory_uri() . '/assets/css/dashboard.css', array(), '0.1.0' );
-			wp_enqueue_script( 'dashboard-script', get_template_directory_uri() . '/assets/js/dashboard.js', array( 'jquery' ), '0.1.0', true );
+			$theme_dir = get_template_directory_uri();
+			wp_enqueue_style( 'dashboard-style', "$theme_dir/assets/css/dashboard.css", array(), '0.1.0' );
+			wp_enqueue_script( 'dashboard-script', "$theme_dir/assets/js/dashboard.js", array( 'jquery' ), '0.1.0', true );
 		}
 	}
 }
