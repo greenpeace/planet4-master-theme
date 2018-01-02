@@ -163,6 +163,9 @@ class P4_Master_Site extends TimberSite {
 		$context['site']         = $this;
 		$context['sort_options'] = $this->sort_options;
 
+		$options                 = get_option( 'planet4_options' );
+		$context['donatelink']   = $options['donate_button'] ?? '#';
+
 		return $context;
 	}
 

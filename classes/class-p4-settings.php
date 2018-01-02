@@ -104,6 +104,15 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					),
 				],
 
+				[
+					'name'       => __( 'Donate button link', 'planet4-master-theme' ),
+					'id'         => 'donate_button',
+					'type'       => 'text',
+					'attributes' => [
+						'type' => 'text',
+					],
+				],
+
 			] );
 			$this->hooks();
 		}
