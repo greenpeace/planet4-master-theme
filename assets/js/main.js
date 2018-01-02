@@ -29,7 +29,7 @@ function slickify(element) {
 $(document).ready(function () {
 
     // Add click event for load more button in blocks.
-    var load_more_btn_selector = '.btn-load-more-blocks';
+    var load_more_btn_selector = '.btn-load-more-click';
     $(load_more_btn_selector).off('click').on('click', function () {
         var $row = $('.row-hidden', $(load_more_btn_selector).closest('.container'));
 
