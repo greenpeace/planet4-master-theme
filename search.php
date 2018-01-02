@@ -12,7 +12,7 @@
 /**
  * Planet4 - Search functionality.
  */
-
+wp_enqueue_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [], '0.1.0', true );
 if ( is_main_query() && is_search() ) {
 	if ( 'GET' === $_SERVER['REQUEST_METHOD'] ) {
 		$selected_sort = $_GET['orderby'];
