@@ -3,7 +3,7 @@ $ = jQuery;
 // Search page.
 $(function() {
     var $search_form      = $( '#search_form' );
-    var $load_more_button = $( '.btn-load-more' );
+    var $load_more_button = $( '.btn-load-more-click-scroll' );
     var load_more_count   = 0;
 
     $( '#search-type button' ).click(function() {
