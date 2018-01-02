@@ -162,6 +162,7 @@ class P4_Master_Site extends TimberSite {
 		$context['navbar_menu']  = new TimberMenu( 'navigation-bar-menu' );
 		$context['site']         = $this;
 		$context['sort_options'] = $this->sort_options;
+		$context['donatelink']   = planet4_get_option( 'donate_button' ) ?  planet4_get_option( 'donate_button' ) : '#';
 
 		return $context;
 	}
