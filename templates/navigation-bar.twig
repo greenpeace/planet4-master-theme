@@ -1,114 +1,65 @@
 {% block navigation_bar %}
-    <div id="header" class="top-navigation fixed-top">
-        <!-- Main container for main headline -->
-        <div class="container-fluid">
-            <div class="row">
-                <div class="navbar navbar-toggleable-md navbar-light">
-                    <div class="mobile-header-wrap hidden-lg-up row">
-                        <div class="col text-left">
-                            <span class="menu">
-                                {{ __( 'Menu', domain ) }}
-                                <i class="fa fa-bars"></i>
-                                <i class="fa fa-times"></i>
-                            </span>
-                            <div class="mobile-menus">
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <div class="country-select-dropdown">
-                                            <img class="country-icon" src="{{ data_nav_bar.images }}country-icon.png" alt=""/>
-                                            <span class="selected-option">- {{ __( 'Select a website', domain ) }} -</span>
-                                        </div>
-                                        <div class="country-select-box">
-                                            <div class="country-selection-option">
-                                                <div class="country-option-box">
-                                                    {% include 'countries.twig' %}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    {% for key,item in navbar_menu.get_items %}
-                                        {% if key == 0 %}
-                                            {% set class_name = 'act-nav-link' %}
-                                        {% else %}
-                                            {% set class_name = 'explore-nav-link' %}
-                                        {% endif %}
-                                        <li class="nav-item {{ class_name }}">
-                                            <a href="{{ item.get_link }}">{{ item.title }}</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                                <a href="#" class="btn btn-small btn-medium btn-secondary">{{ __( 'DONATE', domain ) }}</a>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <a class="navbar-brand" href="{{ data_nav_bar.home_url }}"><img src="{{ data_nav_bar.images }}greenpeace-logo.png" alt="greenpeace" /></a>
-                        </div>
-                        <div class="col text-right">
-                            <div id="search" class="mobile-search-wrap">
-                                <div class="search-link">
-                                    <a href="#search" id="search-trigger"><i class="fa fa-search fa-lg"></i></a>
-                                </div>
-                                <div class="search-box">
-                                    <form id="search_form" action="{{ data_nav_bar.home_url }}">
-                                        <input type="text" placeholder="{{ __( 'Search', domain ) }}" value="{{ data_nav_bar.search_query }}" name="s" aria-label="Search">
-                                        <input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? 'relevant' }}" />
-                                        <input id="search-submit" type="submit" class="btn btn-green" value="{{ __( 'Search', domain ) }}" />
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hidden-md-down">
-                        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            {{ __( 'Menu', domain ) }}
-                        </button>
-                        <a class="navbar-brand" href="{{ data_nav_bar.home_url }}"><img src="{{ data_nav_bar.images }}greenpeace-logo.png" alt="greenpeace" /></a>
-                    </div>
-                    <div class="w-100">
-                        <nav class="navbar navbar-toggleable-md navbar-light">
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav">
-                                    <li>
-                                        <div class="country-select-dropdown">
-                                            <span class="selected-option">{{ __( 'Select a website', domain ) }}</span>
-                                        </div>
-                                        <div class="country-select-box">
-                                            <div class="country-selection-option">
-                                                <div class="country-option-box">
-													{% include 'countries.twig' %}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    {% for item in navbar_menu.get_items %}
-                                        <li class="nav-item big-screen-nav-link {{ item == item.current ? 'active' : '' }} {{ item.classes | join(' ') }}">
-                                            <a href="{{ item.get_link }}">{{ item.title }}</a>
-                                        </li>
-                                    {% endfor %}
-                                    <li class="nav-item donatebtn">
-                                        <a href="#" class="btn btn-small btn-medium btn-secondary btn-block">{{ __( 'DONATE', domain ) }}</a>
-                                    </li>
-                                    <li class="nav-item loginSignUpWrap hidden-md-down hidden-lg-down">
-                                        <i class="fa fa-user-circle-o"></i>
-                                        <a href="#">{{ __( 'Log in', domain ) }}</a> <span> / </span>
-                                        <a href="#">{{ __( 'Sign up', domain ) }}</a>
-                                    </li>
-                                    <li class="nav-item nav-search-wrap">
-                                        <form id="search_form" role="search" class="form" action="{{ data_nav_bar.home_url }}">
-                                            <input class="form-control" type="search" placeholder="{{ __( 'Search', domain ) }}" value="{{ data_nav_bar.search_query }}" name="s" aria-label="Search">
-                                            <input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? 'relevant' }}" />
-                                            <button type="submit" class="top-nav-search-btn">
-                                                <i class="icon-search"></i>
-                                            </button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="clearfix"></div>
+	<nav id="header" class="top-navigation">
+		<a class="site-logo" href="{{ data_nav_bar.home_url }}">
+			<img src="{{ data_nav_bar.images }}gp-logo.svg" alt="Greenpeace"/>
+		</a>
+		<button
+				class="btn btn-navbar-toggle navbar-dropdown-toggle"
+				data-toggle="open"
+				data-target="#navbar-dropdown"
+				aria-expanded="false"
+				aria-label="Toggle navigation menu"
+		>
+			<span>{{ __( 'Menu', domain ) }}</span>
+		</button>
+		<ul id="navbar-dropdown" class="navbar-dropdown list-unstyled">
+			<li class="nav-item">
+				<button class="close-navbar-dropdown">
+					<span class="screen-reader-text">{{ __( 'Close Menu', domain ) }}</span>
+				</button>
+				<button
+						class="country-dropdown-toggle"
+						data-toggle="open"
+						data-target="#country-list"
+						aria-expanded="false"
+						aria-label="Toggle worldwide site selection menu"
+				>
+					<span class="screen-reader-text">{{ __( 'Selected', domain ) }}:</span> International (English)
+					<span class="screen-reader-text">{{ __( 'Change Country', domain ) }}</span>
+				</button>
+				{% include 'countries.twig' %}
+			</li>
+			{% for key,item in navbar_menu.get_items %}
+				{% if key == 0 %}
+					{% set class_name = 'act-nav-link' %}
+				{% else %}
+					{% set class_name = 'explore-nav-link' %}
+				{% endif %}
+				<li class="nav-item {{ class_name }}">
+					<a class="nav-link" href="{{ item.get_link }}">{{ item.title }}</a>
+				</li>
+			{% endfor %}
+			<li class="nav-item">
+				<a class="btn btn-donate" href="{{ donatelink }}">{{ __( 'DONATE', domain ) }}</a>
+			</li>
+		</ul>
+		<button
+				class="navbar-search-toggle"
+				data-toggle="open"
+				data-target="#search_form"
+				aria-expanded="false"
+				aria-label="Toggle search box"
+		>
+			<span class="screen-reader-text">{{ __( 'Toggle search form', domain ) }}</span>
+		</button>
+		<form id="search_form" action="{{ data_nav_bar.home_url }}" class="form nav-item nav-search-wrap">
+			<input type="text" class="form-control" placeholder="{{ __( 'Search', domain ) }}"
+				   value="{{ data_nav_bar.search_query }}" name="s" aria-label="Search">
+			<input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? 'relevant' }}"/>
+			<button class="top-nav-search-btn" type="submit">
+				<i class="fa fa-search"></i>
+				<span class="screen-reader-text">{{ __( 'Search', domain ) }}</span>
+			</button>
+		</form>
+	</nav>
 {% endblock %}

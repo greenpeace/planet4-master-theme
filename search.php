@@ -12,12 +12,6 @@
 /**
  * Planet4 - Search functionality.
  */
-
-// TODO - Remove this test.
-// Testing connectivity and usage of Redis server.
-wp_cache_set( 'test-key', 'test-data' );
-echo esc_html( wp_cache_get( 'test-key' ) );
-
 if ( is_main_query() && is_search() ) {
 	if ( 'GET' === $_SERVER['REQUEST_METHOD'] ) {
 		$selected_sort = $_GET['orderby'];
@@ -33,6 +27,7 @@ if ( is_main_query() && is_search() ) {
 				}
 			}
 		}
+		wp_enqueue_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [], '0.1.0', true );
 		$search = new P4_Search( get_search_query(), $selected_sort, $filters );
 		$search->add_load_more();
 		$search->view();

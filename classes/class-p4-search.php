@@ -209,14 +209,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['selected_sort'] = $this->selected_sort;
 			$context['filters']       = $this->filters;
 			$context['found_posts']   = count( (array) $this->all_posts );
-
-			// Footer context.
-			$context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
-			$context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
-			$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
-			$context['copyright_text']        = planet4_get_option( 'copyright' ) ?? '';
-			$context['page_category']         = $category->name ?? __( 'Search page', 'planet4-master-theme' );
-			$context['google_tag_value']      = planet4_get_option( 'google_tag_manager_identifier' ) ?? '';
+			$context['page_category'] = $category->name ?? __( 'Search page', 'planet4-master-theme' );
 		}
 
 		/**

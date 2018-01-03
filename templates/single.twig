@@ -13,7 +13,9 @@
 			</div>
 			<div class="container">
 				<div class="top-page-tags">
-					<a class="tag-item tag-item--main" href="#">{{ __('post') }}</a>
+					{% if ( page_type ) %}
+						<a class="tag-item tag-item--main" href="{{ filter_url }}">{{ page_type }}</a>
+					{% endif %}
 					{% for tag in post.tags %}
 						<a class="tag-item " href="{{ tag.link }}">#{{ tag.title }}</a>
 					{% endfor %}
@@ -59,9 +61,9 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="post-details">
+						<article class="post-details">
 							{{ post.content|e('wp_kses_post')|raw }}
-						</div>
+						</article>
 					</div>
 				</div>
 			</div>

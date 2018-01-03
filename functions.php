@@ -107,7 +107,6 @@ class P4_Master_Site extends TimberSite {
 
 		add_filter( 'timber_context',         array( $this, 'add_to_context' ) );
 		add_filter( 'get_twig',               array( $this, 'add_to_twig' ) );
-		add_action( 'init',                   array( $this, 'register_post_types' ) );
 		add_action( 'init',                   array( $this, 'register_taxonomies' ) );
 		add_action( 'init',                   array( $this, 'register_oembed_provider' ) );
 		add_action( 'pre_get_posts',          array( $this, 'add_search_options' ) );
@@ -115,13 +114,9 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'cmb2_admin_init',        array( $this, 'register_header_metabox' ) );
 		add_action( 'pre_get_posts',          array( $this, 'tags_support_query' ) );
 		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
-		add_action( 'admin_enqueue_scripts',  array( $this, 'dequeue_jetpack_scripts' ) );
 		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
-		add_action( 'wp_enqueue_scripts',     array( $this, 'dequeue_jetpack_scripts' ) );
 		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
-
-		// Disable jetpack jitm, not needed for photon.
-		add_filter( 'jetpack_just_in_time_msgs', '__return_false' );
+		add_action( 'save_post',              array( $this, 'p4_save_page_type' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -168,6 +163,16 @@ class P4_Master_Site extends TimberSite {
 		$context['site']         = $this;
 		$context['sort_options'] = $this->sort_options;
 
+		$options                          = get_option( 'planet4_options' );
+		$context['donatelink']            = $options['donate_button'] ?? '#';
+		$context['google_tag_value']      = $options['google_tag_manager_identifier'] ?? '';
+
+		// Footer context.
+		$context['copyright_text']        = $options['copyright'] ?? '';
+		$context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
+		$context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
+		$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
+
 		return $context;
 	}
 
@@ -180,6 +185,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function add_to_twig( $twig ) {
 		$twig->addExtension( new Twig_Extension_StringLoader() );
+
 		return $twig;
 	}
 
@@ -189,6 +195,7 @@ class P4_Master_Site extends TimberSite {
 	 * Allow iframes in posts.
 	 *
 	 * @param array $allowedposttags Default allowed tags.
+	 *
 	 * @return array
 	 */
 	public function set_custom_allowed_attributes_filter( $allowedposttags ) {
@@ -240,7 +247,7 @@ class P4_Master_Site extends TimberSite {
 			'li'     => [],
 			'strong' => [],
 			'del'    => [],
-			'span' => [
+			'span'  => [
 				'style' => [],
 			],
 			'p' => [
@@ -268,18 +275,19 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function enqueue_public_assets() {
 		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', array(), '4.0.0-alpha.6' );
-		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], '0.0.11'  );
+		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], '0.0.18'  );
+		wp_enqueue_style( 'slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css', array(), '1.8.1' );
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 		wp_enqueue_script( 'popperjs', $this->theme_dir . '/assets/js/popper.min.js', array(), '1.11.0', true );
 		wp_enqueue_script( 'bootstrapjs', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', array(), '4.0.0-beta', true );
 		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.2.0', true );
-		wp_enqueue_script( 'custom', $this->theme_dir . '/assets/js/custom.js', array( 'jquery' ), '0.1.0', true );
+		wp_enqueue_script( 'custom', $this->theme_dir . '/assets/js/custom.js', array( 'jquery' ), '0.1.2', true );
 		wp_enqueue_script( 'slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array(), '0.1.0', true );
 	}
 
 	/**
 	 * Register a custom taxonomy for planet4 page types
-	 */
+     	 */
 	public function register_p4_page_type_taxonomy() {
 
 		$p4_page_type = [
@@ -304,6 +312,7 @@ class P4_Master_Site extends TimberSite {
 			'rewrite'      => [
 				'slug' => 'p4-page-types',
 			],
+			'meta_box_cb'  => [ $this, 'p4_metabox_markup' ]
 		];
 		register_taxonomy( 'p4-page-type', [ 'p4_page_type', 'post' ], $args );
 
@@ -339,9 +348,63 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Registers custom post types.
+	 * Save custom taxonomy for planet4 post types
+	 *
+	 * @param int $post_id Id of the saved post.
 	 */
-	public function register_post_types() {}
+	public function p4_save_page_type( $post_id ) {
+		// Ignore autosave.
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+		// Check nonce.
+		if ( ! isset( $_POST['p4-page-type-nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['p4-page-type-nonce'] ) ), 'p4-save-page-type' ) ) {
+			return;
+		}
+		// Check user's capabilities.
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+		// Make sure there's input.
+		if ( ! isset( $_POST['p4-page-type'] ) ) { // Input var okay.
+			return;
+		}
+		// If "none" was selected, remove the term.
+		if ( $_POST['p4-page-type'] === '-1' ) {
+			wp_set_post_terms( $post_id, [], 'p4-page-type' );
+
+			return;
+		}
+		// Make sure the term exists and it's not an error.
+		$selected = get_term_by( 'slug', sanitize_text_field( wp_unslash( $_POST['p4-page-type'] ) ), 'p4-page-type' ); // Input var okay.
+		if ( false === $selected || is_wp_error( $selected ) ) {
+			return;
+		}
+		// Save post type.
+		wp_set_post_terms( $post_id, sanitize_text_field( $selected->slug ), 'p4-page-type' );
+	}
+
+	/**
+	 * Add a dropdown to choose planet4 post type.
+	 *
+	 * @param WP_Post $post
+	 */
+	public function p4_metabox_markup( WP_Post $post ) {
+		$attached_type = get_the_terms( $post, 'p4-page-type' );
+		$current_type  = ( is_array( $attached_type ) ) ? $attached_type[0]->slug : -1;
+		$all_types     = get_terms( 'p4-page-type', [ 'hide_empty' => false ] );
+		wp_nonce_field( 'p4-save-page-type', 'p4-page-type-nonce' );
+		?>
+		<select name="p4-page-type">
+			<?php foreach ( $all_types as $term ) : ?>
+				<option <?php selected( $current_type, $term->slug ); ?> value="<?php echo esc_attr( $term->slug ); ?>">
+					<?php echo esc_html( $term->name ); ?>
+				</option>
+			<?php endforeach; ?>
+			<option value="-1" <?php selected( -1, $current_type ); ?> >none</option>
+		</select>
+		<?php
+	}
 
 	/**
 	 * Registers taxonomies.
@@ -384,6 +447,7 @@ class P4_Master_Site extends TimberSite {
 		if ( ! $wp->is_main_query() || ! $wp->is_search() ) {
 			return;
 		}
+
 		$wp->set( 'posts_per_page', P4_Search::POSTS_LIMIT );
 		$wp->set( 'no_found_rows', true );
 	}
@@ -401,7 +465,7 @@ class P4_Master_Site extends TimberSite {
 
 		if ( P4_Search::DEFAULT_SORT !== $selected_sort ) {
 			$selected_order = $this->sort_options[ $selected_sort ]['order'];
-			$orderby = esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
+			$orderby        = esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
 		} else {
 			$orderby = esc_sql( $orderby );
 		}
@@ -442,9 +506,9 @@ class P4_Master_Site extends TimberSite {
 		$prefix = 'p4_';
 
 		$p4_header = new_cmb2_box( array(
-			'id'            => $prefix . 'metabox',
-			'title'         => __( 'Page Header Fields', 'planet4-master-theme' ),
-			'object_types'  => array( 'page' ), // Post type.
+			'id'           => $prefix . 'metabox',
+			'title'        => __( 'Page Header Fields', 'planet4-master-theme' ),
+			'object_types' => array( 'page' ), // Post type.
 		) );
 
 		$p4_header->add_field( array(
@@ -495,18 +559,18 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_header->add_field(
 			array(
-				'name'    => __( 'Background overide', 'planet4-master-theme' ),
-				'desc'    => __( 'Upload an image', 'planet4-master-theme' ),
-				'id'      => 'background_image',
-				'type'    => 'file',
+				'name'         => __( 'Background overide', 'planet4-master-theme' ),
+				'desc'         => __( 'Upload an image', 'planet4-master-theme' ),
+				'id'           => 'background_image',
+				'type'         => 'file',
 				// Optional
-				'options' => array(
+				'options'      => array(
 					'url' => false,
 				),
-				'text'    => array(
+				'text'         => array(
 					'add_upload_file_text' => __( 'Add Background Image', 'planet4-master-theme' )
 				),
-				'query_args' => array(
+				'query_args'   => array(
 					'type' => 'image',
 				),
 				'preview_size' => 'large',
@@ -568,19 +632,10 @@ class P4_Master_Site extends TimberSite {
 			'preview_size' => 'large',
 		] );
 	}
-
-	/**
-	 * Dequeue any extra/unneeded scripts or styles that were enqueued by jetpack and are not dequeued by disabling
-	 * jetpack unneeded modules.
-	 */
-	public function dequeue_jetpack_scripts() {
-		if ( class_exists( 'Jetpack' ) && Jetpack::is_active( ) ) {
-			wp_dequeue_script( 'devicepx' );
-		}
-	}
 }
 
 new P4_Master_Site( [
 	'P4_Taxonomy_Image',
 	'P4_Settings',
+	'P4_Control_Panel',
 ] );

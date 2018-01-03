@@ -60,7 +60,11 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				[
 					'name'    => __( 'Copyright Text', 'planet4-master-theme' ),
 					'id'      => 'copyright',
-					'type'    => 'text',
+					'type'    => 'wysiwyg',
+					'options' => [
+						'textarea_rows' => 3,
+						'media_buttons' => false,
+					],
 				],
 
 				[
@@ -98,6 +102,15 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'attributes' => array(
 						'type' => 'number',
 					),
+				],
+
+				[
+					'name'       => __( 'Donate button link', 'planet4-master-theme' ),
+					'id'         => 'donate_button',
+					'type'       => 'text',
+					'attributes' => [
+						'type' => 'text',
+					],
 				],
 
 			] );

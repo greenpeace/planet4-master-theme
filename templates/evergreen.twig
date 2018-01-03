@@ -1,0 +1,21 @@
+{% extends "base.twig" %}
+
+{% block content %}
+
+	<div class="clearfix"></div>
+	<div class="skewed-overlay"></div>
+
+	<article id="page-{{ page.ID }}">
+		<div class="container">
+			<div class="post-content">
+				<div class="row">
+					<div class="col-lg-12">
+						<article class="post-details">
+							{{ page.content|e('wp_kses_post')|raw }}
+						</article>
+					</div>
+				</div>
+			</div>
+		</div>
+	</article>
+{% endblock %}

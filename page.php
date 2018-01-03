@@ -75,20 +75,14 @@ if ( $category && ( $category->name !== $post->post_title ) ) {     // Do not ad
 }
 
 $context['post']                = $post;
-$context['header_title']        = is_front_page() ? '' : ( $page_meta_data['p4_title'][0] ?? $post->title );
+$context['header_title']        = is_front_page() ? ( $page_meta_data['p4_title'][0] ?? '' ) : ( $page_meta_data['p4_title'][0] ?? $post->title );
 $context['header_subtitle']     = $page_meta_data['p4_subtitle'][0] ?? '';
 $context['header_description']  = $page_meta_data['p4_description'][0] ?? '';
 $context['header_button_title'] = $page_meta_data['p4_button_title'][0] ?? '';
 $context['header_button_link']  = $page_meta_data['p4_button_link'][0] ?? '';
-$context['google_tag_value']    = planet4_get_option( 'google_tag_manager_identifier', '' ) ?? '';
 
-// Footer Items.
-$context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
-$context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
-$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
-$context['copyright_text']        = planet4_get_option( 'copyright', '' ) ?? '';
-$context['page_category']         = is_front_page() ? 'Front Page' : ( $category->name ?? 'Unknown page' );
+$context['page_category']       = is_front_page() ? 'Front Page' : ( $category->name ?? 'Unknown page' );
 
-$context['background_image']      = wp_get_attachment_url( get_post_meta( get_the_ID(), 'background_image_id', 1 ), 'medium' );
+$context['background_image']    = wp_get_attachment_url( get_post_meta( get_the_ID(), 'background_image_id', 1 ), 'medium' );
 
 Timber::render( array( 'page-' . $post->post_name . '.twig', 'page.twig' ), $context );
