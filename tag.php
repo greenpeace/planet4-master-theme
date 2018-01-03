@@ -54,13 +54,7 @@ if ( is_tag() ) {
 	$context['tag_description'] = $context['tag']->description;
 	$context['tag_image']       = get_term_meta( $context['tag']->term_id, 'tag_attachment', true );
 
-	// Footer Items.
-	$context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
-	$context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
-	$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
-	$context['copyright_text']        = planet4_get_option( 'copyright' ) ?? '';
-	$context['page_category']         = $posts[0]->post_title ?? __( 'Unknown Campaign page', 'planet4-master-theme' );
-	$context['google_tag_value']      = planet4_get_option( 'google_tag_manager_identifier' ) ?? '';
+	$context['page_category']   = $posts[0]->post_title ?? __( 'Unknown Campaign page', 'planet4-master-theme' );
 
 
 	$campaign = new P4_Taxonomy_Campaign( $templates, $context );
