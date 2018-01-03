@@ -209,6 +209,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['selected_sort'] = $this->selected_sort;
 			$context['filters']       = $this->filters;
 			$context['found_posts']   = count( (array) $this->all_posts );
+			$context['page_category'] = $category->name ?? __( 'Search page', 'planet4-master-theme' );
 		}
 
 		/**
