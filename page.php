@@ -75,7 +75,7 @@ if ( $category && ( $category->name !== $post->post_title ) ) {     // Do not ad
 }
 
 $context['post']                = $post;
-$context['header_title']        = $page_meta_data['p4_title'][0] ?? is_front_page() ? '' : $post->title;
+$context['header_title']        = is_front_page() ? ( $page_meta_data['p4_title'][0] ?? '' ) : ( $page_meta_data['p4_title'][0] ?? $post->title );
 $context['header_subtitle']     = $page_meta_data['p4_subtitle'][0] ?? '';
 $context['header_description']  = $page_meta_data['p4_description'][0] ?? '';
 $context['header_button_title'] = $page_meta_data['p4_button_title'][0] ?? '';
