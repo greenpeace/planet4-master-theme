@@ -27,9 +27,9 @@ if ( is_main_query() && is_search() ) {
 				}
 			}
 		}
+		wp_enqueue_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [], '0.1.0', true );
 		$search = new P4_Search( get_search_query(), $selected_sort, $filters );
 		$search->add_load_more();
 		$search->view();
-		wp_enqueue_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [], '0.1.0', true );
 	}
 }
