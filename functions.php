@@ -163,8 +163,15 @@ class P4_Master_Site extends TimberSite {
 		$context['site']         = $this;
 		$context['sort_options'] = $this->sort_options;
 
-		$options                 = get_option( 'planet4_options' );
-		$context['donatelink']   = $options['donate_button'] ?? '#';
+		$options                          = get_option( 'planet4_options' );
+		$context['donatelink']            = $options['donate_button'] ?? '#';
+		$context['google_tag_value']      = $options['google_tag_manager_identifier'] ?? '';
+
+		// Footer context.
+		$context['copyright_text']        = $options['copyright'] ?? '';
+		$context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
+		$context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
+		$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
 
 		return $context;
 	}

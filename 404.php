@@ -36,6 +36,6 @@ $context['checklist'][] = __( 'two', 'planet4-master-theme' );
 $context['checklist'][] = __( 'three', 'planet4-master-theme' );
 
 $context['page_category']    = __( '404 Page', 'planet4-master-theme' );
-$context['google_tag_value'] = planet4_get_option( 'google_tag_manager_identifier' ) ?? '';
+
 
 Timber::render( '404.twig', $context );

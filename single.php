@@ -44,14 +44,7 @@ $context['background_image'] = $page_meta_data['p4_background_image_override'][0
 $take_action_page            = $page_meta_data['p4_take_action_page'][0] ?? '';
 $context['page_type']        = $page_terms_data[0]->name ?? '';
 $context['page_term_id']     = $page_terms_data[0]->term_id ?? '';
-
-// Footer Items.
-$context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
-$context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
-$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
-$context['copyright_text']        = planet4_get_option( 'copyright' ) ?? '';
-$context['page_category']         = $category->name ?? __( 'Post page', 'planet4-master-theme' );
-$context['google_tag_value']      = planet4_get_option( 'google_tag_manager_identifier' ) ?? '';
+$context['page_category']    = $category->name ?? __( 'Post page', 'planet4-master-theme' );
 
 $context['filter_url'] = add_query_arg( [
 		's'                                   => ' ',
