@@ -17,10 +17,12 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 		/** @var string $search_query */
 		protected $search_query;
-		/** @var array|bool|null $all_posts */
-		protected $all_posts;
 		/** @var array|bool|null $posts */
 		protected $posts;
+		/** @var array|bool|null $all_posts */
+		protected $all_posts;
+		/** @var array|bool|null $paged_posts */
+		protected $paged_posts;
 		/** @var array $selected_sort */
 		protected $selected_sort;
 		/** @var array $filters */
@@ -54,9 +56,12 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					$this->selected_sort = $selected_sort;
 					$this->filters       = $filters;
 				}
-				$this->all_posts     = $this->get_timber_posts();
+				$this->posts = $this->get_timber_posts();
+				if ( 0 === count( $this->posts ) ) {
+					$this->all_posts = $this->get_posts( true );
+				}
 				$this->current_page  = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
-				$this->posts         = array_slice( $this->all_posts, ( $this->current_page - 1 ) * self::POSTS_PER_PAGE, self::POSTS_PER_PAGE );
+				$this->paged_posts   = array_slice( $this->posts, ( $this->current_page - 1 ) * self::POSTS_PER_PAGE, self::POSTS_PER_PAGE );
 
 				$this->set_context( $this->context );
 			}
@@ -87,15 +92,17 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				}
 			}
 
-			return $timber_posts;
+			return (array) $timber_posts;
 		}
 
 		/**
 		 * Applies user selected filters to the search if there are any and gets the filtered posts.
 		 *
+		 * @param bool $all Boolean that indicates whether we want all results or not. Default set to false.
+		 *
 		 * @return array The posts of the search.
 		 */
-		protected function get_posts() : array {
+		protected function get_posts( $all = false ) : array {
 
 			$args = [
 				'posts_per_page' => self::POSTS_LIMIT,          // Set a high maximum because -1 will get ALL posts and this can be very intensive in production.
@@ -104,7 +111,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				'post_status'    => 'any',
 			];
 
-			if ( $this->search_query ) {
+			if ( ! $all && $this->search_query ) {
 				$args['s'] = $this->search_query;
 			}
 
@@ -120,6 +127,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 								];
 								break;
 							case 'tag':
+								if ( $this->search_query && ! isset( $this->filters['ctype'] ) ) {
+									unset( $args['post_type'] );
+								}
 								$args['tax_query'][] = [
 									'taxonomy' => 'post_tag',
 									'field'    => 'term_id',
@@ -173,7 +183,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			}
 
 			// This does not happen when we search for everything or when filtering for attachments, since WP_Query does not support searching within rich text documents.
-			if ( ! $this->search_query || 'attachment' !== $args['post_type'] ) {
+			if ( ! $this->search_query || ( isset( $args['post_type'] ) && 'attachment' !== $args['post_type'] ) ) {
 				if ( $posts ) {
 					$ids = [];
 					foreach ( $posts as $post ) {
@@ -207,13 +217,14 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		protected function set_general_context( &$context ) {
 
 			// Search context.
-			$context['all_posts']     = $this->all_posts;
 			$context['posts']         = $this->posts;
+			$context['all_posts']     = $this->all_posts;
+			$context['paged_posts']   = $this->paged_posts;
 			$context['search_query']  = $this->search_query;
 			$context['selected_sort'] = $this->selected_sort;
 			$context['default_sort']  = self::DEFAULT_SORT;
 			$context['filters']       = $this->filters;
-			$context['found_posts']   = count( (array) $this->all_posts );
+			$context['found_posts']   = count( (array) $this->posts );
 			$context['page_category'] = $category->name ?? __( 'Search page', 'planet4-master-theme' );
 
 			if ( $this->search_query ) {
@@ -230,10 +241,15 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		protected function set_results_context( &$context ) {
 
-			foreach ( (array) $this->all_posts as $post ) {
+			if ( ! $this->posts ) {
+				$posts = $this->all_posts;
+			} else {
+				$posts = $this->posts;
+			}
+			foreach ( (array) $posts as $post ) {
 				// Category <-> Issue.
 				$category = get_the_category( $post->ID )[0];
-				if ( $category ) {
+				if ( $category && 'uncategorized' !== $category->slug ) {
 					$context['categories'][ $category->term_id ] = [
 						'term_id' => $category->term_id,
 						'name'    => $category->name,

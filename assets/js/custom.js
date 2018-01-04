@@ -232,16 +232,6 @@ if ($(window).width() <= 768) {
     });
 }
 
-$(function () {
-    $('#search-type button').click(function () {
-        $('#search-type button').removeClass("active");
-        $(this).addClass("active");
-    });
-
-    $('.btn-filter').click(function () {
-        $('#filtermodal').modal('show');
-    });
-});
 // Index for #carousel-wrapper-header
 currentIndexheader = $('#carousel-wrapper-header .carousel-item.active').next('.carousel-item').find('img').attr('src');
 

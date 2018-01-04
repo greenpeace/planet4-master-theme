@@ -1,14 +1,14 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	{% set disabled = all_posts ? '' : 'disabled' %}
+	{% set disabled = posts ? '' : 'disabled' %}
 
 	<div class="search-block">
 		<div class="container">
 			<div class="without-search-result row clearfix">
 				<div class="col-md-12">
 					<h2 class="result-statement">{{ page_title }}</h2>
-					{% if ( not all_posts ) %}
+					{% if ( not posts ) %}
 						<p class="search-info">{{ __( 'We\'re sorry we couldn\'t find any matches for your search term.', domain ) }}</p>
 						<ul class="search-help-info">
 							<li>{{ __( 'Check for typos, and try your search again', domain ) }}</li>
@@ -26,7 +26,7 @@
 							<div class="row">
 								<div class="col-md-5">
 									<input type="search" class="form-control mb-2 mb-sm-0" placeholder="{{ __( 'Search', domain ) }}" value="{{ search_query }}" name="s" aria-label="Search">
-									<input type="hidden" name="orderby" value="{{ search_query ? ( selected_sort ?? default_sort ) : 'post_date' }}" />
+									<input type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}" />
 								</div>
 								<div class="col-md-4">
 									<div class="btn-group btn-block" role="group" aria-label="" id="search-type">
@@ -47,11 +47,11 @@
 			<div class="search-filter-results row clearfix">
 				<div class="col-lg-4">
 					<div class="filter-sidebar">
-						{% if ( all_posts ) %}
+						{# {% if ( posts ) %} #}
 							<div class="filter-button hidden-lg-up">
 								<button class="btn btn-filter {{ disabled }}"><i class="icon-filter"></i> {{ __( 'Filters', domain ) }}</button>
 							</div>
-						{% endif %}
+						{# {% endif %} #}
 						<div class="modal fade filter-modal" id="filtermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog modal-lg" role="document">
 								<div class="modal-content">
@@ -160,7 +160,7 @@
 								</div>
 							</div>
 						</div>
-						{% if ( all_posts ) %}
+						{# {% if ( posts ) %} #}
 							<div id="filter-sidebar-options" class="hidden-md-down">
 								<h4>{{ __( 'Refine your search', domain ) }}</h4>
 								{% if ( filters ) %}
@@ -178,7 +178,7 @@
 										</div>
 									</div>
 								{% endif %}
-								{% if ( categories|length > 0 ) %}
+								{# {% if ( categories|length > 0 ) %} #}
 									<div class="filteritem">
 										<a data-toggle="collapse" href="#item-issue" aria-expanded="true">
 											{{ __( 'Issue', domain ) }} <span></span>
@@ -199,13 +199,13 @@
 											</ul>
 										</div>
 									</div>
-								{% endif %}
+								{# {% endif %} #}
 								{% if ( tags|length > 0 ) %}
 									<div class="filteritem">
-										<a data-toggle="collapse" href="#item-campaign" aria-expanded="true">
+										<a data-toggle="collapse" href="#item-campaign" aria-expanded="false">
 											{{ __( 'Campaign', domain ) }} <span></span>
 										</a>
-										<div id="item-campaign" class="collapse show" role="tabpanel">
+										<div id="item-campaign" class="collapse" role="tabpanel">
 											<ul class="list-unstyled">
 												{% for tag in tags %}
 													<li>
@@ -222,10 +222,10 @@
 								{% endif %}
 								{% if ( page_types|length > 0 ) %}
 									<div class="filteritem">
-										<a data-toggle="collapse" href="#item-category" aria-expanded="true">
+										<a data-toggle="collapse" href="#item-category" aria-expanded="false">
 											{{ __( 'Category', domain ) }} <span></span>
 										</a>
-										<div id="item-category" class="collapse show" role="tabpanel">
+										<div id="item-category" class="collapse" role="tabpanel">
 											<ul class="list-unstyled">
 												{% for page_type in page_types %}
 													{% if ( page_type.results > 0 ) %}
@@ -244,10 +244,10 @@
 								{% endif %}
 								{% if ( content_types|length > 0 ) %}
 									<div class="filteritem">
-										<a data-toggle="collapse" href="#item-content" aria-expanded="true">
+										<a data-toggle="collapse" href="#item-content" aria-expanded="false">
 											{{ __( 'Content type', domain ) }} <span></span>
 										</a>
-										<div id="item-content" class="collapse show" role="tabpanel">
+										<div id="item-content" class="collapse" role="tabpanel">
 											<ul class="list-unstyled">
 												{% for id, content_type in content_types %}
 													{% if ( content_type.results > 0 ) %}
@@ -265,12 +265,12 @@
 									</div>
 								{% endif %}
 							</div>
-						{% endif %}
+						{# {% endif %} #}
 					</div>
 				</div>
 				<div class="col-lg-8">
 					<div class="result-area">
-						{% if ( all_posts ) %}
+						{# {% if ( posts ) %} #}
 							<div class="sort-filter clearfix">
 								<div class="float-right">
 									<label class="mr-sm-2" for="select_order">{{ __('Sort by', domain ) }}</label>
@@ -287,17 +287,17 @@
 									</select>
 								</div>
 							</div>
-						{% endif %}
+						{# {% endif %} #}
 						<div class="multiple-search-result">
 							{% if ( pagination ) %}
-								{% set all_posts = posts %}
+								{% set posts = paged_posts %}
 							{% endif %}
 							<ul class="list-unstyled">
-								{% for post in all_posts %}
+								{% for post in posts %}
 									{% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
 								{% endfor %}
 							</ul>
-							{% if ( load_more and all_posts|length > load_more.posts_per_load ) %}
+							{% if ( load_more and posts|length > load_more.posts_per_load ) %}
 								<div class="col-lg-4 col-md-6 mb-5 load-more-button-div">
 									<button class="btn btn-medium btn-small btn-secondary more-btn btn-load-more-click-scroll">{{ load_more.button_text }}</button>
 								</div>
