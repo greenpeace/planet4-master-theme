@@ -26,16 +26,10 @@ add_filter( 'body_class', 'add_body_classes' );
 $context = Timber::get_context();
 
 $context['page_notfound_image']       = esc_url( get_template_directory_uri() . '/images/404-header.jpg' );
-$context['page_notfound_title']       = __( 'Oh dear...', 'planet4-master-theme' );
-$context['page_notfound_description'] = __( 'We\'re sorry it looks like the page your looking for isn\'t there. View our 404 check list and either try again or enter the pages key word our search tool.', 'planet4-master-theme' );
-$context['page_notfound_checklist']   = __( 'Check list', 'planet4-master-theme' );
-$context['page_notfound_help']        = __( 'Let us help you find...', 'planet4-master-theme' );
-
-$context['checklist'][] = __( 'one', 'planet4-master-theme' );
-$context['checklist'][] = __( 'two', 'planet4-master-theme' );
-$context['checklist'][] = __( 'three', 'planet4-master-theme' );
-
-$context['page_category']    = __( '404 Page', 'planet4-master-theme' );
-
+$context['page_notfound_title']       = __( 'Sorry, we can\'t find that page!', 'planet4-master-theme' );
+$context['page_notfound_subheader']   = __( 'The page might be extinct...', 'planet4-master-theme' );
+$context['page_notfound_description'] = __( 'Use the search tool and try your luck again.', 'planet4-master-theme' );
+$context['page_notfound_help']        = __( 'Enter your search term below', 'planet4-master-theme' );
+$context['page_category']             = __( '404 Page', 'planet4-master-theme' );
 
 Timber::render( '404.twig', $context );
