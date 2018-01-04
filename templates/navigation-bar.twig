@@ -55,7 +55,7 @@
 		<form id="search_form" action="{{ data_nav_bar.home_url }}" class="form nav-item nav-search-wrap">
 			<input type="text" class="form-control" placeholder="{{ __( 'Search', domain ) }}"
 				   value="{{ data_nav_bar.search_query }}" name="s" aria-label="Search">
-			<input id="orderby" type="hidden" name="orderby" value="{{ data_nav_bar.search_query ? ( selected_sort ?? default_sort ) : 'post_date' }}"/>
+			<input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}"/>
 			<button class="top-nav-search-btn" type="submit">
 				<i class="fa fa-search"></i>
 				<span class="screen-reader-text">{{ __( 'Search', domain ) }}</span>
