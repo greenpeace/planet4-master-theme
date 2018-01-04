@@ -41,7 +41,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * @param array      $templates An indexed array with template file names. The first to be found will be used.
 		 * @param array|null $context An associative array with all the context needed to render the template found first.
 		 */
-		public function __construct( $search_query, $selected_sort, $filters, $templates = [ 'search.twig', 'archive.twig', 'index.twig' ], $context = null ) {
+		public function __construct( $search_query, $selected_sort, $filters = [], $templates = [ 'search.twig', 'archive.twig', 'index.twig' ], $context = null ) {
 			$this->search_query = $search_query;
 			$this->templates    = $templates;
 
@@ -50,15 +50,14 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			} else {
 				$this->context = Timber::get_context();
 
-				if ( $this->search_query ) {
-					if ( $this->validate( $this->context, $selected_sort, $filters ) ) {
-						$this->selected_sort = $selected_sort;
-						$this->filters       = $filters;
-					}
-					$this->all_posts     = $this->get_timber_posts();
-					$this->current_page  = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
-					$this->posts         = array_slice( $this->all_posts, ( $this->current_page - 1 ) * self::POSTS_PER_PAGE, self::POSTS_PER_PAGE );
+				if ( $this->validate( $this->context, $selected_sort, $filters ) ) {
+					$this->selected_sort = $selected_sort;
+					$this->filters       = $filters;
 				}
+				$this->all_posts     = $this->get_timber_posts();
+				$this->current_page  = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+				$this->posts         = array_slice( $this->all_posts, ( $this->current_page - 1 ) * self::POSTS_PER_PAGE, self::POSTS_PER_PAGE );
+
 				$this->set_context( $this->context );
 			}
 		}
@@ -72,17 +71,19 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		protected function get_timber_posts() : array {
 			$timber_posts = [];
 
-			if ( ! $this->filters ) {
+			if ( $this->search_query && ! $this->filters ) {
 				/*
 				 * With no args passed to this call, Timber uses the main query which we filter for customisations via P4_Master_Site class.
 				 * When customising this query, use filters on the main query to avoid bypassing SearchWP's handling of the query.
 				 */
-				return Timber::get_posts();
+				$timber_posts = Timber::get_posts();
 			} else {
 				$posts = $this->get_posts();
 				// Use Timber's Post instead of WP_Post so that we can make use of Timber within the template.
-				foreach ( $posts as $post ) {
-					$timber_posts[] = new TimberPost( $post->ID );
+				if ( $posts ) {
+					foreach ( $posts as $post ) {
+						$timber_posts[] = new TimberPost( $post->ID );
+					}
 				}
 			}
 
@@ -97,65 +98,62 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		protected function get_posts() : array {
 
 			$args = [
-				's'              => $this->search_query,
 				'posts_per_page' => self::POSTS_LIMIT,          // Set a high maximum because -1 will get ALL posts and this can be very intensive in production.
 				'no_found_rows'  => true,                       // This means that the result counters of each filter might not be 100% precise.
+				'post_type'      => 'any',
+				'post_status'    => 'any',
 			];
+
+			if ( $this->search_query ) {
+				$args['s'] = $this->search_query;
+			}
 
 			if ( $this->filters ) {
 				foreach ( $this->filters as $type => $filter_type ) {
 					foreach ( $filter_type as $filter ) {
 						switch ( $type ) {
 							case 'cat':
-								if ( count( (array) $filter_type ) > 1 ) {
-									$args['category__and'][] = $filter['id'];
-								} else {
-									$args['tax_query'][] = [
-										'taxonomy' => 'category',
-										'field'    => 'term_id',
-										'terms'    => $filter['id'],
-									];
-								}
+								$args['tax_query'][] = [
+									'taxonomy' => 'category',
+									'field'    => 'term_id',
+									'terms'    => $filter['id'],
+								];
 								break;
 							case 'tag':
-								if ( count( (array) $filter_type ) > 1 ) {
-									$args['tag__and'][] = $filter['id'];
-								} else {
-									$args['tax_query'][] = [
-										'taxonomy' => 'post_tag',
-										'field'    => 'term_id',
-										'terms'    => $filter['id'],
-									];
-								}
+								$args['tax_query'][] = [
+									'taxonomy' => 'post_tag',
+									'field'    => 'term_id',
+									'terms'    => $filter['id'],
+								];
 								break;
 							case 'ptype':
-								if ( count( (array) $filter_type ) > 1 ) {
-									$args['post__in'][] = $filter['id'];
-								} else {
-									$args['tax_query'][] = [
-										'taxonomy' => 'p4-page-type',
-										'field'    => 'term_id',
-										'terms'    => $filter['id'],
-									];
-								}
+								$args['tax_query'][] = [
+									'taxonomy' => 'p4-page-type',
+									'field'    => 'term_id',
+									'terms'    => $filter['id'],
+								];
 								break;
 							case 'ctype':
 								switch ( $filter['id'] ) {
 									case 0:
 										$args['post_type']   = 'page';
+										$args['post_status'] = 'publish';
 										$options             = get_option( 'planet4_options' );
 										$args['post_parent'] = esc_sql( $options['act_page'] );
 										break;
 									case 1:
 										$args['post_type']   = 'attachment';
+										$args['post_status'] = 'inherit';
 										break;
 									case 2:
 										$args['post_type']   = 'page';
+										$args['post_status'] = 'publish';
 										$options             = get_option( 'planet4_options' );
 										$args['post_parent__not_in'][] = esc_sql( $options['act_page'] );
 										break;
 									case 3:
-										$args['post_type'] = 'post';
+										$args['post_type']   = 'post';
+										$args['post_status'] = 'publish';
 										break;
 								}
 								break;
@@ -170,19 +168,25 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			 *    tag__and, category__and, are required then pass them to WP_Query and get posts.
 			 * 3. Get the respective Timber Posts, so that we can use Timber functionality in our search template.
 			 */
-			$posts = ( new SWP_Query( $args ) )->posts;
-
-			if ( 'attachment' !== $args['post_type'] ) {    // This does not happen when filtering for attachments, since WP_Query does not support searching within rich text documents.
-				$ids = [];
-				foreach ( $posts as $post ) {
-					$ids[] = $post->ID;
-				}
-				$args['post__in'] = $ids;
-				$args['orderby']  = 'post__in';
-				$posts            = ( new WP_Query( $args ) )->posts;
+			if ( $this->search_query ) {
+				$posts = ( new SWP_Query( $args ) )->posts;
 			}
 
-			return $posts;
+			// This does not happen when we search for everything or when filtering for attachments, since WP_Query does not support searching within rich text documents.
+			if ( ! $this->search_query || 'attachment' !== $args['post_type'] ) {
+				if ( $posts ) {
+					$ids = [];
+					foreach ( $posts as $post ) {
+						$ids[] = $post->ID;
+					}
+					$args['post__in'] = $ids;
+					$args['orderby']  = 'post__in';
+				}
+
+				$posts = ( new WP_Query( $args ) )->posts;
+			}
+
+			return (array) $posts;
 		}
 
 		/**
@@ -207,9 +211,16 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['posts']         = $this->posts;
 			$context['search_query']  = $this->search_query;
 			$context['selected_sort'] = $this->selected_sort;
+			$context['default_sort']  = self::DEFAULT_SORT;
 			$context['filters']       = $this->filters;
 			$context['found_posts']   = count( (array) $this->all_posts );
 			$context['page_category'] = $category->name ?? __( 'Search page', 'planet4-master-theme' );
+
+			if ( $this->search_query ) {
+				$context['page_title'] = sprintf( __( '%1$d results for \'%2$s\'', 'planet4-master-theme' ), $context['found_posts'], $this->search_query );
+			} else {
+				$context['page_title'] = sprintf( __( '%d results', 'planet4-master-theme' ), $context['found_posts'] );
+			}
 		}
 
 		/**

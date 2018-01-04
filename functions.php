@@ -155,13 +155,14 @@ class P4_Master_Site extends TimberSite {
 		$context['data_nav_bar'] = [
 			'images'       => $this->theme_images_dir,
 			'home_url'     => home_url( '/' ),
-			'search_query' => get_search_query(),
+			'search_query' => trim( get_search_query() ),
 		];
 		$context['domain']       = 'planet4-master-theme';
 		$context['foo']          = 'bar';   // For unit test purposes.
 		$context['navbar_menu']  = new TimberMenu( 'navigation-bar-menu' );
 		$context['site']         = $this;
 		$context['sort_options'] = $this->sort_options;
+		$context['default_sort']  = P4_Search::DEFAULT_SORT;
 
 		$options                          = get_option( 'planet4_options' );
 		$context['donatelink']            = $options['donate_button'] ?? '#';
@@ -283,6 +284,9 @@ class P4_Master_Site extends TimberSite {
 		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.2.0', true );
 		wp_enqueue_script( 'custom', $this->theme_dir . '/assets/js/custom.js', array( 'jquery' ), '0.1.2', true );
 		wp_enqueue_script( 'slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array(), '0.1.0', true );
+		if ( is_search() ) {
+			wp_enqueue_script( 'search', $this->theme_dir . '/assets/js/search.js', array( 'jquery' ), '0.1.0', true );
+		}
 	}
 
 	/**
