@@ -7,7 +7,7 @@
 		<div class="container">
 			<div class="without-search-result row clearfix">
 				<div class="col-md-12">
-					<h2 class="result-statement">{{ found_posts }} results for <span>'{{ search_query }}'</span></h2>
+					<h2 class="result-statement">{{ page_title }}</h2>
 					{% if ( not all_posts ) %}
 						<p class="search-info">{{ __( 'We\'re sorry we couldn\'t find any matches for your search term.', domain ) }}</p>
 						<ul class="search-help-info">
@@ -26,7 +26,7 @@
 							<div class="row">
 								<div class="col-md-5">
 									<input type="search" class="form-control mb-2 mb-sm-0" placeholder="{{ __( 'Search', domain ) }}" value="{{ search_query }}" name="s" aria-label="Search">
-									<input type="hidden" name="orderby" value="{{ selected_sort ?? 'relevant' }}" />
+									<input type="hidden" name="orderby" value="{{ search_query ? ( selected_sort ?? default_sort ) : 'post_date' }}" />
 								</div>
 								<div class="col-md-4">
 									<div class="btn-group btn-block" role="group" aria-label="" id="search-type">
@@ -276,7 +276,9 @@
 									<label class="mr-sm-2" for="select_order">{{ __('Sort by', domain ) }}</label>
 									<select id="select_order" name="select_order" class="">
 										{% for key, sort_option in sort_options %}
-											{% if key == selected_sort %}
+											{% if ( not search_query and key == 'relevant' ) %}
+												<option value="{{ key }}" disabled>{{ sort_option.name }}</option>
+											{% elseif key == selected_sort %}
 												<option value="{{ key }}" selected>{{ sort_option.name }}</option>
 											{% else %}
 												<option value="{{ key }}">{{ sort_option.name }}</option>
