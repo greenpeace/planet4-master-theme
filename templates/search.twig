@@ -34,7 +34,9 @@
 								<div class="col-md-4">
 									<div class="btn-group btn-block" role="group" aria-label="" id="search-type">
 										<button type="button" class="btn btn-secondary btn-medium active">{{ __('This Site', domain ) }}</button>
-										<button type="button" class="btn btn-secondary btn-medium">{{ __( 'Archive', domain ) }}</button>
+										{% if ( enable_archive ) %}
+											<button type="button" class="btn btn-secondary btn-medium">{{ __( 'Archive', domain ) }}</button>
+										{% endif %}
 									</div>
 								</div>
 								<div class="col-md-3">
