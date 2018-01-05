@@ -47,9 +47,5 @@ $(document).ready(function () {
             $row.first().show('fast').removeClass('row-hidden');
         }
     });
-
-    if ($('.publications-row').length) {
-        slickify('.publications-row');
-    }
 });
 
