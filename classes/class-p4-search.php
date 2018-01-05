@@ -237,15 +237,23 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		/**
 		 * Sets the context for the results of the Search.
 		 *
+		 * Categories are Issues.
+		 * Tags       are Campaigns.
+		 * Page types are Categories.
+		 * Post_types are Content Types.
+		 *
 		 * @param array $context Associative array with the data to be passed to the view.
 		 */
 		protected function set_results_context( &$context ) {
 
+			$posts = $this->posts;
+
+			// If no results where found for the searched term then use all posts
+			// in order to calculate all available filter options and display them.
 			if ( ! $this->posts ) {
 				$posts = $this->all_posts;
-			} else {
-				$posts = $this->posts;
 			}
+
 			foreach ( (array) $posts as $post ) {
 				// Category <-> Issue.
 				$category = get_the_category( $post->ID )[0];
@@ -257,7 +265,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					];
 				}
 
-				// Content Type <-> Post Type (+Action).
+				// Post Type (+Action) <-> Content Type.
 				switch ( $post->post_type ) {
 					case 'page':
 						if ( 'act' === basename( get_permalink( $post->post_parent ) ) ) {
