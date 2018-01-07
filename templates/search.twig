@@ -10,7 +10,7 @@
 		<div class="container">
 			<div class="without-search-result row clearfix">
 				<div class="col-md-12">
-					<h2 class="result-statement">{{ page_title }}</h2>
+					<h2 class="result-statement">{{ page_title|e('wp_kses_post')|raw }}</h2>
 					{% if ( not posts ) %}
 						<p class="search-info">{{ __( 'We\'re sorry we couldn\'t find any matches for your search term.', domain ) }}</p>
 						<ul class="search-help-info">
@@ -28,7 +28,7 @@
 						<form id="search_form_inner" role="search" class="form" action="{{ data_nav_bar.home_url }}">
 							<div class="row">
 								<div class="col-md-5">
-									<input type="search" class="form-control mb-2 mb-sm-0" placeholder="{{ __( 'Search', domain ) }}" value="{{ search_query }}" name="s" aria-label="Search">
+									<input type="search" class="form-control mb-2 mb-sm-0" placeholder="{{ __( 'Search', domain ) }}" value="{{ search_query|e('wp_kses_post')|raw }}" name="s" aria-label="Search">
 									<input type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}" />
 								</div>
 								<div class="col-md-4">

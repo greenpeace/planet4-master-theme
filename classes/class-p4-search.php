@@ -14,6 +14,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		const POSTS_PER_PAGE = 10;
 		const POSTS_PER_LOAD = 5;
 		const DEFAULT_SORT   = 'relevant';
+		const DOCUMENT_TYPES = [
+			'application/pdf',
+		];
 
 		/** @var string $search_query */
 		protected $search_query;
@@ -52,7 +55,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			} else {
 				$this->context = Timber::get_context();
 
-				if ( $this->validate( $this->context, $selected_sort, $filters ) ) {
+				if ( $this->validate( $selected_sort, $filters, $this->context ) ) {
 					$this->selected_sort = $selected_sort;
 					$this->filters       = $filters;
 				}
@@ -152,8 +155,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 										$args['post_parent'] = esc_sql( $options['act_page'] );
 										break;
 									case 1:
-										$args['post_type']   = 'attachment';
-										$args['post_status'] = 'inherit';
+										$args['post_type']      = 'attachment';
+										$args['post_status']    = 'inherit';
+										$args['post_mime_type'] = self::DOCUMENT_TYPES;
 										break;
 									case 2:
 										$args['post_type']   = 'page';
@@ -389,13 +393,13 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		/**
 		 * Validates the input.
 		 *
-		 * @param array  $context Associative array with the data to be passed to the view.
 		 * @param string $selected_sort The selected orderby to be validated.
 		 * @param array  $filters The selected filters to be validated.
+		 * @param array  $context Associative array with the data to be passed to the view.
 		 *
 		 * @return bool True if validation is ok, false if validation fails.
 		 */
-		public function validate( $context, &$selected_sort, &$filters ) : bool {
+		public function validate( &$selected_sort, &$filters, $context ) : bool {
 			$selected_sort = filter_var( $selected_sort, FILTER_SANITIZE_STRING );
 			if ( ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) ) {
 				$selected_sort = P4_Search::DEFAULT_SORT;
