@@ -35,7 +35,7 @@
 				{% else %}
 					{% set class_name = 'explore-nav-link' %}
 				{% endif %}
-				<li class="nav-item {{ class_name }}">
+				<li class="nav-item {{ class_name }} {{ item == item.current ? 'active' : '' }}">
 					<a class="nav-link" href="{{ item.get_link }}">{{ item.title }}</a>
 				</li>
 			{% endfor %}
