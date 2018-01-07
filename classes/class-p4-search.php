@@ -14,6 +14,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		const POSTS_PER_PAGE = 10;
 		const POSTS_PER_LOAD = 5;
 		const DEFAULT_SORT   = 'relevant';
+		const DOCUMENT_TYPES = [
+			'application/pdf',
+		];
 
 		/** @var string $search_query */
 		protected $search_query;
@@ -152,8 +155,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 										$args['post_parent'] = esc_sql( $options['act_page'] );
 										break;
 									case 1:
-										$args['post_type']   = 'attachment';
-										$args['post_status'] = 'inherit';
+										$args['post_type']      = 'attachment';
+										$args['post_status']    = 'inherit';
+										$args['post_mime_type'] = self::DOCUMENT_TYPES;
 										break;
 									case 2:
 										$args['post_type']   = 'page';
