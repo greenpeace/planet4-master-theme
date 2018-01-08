@@ -468,7 +468,7 @@ class P4_Master_Site extends TimberSite {
 		$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
 		$selected_sort = sanitize_sql_orderby( $selected_sort );
 
-		if ( P4_Search::DEFAULT_SORT !== $selected_sort ) {
+		if ( $selected_sort && P4_Search::DEFAULT_SORT !== $selected_sort ) {
 			$selected_order = $this->sort_options[ $selected_sort ]['order'];
 			$orderby        = esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
 		} else {
