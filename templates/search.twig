@@ -27,18 +27,18 @@
 					<div class="search-bar">
 						<form id="search_form_inner" role="search" class="form" action="{{ data_nav_bar.home_url }}">
 							<div class="row">
-								<div class="col-md-5">
+								<div class="{{ source_selection ? 'col-md-5' : 'col-md-9' }}">
 									<input type="search" class="form-control mb-2 mb-sm-0" placeholder="{{ __( 'Search', domain ) }}" value="{{ search_query|e('wp_kses_post')|raw }}" name="s" aria-label="Search">
 									<input type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}" />
 								</div>
-								<div class="col-md-4">
-									<div class="btn-group btn-block" role="group" aria-label="" id="search-type">
-										<button type="button" class="btn btn-secondary btn-medium active">{{ __('This Site', domain ) }}</button>
-										{% if ( enable_archive ) %}
+								{% if ( source_selection ) %}
+									<div class="col-md-4">
+										<div class="btn-group btn-block" role="group" aria-label="" id="search-type">
+											<button type="button" class="btn btn-secondary btn-medium active">{{ __('This Site', domain ) }}</button>
 											<button type="button" class="btn btn-secondary btn-medium">{{ __( 'Archive', domain ) }}</button>
-										{% endif %}
+										</div>
 									</div>
-								</div>
+								{% endif %}
 								<div class="col-md-3">
 									<button type="submit" class="btn btn-primary btn-medium search-btn btn-block">
 										<i class="fa fa-search"></i> {{ __('Search', domain ) }}

@@ -221,16 +221,16 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		protected function set_general_context( &$context ) {
 
 			// Search context.
-			$context['posts']          = $this->posts;
-			$context['all_posts']      = $this->all_posts;
-			$context['paged_posts']    = $this->paged_posts;
-			$context['search_query']   = $this->search_query;
-			$context['selected_sort']  = $this->selected_sort;
-			$context['default_sort']   = self::DEFAULT_SORT;
-			$context['filters']        = $this->filters;
-			$context['found_posts']    = count( (array) $this->posts );
-			$context['enable_archive'] = false;
-			$context['page_category']  = $category->name ?? __( 'Search page', 'planet4-master-theme' );
+			$context['posts']            = $this->posts;
+			$context['all_posts']        = $this->all_posts;
+			$context['paged_posts']      = $this->paged_posts;
+			$context['search_query']     = $this->search_query;
+			$context['selected_sort']    = $this->selected_sort;
+			$context['default_sort']     = self::DEFAULT_SORT;
+			$context['filters']          = $this->filters;
+			$context['found_posts']      = count( (array) $this->posts );
+			$context['source_selection'] = false;
+			$context['page_category']    = $category->name ?? __( 'Search page', 'planet4-master-theme' );
 
 			if ( $this->search_query ) {
 				$context['page_title'] = sprintf( __( '%1$d results for \'%2$s\'', 'planet4-master-theme' ), $context['found_posts'], $this->search_query );
