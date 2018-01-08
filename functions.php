@@ -111,6 +111,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'init',                   array( $this, 'register_oembed_provider' ) );
 		add_action( 'pre_get_posts',          array( $this, 'add_search_options' ) );
 		add_filter( 'searchwp_query_orderby', array( $this, 'edit_searchwp_query_orderby' ), 10, 2 );
+		add_filter( 'posts_where',            array( $this, 'edit_search_mime_types' ) );
 		add_action( 'cmb2_admin_init',        array( $this, 'register_header_metabox' ) );
 		add_action( 'pre_get_posts',          array( $this, 'tags_support_query' ) );
 		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
@@ -463,7 +464,7 @@ class P4_Master_Site extends TimberSite {
 	 *
 	 * @return string The customized part of the query related to the ORDER BY.
 	 */
-	function edit_searchwp_query_orderby( $orderby ) {
+	public function edit_searchwp_query_orderby( $orderby ) : string {
 		$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
 		$selected_sort = sanitize_sql_orderby( $selected_sort );
 
@@ -475,6 +476,21 @@ class P4_Master_Site extends TimberSite {
 		}
 
 		return $orderby;
+	}
+
+	/**
+	 * Customize which mime types we want to search for regarding attachments.
+	 *
+	 * @param string $where The WHERE clause of the query.
+	 *
+	 * @return string The edited WHERE clause.
+	 */
+	public function edit_search_mime_types( $where ) : string {
+		if ( is_search() ) {
+			$mime_types = implode( ',', P4_Search::DOCUMENT_TYPES );
+			$where .= ' AND post_mime_type IN("' . $mime_types . '","") ';
+		}
+		return $where;
 	}
 
 	/**
