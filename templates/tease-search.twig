@@ -11,7 +11,7 @@
 	<div class="search-results-load row-hidden" style="display: none;">
 {% endif %}
 	{% if ( is_action ) %}
-		<li id="result-row-{{ post.ID }}" class="media search-result-list-item search-result-list-item-bg" style="background-image: url('{{ post.thumbnail.src }}');">
+		<li id="result-row-{{ post.ID }}" class="media search-result-list-item search-result-list-item-bg" style="background-image:linear-gradient(180deg, rgba(213, 239, 242, 1), rgba(255, 255, 255, 0.3)), url('{{ post.thumbnail.src }}');">
 			<div class="blank-block"></div>
 	{% else %}
 		<li id="result-row-{{ post.ID }}" class="media search-result-list-item">
