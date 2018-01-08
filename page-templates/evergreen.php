@@ -42,12 +42,6 @@ $context['header_subtitle']     = $page_meta_data['p4_subtitle'][0] ?? '';
 $context['header_description']  = $page_meta_data['p4_description'][0] ?? '';
 $context['header_button_title'] = $page_meta_data['p4_button_title'][0] ?? '';
 $context['header_button_link']  = $page_meta_data['p4_button_link'][0] ?? '';
-
-// Footer Items.
-$context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
-$context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
-$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
-
-$context['background_image'] = wp_get_attachment_url( get_post_meta( get_the_ID(), 'background_image_id', 1 ), 'medium' );
+$context['background_image']    = wp_get_attachment_url( get_post_meta( get_the_ID(), 'background_image_id', 1 ), 'medium' );
 
 Timber::render( array( 'evergreen.twig' ), $context );
