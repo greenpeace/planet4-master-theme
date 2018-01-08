@@ -29,11 +29,11 @@ $(function() {
     // Add all selected filters to the form submit.
     $search_form.on( 'submit', function() {
         if ( 0 === $('.filter-modal.show').length ) {
-            $( 'input[name^="f["]:not(.modal-checkbox):checked' ).each( function () {
+            $( 'input[name^="f["]:not(.modal-checkbox):checked' ).each( function() {
                 $search_form.append( $( this ).clone( true ) );
             } );
         } else {
-            $( 'input[name^="f["].modal-checkbox:checked').each( function () {
+            $( 'input[name^="f["].modal-checkbox:checked').each( function() {
                 $search_form.append( $( this ).clone( true ) );
             } );
         }
@@ -43,6 +43,11 @@ $(function() {
     $( '.search-result-item-head' ).off( 'click' ).on( 'click', function() {
         $( '.custom-control-input[value=' + $( this ).data( 'term_id' ) + ']' ).prop( 'checked', true);
         $search_form.submit();
+    });
+
+    // Navigate to the page of the search result item when clicking on it's thumbnail image or on its teaser text.
+    $( '.search-result-item-image, .search-result-item-content' ).off( 'click' ).on( 'click', function() {
+		window.location.href = $( '.search-result-item-headline', $( this ).parent() ).attr( 'href' );
     });
 
     // Clear single selected filter.
