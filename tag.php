@@ -86,10 +86,6 @@ if ( is_tag() ) {
 
 	$campaign->add_block( HappyPoint::BLOCK_NAME, [
 		'background'          => $background,
-		'boxout_title'        => __( 'Get action alerts in your inbox', 'planet4-master-theme' ),
-		'boxout_descr'        => __( 'Some text here about the transparency of the communications. Opt out or contact us at any time.', 'planet4-master-theme' ),
-		'boxout_link_text'    => __( 'Subscribe', 'planet4-master-theme' ),
-		'boxout_link_url'     => '#',
 		'background_html'     => wp_get_attachment_image( $background ),
 		'background_src'      => wp_get_attachment_image_src( $background, 'full' ),
 		'engaging_network_id' => $options['engaging_network_form_id'] ?? '',
