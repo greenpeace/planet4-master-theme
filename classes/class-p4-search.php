@@ -10,7 +10,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 	 */
 	class P4_Search {
 
-		const POSTS_LIMIT    = 150;
+		const POSTS_LIMIT    = 300;
 		const POSTS_PER_PAGE = 10;
 		const POSTS_PER_LOAD = 5;
 		const DEFAULT_SORT   = 'relevant';
@@ -259,10 +259,13 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$posts = $this->all_posts;
 			}
 
+			// Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
+			$options = get_option( 'planet4_options' );
+
 			foreach ( (array) $posts as $post ) {
 				// Category <-> Issue.
 				$category = get_the_category( $post->ID )[0];
-				if ( $category && 'uncategorized' !== $category->slug ) {
+				if ( $category && $category->parent === (int) $options['issues_parent_category'] ) {
 					$context['categories'][ $category->term_id ] = [
 						'term_id' => $category->term_id,
 						'name'    => $category->name,
