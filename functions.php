@@ -105,19 +105,21 @@ class P4_Master_Site extends TimberSite {
 		add_theme_support( 'menus' );
 		add_post_type_support( 'page', 'excerpt' );  // Added excerpt option to pages.
 
-		add_filter( 'timber_context',         array( $this, 'add_to_context' ) );
-		add_filter( 'get_twig',               array( $this, 'add_to_twig' ) );
-		add_action( 'init',                   array( $this, 'register_taxonomies' ) );
-		add_action( 'init',                   array( $this, 'register_oembed_provider' ) );
-		add_action( 'pre_get_posts',          array( $this, 'add_search_options' ) );
-		add_filter( 'searchwp_query_orderby', array( $this, 'edit_searchwp_query_orderby' ), 10, 2 );
-		add_filter( 'posts_where',            array( $this, 'edit_search_mime_types' ) );
-		add_action( 'cmb2_admin_init',        array( $this, 'register_header_metabox' ) );
-		add_action( 'pre_get_posts',          array( $this, 'tags_support_query' ) );
-		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
-		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
-		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
-		add_action( 'save_post',              array( $this, 'p4_save_page_type' ) );
+		add_filter( 'timber_context',           array( $this, 'add_to_context' ) );
+		add_filter( 'get_twig',                 array( $this, 'add_to_twig' ) );
+		add_action( 'init',                     array( $this, 'register_taxonomies' ) );
+		add_action( 'init',                     array( $this, 'register_oembed_provider' ) );
+		add_action( 'pre_get_posts',            array( $this, 'add_search_options' ) );
+		add_filter( 'searchwp_query_main_join', array( $this, 'edit_searchwp_main_join_action_pages' ), 10, 2 );
+		add_filter( 'searchwp_query_orderby',   array( $this, 'edit_searchwp_orderby_action_pages' ) );
+		add_filter( 'searchwp_query_orderby',   array( $this, 'edit_searchwp_query_orderby' ), 11, 2 );
+		add_filter( 'posts_where',              array( $this, 'edit_search_mime_types' ) );
+		add_action( 'cmb2_admin_init',          array( $this, 'register_header_metabox' ) );
+		add_action( 'pre_get_posts',            array( $this, 'tags_support_query' ) );
+		add_action( 'admin_enqueue_scripts',    array( $this, 'enqueue_admin_assets' ) );
+		add_action( 'wp_enqueue_scripts',       array( $this, 'enqueue_public_assets' ) );
+		add_filter( 'wp_kses_allowed_html',     array( $this, 'set_custom_allowed_attributes_filter' ) );
+		add_action( 'save_post',                array( $this, 'p4_save_page_type' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -455,6 +457,45 @@ class P4_Master_Site extends TimberSite {
 
 		$wp->set( 'posts_per_page', P4_Search::POSTS_LIMIT );
 		$wp->set( 'no_found_rows', true );
+	}
+
+	/**
+	 * Edit the searchwp main join clause, so that it can boost Action Pages that have a custom meta key.
+	 *
+	 * @param string $sql .
+	 * @param string $engine .
+	 *
+	 * @return string The edited JOIN statement.
+	 */
+	public function edit_searchwp_main_join_action_pages( $sql, $engine ) : string {
+		global $wpdb;
+
+		$my_meta_key = 'is_action';  // The meta_key you want to order by.
+		$sql = $sql . " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '{$my_meta_key}'";
+		return $sql;
+	}
+
+	/**
+	 * Customize the order of search results when sorting by Most Relevant, so that it boosts Action pages up.
+	 *
+	 * @param string $orderby .
+	 *
+	 * @return string The edited ORDER BY clause.
+	 */
+	public function edit_searchwp_orderby_action_pages( $orderby ) : string {
+		global $wpdb;
+
+		$my_order = 'DESC';
+		$original_orderby = str_replace( 'ORDER BY', '', $orderby );
+		if ( 'DESC' === $my_order ) {
+			// Sort in descending order.
+			$new_orderby = "ORDER BY {$wpdb->postmeta}.meta_value+0 DESC, " . $original_orderby;
+		} else {
+			// Sort in ascending order; place empties last.
+			// @link http://stackoverflow.com/questions/2051602/mysql-orderby-a-number-nulls-last#8174026.
+			$new_orderby = "ORDER BY -{$wpdb->postmeta}.meta_value+0 DESC, " . $original_orderby;
+		}
+		return $new_orderby;
 	}
 
 	/**
