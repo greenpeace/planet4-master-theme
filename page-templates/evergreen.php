@@ -28,7 +28,6 @@ use Timber\Post as TimberPost;
  */
 function add_body_classes_for_evergreen_page( $classes ) {
 	$classes[] = 'white-bg';
-
 	return $classes;
 }
 
@@ -39,8 +38,9 @@ $post           = new TimberPost();
 $page_meta_data = get_post_meta( $post->ID );
 
 // Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
-$options  = get_option( 'planet4_options' );
-$category = get_the_category( $post->ID )[0];
+$options    = get_option( 'planet4_options' );
+$categories = get_the_category( $post->ID );
+$category   = count( $categories ) > 0 ? $categories[0] : null;
 
 // Handle navigation links.
 if ( $category && $category->parent === (int) $options['issues_parent_category'] ) {
