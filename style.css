@@ -402,7 +402,7 @@ Stylesheet: Button Styles
   .happy-point-block-wrap p { text-align: left; }
   .happy-point-block-wrap form input, .happy-point-block-wrap form .custom-select { margin-bottom: 16px; } }
 
-@media (min-width: 768px) { .happy-point-block-wrap { max-height: 440px; }
+@media (min-width: 768px) { .happy-point-block-wrap { max-height: 480px; }
   .happy-point-block-wrap .pt-20 { padding-top: 220px; padding-left: 0; padding-right: 0; }
   .happy-point-block-wrap h2 { font-size: 1.75rem; line-height: 2.125rem; margin-bottom: 20px; color: #000; }
   .happy-point-block-wrap h5 { font-size: 1.125rem; line-height: 1.75rem; }
