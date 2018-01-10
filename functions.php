@@ -460,41 +460,34 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Edit the searchwp main join clause, so that it can boost Action Pages that have a custom meta key.
+	 * Edit the searchwp main join clause, so that it can boost Action Pages priority
+	 * based on a custom meta_key that holds the weight.
 	 *
-	 * @param string $sql .
-	 * @param string $engine .
+	 * @param string $sql The main JOIN clause.
+	 * @param string $engine The SearchWP selected engine.
 	 *
 	 * @return string The edited JOIN statement.
 	 */
 	public function edit_searchwp_main_join_action_pages( $sql, $engine ) : string {
 		global $wpdb;
 
-		$my_meta_key = 'is_action';  // The meta_key you want to order by.
-		$sql = $sql . " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '{$my_meta_key}'";
+		$meta_key = 'weight';  // The meta_key you want to order by.
+		$sql .= " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '{$meta_key}'";
 		return $sql;
 	}
 
 	/**
 	 * Customize the order of search results when sorting by Most Relevant, so that it boosts Action pages up.
 	 *
-	 * @param string $orderby .
+	 * @param string $orderby The ORDER BY sql clause.
 	 *
 	 * @return string The edited ORDER BY clause.
 	 */
 	public function edit_searchwp_orderby_action_pages( $orderby ) : string {
 		global $wpdb;
 
-		$my_order = 'DESC';
-		$original_orderby = str_replace( 'ORDER BY', '', $orderby );
-		if ( 'DESC' === $my_order ) {
-			// Sort in descending order.
-			$new_orderby = "ORDER BY {$wpdb->postmeta}.meta_value+0 DESC, " . $original_orderby;
-		} else {
-			// Sort in ascending order; place empties last.
-			// @link http://stackoverflow.com/questions/2051602/mysql-orderby-a-number-nulls-last#8174026.
-			$new_orderby = "ORDER BY -{$wpdb->postmeta}.meta_value+0 DESC, " . $original_orderby;
-		}
+		$orderby     = str_replace( 'ORDER BY', '', $orderby );
+		$new_orderby = "ORDER BY {$wpdb->postmeta}.meta_value+0 DESC, " . $orderby;
 		return $new_orderby;
 	}
 
