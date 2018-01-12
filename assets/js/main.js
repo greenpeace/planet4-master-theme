@@ -27,29 +27,22 @@ function slickify(element) {
 }
 
 $(document).ready(function () {
-
     // Add click event for load more button in blocks.
-    var load_more_btn_selector = '.btn-load-more-click';
-    $(load_more_btn_selector).off('click').on('click', function () {
-        var $row = $('.row-hidden', $(load_more_btn_selector).closest('.container'));
+    $( '.btn-load-more-click' ).off( 'click' ).on( 'click', function () {
+        var $row = $( '.row-hidden', $( this ).closest( '.container' ) );
 
-        if (1 === $row.size()) {
-            $(load_more_btn_selector).closest('.load-more-button-div').hide('fast');
+        if ( 1 === $row.size() ) {
+            $( this ).closest( '.load-more-button-div' ).hide('fast');
         }
 
-        var row_id = $row.attr('id');
-        if (row_id !== undefined && row_id.indexOf("publications-row") !== -1) {
-            $row.first().removeClass('row-hidden').show("slow", function () {
-                slickify("#" + row_id);
+        var row_id = $row.attr( 'id' );
+        if ( row_id !== undefined && row_id.indexOf( 'publications-row' ) !== -1 ) {
+            $row.first().removeClass( 'row-hidden' ).show( 'slow', function () {
+                slickify( '#' + row_id );
             });
-        }
-        else {
-            $row.first().show('fast').removeClass('row-hidden');
+        } else {
+            $row.first().show( 'fast' ).removeClass( 'row-hidden' );
         }
     });
-
-    if ($('.publications-row').length) {
-        slickify('.publications-row');
-    }
 });
 

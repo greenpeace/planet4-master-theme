@@ -8,22 +8,16 @@
 		</div>
 		<div class="container">
 			<div class="speech-bubble">
-				<h1 class="page-header-title">{{ page_notfound_title }}</h1>
+				<h2>{{ page_notfound_title }}</h2>
+				<h3 style="font-weight: normal;">{{ page_notfound_subheader }}</h3>
+				<br>
 				<p>{{ page_notfound_description }}</p>
 			</div>
-			<h3 class="page-header-subtitle">{{ page_notfound_checklist }}</h3>
-			<p class="page-header-content">
-			<ul>
-				{% for item in checklist %}
-					<li>{{ item }}</li>
-				{% endfor %}
-			</ul>
-			</p>
 			<div class="row">
 				<div class="col-md-4">
 					{{ page_notfound_help }}
-					<form class="form search-form">
-						<input class="form-control" placeholder="Search" aria-label="Search" type="text">
+					<form class="form search-form" action="{{ data_nav_bar.home_url }}">
+						<input class="form-control" placeholder="Search" name="s" aria-label="Search" type="text">
 						<button class="search-form-btn" type="submit">
 							<i class="fa fa-search"></i>
 						</button>

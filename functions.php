@@ -105,18 +105,21 @@ class P4_Master_Site extends TimberSite {
 		add_theme_support( 'menus' );
 		add_post_type_support( 'page', 'excerpt' );  // Added excerpt option to pages.
 
-		add_filter( 'timber_context',         array( $this, 'add_to_context' ) );
-		add_filter( 'get_twig',               array( $this, 'add_to_twig' ) );
-		add_action( 'init',                   array( $this, 'register_taxonomies' ) );
-		add_action( 'init',                   array( $this, 'register_oembed_provider' ) );
-		add_action( 'pre_get_posts',          array( $this, 'add_search_options' ) );
-		add_filter( 'searchwp_query_orderby', array( $this, 'edit_searchwp_query_orderby' ), 10, 2 );
-		add_action( 'cmb2_admin_init',        array( $this, 'register_header_metabox' ) );
-		add_action( 'pre_get_posts',          array( $this, 'tags_support_query' ) );
-		add_action( 'admin_enqueue_scripts',  array( $this, 'enqueue_admin_assets' ) );
-		add_action( 'wp_enqueue_scripts',     array( $this, 'enqueue_public_assets' ) );
-		add_filter( 'wp_kses_allowed_html',   array( $this, 'set_custom_allowed_attributes_filter' ) );
-		add_action( 'save_post',              array( $this, 'p4_save_page_type' ) );
+		add_filter( 'timber_context',           array( $this, 'add_to_context' ) );
+		add_filter( 'get_twig',                 array( $this, 'add_to_twig' ) );
+		add_action( 'init',                     array( $this, 'register_taxonomies' ) );
+		add_action( 'init',                     array( $this, 'register_oembed_provider' ) );
+		add_action( 'pre_get_posts',            array( $this, 'add_search_options' ) );
+		add_filter( 'searchwp_query_main_join', array( $this, 'edit_searchwp_main_join_action_pages' ), 10, 2 );
+		add_filter( 'searchwp_query_orderby',   array( $this, 'edit_searchwp_orderby_action_pages' ) );
+		add_filter( 'searchwp_query_orderby',   array( $this, 'edit_searchwp_query_orderby' ), 11, 2 );
+		add_filter( 'posts_where',              array( $this, 'edit_search_mime_types' ) );
+		add_action( 'cmb2_admin_init',          array( $this, 'register_header_metabox' ) );
+		add_action( 'pre_get_posts',            array( $this, 'tags_support_query' ) );
+		add_action( 'admin_enqueue_scripts',    array( $this, 'enqueue_admin_assets' ) );
+		add_action( 'wp_enqueue_scripts',       array( $this, 'enqueue_public_assets' ) );
+		add_filter( 'wp_kses_allowed_html',     array( $this, 'set_custom_allowed_attributes_filter' ) );
+		add_action( 'save_post',                array( $this, 'p4_save_page_type' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -155,13 +158,14 @@ class P4_Master_Site extends TimberSite {
 		$context['data_nav_bar'] = [
 			'images'       => $this->theme_images_dir,
 			'home_url'     => home_url( '/' ),
-			'search_query' => get_search_query(),
+			'search_query' => trim( get_search_query() ),
 		];
 		$context['domain']       = 'planet4-master-theme';
 		$context['foo']          = 'bar';   // For unit test purposes.
 		$context['navbar_menu']  = new TimberMenu( 'navigation-bar-menu' );
 		$context['site']         = $this;
 		$context['sort_options'] = $this->sort_options;
+		$context['default_sort']  = P4_Search::DEFAULT_SORT;
 
 		$options                          = get_option( 'planet4_options' );
 		$context['donatelink']            = $options['donate_button'] ?? '#';
@@ -275,14 +279,17 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function enqueue_public_assets() {
 		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', array(), '4.0.0-alpha.6' );
-		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], '0.0.18'  );
+		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], '0.0.33'  );
 		wp_enqueue_style( 'slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css', array(), '1.8.1' );
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 		wp_enqueue_script( 'popperjs', $this->theme_dir . '/assets/js/popper.min.js', array(), '1.11.0', true );
 		wp_enqueue_script( 'bootstrapjs', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', array(), '4.0.0-beta', true );
-		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.2.0', true );
-		wp_enqueue_script( 'custom', $this->theme_dir . '/assets/js/custom.js', array( 'jquery' ), '0.1.2', true );
+		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.2.1', true );
+		wp_enqueue_script( 'custom', $this->theme_dir . '/assets/js/custom.js', array( 'jquery' ), '0.1.5', true );
 		wp_enqueue_script( 'slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array(), '0.1.0', true );
+		if ( is_search() ) {
+			wp_enqueue_script( 'search', $this->theme_dir . '/assets/js/search.js', array( 'jquery' ), '0.1.2', true );
+		}
 	}
 
 	/**
@@ -453,17 +460,49 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
+	 * Edit the searchwp main join clause, so that it can boost Action Pages priority
+	 * based on a custom meta_key that holds the weight.
+	 *
+	 * @param string $sql The main JOIN clause.
+	 * @param string $engine The SearchWP selected engine.
+	 *
+	 * @return string The edited JOIN statement.
+	 */
+	public function edit_searchwp_main_join_action_pages( $sql, $engine ) : string {
+		global $wpdb;
+
+		$meta_key = 'weight';  // The meta_key you want to order by.
+		$sql .= " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '{$meta_key}'";
+		return $sql;
+	}
+
+	/**
+	 * Customize the order of search results when sorting by Most Relevant, so that it boosts Action pages up.
+	 *
+	 * @param string $orderby The ORDER BY sql clause.
+	 *
+	 * @return string The edited ORDER BY clause.
+	 */
+	public function edit_searchwp_orderby_action_pages( $orderby ) : string {
+		global $wpdb;
+
+		$orderby     = str_replace( 'ORDER BY', '', $orderby );
+		$new_orderby = "ORDER BY {$wpdb->postmeta}.meta_value+0 DESC, " . $orderby;
+		return $new_orderby;
+	}
+
+	/**
 	 * Customize the order of search results.
 	 *
 	 * @param string $orderby The ORDER BY sql clause.
 	 *
 	 * @return string The customized part of the query related to the ORDER BY.
 	 */
-	function edit_searchwp_query_orderby( $orderby ) {
+	public function edit_searchwp_query_orderby( $orderby ) : string {
 		$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
 		$selected_sort = sanitize_sql_orderby( $selected_sort );
 
-		if ( P4_Search::DEFAULT_SORT !== $selected_sort ) {
+		if ( $selected_sort && P4_Search::DEFAULT_SORT !== $selected_sort ) {
 			$selected_order = $this->sort_options[ $selected_sort ]['order'];
 			$orderby        = esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
 		} else {
@@ -471,6 +510,21 @@ class P4_Master_Site extends TimberSite {
 		}
 
 		return $orderby;
+	}
+
+	/**
+	 * Customize which mime types we want to search for regarding attachments.
+	 *
+	 * @param string $where The WHERE clause of the query.
+	 *
+	 * @return string The edited WHERE clause.
+	 */
+	public function edit_search_mime_types( $where ) : string {
+		if ( is_search() ) {
+			$mime_types = implode( ',', P4_Search::DOCUMENT_TYPES );
+			$where .= ' AND post_mime_type IN("' . $mime_types . '","") ';
+		}
+		return $where;
 	}
 
 	/**
