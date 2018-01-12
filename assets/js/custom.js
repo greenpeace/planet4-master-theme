@@ -204,6 +204,11 @@ $('.country-select-box .country-list li').click(function(){
   $(this).addClass('active');
 });
 
+$('.country-selectbox').click(function(){
+  $(this).toggleClass('active');	
+  $(this).parent().find('.option-contry').toggleClass('active');
+});
+
   // $(window).scroll(function() {
   //   if ($(this).scrollTop() > 130){  
   //       $('.fixed-element, .md-navigation').addClass("sticky");
