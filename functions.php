@@ -356,9 +356,7 @@ class P4_Master_Site extends TimberSite {
 
 		// If this is a new Post/Page then set default weight for new Post and new Page respectively.
 		if ( ! $weight && 'post-new.php' === $pagenow ) {
-			if ( 'post' === $post->post_type ) {
-				$weight = P4_Search::DEFAULT_POST_WEIGHT;
-			} elseif ( 'page' === $post->post_type ) {
+			if ( 'page' === $post->post_type ) {
 				$weight = P4_Search::DEFAULT_PAGE_WEIGHT;
 			}
 		}
@@ -547,7 +545,7 @@ class P4_Master_Site extends TimberSite {
 		global $wpdb;
 
 		$meta_key = 'weight';  // The meta_key you want to order by.
-		$sql .= " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '{$meta_key}'";
+		$sql .= " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '{$meta_key}' AND {$wpdb->postmeta}.meta_value != ''";
 		return $sql;
 	}
 
