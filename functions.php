@@ -354,7 +354,7 @@ class P4_Master_Site extends TimberSite {
 			],
 		] );
 
-		// If this is a new Post/Page then set default weight for new Post and new Page respectively.
+		// If this is a new Page then set default weight for it.
 		if ( ! $weight && 'post-new.php' === $pagenow ) {
 			if ( 'page' === $post->post_type ) {
 				$weight = P4_Search::DEFAULT_PAGE_WEIGHT;
