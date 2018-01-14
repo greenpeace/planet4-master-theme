@@ -10,10 +10,15 @@ if ( ! class_exists( 'P4_Search' ) ) {
 	 */
 	class P4_Search {
 
-		const POSTS_LIMIT    = 300;
-		const POSTS_PER_PAGE = 10;
-		const POSTS_PER_LOAD = 5;
-		const DEFAULT_SORT   = 'relevant';
+		const POSTS_LIMIT           = 300;
+		const POSTS_PER_PAGE        = 10;
+		const POSTS_PER_LOAD        = 5;
+		const DEFAULT_SORT          = 'relevant';
+		const DEFAULT_MIN_WEIGHT    = 1;
+		const DEFAULT_POST_WEIGHT   = 10;
+		const DEFAULT_PAGE_WEIGHT   = 20;
+		const DEFAULT_ACTION_WEIGHT = 25;
+		const DEFAULT_MAX_WEIGHT    = 30;
 		const DOCUMENT_TYPES = [
 			'application/pdf',
 		];
