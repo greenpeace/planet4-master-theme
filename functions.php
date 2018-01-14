@@ -119,6 +119,8 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'admin_enqueue_scripts',    array( $this, 'enqueue_admin_assets' ) );
 		add_action( 'wp_enqueue_scripts',       array( $this, 'enqueue_public_assets' ) );
 		add_filter( 'wp_kses_allowed_html',     array( $this, 'set_custom_allowed_attributes_filter' ) );
+		add_action( 'add_meta_boxes',           array( $this, 'add_meta_box_search' ) );
+		add_action( 'save_post',                array( $this, 'save_meta_box_search' ), 10, 2 );
 		add_action( 'save_post',                array( $this, 'p4_save_page_type' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
@@ -279,7 +281,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function enqueue_public_assets() {
 		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', array(), '4.0.0-alpha.6' );
-		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], '0.0.33'  );
+		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], '0.0.33' );
 		wp_enqueue_style( 'slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css', array(), '1.8.1' );
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 		wp_enqueue_script( 'popperjs', $this->theme_dir . '/assets/js/popper.min.js', array(), '1.11.0', true );
@@ -293,8 +295,79 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
+	 * Creates a Metabox on the side of the Add/Edit Post/Page
+	 * that is used for applying weight to the current Post/Page in search results.
+	 *
+	 * @param WP_Post $post The currently Added/Edited post.
+	 */
+	public function add_meta_box_search( $post ) {
+		add_meta_box( 'meta-box-search','Search', array( $this, 'view_meta_box_search' ), [ 'post', 'page' ], 'side', 'default', $post );
+	}
+
+	/**
+	 * Renders a Metabox on the side of the Add/Edit Post/Page.
+	 *
+	 * @param WP_Post $post The currently Added/Edited post.
+	 */
+	public function view_meta_box_search( $post ) {
+		$weight  = get_post_meta( $post->ID, 'weight', true );
+		$options = get_option( 'planet4_options' );
+
+		echo '<label for="my_meta_box_text">' . esc_html__( 'Weight (1-30)', 'planet4-master-theme' ) . '</label>
+				<input id="weight" type="text" name="weight" value="' . esc_attr( $weight ) . '" />';
+		?><script>
+			$ = jQuery;
+			$( '#parent_id' ).off('change').on( 'change', function () {
+				// Check selected Parent page and give bigger weight if it will be an Action page
+				if ( '<?php echo esc_js( $options['act_page'] ); ?>' === $(this).val() ) {
+					$( '#weight' ).val( <?php echo esc_js( P4_Search::DEFAULT_ACTION_WEIGHT ); ?> );
+				} else {
+					$( '#weight' ).val( <?php echo esc_js( P4_Search::DEFAULT_PAGE_WEIGHT ); ?> );
+				}
+			});
+		</script>
+		<?php
+	}
+
+	/**
+	 * Saves the Search weight of the Post/Page.
+	 *
+	 * @param int     $post_id The ID of the current Post.
+	 * @param WP_Post $post The current Post.
+	 */
+	public function save_meta_box_search( $post_id, $post ) {
+		global $pagenow;
+
+		// Ignore autosave.
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+		// Check user's capabilities.
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+		// Make sure there's input.
+		$weight = filter_input( INPUT_POST, 'weight', FILTER_VALIDATE_INT, [
+			'options' => [
+				'min_range' => P4_Search::DEFAULT_MIN_WEIGHT,
+				'max_range' => P4_Search::DEFAULT_MAX_WEIGHT,
+			],
+		] );
+
+		// If this is a new Page then set default weight for it.
+		if ( ! $weight && 'post-new.php' === $pagenow ) {
+			if ( 'page' === $post->post_type ) {
+				$weight = P4_Search::DEFAULT_PAGE_WEIGHT;
+			}
+		}
+
+		// Store weight.
+		update_post_meta( $post_id, 'weight', $weight );
+	}
+
+	/**
 	 * Register a custom taxonomy for planet4 page types
-     	 */
+	 */
 	public function register_p4_page_type_taxonomy() {
 
 		$p4_page_type = [
@@ -472,7 +545,7 @@ class P4_Master_Site extends TimberSite {
 		global $wpdb;
 
 		$meta_key = 'weight';  // The meta_key you want to order by.
-		$sql .= " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '{$meta_key}'";
+		$sql .= " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '{$meta_key}' AND {$wpdb->postmeta}.meta_value != ''";
 		return $sql;
 	}
 
