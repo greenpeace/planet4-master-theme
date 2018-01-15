@@ -122,6 +122,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'add_meta_boxes',           array( $this, 'add_meta_box_search' ) );
 		add_action( 'save_post',                array( $this, 'save_meta_box_search' ), 10, 2 );
 		add_action( 'save_post',                array( $this, 'p4_save_page_type' ) );
+		add_action( 'wp_kses_allowed_html',     array( $this, 'custom_wpkses_post' ), 10, 2 );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -462,6 +463,27 @@ class P4_Master_Site extends TimberSite {
 		}
 		// Save post type.
 		wp_set_post_terms( $post_id, sanitize_text_field( $selected->slug ), 'p4-page-type' );
+	}
+
+	/**
+	 * Add iFrame to allowed wp_kses_post tags
+	 *
+	 * @param string $tags Allowed tags, attributes, and/or entities.
+	 * @param string $context
+	 *
+	 * @return mixed
+	 */
+	function custom_wpkses_post( $tags, $context ) {
+		if ( 'post' === $context ) {
+			$tags['iframe'] = [
+				'src'             => true,
+				'height'          => true,
+				'width'           => true,
+				'frameborder'     => true,
+				'allowfullscreen' => true,
+			];
+		}
+		return $tags;
 	}
 
 	/**
