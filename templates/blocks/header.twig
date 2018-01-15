@@ -4,7 +4,9 @@
 		{% if ( background_image ) %}
 			<div class="page-header-background">
 				<img src="{{ background_image }}"
-					 srcset="{{ background_image_srcset }}"
+					{% if ( background_image_srcset ) %}
+					 	srcset="{{ background_image_srcset }}"
+					 {% endif %}
 					 class="page-header-image" />
 			</div>
 		{% endif %}
