@@ -3,7 +3,11 @@
 	<div class="page-header">
 		{% if ( background_image ) %}
 			<div class="page-header-background">
-				<img src="{{ background_image }}" class="page-header-image" />
+				<img src="{{ background_image }}"
+					{% if ( background_image_srcset ) %}
+					 	srcset="{{ background_image_srcset }}"
+					 {% endif %}
+					 class="page-header-image" />
 			</div>
 		{% endif %}
 		<div class="container">
