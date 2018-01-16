@@ -28,6 +28,7 @@
  */
 
 use Timber\Timber;
+use Timber\Post as TimberPost;
 
 /**
  * Add custom css class for body element hook.
@@ -42,49 +43,51 @@ function add_body_classes_for_page( $classes ) {
 add_filter( 'body_class', 'add_body_classes_for_page' );
 
 $context = Timber::get_context();
-$post = new TimberPost();
+$post    = new TimberPost();
 
-$page_meta_data  = get_post_meta( $post->ID );
-$temp_categories = get_the_category( $post->ID );
-$category        = count( $temp_categories ) > 0 ? $temp_categories[0] : null;
+$page_meta_data = get_post_meta( $post->ID );
+$categories     = get_the_category( $post->ID );
 
 // Handle navigation links.
-if ( $category && ( $category->name !== $post->post_title ) ) {     // Do not add links inside the Issue page itself.
-	// Get Issue.
-	$issue = get_page_by_title( $category->name );                  // Category and Issue need to have the same name.
-	if ( $issue ) {
-		$context['issue'] = [
-			'name' => $issue->post_title,
-			'link' => get_permalink( $issue ),
-		];
-	}
-
-	// Get Campaigns.
-	$page_tags = wp_get_post_tags( $post->ID );
-	$tags      = [];
-
-	if ( is_array( $page_tags ) && $page_tags ) {
-		foreach ( $page_tags as $page_tag ) {
-			$tags[] = [
-				'name' => $page_tag->name,
-				'link' => get_tag_link( $page_tag ),
-			];
+if ( $categories ) {
+	foreach ( $categories as $category ) {
+		if ( $category && ( $category->name !== $post->post_title ) ) {     // Do not add links inside the Issue page itself.
+			// Get Issue.
+			$issue = get_page_by_title( $category->name );                  // Category and Issue need to have the same name.
+			if ( $issue ) {
+				$context['issues'][] = [
+					'name' => $issue->post_title,
+					'link' => get_permalink( $issue ),
+				];
+			}
 		}
-		$context['campaigns'] = $tags;
 	}
 }
+// Get Campaigns.
+$page_tags = wp_get_post_tags( $post->ID );
+$tags      = [];
 
-$context['post']                    = $post;
-$context['header_title']            = is_front_page() ? ( $page_meta_data['p4_title'][0] ?? '' ) : ( $page_meta_data['p4_title'][0] ?? $post->title );
-$context['header_subtitle']         = $page_meta_data['p4_subtitle'][0] ?? '';
-$context['header_description']      = $page_meta_data['p4_description'][0] ?? '';
-$context['header_button_title']     = $page_meta_data['p4_button_title'][0] ?? '';
-$context['header_button_link']      = $page_meta_data['p4_button_link'][0] ?? '';
+if ( is_array( $page_tags ) && $page_tags ) {
+	foreach ( $page_tags as $page_tag ) {
+		$tags[] = [
+			'name' => $page_tag->name,
+			'link' => get_tag_link( $page_tag ),
+		];
+	}
+	$context['campaigns'] = $tags;
+}
 
-$context['page_category']           = is_front_page() ? 'Front Page' : ( $category->name ?? 'Unknown page' );
+
+$context['post']                = $post;
+$context['header_title']        = is_front_page() ? ( $page_meta_data['p4_title'][0] ?? '' ) : ( $page_meta_data['p4_title'][0] ?? $post->title );
+$context['header_subtitle']     = $page_meta_data['p4_subtitle'][0] ?? '';
+$context['header_description']  = $page_meta_data['p4_description'][0] ?? '';
+$context['header_button_title'] = $page_meta_data['p4_button_title'][0] ?? '';
+$context['header_button_link']  = $page_meta_data['p4_button_link'][0] ?? '';
+$context['page_category']       = is_front_page() ? 'Front Page' : ( $category->name ?? 'Unknown page' );
 
 $background_image_id                = get_post_meta( get_the_ID(), 'background_image_id', 1 );
-$context['background_image']        = wp_get_attachment_url( $background_image_id , 'medium' );
+$context['background_image']        = wp_get_attachment_url( $background_image_id );
 $context['background_image_srcset'] = wp_get_attachment_image_srcset( $background_image_id );
 
 Timber::render( array( 'page-' . $post->post_name . '.twig', 'page.twig' ), $context );
