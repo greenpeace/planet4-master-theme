@@ -18,7 +18,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		const DEFAULT_PAGE_WEIGHT   = 20;
 		const DEFAULT_ACTION_WEIGHT = 25;
 		const DEFAULT_MAX_WEIGHT    = 30;
-		const DOCUMENT_TYPES = [
+		const DUMMY_THUMBNAIL       = '/images/dummy-thumbnail.png';
+		const DOCUMENT_TYPES        = [
 			'application/pdf',
 		];
 
@@ -233,6 +234,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['default_sort']     = self::DEFAULT_SORT;
 			$context['filters']          = $this->filters;
 			$context['found_posts']      = count( (array) $this->posts );
+			$context['dummy_thumbnail']  = esc_url( get_template_directory_uri() . self::DUMMY_THUMBNAIL );
 			$context['source_selection'] = false;
 			$context['page_category']    = $category->name ?? __( 'Search page', 'planet4-master-theme' );
 
