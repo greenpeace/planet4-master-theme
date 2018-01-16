@@ -40,32 +40,34 @@ $page_meta_data = get_post_meta( $post->ID );
 // Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
 $options    = get_option( 'planet4_options' );
 $categories = get_the_category( $post->ID );
-$category   = count( $categories ) > 0 ? $categories[0] : null;
 
 // Handle navigation links.
-if ( $category && $category->parent === (int) $options['issues_parent_category'] ) {
-	// Get Issue.
-	$issue = get_page_by_title( $category->name );                  // Category and Issue need to have the same name.
-	if ( $issue ) {
-		$context['issue'] = [
-			'name' => $issue->post_title,
-			'link' => get_permalink( $issue ),
+if ( $categories ) {
+	foreach ( $categories as $category ) {
+		if ( $category && ( $category->parent === (int) $options['issues_parent_category'] ) ) {     // Add links only for categories that are Issues.
+			// Get Issue.
+			$issue = get_page_by_title( $category->name );                  // Category and Issue need to have the same name.
+			if ( $issue ) {
+				$context['issues'][] = [
+					'name' => $issue->post_title,
+					'link' => get_permalink( $issue ),
+				];
+			}
+		}
+	}
+}
+// Get Campaigns.
+$page_tags = wp_get_post_tags( $post->ID );
+$tags      = [];
+
+if ( is_array( $page_tags ) && $page_tags ) {
+	foreach ( $page_tags as $page_tag ) {
+		$tags[] = [
+			'name' => $page_tag->name,
+			'link' => get_tag_link( $page_tag ),
 		];
 	}
-
-	// Get Campaigns.
-	$page_tags = wp_get_post_tags( $post->ID );
-	$tags      = [];
-
-	if ( is_array( $page_tags ) && $page_tags ) {
-		foreach ( $page_tags as $page_tag ) {
-			$tags[] = [
-				'name' => $page_tag->name,
-				'link' => get_tag_link( $page_tag ),
-			];
-		}
-		$context['campaigns'] = $tags;
-	}
+	$context['campaigns'] = $tags;
 }
 
 $context['page']                = $post;

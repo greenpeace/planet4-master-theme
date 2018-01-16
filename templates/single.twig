@@ -24,12 +24,10 @@
 				<div class="single-post-meta">
 					{% if ( author_override ) %}
 						{% set author_name = author_override %}
-						{% set author_url = "#" %}
 					{% else %}
 						{% set author_name = post.author.name %}
-						{% set author_url = post.author.path %}
 					{% endif %}
-					<address class="single-post-author">{{ __( 'by', 'planet4-master-theme' ) }}&nbsp;<a href="{{ author_url }}">{{ author_name }}</a></address>
+					<address class="single-post-author">{{ __( 'by', 'planet4-master-theme' ) }}&nbsp;{{ author_name }}</address>
 					<time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
 				</div>
 			</div>
