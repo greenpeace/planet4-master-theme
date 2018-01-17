@@ -122,6 +122,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'add_meta_boxes',           array( $this, 'add_meta_box_search' ) );
 		add_action( 'save_post',                array( $this, 'save_meta_box_search' ), 10, 2 );
 		add_action( 'save_post',                array( $this, 'p4_save_page_type' ) );
+		add_action( 'after_setup_theme',        array( $this, 'p4_master_theme_setup' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -130,6 +131,13 @@ class P4_Master_Site extends TimberSite {
 		register_nav_menus( array(
 			'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme' ),
 		) );
+	}
+
+	/**
+	 * Load translations for wpdocs_theme
+	 */
+	function p4_master_theme_setup(){
+		load_theme_textdomain('planet4-master-theme', get_template_directory() . '/languages');
 	}
 
 	/**
