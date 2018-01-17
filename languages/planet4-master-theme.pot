@@ -1,0 +1,381 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-17 14:01+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: functions.php:85
+msgid "Most relevant"
+msgstr ""
+
+#: functions.php:89
+msgid "Most recent"
+msgstr ""
+
+#: functions.php:131
+msgid "Navigation Bar Menu"
+msgstr ""
+
+#: functions.php:321
+msgid "Weight (1-30)"
+msgstr ""
+
+#: functions.php:642
+msgid "Page Header Fields"
+msgstr ""
+
+#: functions.php:647
+msgid "Header Title"
+msgstr ""
+
+#: functions.php:648
+msgid "Header title comes here"
+msgstr ""
+
+#: functions.php:655
+msgid "Header Subtitle"
+msgstr ""
+
+#: functions.php:656
+msgid "Header subtitle comes here"
+msgstr ""
+
+#: functions.php:664
+msgid "Header Description"
+msgstr ""
+
+#: functions.php:665
+msgid "Header description comes here"
+msgstr ""
+
+#: functions.php:676
+msgid "Header Button Title"
+msgstr ""
+
+#: functions.php:677
+msgid "Header button title comes here"
+msgstr ""
+
+#: functions.php:685
+msgid "Header Button Link"
+msgstr ""
+
+#: functions.php:686
+msgid "Header button link comes here"
+msgstr ""
+
+#: functions.php:694
+msgid "Background overide"
+msgstr ""
+
+#: functions.php:695
+msgid "Upload an image"
+msgstr ""
+
+#: functions.php:703
+msgid "Add Background Image"
+msgstr ""
+
+#: functions.php:714
+msgid "Post Articles Element Fields"
+msgstr ""
+
+#: functions.php:719
+msgid "Articles Title"
+msgstr ""
+
+#: functions.php:720
+msgid "Title for articles block"
+msgstr ""
+
+#: functions.php:727
+msgid "Articles Count"
+msgstr ""
+
+#: functions.php:728
+msgid "Number of articles that should be displayed for articles block"
+msgstr ""
+
+#: functions.php:738
+msgid "Author Override"
+msgstr ""
+
+#: functions.php:739
+msgid "Enter author name if you want to override the author"
+msgstr ""
+
+#: functions.php:745
+msgid "Take Action Page Selector"
+msgstr ""
+
+#: functions.php:746
+msgid "Select a Take Action Page to populate take action boxout block"
+msgstr ""
+
+#: functions.php:754
+msgid "Background Image Override"
+msgstr ""
+
+#: functions.php:755
+msgid ""
+"Upload an image or select one from the media library to override the "
+"background image"
+msgstr ""
+
+#: functions.php:762
+msgid "Add Image"
+msgstr ""
+
+#: 404.php:29
+msgid "Sorry, we can't find that page!"
+msgstr ""
+
+#: 404.php:30
+msgid "The page might be extinct..."
+msgstr ""
+
+#: 404.php:31
+msgid "Use the search tool and try your luck again."
+msgstr ""
+
+#: 404.php:32
+msgid "Enter your search term below"
+msgstr ""
+
+#: 404.php:33
+msgid "404 Page"
+msgstr ""
+
+#: tag.php:51 tag.php:80
+msgid "This Campaign is not assigned to an Issue"
+msgstr ""
+
+#: tag.php:57
+msgid "Unknown Campaign page"
+msgstr ""
+
+#: tag.php:63
+msgid "Things you can do"
+msgstr ""
+
+#: tag.php:64
+msgid "We want you to take action because together we're strong."
+msgstr ""
+
+#: tag.php:69
+msgid "In the news"
+msgstr ""
+
+#: tag.php:79
+msgid "Related Campaigns"
+msgstr ""
+
+#: single.php:47
+msgid "Post page"
+msgstr ""
+
+#: single.php:81
+msgid "Leave Your Reply"
+msgstr ""
+
+#: classes/class-p4-search.php:239
+msgid "Search page"
+msgstr ""
+
+#: classes/class-p4-search.php:242
+#, php-format
+msgid "%1$d results for '%2$s'"
+msgstr ""
+
+#: classes/class-p4-search.php:244
+#, php-format
+msgid "%d results"
+msgstr ""
+
+#: classes/class-p4-search.php:286
+msgid "ACTION"
+msgstr ""
+
+#: classes/class-p4-search.php:290
+msgid "PAGE"
+msgstr ""
+
+#: classes/class-p4-search.php:296
+msgid "DOCUMENT"
+msgstr ""
+
+#: classes/class-p4-search.php:301
+msgid "POST"
+msgstr ""
+
+#: classes/class-p4-search.php:344
+msgid "Action"
+msgstr ""
+
+#: classes/class-p4-search.php:350
+msgid "Document"
+msgstr ""
+
+#: classes/class-p4-search.php:356
+msgid "Page"
+msgstr ""
+
+#: classes/class-p4-search.php:362
+msgid "Post"
+msgstr ""
+
+#: classes/class-p4-search.php:439
+#, php-format
+msgid "SHOW %s MORE RESULTS"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:38
+msgid "Planet 4 Control Panel"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:50
+msgid "Cache"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:53
+msgid "Check Object Cache"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:60
+msgid "Engaging Networks"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:63
+msgid "Check Engaging Networks"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:110
+msgid "Planet 4 is connected to Redis."
+msgstr ""
+
+#: classes/class-p4-control-panel.php:144
+msgid "Success"
+msgstr ""
+
+#: classes/class-p4-settings.php:39
+msgid "Planet4"
+msgstr ""
+
+#: classes/class-p4-settings.php:43
+msgid "Select Act Page"
+msgstr ""
+
+#: classes/class-p4-settings.php:49
+msgid "Select Explore Page"
+msgstr ""
+
+#: classes/class-p4-settings.php:55
+msgid "Select Issues Parent Category"
+msgstr ""
+
+#: classes/class-p4-settings.php:61
+msgid "Copyright Text"
+msgstr ""
+
+#: classes/class-p4-settings.php:71
+msgid "Google Tag Manager Identifier"
+msgstr ""
+
+#: classes/class-p4-settings.php:77
+msgid "Engaging Network ID"
+msgstr ""
+
+#: classes/class-p4-settings.php:83
+msgid "Cookies Text"
+msgstr ""
+
+#: classes/class-p4-settings.php:93
+msgid "Default title for related articles block in post"
+msgstr ""
+
+#: classes/class-p4-settings.php:99
+msgid "Default Number Of Related Articles In Post"
+msgstr ""
+
+#: classes/class-p4-settings.php:108
+msgid "Donate button link"
+msgstr ""
+
+#: classes/class-p4-settings.php:150 classes/class-p4-settings.php:164
+msgid "Select Page"
+msgstr ""
+
+#: classes/class-p4-settings.php:179
+msgid "Select Category"
+msgstr ""
+
+#: classes/class-p4-taxonomy-image.php:19
+msgid "Select Image"
+msgstr ""
+
+#: classes/class-p4-taxonomy-image.php:56
+#: classes/class-p4-taxonomy-image.php:86
+#: classes/class-p4-taxonomy-image.php:135
+msgid "Image"
+msgstr ""
+
+#: classes/class-p4-taxonomy-image.php:62
+#: classes/class-p4-taxonomy-image.php:77
+#: classes/class-p4-taxonomy-image.php:90
+msgid "Select/Upload Image"
+msgstr ""
+
+#: classes/class-p4-taxonomy-image.php:64
+#: classes/class-p4-taxonomy-image.php:92
+msgid "Associate this tag with an image."
+msgstr ""
+
+#: classes/class-p4-taxonomy-image.php:71
+msgid "Image Subscribe"
+msgstr ""
+
+#: classes/class-p4-taxonomy-image.php:79
+msgid "Choose a background image for the Subscribe block."
+msgstr ""
+
+#. Name of the template
+msgid "Evergreen Page"
+msgstr ""
+
+#: templates/single.twig:30
+msgid "by"
+msgstr ""
+
+#: templates/blocks/author_profile.twig:4
+msgid "about the author"
+msgstr ""
+
+#. Name of the theme
+msgid "Greenpeace Planet 4 Master Theme"
+msgstr ""
+
+#. Description of the theme
+msgid "Master theme for the Planet 4 Wordpress project"
+msgstr ""
+
+#. URI of the theme
+msgid "https://github.com/greenpeace/planet4-master-theme"
+msgstr ""
+
+#. Author of the theme
+msgid "Greenpeace International"
+msgstr ""
+
+#. Author URI of the theme
+msgid "https://github.com/greenpeace"
+msgstr ""
