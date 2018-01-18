@@ -5,6 +5,7 @@
 			{{ fn('comment_form', comments_args) }}
 		</div>
 		<section class="comments-section" itemscope itemtype="http://schema.org/UserComments">
+			<h3 class="comments-section-title">{{ __( 'Discussion' ) }}</h3>
 			{% for cmt in comments %}
 				{% include "comment.twig" with {comment:cmt, index: loop.index} %}
 			{% endfor %}
