@@ -44,5 +44,15 @@ $(document).ready(function () {
             $row.first().show( 'fast' ).removeClass( 'row-hidden' );
         }
     });
+
+    // Add click event for load more button in covers blocks.
+    $('.btn-load-more-covers-click').off('click').on('click', function () {
+        var $row = $('.limit-visibility', $(this).closest('.container'));
+
+        if ($row.size() > 0) {
+            $row.first().removeClass('limit-visibility');
+            $(this).closest('.load-more-covers-button-div').remove();
+        }
+    });
 });
 
