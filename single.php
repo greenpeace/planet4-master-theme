@@ -34,10 +34,11 @@ $context['post'] = $post;
 // Articles block parameters to populate the articles block
 // p4_take_action_page parameter to populate the take action boxout block
 // Author override parameter. If this is set then the author profile section will not be displayed.
+$options                     = get_option( 'planet4_options' );
 $page_meta_data              = get_post_meta( $post->ID );
 $page_terms_data             = get_the_terms( $post, 'p4-page-type' );
-$articles_title              = $page_meta_data['p4_articles_title'][0] ?? '';
-$articles_count              = $page_meta_data['p4_articles_count'][0] ?? 0;
+$articles_title              = $page_meta_data['p4_articles_title'][0] ?? ( $options['articles_block_title'] ?? '' );
+$articles_count              = $page_meta_data['p4_articles_count'][0] ?? ( $options['articles_count'] ?? '' );
 $articles_count              = 0 === intval( $articles_count ) ? 3 : intval( $articles_count );
 $context['author_override']  = $page_meta_data['p4_author_override'][0] ?? '';
 $context['background_image'] = $page_meta_data['p4_background_image_override'][0] ?? '';
