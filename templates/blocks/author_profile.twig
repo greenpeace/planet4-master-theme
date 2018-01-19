@@ -9,7 +9,9 @@
 		</div>
 		<figure class="author-block-image">
 			{% if ( post.author.avatar ) %}
-				<img itemprop="image" class="author-pic" src="{{ post.author.avatar }}" alt="{{ post.author.name }}">
+				<img itemprop="image" class="author-pic"
+				     src="{{ fn('get_avatar_url', post.author.id, {'size' : 294}) }}"
+				     alt="{{ post.author.name }}">
 			{% endif %}
 		</figure>
 	</footer>
