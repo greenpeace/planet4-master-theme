@@ -20,12 +20,15 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		 * Hooks actions and filters.
 		 */
 		public function hooks() {
+			// Display the Control Panel only to Administrators.
 			if ( ! current_user_can( 'manage_options' ) ) {
 				return;
 			}
 			add_action( 'wp_dashboard_setup',              array( $this, 'add_dashboard_widgets' ), 9 );
+			add_action( 'wp_ajax_flush_cache',             array( $this, 'flush_cache' ) );
 			add_action( 'wp_ajax_check_cache',             array( $this, 'check_cache' ) );
 			add_action( 'wp_ajax_check_engaging_networks', array( $this, 'check_engaging_networks' ) );
+			add_action( 'wp_ajax_check_search_indexer',    array( $this, 'check_search_indexer' ) );
 			add_action( 'admin_enqueue_scripts',           array( $this, 'enqueue_admin_assets' ) );
 		}
 
@@ -41,7 +44,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		}
 
 		/**
-		 * Outputs the contents of the dashboard widget.
+		 * Adds items to the Control Panel.s
 		 */
 		public function add_items() {
 			wp_nonce_field( 'cp-action' );
@@ -49,6 +52,10 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 			$this->add_item( [
 				'title'    => __( 'Cache', 'planet4-master-theme' ),
 				'subitems' => [
+					[
+						'title'  => __( 'Flush Object Cache', 'planet4-master-theme' ),
+						'action' => 'flush_cache',
+					],
 					[
 						'title'  => __( 'Check Object Cache', 'planet4-master-theme' ),
 						'action' => 'check_cache',
@@ -62,6 +69,16 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 					[
 						'title'  => __( 'Check Engaging Networks', 'planet4-master-theme' ),
 						'action' => 'check_engaging_networks',
+					],
+				],
+			] );
+
+			$this->add_item( [
+				'title'    => __( 'SearchWP', 'planet4-master-theme' ),
+				'subitems' => [
+					[
+						'title'  => __( 'Check Search Indexer', 'planet4-master-theme' ),
+						'action' => 'check_search_indexer',
 					],
 				],
 			] );
@@ -83,6 +100,38 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 			}
 			echo '</div>
 				</div>';
+		}
+
+		/**
+		 * Adds a flush cache button to delete all keys in Redis database.
+		 */
+		public function flush_cache() {
+			if ( wp_doing_ajax() ) {
+				// Allow this action only to Administrators.
+				if ( ! current_user_can( 'manage_options' ) ) {
+					return;
+				}
+
+				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce',  FILTER_SANITIZE_STRING );
+				$cp_action = filter_input( INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING );
+
+				if ( wp_verify_nonce( $cp_nonce, 'cp-action' ) && 'flush_cache' === $cp_action ) {
+					$response = [];
+
+					if ( wp_cache_flush() ) {
+						$response['message'] = __( 'Object Cache flushed', 'planet4-master-theme' );
+						$response['class']   = 'cp-success';
+					} else {
+						$response['message'] = __( 'Object Cache did not flush', 'planet4-master-theme' );
+						$response['class']   = 'cp-error';
+					}
+
+					if ( $response ) {
+						echo wp_json_encode( $response );
+					}
+				}
+				wp_die();
+			}
 		}
 
 		/**
@@ -146,6 +195,48 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 						} elseif ( is_string( $ens_response ) ) {
 							$response['message'] = $ens_response;
 							$response['class']   = 'cp-error';
+						}
+					}
+
+					if ( $response ) {
+						echo wp_json_encode( $response );
+					}
+				}
+				wp_die();
+			}
+		}
+
+		/**
+		 * Adds a check button to check the Indexer of the SearchWP plugin.
+		 */
+		public function check_search_indexer() {
+			if ( wp_doing_ajax() ) {
+				if ( ! current_user_can( 'manage_options' ) ) {
+					return;
+				}
+
+				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce',  FILTER_SANITIZE_STRING );
+				$cp_action = filter_input( INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING );
+
+				if ( wp_verify_nonce( $cp_nonce, 'cp-action' ) && 'check_search_indexer' === $cp_action ) {
+					$threshold = 180;
+					$response  = [];
+
+					$last_activity  = searchwp_get_setting( 'last_activity', 'stats' );
+					$running        = searchwp_get_setting( 'running' );
+					$doing_delta    = searchwp_get_option( 'doing_delta' );
+					$busy           = searchwp_get_option( 'busy' );
+
+					if ( ! is_null( $last_activity ) && false !== $last_activity ) {
+						if (
+							( current_time( 'timestamp' ) > $last_activity + absint( $threshold ) )
+							&& ! $running && ! $doing_delta && ! $busy
+						) {
+							$response['message'] = __( 'Indexer has stalled', 'planet4-master-theme' );
+							$response['class']   = 'cp-error';
+						} else {
+							$response['message'] = __( 'Indexer is awake', 'planet4-master-theme' );
+							$response['class']   = 'cp-success';
 						}
 					}
 
