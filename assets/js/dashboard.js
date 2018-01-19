@@ -6,6 +6,15 @@ $(function() {
 		event.preventDefault();
 		var $btn      = $(this);
 		var $response = $( '.cp-subitem-response', $btn.parent() );
+		var confirmation_text = $btn.data( 'confirm' );
+		var answer;
+
+		if ( confirmation_text ) {
+			answer = confirm( confirmation_text );
+			if ( ! answer ) {
+				return;
+			}
+		}
 
 		$.ajax({
 			url: ajaxurl,
