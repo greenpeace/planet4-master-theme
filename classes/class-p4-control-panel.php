@@ -106,6 +106,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		 * Adds a flush cache button to delete all keys in Redis database.
 		 */
 		public function flush_cache() {
+			// If this is an ajax call.
 			if ( wp_doing_ajax() ) {
 				// Allow this action only to Administrators.
 				if ( ! current_user_can( 'manage_options' ) ) {
@@ -115,9 +116,11 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce',  FILTER_SANITIZE_STRING );
 				$cp_action = filter_input( INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING );
 
+				// CSRF check and action check.
 				if ( wp_verify_nonce( $cp_nonce, 'cp-action' ) && 'flush_cache' === $cp_action ) {
 					$response = [];
 
+					// If cache flush was successful.
 					if ( wp_cache_flush() ) {
 						$response['message'] = __( 'Object Cache flushed', 'planet4-master-theme' );
 						$response['class']   = 'cp-success';
@@ -138,14 +141,16 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		 * Adds a check cache button to check connectivity to the Redis server.
 		 */
 		public function check_cache() {
+			// If this is an ajax call.
 			if ( wp_doing_ajax() ) {
+				// Allow this action only to Administrators.
 				if ( ! current_user_can( 'manage_options' ) ) {
 					return;
 				}
 				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce',  FILTER_SANITIZE_STRING );
 				$cp_action = filter_input( INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING );
 
-				// CSRF protection.
+				// CSRF check and action check.
 				if ( wp_verify_nonce( $cp_nonce, 'cp-action' ) && 'check_cache' === $cp_action ) {
 					$response = [];
 					$info     = wp_redis_get_info();
@@ -172,17 +177,19 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		 * Adds a check cache button to check the ENS API.
 		 */
 		public function check_engaging_networks() {
+			// If this is an ajax call.
 			if ( wp_doing_ajax() ) {
+				// Allow this action only to Administrators.
 				if ( ! current_user_can( 'manage_options' ) ) {
 					return;
 				}
 				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce',  FILTER_SANITIZE_STRING );
 				$cp_action = filter_input( INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING );
 
-				// CSRF protection.
+				// CSRF check and action check.
 				if ( wp_verify_nonce( $cp_nonce, 'cp-action' ) && 'check_engaging_networks' === $cp_action ) {
 					$response      = [];
-					$main_settings = get_option( 'p4en_main_settings' );
+					$main_settings = get_option( 'p4en_main_settings' );    // Retrieve stored EN Private API key.
 
 					if ( isset( $main_settings['p4en_private_api'] ) && $main_settings['p4en_private_api'] ) {
 						$ens_api           = new ENS_API();
@@ -210,7 +217,9 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		 * Adds a check button to check the Indexer of the SearchWP plugin.
 		 */
 		public function check_search_indexer() {
+			// If this is an ajax call.
 			if ( wp_doing_ajax() ) {
+				// Allow this action only to Administrators.
 				if ( ! current_user_can( 'manage_options' ) ) {
 					return;
 				}
@@ -218,8 +227,9 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce',  FILTER_SANITIZE_STRING );
 				$cp_action = filter_input( INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING );
 
+				// CSRF check and action check.
 				if ( wp_verify_nonce( $cp_nonce, 'cp-action' ) && 'check_search_indexer' === $cp_action ) {
-					$threshold = 180;
+					$threshold = 180;   // Period in seconds over which the Indexer will be considered stalled.
 					$response  = [];
 
 					$last_activity  = searchwp_get_setting( 'last_activity', 'stats' );
@@ -228,6 +238,8 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 					$busy           = searchwp_get_option( 'busy' );
 
 					if ( ! is_null( $last_activity ) && false !== $last_activity ) {
+						// If more than $threshold seconds have passed and the Indexer
+						// is not running or doing_delta or busy then consider it stalled.
 						if (
 							( current_time( 'timestamp' ) > $last_activity + absint( $threshold ) )
 							&& ! $running && ! $doing_delta && ! $busy
@@ -252,6 +264,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		 * Load assets.
 		 */
 		public function enqueue_admin_assets() {
+			// Load these assets only in Dashboard.
 			if ( ! is_admin() || 'dashboard' !== get_current_screen()->base ) {
 				return;
 			}
