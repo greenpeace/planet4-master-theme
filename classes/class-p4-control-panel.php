@@ -95,7 +95,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 					<div class="welcome-panel"><span><strong>' . esc_html( $data['title'] ) . '</strong></span>';
 			foreach ( $data['subitems'] as $subitem ) {
 				echo '<div>
-						<a href="#" class="btn btn-cp-action btn-' . esc_attr( $subitem['action'] ) . '-async" data-action="' . esc_attr( $subitem['action'] ) . '" data-confirm="' . esc_attr( $subitem['confirm'] ) . '">' . esc_html( $subitem['title'] ) . '</a>
+						<a href="#" class="btn btn-cp-action btn-' . esc_attr( $subitem['action'] ) . '-async" data-action="' . esc_attr( $subitem['action'] ) . '" data-confirm="' . esc_attr( isset( $subitem['confirm'] ) ? $subitem['confirm'] : '' ) . '">' . esc_html( $subitem['title'] ) . '</a>
 						<span class="cp-subitem-response"></span>
 					</div>';
 			}
