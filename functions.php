@@ -186,7 +186,7 @@ class P4_Master_Site extends TimberSite {
 		$context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
 		$context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
 		$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
-		$context['p4_comments_depth']     = get_option( 'thread_comments_depth' );
+		$context['p4_comments_depth']     = get_option( 'thread_comments_depth' ) ?? 1; // Default depth level set to 1 if not selected from admin.
 		return $context;
 	}
 
