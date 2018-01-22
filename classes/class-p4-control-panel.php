@@ -53,8 +53,9 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 				'title'    => __( 'Cache', 'planet4-master-theme' ),
 				'subitems' => [
 					[
-						'title'  => __( 'Flush Object Cache', 'planet4-master-theme' ),
-						'action' => 'flush_cache',
+						'title'   => __( 'Flush Object Cache', 'planet4-master-theme' ),
+						'action'  => 'flush_cache',
+						'confirm' => __( 'Are you sure you want to delete all Object Cache keys?', 'planet4-master-theme' ),
 					],
 					[
 						'title'  => __( 'Check Object Cache', 'planet4-master-theme' ),
@@ -74,7 +75,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 			] );
 
 			$this->add_item( [
-				'title'    => __( 'SearchWP', 'planet4-master-theme' ),
+				'title'    => __( 'Search', 'planet4-master-theme' ),
 				'subitems' => [
 					[
 						'title'  => __( 'Check Search Indexer', 'planet4-master-theme' ),
@@ -94,7 +95,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 					<div class="welcome-panel"><span><strong>' . esc_html( $data['title'] ) . '</strong></span>';
 			foreach ( $data['subitems'] as $subitem ) {
 				echo '<div>
-						<a href="#" class="btn btn-cp-action btn-' . esc_attr( $subitem['action'] ) . '-async" data-action="' . esc_attr( $subitem['action'] ) . '">' . esc_html( $subitem['title'] ) . '</a>
+						<a href="#" class="btn btn-cp-action btn-' . esc_attr( $subitem['action'] ) . '-async" data-action="' . esc_attr( $subitem['action'] ) . '" data-confirm="' . esc_attr( isset( $subitem['confirm'] ) ? $subitem['confirm'] : '' ) . '">' . esc_html( $subitem['title'] ) . '</a>
 						<span class="cp-subitem-response"></span>
 					</div>';
 			}
