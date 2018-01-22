@@ -7,3 +7,6 @@
 		{{ fn('str_replace', 'comment-reply-link', 'comment-reply-link btn btn-small btn-secondary comment-reply-btn',  comment.reply_link)|raw }}
 	</footer>
 </article>
+{% for cmt in comment.children %}
+	{% include "child_comments.twig" with {comment:cmt, index: loop.index} %}
+{% endfor %}
