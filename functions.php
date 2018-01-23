@@ -724,25 +724,6 @@ class P4_Master_Site extends TimberSite {
 		] );
 
 		$p4_post->add_field( [
-			'name'    => __( 'Articles Title', 'planet4-master-theme' ),
-			'desc'    => __( 'Title for articles block', 'planet4-master-theme' ),
-			'id'      => $prefix . 'articles_title',
-			'type'    => 'text_medium',
-			'default' => planet4_get_option( 'articles_block_title', '' ) ?? '',
-		] );
-
-		$p4_post->add_field( [
-			'name'       => __( 'Articles Count', 'planet4-master-theme' ),
-			'desc'       => __( 'Number of articles that should be displayed for articles block', 'planet4-master-theme' ),
-			'id'         => $prefix . 'articles_count',
-			'type'       => 'text_medium',
-			'default'    => planet4_get_option( 'articles_count', '' ) ?? '',
-			'attributes' => [
-				'type' => 'number',
-			],
-		] );
-
-		$p4_post->add_field( [
 			'name' => __( 'Author Override', 'planet4-master-theme' ),
 			'desc' => __( 'Enter author name if you want to override the author', 'planet4-master-theme' ),
 			'id'   => $prefix . 'author_override',
@@ -756,6 +737,13 @@ class P4_Master_Site extends TimberSite {
 			'type'             => 'select',
 			'show_option_none' => true,
 			'options_cb'       => [ $this, 'populate_act_page_children_options' ],
+		] );
+
+		$p4_post->add_field( [
+			'name'       => __( 'Include Articles In Post', 'planet4-master-theme' ),
+			'id'         => 'include_articles',
+			'type'       => 'checkbox',
+			'default'    => 'on',
 		] );
 
 		$p4_post->add_field( [
