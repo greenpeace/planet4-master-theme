@@ -63,14 +63,8 @@ if ( ! empty( $articles_title ) ) {
 // Build the shortcode for take action boxout block
 // Break the content to retrieve first 2 paragraphs and split the content if the take action page has been defined.
 if ( ! empty( $take_action_page ) ) {
-	$post->take_action_page = $take_action_page;
+	$post->take_action_page   = $take_action_page;
 	$post->take_action_boxout = "[shortcake_take_action_boxout take_action_page='$take_action_page' /]";
-	$parts = preg_split( "/(\r\n|\n|\r)/", $post->post_content, 3 );
-	if ( count( $parts ) === 3 ) {
-		$post->first_paragraph  = $parts[0];
-		$post->second_paragraph = $parts[1];
-		$post->post_content     = $parts[2];
-	}
 }
 
 // Build an arguments array to customize WordPress comment form.
