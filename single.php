@@ -37,8 +37,8 @@ $context['post'] = $post;
 $options                     = get_option( 'planet4_options' );
 $page_meta_data              = get_post_meta( $post->ID );
 $page_terms_data             = get_the_terms( $post, 'p4-page-type' );
-$articles_title              = $page_meta_data['p4_articles_title'][0] ?? ( $options['articles_block_title'] ?? '' );
-$articles_count              = $page_meta_data['p4_articles_count'][0] ?? ( $options['articles_count'] ?? '' );
+$articles_title              = $options['articles_block_title'] ?? __( 'Related Articles', 'planet4-master-theme' );
+$articles_count              = $options['articles_count'] ?? 3;
 $articles_count              = 0 === intval( $articles_count ) ? 3 : intval( $articles_count );
 $context['author_override']  = $page_meta_data['p4_author_override'][0] ?? '';
 $context['background_image'] = $page_meta_data['p4_background_image_override'][0] ?? '';
@@ -56,21 +56,15 @@ $context['filter_url'] = add_query_arg( [
 
 
 // Build the shortcode for articles block.
-if ( ! empty( $articles_title ) ) {
+if ( ! empty( $articles_title ) &&  'on' === $post->include_articles ) {
 	$post->articles = "[shortcake_articles article_heading='$articles_title' article_count='$articles_count' /]";
 }
 
 // Build the shortcode for take action boxout block
 // Break the content to retrieve first 2 paragraphs and split the content if the take action page has been defined.
 if ( ! empty( $take_action_page ) ) {
-	$post->take_action_page = $take_action_page;
+	$post->take_action_page   = $take_action_page;
 	$post->take_action_boxout = "[shortcake_take_action_boxout take_action_page='$take_action_page' /]";
-	$parts = preg_split( "/(\r\n|\n|\r)/", $post->post_content, 3 );
-	if ( count( $parts ) === 3 ) {
-		$post->first_paragraph  = $parts[0];
-		$post->second_paragraph = $parts[1];
-		$post->post_content     = $parts[2];
-	}
 }
 
 // Build an arguments array to customize WordPress comment form.

@@ -205,12 +205,12 @@ $('.country-select-box .country-list li').click(function(){
 });
 
 $('.country-selectbox').click(function(){
-  $(this).toggleClass('active');	
+  $(this).toggleClass('active');
   $(this).parent().find('.option-contry').toggleClass('active');
 });
 
   // $(window).scroll(function() {
-  //   if ($(this).scrollTop() > 130){  
+  //   if ($(this).scrollTop() > 130){
   //       $('.fixed-element, .md-navigation').addClass("sticky");
   //   }
   //   else{
@@ -336,28 +336,50 @@ if($( window ).width() <= 768) {
 };
 
 $(function() {
-	$('.publications-slider').slick({
-		infinite:       false,
-		mobileFirst:    true,
-		slidesToShow:   2.2,
-		slidesToScroll: 1,
-		arrows:         false,
-		dots:           false,
-		responsive: [
-			{
-				breakpoint: 992,
-				settings: { slidesToShow: 4 }
-			},
-			{
-				breakpoint: 768,
-				settings: { slidesToShow: 3 }
-			},
-			{
-				breakpoint: 576,
-				settings: { slidesToShow: 2 }
-			}
-		]
-	});
+  // Force the Cover card to follow scroll
+  var $sidebar = $("#action-card");
+  var $window = $(window);
+  var offset = $sidebar.offset();
+  var topPadding = 100;
+
+  if ($sidebar.length > 0) {
+    $window.scroll(function () {
+      if ($window.scrollTop() > offset.top && $sidebar.css('float') != 'none') {
+        $sidebar.stop().animate({
+          marginTop: $window.scrollTop() - offset.top + topPadding
+        });
+      } else {
+        $sidebar.stop().animate({
+          marginTop: 0
+        });
+      }
+    });
+  }
+});
+
+$(function() {
+  $('.publications-slider').slick({
+    infinite: false,
+    mobileFirst: true,
+    slidesToShow: 2.2,
+    slidesToScroll: 1,
+    arrows: false,
+    dots: false,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {slidesToShow: 4}
+      },
+      {
+        breakpoint: 768,
+        settings: {slidesToShow: 3}
+      },
+      {
+        breakpoint: 576,
+        settings: {slidesToShow: 2}
+      }
+    ]
+  });
 });
 
 
