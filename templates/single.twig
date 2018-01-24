@@ -39,12 +39,10 @@
 				{% if ( post.take_action_boxout ) %}
 					{{ post.take_action_boxout|shortcodes|raw }}
 				{% endif %}
-				<div class="row">
-					<div class="col-lg-12 post-content-lead">
-						<article class="post-details">
-							{{ post.content|e('wp_kses_post')|raw }}
-						</article>
-					</div>
+				<div class="post-content-lead">
+					<article class="post-details">
+						{{ post.content|e('wp_kses_post')|raw }}
+					</article>
 				</div>
 			</div>
 		</div>
