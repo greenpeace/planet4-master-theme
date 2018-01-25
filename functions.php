@@ -742,8 +742,11 @@ class P4_Master_Site extends TimberSite {
 		$p4_post->add_field( [
 			'name'       => __( 'Include Articles In Post', 'planet4-master-theme' ),
 			'id'         => 'include_articles',
-			'type'       => 'checkbox',
-			'default'    => 'on',
+			'type'       => 'select',
+			'options'    => [
+				'yes' => 'Yes',
+				'no'  => 'No',
+			],
 		] );
 
 		$p4_post->add_field( [
