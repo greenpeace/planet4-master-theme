@@ -1,5 +1,9 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	{{ post.content|raw }}
+	<div class="page-template">
+		<div class="container">
+			{{ post.content|raw }}
+		</div>
+	</div>
 {% endblock %}
