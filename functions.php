@@ -115,7 +115,7 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'searchwp_query_orderby',   array( $this, 'edit_searchwp_query_orderby' ), 11, 2 );
 		add_filter( 'posts_where',              array( $this, 'edit_search_mime_types' ) );
 		add_action( 'cmb2_admin_init',          array( $this, 'register_header_metabox' ) );
-		add_action( 'pre_get_posts',            array( $this, 'tags_support_query' ) );
+//		add_action( 'pre_get_posts',            array( $this, 'tags_support_query' ) );
 		add_action( 'admin_enqueue_scripts',    array( $this, 'enqueue_admin_assets' ) );
 		add_action( 'wp_enqueue_scripts',       array( $this, 'enqueue_public_assets' ) );
 		add_filter( 'wp_kses_allowed_html',     array( $this, 'set_custom_allowed_attributes_filter' ) );
@@ -294,13 +294,13 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function enqueue_public_assets() {
 		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', array(), '4.0.0-alpha.6' );
-		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], '0.0.44' );
+		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], '0.0.47' );
 		wp_enqueue_style( 'slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css', array(), '1.8.1' );
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 		wp_enqueue_script( 'popperjs', $this->theme_dir . '/assets/js/popper.min.js', array(), '1.11.0', true );
 		wp_enqueue_script( 'bootstrapjs', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', array(), '4.0.0-beta', true );
 		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.2.1', true );
-		wp_enqueue_script( 'custom', $this->theme_dir . '/assets/js/custom.js', array( 'jquery' ), '0.1.7', true );
+		wp_enqueue_script( 'custom', $this->theme_dir . '/assets/js/custom.js', array( 'jquery' ), '0.1.8', true );
 		wp_enqueue_script( 'slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array(), '0.1.0', true );
 		if ( is_search() ) {
 			wp_enqueue_script( 'search', $this->theme_dir . '/assets/js/search.js', array( 'jquery' ), '0.1.2', true );
@@ -742,8 +742,11 @@ class P4_Master_Site extends TimberSite {
 		$p4_post->add_field( [
 			'name'       => __( 'Include Articles In Post', 'planet4-master-theme' ),
 			'id'         => 'include_articles',
-			'type'       => 'checkbox',
-			'default'    => 'on',
+			'type'       => 'select',
+			'options'    => [
+				'yes' => 'Yes',
+				'no'  => 'No',
+			],
 		] );
 
 		$p4_post->add_field( [

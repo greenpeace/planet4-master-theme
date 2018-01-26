@@ -56,8 +56,8 @@ $context['filter_url'] = add_query_arg( [
 
 
 // Build the shortcode for articles block.
-if ( ! empty( $articles_title ) &&  'on' === $post->include_articles ) {
-	$post->articles = "[shortcake_articles article_heading='$articles_title' article_count='$articles_count' /]";
+if ( ! empty( $articles_title ) && 'yes' === $post->include_articles ) {
+	$post->articles = "[shortcake_articles exclude_post_id='".$post->ID."' article_heading='$articles_title' article_count='$articles_count' /]";
 }
 
 // Build the shortcode for take action boxout block
