@@ -17,7 +17,7 @@
 						<a class="tag-item tag-item--main" href="{{ filter_url }}">{{ page_type }}</a>
 					{% endif %}
 					{% for tag in post.tags %}
-						<a class="tag-item " href="{{ tag.link }}">#{{ tag.title }}</a>
+						<a class="tag-item " href="{{ tag.link }}">#{{ tag_name|e('wp_kses_post')|raw }}</a>
 					{% endfor %}
 				</div>
 				<h1 class="page-header-title">{{ post.title|raw }}</h1>
