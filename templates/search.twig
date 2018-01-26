@@ -26,6 +26,8 @@
 				<div class="col-md-12">
 					<div class="search-bar">
 						<form id="search_form_inner" role="search" class="form" action="{{ data_nav_bar.home_url }}">
+							{# <input type="hidden" id="_wpnonce_inner" name="_wpnonce" value="{{ nonce }}" />
+							<input type="hidden" name="_wp_http_referer_inner" value="{{ referrer }}" /> #}
 							<div class="row">
 								<div class="{{ source_selection ? 'col-md-5' : 'col-md-9' }}">
 									<input type="search" class="form-control mb-2 mb-sm-0" placeholder="{{ __( 'Search', domain ) }}" value="{{ search_query|e('wp_kses_post')|raw }}" name="s" aria-label="Search">
@@ -288,17 +290,20 @@
 							</div>
 						</div>
 						<div class="multiple-search-result">
-							{% if ( pagination ) %}
-								{% set posts = paged_posts %}
+							{# TODO - The 'not search_query' part will be removedd after applying Lazy-loading when searching specific term. #}
+							{% if ( not search_query and ( load_more.async or pagination ) ) %}
+								{% set displayed_posts = paged_posts %}
+							{% else %}
+								{% set displayed_posts = posts %}
 							{% endif %}
 							<ul class="list-unstyled">
-								{% for post in posts %}
+								{% for post in displayed_posts %}
 									{% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
 								{% endfor %}
 							</ul>
-							{% if ( load_more and posts|length > load_more.posts_per_load ) %}
+							{% if ( load_more and posts|length > paged_posts|length ) %}
 								<div class="col-lg-4 col-md-6 mb-5 load-more-button-div">
-									<button class="btn btn-medium btn-small btn-secondary more-btn btn-load-more-click-scroll">{{ load_more.button_text }}</button>
+									<button class="btn btn-medium btn-small btn-secondary more-btn {{ load_more.async and not search_query ? 'btn-load-more-async' : '' }} btn-load-more-click-scroll" data-current_page="{{ current_page }}">{{ load_more.button_text }}</button>
 								</div>
 							{% endif %}
 							{% if ( pagination ) %}
