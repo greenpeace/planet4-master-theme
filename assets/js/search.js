@@ -81,7 +81,6 @@ $(function() {
 					'search-action': 'get_paged_posts',
 					'paged':         next_page,
 					'query-string':  decodeURIComponent( location.search ).substr( 1 )		// Ignore the ? in the search url (first char).
-					//'_wpnonce':      $( '#_wpnonce' ).val()
 				},
 				dataType: 'html'
 			})

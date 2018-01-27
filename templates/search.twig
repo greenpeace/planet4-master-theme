@@ -26,8 +26,6 @@
 				<div class="col-md-12">
 					<div class="search-bar">
 						<form id="search_form_inner" role="search" class="form" action="{{ data_nav_bar.home_url }}">
-							{# <input type="hidden" id="_wpnonce_inner" name="_wpnonce" value="{{ nonce }}" />
-							<input type="hidden" name="_wp_http_referer_inner" value="{{ referrer }}" /> #}
 							<div class="row">
 								<div class="{{ source_selection ? 'col-md-5' : 'col-md-9' }}">
 									<input type="search" class="form-control mb-2 mb-sm-0" placeholder="{{ __( 'Search', domain ) }}" value="{{ search_query|e('wp_kses_post')|raw }}" name="s" aria-label="Search">

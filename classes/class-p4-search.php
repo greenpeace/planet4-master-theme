@@ -132,14 +132,11 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		public function get_paged_posts() {
 			// If this is an ajax call.
 			if ( wp_doing_ajax() ) {
-				//$search_nonce  = filter_input( INPUT_GET, '_wpnonce',  FILTER_SANITIZE_STRING );
 				$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
 				$paged         = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_STRING );
 
 				// CSRF check and action check.
-				if ( 'get_paged_posts' === $search_action
-					 //&& wp_verify_nonce( $search_nonce, 'search-action' )
-				) {
+				if ( 'get_paged_posts' === $search_action ) {
 					// Get the decoded url query string and then use it as key for redis.
 					$query_string       = filter_input( INPUT_GET, 'query-string', FILTER_SANITIZE_STRING );
 					$group              = 'search';
@@ -149,19 +146,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					// Get search results from cache and then set the context for those results.
 					$this->posts = wp_cache_get( $query_string, "$group:$subgroup" );
 
-					// TODO - Set the correct filters so that it will work when searching
-					// TODO - for specific term with filters applied.
-//					if ( false === $this->posts ) {
-//						parse_str( $query_string, $query_params );
-//						$selected_sort = $query_params['orderby'];
-//						$filters = [];
-//						// Validate user input (sort, filters, etc).
-//						if ( $this->validate( $selected_sort, $filters, $this->context ) ) {
-//							$this->selected_sort = $selected_sort;
-//							$this->filters       = $filters;
-//						}
-//					}
-
+					// TODO - Set the correct filters so that it will work when searching for specific term with filters applied.
 					// If cache key expired then retrieve results once again and re-cache them.
 					if ( false === $this->posts ) {
 						$this->posts = $this->get_timber_posts();
@@ -296,6 +281,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 						}
 					}
 				}
+				// This may no longer be needed. Needs more testing.
 				if ( $this->search_query && ! isset( $this->filters['ctype'] ) ) {
 					unset( $args['post_type'] );
 				}
@@ -355,8 +341,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['default_sort']     = self::DEFAULT_SORT;
 			$context['filters']          = $this->filters;
 			$context['found_posts']      = count( (array) $this->posts );
-			//$context['nonce']            = wp_create_nonce( 'search-action' );
-			//$context['referrer']         = wp_unslash( filter_input( INPUT_SERVER, 'REQUEST_URI' ) );
 			$context['source_selection'] = false;
 			$context['page_category']    = $category->name ?? __( 'Search page', 'planet4-master-theme' );
 
@@ -390,6 +374,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 			// Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
 			$options = get_option( 'planet4_options' );
+
+			// Set default thumbnail.
+			$context['posts_data']['dummy_thumbnail'] = get_template_directory_uri() . self::DUMMY_THUMBNAIL;
 
 			foreach ( (array) $posts as $post ) {
 				// Category <-> Issue.
@@ -463,6 +450,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				}
 			}
 
+			// TODO - All the rest of the code of this method should be transferred for better separation of concerns
+			// TODO - to the set_general_context method as it is not related to the actual results that are displayed.
+			// Calculate the results for each Content Type and pass it along with their labels.
 			if ( $context['posts_data']['found_actions'] > 0 ) {
 				$context['content_types']['0'] = [
 					'name'    => __( 'Action', 'planet4-master-theme' ),
@@ -488,13 +478,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				];
 			}
 
-			// Set default thumbnail.
-			$context['posts_data']['dummy_thumbnail'] = get_template_directory_uri() . self::DUMMY_THUMBNAIL;
-
-			// Set the number of the results left for the Load more button.
-			$context['button_text'] = sprintf( __( 'SHOW %s MORE RESULTS', 'planet4-master-theme' ), count( $this->paged_posts ) );
-
-			// Track checked filters.
+			// Keep track of which filters are already checked.
 			if ( $this->filters ) {
 				foreach ( $this->filters as $type => $filter_type ) {
 					foreach ( $filter_type as $filter ) {
@@ -607,6 +591,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * View the paged posts of the next page/load.
 		 */
 		public function view_paged_posts() {
+			// TODO - The $paged_context related code should be transferred to set_results_context method for better separation of concerns.
 			if ( $this->paged_posts ) {
 				$paged_context = [
 					'posts_data'  => $this->context['posts_data'],
