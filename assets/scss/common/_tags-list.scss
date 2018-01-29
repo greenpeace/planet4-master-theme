@@ -1,0 +1,42 @@
+.tags-list {
+  padding-left: 0;
+  font-family: $roboto;
+  margin-bottom: 0;
+}
+
+.tag-item {
+  list-style-type: none;
+  display: inline-block;
+  font-weight: 300;
+  font-size: 0.875rem;
+  color: $blue;
+
+  a {
+    color: inherit;
+
+    &:hover,
+    &:active {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+}
+
+.tag-item--main {
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-right: 20px;
+  position: relative;
+
+  &:after {
+    content: "\2022";
+    pointer-events: none;
+    display: inline-block;
+    position: absolute;
+    right: -15px;
+
+    @include mobile-only {
+      display: none;
+    }
+  }
+}
