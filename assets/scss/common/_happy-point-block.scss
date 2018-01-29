@@ -4,7 +4,7 @@
   background: url("images/happy-point-block-bg.jpg") center center no-repeat;
   background-size: cover;
   height: 620px;
-  width: 100%;
+  width: 100vw;
   position: relative;
 }
 
@@ -32,8 +32,8 @@
 @media (max-width: 767px) {
   .happy-point-block-wrap {
     height: 444px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
     .pt-20 {
       padding-top: 126px;
       padding-left: 0;
