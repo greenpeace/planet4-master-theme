@@ -626,7 +626,8 @@ class P4_Master_Site extends TimberSite {
 			$take_action_pages_args = [
 				'post_type'   => 'page',
 				'post_parent' => $parent_act_id,
-				'numberposts' => -1,
+				'post_status' => 'publish',
+                'numberposts' => -1,
 			];
 
 			$posts          = get_posts( $take_action_pages_args );
