@@ -336,6 +336,28 @@ if($( window ).width() <= 768) {
 };
 
 $(function() {
+  // Force wide blocks outside the container
+
+  var $wideblocks = $('.block-wide');
+
+  function force_wide_blocks() {
+    var vw = $('.page-template').width();
+    $wideblocks.each(function(){
+      var width = $(this).innerWidth();
+
+      var margin = ((vw - width) / 2);
+
+      $(this).css('margin-left', margin + 'px');
+    });
+  }
+
+  if ($wideblocks.length > 0) {
+    force_wide_blocks();
+    $(window).on('resize', force_wide_blocks);
+  }
+});
+
+$(function() {
   // Force the Cover card to follow scroll
   var $sidebar = $("#action-card");
   var $window = $(window);
