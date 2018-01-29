@@ -123,6 +123,9 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'save_post',                array( $this, 'save_meta_box_search' ), 10, 2 );
 		add_action( 'save_post',                array( $this, 'p4_save_page_type' ) );
 		add_action( 'after_setup_theme',        array( $this, 'p4_master_theme_setup' ) );
+		add_action( 'admin_menu',               array( $this, 'add_restricted_tags_box' ) );
+		add_action( 'do_meta_boxes',            array( $this, 'remove_default_tags_box' ) );
+		add_action( 'pre_insert_term',          array( $this, 'disallow_insert_term' ), 1, 2 );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -763,6 +766,90 @@ class P4_Master_Site extends TimberSite {
 			],
 			'preview_size' => 'large',
 		] );
+	}
+
+	/**
+	 * Add restricted tags box for all roles besides administrator.
+	 * A list of checkboxes representing the tags will be rendered.
+	 */
+	public function add_restricted_tags_box() {
+
+		if ( current_user_can( 'administrator' ) ) {
+			return;
+		}
+		add_meta_box( 'restricted_tags_box',
+			__( 'Tags' ),
+			[ $this, 'print_restricted_tags_box' ],
+			[ 'post', 'page' ],
+			'side'
+		);
+	}
+
+	/**
+	 * Restrict creation of tags from all roles besides administrator.
+	 *
+	 * @param string $term The term to be added.
+	 * @param string $taxonomy Taxonomy slug.
+	 *
+	 * @return WP_Error|string
+	 */
+	public function disallow_insert_term( $term, $taxonomy ) {
+
+		$user = wp_get_current_user();
+
+		if ( 'post_tag' === $taxonomy && ! in_array( 'administrator', (array) $user->roles, true ) ) {
+
+			return new WP_Error(
+				'disallow_insert_term',
+				__( 'Your role does not have permission to add terms to this taxonomy' )
+			);
+
+		}
+
+		return $term;
+	}
+
+	/**
+	 * Fetch all tags and find which are assinged to the post and pass them as arguments to tags box template.
+	 *
+	 * @param WP_Post $post Post object.
+	 */
+	public function print_restricted_tags_box( $post ) {
+		$all_post_tags = get_terms( 'post_tag', [ 'get' => 'all' ] );
+		$assigned_tags = wp_get_object_terms( $post->ID, 'post_tag' );
+
+		$assigned_ids = [];
+		foreach ( $assigned_tags as $assigned_tag ) {
+			$assigned_ids[] = $assigned_tag->term_id;
+		}
+
+		$this->render_partial( 'partials/tags_box', [ 'tags' => $all_post_tags, 'assigned_tags' => $assigned_ids ] );
+	}
+
+	/**
+	 * Remove default WordPress tags selection box for all roles besides administrator.
+	 */
+	public function remove_default_tags_box() {
+
+		if ( current_user_can( 'administrator' ) ) {
+			return;
+		}
+
+		remove_meta_box( 'tagsdiv-post_tag', [ 'post', 'page' ], 'normal' );
+		remove_meta_box( 'tagsdiv-post_tag', [ 'post', 'page' ], 'side' );
+	}
+
+	/**
+	 * Load a partial template and pass variables to it.
+	 *
+	 * @param string $path  path to template file, minus .php (eg. `content-page`, `partial/template-name`).
+	 * @param array  $args  array of variables to load into scope.
+	 */
+	private function render_partial( $path, $args = [] ) {
+		if ( ! empty( $args ) ) {
+			extract( $args );
+		}
+		include( locate_template( $path . '.php' ) );
 	}
 }
 
