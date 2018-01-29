@@ -1,5 +1,5 @@
 <article class="single-comment {{ comment.comment_type }} comment-level-{{ comment.depth }}" id="comment-{{ comment.ID }}" >
-	<p itemprop="commentText" class="single-comment-text">{{ comment.comment_content|wpautop|raw }}</p>
+	<p itemprop="commentText" class="single-comment-text">{{ comment.comment_content|wpautop|striptags( '<br>,<p>' )|raw }}</p>
 	<footer class="single-comment-meta">
 		<span class="author-info" itemprop="author">{{ comment.author.name }}</span>
 		<time datetime="" class="comment-date" itemprop="commentTime">{{ comment.date }}</time>
