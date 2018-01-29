@@ -9,14 +9,14 @@ Stylesheet: Mixins Stylesheet
  Media Queries
 *********************/
 
-// Mobile-only (up to 575px)
+// Mobile-only (up to 576px)
 @mixin mobile-only {
   @media (max-width: #{$small-width}) {
     @content;
   }
 }
 
-// Mobile & Up (greater than to 575px)
+// Mobile & Up (greater than to 576px)
 @mixin small-and-up {
   @media (min-width: #{$small-width}) {
     @content;
@@ -37,7 +37,7 @@ Stylesheet: Mixins Stylesheet
   }
 }
 
-// Large Desktop & Up (greater than 1480px)
+// Large Desktop & Up (greater than 1200px)
 @mixin x-large-and-up {
   @media (min-width: #{$extra-large-width}) {
     @content;
@@ -221,7 +221,7 @@ $baseFontSize : 16;
   @return $pixels / $context * 1rem;
 }
 
-/* Generates mutilevel nested comments 
+/* Generates mutilevel nested comments
   level-1 is the first level comment with a margin of 50px
   level-2 is the first level comment with a margin of 100px
   and so on...
