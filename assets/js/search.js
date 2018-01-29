@@ -67,7 +67,6 @@ $(function() {
 
 	// Add click event for load more button in blocks.
 	$load_more_button.off( 'click' ).on( 'click', function() {
-
 		// If this button has this class then Lazy-loading is enabled.
 		if ( $(this).hasClass( 'btn-load-more-async' ) ) {
 			var next_page = $(this).data( 'current_page' ) + 1;
@@ -88,11 +87,14 @@ $(function() {
 				// Append the response at the bottom of the results and then show it.
 				$( '.multiple-search-result .list-unstyled' ).append( response );
 				$( '.row-hidden:last' ).removeClass( 'row-hidden' ).show( 'fast' );
+			})
+			.fail(function ( jqXHR, textStatus, errorThrown ) {
+				console.log( errorThrown );
 			});
 		} else {
 			var $row = $( '.row-hidden', $load_more_button.closest( '.container' ) );
 
-			if ( 1 === $row.size() ) {
+			if ( 1 === $row.length ) {
 				$load_more_button.closest( '.load-more-button-div' ).hide( 'fast' );
 			}
 			$row.first().show( 'fast' ).removeClass( 'row-hidden' );

@@ -127,6 +127,9 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'do_meta_boxes',            array( $this, 'remove_default_tags_box' ) );
 		add_action( 'pre_insert_term',          array( $this, 'disallow_insert_term' ), 1, 2 );
 
+		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
+		add_action( 'wp_ajax_nopriv_get_paged_posts', array( 'P4_Search', 'get_paged_posts' ) );
+
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
@@ -863,9 +866,8 @@ class P4_Master_Site extends TimberSite {
 	}
 }
 
-$p4 = new P4_Master_Site( [
+new P4_Master_Site( [
 	'P4_Taxonomy_Image',
 	'P4_Settings',
 	'P4_Control_Panel',
-	'P4_Search',
 ] );

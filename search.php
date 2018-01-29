@@ -14,8 +14,6 @@
  */
 if ( is_main_query() && is_search() ) {
 	if ( 'GET' === filter_input( INPUT_SERVER, 'REQUEST_METHOD' ) ) {
-		global $p4;
-
 		$selected_sort    = filter_input( INPUT_GET, 'orderby',  FILTER_SANITIZE_STRING );
 		$selected_filters = $_GET['f'];
 		$filters          = [];
@@ -32,11 +30,7 @@ if ( is_main_query() && is_search() ) {
 			}
 		}
 
-		// Get the already initialized P4_Search service.
-		/**
-		 * @var P4_Search $search
-		 */
-		$search = $p4->get_services()['P4_Search'];
+		$search = new P4_Search();
 		$search->load( trim( get_search_query() ), $selected_sort, $filters );
 		$search->add_load_more();
 		$search->view();

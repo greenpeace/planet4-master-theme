@@ -50,7 +50,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * P4_Search constructor.
 		 */
 		public function __construct() {
-			$this->initialize();
+			//$this->initialize();
 		}
 
 		/**
@@ -60,9 +60,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$this->localizations = [
 				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
 			];
-			add_action( 'wp_ajax_get_paged_posts',        array( $this, 'get_paged_posts' ) );
-			add_action( 'wp_ajax_nopriv_get_paged_posts', array( $this, 'get_paged_posts' ) );
-			add_action( 'wp_enqueue_scripts',             array( $this, 'enqueue_public_assets' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_assets' ) );
 		}
 
 		/**
@@ -75,6 +73,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * @param array|null $context An associative array with all the context needed to render the template found first.
 		 */
 		public function load( $search_query, $selected_sort = self::DEFAULT_SORT, $filters = [], $templates = [ 'search.twig', 'archive.twig', 'index.twig' ], $context = null ) {
+			$this->initialize();
 			$this->search_query = $search_query;
 			$this->templates    = $templates;
 
@@ -95,14 +94,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$subgroup     = $this->search_query ? $this->search_query : 'all';
 
 				// Check Object cache for stored key.
-				$this->posts = wp_cache_get( $query_string, "$group:$subgroup" );
-				if ( false === $this->posts ) {
-					// If cache key was not found then get them from the primary database and add them to object cache.
-					$this->posts = $this->get_timber_posts();
-					if ( $this->posts ) {
-						wp_cache_add( $query_string, $this->posts, "$group:$subgroup", self::DEFAULT_CACHE_TTL );
-					}
-				}
+				$this->check_cache( $query_string, "$group:$subgroup" );
 
 				// If posts were found either in object cache or primary database then get the first POSTS_PER_LOAD results.
 				if ( $this->posts ) {
@@ -137,38 +129,52 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 				// Check if call action is correct.
 				if ( 'get_paged_posts' === $search_action ) {
+					$search_async = new self();
+					$search_async->search_query = trim( get_search_query() );
+
 					// Get the decoded url query string and then use it as key for redis.
 					$query_string       = filter_input( INPUT_GET, 'query-string', FILTER_SANITIZE_STRING );
 					$group              = 'search';
-					$subgroup           = $this->search_query ? $this->search_query : 'all';
-					$this->current_page = $paged;
-
-					// Get search results from cache and then set the context for those results.
-					$this->posts = wp_cache_get( $query_string, "$group:$subgroup" );
+					$subgroup           = $search_async->search_query ? $search_async->search_query : 'all';
+					$search_async->current_page = $paged;
 
 					// TODO - Set the correct filters so that it will work when searching for specific term with filters applied.
-					// If cache key expired then retrieve results once again and re-cache them.
-					if ( false === $this->posts ) {
-						$this->posts = $this->get_timber_posts();
-						if ( $this->posts ) {
-							wp_cache_add( $query_string, $this->posts, "$group:$subgroup", self::DEFAULT_CACHE_TTL );
-						}
-					}
+					// Check Object cache for stored key.
+					$search_async->check_cache( $query_string, "$group:$subgroup" );
 
 					// Check if there are results already in the cache else fallback to the primary database.
-					if ( $this->posts ) {
-						$this->paged_posts = array_slice( $this->posts, ( $this->current_page - 1 ) * self::POSTS_PER_LOAD, self::POSTS_PER_LOAD );
+					if ( $search_async->posts ) {
+						$search_async->paged_posts = array_slice( $search_async->posts, ( $search_async->current_page - 1 ) * self::POSTS_PER_LOAD, self::POSTS_PER_LOAD );
 					} else {
-						$this->paged_posts = $this->get_timber_posts( $this->current_page );
+						$search_async->paged_posts = $search_async->get_timber_posts( $search_async->current_page );
 					}
 
 					// If there are paged results then set their context and send them back to client.
-					if ( $this->paged_posts ) {
-						$this->set_results_context( $this->context );
-						$this->view_paged_posts();
+					if ( $search_async->paged_posts ) {
+						$search_async->set_results_context( $search_async->context );
+						$search_async->view_paged_posts();
 					}
 				}
 				wp_die();
+			}
+		}
+
+		/**
+		 * Check if search is cached. If it is not then get posts from primary database and cache it.
+		 *
+		 * @param string $cache_key The key that will be used for storing the results in the object cache.
+		 * @param string $cache_group The group that will be used for storing the results in the object cache.
+		 */
+		protected function check_cache( $cache_key, $cache_group ) {
+			// Get search results from cache and then set the context for those results.
+			$this->posts = wp_cache_get( $cache_key, $cache_group );
+
+			// If cache key expired then retrieve results once again and re-cache them.
+			if ( false === $this->posts ) {
+				$this->posts = $this->get_timber_posts();
+				if ( $this->posts ) {
+					wp_cache_add( $cache_key, $this->posts, $cache_group, self::DEFAULT_CACHE_TTL );
+				}
 			}
 		}
 
@@ -280,10 +286,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 								break;
 						}
 					}
-				}
-				// This may no longer be needed. Needs more testing.
-				if ( $this->search_query && ! isset( $this->filters['ctype'] ) ) {
-					unset( $args['post_type'] );
 				}
 			}
 
