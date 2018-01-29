@@ -1,0 +1,116 @@
+.page-404-page {
+
+  .page-header-background {
+    left: -200px;
+
+    @include small-and-up {
+      left: 0;
+    }
+
+    .page-header-image {
+      margin-top: 55px;
+      max-width: none;
+      overflow: hidden;
+      width: 120%;
+
+      @include large-and-up {
+        margin-top: -20px;
+        width: 100%;
+      }
+
+      @include x-large-and-up {
+        margin-top: -200px;
+      }
+    }
+  }
+
+  .page-header {
+    color: $black;
+    min-height: 1200px;
+    padding-top: 80px;
+
+    @include medium-and-up {
+      padding-top: 110px;
+    }
+
+    .page-header-content {
+      color: #152340;
+    }
+
+    .page-header-subtitle {
+      margin-top: 150px;
+
+      @include small-and-up {
+        margin-top: 30px;
+      }
+
+      @include medium-and-up {
+        margin-top: -10px;
+      }
+
+      @include large-and-up {
+        margin-top: -30px;
+      }
+    }
+
+    .search-form-title {
+      font-weight: bold;
+      color: #152340;
+    }
+
+    .search-form {
+      padding-top: 10px;
+
+      .form-control {
+        border-radius: 0;
+        padding: 10px;
+      }
+
+      .search-form-btn {
+        background: none;
+        border: none;
+        font-size: 20px;
+        position: absolute;
+        right: 15px;
+        top: 38px;
+      }
+    }
+
+    .container > *:not(.row) {
+      @include x-large-and-up {
+        max-width: 65%;
+      }
+    }
+  }
+
+  .speech-bubble {
+    background-color: $white;
+    max-width: none;
+    padding: 10px;
+    width: 100%;
+
+    &:after {
+      border-color: $white transparent;
+      border-style: solid;
+      border-width: 30px 0 0 30px;
+      bottom: -30px;
+      content: "";
+      display: block;
+      left: 50%;
+      position: absolute;
+      width: 0;
+    }
+
+    @include medium-and-up {
+      clip-path: polygon(0% 0%, 77% 0, 100% 100%, 80% 85%, 0% 85%);
+      padding: 15px 80px 50px 15px;
+      width: 500px;
+    }
+
+    @include large-and-up {
+      clip-path: polygon(0% 0%, 79% 0, 99% 100%, 80% 75%, 0% 75%);
+      padding: 15px 110px 90px 15px;
+      width: 700px;
+    }
+  }
+}

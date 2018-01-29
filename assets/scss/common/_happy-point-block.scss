@@ -1,0 +1,151 @@
+
+// Mixins because extending is not possible inside media queries
+@mixin happy-point-block-background-image {
+  background: url("images/happy-point-block-bg.jpg") center center no-repeat;
+  background-size: cover;
+  height: 620px;
+  width: 100vw;
+  position: relative;
+}
+
+.happy-point-block-wrap {
+    @include happy-point-block-background-image;
+    @include background-before-opacity($light-blue-bg);
+    h2 {
+      width: 75%;
+    }
+    p {
+      font-family: $roboto;
+      font-size: rem(13);
+      line-height: 1.15rem;
+      color: $shadow-color;
+    }
+    form {
+      input, .custom-select {
+        height: 42px;
+        border-radius: 0;
+        border-color: transparent;
+      }
+    }
+  }
+
+@media (max-width: 767px) {
+  .happy-point-block-wrap {
+    height: 444px;
+    padding-left: 25px;
+    padding-right: 25px;
+    .pt-20 {
+      padding-top: 126px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    h2 {
+      font-size: rem(26);
+      line-height: 2rem;
+      margin-bottom: 24px;
+    }
+    h5 {
+      font-size: rem(16);
+      line-height: 1.5rem;
+    }
+    .subscriber-btn {
+      margin-top: 0;
+      margin-bottom: 16px;
+      width: 100%;
+      padding: 10px;
+    }
+    p {
+      text-align: left;
+    }
+    form {
+      input, .custom-select {
+        margin-bottom: 16px;
+      }
+    }
+  }
+}
+
+@include medium-and-up {
+  .happy-point-block-wrap {
+    max-height: 480px;
+    .pt-20 {
+      padding-top: 220px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    h2 {
+      font-size: rem(28);
+      line-height: 2.125rem;
+      margin-bottom: 20px;
+      color:$black;
+    }
+    h5 {
+      font-size: rem(18);
+      line-height: 1.75rem;
+    }
+    .subscriber-btn {
+      width: 100%;
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+    p {
+      text-align: center;
+    }
+  }
+}
+
+@include large-and-up {
+  .happy-point-block-wrap {
+    max-height: 500px;
+    .pt-20 {
+      padding-top: 260px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    h2 {
+      font-size: rem(34);
+      line-height: 2.125rem;
+      margin-bottom: 30px;
+    }
+    h5 {
+      font-size: rem(18);
+      line-height: 1.5rem;
+    }
+    .subscriber-btn {
+      margin-top: 0;
+      margin-bottom: 16px;
+      width: 100%;
+      height: 42px;
+      line-height: 42px;
+    }
+    p {
+      text-align: left;
+    }
+  }
+}
+@include x-large-and-up {
+  .happy-point-block-wrap {
+    @include happy-point-block-background-image;
+    @include background-before-opacity($light-blue-bg);
+    .pt-20 {
+      padding-top: 270px;
+    }
+    h2 {
+      font-size: rem(36);
+      margin-bottom: 42px;
+    }
+    h5 {
+      font-size: rem(18);
+    }
+    .subscriber-btn {
+      margin-top: 0;
+      margin-bottom: 8px;
+      width: 100%;
+      height: 42px;
+      line-height: 42px;
+    }
+    p {
+      text-align: left;
+    }
+  }
+}

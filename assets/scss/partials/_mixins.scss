@@ -1,0 +1,238 @@
+/*****************************************************************
+Site Name: Planet4 Master theme
+Author: Ashish Singh(ashish.singh@greenpeace.org)
+
+Stylesheet: Mixins Stylesheet
+******************************************************************/
+
+/*********************
+ Media Queries
+*********************/
+
+// Mobile-only (up to 576px)
+@mixin mobile-only {
+  @media (max-width: #{$small-width}) {
+    @content;
+  }
+}
+
+// Mobile & Up (greater than to 576px)
+@mixin small-and-up {
+  @media (min-width: #{$small-width}) {
+    @content;
+  }
+}
+
+// Tablet & Up (greater than 768px)
+@mixin medium-and-up {
+  @media (min-width: #{$medium-width}) {
+    @content;
+  }
+}
+
+// Large Tablet & Up (greater than 992px)
+@mixin large-and-up {
+  @media (min-width: #{$large-width}) {
+    @content;
+  }
+}
+
+// Large Desktop & Up (greater than 1200px)
+@mixin x-large-and-up {
+  @media (min-width: #{$extra-large-width}) {
+    @content;
+  }
+}
+
+/*********************
+TRANSITION
+*********************/
+
+/*
+ * USAGE: @include transition(all 0.2s ease-in-out);
+*/
+
+@mixin transition($transition...) {
+  // defining prefixes so we can use them in mixins below
+  $prefixes:      ("-webkit-", "" );
+  @each $prefix in $prefixes {
+    #{$prefix}transition: $transition;
+  }
+}
+
+/**
+ * Cause an element to match the size of its stacking context parent.
+ */
+@mixin fill-container() {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/**
+ * Build a linear gradient with a direction and any number of color stops.
+ */
+@mixin linear-gradient( $direction, $color-stops... ) {
+  background: nth(nth($color-stops, 1), 1); /* Old browsers */
+  background: -moz-linear-gradient(legacy-direction($direction), $color-stops); /* FF3.6-15 */
+  background: -webkit-linear-gradient(legacy-direction($direction), $color-stops); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient($direction, $color-stops); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+/**
+ * Create a gradient with hard stops that lines up
+ *
+ * Colors layout from top-right to bottom-left.
+ */
+@mixin skewed-gradient( $color1, $color2, $color3, $color4, $color5 ) {
+  @include linear-gradient(
+    245deg,
+    #{$color1} 6%,
+    #{$color2} 6%,
+    #{$color2} 35%,
+    #{$color3} 35%,
+    #{$color3} 80%,
+    #{$color4} 80%,
+    #{$color4} 95%,
+    #{$color5} 95%
+  );
+
+  @include large-and-up {
+    @include linear-gradient(
+      245deg,
+      #{$color1} 15%,
+      #{$color2} 15%,
+      #{$color2} 45%,
+      #{$color3} 45%,
+      #{$color3} 80%,
+      #{$color4} 80%,
+      #{$color4} 90%,
+      #{$color5} 90%
+    );
+  }
+}
+
+@mixin detailed-skewed-gradient( $color1, $color2, $color3, $color4, $color5, $color6, $color7, $color8 ) {
+  @include linear-gradient(
+    245deg,
+    #{$color1} 6%,
+    #{$color2} 6%,
+    #{$color3} 35%,
+    #{$color4} 35%,
+    #{$color5} 80%,
+    #{$color6} 80%,
+    #{$color7} 95%,
+    #{$color8} 95%
+  );
+
+  @include large-and-up {
+    @include linear-gradient(
+      245deg,
+      #{$color1} 15%,
+      #{$color2} 15%,
+      #{$color3} 45%,
+      #{$color4} 45%,
+      #{$color5} 80%,
+      #{$color6} 80%,
+      #{$color7} 90%,
+      #{$color8} 90%
+    );
+  }
+}
+
+@mixin clearfix() {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+
+@mixin background-before-opacity($color, $opacity: 0.6) {
+  &:before {
+    content: "";
+    background: ($color);
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    opacity: $opacity;
+  }
+}
+
+@mixin background($imgpath,$position:center,$repeat: no-repeat, $size: cover) {
+    background: {
+        image: url($imgpath);
+        position: $position;
+        repeat: $repeat;
+        size: $size;
+    }
+}
+
+/*********************
+Skew mixin
+*********************/
+
+@mixin skew($side: right, $deg: -20deg, $right: -15px, $left: -15px, $width: 30px, $bg: $white) {
+    position: relative;
+
+    &:before {
+        z-index: -1;
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+
+        @if $side == right {
+            right: $right;
+        }
+        @else if $side == left {
+            left: $left;
+        }
+
+        display: block;
+        width: $width;
+        background: $bg;
+        -webkit-transform: skew($deg);
+            -ms-transform: skew($deg);
+                transform: skew($deg);
+    }
+}
+
+
+/*********************
+mixin for Font Size in rem
+*********************/
+
+$baseFontSize : 16;
+
+@function rem($pixels, $context: $baseFontSize) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+
+  @return $pixels / $context * 1rem;
+}
+
+/* Generates mutilevel nested comments
+  level-1 is the first level comment with a margin of 50px
+  level-2 is the first level comment with a margin of 100px
+  and so on...
+*/
+$comment-nest-level: 6;
+$nested-comment-left-margin: 50px;
+
+@mixin comment-level {
+  @for $i from 1 through $comment-nest-level {
+    .comment-level-#{$i} {
+      margin-left: $nested-comment-left-margin * $i !important;
+    }
+  }
+}

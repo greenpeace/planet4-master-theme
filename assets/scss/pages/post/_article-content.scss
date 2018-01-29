@@ -1,0 +1,323 @@
+.post-content {
+  color: $dark-shade-black;
+  margin-bottom: 55px;
+
+  .cover-card {
+    width: auto;
+    position: relative;
+
+    @include large-and-up {
+      width: 320px;
+      float: right;
+    }
+  }
+
+  ul, ol {
+    font-family: $lora;
+    // Assumptions made for the font-size that it's behaviour is same
+    // as the p tags in the content
+    @include small-and-up {
+      font-size: rem(19);
+    }
+
+    @include medium-and-up {
+      font-size: rem(20);
+    }
+
+    li:not(:first-child) {
+      padding-top: 10px;
+    }
+  }
+
+  p {
+    line-height: 1.6;
+    margin: 0 0 18px 0;
+
+    @include small-and-up {
+      font-size: rem(19);
+    }
+
+    @include medium-and-up {
+      font-size: rem(16);
+      margin: 0 0 20px 0;
+      line-height: 1.6;
+    }
+
+    @include large-and-up {
+      margin: 0 0 20px 0;
+    }
+
+    @include large-and-up {
+      margin: 0 0 20px 0;
+      font-size: rem(18)
+    }
+
+    iframe {
+      width: 100%;
+      height: 240px;
+      text-align: center;
+      display: block;
+      margin: 0 auto;
+
+      @include small-and-up {
+        height: 240px;
+      }
+
+      @include medium-and-up {
+        height: 400px;
+        padding: 0 15px;
+      }
+
+      @include large-and-up {
+        width: 100%;
+        padding: 0 15px;
+        height: 530px;
+      }
+    }
+  }
+
+  .alignleft {
+    float: left;
+    margin: 10px 10px 0 0;
+
+  }
+
+  .alignright {
+    float: right;
+    margin: 0 0 0 10px;
+  }
+
+  .aligncenter {
+    margin: auto;
+  }
+
+  .alignnone,
+  .alignnone img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  blockquote {
+    font-family: $lora;
+    font-size: rem(36);
+    line-height: 1.5;
+    font-style: italic;
+    margin: 15px 0;
+
+    @include large-and-up {
+      max-width: 80%;
+    }
+
+    @include x-large-and-up {
+      font-size: rem(40);
+    }
+  }
+
+  cite {
+    display: block;
+    margin-top: 15px;
+  }
+
+  code {
+    word-wrap: break-word;
+  }
+
+  dt {
+    float: left;
+    width: 20%;
+    text-align: right;
+    padding: .25em;
+    clear: left;
+  }
+
+  dd {
+    float: left;
+    width: 80%;
+    padding: .25em 0;
+  }
+
+  dl:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .youtube-player {
+    max-width: 100%;
+  }
+
+  .entry-content,
+  .entry-title {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  .entry-summary {
+    @extend .post-content-lead;
+  }
+
+  .gallery {
+    margin: 0 auto 18px;
+
+    .gallery-icon img {
+      width: 100%;
+      height: auto;
+    }
+
+    .gallery-item {
+      float: left;
+      margin-top: 0;
+
+      @include mobile-only {
+        width: calc(50% - 10px);
+      }
+
+      .gallery-caption {
+        display: none;
+      }
+    }
+
+    figure {
+      margin: .5rem .5rem .5rem 0;
+    }
+
+    .gallery-columns-2 .attachment-medium {
+      max-width: 92%;
+      height: auto;
+    }
+
+    .gallery-columns-4 .attachment-thumbnail {
+      max-width: 84%;
+      height: auto;
+    }
+
+    dl,
+    dt {
+      margin: 0;
+    }
+    br + br {
+      display: none;
+    }
+  }
+
+  .more-link {
+    @extend .btn;
+    @extend .btn-secondary;
+    @extend .btn-large;
+  }
+
+  .page-links {
+    a {
+      @extend .btn;
+      @extend .btn-secondary;
+      @extend .btn-small;
+    }
+  }
+
+  q {
+    font-style: italic;
+  }
+
+  table {
+    margin-bottom: 15px;
+
+    th,
+    td {
+      border: 1px solid $green-80;
+      padding: 6px;
+    }
+
+    th {
+      background-color: $grey-40;
+      color: $white;
+    }
+
+    tr.odd {
+      background-color: $white;
+    }
+
+    tr.even {
+      background-color: $grey-20;
+    }
+  }
+}
+
+.post-content-lead {
+
+  @include large-and-up {
+	  max-width: 65%;
+  }
+
+  p:first-of-type {
+    margin-top: 0;
+  }
+}
+
+.post-details {
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  h4 {
+    padding: 20px 0 10px 0;
+	  font-weight: 700;
+  }
+}
+
+.post-image,
+.wp-caption {
+  position: relative;
+  display: inline-block;
+  width: auto;
+  margin-bottom: 0;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  @include medium-and-up {
+    .image-credit {
+      position: absolute;
+      text-align: right;
+      right: 10px;
+      width: 100%;
+      color: $white;
+      z-index: 2;
+    }
+  }
+
+  .image-desc {
+    display: block;
+  }
+
+  figcaption {
+    margin-top: 10px;
+  }
+
+  .wp-caption-text {
+    font-size: rem(13);
+    margin: 0;
+    line-height: 1.4;
+    color: $grey;
+    font-family: $roboto;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 100%;
+
+    @include medium-and-up {
+      font-size: rem(13);
+      color: $white;
+      background: linear-gradient(210deg, transparentize($med-blue, .8) 0%, $med-blue 100%);
+      padding: 20px 30px;
+    }
+
+    @include large-and-up {
+      padding: 20px 30px;
+    }
+  }
+}

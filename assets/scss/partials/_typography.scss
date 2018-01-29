@@ -1,0 +1,83 @@
+/******************************************************************
+Site Name: Planet 4 Master Theme
+Author: Ashish Singh(ashish.singh@greenpeace.org)
+
+Stylesheet: Typography
+
+Import a Font or Icons
+
+******************************************************************/
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
+@import url('https://fonts.googleapis.com/css?family=Lora:400,400i,700&subset=latin-ext');
+
+// font stacks
+$sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$serif:      "Georgia", Cambria, Times New Roman, Times, serif;
+$roboto:     "Roboto", sans-serif;
+$lora:       "Lora", serif;
+
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+  hyphens: none;
+  font-family: $lora;
+}
+
+h1,
+h2 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: rem(40);
+  line-height: 1.225;
+  margin-bottom: rem(30);
+
+  @include large-and-up {
+    font-size: rem(56);
+    margin-bottom: rem(48);
+  }
+  @include x-large-and-up {
+    font-size: rem(66);
+  }
+}
+
+h2 {
+  font-size: rem(26);
+  line-height: 1.38;
+  margin-bottom: rem(5);
+
+  @include medium-and-up {
+    font-size: rem(34);
+  }
+
+  @include large-and-up {
+    font-size: rem(36);
+  }
+
+  @include x-large-and-up {
+    font-size: rem(38);
+    margin-bottom: rem(24);
+  }
+}
+
+.white-text {
+  color: $white;
+}
+
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important;
+}

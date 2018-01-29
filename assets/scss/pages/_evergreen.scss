@@ -1,0 +1,41 @@
+.page-template-evergreen {
+  .skewed-overlay {
+    &:before {
+      @include skewed-gradient(
+        transparent,
+        transparentize($eden, .7),
+        transparentize($eden, .7),
+        transparentize($eden, .95),
+        transparentize($eden, .8)
+      );
+    }
+
+    mask-image: linear-gradient(
+      170deg,
+      rgba(0, 0, 0, 1),
+      rgba(0, 0, 0, .2),
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0)
+    );
+    mask-size: 100%;
+    mask-repeat: no-repeat;
+    mask-position: left top;
+  }
+
+  .page-header {
+    .page-header-title {
+      max-width: 100%;
+    }
+
+    .page-header-background {
+      opacity: .3;
+    }
+
+    h1 {
+      color: $black;
+      hyphens: none;
+      line-height: 1.2;
+    }
+  }
+}
