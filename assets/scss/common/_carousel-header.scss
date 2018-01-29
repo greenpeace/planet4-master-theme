@@ -53,9 +53,6 @@ $slide-transition-speed: 1s;
     z-index: 1;
     transform: rotate(0);
     transition: opacity $slide-transition-speed;
-    padding-bottom: 0;
-    padding-right: 15px;
-    padding-left: 15px;
 
     img {
       display: none;
@@ -146,6 +143,8 @@ $slide-transition-speed: 1s;
       text-align: left;
       transition: opacity $slide-transition-speed;
       padding-bottom: 0;
+      padding-right: 15px;
+      padding-left: 15px;
     }
 
     &.slide-over {
