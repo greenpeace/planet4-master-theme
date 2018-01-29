@@ -1,0 +1,63 @@
+/**
+* Generic page section styling.
+*
+* Using these classes can ensure a constant vertical rhythm throughout a page.
+*/
+
+.page-section {
+  margin: 0 auto 40px auto;
+
+  @include medium-and-up {
+    margin: 0 auto 40px auto;
+  }
+
+  @include large-and-up {
+    margin: 0 auto 60px auto;
+  }
+
+  @include x-large-and-up {
+    margin: 0 auto 80px auto;
+  }
+}
+
+.page-section-header {
+  font-family: $roboto;
+  font-size: rem(22);
+  font-weight: 700;
+  color: $black;
+  margin-bottom: 15px;
+
+  @include medium-and-up {
+    font-size: rem(24);
+    line-height: 1.2;
+  }
+
+  @include large-and-up {
+    font-size: rem(28);
+    margin-bottom: 20px;
+  }
+
+  @include x-large-and-up {
+    font-size: rem(30);
+  }
+}
+
+.page-section-description {
+  font-size: rem(16);
+  line-height: 1.6;
+  margin: 1em 0 2.5em;
+
+  @include medium-and-up {
+    font-size: rem(18);
+    width: 80%;
+  }
+
+  @include large-and-up {
+    font-size: rem(20);
+  }
+
+  @include x-large-and-up {
+    font-size: rem(18);
+    margin: 20px 0;
+  }
+}

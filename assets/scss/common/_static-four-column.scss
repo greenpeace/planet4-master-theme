@@ -1,0 +1,160 @@
+.four-column {
+  margin: 40px 0;
+
+  @include medium-and-up {
+    margin: 40px 0 60px 0;
+  }
+
+  @include large-and-up {
+    margin: 60px 0;
+  }
+
+  @include x-large-and-up {
+    margin: 0px 0 80px 0;
+  }
+
+  h2 {
+    font-size: rem(26);
+    line-height: 1.2;
+    text-align: center;
+    margin: 60px 0 35px 0;
+    color: $deep-sea-green;
+
+    @include medium-and-up {
+      font-size: rem(38);
+      margin-top: 74px;
+      margin-bottom: 57px;
+    }
+
+    @include large-and-up {
+      text-align: left;
+      font-size: rem(48);
+      font-weight: 900;
+      margin-top: 84px;
+      margin-bottom: 66px;
+    }
+
+    @include x-large-and-up {
+      font-size: rem(40);
+      margin-bottom: 30px;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: bold;
+    color: $deep-sea-green;
+  }
+}
+
+.four-column-wrap {
+  margin-bottom: 40px;
+
+  &:last-child {
+    margin-bottom: 10px;
+  }
+
+  @include medium-and-up {
+    margin-bottom: 36px;
+  }
+
+  @include large-and-up {
+    margin-bottom: 0;
+  }
+}
+
+.four-column-symbol-container {
+  margin: 0 auto 5px auto;
+  display: block;
+  width: 102px;
+  height: 102px;
+
+  @include medium-and-up {
+    margin: 0 0 16px 0;
+    text-align: inherit;
+  }
+
+  @include x-large-and-up {
+    margin-bottom: 24px;
+  }
+
+  img {
+    width: 102px;
+    height: 102px;
+  }
+}
+
+.four-column-information {
+  float: left;
+
+  h5 {
+    text-align: center;
+    line-height: normal;
+    margin-bottom: 15px;
+
+    a {
+      font-weight: 700;
+
+      @include medium-and-up {
+        font-size: rem(18);
+      }
+
+      @include x-large-and-up {
+        font-size: rem(20);
+      }
+    }
+
+    @include medium-and-up {
+      text-align: left;
+      margin-bottom: 16px;
+    }
+
+    @include large-and-up {
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    @include x-large-and-up {
+      margin-bottom: 20px;
+    }
+  }
+
+  p {
+    font-size: rem(15);
+    line-height: 1.6;
+    color: $dark-shade-black;
+
+    @include medium-and-up {
+      font-size: rem(14);
+      margin-bottom: 24px;
+    }
+
+    @include large-and-up {
+      margin-bottom: 12px;
+    }
+
+    @include x-large-and-up {
+      font-size: rem(15);
+      margin-bottom: 24px;
+    }
+  }
+
+  a {
+
+    @include medium-and-up {
+      font-size: rem(15);
+    }
+
+    @include large-and-up {
+      font-size: rem(14);
+    }
+
+    @include x-large-and-up {
+      font-size: rem(15);
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

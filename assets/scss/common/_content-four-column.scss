@@ -1,0 +1,127 @@
+.four-column-content {
+  color: $black;
+  padding: 0 0 40px 0;
+
+  @include medium-and-up {
+    padding: 0 0 40px 0;
+  }
+
+  @include medium-and-up {
+    padding: 0 0 60px 0;
+  }
+
+  a {
+    color: $grey;
+  }
+
+  .col-md-4 {
+    width: 157px;
+    outline: none;
+  }
+
+  .four-column-content-wrap {
+    .four-column-content-symbol {
+      position: relative;
+      margin: 0 0 24px 0;
+      box-shadow: 0 5px 20px 0 rgba(114,114,114,0.5);
+
+      @include small-and-up {
+        margin: 20px 0;
+      }
+
+      @include medium-and-up {
+        margin: 0 0 20px 0;
+      }
+
+      @include large-and-up {
+        margin: 0 0 20px 0;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+
+      &.dark-img {
+        a {
+          color: $white;
+        }
+      }
+    }
+
+    .four-column-content-info {
+      h4 {
+        font-size : rem(14);
+        line-height: 1.2;
+        font-weight: 500;
+        padding: 0;
+        margin: 0;
+
+        @include medium-and-up {
+          font-size : rem(18);
+          font-weight: 500;
+          color: $black;
+        }
+
+        @include large-and-up {
+          font-size: rem(16);
+        }
+
+        @include large-and-up {
+          font-size: rem(18);
+        }
+      }
+
+      p {
+        font-size: rem(16);
+        font-family: $lora;
+
+        @include large-and-up {
+          font-size: rem(14);
+          line-height: 1.6;
+        }
+
+        @include x-large-and-up {
+          font-size: rem(15);
+        }
+
+        &.publication-date {
+          font-family: $roboto;
+          font-size: rem(14);
+          line-height: 1.6;
+          font-style: italic;
+          font-weight: 300;
+          margin-bottom: 0;
+          color: $grey-60;
+
+          @include large-and-up {
+            font-size: rem(26);
+          }
+
+          @include x-large-and-up {
+            font-size: rem(15);
+          }
+        }
+      }
+
+      a {
+        color: $genoa;
+        font-size: rem(14);
+        opacity: 0.75;
+        text-decoration: underline;
+      }
+
+      .blue-button {
+        width: 100%;
+      }
+    }
+  }
+
+  .btn {
+    display: none;
+
+    @include medium-and-up {
+      display: block;
+    }
+  }
+}

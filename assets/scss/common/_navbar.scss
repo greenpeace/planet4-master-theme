@@ -1,0 +1,561 @@
+$menu-height-small: rem(54);
+$menu-height-large: rem(60);
+
+.top-navigation {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 5;
+  padding: 0;
+  text-transform: uppercase;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  background: transparentize($top-nav, 0.20);
+  height: $menu-height-small;
+
+  // Use (min-width: 783px) for parity with WP's .admin-bar
+  @media screen and (min-width: 783px) {
+    height: $menu-height-large + rem(1);
+  }
+
+  a {
+    color: $white;
+  }
+
+  .btn-donate {
+    color: $grey;
+  }
+
+  // Move header down when WordPress Admin Bar is present
+  .admin-bar & {
+    top: 46px;
+
+    @media screen and (min-width: 783px) {
+      top: 32px;
+    }
+  }
+}
+
+.site-logo,
+.btn-navbar-toggle,
+.navbar-search-toggle,
+.country-dropdown-toggle,
+.nav-item,
+.nav-link {
+  line-height: $menu-height-small;
+  padding: 0 15px;
+
+  // Use (min-width: 783px) for parity with WP's .admin-bar
+  @media screen and (min-width: 783px) {
+    line-height: $menu-height-large;
+    font-size: rem(18);
+  }
+}
+
+.btn-navbar-toggle,
+.country-dropdown-toggle,
+.nav-link {
+  &.active,
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: none;
+    box-shadow: none;
+    outline: 0;
+  }
+}
+
+.navbar-search-toggle,
+.btn-navbar-toggle {
+  line-height: rem(54 - 22);
+  margin: 11px;
+  color: $white;
+  z-index: 1;
+
+  fa {
+    font-size: rem(18);
+  }
+}
+
+.navbar-dropdown-toggle {
+  // When menu is open, turn the button into the background overlay
+  &[aria-expanded="true"] {
+    z-index: 2;
+    background: transparentize($black, 0.5);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    outline: 0;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+
+    span {
+      @extend .screen-reader-text;
+    }
+  }
+
+  @include large-and-up {
+    display: none;
+  }
+}
+
+.navbar-search-toggle {
+  cursor: pointer;
+  border: 0;
+  background: url('images/search.svg') center center no-repeat;
+  background-size: 28px;
+  margin-left: auto;
+
+  @include large-and-up {
+    display: none;
+  }
+}
+
+.site-logo {
+  @media (max-width: #{$large-width}) {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  img {
+    height: rem(20);
+    @include small-and-up {
+      height: rem(24);
+    }
+    @include large-and-up {
+      height: rem(30);
+    }
+  }
+}
+
+.navbar-dropdown-toggle {
+  order: -1;
+}
+
+.navbar-dropdown {
+  display: none;
+  margin: 0;
+  list-style-type: none;
+
+  &.open {
+    display: flex;
+  }
+
+  @media (max-width: $medium-width) {
+    li:first-child {
+      z-index: 10;
+    }
+  }
+
+  // Dropdown width permutations
+  @media screen and (max-width: #{$small-width}) {
+    height: 100vh;
+    width: 300px;
+  }
+  // Use (min-width: 783px) for parity with WP's .admin-bar
+  @media screen and (min-width: #{$small-width}) and (max-width: 782px) {
+    height: 100vh;
+    width: 375px;
+  }
+  // Use (min-width: 783px) for parity with WP's .admin-bar
+  @media screen and (min-width: 783px) and (max-width: #{$large-width}) {
+    width: 400px;
+  }
+  // Dropdown height permutations, with and without WP admin bar
+  .admin-bar & {
+    @media screen and (max-width: 782px) {
+      height: calc( 100vh - 46px );
+    }
+    @media screen and (min-width: 783px) and (max-width: #{$large-width}) {
+      height: calc( 100vh - 32px );
+    }
+  }
+
+  // All other dropdown styles
+  @media (max-width: #{$large-width}) {
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: $deep-sea-green url('images/dropdown-gradient.svg') no-repeat;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 2;
+
+    .close-navbar-dropdown {
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+      height: $menu-height-small;
+      width: $menu-height-small;
+      background: url('images/close-icon.svg') center center no-repeat;
+      z-index: 2;
+      border: 0;
+
+      // Use (min-width: 783px) for parity with WP's .admin-bar
+      @media (min-width: 783px) and (max-width: #{$large-width}) {
+        height: $menu-height-large;
+      }
+
+      &:focus,
+      &:hover {
+        border: 1px dotted transparentize($white, 0.5);
+      }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 8px;
+      background: transparentize( $black, 0.9 );
+      z-index: 0;
+    }
+
+    .country-dropdown-toggle {
+      box-sizing: border-box;
+      width: 100%;
+      text-align: left;
+      padding: 0 70px 0 67px;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 13px;
+        left: 0;
+        height: 1.75em;
+        width: 50px;
+        display: inline-block;
+        background: url('images/country-icon.svg') center center no-repeat;
+        border-right: 1px solid transparentize($white, 0.9);
+        background-size: contain;
+
+        @media screen and (min-width: 783px) {
+          top: 17px;
+        }
+      }
+    }
+
+    .nav-item {
+      z-index: 1;
+
+      &:last-child {
+        flex-basis: 100%;
+      }
+    }
+
+    .nav-link {
+      padding: 0 40px 0 50px;
+      display: block;
+      line-height: rem(45);
+      font-size: rem(16);
+      margin: 0.5em 0;
+    }
+
+    .active .nav-link,
+    .nav-link:focus,
+    .nav-link:hover {
+      position: relative;
+      z-index: 2;
+      color: $spray;
+    }
+
+    .active .nav-link::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      background: $spray;
+      width: 8px;
+      margin-left: -50px;
+      z-index: 2;
+    }
+
+    .btn-donate {
+      display: block;
+      width: 200px;
+      margin: 1.5em auto;
+      padding: 5px 30px;
+    }
+  }
+
+  // Background position control
+  @media (max-width: #{$medium-width}) {
+    background-position: right $menu-height-small;
+  }
+
+  @media (min-width: #{$medium-width}) and (max-width: #{$large-width}) {
+    background-position: right $menu-height-large;
+  }
+
+  @include large-and-up {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    padding: 0 5%;
+
+    .close-navbar-dropdown {
+      display: none;
+    }
+
+    .nav-link {
+      padding: 0 20px;
+      min-width: 20%;
+      text-align: center;
+      border-bottom: 2px solid transparent;
+
+      &:hover,
+      &:focus,
+      &:active {
+        border-bottom: 2px solid $white;
+      }
+    }
+
+    .active .nav-link {
+      color: $spray;
+      border-bottom: 2px solid $spray;
+    }
+  }
+
+  .nav-item {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.nav-search-wrap {
+  display: none;
+  position: relative;
+  color: $search-text-colour;
+
+  &.open {
+    display: block;
+  }
+
+  // Equiv. to "large-and-down", to avoid need to override all styles below
+  @media (max-width: #{$large-width}) {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 300px;
+    padding: 11px;
+    max-width: 80%;
+    background: transparentize($blue-bg, 0.15);
+  }
+
+  @include large-and-up {
+    margin-top: 11px;
+    max-width: 20%;
+    display: inline-block;
+  }
+
+  input::-webkit-input-placeholder {
+    color: $grey-40;
+  }
+
+  .top-nav-search-btn {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 11px;
+    right: 16px;
+    font-size: rem(20);
+    line-height: 38px;
+
+    i {
+      vertical-align: middle;
+      font-size: rem(21);
+    }
+
+    @include large-and-up {
+      top: 0;
+    }
+  }
+
+  .form-control {
+    border-radius: 0;
+    padding: 10px;
+  }
+}
+
+.country-dropdown-toggle {
+  cursor: pointer;
+  font-size: rem(16);
+  border: 0;
+  color: transparentize($white, 0.2);
+  background: transparent;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transition: color 100ms;
+
+  background-color: $dark-tiber;
+  @include large-and-up {
+    background-color: transparent;
+  }
+
+  &::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: url('images/down-arrow-green.svg') no-repeat center center;
+    background-size: contain;
+    display: inline-block;
+    margin-left: 10px;
+    transition: transform 300ms linear;
+  }
+
+  &:focus,
+  &:hover {
+    color: $white;
+
+    &::after {
+      background-image: url('images/down-arrow-white.svg');
+    }
+  }
+
+  &[aria-expanded="true"] {
+    background-color: $dark-tiber;
+
+    &::after {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.country-list {
+  display: none;
+  text-transform: none;
+  background: $dark-tiber;
+  line-height: 1.5;
+  padding: 1.4em 0;
+  margin-top: -1px;
+  overflow-y: hidden;
+
+  &.open {
+    display: block;
+    overflow-y: scroll !important;
+  }
+
+  a {
+    display: block;
+    color: $white;
+  }
+
+  a:hover,
+  .active a {
+    color: $gp-green-80;
+    text-decoration: none;
+  }
+
+  .country-group-letter {
+    font-size: rem(16);
+    position: absolute;
+    line-height: 1.5;
+    font-weight: bold;
+    color: $grey-40;
+    margin-left: -1.5em;
+
+    @include large-and-up {
+      margin-left: -2em;
+    }
+  }
+
+  > ul {
+    padding: 0 0 2em;
+    margin-top: 1.5em;
+  }
+
+  > a,
+  li {
+    position: relative;
+    list-style: none;
+    padding-left: 50px;
+    font-size: rem(16);
+
+    @include large-and-up {
+      padding-left: 2em;
+    }
+
+    ul {
+      break-inside: avoid;
+      padding: 0;
+      margin: 0 1em 1.2em 0;
+    }
+
+    li {
+      padding-left: 0;
+      list-style: none;
+    }
+  }
+
+  @include large-and-up {
+    position: absolute;
+    height: 344px;
+    max-height: 344px;
+    width: 90%;
+    padding: 2em;
+    left: 10%;
+    overflow-x: hidden;
+    overflow-y: hidden !important;
+    max-height: calc( 100vh - #{$menu-height-large} );
+
+    .admin-bar & {
+      max-height: calc( 100vh - #{$menu-height-large} - 32px );
+    }
+
+    > ul {
+      column-count: 3;
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    padding: 2em 4em 4em;
+    width: 80%;
+    left: 10%;
+  }
+}
+
+// For always showing the scrollbar in country selector
+
+.navbar-dropdown {
+  ::-webkit-scrollbar {
+    width:9px;
+  }
+
+  ::-webkit-scrollbar-track {
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    background:rgba(255,255,255,0.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    background:rgba(255,255,255,0.2);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background:rgba(255,255,255,0.4);
+  }
+
+  ::-webkit-scrollbar-thumb:window-inactive {
+    background:rgba(255,255,255,0.05);
+  }
+}

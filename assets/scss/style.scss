@@ -1,0 +1,148 @@
+/*!
+Theme Name: Greenpeace Planet 4 Master Theme
+Theme URI: https://github.com/greenpeace/planet4-master-theme
+Description: Master theme for the Planet 4 Wordpress project
+Author: Greenpeace International
+Author URI: https://github.com/greenpeace
+Version: 0.3.0
+License: GNU General Public License v3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Tags: light, accessibility-ready
+Text Domain: planet4-master-theme
+*/
+
+/**
+ * Overrides and hacks.
+ */
+@import "partials/custom";
+@import "partials/hacks";
+
+/**
+ * Setup global styles
+ */
+@import "partials/variables";
+@import "partials/functions";
+@import "partials/mixins";
+@import "partials/typography";
+@import "partials/font-icon";
+@import "modules/buttons";
+
+// Customising bootstrap variables
+
+/* This should change later to include just
+ * the components that are needed.
+ */
+// @import "../../node_modules/bootstrap/scss/bootstrap.scss";
+// @import "../../node_modules/font-awesome/scss/font-awesome";
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
+// Import Blocks
+@import "common/navbar";
+@import "common/footer";
+@import "common/tasks";
+@import "common/happy-point-block";
+@import "common/static-four-column";
+@import "common/content-two-column";
+@import "common/split-box-out";
+@import "common/article-listing";
+@import "common/page-header";
+@import "common/page-section";
+@import "common/subheader";
+@import "common/carousel";
+@import "common/covers";
+@import "common/block-media";
+@import "common/tag-cloud";
+@import "common/content-four-column";
+@import "common/split-two-column";
+@import "common/split-carousel";
+@import "common/carousel-header";
+@import "common/video-block";
+@import "common/tweet-block";
+@import "common/campaign-thumbnail-block";
+@import "common/content-three-column";
+@import "common/cookie-block";
+@import "common/campaign-covers-4col-wrap";
+@import "common/skewed-overlay";
+@import "common/tags-list";
+
+/**
+ * Page-specific styles
+ */
+
+// Single post.
+@import "pages/post/post";
+@import "pages/post/article-content";
+@import "pages/post/author-block";
+@import "pages/post/comments-block";
+@import "pages/post/comments-form";
+
+// Default page template
+@import "pages/page";
+
+// Take Action page.
+@import "pages/take-action"; // TODO: Break this down into blocks
+
+// Explore page.
+// Comment out since it does not contains any rules currently.
+//@import "pages/explore";
+
+// Issues pages.
+// Comment out since it does not contains any rules currently.
+//@import "pages/issue";
+
+// 404 page.
+@import "pages/sign-petition/sign-petition";
+
+// 404 page.
+@import "pages/404";
+
+// Evergreen pages.
+@import "pages/evergreen";
+
+// Search page.
+@import "pages/search/search";
+@import "pages/search/filter-modal";
+@import "pages/search/filter-sidebar";
+@import "pages/search/filtered-tags";
+@import "pages/search/search-bar";
+@import "pages/search/search-results";
+@import "pages/search/sort-filter";
+@import "pages/search/suggested-terms";
+
+/**
+ * Third-party CSS
+ */
+@import "external/happy-point-form";
+
+/*
+ *
+ * CSS Coding guidelines to be followed : https://make.wordpress.org/core/handbook/best-practices/coding-standards/css/
+ * JS Coding guidelines to be followed : https://make.wordpress.org/core/handbook/best-practices/coding-standards/javascript/
+ *
+*/
+
+body {
+  color: $dark-shade-black;
+  overflow-x: hidden;
+  font-family: $roboto;
+  position: relative;
+
+  &.white-bg {
+    background-color: $white;
+  }
+
+  &.brown-bg {
+    background: $brown-bg;
+  }
+
+  &.home {
+    background-image: repeating-linear-gradient(119deg, transparent -53%, rgba(157, 187, 190, 0.1) 55%, rgba(236, 241, 243, 1) 0), repeating-linear-gradient(119deg, transparent -50%, rgba(157, 187, 190, 0.1) 30%, rgba(236, 241, 243, 0) 20%),repeating-linear-gradient(119deg, transparent -445%, rgba(157, 187, 190, 0.1) 27%, rgba(236, 241, 243, 0) 10%),repeating-linear-gradient(119deg, transparent -45%, rgba(157, 187, 190, 0.1) 17%, rgba(236, 241, 243, 0.5) 0), url('images/home.png');
+    background-repeat: no-repeat;
+    background-color: #ECF1F3;
+  }
+}
+
+.container > * {
+  position: relative;
+  z-index: 2;
+}

@@ -1,0 +1,103 @@
+.comment-form {
+  display: block;
+  padding-bottom: 60px;
+  border-bottom: 1px solid $grey-40;
+
+  .form-group {
+    margin-bottom: 32px;
+
+    @include small-and-up {
+      margin-bottom: 32px;
+    }
+
+    @include medium-and-up {
+      padding-bottom: 40px;
+    }
+  }
+
+  input,
+  textarea {
+    font-size: rem(15);
+    font-weight: 300;
+    border-radius: 0;
+    border: none;
+    transition: background-color 150ms linear;
+
+    @include large-and-up {
+      font-size: rem(16);
+    }
+
+    &:focus {
+      background-color: transparentize($white, .6);
+    }
+  }
+
+  label {
+    font-size: rem(16);
+    font-weight: 500;
+  }
+
+  label[for=comments-textarea] {
+    display: none;
+  }
+
+  textarea {
+    background-color: $grey-10;
+    padding: 13px;
+    margin-bottom: 20px;
+
+    @include small-and-up {
+      margin-bottom: 56px;
+    }
+
+    @include medium-and-up {
+      margin-bottom: 40px;
+      font-size: rem(16);
+    }
+
+    @include large-and-up {
+      margin-bottom: 30px;
+    }
+  }
+
+  input {
+    border-bottom: 1px solid $black;
+    background-color: transparent;
+    padding: 7px 5px 5px;
+    width: 100%;
+
+    &:focus {
+      border-bottom-color: $grey-60;
+    }
+
+    @include medium-and-up {
+      width: 50%;
+    }
+
+    @include medium-and-up {
+      width: 80%;
+    }
+  }
+
+  button {
+    width: 100%;
+    margin-top: 60px;
+
+    @include medium-and-up {
+      width: 50%;
+      margin-top: 30px;
+    }
+
+    @include large-and-up {
+      width: 40%;
+      margin-top: 30px;
+    }
+  }
+
+  ::-webkit-input-placeholder,
+  ::-moz-placeholder,
+  :-ms-input-placeholder,
+  :-moz-placeholder {
+    color: $grey-40;
+  }
+}

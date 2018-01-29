@@ -1,0 +1,145 @@
+.article-listing-intro {
+  display: flex;
+
+  &>div:first-of-type {
+    padding-left: 0;
+  }
+}
+
+.article-list-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: transparentize($white, .2);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  margin: 30px 0;
+
+  &:hover {
+    .article-list-item-headline,
+    .article-list-item-content {
+      text-decoration: none;
+    }
+  }
+
+  .tag-item {
+    color: $blue-80;
+    font-size: 1rem;
+  }
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+
+  &:last-of-type {
+    margin-bottom: 10px;
+
+    @include medium-and-up {
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    color: inherit;
+  }
+
+  @include medium-and-up {
+    flex-direction: row;
+  }
+
+  @include large-and-up {
+    background-color: transparent;
+    box-shadow: none;
+    margin: 20px 0;
+  }
+
+  @include x-large-and-up {
+    margin: 30px 0;
+  }
+}
+
+.article-list-item-image {
+  order: 2;
+
+  img {
+    width: 100%;
+  }
+
+  @include medium-and-up {
+    flex-basis: 30%;
+    order: 0;
+  }
+
+  @include large-and-up {
+    flex-basis: 30%;
+  }
+}
+
+.article-list-item-body {
+  padding: 15px;
+
+  @include medium-and-up {
+    flex-basis: 68%;
+  }
+
+  @include large-and-up {
+    flex-basis: 68%;
+    padding: 0;
+  }
+}
+
+.article-list-item-headline {
+  font-size: rem(20);
+  line-height: 1.3;
+  font-weight: 500;
+  color: $black;
+  margin: 5px 0;
+
+  @include large-and-up {
+    font-size: rem(22);
+  }
+
+  @include x-large-and-up {
+    font-size: rem(24);
+  }
+}
+
+.article-list-item-meta {
+  font-family: $roboto;
+  font-style: italic;
+  font-size: rem(14);
+  font-weight: 300;
+  color: $grey-60;
+  margin: 0;
+
+  @include large-and-up {
+    font-size: rem(14);
+  }
+
+  @include x-large-and-up {
+    font-size: rem(15);
+  }
+}
+
+.article-list-item-author {
+  &:after {
+    content: "\2022";
+    display: inline-block;
+    padding-left: 5px;
+  }
+}
+
+.article-list-item-content {
+  display: none;
+
+  @include large-and-up {
+    display: block;
+    font-weight: 300;
+    line-height: 1.6;
+    margin: 10px 0 0;
+    width: 80%;
+  }
+
+  @include x-large-and-up {
+    font-size: rem(18);
+  }
+}
