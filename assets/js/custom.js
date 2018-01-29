@@ -339,9 +339,10 @@ $(function() {
   // Force wide blocks outside the container
 
   var $wideblocks = $('.block-wide');
+  var $container = $('div.page-template');
 
   function force_wide_blocks() {
-    var vw = $('.page-template').width();
+    var vw = $container.width();
     $wideblocks.each(function(){
       var width = $(this).innerWidth();
 
@@ -351,7 +352,7 @@ $(function() {
     });
   }
 
-  if ($wideblocks.length > 0) {
+  if ($wideblocks.length > 0 && $container.length > 0) {
     force_wide_blocks();
     $(window).on('resize', force_wide_blocks);
   }
