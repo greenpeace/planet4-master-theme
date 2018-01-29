@@ -68,6 +68,7 @@ if ( is_tag() ) {
 	$campaign->add_block( Articles::BLOCK_NAME, [
 		'article_heading' => __( 'In the news', 'planet4-master-theme' ),
 		'article_count'   => 3,
+		'tag_id'          => $context['tag']->term_id,
 	] );
 
 	$campaign->add_block( ContentFourColumn::BLOCK_NAME, [
