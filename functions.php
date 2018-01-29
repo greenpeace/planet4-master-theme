@@ -626,10 +626,11 @@ class P4_Master_Site extends TimberSite {
 			$take_action_pages_args = [
 				'post_type'   => 'page',
 				'post_parent' => $parent_act_id,
+				'post_status' => 'publish',
+                'numberposts' => -1,
 			];
 
-			$query_children = new WP_Query( $take_action_pages_args );
-			$posts          = $query_children->get_posts();
+			$posts          = get_posts( $take_action_pages_args );
 			foreach ( $posts as $post ) {
 				$options[ $post->ID ] = $post->post_title;
 			}
