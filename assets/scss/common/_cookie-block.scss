@@ -1,0 +1,117 @@
+$cookie-bkg: #C0DBE2;
+$cookie-blue: #094464;
+
+.cookie-block {
+  z-index: 100;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 0;
+  background: $cookie-bkg url("images/cookie-right-gradient.png") no-repeat right;
+  max-height: 50px;
+  p {
+    font-size: rem(17);
+    font-weight: 500;
+    color: $cookie-blue;
+    margin: 0;
+    text-align: center;
+    font-family: $roboto;
+    line-height: 30px;
+  }
+  a {
+    font-size: rem(17);
+    font-weight: bold;
+    color: $cookie-blue;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .btn {
+    height: 32px;
+    line-height: 32px;
+    font-size: rem(15);
+    width: 100%;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    background-color: transparentize($white, .2);
+
+    &:hover {
+      border-color: $dark-blue;
+      background-color: $dark-blue;
+    }
+  }
+}
+
+@include mobile-only {
+  .cookie-block {
+    max-height: 120px;
+    background: $cookie-bkg url("images/cookie-right-gradient-sm.png") no-repeat right;
+    div.col-9 {
+      margin: 0 auto;
+      max-width: 95%;
+      flex: 95%;
+    }
+    div.col {
+      margin: 0 auto;
+      max-width: 95%;
+    }
+    p {
+      font-size: rem(14);
+      text-align: left;
+      line-height: 16.8px;
+      margin-bottom: 10px;
+    }
+    a {
+      font-size: rem(14);
+    }
+  }
+}
+
+@include medium-and-up {
+  .cookie-block {
+    max-height: 56px;
+    background: $cookie-bkg url("images/cookie-right-gradient-md.png") no-repeat right;
+    p {
+      font-size: rem(15);
+      text-align: left;
+      line-height: 18px;
+    }
+    a {
+      font-size: rem(15);
+    }
+  }
+}
+
+@include large-and-up {
+  .cookie-block {
+    max-height: 50px;
+    background: $cookie-bkg url("images/cookie-right-gradient.png") no-repeat right;
+    p {
+      font-size: rem(14.5);
+      text-align: center;
+      line-height: 30px;
+    }
+    a {
+      font-size: rem(14.5);
+    }
+  }
+}
+
+
+@include x-large-and-up {
+  .cookie-block {
+    max-height: 50px;
+    background: $cookie-bkg url("images/cookie-right-gradient.png") no-repeat right;
+    p {
+      font-size: rem(17);
+      text-align: center;
+      line-height: 30px;
+    }
+    a {
+      font-size: rem(17);
+    }
+  }
+}

@@ -1,0 +1,238 @@
+/******************************************************************
+Site Name: Planet4 Master theme
+Author: Ashish Singh(ashish.singh@greepeace.org)
+
+Stylesheet: Button Styles
+******************************************************************/
+
+.btn {
+  display: inline-block;
+  position: relative;
+  font-family: $roboto;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: $white;
+  font-weight: 500;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  line-height: 3;
+  padding: 0 30px;
+  appearance: none;
+  transition-property: color, background-color, border-color;
+  transition-duration: 150ms;
+  transition-timing-function: linear;
+
+  &:hover,
+  &:focus {
+    color: $white;
+    text-decoration: none;
+    outline: none;
+  }
+
+  &:disabled {
+    opacity: .5;
+  }
+}
+
+.btn-small {
+  font-size: rem(14);
+  line-height: 2.8;
+}
+
+.btn-medium {
+  font-size: rem(16);
+  line-height: 3;
+}
+
+.btn-large {
+  font-size: rem(18);
+  line-height: 3.1;
+}
+
+/**
+ * Primary, orange button.
+ */
+.btn-primary {
+  background-color: $orange;
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+
+  &:hover,
+  &:focus {
+    background-color: $orange-hover;
+    border-color: $orange-hover;
+  }
+
+  &:active {
+    background-color: $dark-copper;
+    border-color: $dark-copper;
+  }
+}
+
+/**
+ * Secondary, semi-transparent button. Most buttons are this button.
+ */
+.btn-secondary {
+  background-color: transparentize($white, .7);
+  border-color: $dark-blue;
+  color: $dark-blue;
+  box-shadow: none;
+
+  &:hover,
+  &:focus {
+    background-color: $dark-blue;
+    border-color: $dark-blue;
+  }
+
+  &:active {
+    background-color: $x-dark-blue;
+    border-color: $x-dark-blue;
+  }
+}
+
+/**
+ * Similar to the primary button, but transparent by default.
+ */
+.btn-action {
+  background-color: transparentize($white, .8);
+  border-color: $white;
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+
+  &:hover,
+  &:focus {
+    background-color: $orange;
+    border-color: $orange;
+  }
+
+  &:active {
+    background-color: $orange-hover;
+    border-color: $orange-hover;
+  }
+}
+
+/**
+ * Donate button used in the navbar.
+ */
+.btn-donate {
+  background-color: $aquamarine;
+  color: $grey;
+  font-size: rem(16);
+  line-height: 1.6;
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  transition: color background-color font-weight 100ms;
+
+  &:hover,
+  &:focus {
+    background-color: $spray;
+    color: $black;
+  }
+
+  &:active {
+    background-color: $java-dark;
+  }
+
+  @include large-and-up {
+    font-size: rem(18);
+  }
+}
+
+/**
+ * Top navigation dropdown toggle button used in the navbar.
+ */
+.btn-navbar-toggle {
+  cursor: pointer;
+  color: $gp-green;
+  background-color: transparent;
+  transition: background-color color font-weight 100ms;
+  display: inline-block;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $white;
+    box-shadow: none;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $x-dark-blue;
+    border: 1px solid transparent;
+  }
+
+  @include small-and-up {
+    background-color: $dark-blue;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  }
+}
+
+/**
+ * Filter and filter-clearing buttons used in the search-results.
+ */
+.btn-filter-item {
+  background-color: transparent;
+  border-color: $blue-tiber;
+  color: $blue-tiber;
+  padding: 0 50px 0 30px;
+  position: relative;
+  font-weight: 400;
+
+  &:hover,
+  &:focus {
+    background-color: $blue-tiber;
+    border-color: $blue-tiber;
+  }
+
+  &:active {
+    background-color: $dark-tiber;
+    border-color: $dark-tiber;
+  }
+
+  i {
+    position: absolute;
+    font-size: .7em;
+    right: 10px;
+    top: 50%;
+    transform: translate( 0, -40% );
+  }
+}
+
+.btn-filter-item-solid {
+  background-color: $blue-tiber;
+  border-color: $blue-tiber;
+  padding: 0 50px 0 30px;
+  position: relative;
+  text-transform: none;
+
+  &:hover,
+  &:focus {
+    background-color: $genoa;
+    border-color: $genoa;
+  }
+
+  &:active {
+    background-color: $dark-tiber;
+    border-color: $dark-tiber;
+  }
+
+  i {
+    position: absolute;
+    font-size: .6em;
+    right: 10px;
+    top: 50%;
+    transform: translate( 0, -40% );
+  }
+}
+
+.no-btn {
+  background: transparent;
+  border: transparent;
+  padding: 0;
+  cursor: pointer;
+  &:focus {
+    outline:none;
+  }
+}

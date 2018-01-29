@@ -1,0 +1,61 @@
+.filter-modal {
+	.modal-dialog {
+		max-width: 90%;
+	}
+
+	.modal-body {
+		padding: 30px 15px;
+
+		@include small-and-up {
+			padding: 50px
+		}
+	}
+
+	.modal-title {
+		font-size: rem(26);
+		margin-bottom: 24px;
+
+		@include small-and-up {
+			font-size: rem(34);
+		}
+	}
+
+	.cancelbtn {
+		min-width: 45%;
+		border-color: $orange;
+		color: $orange;
+
+		&:hover {
+			background: transparent;
+			color: $black;
+		}
+	}
+
+	.applybtn {
+		width: 50%;
+		float: right;
+	}
+
+	.closebtn {
+		float: right;
+		margin-top: -62px;
+		border-radius: 50%;
+		padding: 8px 14px;
+		margin-right: 0;
+		transition: color, border-color, background-color 150ms linear;
+
+		@include small-and-up {
+			padding: -15px
+		}
+
+		&:hover {
+			background-color: $orange;
+			border-color: $orange;
+			color: $white;
+		}
+
+		i {
+			font-size: rem(12);
+		}
+	}
+}
