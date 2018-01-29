@@ -135,7 +135,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
 				$paged         = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_STRING );
 
-				// CSRF check and action check.
+				// Check if call action is correct.
 				if ( 'get_paged_posts' === $search_action ) {
 					// Get the decoded url query string and then use it as key for redis.
 					$query_string       = filter_input( INPUT_GET, 'query-string', FILTER_SANITIZE_STRING );
