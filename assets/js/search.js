@@ -73,7 +73,7 @@ $(function() {
 			$(this).data( 'current_page', next_page );
 
 			$.ajax({
-				url: ajaxurl,
+				url: localizations.ajaxurl,
 				type: 'GET',
 				data: {
 					action:          'get_paged_posts',
