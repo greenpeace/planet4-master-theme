@@ -641,15 +641,17 @@ class P4_Master_Site extends TimberSite {
 		$parent_act_id = planet4_get_option( 'act_page' );
 		$options       = [];
 
-		if( 0 !== absint( $parent_act_id ) ) {
+		if ( 0 !== absint( $parent_act_id ) ) {
 			$take_action_pages_args = [
 				'post_type'   => 'page',
 				'post_parent' => $parent_act_id,
 				'post_status' => 'publish',
-                'numberposts' => -1,
+				'orderby'     => 'menu_order',
+				'order'       => 'ASC',
+				'numberposts' => -1,
 			];
 
-			$posts          = get_posts( $take_action_pages_args );
+			$posts = get_posts( $take_action_pages_args );
 			foreach ( $posts as $post ) {
 				$options[ $post->ID ] = $post->post_title;
 			}
