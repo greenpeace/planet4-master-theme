@@ -298,9 +298,13 @@ class P4_Master_Site extends TimberSite {
 	/**
 	 * Load styling and behaviour on admin pages.
 	 */
-	public function enqueue_admin_assets() {
+	public function enqueue_admin_assets( $hook ) {
 		// Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
+
+		if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
+			wp_enqueue_script( 'edit_post', $this->theme_dir . '/assets/admin/js/edit_post.js', array( 'jquery' ), '0.0.1', true );
+		}
 	}
 
 	/**
