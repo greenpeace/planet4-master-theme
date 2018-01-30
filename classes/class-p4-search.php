@@ -100,7 +100,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				if ( $this->posts ) {
 					// TODO - This if will be removed after applying Lazy-loading also when searching for specific term.
 					// TODO - For now get paged posts only when searching for everything.
-					if ( ! $this->$search_query ) {
+					if ( ! $this->search_query ) {
 						$this->paged_posts = array_slice( $this->posts, 0, self::POSTS_PER_LOAD );
 					}
 				}
