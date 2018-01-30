@@ -127,6 +127,9 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'do_meta_boxes',            array( $this, 'remove_default_tags_box' ) );
 		add_action( 'pre_insert_term',          array( $this, 'disallow_insert_term' ), 1, 2 );
 
+		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
+		add_action( 'wp_ajax_nopriv_get_paged_posts', array( 'P4_Search', 'get_paged_posts' ) );
+
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
@@ -149,12 +152,20 @@ class P4_Master_Site extends TimberSite {
 	 * @param array $services The dependencies to inject.
 	 */
 	private function services( $services = array() ) {
-		$this->services = $services;
-		if ( $this->services ) {
-			foreach ( $this->services as $service ) {
-				new $service();
+		if ( $services ) {
+			foreach ( $services as $service ) {
+				$this->services[ $service ] = new $service();
 			}
 		}
+	}
+
+	/**
+	 * Gets the loaded services.
+	 *
+	 * @return array The loaded services.
+	 */
+	public function get_services() : array {
+		return $this->services;
 	}
 
 	/**
@@ -305,9 +316,6 @@ class P4_Master_Site extends TimberSite {
 		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.2.1', true );
 		wp_enqueue_script( 'custom', $this->theme_dir . '/assets/js/custom.js', array( 'jquery' ), '0.1.9', true );
 		wp_enqueue_script( 'slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array(), '0.1.0', true );
-		if ( is_search() ) {
-			wp_enqueue_script( 'search', $this->theme_dir . '/assets/js/search.js', array( 'jquery' ), '0.1.2', true );
-		}
 	}
 
 	/**
@@ -609,7 +617,12 @@ class P4_Master_Site extends TimberSite {
 	 * @return string The edited WHERE clause.
 	 */
 	public function edit_search_mime_types( $where ) : string {
-		if ( is_search() ) {
+		// TODO - This method and all Search related methods in this class
+		// TODO - after this commit CAN and SHOULD be transferred inside the P4_Search class.
+		// TODO - Would have spotted the necessary change much faster.
+		$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
+
+		if ( is_search() || wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
 			$mime_types = implode( ',', P4_Search::DOCUMENT_TYPES );
 			$where .= ' AND post_mime_type IN("' . $mime_types . '","") ';
 		}
