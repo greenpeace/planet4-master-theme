@@ -6,6 +6,7 @@
   overflow: hidden;
   z-index: 2;
   margin-bottom: 5px;
+  width: 100vw;
 
   @include small-and-up {
     height: 400px;
@@ -27,7 +28,6 @@
 }
 
 .split-two-column-item-image {
-  @include background-before-opacity($black, 0.3);
   position: absolute;
   background-size: cover;
   background-position: center;
@@ -35,9 +35,16 @@
   width: 100%;
   top: 0;
 
-  @include small-and-up {
-    @include background-before-opacity($black, 0.15);
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(190deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2));
   }
+
   img {
     width: 100%;
     height: 100%;
@@ -50,6 +57,7 @@
 
   a {
     color: $white;
+    text-shadow: 1px 1px 3px $black;
   }
 
   @include small-and-up {
@@ -85,6 +93,7 @@
 
   &:hover {
     color: $yellow;
+    text-shadow: 1px 1px 3px $black;
   }
 
   @include medium-and-up {
@@ -274,7 +283,7 @@
       display: block;
       height: 100%;
       width: 100%;
-      background: rgba(23, 23, 23, 0.44);
+      background: linear-gradient(100deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0));
     }
 
   }
@@ -297,7 +306,7 @@
       z-index: 1;
       height: 100%;
       width: 25%;
-      background: transparentize($white, .95);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05),rgba(255, 255, 255, 0));
     }
   }
 

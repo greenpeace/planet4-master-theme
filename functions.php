@@ -127,6 +127,9 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'do_meta_boxes',            array( $this, 'remove_default_tags_box' ) );
 		add_action( 'pre_insert_term',          array( $this, 'disallow_insert_term' ), 1, 2 );
 
+		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
+		add_action( 'wp_ajax_nopriv_get_paged_posts', array( 'P4_Search', 'get_paged_posts' ) );
+
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
@@ -149,12 +152,20 @@ class P4_Master_Site extends TimberSite {
 	 * @param array $services The dependencies to inject.
 	 */
 	private function services( $services = array() ) {
-		$this->services = $services;
-		if ( $this->services ) {
-			foreach ( $this->services as $service ) {
-				new $service();
+		if ( $services ) {
+			foreach ( $services as $service ) {
+				$this->services[ $service ] = new $service();
 			}
 		}
+	}
+
+	/**
+	 * Gets the loaded services.
+	 *
+	 * @return array The loaded services.
+	 */
+	public function get_services() : array {
+		return $this->services;
 	}
 
 	/**
@@ -296,18 +307,18 @@ class P4_Master_Site extends TimberSite {
 	 * Load styling and behaviour on website pages.
 	 */
 	public function enqueue_public_assets() {
+		$css_creation = filectime(get_template_directory() . '/style.css');
+		$js_creation  = filectime(get_template_directory() . '/assets/js/custom.js');
+
 		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', array(), '4.0.0-alpha.6' );
-		wp_enqueue_style( 'parent-style', $this->theme_dir . '/src/css/style.css', [], '0.0.49' );
+		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], $css_creation );
 		wp_enqueue_style( 'slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css', array(), '1.8.1' );
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 		wp_enqueue_script( 'popperjs', $this->theme_dir . '/assets/js/popper.min.js', array(), '1.11.0', true );
 		wp_enqueue_script( 'bootstrapjs', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', array(), '4.0.0-beta', true );
 		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.2.1', true );
-		wp_enqueue_script( 'custom', $this->theme_dir . '/assets/js/custom.js', array( 'jquery' ), '0.1.9', true );
+		wp_enqueue_script( 'custom', $this->theme_dir . '/assets/js/custom.js', array( 'jquery' ), $js_creation, true );
 		wp_enqueue_script( 'slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array(), '0.1.0', true );
-		if ( is_search() ) {
-			wp_enqueue_script( 'search', $this->theme_dir . '/assets/js/search.js', array( 'jquery' ), '0.1.2', true );
-		}
 	}
 
 	/**
@@ -609,7 +620,12 @@ class P4_Master_Site extends TimberSite {
 	 * @return string The edited WHERE clause.
 	 */
 	public function edit_search_mime_types( $where ) : string {
-		if ( is_search() ) {
+		// TODO - This method and all Search related methods in this class
+		// TODO - after this commit CAN and SHOULD be transferred inside the P4_Search class.
+		// TODO - Would have spotted the necessary change much faster.
+		$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
+
+		if ( is_search() || wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
 			$mime_types = implode( ',', P4_Search::DOCUMENT_TYPES );
 			$where .= ' AND post_mime_type IN("' . $mime_types . '","") ';
 		}
@@ -625,15 +641,17 @@ class P4_Master_Site extends TimberSite {
 		$parent_act_id = planet4_get_option( 'act_page' );
 		$options       = [];
 
-		if( 0 !== absint( $parent_act_id ) ) {
+		if ( 0 !== absint( $parent_act_id ) ) {
 			$take_action_pages_args = [
 				'post_type'   => 'page',
 				'post_parent' => $parent_act_id,
 				'post_status' => 'publish',
-                'numberposts' => -1,
+				'orderby'     => 'menu_order',
+				'order'       => 'ASC',
+				'numberposts' => -1,
 			];
 
-			$posts          = get_posts( $take_action_pages_args );
+			$posts = get_posts( $take_action_pages_args );
 			foreach ( $posts as $post ) {
 				$options[ $post->ID ] = $post->post_title;
 			}

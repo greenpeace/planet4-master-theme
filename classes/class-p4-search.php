@@ -10,14 +10,16 @@ if ( ! class_exists( 'P4_Search' ) ) {
 	 */
 	class P4_Search {
 
-		const POSTS_LIMIT           = 200;
+		const POSTS_LIMIT           = 300;
 		const POSTS_PER_PAGE        = 10;
 		const POSTS_PER_LOAD        = 5;
+		const SHOW_SCROLL_TIMES     = 2;
 		const DEFAULT_SORT          = 'relevant';
 		const DEFAULT_MIN_WEIGHT    = 1;
 		const DEFAULT_PAGE_WEIGHT   = 20;
 		const DEFAULT_ACTION_WEIGHT = 25;
 		const DEFAULT_MAX_WEIGHT    = 30;
+		const DEFAULT_CACHE_TTL     = 600;
 		const DUMMY_THUMBNAIL       = '/images/dummy-thumbnail.png';
 		const DOCUMENT_TYPES        = [
 			'application/pdf',
@@ -35,6 +37,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		protected $selected_sort;
 		/** @var array $filters */
 		protected $filters;
+		/** @var array $localizations */
+		protected $localizations;
 		/** @var array $templates */
 		public $templates;
 		/** @var array $context */
@@ -44,6 +48,24 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 		/**
 		 * P4_Search constructor.
+		 */
+		public function __construct() {}
+
+		/**
+		 * Initialize the class. Hook necessary actions and filters.
+		 */
+		protected function initialize() {
+			$this->localizations = [
+				// The ajaxurl variable is a global js variable defined by WP itself but only for the WP admin
+				// For the frontend we need to define it ourselves and pass it to js.
+				'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
+			];
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_assets' ) );
+		}
+
+		/**
+		 * Conducts the actual search.
 		 *
 		 * @param string     $search_query The searched term.
 		 * @param string     $selected_sort The selected order_by.
@@ -51,7 +73,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * @param array      $templates An indexed array with template file names. The first to be found will be used.
 		 * @param array|null $context An associative array with all the context needed to render the template found first.
 		 */
-		public function __construct( $search_query, $selected_sort = self::DEFAULT_SORT, $filters = [], $templates = [ 'search.twig', 'archive.twig', 'index.twig' ], $context = null ) {
+		public function load( $search_query, $selected_sort = self::DEFAULT_SORT, $filters = [], $templates = [ 'search.twig', 'archive.twig', 'index.twig' ], $context = null ) {
+			$this->initialize();
 			$this->search_query = $search_query;
 			$this->templates    = $templates;
 
@@ -60,18 +83,99 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			} else {
 				$this->context = Timber::get_context();
 
+				// Validate user input (sort, filters, etc).
 				if ( $this->validate( $selected_sort, $filters, $this->context ) ) {
 					$this->selected_sort = $selected_sort;
 					$this->filters       = $filters;
 				}
-				$this->posts = $this->get_timber_posts();
+
+				// Set the decoded url query string as key.
+				$query_string = urldecode( filter_input( INPUT_SERVER, 'QUERY_STRING', FILTER_SANITIZE_STRING ) );
+				$group        = 'search';
+				$subgroup     = $this->search_query ? $this->search_query : 'all';
+
+				// Check Object cache for stored key.
+				$this->check_cache( $query_string, "$group:$subgroup" );
+
+				// If posts were found either in object cache or primary database then get the first POSTS_PER_LOAD results.
+				if ( $this->posts ) {
+					// TODO - This if will be removed after applying Lazy-loading also when searching for specific term.
+					// TODO - For now get paged posts only when searching for everything.
+					if ( ! $this->search_query ) {
+						$this->paged_posts = array_slice( $this->posts, 0, self::POSTS_PER_LOAD );
+					}
+				}
+
+				// If no results were found at all for the searched term, then get them all - This is obsolete now!
 				if ( 0 === count( $this->posts ) ) {
+					// TODO - Optimize this part. We don't really need to search for everything,
+					// TODO - we could just get all categories, tags, content types, page types instead.
+					// TODO - Also, removing this is needed for https://jira.greenpeace.org/browse/PLANET-1600.
 					$this->all_posts = $this->get_posts( true );
 				}
-				$this->current_page  = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
-				$this->paged_posts   = array_slice( $this->posts, ( $this->current_page - 1 ) * self::POSTS_PER_PAGE, self::POSTS_PER_PAGE );
-
+				$this->current_page = ( 0 === get_query_var( 'paged' ) ) ? 1 : get_query_var( 'paged' );
 				$this->set_context( $this->context );
+			}
+		}
+
+		/**
+		 * Callback for Lazy-loading the next results.
+		 * Gets the paged posts that belong to the next page/load and are to be used with the twig template.
+		 */
+		public function get_paged_posts() {
+			// If this is an ajax call.
+			if ( wp_doing_ajax() ) {
+				$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
+				$paged         = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_STRING );
+
+				// Check if call action is correct.
+				if ( 'get_paged_posts' === $search_action ) {
+					$search_async = new self();
+					$search_async->search_query = trim( get_search_query() );
+
+					// Get the decoded url query string and then use it as key for redis.
+					$query_string       = filter_input( INPUT_GET, 'query-string', FILTER_SANITIZE_STRING );
+					$group              = 'search';
+					$subgroup           = $search_async->search_query ? $search_async->search_query : 'all';
+					$search_async->current_page = $paged;
+
+					// TODO - Set the correct filters so that it will work when searching for specific term with filters applied.
+					// Check Object cache for stored key.
+					$search_async->check_cache( $query_string, "$group:$subgroup" );
+
+					// Check if there are results already in the cache else fallback to the primary database.
+					if ( $search_async->posts ) {
+						$search_async->paged_posts = array_slice( $search_async->posts, ( $search_async->current_page - 1 ) * self::POSTS_PER_LOAD, self::POSTS_PER_LOAD );
+					} else {
+						$search_async->paged_posts = $search_async->get_timber_posts( $search_async->current_page );
+					}
+
+					// If there are paged results then set their context and send them back to client.
+					if ( $search_async->paged_posts ) {
+						$search_async->set_results_context( $search_async->context );
+						$search_async->view_paged_posts();
+					}
+				}
+				wp_die();
+			}
+		}
+
+		/**
+		 * Check if search is cached. If it is not then get posts from primary database and cache it.
+		 *
+		 * @param string $cache_key The key that will be used for storing the results in the object cache.
+		 * @param string $cache_group The group that will be used for storing the results in the object cache.
+		 */
+		protected function check_cache( $cache_key, $cache_group ) {
+			// Get search results from cache and then set the context for those results.
+			$this->posts = wp_cache_get( $cache_key, $cache_group );
+
+			// If cache key expired then retrieve results once again and re-cache them.
+			if ( false === $this->posts ) {
+				$this->posts = $this->get_timber_posts();
+				if ( $this->posts ) {
+					wp_cache_add( $cache_key, $this->posts, $cache_group, self::DEFAULT_CACHE_TTL );
+				}
 			}
 		}
 
@@ -79,9 +183,11 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * Gets the respective Timber Posts, to be used with the twig template.
 		 * If there are not then uses Timber's get_posts to retrieve all of them (up to the limit set).
 		 *
+		 * @param int $paged The number of the page of the results to be shown when using pagination/load_more.
+		 *
 		 * @return array The respective Timber Posts.
 		 */
-		protected function get_timber_posts() : array {
+		protected function get_timber_posts( $paged = 1 ) : array {
 			$timber_posts = [];
 
 			if ( $this->search_query && ! $this->filters ) {
@@ -91,7 +197,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				 */
 				$timber_posts = Timber::get_posts();
 			} else {
-				$posts = $this->get_posts();
+				$posts = $this->get_posts( false, $paged );
 				// Use Timber's Post instead of WP_Post so that we can make use of Timber within the template.
 				if ( $posts ) {
 					foreach ( $posts as $post ) {
@@ -107,10 +213,11 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * Applies user selected filters to the search if there are any and gets the filtered posts.
 		 *
 		 * @param bool $all Boolean that indicates whether we want all results or not. Default set to false.
+		 * @param int  $paged The number of the page of the results to be shown when using pagination/load_more.
 		 *
 		 * @return array The posts of the search.
 		 */
-		protected function get_posts( $all = false ) : array {
+		protected function get_posts( $all = false, $paged = 1 ) : array {
 
 			$args = [
 				'posts_per_page' => self::POSTS_LIMIT,          // Set a high maximum because -1 will get ALL posts and this can be very intensive in production.
@@ -118,6 +225,11 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				'post_type'      => 'any',
 				'post_status'    => 'any',
 			];
+
+			if ( $paged > 1 ) {
+				$args['posts_per_page'] = self::POSTS_PER_LOAD;
+				$args['paged'] = $paged;
+			}
 
 			if ( ! $all && $this->search_query ) {
 				$args['s'] = $this->search_query;
@@ -135,9 +247,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 								];
 								break;
 							case 'tag':
-								if ( $this->search_query && ! isset( $this->filters['ctype'] ) ) {
-									unset( $args['post_type'] );
-								}
 								$args['tax_query'][] = [
 									'taxonomy' => 'post_tag',
 									'field'    => 'term_id',
@@ -229,12 +338,12 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['posts']            = $this->posts;
 			$context['all_posts']        = $this->all_posts;
 			$context['paged_posts']      = $this->paged_posts;
+			$context['current_page']     = $this->current_page;
 			$context['search_query']     = $this->search_query;
 			$context['selected_sort']    = $this->selected_sort;
 			$context['default_sort']     = self::DEFAULT_SORT;
 			$context['filters']          = $this->filters;
 			$context['found_posts']      = count( (array) $this->posts );
-			$context['dummy_thumbnail']  = esc_url( get_template_directory_uri() . self::DUMMY_THUMBNAIL );
 			$context['source_selection'] = false;
 			$context['page_category']    = $category->name ?? __( 'Search page', 'planet4-master-theme' );
 
@@ -261,6 +370,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 			// If no results where found for the searched term then use all posts
 			// in order to calculate all available filter options and display them.
+			// TODO - According to latest requirements this should be removed.
 			if ( ! $this->posts ) {
 				$posts = $this->all_posts;
 			}
@@ -268,8 +378,12 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			// Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
 			$options = get_option( 'planet4_options' );
 
+			// Set default thumbnail.
+			$context['posts_data']['dummy_thumbnail'] = get_template_directory_uri() . self::DUMMY_THUMBNAIL;
+
 			foreach ( (array) $posts as $post ) {
 				// Category <-> Issue.
+				// TODO - Consider Issues that have multiple Categories.
 				$category = get_the_category( $post->ID )[0];
 				if ( $category && $category->parent === (int) $options['issues_parent_category'] ) {
 					$context['categories'][ $category->term_id ] = [
@@ -339,6 +453,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				}
 			}
 
+			// TODO - All the rest of the code of this method should be transferred for better separation of concerns
+			// TODO - to the set_general_context method as it is not related to the actual results that are displayed.
+			// Calculate the results for each Content Type and pass it along with their labels.
 			if ( $context['posts_data']['found_actions'] > 0 ) {
 				$context['content_types']['0'] = [
 					'name'    => __( 'Action', 'planet4-master-theme' ),
@@ -364,7 +481,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				];
 			}
 
-			// Track checked filters.
+			// Keep track of which filters are already checked.
 			if ( $this->filters ) {
 				foreach ( $this->filters as $type => $filter_type ) {
 					foreach ( $filter_type as $filter ) {
@@ -430,13 +547,14 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		/**
 		 * Adds a section with a Load more button.
 		 *
-		 * @param array|null $load_more The array with the data for the pagination.
+		 * @param array|null $args The array with the data for the pagination.
 		 */
-		public function add_load_more( $load_more = null ) {
+		public function add_load_more( $args = null ) {
 			// Add pagination temporarily until we have a lazy loading solution. Use Timber::get_pagination() if we want a more customized one.
-			$this->context['load_more'] = $load_more ?? [
+			$this->context['load_more'] = $args ?? [
 				'posts_per_load' => self::POSTS_PER_LOAD,
 				'button_text'    => sprintf( __( 'SHOW %s MORE RESULTS', 'planet4-master-theme' ), self::POSTS_PER_LOAD ),
+				'async'          => true,
 			];
 		}
 
@@ -470,6 +588,38 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		public function view() {
 			Timber::render( $this->templates, $this->context );
+		}
+
+		/**
+		 * View the paged posts of the next page/load.
+		 */
+		public function view_paged_posts() {
+			// TODO - The $paged_context related code should be transferred to set_results_context method for better separation of concerns.
+			if ( $this->paged_posts ) {
+				$paged_context = [
+					'posts_data'  => $this->context['posts_data'],
+				];
+				foreach ( $this->paged_posts as $index => $post ) {
+					$paged_context['post'] = $post;
+					if ( 0 === $index % self::POSTS_PER_LOAD ) {
+						$paged_context['first_of_the_page'] = true;
+					} else {
+						$paged_context['first_of_the_page'] = false;
+					}
+					Timber::render( [ 'tease-search.twig' ], $paged_context );
+				}
+			}
+		}
+
+		/**
+		 * Load assets only on the search page.
+		 */
+		public function enqueue_public_assets() {
+			if ( is_search() ) {
+				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', array( 'jquery' ), '0.1.6', true );
+				wp_localize_script( 'search', 'localizations', $this->localizations );
+				wp_enqueue_script( 'search' );
+			}
 		}
 	}
 }
