@@ -10,7 +10,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 	 */
 	class P4_Search {
 
-		const POSTS_LIMIT           = 200;
+		const POSTS_LIMIT           = 300;
 		const POSTS_PER_PAGE        = 10;
 		const POSTS_PER_LOAD        = 5;
 		const SHOW_SCROLL_TIMES     = 2;
