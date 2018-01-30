@@ -49,15 +49,16 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		/**
 		 * P4_Search constructor.
 		 */
-		public function __construct() {
-			//$this->initialize();
-		}
+		public function __construct() {}
 
 		/**
 		 * Initialize the class. Hook necessary actions and filters.
 		 */
 		protected function initialize() {
 			$this->localizations = [
+				// The ajaxurl variable is a global js variable defined by WP itself but only for the WP admin
+				// For the frontend we need to define it ourselves and pass it to js.
+				'ajaxurl'           => admin_url( 'admin-ajax.php' ),
 				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
 			];
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_assets' ) );
@@ -615,7 +616,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		public function enqueue_public_assets() {
 			if ( is_search() ) {
-				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', array( 'jquery' ), '0.1.5', true );
+				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', array( 'jquery' ), '0.1.6', true );
 				wp_localize_script( 'search', 'localizations', $this->localizations );
 				wp_enqueue_script( 'search' );
 			}
