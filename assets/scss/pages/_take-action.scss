@@ -402,9 +402,9 @@
         line-height: 128px;
         text-align: center;
         font-size: rem(70);
-        background-color: $step-normal-bg;
+        background-color: $grey;
         border-radius: 50%;
-        color: $step-number-hover;
+        color: $white;
         text-transform: uppercase;
         font-weight: 500;
       }
@@ -432,21 +432,19 @@
 
         @include large-and-up {
           padding-top: 48px;
-          font-size: rem(22);
+          font-size: rem(20);
           line-height: rem(30);
+          color: $dark-shade-black;
         }
 
         @include x-large-and-up {
-          font-size: rem(20);
-          line-height: rem(30);
-          color: $heading;
           margin-bottom: 18px;
         }
       }
 
       p {
-        font-family: $roboto;
-        color: $blue-text;
+        font-family: $lora;
+        color: $dark-shade-black;
         font-size: rem(14);
         opacity: 0.75;
 
@@ -454,7 +452,6 @@
           font-size: rem(15);
           line-height: 1.6;
           margin-bottom: 20px;
-          color: $dark-shade-black;
         }
       }
 
@@ -480,7 +477,7 @@
 
     &:hover {
       .step-number {
-        background: $step-number-hover;
+        background: $grey-60;
         color: $white;
       }
     }
@@ -506,15 +503,16 @@
   width: 100%;
 
   .card-header {
-    background: $card-header-bg;
+    background: $grey;
     border: none;
 
     h5 {
       a {
-        color: $percentage-text;
-        font-weight: 500;
+        color: $white;
+        font-weight: 400;
         font-size: rem(15);
         text-decoration: none;
+
         &:hover {
           text-decoration: none;
         }
@@ -557,21 +555,24 @@
       margin-bottom: 10px;
 
       p {
-        font-family: $roboto;
+        font-family: $lora;
         color: $dark-shade-black;
         font-size: rem(14);
         line-height: rem(22);
+        margin-left: -10px;
+        padding-right: 20px;
       }
     }
 
     .step-number {
-      font-size: rem(18);
-      font-weight: 700;
-      color: $step-number;
-      line-height: 28px;
+      font-size: rem(16);
+      font-weight: 900;
+      color: $white;
+      line-height: 1.5;
       padding-right: 9px;
       float: left;
       vertical-align: bottom;
+      padding-bottom: 5px;
     }
   }
 }
