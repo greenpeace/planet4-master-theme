@@ -5,10 +5,21 @@
   .cover-card {
     width: auto;
     position: relative;
+    min-height: 365px;
+
+    @include medium-and-up {
+      width: 290px;
+      float: right;
+      margin-left: 10px;
+    }
 
     @include large-and-up {
-      width: 320px;
-      float: right;
+      margin-left: 0;
+    }
+
+    @include x-large-and-up {
+      width: 330px;
+      min-height: 415px;
     }
   }
 
@@ -21,11 +32,40 @@
     }
 
     @include medium-and-up {
-      font-size: rem(20);
+      font-size: rem(16);
+      margin-bottom: 20px;
+    }
+
+    @include x-large-and-up {
+      font-size: rem(18);
     }
 
     li:not(:first-child) {
       padding-top: 10px;
+    }
+  }
+
+  h2 {
+    font-size: rem(22);
+    line-height: 1.2;
+    margin-bottom: 15px;
+    padding-top: 8px;
+
+    @include medium-and-up {
+      font-size: rem(24);
+      padding-top: 10px;
+    }
+
+    @include large-and-up {
+      font-size: rem(28);
+      margin-bottom: 20px;
+    }
+
+    @include x-large-and-up {
+      font-size: rem(30);
+      padding-top: 20px;
+      margin-bottom: 20px;
+      line-height: 1.2;
     }
   }
 
@@ -43,12 +83,7 @@
       line-height: 1.6;
     }
 
-    @include large-and-up {
-      margin: 0 0 20px 0;
-    }
-
-    @include large-and-up {
-      margin: 0 0 20px 0;
+    @include x-large-and-up {
       font-size: rem(18)
     }
 
@@ -65,7 +100,7 @@
 
       @include medium-and-up {
         height: 400px;
-        padding: 0 15px;
+        padding: 0;
       }
 
       @include large-and-up {
@@ -245,7 +280,7 @@
 .post-content-lead {
 
   @include large-and-up {
-	  max-width: 65%;
+    max-width: 65%;
   }
 
   p:first-of-type {
@@ -262,7 +297,7 @@
 
   h4 {
     padding: 20px 0 10px 0;
-	  font-weight: 700;
+    font-weight: 700;
   }
 }
 
@@ -271,7 +306,22 @@
   position: relative;
   display: inline-block;
   width: auto;
-  margin-bottom: 0;
+  margin-bottom: 18px;
+
+  @include medium-and-up {
+    margin-bottom: 22px;
+    padding-top: 6px;
+  }
+
+  @include large-and-up {
+    margin-bottom: 26px;
+    padding-top: 10px;
+  }
+
+  @include x-large-and-up {
+    margin-bottom: 30px;
+    padding-top: 12px;
+  }
 
   img {
     max-width: 100%;
@@ -301,18 +351,17 @@
     font-size: rem(13);
     margin: 0;
     line-height: 1.4;
-    color: $grey;
+    color: $white;
     font-family: $roboto;
     position: absolute;
     left: 0;
     bottom: 0;
     width: 100%;
     max-width: 100%;
+    background: linear-gradient(210deg, transparentize($med-blue, .8) 0%, $med-blue 100%);
+    padding: 10px 20px;
 
     @include medium-and-up {
-      font-size: rem(13);
-      color: $white;
-      background: linear-gradient(210deg, transparentize($med-blue, .8) 0%, $med-blue 100%);
       padding: 20px 30px;
     }
 
