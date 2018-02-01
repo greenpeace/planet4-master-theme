@@ -40,6 +40,10 @@
 
     .page-header-title {
       max-width: 100%;
+
+      &.limit-width {
+        max-width: 65%;
+      }
     }
 
     .page-header-background {
@@ -69,26 +73,17 @@
     }
 
     .tag-item {
-      @include mobile-only {
-        display: block;
-      }
-
-      @include small-and-up {
-        display: inline-block;
-      }
+      display: inline-block;
     }
 
     .single-post-meta {
-      color: $grey-80;
-      margin: 30px 0 0;
-      font-size: rem(14);
+      color: $dark-shade-black;
+      margin: 0 0 16px 0;
+      font-size: rem(13);
+      font-weight: 300;
 
       a {
         color: inherit;
-      }
-
-      @include small-and-up {
-        font-size: rem(16);
       }
 
       @include medium-and-up {
