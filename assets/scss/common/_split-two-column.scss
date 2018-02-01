@@ -90,6 +90,9 @@
   color: $yellow;
   display: block;
   margin-bottom: .75em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &:hover {
     color: $yellow;
@@ -156,19 +159,20 @@
 .split-two-column-item-content {
   @include small-and-up {
     .item--left & {
-      right: 15%;
       width: 45%;
+      right: 15%;
     }
 
     .item--right & {
-      left: 20%;
+      width: 45%;
+      left: 15%;
     }
   }
 
   @include medium-and-up {
     .item--left & {
-      width: 55%;
-      right: 7%;
+      width: 50%;
+      right: 10%;
     }
 
     .item--right & {
@@ -184,14 +188,18 @@
     }
 
     .item--right & {
-      width: 35%;
+      width: 42%;
+      left: 15%;
     }
   }
 
   @include x-large-and-up {
     .item--left & {
-      width: 32.8%;
-      right: 10%;
+      width: 40%;
+    }
+
+    .item--right & {
+      width: 40%;
     }
   }
 }
