@@ -1,0 +1,60 @@
+.share-buttons {
+  margin: 0 0 10px 0;
+
+  @include medium-and-up {
+    margin: 0;
+  }
+
+  .single-post & {
+    @include medium-and-up {
+      margin: -10px 0 0 0;
+    }
+
+    @include large-and-up {
+      margin: -20px 0 0 0;
+    }
+
+    @include x-large-and-up {
+      margin: -10px 0 0 0;
+    }
+  }
+
+  .share-btn {
+    border: none;
+    box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
+    color: $white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: rem(18);
+    opacity: 0.9;
+    outline: none;
+    padding: 5px 0;
+    width: 4rem;
+    text-align: center;
+    line-height: 1.2;
+
+    &:hover {
+      color: $grey-10;
+    }
+
+    &:active {
+      position: relative;
+      top: 2px;
+      box-shadow: none;
+      color: #e2e2e2;
+      outline: none;
+    }
+  }
+
+  .twitter {
+    background: $twitter none repeat scroll 0 0;
+  }
+
+  .facebook {
+    background: $facebook none repeat scroll 0 0;
+  }
+
+  .email {
+    background: $email none repeat scroll 0 0;
+  }
+}

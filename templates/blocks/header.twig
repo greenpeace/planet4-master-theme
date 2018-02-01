@@ -27,6 +27,20 @@
 				</div>
 			{% endif %}
 			<h1 class="page-header-title">{{ header_title|e('wp_kses_post')|raw }}</h1>
+			<div class="share-buttons text-md-right">
+				<!-- Facebook -->
+				<a href="http://www.facebook.com/sharer/sharer.php?u={{ post.permalink }}" target="_blank" class="share-btn facebook">
+					<i class="fa fa-facebook"></i>
+				</a>
+				<!-- Twitter -->
+				<a href="http://twitter.com/share?url={{ post.permalink }}&text={{ post.title }}" target="_blank" class="share-btn twitter">
+					<i class="fa fa-twitter"></i>
+				</a>
+				<!-- Email -->
+				<a href="mailto:?subject={{ post.title }}&body={{ post.permalink }}" target="_blank" class="share-btn email">
+					<i class="fa fa-envelope"></i>
+				</a>
+			</div>
 			{% if ( header_subtitle ) %}
 				<h3 class="page-header-subtitle">{{ header_subtitle }}</h3>
 			{% endif %}

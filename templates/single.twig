@@ -21,14 +21,33 @@
 					{% endfor %}
 				</div>
 				<h1 class="page-header-title">{{ post.title|raw }}</h1>
-				<div class="single-post-meta">
-					{% if ( author_override ) %}
-						{% set author_name = author_override %}
-					{% else %}
-						{% set author_name = post.author.name %}
-					{% endif %}
-					<address class="single-post-author">{{ __( 'by', 'planet4-master-theme' ) }}&nbsp;{{ author_name }}</address>
-					<time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="single-post-meta">
+							{% if ( author_override ) %}
+								{% set author_name = author_override %}
+							{% else %}
+								{% set author_name = post.author.name %}
+							{% endif %}
+							<address class="single-post-author">{{ __( 'by', 'planet4-master-theme' ) }}&nbsp;{{ author_name }}</address>
+							<time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
+						</div>
+					</div>
+					<div class="col-md-6">
+					<div class="share-buttons text-md-right">
+						<!-- Facebook -->
+						<a href="http://www.facebook.com/sharer/sharer.php?u={{ post.permalink }}" target="_blank" class="share-btn facebook">
+							<i class="fa fa-facebook"></i>
+						</a>
+						<!-- Twitter -->
+						<a href="http://twitter.com/share?url={{ post.permalink }}&text={{ post.title }}" target="_blank" class="share-btn twitter">
+							<i class="fa fa-twitter"></i>
+						</a>
+						<!-- Email -->
+						<a href="mailto:?subject={{ post.title }}&body={{ post.permalink }}" target="_blank" class="share-btn email">
+							<i class="fa fa-envelope"></i>
+						</a>
+					</div>
 				</div>
 			</div>
 		</header>
