@@ -28,7 +28,7 @@ $(document).ready(function () {
 	});
 
 	function remove_categories(categories_array, category_name) {
-		var categories_to_be_removed = categories_array.filter(e = > e.category !== category_name);
+		var categories_to_be_removed = categories_array.filter(e => e.category !== category_name);
 		categories_to_be_removed.forEach(function (category) {
 			$("#categorychecklist input[id=" + category.id + "]").prop('checked', false);
 		});
