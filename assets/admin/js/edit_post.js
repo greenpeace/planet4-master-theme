@@ -1,9 +1,18 @@
 $(document).ready(function () {
 
-	// Populate array with planet4 page types if it is not defined from the backend.
-	if (p4_page_types === undefined) {
-		var p4_page_types = ["press release", "publication", "story"];
+
+	function remove_categories(categories_array, category_name) {
+		var categories_to_be_removed = categories_array.filter(e => e.category !== category_name);
+		categories_to_be_removed.forEach(function (category) {
+			$("#categorychecklist input[id="+category.id+"]").prop('checked', false);
+		});
 	}
+
+	// Populate array with planet4 page types
+	var p4_page_types = $('select[name="p4-page-type"] option').map(
+		function () {
+			return $.trim($(this).text()).toLowerCase();
+		}).get().filter(e => 'none' !== e);
 
 	// Populate array with categories that are also planet4 page types
 	var categories_array = $('#categorychecklist input[type=checkbox]').map(
@@ -21,16 +30,29 @@ $(document).ready(function () {
 		var category_name = $.trim($(this).parent().text()).toLowerCase();
 
 		if ($(this).prop("checked") === true) {
-			if (p4_page_types.includes(category_name)) {
+			if (p4_page_types.includes(category_name) ) {
+				var select_value = category_name.split(" ").join("-");
+				$("select[name='p4-page-type']").val(select_value);
 				remove_categories(categories_array, category_name);
 			}
 		}
 	});
 
-	function remove_categories(categories_array, category_name) {
-		var categories_to_be_removed = categories_array.filter(e => e.category !== category_name);
-		categories_to_be_removed.forEach(function (category) {
-			$("#categorychecklist input[id=" + category.id + "]").prop('checked', false);
+	// Change event listener for planet4 page type select box.
+	// Select the proper category when a planet4 page type is selected and deselect the rest categories that are
+	// planet4 page types.
+	$("select[name='p4-page-type']").on("change", function () {
+		var page_type = $.trim($(this).find(":selected").text()).toLowerCase();
+		if (page_type === 'none') {
+			return;
+		}
+
+		remove_categories(categories_array, page_type);
+		categories_array.forEach(function (category) {
+			if (page_type === category.category) {
+				$("input[id="+category.id+"]").prop('checked', true);
+			}
 		});
-	}
+	});
+
 });
