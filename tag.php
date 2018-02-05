@@ -48,10 +48,10 @@ if ( is_tag() ) {
 		'tag_slug__in'     => [ $context['tag']->slug ]
 	] );
 
-	$context['category_name']   = $posts[0]->post_title ?? __( 'This Campaign is not assigned to an Issue', 'planet4-master-theme' );
+	$context['category_name']   = $posts[0]->post_title ?? '';
 	$context['category_link']   = isset( $posts[0] ) ? get_permalink( $posts[0] ) : '';
 	$context['tag_name']        = single_tag_title( '', false );
-	$context['tag_description'] = $context['tag']->description;
+	$context['tag_description'] = wpautop( $context['tag']->description );
 	$context['tag_image']       = get_term_meta( $context['tag']->term_id, 'tag_attachment', true );
 
 	$context['page_category']   = $posts[0]->post_title ?? __( 'Unknown Campaign page', 'planet4-master-theme' );
