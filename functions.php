@@ -303,18 +303,6 @@ class P4_Master_Site extends TimberSite {
 
 		if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
 			wp_enqueue_script( 'edit_post', $this->theme_dir . '/assets/admin/js/edit_post.js', array( 'jquery' ), '0.0.1', true );
-
-			// get planet4 page types
-			$terms = get_terms( [
-				'taxonomy' => 'p4-page-type',
-				'hide_empty' => false,
-			] );
-
-			// get planet4 page types slugs.
-			$p4_page_types = array_map(function($k) {
-				return $k->slug;
-			}, $terms);
-			wp_localize_script( 'edit_post', 'p4_page_types', $p4_page_types );
 		}
 	}
 
@@ -426,18 +414,15 @@ class P4_Master_Site extends TimberSite {
 			'new_item_name'     => __( 'New Page Type' ),
 			'menu_name'         => __( 'Page Types' ),
 		];
-		$args = [
-			'hierarchical'       => false,
-			'labels'             => $p4_page_type,
-			'show_ui'            => true,
-			'show_admin_column'  => false,
-			'show_in_nav_menus'  => true,
-			'query_var'          => true,
-			'show_in_quick_edit' => false,
-			'rewrite'            => [
+		$args         = [
+			'hierarchical' => false,
+			'labels'       => $p4_page_type,
+			'show_ui'      => true,
+			'query_var'    => true,
+			'rewrite'      => [
 				'slug' => 'p4-page-types',
 			],
-			'meta_box_cb'        => false
+			'meta_box_cb'  => [ $this, 'p4_metabox_markup' ]
 		];
 		register_taxonomy( 'p4-page-type', [ 'p4_page_type', 'post' ], $args );
 
@@ -473,7 +458,7 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Save custom taxonomy for planet4 post types according to the categories that were assigned to the post.
+	 * Save custom taxonomy for planet4 post types
 	 *
 	 * @param int $post_id Id of the saved post.
 	 */
@@ -482,62 +467,53 @@ class P4_Master_Site extends TimberSite {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
-
+		// Check nonce.
+		if ( ! isset( $_POST['p4-page-type-nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['p4-page-type-nonce'] ) ), 'p4-save-page-type' ) ) {
+			return;
+		}
 		// Check user's capabilities.
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			return;
 		}
-
 		// Make sure there's input.
-		if ( ! isset( $_POST['post_category'] ) ) { // Input var okay.
+		if ( ! isset( $_POST['p4-page-type'] ) ) { // Input var okay.
 			return;
 		}
-
-		// get assigned to post categories.
-		$assigned_categories = $_POST['post_category'];
-
-		// get available categories.
-		$p4_wp_categories = get_categories();
-
-		// get planet4 page types
-		$terms = get_terms( array(
-			'taxonomy'   => 'p4-page-type',
-			'hide_empty' => false,
-		) );
-
-		// get planet4 page types slugs.
-		$p4_page_types_slugs = array_map( function ( $k ) {
-			return $k->slug;
-		}, $terms );
-
-		if ( empty( $assigned_categories ) ) {
-			return;
-		}
-
-		// Determine which of the categories assigned are also a planet4 page type.
-		$matches_found = 0;
-		$matched_slugs = [];
-		foreach ( $assigned_categories as $assigned_category ) {
-			foreach ( $p4_wp_categories as $category ) {
-				if ( intval( $assigned_category ) == $category->term_id && in_array( $category->slug, $p4_page_types_slugs ) ) {
-					$matched_slugs[] = $category->slug;
-					$matches_found ++;
-				}
-			}
-		}
-
-		// If more than one of those categories are assigned, then remove all of those from the post.
-		// If only one of these categories are assigned, assign also p4-page-type to post.
-		// Else remove the p4-page-type attribute from the post.
-		if ( $matches_found > 1 ) {
-			foreach ( $matched_slugs as $slug ) {
-				wp_remove_object_terms( $post_id, $slug, 'category' );
-			}
-		} else if ( $matches_found == 1 && ! empty( $matched_slugs ) ) {
-			wp_set_post_terms( $post_id, $matched_slugs[0], 'p4-page-type' );
-		} else if ( $matches_found == 0 ) {
+		// If "none" was selected, remove the term.
+		if ( $_POST['p4-page-type'] === '-1' ) {
 			wp_set_post_terms( $post_id, [], 'p4-page-type' );
+
+			return;
 		}
+		// Make sure the term exists and it's not an error.
+		$selected = get_term_by( 'slug', sanitize_text_field( wp_unslash( $_POST['p4-page-type'] ) ), 'p4-page-type' ); // Input var okay.
+		if ( false === $selected || is_wp_error( $selected ) ) {
+			return;
+		}
+		// Save post type.
+		wp_set_post_terms( $post_id, sanitize_text_field( $selected->slug ), 'p4-page-type' );
+	}
+
+	/**
+	 * Add a dropdown to choose planet4 post type.
+	 *
+	 * @param WP_Post $post
+	 */
+	public function p4_metabox_markup( WP_Post $post ) {
+		$attached_type = get_the_terms( $post, 'p4-page-type' );
+		$current_type  = ( is_array( $attached_type ) ) ? $attached_type[0]->slug : -1;
+		$all_types     = get_terms( 'p4-page-type', [ 'hide_empty' => false ] );
+		wp_nonce_field( 'p4-save-page-type', 'p4-page-type-nonce' );
+		?>
+		<select name="p4-page-type">
+			<?php foreach ( $all_types as $term ) : ?>
+				<option <?php selected( $current_type, $term->slug ); ?> value="<?php echo esc_attr( $term->slug ); ?>">
+					<?php echo esc_html( $term->name ); ?>
+				</option>
+			<?php endforeach; ?>
+			<option value="-1" <?php selected( -1, $current_type ); ?> >none</option>
+		</select>
+		<?php
 	}
 
 	/**
