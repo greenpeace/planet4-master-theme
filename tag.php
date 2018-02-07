@@ -83,6 +83,7 @@ if ( is_tag() ) {
 
 	// Get the image selected as background for the Subscribe section (HappyPoint block) inside the current Tag.
 	$background = get_term_meta( $context['tag']->term_id, 'happypoint_attachment_id', true );
+	$opacity    = get_term_meta( $context['tag']->term_id, 'happypoint_bg_opacity', true );
 	$options    = get_option( 'planet4_options' );
 
 	$campaign->add_block( HappyPoint::BLOCK_NAME, [
@@ -90,7 +91,7 @@ if ( is_tag() ) {
 		'background_html'     => wp_get_attachment_image( $background ),
 		'background_src'      => wp_get_attachment_image_src( $background, 'full' ),
 		'engaging_network_id' => $options['engaging_network_form_id'] ?? '',
-		'opacity'             => number_format( ( 30 / 100 ), 1 ),
+		'opacity'             => $opacity,
 		'mailing_list_iframe' => 'true',
 	] );
 
