@@ -296,6 +296,11 @@ $slide-transition-speed: 1s;
         @include medium-and-up {
           font-size: rem(16);
           line-height: 3;
+          width: auto;
+        }
+
+        @include large-and-up {
+          width: 100%;
         }
       }
     }
