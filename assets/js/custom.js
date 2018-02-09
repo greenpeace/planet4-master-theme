@@ -414,15 +414,17 @@ $(function() {
 
 $(function() {
   /* Carousel header swipe on mobile */
-  var carousel_element = document.getElementsByClassName('carousel-header')[0];
-  var carousel_head_hammer = new Hammer(carousel_element, { recognizers: [] });
-  var hammer = new Hammer.Manager(carousel_head_hammer.element);
-  var swipe = new Hammer.Swipe();
-  hammer.add(swipe);
+  if($('.carousel-header').length > 0) {
+    var carousel_element = $('.carousel-header')[0];
+    var carousel_head_hammer = new Hammer(carousel_element, { recognizers: [] });
+    var hammer = new Hammer.Manager(carousel_head_hammer.element);
+    var swipe = new Hammer.Swipe();
+    hammer.add(swipe);
 
-  hammer.on('swipeleft', function(){
-    advanceCarousel();
-  });
+    hammer.on('swipeleft', function(){
+      advanceCarousel();
+    });
+  }
 });
 
 
