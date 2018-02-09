@@ -26,7 +26,7 @@ add_filter( 'body_class', 'add_body_classes_for_post' );
 
 // Initializing variables.
 $context         = Timber::get_context();
-$post            = Timber::query_post();
+$post            = Timber::query_post(false, 'P4_Post');
 $context['post'] = $post;
 
 
