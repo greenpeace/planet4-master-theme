@@ -5,9 +5,9 @@
   .cover-card {
     width: auto;
     position: relative;
-    min-height: 365px;
 
     @include medium-and-up {
+      min-height: 365px;
       width: 290px;
       float: right;
       margin-left: 10px;
