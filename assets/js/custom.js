@@ -373,7 +373,7 @@ $(function() {
 
 $(function() {
   // Force the Cover card to follow scroll
-  var $sidebar = $("#action-card");
+  var $sidebar = $('.post-content').find('> #action-card');
   var $window = $(window);
   var offset = $sidebar.offset();
   var topPadding = 100;
