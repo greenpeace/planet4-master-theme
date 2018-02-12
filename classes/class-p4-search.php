@@ -223,7 +223,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				'posts_per_page' => self::POSTS_LIMIT,          // Set a high maximum because -1 will get ALL posts and this can be very intensive in production.
 				'no_found_rows'  => true,                       // This means that the result counters of each filter might not be 100% precise.
 				'post_type'      => 'any',
-				'post_status'    => 'publish',
+				'post_status'    => ['publish', 'inherit'],
 			];
 
 			if ( $paged > 1 ) {
