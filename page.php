@@ -28,7 +28,6 @@
  */
 
 use Timber\Timber;
-use Timber\Post as TimberPost;
 
 /**
  * Add custom css class for body element hook.
@@ -43,7 +42,7 @@ function add_body_classes_for_page( $classes ) {
 add_filter( 'body_class', 'add_body_classes_for_page' );
 
 $context = Timber::get_context();
-$post    = new TimberPost();
+$post    = new P4_Post();
 
 $page_meta_data = get_post_meta( $post->ID );
 $categories     = get_the_category( $post->ID );
