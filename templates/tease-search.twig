@@ -44,7 +44,8 @@
 			</div>
 
 			{% if ( is_document ) %}
-				<a href="{{ post.guid }}" class="search-result-item-headline">{{ post.title|e('wp_kses_post')|raw|length > 30 ? post.title|e('wp_kses_post')|raw|slice(0, 30) ~ '...' : post.title|e('wp_kses_post')|raw }}</a>
+				{% set title = post.title|e('wp_kses_post')|raw %}
+				<a href="{{ post.guid }}" class="search-result-item-headline">{{ title|length > 30 ? title|slice(0, 30) ~ '...' : title }}</a>
 			{% else %}
 				<a href="{{ post.link() }}" class="search-result-item-headline">{{ post.title|e('wp_kses_post')|raw }}</a>
 			{% endif %}
