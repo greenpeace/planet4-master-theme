@@ -143,11 +143,12 @@
     position: relative;
   }
 
-  h2 {
+  .cover-card-heading {
     font-size: rem(24);
     line-height: 1.2;
     font-weight: 500;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
+    padding-top: 0;
     max-width: 80%;
     transition: color 100ms linear;
     color: $white;
