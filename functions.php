@@ -303,6 +303,27 @@ class P4_Master_Site extends TimberSite {
 
 		if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
 			wp_enqueue_script( 'edit_post', $this->theme_dir . '/assets/admin/js/edit_post.js', array( 'jquery' ), '0.0.1', true );
+			wp_localize_script( 'edit_post', 'p4_page_type_mapping', planet4_get_option( 'p4-page-types-mapping' ) );
+		}
+		else if ( 'settings_page_planet4_options' === $hook ) {
+
+			// Get planet4 page types.
+			$terms = get_terms( [
+				'taxonomy'   => 'p4-page-type',
+				'hide_empty' => false,
+				'fields'     => 'all',
+			] );
+
+			// Get categories.
+			$categories = get_terms( [
+				'taxonomy'   => 'category',
+				'hide_empty' => false,
+				'fields'     => 'all',
+			] );
+
+			wp_enqueue_script( 'planet4_settings', $this->theme_dir . '/assets/admin/js/planet4_settings.js', array( 'jquery' ), '0.0.1', true );
+			wp_localize_script( 'planet4_settings', 'p4_page_types', $terms );
+			wp_localize_script( 'planet4_settings', 'categories', $categories );
 		}
 	}
 
@@ -459,7 +480,7 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Save custom taxonomy for planet4 post types
+	 * Save custom taxonomy for planet4 post types according to the categories that were assigned to the post.
 	 *
 	 * @param int $post_id Id of the saved post.
 	 */
@@ -468,31 +489,50 @@ class P4_Master_Site extends TimberSite {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
+
 		// Check nonce.
 		if ( ! isset( $_POST['p4-page-type-nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['p4-page-type-nonce'] ) ), 'p4-save-page-type' ) ) {
 			return;
 		}
+
 		// Check user's capabilities.
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			return;
 		}
-		// Make sure there's input.
-		if ( ! isset( $_POST['p4-page-type'] ) ) { // Input var okay.
-			return;
-		}
-		// If "none" was selected, remove the term.
-		if ( $_POST['p4-page-type'] === '-1' ) {
-			wp_set_post_terms( $post_id, [], 'p4-page-type' );
 
-			return;
+		// Get planet4 page types to categories mapping.
+		$categories         = null;
+		$categories_mapping = planet4_get_option( 'p4-page-types-mapping' );
+		$categories_mapping = json_decode( $categories_mapping );
+
+		// Get assigned categories.
+		if ( isset( $_POST['post_category'] ) && is_array( $_POST['post_category'] ) ) {
+			$categories = array_map( 'esc_attr', $_POST['post_category'] );
 		}
-		// Make sure the term exists and it's not an error.
-		$selected = get_term_by( 'slug', sanitize_text_field( wp_unslash( $_POST['p4-page-type'] ) ), 'p4-page-type' ); // Input var okay.
-		if ( false === $selected || is_wp_error( $selected ) ) {
-			return;
+
+		if ( ! is_null( $categories ) && $categories_mapping !== null && is_array( $categories_mapping ) ) {
+
+			$categories = $_POST['post_category'];
+
+			$assigned = false;
+			foreach ( $categories as $category_id ) {
+				foreach ( $categories_mapping as $category_map ) {
+					if ( ! isset( $category_map->category_id ) || ! isset( $category_map->p4_page_type_slug ) ) {
+						continue;
+					}
+					if ( intval( $category_id ) === $category_map->category_id ) {
+						// Save post type.
+						wp_set_post_terms( $post_id, sanitize_text_field( $category_map->p4_page_type_slug ), 'p4-page-type' );
+						$assigned = true;
+						break 2;
+					}
+				}
+			}
+			// If no mapped category was selected, remove the term.
+			if ( ! $assigned ) {
+				wp_set_post_terms( $post_id, [], 'p4-page-type' );
+			}
 		}
-		// Save post type.
-		wp_set_post_terms( $post_id, sanitize_text_field( $selected->slug ), 'p4-page-type' );
 	}
 
 	/**
@@ -506,7 +546,7 @@ class P4_Master_Site extends TimberSite {
 		$all_types     = get_terms( 'p4-page-type', [ 'hide_empty' => false ] );
 		wp_nonce_field( 'p4-save-page-type', 'p4-page-type-nonce' );
 		?>
-		<select name="p4-page-type">
+		<select name="p4-page-type" disabled>
 			<?php foreach ( $all_types as $term ) : ?>
 				<option <?php selected( $current_type, $term->slug ); ?> value="<?php echo esc_attr( $term->slug ); ?>">
 					<?php echo esc_html( $term->name ); ?>
