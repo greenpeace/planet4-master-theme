@@ -28,7 +28,7 @@
   margin-right: 20px;
   position: relative;
 
-  &:after {
+  &:not(:last-child):after {
     content: "\2022";
     pointer-events: none;
     display: inline-block;
