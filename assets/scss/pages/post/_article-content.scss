@@ -5,9 +5,9 @@
   .cover-card {
     width: auto;
     position: relative;
-    min-height: 365px;
 
     @include medium-and-up {
+      min-height: 365px;
       width: 290px;
       float: right;
       margin-left: 10px;
@@ -89,23 +89,28 @@
 
     iframe {
       width: 100%;
-      height: 240px;
+      height: 53vw;
       text-align: center;
       display: block;
       margin: 0 auto;
+      border: none;
+      overflow: hidden;
 
       @include small-and-up {
-        height: 240px;
+        height: 290px;
       }
 
       @include medium-and-up {
-        height: 400px;
+        height: 390px;
         padding: 0;
       }
 
       @include large-and-up {
-        width: 100%;
-        height: 530px;
+        height: 350px;
+      }
+
+      @include x-large-and-up {
+        height: 410px;
       }
     }
   }

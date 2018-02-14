@@ -2,7 +2,7 @@
 	"name": "greenpeace/planet4-master-theme",
 	"description": "Master theme for the Planet 4 Wordpress project",
 	"type":"wordpress-theme",
-	"version": "0.2.30",
+	"version": "0.2.31",
 	"minimum-stability" : "stable",
 	"authors": [
 		{
@@ -47,6 +47,6 @@
 	},
 	"require": {
 		"wpackagist-plugin/timber-library": "1.5.*",
-		"webdevstudios/cmb2": "^2"
+		"wpackagist-plugin/cmb2": "2.3.0"
 	}
 }

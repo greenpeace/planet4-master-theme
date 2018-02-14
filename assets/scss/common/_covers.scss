@@ -74,7 +74,6 @@
 }
 
 .cover-card {
-  min-height: 440px;
   flex-basis: 100%;
   padding: 32px 15px 60px;
   margin-bottom: 16px;
@@ -110,9 +109,11 @@
     @include background-before-opacity(linear-gradient(180deg, rgba(51, 51, 51, 0.6), rgba(250, 247, 236, 0.9), rgba(255, 255, 255, 0.8)), 1);
     box-shadow: 0 0 10px transparentize($black, .5);
 
-    p {
-      color: $grey-80;
-      visibility: visible;
+    @include medium-and-up {
+      p {
+        color: $grey-80;
+        display: block;
+      }
     }
 
     .btn {
@@ -142,11 +143,12 @@
     position: relative;
   }
 
-  h2 {
+  .cover-card-heading {
     font-size: rem(24);
     line-height: 1.2;
     font-weight: 500;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
+    padding-top: 0;
     max-width: 80%;
     transition: color 100ms linear;
     color: $white;
@@ -162,7 +164,7 @@
   p {
     font-size: rem(15);
     line-height: 1.6;
-    visibility: hidden;
+    display: none;
   }
 
   @include large-and-up {

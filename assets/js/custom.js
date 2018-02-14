@@ -165,6 +165,19 @@ $(function() {
       evt.preventDefault();
       activate($(evt.target).data('slide-to'));
     });
+
+  /* Carousel header swipe on mobile */
+  if($('.carousel-header').length > 0) {
+    var carousel_element = $('.carousel-header')[0];
+    var carousel_head_hammer = new Hammer(carousel_element, { recognizers: [] });
+    var hammer = new Hammer.Manager(carousel_head_hammer.element);
+    var swipe = new Hammer.Swipe();
+    hammer.add(swipe);
+
+    hammer.on('swipeleft', function(){
+      advanceCarousel();
+    });
+  }
 });
 
 function createCookie(name,value,days) {
@@ -360,7 +373,7 @@ $(function() {
 
 $(function() {
   // Force the Cover card to follow scroll
-  var $sidebar = $("#action-card");
+  var $sidebar = $('.post-content').find('> #action-card');
   var $window = $(window);
   var offset = $sidebar.offset();
   var topPadding = 100;
@@ -411,6 +424,3 @@ $(function() {
 		]
 	});
 });
-
-
-

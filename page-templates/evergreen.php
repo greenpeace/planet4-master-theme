@@ -17,7 +17,6 @@
  */
 
 use Timber\Timber;
-use Timber\Post as TimberPost;
 
 /**
  * Add custom css class for body element hook.
@@ -34,7 +33,7 @@ function add_body_classes_for_evergreen_page( $classes ) {
 add_filter( 'body_class', 'add_body_classes_for_evergreen_page' );
 
 $context        = Timber::get_context();
-$post           = new TimberPost();
+$post           = new P4_Post();
 $page_meta_data = get_post_meta( $post->ID );
 
 // Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.

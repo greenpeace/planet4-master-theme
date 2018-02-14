@@ -2,15 +2,6 @@
   pointer-events: none;
   height: 100%;
 
-  /* To accomodate very long content. */
-  @include mobile-only {
-    max-height: 4500px;
-  }
-
-  @include medium-and-up {
-    max-height: 9000px;
-  }
-
   width: 100%;
   position: absolute;
   z-index: 1;

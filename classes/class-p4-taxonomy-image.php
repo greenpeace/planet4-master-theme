@@ -49,7 +49,10 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 
 				$happypoint_attachment_id    = get_term_meta( $wp_tag->term_id, 'happypoint_attachment_id', true );
 				$happypoint_image_attributes = wp_get_attachment_image_src( $happypoint_attachment_id, 'full' );
-				$happypoint_attachment_url   = $happypoint_image_attributes ? $happypoint_image_attributes[0] : ''; ?>
+				$happypoint_attachment_url   = $happypoint_image_attributes ? $happypoint_image_attributes[0] : '';
+
+				$happypoint_bg_opacity = get_term_meta( $wp_tag->term_id, 'happypoint_bg_opacity', true );
+				$happypoint_bg_opacity = $happypoint_bg_opacity ?? '30'; ?>
 
 				<tr class="form-field edit-wrap term-image-wrap">
 					<th>
@@ -79,6 +82,15 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 						<p class="description"><?php esc_html_e( 'Choose a background image for the Subscribe block.', 'planet4-master-theme' ); ?></p>
 						<img class="attachment-thumbnail size-thumbnail" src="<?php echo esc_url( $happypoint_attachment_url ); ?>"/>
 						<i class="dashicons dashicons-dismiss <?php echo $happypoint_image_attributes ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
+					</td>
+				</tr>
+				<tr class="form-field edit-wrap term-happypoint-opacity-wrap">
+					<th>
+						<label><?php echo __( 'Happy Point Opacity', 'planet4-master-theme' ); ?></label>
+					</th>
+					<td>
+						<input type="number" name="happypoint_bg_opacity" id="happypoint_bg_opacity" class="happypoint-opacity-id field-id" value="<?php echo esc_attr( $happypoint_bg_opacity ); ?>" min="1" max="100"/>
+						<p class="description"><?php echo __( 'We use an overlay to fade the image back. Use a number between 1 and 100, the higher the number, the more faded the image will look. If you leave this empty, the default of 30 will be used.', 'planet4-master-theme' ); ?></p>
 					</td>
 				</tr>
 			<?php } else { ?>
@@ -121,6 +133,13 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 			if ( $this->validate( $attachment_id ) ) {
 				update_term_meta( $term_id, $field_id, $attachment_id );
 				update_term_meta( $term_id, $field_url, $attachment_url );
+			}
+
+			$field_id = 'happypoint_bg_opacity';
+			$happypoint_bg_opacity = filter_input( INPUT_POST, $field_id, FILTER_VALIDATE_INT );
+
+			if ( $this->validate( $happypoint_bg_opacity ) ) {
+				update_term_meta( $term_id, $field_id, $happypoint_bg_opacity );
 			}
 		}
 

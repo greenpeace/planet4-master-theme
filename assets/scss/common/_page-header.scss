@@ -82,6 +82,11 @@
       @include linear-gradient( 360deg, $white 0%, transparent 100% );
     }
   }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .page-header-image {
