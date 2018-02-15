@@ -29,8 +29,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		protected $search_query;
 		/** @var array|bool|null $posts */
 		protected $posts;
-		/** @var array|bool|null $all_posts */
-		protected $all_posts;
 		/** @var array|bool|null $paged_posts */
 		protected $paged_posts;
 		/** @var array $selected_sort */
@@ -106,13 +104,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					}
 				}
 
-				// If no results were found at all for the searched term, then get them all - This is obsolete now!
-				if ( 0 === count( $this->posts ) ) {
-					// TODO - Optimize this part. We don't really need to search for everything,
-					// TODO - we could just get all categories, tags, content types, page types instead.
-					// TODO - Also, removing this is needed for https://jira.greenpeace.org/browse/PLANET-1600.
-					$this->all_posts = $this->get_posts( true );
-				}
 				$this->current_page = ( 0 === get_query_var( 'paged' ) ) ? 1 : get_query_var( 'paged' );
 				$this->set_context( $this->context );
 			}
@@ -197,7 +188,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				 */
 				$timber_posts = Timber::get_posts();
 			} else {
-				$posts = $this->get_posts( false, $paged );
+				$posts = $this->get_posts( $paged );
 				// Use Timber's Post instead of WP_Post so that we can make use of Timber within the template.
 				if ( $posts ) {
 					foreach ( $posts as $post ) {
@@ -212,12 +203,11 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		/**
 		 * Applies user selected filters to the search if there are any and gets the filtered posts.
 		 *
-		 * @param bool $all Boolean that indicates whether we want all results or not. Default set to false.
-		 * @param int  $paged The number of the page of the results to be shown when using pagination/load_more.
+		 * @param int $paged The number of the page of the results to be shown when using pagination/load_more.
 		 *
 		 * @return array The posts of the search.
 		 */
-		protected function get_posts( $all = false, $paged = 1 ) : array {
+		protected function get_posts( $paged = 1 ) : array {
 
 			$args = [
 				'posts_per_page' => self::POSTS_LIMIT,          // Set a high maximum because -1 will get ALL posts and this can be very intensive in production.
@@ -231,7 +221,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$args['paged'] = $paged;
 			}
 
-			if ( ! $all && $this->search_query ) {
+			if ( $this->search_query ) {
 				$args['s'] = $this->search_query;
 			}
 
@@ -324,6 +314,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		protected function set_context( &$context ) {
 			$this->set_general_context( $context );
+			$this->set_filters_context( $context );
 			$this->set_results_context( $context );
 		}
 
@@ -336,7 +327,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 			// Search context.
 			$context['posts']            = $this->posts;
-			$context['all_posts']        = $this->all_posts;
 			$context['paged_posts']      = $this->paged_posts;
 			$context['current_page']     = $this->current_page;
 			$context['search_query']     = $this->search_query;
@@ -355,131 +345,76 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		}
 
 		/**
-		 * Sets the context for the results of the Search.
 		 *
-		 * Categories are Issues.
-		 * Tags       are Campaigns.
-		 * Page types are Categories.
-		 * Post_types are Content Types.
-		 *
-		 * @param array $context Associative array with the data to be passed to the view.
 		 */
-		protected function set_results_context( &$context ) {
-
-			$posts = $this->posts;
-
-			// If no results where found for the searched term then use all posts
-			// in order to calculate all available filter options and display them.
-			// TODO - According to latest requirements this should be removed.
-			if ( ! $this->posts ) {
-				$posts = $this->all_posts;
-			}
-
+		protected function set_filters_context( &$context ) {
 			// Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
 			$options = get_option( 'planet4_options' );
 
-			// Set default thumbnail.
-			$context['posts_data']['dummy_thumbnail'] = get_template_directory_uri() . self::DUMMY_THUMBNAIL;
+			// Category <-> Issue.
+			// Consider Issues that have multiple Categories.
+			$categories = get_categories();
+			if ( $categories ) {
+				foreach ( $categories as $category ) {
+					if ( $category->parent === (int) $options['issues_parent_category'] ) {
+						$context['categories'][ $category->term_id ] = [
+							'term_id' => $category->term_id,
+							'name'    => $category->name,
+							'results' => 0,
+						];
+					}
+				}
+			}
 
-			foreach ( (array) $posts as $post ) {
-				// Category <-> Issue.
-				// TODO - Consider Issues that have multiple Categories.
-				$category = get_the_category( $post->ID )[0];
-				if ( $category && $category->parent === (int) $options['issues_parent_category'] ) {
-					$context['categories'][ $category->term_id ] = [
-						'term_id' => $category->term_id,
-						'name'    => $category->name,
-						'results' => ++$context['categories'][ $category->term_id ]['results'],
+			// Tag <-> Campaign.
+			$tags = get_terms( [
+				'taxonomy' => 'post_tag',
+				'hide_empty' => false,
+			] );
+			if ( $tags ) {
+				foreach ( (array) $tags as $tag ) {
+					// Tag filters.
+					$context['tags'][ $tag->term_id ] = [
+						'term_id' => $tag->term_id,
+						'name'    => $tag->name,
+						'results' => 0,
 					];
 				}
+			}
 
-				// Post Type (+Action) <-> Content Type.
-				switch ( $post->post_type ) {
-					case 'page':
-						if ( 'act' === basename( get_permalink( $post->post_parent ) ) ) {
-							$content_type_text = __( 'ACTION', 'planet4-master-theme' );
-							$content_type      = 'action';
-							$context['posts_data']['found_actions']++;
-						} else {
-							$content_type_text = __( 'PAGE', 'planet4-master-theme' );
-							$content_type      = 'page';
-							$context['posts_data']['found_pages']++;
-						}
-						break;
-					case 'attachment':
-						$content_type_text = __( 'DOCUMENT', 'planet4-master-theme' );
-						$content_type      = 'document';
-						$context['posts_data']['found_documents']++;
-						break;
-					default:
-						$content_type_text = __( 'POST', 'planet4-master-theme' );
-						$content_type      = 'post';
-						$context['posts_data']['found_posts']++;
-				}
-
-				// Page Type <-> Category.
-				$page_types = get_the_terms( $post->ID, 'p4-page-type' );
-				if ( $page_types ) {
-					foreach ( (array) $page_types as $page_type ) {
-						// p4-page-type filters.
-						$context['page_types'][ $page_type->term_id ] = [
-							'term_id' => $page_type->term_id,
-							'name'    => $page_type->name,
-							'results' => ++$context['page_types'][ $page_type->term_id ]['results'],
-						];
-					}
-				}
-				$context['posts_data'][ $post->ID ]['content_type_text'] = $content_type_text;
-				$context['posts_data'][ $post->ID ]['content_type'] = $content_type;
-				$context['posts_data'][ $post->ID ]['page_types'] = $page_types;
-
-				// Tag <-> Campaign.
-				$tags = get_the_terms( $post->ID, 'post_tag' );
-				if ( $tags ) {
-					foreach ( (array) $tags as $tag ) {
-						// Set tags info for each result item.
-						$context['posts_data'][ $post->ID ]['tags'][] = [
-							'name' => $tag->name,
-							'link' => get_tag_link( $tag ),
-						];
-
-						// Tag filters.
-						$context['tags'][ $tag->term_id ] = [
-							'term_id' => $tag->term_id,
-							'name'    => $tag->name,
-							'results' => ++$context['tags'][ $tag->term_id ]['results'],
-						];
-					}
+			// Page Type <-> Category.
+			$page_types = get_terms( [
+				'taxonomy' => 'p4-page-type',
+				'hide_empty' => false,
+			] );
+			if ( $page_types ) {
+				foreach ( (array) $page_types as $page_type ) {
+					// p4-page-type filters.
+					$context['page_types'][ $page_type->term_id ] = [
+						'term_id' => $page_type->term_id,
+						'name'    => $page_type->name,
+						'results' => 0,
+					];
 				}
 			}
 
-			// TODO - All the rest of the code of this method should be transferred for better separation of concerns
-			// TODO - to the set_general_context method as it is not related to the actual results that are displayed.
-			// Calculate the results for each Content Type and pass it along with their labels.
-			if ( $context['posts_data']['found_actions'] > 0 ) {
-				$context['content_types']['0'] = [
-					'name'    => __( 'Action', 'planet4-master-theme' ),
-					'results' => $context['posts_data']['found_actions'],
-				];
-			}
-			if ( $context['posts_data']['found_documents'] > 0 ) {
-				$context['content_types']['1'] = [
-					'name'    => __( 'Document', 'planet4-master-theme' ),
-					'results' => $context['posts_data']['found_documents'],
-				];
-			}
-			if ( $context['posts_data']['found_pages'] > 0 ) {
-				$context['content_types']['2'] = [
-					'name'    => __( 'Page', 'planet4-master-theme' ),
-					'results' => $context['posts_data']['found_pages'],
-				];
-			}
-			if ( $context['posts_data']['found_posts'] > 0 ) {
-				$context['content_types']['3'] = [
-					'name'    => __( 'Post', 'planet4-master-theme' ),
-					'results' => $context['posts_data']['found_posts'],
-				];
-			}
+			// Post Type (+Action) <-> Content Type.
+			$context['content_types']['0'] = [
+				'name'    => __( 'Action', 'planet4-master-theme' ),
+				'results' => 0,
+			];
+			$context['content_types']['1'] = [
+				'name'    => __( 'Document', 'planet4-master-theme' ),
+				'results' => 0,
+			];
+			$context['content_types']['2'] = [
+				'name'    => __( 'Page', 'planet4-master-theme' ),
+				'results' => 0,
+			];
+			$context['content_types']['3'] = [
+				'name'    => __( 'Post', 'planet4-master-theme' ),
+				'results' => 0,
+			];
 
 			// Keep track of which filters are already checked.
 			if ( $this->filters ) {
@@ -513,6 +448,97 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				uasort( $context['tags'], function ( $a, $b ) {
 					return strcmp( $a['name'], $b['name'] );
 				} );
+			}
+		}
+
+		/**
+		 * Sets the context for the results of the Search.
+		 *
+		 * Categories are Issues.
+		 * Tags       are Campaigns.
+		 * Page types are Categories.
+		 * Post_types are Content Types.
+		 *
+		 * @param array $context Associative array with the data to be passed to the view.
+		 */
+		protected function set_results_context( &$context ) {
+
+			$posts = $this->posts;
+
+			// Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
+			$options = get_option( 'planet4_options' );
+
+			// Set default thumbnail.
+			$context['posts_data']['dummy_thumbnail'] = get_template_directory_uri() . self::DUMMY_THUMBNAIL;
+
+			foreach ( (array) $posts as $post ) {
+				// Category <-> Issue.
+				// Consider Issues that have multiple Categories.
+				$categories = get_the_category( $post->ID );
+				if ( $categories ) {
+					foreach ( $categories as $category ) {
+						if ( $category->parent === (int) $options['issues_parent_category'] ) {
+							$context['categories'][ $category->term_id ]['term_id'] = $category->term_id;
+							$context['categories'][ $category->term_id ]['name']    = $category->name;
+							$context['categories'][ $category->term_id ]['results']++;
+						}
+					}
+				}
+
+				// Post Type (+Action) <-> Content Type.
+				switch ( $post->post_type ) {
+					case 'page':
+						if ( 'act' === basename( get_permalink( $post->post_parent ) ) ) {
+							$content_type_text = __( 'ACTION', 'planet4-master-theme' );
+							$content_type      = 'action';
+							$context['content_types']['0']['results']++;
+						} else {
+							$content_type_text = __( 'PAGE', 'planet4-master-theme' );
+							$content_type      = 'page';
+							$context['content_types']['2']['results']++;
+						}
+						break;
+					case 'attachment':
+						$content_type_text = __( 'DOCUMENT', 'planet4-master-theme' );
+						$content_type      = 'document';
+						$context['content_types']['1']['results']++;
+						break;
+					default:
+						$content_type_text = __( 'POST', 'planet4-master-theme' );
+						$content_type      = 'post';
+						$context['content_types']['3']['results']++;
+				}
+
+				// Page Type <-> Category.
+				$page_types = get_the_terms( $post->ID, 'p4-page-type' );
+				if ( $page_types ) {
+					foreach ( (array) $page_types as $page_type ) {
+						// p4-page-type filters.
+						$context['page_types'][ $page_type->term_id ]['term_id'] = $page_type->term_id;
+						$context['page_types'][ $page_type->term_id ]['name']    = $page_type->name;
+						$context['page_types'][ $page_type->term_id ]['results']++;
+					}
+				}
+				$context['posts_data'][ $post->ID ]['content_type_text'] = $content_type_text;
+				$context['posts_data'][ $post->ID ]['content_type']      = $content_type;
+				$context['posts_data'][ $post->ID ]['page_types']        = $page_types;
+
+				// Tag <-> Campaign.
+				$tags = get_the_terms( $post->ID, 'post_tag' );
+				if ( $tags ) {
+					foreach ( (array) $tags as $tag ) {
+						// Set tags info for each result item.
+						$context['posts_data'][ $post->ID ]['tags'][] = [
+							'name' => $tag->name,
+							'link' => get_tag_link( $tag ),
+						];
+
+						// Tag filters.
+						$context['tags'][ $tag->term_id ]['term_id'] = $tag->term_id;
+						$context['tags'][ $tag->term_id ]['name']    = $tag->name;
+						$context['tags'][ $tag->term_id ]['results']++;
+					}
+				}
 			}
 		}
 
