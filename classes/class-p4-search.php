@@ -480,7 +480,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 						if ( $category->parent === (int) $options['issues_parent_category'] ) {
 							$context['categories'][ $category->term_id ]['term_id'] = $category->term_id;
 							$context['categories'][ $category->term_id ]['name']    = $category->name;
-							$context['categories'][ $category->term_id ]['results'] ++;
+							$context['categories'][ $category->term_id ]['results']++;
 						}
 					}
 				}
@@ -491,22 +491,22 @@ if ( ! class_exists( 'P4_Search' ) ) {
 						if ( 'act' === basename( get_permalink( $post->post_parent ) ) ) {
 							$content_type_text = __( 'ACTION', 'planet4-master-theme' );
 							$content_type      = 'action';
-							$context['content_types']['0']['results'] ++;
+							$context['content_types']['0']['results']++;
 						} else {
 							$content_type_text = __( 'PAGE', 'planet4-master-theme' );
 							$content_type      = 'page';
-							$context['content_types']['2']['results'] ++;
+							$context['content_types']['2']['results']++;
 						}
 						break;
 					case 'attachment':
 						$content_type_text = __( 'DOCUMENT', 'planet4-master-theme' );
 						$content_type      = 'document';
-						$context['content_types']['1']['results'] ++;
+						$context['content_types']['1']['results']++;
 						break;
 					default:
 						$content_type_text = __( 'POST', 'planet4-master-theme' );
 						$content_type      = 'post';
-						$context['content_types']['3']['results'] ++;
+						$context['content_types']['3']['results']++;
 				}
 
 				// Page Type <-> Category.
@@ -516,7 +516,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 						// p4-page-type filters.
 						$context['page_types'][ $page_type->term_id ]['term_id'] = $page_type->term_id;
 						$context['page_types'][ $page_type->term_id ]['name']    = $page_type->name;
-						$context['page_types'][ $page_type->term_id ]['results'] ++;
+						$context['page_types'][ $page_type->term_id ]['results']++;
 					}
 				}
 				$context['posts_data'][ $post->ID ]['content_type_text'] = $content_type_text;
@@ -536,7 +536,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 						// Tag filters.
 						$context['tags'][ $tag->term_id ]['term_id'] = $tag->term_id;
 						$context['tags'][ $tag->term_id ]['name']    = $tag->name;
-						$context['tags'][ $tag->term_id ]['results'] ++;
+						$context['tags'][ $tag->term_id ]['results']++;
 					}
 				}
 			}
