@@ -83,7 +83,7 @@
       img {
         height: 184px;
         position: relative;
-        left: -30%;
+        left: -35%;
 
         @include medium-and-up {
           height: 330px;
@@ -94,6 +94,7 @@
         }
 
         @include x-large-and-up {
+          left: -30%;
           height: 430px;
         }
       }
@@ -120,6 +121,9 @@
 
       img {
         transform: skew(-25deg);
+        @include mobile-only {
+          left: -50px;
+        }
       }
     }
 

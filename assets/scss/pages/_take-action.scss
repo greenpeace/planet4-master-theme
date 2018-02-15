@@ -296,7 +296,8 @@
     }
   }
 
-  .col-md-6 {
+  .col-md-12 {
+    font-family: $lora;
     padding-top: 30px;
 
     @include small-and-up {
@@ -328,21 +329,18 @@
   p {
     color: $dark-para-text;
     font-size: rem(17);
-    line-height: rem(28.9);
+    line-height: 1.6;
 
     @include medium-and-up {
       font-size: rem(19);
-      line-height: rem(33);
     }
 
     @include large-and-up {
       font-size: rem(20);
-      line-height: rem(34);
     }
 
     @include x-large-and-up {
       font-size: rem(22);
-      line-height: rem(38);
     }
   }
 }
