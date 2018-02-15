@@ -232,16 +232,20 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 			foreach ( $all_types as $term ) {
 				$temp_attributes = [
 					'name'           => $term->name,
-					'desc'           => 'Map ' . $term->name . ' planet4 page type to a category',
+					// translators: placeholder is a term which does not need translation in context.
+					'desc'           => sprintf( __( 'Map %s planet4 page type to a category' ), $term->name ),
 					'id'             => 'p4_page_type_' . $term->slug . '_category',
 					'taxonomy'       => 'category',
 					'type'           => 'taxonomy_select',
 					'remove_default' => 'true',
 				];
 				if ( $i === 1 ) {
-					$temp_attributes['before_row'] = '<hr><p>Planet4 page types - Categories mapping</p>
-							<p>When a post is assigned to one of the selected categories, 
-							the post will be assigned the mapped planet4 page type.</p>';
+					$temp_attributes['before_row'] = '<hr><p>' .
+													 __( 'Planet4 page types - Categories mapping' ) .
+													 '</p><p>' .
+													 __( 'When a post is assigned to one of the selected categories, 
+													      the post will be assigned the mapped planet4 page type.' ) .
+													 '</p>';
 				}
 				if ( $i === count( $all_types ) ) {
 					$temp_attributes['after_row'] = '<hr>';
