@@ -304,8 +304,7 @@ class P4_Master_Site extends TimberSite {
 		if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
 			wp_enqueue_script( 'edit_post', $this->theme_dir . '/assets/admin/js/edit_post.js', array( 'jquery' ), '0.0.1', true );
 			wp_localize_script( 'edit_post', 'p4_page_type_mapping', planet4_get_option( 'p4-page-types-mapping' ) );
-		}
-		else if ( 'settings_page_planet4_options' === $hook ) {
+		} elseif ( 'settings_page_planet4_options' === $hook ) {
 
 			// Get planet4 page types.
 			$terms = get_terms( [

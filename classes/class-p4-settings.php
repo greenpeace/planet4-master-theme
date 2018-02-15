@@ -123,7 +123,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		public function hooks() {
 			add_action( 'admin_init', [ $this, 'init' ] );
 			add_action( 'admin_menu', [ $this, 'add_options_page' ] );
-			add_action( 'registered_taxonomy', [ $this,'add_p4_page_types_categories_fields'] );
+			add_action( 'registered_taxonomy', [ $this, 'add_p4_page_types_categories_fields' ] );
 			add_filter( 'cmb2_render_act_page_dropdown', [ $this, 'p4_render_act_page_dropdown' ], 10, 2 );
 			add_filter( 'cmb2_render_explore_page_dropdown', [ $this, 'p4_render_explore_page_dropdown' ], 10, 2 );
 			add_filter( 'cmb2_render_category_select_taxonomy', [ $this, 'p4_render_category_dropdown' ], 10, 2 );
@@ -220,6 +220,8 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		/**
 		 * Register fields for mapping between planet4 page types and categories.
 		 * Hook for p4-page-type taxonomy register.
+		 *
+		 * @param string $taxonomy Taxonomy slug.
 		 */
 		public function add_p4_page_types_categories_fields( $taxonomy ) {
 			if ( 'p4-page-type' !== $taxonomy ) {
@@ -228,7 +230,10 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 
 			$p4        = [];
 			$i         = 1;
-			$all_types = get_terms( [ 'taxonomy' => 'p4-page-type', 'hide_empty' => false ] );
+			$all_types = get_terms( [
+				'taxonomy'   => 'p4-page-type',
+				'hide_empty' => false,
+			] );
 			foreach ( $all_types as $term ) {
 				$temp_attributes = [
 					'name'           => $term->name,
@@ -239,7 +244,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'type'           => 'taxonomy_select',
 					'remove_default' => 'true',
 				];
-				if ( $i === 1 ) {
+				if ( 1 === $i ) {
 					$temp_attributes['before_row'] = '<hr><p>' .
 													 __( 'Planet4 page types - Categories mapping' ) .
 													 '</p><p>' .
@@ -247,7 +252,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 													      the post will be assigned the mapped planet4 page type.' ) .
 													 '</p>';
 				}
-				if ( $i === count( $all_types ) ) {
+				if ( count( $all_types ) === $i ) {
 					$temp_attributes['after_row'] = '<hr>';
 				}
 				$p4[] = $temp_attributes;

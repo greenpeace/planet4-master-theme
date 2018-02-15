@@ -39,8 +39,7 @@ $(document).ready(function () {
 					var select_value = p4_page_type_mapping.filter(function (e) {return e.category_id == category_id});
 					$("select[name='p4-page-type']").val(select_value[0].p4_page_type_slug);
 					remove_categories(categories_array, category_name);
-				}
-				else {
+				} else {
 					$("select[name='p4-page-type']").val('-1');
 				}
 			}
