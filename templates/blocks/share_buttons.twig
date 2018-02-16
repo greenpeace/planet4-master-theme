@@ -1,0 +1,20 @@
+<div class="share-buttons float-md-right">
+	<!-- Facebook -->
+	<a href="http://www.facebook.com/sharer/sharer.php?u={{ post.link }}"
+		 onclick="dataLayer.push({'eventAction': 'Facebook', 'eventLabel': '{{ post.link }}'});"
+		 target="_blank" class="share-btn facebook">
+		<i class="fa fa-facebook"></i>
+	</a>
+	<!-- Twitter -->
+	<a href="http://twitter.com/share?url={{ post.link }}&text={{ post.title }}"
+		 onclick="dataLayer.push({'eventAction': 'Twitter', 'eventLabel': '{{ post.link }}'});"
+		 target="_blank" class="share-btn twitter">
+		<i class="fa fa-twitter"></i>
+	</a>
+	<!-- Email -->
+	<a href="mailto:?subject={{ post.title }}&body={{ post.link }}"
+		 onclick="dataLayer.push({'eventAction': 'Email', 'eventLabel': '{{ post.link }}'});"
+		 target="_blank" class="share-btn email">
+		<i class="fa fa-envelope"></i>
+	</a>
+</div>
