@@ -5,7 +5,7 @@
 			<div class="page-header-background">
 				<img src="{{ background_image }}"
 					{% if ( background_image_srcset ) %}
-					 	srcset="{{ background_image_srcset }}"
+						srcset="{{ background_image_srcset }}"
 					 {% endif %}
 					 class="page-header-image" />
 			</div>
@@ -28,20 +28,7 @@
 			{% endif %}
 			<h1 class="page-header-title">{{ header_title|e('wp_kses_post')|raw }}</h1>
 			{% if ( post.is_take_action_page ) %}
-				<div class="share-buttons float-md-right">
-					<!-- Facebook -->
-					<a href="http://www.facebook.com/sharer/sharer.php?u={{ post.link }}" target="_blank" class="share-btn facebook">
-						<i class="fa fa-facebook"></i>
-					</a>
-					<!-- Twitter -->
-					<a href="http://twitter.com/share?url={{ post.link }}&text={{ post.title }}" target="_blank" class="share-btn twitter">
-						<i class="fa fa-twitter"></i>
-					</a>
-					<!-- Email -->
-					<a href="mailto:?subject={{ post.title }}&body={{ post.link }}" target="_blank" class="share-btn email">
-						<i class="fa fa-envelope"></i>
-					</a>
-				</div>
+				{% include "blocks/share_buttons.twig" with {post:post} %}
 			{% endif %}
 			{% if ( header_subtitle ) %}
 				<h3 class="page-header-subtitle">{{ header_subtitle }}</h3>
