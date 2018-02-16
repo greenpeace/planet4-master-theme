@@ -134,7 +134,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					$search_async->search_query = trim( get_search_query() );
 
 					// Get the decoded url query string and then use it as key for redis.
-					$query_string       = filter_input( INPUT_GET, 'query-string', FILTER_SANITIZE_STRING );
+					$query_string_full = urldecode( filter_input( INPUT_SERVER, 'QUERY_STRING', FILTER_SANITIZE_STRING ) );
+					$query_string      = str_replace( '&query-string=', '', strstr( $query_string_full, '&query-string=' ) );
+
 					$group              = 'search';
 					$subgroup           = $search_async->search_query ? $search_async->search_query : 'all';
 					$search_async->current_page = $paged;
