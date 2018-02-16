@@ -43,10 +43,17 @@
 // Visibility  of covers in different screens
 // S,M should have 4 covers
 // L & XL should have all sent from backend
+// L & XL with show-3-covers class should show first 3 covers
+// L & XL with show-6-covers class should show first 6 covers
 // L & XL with show-all-covers class should show all covers
-// L & XL with show-limited-covers class should show first 6 covers
 // remove limit visibility class on load more button click
-.show-limited-covers .limit-visibility {
+.show-3-covers .limit-visibility {
+  .cover-card-column:nth-child(n+4) {
+    display: none;
+  }
+}
+
+.show-6-covers .limit-visibility {
   .cover-card-column:nth-child(n+5) {
     display: none;
   }
