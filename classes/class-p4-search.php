@@ -125,10 +125,35 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					$search_async->search_query = trim( get_search_query() );
 
 					// Get the decoded url query string and then use it as key for redis.
-					$query_string       = filter_input( INPUT_GET, 'query-string', FILTER_SANITIZE_STRING );
+					$query_string_full = urldecode( filter_input( INPUT_SERVER, 'QUERY_STRING', FILTER_SANITIZE_STRING ) );
+					$query_string      = str_replace( '&query-string=', '', strstr( $query_string_full, '&query-string=' ) );
+
 					$group              = 'search';
 					$subgroup           = $search_async->search_query ? $search_async->search_query : 'all';
 					$search_async->current_page = $paged;
+
+					parse_str( $query_string, $filters_array );
+					$selected_sort    = $filters_array[ 'orderby' ];
+					$selected_filters = $filters_array[ 'f' ];
+					$filters          = [];
+
+					// Handle submitted filter options.
+					if ( $selected_filters && is_array( $selected_filters ) ) {
+					    foreach ( $selected_filters as $type => $filter_type ) {
+					        foreach ( $filter_type as $name => $id ) {
+					            $filters[ $type ][] = [
+					                'id'   => $id,
+					                'name' => $name,
+					            ];
+					        }
+					    }
+					}
+
+					// Validate user input (sort, filters, etc).
+					if ( $search_async->validate( $selected_sort, $filters, $search_async->context ) ) {
+					    $search_async->selected_sort = $selected_sort;
+					    $search_async->filters       = $filters;
+					}
 
 					// TODO - Set the correct filters so that it will work when searching for specific term with filters applied.
 					// Check Object cache for stored key.
