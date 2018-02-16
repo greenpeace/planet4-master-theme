@@ -46,7 +46,7 @@
 		}
 	},
 	"require": {
-		"wpackagist-plugin/timber-library": "1.5.*",
+		"wpackagist-plugin/timber-library": "1.7.0",
 		"wpackagist-plugin/cmb2": "2.3.0"
 	}
 }
