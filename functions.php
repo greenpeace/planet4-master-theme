@@ -128,6 +128,7 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'wp_image_editors',         array( $this, 'allowedEditors' ) );
 		add_filter( 'jpeg_quality',             function( $arg ) { return 90; } );
 		add_action( 'after_setup_theme',        array( $this, 'add_image_sizes' ) );
+		add_action( 'admin_head' ,              array( $this, 'remove_add_post_element' ) );
 
 
 		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
@@ -849,6 +850,15 @@ class P4_Master_Site extends TimberSite {
 			[ 'post', 'page' ],
 			'side'
 		);
+	}
+
+	/**
+	 * Remove "Add Post Element" button for page type POST.
+	 */
+	function remove_add_post_element() {
+		if ( 'post' === get_post_type() ) {
+			remove_action( 'media_buttons', [ Shortcode_UI::get_instance(), 'action_media_buttons' ] );
+		}
 	}
 
 	/**
