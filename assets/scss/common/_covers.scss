@@ -3,17 +3,14 @@
 
   @include medium-and-up {
     margin-bottom: 40px;
-    padding-bottom: 0;
   }
 
   @include large-and-up {
-    margin-bottom: 36px;
-	  padding-bottom: 0;
+    margin-bottom: 60px;
   }
 
   @include x-large-and-up {
-    padding-bottom: 0;
-    margin-bottom: 56px;
+    margin-bottom: 80px;
   }
 
   h2 {
@@ -34,6 +31,8 @@
   }
 
   .btn-secondary {
+    padding: 0;
+
     @include medium-and-up {
       margin: 10px auto 0 auto;
     }

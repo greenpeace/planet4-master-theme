@@ -1,16 +1,6 @@
 .carousel-wrap {
   padding-top: 0;
-  padding-bottom: 20px;
-
-  @include small-and-up {
-    padding-top: 70px;
-    padding-bottom: 70px;
-  }
-
-  @include medium-and-up {
-    padding-top: 0;
-    padding-bottom: 40px;
-  }
+  padding-bottom: 40px;
 
   @include large-and-up {
     padding-bottom: 60px;

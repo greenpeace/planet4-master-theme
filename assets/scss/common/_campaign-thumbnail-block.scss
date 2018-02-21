@@ -11,13 +11,11 @@
   }
 
   @include large-and-up {
-    padding-top: 0;
     padding-bottom: 60px;
   }
 
   @include x-large-and-up {
-    padding-top: 0;
-    margin-bottom: 80px;
+    margin-bottom: 0;
   }
 
   h2 {

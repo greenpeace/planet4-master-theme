@@ -273,6 +273,12 @@
 }
 
 .what-you-can-do-wrapper {
+  margin-bottom: 40px;
+
+  @include medium-and-up {
+    margin-bottom: 0;
+  }
+
   h3 {
     font-size: rem(22);
     font-weight: 700;
@@ -285,12 +291,16 @@
     }
 
     @include medium-and-up {
-      padding-top: 20px;
+      padding-top: 0;
       font-size: rem(24);
     }
 
+    @include large-and-up {
+      font-size: rem(28);
+    }
+
     @include x-large-and-up {
-      padding-top: 0px;
+      padding-top: 0;
       font-size: rem(30);
       margin-bottom: 20px;
     }
@@ -370,7 +380,7 @@
 
     @include large-and-up {
       cursor: pointer;
-      margin: 35px 0 70px 0;
+      margin: 35px 0 0px 0;
     }
 
     @include x-large-and-up {
