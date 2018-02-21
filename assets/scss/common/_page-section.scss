@@ -45,11 +45,10 @@
 .page-section-description {
   font-size: rem(16);
   line-height: 1.6;
-  margin: 1em 0 2.5em;
+  margin: 0 0 24px;
 
   @include medium-and-up {
-    font-size: rem(18);
-    width: 80%;
+    width: 100%;
   }
 
   @include large-and-up {
