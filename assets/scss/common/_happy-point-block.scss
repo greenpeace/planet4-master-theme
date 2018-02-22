@@ -24,7 +24,7 @@
       color: $shadow-color;
     }
     img {
-      position: relative;
+      position: absolute;
       height: 500px;
       width: 100%;
       object-fit: none;
@@ -44,9 +44,7 @@
     padding-left: 25px;
     padding-right: 25px;
     .pt-20 {
-      padding-top: 126px;
-      padding-left: 0;
-      padding-right: 0;
+      padding: 126px 102px 0 96px;
     }
     h2 {
       font-size: rem(26);
