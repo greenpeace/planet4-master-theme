@@ -747,7 +747,6 @@ class P4_Master_Site extends TimberSite {
 				'options' => array(
 					'textarea_rows' => 5,
 					'media_buttons' => false,
-
 				),
 			)
 		);
