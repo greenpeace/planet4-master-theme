@@ -13,11 +13,9 @@ $slide-transition-speed: 1s;
   position: relative;
   width: 100vw;
 
-  @include small-and-up {
-    margin-bottom: 0;
-  }
-
   &::after {
+    content: '';
+    display: block;
     margin-bottom: 40px;
 
     @include large-and-up {
@@ -185,7 +183,6 @@ $slide-transition-speed: 1s;
     color: $article-heading-color;
     padding-top: 70px;
     padding-bottom: 0;
-    padding-left: 15px !important;
     height: 100%;
 
     @include medium-and-up {
@@ -211,6 +208,7 @@ $slide-transition-speed: 1s;
       line-height: 1.2;
       font-weight: bold;
       color: $black;
+      padding-left: 15px;
 
       @include medium-and-up {
         font-size: rem(40);
@@ -236,6 +234,7 @@ $slide-transition-speed: 1s;
       width: 55%;
       color: $black;
       margin-bottom: 0;
+      padding-left: 15px;
 
       @include medium-and-up {
         font-size: rem(24);
@@ -260,6 +259,7 @@ $slide-transition-speed: 1s;
       display: none;
 
       @include medium-and-up {
+        padding-left: 15px;
         line-height: 1.6;
         color: $dark-shade-black;
         margin-bottom: 24px;
@@ -281,11 +281,10 @@ $slide-transition-speed: 1s;
     .action-button {
       bottom: -1.5em;
       position: absolute;
-      margin-left: -15px;
 
       @include medium-and-up {
+        margin-left: 15px;
         padding-left: 0;
-        margin-left: 0;
         bottom: inherit;
         position: inherit;
       }
