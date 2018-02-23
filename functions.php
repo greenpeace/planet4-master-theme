@@ -602,8 +602,12 @@ class P4_Master_Site extends TimberSite {
 		$selected_sort = sanitize_sql_orderby( $selected_sort );
 
 		if ( $selected_sort && P4_Search::DEFAULT_SORT !== $selected_sort ) {
+			// First orderby 'weight' meta_key.
+			$primary_sort   = 'meta_value';
+			$primary_order  = 'DESC';
+			// If 'weight' is same then orderby selected_order.
 			$selected_order = $this->sort_options[ $selected_sort ]['order'];
-			$orderby        = esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
+			$orderby        = esc_sql( sprintf( 'ORDER BY %s %s, %s %s', $primary_sort, $primary_order, $selected_sort, $selected_order ) );
 		} else {
 			$orderby = esc_sql( $orderby );
 		}
