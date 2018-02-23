@@ -90,18 +90,27 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name'    => __( 'Default title for related articles block in post', 'planet4-master-theme' ),
+					'name'    => __( 'Default title for related articles block', 'planet4-master-theme' ),
 					'id'      => 'articles_block_title',
 					'type'    => 'text',
+					'desc'    => __( 'If no title set for <b>Article Block</b>, the default title will appear.' ),
 				],
 
 				[
-					'name'       => __( 'Default Number Of Related Articles In Post', 'planet4-master-theme' ),
+					'name'    => __( 'Default button title for related articles block', 'planet4-master-theme' ),
+					'id'      => 'articles_block_button_title',
+					'type'    => 'text',
+					'desc'    => __( 'If no button title set for <b>Article Block</b>, the default button title will appear.' ),
+				],
+
+				[
+					'name'       => __( 'Default Number Of Related Articles', 'planet4-master-theme' ),
 					'id'         => 'articles_count',
 					'type'       => 'text',
 					'attributes' => array(
 						'type' => 'number',
 					),
+					'desc'       => __( 'If no number of Related Articles set for <b>Article Block</b>, the default number of Related Articles will appear.' ),
 				],
 
 				[
