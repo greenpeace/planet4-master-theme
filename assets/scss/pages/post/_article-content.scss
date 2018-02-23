@@ -294,6 +294,19 @@
 
 .post-details {
   font-family: $lora;
+  line-height: 1.6;
+
+  @include small-and-up {
+    font-size: rem(19);
+  }
+
+  @include medium-and-up {
+    font-size: rem(16);
+  }
+
+  @include x-large-and-up {
+    font-size: rem(18)
+  }
 
   img {
     max-width: 100%;
