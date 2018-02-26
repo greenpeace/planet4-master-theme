@@ -12,7 +12,11 @@
   justify-content: space-between;
   background-color: transparentize($white, .2);
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-  margin: 30px 0;
+  margin: 12px 0;
+
+  @include medium-and-up {
+    margin: 15px 0;
+  }
 
   &:hover {
     .article-list-item-headline,
@@ -28,6 +32,10 @@
 
   &:first-of-type {
     margin-top: 0;
+
+    @include medium-and-up {
+      margin-top: 10px;
+    }
   }
 
   &:last-of-type {

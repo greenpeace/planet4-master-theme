@@ -1,9 +1,5 @@
 .content-two-column-block {
-  padding-top: 30px;
-
-  @include medium-and-up {
-    padding-top: 40px;
-  }
+  padding-top: 0;
 
   @include large-and-up {
     padding-top: 0;
@@ -22,8 +18,7 @@
     }
 
     @include large-and-up {
-      padding-top: 0;
-      padding-bottom: 30px;
+      padding-bottom: 60px;
     }
 
     @include x-large-and-up {

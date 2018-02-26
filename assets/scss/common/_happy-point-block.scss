@@ -9,8 +9,11 @@
 }
 
 .happy-point-block-wrap {
-    @include happy-point-block-background-image;
+
     @include background-before-opacity($light-blue-bg);
+    position: absolute;
+    overflow: hidden;
+    margin:0 -120px 0 -100px;
     h2 {
       width: 75%;
     }
@@ -19,6 +22,12 @@
       font-size: rem(13);
       line-height: 1.15rem;
       color: $shadow-color;
+    }
+    img {
+      position: absolute;
+      height: 500px;
+      width: 100%;
+      object-fit: none;
     }
     form {
       input, .custom-select {
@@ -35,9 +44,7 @@
     padding-left: 25px;
     padding-right: 25px;
     .pt-20 {
-      padding-top: 126px;
-      padding-left: 0;
-      padding-right: 0;
+      padding: 126px 102px 0 96px;
     }
     h2 {
       font-size: rem(26);

@@ -52,7 +52,7 @@
 			<div class="search-filter-results row clearfix">
 				<div class="col-lg-4">
 					<div class="filter-sidebar">
-						<div class="filter-button hidden-lg-up">
+						<div class="filter-button d-lg-none">
 							<button class="btn btn-filter {{ disabled }}"><i class="icon-filter"></i> {{ __( 'Filters', domain ) }}</button>
 						</div>
 						<div class="modal fade filter-modal" id="filtermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -163,7 +163,7 @@
 								</div>
 							</div>
 						</div>
-						<div id="filter-sidebar-options" class="hidden-md-down">
+						<div id="filter-sidebar-options" class="d-none d-lg-block">
 							<h4>{{ __( 'Refine your search', domain ) }}</h4>
 							{% if ( filters ) %}
 								<div class="active-filter">
