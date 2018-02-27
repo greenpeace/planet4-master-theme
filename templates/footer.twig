@@ -18,10 +18,7 @@
 			{% endfor %}
 		</ul>
 
-		<p class="copyright-text col-md-8">
-			<i class="fa fa-creative-commons"></i>
-			{{ copyright_text|e('wp_kses_post')|raw }}
-		</p>
-		<p class="gp-year">Greenpeace {{"now"|date('Y')}}</p>
+		{{ copyright_text|e('wp_kses_post')|raw }}
+
 	</div>
 </footer>
