@@ -128,6 +128,7 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'wp_image_editors',         array( $this, 'allowedEditors' ) );
 		add_filter( 'jpeg_quality',             function( $arg ) { return 90; } );
 		add_action( 'after_setup_theme',        array( $this, 'add_image_sizes' ) );
+		add_action( 'admin_head' ,              array( $this, 'remove_add_post_element' ) );
 
 
 		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
@@ -745,6 +746,7 @@ class P4_Master_Site extends TimberSite {
 				'type'    => 'wysiwyg',
 				'options' => array(
 					'textarea_rows' => 5,
+					'media_buttons' => false,
 				),
 			)
 		);
@@ -848,6 +850,32 @@ class P4_Master_Site extends TimberSite {
 			[ $this, 'print_restricted_tags_box' ],
 			[ 'post', 'page' ],
 			'side'
+		);
+	}
+
+	/**
+	 * Remove "Add Post Element" button for POST & rename on page as "Add Page Element".
+	 */
+	function remove_add_post_element() {
+		if ( 'post' === get_post_type() ) {
+			remove_action( 'media_buttons', [ Shortcode_UI::get_instance(), 'action_media_buttons' ] );
+		}
+
+		if ( 'page' === get_post_type() ) {
+			remove_action( 'media_buttons', [ Shortcode_UI::get_instance(), 'action_media_buttons' ] );
+			add_action( 'media_buttons', [ $this, 'action_page_media_buttons' ] );
+		}
+	}
+
+	/**
+	 * Output an "Add Page Element" button with the media buttons.
+	 */
+	public function action_page_media_buttons( $editor_id ) {
+		printf( '<button type="button" class="button shortcake-add-post-element" data-editor="%s">' .
+			'<span class="wp-media-buttons-icon dashicons dashicons-migrate"></span> %s' .
+			'</button>',
+			esc_attr( $editor_id ),
+			__( 'Add Page Element', 'planet4-master-theme' )
 		);
 	}
 
