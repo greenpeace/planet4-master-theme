@@ -40,6 +40,11 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 
 			$this->fields = [
 				[
+					'name'    => __( 'Website Navigation Title', 'planet4-master-theme' ),
+					'id'      => 'website_navigation_title',
+					'type'    => 'text',
+				],
+				[
 					'name'    => __( 'Select Act Page', 'planet4-master-theme' ),
 					'id'      => 'act_page',
 					'type'    => 'act_page_dropdown',

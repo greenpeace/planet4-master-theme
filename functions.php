@@ -214,6 +214,7 @@ class P4_Master_Site extends TimberSite {
 		$options                          = get_option( 'planet4_options' );
 		$context['donatelink']            = $options['donate_button'] ?? '#';
 		$context['google_tag_value']      = $options['google_tag_manager_identifier'] ?? '';
+		$context['website_navbar_title']  = $options['website_navigation_title'] ?? __( 'International (English)', 'planet4-master-theme' );
 
 		// Footer context.
 		$context['copyright_text']        = $options['copyright'] ?? '';
