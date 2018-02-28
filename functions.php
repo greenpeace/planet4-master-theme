@@ -465,39 +465,9 @@ class P4_Master_Site extends TimberSite {
 			'rewrite'      => [
 				'slug' => 'p4-page-types',
 			],
-			'meta_box_cb'  => [ $this, 'p4_metabox_markup' ]
+			'meta_box_cb'  => [ $this, 'p4_metabox_markup' ],
 		];
 		register_taxonomy( 'p4-page-type', [ 'p4_page_type', 'post' ], $args );
-
-		$terms = [
-			'0' => [
-				'name'        => 'Story',
-				'slug'        => 'story',
-				'description' => 'A term for story post type',
-			],
-			'1' => [
-				'name'        => 'Press release',
-				'slug'        => 'press-release',
-				'description' => 'A term for press release post type',
-			],
-			'2' => [
-				'name'        => 'Publication',
-				'slug'        => 'publication',
-				'description' => 'A term for publication post type',
-			],
-		];
-
-		foreach ( $terms as $term_key => $term ) {
-			wp_insert_term(
-				$term['name'],
-				'p4-page-type',
-				[
-					'description' => $term['description'],
-					'slug'        => $term['slug'],
-				]
-			);
-			unset( $term );
-		}
 	}
 
 	/**
