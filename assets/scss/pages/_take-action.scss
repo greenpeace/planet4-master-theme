@@ -396,10 +396,9 @@
       line-height: 74px;
       text-align: center;
       font-size: rem(44);
-      background: $grey;
+      background: $step-normal-bg;
       border-radius: 50%;
-      color: $white;
-      opacity: 0.7;
+      color: $active;
       text-transform: uppercase;
       font-weight: 500;
 
@@ -409,8 +408,13 @@
         height: 126px;
         vertical-align: middle;
         line-height: 128px;
+        text-align: center;
         font-size: rem(70);
-        background-color: $step-number;
+        background-color: $grey;
+        border-radius: 50%;
+        color: $white;
+        text-transform: uppercase;
+        font-weight: 500;
       }
 
       @include x-large-and-up {
@@ -490,13 +494,12 @@
   .active {
     .step-info-wrap {
       .step-number {
-        background: $grey-60;
-        color: $white;
-        opacity: 0.7;
+        background: $percentage-text;
+        color: $active;
       }
       .step-info {
         p {
-          color: $grey-60;
+          color: $blue-text;
         }
       }
     }
