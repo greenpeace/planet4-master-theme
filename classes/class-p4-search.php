@@ -348,10 +348,32 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					}
 				}
 
+				// Get the stem of the word and use it instead of the original word,
+				// because WP_Query does not automatically use the stem of the word.
+				$stem = $this->get_stem( $this->search_query );
+				if ( $stem ) {
+					$args['s'] = $stem;
+				}
+
 				$posts = ( new WP_Query( $args ) )->posts;
 			}
 
 			return (array) $posts;
+		}
+
+		/**
+		 * Gets the stem of a word that was produced and stored by SearchWP in the swp_terms table.
+		 *
+		 * @param string $word The original word.
+		 *
+		 * @return string The stem of the word.
+		 */
+		protected function get_stem( $word ) : string {
+			global $wpdb;
+
+			$statement = $wpdb->prepare( "SELECT `stem` FROM `{$wpdb->prefix}swp_terms` where `term` = %s", $word );
+			$result    = $wpdb->get_col( $statement );
+			return $result[0] ?? '';
 		}
 
 		/**
