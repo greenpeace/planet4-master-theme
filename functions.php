@@ -129,6 +129,7 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'jpeg_quality',             function( $arg ) { return 90; } );
 		add_action( 'after_setup_theme',        array( $this, 'add_image_sizes' ) );
 		add_action( 'admin_head' ,              array( $this, 'remove_add_post_element' ) );
+		add_filter( 'post_link_category',       array( $this, 'filter_post_permalink_category' ), 10, 3 );
 
 
 		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
@@ -920,6 +921,42 @@ class P4_Master_Site extends TimberSite {
 			extract( $args );
 		}
 		include( locate_template( $path . '.php' ) );
+	}
+
+	/**
+	 * If post belongs to a category that it is a planet4 page type term, then use this category for it's permalink.
+	 * post_link_category hook callback function.
+	 *
+	 * @param WP_Term   $initial_category
+	 * @param array     $categories
+	 * @param WP_Post   $post
+	 *
+	 * @return mixed
+	 */
+	function filter_post_permalink_category( $initial_category, $categories, $post ) {
+
+		// Get planet4 page type terms to categories mapping.
+		$categories_mapping = planet4_get_option( 'p4-page-types-mapping' );
+		$categories_mapping = json_decode( $categories_mapping );
+
+		if ( ! is_null( $categories ) && $categories_mapping !== false && is_array( $categories_mapping ) ) {
+
+			// Iterate post's categories. If the post belongs to a category that is mapped to a p4-page-type term,
+			// then return this category.
+			foreach ( $categories as $category ) {
+				foreach ( $categories_mapping as $category_map ) {
+					if ( ! isset( $category_map->category_id ) ||
+					     ! isset( $category_map->p4_page_type_slug ) ||
+					     ! isset($category->term_id) ) {
+						continue;
+					}
+					if ( intval( $category->term_id ) === $category_map->category_id ) {
+						return $category;
+					}
+				}
+			}
+		}
+		return $initial_category;
 	}
 }
 
