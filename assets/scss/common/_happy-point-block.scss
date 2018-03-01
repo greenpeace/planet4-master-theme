@@ -14,6 +14,15 @@
     position: absolute;
     overflow: hidden;
     margin:0 -120px 0 -100px;
+    .container {
+      height: inherit;
+      .row {
+        height: inherit;
+      }
+    }
+    .pt-20{
+      height: inherit;
+    }
     h2 {
       width: 75%;
     }
@@ -67,6 +76,18 @@
     form {
       input, .custom-select {
         margin-bottom: 16px;
+      }
+    }
+  }
+}
+
+@include mobile-only {
+  .happy-point-block-wrap {
+    .pt-20 {
+      iframe {
+        position: absolute;
+        width: 100vw;
+        bottom: 0px;
       }
     }
   }
