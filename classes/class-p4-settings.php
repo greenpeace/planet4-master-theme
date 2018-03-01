@@ -63,11 +63,21 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name'    => __( 'Copyright Text', 'planet4-master-theme' ),
-					'id'      => 'copyright',
+					'name'    => __( 'Copyright Text Line 1', 'planet4-master-theme' ),
+					'id'      => 'copyright_line1',
 					'type'    => 'wysiwyg',
 					'options' => [
 						'textarea_rows' => 3,
+						'media_buttons' => false,
+					],
+				],
+
+				[
+					'name'    => __( 'Copyright Text Line 2', 'planet4-master-theme' ),
+					'id'      => 'copyright_line2',
+					'type'    => 'wysiwyg',
+					'options' => [
+						'textarea_rows' => 2,
 						'media_buttons' => false,
 					],
 				],

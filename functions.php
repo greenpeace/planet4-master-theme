@@ -217,7 +217,8 @@ class P4_Master_Site extends TimberSite {
 		$context['website_navbar_title']  = $options['website_navigation_title'] ?? __( 'International (English)', 'planet4-master-theme' );
 
 		// Footer context.
-		$context['copyright_text']        = $options['copyright'] ?? '';
+		$context['copyright_text_line1']  = $options['copyright_line1'] ?? '';
+		$context['copyright_text_line2']  = $options['copyright_line2'] ?? '';
 		$context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
 		$context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
 		$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
