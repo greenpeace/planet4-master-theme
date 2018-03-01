@@ -129,6 +129,7 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'jpeg_quality',             function( $arg ) { return 90; } );
 		add_action( 'after_setup_theme',        array( $this, 'add_image_sizes' ) );
 		add_action( 'admin_head' ,              array( $this, 'remove_add_post_element' ) );
+		add_filter( 'post_gallery',             array( $this, 'carousel_post_gallery' ), 10, 2 );
 
 
 		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
@@ -853,6 +854,13 @@ class P4_Master_Site extends TimberSite {
 			esc_attr( $editor_id ),
 			__( 'Add Page Element', 'planet4-master-theme' )
 		);
+	}
+
+	/**
+	 * Apply carousel style to wp image gallery.
+	 */
+	public function carousel_post_gallery( $output, $attr) {
+		return do_shortcode('[shortcake_carousel multiple_image="' . $attr['ids'] . '"]');
 	}
 
 	/**
