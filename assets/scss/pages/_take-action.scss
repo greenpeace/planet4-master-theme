@@ -481,7 +481,8 @@
 
     &:hover {
       .step-number {
-        background: $grey-60;
+        background: $grey;
+        opacity: 0.8;
         color: $white;
       }
     }
