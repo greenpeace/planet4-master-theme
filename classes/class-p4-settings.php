@@ -129,6 +129,16 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
+					'name'       => __( 'Take Action Covers default button text', 'planet4-master-theme' ),
+					'id'         => 'take_action_covers_button_text',
+					'type'       => 'text',
+					'attributes' => array(
+						'type' => 'text',
+					),
+					'desc'       => __( 'Add default button text which appears on <b>Take Action</b> card of <b>Take Action Covers</b> block.', 'planet4-master-theme' ),
+				],
+
+				[
 					'name'       => __( 'Donate button link', 'planet4-master-theme' ),
 					'id'         => 'donate_button',
 					'type'       => 'text',
