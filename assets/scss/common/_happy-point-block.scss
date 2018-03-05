@@ -20,8 +20,12 @@
         height: inherit;
       }
     }
-    .pt-20{
+    .pt-20 {
       height: inherit;
+
+      iframe {
+       height: 390px;
+      }
     }
     h2 {
       width: 75%;
