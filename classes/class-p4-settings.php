@@ -63,11 +63,21 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name'    => __( 'Copyright Text', 'planet4-master-theme' ),
-					'id'      => 'copyright',
+					'name'    => __( 'Copyright Text Line 1', 'planet4-master-theme' ),
+					'id'      => 'copyright_line1',
 					'type'    => 'wysiwyg',
 					'options' => [
 						'textarea_rows' => 3,
+						'media_buttons' => false,
+					],
+				],
+
+				[
+					'name'    => __( 'Copyright Text Line 2', 'planet4-master-theme' ),
+					'id'      => 'copyright_line2',
+					'type'    => 'wysiwyg',
+					'options' => [
+						'textarea_rows' => 2,
 						'media_buttons' => false,
 					],
 				],
@@ -116,6 +126,16 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 						'type' => 'number',
 					),
 					'desc'       => __( 'If no number of Related Articles set for <b>Article Block</b>, the default number of Related Articles will appear.' ),
+				],
+
+				[
+					'name'       => __( 'Take Action Covers default button text', 'planet4-master-theme' ),
+					'id'         => 'take_action_covers_button_text',
+					'type'       => 'text',
+					'attributes' => array(
+						'type' => 'text',
+					),
+					'desc'       => __( 'Add default button text which appears on <b>Take Action</b> card of <b>Take Action Covers</b> block.', 'planet4-master-theme' ),
 				],
 
 				[

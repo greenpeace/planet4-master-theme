@@ -248,6 +248,24 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 			if ( $this->search_query ) {
 				$args['s'] = $this->search_query;
+			} else {
+				// If we search for everything then order first by 'weight' and then by 'post_date'.
+				$args2 = [
+					'orderby'   => 'meta_value date',
+					'order' => 'DESC DESC',
+					'meta_query' => [
+						'relation' => 'OR',
+						[
+							'key' => 'weight',
+							'compare' => 'NOT EXISTS',
+						],
+						[
+							'key' => 'weight',
+							'compare' => 'EXISTS',
+						],
+					],
+				];
+				$args = array_merge( $args, $args2 );
 			}
 
 			if ( $this->filters ) {
@@ -315,7 +333,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$posts = ( new SWP_Query( $args ) )->posts;
 			}
 
-			// This does not happen when we search for everything or when filtering for attachments, since WP_Query does not support searching within rich text documents.
+			// This happens when we search for everything or when filtering for attachments, since WP_Query does not support searching within rich text documents.
 			if ( ! $this->search_query || ( isset( $args['post_type'] ) && 'attachment' !== $args['post_type'] ) ) {
 				if ( $posts ) {
 					$ids = [];
@@ -323,13 +341,39 @@ if ( ! class_exists( 'P4_Search' ) ) {
 						$ids[] = $post->ID;
 					}
 					$args['post__in'] = $ids;
-					$args['orderby']  = 'post__in';
+					// If posts were found by SearchWP and we sort by relevance then keep
+					// the order that they were found with by SearchWP.
+					if ( self::DEFAULT_SORT === $this->selected_sort ) {
+						$args['orderby'] = 'post__in';
+					}
+				}
+
+				// Get the stem of the word and use it instead of the original word,
+				// because WP_Query does not automatically use the stem of the word.
+				$stem = $this->get_stem( $this->search_query );
+				if ( $stem ) {
+					$args['s'] = $stem;
 				}
 
 				$posts = ( new WP_Query( $args ) )->posts;
 			}
 
 			return (array) $posts;
+		}
+
+		/**
+		 * Gets the stem of a word that was produced and stored by SearchWP in the swp_terms table.
+		 *
+		 * @param string $word The original word.
+		 *
+		 * @return string The stem of the word.
+		 */
+		protected function get_stem( $word ) : string {
+			global $wpdb;
+
+			$statement = $wpdb->prepare( "SELECT `stem` FROM `{$wpdb->prefix}swp_terms` where `term` = %s", $word );
+			$result    = $wpdb->get_col( $statement );
+			return $result[0] ?? '';
 		}
 
 		/**
