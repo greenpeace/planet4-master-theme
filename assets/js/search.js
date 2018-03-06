@@ -43,7 +43,7 @@ $(function() {
 	// Add filter by clicking on the page type label inside a result item.
 	// Delegate event handler to the dynamically created descendant elements.
 	$( '.multiple-search-result' ).off( 'click', '.search-result-item-head' ).on( 'click', '.search-result-item-head', function() {
-		$( '.custom-control-input[value=' + $( this ).data( 'term_id' ) + ']' ).prop( 'checked', true);
+		$( '.p4-custom-control-input[value=' + $( this ).data( 'term_id' ) + ']' ).prop( 'checked', true);
 		$search_form.submit();
 	});
 
@@ -55,7 +55,7 @@ $(function() {
 
 	// Clear single selected filter.
 	$( '.activefilter-tag' ).off( 'click' ).on( 'click', function() {
-		$( '.custom-control-input[value=' + $( this ).data( 'id' ) + ']' ).prop('checked', false );
+		$( '.p4-custom-control-input[value=' + $( this ).data( 'id' ) + ']' ).prop('checked', false );
 		$search_form.submit();
 	});
 
