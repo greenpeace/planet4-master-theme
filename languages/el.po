@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-01 12:52+0200\n"
-"PO-Revision-Date: 2018-03-01 14:27+0200\n"
+"PO-Revision-Date: 2018-03-06 12:16+0200\n"
 "Last-Translator: koyan <konstantinos.kokkorogiannis@greenpeace.org>\n"
 "Language-Team: \n"
 "Language: el\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.0.5\n"
 
 #: 404.php:29
 msgid "Sorry, we can't find that page!"
@@ -102,12 +102,12 @@ msgstr "Σελίδα αναζήτησης"
 #: classes/class-p4-search.php:366
 #, php-format
 msgid "%1$d results for '%2$s'"
-msgstr ""
+msgstr "%1$d αποτελέσματα για ‘%2$s’"
 
 #: classes/class-p4-search.php:368
 #, php-format
 msgid "%d results"
-msgstr ""
+msgstr "%d αποτελέσματα"
 
 #: classes/class-p4-search.php:428
 msgid "Action"
@@ -290,7 +290,7 @@ msgstr "Πιο πρόσφατα"
 
 #: functions.php:142
 msgid "Navigation Bar Menu"
-msgstr "Μενού Πλοήγησης"
+msgstr "Μενού"
 
 #: functions.php:217
 msgid "International (English)"
@@ -303,16 +303,16 @@ msgstr ""
 #: functions.php:447
 msgctxt "taxonomy general name"
 msgid "Page Types"
-msgstr "Είδη Σελίδας"
+msgstr "Είδη σελίδας"
 
 #: functions.php:448
 msgctxt "taxonomy singular name"
 msgid "Page Type"
-msgstr "Είδος Σελίδας"
+msgstr "Είδος σελίδας"
 
 #: functions.php:449
 msgid "Search in Page Type"
-msgstr "Αναζήτηση στο Είδος Σελίδας"
+msgstr "Αναζήτηση στο είδος σελίδας"
 
 #: functions.php:450
 msgid "All Page Types"
@@ -463,7 +463,7 @@ msgstr "Τι μπορείς να κάνεις"
 #: tag.php:64
 msgid "We want you to take action because together we're strong."
 msgstr ""
-"Χρειαζόμαστε ανθρώπους σαν κι εσένα για να προστατεύσουμε τον πλανήτη μας."
+"Χρειαζόμαστε ανθρώπους σαν και εσένα για να προστατεύσουμε τον πλανήτη μας."
 
 #: tag.php:78
 msgid "Related Campaigns"
@@ -495,7 +495,7 @@ msgstr "Το σχόλιό σου"
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
