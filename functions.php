@@ -130,7 +130,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'after_setup_theme',        array( $this, 'add_image_sizes' ) );
 		add_action( 'admin_head' ,              array( $this, 'remove_add_post_element' ) );
 		add_filter( 'post_gallery',             array( $this, 'carousel_post_gallery' ), 10, 2 );
-
+		add_action( 'save_post',                array( $this, 'p4_auto_generate_excerpt' ) , 10, 2 );
 
 		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
 		add_action( 'wp_ajax_nopriv_get_paged_posts', array( 'P4_Search', 'get_paged_posts' ) );
@@ -861,6 +861,29 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function carousel_post_gallery( $output, $attr) {
 		return do_shortcode('[shortcake_carousel multiple_image="' . $attr['ids'] . '"]');
+	}
+
+	/**
+	 * Auto generate excerpt for post.
+	 *
+	 * @param int $post_id Id of the saved post.
+	 * @param WP_Post $post Post object.
+	 */
+	public function p4_auto_generate_excerpt( $post_id, $post ) {
+		if ( '' === $post->post_excerpt && 'post' === $post->post_type ) {
+
+			// Unhook save_post function so it doesn't loop infinitely.
+			remove_action('save_post', [ $this, 'p4_auto_generate_excerpt' ], 10 );
+
+			// Update the post, which calls save_post again.
+			wp_update_post( [
+				'ID'           => $post_id,
+				'post_excerpt' => apply_filters( 'the_content', wp_trim_words( strip_tags( $post->post_content ), 30 ) )
+			] );
+
+			// re-hook save_post function.
+			add_action( 'save_post', [ $this, 'p4_auto_generate_excerpt' ], 10, 2 );
+		}
 	}
 
 	/**
