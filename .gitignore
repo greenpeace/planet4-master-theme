@@ -4,6 +4,7 @@ node_modules/
 /main.css
 /main.css.map
 .idea
+yarn-error.log
 
 
 \.DS_Store
