@@ -1,10 +1,13 @@
 $(document).ready(function () {
 
-
 	// Parse p4_page_type passed to a variable server-side.
-	if (undefined !== p4_page_type_mapping) {
-		p4_page_type_mapping = JSON.parse(p4_page_type_mapping);
-	}
+  if (undefined !== p4_page_type_mapping) {
+    try {
+      p4_page_type_mapping = JSON.parse(p4_page_type_mapping);
+    } catch (e) {
+      p4_page_type_mapping = [];
+    }
+  }
 
 	// Remove/uncheck categories that are mapped to planet4 page types.
 	function remove_categories(categories_array, category_name) {
@@ -21,7 +24,7 @@ $(document).ready(function () {
 		function () {
 			var category = $.trim($(this).parent().text()).toLowerCase();
 			var category_id = parseInt($.trim($(this).attr('value')));
-			if (undefined !== p4_page_type_mapping) {
+      if (undefined !== p4_page_type_mapping && Array.isArray(p4_page_type_mapping)) {
 				if (p4_page_type_mapping.map(function (e) {return e.category_id}).includes(category_id)) {
 					return {id: category_id, category: category}
 				}
@@ -33,7 +36,7 @@ $(document).ready(function () {
 	$('#categorychecklist input[type=checkbox]').on("change", function () {
 		var category_name = $.trim($(this).parent().text()).toLowerCase();
 		var category_id = parseInt($.trim($(this).attr('value')));
-		if (undefined !== p4_page_type_mapping) {
+    if (undefined !== p4_page_type_mapping && Array.isArray(p4_page_type_mapping)) {
 			if (p4_page_type_mapping.map(function (e) {return e.category_id}).includes(category_id)) {
 				if ($(this).prop("checked") === true) {
 					var select_value = p4_page_type_mapping.filter(function (e) {return e.category_id == category_id});
