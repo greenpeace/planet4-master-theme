@@ -6,8 +6,9 @@
 	<meta name="description" content="{{ site.description }}">
 
 	{% if post %}
-		{% set description = post.post_excerpt|striptags|raw %}
-		{% set image_data  = fn( 'wp_get_attachment_image_src', post.background_image_id ?? fn('get_post_thumbnail_id', post), 'full' ) %}
+		{% set description   = post.post_excerpt|striptags|raw %}
+		{% set attachment_id = post.background_image_id ?? fn('get_post_thumbnail_id', post) %}
+		{% set image_data    = fn( 'wp_get_attachment_image_src', attachment_id, 'full' ) %}
 	{% endif %}
 
 	<meta property="og:title" content="{{ wp_title|e('esc_html')|raw }}" />
