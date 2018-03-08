@@ -286,30 +286,12 @@ class P4_Master_Site extends TimberSite {
 			'src' => true,
 		];
 
-		$allowedposttags['div'] = [
-			'data-ride' => true,
-			'class'     => true,
-			'id'        => true,
-			'role'      => true,
-		];
-
-		$allowedposttags['li'] = [
-			'data-target'   => true,
-			'data-slide-to' => true,
-			'class'         => true,
-		];
-
-		$allowedposttags['a'] = [
-			'data-slide' => true,
-			'class'      => true,
-			'role'       => true,
-			'href'       => true,
-		];
-
-		$allowedposttags['span'] = [
-			'aria-hidden' => true,
-			'class'       => true,
-		];
+		// Allow below tags for carousel slider
+		$allowedposttags['div']['data-ride']    = true;
+		$allowedposttags['li']['data-target']   = true;
+		$allowedposttags['li']['data-slide-to'] = true;
+		$allowedposttags['a']['data-slide']     = true;
+		$allowedposttags['span']['aria-hidden'] = true;
 
 		return $allowedposttags;
 	}
