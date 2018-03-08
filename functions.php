@@ -107,7 +107,7 @@ class P4_Master_Site extends TimberSite {
 
 		add_filter( 'timber_context',           array( $this, 'add_to_context' ) );
 		add_filter( 'get_twig',                 array( $this, 'add_to_twig' ) );
-		add_action( 'init',                     array( $this, 'register_taxonomies' ) );
+		add_action( 'init',                     array( $this, 'register_taxonomies', 2 ) );
 		add_action( 'init',                     array( $this, 'register_oembed_provider' ) );
 		add_action( 'pre_get_posts',            array( $this, 'add_search_options' ) );
 		add_filter( 'searchwp_query_main_join', array( $this, 'edit_searchwp_main_join_action_pages' ), 10, 2 );
@@ -131,6 +131,13 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'admin_head' ,              array( $this, 'remove_add_post_element' ) );
 		add_filter( 'post_gallery',             array( $this, 'carousel_post_gallery' ), 10, 2 );
 		add_action( 'save_post',                array( $this, 'p4_auto_generate_excerpt' ) , 10, 2 );
+
+		add_filter( 'available_permalink_structure_tags', array( $this, 'add_p4_page_type_permalink_structure' ), 10, 1 );
+		add_filter( 'post_link', array( $this, 'p4_page_type_permalink' ), 10, 3 );
+		add_filter( 'post_rewrite_rules', array( $this, 'replace_p4_page_type_terms_rewrite_rules' ) );
+		add_action( 'created_term', array( $this, 'p4_term_rewrite_rules' ), 10, 3 );
+		add_action( 'edited_term', array( $this, 'p4_term_rewrite_rules' ), 10, 3 );
+		add_action( 'delete_term', array( $this, 'p4_term_rewrite_rules' ), 10, 3 );
 
 		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
 		add_action( 'wp_ajax_nopriv_get_paged_posts', array( 'P4_Search', 'get_paged_posts' ) );
@@ -471,9 +478,7 @@ class P4_Master_Site extends TimberSite {
 			'labels'       => $p4_page_type,
 			'show_ui'      => true,
 			'query_var'    => true,
-			'rewrite'      => [
-				'slug' => 'p4-page-types',
-			],
+			'rewrite'      => false,
 			'meta_box_cb'  => [ $this, 'p4_metabox_markup' ],
 		];
 		register_taxonomy( 'p4-page-type', [ 'p4_page_type', 'post' ], $args );
@@ -958,6 +963,81 @@ class P4_Master_Site extends TimberSite {
 			extract( $args );
 		}
 		include( locate_template( $path . '.php' ) );
+	}
+
+	/**
+	 * Add p4_page_type structure in available permalink tags.
+	 * @param $tags
+	 *
+	 * @return mixed
+	 */
+	public function add_p4_page_type_permalink_structure( $tags ) {
+		$tags['p4_page_type'] = __( '%s (A p4 page type term.)' );
+
+		return $tags;
+	}
+
+	public function p4_page_type_permalink( $permalink, $post_id, $leavename ) {
+		if ( strpos( $permalink, '%p4_page_type%' ) === false ) {
+			return $permalink;
+		}
+
+		// Get post
+		$post = get_post( $post_id );
+		if ( ! $post ) {
+			return $permalink;
+		}
+
+		// Get taxonomy terms
+		$terms = wp_get_object_terms( $post->ID, 'p4-page-type' );
+		if ( ! is_wp_error( $terms ) && ! empty( $terms ) && is_object( $terms[0] ) ) {
+			$taxonomy_slug = $terms[0]->slug;
+		} else {
+			$taxonomy_slug = 'notype';
+		}
+
+		return str_replace( '%p4_page_type%', $taxonomy_slug, $permalink );
+	}
+
+	public function replace_p4_page_type_terms_rewrite_rules( $rules ) {
+
+		// Get taxonomy terms
+		// Get planet4 page types.
+		$terms = get_terms( [
+			'taxonomy'   => 'p4-page-type',
+			'hide_empty' => false,
+			'fields'     => 'all',
+		] );
+
+		$term_slugs = [];
+		foreach ( $terms as $term ) {
+			$term_slugs[] = $term->slug;
+		}
+		$term_slugs[] = 'notype';
+		$terms_slugs  = implode( '|', $term_slugs );
+
+		$temp = [];
+		foreach ( $rules as $match => $rule ) {
+			$as          = str_replace( '%p4_page_type%', "($terms_slugs)", $match );
+			$as1         = str_replace( '%p4_page_type%', "p4_page_type=", $rule );
+			$temp[ $as ] = $as1;
+		}
+
+		return $temp;
+	}
+
+	/**
+	 * For rewrite rules generation and flushing when a new p4_page_type is created/edited/deleted.
+	 *
+	 * @param $term_id
+	 * @param $tt_id
+	 * @param $taxonomy
+	 */
+	public function p4_term_rewrite_rules( $term_id, $tt_id, $taxonomy ) {
+		if ( 'p4-page-type' !== $taxonomy ) {
+			return;
+		}
+		flush_rewrite_rules();
 	}
 }
 
