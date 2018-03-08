@@ -53,7 +53,6 @@ if ( is_tag() ) {
 	$context['tag_name']        = single_tag_title( '', false );
 	$context['tag_description'] = wpautop( $context['tag']->description );
 	$context['tag_image']       = get_term_meta( $context['tag']->term_id, 'tag_attachment', true );
-	$context['tag_image_id']    = get_term_meta( $context['tag']->term_id, 'tag_attachment_id', true );
 
 	$context['page_category']   = $posts[0]->post_title ?? __( 'Unknown Campaign page', 'planet4-master-theme' );
 
