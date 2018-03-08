@@ -356,7 +356,7 @@ $(function() {
 
   function force_wide_blocks() {
     var vw = $container.width();
-    $wideblocks.each(function(){
+    $wideblocks.each(function() {
       var width = $(this).innerWidth();
 
       var margin = ((vw - width) / 2);
@@ -368,6 +368,9 @@ $(function() {
   if ($wideblocks.length > 0 && $container.length > 0) {
     force_wide_blocks();
     $(window).on('resize', force_wide_blocks);
+  } else {
+    $(".block-wide").attr('style','margin: 0px !important;padding-left: 0px !important;padding-right: 0px !important');
+    $("iframe").attr('style','left: 0');
   }
 });
 
