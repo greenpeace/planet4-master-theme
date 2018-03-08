@@ -286,6 +286,13 @@ class P4_Master_Site extends TimberSite {
 			'src' => true,
 		];
 
+		// Allow below tags for carousel slider
+		$allowedposttags['div']['data-ride']    = true;
+		$allowedposttags['li']['data-target']   = true;
+		$allowedposttags['li']['data-slide-to'] = true;
+		$allowedposttags['a']['data-slide']     = true;
+		$allowedposttags['span']['aria-hidden'] = true;
+
 		return $allowedposttags;
 	}
 
