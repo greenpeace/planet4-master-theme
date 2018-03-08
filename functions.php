@@ -197,6 +197,7 @@ class P4_Master_Site extends TimberSite {
 	 * @return mixed
 	 */
 	public function add_to_context( $context ) {
+		global $wp;
 		$context['cookies'] = [
 			'text' => planet4_get_option( 'cookies_field' ),
 		];
@@ -209,8 +210,9 @@ class P4_Master_Site extends TimberSite {
 		$context['foo']          = 'bar';   // For unit test purposes.
 		$context['navbar_menu']  = new TimberMenu( 'navigation-bar-menu' );
 		$context['site']         = $this;
+		$context['current_url']  = home_url( $wp->request );
 		$context['sort_options'] = $this->sort_options;
-		$context['default_sort']  = P4_Search::DEFAULT_SORT;
+		$context['default_sort'] = P4_Search::DEFAULT_SORT;
 
 		$options                          = get_option( 'planet4_options' );
 		$context['donatelink']            = $options['donate_button'] ?? '#';
