@@ -1,275 +1,279 @@
 .search-result-list {
-	height: 150px;
+  height: 150px;
 
-	@include small-and-up {
-		height: 120px;
-	}
+  @include small-and-up {
+    height: 120px;
+  }
 
-	@include large-and-up {
-		height: 235px;
-	}
+  @include large-and-up {
+    height: 235px;
+  }
 
-	@include x-large-and-up {
-		height: 208px;
-	}
+  @include x-large-and-up {
+    height: 208px;
+  }
 }
 
 .multiple-search-result {
-	height: 100%;
-	padding-top: 100px;
+  height: 100%;
+  padding-top: 100px;
 
-	@include small-and-up {
-		padding-top: 32px;
-	}
+  @include small-and-up {
+    padding-top: 32px;
+  }
 
-	ul {
-		border-top: 1px solid $grey-20;
+  ul {
+    border-top: 1px solid $grey-20;
 
-		@include small-and-up {
-			border-top: 0;
-		}
+    @include small-and-up {
+      border-top: 0;
+    }
 
-		li {
-			padding: 15px 0;
-			margin: 0 15px;
-			border-bottom: 1px solid $grey-20;
-			position: relative;
+    li {
+      padding: 15px 0;
+      margin: 0 15px;
+      border-bottom: 1px solid $grey-20;
+      position: relative;
 
-			@include small-and-up {
-				margin: 0 auto 32px;
-				padding-bottom: 32px;
-			}
+      @include small-and-up {
+        margin: 0 auto 32px;
+        padding-bottom: 32px;
+      }
 
-			.search-result-item-image,
-			.blank-block {
-				width: 0;
-				margin-right: 0;
+      .search-hover {
+        text-decoration: underline;
+      }
+
+      .search-result-item-image,
+      .blank-block {
+        width: 0;
+        margin-right: 0;
         visibility: hidden;
 
-				@include small-and-up {
-					width: 25%;
-					margin-right: 30px;
+        @include small-and-up {
+          width: 25%;
+          margin-right: 30px;
           visibility: visible;
-				}
-			}
+        }
 
-			&:hover {
-				.search-result-item-headline,
-				.search-result-item-content,
-				img {
-					cursor: pointer;
-					text-decoration: underline;
-				}
-			}
+        &:hover {
+          cursor: pointer;
+        }
+      }
 
-			&.search-result-list-item-bg {
-				@include background('images/search-list.jpg');
-				padding: 24px 15px 30px;
-				margin: 0;
-				box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-				border-bottom: 0;
+      &.search-result-list-item-bg {
+        @include background('images/search-list.jpg');
+        padding: 24px 15px 30px;
+        margin: 0;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        border-bottom: 0;
 
-				@include small-and-up {
-					padding-top: 32px;
-					padding-bottom: 32px;
-				}
+        @include small-and-up {
+          padding-top: 32px;
+          padding-bottom: 32px;
+        }
 
-				.search-result-item-headline {
-					font-size: rem(24);
-					margin-bottom: 40px;
+        .search-result-item-headline {
+          font-size: rem(24);
+          margin-bottom: 40px;
 
-					@include small-and-up {
-						margin-bottom: 24px;
-					}
-				}
+          @include small-and-up {
+            margin-bottom: 24px;
+          }
 
-				.search-result-item-content {
-					display: block;
-				}
+          &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+          }
+        }
 
-					.btn {
-					width: 100%;
-					margin-top: 32px;
-					cursor: pointer;
+        .search-result-item-content {
+          display: block;
+        }
 
-					@include small-and-up {
-						width: auto;
-					}
-				}
-			}
-		}
-	}
+        .btn {
+          width: 100%;
+          margin-top: 32px;
+          cursor: pointer;
 
-	.btn-secondary {
-		color: $black;
-		border-color: $black;
-		border-width: 2px;
+          @include small-and-up {
+            width: auto;
+          }
+        }
+      }
+    }
+  }
 
-		&:hover,
-		&:focus,
-		&:active {
-			color: $white;
-			background-color: $grey-80;
-			border-color: $grey-80;
-		}
-	}
+  .btn-secondary {
+    color: $black;
+    border-color: $black;
+    border-width: 2px;
 
-	.more-btn {
-		margin-top: 25px;
+    &:hover,
+    &:focus,
+    &:active {
+      color: $white;
+      background-color: $grey-80;
+      border-color: $grey-80;
+    }
+  }
 
-		@include large-and-up {
-			margin-top: 35px
-		}
-	}
+  .more-btn {
+    margin-top: 25px;
+
+    @include large-and-up {
+      margin-top: 35px
+    }
+  }
 }
 
 .search-result-item-body {
-	.btn-secondary {
-		width: 100%;
+  .btn-secondary {
+    width: 100%;
 
-		@include medium-and-up {
-			width: auto;
-			position: absolute;
-			top: 20px;
-			right: 0;
-			padding: 0 15px;
-		}
+    @include medium-and-up {
+      width: auto;
+      position: absolute;
+      top: 20px;
+      right: 0;
+      padding: 0 15px;
+    }
 
-		i {
-			font-size: rem(16);
-			font-weight: bold;
-			margin-right: 10px;
-			float: left;
-			line-height: 2.2rem;
-		}
-	}
+    i {
+      font-size: rem(16);
+      font-weight: bold;
+      margin-right: 10px;
+      float: left;
+      line-height: 2.2rem;
+    }
+  }
 }
 
 .search-result-item-actionbox {
-	position: relative;
-	display: block;
-	width: 100%;
-	float: left;
+  position: relative;
+  display: block;
+  width: 100%;
+  float: left;
 
-	@include small-and-up {
-		position: absolute;
-		right: 0;
-		top: 0;
-	}
+  @include small-and-up {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 }
 
 .search-result-item-headline {
-	font-size: rem(18);
-	color: $grey-80;
-	text-decoration: none;
-	font-weight: 500;
-	display: block;
-	line-height: normal;
-	margin-bottom: 10px;
+  font-size: rem(18);
+  color: $grey-80;
+  text-decoration: none;
+  font-weight: 500;
+  display: block;
+  line-height: normal;
+  margin-bottom: 10px;
 
-	@include small-and-up {
-		font-size: rem(22);
-	}
+  @include small-and-up {
+    font-size: rem(22);
+  }
 
-	@include large-and-up {
-		font-size: rem(26);
-		margin-bottom: 16px;
-	}
+  @include large-and-up {
+    font-size: rem(26);
+    margin-bottom: 16px;
+  }
 }
 
 .search-result-item-info {
-	font-size: rem(14);
-	font-style: italic;
-	color: $grey-60;
-	line-height: normal;
-	margin-bottom: 10px;
+  font-size: rem(14);
+  font-style: italic;
+  color: $grey-60;
+  line-height: normal;
+  margin-bottom: 10px;
 
-	@include large-and-up {
-		font-size: rem(16);
-		margin-bottom: 40px;
-	}
+  @include large-and-up {
+    font-size: rem(16);
+    margin-bottom: 40px;
+  }
 }
 
 .search-result-item-content {
-	display: none;
-	font-size: rem(16);
-	color: $black;
-	line-height: 30px;
-	margin-bottom: 0;
+  display: none;
+  font-size: rem(16);
+  color: $black;
+  line-height: 30px;
+  margin-bottom: 0;
 
-	@include small-and-up {
-		display: block;
-	}
+  @include small-and-up {
+    display: block;
+  }
 
-	@include large-and-up {
-		font-size: rem(18);
-	}
+  @include large-and-up {
+    font-size: rem(18);
+  }
 }
 
 .search-result-tags {
-	margin-bottom: 0;
-	font-size: rem(14);
+  margin-bottom: 0;
+  font-size: rem(14);
 
-	@include medium-and-up {
-		margin-bottom: 8px;
-	}
+  @include medium-and-up {
+    margin-bottom: 8px;
+  }
 
-	@include large-and-up {
-		margin-bottom: 16px;
-		font-size: rem(16);
-	}
+  @include large-and-up {
+    margin-bottom: 16px;
+    font-size: rem(16);
+  }
 
-	.search-result-item-title {
-		background: $grey-20;
-		color: $white;
-		font-weight: bold;
-		padding: 2px 10px;
-		text-decoration: none;
-		margin-right: 10px;
-		display: inline-block;
-	}
+  .search-result-item-title {
+    background: $grey-20;
+    color: $white;
+    font-weight: bold;
+    padding: 2px 10px;
+    text-decoration: none;
+    margin-right: 10px;
+    display: inline-block;
+  }
 
-	.search-result-item-head {
-		color: $blue-elm;
-		font-weight: bold;
-		text-decoration: none;
-		margin-right: 15px;
-		position: relative;
-		text-transform: uppercase;
+  .search-result-item-head {
+    color: $blue-elm;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 15px;
+    position: relative;
+    text-transform: uppercase;
 
-		@include small-and-up {
-			margin-right: 30px;
-		}
+    @include small-and-up {
+      margin-right: 30px;
+    }
 
-		&:after {
-			content:"";
-			position: absolute;
-			top: 0;
-			right: 0;
-			width: 4px;
-			height: 4px;
-			border-radius: 50%;
-			background-color: $blue-elm;
-			margin-right: -12px;
-			margin-top: 8px;
+    &:after {
+      content:"";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: $blue-elm;
+      margin-right: -12px;
+      margin-top: 8px;
 
-			@include small-and-up {
-				margin-right: -20px;
-			}
-		}
+      @include small-and-up {
+        margin-right: -20px;
+      }
+    }
 
-		&:hover {
-			color: $blue-tiber;
-		}
-	}
+    &:hover {
+      color: $blue-tiber;
+    }
+  }
 
-	.search-result-item-tag {
-		color: $blue-elm;
-		text-decoration: none;
-		transition: color 150ms linear;
+  .search-result-item-tag {
+    color: $blue-elm;
+    text-decoration: none;
+    transition: color 150ms linear;
 
-		&:hover {
-			color: $blue-tiber;
-		}
-	}
+    &:hover {
+      color: $blue-tiber;
+    }
+  }
 }
