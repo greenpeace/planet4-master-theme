@@ -18,11 +18,8 @@
     margin: 15px 0;
   }
 
-  &:hover {
-    .article-list-item-headline,
-    .article-list-item-content {
-      text-decoration: none;
-    }
+  .article-hover {
+    text-decoration: underline;
   }
 
   .tag-item {
