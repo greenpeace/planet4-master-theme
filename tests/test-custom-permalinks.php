@@ -97,8 +97,6 @@ class CustomPermalinksTest extends P4_TestCase {
 	public function test_p4_page_type_post_id_permalink_structure() {
 
 		$this->set_permalink_structure( '/%p4_page_type%/%post_id%/' );
-		global $wp_rewrite;
-
 
 		// Create example_post.
 		$post = $this->factory->post->create_and_get( [

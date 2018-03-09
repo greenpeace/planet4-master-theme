@@ -40,10 +40,13 @@ class P4_TestCase extends WP_UnitTestCase {
 		closedir( $dir );
 	}
 
+	/**
+	 * Use wp unit testcase factories to create data in database for the tests.
+	 */
 	function initialize_planet4_data() {
 
 		// Create Act & Explore pages
-		// Accepts the same arguments as wp_insert_post
+		// Accepts the same arguments as wp_insert_post.
 		$act_page_id = $this->factory->post->create( [
 			'post_type'  => 'page',
 			'post_title' => 'ACT',
@@ -79,21 +82,21 @@ class P4_TestCase extends WP_UnitTestCase {
 		                             ecosystems for the climate and for biodiversity.',
 		] );
 
-		// Create a single term
+		// Create p4-page-type terms.
 		$term_id = $this->factory->term->create( [
 			'name'     => 'Story',
 			'taxonomy' => 'p4-page-type',
-			'slug'     => 'story'
+			'slug'     => 'story',
 		] );
 		$term_id = $this->factory->term->create( [
 			'name'     => 'Publication',
 			'taxonomy' => 'p4-page-type',
-			'slug'     => 'publication'
+			'slug'     => 'publication',
 		] );
 		$term_id = $this->factory->term->create( [
 			'name'     => 'Press Release',
 			'taxonomy' => 'p4-page-type',
-			'slug'     => 'press-release'
+			'slug'     => 'press-release',
 		] );
 	}
 
