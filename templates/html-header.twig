@@ -9,6 +9,9 @@
 		{% set description   = post.post_excerpt %}
 		{% set attachment_id = post.background_image_id ?? fn('get_post_thumbnail_id', post) %}
 		{% set image_data    = fn( 'wp_get_attachment_image_src', attachment_id, 'full' ) %}
+	{% elseif tag %}
+		{% set description = tag.description %}
+		{% set image_data  = tag_image_id ? fn( 'wp_get_attachment_image_src', tag_image_id, 'full' ) : [] %}
 	{% endif %}
 
 	<meta property="og:title" content="{{ wp_title|e('esc_html')|raw }}" />
