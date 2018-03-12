@@ -64,6 +64,7 @@ if ( is_tag() ) {
 		'title'       => __( 'Things you can do', 'planet4-master-theme' ),
 		'description' => __( 'We want you to take action because together we\'re strong.', 'planet4-master-theme' ),
 		'select_tag'  => $context['tag']->term_id,
+		'covers_view' => '0',   // Show 6 covers in Campaign page.
 	] );
 
 	$campaign->add_block( Articles::BLOCK_NAME, [
