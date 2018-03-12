@@ -11,8 +11,7 @@
 .happy-point-block-wrap {
 
     @include background-before-opacity($light-blue-bg);
-    position: absolute;
-    overflow: hidden;
+    
     margin:0 -120px 0 -100px;
     .container {
       height: inherit;
