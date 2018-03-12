@@ -38,6 +38,7 @@ $page_meta_data              = get_post_meta( $post->ID );
 $page_terms_data             = get_the_terms( $post, 'p4-page-type' );
 $context['author_override']  = $page_meta_data['p4_author_override'][0] ?? '';
 $context['background_image'] = $page_meta_data['p4_background_image_override'][0] ?? '';
+$context['post_image_id']    = $page_meta_data['p4_background_image_override_id'][0] ?? $page_meta_data['_thumbnail_id'][0];
 $take_action_page            = $page_meta_data['p4_take_action_page'][0] ?? '';
 $context['page_type']        = $page_terms_data[0]->name ?? '';
 $context['page_term_id']     = $page_terms_data[0]->term_id ?? '';
