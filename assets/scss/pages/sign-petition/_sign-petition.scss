@@ -4,6 +4,7 @@ $placeholder-color: #001317;
   &.page-header {
     padding-top: 61px;
     padding-bottom: 0;
+
     .custom-title {
       max-width: 90%;
       margin-top: 49px;
@@ -18,19 +19,21 @@ $placeholder-color: #001317;
       @include medium-and-up {
         font-size: rem(40);
         max-width: 75%;
-        margin-top: 80px; 
+        margin-top: 80px;
       }
+
       @include large-and-up {
         font-size: rem(48);
         max-width: 75%;
-        margin-top: 80px; 
+        margin-top: 80px;
       }
 
       @include x-large-and-up {
         font-size: rem(66);
-        margin-top: 120px; 
+        margin-top: 120px;
       }
     }
+
     .subhead-custom-title {
       font-size: rem(26);
       margin-bottom: 32px;
@@ -44,13 +47,16 @@ $placeholder-color: #001317;
       @include x-large-and-up {
         font-size: rem(36);
       }
+
       &.normaltxt {
         font-weight: normal;
+
         span {
           font-weight: bold;
         }
-      }  
+      }
     }
+
     .subhead-para {
       font-size: rem(16);
       line-height: 22px;
@@ -68,18 +74,23 @@ $placeholder-color: #001317;
         line-height: 34px;
       }
     }
+
     .petition-form {
-      background-color:rgba(0,19,23,0.6);
+      background-color: rgba(0, 19, 23, 0.6);
       padding: 16px;
+
       @include medium-and-up {
         margin-bottom: 64px;
       }
+
       @include large-and-up {
         margin-bottom: 80px;
       }
+
       @include x-large-and-up {
         margin-bottom: 88px;
       }
+
       .form-group {
         margin-bottom: 20px;
         @include medium-and-up {
@@ -92,21 +103,24 @@ $placeholder-color: #001317;
         @include x-large-and-up {
           margin-bottom: 32px;
         }
+
         .form-control {
           height: 48px;
           border-radius: 0;
-          color:rgb(0,19,23);
+          color: rgb(0, 19, 23);
           font-size: rem(16);
           font-family: $roboto;
           @include large-and-up {
             height: 56px;
             font-size: rem(18);
           }
+
           &::placeholder {
             font-family: $roboto;
             color: $placeholder-color;
           }
         }
+
         .form-check-label {
           font-size: rem(14);
           font-style: italic;
@@ -116,8 +130,10 @@ $placeholder-color: #001317;
         }
 
         .styled-checkbox {
-          position: absolute; // take it out of document flow
-          opacity: 0; // hide it
+          // take it out of document flow
+          position: absolute;
+          // hide it
+          opacity: 0;
 
           & + label {
             position: relative;
@@ -127,7 +143,7 @@ $placeholder-color: #001317;
 
           // Box.
           & + label:before {
-            content: '';
+            content: "";
             margin-right: 10px;
             display: inline-block;
             vertical-align: text-top;
@@ -138,7 +154,7 @@ $placeholder-color: #001317;
 
           // Box hover
           &:hover + label:before {
-            background: #02484E;
+            background: #02484e;
           }
 
           // Box focus
@@ -148,7 +164,7 @@ $placeholder-color: #001317;
 
           // Box checked
           &:checked + label:before {
-            background: #02484E;
+            background: #02484e;
           }
 
           // Disabled state label.
@@ -165,27 +181,23 @@ $placeholder-color: #001317;
 
           // Checkmark. Could be replaced with an image
           &:checked + label:after {
-            content: '';
+            content: "";
             position: absolute;
             left: 5px;
             top: 9px;
             background: white;
             width: 2px;
             height: 2px;
-            box-shadow: 
-            2px 0 0 white,
-            4px 0 0 white,
-            4px -2px 0 white,
-            4px -4px 0 white,
-            4px -6px 0 white,
-            4px -8px 0 white;
+            box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
             transform: rotate(45deg);
           }
         }
       }
+
       .btn {
         margin-bottom: 8px;
       }
+
       .message-box {
         max-height: 350px;
         overflow-y: scroll;
@@ -193,6 +205,7 @@ $placeholder-color: #001317;
         margin-bottom: 20px;
         color: $grey;
         padding: 16px;
+
         p {
           font-family: $roboto;
           font-size: rem(16);
@@ -202,39 +215,45 @@ $placeholder-color: #001317;
             line-height: 22px;
           }
         }
+
         .message-label {
           color: $grey-40;
           font-size: rem(12);
         }
       }
-      .customselect-country { 
+
+      .customselect-country {
         position: relative;
+
         .select-gred {
           color: $white;
-          background: rgba(0,99,110,1);
-          background: -moz-linear-gradient(left, rgba(0,99,110,1) 0%, rgba(44,148,171,1) 100%);
-          background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0,99,110,1)), color-stop(100%, rgba(44,148,171,1)));
-          background: -webkit-linear-gradient(left, rgba(0,99,110,1) 0%, rgba(44,148,171,1) 100%);
-          background: -o-linear-gradient(left, rgba(0,99,110,1) 0%, rgba(44,148,171,1) 100%);
-          background: -ms-linear-gradient(left, rgba(0,99,110,1) 0%, rgba(44,148,171,1) 100%);
-          background: linear-gradient(to right, rgba(0,99,110,1) 0%, rgba(44,148,171,1) 100%);
-          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00636e', endColorstr='#2c94ab', GradientType=1 );
-          height:48px; 
+          background: rgba(0, 99, 110, 1);
+          background: -moz-linear-gradient(left, rgba(0, 99, 110, 1) 0%, rgba(44, 148, 171, 1) 100%);
+          background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0, 99, 110, 1)), color-stop(100%, rgba(44, 148, 171, 1)));
+          background: -webkit-linear-gradient(left, rgba(0, 99, 110, 1) 0%, rgba(44, 148, 171, 1) 100%);
+          background: -o-linear-gradient(left, rgba(0, 99, 110, 1) 0%, rgba(44, 148, 171, 1) 100%);
+          background: -ms-linear-gradient(left, rgba(0, 99, 110, 1) 0%, rgba(44, 148, 171, 1) 100%);
+          background: linear-gradient(to right, rgba(0, 99, 110, 1) 0%, rgba(44, 148, 171, 1) 100%);
+          filter: progid:dximagetransform.microsoft.gradient(startColorstr="#00636e", endColorstr="#2c94ab", GradientType=1);
+          height: 48px;
           width: 100%;
           display: block;
           padding: 0 16px;
           margin-bottom: 32px;
           cursor: pointer;
+
           span {
             line-height: 48px;
           }
+
           &.active {
             .arrow-selected {
               transform: rotate(90deg);
             }
           }
+
           .arrow-selected {
-            background: url(images/selectarrow.png);
+            background: url("images/selectarrow.png");
             width: 18px;
             height: 18px;
             float: right;
@@ -242,6 +261,7 @@ $placeholder-color: #001317;
             transition: all 1s ease;
           }
         }
+
         .option-contry {
           background: $white;
           width: 100%;
@@ -253,10 +273,12 @@ $placeholder-color: #001317;
           z-index: 2;
           overflow-y: auto;
           display: none;
-          box-shadow: 0px 1px $grey-20;
+          box-shadow: 0 1px $grey-20;
+
           &.active {
             display: block;
           }
+
           ul {
             li {
               a {
@@ -266,25 +288,29 @@ $placeholder-color: #001317;
                 border-bottom: 1px solid $grey-20;
                 cursor: pointer;
                 display: block;
-              }  
+              }
             }
           }
         }
       }
     }
+
     p.thankmsg {
       margin-bottom: 56px;
     }
+
     .socialshare {
       margin-bottom: 120px;
       clear: both;
       height: auto;
+
       a {
         width: 40%;
         display: block;
         text-decoration: none;
         margin-right: 20px;
         float: left;
+
         img {
           width: 100%;
         }

@@ -1,40 +1,40 @@
 .search-info {
-	font-size: rem(14);
-	margin-bottom: 0;
-	font-family: $roboto;
-	font-style: italic;
-	color: $grey-60;
-	line-height: normal;
+  font-size: rem(14);
+  margin-bottom: 0;
+  font-family: $roboto;
+  font-style: italic;
+  color: $grey-60;
+  line-height: normal;
 
-	@include medium-and-up {
-		font-size: rem(18);
-	}
+  @include medium-and-up {
+    font-size: rem(18);
+  }
 
-	@include large-and-up {
-		font-size: rem(28);
-	}
+  @include large-and-up {
+    font-size: rem(28);
+  }
 
-	@include x-large-and-up {
-		font-size: rem(32);
-	}
+  @include x-large-and-up {
+    font-size: rem(32);
+  }
 
-	.btn-filter-item {
-		font-size: rem(14);
-		line-height: 1.6;
-		font-style: normal;
-		text-transform: none;
-		margin-left: 10px;
-		padding: 0 30px 0 10px;
-		border-width: 2px;
+  .btn-filter-item {
+    font-size: rem(14);
+    line-height: 1.6;
+    font-style: normal;
+    text-transform: none;
+    margin-left: 10px;
+    padding: 0 30px 0 10px;
+    border-width: 2px;
 
-		@include small-and-up {
-			font-size: rem(16);
-			line-height: 1.9;
-			padding: 0 40px 0 15px;
-		}
+    @include small-and-up {
+      font-size: rem(16);
+      line-height: 1.9;
+      padding: 0 40px 0 15px;
+    }
 
-		@include large-and-up {
-			font-size: rem(22);
-		}
-	}
+    @include large-and-up {
+      font-size: rem(22);
+    }
+  }
 }

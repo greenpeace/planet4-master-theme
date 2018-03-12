@@ -19,7 +19,7 @@
     .four-column-content-symbol {
       position: relative;
       margin: 0 0 24px 0;
-      box-shadow: 0 5px 20px 0 rgba(114,114,114,0.5);
+      box-shadow: 0 5px 20px 0 rgba(114, 114, 114, 0.5);
 
       @include small-and-up {
         margin: 20px 0;
@@ -46,20 +46,19 @@
     }
 
     .four-column-content-info {
-
       .four-column-hover {
         text-decoration: underline;
       }
 
       h4 {
-        font-size : rem(14);
+        font-size: rem(14);
         line-height: 1.2;
         font-weight: 500;
         padding: 0;
         margin: 0;
 
         @include medium-and-up {
-          font-size : rem(18);
+          font-size: rem(18);
           font-weight: 500;
           color: $black;
         }

@@ -7,7 +7,9 @@
 	"author": "Greenpeace International",
 	"license": "MIT",
 	"devDependencies": {
-		"gulp": "^3.9.1"
+		"gulp": "^3.9.1",
+		"gulp-stylelint": "^7.0.0",
+		"stylelint": "^9.1.1"
 	},
 	"dependencies": {
 		"bootstrap": "^4.0.0",

@@ -9,14 +9,14 @@ base values, and defaults.
 ******************************************************************/
 
 /**
- * A note on colors:
- *
- * Every single color on this site should use a color variable as defined
- * in this file for brand consistency and code maintenance.
- *
- * Once a color is defined here, it should not change and will remain
- * consistent.
- */
+* A note on colors:
+*
+* Every single color on this site should use a color variable as defined
+* in this file for brand consistency and code maintenance.
+*
+* Once a color is defined here, it should not change and will remain
+* consistent.
+*/
 
 // Primary Colors.
 $black:       #000;
@@ -101,27 +101,25 @@ $maroon:      #3f0901;
 
 // Need to be re-assigned colors.
 $blue:      #2980b9;
-$brown-bg:  #FAF7EC;
+$brown-bg:  #faf7ec;
 $red:       #ad2330;
-$med-blue:  #0A3351;
+$med-blue:  #0a3351;
 
 // Social buttons
 $facebook: #3b5998;
 $twitter: #55acee;
 $email: #ea7179;
 
-
 /**
- * From this point on only the above color variables should be used in the codebase.
- */
-
+* From this point on only the above color variables should be used in the codebase.
+*/
 
 // Used colors
 $active:                #aed4c7;
 $blue-bg-anchor:        #30a7af;
 $blue-bg:               #03484f;
 $blue-heading:          #004950;
-$blue-text:             #12757B;
+$blue-text:             #12757b;
 $border-color:          #07403a;
 $brown-bg-tags-text:    $yellow;
 $card-header-bg:        #c7dcd3;
@@ -130,34 +128,34 @@ $carousel-active:       #064364; // Duplicate
 $darkb-blue-text:       #264042;
 $fixed-nav-bg:          #247670;
 $header-footer-bg:      #030403;
-$light-blue-bg:         #D6E6F2;
-$light-blue:            #67B2AF;
+$light-blue-bg:         #d6e6f2;
+$light-blue:            #67b2af;
 $nav-link:              #a6df20;
 $percentage-text:       #017e7a;
-$step-normal-bg:        #E4E7DA;
-$steps-deactive-text:   #0A4F45;
+$step-normal-bg:        #e4e7da;
+$steps-deactive-text:   #0a4f45;
 $top-nav:               #1e5f65;
 $light-grey:            #e0ddd4;
 
 // Used once.
 $body-bg:               #b0d4c8;
-$brown-bg-tags-link:    #E88D75;
+$brown-bg-tags-link:    #e88d75;
 $container-bg:          $body-blue;
-$dark-para-text:        #011D1E;
+$dark-para-text:        #011d1e;
 $green-link-hover:      #77dd11;
 $heading:               #004d53;
-$step-number:           #A7A7A7;
-$brown-header:          #5C1F10;
+$step-number:           #a7a7a7;
+$brown-header:          #5c1f10;
 
 // Colors to be fixed/addressed:
 $article-heading-color:	#152431;
-$credit-color:          #5A5A5A;
+$credit-color:          #5a5a5a;
 $search-text-colour:    #115247;
 $blue-top-nav:          $dark-blue;
 $dark-shade-black:      #1a1a1a;
-$carousel-indi-color:   #8BCC49;
+$carousel-indi-color:   #8bcc49;
 $shadow-color:          $grey-60;
-$hover-nav:             #052A30;
+$hover-nav:             #052a30;
 
 // Media queries
 $extra-small-width:  320px;
