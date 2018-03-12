@@ -52,20 +52,17 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		public function create_taxonomy_metabox_markup( WP_Post $post ) {
 			$attached_type = get_the_terms( $post, self::TAXONOMY );
 			$current_type  = ( is_array( $attached_type ) ) ? $attached_type[0]->slug : - 1;
-			$all_types = get_terms( self::TAXONOMY,
-				[
-					'hide_empty' => false,
-				] );
+			$all_types = $this->get_terms();
+
 			wp_nonce_field( 'p4-save-page-type', 'p4-page-type-nonce' );
 			?>
-			<select name="<?php echo esc_attr( self::TAXONOMY ); ?>" disabled>
+			<select name="<?php echo esc_attr( self::TAXONOMY ); ?>">
 				<?php foreach ( $all_types as $term ) : ?>
 					<option <?php selected( $current_type, $term->slug ); ?>
 						value="<?php echo esc_attr( $term->slug ); ?>">
 						<?php echo esc_html( $term->name ); ?>
 					</option>
 				<?php endforeach; ?>
-				<option value="-1" <?php selected( - 1, $current_type ); ?> >none</option>
 			</select>
 			<?php
 		}
@@ -86,15 +83,35 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 				return $permalink;
 			}
 
-			// Get taxonomy terms.
-			$terms = wp_get_object_terms( $post->ID, self::TAXONOMY );
+			// Get post's taxonomy terms.
+			$terms     = wp_get_object_terms( $post->ID, self::TAXONOMY );
+			$all_terms = $this->get_terms();
+
+			// Assign story slug if the taxonomy does not have any terms.
+			$taxonomy_slug = 'story';
 			if ( ! is_wp_error( $terms ) && ! empty( $terms ) && is_object( $terms[0] ) ) {
 				$taxonomy_slug = $terms[0]->slug;
-			} else {
-				$taxonomy_slug = 'notype';
+			} elseif ( ! is_wp_error( $terms ) && empty( $terms ) ) {
+				if ( ! is_wp_error( $all_terms ) && ! empty( $all_terms ) && is_object( $all_terms[0] ) ) {
+					$taxonomy_slug = $all_terms[0]->slug;
+				}
 			}
 
 			return str_replace( '%p4_page_type%', $taxonomy_slug, $permalink );
+		}
+
+		/**
+		 * Get taxonomy's terms.
+		 *
+		 * @return array|int|WP_Error
+		 */
+		public function get_terms() {
+			// Get planet4 page type taxonomy terms.
+			return get_terms( [
+				'fields'     => 'all',
+				'hide_empty' => false,
+				'taxonomy'   => self::TAXONOMY,
+			] );
 		}
 
 		/**
@@ -139,20 +156,21 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		public function replace_taxonomy_terms_in_rewrite_rules( $rules ) {
 
 			// Get planet4 page type taxonomy terms.
-			$terms = get_terms( [
-				'fields'     => 'all',
-				'hide_empty' => false,
-				'taxonomy'   => self::TAXONOMY,
-			] );
+			$terms = $this->get_terms();
 
-			if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+			if ( ! is_wp_error( $terms ) ) {
 
 				$term_slugs = [];
-				foreach ( $terms as $term ) {
-					$term_slugs[] = $term->slug;
+				if ( ! empty( $terms ) ) {
+					foreach ( $terms as $term ) {
+						$term_slugs[] = $term->slug;
+					}
+				} elseif ( empty( $terms ) ) {
+					// Add story slug also if the taxonomy does not have any terms.
+					$term_slugs[] = 'story';
 				}
-				$term_slugs[] = 'notype';
-				$terms_slugs  = implode( '|', $term_slugs );
+
+				$terms_slugs = implode( '|', $term_slugs );
 
 				$new_rules = [];
 				foreach ( $rules as $match => $rule ) {
@@ -212,7 +230,6 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 
 				$categories = $_POST['post_category'];
 
-				$assigned = false;
 				foreach ( $categories as $category_id ) {
 					foreach ( $categories_mapping as $category_map ) {
 						if ( ! isset( $category_map->category_id ) || ! isset( $category_map->p4_page_type_slug ) ) {
@@ -221,14 +238,20 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 						if ( intval( $category_id ) === $category_map->category_id ) {
 							// Save post type.
 							wp_set_post_terms( $post_id, sanitize_text_field( $category_map->p4_page_type_slug ), self::TAXONOMY );
-							$assigned = true;
 							break 2;
 						}
 					}
 				}
-				// If no mapped category was selected, remove the term.
-				if ( ! $assigned ) {
-					wp_set_post_terms( $post_id, [], self::TAXONOMY );
+			}
+
+			// Check if post has an assigned term to it.
+			$terms = wp_get_object_terms( $post_id, self::TAXONOMY );
+			if ( ! is_wp_error( $terms ) && empty( $terms ) ) {
+
+				// Assign taxonomy's first term, if no term is assigned to post.
+				$all_terms = $this->get_terms();
+				if ( ! is_wp_error( $all_terms ) && ! empty( $all_terms ) && is_object( $all_terms[0] ) ) {
+					wp_set_post_terms( $post_id, $all_terms[0]->slug, self::TAXONOMY );
 				}
 			}
 		}
