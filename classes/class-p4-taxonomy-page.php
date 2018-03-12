@@ -52,15 +52,15 @@ if ( ! class_exists( 'P4_Taxonomy_Page' ) ) {
 
 			if ( isset( $wp_tag ) && $wp_tag instanceof WP_Term ) {
 				$category_page = get_term_meta( $wp_tag->term_id, 'category_page', true );
-                if ( $category_page ) {
-                    $args['selected'] = $category_page;
-                } ?>
+				if ( $category_page ) {
+					$args['selected'] = $category_page;
+				} ?>
 				<tr class="form-field edit-wrap term-category-page-wrap">
 					<th>
 						<label><?php echo __( 'Select Category Page', 'planet4-master-theme' ); ?></label>
 					</th>
 					<td>
-                        <?php wp_dropdown_pages( $args ); ?>
+						<?php wp_dropdown_pages( $args ); ?>
 						<p class="description"><?php echo __( 'Associate this category with a page.', 'planet4-master-theme' ); ?></p>
 					</td>
 				</tr>
