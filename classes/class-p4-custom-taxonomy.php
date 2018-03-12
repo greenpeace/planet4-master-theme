@@ -52,10 +52,13 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		public function create_taxonomy_metabox_markup( WP_Post $post ) {
 			$attached_type = get_the_terms( $post, self::TAXONOMY );
 			$current_type  = ( is_array( $attached_type ) ) ? $attached_type[0]->slug : - 1;
-			$all_types     = get_terms( self::TAXONOMY, [ 'hide_empty' => false ] );
+			$all_types = get_terms( self::TAXONOMY,
+				[
+					'hide_empty' => false,
+				] );
 			wp_nonce_field( 'p4-save-page-type', 'p4-page-type-nonce' );
 			?>
-			<select name="<?php echo self::TAXONOMY; ?>" disabled>
+			<select name="<?php echo esc_attr( self::TAXONOMY ); ?>" disabled>
 				<?php foreach ( $all_types as $term ) : ?>
 					<option <?php selected( $current_type, $term->slug ); ?>
 						value="<?php echo esc_attr( $term->slug ); ?>">
@@ -83,7 +86,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 				return $permalink;
 			}
 
-			// Get taxonomy terms
+			// Get taxonomy terms.
 			$terms = wp_get_object_terms( $post->ID, self::TAXONOMY );
 			if ( ! is_wp_error( $terms ) && ! empty( $terms ) && is_object( $terms[0] ) ) {
 				$taxonomy_slug = $terms[0]->slug;
@@ -154,7 +157,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 				$new_rules = [];
 				foreach ( $rules as $match => $rule ) {
 					$new_match               = str_replace( '%p4_page_type%', "($terms_slugs)", $match );
-					$new_rule                = str_replace( '%p4_page_type%', "p4_page_type=", $rule );
+					$new_rule                = str_replace( '%p4_page_type%', 'p4_page_type=', $rule );
 					$new_rules[ $new_match ] = $new_rule;
 				}
 
@@ -205,7 +208,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 				$categories = array_map( 'esc_attr', $_POST['post_category'] );
 			}
 
-			if ( ! is_null( $categories ) && $categories_mapping !== null && is_array( $categories_mapping ) ) {
+			if ( ! is_null( $categories ) && null !== $categories_mapping && is_array( $categories_mapping ) ) {
 
 				$categories = $_POST['post_category'];
 
@@ -231,3 +234,4 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		}
 	}
 }
+

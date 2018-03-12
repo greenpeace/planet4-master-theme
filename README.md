@@ -82,3 +82,23 @@ The following packages will be installed as dependencies
     git tag -a v0.x.x -m 'v0.x.x'
     git push origin v0.x.x
     ```
+
+### Add a new frontend library
+
+0. Frontend dependencies are stored in `package.json`, handled by yarn. To add a new dependency, e.g. jquery, call:
+
+```
+yarn add jquery
+```
+
+1. Manually add the new required files to the list of "assets" inside `package.json`, then call gulp:
+
+```
+gulp assets
+```
+
+2. This will add these files to `assets/lib/`. Then open `functions.php` and add these new assets inside the `enqueue_public_assets` function:
+
+```
+wp_enqueue_script( 'jquery', $this->theme_dir . '/assets/lib/jquery/dist/jquery.min.js', array(), '3.3.1', true );
+```
