@@ -889,7 +889,7 @@ class P4_Master_Site extends TimberSite {
 			// Update the post, which calls save_post again.
 			wp_update_post( [
 				'ID'           => $post_id,
-				'post_excerpt' => apply_filters( 'the_content', wp_trim_words( strip_tags( $post->post_content ), 30 ) ),
+				'post_excerpt' => strip_tags( apply_filters( 'the_content', wp_trim_words( strip_tags( $post->post_content ), 30 ) ) ),
 			] );
 
 			// re-hook save_post function.
