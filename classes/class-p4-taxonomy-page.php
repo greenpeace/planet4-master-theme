@@ -35,7 +35,6 @@ if ( ! class_exists( 'P4_Taxonomy_Page' ) ) {
 		public function add_taxonomy_form_fields( $wp_tag ) {
 
 			$args = [
-				'hierarchical'     => 1,
 				'post_type'        => 'page',
 				'show_option_none' => 'None',
 				'name'             => 'category_page',
@@ -43,12 +42,14 @@ if ( ! class_exists( 'P4_Taxonomy_Page' ) ) {
 				'class'            => 'category-page-class',
 			];
 
-			// Filter issue pages
+			// Filter issue pages.
 			$options          = get_option( 'planet4_options' );
 			$explore_page_id  = $options['explore_page'];
 			if ( $explore_page_id ) {
-			    $args['child_of'] = $explore_page_id;
+				$args['child_of'] = $explore_page_id;
 			}
+
+			$args = array_map( 'esc_attr', $args );
 
 			if ( isset( $wp_tag ) && $wp_tag instanceof WP_Term ) {
 				$category_page = get_term_meta( $wp_tag->term_id, 'category_page', true );
@@ -57,18 +58,18 @@ if ( ! class_exists( 'P4_Taxonomy_Page' ) ) {
 				} ?>
 				<tr class="form-field edit-wrap term-category-page-wrap">
 					<th>
-						<label><?php echo __( 'Select Category Page', 'planet4-master-theme' ); ?></label>
+						<label><?php echo esc_html__( 'Select Category Page', 'planet4-master-theme' ); ?></label>
 					</th>
 					<td>
 						<?php wp_dropdown_pages( $args ); ?>
-						<p class="description"><?php echo __( 'Associate this category with a page.', 'planet4-master-theme' ); ?></p>
+						<p class="description"><?php echo esc_html__( 'Associate this category with a page.', 'planet4-master-theme' ); ?></p>
 					</td>
 				</tr>
 			<?php } else { ?>
 				<div class="form-field add-wrap term-category-page-wrap">
 					<label><?php esc_html_e( 'Select Category Page', 'planet4-master-theme' ); ?></label>
 					<?php wp_dropdown_pages( $args ); ?>
-					<p class="description"><?php esc_html_e( 'Associate this category with a page.', 'planet4-master-theme' ); ?></p>
+					<p class="description"><?php esc_html__( 'Associate this category with a page.', 'planet4-master-theme' ); ?></p>
 				</div>
 				<?php
 			}
@@ -112,7 +113,7 @@ if ( ! class_exists( 'P4_Taxonomy_Page' ) ) {
 		public function manage_taxonomy_custom_column( $output, $column, $term_id ) : string {
 			if ( 'category_page' === $column ) {
 				$category_page = get_term_meta( $term_id, 'category_page', true );
-				$output        = get_the_title( $category_page );
+				$output        = '<a href="' . get_edit_post_link( $category_page ) . '" target="_blank">' . get_the_title( $category_page ) . '</a>';
 			}
 			return $output;
 		}
