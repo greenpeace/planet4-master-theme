@@ -49,8 +49,6 @@ if ( ! class_exists( 'P4_Taxonomy_Page' ) ) {
 				$args['child_of'] = $explore_page_id;
 			}
 
-			$args = array_map( 'esc_attr', $args );
-
 			if ( isset( $wp_tag ) && $wp_tag instanceof WP_Term ) {
 				$category_page = get_term_meta( $wp_tag->term_id, 'category_page', true );
 				if ( $category_page ) {
@@ -61,14 +59,14 @@ if ( ! class_exists( 'P4_Taxonomy_Page' ) ) {
 						<label><?php echo esc_html__( 'Select Category Page', 'planet4-master-theme' ); ?></label>
 					</th>
 					<td>
-						<?php wp_dropdown_pages( $args ); ?>
+						<?php wp_dropdown_pages( array_map( 'esc_attr', $args ) ); ?>
 						<p class="description"><?php echo esc_html__( 'Associate this category with a page.', 'planet4-master-theme' ); ?></p>
 					</td>
 				</tr>
 			<?php } else { ?>
 				<div class="form-field add-wrap term-category-page-wrap">
 					<label><?php esc_html_e( 'Select Category Page', 'planet4-master-theme' ); ?></label>
-					<?php wp_dropdown_pages( $args ); ?>
+					<?php wp_dropdown_pages( array_map( 'esc_attr', $args ) ); ?>
 					<p class="description"><?php esc_html__( 'Associate this category with a page.', 'planet4-master-theme' ); ?></p>
 				</div>
 				<?php
