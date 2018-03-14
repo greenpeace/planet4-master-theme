@@ -84,7 +84,7 @@
     }
 
     @include x-large-and-up {
-      font-size: rem(18)
+      font-size: rem(18);
     }
 
     iframe {
@@ -118,7 +118,6 @@
   .alignleft {
     float: left;
     margin: 10px 10px 0 0;
-
   }
 
   .alignright {
@@ -234,6 +233,7 @@
     dt {
       margin: 0;
     }
+
     br + br {
       display: none;
     }
@@ -305,7 +305,7 @@
   }
 
   @include x-large-and-up {
-    font-size: rem(18)
+    font-size: rem(18);
   }
 
   img {

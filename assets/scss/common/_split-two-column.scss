@@ -241,12 +241,12 @@
     }
 
     &:after {
-      font-family: 'greenpeace-icon';
-      content: '\e901';
+      font-family: greenpeace-icon;
+      content: "\e901";
       color: $yellow;
       position: absolute;
       top: 50%;
-      transform: translate( 0, -50% );
+      transform: translate(0, -50%);
       right: 15px;
       pointer-events: none;
     }
@@ -293,7 +293,6 @@
       width: 100%;
       background: linear-gradient(100deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0));
     }
-
   }
 
   .item--right {
@@ -314,7 +313,7 @@
       z-index: 1;
       height: 100%;
       width: 25%;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05),rgba(255, 255, 255, 0));
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
     }
   }
 
@@ -326,7 +325,7 @@
 
   .split-two-column-item-content {
     top: 50%;
-    transform: translate( 0, -50% ) skew(-30deg, 0deg);
+    transform: translate(0, -50%) skew(-30deg, 0deg);
     z-index: 1;
     width: 40%;
   }

@@ -70,6 +70,7 @@
     .cover-card-column:nth-child(-n+7) {
       display: block;
     }
+
     .cover-card-column:nth-child(n+7) {
       display: none;
     }
@@ -186,7 +187,7 @@
     transition: box-shadow 150ms linear;
     padding-bottom: 70px;
 
-    &:not(.single-cover){
+    &:not(.single-cover) {
       box-shadow: none;
 
       &:hover {

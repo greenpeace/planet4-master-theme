@@ -1,99 +1,99 @@
 .search-bar {
-	width: 100%;
-	background: transparentize($white, .7);
-	border-radius: 5px;
-	border: 1px solid $faded-jade;
-	padding: 24px 15px;
+  width: 100%;
+  background: transparentize($white, .7);
+  border-radius: 5px;
+  border: 1px solid $faded-jade;
+  padding: 24px 15px;
 
-	@include small-and-up {
-		padding: 32px;
-	}
+  @include small-and-up {
+    padding: 32px;
+  }
 
-	input {
-		font-size: rem(16);
-		height: 2.75em;
-		line-height: 2.75;
-		appearance: none;
+  input {
+    font-size: rem(16);
+    height: 2.75em;
+    line-height: 2.75;
+    appearance: none;
 
-		@include large-and-up {
-			font-size: rem(18);
-			height: 3em;
-			line-height: 3;
-		}
-	}
+    @include large-and-up {
+      font-size: rem(18);
+      height: 3em;
+      line-height: 3;
+    }
+  }
 
-	.btn-secondary {
-		background-color: transparentize($white, .8);
-		border-color: $grey-20;
-		color: $black;
-		text-transform: capitalize;
-		width: 50%;
-		cursor: pointer;
-		margin-bottom: 10px;
+  .btn-secondary {
+    background-color: transparentize($white, .8);
+    border-color: $grey-20;
+    color: $black;
+    text-transform: capitalize;
+    width: 50%;
+    cursor: pointer;
+    margin-bottom: 10px;
 
-		@include small-and-up {
-			margin-bottom: 0;
-		}
+    @include small-and-up {
+      margin-bottom: 0;
+    }
 
-		&.active {
-			background-color: $dark-blue;
-			border-color: transparent;
-			color: $white;
+    &.active {
+      background-color: $dark-blue;
+      border-color: transparent;
+      color: $white;
 
-			&:before {
-				content:"";
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 8px;
-				height: 8px;
-				border-radius: 5px;
-				background-color: $white;
-				margin-top: 18px;
-				margin-left: 5px;
+      &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 8px;
+        height: 8px;
+        border-radius: 5px;
+        background-color: $white;
+        margin-top: 18px;
+        margin-left: 5px;
 
-				@include large-and-up {
-					margin-top: 25px;
-					margin-left: 12px;
-				}
-			}
+        @include large-and-up {
+          margin-top: 25px;
+          margin-left: 12px;
+        }
+      }
 
-			&:hover {
-				z-index: 2;
-				background-color: $dark-blue;
-			}
-		}
+      &:hover {
+        z-index: 2;
+        background-color: $dark-blue;
+      }
+    }
 
-		&:hover {
-			z-index: 0;
-			background-color: $grey-20;
-		}
-	}
+    &:hover {
+      z-index: 0;
+      background-color: $grey-20;
+    }
+  }
 
-	.search-btn,
-	.btn-secondary {
-		font-size: rem(16);
-		line-height: 2.75;
+  .search-btn,
+  .btn-secondary {
+    font-size: rem(16);
+    line-height: 2.75;
 
-		@include large-and-up {
-			font-size: rem(18);
-			line-height: 3;
-		}
+    @include large-and-up {
+      font-size: rem(18);
+      line-height: 3;
+    }
 
-		i {
-			font-size: rem(18);
-			font-weight: normal;
-			line-height: 0;
-			float: left;
-			margin-top: 22px;
+    i {
+      font-size: rem(18);
+      font-weight: normal;
+      line-height: 0;
+      float: left;
+      margin-top: 22px;
 
-			@include large-and-up {
-				margin-top: 27px;
-			}
-		}
-	}
+      @include large-and-up {
+        margin-top: 27px;
+      }
+    }
+  }
 
-	.search-btn {
-		box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-	}
+  .search-btn {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
 }

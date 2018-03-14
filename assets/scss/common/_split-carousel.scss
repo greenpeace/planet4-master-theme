@@ -5,31 +5,35 @@
     margin-bottom: 33px;
     line-height: 1.2;
   }
+
   &.not-header {
-  padding-top: 0;
-  overflow: hidden;
-  margin-bottom: 0;
-  padding-bottom: 153px;
+    padding-top: 0;
+    overflow: hidden;
+    margin-bottom: 0;
+    padding-bottom: 153px;
+
     .carousel-item {
       .carousel-item-credit {
         position: absolute;
         right: 0;
         top: 0;
-        color: $white;
         font-size: rem(11);
         margin: -20px 5px 15px 15px;
         font-weight: normal;
         color: $credit-color;
       }
     }
+
     .carousel-item.active,
     .carousel-item-next,
     .carousel-item-prev {
       display: block;
-      img{
+
+      img {
         width: 100%;
       }
     }
+
     .carousel-caption {
       text-align: left;
       left: auto;
@@ -37,13 +41,15 @@
       right: 0;
       width: 100%;
       padding: 30px 200px 30px 50px;
-      background : linear-gradient(210deg, rgba(10, 51, 81, 0.2) 0%, rgba(10, 51, 81, 1) 100%);
+      background: linear-gradient(210deg, rgba(10, 51, 81, 0.2) 0%, rgba(10, 51, 81, 1) 100%);
     }
+
     .carousel-indicators {
       right: 0;
       bottom: 0;
       left: auto;
       margin-right: 33%;
+
       li {
         width: 8px;
         height: 8px;
@@ -51,46 +57,56 @@
         background: $white;
         margin: 0 15px;
         cursor: pointer;
+
         &.active {
           background: $carousel-active;
         }
       }
     }
+
     .carousel-control-next {
       background: transparent;
       width: 45%;
       margin-right: -25%;
-      transform:skew(-209deg);
+      transform: skew(-209deg);
       background-position: right;
     }
+
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
       width: 45px;
       height: 45px;
       background: none;
     }
+
     .carousel-control-prev,
     .carousel-control-next {
       opacity: 1;
       height: 100%;
+
       .carousel-control-next-icon {
-        transform:skew(209deg);
+        transform: skew(209deg);
         margin-right: 45%;
         background: url("images/carousel-marker-next-S-M.png");
       }
+
       .carousel-control-prev-icon {
         background: url("images/carousel-marker-next-S-M.png");
         transform: rotate(180deg);
       }
     }
+
     .carousel-inner {
       overflow: initial;
+
       .carousel-caption {
         bottom: -115px;
         padding: 18px 15px;
+
         h3 {
           font-size: rem(17);
         }
+
         p {
           font-size: rem(13);
           width: 100%;
@@ -100,12 +116,15 @@
     }
   }
 }
+
 .light-blue-bg {
   background: $light-blue-bg;
 }
+
 .px0 {
   padding: 0 !important;
 }
+
 .mt15 {
   margin-top: 15px;
 }
@@ -113,26 +132,31 @@
 @media (min-width: $small-width) {
   .split-carousel-wrap {
     h1 {
-      font-size:  rem(34);
+      font-size: rem(34);
       margin-left: 0;
       margin-bottom: 22px;
     }
+
     &.not-header {
       margin-bottom: 0;
       padding-bottom: 129px;
-      .carousel-inner{
+
+      .carousel-inner {
         .carousel-item-credit {
           margin: 16px 15px;
           color: $white;
           font-size: rem(12);
         }
+
         .carousel-caption {
           bottom: 0;
           width: 100%;
           padding: 20px 35px;
+
           h3 {
             font-size: rem(19);
           }
+
           p {
             font-size: rem(14);
             width: 100%;
@@ -140,10 +164,12 @@
           }
         }
       }
+
       .carousel-control-prev,
       .carousel-control-next {
         top: 0;
       }
+
       .carousel-indicators {
         bottom: -128px;
         right: 0;
@@ -156,26 +182,31 @@
 @include large-and-up {
   .split-carousel-wrap {
     h1 {
-      font-size:  rem(34);
+      font-size: rem(34);
       margin-left: 0;
       margin-bottom: 22px;
     }
+
     &.not-header {
       margin-bottom: 0;
       padding-bottom: 129px;
-      .carousel-inner{
+
+      .carousel-inner {
         .carousel-item-credit {
           margin: 16px 15px;
           color: $white;
           font-size: rem(12);
         }
+
         .carousel-caption {
           bottom: 0;
           width: 100%;
           padding: 20px 35px;
+
           h3 {
             font-size: rem(19);
           }
+
           p {
             font-size: rem(14);
             width: 100%;
@@ -183,15 +214,18 @@
           }
         }
       }
+
       .carousel-control-prev,
       .carousel-control-next {
         top: 0;
+
         .carousel-control-next-icon {
           margin-right: 45%;
           height: 45px;
           width: 45px;
           background: url("images/carousel-marker-next-S-M.png");
         }
+
         .carousel-control-prev-icon {
           background: url("images/carousel-marker-next-S-M.png");
           transform: rotate(180deg);
@@ -199,6 +233,7 @@
           width: 45px;
         }
       }
+
       .carousel-indicators {
         bottom: -128px;
         right: 0;
@@ -206,9 +241,11 @@
       }
     }
   }
+
   .px0 {
     padding: 0 15px !important;
   }
+
   .ml-15 {
     margin-left: 0;
   }
@@ -217,29 +254,34 @@
 @include large-and-up {
   .split-carousel-wrap {
     h1 {
-      font-size:  rem(36);
+      font-size: rem(36);
       margin-left: 0;
       margin-bottom: 25px;
     }
-      &.not-header {
+
+    &.not-header {
       margin-bottom: 0;
       padding-bottom: 143px;
-      .carousel-inner{
+
+      .carousel-inner {
         .carousel-item-credit {
           margin: 16px 15px;
           color: $white;
           font-size: rem(13);
         }
+
         .carousel-caption {
           bottom: 0;
           width: 100%;
           height: 144px;
           padding: 26px 45px;
+
           h3 {
             font-size: rem(20);
             line-height: normal;
             margin-bottom: 10px;
           }
+
           p {
             font-size: rem(16);
             width: 80%;
@@ -247,6 +289,7 @@
           }
         }
       }
+
       .carousel-control-prev,
       .carousel-control-next {
         .carousel-control-next-icon {
@@ -254,21 +297,25 @@
           height: 65px;
           width: 65px;
           background: url("images/carousel-marker-next.png");
-          &:hover{
-            background-position-x:66px;
+
+          &:hover {
+            background-position-x: 66px;
           }
         }
+
         .carousel-control-prev-icon {
           background: url("images/carousel-marker-next.png");
-           transform: rotate(180deg);
+          transform: rotate(180deg);
           height: 65px;
           width: 65px;
-          &:hover{
-            background-position-x:66px;
+
+          &:hover {
+            background-position-x: 66px;
           }
         }
         top: 0;
       }
+
       .carousel-indicators {
         bottom: -128px;
         right: 0;
@@ -276,9 +323,11 @@
       }
     }
   }
+
   .px0 {
     padding: 0 15px !important;
   }
+
   .ml-15 {
     margin-left: 0;
   }
@@ -287,29 +336,34 @@
 @include x-large-and-up {
   .split-carousel-wrap {
     h1 {
-      font-size:  rem(38);
+      font-size: rem(38);
       margin-left: 0;
       margin-bottom: 30px;
     }
+
     &.not-header {
-    margin-bottom: 0;
-    padding-bottom: 195px;
+      margin-bottom: 0;
+      padding-bottom: 195px;
+
       .carousel-inner {
         .carousel-item-credit {
           margin: 16px 15px;
           color: $white;
           font-size: rem(14);
         }
+
         .carousel-caption {
           bottom: 0;
           width: 100%;
           height: 195px;
           padding: 31px 96px;
+
           h3 {
             font-size: rem(22);
             margin-bottom: 15px;
             line-height: normal;
           }
+
           p {
             font-size: rem(17);
             width: 60%;
@@ -318,6 +372,7 @@
           }
         }
       }
+
       .carousel-control-prev,
       .carousel-control-next {
         .carousel-control-next-icon {
@@ -326,6 +381,7 @@
           width: 65px;
           background: url("images/carousel-marker-next.png");
         }
+
         .carousel-control-prev-icon {
           background: url("images/carousel-marker-next.png");
           transform: rotate(180deg);
@@ -334,6 +390,7 @@
         }
         top: 0;
       }
+
       .carousel-indicators {
         bottom: -170px;
         right: 0;
@@ -341,9 +398,11 @@
       }
     }
   }
+
   .px0 {
     padding: 0 15px !important;
   }
+
   .ml-15 {
     margin-left: 0;
   }
