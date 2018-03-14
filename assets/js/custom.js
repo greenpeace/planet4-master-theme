@@ -52,6 +52,12 @@ $(function() {
     return $nextSlide.length ? $nextSlide : $el.prevAll('.carousel-item').last();
   }
 
+  function previousSlide(el) {
+    var $el = $(el);
+    var $previousSlide = $el.prev('.carousel-item');
+    return $previousSlide.length ? $previousSlide : $el.nextAll('.carousel-item').last();
+  }
+
   // Update active slide indicators
   function switchIndicator(index) {
     $carouselIndicators.children().each(function(i, el) {
@@ -68,6 +74,9 @@ $(function() {
       .attr('data-slide-to', i)
       .toggleClass('active', i === 0)
       .appendTo($carouselIndicators);
+
+    // Populate carousel slide index
+    $slide.attr('data-slide', i);
 
     // Convert the provided image tag into background image styles.
     var $img = $slide.find('img');
@@ -125,6 +134,12 @@ $(function() {
     }, SLIDE_TRANSITION_SPEED);
   }
 
+  function backwardsCarousel() {
+    var $active = $slides.filter('.active');
+    var $previous = previousSlide($active);
+    activate($previous.data('slide'));
+  }
+
   /**
    * Switch to a specific slide.
    *
@@ -176,6 +191,10 @@ $(function() {
 
     hammer.on('swipeleft', function(){
       advanceCarousel();
+    });
+
+    hammer.on('swiperight', function(){
+      backwardsCarousel();
     });
   }
 });
