@@ -220,8 +220,10 @@
 .cover-card-btn {
   position: absolute;
   bottom: 0;
-  margin: 15px 0;
-  width: 90%;
+  left: 0;
+  right: 0;
+  margin: 15px auto;
+  width: 92%;
   cursor: pointer;
 
   @include x-large-and-up {
