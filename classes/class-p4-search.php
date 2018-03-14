@@ -557,7 +557,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				// Post Type (+Action) <-> Content Type.
 				switch ( $post->post_type ) {
 					case 'page':
-						if ( 'act' === basename( get_permalink( $post->post_parent ) ) ) {
+						if ( $post->post_parent === (int) $options['act_page'] ) {
 							$content_type_text = __( 'ACTION', 'planet4-master-theme' );
 							$content_type      = 'action';
 							$context['content_types']['0']['results']++;
@@ -711,7 +711,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		public function enqueue_public_assets() {
 			if ( is_search() ) {
-				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', array( 'jquery' ), '0.1.6', true );
+				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', array( 'jquery' ), '0.1.8', true );
 				wp_localize_script( 'search', 'localizations', $this->localizations );
 				wp_enqueue_script( 'search' );
 			}

@@ -43,19 +43,28 @@ $(function() {
 	// Add filter by clicking on the page type label inside a result item.
 	// Delegate event handler to the dynamically created descendant elements.
 	$( '.multiple-search-result' ).off( 'click', '.search-result-item-head' ).on( 'click', '.search-result-item-head', function() {
-		$( '.custom-control-input[value=' + $( this ).data( 'term_id' ) + ']' ).prop( 'checked', true);
+		$( '.p4-custom-control-input[value=' + $( this ).data( 'term_id' ) + ']' ).prop( 'checked', true);
 		$search_form.submit();
 	});
 
-	// Navigate to the page of the search result item when clicking on it's thumbnail image or on its teaser text.
+	// Navigate to the page of the search result item when clicking on it's thumbnail image.
 	// Delegate event handler to the dynamically created descendant elements.
-	$( '.multiple-search-result' ).off( 'click', '.search-result-item-image, .search-result-item-content' ).on( 'click', '.search-result-item-image, .search-result-item-content', function() {
+	$( '.multiple-search-result' ).off( 'click', '.search-result-item-image').on( 'click', '.search-result-item-image', function() {
 		window.location.href = $( '.search-result-item-headline', $( this ).parent() ).attr( 'href' );
 	});
 
+  // Underline headline on thumbnail hover.
+  $('.search-result-item-image').hover(
+    function() {
+      $('.search-result-item-headline', $(this).parent()).addClass('search-hover');
+    }, function() {
+      $('.search-result-item-headline', $(this).parent()).removeClass('search-hover');
+    }
+  );
+
 	// Clear single selected filter.
 	$( '.activefilter-tag' ).off( 'click' ).on( 'click', function() {
-		$( '.custom-control-input[value=' + $( this ).data( 'id' ) + ']' ).prop('checked', false );
+		$( '.p4-custom-control-input[value=' + $( this ).data( 'id' ) + ']' ).prop('checked', false );
 		$search_form.submit();
 	});
 

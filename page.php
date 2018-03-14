@@ -88,5 +88,6 @@ $context['page_category']       = is_front_page() ? 'Front Page' : ( $category->
 $background_image_id                = get_post_meta( get_the_ID(), 'background_image_id', 1 );
 $context['background_image']        = wp_get_attachment_url( $background_image_id );
 $context['background_image_srcset'] = wp_get_attachment_image_srcset( $background_image_id, 'full' );
+$context['post_image_id']           = $page_meta_data['background_image_id'][0] ?? $page_meta_data['_thumbnail_id'][0];
 
 Timber::render( array( 'page-' . $post->post_name . '.twig', 'page.twig' ), $context );
