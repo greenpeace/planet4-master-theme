@@ -855,6 +855,7 @@ class P4_Master_Site extends TimberSite {
 new P4_Master_Site( [
 	'P4_Custom_Taxonomy',
 	'P4_Taxonomy_Image',
+	'P4_Taxonomy_Page',
 	'P4_Settings',
 	'P4_Control_Panel',
 ] );
