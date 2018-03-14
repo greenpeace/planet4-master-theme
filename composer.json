@@ -2,7 +2,7 @@
 	"name": "greenpeace/planet4-master-theme",
 	"description": "Master theme for the Planet 4 Wordpress project",
 	"type":"wordpress-theme",
-	"version": "0.2.42.2",
+	"version": "0.2.43",
 	"minimum-stability" : "stable",
 	"authors": [
 		{
