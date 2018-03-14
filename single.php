@@ -34,14 +34,11 @@ $context['post'] = $post;
 // Articles block parameters to populate the articles block
 // p4_take_action_page parameter to populate the take action boxout block
 // Author override parameter. If this is set then the author profile section will not be displayed.
-$options                     = get_option( 'planet4_options' );
 $page_meta_data              = get_post_meta( $post->ID );
 $page_terms_data             = get_the_terms( $post, 'p4-page-type' );
-$articles_title              = $options['articles_block_title'] ?? __( 'Related Articles', 'planet4-master-theme' );
-$articles_count              = $options['articles_count'] ?? 3;
-$articles_count              = 0 === intval( $articles_count ) ? 3 : intval( $articles_count );
 $context['author_override']  = $page_meta_data['p4_author_override'][0] ?? '';
 $context['background_image'] = $page_meta_data['p4_background_image_override'][0] ?? '';
+$context['post_image_id']    = $page_meta_data['p4_background_image_override_id'][0] ?? $page_meta_data['_thumbnail_id'][0];
 $take_action_page            = $page_meta_data['p4_take_action_page'][0] ?? '';
 $context['page_type']        = $page_terms_data[0]->name ?? '';
 $context['page_term_id']     = $page_terms_data[0]->term_id ?? '';
@@ -56,8 +53,8 @@ $context['filter_url'] = add_query_arg( [
 
 
 // Build the shortcode for articles block.
-if ( ! empty( $articles_title ) && 'yes' === $post->include_articles ) {
-	$post->articles = "[shortcake_articles exclude_post_id='".$post->ID."' article_heading='$articles_title' article_count='$articles_count' /]";
+if ( 'yes' === $post->include_articles ) {
+	$post->articles = "[shortcake_articles exclude_post_id='".$post->ID."' /]";
 }
 
 // Build the shortcode for take action boxout block

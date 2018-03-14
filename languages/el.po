@@ -1,45 +1,37 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-01 12:52+0200\n"
-"PO-Revision-Date: 2018-03-01 12:53+0200\n"
+"PO-Revision-Date: 2018-03-06 12:16+0200\n"
+"Last-Translator: koyan <konstantinos.kokkorogiannis@greenpeace.org>\n"
 "Language-Team: \n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Poedit 2.0.5\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: style.css\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: \n"
-"Language: en\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: 404.php:29
 msgid "Sorry, we can't find that page!"
-msgstr ""
+msgstr "Ουπς, κάτι πήγε στραβά!"
 
 #: 404.php:30
 msgid "The page might be extinct..."
-msgstr ""
+msgstr "Δεν μπορούμε να βρούμε αυτή τη σελίδα…"
 
 #: 404.php:31
 msgid "Use the search tool and try your luck again."
-msgstr ""
+msgstr "Δοκίμασε την τύχη σου ξανά με το να ψάξεις παρακάτω αυτό που θες."
 
 #: 404.php:32
 msgid "Enter your search term below"
-msgstr ""
+msgstr "Κάνε αναζήτηση στη σελίδα"
 
 #: 404.php:33
 msgid "404 Page"
-msgstr ""
+msgstr "404 Σελίδα"
 
 #: classes/class-p4-control-panel.php:41
 msgid "Planet 4 Control Panel"
@@ -73,7 +65,7 @@ msgstr ""
 #: templates/navigation-bar.twig:61 templates/search.twig:31
 #: templates/search.twig:44
 msgid "Search"
-msgstr ""
+msgstr "Αναζήτηση"
 
 #: classes/class-p4-control-panel.php:81
 msgid "Check Search Indexer"
@@ -93,7 +85,7 @@ msgstr ""
 
 #: classes/class-p4-control-panel.php:201
 msgid "Success"
-msgstr ""
+msgstr "Ολοκληρώθηκε"
 
 #: classes/class-p4-control-panel.php:248
 msgid "Indexer has stalled"
@@ -105,54 +97,54 @@ msgstr ""
 
 #: classes/class-p4-search.php:363
 msgid "Search page"
-msgstr ""
+msgstr "Σελίδα αναζήτησης"
 
 #: classes/class-p4-search.php:366
 #, php-format
 msgid "%1$d results for '%2$s'"
-msgstr ""
+msgstr "%1$d αποτελέσματα για ‘%2$s’"
 
 #: classes/class-p4-search.php:368
 #, php-format
 msgid "%d results"
-msgstr ""
+msgstr "%d αποτελέσματα"
 
 #: classes/class-p4-search.php:428
 msgid "Action"
-msgstr ""
+msgstr "Δράση"
 
 #: classes/class-p4-search.php:432
 msgid "Document"
-msgstr ""
+msgstr "Έγγραφο"
 
 #: classes/class-p4-search.php:436
 msgid "Page"
-msgstr ""
+msgstr "Σελίδα"
 
 #: classes/class-p4-search.php:440
 msgid "Post"
-msgstr ""
+msgstr "Δημοσίευση"
 
 #: classes/class-p4-search.php:517
 msgid "ACTION"
-msgstr ""
+msgstr "ΔΡΑΣΗ"
 
 #: classes/class-p4-search.php:521
 msgid "PAGE"
-msgstr ""
+msgstr "ΣΕΛΙΔΑ"
 
 #: classes/class-p4-search.php:527
 msgid "DOCUMENT"
-msgstr ""
+msgstr "ΕΓΓΡΑΦΟ"
 
 #: classes/class-p4-search.php:532
 msgid "POST"
-msgstr ""
+msgstr "ΔΗΜΟΣΙΕΥΣΗ"
 
 #: classes/class-p4-search.php:607
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr ""
+msgstr "ΔΕΙΞΕ %s ΠΕΡΙΣΣΟΤΕΡΑ ΑΠΟΤΕΛΕΣΜΑΤΑ"
 
 #: classes/class-p4-settings.php:39
 msgid "Planet4"
@@ -176,7 +168,7 @@ msgstr ""
 
 #: classes/class-p4-settings.php:66
 msgid "Copyright Text"
-msgstr ""
+msgstr "Κείμενο Copyright"
 
 #: classes/class-p4-settings.php:76
 msgid "Google Tag Manager Identifier"
@@ -188,7 +180,7 @@ msgstr ""
 
 #: classes/class-p4-settings.php:88
 msgid "Cookies Text"
-msgstr ""
+msgstr "Κείμενο Cookies"
 
 #: classes/class-p4-settings.php:98
 msgid "Default title for related articles block"
@@ -250,19 +242,19 @@ msgstr ""
 
 #: classes/class-p4-taxonomy-image.php:19
 msgid "Select Image"
-msgstr ""
+msgstr "Διάλεξε εικόνα"
 
 #: classes/class-p4-taxonomy-image.php:59
 #: classes/class-p4-taxonomy-image.php:98
 #: classes/class-p4-taxonomy-image.php:154
 msgid "Image"
-msgstr ""
+msgstr "Εικόνα"
 
 #: classes/class-p4-taxonomy-image.php:65
 #: classes/class-p4-taxonomy-image.php:80
 #: classes/class-p4-taxonomy-image.php:102
 msgid "Select/Upload Image"
-msgstr ""
+msgstr "Διάλεξε/Ανέβασε εικόνα"
 
 #: classes/class-p4-taxonomy-image.php:67
 #: classes/class-p4-taxonomy-image.php:104
@@ -290,15 +282,15 @@ msgstr ""
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr ""
+msgstr "Πιο σχετικά"
 
 #: functions.php:89
 msgid "Most recent"
-msgstr ""
+msgstr "Πιο πρόσφατα"
 
 #: functions.php:142
 msgid "Navigation Bar Menu"
-msgstr ""
+msgstr "Μενού"
 
 #: functions.php:217
 msgid "International (English)"
@@ -311,20 +303,20 @@ msgstr ""
 #: functions.php:447
 msgctxt "taxonomy general name"
 msgid "Page Types"
-msgstr ""
+msgstr "Είδη σελίδας"
 
 #: functions.php:448
 msgctxt "taxonomy singular name"
 msgid "Page Type"
-msgstr ""
+msgstr "Είδος σελίδας"
 
 #: functions.php:449
 msgid "Search in Page Type"
-msgstr ""
+msgstr "Αναζήτηση στο είδος σελίδας"
 
 #: functions.php:450
 msgid "All Page Types"
-msgstr ""
+msgstr "Όλα τα είδη σελίδας"
 
 #: functions.php:454
 msgid "Edit Page Type"
@@ -336,15 +328,15 @@ msgstr ""
 
 #: functions.php:456
 msgid "Add new Page Type"
-msgstr ""
+msgstr "Πρόσθεσε νέο Είδος Σελίδας"
 
 #: functions.php:457
 msgid "New Page Type"
-msgstr ""
+msgstr "Νέο Είδος Σελίδας"
 
 #: functions.php:458
 msgid "Page Types"
-msgstr ""
+msgstr "Είδη Σελίδας"
 
 #: functions.php:692
 msgid "Page Header Fields"
@@ -396,7 +388,7 @@ msgstr ""
 
 #: functions.php:746
 msgid "Upload an image"
-msgstr ""
+msgstr "Ανέβασε μία εικόνα"
 
 #: functions.php:754
 msgid "Add Background Image"
@@ -438,11 +430,11 @@ msgstr ""
 
 #: functions.php:804
 msgid "Add Image"
-msgstr ""
+msgstr "Πρόσθεσε εικόνα"
 
 #: functions.php:820
 msgid "Tags"
-msgstr ""
+msgstr "Θέματα"
 
 #: functions.php:849
 msgid "Add Page Element"
@@ -458,23 +450,24 @@ msgstr ""
 
 #: single.php:72
 msgid "Leave Your Reply"
-msgstr ""
+msgstr "Πρόσθεσε σχόλιο"
 
 #: tag.php:57
 msgid "Unknown Campaign page"
-msgstr ""
+msgstr "Άγνωστη Σελίδα Θέματος"
 
 #: tag.php:63
 msgid "Things you can do"
-msgstr ""
+msgstr "Τι μπορείς να κάνεις"
 
 #: tag.php:64
 msgid "We want you to take action because together we're strong."
 msgstr ""
+"Χρειαζόμαστε ανθρώπους σαν και εσένα για να προστατεύσουμε τον πλανήτη μας."
 
 #: tag.php:78
 msgid "Related Campaigns"
-msgstr ""
+msgstr "Σχετικά θέματα"
 
 #: tag.php:79
 msgid "This Campaign is not assigned to an Issue"
@@ -482,67 +475,67 @@ msgstr ""
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr ""
+msgstr "βιογραφικό"
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr ""
+msgstr "Όνομα"
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
-msgstr ""
+msgstr "Το όνομά σου"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
-msgstr ""
+msgstr "Σχόλιο"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr ""
+msgstr "Το σχόλιό σου"
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
-msgstr ""
+msgstr "Το email σου"
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post Comment"
-msgstr ""
+msgstr "Πρόσθεσε σχόλιο"
 
 #: templates/comments_section.twig:2
 msgid "Comments"
-msgstr ""
+msgstr "Σχόλια"
 
 #: templates/comments_section.twig:8
 msgid "Discussion"
-msgstr ""
+msgstr "Συζήτηση"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr ""
+msgstr "ΟΚ!"
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
-msgstr ""
+msgstr "Μενού"
 
 #: templates/navigation-bar.twig:18
 msgid "Close Menu"
-msgstr ""
+msgstr "Κλείσε το μενού"
 
 #: templates/navigation-bar.twig:27
 msgid "Selected"
-msgstr ""
+msgstr "Επιλεγμένο"
 
 #: templates/navigation-bar.twig:28
 msgid "Change Country"
-msgstr ""
+msgstr "Άλλαξε χώρα"
 
 #: templates/navigation-bar.twig:43
 msgid "DONATE"
-msgstr ""
+msgstr "ΥΠΟΣΤΗΡΙΞΕ ΜΑΣ"
 
 #: templates/navigation-bar.twig:53
 msgid "Toggle search form"
@@ -550,107 +543,107 @@ msgstr ""
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr ""
+msgstr "Δεν βρέθηκαν αποτελέσματα."
 
 #: templates/search.twig:17
 msgid "Check for typos, and try your search again"
-msgstr ""
+msgstr "Δοκίμασε την τύχη σου ξανά με το να ψάξεις παρακάτω αυτό που θες"
 
 #: templates/search.twig:18
 msgid "Try searching for somthing else"
-msgstr ""
+msgstr "Δοκίμασε να αναζητήσεις κάτι διαφορετικό"
 
 #: templates/search.twig:19
 msgid "Search our archive. You'll be redirected to the archive site."
-msgstr ""
+msgstr "Κάνε αναζήτηση στο αρχείο μας. Θα μεταφερθείς στη σελίδα του."
 
 #: templates/search.twig:23
 msgid "We also included results for "
-msgstr ""
+msgstr "Συμπεριλάβαμε αποτελέσματα και για "
 
 #: templates/search.twig:37
 msgid "This Site"
-msgstr ""
+msgstr "Αυτή η σελίδα"
 
 #: templates/search.twig:38
 msgid "Archive"
-msgstr ""
+msgstr "Αρχείο"
 
 #: templates/search.twig:56
 msgid "Filters"
-msgstr ""
+msgstr "Φίλτρα αναζήτησης"
 
 #: templates/search.twig:62 templates/search.twig:167
 msgid "Refine your search"
-msgstr ""
+msgstr "Χρησιμοποίησε τα φίλτρα αναζήτησης"
 
 #: templates/search.twig:70
 msgid "ISSUE"
-msgstr ""
+msgstr "ΕΚΣΤΡΑΤΕΙΑ"
 
 #: templates/search.twig:92
 msgid "CATEGORY"
-msgstr ""
+msgstr "ΚΑΤΗΓΟΡΙΑ"
 
 #: templates/search.twig:114
 msgid "CONTENT TYPES"
-msgstr ""
+msgstr "ΤΥΠΟΣ ΠΕΡΙΕΧΟΜΕΝΟΥ"
 
 #: templates/search.twig:139
 msgid "CAMPAIGN"
-msgstr ""
+msgstr "ΘΕΜΑ"
 
 #: templates/search.twig:159
 msgid "Cancel"
-msgstr ""
+msgstr "Ακύρωση"
 
 #: templates/search.twig:160
 msgid "Apply Filters"
-msgstr ""
+msgstr "Ενεργοποίησε φίλτρα αναζήτησης"
 
 #: templates/search.twig:170
 msgid "ACTIVE FILTERS"
-msgstr ""
+msgstr "ΕΝΕΡΓΑ ΦΙΛΤΡΑ"
 
 #: templates/search.twig:179
 msgid "Clear All"
-msgstr ""
+msgstr "Εκκαθάριση"
 
 #: templates/search.twig:186
 msgid "Issue"
-msgstr ""
+msgstr "Εκστρατεία"
 
 #: templates/search.twig:206
 msgid "Campaign"
-msgstr ""
+msgstr "Θέμα"
 
 #: templates/search.twig:226
 msgid "Category"
-msgstr ""
+msgstr "Κατηγορία"
 
 #: templates/search.twig:246
 msgid "Content type"
-msgstr ""
+msgstr "Τύπος περιεχομένου"
 
 #: templates/search.twig:270
 msgid "Sort by"
-msgstr ""
+msgstr "Ταξινόμηση"
 
 #: templates/search.twig:307
 msgid "Suggested search terms"
-msgstr ""
+msgstr "Προτεινόμενοι όροι αναζήτησης"
 
 #: templates/single.twig:32
 msgid "by"
-msgstr ""
+msgstr "από"
 
 #: templates/tease-search.twig:61
 msgid "Take Action"
-msgstr ""
+msgstr "Πάτα εδώ"
 
 #: templates/tease-search.twig:64
 msgid "Download"
-msgstr ""
+msgstr "Κατέβασε"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"

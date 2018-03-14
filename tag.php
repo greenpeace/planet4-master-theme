@@ -53,6 +53,7 @@ if ( is_tag() ) {
 	$context['tag_name']        = single_tag_title( '', false );
 	$context['tag_description'] = wpautop( $context['tag']->description );
 	$context['tag_image']       = get_term_meta( $context['tag']->term_id, 'tag_attachment', true );
+	$context['tag_image_id']    = get_term_meta( $context['tag']->term_id, 'tag_attachment_id', true );
 
 	$context['page_category']   = $posts[0]->post_title ?? __( 'Unknown Campaign page', 'planet4-master-theme' );
 
@@ -63,11 +64,10 @@ if ( is_tag() ) {
 		'title'       => __( 'Things you can do', 'planet4-master-theme' ),
 		'description' => __( 'We want you to take action because together we\'re strong.', 'planet4-master-theme' ),
 		'select_tag'  => $context['tag']->term_id,
+		'covers_view' => '0',   // Show 6 covers in Campaign page.
 	] );
 
 	$campaign->add_block( Articles::BLOCK_NAME, [
-		'article_heading' => __( 'In the news', 'planet4-master-theme' ),
-		'article_count'   => 3,
 		'tag_id'          => $context['tag']->term_id,
 	] );
 

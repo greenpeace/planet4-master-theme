@@ -40,6 +40,11 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 
 			$this->fields = [
 				[
+					'name'    => __( 'Website Navigation Title', 'planet4-master-theme' ),
+					'id'      => 'website_navigation_title',
+					'type'    => 'text',
+				],
+				[
 					'name'    => __( 'Select Act Page', 'planet4-master-theme' ),
 					'id'      => 'act_page',
 					'type'    => 'act_page_dropdown',
@@ -58,11 +63,21 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name'    => __( 'Copyright Text', 'planet4-master-theme' ),
-					'id'      => 'copyright',
+					'name'    => __( 'Copyright Text Line 1', 'planet4-master-theme' ),
+					'id'      => 'copyright_line1',
 					'type'    => 'wysiwyg',
 					'options' => [
 						'textarea_rows' => 3,
+						'media_buttons' => false,
+					],
+				],
+
+				[
+					'name'    => __( 'Copyright Text Line 2', 'planet4-master-theme' ),
+					'id'      => 'copyright_line2',
+					'type'    => 'wysiwyg',
+					'options' => [
+						'textarea_rows' => 2,
 						'media_buttons' => false,
 					],
 				],
@@ -90,18 +105,37 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name'    => __( 'Default title for related articles block in post', 'planet4-master-theme' ),
+					'name'    => __( 'Default title for related articles block', 'planet4-master-theme' ),
 					'id'      => 'articles_block_title',
 					'type'    => 'text',
+					'desc'    => __( 'If no title set for <b>Article Block</b>, the default title will appear.' ),
 				],
 
 				[
-					'name'       => __( 'Default Number Of Related Articles In Post', 'planet4-master-theme' ),
+					'name'    => __( 'Default button title for related articles block', 'planet4-master-theme' ),
+					'id'      => 'articles_block_button_title',
+					'type'    => 'text',
+					'desc'    => __( 'If no button title set for <b>Article Block</b>, the default button title will appear.' ),
+				],
+
+				[
+					'name'       => __( 'Default Number Of Related Articles', 'planet4-master-theme' ),
 					'id'         => 'articles_count',
 					'type'       => 'text',
 					'attributes' => array(
 						'type' => 'number',
 					),
+					'desc'       => __( 'If no number of Related Articles set for <b>Article Block</b>, the default number of Related Articles will appear.' ),
+				],
+
+				[
+					'name'       => __( 'Take Action Covers default button text', 'planet4-master-theme' ),
+					'id'         => 'take_action_covers_button_text',
+					'type'       => 'text',
+					'attributes' => array(
+						'type' => 'text',
+					),
+					'desc'       => __( 'Add default button text which appears on <b>Take Action</b> card of <b>Take Action Covers</b> block.', 'planet4-master-theme' ),
 				],
 
 				[

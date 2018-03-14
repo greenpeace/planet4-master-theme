@@ -128,7 +128,9 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'wp_image_editors',         array( $this, 'allowedEditors' ) );
 		add_filter( 'jpeg_quality',             function( $arg ) { return 90; } );
 		add_action( 'after_setup_theme',        array( $this, 'add_image_sizes' ) );
-
+		add_action( 'admin_head' ,              array( $this, 'remove_add_post_element' ) );
+		add_filter( 'post_gallery',             array( $this, 'carousel_post_gallery' ), 10, 2 );
+		add_action( 'save_post',                array( $this, 'p4_auto_generate_excerpt' ) , 10, 2 );
 
 		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
 		add_action( 'wp_ajax_nopriv_get_paged_posts', array( 'P4_Search', 'get_paged_posts' ) );
@@ -195,6 +197,7 @@ class P4_Master_Site extends TimberSite {
 	 * @return mixed
 	 */
 	public function add_to_context( $context ) {
+		global $wp;
 		$context['cookies'] = [
 			'text' => planet4_get_option( 'cookies_field' ),
 		];
@@ -207,15 +210,18 @@ class P4_Master_Site extends TimberSite {
 		$context['foo']          = 'bar';   // For unit test purposes.
 		$context['navbar_menu']  = new TimberMenu( 'navigation-bar-menu' );
 		$context['site']         = $this;
+		$context['current_url']  = home_url( $wp->request );
 		$context['sort_options'] = $this->sort_options;
-		$context['default_sort']  = P4_Search::DEFAULT_SORT;
+		$context['default_sort'] = P4_Search::DEFAULT_SORT;
 
 		$options                          = get_option( 'planet4_options' );
 		$context['donatelink']            = $options['donate_button'] ?? '#';
 		$context['google_tag_value']      = $options['google_tag_manager_identifier'] ?? '';
+		$context['website_navbar_title']  = $options['website_navigation_title'] ?? __( 'International (English)', 'planet4-master-theme' );
 
 		// Footer context.
-		$context['copyright_text']        = $options['copyright'] ?? '';
+		$context['copyright_text_line1']  = $options['copyright_line1'] ?? '';
+		$context['copyright_text_line2']  = $options['copyright_line2'] ?? '';
 		$context['footer_social_menu']    = wp_get_nav_menu_items( 'Footer Social' );
 		$context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
 		$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
@@ -281,6 +287,13 @@ class P4_Master_Site extends TimberSite {
 		$allowedposttags['script'] = [
 			'src' => true,
 		];
+
+		// Allow below tags for carousel slider
+		$allowedposttags['div']['data-ride']    = true;
+		$allowedposttags['li']['data-target']   = true;
+		$allowedposttags['li']['data-slide-to'] = true;
+		$allowedposttags['a']['data-slide']     = true;
+		$allowedposttags['span']['aria-hidden'] = true;
 
 		return $allowedposttags;
 	}
@@ -353,16 +366,18 @@ class P4_Master_Site extends TimberSite {
 		$css_creation = filectime(get_template_directory() . '/style.css');
 		$js_creation  = filectime(get_template_directory() . '/assets/js/custom.js');
 
-		wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', array(), '4.0.0' );
+		// CSS files
+		wp_enqueue_style( 'bootstrap', $this->theme_dir . '/assets/lib/bootstrap/dist/css/bootstrap.min.css', array(), '4.0.0' );
+		wp_enqueue_style( 'slick', $this->theme_dir . '/assets/lib/slick-carousel/slick/slick.css', array(), '1.8.1' );
 		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], $css_creation );
-		wp_enqueue_style( 'slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css', array(), '1.8.1' );
-		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
-		wp_enqueue_script( 'popperjs', $this->theme_dir . '/assets/js/popper.min.js', array(), '1.12.9', true );
-		wp_enqueue_script( 'bootstrapjs', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js', array(), '4.0.0', true );
+		// JS files
+		wp_register_script( 'jquery', $this->theme_dir . '/assets/lib/jquery/dist/jquery.min.js', array(), '3.3.1', true );
+		wp_enqueue_script( 'popperjs', $this->theme_dir . '/assets/lib/popper.js/dist/umd/popper.min.js', array(), '1.12.9', true );
+		wp_enqueue_script( 'bootstrapjs', $this->theme_dir . '/assets/lib/bootstrap/dist/js/bootstrap.min.js', array(), '4.0.0', true );
 		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.2.1', true );
 		wp_enqueue_script( 'custom', $this->theme_dir . '/assets/js/custom.js', array( 'jquery' ), $js_creation, true );
-		wp_enqueue_script( 'slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array(), '0.1.0', true );
-		wp_enqueue_script( 'hammer', 'https://ajax.googleapis.com/ajax/libs/hammerjs/2.0.8/hammer.min.js', array(), '2.0.8', true );
+		wp_enqueue_script( 'slick', $this->theme_dir . '/assets/lib/slick-carousel/slick/slick.min.js', array(), '1.8.1', true );
+		wp_enqueue_script( 'hammer', $this->theme_dir . '/assets/lib/hammerjs/hammer.min.js', array(), '2.0.8', true );
 	}
 
 	/**
@@ -463,39 +478,9 @@ class P4_Master_Site extends TimberSite {
 			'rewrite'      => [
 				'slug' => 'p4-page-types',
 			],
-			'meta_box_cb'  => [ $this, 'p4_metabox_markup' ]
+			'meta_box_cb'  => [ $this, 'p4_metabox_markup' ],
 		];
 		register_taxonomy( 'p4-page-type', [ 'p4_page_type', 'post' ], $args );
-
-		$terms = [
-			'0' => [
-				'name'        => 'Story',
-				'slug'        => 'story',
-				'description' => 'A term for story post type',
-			],
-			'1' => [
-				'name'        => 'Press release',
-				'slug'        => 'press-release',
-				'description' => 'A term for press release post type',
-			],
-			'2' => [
-				'name'        => 'Publication',
-				'slug'        => 'publication',
-				'description' => 'A term for publication post type',
-			],
-		];
-
-		foreach ( $terms as $term_key => $term ) {
-			wp_insert_term(
-				$term['name'],
-				'p4-page-type',
-				[
-					'description' => $term['description'],
-					'slug'        => $term['slug'],
-				]
-			);
-			unset( $term );
-		}
 	}
 
 	/**
@@ -651,8 +636,12 @@ class P4_Master_Site extends TimberSite {
 		$selected_sort = sanitize_sql_orderby( $selected_sort );
 
 		if ( $selected_sort && P4_Search::DEFAULT_SORT !== $selected_sort ) {
+			// First orderby 'weight' meta_key.
+			$primary_sort   = 'meta_value';
+			$primary_order  = 'DESC';
+			// If 'weight' is same then orderby selected_order.
 			$selected_order = $this->sort_options[ $selected_sort ]['order'];
-			$orderby        = esc_sql( sprintf( 'ORDER BY %s %s', $selected_sort, $selected_order ) );
+			$orderby        = esc_sql( sprintf( 'ORDER BY %s %s, %s %s', $primary_sort, $primary_order, $selected_sort, $selected_order ) );
 		} else {
 			$orderby = esc_sql( $orderby );
 		}
@@ -745,6 +734,7 @@ class P4_Master_Site extends TimberSite {
 				'type'    => 'wysiwyg',
 				'options' => array(
 					'textarea_rows' => 5,
+					'media_buttons' => false,
 				),
 			)
 		);
@@ -849,6 +839,62 @@ class P4_Master_Site extends TimberSite {
 			[ 'post', 'page' ],
 			'side'
 		);
+	}
+
+	/**
+	 * Remove "Add Post Element" button for POST & rename on page as "Add Page Element".
+	 */
+	function remove_add_post_element() {
+		if ( 'post' === get_post_type() ) {
+			remove_action( 'media_buttons', [ Shortcode_UI::get_instance(), 'action_media_buttons' ] );
+		}
+
+		if ( 'page' === get_post_type() ) {
+			remove_action( 'media_buttons', [ Shortcode_UI::get_instance(), 'action_media_buttons' ] );
+			add_action( 'media_buttons', [ $this, 'action_page_media_buttons' ] );
+		}
+	}
+
+	/**
+	 * Output an "Add Page Element" button with the media buttons.
+	 */
+	public function action_page_media_buttons( $editor_id ) {
+		printf( '<button type="button" class="button shortcake-add-post-element" data-editor="%s">' .
+			'<span class="wp-media-buttons-icon dashicons dashicons-migrate"></span> %s' .
+			'</button>',
+			esc_attr( $editor_id ),
+			__( 'Add Page Element', 'planet4-master-theme' )
+		);
+	}
+
+	/**
+	 * Apply carousel style to wp image gallery.
+	 */
+	public function carousel_post_gallery( $output, $attr) {
+		return do_shortcode('[shortcake_carousel multiple_image="' . $attr['ids'] . '"]');
+	}
+
+	/**
+	 * Auto generate excerpt for post.
+	 *
+	 * @param int $post_id Id of the saved post.
+	 * @param WP_Post $post Post object.
+	 */
+	public function p4_auto_generate_excerpt( $post_id, $post ) {
+		if ( '' === $post->post_excerpt && 'post' === $post->post_type ) {
+
+			// Unhook save_post function so it doesn't loop infinitely.
+			remove_action( 'save_post', [ $this, 'p4_auto_generate_excerpt' ], 10 );
+
+			// Update the post, which calls save_post again.
+			wp_update_post( [
+				'ID'           => $post_id,
+				'post_excerpt' => strip_tags( apply_filters( 'the_content', wp_trim_words( strip_tags( $post->post_content ), 30 ) ) ),
+			] );
+
+			// re-hook save_post function.
+			add_action( 'save_post', [ $this, 'p4_auto_generate_excerpt' ], 10, 2 );
+		}
 	}
 
 	/**
