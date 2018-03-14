@@ -180,8 +180,10 @@ $(function() {
   }
 });
 
-function createCookie(name,value,days) {
-  document.cookie = encodeURI(name) + '=' + encodeURI(value) + ';domain=.' + document.domain + ';path=/;';
+function createCookie(name, value, days) {
+  date = new Date();
+  date.setTime(date.getTime()+(days*24*60*60*1000));
+  document.cookie = encodeURI(name) + '=' + encodeURI(value) + ";expires=" + date.toGMTString() + ';domain=.' + document.domain + ';path=/;';
 }
 
 function readCookie(name) {
@@ -204,7 +206,7 @@ $(function() {
 
 $("#hidecookie").click(function () {
   $(".cookie-block").slideUp("slow");
-  createCookie('greenpeace', 'policy-accepted');
+  createCookie('greenpeace', 'policy-accepted', 365);
 });
 
 $('.country-select-dropdown').click(function(){
