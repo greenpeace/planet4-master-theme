@@ -64,24 +64,24 @@ The following packages will be installed as dependencies
 
 ### Change the CSS
 
-0. Link this project to your planet4 site to use this theme
-```
-cd /path/to/planet4-base/public/wp-content/themes
-rm -rf planet4-master-theme
-ln -s /path/to/planet4-master-theme .
-```
+1. Link this project to your planet4 site to use this theme
+    ```
+    cd /path/to/planet4-base/public/wp-content/themes
+    rm -rf planet4-master-theme
+    ln -s /path/to/planet4-master-theme .
+    ```
 1. Edit the CSS in src/css
-2. Rebuild the main.css
-```
-yarn build
-```
-3. Test it on your local setup
-4. If everything is fine, commit your changes
-5. Tag your new version
-```
-git tag -a v0.x.x -m 'v0.x.x'
-git push origin v0.x.x
-```
+1. Rebuild the main.css
+    ```
+    yarn build
+    ```
+1. Test it on your local setup
+1. If everything is fine, commit your changes
+1. Tag your new version
+    ```
+    git tag -a v0.x.x -m 'v0.x.x'
+    git push origin v0.x.x
+    ```
 
 ### Add a new frontend library
 

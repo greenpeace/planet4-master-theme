@@ -3,16 +3,16 @@
 if ( ! class_exists( 'Timber' ) ) {
 	add_action(
 		'admin_notices', function() {
-			printf( '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="%s">Plugins menu</a></p></div>',
-				esc_url( admin_url( 'plugins.php#timber' ) )
-			);
-		}
+		printf( '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="%s">Plugins menu</a></p></div>',
+			esc_url( admin_url( 'plugins.php#timber' ) )
+		);
+	}
 	);
 
 	add_filter(
 		'template_include', function( $template ) {
-			return get_stylesheet_directory() . '/static/no-timber.html';
-		}
+		return get_stylesheet_directory() . '/static/no-timber.html';
+	}
 	);
 
 	return;
@@ -107,7 +107,7 @@ class P4_Master_Site extends TimberSite {
 
 		add_filter( 'timber_context',           array( $this, 'add_to_context' ) );
 		add_filter( 'get_twig',                 array( $this, 'add_to_twig' ) );
-		add_action( 'init',                     array( $this, 'register_taxonomies' ) );
+		add_action( 'init',                     array( $this, 'register_taxonomies' ), 2 );
 		add_action( 'init',                     array( $this, 'register_oembed_provider' ) );
 		add_action( 'pre_get_posts',            array( $this, 'add_search_options' ) );
 		add_filter( 'searchwp_query_main_join', array( $this, 'edit_searchwp_main_join_action_pages' ), 10, 2 );
@@ -120,7 +120,6 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'wp_kses_allowed_html',     array( $this, 'set_custom_allowed_attributes_filter' ) );
 		add_action( 'add_meta_boxes',           array( $this, 'add_meta_box_search' ) );
 		add_action( 'save_post',                array( $this, 'save_meta_box_search' ), 10, 2 );
-		add_action( 'save_post',                array( $this, 'p4_save_page_type' ) );
 		add_action( 'after_setup_theme',        array( $this, 'p4_master_theme_setup' ) );
 		add_action( 'admin_menu',               array( $this, 'add_restricted_tags_box' ) );
 		add_action( 'do_meta_boxes',            array( $this, 'remove_default_tags_box' ) );
@@ -158,7 +157,6 @@ class P4_Master_Site extends TimberSite {
 	public function allowedEditors() {
 		return array('WP_Image_Editor_Imagick');
 	}
-
 
 	/**
 	 * Load translations for wpdocs_theme
@@ -452,121 +450,9 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Register a custom taxonomy for planet4 page types
-	 */
-	public function register_p4_page_type_taxonomy() {
-
-		$p4_page_type = [
-			'name'              => _x( 'Page Types', 'taxonomy general name' ),
-			'singular_name'     => _x( 'Page Type', 'taxonomy singular name' ),
-			'search_items'      => __( 'Search in Page Type' ),
-			'all_items'         => __( 'All Page Types' ),
-			'most_used_items'   => null,
-			'parent_item'       => null,
-			'parent_item_colon' => null,
-			'edit_item'         => __( 'Edit Page Type' ),
-			'update_item'       => __( 'Update Page Type' ),
-			'add_new_item'      => __( 'Add new Page Type' ),
-			'new_item_name'     => __( 'New Page Type' ),
-			'menu_name'         => __( 'Page Types' ),
-		];
-		$args         = [
-			'hierarchical' => false,
-			'labels'       => $p4_page_type,
-			'show_ui'      => true,
-			'query_var'    => true,
-			'rewrite'      => [
-				'slug' => 'p4-page-types',
-			],
-			'meta_box_cb'  => [ $this, 'p4_metabox_markup' ],
-		];
-		register_taxonomy( 'p4-page-type', [ 'p4_page_type', 'post' ], $args );
-	}
-
-	/**
-	 * Save custom taxonomy for planet4 post types according to the categories that were assigned to the post.
-	 *
-	 * @param int $post_id Id of the saved post.
-	 */
-	public function p4_save_page_type( $post_id ) {
-		// Ignore autosave.
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return;
-		}
-
-		// Check nonce.
-		if ( ! isset( $_POST['p4-page-type-nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['p4-page-type-nonce'] ) ), 'p4-save-page-type' ) ) {
-			return;
-		}
-
-		// Check user's capabilities.
-		if ( ! current_user_can( 'edit_post', $post_id ) ) {
-			return;
-		}
-
-		// Get planet4 page types to categories mapping.
-		$categories         = null;
-		$categories_mapping = planet4_get_option( 'p4-page-types-mapping' );
-		$categories_mapping = json_decode( $categories_mapping );
-
-		// Get assigned categories.
-		if ( isset( $_POST['post_category'] ) && is_array( $_POST['post_category'] ) ) {
-			$categories = array_map( 'esc_attr', $_POST['post_category'] );
-		}
-
-		if ( ! is_null( $categories ) && $categories_mapping !== null && is_array( $categories_mapping ) ) {
-
-			$categories = $_POST['post_category'];
-
-			$assigned = false;
-			foreach ( $categories as $category_id ) {
-				foreach ( $categories_mapping as $category_map ) {
-					if ( ! isset( $category_map->category_id ) || ! isset( $category_map->p4_page_type_slug ) ) {
-						continue;
-					}
-					if ( intval( $category_id ) === $category_map->category_id ) {
-						// Save post type.
-						wp_set_post_terms( $post_id, sanitize_text_field( $category_map->p4_page_type_slug ), 'p4-page-type' );
-						$assigned = true;
-						break 2;
-					}
-				}
-			}
-			// If no mapped category was selected, remove the term.
-			if ( ! $assigned ) {
-				wp_set_post_terms( $post_id, [], 'p4-page-type' );
-			}
-		}
-	}
-
-	/**
-	 * Add a dropdown to choose planet4 post type.
-	 *
-	 * @param WP_Post $post
-	 */
-	public function p4_metabox_markup( WP_Post $post ) {
-		$attached_type = get_the_terms( $post, 'p4-page-type' );
-		$current_type  = ( is_array( $attached_type ) ) ? $attached_type[0]->slug : -1;
-		$all_types     = get_terms( 'p4-page-type', [ 'hide_empty' => false ] );
-		wp_nonce_field( 'p4-save-page-type', 'p4-page-type-nonce' );
-		?>
-		<select name="p4-page-type" disabled>
-			<?php foreach ( $all_types as $term ) : ?>
-				<option <?php selected( $current_type, $term->slug ); ?> value="<?php echo esc_attr( $term->slug ); ?>">
-					<?php echo esc_html( $term->name ); ?>
-				</option>
-			<?php endforeach; ?>
-			<option value="-1" <?php selected( -1, $current_type ); ?> >none</option>
-		</select>
-		<?php
-	}
-
-	/**
 	 * Registers taxonomies.
 	 */
 	public function register_taxonomies() {
-		// Call function for p4 post type custom taxonomy.
-		$this->register_p4_page_type_taxonomy();
 		register_taxonomy_for_object_type( 'post_tag', 'page' );
 		register_taxonomy_for_object_type( 'category', 'page' );
 	}
@@ -860,8 +746,8 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function action_page_media_buttons( $editor_id ) {
 		printf( '<button type="button" class="button shortcake-add-post-element" data-editor="%s">' .
-			'<span class="wp-media-buttons-icon dashicons dashicons-migrate"></span> %s' .
-			'</button>',
+		        '<span class="wp-media-buttons-icon dashicons dashicons-migrate"></span> %s' .
+		        '</button>',
 			esc_attr( $editor_id ),
 			__( 'Add Page Element', 'planet4-master-theme' )
 		);
@@ -963,9 +849,11 @@ class P4_Master_Site extends TimberSite {
 		}
 		include( locate_template( $path . '.php' ) );
 	}
+
 }
 
 new P4_Master_Site( [
+	'P4_Custom_Taxonomy',
 	'P4_Taxonomy_Image',
 	'P4_Settings',
 	'P4_Control_Panel',
