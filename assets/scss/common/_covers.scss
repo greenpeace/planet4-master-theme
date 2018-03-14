@@ -47,8 +47,17 @@
 // L & XL with show-all-covers class should show all covers
 // remove limit visibility class on load more button click
 .show-3-covers .limit-visibility {
-  .cover-card-column:nth-child(n+4) {
+  .cover-card-column:nth-child(n+3) {
     display: none;
+  }
+
+  @include large-and-up {
+    .cover-card-column:nth-child(-n+4) {
+      display: block;
+    }
+    .cover-card-column:nth-child(n+4) {
+      display: none;
+    }
   }
 }
 
