@@ -263,11 +263,11 @@
 								<select id="select_order" name="select_order" class="">
 									{% for key, sort_option in sort_options %}
 										{% if ( not search_query and key == 'relevant' ) %}
-											<option value="{{ key }}" disabled>{{ sort_option.name }}</option>
+											<option value="{{ key }}" disabled>{{ __( sort_option.name, domain ) }}</option>
 										{% elseif key == selected_sort %}
-											<option value="{{ key }}" selected>{{ sort_option.name }}</option>
+											<option value="{{ key }}" selected>{{ __( sort_option.name, domain ) }}</option>
 										{% else %}
-											<option value="{{ key }}">{{ sort_option.name }}</option>
+											<option value="{{ key }}">{{ __( sort_option.name, domain ) }}</option>
 										{% endif %}
 									{% endfor %}
 								</select>
