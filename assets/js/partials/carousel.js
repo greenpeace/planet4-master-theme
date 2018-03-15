@@ -172,5 +172,17 @@ $(document).ready(function() {
     hammer.on('swiperight', function(){
       backwardsCarousel();
     });
+
+    // Vertical swiping on carousel should scroll the page
+    hammer.on('swipeup', function(event){
+      var y = $(window).scrollTop();
+      event.preventDefault();
+      $('html, body').animate({scrollTop: y + 200});
+    });
+    hammer.on('swipedown', function(event){
+      var y = $(window).scrollTop();
+      event.preventDefault();
+      $('html, body').animate({scrollTop: y - 200});
+    });
   }
 });
