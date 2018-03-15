@@ -29,6 +29,12 @@ $(document).ready(function() {
     return $nextSlide.length ? $nextSlide : $el.prevAll('.carousel-item').last();
   }
 
+  function previousSlide(el) {
+    var $el = $(el);
+    var $previousSlide = $el.prev('.carousel-item');
+    return $previousSlide.length ? $previousSlide : $el.nextAll('.carousel-item').last();
+  }
+
   // Update active slide indicators
   function switchIndicator(index) {
     $carouselIndicators.children().each(function(i, el) {
@@ -63,6 +69,9 @@ $(document).ready(function() {
       .css('background-image', 'url(' + $nextImg.attr('src') + ')')
       .css('background-position', $nextImg.data('background-position'))
       .appendTo($preview);
+
+    // Populate carousel slide index
+    $slide.attr('data-slide', i);
   });
 
   /**
@@ -100,6 +109,12 @@ $(document).ready(function() {
         activeTransition = null;
       }, SLIDE_TRANSITION_SPEED / 2);
     }, SLIDE_TRANSITION_SPEED);
+  }
+
+  function backwardsCarousel() {
+    var $active = $slides.filter('.active');
+    var $previous = previousSlide($active);
+    activate($previous.data('slide'));
   }
 
   /**
@@ -152,6 +167,10 @@ $(document).ready(function() {
 
     hammer.on('swipeleft', function(){
       advanceCarousel();
+    });
+
+    hammer.on('swiperight', function(){
+      backwardsCarousel();
     });
   }
 });
