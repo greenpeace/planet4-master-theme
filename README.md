@@ -102,3 +102,13 @@ gulp assets
 ```
 wp_enqueue_script( 'jquery', $this->theme_dir . '/assets/lib/jquery/dist/jquery.min.js', array(), '3.3.1', true );
 ```
+
+### Local frontend testing
+
+We use `stylelint` and `eslint` for checking css and js code syntax.
+
+If you want to test locally use gulp:
+
+```
+gulp test
+```
