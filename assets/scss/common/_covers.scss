@@ -225,9 +225,4 @@
   margin: 15px auto;
   width: 92%;
   cursor: pointer;
-
-  @include x-large-and-up {
-    margin: 20px 0;
-    width: 86%;
-  }
 }
