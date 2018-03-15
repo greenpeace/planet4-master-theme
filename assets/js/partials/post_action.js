@@ -10,7 +10,6 @@ $(document).ready(function() {
 
   if ($sidebar.length > 0 && $window.width() > 992) {
     var absPosition = $('.post-details > p:last-child').offset().top - $sidebar.outerHeight() - topPadding;
-    $('h1.page-header-title').addClass('limit-width');
 
     $window.scroll(function () {
       if ($window.scrollTop() > offset.top &&
@@ -25,7 +24,5 @@ $(document).ready(function() {
         });
       }
     });
-  } else {
-    $('h1.page-header-title').removeClass('limit-width');
   }
 });
