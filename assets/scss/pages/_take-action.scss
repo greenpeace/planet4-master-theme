@@ -513,18 +513,13 @@
   .card-header {
     background: $grey;
     border: none;
+    color: $white;
+    font-weight: 400;
+    font-size: rem(15);
+    text-decoration: none;
 
-    h5 {
-      a {
-        color: $white;
-        font-weight: 400;
-        font-size: rem(15);
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: none;
-        }
-      }
+    &:hover {
+      text-decoration: none;
     }
   }
 
