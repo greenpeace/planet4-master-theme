@@ -5,6 +5,7 @@ $slide-transition-speed: 1s;
   width: $size;
   margin-left: 100% - $size;
 }
+
 @mixin preview-width($size) {
   width: $size * (100% / $size);
 }
@@ -14,7 +15,7 @@ $slide-transition-speed: 1s;
   width: 100vw;
 
   &::after {
-    content: '';
+    content: "";
     display: block;
     margin-bottom: 40px;
 
@@ -65,11 +66,13 @@ $slide-transition-speed: 1s;
       opacity: 1;
       transition: unset;
     }
+
     &.next {
       z-index: 1;
       opacity: 1;
       transition: unset;
     }
+
     &.fade-out {
       opacity: 0;
       transition: opacity #{ $slide-transition-speed / 2 };
@@ -78,7 +81,7 @@ $slide-transition-speed: 1s;
     // Display the slide's background image, grayscaling in supported browsers.
     &::before {
       @include fill-container;
-      content: '';
+      content: "";
       background-image: inherit;
       background-size: cover;
       filter: grayscale(100%);
@@ -87,7 +90,7 @@ $slide-transition-speed: 1s;
     // Put a colored gradient in front of the background image.
     &::after {
       @include fill-container;
-      content: '';
+      content: "";
       z-index: 0;
       background: linear-gradient(210deg, rgba(136, 196, 213, 0.2) 0%, rgba(184, 216, 232, 1) 100%);
     }
@@ -133,7 +136,7 @@ $slide-transition-speed: 1s;
       // Put a colored gradient in front of the background image.
       &::after {
         @include fill-container;
-        content: '';
+        content: "";
         opacity: 0;
         background: linear-gradient(210deg, rgba(136, 196, 213, 0.2) 0%, rgba(184, 216, 232, 1) 100%);
       }
@@ -157,10 +160,12 @@ $slide-transition-speed: 1s;
         width: 100%;
         margin: 0;
       }
+
       .carousel-preview {
         transform: skew(0);
         transition: transform $slide-transition-speed, width $slide-transition-speed, filter $slide-transition-speed;
         width: 100%;
+        filter: grayscale(100%);
 
         &::after {
           z-index: 1;
@@ -168,9 +173,7 @@ $slide-transition-speed: 1s;
           transition: opacity $slide-transition-speed;
         }
       }
-      .carousel-preview {
-        filter: grayscale(100%);
-      }
+
       @include small-and-up {
         .carousel-caption {
           opacity: 0;
@@ -327,7 +330,7 @@ $slide-transition-speed: 1s;
       width: 40px;
       height: 40px;
       cursor: pointer;
-      background: url('images/carousel-marker-next.png');
+      background: url("images/carousel-marker-next.png");
       background-size: cover;
 
       @include small-and-up {
@@ -346,6 +349,7 @@ $slide-transition-speed: 1s;
         background: url("images/carousel-marker-next.png");
         width: 65px;
         height: 65px;
+
         &:hover {
           background-position-x: 66px;
         }

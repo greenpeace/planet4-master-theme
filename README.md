@@ -64,21 +64,51 @@ The following packages will be installed as dependencies
 
 ### Change the CSS
 
-0. Link this project to your planet4 site to use this theme
-```
-cd /path/to/planet4-base/public/wp-content/themes
-rm -rf planet4-master-theme
-ln -s /path/to/planet4-master-theme .
-```
+1. Link this project to your planet4 site to use this theme
+    ```
+    cd /path/to/planet4-base/public/wp-content/themes
+    rm -rf planet4-master-theme
+    ln -s /path/to/planet4-master-theme .
+    ```
 1. Edit the CSS in src/css
-2. Rebuild the main.css
+1. Rebuild the main.css
+    ```
+    yarn build
+    ```
+1. Test it on your local setup
+1. If everything is fine, commit your changes
+1. Tag your new version
+    ```
+    git tag -a v0.x.x -m 'v0.x.x'
+    git push origin v0.x.x
+    ```
+
+### Add a new frontend library
+
+0. Frontend dependencies are stored in `package.json`, handled by yarn. To add a new dependency, e.g. jquery, call:
+
 ```
-yarn build
+yarn add jquery
 ```
-3. Test it on your local setup
-4. If everything is fine, commit your changes
-5. Tag your new version
+
+1. Manually add the new required files to the list of "assets" inside `package.json`, then call gulp:
+
 ```
-git tag -a v0.x.x -m 'v0.x.x'
-git push origin v0.x.x
+gulp assets
+```
+
+2. This will add these files to `assets/lib/`. Then open `functions.php` and add these new assets inside the `enqueue_public_assets` function:
+
+```
+wp_enqueue_script( 'jquery', $this->theme_dir . '/assets/lib/jquery/dist/jquery.min.js', array(), '3.3.1', true );
+```
+
+### Local frontend testing
+
+We use `stylelint` and `eslint` for checking css and js code syntax.
+
+If you want to test locally use gulp:
+
+```
+gulp test
 ```

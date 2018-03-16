@@ -54,9 +54,10 @@ Stylesheet: Button Styles
 /**
  * Primary, orange button.
  */
+
 .btn-primary {
   background-color: $orange;
-  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 
   &:hover,
   &:focus {
@@ -73,6 +74,7 @@ Stylesheet: Button Styles
 /**
  * Secondary, semi-transparent button. Most buttons are this button.
  */
+
 .btn-secondary {
   background-color: transparentize($white, .7);
   border-color: $dark-blue;
@@ -94,10 +96,11 @@ Stylesheet: Button Styles
 /**
  * Similar to the primary button, but transparent by default.
  */
+
 .btn-action {
   background-color: transparentize($white, .8);
   border-color: $white;
-  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 
   &:hover,
   &:focus {
@@ -114,12 +117,13 @@ Stylesheet: Button Styles
 /**
  * Donate button used in the navbar.
  */
+
 .btn-donate {
   background-color: $aquamarine;
   color: $grey;
   font-size: rem(16);
   line-height: 1.6;
-  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
   transition: color background-color font-weight 100ms;
 
   &:hover,
@@ -140,6 +144,7 @@ Stylesheet: Button Styles
 /**
  * Top navigation dropdown toggle button used in the navbar.
  */
+
 .btn-navbar-toggle {
   cursor: pointer;
   color: $gp-green;
@@ -152,11 +157,6 @@ Stylesheet: Button Styles
   &:active {
     color: $white;
     box-shadow: none;
-  }
-
-  &:hover,
-  &:focus,
-  &:active {
     background-color: $x-dark-blue;
     border: 1px solid transparent;
   }
@@ -165,13 +165,14 @@ Stylesheet: Button Styles
     background-color: $dark-blue;
     border-radius: 4px;
     border: 1px solid transparent;
-    box-shadow: 0 2px 5px rgba(0,0,0,.25);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
   }
 }
 
 /**
  * Filter and filter-clearing buttons used in the search-results.
  */
+
 .btn-filter-item {
   background-color: transparent;
   border-color: $blue-tiber;
@@ -196,7 +197,7 @@ Stylesheet: Button Styles
     font-size: .7em;
     right: 10px;
     top: 50%;
-    transform: translate( 0, -40% );
+    transform: translate(0, -40%);
   }
 }
 
@@ -223,7 +224,7 @@ Stylesheet: Button Styles
     font-size: .6em;
     right: 10px;
     top: 50%;
-    transform: translate( 0, -40% );
+    transform: translate(0, -40%);
   }
 }
 
@@ -232,7 +233,8 @@ Stylesheet: Button Styles
   border: transparent;
   padding: 0;
   cursor: pointer;
+
   &:focus {
-    outline:none;
+    outline: none;
   }
 }

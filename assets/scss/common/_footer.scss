@@ -34,13 +34,13 @@
     display: inline-block;
   }
 
-   a {
-     transition: color 100ms linear;
+  a {
+    transition: color 100ms linear;
 
-     &:hover {
-       color: $white;
-     }
-   }
+    &:hover {
+      color: $white;
+    }
+  }
 }
 
 .footer-links,

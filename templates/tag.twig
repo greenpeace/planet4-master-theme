@@ -16,7 +16,7 @@
 					{% endif %}
 				</div>
 				<h1 class="page-header-title">#{{ tag_name|e('wp_kses_post')|raw }}</h1>
-				<p class="page-header-content">{{ tag_description|e('wp_kses_post')|raw }}</p>
+				<div class="page-header-content">{{ tag_description|e('wp_kses_post')|raw }}</div>
 			</div>
 			<div class="pull-right d-none d-md-block">
 				<div class="sharethis-inline-share-buttons"></div>

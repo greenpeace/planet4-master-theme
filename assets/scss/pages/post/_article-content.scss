@@ -84,7 +84,7 @@
     }
 
     @include x-large-and-up {
-      font-size: rem(18)
+      font-size: rem(18);
     }
 
     iframe {
@@ -118,7 +118,6 @@
   .alignleft {
     float: left;
     margin: 10px 10px 0 0;
-
   }
 
   .alignright {
@@ -234,6 +233,7 @@
     dt {
       margin: 0;
     }
+
     br + br {
       display: none;
     }
@@ -305,7 +305,7 @@
   }
 
   @include x-large-and-up {
-    font-size: rem(18)
+    font-size: rem(18);
   }
 
   img {
@@ -371,15 +371,15 @@
     line-height: 1.4;
     color: $white;
     font-family: $roboto;
-    position: absolute;
-    left: 0;
-    bottom: 0;
     width: 100%;
     max-width: 100%;
     background: linear-gradient(210deg, transparentize($med-blue, .8) 0%, $med-blue 100%);
     padding: 10px 20px;
 
     @include medium-and-up {
+      position: absolute;
+      left: 0;
+      bottom: 0;
       padding: 20px 30px;
     }
 

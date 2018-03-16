@@ -4,7 +4,7 @@ Theme URI: https://github.com/greenpeace/planet4-master-theme
 Description: Master theme for the Planet 4 Wordpress project
 Author: Greenpeace International
 Author URI: https://github.com/greenpeace
-Version: 0.3.0
+Version: 0.2.43
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: light, accessibility-ready
@@ -137,9 +137,9 @@ body {
   }
 
   &.home {
-    background-image: repeating-linear-gradient(119deg, transparent -53%, rgba(157, 187, 190, 0.1) 55%, rgba(236, 241, 243, 1) 0), repeating-linear-gradient(119deg, transparent -50%, rgba(157, 187, 190, 0.1) 30%, rgba(236, 241, 243, 0) 20%),repeating-linear-gradient(119deg, transparent -445%, rgba(157, 187, 190, 0.1) 27%, rgba(236, 241, 243, 0) 10%),repeating-linear-gradient(119deg, transparent -45%, rgba(157, 187, 190, 0.1) 17%, rgba(236, 241, 243, 0.5) 0), url('images/home.png');
+    background-image: repeating-linear-gradient(119deg, transparent -53%, rgba(157, 187, 190, 0.1) 55%, rgba(236, 241, 243, 1) 0), repeating-linear-gradient(119deg, transparent -50%, rgba(157, 187, 190, 0.1) 30%, rgba(236, 241, 243, 0) 20%), repeating-linear-gradient(119deg, transparent -445%, rgba(157, 187, 190, 0.1) 27%, rgba(236, 241, 243, 0) 10%), repeating-linear-gradient(119deg, transparent -45%, rgba(157, 187, 190, 0.1) 17%, rgba(236, 241, 243, 0.5) 0), url("images/home.png");
     background-repeat: repeat-x;
-    background-color: #ECF1F3;
+    background-color: #ecf1f3;
   }
 }
 

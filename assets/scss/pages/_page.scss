@@ -8,15 +8,15 @@ div.page-template {
 
   @include medium-and-up {
     width: 720px;
-  };
+  }
 
   @include large-and-up {
     width: 960px;
-  };
+  }
 
   @include x-large-and-up {
     width: 1140px;
-  };
+  }
 
   .container {
     padding-left: 0;
