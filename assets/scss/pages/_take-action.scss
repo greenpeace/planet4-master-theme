@@ -123,6 +123,7 @@
       font-weight: bold;
       margin-right: 5px;
     }
+
     .category-topic-title-seprater {
       background: $percentage-text;
       width: 5px;
@@ -178,9 +179,9 @@
       background: -webkit-gradient(linear, 66.31% -110.5%, 33.69% 210.5%, color-stop(0, rgba(10, 51, 81, 0)), color-stop(1, rgba(10, 51, 81, 1)));
       background: -o-linear-gradient(-120deg, rgba(10, 51, 81, 0) 0%, rgba(10, 51, 81, 1) 100%);
       background: -ms-linear-gradient(-120deg, rgba(10, 51, 81, 0) 0%, rgba(10, 51, 81, 1) 100%);
-      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#0A3351', endColorstr='#0A3351' ,GradientType=0)";
       background: linear-gradient(210deg, rgba(10, 51, 81, 0) 0%, rgba(10, 51, 81, 1) 100%);
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0A3351', endColorstr='#0A3351', GradientType=1);
+      filter: progid:dximagetransform.microsoft.gradient(startColorstr="#0a3351", endColorstr="#0a3351", GradientType=1);
+      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#0A3351', endColorstr='#0A3351' ,GradientType=0)";
 
       @include small-and-up {
         padding: 30px;
@@ -263,6 +264,7 @@
           }
         }
       }
+
       .carousel-control-next-icon {
         i {
           background-position: -21px 1px;
@@ -380,11 +382,11 @@
 
     @include large-and-up {
       cursor: pointer;
-      margin: 35px 0 0px 0;
+      margin: 35px 0 0 0;
     }
 
     @include x-large-and-up {
-      margin: 16px 0 0px 0;
+      margin: 16px 0 0 0;
     }
 
     .step-number {
@@ -476,7 +478,6 @@
           margin-top: 54px;
         }
       }
-
     }
 
     &:hover {
@@ -495,6 +496,7 @@
         color: $white;
         opacity: 0.7;
       }
+
       .step-info {
         p {
           color: $grey-60;
@@ -511,18 +513,13 @@
   .card-header {
     background: $grey;
     border: none;
+    color: $white;
+    font-weight: 400;
+    font-size: rem(15);
+    text-decoration: none;
 
-    h5 {
-      a {
-        color: $white;
-        font-weight: 400;
-        font-size: rem(15);
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: none;
-        }
-      }
+    &:hover {
+      text-decoration: none;
     }
   }
 

@@ -48,7 +48,8 @@
   .carousel-item-next,
   .carousel-item-prev {
     display: block;
-    img{
+
+    img {
       width: 100%;
     }
   }
@@ -61,14 +62,14 @@
     width: 100%;
     font-family: $roboto;
     padding: 30px 200px 30px 50px;
-    background : -moz-linear-gradient(66.31% -110.5% -120deg,rgba(10, 51, 81, 0) 0%,rgba(10, 51, 81, 1) 100%);
-    background : -webkit-linear-gradient(-120deg, rgba(10, 51, 81, 0) 0%, rgba(10, 51, 81, 1) 100%);
-    background : -webkit-gradient(linear,66.31% -110.5% ,33.69% 210.5% ,color-stop(0,rgba(10, 51, 81, 0) ),color-stop(1,rgba(10, 51, 81, 1) ));
-    background : -o-linear-gradient(-120deg, rgba(10, 51, 81, 0) 0%, rgba(10, 51, 81, 1) 100%);
-    background : -ms-linear-gradient(-120deg, rgba(10, 51, 81, 0) 0%, rgba(10, 51, 81, 1) 100%);
+    background: -moz-linear-gradient(66.31% -110.5% -120deg, rgba(10, 51, 81, 0) 0%, rgba(10, 51, 81, 1) 100%);
+    background: -webkit-linear-gradient(-120deg, rgba(10, 51, 81, 0) 0%, rgba(10, 51, 81, 1) 100%);
+    background: -webkit-gradient(linear, 66.31% -110.5%, 33.69% 210.5%, color-stop(0, rgba(10, 51, 81, 0)), color-stop(1, rgba(10, 51, 81, 1)));
+    background: -o-linear-gradient(-120deg, rgba(10, 51, 81, 0) 0%, rgba(10, 51, 81, 1) 100%);
+    background: -ms-linear-gradient(-120deg, rgba(10, 51, 81, 0) 0%, rgba(10, 51, 81, 1) 100%);
+    background: linear-gradient(210deg, rgba(10, 51, 81, 0.2) 0%, rgba(10, 51, 81, 1) 100%);
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr="#0a3351", endColorstr="#0a3351", GradientType=1);
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#0A3351', endColorstr='#0A3351' ,GradientType=0)";
-    background : linear-gradient(210deg, rgba(10, 51, 81, 0.2) 0%, rgba(10, 51, 81, 1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0A3351',endColorstr='#0A3351' , GradientType=1);
 
     @include mobile-only {
       position: absolute;
@@ -185,7 +186,7 @@
   }
 
   .carousel-control-prev-icon {
-    background: url('images/carousel-marker-prev.png');
+    background: url("images/carousel-marker-prev.png");
     background-size: cover;
 
     @include small-and-up {
@@ -200,6 +201,7 @@
     @include large-and-up {
       margin-left: 133px;
       background: url("images/carousel-marker-prev.png");
+
       &:hover {
         background-position-x: 66px;
       }
@@ -211,7 +213,7 @@
   }
 
   .carousel-control-next-icon {
-    background: url('images/carousel-marker-next.png');
+    background: url("images/carousel-marker-next.png");
     background-size: cover;
 
     @include small-and-up {
@@ -226,6 +228,7 @@
     @include large-and-up {
       margin-right: 133px;
       background: url("images/carousel-marker-next.png");
+
       &:hover {
         background-position-x: 66px;
       }

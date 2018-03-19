@@ -1,17 +1,17 @@
 @font-face {
-  font-family: 'greenpeace-icon';
-  src:  url('fonts/greenpeace-icon.eot?x1zqe3');
-  src:  url('fonts/greenpeace-icon.eot?x1zqe3#iefix') format('embedded-opentype'),
-    url('fonts/greenpeace-icon.ttf?x1zqe3') format('truetype'),
-    url('fonts/greenpeace-icon.woff?x1zqe3') format('woff'),
-    url('fonts/greenpeace-icon.svg?x1zqe3#greenpeace-icon') format('svg');
+  font-family: greenpeace-icon;
+  src: url("fonts/greenpeace-icon.eot?x1zqe3");
+  src: url("fonts/greenpeace-icon.eot?x1zqe3#iefix") format("embedded-opentype"),
+    url("fonts/greenpeace-icon.ttf?x1zqe3") format("truetype"),
+    url("fonts/greenpeace-icon.woff?x1zqe3") format("woff"),
+    url("fonts/greenpeace-icon.svg?x1zqe3#greenpeace-icon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'greenpeace-icon' !important;
+  font-family: greenpeace-icon !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -23,28 +23,35 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 .icon-arrow-marker .path1:before {
   content: "\e905";
   color: rgb(0, 0, 0);
   opacity: 0.25;
 }
+
 .icon-arrow-marker .path2:before {
   content: "\e906";
   margin-left: -1em;
   color: rgb(0, 0, 0);
 }
+
 .icon-doc-ic:before {
   content: "\e900";
 }
+
 .icon-arrow-icon:before {
   content: "\e901";
 }
+
 .icon-filter:before {
   content: "\e902";
 }
+
 .icon-search:before {
   content: "\e903";
 }
+
 .icon-cross:before {
   content: "\e904";
 }

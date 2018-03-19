@@ -6,7 +6,7 @@ Stylesheet: Mixins Stylesheet
 ******************************************************************/
 
 /*********************
- Media Queries
+Media Queries
 *********************/
 
 // Mobile-only (up to 576px)
@@ -49,7 +49,7 @@ TRANSITION
 *********************/
 
 /*
- * USAGE: @include transition(all 0.2s ease-in-out);
+* USAGE: @include transition(all 0.2s ease-in-out);
 */
 
 @mixin transition($transition...) {
@@ -61,8 +61,8 @@ TRANSITION
 }
 
 /**
- * Cause an element to match the size of its stacking context parent.
- */
+* Cause an element to match the size of its stacking context parent.
+*/
 @mixin fill-container() {
   position: absolute;
   top: 0;
@@ -72,8 +72,8 @@ TRANSITION
 }
 
 /**
- * Build a linear gradient with a direction and any number of color stops.
- */
+* Build a linear gradient with a direction and any number of color stops.
+*/
 @mixin linear-gradient( $direction, $color-stops... ) {
   background: nth(nth($color-stops, 1), 1); /* Old browsers */
   background: -moz-linear-gradient(legacy-direction($direction), $color-stops); /* FF3.6-15 */
@@ -82,10 +82,10 @@ TRANSITION
 }
 
 /**
- * Create a gradient with hard stops that lines up
- *
- * Colors layout from top-right to bottom-left.
- */
+* Create a gradient with hard stops that lines up
+*
+* Colors layout from top-right to bottom-left.
+*/
 @mixin skewed-gradient( $color1, $color2, $color3, $color4, $color5 ) {
   @include linear-gradient(
     245deg,
@@ -164,12 +164,12 @@ TRANSITION
 }
 
 @mixin background($imgpath,$position:center,$repeat: no-repeat, $size: cover) {
-    background: {
-        image: url($imgpath);
-        position: $position;
-        repeat: $repeat;
-        size: $size;
-    }
+  background: {
+    image: url($imgpath);
+    position: $position;
+    repeat: $repeat;
+    size: $size;
+  }
 }
 
 /*********************
@@ -177,31 +177,30 @@ Skew mixin
 *********************/
 
 @mixin skew($side: right, $deg: -20deg, $right: -15px, $left: -15px, $width: 30px, $bg: $white) {
-    position: relative;
+  position: relative;
 
-    &:before {
-        z-index: -1;
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
+  &:before {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
 
-        @if $side == right {
-            right: $right;
-        }
-        @else if $side == left {
-            left: $left;
-        }
-
-        display: block;
-        width: $width;
-        background: $bg;
-        -webkit-transform: skew($deg);
-            -ms-transform: skew($deg);
-                transform: skew($deg);
+    @if $side == right {
+      right: $right;
     }
-}
+    @else if $side == left {
+      left: $left;
+    }
 
+    display: block;
+    width: $width;
+    background: $bg;
+    -webkit-transform: skew($deg);
+    -ms-transform: skew($deg);
+    transform: skew($deg);
+  }
+}
 
 /*********************
 mixin for Font Size in rem
@@ -222,9 +221,9 @@ $baseFontSize : 16;
 }
 
 /* Generates mutilevel nested comments
-  level-1 is the first level comment with a margin of 50px
-  level-2 is the first level comment with a margin of 100px
-  and so on...
+level-1 is the first level comment with a margin of 50px
+level-2 is the first level comment with a margin of 100px
+and so on...
 */
 $comment-nest-level: 6;
 $nested-comment-left-margin: 50px;

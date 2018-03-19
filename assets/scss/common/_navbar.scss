@@ -13,7 +13,7 @@ $menu-height-large: rem(60);
   flex-direction: row;
   justify-content: space-between;
 
-  background: transparentize($top-nav, 0.20);
+  background: transparentize($top-nav, 0.2);
   height: $menu-height-small;
 
   // Use (min-width: 783px) for parity with WP's .admin-bar
@@ -75,12 +75,14 @@ $menu-height-large: rem(60);
   color: $white;
   z-index: 1;
 
-  fa {
+  .fa {
     font-size: rem(18);
   }
 }
 
 .navbar-dropdown-toggle {
+  order: -1;
+
   // When menu is open, turn the button into the background overlay
   &[aria-expanded="true"] {
     z-index: 2;
@@ -110,7 +112,7 @@ $menu-height-large: rem(60);
 .navbar-search-toggle {
   cursor: pointer;
   border: 0;
-  background: url('images/search.svg') center center no-repeat;
+  background: url("images/search.svg") center center no-repeat;
   background-size: 28px;
   margin-left: auto;
 
@@ -141,10 +143,6 @@ $menu-height-large: rem(60);
   }
 }
 
-.navbar-dropdown-toggle {
-  order: -1;
-}
-
 .navbar-dropdown {
   display: none;
   margin: 0;
@@ -165,22 +163,49 @@ $menu-height-large: rem(60);
     height: 100vh;
     width: 300px;
   }
+
   // Use (min-width: 783px) for parity with WP's .admin-bar
   @media screen and (min-width: #{$small-width}) and (max-width: 782px) {
     height: 100vh;
     width: 375px;
   }
+
   // Use (min-width: 783px) for parity with WP's .admin-bar
   @media screen and (min-width: 783px) and (max-width: #{$large-width}) {
     width: 400px;
   }
+
+  ::-webkit-scrollbar {
+    width: 9px;
+  }
+
+  ::-webkit-scrollbar-track {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  ::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
   // Dropdown height permutations, with and without WP admin bar
   .admin-bar & {
     @media screen and (max-width: 782px) {
-      height: calc( 100vh - 46px );
+      height: calc(100vh - 46px);
     }
     @media screen and (min-width: 783px) and (max-width: #{$large-width}) {
-      height: calc( 100vh - 32px );
+      height: calc(100vh - 32px);
     }
   }
 
@@ -192,7 +217,7 @@ $menu-height-large: rem(60);
     position: absolute;
     top: 0;
     left: 0;
-    background: $deep-sea-green url('images/dropdown-gradient.svg') no-repeat;
+    background: $deep-sea-green url("images/dropdown-gradient.svg") no-repeat;
     overflow-y: auto;
     overflow-x: hidden;
     z-index: 2;
@@ -203,7 +228,7 @@ $menu-height-large: rem(60);
       right: 0;
       height: $menu-height-small;
       width: $menu-height-small;
-      background: url('images/close-icon.svg') center center no-repeat;
+      background: url("images/close-icon.svg") center center no-repeat;
       z-index: 2;
       border: 0;
 
@@ -225,7 +250,7 @@ $menu-height-large: rem(60);
       top: 0;
       bottom: 0;
       width: 8px;
-      background: transparentize( $black, 0.9 );
+      background: transparentize($black, 0.9);
       z-index: 0;
     }
 
@@ -243,7 +268,7 @@ $menu-height-large: rem(60);
         height: 1.75em;
         width: 50px;
         display: inline-block;
-        background: url('images/country-icon.svg') center center no-repeat;
+        background: url("images/country-icon.svg") center center no-repeat;
         border-right: 1px solid transparentize($white, 0.9);
         background-size: contain;
 
@@ -415,7 +440,7 @@ $menu-height-large: rem(60);
     content: "";
     width: 8px;
     height: 8px;
-    background: url('images/down-arrow-green.svg') no-repeat center center;
+    background: url("images/down-arrow-green.svg") no-repeat center center;
     background-size: contain;
     display: inline-block;
     margin-left: 10px;
@@ -427,7 +452,7 @@ $menu-height-large: rem(60);
     color: $white;
 
     &::after {
-      background-image: url('images/down-arrow-white.svg');
+      background-image: url("images/down-arrow-white.svg");
     }
   }
 
@@ -509,16 +534,16 @@ $menu-height-large: rem(60);
   @include large-and-up {
     position: absolute;
     height: 344px;
-    max-height: 344px;
     width: 90%;
     padding: 2em;
     left: 10%;
     overflow-x: hidden;
     overflow-y: hidden !important;
-    max-height: calc( 100vh - #{$menu-height-large} );
+    max-height: 344px;
+    max-height: calc(100vh - #{$menu-height-large});
 
     .admin-bar & {
-      max-height: calc( 100vh - #{$menu-height-large} - 32px );
+      max-height: calc(100vh - #{$menu-height-large} - 32px);
     }
 
     > ul {
@@ -529,33 +554,5 @@ $menu-height-large: rem(60);
     padding: 2em 4em 4em;
     width: 80%;
     left: 10%;
-  }
-}
-
-// For always showing the scrollbar in country selector
-
-.navbar-dropdown {
-  ::-webkit-scrollbar {
-    width:9px;
-  }
-
-  ::-webkit-scrollbar-track {
-    -webkit-border-radius:5px;
-    border-radius:5px;
-    background:rgba(255,255,255,0.1);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    -webkit-border-radius:5px;
-    border-radius:5px;
-    background:rgba(255,255,255,0.2);
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background:rgba(255,255,255,0.4);
-  }
-
-  ::-webkit-scrollbar-thumb:window-inactive {
-    background:rgba(255,255,255,0.05);
   }
 }

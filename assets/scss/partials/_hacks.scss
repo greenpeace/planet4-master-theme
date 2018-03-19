@@ -1,12 +1,13 @@
 /**
- * Hacks file for modifying and overriding external styles.
- */
+* Hacks file for modifying and overriding external styles.
+*/
 
 /**
- * Keep the admin bar fixed on mobile screens for consistency.
- */
+* Keep the admin bar fixed on mobile screens for consistency.
+*/
+
 @media screen and (max-width: 600px) {
-	#wpadminbar {
-		position: fixed;
-	}
+  #wpadminbar {
+    position: fixed;
+  }
 }

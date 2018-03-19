@@ -1,7 +1,7 @@
 .article-listing-intro {
   display: flex;
 
-  &>div:first-of-type {
+  & > div:first-of-type {
     padding-left: 0;
   }
 }
@@ -11,7 +11,7 @@
   flex-direction: column;
   justify-content: space-between;
   background-color: transparentize($white, .2);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   margin: 12px 0;
 
   @include medium-and-up {

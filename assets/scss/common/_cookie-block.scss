@@ -1,4 +1,4 @@
-$cookie-bkg: #C0DBE2;
+$cookie-bkg: #c0dbe2;
 $cookie-blue: #094464;
 
 .cookie-block {
@@ -11,6 +11,7 @@ $cookie-blue: #094464;
   padding: 10px 0;
   background: $cookie-bkg url("images/cookie-right-gradient.png") no-repeat right;
   max-height: 50px;
+
   p {
     font-size: rem(17);
     font-weight: 500;
@@ -20,6 +21,7 @@ $cookie-blue: #094464;
     font-family: $roboto;
     line-height: 30px;
   }
+
   a {
     font-size: rem(17);
     font-weight: bold;
@@ -30,6 +32,7 @@ $cookie-blue: #094464;
       text-decoration: underline;
     }
   }
+
   .btn {
     height: 32px;
     line-height: 32px;
@@ -49,21 +52,25 @@ $cookie-blue: #094464;
   .cookie-block {
     max-height: 120px;
     background: $cookie-bkg url("images/cookie-right-gradient-sm.png") no-repeat right;
+
     div.col-9 {
       margin: 0 auto;
       max-width: 95%;
       flex: 95%;
     }
+
     div.col {
       margin: 0 auto;
       max-width: 95%;
     }
+
     p {
       font-size: rem(14);
       text-align: left;
       line-height: 16.8px;
       margin-bottom: 10px;
     }
+
     a {
       font-size: rem(14);
     }
@@ -74,11 +81,13 @@ $cookie-blue: #094464;
   .cookie-block {
     max-height: 56px;
     background: $cookie-bkg url("images/cookie-right-gradient-md.png") no-repeat right;
+
     p {
       font-size: rem(15);
       text-align: left;
       line-height: 18px;
     }
+
     a {
       font-size: rem(15);
     }
@@ -89,27 +98,30 @@ $cookie-blue: #094464;
   .cookie-block {
     max-height: 50px;
     background: $cookie-bkg url("images/cookie-right-gradient.png") no-repeat right;
+
     p {
       font-size: rem(14.5);
       text-align: center;
       line-height: 30px;
     }
+
     a {
       font-size: rem(14.5);
     }
   }
 }
 
-
 @include x-large-and-up {
   .cookie-block {
     max-height: 50px;
     background: $cookie-bkg url("images/cookie-right-gradient.png") no-repeat right;
+
     p {
       font-size: rem(17);
       text-align: center;
       line-height: 30px;
     }
+
     a {
       font-size: rem(17);
     }

@@ -1,53 +1,53 @@
 .suggested-search-terms {
-	margin: 50px 0 104px;
+  margin: 50px 0 104px;
 
-	h3 {
-		font-size: rem(26);
-		margin-bottom: 16px;
+  h3 {
+    font-size: rem(26);
+    margin-bottom: 16px;
 
-		@include small-and-up {
-			font-size: rem(34);
-		}
+    @include small-and-up {
+      font-size: rem(34);
+    }
 
-		@include large-and-up {
-			font-size: rem(36);
-		}
-	}
+    @include large-and-up {
+      font-size: rem(36);
+    }
+  }
 }
 
 .suggested-list {
-	background-color: transparentize($white, .6);
-	padding: 32px 17px;
-	margin: 0;
+  background-color: transparentize($white, .6);
+  padding: 32px 17px;
+  margin: 0;
 
-	ul {
-		margin-bottom: 0;
-	}
+  ul {
+    margin-bottom: 0;
+  }
 
-	li {
-		text-align: center;
+  li {
+    text-align: center;
 
-		@include medium-and-up {
-			text-align: left;
-		}
+    @include medium-and-up {
+      text-align: left;
+    }
 
-		a {
-			color: $blue-elm;
-			text-decoration: none;
-			font-size: rem(18);
-			line-height: 2.3;
+    a {
+      color: $blue-elm;
+      text-decoration: none;
+      font-size: rem(18);
+      line-height: 2.3;
 
-			@include medium-and-up {
-				font-size: rem(22);
-			}
+      @include medium-and-up {
+        font-size: rem(22);
+      }
 
-			@include large-and-up {
-				font-size: rem(18);
-			}
+      @include large-and-up {
+        font-size: rem(18);
+      }
 
-			@include x-large-and-up {
-				font-size: rem(22);
-			}
-		}
-	}
+      @include x-large-and-up {
+        font-size: rem(22);
+      }
+    }
+  }
 }

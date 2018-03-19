@@ -47,8 +47,18 @@
 // L & XL with show-all-covers class should show all covers
 // remove limit visibility class on load more button click
 .show-3-covers .limit-visibility {
-  .cover-card-column:nth-child(n+4) {
+  .cover-card-column:nth-child(n+3) {
     display: none;
+  }
+
+  @include large-and-up {
+    .cover-card-column:nth-child(-n+4) {
+      display: block;
+    }
+
+    .cover-card-column:nth-child(n+4) {
+      display: none;
+    }
   }
 }
 
@@ -61,6 +71,7 @@
     .cover-card-column:nth-child(-n+7) {
       display: block;
     }
+
     .cover-card-column:nth-child(n+7) {
       display: none;
     }
@@ -177,7 +188,7 @@
     transition: box-shadow 150ms linear;
     padding-bottom: 70px;
 
-    &:not(.single-cover){
+    &:not(.single-cover) {
       box-shadow: none;
 
       &:hover {
@@ -209,12 +220,9 @@
 .cover-card-btn {
   position: absolute;
   bottom: 0;
-  margin: 15px 0;
-  width: 90%;
+  left: 0;
+  right: 0;
+  margin: 15px auto;
+  width: 92%;
   cursor: pointer;
-
-  @include x-large-and-up {
-    margin: 20px 0;
-    width: 86%;
-  }
 }
