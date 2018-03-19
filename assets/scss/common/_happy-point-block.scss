@@ -111,6 +111,9 @@
     max-height: 480px;
 
     .pt-20 {
+      iframe {
+        width: 80vw;
+      }
       padding-top: 220px;
       padding-left: 0;
       padding-right: 0;
@@ -145,6 +148,9 @@
     max-height: 500px;
 
     .pt-20 {
+      iframe {
+        width: 100%;
+      }
       padding-top: 260px;
       padding-left: 0;
       padding-right: 0;
