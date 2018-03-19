@@ -29,6 +29,24 @@ $context         = Timber::get_context();
 $post            = Timber::query_post(false, 'P4_Post');
 $context['post'] = $post;
 
+// Get Post categories.
+$categories       = get_the_category( $post->ID );
+
+// Handle navigation links.
+if ( $categories ) {
+	foreach ( $categories as $category ) {
+		if ( $category && ( $category->name !== $post->post_title ) ) {     // Do not add links inside the Issue page itself.
+			// Get Issue.
+			$issue = get_page_by_title( $category->name );                  // Category and Issue need to have the same name.
+			if ( $issue ) {
+				$context['issues'][] = [
+					'name' => $issue->post_title,
+					'link' => get_permalink( $issue ),
+				];
+			}
+		}
+	}
+}
 
 // Get the cmb2 custom fields data
 // Articles block parameters to populate the articles block

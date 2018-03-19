@@ -16,6 +16,13 @@
 					{% if ( page_type ) %}
 						<a class="tag-item tag-item--main" href="{{ filter_url }}">{{ page_type }}</a>
 					{% endif %}
+
+					{% if ( issues ) %}
+						{% for issue in issues %}
+							<a class="tag-item tag-item--main" href="{{ issue.link|default('#') }}">{{ issue.name|e('wp_kses_post')|raw }}</a>
+						{% endfor %}
+					{% endif %}
+
 					{% for tag in post.tags %}
 						<a class="tag-item " href="{{ tag.link }}">#{{ tag.name|e('wp_kses_post')|raw }}</a>
 					{% endfor %}
