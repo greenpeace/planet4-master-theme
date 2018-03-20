@@ -3,6 +3,15 @@
 $(document).ready(function() {
   'use strict';
 
+  // Add event listeners when window is resized, change the carousel's images background attribute to the current loaded ones.
+  $('#carousel-wrapper-header').find('img').on('load', function () {
+    var current_img_src = $(this).get(0).currentSrc;
+    var current_bg_img = $(this).parent().css('background-image').replace(/.*\s?url\(['"]?/, '').replace(/['"]?\).*/, '');
+    if (current_img_src !== current_bg_img) {
+      $(this).parent().css('background-image', 'url(' + $(this).get(0).currentSrc + ')');
+    }
+  });
+
   /**
   * This module provides a custom slideshow mechanism for use with the header carousel.
   * The transition behavior in this block is too complex to be easily layered upon the
@@ -55,8 +64,9 @@ $(document).ready(function() {
     // Convert the provided image tag into background image styles.
     var $img = $slide.find('img');
     var $nextImg = nextSlide($slide).find('img');
+    var img_src = $img.get(0).currentSrc || $img.attr('src');
     $slide
-      .css('background-image', 'url(' + $img.attr('src') + ')')
+      .css('background-image', 'url(' + img_src + ')')
       .css('background-position', $img.data('background-position'));
 
     // Add an element within the slide to hold the next slide preview.
@@ -64,9 +74,10 @@ $(document).ready(function() {
       .addClass('carousel-preview-wrap')
       .prependTo($slide);
 
+    var next_img_src = $nextImg.get(0).currentSrc || $nextImg.attr('src');
     $('<div>')
       .addClass('carousel-preview')
-      .css('background-image', 'url(' + $nextImg.attr('src') + ')')
+      .css('background-image', 'url(' + next_img_src + ')')
       .css('background-position', $nextImg.data('background-position'))
       .appendTo($preview);
 

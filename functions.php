@@ -147,7 +147,7 @@ class P4_Master_Site extends TimberSite {
 	 * Add extra image sizes as needed.
 	 */
 	public function add_image_sizes() {
-		add_image_size( 'retina-large', 2048, 1366, true );
+		add_image_size( 'retina-large', 2048, 1366, false );
 	}
 
 	/**
