@@ -6,7 +6,7 @@ $(document).ready(function() {
   // Add event listeners when window is resized, change the carousel's images background attribute to the current loaded ones.
   $("#carousel-wrapper-header").find('img').on('load', function () {
     var current_img_src = $(this).get(0).currentSrc;
-    var current_bg_img = $(this).parent().css('background-image').replace(/.*\s?url\([\'\"]?/, '').replace(/[\'\"]?\).*/, '');
+    var current_bg_img = $(this).parent().css('background-image').replace(/.*\s?url\(['"]?/, '').replace(/['"]?\).*/, '');
     if (current_img_src !== current_bg_img) {
       $(this).parent().css('background-image', 'url(' + $(this).get(0).currentSrc + ')');
     }
