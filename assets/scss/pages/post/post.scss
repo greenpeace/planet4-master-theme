@@ -76,6 +76,33 @@
         color: inherit;
       }
 
+      span.separator {
+        margin: 0 5px;
+      }
+
+      span.comment-link {
+        cursor: pointer;
+        img {
+          width: 14px;
+          margin-right: 3px;
+        }
+        .quantity {
+          text-decoration: underline;
+          @include large-and-up {
+            text-decoration: none;
+          }
+        }
+        .quantity:hover {
+          text-decoration: underline;
+        }
+        .display-text {
+          visibility: hidden;
+          @include medium-and-up {
+            visibility: unset;
+          }
+        }
+      }
+
       @include medium-and-up {
         font-size: rem(14);
         font-weight: 300;
