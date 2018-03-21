@@ -169,24 +169,27 @@ class P4_Master_Site extends TimberSite {
 		} elseif ( isset( $_POST['user_removed_featured_image'] ) ) {
 			update_post_meta( $post_id, 'user_set_featured_image', false );
 		}
-		$user_featured_image = get_post_meta( $post_id, 'user_set_featured_image', true );
+		$user_set_featured_image = get_post_meta( $post_id, 'user_set_featured_image', true );
 
 		// Apply this behavior to Posts only.
-		if ( 'post' === $post->post_type && ! $user_featured_image ) {
+		if ( 'post' === $post->post_type && ! $user_set_featured_image ) {
 
 			// Find all matches of <img> html tags within the post's content and get the url inside the src attribute.
 			preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches );
-			$first_img_url = $matches[1][0];
-			// Use the attachment's url to find its id.
-			$statement     = $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE guid='%s';", $first_img_url );
-			$result        = $wpdb->get_col( $statement );
-			$attachment_id = $result[0];
+			if ( isset( $matches[1][0] ) ) {
+				$first_img_url = $matches[1][0];
 
-			if ( $attachment_id ) {
-				set_post_thumbnail( $post_id, $attachment_id );
-			} else {
-				// If no image was found inside the post's content then unset the featured image.
-				update_post_meta( $post_id, '_thumbnail_id', '' );
+				// Use the attachment's url to find its id.
+				$statement     = $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE guid='%s';", $first_img_url );
+				$result        = $wpdb->get_col( $statement );
+
+				if ( isset( $result[0] ) ) {
+					$attachment_id = $result[0];
+					set_post_thumbnail( $post_id, $attachment_id );
+				} else {
+					// If no image was found inside the post's content then unset the featured image.
+					update_post_meta( $post_id, '_thumbnail_id', '' );
+				}
 			}
 		}
 	}
