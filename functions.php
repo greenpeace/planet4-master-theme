@@ -164,15 +164,10 @@ class P4_Master_Site extends TimberSite {
 		}
 
 		// Check if user has set the featured image manually or if he has removed it.
-		if ( isset( $_POST['user_set_featured_image'] ) ) {
-			update_post_meta( $post_id, 'user_set_featured_image', true );
-		} elseif ( isset( $_POST['user_removed_featured_image'] ) ) {
-			update_post_meta( $post_id, 'user_set_featured_image', false );
-		}
-		$user_set_featured_image = get_post_meta( $post_id, 'user_set_featured_image', true );
+		$has_user_set_featured_image = get_post_meta( $post_id, '_thumbnail_id', true );
 
 		// Apply this behavior to Posts only.
-		if ( 'post' === $post->post_type && ! $user_set_featured_image ) {
+		if ( 'post' === $post->post_type && ! $has_user_set_featured_image ) {
 
 			// Find all matches of <img> html tags within the post's content and get the url inside the src attribute.
 			preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches );
@@ -180,8 +175,8 @@ class P4_Master_Site extends TimberSite {
 				$first_img_url = $matches[1][0];
 
 				// Use the attachment's url to find its id.
-				$statement     = $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE guid='%s';", $first_img_url );
-				$result        = $wpdb->get_col( $statement );
+				$statement = $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE guid='%s';", $first_img_url );
+				$result    = $wpdb->get_col( $statement );
 
 				if ( isset( $result[0] ) ) {
 					$attachment_id = $result[0];
@@ -384,11 +379,8 @@ class P4_Master_Site extends TimberSite {
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 
 		if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
-			wp_enqueue_script( 'edit_post', $this->theme_dir . '/assets/admin/js/edit_post.js', array( 'jquery' ), '0.0.2', true );
+			wp_enqueue_script( 'edit_post', $this->theme_dir . '/assets/admin/js/edit_post.js', array( 'jquery' ), '0.0.3', true );
 			wp_localize_script( 'edit_post', 'p4_page_type_mapping', planet4_get_option( 'p4-page-types-mapping' ) );
-			wp_localize_script( 'edit_post', 'localizations', [
-				'media_title'  => esc_html__( 'Select Image', 'planet4-master-theme' ),
-			] );
 		} elseif ( 'settings_page_planet4_options' === $hook ) {
 
 			// Get planet4 page types.
