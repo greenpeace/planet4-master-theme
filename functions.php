@@ -164,10 +164,10 @@ class P4_Master_Site extends TimberSite {
 		}
 
 		// Check if user has set the featured image manually or if he has removed it.
-		$has_user_set_featured_image = get_post_meta( $post_id, '_thumbnail_id', true );
+		$user_set_featured_image = get_post_meta( $post_id, '_thumbnail_id', true );
 
 		// Apply this behavior to Posts only.
-		if ( 'post' === $post->post_type && ! $has_user_set_featured_image ) {
+		if ( 'post' === $post->post_type && ! $user_set_featured_image ) {
 
 			// Find all matches of <img> html tags within the post's content and get the url inside the src attribute.
 			preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches );
@@ -181,9 +181,6 @@ class P4_Master_Site extends TimberSite {
 				if ( isset( $result[0] ) ) {
 					$attachment_id = $result[0];
 					set_post_thumbnail( $post_id, $attachment_id );
-				} else {
-					// If no image was found inside the post's content then unset the featured image.
-					update_post_meta( $post_id, '_thumbnail_id', '' );
 				}
 			}
 		}
