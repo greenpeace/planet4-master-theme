@@ -49,5 +49,52 @@ if ( ! class_exists( 'P4_Post' ) ) {
 
 			return in_array( $this->id, $pages );
 		}
+
+
+		/**
+		 * Loads in context information on the navigation links for Issue pages relevant to current Post's categories.
+		 *
+		 * @param array $context An indexed array with all data needed to render current page.
+		 */
+		public function load_nav_issues_links( &$context ) {
+			// Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
+			$options         = get_option( 'planet4_options' );
+			$explore_page_id = $options['explore_page'] ?? '';
+			$categories      = get_the_category( $this->ID );
+
+			// Handle navigation links.
+			if ( $categories ) {
+				$categories_ids = [];
+
+				foreach ( $categories as $category ) {
+					$categories_ids[] = $category->term_id;
+				}
+				// Get the Issue pages that are relevant to the Categories of the current Post.
+				if ( $categories_ids && $explore_page_id ) {
+					$args   = [
+						'post_parent'  => $explore_page_id,
+						'post_type'    => 'page',
+						'post_status'  => 'publish',
+					];
+					if ( count( $categories_ids ) > 1 ) {
+						$args['category__in'] = $categories_ids;
+					} elseif ( 1 === count( $categories_ids ) ) {
+						$args['cat'] = (int) $categories_ids[0];
+					}
+					$issues = ( new WP_Query( $args ) )->posts;
+
+					if ( $issues ) {
+						foreach ( $issues as $issue ) {
+							if ( $issue && $this->post_parent !== (int) $explore_page_id ) {
+								$context['issues'][] = [
+									'name' => $issue->post_title,
+									'link' => get_permalink( $issue ),
+								];
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }

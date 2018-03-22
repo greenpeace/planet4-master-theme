@@ -41,50 +41,14 @@ function add_body_classes_for_page( $classes ) {
 }
 add_filter( 'body_class', 'add_body_classes_for_page' );
 
-$context = Timber::get_context();
-$post    = new P4_Post();
-
+$context        = Timber::get_context();
+$post           = new P4_Post();
 $page_meta_data = get_post_meta( $post->ID );
-$categories     = get_the_category( $post->ID );
 
-$option_values   = get_option( 'planet4_options' );
-$options         = [];
-$explore_page_id = $option_values['explore_page'] ?? '';
+// Load Navigation Issues links.
+$post->load_nav_issues_links( $context );
 
-// Handle navigation links.
-if ( $categories ) {
-	$categories_ids = [];
-
-	foreach ( $categories as $category ) {
-		$categories_ids[] = $category->term_id;
-	}
-	// Get the Issue pages that are relevant to the Categories of the current Post.
-	if ( $categories_ids ) {
-		$args   = [
-			'post_parent'  => $explore_page_id,
-			'post_type'    => 'page',
-			'post_status'  => 'publish',
-		];
-		if ( count( $categories_ids ) > 1 ) {
-			$args['category__in'] = $categories_ids;
-		} elseif ( 1 === count( $categories_ids ) ) {
-			$args['cat'] = (int) $categories_ids[0];
-		}
-		$issues = ( new WP_Query( $args ) )->posts;
-
-		if ( $issues ) {
-			foreach ( $issues as $issue ) {
-				if ( $issue && $post->post_parent != $explore_page_id) {
-					$context['issues'][] = [
-						'name' => $issue->post_title,
-						'link' => get_permalink( $issue ),
-					];
-				}
-			}
-		}
-	}
-}
-// Get Campaigns.
+// Get Navigation Campaigns links.
 $page_tags = wp_get_post_tags( $post->ID );
 $tags      = [];
 
