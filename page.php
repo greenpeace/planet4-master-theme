@@ -45,8 +45,8 @@ $context        = Timber::get_context();
 $post           = new P4_Post();
 $page_meta_data = get_post_meta( $post->ID );
 
-// Load Navigation Issues links.
-$post->load_nav_issues_links( $context );
+// Set Navigation Issues links.
+$post->set_issues_links();
 
 // Get Navigation Campaigns links.
 $page_tags = wp_get_post_tags( $post->ID );

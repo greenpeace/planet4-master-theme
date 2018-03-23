@@ -36,8 +36,8 @@ $context        = Timber::get_context();
 $post           = new P4_Post();
 $page_meta_data = get_post_meta( $post->ID );
 
-// Load Navigation Issues links.
-$post->load_nav_issues_links( $context );
+// Set Navigation Issues links.
+$post->set_issues_links();
 
 // Get Navigation Campaigns links.
 $page_tags = wp_get_post_tags( $post->ID );
@@ -53,7 +53,7 @@ if ( is_array( $page_tags ) && $page_tags ) {
 	$context['campaigns'] = $tags;
 }
 
-$context['page']                = $post;
+$context['post']                = $post;
 $context['header_title']        = is_front_page() ? '' : ( $page_meta_data['p4_title'][0] ?? $post->title );
 $context['header_subtitle']     = $page_meta_data['p4_subtitle'][0] ?? '';
 $context['header_description']  = $page_meta_data['p4_description'][0] ?? '';
