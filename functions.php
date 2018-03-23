@@ -191,6 +191,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function add_image_sizes() {
 		add_image_size( 'retina-large', 2048, 1366, false );
+		add_image_size( 'articles-medium-large', 510, 340, false );
 	}
 
 	/**
