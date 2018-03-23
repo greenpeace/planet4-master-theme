@@ -24,7 +24,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 			add_action( 'created_term',                       array( $this, 'trigger_rewrite_rules' ), 10, 3 );
 			add_action( 'edited_term',                        array( $this, 'trigger_rewrite_rules' ), 10, 3 );
 			add_action( 'delete_term',                        array( $this, 'trigger_rewrite_rules' ), 10, 3 );
-			add_action( 'save_post',                          array( $this, 'save_taxonomy_page_type' ) );
+			add_action( 'save_post',                          array( $this, 'save_taxonomy_page_type' ) , 10, 2 );
 			add_filter( 'available_permalink_structure_tags', array( $this, 'add_taxonomy_as_permalink_structure' ), 10, 1 );
 			add_filter( 'post_link',                          array( $this, 'filter_permalink' ), 10, 3 );
 			add_filter( 'post_rewrite_rules',                 array( $this, 'replace_taxonomy_terms_in_rewrite_rules' ), 10, 1 );
@@ -204,7 +204,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		 *
 		 * @param int $post_id Id of the saved post.
 		 */
-		public function save_taxonomy_page_type( $post_id ) {
+		public function save_taxonomy_page_type( $post_id, $post ) {
 
 			// Ignore autosave.
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -213,6 +213,11 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 
 			// Check user's capabilities.
 			if ( ! current_user_can( 'edit_post', $post_id ) ) {
+				return;
+			}
+
+			// Check if post type is PAGE.
+			if ( 'page' === $post->post_type ) {
 				return;
 			}
 
