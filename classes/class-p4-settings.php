@@ -155,12 +155,12 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 						'url' => false,
 					],
 					'text'       => [
-						'add_upload_file_text' => __( 'Add 404 Page Background Image', 'planet4-master-theme' )
+						'add_upload_file_text' => __( 'Add 404 Page Background Image', 'planet4-master-theme' ),
 					],
 					'query_args' => [
 						'type' => 'image',
 					],
-					//'desc'       => __( 'Minimum image dimensions xx*xx', 'planet4-master-theme' ), // TO DO: Need confirmation on it.
+					'desc'       => __( 'Minimum image width should be 1920px', 'planet4-master-theme' ),
 				],
 
 				[
