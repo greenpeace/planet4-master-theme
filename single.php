@@ -25,7 +25,8 @@ add_filter( 'body_class', 'add_body_classes_for_post' );
 
 // Initializing variables.
 $context         = Timber::get_context();
-$post            = new P4_Post();
+/** @var P4_Post $post */
+$post            = Timber::query_post( false, 'P4_Post' );
 $context['post'] = $post;
 
 // Set Navigation Issues links.
