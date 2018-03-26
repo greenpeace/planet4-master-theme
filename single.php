@@ -23,30 +23,14 @@ function add_body_classes_for_post( $classes ) {
 }
 add_filter( 'body_class', 'add_body_classes_for_post' );
 
-
 // Initializing variables.
 $context         = Timber::get_context();
-$post            = Timber::query_post(false, 'P4_Post');
+/** @var P4_Post $post */
+$post            = Timber::query_post( false, 'P4_Post' );
 $context['post'] = $post;
 
-// Get Post categories.
-$categories       = get_the_category( $post->ID );
-
-// Handle navigation links.
-if ( $categories ) {
-	foreach ( $categories as $category ) {
-		if ( $category && ( $category->name !== $post->post_title ) ) {     // Do not add links inside the Issue page itself.
-			// Get Issue.
-			$issue = get_page_by_title( $category->name );                  // Category and Issue need to have the same name.
-			if ( $issue ) {
-				$context['issues'][] = [
-					'name' => $issue->post_title,
-					'link' => get_permalink( $issue ),
-				];
-			}
-		}
-	}
-}
+// Set Navigation Issues links.
+$post->set_issues_links();
 
 // Get the cmb2 custom fields data
 // Articles block parameters to populate the articles block

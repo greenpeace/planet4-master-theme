@@ -41,28 +41,14 @@ function add_body_classes_for_page( $classes ) {
 }
 add_filter( 'body_class', 'add_body_classes_for_page' );
 
-$context = Timber::get_context();
-$post    = new P4_Post();
-
+$context        = Timber::get_context();
+$post           = new P4_Post();
 $page_meta_data = get_post_meta( $post->ID );
-$categories     = get_the_category( $post->ID );
 
-// Handle navigation links.
-if ( $categories ) {
-	foreach ( $categories as $category ) {
-		if ( $category && ( $category->name !== $post->post_title ) ) {     // Do not add links inside the Issue page itself.
-			// Get Issue.
-			$issue = get_page_by_title( $category->name );                  // Category and Issue need to have the same name.
-			if ( $issue ) {
-				$context['issues'][] = [
-					'name' => $issue->post_title,
-					'link' => get_permalink( $issue ),
-				];
-			}
-		}
-	}
-}
-// Get Campaigns.
+// Set Navigation Issues links.
+$post->set_issues_links();
+
+// Get Navigation Campaigns links.
 $page_tags = wp_get_post_tags( $post->ID );
 $tags      = [];
 

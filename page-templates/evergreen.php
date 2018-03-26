@@ -36,26 +36,10 @@ $context        = Timber::get_context();
 $post           = new P4_Post();
 $page_meta_data = get_post_meta( $post->ID );
 
-// Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
-$options    = get_option( 'planet4_options' );
-$categories = get_the_category( $post->ID );
+// Set Navigation Issues links.
+$post->set_issues_links();
 
-// Handle navigation links.
-if ( $categories ) {
-	foreach ( $categories as $category ) {
-		if ( $category && ( $category->parent === (int) $options['issues_parent_category'] ) ) {     // Add links only for categories that are Issues.
-			// Get Issue.
-			$issue = get_page_by_title( $category->name );                  // Category and Issue need to have the same name.
-			if ( $issue ) {
-				$context['issues'][] = [
-					'name' => $issue->post_title,
-					'link' => get_permalink( $issue ),
-				];
-			}
-		}
-	}
-}
-// Get Campaigns.
+// Get Navigation Campaigns links.
 $page_tags = wp_get_post_tags( $post->ID );
 $tags      = [];
 
@@ -69,7 +53,7 @@ if ( is_array( $page_tags ) && $page_tags ) {
 	$context['campaigns'] = $tags;
 }
 
-$context['page']                = $post;
+$context['post']                = $post;
 $context['header_title']        = is_front_page() ? '' : ( $page_meta_data['p4_title'][0] ?? $post->title );
 $context['header_subtitle']     = $page_meta_data['p4_subtitle'][0] ?? '';
 $context['header_description']  = $page_meta_data['p4_description'][0] ?? '';

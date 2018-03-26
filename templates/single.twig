@@ -17,8 +17,8 @@
 						<a class="tag-item tag-item--main" href="{{ filter_url }}">{{ page_type }}</a>
 					{% endif %}
 
-					{% if ( issues ) %}
-						{% for issue in issues %}
+					{% if ( post.issues_nav_data ) %}
+						{% for issue in post.issues_nav_data %}
 							<a class="tag-item tag-item--main" href="{{ issue.link|default('#') }}">{{ issue.name|e('wp_kses_post')|raw }}</a>
 						{% endfor %}
 					{% endif %}
