@@ -120,6 +120,7 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'wp_kses_allowed_html',     array( $this, 'set_custom_allowed_attributes_filter' ) );
 		add_action( 'add_meta_boxes',           array( $this, 'add_meta_box_search' ) );
 		add_action( 'save_post',                array( $this, 'save_meta_box_search' ), 10, 2 );
+		add_action( 'save_post',                array( $this, 'set_featured_image' ), 10, 3 );
 		add_action( 'after_setup_theme',        array( $this, 'p4_master_theme_setup' ) );
 		add_action( 'admin_menu',               array( $this, 'add_restricted_tags_box' ) );
 		add_action( 'do_meta_boxes',            array( $this, 'remove_default_tags_box' ) );
@@ -144,10 +145,53 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
+	 * Sets as featured image of the post the first image found attached in the post's content (if any).
+	 *
+	 * @param int     $post_id The ID of the current Post.
+	 * @param WP_Post $post The current Post.
+	 * @param bool    $update Whether this is an existing post being updated or not.
+	 */
+	public function set_featured_image( $post_id, $post, $update ) {
+		global $wpdb;
+
+		// Ignore autosave.
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+		// Check user's capabilities.
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+
+		// Check if user has set the featured image manually or if he has removed it.
+		$user_set_featured_image = get_post_meta( $post_id, '_thumbnail_id', true );
+
+		// Apply this behavior to Posts only.
+		if ( 'post' === $post->post_type && ! $user_set_featured_image ) {
+
+			// Find all matches of <img> html tags within the post's content and get the url inside the src attribute.
+			preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches );
+			if ( isset( $matches[1][0] ) ) {
+				$first_img_url = $matches[1][0];
+
+				// Use the attachment's url to find its id.
+				$statement = $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE guid='%s';", $first_img_url );
+				$result    = $wpdb->get_col( $statement );
+
+				if ( isset( $result[0] ) ) {
+					$attachment_id = $result[0];
+					set_post_thumbnail( $post_id, $attachment_id );
+				}
+			}
+		}
+	}
+
+	/**
 	 * Add extra image sizes as needed.
 	 */
 	public function add_image_sizes() {
-		add_image_size( 'retina-large', 2048, 1366, true );
+		add_image_size( 'retina-large', 2048, 1366, false );
+		add_image_size( 'articles-medium-large', 510, 340, false );
 	}
 
 	/**
@@ -333,7 +377,7 @@ class P4_Master_Site extends TimberSite {
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 
 		if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
-			wp_enqueue_script( 'edit_post', $this->theme_dir . '/assets/admin/js/edit_post.js', array( 'jquery' ), '0.0.1', true );
+			wp_enqueue_script( 'edit_post', $this->theme_dir . '/assets/admin/js/edit_post.js', array( 'jquery' ), '0.0.3', true );
 			wp_localize_script( 'edit_post', 'p4_page_type_mapping', planet4_get_option( 'p4-page-types-mapping' ) );
 		} elseif ( 'settings_page_planet4_options' === $hook ) {
 

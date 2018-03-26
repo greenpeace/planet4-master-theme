@@ -147,6 +147,33 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					],
 				],
 
+				[
+					'name'       => __( '404 Background Image', 'planet4-master-theme' ),
+					'id'         => '404_page_bg_image',
+					'type'       => 'file',
+					'options'    => [
+						'url' => false,
+					],
+					'text'       => [
+						'add_upload_file_text' => __( 'Add 404 Page Background Image', 'planet4-master-theme' ),
+					],
+					'query_args' => [
+						'type' => 'image',
+					],
+					'desc'       => __( 'Minimum image width should be 1920px', 'planet4-master-theme' ),
+				],
+
+				[
+					'name'    => __( '404 Page text', 'planet4-master-theme' ),
+					'id'      => '404_page_text',
+					'type'    => 'wysiwyg',
+					'options' => [
+						'textarea_rows' => 3,
+						'media_buttons' => false,
+					],
+					'desc'    => __( 'Add 404 page text', 'planet4-master-theme' ),
+				],
+
 			];
 			$this->hooks();
 		}
