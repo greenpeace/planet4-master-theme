@@ -57,14 +57,7 @@
 
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link rel="pingback" href="{{ site.pingback_url }}">
-	<meta id="dynamic-mvp" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<link rel="shortcut icon" type="image/ico" href="favicon.ico"/>
 	{{ wp_head }}
-	<script>
-		var iOS = /iPhone/.test(navigator.userAgent) && !window.MSStream;
-		if (iOS) {
-			var mvp = document.getElementById('dynamic-mvp');		
-			mvp.setAttribute('content','width=380');
-		}
-	</script>
 </head>
