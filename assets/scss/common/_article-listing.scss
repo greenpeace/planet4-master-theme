@@ -158,32 +158,29 @@
   align-items: center;
   justify-content: center;
 
-  @include small-and-up {
+  img {
+    width: auto;
+  }
 
+  @include small-and-up {
     img {
       max-height: 340px;
-      width: auto;
     }
   }
   @include medium-and-up {
-
     img {
       max-height: 138px;
-      width: auto;
     }
   }
   @include large-and-up {
-
     img {
       max-height: 186px;
-      width: auto;
     }
   }
 
   @include x-large-and-up {
     img {
       max-height: 222px;
-      width: auto;
     }
   }
 }
