@@ -24,7 +24,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 			add_action( 'created_term',                       array( $this, 'trigger_rewrite_rules' ), 10, 3 );
 			add_action( 'edited_term',                        array( $this, 'trigger_rewrite_rules' ), 10, 3 );
 			add_action( 'delete_term',                        array( $this, 'trigger_rewrite_rules' ), 10, 3 );
-			add_action( 'save_post',                          array( $this, 'save_taxonomy_page_type' ) );
+			add_action( 'save_post',                          array( $this, 'save_taxonomy_page_type' ) , 10, 2 );
 			add_filter( 'available_permalink_structure_tags', array( $this, 'add_taxonomy_as_permalink_structure' ), 10, 1 );
 			add_filter( 'post_link',                          array( $this, 'filter_permalink' ), 10, 3 );
 			add_filter( 'post_rewrite_rules',                 array( $this, 'replace_taxonomy_terms_in_rewrite_rules' ), 10, 1 );
@@ -204,7 +204,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		 *
 		 * @param int $post_id Id of the saved post.
 		 */
-		public function save_taxonomy_page_type( $post_id ) {
+		public function save_taxonomy_page_type( $post_id, $post ) {
 
 			// Ignore autosave.
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -216,42 +216,45 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 				return;
 			}
 
-			// Get planet4 page types to categories mapping.
-			$categories         = null;
-			$categories_mapping = planet4_get_option( 'p4-page-types-mapping' );
-			$categories_mapping = json_decode( $categories_mapping );
+			// Check if post type is POST.
+			if ( 'post' === $post->post_type ) {
+				// Get planet4 page types to categories mapping.
+				$categories         = null;
+				$categories_mapping = planet4_get_option( 'p4-page-types-mapping' );
+				$categories_mapping = json_decode( $categories_mapping );
 
-			// Get assigned categories.
-			if ( isset( $_POST['post_category'] ) && is_array( $_POST['post_category'] ) ) {
-				$categories = array_map( 'esc_attr', $_POST['post_category'] );
-			}
+				// Get assigned categories.
+				if ( isset( $_POST['post_category'] ) && is_array( $_POST['post_category'] ) ) {
+					$categories = array_map( 'esc_attr', $_POST['post_category'] );
+				}
 
-			if ( ! is_null( $categories ) && null !== $categories_mapping && is_array( $categories_mapping ) ) {
+				if ( ! is_null( $categories ) && null !== $categories_mapping && is_array( $categories_mapping ) ) {
 
-				$categories = $_POST['post_category'];
+					$categories = $_POST['post_category'];
 
-				foreach ( $categories as $category_id ) {
-					foreach ( $categories_mapping as $category_map ) {
-						if ( ! isset( $category_map->category_id ) || ! isset( $category_map->p4_page_type_slug ) ) {
-							continue;
-						}
-						if ( intval( $category_id ) === $category_map->category_id ) {
-							// Save post type.
-							wp_set_post_terms( $post_id, sanitize_text_field( $category_map->p4_page_type_slug ), self::TAXONOMY );
-							break 2;
+					foreach ( $categories as $category_id ) {
+						foreach ( $categories_mapping as $category_map ) {
+							if ( ! isset( $category_map->category_id ) || ! isset( $category_map->p4_page_type_slug ) ) {
+								continue;
+							}
+							if ( intval( $category_id ) === $category_map->category_id ) {
+								// Save post type.
+								wp_set_post_terms( $post_id, sanitize_text_field( $category_map->p4_page_type_slug ), self::TAXONOMY );
+								break 2;
+							}
 						}
 					}
 				}
-			}
 
-			// Check if post has an assigned term to it.
-			$terms = wp_get_object_terms( $post_id, self::TAXONOMY );
-			if ( ! is_wp_error( $terms ) && empty( $terms ) ) {
+				// Check if post has an assigned term to it.
+				$terms = wp_get_object_terms( $post_id, self::TAXONOMY );
+				if ( ! is_wp_error( $terms ) && empty( $terms ) ) {
 
-				// Assign taxonomy's first term, if no term is assigned to post.
-				$all_terms = $this->get_terms();
-				if ( ! is_wp_error( $all_terms ) && ! empty( $all_terms ) && is_object( $all_terms[0] ) ) {
-					wp_set_post_terms( $post_id, $all_terms[0]->slug, self::TAXONOMY );
+					// Assign taxonomy's first term, if no term is assigned to post.
+					$all_terms = $this->get_terms();
+					if ( ! is_wp_error( $all_terms ) && ! empty( $all_terms ) && is_object( $all_terms[0] ) ) {
+						wp_set_post_terms( $post_id, $all_terms[0]->slug, self::TAXONOMY );
+					}
 				}
 			}
 		}
