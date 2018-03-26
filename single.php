@@ -97,8 +97,8 @@ $comments_args = [
 	),
 ];
 
-$context['comments_args'] = $comments_args;
-
+$context['comments_args']       = $comments_args;
+$context['post_comments_count'] = wp_count_comments( $post->ID )->approved;
 
 if ( post_password_required( $post->ID ) ) {
 	Timber::render( 'single-password.twig', $context );
