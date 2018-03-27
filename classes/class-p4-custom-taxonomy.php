@@ -218,6 +218,16 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 				return;
 			}
 
+			// Allow p4-page-type to be set from edit post and quick edit pages.
+			// Make sure there's input.
+			if ( isset( $_POST['p4-page-type'] ) && 'post' === $post->post_type ) { // Input var okay.
+				$selected = get_term_by( 'slug', sanitize_text_field( wp_unslash( $_POST['p4-page-type'] ) ), 'p4-page-type' ); // Input var okay.
+				if ( false !== $selected && ! is_wp_error( $selected ) ) {
+					// Save post type.
+					wp_set_post_terms( $post_id, sanitize_text_field( $selected->slug ), 'p4-page-type' );
+				}
+			}
+
 			// Check if post type is POST.
 			if ( 'post' === $post->post_type ) {
 
