@@ -33,11 +33,15 @@ $(function() {
   $search_form.on( 'submit', function() {
     if ( 0 === $('.filter-modal.show').length ) {
       $( 'input[name^="f["]:not(.modal-checkbox):checked' ).each( function() {
-        $search_form.append( $( this ).clone( true ) );
+        var $checkbox = $( this ).clone( true );
+        $checkbox.css('display', 'none');
+        $search_form.append( $checkbox );
       } );
     } else {
       $( 'input[name^="f["].modal-checkbox:checked').each( function() {
-        $search_form.append( $( this ).clone( true ) );
+        var $checkbox = $( this ).clone( true );
+        $checkbox.css('display', 'none');
+        $search_form.append( $checkbox );
       } );
     }
   });
