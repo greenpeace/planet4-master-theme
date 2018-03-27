@@ -203,7 +203,8 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		 * Add first term of the taxonomy to the post if the post has not any taxonomy's terms assigned to it.
 		 * Assign only the first term, if more than one terms are assigned to the post.
 		 *
-		 * @param int $post_id Id of the saved post.
+		 * @param int     $post_id Id of the saved post.
+		 * @param WP_Post $post    Post object.
 		 */
 		public function save_taxonomy_page_type( $post_id, $post ) {
 
