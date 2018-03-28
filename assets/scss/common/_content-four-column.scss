@@ -20,6 +20,7 @@
       position: relative;
       margin: 0 0 24px 0;
       box-shadow: 0 5px 20px 0 rgba(114, 114, 114, 0.5);
+      max-width: 130px;
 
       @include small-and-up {
         margin: 20px 0;
@@ -27,10 +28,15 @@
 
       @include medium-and-up {
         margin: 0 0 20px 0;
+        max-width: 210px;
       }
 
       @include large-and-up {
         margin: 0 0 20px 0;
+      }
+
+      @include x-large-and-up {
+        max-width: 255px;
       }
 
       img {
