@@ -68,9 +68,9 @@ $(document).ready(function () {
     }
   });
 
-  $("#comments-link").click(function() {
+  $('#comments-link').click(function() {
     $('html, body').animate({
-        scrollTop: $(".page-section-header").offset().top
+      scrollTop: $('.page-section-header').offset().top
     }, 2000);
   });
 });
