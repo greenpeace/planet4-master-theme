@@ -27,24 +27,34 @@ function slickify(element) {
 }
 
 $(document).ready(function () {
-  // Add click event for load more button in Content Four Column block.
-  $( '.btn-load-more-posts-click' ).off( 'click' ).on( 'click', function () {
-    var $row = $( '.row-hidden', $( this ).closest( '.container' ) );
+  // Block: Content Four Column functionality.
+  // Find out how many posts per row are being displayed.
+  $('.four-column-content').each( function() {
+    var visible_posts = $('.post-column:visible', $(this)).length;
 
-    if ( 1 === $row.size() ) {
-      $( this ).closest( '.load-more-posts-button-div' ).hide('fast');
+    if ( 0 === visible_posts % 4 ) {
+	  $(this).attr('data-posts_per_row', 4);
+	} else if ( 0 === visible_posts % 3 ) {
+      $(this).attr('data-posts_per_row', 3);
+	}
+  });
+
+  // Add click event for load more button in Covers blocks.
+  $('.btn-load-more-posts-click').off('click').on('click', function () {
+    var $row = $('.post-column:hidden', $(this).closest('.container'));
+    var posts_per_row = $(this).closest('.four-column-content').data('posts_per_row');
+
+    $(this).blur();
+    if ($row.length > 0) {
+      $row.slice( 0, posts_per_row ).show('slow');
     }
-
-    var row_id = $row.attr( 'id' );
-    if ( row_id !== undefined && row_id.indexOf( 'publications-row' ) !== -1 ) {
-      $row.first().removeClass( 'row-hidden' ).show( 'slow', function () {
-        slickify( '#' + row_id );
-      });
-    } else {
-      $row.first().show( 'fast' ).removeClass( 'row-hidden' );
+    if ( $row.length <= posts_per_row ) {
+      $(this).closest('.load-more-posts-button-div').hide('fast');
     }
   });
 
+  // Block: Covers functionality.
+  // Find out how many posts per row are being displayed.
   $('.covers-block').each( function() {
     var visible_covers = $('.cover-card-column:visible', $(this)).length;
     if ( 0 === visible_covers % 3 ) {
