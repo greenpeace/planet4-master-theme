@@ -45,6 +45,12 @@ class P4_TestCase extends WP_UnitTestCase {
 	 */
 	function initialize_planet4_data() {
 
+		// Create a user with editor role.
+		$this->factory->user->create( [
+			'role'       => 'editor',
+			'user_login' => 'p4_editor'
+		] );
+
 		// Create Act & Explore pages
 		// Accepts the same arguments as wp_insert_post.
 		$act_page_id = $this->factory->post->create( [

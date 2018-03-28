@@ -375,30 +375,6 @@ class P4_Master_Site extends TimberSite {
 	public function enqueue_admin_assets( $hook ) {
 		// Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
-
-		if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
-			wp_enqueue_script( 'edit_post', $this->theme_dir . '/assets/admin/js/edit_post.js', array( 'jquery' ), '0.0.3', true );
-			wp_localize_script( 'edit_post', 'p4_page_type_mapping', planet4_get_option( 'p4-page-types-mapping' ) );
-		} elseif ( 'settings_page_planet4_options' === $hook ) {
-
-			// Get planet4 page types.
-			$terms = get_terms( [
-				'taxonomy'   => 'p4-page-type',
-				'hide_empty' => false,
-				'fields'     => 'all',
-			] );
-
-			// Get categories.
-			$categories = get_terms( [
-				'taxonomy'   => 'category',
-				'hide_empty' => false,
-				'fields'     => 'all',
-			] );
-
-			wp_enqueue_script( 'planet4_settings', $this->theme_dir . '/assets/admin/js/planet4_settings.js', array( 'jquery' ), '0.0.1', true );
-			wp_localize_script( 'planet4_settings', 'p4_page_types', $terms );
-			wp_localize_script( 'planet4_settings', 'categories', $categories );
-		}
 	}
 
 	/**
