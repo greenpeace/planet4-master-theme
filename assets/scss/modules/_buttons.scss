@@ -56,9 +56,8 @@ Stylesheet: Button Styles
  */
 
 .btn-primary {
-  background-color: $dark-orange;
+  background-color: $orange;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-  color: $black;
 
   &:hover,
   &:focus {
@@ -69,7 +68,6 @@ Stylesheet: Button Styles
   &:active {
     background-color: $dark-copper;
     border-color: $dark-copper;
-    color: $white;
   }
 }
 
