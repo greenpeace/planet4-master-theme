@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-01 12:52+0200\n"
-"PO-Revision-Date: 2018-03-28 06:26+0000\n"
+"PO-Revision-Date: 2018-03-28 06:25+0000\n"
 "Last-Translator: Konstantinos Kokkorogiannis <kkokkoro@greenpeace.org>\n"
 "Language-Team: Greek\n"
 "Language: el\n"
@@ -39,7 +39,7 @@ msgstr ""
 
 #: classes/class-p4-control-panel.php:53
 msgid "Cache"
-msgstr "Προσωρινή μνήμη (Cache)"
+msgstr ""
 
 #: classes/class-p4-control-panel.php:56
 msgid "Flush Object Cache"
@@ -385,7 +385,7 @@ msgstr ""
 
 #: functions.php:745
 msgid "Background overide"
-msgstr "Διαφορετικό background"
+msgstr ""
 
 #: functions.php:746
 msgid "Upload an image"

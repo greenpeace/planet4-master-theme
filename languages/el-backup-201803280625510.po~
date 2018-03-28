@@ -39,7 +39,7 @@ msgstr ""
 
 #: classes/class-p4-control-panel.php:53
 msgid "Cache"
-msgstr "Προσωρινή μνήμη (Cache)"
+msgstr ""
 
 #: classes/class-p4-control-panel.php:56
 msgid "Flush Object Cache"
