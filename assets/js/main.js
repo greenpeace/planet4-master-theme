@@ -67,10 +67,4 @@ $(document).ready(function () {
       $(this).closest('.load-more-covers-button-div').hide('fast');
     }
   });
-
-  $('#comments-link').click(function() {
-    $('html, body').animate({
-      scrollTop: $('.page-section-header').offset().top
-    }, 2000);
-  });
 });
