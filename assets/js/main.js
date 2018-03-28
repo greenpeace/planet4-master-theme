@@ -28,11 +28,11 @@ function slickify(element) {
 
 $(document).ready(function () {
   // Add click event for load more button in Content Four Column block.
-  $( '.btn-load-more-click' ).off( 'click' ).on( 'click', function () {
+  $( '.btn-load-more-posts-click' ).off( 'click' ).on( 'click', function () {
     var $row = $( '.row-hidden', $( this ).closest( '.container' ) );
 
     if ( 1 === $row.size() ) {
-      $( this ).closest( '.load-more-button-div' ).hide('fast');
+      $( this ).closest( '.load-more-posts-button-div' ).hide('fast');
     }
 
     var row_id = $row.attr( 'id' );
