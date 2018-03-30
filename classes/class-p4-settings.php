@@ -174,6 +174,12 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'desc'    => __( 'Add 404 page text', 'planet4-master-theme' ),
 				],
 
+				[
+					'name'    => __( 'Default p4-pagetype', 'planet4-master-theme' ),
+					'id'      => 'default_p4_pagetype',
+					'type'    => 'pagetype_select_taxonomy',
+				],
+
 			];
 			$this->hooks();
 		}
@@ -187,6 +193,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 			add_filter( 'cmb2_render_act_page_dropdown', [ $this, 'p4_render_act_page_dropdown' ], 10, 2 );
 			add_filter( 'cmb2_render_explore_page_dropdown', [ $this, 'p4_render_explore_page_dropdown' ], 10, 2 );
 			add_filter( 'cmb2_render_category_select_taxonomy', [ $this, 'p4_render_category_dropdown' ], 10, 2 );
+			add_filter( 'cmb2_render_pagetype_select_taxonomy', [ $this, 'p4_render_pagetype_dropdown' ], 10, 2 );
 		}
 
 		/**
@@ -243,6 +250,25 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'orderby'          => 'name',
 					'selected'         => $value ,
 					'name'             => 'issues_parent_category',
+				]
+			);
+		}
+
+		/**
+		 * Render p4-pagetype dropdown.
+		 *
+		 * @param  CMB2_Field $field_args CMB2 field Object
+		 * @param  int  $value Pagetype taxonomy ID
+		 */
+		public function p4_render_pagetype_dropdown( $field_args, $value ) {
+
+			wp_dropdown_categories( [
+					'show_option_none' => __( 'Select Pagetype', 'planet4-master-theme' ),
+					'hide_empty'       => 0,
+					'orderby'          => 'name',
+					'selected'         => $value ,
+					'name'             => 'default_p4_pagetype',
+					'taxonomy'         => 'p4-page-type',
 				]
 			);
 		}

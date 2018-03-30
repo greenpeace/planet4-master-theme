@@ -53,6 +53,11 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 			$attached_type = get_the_terms( $post, self::TAXONOMY );
 			$current_type  = ( is_array( $attached_type ) ) ? $attached_type[0]->slug : - 1;
 			$all_types = $this->get_terms();
+			if ( -1 === $current_type ) {
+				// Assign default p4-pagetype for new POST.
+				$default_p4_pagetype = $this->get_default_p4_pagetype();
+				$current_type = $default_p4_pagetype->slug;
+			}
 
 			wp_nonce_field( 'p4-save-page-type', 'p4-page-type-nonce' );
 			?>
@@ -112,6 +117,26 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 				'hide_empty' => false,
 				'taxonomy'   => self::TAXONOMY,
 			] );
+		}
+
+		/**
+		 * Get default P4 pagetype.
+		 *
+		 * @return WP_term|int|WP_Error
+		 */
+		public function get_default_p4_pagetype() {
+			$options             = get_option( 'planet4_options' );
+			$default_p4_pagetype = $options['default_p4_pagetype'] ?? 0;
+
+			if ( 0 === $default_p4_pagetype ) {
+				// If default p4-pagetype setting not found, use taxonomy's first term.
+				$all_terms           = $this->get_terms();
+				$default_p4_pagetype = $all_terms[0] ?? 0;
+			} else {
+				$default_p4_pagetype = get_term( $default_p4_pagetype, self::TAXONOMY );
+			}
+
+			return $default_p4_pagetype;
 		}
 
 		/**
@@ -235,12 +260,12 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 				$terms = wp_get_object_terms( $post_id, self::TAXONOMY );
 				if ( ! is_wp_error( $terms ) ) {
 
-					$all_terms = $this->get_terms();
+					$default_p4_pagetype = $this->get_default_p4_pagetype();
 
-					// Assign taxonomy's first term, if no term is assigned to post.
+					// Assign default p4-pagetype, if no term is assigned to post.
 					if ( empty( $terms ) ) {
-						if ( ! is_wp_error( $all_terms ) && ! empty( $all_terms ) && is_object( $all_terms[0] ) ) {
-							wp_set_post_terms( $post_id, $all_terms[0]->slug, self::TAXONOMY );
+						if ( ! is_wp_error( $all_terms ) && ! empty( $all_terms ) && is_object( $default_p4_pagetype ) ) {
+							wp_set_post_terms( $post_id, $default_p4_pagetype->slug, self::TAXONOMY );
 						}
 					} elseif ( count( $terms ) > 1 ) { // Assign the first term, if more than one terms are assigned.
 						if ( ! is_wp_error( $terms ) && is_object( $terms[0] ) ) {
