@@ -4,14 +4,11 @@
 	<div class="skewed-overlay"></div>
 	<div class="page-header">
 		<div class="page-header-background">
-			<img src="{{ page_notfound_image }}" class="page-header-image" />
+			<img src="{{ page_notfound_image }}" class="page-header-image img-fluid" />
 		</div>
 		<div class="container">
 			<div class="speech-bubble">
-				<h2>{{ page_notfound_title }}</h2>
-				<h3 style="font-weight: normal;">{{ page_notfound_subheader }}</h3>
-				<br>
-				<p>{{ page_notfound_description }}</p>
+				{{ page_notfound_text|raw }}
 			</div>
 			<div class="row">
 				<div class="col-md-4">

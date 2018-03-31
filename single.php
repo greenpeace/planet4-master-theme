@@ -23,12 +23,14 @@ function add_body_classes_for_post( $classes ) {
 }
 add_filter( 'body_class', 'add_body_classes_for_post' );
 
-
 // Initializing variables.
 $context         = Timber::get_context();
-$post            = Timber::query_post(false, 'P4_Post');
+/** @var P4_Post $post */
+$post            = Timber::query_post( false, 'P4_Post' );
 $context['post'] = $post;
 
+// Set Navigation Issues links.
+$post->set_issues_links();
 
 // Get the cmb2 custom fields data
 // Articles block parameters to populate the articles block
@@ -79,8 +81,9 @@ $comments_args = [
 	),
 ];
 
-$context['comments_args'] = $comments_args;
-
+$context['comments_args']       = $comments_args;
+$context['show_comments']       = comments_open( $post->ID );
+$context['post_comments_count'] = wp_count_comments( $post->ID )->approved;
 
 if ( post_password_required( $post->ID ) ) {
 	Timber::render( 'single-password.twig', $context );

@@ -4,7 +4,7 @@ Theme URI: https://github.com/greenpeace/planet4-master-theme
 Description: Master theme for the Planet 4 Wordpress project
 Author: Greenpeace International
 Author URI: https://github.com/greenpeace
-Version: 0.2.43
+Version: 1.1
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: light, accessibility-ready
@@ -122,9 +122,13 @@ Text Domain: planet4-master-theme
  *
 */
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   color: $dark-shade-black;
-  overflow-x: hidden;
   font-family: $roboto;
   position: relative;
 
