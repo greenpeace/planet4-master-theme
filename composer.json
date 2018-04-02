@@ -1,0 +1,29 @@
+{
+  "name": "greenpeace/planet4-plugin-medialibrary",
+  "description": "This repository contains the wordpress plugin that connects Planet 4 with the Media Library platform.",
+  "type": "wordpress-plugin",
+  "version": "0.1.0",
+  "license": "GPL-3",
+  "authors": [
+    {
+      "name": "Greenpeace International",
+      "email": "planet4-group@greenpeace.org"
+    }
+  ],
+  "require-dev": {
+    "squizlabs/php_codesniffer": "2.9.*",
+    "wp-coding-standards/wpcs": "0.13.*",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.4.0",
+    "frenck/php-compatibility": "^7.1"
+  },
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "P4ML\\": "classes/",
+      "P4ML\\Controllers\\": "classes/controller/",
+      "P4ML\\Controllers\\Menu\\": "classes/controller/menu",
+      "P4ML\\Models\\": "classes/model/",
+      "P4ML\\Views\\": "classes/view/"
+    }
+  }
+}

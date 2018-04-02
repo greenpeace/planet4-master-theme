@@ -1,0 +1,4 @@
+*.log
+.idea
+vendor
+\.DS_Store
