@@ -33,7 +33,7 @@
     position: absolute;
     height: 500px;
     width: 100%;
-    object-fit: none;
+    object-fit: fill;
   }
 
   form {
@@ -169,8 +169,13 @@
     p {
       text-align: left;
     }
+
+    img {
+      object-fit: none;
+    }
   }
 }
+
 @include x-large-and-up {
   .happy-point-block-wrap {
     height: 620px;
