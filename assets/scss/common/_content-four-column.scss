@@ -127,10 +127,6 @@
 // L & XL with show-all-covers class should show all covers
 // remove limit visibility class on load more button click
 .show-1-row .limit-visibility {
-  .post-column:nth-child(n+4) {
-    display: none;
-  }
-
   @include large-and-up {
     .post-column:nth-child(-n+5) {
       display: block;
@@ -143,10 +139,6 @@
 }
 
 .show-2-rows .limit-visibility {
-  .post-column:nth-child(n+7) {
-    display: none;
-  }
-
   @include large-and-up {
     .post-column:nth-child(-n+9) {
       display: block;
