@@ -264,7 +264,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 
 					// Assign default p4-pagetype, if no term is assigned to post.
 					if ( empty( $terms ) ) {
-						if ( ! is_wp_error( $all_terms ) && ! empty( $all_terms ) && is_object( $default_p4_pagetype ) ) {
+						if ( is_object( $default_p4_pagetype ) ) {
 							wp_set_post_terms( $post_id, $default_p4_pagetype->slug, self::TAXONOMY );
 						}
 					} elseif ( count( $terms ) > 1 ) { // Assign the first term, if more than one terms are assigned.
