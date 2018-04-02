@@ -7,10 +7,10 @@ $(document).ready(function () {
     var visible_posts = $('.post-column:visible', $(this)).length;
 
     if ( 0 === visible_posts % 4 ) {
-	  $(this).attr('data-posts_per_row', 4);
-	} else if ( 0 === visible_posts % 3 ) {
+      $(this).attr('data-posts_per_row', 4);
+    } else if ( 0 === visible_posts % 3 ) {
       $(this).attr('data-posts_per_row', 3);
-	}
+    }
   });
 
   // Add click event for load more button in Covers blocks.
