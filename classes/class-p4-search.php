@@ -137,26 +137,28 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					$search_async->current_page = $paged;
 
 					parse_str( $query_string, $filters_array );
-					$selected_sort    = $filters_array[ 'orderby' ];
-					$selected_filters = $filters_array[ 'f' ];
-					$filters          = [];
+					$selected_sort     = $filters_array['orderby'];
+					$selected_filters  = $filters_array['f'];
+					$is_elastic_search = $filters_array['es'];
+					$filters           = [];
 
 					// Handle submitted filter options.
 					if ( $selected_filters && is_array( $selected_filters ) ) {
-					    foreach ( $selected_filters as $type => $filter_type ) {
-					        foreach ( $filter_type as $name => $id ) {
-					            $filters[ $type ][] = [
-					                'id'   => $id,
-					                'name' => $name,
-					            ];
-					        }
-					    }
+						foreach ( $selected_filters as $type => $filter_type ) {
+							foreach ( $filter_type as $name => $id ) {
+								$filters[ $type ][] = [
+									'id'   => $id,
+									'name' => $name,
+								];
+							}
+						}
 					}
 
 					// Validate user input (sort, filters, etc).
 					if ( $search_async->validate( $selected_sort, $filters, $search_async->context ) ) {
-					    $search_async->selected_sort = $selected_sort;
-					    $search_async->filters       = $filters;
+						$search_async->selected_sort     = $selected_sort;
+						$search_async->filters           = $filters;
+						$search_async->is_elastic_search = $is_elastic_search;
 					}
 
 					// TODO - Set the correct filters so that it will work when searching for specific term with filters applied.
