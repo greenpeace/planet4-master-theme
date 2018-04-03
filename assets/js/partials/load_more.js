@@ -1,14 +1,12 @@
-$ = jQuery; //eslint-disable-line no-global-assign
-
 $(document).ready(function () {
   // Block: Content Four Column functionality.
   // Find out how many posts per row are being displayed.
   $('.four-column-content').each( function() {
     var visible_posts = $('.post-column:visible', $(this)).length;
 
-    if ( 0 === visible_posts % 4 ) {
+    if (0 === visible_posts % 4) {
       $(this).attr('data-posts_per_row', 4);
-    } else if ( 0 === visible_posts % 3 ) {
+    } else if (0 === visible_posts % 3) {
       $(this).attr('data-posts_per_row', 3);
     }
   });
@@ -22,7 +20,7 @@ $(document).ready(function () {
     if ($row.length > 0) {
       $row.slice( 0, posts_per_row ).show('slow');
     }
-    if ( $row.length <= posts_per_row ) {
+    if ($row.length <= posts_per_row) {
       $(this).closest('.load-more-posts-button-div').hide('fast');
     }
   });
@@ -31,9 +29,9 @@ $(document).ready(function () {
   // Find out how many posts per row are being displayed.
   $('.covers-block').each( function() {
     var visible_covers = $('.cover-card-column:visible', $(this)).length;
-    if ( 0 === visible_covers % 3 ) {
+    if (0 === visible_covers % 3) {
       $(this).attr('data-covers_per_row', 3);
-    } else if ( 0 === visible_covers % 2 ) {
+    } else if (0 === visible_covers % 2) {
       $(this).attr('data-covers_per_row', 2);
     }
   });
@@ -47,7 +45,7 @@ $(document).ready(function () {
     if ($row.length > 0) {
       $row.slice( 0, covers_per_row ).show('slow');
     }
-    if ( $row.length <= covers_per_row ) {
+    if ($row.length <= covers_per_row) {
       $(this).closest('.load-more-covers-button-div').hide('fast');
     }
   });
