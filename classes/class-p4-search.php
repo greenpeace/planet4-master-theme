@@ -35,6 +35,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		protected $selected_sort;
 		/** @var array $filters */
 		protected $filters;
+		/** @var boolean $is_elastic_search */
+		protected $is_elastic_search;
 		/** @var array $localizations */
 		protected $localizations;
 		/** @var array $templates */
@@ -68,13 +70,15 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * @param string     $search_query The searched term.
 		 * @param string     $selected_sort The selected order_by.
 		 * @param array      $filters The selected filters.
+		 * @param boolean    $is_elastic_search True if we are using Elasticsearch or false if we are using SearchWP.
 		 * @param array      $templates An indexed array with template file names. The first to be found will be used.
 		 * @param array|null $context An associative array with all the context needed to render the template found first.
 		 */
-		public function load( $search_query, $selected_sort = self::DEFAULT_SORT, $filters = [], $templates = [ 'search.twig', 'archive.twig', 'index.twig' ], $context = null ) {
+		public function load( $search_query, $selected_sort = self::DEFAULT_SORT, $filters = [], $is_elastic_search = false, $templates = [ 'search.twig', 'archive.twig', 'index.twig' ], $context = null ) {
 			$this->initialize();
-			$this->search_query = $search_query;
-			$this->templates    = $templates;
+			$this->search_query      = $search_query;
+			$this->is_elastic_search = $is_elastic_search;
+			$this->templates         = $templates;
 
 			if ( $context ) {
 				$this->context = $context;
@@ -206,7 +210,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		protected function get_timber_posts( $paged = 1 ) : array {
 			$timber_posts = [];
 
-			if ( $this->search_query && ! $this->filters ) {
+			if ( $this->search_query && ! $this->filters && false === $this->is_elastic_search ) {
 				/*
 				 * With no args passed to this call, Timber uses the main query which we filter for customisations via P4_Master_Site class.
 				 * When customising this query, use filters on the main query to avoid bypassing SearchWP's handling of the query.
@@ -323,38 +327,48 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				}
 			}
 
-			/*
-			 * 1. Pass params for SWP_Query and get posts.
-			 * 2. If more params that are not supported by SWP_Query like post_parent, post_parent__not_in,
-			 *    tag__and, category__and, are required then pass them to WP_Query and get posts.
-			 * 3. Get the respective Timber Posts, so that we can use Timber functionality in our search template.
-			 */
-			if ( $this->search_query ) {
-				$posts = ( new SWP_Query( $args ) )->posts;
-			}
-
-			// This happens when we search for everything or when filtering for attachments, since WP_Query does not support searching within rich text documents.
-			if ( ! $this->search_query || ( isset( $args['post_type'] ) && 'attachment' !== $args['post_type'] ) ) {
-				if ( $posts ) {
-					$ids = [];
-					foreach ( $posts as $post ) {
-						$ids[] = $post->ID;
-					}
-					$args['post__in'] = $ids;
-					// If posts were found by SearchWP and we sort by relevance then keep
-					// the order that they were found with by SearchWP.
-					if ( self::DEFAULT_SORT === $this->selected_sort ) {
-						$args['orderby'] = 'post__in';
-					}
+			if ( false === $this->is_elastic_search ) {
+				/*
+				 * 1. Pass params for SWP_Query and get posts.
+				 * 2. If more params that are not supported by SWP_Query like post_parent, post_parent__not_in,
+				 *    tag__and, category__and, are required then pass them to WP_Query and get posts.
+				 * 3. Get the respective Timber Posts, so that we can use Timber functionality in our search template.
+				 */
+				if ( $this->search_query ) {
+					$posts = ( new SWP_Query( $args ) )->posts;
 				}
 
-				// Get the stem of the word and use it instead of the original word,
-				// because WP_Query does not automatically use the stem of the word.
-				$stem = $this->get_stem( $this->search_query );
-				if ( $stem ) {
-					$args['s'] = $stem;
-				}
+				// This happens when we search for everything or when filtering for attachments, since WP_Query does not support searching within rich text documents.
+				if ( ! $this->search_query || ( isset( $args['post_type'] ) && 'attachment' !== $args['post_type'] ) ) {
+					if ( $posts ) {
+						$ids = [];
+						foreach ( $posts as $post ) {
+							$ids[] = $post->ID;
+						}
+						$args['post__in'] = $ids;
+						// If posts were found by SearchWP and we sort by relevance then keep
+						// the order that they were found with by SearchWP.
+						if ( self::DEFAULT_SORT === $this->selected_sort ) {
+							$args['orderby'] = 'post__in';
+						}
+					}
 
+					// Get the stem of the word and use it instead of the original word,
+					// because WP_Query does not automatically use the stem of the word.
+					$stem = $this->get_stem( $this->search_query );
+					if ( $stem ) {
+						$args['s'] = $stem;
+					}
+
+					$posts = ( new WP_Query( $args ) )->posts;
+				}
+			} else {
+				$args['s']            = $this->search_query;
+				$args['ep_integrate'] = true;
+
+//				echo '<pre>';
+//				print_r($args);
+//				echo '</pre>';
 				$posts = ( new WP_Query( $args ) )->posts;
 			}
 
