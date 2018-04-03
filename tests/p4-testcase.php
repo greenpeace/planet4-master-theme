@@ -102,7 +102,7 @@ class P4_TestCase extends WP_UnitTestCase {
 		$term_id = $this->factory->term->create( [
 			'name'     => 'Press Release',
 			'taxonomy' => 'p4-page-type',
-			'slug'     => 'press-release',
+			'slug'     => 'press-release-t',
 		] );
 	}
 

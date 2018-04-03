@@ -1,12 +1,3 @@
-// Mixins because extending is not possible inside media queries
-@mixin happy-point-block-background-image {
-  background: url("images/happy-point-block-bg.jpg") center center no-repeat;
-  background-size: cover;
-  height: 620px;
-  width: 100vw;
-  position: relative;
-}
-
 .happy-point-block-wrap {
   @include background-before-opacity($light-blue-bg);
   margin: 0 -120px 0 -100px;
@@ -42,7 +33,7 @@
     position: absolute;
     height: 500px;
     width: 100%;
-    object-fit: none;
+    object-fit: fill;
   }
 
   form {
@@ -178,11 +169,18 @@
     p {
       text-align: left;
     }
+
+    img {
+      object-fit: none;
+    }
   }
 }
+
 @include x-large-and-up {
   .happy-point-block-wrap {
-    @include happy-point-block-background-image;
+    height: 620px;
+    width: 100vw;
+    position: relative;
     @include background-before-opacity($light-blue-bg);
 
     .pt-20 {

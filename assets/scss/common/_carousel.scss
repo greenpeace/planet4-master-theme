@@ -29,10 +29,6 @@
   }
 
   .carousel-item {
-    @include mobile-only {
-      margin-bottom: 80px;
-    }
-
     .carousal-item-credit {
       position: absolute;
       right: 0;
@@ -72,12 +68,10 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#0A3351', endColorstr='#0A3351' ,GradientType=0)";
 
     @include mobile-only {
-      position: absolute;
+      position: relative;
       z-index: 10;
       padding: 20px 15px 20px;
       color: $white;
-      margin-bottom: -80px;
-      height: 80px;
     }
 
     @include medium-and-up {
@@ -111,6 +105,12 @@
     right: 25%;
     bottom: 80px;
     left: auto;
+
+    @include mobile-only {
+      bottom: 0;
+      right: 0;
+      left: 0;
+    }
 
     @include small-and-up {
       bottom: 30px;
@@ -148,6 +148,13 @@
     top: 0;
     width: 30%;
     z-index: 3;
+
+    @include mobile-only {
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        margin-bottom: 15vw;
+      }
+    }
 
     @include small-and-up {
       width: 50%;
