@@ -46,6 +46,17 @@ $(function() {
     }
   });
 
+  // Perform search on Elasticsearch if user does Right mouse click on the Search buttons.
+  $('.top-nav-search-btn, .search-btn').off('mouseup').on('mouseup', function( event ) {
+    if ( 3 === event.which ) {
+      event.preventDefault();
+	  $search_form.append('<input type="hidden" name="es" value="true" />');
+      $search_form.submit();
+    }
+  }).on('contextmenu', function() {
+    return false;
+  });
+
   // Add filter by clicking on the page type label inside a result item.
   // Delegate event handler to the dynamically created descendant elements.
   $( '.multiple-search-result' ).off( 'click', '.search-result-item-head' ).on( 'click', '.search-result-item-head', function() {
