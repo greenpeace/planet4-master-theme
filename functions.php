@@ -382,7 +382,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function enqueue_public_assets() {
 		$css_creation = filectime(get_template_directory() . '/style.css');
-		$js_creation  = filectime(get_template_directory() . '/assets/js/custom.js');
+		$js_creation  = filectime(get_template_directory() . '/assets/js/main.js');
 
 		// CSS files
 		wp_enqueue_style( 'bootstrap', $this->theme_dir . '/assets/lib/bootstrap/dist/css/bootstrap.min.css', array(), '4.0.0' );
@@ -392,8 +392,7 @@ class P4_Master_Site extends TimberSite {
 		wp_register_script( 'jquery', $this->theme_dir . '/assets/lib/jquery/dist/jquery.min.js', array(), '3.3.1', true );
 		wp_enqueue_script( 'popperjs', $this->theme_dir . '/assets/lib/popper.js/dist/umd/popper.min.js', array(), '1.12.9', true );
 		wp_enqueue_script( 'bootstrapjs', $this->theme_dir . '/assets/lib/bootstrap/dist/js/bootstrap.min.js', array(), '4.0.0', true );
-		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.2.4', true );
-		wp_enqueue_script( 'custom', $this->theme_dir . '/assets/js/custom.js', array( 'jquery' ), $js_creation, true );
+		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), $js_creation, true );
 		wp_enqueue_script( 'slick', $this->theme_dir . '/assets/lib/slick-carousel/slick/slick.min.js', array(), '1.8.1', true );
 		wp_enqueue_script( 'hammer', $this->theme_dir . '/assets/lib/hammerjs/hammer.min.js', array(), '2.0.8', true );
 	}
