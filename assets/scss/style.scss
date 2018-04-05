@@ -27,15 +27,6 @@ Text Domain: planet4-master-theme
 @import "partials/font-icon";
 @import "modules/buttons";
 
-// Customising bootstrap variables
-
-/* This should change later to include just
- * the components that are needed.
- */
-// @import "../../node_modules/bootstrap/scss/bootstrap.scss";
-// @import "../../node_modules/font-awesome/scss/font-awesome";
-@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
-
 // Import Blocks
 @import "common/navbar";
 @import "common/footer";

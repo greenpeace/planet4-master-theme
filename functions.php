@@ -387,6 +387,7 @@ class P4_Master_Site extends TimberSite {
 		// CSS files
 		wp_enqueue_style( 'bootstrap', $this->theme_dir . '/assets/lib/bootstrap/dist/css/bootstrap.min.css', array(), '4.0.0' );
 		wp_enqueue_style( 'slick', $this->theme_dir . '/assets/lib/slick-carousel/slick/slick.css', array(), '1.8.1' );
+		wp_enqueue_style( 'font-awesome', $this->theme_dir . '/assets/lib/font-awesome/css/font-awesome.min.css', array(), '4.7.0' );
 		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], $css_creation );
 		// JS files
 		wp_register_script( 'jquery', $this->theme_dir . '/assets/lib/jquery/dist/jquery.min.js', array(), '3.3.1', true );
