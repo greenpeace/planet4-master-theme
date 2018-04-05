@@ -10,5 +10,8 @@ $(document).ready(function() {
     if (pubSlidesNum > 3 && $(window).width() < 992) {
       slickify('.publications-slider');
     }
+    if (pubSlidesNum < 4 && $(window).width() > 992) {
+      $('.post-column').removeClass('col-lg-3').removeClass('col-md-4').addClass('col-md');
+    }
   });
 });
