@@ -6,11 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'PHPCompatibility\\' => array($vendorDir . '/frenck/php-compatibility/PHPCompatibility'),
-    'P4ML\\Views\\' => array($baseDir . '/classes/view'),
-    'P4ML\\Models\\' => array($baseDir . '/classes/model'),
     'P4ML\\Controllers\\Menu\\' => array($baseDir . '/classes/controller/menu'),
     'P4ML\\Controllers\\' => array($baseDir . '/classes/controller'),
     'P4ML\\' => array($baseDir . '/classes'),
-    'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => array($vendorDir . '/dealerdirect/phpcodesniffer-composer-installer/src'),
 );
