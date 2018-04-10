@@ -3,7 +3,7 @@
   "description": "This repository contains the wordpress plugin that connects Planet 4 with the Media Library platform.",
   "type": "wordpress-plugin",
   "version": "0.1.0",
-  "license": "GPL-3",
+  "license": "GPL-3.0+",
   "authors": [
     {
       "name": "Greenpeace International",
