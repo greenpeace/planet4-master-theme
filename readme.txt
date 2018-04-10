@@ -22,4 +22,4 @@ Connects Planet4 with the Media Library platform.
 == Changelog ==
 
 = 0.1.0 =
-- Initial Revision
+- Initial Revision 
