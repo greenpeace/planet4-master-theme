@@ -94,10 +94,10 @@
     }
   }
 
+  ::placeholder,
   ::-webkit-input-placeholder,
-  ::-moz-placeholder,
   :-ms-input-placeholder,
-  :-moz-placeholder {
-    color: $grey-40;
+  ::-ms-input-placeholder {
+    color: $dark-shade-black;
   }
 }
