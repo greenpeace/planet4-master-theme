@@ -2,20 +2,14 @@
 
 namespace P4ML\Controllers\Menu;
 
-if ( ! class_exists( 'P4ML_Settings_Controller' ) ) {
+if ( ! class_exists( 'Settings_Controller' ) ) {
 
 	/**
-	 * Class P4ML_Settings_Controller
+	 * Class Settings_Controller
+	 *
+	 * @package P4ML\Controllers\Menu
 	 */
-	class P4ML_Settings_Controller extends P4ML_Controller {
-
-		/**
-		 * Hooks the method that Creates the menu item for the current controller.
-		 */
-		public function load() {
-			parent::load();
-			add_filter( 'locale', array( $this, 'set_locale' ), 11, 1 );
-		}
+	class Settings_Controller extends Controller {
 
 		/**
 		 * Create menu/submenu entry.
@@ -25,10 +19,10 @@ if ( ! class_exists( 'P4ML_Settings_Controller' ) ) {
 			if ( current_user_can( 'manage_options' ) ) {
 				add_submenu_page(
 					P4ML_PLUGIN_SLUG_NAME,
-					__( 'Settings', 'planet4-medialibrary' ),
-					__( 'Settings', 'planet4-medialibrary' ),
+					__( 'ML Settings', 'planet4-medialibrary' ),
+					__( 'ML Settings', 'planet4-medialibrary' ),
 					'manage_options',
-					'settings',
+					'mlsettings',
 					array( $this, 'prepare_settings' )
 				);
 			}
@@ -40,7 +34,7 @@ if ( ! class_exists( 'P4ML_Settings_Controller' ) ) {
 		 */
 		public function prepare_settings() {
 			$this->view->settings( [
-				'settings'            => get_option( 'p4en_main_settings' ),
+				'settings'            => get_option( 'p4ml_main_settings' ),
 				'available_languages' => P4ML_LANGUAGES,
 				'messages'            => $this->messages,
 				'domain'              => 'planet4-medialibrary',
@@ -87,20 +81,20 @@ if ( ! class_exists( 'P4ML_Settings_Controller' ) ) {
 			$has_errors = false;
 
 			if ( $settings ) {
-				if ( isset( $settings['p4en_public_api'] ) && 36 !== strlen( $settings['p4en_public_api'] ) ) {
+				if ( isset( $settings['p4ml_login_id'] ) ) {
 					add_settings_error(
-						'p4en_main_settings-p4en_public_api',
-						esc_attr( 'p4en_main_settings-p4en_public_api' ),
-						__( 'Invalid value for Public API', 'planet4-medialibrary' ),
+						'p4ml_main_settings-p4ml_login_id',
+						esc_attr( 'p4ml_main_settings-p4ml_login_id' ),
+						__( 'Invalid value for Media Library Username', 'planet4-medialibrary' ),
 						'error'
 					);
 					$has_errors = true;
 				}
-				if ( isset( $settings['p4en_private_api'] ) && 36 !== strlen( $settings['p4en_private_api'] ) ) {
+				if ( isset( $settings['p4ml_password'] ) ) {
 					add_settings_error(
-						'p4en_main_settings-p4en_private_api',
-						esc_attr( 'p4en_main_settings-p4en_private_api' ),
-						__( 'Invalid value for Private API', 'planet4-medialibrary' ),
+						'p4ml_main_settings-p4ml_password',
+						esc_attr( 'p4ml_main_settings-p4ml_password' ),
+						__( 'Invalid value for Media Library Password', 'planet4-medialibrary' ),
 						'error'
 					);
 					$has_errors = true;
@@ -127,9 +121,9 @@ if ( ! class_exists( 'P4ML_Settings_Controller' ) ) {
 		 * Loads the saved language.
 		 */
 		public function set_locale(): string {
-			$main_settings = get_option( 'p4en_main_settings' );
+			$main_settings = get_option( 'p4ml_main_settings' );
 
-			return isset( $main_settings['p4en_lang'] ) ? $main_settings['p4en_lang'] : '';
+			return isset( $main_settings['p4ml_lang'] ) ? $main_settings['p4ml_lang'] : '';
 		}
 	}
 }

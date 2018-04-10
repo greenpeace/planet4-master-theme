@@ -1,4 +1,17 @@
+
+vendor/*
+!vendor/composer
+!vendor/autoload.php
+
+# Logs #
+########
 *.log
+
+# OS generated files #
+######################
+.DS_Store
+Thumbs.db
+
+# IDE generated files #
+#######################
 .idea
-vendor
-\.DS_Store

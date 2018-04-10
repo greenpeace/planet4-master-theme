@@ -21,9 +21,7 @@
     "psr-4": {
       "P4ML\\": "classes/",
       "P4ML\\Controllers\\": "classes/controller/",
-      "P4ML\\Controllers\\Menu\\": "classes/controller/menu",
-      "P4ML\\Models\\": "classes/model/",
-      "P4ML\\Views\\": "classes/view/"
+      "P4ML\\Controllers\\Menu\\": "classes/controller/menu"
     }
   }
 }

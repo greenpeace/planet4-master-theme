@@ -4,12 +4,14 @@ namespace P4ML\Views;
 
 use Timber\Timber;
 
-if ( ! class_exists( 'P4ML_View' ) ) {
+if ( ! class_exists( 'View' ) ) {
 
 	/**
-	 * Class P4ML_View
+	 * Class View
+	 *
+	 * @package P4ML\Views
 	 */
-	class P4ML_View {
+	class View {
 
 		/** @var string $template_dir The path to the template files. */
 		private $template_dir = P4ML_INCLUDES_DIR;

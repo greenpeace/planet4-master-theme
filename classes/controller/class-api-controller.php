@@ -2,12 +2,14 @@
 
 namespace P4ML\Controllers;
 
-if ( ! class_exists( 'P4ML_Media_library_api_Controller' ) ) {
+if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 
 	/**
-	 * Class P4ML_Ensapi_Controller
+	 * Class MediaLibraryApi_Controller
+	 *
+	 * @package P4ML\Controllers
 	 */
-	class P4ML_Media_library_api_Controller {
+	class MediaLibraryApi_Controller {
 
 		const ENS_BASE_URL = "https://www.media.greenpeace.org";
 		const ENS_AUTH_URL = self::ENS_BASE_URL . '/API/Authentication/v1.0/Login';

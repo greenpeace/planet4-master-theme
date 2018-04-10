@@ -2,14 +2,16 @@
 
 namespace P4ML\Controllers\Menu;
 
-use P4ML\Views\P4ML_View;
+use P4ML\Views\View;
 
-if ( ! class_exists( 'P4ML_Search_Controller' ) ) {
+if ( ! class_exists( 'Search_Controller' ) ) {
 
 	/**
-	 * Class P4ML_Pages_Standard_Controller
+	 * Class Search_Controller
+	 *
+	 * @package P4ML\Controllers\Menu
 	 */
-	class P4ML_Search_Controller extends P4ML_Controller {
+	class Search_Controller extends Controller {
 
 
 		/**
@@ -21,7 +23,7 @@ if ( ! class_exists( 'P4ML_Search_Controller' ) ) {
 		 * @param array $services The Controller services to inject.
 		 * @param string $view_class The View class name.
 		 */
-		public function __construct( P4ML_View $view ) {
+		public function __construct( View $view ) {
 			parent::__construct( $view );
 //			$this->services = $services;
 //			$view = new $view_class();

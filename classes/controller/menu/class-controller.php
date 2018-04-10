@@ -2,23 +2,24 @@
 
 namespace P4ML\Controllers\Menu;
 
-use P4ML\Views\P4ML_View;
+use P4ML\Views\View;
 
-if ( ! class_exists( 'P4ML_Controller' ) ) {
+if ( ! class_exists( 'Controller' ) ) {
 
 	/**
-	 * Class P4ML_Controller
+	 * Class Controller
 	 *
 	 * This class will control all the main functions of the plugin.
+	 * @package P4ML\Controllers\Menu
 	 */
-	abstract class P4ML_Controller {
+	abstract class Controller {
 
 		const ERROR   = 0;
 		const WARNING = 1;
 		const NOTICE  = 2;
 		const SUCCESS = 3;
 
-		/** @var P4ML_View $view */
+		/** @var View $view */
 		protected $view;
 		/** @var array $messages */
 		protected $messages = [];
@@ -28,9 +29,9 @@ if ( ! class_exists( 'P4ML_Controller' ) ) {
 		 * Creates the plugin's controller object.
 		 * Avoid putting hooks inside the constructor, to make testing easier.
 		 *
-		 * @param P4ML_View $view The view object.
+		 * @param View $view The view object.
 		 */
-		public function __construct( P4ML_View $view ) {
+		public function __construct( View $view ) {
 			$this->view = $view;
 		}
 
@@ -85,7 +86,7 @@ if ( ! class_exists( 'P4ML_Controller' ) ) {
 					'msg'     => esc_html( $msg ),
 					'title'   => $title ? esc_html( $title ) : esc_html__( 'Error', 'planet4-medialibrary' ),
 					'type'    => self::ERROR,
-					'classes' => 'p4en_error_message',
+					'classes' => 'p4ml_error_message',
 				] );
 			}
 		}
@@ -102,7 +103,7 @@ if ( ! class_exists( 'P4ML_Controller' ) ) {
 					'msg'     => esc_html( $msg ),
 					'title'   => $title ? esc_html( $title ) : esc_html__( 'Warning', 'planet4-medialibrary' ),
 					'type'    => self::WARNING,
-					'classes' => 'p4en_warning_message',
+					'classes' => 'p4ml_warning_message',
 				] );
 			}
 		}
@@ -119,7 +120,7 @@ if ( ! class_exists( 'P4ML_Controller' ) ) {
 					'msg'     => esc_html( $msg ),
 					'title'   => $title ? esc_html( $title ) : esc_html__( 'Notice', 'planet4-medialibrary' ),
 					'type'    => self::NOTICE,
-					'classes' => 'p4en_notice_message',
+					'classes' => 'p4ml_notice_message',
 				] );
 			}
 		}
@@ -136,7 +137,7 @@ if ( ! class_exists( 'P4ML_Controller' ) ) {
 					'msg'     => esc_html( $msg ),
 					'title'   => $title ? esc_html( $title ) : esc_html__( 'Success', 'planet4-medialibrary' ),
 					'type'    => self::SUCCESS,
-					'classes' => 'p4en_success_message',
+					'classes' => 'p4ml_success_message',
 				] );
 			}
 		}
