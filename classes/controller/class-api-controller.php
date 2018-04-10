@@ -66,9 +66,9 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 			$url    = add_query_arg( $params, $url );
 
 			// With the safe version of wp_remote_{VERB) functions, the URL is validated to avoid redirection and request forgery attacks.
-			$response = wp_safe_remote_post( $url, [
+			$response = wp_remote_get( $url, [
 				'timeout'   => self::ML_CALL_TIMEOUT,
-				'sslverify' => false
+				'sslverify' => false,
 			] );
 
 			if ( is_wp_error( $response ) ) {
@@ -80,11 +80,6 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 			}
 
 			return $response;
-		}
-
-		private function decodeResponse( $resp ) {
-
-			return json_decode( $resp, false );
 		}
 	}
 }
