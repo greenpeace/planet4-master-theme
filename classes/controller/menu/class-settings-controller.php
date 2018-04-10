@@ -19,10 +19,10 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 			if ( current_user_can( 'manage_options' ) ) {
 				add_submenu_page(
 					P4ML_PLUGIN_SLUG_NAME,
-					__( 'Settings', 'planet4-medialibrary' ),
-					__( 'Settings', 'planet4-medialibrary' ),
+					__( 'ML Settings', 'planet4-medialibrary' ),
+					__( 'ML Settings', 'planet4-medialibrary' ),
 					'manage_options',
-					'settings',
+					'mlsettings',
 					array( $this, 'prepare_settings' )
 				);
 			}
@@ -81,20 +81,20 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 			$has_errors = false;
 
 			if ( $settings ) {
-				if ( isset( $settings['p4ml_public_api'] ) && 36 !== strlen( $settings['p4ml_public_api'] ) ) {
+				if ( isset( $settings['p4ml_login_id'] ) ) {
 					add_settings_error(
-						'p4ml_main_settings-p4ml_public_api',
-						esc_attr( 'p4ml_main_settings-p4ml_public_api' ),
-						__( 'Invalid value for Public API', 'planet4-medialibrary' ),
+						'p4ml_main_settings-p4ml_login_id',
+						esc_attr( 'p4ml_main_settings-p4ml_login_id' ),
+						__( 'Invalid value for Media Library Username', 'planet4-medialibrary' ),
 						'error'
 					);
 					$has_errors = true;
 				}
-				if ( isset( $settings['p4ml_private_api'] ) && 36 !== strlen( $settings['p4ml_private_api'] ) ) {
+				if ( isset( $settings['p4ml_password'] ) ) {
 					add_settings_error(
-						'p4ml_main_settings-p4ml_private_api',
-						esc_attr( 'p4ml_main_settings-p4ml_private_api' ),
-						__( 'Invalid value for Private API', 'planet4-medialibrary' ),
+						'p4ml_main_settings-p4ml_password',
+						esc_attr( 'p4ml_main_settings-p4ml_password' ),
+						__( 'Invalid value for Media Library Password', 'planet4-medialibrary' ),
 						'error'
 					);
 					$has_errors = true;
