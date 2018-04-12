@@ -30,6 +30,18 @@
     &:focus {
       background-color: transparentize($white, .6);
     }
+
+    &::placeholder {
+      color: $dark-shade-black;
+    }
+
+    &::-webkit-input-placeholder {
+      color: $dark-shade-black;
+    }
+
+    &::-ms-input-placeholder {
+      color: $dark-shade-black;
+    }
   }
 
   label {
@@ -92,12 +104,5 @@
       width: 40%;
       margin-top: 30px;
     }
-  }
-
-  ::-webkit-input-placeholder,
-  ::-moz-placeholder,
-  :-ms-input-placeholder,
-  :-moz-placeholder {
-    color: $grey-40;
   }
 }
