@@ -33,7 +33,7 @@
     position: absolute;
     height: 500px;
     width: 100%;
-    object-fit: fill;
+    object-fit: cover;
   }
 
   form {
@@ -168,10 +168,6 @@
 
     p {
       text-align: left;
-    }
-
-    img {
-      object-fit: none;
     }
   }
 }

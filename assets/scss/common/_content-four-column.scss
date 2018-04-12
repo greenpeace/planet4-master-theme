@@ -20,6 +20,7 @@
       position: relative;
       margin: 0 0 24px 0;
       box-shadow: 0 5px 20px 0 rgba(114, 114, 114, 0.5);
+      max-width: 130px;
 
       @include small-and-up {
         margin: 20px 0;
@@ -27,10 +28,15 @@
 
       @include medium-and-up {
         margin: 0 0 20px 0;
+        max-width: 210px;
       }
 
       @include large-and-up {
         margin: 0 0 20px 0;
+      }
+
+      @include x-large-and-up {
+        max-width: 255px;
       }
 
       img {
@@ -115,6 +121,57 @@
 
     @include medium-and-up {
       display: block;
+    }
+  }
+}
+
+// Visibility  of covers in different screens
+// S,M should have 4 covers
+// L & XL should have all sent from backend
+// L & XL with show-3-covers class should show first 3 covers
+// L & XL with show-6-covers class should show first 6 covers
+// L & XL with show-all-covers class should show all covers
+// remove limit visibility class on load more button click
+.show-1-row .limit-visibility {
+  @include medium-and-up {
+    .post-column:nth-child(-n+4) {
+      display: block;
+    }
+
+    .post-column:nth-child(n+4) {
+      display: none;
+    }
+  }
+
+  @include large-and-up {
+    .post-column:nth-child(-n+5) {
+      display: block;
+    }
+
+    .post-column:nth-child(n+5) {
+      display: none;
+    }
+  }
+}
+
+.show-2-rows .limit-visibility {
+  @include medium-and-up {
+    .post-column:nth-child(-n+7) {
+      display: block;
+    }
+
+    .post-column:nth-child(n+7) {
+      display: none;
+    }
+  }
+
+  @include large-and-up {
+    .post-column:nth-child(-n+9) {
+      display: block;
+    }
+
+    .post-column:nth-child(n+9) {
+      display: none;
     }
   }
 }
