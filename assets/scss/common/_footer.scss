@@ -5,6 +5,7 @@
   position: relative;
   z-index: 2;
   text-align: center;
+  transition: margin 1s;
 
   @include medium-and-up {
     padding: 25px 0 20px;
