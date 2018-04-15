@@ -422,6 +422,15 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$args['s']            = $this->search_query;
 				$args['ep_integrate'] = true;
 
+				// Add sort by date.
+				$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
+				$selected_sort = sanitize_sql_orderby( $selected_sort );
+
+				if ( $selected_sort && self::DEFAULT_SORT !== $selected_sort ) {
+					$args['orderby'] = 'date';
+					$args['order']   = 'desc';
+				}
+
 				$posts = ( new WP_Query( $args ) )->posts;
 			}
 
@@ -462,16 +471,17 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		protected function set_general_context( &$context ) {
 
 			// Search context.
-			$context['posts']            = $this->posts;
-			$context['paged_posts']      = $this->paged_posts;
-			$context['current_page']     = $this->current_page;
-			$context['search_query']     = $this->search_query;
-			$context['selected_sort']    = $this->selected_sort;
-			$context['default_sort']     = self::DEFAULT_SORT;
-			$context['filters']          = $this->filters;
-			$context['found_posts']      = count( (array) $this->posts );
-			$context['source_selection'] = false;
-			$context['page_category']    = $category->name ?? __( 'Search page', 'planet4-master-theme' );
+			$context['posts']             = $this->posts;
+			$context['paged_posts']       = $this->paged_posts;
+			$context['current_page']      = $this->current_page;
+			$context['search_query']      = $this->search_query;
+			$context['is_elastic_search'] = $this->is_elastic_search;
+			$context['selected_sort']     = $this->selected_sort;
+			$context['default_sort']      = self::DEFAULT_SORT;
+			$context['filters']           = $this->filters;
+			$context['found_posts']       = count( (array) $this->posts );
+			$context['source_selection']  = false;
+			$context['page_category']     = $category->name ?? __( 'Search page', 'planet4-master-theme' );
 
 			if ( $this->search_query ) {
 				$context['page_title'] = sprintf(
@@ -802,7 +812,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		public function enqueue_public_assets() {
 			if ( is_search() ) {
-				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [ 'jquery' ], '0.2.0', true );
+				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [ 'jquery' ], '0.2.3', true );
 				wp_localize_script( 'search', 'localizations', $this->localizations );
 				wp_enqueue_script( 'search' );
 			}
