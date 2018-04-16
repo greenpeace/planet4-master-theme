@@ -5,6 +5,7 @@ $ = jQuery; //eslint-disable-line no-global-assign
 // Search page.
 $(function() {
   var $search_form      = $( '#search_form' );
+  var $es               = $('#es', $search_form);
   var $load_more_button = $( '.btn-load-more-click-scroll' );
   var load_more_count   = 0;
   var loaded_more       = false;
@@ -37,8 +38,6 @@ $(function() {
 
     // Handle search via Elasticsearch.
     if ( is_elastic_search ) {
-      var $es = $('#es', $search_form);
-
       if ( $es.length > 0 ) {
         $es.val(true);
       } else {
@@ -63,8 +62,6 @@ $(function() {
 
   // Perform search on Elasticsearch if user does Right mouse click on the Search buttons.
   $('.top-nav-search-btn, .search-btn').off('mouseup').on('mouseup', function( event ) {
-    var $es = $('#es', $search_form);
-
     if ( 3 === event.which ) {
       event.preventDefault();
       is_elastic_search = true;
@@ -111,13 +108,6 @@ $(function() {
     check_if_elasticsearch();
     $search_form.submit();
   });
-
-  function check_if_elasticsearch() {
-	  var $es = $('#es', $search_form);
-	  if ( $es.length > 0 ) {
-		  is_elastic_search = true;
-	  }
-  }
 
   // Add click event for load more button in blocks.
   $load_more_button.off( 'click' ).on( 'click', function() {
@@ -182,4 +172,13 @@ $(function() {
       return false;
     }
   });
+
+  /**
+   * Checks if the search was performed via Elasticsearch.
+   */
+  function check_if_elasticsearch() {
+    if ( $es.length > 0 ) {
+      is_elastic_search = true;
+    }
+  }
 });
