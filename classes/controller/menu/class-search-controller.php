@@ -14,6 +14,46 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 	 */
 	class Search_Controller extends Controller {
 
+		/**
+		 * Creates the plugin's loader object.
+		 * Checks requirements and if its ok it hooks the hook_plugin method on the 'init' action which fires
+		 * after WordPress has finished loading but before any headers are sent.
+		 * Most of WP is loaded at this stage (but not all) and the user is authenticated.
+		 *
+		 * @param array $services The Controller services to inject.
+		 * @param string $view_class The View class name.
+		 */
+		public function __construct( View $view ) {
+			parent::__construct( $view );
+
+			add_action( 'admin_enqueue_scripts', [$this, 'media_library_tab'] );
+			add_filter( 'ajax_query_attachments_args', [$this, 'ml_query_attachments'], 99);
+		}
+
+		/**
+		 * Load the JavaScript on admin
+		 */
+		function media_library_tab() {
+			// Adding the file with the plugin_dir_url. The file admin.js is in root of our plugin folder
+			// Change the URL for your project
+			wp_enqueue_script( 'admin-js', P4ML_ADMIN_DIR . 'js/mladmin.js', array( 'jquery' ), '0.1', true );
+		}
+
+		/**
+		 * Change the query used to retrieve attachments
+		 * The Query will retrieve 5 random attachments
+		 */
+		function ml_query_attachments( $args ) {
+
+			if( isset( $_POST['query']['param1'] ) ) {
+
+				$args['post_mime_type'] = array( 'image/jpeg', 'image/png', 'image/gif' );
+
+				unset( $_POST['query']['param1'] );
+			}
+
+			return $args;
+		}
 
 		/**
 		 * Create menu/submenu entry.
