@@ -21,22 +21,14 @@ $(function() {
 
   // Submit form on Sort change event.
   $( '#select_order' ).off( 'change' ).on( 'change', function() {
-    var $es = $('#es', $search_form);
-
-	if ( $es.length > 0 ) {
-	  is_elastic_search = true;
-    }
+    check_if_elasticsearch();
     $( '#orderby', $search_form ).val( $( this ).val() ).parent().submit();
     return false;
   });
 
   // Submit form on Filter click event or on Apply button click event.
   $( 'input[name^="f["]:not(.modal-checkbox), .applybtn' ).off( 'click' ).on( 'click', function() {
-    var $es = $('#es', $search_form);
-
-    if ( $es.length > 0 ) {
-      is_elastic_search = true;
-    }
+    check_if_elasticsearch();
     $search_form.submit();
   });
 
@@ -108,25 +100,24 @@ $(function() {
 
   // Clear single selected filter.
   $( '.activefilter-tag' ).off( 'click' ).on( 'click', function() {
-    var $es = $('#es', $search_form);
     $( '.p4-custom-control-input[value=' + $( this ).data( 'id' ) + ']' ).prop('checked', false );
-
-    if ( $es.length > 0 ) {
-      is_elastic_search = true;
-    }
+    check_if_elasticsearch();
     $search_form.submit();
   });
 
   // Clear all selected filters.
   $( '.clearall' ).off( 'click' ).on( 'click', function() {
-    var $es = $('#es', $search_form);
     $( 'input[name^="f["]' ).prop( 'checked', false );
-
-    if ( $es.length > 0 ) {
-      is_elastic_search = true;
-    }
+    check_if_elasticsearch();
     $search_form.submit();
   });
+
+  function check_if_elasticsearch() {
+	  var $es = $('#es', $search_form);
+	  if ( $es.length > 0 ) {
+		  is_elastic_search = true;
+	  }
+  }
 
   // Add click event for load more button in blocks.
   $load_more_button.off( 'click' ).on( 'click', function() {
