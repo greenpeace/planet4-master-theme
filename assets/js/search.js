@@ -5,9 +5,11 @@ $ = jQuery; //eslint-disable-line no-global-assign
 // Search page.
 $(function() {
   var $search_form      = $( '#search_form' );
+  var $es               = $('#es', $search_form);
   var $load_more_button = $( '.btn-load-more-click-scroll' );
   var load_more_count   = 0;
   var loaded_more       = false;
+  var is_elastic_search = false;
 
   $( '#search-type button' ).click(function() {
     $( '#search-type button' ).removeClass( 'active' );
@@ -20,17 +22,29 @@ $(function() {
 
   // Submit form on Sort change event.
   $( '#select_order' ).off( 'change' ).on( 'change', function() {
+    check_if_elasticsearch();
     $( '#orderby', $search_form ).val( $( this ).val() ).parent().submit();
     return false;
   });
 
   // Submit form on Filter click event or on Apply button click event.
   $( 'input[name^="f["]:not(.modal-checkbox), .applybtn' ).off( 'click' ).on( 'click', function() {
+    check_if_elasticsearch();
     $search_form.submit();
   });
 
   // Add all selected filters to the form submit.
   $search_form.on( 'submit', function() {
+
+    // Handle search via Elasticsearch.
+    if ( is_elastic_search ) {
+      if ( $es.length > 0 ) {
+        $es.val(true);
+      } else {
+        $search_form.append('<input type="hidden" name="es" value="true" />');
+      }
+    }
+
     if ( 0 === $('.filter-modal.show').length ) {
       $( 'input[name^="f["]:not(.modal-checkbox):checked' ).each( function() {
         var $checkbox = $( this ).clone( true );
@@ -50,8 +64,10 @@ $(function() {
   $('.top-nav-search-btn, .search-btn').off('mouseup').on('mouseup', function( event ) {
     if ( 3 === event.which ) {
       event.preventDefault();
-	  $search_form.append('<input type="hidden" name="es" value="true" />');
+      is_elastic_search = true;
       $search_form.submit();
+    } else if ( $es.length > 0 ) {
+      $es.remove();
     }
   }).on('contextmenu', function() {
     return false;
@@ -82,12 +98,14 @@ $(function() {
   // Clear single selected filter.
   $( '.activefilter-tag' ).off( 'click' ).on( 'click', function() {
     $( '.p4-custom-control-input[value=' + $( this ).data( 'id' ) + ']' ).prop('checked', false );
+    check_if_elasticsearch();
     $search_form.submit();
   });
 
   // Clear all selected filters.
   $( '.clearall' ).off( 'click' ).on( 'click', function() {
     $( 'input[name^="f["]' ).prop( 'checked', false );
+    check_if_elasticsearch();
     $search_form.submit();
   });
 
@@ -154,4 +172,13 @@ $(function() {
       return false;
     }
   });
+
+  /**
+   * Checks if the search was performed via Elasticsearch.
+   */
+  function check_if_elasticsearch() {
+    if ( $es.length > 0 ) {
+      is_elastic_search = true;
+    }
+  }
 });
