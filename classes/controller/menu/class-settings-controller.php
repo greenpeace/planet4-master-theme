@@ -23,10 +23,10 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 					__( 'ML Settings', 'planet4-medialibrary' ),
 					'manage_options',
 					'mlsettings',
-					array( $this, 'prepare_settings' )
+					[ $this, 'prepare_settings' ]
 				);
 			}
-			add_action( 'admin_init', array( $this, 'register_settings' ) );
+			add_action( 'admin_init', [ $this, 'register_settings' ] );
 		}
 
 		/**
@@ -45,13 +45,13 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 		 * Register and store the settings and their data.
 		 */
 		public function register_settings() {
-			$args = array(
+			$args = [
 				'type'              => 'string',
 				'group'             => 'p4ml_main_settings_group',
 				'description'       => 'Planet 4 - Media Library settings',
-				'sanitize_callback' => array( $this, 'valitize' ),
+				'sanitize_callback' => [ $this, 'valitize' ],
 				'show_in_rest'      => false,
-			);
+			];
 			register_setting( 'p4ml_main_settings_group', 'p4ml_main_settings', $args );
 		}
 
@@ -81,19 +81,19 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 			$has_errors = false;
 
 			if ( $settings ) {
-				if ( isset( $settings['p4ml_login_id'] ) ) {
+				if ( isset( $settings['p4ml_api_username'] ) && '' === $settings['p4ml_api_username'] ) {
 					add_settings_error(
-						'p4ml_main_settings-p4ml_login_id',
-						esc_attr( 'p4ml_main_settings-p4ml_login_id' ),
+						'p4ml_main_settings-p4ml_api_username',
+						esc_attr( 'p4ml_main_settings-p4ml_api_username' ),
 						__( 'Invalid value for Media Library Username', 'planet4-medialibrary' ),
 						'error'
 					);
 					$has_errors = true;
 				}
-				if ( isset( $settings['p4ml_password'] ) ) {
+				if ( isset( $settings['p4ml_api_password'] ) && '' === $settings['p4ml_api_password'] ) {
 					add_settings_error(
-						'p4ml_main_settings-p4ml_password',
-						esc_attr( 'p4ml_main_settings-p4ml_password' ),
+						'p4ml_main_settings-p4ml_api_password',
+						esc_attr( 'p4ml_main_settings-p4ml_api_password' ),
 						__( 'Invalid value for Media Library Password', 'planet4-medialibrary' ),
 						'error'
 					);
@@ -115,15 +115,6 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 					$settings[ $name ] = sanitize_text_field( $setting );
 				}
 			}
-		}
-
-		/**
-		 * Loads the saved language.
-		 */
-		public function set_locale(): string {
-			$main_settings = get_option( 'p4ml_main_settings' );
-
-			return isset( $main_settings['p4ml_lang'] ) ? $main_settings['p4ml_lang'] : '';
 		}
 	}
 }
