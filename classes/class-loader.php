@@ -55,29 +55,6 @@ if ( ! class_exists( 'Loader' ) ) {
 				}
 			}
 			$this->check_requirements();
-
-			// add the tab.
-			//add_filter('media_upload_tabs', [$this, 'media_library_tab']);
-
-			// call the new tab with wp_iframe.
-			//add_action('media_upload_gpi_media_library', [$this, 'add_library_form']);
-		}
-
-		public function media_library_tab( $tabs ) {
-			$tabs['gpi_media_library'] = "Gpi Media Library";
-
-			return $tabs;
-		}
-
-		public function add_library_form() {
-			wp_iframe( [ $this, 'library_form' ] );
-		}
-
-		// the tab content.
-		public function library_form() {
-			wp_enqueue_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.1', true );
-			echo media_upload_header(); // This function is used for print media uploader headers etc.
-			echo '';
 		}
 
 		/**
