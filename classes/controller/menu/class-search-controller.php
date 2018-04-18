@@ -79,7 +79,7 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 					}
 				}
 			} else {
-				$this->warning( __( 'Plugin Settings are not configured well!', 'planet4-media-library' ) );
+				$this->warning( __( 'Plugin Settings are not configured well!', 'planet4-medialibrary' ) );
 			}
 
 			$is_file_exist = $this->validate_file_exists( basename( $image_details['image_url'] ) );
@@ -126,7 +126,7 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 						update_post_meta( $attachment_id, '_credit_text', $image_details['image_credit'] );
 					}
 				} else {
-					$this->error( __( 'Error while uploading file...!', 'planet4-media-library' ) );
+					$this->error( __( 'Error while uploading file...!', 'planet4-medialibrary' ) );
 				}
 			}
 
@@ -137,7 +137,7 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 					'image_title'   => $image_details['image_title'],
 					'image_url'     => $image_details['image_url'],
 					'is_file_exist' => $is_file_exist,
-					'domain'        => 'planet4-media-library',
+					'domain'        => 'planet4-medialibrary',
 				],
 			] );
 		}
