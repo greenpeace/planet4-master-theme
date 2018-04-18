@@ -15,10 +15,21 @@
     </div>-->
 
     <table class="form-table">
+        {% if ( data.is_file_exist ) %}
         <tr valign="top">
-            <th>{{ __( 'Image ID', domain ) }}</th>
+            <th colspan="2">File already exist in WP Media. (ID: {{ data.is_file_exist }})</th>
+        </tr>
+        {% endif %}
+        <tr valign="top">
+            <th>{{ __( 'GPI ML Image ID', domain ) }}</th>
             <td>
-                {{ data.image_id }}
+                {{ data.gpml_image_id }}
+            </td>
+        </tr>
+        <tr valign="top">
+            <th>{{ __( 'WP Image ID', domain ) }}</th>
+            <td>
+                {{ data.wp_image_id }}
             </td>
         </tr>
         <tr valign="top">
