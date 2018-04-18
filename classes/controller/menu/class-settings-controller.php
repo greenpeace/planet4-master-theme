@@ -77,7 +77,7 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function validate( $settings ): bool {
+		public function validate( $settings ) : bool {
 			$has_errors = false;
 
 			if ( $settings ) {
