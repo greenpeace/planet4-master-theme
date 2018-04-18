@@ -43,7 +43,7 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 			$main_settings = [
 				'p4ml_login_id' => 'kyriakos.diamantis@greenpeace.org',
 				'p4ml_password' => 'green23',
-			]; //get_option( 'p4ml_main_settings' );
+			];
 
 			$image_id      = 'GP0STRLTD';
 			$image_details = [
@@ -79,7 +79,7 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 					}
 				}
 			} else {
-				$this->warning( __( 'Plugin Settings are not configured well!', 'planet4-engagingnetworks' ) );
+				$this->warning( __( 'Plugin Settings are not configured well!', 'planet4-media-library' ) );
 			}
 
 			$is_file_exist = $this->validate_file_exists( basename( $image_details['image_url'] ) );
@@ -99,7 +99,7 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 				// Upload file into WP upload dir.
 				$upload_file = wp_upload_bits( $filename, null, file_get_contents( $file , FALSE, $context ) );
 
-				if ( !$upload_file['error'] ) {
+				if ( ! $upload_file['error'] ) {
 					$wp_filetype = wp_check_filetype( $filename, null );
 
 					// Prepare an array of post data for the attachment.
@@ -113,8 +113,8 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 
 					$attachment_id = wp_insert_attachment( $attachment, $upload_file['file'], 0, true );
 
-					if ( !is_wp_error( $attachment_id ) ) {
-						require_once( ABSPATH . 'wp-admin' . '/includes/image.php' );
+					if ( ! is_wp_error( $attachment_id ) ) {
+						require_once( ABSPATH . 'wp-admin/includes/image.php' );
 
 						// Generate the metadata for the attachment, and update the database record.
 						$attachment_data = wp_generate_attachment_metadata( $attachment_id, $upload_file['file'] );
@@ -126,7 +126,7 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 						update_post_meta( $attachment_id, '_credit_text', $image_details['image_credit'] );
 					}
 				} else {
-					$this->error( __( 'Error while uploading file...!', 'planet4-engagingnetworks' ) );
+					$this->error( __( 'Error while uploading file...!', 'planet4-media-library' ) );
 				}
 			}
 
@@ -137,6 +137,7 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 					'image_title'   => $image_details['image_title'],
 					'image_url'     => $image_details['image_url'],
 					'is_file_exist' => $is_file_exist,
+					'domain'        => 'planet4-media-library',
 				],
 			] );
 		}
@@ -177,17 +178,17 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 
 					if ( $image_data['APIResponse']['Items'][0]['Path_TR1_COMP_SMALL']['URI'] ) {
 						$image_details['image_url'] = $image_data['APIResponse']['Items'][0]['Path_TR1_COMP_SMALL']['URI'];
-					} else if ( $image_data['APIResponse']['Items'][0]['Path_TR1']['URI'] ) {
+					} elseif ( $image_data['APIResponse']['Items'][0]['Path_TR1']['URI'] ) {
 						$image_details['image_url'] = $image_data['APIResponse']['Items'][0]['Path_TR1']['URI'];
-					} else if ( $image_data['APIResponse']['Items'][0]['Path_TR7']['URI'] ) {
+					} elseif ( $image_data['APIResponse']['Items'][0]['Path_TR7']['URI'] ) {
 						$image_details['image_url'] = $image_data['APIResponse']['Items'][0]['Path_TR7']['URI'];
-					} else if ( $image_data['APIResponse']['Items'][0]['Path_TR4']['URI'] ) {
+					} elseif ( $image_data['APIResponse']['Items'][0]['Path_TR4']['URI'] ) {
 						$image_details['image_url'] = $image_data['APIResponse']['Items'][0]['Path_TR4']['URI'];
-					} else if ( $image_data['APIResponse']['Items'][0]['Path_TR1_COMP']['URI'] ) {
+					} elseif ( $image_data['APIResponse']['Items'][0]['Path_TR1_COMP']['URI'] ) {
 						$image_details['image_url'] = $image_data['APIResponse']['Items'][0]['Path_TR1_COMP']['URI'];
-					} else if ( $image_data['APIResponse']['Items'][0]['Path_TR2']['URI'] ) {
+					} elseif ( $image_data['APIResponse']['Items'][0]['Path_TR2']['URI'] ) {
 						$image_details['image_url'] = $image_data['APIResponse']['Items'][0]['Path_TR2']['URI'];
-					} else if ( $image_data['APIResponse']['Items'][0]['Path_TR3']['URI'] ) {
+					} elseif ( $image_data['APIResponse']['Items'][0]['Path_TR3']['URI'] ) {
 						$image_details['image_url'] = $image_data['APIResponse']['Items'][0]['Path_TR3']['URI'];
 					}
 				}
