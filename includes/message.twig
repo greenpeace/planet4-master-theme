@@ -1,0 +1,18 @@
+{% block message_content %}
+
+    {% if ( messages ) %}
+        <div id="p4ml_message_container">
+            {% for message in messages %}
+                <div class="p4ml_message {{ message.classes|e('html_attr') }}">
+                    {% if ( message.title ) %}
+                        <strong>- {{ message.title|e('html') }} -</strong>
+                        <br />
+                    {% endif %}
+                    {{ message.msg|e('html') }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="clear"></div>
+
+{% endblock %}
