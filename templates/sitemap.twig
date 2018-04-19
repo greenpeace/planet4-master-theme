@@ -1,38 +1,40 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-4">
-				<h5>{{ actions_title }}</h5>
-				{% for action in actions %}
-					<a href="{{ action.link }}">{{ action.title|e('wp_kses_post')|raw }}</a><br />
-				{% endfor %}
-			</div>
-			<div class="col-lg-3">
-				<h5>{{ issues_title }}</h5>
-				{% for issue in issues %}
-					<a href="{{ issue.link }}">{{ issue.title|e('wp_kses_post')|raw }}</a><br />
-					{% if ( issue.campaigns ) %}
-						{% for campaign in issue.campaigns %}
-							<a class="tag-item" style="margin-left: 30px;" href="{{ campaign.link|default('#') }}">#{{ campaign.name|e('wp_kses_post')|raw }}</a><br />
-						{% endfor %}
-					{% endif %}
-				{% endfor %}
-			</div>
-			<div class="col-lg-3">
-				<h5>{{ evergreen_title }}</h5>
-				{% for evergreen_page in evergreen_pages %}
-					<a href="{{ evergreen_page.link }}">{{ evergreen_page.title|e('wp_kses_post')|raw }}</a><br />
-				{% endfor %}
-			</div>
-			<div class="col-lg-2">
-				<h5>{{ page_types_title }}</h5>
-				{% for page_type in page_types %}
-					<a href="{{ page_type.link }}">{{ page_type.name|e('wp_kses_post')|raw }}</a><br />
-				{% endfor %}
-				<br />
-				<strong><a href="http://www.greenpeace.org/international/en/System-templates/Search-results/?adv=true" target="_blank">{{ archive_title }}</a></strong><br />
+	<div class="page-sitemap">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-7 order-md-1 col-lg-4">
+					<h5 class="mb-3 mt-5 mt-md-0">{{ actions_title }}</h5>
+					{% for action in actions %}
+						<a href="{{ action.link }}">{{ action.title|e('wp_kses_post')|raw }}</a><br />
+					{% endfor %}
+				</div>
+				<div class="col-md-7 order-md-3 order-lg-2 col-lg-3">
+					<h5 class="mb-3 mt-5 mt-md-0">{{ issues_title }}</h5>
+					{% for issue in issues %}
+						<a href="{{ issue.link }}">{{ issue.title|e('wp_kses_post')|raw }}</a><br />
+						{% if ( issue.campaigns ) %}
+							{% for campaign in issue.campaigns %}
+								<a class="tag-item" style="margin-left: 30px;" href="{{ campaign.link|default('#') }}">#{{ campaign.name|e('wp_kses_post')|raw }}</a><br />
+							{% endfor %}
+						{% endif %}
+					{% endfor %}
+				</div>
+				<div class="col-md-5 order-md-2 order-lg-3 col-lg-3">
+					<h5 class="mb-3 mt-5 mt-md-0">{{ evergreen_title }}</h5>
+					{% for evergreen_page in evergreen_pages %}
+						<a href="{{ evergreen_page.link }}">{{ evergreen_page.title|e('wp_kses_post')|raw }}</a><br />
+					{% endfor %}
+				</div>
+				<div class="col-md-5 order-md-4 col-lg-2">
+					<h5 class="mb-3 mt-5 mt-md-0">{{ page_types_title }}</h5>
+					{% for page_type in page_types %}
+						<a href="{{ page_type.link }}">{{ page_type.name|e('wp_kses_post')|raw }}</a><br />
+					{% endfor %}
+					<br />
+					<strong><a href="http://www.greenpeace.org/international/en/System-templates/Search-results/?adv=true" target="_blank">{{ archive_title }}</a></strong><br />
+				</div>
 			</div>
 		</div>
 	</div>
