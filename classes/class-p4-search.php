@@ -347,6 +347,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 								];
 								break;
 							case 'ptype':
+								// This taxonomy is used only for Posts.
+								$args['post_type']   = 'post';
 								$args['tax_query'][] = [
 									'taxonomy' => 'p4-page-type',
 									'field'    => 'term_id',
@@ -365,12 +367,39 @@ if ( ! class_exists( 'P4_Search' ) ) {
 										$args['post_type']      = 'attachment';
 										$args['post_status']    = 'inherit';
 										$args['post_mime_type'] = self::DOCUMENT_TYPES;
+										// TODO - Fix other mime types being calculated into the Document filter counter.
+										add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
+											if ( ! empty( $args['post_mime_type'] ) ) {
+												$formatted_args['post_filter']['bool']['must'] = array(
+													'terms' => array(
+														'post_type'      => 'attachment',
+														'post_status'    => 'inherit',
+														'post_mime_type' => array_values( (array) $args['post_mime_type'] ),
+													),
+												);
+												$use_filters = true;
+											}
+											return $formatted_args;
+										}, 10, 1 );
 										break;
 									case 2:
 										$args['post_type']             = 'page';
 										$args['post_status']           = 'publish';
 										$options                       = get_option( 'planet4_options' );
 										$args['post_parent__not_in'][] = esc_sql( $options['act_page'] );
+
+										// Workaround for making 'post_parent__not_in' to work with ES.
+										add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
+											if ( ! empty( $args['post_parent__not_in'] ) ) {
+												$formatted_args['post_filter']['bool']['must_not'] = array(
+													'terms' => array(
+														'post_parent' => array_values( (array) $args['post_parent__not_in'] ),
+													),
+												);
+												$use_filters = true;
+											}
+											return $formatted_args;
+										}, 10, 1 );
 										break;
 									case 3:
 										$args['post_type']   = 'post';
@@ -676,14 +705,16 @@ if ( ! class_exists( 'P4_Search' ) ) {
 						$context['content_types']['3']['results']++;
 				}
 
-				// Page Type <-> Category.
-				$page_types = get_the_terms( $post->ID, 'p4-page-type' );
-				if ( $page_types ) {
-					foreach ( (array) $page_types as $page_type ) {
-						// p4-page-type filters.
-						$context['page_types'][ $page_type->term_id ]['term_id'] = $page_type->term_id;
-						$context['page_types'][ $page_type->term_id ]['name']    = $page_type->name;
-						$context['page_types'][ $page_type->term_id ]['results']++;
+				// Page Type <-> Category. This taxonomy is used only for Posts.
+				if ( 'post' === $post->post_type ) {
+					$page_types = get_the_terms( $post->ID, 'p4-page-type' );
+					if ( $page_types ) {
+						foreach ( (array) $page_types as $page_type ) {
+							// p4-page-type filters.
+							$context['page_types'][ $page_type->term_id ]['term_id'] = $page_type->term_id;
+							$context['page_types'][ $page_type->term_id ]['name']    = $page_type->name;
+							$context['page_types'][ $page_type->term_id ]['results'] ++;
+						}
 					}
 				}
 				$context['posts_data'][ $post->ID ]['content_type_text'] = $content_type_text;
