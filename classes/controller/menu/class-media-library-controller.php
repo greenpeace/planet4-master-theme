@@ -49,46 +49,18 @@ if ( ! class_exists( 'Media_Library_Controller' ) ) {
 		 * Pass all needed data to the view object for the main page.
 		 */
 		public function prepare_ml_search() {
-			$ml_api = new MediaLibraryApi_Controller();
 
 			$p4ml_settings = get_option( 'p4ml_main_settings' );
-
 			$image_id      = 'GP0STPTOM';
 			$image_details = [
 				'image_url'   => '',
 				'image_title' => '',
 			];
 
-			if ( isset( $p4ml_settings['p4ml_api_username'] ) && $p4ml_settings['p4ml_api_username'] && isset( $p4ml_settings['p4ml_api_password'] ) && $p4ml_settings['p4ml_api_password'] ) {
-				// Check if the authentication API call is cached.
-				$ml_auth_token = get_transient( 'ml_auth_token' );
+			$ml_api = new MediaLibraryApi_Controller( $p4ml_settings['p4ml_api_username'], $p4ml_settings['p4ml_api_password'] );
+			$image_details = $ml_api->get_results( [ 'search_text' => $image_id ] );
 
-				if ( false !== $ml_auth_token ) {
-					$image_details = $this->get_image_details( $ml_auth_token, $image_id );
-				} else {
-					$response = $ml_api->authenticate( $p4ml_settings['p4ml_api_username'], $p4ml_settings['p4ml_api_password'] );
-
-					if ( is_array( $response ) && $response['body'] ) {
-						// Communication with ML API is authenticated.
-						$body          = json_decode( $response['body'], true );
-						$ml_auth_token = $body['APIResponse']['Token'];
-						// Time period in seconds to keep the ml_auth_token before refreshing. Typically 1 hour.
-						if ( isset( $body['APIResponse']['TimeoutPeriodMinutes'] ) ) {
-							$expiration     = ( int ) ( $body['APIResponse']['TimeoutPeriodMinutes'] ) * 60;
-						} else {
-							$expiration     = 60 * 60; // Default expirations in 1hr.
-						}
-
-						set_transient( 'ml_auth_token', $ml_auth_token, $expiration );
-
-						$image_details = $this->get_image_details( $ml_auth_token, $image_id );
-					} else {
-						$this->error( $response );
-					}
-				}
-			} else {
-				$this->warning( __( 'Plugin Settings are not configured well!', 'planet4-medialibrary' ) );
-			}
+			$image_details = $image_details[0];
 
 			if ( '' !== $image_details['image_url'] ) {
 				$is_file_exist = $this->validate_file_exists( basename( $image_details['image_url'] ) );
@@ -153,66 +125,6 @@ if ( ! class_exists( 'Media_Library_Controller' ) ) {
 		}
 
 		/**
-		 * Returns image details, fetch from GPI media library.
-		 *
-		 * @param string $ml_auth_token The media library API key to be used in order to call API methods.
-		 * @param string $image_id      The image id is GPI media library image identifier.
-		 *
-		 * @return array
-		 */
-		public function get_image_details( $ml_auth_token, $image_id ) {
-			$ml_api        = new MediaLibraryApi_Controller();
-			$image_details = [];
-
-			/**
-			 * An API query is made with the following syntax:
-			 * The query criteria, prefixed with query=
-			 * The list of fields we require in the response, prefixed with &fields=
-			 */
-			$params = [
-				'query'  => '(text:' . $image_id . ') and (Mediatype:Image)',
-				'fields' => 'Title,Caption,Artist,ArtistShortID,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier',
-				'format' => 'json',
-				'token'  => $ml_auth_token,
-			];
-
-			$response = $ml_api->get_results( $params );
-
-			if ( is_array( $response ) && $response['body'] ) {
-				$image_data = json_decode( $response['body'], true );
-
-				if ( isset( $image_data['APIResponse']['Items'][0] ) ) {
-					$image_details['image_title']   = $image_data['APIResponse']['Items'][0]['Title'];
-					$image_details['image_caption'] = $image_data['APIResponse']['Items'][0]['Caption'];
-					$image_details['image_credit']  = $image_data['APIResponse']['Items'][0]['Artist'];
-
-					if ( $image_data['APIResponse']['Items'][0]['Path_TR1_COMP_SMALL']['URI'] ) {
-						$image_details['image_url'] = $image_data['APIResponse']['Items'][0]['Path_TR1_COMP_SMALL']['URI'];
-					} elseif ( $image_data['APIResponse']['Items'][0]['Path_TR1']['URI'] ) {
-						$image_details['image_url'] = $image_data['APIResponse']['Items'][0]['Path_TR1']['URI'];
-					} elseif ( $image_data['APIResponse']['Items'][0]['Path_TR7']['URI'] ) {
-						$image_details['image_url'] = $image_data['APIResponse']['Items'][0]['Path_TR7']['URI'];
-					} elseif ( $image_data['APIResponse']['Items'][0]['Path_TR4']['URI'] ) {
-						$image_details['image_url'] = $image_data['APIResponse']['Items'][0]['Path_TR4']['URI'];
-					} elseif ( $image_data['APIResponse']['Items'][0]['Path_TR1_COMP']['URI'] ) {
-						$image_details['image_url'] = $image_data['APIResponse']['Items'][0]['Path_TR1_COMP']['URI'];
-					} elseif ( $image_data['APIResponse']['Items'][0]['Path_TR2']['URI'] ) {
-						$image_details['image_url'] = $image_data['APIResponse']['Items'][0]['Path_TR2']['URI'];
-					} elseif ( $image_data['APIResponse']['Items'][0]['Path_TR3']['URI'] ) {
-						$image_details['image_url'] = $image_data['APIResponse']['Items'][0]['Path_TR3']['URI'];
-					}
-
-					// Filter file name for extra url params.
-					$image_details['image_url'] = str_replace( strstr( $image_details['image_url'] , '?' ), '', $image_details['image_url'] );
-				}
-			} else {
-				$this->error( $response['APIResponse']['Code'] );
-			}
-
-			return $image_details;
-		}
-
-		/**
 		 * Validate file already exist in WP media, if yes then return image id.
 		 *
 		 * @param string $filename The file name (without full path).
@@ -226,6 +138,29 @@ if ( ! class_exists( 'Media_Library_Controller' ) ) {
 			$result    = $wpdb->get_col( $statement );
 
 			return $result[0] ?? '';
+		}
+
+		/**
+		 * Validates the settings input.
+		 *
+		 * @param array $settings The associative array with the settings that are registered for the plugin.
+		 *
+		 * @return bool
+		 */
+		public function validate( $settings ) : bool {
+			// TODO: Implement validate() method.
+			$has_errors = false;
+
+			return ! $has_errors;
+		}
+
+		/**
+		 * Sanitizes the settings input.
+		 *
+		 * @param array $settings The associative array with the settings that are registered for the plugin (Call by Reference).
+		 */
+		public function sanitize( &$settings ) {
+			// TODO: Implement sanitize() method.
 		}
 	}
 }
