@@ -1,9 +1,10 @@
 .happy-point-block-wrap {
   @include background-before-opacity($light-blue-bg);
-  margin: 0 -120px 0 -100px;
+  width: 100vw;
 
   .container {
     height: inherit;
+    width: 100%;
 
     .row {
       height: inherit;
@@ -48,11 +49,9 @@
 @media (max-width: 767px) {
   .happy-point-block-wrap {
     height: 444px;
-    padding-left: 25px;
-    padding-right: 25px;
 
     .pt-20 {
-      padding: 70px 102px 0 96px;
+      padding-top: 70px;
     }
 
     h2 {
@@ -101,13 +100,19 @@
   .happy-point-block-wrap {
     max-height: 480px;
 
+    .container {
+      max-width: none;
+    }
+
     .pt-20 {
-      iframe {
-        width: 80vw;
-      }
+      text-align: center;
       padding-top: 220px;
       padding-left: 0;
       padding-right: 0;
+
+      iframe {
+        width: 80vw;
+      }
     }
 
     h2 {
