@@ -15,7 +15,7 @@
 if ( is_main_query() && is_search() ) {
 	if ( 'GET' === filter_input( INPUT_SERVER, 'REQUEST_METHOD' ) ) {
 		$selected_sort     = filter_input( INPUT_GET, 'orderby',  FILTER_SANITIZE_STRING );
-		$is_elastic_search = 'true' === $_GET['es'] ? true : false;
+		$is_elastic_search = isset( $_GET['es'] ) && 'true' === $_GET['es'] ? true : false;
 		$selected_filters  = $_GET['f'] ?? '';
 		$filters           = [];
 
