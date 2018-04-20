@@ -32,7 +32,6 @@ $context['actions_title']    = __( 'Act', 'planet4-master-theme' );
 $context['issues_title']     = __( 'Explore', 'planet4-master-theme' );
 $context['evergreen_title']  = __( 'About Greenpeace', 'planet4-master-theme' );
 $context['page_types_title'] = __( 'Articles', 'planet4-master-theme' );
-$context['archive_title']    = __( 'Search the archive', 'planet4-master-theme' );
 
 $context['actions']          = $sitemap->get_actions();
 $context['issues']           = $sitemap->get_issues();
