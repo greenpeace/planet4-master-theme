@@ -54,7 +54,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 		}
 
 		/**
-		 * Gets all the information on the available pages built in EN.
+		 * Fetch data from GP media library using search API.
 		 *
 		 * @param array $params The query parameters to be added in the url.
 		 *

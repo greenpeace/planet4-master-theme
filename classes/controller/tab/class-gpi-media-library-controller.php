@@ -1,18 +1,18 @@
 <?php
 
-namespace P4ML\Controllers\Menu;
+namespace P4ML\Controllers\Tab;
 
 use P4ML\Views\View;
 use P4ML\Controllers\MediaLibraryApi_Controller;
 
-if ( ! class_exists( 'Search_Controller' ) ) {
+if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 
 	/**
 	 * Class Search_Controller
 	 *
-	 * @package P4ML\Controllers\Menu
+	 * @package P4ML\Controllers\Tab
 	 */
-	class Search_Controller extends Controller {
+	class GPI_Media_Library_Controller extends Controller {
 
 		/**
 		 * Creates the plugin's loader object.
@@ -20,7 +20,6 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 		 * after WordPress has finished loading but before any headers are sent.
 		 * Most of WP is loaded at this stage (but not all) and the user is authenticated.
 		 *
-		 * @param array $services The Controller services to inject.
 		 * @param string $view_class The View class name.
 		 */
 		public function __construct( View $view ) {
@@ -54,6 +53,8 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 		 * Fetch the data from GP media library and pass to wp_iframe.
 		 */
 		public function library_form() {
+
+			wp_enqueue_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.1', true );
 
 			$ml_api        = new MediaLibraryApi_Controller();
 			$p4ml_settings = get_option( 'p4ml_main_settings' );
@@ -93,7 +94,7 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 			if ( '' === $search_text ) {
 				$params = [
 					'query'        => '(Mediatype:Image)',
-					'fields'       => 'Title,Caption,Artist,ArtistShortID,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3',
+					'fields'       => 'Title,Caption,Artist,ArtistShortID,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier',
 					'countperpage' => 15,
 					'format'       => 'json',
 					'token'        => $ml_auth_token,
@@ -101,7 +102,7 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 			} else {
 				$params = [
 					'query'        => '(text:' . $search_text . ') and (Mediatype:Image)',
-					'fields'       => 'Title,Caption,Artist,ArtistShortID,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3',
+					'fields'       => 'Title,Caption,Artist,ArtistShortID,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier',
 					'countperpage' => 15,
 					'format'       => 'json',
 					'token'        => $ml_auth_token,
@@ -117,6 +118,7 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 						$image_list[$key]['image_title']   = $details['Title'];
 						$image_list[$key]['image_caption'] = $details['Caption'];
 						$image_list[$key]['image_credit']  = $details['Artist'];
+						$image_list[$key]['gpml_image_id'] = $details['SystemIdentifier'];
 
 						if ( $details['Path_TR7']['URI'] ) {
 							$image_list[$key]['image_url'] = $details['Path_TR7']['URI'];
@@ -136,6 +138,9 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 
 						// Filter file name for extra url params.
 						$image_list[$key]['image_url'] = str_replace( strstr( $image_list[$key]['image_url'] , '?' ), '', $image_list[$key]['image_url'] );
+
+						// TO DO: Remove it, added for testing on local only.
+						$image_list[$key]['image_url'] = str_replace( 'https', 'http', $image_list[$key]['image_url'] );
 					}
 				}
 			} else {
@@ -148,25 +153,6 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 					'domain'     => 'planet4-medialibrary',
 				],
 			] );
-		}
-
-		/**
-		 * Create menu/submenu entry.
-		 */
-		public function create_admin_menu() {
-
-			$current_user = wp_get_current_user();
-
-			if ( in_array( 'administrator', $current_user->roles, true ) || in_array( 'editor', $current_user->roles, true ) ) {
-				add_menu_page(
-					'Media Library',
-					'MediaLibrary',
-					'edit_pages',
-					P4ML_PLUGIN_SLUG_NAME,
-					[ $this, 'prepare_ml_search' ],
-					P4ML_ADMIN_DIR . 'images/logo_menu_page_16x16.png'
-				);
-			}
 		}
 
 		/**
@@ -295,7 +281,7 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 			 */
 			$params = [
 				'query'  => '(text:' . $image_id . ') and (Mediatype:Image)',
-				'fields' => 'Title,Caption,Artist,ArtistShortID,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3',
+				'fields' => 'Title,Caption,Artist,ArtistShortID,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier',
 				'format' => 'json',
 				'token'  => $ml_auth_token,
 			];
