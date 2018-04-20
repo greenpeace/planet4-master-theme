@@ -86,9 +86,9 @@ $context['show_comments']       = comments_open( $post->ID );
 $context['post_comments_count'] = get_comments(
 	[
 		'post_id' => $post->ID,
-		'status' => 'approve',
-		'type' => 'comment',
-		'count' => true,
+		'status'  => 'approve',
+		'type'    => 'comment',
+		'count'   => true,
 	] );
 
 if ( post_password_required( $post->ID ) ) {
