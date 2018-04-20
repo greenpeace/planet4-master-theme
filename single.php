@@ -83,7 +83,13 @@ $comments_args = [
 
 $context['comments_args']       = $comments_args;
 $context['show_comments']       = comments_open( $post->ID );
-$context['post_comments_count'] = wp_count_comments( $post->ID )->approved;
+$context['post_comments_count'] = get_comments(
+	[
+		'post_id' => $post->ID,
+		'status' => 'approve',
+		'type' => 'comment',
+		'count' => true,
+	] );
 
 if ( post_password_required( $post->ID ) ) {
 	Timber::render( 'single-password.twig', $context );
