@@ -194,6 +194,11 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 			add_filter( 'cmb2_render_explore_page_dropdown', [ $this, 'p4_render_explore_page_dropdown' ], 10, 2 );
 			add_filter( 'cmb2_render_category_select_taxonomy', [ $this, 'p4_render_category_dropdown' ], 10, 2 );
 			add_filter( 'cmb2_render_pagetype_select_taxonomy', [ $this, 'p4_render_pagetype_dropdown' ], 10, 2 );
+
+			// Make settings multilingual if wpml plugin is installed and activated.
+			if ( function_exists( 'icl_object_id' ) ) {
+				add_action( 'init', [ $this, 'make_settings_multilingual' ] );
+			}
 		}
 
 		/**
@@ -302,6 +307,14 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				'fields'     => $this->fields,
 			];
 		}
+
+		/**
+		 * Hook for wpml plugin.
+         * Enables the possibility to save a different value per language for the theme options using WPML language switcher.
+		 */
+		public function make_settings_multilingual() {
+			do_action( 'wpml_multilingual_options', 'planet4_options' );
+        }
 	}
 }
 
