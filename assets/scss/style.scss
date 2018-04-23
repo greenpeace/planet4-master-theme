@@ -56,6 +56,7 @@ Text Domain: planet4-master-theme
 @import "common/skewed-overlay";
 @import "common/tags-list";
 @import "common/share-buttons";
+@import "common/submenu";
 
 /**
  * Page-specific styles
@@ -73,6 +74,9 @@ Text Domain: planet4-master-theme
 
 // Take Action page.
 @import "pages/take-action"; // TODO: Break this down into blocks
+
+// Sitemap page.
+@import "pages/sitemap";
 
 // Explore page.
 // Comment out since it does not contains any rules currently.
