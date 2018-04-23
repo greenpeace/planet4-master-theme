@@ -310,11 +310,11 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 
 		/**
 		 * Hook for wpml plugin.
-         * Enables the possibility to save a different value per language for the theme options using WPML language switcher.
+		 * Enables the possibility to save a different value per language for the theme options using WPML language switcher.
 		 */
 		public function make_settings_multilingual() {
 			do_action( 'wpml_multilingual_options', 'planet4_options' );
-        }
+		}
 	}
 }
 
