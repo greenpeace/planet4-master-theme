@@ -57,9 +57,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		 * Fetch the data from GP media library and pass to wp_iframe.
 		 */
 		public function library_form() {
-
-			$p4ml_settings = get_option( 'p4ml_main_settings' );
-			$ml_api        = new MediaLibraryApi_Controller( $p4ml_settings['p4ml_api_username'], $p4ml_settings['p4ml_api_password'] );
+			$ml_api        = new MediaLibraryApi_Controller();
 			$image_list    = $ml_api->get_results();
 
 			$this->view->ml_view( [

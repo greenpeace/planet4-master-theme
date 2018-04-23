@@ -41,9 +41,10 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 		 * @param string $p4ml_login_id The media library loginID to be used in order to authenticate for ML API.
 		 * @param string $p4ml_password The media library password to be used in order to authenticate for ML API.
 		 */
-		public function __construct( $p4ml_login_id, $p4ml_password ) {
+		public function __construct() {
 
-			$this->ml_auth_token = $this->authenticate( $p4ml_login_id, $p4ml_password );
+			$p4ml_settings = get_option( 'p4ml_main_settings' );
+			$this->ml_auth_token = $this->authenticate( $p4ml_settings['p4ml_api_username'], $p4ml_settings['p4ml_api_password'] );
 			$this->initialize();
 		}
 

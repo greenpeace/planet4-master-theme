@@ -49,15 +49,13 @@ if ( ! class_exists( 'Media_Library_Controller' ) ) {
 		 * Pass all needed data to the view object for the main page.
 		 */
 		public function prepare_ml_search() {
-
-			$p4ml_settings = get_option( 'p4ml_main_settings' );
 			$image_id      = 'GP0STPTOM';
 			$image_details = [
 				'image_url'   => '',
 				'image_title' => '',
 			];
 
-			$ml_api = new MediaLibraryApi_Controller( $p4ml_settings['p4ml_api_username'], $p4ml_settings['p4ml_api_password'] );
+			$ml_api = new MediaLibraryApi_Controller();
 			$image_details = $ml_api->get_results( [ 'search_text' => $image_id ] );
 
 			$image_details = $image_details[0];
