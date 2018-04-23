@@ -708,7 +708,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				// Page Type <-> Category. This taxonomy is used only for Posts.
 				if ( 'post' === $post->post_type ) {
 					$page_types = get_the_terms( $post->ID, 'p4-page-type' );
-					if ( $page_types ) {
+					if ( is_array( $page_types ) ) {
 						foreach ( (array) $page_types as $page_type ) {
 							// p4-page-type filters.
 							$context['page_types'][ $page_type->term_id ]['term_id'] = $page_type->term_id;
