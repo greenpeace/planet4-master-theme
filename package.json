@@ -14,18 +14,18 @@
 		"stylelint": "^9.1.1"
 	},
 	"dependencies": {
+		"@fortawesome/fontawesome-free-webfonts": "^1.0.6",
 		"bootstrap": "^4.0.0",
-		"font-awesome": "^4.7.0",
 		"hammerjs": "^2.0.8",
 		"jquery": "^3.3.1",
 		"popper.js": "^1.12.9",
 		"slick-carousel": "^1.8.1"
 	},
 	"assets": [
+		"@fortawesome/fontawesome-free-webfonts/css/*",
+		"@fortawesome/fontawesome-free-webfonts/webfonts/*",
 		"bootstrap/dist/css/bootstrap.min.css",
 		"bootstrap/dist/js/bootstrap.min.js",
-		"font-awesome/css/font-awesome.min.css",
-		"font-awesome/fonts/*",
 		"hammerjs/hammer.min.js",
 		"jquery/dist/jquery.min.js",
 		"popper.js/dist/umd/popper.min.js",
