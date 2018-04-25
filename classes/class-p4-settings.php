@@ -135,7 +135,8 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'attributes' => array(
 						'type' => 'text',
 					),
-					'desc'       => __( 'Add default button text which appears on <b>Take Action</b> card of <b>Take Action Covers</b> block.', 'planet4-master-theme' ),
+					'desc'       => __( 'Add default button text which appears on <b>Take Action</b> card of <b>Take Action Covers</b> block. <br>
+					                     Also it would be used for Take Action Cards inside Posts and Take Action Cards in search results', 'planet4-master-theme' ),
 				],
 
 				[
