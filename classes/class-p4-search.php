@@ -537,6 +537,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			// Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
 			$options = get_option( 'planet4_options' );
 
+			// Pass planet4 settings.
+			$context['settings'] = get_option( 'planet4_options' );
+
 			// Set default thumbnail.
 			$context['posts_data']['dummy_thumbnail'] = get_template_directory_uri() . self::DUMMY_THUMBNAIL;
 
@@ -691,9 +694,11 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		public function view_paged_posts() {
 			// TODO - The $paged_context related code should be transferred to set_results_context method for better separation of concerns.
 			if ( $this->paged_posts ) {
-				$paged_context = [
-					'posts_data'  => $this->context['posts_data'],
+				$paged_context             = [
+					'posts_data' => $this->context['posts_data'],
 				];
+				$paged_context['settings'] = get_option( 'planet4_options' );
+
 				foreach ( $this->paged_posts as $index => $post ) {
 					$paged_context['post'] = $post;
 					if ( 0 === $index % self::POSTS_PER_LOAD ) {

@@ -58,7 +58,8 @@
 			<p class="search-result-item-content">{{ post.preview()|truncate( 25, true )|raw }}</p>
 
 			{% if ( is_action ) %}
-				<a href="{{ post.link }}" class="btn btn-primary btn-medium btn-small">{{ __( 'Take Action', domain ) }}</a>
+				{%  set link_text = settings['take_action_covers_button_text'] %}
+				<a href="{{ post.link }}" class="btn btn-primary btn-medium btn-small">{{ link_text ?: __( 'take action', domain ) }}</a>
 			{% elseif ( is_document ) %}
 				<a href="{{ post.guid }}" download class="btn btn-small btn-secondary">
 					<i class="icon-doc-ic"></i>{{ __( 'Download', domain ) }}
