@@ -1,0 +1,28 @@
+{% block ml_list_content %}
+    <div class="ml-media-frame-content" style="margin: 10px 10px 10px 10px;">
+        {% for image in data.image_list %}
+            <a href="#" id="imageid-{{ image['gpml_image_id'] }}" class="image-thumbnail">
+                <img src="{{ image['image_url'] }}"  width="150px" height="150px">
+            </a>
+        {% endfor %}
+    </div>
+    <div class="ml-media-frame-toolbar">
+        <div class="ml-media-toolbar">
+            <div class="ml-media-toolbar-secondary">
+                <div class="ml-media-selection empty">
+                    <div class="selection-info">
+                        <span class="count">0 selected</span>
+                        <button type="button" class="button-link edit-selection">Edit Selection</button>
+                        <button type="button" class="button-link clear-selection">Clear</button>
+                    </div>
+                    <div class="selection-view">
+                        <ul tabindex="-1" class="attachments" id="__attachments-view-xxx"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="ml-media-toolbar-primary search-form">
+                <button type="button" class="button media-button button-primary button-large media-button-insert" disabled="disabled">Insert into WP media & post</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

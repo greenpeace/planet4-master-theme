@@ -89,6 +89,15 @@ if ( ! class_exists( 'View' ) ) {
 		}
 
 		/**
+		 * Render the media library image listing page.
+		 *
+		 * @param array $data All the data needed to render the template.
+		 */
+		public function ml_view( $data ) {
+			$this->view_template( 'ml_view', $data );
+		}
+
+		/**
 		 * Displays a message.
 		 *
 		 * @param array $data All the data needed to render the template.
