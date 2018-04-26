@@ -323,7 +323,8 @@
 .wp-caption {
   position: relative;
   display: inline-block;
-  width: auto;
+  width: auto !important;
+  max-width: 100%;
   margin-bottom: 18px;
 
   @include medium-and-up {
