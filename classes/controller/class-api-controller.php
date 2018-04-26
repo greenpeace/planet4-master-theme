@@ -37,9 +37,6 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 
 		/**
 		 * MediaLibraryApi_Controller constructor.
-		 *
-		 * @param string $p4ml_login_id The media library loginID to be used in order to authenticate for ML API.
-		 * @param string $p4ml_password The media library password to be used in order to authenticate for ML API.
 		 */
 		public function __construct() {
 
@@ -147,11 +144,10 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 			] );
 
 			if ( is_wp_error( $response ) ) {
-				$this->error($response->get_error_message() . ' ' . $response->get_error_code() );
+				$this->error( $response->get_error_message() . ' ' . $response->get_error_code() );
 
 			} elseif ( is_array( $response ) && \WP_Http::OK !== $response['response']['code'] ) {
-				$this->error($response['response']['message'] . ' ' . $response['response']['code'] );         // Authentication failed.
-
+				$this->error( $response['response']['message'] . ' ' . $response['response']['code'] );         // Authentication failed.
 			}
 
 			if ( is_array( $response ) && $response['body'] ) {

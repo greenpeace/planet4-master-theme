@@ -21,16 +21,13 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		 * after WordPress has finished loading but before any headers are sent.
 		 * Most of WP is loaded at this stage (but not all) and the user is authenticated.
 		 *
-		 * @param string $view_class The View class name.
+		 * @param View $view_class The View class object.
 		 */
 		public function __construct( View $view ) {
 			parent::__construct( $view );
 
 			add_filter( 'media_upload_tabs', [ $this, 'media_library_tab' ] );
 			add_action( 'media_upload_gpi_media_library', [ $this, 'add_library_form' ] );
-
-//			add_action( 'wp_ajax_get_paged_posts',        [ 'Search_Controller', 'get_paged_posts' ] );
-//			add_action( 'wp_ajax_nopriv_get_paged_posts', [ 'Search_Controller', 'get_paged_posts' ] );
 		}
 
 		/**
@@ -62,7 +59,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 
 			$this->view->ml_view( [
 				'data' => [
-					'image_list' => $image_list ,
+					'image_list' => $image_list,
 					'domain'     => 'planet4-medialibrary',
 				],
 			] );

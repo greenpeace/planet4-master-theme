@@ -20,7 +20,7 @@ if ( ! class_exists( 'Media_Library_Controller' ) ) {
 		 * after WordPress has finished loading but before any headers are sent.
 		 * Most of WP is loaded at this stage (but not all) and the user is authenticated.
 		 *
-		 * @param string $view_class The View class name.
+		 * @param View $view_class The View class Object.
 		 */
 		public function __construct( View $view ) {
 			parent::__construct( $view );
