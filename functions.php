@@ -900,7 +900,7 @@ class P4_Master_Site extends TimberSite {
 		}
 
 		$output = '<div ' . $atts['id'] . ' class="' . esc_attr( $class ) . '">'
-		          . do_shortcode( $content ) . '<p class="wp-caption-text">' . $atts['caption'] . $image_credit . '</p></div>';
+				. do_shortcode( $content ) . '<p class="wp-caption-text">' . $atts['caption'] . $image_credit . '</p></div>';
 
 		return $output;
 	}
