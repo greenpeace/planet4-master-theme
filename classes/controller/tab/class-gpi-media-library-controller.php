@@ -15,6 +15,14 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 	 */
 	class GPI_Media_Library_Controller extends Controller {
 
+		const MEDIAS_LIMIT      = 300;
+		const MEDIAS_PER_PAGE   = 10;
+		const MEDIAS_PER_LOAD   = 5;
+		const SHOW_SCROLL_TIMES = 2;
+
+		/** @var array $localizations */
+		protected $localizations;
+
 		/**
 		 * Creates the plugin's loader object.
 		 * Checks requirements and if its ok it hooks the hook_plugin method on the 'init' action which fires
@@ -26,8 +34,14 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		public function __construct( View $view ) {
 			parent::__construct( $view );
 
-			add_filter( 'media_upload_tabs', [ $this, 'media_library_tab' ] );
+			add_filter( 'media_upload_tabs',              [ $this, 'media_library_tab' ] );
 			add_action( 'media_upload_gpi_media_library', [ $this, 'add_library_form' ] );
+
+			add_action( 'wp_ajax_get_paged_medias',       [ $this, 'get_paged_medias' ] );
+
+			$this->localizations = [
+				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
+			];
 		}
 
 		/**
@@ -54,8 +68,10 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		 * Fetch the data from GP media library and pass to wp_iframe.
 		 */
 		public function library_form() {
-			$ml_api        = new MediaLibraryApi_Controller();
-			$image_list    = $ml_api->get_results();
+			$this->ml_enqueue_public_assets();
+
+			$ml_api     = new MediaLibraryApi_Controller();
+			$image_list = $ml_api->get_results();
 
 			$this->view->ml_view( [
 				'data' => [
@@ -63,6 +79,72 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 					'domain'     => 'planet4-medialibrary',
 				],
 			] );
+		}
+
+		/**
+		 * Callback for loadmore the next results & search.
+		 * Gets the paged medias that belong to the next page/loadmore & search result and are to be used with the twig template.
+		 */
+		public function get_paged_medias() {
+			// If this is an ajax call.
+			if ( wp_doing_ajax() ) {
+				$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
+				$paged         = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_STRING );
+
+				$query_string  = filter_input( INPUT_GET, 'query-string', FILTER_SANITIZE_STRING );
+
+				// Check if call action is correct.
+				if ( 'get_paged_medias' === $search_action ) {
+
+					$ml_api        = new MediaLibraryApi_Controller();
+
+					$params = [];
+
+					if ( '' !== $query_string ) {
+						$params['search_text'] = $query_string;
+					}
+
+					$image_list    = $ml_api->get_results( $params );
+
+					$this->view->ml_search_view( [
+						'data' => [
+							'image_list' => $image_list,
+							'domain'     => 'planet4-medialibrary',
+						],
+					] );
+				}
+
+				// Check if call action is correct.
+				if ( 'get_searched_medias' === $search_action ) {
+
+					$ml_api        = new MediaLibraryApi_Controller();
+
+					$params = [];
+
+					if ( '' !== $query_string ) {
+						$params['search_text'] = $query_string;
+					}
+
+					$image_list    = $ml_api->get_results( $params );
+
+					$this->view->ml_search_view( [
+						'data' => [
+							'image_list' => $image_list,
+							'domain'     => 'planet4-medialibrary',
+						],
+					] );
+				}
+				wp_die();
+			}
+		}
+
+		/**
+		 * Load assets only on the ml search page.
+		 */
+		public function ml_enqueue_public_assets() {
+			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/ml_search.js', [ 'jquery' ], '0.1', false );
+			wp_localize_script( 'p4ml_admin_script', 'localizations', $this->localizations );
+			wp_enqueue_script( 'p4ml_admin_script' );
 		}
 
 		/**
