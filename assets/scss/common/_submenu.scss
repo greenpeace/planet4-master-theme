@@ -18,7 +18,7 @@
     }
 
     a {
-      color: $blue-80;
+      color: $menu-blue;
       text-decoration: none;
     }
 
@@ -32,9 +32,11 @@
       &:before {
         display: inline-block;
         font-family: FontAwesome;
-        content: "\f061";
-        color: $blue-80;
+        content: "\f105";
+        color: $menu-blue;
         margin-right: 5px;
+        font-size: 0.8em;
+        vertical-align: text-bottom;
       }
     }
   }
@@ -46,6 +48,10 @@
 
         @include large-and-up {
           flex-basis: 33%;
+        }
+
+        li:before {
+          content: "";
         }
       }
     }
