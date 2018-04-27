@@ -131,6 +131,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'admin_head' ,              array( $this, 'remove_add_post_element' ) );
 		add_filter( 'post_gallery',             array( $this, 'carousel_post_gallery' ), 10, 2 );
 		add_action( 'save_post',                array( $this, 'p4_auto_generate_excerpt' ) , 10, 2 );
+		add_filter( 'img_caption_shortcode',    array( $this, 'override_img_caption_shortcode' ), 10, 3 );
 
 		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
 		add_action( 'wp_ajax_nopriv_get_paged_posts', array( 'P4_Search', 'get_paged_posts' ) );
@@ -868,6 +869,40 @@ class P4_Master_Site extends TimberSite {
 			extract( $args );
 		}
 		include( locate_template( $path . '.php' ) );
+	}
+
+	/**
+	 * Filter function for img_caption_shortcode. Append image credit to caption.
+	 *
+	 * @param string $output  The caption output. Passed empty by WordPress.
+	 * @param array  $attr    Attributes of the caption shortcode.
+	 * @param string $content The image element, possibly wrapped in a hyperlink.
+	 *
+	 * @return string HTML content to display the caption.
+	 */
+	public function override_img_caption_shortcode( $output, $attr, $content ) {
+
+		$atts = shortcode_atts( array(
+			'id'      => '',
+			'align'   => 'alignnone',
+			'width'   => '',
+			'caption' => '',
+			'class'   => '',
+		), $attr, 'caption' );
+
+		$image_id     = trim( str_replace( 'attachment_', '', $atts['id'] ) );
+		$meta         = get_post_meta( $image_id );
+		$image_credit = ( isset( $meta['_credit_text'] ) && ! empty( $meta['_credit_text'] ) ) ? ' ' . $meta['_credit_text'][0] : '';
+		$class        = trim( 'wp-caption ' . $atts['align'] . ' ' . $atts['class'] );
+
+		if ( $atts['id'] ) {
+			$atts['id'] = 'id="' . esc_attr( $atts['id'] ) . '" ';
+		}
+
+		$output = '<div ' . $atts['id'] . ' class="' . esc_attr( $class ) . '">'
+		          . do_shortcode( $content ) . '<p class="wp-caption-text">' . $atts['caption'] . $image_credit . '</p></div>';
+
+		return $output;
 	}
 
 }
