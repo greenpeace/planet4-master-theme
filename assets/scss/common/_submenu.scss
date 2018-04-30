@@ -5,20 +5,20 @@
   margin-bottom: 40px;
   padding: 50px;
 
-  .submenu-items {
+  .submenu-menu {
     display: flex;
     flex-wrap: wrap;
 
-    > ul {
+    ul.submenu-item {
       flex-basis: 100%;
 
       @include large-and-up {
-        flex-basis: 45%;
+        flex-basis: 50%;
       }
     }
 
     a {
-      color: $blue-80;
+      color: $menu-blue;
       text-decoration: none;
     }
 
@@ -32,9 +32,45 @@
       &:before {
         display: inline-block;
         font-family: FontAwesome;
-        content: "\f061";
-        color: $blue-80;
+        content: "\f105";
+        color: $menu-blue;
         margin-right: 5px;
+        font-size: 0.8em;
+        vertical-align: text-bottom;
+      }
+    }
+  }
+
+  &.submenu-short {
+    .submenu-menu {
+      ul.submenu-item {
+        flex-basis: 100%;
+
+        @include large-and-up {
+          flex-basis: 33%;
+        }
+
+        li:before {
+          content: "";
+        }
+      }
+    }
+  }
+
+  &.submenu-sidebar {
+    @include medium-and-up {
+      float: right;
+      max-width: 350px;
+      margin: 0 0 15px 15px;
+    }
+
+    .submenu-menu {
+      ul.submenu-item {
+        flex-basis: 100%;
+
+        @include large-and-up {
+          flex-basis: 100%;
+        }
       }
     }
   }
