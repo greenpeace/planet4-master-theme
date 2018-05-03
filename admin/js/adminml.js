@@ -1,72 +1,80 @@
-var media_domain = "https://www.media.greenpeace.org";
+var $ = jQuery;
 
 jQuery(document).ready(function () {
 
+    $("#selectable-images").selectable({
+        selected: function (event, ui) {
+            $('#ml-button-insert').removeAttr("disabled");
+        },
+        unselected: function (event, ui) {
+            if ($(".ui-selected", $("#selectable-images")).size === 0) {
+                $('#ml-button-insert').attr("disabled", "disabled");
+            }
+        }
+    });
 
-	jQuery("#search_gpi_img_btn").on('click', function () {
-		var server_id = $(this).parent().attr('rel');
-
-
-	});
-
-	function authenticate(username, password) {
-		$.ajax({
-			url: media_domain + '/API/Authentication/v1.0/Login',
-			cache: false,
-			dataType: "json",
-			type: 'get',
-			data: {
-				username: username,
-				password: password,
-				format: 'json'
-			},
-			beforeSend: function () {
-				$('#server_details').animate({opacity: 0.2}, 200);
-				//$('#server_details').html('');
-			},
-			success: function (result) {
-				alert(result);
-				var source = $("#server-info-template").html();
-				var template = Handlebars.compile(source);
-				var html = template(result);
-				$('#server_details').html(html);
-			},
-			error: function () {
-			}
-		}).always(function () {
-			$('#server_details').animate({opacity: 1}, 200);
-		});
-	}
-
-	function search(keyword, token) {
-		token = 'CortexD7lmwOLHwyWdw43UiFjfmLRYoCbpCoCmBz0fepX44KI*';
-		$.ajax({
-			url: media_domain + '/API/search/v3.0/search',
-			cache: false,
-			dataType: "json",
-			type: 'get',
-			data: {
-				query: 'Keyword:flowers',
-				fields: 'Title',
-				token: token,
-				format: 'json'
-			},
-			beforeSend: function () {
-				$('#server_details').animate({opacity: 0.2}, 200);
-			},
-			success: function (result) {
-				alert(result);
-				var source = $("#server-info-template").html();
-				var template = Handlebars.compile(source);
-				var html = template(result);
-				$('#server_details').html(html);
-			},
-			error: function () {
-			}
-		}).always(function () {
-			$('#server_details').animate({opacity: 1}, 200);
-		});
-	}
+    // Add click event for clear selected images button.
+    $("#clear_images").on('click', function () {
+        $('#ml-button-insert').attr("disabled", true);
+        $("#selectable-images li").removeClass('ui-selected');
+    });
 
 
+    // Add click event for media insert button.
+    $('#ml-button-insert').off('click').on('click', function () {
+
+        var selected_images = $(".ui-selected").map(function (index, element) {
+            return $(element).data('id');
+        }).get();
+
+        $('#ml_loader').removeClass('hidden');
+        var nonce = media_library_params.nonce;
+        $.ajax({
+            url: media_library_params.ajaxurl,
+            type: 'GET',
+            data: {
+                action: 'download_images_from_library',
+                nonce: nonce,
+                images: selected_images
+            },
+            dataType: 'html'
+        }).done(function (response) {
+
+            try {
+                resp = JSON.parse(response);
+                wp = parent.wp;
+
+                if ('undefined' !== resp.images) {
+
+                    var promises = [];
+                    for (len = resp.images.length, i = 0; i < len; ++i) {
+                        var image = resp.images[i];
+
+                        options = {
+                            id: image.wordpress_id,
+                            'image-size': 'full',
+                            post_content: image.caption,
+                            post_excerpt: image.caption,
+                        };
+
+                        promises.push(wp.media.post('send-attachment-to-editor', {
+                            nonce: wp.media.view.settings.nonce.sendToEditor,
+                            attachment: options,
+                            html: '',
+                            post_id: $("#post_ID").val()
+                        }));
+                    }
+                    Promise.all(promises).then(function (values) {
+                        parent.send_to_editor(values.join(' '));
+                    });
+                }
+            } catch (e) {
+            }
+            $('#ml_loader').addClass('hidden');
+
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown); //eslint-disable-line no-console
+            $('#ml_loader').addClass('hidden');
+        });
+    });
 });

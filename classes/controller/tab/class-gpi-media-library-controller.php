@@ -2,9 +2,10 @@
 
 namespace P4ML\Controllers\Tab;
 
+use P4ML\Helpers\MediaHelper;
+use P4ML\Api\MediaImageMapper;
 use P4ML\Views\View;
 use P4ML\Controllers\MediaLibraryApi_Controller;
-use P4ML\Controllers\Search_Controller;
 
 if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 
@@ -28,6 +29,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 
 			add_filter( 'media_upload_tabs', [ $this, 'media_library_tab' ] );
 			add_action( 'media_upload_gpi_media_library', [ $this, 'add_library_form' ] );
+			add_action( 'wp_ajax_download_images_from_media_library', [ $this, 'download_images_from_library' ] );
 		}
 
 		/**
@@ -57,28 +59,13 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 			$ml_api        = new MediaLibraryApi_Controller();
 			$image_list    = $ml_api->get_results();
 
+			$this->load_iframe_assets();
 			$this->view->ml_view( [
 				'data' => [
 					'image_list' => $image_list,
 					'domain'     => 'planet4-medialibrary',
 				],
 			] );
-		}
-
-		/**
-		 * Validate file already exist in WP media or not.
-		 *
-		 * @param string $filename The file name (without full path).
-		 *
-		 * @return int
-		 */
-		protected function validate_file_exists( $filename ) {
-			global $wpdb;
-
-			$statement = $wpdb->prepare( "SELECT `post_id` FROM `{$wpdb->postmeta}` WHERE `meta_value` LIKE %s", '%' . $filename . '%' );
-			$result    = $wpdb->get_col( $statement );
-
-			return $result[0] ?? '';
 		}
 
 		/**
@@ -102,6 +89,61 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		 */
 		public function sanitize( &$settings ) {
 			// TODO: Implement sanitize() method.
+		}
+
+		/**
+		 * Load assets only on the search page.
+		 */
+		public function load_iframe_assets() {
+			$nonce = wp_create_nonce( 'gpi-media-library-nonce' );
+
+			$params = [
+				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => $nonce,
+			];
+			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.2', true );
+			wp_localize_script( 'p4ml_admin_script', 'media_library_params', $params );
+			wp_enqueue_script( 'p4ml_admin_script' );
+		}
+
+		/**
+		 *
+		 */
+		public function download_images_from_library() {
+			$ml_api = new MediaLibraryApi_Controller();
+			$helper = new MediaHelper();
+			$selected_images = filter_input( INPUT_GET, 'images', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+
+			$response = [
+				'errors'  => [],
+				'images' => [],
+			];
+			foreach ( $selected_images as $image ) {
+				$image_list = $ml_api->get_single_image( $image );
+				if ( is_array( $image_list ) ) {
+					$image      = ( new MediaImageMapper() )->getFromArray( $image_list[0] );
+					$attachment = $helper->file_exists( $image->getId() );
+
+					if ( empty( $attachment ) ) {
+						$attachment_upload = $helper->upload_file( $image );
+
+						if ( is_numeric( $attachment_upload ) ) {
+							$image->setWordpressId( $attachment );
+							$response['images'][] = $image;
+						} else {
+							$response['errors'][] = $attachment_upload;
+						}
+					} else {
+						$image->setWordpressId( $attachment );
+						$response['images'][] = $image;
+					}
+				} else {
+					$response['errors'][] = $image_list;
+				}
+			}
+
+			echo wp_json_encode( $response );
+			wp_die();
 		}
 	}
 }

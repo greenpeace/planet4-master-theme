@@ -1,27 +1,44 @@
 {% block ml_list_content %}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <div class="ml-media-frame-content" style="margin: 10px 10px 10px 10px;">
-        {% for image in data.image_list %}
-            <a href="#" id="imageid-{{ image['gpml_image_id'] }}" class="image-thumbnail">
-                <img src="{{ image['image_url'] }}"  width="150px" height="150px">
-            </a>
-        {% endfor %}
+
+        <div class="attachments-browser">
+            <ul tabindex="-1" class="attachments ui-sortable-disabled" id="selectable-images">
+                {% for image in data.image_list %}
+                    <li tabindex="0" data-id="{{ image['gpml_image_id'] }}" class="attachment save-ready details"
+                        style="">
+                        <div class="attachment-preview js--select-attachment type-image subtype-jpeg landscape">
+                            <div class="thumbnail">
+                                <div class="centered">
+                                    <img src="{{ image['image_url'] }}" width="150px" height="150px" draggable="false"
+                                         alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
+    <div class="clear"></div>
     <div class="ml-media-frame-toolbar">
+        <div class="hidden" id="ml_loader">
+            <img src="/wp-admin/images/wpspin_light-2x.gif"/>
+        </div>
         <div class="ml-media-toolbar">
             <div class="ml-media-toolbar-secondary">
                 <div class="ml-media-selection empty">
                     <div class="selection-info">
                         <span class="count">0 selected</span>
-                        <button type="button" class="button-link edit-selection">Edit Selection</button>
-                        <button type="button" class="button-link clear-selection">Clear</button>
-                    </div>
-                    <div class="selection-view">
-                        <ul tabindex="-1" class="attachments" id="__attachments-view-xxx"></ul>
+                        <button type="button" class="button-link clear-selection" id="clear_images">Clear</button>
                     </div>
                 </div>
             </div>
             <div class="ml-media-toolbar-primary search-form">
-                <button type="button" class="button media-button button-primary button-large media-button-insert" disabled="disabled">Insert into WP media & post</button>
+                <button type="button" class="button media-button button-primary button-large ml-button-insert"
+                        id="ml-button-insert" disabled="disabled">Insert into WP media & post
+                </button>
             </div>
         </div>
     </div>

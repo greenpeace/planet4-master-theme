@@ -1,0 +1,24 @@
+#selectable-images .ui-selecting {
+    background: #FECA40;
+}
+
+#selectable-images .ui-selected {
+    background: #F39814;
+    border: solid 2px #F39814;
+    color: white;
+}
+
+#selectable-images {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#selectable-images li {
+    margin: 3px;
+    padding: 1px;
+    float: left;
+    font-size: 4em;
+    text-align: center;
+    border: solid 2px #f1f1f1;
+}
