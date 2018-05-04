@@ -5,9 +5,13 @@ jQuery(document).ready(function () {
     $("#selectable-images").selectable({
         selected: function (event, ui) {
             $('#ml-button-insert').removeAttr("disabled");
+            var count = $("li.ui-selected", "#selectable-images").length;
+            $('#images_count').html(count);
         },
         unselected: function (event, ui) {
-            if ($(".ui-selected", $("#selectable-images")).size === 0) {
+            var count = $("li.ui-selected", "#selectable-images").length;
+            $('#images_count').html(count);
+            if (count < 1) {
                 $('#ml-button-insert').attr("disabled", "disabled");
             }
         }
@@ -17,6 +21,7 @@ jQuery(document).ready(function () {
     $("#clear_images").on('click', function () {
         $('#ml-button-insert').attr("disabled", true);
         $("#selectable-images li").removeClass('ui-selected');
+        $('#images_count').html('0');
     });
 
 
@@ -64,6 +69,7 @@ jQuery(document).ready(function () {
                             post_id: $("#post_ID").val()
                         }));
                     }
+                    //TODO handle promises results/errors better.
                     Promise.all(promises).then(function (values) {
                         parent.send_to_editor(values.join(' '));
                     });

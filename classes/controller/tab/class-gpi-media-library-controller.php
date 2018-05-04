@@ -2,10 +2,10 @@
 
 namespace P4ML\Controllers\Tab;
 
-use P4ML\Helpers\MediaHelper;
 use P4ML\Api\MediaImageMapper;
-use P4ML\Views\View;
 use P4ML\Controllers\MediaLibraryApi_Controller;
+use P4ML\Helpers\MediaHelper;
+use P4ML\Views\View;
 
 if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 
@@ -29,7 +29,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 
 			add_filter( 'media_upload_tabs', [ $this, 'media_library_tab' ] );
 			add_action( 'media_upload_gpi_media_library', [ $this, 'add_library_form' ] );
-			add_action( 'wp_ajax_download_images_from_media_library', [ $this, 'download_images_from_library' ] );
+			add_action( 'wp_ajax_download_images_from_library', [ $this, 'download_images_from_library' ] );
 		}
 
 		/**
@@ -101,13 +101,16 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
 				'nonce'   => $nonce,
 			];
+			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin.css', array(), '0.1' );
 			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.2', true );
 			wp_localize_script( 'p4ml_admin_script', 'media_library_params', $params );
+			wp_enqueue_script( 'jquery-ui-core' );
+			wp_enqueue_script( 'jquery-ui-selectable' );
 			wp_enqueue_script( 'p4ml_admin_script' );
 		}
 
 		/**
-		 *
+		 * Action for admin-ajax to be used from gpi media library iframe.
 		 */
 		public function download_images_from_library() {
 			$ml_api = new MediaLibraryApi_Controller();

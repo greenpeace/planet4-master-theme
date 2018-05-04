@@ -1,8 +1,5 @@
 {% block ml_list_content %}
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-    <div class="ml-media-frame-content" style="margin: 10px 10px 10px 10px;">
-
+    <div class="ml-media-frame-content">
         <div class="attachments-browser">
             <ul tabindex="-1" class="attachments ui-sortable-disabled" id="selectable-images">
                 {% for image in data.image_list %}
@@ -30,7 +27,7 @@
             <div class="ml-media-toolbar-secondary">
                 <div class="ml-media-selection empty">
                     <div class="selection-info">
-                        <span class="count">0 selected</span>
+                        <span class="count"><span id="images_count">0</span> selected</span>
                         <button type="button" class="button-link clear-selection" id="clear_images">Clear</button>
                     </div>
                 </div>

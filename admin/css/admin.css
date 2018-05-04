@@ -1,11 +1,10 @@
-#selectable-images .ui-selecting {
-    background: #FECA40;
+#selectable-images li.ui-selecting {
+    background: #feca40;
 }
 
-#selectable-images .ui-selected {
-    background: #F39814;
-    border: solid 2px #F39814;
-    color: white;
+#selectable-images li.ui-selected {
+    background: #0073aa;
+    border: solid 2px #0073aa;
 }
 
 #selectable-images {
@@ -21,4 +20,16 @@
     font-size: 4em;
     text-align: center;
     border: solid 2px #f1f1f1;
+}
+
+#ml_loader {
+    padding: 10px;
+}
+
+.ml-media-toolbar {
+    padding: 10px;
+}
+
+.ml-media-frame-content {
+    margin: 10px;
 }
