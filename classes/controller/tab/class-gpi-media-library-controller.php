@@ -131,7 +131,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 						$attachment_upload = $helper->upload_file( $image );
 
 						if ( is_numeric( $attachment_upload ) ) {
-							$image->setWordpressId( $attachment );
+							$image->setWordpressId( $attachment_upload );
 							$response['images'][] = $image;
 						} else {
 							$response['errors'][] = $attachment_upload;
