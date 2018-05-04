@@ -31,6 +31,8 @@ class ComposerStaticInit696d50de5906c4f2b7321358016aa0f7
     );
 
     public static $classMap = array (
+        'P4ML\\Api\\MediaImage' => __DIR__ . '/../..' . '/classes/api/class-media-image.php',
+        'P4ML\\Api\\MediaImageMapper' => __DIR__ . '/../..' . '/classes/api/class-media-image-mapper.php',
         'P4ML\\Controllers\\MediaLibraryApi_Controller' => __DIR__ . '/../..' . '/classes/controller/class-api-controller.php',
         'P4ML\\Controllers\\Menu\\Controller' => __DIR__ . '/../..' . '/classes/controller/menu/class-controller.php',
         'P4ML\\Controllers\\Menu\\Media_Library_Controller' => __DIR__ . '/../..' . '/classes/controller/menu/class-media-library-controller.php',
@@ -39,6 +41,7 @@ class ComposerStaticInit696d50de5906c4f2b7321358016aa0f7
         'P4ML\\Controllers\\Tab\\Controller' => __DIR__ . '/../..' . '/classes/controller/tab/class-controller.php',
         'P4ML\\Controllers\\Tab\\GPI_Media_Library_Controller' => __DIR__ . '/../..' . '/classes/controller/tab/class-gpi-media-library-controller.php',
         'P4ML\\Controllers\\Uninstall_Controller' => __DIR__ . '/../..' . '/classes/controller/class-uninstall-controller.php',
+        'P4ML\\Helpers\\MediaHelper' => __DIR__ . '/../..' . '/classes/helper/class-media-helper.php',
         'P4ML\\Loader' => __DIR__ . '/../..' . '/classes/class-loader.php',
         'P4ML\\Views\\View' => __DIR__ . '/../..' . '/classes/view/class-view.php',
     );

@@ -274,5 +274,47 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 				] );
 			}
 		}
+
+		/**
+		 * Query the api for a single image.
+		 *
+		 * @param string $image_id Image id.
+		 *
+		 * @return array|string
+		 */
+		public function get_single_image( $image_id ) {
+			$media_list = [];
+
+			$this->api_param['query'] = 'SystemIdentifier:' . $image_id;
+
+			$url = self::ML_SEARCH_URL;
+			$url = add_query_arg( $this->api_param, $url );
+
+			// With the safe version of wp_remote_{VERB) functions, the URL is validated to avoid redirection and request forgery attacks.
+			$response = wp_remote_get( $url, [
+				'timeout'   => self::ML_CALL_TIMEOUT,
+				'sslverify' => false,
+			] );
+
+			if ( is_wp_error( $response ) ) {
+				return $response->get_error_message() . ' ' . $response->get_error_code();
+
+			} elseif ( is_array( $response ) && \WP_Http::OK !== $response['response']['code'] ) {
+				return $response['response']['message'] . ' ' . $response['response']['code'] ;         // Authentication failed.
+			}
+
+			if ( is_array( $response ) && $response['body'] ) {
+				$image_data = json_decode( $response['body'], true );
+				if ( isset( $image_data['APIResponse']['Items'] ) ) {
+					foreach ( $image_data['APIResponse']['Items'] as $key => $details ) {
+						$media_list[ $key ] = ( $details );
+					}
+				}
+			} else {
+				return $response['APIResponse']['Code'];
+			}
+
+			return $media_list;
+		}
 	}
 }
