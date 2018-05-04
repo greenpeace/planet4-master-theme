@@ -9,7 +9,14 @@ namespace P4ML\Api;
  */
 class MediaImageMapper {
 
-	public function getFromArray( array $params ) {
+	/**
+	 * Create a MediaImage object from an array containing the required params.
+	 *
+	 * @param array $params Parameters for instantiating a MediaImage object.
+	 *
+	 * @return MediaImage
+	 */
+	public function get_from_array( array $params ) {
 		return ( new MediaImage() )
 			->setId( (string) $params['SystemIdentifier'] )
 			->setTitle( (string) $params['Title'] )
@@ -18,10 +25,17 @@ class MediaImageMapper {
 			->setPathTr1( (string) $params['Path_TR1']['URI'] );
 	}
 
-	public function getAllFromArray( array $encs ) {
+	/**
+	 * Create a MediaImage objects array from an array containing the required params for the MediaImage objects.
+	 *
+	 * @param array $parameters Array containing arrays of MediaImage parameters.
+	 *
+	 * @return array
+	 */
+	public function get_all_from_array( array $parameters ) {
 		$data = [];
-		foreach ( $encs as $enc ) {
-			$data[] = $this->getFromArray( $enc );
+		foreach ( $parameters as $image_params ) {
+			$data[] = $this->get_from_array( $image_params );
 		}
 
 		return $data;

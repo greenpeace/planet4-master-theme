@@ -124,7 +124,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 			foreach ( $selected_images as $image ) {
 				$image_list = $ml_api->get_single_image( $image );
 				if ( is_array( $image_list ) ) {
-					$image      = ( new MediaImageMapper() )->getFromArray( $image_list[0] );
+					$image      = ( new MediaImageMapper() )->get_from_array( $image_list[0] );
 					$attachment = $helper->file_exists( $image->getId() );
 
 					if ( empty( $attachment ) ) {
