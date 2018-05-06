@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-05-02 14:52+0000\n"
-"PO-Revision-Date: 2018-05-06 03:37+0000\n"
+"PO-Revision-Date: 2018-05-06 03:32+0000\n"
 "Last-Translator: Shivanandan Lakshmanan <shivanandan.lakshmanan@greenpeace."
 "org>\n"
 "Language-Team: Hindi\n"
@@ -171,7 +171,7 @@ msgstr "चीज़ें जो आप कर सकते हों"
 
 #: tag.php:65
 msgid "We want you to take action because together we're strong."
-msgstr "हम चाहते हैं कि आप कार्रवाई करें क्योंकि एक साथ हम मजबूत हैं।"
+msgstr ""
 
 #: tag.php:80
 msgid "Related Campaigns"
