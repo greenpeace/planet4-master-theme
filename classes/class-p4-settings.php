@@ -181,6 +181,22 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'type'    => 'pagetype_select_taxonomy',
 				],
 
+				[
+					'name'       => __( 'Default Happy Point Background Image', 'planet4-master-theme' ),
+					'id'         => 'happy_point_bg_image',
+					'type'       => 'file',
+					'options'    => [
+						'url' => false,
+					],
+					'text'       => [
+						'add_upload_file_text' => __( 'Add Default Happy Point Background Image', 'planet4-master-theme' ),
+					],
+					'query_args' => [
+						'type' => 'image',
+					],
+					'desc'       => __( 'Minimum image width should be 1920px', 'planet4-master-theme' ),
+				],
+
 			];
 			$this->hooks();
 		}
