@@ -5,6 +5,7 @@ node_modules/
 /main.css.map
 .idea
 yarn-error.log
-
+/languages/*.po~
+/languages/*.pot~
 
 \.DS_Store
