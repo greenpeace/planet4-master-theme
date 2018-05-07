@@ -2,6 +2,7 @@
 
 namespace P4ML\Controllers\Menu;
 
+use P4ML\Helpers\MediaHelper;
 use P4ML\Views\View;
 use P4ML\Controllers\MediaLibraryApi_Controller;
 
@@ -61,7 +62,8 @@ if ( ! class_exists( 'Media_Library_Controller' ) ) {
 			$image_details = $image_details[0];
 
 			if ( '' !== $image_details['image_url'] ) {
-				$is_file_exist = $this->validate_file_exists( basename( $image_details['image_url'] ) );
+				$helper        = new MediaHelper();
+				$is_file_exist = $helper->file_exists( basename( $image_details['image_url'] ) );
 			}
 
 			if ( $image_details['image_url'] && '' === $is_file_exist ) {
@@ -120,22 +122,6 @@ if ( ! class_exists( 'Media_Library_Controller' ) ) {
 					'domain'        => 'planet4-medialibrary',
 				],
 			] );
-		}
-
-		/**
-		 * Validate file already exist in WP media, if yes then return image id.
-		 *
-		 * @param string $filename The file name (without full path).
-		 *
-		 * @return int
-		 */
-		protected function validate_file_exists( $filename ) {
-			global $wpdb;
-
-			$statement = $wpdb->prepare( "SELECT `post_id` FROM `{$wpdb->postmeta}` WHERE `meta_value` LIKE %s", '%' . $filename . '%' );
-			$result    = $wpdb->get_col( $statement );
-
-			return $result[0] ?? '';
 		}
 
 		/**

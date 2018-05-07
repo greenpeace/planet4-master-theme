@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'P4ML\\Api\\MediaImage' => $baseDir . '/classes/api/class-media-image.php',
+    'P4ML\\Api\\MediaImageMapper' => $baseDir . '/classes/api/class-media-image-mapper.php',
     'P4ML\\Controllers\\MediaLibraryApi_Controller' => $baseDir . '/classes/controller/class-api-controller.php',
     'P4ML\\Controllers\\Menu\\Controller' => $baseDir . '/classes/controller/menu/class-controller.php',
     'P4ML\\Controllers\\Menu\\Media_Library_Controller' => $baseDir . '/classes/controller/menu/class-media-library-controller.php',
@@ -14,6 +16,7 @@ return array(
     'P4ML\\Controllers\\Tab\\Controller' => $baseDir . '/classes/controller/tab/class-controller.php',
     'P4ML\\Controllers\\Tab\\GPI_Media_Library_Controller' => $baseDir . '/classes/controller/tab/class-gpi-media-library-controller.php',
     'P4ML\\Controllers\\Uninstall_Controller' => $baseDir . '/classes/controller/class-uninstall-controller.php',
+    'P4ML\\Helpers\\MediaHelper' => $baseDir . '/classes/helper/class-media-helper.php',
     'P4ML\\Loader' => $baseDir . '/classes/class-loader.php',
     'P4ML\\Views\\View' => $baseDir . '/classes/view/class-view.php',
 );
