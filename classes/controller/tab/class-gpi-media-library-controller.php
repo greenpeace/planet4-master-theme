@@ -16,13 +16,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 	 */
 	class GPI_Media_Library_Controller extends Controller {
 
-		const MEDIAS_LIMIT      = 300;
-		const MEDIAS_PER_PAGE   = 10;
-		const MEDIAS_PER_LOAD   = 5;
 		const SHOW_SCROLL_TIMES = 2;
-
-		/** @var array $localizations */
-		protected $localizations;
 
 		/**
 		 * Creates the plugin's loader object.
@@ -39,10 +33,6 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 			add_action( 'media_upload_gpi_media_library',       [ $this, 'add_library_form' ] );
 			add_action( 'wp_ajax_download_images_from_library', [ $this, 'download_images_from_library' ] );
 			add_action( 'wp_ajax_get_paged_medias',             [ $this, 'get_paged_medias' ] );
-
-			$this->localizations = [
-				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
-			];
 		}
 
 		/**
@@ -139,29 +129,6 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 				}
 				wp_die();
 			}
-		}
-
-		/**
-		 * Validates the settings input.
-		 *
-		 * @param array $settings The associative array with the settings that are registered for the plugin.
-		 *
-		 * @return bool
-		 */
-		public function validate( $settings ) : bool {
-			// TODO: Implement validate() method.
-			$has_errors = false;
-
-			return ! $has_errors;
-		}
-
-		/**
-		 * Sanitizes the settings input.
-		 *
-		 * @param array $settings The associative array with the settings that are registered for the plugin (Call by Reference).
-		 */
-		public function sanitize( &$settings ) {
-			// TODO: Implement sanitize() method.
 		}
 
 		/**

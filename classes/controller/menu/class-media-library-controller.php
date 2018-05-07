@@ -123,28 +123,5 @@ if ( ! class_exists( 'Media_Library_Controller' ) ) {
 				],
 			] );
 		}
-
-		/**
-		 * Validates the settings input.
-		 *
-		 * @param array $settings The associative array with the settings that are registered for the plugin.
-		 *
-		 * @return bool
-		 */
-		public function validate( $settings ) : bool {
-			// TODO: Implement validate() method.
-			$has_errors = false;
-
-			return ! $has_errors;
-		}
-
-		/**
-		 * Sanitizes the settings input.
-		 *
-		 * @param array $settings The associative array with the settings that are registered for the plugin (Call by Reference).
-		 */
-		public function sanitize( &$settings ) {
-			// TODO: Implement sanitize() method.
-		}
 	}
 }
