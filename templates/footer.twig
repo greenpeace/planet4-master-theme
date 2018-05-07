@@ -1,8 +1,11 @@
-<footer class="site-footer">
+<footer class="site-footer" id="footer">
 	<div class="container">
 		<ul class="footer-social-media list-unstyled col-md-8 col-lg-5">
 			{% for social in footer_social_menu %}
-				<li><a href="{{ social.url }}"><i class="{% for class_name in social.classes %}{{ class_name }} {% endfor %}"></i></a></li>
+				<li><a href="{{ social.url }}">
+					<i class="{% for class_name in social.classes %}{{ class_name }} {% endfor %}"></i>
+					<span class="sr-only">{{ social.title }}</span>
+				</a></li>
 			{% endfor %}
 		</ul>
 
