@@ -69,8 +69,6 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		 * Fetch the data from GP media library and pass to wp_iframe.
 		 */
 		public function library_form() {
-			$this->ml_enqueue_public_assets();
-
 			$ml_api     = new MediaLibraryApi_Controller();
 			$image_list = $ml_api->get_results();
 
@@ -141,15 +139,6 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		}
 
 		/**
-		 * Load assets only on the ml search page.
-		 */
-		public function ml_enqueue_public_assets() {
-			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/ml_search.js', [ 'jquery' ], '0.1', false );
-			wp_localize_script( 'p4ml_admin_script', 'localizations', $this->localizations );
-			wp_enqueue_script( 'p4ml_admin_script' );
-		}
-
-		/**
 		 * Validates the settings input.
 		 *
 		 * @param array $settings The associative array with the settings that are registered for the plugin.
@@ -183,7 +172,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 				'nonce'   => $nonce,
 			];
 			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin.css', array(), '0.1' );
-			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.2', true );
+			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.3', true );
 			wp_localize_script( 'p4ml_admin_script', 'media_library_params', $params );
 			wp_enqueue_script( 'jquery-ui-core' );
 			wp_enqueue_script( 'jquery-ui-selectable' );
