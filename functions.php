@@ -131,6 +131,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'admin_head' ,              array( $this, 'remove_add_post_element' ) );
 		add_filter( 'post_gallery',             array( $this, 'carousel_post_gallery' ), 10, 2 );
 		add_action( 'save_post',                array( $this, 'p4_auto_generate_excerpt' ) , 10, 2 );
+		add_filter( 'img_caption_shortcode',    array( $this, 'override_img_caption_shortcode' ), 10, 3 );
 
 		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
 		add_action( 'wp_ajax_nopriv_get_paged_posts', array( 'P4_Search', 'get_paged_posts' ) );
@@ -191,6 +192,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function add_image_sizes() {
 		add_image_size( 'retina-large', 2048, 1366, false );
+		add_image_size( 'articles-medium-large', 510, 340, false );
 	}
 
 	/**
@@ -374,30 +376,6 @@ class P4_Master_Site extends TimberSite {
 	public function enqueue_admin_assets( $hook ) {
 		// Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
 		wp_register_script( 'jquery-3', 'https://code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
-
-		if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
-			wp_enqueue_script( 'edit_post', $this->theme_dir . '/assets/admin/js/edit_post.js', array( 'jquery' ), '0.0.3', true );
-			wp_localize_script( 'edit_post', 'p4_page_type_mapping', planet4_get_option( 'p4-page-types-mapping' ) );
-		} elseif ( 'settings_page_planet4_options' === $hook ) {
-
-			// Get planet4 page types.
-			$terms = get_terms( [
-				'taxonomy'   => 'p4-page-type',
-				'hide_empty' => false,
-				'fields'     => 'all',
-			] );
-
-			// Get categories.
-			$categories = get_terms( [
-				'taxonomy'   => 'category',
-				'hide_empty' => false,
-				'fields'     => 'all',
-			] );
-
-			wp_enqueue_script( 'planet4_settings', $this->theme_dir . '/assets/admin/js/planet4_settings.js', array( 'jquery' ), '0.0.1', true );
-			wp_localize_script( 'planet4_settings', 'p4_page_types', $terms );
-			wp_localize_script( 'planet4_settings', 'categories', $categories );
-		}
 	}
 
 	/**
@@ -405,18 +383,18 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function enqueue_public_assets() {
 		$css_creation = filectime(get_template_directory() . '/style.css');
-		$js_creation  = filectime(get_template_directory() . '/assets/js/custom.js');
+		$js_creation  = filectime(get_template_directory() . '/assets/js/main.js');
 
 		// CSS files
 		wp_enqueue_style( 'bootstrap', $this->theme_dir . '/assets/lib/bootstrap/dist/css/bootstrap.min.css', array(), '4.0.0' );
 		wp_enqueue_style( 'slick', $this->theme_dir . '/assets/lib/slick-carousel/slick/slick.css', array(), '1.8.1' );
+		wp_enqueue_style( 'font-awesome', $this->theme_dir . '/assets/lib/@fortawesome/fontawesome-free-webfonts/css/fontawesome.css', array(), '5.0.10' );
 		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], $css_creation );
 		// JS files
 		wp_register_script( 'jquery', $this->theme_dir . '/assets/lib/jquery/dist/jquery.min.js', array(), '3.3.1', true );
 		wp_enqueue_script( 'popperjs', $this->theme_dir . '/assets/lib/popper.js/dist/umd/popper.min.js', array(), '1.12.9', true );
 		wp_enqueue_script( 'bootstrapjs', $this->theme_dir . '/assets/lib/bootstrap/dist/js/bootstrap.min.js', array(), '4.0.0', true );
-		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), '0.2.2', true );
-		wp_enqueue_script( 'custom', $this->theme_dir . '/assets/js/custom.js', array( 'jquery' ), $js_creation, true );
+		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), $js_creation, true );
 		wp_enqueue_script( 'slick', $this->theme_dir . '/assets/lib/slick-carousel/slick/slick.min.js', array(), '1.8.1', true );
 		wp_enqueue_script( 'hammer', $this->theme_dir . '/assets/lib/hammerjs/hammer.min.js', array(), '2.0.8', true );
 	}
@@ -891,6 +869,40 @@ class P4_Master_Site extends TimberSite {
 			extract( $args );
 		}
 		include( locate_template( $path . '.php' ) );
+	}
+
+	/**
+	 * Filter function for img_caption_shortcode. Append image credit to caption.
+	 *
+	 * @param string $output  The caption output. Passed empty by WordPress.
+	 * @param array  $attr    Attributes of the caption shortcode.
+	 * @param string $content The image element, possibly wrapped in a hyperlink.
+	 *
+	 * @return string HTML content to display the caption.
+	 */
+	public function override_img_caption_shortcode( $output, $attr, $content ) {
+
+		$atts = shortcode_atts( array(
+			'id'      => '',
+			'align'   => 'alignnone',
+			'width'   => '',
+			'caption' => '',
+			'class'   => '',
+		), $attr, 'caption' );
+
+		$image_id     = trim( str_replace( 'attachment_', '', $atts['id'] ) );
+		$meta         = get_post_meta( $image_id );
+		$image_credit = ( isset( $meta['_credit_text'] ) && ! empty( $meta['_credit_text'] ) ) ? ' ' . $meta['_credit_text'][0] : '';
+		$class        = trim( 'wp-caption ' . $atts['align'] . ' ' . $atts['class'] );
+
+		if ( $atts['id'] ) {
+			$atts['id'] = 'id="' . esc_attr( $atts['id'] ) . '" ';
+		}
+
+		$output = '<div ' . $atts['id'] . ' class="' . esc_attr( $class ) . '">'
+				. do_shortcode( $content ) . '<p class="wp-caption-text">' . $atts['caption'] . $image_credit . '</p></div>';
+
+		return $output;
 	}
 
 }

@@ -135,7 +135,8 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'attributes' => array(
 						'type' => 'text',
 					),
-					'desc'       => __( 'Add default button text which appears on <b>Take Action</b> card of <b>Take Action Covers</b> block.', 'planet4-master-theme' ),
+					'desc'       => __( 'Add default button text which appears on <b>Take Action</b> card of <b>Take Action Covers</b> block. <br>
+					                     Also it would be used for Take Action Cards inside Posts and Take Action Cards in search results', 'planet4-master-theme' ),
 				],
 
 				[
@@ -145,6 +146,39 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'attributes' => [
 						'type' => 'text',
 					],
+				],
+
+				[
+					'name'       => __( '404 Background Image', 'planet4-master-theme' ),
+					'id'         => '404_page_bg_image',
+					'type'       => 'file',
+					'options'    => [
+						'url' => false,
+					],
+					'text'       => [
+						'add_upload_file_text' => __( 'Add 404 Page Background Image', 'planet4-master-theme' ),
+					],
+					'query_args' => [
+						'type' => 'image',
+					],
+					'desc'       => __( 'Minimum image width should be 1920px', 'planet4-master-theme' ),
+				],
+
+				[
+					'name'    => __( '404 Page text', 'planet4-master-theme' ),
+					'id'      => '404_page_text',
+					'type'    => 'wysiwyg',
+					'options' => [
+						'textarea_rows' => 3,
+						'media_buttons' => false,
+					],
+					'desc'    => __( 'Add 404 page text', 'planet4-master-theme' ),
+				],
+
+				[
+					'name'    => __( 'Default p4-pagetype', 'planet4-master-theme' ),
+					'id'      => 'default_p4_pagetype',
+					'type'    => 'pagetype_select_taxonomy',
 				],
 
 			];
@@ -157,10 +191,15 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		public function hooks() {
 			add_action( 'admin_init', [ $this, 'init' ] );
 			add_action( 'admin_menu', [ $this, 'add_options_page' ] );
-			add_action( 'registered_taxonomy', [ $this, 'add_p4_page_types_categories_fields' ] );
 			add_filter( 'cmb2_render_act_page_dropdown', [ $this, 'p4_render_act_page_dropdown' ], 10, 2 );
 			add_filter( 'cmb2_render_explore_page_dropdown', [ $this, 'p4_render_explore_page_dropdown' ], 10, 2 );
 			add_filter( 'cmb2_render_category_select_taxonomy', [ $this, 'p4_render_category_dropdown' ], 10, 2 );
+			add_filter( 'cmb2_render_pagetype_select_taxonomy', [ $this, 'p4_render_pagetype_dropdown' ], 10, 2 );
+
+			// Make settings multilingual if wpml plugin is installed and activated.
+			if ( function_exists( 'icl_object_id' ) ) {
+				add_action( 'init', [ $this, 'make_settings_multilingual' ] );
+			}
 		}
 
 		/**
@@ -222,6 +261,25 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		}
 
 		/**
+		 * Render p4-pagetype dropdown.
+		 *
+		 * @param  CMB2_Field $field_args CMB2 field Object
+		 * @param  int  $value Pagetype taxonomy ID
+		 */
+		public function p4_render_pagetype_dropdown( $field_args, $value ) {
+
+			wp_dropdown_categories( [
+					'show_option_none' => __( 'Select Pagetype', 'planet4-master-theme' ),
+					'hide_empty'       => 0,
+					'orderby'          => 'name',
+					'selected'         => $value ,
+					'name'             => 'default_p4_pagetype',
+					'taxonomy'         => 'p4-page-type',
+				]
+			);
+		}
+
+		/**
 		 * Admin page markup. Mostly handled by CMB2.
 		 */
 		public function admin_page_display() {
@@ -252,52 +310,11 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		}
 
 		/**
-		 * Register fields for mapping between planet4 page types and categories.
-		 * Hook for p4-page-type taxonomy register.
-		 *
-		 * @param string $taxonomy Taxonomy slug.
+		 * Hook for wpml plugin.
+		 * Enables the possibility to save a different value per language for the theme options using WPML language switcher.
 		 */
-		public function add_p4_page_types_categories_fields( $taxonomy ) {
-			if ( 'p4-page-type' !== $taxonomy ) {
-				return;
-			}
-
-			$p4        = [];
-			$i         = 1;
-			$all_types = get_terms( [
-				'taxonomy'   => 'p4-page-type',
-				'hide_empty' => false,
-			] );
-			foreach ( $all_types as $term ) {
-				$temp_attributes = [
-					'name'           => $term->name,
-					// translators: placeholder is a term which does not need translation in context.
-					'desc'           => sprintf( __( 'Map %s planet4 page type to a category' ), $term->name ),
-					'id'             => 'p4_page_type_' . $term->slug . '_category',
-					'taxonomy'       => 'category',
-					'type'           => 'taxonomy_select',
-					'remove_default' => 'true',
-				];
-				if ( 1 === $i ) {
-					$temp_attributes['before_row'] = '<hr><p>' .
-													 __( 'Planet4 page types - Categories mapping' ) .
-													 '</p><p>' .
-													 __( 'When a post is assigned to one of the selected categories, 
-													      the post will be assigned the mapped planet4 page type.' ) .
-													 '</p>';
-				}
-				if ( count( $all_types ) === $i ) {
-					$temp_attributes['after_row'] = '<hr>';
-				}
-				$p4[] = $temp_attributes;
-				$i++;
-			}
-			$p4[]         = [
-				'id'   => 'p4-page-types-mapping',
-				'type' => 'hidden',
-			];
-			$this->fields = array_merge( $this->fields, $p4 );
-			$this->fields = apply_filters( 'planet4_options', $this->fields );
+		public function make_settings_multilingual() {
+			do_action( 'wpml_multilingual_options', 'planet4_options' );
 		}
 	}
 }

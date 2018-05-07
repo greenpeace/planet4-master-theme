@@ -12,6 +12,7 @@ $menu-height-large: rem(60);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: normal;
 
   background: transparentize($top-nav, 0.2);
   height: $menu-height-small;
@@ -19,6 +20,10 @@ $menu-height-large: rem(60);
   // Use (min-width: 783px) for parity with WP's .admin-bar
   @media screen and (min-width: 783px) {
     height: $menu-height-large + rem(1);
+  }
+
+  @include large-and-up {
+    align-items: center;
   }
 
   a {
@@ -334,7 +339,7 @@ $menu-height-large: rem(60);
     display: flex;
     flex-grow: 1;
     justify-content: space-between;
-    padding: 0 5%;
+    padding: 0;
 
     .close-navbar-dropdown {
       display: none;
@@ -357,6 +362,10 @@ $menu-height-large: rem(60);
       color: $spray;
       border-bottom: 2px solid $spray;
     }
+  }
+
+  @include x-large-and-up {
+    padding: 0 15px;
   }
 
   .nav-item {
@@ -386,8 +395,8 @@ $menu-height-large: rem(60);
   }
 
   @include large-and-up {
-    margin-top: 11px;
     max-width: 20%;
+    width: 400px;
     display: inline-block;
   }
 
@@ -402,7 +411,7 @@ $menu-height-large: rem(60);
     top: 11px;
     right: 16px;
     font-size: rem(20);
-    line-height: 38px;
+    line-height: 36px;
 
     i {
       vertical-align: middle;
@@ -416,7 +425,7 @@ $menu-height-large: rem(60);
 
   .form-control {
     border-radius: 0;
-    padding: 10px;
+    padding: 5px 10px;
   }
 }
 

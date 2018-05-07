@@ -1,8 +1,11 @@
-<footer class="site-footer">
+<footer class="site-footer" id="footer">
 	<div class="container">
 		<ul class="footer-social-media list-unstyled col-md-8 col-lg-5">
 			{% for social in footer_social_menu %}
-				<li><a href="{{ social.url }}"><i class="{% for class_name in social.classes %}{{ class_name }} {% endfor %}"></i></a></li>
+				<li><a href="{{ social.url }}">
+					<i class="{% for class_name in social.classes %}{{ class_name }} {% endfor %}"></i>
+					<span class="sr-only">{{ social.title }}</span>
+				</a></li>
 			{% endfor %}
 		</ul>
 
@@ -21,6 +24,6 @@
 		<p class="copyright-text col-md-8">
 			{{ copyright_text_line1|e('wp_kses_post')|raw }}
 		</p>
-		<p class="gp-year"><i class="fa fa-creative-commons"></i> {{ copyright_text_line2|e('wp_kses_post')|raw }} {{"now"|date('Y')}}</p>
+		<p class="gp-year"><i class="fab fa-creative-commons"></i> {{ copyright_text_line2|e('wp_kses_post')|raw }} {{"now"|date('Y')}}</p>
 	</div>
 </footer>

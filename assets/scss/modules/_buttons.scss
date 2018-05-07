@@ -14,7 +14,7 @@ Stylesheet: Button Styles
   text-transform: uppercase;
   color: $white;
   font-weight: 500;
-  border-radius: 4px;
+  border-radius: 0;
   border: 1px solid transparent;
   cursor: pointer;
   line-height: 3;
@@ -122,7 +122,10 @@ Stylesheet: Button Styles
   background-color: $aquamarine;
   color: $grey;
   font-size: rem(16);
-  line-height: 1.6;
+  line-height: 1.65;
+  width: 180px;
+  margin: 0;
+  padding: 2px 30px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
   transition: color background-color font-weight 100ms;
 
@@ -163,7 +166,7 @@ Stylesheet: Button Styles
 
   @include small-and-up {
     background-color: $dark-blue;
-    border-radius: 4px;
+    border-radius: 0;
     border: 1px solid transparent;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
   }

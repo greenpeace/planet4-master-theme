@@ -14,6 +14,7 @@
 		"stylelint": "^9.1.1"
 	},
 	"dependencies": {
+		"@fortawesome/fontawesome-free-webfonts": "^1.0.6",
 		"bootstrap": "^4.0.0",
 		"hammerjs": "^2.0.8",
 		"jquery": "^3.3.1",
@@ -21,6 +22,8 @@
 		"slick-carousel": "^1.8.1"
 	},
 	"assets": [
+		"@fortawesome/fontawesome-free-webfonts/css/*",
+		"@fortawesome/fontawesome-free-webfonts/webfonts/*",
 		"bootstrap/dist/css/bootstrap.min.css",
 		"bootstrap/dist/js/bootstrap.min.js",
 		"hammerjs/hammer.min.js",

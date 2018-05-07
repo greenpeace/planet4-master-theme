@@ -4,7 +4,7 @@ Theme URI: https://github.com/greenpeace/planet4-master-theme
 Description: Master theme for the Planet 4 Wordpress project
 Author: Greenpeace International
 Author URI: https://github.com/greenpeace
-Version: 0.2.44
+Version: 1.5
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: light, accessibility-ready
@@ -27,17 +27,9 @@ Text Domain: planet4-master-theme
 @import "partials/font-icon";
 @import "modules/buttons";
 
-// Customising bootstrap variables
-
-/* This should change later to include just
- * the components that are needed.
- */
-// @import "../../node_modules/bootstrap/scss/bootstrap.scss";
-// @import "../../node_modules/font-awesome/scss/font-awesome";
-@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
-
 // Import Blocks
 @import "common/navbar";
+@import "common/skip-links";
 @import "common/footer";
 @import "common/tasks";
 @import "common/happy-point-block";
@@ -65,6 +57,7 @@ Text Domain: planet4-master-theme
 @import "common/skewed-overlay";
 @import "common/tags-list";
 @import "common/share-buttons";
+@import "common/submenu";
 
 /**
  * Page-specific styles
@@ -82,6 +75,9 @@ Text Domain: planet4-master-theme
 
 // Take Action page.
 @import "pages/take-action"; // TODO: Break this down into blocks
+
+// Sitemap page.
+@import "pages/sitemap";
 
 // Explore page.
 // Comment out since it does not contains any rules currently.
@@ -122,9 +118,13 @@ Text Domain: planet4-master-theme
  *
 */
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   color: $dark-shade-black;
-  overflow-x: hidden;
   font-family: $roboto;
   position: relative;
 

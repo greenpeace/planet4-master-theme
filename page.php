@@ -41,28 +41,14 @@ function add_body_classes_for_page( $classes ) {
 }
 add_filter( 'body_class', 'add_body_classes_for_page' );
 
-$context = Timber::get_context();
-$post    = new P4_Post();
-
+$context        = Timber::get_context();
+$post           = new P4_Post();
 $page_meta_data = get_post_meta( $post->ID );
-$categories     = get_the_category( $post->ID );
 
-// Handle navigation links.
-if ( $categories ) {
-	foreach ( $categories as $category ) {
-		if ( $category && ( $category->name !== $post->post_title ) ) {     // Do not add links inside the Issue page itself.
-			// Get Issue.
-			$issue = get_page_by_title( $category->name );                  // Category and Issue need to have the same name.
-			if ( $issue ) {
-				$context['issues'][] = [
-					'name' => $issue->post_title,
-					'link' => get_permalink( $issue ),
-				];
-			}
-		}
-	}
-}
-// Get Campaigns.
+// Set Navigation Issues links.
+$post->set_issues_links();
+
+// Get Navigation Campaigns links.
 $page_tags = wp_get_post_tags( $post->ID );
 $tags      = [];
 
@@ -80,7 +66,7 @@ if ( is_array( $page_tags ) && $page_tags ) {
 $context['post']                = $post;
 $context['header_title']        = is_front_page() ? ( $page_meta_data['p4_title'][0] ?? '' ) : ( $page_meta_data['p4_title'][0] ?? $post->title );
 $context['header_subtitle']     = $page_meta_data['p4_subtitle'][0] ?? '';
-$context['header_description']  = wpautop( $page_meta_data['p4_description'][0] ) ?? '';
+$context['header_description']  = wpautop( $page_meta_data['p4_description'][0] ?? '' ) ;
 $context['header_button_title'] = $page_meta_data['p4_button_title'][0] ?? '';
 $context['header_button_link']  = $page_meta_data['p4_button_link'][0] ?? '';
 $context['page_category']       = is_front_page() ? 'Front Page' : ( $category->name ?? 'Unknown page' );
@@ -88,6 +74,6 @@ $context['page_category']       = is_front_page() ? 'Front Page' : ( $category->
 $background_image_id                = get_post_meta( get_the_ID(), 'background_image_id', 1 );
 $context['background_image']        = wp_get_attachment_url( $background_image_id );
 $context['background_image_srcset'] = wp_get_attachment_image_srcset( $background_image_id, 'full' );
-$context['post_image_id']           = $page_meta_data['background_image_id'][0] ?? $page_meta_data['_thumbnail_id'][0];
+$context['post_image_id']           = $page_meta_data['background_image_id'][0] ?? ( $page_meta_data['_thumbnail_id'][0] ?? '' );
 
 Timber::render( array( 'page-' . $post->post_name . '.twig', 'page.twig' ), $context );
