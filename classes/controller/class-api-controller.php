@@ -137,6 +137,12 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 			$url = self::ML_SEARCH_URL;
 			$url = add_query_arg( $this->api_param, $url );
 
+			if ( isset( $params['pagenumber'] ) && 0 < $params['pagenumber'] ) {
+				$this->current_page        = $params['pagenumber'];
+				$page_number['pagenumber'] = $params['pagenumber'];
+				$url = add_query_arg( $page_number, $url );
+			}
+
 			// With the safe version of wp_remote_{VERB) functions, the URL is validated to avoid redirection and request forgery attacks.
 			$response = wp_remote_get( $url, [
 				'timeout'   => self::ML_CALL_TIMEOUT,

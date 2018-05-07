@@ -103,7 +103,7 @@ if ( ! class_exists( 'View' ) ) {
 		 * @param array $data All the data needed to render the template.
 		 */
 		public function ml_search_view( $data ) {
-			$this->view_template( 'tease-ml-search', $data );
+			$this->view_template( 'ml-search', $data );
 		}
 
 		/**

@@ -103,6 +103,9 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 					if ( '' !== $query_string ) {
 						$params['search_text'] = $query_string;
 					}
+					if ( '' !== $paged ) {
+						$params['pagenumber'] = $paged;
+					}
 
 					$image_list    = $ml_api->get_results( $params );
 
@@ -168,11 +171,12 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 			$nonce = wp_create_nonce( 'gpi-media-library-nonce' );
 
 			$params = [
-				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => $nonce,
+				'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+				'nonce'             => $nonce,
+				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
 			];
 			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin.css', array(), '0.1' );
-			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.3', true );
+			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.4', true );
 			wp_localize_script( 'p4ml_admin_script', 'media_library_params', $params );
 			wp_enqueue_script( 'jquery-ui-core' );
 			wp_enqueue_script( 'jquery-ui-selectable' );
