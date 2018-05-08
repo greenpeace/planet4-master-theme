@@ -78,55 +78,29 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		public function get_paged_medias() {
 			// If this is an ajax call.
 			if ( wp_doing_ajax() ) {
-				$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
 				$paged         = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_STRING );
-
 				$query_string  = filter_input( INPUT_GET, 'query-string', FILTER_SANITIZE_STRING );
 
-				// Check if call action is correct.
-				if ( 'get_paged_medias' === $search_action ) {
+				$ml_api        = new MediaLibraryApi_Controller();
 
-					$ml_api        = new MediaLibraryApi_Controller();
+				$params = [];
 
-					$params = [];
-
-					if ( '' !== $query_string ) {
-						$params['search_text'] = $query_string;
-					}
-					if ( '' !== $paged ) {
-						$params['pagenumber'] = $paged;
-					}
-
-					$image_list    = $ml_api->get_results( $params );
-
-					$this->view->ml_search_view( [
-						'data' => [
-							'image_list' => $image_list,
-							'domain'     => 'planet4-medialibrary',
-						],
-					] );
+				if ( '' !== $query_string ) {
+					$params['search_text'] = $query_string;
+				}
+				if ( '' !== $paged ) {
+					$params['pagenumber'] = $paged;
 				}
 
-				// Check if call action is correct.
-				if ( 'get_searched_medias' === $search_action ) {
+				$image_list    = $ml_api->get_results( $params );
 
-					$ml_api        = new MediaLibraryApi_Controller();
+				$this->view->ml_search_view( [
+					'data' => [
+						'image_list' => $image_list,
+						'domain'     => 'planet4-medialibrary',
+					],
+				] );
 
-					$params = [];
-
-					if ( '' !== $query_string ) {
-						$params['search_text'] = $query_string;
-					}
-
-					$image_list    = $ml_api->get_results( $params );
-
-					$this->view->ml_search_view( [
-						'data' => [
-							'image_list' => $image_list,
-							'domain'     => 'planet4-medialibrary',
-						],
-					] );
-				}
 				wp_die();
 			}
 		}
@@ -142,8 +116,8 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 				'nonce'             => $nonce,
 				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
 			];
-			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin.css', array(), '0.1' );
-			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.4', true );
+			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin.css', array(), '0.2' );
+			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.3', true );
 			wp_localize_script( 'p4ml_admin_script', 'media_library_params', $params );
 			wp_enqueue_script( 'jquery-ui-core' );
 			wp_enqueue_script( 'jquery-ui-selectable' );

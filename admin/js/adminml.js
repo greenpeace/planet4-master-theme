@@ -95,7 +95,6 @@ jQuery(document).ready(function () {
                 type: 'GET',
                 data: {
                     action:          'get_paged_medias',
-                    'search-action': 'get_searched_medias',
                     'paged':         reset_page,
                     'query-string':  $( this ).val()
                 },
@@ -117,7 +116,7 @@ jQuery(document).ready(function () {
     $load_more_button.off( 'click' ).on( 'click', function() {
         var next_page = $(this).data( 'current_page' ) + 1;
         $(this).data( 'current_page', next_page );
-        $('.spinner').addClass( 'is-active' );
+        $( '#ml_loader' ).removeClass( 'hidden' );
         $load_more_button.hide();
 
         $.ajax({
@@ -125,13 +124,12 @@ jQuery(document).ready(function () {
             type: 'GET',
             data: {
                 action:          'get_paged_medias',
-                'search-action': 'get_paged_medias',
                 'paged':         next_page,
                 'query-string':  $( '.ml-search' ).val()
             },
             dataType: 'html'
         }).done(function ( response ) {
-            $('.spinner').removeClass( 'is-active' );
+            $( '#ml_loader' ).addClass( 'hidden' );
             $load_more_button.show();
             // Append the response at the bottom of the results.
             $( '.ml-media-list' ).append( response );
