@@ -74,6 +74,7 @@ if ( is_tag() ) {
 	$campaign->add_block( ContentFourColumn::BLOCK_NAME, [
 		'p4_page_type_publication' => 'true',
 		'select_tag'               => $context['tag']->term_id,
+		'posts_view'               => '0',   // Show 1 row of posts.
 	] );
 
 	$campaign->add_block( CampaignThumbnail::BLOCK_NAME, [
