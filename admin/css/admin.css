@@ -41,3 +41,8 @@
 .ml-search-form {
     padding: 5px;
 }
+
+.ml-error {
+    text-align:center;
+    color: #FF0000;
+}

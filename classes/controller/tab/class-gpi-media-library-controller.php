@@ -62,11 +62,17 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 			$ml_api     = new MediaLibraryApi_Controller();
 			$image_list = $ml_api->get_results();
 
+			$error_message = '';
+			if ( \WP_Http::OK !==  $image_list['status_code'] ) {
+				$error_message = __('Error while fetching data from remote server!!!', 'planet4-medialibrary');
+			}
+
 			$this->load_iframe_assets();
 			$this->view->ml_view( [
 				'data' => [
-					'image_list' => $image_list,
-					'domain'     => 'planet4-medialibrary',
+					'image_list'    => $image_list['result'],
+					'error_message' => $error_message,
+					'domain'        => 'planet4-medialibrary',
 				],
 			] );
 		}
@@ -94,10 +100,16 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 
 				$image_list    = $ml_api->get_results( $params );
 
+				$error_message = '';
+				if ( \WP_Http::OK !==  $image_list['status_code'] ) {
+					$error_message = __('Error while fetching data from remote server!!!', 'planet4-medialibrary');
+				}
+
 				$this->view->ml_search_view( [
 					'data' => [
-						'image_list' => $image_list,
-						'domain'     => 'planet4-medialibrary',
+						'image_list'    => $image_list['result'],
+						'error_message' => $error_message,
+						'domain'        => 'planet4-medialibrary',
 					],
 				] );
 

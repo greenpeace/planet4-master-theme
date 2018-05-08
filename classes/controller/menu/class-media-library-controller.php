@@ -59,7 +59,7 @@ if ( ! class_exists( 'Media_Library_Controller' ) ) {
 			$ml_api = new MediaLibraryApi_Controller();
 			$image_details = $ml_api->get_results( [ 'search_text' => $image_id ] );
 
-			$image_details = $image_details[0];
+			$image_details = $image_details['result'][0];
 
 			if ( '' !== $image_details['image_url'] ) {
 				$helper        = new MediaHelper();

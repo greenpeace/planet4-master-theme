@@ -127,6 +127,11 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 		 * @return array|string An associative array with the response (under key 'body') or a string with an error message in case of a failure.
 		 */
 		public function get_results( $params = [] ) {
+			$response_data = [
+				'result'        => [],
+				'status_code'   => '',
+				'error_message' => '',
+			];
 			$media_list = [];
 
 			if ( isset( $params['search_text'] ) && '' !== $params['search_text'] ) {
@@ -150,10 +155,12 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 			] );
 
 			if ( is_wp_error( $response ) ) {
-				$this->error( $response->get_error_message() . ' ' . $response->get_error_code() );
+				$response_data['status_code']   = $response->get_error_code();
+				$response_data['error_message'] = $response->get_error_message();
 
 			} elseif ( is_array( $response ) && \WP_Http::OK !== $response['response']['code'] ) {
-				$this->error( $response['response']['message'] . ' ' . $response['response']['code'] );         // Authentication failed.
+				$response_data['status_code']   = $response['response']['code'];        // Authentication failed.
+				$response_data['error_message'] = $response['response']['message'];
 			}
 
 			if ( is_array( $response ) && $response['body'] ) {
@@ -163,11 +170,14 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 						$media_list[$key] = $this->get_media_details( $details );
 					}
 				}
+				$response_data['result']      = $media_list;
+				$response_data['status_code'] = $response['response']['code'];
 			} else {
-				$this->error( $response['APIResponse']['Code'] );
+				$response_data['status_code']   = $response['APIResponse']['Code'];
+				$response_data['error_message'] = $response['response']['message'];
 			}
 
-			return $media_list;
+			return $response_data;
 		}
 
 		/**
