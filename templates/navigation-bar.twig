@@ -30,7 +30,7 @@
 				{% include 'countries.twig' %}
 			</li>
 			{% for key,item in navbar_menu.get_items %}
-				<li class="nav-item {{ item == item.current ? 'active' : '' }}">
+				<li class="nav-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
 					<a class="nav-link" href="{{ item.get_link }}">{{ item.title|raw }}</a>
 				</li>
 			{% endfor %}
