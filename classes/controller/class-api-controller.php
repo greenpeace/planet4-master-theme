@@ -135,7 +135,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 			$media_list = [];
 
 			if ( isset( $params['search_text'] ) && '' !== $params['search_text'] ) {
-				$this->search_query        = $params['search_text'];
+				$this->search_query       = $params['search_text'];
 				$this->api_param['query'] = '(text:' . $params['search_text'] . ') and (Mediatype:Image)';
 			}
 
@@ -157,7 +157,6 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 			if ( is_wp_error( $response ) ) {
 				$response_data['status_code']   = $response->get_error_code();
 				$response_data['error_message'] = $response->get_error_message();
-
 			} elseif ( is_array( $response ) && \WP_Http::OK !== $response['response']['code'] ) {
 				$response_data['status_code']   = $response['response']['code'];        // Authentication failed.
 				$response_data['error_message'] = $response['response']['message'];
@@ -167,7 +166,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 				$image_data = json_decode( $response['body'], true );
 				if ( isset( $image_data['APIResponse']['Items'] ) ) {
 					foreach ( $image_data['APIResponse']['Items'] as $key => $details ) {
-						$media_list[$key] = $this->get_media_details( $details );
+						$media_list[ $key ] = $this->get_media_details( $details );
 					}
 				}
 				$response_data['result']      = $media_list;

@@ -24,7 +24,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		 * after WordPress has finished loading but before any headers are sent.
 		 * Most of WP is loaded at this stage (but not all) and the user is authenticated.
 		 *
-		 * @param View $view_class The View class object.
+		 * @param View $view The View class object.
 		 */
 		public function __construct( View $view ) {
 			parent::__construct( $view );

@@ -16,18 +16,6 @@ if ( ! class_exists( 'Media_Library_Controller' ) ) {
 	class Media_Library_Controller extends Controller {
 
 		/**
-		 * Creates the plugin's loader object.
-		 * Checks requirements and if its ok it hooks the hook_plugin method on the 'init' action which fires
-		 * after WordPress has finished loading but before any headers are sent.
-		 * Most of WP is loaded at this stage (but not all) and the user is authenticated.
-		 *
-		 * @param View $view_class The View class Object.
-		 */
-		public function __construct( View $view ) {
-			parent::__construct( $view );
-		}
-
-		/**
 		 * Create menu/submenu entry.
 		 */
 		public function create_admin_menu() {
@@ -57,7 +45,10 @@ if ( ! class_exists( 'Media_Library_Controller' ) ) {
 			];
 
 			$ml_api = new MediaLibraryApi_Controller();
-			$image_details = $ml_api->get_results( [ 'search_text' => $image_id ] );
+			$image_details = $ml_api->get_results( [
+					'search_text' => $image_id,
+				]
+			);
 
 			$image_details = $image_details['result'][0];
 
