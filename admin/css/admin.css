@@ -40,9 +40,19 @@
 
 .ml-search-form {
     padding: 5px;
+    margin-top: 10px;
+    height: 63px;
 }
 
 .ml-error {
     text-align:center;
     color: #FF0000;
+}
+
+.ml-search {
+    margin-top: 10px;
+}
+
+.ml-media-toolbar {
+    float: right;
 }

@@ -3,6 +3,22 @@
         <div class="media-toolbar-primary ml-search-form">
             <label for="ml-media-search-input" class="screen-reader-text">{{ __( 'Search Media', data.domain ) }}</label>
             <input type="search" placeholder="Search media items..." id="ml-media-search-input" class="ml-search">
+
+            <div class="ml-media-toolbar">
+                <div class="ml-media-toolbar-secondary">
+                    <div class="ml-media-selection empty">
+                        <div class="selection-info">
+                            <span class="count"><span id="images_count">0</span> {{ __( 'selected', data.domain ) }}</span>
+                            <button type="button" class="button-link clear-selection" id="clear_images">{{ __( 'Clear', data.domain ) }}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ml-media-toolbar-primary search-form">
+                    <button type="button" class="button media-button button-primary button-large ml-button-insert"
+                            id="ml-button-insert" disabled="disabled">{{ __( 'Insert into WP media & post', data.domain ) }}
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="ml-error">
             {% if ( data.error_message ) %}
@@ -32,21 +48,6 @@
         <button class="btn btn-medium btn-small btn-secondary more-btn  btn-load-more-click-scroll" data-current_page="1">{{ __( 'SHOW MORE RESULTS', data.domain ) }}</button>
         <div class="hidden" id="ml_loader">
             <img src="/wp-admin/images/wpspin_light-2x.gif"/>
-        </div>
-        <div class="ml-media-toolbar">
-            <div class="ml-media-toolbar-secondary">
-                <div class="ml-media-selection empty">
-                    <div class="selection-info">
-                        <span class="count"><span id="images_count">0</span> selected</span>
-                        <button type="button" class="button-link clear-selection" id="clear_images">Clear</button>
-                    </div>
-                </div>
-            </div>
-            <div class="ml-media-toolbar-primary search-form">
-                <button type="button" class="button media-button button-primary button-large ml-button-insert"
-                        id="ml-button-insert" disabled="disabled">Insert into WP media & post
-                </button>
-            </div>
         </div>
     </div>
 {% endblock %}
