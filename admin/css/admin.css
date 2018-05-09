@@ -33,3 +33,16 @@
 .ml-media-frame-content {
     margin: 10px;
 }
+
+.btn-load-more-click-scroll {
+    margin: 15px;
+}
+
+.ml-search-form {
+    padding: 5px;
+}
+
+.ml-error {
+    text-align:center;
+    color: #FF0000;
+}

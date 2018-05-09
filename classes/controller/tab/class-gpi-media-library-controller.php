@@ -16,20 +16,23 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 	 */
 	class GPI_Media_Library_Controller extends Controller {
 
+		const SHOW_SCROLL_TIMES = 2;
+
 		/**
 		 * Creates the plugin's loader object.
 		 * Checks requirements and if its ok it hooks the hook_plugin method on the 'init' action which fires
 		 * after WordPress has finished loading but before any headers are sent.
 		 * Most of WP is loaded at this stage (but not all) and the user is authenticated.
 		 *
-		 * @param View $view_class The View class object.
+		 * @param View $view The View class object.
 		 */
 		public function __construct( View $view ) {
 			parent::__construct( $view );
 
-			add_filter( 'media_upload_tabs', [ $this, 'media_library_tab' ] );
-			add_action( 'media_upload_gpi_media_library', [ $this, 'add_library_form' ] );
+			add_filter( 'media_upload_tabs',                    [ $this, 'media_library_tab' ] );
+			add_action( 'media_upload_gpi_media_library',       [ $this, 'add_library_form' ] );
 			add_action( 'wp_ajax_download_images_from_library', [ $this, 'download_images_from_library' ] );
+			add_action( 'wp_ajax_get_paged_medias',             [ $this, 'get_paged_medias' ] );
 		}
 
 		/**
@@ -56,39 +59,62 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		 * Fetch the data from GP media library and pass to wp_iframe.
 		 */
 		public function library_form() {
-			$ml_api        = new MediaLibraryApi_Controller();
-			$image_list    = $ml_api->get_results();
+			$ml_api     = new MediaLibraryApi_Controller();
+			$image_list = $ml_api->get_results();
+
+			$error_message = '';
+			if ( \WP_Http::OK !==  $image_list['status_code'] ) {
+				$error_message = __('Error while fetching data from remote server!!!', 'planet4-medialibrary');
+			}
 
 			$this->load_iframe_assets();
 			$this->view->ml_view( [
 				'data' => [
-					'image_list' => $image_list,
-					'domain'     => 'planet4-medialibrary',
+					'image_list'    => $image_list['result'],
+					'error_message' => $error_message,
+					'domain'        => 'planet4-medialibrary',
 				],
 			] );
 		}
 
 		/**
-		 * Validates the settings input.
-		 *
-		 * @param array $settings The associative array with the settings that are registered for the plugin.
-		 *
-		 * @return bool
+		 * Callback for loadmore the next results & search.
+		 * Gets the paged medias that belong to the next page/loadmore & search result and are to be used with the twig template.
 		 */
-		public function validate( $settings ) : bool {
-			// TODO: Implement validate() method.
-			$has_errors = false;
+		public function get_paged_medias() {
+			// If this is an ajax call.
+			if ( wp_doing_ajax() ) {
+				$paged         = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_STRING );
+				$query_string  = filter_input( INPUT_GET, 'query-string', FILTER_SANITIZE_STRING );
 
-			return ! $has_errors;
-		}
+				$ml_api        = new MediaLibraryApi_Controller();
 
-		/**
-		 * Sanitizes the settings input.
-		 *
-		 * @param array $settings The associative array with the settings that are registered for the plugin (Call by Reference).
-		 */
-		public function sanitize( &$settings ) {
-			// TODO: Implement sanitize() method.
+				$params = [];
+
+				if ( '' !== $query_string ) {
+					$params['search_text'] = $query_string;
+				}
+				if ( '' !== $paged ) {
+					$params['pagenumber'] = $paged;
+				}
+
+				$image_list    = $ml_api->get_results( $params );
+
+				$error_message = '';
+				if ( \WP_Http::OK !==  $image_list['status_code'] ) {
+					$error_message = __('Error while fetching data from remote server!!!', 'planet4-medialibrary');
+				}
+
+				$this->view->ml_search_view( [
+					'data' => [
+						'image_list'    => $image_list['result'],
+						'error_message' => $error_message,
+						'domain'        => 'planet4-medialibrary',
+					],
+				] );
+
+				wp_die();
+			}
 		}
 
 		/**
@@ -98,11 +124,12 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 			$nonce = wp_create_nonce( 'gpi-media-library-nonce' );
 
 			$params = [
-				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => $nonce,
+				'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+				'nonce'             => $nonce,
+				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
 			];
-			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin.css', array(), '0.1' );
-			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.2', true );
+			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin.css', array(), '0.2' );
+			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.3', true );
 			wp_localize_script( 'p4ml_admin_script', 'media_library_params', $params );
 			wp_enqueue_script( 'jquery-ui-core' );
 			wp_enqueue_script( 'jquery-ui-selectable' );

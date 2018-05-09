@@ -98,6 +98,15 @@ if ( ! class_exists( 'View' ) ) {
 		}
 
 		/**
+		 * Render the media library searched image listing page.
+		 *
+		 * @param array $data All the data needed to render the template.
+		 */
+		public function ml_search_view( $data ) {
+			$this->view_template( 'ml-search', $data );
+		}
+
+		/**
 		 * Displays a message.
 		 *
 		 * @param array $data All the data needed to render the template.

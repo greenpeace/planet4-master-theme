@@ -1,7 +1,16 @@
 {% block ml_list_content %}
     <div class="ml-media-frame-content">
+        <div class="media-toolbar-primary ml-search-form">
+            <label for="ml-media-search-input" class="screen-reader-text">{{ __( 'Search Media', data.domain ) }}</label>
+            <input type="search" placeholder="Search media items..." id="ml-media-search-input" class="ml-search">
+        </div>
+        <div class="ml-error">
+            {% if ( data.error_message ) %}
+                {{ data.error_message }}
+            {% endif %}
+        </div>
         <div class="attachments-browser">
-            <ul tabindex="-1" class="attachments ui-sortable-disabled" id="selectable-images">
+            <ul tabindex="-1" class="attachments ui-sortable-disabled ml-media-list" id="selectable-images">
                 {% for image in data.image_list %}
                     <li tabindex="0" data-id="{{ image['gpml_image_id'] }}" class="attachment save-ready details"
                         style="">
@@ -20,6 +29,7 @@
     </div>
     <div class="clear"></div>
     <div class="ml-media-frame-toolbar">
+        <button class="btn btn-medium btn-small btn-secondary more-btn  btn-load-more-click-scroll" data-current_page="1">{{ __( 'SHOW MORE RESULTS', data.domain ) }}</button>
         <div class="hidden" id="ml_loader">
             <img src="/wp-admin/images/wpspin_light-2x.gif"/>
         </div>

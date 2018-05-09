@@ -127,15 +127,26 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 		 * @return array|string An associative array with the response (under key 'body') or a string with an error message in case of a failure.
 		 */
 		public function get_results( $params = [] ) {
+			$response_data = [
+				'result'        => [],
+				'status_code'   => '',
+				'error_message' => '',
+			];
 			$media_list = [];
 
 			if ( isset( $params['search_text'] ) && '' !== $params['search_text'] ) {
-				$this->search_query        = $params['search_text'];
+				$this->search_query       = $params['search_text'];
 				$this->api_param['query'] = '(text:' . $params['search_text'] . ') and (Mediatype:Image)';
 			}
 
 			$url = self::ML_SEARCH_URL;
 			$url = add_query_arg( $this->api_param, $url );
+
+			if ( isset( $params['pagenumber'] ) && 0 < $params['pagenumber'] ) {
+				$this->current_page        = $params['pagenumber'];
+				$page_number['pagenumber'] = $params['pagenumber'];
+				$url = add_query_arg( $page_number, $url );
+			}
 
 			// With the safe version of wp_remote_{VERB) functions, the URL is validated to avoid redirection and request forgery attacks.
 			$response = wp_remote_get( $url, [
@@ -144,24 +155,28 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 			] );
 
 			if ( is_wp_error( $response ) ) {
-				$this->error( $response->get_error_message() . ' ' . $response->get_error_code() );
-
+				$response_data['status_code']   = $response->get_error_code();
+				$response_data['error_message'] = $response->get_error_message();
 			} elseif ( is_array( $response ) && \WP_Http::OK !== $response['response']['code'] ) {
-				$this->error( $response['response']['message'] . ' ' . $response['response']['code'] );         // Authentication failed.
+				$response_data['status_code']   = $response['response']['code'];        // Authentication failed.
+				$response_data['error_message'] = $response['response']['message'];
 			}
 
 			if ( is_array( $response ) && $response['body'] ) {
 				$image_data = json_decode( $response['body'], true );
 				if ( isset( $image_data['APIResponse']['Items'] ) ) {
 					foreach ( $image_data['APIResponse']['Items'] as $key => $details ) {
-						$media_list[$key] = $this->get_media_details( $details );
+						$media_list[ $key ] = $this->get_media_details( $details );
 					}
 				}
+				$response_data['result']      = $media_list;
+				$response_data['status_code'] = $response['response']['code'];
 			} else {
-				$this->error( $response['APIResponse']['Code'] );
+				$response_data['status_code']   = $response['APIResponse']['Code'];
+				$response_data['error_message'] = $response['response']['message'];
 			}
 
-			return $media_list;
+			return $response_data;
 		}
 
 		/**
