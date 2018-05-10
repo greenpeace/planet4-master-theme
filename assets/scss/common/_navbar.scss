@@ -320,7 +320,7 @@ $menu-height-large: rem(60);
 
     .btn-donate {
       display: block;
-      width: 200px;
+      min-width: 200px;
       margin: 1.5em auto;
       padding: 5px 30px;
     }
