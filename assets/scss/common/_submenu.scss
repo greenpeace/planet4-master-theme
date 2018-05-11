@@ -58,6 +58,8 @@
   }
 
   &.submenu-sidebar {
+    z-index: 10;
+
     @include medium-and-up {
       float: right;
       max-width: 350px;
