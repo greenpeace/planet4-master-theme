@@ -135,7 +135,9 @@ class P4_Master_Site extends TimberSite {
 
 		add_action( 'admin_menu',                  [ $this, 'add_posts_report_admin_menu_item' ] );
 		add_filter( 'rest_post_query',             [ $this, 'add_posts_param_to_endpoint' ], 10, 2 );
+		add_filter( 'rest_page_query',             [ $this, 'add_posts_param_to_endpoint' ], 10, 2 );
 		add_filter( 'rest_post_collection_params', [ $this, 'filter_post_params_endpoint' ] );
+		add_filter( 'rest_page_collection_params', [ $this, 'filter_post_params_endpoint' ] );
 
 		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
 		add_action( 'wp_ajax_nopriv_get_paged_posts', array( 'P4_Search', 'get_paged_posts' ) );

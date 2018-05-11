@@ -4,22 +4,21 @@ var postsView, pagesView;
 $ = jQuery;
 
 $(document).ready(function () {
-    var dateFormat = "yy-mm-dd",
-        from = jQuery("#from")
-            .datepicker({
-                dateFormat: "yy-mm-dd",
-                defaultDate: "-3w",
-                changeMonth: true,
-                numberOfMonths: 2
-            }),
-        to = jQuery("#to").datepicker({
-            dateFormat: "yy-mm-dd",
-            defaultDate: "-1w",
+    var from = jQuery("#from")
+        .datepicker({
+            dateFormat: 'yy-mm-dd',
+            defaultDate: '-3w',
             changeMonth: true,
             numberOfMonths: 2
-        })
+        });
+    var to = jQuery('#to').datepicker({
+        dateFormat: 'yy-mm-dd',
+        defaultDate: '-1w',
+        changeMonth: true,
+        numberOfMonths: 2
+    });
 
-    $("#posts-filter").off('click').on('click', function () {
+    $('#posts-filter').off('click').on('click', function () {
 
         var filters = {};
         var from = $('#from').datepicker().val();
@@ -167,7 +166,7 @@ var wp = window.wp || {};
         pageCollection.fetch();
         $('#posts-table').html(postsView.render().el);
         $('#pages-table').html(pagesView.render().el);
-    }
+    };
 
     $(document).ready(function () {
         p4.initialize();
