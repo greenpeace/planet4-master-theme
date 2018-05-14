@@ -144,6 +144,12 @@ class P4_Master_Site extends TimberSite {
 				return 60;
 			}
 		);
+		add_filter(
+			'http_request_timeout',
+			function( $timeout ) {
+				return 10;
+			}
+		);
 		add_action( 'after_setup_theme', [ $this, 'add_image_sizes' ] );
 		add_action( 'admin_head', [ $this, 'remove_add_post_element' ] );
 		add_filter( 'post_gallery', [ $this, 'carousel_post_gallery' ], 10, 2 );

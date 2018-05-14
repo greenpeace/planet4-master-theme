@@ -179,7 +179,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 				// Check if call action is correct.
 				if ( 'get_paged_posts' === $search_action ) {
-					$search_async               = new self();
+					$search_async = new self();
+					$search_async->set_context( $search_async->context );
 					$search_async->search_query = trim( get_search_query() );
 
 					// Get the decoded url query string and then use it as key for redis.
@@ -191,9 +192,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					$search_async->current_page = $paged;
 
 					parse_str( $query_string, $filters_array );
-					$selected_sort     = $filters_array['orderby'];
-					$selected_filters  = $filters_array['f'];
-					$is_elastic_search = $filters_array['es'];
+					$selected_sort     = $filters_array['orderby'] ?? self::DEFAULT_SORT;
+					$selected_filters  = $filters_array['f'] ?? [];
+					$is_elastic_search = $filters_array['es'] ?? false;
 					$filters           = [];
 
 					// Handle submitted filter options.
@@ -367,20 +368,19 @@ if ( ! class_exists( 'P4_Search' ) ) {
 										$args['post_type']      = 'attachment';
 										$args['post_status']    = 'inherit';
 										$args['post_mime_type'] = self::DOCUMENT_TYPES;
-										// TODO - Fix other mime types being calculated into the Document filter counter.
-										add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
-											if ( ! empty( $args['post_mime_type'] ) ) {
-												$formatted_args['post_filter']['bool']['must'] = array(
-													'terms' => array(
-														'post_type'      => 'attachment',
-														'post_status'    => 'inherit',
-														'post_mime_type' => array_values( (array) $args['post_mime_type'] ),
-													),
-												);
-												$use_filters = true;
-											}
-											return $formatted_args;
-										}, 10, 1 );
+
+										if ( $this->is_elastic_search ) {
+											add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
+												if ( ! empty( $args['post_mime_type'] ) ) {
+													$formatted_args['post_filter']['bool']['must'] = array(
+														'terms' => array(
+															'post_mime_type' => $args['post_mime_type'],
+														),
+													);
+												}
+												return $formatted_args;
+											}, 10, 1 );
+										}
 										break;
 									case 2:
 										$args['post_type']             = 'page';
@@ -389,21 +389,43 @@ if ( ! class_exists( 'P4_Search' ) ) {
 										$args['post_parent__not_in'][] = esc_sql( $options['act_page'] );
 
 										// Workaround for making 'post_parent__not_in' to work with ES.
-										add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
-											if ( ! empty( $args['post_parent__not_in'] ) ) {
-												$formatted_args['post_filter']['bool']['must_not'] = array(
+										if ( $this->is_elastic_search ) {
+											add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
+												// Make sure it is not an Action page.
+												if ( ! empty( $args['post_parent__not_in'] ) ) {
+													$formatted_args['post_filter']['bool']['must_not'][] = array(
+														'terms' => array(
+															'post_parent' => array_values( (array) $args['post_parent__not_in'] ),
+														),
+													);
+												}
+												// Make sure it is a Page.
+												$formatted_args['post_filter']['bool']['must'][] = array(
 													'terms' => array(
-														'post_parent' => array_values( (array) $args['post_parent__not_in'] ),
+														'post_type' => array_values( (array) $args['post_type'] ),
 													),
 												);
-												$use_filters = true;
-											}
-											return $formatted_args;
-										}, 10, 1 );
+												return $formatted_args;
+											}, 10, 1 );
+										}
 										break;
 									case 3:
 										$args['post_type']   = 'post';
 										$args['post_status'] = 'publish';
+
+										if ( $this->is_elastic_search ) {
+											add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
+												// Make sure it is a Post.
+												if ( ! empty( $args['post_type'] ) ) {
+													$formatted_args['post_filter']['bool']['must'][] = array(
+														'terms' => array(
+															'post_type' => array_values( (array) $args['post_type'] ),
+														),
+													);
+												}
+												return $formatted_args;
+											}, 10, 1 );
+										}
 										break;
 								}
 								break;
@@ -460,6 +482,15 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					$args['order']   = 'desc';
 				}
 
+				// Get only DOCUMENT_TYPES from the attachments.
+				if ( ! $this->search_query && ! $this->filters ) {
+					add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
+						// TODO - Fix parsing exception in EP API call to Elasticsearch.
+						$formatted_args['post_mime_type'] = self::DOCUMENT_TYPES;
+						return $formatted_args;
+					}, 10, 1 );
+				}
+
 				$posts = ( new WP_Query( $args ) )->posts;
 			}
 
@@ -511,6 +542,16 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['found_posts']       = count( (array) $this->posts );
 			$context['source_selection']  = false;
 			$context['page_category']     = $category->name ?? __( 'Search page', 'planet4-master-theme' );
+			$context['sort_options']      = [
+				'relevant'  => [
+					'name'  => __( 'Most relevant', 'planet4-master-theme' ),
+					'order' => 'DESC',
+				],
+				'post_date' => [
+					'name'  => __( 'Most recent', 'planet4-master-theme' ),
+					'order' => 'DESC',
+				],
+			];
 
 			if ( $this->search_query ) {
 				$context['page_title'] = sprintf(
@@ -704,6 +745,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 						$content_type      = 'post';
 						$context['content_types']['3']['results']++;
 				}
+				$context['posts_data'][ $post->ID ]['content_type_text'] = $content_type_text;
+				$context['posts_data'][ $post->ID ]['content_type']      = $content_type;
 
 				// Page Type <-> Category. This taxonomy is used only for Posts.
 				if ( 'post' === $post->post_type ) {
@@ -716,10 +759,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 							$context['page_types'][ $page_type->term_id ]['results'] ++;
 						}
 					}
+					$context['posts_data'][ $post->ID ]['page_types']        = $page_types;
 				}
-				$context['posts_data'][ $post->ID ]['content_type_text'] = $content_type_text;
-				$context['posts_data'][ $post->ID ]['content_type']      = $content_type;
-				$context['posts_data'][ $post->ID ]['page_types']        = $page_types;
 
 				// Tag <-> Campaign.
 				$tags = get_the_terms( $post->ID, 'post_tag' );
