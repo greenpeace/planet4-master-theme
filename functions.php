@@ -126,11 +126,12 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'do_meta_boxes',            array( $this, 'remove_default_tags_box' ) );
 		add_action( 'pre_insert_term',          array( $this, 'disallow_insert_term' ), 1, 2 );
 		add_filter( 'wp_image_editors',         array( $this, 'allowedEditors' ) );
-		add_filter( 'jpeg_quality',             function( $arg ) { return 90; } );
 		add_action( 'after_setup_theme',        array( $this, 'add_image_sizes' ) );
 		add_action( 'admin_head' ,              array( $this, 'remove_add_post_element' ) );
 		add_filter( 'post_gallery',             array( $this, 'carousel_post_gallery' ), 10, 2 );
 		add_action( 'save_post',                array( $this, 'p4_auto_generate_excerpt' ) , 10, 2 );
+		add_filter( 'jpeg_quality',             function( $arg ) { return 90; } );
+		add_filter( 'http_request_timeout',     function( $timeout ) { return 10; } );
 
 		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
 		add_action( 'wp_ajax_nopriv_get_paged_posts', array( 'P4_Search', 'get_paged_posts' ) );
@@ -563,6 +564,8 @@ class P4_Master_Site extends TimberSite {
 	 * @return string The edited WHERE clause.
 	 */
 	public function edit_search_mime_types( $where ) : string {
+		global $wpdb;
+
 		// TODO - This method and all Search related methods in this class
 		// TODO - after this commit CAN and SHOULD be transferred inside the P4_Search class.
 		// TODO - Would have spotted the necessary change much faster.
@@ -570,7 +573,7 @@ class P4_Master_Site extends TimberSite {
 
 		if ( is_search() || wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
 			$mime_types = implode( ',', P4_Search::DOCUMENT_TYPES );
-			$where .= ' AND post_mime_type IN("' . $mime_types . '","") ';
+			$where .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
 		}
 		return $where;
 	}
