@@ -904,7 +904,6 @@ class P4_Master_Site extends TimberSite {
 
 		return $output;
 	}
-
 }
 
 new P4_Master_Site( [
@@ -912,4 +911,5 @@ new P4_Master_Site( [
 	'P4_Taxonomy_Image',
 	'P4_Settings',
 	'P4_Control_Panel',
+	'P4_Post_Report_Controller',
 ] );
