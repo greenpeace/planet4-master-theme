@@ -320,7 +320,7 @@ $menu-height-large: rem(60);
 
     .btn-donate {
       display: block;
-      width: 200px;
+      min-width: 200px;
       margin: 1.5em auto;
       padding: 5px 30px;
     }
@@ -346,7 +346,7 @@ $menu-height-large: rem(60);
     }
 
     .nav-link {
-      padding: 0 20px;
+      padding: 0 15%;
       min-width: 20%;
       text-align: center;
       border-bottom: 2px solid transparent;

@@ -1,0 +1,33 @@
+{% block content %}
+
+    <h1>Posts Report</h1>
+    <div class="tablenav top">
+        <div class="alignleft actions">
+            <label>Filters: </label>
+            <label for="from">Date From</label>
+            <input type="text" id="from" name="from">
+            <label for="to">to</label>
+            <input type="text" id="to" name="to">
+            <input type="submit" name="filter_action" id="posts-filter" class="button" value="Filter">
+        </div>
+        <br class="clear">
+    </div>
+
+    <br>
+    <div class="wrap">
+        <h1>Posts List</h1>
+        <div class="hidden" id="posts_loader">
+            <img src="/wp-admin/images/wpspin_light-2x.gif"/>
+        </div>
+        <div id="posts-table"></div>
+    </div>
+    <br>
+    <div class="wrap">
+        <h1>Pages List</h1>
+        <div class="hidden" id="pages_loader">
+            <img src="/wp-admin/images/wpspin_light-2x.gif"/>
+        </div>
+        <div id="pages-table"></div>
+    </div>
+
+{% endblock %}
