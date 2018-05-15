@@ -66,7 +66,7 @@ jQuery(document).ready(function () {
                             nonce: wp.media.view.settings.nonce.sendToEditor,
                             attachment: options,
                             html: '',
-                            post_id: $("#post_ID").val()
+                            post_id: wp.media.view.settings.post.id
                         }));
                     }
                     //TODO handle promises results/errors better.
