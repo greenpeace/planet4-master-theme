@@ -251,6 +251,9 @@ class P4_Master_Site extends TimberSite {
 		];
 		$context['domain']       = 'planet4-master-theme';
 		$context['foo']          = 'bar';   // For unit test purposes.
+		if ( function_exists( 'icl_get_languages' ) ) {
+			$context['languages']  = count( icl_get_languages() );
+		}
 		$context['navbar_menu']  = new TimberMenu( 'navigation-bar-menu' );
 		$context['site']         = $this;
 		$context['current_url']  = home_url( $wp->request );
