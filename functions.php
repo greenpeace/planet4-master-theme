@@ -897,8 +897,8 @@ class P4_Master_Site extends TimberSite {
 		$meta         = get_post_meta( $image_id );
 		if ( isset( $meta['_credit_text'] ) && ! empty( $meta['_credit_text'] ) ) {
 			$image_credit = ' ' . $meta['_credit_text'][0];
-		    if (! is_numeric( strpos( $meta['_credit_text'][0], '©' ) ) ) {
-			    $image_credit = ' ©' . $image_credit;
+			if ( ! is_numeric( strpos( $meta['_credit_text'][0], '©' ) ) ) {
+				$image_credit = ' ©' . $image_credit;
 			}
 		}
 
