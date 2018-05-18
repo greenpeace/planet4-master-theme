@@ -895,7 +895,14 @@ class P4_Master_Site extends TimberSite {
 
 		$image_id     = trim( str_replace( 'attachment_', '', $atts['id'] ) );
 		$meta         = get_post_meta( $image_id );
-		$image_credit = ( isset( $meta['_credit_text'] ) && ! empty( $meta['_credit_text'] ) ) ? ' ' . $meta['_credit_text'][0] : '';
+		$image_credit = '';
+		if ( isset( $meta['_credit_text'] ) && ! empty( $meta['_credit_text'] ) ) {
+			$image_credit = ' ' . $meta['_credit_text'][0];
+			if ( ! is_numeric( strpos( $meta['_credit_text'][0], '©' ) ) ) {
+				$image_credit = ' ©' . $image_credit;
+			}
+		}
+
 		$class        = trim( 'wp-caption ' . $atts['align'] . ' ' . $atts['class'] );
 
 		if ( $atts['id'] ) {
