@@ -77,10 +77,10 @@ var wp = window.wp || {};
         url: p4_data.api_url + '/posts',
         data: params,
         headers: {'X-WP-Nonce': p4_data.nonce},
-        success: function (collection, response, options) {
+        success: function () {
           this.hideSpinner();
         }.bind(this),
-        error: function (collection, response, options) {
+        error: function () {
           this.hideSpinner();
         }.bind(this)
       });
@@ -139,10 +139,10 @@ var wp = window.wp || {};
         url: p4_data.api_url + '/pages',
         data: params,
         headers: {'X-WP-Nonce': p4_data.nonce},
-        success: function (collection, response, options) {
+        success: function () {
           this.hideSpinner();
         }.bind(this),
-        error: function (collection, response, options) {
+        error: function () {
           this.hideSpinner();
         }.bind(this)
       });
