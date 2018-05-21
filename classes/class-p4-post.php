@@ -44,10 +44,11 @@ if ( ! class_exists( 'P4_Post' ) ) {
 
 			if ( 0 !== absint( $act_page_id ) ) {
 				$take_action_pages_args = [
-					'post_type'   => 'page',
-					'post_parent' => $act_page_id,
-					'numberposts' => - 1,
-					'fields'      => 'ids',
+					'post_type'        => 'page',
+					'post_parent'      => $act_page_id,
+					'numberposts'      => - 1,
+					'fields'           => 'ids',
+					'suppress_filters' => false,
 				];
 
 				$pages = get_posts( $take_action_pages_args );
