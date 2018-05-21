@@ -29,6 +29,7 @@ if ( ! class_exists( 'P4_Sitemap' ) ) {
 				$actions = get_posts( $args );
 			}
 
+			$actions_data = [];
 			if ( is_array( $actions ) && $actions ) {
 				foreach ( $actions as $action ) {
 					$actions_data[] = [
@@ -63,6 +64,7 @@ if ( ! class_exists( 'P4_Sitemap' ) ) {
 				$issues = get_posts( $args );
 			}
 
+			$issues_data = [];
 			if ( is_array( $issues ) && $issues ) {
 				foreach ( $issues as $issue ) {
 
@@ -105,6 +107,7 @@ if ( ! class_exists( 'P4_Sitemap' ) ) {
 			];
 			$pages = get_posts( $args );
 
+			$evergreen_data = [];
 			if ( is_array( $pages ) && $pages ) {
 				foreach ( $pages as $page ) {
 					$evergreen_data[] = [
@@ -132,6 +135,7 @@ if ( ! class_exists( 'P4_Sitemap' ) ) {
 				]
 			);
 
+			$article_types_data = [];
 			if ( is_array( $article_types ) && $article_types ) {
 				foreach ( $article_types as $article_type ) {
 					$article_types_data[] = [

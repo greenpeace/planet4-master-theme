@@ -30,14 +30,19 @@
 				{% include 'countries.twig' %}
 			</li>
 			{% for key,item in navbar_menu.get_items %}
-				{% if key == 0 %}
-					{% set class_name = 'act-nav-link' %}
+				{% if 'wpml-ls-item' in item.class %}
+					{% if key == 0 %}
+						<li class="nav-item {{ item.class }}">
+					{% endif %}
+						<a class="nav-link" href="{{ item.get_link }}">{{ item.title|striptags|slice(0, 2) }}</a>
+					{% if key == (languages - 1) %}
+						</li>
+					{% endif %}
 				{% else %}
-					{% set class_name = 'explore-nav-link' %}
+					<li class="nav-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
+						<a class="nav-link" href="{{ item.get_link }}">{{ item.title }}</a>
+					</li>
 				{% endif %}
-				<li class="nav-item {{ class_name }} {{ item == item.current ? 'active' : '' }}">
-					<a class="nav-link" href="{{ item.get_link }}">{{ item.title }}</a>
-				</li>
 			{% endfor %}
 			<li class="nav-item">
 				<a class="btn btn-donate" href="{{ donatelink }}">{{ __( 'DONATE', domain ) }}</a>

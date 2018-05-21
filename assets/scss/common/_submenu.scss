@@ -1,9 +1,8 @@
 .submenu-block {
   background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 5px 5px 5px 0 rgba(128, 128, 128, 0.5);
-  border-radius: 5px;
   margin-bottom: 40px;
-  padding: 50px;
+  padding: 20px;
 
   .submenu-menu {
     display: flex;
@@ -58,6 +57,8 @@
   }
 
   &.submenu-sidebar {
+    z-index: 4;
+
     @include medium-and-up {
       float: right;
       max-width: 350px;
