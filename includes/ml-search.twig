@@ -1,0 +1,12 @@
+{% for image in data.image_list %}
+	<li tabindex="0" data-id="{{ image['gpml_image_id'] }}" class="attachment save-ready details">
+		<div class="attachment-preview js--select-attachment type-image subtype-jpeg landscape">
+			<div class="thumbnail">
+				<div class="centered">
+					<img src="{{ image['image_url'] }}" width="150px" height="150px" draggable="false"
+						 alt="">
+				</div>
+			</div>
+		</div>
+	</li>
+{% endfor %}

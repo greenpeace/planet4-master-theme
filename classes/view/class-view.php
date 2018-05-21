@@ -4,12 +4,14 @@ namespace P4ML\Views;
 
 use Timber\Timber;
 
-if ( ! class_exists( 'P4ML_View' ) ) {
+if ( ! class_exists( 'View' ) ) {
 
 	/**
-	 * Class P4ML_View
+	 * Class View
+	 *
+	 * @package P4ML\Views
 	 */
-	class P4ML_View {
+	class View {
 
 		/** @var string $template_dir The path to the template files. */
 		private $template_dir = P4ML_INCLUDES_DIR;
@@ -84,6 +86,24 @@ if ( ! class_exists( 'P4ML_View' ) ) {
 		 */
 		public function settings( $data ) {
 			$this->view_template( __FUNCTION__, $data );
+		}
+
+		/**
+		 * Render the media library image listing page.
+		 *
+		 * @param array $data All the data needed to render the template.
+		 */
+		public function ml_view( $data ) {
+			$this->view_template( 'ml_view', $data );
+		}
+
+		/**
+		 * Render the media library searched image listing page.
+		 *
+		 * @param array $data All the data needed to render the template.
+		 */
+		public function ml_search_view( $data ) {
+			$this->view_template( 'ml-search', $data );
 		}
 
 		/**

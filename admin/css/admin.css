@@ -1,0 +1,58 @@
+#selectable-images li.ui-selecting {
+    background: #feca40;
+}
+
+#selectable-images li.ui-selected {
+    background: #0073aa;
+    border: solid 2px #0073aa;
+}
+
+#selectable-images {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#selectable-images li {
+    margin: 3px;
+    padding: 1px;
+    float: left;
+    font-size: 4em;
+    text-align: center;
+    border: solid 2px #f1f1f1;
+}
+
+#ml_loader {
+    padding: 10px;
+}
+
+.ml-media-toolbar {
+    padding: 10px;
+}
+
+.ml-media-frame-content {
+    margin: 10px;
+}
+
+.btn-load-more-click-scroll {
+    margin: 15px;
+}
+
+.ml-search-form {
+    padding: 5px;
+    margin-top: 10px;
+    height: 63px;
+}
+
+.ml-error {
+    text-align:center;
+    color: #FF0000;
+}
+
+.ml-search {
+    margin-top: 10px;
+}
+
+.ml-media-toolbar {
+    float: right;
+}

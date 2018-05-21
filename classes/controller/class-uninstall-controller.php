@@ -2,13 +2,14 @@
 
 namespace P4ML\Controllers;
 
-if ( ! class_exists( 'P4ML_Uninstall_Controller' ) ) {
+if ( ! class_exists( 'Uninstall_Controller' ) ) {
 	/**
 	 * Planet4 - Media Library uninstaller
 	 *
 	 * Used when clicking "Delete" from inside of WordPress's plugins page.
+	 * @package P4ML\Controllers
 	 */
-	class P4ML_Uninstall_Controller {
+	class Uninstall_Controller {
 
 		/**
 		 * Initialize uninstaller

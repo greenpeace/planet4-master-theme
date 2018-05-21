@@ -2,16 +2,16 @@
 
 namespace P4ML;
 
-if ( ! class_exists( 'P4ML_Loader' ) ) {
+if ( ! class_exists( 'Loader' ) ) {
 
 	/**
-	 * Class P4ML_Loader
+	 * Class Loader
 	 *
 	 * This class checks requirements and if all are met then it hooks the plugin.
 	 */
-	final class P4ML_Loader {
+	final class Loader {
 
-		/** @var P4ML_Loader $instance */
+		/** @var Loader $instance */
 		private static $instance;
 		/** @var array $services */
 		private $services;
@@ -28,9 +28,9 @@ if ( ! class_exists( 'P4ML_Loader' ) ) {
 		 * @param array $services The Controller services to inject.
 		 * @param string $view_class The View class name.
 		 *
-		 * @return P4ML_Loader
+		 * @return Loader
 		 */
-		public static function get_instance( $services = array(), $view_class ): P4ML_Loader {
+		public static function get_instance( $services = array(), $view_class ): Loader {
 			! isset( self::$instance ) and self::$instance = new self( $services, $view_class );
 
 			return self::$instance;
@@ -55,29 +55,6 @@ if ( ! class_exists( 'P4ML_Loader' ) ) {
 				}
 			}
 			$this->check_requirements();
-
-			// add the tab.
-			//add_filter('media_upload_tabs', [$this, 'media_library_tab']);
-
-			// call the new tab with wp_iframe.
-			//add_action('media_upload_gpi_media_library', [$this, 'add_library_form']);
-		}
-
-		public function media_library_tab( $tabs ) {
-			$tabs['gpi_media_library'] = "Gpi Media Library";
-
-			return $tabs;
-		}
-
-		public function add_library_form() {
-			wp_iframe( [ $this, 'library_form' ] );
-		}
-
-		// the tab content.
-		public function library_form() {
-			wp_enqueue_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.1', true );
-			echo media_upload_header(); // This function is used for print media uploader headers etc.
-			echo '';
 		}
 
 		/**
@@ -199,7 +176,7 @@ if ( ! class_exists( 'P4ML_Loader' ) ) {
 	deactivate_plugins( P4ML_PLUGIN_BASENAME );
 	wp_die(
 		'<div class="error fade">' .
-		'<u>' . esc_html__( 'Plugin Conflict Error!', 'planet4-medialibrary' ) . '</u><br /><br />' . esc_html__( 'Class P4ML_Loader already exists.', 'planet4-medialibrary' ) . '<br />' .
+		'<u>' . esc_html__( 'Plugin Conflict Error!', 'planet4-medialibrary' ) . '</u><br /><br />' . esc_html__( 'Class Loader already exists.', 'planet4-medialibrary' ) . '<br />' .
 		'</div>', 'Plugin Conflict Error', array(
 			'response'  => \WP_Http::OK,
 			'back_link' => true,
