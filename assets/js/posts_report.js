@@ -76,9 +76,14 @@ var wp = window.wp || {};
       this.collection.fetch({
         url: p4_data.api_url + '/posts',
         data: params,
-        headers: {'X-WP-Nonce': p4_data.nonce}
+        headers: {'X-WP-Nonce': p4_data.nonce},
+        success: function () {
+          this.hideSpinner();
+        }.bind(this),
+        error: function () {
+          this.hideSpinner();
+        }.bind(this)
       });
-      this.hideSpinner();
     },
 
     initialize: function () {
@@ -133,9 +138,14 @@ var wp = window.wp || {};
       this.collection.fetch({
         url: p4_data.api_url + '/pages',
         data: params,
-        headers: {'X-WP-Nonce': p4_data.nonce}
+        headers: {'X-WP-Nonce': p4_data.nonce},
+        success: function () {
+          this.hideSpinner();
+        }.bind(this),
+        error: function () {
+          this.hideSpinner();
+        }.bind(this)
       });
-      this.hideSpinner();
     },
 
     initialize: function () {

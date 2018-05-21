@@ -75,7 +75,7 @@
     }
 
     @include medium-and-up {
-      padding: 20px 30px;
+      padding: 30px;
     }
 
     h3 {
@@ -96,7 +96,7 @@
       }
 
       @include large-and-up {
-        width: 60%;
+        width: 100%;
       }
     }
   }

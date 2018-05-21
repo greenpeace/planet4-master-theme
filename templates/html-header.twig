@@ -13,10 +13,10 @@
 		{% set image_data  = tag_image_id ? fn( 'wp_get_attachment_image_src', tag_image_id, 'full' ) : [] %}
 	{% endif %}
 
-	<meta property="og:title" content="{{ wp_title ? wp_title|e('esc_html')|raw : site.name }}" />
+	<meta property="og:title" content="{% if wp_title %}{{ wp_title|raw }} - {{ site.name }}{% else %}{{ site.name }}{% endif %}" />
 	<meta property="og:type" content="article" />
 	<meta property="og:url" content="{{ current_url }}" />
-	<meta property="og:description" content="{{ description|striptags|raw }}" />
+	<meta property="og:description" content="{{ description|e('esc_html')|raw }}" />
 	<meta property="og:image" content="{{ image_data[0] }}" />
 	<meta property="og:image:width" content="{{ image_data[1] }}" />
 	<meta property="og:image:height" content="{{ image_data[2] }}" />
@@ -24,8 +24,8 @@
 
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:site" content="{{ site.name }}" />
-	<meta name="twitter:title" content="{{ wp_title ? wp_title|e('esc_html')|raw : site.name }}">
-	<meta name="twitter:description" content="{{ description|striptags|raw }}">
+	<meta name="twitter:title" content="{% if wp_title %}{{ wp_title|raw }} - {{ site.name }}{% else %}{{ site.name }}{% endif %}">
+	<meta name="twitter:description" content="{{ description|e('esc_html')|raw }}">
 	<meta name="twitter:creator" content="{{ author_override ?? fn( 'get_the_author_meta', 'display_name', post.post_author ) }}">
 	<meta name="twitter:image" content="{{ image_data[0] }}">
 

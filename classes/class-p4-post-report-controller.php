@@ -92,12 +92,12 @@ if ( ! class_exists( 'P4_Post_Report_Controller' ) ) {
 					'jquery',
 					'wp-api',
 					'wp-backbone',
-				], '0.1', true );
+				], '0.2', true );
 			wp_localize_script(
 				'posts-report',
 				'p4_data',
 				[
-					'api_url' => '/wp-json/wp/v2',
+					'api_url' => get_site_url() . '/wp-json/wp/v2',
 					'nonce'   => wp_create_nonce( 'wp_rest' ),
 				]
 			);

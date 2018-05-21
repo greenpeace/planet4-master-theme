@@ -346,7 +346,7 @@ $menu-height-large: rem(60);
     }
 
     .nav-link {
-      padding: 0 15%;
+      padding: 0;
       min-width: 20%;
       text-align: center;
       border-bottom: 2px solid transparent;
@@ -371,6 +371,10 @@ $menu-height-large: rem(60);
   .nav-item {
     margin: 0;
     padding: 0;
+  }
+
+  .wpml-ls-current-language {
+    display: list-item;
   }
 }
 
@@ -563,5 +567,34 @@ $menu-height-large: rem(60);
     padding: 2em 4em 4em;
     width: 80%;
     left: 10%;
+  }
+}
+
+.nav-item.wpml-ls-item {
+
+  @include large-and-up {
+    margin-left: -20px;
+  }
+
+  @include x-large-and-up {
+    margin-left: -60px;
+  }
+
+  .nav-link {
+    display: inline-block;
+    font-size: rem(14);
+    padding: 0;
+
+    &:first-child {
+      padding-left: 50px;
+
+      @include large-and-up {
+        padding-left: 0;
+      }
+    }
+
+    &:not(:last-child)::after {
+      content: " | ";
+    }
   }
 }
