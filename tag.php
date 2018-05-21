@@ -44,8 +44,8 @@ if ( is_tag() ) {
 		'post_parent'      => $explore_page_id,
 		'post_type'        => 'page',
 		'post_status'      => 'publish',
-		'suppress_filters' => true,
-		'tag_slug__in'     => [ $context['tag']->slug ]
+		'suppress_filters' => false,
+		'tag_slug__in'     => [ $context['tag']->slug ],
 	] );
 
 	$context['category_name']   = $posts[0]->post_title ?? '';
