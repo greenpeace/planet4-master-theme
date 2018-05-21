@@ -372,6 +372,10 @@ $menu-height-large: rem(60);
     margin: 0;
     padding: 0;
   }
+
+  .wpml-ls-current-language {
+    display: list-item;
+  }
 }
 
 .nav-search-wrap {
