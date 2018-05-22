@@ -16,7 +16,7 @@ $(document).ready(function () {
     var $row = $('.post-column:hidden', $(this).closest('.container'))
       , posts_per_row = $(this).closest('.four-column-content').data('posts_per_row')
 
-    $(this).blur();
+    $(this).blur()
     if ($row.length > 0) {
       $row.slice( 0, posts_per_row ).show('slow')
     }
