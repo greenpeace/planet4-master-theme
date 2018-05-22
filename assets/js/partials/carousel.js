@@ -1,7 +1,7 @@
 /* global Hammer */
 
 $(document).ready(function() {
-  'use strict';
+  'use strict'
 
   // Add event listeners when window is resized, change the carousel's images background attribute to the current loaded ones.
   $('#carousel-wrapper-header').find('img').on('load', function () {
@@ -72,7 +72,7 @@ $(document).ready(function() {
     // Add an element within the slide to hold the next slide preview.
     var $preview = $('<div>')
       .addClass('carousel-preview-wrap')
-      .prependTo($slide);
+      .prependTo($slide)
 
     var next_img_src = $nextImg.get(0).currentSrc || $nextImg.attr('src')
     $('<div>')
@@ -83,7 +83,7 @@ $(document).ready(function() {
 
     // Populate carousel slide index
     $slide.attr('data-slide', i)
-  });
+  })
 
   /**
   * Advance to the next slide in the carousel.
@@ -174,7 +174,7 @@ $(document).ready(function() {
       , carousel_head_hammer = new Hammer(carousel_element, { recognizers: [] })
       , hammer = new Hammer.Manager(carousel_head_hammer.element)
       , swipe = new Hammer.Swipe()
-    
+
     hammer.add(swipe)
 
     hammer.on('swipeleft', function(){

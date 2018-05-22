@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  'use strict';
+  'use strict'
 
   function createCookie(name, value) {
     document.cookie = encodeURI(name) + '=' + encodeURI(value) + ';domain=.' + document.domain + ';path=/;'
@@ -8,7 +8,7 @@ $(document).ready(function() {
   function readCookie(name) {
     var nameEQ = name + '='
       , ca = document.cookie.split(';')
-    
+
     for(var i=0;i < ca.length;i++) {
       var c = ca[i]
       while (c.charAt(0)==' ') {

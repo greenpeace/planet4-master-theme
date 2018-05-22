@@ -1,7 +1,7 @@
 // Force wide blocks outside the container
 
 $(document).ready(function() {
-  'use strict';
+  'use strict'
 
   var $wideblocks = $('.block-wide')
     , $container = $('div.page-template')

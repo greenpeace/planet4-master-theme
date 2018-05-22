@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  'use strict';
+  'use strict'
 
   $('.country-select-dropdown').click(function(){
     $(this).parent().toggleClass('active-li')

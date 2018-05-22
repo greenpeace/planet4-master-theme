@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  'use strict';
+  'use strict'
 
   $(document).on('click', [
     '.navbar-dropdown-toggle',
@@ -75,11 +75,11 @@ $(document).ready(function() {
       , lastScrollTop = 0
       , delta = 5
       , navbarHeight = $('.top-navigation').outerHeight()
-    
+
     $(window).scroll(function(){
       didScroll = true
     })
-    
+
     setInterval(function() {
       if (didScroll) {
         hasScrolled()

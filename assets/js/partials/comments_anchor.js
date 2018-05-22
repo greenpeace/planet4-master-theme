@@ -1,7 +1,7 @@
 // Scroll to comments
 
 $(document).ready(function() {
-  'use strict';
+  'use strict'
 
   $('#comments-link').click(function() {
     $('html, body').animate({

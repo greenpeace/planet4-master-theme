@@ -1,13 +1,12 @@
 var postCollection
   , pageCollection
-  , postsView,
+  , postsView
   , pagesView
   , p4 = p4 || {}
   , p4_data = p4_data || {}
   , wp = window.wp || {}
 
 (function ($) {
-
   $(document).ready(function () {
     $('#from').datepicker({
       dateFormat: 'yy-mm-dd',
@@ -28,7 +27,7 @@ var postCollection
       var filters = {}
         , from = $('#from').datepicker().val()
         , to = $('#to').datepicker().val()
-      
+
       if ('' !== from) {
         filters.after = from + 'T00:00:00'
       }
@@ -68,12 +67,12 @@ var postCollection
         order: 'desc',
         date_query_column: 'post_modified',
       }
-      
+
       Object.assign(params, filters)
       this.collection.reset()
       this.views.remove()
       this.render()
-      
+
       this.collection.fetch({
         url: p4_data.api_url + '/posts',
         data: params,
@@ -124,9 +123,9 @@ var postCollection
     },
 
     refreshPages: function (filters) {
-      
+
       this.showSpinner()
-      
+
       var params = {
         per_page: 50,
         status: 'publish',
@@ -134,7 +133,7 @@ var postCollection
         order: 'desc',
         date_query_column: 'post_modified',
       }
-      
+
       Object.assign(params, filters)
       this.collection.reset()
       this.views.remove()

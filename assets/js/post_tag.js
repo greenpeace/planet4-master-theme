@@ -12,12 +12,12 @@ $(document).ready(function() {
         , add_field  = $(this).closest('.add-wrap')
         , edit_field = $(this).closest('.edit-wrap')
         , media_modal = wp.media({
-        title: localizations.media_title,
-        library: {
-          type: 'image'
-        },
-        multiple: false
-      })
+          title: localizations.media_title,
+          library: {
+            type: 'image'
+          },
+          multiple: false
+        })
 
       media_modal.on('select', function () {
         var $selected_image = media_modal.state().get('selection').first().toJSON()

@@ -1,7 +1,7 @@
 /* global slickify */
 
 $(document).ready(function() {
-  'use strict';
+  'use strict'
 
   // Handle slick functionality for each Content Four Column blocks.
   $('.four-column-content').each( function() {

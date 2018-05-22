@@ -64,9 +64,8 @@ $(function() {
     function() {
       $('.search-result-item-headline', $(this).parent()).addClass('search-hover')
     }, function() {
-      $('.search-result-item-headline', $(this).parent()).removeClass('search-hover')
-    }
-  )
+    $('.search-result-item-headline', $(this).parent()).removeClass('search-hover')
+  })
 
   // Clear single selected filter.
   $( '.activefilter-tag' ).off( 'click' ).on( 'click', function() {
@@ -77,8 +76,8 @@ $(function() {
   // Clear all selected filters.
   $( '.clearall' ).off( 'click' ).on( 'click', function() {
     $( 'input[name^="f["]' ).prop( 'checked', false )
-    $search_form.submit();
-  });
+    $search_form.submit()
+  })
 
   // Add click event for load more button in blocks.
   $load_more_button.off( 'click' ).on( 'click', function() {
@@ -102,7 +101,7 @@ $(function() {
         $( '.multiple-search-result .list-unstyled' ).append( response )
         $( '.row-hidden:last' ).removeClass( 'row-hidden' ).show( 'fast' )
       }).fail(function ( jqXHR, textStatus, errorThrown ) {
-        console.log(errorThrown); //eslint-disable-line no-console
+        console.log(errorThrown) //eslint-disable-line no-console
       })
     } else {
       var $row = $( '.row-hidden', $load_more_button.closest( '.container' ) )

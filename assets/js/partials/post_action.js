@@ -1,7 +1,7 @@
 // Force the Cover card to follow scroll
 
 $(document).ready(function() {
-  'use strict';
+  'use strict'
 
   var $sidebar = $('.post-content').find('> #action-card')
     , offset = $sidebar.offset()
