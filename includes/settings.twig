@@ -8,21 +8,24 @@
 
     {{ fn( 'settings_errors' ) }}
 
+    <span>{{ __( 'Please enter your GP Media Library username and password. Please note that you will need to ask from the GP Media Libary administrators to enable API access for your account.', domain ) }}</span>
+
     <form id="p4ml_main_settings_form" name="p4ml_main_settings_form" method="post" action="options.php">
 
         {{ fn( 'settings_fields', 'p4ml_main_settings_group' ) }}
         {{ fn( 'do_settings_sections', 'p4ml_main_settings_group' ) }}
 
         <br /><br />
+
         <table class="form-table">
             <tr valign="top">
-                <th>{{ __( 'API Username', domain ) }}:</th>
+                <th>{{ __( 'GP Media Library Username', domain ) }}:</th>
                 <td>
                     <input id="p4ml_api_username" name="p4ml_main_settings[p4ml_api_username]" value="{{ settings.p4ml_api_username|e('html_attr') }}" size="50" placeholder="{{ __( 'Enter your GP media library account username', domain ) }}" type="text" />
                 </td>
             </tr>
             <tr valign="top">
-                <th>{{ __( 'API Password', domain ) }}:</th>
+                <th>{{ __( 'GP Media Library Password', domain ) }}:</th>
                 <td>
                     <input id="p4ml_api_password" name="p4ml_main_settings[p4ml_api_password]" value="{{ settings.p4ml_api_password|e('html_attr') }}" size="50" placeholder="{{ __( 'Enter your GP media library account password', domain ) }}" type="password" />
                 </td>
