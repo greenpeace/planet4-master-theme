@@ -4,7 +4,7 @@ $(document).ready(function() {
   'use strict';
 
   var $wideblocks = $('.block-wide')
-  var $container = $('div.page-template')
+    , $container = $('div.page-template')
 
   function force_wide_blocks() {
     var vw = $container.width()
