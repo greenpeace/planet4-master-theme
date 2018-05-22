@@ -1,6 +1,6 @@
 /* global ajaxurl */
 
-$ = jQuery; //eslint-disable-line no-global-assign
+$ = jQuery //eslint-disable-line no-global-assign
 
 // Dashboard page.
 $(function() {
