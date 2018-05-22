@@ -38,9 +38,8 @@ var postCollection
 
       postsView.refreshPosts(filters)
       pagesView.refreshPages(filters)
-    });
-  });
-
+    })
+  })
 
   p4.PostsView = wp.Backbone.View.extend({
 
@@ -95,7 +94,7 @@ var postCollection
     addPostView: function (post) {
       this.views.add('.p4-posts', new p4.PostView({model: post}))
     }
-  });
+  })
 
   p4.PostView = wp.Backbone.View.extend({
     template: wp.template('p4-post'),
@@ -104,7 +103,7 @@ var postCollection
     prepare: function () {
       return this.model.toJSON()
     }
-  });
+  })
 
 
   p4.PagesView = wp.Backbone.View.extend({
