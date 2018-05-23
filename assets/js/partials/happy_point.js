@@ -19,11 +19,16 @@ $(document).ready(function() {
     }
   }
 
+  var cookie = readCookie('greenpeace');
   const url = $('#happy-point').data('src');
 
-  if (url) {
+  if (url && cookie !== null) {
     window.addEventListener('load', load_happy_point);
     window.addEventListener('resize', load_happy_point);
     window.addEventListener('scroll', load_happy_point);
+  }
+
+  if (cookie == null) {
+    $('#happy-point').append('<div>This content is blocked due to cookie policy.</div>');
   }
 });

@@ -260,10 +260,16 @@ class P4_Master_Site extends TimberSite {
 		$context['sort_options'] = $this->sort_options;
 		$context['default_sort'] = P4_Search::DEFAULT_SORT;
 
-		$options                          = get_option( 'planet4_options' );
-		$context['donatelink']            = $options['donate_button'] ?? '#';
-		$context['google_tag_value']      = $options['google_tag_manager_identifier'] ?? '';
-		$context['website_navbar_title']  = $options['website_navigation_title'] ?? __( 'International (English)', 'planet4-master-theme' );
+
+		// Do not embed google tag manager js if 'greenpeace' cookie is not set.
+		$cookie_consent = isset( $_COOKIE['greenpeace'] );
+		$gtm            = $options['google_tag_manager_identifier'] ?? '';
+
+		$options                         = get_option( 'planet4_options' );
+		$context['donatelink']           = $options['donate_button'] ?? '#';
+		$context['google_tag_value']     = ! empty( $gtm ) && $cookie_consent ? $gtm : '';
+		$context['google_tag_value']     = $options['google_tag_manager_identifier'] ?? '';
+		$context['website_navbar_title'] = $options['website_navigation_title'] ?? __( 'International (English)', 'planet4-master-theme' );
 
 		// Footer context.
 		$context['copyright_text_line1']  = $options['copyright_line1'] ?? '';
@@ -922,4 +928,5 @@ new P4_Master_Site( [
 	'P4_Settings',
 	'P4_Control_Panel',
 	'P4_Post_Report_Controller',
+	'P4_Cookies',
 ] );
