@@ -7,7 +7,7 @@
 		<span class="sr-only">{{ __( 'Share on' ) }} Facebook</span>
 	</a>
 	<!-- Twitter -->
-	<a href="https://twitter.com/share?url={{ post.link }}&text={{ post.title|raw }}"
+	<a href="https://twitter.com/share?url={{ post.link }}&text={{ post.title|raw }} via @{{ social_accounts.twitter }}&related={{ social_accounts.twitter }}"
 		 onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Twitter', 'eventLabel': '{{ post.link }}'});"
 		 target="_blank" class="share-btn twitter">
 		<i class="fab fa-twitter"></i>

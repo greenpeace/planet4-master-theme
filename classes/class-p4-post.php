@@ -97,5 +97,32 @@ if ( ! class_exists( 'P4_Post' ) ) {
 				}
 			}
 		}
+
+		/**
+		 * Retrieves the accounts for each social media item found within the footer social menu.
+		 *
+		 * @param array $social_menu Array of a post objects for each menu item.
+		 *
+		 * @return array Associative array with the social media accounts.
+		 */
+		public function get_social_accounts( $social_menu ) : array {
+			if ( isset( $social_menu ) ) {
+				$social_accounts = [];
+
+				foreach ( $social_menu as $social_menu_item ) {
+					if ( false !== strpos( $social_menu_item->url, 'facebook' ) ) {
+						$social_accounts['facebook'] = end( explode( '/', rtrim( $social_menu_item->url, '/' ) ) );
+					} elseif ( false !== strpos( $social_menu_item->url, 'twitter' ) ) {
+						$social_accounts['twitter'] = end( explode( '/', rtrim( $social_menu_item->url, '/' ) ) );
+					} elseif ( false !== strpos( $social_menu_item->url, 'youtube' ) ) {
+						$social_accounts['youtube'] = end( explode( '/', rtrim( $social_menu_item->url, '/' ) ) );
+					} elseif ( false !== strpos( $social_menu_item->url, 'instagram' ) ) {
+						$social_accounts['instagram'] = end( explode( '/', rtrim( $social_menu_item->url, '/' ) ) );
+					}
+				}
+			}
+
+			return $social_accounts;
+		}
 	}
 }
