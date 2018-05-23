@@ -64,8 +64,8 @@ $(function() {
     function() {
       $('.search-result-item-headline', $(this).parent()).addClass('search-hover')
     }, function() {
-    $('.search-result-item-headline', $(this).parent()).removeClass('search-hover')
-  })
+      $('.search-result-item-headline', $(this).parent()).removeClass('search-hover')
+    })
 
   // Clear single selected filter.
   $( '.activefilter-tag' ).off( 'click' ).on( 'click', function() {
