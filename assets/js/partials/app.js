@@ -5,7 +5,7 @@
   It should include functions needed in more than one place.
 */
 
-$ = jQuery; //eslint-disable-line no-global-assign
+$ = jQuery //eslint-disable-line no-global-assign
 
 // convert an element to slider using slick js
 function slickify(element) {
@@ -30,5 +30,5 @@ function slickify(element) {
         settings: { slidesToShow: 2 }
       }
     ]
-  });
+  })
 }
