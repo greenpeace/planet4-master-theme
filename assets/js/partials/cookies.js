@@ -34,6 +34,6 @@ $(document).ready(function () {
   $('#hidecookie').click(function () {
     $('.cookie-block').slideUp('slow');
     $('footer').css('margin-bottom', '0');
-    createCookie('greenpeace', '1', 365);
+    createCookie('greenpeace', '2', 365);
   });
 });
