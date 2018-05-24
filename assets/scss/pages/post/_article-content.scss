@@ -72,6 +72,8 @@
   p {
     line-height: 1.6;
     margin: 0 0 18px 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 
     @include small-and-up {
       font-size: rem(19);
