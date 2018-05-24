@@ -22,7 +22,6 @@ if ( ! class_exists( 'P4_Cookies' ) ) {
 		 * P4_Cookies constructor.
 		 */
 		public function __construct() {
-			$this->filtered_text = 'This content is filtered out because of cookies policy';
 			$this->hooks();
 		}
 
@@ -31,7 +30,7 @@ if ( ! class_exists( 'P4_Cookies' ) ) {
 		 */
 		private function hooks() {
 			// If our cookie is not set then register the following filters.
-			if ( false === $this->read_cookie( self::COOKIE_NAME ) ) {
+			if ( '2' !== $this->read_cookie( self::COOKIE_NAME ) ) {
 
 				add_filter( 'gal_set_login_cookie', [ $this, 'filter_gal_set_login_cookie', 10, 1 ] );
 				add_filter( 'embed_oembed_html', [ $this, 'filter_embed' ], 10, 3 );
@@ -65,7 +64,8 @@ if ( ! class_exists( 'P4_Cookies' ) ) {
 				return $html;
 			}
 
-			return '<div class="">' . __( $this->filtered_text, 'planet4-master-theme' ) . '</div>';
+			return '<div class="cookies-filtered-content">' .
+					__( 'This content is filtered out because of cookies policy.', 'planet4-master-theme' ) . '</div>';
 		}
 
 		/**
@@ -119,7 +119,8 @@ if ( ! class_exists( 'P4_Cookies' ) ) {
 			preg_match_all( $pattern, $content, $matches );
 
 			foreach ( $matches[0] as $match ) {
-				$replacement = '<div class="">' . __( $this->filtered_text, 'planet4-master-theme' ) . '</div>';
+				$replacement = '<div class="cookies-filtered-content">' .
+							  __( 'This content is filtered out because of cookies policy.', 'planet4-master-theme' ) . '</div>';
 
 				// Replace match.
 				$content = str_replace( $match, $replacement, $content );

@@ -23,13 +23,13 @@ $(document).ready(function() {
   var cookie = readCookie('greenpeace');
   const url = $('#happy-point').data('src');
 
-  if (url && cookie !== null) {
+  if (url && '2' !== cookie) {
     window.addEventListener('load', load_happy_point);
     window.addEventListener('resize', load_happy_point);
     window.addEventListener('scroll', load_happy_point);
   }
 
-  if (cookie == null) {
+  if ('2' !== cookie) {
     $('#happy-point').append('<div>This content is blocked due to cookie policy.</div>');
   }
 });
