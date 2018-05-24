@@ -1,6 +1,6 @@
 /* global readCookie */
-// Load happy point iframe only when visible
 
+// Load happy point iframe only when visible
 $(document).ready(function() {
   'use strict';
 
@@ -20,16 +20,25 @@ $(document).ready(function() {
     }
   }
 
+  var p4 = p4 || {};
   var cookie = readCookie('greenpeace');
   const url = $('#happy-point').data('src');
+  if ('undefined' !== p4.enforce_cookies_policy && 'true' === p4.enforce_cookies_policy) {
 
-  if (url && '2' !== cookie) {
-    window.addEventListener('load', load_happy_point);
-    window.addEventListener('resize', load_happy_point);
-    window.addEventListener('scroll', load_happy_point);
-  }
+    if (url && '2' === cookie) {
+      window.addEventListener('load', load_happy_point);
+      window.addEventListener('resize', load_happy_point);
+      window.addEventListener('scroll', load_happy_point);
+    }
 
-  if ('2' !== cookie) {
-    $('#happy-point').append('<div>This content is blocked due to cookie policy.</div>');
+    if ('2' !== cookie) {
+      $('#happy-point').append('<div>This content is blocked due to cookie policy.</div>');
+    }
+  } else {
+    if (url) {
+      window.addEventListener('load', load_happy_point);
+      window.addEventListener('resize', load_happy_point);
+      window.addEventListener('scroll', load_happy_point);
+    }
   }
 });

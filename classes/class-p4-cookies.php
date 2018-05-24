@@ -17,7 +17,6 @@ if ( ! class_exists( 'P4_Cookies' ) ) {
 		 */
 		private $filtered_text;
 
-
 		/**
 		 * P4_Cookies constructor.
 		 */
@@ -29,6 +28,13 @@ if ( ! class_exists( 'P4_Cookies' ) ) {
 		 * Register actions for WordPress hooks and filters.
 		 */
 		private function hooks() {
+			$options                = get_option( 'planet4_options' );
+			$enforce_cookies_policy = isset( $options['enforce_cookies_policy'] ) ? true : false;
+
+			// Do not add any hook if enforce cookies setting is not set.
+			if ( false === $enforce_cookies_policy ) {
+				return;
+			}
 			// If our cookie is not set then register the following filters.
 			if ( '2' !== $this->read_cookie( self::COOKIE_NAME ) ) {
 
