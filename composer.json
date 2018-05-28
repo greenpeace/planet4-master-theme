@@ -49,6 +49,6 @@
       "leafo/scssphp": "^0.7.4",
       "matthiasmullie/minify": "^1.3",
       "wpackagist-plugin/timber-library": "1.7.0",
-      "wpackagist-plugin/cmb2": "ˆ2.4.0"
+      "wpackagist-plugin/cmb2": "^2.4.1"
 	}
 }
