@@ -590,12 +590,13 @@ class P4_Master_Site extends TimberSite {
 
 		if ( 0 !== absint( $parent_act_id ) ) {
 			$take_action_pages_args = [
-				'post_type'   => 'page',
-				'post_parent' => $parent_act_id,
-				'post_status' => 'publish',
-				'orderby'     => 'menu_order',
-				'order'       => 'ASC',
-				'numberposts' => -1,
+				'post_type'        => 'page',
+				'post_parent'      => $parent_act_id,
+				'post_status'      => 'publish',
+				'orderby'          => 'menu_order',
+				'order'            => 'ASC',
+				'suppress_filters' => false,
+				'numberposts'      => -1,
 			];
 
 			$posts = get_posts( $take_action_pages_args );
