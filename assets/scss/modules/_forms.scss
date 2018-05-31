@@ -1,0 +1,46 @@
+input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+
+  & + .custom-control-description {
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  & + .custom-control-description:before {
+    content: "";
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: top;
+    width: 26px;
+    height: 26px;
+    background: transparent;
+    border: 3px solid $med-blue;
+  }
+
+  &:checked + .custom-control-description:before {
+    background: $med-blue;
+  }
+
+  &:checked + .custom-control-description:after {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    background: white;
+    width: 4px;
+    height: 4px;
+    box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+    transform: rotate(45deg);
+  }
+
+  &:disabled + .custom-control-description {
+    cursor: auto;
+  }
+
+  &:disabled + .custom-control-description:before {
+    box-shadow: none;
+    border-color: #aaa;
+  }
+}
