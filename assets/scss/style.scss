@@ -26,6 +26,7 @@ Text Domain: planet4-master-theme
 @import "partials/typography";
 @import "partials/font-icon";
 @import "modules/buttons";
+@import "modules/forms";
 
 // Import Blocks
 @import "common/navbar";
@@ -58,6 +59,7 @@ Text Domain: planet4-master-theme
 @import "common/tags-list";
 @import "common/share-buttons";
 @import "common/submenu";
+@import "common/cookies";
 
 /**
  * Page-specific styles

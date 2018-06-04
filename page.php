@@ -70,6 +70,7 @@ $context['header_description']  = wpautop( $page_meta_data['p4_description'][0] 
 $context['header_button_title'] = $page_meta_data['p4_button_title'][0] ?? '';
 $context['header_button_link']  = $page_meta_data['p4_button_link'][0] ?? '';
 $context['page_category']       = is_front_page() ? 'Front Page' : ( $category->name ?? 'Unknown page' );
+$context['social_accounts']     = $post->get_social_accounts( $context['footer_social_menu'] );
 
 $background_image_id                = get_post_meta( get_the_ID(), 'background_image_id', 1 );
 $context['background_image']        = wp_get_attachment_url( $background_image_id );

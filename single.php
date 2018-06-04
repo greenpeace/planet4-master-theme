@@ -45,6 +45,7 @@ $take_action_page            = $page_meta_data['p4_take_action_page'][0] ?? '';
 $context['page_type']        = $page_terms_data[0]->name ?? '';
 $context['page_term_id']     = $page_terms_data[0]->term_id ?? '';
 $context['page_category']    = $category->name ?? __( 'Post page', 'planet4-master-theme' );
+$context['social_accounts']  = $post->get_social_accounts( $context['footer_social_menu'] );
 
 $context['filter_url'] = add_query_arg( [
 		's'                                   => ' ',
