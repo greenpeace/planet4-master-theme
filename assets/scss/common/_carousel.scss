@@ -28,6 +28,29 @@
     }
   }
 
+  .carousel-inner {
+
+    @include small-and-up {
+      height: 300px;
+    }
+
+    @include medium-and-up {
+      height: 400px;
+    }
+
+    @include large-and-up {
+      height: 500px;
+    }
+
+    @include x-large-and-up {
+      height: 600px;
+    }
+
+    .carousel-item {
+      max-height: 100%;
+    }
+  }
+
   .carousel-item {
     .carousal-item-credit {
       position: absolute;
@@ -90,10 +113,6 @@
     p {
       font-family: $roboto;
       font-size: rem(13);
-
-      @include medium-and-up {
-        width: 70%;
-      }
 
       @include large-and-up {
         width: 100%;
