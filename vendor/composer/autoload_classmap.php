@@ -10,7 +10,6 @@ return array(
     'P4ML\\Api\\MediaImageMapper' => $baseDir . '/classes/api/class-media-image-mapper.php',
     'P4ML\\Controllers\\MediaLibraryApi_Controller' => $baseDir . '/classes/controller/class-api-controller.php',
     'P4ML\\Controllers\\Menu\\Controller' => $baseDir . '/classes/controller/menu/class-controller.php',
-    'P4ML\\Controllers\\Menu\\Media_Library_Controller' => $baseDir . '/classes/controller/menu/class-media-library-controller.php',
     'P4ML\\Controllers\\Menu\\Settings_Controller' => $baseDir . '/classes/controller/menu/class-settings-controller.php',
     'P4ML\\Controllers\\Search_Controller' => $baseDir . '/classes/controller/class-search-controller.php',
     'P4ML\\Controllers\\Tab\\Controller' => $baseDir . '/classes/controller/tab/class-controller.php',

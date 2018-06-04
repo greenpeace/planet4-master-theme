@@ -60,7 +60,6 @@ require_once ABSPATH . 'wp-admin/includes/plugin.php';
       L O A D  P L U G I N
    ========================== */
 P4ML\Loader::get_instance( [
-	'P4ML\Controllers\Menu\Media_Library_Controller',
 	'P4ML\Controllers\Menu\Settings_Controller',
 	'P4ML\Controllers\Tab\GPI_Media_Library_Controller',
 ], 'P4ML\Views\View' );
