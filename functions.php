@@ -199,7 +199,7 @@ class P4_Master_Site extends TimberSite {
 	 * Force WordPress to use P4_Image_Compression as image manipulation editor.
 	 */
 	public function allowedEditors() {
-		return [ 'P4_Image_Compression' ];
+		return [ 'WP_Image_Editor_Imagick' ];
 	}
 
 	/**
