@@ -1,3 +1,5 @@
+/* global readCookie, createCookie */
+
 $(document).ready(function () {
   'use strict';
 
