@@ -22,7 +22,10 @@ if ( ! class_exists( 'P4_Image_Compression' ) ) {
 		 * @return bool|WP_Error
 		 */
 		protected function thumbnail_image( $dst_w, $dst_h, $filter_name = 'FILTER_TRIANGLE', $strip_meta = true ) {
-			parent::thumbnail_image( $dst_w, $dst_h, $this->filter, $strip_meta );
+			if ( $this->filter ) {
+				$filter_name = $this->filter;
+			}
+			parent::thumbnail_image( $dst_w, $dst_h, $filter_name, $strip_meta );
 			try {
 				if ( is_callable( [ $this->image, 'setInterlaceScheme' ] ) && defined( 'Imagick::INTERLACE_PLANE' ) ) {
 					$this->image->setInterlaceScheme( Imagick::INTERLACE_PLANE );
