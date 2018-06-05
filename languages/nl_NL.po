@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2018-03-01 12:52+0200\n"
-"PO-Revision-Date: 2018-03-23 09:41+0000\n"
+"POT-Creation-Date: 2018-05-28 16:17+0300\n"
+"PO-Revision-Date: 2018-06-05 07:34+0000\n"
 "Last-Translator: Konstantinos Kokkorogiannis <kkokkoro@greenpeace.org>\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco - https://localise.biz/\n"
+"X-Generator: Loco https://localise.biz/\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: style.css\n"
@@ -22,265 +22,354 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "Language: nl-NL"
 
-#: 404.php:29
-msgid "Sorry, we can't find that page!"
-msgstr ""
-
 #: 404.php:30
-msgid "The page might be extinct..."
-msgstr "De pagina is misschien uitgestorven ..."
+msgid "Sorry, we can't find that page!"
+msgstr "Sorry, we can't find that page!"
 
 #: 404.php:31
-msgid "Use the search tool and try your luck again."
-msgstr ""
+msgid "Enter your search term below"
+msgstr "Enter your search term below"
 
 #: 404.php:32
-msgid "Enter your search term below"
-msgstr ""
-
-#: 404.php:33
 msgid "404 Page"
-msgstr ""
+msgstr "404 Page"
 
 #: classes/class-p4-control-panel.php:41
 msgid "Planet 4 Control Panel"
-msgstr ""
+msgstr "Planet 4 Control Panel"
 
 #: classes/class-p4-control-panel.php:53
 msgid "Cache"
-msgstr ""
+msgstr "Cache"
 
 #: classes/class-p4-control-panel.php:56
 msgid "Flush Object Cache"
-msgstr ""
+msgstr "Flush Object Cache"
 
 #: classes/class-p4-control-panel.php:58
 msgid "Are you sure you want to delete all Object Cache keys?"
-msgstr ""
+msgstr "Are you sure you want to delete all Object Cache keys?"
 
 #: classes/class-p4-control-panel.php:61
 msgid "Check Object Cache"
-msgstr ""
+msgstr "Check Object Cache"
 
 #: classes/class-p4-control-panel.php:68
 msgid "Engaging Networks"
-msgstr ""
+msgstr "Engaging Networks"
 
 #: classes/class-p4-control-panel.php:71
 msgid "Check Engaging Networks"
-msgstr ""
+msgstr "Check Engaging Networks"
 
-#: classes/class-p4-control-panel.php:78 templates/navigation-bar.twig:56
-#: templates/navigation-bar.twig:61 templates/search.twig:31
+#: classes/class-p4-control-panel.php:78 templates/navigation-bar.twig:61 
+#: templates/navigation-bar.twig:66 templates/search.twig:31 
 #: templates/search.twig:44
 msgid "Search"
-msgstr ""
+msgstr "Zoeken"
 
 #: classes/class-p4-control-panel.php:81
 msgid "Check Search Indexer"
-msgstr ""
+msgstr "Check Search Indexer"
 
 #: classes/class-p4-control-panel.php:126
 msgid "Object Cache flushed"
-msgstr ""
+msgstr "Object Cache flushed"
 
 #: classes/class-p4-control-panel.php:129
 msgid "Object Cache did not flush"
-msgstr ""
+msgstr "Object Cache did not flush"
 
 #: classes/class-p4-control-panel.php:165
 msgid "Planet 4 is connected to Redis."
-msgstr ""
+msgstr "Planet 4 is connected to Redis."
 
 #: classes/class-p4-control-panel.php:201
 msgid "Success"
-msgstr ""
+msgstr "Success"
 
 #: classes/class-p4-control-panel.php:248
 msgid "Indexer has stalled"
-msgstr ""
+msgstr "Indexer has stalled"
 
 #: classes/class-p4-control-panel.php:251
 msgid "Indexer is awake"
-msgstr ""
+msgstr "Indexer is awake"
 
-#: classes/class-p4-search.php:363
+#: classes/class-p4-custom-taxonomy.php:42
+msgid "P4 page type (A p4 page type term.)"
+msgstr "P4 page type (A p4 page type term.)"
+
+#: classes/class-p4-custom-taxonomy.php:148
+msgctxt "taxonomy general name"
+msgid "Page Types"
+msgstr "Page Types"
+
+#: classes/class-p4-custom-taxonomy.php:149
+msgctxt "taxonomy singular name"
+msgid "Page Type"
+msgstr "Page Type"
+
+#: classes/class-p4-custom-taxonomy.php:150
+msgid "Search in Page Type"
+msgstr "Search in Page Type"
+
+#: classes/class-p4-custom-taxonomy.php:151
+msgid "All Page Types"
+msgstr "All Page Types"
+
+#: classes/class-p4-custom-taxonomy.php:155
+msgid "Edit Page Type"
+msgstr "Edit Page Type"
+
+#: classes/class-p4-custom-taxonomy.php:156
+msgid "Update Page Type"
+msgstr "Update Page Type"
+
+#: classes/class-p4-custom-taxonomy.php:157
+msgid "Add new Page Type"
+msgstr "Add new Page Type"
+
+#: classes/class-p4-custom-taxonomy.php:158
+msgid "New Page Type"
+msgstr "New Page Type"
+
+#: classes/class-p4-custom-taxonomy.php:159
+msgid "Page Types"
+msgstr "Page Types"
+
+#: classes/class-p4-post-report-controller.php:59 
+#: classes/class-p4-post-report-controller.php:60
+msgid "Posts Report"
+msgstr "Posts Report"
+
+#: classes/class-p4-post-report-controller.php:76
+msgid "The date query column."
+msgstr "The date query column."
+
+#: classes/class-p4-search.php:407
 msgid "Search page"
-msgstr ""
+msgstr "Search page"
 
-#: classes/class-p4-search.php:366
+#: classes/class-p4-search.php:410
 #, php-format
 msgid "%1$d results for '%2$s'"
-msgstr ""
+msgstr "%1$d resultaten voor '%2$s'"
 
-#: classes/class-p4-search.php:368
+#: classes/class-p4-search.php:412
 #, php-format
 msgid "%d results"
-msgstr ""
+msgstr "%d resultaten"
 
-#: classes/class-p4-search.php:428
+#: classes/class-p4-search.php:472
 msgid "Action"
-msgstr ""
+msgstr "Actie"
 
-#: classes/class-p4-search.php:432
+#: classes/class-p4-search.php:476
 msgid "Document"
-msgstr ""
+msgstr "Document"
 
-#: classes/class-p4-search.php:436
+#: classes/class-p4-search.php:480
 msgid "Page"
-msgstr ""
+msgstr "Pagina"
 
-#: classes/class-p4-search.php:440
+#: classes/class-p4-search.php:484
 msgid "Post"
-msgstr ""
+msgstr "Post"
 
-#: classes/class-p4-search.php:517
+#: classes/class-p4-search.php:564
 msgid "ACTION"
-msgstr ""
+msgstr "ACTIE"
 
-#: classes/class-p4-search.php:521
+#: classes/class-p4-search.php:568
 msgid "PAGE"
-msgstr ""
+msgstr "PAGINA"
 
-#: classes/class-p4-search.php:527
+#: classes/class-p4-search.php:574
 msgid "DOCUMENT"
-msgstr ""
+msgstr "DOCUMENT"
 
-#: classes/class-p4-search.php:532
+#: classes/class-p4-search.php:579
 msgid "POST"
-msgstr ""
+msgstr "POST"
 
-#: classes/class-p4-search.php:607
+#: classes/class-p4-search.php:654
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr ""
+msgstr "OVERIGE %s RESULTATEN LADEN"
 
 #: classes/class-p4-settings.php:39
 msgid "Planet4"
-msgstr ""
+msgstr "Planet4"
 
 #: classes/class-p4-settings.php:43
 msgid "Website Navigation Title"
-msgstr ""
+msgstr "Website Navigation Title"
 
 #: classes/class-p4-settings.php:48
 msgid "Select Act Page"
-msgstr ""
+msgstr "Select Act Page"
 
 #: classes/class-p4-settings.php:54
 msgid "Select Explore Page"
-msgstr ""
+msgstr "Select Explore Page"
 
 #: classes/class-p4-settings.php:60
 msgid "Select Issues Parent Category"
-msgstr ""
+msgstr "Select Issues Parent Category"
 
 #: classes/class-p4-settings.php:66
-msgid "Copyright Text"
-msgstr ""
+msgid "Copyright Text Line 1"
+msgstr "Copyright Text Line 1"
 
 #: classes/class-p4-settings.php:76
+msgid "Copyright Text Line 2"
+msgstr "Copyright Text Line 2"
+
+#: classes/class-p4-settings.php:86
 msgid "Google Tag Manager Identifier"
-msgstr ""
+msgstr "Google Tag Manager Identifier"
 
-#: classes/class-p4-settings.php:82
+#: classes/class-p4-settings.php:92
 msgid "Engaging Network ID"
-msgstr ""
-
-#: classes/class-p4-settings.php:88
-msgid "Cookies Text"
-msgstr ""
+msgstr "Engaging Network ID"
 
 #: classes/class-p4-settings.php:98
-msgid "Default title for related articles block"
-msgstr ""
+msgid "Cookies Text"
+msgstr "Cookies Text"
 
-#: classes/class-p4-settings.php:101
+#: classes/class-p4-settings.php:108
+msgid "Default title for related articles block"
+msgstr "Default title for related articles block"
+
+#: classes/class-p4-settings.php:111
 msgid ""
 "If no title set for <b>Article Block</b>, the default title will appear."
 msgstr ""
+"If no title set for <b>Article Block</b>, the default title will appear."
 
-#: classes/class-p4-settings.php:105
+#: classes/class-p4-settings.php:115
 msgid "Default button title for related articles block"
-msgstr ""
+msgstr "Default button title for related articles block"
 
-#: classes/class-p4-settings.php:108
+#: classes/class-p4-settings.php:118
 msgid ""
 "If no button title set for <b>Article Block</b>, the default button title "
 "will appear."
 msgstr ""
+"If no button title set for <b>Article Block</b>, the default button title "
+"will appear."
 
-#: classes/class-p4-settings.php:112
+#: classes/class-p4-settings.php:122
 msgid "Default Number Of Related Articles"
-msgstr ""
+msgstr "Default Number Of Related Articles"
 
-#: classes/class-p4-settings.php:118
+#: classes/class-p4-settings.php:128
 msgid ""
 "If no number of Related Articles set for <b>Article Block</b>, the default "
 "number of Related Articles will appear."
 msgstr ""
+"If no number of Related Articles set for <b>Article Block</b>, the default "
+"number of Related Articles will appear."
 
-#: classes/class-p4-settings.php:122
-msgid "Donate button link"
-msgstr ""
+#: classes/class-p4-settings.php:132
+msgid "Take Action Covers default button text"
+msgstr "Take Action Covers default button text"
 
-#: classes/class-p4-settings.php:165 classes/class-p4-settings.php:179
-msgid "Select Page"
-msgstr ""
-
-#: classes/class-p4-settings.php:194
-msgid "Select Category"
-msgstr ""
-
-#. translators: placeholder is a term which does not need translation in context.
-#: classes/class-p4-settings.php:255
-#, php-format
-msgid "Map %s planet4 page type to a category"
-msgstr ""
-
-#: classes/class-p4-settings.php:263
-msgid "Planet4 page types - Categories mapping"
-msgstr ""
-
-#: classes/class-p4-settings.php:265
+#: classes/class-p4-settings.php:138
 msgid ""
-"When a post is assigned to one of the selected categories, \n"
-"\t\t\t\t\t\t\t\t\t\t\t\t\t      the post will be assigned the mapped planet4 "
-"page type."
+"Add default button text which appears on <b>Take Action</b> card of <b>Take "
+"Action Covers</b> block. <br>\n"
+"\t\t\t\t\t                     Also it would be used for Take Action Cards "
+"inside Posts and Take Action Cards in search results"
 msgstr ""
+"Add default button text which appears on <b>Take Action</b> card of <b>Take "
+"Action Covers</b> block. <br>\n"
+"\t\t\t\t\t                     Also it would be used for Take Action Cards "
+"inside Posts and Take Action Cards in search results"
+
+#: classes/class-p4-settings.php:143
+msgid "Donate button link"
+msgstr "Donate button link"
+
+#: classes/class-p4-settings.php:152
+msgid "404 Background Image"
+msgstr "404 Background Image"
+
+#: classes/class-p4-settings.php:159
+msgid "Add 404 Page Background Image"
+msgstr "Add 404 Page Background Image"
+
+#: classes/class-p4-settings.php:164 classes/class-p4-settings.php:197
+msgid "Minimum image width should be 1920px"
+msgstr "Minimum image width should be 1920px"
+
+#: classes/class-p4-settings.php:168
+msgid "404 Page text"
+msgstr "404 Page text"
+
+#: classes/class-p4-settings.php:175
+msgid "Add 404 page text"
+msgstr "Add 404 page text"
+
+#: classes/class-p4-settings.php:179
+msgid "Default p4-pagetype"
+msgstr "Default p4-pagetype"
+
+#: classes/class-p4-settings.php:185
+msgid "Default Happy Point Background Image"
+msgstr "Default Happy Point Background Image"
+
+#: classes/class-p4-settings.php:192
+msgid "Add Default Happy Point Background Image"
+msgstr "Add Default Happy Point Background Image"
+
+#: classes/class-p4-settings.php:240 classes/class-p4-settings.php:254
+msgid "Select Page"
+msgstr "Select Page"
+
+#: classes/class-p4-settings.php:269
+msgid "Select Category"
+msgstr "Selecteer Posttype"
+
+#: classes/class-p4-settings.php:288
+msgid "Select Pagetype"
+msgstr "Select Pagetype"
 
 #: classes/class-p4-taxonomy-image.php:19
 msgid "Select Image"
-msgstr ""
+msgstr "Select Image"
 
-#: classes/class-p4-taxonomy-image.php:59
-#: classes/class-p4-taxonomy-image.php:98
+#: classes/class-p4-taxonomy-image.php:59 
+#: classes/class-p4-taxonomy-image.php:98 
 #: classes/class-p4-taxonomy-image.php:154
 msgid "Image"
-msgstr ""
+msgstr "Image"
 
-#: classes/class-p4-taxonomy-image.php:65
-#: classes/class-p4-taxonomy-image.php:80
+#: classes/class-p4-taxonomy-image.php:65 
+#: classes/class-p4-taxonomy-image.php:80 
 #: classes/class-p4-taxonomy-image.php:102
 msgid "Select/Upload Image"
-msgstr ""
+msgstr "Select/Upload Image"
 
-#: classes/class-p4-taxonomy-image.php:67
+#: classes/class-p4-taxonomy-image.php:67 
 #: classes/class-p4-taxonomy-image.php:104
 msgid "Associate this tag with an image."
-msgstr ""
+msgstr "Associate this tag with an image."
 
 #: classes/class-p4-taxonomy-image.php:74
 msgid "Image Subscribe"
-msgstr ""
+msgstr "Image Subscribe"
 
 #: classes/class-p4-taxonomy-image.php:82
 msgid "Choose a background image for the Subscribe block."
 msgstr ""
+"Choose a background image for the 'e-mail subscription block', aka 'Happy "
+"point'."
 
 #: classes/class-p4-taxonomy-image.php:89
 msgid "Happy Point Opacity"
-msgstr ""
+msgstr "Happy Point Opacity"
 
 #: classes/class-p4-taxonomy-image.php:93
 msgid ""
@@ -288,391 +377,391 @@ msgid ""
 "the higher the number, the more faded the image will look. If you leave this "
 "empty, the default of 30 will be used."
 msgstr ""
+"Fade the image behind the 'email subscription block', a.k.a. 'happy point'. "
+"Use a number between 1 and 100, the lower the number, the more faded the "
+"image will look. Default number is 30."
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr ""
+msgstr "Meest relevant"
 
 #: functions.php:89
 msgid "Most recent"
-msgstr ""
+msgstr "Meest recent"
 
-#: functions.php:142
+#: functions.php:144
 msgid "Navigation Bar Menu"
-msgstr ""
+msgstr "Navigation Bar Menu"
 
-#: functions.php:217
+#: functions.php:266
 msgid "International (English)"
-msgstr ""
+msgstr "International (English)"
 
-#: functions.php:389
+#: functions.php:424
 msgid "Weight (1-30)"
-msgstr ""
+msgstr "Weight (1-30)"
 
-#: functions.php:447
-msgctxt "taxonomy general name"
-msgid "Page Types"
-msgstr ""
-
-#: functions.php:448
-msgctxt "taxonomy singular name"
-msgid "Page Type"
-msgstr ""
-
-#: functions.php:449
-msgid "Search in Page Type"
-msgstr ""
-
-#: functions.php:450
-msgid "All Page Types"
-msgstr ""
-
-#: functions.php:454
-msgid "Edit Page Type"
-msgstr ""
-
-#: functions.php:455
-msgid "Update Page Type"
-msgstr ""
-
-#: functions.php:456
-msgid "Add new Page Type"
-msgstr ""
-
-#: functions.php:457
-msgid "New Page Type"
-msgstr ""
-
-#: functions.php:458
-msgid "Page Types"
-msgstr ""
-
-#: functions.php:692
+#: functions.php:620
 msgid "Page Header Fields"
-msgstr ""
+msgstr "Page Header Fields"
 
-#: functions.php:697
+#: functions.php:625
 msgid "Header Title"
-msgstr ""
+msgstr "Header Title"
+
+#: functions.php:626
+msgid "Header title comes here"
+msgstr "Header title comes here"
+
+#: functions.php:633
+msgid "Header Subtitle"
+msgstr "Header Subtitle"
+
+#: functions.php:634
+msgid "Header subtitle comes here"
+msgstr "Header subtitle comes here"
+
+#: functions.php:642
+msgid "Header Description"
+msgstr "Header Description"
+
+#: functions.php:643
+msgid "Header description comes here"
+msgstr "Header description comes here"
+
+#: functions.php:655
+msgid "Header Button Title"
+msgstr "Header Button Title"
+
+#: functions.php:656
+msgid "Header button title comes here"
+msgstr "Header button title comes here"
+
+#: functions.php:664
+msgid "Header Button Link"
+msgstr "Header Button Link"
+
+#: functions.php:665
+msgid "Header button link comes here"
+msgstr "Header button link comes here"
+
+#: functions.php:673
+msgid "Background overide"
+msgstr "Background overide"
+
+#: functions.php:674
+msgid "Upload an image"
+msgstr "Upload an image"
+
+#: functions.php:682
+msgid "Add Background Image"
+msgstr "Add Background Image"
+
+#: functions.php:693
+msgid "Post Articles Element Fields"
+msgstr "Post Articles Element Fields"
 
 #: functions.php:698
-msgid "Header title comes here"
-msgstr ""
+msgid "Author Override"
+msgstr "Author Override"
+
+#: functions.php:699
+msgid "Enter author name if you want to override the author"
+msgstr "Enter author name if you want to override the author"
 
 #: functions.php:705
-msgid "Header Subtitle"
-msgstr ""
+msgid "Take Action Page Selector"
+msgstr "Take Action Page Selector"
 
 #: functions.php:706
-msgid "Header subtitle comes here"
-msgstr ""
+msgid "Select a Take Action Page to populate take action boxout block"
+msgstr "Select a Take Action Page to populate take action boxout block"
 
 #: functions.php:714
-msgid "Header Description"
-msgstr ""
-
-#: functions.php:715
-msgid "Header description comes here"
-msgstr ""
-
-#: functions.php:727
-msgid "Header Button Title"
-msgstr ""
-
-#: functions.php:728
-msgid "Header button title comes here"
-msgstr ""
-
-#: functions.php:736
-msgid "Header Button Link"
-msgstr ""
-
-#: functions.php:737
-msgid "Header button link comes here"
-msgstr ""
-
-#: functions.php:745
-msgid "Background overide"
-msgstr ""
-
-#: functions.php:746
-msgid "Upload an image"
-msgstr ""
-
-#: functions.php:754
-msgid "Add Background Image"
-msgstr ""
-
-#: functions.php:765
-msgid "Post Articles Element Fields"
-msgstr ""
-
-#: functions.php:770
-msgid "Author Override"
-msgstr ""
-
-#: functions.php:771
-msgid "Enter author name if you want to override the author"
-msgstr ""
-
-#: functions.php:777
-msgid "Take Action Page Selector"
-msgstr ""
-
-#: functions.php:778
-msgid "Select a Take Action Page to populate take action boxout block"
-msgstr ""
-
-#: functions.php:786
 msgid "Include Articles In Post"
-msgstr ""
+msgstr "Include Articles In Post"
 
-#: functions.php:796
+#: functions.php:724
 msgid "Background Image Override"
-msgstr ""
+msgstr "Background Image Override"
 
-#: functions.php:797
+#: functions.php:725
 msgid ""
 "Upload an image or select one from the media library to override the "
 "background image"
 msgstr ""
+"Upload an image or select one from the media library to override the "
+"background image"
 
-#: functions.php:804
+#: functions.php:732
 msgid "Add Image"
-msgstr ""
+msgstr "Add Image"
 
-#: functions.php:820
+#: functions.php:748
 msgid "Tags"
-msgstr ""
+msgstr "Tags"
 
-#: functions.php:849
+#: functions.php:777
 msgid "Add Page Element"
-msgstr ""
+msgstr "Add Page Element"
 
-#: functions.php:869
+#: functions.php:827
 msgid "Your role does not have permission to add terms to this taxonomy"
-msgstr ""
+msgstr "Your role does not have permission to add terms to this taxonomy"
 
-#: single.php:44
+#: page-templates/sitemap.php:31
+msgid "Act"
+msgstr "Acties"
+
+#: page-templates/sitemap.php:32
+msgid "Explore"
+msgstr "Oplossingen"
+
+#: page-templates/sitemap.php:33
+msgid "About Greenpeace"
+msgstr "Over Greenpeace"
+
+#: page-templates/sitemap.php:34
+msgid "Articles"
+msgstr "Articles"
+
+#: single.php:47
 msgid "Post page"
-msgstr ""
+msgstr "Post page"
 
-#: single.php:72
+#: single.php:76
 msgid "Leave Your Reply"
-msgstr ""
+msgstr "Laat een reactie achter"
 
-#: tag.php:57
+#: tag.php:58
 msgid "Unknown Campaign page"
-msgstr ""
-
-#: tag.php:63
-msgid "Things you can do"
-msgstr ""
+msgstr "Unknown Campaign page"
 
 #: tag.php:64
+msgid "Things you can do"
+msgstr "Wat jij kunt doen"
+
+#: tag.php:65
 msgid "We want you to take action because together we're strong."
-msgstr ""
+msgstr "We want you to take action because together we're strong."
 
-#: tag.php:78
+#: tag.php:81
 msgid "Related Campaigns"
-msgstr ""
+msgstr "Vergelijkbare campagnes"
 
-#: tag.php:79
+#: tag.php:82
 msgid "This Campaign is not assigned to an Issue"
-msgstr ""
+msgstr "This Campaign is not assigned to an Issue"
+
+#: tests/test-custom-permalinks.php:17
+#, php-format
+msgid "%s (The year of the post, four digits, for example 2004.)"
+msgstr "%s (The year of the post, four digits, for example 2004.)"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr ""
+msgstr "over de auteur"
+
+#: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
+msgid "Share on"
+msgstr "Delen "
+
+#: templates/blocks/share_buttons.twig:21
+msgid "Share via"
+msgstr "Delen"
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
-msgstr ""
+msgstr "Naam"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
-msgstr ""
+msgstr "Reactie"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr ""
+msgstr "Typ hier je reactie"
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
-msgstr ""
+msgstr "E-mailadres"
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post Comment"
-msgstr ""
+msgstr "Post Comment"
 
 #: templates/comments_section.twig:2
 msgid "Comments"
-msgstr ""
+msgstr "Reacties"
 
 #: templates/comments_section.twig:8
 msgid "Discussion"
-msgstr ""
+msgstr "Discussie"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr ""
+msgstr "GOT IT!"
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: templates/navigation-bar.twig:18
 msgid "Close Menu"
-msgstr ""
+msgstr "Close Menu"
 
 #: templates/navigation-bar.twig:27
 msgid "Selected"
-msgstr ""
+msgstr "Selected"
 
 #: templates/navigation-bar.twig:28
 msgid "Change Country"
-msgstr ""
+msgstr "Change Country"
 
-#: templates/navigation-bar.twig:43
+#: templates/navigation-bar.twig:48
 msgid "DONATE"
-msgstr ""
+msgstr "DONEER"
 
-#: templates/navigation-bar.twig:53
+#: templates/navigation-bar.twig:58
 msgid "Toggle search form"
-msgstr ""
+msgstr "Toggle search form"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr ""
+msgstr "We're sorry we couldn't find any matches for your search term."
 
 #: templates/search.twig:17
 msgid "Check for typos, and try your search again"
-msgstr ""
+msgstr "Controleer je zoekopdracht op mogelijke typfouten"
 
 #: templates/search.twig:18
 msgid "Try searching for somthing else"
-msgstr ""
+msgstr "Try searching for somthing else"
 
 #: templates/search.twig:19
 msgid "Search our archive. You'll be redirected to the archive site."
-msgstr ""
+msgstr "Doorzoek ons archief. Je wordt omgeleid naar onze gearchiveerde site."
 
 #: templates/search.twig:23
 msgid "We also included results for "
-msgstr ""
+msgstr "We tonen ook de resultaten voor"
 
 #: templates/search.twig:37
 msgid "This Site"
-msgstr ""
+msgstr "This Site"
 
 #: templates/search.twig:38
 msgid "Archive"
-msgstr ""
+msgstr "Archive"
 
 #: templates/search.twig:56
 msgid "Filters"
-msgstr ""
+msgstr "Filters"
 
-#: templates/search.twig:62 templates/search.twig:167
+#: templates/search.twig:62 templates/search.twig:163
 msgid "Refine your search"
-msgstr ""
+msgstr "Verfijn je zoekopdracht"
 
 #: templates/search.twig:70
 msgid "ISSUE"
-msgstr ""
+msgstr "THEMA"
 
-#: templates/search.twig:92
+#: templates/search.twig:91
 msgid "CATEGORY"
-msgstr ""
+msgstr "TYPE"
 
-#: templates/search.twig:114
+#: templates/search.twig:112
 msgid "CONTENT TYPES"
-msgstr ""
+msgstr "CONTENT TYPES"
 
-#: templates/search.twig:139
+#: templates/search.twig:136
 msgid "CAMPAIGN"
-msgstr ""
+msgstr "CAMPAGNE"
 
-#: templates/search.twig:159
+#: templates/search.twig:155
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
-#: templates/search.twig:160
+#: templates/search.twig:156
 msgid "Apply Filters"
-msgstr ""
+msgstr "Apply Filters"
 
-#: templates/search.twig:170
+#: templates/search.twig:166
 msgid "ACTIVE FILTERS"
-msgstr ""
+msgstr "ACTIEVE FILTERS"
 
-#: templates/search.twig:179
+#: templates/search.twig:175
 msgid "Clear All"
-msgstr ""
+msgstr "Clear All"
 
-#: templates/search.twig:186
+#: templates/search.twig:182
 msgid "Issue"
-msgstr ""
+msgstr "Thema"
 
-#: templates/search.twig:206
+#: templates/search.twig:201
 msgid "Campaign"
-msgstr ""
+msgstr "Campagne"
 
-#: templates/search.twig:226
+#: templates/search.twig:220
 msgid "Category"
-msgstr ""
+msgstr "Type"
 
-#: templates/search.twig:246
+#: templates/search.twig:239
 msgid "Content type"
-msgstr ""
+msgstr "Content type"
 
-#: templates/search.twig:270
+#: templates/search.twig:262
 msgid "Sort by"
-msgstr ""
+msgstr "Sorteren op"
 
-#: templates/search.twig:307
+#: templates/search.twig:299
 msgid "Suggested search terms"
-msgstr ""
+msgstr "Suggested search terms"
 
-#: templates/single.twig:32
+#: templates/single.twig:39
 msgid "by"
-msgstr ""
+msgstr "door"
 
-#: templates/tease-search.twig:61
-msgid "Take Action"
-msgstr ""
+#: templates/tease-search.twig:62
+msgid "take action"
+msgstr "take action"
 
-#: templates/tease-search.twig:64
+#: templates/tease-search.twig:65
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
-msgstr ""
+msgstr "Greenpeace Planet 4 Master Theme"
 
 #. Theme URI of the plugin/theme
 msgid "https://github.com/greenpeace/planet4-master-theme"
-msgstr ""
+msgstr "https://github.com/greenpeace/planet4-master-theme"
 
 #. Description of the plugin/theme
 msgid "Master theme for the Planet 4 Wordpress project"
-msgstr ""
+msgstr "Master theme for the Planet 4 Wordpress project"
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
-msgstr ""
+msgstr "Greenpeace International"
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/greenpeace"
-msgstr ""
+msgstr "https://github.com/greenpeace"
 
 #. Template Name of the plugin/theme
 msgid "Evergreen Page */"
-msgstr ""
+msgstr "Evergreen Page */"
+
+#. Template Name of the plugin/theme
+msgid "Sitemap Page */"
+msgstr "Sitemap Page */"
