@@ -8,7 +8,7 @@ if ( ! class_exists( 'P4_Image_Compression' ) ) {
 	class P4_Image_Compression extends WP_Image_Editor_Imagick {
 
 		/** @var string $filter */
-		//protected $filter = 'FILTER_LANCZOS';
+		protected $filter = 'FILTER_LANCZOS';
 
 		/**
 		 * Override default imagick compression and use progressive compression instead.
@@ -22,9 +22,9 @@ if ( ! class_exists( 'P4_Image_Compression' ) ) {
 		 * @return bool|WP_Error
 		 */
 		protected function thumbnail_image( $dst_w, $dst_h, $filter_name = 'FILTER_TRIANGLE', $strip_meta = true ) {
-//			if ( $this->filter ) {
-//				$filter_name = $this->filter;
-//			}
+			if ( $this->filter ) {
+				$filter_name = $this->filter;
+			}
 			parent::thumbnail_image( $dst_w, $dst_h, $filter_name, $strip_meta );
 			try {
 				if ( is_callable( [ $this->image, 'setInterlaceScheme' ] ) && defined( 'Imagick::INTERLACE_PLANE' ) ) {
