@@ -196,12 +196,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					],
 					'desc'       => __( 'Minimum image width should be 1920px', 'planet4-master-theme' ),
 				],
-				[
-					'name'       => __( 'Enforce Cookies Policy', 'planet4-master-theme' ),
-					'desc' => 'GDPR related setting. By enabling this option specific content will be blocked and will require user consent to be shown.',
-					'id'   => 'enforce_cookies_policy',
-					'type' => 'checkbox',
-				],
 			];
 			$this->hooks();
 		}
