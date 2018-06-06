@@ -340,19 +340,19 @@ msgstr "Select Pagetype"
 msgid "Select Image"
 msgstr "Select Image"
 
-#: classes/class-p4-taxonomy-image.php:59
-#: classes/class-p4-taxonomy-image.php:98
+#: classes/class-p4-taxonomy-image.php:59 
+#: classes/class-p4-taxonomy-image.php:98 
 #: classes/class-p4-taxonomy-image.php:154
 msgid "Image"
 msgstr "Image"
 
-#: classes/class-p4-taxonomy-image.php:65
-#: classes/class-p4-taxonomy-image.php:80
+#: classes/class-p4-taxonomy-image.php:65 
+#: classes/class-p4-taxonomy-image.php:80 
 #: classes/class-p4-taxonomy-image.php:102
 msgid "Select/Upload Image"
 msgstr "Select/Upload Image"
 
-#: classes/class-p4-taxonomy-image.php:67
+#: classes/class-p4-taxonomy-image.php:67 
 #: classes/class-p4-taxonomy-image.php:104
 msgid "Associate this tag with an image."
 msgstr "Associate this tag with an image."
