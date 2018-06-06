@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-05-28 16:17+0300\n"
-"PO-Revision-Date: 2018-06-04 14:24+0000\n"
+"PO-Revision-Date: 2018-06-06 15:39+0000\n"
 "Last-Translator: Berit Soolsma <bsoolsma@greenpeace.org>\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
@@ -340,19 +340,19 @@ msgstr "Select Pagetype"
 msgid "Select Image"
 msgstr "Select Image"
 
-#: classes/class-p4-taxonomy-image.php:59 
-#: classes/class-p4-taxonomy-image.php:98 
+#: classes/class-p4-taxonomy-image.php:59
+#: classes/class-p4-taxonomy-image.php:98
 #: classes/class-p4-taxonomy-image.php:154
 msgid "Image"
 msgstr "Image"
 
-#: classes/class-p4-taxonomy-image.php:65 
-#: classes/class-p4-taxonomy-image.php:80 
+#: classes/class-p4-taxonomy-image.php:65
+#: classes/class-p4-taxonomy-image.php:80
 #: classes/class-p4-taxonomy-image.php:102
 msgid "Select/Upload Image"
 msgstr "Select/Upload Image"
 
-#: classes/class-p4-taxonomy-image.php:67 
+#: classes/class-p4-taxonomy-image.php:67
 #: classes/class-p4-taxonomy-image.php:104
 msgid "Associate this tag with an image."
 msgstr "Associate this tag with an image."
@@ -543,7 +543,7 @@ msgstr "Wat jij kunt doen"
 
 #: tag.php:65
 msgid "We want you to take action because together we're strong."
-msgstr "We want you to take action because together we're strong."
+msgstr "Kom samen met ons in actie!"
 
 #: tag.php:81
 msgid "Related Campaigns"
