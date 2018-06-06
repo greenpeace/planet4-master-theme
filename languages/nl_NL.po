@@ -3,8 +3,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-05-28 16:17+0300\n"
-"PO-Revision-Date: 2018-06-05 07:34+0000\n"
-"Last-Translator: Konstantinos Kokkorogiannis <kkokkoro@greenpeace.org>\n"
+"PO-Revision-Date: 2018-06-04 14:24+0000\n"
+"Last-Translator: Berit Soolsma <bsoolsma@greenpeace.org>\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: \n"
-"Language: nl-NL"
+"Language: nl_NL"
 
 #: 404.php:30
 msgid "Sorry, we can't find that page!"
@@ -62,8 +62,8 @@ msgstr "Engaging Networks"
 msgid "Check Engaging Networks"
 msgstr "Check Engaging Networks"
 
-#: classes/class-p4-control-panel.php:78 templates/navigation-bar.twig:61 
-#: templates/navigation-bar.twig:66 templates/search.twig:31 
+#: classes/class-p4-control-panel.php:78 templates/navigation-bar.twig:61
+#: templates/navigation-bar.twig:66 templates/search.twig:31
 #: templates/search.twig:44
 msgid "Search"
 msgstr "Zoeken"
@@ -138,7 +138,7 @@ msgstr "New Page Type"
 msgid "Page Types"
 msgstr "Page Types"
 
-#: classes/class-p4-post-report-controller.php:59 
+#: classes/class-p4-post-report-controller.php:59
 #: classes/class-p4-post-report-controller.php:60
 msgid "Posts Report"
 msgstr "Posts Report"
