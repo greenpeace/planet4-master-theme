@@ -258,10 +258,21 @@ class P4_Master_Site extends TimberSite {
 		$context['sort_options'] = $this->sort_options;
 		$context['default_sort'] = P4_Search::DEFAULT_SORT;
 
-		$options                          = get_option( 'planet4_options' );
-		$context['donatelink']            = $options['donate_button'] ?? '#';
-		$context['google_tag_value']      = $options['google_tag_manager_identifier'] ?? '';
-		$context['website_navbar_title']  = $options['website_navigation_title'] ?? __( 'International (English)', 'planet4-master-theme' );
+
+		$options                         = get_option( 'planet4_options' );
+
+		// Do not embed google tag manager js if 'greenpeace' cookie is not set or enforce_cookies_policy setting is not enabled.
+		$enforce_cookies_policy = isset( $options['enforce_cookies_policy'] ) ? true : false;
+		if ( $enforce_cookies_policy ) {
+			$cookie_consent              = isset( $_COOKIE['greenpeace'] ) ? $_COOKIE['greenpeace'] : false;
+			$gtm                         = $options['google_tag_manager_identifier'] ?? '';
+			$context['google_tag_value'] = ! empty( $gtm ) && '2' === $cookie_consent ? $gtm : '';
+		} else {
+			$context['google_tag_value'] = $options['google_tag_manager_identifier'] ?? '';
+		}
+
+		$context['donatelink']           = $options['donate_button'] ?? '#';
+		$context['website_navbar_title'] = $options['website_navigation_title'] ?? __( 'International (English)', 'planet4-master-theme' );
 
 		// Footer context.
 		$context['copyright_text_line1']  = $options['copyright_line1'] ?? '';
@@ -383,8 +394,11 @@ class P4_Master_Site extends TimberSite {
 	 * Load styling and behaviour on website pages.
 	 */
 	public function enqueue_public_assets() {
-		$css_creation = filectime(get_template_directory() . '/style.css');
-		$js_creation  = filectime(get_template_directory() . '/assets/js/main.js');
+		$css_creation = filectime( get_template_directory() . '/style.css' );
+		$js_creation  = filectime( get_template_directory() . '/assets/js/main.js' );
+
+		$options                = get_option( 'planet4_options' );
+		$enforce_cookies_policy = isset( $options['enforce_cookies_policy'] ) ? 'true' : 'false';
 
 		// CSS files
 		wp_enqueue_style( 'bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css', array(), '4.1.1' );
@@ -396,6 +410,13 @@ class P4_Master_Site extends TimberSite {
 		wp_enqueue_script( 'popperjs', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', array(), '1.14.3', true );
 		wp_enqueue_script( 'bootstrapjs', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js', array(), '4.1.1', true );
 		wp_enqueue_script( 'main', $this->theme_dir . '/assets/js/main.js', array( 'jquery' ), $js_creation, true );
+		wp_localize_script(
+			'main',
+			'p4',
+			[
+				'enforce_cookies_policy' => $enforce_cookies_policy,
+			]
+		);
 		wp_enqueue_script( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js', array(), '1.9.0', true );
 		wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', array(), '2.0.8', true );
 	}
@@ -921,4 +942,5 @@ new P4_Master_Site( [
 	'P4_Settings',
 	'P4_Control_Panel',
 	'P4_Post_Report_Controller',
+	'P4_Cookies',
 ] );
