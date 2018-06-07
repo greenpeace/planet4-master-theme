@@ -1,5 +1,6 @@
-// Load happy point iframe only when visible
+/* global readCookie */
 
+// Load happy point iframe only when visible
 $(document).ready(function() {
   'use strict';
 
@@ -15,7 +16,14 @@ $(document).ready(function() {
 
     if (happy_pos.top < window.innerHeight) {
       $('#happy-point').append($('<iframe></iframe>')
-        .attr({src: url, cellSpacing: '0', allowtransparency: 'true', frameborder: '0', scrolling: 'no', width: '100%'}));
+        .attr({
+          src: decodeURIComponent(url),
+          cellSpacing: '0',
+          allowtransparency: 'true',
+          frameborder: '0',
+          scrolling: 'no',
+          width: '100%'
+        }));
     }
   }
 

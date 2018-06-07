@@ -28,29 +28,6 @@
     }
   }
 
-  .carousel-inner {
-
-    @include small-and-up {
-      height: 300px;
-    }
-
-    @include medium-and-up {
-      height: 400px;
-    }
-
-    @include large-and-up {
-      height: 500px;
-    }
-
-    @include x-large-and-up {
-      height: 600px;
-    }
-
-    .carousel-item {
-      max-height: 100%;
-    }
-  }
-
   .carousel-item {
     .carousal-item-credit {
       position: absolute;
@@ -60,6 +37,25 @@
       font-size: rem(14);
       margin: 15px;
       font-weight: normal;
+    }
+
+    img {
+      height: 300px;
+      width: 100%;
+      object-fit: cover;
+      object-position: 0 0;
+
+      @include medium-and-up {
+        height: 400px;
+      }
+
+      @include large-and-up {
+        height: 500px;
+      }
+
+      @include x-large-and-up {
+        height: 600px;
+      }
     }
   }
 
