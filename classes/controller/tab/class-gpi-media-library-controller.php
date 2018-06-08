@@ -84,10 +84,10 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		public function get_paged_medias() {
 			// If this is an ajax call.
 			if ( wp_doing_ajax() ) {
-				$paged         = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_STRING );
-				$query_string  = filter_input( INPUT_GET, 'query-string', FILTER_SANITIZE_STRING );
+				$paged        = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_STRING );
+				$query_string = filter_input( INPUT_GET, 'query-string', FILTER_SANITIZE_STRING );
 
-				$ml_api        = new MediaLibraryApi_Controller();
+				$ml_api = new MediaLibraryApi_Controller();
 
 				$params = [];
 
@@ -98,7 +98,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 					$params['pagenumber'] = $paged;
 				}
 
-				$image_list    = $ml_api->get_results( $params );
+				$image_list = $ml_api->get_results( $params );
 
 				$error_message = '';
 				if ( \WP_Http::OK !==  $image_list['status_code'] ) {
@@ -140,12 +140,12 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		 * Action for admin-ajax to be used from gpi media library iframe.
 		 */
 		public function download_images_from_library() {
-			$ml_api = new MediaLibraryApi_Controller();
-			$helper = new MediaHelper();
+			$ml_api          = new MediaLibraryApi_Controller();
+			$helper          = new MediaHelper();
 			$selected_images = filter_input( INPUT_GET, 'images', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
 			$response = [
-				'errors'  => [],
+				'errors' => [],
 				'images' => [],
 			];
 			foreach ( $selected_images as $image ) {
