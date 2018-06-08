@@ -407,9 +407,15 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['page_category']    = $category->name ?? __( 'Search page', 'planet4-master-theme' );
 
 			if ( $this->search_query ) {
-				$context['page_title'] = sprintf( __( '%1$d results for \'%2$s\'', 'planet4-master-theme' ), $context['found_posts'], $this->search_query );
+				$context['page_title'] = sprintf(
+					// translators:
+					_n( '%1$d result for \'%2$s\'',  '%1$d results for \'%2$s\'', $context['found_posts'], 'planet4-master-theme' ),
+					$context['found_posts'],
+					$this->search_query
+				);
 			} else {
-				$context['page_title'] = sprintf( __( '%d results', 'planet4-master-theme' ), $context['found_posts'] );
+				// translators:
+				$context['page_title'] = sprintf( _n( '%d result', '%d results', $context['found_posts'], 'planet4-master-theme' ), $context['found_posts'] );
 			}
 		}
 

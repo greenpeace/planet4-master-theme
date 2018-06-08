@@ -141,7 +141,7 @@ class P4_Master_Site extends TimberSite {
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 
 		register_nav_menus( array(
-			'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme' ),
+			'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme-backend' ),
 		) );
 	}
 
@@ -204,10 +204,19 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Load translations for wpdocs_theme
+	 * Load translations for master theme
 	 */
-	function p4_master_theme_setup(){
-		load_theme_textdomain('planet4-master-theme', get_template_directory() . '/languages');
+	function p4_master_theme_setup() {
+		$domains = [
+			'planet4-master-theme',
+			'planet4-master-theme-backend',
+		];
+		$locale  = is_admin() ? get_user_locale() : get_locale();
+
+		foreach ( $domains as $domain ) {
+			$mofile = get_template_directory() . '/languages/' . $domain . '-' . $locale . '.mo';
+			load_textdomain( $domain, $mofile );
+		}
 	}
 
 	/**
@@ -432,7 +441,7 @@ class P4_Master_Site extends TimberSite {
 		$weight  = get_post_meta( $post->ID, 'weight', true );
 		$options = get_option( 'planet4_options' );
 
-		echo '<label for="my_meta_box_text">' . esc_html__( 'Weight (1-30)', 'planet4-master-theme' ) . '</label>
+		echo '<label for="my_meta_box_text">' . esc_html__( 'Weight (1-30)', 'planet4-master-theme-backend' ) . '</label>
 				<input id="weight" type="text" name="weight" value="' . esc_attr( $weight ) . '" />';
 		?><script>
 			$ = jQuery;
@@ -628,21 +637,21 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_header = new_cmb2_box( array(
 			'id'           => $prefix . 'metabox',
-			'title'        => __( 'Page Header Fields', 'planet4-master-theme' ),
+			'title'        => __( 'Page Header Fields', 'planet4-master-theme-backend' ),
 			'object_types' => array( 'page' ), // Post type.
 		) );
 
 		$p4_header->add_field( array(
-			'name' => __( 'Header Title', 'planet4-master-theme' ),
-			'desc' => __( 'Header title comes here', 'planet4-master-theme' ),
+			'name' => __( 'Header Title', 'planet4-master-theme-backend' ),
+			'desc' => __( 'Header title comes here', 'planet4-master-theme-backend' ),
 			'id'   => $prefix . 'title',
 			'type' => 'text_medium',
 		) );
 
 		$p4_header->add_field(
 			array(
-				'name' => __( 'Header Subtitle', 'planet4-master-theme' ),
-				'desc' => __( 'Header subtitle comes here', 'planet4-master-theme' ),
+				'name' => __( 'Header Subtitle', 'planet4-master-theme-backend' ),
+				'desc' => __( 'Header subtitle comes here', 'planet4-master-theme-backend' ),
 				'id'   => $prefix . 'subtitle',
 				'type' => 'text_medium',
 			)
@@ -650,8 +659,8 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_header->add_field(
 			array(
-				'name'    => __( 'Header Description', 'planet4-master-theme' ),
-				'desc'    => __( 'Header description comes here', 'planet4-master-theme' ),
+				'name'    => __( 'Header Description', 'planet4-master-theme-backend' ),
+				'desc'    => __( 'Header description comes here', 'planet4-master-theme-backend' ),
 				'id'      => $prefix . 'description',
 				'type'    => 'wysiwyg',
 				'options' => array(
@@ -663,8 +672,8 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_header->add_field(
 			array(
-				'name' => __( 'Header Button Title', 'planet4-master-theme' ),
-				'desc' => __( 'Header button title comes here', 'planet4-master-theme' ),
+				'name' => __( 'Header Button Title', 'planet4-master-theme-backend' ),
+				'desc' => __( 'Header button title comes here', 'planet4-master-theme-backend' ),
 				'id'   => $prefix . 'button_title',
 				'type' => 'text_medium',
 			)
@@ -672,8 +681,8 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_header->add_field(
 			array(
-				'name' => __( 'Header Button Link', 'planet4-master-theme' ),
-				'desc' => __( 'Header button link comes here', 'planet4-master-theme' ),
+				'name' => __( 'Header Button Link', 'planet4-master-theme-backend' ),
+				'desc' => __( 'Header button link comes here', 'planet4-master-theme-backend' ),
 				'id'   => $prefix . 'button_link',
 				'type' => 'text_medium',
 			)
@@ -681,8 +690,8 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_header->add_field(
 			array(
-				'name'         => __( 'Background overide', 'planet4-master-theme' ),
-				'desc'         => __( 'Upload an image', 'planet4-master-theme' ),
+				'name'         => __( 'Background overide', 'planet4-master-theme-backend' ),
+				'desc'         => __( 'Upload an image', 'planet4-master-theme-backend' ),
 				'id'           => 'background_image',
 				'type'         => 'file',
 				// Optional
@@ -690,7 +699,7 @@ class P4_Master_Site extends TimberSite {
 					'url' => false,
 				),
 				'text'         => array(
-					'add_upload_file_text' => __( 'Add Background Image', 'planet4-master-theme' )
+					'add_upload_file_text' => __( 'Add Background Image', 'planet4-master-theme-backend' )
 				),
 				'query_args'   => array(
 					'type' => 'image',
@@ -701,20 +710,20 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_post = new_cmb2_box( [
 			'id'           => $prefix . 'metabox_post',
-			'title'        => __( 'Post Articles Element Fields', 'planet4-master-theme' ),
+			'title'        => __( 'Post Articles Element Fields', 'planet4-master-theme-backend' ),
 			'object_types' => [ 'post' ],
 		] );
 
 		$p4_post->add_field( [
-			'name' => __( 'Author Override', 'planet4-master-theme' ),
-			'desc' => __( 'Enter author name if you want to override the author', 'planet4-master-theme' ),
+			'name' => __( 'Author Override', 'planet4-master-theme-backend' ),
+			'desc' => __( 'Enter author name if you want to override the author', 'planet4-master-theme-backend' ),
 			'id'   => $prefix . 'author_override',
 			'type' => 'text_medium',
 		] );
 
 		$p4_post->add_field( [
-			'name'             => __( 'Take Action Page Selector', 'planet4-master-theme' ),
-			'desc'             => __( 'Select a Take Action Page to populate take action boxout block', 'planet4-master-theme' ),
+			'name'             => __( 'Take Action Page Selector', 'planet4-master-theme-backend' ),
+			'desc'             => __( 'Select a Take Action Page to populate take action boxout block', 'planet4-master-theme-backend' ),
 			'id'               => $prefix . 'take_action_page',
 			'type'             => 'select',
 			'show_option_none' => true,
@@ -722,7 +731,7 @@ class P4_Master_Site extends TimberSite {
 		] );
 
 		$p4_post->add_field( [
-			'name'       => __( 'Include Articles In Post', 'planet4-master-theme' ),
+			'name'       => __( 'Include Articles In Post', 'planet4-master-theme-backend' ),
 			'id'         => 'include_articles',
 			'type'       => 'select',
 			'options'    => [
@@ -732,15 +741,15 @@ class P4_Master_Site extends TimberSite {
 		] );
 
 		$p4_post->add_field( [
-			'name'         => __( 'Background Image Override', 'planet4-master-theme' ),
-			'desc'         => __( 'Upload an image or select one from the media library to override the background image', 'planet4-master-theme' ),
+			'name'         => __( 'Background Image Override', 'planet4-master-theme-backend' ),
+			'desc'         => __( 'Upload an image or select one from the media library to override the background image', 'planet4-master-theme-backend' ),
 			'id'           => $prefix . 'background_image_override',
 			'type'         => 'file',
 			'options'      => [
 				'url' => false,
 			],
 			'text'         => [
-				'add_upload_file_text' => __( 'Add Image', 'planet4-master-theme' ),
+				'add_upload_file_text' => __( 'Add Image', 'planet4-master-theme-backend' ),
 			],
 			'preview_size' => 'large',
 		] );
@@ -785,7 +794,7 @@ class P4_Master_Site extends TimberSite {
 		        '<span class="wp-media-buttons-icon dashicons dashicons-migrate"></span> %s' .
 		        '</button>',
 			esc_attr( $editor_id ),
-			__( 'Add Page Element', 'planet4-master-theme' )
+			__( 'Add Page Element', 'planet4-master-theme-backend' )
 		);
 	}
 

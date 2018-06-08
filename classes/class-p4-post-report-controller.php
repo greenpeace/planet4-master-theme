@@ -56,8 +56,8 @@ if ( ! class_exists( 'P4_Post_Report_Controller' ) ) {
 		 */
 		function add_posts_report_admin_menu_item() {
 			add_posts_page(
-				__( 'Posts Report', 'planet4-master-theme' ),
-				__( 'Posts Report', 'planet4-master-theme' ),
+				__( 'Posts Report', 'planet4-master-theme-backend' ),
+				__( 'Posts Report', 'planet4-master-theme-backend' ),
 				'read',
 				'posts-report',
 				[ $this, 'render_posts_report_page' ]
