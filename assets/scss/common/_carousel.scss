@@ -1,6 +1,7 @@
 .carousel-wrap {
   padding-top: 0;
   padding-bottom: 40px;
+  overflow: hidden;
 
   @include large-and-up {
     padding-bottom: 60px;
