@@ -39,7 +39,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		 * @return mixed
 		 */
 		public function add_taxonomy_as_permalink_structure( $tags ) {
-			$tags['p4_page_type'] = __( 'P4 page type (A p4 page type term.)', 'planet4-master-theme' );
+			$tags['p4_page_type'] = __( 'P4 page type (A p4 page type term.)', 'planet4-master-theme-backend' );
 
 			return $tags;
 		}
@@ -145,18 +145,18 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		public function register_taxonomy() {
 
 			$p4_page_type = [
-				'name'              => _x( 'Page Types', 'taxonomy general name' ),
-				'singular_name'     => _x( 'Page Type', 'taxonomy singular name' ),
-				'search_items'      => __( 'Search in Page Type' ),
-				'all_items'         => __( 'All Page Types' ),
+				'name'              => _x( 'Page Types', 'taxonomy general name', 'planet4-master-theme-backend' ),
+				'singular_name'     => _x( 'Page Type', 'taxonomy singular name', 'planet4-master-theme-backend' ),
+				'search_items'      => __( 'Search in Page Type', 'planet4-master-theme-backend' ),
+				'all_items'         => __( 'All Page Types', 'planet4-master-theme-backend' ),
 				'most_used_items'   => null,
 				'parent_item'       => null,
 				'parent_item_colon' => null,
-				'edit_item'         => __( 'Edit Page Type' ),
-				'update_item'       => __( 'Update Page Type' ),
-				'add_new_item'      => __( 'Add new Page Type' ),
-				'new_item_name'     => __( 'New Page Type' ),
-				'menu_name'         => __( 'Page Types' ),
+				'edit_item'         => __( 'Edit Page Type', 'planet4-master-theme-backend' ),
+				'update_item'       => __( 'Update Page Type', 'planet4-master-theme-backend' ),
+				'add_new_item'      => __( 'Add new Page Type', 'planet4-master-theme-backend' ),
+				'new_item_name'     => __( 'New Page Type', 'planet4-master-theme-backend' ),
+				'menu_name'         => __( 'Page Types', 'planet4-master-theme-backend' ),
 			];
 
 			$args         = [

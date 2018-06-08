@@ -16,7 +16,7 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 		 */
 		public function __construct() {
 			$this->localizations = [
-				'media_title'  => esc_html__( 'Select Image', 'planet4-master-theme' ),
+				'media_title'  => esc_html__( 'Select Image', 'planet4-master-theme-backend' ),
 			];
 			$this->hooks();
 		}
@@ -56,52 +56,52 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 
 				<tr class="form-field edit-wrap term-image-wrap">
 					<th>
-						<label><?php esc_html_e( 'Image', 'planet4-master-theme' ); ?></label>
+						<label><?php esc_html_e( 'Image', 'planet4-master-theme-backend' ); ?></label>
 					</th>
 					<td>
 						<input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag-attachment-id field-id" value="<?php echo esc_attr( $attachment_id ); ?>" />
 						<input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url field-url" value="<?php echo esc_url( $attachment_url ); ?>" />
 						<button class="button insert-media add_media" name="insert_image_tag_button" id="insert_image_tag_button" type="button">
-							<?php esc_html_e( 'Select/Upload Image', 'planet4-master-theme' ); ?>
+							<?php esc_html_e( 'Select/Upload Image', 'planet4-master-theme-backend' ); ?>
 						</button>
-						<p class="description"><?php esc_html_e( 'Associate this tag with an image.', 'planet4-master-theme' ); ?></p>
+						<p class="description"><?php esc_html_e( 'Associate this tag with an image.', 'planet4-master-theme-backend' ); ?></p>
 						<img class="attachment-thumbnail size-thumbnail" src="<?php echo esc_url( $attachment_url ); ?>"/>
 						<i class="dashicons dashicons-dismiss <?php echo $image_attributes ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
 					</td>
 				</tr>
 				<tr class="form-field edit-wrap term-happypoint-wrap">
 					<th>
-						<label><?php esc_html_e( 'Image Subscribe', 'planet4-master-theme' ); ?></label>
+						<label><?php esc_html_e( 'Image Subscribe', 'planet4-master-theme-backend' ); ?></label>
 					</th>
 					<td>
 						<input type="hidden" name="happypoint_attachment_id" id="happypoint_attachment_id" class="happypoint-attachment-id field-id" value="<?php echo esc_attr( $happypoint_attachment_id ); ?>" />
 						<input type="hidden" name="happypoint_attachment" id="happypoint_attachment" class="happypoint-attachment-url field-url" value="<?php echo esc_url( $happypoint_attachment_url ); ?>" />
 						<button class="button insert-media add_media" name="insert_happypoint_image_button" id="insert_happypoint_image_button" type="button">
-							<?php esc_html_e( 'Select/Upload Image', 'planet4-master-theme' ); ?>
+							<?php esc_html_e( 'Select/Upload Image', 'planet4-master-theme-backend' ); ?>
 						</button>
-						<p class="description"><?php esc_html_e( 'Choose a background image for the Subscribe block.', 'planet4-master-theme' ); ?></p>
+						<p class="description"><?php esc_html_e( 'Choose a background image for the Subscribe block.', 'planet4-master-theme-backend' ); ?></p>
 						<img class="attachment-thumbnail size-thumbnail" src="<?php echo esc_url( $happypoint_attachment_url ); ?>"/>
 						<i class="dashicons dashicons-dismiss <?php echo $happypoint_image_attributes ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
 					</td>
 				</tr>
 				<tr class="form-field edit-wrap term-happypoint-opacity-wrap">
 					<th>
-						<label><?php echo __( 'Happy Point Opacity', 'planet4-master-theme' ); ?></label>
+						<label><?php echo __( 'Happy Point Opacity', 'planet4-master-theme-backend' ); ?></label>
 					</th>
 					<td>
 						<input type="number" name="happypoint_bg_opacity" id="happypoint_bg_opacity" class="happypoint-opacity-id field-id" value="<?php echo esc_attr( $happypoint_bg_opacity ); ?>" min="1" max="100"/>
-						<p class="description"><?php echo __( 'We use an overlay to fade the image back. Use a number between 1 and 100, the higher the number, the more faded the image will look. If you leave this empty, the default of 30 will be used.', 'planet4-master-theme' ); ?></p>
+						<p class="description"><?php echo __( 'We use an overlay to fade the image back. Use a number between 1 and 100, the higher the number, the more faded the image will look. If you leave this empty, the default of 30 will be used.', 'planet4-master-theme-backend' ); ?></p>
 					</td>
 				</tr>
 			<?php } else { ?>
 				<div class="form-field add-wrap term-image-wrap">
-					<label><?php esc_html_e( 'Image', 'planet4-master-theme' ); ?></label>
+					<label><?php esc_html_e( 'Image', 'planet4-master-theme-backend' ); ?></label>
 					<input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag_attachment_id field-id" value="" />
 					<input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url field-url" value="" />
 					<button class="button insert-media add_media" name="insert_image_tag_button" id="insert_image_tag_button" type="button">
-						<?php esc_html_e( 'Select/Upload Image', 'planet4-master-theme' ); ?>
+						<?php esc_html_e( 'Select/Upload Image', 'planet4-master-theme-backend' ); ?>
 					</button>
-					<p class="description"><?php esc_html_e( 'Associate this tag with an image.', 'planet4-master-theme' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Associate this tag with an image.', 'planet4-master-theme-backend' ); ?></p>
 					<img class="attachment-thumbnail size-thumbnail" src="" />
 					<i class="dashicons dashicons-dismiss hidden" style="cursor: pointer;"></i>
 				</div>
@@ -151,7 +151,7 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 		 * @return array Associative array with the columns of the taxonomy.
 		 */
 		public function edit_taxonomy_columns( $columns ) : array {
-			$columns['image'] = __( 'Image', 'planet4-master-theme' );
+			$columns['image'] = __( 'Image', 'planet4-master-theme-backend' );
 			return $columns;
 		}
 

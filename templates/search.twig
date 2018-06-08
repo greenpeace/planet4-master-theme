@@ -12,15 +12,15 @@
 				<div class="col-md-12">
 					<h2 class="result-statement">{{ page_title|e('wp_kses_post')|raw }}</h2>
 					{% if ( not posts ) %}
-						<p class="search-info">{{ __( 'We\'re sorry we couldn\'t find any matches for your search term.', domain ) }}</p>
+						<p class="search-info">{{ __( 'We\'re sorry we couldn\'t find any matches for your search term.', 'planet4-master-theme' ) }}</p>
 						<ul class="search-help-info">
-							<li>{{ __( 'Check for typos, and try your search again', domain ) }}</li>
-							<li>{{ __( 'Try searching for somthing else', domain ) }}</li>
-							<li>{{ __( 'Search our archive. You\'ll be redirected to the archive site.', domain ) }}</li>
+							<li>{{ __( 'Check for typos, and try your search again', 'planet4-master-theme' ) }}</li>
+							<li>{{ __( 'Try searching for somthing else', 'planet4-master-theme' ) }}</li>
+							<li>{{ __( 'Search our archive. You\'ll be redirected to the archive site.', 'planet4-master-theme' ) }}</li>
 						</ul>
 					{% endif %}
 					{% if ( corrected_term ) %}
-						<p class="search-info">{{ __( 'We also included results for ', domain ) }} <span class="btn btn-filter-item">{{ corrected_term }} <i class="icon-cross"></i></span></p>
+						<p class="search-info">{{ __( 'We also included results for ', 'planet4-master-theme' ) }} <span class="btn btn-filter-item">{{ corrected_term }} <i class="icon-cross"></i></span></p>
 					{% endif %}
 				</div>
 				<div class="col-md-12">
@@ -28,20 +28,20 @@
 						<form id="search_form_inner" role="search" class="form" action="{{ data_nav_bar.home_url }}">
 							<div class="row">
 								<div class="{{ source_selection ? 'col-md-5' : 'col-md-9' }}">
-									<input type="search" class="form-control mb-2 mb-sm-0" placeholder="{{ __( 'Search', domain ) }}" value="{{ search_query|e('wp_kses_post')|raw }}" name="s" aria-label="Search">
+									<input type="search" class="form-control mb-2 mb-sm-0" placeholder="{{ __( 'Search', 'planet4-master-theme' ) }}" value="{{ search_query|e('wp_kses_post')|raw }}" name="s" aria-label="Search">
 									<input type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}" />
 								</div>
 								{% if ( source_selection ) %}
 									<div class="col-md-4">
 										<div class="btn-group btn-block" role="group" aria-label="" id="search-type">
-											<button type="button" class="btn btn-secondary btn-medium active">{{ __('This Site', domain ) }}</button>
-											<button type="button" class="btn btn-secondary btn-medium">{{ __( 'Archive', domain ) }}</button>
+											<button type="button" class="btn btn-secondary btn-medium active">{{ __('This Site', 'planet4-master-theme' ) }}</button>
+											<button type="button" class="btn btn-secondary btn-medium">{{ __( 'Archive', 'planet4-master-theme' ) }}</button>
 										</div>
 									</div>
 								{% endif %}
 								<div class="col-md-3">
 									<button type="submit" class="btn btn-primary btn-medium search-btn btn-block">
-										<i class="fas fa-search"></i> {{ __('Search', domain ) }}
+										<i class="fas fa-search"></i> {{ __('Search', 'planet4-master-theme' ) }}
 									</button>
 								</div>
 							</div>
@@ -53,13 +53,13 @@
 				<div class="col-lg-4">
 					<div class="filter-sidebar">
 						<div class="filter-button d-lg-none">
-							<button class="btn btn-filter {{ disabled }}"><i class="icon-filter"></i> {{ __( 'Filters', domain ) }}</button>
+							<button class="btn btn-filter {{ disabled }}"><i class="icon-filter"></i> {{ __( 'Filters', 'planet4-master-theme' ) }}</button>
 						</div>
 						<div class="modal fade filter-modal" id="filtermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog modal-lg" role="document">
 								<div class="modal-content">
 									<div class="modal-body">
-										<h4 class="modal-title">{{ __( 'Refine your search', domain ) }}</h4>
+										<h4 class="modal-title">{{ __( 'Refine your search', 'planet4-master-theme' ) }}</h4>
 										<button type="button" class="closebtn" data-dismiss="modal"><i class="icon-cross"></i></button>
 										<div class="row">
 											<div class="col-md-6">
@@ -67,7 +67,7 @@
 													{% if ( categories|length > 0 ) %}
 														<div class="filteritem">
 															<a data-toggle="collapse" href="#item-modal-issue" aria-expanded="true">
-																{{ __( 'ISSUE', domain ) }} <span></span>
+																{{ __( 'ISSUE', 'planet4-master-theme' ) }} <span></span>
 															</a>
 															<div id="item-modal-issue" class="collapse show" role="tabpanel">
 																<ul class="list-unstyled">
@@ -88,7 +88,7 @@
 													{% if ( page_types|length > 0 ) %}
 														<div class="filteritem">
 															<a data-toggle="collapse" href="#item-modal-category" aria-expanded="true">
-																{{ __( 'CATEGORY', domain ) }} <span></span>
+																{{ __( 'CATEGORY', 'planet4-master-theme' ) }} <span></span>
 															</a>
 															<div id="item-modal-category" class="collapse show" role="tabpanel">
 																<ul class="list-unstyled">
@@ -109,7 +109,7 @@
 													{% if ( content_types|length > 0 ) %}
 														<div class="filteritem">
 															<a data-toggle="collapse" href="#item-modal-content" aria-expanded="true">
-																{{ __( 'CONTENT TYPES', domain ) }} <span></span>
+																{{ __( 'CONTENT TYPES', 'planet4-master-theme' ) }} <span></span>
 															</a>
 															<div id="item-modal-content" class="collapse show" role="tabpanel">
 																<ul class="list-unstyled">
@@ -133,7 +133,7 @@
 												{% if ( tags|length > 0 ) %}
 													<div class="filteritem">
 														<a data-toggle="collapse" href="#item-modal-campaign" aria-expanded="true">
-															{{ __( 'CAMPAIGN', domain ) }} <span></span>
+															{{ __( 'CAMPAIGN', 'planet4-master-theme' ) }} <span></span>
 														</a>
 														<div id="item-modal-campaign" class="collapse show" role="tabpanel">
 															<ul class="list-unstyled">
@@ -152,18 +152,18 @@
 											</div>
 										</div>
 										<div class="btnact">
-											<button type="button" class="btn btn-action btn-medium btn-small cancelbtn" data-dismiss="modal">{{ __( 'Cancel', domain ) }}</button>
-											<button type="button" class="btn btn-primary btn-medium btn-small applybtn">{{ __( 'Apply Filters', domain ) }}</button>
+											<button type="button" class="btn btn-action btn-medium btn-small cancelbtn" data-dismiss="modal">{{ __( 'Cancel', 'planet4-master-theme' ) }}</button>
+											<button type="button" class="btn btn-primary btn-medium btn-small applybtn">{{ __( 'Apply Filters', 'planet4-master-theme' ) }}</button>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div id="filter-sidebar-options" class="d-none d-lg-block">
-							<h4>{{ __( 'Refine your search', domain ) }}</h4>
+							<h4>{{ __( 'Refine your search', 'planet4-master-theme' ) }}</h4>
 							{% if ( filters ) %}
 								<div class="active-filter">
-									<h5>{{ __( 'ACTIVE FILTERS', domain ) }}</h5>
+									<h5>{{ __( 'ACTIVE FILTERS', 'planet4-master-theme' ) }}</h5>
 									<div class="activefilter-list">
 										{% for filter_type in filters %}
 											{% for filter in filter_type %}
@@ -172,14 +172,14 @@
 												</button>
 											{% endfor %}
 										{% endfor %}
-										<button class="clearall">{{ __( 'Clear All', domain ) }} <i class="icon-cross"></i></button>
+										<button class="clearall">{{ __( 'Clear All', 'planet4-master-theme' ) }} <i class="icon-cross"></i></button>
 									</div>
 								</div>
 							{% endif %}
 							{% if ( categories|length > 0 ) %}
 								<div class="filteritem">
 									<a data-toggle="collapse" href="#item-issue" aria-expanded="true">
-										{{ __( 'Issue', domain ) }} <span></span>
+										{{ __( 'Issue', 'planet4-master-theme' ) }} <span></span>
 									</a>
 									<div id="item-issue" class="collapse show" role="tabpanel">
 										<ul class="list-unstyled">
@@ -198,7 +198,7 @@
 							{% if ( tags|length > 0 ) %}
 								<div class="filteritem">
 									<a data-toggle="collapse" href="#item-campaign" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
-										{{ __( 'Campaign', domain ) }} <span></span>
+										{{ __( 'Campaign', 'planet4-master-theme' ) }} <span></span>
 									</a>
 									<div id="item-campaign" class="collapse {{ show }}" role="tabpanel">
 										<ul class="list-unstyled">
@@ -217,7 +217,7 @@
 							{% if ( page_types|length > 0 ) %}
 								<div class="filteritem">
 									<a data-toggle="collapse" href="#item-category" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
-										{{ __( 'Category', domain ) }} <span></span>
+										{{ __( 'Category', 'planet4-master-theme' ) }} <span></span>
 									</a>
 									<div id="item-category" class="collapse {{ show }}" role="tabpanel">
 										<ul class="list-unstyled">
@@ -236,7 +236,7 @@
 							{% if ( content_types|length > 0 ) %}
 								<div class="filteritem">
 									<a data-toggle="collapse" href="#item-content" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
-										{{ __( 'Content type', domain ) }} <span></span>
+										{{ __( 'Content type', 'planet4-master-theme' ) }} <span></span>
 									</a>
 									<div id="item-content" class="collapse {{ show }}" role="tabpanel">
 										<ul class="list-unstyled">
@@ -259,15 +259,15 @@
 					<div class="result-area">
 						<div class="sort-filter clearfix">
 							<div class="float-right">
-								<label class="mr-sm-2" for="select_order">{{ __('Sort by', domain ) }}</label>
+								<label class="mr-sm-2" for="select_order">{{ __('Sort by', 'planet4-master-theme' ) }}</label>
 								<select id="select_order" name="select_order" class="">
 									{% for key, sort_option in sort_options %}
 										{% if ( not search_query and key == 'relevant' ) %}
-											<option value="{{ key }}" disabled>{{ __( sort_option.name, domain ) }}</option>
+											<option value="{{ key }}" disabled>{{ __( sort_option.name, 'planet4-master-theme' ) }}</option>
 										{% elseif key == selected_sort %}
-											<option value="{{ key }}" selected>{{ __( sort_option.name, domain ) }}</option>
+											<option value="{{ key }}" selected>{{ __( sort_option.name, 'planet4-master-theme' ) }}</option>
 										{% else %}
-											<option value="{{ key }}">{{ __( sort_option.name, domain ) }}</option>
+											<option value="{{ key }}">{{ __( sort_option.name, 'planet4-master-theme' ) }}</option>
 										{% endif %}
 									{% endfor %}
 								</select>
@@ -296,7 +296,7 @@
 						</div>
 						{% if ( suggestions ) %}
 							<div class="suggested-search-terms">
-								<h3>{{ __( 'Suggested search terms', domain ) }}</h3>
+								<h3>{{ __( 'Suggested search terms', 'planet4-master-theme' ) }}</h3>
 								<div class="suggested-list row">
 									{% for suggestion in suggestions %}
 										<div class="col-md-4">
