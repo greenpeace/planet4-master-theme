@@ -11,3 +11,10 @@
     position: fixed;
   }
 }
+
+a.pdf-link::before {
+  content: "\f1c1";
+  display: inline-block;
+  margin-right: 7px;
+  font-family: "Font Awesome 5 Free";
+}

@@ -1,5 +1,3 @@
-/* global readCookie */
-
 // Load happy point iframe only when visible
 $(document).ready(function() {
   'use strict';
