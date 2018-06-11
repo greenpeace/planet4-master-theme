@@ -3,8 +3,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-06-08 14:07+0000\n"
-"Last-Translator: dev <kdiamant@greenpeace.org>\n"
+"PO-Revision-Date: 2018-06-11 21:13+0000\n"
+"Last-Translator: Lise Bockler <lbockler@greenpeace.org>\n"
 "Language-Team: French (Canada)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,112 +24,113 @@ msgstr ""
 
 #: single.php:47
 msgid "Post page"
-msgstr ""
+msgstr "Page de post"
 
 #: single.php:76
 msgid "Leave Your Reply"
-msgstr ""
+msgstr "Inscrivez votre réponse"
 
 #: 404.php:30
 msgid "Sorry, we can't find that page!"
-msgstr ""
+msgstr "Désolé•e•s, nous ne trouvons pas cette page !"
 
 #: 404.php:31
 msgid "Enter your search term below"
-msgstr ""
+msgstr "Entrez votre recherche ci-dessous"
 
 #: 404.php:32
 msgid "404 Page"
-msgstr ""
+msgstr "Page 404"
 
 #: tag.php:58
 msgid "Unknown Campaign page"
-msgstr ""
+msgstr "Page de campagne inconnue"
 
 #: tag.php:64
 msgid "Things you can do"
-msgstr ""
+msgstr "Ce que vous pouvez faire"
 
 #: tag.php:65
 msgid "We want you to take action because together we're strong."
 msgstr ""
+"Nous voulons que vous passiez à l'action car ensemble nous sommes fort•e•s."
 
 #: tag.php:81
 msgid "Related Campaigns"
-msgstr ""
+msgstr "Campagnes liées"
 
 #: tag.php:82
 msgid "This Campaign is not assigned to an Issue"
-msgstr ""
+msgstr "Cette campagne n'est pas liée à une problématique"
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr ""
+msgstr "Plus pertinent"
 
 #: functions.php:89
 msgid "Most recent"
-msgstr ""
+msgstr "Plus récent"
 
 #: functions.php:287
 msgid "International (English)"
-msgstr ""
+msgstr "International (English)"
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
-msgstr ""
+msgstr "Rechercher dans la page"
 
 #. translators:
 #: classes/class-p4-search.php:412
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$d résultat pour '%2$s'"
+msgstr[1] "%1$d résultats pour '%2$s'"
 
 #. translators:
 #: classes/class-p4-search.php:418
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d résultat"
+msgstr[1] "%d résultats"
 
 #: classes/class-p4-search.php:478
 msgid "Action"
-msgstr ""
+msgstr "Action"
 
 #: classes/class-p4-search.php:482
 msgid "Document"
-msgstr ""
+msgstr "Document"
 
 #: classes/class-p4-search.php:486
 msgid "Page"
-msgstr ""
+msgstr "Page"
 
 #: classes/class-p4-search.php:490
 msgid "Post"
-msgstr ""
+msgstr "Post"
 
 #: classes/class-p4-search.php:570
 msgid "ACTION"
-msgstr ""
+msgstr "ACTION"
 
 #: classes/class-p4-search.php:574
 msgid "PAGE"
-msgstr ""
+msgstr "PAGE"
 
 #: classes/class-p4-search.php:580
 msgid "DOCUMENT"
-msgstr ""
+msgstr "DOCUMENT"
 
 #: classes/class-p4-search.php:585
 msgid "POST"
-msgstr ""
+msgstr "POST"
 
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr ""
+msgstr "MONTRER %s PLUS SE RÉSULTATS"
 
 #. Name of the template
 msgid "Evergreen Page"
@@ -137,43 +138,44 @@ msgstr ""
 
 #. Name of the template
 msgid "Sitemap Page"
-msgstr ""
+msgstr "Plan du site"
 
 #: page-templates/sitemap.php:31
 msgid "Act"
-msgstr ""
+msgstr "Agir"
 
 #: page-templates/sitemap.php:32
 msgid "Explore"
-msgstr ""
+msgstr "Explorer"
 
 #: page-templates/sitemap.php:33
 msgid "About Greenpeace"
-msgstr ""
+msgstr "À propos de Greenpeace"
 
 #: page-templates/sitemap.php:34
 msgid "Articles"
-msgstr ""
+msgstr "Articles"
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: templates/navigation-bar.twig:18
 msgid "Close Menu"
-msgstr ""
+msgstr "Fermer le menu"
 
+# ATTENTION PLURIEL
 #: templates/navigation-bar.twig:27
 msgid "Selected"
-msgstr ""
+msgstr "sélectionné•s"
 
 #: templates/navigation-bar.twig:28
 msgid "Change Country"
-msgstr ""
+msgstr "Changer de pays"
 
 #: templates/navigation-bar.twig:48
 msgid "DONATE"
-msgstr ""
+msgstr "DONNER"
 
 #: templates/navigation-bar.twig:58
 msgid "Toggle search form"
@@ -181,136 +183,140 @@ msgstr ""
 
 #: templates/navigation-bar.twig:66 templates/search.twig:44
 msgid "Search"
-msgstr ""
+msgstr "Rechercher"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr ""
+msgstr "J'ai compris !"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
 msgstr ""
+"Nous sommes désolé•e•s de ne pas avoir trouvé la page qui correspond à votre "
+"recherche."
 
 #: templates/search.twig:17
 msgid "Check for typos, and try your search again"
-msgstr ""
+msgstr "Vérifiez si votre texte est correct et relancez la recherche"
 
 #: templates/search.twig:18
 msgid "Try searching for somthing else"
-msgstr ""
+msgstr "Essayez une autre recherche"
 
 #: templates/search.twig:19
 msgid "Search our archive. You'll be redirected to the archive site."
 msgstr ""
+"Rechercher dans nos archives. Vous allez être redirigé•e sur notre site "
+"d'archive."
 
 #: templates/search.twig:23
 msgid "We also included results for "
-msgstr ""
+msgstr "Nous avons aussi inclut les résultats pour"
 
 #: templates/search.twig:37
 msgid "This Site"
-msgstr ""
+msgstr "Ce site"
 
 #: templates/search.twig:38
 msgid "Archive"
-msgstr ""
+msgstr "Archive"
 
 #: templates/search.twig:56
 msgid "Filters"
-msgstr ""
+msgstr "Filtres"
 
 #: templates/search.twig:62 templates/search.twig:163
 msgid "Refine your search"
-msgstr ""
+msgstr "Affinez votre recherche"
 
 #: templates/search.twig:70
 msgid "ISSUE"
-msgstr ""
+msgstr "PROBLÉMATIQUE"
 
 #: templates/search.twig:91
 msgid "CATEGORY"
-msgstr ""
+msgstr "CATÉGORIE"
 
 #: templates/search.twig:112
 msgid "CONTENT TYPES"
-msgstr ""
+msgstr "TYPES DE CONTENUS"
 
 #: templates/search.twig:136
 msgid "CAMPAIGN"
-msgstr ""
+msgstr "CAMPAGNE"
 
 #: templates/search.twig:155
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: templates/search.twig:156
 msgid "Apply Filters"
-msgstr ""
+msgstr "Appliquer les filtres"
 
 #: templates/search.twig:166
 msgid "ACTIVE FILTERS"
-msgstr ""
+msgstr "FILTRES ACTIFS"
 
 #: templates/search.twig:175
 msgid "Clear All"
-msgstr ""
+msgstr "Tout effacer"
 
 #: templates/search.twig:182
 msgid "Issue"
-msgstr ""
+msgstr "Problématique"
 
 #: templates/search.twig:201
 msgid "Campaign"
-msgstr ""
+msgstr "Campagne"
 
 #: templates/search.twig:220
 msgid "Category"
-msgstr ""
+msgstr "Catégorie"
 
 #: templates/search.twig:239
 msgid "Content type"
-msgstr ""
+msgstr "Type de contenu"
 
 #: templates/search.twig:262
 msgid "Sort by"
-msgstr ""
+msgstr "Trier par"
 
 #: templates/search.twig:299
 msgid "Suggested search terms"
-msgstr ""
+msgstr "Suggestions de termes pour votre recherche"
 
 #: templates/tease-search.twig:62
 msgid "take action"
-msgstr ""
+msgstr "passer à l'action"
 
 #: templates/tease-search.twig:65
 msgid "Download"
-msgstr ""
+msgstr "Télécharger"
 
 #: templates/single.twig:39
 msgid "by"
-msgstr ""
+msgstr "par"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr ""
+msgstr "à propos de Greenpeace"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
-msgstr ""
+msgstr "Thème principal Planet 4 de Greenpeace"
 
 #. Description of the plugin/theme
 msgid "Master theme for the Planet 4 Wordpress project"
-msgstr ""
+msgstr "Thème principal pour le projet Planet 4 sur Wordpress"
 
 #. Theme URI of the plugin/theme
 msgid "https://github.com/greenpeace/planet4-master-theme"
-msgstr ""
+msgstr "https://github.com/greenpeace/planet4-master-theme"
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
-msgstr ""
+msgstr "Greenpeace International"
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/greenpeace"
-msgstr ""
+msgstr "https://github.com/greenpeace"
