@@ -1,0 +1,317 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
+"POT-Creation-Date: 2018-06-08 09:06+0000\n"
+"PO-Revision-Date: 2018-06-12 16:37+0000\n"
+"Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
+"Language-Team: Portuguese (Brazil)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"Language: pt_BR\n"
+"Report-Msgid-Bugs-To: "
+
+#: single.php:47
+msgid "Post page"
+msgstr "Página de post"
+
+#: single.php:76
+msgid "Leave Your Reply"
+msgstr "Deixe um comentário"
+
+#: 404.php:30
+msgid "Sorry, we can't find that page!"
+msgstr "Desculpe, não conseguimos encontrar essa página!"
+
+#: 404.php:31
+msgid "Enter your search term below"
+msgstr "Coloque o que você quer buscar no campo abaixo"
+
+#: 404.php:32
+msgid "404 Page"
+msgstr "Página 404"
+
+#: tag.php:58
+msgid "Unknown Campaign page"
+msgstr "Página de Campanha desconhecida"
+
+#: tag.php:64
+msgid "Things you can do"
+msgstr "O que você pode fazer"
+
+#: tag.php:65
+msgid "We want you to take action because together we're strong."
+msgstr "Queremos você conosco porque juntos somos mais fortes."
+
+#: tag.php:81
+msgid "Related Campaigns"
+msgstr "Campanhas relacionadas"
+
+#: tag.php:82
+msgid "This Campaign is not assigned to an Issue"
+msgstr "Esta Campanha não está associada a um Problema"
+
+#: functions.php:85
+msgid "Most relevant"
+msgstr "Mais relevantes"
+
+#: functions.php:89
+msgid "Most recent"
+msgstr "Mais recentes"
+
+#: functions.php:287
+msgid "International (English)"
+msgstr "Internacional (Inglês)"
+
+#: classes/class-p4-search.php:407
+msgid "Search page"
+msgstr "Página de busca"
+
+#. translators:
+#: classes/class-p4-search.php:412
+#, php-format
+msgid "%1$d result for '%2$s'"
+msgid_plural "%1$d results for '%2$s'"
+msgstr[0] "%1$d resultado para '%2$s'"
+msgstr[1] "%1$d resultados para '%2$s'"
+
+#. translators:
+#: classes/class-p4-search.php:418
+#, php-format
+msgid "%d result"
+msgid_plural "%d results"
+msgstr[0] "%d resultado"
+msgstr[1] "%d resultados"
+
+#: classes/class-p4-search.php:478
+msgid "Action"
+msgstr "Ação"
+
+#: classes/class-p4-search.php:482
+msgid "Document"
+msgstr "Documento"
+
+#: classes/class-p4-search.php:486
+msgid "Page"
+msgstr "Página"
+
+#: classes/class-p4-search.php:490
+msgid "Post"
+msgstr "Post"
+
+#: classes/class-p4-search.php:570
+msgid "ACTION"
+msgstr "AÇÃO"
+
+#: classes/class-p4-search.php:574
+msgid "PAGE"
+msgstr "PÁGINA"
+
+#: classes/class-p4-search.php:580
+msgid "DOCUMENT"
+msgstr "DOCUMENTO"
+
+#: classes/class-p4-search.php:585
+msgid "POST"
+msgstr "POST"
+
+#: classes/class-p4-search.php:660
+#, php-format
+msgid "SHOW %s MORE RESULTS"
+msgstr "MOSTRAR MAIS %s RESULTADOS"
+
+#. Name of the template
+msgid "Evergreen Page"
+msgstr "Página evergreen"
+
+#. Name of the template
+msgid "Sitemap Page"
+msgstr "Página do mapa do site"
+
+#: page-templates/sitemap.php:31
+msgid "Act"
+msgstr "Agir"
+
+#: page-templates/sitemap.php:32
+msgid "Explore"
+msgstr "Explorar"
+
+#: page-templates/sitemap.php:33
+msgid "About Greenpeace"
+msgstr "Sobre o Greenpeace"
+
+#: page-templates/sitemap.php:34
+msgid "Articles"
+msgstr "Artigos"
+
+#: templates/navigation-bar.twig:13
+msgid "Menu"
+msgstr "Menu"
+
+#: templates/navigation-bar.twig:18
+msgid "Close Menu"
+msgstr "Fechar Menu"
+
+#: templates/navigation-bar.twig:27
+msgid "Selected"
+msgstr "Selecionado"
+
+#: templates/navigation-bar.twig:28
+msgid "Change Country"
+msgstr "Mudar País"
+
+#: templates/navigation-bar.twig:48
+msgid "DONATE"
+msgstr "DOAR"
+
+#: templates/navigation-bar.twig:58
+msgid "Toggle search form"
+msgstr "Mudar formulário de busca"
+
+#: templates/navigation-bar.twig:66 templates/search.twig:44
+msgid "Search"
+msgstr "Busca"
+
+#: templates/cookies.twig:8
+msgid "GOT IT!"
+msgstr "CERTO!"
+
+#: templates/search.twig:15
+msgid "We're sorry we couldn't find any matches for your search term."
+msgstr "Desculpe, não conseguimos encontrar itens contendo seu termo de busca"
+
+#: templates/search.twig:17
+msgid "Check for typos, and try your search again"
+msgstr "Confira o texto e tente buscar novamente"
+
+#: templates/search.twig:18
+msgid "Try searching for somthing else"
+msgstr "Tente buscar outra coisa"
+
+#: templates/search.twig:19
+msgid "Search our archive. You'll be redirected to the archive site."
+msgstr ""
+"Busque nossos arquivos. Você será redirecionado(a) para o site de arquivo."
+
+#: templates/search.twig:23
+msgid "We also included results for "
+msgstr "Nós também incluímos resultados para"
+
+#: templates/search.twig:37
+msgid "This Site"
+msgstr "Este Site"
+
+#: templates/search.twig:38
+msgid "Archive"
+msgstr "Arquivos"
+
+#: templates/search.twig:56
+msgid "Filters"
+msgstr "Filtros"
+
+#: templates/search.twig:62 templates/search.twig:163
+msgid "Refine your search"
+msgstr "Refine a sua busca"
+
+#: templates/search.twig:70
+msgid "ISSUE"
+msgstr "PROBLEMA"
+
+#: templates/search.twig:91
+msgid "CATEGORY"
+msgstr "CATEGORIA"
+
+#: templates/search.twig:112
+msgid "CONTENT TYPES"
+msgstr "TIPOS DE CONTEÚDO"
+
+#: templates/search.twig:136
+msgid "CAMPAIGN"
+msgstr "CAMPANHA"
+
+#: templates/search.twig:155
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: templates/search.twig:156
+msgid "Apply Filters"
+msgstr "Aplicar Filtros"
+
+#: templates/search.twig:166
+msgid "ACTIVE FILTERS"
+msgstr "FILTROS ATIVOS"
+
+#: templates/search.twig:175
+msgid "Clear All"
+msgstr "Limpar tudo"
+
+#: templates/search.twig:182
+msgid "Issue"
+msgstr "Problema"
+
+#: templates/search.twig:201
+msgid "Campaign"
+msgstr "Campanha"
+
+#: templates/search.twig:220
+msgid "Category"
+msgstr "Categoria"
+
+#: templates/search.twig:239
+msgid "Content type"
+msgstr "Tipo de conteúdo"
+
+#: templates/search.twig:262
+msgid "Sort by"
+msgstr "Organizar por"
+
+#: templates/search.twig:299
+msgid "Suggested search terms"
+msgstr "Termos de busca sugeridos"
+
+#: templates/tease-search.twig:62
+msgid "take action"
+msgstr "Aja agora"
+
+#: templates/tease-search.twig:65
+msgid "Download"
+msgstr "Baixar"
+
+#: templates/single.twig:39
+msgid "by"
+msgstr "por"
+
+#: templates/blocks/author_profile.twig:4
+msgid "about the author"
+msgstr "sobre o autor"
+
+#. Theme Name of the plugin/theme
+msgid "Greenpeace Planet 4 Master Theme"
+msgstr "Greenpeace Planet 4 Tema Master"
+
+#. Description of the plugin/theme
+msgid "Master theme for the Planet 4 Wordpress project"
+msgstr "Tema principal para o projeto Plant 4 Wordpress"
+
+#. Theme URI of the plugin/theme
+msgid "https://github.com/greenpeace/planet4-master-theme"
+msgstr "https://github.com/greenpeace/planet4-master-theme"
+
+#. Author of the plugin/theme
+msgid "Greenpeace International"
+msgstr "Greenpeace Internacional"
+
+#. Author URI of the plugin/theme
+msgid "https://github.com/greenpeace"
+msgstr "https://github.com/greenpeace"
