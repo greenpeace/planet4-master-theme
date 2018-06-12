@@ -222,7 +222,7 @@ $menu-height-large: rem(60);
     position: absolute;
     top: 0;
     left: 0;
-    background: $deep-sea-green url("images/dropdown-gradient.svg") no-repeat;
+    background: $dark-blue url("images/dropdown-gradient.svg") no-repeat;
     overflow-y: auto;
     overflow-x: hidden;
     z-index: 2;
@@ -304,7 +304,7 @@ $menu-height-large: rem(60);
     .nav-link:hover {
       position: relative;
       z-index: 2;
-      color: $x-dark-blue;
+      color: $spray;
     }
 
     .active .nav-link::before {
