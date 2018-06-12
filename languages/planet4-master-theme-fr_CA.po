@@ -3,8 +3,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-06-12 12:19+0000\n"
-"Last-Translator: Marine Temperman <mtemperm@greenpeace.org>\n"
+"PO-Revision-Date: 2018-06-12 13:42+0000\n"
+"Last-Translator: Lise Bockler <lbockler@greenpeace.org>\n"
 "Language-Team: French (Canada)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +32,7 @@ msgstr "Inscrivez votre réponse"
 
 #: 404.php:30
 msgid "Sorry, we can't find that page!"
-msgstr "Désolé•e•s, nous ne trouvons pas cette page !"
+msgstr "Oups... nous ne trouvons pas cette page !"
 
 #: 404.php:31
 msgid "Enter your search term below"
@@ -52,8 +52,7 @@ msgstr "Ce que vous pouvez faire"
 
 #: tag.php:65
 msgid "We want you to take action because together we're strong."
-msgstr ""
-"Nous voulons que vous passiez à l'action car ensemble nous sommes fort•e•s."
+msgstr "Ensemble nous pouvons changer les choses. Passez à l'action !"
 
 #: tag.php:81
 msgid "Related Campaigns"
@@ -61,7 +60,7 @@ msgstr "Campagnes liées"
 
 #: tag.php:82
 msgid "This Campaign is not assigned to an Issue"
-msgstr "Cette campagne n'est pas liée à une problématique"
+msgstr "Cette campagne n'est pas liée à un enjeu"
 
 #: functions.php:85
 msgid "Most relevant"
@@ -109,7 +108,7 @@ msgstr "Page"
 
 #: classes/class-p4-search.php:490
 msgid "Post"
-msgstr "Post"
+msgstr "Article"
 
 #: classes/class-p4-search.php:570
 msgid "ACTION"
@@ -125,7 +124,7 @@ msgstr "DOCUMENT"
 
 #: classes/class-p4-search.php:585
 msgid "POST"
-msgstr "POST"
+msgstr "ARTICLE"
 
 #: classes/class-p4-search.php:660
 #, php-format
@@ -192,8 +191,7 @@ msgstr "J'ai compris !"
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
 msgstr ""
-"Nous sommes désolé•e•s de ne pas avoir trouvé la page qui correspond à votre "
-"recherche."
+"Oups... nous n'avons pas trouvé la page qui correspond à votre recherche."
 
 #: templates/search.twig:17
 msgid "Check for typos, and try your search again"
@@ -231,7 +229,7 @@ msgstr "Affinez votre recherche"
 
 #: templates/search.twig:70
 msgid "ISSUE"
-msgstr "PROBLÉMATIQUE"
+msgstr "ENJEU"
 
 #: templates/search.twig:91
 msgid "CATEGORY"
@@ -263,7 +261,7 @@ msgstr "Tout effacer"
 
 #: templates/search.twig:182
 msgid "Issue"
-msgstr "Problématique"
+msgstr "Enjeu"
 
 #: templates/search.twig:201
 msgid "Campaign"
