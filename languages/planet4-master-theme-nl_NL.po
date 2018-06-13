@@ -3,8 +3,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-06-08 10:39+0000\n"
-"Last-Translator: dev <kdiamant@greenpeace.org>\n"
+"PO-Revision-Date: 2018-06-11 14:43+0000\n"
+"Last-Translator: Berit Soolsma <bsoolsma@greenpeace.org>\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ msgstr "Sorry, we can't find that page!"
 
 #: 404.php:31
 msgid "Enter your search term below"
-msgstr "Enter your search term below"
+msgstr ""
 
 #: 404.php:32
 msgid "404 Page"
@@ -133,11 +133,11 @@ msgstr "OVERIGE %s RESULTATEN LADEN"
 
 #. Name of the template
 msgid "Evergreen Page"
-msgstr ""
+msgstr "Evergreen Page"
 
 #. Name of the template
 msgid "Sitemap Page"
-msgstr ""
+msgstr "Sitemap Page"
 
 #: page-templates/sitemap.php:31
 msgid "Act"
@@ -189,19 +189,19 @@ msgstr "GOT IT!"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr "We're sorry we couldn't find any matches for your search term."
+msgstr "Misschien kunnen we je toch helpen?"
 
 #: templates/search.twig:17
 msgid "Check for typos, and try your search again"
-msgstr "Controleer je zoekopdracht op mogelijke typfouten"
+msgstr "Controleer je zoekopdracht op typfouten"
 
 #: templates/search.twig:18
 msgid "Try searching for somthing else"
-msgstr "Try searching for somthing else"
+msgstr "Zoek opnieuw met een vergelijkbare term"
 
 #: templates/search.twig:19
 msgid "Search our archive. You'll be redirected to the archive site."
-msgstr "Doorzoek ons archief. Je wordt omgeleid naar onze gearchiveerde site."
+msgstr "Doorzoek ons archief. Onderaan deze pagina vind je de link."
 
 #: templates/search.twig:23
 msgid "We also included results for "
