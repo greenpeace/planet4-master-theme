@@ -15,17 +15,19 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 		 * Create menu/submenu entry.
 		 */
 		public function create_admin_menu() {
+			$current_user = wp_get_current_user();
 
-			if ( current_user_can( 'manage_options' ) ) {
-				add_submenu_page(
-					P4ML_PLUGIN_SLUG_NAME,
-					__( 'ML Settings', 'planet4-medialibrary' ),
-					__( 'ML Settings', 'planet4-medialibrary' ),
+			if ( in_array( 'administrator', $current_user->roles, true ) || in_array( 'editor', $current_user->roles, true ) ) {
+				add_menu_page(
+					__( 'Media Library', 'planet4-medialibrary' ),
+					__( 'MediaLibrary', 'planet4-medialibrary' ),
 					'manage_options',
 					'mlsettings',
-					[ $this, 'prepare_settings' ]
+					[ $this, 'prepare_settings' ],
+					P4ML_ADMIN_DIR . 'images/logo_menu_page_16x16.png'
 				);
 			}
+
 			add_action( 'admin_init', [ $this, 'register_settings' ] );
 		}
 

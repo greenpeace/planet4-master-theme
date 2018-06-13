@@ -40,7 +40,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 		 */
 		public function __construct() {
 
-			$p4ml_settings = get_option( 'p4ml_main_settings' );
+			$p4ml_settings       = get_option( 'p4ml_main_settings' );
 			$this->ml_auth_token = $this->authenticate( $p4ml_settings['p4ml_api_username'], $p4ml_settings['p4ml_api_password'] );
 			$this->initialize();
 		}
@@ -103,9 +103,9 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 						$ml_auth_token = $body['APIResponse']['Token'];
 						// Time period in seconds to keep the ml_auth_token before refreshing. Typically 1 hour.
 						if ( isset( $body['APIResponse']['TimeoutPeriodMinutes'] ) ) {
-							$expiration     = ( int ) ( $body['APIResponse']['TimeoutPeriodMinutes'] ) * 60;
+							$expiration = ( int ) ( $body['APIResponse']['TimeoutPeriodMinutes'] ) * 60;
 						} else {
-							$expiration     = 60 * 60; // Default expirations in 1hr.
+							$expiration = 60 * 60; // Default expirations in 1hr.
 						}
 						set_transient( 'ml_auth_token', $ml_auth_token, $expiration );
 					} else {
@@ -132,7 +132,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 				'status_code'   => '',
 				'error_message' => '',
 			];
-			$media_list = [];
+			$media_list    = [];
 
 			if ( isset( $params['search_text'] ) && '' !== $params['search_text'] ) {
 				$this->search_query       = $params['search_text'];
@@ -145,7 +145,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 			if ( isset( $params['pagenumber'] ) && 0 < $params['pagenumber'] ) {
 				$this->current_page        = $params['pagenumber'];
 				$page_number['pagenumber'] = $params['pagenumber'];
-				$url = add_query_arg( $page_number, $url );
+				$url                       = add_query_arg( $page_number, $url );
 			}
 
 			// With the safe version of wp_remote_{VERB) functions, the URL is validated to avoid redirection and request forgery attacks.
@@ -214,9 +214,6 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 
 				// Filter file name for extra url params.
 				$media_details['image_url'] = str_replace( strstr( $media_details['image_url'] , '?' ), '', $media_details['image_url'] );
-
-				// TO DO: Remove it, added for testing on local only.
-				$media_details['image_url'] = str_replace( 'https', 'http', $media_details['image_url'] );
 			}
 
 			return $media_details;

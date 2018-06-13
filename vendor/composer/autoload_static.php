@@ -35,7 +35,6 @@ class ComposerStaticInit696d50de5906c4f2b7321358016aa0f7
         'P4ML\\Api\\MediaImageMapper' => __DIR__ . '/../..' . '/classes/api/class-media-image-mapper.php',
         'P4ML\\Controllers\\MediaLibraryApi_Controller' => __DIR__ . '/../..' . '/classes/controller/class-api-controller.php',
         'P4ML\\Controllers\\Menu\\Controller' => __DIR__ . '/../..' . '/classes/controller/menu/class-controller.php',
-        'P4ML\\Controllers\\Menu\\Media_Library_Controller' => __DIR__ . '/../..' . '/classes/controller/menu/class-media-library-controller.php',
         'P4ML\\Controllers\\Menu\\Settings_Controller' => __DIR__ . '/../..' . '/classes/controller/menu/class-settings-controller.php',
         'P4ML\\Controllers\\Search_Controller' => __DIR__ . '/../..' . '/classes/controller/class-search-controller.php',
         'P4ML\\Controllers\\Tab\\Controller' => __DIR__ . '/../..' . '/classes/controller/tab/class-controller.php',
