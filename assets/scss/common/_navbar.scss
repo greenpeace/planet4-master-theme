@@ -14,7 +14,7 @@ $menu-height-large: rem(60);
   justify-content: space-between;
   align-items: normal;
 
-  background: transparentize($top-nav, 0.2);
+  background: transparentize($dark-blue, 0.2);
   height: $menu-height-small;
 
   // Use (min-width: 783px) for parity with WP's .admin-bar
@@ -222,7 +222,7 @@ $menu-height-large: rem(60);
     position: absolute;
     top: 0;
     left: 0;
-    background: $deep-sea-green url("images/dropdown-gradient.svg") no-repeat;
+    background: $dark-blue url("images/dropdown-gradient.svg") no-repeat;
     overflow-y: auto;
     overflow-x: hidden;
     z-index: 2;
@@ -444,7 +444,7 @@ $menu-height-large: rem(60);
   overflow: hidden;
   transition: color 100ms;
 
-  background-color: $dark-tiber;
+  background-color: $x-dark-blue;
   @include large-and-up {
     background-color: transparent;
   }
@@ -453,7 +453,7 @@ $menu-height-large: rem(60);
     content: "";
     width: 8px;
     height: 8px;
-    background: url("images/down-arrow-green.svg") no-repeat center center;
+    background: url("images/down-arrow-blue.svg") no-repeat center center;
     background-size: contain;
     display: inline-block;
     margin-left: 10px;
@@ -470,8 +470,6 @@ $menu-height-large: rem(60);
   }
 
   &[aria-expanded="true"] {
-    background-color: $dark-tiber;
-
     &::after {
       transform: rotate(180deg);
     }
@@ -481,7 +479,7 @@ $menu-height-large: rem(60);
 .country-list {
   display: none;
   text-transform: none;
-  background: $dark-tiber;
+  background: $x-dark-blue;
   line-height: 1.5;
   padding: 1.4em 0;
   margin-top: -1px;
@@ -499,7 +497,7 @@ $menu-height-large: rem(60);
 
   a:hover,
   .active a {
-    color: $gp-green-80;
+    color: $spray;
     text-decoration: none;
   }
 
