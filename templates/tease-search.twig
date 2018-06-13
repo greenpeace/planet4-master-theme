@@ -59,10 +59,10 @@
 
 			{% if ( is_action ) %}
 				{%  set link_text = settings['take_action_covers_button_text'] %}
-				<a href="{{ post.link }}" class="btn btn-primary btn-medium btn-small">{{ link_text ?: __( 'take action', domain ) }}</a>
+				<a href="{{ post.link }}" class="btn btn-primary btn-medium btn-small">{{ link_text ?: __( 'take action', 'planet4-master-theme' ) }}</a>
 			{% elseif ( is_document ) %}
 				<a href="{{ post.guid }}" download class="btn btn-small btn-secondary">
-					<i class="icon-doc-ic"></i>{{ __( 'Download', domain ) }}
+					{{ __( 'Download', 'planet4-master-theme' ) }}
 				</a>
 			{% endif %}
 		</div>

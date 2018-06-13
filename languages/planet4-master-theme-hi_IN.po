@@ -1,10 +1,11 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-06-08 14:05+0000\n"
-"Language-Team: English (UK)\n"
+"PO-Revision-Date: 2018-06-08 10:53+0000\n"
+"Last-Translator: dev <kdiamant@greenpeace.org>\n"
+"Language-Team: Hindi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,10 +17,9 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: dev <kdiamant@greenpeace.org>\n"
-"Language: en_GB\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+"Language: hi_IN\n"
 "Report-Msgid-Bugs-To: "
 
 #: single.php:47
@@ -28,15 +28,15 @@ msgstr ""
 
 #: single.php:76
 msgid "Leave Your Reply"
-msgstr ""
+msgstr "अपना उत्तर छोड़ दो"
 
 #: 404.php:30
 msgid "Sorry, we can't find that page!"
-msgstr ""
+msgstr "क्षमा करें, हम उस पृष्ठ को नहीं ढूंढ सकते!"
 
 #: 404.php:31
 msgid "Enter your search term below"
-msgstr ""
+msgstr "नीचे अपना खोज शब्द दर्ज करें"
 
 #: 404.php:32
 msgid "404 Page"
@@ -48,15 +48,15 @@ msgstr ""
 
 #: tag.php:64
 msgid "Things you can do"
-msgstr ""
+msgstr "चीज़ें जो आप कर सकते हों"
 
 #: tag.php:65
 msgid "We want you to take action because together we're strong."
-msgstr ""
+msgstr "हम चाहते हैं कि आप कार्रवाई करें क्योंकि एक साथ हम मजबूत हैं।"
 
 #: tag.php:81
 msgid "Related Campaigns"
-msgstr ""
+msgstr "संबंधित अभियान"
 
 #: tag.php:82
 msgid "This Campaign is not assigned to an Issue"
@@ -64,11 +64,11 @@ msgstr ""
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr ""
+msgstr "सबसे ज़रूरी"
 
 #: functions.php:89
 msgid "Most recent"
-msgstr ""
+msgstr "सबसे हाल का"
 
 #: functions.php:287
 msgid "International (English)"
@@ -83,20 +83,20 @@ msgstr ""
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$d के लिए '%2$s' परिणाम"
+msgstr[1] "%1$d के लिए '%2$s' परिणाम"
 
 #. translators:
 #: classes/class-p4-search.php:418
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d परिणाम"
+msgstr[1] "%d परिणाम"
 
 #: classes/class-p4-search.php:478
 msgid "Action"
-msgstr ""
+msgstr "कार्रवाई"
 
 #: classes/class-p4-search.php:482
 msgid "Document"
@@ -112,7 +112,7 @@ msgstr ""
 
 #: classes/class-p4-search.php:570
 msgid "ACTION"
-msgstr ""
+msgstr "कार्रवाई"
 
 #: classes/class-p4-search.php:574
 msgid "PAGE"
@@ -129,7 +129,7 @@ msgstr ""
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr ""
+msgstr "%s और परिणाम दिखाएं"
 
 #. Name of the template
 msgid "Evergreen Page"
@@ -141,19 +141,19 @@ msgstr ""
 
 #: page-templates/sitemap.php:31
 msgid "Act"
-msgstr ""
+msgstr "अधिनियम"
 
 #: page-templates/sitemap.php:32
 msgid "Explore"
-msgstr ""
+msgstr "अन्वेषण"
 
 #: page-templates/sitemap.php:33
 msgid "About Greenpeace"
-msgstr ""
+msgstr "ग्रीनपीस के बारे में"
 
 #: page-templates/sitemap.php:34
 msgid "Articles"
-msgstr ""
+msgstr "सामग्री"
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
@@ -181,7 +181,7 @@ msgstr ""
 
 #: templates/navigation-bar.twig:66 templates/search.twig:44
 msgid "Search"
-msgstr ""
+msgstr "खोज"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
@@ -293,7 +293,7 @@ msgstr ""
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr ""
+msgstr "लेखक के बारे में"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
@@ -309,7 +309,7 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
-msgstr ""
+msgstr "ग्रीनपीस इंटरनेशनल"
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/greenpeace"

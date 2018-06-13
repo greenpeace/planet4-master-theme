@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle>
+    <domain name="planet4-master-theme">
+        <project name="Planet4 Master Theme frontend">
+            <source>
+            </source>
+            <target>
+                <directory>languages</directory>
+            </target>
+            <template>
+                <file>languages/planet4-master-theme.pot</file>
+            </template>
+        </project>
+    </domain>
+    <domain name="planet4-master-theme-backend">
+        <project name="Planet4 Master Theme backend">
+            <source>
+            </source>
+            <target>
+                <directory>languages</directory>
+            </target>
+            <template>
+                <file>languages/planet4-master-theme-backend.pot</file>
+            </template>
+        </project>
+    </domain>
+</bundle>

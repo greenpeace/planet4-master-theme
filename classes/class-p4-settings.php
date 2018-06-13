@@ -36,34 +36,34 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		public function __construct() {
 
 			// Set our title
-			$this->title   = __( 'Planet4', 'planet4-master-theme' );
+			$this->title   = __( 'Planet4', 'planet4-master-theme-backend' );
 
 			$this->fields = [
 				[
-					'name'    => __( 'Website Navigation Title', 'planet4-master-theme' ),
+					'name'    => __( 'Website Navigation Title', 'planet4-master-theme-backend' ),
 					'id'      => 'website_navigation_title',
 					'type'    => 'text',
 				],
 				[
-					'name'    => __( 'Select Act Page', 'planet4-master-theme' ),
+					'name'    => __( 'Select Act Page', 'planet4-master-theme-backend' ),
 					'id'      => 'act_page',
 					'type'    => 'act_page_dropdown',
 				],
 
 				[
-					'name'    => __( 'Select Explore Page', 'planet4-master-theme' ),
+					'name'    => __( 'Select Explore Page', 'planet4-master-theme-backend' ),
 					'id'      => 'explore_page',
 					'type'    => 'explore_page_dropdown',
 				],
 
 				[
-					'name'    => __( 'Select Issues Parent Category', 'planet4-master-theme' ),
+					'name'    => __( 'Select Issues Parent Category', 'planet4-master-theme-backend' ),
 					'id'      => 'issues_parent_category',
 					'type'    => 'category_select_taxonomy',
 				],
 
 				[
-					'name'    => __( 'Copyright Text Line 1', 'planet4-master-theme' ),
+					'name'    => __( 'Copyright Text Line 1', 'planet4-master-theme-backend' ),
 					'id'      => 'copyright_line1',
 					'type'    => 'wysiwyg',
 					'options' => [
@@ -73,7 +73,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name'    => __( 'Copyright Text Line 2', 'planet4-master-theme' ),
+					'name'    => __( 'Copyright Text Line 2', 'planet4-master-theme-backend' ),
 					'id'      => 'copyright_line2',
 					'type'    => 'wysiwyg',
 					'options' => [
@@ -83,19 +83,19 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name'    => __( 'Google Tag Manager Identifier', 'planet4-master-theme' ),
+					'name'    => __( 'Google Tag Manager Identifier', 'planet4-master-theme-backend' ),
 					'id'      => 'google_tag_manager_identifier',
 					'type'    => 'text',
 				],
 
 				[
-					'name'    => __( 'Engaging Network ID', 'planet4-master-theme' ),
+					'name'    => __( 'Engaging Network ID', 'planet4-master-theme-backend' ),
 					'id'      => 'engaging_network_form_id',
 					'type'    => 'text',
 				],
 
 				[
-					'name'    => __( 'Cookies Text', 'planet4-master-theme' ),
+					'name'    => __( 'Cookies Text', 'planet4-master-theme-backend' ),
 					'id'      => 'cookies_field',
 					'type'    => 'wysiwyg',
 					'options' => [
@@ -105,42 +105,42 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name'    => __( 'Default title for related articles block', 'planet4-master-theme' ),
+					'name'    => __( 'Default title for related articles block', 'planet4-master-theme-backend' ),
 					'id'      => 'articles_block_title',
 					'type'    => 'text',
-					'desc'    => __( 'If no title set for <b>Article Block</b>, the default title will appear.' ),
+					'desc'    => __( 'If no title set for <b>Article Block</b>, the default title will appear.', 'planet4-master-theme-backend' ),
 				],
 
 				[
-					'name'    => __( 'Default button title for related articles block', 'planet4-master-theme' ),
+					'name'    => __( 'Default button title for related articles block', 'planet4-master-theme-backend' ),
 					'id'      => 'articles_block_button_title',
 					'type'    => 'text',
-					'desc'    => __( 'If no button title set for <b>Article Block</b>, the default button title will appear.' ),
+					'desc'    => __( 'If no button title set for <b>Article Block</b>, the default button title will appear.', 'planet4-master-theme-backend' ),
 				],
 
 				[
-					'name'       => __( 'Default Number Of Related Articles', 'planet4-master-theme' ),
+					'name'       => __( 'Default Number Of Related Articles', 'planet4-master-theme-backend' ),
 					'id'         => 'articles_count',
 					'type'       => 'text',
 					'attributes' => array(
 						'type' => 'number',
 					),
-					'desc'       => __( 'If no number of Related Articles set for <b>Article Block</b>, the default number of Related Articles will appear.' ),
+					'desc'       => __( 'If no number of Related Articles set for <b>Article Block</b>, the default number of Related Articles will appear.', 'planet4-master-theme-backend' ),
 				],
 
 				[
-					'name'       => __( 'Take Action Covers default button text', 'planet4-master-theme' ),
+					'name'       => __( 'Take Action Covers default button text', 'planet4-master-theme-backend' ),
 					'id'         => 'take_action_covers_button_text',
 					'type'       => 'text',
 					'attributes' => array(
 						'type' => 'text',
 					),
 					'desc'       => __( 'Add default button text which appears on <b>Take Action</b> card of <b>Take Action Covers</b> block. <br>
-					                     Also it would be used for Take Action Cards inside Posts and Take Action Cards in search results', 'planet4-master-theme' ),
+					                     Also it would be used for Take Action Cards inside Posts and Take Action Cards in search results', 'planet4-master-theme-backend' ),
 				],
 
 				[
-					'name'       => __( 'Donate button link', 'planet4-master-theme' ),
+					'name'       => __( 'Donate button link', 'planet4-master-theme-backend' ),
 					'id'         => 'donate_button',
 					'type'       => 'text',
 					'attributes' => [
@@ -149,56 +149,56 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name'       => __( '404 Background Image', 'planet4-master-theme' ),
+					'name'       => __( '404 Background Image', 'planet4-master-theme-backend' ),
 					'id'         => '404_page_bg_image',
 					'type'       => 'file',
 					'options'    => [
 						'url' => false,
 					],
 					'text'       => [
-						'add_upload_file_text' => __( 'Add 404 Page Background Image', 'planet4-master-theme' ),
+						'add_upload_file_text' => __( 'Add 404 Page Background Image', 'planet4-master-theme-backend' ),
 					],
 					'query_args' => [
 						'type' => 'image',
 					],
-					'desc'       => __( 'Minimum image width should be 1920px', 'planet4-master-theme' ),
+					'desc'       => __( 'Minimum image width should be 1920px', 'planet4-master-theme-backend' ),
 				],
 
 				[
-					'name'    => __( '404 Page text', 'planet4-master-theme' ),
+					'name'    => __( '404 Page text', 'planet4-master-theme-backend' ),
 					'id'      => '404_page_text',
 					'type'    => 'wysiwyg',
 					'options' => [
 						'textarea_rows' => 3,
 						'media_buttons' => false,
 					],
-					'desc'    => __( 'Add 404 page text', 'planet4-master-theme' ),
+					'desc'    => __( 'Add 404 page text', 'planet4-master-theme-backend' ),
 				],
 
 				[
-					'name'    => __( 'Default p4-pagetype', 'planet4-master-theme' ),
+					'name'    => __( 'Default p4-pagetype', 'planet4-master-theme-backend' ),
 					'id'      => 'default_p4_pagetype',
 					'type'    => 'pagetype_select_taxonomy',
 				],
 
 				[
-					'name'       => __( 'Default Happy Point Background Image', 'planet4-master-theme' ),
+					'name'       => __( 'Default Happy Point Background Image', 'planet4-master-theme-backend' ),
 					'id'         => 'happy_point_bg_image',
 					'type'       => 'file',
 					'options'    => [
 						'url' => false,
 					],
 					'text'       => [
-						'add_upload_file_text' => __( 'Add Default Happy Point Background Image', 'planet4-master-theme' ),
+						'add_upload_file_text' => __( 'Add Default Happy Point Background Image', 'planet4-master-theme-backend' ),
 					],
 					'query_args' => [
 						'type' => 'image',
 					],
-					'desc'       => __( 'Minimum image width should be 1920px', 'planet4-master-theme' ),
+					'desc'       => __( 'Minimum image width should be 1920px', 'planet4-master-theme-backend' ),
 				],
 				[
-					'name'       => __( 'Enforce Cookies Policy', 'planet4-master-theme' ),
-					'desc' => 'GDPR related setting. By enabling this option specific content will be blocked and will require user consent to be shown.',
+					'name'       => __( 'Enforce Cookies Policy', 'planet4-master-theme-backend' ),
+					'desc' => __('GDPR related setting. By enabling this option specific content will be blocked and will require user consent to be shown.', 'planet4-master-theme-backend'),
 					'id'   => 'enforce_cookies_policy',
 					'type' => 'checkbox',
 				],
@@ -242,7 +242,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		 */
 		public function p4_render_act_page_dropdown( $field_args, $value ) {
 			wp_dropdown_pages( [
-					'show_option_none' => __( 'Select Page', 'planet4-master-theme' ),
+					'show_option_none' => __( 'Select Page', 'planet4-master-theme-backend' ),
 					'hide_empty'       => 0,
 					'hierarchical'     => true,
 					'selected'         => $value ,
@@ -256,7 +256,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		 */
 		public function p4_render_explore_page_dropdown( $field_args, $value ) {
 			wp_dropdown_pages( [
-					'show_option_none' => __( 'Select Page', 'planet4-master-theme' ),
+					'show_option_none' => __( 'Select Page', 'planet4-master-theme-backend' ),
 					'hide_empty'       => 0,
 					'hierarchical'     => true,
 					'selected'         => $value ,
@@ -271,7 +271,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		public function p4_render_category_dropdown( $field_args, $value ) {
 
 			wp_dropdown_categories( [
-					'show_option_none' => __( 'Select Category', 'planet4-master-theme' ),
+					'show_option_none' => __( 'Select Category', 'planet4-master-theme-backend' ),
 					'hide_empty'       => 0,
 					'hierarchical'     => true,
 					'orderby'          => 'name',
@@ -290,7 +290,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		public function p4_render_pagetype_dropdown( $field_args, $value ) {
 
 			wp_dropdown_categories( [
-					'show_option_none' => __( 'Select Pagetype', 'planet4-master-theme' ),
+					'show_option_none' => __( 'Select Pagetype', 'planet4-master-theme-backend' ),
 					'hide_empty'       => 0,
 					'orderby'          => 'name',
 					'selected'         => $value ,

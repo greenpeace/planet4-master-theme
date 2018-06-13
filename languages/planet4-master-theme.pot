@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2018-05-28 16:17+0300\n"
-"PO-Revision-Date: 2018-05-28 16:15+0300\n"
+"POT-Creation-Date: 2018-06-08 09:06+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.7\n"
+"X-Generator: Loco https://localise.biz/\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: style.css\n"
@@ -20,6 +20,15 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+"Language: "
+
+#: single.php:47
+msgid "Post page"
+msgstr ""
+
+#: single.php:76
+msgid "Leave Your Reply"
+msgstr ""
 
 #: 404.php:30
 msgid "Sorry, we can't find that page!"
@@ -31,489 +40,6 @@ msgstr ""
 
 #: 404.php:32
 msgid "404 Page"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:41
-msgid "Planet 4 Control Panel"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:53
-msgid "Cache"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:56
-msgid "Flush Object Cache"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:58
-msgid "Are you sure you want to delete all Object Cache keys?"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:61
-msgid "Check Object Cache"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:68
-msgid "Engaging Networks"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:71
-msgid "Check Engaging Networks"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:78 templates/navigation-bar.twig:61
-#: templates/navigation-bar.twig:66 templates/search.twig:31
-#: templates/search.twig:44
-msgid "Search"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:81
-msgid "Check Search Indexer"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:126
-msgid "Object Cache flushed"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:129
-msgid "Object Cache did not flush"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:165
-msgid "Planet 4 is connected to Redis."
-msgstr ""
-
-#: classes/class-p4-control-panel.php:201
-msgid "Success"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:248
-msgid "Indexer has stalled"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:251
-msgid "Indexer is awake"
-msgstr ""
-
-#: classes/class-p4-custom-taxonomy.php:42
-msgid "P4 page type (A p4 page type term.)"
-msgstr ""
-
-#: classes/class-p4-custom-taxonomy.php:148
-msgctxt "taxonomy general name"
-msgid "Page Types"
-msgstr ""
-
-#: classes/class-p4-custom-taxonomy.php:149
-msgctxt "taxonomy singular name"
-msgid "Page Type"
-msgstr ""
-
-#: classes/class-p4-custom-taxonomy.php:150
-msgid "Search in Page Type"
-msgstr ""
-
-#: classes/class-p4-custom-taxonomy.php:151
-msgid "All Page Types"
-msgstr ""
-
-#: classes/class-p4-custom-taxonomy.php:155
-msgid "Edit Page Type"
-msgstr ""
-
-#: classes/class-p4-custom-taxonomy.php:156
-msgid "Update Page Type"
-msgstr ""
-
-#: classes/class-p4-custom-taxonomy.php:157
-msgid "Add new Page Type"
-msgstr ""
-
-#: classes/class-p4-custom-taxonomy.php:158
-msgid "New Page Type"
-msgstr ""
-
-#: classes/class-p4-custom-taxonomy.php:159
-msgid "Page Types"
-msgstr ""
-
-#: classes/class-p4-post-report-controller.php:59
-#: classes/class-p4-post-report-controller.php:60
-msgid "Posts Report"
-msgstr ""
-
-#: classes/class-p4-post-report-controller.php:76
-msgid "The date query column."
-msgstr ""
-
-#: classes/class-p4-search.php:407
-msgid "Search page"
-msgstr ""
-
-#: classes/class-p4-search.php:410
-#, php-format
-msgid "%1$d results for '%2$s'"
-msgstr ""
-
-#: classes/class-p4-search.php:412
-#, php-format
-msgid "%d results"
-msgstr ""
-
-#: classes/class-p4-search.php:472
-msgid "Action"
-msgstr ""
-
-#: classes/class-p4-search.php:476
-msgid "Document"
-msgstr ""
-
-#: classes/class-p4-search.php:480
-msgid "Page"
-msgstr ""
-
-#: classes/class-p4-search.php:484
-msgid "Post"
-msgstr ""
-
-#: classes/class-p4-search.php:564
-msgid "ACTION"
-msgstr ""
-
-#: classes/class-p4-search.php:568
-msgid "PAGE"
-msgstr ""
-
-#: classes/class-p4-search.php:574
-msgid "DOCUMENT"
-msgstr ""
-
-#: classes/class-p4-search.php:579
-msgid "POST"
-msgstr ""
-
-#: classes/class-p4-search.php:654
-#, php-format
-msgid "SHOW %s MORE RESULTS"
-msgstr ""
-
-#: classes/class-p4-settings.php:39
-msgid "Planet4"
-msgstr ""
-
-#: classes/class-p4-settings.php:43
-msgid "Website Navigation Title"
-msgstr ""
-
-#: classes/class-p4-settings.php:48
-msgid "Select Act Page"
-msgstr ""
-
-#: classes/class-p4-settings.php:54
-msgid "Select Explore Page"
-msgstr ""
-
-#: classes/class-p4-settings.php:60
-msgid "Select Issues Parent Category"
-msgstr ""
-
-#: classes/class-p4-settings.php:66
-msgid "Copyright Text Line 1"
-msgstr ""
-
-#: classes/class-p4-settings.php:76
-msgid "Copyright Text Line 2"
-msgstr ""
-
-#: classes/class-p4-settings.php:86
-msgid "Google Tag Manager Identifier"
-msgstr ""
-
-#: classes/class-p4-settings.php:92
-msgid "Engaging Network ID"
-msgstr ""
-
-#: classes/class-p4-settings.php:98
-msgid "Cookies Text"
-msgstr ""
-
-#: classes/class-p4-settings.php:108
-msgid "Default title for related articles block"
-msgstr ""
-
-#: classes/class-p4-settings.php:111
-msgid ""
-"If no title set for <b>Article Block</b>, the default title will appear."
-msgstr ""
-
-#: classes/class-p4-settings.php:115
-msgid "Default button title for related articles block"
-msgstr ""
-
-#: classes/class-p4-settings.php:118
-msgid ""
-"If no button title set for <b>Article Block</b>, the default button title "
-"will appear."
-msgstr ""
-
-#: classes/class-p4-settings.php:122
-msgid "Default Number Of Related Articles"
-msgstr ""
-
-#: classes/class-p4-settings.php:128
-msgid ""
-"If no number of Related Articles set for <b>Article Block</b>, the default "
-"number of Related Articles will appear."
-msgstr ""
-
-#: classes/class-p4-settings.php:132
-msgid "Take Action Covers default button text"
-msgstr ""
-
-#: classes/class-p4-settings.php:138
-msgid ""
-"Add default button text which appears on <b>Take Action</b> card of <b>Take "
-"Action Covers</b> block. <br>\n"
-"\t\t\t\t\t                     Also it would be used for Take Action Cards "
-"inside Posts and Take Action Cards in search results"
-msgstr ""
-
-#: classes/class-p4-settings.php:143
-msgid "Donate button link"
-msgstr ""
-
-#: classes/class-p4-settings.php:152
-msgid "404 Background Image"
-msgstr ""
-
-#: classes/class-p4-settings.php:159
-msgid "Add 404 Page Background Image"
-msgstr ""
-
-#: classes/class-p4-settings.php:164 classes/class-p4-settings.php:197
-msgid "Minimum image width should be 1920px"
-msgstr ""
-
-#: classes/class-p4-settings.php:168
-msgid "404 Page text"
-msgstr ""
-
-#: classes/class-p4-settings.php:175
-msgid "Add 404 page text"
-msgstr ""
-
-#: classes/class-p4-settings.php:179
-msgid "Default p4-pagetype"
-msgstr ""
-
-#: classes/class-p4-settings.php:185
-msgid "Default Happy Point Background Image"
-msgstr ""
-
-#: classes/class-p4-settings.php:192
-msgid "Add Default Happy Point Background Image"
-msgstr ""
-
-#: classes/class-p4-settings.php:240 classes/class-p4-settings.php:254
-msgid "Select Page"
-msgstr ""
-
-#: classes/class-p4-settings.php:269
-msgid "Select Category"
-msgstr ""
-
-#: classes/class-p4-settings.php:288
-msgid "Select Pagetype"
-msgstr ""
-
-#: classes/class-p4-taxonomy-image.php:19
-msgid "Select Image"
-msgstr ""
-
-#: classes/class-p4-taxonomy-image.php:59
-#: classes/class-p4-taxonomy-image.php:98
-#: classes/class-p4-taxonomy-image.php:154
-msgid "Image"
-msgstr ""
-
-#: classes/class-p4-taxonomy-image.php:65
-#: classes/class-p4-taxonomy-image.php:80
-#: classes/class-p4-taxonomy-image.php:102
-msgid "Select/Upload Image"
-msgstr ""
-
-#: classes/class-p4-taxonomy-image.php:67
-#: classes/class-p4-taxonomy-image.php:104
-msgid "Associate this tag with an image."
-msgstr ""
-
-#: classes/class-p4-taxonomy-image.php:74
-msgid "Image Subscribe"
-msgstr ""
-
-#: classes/class-p4-taxonomy-image.php:82
-msgid "Choose a background image for the Subscribe block."
-msgstr ""
-
-#: classes/class-p4-taxonomy-image.php:89
-msgid "Happy Point Opacity"
-msgstr ""
-
-#: classes/class-p4-taxonomy-image.php:93
-msgid ""
-"We use an overlay to fade the image back. Use a number between 1 and 100, "
-"the higher the number, the more faded the image will look. If you leave this "
-"empty, the default of 30 will be used."
-msgstr ""
-
-#: functions.php:85
-msgid "Most relevant"
-msgstr ""
-
-#: functions.php:89
-msgid "Most recent"
-msgstr ""
-
-#: functions.php:144
-msgid "Navigation Bar Menu"
-msgstr ""
-
-#: functions.php:266
-msgid "International (English)"
-msgstr ""
-
-#: functions.php:424
-msgid "Weight (1-30)"
-msgstr ""
-
-#: functions.php:620
-msgid "Page Header Fields"
-msgstr ""
-
-#: functions.php:625
-msgid "Header Title"
-msgstr ""
-
-#: functions.php:626
-msgid "Header title comes here"
-msgstr ""
-
-#: functions.php:633
-msgid "Header Subtitle"
-msgstr ""
-
-#: functions.php:634
-msgid "Header subtitle comes here"
-msgstr ""
-
-#: functions.php:642
-msgid "Header Description"
-msgstr ""
-
-#: functions.php:643
-msgid "Header description comes here"
-msgstr ""
-
-#: functions.php:655
-msgid "Header Button Title"
-msgstr ""
-
-#: functions.php:656
-msgid "Header button title comes here"
-msgstr ""
-
-#: functions.php:664
-msgid "Header Button Link"
-msgstr ""
-
-#: functions.php:665
-msgid "Header button link comes here"
-msgstr ""
-
-#: functions.php:673
-msgid "Background overide"
-msgstr ""
-
-#: functions.php:674
-msgid "Upload an image"
-msgstr ""
-
-#: functions.php:682
-msgid "Add Background Image"
-msgstr ""
-
-#: functions.php:693
-msgid "Post Articles Element Fields"
-msgstr ""
-
-#: functions.php:698
-msgid "Author Override"
-msgstr ""
-
-#: functions.php:699
-msgid "Enter author name if you want to override the author"
-msgstr ""
-
-#: functions.php:705
-msgid "Take Action Page Selector"
-msgstr ""
-
-#: functions.php:706
-msgid "Select a Take Action Page to populate take action boxout block"
-msgstr ""
-
-#: functions.php:714
-msgid "Include Articles In Post"
-msgstr ""
-
-#: functions.php:724
-msgid "Background Image Override"
-msgstr ""
-
-#: functions.php:725
-msgid ""
-"Upload an image or select one from the media library to override the "
-"background image"
-msgstr ""
-
-#: functions.php:732
-msgid "Add Image"
-msgstr ""
-
-#: functions.php:748
-msgid "Tags"
-msgstr ""
-
-#: functions.php:777
-msgid "Add Page Element"
-msgstr ""
-
-#: functions.php:827
-msgid "Your role does not have permission to add terms to this taxonomy"
-msgstr ""
-
-#: page-templates/sitemap.php:31
-msgid "Act"
-msgstr ""
-
-#: page-templates/sitemap.php:32
-msgid "Explore"
-msgstr ""
-
-#: page-templates/sitemap.php:33
-msgid "About Greenpeace"
-msgstr ""
-
-#: page-templates/sitemap.php:34
-msgid "Articles"
-msgstr ""
-
-#: single.php:47
-msgid "Post page"
-msgstr ""
-
-#: single.php:76
-msgid "Leave Your Reply"
 msgstr ""
 
 #: tag.php:58
@@ -536,61 +62,97 @@ msgstr ""
 msgid "This Campaign is not assigned to an Issue"
 msgstr ""
 
-#: tests/test-custom-permalinks.php:17
+#: functions.php:85
+msgid "Most relevant"
+msgstr ""
+
+#: functions.php:89
+msgid "Most recent"
+msgstr ""
+
+#: functions.php:287
+msgid "International (English)"
+msgstr ""
+
+#: classes/class-p4-search.php:407
+msgid "Search page"
+msgstr ""
+
+#. translators:
+#: classes/class-p4-search.php:412
 #, php-format
-msgid "%s (The year of the post, four digits, for example 2004.)"
+msgid "%1$d result for '%2$s'"
+msgid_plural "%1$d results for '%2$s'"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators:
+#: classes/class-p4-search.php:418
+#, php-format
+msgid "%d result"
+msgid_plural "%d results"
+msgstr[0] ""
+msgstr[1] ""
+
+#: classes/class-p4-search.php:478
+msgid "Action"
 msgstr ""
 
-#: templates/blocks/author_profile.twig:4
-msgid "about the author"
+#: classes/class-p4-search.php:482
+msgid "Document"
 msgstr ""
 
-#: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
-msgid "Share on"
+#: classes/class-p4-search.php:486
+msgid "Page"
 msgstr ""
 
-#: templates/blocks/share_buttons.twig:21
-msgid "Share via"
+#: classes/class-p4-search.php:490
+msgid "Post"
 msgstr ""
 
-#: templates/comment_form/author_field.twig:2
-msgid "Name"
+#: classes/class-p4-search.php:570
+msgid "ACTION"
 msgstr ""
 
-#: templates/comment_form/author_field.twig:3
-msgid "Your Name"
+#: classes/class-p4-search.php:574
+msgid "PAGE"
 msgstr ""
 
-#: templates/comment_form/comment_field.twig:2
-msgid "Comment"
+#: classes/class-p4-search.php:580
+msgid "DOCUMENT"
 msgstr ""
 
-#: templates/comment_form/comment_field.twig:3
-msgid "Your Comment"
+#: classes/class-p4-search.php:585
+msgid "POST"
 msgstr ""
 
-#: templates/comment_form/email_field.twig:2
-msgid "Email"
+#: classes/class-p4-search.php:660
+#, php-format
+msgid "SHOW %s MORE RESULTS"
 msgstr ""
 
-#: templates/comment_form/email_field.twig:3
-msgid "Your Email"
+#. Name of the template
+msgid "Evergreen Page"
 msgstr ""
 
-#: templates/comment_form/submit_button.twig:1
-msgid "Post Comment"
+#. Name of the template
+msgid "Sitemap Page"
 msgstr ""
 
-#: templates/comments_section.twig:2
-msgid "Comments"
+#: page-templates/sitemap.php:31
+msgid "Act"
 msgstr ""
 
-#: templates/comments_section.twig:8
-msgid "Discussion"
+#: page-templates/sitemap.php:32
+msgid "Explore"
 msgstr ""
 
-#: templates/cookies.twig:8
-msgid "GOT IT!"
+#: page-templates/sitemap.php:33
+msgid "About Greenpeace"
+msgstr ""
+
+#: page-templates/sitemap.php:34
+msgid "Articles"
 msgstr ""
 
 #: templates/navigation-bar.twig:13
@@ -615,6 +177,14 @@ msgstr ""
 
 #: templates/navigation-bar.twig:58
 msgid "Toggle search form"
+msgstr ""
+
+#: templates/navigation-bar.twig:66 templates/search.twig:44
+msgid "Search"
+msgstr ""
+
+#: templates/cookies.twig:8
+msgid "GOT IT!"
 msgstr ""
 
 #: templates/search.twig:15
@@ -709,10 +279,6 @@ msgstr ""
 msgid "Suggested search terms"
 msgstr ""
 
-#: templates/single.twig:39
-msgid "by"
-msgstr ""
-
 #: templates/tease-search.twig:62
 msgid "take action"
 msgstr ""
@@ -721,16 +287,24 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
+#: templates/single.twig:39
+msgid "by"
+msgstr ""
+
+#: templates/blocks/author_profile.twig:4
+msgid "about the author"
+msgstr ""
+
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
 msgstr ""
 
-#. Theme URI of the plugin/theme
-msgid "https://github.com/greenpeace/planet4-master-theme"
-msgstr ""
-
 #. Description of the plugin/theme
 msgid "Master theme for the Planet 4 Wordpress project"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr ""
 
 #. Author of the plugin/theme
@@ -739,12 +313,4 @@ msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/greenpeace"
-msgstr ""
-
-#. Template Name of the plugin/theme
-msgid "Evergreen Page */"
-msgstr ""
-
-#. Template Name of the plugin/theme
-msgid "Sitemap Page */"
 msgstr ""

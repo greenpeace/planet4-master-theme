@@ -38,7 +38,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		public function add_dashboard_widgets() {
 			wp_add_dashboard_widget(
 				'planet4_control_panel',
-				__( 'Planet 4 Control Panel', 'planet4-master-theme' ),
+				__( 'Planet 4 Control Panel', 'planet4-master-theme-backend' ),
 				array( $this, 'add_items' )
 			);
 		}
@@ -50,35 +50,35 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 			wp_nonce_field( 'cp-action' );
 
 			$this->add_item( [
-				'title'    => __( 'Cache', 'planet4-master-theme' ),
+				'title'    => __( 'Cache', 'planet4-master-theme-backend' ),
 				'subitems' => [
 					[
-						'title'   => __( 'Flush Object Cache', 'planet4-master-theme' ),
+						'title'   => __( 'Flush Object Cache', 'planet4-master-theme-backend' ),
 						'action'  => 'flush_cache',
-						'confirm' => __( 'Are you sure you want to delete all Object Cache keys?', 'planet4-master-theme' ),
+						'confirm' => __( 'Are you sure you want to delete all Object Cache keys?', 'planet4-master-theme-backend' ),
 					],
 					[
-						'title'  => __( 'Check Object Cache', 'planet4-master-theme' ),
+						'title'  => __( 'Check Object Cache', 'planet4-master-theme-backend' ),
 						'action' => 'check_cache',
 					],
 				],
 			] );
 
 			$this->add_item( [
-				'title'    => __( 'Engaging Networks', 'planet4-master-theme' ),
+				'title'    => __( 'Engaging Networks', 'planet4-master-theme-backend' ),
 				'subitems' => [
 					[
-						'title'  => __( 'Check Engaging Networks', 'planet4-master-theme' ),
+						'title'  => __( 'Check Engaging Networks', 'planet4-master-theme-backend' ),
 						'action' => 'check_engaging_networks',
 					],
 				],
 			] );
 
 			$this->add_item( [
-				'title'    => __( 'Search', 'planet4-master-theme' ),
+				'title'    => __( 'Search', 'planet4-master-theme-backend' ),
 				'subitems' => [
 					[
-						'title'  => __( 'Check Search Indexer', 'planet4-master-theme' ),
+						'title'  => __( 'Check Search Indexer', 'planet4-master-theme-backend' ),
 						'action' => 'check_search_indexer',
 					],
 				],
@@ -123,10 +123,10 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 
 					// If cache flush was successful.
 					if ( wp_cache_flush() ) {
-						$response['message'] = __( 'Object Cache flushed', 'planet4-master-theme' );
+						$response['message'] = __( 'Object Cache flushed', 'planet4-master-theme-backend' );
 						$response['class']   = 'cp-success';
 					} else {
-						$response['message'] = __( 'Object Cache did not flush', 'planet4-master-theme' );
+						$response['message'] = __( 'Object Cache did not flush', 'planet4-master-theme-backend' );
 						$response['class']   = 'cp-error';
 					}
 
@@ -162,7 +162,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 							$response['class']   = 'cp-error';
 						}
 					} elseif ( 'connected' === $info['status'] ) {
-						$response['message'] = __( 'Planet 4 is connected to Redis.', 'planet4-master-theme' );
+						$response['message'] = __( 'Planet 4 is connected to Redis.', 'planet4-master-theme-backend' );
 						$response['class']   = 'cp-success';
 					}
 
@@ -198,7 +198,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 						$ens_response      = $ens_api->authenticate( $ens_private_token );
 
 						if ( is_array( $ens_response ) && $ens_response['body'] ) {
-							$response['message'] = __( 'Success', 'planet4-master-theme' );
+							$response['message'] = __( 'Success', 'planet4-master-theme-backend' );
 							$response['class']   = 'cp-success';
 						} elseif ( is_string( $ens_response ) ) {
 							$response['message'] = $ens_response;
@@ -245,10 +245,10 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 							( current_time( 'timestamp' ) > $last_activity + absint( $threshold ) )
 							&& ! $running && ! $doing_delta && ! $busy
 						) {
-							$response['message'] = __( 'Indexer has stalled', 'planet4-master-theme' );
+							$response['message'] = __( 'Indexer has stalled', 'planet4-master-theme-backend' );
 							$response['class']   = 'cp-error';
 						} else {
-							$response['message'] = __( 'Indexer is awake', 'planet4-master-theme' );
+							$response['message'] = __( 'Indexer is awake', 'planet4-master-theme-backend' );
 							$response['class']   = 'cp-success';
 						}
 					}
