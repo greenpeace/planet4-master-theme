@@ -335,6 +335,15 @@ class P4_Master_Site extends TimberSite {
 			'allowfullscreen' => true,
 		];
 
+		// Allow blockquote and the following attributes. (trigger: allow instagram embeds)
+		$allowedposttags['blockquote'] = [
+			'style'                  => true,
+			'data-instgrm-captioned' => true,
+			'data-instgrm-permalink' => true,
+			'data-instgrm-version'   => true,
+			'class'                  => true,
+		];
+
 		// Allow img and the following attributes.
 		$allowedposttags['img'] = [
 			'alt'    => true,
