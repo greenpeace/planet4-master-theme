@@ -126,6 +126,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'do_meta_boxes',            array( $this, 'remove_default_tags_box' ) );
 		add_action( 'pre_insert_term',          array( $this, 'disallow_insert_term' ), 1, 2 );
 		add_filter( 'wp_image_editors',         array( $this, 'allowedEditors' ) );
+		add_filter( 'jpeg_quality',             function( $arg ) { return 60; } );
 		add_action( 'after_setup_theme',        array( $this, 'add_image_sizes' ) );
 		add_action( 'admin_head' ,              array( $this, 'remove_add_post_element' ) );
 		add_filter( 'post_gallery',             array( $this, 'carousel_post_gallery' ), 10, 2 );
