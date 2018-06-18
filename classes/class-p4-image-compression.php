@@ -34,9 +34,6 @@ if ( ! class_exists( 'P4_Image_Compression' ) ) {
 					if ( is_callable( array( $this->image, 'unsharpMaskImage' ) ) ) {
 						$this->image->unsharpMaskImage( 1, 0.45, 3, 0 );
 					}
-//					if ( is_callable( array( $this->image, 'adaptiveSharpenImage' ) ) ) {
-//						$this->image->adaptiveSharpenImage( 5, 1.5 );
-//					}
 				}
 			} catch ( Exception $e ) {
 				return new WP_Error( 'image_sharpening_error', $e->getMessage() );
