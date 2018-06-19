@@ -126,7 +126,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'do_meta_boxes',            array( $this, 'remove_default_tags_box' ) );
 		add_action( 'pre_insert_term',          array( $this, 'disallow_insert_term' ), 1, 2 );
 		add_filter( 'wp_image_editors',         array( $this, 'allowedEditors' ) );
-		add_filter( 'jpeg_quality',             function( $arg ) { return 90; } );
+		add_filter( 'jpeg_quality',             function( $arg ) { return 60; } );
 		add_action( 'after_setup_theme',        array( $this, 'add_image_sizes' ) );
 		add_action( 'admin_head' ,              array( $this, 'remove_add_post_element' ) );
 		add_filter( 'post_gallery',             array( $this, 'carousel_post_gallery' ), 10, 2 );
@@ -196,11 +196,10 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Force wordpress to use ImageMagick
-	 * as image manipulation editor.
+	 * Force WordPress to use P4_Image_Compression as image manipulation editor.
 	 */
 	public function allowedEditors() {
-		return array('WP_Image_Editor_Imagick');
+		return [ 'P4_Image_Compression' ];
 	}
 
 	/**
@@ -333,6 +332,15 @@ class P4_Master_Site extends TimberSite {
 			'marginwidth'     => true,
 			'marginheight'    => true,
 			'allowfullscreen' => true,
+		];
+
+		// Allow blockquote and the following attributes. (trigger: allow instagram embeds)
+		$allowedposttags['blockquote'] = [
+			'style'                  => true,
+			'data-instgrm-captioned' => true,
+			'data-instgrm-permalink' => true,
+			'data-instgrm-version'   => true,
+			'class'                  => true,
 		];
 
 		// Allow img and the following attributes.
