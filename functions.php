@@ -172,8 +172,15 @@ class P4_Master_Site extends TimberSite {
 
 			// Find all matches of <img> html tags within the post's content and get the url inside the src attribute.
 			preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches );
-			if ( isset( $matches[1][0] ) ) {
-				$first_img_url = $matches[1][0];
+			if ( isset( $matches[1][0] ) && $matches[1][0] ) {
+				// We need to remove the image dimensions that are concatenated at the end of the url
+				// in order to get the correct `guid` which we will use to find the attachment's id.
+				// For example, {uploaded-image-name}-1024x661.jpg needs to be converted to {uploaded-image-name}.jpg.
+				$pos_dim        = strrpos( $matches[1][0], '-' );
+				$first_img_url  = substr( $matches[1][0], 0, $pos_dim );
+				$pos_ext        = strrpos( $matches[1][0], '.' );
+				$extension      = substr( $matches[1][0], $pos_ext, strlen( $matches[1][0] ) );
+				$first_img_url .= $extension;
 
 				// Use the attachment's url to find its id.
 				$statement = $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE guid='%s';", $first_img_url );
