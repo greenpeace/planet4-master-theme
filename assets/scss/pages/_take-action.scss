@@ -469,6 +469,17 @@
 
     .steps-action {
       margin-top: 20px;
+
+      a.btn {
+        width: 210px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        @include x-large-and-up {
+          width: 250px;
+        }
+      }
     }
   }
 }
