@@ -335,7 +335,7 @@
 }
 
 .can-do-steps {
-  cursor: pointer;
+  cursor: default;
   margin-top: 35px;
   position: relative;
 
@@ -377,21 +377,44 @@
       width: 126px;
       height: 126px;
       vertical-align: middle;
-      line-height: 128px;
+      line-height: 114px;
       font-size: rem(70);
-      background-color: $step-number;
-    }
-
-    @include x-large-and-up {
-      width: 126px;
-      height: 126px;
-      font-size: rem(70);
+      position: relative;
+      background-color: $dark-blue;
+      opacity: 1;
     }
 
     &.active {
       background: $grey;
       opacity: 0.8;
       color: $white;
+
+      @include large-and-up {
+        background-color: $allports;
+        opacity: 1;
+      }
+
+      .step-number-inner {
+        @include large-and-up {
+          background-color: $allports;
+          border-color: $spray;
+        }
+      }
+    }
+
+    .step-number-inner {
+      @include large-and-up {
+        position: absolute;
+        background-color: $dark-blue;
+        border-color: $spray;
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 50%;
+        right: 5px;
+        left: 5px;
+        top: 5px;
+        bottom: 5px;
+      }
     }
   }
 
@@ -440,6 +463,17 @@
 
     .steps-action {
       margin-top: 20px;
+
+      a.btn {
+        width: 210px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        @include x-large-and-up {
+          width: 250px;
+        }
+      }
     }
   }
 }
