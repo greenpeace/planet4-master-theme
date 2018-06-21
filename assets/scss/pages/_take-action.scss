@@ -377,17 +377,11 @@
       width: 126px;
       height: 126px;
       vertical-align: middle;
-      line-height: 118px;
+      line-height: 114px;
       font-size: rem(70);
       position: relative;
       background-color: $dark-blue;
       opacity: 1;
-    }
-
-    @include x-large-and-up {
-      width: 126px;
-      height: 126px;
-      font-size: rem(70);
     }
 
     &.active {
