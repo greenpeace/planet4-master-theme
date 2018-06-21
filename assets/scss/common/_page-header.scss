@@ -99,6 +99,7 @@
 .top-page-tags {
   font-size: rem(14);
   margin-bottom: 6px;
+  font-family: $roboto;
 
   @include medium-and-up {
     font-size: rem(16);
