@@ -1,13 +1,15 @@
 <?php
 
-if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
+if ( ! class_exists( 'P4_Campaigns' ) ) {
 	/**
-	 * Class P4MT_Taxonomy_Image
+	 * Class P4_Campaigns
 	 */
-	class P4_Taxonomy_Image {
+	class P4_Campaigns {
 
 		/** @var string $taxonomy */
 		private $taxonomy = 'post_tag';
+		/** @var array $page_types */
+		public $page_types = [];
 		/** @var array $localizations */
 		public $localizations = [];
 
@@ -42,7 +44,17 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 		 * @param WP_Term $wp_tag The object passed to the callback when on Edit Tag page.
 		 */
 		public function add_taxonomy_form_fields( $wp_tag ) {
+			$this->page_types = get_terms(
+				[
+					'hide_empty' => false,
+					'orderby'    => 'name',
+					'taxonomy'   => 'p4-page-type',
+				]
+			);
+
 			if ( isset( $wp_tag ) && $wp_tag instanceof WP_Term ) {
+				$selected_page_types = get_term_meta( $wp_tag->term_id, 'selected_page_types' );
+
 				$attachment_id    = get_term_meta( $wp_tag->term_id, 'tag_attachment_id', true );
 				$image_attributes = wp_get_attachment_image_src( $attachment_id, 'full' );
 				$attachment_url   = $image_attributes ? $image_attributes[0] : '';
@@ -54,6 +66,26 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 				$happypoint_bg_opacity = get_term_meta( $wp_tag->term_id, 'happypoint_bg_opacity', true );
 				$happypoint_bg_opacity = $happypoint_bg_opacity ?? '30'; ?>
 
+				<?php foreach ( $this->page_types as $index => $page_type ) { ?>
+					<tr class="form-field edit-wrap term-page-type-<?php echo esc_attr( $page_type->slug ); ?>-wrap">
+						<?php if ( 0 === $index ) { ?>
+						<th>
+							<label><?php esc_html_e( 'Page Types', 'planet4-master-theme-backend' ); ?></label>
+						</th>
+						<?php } else { ?>
+							<th></th>
+						<?php } ?>
+						<td>
+							<div class="field-block shortcode-ui-field-checkbox shortcode-ui-attribute-p4_page_type_<?php echo esc_attr( $page_type->slug ); ?>">
+								<label for="shortcode-ui-p4_page_type_<?php echo esc_attr( $page_type->slug ); ?>">
+									<input type="checkbox" name="p4_page_type[]" id="shortcode-ui-p4_page_type_<?php echo esc_attr( $page_type->slug ); ?>" value="<?php echo esc_attr( $page_type->slug ); ?>" <?php echo in_array( $page_type->slug, $selected_page_types[0], true ) ? 'checked' : ''; ?>>
+									<?php echo esc_html( $page_type->name ); ?>
+								</label>
+								<p class="description"><?php printf( esc_html__( 'Use Posts that belong to %s type to populate the content of this block', 'planet4-master-theme-backend' ), esc_html( $page_type->name ) ); ?></p>
+							</div>
+						</td>
+					</tr>
+				<?php } ?>
 				<tr class="form-field edit-wrap term-image-wrap">
 					<th>
 						<label><?php esc_html_e( 'Image', 'planet4-master-theme-backend' ); ?></label>
@@ -115,6 +147,12 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 		 * @param int $term_id The ID of the WP_Term object that is added or edited.
 		 */
 		public function save_taxonomy_meta( $term_id ) {
+			// Save the selected page types for this campaign.
+			$selected_page_types = $_POST['p4_page_type'];
+			if ( $this->validate_page_types( $selected_page_types ) ) {
+				update_term_meta( $term_id, 'selected_page_types', $selected_page_types );
+			}
+
 			$field_id       = 'tag_attachment_id';
 			$field_url      = 'tag_attachment';
 			$attachment_id  = filter_input( INPUT_POST, $field_id, FILTER_VALIDATE_INT );
@@ -187,13 +225,48 @@ if ( ! class_exists( 'P4_Taxonomy_Image' ) ) {
 		/**
 		 * Validates the input.
 		 *
-		 * @param int    $id The attachment id to be validated.
+		 * @param int $id The attachment id to be validated.
 		 *
 		 * @return bool True if validation is ok, false if validation fails.
 		 */
 		public function validate( $id ) : bool {
 			if ( $id < 0 ) {
 				return false;
+			}
+			return true;
+		}
+
+		/**
+		 * Validates the page types input.
+		 *
+		 * @param array $selected_page_types The selected page types selected by the editor.
+		 *
+		 * @return bool True if validation is ok, false if validation fails.
+		 */
+		public function validate_page_types( $selected_page_types ) : bool {
+			$page_types_slugs = [];
+			$this->page_types = get_terms(
+				[
+					'hide_empty' => false,
+					'orderby'    => 'name',
+					'taxonomy'   => 'p4-page-type',
+				]
+			);
+
+			if ( $this->page_types ) {
+				foreach ( $this->page_types as $page_type ) {
+					if ( $page_type instanceof WP_Term ) {
+						$page_types_slugs[] = $page_type->slug;
+					}
+				}
+			}
+
+			if ( isset( $selected_page_types ) && is_array( $selected_page_types ) ) {
+				foreach ( $selected_page_types as $selected_page_type ) {
+					if ( ! in_array( $selected_page_type, $page_types_slugs, true ) ) {
+						return false;
+					}
+				}
 			}
 			return true;
 		}
