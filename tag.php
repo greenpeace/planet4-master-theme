@@ -76,10 +76,13 @@ if ( is_tag() ) {
 
 	// Get the selected page types for this campaign so that we add posts in the CFC block only for those page types.
 	$selected_page_types = get_term_meta( $context['tag']->term_id, 'selected_page_types' );
-	if ( isset( $selected_page_types[0] ) && is_array( $selected_page_types[0] ) ) {
+	if ( isset( $selected_page_types[0] ) && $selected_page_types[0] ) {
 		foreach ( $selected_page_types[0] as $selected_page_type ) {
 			$cfc_args[ "p4_page_type_$selected_page_type" ] = 'true';
 		}
+	} else {
+		// If none is selected, then display Publications by default (for backwards compatibility).
+		$cfc_args['p4_page_type_publication'] = 'true';
 	}
 
 	$campaign->add_block( ContentFourColumn::BLOCK_NAME, $cfc_args );
