@@ -51,7 +51,7 @@ $context['filter_url'] = add_query_arg( [
 		's'                                   => ' ',
 		'orderby'                             => 'relevant',
 		'f[ptype]['.$context['page_type'].']' => $context['page_term_id'],
-	], get_site_url()
+	], get_home_url()
 );
 
 
