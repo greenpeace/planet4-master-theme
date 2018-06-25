@@ -143,7 +143,7 @@ if ( ! class_exists( 'P4_Sitemap' ) ) {
 				foreach ( $article_types as $article_type ) {
 					$article_types_data[] = [
 						'name' => $article_type->name,
-						'link' => get_site_url() . '/?s=&orderby=post_date&f[ptype][' . rawurlencode( $article_type->name ) . ']=' . $article_type->term_id,
+						'link' => get_home_url() . '/?s=&orderby=post_date&f[ptype][' . rawurlencode( $article_type->name ) . ']=' . $article_type->term_id,
 					];
 				}
 			}
