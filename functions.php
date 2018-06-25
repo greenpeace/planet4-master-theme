@@ -153,7 +153,6 @@ class P4_Master_Site extends TimberSite {
 	 * @param bool    $update Whether this is an existing post being updated or not.
 	 */
 	public function set_featured_image( $post_id, $post, $update ) {
-		global $wpdb;
 
 		// Ignore autosave.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -163,33 +162,15 @@ class P4_Master_Site extends TimberSite {
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			return;
 		}
-
 		// Check if user has set the featured image manually or if he has removed it.
 		$user_set_featured_image = get_post_meta( $post_id, '_thumbnail_id', true );
 
-		// Apply this behavior to Posts only.
+		// Apply this behavior to a Post and only if it does not already a featured image.
 		if ( 'post' === $post->post_type && ! $user_set_featured_image ) {
-
-			// Find all matches of <img> html tags within the post's content and get the url inside the src attribute.
-			preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches );
-			if ( isset( $matches[1][0] ) && $matches[1][0] ) {
-				// We need to remove the image dimensions that are concatenated at the end of the url
-				// in order to get the correct `guid` which we will use to find the attachment's id.
-				// For example, {uploaded-image-name}-1024x661.jpg needs to be converted to {uploaded-image-name}.jpg.
-				$pos_dim        = strrpos( $matches[1][0], '-' );
-				$first_img_url  = substr( $matches[1][0], 0, $pos_dim );
-				$pos_ext        = strrpos( $matches[1][0], '.' );
-				$extension      = substr( $matches[1][0], $pos_ext, strlen( $matches[1][0] ) );
-				$first_img_url .= $extension;
-
-				// Use the attachment's url to find its id.
-				$statement = $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE guid='%s';", $first_img_url );
-				$result    = $wpdb->get_col( $statement );
-
-				if ( isset( $result[0] ) ) {
-					$attachment_id = $result[0];
-					set_post_thumbnail( $post_id, $attachment_id );
-				}
+			// Find all matches of <img> html tags within the post's content and get the id of the image from the elements class name.
+			preg_match_all( '/<img.+wp-image-(\d+).*>/i', $post->post_content, $matches );
+			if ( isset( $matches[1][0] ) && is_numeric( $matches[1][0] ) ) {
+				set_post_thumbnail( $post_id, $matches[1][0] );
 			}
 		}
 	}
