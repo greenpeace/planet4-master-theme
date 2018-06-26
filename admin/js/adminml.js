@@ -60,6 +60,7 @@ jQuery(document).ready(function () {
                             'image-size': 'full',
                             post_content: image.caption,
                             post_excerpt: image.caption,
+                            image_alt: image.title,
                         };
 
                         promises.push(wp.media.post('send-attachment-to-editor', {
