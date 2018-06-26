@@ -32,7 +32,7 @@ if ( ! class_exists( 'P4_Cookies' ) ) {
 			// If our cookie is not set then register the following filters.
 			if ( '2' !== $this->read_cookie( self::COOKIE_NAME ) ) {
 
-				add_filter( 'gal_set_login_cookie', [ $this, 'filter_google_login_set_login_cookie', 10, 1 ] );
+				add_filter( 'gal_set_login_cookie', [ $this, 'filter_google_login_set_login_cookie' ], 10, 1 );
 			}
 		}
 
