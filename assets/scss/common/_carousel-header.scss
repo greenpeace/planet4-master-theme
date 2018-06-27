@@ -286,6 +286,7 @@ $slide-transition-speed: 1s;
       left: 0;
       right: 0;
       position: absolute;
+      font-family: $roboto;
 
       @include small-and-up {
         width: 80%;
