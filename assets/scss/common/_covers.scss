@@ -110,6 +110,7 @@
   @include large-and-up {
     flex-basis: 32%;
     min-height: 364px;
+    max-height: 364px;
   }
 
   @include x-large-and-up {

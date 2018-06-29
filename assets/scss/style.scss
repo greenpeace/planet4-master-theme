@@ -143,6 +143,10 @@ body {
     background-repeat: repeat-x;
     background-color: #ecf1f3;
   }
+
+  &.search {
+    font-family: $roboto;
+  }
 }
 
 .container > * {
