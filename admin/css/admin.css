@@ -23,7 +23,9 @@
 }
 
 #ml_loader {
-    padding: 10px;
+    position: fixed;
+    left: 50%;
+    top: 15px;
 }
 
 .ml-media-toolbar {

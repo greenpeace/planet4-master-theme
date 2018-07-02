@@ -3,7 +3,9 @@
         <div class="media-toolbar-primary ml-search-form">
             <label for="ml-media-search-input" class="screen-reader-text">{{ __( 'Search Media', data.domain ) }}</label>
             <input type="search" placeholder="Search media items..." id="ml-media-search-input" class="ml-search">
-
+            <div class="hidden" id="ml_loader">
+                <img src="/wp-admin/images/wpspin_light-2x.gif"/>
+            </div>
             <div class="ml-media-toolbar">
                 <div class="ml-media-toolbar-secondary">
                     <div class="ml-media-selection empty">
@@ -46,8 +48,5 @@
     <div class="clear"></div>
     <div class="ml-media-frame-toolbar">
         <button class="btn btn-medium btn-small btn-secondary more-btn  btn-load-more-click-scroll" data-current_page="1">{{ __( 'SHOW MORE RESULTS', data.domain ) }}</button>
-        <div class="hidden" id="ml_loader">
-            <img src="/wp-admin/images/wpspin_light-2x.gif"/>
-        </div>
     </div>
 {% endblock %}
