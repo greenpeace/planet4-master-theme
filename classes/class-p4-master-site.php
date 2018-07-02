@@ -647,6 +647,8 @@ class P4_Master_Site extends TimberSite {
 	 * @return string The edited WHERE clause.
 	 */
 	public function edit_search_mime_types( $where ) : string {
+		global $wpdb;
+
 		// TODO - This method and all Search related methods in this class
 		// TODO - after this commit CAN and SHOULD be transferred inside the P4_Search class.
 		// TODO - Would have spotted the necessary change much faster.
@@ -655,7 +657,7 @@ class P4_Master_Site extends TimberSite {
 		if ( ! is_admin() && is_search() ||
 			wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
 			$mime_types = implode( ',', P4_Search::DOCUMENT_TYPES );
-			$where     .= ' AND post_mime_type IN("' . $mime_types . '","") ';
+			$where .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
 		}
 		return $where;
 	}
