@@ -286,7 +286,6 @@
   }
 
   .col-md-12 {
-    font-family: $lora;
     padding-top: 30px;
 
     @include small-and-up {
@@ -445,7 +444,6 @@
     }
 
     p {
-      font-family: $lora;
       color: $dark-shade-black;
       font-size: rem(14);
       opacity: 0.75;
@@ -530,7 +528,6 @@
       margin-bottom: 10px;
 
       p {
-        font-family: $lora;
         color: $dark-shade-black;
         font-size: rem(14);
         line-height: rem(22);

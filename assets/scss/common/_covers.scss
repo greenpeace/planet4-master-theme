@@ -110,6 +110,7 @@
   @include large-and-up {
     flex-basis: 32%;
     min-height: 364px;
+    max-height: 364px;
   }
 
   @include x-large-and-up {
@@ -205,6 +206,7 @@
   text-decoration: none;
   text-shadow: 1.5px 1.5px 1.5px $black;
   font-weight: 800;
+  font-family: $roboto;
 
   &:hover {
     color: $yellow;

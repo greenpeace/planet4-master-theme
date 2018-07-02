@@ -8,14 +8,13 @@ $menu-height-large: rem(60);
   z-index: 5;
   padding: 0;
   text-transform: uppercase;
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: normal;
-
   background: transparentize($dark-blue, 0.2);
   height: $menu-height-small;
+  font-family: $roboto;
 
   // Use (min-width: 783px) for parity with WP's .admin-bar
   @media screen and (min-width: 783px) {
