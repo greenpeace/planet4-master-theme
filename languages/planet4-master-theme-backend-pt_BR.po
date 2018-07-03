@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-08 09:59+0000\n"
-"PO-Revision-Date: 2018-06-20 18:54+0000\n"
+"PO-Revision-Date: 2018-07-03 19:10+0000\n"
 "Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
@@ -67,7 +67,7 @@ msgstr ""
 
 #: functions.php:694
 msgid "Background overide"
-msgstr ""
+msgstr "Sobrescrever fundo"
 
 #: functions.php:695
 msgid "Upload an image"
@@ -75,7 +75,7 @@ msgstr ""
 
 #: functions.php:703
 msgid "Add Background Image"
-msgstr ""
+msgstr "Adicionar imagem de fundo"
 
 #: functions.php:714
 msgid "Post Articles Element Fields"
@@ -83,7 +83,7 @@ msgstr "Campo de elementos para Artigos"
 
 #: functions.php:719
 msgid "Author Override"
-msgstr ""
+msgstr "Sobrescrever Autor"
 
 #: functions.php:720
 msgid "Enter author name if you want to override the author"
@@ -103,7 +103,7 @@ msgstr ""
 
 #: functions.php:745
 msgid "Background Image Override"
-msgstr ""
+msgstr "Sobrescrever imagem de fundo"
 
 #: functions.php:746
 msgid ""
@@ -113,11 +113,11 @@ msgstr ""
 
 #: functions.php:753
 msgid "Add Image"
-msgstr ""
+msgstr "Adicionar imagem"
 
 #: functions.php:798
 msgid "Add Page Element"
-msgstr ""
+msgstr "Adicionar Elemento de Página"
 
 #: classes/class-p4-post-report-controller.php:59
 #: classes/class-p4-post-report-controller.php:60
@@ -144,7 +144,7 @@ msgstr ""
 
 #: classes/class-p4-custom-taxonomy.php:151
 msgid "All Page Types"
-msgstr ""
+msgstr "Todos os Tipos de Páginas"
 
 #: classes/class-p4-custom-taxonomy.php:155
 msgid "Edit Page Type"
@@ -156,7 +156,7 @@ msgstr ""
 
 #: classes/class-p4-custom-taxonomy.php:157
 msgid "Add new Page Type"
-msgstr ""
+msgstr "Adicionar novo Tipo de Página"
 
 #: classes/class-p4-custom-taxonomy.php:158
 msgid "New Page Type"
@@ -246,6 +246,10 @@ msgid ""
 "\t\t\t\t\t                     Also it would be used for Take Action Cards "
 "inside Posts and Take Action Cards in search results"
 msgstr ""
+"Adicione o texto do botão padrão que aparece nos cards da <b>Páginas de "
+"Ação</b> dentro do bloco. <br>\n"
+"\t\t\t\t\t                     Ele também será usado para cards de Páginas "
+"de Ação dentro de posts e resultados de buscas"
 
 #: classes/class-p4-settings.php:143
 msgid "Donate button link"
@@ -253,11 +257,11 @@ msgstr ""
 
 #: classes/class-p4-settings.php:152
 msgid "404 Background Image"
-msgstr ""
+msgstr "Imagem de fundo 404"
 
 #: classes/class-p4-settings.php:159
 msgid "Add 404 Page Background Image"
-msgstr ""
+msgstr "Adicionar imagem de fundo para página 404"
 
 #: classes/class-p4-settings.php:164 classes/class-p4-settings.php:197
 msgid "Minimum image width should be 1920px"
@@ -265,11 +269,11 @@ msgstr ""
 
 #: classes/class-p4-settings.php:168
 msgid "404 Page text"
-msgstr ""
+msgstr "Texto da página 404"
 
 #: classes/class-p4-settings.php:175
 msgid "Add 404 page text"
-msgstr ""
+msgstr "Adicionar texto para página 404"
 
 #: classes/class-p4-settings.php:179
 msgid "Default p4-pagetype"
@@ -281,7 +285,7 @@ msgstr ""
 
 #: classes/class-p4-settings.php:192
 msgid "Add Default Happy Point Background Image"
-msgstr ""
+msgstr "Adicionar imagem de fundo padrão para seção de newsletter"
 
 #: classes/class-p4-settings.php:200
 msgid "Enforce Cookies Policy"
@@ -311,7 +315,7 @@ msgstr "Painel de Controle do Planet 4"
 
 #: classes/class-p4-control-panel.php:53
 msgid "Cache"
-msgstr ""
+msgstr "Cache"
 
 #: classes/class-p4-control-panel.php:56
 msgid "Flush Object Cache"
@@ -319,7 +323,7 @@ msgstr ""
 
 #: classes/class-p4-control-panel.php:58
 msgid "Are you sure you want to delete all Object Cache keys?"
-msgstr ""
+msgstr "Você tem certeza que quer excluir todas as chaves do Object Cache?"
 
 #: classes/class-p4-control-panel.php:61
 msgid "Check Object Cache"
@@ -384,7 +388,7 @@ msgstr ""
 #: classes/class-p4-taxonomy-image.php:67
 #: classes/class-p4-taxonomy-image.php:104
 msgid "Associate this tag with an image."
-msgstr ""
+msgstr "Associar esta tag com uma imagem."
 
 #: classes/class-p4-taxonomy-image.php:74
 msgid "Image Subscribe"
