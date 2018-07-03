@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-08 09:59+0000\n"
-"PO-Revision-Date: 2018-07-03 19:10+0000\n"
+"PO-Revision-Date: 2018-07-03 21:46+0000\n"
 "Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
@@ -188,11 +188,11 @@ msgstr "Escolha a categoria-pai desta Atuação"
 
 #: classes/class-p4-settings.php:66
 msgid "Copyright Text Line 1"
-msgstr ""
+msgstr "Linha 1 de texto de Copyright"
 
 #: classes/class-p4-settings.php:76
 msgid "Copyright Text Line 2"
-msgstr ""
+msgstr "Linha 2 de texto de Copyright"
 
 #: classes/class-p4-settings.php:86
 msgid "Google Tag Manager Identifier"
@@ -204,7 +204,7 @@ msgstr ""
 
 #: classes/class-p4-settings.php:98
 msgid "Cookies Text"
-msgstr ""
+msgstr "Texto de Cookies"
 
 #: classes/class-p4-settings.php:108
 msgid "Default title for related articles block"
@@ -217,7 +217,7 @@ msgstr ""
 
 #: classes/class-p4-settings.php:115
 msgid "Default button title for related articles block"
-msgstr ""
+msgstr "Título do botão padrão para o bloco de artigos relacionados"
 
 #: classes/class-p4-settings.php:118
 msgid ""
@@ -227,7 +227,7 @@ msgstr ""
 
 #: classes/class-p4-settings.php:122
 msgid "Default Number Of Related Articles"
-msgstr ""
+msgstr "Número padrão de Artigos Relacionados"
 
 #: classes/class-p4-settings.php:128
 msgid ""
@@ -277,11 +277,11 @@ msgstr "Adicionar texto para página 404"
 
 #: classes/class-p4-settings.php:179
 msgid "Default p4-pagetype"
-msgstr ""
+msgstr "Tipo de página padrão"
 
 #: classes/class-p4-settings.php:185
 msgid "Default Happy Point Background Image"
-msgstr ""
+msgstr "Imagem de fundo padrão para o bloco de newsletter"
 
 #: classes/class-p4-settings.php:192
 msgid "Add Default Happy Point Background Image"
@@ -327,7 +327,7 @@ msgstr "Você tem certeza que quer excluir todas as chaves do Object Cache?"
 
 #: classes/class-p4-control-panel.php:61
 msgid "Check Object Cache"
-msgstr ""
+msgstr "Conferir o Object Cache"
 
 #: classes/class-p4-control-panel.php:68
 msgid "Engaging Networks"
@@ -335,7 +335,7 @@ msgstr ""
 
 #: classes/class-p4-control-panel.php:71
 msgid "Check Engaging Networks"
-msgstr ""
+msgstr "Conferir o Engaging Networks"
 
 #: classes/class-p4-control-panel.php:78
 msgid "Search"
@@ -343,7 +343,7 @@ msgstr "Busca"
 
 #: classes/class-p4-control-panel.php:81
 msgid "Check Search Indexer"
-msgstr ""
+msgstr "Conferir o Indexer de Busca"
 
 #: classes/class-p4-control-panel.php:126
 msgid "Object Cache flushed"
@@ -396,7 +396,7 @@ msgstr ""
 
 #: classes/class-p4-taxonomy-image.php:82
 msgid "Choose a background image for the Subscribe block."
-msgstr ""
+msgstr "Escolha uma imagem de fundo para o bloco de Inscrição"
 
 #: classes/class-p4-taxonomy-image.php:89
 msgid "Happy Point Opacity"
