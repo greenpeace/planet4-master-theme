@@ -44,7 +44,7 @@
       height: 300px;
       width: 100%;
       object-fit: cover;
-      object-position: 0 0;
+      object-position: 50% 50%;
 
       @include medium-and-up {
         height: 400px;
