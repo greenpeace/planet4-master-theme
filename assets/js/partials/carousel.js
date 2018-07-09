@@ -69,17 +69,20 @@ $(document).ready(function() {
       .css('background-image', 'url(' + img_src + ')')
       .css('background-position', $img.data('background-position'));
 
-    // Add an element within the slide to hold the next slide preview.
-    var $preview = $('<div>')
-      .addClass('carousel-preview-wrap')
-      .prependTo($slide);
+    if ($nextImg.length > 0) {
 
-    var next_img_src = $nextImg.get(0).currentSrc || $nextImg.attr('src');
-    $('<div>')
-      .addClass('carousel-preview')
-      .css('background-image', 'url(' + next_img_src + ')')
-      .css('background-position', $nextImg.data('background-position'))
-      .appendTo($preview);
+      // Add an element within the slide to hold the next slide preview.
+      var $preview = $('<div>')
+        .addClass('carousel-preview-wrap')
+        .prependTo($slide);
+
+      var next_img_src = $nextImg.get(0).currentSrc || $nextImg.attr('src');
+      $('<div>')
+        .addClass('carousel-preview')
+        .css('background-image', 'url(' + next_img_src + ')')
+        .css('background-position', $nextImg.data('background-position'))
+        .appendTo($preview);
+    }
 
     // Populate carousel slide index
     $slide.attr('data-slide', i);
