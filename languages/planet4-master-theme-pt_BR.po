@@ -3,8 +3,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-06-20 14:53+0000\n"
-"Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
+"PO-Revision-Date: 2018-07-10 15:19+0000\n"
+"Last-Translator: Julia Mente <jmarubay@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ msgstr "Desculpe, não conseguimos encontrar essa página!"
 
 #: 404.php:31
 msgid "Enter your search term below"
-msgstr "Coloque o que você quer buscar no campo abaixo"
+msgstr "Insira os termos de busca no campo abaixo"
 
 #: 404.php:32
 msgid "404 Page"
@@ -44,7 +44,7 @@ msgstr "Página 404"
 
 #: tag.php:58
 msgid "Unknown Campaign page"
-msgstr "Página de Campanha desconhecida"
+msgstr "Página de campanha desconhecida"
 
 #: tag.php:64
 msgid "Things you can do"
@@ -52,7 +52,7 @@ msgstr "O que você pode fazer"
 
 #: tag.php:65
 msgid "We want you to take action because together we're strong."
-msgstr "Queremos você conosco por que juntos somos mais fortes."
+msgstr "Juntos somos mais fortes!"
 
 #: tag.php:81
 msgid "Related Campaigns"
@@ -60,7 +60,7 @@ msgstr "Campanhas relacionadas"
 
 #: tag.php:82
 msgid "This Campaign is not assigned to an Issue"
-msgstr "Esta Campanha não está associada a uma Atuação"
+msgstr "Esta campanha não está associada a nenhuma categoria"
 
 #: functions.php:85
 msgid "Most relevant"
@@ -137,19 +137,19 @@ msgstr "Página evergreen"
 
 #. Name of the template
 msgid "Sitemap Page"
-msgstr "Página do mapa do site"
+msgstr "Mapa do site"
 
 #: page-templates/sitemap.php:31
 msgid "Act"
-msgstr "Agir"
+msgstr "Participe"
 
 #: page-templates/sitemap.php:32
 msgid "Explore"
-msgstr "Explorar"
+msgstr "Explore"
 
 #: page-templates/sitemap.php:33
 msgid "About Greenpeace"
-msgstr "Sobre o Greenpeace"
+msgstr "Sobre nós"
 
 #: page-templates/sitemap.php:34
 msgid "Articles"
@@ -193,7 +193,7 @@ msgstr "Desculpe, não conseguimos encontrar itens contendo seu termo de busca"
 
 #: templates/search.twig:17
 msgid "Check for typos, and try your search again"
-msgstr "Confira o texto e tente buscar novamente"
+msgstr "Confira o texto e busque novamente"
 
 #: templates/search.twig:18
 msgid "Try searching for somthing else"
@@ -226,7 +226,7 @@ msgstr "Refine a sua busca"
 
 #: templates/search.twig:70
 msgid "ISSUE"
-msgstr "ATUAÇÃO"
+msgstr "CATEGORIA"
 
 #: templates/search.twig:91
 msgid "CATEGORY"
@@ -258,7 +258,7 @@ msgstr "Limpar tudo"
 
 #: templates/search.twig:182
 msgid "Issue"
-msgstr "Atuação"
+msgstr "Categoria"
 
 #: templates/search.twig:201
 msgid "Campaign"
@@ -282,7 +282,7 @@ msgstr "Termos de busca sugeridos"
 
 #: templates/tease-search.twig:62
 msgid "take action"
-msgstr "Aja agora"
+msgstr "Participe já"
 
 #: templates/tease-search.twig:65
 msgid "Download"
