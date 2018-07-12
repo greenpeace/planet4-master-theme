@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-08 09:59+0000\n"
-"PO-Revision-Date: 2018-07-12 19:09+0000\n"
+"PO-Revision-Date: 2018-07-12 19:39+0000\n"
 "Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
@@ -23,7 +23,7 @@ msgstr "Peso (de 1 a 30)"
 
 #: functions.php:641
 msgid "Page Header Fields"
-msgstr ""
+msgstr "Campos de cabeçalho da página"
 
 #: functions.php:646
 msgid "Header Title"
@@ -31,7 +31,7 @@ msgstr "Título do cabeçalho"
 
 #: functions.php:647
 msgid "Header title comes here"
-msgstr ""
+msgstr "Título do header vai aqui"
 
 #: functions.php:654
 msgid "Header Subtitle"
@@ -39,7 +39,7 @@ msgstr ""
 
 #: functions.php:655
 msgid "Header subtitle comes here"
-msgstr ""
+msgstr "Subtítulo do header vai aqui"
 
 #: functions.php:663
 msgid "Header Description"
@@ -99,7 +99,7 @@ msgstr ""
 
 #: functions.php:735
 msgid "Include Articles In Post"
-msgstr ""
+msgstr "Incluir artigos relacionados no post"
 
 #: functions.php:745
 msgid "Background Image Override"
@@ -142,7 +142,7 @@ msgstr ""
 
 #: classes/class-p4-custom-taxonomy.php:150
 msgid "Search in Page Type"
-msgstr ""
+msgstr "Buscar nos tipos de página"
 
 #: classes/class-p4-custom-taxonomy.php:151
 msgid "All Page Types"
@@ -154,7 +154,7 @@ msgstr "Edtar tipo de página"
 
 #: classes/class-p4-custom-taxonomy.php:156
 msgid "Update Page Type"
-msgstr ""
+msgstr "Atualizar tipo de página"
 
 #: classes/class-p4-custom-taxonomy.php:157
 msgid "Add new Page Type"
@@ -166,7 +166,7 @@ msgstr ""
 
 #: classes/class-p4-custom-taxonomy.php:159
 msgid "Page Types"
-msgstr ""
+msgstr "Tipos de página"
 
 #: classes/class-p4-settings.php:39
 msgid "Planet4"
@@ -381,7 +381,7 @@ msgstr "Escolha uma imagem"
 #: classes/class-p4-taxonomy-image.php:98
 #: classes/class-p4-taxonomy-image.php:154
 msgid "Image"
-msgstr ""
+msgstr "Imagem"
 
 #: classes/class-p4-taxonomy-image.php:65
 #: classes/class-p4-taxonomy-image.php:80
