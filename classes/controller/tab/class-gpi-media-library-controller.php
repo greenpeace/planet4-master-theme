@@ -33,6 +33,17 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 			add_action( 'media_upload_gpi_media_library',       [ $this, 'add_library_form' ] );
 			add_action( 'wp_ajax_download_images_from_library', [ $this, 'download_images_from_library' ] );
 			add_action( 'wp_ajax_get_paged_medias',             [ $this, 'get_paged_medias' ] );
+			add_action( 'wp_ajax_get_search_medias',            [ $this, 'get_search_medias' ] );
+			add_action( 'post-upload-ui',                       [ $this, 'media_library_post_upload_ui' ] );
+		}
+
+		/**
+		 * Add GPI Media Library upload button in WP media popup upload UI.
+		 */
+		function media_library_post_upload_ui()
+		{
+			$this->load_ml_assets();
+			print '<button id="db-upload-btn" class="button media-button button-primary button-large switchtoml">' . __( 'Upload From GPI Media Library', 'planet4-medialibrary' ) . '</button>';
 		}
 
 		/**
@@ -118,6 +129,57 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		}
 
 		/**
+		 * Callback for scroll the next results & search.
+		 * Gets the paged/searched medias that belong to the next page & search result and are to be used with the twig template.
+		 */
+		public function get_search_medias() {
+			// If this is an ajax call.
+			if ( wp_doing_ajax() ) {
+				$paged        = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_STRING );
+				$query_string = filter_input( INPUT_GET, 'query-string', FILTER_SANITIZE_STRING );
+				$search_flag  = filter_input( INPUT_GET, 'search_flag', FILTER_SANITIZE_STRING );
+
+				$ml_api = new MediaLibraryApi_Controller();
+
+				$params = [];
+
+				if ( '' !== $query_string ) {
+					$params['search_text'] = $query_string;
+				}
+				if ( '' !== $paged ) {
+					$params['pagenumber'] = $paged;
+				}
+
+				$image_list = $ml_api->get_results( $params );
+
+				$error_message = '';
+				if ( \WP_Http::OK !== $image_list['status_code'] ) {
+					$error_message = __( 'Error while fetching data from remote server!!!', 'planet4-medialibrary' );
+				}
+
+				if ( 'true' === $search_flag ) {
+					$this->view->ml_search_media_view( [
+						'data' => [
+							'image_list'    => $image_list['result'],
+							'error_message' => $error_message,
+							'domain'        => 'planet4-medialibrary',
+						],
+					] );
+				} else {
+					$this->view->ml_media_view( [
+						'data' => [
+							'image_list'    => $image_list['result'],
+							'error_message' => $error_message,
+							'domain'        => 'planet4-medialibrary',
+						],
+					] );
+				}
+
+				wp_die();
+			}
+		}
+
+		/**
 		 * Load assets only on the search page.
 		 */
 		public function load_iframe_assets() {
@@ -133,6 +195,23 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 			wp_localize_script( 'p4ml_admin_script', 'media_library_params', $params );
 			wp_enqueue_script( 'jquery-ui-core' );
 			wp_enqueue_script( 'jquery-ui-selectable' );
+			wp_enqueue_script( 'p4ml_admin_script' );
+		}
+
+		/**
+		 * Load assets only for the Media library popup.
+		 */
+		public function load_ml_assets() {
+			$nonce = wp_create_nonce( 'gpi-media-library-nonce' );
+
+			$params = [
+				'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+				'nonce'             => $nonce,
+				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
+			];
+			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin_search_ml.css', array(), '0.1' );
+			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/admin_search_ml.js', array(), '0.1', true );
+			wp_localize_script( 'p4ml_admin_script', 'media_library_params', $params );
 			wp_enqueue_script( 'p4ml_admin_script' );
 		}
 
