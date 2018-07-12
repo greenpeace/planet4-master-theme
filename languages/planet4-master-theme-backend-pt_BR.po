@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-08 09:59+0000\n"
-"PO-Revision-Date: 2018-07-05 11:28+0000\n"
+"PO-Revision-Date: 2018-07-12 13:30+0000\n"
 "Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
@@ -27,7 +27,7 @@ msgstr ""
 
 #: functions.php:646
 msgid "Header Title"
-msgstr ""
+msgstr "Título do cabeçalho"
 
 #: functions.php:647
 msgid "Header title comes here"
@@ -59,7 +59,7 @@ msgstr ""
 
 #: functions.php:685
 msgid "Header Button Link"
-msgstr ""
+msgstr "Link do botão do cabeçalho"
 
 #: functions.php:686
 msgid "Header button link comes here"
@@ -87,7 +87,7 @@ msgstr "Sobrescrever Autor"
 
 #: functions.php:720
 msgid "Enter author name if you want to override the author"
-msgstr ""
+msgstr "Insira o nome do autor para sobrescrever o autor atual"
 
 #: functions.php:726
 msgid "Take Action Page Selector"
@@ -150,7 +150,7 @@ msgstr "Todos os Tipos de Páginas"
 
 #: classes/class-p4-custom-taxonomy.php:155
 msgid "Edit Page Type"
-msgstr ""
+msgstr "Edtar tipo de página"
 
 #: classes/class-p4-custom-taxonomy.php:156
 msgid "Update Page Type"
@@ -198,11 +198,11 @@ msgstr "Linha 2 de texto de Copyright"
 
 #: classes/class-p4-settings.php:86
 msgid "Google Tag Manager Identifier"
-msgstr ""
+msgstr "Google Tag Manager Identifier"
 
 #: classes/class-p4-settings.php:92
 msgid "Engaging Network ID"
-msgstr ""
+msgstr "Engaging Network ID"
 
 #: classes/class-p4-settings.php:98
 msgid "Cookies Text"
@@ -210,7 +210,7 @@ msgstr "Texto de Cookies"
 
 #: classes/class-p4-settings.php:108
 msgid "Default title for related articles block"
-msgstr ""
+msgstr "Título padrão para o bloco de artigos relacionados"
 
 #: classes/class-p4-settings.php:111
 msgid ""
@@ -255,7 +255,7 @@ msgstr ""
 
 #: classes/class-p4-settings.php:143
 msgid "Donate button link"
-msgstr ""
+msgstr "Link do botão de doar"
 
 #: classes/class-p4-settings.php:152
 msgid "404 Background Image"
@@ -291,13 +291,15 @@ msgstr "Adicionar imagem de fundo padrão para seção de newsletter"
 
 #: classes/class-p4-settings.php:200
 msgid "Enforce Cookies Policy"
-msgstr ""
+msgstr "Política de Cookies"
 
 #: classes/class-p4-settings.php:201
 msgid ""
 "GDPR related setting. By enabling this option specific content will be "
 "blocked and will require user consent to be shown."
 msgstr ""
+"GDPR related setting. By enabling this option specific content will be "
+"blocked and will require user consent to be shown."
 
 #: classes/class-p4-settings.php:245 classes/class-p4-settings.php:259
 msgid "Select Page"
@@ -321,7 +323,7 @@ msgstr "Cache"
 
 #: classes/class-p4-control-panel.php:56
 msgid "Flush Object Cache"
-msgstr ""
+msgstr "Flush Object Cache"
 
 #: classes/class-p4-control-panel.php:58
 msgid "Are you sure you want to delete all Object Cache keys?"
@@ -333,7 +335,7 @@ msgstr "Conferir o Object Cache"
 
 #: classes/class-p4-control-panel.php:68
 msgid "Engaging Networks"
-msgstr ""
+msgstr "Engaging Networks"
 
 #: classes/class-p4-control-panel.php:71
 msgid "Check Engaging Networks"
@@ -402,7 +404,7 @@ msgstr "Escolha uma imagem de fundo para o bloco de Inscrição"
 
 #: classes/class-p4-taxonomy-image.php:89
 msgid "Happy Point Opacity"
-msgstr ""
+msgstr "Opacidade do Happy Point"
 
 #: classes/class-p4-taxonomy-image.php:93
 msgid ""
