@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-08 09:59+0000\n"
-"PO-Revision-Date: 2018-07-12 13:30+0000\n"
+"PO-Revision-Date: 2018-07-12 19:09+0000\n"
 "Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
@@ -71,7 +71,7 @@ msgstr "Sobrescrever fundo"
 
 #: functions.php:695
 msgid "Upload an image"
-msgstr ""
+msgstr "Enviar imagem"
 
 #: functions.php:703
 msgid "Add Background Image"
@@ -91,7 +91,7 @@ msgstr "Insira o nome do autor para sobrescrever o autor atual"
 
 #: functions.php:726
 msgid "Take Action Page Selector"
-msgstr ""
+msgstr "Seletor de página de ação"
 
 #: functions.php:727
 msgid "Select a Take Action Page to populate take action boxout block"
@@ -178,11 +178,11 @@ msgstr "Título da Navegação do Site"
 
 #: classes/class-p4-settings.php:48
 msgid "Select Act Page"
-msgstr ""
+msgstr "Escolha uma página de ação"
 
 #: classes/class-p4-settings.php:54
 msgid "Select Explore Page"
-msgstr ""
+msgstr "Escolha uma página Explore"
 
 #: classes/class-p4-settings.php:60
 msgid "Select Issues Parent Category"
@@ -239,7 +239,7 @@ msgstr ""
 
 #: classes/class-p4-settings.php:132
 msgid "Take Action Covers default button text"
-msgstr ""
+msgstr "Texto padrão para botão da página de ação"
 
 #: classes/class-p4-settings.php:138
 msgid ""
@@ -303,15 +303,15 @@ msgstr ""
 
 #: classes/class-p4-settings.php:245 classes/class-p4-settings.php:259
 msgid "Select Page"
-msgstr ""
+msgstr "Escolha uma página"
 
 #: classes/class-p4-settings.php:274
 msgid "Select Category"
-msgstr ""
+msgstr "Escolha uma categoria"
 
 #: classes/class-p4-settings.php:293
 msgid "Select Pagetype"
-msgstr ""
+msgstr "Escolha um tipo de página"
 
 #: classes/class-p4-control-panel.php:41
 msgid "Planet 4 Control Panel"
@@ -363,7 +363,7 @@ msgstr "Planet 4 está conectado ao Redis."
 
 #: classes/class-p4-control-panel.php:201
 msgid "Success"
-msgstr ""
+msgstr "Sucesso"
 
 #: classes/class-p4-control-panel.php:248
 msgid "Indexer has stalled"
@@ -375,7 +375,7 @@ msgstr ""
 
 #: classes/class-p4-taxonomy-image.php:19
 msgid "Select Image"
-msgstr ""
+msgstr "Escolha uma imagem"
 
 #: classes/class-p4-taxonomy-image.php:59
 #: classes/class-p4-taxonomy-image.php:98
@@ -387,7 +387,7 @@ msgstr ""
 #: classes/class-p4-taxonomy-image.php:80
 #: classes/class-p4-taxonomy-image.php:102
 msgid "Select/Upload Image"
-msgstr ""
+msgstr "Selecionar/Enviar imagem"
 
 #: classes/class-p4-taxonomy-image.php:67
 #: classes/class-p4-taxonomy-image.php:104
