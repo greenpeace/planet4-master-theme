@@ -132,7 +132,6 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'post_gallery',                   array( $this, 'carousel_post_gallery' ), 10, 2 );
 		add_action( 'save_post',                      array( $this, 'p4_auto_generate_excerpt' ) , 10, 2 );
 		add_filter( 'img_caption_shortcode',          array( $this, 'override_img_caption_shortcode' ), 10, 3 );
-		add_filter( 'wp_update_attachment_metadata',  array( $this, 'prevent_file_deletion' ) );
 
 		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
 		add_action( 'wp_ajax_nopriv_get_paged_posts', array( 'P4_Search', 'get_paged_posts' ) );
@@ -189,22 +188,6 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function allowedEditors() {
 		return [ 'P4_Image_Compression' ];
-	}
-
-	/**
-	 * Temporary patch for a security vulnernability that may result
-	 * into wp core files being deleted when an attachment is deleted.
-	 *
-	 * @param array $data Attachment data.
-	 *
-	 * @return mixed
-	 */
-	public function prevent_file_deletion( $data ) {
-		if ( isset( $data['thumb'] ) ) {
-			// Get only the base name of the thumbnail path in order to make path traversal impossible.
-			$data['thumb'] = basename( $data['thumb'] );
-		}
-		return $data;
 	}
 
 	/**
