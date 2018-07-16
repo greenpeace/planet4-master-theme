@@ -40,10 +40,9 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		/**
 		 * Add GPI Media Library upload button in WP media popup upload UI.
 		 */
-		function media_library_post_upload_ui()
-		{
+		function media_library_post_upload_ui() {
 			$this->load_ml_assets();
-			print '<button id="db-upload-btn" class="button media-button button-primary button-large switchtoml">' . __( 'Upload From GPI Media Library', 'planet4-medialibrary' ) . '</button>';
+			print '<button id="db-upload-btn" class="button media-button button-primary button-large switchtoml">' . esc_attr( __( 'Upload From GPI Media Library', 'planet4-medialibrary' ) ) . '</button>';
 		}
 
 		/**
@@ -210,7 +209,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
 			];
 			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin_search_ml.css', array(), '0.1' );
-			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/admin_search_ml.js', array(), '0.1', true );
+			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/admin_search_ml.js', array(), '0.2', true );
 			wp_localize_script( 'p4ml_admin_script', 'media_library_params', $params );
 			wp_enqueue_script( 'p4ml_admin_script' );
 		}

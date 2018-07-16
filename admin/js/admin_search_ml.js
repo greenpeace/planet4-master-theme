@@ -81,10 +81,8 @@ $(document).off('click').on('click', '#ml-button-insert', function () {
 
         // Switch the media library tab.
         $( '.media-router' ).find('a:nth-child(2)').click();
-        // Set the media name in search field.
-        $( '#media-search-input' ).val(ml_selected_image);
-        // Trigger the search media event.
-        $( '#media-search-input' ).keyup();
+        // Set the media name in search field & trigger the search media event.
+        $( '#media-search-input' ).val(ml_selected_image).keyup();
 
         $( '#ml_loader' ).removeClass('is-active');
 
@@ -137,7 +135,7 @@ $(document).on('keyup', '.ml-search', function() {
 // Call the function on scroll event.
 function scroll_ml_images() {
 
-    if (scroll_more == 0) {
+    if (0 === scroll_more) {
 
         scroll_more = 1;
         var next_page = parseInt( $( '#ml_current_page' ).val() ) + 1;
