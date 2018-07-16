@@ -42,7 +42,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		 */
 		function media_library_post_upload_ui() {
 			$this->load_ml_assets();
-			print '<button id="db-upload-btn" class="button media-button button-primary button-large switchtoml">' . esc_attr( __( 'Upload From GPI Media Library', 'planet4-medialibrary' ) ) . '</button>';
+			print '<button id="db-upload-btn" class="button media-button button-primary button-large switchtoml">' . esc_html__( 'Upload From GPI Media Library', 'planet4-medialibrary' ) . '</button>';
 		}
 
 		/**
