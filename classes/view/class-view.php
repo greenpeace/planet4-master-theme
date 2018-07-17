@@ -107,6 +107,24 @@ if ( ! class_exists( 'View' ) ) {
 		}
 
 		/**
+		 * Render the media library searched image listing page.
+		 *
+		 * @param array $data All the data needed to render the template.
+		 */
+		public function ml_search_media_view( $data ) {
+			$this->view_template( 'ml_search_media_view', $data );
+		}
+
+		/**
+		 * Render the media library image listing page.
+		 *
+		 * @param array $data All the data needed to render the template.
+		 */
+		public function ml_media_view( $data ) {
+			$this->view_template( 'ml_media_view', $data );
+		}
+
+		/**
 		 * Displays a message.
 		 *
 		 * @param array $data All the data needed to render the template.

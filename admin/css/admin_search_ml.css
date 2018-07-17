@@ -1,0 +1,31 @@
+.ml-button-insert {
+    margin-top: 10px;
+}
+
+.ml-media-list {
+    z-index: 10000;
+}
+
+.ml-details {
+    z-index: 10000;
+}
+
+#ml_loader {
+    position: fixed;
+    left: 40%;
+}
+
+.ml_spinner {
+    position: fixed;
+    left: 53% !important;
+    margin-top: 20px !important;
+}
+
+.ml-error {
+    text-align:center;
+    color: #FF0000;
+}
+
+.switchtoml {
+    margin-bottom:10px;
+}
