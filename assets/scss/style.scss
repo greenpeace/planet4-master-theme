@@ -20,9 +20,10 @@ Text Domain: planet4-master-theme
 /**
  * Setup global styles
  */
-@import "partials/variables";
-@import "partials/functions";
-@import "partials/mixins";
+@import "partials/fonts";
+@import "global/variables";
+@import "global/functions";
+@import "global/mixins";
 @import "partials/typography";
 @import "partials/font-icon";
 @import "modules/buttons";
