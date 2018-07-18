@@ -55,12 +55,16 @@ jQuery(document).ready(function () {
                     for (len = resp.images.length, i = 0; i < len; ++i) {
                         var image = resp.images[i];
 
+                        var alt_text = '.' === image.title.substr(-1)  ? image.title : image.title + '.';
+                        // Add credit to alt text.
+                        alt_text = '' !== image.credit ? alt_text + ' © ' + image.credit : alt_text;
+
                         options = {
                             id: image.wordpress_id,
                             'image-size': 'full',
                             post_content: image.caption,
                             post_excerpt: image.caption,
-                            image_alt: image.title,
+                            image_alt: alt_text,
                         };
 
                         promises.push(wp.media.post('send-attachment-to-editor', {
