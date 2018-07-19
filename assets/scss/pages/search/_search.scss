@@ -11,20 +11,20 @@
 }
 
 .result-statement {
-  font-size: rem(28);
+  font-size: 1.75rem;
   margin-bottom: 8px;
   line-height: 1.2;
 
   @include small-and-up {
-    font-size: rem(48);
+    font-size: 3rem;
   }
 
   @include large-and-up {
-    font-size: rem(56);
+    font-size: 3.5rem;
   }
 
   @include x-large-and-up {
-    font-size: rem(66);
+    font-size: 4.125rem;
   }
 }
 
@@ -45,14 +45,14 @@
   }
 
   .search-help-info {
-    font-size: rem(16);
+    font-size: 1rem;
     margin-bottom: 24px;
     padding-left: 20px;
     color: $grey-60;
     line-height: 1.8;
 
     @include small-and-up {
-      font-size: rem(18);
+      font-size: 1.125rem;
       margin-bottom: 32px;
       padding-left: 20px;
     }
@@ -63,7 +63,7 @@
     }
 
     @include x-large-and-up {
-      font-size: rem(22);
+      font-size: 1.375rem;
       margin-bottom: 40px;
       padding-left: 50px;
     }

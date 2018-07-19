@@ -1,15 +1,10 @@
 /**
-* Global functions.
-*/
-
-/**
 * Test if `$value` is a valid direction
 *
 * @param {*} $value - Value to test
 * @return {Bool}
 */
-
-@function is-direction( $value ) {
+@function is-direction($value) {
   $is-keyword: index((to top, to top right, to right top, to right, to bottom right, to right bottom, to bottom, to bottom left, to left bottom, to left, to left top, to top left), $value);
   $is-angle: type-of($value) == "number" and index("deg" "grad" "turn" "rad", unit($value));
 
@@ -23,7 +18,7 @@
 * @require {function} is-direction
 * @require {function} convert-angle
 */
-@function legacy-direction( $value ) {
+@function legacy-direction($value) {
   $conversion-map: (
     to top : bottom,
     to top right : bottom left,

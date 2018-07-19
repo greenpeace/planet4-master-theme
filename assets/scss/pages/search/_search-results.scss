@@ -74,7 +74,7 @@
         }
 
         .search-result-item-headline {
-          font-size: rem(24);
+          font-size: 1.5rem;
           margin-bottom: 40px;
 
           @include small-and-up {
@@ -104,20 +104,6 @@
     }
   }
 
-  .btn-secondary {
-    color: $black;
-    border-color: $black;
-    border-width: 2px;
-
-    &:hover,
-    &:focus,
-    &:active {
-      color: $white;
-      background-color: $grey-80;
-      border-color: $grey-80;
-    }
-  }
-
   .more-btn {
     margin-top: 25px;
 
@@ -140,7 +126,7 @@
     }
 
     i {
-      font-size: rem(16);
+      font-size: 1rem;
       font-weight: bold;
       margin-right: 10px;
       float: left;
@@ -163,7 +149,7 @@
 }
 
 .search-result-item-headline {
-  font-size: rem(18);
+  font-size: 1.125rem;
   color: $grey-80;
   text-decoration: none;
   font-weight: 500;
@@ -172,31 +158,31 @@
   margin-bottom: 10px;
 
   @include small-and-up {
-    font-size: rem(22);
+    font-size: 1.375rem;
   }
 
   @include large-and-up {
-    font-size: rem(26);
+    font-size: 1.625rem;
     margin-bottom: 16px;
   }
 }
 
 .search-result-item-info {
-  font-size: rem(14);
+  font-size: 0.875rem;
   font-style: italic;
   color: $grey-60;
   line-height: normal;
   margin-bottom: 10px;
 
   @include large-and-up {
-    font-size: rem(16);
+    font-size: 1rem;
     margin-bottom: 40px;
   }
 }
 
 .search-result-item-content {
   display: none;
-  font-size: rem(16);
+  font-size: 1rem;
   color: $black;
   line-height: 30px;
   margin-bottom: 0;
@@ -206,13 +192,13 @@
   }
 
   @include large-and-up {
-    font-size: rem(18);
+    font-size: 1.125rem;
   }
 }
 
 .search-result-tags {
   margin-bottom: 0;
-  font-size: rem(14);
+  font-size: 0.875rem;
 
   @include medium-and-up {
     margin-bottom: 8px;
@@ -220,7 +206,7 @@
 
   @include large-and-up {
     margin-bottom: 16px;
-    font-size: rem(16);
+    font-size: 1rem;
   }
 
   .search-result-item-title {

@@ -1,5 +1,5 @@
-$menu-height-small: rem(54);
-$menu-height-large: rem(60);
+$menu-height-small: 3.375rem;
+$menu-height-large: 3.75rem;
 
 .top-navigation {
   position: fixed;
@@ -16,9 +16,8 @@ $menu-height-large: rem(60);
   height: $menu-height-small;
   font-family: $roboto;
 
-  // Use (min-width: 783px) for parity with WP's .admin-bar
-  @media screen and (min-width: 783px) {
-    height: $menu-height-large + rem(1);
+  @include medium-and-up {
+    height: $menu-height-large;
   }
 
   @include large-and-up {
@@ -52,10 +51,9 @@ $menu-height-large: rem(60);
   line-height: $menu-height-small;
   padding: 0 15px;
 
-  // Use (min-width: 783px) for parity with WP's .admin-bar
-  @media screen and (min-width: 783px) {
+  @include medium-and-up {
     line-height: $menu-height-large;
-    font-size: rem(18);
+    font-size: 1.125rem;
   }
 }
 
@@ -74,13 +72,13 @@ $menu-height-large: rem(60);
 
 .navbar-search-toggle,
 .btn-navbar-toggle {
-  line-height: rem(54 - 22);
+  line-height: 2rem;
   margin: 11px;
   color: $white;
   z-index: 1;
 
   .fa {
-    font-size: rem(18);
+    font-size: 1.125rem;
   }
 }
 
@@ -126,10 +124,14 @@ $menu-height-large: rem(60);
 }
 
 .site-logo {
-  @media (max-width: #{$large-width}) {
-    position: absolute;
-    width: 100%;
-    text-align: center;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+
+  @include large-and-up {
+    position: static;
+    width: auto;
+    text-align: left;
   }
 
   &:focus {
@@ -137,12 +139,14 @@ $menu-height-large: rem(60);
   }
 
   img {
-    height: rem(20);
+    height: 1.25rem;
+
     @include small-and-up {
-      height: rem(24);
+      height: 1.5rem;
     }
+
     @include large-and-up {
-      height: rem(30);
+      height: 1.875rem;
     }
   }
 }
@@ -151,32 +155,36 @@ $menu-height-large: rem(60);
   display: none;
   margin: 0;
   list-style-type: none;
+  height: 100vh;
+  width: 300px;
+  background-position: right $menu-height-small;
+
+  @include small-and-up {
+    height: 100vh;
+    width: 375px;
+  }
+
+  @include medium-and-up {
+    width: 400px;
+    background-position: right $menu-height-large;
+  }
+
+  @include large-and-up {
+    height: auto;
+    width: auto;
+    background-position: 0% 0%;
+  }
 
   &.open {
     display: flex;
   }
 
-  @media (max-width: $medium-width) {
-    li:first-child {
-      z-index: 10;
+  li:first-child {
+    z-index: 10;
+
+    @include medium-and-up {
+      z-index: 0;
     }
-  }
-
-  // Dropdown width permutations
-  @media screen and (max-width: #{$small-width}) {
-    height: 100vh;
-    width: 300px;
-  }
-
-  // Use (min-width: 783px) for parity with WP's .admin-bar
-  @media screen and (min-width: #{$small-width}) and (max-width: 782px) {
-    height: 100vh;
-    width: 375px;
-  }
-
-  // Use (min-width: 783px) for parity with WP's .admin-bar
-  @media screen and (min-width: 783px) and (max-width: #{$large-width}) {
-    width: 400px;
   }
 
   ::-webkit-scrollbar {
@@ -203,16 +211,6 @@ $menu-height-large: rem(60);
     background: rgba(255, 255, 255, 0.05);
   }
 
-  // Dropdown height permutations, with and without WP admin bar
-  .admin-bar & {
-    @media screen and (max-width: 782px) {
-      height: calc(100vh - 46px);
-    }
-    @media screen and (min-width: 783px) and (max-width: #{$large-width}) {
-      height: calc(100vh - 32px);
-    }
-  }
-
   // All other dropdown styles
   @media (max-width: #{$large-width}) {
     box-sizing: border-box;
@@ -236,8 +234,7 @@ $menu-height-large: rem(60);
       z-index: 2;
       border: 0;
 
-      // Use (min-width: 783px) for parity with WP's .admin-bar
-      @media (min-width: 783px) and (max-width: #{$large-width}) {
+      @include medium-and-up {
         height: $menu-height-large;
       }
 
@@ -276,7 +273,7 @@ $menu-height-large: rem(60);
         border-right: 1px solid transparentize($white, 0.9);
         background-size: contain;
 
-        @media screen and (min-width: 783px) {
+        @include medium-and-up {
           top: 17px;
         }
       }
@@ -293,8 +290,8 @@ $menu-height-large: rem(60);
     .nav-link {
       padding: 0 40px 0 50px;
       display: block;
-      line-height: rem(45);
-      font-size: rem(16);
+      line-height: 2.8125rem;
+      font-size: 1rem;
       margin: 0.5em 0;
     }
 
@@ -323,15 +320,6 @@ $menu-height-large: rem(60);
       margin: 1.5em auto;
       padding: 5px 30px;
     }
-  }
-
-  // Background position control
-  @media (max-width: #{$medium-width}) {
-    background-position: right $menu-height-small;
-  }
-
-  @media (min-width: #{$medium-width}) and (max-width: #{$large-width}) {
-    background-position: right $menu-height-large;
   }
 
   @include large-and-up {
@@ -381,26 +369,25 @@ $menu-height-large: rem(60);
   display: none;
   position: relative;
   color: $search-text-colour;
+  top: 100%;
+  right: 0;
+  width: 300px;
+  padding: 11px;
+  max-width: 80%;
+  background: transparentize($blue-bg, 0.15);
 
   &.open {
     display: block;
-  }
-
-  // Equiv. to "large-and-down", to avoid need to override all styles below
-  @media (max-width: #{$large-width}) {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: 300px;
-    padding: 11px;
-    max-width: 80%;
-    background: transparentize($blue-bg, 0.15);
   }
 
   @include large-and-up {
     max-width: 20%;
     width: 400px;
     display: inline-block;
+    padding: 0 15px;
+    background: none;
+    top: auto;
+    right: auto;
   }
 
   input::-webkit-input-placeholder {
@@ -413,13 +400,13 @@ $menu-height-large: rem(60);
     position: absolute;
     top: 11px;
     right: 16px;
-    font-size: rem(20);
+    font-size: 1.25rem;
     line-height: 36px;
     color: $dark-blue;
 
     i {
       vertical-align: middle;
-      font-size: rem(21);
+      font-size: 1.3125rem;
     }
 
     @include large-and-up {
@@ -435,7 +422,7 @@ $menu-height-large: rem(60);
 
 .country-dropdown-toggle {
   cursor: pointer;
-  font-size: rem(16);
+  font-size: 1rem;
   border: 0;
   color: transparentize($white, 0.2);
   background: transparent;
@@ -502,7 +489,7 @@ $menu-height-large: rem(60);
   }
 
   .country-group-letter {
-    font-size: rem(16);
+    font-size: 1rem;
     position: absolute;
     line-height: 1.5;
     font-weight: bold;
@@ -524,7 +511,7 @@ $menu-height-large: rem(60);
     position: relative;
     list-style: none;
     padding-left: 50px;
-    font-size: rem(16);
+    font-size: 1rem;
 
     @include large-and-up {
       padding-left: 2em;
@@ -545,13 +532,13 @@ $menu-height-large: rem(60);
   @include large-and-up {
     position: absolute;
     height: 344px;
-    width: 90%;
-    padding: 2em;
+    width: 80%;
     left: 10%;
     overflow-x: hidden;
     overflow-y: hidden !important;
     max-height: 344px;
     max-height: calc(100vh - #{$menu-height-large});
+    padding: 2em 4em 4em;
 
     .admin-bar & {
       max-height: calc(100vh - #{$menu-height-large} - 32px);
@@ -561,15 +548,9 @@ $menu-height-large: rem(60);
       column-count: 3;
     }
   }
-  @media screen and (min-width: 1024px) {
-    padding: 2em 4em 4em;
-    width: 80%;
-    left: 10%;
-  }
 }
 
 .nav-item.wpml-ls-item {
-
   @include large-and-up {
     margin-left: -20px;
   }
@@ -580,7 +561,7 @@ $menu-height-large: rem(60);
 
   .nav-link {
     display: inline-block;
-    font-size: rem(14);
+    font-size: 0.875rem;
     padding: 0;
 
     &:first-child {

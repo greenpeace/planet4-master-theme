@@ -2,7 +2,7 @@
   position: relative;
 
   h4 {
-    font-size: rem(28);
+    font-size: 1.75rem;
     margin-bottom: 48px;
     font-weight: bold;
   }
@@ -19,18 +19,18 @@
       color: $header-footer-bg;
       font-weight: bold;
       position: relative;
-      font-size: rem(16);
+      font-size: 1rem;
       margin-bottom: 24px;
 
       @include small-and-up {
         padding: 13px 30px;
-        font-size: rem(18);
+        font-size: 1.125rem;
         margin-bottom: 32px;
       }
 
       @include large-and-up {
         padding: 11px 30px;
-        font-size: rem(20);
+        font-size: 1.25rem;
       }
 
       span {
@@ -111,11 +111,11 @@
       color: $grey;
 
       @include small-and-up {
-        font-size: rem(16);
+        font-size: 1rem;
       }
 
       @include x-large-and-up {
-        font-size: rem(18);
+        font-size: 1.125rem;
       }
     }
   }
@@ -132,7 +132,7 @@
     }
 
     .btn-filter {
-      font-size: rem(16);
+      font-size: 1rem;
       height: 40px;
       width: 130px;
       line-height: 40px;
@@ -148,13 +148,13 @@
       }
 
       i {
-        font-size: rem(20);
+        font-size: 1.25rem;
         vertical-align: middle;
         margin-right: 20px;
       }
 
       @include small-and-up {
-        font-size: rem(16);
+        font-size: 1rem;
         height: 48px;
         width: 150px;
         line-height: 48px;
@@ -178,7 +178,7 @@
 
   .active-filter {
     h5 {
-      font-size: rem(20);
+      font-size: 1.25rem;
       color: $grey-40;
       margin-bottom: 20px;
     }
@@ -190,7 +190,7 @@
 
       .activefilter-tag,
       .clearall {
-        font-size: rem(18);
+        font-size: 1.125rem;
         font-style: normal;
         color: $blue-tiber;
         border: 1px solid $blue-tiber;
@@ -204,7 +204,7 @@
         min-width: 40%;
 
         i {
-          font-size: rem(12);
+          font-size: 0.75rem;
           position: absolute;
           right: 0;
           top: 0;

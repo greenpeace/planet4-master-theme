@@ -37,18 +37,18 @@
 
       @include x-large-and-up {
         line-height: 1.1;
-        font-size: rem(56);
+        font-size: 3.5rem;
         margin-bottom: 20px;
       }
     }
 
     .top-page-tags a {
       color: $blue;
-      font-size: rem(14);
+      font-size: 0.875rem;
       margin-bottom: 6px;
 
       @include medium-and-up {
-        font-size: rem(16);
+        font-size: 1rem;
       }
     }
 
@@ -59,7 +59,7 @@
     .single-post-meta {
       color: $dark-shade-black;
       margin: 0 0 16px 0;
-      font-size: rem(13);
+      font-size: 0.8125rem;
       font-weight: 300;
       font-family: $roboto;
 
@@ -94,26 +94,26 @@
           visibility: hidden;
 
           @include medium-and-up {
-            visibility: unset;
+            visibility: visible;
           }
         }
       }
 
       @include medium-and-up {
-        font-size: rem(14);
+        font-size: 0.875rem;
         font-weight: 300;
         color: $grey-60;
         margin: 0;
       }
 
       @include large-and-up {
-        font-size: rem(15);
+        font-size: 0.9375rem;
         margin: -10px 0 0 0;
       }
 
       @include x-large-and-up {
         margin: 0;
-        font-size: rem(16);
+        font-size: 1rem;
       }
     }
 

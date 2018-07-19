@@ -1,13 +1,3 @@
-/*****************************************************************
-Site Name: Planet4 Master theme
-
-Stylesheet: Mixins Stylesheet
-******************************************************************/
-
-/*********************
-Media Queries
-*********************/
-
 // Mobile-only (up to 576px)
 @mixin mobile-only {
   @media (max-width: #{$small-width}) {
@@ -43,25 +33,16 @@ Media Queries
   }
 }
 
-/*********************
-TRANSITION
-*********************/
-
-/*
-* USAGE: @include transition(all 0.2s ease-in-out);
-*/
-
+// Usage: @include transition(all 0.2s ease-in-out);
 @mixin transition($transition...) {
   // defining prefixes so we can use them in mixins below
-  $prefixes:      ("-webkit-", "" );
+  $prefixes: ("-webkit-", "" );
   @each $prefix in $prefixes {
     #{$prefix}transition: $transition;
   }
 }
 
-/**
-* Cause an element to match the size of its stacking context parent.
-*/
+// Cause an element to match the size of its stacking context parent.
 @mixin fill-container() {
   position: absolute;
   top: 0;
@@ -70,22 +51,16 @@ TRANSITION
   left: 0;
 }
 
-/**
-* Build a linear gradient with a direction and any number of color stops.
-*/
-@mixin linear-gradient( $direction, $color-stops... ) {
+// Build a linear gradient with a direction and any number of color stops.
+@mixin linear-gradient($direction, $color-stops...) {
   background: nth(nth($color-stops, 1), 1); /* Old browsers */
   background: -moz-linear-gradient(legacy-direction($direction), $color-stops); /* FF3.6-15 */
   background: -webkit-linear-gradient(legacy-direction($direction), $color-stops); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient($direction, $color-stops); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
-/**
-* Create a gradient with hard stops that lines up
-*
-* Colors layout from top-right to bottom-left.
-*/
-@mixin skewed-gradient( $color1, $color2, $color3, $color4, $color5 ) {
+// Create a gradient with hard stops that lines up. Colors layout from top-right to bottom-left.
+@mixin skewed-gradient($color1, $color2, $color3, $color4, $color5) {
   @include linear-gradient(
     245deg,
     #{$color1} 6%,
@@ -113,7 +88,7 @@ TRANSITION
   }
 }
 
-@mixin detailed-skewed-gradient( $color1, $color2, $color3, $color4, $color5, $color6, $color7, $color8 ) {
+@mixin detailed-skewed-gradient($color1, $color2, $color3, $color4, $color5, $color6, $color7, $color8) {
   @include linear-gradient(
     245deg,
     #{$color1} 6%,
@@ -162,7 +137,7 @@ TRANSITION
   }
 }
 
-@mixin background($imgpath,$position:center,$repeat: no-repeat, $size: cover) {
+@mixin background($imgpath, $position: center, $repeat: no-repeat, $size: cover) {
   background: {
     image: url($imgpath);
     position: $position;
@@ -171,10 +146,7 @@ TRANSITION
   }
 }
 
-/*********************
-Skew mixin
-*********************/
-
+// Skew mixin
 @mixin skew($side: right, $deg: -20deg, $right: -15px, $left: -15px, $width: 30px, $bg: $white) {
   position: relative;
 
@@ -201,24 +173,6 @@ Skew mixin
   }
 }
 
-/*********************
-mixin for Font Size in rem
-*********************/
-
-$baseFontSize : 16;
-
-@function rem($pixels, $context: $baseFontSize) {
-  @if (unitless($pixels)) {
-    $pixels: $pixels * 1px;
-  }
-
-  @if (unitless($context)) {
-    $context: $context * 1px;
-  }
-
-  @return $pixels / $context * 1rem;
-}
-
 /* Generates mutilevel nested comments
 level-1 is the first level comment with a margin of 50px
 level-2 is the first level comment with a margin of 100px
@@ -226,7 +180,6 @@ and so on...
 */
 $comment-nest-level: 6;
 $nested-comment-left-margin: 50px;
-
 @mixin comment-level {
   @for $i from 1 through $comment-nest-level {
     .comment-level-#{$i} {

@@ -1,12 +1,3 @@
-/******************************************************************
-Site Name: Planet 4 Master Theme
-
-Stylesheet: Typography
-
-Import a Font or Icons
-
-******************************************************************/
-
 html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -32,35 +23,35 @@ h2 {
 }
 
 h1 {
-  font-size: rem(40);
+  font-size: 2.5rem;
   line-height: 1.225;
-  margin-bottom: rem(30);
+  margin-bottom: 30px;
 
   @include large-and-up {
-    font-size: rem(56);
-    margin-bottom: rem(48);
+    font-size: 3.5rem;
+    margin-bottom: 48px;
   }
   @include x-large-and-up {
-    font-size: rem(66);
+    font-size: 4.125rem;
   }
 }
 
 h2 {
-  font-size: rem(26);
+  font-size: 1.625rem;
   line-height: 1.38;
-  margin-bottom: rem(5);
+  margin-bottom: 5px;
 
   @include medium-and-up {
-    font-size: rem(34);
+    font-size: 2.125rem;
   }
 
   @include large-and-up {
-    font-size: rem(36);
+    font-size: 2.25rem;
   }
 
   @include x-large-and-up {
-    font-size: rem(38);
-    margin-bottom: rem(24);
+    font-size: 2.375rem;
+    margin-bottom: 24px;
   }
 }
 
