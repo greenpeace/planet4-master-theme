@@ -105,33 +105,33 @@ class P4_Master_Site extends TimberSite {
 		add_theme_support( 'menus' );
 		add_post_type_support( 'page', 'excerpt' );  // Added excerpt option to pages.
 
-		add_filter( 'timber_context',           array( $this, 'add_to_context' ) );
-		add_filter( 'get_twig',                 array( $this, 'add_to_twig' ) );
-		add_action( 'init',                     array( $this, 'register_taxonomies' ), 2 );
-		add_action( 'init',                     array( $this, 'register_oembed_provider' ) );
-		add_action( 'pre_get_posts',            array( $this, 'add_search_options' ) );
-		add_filter( 'searchwp_query_main_join', array( $this, 'edit_searchwp_main_join_action_pages' ), 10, 2 );
-		add_filter( 'searchwp_query_orderby',   array( $this, 'edit_searchwp_orderby_action_pages' ) );
-		add_filter( 'searchwp_query_orderby',   array( $this, 'edit_searchwp_query_orderby' ), 11, 2 );
-		add_filter( 'posts_where',              array( $this, 'edit_search_mime_types' ) );
-		add_action( 'cmb2_admin_init',          array( $this, 'register_header_metabox' ) );
-		add_action( 'admin_enqueue_scripts',    array( $this, 'enqueue_admin_assets' ) );
-		add_action( 'wp_enqueue_scripts',       array( $this, 'enqueue_public_assets' ) );
-		add_filter( 'wp_kses_allowed_html',     array( $this, 'set_custom_allowed_attributes_filter' ) );
-		add_action( 'add_meta_boxes',           array( $this, 'add_meta_box_search' ) );
-		add_action( 'save_post',                array( $this, 'save_meta_box_search' ), 10, 2 );
-		add_action( 'save_post',                array( $this, 'set_featured_image' ), 10, 3 );
-		add_action( 'after_setup_theme',        array( $this, 'p4_master_theme_setup' ) );
-		add_action( 'admin_menu',               array( $this, 'add_restricted_tags_box' ) );
-		add_action( 'do_meta_boxes',            array( $this, 'remove_default_tags_box' ) );
-		add_action( 'pre_insert_term',          array( $this, 'disallow_insert_term' ), 1, 2 );
-		add_filter( 'wp_image_editors',         array( $this, 'allowedEditors' ) );
-		add_filter( 'jpeg_quality',             function( $arg ) { return 60; } );
-		add_action( 'after_setup_theme',        array( $this, 'add_image_sizes' ) );
-		add_action( 'admin_head' ,              array( $this, 'remove_add_post_element' ) );
-		add_filter( 'post_gallery',             array( $this, 'carousel_post_gallery' ), 10, 2 );
-		add_action( 'save_post',                array( $this, 'p4_auto_generate_excerpt' ) , 10, 2 );
-		add_filter( 'img_caption_shortcode',    array( $this, 'override_img_caption_shortcode' ), 10, 3 );
+		add_filter( 'timber_context',                 array( $this, 'add_to_context' ) );
+		add_filter( 'get_twig',                       array( $this, 'add_to_twig' ) );
+		add_action( 'init',                           array( $this, 'register_taxonomies' ), 2 );
+		add_action( 'init',                           array( $this, 'register_oembed_provider' ) );
+		add_action( 'pre_get_posts',                  array( $this, 'add_search_options' ) );
+		add_filter( 'searchwp_query_main_join',       array( $this, 'edit_searchwp_main_join_action_pages' ), 10, 2 );
+		add_filter( 'searchwp_query_orderby',         array( $this, 'edit_searchwp_orderby_action_pages' ) );
+		add_filter( 'searchwp_query_orderby',         array( $this, 'edit_searchwp_query_orderby' ), 11, 2 );
+		add_filter( 'posts_where',                    array( $this, 'edit_search_mime_types' ) );
+		add_action( 'cmb2_admin_init',                array( $this, 'register_header_metabox' ) );
+		add_action( 'admin_enqueue_scripts',          array( $this, 'enqueue_admin_assets' ) );
+		add_action( 'wp_enqueue_scripts',             array( $this, 'enqueue_public_assets' ) );
+		add_filter( 'wp_kses_allowed_html',           array( $this, 'set_custom_allowed_attributes_filter' ) );
+		add_action( 'add_meta_boxes',                 array( $this, 'add_meta_box_search' ) );
+		add_action( 'save_post',                      array( $this, 'save_meta_box_search' ), 10, 2 );
+		add_action( 'save_post',                      array( $this, 'set_featured_image' ), 10, 3 );
+		add_action( 'after_setup_theme',              array( $this, 'p4_master_theme_setup' ) );
+		add_action( 'admin_menu',                     array( $this, 'add_restricted_tags_box' ) );
+		add_action( 'do_meta_boxes',                  array( $this, 'remove_default_tags_box' ) );
+		add_action( 'pre_insert_term',                array( $this, 'disallow_insert_term' ), 1, 2 );
+		add_filter( 'wp_image_editors',               array( $this, 'allowedEditors' ) );
+		add_filter( 'jpeg_quality',                   function( $arg ) { return 60; } );
+		add_action( 'after_setup_theme',              array( $this, 'add_image_sizes' ) );
+		add_action( 'admin_head' ,                    array( $this, 'remove_add_post_element' ) );
+		add_filter( 'post_gallery',                   array( $this, 'carousel_post_gallery' ), 10, 2 );
+		add_action( 'save_post',                      array( $this, 'p4_auto_generate_excerpt' ) , 10, 2 );
+		add_filter( 'img_caption_shortcode',          array( $this, 'override_img_caption_shortcode' ), 10, 3 );
 
 		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
 		add_action( 'wp_ajax_nopriv_get_paged_posts', array( 'P4_Search', 'get_paged_posts' ) );
@@ -401,15 +401,16 @@ class P4_Master_Site extends TimberSite {
 	 * Load styling and behaviour on website pages.
 	 */
 	public function enqueue_public_assets() {
+		// master-theme assets.
 		$css_creation = filectime( get_template_directory() . '/style.css' );
 		$js_creation  = filectime( get_template_directory() . '/assets/js/main.js' );
 
-		// CSS files
+		// CSS files.
 		wp_enqueue_style( 'bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css', array(), '4.1.1' );
 		wp_enqueue_style( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css', array(), '1.9.0' );
 		wp_enqueue_style( 'font-awesome', $this->theme_dir . '/assets/lib/@fortawesome/fontawesome-free-webfonts/css/fontawesome.css', array(), '5.0.10' );
 		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], $css_creation );
-		// JS files
+		// JS files.
 		wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', array(), '3.3.1', true );
 		wp_enqueue_script( 'popperjs', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', array(), '1.14.3', true );
 		wp_enqueue_script( 'bootstrapjs', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js', array(), '4.1.1', true );
@@ -935,7 +936,7 @@ class P4_Master_Site extends TimberSite {
 
 new P4_Master_Site( [
 	'P4_Custom_Taxonomy',
-	'P4_Taxonomy_Image',
+	'P4_Campaigns',
 	'P4_Settings',
 	'P4_Control_Panel',
 	'P4_Post_Report_Controller',

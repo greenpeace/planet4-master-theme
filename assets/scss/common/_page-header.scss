@@ -99,6 +99,7 @@
 .top-page-tags {
   font-size: rem(14);
   margin-bottom: 6px;
+  font-family: $roboto;
 
   @include medium-and-up {
     font-size: rem(16);
@@ -115,6 +116,17 @@
 
   .tag-item--main {
     font-weight: 500;
+    text-transform: uppercase;
+    margin-right: 20px;
+    position: relative;
+
+    &:after {
+      content: "\2022";
+      pointer-events: none;
+      display: inline-block;
+      position: absolute;
+      right: -15px;
+    }
   }
 }
 

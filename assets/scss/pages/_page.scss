@@ -27,4 +27,25 @@ div.page-template {
     position: relative;
     z-index: 2;
   }
+
+  .alignleft {
+    float: left;
+    margin: 10px 10px 0 0;
+  }
+
+  .alignright {
+    float: right;
+    margin: 10px 0 0 10px;
+  }
+
+  .aligncenter {
+    margin: auto;
+    display: block;
+  }
+
+  .alignnone,
+  .alignnone img {
+    max-width: 100%;
+    height: auto;
+  }
 }

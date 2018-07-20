@@ -1,8 +1,6 @@
 <?php
 /**
- * The template for displaying a Tag page.
- *
- * Learn more: https://codex.wordpress.org/Tag_Templates
+ * Displays a Campaign (Tag) page.
  *
  * Category <-> Issue
  * Tag <-> Campaign
@@ -68,14 +66,26 @@ if ( is_tag() ) {
 	] );
 
 	$campaign->add_block( Articles::BLOCK_NAME, [
-		'tag_id'          => $context['tag']->term_id,
+		'tag_id' => $context['tag']->term_id,
 	] );
 
-	$campaign->add_block( ContentFourColumn::BLOCK_NAME, [
-		'p4_page_type_publication' => 'true',
-		'select_tag'               => $context['tag']->term_id,
-		'posts_view'               => '0',   // Show 1 row of posts.
-	] );
+	$cfc_args = [
+		'select_tag' => $context['tag']->term_id,
+		'posts_view' => '0',   // Show 1 row of posts.
+	];
+
+	// Get the selected page types for this campaign so that we add posts in the CFC block only for those page types.
+	$selected_page_types = get_term_meta( $context['tag']->term_id, 'selected_page_types' );
+	if ( isset( $selected_page_types[0] ) && $selected_page_types[0] ) {
+		foreach ( $selected_page_types[0] as $selected_page_type ) {
+			$cfc_args[ "p4_page_type_$selected_page_type" ] = 'true';
+		}
+	} else {
+		// If none is selected, then display Publications by default (for backwards compatibility).
+		$cfc_args['p4_page_type_publication'] = 'true';
+	}
+
+	$campaign->add_block( ContentFourColumn::BLOCK_NAME, $cfc_args );
 
 	$campaign->add_block( CampaignThumbnail::BLOCK_NAME, [
 		'title'       => __( 'Related Campaigns', 'planet4-master-theme' ),

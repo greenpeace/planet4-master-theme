@@ -21,10 +21,13 @@
       width: 330px;
       min-height: 415px;
     }
+
+    .cover-card-tag {
+      font-family: $roboto;
+    }
   }
 
   ul, ol {
-    font-family: $lora;
     // Assumptions made for the font-size that it's behaviour is same
     // as the p tags in the content
     @include small-and-up {
@@ -124,11 +127,12 @@
 
   .alignright {
     float: right;
-    margin: 0 0 0 10px;
+    margin: 10px 0 0 10px;
   }
 
   .aligncenter {
     margin: auto;
+    display: block;
   }
 
   .alignnone,
@@ -138,7 +142,6 @@
   }
 
   blockquote {
-    font-family: $lora;
     font-size: rem(36);
     line-height: 1.5;
     font-style: italic;
@@ -301,7 +304,6 @@
 }
 
 .post-details {
-  font-family: $lora;
   line-height: 1.6;
 
   @include small-and-up {
