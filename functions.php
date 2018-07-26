@@ -814,10 +814,18 @@ class P4_Master_Site extends TimberSite {
 			// Unhook save_post function so it doesn't loop infinitely.
 			remove_action( 'save_post', [ $this, 'p4_auto_generate_excerpt' ], 10 );
 
+			// Generate excerpt text.
+			$post_excerpt   = strip_shortcodes( $post->post_content );
+			$post_excerpt   = apply_filters( 'the_content', $post_excerpt );
+			$post_excerpt   = str_replace( ']]>', ']]&gt;', $post_excerpt );
+			$excerpt_length = apply_filters( 'excerpt_length', 30 );
+			$excerpt_more   = apply_filters( 'excerpt_more', '&hellip;' );
+			$post_excerpt   = wp_trim_words( $post_excerpt, $excerpt_length, $excerpt_more );
+
 			// Update the post, which calls save_post again.
 			wp_update_post( [
 				'ID'           => $post_id,
-				'post_excerpt' => strip_tags( apply_filters( 'the_content', wp_trim_words( strip_tags( $post->post_content ), 30 ) ) ),
+				'post_excerpt' => $post_excerpt,
 			] );
 
 			// re-hook save_post function.
