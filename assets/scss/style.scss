@@ -4,9 +4,9 @@ Theme URI: https://github.com/greenpeace/planet4-master-theme
 Description: Master theme for the Planet 4 Wordpress project
 Author: Greenpeace International
 Author URI: https://github.com/greenpeace
-Version: 1.11
-License: GNU General Public License v3 or later
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Version: 1.13
+License: MIT
+License URI: https://opensource.org/licenses/MIT
 Tags: light, accessibility-ready
 Text Domain: planet4-master-theme
 */
@@ -20,46 +20,25 @@ Text Domain: planet4-master-theme
 /**
  * Setup global styles
  */
-@import "partials/variables";
-@import "partials/functions";
-@import "partials/mixins";
+@import "partials/fonts";
+@import "global/variables";
+@import "global/functions";
+@import "global/mixins";
 @import "partials/typography";
 @import "partials/font-icon";
 @import "modules/buttons";
 @import "modules/forms";
 
 // Import Blocks
-@import "common/navbar";
-@import "common/skip-links";
+@import "common/cookie-block";
 @import "common/footer";
-@import "common/tasks";
-@import "common/happy-point-block";
-@import "common/static-four-column";
-@import "common/content-two-column";
-@import "common/split-box-out";
-@import "common/article-listing";
+@import "common/navbar";
 @import "common/page-header";
 @import "common/page-section";
-@import "common/subheader";
-@import "common/carousel";
-@import "common/covers";
-@import "common/block-media";
-@import "common/tag-cloud";
-@import "common/content-four-column";
-@import "common/split-two-column";
-@import "common/split-carousel";
-@import "common/carousel-header";
-@import "common/video-block";
-@import "common/tweet-block";
-@import "common/campaign-thumbnail-block";
-@import "common/content-three-column";
-@import "common/cookie-block";
-@import "common/campaign-covers-4col-wrap";
-@import "common/skewed-overlay";
-@import "common/tags-list";
 @import "common/share-buttons";
-@import "common/submenu";
-@import "common/cookies";
+@import "common/skewed-overlay";
+@import "common/skip-links";
+@import "common/tweet-block";
 
 /**
  * Page-specific styles
@@ -74,9 +53,6 @@ Text Domain: planet4-master-theme
 
 // Default page template
 @import "pages/page";
-
-// Take Action page.
-@import "pages/take-action"; // TODO: Break this down into blocks
 
 // Sitemap page.
 @import "pages/sitemap";
@@ -108,11 +84,6 @@ Text Domain: planet4-master-theme
 @import "pages/search/sort-filter";
 @import "pages/search/suggested-terms";
 
-/**
- * Third-party CSS
- */
-@import "external/happy-point-form";
-
 /*
  *
  * CSS Coding guidelines to be followed : https://make.wordpress.org/core/handbook/best-practices/coding-standards/css/
@@ -142,6 +113,10 @@ body {
     background-image: repeating-linear-gradient(119deg, transparent -53%, rgba(157, 187, 190, 0.1) 55%, rgba(236, 241, 243, 1) 0), repeating-linear-gradient(119deg, transparent -50%, rgba(157, 187, 190, 0.1) 30%, rgba(236, 241, 243, 0) 20%), repeating-linear-gradient(119deg, transparent -445%, rgba(157, 187, 190, 0.1) 27%, rgba(236, 241, 243, 0) 10%), repeating-linear-gradient(119deg, transparent -45%, rgba(157, 187, 190, 0.1) 17%, rgba(236, 241, 243, 0.5) 0), url("images/home.png");
     background-repeat: repeat-x;
     background-color: #ecf1f3;
+  }
+
+  &.search {
+    font-family: $roboto;
   }
 }
 

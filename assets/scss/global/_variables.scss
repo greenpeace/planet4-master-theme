@@ -1,12 +1,18 @@
 /******************************************************************
 Site Name: Planet4 Master theme
-Author: Ashish Singh(ashish.singh@greenpeace.org)
 
 Stylesheet: Variables
 
 Here is where we declare all our variables like colors, fonts,
 base values, and defaults.
 ******************************************************************/
+
+// font stacks
+/* stylelint-disable value-keyword-case*/
+$sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$serif:      "Georgia", Cambria, "Times New Roman", Times, serif;
+$roboto:     "Roboto", sans-serif;
+$lora:       "Lora", serif;
 
 /**
 * A note on colors:

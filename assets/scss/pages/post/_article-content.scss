@@ -127,11 +127,12 @@
 
   .alignright {
     float: right;
-    margin: 0 0 0 10px;
+    margin: 10px 0 0 10px;
   }
 
   .aligncenter {
     margin: auto;
+    display: block;
   }
 
   .alignnone,
