@@ -817,7 +817,7 @@ class P4_Master_Site extends TimberSite {
 			// Generate excerpt text.
 			$post_excerpt   = strip_shortcodes( $post->post_content );
 			$post_excerpt   = apply_filters( 'the_content', $post_excerpt );
-			$post_excerpt   = str_replace(']]>', ']]&gt;', $post_excerpt);
+			$post_excerpt   = str_replace( ']]>', ']]&gt;', $post_excerpt );
 			$excerpt_length = apply_filters( 'excerpt_length', 30 );
 			$excerpt_more   = apply_filters( 'excerpt_more', '&hellip;' );
 			$post_excerpt   = wp_trim_words( $post_excerpt, $excerpt_length, $excerpt_more );
