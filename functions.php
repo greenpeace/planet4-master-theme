@@ -260,14 +260,8 @@ class P4_Master_Site extends TimberSite {
 		$options                         = get_option( 'planet4_options' );
 
 		// Do not embed google tag manager js if 'greenpeace' cookie is not set or enforce_cookies_policy setting is not enabled.
-		$enforce_cookies_policy = isset( $options['enforce_cookies_policy'] ) ? true : false;
-		if ( $enforce_cookies_policy ) {
-			$cookie_consent              = isset( $_COOKIE['greenpeace'] ) ? $_COOKIE['greenpeace'] : false;
-			$gtm                         = $options['google_tag_manager_identifier'] ?? '';
-			$context['google_tag_value'] = ! empty( $gtm ) && '2' === $cookie_consent ? $gtm : '';
-		} else {
-			$context['google_tag_value'] = $options['google_tag_manager_identifier'] ?? '';
-		}
+		$context['enforce_cookies_policy'] = isset( $options['enforce_cookies_policy'] ) ? true : false;
+		$context['google_tag_value']       = $options['google_tag_manager_identifier'] ?? '';
 
 		$context['donatelink']           = $options['donate_button'] ?? '#';
 		$context['website_navbar_title'] = $options['website_navigation_title'] ?? __( 'International (English)', 'planet4-master-theme' );
