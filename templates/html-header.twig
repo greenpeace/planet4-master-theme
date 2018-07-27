@@ -31,26 +31,11 @@
 
 	{% if google_tag_value %}
 	<script>
-          function readCookie(name) {
-            var nameEQ = name + '=';
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-              var c = ca[i];
-              while (c.charAt(0) === ' ') {
-                c = c.substring(1, c.length);
-              }
-              if (c.indexOf(nameEQ) === 0) {
-                return c.substring(nameEQ.length, c.length);
-              }
-            }
-            return null;
-          }
-
-          var cookie = readCookie( 'greenpeace' );
+          var cookie_consent = document.cookie.split(';').filter(function(c) {return c.indexOf('greenpeace=2') >= 0}).length;
           var google_tag_value = '{{ google_tag_value }}';
           var enforce_cookies_policy = '{{ enforce_cookies_policy }}';
 
-          if ( enforce_cookies_policy && 2 !== parseInt( cookie ) ) {
+          if ( enforce_cookies_policy && 1 !== parseInt( cookie_consent ) ) {
             google_tag_value = '';
           }
 
