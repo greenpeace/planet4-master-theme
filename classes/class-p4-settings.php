@@ -149,6 +149,15 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
+					'name'       => __( 'Donate button text', 'planet4-master-theme-backend' ),
+					'id'         => 'donate_text',
+					'type'       => 'text',
+					'attributes' => [
+						'type' => 'text',
+					],
+				],
+
+				[
 					'name'       => __( '404 Background Image', 'planet4-master-theme-backend' ),
 					'id'         => '404_page_bg_image',
 					'type'       => 'file',
