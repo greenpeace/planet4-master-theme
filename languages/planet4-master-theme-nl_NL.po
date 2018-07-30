@@ -3,8 +3,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-06-21 10:29+0000\n"
-"Last-Translator: Michiel De Brieder <mdebried@greenpeace.org>\n"
+"PO-Revision-Date: 2018-07-26 07:24+0000\n"
+"Last-Translator: Eveline Gillot <egillot@greenpeace.org>\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +32,7 @@ msgstr "Laat een reactie achter"
 
 #: 404.php:30
 msgid "Sorry, we can't find that page!"
-msgstr "Sorry, we can't find that page!"
+msgstr "Sorry, die pagina kunnen we niet vinden!"
 
 #: 404.php:31
 msgid "Enter your search term below"
@@ -52,7 +52,7 @@ msgstr "Wat jij kunt doen"
 
 #: tag.php:65
 msgid "We want you to take action because together we're strong."
-msgstr "We want you to take action because together we're strong."
+msgstr "Kom in actie, want samen staan we sterk."
 
 #: tag.php:81
 msgid "Related Campaigns"
@@ -76,7 +76,7 @@ msgstr "International (English)"
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
-msgstr "Search page"
+msgstr "Zoek pagina"
 
 #. translators:
 #: classes/class-p4-search.php:412
@@ -153,7 +153,7 @@ msgstr "Over Greenpeace"
 
 #: page-templates/sitemap.php:34
 msgid "Articles"
-msgstr "Articles"
+msgstr "Artikelen"
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
@@ -165,7 +165,7 @@ msgstr "Close Menu"
 
 #: templates/navigation-bar.twig:27
 msgid "Selected"
-msgstr "Selected"
+msgstr "Geselecteerd"
 
 #: templates/navigation-bar.twig:28
 msgid "Change Country"
@@ -185,7 +185,7 @@ msgstr "Zoeken"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr "AKKOORD"
+msgstr "OK!"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
@@ -213,7 +213,7 @@ msgstr "This Site"
 
 #: templates/search.twig:38
 msgid "Archive"
-msgstr "Archive"
+msgstr "Archief"
 
 #: templates/search.twig:56
 msgid "Filters"
@@ -245,7 +245,7 @@ msgstr "Cancel"
 
 #: templates/search.twig:156
 msgid "Apply Filters"
-msgstr "Apply Filters"
+msgstr "Pas filters toe"
 
 #: templates/search.twig:166
 msgid "ACTIVE FILTERS"
@@ -281,7 +281,7 @@ msgstr "Suggested search terms"
 
 #: templates/tease-search.twig:62
 msgid "take action"
-msgstr "take action"
+msgstr "kom in actie"
 
 #: templates/tease-search.twig:65
 msgid "Download"
