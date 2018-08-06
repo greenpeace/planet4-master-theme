@@ -1,28 +1,16 @@
-/******************************************************************
-Site Name: Planet4 Master theme
-
-Stylesheet: Variables
-
-Here is where we declare all our variables like colors, fonts,
-base values, and defaults.
-******************************************************************/
-
-// font stacks
+// Fonts
 /* stylelint-disable value-keyword-case*/
 $sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $serif:      "Georgia", Cambria, "Times New Roman", Times, serif;
 $roboto:     "Roboto", sans-serif;
 $lora:       "Lora", serif;
 
-/**
-* A note on colors:
-*
-* Every single color on this site should use a color variable as defined
-* in this file for brand consistency and code maintenance.
-*
-* Once a color is defined here, it should not change and will remain
-* consistent.
-*/
+// Media queries
+$extra-small-width:  320px;
+$small-width:        576px;
+$medium-width:       768px;
+$large-width:        992px;
+$extra-large-width:  1200px;
 
 // Primary Colors.
 $black:       #000;
@@ -117,12 +105,8 @@ $med-blue:  #0a3351;
 
 // Social buttons
 $facebook: #3b5998;
-$twitter: #55acee;
-$email: #ea7179;
-
-/**
-* From this point on only the above color variables should be used in the codebase.
-*/
+$twitter:  #55acee;
+$email:    #ea7179;
 
 // Used colors
 $active:                #aed4c7;
@@ -134,7 +118,7 @@ $border-color:          #07403a;
 $brown-bg-tags-text:    $yellow;
 $card-header-bg:        #c7dcd3;
 $carr-arrow:            $med-blue;
-$carousel-active:       #064364; // Duplicate
+$carousel-active:       #064364;
 $darkb-blue-text:       #264042;
 $fixed-nav-bg:          #247670;
 $header-footer-bg:      #030403;
@@ -167,10 +151,5 @@ $dark-shade-black:      #1a1a1a;
 $carousel-indi-color:   #8bcc49;
 $shadow-color:          $grey-60;
 $hover-nav:             #052a30;
-
-// Media queries
-$extra-small-width:  320px;
-$small-width:        576px;
-$medium-width:       768px;
-$large-width:        992px;
-$extra-large-width:  1200px;
+$cookie-bkg:            #c0dbe2;
+$cookie-blue:           #094464;

@@ -15,7 +15,7 @@
   }
 
   h3 {
-    font-size: rem(16);
+    font-size: 1rem;
     margin-bottom: 16px;
 
     @include medium-and-up {
@@ -45,7 +45,7 @@
   margin-bottom: 16px;
   padding-bottom: 32px;
   border-bottom: 1px solid $grey-20;
-  font-size: rem(14);
+  font-size: 0.875rem;
   line-height: 1.5;
 
   &:last-of-type {
@@ -60,7 +60,7 @@
 }
 
 .single-comment-text {
-  font-size: rem(18);
+  font-size: 1.125rem;
   font-family: $roboto;
   font-weight: 300;
   margin: 20px 0;
@@ -68,7 +68,7 @@
 }
 
 .single-comment-meta {
-  font-size: rem(14);
+  font-size: 0.875rem;
   font-weight: 500;
   color: $black;
   text-decoration: none;
@@ -109,7 +109,7 @@
     margin-top: 10px;
     width: 100%;
     padding: 0 55px;
-    font-size: rem(15);
+    font-size: 0.9375rem;
 
     @include medium-and-up {
       clear: none;

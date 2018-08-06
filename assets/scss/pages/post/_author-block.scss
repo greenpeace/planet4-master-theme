@@ -20,17 +20,17 @@
 }
 
 .author-block-info-title {
-  font-size: rem(20);
+  font-size: 1.25rem;
   font-weight: bold;
   text-transform: uppercase;
 
   @include medium-and-up {
-    font-size: rem(21);
+    font-size: 1.3125rem;
   }
 }
 
 .author-block-info-name {
-  font-size: rem(17);
+  font-size: 1.0625rem;
   font-weight: bold;
   color: $crimson;
   margin-bottom: 40px;
@@ -41,7 +41,7 @@
 }
 
 .author-block-info-bio {
-  font-size: rem(16);
+  font-size: 1rem;
   line-height: 1.9;
 }
 
