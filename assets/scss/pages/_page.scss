@@ -29,17 +29,24 @@ div.page-template {
   }
 
   .alignleft {
-    float: left;
-    margin: 10px 10px 0 0;
+    @include small-and-up {
+      float: left;
+      margin: 0 10px 10px 0;
+      padding-top: 6px;
+    }
   }
 
   .alignright {
-    float: right;
-    margin: 10px 0 0 10px;
+    @include small-and-up {
+      float: right;
+      margin: 0 0 10px 10px;
+      padding-top: 6px;
+    }
   }
 
   .aligncenter {
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
     display: block;
   }
 
