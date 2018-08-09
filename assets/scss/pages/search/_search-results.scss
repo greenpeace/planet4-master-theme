@@ -64,13 +64,14 @@
       &.search-result-list-item-bg {
         @include background("images/search-list.jpg");
         padding: 24px 15px 30px;
-        margin: 0;
+        margin: 15px;
         box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         border-bottom: 0;
 
         @include small-and-up {
           padding-top: 32px;
           padding-bottom: 32px;
+          margin: 15px 0;
         }
 
         .search-result-item-headline {
@@ -163,7 +164,6 @@
 
   @include large-and-up {
     font-size: 1.625rem;
-    margin-bottom: 16px;
   }
 }
 
@@ -176,7 +176,6 @@
 
   @include large-and-up {
     font-size: 1rem;
-    margin-bottom: 40px;
   }
 }
 
@@ -205,7 +204,7 @@
   }
 
   @include large-and-up {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     font-size: 1rem;
   }
 
