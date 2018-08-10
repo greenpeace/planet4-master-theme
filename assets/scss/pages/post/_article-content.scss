@@ -28,19 +28,17 @@
   }
 
   ul, ol {
-    // Assumptions made for the font-size that it's behaviour is same
-    // as the p tags in the content
     @include small-and-up {
-      font-size: rem(19);
+      font-size: 1.1875rem;
     }
 
     @include medium-and-up {
-      font-size: rem(16);
+      font-size: 1rem;
       margin-bottom: 20px;
     }
 
     @include x-large-and-up {
-      font-size: rem(18);
+      font-size: 1.125rem;
     }
 
     li:not(:first-child) {
@@ -49,23 +47,23 @@
   }
 
   h2 {
-    font-size: rem(22);
+    font-size: 1.375rem;
     line-height: 1.2;
     margin-bottom: 15px;
     padding-top: 8px;
 
     @include medium-and-up {
-      font-size: rem(24);
+      font-size: 1.5rem;
       padding-top: 10px;
     }
 
     @include large-and-up {
-      font-size: rem(28);
+      font-size: 1.75rem;
       margin-bottom: 20px;
     }
 
     @include x-large-and-up {
-      font-size: rem(30);
+      font-size: 1.875rem;
       padding-top: 20px;
       margin-bottom: 20px;
       line-height: 1.2;
@@ -79,17 +77,17 @@
     word-wrap: break-word;
 
     @include small-and-up {
-      font-size: rem(19);
+      font-size: 1.1875rem;
     }
 
     @include medium-and-up {
-      font-size: rem(16);
+      font-size: 1rem;
       margin: 0 0 20px 0;
       line-height: 1.6;
     }
 
     @include x-large-and-up {
-      font-size: rem(18);
+      font-size: 1.125rem;
     }
 
     iframe {
@@ -121,17 +119,24 @@
   }
 
   .alignleft {
-    float: left;
-    margin: 10px 10px 0 0;
+    @include small-and-up {
+      float: left;
+      margin: 0 10px 10px 0;
+      padding-top: 6px;
+    }
   }
 
   .alignright {
-    float: right;
-    margin: 10px 0 0 10px;
+    @include small-and-up {
+      float: right;
+      margin: 0 0 10px 10px;
+      padding-top: 6px;
+    }
   }
 
   .aligncenter {
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
     display: block;
   }
 
@@ -142,7 +147,7 @@
   }
 
   blockquote {
-    font-size: rem(36);
+    font-size: 2.25rem;
     line-height: 1.5;
     font-style: italic;
     margin: 15px 0;
@@ -152,7 +157,7 @@
     }
 
     @include x-large-and-up {
-      font-size: rem(40);
+      font-size: 2.5rem;
     }
   }
 
@@ -191,7 +196,6 @@
 
   .entry-content,
   .entry-title {
-    -ms-word-wrap: break-word;
     word-wrap: break-word;
   }
 
@@ -307,15 +311,15 @@
   line-height: 1.6;
 
   @include small-and-up {
-    font-size: rem(19);
+    font-size: 1.1875rem;
   }
 
   @include medium-and-up {
-    font-size: rem(16);
+    font-size: 1rem;
   }
 
   @include x-large-and-up {
-    font-size: rem(18);
+    font-size: 1.125rem;
   }
 
   img {
@@ -377,7 +381,7 @@
   }
 
   .wp-caption-text {
-    font-size: rem(13);
+    font-size: 0.8125rem;
     margin: 0;
     line-height: 1.4;
     color: $white;

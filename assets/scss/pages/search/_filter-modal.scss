@@ -12,11 +12,11 @@
   }
 
   .modal-title {
-    font-size: rem(26);
+    font-size: 1.625rem;
     margin-bottom: 24px;
 
     @include small-and-up {
-      font-size: rem(34);
+      font-size: 2.125rem;
     }
   }
 
@@ -55,7 +55,7 @@
     }
 
     i {
-      font-size: rem(12);
+      font-size: 0.75rem;
     }
   }
 }

@@ -30,7 +30,16 @@
 	<meta name="twitter:image" content="{{ image_data[0] }}">
 
 	{% if google_tag_value %}
-		<script>
+	<script>
+          var cookie_consent = document.cookie.split(';').filter(function(c) {return c.indexOf('greenpeace=2') >= 0}).length;
+          var google_tag_value = '{{ google_tag_value }}';
+          var enforce_cookies_policy = '{{ enforce_cookies_policy }}';
+
+          if ( enforce_cookies_policy && 1 !== parseInt( cookie_consent ) ) {
+            google_tag_value = '';
+          }
+
+          if ( google_tag_value ) {
 			window.dataLayer = window.dataLayer || [];
 			dataLayer.push({
 				'pageType' : '{{ page_category }}',
@@ -38,21 +47,25 @@
 				'visitorType' : '',
 				'userID' : ''
 			});
-		</script>
-		<script>(function (w, d, s, l, i) {
-				w[l] = w[l] || [];
-				w[l].push({
-					'gtm.start':
-						new Date().getTime(), event: 'gtm.js'
-				});
-				var f = d.getElementsByTagName(s)[0],
-					j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-				j.async = true;
-				j.src =
-					'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-				f.parentNode.insertBefore(j, f);
-			})(window, document, 'script', 'dataLayer', '{{ google_tag_value }}');
-		</script>
+          }
+        </script>
+        <script>
+          if ( google_tag_value ) {
+                (function (w, d, s, l, i) {
+                    w[l] = w[l] || [];
+                    w[l].push({
+                        'gtm.start':
+                            new Date().getTime(), event: 'gtm.js'
+                    });
+                    var f = d.getElementsByTagName(s)[0],
+                        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                    j.async = true;
+                    j.src =
+                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                    f.parentNode.insertBefore(j, f);
+                })(window, document, 'script', 'dataLayer', google_tag_value);
+          }
+        </script>
 	{% endif %}
 
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">

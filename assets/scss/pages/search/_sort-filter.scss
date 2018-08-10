@@ -21,7 +21,7 @@ div.search-filter-results {
   }
 
   label {
-    font-size: rem(18);
+    font-size: 1.125rem;
     margin-right: 90px;
     font-weight: bold;
 
@@ -30,18 +30,18 @@ div.search-filter-results {
     }
 
     @include large-and-up {
-      font-size: rem(26);
+      font-size: 1.625rem;
     }
 
     @include large-and-up {
-      font-size: rem(28);
+      font-size: 1.75rem;
     }
   }
 
   select {
     height: 40px;
     width: 151px;
-    font-size: rem(16);
+    font-size: 1rem;
     padding: 0 10px;
     border-color: $faded-jade;
     background: transparent;
@@ -53,12 +53,12 @@ div.search-filter-results {
     @include large-and-up {
       height: 44px;
       width: 224px;
-      font-size: rem(20);
+      font-size: 1.25rem;
     }
 
     @include large-and-up {
       width: 270px;
-      font-size: rem(22);
+      font-size: 1.375rem;
     }
   }
 
