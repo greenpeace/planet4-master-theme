@@ -31,8 +31,10 @@
   text-align: center;
 
   @supports (justify-content: space-evenly) {
-    display: flex;
-    justify-content: space-evenly;
+    & {
+      display: flex;
+      justify-content: space-evenly;
+    }
   }
 
   li {
