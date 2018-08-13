@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2018-08-13 07:20+0000\n"
+"POT-Creation-Date: 2018-08-10 12:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -30,19 +30,11 @@ msgstr ""
 msgid "Most recent"
 msgstr ""
 
-#: functions.php:247
-msgid "Toggle worldwide site selection menu"
-msgstr ""
-
-#: functions.php:248
-msgid "Toggle search box"
-msgstr ""
-
-#: functions.php:268
+#: functions.php:267
 msgid "DONATE"
 msgstr ""
 
-#: functions.php:269
+#: functions.php:268
 msgid "International (English)"
 msgstr ""
 
