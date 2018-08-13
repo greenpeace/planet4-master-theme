@@ -52,5 +52,9 @@
   @include x-large-and-up {
     font-size: 1.125rem;
     margin: 20px 0;
+
+    .row & {
+      margin-top: 0;
+    }
   }
 }
