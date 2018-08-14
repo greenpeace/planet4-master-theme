@@ -9,13 +9,13 @@
   }
 
   input {
-    font-size: rem(16);
+    font-size: 1rem;
     height: 2.75em;
     line-height: 2.75;
     appearance: none;
 
     @include large-and-up {
-      font-size: rem(18);
+      font-size: 1.125rem;
       height: 3em;
       line-height: 3;
     }
@@ -70,16 +70,16 @@
 
   .search-btn,
   .btn-secondary {
-    font-size: rem(16);
+    font-size: 1rem;
     line-height: 2.75;
 
     @include large-and-up {
-      font-size: rem(18);
+      font-size: 1.125rem;
       line-height: 3;
     }
 
     i {
-      font-size: rem(18);
+      font-size: 1.125rem;
       line-height: 0;
       float: left;
       margin-top: 22px;

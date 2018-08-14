@@ -241,9 +241,11 @@ class P4_Master_Site extends TimberSite {
 			'text' => planet4_get_option( 'cookies_field' ),
 		];
 		$context['data_nav_bar'] = [
-			'images'       => $this->theme_images_dir,
-			'home_url'     => home_url( '/' ),
-			'search_query' => trim( get_search_query() ),
+			'images'                  => $this->theme_images_dir,
+			'home_url'                => home_url( '/' ),
+			'search_query'            => trim( get_search_query() ),
+			'country_dropdown_toggle' => __( 'Toggle worldwide site selection menu', 'planet4-master-theme' ),
+			'navbar_search_toggle'    => __( 'Toggle search box', 'planet4-master-theme' ),
 		];
 		$context['domain']       = 'planet4-master-theme';
 		$context['foo']          = 'bar';   // For unit test purposes.
@@ -264,6 +266,7 @@ class P4_Master_Site extends TimberSite {
 		$context['google_tag_value']       = $options['google_tag_manager_identifier'] ?? '';
 
 		$context['donatelink']           = $options['donate_button'] ?? '#';
+		$context['donatetext']           = $options['donate_text'] ?? __( 'DONATE', 'planet4-master-theme' );
 		$context['website_navbar_title'] = $options['website_navigation_title'] ?? __( 'International (English)', 'planet4-master-theme' );
 
 		// Footer context.

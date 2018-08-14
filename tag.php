@@ -66,7 +66,7 @@ if ( is_tag() ) {
 	] );
 
 	$campaign->add_block( Articles::BLOCK_NAME, [
-		'tag_id' => $context['tag']->term_id,
+		'tags' => $context['tag']->term_id,
 	] );
 
 	$cfc_args = [

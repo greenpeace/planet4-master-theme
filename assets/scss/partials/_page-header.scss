@@ -1,0 +1,205 @@
+.header-wrapper {
+  height: 0;
+}
+
+.page-header {
+  color: $black;
+  padding: 90px 0 40px 0;
+  position: relative;
+
+  @include medium-and-up {
+    padding: 104px 0 40px;
+  }
+
+  @include large-and-up {
+    padding: 144px 0 60px;
+  }
+
+  @include x-large-and-up {
+    padding: 144px 0 80px;
+  }
+
+  .container > *:not(.row) {
+    @include medium-and-up {
+      max-width: 80%;
+    }
+
+    @include x-large-and-up {
+      max-width: 60%;
+    }
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.3;
+    margin-bottom: 20px;
+
+    @include medium-and-up {
+      font-size: 1.375rem;
+      line-height: 1.2;
+    }
+
+    @include large-and-up {
+      width: 60%;
+    }
+
+    @include x-large-and-up {
+      font-size: 2.25rem;
+      margin-bottom: 30px;
+      line-height: 1.1;
+    }
+  }
+}
+
+.page-header-background {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 0;
+    height: 75%;
+    bottom: -.5%;
+    left: 0;
+    right: 0;
+    @include linear-gradient(360deg, $body-bg 0%, transparent 100%);
+
+    .brown-bg & {
+      @include linear-gradient(360deg, $brown-bg 0%, transparent 100%);
+    }
+
+    .white-bg & {
+      @include linear-gradient(360deg, $white 0%, transparent 100%);
+    }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.page-header-image {
+  max-width: 100%;
+  display: block;
+  margin: auto;
+}
+
+.top-page-tags {
+  font-size: 0.875rem;
+  margin-bottom: 6px;
+  font-family: $roboto;
+
+  @include medium-and-up {
+    font-size: 1rem;
+  }
+
+  .tag-item {
+    color: $blue;
+    font-weight: 400;
+
+    @include x-large-and-up {
+      font-size: 1rem;
+    }
+  }
+
+  .tag-item--main {
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-right: 20px;
+    position: relative;
+
+    &:after {
+      content: "\2022";
+      pointer-events: none;
+      display: inline-block;
+      position: absolute;
+      right: -15px;
+    }
+  }
+}
+
+.page-header-title {
+  font-size: 1.75rem;
+  line-height: 1.2;
+  max-width: 80%;
+  margin-bottom: 10px;
+
+  @include medium-and-up {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+  }
+
+  @include large-and-up {
+    margin-bottom: 20px;
+  }
+
+  @include x-large-and-up {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+}
+
+.page-header-subtitle {
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 300;
+  max-width: 80%;
+  margin: 0;
+
+  @include medium-and-up {
+    font-size: 1.5rem;
+    margin: 0 0 22px 0;
+  }
+
+  @include large-and-up {
+    font-size: 1.875rem;
+  }
+
+  @include x-large-and-up {
+    font-size: 2.25rem;
+  }
+}
+
+.page-header-btn {
+  display: block;
+  width: 100%;
+  margin-top: 40px;
+
+  @include medium-and-up {
+    margin-top: 24px;
+  }
+
+  @include large-and-up {
+    margin-top: 24px;
+  }
+
+  @include x-large-and-up {
+    margin-top: 36px;
+  }
+}
+
+.page-header-content {
+  display: none;
+  hyphens: none;
+  font-family: $lora;
+  margin-top: 0;
+
+  @include medium-and-up {
+    display: block;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  @include x-large-and-up {
+    font-size: 1.125rem;
+  }
+}

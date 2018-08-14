@@ -27,7 +27,8 @@
 	{% endif %}
 
 		{% if ( not is_action ) %}
-			<img class="d-flex search-result-item-image" src="{{ post.thumbnail.src('thumbnail') ?? posts_data.dummy_thumbnail }}" alt="{{ post.thumbnail.alt|default( post.title )|e('wp_kses_post')|raw }}" />
+			<img class="d-flex search-result-item-image" src="{{ post.thumbnail.src('thumbnail') ?? posts_data.dummy_thumbnail }}"
+				 alt="{{ fn('esc_attr', post.thumbnail.alt|default( post.title ) )|raw }}" />
 		{% endif %}
 
 		<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">

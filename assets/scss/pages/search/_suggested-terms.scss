@@ -2,15 +2,15 @@
   margin: 50px 0 104px;
 
   h3 {
-    font-size: rem(26);
+    font-size: 1.625rem;
     margin-bottom: 16px;
 
     @include small-and-up {
-      font-size: rem(34);
+      font-size: 2.125rem;
     }
 
     @include large-and-up {
-      font-size: rem(36);
+      font-size: 2.25rem;
     }
   }
 }
@@ -34,19 +34,19 @@
     a {
       color: $blue-elm;
       text-decoration: none;
-      font-size: rem(18);
+      font-size: 1.125rem;
       line-height: 2.3;
 
       @include medium-and-up {
-        font-size: rem(22);
+        font-size: 1.375rem;
       }
 
       @include large-and-up {
-        font-size: rem(18);
+        font-size: 1.125rem;
       }
 
       @include x-large-and-up {
-        font-size: rem(22);
+        font-size: 1.375rem;
       }
     }
   }
