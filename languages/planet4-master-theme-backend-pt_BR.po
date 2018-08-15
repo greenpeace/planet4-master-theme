@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-08-10 12:33+0000\n"
-"PO-Revision-Date: 2018-08-14 08:55+0000\n"
-"Last-Translator: Lilian Reyes <lilian.reyes@greenpeace.org>\n"
+"PO-Revision-Date: 2018-08-15 11:40+0000\n"
+"Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
@@ -133,12 +133,12 @@ msgstr "Tipo de página P4 (um termo para o tipo de página do P4)"
 #: classes/class-p4-custom-taxonomy.php:148
 msgctxt "taxonomy general name"
 msgid "Page Types"
-msgstr "Tipos de página [ nome geral na Taxonomia ]"
+msgstr "Tipos de página"
 
 #: classes/class-p4-custom-taxonomy.php:149
 msgctxt "taxonomy singular name"
 msgid "Page Type"
-msgstr "Tipo de página [ nome no singular na taxonomia ]"
+msgstr "Tipo de página"
 
 #: classes/class-p4-custom-taxonomy.php:150
 msgid "Search in Page Type"
@@ -175,7 +175,7 @@ msgstr "Escolha uma imagem"
 #: classes/class-p4-campaigns.php:84
 #, php-format
 msgid "Use Posts that belong to %s type to populate the content of this block"
-msgstr ""
+msgstr "Use Posts que pertencem ao tipo %s para mostrar conteúdo neste bloco"
 
 #: classes/class-p4-campaigns.php:91 classes/class-p4-campaigns.php:130
 #: classes/class-p4-campaigns.php:192
@@ -369,7 +369,7 @@ msgstr "Link do botão de doar"
 
 #: classes/class-p4-settings.php:152
 msgid "Donate button text"
-msgstr ""
+msgstr "Texto do botão de doação"
 
 #: classes/class-p4-settings.php:161
 msgid "404 Background Image"

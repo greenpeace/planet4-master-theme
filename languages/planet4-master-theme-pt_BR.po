@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-07-12 18:18+0000\n"
+"POT-Creation-Date: 2018-08-10 12:32+0000\n"
+"PO-Revision-Date: 2018-08-15 12:17+0000\n"
 "Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
@@ -22,13 +22,21 @@ msgstr ""
 "Language: pt_BR\n"
 "Report-Msgid-Bugs-To: "
 
-#: single.php:47
-msgid "Post page"
-msgstr "Página de post"
+#: functions.php:85
+msgid "Most relevant"
+msgstr "Mais relevantes"
 
-#: single.php:76
-msgid "Leave Your Reply"
-msgstr "Deixe um comentário"
+#: functions.php:89
+msgid "Most recent"
+msgstr "Mais recentes"
+
+#: functions.php:267
+msgid "DONATE"
+msgstr "DOAR"
+
+#: functions.php:268
+msgid "International (English)"
+msgstr "Internacional (Inglês)"
 
 #: 404.php:30
 msgid "Sorry, we can't find that page!"
@@ -42,37 +50,33 @@ msgstr "Insira os termos de busca no campo abaixo"
 msgid "404 Page"
 msgstr "Página 404"
 
-#: tag.php:58
+#: tag.php:56
 msgid "Unknown Campaign page"
 msgstr "Página de tópico desconhecida"
 
-#: tag.php:64
+#: tag.php:62
 msgid "Things you can do"
 msgstr "O que você pode fazer"
 
-#: tag.php:65
+#: tag.php:63
 msgid "We want you to take action because together we're strong."
 msgstr "Juntos somos mais fortes!"
 
-#: tag.php:81
+#: tag.php:91
 msgid "Related Campaigns"
 msgstr "Tópicos relacionadas"
 
-#: tag.php:82
+#: tag.php:92
 msgid "This Campaign is not assigned to an Issue"
 msgstr "Este tópico não está associado a nenhuma categoria"
 
-#: functions.php:85
-msgid "Most relevant"
-msgstr "Mais relevantes"
+#: single.php:47
+msgid "Post page"
+msgstr "Página de post"
 
-#: functions.php:89
-msgid "Most recent"
-msgstr "Mais recentes"
-
-#: functions.php:287
-msgid "International (English)"
-msgstr "Internacional (Inglês)"
+#: single.php:76
+msgid "Leave Your Reply"
+msgstr "Deixe um comentário"
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
@@ -171,10 +175,6 @@ msgstr "Selecionado"
 msgid "Change Country"
 msgstr "Mudar País"
 
-#: templates/navigation-bar.twig:48
-msgid "DONATE"
-msgstr "DOAR"
-
 #: templates/navigation-bar.twig:58
 msgid "Toggle search form"
 msgstr "Mudar formulário de busca"
@@ -182,10 +182,6 @@ msgstr "Mudar formulário de busca"
 #: templates/navigation-bar.twig:66 templates/search.twig:44
 msgid "Search"
 msgstr "Busca"
-
-#: templates/cookies.twig:8
-msgid "GOT IT!"
-msgstr "CERTO!"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
@@ -280,6 +276,18 @@ msgstr "Organizar por"
 msgid "Suggested search terms"
 msgstr "Termos de busca sugeridos"
 
+#: templates/base.twig:10
+msgid "Skip to Navigation"
+msgstr "Pular para a navegação"
+
+#: templates/base.twig:11
+msgid "Skip to Content"
+msgstr "Pular para o conteúdo"
+
+#: templates/base.twig:12
+msgid "Skip to Footer"
+msgstr "Pular para o rodapé"
+
 #: templates/tease-search.twig:62
 msgid "take action"
 msgstr "Participe já"
@@ -291,6 +299,10 @@ msgstr "Baixar"
 #: templates/single.twig:39
 msgid "by"
 msgstr "por"
+
+#: templates/cookies.twig:8
+msgid "GOT IT!"
+msgstr "CERTO!"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
