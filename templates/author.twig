@@ -1,7 +1,42 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	{% for post in posts %}
-		{% include ["tease-"~post.post_type~".twig", "tease.twig"] %}
-	{% endfor %}
+
+	<div class="clearfix"></div>
+	<div class="skewed-overlay"></div>
+
+	<header class="page-header">
+		<div class="container">
+			<h1 class="page-header-title">{{ author.name }}</h1>
+			<div class="row">
+				<div class="col-md-6">
+					<figure class="author-block-image">
+						{% if ( author.avatar ) %}
+							<img itemprop="image" class="author-pic"
+								src="{{ fn('get_avatar_url', author.id, {'size' : 294}) }}"
+								alt="{{ author.name }}">
+						{% endif %}
+					</figure>
+					<p>{{ author.description }}</p>
+				</div>
+				<div class="col-md-6">
+					{% include "blocks/share_buttons.twig" with {post:author} %}
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div class="page-template">
+		<h2>{{ __( 'Posts by ', 'planet4-master-theme' ) }} {{ author.name }}</h2>
+
+		<div class="row">
+			<div class="col-lg-8 multiple-search-result">
+				<ul class="list-unstyled">
+					{% for post in posts %}
+						{% include 'tease-author.twig' %}
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
 {% endblock %}

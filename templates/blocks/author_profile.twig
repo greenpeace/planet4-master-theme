@@ -2,7 +2,9 @@
 	<footer class="author-block" itemtype="http://schema.org/Person">
 		<div class="author-block-info">
 			<h2 class="author-block-info-title">{{ __( 'about the author', 'planet4-master-theme' ) }}</h2>
-			<h5 rel="author" class="author-block-info-name">{{ post.author.name }}</h5>
+			<h5 rel="author" class="author-block-info-name">
+				<a href="{{ post.author.link }}" itemprop="name">{{ post.author.name }}</a>
+			</h5>
 			<p class="author-block-info-bio" itemprop="description">
 				{{ post.author.description }}
 			</p>
