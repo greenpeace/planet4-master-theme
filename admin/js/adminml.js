@@ -170,3 +170,33 @@ jQuery(document).ready(function () {
         }
     });
 });
+
+// Get file name from full url/path.
+String.prototype.filename = function( extension ) {
+    var filename = this.replace(/\\/g, '/');
+    filename     = filename.substring( filename.lastIndexOf('/') + 1 );
+    return extension ? filename.replace(/[?#].+$/, '') : filename.split('.')[0];
+}
+
+// Add click event for image selection
+function select_image( elObj ) {
+    $( '.ml-media-sidebar' ).show();
+
+    $( '.ml-image' ).attr('src', $(elObj).find('img').attr('src'));
+    $( '.ml-filename' ).html( $(elObj).find('img').attr('src').filename());
+
+    // TO DO : Need to make it dynamic.
+    //$( '.ml-file-date' ).html( $(elObj).find('#ml-file-date').val());
+    //$( '.ml-file-size' ).html( $(elObj).find('#ml-file-size').val());
+    //$( '.ml-file-dimensions' ).html( $(elObj).find('#ml-file-dimensions').val());
+
+    $( '.ml-url' ).val( $(elObj).find('img').attr('src'));
+    $( '.ml-title' ).val( $(elObj).find('#ml-title').val());
+    $( '.ml-caption' ).val( $(elObj).find('#ml-caption').val());
+    $( '.ml-alt' ).val( $(elObj).find('#ml-alt').val());
+    $( '.ml-description' ).val( $(elObj).find('#ml-description').val());
+    $( '.ml-credit' ).val( $(elObj).find('#ml-credit').val());
+
+    $( '.details' ).removeClass('details');
+    $(elObj).addClass('details');
+}
