@@ -12,13 +12,9 @@
                 </div>
             {% endif %}
 
-            <div class="hidden" id="ml_loader">
-                <img src="/wp-admin/images/wpspin_light-2x.gif"/>
-            </div>
-
             <div class="media-toolbar ml-media-toolbar">
                 <div class="media-toolbar-secondary">
-                    <span class="spinner" id="ml_loader"></span>
+                    <span class="spinner" id="ml_spinner"></span>
                 </div>
                 <div class="media-toolbar-primary ml-search-form">
                     <label for="ml-media-search-input" class="screen-reader-text">{{ __( 'Search Media', data.domain ) }}</label>
@@ -27,7 +23,7 @@
                 </div>
             </div>
 
-            <ul tabindex="-1" class="attachments ui-sortable-disabled ml-media-list" id="selectable-images">
+            <ul tabindex="-1" class="attachments ui-sortable-disabled ml-media-list" id="selectable-images" onscroll="scroll_ml_images(); return false;">
                 {% for image in data.image_list %}
                     <li tabindex="0" data-id="{{ image['gpml_image_id'] }}" class="attachment save-ready details"
                         onclick="select_image(this); return false;">
@@ -49,7 +45,7 @@
             </ul>
         </div>
 
-        <div class="media-sidebar ml-media-sidebar" style="display: none;">
+        <div class="media-sidebar ml-media-sidebar">
             <div tabindex="0" data-id="" class="attachment-details save-ready">
                 <h2>
                     {{ __('Greenpeace Media Details', data.domain ) }}
@@ -131,9 +127,4 @@
         </div>
     </div>
     <div class="clear"></div>
-    <!--
-    <div class="ml-media-frame-toolbar">
-        <button class="btn btn-medium btn-small btn-secondary more-btn  btn-load-more-click-scroll" data-current_page="1">{{ __( 'SHOW MORE RESULTS', data.domain ) }}</button>
-    </div>
-    -->
 {% endblock %}

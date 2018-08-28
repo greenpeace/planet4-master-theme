@@ -189,8 +189,8 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 				'nonce'             => $nonce,
 				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
 			];
-			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin.css', [ 'media-views', 'media' ], '0.4' );
-			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.7', true );
+			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin.css', [ 'media-views', 'media' ], '0.5' );
+			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.8', true );
 			wp_localize_script( 'p4ml_admin_script', 'media_library_params', $params );
 			wp_enqueue_script( 'jquery-ui-core' );
 			wp_enqueue_script( 'jquery-ui-selectable' );

@@ -36,13 +36,8 @@
     margin: 10px;
 }
 
-.btn-load-more-click-scroll {
-    margin: 15px;
-}
-
 .ml-search-form {
     padding: 5px;
-    margin-top: 10px;
     height: 63px;
 }
 
@@ -51,10 +46,20 @@
     color: #FF0000;
 }
 
-.ml-search {
-    margin-top: 10px;
-}
-
 .ml-media-toolbar {
     float: right;
+}
+
+#ml_spinner {
+    position: fixed;
+    left: 25%;
+    margin-top: 5px !important;
+}
+
+.ml-media-sidebar {
+    display: none;
+}
+
+body, html {
+    overflow: hidden;
 }
