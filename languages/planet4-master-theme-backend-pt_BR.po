@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-08 09:59+0000\n"
-"PO-Revision-Date: 2018-07-24 09:48+0000\n"
+"POT-Creation-Date: 2018-08-10 12:33+0000\n"
+"PO-Revision-Date: 2018-08-15 11:40+0000\n"
 "Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
@@ -17,95 +17,95 @@ msgstr ""
 msgid "Navigation Bar Menu"
 msgstr "Menu da barra de navegação"
 
-#: functions.php:445
+#: functions.php:436
 msgid "Weight (1-30)"
 msgstr "Peso (de 1 a 30)"
 
-#: functions.php:641
+#: functions.php:632
 msgid "Page Header Fields"
 msgstr "Campos de cabeçalho da página"
 
-#: functions.php:646
+#: functions.php:637
 msgid "Header Title"
 msgstr "Título do cabeçalho"
 
-#: functions.php:647
+#: functions.php:638
 msgid "Header title comes here"
 msgstr "Título do header vai aqui"
 
-#: functions.php:654
+#: functions.php:645
 msgid "Header Subtitle"
 msgstr "Subtítulo do cabeçalho"
 
-#: functions.php:655
+#: functions.php:646
 msgid "Header subtitle comes here"
 msgstr "Subtítulo do header vai aqui"
 
-#: functions.php:663
+#: functions.php:654
 msgid "Header Description"
 msgstr "Descrição"
 
-#: functions.php:664
+#: functions.php:655
 msgid "Header description comes here"
 msgstr "Descrição aqui"
 
-#: functions.php:676
+#: functions.php:667
 msgid "Header Button Title"
 msgstr "Título do botão"
 
-#: functions.php:677
+#: functions.php:668
 msgid "Header button title comes here"
 msgstr "Título do botão aqui"
 
-#: functions.php:685
+#: functions.php:676
 msgid "Header Button Link"
 msgstr "Link do botão do cabeçalho"
 
-#: functions.php:686
+#: functions.php:677
 msgid "Header button link comes here"
 msgstr "Link do botão aqui"
 
-#: functions.php:694
+#: functions.php:685
 msgid "Background overide"
 msgstr "Sobrescrever fundo"
 
-#: functions.php:695
+#: functions.php:686
 msgid "Upload an image"
 msgstr "Enviar imagem"
 
-#: functions.php:703
+#: functions.php:694
 msgid "Add Background Image"
 msgstr "Adicionar imagem de fundo"
 
-#: functions.php:714
+#: functions.php:705
 msgid "Post Articles Element Fields"
 msgstr "Campo de elementos para Artigos"
 
-#: functions.php:719
+#: functions.php:710
 msgid "Author Override"
 msgstr "Sobrescrever Autor"
 
-#: functions.php:720
+#: functions.php:711
 msgid "Enter author name if you want to override the author"
 msgstr "Insira o nome do autor para sobrescrever o autor atual"
 
-#: functions.php:726
+#: functions.php:717
 msgid "Take Action Page Selector"
 msgstr "Seletor de página de ação"
 
-#: functions.php:727
+#: functions.php:718
 msgid "Select a Take Action Page to populate take action boxout block"
 msgstr "Escolha uma página de ação para exibir no bloco de página de ação"
 
-#: functions.php:735
+#: functions.php:726
 msgid "Include Articles In Post"
 msgstr "Incluir artigos relacionados no post"
 
-#: functions.php:745
+#: functions.php:736
 msgid "Background Image Override"
 msgstr "Sobrescrever imagem de fundo"
 
-#: functions.php:746
+#: functions.php:737
 msgid ""
 "Upload an image or select one from the media library to override the "
 "background image"
@@ -113,11 +113,11 @@ msgstr ""
 "Envie uma imagem ou selecione uma da Media Library para sobrescrever a "
 "imagem de fundo"
 
-#: functions.php:753
+#: functions.php:744
 msgid "Add Image"
 msgstr "Adicionar imagem"
 
-#: functions.php:798
+#: functions.php:789
 msgid "Add Page Element"
 msgstr "Adicionar Elemento de Página"
 
@@ -133,12 +133,12 @@ msgstr "Tipo de página P4 (um termo para o tipo de página do P4)"
 #: classes/class-p4-custom-taxonomy.php:148
 msgctxt "taxonomy general name"
 msgid "Page Types"
-msgstr "Tipos de página [ nome geral na Taxonomia ]"
+msgstr "Tipos de página"
 
 #: classes/class-p4-custom-taxonomy.php:149
 msgctxt "taxonomy singular name"
 msgid "Page Type"
-msgstr "Tipo de página [ nome no singular na taxonomia ]"
+msgstr "Tipo de página"
 
 #: classes/class-p4-custom-taxonomy.php:150
 msgid "Search in Page Type"
@@ -164,9 +164,114 @@ msgstr "Adicionar novo Tipo de Página"
 msgid "New Page Type"
 msgstr "Novo Tipo de Página"
 
-#: classes/class-p4-custom-taxonomy.php:159
+#: classes/class-p4-custom-taxonomy.php:159 classes/class-p4-campaigns.php:73
 msgid "Page Types"
 msgstr "Tipos de página"
+
+#: classes/class-p4-campaigns.php:21
+msgid "Select Image"
+msgstr "Escolha uma imagem"
+
+#: classes/class-p4-campaigns.php:84
+#, php-format
+msgid "Use Posts that belong to %s type to populate the content of this block"
+msgstr "Use Posts que pertencem ao tipo %s para mostrar conteúdo neste bloco"
+
+#: classes/class-p4-campaigns.php:91 classes/class-p4-campaigns.php:130
+#: classes/class-p4-campaigns.php:192
+msgid "Image"
+msgstr "Imagem"
+
+#: classes/class-p4-campaigns.php:97 classes/class-p4-campaigns.php:112
+#: classes/class-p4-campaigns.php:134
+msgid "Select/Upload Image"
+msgstr "Selecionar/Enviar imagem"
+
+#: classes/class-p4-campaigns.php:99 classes/class-p4-campaigns.php:136
+msgid "Associate this tag with an image."
+msgstr "Associar esta tag com uma imagem."
+
+#: classes/class-p4-campaigns.php:106
+msgid "Image Subscribe"
+msgstr "Imagem de inscrição"
+
+#: classes/class-p4-campaigns.php:114
+msgid "Choose a background image for the Subscribe block."
+msgstr "Escolha uma imagem de fundo para o bloco de Inscrição"
+
+#: classes/class-p4-campaigns.php:121
+msgid "Happy Point Opacity"
+msgstr "Opacidade do Happy Point"
+
+#: classes/class-p4-campaigns.php:125
+msgid ""
+"We use an overlay to fade the image back. Use a number between 1 and 100, "
+"the higher the number, the more faded the image will look. If you leave this "
+"empty, the default of 30 will be used."
+msgstr ""
+"We use an overlay to fade the image back. Use a number between 1 and 100, "
+"the higher the number, the more faded the image will look. If you leave this "
+"empty, the default of 30 will be used."
+
+#: classes/class-p4-control-panel.php:41
+msgid "Planet 4 Control Panel"
+msgstr "Painel de Controle do Planet 4"
+
+#: classes/class-p4-control-panel.php:53
+msgid "Cache"
+msgstr "Cache"
+
+#: classes/class-p4-control-panel.php:56
+msgid "Flush Object Cache"
+msgstr "Flush Object Cache"
+
+#: classes/class-p4-control-panel.php:58
+msgid "Are you sure you want to delete all Object Cache keys?"
+msgstr "Você tem certeza que quer excluir todas as chaves do Object Cache?"
+
+#: classes/class-p4-control-panel.php:61
+msgid "Check Object Cache"
+msgstr "Conferir o Object Cache"
+
+#: classes/class-p4-control-panel.php:68
+msgid "Engaging Networks"
+msgstr "Engaging Networks"
+
+#: classes/class-p4-control-panel.php:71
+msgid "Check Engaging Networks"
+msgstr "Conferir o Engaging Networks"
+
+#: classes/class-p4-control-panel.php:78
+msgid "Search"
+msgstr "Busca"
+
+#: classes/class-p4-control-panel.php:81
+msgid "Check Search Indexer"
+msgstr "Conferir o Indexer de Busca"
+
+#: classes/class-p4-control-panel.php:126
+msgid "Object Cache flushed"
+msgstr "Object Cache flushed"
+
+#: classes/class-p4-control-panel.php:129
+msgid "Object Cache did not flush"
+msgstr "Object Cache did not flush"
+
+#: classes/class-p4-control-panel.php:165
+msgid "Planet 4 is connected to Redis."
+msgstr "Planet 4 está conectado ao Redis."
+
+#: classes/class-p4-control-panel.php:201
+msgid "Success"
+msgstr "Sucesso"
+
+#: classes/class-p4-control-panel.php:248
+msgid "Indexer has stalled"
+msgstr "Indexador parou"
+
+#: classes/class-p4-control-panel.php:251
+msgid "Indexer is awake"
+msgstr "Indexador está ativado"
 
 #: classes/class-p4-settings.php:39
 msgid "Planet4"
@@ -263,42 +368,46 @@ msgid "Donate button link"
 msgstr "Link do botão de doar"
 
 #: classes/class-p4-settings.php:152
+msgid "Donate button text"
+msgstr "Texto do botão de doação"
+
+#: classes/class-p4-settings.php:161
 msgid "404 Background Image"
 msgstr "Imagem de fundo 404"
 
-#: classes/class-p4-settings.php:159
+#: classes/class-p4-settings.php:168
 msgid "Add 404 Page Background Image"
 msgstr "Adicionar imagem de fundo para página 404"
 
-#: classes/class-p4-settings.php:164 classes/class-p4-settings.php:197
+#: classes/class-p4-settings.php:173 classes/class-p4-settings.php:206
 msgid "Minimum image width should be 1920px"
 msgstr "O comprimento mínimo da imagem deve ser de 1920 pixels"
 
-#: classes/class-p4-settings.php:168
+#: classes/class-p4-settings.php:177
 msgid "404 Page text"
 msgstr "Texto da página 404"
 
-#: classes/class-p4-settings.php:175
+#: classes/class-p4-settings.php:184
 msgid "Add 404 page text"
 msgstr "Adicionar texto para página 404"
 
-#: classes/class-p4-settings.php:179
+#: classes/class-p4-settings.php:188
 msgid "Default p4-pagetype"
 msgstr "Tipo de página padrão"
 
-#: classes/class-p4-settings.php:185
+#: classes/class-p4-settings.php:194
 msgid "Default Happy Point Background Image"
 msgstr "Imagem de fundo padrão para o bloco de newsletter"
 
-#: classes/class-p4-settings.php:192
+#: classes/class-p4-settings.php:201
 msgid "Add Default Happy Point Background Image"
 msgstr "Adicionar imagem de fundo padrão para seção de newsletter"
 
-#: classes/class-p4-settings.php:200
+#: classes/class-p4-settings.php:209
 msgid "Enforce Cookies Policy"
 msgstr "Política de Cookies"
 
-#: classes/class-p4-settings.php:201
+#: classes/class-p4-settings.php:210
 msgid ""
 "GDPR related setting. By enabling this option specific content will be "
 "blocked and will require user consent to be shown."
@@ -306,117 +415,14 @@ msgstr ""
 "GDPR related setting. By enabling this option specific content will be "
 "blocked and will require user consent to be shown."
 
-#: classes/class-p4-settings.php:245 classes/class-p4-settings.php:259
+#: classes/class-p4-settings.php:254 classes/class-p4-settings.php:268
 msgid "Select Page"
 msgstr "Escolha uma página"
 
-#: classes/class-p4-settings.php:274
+#: classes/class-p4-settings.php:283
 msgid "Select Category"
 msgstr "Escolha uma categoria"
 
-#: classes/class-p4-settings.php:293
+#: classes/class-p4-settings.php:302
 msgid "Select Pagetype"
 msgstr "Escolha um tipo de página"
-
-#: classes/class-p4-control-panel.php:41
-msgid "Planet 4 Control Panel"
-msgstr "Painel de Controle do Planet 4"
-
-#: classes/class-p4-control-panel.php:53
-msgid "Cache"
-msgstr "Cache"
-
-#: classes/class-p4-control-panel.php:56
-msgid "Flush Object Cache"
-msgstr "Flush Object Cache"
-
-#: classes/class-p4-control-panel.php:58
-msgid "Are you sure you want to delete all Object Cache keys?"
-msgstr "Você tem certeza que quer excluir todas as chaves do Object Cache?"
-
-#: classes/class-p4-control-panel.php:61
-msgid "Check Object Cache"
-msgstr "Conferir o Object Cache"
-
-#: classes/class-p4-control-panel.php:68
-msgid "Engaging Networks"
-msgstr "Engaging Networks"
-
-#: classes/class-p4-control-panel.php:71
-msgid "Check Engaging Networks"
-msgstr "Conferir o Engaging Networks"
-
-#: classes/class-p4-control-panel.php:78
-msgid "Search"
-msgstr "Busca"
-
-#: classes/class-p4-control-panel.php:81
-msgid "Check Search Indexer"
-msgstr "Conferir o Indexer de Busca"
-
-#: classes/class-p4-control-panel.php:126
-msgid "Object Cache flushed"
-msgstr "Object Cache flushed"
-
-#: classes/class-p4-control-panel.php:129
-msgid "Object Cache did not flush"
-msgstr "Object Cache did not flush"
-
-#: classes/class-p4-control-panel.php:165
-msgid "Planet 4 is connected to Redis."
-msgstr "Planet 4 está conectado ao Redis."
-
-#: classes/class-p4-control-panel.php:201
-msgid "Success"
-msgstr "Sucesso"
-
-#: classes/class-p4-control-panel.php:248
-msgid "Indexer has stalled"
-msgstr "Indexador parou"
-
-#: classes/class-p4-control-panel.php:251
-msgid "Indexer is awake"
-msgstr "Indexador está ativado"
-
-#: classes/class-p4-taxonomy-image.php:19
-msgid "Select Image"
-msgstr "Escolha uma imagem"
-
-#: classes/class-p4-taxonomy-image.php:59
-#: classes/class-p4-taxonomy-image.php:98
-#: classes/class-p4-taxonomy-image.php:154
-msgid "Image"
-msgstr "Imagem"
-
-#: classes/class-p4-taxonomy-image.php:65
-#: classes/class-p4-taxonomy-image.php:80
-#: classes/class-p4-taxonomy-image.php:102
-msgid "Select/Upload Image"
-msgstr "Selecionar/Enviar imagem"
-
-#: classes/class-p4-taxonomy-image.php:67
-#: classes/class-p4-taxonomy-image.php:104
-msgid "Associate this tag with an image."
-msgstr "Associar esta tag com uma imagem."
-
-#: classes/class-p4-taxonomy-image.php:74
-msgid "Image Subscribe"
-msgstr "Imagem de inscrição"
-
-#: classes/class-p4-taxonomy-image.php:82
-msgid "Choose a background image for the Subscribe block."
-msgstr "Escolha uma imagem de fundo para o bloco de Inscrição"
-
-#: classes/class-p4-taxonomy-image.php:89
-msgid "Happy Point Opacity"
-msgstr "Opacidade do Happy Point"
-
-#: classes/class-p4-taxonomy-image.php:93
-msgid ""
-"We use an overlay to fade the image back. Use a number between 1 and 100, "
-"the higher the number, the more faded the image will look. If you leave this "
-"empty, the default of 30 will be used."
-msgstr ""
-"We use an overlay to fade the image back. Use a number between 1 and 100, "
-"the higher the number, the more faded the image will look. If you leave this "
-"empty, the default of 30 will be used."
