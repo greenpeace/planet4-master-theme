@@ -225,7 +225,7 @@
 												<li>
 													<label class="custom-control custom-checkbox">
 														<input type="checkbox" name="f[ptype][{{ page_type.name }}]" value="{{ page_type.term_id }}" class="p4-custom-control-input" {{ page_type.checked }} {{ page_type.results > 0 ? '' : 'disabled' }} />
-														<span class="custom-control-description">{{ page_type.name }} ({{ page_type.results }})</span>
+														<span class="custom-control-description">{{ page_type.name|e('wp_kses_post')|raw }} ({{ page_type.results }})</span>
 													</label>
 												</li>
 											{% endfor %}

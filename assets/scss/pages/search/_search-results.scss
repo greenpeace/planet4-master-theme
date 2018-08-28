@@ -219,7 +219,7 @@
   }
 
   .search-result-item-head {
-    color: $blue-elm;
+    color: $blue-80;
     font-weight: bold;
     text-decoration: none;
     margin-right: 15px;
@@ -253,12 +253,12 @@
   }
 
   .search-result-item-tag {
-    color: $blue-elm;
+    color: $blue-80;
     text-decoration: none;
     transition: color 150ms linear;
 
     &:hover {
-      color: $blue-tiber;
+      text-decoration: underline;
     }
   }
 }
