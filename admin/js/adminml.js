@@ -144,6 +144,24 @@ function select_image( elObj ) {
     $( '.ml-description' ).val( $(elObj).find('#ml-description').val());
     $( '.ml-credit' ).val( $(elObj).find('#ml-credit').val());
 
+    // Hide/show ML additional fields.
+    $( '.ml-additional-fields' ).hide();
+    $( '.ml-org-lang-label' ).hide();
+    $( '.ml-restrictions-label' ).hide();
+
+    if ( $(elObj).find('#ml-ori-lang-title').val() ) {
+        var ml_org_lang = '<b>' + $(elObj).find('#ml-ori-lang-title').val() + '</b><br>' + $(elObj).find('#ml-ori-lang-desc').val()
+        $( '.ml-org-lang' ).html( ml_org_lang );
+        $( '.ml-additional-fields' ).show();
+        $( '.ml-org-lang-label' ).show();
+    }
+
+    if ( $(elObj).find('#ml-restrictions').val() ) {
+        $( '.ml-restrictions' ).html( $(elObj).find('#ml-restrictions').val());
+        $( '.ml-additional-fields' ).show();
+        $( '.ml-restrictions-label' ).show();
+    }
+
     $( '.details' ).removeClass('details');
     $( elObj ).addClass('details');
 }

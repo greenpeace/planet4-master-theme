@@ -63,3 +63,16 @@
 body, html {
     overflow: hidden;
 }
+
+.ml-org-lang-label, .ml-restrictions-label {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.ml-additional-fields {
+    display: none;
+}
+
+.ml-restrictions {
+    color: #ff8c00;
+}

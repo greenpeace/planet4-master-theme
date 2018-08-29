@@ -31,6 +31,9 @@
                                 <input type="hidden" id="ml-alt" value="{{ image['image_title'] }}">
                                 <input type="hidden" id="ml-description" value="{{ image['image_caption'] }}">
                                 <input type="hidden" id="ml-credit" value="{{ image['image_credit'] }}">
+                                <input type="hidden" id="ml-ori-lang-title" value="{{ image['ori_lang_title'] }}">
+                                <input type="hidden" id="ml-ori-lang-desc" value="{{ image['ori_lang_desc'] }}">
+                                <input type="hidden" id="ml-restrictions" value="{{ image['restrictions'] }}">
                             </div>
                         </div>
                     </div>
@@ -63,6 +66,13 @@
                         <button type="button" class="button media-button button-primary button-large ml-button-insert"
                                 id="ml-button-insert">{{ __( 'Insert into WP media', data.domain ) }}
                         </button>
+                    </div>
+                    <div class="ml-additional-fields">
+                        <hr>
+                        <label class="ml-org-lang-label">{{ __( 'In original language:', data.domain ) }}</label>
+                        <div class="uploaded ml-org-lang"></div>
+                        <label class="ml-restrictions-label"><BR>{{ __( 'Restrictions:', data.domain ) }}</label>
+                        <div class="uploaded ml-restrictions"></div>
                     </div>
                 </div>
             </div>

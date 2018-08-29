@@ -52,7 +52,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 
 			$this->api_param = [
 				'query'        => '(Mediatype:Image)',
-				'fields'       => 'Title,Caption,Artist,ArtistShortID,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier',
+				'fields'       => 'Title,Caption,Artist,ArtistShortID,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier,original-language-title,original-language-description,original-language,restrictions',
 				'countperpage' => self::MEDIAS_PER_PAGE,
 				'format'       => 'json',
 				'token'        => $this->ml_auth_token,
@@ -211,6 +211,10 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 				} elseif ( $details['Path_TR3']['URI'] ) {
 					$media_details['image_url'] = $details['Path_TR3']['URI'];
 				}
+
+				$media_details['ori_lang_title'] = $details['original-language-title'];
+				$media_details['ori_lang_desc']  = $details['original-language-description'];
+				$media_details['restrictions']   = $details['restrictions'];
 
 				// Filter file name for extra url params.
 				$media_details['image_url'] = str_replace( strstr( $media_details['image_url'], '?' ), '', $media_details['image_url'] );
