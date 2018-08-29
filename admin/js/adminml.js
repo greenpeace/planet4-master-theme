@@ -2,37 +2,37 @@ var $ = jQuery;
 
 jQuery(document).ready(function () {
 
-    $("#selectable-images").selectable({
+    $( '#selectable-images' ).selectable({
         selected: function (event, ui) {
-            $('#ml-button-insert').removeAttr("disabled");
-            var count = $("li.ui-selected", "#selectable-images").length;
-            $('#images_count').html(count);
+            $( '#ml-button-insert' ).removeAttr( 'disabled' );
+            var count = $( 'li.ui-selected', '#selectable-images' ).length;
+            $( '#images_count' ).html(count);
         },
         unselected: function (event, ui) {
-            var count = $("li.ui-selected", "#selectable-images").length;
-            $('#images_count').html(count);
+            var count = $( 'li.ui-selected', '#selectable-images' ).length;
+            $( '#images_count' ).html(count);
             if (count < 1) {
-                $('#ml-button-insert').attr("disabled", "disabled");
+                $( '#ml-button-insert' ).attr( 'disabled', 'disabled' );
                 $( '.ml-media-sidebar' ).hide();
             }
         }
     });
 
     // Add click event for clear selected images button.
-    $("#clear_images").on('click', function () {
-        $('#ml-button-insert').attr("disabled", true);
-        $('#selectable-images li').removeClass('ui-selected');
-        $('#images_count').html('0');
+    $( '#clear_images' ).on('click', function () {
+        $( '#ml-button-insert' ).attr('disabled', true);
+        $( '#selectable-images li' ).removeClass('ui-selected');
+        $( '#images_count' ).html('0');
         // On clear image click, hide attachement details panel.
         $( '.ml-media-sidebar' ).hide();
     });
 
 
     // Add click event for media insert button.
-    $('#ml-button-insert').off('click').on('click', function () {
+    $( '#ml-button-insert' ).off('click').on('click', function () {
 
-        var selected_images = $(".ui-selected").map(function (index, element) {
-            return $(element).data('id');
+        var selected_images = $( '.ui-selected' ).map(function (index, element) {
+            return $( element ).data( 'id' );
         }).get();
 
         $( '#ml_spinner' ).addClass('is-active');

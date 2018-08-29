@@ -11,11 +11,11 @@ if ( ! class_exists( 'Search_Controller' ) ) {
 	 */
 	class Search_Controller {
 
-		const POSTS_LIMIT           = 300;
-		const POSTS_PER_PAGE        = 10;
-		const POSTS_PER_LOAD        = 5;
-		const SHOW_SCROLL_TIMES     = 2;
-		const DEFAULT_SORT          = 'relevant';
+		const POSTS_LIMIT       = 300;
+		const POSTS_PER_PAGE    = 10;
+		const POSTS_PER_LOAD    = 5;
+		const SHOW_SCROLL_TIMES = 2;
+		const DEFAULT_SORT      = 'relevant';
 
 		/** @var string $search_query */
 		protected $search_query;
