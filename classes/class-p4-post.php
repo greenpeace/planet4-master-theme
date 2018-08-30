@@ -105,19 +105,22 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		 *
 		 * @return array Associative array with the social media accounts.
 		 */
-		public function get_social_accounts( $social_menu ) : array {
+		public function get_social_accounts( $social_menu ): array {
+			$social_accounts = [];
 			if ( isset( $social_menu ) ) {
-				$social_accounts = [];
 
+				$brands = [
+					'facebook',
+					'twitter',
+					'youtube',
+					'instagram',
+				];
 				foreach ( $social_menu as $social_menu_item ) {
-					if ( false !== strpos( $social_menu_item->url, 'facebook' ) ) {
-						$social_accounts['facebook'] = end( explode( '/', rtrim( $social_menu_item->url, '/' ) ) );
-					} elseif ( false !== strpos( $social_menu_item->url, 'twitter' ) ) {
-						$social_accounts['twitter'] = end( explode( '/', rtrim( $social_menu_item->url, '/' ) ) );
-					} elseif ( false !== strpos( $social_menu_item->url, 'youtube' ) ) {
-						$social_accounts['youtube'] = end( explode( '/', rtrim( $social_menu_item->url, '/' ) ) );
-					} elseif ( false !== strpos( $social_menu_item->url, 'instagram' ) ) {
-						$social_accounts['instagram'] = end( explode( '/', rtrim( $social_menu_item->url, '/' ) ) );
+					foreach ( $brands as $brand ) {
+						if ( false !== strpos( $social_menu_item->url, $brand ) ) {
+							$temp                      = explode( '/', rtrim( $social_menu_item->url, '/' ) );
+							$social_accounts[ $brand ] = count( $temp ) > 0 ? $temp[ count( $temp ) - 1 ] : '';
+						}
 					}
 				}
 			}
