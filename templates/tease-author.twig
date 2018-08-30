@@ -4,9 +4,9 @@
 
 	<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
 		<div class="search-result-tags">
-			<span class="search-result-item-title">{{ post.content_type_text }}</span>
+			<span class="search-result-item-title">{{ post.get_custom_type }}</span>
 
-			{% for page_type in post.page_types %}
+			{% for page_type in post.get_custom_terms %}
 				<button class="search-result-item-head no-btn" data-term_id="{{ page_type.term_id }}">{{ page_type.name }}</button>
 			{% endfor %}
 
