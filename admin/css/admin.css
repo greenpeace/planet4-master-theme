@@ -76,3 +76,19 @@ body, html {
 .ml-restrictions {
     color: #ff8c00;
 }
+
+.ml-radio-gr {
+    padding: 0 16px 16px;
+    display: none;
+}
+
+.ml-radio {
+    text-align: inherit;
+    min-height: 16px;
+    margin: 0;
+    padding: 8px 2px 0;
+}
+
+#ml-radio-1, #ml-radio-2 {
+    margin-top: 1px;
+}

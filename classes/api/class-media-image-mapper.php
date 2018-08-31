@@ -22,7 +22,9 @@ class MediaImageMapper {
 			->setTitle( (string) $params['Title'] )
 			->setCaption( (string) $params['Caption'] )
 			->setCredit( isset( $params['Artist'] ) ? $params['Artist'] : '' )
-			->setPathTr1( (string) $params['Path_TR1']['URI'] );
+			->setPathTr1( (string) $params['Path_TR1']['URI'] )
+			->setOriginalLanguageTitle( isset( $params['original-language-title'] ) ? (string) $params['original-language-title'] : '' )
+			->setOriginalLanguageDesc( isset( $params['original-language-description'] ) ? (string) $params['original-language-description'] : '' );
 	}
 
 	/**

@@ -13,10 +13,11 @@ class MediaHelper {
 
 	/**
 	 * @param MediaImage $image
+	 * @param int        $media_details_flag 1 = Default Title & Description, 2 = Original language Title & Description.
 	 *
 	 * @return mixed
 	 */
-	public function upload_file( MediaImage $image ) {
+	public function upload_file( MediaImage $image, $media_details_flag = 1 ) {
 		$url = $image->getPathTr1();
 
 		$file     = $url;
@@ -36,14 +37,31 @@ class MediaHelper {
 		if ( ! $upload_file['error'] ) {
 			$wp_filetype = wp_check_filetype( $filename, null );
 
-			// Prepare an array of post data for the attachment.
-			$attachment = [
-				'post_mime_type' => $wp_filetype['type'],
-				'post_title'     => preg_replace( '/\.[^.]+$/', '', $image->getTitle() ),
-				'post_content'   => $image->getCaption(),
-				'post_status'    => 'inherit',
-				'post_excerpt'   => $image->getCaption(),
-			];
+			if ( 1 === $media_details_flag ) {
+				// Prepare an array of post data for the attachment.
+				$attachment = [
+					'post_mime_type' => $wp_filetype['type'],
+					'post_title'     => preg_replace( '/\.[^.]+$/', '', $image->getTitle() ),
+					'post_content'   => $image->getCaption(),
+					'post_status'    => 'inherit',
+					'post_excerpt'   => $image->getCaption(),
+				];
+
+				// Check title has fullstop at the end, if not then add it.
+				$alt_text = '.' === substr( $image->getTitle(), -1 ) ? $image->getTitle() : $image->getTitle() . '.';
+			} else {
+				// Prepare an array of post data for the attachment.
+				$attachment = [
+					'post_mime_type' => $wp_filetype['type'],
+					'post_title'     => preg_replace( '/\.[^.]+$/', '', $image->getOriginalLanguageTitle() ),
+					'post_content'   => $image->getOriginalLanguageDesc(),
+					'post_status'    => 'inherit',
+					'post_excerpt'   => $image->getOriginalLanguageDesc(),
+				];
+
+				// Check title has fullstop at the end, if not then add it.
+				$alt_text = '.' === substr( $image->getOriginalLanguageTitle(), -1 ) ? $image->getOriginalLanguageTitle() : $image->getOriginalLanguageTitle() . '.';
+			}
 
 			$attachment_id = wp_insert_attachment( $attachment, $upload_file['file'], 0, true );
 
@@ -54,8 +72,6 @@ class MediaHelper {
 				$attachment_data = wp_generate_attachment_metadata( $attachment_id, $upload_file['file'] );
 
 				wp_update_attachment_metadata( $attachment_id, $attachment_data );
-
-				$alt_text = '.' === substr( $image->getTitle(), -1 ) ? $image->getTitle() : $image->getTitle() . '.';
 
 				// Add credit to alt field.
 				$alt_text = '' !== $image->getCredit() ? $alt_text . ' © ' . $image->getCredit() : $alt_text;

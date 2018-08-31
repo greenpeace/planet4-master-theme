@@ -74,6 +74,18 @@
                         <label class="ml-restrictions-label"><BR>{{ __( 'Restrictions:', data.domain ) }}</label>
                         <div class="uploaded ml-restrictions"></div>
                     </div>
+                    <input type="hidden" name="ml-media-id" class="ml-media-id" value="">
+                </div>
+            </div>
+
+            <div class="ml-radio-gr">
+                <div class="ml-radio">
+                    <input type="radio" name="media_details_flag" id="ml-radio-1" value="1" class="media_details_flag" checked>
+                    <label for="ml-radio-1"><span class="ml-radio-label">{{ __( 'Use default Title & Description', data.domain ) }}</span></label>
+                </div>
+                <div class="ml-radio">
+                    <input type="radio" name="media_details_flag" id="ml-radio-2" class="media_details_flag" value="2">
+                    <label for="ml-radio-2"><span class="ml-radio-label">{{ __( 'Use original language Title & Description', data.domain ) }}</span></label>
                 </div>
             </div>
 

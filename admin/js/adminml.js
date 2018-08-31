@@ -37,13 +37,17 @@ jQuery(document).ready(function () {
 
         $( '#ml_spinner' ).addClass('is-active');
         var nonce = media_library_params.nonce;
+        // media_details_flag value (1 = Default Title & Description, 2 = Original language Title & Description).
+        var media_details_flag = $( '.media_details_flag:checked' ).val();
+
         $.ajax({
             url: media_library_params.ajaxurl,
             type: 'GET',
             data: {
                 action: 'download_images_from_library',
                 nonce: nonce,
-                images: selected_images
+                images: selected_images,
+                media_details_flag: media_details_flag
             },
             dataType: 'html'
         }).done(function (response) {
@@ -58,15 +62,22 @@ jQuery(document).ready(function () {
                     for (len = resp.images.length, i = 0; i < len; ++i) {
                         var image = resp.images[i];
 
-                        var alt_text = '.' === image.title.substr(-1)  ? image.title : image.title + '.';
+                        if (1 === parseInt(media_details_flag)) {
+                            var alt_text   = '.' === image.title.substr(-1)  ? image.title : image.title + '.';
+                            var media_desc = image.caption;
+                        } else {
+                            var alt_text   = '.' === image.original_language_title.substr(-1)  ? image.original_language_title : image.original_language_title + '.';
+                            var media_desc = image.original_language_description;
+                        }
+
                         // Add credit to alt text.
                         alt_text = '' !== image.credit ? alt_text + ' © ' + image.credit : alt_text;
 
                         options = {
                             id: image.wordpress_id,
                             'image-size': 'full',
-                            post_content: image.caption,
-                            post_excerpt: image.caption,
+                            post_content: media_desc,
+                            post_excerpt: media_desc,
                             image_alt: alt_text,
                         };
 
@@ -116,6 +127,23 @@ jQuery(document).ready(function () {
             });
         }
     });
+
+    $( '.media_details_flag' ).change(function () {
+        var media_details_flag = $(this).val(); // media_details_flag value (1 = Default Title & Description, 2 = Original language Title & Description).
+        var media_id = $( '.ml-media-id' ).val();
+        var elObj = $( 'li[data-id=' + media_id + ']' );
+        if (1 === parseInt( media_details_flag )) {
+            $( '.ml-title' ).val( elObj.find('#ml-title').val() );
+            $( '.ml-caption' ).val( elObj.find('#ml-caption').val() );
+            $( '.ml-alt' ).val( elObj.find('#ml-alt').val() );
+            $( '.ml-description' ).val( elObj.find('#ml-description').val() );
+        } else {
+            $( '.ml-title' ).val( elObj.find('#ml-ori-lang-title').val() );
+            $( '.ml-caption' ).val( elObj.find('#ml-ori-lang-desc').val() );
+            $( '.ml-alt' ).val( elObj.find('#ml-ori-lang-title').val() );
+            $( '.ml-description' ).val( elObj.find('#ml-ori-lang-desc').val() );
+        }
+    });
 });
 
 // Get file name from full url/path.
@@ -143,17 +171,20 @@ function select_image( elObj ) {
     $( '.ml-alt' ).val( $(elObj).find('#ml-alt').val());
     $( '.ml-description' ).val( $(elObj).find('#ml-description').val());
     $( '.ml-credit' ).val( $(elObj).find('#ml-credit').val());
+    $( '.ml-media-id' ).val( $(elObj).attr('data-id'));
 
     // Hide/show ML additional fields.
     $( '.ml-additional-fields' ).hide();
     $( '.ml-org-lang-label' ).hide();
     $( '.ml-restrictions-label' ).hide();
+    $( '.ml-radio-gr' ).hide();
 
     if ( $(elObj).find('#ml-ori-lang-title').val() ) {
         var ml_org_lang = '<b>' + $(elObj).find('#ml-ori-lang-title').val() + '</b><br>' + $(elObj).find('#ml-ori-lang-desc').val()
         $( '.ml-org-lang' ).html( ml_org_lang );
         $( '.ml-additional-fields' ).show();
         $( '.ml-org-lang-label' ).show();
+        $( '.ml-radio-gr' ).show();
     }
 
     if ( $(elObj).find('#ml-restrictions').val() ) {

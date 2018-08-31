@@ -163,6 +163,42 @@ class MediaImage implements \JsonSerializable {
 	/**
 	 * @return mixed
 	 */
+	public function getOriginalLanguageTitle() {
+		return $this->original_language_title;
+	}
+
+	/**
+	 * @param mixed $org_lang_title
+	 *
+	 * @return MediaImage
+	 */
+	public function setOriginalLanguageTitle( $org_lang_title ) {
+		$this->original_language_title = $org_lang_title;
+
+		return $this;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getOriginalLanguageDesc() {
+		return $this->original_language_description;
+	}
+
+	/**
+	 * @param mixed $org_lang_desc
+	 *
+	 * @return MediaImage
+	 */
+	public function setOriginalLanguageDesc( $org_lang_desc ) {
+		$this->original_language_description = $org_lang_desc;
+
+		return $this;
+	}
+
+	/**
+	 * @return mixed
+	 */
 	public function getWordpressId() {
 		return $this->wordpress_id;
 	}
