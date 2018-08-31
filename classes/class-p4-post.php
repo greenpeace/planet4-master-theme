@@ -105,7 +105,7 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		 *
 		 * @return array Associative array with the social media accounts.
 		 */
-		public function get_social_accounts( $social_menu ): array {
+		public function get_social_accounts( $social_menu ) : array {
 			$social_accounts = [];
 			if ( isset( $social_menu ) ) {
 
@@ -116,10 +116,10 @@ if ( ! class_exists( 'P4_Post' ) ) {
 					'instagram',
 				];
 				foreach ( $social_menu as $social_menu_item ) {
+					$url_parts = explode( '/', rtrim( $social_menu_item->url, '/' ) );
 					foreach ( $brands as $brand ) {
 						if ( false !== strpos( $social_menu_item->url, $brand ) ) {
-							$temp                      = explode( '/', rtrim( $social_menu_item->url, '/' ) );
-							$social_accounts[ $brand ] = count( $temp ) > 0 ? $temp[ count( $temp ) - 1 ] : '';
+							$social_accounts[ $brand ] = count( $url_parts ) > 0 ? $url_parts[ count( $url_parts ) - 1 ] : '';
 						}
 					}
 				}
