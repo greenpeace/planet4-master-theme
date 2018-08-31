@@ -25,7 +25,7 @@
                     <div class="attachment-preview js--select-attachment type-image subtype-jpeg landscape">
                         <div class="thumbnail">
                             <div class="centered">
-                                <img src="{{ image['image_url'] }}" width="150px" height="150px" draggable="false" alt="">
+                                <img src="{{ image['image_url'] }}" width="150px" height="150px" draggable="false" alt="{{ image['image_title'] }}">
                                 <input type="hidden" id="ml-title" value="{{ image['image_title'] }}">
                                 <input type="hidden" id="ml-caption" value="{{ image['image_caption'] }}">
                                 <input type="hidden" id="ml-alt" value="{{ image['image_title'] }}">
@@ -39,9 +39,9 @@
         </ul>
     </div>
     <div class="media-sidebar ml-media-sidebar">
-        <div tabindex="0" data-id="18705" class="attachment-details save-ready">
+        <div tabindex="0" data-id="" class="attachment-details save-ready">
             <h2>
-                Greenpeace Media Details
+                {{ __( 'Greenpeace Media Details', data.domain ) }}
             </h2>
             <div class="attachment-info">
                 <div class="thumbnail thumbnail-image">
@@ -74,7 +74,7 @@
 
             <label class="setting" data-setting="title">
                 <span class="name">{{ __( 'Title', data.domain ) }}</span>
-                <input type="text" value="EnsembleContreKinderMorgan" readonly="" class="ml-title">
+                <input type="text" value="" readonly="" class="ml-title">
             </label>
 
             <label class="setting" data-setting="caption">

@@ -40,7 +40,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		/**
 		 * Add GPI Media Library upload button in WP media popup upload UI.
 		 */
-		function media_library_post_upload_ui() {
+		public function media_library_post_upload_ui() {
 			$this->load_ml_assets();
 			print '<button id="db-upload-btn" class="button media-button button-primary button-large switchtoml">' . esc_html__( 'Upload From GPI Media Library', 'planet4-medialibrary' ) . '</button>';
 		}
@@ -73,8 +73,8 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 			$image_list = $ml_api->get_results();
 
 			$error_message = '';
-			if ( \WP_Http::OK !==  $image_list['status_code'] ) {
-				$error_message = __('Error while fetching data from remote server!!!', 'planet4-medialibrary');
+			if ( \WP_Http::OK !== $image_list['status_code'] ) {
+				$error_message = __( 'Error while fetching data from remote server!!!', 'planet4-medialibrary' );
 			}
 
 			$this->load_iframe_assets();
@@ -111,8 +111,8 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 				$image_list = $ml_api->get_results( $params );
 
 				$error_message = '';
-				if ( \WP_Http::OK !==  $image_list['status_code'] ) {
-					$error_message = __('Error while fetching data from remote server!!!', 'planet4-medialibrary');
+				if ( \WP_Http::OK !== $image_list['status_code'] ) {
+					$error_message = __( 'Error while fetching data from remote server!!!', 'planet4-medialibrary' );
 				}
 
 				$this->view->ml_search_view( [
@@ -189,8 +189,8 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 				'nonce'             => $nonce,
 				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
 			];
-			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin.css', array(), '0.4' );
-			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', array(), '0.6', true );
+			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin.css', [ 'media-views', 'media' ], '0.5' );
+			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', [], '0.8', true );
 			wp_localize_script( 'p4ml_admin_script', 'media_library_params', $params );
 			wp_enqueue_script( 'jquery-ui-core' );
 			wp_enqueue_script( 'jquery-ui-selectable' );
@@ -208,8 +208,8 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 				'nonce'             => $nonce,
 				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
 			];
-			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin_search_ml.css', array(), '0.1' );
-			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/admin_search_ml.js', array(), '0.2', true );
+			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin_search_ml.css', [], '0.1' );
+			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/admin_search_ml.js', [], '0.2', true );
 			wp_localize_script( 'p4ml_admin_script', 'media_library_params', $params );
 			wp_enqueue_script( 'p4ml_admin_script' );
 		}

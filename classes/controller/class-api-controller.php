@@ -11,7 +11,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 	 */
 	class MediaLibraryApi_Controller {
 
-		const ML_BASE_URL     = "https://media.greenpeace.org";
+		const ML_BASE_URL     = 'https://media.greenpeace.org';
 		const ML_AUTH_URL     = self::ML_BASE_URL . '/API/Authentication/v1.0/Login';
 		const ML_SEARCH_URL   = self::ML_BASE_URL . '/API/search/v3.0/search';
 		const ML_CALL_TIMEOUT = 10;            // Seconds after which the api call will timeout if not responded.
@@ -103,7 +103,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 						$ml_auth_token = $body['APIResponse']['Token'];
 						// Time period in seconds to keep the ml_auth_token before refreshing. Typically 1 hour.
 						if ( isset( $body['APIResponse']['TimeoutPeriodMinutes'] ) ) {
-							$expiration = ( int ) ( $body['APIResponse']['TimeoutPeriodMinutes'] ) * 60;
+							$expiration = (int) ( $body['APIResponse']['TimeoutPeriodMinutes'] ) * 60;
 						} else {
 							$expiration = 60 * 60; // Default expirations in 1hr.
 						}
@@ -213,7 +213,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 				}
 
 				// Filter file name for extra url params.
-				$media_details['image_url'] = str_replace( strstr( $media_details['image_url'] , '?' ), '', $media_details['image_url'] );
+				$media_details['image_url'] = str_replace( strstr( $media_details['image_url'], '?' ), '', $media_details['image_url'] );
 			}
 
 			return $media_details;
@@ -312,7 +312,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 				return $response->get_error_message() . ' ' . $response->get_error_code();
 
 			} elseif ( is_array( $response ) && \WP_Http::OK !== $response['response']['code'] ) {
-				return $response['response']['message'] . ' ' . $response['response']['code'] ;         // Authentication failed.
+				return $response['response']['message'] . ' ' . $response['response']['code'];         // Authentication failed.
 			}
 
 			if ( is_array( $response ) && $response['body'] ) {
