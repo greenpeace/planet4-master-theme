@@ -4,7 +4,7 @@
 
 #selectable-images li.ui-selected {
     background: #0073aa;
-    border: solid 2px #0073aa;
+    border: solid 4px #0073aa;
 }
 
 #selectable-images {
@@ -20,6 +20,8 @@
     font-size: 4em;
     text-align: center;
     border: solid 2px #f1f1f1;
+    width: 150px;
+    height: 150px;
 }
 
 #ml_loader {
@@ -107,15 +109,6 @@ body, html {
     height: auto;
 }
 
-#selectable-images li {
-    width: 16.66%;
-}
-
-#selectable-images li.ui-selected {
-    border: solid 4px #0073aa;
-}
-
 .attachments-browser .attachments {
     overflow: auto;
 }
-
