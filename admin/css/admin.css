@@ -92,3 +92,30 @@ body, html {
 #ml-radio-1, #ml-radio-2 {
     margin-top: 1px;
 }
+
+.ml-media-frame-content {
+    top: 0;
+    bottom: 61px;
+    width: auto;
+    margin: 0;
+    overflow: auto;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: auto;
+}
+
+#selectable-images li {
+    width: 16.66%;
+}
+
+#selectable-images li.ui-selected {
+    border: solid 4px #0073aa;
+}
+
+.attachments-browser .attachments {
+    overflow: auto;
+}
+
