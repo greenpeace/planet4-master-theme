@@ -3,12 +3,12 @@
     {% embed "message.twig" with messages %}{% endembed %}
 
     <div id="settings_div" class="wrap">
-        <h2>{{ __( 'GP Media Library Settings', domain ) }}</h2>
+        <h2>{{ __( 'GP Media Library Settings', 'planet4-medialibrary' ) }}</h2>
     </div>
 
     {{ fn( 'settings_errors' ) }}
 
-    <span>{{ __( 'Please enter your GP Media Library username and password. Please note that you will need to ask from the GP Media Libary administrators to enable API access for your account.', domain ) }}</span>
+    <span>{{ __( 'Please enter your GP Media Library username and password. Please note that you will need to ask from the GP Media Libary administrators to enable API access for your account.', 'planet4-medialibrary' ) }}</span>
 
     <form id="p4ml_main_settings_form" name="p4ml_main_settings_form" method="post" action="options.php">
 
@@ -19,19 +19,19 @@
 
         <table class="form-table">
             <tr valign="top">
-                <th>{{ __( 'GP Media Library Username', domain ) }}:</th>
+                <th>{{ __( 'GP Media Library Username', 'planet4-medialibrary' ) }}:</th>
                 <td>
-                    <input id="p4ml_api_username" name="p4ml_main_settings[p4ml_api_username]" value="{{ settings.p4ml_api_username|e('html_attr') }}" size="50" placeholder="{{ __( 'Enter your GP media library account username', domain ) }}" type="text" />
+                    <input id="p4ml_api_username" name="p4ml_main_settings[p4ml_api_username]" value="{{ settings.p4ml_api_username|e('html_attr') }}" size="50" placeholder="{{ __( 'Enter your GP media library account username', 'planet4-medialibrary' ) }}" type="text" />
                 </td>
             </tr>
             <tr valign="top">
-                <th>{{ __( 'GP Media Library Password', domain ) }}:</th>
+                <th>{{ __( 'GP Media Library Password', 'planet4-medialibrary' ) }}:</th>
                 <td>
-                    <input id="p4ml_api_password" name="p4ml_main_settings[p4ml_api_password]" value="{{ settings.p4ml_api_password|e('html_attr') }}" size="50" placeholder="{{ __( 'Enter your GP media library account password', domain ) }}" type="password" />
+                    <input id="p4ml_api_password" name="p4ml_main_settings[p4ml_api_password]" value="{{ settings.p4ml_api_password|e('html_attr') }}" size="50" placeholder="{{ __( 'Enter your GP media library account password', 'planet4-medialibrary' ) }}" type="password" />
                 </td>
             </tr>
         </table>
-        {{ fn( 'submit_button', __( 'Save Changes', domain ), 'primary', 'p4ml_main_settings_save_button' ) }}
+        {{ fn( 'submit_button', __( 'Save Changes', 'planet4-medialibrary' ), 'primary', 'p4ml_main_settings_save_button' ) }}
     </form>
     <div class="clear"></div>
 

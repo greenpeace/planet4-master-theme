@@ -29,3 +29,46 @@
 .switchtoml {
     margin-bottom:10px;
 }
+
+.ml-org-lang-label, .ml-restrictions-label {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.ml-additional-fields {
+    display: none;
+}
+
+.ml-restrictions {
+    color: #ff8c00;
+}
+
+.ml-radio-gr {
+    padding: 0 16px 16px;
+    display: none;
+}
+
+.ml-radio {
+    text-align: inherit;
+    min-height: 16px;
+    margin: 0;
+    padding: 8px 2px 0;
+}
+
+#ml-radio-1, #ml-radio-2 {
+    margin-top: 1px;
+}
+
+.ml-media-frame-content {
+    top: 0;
+    bottom: 61px;
+    width: auto;
+    margin: 0;
+    overflow: auto;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: auto;
+}
