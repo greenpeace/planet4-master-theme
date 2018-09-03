@@ -14,7 +14,7 @@
                 <span class="spinner" id="ml_loader"></span>
             </div>
             <div class="media-toolbar-primary ml-search-form">
-                <label for="ml-media-search-input" class="screen-reader-text">{{ __( 'Search Media', data.domain ) }}</label>
+                <label for="ml-media-search-input" class="screen-reader-text">{{ __( 'Search Media', 'planet4-medialibrary' ) }}</label>
                 <input type="search" placeholder="Search media items..." id="ml-media-search-input" class="search ml-search">
                 <input type="hidden" id="ml_current_page" value="1">
             </div>
@@ -44,7 +44,7 @@
     <div class="media-sidebar ml-media-sidebar">
         <div tabindex="0" data-id="" class="attachment-details save-ready">
             <h2>
-                {{ __( 'Greenpeace Media Details', data.domain ) }}
+                {{ __( 'Greenpeace Media Details', 'planet4-medialibrary' ) }}
             </h2>
             <div class="attachment-info">
                 <div class="thumbnail thumbnail-image">
@@ -64,16 +64,12 @@
                     -->
                     <div class="ml-media-toolbar-primary search-form">
                         <button type="button" class="button media-button button-primary button-large ml-button-insert"
-                                id="ml-button-insert">{{ __( 'Insert into WP media', data.domain ) }}
+                                id="ml-button-insert">{{ __( 'Insert into WP media', 'planet4-medialibrary' ) }}
                         </button>
                     </div>
-                    <div class="ml-additional-fields">
-                        <hr>
-                        <label class="ml-org-lang-label">{{ __( 'In original language:', data.domain ) }}</label>
-                        <div class="uploaded ml-org-lang"></div>
-                        <label class="ml-restrictions-label"><BR>{{ __( 'Restrictions:', data.domain ) }}</label>
-                        <div class="uploaded ml-restrictions"></div>
-                    </div>
+
+                    {% include 'ml_additional_fields.twig' %}
+
                     <input type="hidden" name="ml-media-id" class="ml-media-id" value="">
                 </div>
             </div>
@@ -81,36 +77,36 @@
             <div class="ml-radio-gr">
                 <div class="ml-radio">
                     <input type="radio" name="media_details_flag" id="ml-radio-1" value="1" class="media_details_flag" checked>
-                    <label for="ml-radio-1"><span class="ml-radio-label">{{ __( 'Use default Title & Description', data.domain ) }}</span></label>
+                    <label for="ml-radio-1"><span class="ml-radio-label">{{ __( 'Use default Title & Description', 'planet4-medialibrary' ) }}</span></label>
                 </div>
                 <div class="ml-radio">
                     <input type="radio" name="media_details_flag" id="ml-radio-2" class="media_details_flag" value="2">
-                    <label for="ml-radio-2"><span class="ml-radio-label">{{ __( 'Use original language Title & Description', data.domain ) }}</span></label>
+                    <label for="ml-radio-2"><span class="ml-radio-label">{{ __( 'Use original language Title & Description', 'planet4-medialibrary' ) }}</span></label>
                 </div>
             </div>
 
             <label class="setting" data-setting="url">
-                <span class="name">{{ __( 'URL', data.domain ) }}</span>
+                <span class="name">{{ __( 'URL', 'planet4-medialibrary' ) }}</span>
                 <input type="text" value="" readonly="" class="ml-url">
             </label>
 
             <label class="setting" data-setting="title">
-                <span class="name">{{ __( 'Title', data.domain ) }}</span>
+                <span class="name">{{ __( 'Title', 'planet4-medialibrary' ) }}</span>
                 <input type="text" value="" readonly="" class="ml-title">
             </label>
 
             <label class="setting" data-setting="caption">
-                <span class="name">{{ __( 'Caption', data.domain ) }}</span>
+                <span class="name">{{ __( 'Caption', 'planet4-medialibrary' ) }}</span>
                 <textarea readonly="" class="ml-caption"></textarea>
             </label>
 
             <label class="setting" data-setting="alt">
-                <span class="name">{{ __( 'Alt Text', data.domain ) }}</span>
+                <span class="name">{{ __( 'Alt Text', 'planet4-medialibrary' ) }}</span>
                 <input type="text" value="" readonly="" class="ml-alt">
             </label>
 
             <label class="setting" data-setting="description">
-                <span class="name">{{ __( 'Description', data.domain ) }}</span>
+                <span class="name">{{ __( 'Description', 'planet4-medialibrary' ) }}</span>
                 <textarea readonly="" class="ml-description"></textarea>
             </label>
         </div>
@@ -119,13 +115,13 @@
                 <tbody>
                 <tr class="compat-field-credit_text">
                     <th scope="row" class="label">
-                        <label for="attachments-credit_text"><span class="alignleft">{{ __( 'Credit', data.domain ) }}</span>
+                        <label for="attachments-credit_text"><span class="alignleft">{{ __( 'Credit', 'planet4-medialibrary' ) }}</span>
                             <br class="clear">
                         </label>
                     </th>
                     <td class="field">
                         <input type="text" class="text ml-credit" name="attachments" value="" readonly="">
-                        <p class="help">{{ __( 'The owner of the image.', data.domain ) }}</p>
+                        <p class="help">{{ __( 'The owner of the image.', 'planet4-medialibrary' ) }}</p>
                     </td>
                 </tr>
                 </tbody>
