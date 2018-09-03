@@ -174,23 +174,27 @@ function select_image( elObj ) {
     $( '.ml-media-id' ).val( $(elObj).attr('data-id'));
 
     // Hide/show ML additional fields.
-    $( '.ml-additional-fields' ).hide();
-    $( '.ml-org-lang-label' ).hide();
-    $( '.ml-restrictions-label' ).hide();
-    $( '.ml-radio-gr' ).hide();
+    var ml_additional_fields = $( '.ml-additional-fields' );
+    var ml_org_lang_label = $( '.ml-org-lang-label' );
+    var ml_restrictions_label = $( '.ml-restrictions-label' );
+    var ml_radio_gr = $( '.ml-radio-gr' );
+    ml_additional_fields.hide();
+    ml_org_lang_label.hide();
+    ml_restrictions_label.hide();
+    ml_radio_gr.hide();
 
     if ( $(elObj).find('#ml-ori-lang-title').val() ) {
         var ml_org_lang = '<b>' + $(elObj).find('#ml-ori-lang-title').val() + '</b><br>' + $(elObj).find('#ml-ori-lang-desc').val()
         $( '.ml-org-lang' ).html( ml_org_lang );
-        $( '.ml-additional-fields' ).show();
-        $( '.ml-org-lang-label' ).show();
-        $( '.ml-radio-gr' ).show();
+        ml_additional_fields.show();
+        ml_org_lang_label.show();
+        ml_radio_gr.show();
     }
 
     if ( $(elObj).find('#ml-restrictions').val() ) {
         $( '.ml-restrictions' ).html( $(elObj).find('#ml-restrictions').val());
-        $( '.ml-additional-fields' ).show();
-        $( '.ml-restrictions-label' ).show();
+        ml_additional_fields.show();
+        ml_restrictions_label.show();
     }
 
     $( '.details' ).removeClass('details');

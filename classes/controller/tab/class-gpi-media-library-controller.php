@@ -233,19 +233,19 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 				$image_list = $ml_api->get_single_image( $image );
 				if ( is_array( $image_list ) ) {
 					$image      = ( new MediaImageMapper() )->get_from_array( $image_list[0] );
-					$attachment = $helper->file_exists( $image->getId() );
+					$attachment = $helper->file_exists( $image->get_id() );
 
 					if ( empty( $attachment ) ) {
 						$attachment_upload = $helper->upload_file( $image, $media_details_flag );
 
 						if ( is_numeric( $attachment_upload ) ) {
-							$image->setWordpressId( $attachment_upload );
+							$image->set_wordpress_id( $attachment_upload );
 							$response['images'][] = $image;
 						} else {
 							$response['errors'][] = $attachment_upload;
 						}
 					} else {
-						$image->setWordpressId( $attachment );
+						$image->set_wordpress_id( $attachment );
 						$response['images'][] = $image;
 					}
 				} else {

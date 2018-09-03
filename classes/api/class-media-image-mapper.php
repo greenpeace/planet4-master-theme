@@ -18,13 +18,13 @@ class MediaImageMapper {
 	 */
 	public function get_from_array( array $params ) {
 		return ( new MediaImage() )
-			->setId( (string) $params['SystemIdentifier'] )
-			->setTitle( (string) $params['Title'] )
-			->setCaption( (string) $params['Caption'] )
-			->setCredit( isset( $params['Artist'] ) ? $params['Artist'] : '' )
-			->setPathTr1( (string) $params['Path_TR1']['URI'] )
-			->setOriginalLanguageTitle( isset( $params['original-language-title'] ) ? (string) $params['original-language-title'] : '' )
-			->setOriginalLanguageDesc( isset( $params['original-language-description'] ) ? (string) $params['original-language-description'] : '' );
+			->set_id( (string) $params['SystemIdentifier'] )
+			->set_title( (string) $params['Title'] )
+			->set_caption( (string) $params['Caption'] )
+			->set_credit( $params['Artist'] ?? '' )
+			->set_path_tr1( (string) $params['Path_TR1']['URI'] )
+			->set_original_language_title( $params['original-language-title'] ?? '' )
+			->set_original_language_desc( $params['original-language-description'] ?? '' );
 	}
 
 	/**
