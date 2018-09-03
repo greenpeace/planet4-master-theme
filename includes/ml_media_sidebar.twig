@@ -1,0 +1,110 @@
+{% block ml_additional_fields %}
+    <div class="media-sidebar ml-media-sidebar">
+        <div tabindex="0" data-id="" class="attachment-details save-ready">
+            <h2>
+                {{ __('Greenpeace Media Details', 'planet4-medialibrary' ) }}
+            </h2>
+            <div class="attachment-info">
+                <div class="thumbnail thumbnail-image">
+
+                    <img class="ml-image" src="#" draggable="false" alt="">
+
+                </div>
+                <div class="details">
+                    <div class="filename ml-filename"></div>
+                    <!-- To DO: Below fields need to make dynamic. -->
+                    <!--
+                    <div class="uploaded ml-file-date">June 11, 2018</div>
+
+                    <div class="file-size ml-file-size">2 MB</div>
+
+                    <div class="dimensions ml-file-dimensions">2500 × 1667</div>
+                    -->
+
+                    {% if ( 'ml_view' == template_data.show_button ) %}
+                        <div class="ml-media-selection empty">
+                            <div class="selection-info">
+                                <span class="count"><span id="images_count">0</span> {{ __( 'selected', 'planet4-medialibrary' ) }}</span>
+                                <button type="button" class="button-link clear-selection" id="clear_images">{{ __( 'Clear', 'planet4-medialibrary' ) }}</button>
+                            </div>
+                        </div>
+                        <div class="ml-media-toolbar-primary search-form">
+                            <button type="button" class="button media-button button-primary button-large ml-button-insert"
+                                    id="ml-button-insert" disabled="disabled">{{ __( 'Insert into WP media & post', 'planet4-medialibrary' ) }}
+                            </button>
+                        </div>
+                    {% elseif ( 'ml_media_view' == template_data.show_button ) %}
+                        <div class="ml-media-toolbar-primary search-form">
+                            <button type="button" class="button media-button button-primary button-large ml-button-insert"
+                                    id="ml-button-insert">{{ __( 'Insert into WP media', 'planet4-medialibrary' ) }}
+                            </button>
+                        </div>
+                    {% endif %}
+
+                    <div class="ml-additional-fields">
+                        <hr>
+                        <label class="ml-org-lang-label">{{ __( 'In original language:', 'planet4-medialibrary' ) }}</label>
+                        <div class="uploaded ml-org-lang"></div>
+                        <label class="ml-restrictions-label"><BR>{{ __( 'Restrictions:', 'planet4-medialibrary' ) }}</label>
+                        <div class="uploaded ml-restrictions"></div>
+                    </div>
+
+                    <input type="hidden" name="ml-media-id" class="ml-media-id" value="">
+                </div>
+            </div>
+
+            <div class="ml-radio-gr">
+                <div class="ml-radio">
+                    <input type="radio" name="media_details_flag" id="ml-radio-1" value="1" class="media_details_flag" checked>
+                    <label for="ml-radio-1"><span class="ml-radio-label">{{ __( 'Use default Title & Description', 'planet4-medialibrary' ) }}</span></label>
+                </div>
+                <div class="ml-radio">
+                    <input type="radio" name="media_details_flag" id="ml-radio-2" class="media_details_flag" value="2">
+                    <label for="ml-radio-2"><span class="ml-radio-label">{{ __( 'Use original language Title & Description', 'planet4-medialibrary' ) }}</span></label>
+                </div>
+            </div>
+
+            <label class="setting" data-setting="url">
+                <span class="name">{{ __( 'URL', 'planet4-medialibrary' ) }}</span>
+                <input type="text" value="" readonly="" class="ml-url">
+            </label>
+
+            <label class="setting" data-setting="title">
+                <span class="name">{{ __( 'Title', 'planet4-medialibrary' ) }}</span>
+                <input type="text" value="" readonly="" class="ml-title">
+            </label>
+
+            <label class="setting" data-setting="caption">
+                <span class="name">{{ __( 'Caption', 'planet4-medialibrary' ) }}</span>
+                <textarea readonly="" class="ml-caption"></textarea>
+            </label>
+
+            <label class="setting" data-setting="alt">
+                <span class="name">{{ __( 'Alt Text', 'planet4-medialibrary' ) }}</span>
+                <input type="text" value="" readonly="" class="ml-alt">
+            </label>
+
+            <label class="setting" data-setting="description">
+                <span class="name">{{ __( 'Description', 'planet4-medialibrary' ) }}</span>
+                <textarea readonly="" class="ml-description"></textarea>
+            </label>
+        </div>
+        <form class="compat-item">
+            <table class="compat-attachment-fields">
+                <tbody>
+                <tr class="compat-field-credit_text">
+                    <th scope="row" class="label">
+                        <label for="attachments-credit_text"><span class="alignleft">{{ __( 'Credit', 'planet4-medialibrary' ) }}</span>
+                            <br class="clear">
+                        </label>
+                    </th>
+                    <td class="field">
+                        <input type="text" class="text ml-credit" name="attachments" value="" readonly="">
+                        <p class="help">{{ __( 'The owner of the image.', 'planet4-medialibrary' ) }}</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+{% endblock %}
