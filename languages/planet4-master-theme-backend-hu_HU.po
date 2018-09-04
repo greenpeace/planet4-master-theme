@@ -1,0 +1,406 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Planet4 Master Theme backend\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-08 09:59+0000\n"
+"PO-Revision-Date: 2018-08-29 12:59+0000\n"
+"Last-Translator: bdobos <bdobos@greenpeace.org>\n"
+"Language-Team: \n"
+"Language: hu_HU\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: functions.php:144
+msgid "Navigation Bar Menu"
+msgstr ""
+
+#: functions.php:445
+msgid "Weight (1-30)"
+msgstr ""
+
+#: functions.php:641
+msgid "Page Header Fields"
+msgstr ""
+
+#: functions.php:646
+msgid "Header Title"
+msgstr ""
+
+#: functions.php:647
+msgid "Header title comes here"
+msgstr ""
+
+#: functions.php:654
+msgid "Header Subtitle"
+msgstr ""
+
+#: functions.php:655
+msgid "Header subtitle comes here"
+msgstr ""
+
+#: functions.php:663
+msgid "Header Description"
+msgstr ""
+
+#: functions.php:664
+msgid "Header description comes here"
+msgstr ""
+
+#: functions.php:676
+msgid "Header Button Title"
+msgstr ""
+
+#: functions.php:677
+msgid "Header button title comes here"
+msgstr ""
+
+#: functions.php:685
+msgid "Header Button Link"
+msgstr ""
+
+#: functions.php:686
+msgid "Header button link comes here"
+msgstr ""
+
+#: functions.php:694
+msgid "Background overide"
+msgstr ""
+
+#: functions.php:695
+msgid "Upload an image"
+msgstr ""
+
+#: functions.php:703
+msgid "Add Background Image"
+msgstr ""
+
+#: functions.php:714
+msgid "Post Articles Element Fields"
+msgstr ""
+
+#: functions.php:719
+msgid "Author Override"
+msgstr ""
+
+#: functions.php:720
+msgid "Enter author name if you want to override the author"
+msgstr ""
+
+#: functions.php:726
+msgid "Take Action Page Selector"
+msgstr ""
+
+#: functions.php:727
+msgid "Select a Take Action Page to populate take action boxout block"
+msgstr ""
+
+#: functions.php:735
+msgid "Include Articles In Post"
+msgstr ""
+
+#: functions.php:745
+msgid "Background Image Override"
+msgstr ""
+
+#: functions.php:746
+msgid ""
+"Upload an image or select one from the media library to override the "
+"background image"
+msgstr ""
+
+#: functions.php:753
+msgid "Add Image"
+msgstr ""
+
+#: functions.php:798
+msgid "Add Page Element"
+msgstr ""
+
+#: classes/class-p4-post-report-controller.php:59
+#: classes/class-p4-post-report-controller.php:60
+msgid "Posts Report"
+msgstr ""
+
+#: classes/class-p4-custom-taxonomy.php:42
+msgid "P4 page type (A p4 page type term.)"
+msgstr ""
+
+#: classes/class-p4-custom-taxonomy.php:148
+msgctxt "taxonomy general name"
+msgid "Page Types"
+msgstr ""
+
+#: classes/class-p4-custom-taxonomy.php:149
+msgctxt "taxonomy singular name"
+msgid "Page Type"
+msgstr ""
+
+#: classes/class-p4-custom-taxonomy.php:150
+msgid "Search in Page Type"
+msgstr ""
+
+#: classes/class-p4-custom-taxonomy.php:151
+msgid "All Page Types"
+msgstr ""
+
+#: classes/class-p4-custom-taxonomy.php:155
+msgid "Edit Page Type"
+msgstr ""
+
+#: classes/class-p4-custom-taxonomy.php:156
+msgid "Update Page Type"
+msgstr ""
+
+#: classes/class-p4-custom-taxonomy.php:157
+msgid "Add new Page Type"
+msgstr ""
+
+#: classes/class-p4-custom-taxonomy.php:158
+msgid "New Page Type"
+msgstr ""
+
+#: classes/class-p4-custom-taxonomy.php:159
+msgid "Page Types"
+msgstr ""
+
+#: classes/class-p4-settings.php:39
+msgid "Planet4"
+msgstr ""
+
+#: classes/class-p4-settings.php:43
+msgid "Website Navigation Title"
+msgstr ""
+
+#: classes/class-p4-settings.php:48
+msgid "Select Act Page"
+msgstr ""
+
+#: classes/class-p4-settings.php:54
+msgid "Select Explore Page"
+msgstr ""
+
+#: classes/class-p4-settings.php:60
+msgid "Select Issues Parent Category"
+msgstr ""
+
+#: classes/class-p4-settings.php:66
+msgid "Copyright Text Line 1"
+msgstr ""
+
+#: classes/class-p4-settings.php:76
+msgid "Copyright Text Line 2"
+msgstr ""
+
+#: classes/class-p4-settings.php:86
+msgid "Google Tag Manager Identifier"
+msgstr ""
+
+#: classes/class-p4-settings.php:92
+msgid "Engaging Network ID"
+msgstr ""
+
+#: classes/class-p4-settings.php:98
+msgid "Cookies Text"
+msgstr ""
+
+#: classes/class-p4-settings.php:108
+msgid "Default title for related articles block"
+msgstr ""
+
+#: classes/class-p4-settings.php:111
+msgid ""
+"If no title set for <b>Article Block</b>, the default title will appear."
+msgstr ""
+
+#: classes/class-p4-settings.php:115
+msgid "Default button title for related articles block"
+msgstr ""
+
+#: classes/class-p4-settings.php:118
+msgid ""
+"If no button title set for <b>Article Block</b>, the default button title "
+"will appear."
+msgstr ""
+
+#: classes/class-p4-settings.php:122
+msgid "Default Number Of Related Articles"
+msgstr ""
+
+#: classes/class-p4-settings.php:128
+msgid ""
+"If no number of Related Articles set for <b>Article Block</b>, the default "
+"number of Related Articles will appear."
+msgstr ""
+
+#: classes/class-p4-settings.php:132
+msgid "Take Action Covers default button text"
+msgstr ""
+
+#: classes/class-p4-settings.php:138
+msgid ""
+"Add default button text which appears on <b>Take Action</b> card of <b>Take "
+"Action Covers</b> block. <br>\n"
+"\t\t\t\t\t                     Also it would be used for Take Action Cards "
+"inside Posts and Take Action Cards in search results"
+msgstr ""
+
+#: classes/class-p4-settings.php:143
+msgid "Donate button link"
+msgstr ""
+
+#: classes/class-p4-settings.php:152
+msgid "404 Background Image"
+msgstr ""
+
+#: classes/class-p4-settings.php:159
+msgid "Add 404 Page Background Image"
+msgstr ""
+
+#: classes/class-p4-settings.php:164 classes/class-p4-settings.php:197
+msgid "Minimum image width should be 1920px"
+msgstr ""
+
+#: classes/class-p4-settings.php:168
+msgid "404 Page text"
+msgstr ""
+
+#: classes/class-p4-settings.php:175
+msgid "Add 404 page text"
+msgstr ""
+
+#: classes/class-p4-settings.php:179
+msgid "Default p4-pagetype"
+msgstr ""
+
+#: classes/class-p4-settings.php:185
+msgid "Default Happy Point Background Image"
+msgstr ""
+
+#: classes/class-p4-settings.php:192
+msgid "Add Default Happy Point Background Image"
+msgstr ""
+
+#: classes/class-p4-settings.php:200
+msgid "Enforce Cookies Policy"
+msgstr ""
+
+#: classes/class-p4-settings.php:201
+msgid ""
+"GDPR related setting. By enabling this option specific content will be "
+"blocked and will require user consent to be shown."
+msgstr ""
+
+#: classes/class-p4-settings.php:245 classes/class-p4-settings.php:259
+msgid "Select Page"
+msgstr ""
+
+#: classes/class-p4-settings.php:274
+msgid "Select Category"
+msgstr ""
+
+#: classes/class-p4-settings.php:293
+msgid "Select Pagetype"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:41
+msgid "Planet 4 Control Panel"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:53
+msgid "Cache"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:56
+msgid "Flush Object Cache"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:58
+msgid "Are you sure you want to delete all Object Cache keys?"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:61
+msgid "Check Object Cache"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:68
+msgid "Engaging Networks"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:71
+msgid "Check Engaging Networks"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:78
+msgid "Search"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:81
+msgid "Check Search Indexer"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:126
+msgid "Object Cache flushed"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:129
+msgid "Object Cache did not flush"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:165
+msgid "Planet 4 is connected to Redis."
+msgstr ""
+
+#: classes/class-p4-control-panel.php:201
+msgid "Success"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:248
+msgid "Indexer has stalled"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:251
+msgid "Indexer is awake"
+msgstr ""
+
+#: classes/class-p4-taxonomy-image.php:19
+msgid "Select Image"
+msgstr ""
+
+#: classes/class-p4-taxonomy-image.php:59
+#: classes/class-p4-taxonomy-image.php:98
+#: classes/class-p4-taxonomy-image.php:154
+msgid "Image"
+msgstr ""
+
+#: classes/class-p4-taxonomy-image.php:65
+#: classes/class-p4-taxonomy-image.php:80
+#: classes/class-p4-taxonomy-image.php:102
+msgid "Select/Upload Image"
+msgstr ""
+
+#: classes/class-p4-taxonomy-image.php:67
+#: classes/class-p4-taxonomy-image.php:104
+msgid "Associate this tag with an image."
+msgstr ""
+
+#: classes/class-p4-taxonomy-image.php:74
+msgid "Image Subscribe"
+msgstr ""
+
+#: classes/class-p4-taxonomy-image.php:82
+msgid "Choose a background image for the Subscribe block."
+msgstr ""
+
+#: classes/class-p4-taxonomy-image.php:89
+msgid "Happy Point Opacity"
+msgstr ""
+
+#: classes/class-p4-taxonomy-image.php:93
+msgid ""
+"We use an overlay to fade the image back. Use a number between 1 and 100, "
+"the higher the number, the more faded the image will look. If you leave this "
+"empty, the default of 30 will be used."
+msgstr ""

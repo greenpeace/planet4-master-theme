@@ -56,7 +56,7 @@
 					<span class="search-result-item-date">{{ post.post_date|date('d/m/Y') }}</span>
 				</div>
 			{% endif %}
-			<p class="search-result-item-content">{{ post.preview()|truncate( 25, true )|raw }}</p>
+			<p class="search-result-item-content">{{ post.preview().read_more('')|truncate( 25, true )|raw }}</p>
 
 			{% if ( is_action ) %}
 				{%  set link_text = settings['take_action_covers_button_text'] %}
