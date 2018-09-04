@@ -4,7 +4,7 @@
 
 #selectable-images li.ui-selected {
     background: #0073aa;
-    border: solid 2px #0073aa;
+    border: solid 4px #0073aa;
 }
 
 #selectable-images {
@@ -20,6 +20,8 @@
     font-size: 4em;
     text-align: center;
     border: solid 2px #f1f1f1;
+    width: 150px;
+    height: 150px;
 }
 
 #ml_loader {
@@ -36,13 +38,8 @@
     margin: 10px;
 }
 
-.btn-load-more-click-scroll {
-    margin: 15px;
-}
-
 .ml-search-form {
     padding: 5px;
-    margin-top: 10px;
     height: 63px;
 }
 
@@ -51,10 +48,67 @@
     color: #FF0000;
 }
 
-.ml-search {
-    margin-top: 10px;
-}
-
 .ml-media-toolbar {
     float: right;
+}
+
+#ml_spinner {
+    position: fixed;
+    left: 25%;
+    margin-top: 5px !important;
+}
+
+.ml-media-sidebar {
+    display: none;
+}
+
+body, html {
+    overflow: hidden;
+}
+
+.ml-org-lang-label, .ml-restrictions-label {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.ml-additional-fields {
+    display: none;
+}
+
+.ml-restrictions {
+    color: #ff8c00;
+}
+
+.ml-radio-gr {
+    padding: 0 16px 16px;
+    display: none;
+}
+
+.ml-radio {
+    text-align: inherit;
+    min-height: 16px;
+    margin: 0;
+    padding: 8px 2px 0;
+}
+
+#ml-radio-1, #ml-radio-2 {
+    margin-top: 1px;
+}
+
+.ml-media-frame-content {
+    top: 0;
+    bottom: 61px;
+    width: auto;
+    margin: 0;
+    overflow: auto;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: auto;
+}
+
+.attachments-browser .attachments {
+    overflow: auto;
 }

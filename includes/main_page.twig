@@ -1,7 +1,7 @@
 {% block pages_content %}
 
     <div id="ml_pages_div" class="wrap">
-        <h2>{{ __( 'Media Library Page', domain ) }}</h2>
+        <h2>{{ __( 'Media Library Page', 'planet4-medialibrary' ) }}</h2>
     </div>
 
     <div class="clear"></div>
@@ -21,31 +21,31 @@
         </tr>
         {% endif %}
         <tr valign="top">
-            <th>{{ __( 'GPI ML Image ID', domain ) }}</th>
+            <th>{{ __( 'GPI ML Image ID', 'planet4-medialibrary' ) }}</th>
             <td>
                 {{ data.gpml_image_id }}
             </td>
         </tr>
         <tr valign="top">
-            <th>{{ __( 'WP Image ID', domain ) }}</th>
+            <th>{{ __( 'WP Image ID', 'planet4-medialibrary' ) }}</th>
             <td>
                 {{ data.wp_image_id }}
             </td>
         </tr>
         <tr valign="top">
-            <th>{{ __( 'Image Title', domain ) }}</th>
+            <th>{{ __( 'Image Title', 'planet4-medialibrary' ) }}</th>
             <td>
                 {{ data.image_title }}
             </td>
         </tr>
         <tr valign="top">
-            <th>{{ __( 'Image URL', domain ) }}</th>
+            <th>{{ __( 'Image URL', 'planet4-medialibrary' ) }}</th>
             <td>
                 {{ data.image_url }}
             </td>
         </tr>
         <tr valign="top">
-            <th>{{ __( 'Image', domain ) }}</th>
+            <th>{{ __( 'Image', 'planet4-medialibrary' ) }}</th>
             <td>
                 <img src="{{ data.image_url }}">
             </td>
