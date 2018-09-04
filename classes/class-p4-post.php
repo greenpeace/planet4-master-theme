@@ -127,5 +127,44 @@ if ( ! class_exists( 'P4_Post' ) ) {
 
 			return $social_accounts;
 		}
+
+		/**
+		 * Get post's planet4 custom taxonomy terms.
+		 *
+		 * @return WP_Term[]
+		 */
+		public function get_custom_terms() {
+			$terms = get_the_terms( $this->id, P4_Custom_Taxonomy::TAXONOMY );
+			if ( false !== $terms && ! $terms instanceof WP_Error ) {
+				return $terms;
+			}
+
+			return [];
+		}
+
+		/**
+		 * Get post/page custom planet4 type.
+		 * ACTION, DOCUMENT, PAGE, POST
+		 *
+		 * @return string
+		 */
+		public function get_custom_type() {
+			switch ( $this->post_type ) {
+				case 'page':
+					if ( $this->is_take_action_page() ) {
+						$content_type_text = __( 'ACTION', 'planet4-master-theme' );
+					} else {
+						$content_type_text = __( 'PAGE', 'planet4-master-theme' );
+					}
+					break;
+				case 'attachment':
+					$content_type_text = __( 'DOCUMENT', 'planet4-master-theme' );
+					break;
+				default:
+					$content_type_text = __( 'POST', 'planet4-master-theme' );
+			}
+
+			return $content_type_text;
+		}
 	}
 }
