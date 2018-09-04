@@ -9,12 +9,15 @@
             <div class="attachment-preview js--select-attachment type-image subtype-jpeg landscape">
                 <div class="thumbnail">
                     <div class="centered">
-                        <img src="{{ image['image_url'] }}" width="150px" height="150px" draggable="false" alt="">
+                        <img src="{{ image['image_url'] }}" width="150px" height="150px" draggable="false" alt="{{ image['image_title'] }}">
                         <input type="hidden" id="ml-title" value="{{ image['image_title'] }}">
                         <input type="hidden" id="ml-caption" value="{{ image['image_caption'] }}">
                         <input type="hidden" id="ml-alt" value="{{ image['image_title'] }}">
                         <input type="hidden" id="ml-description" value="{{ image['image_caption'] }}">
                         <input type="hidden" id="ml-credit" value="{{ image['image_credit'] }}">
+                        <input type="hidden" id="ml-ori-lang-title" value="{{ image['ori_lang_title'] }}">
+                        <input type="hidden" id="ml-ori-lang-desc" value="{{ image['ori_lang_desc'] }}">
+                        <input type="hidden" id="ml-restrictions" value="{{ image['restrictions'] }}">
                     </div>
                 </div>
             </div>

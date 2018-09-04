@@ -53,6 +53,27 @@ function select_image( elObj ) {
     $( '.ml-alt' ).val( $(elObj).find('#ml-alt').val());
     $( '.ml-description' ).val( $(elObj).find('#ml-description').val());
     $( '.ml-credit' ).val( $(elObj).find('#ml-credit').val());
+    $( '.ml-media-id' ).val( $(elObj).attr('data-id'));
+
+    // Hide/show ML additional fields.
+    $( '.ml-additional-fields' ).hide();
+    $( '.ml-org-lang-label' ).hide();
+    $( '.ml-restrictions-label' ).hide();
+    $( '.ml-radio-gr' ).hide();
+
+    if ( $(elObj).find('#ml-ori-lang-title').val() ) {
+        var ml_org_lang = '<b>' + $(elObj).find('#ml-ori-lang-title').val() + '</b><br>' + $(elObj).find('#ml-ori-lang-desc').val()
+        $( '.ml-org-lang' ).html( ml_org_lang );
+        $( '.ml-additional-fields' ).show();
+        $( '.ml-org-lang-label' ).show();
+        $( '.ml-radio-gr' ).show();
+    }
+
+    if ( $(elObj).find('#ml-restrictions').val() ) {
+        $( '.ml-restrictions' ).html( $(elObj).find('#ml-restrictions').val());
+        $( '.ml-additional-fields' ).show();
+        $( '.ml-restrictions-label' ).show();
+    }
 
     $( '.details' ).removeClass('details');
     $(elObj).addClass('details');
@@ -64,6 +85,8 @@ $(document).off('click').on('click', '#ml-button-insert', function () {
 
     var ml_selected_image = $( '.details' ).data('id');
     var nonce = media_library_params.nonce;
+    // media_details_flag value (1 = Default Title & Description, 2 = Original language Title & Description).
+    var media_details_flag = $( '.media_details_flag:checked' ).val();
 
     $( '#ml-button-insert' ).attr('disabled', true);
     $( '#ml_loader' ).addClass('is-active');
@@ -74,7 +97,8 @@ $(document).off('click').on('click', '#ml-button-insert', function () {
         data: {
             action: 'download_images_from_library',
             nonce:  nonce,
-            images: [ml_selected_image]
+            images: [ml_selected_image],
+            media_details_flag: media_details_flag
         },
         dataType: 'html'
     }).done(function (response) {
@@ -168,3 +192,21 @@ function scroll_ml_images() {
         });
     }
 }
+
+// Toggle text fields as per radio button selection.
+$(document).on('change', '.media_details_flag', function () {
+    var media_details_flag = $(this).val();  // media_details_flag value (1 = Default Title & Description, 2 = Original language Title & Description).
+    var media_id = $( '.ml-media-id' ).val();
+    var elObj = $( 'li[data-id=' + media_id + ']' );
+    if (1 === parseInt( media_details_flag )) {
+        $( '.ml-title' ).val( elObj.find('#ml-title').val() );
+        $( '.ml-caption' ).val( elObj.find('#ml-caption').val() );
+        $( '.ml-alt' ).val( elObj.find('#ml-alt').val() );
+        $( '.ml-description' ).val( elObj.find('#ml-description').val() );
+    } else {
+        $( '.ml-title' ).val( elObj.find('#ml-ori-lang-title').val() );
+        $( '.ml-caption' ).val( elObj.find('#ml-ori-lang-desc').val() );
+        $( '.ml-alt' ).val( elObj.find('#ml-ori-lang-title').val() );
+        $( '.ml-description' ).val( elObj.find('#ml-ori-lang-desc').val() );
+    }
+});

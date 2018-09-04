@@ -11,11 +11,11 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 	 */
 	class MediaLibraryApi_Controller {
 
-		const ML_BASE_URL     = "https://media.greenpeace.org";
+		const ML_BASE_URL     = 'https://media.greenpeace.org';
 		const ML_AUTH_URL     = self::ML_BASE_URL . '/API/Authentication/v1.0/Login';
 		const ML_SEARCH_URL   = self::ML_BASE_URL . '/API/search/v3.0/search';
 		const ML_CALL_TIMEOUT = 10;            // Seconds after which the api call will timeout if not responded.
-		const MEDIAS_PER_PAGE = 15;
+		const MEDIAS_PER_PAGE = 20;
 
 		const ERROR   = 0;
 		const WARNING = 1;
@@ -52,7 +52,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 
 			$this->api_param = [
 				'query'        => '(Mediatype:Image)',
-				'fields'       => 'Title,Caption,Artist,ArtistShortID,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier',
+				'fields'       => 'Title,Caption,Artist,ArtistShortID,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier,original-language-title,original-language-description,original-language,restrictions',
 				'countperpage' => self::MEDIAS_PER_PAGE,
 				'format'       => 'json',
 				'token'        => $this->ml_auth_token,
@@ -103,7 +103,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 						$ml_auth_token = $body['APIResponse']['Token'];
 						// Time period in seconds to keep the ml_auth_token before refreshing. Typically 1 hour.
 						if ( isset( $body['APIResponse']['TimeoutPeriodMinutes'] ) ) {
-							$expiration = ( int ) ( $body['APIResponse']['TimeoutPeriodMinutes'] ) * 60;
+							$expiration = (int) ( $body['APIResponse']['TimeoutPeriodMinutes'] ) * 60;
 						} else {
 							$expiration = 60 * 60; // Default expirations in 1hr.
 						}
@@ -212,8 +212,12 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 					$media_details['image_url'] = $details['Path_TR3']['URI'];
 				}
 
+				$media_details['ori_lang_title'] = $details['original-language-title'];
+				$media_details['ori_lang_desc']  = $details['original-language-description'];
+				$media_details['restrictions']   = $details['restrictions'];
+
 				// Filter file name for extra url params.
-				$media_details['image_url'] = str_replace( strstr( $media_details['image_url'] , '?' ), '', $media_details['image_url'] );
+				$media_details['image_url'] = str_replace( strstr( $media_details['image_url'], '?' ), '', $media_details['image_url'] );
 			}
 
 			return $media_details;
@@ -312,7 +316,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 				return $response->get_error_message() . ' ' . $response->get_error_code();
 
 			} elseif ( is_array( $response ) && \WP_Http::OK !== $response['response']['code'] ) {
-				return $response['response']['message'] . ' ' . $response['response']['code'] ;         // Authentication failed.
+				return $response['response']['message'] . ' ' . $response['response']['code'];         // Authentication failed.
 			}
 
 			if ( is_array( $response ) && $response['body'] ) {

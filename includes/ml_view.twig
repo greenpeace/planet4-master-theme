@@ -1,42 +1,45 @@
 {% block ml_list_content %}
     <div class="ml-media-frame-content">
-        <div class="media-toolbar-primary ml-search-form">
-            <label for="ml-media-search-input" class="screen-reader-text">{{ __( 'Search Media', data.domain ) }}</label>
-            <input type="search" placeholder="Search media items..." id="ml-media-search-input" class="ml-search">
-            <div class="hidden" id="ml_loader">
-                <img src="/wp-admin/images/wpspin_light-2x.gif"/>
-            </div>
-            <div class="ml-media-toolbar">
-                <div class="ml-media-toolbar-secondary">
-                    <div class="ml-media-selection empty">
-                        <div class="selection-info">
-                            <span class="count"><span id="images_count">0</span> {{ __( 'selected', data.domain ) }}</span>
-                            <button type="button" class="button-link clear-selection" id="clear_images">{{ __( 'Clear', data.domain ) }}</button>
+        <div class="attachments-browser">
+
+            {% if ( data.error_message ) %}
+                <div class="uploader-inline ">
+                    <div class="uploader-inline-content has-upload-message">
+                        <div class="ml-error">
+                            <h2 class="upload-message">{{ data.error_message }}</h2>
                         </div>
                     </div>
                 </div>
-                <div class="ml-media-toolbar-primary search-form">
-                    <button type="button" class="button media-button button-primary button-large ml-button-insert"
-                            id="ml-button-insert" disabled="disabled">{{ __( 'Insert into WP media & post', data.domain ) }}
-                    </button>
+            {% endif %}
+
+            <div class="media-toolbar ml-media-toolbar">
+                <div class="media-toolbar-secondary">
+                    <span class="spinner" id="ml_spinner"></span>
+                </div>
+                <div class="media-toolbar-primary ml-search-form">
+                    <label for="ml-media-search-input" class="screen-reader-text">{{ __( 'Search Media', 'planet4-medialibrary' ) }}</label>
+                    <input type="search" placeholder="Search media items..." id="ml-media-search-input" class="search ml-search">
+                    <input type="hidden" id="ml_current_page" value="1">
                 </div>
             </div>
-        </div>
-        <div class="ml-error">
-            {% if ( data.error_message ) %}
-                {{ data.error_message }}
-            {% endif %}
-        </div>
-        <div class="attachments-browser">
-            <ul tabindex="-1" class="attachments ui-sortable-disabled ml-media-list" id="selectable-images">
+
+            <ul tabindex="-1" class="attachments ui-sortable-disabled ml-media-list" id="selectable-images" onscroll="scroll_ml_images(); return false;">
                 {% for image in data.image_list %}
                     <li tabindex="0" data-id="{{ image['gpml_image_id'] }}" class="attachment save-ready details"
-                        style="">
+                        onclick="select_image(this); return false;">
                         <div class="attachment-preview js--select-attachment type-image subtype-jpeg landscape">
                             <div class="thumbnail">
                                 <div class="centered">
                                     <img src="{{ image['image_url'] }}" width="150px" height="150px" draggable="false"
-                                         alt="">
+                                         alt="{{ image['image_title'] }}">
+                                    <input type="hidden" id="ml-title" value="{{ image['image_title'] }}">
+                                    <input type="hidden" id="ml-caption" value="{{ image['image_caption'] }}">
+                                    <input type="hidden" id="ml-alt" value="{{ image['image_title'] }}">
+                                    <input type="hidden" id="ml-description" value="{{ image['image_caption'] }}">
+                                    <input type="hidden" id="ml-credit" value="{{ image['image_credit'] }}">
+                                    <input type="hidden" id="ml-ori-lang-title" value="{{ image['ori_lang_title'] }}">
+                                    <input type="hidden" id="ml-ori-lang-desc" value="{{ image['ori_lang_desc'] }}">
+                                    <input type="hidden" id="ml-restrictions" value="{{ image['restrictions'] }}">
                                 </div>
                             </div>
                         </div>
@@ -44,9 +47,10 @@
                 {% endfor %}
             </ul>
         </div>
+
+        {% set template_data = { 'show_button': 'ml_view'} %}
+        {% include 'ml_media_sidebar.twig' with template_data %}
+
     </div>
     <div class="clear"></div>
-    <div class="ml-media-frame-toolbar">
-        <button class="btn btn-medium btn-small btn-secondary more-btn  btn-load-more-click-scroll" data-current_page="1">{{ __( 'SHOW MORE RESULTS', data.domain ) }}</button>
-    </div>
 {% endblock %}
