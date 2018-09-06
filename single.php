@@ -92,6 +92,8 @@ $context['post_comments_count'] = get_comments(
 		'count'   => true,
 	] );
 
+$context['post_tags'] = implode( ', ', $post->tags );
+
 if ( post_password_required( $post->ID ) ) {
 	Timber::render( 'single-password.twig', $context );
 } else {
