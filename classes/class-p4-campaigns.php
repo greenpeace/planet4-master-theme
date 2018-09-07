@@ -70,14 +70,9 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				$happypoint_bg_opacity = $happypoint_bg_opacity ?? '30'; ?>
 
 				<tr>
-					<th>
-						<label><?php esc_html_e( 'Page Types', 'planet4-master-theme-backend' ); ?></label>
+					<th colspan="2">
+						<?php esc_html_e( 'Column block: Choose which Page Types will populate the content of the Column block. If no box is checked Publications will appear by default.', 'planet4-master-theme-backend' ); ?>
 					</th>
-					<td>
-						<div>
-							<?php esc_html_e( 'Column block: Choose which Page Types will populate the content of the Column block. If no box is checked Publications will appear by default.', 'planet4-master-theme-backend' ); ?>
-						</div>
-					</td>
 				</tr>
 				<?php foreach ( $this->page_types as $index => $page_type ) { ?>
 					<tr class="form-field edit-wrap term-page-type-<?php echo esc_attr( $page_type->slug ); ?>-wrap">
