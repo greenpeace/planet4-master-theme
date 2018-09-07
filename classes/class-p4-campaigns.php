@@ -54,7 +54,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 
 			if ( isset( $wp_tag ) && $wp_tag instanceof WP_Term ) {
 				$selected_page_types = get_term_meta( $wp_tag->term_id, 'selected_page_types' );
-				if ( ! is_array( $selected_page_types[0] ) ) {
+				if ( ! isset( $selected_page_types[0] ) ) {
 					$selected_page_types[0] = [];
 				}
 
