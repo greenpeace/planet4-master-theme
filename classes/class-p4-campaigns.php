@@ -58,7 +58,6 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 					$selected_page_types[0] = [];
 				}
 
-
 				$attachment_id    = get_term_meta( $wp_tag->term_id, 'tag_attachment_id', true );
 				$image_attributes = wp_get_attachment_image_src( $attachment_id, 'full' );
 				$attachment_url   = $image_attributes ? $image_attributes[0] : '';
