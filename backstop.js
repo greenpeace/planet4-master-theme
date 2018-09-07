@@ -13,6 +13,7 @@ var paths = [
   '/explore/',
   '/explore/energy/',
   '/tag/food/',
+  '/author/greenpeace-international/',
   '/?s=food&orderby=relevant'
 ];
 

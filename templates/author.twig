@@ -9,25 +9,26 @@
 		<div class="container">
 			<h1 class="page-header-title">{{ author.name }}</h1>
 			<div class="row">
-				<div class="col-md-6">
-					<figure class="author-block-image">
+				<div class="col-lg-7 col-md-8 col-sm-12 author-info">
+					<figure class="author-image">
 						{% if ( author.avatar ) %}
 							<img itemprop="image" class="author-pic"
 								src="{{ fn('get_avatar_url', author.id, {'size' : 294}) }}"
 								alt="{{ author.name }}">
 						{% endif %}
 					</figure>
-					<p>{{ author.description }}</p>
+					<p class="d-none d-md-block author-bio">{{ author.description }}</p>
 				</div>
-				<div class="col-md-6">
+				<div class="col-lg-5 col-md-4 col-sm-12 mt-3 mt-md-0">
 					{% include "blocks/share_buttons.twig" with {post:author} %}
+					<p class="d-md-none author-bio">{{ author.description }}</p>
 				</div>
 			</div>
 		</div>
 	</header>
 
 	<div class="page-template">
-		<h2>{{ __( 'Posts by ', 'planet4-master-theme' ) }} {{ author.name }}</h2>
+		<h3>{{ __( 'Posts by ', 'planet4-master-theme' ) }} {{ author.name }}</h3>
 
 		<div class="row">
 			<div class="col-lg-8 multiple-search-result">
