@@ -70,26 +70,23 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				$happypoint_bg_opacity = get_term_meta( $wp_tag->term_id, 'happypoint_bg_opacity', true );
 				$happypoint_bg_opacity = $happypoint_bg_opacity ?? '30'; ?>
 
-                <tr class="form-field edit-wrap term-page-type-<?php echo esc_attr( $page_type->slug ); ?>-wrap">
-                    <th>
-                        <label><?php esc_html_e( 'Page Types', 'planet4-master-theme-backend' ); ?></label>
-                    </th>
-                    <td>
-                        <div>
-	                        <?php esc_html_e( 'Column block: Choose which Page Types will populate the content of the Column block. If no box is checked Publications will appear by default.', 'planet4-master-theme-backend' ); ?>
-                        </div>
-                    </td>
-                </tr>
+				<tr>
+					<th>
+						<label><?php esc_html_e( 'Page Types', 'planet4-master-theme-backend' ); ?></label>
+					</th>
+					<td>
+						<div>
+							<?php esc_html_e( 'Column block: Choose which Page Types will populate the content of the Column block. If no box is checked Publications will appear by default.', 'planet4-master-theme-backend' ); ?>
+						</div>
+					</td>
+				</tr>
 				<?php foreach ( $this->page_types as $index => $page_type ) { ?>
 					<tr class="form-field edit-wrap term-page-type-<?php echo esc_attr( $page_type->slug ); ?>-wrap">
-                        <th></th>
+						<th></th>
 						<td>
 							<div class="field-block shortcode-ui-field-checkbox shortcode-ui-attribute-p4_page_type_<?php echo esc_attr( $page_type->slug ); ?>">
 								<label for="shortcode-ui-p4_page_type_<?php echo esc_attr( $page_type->slug ); ?>">
-									<input type="checkbox"
-                                           name="p4_page_type[]"
-                                           id="shortcode-ui-p4_page_type_<?php echo esc_attr( $page_type->slug ); ?>"
-                                           value="<?php echo esc_attr( $page_type->slug ); ?>" <?php echo in_array( $page_type->slug, $selected_page_types[0], true ) ? 'checked' : ''; ?>>
+									<input type="checkbox" name="p4_page_type[]" id="shortcode-ui-p4_page_type_<?php echo esc_attr( $page_type->slug ); ?>" value="<?php echo esc_attr( $page_type->slug ); ?>" <?php echo in_array( $page_type->slug, $selected_page_types[0], true ) ? 'checked' : ''; ?>>
 									<?php echo esc_html( $page_type->name ); ?>
 
 								</label>
