@@ -14,7 +14,11 @@
       }
 
       img {
-        width: 100%;
+        width: auto;
+
+        @include small-and-up {
+          width: 100%;
+        }
       }
     }
   }
