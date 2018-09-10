@@ -5,7 +5,7 @@
 
   .author-info {
     .author-image {
-      width: 100%;
+      width: auto;
 
       @include small-and-up {
         width: 300px;
