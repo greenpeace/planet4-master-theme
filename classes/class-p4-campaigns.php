@@ -54,6 +54,9 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 
 			if ( isset( $wp_tag ) && $wp_tag instanceof WP_Term ) {
 				$selected_page_types = get_term_meta( $wp_tag->term_id, 'selected_page_types' );
+				if ( ! isset( $selected_page_types[0] ) ) {
+					$selected_page_types[0] = [];
+				}
 
 				$attachment_id    = get_term_meta( $wp_tag->term_id, 'tag_attachment_id', true );
 				$image_attributes = wp_get_attachment_image_src( $attachment_id, 'full' );
@@ -66,22 +69,21 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				$happypoint_bg_opacity = get_term_meta( $wp_tag->term_id, 'happypoint_bg_opacity', true );
 				$happypoint_bg_opacity = $happypoint_bg_opacity ?? '30'; ?>
 
+				<tr>
+					<th colspan="2">
+						<?php esc_html_e( 'Column block: Choose which Page Types will populate the content of the Column block. If no box is checked Publications will appear by default.', 'planet4-master-theme-backend' ); ?>
+					</th>
+				</tr>
 				<?php foreach ( $this->page_types as $index => $page_type ) { ?>
 					<tr class="form-field edit-wrap term-page-type-<?php echo esc_attr( $page_type->slug ); ?>-wrap">
-						<?php if ( 0 === $index ) { ?>
-						<th>
-							<label><?php esc_html_e( 'Page Types', 'planet4-master-theme-backend' ); ?></label>
-						</th>
-						<?php } else { ?>
-							<th></th>
-						<?php } ?>
+						<th></th>
 						<td>
 							<div class="field-block shortcode-ui-field-checkbox shortcode-ui-attribute-p4_page_type_<?php echo esc_attr( $page_type->slug ); ?>">
 								<label for="shortcode-ui-p4_page_type_<?php echo esc_attr( $page_type->slug ); ?>">
 									<input type="checkbox" name="p4_page_type[]" id="shortcode-ui-p4_page_type_<?php echo esc_attr( $page_type->slug ); ?>" value="<?php echo esc_attr( $page_type->slug ); ?>" <?php echo in_array( $page_type->slug, $selected_page_types[0], true ) ? 'checked' : ''; ?>>
 									<?php echo esc_html( $page_type->name ); ?>
+
 								</label>
-								<p class="description"><?php printf( esc_html__( 'Use Posts that belong to %s type to populate the content of this block', 'planet4-master-theme-backend' ), esc_html( $page_type->name ) ); ?></p>
 							</div>
 						</td>
 					</tr>

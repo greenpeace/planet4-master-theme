@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var stylelint = require('gulp-stylelint');
 var eslint = require('gulp-eslint');
+const backstop = require('backstopjs');
 
 var lintPathsCSS = [
   'assets/scss/**/*.scss',
@@ -27,12 +28,20 @@ gulp.task('js:lint', () => {
     .pipe(eslint.failAfterError());
 });
 
+gulp.task('backstop_reference', () => backstop('reference', {
+  config: './backstop.js'
+}));
+gulp.task('backstop_test', () => backstop('test', {
+  config: './backstop.js'
+}));
+
 gulp.task('assets', function(){
   var p = require('./package.json');
   var assets = p.assets;
   return gulp.src(assets, {cwd : 'node_modules/**'})
     .pipe(gulp.dest('assets/lib'));
 });
+
 
 gulp.task('test', function() {
   gulp.start('css:lint');

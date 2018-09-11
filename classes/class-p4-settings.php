@@ -95,6 +95,12 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
+					'name'    => __( 'Facebook Page ID', 'planet4-master-theme-backend' ),
+					'id'      => 'facebook_page_id',
+					'type'    => 'text',
+				],
+
+				[
 					'name'    => __( 'Cookies Text', 'planet4-master-theme-backend' ),
 					'id'      => 'cookies_field',
 					'type'    => 'wysiwyg',

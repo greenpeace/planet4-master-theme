@@ -22,6 +22,10 @@
 	<meta property="og:image:height" content="{{ image_data[2] }}" />
 	<meta property="og:site_name" content="{{ site.name }}" />
 
+	{% if facebook_page_id %}
+		<meta property="fb:pages" content="{{ facebook_page_id }}" />
+	{% endif %}
+
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="{{ site.name }}" />
 	<meta name="twitter:title" content="{% if wp_title %}{{ wp_title|raw }} - {{ site.name }}{% else %}{{ site.name }}{% endif %}">
@@ -45,7 +49,8 @@
 				'pageType' : '{{ page_category }}',
 				'signedIn' : 'false',
 				'visitorType' : '',
-				'userID' : ''
+				'userID' : '',
+				'post_tags': '{{ post_tags }}'
 			});
           }
         </script>
