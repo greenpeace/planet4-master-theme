@@ -2,4 +2,28 @@
   .search-result-list-item {
     font-family: $roboto;
   }
+
+  .author-info {
+    .author-image {
+      width: auto;
+
+      @include small-and-up {
+        width: 300px;
+        height: 300px;
+        overflow: hidden;
+      }
+
+      img {
+        width: auto;
+
+        @include small-and-up {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .author-bio {
+    margin-top: 20px;
+  }
 }

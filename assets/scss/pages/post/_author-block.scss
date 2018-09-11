@@ -36,7 +36,11 @@
   margin-bottom: 40px;
 
   a {
-    color: inherit;
+    color: $blue-80;
+
+    &:hover {
+      color: $blue-tiber;
+    }
   }
 }
 
