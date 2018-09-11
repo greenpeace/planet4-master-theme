@@ -103,7 +103,7 @@ gulp assets
 wp_enqueue_script( 'jquery', $this->theme_dir . '/assets/lib/jquery/dist/jquery.min.js', array(), '3.3.1', true );
 ```
 
-### Local frontend testing
+### Frontend code linting
 
 We use `stylelint` and `eslint` for checking css and js code syntax.
 
@@ -112,3 +112,25 @@ If you want to test locally use gulp:
 ```
 gulp test
 ```
+
+### Visual regression testing
+
+We use `BackstopJS` for comparing visual changes and test regressions.
+
+Before you start coding a new frontend feature you should create reference screenshots:
+
+```
+gulp backstop_reference --url=http://example.org
+```
+
+At any time you can create test screenshots:
+
+```
+gulp backstop_test --url=http://example.org
+```
+
+Once this is finished a report will be launched in your browser in order to inspect the visual diff.
+
+You can even use different urls for reference and test.
+For instance to compare local enviroment with production.
+But this may catch some false positives due to potential content differences.
