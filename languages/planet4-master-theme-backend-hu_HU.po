@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-08 09:59+0000\n"
-"PO-Revision-Date: 2018-08-29 12:59+0000\n"
+"PO-Revision-Date: 2018-09-25 07:36+0000\n"
 "Last-Translator: bdobos <bdobos@greenpeace.org>\n"
-"Language-Team: \n"
+"Language-Team: Hungarian\n"
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
@@ -15,229 +15,237 @@ msgstr ""
 
 #: functions.php:144
 msgid "Navigation Bar Menu"
-msgstr ""
+msgstr "Navigációs sáv menü"
 
 #: functions.php:445
 msgid "Weight (1-30)"
-msgstr ""
+msgstr "Súlyozás (1-30)"
 
 #: functions.php:641
 msgid "Page Header Fields"
-msgstr ""
+msgstr "Oldalfejléc mezői"
 
 #: functions.php:646
 msgid "Header Title"
-msgstr ""
+msgstr "Fejléc cím"
 
 #: functions.php:647
 msgid "Header title comes here"
-msgstr ""
+msgstr "Ide kerül a fejléc címe"
 
 #: functions.php:654
 msgid "Header Subtitle"
-msgstr ""
+msgstr "Fejléc alcím"
 
 #: functions.php:655
 msgid "Header subtitle comes here"
-msgstr ""
+msgstr "Ide kerül a fejléc alcíme"
 
 #: functions.php:663
 msgid "Header Description"
-msgstr ""
+msgstr "Fejléc leírás"
 
 #: functions.php:664
 msgid "Header description comes here"
-msgstr ""
+msgstr "Ide kerül a fejléc leírása"
 
 #: functions.php:676
 msgid "Header Button Title"
-msgstr ""
+msgstr "Fejlécgomb címe"
 
 #: functions.php:677
 msgid "Header button title comes here"
-msgstr ""
+msgstr "Ide kerül a fejlécgomb címe"
 
 #: functions.php:685
 msgid "Header Button Link"
-msgstr ""
+msgstr "Fejlécgomb hivatkozása"
 
 #: functions.php:686
 msgid "Header button link comes here"
-msgstr ""
+msgstr "Ide kerül a fejlécgomb hivatkozása"
 
 #: functions.php:694
 msgid "Background overide"
-msgstr ""
+msgstr "Háttér felülírása"
 
 #: functions.php:695
 msgid "Upload an image"
-msgstr ""
+msgstr "Kép feltöltése"
 
 #: functions.php:703
 msgid "Add Background Image"
-msgstr ""
+msgstr "Háttérkép hozzáadása"
 
 #: functions.php:714
 msgid "Post Articles Element Fields"
-msgstr ""
+msgstr "Cikk részleteinek mezői"
 
 #: functions.php:719
 msgid "Author Override"
-msgstr ""
+msgstr "Szerző felülírása"
 
 #: functions.php:720
 msgid "Enter author name if you want to override the author"
-msgstr ""
+msgstr "Add meg a szerző nevét ha szeretnéd felülírni a szerző mezőt"
 
 #: functions.php:726
 msgid "Take Action Page Selector"
-msgstr ""
+msgstr "Cselekedj-oldalak kiválasztása"
 
 #: functions.php:727
 msgid "Select a Take Action Page to populate take action boxout block"
-msgstr ""
+msgstr "Válassz Cselekedj-oldalt a kapcsolódó cselekvés betöltéséhez"
 
 #: functions.php:735
 msgid "Include Articles In Post"
-msgstr ""
+msgstr "Cikkek megjelenítése a bejegyzésben"
 
 #: functions.php:745
 msgid "Background Image Override"
-msgstr ""
+msgstr "Háttérkép felülírása"
 
 #: functions.php:746
 msgid ""
 "Upload an image or select one from the media library to override the "
 "background image"
 msgstr ""
+"Tölts fel egy képet vagy válassz egyet a médiakönyvtárból, hogy felülird a "
+"háttérképet."
 
 #: functions.php:753
 msgid "Add Image"
-msgstr ""
+msgstr "Kép hozzáadása"
 
 #: functions.php:798
 msgid "Add Page Element"
-msgstr ""
+msgstr "Oldalelem hozzáadása"
 
 #: classes/class-p4-post-report-controller.php:59
 #: classes/class-p4-post-report-controller.php:60
 msgid "Posts Report"
-msgstr ""
+msgstr "Bejegyzések jelentés"
 
 #: classes/class-p4-custom-taxonomy.php:42
 msgid "P4 page type (A p4 page type term.)"
-msgstr ""
+msgstr "P4-oldaltípus"
 
 #: classes/class-p4-custom-taxonomy.php:148
 msgctxt "taxonomy general name"
 msgid "Page Types"
-msgstr ""
+msgstr "Oldaltípusok"
 
 #: classes/class-p4-custom-taxonomy.php:149
 msgctxt "taxonomy singular name"
 msgid "Page Type"
-msgstr ""
+msgstr "Oldaltípus"
 
 #: classes/class-p4-custom-taxonomy.php:150
 msgid "Search in Page Type"
-msgstr ""
+msgstr "Keresés az oldaltípusokban "
 
 #: classes/class-p4-custom-taxonomy.php:151
 msgid "All Page Types"
-msgstr ""
+msgstr "Összes oldaltípus"
 
 #: classes/class-p4-custom-taxonomy.php:155
 msgid "Edit Page Type"
-msgstr ""
+msgstr "Oldaltípus szerkesztése"
 
 #: classes/class-p4-custom-taxonomy.php:156
 msgid "Update Page Type"
-msgstr ""
+msgstr "Oldaltípus frissítése"
 
 #: classes/class-p4-custom-taxonomy.php:157
 msgid "Add new Page Type"
-msgstr ""
+msgstr "Új oldaltípus hozzáadása"
 
 #: classes/class-p4-custom-taxonomy.php:158
 msgid "New Page Type"
-msgstr ""
+msgstr "Új oldaltípus"
 
 #: classes/class-p4-custom-taxonomy.php:159
 msgid "Page Types"
-msgstr ""
+msgstr "Oldaltípusok"
 
 #: classes/class-p4-settings.php:39
 msgid "Planet4"
-msgstr ""
+msgstr "Planet 4"
 
 #: classes/class-p4-settings.php:43
 msgid "Website Navigation Title"
-msgstr ""
+msgstr "Weboldal-navigáció cím"
 
 #: classes/class-p4-settings.php:48
 msgid "Select Act Page"
-msgstr ""
+msgstr "Cselekedj-oldal kiválasztása"
 
 #: classes/class-p4-settings.php:54
 msgid "Select Explore Page"
-msgstr ""
+msgstr "Fedezd fel-oldal kiválasztása"
 
 #: classes/class-p4-settings.php:60
 msgid "Select Issues Parent Category"
-msgstr ""
+msgstr "Válassz Ügyek-szülőkategóriát"
 
 #: classes/class-p4-settings.php:66
 msgid "Copyright Text Line 1"
-msgstr ""
+msgstr "Copyright-szöveg 1. sor"
 
 #: classes/class-p4-settings.php:76
 msgid "Copyright Text Line 2"
-msgstr ""
+msgstr "Copyright-szöveg 2. sor"
 
 #: classes/class-p4-settings.php:86
 msgid "Google Tag Manager Identifier"
-msgstr ""
+msgstr "Google Tag Manager-azonosító"
 
 #: classes/class-p4-settings.php:92
 msgid "Engaging Network ID"
-msgstr ""
+msgstr "Engaging Networks-azonosító"
 
 #: classes/class-p4-settings.php:98
 msgid "Cookies Text"
-msgstr ""
+msgstr "Sütik szöveg"
 
 #: classes/class-p4-settings.php:108
 msgid "Default title for related articles block"
-msgstr ""
+msgstr "Alapértelmezett cím a kapcsolódó cikkek blokkhoz"
 
 #: classes/class-p4-settings.php:111
 msgid ""
 "If no title set for <b>Article Block</b>, the default title will appear."
 msgstr ""
+"Ha nincs cím beállítva a következőhöz: <b>Cikkek blokk</b>, akkor az "
+"alapértelmezett cím fog megjelenni."
 
 #: classes/class-p4-settings.php:115
 msgid "Default button title for related articles block"
-msgstr ""
+msgstr "Alapértelmezett gombszöveg a Kapcsolódó cikkek-blokkhoz"
 
 #: classes/class-p4-settings.php:118
 msgid ""
 "If no button title set for <b>Article Block</b>, the default button title "
 "will appear."
 msgstr ""
+"Ha nincs gombszöveg beállítva a következőhöz: <b>Cikkek blokk</b>, akkor az "
+"alapértelmezett gombszöveg fog megjelenni."
 
 #: classes/class-p4-settings.php:122
 msgid "Default Number Of Related Articles"
-msgstr ""
+msgstr "A kapcsolódó cikkek alapértelmezett száma"
 
 #: classes/class-p4-settings.php:128
 msgid ""
 "If no number of Related Articles set for <b>Article Block</b>, the default "
 "number of Related Articles will appear."
 msgstr ""
+"Ha nincs külön beállítva mennyiség a következőhöz: <b>Cikkek blokk</b>, "
+"akkor az alapértelmezett számú kapcsolódó hír fog megjelenni."
 
 #: classes/class-p4-settings.php:132
 msgid "Take Action Covers default button text"
-msgstr ""
+msgstr "Cselekedj-borítóképek alapértelmezett gombszövege"
 
 #: classes/class-p4-settings.php:138
 msgid ""
@@ -246,157 +254,165 @@ msgid ""
 "\t\t\t\t\t                     Also it would be used for Take Action Cards "
 "inside Posts and Take Action Cards in search results"
 msgstr ""
+"Írj be egy alapértelmezett gombszöveget, amely a <b>Cselekedj</b>-kártyán "
+"fog megjelenni a <b>Cselekedj-borítókép</b> blokkokban. <br>\n"
+"\n"
+"Ezen felül keresési találatoknál megjelenő Cselekedj-kártyákon is megjelenik."
 
 #: classes/class-p4-settings.php:143
 msgid "Donate button link"
-msgstr ""
+msgstr "Adományozás gomb linkje"
 
 #: classes/class-p4-settings.php:152
 msgid "404 Background Image"
-msgstr ""
+msgstr "404 hiba lap háttérképe"
 
 #: classes/class-p4-settings.php:159
 msgid "Add 404 Page Background Image"
-msgstr ""
+msgstr "404 hiba lap háttérképének hozzáadása"
 
 #: classes/class-p4-settings.php:164 classes/class-p4-settings.php:197
 msgid "Minimum image width should be 1920px"
-msgstr ""
+msgstr "A kép szélessége legalább 1920px legyen"
 
 #: classes/class-p4-settings.php:168
 msgid "404 Page text"
-msgstr ""
+msgstr "404 hiba lap szövege"
 
 #: classes/class-p4-settings.php:175
 msgid "Add 404 page text"
-msgstr ""
+msgstr "404 hiba lap szövegének hozzáadása"
 
 #: classes/class-p4-settings.php:179
 msgid "Default p4-pagetype"
-msgstr ""
+msgstr "Alapértelmezett P4-oldaltípus"
 
 #: classes/class-p4-settings.php:185
 msgid "Default Happy Point Background Image"
-msgstr ""
+msgstr "Feliratkozási doboz alapértelmezett háttérképe"
 
 #: classes/class-p4-settings.php:192
 msgid "Add Default Happy Point Background Image"
-msgstr ""
+msgstr "Alapértelmezett háttérkép hozzáadása a feliratkozási dobozokhoz"
 
 #: classes/class-p4-settings.php:200
 msgid "Enforce Cookies Policy"
-msgstr ""
+msgstr "Cookie irányelvek kikényszerítése"
 
 #: classes/class-p4-settings.php:201
 msgid ""
 "GDPR related setting. By enabling this option specific content will be "
 "blocked and will require user consent to be shown."
 msgstr ""
+"GDPR-hoz kapcsolódó beállítás. Az opció használatával bizonyos tartalmak "
+"alapértelmezetten blokkolva lesznek, és csak a felhasználó beleegyezése után "
+"jelennek meg."
 
 #: classes/class-p4-settings.php:245 classes/class-p4-settings.php:259
 msgid "Select Page"
-msgstr ""
+msgstr "Oldal kiválasztása"
 
 #: classes/class-p4-settings.php:274
 msgid "Select Category"
-msgstr ""
+msgstr "Kategória kiválasztása"
 
 #: classes/class-p4-settings.php:293
 msgid "Select Pagetype"
-msgstr ""
+msgstr "Oldaltípus kiválasztása"
 
 #: classes/class-p4-control-panel.php:41
 msgid "Planet 4 Control Panel"
-msgstr ""
+msgstr "Planet 4 Vezérlőpult"
 
 #: classes/class-p4-control-panel.php:53
 msgid "Cache"
-msgstr ""
+msgstr "Gyorsítótár"
 
 #: classes/class-p4-control-panel.php:56
 msgid "Flush Object Cache"
-msgstr ""
+msgstr "Object Cache ürítése"
 
 #: classes/class-p4-control-panel.php:58
 msgid "Are you sure you want to delete all Object Cache keys?"
 msgstr ""
+"Biztos vagy benne, hogy törölni szeretnéd az összes Object Cache kulcsot?"
 
 #: classes/class-p4-control-panel.php:61
 msgid "Check Object Cache"
-msgstr ""
+msgstr "Object Cache ellenőrzése"
 
 #: classes/class-p4-control-panel.php:68
 msgid "Engaging Networks"
-msgstr ""
+msgstr "Engaging Networks"
 
 #: classes/class-p4-control-panel.php:71
 msgid "Check Engaging Networks"
-msgstr ""
+msgstr "Engaging Networks ellenőrzése"
 
 #: classes/class-p4-control-panel.php:78
 msgid "Search"
-msgstr ""
+msgstr "Keresés"
 
 #: classes/class-p4-control-panel.php:81
 msgid "Check Search Indexer"
-msgstr ""
+msgstr "Keresési indexelés ellenőrzése"
 
 #: classes/class-p4-control-panel.php:126
 msgid "Object Cache flushed"
-msgstr ""
+msgstr "Object Cache kiürítve"
 
 #: classes/class-p4-control-panel.php:129
 msgid "Object Cache did not flush"
-msgstr ""
+msgstr "Object Cache kiürítése nem sikerült"
 
 #: classes/class-p4-control-panel.php:165
 msgid "Planet 4 is connected to Redis."
-msgstr ""
+msgstr "a Planet 4 csatlakozott a Redis-hez."
 
 #: classes/class-p4-control-panel.php:201
 msgid "Success"
-msgstr ""
+msgstr "Siker"
 
 #: classes/class-p4-control-panel.php:248
 msgid "Indexer has stalled"
-msgstr ""
+msgstr "Az indexelés megállt"
 
 #: classes/class-p4-control-panel.php:251
 msgid "Indexer is awake"
-msgstr ""
+msgstr "Az indexelés aktív"
 
 #: classes/class-p4-taxonomy-image.php:19
 msgid "Select Image"
-msgstr ""
+msgstr "Kép kiválasztása"
 
 #: classes/class-p4-taxonomy-image.php:59
 #: classes/class-p4-taxonomy-image.php:98
 #: classes/class-p4-taxonomy-image.php:154
 msgid "Image"
-msgstr ""
+msgstr "Kép"
 
 #: classes/class-p4-taxonomy-image.php:65
 #: classes/class-p4-taxonomy-image.php:80
 #: classes/class-p4-taxonomy-image.php:102
 msgid "Select/Upload Image"
-msgstr ""
+msgstr "Kép kiválasztása/feltöltése"
 
 #: classes/class-p4-taxonomy-image.php:67
 #: classes/class-p4-taxonomy-image.php:104
 msgid "Associate this tag with an image."
-msgstr ""
+msgstr "Cimke társítása egy képhez"
 
 #: classes/class-p4-taxonomy-image.php:74
 msgid "Image Subscribe"
-msgstr ""
+msgstr "Kép feliratkozáshoz"
 
 #: classes/class-p4-taxonomy-image.php:82
 msgid "Choose a background image for the Subscribe block."
-msgstr ""
+msgstr "Válassz egy háttérképet a Feliratkozás blokkhoz."
 
 #: classes/class-p4-taxonomy-image.php:89
 msgid "Happy Point Opacity"
-msgstr ""
+msgstr "Feliratkozási doboz átlátszósága"
 
 #: classes/class-p4-taxonomy-image.php:93
 msgid ""
@@ -404,3 +420,6 @@ msgid ""
 "the higher the number, the more faded the image will look. If you leave this "
 "empty, the default of 30 will be used."
 msgstr ""
+"Fedést használunk a kép halványítására. Írj be egy számot 1 és 100 között: "
+"minél nagyobb a szám, annál halványabb lesz a kép. Ha üresen hagyod, az "
+"alapértelmezett érték (30) lesz használva."
