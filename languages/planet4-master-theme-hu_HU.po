@@ -3,8 +3,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-08-29 11:29+0000\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2018-09-12 11:24+0000\n"
+"Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,294 +23,295 @@ msgstr ""
 "Report-Msgid-Bugs-To: "
 
 #: single.php:47
+#, fuzzy
 msgid "Post page"
-msgstr ""
+msgstr "Oldal közzététele"
 
 #: single.php:76
 msgid "Leave Your Reply"
-msgstr ""
+msgstr "Írd meg a véleményed"
 
 #: 404.php:30
 msgid "Sorry, we can't find that page!"
-msgstr ""
+msgstr "Elnézést, nem találjuk ezt az oldalt :("
 
 #: 404.php:31
 msgid "Enter your search term below"
-msgstr ""
+msgstr "Add meg a keresési kifejezést"
 
 #: 404.php:32
 msgid "404 Page"
-msgstr ""
+msgstr "404 hiba lap"
 
 #: tag.php:58
 msgid "Unknown Campaign page"
-msgstr ""
+msgstr "Ismeretlen kampányoldal"
 
 #: tag.php:64
 msgid "Things you can do"
-msgstr ""
+msgstr "Amiket megtehetsz"
 
 #: tag.php:65
 msgid "We want you to take action because together we're strong."
-msgstr ""
+msgstr "Cselekedj te is, mert együtt erősek vagyunk!"
 
 #: tag.php:81
 msgid "Related Campaigns"
-msgstr ""
+msgstr "Kapcsolódó kampányok"
 
 #: tag.php:82
 msgid "This Campaign is not assigned to an Issue"
-msgstr ""
+msgstr "Ez a kampány nincs hozzárendelve egy ügyhöz sem"
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr ""
+msgstr "Legnagyobb egyezés"
 
 #: functions.php:89
 msgid "Most recent"
-msgstr ""
+msgstr "Legfrissebb"
 
 #: functions.php:287
 msgid "International (English)"
-msgstr ""
+msgstr "International (English)"
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
-msgstr ""
+msgstr "Keresési oldal"
 
 #. translators:
 #: classes/class-p4-search.php:412
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$d találat a következőre: '%2$s'"
+msgstr[1] "%1$d találat a következőre: '%2$s'"
 
 #. translators:
 #: classes/class-p4-search.php:418
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d találat"
+msgstr[1] "%d találat"
 
 #: classes/class-p4-search.php:478
 msgid "Action"
-msgstr ""
+msgstr "Cselekvés"
 
 #: classes/class-p4-search.php:482
 msgid "Document"
-msgstr ""
+msgstr "Dokumentum"
 
 #: classes/class-p4-search.php:486
 msgid "Page"
-msgstr ""
+msgstr "Oldal"
 
 #: classes/class-p4-search.php:490
 msgid "Post"
-msgstr ""
+msgstr "Bejegyzés"
 
 #: classes/class-p4-search.php:570
 msgid "ACTION"
-msgstr ""
+msgstr "CSELEKVÉS"
 
 #: classes/class-p4-search.php:574
 msgid "PAGE"
-msgstr ""
+msgstr "OLDAL"
 
 #: classes/class-p4-search.php:580
 msgid "DOCUMENT"
-msgstr ""
+msgstr "DOKUMENTUM"
 
 #: classes/class-p4-search.php:585
 msgid "POST"
-msgstr ""
+msgstr "BEJEGYZÉS"
 
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr ""
+msgstr "TOVÁBBI %s TALÁLAT MEGJELENÍTÉSE"
 
 #. Name of the template
 msgid "Evergreen Page"
-msgstr ""
+msgstr "Örökzöld oldal"
 
 #. Name of the template
 msgid "Sitemap Page"
-msgstr ""
+msgstr "Oldaltérkép"
 
 #: page-templates/sitemap.php:31
 msgid "Act"
-msgstr ""
+msgstr "Cselekedj"
 
 #: page-templates/sitemap.php:32
 msgid "Explore"
-msgstr ""
+msgstr "Fedezd fel"
 
 #: page-templates/sitemap.php:33
 msgid "About Greenpeace"
-msgstr ""
+msgstr "A Greenpeace-ről"
 
 #: page-templates/sitemap.php:34
 msgid "Articles"
-msgstr ""
+msgstr "Cikkek"
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
-msgstr ""
+msgstr "Menü"
 
 #: templates/navigation-bar.twig:18
 msgid "Close Menu"
-msgstr ""
+msgstr "Menü bezárása"
 
 #: templates/navigation-bar.twig:27
 msgid "Selected"
-msgstr ""
+msgstr "Kiválasztott"
 
 #: templates/navigation-bar.twig:28
 msgid "Change Country"
-msgstr ""
+msgstr "Ország váltása"
 
 #: templates/navigation-bar.twig:48
 msgid "DONATE"
-msgstr ""
+msgstr "ADOMÁNYOZZ"
 
 #: templates/navigation-bar.twig:58
 msgid "Toggle search form"
-msgstr ""
+msgstr "Keresési mező lenyitása"
 
 #: templates/navigation-bar.twig:66 templates/search.twig:44
 msgid "Search"
-msgstr ""
+msgstr "Keresés"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr ""
+msgstr "MEGVAN!"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr ""
+msgstr "Elnézést, de nem találtunk semmit a megadott keresési kifejezésre :(."
 
 #: templates/search.twig:17
 msgid "Check for typos, and try your search again"
-msgstr ""
+msgstr "Ellenőrizd a gépelési hibákat, és próbáld újra a keresést"
 
 #: templates/search.twig:18
 msgid "Try searching for somthing else"
-msgstr ""
+msgstr "Probálj valami másra keresni"
 
 #: templates/search.twig:19
 msgid "Search our archive. You'll be redirected to the archive site."
-msgstr ""
+msgstr "Keress az archívumban. Átirányítunk az archivált oldalra."
 
 #: templates/search.twig:23
 msgid "We also included results for "
-msgstr ""
+msgstr "Az alábbi kifejezést is hozzáadtuk a találatokhoz:"
 
 #: templates/search.twig:37
 msgid "This Site"
-msgstr ""
+msgstr "Ez a weboldal"
 
 #: templates/search.twig:38
 msgid "Archive"
-msgstr ""
+msgstr "Archívum"
 
 #: templates/search.twig:56
 msgid "Filters"
-msgstr ""
+msgstr "Szűrők"
 
 #: templates/search.twig:62 templates/search.twig:163
 msgid "Refine your search"
-msgstr ""
+msgstr "Keresés finomítása"
 
 #: templates/search.twig:70
 msgid "ISSUE"
-msgstr ""
+msgstr "ÜGY"
 
 #: templates/search.twig:91
 msgid "CATEGORY"
-msgstr ""
+msgstr "KATEGÓRIA"
 
 #: templates/search.twig:112
 msgid "CONTENT TYPES"
-msgstr ""
+msgstr "TARTALOMTÍPUSOK"
 
 #: templates/search.twig:136
 msgid "CAMPAIGN"
-msgstr ""
+msgstr "KAMPÁNY"
 
 #: templates/search.twig:155
 msgid "Cancel"
-msgstr ""
+msgstr "Mégse"
 
 #: templates/search.twig:156
 msgid "Apply Filters"
-msgstr ""
+msgstr "Szűrők alkalmazása"
 
 #: templates/search.twig:166
 msgid "ACTIVE FILTERS"
-msgstr ""
+msgstr "AKTÍV SZŰRŐK"
 
 #: templates/search.twig:175
 msgid "Clear All"
-msgstr ""
+msgstr "Összes törlése"
 
 #: templates/search.twig:182
 msgid "Issue"
-msgstr ""
+msgstr "Ügy"
 
 #: templates/search.twig:201
 msgid "Campaign"
-msgstr ""
+msgstr "Kampány"
 
 #: templates/search.twig:220
 msgid "Category"
-msgstr ""
+msgstr "Kategória"
 
 #: templates/search.twig:239
 msgid "Content type"
-msgstr ""
+msgstr "Tartalomtípus"
 
 #: templates/search.twig:262
 msgid "Sort by"
-msgstr ""
+msgstr "Rendezés szempontja"
 
 #: templates/search.twig:299
 msgid "Suggested search terms"
-msgstr ""
+msgstr "Javasolt keresési kifejezések"
 
 #: templates/tease-search.twig:62
 msgid "take action"
-msgstr ""
+msgstr "cselekedj"
 
 #: templates/tease-search.twig:65
 msgid "Download"
-msgstr ""
+msgstr "Letöltés"
 
 #: templates/single.twig:39
 msgid "by"
-msgstr ""
+msgstr "szerző:"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr ""
+msgstr "a szerzőről"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
-msgstr ""
+msgstr "Greenpeace Planet 4 Master Theme"
 
 #. Description of the plugin/theme
 msgid "Master theme for the Planet 4 Wordpress project"
-msgstr ""
+msgstr "Master theme for the Planet 4 Wordpress project"
 
 #. Theme URI of the plugin/theme
 msgid "https://github.com/greenpeace/planet4-master-theme"
-msgstr ""
+msgstr "https://github.com/greenpeace/planet4-master-theme"
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
-msgstr ""
+msgstr "Greenpeace International"
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/greenpeace"
-msgstr ""
+msgstr "https://github.com/greenpeace"
