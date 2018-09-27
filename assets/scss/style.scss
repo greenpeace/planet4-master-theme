@@ -11,15 +11,15 @@ Tags: light, accessibility-ready
 Text Domain: planet4-master-theme
 */
 
-// Setup global styles
-@import "common/fonts";
+// Gloabal
 @import "global/variables";
 @import "global/functions";
 @import "global/mixins";
+
+// Common
+@import "common/fonts";
 @import "common/typography";
 @import "common/font-icon";
-
-// Overrides and hacks.
 @import "common/custom";
 
 // Modules
