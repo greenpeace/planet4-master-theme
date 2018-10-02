@@ -12,3 +12,12 @@ a.pdf-link::before {
   margin-right: 7px;
   font-family: "Font Awesome 5 Free";
 }
+
+// Backwards compatibility with Font-Awesome
+.fas,
+.fab {
+  display: inline-block;
+  font: normal normal normal 14px/1 ForkAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+}
