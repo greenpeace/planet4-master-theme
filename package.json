@@ -2,24 +2,19 @@
 	"name": "planet4-master-theme",
 	"version": "0.1.2",
 	"description": "Master theme for the Planet 4 Wordpress project",
-	"main": "index.php",
 	"repository": "git@github.com:greenpeace/planet4-master-theme.git",
 	"author": "Greenpeace International",
 	"license": "MIT",
 	"devDependencies": {
 		"backstopjs": "^3.5.2",
-		"eslint": "^4.18.2",
 		"gulp": "^3.9.1",
+		"gulp-clean-css": "^3.10.0",
+		"gulp-concat": "^2.6.1",
 		"gulp-eslint": "^4.0.2",
+		"gulp-sass": "^4.0.1",
+		"gulp-sourcemaps": "^2.6.4",
 		"gulp-stylelint": "^7.0.0",
-		"minimist": "^1.2.0",
-		"stylelint": "^9.1.1"
-	},
-	"dependencies": {
-		"@fortawesome/fontawesome-free-webfonts": "^1.0.6"
-	},
-	"assets": [
-		"@fortawesome/fontawesome-free-webfonts/css/*",
-		"@fortawesome/fontawesome-free-webfonts/webfonts/*"
-	]
+		"gulp-uglify-es": "^1.0.4",
+		"stylelint": "^9.5.0"
+	}
 }
