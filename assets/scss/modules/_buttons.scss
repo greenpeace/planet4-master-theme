@@ -11,7 +11,7 @@
   border: 1px solid transparent;
   cursor: pointer;
   line-height: 3;
-  padding: 0 30px;
+  padding: 4px 30px;
   appearance: none;
   transition-property: color, background-color, border-color;
   transition-duration: 150ms;
@@ -65,6 +65,27 @@
   border-color: $dark-blue;
   color: $dark-blue;
   box-shadow: none;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 40px;
+  width: 100%;
+
+  @include medium-and-up {
+    margin-bottom: 40px;
+    width: 50%;
+  }
+
+  @include large-and-up {
+    margin-bottom: 0;
+    width: 80%;
+  }
+
+  @include x-large-and-up {
+    margin-bottom: 0;
+    width: 60%;
+  }
 
   &:hover,
   &:focus {
