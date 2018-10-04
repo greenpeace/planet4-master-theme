@@ -1,0 +1,109 @@
+html[dir="rtl"] body {
+  text-transform: lowercase;
+  text-align: right;
+
+  button,
+  .btn,
+  .top-navigation,
+  .country-group-letter,
+  .country-list {
+    text-transform: lowercase;
+  }
+
+  .top-navigation {
+    .navbar-search-toggle {
+      margin-left: 11px;
+      margin-right: auto;
+    }
+
+    .navbar-dropdown {
+      left: auto;
+      right: 0;
+      padding-right: 0;
+
+      .close-navbar-dropdown {
+        right: auto;
+        left: 0;
+      }
+
+      .country-dropdown-toggle {
+        text-align: right;
+        padding: 0 67px 0 70px;
+
+        &::before {
+          left: auto;
+          right: 0;
+          border-right: none;
+          border-left: 1px solid rgba(255, 255, 255, .1);
+        }
+      }
+    }
+
+    .country-list {
+      > a,
+      li {
+        padding-left: 0;
+        padding-right: 50px;
+
+        @include large-and-up {
+          padding-right: 2em;
+          padding-left: 0;
+        }
+
+        ul {
+          margin: 0 0 1.2em 1em;
+        }
+
+        li {
+          padding-right: 0;
+        }
+      }
+
+      .country-group-letter {
+        margin-left: 0;
+        margin-right: -1.5em;
+      }
+    }
+
+    .nav-search-wrap {
+      right: auto;
+      left: 0;
+
+      input::placeholder {
+        text-transform: lowercase;
+      }
+
+      @include large-and-up {
+        left: auto;
+      }
+
+      .top-nav-search-btn {
+        left: 16px;
+        right: auto;
+      }
+    }
+  }
+
+  .filter-sidebar {
+    .filteritem {
+      a {
+        span {
+          right: auto;
+          left: 0;
+        }
+      }
+    }
+  }
+
+  input[type="checkbox"] {
+    & + .custom-control-description:before {
+      margin-right: 0;
+      margin-left: 10px;
+    }
+
+    &:checked + .custom-control-description:after {
+      left: auto;
+      right: 7px;
+    }
+  }
+}
