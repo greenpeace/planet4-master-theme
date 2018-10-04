@@ -10,7 +10,7 @@ a.pdf-link::before {
   content: "\f1c1";
   display: inline-block;
   margin-right: 7px;
-  font-family: "Font Awesome 5 Free";
+  font: normal normal normal 14px/1 ForkAwesome;
 }
 
 // Backwards compatibility with Font-Awesome
