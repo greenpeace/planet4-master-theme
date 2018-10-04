@@ -11,7 +11,7 @@
   border: 1px solid transparent;
   cursor: pointer;
   line-height: 3;
-  padding: 4px 30px;
+  padding: 0 30px;
   appearance: none;
   transition-property: color, background-color, border-color;
   transition-duration: 150ms;
@@ -71,6 +71,7 @@
   text-overflow: ellipsis;
   margin-bottom: 40px;
   width: 100%;
+  padding: 2px 30px;
 
   @include medium-and-up {
     margin-bottom: 40px;
