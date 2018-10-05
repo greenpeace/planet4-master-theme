@@ -4,7 +4,7 @@ msgstr ""
 "2;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-10-05 15:20+0000\n"
+"PO-Revision-Date: 2018-10-05 18:39+0000\n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,13 +94,13 @@ msgstr[2] ""
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Výsledek"
+msgstr[1] "Výsledky"
 msgstr[2] ""
 
 #: classes/class-p4-search.php:478
 msgid "Action"
-msgstr ""
+msgstr "Akce"
 
 #: classes/class-p4-search.php:482
 msgid "Document"
@@ -116,7 +116,7 @@ msgstr "Novinka"
 
 #: classes/class-p4-search.php:570
 msgid "ACTION"
-msgstr ""
+msgstr "AKCE"
 
 #: classes/class-p4-search.php:574
 msgid "PAGE"
@@ -149,7 +149,7 @@ msgstr "Zapoj se"
 
 #: page-templates/sitemap.php:32
 msgid "Explore"
-msgstr ""
+msgstr "Objevuj"
 
 #: page-templates/sitemap.php:33
 msgid "About Greenpeace"
@@ -249,11 +249,11 @@ msgstr "Zrušit"
 
 #: templates/search.twig:156
 msgid "Apply Filters"
-msgstr ""
+msgstr "Použít filtry"
 
 #: templates/search.twig:166
 msgid "ACTIVE FILTERS"
-msgstr ""
+msgstr "Aktivní filtry"
 
 #: templates/search.twig:175
 msgid "Clear All"
