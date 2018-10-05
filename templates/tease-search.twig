@@ -39,11 +39,13 @@
 					<button class="search-result-item-head no-btn tag-item tag-item--main page-type" data-term_id="{{ page_type.term_id }}">{{ page_type.name|e('wp_kses_post')|raw }}</button>
 				{% endfor %}
 
-				<div class="tag-wrap tags">
-					{% for tag in posts_data[post.ID].tags %}
-						<a href="{{ tag.link }}" class="search-result-item-tag tag-item tag">#{{ tag.name|e('wp_kses_post')|raw }}</a>
-					{% endfor %}
-				</div>
+				{% if (posts_data[post.ID].tags) %}
+					<div class="tag-wrap tags">
+						{% for tag in posts_data[post.ID].tags %}
+							<a href="{{ tag.link }}" class="search-result-item-tag tag-item tag">#{{ tag.name|e('wp_kses_post')|raw }}</a>
+						{% endfor %}
+					</div>
+				{% endif %}
 			</div>
 
 			{% if ( is_document ) %}

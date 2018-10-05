@@ -13,11 +13,13 @@
 					<a href="/?s=&orderby=relevant&f[ptype][{{ page_type.name }}]={{ page_type.term_id }}" class="search-result-item-head no-btn tag-item tag-item--main page-type">{{ page_type.name|e('wp_kses_post')|raw }}</a>
 				{% endfor %}
 
-				<div class="tag-wrap tags">
-					{% for tag in post.tags %}
-						<a href="{{ tag.link }}" class="search-result-item-tag tag-item tag">#{{ tag.name|e('wp_kses_post')|raw }}</a>
-					{% endfor %}
-				</div>
+				{% if (post.tags) %}
+					<div class="tag-wrap tags">
+						{% for tag in post.tags %}
+							<a href="{{ tag.link }}" class="search-result-item-tag tag-item tag">#{{ tag.name|e('wp_kses_post')|raw }}</a>
+						{% endfor %}
+					</div>
+				{% endif %}
 			</div>
 
 			<a href="{{ post.link() }}" class="search-result-item-headline">{{ post.title|e('wp_kses_post')|raw }}</a>

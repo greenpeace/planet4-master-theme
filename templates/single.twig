@@ -25,11 +25,13 @@
 						</div>
 					{% endif %}
 
-					<div class="tag-wrap tags">
-						{% for tag in post.tags %}
-							<a class="tag-item tag" href="{{ tag.link }}">#{{ tag.name|e('wp_kses_post')|raw }}</a>
-						{% endfor %}
-					</div>
+					{% if (posts.tags) %}
+						<div class="tag-wrap tags">
+							{% for tag in post.tags %}
+								<a class="tag-item tag" href="{{ tag.link }}">#{{ tag.name|e('wp_kses_post')|raw }}</a>
+							{% endfor %}
+						</div>
+					{% endif %}
 				</div>
 				<h1 class="page-header-title">{{ post.title|raw }}</h1>
 				<div class="row">
