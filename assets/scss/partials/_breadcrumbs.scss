@@ -31,6 +31,11 @@
       position: absolute;
       left: -15px;
       top: 0;
+
+      html[dir="rtl"] & {
+        left: auto;
+        right: 5px;
+      }
     }
   }
 
@@ -46,6 +51,10 @@
     &:not(:only-child):not(:last-child) {
       margin-right: 7px;
 
+      html[dir="rtl"] & {
+          margin-right: 20px;
+      }
+
       &.page-type {
         margin-right: 20px;
       }
@@ -57,6 +66,10 @@
 
     &.page-type {
       text-transform: uppercase;
+
+      html[dir="rtl"] & {
+        text-transform: lowercase;
+      }
     }
   }
 
