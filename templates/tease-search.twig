@@ -32,16 +32,20 @@
 		{% endif %}
 
 		<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
-			<div class="search-result-tags">
+			<div class="search-result-tags top-page-tags">
 				<span class="search-result-item-title">{{ posts_data[post.ID].content_type_text }}</span>
 
 				{% for page_type in posts_data[post.ID].page_types %}
-					<button class="search-result-item-head no-btn" data-term_id="{{ page_type.term_id }}">{{ page_type.name|e('wp_kses_post')|raw }}</button>
+					<button class="search-result-item-head no-btn tag-item tag-item--main page-type" data-term_id="{{ page_type.term_id }}">{{ page_type.name|e('wp_kses_post')|raw }}</button>
 				{% endfor %}
 
-				{% for tag in posts_data[post.ID].tags %}
-					<a href="{{ tag.link }}" class="search-result-item-tag">#{{ tag.name|e('wp_kses_post')|raw }}</a>{% if ( not loop.last ) %},{% endif %}
-				{% endfor %}
+				{% if (posts_data[post.ID].tags) %}
+					<div class="tag-wrap tags">
+						{% for tag in posts_data[post.ID].tags %}
+							<a href="{{ tag.link }}" class="search-result-item-tag tag-item tag">#{{ tag.name|e('wp_kses_post')|raw }}</a>
+						{% endfor %}
+					</div>
+				{% endif %}
 			</div>
 
 			{% if ( is_document ) %}
