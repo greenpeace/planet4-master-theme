@@ -196,18 +196,6 @@
 }
 
 .search-result-tags {
-  margin-bottom: 0;
-  font-size: 0.875rem;
-
-  @include medium-and-up {
-    margin-bottom: 8px;
-  }
-
-  @include large-and-up {
-    margin-bottom: 12px;
-    font-size: 1rem;
-  }
-
   .search-result-item-title {
     background: $grey-20;
     color: $white;
@@ -218,48 +206,15 @@
     display: inline-block;
   }
 
-  .search-result-item-head {
-    color: $blue-80;
-    font-weight: bold;
-    text-decoration: none;
-    position: relative;
-    text-transform: uppercase;
-
-    &:hover {
-      color: $blue-tiber;
+  .tags {
+    @include mobile-only {
+      margin-top: 5px;
     }
   }
 
   .search-result-item-tag {
-    color: $blue-80;
-    text-decoration: none;
-    transition: color 150ms linear;
-    margin-left: 15px;
-    position: relative;
-
-    @include small-and-up {
-      margin-left: 30px;
-    }
-
-    &:hover {
-      text-decoration: underline;
-    }
-
     &:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background-color: $blue-elm;
-      margin-left: -11px;
-      margin-top: 6px;
-
-      @include small-and-up {
-        margin-left: -18px;
-      }
+      top: -2px;
     }
   }
 }
