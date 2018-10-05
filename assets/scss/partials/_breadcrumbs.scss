@@ -28,6 +28,11 @@
       position: absolute;
       left: -15px;
       top: 0;
+
+      html[dir="rtl"] & {
+        left: auto;
+        right: 5px;
+      }
     }
 
     @include mobile-only {
@@ -61,6 +66,10 @@
 
     &.page-type {
       text-transform: uppercase;
+
+      html[dir="rtl"] & {
+        text-transform: lowercase;
+      }
     }
   }
 
@@ -68,6 +77,16 @@
     .tag-item--main {
       &:first-child {
         margin-right: 7px;
+
+        html[dir="rtl"] & {
+          margin-right: 20px;
+        }
+      }
+
+      html[dir="rtl"] & {
+        &:not(:first-child) {
+          margin-right: 7px;
+        }
       }
     }
   }
