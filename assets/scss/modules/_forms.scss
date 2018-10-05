@@ -17,6 +17,11 @@ input[type="checkbox"] {
     height: 26px;
     background: transparent;
     border: 3px solid $med-blue;
+
+    html[dir="rtl"] & {
+      margin-right: 0;
+      margin-left: 10px;
+    }
   }
 
   &:checked + .custom-control-description:before {
@@ -33,6 +38,11 @@ input[type="checkbox"] {
     height: 4px;
     box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
     transform: rotate(45deg);
+
+    html[dir="rtl"] & {
+      left: auto;
+      right: 7px;
+    }
   }
 
   &:disabled + .custom-control-description {
