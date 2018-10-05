@@ -16,6 +16,10 @@ $menu-height-large: 3.75rem;
   height: $menu-height-small;
   font-family: $roboto;
 
+  html[dir="rtl"] & {
+    text-transform: lowercase;
+  }
+
   @include medium-and-up {
     height: $menu-height-large;
   }
@@ -118,6 +122,11 @@ $menu-height-large: 3.75rem;
   background-size: 28px;
   margin-left: auto;
 
+  html[dir="rtl"] & {
+    margin-left: 11px;
+    margin-right: auto;
+  }
+
   @include large-and-up {
     display: none;
   }
@@ -158,6 +167,12 @@ $menu-height-large: 3.75rem;
   height: 100vh;
   width: 300px;
   background-position: right $menu-height-small;
+
+  html[dir="rtl"] & {
+    left: auto;
+    right: 0;
+    padding-right: 0;
+  }
 
   @include small-and-up {
     height: 100vh;
@@ -234,6 +249,11 @@ $menu-height-large: 3.75rem;
       z-index: 2;
       border: 0;
 
+      html[dir="rtl"] & {
+        right: auto;
+        left: 0;
+      }
+
       @include medium-and-up {
         height: $menu-height-large;
       }
@@ -261,7 +281,12 @@ $menu-height-large: 3.75rem;
       text-align: left;
       padding: 0 70px 0 67px;
 
-      &::before {
+      html[dir="rtl"] & {
+        text-align: right;
+        padding: 0 67px 0 70px;
+      }
+
+      &:before {
         content: "";
         position: absolute;
         top: 13px;
@@ -272,6 +297,13 @@ $menu-height-large: 3.75rem;
         background: url("images/country-icon.svg") center center no-repeat;
         border-right: 1px solid transparentize($white, 0.9);
         background-size: contain;
+
+        html[dir="rtl"] & {
+          left: auto;
+          right: 0;
+          border-right: none;
+          border-left: 1px solid rgba(255, 255, 255, .1);
+        }
 
         @include medium-and-up {
           top: 17px;
@@ -376,6 +408,11 @@ $menu-height-large: 3.75rem;
   max-width: 80%;
   background: transparentize($blue-bg, 0.15);
 
+  html[dir="rtl"] & {
+    right: auto;
+    left: 0;
+  }
+
   &.open {
     display: block;
   }
@@ -389,10 +426,18 @@ $menu-height-large: 3.75rem;
     background: none;
     top: auto;
     right: auto;
+
+    html[dir="rtl"] & {
+      left: auto;
+    }
   }
 
-  input::-webkit-input-placeholder {
+  input::placeholder {
     color: $grey-40;
+
+    html[dir="rtl"] & {
+      text-transform: lowercase;
+    }
   }
 
   .top-nav-search-btn {
@@ -404,6 +449,11 @@ $menu-height-large: 3.75rem;
     font-size: 1.25rem;
     line-height: 36px;
     color: $dark-blue;
+
+    html[dir="rtl"] & {
+      left: 16px;
+      right: auto;
+    }
 
     i {
       vertical-align: middle;
@@ -473,6 +523,10 @@ $menu-height-large: 3.75rem;
   margin-top: -1px;
   overflow-y: hidden;
 
+  html[dir="rtl"] & {
+    text-transform: lowercase;
+  }
+
   &.open {
     display: block;
     overflow-y: scroll !important;
@@ -497,8 +551,19 @@ $menu-height-large: 3.75rem;
     color: $grey-40;
     margin-left: -1.5em;
 
+    html[dir="rtl"] & {
+      margin-left: 0;
+      margin-right: -1.5em;
+      text-transform: lowercase;
+    }
+
     @include large-and-up {
       margin-left: -2em;
+
+      html[dir="rtl"] & {
+        margin-left: 0;
+        margin-right: -2em;
+      }
     }
   }
 
@@ -514,19 +579,37 @@ $menu-height-large: 3.75rem;
     padding-left: 50px;
     font-size: 1rem;
 
+    html[dir="rtl"] & {
+      padding-left: 0;
+      padding-right: 50px;
+    }
+
     @include large-and-up {
       padding-left: 2em;
+
+      html[dir="rtl"] & {
+        padding-right: 2em;
+        padding-left: 0;
+      }
     }
 
     ul {
       break-inside: avoid;
       padding: 0;
       margin: 0 1em 1.2em 0;
+
+      html[dir="rtl"] & {
+        margin: 0 0 1.2em 1em;
+      }
     }
 
     li {
       padding-left: 0;
       list-style: none;
+
+      html[dir="rtl"] & {
+        padding-right: 0;
+      }
     }
   }
 
