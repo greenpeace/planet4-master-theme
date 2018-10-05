@@ -37,6 +37,17 @@
         right: 5px;
       }
     }
+
+    @include mobile-only {
+      &.tags {
+        display: block;
+      }
+
+      html[dir="rtl"] & {
+        left: auto;
+        right: 5px;
+      }
+    }
   }
 
   .tag-item {
@@ -74,6 +85,20 @@
   }
 
   .issues {
-    margin-right: 20px;
+    .tag-item--main {
+      &:first-child {
+        margin-right: 7px;
+
+        html[dir="rtl"] & {
+          margin-right: 20px;
+        }
+      }
+
+      html[dir="rtl"] & {
+        &:not(:first-child) {
+          margin-right: 7px;
+        }
+      }
+    }
   }
 }
