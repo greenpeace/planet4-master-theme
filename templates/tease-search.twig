@@ -33,8 +33,6 @@
 
 		<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
 			<div class="search-result-tags top-page-tags">
-				<span class="search-result-item-title">{{ posts_data[post.ID].content_type_text }}</span>
-
 				{% for page_type in posts_data[post.ID].page_types %}
 					<button class="search-result-item-head no-btn tag-item tag-item--main page-type" data-term_id="{{ page_type.term_id }}">{{ page_type.name|e('wp_kses_post')|raw }}</button>
 				{% endfor %}
