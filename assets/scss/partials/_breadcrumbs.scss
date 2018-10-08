@@ -21,6 +21,14 @@
     position: relative;
     color: $blue;
 
+    @include mobile-only {
+      &.tags {
+        display: block;
+      }
+    }
+  }
+
+  .tag-item--main + .tag-wrap {
     &:before {
       content: "\2022";
       pointer-events: none;
@@ -28,15 +36,9 @@
       position: absolute;
       left: -15px;
       top: 0;
-    }
 
-    @include mobile-only {
-      &.tags {
-        display: block;
-
-        &:before {
-          display: none;
-        }
+      @include mobile-only {
+        display: none;
       }
     }
   }
