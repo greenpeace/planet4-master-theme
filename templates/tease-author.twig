@@ -5,8 +5,6 @@
 
 		<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
 			<div class="search-result-tags top-page-tags">
-				<span class="search-result-item-title">{{ post.get_custom_type }}</span>
-
 				{{ post.get_author_override }}
 
 				{% for page_type in post.get_custom_terms %}
