@@ -28,7 +28,8 @@
     }
   }
 
-  .tag-item--main + .tag-wrap {
+  .tag-item--main + .tag-wrap,
+  .tag-wrap + .tag-wrap {
     &:before {
       content: "\2022";
       pointer-events: none;
