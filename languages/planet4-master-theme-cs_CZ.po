@@ -1,10 +1,11 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=3; plural=( n == 1 ) ? 0 : ( n >= 2 && n <= 4 ) ? 1 : "
+"2;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-10-02 12:03+0000\n"
-"Language-Team: Danish\n"
+"PO-Revision-Date: 2018-10-08 10:05+0000\n"
+"Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,59 +17,60 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: mhedelai <mhedelai@greenpeace.org>\n"
-"Language: da_DK\n"
+"Last-Translator: lseverov <lseverov@greenpeace.org>\n"
+"Language: cs_CZ\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: "
 
 #: single.php:47
 msgid "Post page"
-msgstr "Postside"
+msgstr "Publikovat"
 
 #: single.php:76
 msgid "Leave Your Reply"
-msgstr "Skriv en kommentar"
+msgstr "Zanechte zprávu"
 
 #: 404.php:30
 msgid "Sorry, we can't find that page!"
-msgstr "Ups, den side kan vi ikke finde!"
+msgstr "Omlouváme se, nemůžeme tuto stránku najít."
 
 #: 404.php:31
 msgid "Enter your search term below"
-msgstr "Skriv dit søgeord herunder"
+msgstr "Vložte hledaný výraz"
 
 #: 404.php:32
 msgid "404 Page"
-msgstr "404 Side"
+msgstr "Chyba 404"
 
 #: tag.php:58
 msgid "Unknown Campaign page"
-msgstr "Unknown Campaign page"
+msgstr "Neznámá stránka kampaně"
 
 #: tag.php:64
 msgid "Things you can do"
-msgstr "Vær med"
+msgstr "Jak se můžete zapojit"
 
 #: tag.php:65
 msgid "We want you to take action because together we're strong."
-msgstr "Sammen er vi stærke. Vær med her."
+msgstr ""
+"Jedině společně můžeme dosáhnout změny. Přidejte se.\n"
 
 #: tag.php:81
 msgid "Related Campaigns"
-msgstr "Relaterede kampagner"
+msgstr "Související kampaně"
 
 #: tag.php:82
 msgid "This Campaign is not assigned to an Issue"
-msgstr "This Campaign is not assigned to an Issue"
+msgstr "Tato kampaň není přiřazena k žádnému tématu"
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr "Mest relevante"
+msgstr "Relevance"
 
 #: functions.php:89
 msgid "Most recent"
-msgstr "Nyeste"
+msgstr "Data"
 
 #: functions.php:287
 msgid "International (English)"
@@ -76,27 +78,29 @@ msgstr "International (English)"
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
-msgstr "Søgning"
+msgstr "Prohledat stránku"
 
 #. translators:
 #: classes/class-p4-search.php:412
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] "%1$d søgeresultat for '%2$s'"
-msgstr[1] "%1$d søgeresultater for '%2$s'"
+msgstr[0] "%1$d výsledek pro '%2$s'"
+msgstr[1] "%1$d výsledků pro '%2$s'"
+msgstr[2] ""
 
 #. translators:
 #: classes/class-p4-search.php:418
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] "%d søgeresultat"
-msgstr[1] "%d søgeresultater"
+msgstr[0] "Výsledek"
+msgstr[1] "Výsledky"
+msgstr[2] ""
 
 #: classes/class-p4-search.php:478
 msgid "Action"
-msgstr "Aktion"
+msgstr "Akce"
 
 #: classes/class-p4-search.php:482
 msgid "Document"
@@ -104,56 +108,56 @@ msgstr "Dokument"
 
 #: classes/class-p4-search.php:486
 msgid "Page"
-msgstr "Side"
+msgstr "Stránka"
 
 #: classes/class-p4-search.php:490
 msgid "Post"
-msgstr "Post"
+msgstr "Novinka"
 
 #: classes/class-p4-search.php:570
 msgid "ACTION"
-msgstr "AKTION"
+msgstr "AKCE"
 
 #: classes/class-p4-search.php:574
 msgid "PAGE"
-msgstr "SIDE"
+msgstr "STRÁNKA"
 
 #: classes/class-p4-search.php:580
 msgid "DOCUMENT"
-msgstr "Dokument"
+msgstr "DOKUMENT"
 
 #: classes/class-p4-search.php:585
 msgid "POST"
-msgstr "POST"
+msgstr "NOVINKA"
 
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr "VIS NÆSTE %s"
+msgstr "Zobrazit další výsledky"
 
 #. Name of the template
 msgid "Evergreen Page"
-msgstr "Evergreenside"
+msgstr "Evergreen stránky"
 
 #. Name of the template
 msgid "Sitemap Page"
-msgstr "Sitemap"
+msgstr "Mapa stránky"
 
 #: page-templates/sitemap.php:31
 msgid "Act"
-msgstr "Vær med"
+msgstr "Zapoj se"
 
 #: page-templates/sitemap.php:32
 msgid "Explore"
-msgstr "Se mere"
+msgstr "Objevuj"
 
 #: page-templates/sitemap.php:33
 msgid "About Greenpeace"
-msgstr "Om Greenpeace"
+msgstr "O Greenpeace"
 
 #: page-templates/sitemap.php:34
 msgid "Articles"
-msgstr "Artikler"
+msgstr "Články"
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
@@ -161,139 +165,139 @@ msgstr "Menu"
 
 #: templates/navigation-bar.twig:18
 msgid "Close Menu"
-msgstr "Luk menu"
+msgstr "Zavřít menu"
 
 #: templates/navigation-bar.twig:27
 msgid "Selected"
-msgstr "Valgt"
+msgstr "Vybrané"
 
 #: templates/navigation-bar.twig:28
 msgid "Change Country"
-msgstr "Vælg land"
+msgstr "Změnit zemi"
 
 #: templates/navigation-bar.twig:48
 msgid "DONATE"
-msgstr "STØT OS"
+msgstr "DARUJ"
 
 #: templates/navigation-bar.twig:58
 msgid "Toggle search form"
-msgstr "Toggle search form"
+msgstr "Přepnout na formulář"
 
 #: templates/navigation-bar.twig:66 templates/search.twig:44
 msgid "Search"
-msgstr "Søg"
+msgstr "Hledat"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr "OK"
+msgstr "Rozumím"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr "Der var desværre ikke noget, der matchede din søgning."
+msgstr "Omlouváme se, pro vyhledávaný výraz se nám nepodařilo nic najít. "
 
 #: templates/search.twig:17
 msgid "Check for typos, and try your search again"
-msgstr "kontrollér for fejl, og prøv at søge igen"
+msgstr "Zkontrolujte zadaný text a zkuste to znova"
 
 #: templates/search.twig:18
 msgid "Try searching for somthing else"
-msgstr "Prøv at søge efter noget andet"
+msgstr "Zkuste změnit zadání"
 
 #: templates/search.twig:19
 msgid "Search our archive. You'll be redirected to the archive site."
-msgstr "Søg på vores arkivside."
+msgstr "Hledat v archívu. Budete přesměrování na jinou stránku."
 
 #: templates/search.twig:23
 msgid "We also included results for "
-msgstr "Vi har også inkluderet søgeresultater fra"
+msgstr "Zobrazili jsme také výsledky pro dotaz "
 
 #: templates/search.twig:37
 msgid "This Site"
-msgstr "Denne side"
+msgstr "Tato stránka"
 
 #: templates/search.twig:38
 msgid "Archive"
-msgstr "Arkiv"
+msgstr "Archív"
 
 #: templates/search.twig:56
 msgid "Filters"
-msgstr "Filtre"
+msgstr "Filtry"
 
 #: templates/search.twig:62 templates/search.twig:163
 msgid "Refine your search"
-msgstr "Avanceret søgning"
+msgstr "Specifikovat vyhledávání"
 
 #: templates/search.twig:70
 msgid "ISSUE"
-msgstr "EMNE"
+msgstr "TÉMA"
 
 #: templates/search.twig:91
 msgid "CATEGORY"
-msgstr "KATEGORI"
+msgstr "KATEGORIE"
 
 #: templates/search.twig:112
 msgid "CONTENT TYPES"
-msgstr "INDHOLDSTYPER"
+msgstr "TYP OBSAHU"
 
 #: templates/search.twig:136
 msgid "CAMPAIGN"
-msgstr "KAMPAGNE"
+msgstr "KAMPAŇ"
 
 #: templates/search.twig:155
 msgid "Cancel"
-msgstr "Fortryd"
+msgstr "Zrušit"
 
 #: templates/search.twig:156
 msgid "Apply Filters"
-msgstr "Filtrér"
+msgstr "Použít filtry"
 
 #: templates/search.twig:166
 msgid "ACTIVE FILTERS"
-msgstr "AKTIVE FILTRE"
+msgstr "Aktivní filtry"
 
 #: templates/search.twig:175
 msgid "Clear All"
-msgstr "Slet alt"
+msgstr "Smazat vše"
 
 #: templates/search.twig:182
 msgid "Issue"
-msgstr "Emne"
+msgstr "Téma"
 
 #: templates/search.twig:201
 msgid "Campaign"
-msgstr "Kampagne"
+msgstr "Kampaň"
 
 #: templates/search.twig:220
 msgid "Category"
-msgstr "Kategori"
+msgstr "Kategorie"
 
 #: templates/search.twig:239
 msgid "Content type"
-msgstr "Indholdstype"
+msgstr "Typ obsahu"
 
 #: templates/search.twig:262
 msgid "Sort by"
-msgstr "Sortér"
+msgstr "Řadit podle"
 
 #: templates/search.twig:299
 msgid "Suggested search terms"
-msgstr "Foreslåede søgeord"
+msgstr "Návrh vyhledávání"
 
 #: templates/tease-search.twig:62
 msgid "take action"
-msgstr "vær med"
+msgstr "Jdu do toho"
 
 #: templates/tease-search.twig:65
 msgid "Download"
-msgstr "Hent"
+msgstr "Stáhnout"
 
 #: templates/single.twig:39
 msgid "by"
-msgstr "af"
+msgstr ""
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr "om forfatteren"
+msgstr "O autorovi"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
