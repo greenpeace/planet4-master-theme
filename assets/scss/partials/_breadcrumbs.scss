@@ -17,15 +17,9 @@
   }
 
   .tag-wrap {
-    display: inline-block;
+    display: inline;
     position: relative;
     color: $blue;
-
-    @include mobile-only {
-      &.tags {
-        display: block;
-      }
-    }
   }
 
   .tag-item--main + .tag-wrap,
@@ -37,10 +31,6 @@
       position: absolute;
       left: -15px;
       top: 0;
-
-      @include mobile-only {
-        display: none;
-      }
     }
   }
 
@@ -53,14 +43,17 @@
       font-size: 1rem;
     }
 
-    &.tag:not(:first-child) {
-      margin-left: 7px;
+    &:not(:only-child):not(:last-child) {
+      margin-right: 7px;
+
+      &.page-type {
+        margin-right: 20px;
+      }
     }
   }
 
   .tag-item--main {
     font-weight: 500;
-    margin-right: 20px;
 
     &.page-type {
       text-transform: uppercase;
@@ -68,10 +61,6 @@
   }
 
   .issues {
-    .tag-item--main {
-      &:first-child {
-        margin-right: 7px;
-      }
-    }
+    margin-right: 20px;
   }
 }
