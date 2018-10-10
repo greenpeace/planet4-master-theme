@@ -43,20 +43,6 @@
       }
     }
 
-    .top-page-tags a {
-      color: $blue;
-      font-size: 0.875rem;
-      margin-bottom: 6px;
-
-      @include medium-and-up {
-        font-size: 1rem;
-      }
-    }
-
-    .tag-item {
-      display: inline-block;
-    }
-
     .single-post-meta {
       color: $dark-shade-black;
       margin: 0 0 16px 0;
@@ -135,6 +121,7 @@
         display: inline-block;
         position: absolute;
         right: -15px;
+        top: 0;
       }
     }
   }

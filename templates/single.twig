@@ -14,18 +14,24 @@
 			<div class="container">
 				<div class="top-page-tags">
 					{% if ( page_type ) %}
-						<a class="tag-item tag-item--main" href="{{ filter_url }}">{{ page_type|e('wp_kses_post')|raw }}</a>
+						<a class="tag-item tag-item--main page-type" href="{{ filter_url }}">{{ page_type|e('wp_kses_post')|raw }}</a>
 					{% endif %}
 
 					{% if ( post.issues_nav_data ) %}
-						{% for issue in post.issues_nav_data %}
-							<a class="tag-item tag-item--main" href="{{ issue.link|default('#') }}">{{ issue.name|e('wp_kses_post')|raw }}</a>
-						{% endfor %}
+						<div class="tag-wrap issues">
+							{% for issue in post.issues_nav_data %}
+								<a class="tag-item tag-item--main" href="{{ issue.link|default('#') }}">{{ issue.name|e('wp_kses_post')|raw }}</a>
+							{% endfor %}
+						</div>
 					{% endif %}
 
-					{% for tag in post.tags %}
-						<a class="tag-item " href="{{ tag.link }}">#{{ tag.name|e('wp_kses_post')|raw }}</a>
-					{% endfor %}
+					{% if (post.tags) %}
+						<div class="tag-wrap tags">
+							{% for tag in post.tags %}
+								<a class="tag-item tag" href="{{ tag.link }}">#{{ tag.name|e('wp_kses_post')|raw }}</a>
+							{% endfor %}
+						</div>
+					{% endif %}
 				</div>
 				<h1 class="page-header-title">{{ post.title|raw }}</h1>
 				<div class="row">

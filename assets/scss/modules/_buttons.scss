@@ -65,6 +65,28 @@
   border-color: $dark-blue;
   color: $dark-blue;
   box-shadow: none;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 40px;
+  width: 100%;
+  padding: 2px 30px;
+
+  @include medium-and-up {
+    margin-bottom: 40px;
+    width: 50%;
+  }
+
+  @include large-and-up {
+    margin-bottom: 0;
+    width: 80%;
+  }
+
+  @include x-large-and-up {
+    margin-bottom: 0;
+    width: 60%;
+  }
 
   &:hover,
   &:focus {

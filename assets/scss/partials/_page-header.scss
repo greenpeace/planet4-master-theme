@@ -91,40 +91,6 @@
   margin: auto;
 }
 
-.top-page-tags {
-  font-size: 0.875rem;
-  margin-bottom: 6px;
-  font-family: $roboto;
-
-  @include medium-and-up {
-    font-size: 1rem;
-  }
-
-  .tag-item {
-    color: $blue;
-    font-weight: 400;
-
-    @include x-large-and-up {
-      font-size: 1rem;
-    }
-  }
-
-  .tag-item--main {
-    font-weight: 500;
-    text-transform: uppercase;
-    margin-right: 20px;
-    position: relative;
-
-    &:after {
-      content: "\2022";
-      pointer-events: none;
-      display: inline-block;
-      position: absolute;
-      right: -15px;
-    }
-  }
-}
-
 .page-header-title {
   font-size: 1.75rem;
   line-height: 1.2;

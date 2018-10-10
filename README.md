@@ -5,12 +5,12 @@
 ## Introduction
 
 ### What is it?
-This is a sample master Wordpress theme to be used for Greenpeace Planet4 project.
+This is the master Wordpress theme for Greenpeace Planet4 project.
 You can learn more about this project on [the planet4 blog](https://medium.com/planet4).
 
 This theme is used in planet4 base [wordpress site](https://github.com/greenpeace/planet4-base).
 This theme is based on the [`timber/starter-theme`](https://github.com/timber/starter-theme) codebase.
-It has a correlated [sample child theme](https://github.com/greenpeace/greenpeace-planet4-child-theme).
+It has a correlated [child theme](https://github.com/greenpeace/greenpeace-planet4-child-theme).
 
 ## How to use this theme in planet4
 
@@ -43,6 +43,7 @@ For development, you will require a couple of tools.
 
 - [nodejs](https://nodejs.org) version >= 6
 - [yarn](https://yarnpkg.com/) as npm client, front-end dependency manager
+- [gulp](https://gulpjs.com/) as frontend task runner
 - [Composer](https://getcomposer.org/) as PHP dependency manager
 
 ### Setup
@@ -53,7 +54,7 @@ git clone git@github.com:greenpeace/planet4-master-theme.git && cd planet4-maste
 ```
 1. You then need to install the dependencies:
 ```
-npm install
+yarn
 composer install
 ```
 
@@ -62,46 +63,11 @@ The following packages will be installed as dependencies
 - [Timber](https://timber.github.io/timber/)
 - [PostCSS](http://postcss.org/) for automated CSS transformation
 
-### Change the CSS
+### Change frontend code (Sass/JS)
 
-1. Link this project to your planet4 site to use this theme
-    ```
-    cd /path/to/planet4-base/public/wp-content/themes
-    rm -rf planet4-master-theme
-    ln -s /path/to/planet4-master-theme .
-    ```
-1. Edit the CSS in src/css
-1. Rebuild the main.css
-    ```
-    yarn build
-    ```
-1. Test it on your local setup
-1. If everything is fine, commit your changes
-1. Tag your new version
-    ```
-    git tag -a v0.x.x -m 'v0.x.x'
-    git push origin v0.x.x
-    ```
+The more simple way is to run `gulp watch`. This will auto-generate minified code and sourcemaps.
 
-### Add a new frontend library
-
-0. Frontend dependencies are stored in `package.json`, handled by yarn. To add a new dependency, e.g. jquery, call:
-
-```
-yarn add jquery
-```
-
-1. Manually add the new required files to the list of "assets" inside `package.json`, then call gulp:
-
-```
-gulp assets
-```
-
-2. This will add these files to `assets/lib/`. Then open `functions.php` and add these new assets inside the `enqueue_public_assets` function:
-
-```
-wp_enqueue_script( 'jquery', $this->theme_dir . '/assets/lib/jquery/dist/jquery.min.js', array(), '3.3.1', true );
-```
+Minified css and js code, and their corresponding sourcemaps should always be commited in the repo.
 
 ### Frontend code linting
 
@@ -134,3 +100,5 @@ Once this is finished a report will be launched in your browser in order to insp
 You can even use different urls for reference and test.
 For instance to compare local enviroment with production.
 But this may catch some false positives due to potential content differences.
+
+See the [handbook](https://planet4.greenpeace.org/handbook/visual-regression-testing/) for more detailed documentation on this.
