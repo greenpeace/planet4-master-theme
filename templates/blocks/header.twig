@@ -14,15 +14,19 @@
 			{% if ( post.issues_nav_data or campaigns ) %}
 				<div class="top-page-tags">
 					{% if ( post.issues_nav_data ) %}
-						{% for issue in post.issues_nav_data %}
-							<a class="tag-item tag-item--main" href="{{ issue.link|default('#') }}">{{ issue.name|e('wp_kses_post')|raw }}</a>
-						{% endfor %}
+						<div class="tag-wrap issues">
+							{% for issue in post.issues_nav_data %}
+								<a class="tag-item tag-item--main" href="{{ issue.link|default('#') }}">{{ issue.name|e('wp_kses_post')|raw }}</a>
+							{% endfor %}
+						</div>
 					{% endif %}
 
 					{% if ( campaigns ) %}
-						{% for campaign in campaigns %}
-							<a class="tag-item " href="{{ campaign.link|default('#') }}">#{{ campaign.name|e('wp_kses_post')|raw }}</a>
-						{% endfor %}
+						<div class="tag-wrap issues">
+							{% for campaign in campaigns %}
+								<a class="tag-item tag" href="{{ campaign.link|default('#') }}">#{{ campaign.name|e('wp_kses_post')|raw }}</a>
+							{% endfor %}
+						</div>
 					{% endif %}
 				</div>
 			{% endif %}
