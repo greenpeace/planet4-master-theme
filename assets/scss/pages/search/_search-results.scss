@@ -54,6 +54,11 @@
           width: 25%;
           margin-right: 30px;
           visibility: visible;
+
+          html[dir="rtl"] & {
+            margin-right: 0;
+            margin-left: 30px;
+          }
         }
 
         &:hover {

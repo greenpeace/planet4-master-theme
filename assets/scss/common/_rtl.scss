@@ -12,4 +12,12 @@ html[dir="rtl"] body {
     margin-left: 0;
     margin-right: 8.333333%;
   }
+
+  .list-unstyled {
+    padding-right: 0;
+
+    .custom-control {
+      padding-right: 1.5rem;
+    }
+  }
 }
