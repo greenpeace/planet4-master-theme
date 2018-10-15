@@ -157,23 +157,20 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 			if ( is_wp_error( $response ) ) {
 				$response_data['status_code']   = $response->get_error_code();
 				$response_data['error_message'] = $response->get_error_message();
-			} elseif ( is_array( $response ) && \WP_Http::OK !== $response['response']['code'] ) {
-				$response_data['status_code']   = $response['response']['code'];        // Authentication failed.
-				$response_data['error_message'] = $response['response']['message'];
-			}
 
-			if ( is_array( $response ) && $response['body'] ) {
-				$image_data = json_decode( $response['body'], true );
-				if ( isset( $image_data['APIResponse']['Items'] ) ) {
-					foreach ( $image_data['APIResponse']['Items'] as $key => $details ) {
-						$media_list[ $key ] = $this->get_media_details( $details );
+			} elseif ( is_array( $response ) ) {
+				if ( \WP_Http::OK !== $response['response']['code'] ) {                     // Authentication failed.
+					$response_data['error_message'] = $response['response']['message'];
+				} elseif ( $response['body'] ) {
+					$image_data = json_decode( $response['body'], true );
+					if ( isset( $image_data['APIResponse']['Items'] ) ) {
+						foreach ( $image_data['APIResponse']['Items'] as $key => $details ) {
+							$media_list[ $key ] = $this->get_media_details( $details );
+						}
 					}
+					$response_data['result'] = $media_list;
 				}
-				$response_data['result']      = $media_list;
 				$response_data['status_code'] = $response['response']['code'];
-			} else {
-				$response_data['status_code']   = $response['APIResponse']['Code'];
-				$response_data['error_message'] = $response['response']['message'];
 			}
 
 			return $response_data;

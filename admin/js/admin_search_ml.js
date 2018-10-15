@@ -1,7 +1,8 @@
 var $ = jQuery;
 
 jQuery(document).ready(function () {
-    $(document).on('click', '.switchtoml',function () {
+    $(document).on('click', '.switchtoml',function (e) {
+        $( '.media-menu-item:last-of-type' ).click();       // Click the GPI Media Library tab.
         $( '.uploader-inline' ).hide();
         $( '.media-frame-content' ).append('<span class="spinner ml_spinner is-active"></span>');
         var reset_page = 1;
