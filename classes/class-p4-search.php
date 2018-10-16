@@ -631,7 +631,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		public function validate( &$selected_sort, &$filters, $context ) : bool {
 			$selected_sort = filter_var( $selected_sort, FILTER_SANITIZE_STRING );
-			if ( ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) ) {
+			if ( ! isset( $context['sort_options'] ) || ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) ) {
 				$selected_sort = P4_Search::DEFAULT_SORT;
 			}
 
