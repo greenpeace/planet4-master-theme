@@ -1,10 +1,10 @@
 {% if ( cookies.text ) %}
 	<div class="cookie-block" id="set-cookie">
 		<div class="row m-0">
-			<div class="col-9 col-md-10">
+			<div class="col-sm-9 col-md-10 text-xl-center">
 				<p>{{ cookies.text|e('wp_kses_post')|raw }}</p>
 			</div>
-			<div class="col">
+			<div class="col-sm-3 col-md-2">
 				<button class="btn btn-secondary p-0" id="hidecookie">{{ __( 'GOT IT!', 'planet4-master-theme' ) }}</button>
 			</div>
 		</div>

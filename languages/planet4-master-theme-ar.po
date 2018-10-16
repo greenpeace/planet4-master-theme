@@ -1,10 +1,11 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100 >= 3 "
+"&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-10-15 10:40+0000\n"
-"Language-Team: Danish\n"
+"PO-Revision-Date: 2018-10-15 11:59+0000\n"
+"Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,301 +17,310 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: mhedelai <mhedelai@greenpeace.org>\n"
-"Language: da_DK\n"
+"Last-Translator: fgedeon <fgedeon@greenpeace.org>\n"
+"Language: ar\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: "
 
 #: single.php:47
 msgid "Post page"
-msgstr "Postside"
+msgstr ""
 
 #: single.php:76
 msgid "Leave Your Reply"
-msgstr "Skriv en kommentar"
+msgstr ""
 
 #: 404.php:30
 msgid "Sorry, we can't find that page!"
-msgstr "Ups, den side kan vi ikke finde!"
+msgstr ""
 
 #: 404.php:31
 msgid "Enter your search term below"
-msgstr "Skriv dit søgeord herunder"
+msgstr ""
 
 #: 404.php:32
 msgid "404 Page"
-msgstr "404 Side"
+msgstr ""
+"عذراً الصفحة التي تبحث عنها غير موجودة بالموقع الرجاء التأكد من عنوان الصفحة"
 
 #: tag.php:58
 msgid "Unknown Campaign page"
-msgstr "Unknown Campaign page"
+msgstr ""
 
 #: tag.php:64
 msgid "Things you can do"
-msgstr "Vær med"
+msgstr ""
 
 #: tag.php:65
 msgid "We want you to take action because together we're strong."
-msgstr "Sammen er vi stærke. Vær med her."
+msgstr ""
 
 #: tag.php:81
 msgid "Related Campaigns"
-msgstr "Relaterede kampagner"
+msgstr ""
 
 #: tag.php:82
 msgid "This Campaign is not assigned to an Issue"
-msgstr "This Campaign is not assigned to an Issue"
+msgstr ""
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr "Mest relevante"
+msgstr ""
 
 #: functions.php:89
 msgid "Most recent"
-msgstr "Nyeste"
+msgstr ""
 
 #: functions.php:287
 msgid "International (English)"
-msgstr "International (English)"
+msgstr ""
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
-msgstr "Søgning"
+msgstr ""
 
 #. translators:
 #: classes/class-p4-search.php:412
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] "%1$d søgeresultat for '%2$s'"
-msgstr[1] "%1$d søgeresultater for '%2$s'"
+msgstr[0] "%1$d هي نتيجة '%2$s'"
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators:
 #: classes/class-p4-search.php:418
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] "%d søgeresultat"
-msgstr[1] "%d søgeresultater"
+msgstr[0] "٪ د النتيجة"
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: classes/class-p4-search.php:478
 msgid "Action"
-msgstr "Aktion"
+msgstr ""
 
 #: classes/class-p4-search.php:482
 msgid "Document"
-msgstr "Dokument"
+msgstr ""
 
 #: classes/class-p4-search.php:486
 msgid "Page"
-msgstr "Side"
+msgstr ""
 
 #: classes/class-p4-search.php:490
 msgid "Post"
-msgstr "Post"
+msgstr ""
 
 #: classes/class-p4-search.php:570
 msgid "ACTION"
-msgstr "AKTION"
+msgstr ""
 
 #: classes/class-p4-search.php:574
 msgid "PAGE"
-msgstr "SIDE"
+msgstr ""
 
 #: classes/class-p4-search.php:580
 msgid "DOCUMENT"
-msgstr "Dokument"
+msgstr ""
 
 #: classes/class-p4-search.php:585
 msgid "POST"
-msgstr "POST"
+msgstr ""
 
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr "VIS NÆSTE %s"
+msgstr ""
 
 #. Name of the template
 msgid "Evergreen Page"
-msgstr "Evergreenside"
+msgstr ""
 
 #. Name of the template
 msgid "Sitemap Page"
-msgstr "Sitemap"
+msgstr ""
 
 #: page-templates/sitemap.php:31
 msgid "Act"
-msgstr "Vær med"
+msgstr "تحرك"
 
 #: page-templates/sitemap.php:32
 msgid "Explore"
-msgstr "Se mere"
+msgstr ""
 
 #: page-templates/sitemap.php:33
 msgid "About Greenpeace"
-msgstr "Om Greenpeace"
+msgstr "عن غرينبيس"
 
 #: page-templates/sitemap.php:34
 msgid "Articles"
-msgstr "Artikler"
+msgstr ""
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
-msgstr "Menu"
+msgstr ""
 
 #: templates/navigation-bar.twig:18
 msgid "Close Menu"
-msgstr "Luk menu"
+msgstr ""
 
 #: templates/navigation-bar.twig:27
 msgid "Selected"
-msgstr "Valgt"
+msgstr ""
 
 #: templates/navigation-bar.twig:28
 msgid "Change Country"
-msgstr "Vælg land"
+msgstr ""
 
 #: templates/navigation-bar.twig:48
 msgid "DONATE"
-msgstr "STØT OS"
+msgstr ""
 
 #: templates/navigation-bar.twig:58
 msgid "Toggle search form"
-msgstr "Toggle search form"
+msgstr ""
 
 #: templates/navigation-bar.twig:66 templates/search.twig:44
 msgid "Search"
-msgstr "Søg"
+msgstr ""
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr "OK"
+msgstr ""
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr "Der var desværre ikke noget, der matchede din søgning."
+msgstr ""
 
 #: templates/search.twig:17
 msgid "Check for typos, and try your search again"
-msgstr "kontrollér for fejl, og prøv at søge igen"
+msgstr ""
 
 #: templates/search.twig:18
 msgid "Try searching for somthing else"
-msgstr "Prøv at søge efter noget andet"
+msgstr ""
 
 #: templates/search.twig:19
 msgid "Search our archive. You'll be redirected to the archive site."
-msgstr "Søg på vores arkivside."
+msgstr ""
 
 #: templates/search.twig:23
 msgid "We also included results for "
-msgstr "Vi har også inkluderet søgeresultater fra"
+msgstr ""
 
 #: templates/search.twig:37
 msgid "This Site"
-msgstr "Denne side"
+msgstr ""
 
 #: templates/search.twig:38
 msgid "Archive"
-msgstr "Arkiv"
+msgstr ""
 
 #: templates/search.twig:56
 msgid "Filters"
-msgstr "Filtre"
+msgstr ""
 
 #: templates/search.twig:62 templates/search.twig:163
 msgid "Refine your search"
-msgstr "Avanceret søgning"
+msgstr ""
 
 #: templates/search.twig:70
 msgid "ISSUE"
-msgstr "FOKUSOMRÅDER"
+msgstr ""
 
 #: templates/search.twig:91
 msgid "CATEGORY"
-msgstr "INDHOLDSTYPE"
+msgstr ""
 
 #: templates/search.twig:112
 msgid "CONTENT TYPES"
-msgstr "SIDER"
+msgstr ""
 
 #: templates/search.twig:136
 msgid "CAMPAIGN"
-msgstr "EMNE"
+msgstr ""
 
 #: templates/search.twig:155
 msgid "Cancel"
-msgstr "Fortryd"
+msgstr ""
 
 #: templates/search.twig:156
 msgid "Apply Filters"
-msgstr "Filtrér"
+msgstr ""
 
 #: templates/search.twig:166
 msgid "ACTIVE FILTERS"
-msgstr "AKTIVE FILTRE"
+msgstr ""
 
 #: templates/search.twig:175
 msgid "Clear All"
-msgstr "Slet alt"
+msgstr ""
 
 #: templates/search.twig:182
 msgid "Issue"
-msgstr "Emne"
+msgstr ""
 
 #: templates/search.twig:201
 msgid "Campaign"
-msgstr "Kampagne"
+msgstr ""
 
 #: templates/search.twig:220
 msgid "Category"
-msgstr "Kategori"
+msgstr ""
 
 #: templates/search.twig:239
 msgid "Content type"
-msgstr "Indholdstype"
+msgstr ""
 
 #: templates/search.twig:262
 msgid "Sort by"
-msgstr "Sortér"
+msgstr ""
 
 #: templates/search.twig:299
 msgid "Suggested search terms"
-msgstr "Foreslåede søgeord"
+msgstr ""
 
 #: templates/tease-search.twig:62
 msgid "take action"
-msgstr "vær med"
+msgstr ""
 
 #: templates/tease-search.twig:65
 msgid "Download"
-msgstr "Hent"
+msgstr ""
 
 #: templates/single.twig:39
 msgid "by"
-msgstr "af"
+msgstr ""
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr "om forfatteren"
+msgstr "نبذة عن الكاتب"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
-msgstr "Greenpeace Planet 4 Master Theme"
+msgstr ""
 
 #. Description of the plugin/theme
 msgid "Master theme for the Planet 4 Wordpress project"
-msgstr "Master theme for the Planet 4 Wordpress project"
+msgstr ""
 
 #. Theme URI of the plugin/theme
 msgid "https://github.com/greenpeace/planet4-master-theme"
-msgstr "https://github.com/greenpeace/planet4-master-theme"
+msgstr ""
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
-msgstr "Greenpeace International"
+msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/greenpeace"
-msgstr "https://github.com/greenpeace"
+msgstr ""
