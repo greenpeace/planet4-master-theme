@@ -657,7 +657,7 @@ $menu-height-large: 3.75rem;
     }
 
     &:not(:last-child)::after {
-      content: " / ";
+      content: " | ";
     }
   }
 }
