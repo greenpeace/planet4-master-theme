@@ -44,6 +44,7 @@ $context['post_image_id']    = $page_meta_data['p4_background_image_override_id'
 $take_action_page            = $page_meta_data['p4_take_action_page'][0] ?? '';
 $context['page_type']        = $page_terms_data[0]->name ?? '';
 $context['page_term_id']     = $page_terms_data[0]->term_id ?? '';
+$context['page_type_slug']   = $page_terms_data[0]->slug ?? '';
 $context['page_category']    = $category->name ?? __( 'Post page', 'planet4-master-theme' );
 $context['social_accounts']  = $post->get_social_accounts( $context['footer_social_menu'] );
 

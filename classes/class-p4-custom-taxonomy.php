@@ -164,7 +164,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 				'labels'       => $p4_page_type,
 				'show_ui'      => true,
 				'query_var'    => true,
-				'rewrite'      => false,
+				'rewrite'      => [ 'slug' => 'page_type' ],
 				'meta_box_cb'  => [ $this, 'create_taxonomy_metabox_markup' ],
 			];
 
