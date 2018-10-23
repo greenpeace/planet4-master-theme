@@ -5,28 +5,15 @@
 
 use Timber\Timber;
 
-/**
- * Add custom css class for body element hook.
- *
- * @param array $classes Array of css classes passed by the hook.
- *
- * @return array
- */
-function add_body_classes_for_sitemap_page( $classes ) {
-	$classes[] = 'white-bg';
-	return $classes;
-}
-
-add_filter( 'body_class', 'add_body_classes_for_sitemap_page' );
-
 $context        = Timber::get_context();
 $post           = new P4_Post();
 $sitemap        = new P4_Sitemap();
 $page_meta_data = get_post_meta( $post->ID );
 
-$context['post']             = $post;
-$context['header_title']     = is_front_page() ? '' : ( $page_meta_data['p4_title'][0] ?? $post->title );
-$context['background_image'] = wp_get_attachment_url( get_post_meta( get_the_ID(), 'background_image_id', 1 ) );
+$context['post']                = $post;
+$context['header_title']        = is_front_page() ? '' : ( $page_meta_data['p4_title'][0] ?? $post->title );
+$context['background_image']    = wp_get_attachment_url( get_post_meta( get_the_ID(), 'background_image_id', 1 ) );
+$context['custom_body_classes'] = 'white-bg';
 
 $context['actions_title']    = __( 'Act', 'planet4-master-theme' );
 $context['issues_title']     = __( 'Explore', 'planet4-master-theme' );
