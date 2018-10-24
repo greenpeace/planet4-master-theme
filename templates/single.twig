@@ -14,7 +14,7 @@
 			<div class="container">
 				<div class="top-page-tags">
 					{% if ( page_type ) %}
-						<a class="tag-item tag-item--main page-type" href="{{ filter_url }}">{{ page_type|e('wp_kses_post')|raw }}</a>
+						<a class="tag-item tag-item--main page-type" href="{{ fn('get_term_link', page_type.term_id) }}">{{ page_type|e('wp_kses_post')|raw }}</a>
 					{% endif %}
 
 					{% if ( post.issues_nav_data ) %}
