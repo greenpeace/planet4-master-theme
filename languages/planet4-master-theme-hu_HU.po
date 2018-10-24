@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-09-12 11:24+0000\n"
+"PO-Revision-Date: 2018-10-24 15:58+0000\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -186,7 +186,7 @@ msgstr "Keresés"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr "MEGVAN!"
+msgstr "RENDBEN!"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
