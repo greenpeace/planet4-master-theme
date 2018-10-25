@@ -2,7 +2,7 @@
 
 var arguments = require('minimist')(process.argv.slice(2));
 
-var url = 'https://dev.p4.greenpeace.org/international';
+var url = 'https://k8s.p4.greenpeace.org/defaultcontent/';
 if (arguments.url) {
   url = arguments.url;
 }
@@ -10,11 +10,17 @@ if (arguments.url) {
 var paths = [
   '/',
   '/act/',
+  '/act/vestibulum-leo-libero/',
   '/explore/',
   '/explore/energy/',
-  '/tag/food/',
-  '/author/greenpeace-international/',
-  '/?s=food&orderby=relevant'
+  '/tag/coal/',
+  '/author/lreyes/',
+  '/community-policy/',
+  '/copyright/',
+  '/privacy-and-cookies/',
+  '/about-us-2/',
+  '/press-center/',
+  '/?s=food&orderby=relevant',
 ];
 
 var scenarios = [];
@@ -23,7 +29,7 @@ for (var i = 0; i < paths.length; i++) {
   scenarios.push({
     'label': paths[i],
     'url': url + paths[i],
-    'delay': 500
+    'delay': 500,
   });
 }
 
@@ -68,7 +74,7 @@ module.exports = {
   },
   'casperFlags': [],
   'engine': 'puppeteer',
-  'report': ['browser'],
+  'report': ['browser', 'CI'],
   'engineOptions': {
     'args': ['--no-sandbox']
   },
