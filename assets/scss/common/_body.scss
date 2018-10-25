@@ -37,3 +37,12 @@ body {
   position: relative;
   z-index: 2;
 }
+
+a {
+  color: $blue;
+
+  &:hover {
+    color: $blue;
+    text-decoration: underline;
+  }
+}
