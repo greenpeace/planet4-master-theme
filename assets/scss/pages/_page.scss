@@ -1,4 +1,4 @@
-div.page-template {
+.page-template {
   width: 540px;
   max-width: 100%;
   margin-left: auto;
@@ -28,6 +28,11 @@ div.page-template {
     z-index: 2;
   }
 
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
   .alignleft {
     @include small-and-up {
       float: left;
@@ -48,11 +53,5 @@ div.page-template {
     margin-left: auto;
     margin-right: auto;
     display: block;
-  }
-
-  .alignnone,
-  .alignnone img {
-    max-width: 100%;
-    height: auto;
   }
 }
