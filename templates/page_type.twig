@@ -21,12 +21,38 @@
 
 		<div class="row">
 			<div class="col-lg-8 multiple-search-result">
-				<ul class="list-unstyled">
+				<ul class="list-unstyled PostsList">
 					{% for post in posts %}
 						{% include 'tease-page-type.twig' %}
 					{% endfor %}
 				</ul>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="col-lg-8">
+				<button data-page="1" class="LoadMoreButton btn btn-medium btn-small btn-secondary mb-5">SHOW 5 MORE RESULTS</button>
+			</div>
+		</div>
 	</div>
+
+	<script>
+		$ = jQuery;
+		const loadMore = $('.LoadMoreButton')
+
+		loadMore.on('click', (e) => {
+			const nextPage = parseInt(loadMore[0].dataset.page) + 1
+			const totalPages = {{ posts.pagination.total }}
+			const url = `{{ fn('get_term_link', page_type.term_id, 'p4-page-type') }}?page=${ nextPage }`
+			loadMore[0].dataset.page = nextPage
+
+			$.get(url, (response) => {
+				$(".PostsList").append( response )
+			})
+
+			if (nextPage == totalPages) {
+				loadMore.fadeOut()
+			}
+		})
+	</script>
 {% endblock %}
