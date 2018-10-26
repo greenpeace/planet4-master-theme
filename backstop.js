@@ -15,11 +15,8 @@ var paths = [
   '/explore/energy/',
   '/tag/coal/',
   '/author/lreyes/',
-  '/community-policy/',
   '/copyright/',
   '/privacy-and-cookies/',
-  '/about-us-2/',
-  '/press-center/',
   '/?s=food&orderby=relevant',
 ];
 
