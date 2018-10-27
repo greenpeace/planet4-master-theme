@@ -118,6 +118,11 @@
     }
   }
 
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
   .alignleft {
     @include small-and-up {
       float: left;
@@ -138,12 +143,6 @@
     margin-left: auto;
     margin-right: auto;
     display: block;
-  }
-
-  .alignnone,
-  .alignnone img {
-    max-width: 100%;
-    height: auto;
   }
 
   blockquote {
