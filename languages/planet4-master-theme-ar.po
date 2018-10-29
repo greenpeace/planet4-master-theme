@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-10-24 13:26+0000\n"
+"PO-Revision-Date: 2018-10-29 15:10+0000\n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -110,11 +110,11 @@ msgstr[5] ""
 
 #: classes/class-p4-search.php:478
 msgid "Action"
-msgstr "تحرك"
+msgstr "تحرُك"
 
 #: classes/class-p4-search.php:482
 msgid "Document"
-msgstr "وثيقة"
+msgstr "ملف"
 
 #: classes/class-p4-search.php:486
 msgid "Page"
@@ -126,7 +126,7 @@ msgstr "المنشور"
 
 #: classes/class-p4-search.php:570
 msgid "ACTION"
-msgstr "تحرك"
+msgstr "تحرُك"
 
 #: classes/class-p4-search.php:574
 msgid "PAGE"
@@ -134,7 +134,7 @@ msgstr "صفحة"
 
 #: classes/class-p4-search.php:580
 msgid "DOCUMENT"
-msgstr "وثيقة"
+msgstr "ملف"
 
 #: classes/class-p4-search.php:585
 msgid "POST"
@@ -200,7 +200,7 @@ msgstr "بحث"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr "وجدتها"
+msgstr "وجدتها!"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
@@ -234,7 +234,7 @@ msgstr "أرشيف"
 
 #: templates/search.twig:56
 msgid "Filters"
-msgstr "فلتر"
+msgstr "فلاتر"
 
 #: templates/search.twig:62 templates/search.twig:163
 msgid "Refine your search"
@@ -262,7 +262,7 @@ msgstr "إلغاء"
 
 #: templates/search.twig:156
 msgid "Apply Filters"
-msgstr "تطبيق المرشحات"
+msgstr "طبق الفلاتر"
 
 #: templates/search.twig:166
 msgid "ACTIVE FILTERS"
