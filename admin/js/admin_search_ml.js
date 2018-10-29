@@ -27,6 +27,11 @@ jQuery(document).ready(function () {
             console.log(errorThrown); //eslint-disable-line no-console
         });
     });
+
+    // Hide the 'Insert to post' button.
+    $(document).on('click', '.media-menu-item:last-of-type', function() {
+        $( '.media-button-insert').css('visibility', 'hidden');
+    });
 });
 
 // Get file name from full url/path.
