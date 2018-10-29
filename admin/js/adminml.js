@@ -116,6 +116,7 @@ jQuery(document).ready(function () {
             var reset_page = 1;
             scroll_more = 0;
             $( '#ml_current_page' ).val( reset_page );
+            $( '#ml_spinner' ).addClass('is-active');
 
             $.ajax({
                 url: media_library_params.ajaxurl,
@@ -129,8 +130,10 @@ jQuery(document).ready(function () {
             }).done(function ( response ) {
                 // Show the search query response.
                 $( '.ml-media-list' ).html( response );
+                $( '#ml_spinner' ).removeClass('is-active');
             }).fail(function ( jqXHR, textStatus, errorThrown ) {
                 console.log(errorThrown); //eslint-disable-line no-console
+                $( '#ml_spinner' ).removeClass('is-active');
             });
         }
     });
