@@ -29,18 +29,6 @@
 
 use Timber\Timber;
 
-/**
- * Add custom css class for body element hook.
- *
- * @param array $classes  Array of css classes passed by the hook.
- * @return array
- */
-function add_body_classes_for_page( $classes ) {
-	$classes[] = 'brown-bg';
-	return $classes;
-}
-add_filter( 'body_class', 'add_body_classes_for_page' );
-
 $context        = Timber::get_context();
 $post           = new P4_Post();
 $page_meta_data = get_post_meta( $post->ID );
@@ -76,6 +64,9 @@ $context['post_tags']           = implode( ', ', $post->tags );
 $background_image_id                = get_post_meta( get_the_ID(), 'background_image_id', 1 );
 $context['background_image']        = wp_get_attachment_url( $background_image_id );
 $context['background_image_srcset'] = wp_get_attachment_image_srcset( $background_image_id, 'full' );
-$context['post_image_id']           = $page_meta_data['background_image_id'][0] ?? ( $page_meta_data['_thumbnail_id'][0] ?? '' );
+$context['og_title']                = $post->get_og_title();
+$context['og_description']          = $post->get_og_description();
+$context['og_image_data']           = $post->get_og_image();
+$context['custom_body_classes']     = 'brown-bg';
 
 Timber::render( array( 'page-' . $post->post_name . '.twig', 'page.twig' ), $context );

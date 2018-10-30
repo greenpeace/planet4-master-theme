@@ -4,7 +4,7 @@
 
 {% endblock %}
 
-<body class="{{ body_class }}">
+<body class="{{ body_class }} {{ custom_body_classes|default("") }}">
 
 	<ul class="skip-links">
 		<li><a href="#header">{{ __( 'Skip to Navigation', 'planet4-master-theme' ) }}</a></li>

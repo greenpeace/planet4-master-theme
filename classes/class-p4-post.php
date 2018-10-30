@@ -107,7 +107,7 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		 */
 		public function get_social_accounts( $social_menu ) : array {
 			$social_accounts = [];
-			if ( isset( $social_menu ) ) {
+			if ( isset( $social_menu ) && is_iterable( $social_menu ) ) {
 
 				$brands = [
 					'facebook',
@@ -178,6 +178,63 @@ if ( ! class_exists( 'P4_Post' ) ) {
 			}
 
 			return $content_type_text;
+		}
+
+		/**
+		 * Get value for open graph title meta.
+		 *
+		 * @return string
+		 */
+		public function get_og_title() {
+			$og_title = get_post_meta( $this->id, 'p4_og_title', true );
+			if ( '' === $og_title ) {
+				if ( '' !== $this->post_title ) {
+					return $this->post_title . ' - ' . get_bloginfo( 'name' );
+				} else {
+					return get_bloginfo( 'name' );
+				}
+			}
+
+			return $og_title;
+		}
+
+		/**
+		 * Get value for open graph description meta.
+		 *
+		 * @return string
+		 */
+		public function get_og_description() {
+			$og_desc = get_post_meta( $this->id, 'p4_og_description', true );
+			if ( '' === $og_desc ) {
+				return $this->post_excerpt;
+			}
+
+			return $og_desc;
+		}
+
+		/**
+		 * Get image data for open graph image meta.
+		 *
+		 * @return array
+		 */
+		public function get_og_image() {
+			$meta        = get_post_meta( $this->id );
+			$image_id    = null;
+			$image_metas = [ 'p4_og_image_id', 'background_image_id', '_thumbnail_id' ];
+			foreach ( $image_metas as $image_meta ) {
+				if ( isset( $meta[ $image_meta ][0] ) ) {
+					$image_id = $meta[ $image_meta ][0];
+					break;
+				}
+			}
+
+			if ( null !== $image_id ) {
+				$image_data = wp_get_attachment_image_src( $image_id, 'full' );
+
+				return $image_data;
+			}
+
+			return [];
 		}
 	}
 }

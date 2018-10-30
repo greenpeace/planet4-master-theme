@@ -8,7 +8,7 @@
 				{{ post.get_author_override }}
 
 				{% for page_type in post.get_custom_terms %}
-					<a href="/?s=&orderby=relevant&f[ptype][{{ page_type.name }}]={{ page_type.term_id }}" class="search-result-item-head no-btn tag-item tag-item--main page-type">{{ page_type.name|e('wp_kses_post')|raw }}</a>
+					<a href="{{ fn('get_term_link', page_type.term_id, 'p4-page-type') }}" class="search-result-item-head no-btn tag-item tag-item--main page-type">{{ page_type.name|e('wp_kses_post')|raw }}</a>
 				{% endfor %}
 
 				{% if (post.tags) %}

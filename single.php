@@ -11,18 +11,6 @@
 
 use Timber\Timber;
 
-/**
- * Add custom css class for body element hook.
- *
- * @param array $classes  Array of css classes passed by the hook.
- * @return array
- */
-function add_body_classes_for_post( $classes ) {
-	$classes[] = 'white-bg';
-	return $classes;
-}
-add_filter( 'body_class', 'add_body_classes_for_post' );
-
 // Initializing variables.
 $context         = Timber::get_context();
 /** @var P4_Post $post */
@@ -36,28 +24,32 @@ $post->set_issues_links();
 // Articles block parameters to populate the articles block
 // p4_take_action_page parameter to populate the take action boxout block
 // Author override parameter. If this is set then the author profile section will not be displayed.
-$page_meta_data              = get_post_meta( $post->ID );
-$page_terms_data             = get_the_terms( $post, 'p4-page-type' );
-$context['author_override']  = $page_meta_data['p4_author_override'][0] ?? '';
-$context['background_image'] = $page_meta_data['p4_background_image_override'][0] ?? '';
-$context['post_image_id']    = $page_meta_data['p4_background_image_override_id'][0] ?? $page_meta_data['_thumbnail_id'][0];
-$take_action_page            = $page_meta_data['p4_take_action_page'][0] ?? '';
-$context['page_type']        = $page_terms_data[0]->name ?? '';
-$context['page_term_id']     = $page_terms_data[0]->term_id ?? '';
-$context['page_category']    = $category->name ?? __( 'Post page', 'planet4-master-theme' );
-$context['social_accounts']  = $post->get_social_accounts( $context['footer_social_menu'] );
+$page_meta_data                 = get_post_meta( $post->ID );
+$page_terms_data                = get_the_terms( $post, 'p4-page-type' );
+$context['author_override']     = $page_meta_data['p4_author_override'][0] ?? '';
+$context['background_image']    = $page_meta_data['p4_background_image_override'][0] ?? '';
+$take_action_page               = $page_meta_data['p4_take_action_page'][0] ?? '';
+$context['page_type']           = $page_terms_data[0]->name ?? '';
+$context['page_term_id']        = $page_terms_data[0]->term_id ?? '';
+$context['page_category']       = $category->name ?? __( 'Post page', 'planet4-master-theme' );
+$context['page_type_slug']      = $page_terms_data[0]->slug ?? '';
+$context['social_accounts']     = $post->get_social_accounts( $context['footer_social_menu'] );
+$context['og_title']            = $post->get_og_title();
+$context['og_description']      = $post->get_og_description();
+$context['og_image_data']       = $post->get_og_image();
+$context['custom_body_classes'] = 'white-bg';
 
 $context['filter_url'] = add_query_arg( [
-		's'                                   => ' ',
-		'orderby'                             => 'relevant',
-		'f[ptype]['.$context['page_type'].']' => $context['page_term_id'],
-	], get_home_url()
+	's'                                       => ' ',
+	'orderby'                                 => 'relevant',
+	'f[ptype][' . $context['page_type'] . ']' => $context['page_term_id'],
+], get_home_url()
 );
 
 
 // Build the shortcode for articles block.
 if ( 'yes' === $post->include_articles ) {
-	$post->articles = "[shortcake_articles exclude_post_id='".$post->ID."' /]";
+	$post->articles = "[shortcake_articles exclude_post_id='" . $post->ID . "' /]";
 }
 
 // Build the shortcode for take action boxout block

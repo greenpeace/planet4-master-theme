@@ -53,4 +53,6 @@ tests_add_filter( 'muplugins_loaded', '_register_theme' );
 
 // Start up the WP testing environment.
 require $_tests_dir . '/includes/bootstrap.php';
+// Include the composer autoloader.
+$autoloader = require dirname( __DIR__ ) . '/vendor/autoload.php';
 require_once 'p4-testcase.php';
