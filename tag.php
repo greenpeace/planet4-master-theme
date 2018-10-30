@@ -14,20 +14,6 @@ use P4BKS\Controllers\Blocks\ContentFourColumn_Controller as ContentFourColumn;
 use P4BKS\Controllers\Blocks\CampaignThumbnail_Controller as CampaignThumbnail;
 use P4BKS\Controllers\Blocks\HappyPoint_Controller as HappyPoint;
 
-/**
- * Add custom css class for body element hook.
- *
- * @param array $classes Array of css classes passed by the hook.
- *
- * @return array
- */
-function add_body_classes_for_post( $classes ) {
-	$classes[] = 'white-bg page-issue-page';
-
-	return $classes;
-}
-add_filter( 'body_class', 'add_body_classes_for_post' );
-
 $templates = array( 'tag.twig', 'archive.twig', 'index.twig' );
 
 $context = Timber::get_context();
@@ -46,12 +32,18 @@ if ( is_tag() ) {
 		'tag_slug__in'     => [ $context['tag']->slug ],
 	] );
 
-	$context['category_name']   = $posts[0]->post_title ?? '';
-	$context['category_link']   = isset( $posts[0] ) ? get_permalink( $posts[0] ) : '';
-	$context['tag_name']        = single_tag_title( '', false );
-	$context['tag_description'] = wpautop( $context['tag']->description );
-	$context['tag_image']       = get_term_meta( $context['tag']->term_id, 'tag_attachment', true );
-	$context['tag_image_id']    = get_term_meta( $context['tag']->term_id, 'tag_attachment_id', true );
+	$context['custom_body_classes'] = 'white-bg page-issue-page';
+	$context['category_name']       = $posts[0]->post_title ?? '';
+	$context['category_link']       = isset( $posts[0] ) ? get_permalink( $posts[0] ) : '';
+	$context['tag_name']            = single_tag_title( '', false );
+	$context['tag_description']     = wpautop( $context['tag']->description );
+	$context['tag_image']           = get_term_meta( $context['tag']->term_id, 'tag_attachment', true );
+	$tag_image_id                   = get_term_meta( $context['tag']->term_id, 'tag_attachment_id', true );
+
+	$context['og_description'] = $context['tag_description'];
+	if ( $tag_image_id ) {
+		$context['og_image_data'] = wp_get_attachment_image_src( $tag_image_id, 'full' );
+	}
 
 	$context['page_category']   = $posts[0]->post_title ?? __( 'Unknown Campaign page', 'planet4-master-theme' );
 

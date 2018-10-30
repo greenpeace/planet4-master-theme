@@ -36,6 +36,9 @@
 	"require": {
 			"leafo/scssphp": "^0.7.4",
 			"matthiasmullie/minify": "^1.3",
-			"wpackagist-plugin/timber-library": "1.7.1"
+			"wpackagist-plugin/timber-library": "1.8.1"
+	},
+	"require-dev": {
+		"stevegrunwell/phpunit-markup-assertions": "^1.2"
 	}
 }

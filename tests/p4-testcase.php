@@ -15,29 +15,12 @@ class P4_TestCase extends WP_UnitTestCase {
 
 
 	static function _setupStarterTheme() {
-		$dest = WP_CONTENT_DIR . '/themes/planet4-master-theme/';
 		$src  = __DIR__ . '/../../planet4-master-theme/';
 		if ( is_dir( $src ) ) {
-			self::_copyDirectory( $src, $dest );
 			switch_theme( 'planet4-master-theme' );
 		} else {
 			echo 'no its not';
 		}
-	}
-
-	static function _copyDirectory( $src, $dst ) {
-		$dir = opendir( $src );
-		@mkdir( $dst );
-		while ( false !== ( $file = readdir( $dir ) ) ) {
-			if ( ( $file != '.' ) && ( $file != '..' ) ) {
-				if ( is_dir( $src . '/' . $file ) ) {
-					self::_copyDirectory( $src . '/' . $file, $dst . '/' . $file );
-				} else {
-					copy( $src . '/' . $file, $dst . '/' . $file );
-				}
-			}
-		}
-		closedir( $dir );
 	}
 
 	/**
@@ -48,7 +31,7 @@ class P4_TestCase extends WP_UnitTestCase {
 		// Create a user with editor role.
 		$this->factory->user->create( [
 			'role'       => 'editor',
-			'user_login' => 'p4_editor'
+			'user_login' => 'p4_editor',
 		] );
 
 		// Create Act & Explore pages
@@ -102,7 +85,7 @@ class P4_TestCase extends WP_UnitTestCase {
 		$term_id = $this->factory->term->create( [
 			'name'     => 'Press Release',
 			'taxonomy' => 'p4-page-type',
-			'slug'     => 'press-release-t',
+			'slug'     => 'press-release',
 		] );
 	}
 
