@@ -587,7 +587,8 @@ class P4_Master_Site extends TimberSite {
 		// TODO - Would have spotted the necessary change much faster.
 		$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
 
-		if ( is_search() || wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
+		if ( ! is_admin() && is_search() ||
+			 wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
 			$mime_types = implode( ',', P4_Search::DOCUMENT_TYPES );
 			$where .= ' AND post_mime_type IN("' . $mime_types . '","") ';
 		}
