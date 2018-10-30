@@ -29,7 +29,7 @@ jQuery(document).ready(function () {
 
 
     // Add click event for media insert button.
-    $( '#ml-button-insert' ).off('click').on('click', function () {
+    $(document).off('click').on('click', '#ml-button-insert', function () {
 
         var selected_images = $( '.ui-selected' ).map(function (index, element) {
             return $( element ).data( 'id' );
@@ -81,12 +81,15 @@ jQuery(document).ready(function () {
                             image_alt: alt_text,
                         };
 
-                        promises.push(wp.media.post('send-attachment-to-editor', {
-                            nonce: wp.media.view.settings.nonce.sendToEditor,
-                            attachment: options,
-                            html: '',
-                            post_id: wp.media.view.settings.post.id
-                        }));
+                        // If this page contains a wp editor then insert the selected image inside the editor.
+                        if ( "function" === typeof parent.send_to_editor ) {
+                            promises.push(wp.media.post('send-attachment-to-editor', {
+                                nonce: wp.media.view.settings.nonce.sendToEditor,
+                                attachment: options,
+                                html: '',
+                                post_id: wp.media.view.settings.post.id
+                            }));
+                        }
                     }
                     //TODO handle promises results/errors better.
                     Promise.all(promises).then(function (values) {
@@ -96,6 +99,10 @@ jQuery(document).ready(function () {
             } catch (e) {
             }
             $( '#ml_spinner' ).removeClass('is-active');
+            // If this is not a page with a wp editor, then move to the Media Library page.
+            if ( "function" !== typeof parent.send_to_editor ) {
+                parent.window.location.replace('/wp-admin/upload.php');
+            }
 
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(errorThrown); //eslint-disable-line no-console
@@ -109,6 +116,7 @@ jQuery(document).ready(function () {
             var reset_page = 1;
             scroll_more = 0;
             $( '#ml_current_page' ).val( reset_page );
+            $( '#ml_spinner' ).addClass('is-active');
 
             $.ajax({
                 url: media_library_params.ajaxurl,
@@ -122,8 +130,10 @@ jQuery(document).ready(function () {
             }).done(function ( response ) {
                 // Show the search query response.
                 $( '.ml-media-list' ).html( response );
+                $( '#ml_spinner' ).removeClass('is-active');
             }).fail(function ( jqXHR, textStatus, errorThrown ) {
                 console.log(errorThrown); //eslint-disable-line no-console
+                $( '#ml_spinner' ).removeClass('is-active');
             });
         }
     });
