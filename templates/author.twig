@@ -17,7 +17,7 @@
 								alt="{{ author.name }}">
 						{% endif %}
 					</figure>
-					<p class="d-none d-md-block author-bio">{{ author.description }}</p>
+					<p class="d-none d-md-block author-bio">{{ author.description|e('wp_kses_post')|raw }}</p>
 				</div>
 				<div class="col-lg-5 col-md-4 col-sm-12 mt-3 mt-md-0">
 					{% include "blocks/share_buttons.twig" with {post:author} %}
