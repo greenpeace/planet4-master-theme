@@ -18,20 +18,6 @@
 
 use Timber\Timber;
 
-/**
- * Add custom css class for body element hook.
- *
- * @param array $classes Array of css classes passed by the hook.
- *
- * @return array
- */
-function add_body_classes_for_evergreen_page( $classes ) {
-	$classes[] = 'white-bg';
-	return $classes;
-}
-
-add_filter( 'body_class', 'add_body_classes_for_evergreen_page' );
-
 $context        = Timber::get_context();
 $post           = new P4_Post();
 $page_meta_data = get_post_meta( $post->ID );
@@ -60,5 +46,6 @@ $context['header_description']  = wpautop( $page_meta_data['p4_description'][0] 
 $context['header_button_title'] = $page_meta_data['p4_button_title'][0] ?? '';
 $context['header_button_link']  = $page_meta_data['p4_button_link'][0] ?? '';
 $context['background_image']    = wp_get_attachment_url( get_post_meta( get_the_ID(), 'background_image_id', 1 ) );
+$context['custom_body_classes'] = 'white-bg';
 
 Timber::render( array( 'evergreen.twig' ), $context );
