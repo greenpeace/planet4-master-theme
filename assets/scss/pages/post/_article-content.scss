@@ -272,7 +272,7 @@
       display: block;
       overflow: auto;
     }
-  
+
     th,
     td {
       border: none;
@@ -289,17 +289,17 @@
 
     td {
       min-height: 120px;
-      font-size: 0.90rem;
+      font-size: 0.9rem;
       padding: 20px;
       vertical-align: top;
 
       @include mobile-only {
         min-width: 300px;
       }
-    
+
       @include x-large-and-up {
         font-size: 1.125rem;
-      }    
+      }
     }
 
     tr:nth-child(odd) {
