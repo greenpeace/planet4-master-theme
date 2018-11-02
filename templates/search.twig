@@ -168,7 +168,7 @@
 										{% for filter_type in filters %}
 											{% for filter in filter_type %}
 												<button class="activefilter-tag" data-id="{{ filter.id }}">
-													{{ filter.name|e('wp_kses_post')|raw }} <i class="icon-cross"></i>
+													{{ __( filter.name, 'planet4-master-theme' )|e('wp_kses_post')|raw }} <i class="icon-cross"></i>
 												</button>
 											{% endfor %}
 										{% endfor %}
