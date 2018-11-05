@@ -73,9 +73,18 @@
   width: 100%;
   padding: 2px 30px;
 
+  html[dir="rtl"] & {
+    font-size: 1.175rem;
+    line-height: 2.5;
+  }
+
   @include medium-and-up {
     margin-bottom: 40px;
     width: 50%;
+
+    html[dir="rtl"] & {
+      font-size: 1.3rem;
+    }
   }
 
   @include large-and-up {
