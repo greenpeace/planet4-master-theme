@@ -39,6 +39,9 @@
 			"wpackagist-plugin/timber-library": "1.8.1"
 	},
 	"require-dev": {
+		"squizlabs/php_codesniffer": "2.9.*",
+		"wp-coding-standards/wpcs": "0.13.*",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.4.0",
 		"stevegrunwell/phpunit-markup-assertions": "^1.2"
 	}
 }
