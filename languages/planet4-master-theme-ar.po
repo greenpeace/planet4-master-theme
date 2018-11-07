@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-10-29 15:10+0000\n"
+"PO-Revision-Date: 2018-11-06 15:53+0000\n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,11 +25,11 @@ msgstr ""
 
 #: single.php:47
 msgid "Post page"
-msgstr "نشر الصفحة"
+msgstr "انشر الصفحة"
 
 #: single.php:76
 msgid "Leave Your Reply"
-msgstr "اترك ردك"
+msgstr "اكتب ردك"
 
 #: 404.php:30
 msgid "Sorry, we can't find that page!"
@@ -77,7 +77,7 @@ msgstr "الأحدث"
 
 #: functions.php:287
 msgid "International (English)"
-msgstr "الدولية (الإنجليزية)"
+msgstr "الموقع الدولي (باللغة الإنجليزية)"
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
@@ -138,7 +138,7 @@ msgstr "ملف"
 
 #: classes/class-p4-search.php:585
 msgid "POST"
-msgstr "المنشور"
+msgstr "انشر"
 
 #: classes/class-p4-search.php:660
 #, php-format
@@ -176,7 +176,7 @@ msgstr "قائمة"
 
 #: templates/navigation-bar.twig:18
 msgid "Close Menu"
-msgstr "إغلاق القائمة"
+msgstr "إغلق القائمة"
 
 #: templates/navigation-bar.twig:27
 msgid "Selected"
@@ -184,7 +184,7 @@ msgstr "المحدد"
 
 #: templates/navigation-bar.twig:28
 msgid "Change Country"
-msgstr "تغيير الدولة"
+msgstr "غّير البلد"
 
 #: templates/navigation-bar.twig:48
 msgid "DONATE"
@@ -200,7 +200,7 @@ msgstr "بحث"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr "وجدتها!"
+msgstr "واضح!"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
@@ -238,11 +238,12 @@ msgstr "فلاتر"
 
 #: templates/search.twig:62 templates/search.twig:163
 msgid "Refine your search"
-msgstr "حدد بحثك"
+msgstr ""
+"حدد نطاق البحث\n"
 
 #: templates/search.twig:70
 msgid "ISSUE"
-msgstr "القضية"
+msgstr "المسألة"
 
 #: templates/search.twig:91
 msgid "CATEGORY"
@@ -266,7 +267,7 @@ msgstr "طبق الفلاتر"
 
 #: templates/search.twig:166
 msgid "ACTIVE FILTERS"
-msgstr "الفلاتر النشطة"
+msgstr "الفلاتر المفعّلة"
 
 #: templates/search.twig:175
 msgid "Clear All"
@@ -274,7 +275,7 @@ msgstr "امسح الكل"
 
 #: templates/search.twig:182
 msgid "Issue"
-msgstr "القضية"
+msgstr "المسألة"
 
 #: templates/search.twig:201
 msgid "Campaign"
@@ -304,11 +305,11 @@ msgstr "تحرك الأن"
 
 #: templates/tease-search.twig:65
 msgid "Download"
-msgstr "تحميل"
+msgstr "حمل"
 
 #: templates/single.twig:39
 msgid "by"
-msgstr "بواسطة"
+msgstr "عبر"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
@@ -316,11 +317,11 @@ msgstr "نبذة عن الكاتب"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
-msgstr "الموضوع الرئيسي لكوكب غرينبيس الرابع"
+msgstr "الموضوع الرئيسي لغرينبيس بلانيت 4"
 
 #. Description of the plugin/theme
 msgid "Master theme for the Planet 4 Wordpress project"
-msgstr "الموضوع الرئيسي لمشروع الكوكب الرابع لغرينبيس"
+msgstr "الموضوع الرئيسي لمشروع ووردبرس بلانيت 4"
 
 #. Theme URI of the plugin/theme
 msgid "https://github.com/greenpeace/planet4-master-theme"
