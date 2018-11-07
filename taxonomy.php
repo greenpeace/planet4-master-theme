@@ -32,4 +32,24 @@ $context['posts'] = $pagetype_posts;
 
 $context['wp_title'] = $context['page_type']->name;
 
-Timber::render( $templates, $context );
+wp_register_script( 'load_more', get_template_directory_uri() . '/assets/js/load_more.js', [ 'jquery' ], '0.0.1', true );
+wp_enqueue_script( 'load_more' );
+
+$post_args = [
+	'posts_per_page' => 10,
+	'post_type'      => 'post',
+	'paged'          => 1,
+];
+
+if ( get_query_var( 'page' ) ) {
+	$templates          = [ 'tease-page-type.twig' ];
+	$post_args['paged'] = get_query_var( 'page' );
+	$pagetype_posts     = new Timber\PostQuery( $post_args );
+	foreach ( $pagetype_posts as $pagetype_post ) {
+		$context['post'] = $pagetype_post;
+		Timber::render( $templates, $context );
+	}
+} else {
+	$context['posts'] = new Timber\PostQuery( $post_args );
+	Timber::render( $templates, $context );
+}
