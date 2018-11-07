@@ -20,7 +20,7 @@ jQuery(document).ready(function () {
 
     // Add click event for clear selected images button.
     $( '#clear_images' ).on('click', function () {
-        $( '#ml-button-insert' ).attr('disabled', true);
+        $( '#ml-button-insert' ).prop('disabled', true);
         $( '#selectable-images li' ).removeClass('ui-selected');
         $( '#images_count' ).html('0');
         // On clear image click, hide attachement details panel.
@@ -82,14 +82,12 @@ jQuery(document).ready(function () {
                         };
 
                         // If this page contains a wp editor then insert the selected image inside the editor.
-                        if ( "function" === typeof parent.send_to_editor ) {
-                            promises.push(wp.media.post('send-attachment-to-editor', {
-                                nonce: wp.media.view.settings.nonce.sendToEditor,
-                                attachment: options,
-                                html: '',
-                                post_id: wp.media.view.settings.post.id
-                            }));
-                        }
+                        promises.push(wp.media.post('send-attachment-to-editor', {
+                            nonce: wp.media.view.settings.nonce.sendToEditor,
+                            attachment: options,
+                            html: '',
+                            post_id: wp.media.view.settings.post.id
+                        }));
                     }
                     //TODO handle promises results/errors better.
                     Promise.all(promises).then(function (values) {
@@ -101,7 +99,7 @@ jQuery(document).ready(function () {
             $( '#ml_spinner' ).removeClass('is-active');
             // If this is not a page with a wp editor, then move to the Media Library page.
             if ( "function" !== typeof parent.send_to_editor ) {
-                parent.window.location.replace('/wp-admin/upload.php');
+                parent.window.location.replace('./upload.php');
             }
 
         }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -111,12 +109,12 @@ jQuery(document).ready(function () {
     });
 
     // Search media library images.
-    $('.ml-search').on('keyup', function() {
+    $(document).off('keyup').on('keyup', '.ml-search', function() {
         if (this.value.length > 3) {
             var reset_page = 1;
             scroll_more = 0;
             $( '#ml_current_page' ).val( reset_page );
-            $( '#ml_spinner' ).addClass('is-active');
+            $( '#ml_loader, #ml_spinner' ).addClass('is-active');
 
             $.ajax({
                 url: media_library_params.ajaxurl,
@@ -130,10 +128,10 @@ jQuery(document).ready(function () {
             }).done(function ( response ) {
                 // Show the search query response.
                 $( '.ml-media-list' ).html( response );
-                $( '#ml_spinner' ).removeClass('is-active');
+                $( '#ml_loader, #ml_spinner' ).removeClass('is-active');
             }).fail(function ( jqXHR, textStatus, errorThrown ) {
                 console.log(errorThrown); //eslint-disable-line no-console
-                $( '#ml_spinner' ).removeClass('is-active');
+                $( '#ml_loader, #ml_spinner' ).removeClass('is-active');
             });
         }
     });
@@ -221,7 +219,7 @@ function scroll_ml_images() {
         scroll_more = 1;
         var next_page = parseInt( $( '#ml_current_page' ).val() ) + 1;
         $( '#ml_current_page' ).val( next_page );
-        $( '#ml_spinner' ).addClass('is-active');
+        $( '#ml_loader, #ml_spinner' ).addClass('is-active');
 
         $.ajax({
             url: media_library_params.ajaxurl,
@@ -233,18 +231,18 @@ function scroll_ml_images() {
             },
             dataType: 'html'
         }).done(function ( response ) {
-            $( '#ml_spinner' ).removeClass('is-active');
+            $( '#ml_loader, #ml_spinner' ).removeClass('is-active');
             // Append the response at the bottom of the results.
             $( '.ml-media-list' ).append( response );
 
             // Add a throttle to avoid multiple scroll events from firing together.
             setTimeout(function () {
                 scroll_more = 0;
-            }, 500);
+            }, 1500);
         }).fail(function ( jqXHR, textStatus, errorThrown ) {
             console.log(errorThrown); //eslint-disable-line no-console
             scroll_more = 0;
-            $( '#ml_spinner' ).removeClass('is-active');
+            $( '#ml_loader, #ml_spinner' ).removeClass('is-active');
         });
     }
 }
