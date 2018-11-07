@@ -86,7 +86,7 @@ class MediaHelper {
 				return __( 'Error while inserting attachment...!', 'planet4-medialibrary' );
 			}
 		} else {
-			return __( 'Error while uploading file...!', 'planet4-medialibrary' );
+			return $upload_file['error'];
 		}
 
 
