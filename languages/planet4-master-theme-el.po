@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-06-08 10:19+0000\n"
-"Last-Translator: dev <kdiamant@greenpeace.org>\n"
-"Language-Team: Ελληνικά\n"
+"POT-Creation-Date: 2018-11-05 08:26+0000\n"
+"PO-Revision-Date: 2018-11-06 11:52+0000\n"
+"Last-Translator: Kyriakos Diamantis <kdiamant@greenpeace.org>\n"
+"Language-Team: Greek\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,44 +13,44 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: single.php:47
+#: single.php:34
 msgid "Post page"
 msgstr ""
 
-#: single.php:76
+#: single.php:68
 msgid "Leave Your Reply"
 msgstr "Πρόσθεσε σχόλιο"
 
-#: 404.php:30
+#: 404.php:16
 msgid "Sorry, we can't find that page!"
 msgstr "Ουπς, κάτι πήγε στραβά!"
 
-#: 404.php:31
+#: 404.php:17
 msgid "Enter your search term below"
 msgstr "Κάνε αναζήτηση στη σελίδα"
 
-#: 404.php:32
+#: 404.php:18
 msgid "404 Page"
 msgstr "404 Σελίδα"
 
-#: tag.php:58
+#: tag.php:48
 msgid "Unknown Campaign page"
 msgstr "Άγνωστη Σελίδα Θέματος"
 
-#: tag.php:64
+#: tag.php:54
 msgid "Things you can do"
 msgstr "Τι μπορείς να κάνεις"
 
-#: tag.php:65
+#: tag.php:55
 msgid "We want you to take action because together we're strong."
 msgstr ""
 "Χρειαζόμαστε ανθρώπους σαν και εσένα για να προστατεύσουμε τον πλανήτη μας."
 
-#: tag.php:81
+#: tag.php:83
 msgid "Related Campaigns"
 msgstr "Σχετικά θέματα"
 
-#: tag.php:82
+#: tag.php:84
 msgid "This Campaign is not assigned to an Issue"
 msgstr ""
 
@@ -62,9 +62,37 @@ msgstr "Πιο σχετικά"
 msgid "Most recent"
 msgstr "Πιο πρόσφατα"
 
-#: functions.php:287
+#: functions.php:247
+msgid "Toggle worldwide site selection menu"
+msgstr ""
+
+#: functions.php:248
+msgid "Toggle search box"
+msgstr ""
+
+#: functions.php:270
+msgid "DONATE"
+msgstr "ΥΠΟΣΤΗΡΙΞΕ ΜΑΣ"
+
+#: functions.php:271
 msgid "International (English)"
 msgstr ""
+
+#: classes/class-p4-post.php:168 classes/class-p4-search.php:570
+msgid "ACTION"
+msgstr "ΔΡΑΣΗ"
+
+#: classes/class-p4-post.php:170 classes/class-p4-search.php:574
+msgid "PAGE"
+msgstr "ΣΕΛΙΔΑ"
+
+#: classes/class-p4-post.php:174 classes/class-p4-search.php:580
+msgid "DOCUMENT"
+msgstr "ΕΓΓΡΑΦΟ"
+
+#: classes/class-p4-post.php:177 classes/class-p4-search.php:585
+msgid "POST"
+msgstr "ΔΗΜΟΣΙΕΥΣΗ"
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
@@ -102,22 +130,6 @@ msgstr "Σελίδα"
 msgid "Post"
 msgstr "Δημοσίευση"
 
-#: classes/class-p4-search.php:570
-msgid "ACTION"
-msgstr "ΔΡΑΣΗ"
-
-#: classes/class-p4-search.php:574
-msgid "PAGE"
-msgstr "ΣΕΛΙΔΑ"
-
-#: classes/class-p4-search.php:580
-msgid "DOCUMENT"
-msgstr "ΕΓΓΡΑΦΟ"
-
-#: classes/class-p4-search.php:585
-msgid "POST"
-msgstr "ΔΗΜΟΣΙΕΥΣΗ"
-
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
@@ -131,20 +143,28 @@ msgstr ""
 msgid "Sitemap Page"
 msgstr ""
 
-#: page-templates/sitemap.php:31
+#: page-templates/sitemap.php:18
 msgid "Act"
 msgstr ""
 
-#: page-templates/sitemap.php:32
+#: page-templates/sitemap.php:19
 msgid "Explore"
 msgstr ""
 
-#: page-templates/sitemap.php:33
+#: page-templates/sitemap.php:20
 msgid "About Greenpeace"
 msgstr ""
 
-#: page-templates/sitemap.php:34
+#: page-templates/sitemap.php:21
 msgid "Articles"
+msgstr ""
+
+#: templates/author.twig:31
+msgid "Posts by "
+msgstr ""
+
+#: templates/navigation-bar.twig:11
+msgid "Toggle navigation menu"
 msgstr ""
 
 #: templates/navigation-bar.twig:13
@@ -162,10 +182,6 @@ msgstr "Επιλεγμένο"
 #: templates/navigation-bar.twig:28
 msgid "Change Country"
 msgstr "Άλλαξε χώρα"
-
-#: templates/navigation-bar.twig:48
-msgid "DONATE"
-msgstr "ΥΠΟΣΤΗΡΙΞΕ ΜΑΣ"
 
 #: templates/navigation-bar.twig:58
 msgid "Toggle search form"
@@ -271,21 +287,49 @@ msgstr "Ταξινόμηση"
 msgid "Suggested search terms"
 msgstr "Προτεινόμενοι όροι αναζήτησης"
 
-#: templates/tease-search.twig:62
+#: templates/tease-search.twig:65
 msgid "take action"
 msgstr "Πάτα εδώ"
 
-#: templates/tease-search.twig:65
+#: templates/tease-search.twig:68
 msgid "Download"
 msgstr "Κατέβασε"
 
-#: templates/single.twig:39
+#: templates/base.twig:10
+msgid "Skip to Navigation"
+msgstr ""
+
+#: templates/base.twig:11
+msgid "Skip to Content"
+msgstr ""
+
+#: templates/base.twig:12
+msgid "Skip to Footer"
+msgstr ""
+
+#: templates/single.twig:48
 msgid "by"
 msgstr "από"
+
+#: templates/page_type.twig:18
+msgid "Results"
+msgstr ""
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
 msgstr "βιογραφικό"
+
+#: templates/comment_form/comment_field.twig:3
+msgid "Your comment"
+msgstr ""
+
+#: templates/comment_form/email_field.twig:3
+msgid "Your email"
+msgstr ""
+
+#: templates/comment_form/author_field.twig:3
+msgid "Your Name"
+msgstr ""
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"

@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-08 09:59+0000\n"
-"PO-Revision-Date: 2018-06-08 10:19+0000\n"
-"Last-Translator: dev <kdiamant@greenpeace.org>\n"
-"Language-Team: Ελληνικά\n"
+"POT-Creation-Date: 2018-11-05 09:23+0000\n"
+"PO-Revision-Date: 2018-11-06 11:52+0000\n"
+"Last-Translator: Kyriakos Diamantis <kdiamant@greenpeace.org>\n"
+"Language-Team: Greek\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
@@ -17,105 +17,135 @@ msgstr ""
 msgid "Navigation Bar Menu"
 msgstr ""
 
-#: functions.php:445
+#: functions.php:439
 msgid "Weight (1-30)"
 msgstr ""
 
-#: functions.php:641
+#: functions.php:636
 msgid "Page Header Fields"
 msgstr ""
 
-#: functions.php:646
+#: functions.php:641
 msgid "Header Title"
 msgstr ""
 
-#: functions.php:647
+#: functions.php:642
 msgid "Header title comes here"
 msgstr ""
 
-#: functions.php:654
+#: functions.php:649
 msgid "Header Subtitle"
 msgstr ""
 
-#: functions.php:655
+#: functions.php:650
 msgid "Header subtitle comes here"
 msgstr ""
 
-#: functions.php:663
+#: functions.php:658
 msgid "Header Description"
 msgstr ""
 
-#: functions.php:664
+#: functions.php:659
 msgid "Header description comes here"
 msgstr ""
 
-#: functions.php:676
+#: functions.php:671
 msgid "Header Button Title"
 msgstr ""
 
-#: functions.php:677
+#: functions.php:672
 msgid "Header button title comes here"
 msgstr ""
 
-#: functions.php:685
+#: functions.php:680
 msgid "Header Button Link"
 msgstr ""
 
-#: functions.php:686
+#: functions.php:681
 msgid "Header button link comes here"
 msgstr ""
 
-#: functions.php:694
+#: functions.php:689
 msgid "Background overide"
 msgstr ""
 
-#: functions.php:695
+#: functions.php:690
 msgid "Upload an image"
 msgstr ""
 
-#: functions.php:703
+#: functions.php:698
 msgid "Add Background Image"
 msgstr ""
 
-#: functions.php:714
+#: functions.php:709
 msgid "Post Articles Element Fields"
 msgstr ""
 
-#: functions.php:719
+#: functions.php:714
 msgid "Author Override"
 msgstr ""
 
-#: functions.php:720
+#: functions.php:715
 msgid "Enter author name if you want to override the author"
 msgstr ""
 
-#: functions.php:726
+#: functions.php:721
 msgid "Take Action Page Selector"
 msgstr ""
 
-#: functions.php:727
+#: functions.php:722
 msgid "Select a Take Action Page to populate take action boxout block"
 msgstr ""
 
-#: functions.php:735
+#: functions.php:730
 msgid "Include Articles In Post"
 msgstr ""
 
-#: functions.php:745
+#: functions.php:740
 msgid "Background Image Override"
 msgstr ""
 
-#: functions.php:746
+#: functions.php:741
 msgid ""
 "Upload an image or select one from the media library to override the "
 "background image"
 msgstr ""
 
-#: functions.php:753
+#: functions.php:748 functions.php:787
 msgid "Add Image"
 msgstr "Πρόσθεσε εικόνα"
 
-#: functions.php:798
+#: functions.php:755
+msgid "Open Graph/Social Fields"
+msgstr ""
+
+#: functions.php:761
+msgid "Title"
+msgstr ""
+
+#: functions.php:762
+msgid "Enter title if you want to override the open graph title"
+msgstr ""
+
+#: functions.php:768
+msgid "Description"
+msgstr ""
+
+#: functions.php:769
+msgid "Enter description if you want to override the open graph description"
+msgstr ""
+
+#: functions.php:779
+msgid "Image Override"
+msgstr ""
+
+#: functions.php:780
+msgid ""
+"Upload an image or select one from the media library to override the open "
+"graph image"
+msgstr ""
+
+#: functions.php:835
 msgid "Add Page Element"
 msgstr "Εισάγετε πρόσθετο"
 
@@ -166,143 +196,47 @@ msgstr "Νέο είδος σελίδας"
 msgid "Page Types"
 msgstr "Είδη Σελίδας"
 
-#: classes/class-p4-settings.php:39
-msgid "Planet4"
-msgstr ""
+#: classes/class-p4-campaigns.php:21
+msgid "Select Image"
+msgstr "Διάλεξε εικόνα"
 
-#: classes/class-p4-settings.php:43
-msgid "Website Navigation Title"
-msgstr ""
-
-#: classes/class-p4-settings.php:48
-msgid "Select Act Page"
-msgstr ""
-
-#: classes/class-p4-settings.php:54
-msgid "Select Explore Page"
-msgstr ""
-
-#: classes/class-p4-settings.php:60
-msgid "Select Issues Parent Category"
-msgstr ""
-
-#: classes/class-p4-settings.php:66
-msgid "Copyright Text Line 1"
-msgstr "Κείμενο Copyright 1η γραμμή"
-
-#: classes/class-p4-settings.php:76
-msgid "Copyright Text Line 2"
-msgstr "Κείμενο Copyright 2η γραμμή"
-
-#: classes/class-p4-settings.php:86
-msgid "Google Tag Manager Identifier"
-msgstr ""
-
-#: classes/class-p4-settings.php:92
-msgid "Engaging Network ID"
-msgstr ""
-
-#: classes/class-p4-settings.php:98
-msgid "Cookies Text"
-msgstr "Κείμενο Cookies"
-
-#: classes/class-p4-settings.php:108
-msgid "Default title for related articles block"
-msgstr ""
-
-#: classes/class-p4-settings.php:111
+#: classes/class-p4-campaigns.php:74
 msgid ""
-"If no title set for <b>Article Block</b>, the default title will appear."
+"Column block: Choose which Page Types will populate the content of the "
+"Column block. If no box is checked Publications will appear by default."
 msgstr ""
 
-#: classes/class-p4-settings.php:115
-msgid "Default button title for related articles block"
+#: classes/class-p4-campaigns.php:93 classes/class-p4-campaigns.php:132
+#: classes/class-p4-campaigns.php:194
+msgid "Image"
+msgstr "Εικόνα"
+
+#: classes/class-p4-campaigns.php:99 classes/class-p4-campaigns.php:114
+#: classes/class-p4-campaigns.php:136
+msgid "Select/Upload Image"
+msgstr "Διάλεξε εικόνα"
+
+#: classes/class-p4-campaigns.php:101 classes/class-p4-campaigns.php:138
+msgid "Associate this tag with an image."
 msgstr ""
 
-#: classes/class-p4-settings.php:118
+#: classes/class-p4-campaigns.php:108
+msgid "Image Subscribe"
+msgstr ""
+
+#: classes/class-p4-campaigns.php:116
+msgid "Choose a background image for the Subscribe block."
+msgstr ""
+
+#: classes/class-p4-campaigns.php:123
+msgid "Happy Point Opacity"
+msgstr ""
+
+#: classes/class-p4-campaigns.php:127
 msgid ""
-"If no button title set for <b>Article Block</b>, the default button title "
-"will appear."
-msgstr ""
-
-#: classes/class-p4-settings.php:122
-msgid "Default Number Of Related Articles"
-msgstr ""
-
-#: classes/class-p4-settings.php:128
-msgid ""
-"If no number of Related Articles set for <b>Article Block</b>, the default "
-"number of Related Articles will appear."
-msgstr ""
-
-#: classes/class-p4-settings.php:132
-msgid "Take Action Covers default button text"
-msgstr ""
-
-#: classes/class-p4-settings.php:138
-msgid ""
-"Add default button text which appears on <b>Take Action</b> card of <b>Take "
-"Action Covers</b> block. <br>\n"
-"\t\t\t\t\t                     Also it would be used for Take Action Cards "
-"inside Posts and Take Action Cards in search results"
-msgstr ""
-
-#: classes/class-p4-settings.php:143
-msgid "Donate button link"
-msgstr ""
-
-#: classes/class-p4-settings.php:152
-msgid "404 Background Image"
-msgstr ""
-
-#: classes/class-p4-settings.php:159
-msgid "Add 404 Page Background Image"
-msgstr ""
-
-#: classes/class-p4-settings.php:164 classes/class-p4-settings.php:197
-msgid "Minimum image width should be 1920px"
-msgstr ""
-
-#: classes/class-p4-settings.php:168
-msgid "404 Page text"
-msgstr ""
-
-#: classes/class-p4-settings.php:175
-msgid "Add 404 page text"
-msgstr ""
-
-#: classes/class-p4-settings.php:179
-msgid "Default p4-pagetype"
-msgstr ""
-
-#: classes/class-p4-settings.php:185
-msgid "Default Happy Point Background Image"
-msgstr ""
-
-#: classes/class-p4-settings.php:192
-msgid "Add Default Happy Point Background Image"
-msgstr ""
-
-#: classes/class-p4-settings.php:200
-msgid "Enforce Cookies Policy"
-msgstr ""
-
-#: classes/class-p4-settings.php:201
-msgid ""
-"GDPR related setting. By enabling this option specific content will be "
-"blocked and will require user consent to be shown."
-msgstr ""
-
-#: classes/class-p4-settings.php:245 classes/class-p4-settings.php:259
-msgid "Select Page"
-msgstr ""
-
-#: classes/class-p4-settings.php:274
-msgid "Select Category"
-msgstr ""
-
-#: classes/class-p4-settings.php:293
-msgid "Select Pagetype"
+"We use an overlay to fade the image back. Use a number between 1 and 100, "
+"the higher the number, the more faded the image will look. If you leave this "
+"empty, the default of 30 will be used."
 msgstr ""
 
 #: classes/class-p4-control-panel.php:41
@@ -366,42 +300,149 @@ msgstr ""
 msgid "Indexer is awake"
 msgstr ""
 
-#: classes/class-p4-taxonomy-image.php:19
-msgid "Select Image"
-msgstr "Διάλεξε εικόνα"
-
-#: classes/class-p4-taxonomy-image.php:59
-#: classes/class-p4-taxonomy-image.php:98
-#: classes/class-p4-taxonomy-image.php:154
-msgid "Image"
-msgstr "Εικόνα"
-
-#: classes/class-p4-taxonomy-image.php:65
-#: classes/class-p4-taxonomy-image.php:80
-#: classes/class-p4-taxonomy-image.php:102
-msgid "Select/Upload Image"
-msgstr "Διάλεξε εικόνα"
-
-#: classes/class-p4-taxonomy-image.php:67
-#: classes/class-p4-taxonomy-image.php:104
-msgid "Associate this tag with an image."
+#: classes/class-p4-settings.php:39
+msgid "Planet4"
 msgstr ""
 
-#: classes/class-p4-taxonomy-image.php:74
-msgid "Image Subscribe"
+#: classes/class-p4-settings.php:43
+msgid "Website Navigation Title"
 msgstr ""
 
-#: classes/class-p4-taxonomy-image.php:82
-msgid "Choose a background image for the Subscribe block."
+#: classes/class-p4-settings.php:48
+msgid "Select Act Page"
 msgstr ""
 
-#: classes/class-p4-taxonomy-image.php:89
-msgid "Happy Point Opacity"
+#: classes/class-p4-settings.php:54
+msgid "Select Explore Page"
 msgstr ""
 
-#: classes/class-p4-taxonomy-image.php:93
+#: classes/class-p4-settings.php:60
+msgid "Select Issues Parent Category"
+msgstr ""
+
+#: classes/class-p4-settings.php:66
+msgid "Copyright Text Line 1"
+msgstr "Κείμενο Copyright 1η γραμμή"
+
+#: classes/class-p4-settings.php:76
+msgid "Copyright Text Line 2"
+msgstr "Κείμενο Copyright 2η γραμμή"
+
+#: classes/class-p4-settings.php:86
+msgid "Google Tag Manager Identifier"
+msgstr ""
+
+#: classes/class-p4-settings.php:92
+msgid "Engaging Network ID"
+msgstr ""
+
+#: classes/class-p4-settings.php:98
+msgid "Facebook Page ID"
+msgstr ""
+
+#: classes/class-p4-settings.php:104
+msgid "Cookies Text"
+msgstr "Κείμενο Cookies"
+
+#: classes/class-p4-settings.php:114
+msgid "Default title for related articles block"
+msgstr ""
+
+#: classes/class-p4-settings.php:117
 msgid ""
-"We use an overlay to fade the image back. Use a number between 1 and 100, "
-"the higher the number, the more faded the image will look. If you leave this "
-"empty, the default of 30 will be used."
+"If no title set for <b>Article Block</b>, the default title will appear."
+msgstr ""
+
+#: classes/class-p4-settings.php:121
+msgid "Default button title for related articles block"
+msgstr ""
+
+#: classes/class-p4-settings.php:124
+msgid ""
+"If no button title set for <b>Article Block</b>, the default button title "
+"will appear."
+msgstr ""
+
+#: classes/class-p4-settings.php:128
+msgid "Default Number Of Related Articles"
+msgstr ""
+
+#: classes/class-p4-settings.php:134
+msgid ""
+"If no number of Related Articles set for <b>Article Block</b>, the default "
+"number of Related Articles will appear."
+msgstr ""
+
+#: classes/class-p4-settings.php:138
+msgid "Take Action Covers default button text"
+msgstr ""
+
+#: classes/class-p4-settings.php:144
+msgid ""
+"Add default button text which appears on <b>Take Action</b> card of <b>Take "
+"Action Covers</b> block. <br>\n"
+"\t\t\t\t\t                     Also it would be used for Take Action Cards "
+"inside Posts and Take Action Cards in search results"
+msgstr ""
+
+#: classes/class-p4-settings.php:149
+msgid "Donate button link"
+msgstr ""
+
+#: classes/class-p4-settings.php:158
+msgid "Donate button text"
+msgstr ""
+
+#: classes/class-p4-settings.php:167
+msgid "404 Background Image"
+msgstr ""
+
+#: classes/class-p4-settings.php:174
+msgid "Add 404 Page Background Image"
+msgstr ""
+
+#: classes/class-p4-settings.php:179 classes/class-p4-settings.php:212
+msgid "Minimum image width should be 1920px"
+msgstr ""
+
+#: classes/class-p4-settings.php:183
+msgid "404 Page text"
+msgstr ""
+
+#: classes/class-p4-settings.php:190
+msgid "Add 404 page text"
+msgstr ""
+
+#: classes/class-p4-settings.php:194
+msgid "Default p4-pagetype"
+msgstr ""
+
+#: classes/class-p4-settings.php:200
+msgid "Default Happy Point Background Image"
+msgstr ""
+
+#: classes/class-p4-settings.php:207
+msgid "Add Default Happy Point Background Image"
+msgstr ""
+
+#: classes/class-p4-settings.php:215
+msgid "Enforce Cookies Policy"
+msgstr ""
+
+#: classes/class-p4-settings.php:216
+msgid ""
+"GDPR related setting. By enabling this option specific content will be "
+"blocked and will require user consent to be shown."
+msgstr ""
+
+#: classes/class-p4-settings.php:260 classes/class-p4-settings.php:274
+msgid "Select Page"
+msgstr ""
+
+#: classes/class-p4-settings.php:289
+msgid "Select Category"
+msgstr ""
+
+#: classes/class-p4-settings.php:308
+msgid "Select Pagetype"
 msgstr ""
