@@ -9,7 +9,7 @@
  * @since    Timber 0.1
  */
 
-wp_register_script( 'author', get_template_directory_uri() . '/assets/js/author.js', [ 'jquery', 'main' ], '0.0.1', true );
+wp_register_script( 'author', get_template_directory_uri() . '/assets/js/load_more.js', [ 'jquery', 'main' ], '0.0.1', true );
 wp_enqueue_script( 'author' );
 
 $context          = Timber::get_context();
