@@ -1,12 +1,11 @@
-var $ = jQuery;
 const loadMore = $('button.load-more');
-loadMore.on('click', (e) => {
+loadMore.on('click', function (e) {
   e.preventDefault();
 
-  const nextPage = parseInt(loadMore[0].dataset.page) + 1;
-  const totalPages = loadMore[0].dataset.total;
-  const url = loadMore[0].dataset.url + `?page=${ nextPage }`;
-  loadMore[0].dataset.page = nextPage;
+  const nextPage = parseInt(this.dataset.page) + 1;
+  const totalPages = this.dataset.total;
+  const url = this.dataset.url + `?page=${ nextPage }`;
+  this.dataset.page = nextPage;
 
   $.ajax({
     url: url,

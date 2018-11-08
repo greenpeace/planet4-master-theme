@@ -9,14 +9,13 @@
  * @since    Timber 0.1
  */
 
-wp_register_script( 'author', get_template_directory_uri() . '/assets/js/author.js', [ 'jquery' ], '0.0.1', true );
+wp_register_script( 'author', get_template_directory_uri() . '/assets/js/author.js', [ 'jquery', 'main' ], '0.0.1', true );
 wp_enqueue_script( 'author' );
 
 $context          = Timber::get_context();
-$context['posts'] = Timber::get_posts( false, 'P4_Post' );
 
 $post_args = [
-	'posts_per_page' => 10,
+	'posts_per_page' => 1,
 	'post_type'      => 'post',
 	'paged'          => 1,
 ];
