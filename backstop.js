@@ -2,7 +2,7 @@
 
 var arguments = require('minimist')(process.argv.slice(2));
 
-var url = 'https://k8s.p4.greenpeace.org/defaultcontent/';
+var url = 'https://k8s.p4.greenpeace.org/uitests/';
 if (arguments.url) {
   url = arguments.url;
 }
