@@ -7,6 +7,8 @@
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  */
 
+use Timber\Timber;
+
 $templates = [ 'page_type.twig', 'index.twig' ];
 
 $context              = Timber::get_context();
