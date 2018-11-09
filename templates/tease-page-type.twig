@@ -4,8 +4,6 @@
 
 	<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
 		<div class="search-result-tags top-page-tags">
-			{{ post.get_author_override }}
-
 			<a href="{{ fn('get_term_link', page_type.term_id) }}"
 			   class="search-result-item-head no-btn tag-item tag-item--main page-type">
 			   {{ page_type.name|e('wp_kses_post')|raw }}
@@ -25,11 +23,7 @@
 		<div class="search-result-item-info">
 			{% if ( post.author ) %}
 				<span class="search-result-item-author">{{ __( 'by') }}
-					{% if not ( post.author_override ) %}
-						<a href="{{ post.author.path }}">{{ post.author }}</a>
-					{% else %}
-						{{ post.author }}
-					{% endif %}
+					<a href="{{ post.author.path }}">{{ post.author }}</a>
 				</span>
 			{% endif %}
 			<span class="search-result-item-date">{{ post.post_date|date }}</span>
