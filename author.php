@@ -15,7 +15,7 @@ wp_enqueue_script( 'author' );
 $context          = Timber::get_context();
 
 $post_args = [
-	'posts_per_page' => 1,
+	'posts_per_page' => 10,
 	'post_type'      => 'post',
 	'paged'          => 1,
 ];
