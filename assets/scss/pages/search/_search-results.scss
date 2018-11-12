@@ -181,10 +181,12 @@
 
 .search-result-item-content {
   display: none;
+  color: $dark-shade-black;
   font-size: 1rem;
-  color: $black;
-  line-height: 30px;
-  margin-bottom: 0;
+  font-family: $lora;
+  line-height: 1.6;
+  margin: 10px 0 0;
+  width: 80%;
 
   @include small-and-up {
     display: block;
