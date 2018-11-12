@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-05 08:26+0000\n"
-"PO-Revision-Date: 2018-11-06 11:52+0000\n"
-"Last-Translator: Kyriakos Diamantis <kdiamant@greenpeace.org>\n"
+"PO-Revision-Date: 2018-11-12 21:42+0000\n"
+"Last-Translator: Kostantinos Spiliopoulos <kspiliop@greenpeace.org>\n"
 "Language-Team: Greek\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
@@ -161,7 +161,7 @@ msgstr ""
 
 #: templates/author.twig:31
 msgid "Posts by "
-msgstr ""
+msgstr "Από"
 
 #: templates/navigation-bar.twig:11
 msgid "Toggle navigation menu"
@@ -321,7 +321,7 @@ msgstr "βιογραφικό"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your comment"
-msgstr ""
+msgstr "Το σχόλιό σας"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your email"
