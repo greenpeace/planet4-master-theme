@@ -31,6 +31,11 @@ if (! class_exists('P4_FakeUser')) {
             return $this->author;
         }
 
+        public function description()
+        {
+            return null;
+        }
+
         public function __toString()
         {
             return $this->author;

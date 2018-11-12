@@ -36,7 +36,11 @@
 	{% if (og_description) %}
 		<meta name="twitter:description" content="{{ og_description|e('html_attr')|raw }}">
 	{% endif %}
-	<meta name="twitter:creator" content="{{ post.author.name }}">
+
+	{% if (post.author is not null) %}
+		<meta name="twitter:creator" content="{{ post.author.name }}">
+	{% endif %}
+
 	{% if (og_image_data) %}
 		<meta name="twitter:image" content="{{ og_image_data[0] }}" />
 	{% endif %}
