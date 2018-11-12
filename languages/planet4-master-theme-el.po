@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-05 08:26+0000\n"
-"PO-Revision-Date: 2018-11-12 21:42+0000\n"
+"PO-Revision-Date: 2018-11-12 23:11+0000\n"
 "Last-Translator: Kostantinos Spiliopoulos <kspiliop@greenpeace.org>\n"
 "Language-Team: Greek\n"
 "Language: el\n"
@@ -161,7 +161,7 @@ msgstr ""
 
 #: templates/author.twig:31
 msgid "Posts by "
-msgstr "Από"
+msgstr "Άρθρα από:"
 
 #: templates/navigation-bar.twig:11
 msgid "Toggle navigation menu"
