@@ -4,6 +4,13 @@
 
 .ml-media-list {
     z-index: 10000;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 300px;
+    bottom: 0;
+    overflow: auto;
+    outline: 0;
 }
 
 .ml-details {
@@ -12,7 +19,7 @@
 
 #ml_loader {
     position: fixed;
-    left: 40%;
+    left: 48%;
 }
 
 .ml_spinner {
@@ -71,4 +78,8 @@
     left: 0;
     right: 0;
     height: auto;
+}
+
+.uploader-inline-content {
+    z-index: 99;
 }
