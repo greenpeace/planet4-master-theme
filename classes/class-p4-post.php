@@ -225,6 +225,19 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		}
 
 		/**
+		 * Get post's author override status.
+		 *
+		 * @return bool
+		 */
+		public function get_author_override() {
+			$author_override = get_post_meta( $this->id, 'p4_author_override', true );
+			if ( $author_override ) {
+				return true;
+			}
+			return false;
+		}
+
+		/**
 		 * Overrides parent function author in case `author_override` is set,
 		 * returns a fake author mimicking the interface of \Timber\User.
 		 *
