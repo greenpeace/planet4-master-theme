@@ -11,7 +11,7 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		/** @var array $issues_nav_data */
 		protected $issues_nav_data;
 		/** @var array $tags */
-		protected $tags;
+		public $tags;
 		/** @var string $page_type */
 		protected $page_type;
 		/** @var int $page_type_id */
