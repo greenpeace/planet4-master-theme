@@ -115,6 +115,11 @@
       margin-right: 20px;
       position: relative;
 
+      html[dir="rtl"] & {
+        margin-right: 0;
+        margin-left: 20px;
+      }
+
       &:after {
         content: "\2022";
         pointer-events: none;
@@ -122,6 +127,11 @@
         position: absolute;
         right: -15px;
         top: 0;
+
+        html[dir="rtl"] & {
+          right: auto;
+          left: -15px;
+        }
       }
     }
   }

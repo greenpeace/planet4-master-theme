@@ -1,0 +1,24 @@
+html[dir="rtl"] body {
+  text-transform: lowercase;
+  text-align: right;
+
+  button,
+  .btn {
+    text-transform: lowercase;
+  }
+
+  @include large-and-up {
+    .offset-lg-1 {
+      margin-left: 0;
+      margin-right: 8.333333%;
+    }
+  }
+
+  .list-unstyled {
+    padding-right: 0;
+
+    .custom-control {
+      padding-right: 1.5rem;
+    }
+  }
+}
