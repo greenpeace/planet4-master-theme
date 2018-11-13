@@ -32,4 +32,6 @@ $context['posts'] = $pagetype_posts;
 
 $context['wp_title'] = $context['page_type']->name;
 
+$context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';
+
 Timber::render( $templates, $context );
