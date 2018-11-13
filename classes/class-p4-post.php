@@ -10,14 +10,6 @@ if ( ! class_exists( 'P4_Post' ) ) {
 
 		/** @var array $issues_nav_data */
 		protected $issues_nav_data;
-		/** @var array $tags */
-		protected $tags;
-		/** @var string $page_type */
-		protected $page_type;
-		/** @var int $page_type_id */
-		protected $page_type_id;
-		/** @var string $content_type */
-		protected $content_type;
 
 		/**
 		 * Checks if post is the act page.
@@ -164,76 +156,28 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		}
 
 		/**
-		 * Gets the tags for this P4_Post.
-		 */
-		public function set_tags() {
-			$tags = wp_get_post_tags( $this->id );
-
-			if ( $tags && ! is_wp_error( $tags ) ) {
-				foreach ( $tags as $tag ) {
-					$this->tags[] = [
-						'name' => $tag->name,
-						'href' => get_tag_link( $tag->term_id ),
-					];
-				}
-			}
-		}
-
-		/**
-		 * Gets the tags for this P4_Post.
-		 */
-		public function get_tags() {
-			$this->tags;
-		}
-
-		/**
-		 * Sets the page type for this P4_Post.
-		 */
-		public function set_page_types() {
-			$page_type_data = get_the_terms( $this->id, P4_Custom_Taxonomy::TAXONOMY );
-
-			if ( $page_type_data && ! is_wp_error( $page_type_data ) ) {
-				$this->page_type    = $page_type_data[0]->name;
-				$this->page_type_id = $page_type_data[0]->term_id;
-			}
-		}
-
-		/**
-		 * Gets the page type of this P4_Post.
-		 */
-		public function get_page_types() {
-			return $this->page_types;
-		}
-
-		/**
-		 * Sets post/page custom planet4 type.
-		 * ACTION, DOCUMENT, PAGE, POST
-		 */
-		public function set_content_type() {
-			switch ( $this->post_type ) {
-				case 'page':
-					if ( $this->is_take_action_page() ) {
-						$this->content_type = __( 'ACTION', 'planet4-master-theme' );
-					} else {
-						$this->content_type = __( 'PAGE', 'planet4-master-theme' );
-					}
-					break;
-				case 'attachment':
-					$this->content_type = __( 'DOCUMENT', 'planet4-master-theme' );
-					break;
-				default:
-					$this->content_type = __( 'POST', 'planet4-master-theme' );
-			}
-		}
-
-		/**
 		 * Get post/page custom planet4 type.
 		 * ACTION, DOCUMENT, PAGE, POST
 		 *
 		 * @return string
 		 */
-		public function get_content_type() {
-			return $this->content_type;
+		public function get_custom_type() {
+			switch ( $this->post_type ) {
+				case 'page':
+					if ( $this->is_take_action_page() ) {
+						$content_type_text = __( 'ACTION', 'planet4-master-theme' );
+					} else {
+						$content_type_text = __( 'PAGE', 'planet4-master-theme' );
+					}
+					break;
+				case 'attachment':
+					$content_type_text = __( 'DOCUMENT', 'planet4-master-theme' );
+					break;
+				default:
+					$content_type_text = __( 'POST', 'planet4-master-theme' );
+			}
+
+			return $content_type_text;
 		}
 
 		/**
