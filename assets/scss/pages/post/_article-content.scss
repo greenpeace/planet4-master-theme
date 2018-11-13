@@ -267,24 +267,47 @@
 
   table {
     margin-bottom: 15px;
+    font-family: $roboto;
+    @include mobile-only {
+      display: block;
+      overflow: auto;
+    }
 
     th,
     td {
-      border: 1px solid $green-80;
-      padding: 6px;
+      border: none;
     }
 
     th {
-      background-color: $grey-40;
+      background-color: $dark-blue;
       color: $white;
+      height: 36px;
+      font-size: 0.93rem;
+      padding: 6px 20px;
+      box-sizing: border-box;
     }
 
-    tr.odd {
-      background-color: $white;
+    td {
+      min-height: 120px;
+      font-size: 0.9rem;
+      padding: 20px;
+      vertical-align: top;
+
+      @include mobile-only {
+        min-width: 300px;
+      }
+
+      @include x-large-and-up {
+        font-size: 1.125rem;
+      }
     }
 
-    tr.even {
-      background-color: $grey-20;
+    tr:nth-child(odd) {
+      background-color: $table-odd;
+    }
+
+    tr:nth-child(even) {
+      background-color: $table-even;
     }
   }
 

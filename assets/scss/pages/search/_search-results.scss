@@ -54,6 +54,11 @@
           width: 25%;
           margin-right: 30px;
           visibility: visible;
+
+          html[dir="rtl"] & {
+            margin-right: 0;
+            margin-left: 30px;
+          }
         }
 
         &:hover {
@@ -168,23 +173,25 @@
 }
 
 .search-result-item-info {
-  font-size: 0.875rem;
   font-style: italic;
   color: $grey-60;
   line-height: normal;
   margin-bottom: 10px;
+  font-size: 0.875rem;
 
   @include large-and-up {
-    font-size: 1rem;
+    font-size: 0.9375rem;
   }
 }
 
 .search-result-item-content {
   display: none;
+  color: $dark-shade-black;
   font-size: 1rem;
-  color: $black;
-  line-height: 30px;
-  margin-bottom: 0;
+  font-family: $lora;
+  line-height: 1.6;
+  margin: 10px 0 0;
+  width: 80%;
 
   @include small-and-up {
     display: block;

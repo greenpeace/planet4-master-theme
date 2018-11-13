@@ -31,6 +31,10 @@ body {
   &.search {
     font-family: $roboto;
   }
+
+  .mejs-container {
+    clear: initial;
+  }
 }
 
 .container > * {
