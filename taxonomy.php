@@ -34,6 +34,7 @@ if ( get_query_var( 'page' ) ) {
 	$post_args['paged'] = get_query_var( 'page' );
 	$pagetype_posts     = new \Timber\PostQuery( $post_args, 'P4_Post' );
 	foreach ( $pagetype_posts as $pagetype_post ) {
+		$context['post'] = $pagetype_post;
 		Timber::render( $templates, $context );
 	}
 } else {
