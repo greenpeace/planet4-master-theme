@@ -28,9 +28,13 @@
       content: "\2022";
       pointer-events: none;
       display: inline-block;
-      position: absolute;
-      left: -15px;
-      top: 0;
+      margin-left: -12px;
+      margin-right: 8px;
+
+      html[dir="rtl"] & {
+        margin-right: -12px;
+        margin-left: 8px;
+      }
     }
   }
 
@@ -46,8 +50,18 @@
     &:not(:only-child):not(:last-child) {
       margin-right: 7px;
 
+      html[dir="rtl"] & {
+        margin-right: 0;
+        margin-left: 7px;
+      }
+
       &.page-type {
         margin-right: 20px;
+
+        html[dir="rtl"] & {
+          margin-right: 0;
+          margin-left: 20px;
+        }
       }
     }
   }
@@ -57,10 +71,20 @@
 
     &.page-type {
       text-transform: uppercase;
+
+      html[dir="rtl"] & {
+        text-transform: lowercase;
+        margin-right: 0;
+      }
     }
   }
 
   .issues {
     margin-right: 20px;
+
+    html[dir="rtl"] & {
+      margin-right: 0;
+      margin-left: 20px;
+    }
   }
 }

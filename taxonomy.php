@@ -27,6 +27,8 @@ $post_args = [
 	'paged'          => 1,
 ];
 
+$context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';
+
 if ( get_query_var( 'page' ) ) {
 	$templates          = [ 'tease-page-type.twig' ];
 	$post_args['paged'] = get_query_var( 'page' );
@@ -35,8 +37,7 @@ if ( get_query_var( 'page' ) ) {
 		Timber::render( $templates, $context );
 	}
 } else {
-	$pagetype_posts = new \Timber\PostQuery( $post_args, 'P4_Post' );
-
+	$pagetype_posts   = new \Timber\PostQuery( $post_args, 'P4_Post' );
 	$context['posts'] = $pagetype_posts;
 	Timber::render( $templates, $context );
 }
