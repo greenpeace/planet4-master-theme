@@ -26,7 +26,7 @@
 			{% if ( post.author ) %}
 				<span class="search-result-item-author">{{ __( 'by') }}
 					{% if not ( post.author_override ) %}
-						<a href="{{ post.author.path }}">{{ post.author }}</a>
+						<a href="{{ post.author_url }}">{{ post.author }}</a>
 					{% else %}
 						{{ post.author }}
 					{% endif %}
