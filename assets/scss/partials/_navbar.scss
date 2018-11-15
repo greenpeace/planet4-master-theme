@@ -325,6 +325,10 @@ $menu-height-large: 3.75rem;
       line-height: 2.8125rem;
       font-size: 1rem;
       margin: 0.5em 0;
+
+      html[dir="rtl"] & {
+        padding: 0 50px 0 40px;
+      }
     }
 
     .active .nav-link,
@@ -651,8 +655,17 @@ $menu-height-large: 3.75rem;
     &:first-child {
       padding-left: 50px;
 
+      html[dir="rtl"] & {
+        padding-left: 0;
+        padding-right: 50px;
+      }
+
       @include large-and-up {
         padding-left: 0;
+
+        html[dir="rtl"] & {
+          padding-right: 0;
+        }
       }
     }
 
