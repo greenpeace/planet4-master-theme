@@ -24,6 +24,8 @@
     min-width: 45%;
     border-color: $orange;
     color: $orange;
+    padding-left: 0;
+    padding-right: 0;
 
     &:hover {
       background: transparent;
@@ -34,6 +36,8 @@
   .applybtn {
     width: 50%;
     float: right;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .closebtn {
