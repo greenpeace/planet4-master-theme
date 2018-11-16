@@ -5,8 +5,6 @@
 
 		<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
 			<div class="search-result-tags top-page-tags">
-				{{ post.get_author_override }}
-
 				{% for page_type in post.get_custom_terms %}
 					<a href="{{ fn('get_term_link', page_type.term_id, 'p4-page-type') }}" class="search-result-item-head no-btn tag-item tag-item--main page-type">{{ page_type.name|e('wp_kses_post')|raw }}</a>
 				{% endfor %}
@@ -23,7 +21,7 @@
 			<a href="{{ post.link() }}" class="search-result-item-headline">{{ post.title|e('wp_kses_post')|raw }}</a>
 
 			<div class="search-result-item-info">
-				<span class="search-result-item-date">{{ post.post_date|date('d/m/Y') }}</span>
+				<span class="search-result-item-date">{{ post.post_date|date }}</span>
 			</div>
 
 			<p class="search-result-item-content">{{ post.preview()|truncate( 25, true )|raw }}</p>

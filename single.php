@@ -26,7 +26,6 @@ $post->set_issues_links();
 // Author override parameter. If this is set then the author profile section will not be displayed.
 $page_meta_data                 = get_post_meta( $post->ID );
 $page_terms_data                = get_the_terms( $post, 'p4-page-type' );
-$context['author_override']     = $page_meta_data['p4_author_override'][0] ?? '';
 $context['background_image']    = $page_meta_data['p4_background_image_override'][0] ?? '';
 $take_action_page               = $page_meta_data['p4_take_action_page'][0] ?? '';
 $context['page_type']           = $page_terms_data[0]->name ?? '';
