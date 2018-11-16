@@ -1,23 +1,21 @@
 <?php
 
+use Timber\Post as TimberPost;
+use Timber\Term as TimberTerm;
 
 if ( ! class_exists( 'P4_Post' ) ) {
 
 	/**
-	 * Class P4_Post extends Timber\Post to add planet4 specific functionality.
+	 * Class P4_Post extends TimberPost to add planet4 specific functionality.
 	 */
-	class P4_Post extends \Timber\Post {
+	class P4_Post extends TimberPost {
 
 		/** @var array $issues_nav_data */
 		protected $issues_nav_data;
-		/** @var array $tags */
-		public $tags;
-		/** @var string $page_type */
-		protected $page_type;
-		/** @var int $page_type_id */
-		protected $page_type_id;
 		/** @var string $content_type */
 		protected $content_type;
+		/** @var TimberTerm[] $page_types */
+		protected $page_types;
 
 		/**
 		 * Checks if post is the act page.
@@ -164,42 +162,18 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		}
 
 		/**
-		 * Gets the tags for this P4_Post.
-		 */
-		public function set_tags() {
-			$tags = wp_get_post_tags( $this->id );
-
-			if ( $tags && ! is_wp_error( $tags ) ) {
-				foreach ( $tags as $tag ) {
-					$this->tags[] = [
-						'name' => $tag->name,
-						'href' => get_tag_link( $tag->term_id ),
-					];
-				}
-			}
-		}
-
-		/**
-		 * Gets the tags for this P4_Post.
-		 */
-		public function get_tags() {
-			$this->tags;
-		}
-
-		/**
-		 * Sets the page type for this P4_Post.
+		 * Sets the page types for this P4_Post.
 		 */
 		public function set_page_types() {
-			$page_type_data = get_the_terms( $this->id, P4_Custom_Taxonomy::TAXONOMY );
+			$taxonomies = $this->get_terms( P4_Custom_Taxonomy::TAXONOMY );
 
-			if ( $page_type_data && ! is_wp_error( $page_type_data ) ) {
-				$this->page_type    = $page_type_data[0]->name;
-				$this->page_type_id = $page_type_data[0]->term_id;
+			if ( $taxonomies && ! is_wp_error( $taxonomies ) ) {
+				$this->page_types = $taxonomies;
 			}
 		}
 
 		/**
-		 * Gets the page type of this P4_Post.
+		 * Gets the page types of this P4_Post.
 		 */
 		public function get_page_types() {
 			return $this->page_types;
