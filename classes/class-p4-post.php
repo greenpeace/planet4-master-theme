@@ -16,6 +16,19 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		protected $content_type;
 		/** @var TimberTerm[] $page_types */
 		protected $page_types;
+		/** @var P4_User $author */
+		protected $author;
+
+		/**
+		 * P4_Post constructor.
+		 *
+		 * @param mixed $pid The post id. If left null it will try to figure out the current post id based on being inside The_Loop.
+		 */
+		public function __construct( $pid = null ) {
+			parent::__construct( $pid );
+			$this->set_page_types();
+			$this->set_author();
+		}
 
 		/**
 		 * Checks if post is the act page.
@@ -268,18 +281,24 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		}
 
 		/**
-		 * Overrides parent function author in case `author_override` is set,
-		 * returns a fake author mimicking the interface of \Timber\User.
-		 *
-		 * @return P4_FakeUser()
+		 * Sets the P4_User author of this P4_Post.
 		 */
-		public function author() {
+		public function set_author() {
 			$author_override = get_post_meta( $this->id, 'p4_author_override', true );
-			if ($author_override) {
-				return new P4_FakeUser($author_override);
+			if ( '' !== $author_override ) {
+				$this->author = new P4_User( false, $author_override );     // Create fake P4_User.
 			} else {
-				return parent::author();
+				$this->author = new P4_User( (int) $this->post_author );
 			}
+		}
+
+		/**
+		 * Gets the P4_User author of this P4_Post.
+		 *
+		 * @return P4_User
+		 */
+		public function get_author() {
+			return $this->author;
 		}
 	}
 }
