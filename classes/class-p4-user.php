@@ -58,9 +58,9 @@ if ( ! class_exists( 'P4_User' ) ) {
 		/**
 		 * Author display name.
 		 *
-		 * @return string
+		 * @return null|string
 		 */
-		public function name() : string {
+		public function name() {
 			if ( $this->is_fake ) {
 				return $this->display_name;
 			} else {
@@ -73,7 +73,7 @@ if ( ! class_exists( 'P4_User' ) ) {
 		 *
 		 * @return null|string
 		 */
-		public function description() : string {
+		public function description() {
 			if ( $this->is_fake ) {
 				return null;
 			} else {
@@ -84,9 +84,9 @@ if ( ! class_exists( 'P4_User' ) ) {
 		/**
 		 * Stringifies the P4_User object.
 		 *
-		 * @return string
+		 * @return null|string
 		 */
-		public function __toString() : string {
+		public function __toString() {
 			if ( $this->is_fake ) {
 				return $this->name();
 			} else {
