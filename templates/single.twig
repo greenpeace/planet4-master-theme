@@ -39,7 +39,11 @@
 						<div class="single-post-meta">
 							<address class="single-post-author">
 								{{ __( 'by', 'planet4-master-theme' ) }}
-								<a href="{{ post.author.path }}">{{ post.author.name }}</a>
+								{% if not ( post.get_author_override ) %}
+									<a href="{{ post.author.path }}">{{ post.author.name }}</a>
+								{% else %}
+									{{ post.author.name }}
+								{% endif %}
 							</address>
 							<time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
 							{% if ( show_comments ) %}
