@@ -21,6 +21,8 @@ $post_args = [
 	'posts_per_page' => 10,
 	'post_type'      => 'post',
 	'paged'          => 1,
+	'meta_key'       => 'p4_author_override',
+	'meta_compare'   => 'NOT EXISTS'
 ];
 
 if ( isset( $wp_query->query_vars['author'] ) ) {

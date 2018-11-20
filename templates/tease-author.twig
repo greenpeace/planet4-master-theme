@@ -1,31 +1,29 @@
-{% if not (post.author.is_fake) %}
-	<li id="result-row-{{ post.ID }}" class="media search-result-list-item">
-		<img class="d-flex search-result-item-image" src="{{ post.thumbnail.src('thumbnail') }}"
-			alt="{{ fn('esc_attr', post.thumbnail.alt|default( post.title ) )|raw }}" />
+<li id="result-row-{{ post.ID }}" class="media search-result-list-item">
+	<img class="d-flex search-result-item-image" src="{{ post.thumbnail.src('thumbnail') }}"
+		alt="{{ fn('esc_attr', post.thumbnail.alt|default( post.title ) )|raw }}" />
 
-		<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
-			<div class="search-result-tags top-page-tags">
-				{% for page_type in post.get_custom_terms %}
-					<a href="{{ fn('get_term_link', page_type.term_id, 'p4-page-type') }}" class="search-result-item-head no-btn tag-item tag-item--main page-type">{{ page_type.name|e('wp_kses_post')|raw }}</a>
-				{% endfor %}
+	<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
+		<div class="search-result-tags top-page-tags">
+			{% for page_type in post.get_custom_terms %}
+				<a href="{{ fn('get_term_link', page_type.term_id, 'p4-page-type') }}" class="search-result-item-head no-btn tag-item tag-item--main page-type">{{ page_type.name|e('wp_kses_post')|raw }}</a>
+			{% endfor %}
 
-				{% if (post.tags) %}
-					<div class="tag-wrap tags">
-						{% for tag in post.tags %}
-							<a href="{{ tag.link }}" class="search-result-item-tag tag-item tag">#{{ tag.name|e('wp_kses_post')|raw }}</a>
-						{% endfor %}
-					</div>
-				{% endif %}
-			</div>
-
-			<a href="{{ post.link() }}" class="search-result-item-headline">{{ post.title|e('wp_kses_post')|raw }}</a>
-
-			<div class="search-result-item-info">
-				<span class="search-result-item-date">{{ post.post_date|date }}</span>
-			</div>
-
-			<p class="search-result-item-content">{{ post.preview()|truncate( 25, true )|raw }}</p>
-
+			{% if (post.tags) %}
+				<div class="tag-wrap tags">
+					{% for tag in post.tags %}
+						<a href="{{ tag.link }}" class="search-result-item-tag tag-item tag">#{{ tag.name|e('wp_kses_post')|raw }}</a>
+					{% endfor %}
+				</div>
+			{% endif %}
 		</div>
-	</li>
-{% endif %}
+
+		<a href="{{ post.link() }}" class="search-result-item-headline">{{ post.title|e('wp_kses_post')|raw }}</a>
+
+		<div class="search-result-item-info">
+			<span class="search-result-item-date">{{ post.post_date|date }}</span>
+		</div>
+
+		<p class="search-result-item-content">{{ post.preview()|truncate( 25, true )|raw }}</p>
+
+	</div>
+</li>
