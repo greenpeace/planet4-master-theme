@@ -18,7 +18,7 @@ $context              = Timber::get_context();
 $context['page_type'] = get_queried_object();
 $context['wp_title']  = $context['page_type']->name;
 
-wp_register_script( 'load_more', get_template_directory_uri() . '/assets/js/load_more.js', [ 'jquery', 'main' ], '0.0.1', true );
+wp_register_script( 'load_more', get_template_directory_uri() . '/assets/js/load_more.js', [ 'jquery', 'main' ], '0.0.2', true );
 wp_enqueue_script( 'load_more' );
 
 $post_args = [
