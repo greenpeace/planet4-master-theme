@@ -120,15 +120,26 @@
 }
 
 .search-result-item-body {
+  .search-result-item-flex-title {
+    @include medium-and-up {
+      display: flex;
+    }
+    width: 100%;
+
+    div:first-child {
+      width: 100%;
+    }
+  }
+
   .btn-secondary {
     width: 100%;
 
     @include medium-and-up {
       width: auto;
-      position: absolute;
-      top: 20px;
-      right: 0;
+      position: relative;
+      top: 5px;
       padding: 0 15px;
+      margin-left: 12px;
     }
 
     i {

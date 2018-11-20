@@ -26,5 +26,18 @@
 				</ul>
 			</div>
 		</div>
+
+		{% if posts.pagination.total > 1 %}
+			<div class="row">
+				<div class="col-lg-8">
+					<button
+						data-content=".multiple-search-result .list-unstyled"
+						data-page="1"
+						data-total="{{ posts.pagination.total }}"
+						data-url="{{ fn('get_term_link', page_type.term_id, 'p4-page-type') }}"
+						class="load-more-mt btn btn-medium btn-small btn-secondary mb-5">{{ __( 'Load More', 'planet4-master-theme' ) }}</button>
+				</div>
+			</div>
+		{% endif %}
 	</div>
 {% endblock %}

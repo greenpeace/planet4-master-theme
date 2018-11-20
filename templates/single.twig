@@ -37,19 +37,12 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="single-post-meta">
-							{% if ( author_override ) %}
-								{% set author_name = author_override %}
-								{% set author_url = "#" %}
-							{% else %}
-								{% set author_name = post.author.name %}
-								{% set author_url = post.author.path %}
-							{% endif %}
 							<address class="single-post-author">
 								{{ __( 'by', 'planet4-master-theme' ) }}
-								{% if not (author_override) %}
-									<a href="{{ author_url }}">{{ author_name }}</a>
+								{% if not ( post.get_author_override ) %}
+									<a href="{{ post.author.path }}">{{ post.author.name }}</a>
 								{% else %}
-									{{ author_name }}
+									{{ post.author.name }}
 								{% endif %}
 							</address>
 							<time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
@@ -84,7 +77,7 @@
 		</div>
 		<!-- Post Page Block End -->
 
-		{% if ( author_override == '' and post.author.description ) %}
+		{% if ( post.author.name and post.author.description ) %}
 			{% include "blocks/author_profile.twig" with {post:post} %}
 		{% endif %}
 

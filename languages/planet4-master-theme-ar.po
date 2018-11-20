@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-11-06 15:53+0000\n"
+"PO-Revision-Date: 2018-11-15 15:51+0000\n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,7 +89,7 @@ msgstr ""
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] "%1$d هي نتيجة '%2$s'"
+msgstr[0] "هي نتيجة"
 msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
@@ -143,7 +143,7 @@ msgstr "انشر"
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr "عرض٪ مزيد من النتائج"
+msgstr "عرض المزيد"
 
 #. Name of the template
 msgid "Evergreen Page"
