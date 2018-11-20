@@ -27,6 +27,9 @@ jQuery(document).ready(function () {
             $( '.media-frame-content:last' ).append( response );
             $( '.ml-media-sidebar' ).hide();
 
+            // Inject ml-media-panel in the attachments browser
+            $( '.ml-media-panel' ).appendTo( $( '.attachments-browser:first-of-type' ) );
+
         }).fail(function ( jqXHR, textStatus, errorThrown ) {
             console.log(errorThrown); //eslint-disable-line no-console
 			$( '.ml_spinner' ).remove();
