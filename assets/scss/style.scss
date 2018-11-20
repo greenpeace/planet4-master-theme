@@ -1,3 +1,4 @@
+@charset 'utf-8';
 /*!
 Theme Name: Greenpeace Planet 4 Master Theme
 Theme URI: https://github.com/greenpeace/planet4-master-theme
@@ -11,7 +12,7 @@ Tags: light, accessibility-ready
 Text Domain: planet4-master-theme
 */
 
-// Gloabal
+// Global
 @import "global/variables";
 @import "global/functions";
 @import "global/mixins";
@@ -63,3 +64,6 @@ Text Domain: planet4-master-theme
 
 // Body
 @import "common/body";
+
+// else
+@import "global/shame";

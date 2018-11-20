@@ -1,23 +1,24 @@
 {
-	"name": "planet4-master-theme",
-	"version": "0.1.2",
-	"description": "Master theme for the Planet 4 Wordpress project",
-	"repository": "git@github.com:greenpeace/planet4-master-theme.git",
-	"author": "Greenpeace International",
-	"license": "MIT",
-	"devDependencies": {
-		"backstopjs": "^3.5.2",
-		"gulp": "^3.9.1",
-		"gulp-clean-css": "^3.10.0",
-		"gulp-concat": "^2.6.1",
-		"gulp-eslint": "^4.0.2",
-		"gulp-livereload": "^4.0.0",
-		"gulp-notify": "^3.2.0",
-		"gulp-plumber": "^1.2.0",
-		"gulp-sass": "^4.0.1",
-		"gulp-sourcemaps": "^2.6.4",
-		"gulp-stylelint": "^7.0.0",
-		"gulp-uglify-es": "^1.0.4",
-		"stylelint": "^9.5.0"
-	}
+  "name": "planet4-master-theme",
+  "version": "0.1.2",
+  "description": "Master theme for the Planet 4 Wordpress project",
+  "repository": "git@github.com:greenpeace/planet4-master-theme.git",
+  "author": "Greenpeace International",
+  "license": "MIT",
+  "devDependencies": {
+    "backstopjs": "^3.5.2",
+    "grunt": "^1.0.3",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.10.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-eslint": "^4.0.2",
+    "gulp-livereload": "^4.0.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-stylelint": "^7.0.0",
+    "gulp-uglify-es": "^1.0.4",
+    "stylelint": "^9.7.0"
+  }
 }
