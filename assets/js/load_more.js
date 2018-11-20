@@ -3,10 +3,10 @@ load_more.off('click').on('click', function (e) {
   e.preventDefault();
 
   const $content = $( this.dataset.content );
-  const nextPage = parseInt(this.dataset.page) + 1;
-  const totalPages = parseInt(this.dataset.total);
-  const url = this.dataset.url + `?page=${ nextPage }`;
-  this.dataset.page = nextPage;
+  const next_page = parseInt(this.dataset.page) + 1;
+  const total_pages = parseInt(this.dataset.total);
+  const url = this.dataset.url + `?page=${ next_page }`;
+  this.dataset.page = next_page;
 
   $.ajax({
     url: url,
@@ -19,7 +19,7 @@ load_more.off('click').on('click', function (e) {
     console.log(errorThrown); //eslint-disable-line no-console
   });
 
-  if (nextPage === totalPages) {
-	  load_more.fadeOut();
+  if (next_page === total_pages) {
+    load_more.fadeOut();
   }
 });
