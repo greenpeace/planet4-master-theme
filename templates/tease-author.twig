@@ -1,4 +1,4 @@
-{% if not (post.get_author_override) %}
+{% if not (post.author.is_fake) %}
 	<li id="result-row-{{ post.ID }}" class="media search-result-list-item">
 		<img class="d-flex search-result-item-image" src="{{ post.thumbnail.src('thumbnail') }}"
 			alt="{{ fn('esc_attr', post.thumbnail.alt|default( post.title ) )|raw }}" />
