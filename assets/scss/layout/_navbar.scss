@@ -53,7 +53,7 @@ $menu-height-large: 3.75rem;
 .nav-item,
 .nav-link {
   line-height: $menu-height-small;
-  padding: 0 15px;
+  @include padding(0, $n15, 0, $n15);
 
   @include medium-and-up {
     line-height: $menu-height-large;
@@ -529,7 +529,6 @@ $menu-height-large: 3.75rem;
   background: $x-dark-blue;
   line-height: 1.5;
   padding: 1.4em 0;
-  margin-top: -1px;
   overflow-y: hidden;
 
   html[dir="rtl"] & {
@@ -558,7 +557,7 @@ $menu-height-large: 3.75rem;
     line-height: 1.5;
     font-weight: bold;
     color: $grey-40;
-    margin-left: -1.5em;
+    @include margin($left: $n25);
 
     html[dir="rtl"] & {
       margin-left: 0;
@@ -567,11 +566,11 @@ $menu-height-large: 3.75rem;
     }
 
     @include large-and-up {
-      margin-left: -2em;
+      margin-left: -#{$n25};
 
       html[dir="rtl"] & {
         margin-left: 0;
-        margin-right: -2em;
+        margin-right: -#{$n25};
       }
     }
   }
