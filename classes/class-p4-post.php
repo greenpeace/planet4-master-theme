@@ -1,15 +1,34 @@
 <?php
 
+use Timber\Post as TimberPost;
+use Timber\Term as TimberTerm;
 
 if ( ! class_exists( 'P4_Post' ) ) {
 
 	/**
-	 * Class P4_Post extends Timber\Post to add planet4 specific functionality.
+	 * Class P4_Post extends TimberPost to add planet4 specific functionality.
 	 */
-	class P4_Post extends \Timber\Post {
+	class P4_Post extends TimberPost {
 
 		/** @var array $issues_nav_data */
 		protected $issues_nav_data;
+		/** @var string $content_type */
+		protected $content_type;
+		/** @var TimberTerm[] $page_types */
+		protected $page_types;
+		/** @var P4_User $author */
+		protected $author;
+
+		/**
+		 * P4_Post constructor.
+		 *
+		 * @param mixed $pid The post id. If left null it will try to figure out the current post id based on being inside The_Loop.
+		 */
+		public function __construct( $pid = null ) {
+			parent::__construct( $pid );
+			$this->set_page_types();
+			$this->set_author();
+		}
 
 		/**
 		 * Checks if post is the act page.
@@ -143,28 +162,52 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		}
 
 		/**
+		 * Sets the page types for this P4_Post.
+		 */
+		public function set_page_types() {
+			$taxonomies = $this->get_terms( P4_Custom_Taxonomy::TAXONOMY );
+
+			if ( $taxonomies && ! is_wp_error( $taxonomies ) ) {
+				$this->page_types = $taxonomies;
+			}
+		}
+
+		/**
+		 * Gets the page types of this P4_Post.
+		 */
+		public function get_page_types() {
+			return $this->page_types;
+		}
+
+		/**
+		 * Sets post/page custom planet4 type.
+		 * ACTION, DOCUMENT, PAGE, POST
+		 */
+		public function set_content_type() {
+			switch ( $this->post_type ) {
+				case 'page':
+					if ( $this->is_take_action_page() ) {
+						$this->content_type = __( 'ACTION', 'planet4-master-theme' );
+					} else {
+						$this->content_type = __( 'PAGE', 'planet4-master-theme' );
+					}
+					break;
+				case 'attachment':
+					$this->content_type = __( 'DOCUMENT', 'planet4-master-theme' );
+					break;
+				default:
+					$this->content_type = __( 'POST', 'planet4-master-theme' );
+			}
+		}
+
+		/**
 		 * Get post/page custom planet4 type.
 		 * ACTION, DOCUMENT, PAGE, POST
 		 *
 		 * @return string
 		 */
-		public function get_custom_type() {
-			switch ( $this->post_type ) {
-				case 'page':
-					if ( $this->is_take_action_page() ) {
-						$content_type_text = __( 'ACTION', 'planet4-master-theme' );
-					} else {
-						$content_type_text = __( 'PAGE', 'planet4-master-theme' );
-					}
-					break;
-				case 'attachment':
-					$content_type_text = __( 'DOCUMENT', 'planet4-master-theme' );
-					break;
-				default:
-					$content_type_text = __( 'POST', 'planet4-master-theme' );
-			}
-
-			return $content_type_text;
+		public function get_content_type() {
+			return $this->content_type;
 		}
 
 		/**
@@ -238,18 +281,24 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		}
 
 		/**
-		 * Overrides parent function author in case `author_override` is set,
-		 * returns a fake author mimicking the interface of \Timber\User.
-		 *
-		 * @return P4_FakeUser()
+		 * Sets the P4_User author of this P4_Post.
 		 */
-		public function author() {
+		public function set_author() {
 			$author_override = get_post_meta( $this->id, 'p4_author_override', true );
-			if ($author_override) {
-				return new P4_FakeUser($author_override);
+			if ( '' !== $author_override ) {
+				$this->author = new P4_User( false, $author_override );     // Create fake P4_User.
 			} else {
-				return parent::author();
+				$this->author = new P4_User( (int) $this->post_author );
 			}
+		}
+
+		/**
+		 * Gets the P4_User author of this P4_Post.
+		 *
+		 * @return P4_User
+		 */
+		public function get_author() {
+			return $this->author;
 		}
 	}
 }

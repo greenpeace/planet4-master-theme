@@ -23,7 +23,11 @@
 		<div class="search-result-item-info">
 			{% if ( post.author ) %}
 				<span class="search-result-item-author">{{ __( 'by') }}
-					<a href="{{ post.author.path }}">{{ post.author }}</a>
+					{% if not ( post.get_author_override ) %}
+						<a href="{{ post.author.path }}">{{ post.author }}</a>
+					{% else %}
+						{{ post.author.name }}
+					{% endif %}
 				</span>
 			{% endif %}
 			<span class="search-result-item-date">{{ post.post_date|date }}</span>
