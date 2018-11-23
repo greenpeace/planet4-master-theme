@@ -22,7 +22,7 @@ $post_args = [
 	'post_type'      => 'post',
 	'paged'          => 1,
 	'meta_key'       => 'p4_author_override',
-	'meta_compare'   => 'NOT EXISTS'
+	'meta_compare'   => 'NOT EXISTS',
 ];
 
 if ( isset( $wp_query->query_vars['author'] ) ) {

@@ -25,6 +25,7 @@ $post_args = [
 	'posts_per_page' => 10,
 	'post_type'      => 'post',
 	'paged'          => 1,
+	'p4-page-type'   => $context['page_type']->slug
 ];
 
 $context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';

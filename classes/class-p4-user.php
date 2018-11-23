@@ -21,7 +21,7 @@ if ( ! class_exists( 'P4_User' ) ) {
 		 * @param string          $author_override The author override display name.
 		 */
 		public function __construct( $uid = false, $author_override = '' ) {
-			if ( is_int( $uid ) ) {
+			if ( ! $author_override ) {
 				parent::__construct( $uid );
 			} else {
 				$this->display_name = $author_override;
@@ -65,19 +65,6 @@ if ( ! class_exists( 'P4_User' ) ) {
 				return $this->display_name;
 			} else {
 				return parent::name();
-			}
-		}
-
-		/**
-		 * Author description.
-		 *
-		 * @return null|string
-		 */
-		public function description() {
-			if ( $this->is_fake ) {
-				return null;
-			} else {
-				return $this->description;
 			}
 		}
 
