@@ -150,7 +150,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 		 */
 		public function save_taxonomy_meta( $term_id ) {
 			// Save the selected page types for this campaign.
-			$selected_page_types = $_POST['p4_page_type'];
+			$selected_page_types = $_POST['p4_page_type'] ?? [];
 			if ( $this->validate_page_types( $selected_page_types ) ) {
 				update_term_meta( $term_id, 'selected_page_types', $selected_page_types );
 			}
