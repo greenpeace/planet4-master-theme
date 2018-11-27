@@ -1,5 +1,5 @@
 const load_more = $('button.load-more-mt');
-load_more.off('click').on('click', function (e) {
+load_more.off('mousedown').on('mousedown', function (e) {
   e.preventDefault();
 
   const $content = $( this.dataset.content );
