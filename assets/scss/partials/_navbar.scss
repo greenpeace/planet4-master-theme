@@ -122,6 +122,11 @@ $menu-height-large: 3.75rem;
   background-size: 28px;
   margin-left: auto;
 
+  &.open {
+    outline: 0;
+    background: url("images/close-icon.svg") center center no-repeat;
+  }
+
   html[dir="rtl"] & {
     margin-left: 11px;
     margin-right: auto;
@@ -410,7 +415,7 @@ $menu-height-large: 3.75rem;
   width: 300px;
   padding: 11px;
   max-width: 80%;
-  background: transparentize($blue-bg, 0.15);
+  background: transparentize($dark-blue, 0.2);
 
   html[dir="rtl"] & {
     right: auto;
@@ -451,7 +456,7 @@ $menu-height-large: 3.75rem;
     top: 11px;
     right: 16px;
     font-size: 1.25rem;
-    line-height: 36px;
+    line-height: 26px;
     color: $dark-blue;
 
     html[dir="rtl"] & {
