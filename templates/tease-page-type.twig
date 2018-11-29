@@ -33,7 +33,7 @@
 			<span class="search-result-item-date">{{ post.post_date|date }}</span>
 		</div>
 
-		<p class="search-result-item-content">{{ post.preview()|truncate( 25, true )|raw }}</p>
+		<p class="search-result-item-content">{{ post.post_excerpt|truncate( 30, true )|e('wp_kses_post')|raw }}</p>
 
 	</div>
 </li>
