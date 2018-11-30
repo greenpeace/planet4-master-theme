@@ -1,0 +1,30 @@
+blockquote.twitter-tweet {
+  margin: 60px 0;
+  padding-left: 30px;
+  border-left: 4px solid $grey-20;
+  display: inline-block;
+
+  @include medium-and-up {
+    padding-left: 70px;
+  }
+
+  p {
+    font-size: 1.375rem;
+    line-height: 1.6;
+    margin: 0;
+
+    &:first-child {
+      margin-bottom: 10px;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    outline: 0 none;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+}

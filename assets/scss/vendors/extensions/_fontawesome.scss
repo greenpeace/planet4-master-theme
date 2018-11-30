@@ -1,0 +1,8 @@
+// Backwards compatibility with Font-Awesome
+.fas,
+.fab {
+  display: inline-block;
+  font: normal normal normal 14px/1 ForkAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+}
