@@ -21,15 +21,17 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		 */
 		public function hooks() {
 			// Display the Control Panel only to Administrators.
-			if ( ! current_user_can( 'manage_options' ) ) {
-				return;
+			if ( current_user_can( 'manage_options' ) || current_user_can( 'editor' ) ) {
+				add_action( 'wp_dashboard_setup',              array( $this, 'add_dashboard_widgets' ), 9 );
+				add_action( 'wp_ajax_flush_cache',             array( $this, 'flush_cache' ) );
+				add_action( 'wp_ajax_check_cache',             array( $this, 'check_cache' ) );
+				add_action( 'admin_enqueue_scripts',           array( $this, 'enqueue_admin_assets' ) );
 			}
-			add_action( 'wp_dashboard_setup',              array( $this, 'add_dashboard_widgets' ), 9 );
-			add_action( 'wp_ajax_flush_cache',             array( $this, 'flush_cache' ) );
-			add_action( 'wp_ajax_check_cache',             array( $this, 'check_cache' ) );
-			add_action( 'wp_ajax_check_engaging_networks', array( $this, 'check_engaging_networks' ) );
-			add_action( 'wp_ajax_check_search_indexer',    array( $this, 'check_search_indexer' ) );
-			add_action( 'admin_enqueue_scripts',           array( $this, 'enqueue_admin_assets' ) );
+
+			if ( current_user_can( 'manage_options' ) ) {
+				add_action( 'wp_ajax_check_engaging_networks', array( $this, 'check_engaging_networks' ) );
+				add_action( 'wp_ajax_check_search_indexer',    array( $this, 'check_search_indexer' ) );
+			}
 		}
 
 		/**
@@ -44,45 +46,49 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		}
 
 		/**
-		 * Adds items to the Control Panel.s
+		 * Adds items to the Control Panel.
 		 */
 		public function add_items() {
 			wp_nonce_field( 'cp-action' );
 
-			$this->add_item( [
-				'title'    => __( 'Cache', 'planet4-master-theme-backend' ),
-				'subitems' => [
-					[
-						'title'   => __( 'Flush Object Cache', 'planet4-master-theme-backend' ),
-						'action'  => 'flush_cache',
-						'confirm' => __( 'Are you sure you want to delete all Object Cache keys?', 'planet4-master-theme-backend' ),
+			if ( current_user_can( 'manage_options' ) || current_user_can( 'editor' ) ) {
+				$this->add_item( [
+					'title'    => __( 'Cache', 'planet4-master-theme-backend' ),
+					'subitems' => [
+						[
+							'title'   => __( 'Flush Object Cache', 'planet4-master-theme-backend' ),
+							'action'  => 'flush_cache',
+							'confirm' => __( 'Are you sure you want to delete all Object Cache keys?', 'planet4-master-theme-backend' ),
+						],
+						[
+							'title'  => __( 'Check Object Cache', 'planet4-master-theme-backend' ),
+							'action' => 'check_cache',
+						],
 					],
-					[
-						'title'  => __( 'Check Object Cache', 'planet4-master-theme-backend' ),
-						'action' => 'check_cache',
-					],
-				],
-			] );
+				] );
+			}
 
-			$this->add_item( [
-				'title'    => __( 'Engaging Networks', 'planet4-master-theme-backend' ),
-				'subitems' => [
-					[
-						'title'  => __( 'Check Engaging Networks', 'planet4-master-theme-backend' ),
-						'action' => 'check_engaging_networks',
+			if ( current_user_can( 'manage_options' ) ) {
+				$this->add_item( [
+					'title'    => __( 'Engaging Networks', 'planet4-master-theme-backend' ),
+					'subitems' => [
+						[
+							'title'  => __( 'Check Engaging Networks', 'planet4-master-theme-backend' ),
+							'action' => 'check_engaging_networks',
+						],
 					],
-				],
-			] );
+				] );
 
-			$this->add_item( [
-				'title'    => __( 'Search', 'planet4-master-theme-backend' ),
-				'subitems' => [
-					[
-						'title'  => __( 'Check Search Indexer', 'planet4-master-theme-backend' ),
-						'action' => 'check_search_indexer',
+				$this->add_item( [
+					'title'    => __( 'Search', 'planet4-master-theme-backend' ),
+					'subitems' => [
+						[
+							'title'  => __( 'Check Search Indexer', 'planet4-master-theme-backend' ),
+							'action' => 'check_search_indexer',
+						],
 					],
-				],
-			] );
+				] );
+			}
 		}
 
 		/**
@@ -107,13 +113,11 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		 * Adds a flush cache button to delete all keys in Redis database.
 		 */
 		public function flush_cache() {
+			if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'editor' ) ) return;
+
 			// If this is an ajax call.
 			if ( wp_doing_ajax() ) {
 				// Allow this action only to Administrators.
-				if ( ! current_user_can( 'manage_options' ) ) {
-					return;
-				}
-
 				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce',  FILTER_SANITIZE_STRING );
 				$cp_action = filter_input( INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING );
 
@@ -142,12 +146,11 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		 * Adds a check cache button to check connectivity to the Redis server.
 		 */
 		public function check_cache() {
+			if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'editor' ) ) return;
+
 			// If this is an ajax call.
 			if ( wp_doing_ajax() ) {
 				// Allow this action only to Administrators.
-				if ( ! current_user_can( 'manage_options' ) ) {
-					return;
-				}
 				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce',  FILTER_SANITIZE_STRING );
 				$cp_action = filter_input( INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING );
 
