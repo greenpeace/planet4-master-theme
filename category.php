@@ -1,8 +1,7 @@
 <?php
 /**
- * The template for displaying Taxonomy pages.
+ * The template for displaying Categories.
  *
- * Used to display taxonomy-type pages
  *
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
@@ -18,14 +17,14 @@ $context             = Timber::get_context();
 $context['taxonomy'] = get_queried_object();
 $context['wp_title'] = $context['taxonomy']->name;
 
-wp_register_script( 'load_more', get_template_directory_uri() . '/assets/js/load_more.js', [ 'jquery', 'main' ], '0.0.2', true );
+wp_register_script( 'load_more', get_template_directory_uri() . '/assets/js/load_more.js', [ 'jquery', 'main' ], '0.0.1', true );
 wp_enqueue_script( 'load_more' );
 
 $post_args = [
+	'cat'            => $context['taxonomy']->term_id,
 	'posts_per_page' => 10,
 	'post_type'      => 'post',
 	'paged'          => 1,
-	'p4-page-type'   => $context['taxonomy']->slug
 ];
 
 $context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';
