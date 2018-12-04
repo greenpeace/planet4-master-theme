@@ -34,6 +34,16 @@ class P4_TestCase extends WP_UnitTestCase {
 			'user_login' => 'p4_editor',
 		] );
 
+		// Create a user with editor role.
+		$this->factory->user->create( [
+			'role'       => 'author',
+			'user_login' => 'p4_author',
+		] );
+
+		// Get admin user.
+		$user = get_user_by( 'login', 'admin' );
+		wp_set_current_user( $user->ID );
+
 		// Create Act & Explore pages
 		// Accepts the same arguments as wp_insert_post.
 		$act_page_id = $this->factory->post->create( [
@@ -71,22 +81,32 @@ class P4_TestCase extends WP_UnitTestCase {
 		                             ecosystems for the climate and for biodiversity.',
 		] );
 
+		// Create tag.
+		$this->factory->tag->create(
+			[
+				'name'     => 'ArcticSunrise',
+				'slug'     => 'arcticsunrise',
+			]
+		);
+
 		// Create p4-page-type terms.
-		$term_id = $this->factory->term->create( [
+		$this->factory->term->create( [
 			'name'     => 'Story',
 			'taxonomy' => 'p4-page-type',
 			'slug'     => 'story',
 		] );
-		$term_id = $this->factory->term->create( [
+		$this->factory->term->create( [
 			'name'     => 'Publication',
 			'taxonomy' => 'p4-page-type',
 			'slug'     => 'publication',
 		] );
-		$term_id = $this->factory->term->create( [
+		$this->factory->term->create( [
 			'name'     => 'Press Release',
 			'taxonomy' => 'p4-page-type',
 			'slug'     => 'press-release',
 		] );
+
+		wp_set_current_user( 0 );
 	}
 
 }
