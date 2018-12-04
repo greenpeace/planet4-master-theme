@@ -1,10 +1,9 @@
 <?php
 /**
- * The Template for displaying all single posts
+ * Placeholder file to avoid this error:
+ * "Notice: Theme without sidebar.php is deprecated since
+ *  version 3.0.0 with no alternative available.
+ *  Please include a sidebar.php template in your theme."
  *
- *
- * @package  WordPress
- * @subpackage  Timber
+ * No output.
  */
-
-Timber::render( array( 'sidebar.twig' ), $data );

@@ -40,6 +40,10 @@
         padding-bottom: 32px;
       }
 
+      @include mobile-only {
+        margin: 0;
+      }
+
       .search-hover {
         text-decoration: underline;
       }

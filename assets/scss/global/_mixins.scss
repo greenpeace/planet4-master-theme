@@ -60,9 +60,9 @@
 }
 
 // Create a gradient with hard stops that lines up. Colors layout from top-right to bottom-left.
-@mixin skewed-gradient($color1, $color2, $color3, $color4, $color5) {
+@mixin skewed-gradient($color1, $color2, $color3, $color4, $color5, $angle: 245deg) {
   @include linear-gradient(
-    245deg,
+    $angle,
     #{$color1} 6%,
     #{$color2} 6%,
     #{$color2} 35%,
@@ -75,7 +75,7 @@
 
   @include large-and-up {
     @include linear-gradient(
-      245deg,
+      $angle,
       #{$color1} 15%,
       #{$color2} 15%,
       #{$color2} 45%,
@@ -88,9 +88,9 @@
   }
 }
 
-@mixin detailed-skewed-gradient($color1, $color2, $color3, $color4, $color5, $color6, $color7, $color8) {
+@mixin detailed-skewed-gradient($color1, $color2, $color3, $color4, $color5, $color6, $color7, $color8, $angle: 245deg) {
   @include linear-gradient(
-    245deg,
+    $angle,
     #{$color1} 6%,
     #{$color2} 6%,
     #{$color3} 35%,
@@ -103,7 +103,7 @@
 
   @include large-and-up {
     @include linear-gradient(
-      245deg,
+      $angle,
       #{$color1} 15%,
       #{$color2} 15%,
       #{$color3} 45%,
