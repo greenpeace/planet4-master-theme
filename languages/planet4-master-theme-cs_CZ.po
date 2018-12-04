@@ -3,8 +3,8 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=( n == 1 ) ? 0 : ( n >= 2 && n <= 4 ) ? 1 : "
 "2;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2018-11-05 08:26+0000\n"
-"PO-Revision-Date: 2018-11-06 15:07+0000\n"
+"POT-Creation-Date: 2018-11-29 13:31+0000\n"
+"PO-Revision-Date: 2018-11-29 13:39+0000\n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,19 +17,12 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: lseverov <lseverov@greenpeace.org>\n"
+"Last-Translator: Konstantinos Kokkorogiannis <kkokkoro@greenpeace.org>\n"
 "Language: cs_CZ\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
-"Report-Msgid-Bugs-To: "
-
-#: single.php:34
-msgid "Post page"
-msgstr "Publikovat"
-
-#: single.php:68
-msgid "Leave Your Reply"
-msgstr "Zanech zprávu"
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.2.0; wp-4.9.8"
 
 #: 404.php:16
 msgid "Sorry, we can't find that page!"
@@ -42,27 +35,6 @@ msgstr "Vložte hledaný výraz"
 #: 404.php:18
 msgid "404 Page"
 msgstr "Chyba 404"
-
-#: tag.php:48
-msgid "Unknown Campaign page"
-msgstr "Neznámá stránka kampaně"
-
-#: tag.php:54
-msgid "Things you can do"
-msgstr "Jak se můžeš zapojit"
-
-#: tag.php:55
-msgid "We want you to take action because together we're strong."
-msgstr ""
-"Jedině společně můžeme dosáhnout změny. Přidej se.\n"
-
-#: tag.php:83
-msgid "Related Campaigns"
-msgstr "Související kampaně"
-
-#: tag.php:84
-msgid "This Campaign is not assigned to an Issue"
-msgstr "Tato kampaň není přiřazena k žádnému tématu"
 
 #: functions.php:85
 msgid "Most relevant"
@@ -88,19 +60,48 @@ msgstr "DARUJ"
 msgid "International (English)"
 msgstr "International (English)"
 
-#: classes/class-p4-post.php:168 classes/class-p4-search.php:570
+#: single.php:33
+msgid "Post page"
+msgstr "Publikovat"
+
+#: single.php:67
+msgid "Leave Your Reply"
+msgstr "Zanech zprávu"
+
+#: tag.php:48
+msgid "Unknown Campaign page"
+msgstr "Neznámá stránka kampaně"
+
+#: tag.php:54
+msgid "Things you can do"
+msgstr "Jak se můžeš zapojit"
+
+#: tag.php:55
+msgid "We want you to take action because together we're strong."
+msgstr ""
+"Jedině společně můžeme dosáhnout změny. Přidej se.\n"
+
+#: tag.php:83
+msgid "Related Campaigns"
+msgstr "Související kampaně"
+
+#: tag.php:84
+msgid "This Campaign is not assigned to an Issue"
+msgstr "Tato kampaň není přiřazena k žádnému tématu"
+
+#: classes/class-p4-post.php:190 classes/class-p4-search.php:570
 msgid "ACTION"
 msgstr "AKCE"
 
-#: classes/class-p4-post.php:170 classes/class-p4-search.php:574
+#: classes/class-p4-post.php:192 classes/class-p4-search.php:574
 msgid "PAGE"
 msgstr "STRÁNKA"
 
-#: classes/class-p4-post.php:174 classes/class-p4-search.php:580
+#: classes/class-p4-post.php:196 classes/class-p4-search.php:580
 msgid "DOCUMENT"
 msgstr "DOKUMENT"
 
-#: classes/class-p4-post.php:177 classes/class-p4-search.php:585
+#: classes/class-p4-post.php:199 classes/class-p4-search.php:585
 msgid "POST"
 msgstr "NOVINKA"
 
@@ -171,13 +172,29 @@ msgstr "O Greenpeace"
 msgid "Articles"
 msgstr "Články"
 
-#: templates/author.twig:31
+#: templates/author.twig:33
 msgid "Posts by "
 msgstr "Napsal/a"
 
-#: templates/navigation-bar.twig:11
-msgid "Toggle navigation menu"
-msgstr "Zapnout navigační menu"
+#: templates/author.twig:53 templates/page_type.twig:38
+msgid "Load More"
+msgstr ""
+
+#: templates/base.twig:10
+msgid "Skip to Navigation"
+msgstr "Přejít k navigaci"
+
+#: templates/base.twig:11
+msgid "Skip to Content"
+msgstr "Přejít k obsahu"
+
+#: templates/base.twig:12
+msgid "Skip to Footer"
+msgstr "Přejít k patičce"
+
+#: templates/cookies.twig:8
+msgid "GOT IT!"
+msgstr "Rozumím"
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
@@ -203,9 +220,9 @@ msgstr "Přepnout na formulář"
 msgid "Search"
 msgstr "Hledat"
 
-#: templates/cookies.twig:8
-msgid "GOT IT!"
-msgstr "Rozumím"
+#: templates/page_type.twig:18
+msgid "Results"
+msgstr "Výsledky"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
@@ -299,49 +316,21 @@ msgstr "Řadit podle"
 msgid "Suggested search terms"
 msgstr "Návrh vyhledávání"
 
-#: templates/tease-search.twig:65
-msgid "take action"
-msgstr "Jdu do toho"
-
-#: templates/tease-search.twig:68
-msgid "Download"
-msgstr "Stáhnout"
-
-#: templates/base.twig:10
-msgid "Skip to Navigation"
-msgstr "Přejít k navigaci"
-
-#: templates/base.twig:11
-msgid "Skip to Content"
-msgstr "Přejít k obsahu"
-
-#: templates/base.twig:12
-msgid "Skip to Footer"
-msgstr "Přejít k patičce"
-
-#: templates/single.twig:48
+#: templates/single.twig:41
 msgid "by"
 msgstr " Napsal/a"
 
-#: templates/page_type.twig:18
-msgid "Results"
-msgstr "Výsledky"
+#: templates/tease-search.twig:67
+msgid "take action"
+msgstr "Jdu do toho"
+
+#: templates/tease-search.twig:70
+msgid "Download"
+msgstr "Stáhnout"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
 msgstr "O autorovi"
-
-#: templates/comment_form/comment_field.twig:3
-msgid "Your comment"
-msgstr "Tvůj komentář"
-
-#: templates/comment_form/email_field.twig:3
-msgid "Your email"
-msgstr "Tvůj e-mail"
-
-#: templates/comment_form/author_field.twig:3
-msgid "Your Name"
-msgstr "Tvé jméno"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
