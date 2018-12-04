@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2018-11-05 08:26+0000\n"
+"POT-Creation-Date: 2018-11-29 13:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -22,14 +22,6 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Language: "
 
-#: single.php:34
-msgid "Post page"
-msgstr ""
-
-#: single.php:68
-msgid "Leave Your Reply"
-msgstr ""
-
 #: 404.php:16
 msgid "Sorry, we can't find that page!"
 msgstr ""
@@ -40,26 +32,6 @@ msgstr ""
 
 #: 404.php:18
 msgid "404 Page"
-msgstr ""
-
-#: tag.php:48
-msgid "Unknown Campaign page"
-msgstr ""
-
-#: tag.php:54
-msgid "Things you can do"
-msgstr ""
-
-#: tag.php:55
-msgid "We want you to take action because together we're strong."
-msgstr ""
-
-#: tag.php:83
-msgid "Related Campaigns"
-msgstr ""
-
-#: tag.php:84
-msgid "This Campaign is not assigned to an Issue"
 msgstr ""
 
 #: functions.php:85
@@ -86,19 +58,47 @@ msgstr ""
 msgid "International (English)"
 msgstr ""
 
-#: classes/class-p4-post.php:168 classes/class-p4-search.php:570
+#: single.php:33
+msgid "Post page"
+msgstr ""
+
+#: single.php:67
+msgid "Leave Your Reply"
+msgstr ""
+
+#: tag.php:48
+msgid "Unknown Campaign page"
+msgstr ""
+
+#: tag.php:54
+msgid "Things you can do"
+msgstr ""
+
+#: tag.php:55
+msgid "We want you to take action because together we're strong."
+msgstr ""
+
+#: tag.php:83
+msgid "Related Campaigns"
+msgstr ""
+
+#: tag.php:84
+msgid "This Campaign is not assigned to an Issue"
+msgstr ""
+
+#: classes/class-p4-post.php:190 classes/class-p4-search.php:570
 msgid "ACTION"
 msgstr ""
 
-#: classes/class-p4-post.php:170 classes/class-p4-search.php:574
+#: classes/class-p4-post.php:192 classes/class-p4-search.php:574
 msgid "PAGE"
 msgstr ""
 
-#: classes/class-p4-post.php:174 classes/class-p4-search.php:580
+#: classes/class-p4-post.php:196 classes/class-p4-search.php:580
 msgid "DOCUMENT"
 msgstr ""
 
-#: classes/class-p4-post.php:177 classes/class-p4-search.php:585
+#: classes/class-p4-post.php:199 classes/class-p4-search.php:585
 msgid "POST"
 msgstr ""
 
@@ -167,12 +167,28 @@ msgstr ""
 msgid "Articles"
 msgstr ""
 
-#: templates/author.twig:31
+#: templates/author.twig:33
 msgid "Posts by "
 msgstr ""
 
-#: templates/navigation-bar.twig:11
-msgid "Toggle navigation menu"
+#: templates/author.twig:53 templates/page_type.twig:38
+msgid "Load More"
+msgstr ""
+
+#: templates/base.twig:10
+msgid "Skip to Navigation"
+msgstr ""
+
+#: templates/base.twig:11
+msgid "Skip to Content"
+msgstr ""
+
+#: templates/base.twig:12
+msgid "Skip to Footer"
+msgstr ""
+
+#: templates/cookies.twig:8
+msgid "GOT IT!"
 msgstr ""
 
 #: templates/navigation-bar.twig:13
@@ -199,8 +215,8 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: templates/cookies.twig:8
-msgid "GOT IT!"
+#: templates/page_type.twig:18
+msgid "Results"
 msgstr ""
 
 #: templates/search.twig:15
@@ -295,48 +311,20 @@ msgstr ""
 msgid "Suggested search terms"
 msgstr ""
 
-#: templates/tease-search.twig:65
-msgid "take action"
-msgstr ""
-
-#: templates/tease-search.twig:68
-msgid "Download"
-msgstr ""
-
-#: templates/base.twig:10
-msgid "Skip to Navigation"
-msgstr ""
-
-#: templates/base.twig:11
-msgid "Skip to Content"
-msgstr ""
-
-#: templates/base.twig:12
-msgid "Skip to Footer"
-msgstr ""
-
-#: templates/single.twig:48
+#: templates/single.twig:41
 msgid "by"
 msgstr ""
 
-#: templates/page_type.twig:18
-msgid "Results"
+#: templates/tease-search.twig:67
+msgid "take action"
+msgstr ""
+
+#: templates/tease-search.twig:70
+msgid "Download"
 msgstr ""
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr ""
-
-#: templates/comment_form/comment_field.twig:3
-msgid "Your comment"
-msgstr ""
-
-#: templates/comment_form/email_field.twig:3
-msgid "Your email"
-msgstr ""
-
-#: templates/comment_form/author_field.twig:3
-msgid "Your Name"
 msgstr ""
 
 #. Theme Name of the plugin/theme
