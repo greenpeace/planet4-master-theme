@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-12-06 06:17+0000\n"
+"PO-Revision-Date: 2018-12-06 06:46+0000\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,15 +25,15 @@ msgstr ""
 
 #: single.php:47
 msgid "Post page"
-msgstr ""
+msgstr "投稿ページ"
 
 #: single.php:76
 msgid "Leave Your Reply"
-msgstr ""
+msgstr "あなたの返答を残す"
 
 #: 404.php:30
 msgid "Sorry, we can't find that page!"
-msgstr ""
+msgstr "ページを見つけることができませんでした。"
 
 #: 404.php:31
 msgid "Enter your search term below"
@@ -45,31 +45,31 @@ msgstr "404 page"
 
 #: tag.php:58
 msgid "Unknown Campaign page"
-msgstr ""
+msgstr "該当するキャンペーンページはありません"
 
 #: tag.php:64
 msgid "Things you can do"
-msgstr ""
+msgstr "あなたにできること"
 
 #: tag.php:65
 msgid "We want you to take action because together we're strong."
-msgstr ""
+msgstr "ぜひグリーンピースと一緒に、行動してください。"
 
 #: tag.php:81
 msgid "Related Campaigns"
-msgstr ""
+msgstr "関連するキャンペーン"
 
 #: tag.php:82
 msgid "This Campaign is not assigned to an Issue"
-msgstr ""
+msgstr "このキャンペーンは特定の分野がありません"
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr ""
+msgstr "最も関連性の高い"
 
 #: functions.php:89
 msgid "Most recent"
-msgstr ""
+msgstr "最新"
 
 #: functions.php:287
 msgid "International (English)"
@@ -77,7 +77,7 @@ msgstr "インターナショナル（英語）"
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
-msgstr ""
+msgstr "検索ページ"
 
 #. translators:
 #: classes/class-p4-search.php:412
@@ -105,11 +105,11 @@ msgstr "ドキュメント"
 
 #: classes/class-p4-search.php:486
 msgid "Page"
-msgstr ""
+msgstr "ページ"
 
 #: classes/class-p4-search.php:490
 msgid "Post"
-msgstr ""
+msgstr "投稿"
 
 #: classes/class-p4-search.php:570
 msgid "ACTION"
@@ -117,7 +117,7 @@ msgstr "参加"
 
 #: classes/class-p4-search.php:574
 msgid "PAGE"
-msgstr ""
+msgstr "ページ"
 
 #: classes/class-p4-search.php:580
 msgid "DOCUMENT"
@@ -125,12 +125,12 @@ msgstr "ドキュメント"
 
 #: classes/class-p4-search.php:585
 msgid "POST"
-msgstr ""
+msgstr "投稿"
 
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr ""
+msgstr "検索結果をもっと表示する"
 
 #. Name of the template
 msgid "Evergreen Page"
@@ -138,7 +138,7 @@ msgstr "エバーグリーンページ"
 
 #. Name of the template
 msgid "Sitemap Page"
-msgstr ""
+msgstr "サイトマップ"
 
 #: page-templates/sitemap.php:31
 msgid "Act"
@@ -158,7 +158,7 @@ msgstr "記事"
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
-msgstr ""
+msgstr "メニュー"
 
 #: templates/navigation-bar.twig:18
 msgid "Close Menu"
@@ -167,6 +167,7 @@ msgstr "メニューをとじる"
 #: templates/navigation-bar.twig:27
 msgid "Selected"
 msgstr ""
+"選択済み\n"
 
 #: templates/navigation-bar.twig:28
 msgid "Change Country"
@@ -178,19 +179,19 @@ msgstr "寄付する"
 
 #: templates/navigation-bar.twig:58
 msgid "Toggle search form"
-msgstr ""
+msgstr "Toggle search form"
 
 #: templates/navigation-bar.twig:66 templates/search.twig:44
 msgid "Search"
-msgstr ""
+msgstr "検索する"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr ""
+msgstr "GOT IT!"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr ""
+msgstr "申し訳ありませんが、検索条件に合うコンテンツが見つかりませんでした。"
 
 #: templates/search.twig:17
 msgid "Check for typos, and try your search again"
@@ -198,19 +199,19 @@ msgstr "キーワードを変更し、検索し直してください"
 
 #: templates/search.twig:18
 msgid "Try searching for somthing else"
-msgstr ""
+msgstr "他のキーワードを検索する"
 
 #: templates/search.twig:19
 msgid "Search our archive. You'll be redirected to the archive site."
-msgstr ""
+msgstr "アーカイブを検索する。アーカイブサイトにリダイレクトします。"
 
 #: templates/search.twig:23
 msgid "We also included results for "
-msgstr ""
+msgstr "次の結果を含む"
 
 #: templates/search.twig:37
 msgid "This Site"
-msgstr ""
+msgstr "こちらのウェブサイト"
 
 #: templates/search.twig:38
 msgid "Archive"
@@ -222,11 +223,11 @@ msgstr "フィルター"
 
 #: templates/search.twig:62 templates/search.twig:163
 msgid "Refine your search"
-msgstr ""
+msgstr "検索し直す"
 
 #: templates/search.twig:70
 msgid "ISSUE"
-msgstr ""
+msgstr "分野"
 
 #: templates/search.twig:91
 msgid "CATEGORY"
@@ -258,7 +259,7 @@ msgstr "すベてクリア"
 
 #: templates/search.twig:182
 msgid "Issue"
-msgstr ""
+msgstr "分野"
 
 #: templates/search.twig:201
 msgid "Campaign"
@@ -266,7 +267,7 @@ msgstr "キャンペーン"
 
 #: templates/search.twig:220
 msgid "Category"
-msgstr ""
+msgstr "カテゴリー"
 
 #: templates/search.twig:239
 msgid "Content type"
@@ -274,15 +275,15 @@ msgstr "コンテンツタイプ"
 
 #: templates/search.twig:262
 msgid "Sort by"
-msgstr ""
+msgstr "並べ替える"
 
 #: templates/search.twig:299
 msgid "Suggested search terms"
-msgstr ""
+msgstr "おすすめ検索キーワード"
 
 #: templates/tease-search.twig:62
 msgid "take action"
-msgstr ""
+msgstr "アクションに参加する"
 
 #: templates/tease-search.twig:65
 msgid "Download"
@@ -302,11 +303,11 @@ msgstr "Greenpeace Planet 4 Master Theme"
 
 #. Description of the plugin/theme
 msgid "Master theme for the Planet 4 Wordpress project"
-msgstr ""
+msgstr "Master theme for the Planet 4 Wordpress project"
 
 #. Theme URI of the plugin/theme
 msgid "https://github.com/greenpeace/planet4-master-theme"
-msgstr ""
+msgstr "https://github.com/greenpeace/planet4-master-theme"
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
@@ -314,4 +315,4 @@ msgstr "グリーンピース・インターナショナル"
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/greenpeace"
-msgstr ""
+msgstr "https://github.com/greenpeace"
