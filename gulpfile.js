@@ -12,10 +12,13 @@ const backstop = require('backstopjs');
 const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
 const livereload = require('gulp-livereload');
+const svgsprite = require('gulp-svg-sprite');
 
 const path_js = 'assets/js/partials/*.js';
 const path_scss = 'assets/scss/**/*.scss';
 const path_style = 'assets/scss/style.scss';
+const path_icons = 'images/icons/*.svg';
+const path_img = 'images/';
 const path_dest = './';
 
 let error_handler = {
@@ -23,6 +26,23 @@ let error_handler = {
     title: 'Gulp',
     message: 'Error: <%= error.message %>'
   })
+};
+
+const icons_config = {
+  shape: {
+    dimension: {
+      maxWidth: 64,
+      maxHeight: 64
+    },
+    spacing: {
+      padding: 0,
+      box: 'content'
+    }
+  },
+  mode: {
+    inline: true,
+    symbol: true
+  }
 };
 
 gulp.task('css:lint', () => {
@@ -64,6 +84,13 @@ gulp.task('uglify', function(){
     .pipe(gulp.dest(path_dest))
     .pipe(livereload());
 });
+
+gulp.task('icons', function(){
+  return gulp.src(path_icons)
+    .pipe(svgsprite(icons_config))
+    .pipe(gulp.dest(path_img));
+});
+
 
 gulp.task('watch', function () {
   livereload.listen({'port': 35730});
