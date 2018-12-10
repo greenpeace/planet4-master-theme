@@ -13,15 +13,6 @@ Text Domain: planet4-master-theme
 */
 
 // Global
-//@import "global/variables";
-//@import "global/functions";
-//@import "global/mixins";
-
-// Common
-//@import "common/fonts";
-//@import "common/typography";
-//@import "common/font-icon";
-//@import "common/custom";
 
 @import "base/variables";
 @import "base/functions";
@@ -30,25 +21,14 @@ Text Domain: planet4-master-theme
 @import "base/fonts";
 @import "base/typography";
 @import "base/font-icon";
-@import "common/custom";
+@import "base/custom";
 
 // Modules
-//@import "modules/buttons";
-//@import "modules/forms";
 
 @import "components/buttons";
 @import "components/forms";
 
 // Blocks
-//@import "partials/footer";
-//@import "partials/navbar";
-//@import "partials/page-header";
-//@import "partials/page-section";
-//@import "partials/share-buttons";
-//@import "partials/skewed-overlay";
-//@import "partials/skip-links";
-//@import "partials/tweet-block";
-//@import "partials/breadcrumbs";
 
 @import "layout/footer";
 @import "layout/navbar";
@@ -85,7 +65,7 @@ Text Domain: planet4-master-theme
 @import "pages/search/suggested-terms";
 
 // Body
-@import "common/body";
+@import "base/body";
 
 // vendor overrides
 @import "vendors/extensions/fontawesome";
