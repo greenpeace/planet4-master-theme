@@ -10,22 +10,25 @@
 			<h1 class="page-header-title">{{ author.name }}</h1>
 			<div class="row">
 				<div class="col-lg-7 col-md-8 col-sm-12 author-info">
-					<figure class="author-image">
-						{% if ( author.avatar ) %}
+					{% if ( author.avatar ) %}
+						<figure class="author-image">
 							<img itemprop="image" class="author-pic"
-								src="{{ fn('get_avatar_url', author.id, {'size' : 300}) }}"
-								alt="{{ author.name }}">
-						{% endif %}
-					</figure>
-					{% if ( author.description ) %}
-						<p class="d-none d-md-block author-bio">{{ author.description|e('wp_kses_post')|raw }}</p>
+								 src="{{ fn('get_avatar_url', author.id, {'size' : 300}) }}"
+								 alt="{{ author.name }}">
+						</figure>
 					{% endif %}
 				</div>
 				<div class="col-lg-5 col-md-4 col-sm-12 mt-3 mt-md-0">
 					{% include "blocks/share_buttons.twig" with {post:author} %}
-					<p class="d-md-none author-bio">{{ author.description }}</p>
 				</div>
 			</div>
+			{% if ( author.description ) %}
+				<div class="row">
+					<div class="col-lg-8 col-md-6 col-sm-12 mt-md-0">
+						<p class="d-md-block author-bio">{{ fn('wpautop', author.description)|e('wp_kses_post')|raw }}</p>
+					</div>
+				</div>
+			{% endif %}
 		</div>
 	</header>
 

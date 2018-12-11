@@ -73,7 +73,7 @@
 				</div>
 			</div>
 
-			<p class="search-result-item-content">{{ post.preview().read_more('')|truncate( 25, true )|raw }}</p>
+			<p class="search-result-item-content">{{ post.preview().read_more('')|excerpt( 25 )|raw }}</p>
 		</div>
 	</li>
 {% if ( ( loop.index0 % 5 == 4 ) or loop.last ) %}
