@@ -21,6 +21,8 @@ $(document).ready(function() {
 
     // Toggle visibility of the target specified via data-target.
     $(target).toggleClass(toggleClass);
+    $(this).toggleClass(toggleClass);
+
     // Toggle aria-expanded attribute.
     $button.attr('aria-expanded', function(i, attr) {
       return attr === 'false' ? 'true' : 'false';

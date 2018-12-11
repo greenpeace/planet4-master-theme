@@ -1,5 +1,9 @@
 .search {
   @include linear-gradient(to bottom, transparentize($green-20, .15) 0%, transparentize($grey-10, .5) 100%);
+
+  .multiple-search-result .more-btn {
+    width: auto;
+  }
 }
 
 .search-block {
