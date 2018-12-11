@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2018-11-29 13:31+0000\n"
-"PO-Revision-Date: 2018-12-05 17:38+0000\n"
-"Language-Team: Spanish (Mexico)\n"
+"POT-Creation-Date: 2018-06-08 09:06+0000\n"
+"PO-Revision-Date: 2018-12-06 06:46+0000\n"
+"Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,317 +16,286 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: Gabriel Herrera <gherrera@greenpeace.org>\n"
-"Language: es_MX\n"
+"Last-Translator: Akiko Tsuchiy <atsuchiy@greenpeace.org>\n"
+"Language: ja\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: \n"
 "X-Loco-Version: 2.2.0; wp-4.9.8"
 
-#: 404.php:16
+#: single.php:47
+msgid "Post page"
+msgstr "投稿ページ"
+
+#: single.php:76
+msgid "Leave Your Reply"
+msgstr "あなたの返答を残す"
+
+#: 404.php:30
 msgid "Sorry, we can't find that page!"
-msgstr "Lo sentimos, no pudimos encontrar esa página."
+msgstr "ページを見つけることができませんでした。"
 
-#: 404.php:17
+#: 404.php:31
 msgid "Enter your search term below"
-msgstr "Ingresa tu búsqueda"
+msgstr "検索キーワードを下に入れる"
 
-#: 404.php:18
+#: 404.php:32
 msgid "404 Page"
-msgstr "Página 404"
+msgstr "404 page"
+
+#: tag.php:58
+msgid "Unknown Campaign page"
+msgstr "該当するキャンペーンページはありません"
+
+#: tag.php:64
+msgid "Things you can do"
+msgstr "あなたにできること"
+
+#: tag.php:65
+msgid "We want you to take action because together we're strong."
+msgstr "ぜひグリーンピースと一緒に、行動してください。"
+
+#: tag.php:81
+msgid "Related Campaigns"
+msgstr "関連するキャンペーン"
+
+#: tag.php:82
+msgid "This Campaign is not assigned to an Issue"
+msgstr "このキャンペーンは特定の分野がありません"
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr "Más Relevante"
+msgstr "最も関連性の高い"
 
 #: functions.php:89
 msgid "Most recent"
-msgstr "Más Reciente"
+msgstr "最新"
 
-#: functions.php:247
-msgid "Toggle worldwide site selection menu"
-msgstr ""
-
-#: functions.php:248
-msgid "Toggle search box"
-msgstr ""
-
-#: functions.php:270
-msgid "DONATE"
-msgstr "DONAR"
-
-#: functions.php:271
+#: functions.php:287
 msgid "International (English)"
-msgstr "Internacional (Inglés)"
-
-#: single.php:33
-msgid "Post page"
-msgstr "Página de publicación"
-
-#: single.php:67
-msgid "Leave Your Reply"
-msgstr "Deja tu Comentario"
-
-#: tag.php:48
-msgid "Unknown Campaign page"
-msgstr "Página no encontrada"
-
-#: tag.php:54
-msgid "Things you can do"
-msgstr "¿Qué puedes hacer?"
-
-#: tag.php:55
-msgid "We want you to take action because together we're strong."
-msgstr "Actúa, la unión nos hace más fuertes"
-
-#: tag.php:83
-msgid "Related Campaigns"
-msgstr "Campañas Relacionadas"
-
-#: tag.php:84
-msgid "This Campaign is not assigned to an Issue"
-msgstr "Esta campaña no está asignada a ninguna categoría"
-
-#: classes/class-p4-post.php:190 classes/class-p4-search.php:570
-msgid "ACTION"
-msgstr "ACCIÓN"
-
-#: classes/class-p4-post.php:192 classes/class-p4-search.php:574
-msgid "PAGE"
-msgstr "PÁGINA"
-
-#: classes/class-p4-post.php:196 classes/class-p4-search.php:580
-msgid "DOCUMENT"
-msgstr "DOCUMENTO"
-
-#: classes/class-p4-post.php:199 classes/class-p4-search.php:585
-msgid "POST"
-msgstr "POST"
+msgstr "インターナショナル（英語）"
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
-msgstr "Página de Búsqueda"
+msgstr "検索ページ"
 
 #. translators:
 #: classes/class-p4-search.php:412
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] "%1$d resultados para '%2$s'"
-msgstr[1] "%1$d resultados para '%2$s'"
+msgstr[0] ""
+msgstr[1] ""
 
 #. translators:
 #: classes/class-p4-search.php:418
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] "%d resultados"
-msgstr[1] "%d resultados"
+msgstr[0] ""
+msgstr[1] ""
 
 #: classes/class-p4-search.php:478
 msgid "Action"
-msgstr "Acción"
+msgstr "参加"
 
 #: classes/class-p4-search.php:482
 msgid "Document"
-msgstr "Documento"
+msgstr "ドキュメント"
 
 #: classes/class-p4-search.php:486
 msgid "Page"
-msgstr "Página"
+msgstr "ページ"
 
 #: classes/class-p4-search.php:490
 msgid "Post"
-msgstr "Artículo"
+msgstr "投稿"
+
+#: classes/class-p4-search.php:570
+msgid "ACTION"
+msgstr "参加"
+
+#: classes/class-p4-search.php:574
+msgid "PAGE"
+msgstr "ページ"
+
+#: classes/class-p4-search.php:580
+msgid "DOCUMENT"
+msgstr "ドキュメント"
+
+#: classes/class-p4-search.php:585
+msgid "POST"
+msgstr "投稿"
 
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr "MOSTRAR %s MÁS RESULTADOS"
+msgstr "検索結果をもっと表示する"
 
 #. Name of the template
 msgid "Evergreen Page"
-msgstr "Evergreen Page"
+msgstr "エバーグリーンページ"
 
 #. Name of the template
 msgid "Sitemap Page"
-msgstr "Mapa de sitio"
+msgstr "サイトマップ"
 
-#: page-templates/sitemap.php:18
+#: page-templates/sitemap.php:31
 msgid "Act"
-msgstr "Participa"
+msgstr "参加する"
 
-#: page-templates/sitemap.php:19
+#: page-templates/sitemap.php:32
 msgid "Explore"
-msgstr "Explorar"
+msgstr "もっと知る"
 
-#: page-templates/sitemap.php:20
+#: page-templates/sitemap.php:33
 msgid "About Greenpeace"
-msgstr "Sobre Greenpeace"
+msgstr "グリーンピースについて"
 
-#: page-templates/sitemap.php:21
+#: page-templates/sitemap.php:34
 msgid "Articles"
-msgstr "Artículos"
-
-#: templates/author.twig:33
-msgid "Posts by "
-msgstr "Artículos por"
-
-#: templates/author.twig:53 templates/page_type.twig:38
-msgid "Load More"
-msgstr "Cargar más"
-
-#: templates/base.twig:10
-msgid "Skip to Navigation"
-msgstr "Ir a la navegación"
-
-#: templates/base.twig:11
-msgid "Skip to Content"
-msgstr "Ir al contenido"
-
-#: templates/base.twig:12
-msgid "Skip to Footer"
-msgstr "Ir al pie de página"
-
-#: templates/cookies.twig:8
-msgid "GOT IT!"
-msgstr "ACEPTO"
+msgstr "記事"
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
-msgstr "Menú"
+msgstr "メニュー"
 
 #: templates/navigation-bar.twig:18
 msgid "Close Menu"
-msgstr "Cerrar Menú"
+msgstr "メニューをとじる"
 
 #: templates/navigation-bar.twig:27
 msgid "Selected"
-msgstr "Seleccionado"
+msgstr ""
+"選択済み\n"
 
 #: templates/navigation-bar.twig:28
 msgid "Change Country"
-msgstr "Cambiar País"
+msgstr "国を変更する"
+
+#: templates/navigation-bar.twig:48
+msgid "DONATE"
+msgstr "寄付する"
 
 #: templates/navigation-bar.twig:58
 msgid "Toggle search form"
-msgstr "Cambiar búsqueda"
+msgstr "Toggle search form"
 
 #: templates/navigation-bar.twig:66 templates/search.twig:44
 msgid "Search"
-msgstr "Buscar"
+msgstr "検索する"
 
-#: templates/page_type.twig:18
-msgid "Results"
-msgstr "Resultados"
+#: templates/cookies.twig:8
+msgid "GOT IT!"
+msgstr "GOT IT!"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr "Lo sentimos. No logramos encontrar nada con esos términos."
+msgstr "申し訳ありませんが、検索条件に合うコンテンツが見つかりませんでした。"
 
 #: templates/search.twig:17
 msgid "Check for typos, and try your search again"
-msgstr "Revisa tu busqueda e intenta nuevamente"
+msgstr "キーワードを変更し、検索し直してください"
 
 #: templates/search.twig:18
 msgid "Try searching for somthing else"
-msgstr "Intenta buscar otra cosa"
+msgstr "他のキーワードを検索する"
 
 #: templates/search.twig:19
 msgid "Search our archive. You'll be redirected to the archive site."
-msgstr "Buscar en el archivo. Te dirigiremos a nuestro antiguo sitio."
+msgstr "アーカイブを検索する。アーカイブサイトにリダイレクトします。"
 
 #: templates/search.twig:23
 msgid "We also included results for "
-msgstr "También incluimos resultados para:"
+msgstr "次の結果を含む"
 
 #: templates/search.twig:37
 msgid "This Site"
-msgstr "Este Sitio"
+msgstr "こちらのウェブサイト"
 
 #: templates/search.twig:38
 msgid "Archive"
-msgstr "Archivo"
+msgstr "アーカイブする"
 
 #: templates/search.twig:56
 msgid "Filters"
-msgstr "Filtros"
+msgstr "フィルター"
 
 #: templates/search.twig:62 templates/search.twig:163
 msgid "Refine your search"
-msgstr "Mejora tu Búsqueda"
+msgstr "検索し直す"
 
 #: templates/search.twig:70
 msgid "ISSUE"
-msgstr "Nuestros temas"
+msgstr "分野"
 
 #: templates/search.twig:91
 msgid "CATEGORY"
-msgstr "CATEGORÍA"
+msgstr "カテゴリー"
 
 #: templates/search.twig:112
 msgid "CONTENT TYPES"
-msgstr "TIPOS DE CONTENIDO"
+msgstr "コンテンツタイプ"
 
 #: templates/search.twig:136
 msgid "CAMPAIGN"
-msgstr "CAMPAÑA"
+msgstr "キャンペーン"
 
 #: templates/search.twig:155
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "キャンセル"
 
 #: templates/search.twig:156
 msgid "Apply Filters"
-msgstr "Aplicar Filtros"
+msgstr "フィルターを設定する"
 
 #: templates/search.twig:166
 msgid "ACTIVE FILTERS"
-msgstr "Filtros Activos"
+msgstr "設定中のフィルター"
 
 #: templates/search.twig:175
 msgid "Clear All"
-msgstr "Limpiar Todo"
+msgstr "すベてクリア"
 
 #: templates/search.twig:182
 msgid "Issue"
-msgstr "Issue"
+msgstr "分野"
 
 #: templates/search.twig:201
 msgid "Campaign"
-msgstr "Campaña"
+msgstr "キャンペーン"
 
 #: templates/search.twig:220
 msgid "Category"
-msgstr "Categoría"
+msgstr "カテゴリー"
 
 #: templates/search.twig:239
 msgid "Content type"
-msgstr "Tipo de Contenido"
+msgstr "コンテンツタイプ"
 
 #: templates/search.twig:262
 msgid "Sort by"
-msgstr "Ordenar por"
+msgstr "並べ替える"
 
 #: templates/search.twig:299
 msgid "Suggested search terms"
-msgstr "Términos de búsqueda sugeridos"
+msgstr "おすすめ検索キーワード"
 
-#: templates/single.twig:41
-msgid "by"
-msgstr "por"
-
-#: templates/tease-search.twig:67
+#: templates/tease-search.twig:62
 msgid "take action"
-msgstr "Participa"
+msgstr "アクションに参加する"
 
-#: templates/tease-search.twig:70
+#: templates/tease-search.twig:65
 msgid "Download"
-msgstr "Descargar"
+msgstr "ダウンロードする"
+
+#: templates/single.twig:39
+msgid "by"
+msgstr "ライター"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr "Sobre el Autor"
+msgstr "ライターについて"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
@@ -342,7 +311,7 @@ msgstr "https://github.com/greenpeace/planet4-master-theme"
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
-msgstr "Greenpeace Internacional"
+msgstr "グリーンピース・インターナショナル"
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/greenpeace"
