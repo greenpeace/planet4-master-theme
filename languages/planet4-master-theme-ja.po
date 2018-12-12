@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-12-06 06:46+0000\n"
+"PO-Revision-Date: 2018-12-12 02:04+0000\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -187,7 +187,7 @@ msgstr "検索する"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr "GOT IT!"
+msgstr "許可する"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
