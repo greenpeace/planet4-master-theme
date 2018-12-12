@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2018-12-12 02:04+0000\n"
+"PO-Revision-Date: 2018-12-12 08:51+0000\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +41,7 @@ msgstr "検索キーワードを下に入れる"
 
 #: 404.php:32
 msgid "404 Page"
-msgstr "404 page"
+msgstr "国際環境NGOグリーンピース | 国際環境NGOグリーンピース"
 
 #: tag.php:58
 msgid "Unknown Campaign page"
@@ -84,7 +84,7 @@ msgstr "検索ページ"
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] ""
+msgstr[0] "'%2$s'の検索結果は、%1$d 件です"
 msgstr[1] ""
 
 #. translators:
@@ -92,7 +92,7 @@ msgstr[1] ""
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
+msgstr[0] "%d件"
 msgstr[1] ""
 
 #: classes/class-p4-search.php:478
