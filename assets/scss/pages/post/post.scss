@@ -135,4 +135,24 @@
       }
     }
   }
+
+  .image-zoomer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, .65);
+    z-index: 99999999;
+
+    img {
+      position: absolute;
+      width: 100%;
+      height: auto;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+  }
 }
