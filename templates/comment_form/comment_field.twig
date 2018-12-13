@@ -1,4 +1,5 @@
 <div class="form-group mb-0">
-	<label for="comments-textarea">{{ __( 'Comment' )  }} *</label>
-	<textarea class="form-control" id="comment" name="comment" rows="6" placeholder="{{ __( 'Your Comment', 'planet4-master-theme' )  }}" required></textarea>
+	<label for="comments-textarea">{{ __( 'Comment', 'planet4-master-theme' )  }} *</label>
+	{% set your_comment = __( 'Your Comment', 'planet4-master-theme' ) %}
+	<textarea class="form-control" id="comment" name="comment" rows="6" placeholder="{{ your_comment  }}" required></textarea>
 </div>

@@ -803,7 +803,7 @@ class P4_Master_Site extends TimberSite {
 			return;
 		}
 		add_meta_box( 'restricted_tags_box',
-			__( 'Tags' ),
+			__( 'Tags', 'planet4-master-theme-backend' ),
 			[ $this, 'print_restricted_tags_box' ],
 			[ 'post', 'page' ],
 			'side'
@@ -890,7 +890,7 @@ class P4_Master_Site extends TimberSite {
 
 			return new WP_Error(
 				'disallow_insert_term',
-				__( 'Your role does not have permission to add terms to this taxonomy' )
+				__( 'Your role does not have permission to add terms to this taxonomy', 'planet4-master-theme-backend' )
 			);
 
 		}

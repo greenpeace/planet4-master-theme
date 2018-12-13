@@ -1,4 +1,5 @@
 <div class="form-group mb-0">
-	<label for="comments-email-input">{{ __( 'Email' ) }} *</label>
-	<input type="email" class="form-control" id="email" name="email" placeholder="{{ __( 'Your Email', 'planet4-master-theme' ) }}" required />
+	<label for="comments-email-input">{{ __( 'Email', 'planet4-master-theme' ) }} *</label>
+	{% set your_email = __( 'Your Email', 'planet4-master-theme' ) %}
+	<input type="email" class="form-control" id="email" name="email" placeholder="{{ your_email }}" required />
 </div>
