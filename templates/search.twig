@@ -5,6 +5,7 @@
 	{% set collapsed = posts ? '' : 'collapsed' %}
 	{% set show      = posts ? 'show' : '' %}
 	{% set expanded  = posts ? true : false %}
+	{% set search_label = __( 'Search', 'planet4-master-theme' ) %}
 
 	<div class="search-block">
 		<div class="container">
@@ -28,7 +29,7 @@
 						<form id="search_form_inner" role="search" class="form" action="{{ data_nav_bar.home_url }}">
 							<div class="row">
 								<div class="{{ source_selection ? 'col-md-5' : 'col-md-9' }}">
-									<input type="search" class="form-control mb-2 mb-sm-0" placeholder="{{ __( 'Search', 'planet4-master-theme' ) }}" value="{{ search_query|e('wp_kses_post')|raw }}" name="s" aria-label="Search">
+									<input type="search" class="form-control mb-2 mb-sm-0" placeholder="{{ search_label }}" value="{{ search_query|e('wp_kses_post')|raw }}" name="s" aria-label="Search">
 									<input type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}" />
 								</div>
 								{% if ( source_selection ) %}
