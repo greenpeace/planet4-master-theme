@@ -144,7 +144,17 @@
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, .65);
-    z-index: 99999999;
+    z-index: 750000;
+    cursor: pointer;
+
+    .image-zoomer-close {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      width: 20px;
+      height: 20px;
+      z-index: 850000;
+    }
 
     img {
       position: absolute;
