@@ -42,7 +42,8 @@
 								{% endif %}
 								<div class="col-md-3">
 									<button type="submit" class="btn btn-primary btn-medium search-btn btn-block">
-										<i class="fa fa-search"></i> {{ __('Search', 'planet4-master-theme' ) }}
+										{{ 'search'|svgicon }}
+										{{ __('Search', 'planet4-master-theme' ) }}
 									</button>
 								</div>
 							</div>
@@ -54,14 +55,19 @@
 				<div class="col-lg-4">
 					<div class="filter-sidebar">
 						<div class="filter-button d-lg-none">
-							<button class="btn btn-filter {{ disabled }}"><i class="icon-filter"></i> {{ __( 'Filters', 'planet4-master-theme' ) }}</button>
+							<button class="btn btn-filter {{ disabled }}">
+								{{ 'filter'|svgicon }}
+							 	{{ __( 'Filters', 'planet4-master-theme' ) }}
+							 </button>
 						</div>
 						<div class="modal fade filter-modal" id="filtermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog modal-lg" role="document">
 								<div class="modal-content">
 									<div class="modal-body">
 										<h4 class="modal-title">{{ __( 'Refine your search', 'planet4-master-theme' ) }}</h4>
-										<button type="button" class="closebtn" data-dismiss="modal"><i class="icon-cross"></i></button>
+										<button type="button" class="closebtn" data-dismiss="modal">
+										{{ 'times'|svgicon }}
+										</button>
 										<div class="row">
 											<div class="col-md-6">
 												<div id="filter-sidebar-options-modal">

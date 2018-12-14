@@ -17,7 +17,7 @@
 						{% set search = __( 'Search', 'planet4-master-theme' ) %}
 						<input class="form-control" placeholder="{{ search|e( 'html_attr' ) }}" name="s" aria-label="{{ search|e( 'html_attr' ) }}" type="text">
 						<button class="search-form-btn" type="submit">
-							<i class="fa fa-search"></i>
+							{{ 'search'|svgicon }}
 						</button>
 					</form>
 				</div>

@@ -17,6 +17,7 @@
 		"gulp-sass": "^4.0.1",
 		"gulp-sourcemaps": "^2.6.4",
 		"gulp-stylelint": "^7.0.0",
+		"gulp-svg-sprite": "^1.5.0",
 		"gulp-uglify-es": "^1.0.4",
 		"stylelint": "^9.5.0"
 	}
