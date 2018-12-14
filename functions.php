@@ -354,6 +354,12 @@ class P4_Master_Site extends TimberSite {
 			'src' => true,
 		];
 
+		// Allow source tag for WordPress audio shortcode to function.
+		$allowedposttags['source'] = [
+			'type' => true,
+			'src'  => true,
+		];
+
 		// Allow below tags for carousel slider
 		$allowedposttags['div']['data-ride']    = true;
 		$allowedposttags['li']['data-target']   = true;
