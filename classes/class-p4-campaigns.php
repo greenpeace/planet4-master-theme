@@ -8,6 +8,8 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 
 		/** @var string $taxonomy */
 		private $taxonomy = 'post_tag';
+		/** @var string $post_type */
+		private $post_type = 'campaigns';
 		/** @var array $page_types */
 		public $page_types = [];
 		/** @var array $localizations */
@@ -27,6 +29,9 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 		 * Class hooks.
 		 */
 		private function hooks() {
+
+			add_action( 'init',                                  array( $this, 'register_campaigns_cpt' ) );
+
 			add_action( 'post_tag_add_form_fields',              array( $this, 'add_taxonomy_form_fields' ) );
 			add_action( 'post_tag_edit_form_fields',             array( $this, 'add_taxonomy_form_fields' ) );
 			add_action( 'create_post_tag',                       array( $this, 'save_taxonomy_meta' ) );
@@ -284,6 +289,50 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 			wp_localize_script( $this->taxonomy, 'localizations', $this->localizations );
 			wp_enqueue_script( $this->taxonomy );
 			wp_enqueue_media();
+		}
+
+		/**
+		 * Register campaigns cpt
+		 */
+		public function register_campaigns_cpt() {
+
+			$labels = array(
+				'name'               => _x( 'Campaigns', 'post type general name', 'planet4-master-theme-backend' ),
+				'singular_name'      => _x( 'Campaign', 'post type singular name', 'planet4-master-theme-backend' ),
+				'menu_name'          => _x( 'Campaigns', 'admin menu', 'planet4-master-theme-backend' ),
+				'name_admin_bar'     => _x( 'Campaign', 'add new on admin bar', 'planet4-master-theme-backend' ),
+				'add_new'            => _x( 'Add New', 'campaign', 'planet4-master-theme-backend' ),
+				'add_new_item'       => __( 'Add New Campaign', 'planet4-master-theme-backend' ),
+				'new_item'           => __( 'New Campaign', 'planet4-master-theme-backend' ),
+				'edit_item'          => __( 'Edit Campaign', 'planet4-master-theme-backend' ),
+				'view_item'          => __( 'View Campaign', 'planet4-master-theme-backend' ),
+				'all_items'          => __( 'All Campaigns', 'planet4-master-theme-backend' ),
+				'search_items'       => __( 'Search Campaigns', 'planet4-master-theme-backend' ),
+				'parent_item_colon'  => __( 'Parent Campaigns:', 'planet4-master-theme-backend' ),
+				'not_found'          => __( 'No campaigns found.', 'planet4-master-theme-backend' ),
+				'not_found_in_trash' => __( 'No campaigns found in Trash.', 'planet4-master-theme-backend' )
+			);
+
+			$args = array(
+				'labels'             => $labels,
+				'description'        => __( 'Campaigns', 'planet4-master-theme-backend' ),
+				'public'             => true,
+				'publicly_queryable' => true,
+				'show_ui'            => true,
+				'show_in_menu'       => true,
+				'query_var'          => true,
+				'rewrite'            => array( 'slug' => 'book' ),
+				'capability_type'    => 'post',
+				'has_archive'        => true,
+				'taxonomies'         => array( 'category', 'post_tag' ),
+				'hierarchical'       => false,
+				'menu_position'      => null,
+				'menu_icon'          => 'dashicons-megaphone',
+				'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'page-attributes' )
+			);
+
+			register_post_type( $this->post_type, $args );
+
 		}
 	}
 }
