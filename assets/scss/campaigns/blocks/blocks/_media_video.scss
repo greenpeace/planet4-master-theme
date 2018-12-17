@@ -1,0 +1,46 @@
+.video-block {
+  h2 {
+    padding-left: 15px;
+
+    @include small-and-up {
+      padding-left: 0;
+    }
+  }
+
+  .video-section {
+    height: 240px;
+    margin-bottom: 40px;
+
+    video[poster] {
+      object-fit: inherit;
+    }
+
+    @include small-and-up {
+      height: 240px;
+    }
+
+    @include medium-and-up {
+      height: 400px;
+    }
+
+    @include large-and-up {
+      height: 530px;
+      margin-bottom: 60px;
+    }
+
+    @include x-large-and-up {
+      height: 630px;
+      margin-bottom: 80px;
+    }
+  }
+
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+
+    @include medium-and-up {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+}

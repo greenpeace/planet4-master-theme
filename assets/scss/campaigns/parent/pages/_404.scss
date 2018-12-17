@@ -1,0 +1,72 @@
+.page-404-page {
+  .page-header {
+    color: $black;
+    min-height: 1200px;
+    padding-top: 80px;
+
+    @include medium-and-up {
+      padding-top: 110px;
+    }
+
+    .page-header-content {
+      color: #152340;
+    }
+
+    .page-header-subtitle {
+      margin-top: 150px;
+
+      @include small-and-up {
+        margin-top: 30px;
+      }
+
+      @include medium-and-up {
+        margin-top: -10px;
+      }
+
+      @include large-and-up {
+        margin-top: -30px;
+      }
+    }
+
+    .search-form-title {
+      font-weight: bold;
+      color: #152340;
+    }
+
+    .search-form {
+      padding-top: 10px;
+
+      .form-control {
+        border-radius: 0;
+        padding: 10px;
+      }
+
+      .search-form-btn {
+        background: none;
+        border: none;
+        font-size: 20px;
+        position: absolute;
+        right: 15px;
+        top: 38px;
+      }
+    }
+
+    .container > *:not(.row) {
+      @include x-large-and-up {
+        max-width: 65%;
+      }
+    }
+  }
+
+  .speech-bubble {
+    background-color: $white;
+    max-width: 100%;
+    padding: 15px;
+    width: 100%;
+    margin-bottom: 30px;
+
+    @include medium-and-up {
+      width: 600px;
+    }
+  }
+}

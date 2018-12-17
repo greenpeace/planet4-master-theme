@@ -1,0 +1,28 @@
+#theme-switcher {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 99999;
+  border: 1px solid #999;
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+#credit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  padding: 5px 10px;
+  font-size: 8px;
+  a {
+    text-transform: none;
+  }
+}
+
+@import 'theme-antarctic';
+@import 'theme-arctic';
+@import 'theme-forest';
+@import 'theme-oceans';
+@import 'theme-oil';
+@import 'theme-plastic';

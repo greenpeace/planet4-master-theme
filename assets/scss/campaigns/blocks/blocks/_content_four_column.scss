@@ -1,0 +1,184 @@
+.four-column-content {
+  color: $black;
+  padding: 0 0 40px 0;
+
+  @include medium-and-up {
+    padding: 0 0 40px 0;
+  }
+
+  @include medium-and-up {
+    padding: 0 0 60px 0;
+  }
+
+  .col-md-4 {
+    width: 157px;
+    outline: none;
+  }
+
+  .four-column-content-wrap {
+    .four-column-content-symbol {
+      position: relative;
+      margin: 0 0 24px 0;
+      box-shadow: 0 5px 20px 0 rgba(114, 114, 114, 0.5);
+      max-width: 130px;
+      height: 180px;
+
+      @include small-and-up {
+        margin: 20px 0;
+      }
+
+      @include medium-and-up {
+        margin: 0 0 20px 0;
+        max-width: 210px;
+        height: 300px;
+      }
+
+      @include large-and-up {
+        margin: 0 0 20px 0;
+      }
+
+      @include x-large-and-up {
+        max-width: 255px;
+        height: 360px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 50%;
+      }
+
+      &.dark-img {
+        a {
+          color: $white;
+        }
+      }
+    }
+
+    .four-column-content-info {
+      .four-column-hover {
+        text-decoration: underline;
+      }
+
+      a {
+        color: $blue;
+      }
+
+      h4 {
+        font-size: 0.875rem;
+        line-height: 1.2;
+        font-weight: 500;
+        padding: 0;
+        margin: 0;
+
+        @include medium-and-up {
+          font-size: 1.125rem;
+          font-weight: 500;
+        }
+
+        @include large-and-up {
+          font-size: 1rem;
+        }
+
+        @include large-and-up {
+          font-size: 1.125rem;
+        }
+      }
+
+      p {
+        font-size: 1rem;
+
+        @include large-and-up {
+          font-size: 0.875rem;
+          line-height: 1.6;
+        }
+
+        @include x-large-and-up {
+          font-size: 0.9375rem;
+        }
+
+        &.publication-date {
+          font-family: $roboto;
+          font-size: 0.875rem;
+          line-height: 1.6;
+          font-style: italic;
+          font-weight: 300;
+          margin-bottom: 0;
+          color: $grey-60;
+
+          @include large-and-up {
+            font-size: 0.875rem;
+          }
+
+          @include x-large-and-up {
+            font-size: 0.9375rem;
+          }
+        }
+      }
+
+      .blue-button {
+        width: 100%;
+      }
+    }
+  }
+
+  .btn {
+    display: none;
+
+    @include medium-and-up {
+      display: block;
+    }
+  }
+}
+
+// Visibility  of covers in different screens
+// S,M should have 4 covers
+// L & XL should have all sent from backend
+// L & XL with show-3-covers class should show first 3 covers
+// L & XL with show-6-covers class should show first 6 covers
+// L & XL with show-all-covers class should show all covers
+// remove limit visibility class on load more button click
+.show-1-row .limit-visibility {
+  @include medium-and-up {
+    .post-column:nth-child(-n+4) {
+      display: block;
+    }
+
+    .post-column:nth-child(n+4) {
+      display: none;
+    }
+  }
+
+  @include large-and-up {
+    .post-column:nth-child(-n+5) {
+      display: block;
+    }
+
+    .post-column:nth-child(n+5) {
+      display: none;
+    }
+  }
+}
+
+.show-2-rows .limit-visibility {
+  @include medium-and-up {
+    .post-column:nth-child(-n+7) {
+      display: block;
+    }
+
+    .post-column:nth-child(n+7) {
+      display: none;
+    }
+  }
+
+  @include large-and-up {
+    .post-column:nth-child(-n+9) {
+      display: block;
+    }
+
+    .post-column:nth-child(n+9) {
+      display: none;
+    }
+  }
+}

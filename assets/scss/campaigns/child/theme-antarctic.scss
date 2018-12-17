@@ -1,0 +1,265 @@
+@import '../parent/global/mixins.scss';
+@import '../parent/global/variables.scss';
+@import 'mixins';
+@import 'blocks';
+
+@font-face {
+  font-family: 'sanctuary';
+  src: url('fonts/antarctic/sanctuary.otf');
+}
+
+body.theme-antarctic {
+  @import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,600,800");
+
+  $sanctuary: "sanctuary", sans-serif;
+  $montserrat: "Montserrat", sans-serif;
+
+  $antarctic-black: #1F262A;
+  $antarctic-purple: #C44BC4;
+  $antarctic-pink: #FF80E9;
+  $antarctic-dark-blue: #0A4461;
+  $antarctic-blue: #035880;
+  $antarctic-light-blue: #52C9F4;
+  $antarctic-orange: #F98667;
+  $antarctic-grey: #E6ECEF;
+  $antarctic-gradient: linear-gradient(to right, $antarctic-light-blue, $antarctic-pink);
+
+  @mixin antarctic-button($background: $antarctic-purple, $foreground: white) {
+    @include button($background, $foreground, $sanctuary, 60);
+  }
+
+  font-family: $roboto;
+  background: white;
+
+  .btn-primary {
+    @include antarctic-button;
+
+    &:hover {
+      color: white;
+      background: $antarctic-pink;
+    }
+  }
+
+  .btn-secondary {
+    @include antarctic-button($antarctic-dark-blue);
+
+    &:hover {
+      color: white;
+      background: $antarctic-light-blue;
+    }
+  }
+
+  .page-section-header {
+    @include page-section-header($sanctuary, $antarctic-blue);
+  }
+
+  a {
+    color: $antarctic-purple;
+    text-transform: uppercase;
+
+    &:hover {
+      color: $antarctic-pink;
+    }
+  }
+
+  .page-header {
+    @include page-header-block($sanctuary);
+
+    .page-header-title {
+      font-size: 3.125rem;
+      line-height: 4.375rem;
+      color: $antarctic-blue;
+    }
+
+    .page-header-subtitle {
+      font-size: 1.75rem;
+      line-height: 2.5rem;
+      color: $antarctic-dark-blue;
+    }
+
+    .page-header-background:after {
+      background: linear-gradient(to top, white 0%, white 1%, transparent);
+      bottom: -0.1%;
+      height: 50%;
+    }
+
+    // secondary gradient for when image is taller than container
+    &:after {
+      content: '';
+      display: block;
+      background: linear-gradient(to top, white 0%, white 1%, transparent);
+      position: absolute;
+      bottom: -0.5%;
+      height: 50%;
+      left: 0;
+      right: 0;
+    }
+  }
+
+  .covers-block {
+    @include covers-block($antarctic-grey, $sanctuary, $montserrat, $antarctic-orange);
+
+    .cover-card-content {
+      .cover-card-tag {
+        line-height: 1.1875rem;
+      }
+
+      .cover-card-heading {
+        line-height: 1.5625rem;
+      }
+
+      .cover-card-btn {
+        @extend .btn-primary;
+      }
+    }
+  } // end .covers-block
+
+  .campaign-thumbnail-block {
+    @include campaign-thumbnail-block($antarctic-gradient, $antarctic-purple, white, $sanctuary);
+  } // end .campaign-thumbnail-block
+
+  .four-column-content {
+    @include campaign-covers-block($antarctic-gradient, $sanctuary, $montserrat, $antarctic-pink);
+  } // end .four-column-content
+
+  .article-listing {
+    @include article-listing-block($montserrat, $montserrat, $antarctic-pink, $sanctuary, $antarctic-orange);
+
+    .article-list-item-tags .tag-item {
+      line-height: 1.1875rem;
+    }
+  } // end .article-listing
+
+  .carousel-wrap {
+    @include carousel-block(true, $antarctic-pink, white, #B5C7CF, $antarctic-purple, url(images/antarctic/carousel-arrow.svg), 39px);
+  } // end .carousel-block
+
+  .happy-point-block-wrap {
+    @include happy-point-block();
+
+    #happy-point {
+      @include small-and-up {
+        background: $antarctic-gradient;
+      }
+      @include mobile-only {
+        background: linear-gradient(to bottom, $antarctic-light-blue, $antarctic-pink);
+      }
+    }
+  } // end .happy-point-block-wrap
+
+  .split-two-column {
+    @include split-two-column-block(
+        $montserrat,
+        1.25rem, 1.5625rem, black, $regular,
+        $antarctic-gradient, 0.6,
+        none, 0
+    );
+
+    .split-two-column-item-image img {
+      opacity: 0.5;
+    }
+
+    .split-two-column-item-link {
+      @extend .btn-primary;
+    }
+
+    .split-two-column-item-button {
+      @extend .btn-secondary;
+    }
+  } // end .split-two-column
+
+  .four-column {
+    @include four-column-block(
+        $antarctic-light-blue,
+        grayscale(0) invert(53%) sepia(74%) saturate(2689%) hue-rotate(266deg) brightness(79%) contrast(93%),// close approximation to $antarctic-purple using https://stackoverflow.com/questions/42966641/how-to-transform-black-into-any-given-color-using-only-css-filters
+        $montserrat, $regular,
+        $sanctuary, $regular, url(images/antarctic/arrow.svg), url(images/antarctic/arrow-light.svg), 3px);
+  } // end .four-column
+
+  .submenu-block {
+    @include submenu-block(
+      mix($antarctic-light-blue, white, 10%),
+      $sanctuary, $antarctic-dark-blue, 1.75rem, 2.5rem, $regular,
+      $roboto, $antarctic-purple,
+      url(images/antarctic/arrow.svg), url(images/antarctic/arrow-light.svg), 3px
+    );
+  } // end .submenu-block
+
+  // take action task block
+  .what-you-can-do-wrapper {
+    @include task-block-base;
+
+    h3 {
+      @extend .page-section-header;
+    }
+
+    .can-do-steps {
+      .step-number {
+        font-size: 3.125rem;
+        line-height: 116px;
+
+        .step-number-inner {
+          background-image: url(images/antarctic/take-action.svg);
+          color: $antarctic-purple;
+          font-family: $sanctuary;
+        }
+      }
+
+      .step-info {
+        h5 {
+          font-family: $montserrat;
+          font-weight: $semi-bold;
+        }
+      }
+    }
+
+    .can-do-steps-mobile {
+      .card-header {
+        background-color: $antarctic-purple;
+        color: white;
+        font-family: $montserrat;
+        font-weight: $semi-bold;
+
+        .step-number {
+          background-color: white;
+          background-image: url(images/antarctic/take-action-mobile.svg);
+          border: 2px solid white;
+          border-radius: 0 50% 50% 0;
+          color: $antarctic-purple;
+          font-family: $sanctuary;
+          font-size: 1.6875rem;
+          margin-top: -2px;
+          height: 74px;
+          width: 74px;
+          line-height: 68px;
+        }
+
+        &.collapsed {
+          background-color: rgba($antarctic-pink, 0.1);
+          color: $antarctic-purple;
+        }
+      }
+    }
+  } // end take action task block
+
+  .split-three-column {
+    .three-column-info {
+      p {
+        font-size: 1.125rem;
+        margin-bottom: 30px;
+      }
+    }
+
+    .three-column-images {
+      @include three-column-images--border($antarctic-gradient);
+    }
+  }
+
+  .content-two-column-block {
+    @include content-two-column-block($sanctuary, $antarctic-blue);
+  }
+
+  .video-block {
+    @include video-block($antarctic-gradient);
+  }
+}
