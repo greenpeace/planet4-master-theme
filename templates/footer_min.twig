@@ -1,0 +1,25 @@
+<footer class="site-footer_min site-footer" id="footer">
+    <div class="container">
+        <ul class="footer-social-media list-unstyled">
+            {% for social in footer_social_menu %}
+                {% set name = "" %}
+                {% for class_name in social.classes %}
+                    {% if 'fa-' in class_name %}
+                        {% set name = class_name[3:] %}
+                    {% else %}
+                        {% set name = class_name %}
+                    {% endif %}
+                {% endfor %}
+                <li><a href="{{ social.url }}">
+                        {{ name|svgicon }}
+                        <span class="sr-only">{{ social.title }}</span>
+                    </a></li>
+            {% endfor %}
+        </ul>
+
+        <p class="gp-year">
+            {{ 'creative-commons'|svgicon }}
+            {{ copyright_text_line2|e('wp_kses_post')|raw }} {{"now"|date('Y')}} | {{ __( 'All rights reserved', 'planet4-master-theme' ) }}
+        </p>
+    </div>
+</footer>

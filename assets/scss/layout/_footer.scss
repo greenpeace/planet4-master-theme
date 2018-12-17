@@ -153,3 +153,43 @@
     margin-top: 15px;
   }
 }
+
+.site-footer_min {
+  padding: 22px 0;
+  line-height: 1;
+
+  .footer-social-media {
+    color: $grey-20;
+    font-size: 2rem;
+    margin: auto;
+    text-align: center;
+    width: 17.5rem;
+
+    @supports (justify-content: space-between) {
+      & {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    li {
+      display: inline-block;
+      margin: 0;
+    }
+
+    a {
+      transition: color 100ms linear;
+
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+
+  .gp-year {
+    color: $white;
+    font-size: 1rem;
+    font-family: $roboto;
+    margin: 30px 0 0 0;
+  }
+}
