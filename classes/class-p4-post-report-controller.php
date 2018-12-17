@@ -73,7 +73,7 @@ if ( ! class_exists( 'P4_Post_Report_Controller' ) ) {
 		 */
 		function filter_post_params_endpoint( $query_params ) {
 			$query_params['date_query_column'] = [
-				'description' => __( 'The date query column.' ),
+				'description' => __( 'The date query column.', 'planet4-master-theme-backend' ),
 				'type'        => 'string',
 				'enum'        => [ 'post_date', 'post_date_gmt', 'post_modified', 'post_modified_gmt' ],
 			];

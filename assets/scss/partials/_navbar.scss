@@ -81,7 +81,7 @@ $menu-height-large: 3.75rem;
   color: $white;
   z-index: 1;
 
-  .fa {
+  .icon {
     font-size: 1.125rem;
   }
 }
@@ -464,7 +464,7 @@ $menu-height-large: 3.75rem;
       right: auto;
     }
 
-    i {
+    .icon {
       vertical-align: middle;
       font-size: 1.3125rem;
     }
