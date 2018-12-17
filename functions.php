@@ -418,7 +418,11 @@ class P4_Master_Site extends TimberSite {
 		// CSS files.
 		wp_enqueue_style( 'bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css', array(), '4.1.1' );
 		wp_enqueue_style( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css', array(), '1.9.0' );
+<<<<<<< HEAD
+
+=======
 		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], $css_creation );
+>>>>>>> 679aaa1... planet-2561 - conflict with functions.php and gulpfile.js resolved
 		// JS files.
 		wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', array(), '3.3.1', true );
 		wp_enqueue_script( 'popperjs', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', array(), '1.14.3', true );
@@ -645,7 +649,7 @@ class P4_Master_Site extends TimberSite {
 		$p4_header = new_cmb2_box( array(
 			'id'           => $prefix . 'metabox',
 			'title'        => __( 'Page Header Fields', 'planet4-master-theme-backend' ),
-			'object_types' => array( 'page' ), // Post type.
+			'object_types' => array( 'page', 'campaigns' ), // Post type.
 		) );
 
 		$p4_header->add_field( array(

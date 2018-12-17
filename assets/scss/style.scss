@@ -61,6 +61,9 @@ Text Domain: planet4-master-theme
 @import "pages/search/sort-filter";
 @import "pages/search/suggested-terms";
 
+//campaign child themes
+@import "themes/child";
+
 // Body
 @import "base/body";
 
