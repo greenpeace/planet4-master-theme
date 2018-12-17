@@ -15,7 +15,7 @@ const livereload = require('gulp-livereload');
 
 const path_js = 'assets/js/partials/*.js';
 const path_scss = 'assets/scss/**/*.scss';
-const path_style = 'assets/scss/style.scss';
+const path_style = [ 'assets/scss/style.scss', 'assets/scss/parent/parent.scss', 'assets/scss/blocks/blocks.scss', 'assets/scss/child/child.scss' ];
 const path_dest = './';
 
 let error_handler = {

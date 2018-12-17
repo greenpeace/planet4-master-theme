@@ -1,0 +1,157 @@
+// Fonts
+/* stylelint-disable value-keyword-case*/
+$sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$serif:      "Georgia", Cambria, "Times New Roman", Times, serif;
+$roboto:     "Roboto", sans-serif;
+$lora:       "Lora", serif;
+
+// Media queries
+$extra-small-width:  320px;
+$small-width:        576px;
+$medium-width:       768px;
+$large-width:        992px;
+$extra-large-width:  1200px;
+
+// Primary Colors.
+$black:       #000;
+$white:       #fff;
+
+$grey-80:     #191919;
+$grey:        #333;
+$grey-60:     #666;
+$grey-40:     #999;
+$grey-20:     #ccc;
+$grey-10:     #e5e5e5;
+$grey-light:  #f9f9f9;
+
+$gp-green:    #66cc00; // Should only ever be used on the GP logo/wordmark.
+$gp-green-80: #8bcc49;
+$gp-green-60: #abd879;
+$gp-green-40: #c7e5a5;
+$gp-green-20: #e3f2d3;
+
+$green:       #003300;
+$green-80:    #1b4a1b;
+$green-60:    #4a7a4a;
+$green-40:    #94b794;
+$green-20:    #d9e6d7;
+
+$blue:        #2077bf;
+$blue-80:     #3290de;
+$blue-60:     #63bbfd;
+$blue-40:     #86cafb;
+$blue-20:     #b8e0fa;
+
+$yellow:      #ffd204;
+$yellow-80:   #ffdb34;
+$yellow-60:   #ffe467;
+$yellow-40:   #ffed98;
+$yellow-20:   #fff6cd;
+
+// Oranges:
+$orange:       #f36d3a;
+$orange-hover: #ee562d;
+
+// Various greens:
+$shamrock:          #37d88d;
+$dark-shamrock:     #32ca89;
+$elm:               #229073;
+$eden:              #0f6459;
+$deep-sea-green:    #0a4f45;
+$tiber:             #043029;
+$dark-tiber:        #052a30;
+$inch-worm:         #a7e021;
+$pastel-green:      #72e360;
+$dark-pastel-green: #6ed961;
+$emerald:           #47c46c;
+$ocean-grean:       #3aa974;
+$sea-green:         #26774e;
+
+// Various blues:
+$x-dark-blue:  #042233;
+$dark-blue:    #074365;
+$body-blue:    #afd4c7;
+$spray:        #86eee7;
+$aquamarine:   #68dfde;
+$scooter:      #25c9dc;
+$java:         #1bb6d6;
+$java-2:       #1bdfdf;
+$java-dark:    #21cbca;
+$cerulean:     #03aad6;
+$allports:     #007799;
+$blue-elm:     #22938d;
+$faded-jade:   #418482;
+$genoa:        #186a70;
+$blue-tiber:   #093944;
+$mirage:       #111b25;
+$menu-blue:    #014c8c;
+$comment-block:#e7ecf0;
+$comment-text: #d1dce2;
+
+// Various reds:
+$peach:       #eaccbb;
+$dark-pink:   #d39c92;
+$apricot:     #ea8e75;
+$crimson:     #e51538;
+$red:         #a01604;
+$dark-copper: #7a1805;
+$maroon:      #3f0901;
+
+// Need to be re-assigned colors.
+$blue:      #2980b9;
+$brown-bg:  #faf7ec;
+$red:       #ad2330;
+$med-blue:  #0a3351;
+
+// Social buttons
+$facebook: #3b5998;
+$twitter:  #55acee;
+$email:    #ea7179;
+
+// Used colors
+$active:                #aed4c7;
+$blue-bg-anchor:        #30a7af;
+$blue-bg:               #03484f;
+$blue-heading:          #004950;
+$blue-text:             #12757b;
+$border-color:          #07403a;
+$brown-bg-tags-text:    $yellow;
+$card-header-bg:        #c7dcd3;
+$carr-arrow:            $med-blue;
+$carousel-active:       #064364;
+$darkb-blue-text:       #264042;
+$fixed-nav-bg:          #247670;
+$header-footer-bg:      #030403;
+$light-blue-bg:         #d6e6f2;
+$light-blue:            #67b2af;
+$nav-link:              #a6df20;
+$percentage-text:       #017e7a;
+$step-normal-bg:        #e4e7da;
+$steps-deactive-text:   #0a4f45;
+$top-nav:               #1e5f65;
+$light-grey:            #e0ddd4;
+
+// Used once.
+$body-bg:               #b0d4c8;
+$brown-bg-tags-link:    #e88d75;
+$container-bg:          $body-blue;
+$dark-para-text:        #011d1e;
+$green-link-hover:      #77dd11;
+$heading:               #004d53;
+$step-number:           #a7a7a7;
+$brown-header:          #5c1f10;
+$single-bg:             #f6f4e7;
+$table-odd:             #f2f2f2;
+$table-even:            #eaeaea;
+
+// Colors to be fixed/addressed:
+$article-heading-color:	#152431;
+$credit-color:          #5a5a5a;
+$search-text-colour:    #115247;
+$blue-top-nav:          $dark-blue;
+$dark-shade-black:      #1a1a1a;
+$carousel-indi-color:   #8bcc49;
+$shadow-color:          $grey-60;
+$hover-nav:             #052a30;
+$cookie-bkg:            #c0dbe2;
+$cookie-blue:           #094464;

@@ -1,0 +1,320 @@
+@import '../parent/global/mixins.scss';
+@import '../parent/global/variables.scss';
+@import 'mixins';
+@import 'blocks';
+
+@font-face {
+  font-family: 'save-the-arctic';
+  src: url('arctic/save-the-arctic.otf');
+}
+
+body.theme-arctic {
+  @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,800");
+
+  $open-sans: 'Open Sans', sans-serif;
+  $save-the-arctic: 'save-the-arctic', sans-serif;
+
+  $arctic-black: #1F262A;
+  $arctic-greyblue: #D2DDE4;
+  $arctic-cream: #ECEBE3;
+  $arctic-blue: #035880;
+  $arctic-light-blue: #B8E4F8;
+  $arctic-turquoise: #00B6C2;
+  $arctic-red: #EC4A4A;
+  $arctic-faded-red: #F06E6E;
+
+  @mixin arctic-button($background: $arctic-faded-red, $foreground: white) {
+    //todo: check letter spacing
+    @include button($background, $foreground, $save-the-arctic, 60);
+    font-weight: $bold;
+    line-height: 44px;
+  }
+
+  font-family: $roboto;
+  background: white;
+
+  .btn-primary {
+    @include arctic-button;
+
+    &:hover {
+      background: $arctic-red;
+      color: white;
+    }
+  }
+
+  .btn-secondary {
+    @include arctic-button(white, $arctic-blue);
+    border: 3px solid $arctic-light-blue;
+    height: 44px;
+    line-height: 38px;
+
+    &:hover {
+      background: $arctic-light-blue;
+      border-color: $arctic-light-blue;
+      color: $arctic-blue;
+    }
+  }
+
+  .page-section-header {
+    @include page-section-header($save-the-arctic, $arctic-blue, $bold);
+  }
+
+  a {
+    color: $arctic-faded-red;
+    text-transform: uppercase;
+
+    &:hover {
+      color: $arctic-red;
+    }
+  }
+
+  /*  BLOCKS START */
+
+  .page-header {
+    @include page-header-block($save-the-arctic);
+
+    .page-header-title {
+      font-size: 3.125rem;
+      line-height: 3.75rem;
+      color: $arctic-blue;
+    }
+
+    .page-header-subtitle {
+      font-size: 1.75rem;
+      line-height: 2.125rem;
+      color: $arctic-blue;
+    }
+
+    .page-header-background:after {
+      background: linear-gradient(to top, white 0%, white 1%, transparent);
+      bottom: -0.1%;
+      height: 50%;
+    }
+
+    // secondary gradient for when image is taller than container
+    &:after {
+      content: '';
+      display: block;
+      background: linear-gradient(to top, white 0%, white 1%, transparent);
+      position: absolute;
+      bottom: -0.5%;
+      height: 50%;
+      left: 0;
+      right: 0;
+    }
+  }
+
+  .covers-block {
+    @include covers-block($arctic-cream, $open-sans, $open-sans, $arctic-blue);
+
+    .cover-card-content {
+      .cover-card-tag {
+        line-height: 1.375rem;
+        font-weight: $bold;
+      }
+
+      .cover-card-heading {
+        line-height: 1.5625rem;
+        font-weight: $bold;
+      }
+
+      .cover-card-btn {
+        @extend .btn-primary;
+      }
+    }
+  } // end .covers-block
+
+  .campaign-thumbnail-block {
+    @include campaign-thumbnail-block($arctic-cream, white, $arctic-faded-red, $open-sans);
+
+    .thumbnail-large .yellow-cta {
+      font-weight: $bold;
+    }
+  } // end .campaign-thumbnail-block
+
+  .four-column-content {
+    @include campaign-covers-block($arctic-light-blue, $save-the-arctic, $open-sans, $arctic-turquoise);
+
+    .four-column-content-info .four-column-content-information {
+      .publication-date {
+        font-weight: $extra-bold;
+      }
+    }
+  } // end .four-column-content
+
+  .article-listing {
+    @include article-listing-block($open-sans, $open-sans, $arctic-turquoise, $open-sans, $arctic-faded-red, $bold);
+
+    .article-list-item-tags .tag-item {
+      font-size: 0.875rem;
+      line-height: 1.375rem;
+    }
+  } // end .article-listing
+
+  .carousel-wrap {
+    @include carousel-block(true, $arctic-light-blue, $arctic-black, $arctic-greyblue, $arctic-blue, url(arctic/carousel-arrow.svg), 24px);
+
+    .carousel-indicators li {
+      width: 32px;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      width: 14px;
+    }
+  } // end .carousel-block
+
+  .happy-point-block-wrap {
+    @include happy-point-block();
+
+    #happy-point {
+      background: $arctic-light-blue;
+    }
+  } // end .happy-point-block-wrap
+
+  .split-two-column {
+    @include split-two-column-block(
+        $open-sans,
+        1.25rem, 1.5625rem, $arctic-blue, $bold,
+        $arctic-light-blue, 0.6,
+        $arctic-cream, 0.5,
+        $arctic-cream, 0.5
+    );
+
+    .split-two-column-item {
+      .split-two-column-item-tag,
+      .split-two-column-item-title {
+        &,
+        a {
+          font-weight: $bold;
+        }
+      }
+
+      .split-two-column-item-subtitle {
+        color: $arctic-black;
+      }
+
+      .split-two-column-item-image img {
+        opacity: 0.6;
+      }
+
+      .split-two-column-item-link {
+        @extend .btn-primary;
+      }
+
+      .split-two-column-item-button {
+        @extend .btn-secondary;
+        background: transparent;
+      }
+    }
+  } // end .split-two-column
+
+  .four-column {
+    @include four-column-block(
+        $arctic-light-blue,
+        grayscale(0) invert(12%) sepia(58%) saturate(7062%) hue-rotate(187deg) brightness(96%) contrast(98%),// close approximation to $arctic-blue using https://stackoverflow.com/questions/42966641/how-to-transform-black-into-any-given-color-using-only-css-filters
+        $open-sans, $bold,
+        $open-sans, $bold, url(arctic/arrow.svg), url(arctic/arrow-dark.svg)
+    );
+  } // end .four-column
+
+  .submenu-block {
+    @include submenu-block(
+        $arctic-cream,
+        $save-the-arctic, $arctic-blue, 1.75rem, 2.5rem, $bold,
+        $roboto, $arctic-faded-red,
+        url(arctic/arrow.svg), url(arctic/arrow-dark.svg)
+    );
+  } // end .submenu-block
+
+  // take action task block
+  .what-you-can-do-wrapper {
+    @include task-block-base;
+
+    h3 {
+      @extend .page-section-header;
+    }
+
+    .can-do-steps {
+      .step-number {
+        background: $arctic-light-blue;
+        border: $arctic-blue 2px solid;
+        font-size: 2.5rem;
+        height: 136px;
+        width: 136px;
+        margin-bottom: 27px;
+
+        .step-number-inner {
+          border: $arctic-blue 2px solid;
+          color: $arctic-blue;
+          font-family: $open-sans;
+          font-weight: $extra-bold;
+          top: 20px;
+          bottom: 20px;
+          left: 20px;
+          right: 20px;
+          line-height: 88px;
+        }
+      }
+
+      .step-info {
+        h5 {
+          font-family: $open-sans;
+          font-weight: $bold;
+        }
+      }
+    }
+
+    .can-do-steps-mobile {
+      .card-header {
+        background-color: $arctic-blue;
+        color: white;
+        font-family: $open-sans;
+        font-weight: $bold;
+
+        .step-number {
+          border: 2px solid;
+          font-weight: $bold;
+          line-height: 68px;
+
+          &:after {
+            content: ' ';
+            border: 2px solid;
+            position: absolute;
+            margin: 10px;
+            width: 46px;
+            height: 46px;
+            top: 0;
+            left: 0;
+          }
+        }
+
+        &.collapsed {
+          background-color: $arctic-light-blue;
+          color: $arctic-blue;
+        }
+      }
+    }
+  } // end take action task block
+
+  .split-three-column {
+    .three-column-info {
+      p {
+        font-size: 1.125rem;
+        margin-bottom: 30px;
+      }
+    }
+
+    .three-column-images {
+      @include three-column-images--divided($arctic-light-blue);
+    }
+  }
+
+  .content-two-column-block {
+    @include content-two-column-block($save-the-arctic, $arctic-blue, 700);
+  }
+
+  .video-block {
+    @include video-block($arctic-light-blue);
+  }
+}

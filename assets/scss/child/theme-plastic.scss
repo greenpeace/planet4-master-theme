@@ -1,0 +1,427 @@
+@import '../parent/global/mixins.scss';
+@import '../parent/global/variables.scss';
+@import 'mixins';
+@import 'blocks';
+
+body.theme-plastic {
+  @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,800");
+
+  $montserrat: "Montserrat", sans-serif;
+
+  $plastics-black: #1D2120;
+  $plastics-peach: #F7AEA9;
+  $plastics-peach-darker: #F98667;
+  $plastics-blue: #044362;
+  $plastics-blue-mid: #00748F;
+  $plastics-blue-light: #1A9DB8;
+
+  @mixin plastics-button($background: $plastics-peach-darker, $foreground: white) {
+    //todo: check letter spacing
+    //todo: sort out transition
+    @include button($background, $foreground, $montserrat, 60);
+    font-weight: $extra-bold;
+    border-radius: 25px;
+  }
+
+  font-family: $roboto;
+  background: white;
+
+  .btn-primary {
+    @include plastics-button;
+
+    &:hover {
+      background: $plastics-peach;
+      color: white;
+    }
+  }
+
+  .btn-secondary {
+    @include plastics-button($plastics-blue-light);
+
+    &:hover {
+      background: $plastics-blue-mid;
+      color: white;
+    }
+  }
+
+  .page-section-header {
+    @include page-section-header($montserrat, $plastics-blue, $extra-bold, 3.75rem);
+  }
+
+  a {
+    color: $plastics-blue-mid;
+
+    &:hover {
+      color: $plastics-blue-light;
+    }
+  }
+
+  /*  BLOCKS START */
+
+  .page-header {
+    @include page-header-block($montserrat);
+
+    overflow: hidden;
+
+    .page-header-title {
+      font-size: 3.125rem;
+      line-height: 4.375rem;
+      color: white;
+    }
+
+    .page-header-subtitle {
+      font-size: 1.75rem;
+      line-height: 2.5rem;
+      color: white;
+    }
+
+    .page-header-content {
+      color: white;
+    }
+
+    .page-header-background {
+      bottom: 0;
+
+      @include small-and-up {
+        left: -50vw;
+        right: -50vw;
+        margin: auto;
+
+        img {
+          min-height: 100vh;
+          width: auto;
+          max-width: none;
+          min-width: 100vw;
+        }
+      }
+
+      &:after {
+        background: linear-gradient(to top left, white, $plastics-blue);
+        bottom: 0;
+        height: 100%;
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .covers-block {
+    @include covers-block($plastics-peach-darker, $montserrat, $montserrat, white, white);
+
+    .cover-card-content {
+      .cover-card-tag {
+        line-height: 1.1875rem;
+        text-transform: uppercase;
+        font-weight: $extra-bold;
+      }
+
+      .cover-card-heading {
+        line-height: 1.5625rem;
+        font-weight: $bold;
+      }
+    }
+
+    .cover-card-btn {
+      @include plastics-button(white, $plastics-peach-darker);
+
+      &:hover {
+        background: $plastics-peach;
+        color: white;
+      }
+    }
+  } // end .covers-block
+
+  .campaign-thumbnail-block {
+    @include campaign-thumbnail-block($plastics-peach, white, white, $montserrat, 50);
+
+    .thumbnail-large {
+      .yellow-cta {
+        text-transform: uppercase;
+        font-weight: $bold;
+        @include letter-spacing(50);
+      }
+
+      &:after {
+        opacity: 0.7;
+      }
+
+      &:hover:after {
+        opacity: 0;
+      }
+    }
+  } // end .campaign-thumbnail-block
+
+  .four-column-content {
+    @include campaign-covers-block(none, $montserrat, $roboto, $plastics-peach);
+
+    .four-column-content-info {
+      .four-column-content-symbol {
+        &:after {
+          @include overlay {
+            background: $plastics-blue-light;
+            opacity: 0.7;
+            transition: opacity $transition ease-in-out;
+          }
+        }
+
+        &:hover:after {
+          opacity: 0;
+        }
+      }
+
+      .four-column-content-information .publication-date {
+        font-weight: $bold;
+      }
+    }
+
+    .load-more-posts-button-div .btn-secondary {
+      @extend .btn-primary;
+    }
+  } // end .four-column-content
+
+  .article-listing {
+    @include article-listing-block($montserrat, $montserrat, $plastics-peach, $roboto, $plastics-blue-mid, $semi-bold);
+
+    .article-list-item-meta {
+      font-weight: $bold;
+    }
+
+    .article-list-item-tags .tag-item {
+      font-size: 0.875rem;
+      line-height: 1.125rem;
+      @include letter-spacing(90);
+      font-weight: $extra-bold;
+    }
+  } // end .article-listing
+
+  .carousel-wrap {
+    @include carousel-block(false, $plastics-blue-light, white, white, $plastics-blue, url(plastic/carousel-arrow.svg), 50px, 10px);
+
+    .carousel-indicators li {
+      border-radius: 50%;
+    }
+  } // end .carousel-block
+
+  .happy-point-block-wrap {
+    @include happy-point-block();
+
+    background: $plastics-peach-darker;
+
+    @include mobile-only {
+      #happy-point:after {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: -199px;
+        left: 0;
+        width: 100%;
+        height: 200px;
+        background: url(plastic/happy-point-mobile.svg) no-repeat;
+      }
+    }
+
+    @include small-and-up {
+      picture {
+        flex: 3;
+      }
+
+      .container {
+        flex: 5;
+      }
+
+      #happy-point:after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: -249px;
+        top: 0;
+        height: 100%;
+        max-height: 444px;
+        @include x-large-and-up {
+          height: 500px;
+          max-height: 500px;
+        }
+        width: 250px;
+        background: url(plastic/happy-point-desktop.svg) no-repeat;
+      }
+    }
+  } // end .happy-point-block-wrap
+
+  .split-two-column {
+    @include split-two-column-block(
+        $montserrat,
+        1.25rem, 1.5625rem, white, $semi-bold,
+        $plastics-blue-light, 0.7,
+        $plastics-peach-darker, 1,
+        $plastics-peach-darker, 1
+    );
+
+    @include mobile-only {
+      .item--left {
+        padding-bottom: 50%;
+
+        &:after {
+          @include overlay(0, 0, -1px) {
+            background: url(plastic/split-column-mobile.svg) no-repeat;
+            background-position: bottom;
+          }
+        }
+      }
+
+      .item--right {
+        padding-top: 10px;
+      }
+    }
+
+    @include small-and-up {
+      .item--left {
+        padding-right: 20%;
+
+        &:after {
+          @include overlay(0, -1px, 0, auto) {
+            background: url(plastic/split-column-desktop.svg) no-repeat;
+            background-position: right;
+            max-width: 150px;
+          }
+        }
+      }
+
+      .item--right {
+        padding-left: 10px;
+      }
+    }
+
+    .split-two-column-item-image img {
+      opacity: 0.5;
+    }
+
+    .split-two-column-item-subtitle {
+      color: white;
+    }
+
+    .split-two-column-item-link {
+      @extend .btn-primary;
+    }
+
+    .split-two-column-item-button {
+      @include plastics-button(white, $plastics-peach-darker);
+
+      &:hover {
+        color: white;
+        background: $plastics-peach;
+      }
+    }
+  } // end .split-two-column
+
+  .four-column {
+    @include four-column-block(
+        $plastics-blue-mid url(plastic/four-column-header.svg) no-repeat,
+        brightness(0) invert(100%),
+        $montserrat, $semi-bold,
+        $montserrat, $extra-bold, url(plastic/arrow.svg), url(plastic/arrow-light.svg)
+    );
+
+    .four-column-symbol-container {
+      background-size: cover;
+      background-position: center center;
+    }
+  } // end .four-column
+
+  .submenu-block {
+    @include submenu-block(
+        mix($plastics-peach, white, 50%),
+        $montserrat, $plastics-blue, 3.125rem, 3.75rem, $extra-bold,
+        $roboto, $plastics-blue,
+        url(plastic/arrow-dark.svg), url(plastic/arrow-light.svg)
+    );
+
+    h2 {
+      margin-bottom: 30px;
+    }
+  } // end .submenu-block
+
+  // take action task block
+  .what-you-can-do-wrapper {
+    @include task-block-base;
+
+    h3 {
+      @extend .page-section-header;
+    }
+
+    .can-do-steps {
+      .step-number {
+        height: 154px;
+        width: 154px;
+        line-height: 154px;
+        margin-bottom: 20px;
+
+        .step-number-inner {
+          background-image: url(plastic/take-action.png);
+          color: $plastics-peach-darker;
+          font-family: $montserrat;
+          font-weight: $semi-bold;
+        }
+      }
+
+      .step-info {
+        h5 {
+          color: $plastics-peach-darker;
+          font-family: $montserrat;
+          font-weight: $semi-bold;
+    }
+      }
+    }
+
+    .can-do-steps-mobile {
+      .card-header {
+        background-color: $plastics-peach-darker;
+        color: white;
+        font-family: $montserrat;
+        font-weight: $semi-bold;
+
+        .step-number {
+          background-color: white;
+          background-image: url(plastic/take-action.png);
+          border: 2px solid white;
+          border-radius: 0 50% 50% 0;
+          color: $plastics-peach-darker;
+          font-family: $montserrat;
+          font-size: 0.75rem;
+          font-weight: $semi-bold;
+          margin-top: -2px;
+          height: 74px;
+          line-height: 72px;
+          width: 74px;
+        }
+
+        &.collapsed {
+          background-color: #FDE9E5;
+          color: $plastics-peach-darker;
+      }
+    }
+  }
+  } // end take action task block
+
+  .split-three-column {
+    .three-column-info {
+      p {
+        font-size: 1.125rem;
+        margin-bottom: 30px;
+      }
+    }
+
+    .three-column-images {
+      @include three-column-images;
+    }
+  }
+
+  .content-two-column-block {
+    @include content-two-column-block($montserrat, $plastics-blue, 400);
+
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .video-block {
+    @include video-block($plastics-blue-light);
+  }
+}

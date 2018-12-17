@@ -324,7 +324,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				'rewrite'            => array( 'slug' => 'book' ),
 				'capability_type'    => 'post',
 				'has_archive'        => true,
-				'taxonomies'         => array( 'category', 'post_tag' ),
+				'taxonomies'         => array( 'category', 'post_tag', 'p4-page-type' ),
 				'hierarchical'       => false,
 				'menu_position'      => null,
 				'menu_icon'          => 'dashicons-megaphone',

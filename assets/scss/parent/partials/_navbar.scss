@@ -1,0 +1,580 @@
+$menu-height-small: 3.375rem;
+$menu-height-large: 3.75rem;
+
+.top-navigation {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 5;
+  padding: 0;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: normal;
+  background: transparentize($dark-blue, 0.2);
+  height: $menu-height-small;
+  font-family: $roboto;
+
+  @include medium-and-up {
+    height: $menu-height-large;
+  }
+
+  @include large-and-up {
+    align-items: center;
+  }
+
+  a {
+    color: $white;
+  }
+
+  .btn-donate {
+    color: $grey;
+  }
+
+  // Move header down when WordPress Admin Bar is present
+  .admin-bar & {
+    top: 46px;
+
+    @media screen and (min-width: 783px) {
+      top: 32px;
+    }
+  }
+}
+
+.site-logo,
+.btn-navbar-toggle,
+.navbar-search-toggle,
+.country-dropdown-toggle,
+.nav-item,
+.nav-link {
+  line-height: $menu-height-small;
+  padding: 0 15px;
+
+  @include medium-and-up {
+    line-height: $menu-height-large;
+    font-size: 1.125rem;
+  }
+}
+
+.btn-navbar-toggle,
+.country-dropdown-toggle,
+.nav-link {
+  &.active,
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: none;
+    box-shadow: none;
+    outline: 0;
+  }
+}
+
+.navbar-search-toggle,
+.btn-navbar-toggle {
+  line-height: 2rem;
+  margin: 11px;
+  color: $white;
+  z-index: 1;
+
+  .fa {
+    font-size: 1.125rem;
+  }
+}
+
+.navbar-dropdown-toggle {
+  order: -1;
+
+  // When menu is open, turn the button into the background overlay
+  &[aria-expanded="true"] {
+    z-index: 2;
+    background: transparentize($black, 0.5);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    outline: 0;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+
+    span {
+      @extend .screen-reader-text;
+    }
+  }
+
+  @include large-and-up {
+    display: none;
+  }
+}
+
+.navbar-search-toggle {
+  cursor: pointer;
+  border: 0;
+  background: url("images/search.svg") center center no-repeat;
+  background-size: 28px;
+  margin-left: auto;
+
+  @include large-and-up {
+    display: none;
+  }
+}
+
+.site-logo {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+
+  @include large-and-up {
+    position: static;
+    width: auto;
+    text-align: left;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  img {
+    height: 1.25rem;
+
+    @include small-and-up {
+      height: 1.5rem;
+    }
+
+    @include large-and-up {
+      height: 1.875rem;
+    }
+  }
+}
+
+.navbar-dropdown {
+  display: none;
+  margin: 0;
+  list-style-type: none;
+  height: 100vh;
+  width: 300px;
+  background-position: right $menu-height-small;
+
+  @include small-and-up {
+    height: 100vh;
+    width: 375px;
+  }
+
+  @include medium-and-up {
+    width: 400px;
+    background-position: right $menu-height-large;
+  }
+
+  @include large-and-up {
+    height: auto;
+    width: auto;
+    background-position: 0% 0%;
+  }
+
+  &.open {
+    display: flex;
+  }
+
+  li:first-child {
+    z-index: 10;
+
+    @include medium-and-up {
+      z-index: 0;
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 9px;
+  }
+
+  ::-webkit-scrollbar-track {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  ::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  // All other dropdown styles
+  @media (max-width: #{$large-width}) {
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: $dark-blue url("images/dropdown-gradient.svg") no-repeat;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 2;
+
+    .close-navbar-dropdown {
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+      height: $menu-height-small;
+      width: $menu-height-small;
+      background: url("images/close-icon.svg") center center no-repeat;
+      z-index: 2;
+      border: 0;
+
+      @include medium-and-up {
+        height: $menu-height-large;
+      }
+
+      &:focus,
+      &:hover {
+        border: 1px dotted transparentize($white, 0.5);
+      }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 8px;
+      background: transparentize($black, 0.9);
+      z-index: 0;
+    }
+
+    .country-dropdown-toggle {
+      box-sizing: border-box;
+      width: 100%;
+      text-align: left;
+      padding: 0 70px 0 67px;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 13px;
+        left: 0;
+        height: 1.75em;
+        width: 50px;
+        display: inline-block;
+        background: url("images/country-icon.svg") center center no-repeat;
+        border-right: 1px solid transparentize($white, 0.9);
+        background-size: contain;
+
+        @include medium-and-up {
+          top: 17px;
+        }
+      }
+    }
+
+    .nav-item {
+      z-index: 1;
+
+      &:last-child {
+        flex-basis: 100%;
+      }
+    }
+
+    .nav-link {
+      padding: 0 40px 0 50px;
+      display: block;
+      line-height: 2.8125rem;
+      font-size: 1rem;
+      margin: 0.5em 0;
+    }
+
+    .active .nav-link,
+    .nav-link:focus,
+    .nav-link:hover {
+      position: relative;
+      z-index: 2;
+      color: $spray;
+    }
+
+    .active .nav-link::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      background: $spray;
+      width: 8px;
+      margin-left: -50px;
+      z-index: 2;
+    }
+
+    .btn-donate {
+      display: block;
+      min-width: 200px;
+      margin: 1.5em auto;
+      padding: 5px 30px;
+    }
+  }
+
+  @include large-and-up {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    padding: 0;
+
+    .close-navbar-dropdown {
+      display: none;
+    }
+
+    .nav-link {
+      padding: 0;
+      min-width: 20%;
+      text-align: center;
+      border-bottom: 2px solid transparent;
+
+      &:hover,
+      &:focus,
+      &:active {
+        border-bottom: 2px solid $white;
+      }
+    }
+
+    .active .nav-link {
+      color: $spray;
+      border-bottom: 2px solid $spray;
+    }
+  }
+
+  @include x-large-and-up {
+    padding: 0 15px;
+  }
+
+  .nav-item {
+    margin: 0;
+    padding: 0;
+  }
+
+  .wpml-ls-current-language {
+    display: list-item;
+  }
+}
+
+.nav-search-wrap {
+  display: none;
+  position: absolute;
+  color: $search-text-colour;
+  top: 100%;
+  right: 0;
+  width: 300px;
+  padding: 11px;
+  max-width: 80%;
+  background: transparentize($blue-bg, 0.15);
+
+  &.open {
+    display: block;
+  }
+
+  @include large-and-up {
+    position: relative;
+    max-width: 20%;
+    width: 400px;
+    display: inline-block;
+    padding: 0 15px;
+    background: none;
+    top: auto;
+    right: auto;
+  }
+
+  input::-webkit-input-placeholder {
+    color: $grey-40;
+  }
+
+  .top-nav-search-btn {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 11px;
+    right: 16px;
+    font-size: 1.25rem;
+    line-height: 36px;
+    color: $dark-blue;
+
+    i {
+      vertical-align: middle;
+      font-size: 1.3125rem;
+    }
+
+    @include large-and-up {
+      top: 0;
+    }
+  }
+
+  .form-control {
+    border-radius: 0;
+    padding: 5px 10px;
+  }
+}
+
+.country-dropdown-toggle {
+  cursor: pointer;
+  font-size: 1rem;
+  border: 0;
+  color: transparentize($white, 0.2);
+  background: transparent;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transition: color 100ms;
+
+  background-color: $x-dark-blue;
+  @include large-and-up {
+    background-color: transparent;
+  }
+
+  &::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: url("images/down-arrow-blue.svg") no-repeat center center;
+    background-size: contain;
+    display: inline-block;
+    margin-left: 10px;
+    transition: transform 300ms linear;
+  }
+
+  &:focus,
+  &:hover {
+    color: $white;
+
+    &::after {
+      background-image: url("images/down-arrow-white.svg");
+    }
+  }
+
+  &[aria-expanded="true"] {
+    &::after {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.country-list {
+  display: none;
+  text-transform: none;
+  background: $x-dark-blue;
+  line-height: 1.5;
+  padding: 1.4em 0;
+  margin-top: -1px;
+  overflow-y: hidden;
+
+  &.open {
+    display: block;
+    overflow-y: scroll !important;
+  }
+
+  a {
+    display: block;
+    color: $white;
+  }
+
+  a:hover,
+  .active a {
+    color: $spray;
+    text-decoration: none;
+  }
+
+  .country-group-letter {
+    font-size: 1rem;
+    position: absolute;
+    line-height: 1.5;
+    font-weight: bold;
+    color: $grey-40;
+    margin-left: -1.5em;
+
+    @include large-and-up {
+      margin-left: -2em;
+    }
+  }
+
+  > ul {
+    padding: 0 0 2em;
+    margin-top: 1.5em;
+  }
+
+  > a,
+  li {
+    position: relative;
+    list-style: none;
+    padding-left: 50px;
+    font-size: 1rem;
+
+    @include large-and-up {
+      padding-left: 2em;
+    }
+
+    ul {
+      break-inside: avoid;
+      padding: 0;
+      margin: 0 1em 1.2em 0;
+    }
+
+    li {
+      padding-left: 0;
+      list-style: none;
+    }
+  }
+
+  @include large-and-up {
+    position: absolute;
+    height: 344px;
+    width: 80%;
+    left: 10%;
+    overflow-x: hidden;
+    overflow-y: hidden !important;
+    max-height: 344px;
+    max-height: calc(100vh - #{$menu-height-large});
+    padding: 2em 4em 4em;
+
+    .admin-bar & {
+      max-height: calc(100vh - #{$menu-height-large} - 32px);
+    }
+
+    > ul {
+      column-count: 3;
+    }
+  }
+}
+
+.nav-item.wpml-ls-item {
+  @include large-and-up {
+    margin-left: -20px;
+  }
+
+  @include x-large-and-up {
+    margin-left: -60px;
+  }
+
+  .nav-link {
+    display: inline-block;
+    font-size: 0.875rem;
+    padding: 0;
+
+    &:first-child {
+      padding-left: 50px;
+
+      @include large-and-up {
+        padding-left: 0;
+      }
+    }
+
+    &:not(:last-child)::after {
+      content: " / ";
+    }
+  }
+}

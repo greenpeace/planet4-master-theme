@@ -1,0 +1,31 @@
+.skewed-overlay {
+  pointer-events: none;
+  height: 100%;
+
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  mask-image: linear-gradient(170deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1), rgba(226, 119, 119, 0.2), rgba(0, 0, 0, 0));
+  -webkit-mask-image: linear-gradient(170deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1), rgba(226, 119, 119, 0.2), rgba(0, 0, 0, 0));
+  mask-size: 100%;
+  mask-repeat: no-repeat;
+  mask-position: left top;
+
+  &:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    @include detailed-skewed-gradient(
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0.85),
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.95)
+    );
+  }
+}

@@ -1,0 +1,101 @@
+@import '../parent/global/mixins.scss';
+@import '../parent/global/variables.scss';
+
+$transition: 150ms;
+$light: 300;
+$regular: 400;
+$semi-bold: 600;
+$bold: 700;
+$extra-bold: 800;
+
+@mixin monochrome {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+@mixin letter-spacing($spacing) {
+  letter-spacing: #{$spacing/1000}rem;
+}
+
+@mixin small-only {
+  @media (min-width: #{$small-width}) and (max-width: #{$medium-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin medium-only {
+  @media (min-width: #{$medium-width}) and (max-width: #{$large-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin large-only {
+  @media (min-width: #{$large-width}) and (max-width: #{$extra-large-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin small-and-down {
+  @media (max-width: #{$medium-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin button($background, $foreground, $font, $letter-spacing) {
+  background: $background;
+  box-sizing: content-box;
+  color: $foreground;
+  text-transform: uppercase;
+  box-shadow: none;
+  border: 0;
+  font-family: $font;
+  @include letter-spacing($letter-spacing);
+  height: 50px;
+  line-height: 50px;
+  font-size: 1rem;
+  transition: background $transition ease-in-out;
+  padding: 0 40px;
+  display: inline-block;
+  width: auto;
+
+  &:not(:disabled):not(.disabled) {
+    &:active {
+      color: $foreground;
+      background: $background;
+    }
+  }
+}
+
+@mixin overlay($top: 0, $right: 0, $bottom: 0, $left: 0) {
+  content: '';
+  position: absolute;
+  left: $left;
+  top: $top;
+  bottom: $bottom;
+  right: $right;
+  @content;
+}
+
+@keyframes fadeIn {
+  50% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
+}
+
+@mixin page-section-header($font-family, $color: black, $font-weight: $regular, $line-height: 4.375rem) {
+  color: $color;
+  font-family: $font-family;
+  font-weight: $font-weight;
+  font-size: 3.125rem;
+  line-height: $line-height;
+  text-transform: uppercase;
+}
