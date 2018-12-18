@@ -62,6 +62,8 @@ $blocks = [
     Based on original at <a href="https://k8s.p4.greenpeace.org/international/shortcake-blocks/" target="_blank">k8s.p4.greenpeace.org/international/shortcake-blocks</a>
 </div>
 
+<?php include_once get_stylesheet_directory() . '/page-elements/theme-switcher.php'; ?>
+
 <?php
 if (in_array('page-header', $blocks)) {
     include_once get_stylesheet_directory() . '/page-elements/page-header.php';
