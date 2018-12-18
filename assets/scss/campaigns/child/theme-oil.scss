@@ -1,7 +1,7 @@
-@import '../parent/global/mixins.scss';
-@import '../parent/global/variables.scss';
-@import 'mixins';
-@import 'blocks';
+@import "../parent/global/mixins.scss";
+@import "../parent/global/variables.scss";
+@import "mixins";
+@import "blocks";
 
 body.theme-oil {
   @import url("https://fonts.googleapis.com/css?family=Anton:400,500,600,800");
@@ -10,21 +10,21 @@ body.theme-oil {
   $anton: "Anton", sans-serif;
   $amiko: "Amiko", sans-serif;
 
-  $oil-green: #29E5B7;
-  $oil-green-2: #21D677;
-  $oil-red: #FF513C;
-  $oil-red-2: #E74656;
-  $oil-purple: #B55EB8;
-  $oil-blue: #007EFF;
-  $oil-turquoise: #58A8DE;
-  $oil-purple-2: #837AC3;
-  $oil-orange: #FFA247;
-  $oil-pink: #EF629D;
-  $oil-grey: #A5A8AA;
-  $oil-black: #1F262A;
-  $bg-gradient-start: #30EFE8;
-  $bg-gradient-end: #1FD59B;
-  $bg-button-alt: #27BE9B;
+  $oil-green: #29e5b7;
+  $oil-green-2: #21d677;
+  $oil-red: #ff513c;
+  $oil-red-2: #e74656;
+  $oil-purple: #b55eb8;
+  $oil-blue: #007eff;
+  $oil-turquoise: #58a8de;
+  $oil-purple-2: #837ac3;
+  $oil-orange: #ffa247;
+  $oil-pink: #ef629d;
+  $oil-grey: #a5a8aa;
+  $oil-black: #1f262a;
+  $bg-gradient-start: #30efe8;
+  $bg-gradient-end: #1fd59b;
+  $bg-button-alt: #27be9b;
   $oil-gradient-standard: linear-gradient(to right, $bg-gradient-start, $bg-gradient-end);
 
   $page-header-xl-width: 1140px;
@@ -130,7 +130,7 @@ body.theme-oil {
       }
 
       img {
-        clip-path: polygon(98.621% 0.090%, 99.313% 5.473%, 99.663% 9.662%, 99.751% 12.449%, 99.784% 14.460%, 99.866% 15.516%, 99.970% 16.966%, 100.000% 23.533%, 99.815% 28.117%, 99.812% 29.039%, 99.815% 29.762%, 99.793% 30.513%, 99.544% 33.228%, 99.389% 34.136%, 99.061% 36.728%, 98.654% 40.076%, 98.362% 41.877%, 97.986% 43.737%, 97.448% 46.105%, 97.165% 47.279%, 96.856% 48.439%, 95.388% 53.413%, 94.635% 55.558%, 93.377% 58.928%, 92.699% 60.788%, 91.967% 62.642%, 91.317% 64.036%, 90.363% 65.300%, 90.123% 65.976%, 90.241% 66.313%, 90.190% 66.651%, 89.904% 67.550%, 89.293% 68.962%, 88.138% 71.268%, 87.531% 72.400%, 86.887% 73.504%, 86.322% 74.455%, 85.735% 75.373%, 85.149% 76.291%, 84.544% 77.175%, 83.387% 78.783%, 80.920% 81.859%, 77.602% 85.540%, 76.251% 86.947%, 75.206% 87.979%, 74.112% 88.954%, 66.669% 94.218%, 65.970% 94.593%, 63.825% 95.768%, 62.950% 96.267%, 62.072% 96.724%, 61.085% 97.218%, 60.058% 97.646%, 57.363% 98.612%, 54.643% 99.296%, 47.622% 100.000%, 45.781% 99.933%, 44.070% 99.819%, 42.965% 99.696%, 42.108% 99.572%, 41.266% 99.344%, 40.233% 99.021%, 39.270% 98.626%, 38.523% 98.312%, 37.700% 97.936%, 36.968% 97.718%, 35.698% 97.266%, 32.708% 95.697%, 32.210% 95.331%, 31.104% 94.551%, 29.849% 93.747%, 29.190% 93.386%, 28.421% 92.963%, 27.671% 92.492%, 27.157% 92.121%, 26.702% 91.703%, 26.042% 91.032%, 24.542% 89.720%, 23.585% 88.984%, 22.594% 88.099%, 20.510% 86.007%, 19.562% 84.942%, 18.626% 83.853%, 16.812% 81.561%, 14.531% 78.385%, 13.905% 77.472%, 12.664% 75.425%, 11.482% 73.294%, 9.334% 68.758%, 6.365% 61.097%, 5.606% 58.824%, 3.831% 53.095%, 2.091% 46.567%, 0.921% 40.457%, 0.805% 39.696%, 0.720% 38.944%, 0.574% 37.499%, 0.459% 36.110%, 0.289% 34.641%, 0.161% 33.600%, 0.046% 31.750%, 0.012% 30.775%, 0.000% 30.272%, 0.009% 29.763%, 0.067% 27.580%, 0.170% 25.460%, 0.240% 24.109%, 0.334% 22.753%, 0.438% 20.418%, 0.480% 19.101%, 0.562% 17.337%, 0.735% 15.478%, 0.954% 13.447%, 1.410% 9.695%, 1.860% 5.991%, 2.142% 3.880%, 2.707% 0.471%, 2.802% 0.000%);
+        clip-path: polygon(98.621% 0.09%, 99.313% 5.473%, 99.663% 9.662%, 99.751% 12.449%, 99.784% 14.46%, 99.866% 15.516%, 99.97% 16.966%, 100% 23.533%, 99.815% 28.117%, 99.812% 29.039%, 99.815% 29.762%, 99.793% 30.513%, 99.544% 33.228%, 99.389% 34.136%, 99.061% 36.728%, 98.654% 40.076%, 98.362% 41.877%, 97.986% 43.737%, 97.448% 46.105%, 97.165% 47.279%, 96.856% 48.439%, 95.388% 53.413%, 94.635% 55.558%, 93.377% 58.928%, 92.699% 60.788%, 91.967% 62.642%, 91.317% 64.036%, 90.363% 65.3%, 90.123% 65.976%, 90.241% 66.313%, 90.19% 66.651%, 89.904% 67.55%, 89.293% 68.962%, 88.138% 71.268%, 87.531% 72.4%, 86.887% 73.504%, 86.322% 74.455%, 85.735% 75.373%, 85.149% 76.291%, 84.544% 77.175%, 83.387% 78.783%, 80.92% 81.859%, 77.602% 85.54%, 76.251% 86.947%, 75.206% 87.979%, 74.112% 88.954%, 66.669% 94.218%, 65.97% 94.593%, 63.825% 95.768%, 62.95% 96.267%, 62.072% 96.724%, 61.085% 97.218%, 60.058% 97.646%, 57.363% 98.612%, 54.643% 99.296%, 47.622% 100%, 45.781% 99.933%, 44.07% 99.819%, 42.965% 99.696%, 42.108% 99.572%, 41.266% 99.344%, 40.233% 99.021%, 39.27% 98.626%, 38.523% 98.312%, 37.7% 97.936%, 36.968% 97.718%, 35.698% 97.266%, 32.708% 95.697%, 32.21% 95.331%, 31.104% 94.551%, 29.849% 93.747%, 29.19% 93.386%, 28.421% 92.963%, 27.671% 92.492%, 27.157% 92.121%, 26.702% 91.703%, 26.042% 91.032%, 24.542% 89.72%, 23.585% 88.984%, 22.594% 88.099%, 20.51% 86.007%, 19.562% 84.942%, 18.626% 83.853%, 16.812% 81.561%, 14.531% 78.385%, 13.905% 77.472%, 12.664% 75.425%, 11.482% 73.294%, 9.334% 68.758%, 6.365% 61.097%, 5.606% 58.824%, 3.831% 53.095%, 2.091% 46.567%, 0.921% 40.457%, 0.805% 39.696%, 0.72% 38.944%, 0.574% 37.499%, 0.459% 36.11%, 0.289% 34.641%, 0.161% 33.6%, 0.046% 31.75%, 0.012% 30.775%, 0% 30.272%, 0.009% 29.763%, 0.067% 27.58%, 0.17% 25.46%, 0.24% 24.109%, 0.334% 22.753%, 0.438% 20.418%, 0.48% 19.101%, 0.562% 17.337%, 0.735% 15.478%, 0.954% 13.447%, 1.41% 9.695%, 1.86% 5.991%, 2.142% 3.88%, 2.707% 0.471%, 2.802% 0%);
       }
 
       @include small-and-up {
@@ -164,6 +164,7 @@ body.theme-oil {
 
     .btn-primary {
       background: white;
+
       &:hover {
         background: $bg-button-alt;
       }
@@ -190,6 +191,7 @@ body.theme-oil {
 
           .cover-card-btn {
             @include oil-button(white, black);
+
             &:hover {
               background: $bg-button-alt;
             }
@@ -215,12 +217,12 @@ body.theme-oil {
         }
       }
     }
-  } // end .covers-block
-
+  }
+  // end .covers-block
   .campaign-thumbnail-block {
     $border: 20px;
 
-    @include campaign-thumbnail-block(url(images/oil/covers-block.svg) no-repeat, black, black, $anton, -10, #{$border + 16px}, #{$border + 16px});
+    @include campaign-thumbnail-block(url("images/oil/covers-block.svg") no-repeat, black, black, $anton, -10, #{$border + 16px}, #{$border + 16px});
 
     .thumbnail-large {
       img:not(:hover) {
@@ -244,8 +246,8 @@ body.theme-oil {
         opacity: 1;
       }
     }
-  } //end .campaign-thumbnail-block
-
+  }
+  //end .campaign-thumbnail-block
   .four-column-content {
     @include campaign-covers-block(linear-gradient(to right, $oil-green, $oil-green-2), $amiko, $amiko, $oil-blue);
 
@@ -260,24 +262,26 @@ body.theme-oil {
         }
       }
     }
-  } // end .four-column-content
-
+  }
+  // end .four-column-content
   .article-listing {
     @include article-listing-block($amiko, $amiko, $oil-orange, $anton, $oil-blue);
 
     .article-list-item-image:not(:hover) {
       @include monochrome;
     }
+
     .article-list-item-headline a {
       text-transform: none;
     }
+
     .article-list-item-tags .tag-item {
       @include letter-spacing(-10);
     }
-  } // end .article-listing
-
+  }
+  // end .article-listing
   .carousel-wrap {
-    @include carousel-block(true, $oil-gradient-standard, $oil-black, $oil-grey, $oil-green, url(images/oil/carousel-arrow.svg), 39px);
+    @include carousel-block(true, $oil-gradient-standard, $oil-black, $oil-grey, $oil-green, url("images/oil/carousel-arrow.svg"), 39px);
 
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
@@ -286,8 +290,8 @@ body.theme-oil {
       background-size: 17px 15px;
       background-position: 10px 11px;
     }
-  } // end .carousel-block
-
+  }
+  // end .carousel-block
   .happy-point-block-wrap {
     @include happy-point-block();
 
@@ -323,9 +327,9 @@ body.theme-oil {
         }
 
         &:after {
-          content: '';
+          content: "";
           display: block;
-          background: url(images/oil/happy-point-mobile.svg) no-repeat;
+          background: url("images/oil/happy-point-mobile.svg") no-repeat;
           padding-top: 94%;
         }
       }
@@ -350,7 +354,7 @@ body.theme-oil {
         }
 
         #happy-point {
-          background: url(images/oil/happy-point-desktop-small.svg) no-repeat;
+          background: url("images/oil/happy-point-desktop-small.svg") no-repeat;
           padding-right: 42%;
 
           iframe {
@@ -360,19 +364,19 @@ body.theme-oil {
       }
 
       &.happy-point-cutout-large .container #happy-point {
-        background: url(images/oil/happy-point-desktop-large.svg) no-repeat;
+        background: url("images/oil/happy-point-desktop-large.svg") no-repeat;
         padding-right: 27%;
       }
     }
-  } // end .happy-point-block-wrap
-
+  }
+  // end .happy-point-block-wrap
   .split-two-column {
     @include split-two-column-block(
-        $anton,
-        1.75rem, 2.5rem, black, $regular,
-        linear-gradient(to top right, #666, white), 0.8,
-        $oil-gradient-standard, 1,
-        linear-gradient(to bottom, $bg-gradient-start, $bg-gradient-end)
+      $anton,
+      1.75rem, 2.5rem, black, $regular,
+      linear-gradient(to top right, #666, white), 0.8,
+      $oil-gradient-standard, 1,
+      linear-gradient(to bottom, $bg-gradient-start, $bg-gradient-end)
     );
 
     .split-two-column-item-link {
@@ -390,8 +394,8 @@ body.theme-oil {
     .split-two-column-item-image img {
       @include monochrome;
     }
-  } // end .split-two-column
-
+  }
+  // end .split-two-column
   .four-column {
     @include four-column-block(
       $oil-green,
@@ -399,15 +403,16 @@ body.theme-oil {
       $amiko, $regular,
       $anton, $regular
     );
-  } // end .four-column
-
+  }
+  // end .four-column
   .submenu-block {
     @include submenu-block(
       mix($oil-black, white, 10%),
       $anton, black, 1.75rem, 2.5rem, $regular,
       $amiko, $oil-blue
     );
-  } // end .submenu-block
+  }
+  // end .submenu-block
 
   // take action task block
   .what-you-can-do-wrapper {
@@ -423,7 +428,7 @@ body.theme-oil {
         font-size: 1.75rem;
 
         .step-number-inner {
-          background-image: url(images/oil/take-action.svg);
+          background-image: url("images/oil/take-action.svg");
           font-family: $anton;
           top: 15px;
           bottom: 15px;
@@ -443,13 +448,13 @@ body.theme-oil {
     .can-do-steps-mobile {
       .card-header {
         background: $oil-gradient-standard;
-        color: #1D2120;
+        color: #1d2120;
         font-family: $amiko;
         // Amiko seems to need nudging a bit to appear vertically centered
         padding: 21px 10px 19px 90px;
 
         .step-number {
-          background-image: url(images/oil/take-action.svg);
+          background-image: url("images/oil/take-action.svg");
           background-size: cover;
           color: black;
           font-family: $anton;
@@ -467,8 +472,8 @@ body.theme-oil {
         }
       }
     }
-  } // end take action task block
-
+  }
+  // end take action task block
   .split-three-column {
     .three-column-info {
       p {
@@ -500,8 +505,8 @@ body.theme-oil {
 
     .page-header-background {
       &::after {
-        background: url(images/oil/header-shape.svg) no-repeat;
-        content: ' ';
+        background: url("images/oil/header-shape.svg") no-repeat;
+        content: " ";
         display: block;
         top: 0;
         right: 0;
@@ -515,7 +520,7 @@ body.theme-oil {
         margin: 0;
 
         &::after {
-          background: url(images/oil/header-shape-centred.svg) no-repeat;
+          background: url("images/oil/header-shape-centred.svg") no-repeat;
         }
       }
 

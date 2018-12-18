@@ -1,19 +1,19 @@
-@import '../parent/global/mixins.scss';
-@import '../parent/global/variables.scss';
-@import 'mixins';
-@import 'blocks';
+@import "../parent/global/mixins.scss";
+@import "../parent/global/variables.scss";
+@import "mixins";
+@import "blocks";
 
 body.theme-plastic {
   @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,800");
 
   $montserrat: "Montserrat", sans-serif;
 
-  $plastics-black: #1D2120;
-  $plastics-peach: #F7AEA9;
-  $plastics-peach-darker: #F98667;
+  $plastics-black: #1d2120;
+  $plastics-peach: #f7aea9;
+  $plastics-peach-darker: #f98667;
   $plastics-blue: #044362;
-  $plastics-blue-mid: #00748F;
-  $plastics-blue-light: #1A9DB8;
+  $plastics-blue-mid: #00748f;
+  $plastics-blue-light: #1a9db8;
 
   @mixin plastics-button($background: $plastics-peach-darker, $foreground: white) {
     //todo: check letter spacing
@@ -57,7 +57,6 @@ body.theme-plastic {
   }
 
   /*  BLOCKS START */
-
   .page-header {
     @include page-header-block($montserrat);
 
@@ -128,8 +127,8 @@ body.theme-plastic {
         color: white;
       }
     }
-  } // end .covers-block
-
+  }
+  // end .covers-block
   .campaign-thumbnail-block {
     @include campaign-thumbnail-block($plastics-peach, white, white, $montserrat, 50);
 
@@ -148,8 +147,8 @@ body.theme-plastic {
         opacity: 0;
       }
     }
-  } // end .campaign-thumbnail-block
-
+  }
+  // end .campaign-thumbnail-block
   .four-column-content {
     @include campaign-covers-block(none, $montserrat, $roboto, $plastics-peach);
 
@@ -176,8 +175,8 @@ body.theme-plastic {
     .load-more-posts-button-div .btn-secondary {
       @extend .btn-primary;
     }
-  } // end .four-column-content
-
+  }
+  // end .four-column-content
   .article-listing {
     @include article-listing-block($montserrat, $montserrat, $plastics-peach, $roboto, $plastics-blue-mid, $semi-bold);
 
@@ -191,16 +190,16 @@ body.theme-plastic {
       @include letter-spacing(90);
       font-weight: $extra-bold;
     }
-  } // end .article-listing
-
+  }
+  // end .article-listing
   .carousel-wrap {
-    @include carousel-block(false, $plastics-blue-light, white, white, $plastics-blue, url(images/plastic/carousel-arrow.svg), 50px, 10px);
+    @include carousel-block(false, $plastics-blue-light, white, white, $plastics-blue, url("images/plastic/carousel-arrow.svg"), 50px, 10px);
 
     .carousel-indicators li {
       border-radius: 50%;
     }
-  } // end .carousel-block
-
+  }
+  // end .carousel-block
   .happy-point-block-wrap {
     @include happy-point-block();
 
@@ -208,14 +207,14 @@ body.theme-plastic {
 
     @include mobile-only {
       #happy-point:after {
-        content: '';
+        content: "";
         display: block;
         position: absolute;
         bottom: -199px;
         left: 0;
         width: 100%;
         height: 200px;
-        background: url(images/plastic/happy-point-mobile.svg) no-repeat;
+        background: url("images/plastic/happy-point-mobile.svg") no-repeat;
       }
     }
 
@@ -229,7 +228,7 @@ body.theme-plastic {
       }
 
       #happy-point:after {
-        content: '';
+        content: "";
         display: block;
         position: absolute;
         right: -249px;
@@ -241,18 +240,18 @@ body.theme-plastic {
           max-height: 500px;
         }
         width: 250px;
-        background: url(images/plastic/happy-point-desktop.svg) no-repeat;
+        background: url("images/plastic/happy-point-desktop.svg") no-repeat;
       }
     }
-  } // end .happy-point-block-wrap
-
+  }
+  // end .happy-point-block-wrap
   .split-two-column {
     @include split-two-column-block(
-        $montserrat,
-        1.25rem, 1.5625rem, white, $semi-bold,
-        $plastics-blue-light, 0.7,
-        $plastics-peach-darker, 1,
-        $plastics-peach-darker, 1
+      $montserrat,
+      1.25rem, 1.5625rem, white, $semi-bold,
+      $plastics-blue-light, 0.7,
+      $plastics-peach-darker, 1,
+      $plastics-peach-darker, 1
     );
 
     @include mobile-only {
@@ -261,7 +260,7 @@ body.theme-plastic {
 
         &:after {
           @include overlay(0, 0, -1px) {
-            background: url(images/plastic/split-column-mobile.svg) no-repeat;
+            background: url("images/plastic/split-column-mobile.svg") no-repeat;
             background-position: bottom;
           }
         }
@@ -278,7 +277,7 @@ body.theme-plastic {
 
         &:after {
           @include overlay(0, -1px, 0, auto) {
-            background: url(images/plastic/split-column-desktop.svg) no-repeat;
+            background: url("images/plastic/split-column-desktop.svg") no-repeat;
             background-position: right;
             max-width: 150px;
           }
@@ -310,34 +309,35 @@ body.theme-plastic {
         background: $plastics-peach;
       }
     }
-  } // end .split-two-column
-
+  }
+  // end .split-two-column
   .four-column {
     @include four-column-block(
-        $plastics-blue-mid url(images/plastic/four-column-header.svg) no-repeat,
-        brightness(0) invert(100%),
-        $montserrat, $semi-bold,
-        $montserrat, $extra-bold, url(images/plastic/arrow.svg), url(images/plastic/arrow-light.svg)
+      $plastics-blue-mid url("images/plastic/four-column-header.svg") no-repeat,
+      brightness(0) invert(100%),
+      $montserrat, $semi-bold,
+      $montserrat, $extra-bold, url("images/plastic/arrow.svg"), url("images/plastic/arrow-light.svg")
     );
 
     .four-column-symbol-container {
       background-size: cover;
       background-position: center center;
     }
-  } // end .four-column
-
+  }
+  // end .four-column
   .submenu-block {
     @include submenu-block(
-        mix($plastics-peach, white, 50%),
-        $montserrat, $plastics-blue, 3.125rem, 3.75rem, $extra-bold,
-        $roboto, $plastics-blue,
-        url(images/plastic/arrow-dark.svg), url(images/plastic/arrow-light.svg)
+      mix($plastics-peach, white, 50%),
+      $montserrat, $plastics-blue, 3.125rem, 3.75rem, $extra-bold,
+      $roboto, $plastics-blue,
+      url("images/plastic/arrow-dark.svg"), url("images/plastic/arrow-light.svg")
     );
 
     h2 {
       margin-bottom: 30px;
     }
-  } // end .submenu-block
+  }
+  // end .submenu-block
 
   // take action task block
   .what-you-can-do-wrapper {
@@ -355,7 +355,7 @@ body.theme-plastic {
         margin-bottom: 20px;
 
         .step-number-inner {
-          background-image: url(images/plastic/take-action.png);
+          background-image: url("images/plastic/take-action.png");
           color: $plastics-peach-darker;
           font-family: $montserrat;
           font-weight: $semi-bold;
@@ -367,7 +367,7 @@ body.theme-plastic {
           color: $plastics-peach-darker;
           font-family: $montserrat;
           font-weight: $semi-bold;
-    }
+        }
       }
     }
 
@@ -380,7 +380,7 @@ body.theme-plastic {
 
         .step-number {
           background-color: white;
-          background-image: url(images/plastic/take-action.png);
+          background-image: url("images/plastic/take-action.png");
           border: 2px solid white;
           border-radius: 0 50% 50% 0;
           color: $plastics-peach-darker;
@@ -394,13 +394,13 @@ body.theme-plastic {
         }
 
         &.collapsed {
-          background-color: #FDE9E5;
+          background-color: #fde9e5;
           color: $plastics-peach-darker;
+        }
       }
     }
   }
-  } // end take action task block
-
+  // end take action task block
   .split-three-column {
     .three-column-info {
       p {

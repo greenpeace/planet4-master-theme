@@ -1,5 +1,5 @@
-@import '../parent/global/mixins.scss';
-@import '../parent/global/variables.scss';
+@import "../parent/global/mixins.scss";
+@import "../parent/global/variables.scss";
 
 $transition: 150ms;
 $light: 300;
@@ -73,7 +73,7 @@ $extra-bold: 800;
 }
 
 @mixin overlay($top: 0, $right: 0, $bottom: 0, $left: 0) {
-  content: '';
+  content: "";
   position: absolute;
   left: $left;
   top: $top;
@@ -86,6 +86,7 @@ $extra-bold: 800;
   50% {
     visibility: hidden;
   }
+
   100% {
     visibility: visible;
   }

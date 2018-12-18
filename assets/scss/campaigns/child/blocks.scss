@@ -1,4 +1,4 @@
-@import 'mixins';
+@import "mixins";
 
 @mixin page-header-block($font) {
   overflow-y: hidden;
@@ -186,7 +186,6 @@
   }
 }
 
-
 @mixin carousel-block($bordered, $background, $caption, $indicator, $indicator-current, $icon-svg, $icon-size, $indicator-size: 8px) {
   h1 {
     @extend .page-section-header;
@@ -237,7 +236,8 @@
       @if ($bordered) {
         padding-left: 124px;
         padding-right: 124px;
-      } @else {
+      }
+      @else {
         padding-left: 172px;
         padding-right: 172px;
       }
@@ -265,7 +265,8 @@
     margin: 0;
     @if ($bordered) {
       bottom: -30px;
-    } @else {
+    }
+    @else {
       bottom: 30px;
     }
 
@@ -284,6 +285,7 @@
 
   .carousel-control-prev {
     left: -#{$spacing};
+
     &-icon {
       transform: rotate(180deg);
     }
@@ -305,7 +307,8 @@
     @include medium-and-up {
       @if ($bordered) {
         width: 128px;
-      } @else {
+      }
+      @else {
         width: 150px;
       }
     }
@@ -343,7 +346,6 @@
 
 @mixin campaign-covers-block($image-border, $header-font, $date-font, $date-colour) {
   .four-column-content-info {
-
     .four-column-content-symbol {
       box-shadow: none;
       overflow: hidden;
@@ -511,7 +513,6 @@
     line-height: 1.375rem;
     font-weight: $regular;
   }
-
 }
 
 @mixin campaign-thumbnail-block($overlay, $cta-colour, $cta-colour-hover, $cta-font, $cta-spacing: 10, $cta-left: 28px, $cta-bottom: 30px) {
@@ -533,7 +534,7 @@
     }
 
     &:after {
-      content: '';
+      content: "";
       display: block;
       position: absolute;
       top: 0;
@@ -576,7 +577,6 @@
   &:before {
     display: none;
   }
-
 
   picture img {
     opacity: 1 !important; // override the inline style
@@ -623,7 +623,6 @@
       > .row {
         margin: 0;
       }
-
     }
 
     #happy-point {
@@ -639,10 +638,10 @@
 }
 
 @mixin split-two-column-block($font,
-  $header-size, $header-line-spacing, $header-colour, $header-weight,
-  $left-overlay, $left-opacity,
-  $right-overlay, $right-opacity,
-  $right-overlay-mobile: none, $right-mobile-opacity: 1) {
+$header-size, $header-line-spacing, $header-colour, $header-weight,
+$left-overlay, $left-opacity,
+$right-overlay, $right-opacity,
+$right-overlay-mobile: none, $right-mobile-opacity: 1) {
   background: white;
   display: flex;
 
@@ -659,7 +658,7 @@
   }
 
   .split-two-column-item-image:after {
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     top: 0;
@@ -761,6 +760,7 @@
       a {
         padding: 0;
       }
+
       &:after {
         content: none;
       }
@@ -810,6 +810,7 @@
     .item--left {
       padding: 100px 200px 100px 100px;
     }
+
     .item--right {
       padding: 100px 50px;
     }
@@ -817,12 +818,13 @@
 }
 
 @mixin four-column-block($icon-background, $icon-filter,
-    $header-font, $header-weight,
-    $link-font, $link-weight, $link-icon: none, $link-icon-hover: none, $link-offset: 4px) {
+$header-font, $header-weight,
+$link-font, $link-weight, $link-icon: none, $link-icon-hover: none, $link-offset: 4px) {
   h3 {
     @extend .page-section-header;
     margin-bottom: 40px;
   }
+
   > .container > .row {
     margin: 0 -8px;
 
@@ -888,6 +890,7 @@
         }
       }
     }
+
     h5 a {
       font-family: $header-font;
       font-weight: $header-weight;
@@ -933,7 +936,7 @@
       text-transform: none;
       font-family: $link-font;
 
-      @if ($icon != 'none') {
+      @if ($icon != "none") {
         position: relative;
         padding-right: 18px;
 
@@ -953,14 +956,13 @@
 
     &:before {
       color: $link-colour;
-      content: '\f111'; // fa-circle
+      content: "\f111"; // fa-circle
       font-size: 0.3rem;
       font-weight: $regular;
       position: absolute;
       left: 0;
       top: 0.65rem;
     }
-
   }
 
   .submenu-link:not(:hover) {
@@ -970,6 +972,7 @@
   &.submenu-short {
     > .submenu-menu {
       margin: 0 -7px;
+
       > .submenu-item {
         padding: 0 7px;
       }

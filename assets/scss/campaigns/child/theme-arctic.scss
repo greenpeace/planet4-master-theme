@@ -1,27 +1,27 @@
-@import '../parent/global/mixins.scss';
-@import '../parent/global/variables.scss';
-@import 'mixins';
-@import 'blocks';
+@import "../parent/global/mixins.scss";
+@import "../parent/global/variables.scss";
+@import "mixins";
+@import "blocks";
 
 @font-face {
-  font-family: 'save-the-arctic';
-  src: url('fonts/arctic/save-the-arctic.otf');
+  font-family: save-the-arctic;
+  src: url("fonts/arctic/save-the-arctic.otf");
 }
 
 body.theme-arctic {
   @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,800");
 
-  $open-sans: 'Open Sans', sans-serif;
-  $save-the-arctic: 'save-the-arctic', sans-serif;
+  $open-sans: "Open Sans", sans-serif;
+  $save-the-arctic: "save-the-arctic", sans-serif;
 
-  $arctic-black: #1F262A;
-  $arctic-greyblue: #D2DDE4;
-  $arctic-cream: #ECEBE3;
+  $arctic-black: #1f262a;
+  $arctic-greyblue: #d2dde4;
+  $arctic-cream: #ecebe3;
   $arctic-blue: #035880;
-  $arctic-light-blue: #B8E4F8;
-  $arctic-turquoise: #00B6C2;
-  $arctic-red: #EC4A4A;
-  $arctic-faded-red: #F06E6E;
+  $arctic-light-blue: #b8e4f8;
+  $arctic-turquoise: #00b6c2;
+  $arctic-red: #ec4a4a;
+  $arctic-faded-red: #f06e6e;
 
   @mixin arctic-button($background: $arctic-faded-red, $foreground: white) {
     //todo: check letter spacing
@@ -69,7 +69,6 @@ body.theme-arctic {
   }
 
   /*  BLOCKS START */
-
   .page-header {
     @include page-header-block($save-the-arctic);
 
@@ -93,7 +92,7 @@ body.theme-arctic {
 
     // secondary gradient for when image is taller than container
     &:after {
-      content: '';
+      content: "";
       display: block;
       background: linear-gradient(to top, white 0%, white 1%, transparent);
       position: absolute;
@@ -152,7 +151,7 @@ body.theme-arctic {
   } // end .article-listing
 
   .carousel-wrap {
-    @include carousel-block(true, $arctic-light-blue, $arctic-black, $arctic-greyblue, $arctic-blue, url(images/arctic/carousel-arrow.svg), 24px);
+    @include carousel-block(true, $arctic-light-blue, $arctic-black, $arctic-greyblue, $arctic-blue, url("images/arctic/carousel-arrow.svg"), 24px);
 
     .carousel-indicators li {
       width: 32px;
@@ -174,11 +173,11 @@ body.theme-arctic {
 
   .split-two-column {
     @include split-two-column-block(
-        $open-sans,
-        1.25rem, 1.5625rem, $arctic-blue, $bold,
-        $arctic-light-blue, 0.6,
-        $arctic-cream, 0.5,
-        $arctic-cream, 0.5
+      $open-sans,
+      1.25rem, 1.5625rem, $arctic-blue, $bold,
+      $arctic-light-blue, 0.6,
+      $arctic-cream, 0.5,
+      $arctic-cream, 0.5
     );
 
     .split-two-column-item {
@@ -207,25 +206,7 @@ body.theme-arctic {
         background: transparent;
       }
     }
-  } // end .split-two-column
-
-  .four-column {
-    @include four-column-block(
-        $arctic-light-blue,
-        grayscale(0) invert(12%) sepia(58%) saturate(7062%) hue-rotate(187deg) brightness(96%) contrast(98%),// close approximation to $arctic-blue using https://stackoverflow.com/questions/42966641/how-to-transform-black-into-any-given-color-using-only-css-filters
-        $open-sans, $bold,
-        $open-sans, $bold, url(images/arctic/arrow.svg), url(images/arctic/arrow-dark.svg)
-    );
-  } // end .four-column
-
-  .submenu-block {
-    @include submenu-block(
-        $arctic-cream,
-        $save-the-arctic, $arctic-blue, 1.75rem, 2.5rem, $bold,
-        $roboto, $arctic-faded-red,
-        url(images/arctic/arrow.svg), url(images/arctic/arrow-dark.svg)
-    );
-  } // end .submenu-block
+  }
 
   // take action task block
   .what-you-can-do-wrapper {
@@ -278,7 +259,7 @@ body.theme-arctic {
           line-height: 68px;
 
           &:after {
-            content: ' ';
+            content: " ";
             border: 2px solid;
             position: absolute;
             margin: 10px;
@@ -296,6 +277,24 @@ body.theme-arctic {
       }
     }
   } // end take action task block
+
+  .four-column {
+    @include four-column-block(
+      $arctic-light-blue,
+      grayscale(0) invert(12%) sepia(58%) saturate(7062%) hue-rotate(187deg) brightness(96%) contrast(98%),
+      $open-sans, $bold,
+      $open-sans, $bold, url("images/arctic/arrow.svg"), url("images/arctic/arrow-dark.svg")
+    );
+  }
+
+  .submenu-block {
+    @include submenu-block(
+      $arctic-cream,
+      $save-the-arctic, $arctic-blue, 1.75rem, 2.5rem, $bold,
+      $roboto, $arctic-faded-red,
+      url("images/arctic/arrow.svg"), url("images/arctic/arrow-dark.svg")
+    );
+  } // end .submenu-block
 
   .split-three-column {
     .three-column-info {

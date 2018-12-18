@@ -1,11 +1,11 @@
-@import '../parent/global/mixins.scss';
-@import '../parent/global/variables.scss';
-@import 'mixins';
-@import 'blocks';
+@import "../parent/global/mixins.scss";
+@import "../parent/global/variables.scss";
+@import "mixins";
+@import "blocks";
 
 @font-face {
-  font-family: 'sanctuary';
-  src: url('fonts/antarctic/sanctuary.otf');
+  font-family: sanctuary;
+  src: url("fonts/antarctic/sanctuary.otf");
 }
 
 body.theme-antarctic {
@@ -14,14 +14,14 @@ body.theme-antarctic {
   $sanctuary: "sanctuary", sans-serif;
   $montserrat: "Montserrat", sans-serif;
 
-  $antarctic-black: #1F262A;
-  $antarctic-purple: #C44BC4;
-  $antarctic-pink: #FF80E9;
-  $antarctic-dark-blue: #0A4461;
+  $antarctic-black: #1f262a;
+  $antarctic-purple: #c44bc4;
+  $antarctic-pink: #ff80e9;
+  $antarctic-dark-blue: #0a4461;
   $antarctic-blue: #035880;
-  $antarctic-light-blue: #52C9F4;
-  $antarctic-orange: #F98667;
-  $antarctic-grey: #E6ECEF;
+  $antarctic-light-blue: #52c9f4;
+  $antarctic-orange: #f98667;
+  $antarctic-grey: #e6ecef;
   $antarctic-gradient: linear-gradient(to right, $antarctic-light-blue, $antarctic-pink);
 
   @mixin antarctic-button($background: $antarctic-purple, $foreground: white) {
@@ -85,7 +85,7 @@ body.theme-antarctic {
 
     // secondary gradient for when image is taller than container
     &:after {
-      content: '';
+      content: "";
       display: block;
       background: linear-gradient(to top, white 0%, white 1%, transparent);
       position: absolute;
@@ -131,7 +131,7 @@ body.theme-antarctic {
   } // end .article-listing
 
   .carousel-wrap {
-    @include carousel-block(true, $antarctic-pink, white, #B5C7CF, $antarctic-purple, url(images/antarctic/carousel-arrow.svg), 39px);
+    @include carousel-block(true, $antarctic-pink, white, #B5C7CF, $antarctic-purple, url("images/antarctic/carousel-arrow.svg"), 39px);
   } // end .carousel-block
 
   .happy-point-block-wrap {
@@ -148,12 +148,7 @@ body.theme-antarctic {
   } // end .happy-point-block-wrap
 
   .split-two-column {
-    @include split-two-column-block(
-        $montserrat,
-        1.25rem, 1.5625rem, black, $regular,
-        $antarctic-gradient, 0.6,
-        none, 0
-    );
+    @include split-two-column-block( $montserrat, 1.25rem, 1.5625rem, black, $regular, $antarctic-gradient, 0.6, none, 0 );
 
     .split-two-column-item-image img {
       opacity: 0.5;
@@ -170,10 +165,10 @@ body.theme-antarctic {
 
   .four-column {
     @include four-column-block(
-        $antarctic-light-blue,
-        grayscale(0) invert(53%) sepia(74%) saturate(2689%) hue-rotate(266deg) brightness(79%) contrast(93%),// close approximation to $antarctic-purple using https://stackoverflow.com/questions/42966641/how-to-transform-black-into-any-given-color-using-only-css-filters
-        $montserrat, $regular,
-        $sanctuary, $regular, url(images/antarctic/arrow.svg), url(images/antarctic/arrow-light.svg), 3px);
+      $antarctic-light-blue,
+      grayscale(0) invert(53%) sepia(74%) saturate(2689%) hue-rotate(266deg) brightness(79%) contrast(93%),
+      $montserrat, $regular,
+      $sanctuary, $regular, url("images/antarctic/arrow.svg"), url("images/antarctic/arrow-light.svg"), 3px);
   } // end .four-column
 
   .submenu-block {
@@ -181,7 +176,7 @@ body.theme-antarctic {
       mix($antarctic-light-blue, white, 10%),
       $sanctuary, $antarctic-dark-blue, 1.75rem, 2.5rem, $regular,
       $roboto, $antarctic-purple,
-      url(images/antarctic/arrow.svg), url(images/antarctic/arrow-light.svg), 3px
+      url("images/antarctic/arrow.svg"), url("images/antarctic/arrow-light.svg"), 3px
     );
   } // end .submenu-block
 
@@ -199,7 +194,7 @@ body.theme-antarctic {
         line-height: 116px;
 
         .step-number-inner {
-          background-image: url(images/antarctic/take-action.svg);
+          background-image: url("images/antarctic/take-action.svg");
           color: $antarctic-purple;
           font-family: $sanctuary;
         }
@@ -222,7 +217,7 @@ body.theme-antarctic {
 
         .step-number {
           background-color: white;
-          background-image: url(images/antarctic/take-action-mobile.svg);
+          background-image: url("images/antarctic/take-action-mobile.svg");
           border: 2px solid white;
           border-radius: 0 50% 50% 0;
           color: $antarctic-purple;

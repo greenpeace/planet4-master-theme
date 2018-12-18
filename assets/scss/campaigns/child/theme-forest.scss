@@ -1,19 +1,19 @@
-@import '../parent/global/mixins.scss';
-@import '../parent/global/variables.scss';
-@import 'mixins';
-@import 'blocks';
+@import "../parent/global/mixins.scss";
+@import "../parent/global/variables.scss";
+@import "mixins";
+@import "blocks";
 
 body.theme-forest {
   @import url("https://fonts.googleapis.com/css?family=Kanit:400,500,600,800");
 
-  $kanit: 'Kanit', sans-serif;
+  $kanit: "Kanit", sans-serif;
 
-  $forest-black: #1D2120;
-  $forest-green: #2CAF4F;
-  $forest-light-green: #8BCC49;
-  $forest-dark-green: #1B4A1B;
-  $forest-cream: #F9F9EF;
-  $forest-grey: #8B8D88;
+  $forest-black: #1d2120;
+  $forest-green: #2caf4f;
+  $forest-light-green: #8bcc49;
+  $forest-dark-green: #1b4a1b;
+  $forest-cream: #f9f9ef;
+  $forest-grey: #8b8d88;
 
   @mixin forest-button($background: $forest-dark-green, $foreground: $forest-cream) {
     @include button($background, $foreground, $kanit, 60);
@@ -57,7 +57,6 @@ body.theme-forest {
   }
 
   /*  BLOCKS START */
-
   .page-header {
     @include page-header-block($kanit);
 
@@ -128,7 +127,7 @@ body.theme-forest {
 
       &:before,
       &:after {
-        content: '';
+        content: "";
         width: 20px;
         border-left: 2px solid white;
         border-right: 2px solid white;
@@ -202,7 +201,7 @@ body.theme-forest {
   } // end .article-listing
 
   .carousel-wrap {
-    @include carousel-block(true, $forest-dark-green, white, $forest-grey, $forest-dark-green, url(images/forest/carousel-arrow.svg), 28px, 10px);
+    @include carousel-block(true, $forest-dark-green, white, $forest-grey, $forest-dark-green, url("images/forest/carousel-arrow.svg"), 28px, 10px);
 
     .carousel-indicators li {
       border-radius: 50%;
@@ -287,9 +286,10 @@ body.theme-forest {
         @include overlay {
           #{$side}: auto;
           border-#{$side}: 2px solid white;
-          @if ($side == 'left' or $side == right) {
+          @if ($side == "left" or $side == right) {
             width: 30px;
-          } @else {
+          }
+          @else {
             height: 30px;
           }
           background: transparent;
@@ -298,14 +298,13 @@ body.theme-forest {
     }
 
     @include split-two-column-block(
-        $kanit,
-        1.25rem, 1.5625rem, $forest-cream, $semi-bold,
-        none, 0,
-        none, 0
+      $kanit,
+      1.25rem, 1.5625rem, $forest-cream, $semi-bold,
+      none, 0,
+      none, 0
     );
 
     .split-two-column-item {
-
       .split-two-column-item-tag,
       .split-two-column-item-title {
         &,
@@ -404,19 +403,19 @@ body.theme-forest {
 
   .four-column {
     @include four-column-block(
-        $forest-green,
-        brightness(0) invert(100%),
-        $kanit, $semi-bold,
-        $kanit, $semi-bold, url(images/forest/arrow.svg), url(images/forest/arrow-light.svg), 5px
+      $forest-green,
+      brightness(0) invert(100%),
+      $kanit, $semi-bold,
+      $kanit, $semi-bold, url("images/forest/arrow.svg"), url("images/forest/arrow-light.svg"), 5px
     );
   } // end .four-column
 
   .submenu-block {
     @include submenu-block(
-        $forest-cream,
-        $kanit, black, 1.875rem, 2.25rem, $semi-bold,
-        $roboto, $forest-dark-green,
-        url(images/forest/arrow.svg), url(images/forest/arrow-light.svg), 4px
+      $forest-cream,
+      $kanit, black, 1.875rem, 2.25rem, $semi-bold,
+      $roboto, $forest-dark-green,
+      url("images/forest/arrow.svg"), url("images/forest/arrow-light.svg"), 4px
     );
   } // end .submenu-block
 
@@ -473,7 +472,7 @@ body.theme-forest {
           line-height: 68px;
 
           &:after {
-            content: ' ';
+            content: " ";
             border: 2px solid;
             border-radius: 50%;
             position: absolute;
@@ -561,7 +560,7 @@ body.theme-forest {
           &::after {
             border-left: 2px solid white;
             border-right: 2px solid white;
-            content: ' ';
+            content: " ";
             position: absolute;
             height: 100%;
             z-index: 3;

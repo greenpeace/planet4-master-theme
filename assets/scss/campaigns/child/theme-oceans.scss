@@ -1,23 +1,23 @@
-@import '../parent/global/mixins.scss';
-@import '../parent/global/variables.scss';
-@import 'mixins';
-@import 'blocks';
+@import "../parent/global/mixins.scss";
+@import "../parent/global/variables.scss";
+@import "mixins";
+@import "blocks";
 
 body.theme-oceans {
   @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800");
 
   $montserrat: "Montserrat", sans-serif;
 
-  $oceans-black: #1D2120;
-  $oceans-grey: #7A777C;
-  $oceans-peach: #F7AEA9;
-  $oceans-pink: #FF80E9;
+  $oceans-black: #1d2120;
+  $oceans-grey: #7a777c;
+  $oceans-peach: #f7aea9;
+  $oceans-pink: #ff80e9;
   $oceans-blue: #044362;
-  $oceans-aqua: #2CABB1;
-  $oceans-aqua-light: #8FD9D0;
-  $oceans-gradient-start: #379CBB;
-  $oceans-gradient-middle: #FF85E4;
-  $oceans-gradient-end: #F7ACAB;
+  $oceans-aqua: #2cabb1;
+  $oceans-aqua-light: #8fd9d0;
+  $oceans-gradient-start: #379cbb;
+  $oceans-gradient-middle: #ff85e4;
+  $oceans-gradient-end: #f7acab;
   $gradient: linear-gradient(262deg, $oceans-gradient-start, $oceans-gradient-middle, $oceans-gradient-end);
 
   @mixin oceans-button($background: $oceans-pink, $foreground: white) {
@@ -31,7 +31,7 @@ body.theme-oceans {
     // use pseudo element and transparent background on hover
     // to make it possible to transition the gradient
     &::before {
-      content: ' ';
+      content: " ";
       background: $gradient;
       border-radius: 25px;
       position: absolute;
@@ -72,7 +72,6 @@ body.theme-oceans {
   }
 
   /*  BLOCKS START */
-
   .page-header {
     @include page-header-block($montserrat);
 
@@ -179,7 +178,7 @@ body.theme-oceans {
     .four-column-content-info {
       .four-column-content-symbol {
         &:after {
-          content: '';
+          content: "";
           display: block;
           position: absolute;
           left: 0;
@@ -222,7 +221,7 @@ body.theme-oceans {
   } // end .article-listing
 
   .carousel-wrap {
-    @include carousel-block(false, $oceans-aqua, white, white, $oceans-blue, url(images/oceans/carousel-arrow.svg), 50px, 10px);
+    @include carousel-block(false, $oceans-aqua, white, white, $oceans-blue, url("images/oceans/carousel-arrow.svg"), 50px, 10px);
 
     .carousel-indicators li {
       border-radius: 50%;
@@ -236,14 +235,14 @@ body.theme-oceans {
 
     @include mobile-only {
       #happy-point:after {
-        content: '';
+        content: "";
         display: block;
         position: absolute;
         bottom: -199px;
         left: 0;
         width: 100%;
         height: 200px;
-        background: url(images/oceans/happy-point-mobile.svg) no-repeat;
+        background: url("images/oceans/happy-point-mobile.svg") no-repeat;
       }
     }
 
@@ -257,7 +256,7 @@ body.theme-oceans {
       }
 
       #happy-point:after {
-        content: '';
+        content: "";
         display: block;
         position: absolute;
         right: -249px;
@@ -269,18 +268,18 @@ body.theme-oceans {
           max-height: 500px;
         }
         width: 250px;
-        background: url(images/oceans/happy-point-desktop.svg) no-repeat;
+        background: url("images/oceans/happy-point-desktop.svg") no-repeat;
       }
     }
   } // end .happy-point-block-wrap
 
   .split-two-column {
     @include split-two-column-block(
-        $montserrat,
-        1.25rem, 1.5625rem, white, $semi-bold,
-        $oceans-aqua, 0.7,
-        $oceans-pink, 1,
-        $oceans-pink, 1
+      $montserrat,
+      1.25rem, 1.5625rem, white, $semi-bold,
+      $oceans-aqua, 0.7,
+      $oceans-pink, 1,
+      $oceans-pink, 1
     );
 
     .split-two-column-item-image img {
@@ -303,33 +302,7 @@ body.theme-oceans {
         background: $oceans-peach;
       }
     }
-  } // end .split-two-column
-
-  .four-column {
-    @include four-column-block(
-        $oceans-aqua,
-        brightness(0) invert(100%),
-        $montserrat, $semi-bold,
-        $montserrat, $extra-bold, url(images/oceans/arrow.svg), url(images/oceans/arrow-dark.svg)
-    );
-  } // end .four-column
-
-  .submenu-block {
-    @include submenu-block(
-        mix($oceans-peach, white, 50%),
-        $montserrat, $oceans-blue, 3.125rem, 3.75rem, $extra-bold,
-        $roboto, $oceans-blue,
-        url(images/oceans/arrow-dark.svg), url(images/oceans/arrow.svg)
-    );
-
-    h2 {
-      margin-bottom: 30px;
-    }
-
-    .submenu-link:hover {
-      color: $oceans-aqua;
-    }
-  } // end .submenu-block
+  } //end .split-two-column
 
   // take action task block
   .what-you-can-do-wrapper {
@@ -347,7 +320,7 @@ body.theme-oceans {
         margin-bottom: 20px;
 
         .step-number-inner {
-          background-image: url(images/oceans/take-action-crop.png);
+          background-image: url("images/oceans/take-action-crop.png");
           color: $oceans-blue;
           font-family: $montserrat;
           font-weight: $semi-bold;
@@ -371,7 +344,7 @@ body.theme-oceans {
         font-weight: $semi-bold;
 
         .step-number {
-          background-image: url(images/oceans/take-action-crop.png);
+          background-image: url("images/oceans/take-action-crop.png");
           border-radius: 50%;
           color: $oceans-blue;
           font-size: 0.6875rem;
@@ -384,12 +357,38 @@ body.theme-oceans {
           color: $oceans-blue;
 
           .step-number {
-            background-image: url(images/oceans/take-action-mob-dark.png);
+            background-image: url("images/oceans/take-action-mob-dark.png");
           }
         }
       }
     }
   } //end take action task block
+
+  .four-column {
+    @include four-column-block(
+      $oceans-aqua,
+      brightness(0) invert(100%),
+      $montserrat, $semi-bold,
+      $montserrat, $extra-bold, url("images/oceans/arrow.svg"), url("images/oceans/arrow-dark.svg")
+    );
+  } // end .four-column
+
+  .submenu-block {
+    @include submenu-block(
+      mix($oceans-peach, white, 50%),
+      $montserrat, $oceans-blue, 3.125rem, 3.75rem, $extra-bold,
+      $roboto, $oceans-blue,
+      url("images/oceans/arrow-dark.svg"), url("images/oceans/arrow.svg")
+    );
+
+    h2 {
+      margin-bottom: 30px;
+    }
+
+    .submenu-link:hover {
+      color: $oceans-aqua;
+    }
+  } // end .submenu-block
 
   .split-three-column {
     .three-column-info {
