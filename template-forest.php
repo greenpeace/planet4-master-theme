@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Forest Template
+Template Name: Forest Campaign
 */
 ?>
 <?php
@@ -42,7 +42,7 @@ $blocks = [
 	<title>Shortcake Theme Showcase - Greenpeace International</title>
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<link rel="shortcut icon" type="image/ico" href="assets/child/favicon.ico"/>
+    <link rel="shortcut icon" type="image/ico" href="<?php echo get_stylesheet_directory_uri(); ?>/images/campaigns/favicon.ico"/>
 
 	<link rel="stylesheet" id="bootstrap-css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css?ver=4.1.1" type='text/css' media='all'/>
 	<link rel="stylesheet" id="slick-css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css?ver=1.9.0" type='text/css' media='all'/>
