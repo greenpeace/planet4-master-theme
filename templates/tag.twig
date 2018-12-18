@@ -22,9 +22,11 @@
 				<div class="sharethis-inline-share-buttons"></div>
 			</div>
 		</div>
-
 	</div>
-	{% for name, block in blocks %}
-		{{ block|shortcodes|raw }}
-	{% endfor %}
+
+	<div class="page-template">
+		{% for name, block in blocks %}
+			{{ block|shortcodes|raw }}
+		{% endfor %}
+	</div>
 {% endblock %}
