@@ -90,4 +90,9 @@
 			{% include "comments_section.twig" with {comments:post.get_comments()} %}
 		{% endif %}
 	</article>
+
+	<div class="image-zoomer">
+		<span class="image-zoomer-close"><img src="{{ data_nav_bar.images }}close-icon.svg" alt="Close"></span>
+		<div class="image-zoomer-content"></div>
+	</div>
 {% endblock %}
