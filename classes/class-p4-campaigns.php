@@ -41,9 +41,6 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 			add_filter( 'manage_edit-post_tag_columns',          array( $this, 'edit_taxonomy_columns' ) );
 			add_filter( 'manage_post_tag_custom_column',         array( $this, 'manage_taxonomy_custom_column' ), 10, 3 );
 			add_filter( 'manage_edit-post_tag_sortable_columns', array( $this, 'manage_taxonomy_custom_sortable_column' ), 10, 3 );
-
-			add_action( 'add_meta_boxes',                        array( $this, 'add_campaign_page_meta_box' ) );
-			add_action( 'save_post',                             array( $this, 'save_campaign_page_meta_box' ), 10, 3);
 		}
 
 		/**
@@ -336,68 +333,6 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 
 			register_post_type( $this->post_type, $args );
 
-		}
-
-		/**
-		 * Add campaign page metabox
-		 */
-		public function add_campaign_page_meta_box() {
-			add_meta_box( 'campaign-page-meta-box', 'Campaign', array(
-				$this,
-				'campaign_page_meta_box_markup'
-			), "page", "side", "high", null );
-		}
-
-		/**
-         * Campaign page metabox markup
-         *
-		 * @param $object
-		 */
-		public function campaign_page_meta_box_markup( $object ) {
-			wp_nonce_field( basename( __FILE__ ), "campaign-page-meta-box-nonce" );
-			?>
-            <div>
-                <label for="is-campaign-page"><?php _e( 'Campaign Page', 'planet4-master-theme-backend' ); ?>
-					<?php $is_campaign_page = get_post_meta( $object->ID, "is_campaign_page", true ); ?>
-                    &nbsp;&nbsp;<input type="checkbox" name="is-campaign-page" <?php checked( 'on', $is_campaign_page ); ?> />
-                </label>
-            </div>
-			<?php
-		}
-
-		/**
-         * Save campaign meta
-         *
-		 * @param $post_id
-		 * @param $post
-		 * @param $update
-		 *
-		 * @return mixed
-		 */
-		public function save_campaign_page_meta_box( $post_id, $post, $update ) {
-			if ( ! isset( $_POST["campaign-page-meta-box-nonce"] ) || ! wp_verify_nonce( $_POST["campaign-page-meta-box-nonce"], basename( __FILE__ ) ) ) {
-				return $post_id;
-			}
-
-			if ( ! current_user_can( "edit_post", $post_id ) ) {
-				return $post_id;
-			}
-
-			if ( defined( "DOING_AUTOSAVE" ) && DOING_AUTOSAVE ) {
-				return $post_id;
-			}
-
-			$slug = "page";
-			if ( $slug != $post->post_type ) {
-				return $post_id;
-			}
-
-			$is_campaign_page = false;
-			if ( isset( $_POST['is-campaign-page'] ) ) {
-				$is_campaign_page = $_POST['is-campaign-page'];
-			}
-
-			update_post_meta( $post_id, 'is_campaign_page', $is_campaign_page );
 		}
 	}
 }

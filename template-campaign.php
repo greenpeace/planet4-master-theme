@@ -1,6 +1,7 @@
 <?php
 /*
-Template Name: Oil Campaign
+Template Name: Campaign Template
+Template Post Type: post, page, campaigns
 */
 ?>
 <?php
@@ -19,21 +20,33 @@ $footerScripts = [
 	'https://k8s.p4.greenpeace.org/international/wp-content/plugins/planet4-plugin-blocks/admin/js/submenu.js?ver=0.1',
 ];
 $blocks = [
-	'page-header',
-	'covers-block__take-action',
-	'covers-block__campaign-covers',
-	'covers-block__content-covers',
-	'articles-block',
-	'carousel-block',
+    'page-header',
+    'covers-block__take-action',
+    'covers-block__campaign-covers',
+    'covers-block__content-covers',
+    'articles-block',
+    'carousel-block',
 	'happy-point-block',
-	'split-block',
-	'column-block',
-	'submenu-block',
-	'take-action-task-block',
-	'three-column-images-block',
-	'two-column-block',
-	'media-block'
+    'split-block',
+    'column-block',
+    'submenu-block',
+    'take-action-task-block',
+    'three-column-images-block',
+    'two-column-block',
+    'media-block'
 ];
+$themes = [
+	'antarctic' => 'Antarctic',
+	'arctic' => 'Arctic',
+	'forest' => 'Forests',
+	'oceans' => 'Oceans',
+	'oil' => 'Oil',
+	'plastic' => 'Plastics',
+];
+$theme = array_keys($themes)[0];
+if (!empty($_REQUEST['theme']) && array_key_exists($_REQUEST['theme'], $themes)) {
+	$theme = $_REQUEST['theme'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -52,21 +65,28 @@ $blocks = [
 	<link rel="stylesheet" id="child-style-css" href="<?php echo get_stylesheet_directory_uri() . '/child.css'; ?>" type='text/css' media='all'/>
 
 	<?php foreach ($headerScripts as $script) : ?>
-		<script type='text/javascript' src='<?php echo $script; ?>'></script>
+        <script type='text/javascript' src='<?php echo $script; ?>'></script>
 	<?php endforeach; ?>
 </head>
 
-<body class="page-template-default page page-id-18611 brown-bg theme-oil">
+<body class="page-template-default page page-id-18611 brown-bg theme-<?php echo $theme; ?>"">
 
 <div id="credit">
     Based on original at <a href="https://k8s.p4.greenpeace.org/international/shortcake-blocks/" target="_blank">k8s.p4.greenpeace.org/international/shortcake-blocks</a>
 </div>
 
-<?php include_once get_stylesheet_directory() . '/page-elements/theme-switcher.php'; ?>
+<div id="theme-switcher">
+    Switch theme:
+    <select>
+		<?php foreach ($themes as $id => $label) : ?>
+            <option value="<?php echo $id; ?>"><?php echo $label; ?></option>
+		<?php endforeach; ?>
+    </select>
+</div>
 
 <?php
 if (in_array('page-header', $blocks)) {
-	include_once get_stylesheet_directory() . '/page-elements/page-header.php';
+    include_once get_stylesheet_directory() . '/page-elements/page-header.php';
 }
 ?>
 
@@ -86,6 +106,7 @@ if (in_array('page-header', $blocks)) {
 <?php foreach ($footerScripts as $script) : ?>
 	<script type='text/javascript' src='<?php echo $script; ?>'></script>
 <?php endforeach; ?>
+    <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri() . '/assets/js/campaign.js?'. time(); ?>"></script>
 
 </body>
 </html>
