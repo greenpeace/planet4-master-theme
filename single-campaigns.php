@@ -1,10 +1,4 @@
 <?php
-/*
-Template Name: Campaign Template
-Template Post Type: post, page, campaigns
-*/
-?>
-<?php
 $headerScripts = [
 	'https://k8s.p4.greenpeace.org/international/wp-includes/js/jquery/jquery.js?ver=1.12.4',
 	'https://k8s.p4.greenpeace.org/international/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'
