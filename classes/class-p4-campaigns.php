@@ -324,6 +324,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				'rewrite'            => array( 'slug' => 'campaign' ),
 				'capability_type'    => 'post',
 				'has_archive'        => true,
+				'taxonomies'         => array( 'category', 'post_tag' ),
 				'hierarchical'       => false,
 				'menu_position'      => null,
 				'menu_icon'          => 'dashicons-megaphone',
