@@ -327,7 +327,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				'hierarchical'       => false,
 				'menu_position'      => null,
 				'menu_icon'          => 'dashicons-megaphone',
-				'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'page-attributes' )
+				'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
 			);
 
 			register_post_type( $this->post_type, $args );
