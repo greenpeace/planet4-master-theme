@@ -31,7 +31,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 		private function hooks() {
 
 			add_action( 'init',                                  array( $this, 'register_campaigns_cpt' ) );
-			add_action( 'cmb2_admin_init',                       array( $this, 'register_campaigns_metaboxes') );
+			add_action( 'cmb2_admin_init',                       array( $this, 'register_campaigns_metaboxes' ) );
 
 			add_action( 'post_tag_add_form_fields',              array( $this, 'add_taxonomy_form_fields' ) );
 			add_action( 'post_tag_edit_form_fields',             array( $this, 'add_taxonomy_form_fields' ) );
@@ -283,12 +283,14 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 		 * Load assets.
 		 */
 		public function enqueue_admin_assets() {
-			if ( ! is_admin() || strpos( get_current_screen()->taxonomy, $this->taxonomy ) === false ) {
+			if ( ! is_admin() || strpos( get_current_screen()->post_type, $this->post_type ) === false ) {
 				return;
 			}
-			wp_register_script( $this->taxonomy, get_template_directory_uri() . "/assets/js/$this->taxonomy.js", array( 'jquery' ), null, true );
-			wp_localize_script( $this->taxonomy, 'localizations', $this->localizations );
-			wp_enqueue_script( $this->taxonomy );
+			wp_register_script( $this->post_type, get_template_directory_uri() . "/assets/js/$this->post_type.js", array( 'jquery' ), null, true );
+			wp_localize_script( $this->post_type, 'localizations', $this->localizations );
+			wp_register_style( 'cmb-style', get_template_directory_uri() . '/assets/css/campaign.css' );
+			wp_enqueue_style( 'cmb-style' );
+			wp_enqueue_script( $this->post_type );
 			wp_enqueue_media();
 		}
 
@@ -333,107 +335,111 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 			);
 
 			register_post_type( $this->post_type, $args );
-
 		}
 
-		/* 
-		Register Color Picker Metabox for navigation
-		*/
+		/**
+		 * Register Color Picker Metabox for navigation
+		 */
 		public function register_campaigns_metaboxes() {
 			$prefix = 'sc_ch_';
 			$cmb = new_cmb2_box( [
-				'id'            => 'campaign_nav_settings_mb',
-				'title'         => __( 'Page Design', 'sc' ),
-				'object_types'  => [
-					'page', 'campaigns'
+				'id'                 => 'campaign_nav_settings_mb',
+				'title'              => __( 'Page Design', 'planet4-master-theme-backend' ),
+				'object_types'       => [
+					'campaigns',
 				],
-				'context'       => 'normal',
-				'priority'      => 'high',
-				'show_names'    => true, // Show field names on the left
+				'context'            => 'normal',
+				'priority'           => 'high',
+				'show_names'         => true, // Show field names on the left.
 			] );
-			$cmb->add_field( array(
-				'name'    => __('Navigation', 'planet4-master-theme-backend'),
-				'id'      => 'campaign_nav_type',
-				'type'    => 'radio_inline',
-				'options' => array(
-					'planet4' => __( 'Planet 4 Navigation', 'cmb2' ),
-					'minimal'   => __( 'Minimal Navigation', 'cmb2' ),
-				),
-				'default' => 'planet4',
-			) );
-		
-			$cmb->add_field( array(
-				'name'    => 'Navigation Color',
-				'id'      => 'campaign_nav_color',
-				'type'    => 'colorpicker',
-				'classes' => 'palette-only',
-				'default' => '#ffffff',
-				'attributes' => array(
-					'data-colorpicker' => json_encode( array(
-						'palettes' => array( '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0'),
-					) ),
-				),
-			) );
-			$cmb->add_field( array(
-				'name'    => 'Header Color Picker',
-				'id'      => 'campaign_header_color',
-				'type'    => 'colorpicker',
-				'classes' => 'palette-only',
-				'default' => '#ffffff',
-				'attributes' => array(
-					'data-colorpicker' => json_encode( array(
-						'palettes' => array( '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0'),
-					) ),
-				),
-			) );
-			$cmb->add_field( array(
-				'name'    => 'Body Font',
-				'id'      => 'campaign_body_font',
-				'type'    => 'radio_inline',
-				'options' => array(
-					'serif' => __( 'Serif', 'cmb2' ),
-					'sans'   => __( 'Sans Serif', 'cmb2' ),
-				),
-				'default' => 'serif',
-			) );
 
-			$cmb->add_field( array(
-				'name'    => 'Primary Button',
-				'id'      => 'campaign_primary_color',
-				'type'    => 'colorpicker',
-				'classes' => 'palette-only',
-				'default' => '#ffffff',
-				'attributes' => array(
-					'data-colorpicker' => json_encode( array(
-						'palettes' => array( '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0'),
-					) ),
-				),
-			) );
-			$cmb->add_field( array(
-				'name'    => 'Secondary Button',
-				'id'      => 'campaign_secondary_color',
-				'type'    => 'colorpicker',
-				'classes' => 'palette-only',
-				'default' => '#ffffff',
-				'attributes' => array(
-					'data-colorpicker' => json_encode( array(
-						'palettes' => array( '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0'),
-					) ),
-				),
-			) );
-			$cmb->add_field( array(
-				'name'             => 'Logo',
-				'desc'             => 'Select an option',
-				'id'               => 'campaign_logo',
-				'type'             => 'select',
-				'show_option_none' => true,
-				'default'          => 'standard',
-				'options'          => array(
-					'standard' => __( 'Option One', 'cmb2' ),
-					'custom'   => __( 'Option Two', 'cmb2' ),
-					'none'     => __( 'Option Three', 'cmb2' ),
-				),
-			) );
+			$cmb->add_field( [
+				'name'               => __( 'Navigation', 'planet4-master-theme-backend' ),
+				'id'                 => 'campaign_nav_type',
+				'type'               => 'radio_inline',
+				'options'            => [
+					'planet4'        => __( 'Planet 4 Navigation', 'planet4-master-theme-backend' ),
+					'minimal'        => __( 'Minimal Navigation', 'planet4-master-theme-backend' ),
+				],
+				'default' => 'planet4',
+			] );
+
+			$cmb->add_field( [
+				'name'               => __( 'Navigation Color', 'planet4-master-theme-backend' ),
+				'id'                 => 'campaign_nav_color',
+				'type'               => 'colorpicker',
+				'classes'            => 'palette-only',
+				'default'            => '#ffffff',
+				'attributes'         => [
+					'data-colorpicker' => json_encode( [
+						'palettes' => [ '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0' ],
+					] ),
+				],
+			] );
+
+			$cmb->add_field( [
+				'name'               => __( 'Header Color Picker', 'planet4-master-theme-backend' ),
+				'id'                 => 'campaign_header_color',
+				'type'               => 'colorpicker',
+				'classes'            => 'palette-only',
+				'default'            => '#ffffff',
+				'attributes'         => [
+					'data-colorpicker' => json_encode( [
+						'palettes' => [ '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0' ],
+					] ),
+				],
+			] );
+
+			$cmb->add_field( [
+				'name'               => __( 'Body Font', 'planet4-master-theme-backend' ),
+				'id'                 => 'campaign_body_font',
+				'type'               => 'radio_inline',
+				'options'            => [
+					'serif'      => __( 'Serif', 'planet4-master-theme-backend' ),
+					'sans'       => __( 'Sans Serif', 'planet4-master-theme-backend' ),
+				],
+				'default'            => 'serif',
+			] );
+
+			$cmb->add_field( [
+				'name'               => __( 'Primary Button' , 'planet4-master-theme-backend' ),
+				'id'                 => 'campaign_primary_color',
+				'type'               => 'colorpicker',
+				'classes'            => 'palette-only',
+				'default'            => '#ffffff',
+				'attributes'         => [
+					'data-colorpicker' => json_encode( [
+						'palettes' => [ '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0' ],
+					] ),
+				],
+			] );
+
+			$cmb->add_field( [
+				'name'               => __( 'Secondary Button', 'planet4-master-theme-backend' ),
+				'id'                 => 'campaign_secondary_color',
+				'type'               => 'colorpicker',
+				'classes'            => 'palette-only',
+				'default'            => '#ffffff',
+				'attributes'         => [
+					'data-colorpicker' => json_encode( [
+						'palettes'     => [ '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0' ],
+					] ),
+				],
+			] );
+
+			$cmb->add_field( [
+				'name'               => 'Logo',
+				'desc'               => 'Select an option',
+				'id'                 => 'campaign_logo',
+				'type'               => 'select',
+				'show_option_none'   => true,
+				'default'            => 'standard',
+				'options'            => [
+					'standard'   => __( 'Option One', 'planet4-master-theme-backend' ),
+					'custom'     => __( 'Option Two', 'planet4-master-theme-backend' ),
+					'none'       => __( 'Option Three', 'planet4-master-theme-backend' ),
+				],
+			] );
 		}
 
 		/**
@@ -442,7 +448,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 		public function add_campaign_page_meta_box() {
 			add_meta_box( 'campaign-page-meta-box', 'Campaign', array(
 				$this,
-				'campaign_page_meta_box_markup'
+				'campaign_page_meta_box_markup',
 			), "page", "side", "high", null );
 		}
 
