@@ -31,6 +31,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 		private function hooks() {
 
 			add_action( 'init',                                  array( $this, 'register_campaigns_cpt' ) );
+			add_action( 'cmb2_admin_init',                       array( $this, 'register_campaigns_metaboxes') );
 
 			add_action( 'post_tag_add_form_fields',              array( $this, 'add_taxonomy_form_fields' ) );
 			add_action( 'post_tag_edit_form_fields',             array( $this, 'add_taxonomy_form_fields' ) );
@@ -54,13 +55,13 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 					'hide_empty' => false,
 					'orderby'    => 'name',
 					'taxonomy'   => 'p4-page-type',
-				]
+				] 
 			);
 
 			if ( isset( $wp_tag ) && $wp_tag instanceof WP_Term ) {
 				$selected_page_types = get_term_meta( $wp_tag->term_id, 'selected_page_types' );
 				if ( ! isset( $selected_page_types[0] ) ) {
-					$selected_page_types[0] = [];
+					$selected_page_types[0] = []; 
 				}
 
 				$attachment_id    = get_term_meta( $wp_tag->term_id, 'tag_attachment_id', true );
@@ -333,6 +334,168 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 
 			register_post_type( $this->post_type, $args );
 
+		}
+
+		/* 
+		Register Color Picker Metabox for navigation
+		*/
+		public function register_campaigns_metaboxes() {
+			$prefix = 'sc_ch_';
+			$cmb = new_cmb2_box( [
+				'id'            => 'campaign_nav_settings_mb',
+				'title'         => __( 'Page Design', 'sc' ),
+				'object_types'  => [
+					'page', 'campaigns'
+				],
+				'context'       => 'normal',
+				'priority'      => 'high',
+				'show_names'    => true, // Show field names on the left
+			] );
+			$cmb->add_field( array(
+				'name'    => __('Navigation', 'planet4-master-theme-backend'),
+				'id'      => 'campaign_nav_type',
+				'type'    => 'radio_inline',
+				'options' => array(
+					'planet4' => __( 'Planet 4 Navigation', 'cmb2' ),
+					'minimal'   => __( 'Minimal Navigation', 'cmb2' ),
+				),
+				'default' => 'planet4',
+			) );
+		
+			$cmb->add_field( array(
+				'name'    => 'Navigation Color',
+				'id'      => 'campaign_nav_color',
+				'type'    => 'colorpicker',
+				'classes' => 'palette-only',
+				'default' => '#ffffff',
+				'attributes' => array(
+					'data-colorpicker' => json_encode( array(
+						'palettes' => array( '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0'),
+					) ),
+				),
+			) );
+			$cmb->add_field( array(
+				'name'    => 'Header Color Picker',
+				'id'      => 'campaign_header_color',
+				'type'    => 'colorpicker',
+				'classes' => 'palette-only',
+				'default' => '#ffffff',
+				'attributes' => array(
+					'data-colorpicker' => json_encode( array(
+						'palettes' => array( '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0'),
+					) ),
+				),
+			) );
+			$cmb->add_field( array(
+				'name'    => 'Body Font',
+				'id'      => 'campaign_body_font',
+				'type'    => 'radio_inline',
+				'options' => array(
+					'serif' => __( 'Serif', 'cmb2' ),
+					'sans'   => __( 'Sans Serif', 'cmb2' ),
+				),
+				'default' => 'serif',
+			) );
+
+			$cmb->add_field( array(
+				'name'    => 'Primary Button',
+				'id'      => 'campaign_primary_color',
+				'type'    => 'colorpicker',
+				'classes' => 'palette-only',
+				'default' => '#ffffff',
+				'attributes' => array(
+					'data-colorpicker' => json_encode( array(
+						'palettes' => array( '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0'),
+					) ),
+				),
+			) );
+			$cmb->add_field( array(
+				'name'    => 'Secondary Button',
+				'id'      => 'campaign_secondary_color',
+				'type'    => 'colorpicker',
+				'classes' => 'palette-only',
+				'default' => '#ffffff',
+				'attributes' => array(
+					'data-colorpicker' => json_encode( array(
+						'palettes' => array( '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0'),
+					) ),
+				),
+			) );
+			$cmb->add_field( array(
+				'name'             => 'Logo',
+				'desc'             => 'Select an option',
+				'id'               => 'campaign_logo',
+				'type'             => 'select',
+				'show_option_none' => true,
+				'default'          => 'standard',
+				'options'          => array(
+					'standard' => __( 'Option One', 'cmb2' ),
+					'custom'   => __( 'Option Two', 'cmb2' ),
+					'none'     => __( 'Option Three', 'cmb2' ),
+				),
+			) );
+		}
+
+		/**
+		 * Add campaign page metabox
+		 */
+		public function add_campaign_page_meta_box() {
+			add_meta_box( 'campaign-page-meta-box', 'Campaign', array(
+				$this,
+				'campaign_page_meta_box_markup'
+			), "page", "side", "high", null );
+		}
+
+		/**
+         * Campaign page metabox markup
+         *
+		 * @param $object
+		 */
+		public function campaign_page_meta_box_markup( $object ) {
+			wp_nonce_field( basename( __FILE__ ), "campaign-page-meta-box-nonce" );
+			?>
+            <div>
+                <label for="is-campaign-page"><?php _e( 'Campaign Page', 'planet4-master-theme-backend' ); ?>
+					<?php $is_campaign_page = get_post_meta( $object->ID, "is_campaign_page", true ); ?>
+                    &nbsp;&nbsp;<input type="checkbox" name="is-campaign-page" <?php checked( 'on', $is_campaign_page ); ?> />
+                </label>
+            </div>
+			<?php
+		}
+
+		/**
+         * Save campaign meta
+         *
+		 * @param $post_id
+		 * @param $post
+		 * @param $update
+		 *
+		 * @return mixed
+		 */
+		public function save_campaign_page_meta_box( $post_id, $post, $update ) {
+			if ( ! isset( $_POST["campaign-page-meta-box-nonce"] ) || ! wp_verify_nonce( $_POST["campaign-page-meta-box-nonce"], basename( __FILE__ ) ) ) {
+				return $post_id;
+			}
+
+			if ( ! current_user_can( "edit_post", $post_id ) ) {
+				return $post_id;
+			}
+
+			if ( defined( "DOING_AUTOSAVE" ) && DOING_AUTOSAVE ) {
+				return $post_id;
+			}
+
+			$slug = "page";
+			if ( $slug != $post->post_type ) {
+				return $post_id;
+			}
+
+			$is_campaign_page = false;
+			if ( isset( $_POST['is-campaign-page'] ) ) {
+				$is_campaign_page = $_POST['is-campaign-page'];
+			}
+
+			update_post_meta( $post_id, 'is_campaign_page', $is_campaign_page );
 		}
 	}
 }
