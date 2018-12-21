@@ -31,10 +31,10 @@
   margin: auto;
   text-align: center;
 
-  @supports (justify-content: space-evenly) {
+  @supports (justify-content: space-between) {
     & {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-between;
     }
   }
 
