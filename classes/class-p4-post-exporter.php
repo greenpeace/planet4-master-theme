@@ -11,6 +11,7 @@ class P4_Post_Exporter {
 		add_filter( 'page_row_actions',                 array( &$this, 'single_post_export' ), 10, 2 );
 		add_action( 'admin_footer-edit.php',            array( &$this, 'single_post_export_bulk' ) );
 		add_action( 'load-edit.php',                    array( &$this, 'single_post_export_bulk_action' ) );
+		add_action( 'admin_head',                       array( &$this, 'add_import_button' ) );
 	}
 
 	/*
@@ -74,5 +75,15 @@ class P4_Post_Exporter {
 
 		return $actions;
 	}
+
+	public function add_import_button() {
+		?>
+        <script>
+			jQuery(function(){
+				jQuery("body.post-type-campaigns .wrap .page-title-action").after('<a href="index.php?param=your-action" class="page-title-action">Import</a>');
+			});
+        </script>
+		<?php
+    }
 
 }
