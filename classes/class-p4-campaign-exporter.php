@@ -1,6 +1,6 @@
 <?php
 
-class P4_Post_Exporter {
+class P4_Campaign_Exporter {
 
 	/*
 		* AutoLoad Hooks
@@ -33,14 +33,16 @@ class P4_Post_Exporter {
 	* Export multiple data
 	*/
 	public function single_post_export_bulk() {
-		if ( current_user_can( 'edit_posts' ) ) { ?>
+        if ( ! empty( $_GET['post_type'] ) &&
+             'campaigns' == $_GET['post_type'] &&
+             current_user_can( 'edit_posts' ) ) { ?>
             <script type="text/javascript">
-				jQuery(document).ready(function () {
-					jQuery('<option>').val('export').text('<?php _e( 'Export', 'planet4-master-theme-backend' )?>').appendTo("select[name='action']");
-				});
+                jQuery(document).ready(function () {
+                    jQuery('<option>').val('export').text('<?php _e( 'Export', 'planet4-master-theme-backend' )?>').appendTo("select[name='action']");
+                });
             </script>
-			<?php
-		}
+            <?php
+        }
 	}
 
 	/**
@@ -69,7 +71,9 @@ class P4_Post_Exporter {
 	 * Add Export Link
 	 */
 	public function single_post_export( $actions, $post ) {
-		if ( current_user_can( 'edit_posts' ) ) {
+		if ( ! empty( $_GET['post_type'] ) &&
+		     'campaigns' == $_GET['post_type'] &&
+             current_user_can( 'edit_posts' ) ) {
 			$actions['export'] = '<a href="admin.php?action=export_data&amp;post=' . $post->ID . '" title="' . __( 'Export', 'planet4-master-theme-backend' ) . '" rel="permalink">' . __( 'Export', 'planet4-master-theme-backend' ) . '</a>';
 		}
 
