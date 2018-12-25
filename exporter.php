@@ -12,6 +12,7 @@ $defaults = array(
 	'status'     => false,
 );
 $args     = wp_parse_args( $post, $defaults );
+define( 'CMX_VERSION', '1.0' );
 $sitename = sanitize_key( get_bloginfo( 'name' ) );
 if ( ! empty( $sitename ) ) {
 	$sitename .= '.';
@@ -252,7 +253,7 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . "\" ?>\n";
         <description><?php bloginfo_rss( 'description' ); ?></description>
         <pubDate><?php echo date( 'D, d M Y H:i:s +0000' ); ?></pubDate>
         <language><?php bloginfo_rss( 'language' ); ?></language>
-        <wp:wxr_version><?php echo get_bloginfo( 'version' ); ?></wp:wxr_version>
+        <wp:wxr_version><?php echo CMX_VERSION; ?></wp:wxr_version>
         <wp:base_site_url><?php echo p4_px_single_post_site_url(); ?></wp:base_site_url>
         <wp:base_blog_url><?php bloginfo_rss( 'url' ); ?></wp:base_blog_url>
 

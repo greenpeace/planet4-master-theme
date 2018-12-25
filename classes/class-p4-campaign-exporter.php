@@ -84,7 +84,7 @@ class P4_Campaign_Exporter {
 		?>
         <script>
 			jQuery(function(){
-				jQuery("body.post-type-campaigns .wrap .page-title-action").after('<a href="index.php?param=your-action" class="page-title-action">Import</a>');
+				jQuery("body.post-type-campaigns .wrap .page-title-action").after('<a href="admin.php?import=wordpress" class="page-title-action"><?php _e( 'Import', 'planet4-master-theme-backend' ); ?></a>');
 			});
         </script>
 		<?php
