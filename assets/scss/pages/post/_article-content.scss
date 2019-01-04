@@ -118,6 +118,19 @@
     }
   }
 
+  blockquote,
+  blockquote > p {
+    font-size: 1.5rem;
+
+    @include medium-and-up {
+      font-size: 2.375rem;
+    }
+
+    @include x-large-and-up {
+      font-size: 2.5rem;
+    }
+  }
+
   img {
     max-width: 100%;
     height: auto;
