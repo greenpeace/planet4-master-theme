@@ -407,7 +407,15 @@ class P4_Master_Site extends TimberSite {
 		wp_enqueue_style( 'bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css', array(), '4.1.1' );
 		wp_enqueue_style( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css', array(), '1.9.0' );
 		wp_enqueue_style( 'fork-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.1.1/css/fork-awesome.min.css', array(), '1.1.1' );
-		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], $css_creation );
+
+		if ( is_singular( 'campaigns' ) ) {
+			wp_enqueue_style( 'campaigns-parent-style', $this->theme_dir . '/parent.css', [], $css_creation );
+			wp_enqueue_style( 'campaigns-child-style', $this->theme_dir . '/child.css', [], $css_creation );
+			wp_enqueue_style( 'campaigns-blocks-style', $this->theme_dir . '/blocks.css', [], $css_creation );
+		} else {
+			wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], $css_creation );
+        }
+
 		// JS files.
 		wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', array(), '3.3.1', true );
 		wp_enqueue_script( 'popperjs', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', array(), '1.14.3', true );

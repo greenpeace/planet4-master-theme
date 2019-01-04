@@ -1,106 +1,83 @@
 <?php
-$headerScripts = [
-	'https://k8s.p4.greenpeace.org/international/wp-includes/js/jquery/jquery.js?ver=1.12.4',
-	'https://k8s.p4.greenpeace.org/international/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'
-];
-$footerScripts = [
-	'https://k8s.p4.greenpeace.org/international/wp-content/themes/planet4-master-theme/main.js?ver=1542099183',
-	'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js?ver=1.9.0',
-	'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js?ver=1.14.3',
-	'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js?ver=4.1.1',
-	'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js?ver=2.0.8',
-	'https://k8s.p4.greenpeace.org/international/wp-content/plugins/planet4-plugin-blocks/main.js?ver=1542099180',
-	'https://k8s.p4.greenpeace.org/international/wp-includes/js/wp-embed.min.js?ver=4.9.8',
-	'https://k8s.p4.greenpeace.org/international/wp-content/plugins/planet4-plugin-blocks/admin/js/submenu.js?ver=0.1',
-];
-$blocks = [
-    'page-header',
-    'covers-block__take-action',
-    'covers-block__campaign-covers',
-    'covers-block__content-covers',
-    'articles-block',
-    'carousel-block',
-	'happy-point-block',
-    'split-block',
-    'column-block',
-    'submenu-block',
-    'take-action-task-block',
-    'three-column-images-block',
-    'two-column-block',
-    'media-block'
-];
-$themes = [
-	'antarctic' => 'Antarctic',
-	'arctic' => 'Arctic',
-	'forest' => 'Forests',
-	'oceans' => 'Oceans',
-	'oil' => 'Oil',
-	'plastic' => 'Plastics',
-];
-$theme = array_keys($themes)[0];
-if (!empty($_REQUEST['theme']) && array_key_exists($_REQUEST['theme'], $themes)) {
-	$theme = $_REQUEST['theme'];
+use Timber\Timber;
+
+// Initializing variables.
+$context         = Timber::get_context();
+/** @var P4_Post $post */
+$post            = Timber::query_post( false, 'P4_Post' );
+$context['post'] = $post;
+
+// Set Navigation Issues links.
+$post->set_issues_links();
+
+// Get the cmb2 custom fields data
+// Articles block parameters to populate the articles block
+// p4_take_action_page parameter to populate the take action boxout block
+// Author override parameter. If this is set then the author profile section will not be displayed.
+$page_meta_data                 = get_post_meta( $post->ID );
+$page_terms_data                = get_the_terms( $post, 'p4-page-type' );
+$context['background_image']    = $page_meta_data['p4_background_image_override'][0] ?? '';
+$take_action_page               = $page_meta_data['p4_take_action_page'][0] ?? '';
+$context['page_type']           = $page_terms_data[0]->name ?? '';
+$context['page_term_id']        = $page_terms_data[0]->term_id ?? '';
+$context['page_category']       = $category->name ?? __( 'Post page', 'planet4-master-theme' );
+$context['page_type_slug']      = $page_terms_data[0]->slug ?? '';
+$context['social_accounts']     = $post->get_social_accounts( $context['footer_social_menu'] );
+$context['og_title']            = $post->get_og_title();
+$context['og_description']      = $post->get_og_description();
+$context['og_image_data']       = $post->get_og_image();
+$context['custom_body_classes'] = 'brown-bg theme-oil';
+
+$context['filter_url'] = add_query_arg( [
+	's'                                       => ' ',
+	'orderby'                                 => 'relevant',
+	'f[ptype][' . $context['page_type'] . ']' => $context['page_term_id'],
+], get_home_url()
+);
+
+
+// Build the shortcode for articles block.
+if ( 'yes' === $post->include_articles ) {
+	$post->articles = "[shortcake_articles exclude_post_id='" . $post->ID . "' /]";
 }
-?>
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-	<meta charset="UTF-8">
-	<title>Shortcake Theme Showcase - Greenpeace International</title>
-	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="shortcut icon" type="image/ico" href="<?php echo get_stylesheet_directory_uri(); ?>/images/campaigns/favicon.ico"/>
 
-	<link rel="stylesheet" id="bootstrap-css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css?ver=4.1.1" type='text/css' media='all'/>
-	<link rel="stylesheet" id="slick-css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css?ver=1.9.0" type='text/css' media='all'/>
-	<link rel="stylesheet" id="fork-awesome-css" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.1.1/css/fork-awesome.min.css?ver=1.1.1" type='text/css' media='all'/>
-	<link rel="stylesheet" id="parent-style-css" href="<?php echo get_stylesheet_directory_uri() . '/parent.css'; ?>" type='text/css' media='all'/>
-	<link rel="stylesheet" id="plugin-blocks-css" href="<?php echo get_stylesheet_directory_uri() . '/blocks.css'; ?>" type='text/css' media='all'/>
-	<link rel="stylesheet" id="child-style-css" href="<?php echo get_stylesheet_directory_uri() . '/child.css'; ?>" type='text/css' media='all'/>
-
-	<?php foreach ($headerScripts as $script) : ?>
-        <script type='text/javascript' src='<?php echo $script; ?>'></script>
-	<?php endforeach; ?>
-</head>
-
-<body class="page-template-default page page-id-18611 brown-bg theme-<?php echo $theme; ?>"">
-
-<div id="credit">
-    Based on original at <a href="https://k8s.p4.greenpeace.org/international/shortcake-blocks/" target="_blank">k8s.p4.greenpeace.org/international/shortcake-blocks</a>
-</div>
-
-<div id="theme-switcher">
-    Switch theme:
-    <select>
-		<?php foreach ($themes as $id => $label) : ?>
-            <option value="<?php echo $id; ?>"><?php echo $label; ?></option>
-		<?php endforeach; ?>
-    </select>
-</div>
-
-<?php
-if (in_array('page-header', $blocks)) {
-    include_once get_stylesheet_directory() . '/page-elements/page-header.php';
+// Build the shortcode for take action boxout block
+// Break the content to retrieve first 2 paragraphs and split the content if the take action page has been defined.
+if ( ! empty( $take_action_page ) ) {
+	$post->take_action_page   = $take_action_page;
+	$post->take_action_boxout = "[shortcake_take_action_boxout take_action_page='$take_action_page' /]";
 }
-?>
 
-<div class="page-template">
+// Build an arguments array to customize WordPress comment form.
+$comments_args = [
+	'comment_notes_before' => '',
+	'comment_notes_after'  => '',
+	'comment_field'        => Timber::compile( 'comment_form/comment_field.twig' ),
+	'submit_button'        => Timber::compile( 'comment_form/submit_button.twig' ),
+	'title_reply'          => __( 'Leave Your Reply', 'planet4-master-theme' ),
+	'fields'               => apply_filters( 'comment_form_default_fields',
+		[
+			'author' => Timber::compile( 'comment_form/author_field.twig' ),
+			'email'  => Timber::compile( 'comment_form/email_field.twig' ),
+		]
+	),
+];
 
-	<a href="#" class="back-top">&nbsp;</a>
+$context['comments_args']       = $comments_args;
+$context['show_comments']       = comments_open( $post->ID );
+$context['post_comments_count'] = get_comments(
+	[
+		'post_id' => $post->ID,
+		'status'  => 'approve',
+		'type'    => 'comment',
+		'count'   => true,
+	]
+);
 
-	<?php
-	foreach ($blocks as $block) {
-		if ($block !== 'page-header') {
-			include_once get_stylesheet_directory() . '/page-elements/' . $block . '.php';
-		}
-	}
-	?>
-</div>
+$context['post_tags'] = implode( ', ', $post->tags() );
 
-<?php foreach ($footerScripts as $script) : ?>
-	<script type='text/javascript' src='<?php echo $script; ?>'></script>
-<?php endforeach; ?>
-    <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri() . '/assets/js/campaign.js?'. time(); ?>"></script>
-
-</body>
-</html>
+if ( post_password_required( $post->ID ) ) {
+	Timber::render( 'single-password.twig', $context );
+} else {
+	Timber::render( array( 'single-' . $post->ID . '.twig', 'single-' . $post->post_type . '.twig', 'single.twig' ), $context );
+}
