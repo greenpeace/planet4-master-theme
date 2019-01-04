@@ -7,8 +7,37 @@ $context         = Timber::get_context();
 $post            = Timber::query_post( false, 'P4_Post' );
 $context['post'] = $post;
 
+$nav_color = get_post_meta( get_the_ID(), 'campaign_nav_color', true );
+$nav_type = get_post_meta( get_the_ID(), 'campaign_nav_type', true );
+$header_color = get_post_meta( get_the_ID(), 'campaign_header_color', true );
+$header_font_serif = get_post_meta( get_the_ID(), 'campaign_header_serif', true );
+$header_font_sans = get_post_meta( get_the_ID(), 'campaign_header_sans', true );
+$body_font = get_post_meta( get_the_ID(), 'campaign_body_font', true );
+$btn_primary_color = get_post_meta( get_the_ID(), 'campaign_primary_color', true );
+$btn_secondary_color = get_post_meta( get_the_ID(), 'campaign_secondary_color', true );
+$campaign_logo = get_post_meta( get_the_ID(), 'campaign_logo', true );
+
+// if ( $nav_color ) { echo '.page-header { background: ' . $nav_color . '!important;}'; }
+// if ( $nav_type )  { echo '.page-header { background: ' . $nav_color . '!important;}'; }
+if ( $header_color ) { 
+	echo '.page-header { background: ' . $header_color . '!important;}';
+}
+if ( $header_font_serif ) { echo '.page-header { font-family: ' . $header_font_serif . '!important;}'; }
+if ( $header_font_sans ) { echo '.page-header { font-family: ' . $header_font_sans . '!important;}'; }
+if ( $body_font ) { echo 'body { font-family: ' . $body_font . '!important;}'; }
+if ( $btn_primary_color ) { 
+	echo 
+	'.btn-primary { background: ' . $btn_primary_color . '!important; border-color:' . $btn_primary_color . '!important;}'; 
+	}
+	if ( $btn_secondary_color ) { 
+	echo 
+	'.btn-secondary { background: ' . $btn_secondary_color . '!important; border-color:' . $btn_secondary_color . '!important;}'; 
+}
+
 // Set Navigation Issues links.
 $post->set_issues_links();
+
+
 
 // Get the cmb2 custom fields data
 // Articles block parameters to populate the articles block

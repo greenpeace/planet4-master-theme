@@ -342,6 +342,27 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 		 */
 		public function register_campaigns_metaboxes() {
 			$prefix = 'sc_ch_';
+			$header_palette = [
+				'#ffffff', '#1a1a1a', '#333333',
+				'#686867', '#979796', '#cacac9',
+				'#e3e2e2', '#8cbf4f', '#a9cd7a',
+				'#c7dda4'
+			];
+
+			$primary_palette = [
+				'#093944', '#e9cbba', '#e88c74',
+				'#9f1916', '#7a1a0f', '#3c120e',
+				'#14233a', '#ec6d3d', '#e9582e',
+				'#e9582e', '#fcd00a'
+			];
+
+			$secondary_palette = [
+				'#3aa975', '#25784f', '#94d1d5',
+				'#40bbd2', '#1bb5d5', '#0ca9d5',
+				'#037899', '#2db4b3', '#5bbfca',
+				'#23928c', '#196b71'
+			];
+			
 			$cmb = new_cmb2_box( [
 				'id'                 => 'campaign_nav_settings_mb',
 				'title'              => __( 'Page Design', 'planet4-master-theme-backend' ),
@@ -372,21 +393,50 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				'default'            => '#ffffff',
 				'attributes'         => [
 					'data-colorpicker' => json_encode( [
-						'palettes' => [ '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0' ],
+						'palettes' => $header_palette,
 					] ),
 				],
 			] );
 
 			$cmb->add_field( [
-				'name'               => __( 'Header Color Picker', 'planet4-master-theme-backend' ),
+				'name'               => __( 'Header Color', 'planet4-master-theme-backend' ),
 				'id'                 => 'campaign_header_color',
 				'type'               => 'colorpicker',
 				'classes'            => 'palette-only',
 				'default'            => '#ffffff',
 				'attributes'         => [
 					'data-colorpicker' => json_encode( [
-						'palettes' => [ '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0' ],
+						'palettes' => $header_palette,
 					] ),
+				],
+			] );
+
+			$cmb->add_field( [
+				'name'               => 'Header Serif Font',
+				'desc'               => 'Select an option',
+				'id'                 => 'campaign_header_serif',
+				'type'               => 'select',
+				'show_option_none'   => true,
+				'default'            => 'standard',
+				'options'            => [
+					'standard'   => __( 'Option One', 'planet4-master-theme-backend' ),
+					'custom'     => __( 'Option Two', 'planet4-master-theme-backend' ),
+					'none'       => __( 'Option Three', 'planet4-master-theme-backend' ),
+				],
+			] );
+
+
+			$cmb->add_field( [
+				'name'               => 'Header Sans Font',
+				'desc'               => 'Select an option',
+				'id'                 => 'campaign_header_sans',
+				'type'               => 'select',
+				'show_option_none'   => true,
+				'default'            => 'standard',
+				'options'            => [
+					'standard'   => __( 'Option One', 'planet4-master-theme-backend' ),
+					'custom'     => __( 'Option Two', 'planet4-master-theme-backend' ),
+					'none'       => __( 'Option Three', 'planet4-master-theme-backend' ),
 				],
 			] );
 
@@ -402,27 +452,27 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 			] );
 
 			$cmb->add_field( [
-				'name'               => __( 'Primary Button' , 'planet4-master-theme-backend' ),
+				'name'               => __( 'Primary Button Color' , 'planet4-master-theme-backend' ),
 				'id'                 => 'campaign_primary_color',
 				'type'               => 'colorpicker',
 				'classes'            => 'palette-only',
 				'default'            => '#ffffff',
 				'attributes'         => [
 					'data-colorpicker' => json_encode( [
-						'palettes' => [ '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0' ],
+						'palettes' => $primary_palette,
 					] ),
 				],
 			] );
 
 			$cmb->add_field( [
-				'name'               => __( 'Secondary Button', 'planet4-master-theme-backend' ),
+				'name'               => __( 'Secondary Button Color', 'planet4-master-theme-backend' ),
 				'id'                 => 'campaign_secondary_color',
 				'type'               => 'colorpicker',
 				'classes'            => 'palette-only',
 				'default'            => '#ffffff',
 				'attributes'         => [
 					'data-colorpicker' => json_encode( [
-						'palettes'     => [ '#3dd0cc', '#ff834c', '#4fa2c0', '#0bc991', '#ff834c', '#4fa2c0' ],
+						'palettes'     => $secondary_palette,
 					] ),
 				],
 			] );
