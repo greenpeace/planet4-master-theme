@@ -18,13 +18,6 @@ body {
   }
 
   &.home {
-    background-image:
-      repeating-linear-gradient(119deg, transparent -53%, rgba(157, 187, 190, 0.1) 55%, rgba(236, 241, 243, 1) 0),
-      repeating-linear-gradient(119deg, transparent -50%, rgba(157, 187, 190, 0.1) 30%, rgba(236, 241, 243, 0) 20%),
-      repeating-linear-gradient(119deg, transparent -445%, rgba(157, 187, 190, 0.1) 27%, rgba(236, 241, 243, 0) 10%),
-      repeating-linear-gradient(119deg, transparent -45%, rgba(157, 187, 190, 0.1) 17%, rgba(236, 241, 243, 0.5) 0),
-      url("images/home.png");
-    background-repeat: repeat-x;
     background-color: #ecf1f3;
   }
 
