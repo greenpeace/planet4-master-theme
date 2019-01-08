@@ -160,11 +160,13 @@ function p4_px_single_post_term_description( $term ) {
 	echo '<wp:term_description>' . p4_px_single_post_cdata( $term->description ) . '</wp:term_description>';
 }
 
-function p4_px_single_post_authors_list() {
+function p4_px_single_post_authors_list( $post_ids ) {
 	global $wpdb;
 
+	$post_ids = implode( ',', $post_ids );
+
 	$authors = array();
-	$results = $wpdb->get_results( "SELECT DISTINCT post_author FROM $wpdb->posts WHERE post_status != 'auto-draft'" );
+	$results = $wpdb->get_results( "SELECT DISTINCT post_author FROM $wpdb->posts WHERE ID IN ( $post_ids ) AND post_status != 'auto-draft'" );
 	foreach ( (array) $results as $result ) {
 		$authors[] = get_userdata( $result->post_author );
 	}
@@ -220,6 +222,8 @@ function p4_px_single_post_filter_postmeta( $return_me, $meta_key ) {
 
 add_filter( 'p4_px_single_post_export_skip_postmeta', 'p4_px_single_post_filter_postmeta', 10, 2 );
 
+$post_id = explode( ",", $_GET['post'] );
+
 echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . "\" ?>\n";
 
 ?>
@@ -257,7 +261,7 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . "\" ?>\n";
         <wp:base_site_url><?php echo p4_px_single_post_site_url(); ?></wp:base_site_url>
         <wp:base_blog_url><?php bloginfo_rss( 'url' ); ?></wp:base_blog_url>
 
-		<?php p4_px_single_post_authors_list(); ?>
+		<?php p4_px_single_post_authors_list( $post_id ); ?>
 
 		<?php foreach ( $cats as $c ) : ?>
             <wp:category>
@@ -289,7 +293,6 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . "\" ?>\n";
 		?>
 
 		<?php
-		$post_id = explode( ",", $_GET['post'] );
 		if ( $post_id != "" ) {
 			global $wp_query;
 			$wp_query->in_the_loop = true;
