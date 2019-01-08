@@ -6,62 +6,6 @@
 	<div class="skewed-overlay"></div>
 
 	<article id="post-{{ post.ID }}">
-
-		<header class="page-header">
-			<div class="page-header-background">
-				{#<img src="{{ background_image }}" class="page-header-image" alt="Image alt data"/>#}
-			</div>
-			<div class="container">
-				<div class="top-page-tags">
-					{% if ( page_type ) %}
-						<a class="tag-item tag-item--main page-type" href="{{ fn('get_term_link', page_term_id) }}">{{ page_type|e('wp_kses_post')|raw }}</a>
-					{% endif %}
-
-					{% if ( post.issues_nav_data ) %}
-						<div class="tag-wrap issues">
-							{% for issue in post.issues_nav_data %}
-								<a class="tag-item tag-item--main" href="{{ issue.link|default('#') }}">{{ issue.name|e('wp_kses_post')|raw }}</a>
-							{% endfor %}
-						</div>
-					{% endif %}
-
-					{% if (post.tags) %}
-						<div class="tag-wrap tags">
-							{% for tag in post.tags %}
-								<a class="tag-item tag" href="{{ tag.link }}">#{{ tag.name|e('wp_kses_post')|raw }}</a>
-							{% endfor %}
-						</div>
-					{% endif %}
-				</div>
-				<h1 class="page-header-title">{{ post.title|raw }}</h1>
-				<div class="row">
-					<div class="col-md-6">
-						<div class="single-post-meta">
-							<address class="single-post-author">
-								{{ __( 'by', 'planet4-master-theme' ) }}
-								{% if not ( post.get_author_override ) %}
-									<a href="{{ post.author.path }}">{{ post.author.name }}</a>
-								{% else %}
-									{{ post.author.name }}
-								{% endif %}
-							</address>
-							<time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
-							{% if ( show_comments ) %}
-								<span class="separator">|</span>
-								<span id="comments-link" class="comment-link">
-									<img src="{{ data_nav_bar.images }}speech_bubble.svg">
-									<a class="quantity"> {{ post_comments_count }} <span class="display-text">{{ __( 'Comments' ) }}</span> </a>
-								</span>
-							{% endif %}
-						</div>
-					</div>
-					<div class="col-md-6">
-						{% include "blocks/share_buttons.twig" with {post:post} %}
-					</div>
-				</div>
-			</div>
-		</header>
-
 		<!-- Post Block Start -->
 		<div class="container">
 			<div class="post-content">
