@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-05 09:23+0000\n"
+"POT-Creation-Date: 2018-12-13 11:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -146,13 +146,25 @@ msgid ""
 "graph image"
 msgstr ""
 
+#: functions.php:806
+msgid "Tags"
+msgstr ""
+
 #: functions.php:835
 msgid "Add Page Element"
+msgstr ""
+
+#: functions.php:893
+msgid "Your role does not have permission to add terms to this taxonomy"
 msgstr ""
 
 #: classes/class-p4-post-report-controller.php:59
 #: classes/class-p4-post-report-controller.php:60
 msgid "Posts Report"
+msgstr ""
+
+#: classes/class-p4-post-report-controller.php:76
+msgid "The date query column."
 msgstr ""
 
 #: classes/class-p4-custom-taxonomy.php:42
@@ -195,109 +207,6 @@ msgstr ""
 
 #: classes/class-p4-custom-taxonomy.php:159
 msgid "Page Types"
-msgstr ""
-
-#: classes/class-p4-campaigns.php:21
-msgid "Select Image"
-msgstr ""
-
-#: classes/class-p4-campaigns.php:74
-msgid ""
-"Column block: Choose which Page Types will populate the content of the "
-"Column block. If no box is checked Publications will appear by default."
-msgstr ""
-
-#: classes/class-p4-campaigns.php:93 classes/class-p4-campaigns.php:132
-#: classes/class-p4-campaigns.php:194
-msgid "Image"
-msgstr ""
-
-#: classes/class-p4-campaigns.php:99 classes/class-p4-campaigns.php:114
-#: classes/class-p4-campaigns.php:136
-msgid "Select/Upload Image"
-msgstr ""
-
-#: classes/class-p4-campaigns.php:101 classes/class-p4-campaigns.php:138
-msgid "Associate this tag with an image."
-msgstr ""
-
-#: classes/class-p4-campaigns.php:108
-msgid "Image Subscribe"
-msgstr ""
-
-#: classes/class-p4-campaigns.php:116
-msgid "Choose a background image for the Subscribe block."
-msgstr ""
-
-#: classes/class-p4-campaigns.php:123
-msgid "Happy Point Opacity"
-msgstr ""
-
-#: classes/class-p4-campaigns.php:127
-msgid ""
-"We use an overlay to fade the image back. Use a number between 1 and 100, "
-"the higher the number, the more faded the image will look. If you leave this "
-"empty, the default of 30 will be used."
-msgstr ""
-
-#: classes/class-p4-control-panel.php:41
-msgid "Planet 4 Control Panel"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:53
-msgid "Cache"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:56
-msgid "Flush Object Cache"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:58
-msgid "Are you sure you want to delete all Object Cache keys?"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:61
-msgid "Check Object Cache"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:68
-msgid "Engaging Networks"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:71
-msgid "Check Engaging Networks"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:78
-msgid "Search"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:81
-msgid "Check Search Indexer"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:126
-msgid "Object Cache flushed"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:129
-msgid "Object Cache did not flush"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:165
-msgid "Planet 4 is connected to Redis."
-msgstr ""
-
-#: classes/class-p4-control-panel.php:201
-msgid "Success"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:248
-msgid "Indexer has stalled"
-msgstr ""
-
-#: classes/class-p4-control-panel.php:251
-msgid "Indexer is awake"
 msgstr ""
 
 #: classes/class-p4-settings.php:39
@@ -445,4 +354,115 @@ msgstr ""
 
 #: classes/class-p4-settings.php:308
 msgid "Select Pagetype"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:43
+msgid "Planet 4 Control Panel"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:56
+msgid "Cache"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:59
+msgid "Flush Object Cache"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:61
+msgid "Are you sure you want to delete all Object Cache keys?"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:64
+msgid "Check Object Cache"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:73
+msgid "Engaging Networks"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:76
+msgid "Check Engaging Networks"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:83
+msgid "Search"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:86
+msgid "Check Search Indexer"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:130
+msgid "Object Cache flushed"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:133
+msgid "Object Cache did not flush"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:168
+msgid "Planet 4 is connected to Redis."
+msgstr ""
+
+#: classes/class-p4-control-panel.php:204
+msgid "Success"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:251
+msgid "Indexer has stalled"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:254
+msgid "Indexer is awake"
+msgstr ""
+
+#: classes/class-p4-campaigns.php:21
+msgid "Select Image"
+msgstr ""
+
+#: classes/class-p4-campaigns.php:74
+msgid ""
+"Column block: Choose which Page Types will populate the content of the "
+"Column block. If no box is checked Publications will appear by default."
+msgstr ""
+
+#: classes/class-p4-campaigns.php:93 classes/class-p4-campaigns.php:132
+#: classes/class-p4-campaigns.php:194
+msgid "Image"
+msgstr ""
+
+#: classes/class-p4-campaigns.php:99 classes/class-p4-campaigns.php:114
+#: classes/class-p4-campaigns.php:136
+msgid "Select/Upload Image"
+msgstr ""
+
+#: classes/class-p4-campaigns.php:101 classes/class-p4-campaigns.php:138
+msgid "Associate this tag with an image."
+msgstr ""
+
+#: classes/class-p4-campaigns.php:108
+msgid "Image Subscribe"
+msgstr ""
+
+#: classes/class-p4-campaigns.php:116
+msgid "Choose a background image for the Subscribe block."
+msgstr ""
+
+#: classes/class-p4-campaigns.php:123
+msgid "Happy Point Opacity"
+msgstr ""
+
+#: classes/class-p4-campaigns.php:127
+msgid ""
+"We use an overlay to fade the image back. Use a number between 1 and 100, "
+"the higher the number, the more faded the image will look. If you leave this "
+"empty, the default of 30 will be used."
+msgstr ""
+
+#. Name of the template
+msgid "Evergreen Page"
+msgstr ""
+
+#. Name of the template
+msgid "Sitemap Page"
 msgstr ""

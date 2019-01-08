@@ -289,8 +289,14 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function add_to_twig( $twig ) {
 		$twig->addExtension( new Twig_Extension_StringLoader() );
+		$twig->addFilter( new Twig_SimpleFilter( 'svgicon', [ $this, 'svgicon' ] ) );
 
 		return $twig;
+	}
+
+	public function svgicon( $name ) {
+		$svgIconTemplate = '<svg viewBox="0 0 32 32" class="icon"><use xlink:href="' . $this->theme_images_dir .'symbol/svg/sprite.symbol.svg#' . $name . '"></use></svg>';
+		return new \Twig_Markup( $svgIconTemplate, 'UTF-8' );
 	}
 
 	/**
@@ -346,6 +352,12 @@ class P4_Master_Site extends TimberSite {
 
 		$allowedposttags['script'] = [
 			'src' => true,
+		];
+
+		// Allow source tag for WordPress audio shortcode to function.
+		$allowedposttags['source'] = [
+			'type' => true,
+			'src'  => true,
 		];
 
 		// Allow below tags for carousel slider
@@ -406,7 +418,7 @@ class P4_Master_Site extends TimberSite {
 		// CSS files.
 		wp_enqueue_style( 'bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css', array(), '4.1.1' );
 		wp_enqueue_style( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css', array(), '1.9.0' );
-		wp_enqueue_style( 'fork-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.1.1/css/fork-awesome.min.css', array(), '1.1.1' );
+		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], $css_creation );
 
 		if ( is_singular( 'campaigns' ) ) {
 			wp_enqueue_style( 'campaigns-parent-style', $this->theme_dir . '/parent.css', [], $css_creation );
@@ -811,7 +823,7 @@ class P4_Master_Site extends TimberSite {
 			return;
 		}
 		add_meta_box( 'restricted_tags_box',
-			__( 'Tags' ),
+			__( 'Tags', 'planet4-master-theme-backend' ),
 			[ $this, 'print_restricted_tags_box' ],
 			[ 'post', 'page' ],
 			'side'
@@ -898,7 +910,7 @@ class P4_Master_Site extends TimberSite {
 
 			return new WP_Error(
 				'disallow_insert_term',
-				__( 'Your role does not have permission to add terms to this taxonomy' )
+				__( 'Your role does not have permission to add terms to this taxonomy', 'planet4-master-theme-backend' )
 			);
 
 		}

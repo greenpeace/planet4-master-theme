@@ -50,7 +50,7 @@
 								<span class="separator">|</span>
 								<span id="comments-link" class="comment-link">
 									<img src="{{ data_nav_bar.images }}speech_bubble.svg">
-									<a class="quantity"> {{ post_comments_count }} <span class="display-text">{{ __( 'Comments' ) }}</span> </a>
+									<a class="quantity"> {{ post_comments_count }} <span class="display-text">{{ __( 'Comments', 'planet4-master-theme' ) }}</span> </a>
 								</span>
 							{% endif %}
 						</div>
@@ -90,4 +90,9 @@
 			{% include "comments_section.twig" with {comments:post.get_comments()} %}
 		{% endif %}
 	</article>
+
+	<div class="image-zoomer">
+		<span class="image-zoomer-close"><img src="{{ data_nav_bar.images }}close-icon.svg" alt="Close"></span>
+		<div class="image-zoomer-content"></div>
+	</div>
 {% endblock %}

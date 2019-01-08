@@ -152,9 +152,8 @@
         cursor: pointer;
       }
 
-      i {
+      .icon {
         font-size: 1.25rem;
-        vertical-align: middle;
         margin-right: 20px;
       }
 
@@ -207,14 +206,14 @@
         text-decoration: none;
         position: relative;
         min-width: 40%;
+      }
 
-        i {
-          font-size: 0.75rem;
-          position: absolute;
-          right: 0;
-          top: 0;
-          margin: 15px;
-        }
+      .icon {
+        font-size: 0.75rem;
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: 15px;
       }
 
       .activefilter-tag {
