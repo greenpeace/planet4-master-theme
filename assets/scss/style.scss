@@ -1,10 +1,11 @@
+@charset 'utf-8';
 /*!
 Theme Name: Greenpeace Planet 4 Master Theme
 Theme URI: https://github.com/greenpeace/planet4-master-theme
 Description: Master theme for the Planet 4 Wordpress project
 Author: Greenpeace International
 Author URI: https://github.com/greenpeace
-Version: 1.27.0
+Version: 1.28.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 Tags: light, accessibility-ready
@@ -12,30 +13,27 @@ Text Domain: planet4-master-theme
 */
 
 // Global
-@import "global/variables";
-@import "global/functions";
-@import "global/mixins";
-
-// Common
-@import "common/fonts";
-@import "common/typography";
-@import "common/custom";
-@import "common/icons";
+@import "base/variables";
+@import "base/functions";
+@import "base/mixins";
+@import "base/fonts";
+@import "base/typography";
+@import "base/icons";
 
 // Modules
-@import "modules/buttons";
-@import "modules/forms";
+@import "components/buttons";
+@import "components/forms";
 
 // Blocks
-@import "partials/footer";
-@import "partials/navbar";
-@import "partials/page-header";
-@import "partials/page-section";
-@import "partials/share-buttons";
-@import "partials/skewed-overlay";
-@import "partials/skip-links";
-@import "partials/tweet-block";
-@import "partials/breadcrumbs";
+@import "layout/footer";
+@import "layout/navbar";
+@import "layout/page-header";
+@import "layout/page-section";
+@import "layout/share-buttons";
+@import "layout/skewed-overlay";
+@import "layout/skip-links";
+@import "layout/tweet-block";
+@import "layout/breadcrumbs";
 
 // Posts
 @import "pages/post/post";
@@ -64,7 +62,13 @@ Text Domain: planet4-master-theme
 @import "pages/search/suggested-terms";
 
 // Body
-@import "common/body";
+@import "base/body";
 
 // Right-To-Left
-@import "common/rtl";
+@import "base/rtl";
+
+// Vendor overrides
+@import "vendors/extensions/fontawesome";
+
+// To be taken care of later
+@import "base/shame";

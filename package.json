@@ -1,6 +1,5 @@
 {
 	"name": "planet4-master-theme",
-	"version": "0.1.2",
 	"description": "Master theme for the Planet 4 Wordpress project",
 	"repository": "git@github.com:greenpeace/planet4-master-theme.git",
 	"author": "Greenpeace International",
@@ -19,6 +18,6 @@
 		"gulp-stylelint": "^7.0.0",
 		"gulp-svg-sprite": "^1.5.0",
 		"gulp-uglify-es": "^1.0.4",
-		"stylelint": "^9.5.0"
+		"stylelint": "^9.7.0"
 	}
 }
