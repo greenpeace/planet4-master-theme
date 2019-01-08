@@ -1,0 +1,37 @@
+{% extends "base.twig" %}
+
+{% block content %}
+
+	<div class="clearfix"></div>
+	<div class="skewed-overlay"></div>
+
+	<article id="post-{{ post.ID }}">
+		<!-- Post Block Start -->
+		<div class="container">
+			<div class="post-content">
+				{% if ( post.take_action_boxout ) %}
+					{{ post.take_action_boxout|shortcodes|raw }}
+				{% endif %}
+				<div class="post-content-lead">
+					<article class="post-details">
+						{{ post.content|e('wp_kses_post')|raw }}
+					</article>
+				</div>
+			</div>
+		</div>
+		<!-- Post Page Block End -->
+
+		{% if ( post.author.name and post.author.description ) %}
+			{% include "blocks/author_profile.twig" with {post:post} %}
+		{% endif %}
+
+		<section class="article-listing page-section">
+			{% if ( post.articles ) %}
+				{{ post.articles|shortcodes|raw }}
+			{% endif %}
+		</section>
+		{% if ( 'closed' != post.comment_status ) %}
+			{% include "comments_section.twig" with {comments:post.get_comments()} %}
+		{% endif %}
+	</article>
+{% endblock %}
