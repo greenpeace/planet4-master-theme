@@ -7,43 +7,16 @@ $context         = Timber::get_context();
 $post            = Timber::query_post( false, 'P4_Post' );
 $context['post'] = $post;
 
-$nav_color = get_post_meta( get_the_ID(), 'campaign_nav_color', true );
-$nav_type = get_post_meta( get_the_ID(), 'campaign_nav_type', true );
-$header_color = get_post_meta( get_the_ID(), 'campaign_header_color', true );
-$header_font_serif = get_post_meta( get_the_ID(), 'campaign_header_serif', true );
-$header_font_sans = get_post_meta( get_the_ID(), 'campaign_header_sans', true );
-$body_font = get_post_meta( get_the_ID(), 'campaign_body_font', true );
-$btn_primary_color = get_post_meta( get_the_ID(), 'campaign_primary_color', true );
-$btn_secondary_color = get_post_meta( get_the_ID(), 'campaign_secondary_color', true );
-$campaign_logo = get_post_meta( get_the_ID(), 'campaign_logo', true );
-
-// if ( $nav_color ) { echo '.page-header { background: ' . $nav_color . '!important;}'; }
-// if ( $nav_type )  { echo '.page-header { background: ' . $nav_color . '!important;}'; }
-if ( $header_color ) { 
-	echo '.page-header { background: ' . $header_color . '!important;}';
-}
-if ( $header_font_serif ) { echo '.page-header { font-family: ' . $header_font_serif . '!important;}'; }
-if ( $header_font_sans ) { echo '.page-header { font-family: ' . $header_font_sans . '!important;}'; }
-if ( $body_font ) { echo 'body { font-family: ' . $body_font . '!important;}'; }
-if ( $btn_primary_color ) { 
-	echo 
-	'.btn-primary { background: ' . $btn_primary_color . '!important; border-color:' . $btn_primary_color . '!important;}'; 
-	}
-	if ( $btn_secondary_color ) { 
-	echo 
-	'.btn-secondary { background: ' . $btn_secondary_color . '!important; border-color:' . $btn_secondary_color . '!important;}'; 
-}
-if ( $header_font_serif ) { echo '.page-header { font-family: ' . $header_font_serif . '!important;}'; }
-if ( $header_font_sans ) { echo '.page-header { font-family: ' . $header_font_sans . '!important;}'; }
-if ( $body_font ) { echo 'body { font-family: ' . $body_font . '!important;}'; }
-if ( $btn_primary_color ) { 
-	echo 
-	'.btn-primary { background: ' . $btn_primary_color . '!important; border-color:' . $btn_primary_color . '!important;}'; 
-	}
-	if ( $btn_secondary_color ) {
-	echo 
-	'.btn-secondary { background: ' . $btn_secondary_color . '!important; border-color:' . $btn_secondary_color . '!important;}'; 
-	} 
+$custom_styles                      = [];
+$custom_styles['nav_color']         = $post->campaign_header_color ? ".page-header { background: {$post->campaign_header_color} !important;}" : null;
+$custom_styles['nav_type']          = $post->campaign_header_color ? ".page-header { background: {$post->campaign_header_color} !important;}" : null;
+$custom_styles['header_bg']         = $post->campaign_header_color ? ".page-header { background: {$post->campaign_header_color} !important;}" : null;
+$custom_styles['header_serif'] = $post->campaign_header_serif ? ".page-header { font-family: {$post->campaign_header_serif}!important;}" : null;
+$custom_styles['header_sans']  = $post->campaign_header_sans ? ".page-header { font-family: {$post->campaign_header_sans} !important;}" : null;
+$custom_styles['body_font']         = $post->campaign_body_font ? "body { font-family: {$post->campaign_body_font} !important;}" : null;
+$custom_styles['btn_primary']       = $post->campaign_primary_color ? ".btn-primary { background: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} }" : null;
+$custom_styles['btn_secondary']     = $post->campaign_secondary_color ? ".btn-secondary { background: {$post->campaign_secondary_color} !important; border-color: {$post->campaign_primary_color} }" : null;
+$custom_styles['campaign_logo']     = $post->campaign_logo ? ".btn-secondary { background: {$post->campaign_secondary_color} !important; border-color: {$post->campaign_primary_color} }" : null;
 
 // Set Navigation Issues links.
 $post->set_issues_links();
@@ -67,6 +40,7 @@ $context['og_title']            = $post->get_og_title();
 $context['og_description']      = $post->get_og_description();
 $context['og_image_data']       = $post->get_og_image();
 $context['custom_body_classes'] = 'brown-bg theme-oil';
+$context['custom_css']          = $custom_styles;
 
 $context['filter_url'] = add_query_arg( [
 	's'                                       => ' ',
