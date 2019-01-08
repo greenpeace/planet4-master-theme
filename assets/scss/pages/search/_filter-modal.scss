@@ -44,6 +44,7 @@
     float: right;
     margin-top: -62px;
     border-radius: 50%;
+    border: 2px solid $grey-40;
     padding: 8px 14px;
     margin-right: 0;
     transition: color, border-color, background-color 150ms linear;
@@ -58,7 +59,7 @@
       color: $white;
     }
 
-    i {
+    .icon {
       font-size: 0.75rem;
     }
   }

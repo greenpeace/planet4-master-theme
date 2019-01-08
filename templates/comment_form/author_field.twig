@@ -1,4 +1,5 @@
 <div class="form-group">
-	<label for="comments-name-input">{{ __( 'Name' )  }} *</label>
-	<input type="text" class="form-control" id="author" name="author" placeholder="{{ __( 'Your Name', 'planet4-master-theme' ) }}" required />
+	<label for="comments-name-input">{{ __( 'Name', 'planet4-master-theme' )  }} *</label>
+	{% set your_name = __( 'Your Name', 'planet4-master-theme' ) %}
+	<input type="text" class="form-control" id="author" name="author" placeholder="{{ your_name }}" required />
 </div>

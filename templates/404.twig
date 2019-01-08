@@ -14,9 +14,10 @@
 				<div class="col-md-4">
 					{{ page_notfound_help }}
 					<form class="form search-form" action="{{ data_nav_bar.home_url }}">
-						<input class="form-control" placeholder="{{ __( 'Search', 'planet4-master-theme' )|e( 'html_attr' ) }}" name="s" aria-label="{{ __( 'Search', 'planet4-master-theme' )|e( 'html_attr' ) }}" type="text">
+						{% set search = __( 'Search', 'planet4-master-theme' ) %}
+						<input class="form-control" placeholder="{{ search|e( 'html_attr' ) }}" name="s" aria-label="{{ search|e( 'html_attr' ) }}" type="text">
 						<button class="search-form-btn" type="submit">
-							<i class="fa fa-search"></i>
+							{{ 'search'|svgicon }}
 						</button>
 					</form>
 				</div>
