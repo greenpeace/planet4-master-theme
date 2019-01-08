@@ -7,16 +7,16 @@ $context         = Timber::get_context();
 $post            = Timber::query_post( false, 'P4_Post' );
 $context['post'] = $post;
 
-$custom_styles                      = [];
-$custom_styles['nav_color']         = $post->campaign_header_color ? ".page-header { background: {$post->campaign_header_color} !important;}" : null;
-$custom_styles['nav_type']          = $post->campaign_header_color ? ".page-header { background: {$post->campaign_header_color} !important;}" : null;
-$custom_styles['header_bg']         = $post->campaign_header_color ? ".page-header { background: {$post->campaign_header_color} !important;}" : null;
-$custom_styles['header_serif'] = $post->campaign_header_serif ? ".page-header { font-family: {$post->campaign_header_serif}!important;}" : null;
-$custom_styles['header_sans']  = $post->campaign_header_sans ? ".page-header { font-family: {$post->campaign_header_sans} !important;}" : null;
-$custom_styles['body_font']         = $post->campaign_body_font ? "body { font-family: {$post->campaign_body_font} !important;}" : null;
-$custom_styles['btn_primary']       = $post->campaign_primary_color ? ".btn-primary { background: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} }" : null;
-$custom_styles['btn_secondary']     = $post->campaign_secondary_color ? ".btn-secondary { background: {$post->campaign_secondary_color} !important; border-color: {$post->campaign_primary_color} }" : null;
-$custom_styles['campaign_logo']     = $post->campaign_logo ? ".btn-secondary { background: {$post->campaign_secondary_color} !important; border-color: {$post->campaign_primary_color} }" : null;
+$custom_styles                  = [];
+$custom_styles['css']['nav_color']     = $post->campaign_nav_color ?? null;
+$custom_styles['nav_type']      = $post->campaign_nav_type;
+$custom_styles['css']['header_bg']     = $post->campaign_header_color ? ".page-header { background: {$post->campaign_header_color} !important;}" : null;
+$custom_styles['css']['header_serif']  = $post->campaign_header_serif ? ".page-header { font-family: {$post->campaign_header_serif}!important;}" : null;
+$custom_styles['css']['header_sans']   = $post->campaign_header_sans ? ".page-header { font-family: {$post->campaign_header_sans} !important;}" : null;
+$custom_styles['css']['body_font']     = $post->campaign_body_font ? "body { font-family: '{$post->campaign_body_font}' !important;}" : null;
+$custom_styles['css']['btn_primary']   = $post->campaign_primary_color ? ".btn-primary { background: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} }" : null;
+$custom_styles['css']['btn_secondary'] = $post->campaign_secondary_color ? ".btn-secondary { background: {$post->campaign_secondary_color} !important; border-color: {$post->campaign_primary_color} }" : null;
+$custom_styles['campaign_logo'] = $post->campaign_logo ?? null;
 
 // Set Navigation Issues links.
 $post->set_issues_links();
@@ -40,7 +40,7 @@ $context['og_title']            = $post->get_og_title();
 $context['og_description']      = $post->get_og_description();
 $context['og_image_data']       = $post->get_og_image();
 $context['custom_body_classes'] = 'brown-bg theme-oil';
-$context['custom_css']          = $custom_styles;
+$context['custom_styles']       = $custom_styles;
 
 $context['filter_url'] = add_query_arg( [
 	's'                                       => ' ',

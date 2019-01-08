@@ -379,6 +379,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				'name'    => __( 'Navigation', 'planet4-master-theme-backend' ),
 				'id'      => 'campaign_nav_type',
 				'type'    => 'radio_inline',
+				'default' => 'planet4',
 				'options' => [
 					'planet4' => __( 'Planet 4 Navigation', 'planet4-master-theme-backend' ),
 					'minimal' => __( 'Minimal Navigation', 'planet4-master-theme-backend' ),
@@ -443,8 +444,9 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				'name'    => __( 'Body Font', 'planet4-master-theme-backend' ),
 				'id'      => 'campaign_body_font',
 				'type'    => 'radio_inline',
+				'default' => 'roboto',
 				'options' => [
-					'laro'   => __( 'Serif (Laro)', 'planet4-master-theme-backend' ),
+					'lora'   => __( 'Serif (Lora)', 'planet4-master-theme-backend' ),
 					'roboto' => __( 'Sans Serif (Roboto)', 'planet4-master-theme-backend' ),
 				],
 			] );
@@ -483,10 +485,10 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				'options'          => [
 					'arctic'    => __( 'Save the Arctic', 'planet4-master-theme-backend' ),
 					'antarctic' => __( 'Antarctic', 'planet4-master-theme-backend' ),
-					'forests'   => __( 'Forests', 'planet4-master-theme-backend' ),
-					'plastics'  => __( 'Plastics', 'planet4-master-theme-backend' ),
+					'forest'    => __( 'Forests', 'planet4-master-theme-backend' ),
+					'plastic'   => __( 'Plastics', 'planet4-master-theme-backend' ),
 					'oceans'    => __( 'Oceans', 'planet4-master-theme-backend' ),
-					'people'    => __( 'People vs Soil', 'planet4-master-theme-backend' ),
+					'oil'       => __( 'Oil', 'planet4-master-theme-backend' ),
 				],
 			] );
 		}
