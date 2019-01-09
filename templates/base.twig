@@ -22,6 +22,8 @@
 
 	{% if custom_styles.nav_type == 'planet4' %}
 		{% include 'navigation-bar.twig' with data_nav_bar %}
+	{% else %}
+		{% include 'navigation-bar_min.twig' with data_nav_bar %}
 	{% endif %}
 	{% include 'sidebar.twig' with data_nav_bar %}
 	{% include 'blocks/header.twig' %}

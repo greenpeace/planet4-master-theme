@@ -7,9 +7,11 @@ $context         = Timber::get_context();
 $post            = Timber::query_post( false, 'P4_Post' );
 $context['post'] = $post;
 
-$custom_styles                  = [];
-$custom_styles['css']['nav_color']     = $post->campaign_nav_color ?? null;
-$custom_styles['nav_type']      = $post->campaign_nav_type;
+$custom_styles = [];
+
+$custom_styles['css']['nav_color']     = $post->campaign_nav_color ? ".navbar { background-color: {$post->campaign_nav_color} !important; }" : null;
+$custom_styles['nav_type']             = $post->campaign_nav_type;
+$custom_styles['logo_shade']             = $post->campaign_logo_shade;
 $custom_styles['css']['header_bg']     = $post->campaign_header_color ? ".page-header { background: {$post->campaign_header_color} !important;}" : null;
 $custom_styles['css']['header_serif']  = $post->campaign_header_serif ? ".page-header { font-family: {$post->campaign_header_serif}!important;}" : null;
 $custom_styles['css']['header_sans']   = $post->campaign_header_sans ? ".page-header { font-family: {$post->campaign_header_sans} !important;}" : null;
@@ -20,7 +22,6 @@ $custom_styles['campaign_logo'] = $post->campaign_logo ?? null;
 
 // Set Navigation Issues links.
 $post->set_issues_links();
-
 
 
 // Get the cmb2 custom fields data
