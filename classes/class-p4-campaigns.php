@@ -1,4 +1,9 @@
 <?php
+/**
+ * P4 Campaigns
+ *
+ * @package P4MT
+ */
 
 if ( ! class_exists( 'P4_Campaigns' ) ) {
 	/**
@@ -6,11 +11,23 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 	 */
 	class P4_Campaigns {
 
-		/** @var string $taxonomy */
+		/**
+		 * Taxonomy
+		 *
+		 * @var string $taxonomy
+		 */
 		private $taxonomy = 'post_tag';
-		/** @var array $page_types */
+		/**
+		 * Page Types
+		 *
+		 * @var array $page_types
+		 */
 		public $page_types = [];
-		/** @var array $localizations */
+		/**
+		 * Localizations
+		 *
+		 * @var array $localizations
+		 */
 		public $localizations = [];
 
 		/**
@@ -18,7 +35,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 		 */
 		public function __construct() {
 			$this->localizations = [
-				'media_title'  => esc_html__( 'Select Image', 'planet4-master-theme-backend' ),
+				'media_title' => esc_html__( 'Select Image', 'planet4-master-theme-backend' ),
 			];
 			$this->hooks();
 		}
@@ -27,14 +44,14 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 		 * Class hooks.
 		 */
 		private function hooks() {
-			add_action( 'post_tag_add_form_fields',              array( $this, 'add_taxonomy_form_fields' ) );
-			add_action( 'post_tag_edit_form_fields',             array( $this, 'add_taxonomy_form_fields' ) );
-			add_action( 'create_post_tag',                       array( $this, 'save_taxonomy_meta' ) );
-			add_action( 'edit_post_tag',                         array( $this, 'save_taxonomy_meta' ) );
-			add_action( 'admin_enqueue_scripts',                 array( $this, 'enqueue_admin_assets' ) );
+			add_action( 'post_tag_add_form_fields', array( $this, 'add_taxonomy_form_fields' ) );
+			add_action( 'post_tag_edit_form_fields', array( $this, 'add_taxonomy_form_fields' ) );
+			add_action( 'create_post_tag', array( $this, 'save_taxonomy_meta' ) );
+			add_action( 'edit_post_tag', array( $this, 'save_taxonomy_meta' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
 
-			add_filter( 'manage_edit-post_tag_columns',          array( $this, 'edit_taxonomy_columns' ) );
-			add_filter( 'manage_post_tag_custom_column',         array( $this, 'manage_taxonomy_custom_column' ), 10, 3 );
+			add_filter( 'manage_edit-post_tag_columns', array( $this, 'edit_taxonomy_columns' ) );
+			add_filter( 'manage_post_tag_custom_column', array( $this, 'manage_taxonomy_custom_column' ), 10, 3 );
 			add_filter( 'manage_edit-post_tag_sortable_columns', array( $this, 'manage_taxonomy_custom_sortable_column' ), 10, 3 );
 		}
 
@@ -175,7 +192,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				update_term_meta( $term_id, $field_url, $attachment_url );
 			}
 
-			$field_id = 'happypoint_bg_opacity';
+			$field_id              = 'happypoint_bg_opacity';
 			$happypoint_bg_opacity = filter_input( INPUT_POST, $field_id, FILTER_VALIDATE_INT );
 
 			if ( $this->validate( $happypoint_bg_opacity ) ) {

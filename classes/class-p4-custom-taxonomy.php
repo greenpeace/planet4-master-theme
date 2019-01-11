@@ -1,4 +1,9 @@
 <?php
+/**
+ * P4 Custom Taxonomy
+ *
+ * @package P4MT
+ */
 
 if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 
@@ -22,11 +27,11 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		 * Register actions for WordPress hooks and filters.
 		 */
 		private function hooks() {
-			add_action( 'init',                               array( $this, 'register_taxonomy' ), 2 );
-			add_action( 'created_term',                       array( $this, 'trigger_rewrite_rules' ), 10, 3 );
-			add_action( 'edited_term',                        array( $this, 'trigger_rewrite_rules' ), 10, 3 );
-			add_action( 'delete_term',                        array( $this, 'trigger_rewrite_rules' ), 10, 3 );
-			add_action( 'save_post',                          array( $this, 'save_taxonomy_page_type' ) , 10, 2 );
+			add_action( 'init', array( $this, 'register_taxonomy' ), 2 );
+			add_action( 'created_term', array( $this, 'trigger_rewrite_rules' ), 10, 3 );
+			add_action( 'edited_term', array( $this, 'trigger_rewrite_rules' ), 10, 3 );
+			add_action( 'delete_term', array( $this, 'trigger_rewrite_rules' ), 10, 3 );
+			add_action( 'save_post', array( $this, 'save_taxonomy_page_type' ), 10, 2 );
 			add_filter( 'available_permalink_structure_tags', array( $this, 'add_taxonomy_as_permalink_structure' ), 10, 1 );
 
 			// Rewrites the permalink to a post belonging to this taxonomy.
@@ -64,7 +69,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 			if ( -1 === $current_type ) {
 				// Assign default p4-pagetype for new POST.
 				$default_p4_pagetype = $this->get_default_p4_pagetype();
-				$current_type = $default_p4_pagetype->slug;
+				$current_type        = $default_p4_pagetype->slug;
 			}
 
 			wp_nonce_field( 'p4-save-page-type', 'p4-page-type-nonce' );

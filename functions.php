@@ -1,18 +1,26 @@
 <?php
+/**
+ * Functions
+ *
+ * @package P4MT
+ */
 
 if ( ! class_exists( 'Timber' ) ) {
 	add_action(
-		'admin_notices', function() {
-		printf( '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="%s">Plugins menu</a></p></div>',
-			esc_url( admin_url( 'plugins.php#timber' ) )
-		);
-	}
+		'admin_notices',
+		function() {
+			printf(
+				'<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="%s">Plugins menu</a></p></div>',
+				esc_url( admin_url( 'plugins.php#timber' ) )
+			);
+		}
 	);
 
 	add_filter(
-		'template_include', function( $template ) {
-		return get_stylesheet_directory() . '/static/no-timber.html';
-	}
+		'template_include',
+		function( $template ) {
+			return get_stylesheet_directory() . '/static/no-timber.html';
+		}
 	);
 
 	return;
@@ -28,15 +36,39 @@ use Timber\Menu as TimberMenu;
  */
 class P4_Master_Site extends TimberSite {
 
-	/** @var string $theme_dir */
+	/**
+	 * Theme directory
+	 *
+	 * @var string $theme_dir
+	 */
 	protected $theme_dir;
-	/** @var string $theme_images_dir */
+
+	/**
+	 * Theme images directory
+	 *
+	 * @var string $theme_images_dir
+	 */
 	protected $theme_images_dir;
-	/** @var array $sort_options */
+
+	/**
+	 * Sort options
+	 *
+	 * @var array $sort_options
+	 */
 	protected $sort_options;
-	/** @var array $services */
+
+	/**
+	 * Services
+	 *
+	 * @var array $services
+	 */
 	protected $services;
-	/** @var array $child_css */
+
+	/**
+	 * Child CSS
+	 *
+	 * @var array $child_css
+	 */
 	protected $child_css = array();
 
 	/**
@@ -89,10 +121,10 @@ class P4_Master_Site extends TimberSite {
 				'name'  => __( 'Most recent', 'planet4-master-theme' ),
 				'order' => 'DESC',
 			],
-			//'post_title' => [
-			//	'name'  => __( 'Title', 'planet4-master-theme' ),
-			//	'order' => 'ASC',
-			//],
+			// 'post_title' => [
+			// 'name'  => __( 'Title', 'planet4-master-theme' ),
+			// 'order' => 'ASC',
+			// ],
 		];
 	}
 
@@ -105,44 +137,51 @@ class P4_Master_Site extends TimberSite {
 		add_theme_support( 'menus' );
 		add_post_type_support( 'page', 'excerpt' );  // Added excerpt option to pages.
 
-		add_filter( 'timber_context',                 array( $this, 'add_to_context' ) );
-		add_filter( 'get_twig',                       array( $this, 'add_to_twig' ) );
-		add_action( 'init',                           array( $this, 'register_taxonomies' ), 2 );
-		add_action( 'init',                           array( $this, 'register_oembed_provider' ) );
-		add_action( 'pre_get_posts',                  array( $this, 'add_search_options' ) );
-		add_filter( 'searchwp_query_main_join',       array( $this, 'edit_searchwp_main_join_action_pages' ), 10, 2 );
-		add_filter( 'searchwp_query_orderby',         array( $this, 'edit_searchwp_orderby_action_pages' ) );
-		add_filter( 'searchwp_query_orderby',         array( $this, 'edit_searchwp_query_orderby' ), 11, 2 );
-		add_filter( 'posts_where',                    array( $this, 'edit_search_mime_types' ) );
-		add_action( 'cmb2_admin_init',                array( $this, 'register_header_metabox' ) );
-		add_action( 'admin_enqueue_scripts',          array( $this, 'enqueue_admin_assets' ) );
-		add_action( 'wp_enqueue_scripts',             array( $this, 'enqueue_public_assets' ) );
-		add_filter( 'wp_kses_allowed_html',           array( $this, 'set_custom_allowed_attributes_filter' ) );
-		add_action( 'add_meta_boxes',                 array( $this, 'add_meta_box_search' ) );
-		add_action( 'save_post',                      array( $this, 'save_meta_box_search' ), 10, 2 );
-		add_action( 'save_post',                      array( $this, 'set_featured_image' ), 10, 3 );
-		add_action( 'after_setup_theme',              array( $this, 'p4_master_theme_setup' ) );
-		add_action( 'admin_menu',                     array( $this, 'add_restricted_tags_box' ) );
-		add_action( 'do_meta_boxes',                  array( $this, 'remove_default_tags_box' ) );
-		add_action( 'pre_insert_term',                array( $this, 'disallow_insert_term' ), 1, 2 );
-		add_filter( 'wp_image_editors',               array( $this, 'allowedEditors' ) );
-		add_filter( 'jpeg_quality',                   function( $arg ) { return 60; } );
-		add_action( 'after_setup_theme',              array( $this, 'add_image_sizes' ) );
-		add_action( 'admin_head' ,                    array( $this, 'remove_add_post_element' ) );
-		add_filter( 'post_gallery',                   array( $this, 'carousel_post_gallery' ), 10, 2 );
-		add_action( 'save_post',                      array( $this, 'p4_auto_generate_excerpt' ) , 10, 2 );
-		add_filter( 'img_caption_shortcode',          array( $this, 'override_img_caption_shortcode' ), 10, 3 );
+		add_filter( 'timber_context', array( $this, 'add_to_context' ) );
+		add_filter( 'get_twig', array( $this, 'add_to_twig' ) );
+		add_action( 'init', array( $this, 'register_taxonomies' ), 2 );
+		add_action( 'init', array( $this, 'register_oembed_provider' ) );
+		add_action( 'pre_get_posts', array( $this, 'add_search_options' ) );
+		add_filter( 'searchwp_query_main_join', array( $this, 'edit_searchwp_main_join_action_pages' ), 10, 2 );
+		add_filter( 'searchwp_query_orderby', array( $this, 'edit_searchwp_orderby_action_pages' ) );
+		add_filter( 'searchwp_query_orderby', array( $this, 'edit_searchwp_query_orderby' ), 11, 2 );
+		add_filter( 'posts_where', array( $this, 'edit_search_mime_types' ) );
+		add_action( 'cmb2_admin_init', array( $this, 'register_header_metabox' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_assets' ) );
+		add_filter( 'wp_kses_allowed_html', array( $this, 'set_custom_allowed_attributes_filter' ) );
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_box_search' ) );
+		add_action( 'save_post', array( $this, 'save_meta_box_search' ), 10, 2 );
+		add_action( 'save_post', array( $this, 'set_featured_image' ), 10, 3 );
+		add_action( 'after_setup_theme', array( $this, 'p4_master_theme_setup' ) );
+		add_action( 'admin_menu', array( $this, 'add_restricted_tags_box' ) );
+		add_action( 'do_meta_boxes', array( $this, 'remove_default_tags_box' ) );
+		add_action( 'pre_insert_term', array( $this, 'disallow_insert_term' ), 1, 2 );
+		add_filter( 'wp_image_editors', array( $this, 'allowedEditors' ) );
+		add_filter(
+			'jpeg_quality',
+			function( $arg ) {
+				return 60;
+			}
+		);
+		add_action( 'after_setup_theme', array( $this, 'add_image_sizes' ) );
+		add_action( 'admin_head', array( $this, 'remove_add_post_element' ) );
+		add_filter( 'post_gallery', array( $this, 'carousel_post_gallery' ), 10, 2 );
+		add_action( 'save_post', array( $this, 'p4_auto_generate_excerpt' ), 10, 2 );
+		add_filter( 'img_caption_shortcode', array( $this, 'override_img_caption_shortcode' ), 10, 3 );
 
-		add_action( 'wp_ajax_get_paged_posts',        array( 'P4_Search', 'get_paged_posts' ) );
+		add_action( 'wp_ajax_get_paged_posts', array( 'P4_Search', 'get_paged_posts' ) );
 		add_action( 'wp_ajax_nopriv_get_paged_posts', array( 'P4_Search', 'get_paged_posts' ) );
 
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 
-		register_nav_menus( array(
-			'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme-backend' ),
-		) );
+		register_nav_menus(
+			array(
+				'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme-backend' ),
+			)
+		);
 	}
 
 	/**
@@ -237,7 +276,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function add_to_context( $context ) {
 		global $wp;
-		$context['cookies'] = [
+		$context['cookies']      = [
 			'text' => planet4_get_option( 'cookies_field' ),
 		];
 		$context['data_nav_bar'] = [
@@ -250,14 +289,13 @@ class P4_Master_Site extends TimberSite {
 		$context['domain']       = 'planet4-master-theme';
 		$context['foo']          = 'bar';   // For unit test purposes.
 		if ( function_exists( 'icl_get_languages' ) ) {
-			$context['languages']  = count( icl_get_languages() );
+			$context['languages'] = count( icl_get_languages() );
 		}
 		$context['navbar_menu']  = new TimberMenu( 'navigation-bar-menu' );
 		$context['site']         = $this;
 		$context['current_url']  = home_url( $wp->request );
 		$context['sort_options'] = $this->sort_options;
 		$context['default_sort'] = P4_Search::DEFAULT_SORT;
-
 
 		$options = get_option( 'planet4_options' );
 
@@ -294,9 +332,14 @@ class P4_Master_Site extends TimberSite {
 		return $twig;
 	}
 
+	/**
+	 * SVG Icon helper
+	 *
+	 * @param string $name Icon name.
+	 */
 	public function svgicon( $name ) {
-		$svgIconTemplate = '<svg viewBox="0 0 32 32" class="icon"><use xlink:href="' . $this->theme_images_dir .'symbol/svg/sprite.symbol.svg#' . $name . '"></use></svg>';
-		return new \Twig_Markup( $svgIconTemplate, 'UTF-8' );
+		$svg_icon_template = '<svg viewBox="0 0 32 32" class="icon"><use xlink:href="' . $this->theme_images_dir . 'symbol/svg/sprite.symbol.svg#' . $name . '"></use></svg>';
+		return new \Twig_Markup( $svg_icon_template, 'UTF-8' );
 	}
 
 	/**
@@ -326,7 +369,7 @@ class P4_Master_Site extends TimberSite {
 			'allowfullscreen' => true,
 		];
 
-		// Allow blockquote and the following attributes. (trigger: allow instagram embeds)
+		// Allow blockquote and the following attributes. (trigger: allow instagram embeds).
 		$allowedposttags['blockquote'] = [
 			'style'                  => true,
 			'data-instgrm-captioned' => true,
@@ -360,7 +403,7 @@ class P4_Master_Site extends TimberSite {
 			'src'  => true,
 		];
 
-		// Allow below tags for carousel slider
+		// Allow below tags for carousel slider.
 		$allowedposttags['div']['data-ride']    = true;
 		$allowedposttags['li']['data-target']   = true;
 		$allowedposttags['li']['data-slide-to'] = true;
@@ -384,13 +427,13 @@ class P4_Master_Site extends TimberSite {
 			'li'     => [],
 			'strong' => [],
 			'del'    => [],
-			'span'  => [
+			'span'   => [
 				'style' => [],
 			],
-			'p' => [
+			'p'      => [
 				'style' => [],
 			],
-			'a' => [
+			'a'      => [
 				'href'   => [],
 				'target' => [],
 				'rel'    => [],
@@ -401,6 +444,8 @@ class P4_Master_Site extends TimberSite {
 
 	/**
 	 * Load styling and behaviour on admin pages.
+	 *
+	 * @param string $hook Hook.
 	 */
 	public function enqueue_admin_assets( $hook ) {
 		// Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
@@ -435,7 +480,7 @@ class P4_Master_Site extends TimberSite {
 	 * @param WP_Post $post The currently Added/Edited post.
 	 */
 	public function add_meta_box_search( $post ) {
-		add_meta_box( 'meta-box-search','Search', array( $this, 'view_meta_box_search' ), [ 'post', 'page' ], 'side', 'default', $post );
+		add_meta_box( 'meta-box-search', 'Search', array( $this, 'view_meta_box_search' ), [ 'post', 'page' ], 'side', 'default', $post );
 	}
 
 	/**
@@ -481,12 +526,17 @@ class P4_Master_Site extends TimberSite {
 			return;
 		}
 		// Make sure there's input.
-		$weight = filter_input( INPUT_POST, 'weight', FILTER_VALIDATE_INT, [
-			'options' => [
-				'min_range' => P4_Search::DEFAULT_MIN_WEIGHT,
-				'max_range' => P4_Search::DEFAULT_MAX_WEIGHT,
-			],
-		] );
+		$weight = filter_input(
+			INPUT_POST,
+			'weight',
+			FILTER_VALIDATE_INT,
+			[
+				'options' => [
+					'min_range' => P4_Search::DEFAULT_MIN_WEIGHT,
+					'max_range' => P4_Search::DEFAULT_MAX_WEIGHT,
+				],
+			]
+		);
 
 		// If this is a new Page then set default weight for it.
 		if ( ! $weight && 'post-new.php' === $pagenow ) {
@@ -541,7 +591,7 @@ class P4_Master_Site extends TimberSite {
 		global $wpdb;
 
 		$meta_key = 'weight';  // The meta_key you want to order by.
-		$sql .= " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '{$meta_key}' AND {$wpdb->postmeta}.meta_value != ''";
+		$sql     .= " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '{$meta_key}' AND {$wpdb->postmeta}.meta_value != ''";
 		return $sql;
 	}
 
@@ -573,8 +623,8 @@ class P4_Master_Site extends TimberSite {
 
 		if ( $selected_sort && P4_Search::DEFAULT_SORT !== $selected_sort ) {
 			// First orderby 'weight' meta_key.
-			$primary_sort   = 'meta_value';
-			$primary_order  = 'DESC';
+			$primary_sort  = 'meta_value';
+			$primary_order = 'DESC';
 			// If 'weight' is same then orderby selected_order.
 			$selected_order = $this->sort_options[ $selected_sort ]['order'];
 			$orderby        = esc_sql( sprintf( 'ORDER BY %s %s, %s %s', $primary_sort, $primary_order, $selected_sort, $selected_order ) );
@@ -599,9 +649,9 @@ class P4_Master_Site extends TimberSite {
 		$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
 
 		if ( ! is_admin() && is_search() ||
-			 wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
+			wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
 			$mime_types = implode( ',', P4_Search::DOCUMENT_TYPES );
-			$where .= ' AND post_mime_type IN("' . $mime_types . '","") ';
+			$where     .= ' AND post_mime_type IN("' . $mime_types . '","") ';
 		}
 		return $where;
 	}
@@ -642,18 +692,22 @@ class P4_Master_Site extends TimberSite {
 
 		$prefix = 'p4_';
 
-		$p4_header = new_cmb2_box( array(
-			'id'           => $prefix . 'metabox',
-			'title'        => __( 'Page Header Fields', 'planet4-master-theme-backend' ),
-			'object_types' => array( 'page' ), // Post type.
-		) );
+		$p4_header = new_cmb2_box(
+			array(
+				'id'           => $prefix . 'metabox',
+				'title'        => __( 'Page Header Fields', 'planet4-master-theme-backend' ),
+				'object_types' => array( 'page' ), // Post type.
+			)
+		);
 
-		$p4_header->add_field( array(
-			'name' => __( 'Header Title', 'planet4-master-theme-backend' ),
-			'desc' => __( 'Header title comes here', 'planet4-master-theme-backend' ),
-			'id'   => $prefix . 'title',
-			'type' => 'text_medium',
-		) );
+		$p4_header->add_field(
+			array(
+				'name' => __( 'Header Title', 'planet4-master-theme-backend' ),
+				'desc' => __( 'Header title comes here', 'planet4-master-theme-backend' ),
+				'id'   => $prefix . 'title',
+				'type' => 'text_medium',
+			)
+		);
 
 		$p4_header->add_field(
 			array(
@@ -701,12 +755,12 @@ class P4_Master_Site extends TimberSite {
 				'desc'         => __( 'Upload an image', 'planet4-master-theme-backend' ),
 				'id'           => 'background_image',
 				'type'         => 'file',
-				// Optional
+				// Optional.
 				'options'      => array(
 					'url' => false,
 				),
 				'text'         => array(
-					'add_upload_file_text' => __( 'Add Background Image', 'planet4-master-theme-backend' )
+					'add_upload_file_text' => __( 'Add Background Image', 'planet4-master-theme-backend' ),
 				),
 				'query_args'   => array(
 					'type' => 'image',
@@ -715,93 +769,111 @@ class P4_Master_Site extends TimberSite {
 			)
 		);
 
-		$p4_post = new_cmb2_box( [
-			'id'           => $prefix . 'metabox_post',
-			'title'        => __( 'Post Articles Element Fields', 'planet4-master-theme-backend' ),
-			'object_types' => [ 'post' ],
-		] );
+		$p4_post = new_cmb2_box(
+			[
+				'id'           => $prefix . 'metabox_post',
+				'title'        => __( 'Post Articles Element Fields', 'planet4-master-theme-backend' ),
+				'object_types' => [ 'post' ],
+			]
+		);
 
-		$p4_post->add_field( [
-			'name' => __( 'Author Override', 'planet4-master-theme-backend' ),
-			'desc' => __( 'Enter author name if you want to override the author', 'planet4-master-theme-backend' ),
-			'id'   => $prefix . 'author_override',
-			'type' => 'text_medium',
-		] );
+		$p4_post->add_field(
+			[
+				'name' => __( 'Author Override', 'planet4-master-theme-backend' ),
+				'desc' => __( 'Enter author name if you want to override the author', 'planet4-master-theme-backend' ),
+				'id'   => $prefix . 'author_override',
+				'type' => 'text_medium',
+			]
+		);
 
-		$p4_post->add_field( [
-			'name'             => __( 'Take Action Page Selector', 'planet4-master-theme-backend' ),
-			'desc'             => __( 'Select a Take Action Page to populate take action boxout block', 'planet4-master-theme-backend' ),
-			'id'               => $prefix . 'take_action_page',
-			'type'             => 'select',
-			'show_option_none' => true,
-			'options_cb'       => [ $this, 'populate_act_page_children_options' ],
-		] );
+		$p4_post->add_field(
+			[
+				'name'             => __( 'Take Action Page Selector', 'planet4-master-theme-backend' ),
+				'desc'             => __( 'Select a Take Action Page to populate take action boxout block', 'planet4-master-theme-backend' ),
+				'id'               => $prefix . 'take_action_page',
+				'type'             => 'select',
+				'show_option_none' => true,
+				'options_cb'       => [ $this, 'populate_act_page_children_options' ],
+			]
+		);
 
-		$p4_post->add_field( [
-			'name'       => __( 'Include Articles In Post', 'planet4-master-theme-backend' ),
-			'id'         => 'include_articles',
-			'type'       => 'select',
-			'options'    => [
-				'yes' => 'Yes',
-				'no'  => 'No',
-			],
-		] );
+		$p4_post->add_field(
+			[
+				'name'    => __( 'Include Articles In Post', 'planet4-master-theme-backend' ),
+				'id'      => 'include_articles',
+				'type'    => 'select',
+				'options' => [
+					'yes' => 'Yes',
+					'no'  => 'No',
+				],
+			]
+		);
 
-		$p4_post->add_field( [
-			'name'         => __( 'Background Image Override', 'planet4-master-theme-backend' ),
-			'desc'         => __( 'Upload an image or select one from the media library to override the background image', 'planet4-master-theme-backend' ),
-			'id'           => $prefix . 'background_image_override',
-			'type'         => 'file',
-			'options'      => [
-				'url' => false,
-			],
-			'text'         => [
-				'add_upload_file_text' => __( 'Add Image', 'planet4-master-theme-backend' ),
-			],
-			'preview_size' => 'large',
-		] );
+		$p4_post->add_field(
+			[
+				'name'         => __( 'Background Image Override', 'planet4-master-theme-backend' ),
+				'desc'         => __( 'Upload an image or select one from the media library to override the background image', 'planet4-master-theme-backend' ),
+				'id'           => $prefix . 'background_image_override',
+				'type'         => 'file',
+				'options'      => [
+					'url' => false,
+				],
+				'text'         => [
+					'add_upload_file_text' => __( 'Add Image', 'planet4-master-theme-backend' ),
+				],
+				'preview_size' => 'large',
+			]
+		);
 
-		$p4_open_graph = new_cmb2_box( [
-			'id'           => $prefix . 'metabox_og',
-			'title'        => __( 'Open Graph/Social Fields', 'planet4-master-theme-backend' ),
-			'object_types' => [ 'page', 'post' ],
-			'closed'       => true,  // Keep the metabox closed by default.
-		] );
+		$p4_open_graph = new_cmb2_box(
+			[
+				'id'           => $prefix . 'metabox_og',
+				'title'        => __( 'Open Graph/Social Fields', 'planet4-master-theme-backend' ),
+				'object_types' => [ 'page', 'post' ],
+				'closed'       => true,  // Keep the metabox closed by default.
+			]
+		);
 
-		$p4_open_graph->add_field( [
-			'name' => __( 'Title', 'planet4-master-theme-backend' ),
-			'desc' => __( 'Enter title if you want to override the open graph title', 'planet4-master-theme-backend' ),
-			'id'   => $prefix . 'og_title',
-			'type' => 'text_medium',
-		] );
+		$p4_open_graph->add_field(
+			[
+				'name' => __( 'Title', 'planet4-master-theme-backend' ),
+				'desc' => __( 'Enter title if you want to override the open graph title', 'planet4-master-theme-backend' ),
+				'id'   => $prefix . 'og_title',
+				'type' => 'text_medium',
+			]
+		);
 
-		$p4_open_graph->add_field( [
-			'name'    => __( 'Description', 'planet4-master-theme-backend' ),
-			'desc'    => __( 'Enter description if you want to override the open graph description', 'planet4-master-theme-backend' ),
-			'id'      => $prefix . 'og_description',
-			'type'    => 'wysiwyg',
-			'options' => [
-				'media_buttons' => false,
-				'textarea_rows' => 5,
-			],
-		] );
+		$p4_open_graph->add_field(
+			[
+				'name'    => __( 'Description', 'planet4-master-theme-backend' ),
+				'desc'    => __( 'Enter description if you want to override the open graph description', 'planet4-master-theme-backend' ),
+				'id'      => $prefix . 'og_description',
+				'type'    => 'wysiwyg',
+				'options' => [
+					'media_buttons' => false,
+					'textarea_rows' => 5,
+				],
+			]
+		);
 
-		$p4_open_graph->add_field( [
-			'name'         => __( 'Image Override', 'planet4-master-theme-backend' ),
-			'desc'         => __( 'Upload an image or select one from the media library to override the open graph image', 'planet4-master-theme-backend' ),
-			'id'           => $prefix . 'og_image',
-			'type'         => 'file',
-			'options'      => [
-				'url' => false,
-			],
-			'text'         => [
-				'add_upload_file_text' => __( 'Add Image', 'planet4-master-theme-backend' ),
-			],
-			'query_args'   => [
-				'type' => 'image',
-			],
-			'preview_size' => 'large',
-		] );
+		$p4_open_graph->add_field(
+			[
+				'name'         => __( 'Image Override', 'planet4-master-theme-backend' ),
+				'desc'         => __( 'Upload an image or select one from the media library to override the open graph image', 'planet4-master-theme-backend' ),
+				'id'           => $prefix . 'og_image',
+				'type'         => 'file',
+				'options'      => [
+					'url' => false,
+				],
+				'text'         => [
+					'add_upload_file_text' => __( 'Add Image', 'planet4-master-theme-backend' ),
+				],
+				'query_args'   => [
+					'type' => 'image',
+				],
+				'preview_size' => 'large',
+			]
+		);
 	}
 
 	/**
@@ -813,7 +885,8 @@ class P4_Master_Site extends TimberSite {
 		if ( current_user_can( 'administrator' ) ) {
 			return;
 		}
-		add_meta_box( 'restricted_tags_box',
+		add_meta_box(
+			'restricted_tags_box',
 			__( 'Tags', 'planet4-master-theme-backend' ),
 			[ $this, 'print_restricted_tags_box' ],
 			[ 'post', 'page' ],
@@ -837,11 +910,14 @@ class P4_Master_Site extends TimberSite {
 
 	/**
 	 * Output an "Add Page Element" button with the media buttons.
+	 *
+	 * @param int $editor_id Editor ID.
 	 */
 	public function action_page_media_buttons( $editor_id ) {
-		printf( '<button type="button" class="button shortcake-add-post-element" data-editor="%s">' .
-		        '<span class="wp-media-buttons-icon dashicons dashicons-migrate"></span> %s' .
-		        '</button>',
+		printf(
+			'<button type="button" class="button shortcake-add-post-element" data-editor="%s">' .
+				'<span class="wp-media-buttons-icon dashicons dashicons-migrate"></span> %s' .
+				'</button>',
 			esc_attr( $editor_id ),
 			__( 'Add Page Element', 'planet4-master-theme-backend' )
 		);
@@ -849,15 +925,18 @@ class P4_Master_Site extends TimberSite {
 
 	/**
 	 * Apply carousel style to wp image gallery.
+	 *
+	 * @param string $output Output.
+	 * @param mixed  $attr   Attributes.
 	 */
-	public function carousel_post_gallery( $output, $attr) {
-		return do_shortcode('[shortcake_carousel multiple_image="' . $attr['ids'] . '"]');
+	public function carousel_post_gallery( $output, $attr ) {
+		return do_shortcode( '[shortcake_carousel multiple_image="' . $attr['ids'] . '"]' );
 	}
 
 	/**
 	 * Auto generate excerpt for post.
 	 *
-	 * @param int $post_id Id of the saved post.
+	 * @param int     $post_id Id of the saved post.
 	 * @param WP_Post $post Post object.
 	 */
 	public function p4_auto_generate_excerpt( $post_id, $post ) {
@@ -875,10 +954,12 @@ class P4_Master_Site extends TimberSite {
 			$post_excerpt   = wp_trim_words( $post_excerpt, $excerpt_length, $excerpt_more );
 
 			// Update the post, which calls save_post again.
-			wp_update_post( [
-				'ID'           => $post_id,
-				'post_excerpt' => $post_excerpt,
-			] );
+			wp_update_post(
+				[
+					'ID'           => $post_id,
+					'post_excerpt' => $post_excerpt,
+				]
+			);
 
 			// re-hook save_post function.
 			add_action( 'save_post', [ $this, 'p4_auto_generate_excerpt' ], 10, 2 );
@@ -923,7 +1004,13 @@ class P4_Master_Site extends TimberSite {
 			$assigned_ids[] = $assigned_tag->term_id;
 		}
 
-		$this->render_partial( 'partials/tags_box', [ 'tags' => $all_post_tags, 'assigned_tags' => $assigned_ids ] );
+		$this->render_partial(
+			'partials/tags-box',
+			[
+				'tags'          => $all_post_tags,
+				'assigned_tags' => $assigned_ids,
+			]
+		);
 	}
 
 	/**
@@ -947,7 +1034,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	private function render_partial( $path, $args = [] ) {
 		if ( ! empty( $args ) ) {
-			extract( $args );
+			extract( $args ); // phpcs:ignore
 		}
 		include( locate_template( $path . '.php' ) );
 	}
@@ -963,13 +1050,17 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function override_img_caption_shortcode( $output, $attr, $content ) {
 
-		$atts = shortcode_atts( array(
-			'id'      => '',
-			'align'   => 'alignnone',
-			'width'   => '',
-			'caption' => '',
-			'class'   => '',
-		), $attr, 'caption' );
+		$atts = shortcode_atts(
+			array(
+				'id'      => '',
+				'align'   => 'alignnone',
+				'width'   => '',
+				'caption' => '',
+				'class'   => '',
+			),
+			$attr,
+			'caption'
+		);
 
 		$image_id     = trim( str_replace( 'attachment_', '', $atts['id'] ) );
 		$meta         = get_post_meta( $image_id );
@@ -981,7 +1072,7 @@ class P4_Master_Site extends TimberSite {
 			}
 		}
 
-		$class        = trim( 'wp-caption ' . $atts['align'] . ' ' . $atts['class'] );
+		$class = trim( 'wp-caption ' . $atts['align'] . ' ' . $atts['class'] );
 
 		if ( $atts['id'] ) {
 			$atts['id'] = 'id="' . esc_attr( $atts['id'] ) . '" ';
@@ -994,11 +1085,13 @@ class P4_Master_Site extends TimberSite {
 	}
 }
 
-new P4_Master_Site( [
-	'P4_Custom_Taxonomy',
-	'P4_Campaigns',
-	'P4_Settings',
-	'P4_Control_Panel',
-	'P4_Post_Report_Controller',
-	'P4_Cookies',
-] );
+new P4_Master_Site(
+	[
+		'P4_Custom_Taxonomy',
+		'P4_Campaigns',
+		'P4_Settings',
+		'P4_Control_Panel',
+		'P4_Post_Report_Controller',
+		'P4_Cookies',
+	]
+);

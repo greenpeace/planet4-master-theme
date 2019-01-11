@@ -1,4 +1,9 @@
 <?php
+/**
+ * P4 Search Class
+ *
+ * @package P4MT
+ */
 
 use Timber\Timber;
 use Timber\Post as TimberPost;
@@ -25,23 +30,67 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			'application/pdf',
 		];
 
-		/** @var string $search_query */
+		/**
+		 * Search Query
+		 *
+		 * @var string $search_query
+		 */
 		protected $search_query;
-		/** @var array|bool|null $posts */
+
+		/**
+		 * Posts
+		 *
+		 * @var array|bool|null $posts
+		 */
 		protected $posts;
-		/** @var array|bool|null $paged_posts */
+
+		/**
+		 * Paged Posts
+		 *
+		 * @var array|bool|null $paged_posts
+		 */
 		protected $paged_posts;
-		/** @var array $selected_sort */
+
+		/**
+		 * Selected sort criteria
+		 *
+		 * @var array $selected_sort
+		 */
 		protected $selected_sort;
-		/** @var array $filters */
+
+		/**
+		 * FIlters
+		 *
+		 * @var array $filters
+		 */
 		protected $filters;
-		/** @var array $localizations */
+
+		/**
+		 * Localizations
+		 *
+		 * @var array $localizations
+		 */
 		protected $localizations;
-		/** @var array $templates */
+
+		/**
+		 * Templates
+		 *
+		 * @var array $templates
+		 */
 		public $templates;
-		/** @var array $context */
+
+		/**
+		 * Context
+		 *
+		 * @var array $context
+		 */
 		public $context;
-		/** @var int $current_page */
+
+		/**
+		 * Current Page
+		 *
+		 * @var int $current_page
+		 */
 		public $current_page;
 
 		/**
@@ -121,38 +170,38 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 				// Check if call action is correct.
 				if ( 'get_paged_posts' === $search_action ) {
-					$search_async = new self();
+					$search_async               = new self();
 					$search_async->search_query = trim( get_search_query() );
 
 					// Get the decoded url query string and then use it as key for redis.
 					$query_string_full = urldecode( filter_input( INPUT_SERVER, 'QUERY_STRING', FILTER_SANITIZE_STRING ) );
 					$query_string      = str_replace( '&query-string=', '', strstr( $query_string_full, '&query-string=' ) );
 
-					$group              = 'search';
-					$subgroup           = $search_async->search_query ? $search_async->search_query : 'all';
+					$group                      = 'search';
+					$subgroup                   = $search_async->search_query ? $search_async->search_query : 'all';
 					$search_async->current_page = $paged;
 
 					parse_str( $query_string, $filters_array );
-					$selected_sort    = $filters_array[ 'orderby' ];
-					$selected_filters = $filters_array[ 'f' ];
+					$selected_sort    = $filters_array['orderby'];
+					$selected_filters = $filters_array['f'];
 					$filters          = [];
 
 					// Handle submitted filter options.
 					if ( $selected_filters && is_array( $selected_filters ) ) {
-					    foreach ( $selected_filters as $type => $filter_type ) {
-					        foreach ( $filter_type as $name => $id ) {
-					            $filters[ $type ][] = [
-					                'id'   => $id,
-					                'name' => $name,
-					            ];
-					        }
-					    }
+						foreach ( $selected_filters as $type => $filter_type ) {
+							foreach ( $filter_type as $name => $id ) {
+								$filters[ $type ][] = [
+									'id'   => $id,
+									'name' => $name,
+								];
+							}
+						}
 					}
 
 					// Validate user input (sort, filters, etc).
 					if ( $search_async->validate( $selected_sort, $filters, $search_async->context ) ) {
-					    $search_async->selected_sort = $selected_sort;
-					    $search_async->filters       = $filters;
+						$search_async->selected_sort = $selected_sort;
+						$search_async->filters       = $filters;
 					}
 
 					// TODO - Set the correct filters so that it will work when searching for specific term with filters applied.
@@ -243,7 +292,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 			if ( $paged > 1 ) {
 				$args['posts_per_page'] = self::POSTS_PER_LOAD;
-				$args['paged'] = $paged;
+				$args['paged']          = $paged;
 			}
 
 			if ( $this->search_query ) {
@@ -251,21 +300,21 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			} else {
 				// If we search for everything then order first by 'weight' and then by 'post_date'.
 				$args2 = [
-					'orderby'   => 'meta_value date',
-					'order' => 'DESC DESC',
+					'orderby'    => 'meta_value date',
+					'order'      => 'DESC DESC',
 					'meta_query' => [
 						'relation' => 'OR',
 						[
-							'key' => 'weight',
+							'key'     => 'weight',
 							'compare' => 'NOT EXISTS',
 						],
 						[
-							'key' => 'weight',
+							'key'     => 'weight',
 							'compare' => 'EXISTS',
 						],
 					],
 				];
-				$args = array_merge( $args, $args2 );
+				$args  = array_merge( $args, $args2 );
 			}
 
 			if ( $this->filters ) {
@@ -307,9 +356,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 										$args['post_mime_type'] = self::DOCUMENT_TYPES;
 										break;
 									case 2:
-										$args['post_type']   = 'page';
-										$args['post_status'] = 'publish';
-										$options             = get_option( 'planet4_options' );
+										$args['post_type']             = 'page';
+										$args['post_status']           = 'publish';
+										$options                       = get_option( 'planet4_options' );
 										$args['post_parent__not_in'][] = esc_sql( $options['act_page'] );
 										break;
 									case 3:
@@ -372,7 +421,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			global $wpdb;
 
 			$statement = $wpdb->prepare( "SELECT `stem` FROM `{$wpdb->prefix}swp_terms` where `term` = %s", $word );
-			$result    = $wpdb->get_col( $statement );
+			$result    = $wpdb->get_col( $statement ); // WPCS: unprepared SQL OK.
 			return $result[0] ?? '';
 		}
 
@@ -408,19 +457,21 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 			if ( $this->search_query ) {
 				$context['page_title'] = sprintf(
-					// translators:
-					_n( '%1$d result for \'%2$s\'',  '%1$d results for \'%2$s\'', $context['found_posts'], 'planet4-master-theme' ),
+					// translators: %1$d = Number of results.
+					_n( '%1$d result for \'%2$s\'', '%1$d results for \'%2$s\'', $context['found_posts'], 'planet4-master-theme' ),
 					$context['found_posts'],
 					$this->search_query
 				);
 			} else {
-				// translators:
+				// translators: %d = Number of results.
 				$context['page_title'] = sprintf( _n( '%d result', '%d results', $context['found_posts'], 'planet4-master-theme' ), $context['found_posts'] );
 			}
 		}
 
 		/**
+		 * Set filters context
 		 *
+		 * @param mixed $context Context.
 		 */
 		protected function set_filters_context( &$context ) {
 			// Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
@@ -442,10 +493,12 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			}
 
 			// Tag <-> Campaign.
-			$tags = get_terms( [
-				'taxonomy' => 'post_tag',
-				'hide_empty' => false,
-			] );
+			$tags = get_terms(
+				[
+					'taxonomy'   => 'post_tag',
+					'hide_empty' => false,
+				]
+			);
 			if ( $tags ) {
 				foreach ( (array) $tags as $tag ) {
 					// Tag filters.
@@ -458,10 +511,12 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			}
 
 			// Page Type <-> Category.
-			$page_types = get_terms( [
-				'taxonomy' => 'p4-page-type',
-				'hide_empty' => false,
-			] );
+			$page_types = get_terms(
+				[
+					'taxonomy'   => 'p4-page-type',
+					'hide_empty' => false,
+				]
+			);
 			if ( $page_types ) {
 				foreach ( (array) $page_types as $page_type ) {
 					// p4-page-type filters.
@@ -515,14 +570,20 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 			// Sort associative array with filters alphabetically.
 			if ( $context['categories'] ) {
-				uasort( $context['categories'], function ( $a, $b ) {
-					return strcmp( $a['name'], $b['name'] );
-				} );
+				uasort(
+					$context['categories'],
+					function ( $a, $b ) {
+						return strcmp( $a['name'], $b['name'] );
+					}
+				);
 			}
 			if ( $context['tags'] ) {
-				uasort( $context['tags'], function ( $a, $b ) {
-					return strcmp( $a['name'], $b['name'] );
-				} );
+				uasort(
+					$context['tags'],
+					function ( $a, $b ) {
+						return strcmp( $a['name'], $b['name'] );
+					}
+				);
 			}
 		}
 
@@ -657,6 +718,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			// Add pagination temporarily until we have a lazy loading solution. Use Timber::get_pagination() if we want a more customized one.
 			$this->context['load_more'] = $args ?? [
 				'posts_per_load' => self::POSTS_PER_LOAD,
+				// Translators: %s = number of results per page.
 				'button_text'    => sprintf( __( 'SHOW %s MORE RESULTS', 'planet4-master-theme' ), self::POSTS_PER_LOAD ),
 				'async'          => true,
 			];

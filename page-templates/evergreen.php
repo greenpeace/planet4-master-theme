@@ -1,4 +1,4 @@
-<?php /* Template Name: Evergreen Page */
+<?php
 /**
  * The template for displaying evergreen pages.
  *

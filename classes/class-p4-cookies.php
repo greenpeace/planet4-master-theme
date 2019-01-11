@@ -1,4 +1,9 @@
 <?php
+/**
+ * P4 Cookies Class
+ *
+ * @package P4MT
+ */
 
 if ( ! class_exists( 'P4_Cookies' ) ) {
 

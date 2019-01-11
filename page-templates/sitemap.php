@@ -1,6 +1,8 @@
-<?php /* Template Name: Sitemap Page */
+<?php
 /**
  * The template for displaying the Sitemap page.
+ *
+ * @package P4MT
  */
 
 use Timber\Timber;
@@ -20,9 +22,9 @@ $context['issues_title']     = __( 'Explore', 'planet4-master-theme' );
 $context['evergreen_title']  = __( 'About Greenpeace', 'planet4-master-theme' );
 $context['page_types_title'] = __( 'Articles', 'planet4-master-theme' );
 
-$context['actions']          = $sitemap->get_actions();
-$context['issues']           = $sitemap->get_issues();
-$context['evergreen_pages']  = $sitemap->get_evergreen_pages();
-$context['page_types']       = $sitemap->get_page_types();
+$context['actions']         = $sitemap->get_actions();
+$context['issues']          = $sitemap->get_issues();
+$context['evergreen_pages'] = $sitemap->get_evergreen_pages();
+$context['page_types']      = $sitemap->get_page_types();
 
 Timber::render( array( 'sitemap.twig' ), $context );

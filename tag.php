@@ -5,6 +5,8 @@
  * Category <-> Issue
  * Tag <-> Campaign
  * Post <-> Action
+ *
+ * @package P4MT
  */
 
 use Timber\Timber;
@@ -19,18 +21,20 @@ $templates = array( 'tag.twig', 'archive.twig', 'index.twig' );
 $context = Timber::get_context();
 
 if ( is_tag() ) {
-	$context['tag']   = get_queried_object();
-	$explore_page_id  = planet4_get_option( 'explore_page' );
+	$context['tag']  = get_queried_object();
+	$explore_page_id = planet4_get_option( 'explore_page' );
 
-	$posts = get_posts( [
-		'posts_per_page'   => 1,
-		'offset'           => 0,
-		'post_parent'      => $explore_page_id,
-		'post_type'        => 'page',
-		'post_status'      => 'publish',
-		'suppress_filters' => false,
-		'tag_slug__in'     => [ $context['tag']->slug ],
-	] );
+	$posts = get_posts(
+		[
+			'posts_per_page'   => 1,
+			'offset'           => 0,
+			'post_parent'      => $explore_page_id,
+			'post_type'        => 'page',
+			'post_status'      => 'publish',
+			'suppress_filters' => false,
+			'tag_slug__in'     => [ $context['tag']->slug ],
+		]
+	);
 
 	$context['custom_body_classes'] = 'white-bg page-issue-page';
 	$context['category_name']       = $posts[0]->post_title ?? '';
@@ -45,21 +49,27 @@ if ( is_tag() ) {
 		$context['og_image_data'] = wp_get_attachment_image_src( $tag_image_id, 'full' );
 	}
 
-	$context['page_category']   = $posts[0]->post_title ?? __( 'Unknown Campaign page', 'planet4-master-theme' );
+	$context['page_category'] = $posts[0]->post_title ?? __( 'Unknown Campaign page', 'planet4-master-theme' );
 
 
 	$campaign = new P4_Taxonomy_Campaign( $templates, $context );
 
-	$campaign->add_block( Covers::BLOCK_NAME, [
-		'title'       => __( 'Things you can do', 'planet4-master-theme' ),
-		'description' => __( 'We want you to take action because together we\'re strong.', 'planet4-master-theme' ),
-		'select_tag'  => $context['tag']->term_id,
-		'covers_view' => '0',   // Show 6 covers in Campaign page.
-	] );
+	$campaign->add_block(
+		Covers::BLOCK_NAME,
+		[
+			'title'       => __( 'Things you can do', 'planet4-master-theme' ),
+			'description' => __( 'We want you to take action because together we\'re strong.', 'planet4-master-theme' ),
+			'select_tag'  => $context['tag']->term_id,
+			'covers_view' => '0',   // Show 6 covers in Campaign page.
+		]
+	);
 
-	$campaign->add_block( Articles::BLOCK_NAME, [
-		'tags' => $context['tag']->term_id,
-	] );
+	$campaign->add_block(
+		Articles::BLOCK_NAME,
+		[
+			'tags' => $context['tag']->term_id,
+		]
+	);
 
 	$cfc_args = [
 		'select_tag' => $context['tag']->term_id,
@@ -79,24 +89,30 @@ if ( is_tag() ) {
 
 	$campaign->add_block( ContentFourColumn::BLOCK_NAME, $cfc_args );
 
-	$campaign->add_block( CampaignThumbnail::BLOCK_NAME, [
-		'title'       => __( 'Related Campaigns', 'planet4-master-theme' ),
-		'category_id' => $category->term_id ?? __( 'This Campaign is not assigned to an Issue', 'planet4-master-theme' ),
-	] );
+	$campaign->add_block(
+		CampaignThumbnail::BLOCK_NAME,
+		[
+			'title'       => __( 'Related Campaigns', 'planet4-master-theme' ),
+			'category_id' => $category->term_id ?? __( 'This Campaign is not assigned to an Issue', 'planet4-master-theme' ),
+		]
+	);
 
 	// Get the image selected as background for the Subscribe section (HappyPoint block) inside the current Tag.
 	$background = get_term_meta( $context['tag']->term_id, 'happypoint_attachment_id', true );
 	$opacity    = get_term_meta( $context['tag']->term_id, 'happypoint_bg_opacity', true );
 	$options    = get_option( 'planet4_options' );
 
-	$campaign->add_block( HappyPoint::BLOCK_NAME, [
-		'background'          => $background,
-		'background_html'     => wp_get_attachment_image( $background ),
-		'background_src'      => wp_get_attachment_image_src( $background, 'full' ),
-		'engaging_network_id' => $options['engaging_network_form_id'] ?? '',
-		'opacity'             => $opacity,
-		'mailing_list_iframe' => 'true',
-	] );
+	$campaign->add_block(
+		HappyPoint::BLOCK_NAME,
+		[
+			'background'          => $background,
+			'background_html'     => wp_get_attachment_image( $background ),
+			'background_src'      => wp_get_attachment_image_src( $background, 'full' ),
+			'engaging_network_id' => $options['engaging_network_form_id'] ?? '',
+			'opacity'             => $opacity,
+			'mailing_list_iframe' => 'true',
+		]
+	);
 
 	$campaign->view();
 }
