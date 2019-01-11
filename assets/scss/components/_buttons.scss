@@ -18,7 +18,8 @@
   transition-timing-function: linear;
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:active {
     color: $white;
     text-decoration: none;
     outline: none;
@@ -54,9 +55,10 @@
     border-color: $orange-hover;
   }
 
-  &:active {
-    background-color: $dark-copper;
-    border-color: $dark-copper;
+  &:active,
+  &:not(:disabled):not(.disabled):active {
+    background-color: $orange-active;
+    border-color: $orange-active;
   }
 }
 
@@ -103,9 +105,10 @@
     border-color: $dark-blue;
   }
 
-  &:active {
-    background-color: $x-dark-blue;
-    border-color: $x-dark-blue;
+  &:active,
+  &:not(:disabled):not(.disabled):active {
+    background-color: $active-blue;
+    border-color: $active-blue;
   }
 }
 
