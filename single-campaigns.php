@@ -3,22 +3,25 @@ use Timber\Timber;
 
 // Initializing variables.
 $context         = Timber::get_context();
+
 /** @var P4_Post $post */
 $post            = Timber::query_post( false, 'P4_Post' );
 $context['post'] = $post;
 
+// Save custom style settings.
 $custom_styles = [];
 
-$custom_styles['css']['nav_color']     = $post->campaign_nav_color ? ".navbar { background-color: {$post->campaign_nav_color} !important; }" : null;
+$custom_styles['css']['nav_color']     = $post->campaign_nav_color ? ".navbar { background-color: {$post->campaign_nav_color} !important;}" : null;
 $custom_styles['nav_type']             = $post->campaign_nav_type;
-$custom_styles['logo_shade']             = $post->campaign_logo_shade;
+$custom_styles['logo_shade']           = $post->campaign_logo_shade;
 $custom_styles['css']['header_bg']     = $post->campaign_header_color ? ".page-header { background: {$post->campaign_header_color} !important;}" : null;
 $custom_styles['css']['header_serif']  = $post->campaign_header_serif ? ".page-header { font-family: {$post->campaign_header_serif}!important;}" : null;
 $custom_styles['css']['header_sans']   = $post->campaign_header_sans ? ".page-header { font-family: {$post->campaign_header_sans} !important;}" : null;
 $custom_styles['css']['body_font']     = $post->campaign_body_font ? "body { font-family: '{$post->campaign_body_font}' !important;}" : null;
 $custom_styles['css']['btn_primary']   = $post->campaign_primary_color ? ".btn-primary { background: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} }" : null;
 $custom_styles['css']['btn_secondary'] = $post->campaign_secondary_color ? ".btn-secondary { background: {$post->campaign_secondary_color} !important; border-color: {$post->campaign_primary_color} }" : null;
-$custom_styles['campaign_logo'] = $post->campaign_logo ?? null;
+$custom_styles['campaign_logo']        = $post->campaign_logo ?? null;
+
 
 // Set Navigation Issues links.
 $post->set_issues_links();
@@ -47,7 +50,7 @@ $context['filter_url'] = add_query_arg( [
 	's'                                       => ' ',
 	'orderby'                                 => 'relevant',
 	'f[ptype][' . $context['page_type'] . ']' => $context['page_term_id'],
-], get_home_url()
+	], get_home_url()
 );
 
 

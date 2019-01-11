@@ -93,9 +93,7 @@
 	{{ wp_head }}
 	{% if custom_styles %}
 		<style>
-		{% for style in custom_styles.css %}
-			{% if style %}{{ style|raw }}{% endif %}
-		{% endfor %}
+		{% for style in custom_styles.css %}{{ style|raw }}{% endfor %}
 		</style>
 	{% endif %}
 	
