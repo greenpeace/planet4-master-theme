@@ -42,9 +42,6 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 			add_filter( 'manage_edit-post_tag_columns',          array( $this, 'edit_taxonomy_columns' ) );
 			add_filter( 'manage_post_tag_custom_column',         array( $this, 'manage_taxonomy_custom_column' ), 10, 3 );
 			add_filter( 'manage_edit-post_tag_sortable_columns', array( $this, 'manage_taxonomy_custom_sortable_column' ), 10, 3 );
-
-			add_action( 'save_post', array( $this, 'set_logo_shade' ) );
-
 		}
 
 		/**
@@ -454,11 +451,16 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 			] );
 
 			$cmb->add_field( [
-				'name'    => __( 'Logo Shade', 'planet4-master-theme-backend' ),
-				'id'      => 'campaign_logo_shade',
-				'type'    => 'hidden',
+				'name'    => __( 'Logo Color', 'planet4-master-theme-backend' ),
+				'id'      => 'campaign_logo_color',
+				'type'    => 'radio_inline',
 				'default' => 'light',
+				'options' => [
+					'dark' => __( 'Black', 'planet4-master-theme-backend' ),
+					'light' => __( 'White', 'planet4-master-theme-backend' ),
+				],
 			] );
+
 
 			$cmb->add_field( [
 				'name'       => __( 'Primary Button Color', 'planet4-master-theme-backend' ),
@@ -500,23 +502,6 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 					'oil'       => __( 'Oil', 'planet4-master-theme-backend' ),
 				],
 			] );
-		}
-
-		/**
-		 * Set the campaign logo shade (black or white)
-		 * depending on the color of the nav background
-		 */
-		public function set_logo_shade( $id ) {
-			$nav_header_color = get_post_meta( $id, 'campaign_nav_color', true );
-			if ( $nav_header_color ) {
-				$primary_palette = [ '#8cbf4f' ];
-				if ( in_array( $nav_header_color, $primary_palette ) ) {
-					$shade = 'light';
-				} else {
-					$shade = 'dark';
-				}
-				update_post_meta( $id, 'campaign_logo_shade', 'light' );
-			}
 		}
 
 		/**
