@@ -1,0 +1,85 @@
+workflows:
+  version: 2
+  main:
+    jobs:
+      - php70-build
+      - php71-build
+      - php72-build
+
+version: 2
+
+job-references:
+  mysql_image: &mysql_image
+    circleci/mysql:5.7
+
+  setup_environment: &setup_environment
+    name: "Setup Environment Variables"
+    command: |
+      echo "export PATH=$HOME/.composer/vendor/bin:$PATH" >> $BASH_ENV
+      source /home/circleci/.bashrc
+
+  install_dependencies: &install_dependencies
+    name: "Install Dependencies"
+    command: |
+      sudo apt-get update && sudo apt-get install subversion
+      sudo -E docker-php-ext-install mysqli
+      sudo sh -c "printf '\ndeb http://ftp.us.debian.org/debian sid main\n' >> /etc/apt/sources.list"
+      sudo apt-get update && sudo apt-get install mysql-client-5.7
+      sudo apt-get update && sudo apt-get install npm
+      sudo npm install -g stylelint eslint
+
+  php_job: &php_job
+    environment:
+      - WP_TESTS_DIR: "/tmp/wordpress-tests-lib"
+      - WP_CORE_DIR: "/tmp/wordpress/"
+    steps:
+      - checkout
+      - run: *setup_environment
+      - run: *install_dependencies
+      - run:
+          name: "phpcs"
+          command: |
+            mkdir -p /tmp/test-results/phpcs
+            composer global require wp-coding-standards/wpcs
+            phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
+            phpcs --report=junit --report-file=/tmp/test-results/phpcs/$CIRCLE_STAGE.xml
+      - run:
+          name: "phpunit"
+          when: always
+          command: |
+            mkdir -p /tmp/test-results/phpunit /tmp/test-results/phpunit-multisite
+            composer global require "phpunit/phpunit=5.7.*"
+            rm -rf $WP_TESTS_DIR $WP_CORE_DIR
+            bash bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 latest
+            phpunit --log-junit /tmp/test-results/phpunit/$CIRCLE_STAGE.xml
+            WP_MULTISITE=1 phpunit --log-junit /tmp/test-results/phpunit-multisite/$CIRCLE_STAGE.xml
+      - run:
+          name: "styelint"
+          when: always
+          command: stylelint $HOME/project/assets/scss/**/*.scss $HOME/project/assets/css/*.css
+      - run:
+          name: "eslint"
+          when: always
+          command: eslint $HOME/project/assets/js/**/*.js
+      - store_test_results:
+          path: /tmp/test-results
+
+
+jobs:
+  php70-build:
+    <<: *php_job
+    docker:
+      - image: circleci/php:7.0
+      - image: *mysql_image
+
+  php71-build:
+    <<: *php_job
+    docker:
+      - image: circleci/php:7.1
+      - image: *mysql_image
+
+  php72-build:
+    <<: *php_job
+    docker:
+      - image: circleci/php:7.2
+      - image: *mysql_image
