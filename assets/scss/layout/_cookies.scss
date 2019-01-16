@@ -1,0 +1,71 @@
+.cookie-notice {
+  z-index: 100;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 0;
+  background: $cookie-bkg url("images/cookie-right-gradient-sm.png") no-repeat right;
+
+  p {
+    font-size: 0.875rem;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: $cookie-blue;
+    text-align: left;
+    font-family: $roboto;
+    line-height: 18px;
+
+    @include medium-and-up {
+      font-size: 0.9375rem;
+      margin-bottom: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    @include large-and-up {
+      font-size: 1.0625rem;
+    }
+    @include x-large-and-up {
+      font-size: 1.0625rem;
+    }
+  }
+
+  a {
+    color: $cookie-blue;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  div.col-9 {
+    @include mobile-only {
+      margin: 0 auto;
+      max-width: 95%;
+      flex: 95%;
+    }
+  }
+
+  div.col {
+    @include mobile-only {
+      margin: 0 auto;
+      max-width: 95%;
+    }
+  }
+
+  .btn {
+    height: 32px;
+    line-height: 32px;
+    font-size: 0.9375rem;
+    width: 100%;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    background-color: transparentize($white, .2);
+
+    &:hover {
+      border-color: $dark-blue;
+      background-color: $dark-blue;
+    }
+  }
+}
