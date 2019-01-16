@@ -1,5 +1,6 @@
 <?php
 /**
+ * Template Name: Evergreen Page
  * The template for displaying evergreen pages.
  *
  * To generate specific templates for your pages you can use:

@@ -1,5 +1,6 @@
 <?php
 /**
+ * Template Name: Sitemap Page
  * The template for displaying the Sitemap page.
  *
  * @package P4MT
