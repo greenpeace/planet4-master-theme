@@ -36,7 +36,7 @@ function _register_theme() {
 		return $current_theme;
 	} );
 
-	$plugins_dir = dirname( __FILE__ ) . '/../../../plugins';
+	$plugins_dir = dirname( __FILE__ ) . '/../vendor/plugins';
 	$timber      = $plugins_dir . '/timber/timber.php';
 	if ( file_exists( $timber ) ) {
 		require_once( $timber );

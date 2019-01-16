@@ -8,20 +8,10 @@ class P4_TestCase extends WP_UnitTestCase {
 	function setUp() {
 
 		parent::setUp();
-		self::_setupStarterTheme();
 		$this->initialize_planet4_data();
 		require_once( get_template_directory() . '/functions.php' );
 	}
 
-
-	static function _setupStarterTheme() {
-		$src  = __DIR__ . '/../../planet4-master-theme/';
-		if ( is_dir( $src ) ) {
-			switch_theme( 'planet4-master-theme' );
-		} else {
-			echo 'no its not';
-		}
-	}
 
 	/**
 	 * Use wp unit testcase factories to create data in database for the tests.
