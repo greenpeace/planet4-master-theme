@@ -63,6 +63,12 @@
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     background-color: transparentize($white, .2);
 
+    html[dir="rtl"] & {
+      font-size: 1.175rem;
+      line-height: 2.5;
+      height: auto;
+    }
+
     &:hover {
       border-color: $dark-blue;
       background-color: $dark-blue;
