@@ -108,7 +108,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				'ajaxurl'           => admin_url( 'admin-ajax.php' ),
 				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
 			];
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_assets' ) );
+			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
 		}
 
 		/**
@@ -784,7 +784,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		public function enqueue_public_assets() {
 			if ( is_search() ) {
-				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', array( 'jquery' ), '0.1.9', true );
+				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [ 'jquery' ], '0.1.9', true );
 				wp_localize_script( 'search', 'localizations', $this->localizations );
 				wp_enqueue_script( 'search' );
 			}

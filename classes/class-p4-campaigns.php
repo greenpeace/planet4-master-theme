@@ -44,15 +44,15 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 		 * Class hooks.
 		 */
 		private function hooks() {
-			add_action( 'post_tag_add_form_fields', array( $this, 'add_taxonomy_form_fields' ) );
-			add_action( 'post_tag_edit_form_fields', array( $this, 'add_taxonomy_form_fields' ) );
-			add_action( 'create_post_tag', array( $this, 'save_taxonomy_meta' ) );
-			add_action( 'edit_post_tag', array( $this, 'save_taxonomy_meta' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+			add_action( 'post_tag_add_form_fields', [ $this, 'add_taxonomy_form_fields' ] );
+			add_action( 'post_tag_edit_form_fields', [ $this, 'add_taxonomy_form_fields' ] );
+			add_action( 'create_post_tag', [ $this, 'save_taxonomy_meta' ] );
+			add_action( 'edit_post_tag', [ $this, 'save_taxonomy_meta' ] );
+			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 
-			add_filter( 'manage_edit-post_tag_columns', array( $this, 'edit_taxonomy_columns' ) );
-			add_filter( 'manage_post_tag_custom_column', array( $this, 'manage_taxonomy_custom_column' ), 10, 3 );
-			add_filter( 'manage_edit-post_tag_sortable_columns', array( $this, 'manage_taxonomy_custom_sortable_column' ), 10, 3 );
+			add_filter( 'manage_edit-post_tag_columns', [ $this, 'edit_taxonomy_columns' ] );
+			add_filter( 'manage_post_tag_custom_column', [ $this, 'manage_taxonomy_custom_column' ], 10, 3 );
+			add_filter( 'manage_edit-post_tag_sortable_columns', [ $this, 'manage_taxonomy_custom_sortable_column' ], 10, 3 );
 		}
 
 		/**
@@ -297,7 +297,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 			if ( ! is_admin() || strpos( get_current_screen()->taxonomy, $this->taxonomy ) === false ) {
 				return;
 			}
-			wp_register_script( $this->taxonomy, get_template_directory_uri() . "/assets/js/$this->taxonomy.js", array( 'jquery' ), null, true );
+			wp_register_script( $this->taxonomy, get_template_directory_uri() . "/assets/js/$this->taxonomy.js", [ 'jquery' ], null, true );
 			wp_localize_script( $this->taxonomy, 'localizations', $this->localizations );
 			wp_enqueue_script( $this->taxonomy );
 			wp_enqueue_media();

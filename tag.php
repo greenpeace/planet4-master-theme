@@ -16,7 +16,7 @@ use P4BKS\Controllers\Blocks\ContentFourColumn_Controller as ContentFourColumn;
 use P4BKS\Controllers\Blocks\CampaignThumbnail_Controller as CampaignThumbnail;
 use P4BKS\Controllers\Blocks\HappyPoint_Controller as HappyPoint;
 
-$templates = array( 'tag.twig', 'archive.twig', 'index.twig' );
+$templates = [ 'tag.twig', 'archive.twig', 'index.twig' ];
 
 $context = Timber::get_context();
 

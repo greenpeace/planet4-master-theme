@@ -15,5 +15,5 @@ if ( ! isset( $timber_context ) ) {
 }
 $timber_context['content'] = ob_get_contents();
 ob_end_clean();
-$templates = array( 'page-plugin.twig' );
+$templates = [ 'page-plugin.twig' ];
 Timber::render( $templates, $timber_context );

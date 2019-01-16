@@ -48,4 +48,4 @@ $context['header_button_link']  = $page_meta_data['p4_button_link'][0] ?? '';
 $context['background_image']    = wp_get_attachment_url( get_post_meta( get_the_ID(), 'background_image_id', 1 ) );
 $context['custom_body_classes'] = 'white-bg';
 
-Timber::render( array( 'evergreen.twig' ), $context );
+Timber::render( [ 'evergreen.twig' ], $context );

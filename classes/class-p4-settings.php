@@ -137,9 +137,9 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'name'       => __( 'Default Number Of Related Articles', 'planet4-master-theme-backend' ),
 					'id'         => 'articles_count',
 					'type'       => 'text',
-					'attributes' => array(
+					'attributes' => [
 						'type' => 'number',
-					),
+					],
 					'desc'       => __( 'If no number of Related Articles set for <b>Article Block</b>, the default number of Related Articles will appear.', 'planet4-master-theme-backend' ),
 				],
 
@@ -147,9 +147,9 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'name'       => __( 'Take Action Covers default button text', 'planet4-master-theme-backend' ),
 					'id'         => 'take_action_covers_button_text',
 					'type'       => 'text',
-					'attributes' => array(
+					'attributes' => [
 						'type' => 'text',
-					),
+					],
 					'desc'       => __(
 						'Add default button text which appears on <b>Take Action</b> card of <b>Take Action Covers</b> block. <br>
 					                     Also it would be used for Take Action Cards inside Posts and Take Action Cards in search results',

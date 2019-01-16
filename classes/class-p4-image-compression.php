@@ -40,7 +40,7 @@ if ( ! class_exists( 'P4_Image_Compression' ) ) {
 			try {
 				// Sharpen image after it has been resized.
 				if ( 'image/jpeg' === $this->mime_type ) {
-					if ( is_callable( array( $this->image, 'unsharpMaskImage' ) ) ) {
+					if ( is_callable( [ $this->image, 'unsharpMaskImage' ] ) ) {
 						$this->image->unsharpMaskImage( 1, 0.45, 3, 0 );
 					}
 				}

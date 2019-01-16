@@ -57,9 +57,9 @@ class CustomTaxonomyTest extends P4_TestCase {
 				'post_title'   => 'The name of the place is Babylon.',
 				'post_name'    => 'test-taxonomy-url',
 				'post_content' => 'test content',
-				'tax_input'    => array(
+				'tax_input'    => [
 					'p4-page-type' => [ 'story', 'publication' ],
-				),
+				],
 			]
 		);
 

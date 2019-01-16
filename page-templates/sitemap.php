@@ -27,4 +27,4 @@ $context['issues']          = $sitemap->get_issues();
 $context['evergreen_pages'] = $sitemap->get_evergreen_pages();
 $context['page_types']      = $sitemap->get_page_types();
 
-Timber::render( array( 'sitemap.twig' ), $context );
+Timber::render( [ 'sitemap.twig' ], $context );

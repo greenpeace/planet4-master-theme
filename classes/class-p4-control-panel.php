@@ -27,15 +27,15 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		public function hooks() {
 			// Display the Control Panel only to Administrators.
 			if ( current_user_can( 'manage_options' ) || current_user_can( 'editor' ) ) {
-				add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widgets' ), 9 );
-				add_action( 'wp_ajax_flush_cache', array( $this, 'flush_cache' ) );
-				add_action( 'wp_ajax_check_cache', array( $this, 'check_cache' ) );
-				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+				add_action( 'wp_dashboard_setup', [ $this, 'add_dashboard_widgets' ], 9 );
+				add_action( 'wp_ajax_flush_cache', [ $this, 'flush_cache' ] );
+				add_action( 'wp_ajax_check_cache', [ $this, 'check_cache' ] );
+				add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 			}
 
 			if ( current_user_can( 'manage_options' ) ) {
-				add_action( 'wp_ajax_check_engaging_networks', array( $this, 'check_engaging_networks' ) );
-				add_action( 'wp_ajax_check_search_indexer', array( $this, 'check_search_indexer' ) );
+				add_action( 'wp_ajax_check_engaging_networks', [ $this, 'check_engaging_networks' ] );
+				add_action( 'wp_ajax_check_search_indexer', [ $this, 'check_search_indexer' ] );
 			}
 		}
 
@@ -46,7 +46,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 			wp_add_dashboard_widget(
 				'planet4_control_panel',
 				__( 'Planet 4 Control Panel', 'planet4-master-theme-backend' ),
-				array( $this, 'add_items' )
+				[ $this, 'add_items' ]
 			);
 		}
 
@@ -288,8 +288,8 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 				return;
 			}
 			$theme_dir = get_template_directory_uri();
-			wp_enqueue_style( 'dashboard-style', "$theme_dir/assets/css/dashboard.css", array(), '0.1.0' );
-			wp_enqueue_script( 'dashboard-script', "$theme_dir/assets/js/dashboard.js", array( 'jquery' ), '0.1.0', true );
+			wp_enqueue_style( 'dashboard-style', "$theme_dir/assets/css/dashboard.css", [], '0.1.0' );
+			wp_enqueue_script( 'dashboard-script', "$theme_dir/assets/js/dashboard.js", [ 'jquery' ], '0.1.0', true );
 		}
 	}
 }
