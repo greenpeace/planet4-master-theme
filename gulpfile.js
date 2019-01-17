@@ -97,12 +97,14 @@ function watch() {
   gulp.watch(path_js, gulp.series(lint_js, uglify));
 }
 
-function backstop_reference() {
+function backstop_reference(done) {
   backstop('reference', {config: './backstop.js'});
+  done();
 }
 
-function backstop_test() {
+function backstop_test(done) {
   backstop('test', {config: './backstop.js'});
+  done();
 }
 
 exports.icons = icons;
