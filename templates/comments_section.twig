@@ -4,7 +4,7 @@
 		<div class="form-section">
 			{{ fn('comment_form', comments_args) }}
 		</div>
-		<section class="comments-section" itemscope itemtype="http://schema.org/UserComments">
+		<section class="comments-section-breakCommentsTest" itemscope itemtype="http://schema.org/UserComments">
 			<h3 class="comments-section-title">{{ __( 'Discussion', 'planet4-master-theme' ) }}</h3>
 			{% for cmt in comments %}
 				{% include "comment.twig" with {comment:cmt, index: loop.index} %}
