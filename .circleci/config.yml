@@ -5,7 +5,8 @@ workflows:
       - php70-build
       - php71-build
       - php72-build
-
+      - build-and-test-codeception:
+          context: org-global
 version: 2
 
 job-references:
