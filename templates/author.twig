@@ -25,7 +25,7 @@
 			{% if ( author.description ) %}
 				<div class="row">
 					<div class="col-lg-8 col-md-6 col-sm-12 mt-md-0">
-						<p class="d-md-block author-bio">{{ fn('wpautop', author.description)|e('wp_kses_post')|raw }}</p>
+						<p class="d-md-block author-bio">{{ fn('wpautop', fn('the_author_meta', 'description', author.id))|e('wp_kses_post')|raw }}</p>
 					</div>
 				</div>
 			{% endif %}
