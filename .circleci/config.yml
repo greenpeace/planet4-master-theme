@@ -86,7 +86,7 @@ jobs:
 
   build-and-test-codeception:
     docker:
-      - image: gcr.io/planet-4-151612/p4-builder:build-311
+      - image: gcr.io/planet-4-151612/p4-builder:build-312
     working_directory:  /home/circleci/
     environment:
       APP_HOSTNAME: www.planet4.test
