@@ -42,7 +42,7 @@
 						{% if (posts_data[post.ID].tags) %}
 							<div class="tag-wrap tags">
 								{% for tag in posts_data[post.ID].tags %}
-									<a href="{{ tag.link }}" class="search-result-item-tag-breaking-autotesting tag-item tag">#{{ tag.name|e('wp_kses_post')|raw }}</a>
+									<a href="{{ tag.link }}" class="search-result-item-tag tag-item tag">#{{ tag.name|e('wp_kses_post')|raw }}</a> 
 								{% endfor %}
 							</div>
 						{% endif %}
