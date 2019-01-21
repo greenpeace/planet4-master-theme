@@ -118,9 +118,7 @@ jobs:
           name: Test - Clone planet4-docker-compose
           command: |
             git clone https://github.com/greenpeace/planet4-docker-compose
-            pushd planet4-docker-compose
-            git checkout codeception-as-job
-            popd
+
       - run:
           name: Test - Run tests
           command: |
