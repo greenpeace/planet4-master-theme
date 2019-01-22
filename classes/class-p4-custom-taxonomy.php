@@ -35,6 +35,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 			// Rewrites the permalink to this taxonomy's page.
 			add_filter( 'term_link',                          array( $this, 'filter_term_permalink' ), 10, 3 );
 			add_filter( 'post_rewrite_rules',                 array( $this, 'replace_taxonomy_terms_in_rewrite_rules' ), 10, 1 );
+			add_filter( 'root_rewrite_rules',                 array( $this, 'add_terms_rewrite_rules' ), 10, 1 );
 		}
 
 		/**
@@ -308,6 +309,29 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		}
 
 		/**
+		 * Add each taxonomy term as a root rewrite rule.
+		 * Filter hook for root_rewrite_rules.
+		 *
+		 * @param array $rules  Root rewrite rules passed by WordPress.
+		 *
+		 * @return array        The filtered root rewrite rules.
+		 */
+		public function add_terms_rewrite_rules( $rules ) {
+			// Add a rewrite rule for each slug of this taxonomy type (e.g.: "publication", "story", etc.)
+			// for p4 page type pages.
+			// e.g | story/?$ | index.php?p4-page-type=story | .
+			$terms_slugs = $this->get_terms_slugs();
+
+			if ( $terms_slugs ) {
+				foreach ( $terms_slugs as $slug ) {
+					$rules[ $slug . '/?$' ] = 'index.php?' . self::TAXONOMY . '=' . $slug;
+				}
+			}
+
+			return $rules;
+		}
+
+		/**
 		 * Regenerate and flush rewrite rules when a new p4_page_type is created/edited/deleted.
 		 *
 		 * @param int    $term_id  Term ID.
@@ -318,7 +342,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 			if ( self::TAXONOMY !== $taxonomy ) {
 				return;
 			}
-			$this->add_terms_as_rewrite_rules();
+
 			flush_rewrite_rules();
 		}
 
