@@ -1,4 +1,9 @@
 <?php
+/**
+ * Post report controller
+ *
+ * @package P4MT
+ */
 
 if ( ! class_exists( 'P4_Post_Report_Controller' ) ) {
 
@@ -8,6 +13,8 @@ if ( ! class_exists( 'P4_Post_Report_Controller' ) ) {
 	class P4_Post_Report_Controller {
 
 		/**
+		 * Theme directory
+		 *
 		 * @var string $theme_dir Theme's base directory.
 		 */
 		protected $theme_dir;
@@ -24,9 +31,9 @@ if ( ! class_exists( 'P4_Post_Report_Controller' ) ) {
 		 * Register actions for WordPress hooks and filters.
 		 */
 		private function hooks() {
-			add_action( 'admin_menu',                  [ $this, 'add_posts_report_admin_menu_item' ] );
-			add_filter( 'rest_post_query',             [ $this, 'add_posts_param_to_endpoint' ], 10, 2 );
-			add_filter( 'rest_page_query',             [ $this, 'add_posts_param_to_endpoint' ], 10, 2 );
+			add_action( 'admin_menu', [ $this, 'add_posts_report_admin_menu_item' ] );
+			add_filter( 'rest_post_query', [ $this, 'add_posts_param_to_endpoint' ], 10, 2 );
+			add_filter( 'rest_page_query', [ $this, 'add_posts_param_to_endpoint' ], 10, 2 );
 			add_filter( 'rest_post_collection_params', [ $this, 'filter_post_params_endpoint' ] );
 			add_filter( 'rest_page_collection_params', [ $this, 'filter_post_params_endpoint' ] );
 		}
@@ -87,12 +94,17 @@ if ( ! class_exists( 'P4_Post_Report_Controller' ) ) {
 		public function render_posts_report_page() {
 			wp_enqueue_script( 'jquery-ui-core' );
 			wp_enqueue_script( 'jquery-ui-datepicker' );
-			wp_register_script( 'posts-report', $this->theme_dir . '/assets/js/posts_report.js',
+			wp_register_script(
+				'posts-report',
+				$this->theme_dir . '/assets/js/posts_report.js',
 				[
 					'jquery',
 					'wp-api',
 					'wp-backbone',
-				], '0.2', true );
+				],
+				'0.2',
+				true
+			);
 			wp_localize_script(
 				'posts-report',
 				'p4_data',
@@ -107,7 +119,7 @@ if ( ! class_exists( 'P4_Post_Report_Controller' ) ) {
 				'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/overcast/jquery-ui.min.css'
 			);
 			wp_enqueue_style( 'jquery-ui-datepicker' );
-			include dirname( __FILE__ ) . '/../posts_report.php';
+			include dirname( __FILE__ ) . '/../posts-report.php';
 		}
 	}
 }

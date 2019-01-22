@@ -14,7 +14,7 @@
  */
 if ( is_main_query() && is_search() ) {
 	if ( 'GET' === filter_input( INPUT_SERVER, 'REQUEST_METHOD' ) ) {
-		$selected_sort    = filter_input( INPUT_GET, 'orderby',  FILTER_SANITIZE_STRING );
+		$selected_sort    = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
 		$selected_filters = $_GET['f'] ?? '';
 		$filters          = [];
 

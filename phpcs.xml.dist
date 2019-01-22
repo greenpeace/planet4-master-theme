@@ -5,6 +5,13 @@
 	<rule ref="WordPress-Core" />
 	<rule ref="WordPress-Docs" />
 
+	<!-- Whitelist p4 test classes for filename sniffs. -->
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<property name="custom_test_class_whitelist" type="array" value="P4_TestCase"/>
+		</properties>
+	</rule>
+
 	<!-- Check all PHP files in directory tree by default. -->
 	<arg name="extensions" value="php"/>
 	<file>.</file>

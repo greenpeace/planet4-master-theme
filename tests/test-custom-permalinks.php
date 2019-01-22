@@ -1,19 +1,21 @@
 <?php
-
-
 /**
- * Class CustomPermalinksTest.
  * Test p4_page_type terms custom permalinks.
  *
- * @package Planet4_Master_Theme
+ * @package P4MT
+ */
+
+/**
+ * Class CustomPermalinksTest
  */
 class CustomPermalinksTest extends P4_TestCase {
 
 	/**
-	 *
+	 * Test permalink exists
 	 */
 	public function test_p4_page_type_permalink_exists() {
 		$available_tags = [
+			// translators: %s = year of the post in four digits.
 			'year' => __( '%s (The year of the post, four digits, for example 2004.)' ),
 		];
 		$available_tags = apply_filters( 'available_permalink_structure_tags', $available_tags );
@@ -32,21 +34,25 @@ class CustomPermalinksTest extends P4_TestCase {
 		$page = get_page_by_path( 'act' );
 
 		// Create a take action page.
-		$nature_page = $this->factory->post->create_and_get( [
-			'post_type'    => 'page',
-			'post_title'   => 'Nature page',
-			'post_name'    => 'nature-page',
-			'post_content' => 'test content',
-			'post_parent'  => $page->ID,
-		] );
+		$nature_page = $this->factory->post->create_and_get(
+			[
+				'post_type'    => 'page',
+				'post_title'   => 'Nature page',
+				'post_name'    => 'nature-page',
+				'post_content' => 'test content',
+				'post_parent'  => $page->ID,
+			]
+		);
 
 		// Create a sample post and assing p4-page-type story term to it.
-		$post_id = $this->factory->post->create( [
-			'post_type'    => 'post',
-			'post_title'   => 'The name of the place is Babylon 10.',
-			'post_name'    => 'test-taxonomy-url',
-			'post_content' => 'test content',
-		] );
+		$post_id = $this->factory->post->create(
+			[
+				'post_type'    => 'post',
+				'post_title'   => 'The name of the place is Babylon 10.',
+				'post_name'    => 'test-taxonomy-url',
+				'post_content' => 'test content',
+			]
+		);
 		wp_set_object_terms( $post_id, 'story', 'p4-page-type' );
 
 		$permalink = get_permalink( $nature_page->ID );
@@ -56,12 +62,10 @@ class CustomPermalinksTest extends P4_TestCase {
 		$permalink = get_permalink( $post_id );
 		$this->assertStringEndsWith( 'story/' . $post_id . '/test-taxonomy-url/', $permalink );
 
-
 		// Should return 404 page.
 		$this->go_to( '/foo' );
 		$this->assertTrue( is_404() );
 		$this->assertFalse( is_singular() );
-
 
 		// Test using p4-page-type in request url.
 		$this->go_to( 'story/' . $post_id . '/test-taxonomy-url/' );
@@ -99,23 +103,23 @@ class CustomPermalinksTest extends P4_TestCase {
 		$this->set_permalink_structure( '/%p4_page_type%/%post_id%/' );
 
 		// Create example_post.
-		$post = $this->factory->post->create_and_get( [
-			'post_type'    => 'post',
-			'post_title'   => 'Test p4 page type taxonomy terms in permalinks',
-			'post_name'    => 'test-taxonomy-url',
-			'post_content' => 'test content',
-		] );
+		$post = $this->factory->post->create_and_get(
+			[
+				'post_type'    => 'post',
+				'post_title'   => 'Test p4 page type taxonomy terms in permalinks',
+				'post_name'    => 'test-taxonomy-url',
+				'post_content' => 'test content',
+			]
+		);
 		wp_set_object_terms( $post->ID, 'story', 'p4-page-type' );
 
 		$permalink = get_permalink( $post->ID );
 		$this->assertStringEndsWith( 'story/' . $post->ID . '/', $permalink );
 
-
 		$this->go_to( 'story/' . $post->ID . '/' );
 		$this->assertFalse( is_404() );
 		$this->assertTrue( is_singular() );
 		$this->assertTrue( is_single() );
-
 
 		$this->go_to( 'act/' );
 		$global_post = get_post();
@@ -134,17 +138,18 @@ class CustomPermalinksTest extends P4_TestCase {
 		$this->set_permalink_structure( '/%p4_page_type%/%postname%/' );
 
 		// Create example_post.
-		$post_id = $this->factory->post->create( [
-			'post_type'    => 'post',
-			'post_title'   => 'Test /%p4_page_type%/%postname%/ permastruct',
-			'post_name'    => 'test-taxonomy-url',
-			'post_content' => 'test content',
-		] );
+		$post_id = $this->factory->post->create(
+			[
+				'post_type'    => 'post',
+				'post_title'   => 'Test /%p4_page_type%/%postname%/ permastruct',
+				'post_name'    => 'test-taxonomy-url',
+				'post_content' => 'test content',
+			]
+		);
 		wp_set_object_terms( $post_id, 'story', 'p4-page-type' );
 
 		$permalink = get_permalink( $post_id );
 		$this->assertStringEndsWith( 'story/test-taxonomy-url/', $permalink );
-
 
 		$this->go_to( 'story/test-taxonomy-url/' );
 		$global_post = get_post();
