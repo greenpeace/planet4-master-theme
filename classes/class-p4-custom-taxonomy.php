@@ -38,9 +38,9 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 			add_filter( 'post_link', [ $this, 'filter_permalink' ], 10, 3 );
 
 			// Rewrites the permalink to this taxonomy's page.
-			add_filter( 'term_link',                          array( $this, 'filter_term_permalink' ), 10, 3 );
-			add_filter( 'post_rewrite_rules',                 array( $this, 'replace_taxonomy_terms_in_rewrite_rules' ), 10, 1 );
-			add_filter( 'root_rewrite_rules',                 array( $this, 'add_terms_rewrite_rules' ), 10, 1 );
+			add_filter( 'term_link', [ $this, 'filter_term_permalink' ], 10, 3 );
+			add_filter( 'post_rewrite_rules', [ $this, 'replace_taxonomy_terms_in_rewrite_rules' ], 10, 1 );
+			add_filter( 'root_rewrite_rules', [ $this, 'add_terms_rewrite_rules' ], 10, 1 );
 		}
 
 		/**
