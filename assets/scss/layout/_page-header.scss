@@ -4,19 +4,19 @@
 
 .page-header {
   color: $black;
-  padding: 90px 0 40px 0;
+  padding: $n90 0 $n40 0;
   position: relative;
 
   @include medium-and-up {
-    padding: 104px 0 40px;
+    padding: 104px 0 $n40;
   }
 
   @include large-and-up {
-    padding: 144px 0 60px;
+    padding: 144px 0 $n60;
   }
 
   @include x-large-and-up {
-    padding: 144px 0 80px;
+    padding: 144px 0 $n80;
   }
 
   .container > *:not(.row) {

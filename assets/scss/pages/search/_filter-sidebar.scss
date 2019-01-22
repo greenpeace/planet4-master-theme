@@ -13,7 +13,7 @@
       border: 1px solid $dark-blue;
       border-top: 0;
       border-bottom-width: 4px;
-      padding: 11px 30px;
+      padding: 11px $n30;
       text-transform: uppercase;
       text-decoration: none;
       color: $header-footer-bg;
@@ -23,13 +23,13 @@
       margin-bottom: 24px;
 
       @include small-and-up {
-        padding: 13px 30px;
+        padding: 13px $n30;
         font-size: 1.125rem;
         margin-bottom: 32px;
       }
 
       @include large-and-up {
-        padding: 11px 30px;
+        padding: 11px $n30;
         font-size: 1.25rem;
       }
 
@@ -143,7 +143,7 @@
       line-height: 40px;
       background: $orange;
       font-weight: bold;
-      padding: 0 10px;
+      padding: 0 $n10;
       text-transform: uppercase;
       color: $white;
 
@@ -198,7 +198,7 @@
         font-style: normal;
         color: $dark-blue;
         border: 1px solid $blue-tiber;
-        padding: 0 40px 0 20px;
+        padding: 0 $n40 0 $n20;
         display: inline-block;
         margin-right: 8px;
         margin-bottom: 16px;
@@ -213,7 +213,7 @@
         position: absolute;
         right: 0;
         top: 0;
-        margin: 15px;
+        margin: $n15;
       }
 
       .activefilter-tag {
