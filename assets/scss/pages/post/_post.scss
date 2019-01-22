@@ -149,20 +149,26 @@
 
     .image-zoomer-close {
       position: absolute;
-      right: 20px;
+      right: 35px;
       top: 20px;
       width: 20px;
       height: 20px;
       z-index: 850000;
+
+      html[dir="rtl"] & {
+        right: auto;
+        left: 35px;
+      }
     }
 
     img {
       position: absolute;
       width: 100%;
-      height: auto;
+      height: 100%;
       top: 0;
       bottom: 0;
       margin: auto;
+      object-fit: contain;
     }
   }
 }
