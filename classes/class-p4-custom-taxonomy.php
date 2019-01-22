@@ -35,7 +35,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 			add_filter( 'available_permalink_structure_tags', [ $this, 'add_taxonomy_as_permalink_structure' ], 10, 1 );
 
 			// Rewrites the permalink to a post belonging to this taxonomy.
-			add_filter( 'post_link',                          [ $this, 'filter_permalink' ], 10, 3 );
+			add_filter( 'post_link', [ $this, 'filter_permalink' ], 10, 3 );
 
 			// Rewrites the permalink to this taxonomy's page.
 			add_filter( 'term_link',                          array( $this, 'filter_term_permalink' ), 10, 3 );
@@ -65,7 +65,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		public function create_taxonomy_metabox_markup( WP_Post $post ) {
 			$attached_type = get_the_terms( $post, self::TAXONOMY );
 			$current_type  = ( is_array( $attached_type ) ) ? $attached_type[0]->term_id : - 1;
-			$all_types = $this->get_terms();
+			$all_types     = $this->get_terms();
 			if ( -1 === $current_type ) {
 				// Assign default p4-pagetype for new POST.
 				$default_p4_pagetype = $this->get_default_p4_pagetype();
