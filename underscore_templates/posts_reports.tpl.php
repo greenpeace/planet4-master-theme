@@ -1,3 +1,4 @@
+<?php // phpcs:ignoreFile ?>
 <script type="text/template" id="tmpl-p4-post">
     <td class="title column-title column-primary page-title" data-colname="Title">
         <a href="{{{ data.link }}}">{{{ data.title.rendered }}}</a>

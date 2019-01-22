@@ -1,4 +1,9 @@
 <?php
+/**
+ * P4 Control Panel
+ *
+ * @package P4MT
+ */
 
 use P4EN\Controllers\Ensapi_Controller as ENS_API;
 
@@ -22,15 +27,15 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		public function hooks() {
 			// Display the Control Panel only to Administrators.
 			if ( current_user_can( 'manage_options' ) || current_user_can( 'editor' ) ) {
-				add_action( 'wp_dashboard_setup',              array( $this, 'add_dashboard_widgets' ), 9 );
-				add_action( 'wp_ajax_flush_cache',             array( $this, 'flush_cache' ) );
-				add_action( 'wp_ajax_check_cache',             array( $this, 'check_cache' ) );
-				add_action( 'admin_enqueue_scripts',           array( $this, 'enqueue_admin_assets' ) );
+				add_action( 'wp_dashboard_setup', [ $this, 'add_dashboard_widgets' ], 9 );
+				add_action( 'wp_ajax_flush_cache', [ $this, 'flush_cache' ] );
+				add_action( 'wp_ajax_check_cache', [ $this, 'check_cache' ] );
+				add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 			}
 
 			if ( current_user_can( 'manage_options' ) ) {
-				add_action( 'wp_ajax_check_engaging_networks', array( $this, 'check_engaging_networks' ) );
-				add_action( 'wp_ajax_check_search_indexer',    array( $this, 'check_search_indexer' ) );
+				add_action( 'wp_ajax_check_engaging_networks', [ $this, 'check_engaging_networks' ] );
+				add_action( 'wp_ajax_check_search_indexer', [ $this, 'check_search_indexer' ] );
 			}
 		}
 
@@ -41,7 +46,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 			wp_add_dashboard_widget(
 				'planet4_control_panel',
 				__( 'Planet 4 Control Panel', 'planet4-master-theme-backend' ),
-				array( $this, 'add_items' )
+				[ $this, 'add_items' ]
 			);
 		}
 
@@ -52,42 +57,48 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 			wp_nonce_field( 'cp-action' );
 
 			if ( current_user_can( 'manage_options' ) || current_user_can( 'editor' ) ) {
-				$this->add_item( [
-					'title'    => __( 'Cache', 'planet4-master-theme-backend' ),
-					'subitems' => [
-						[
-							'title'   => __( 'Flush Object Cache', 'planet4-master-theme-backend' ),
-							'action'  => 'flush_cache',
-							'confirm' => __( 'Are you sure you want to delete all Object Cache keys?', 'planet4-master-theme-backend' ),
+				$this->add_item(
+					[
+						'title'    => __( 'Cache', 'planet4-master-theme-backend' ),
+						'subitems' => [
+							[
+								'title'   => __( 'Flush Object Cache', 'planet4-master-theme-backend' ),
+								'action'  => 'flush_cache',
+								'confirm' => __( 'Are you sure you want to delete all Object Cache keys?', 'planet4-master-theme-backend' ),
+							],
+							[
+								'title'  => __( 'Check Object Cache', 'planet4-master-theme-backend' ),
+								'action' => 'check_cache',
+							],
 						],
-						[
-							'title'  => __( 'Check Object Cache', 'planet4-master-theme-backend' ),
-							'action' => 'check_cache',
-						],
-					],
-				] );
+					]
+				);
 			}
 
 			if ( current_user_can( 'manage_options' ) ) {
-				$this->add_item( [
-					'title'    => __( 'Engaging Networks', 'planet4-master-theme-backend' ),
-					'subitems' => [
-						[
-							'title'  => __( 'Check Engaging Networks', 'planet4-master-theme-backend' ),
-							'action' => 'check_engaging_networks',
+				$this->add_item(
+					[
+						'title'    => __( 'Engaging Networks', 'planet4-master-theme-backend' ),
+						'subitems' => [
+							[
+								'title'  => __( 'Check Engaging Networks', 'planet4-master-theme-backend' ),
+								'action' => 'check_engaging_networks',
+							],
 						],
-					],
-				] );
+					]
+				);
 
-				$this->add_item( [
-					'title'    => __( 'Search', 'planet4-master-theme-backend' ),
-					'subitems' => [
-						[
-							'title'  => __( 'Check Search Indexer', 'planet4-master-theme-backend' ),
-							'action' => 'check_search_indexer',
+				$this->add_item(
+					[
+						'title'    => __( 'Search', 'planet4-master-theme-backend' ),
+						'subitems' => [
+							[
+								'title'  => __( 'Check Search Indexer', 'planet4-master-theme-backend' ),
+								'action' => 'check_search_indexer',
+							],
 						],
-					],
-				] );
+					]
+				);
 			}
 		}
 
@@ -113,12 +124,14 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		 * Adds a flush cache button to delete all keys in Redis database.
 		 */
 		public function flush_cache() {
-			if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'editor' ) ) return;
+			if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'editor' ) ) {
+				return;
+			}
 
 			// If this is an ajax call.
 			if ( wp_doing_ajax() ) {
 				// Allow this action only to Administrators.
-				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce',  FILTER_SANITIZE_STRING );
+				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce', FILTER_SANITIZE_STRING );
 				$cp_action = filter_input( INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING );
 
 				// CSRF check and action check.
@@ -146,12 +159,14 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		 * Adds a check cache button to check connectivity to the Redis server.
 		 */
 		public function check_cache() {
-			if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'editor' ) ) return;
+			if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'editor' ) ) {
+				return;
+			}
 
 			// If this is an ajax call.
 			if ( wp_doing_ajax() ) {
 				// Allow this action only to Administrators.
-				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce',  FILTER_SANITIZE_STRING );
+				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce', FILTER_SANITIZE_STRING );
 				$cp_action = filter_input( INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING );
 
 				// CSRF check and action check.
@@ -187,7 +202,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 				if ( ! current_user_can( 'manage_options' ) ) {
 					return;
 				}
-				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce',  FILTER_SANITIZE_STRING );
+				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce', FILTER_SANITIZE_STRING );
 				$cp_action = filter_input( INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING );
 
 				// CSRF check and action check.
@@ -228,7 +243,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 					return;
 				}
 
-				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce',  FILTER_SANITIZE_STRING );
+				$cp_nonce  = filter_input( INPUT_GET, '_wpnonce', FILTER_SANITIZE_STRING );
 				$cp_action = filter_input( INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING );
 
 				// CSRF check and action check.
@@ -236,10 +251,10 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 					$threshold = 180;   // Period in seconds over which the Indexer will be considered stalled.
 					$response  = [];
 
-					$last_activity  = searchwp_get_setting( 'last_activity', 'stats' );
-					$running        = searchwp_get_setting( 'running' );
-					$doing_delta    = searchwp_get_option( 'doing_delta' );
-					$busy           = searchwp_get_option( 'busy' );
+					$last_activity = searchwp_get_setting( 'last_activity', 'stats' );
+					$running       = searchwp_get_setting( 'running' );
+					$doing_delta   = searchwp_get_option( 'doing_delta' );
+					$busy          = searchwp_get_option( 'busy' );
 
 					if ( ! is_null( $last_activity ) && false !== $last_activity ) {
 						// If more than $threshold seconds have passed and the Indexer
@@ -273,8 +288,8 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 				return;
 			}
 			$theme_dir = get_template_directory_uri();
-			wp_enqueue_style( 'dashboard-style', "$theme_dir/assets/css/dashboard.css", array(), '0.1.0' );
-			wp_enqueue_script( 'dashboard-script', "$theme_dir/assets/js/dashboard.js", array( 'jquery' ), '0.1.0', true );
+			wp_enqueue_style( 'dashboard-style', "$theme_dir/assets/css/dashboard.css", [], '0.1.0' );
+			wp_enqueue_script( 'dashboard-script', "$theme_dir/assets/js/dashboard.js", [ 'jquery' ], '0.1.0', true );
 		}
 	}
 }

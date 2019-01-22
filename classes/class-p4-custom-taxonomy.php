@@ -1,4 +1,9 @@
 <?php
+/**
+ * P4 Custom Taxonomy
+ *
+ * @package P4MT
+ */
 
 if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 
@@ -22,20 +27,20 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		 * Register actions for WordPress hooks and filters.
 		 */
 		private function hooks() {
-			add_action( 'init',                               array( $this, 'register_taxonomy' ), 2 );
-			add_action( 'created_term',                       array( $this, 'trigger_rewrite_rules' ), 10, 3 );
-			add_action( 'edited_term',                        array( $this, 'trigger_rewrite_rules' ), 10, 3 );
-			add_action( 'delete_term',                        array( $this, 'trigger_rewrite_rules' ), 10, 3 );
-			add_action( 'save_post',                          array( $this, 'save_taxonomy_page_type' ) , 10, 2 );
-			add_filter( 'available_permalink_structure_tags', array( $this, 'add_taxonomy_as_permalink_structure' ), 10, 1 );
+			add_action( 'init', [ $this, 'register_taxonomy' ], 2 );
+			add_action( 'created_term', [ $this, 'trigger_rewrite_rules' ], 10, 3 );
+			add_action( 'edited_term', [ $this, 'trigger_rewrite_rules' ], 10, 3 );
+			add_action( 'delete_term', [ $this, 'trigger_rewrite_rules' ], 10, 3 );
+			add_action( 'save_post', [ $this, 'save_taxonomy_page_type' ], 10, 2 );
+			add_filter( 'available_permalink_structure_tags', [ $this, 'add_taxonomy_as_permalink_structure' ], 10, 1 );
 
 			// Rewrites the permalink to a post belonging to this taxonomy.
-			add_filter( 'post_link',                          array( $this, 'filter_permalink' ), 10, 3 );
+			add_filter( 'post_link', [ $this, 'filter_permalink' ], 10, 3 );
 
 			// Rewrites the permalink to this taxonomy's page.
-			add_filter( 'term_link',                          array( $this, 'filter_term_permalink' ), 10, 3 );
-			add_filter( 'post_rewrite_rules',                 array( $this, 'replace_taxonomy_terms_in_rewrite_rules' ), 10, 1 );
-			add_filter( 'root_rewrite_rules',                 array( $this, 'add_terms_rewrite_rules' ), 10, 1 );
+			add_filter( 'term_link', [ $this, 'filter_term_permalink' ], 10, 3 );
+			add_filter( 'post_rewrite_rules', [ $this, 'replace_taxonomy_terms_in_rewrite_rules' ], 10, 1 );
+			add_filter( 'root_rewrite_rules', [ $this, 'add_terms_rewrite_rules' ], 10, 1 );
 		}
 
 		/**
@@ -60,11 +65,11 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		public function create_taxonomy_metabox_markup( WP_Post $post ) {
 			$attached_type = get_the_terms( $post, self::TAXONOMY );
 			$current_type  = ( is_array( $attached_type ) ) ? $attached_type[0]->term_id : - 1;
-			$all_types = $this->get_terms();
+			$all_types     = $this->get_terms();
 			if ( -1 === $current_type ) {
 				// Assign default p4-pagetype for new POST.
 				$default_p4_pagetype = $this->get_default_p4_pagetype();
-				$current_type = $default_p4_pagetype->slug;
+				$current_type        = $default_p4_pagetype->slug;
 			}
 
 			wp_nonce_field( 'p4-save-page-type', 'p4-page-type-nonce' );

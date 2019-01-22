@@ -1,4 +1,9 @@
 <?php
+/**
+ * P4 Sitemap Class
+ *
+ * @package P4MT
+ */
 
 if ( ! class_exists( 'P4_Sitemap' ) ) {
 
@@ -18,7 +23,7 @@ if ( ! class_exists( 'P4_Sitemap' ) ) {
 			$actions   = [];
 
 			if ( 0 !== absint( $parent_id ) ) {
-				$args = [
+				$args    = [
 					'post_type'        => 'page',
 					'post_status'      => 'publish',
 					'post_parent'      => $parent_id,
@@ -54,7 +59,7 @@ if ( ! class_exists( 'P4_Sitemap' ) ) {
 			$issues    = [];
 
 			if ( 0 !== absint( $parent_id ) ) {
-				$args = [
+				$args   = [
 					'post_type'        => 'page',
 					'post_status'      => 'publish',
 					'post_parent'      => $parent_id,
@@ -101,7 +106,7 @@ if ( ! class_exists( 'P4_Sitemap' ) ) {
 		 */
 		public function get_evergreen_pages() : array {
 
-			$args = [
+			$args  = [
 				'post_type'        => 'page',
 				'post_status'      => 'publish',
 				'meta_key'         => '_wp_page_template',
@@ -143,7 +148,7 @@ if ( ! class_exists( 'P4_Sitemap' ) ) {
 				foreach ( $article_types as $article_type ) {
 					$article_types_data[] = [
 						'name' => $article_type->name,
-						'link' => get_term_link($article_type->term_id),
+						'link' => get_term_link( $article_type->term_id ),
 					];
 				}
 			}

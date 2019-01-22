@@ -1,13 +1,14 @@
 <?php
+/**
+ * Test custom open graph meta attributes.
+ *
+ * @package P4MT
+ */
 
 use SteveGrunwell\PHPUnit_Markup_Assertions\MarkupAssertionsTrait;
 
-
 /**
  * Class OpenGraphTest.
- * Test custom open graph meta attributes.
- *
- * @package Planet4_Master_Theme
  */
 class OpenGraphTest extends P4_TestCase {
 
@@ -30,9 +31,11 @@ class OpenGraphTest extends P4_TestCase {
 		$permalink = get_permalink( $post_id );
 		$this->go_to( $permalink );
 
-		$output = TimberHelper::ob_function( function () use ( $template ) {
-			include get_template_directory() . '/' . $template;
-		} );
+		$output = TimberHelper::ob_function(
+			function () use ( $template ) {
+					include get_template_directory() . '/' . $template;
+			}
+		);
 
 		$this->assertHasElementWithAttributes(
 			[
@@ -86,10 +89,11 @@ class OpenGraphTest extends P4_TestCase {
 		$permalink = get_permalink( $post_id );
 		$this->go_to( $permalink );
 
-		$output = TimberHelper::ob_function( function () use ( $template ) {
-			include get_template_directory() . '/' . $template;
-		} );
-
+		$output = TimberHelper::ob_function(
+			function () use ( $template ) {
+					include get_template_directory() . '/' . $template;
+			}
+		);
 
 		$this->assertHasElementWithAttributes(
 			[

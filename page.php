@@ -69,4 +69,4 @@ $context['og_description']          = $post->get_og_description();
 $context['og_image_data']           = $post->get_og_image();
 $context['custom_body_classes']     = 'brown-bg';
 
-Timber::render( array( 'page-' . $post->post_name . '.twig', 'page.twig' ), $context );
+Timber::render( [ 'page-' . $post->post_name . '.twig', 'page.twig' ], $context );

@@ -1,4 +1,9 @@
 <?php
+/**
+ * P4 User
+ *
+ * @package P4MT
+ */
 
 use Timber\User as TimberUser;
 
@@ -11,7 +16,11 @@ if ( ! class_exists( 'P4_User' ) ) {
 	 */
 	class P4_User extends TimberUser {
 
-		/** @var bool $is_fake */
+		/**
+		 * Is a fake user flag
+		 *
+		 * @var bool $is_fake
+		 */
 		public $is_fake = false;
 
 		/**

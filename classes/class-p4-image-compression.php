@@ -1,4 +1,9 @@
 <?php
+/**
+ * Image Compression Class
+ *
+ * @package P4MT
+ */
 
 if ( ! class_exists( 'P4_Image_Compression' ) ) {
 
@@ -7,7 +12,11 @@ if ( ! class_exists( 'P4_Image_Compression' ) ) {
 	 */
 	class P4_Image_Compression extends WP_Image_Editor_Imagick {
 
-		/** @var string $filter */
+		/**
+		 * Image compression filter.
+		 *
+		 * @var string $filter
+		 */
 		protected $filter = 'FILTER_LANCZOS';
 
 		/**
@@ -31,7 +40,7 @@ if ( ! class_exists( 'P4_Image_Compression' ) ) {
 			try {
 				// Sharpen image after it has been resized.
 				if ( 'image/jpeg' === $this->mime_type ) {
-					if ( is_callable( array( $this->image, 'unsharpMaskImage' ) ) ) {
+					if ( is_callable( [ $this->image, 'unsharpMaskImage' ] ) ) {
 						$this->image->unsharpMaskImage( 1, 0.45, 3, 0 );
 					}
 				}
