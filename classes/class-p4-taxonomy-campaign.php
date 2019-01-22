@@ -1,4 +1,9 @@
 <?php
+/**
+ * P4 Campaign Taxonomy
+ *
+ * @package P4MT
+ */
 
 use Timber\Timber;
 
@@ -9,10 +14,18 @@ if ( ! class_exists( 'P4_Taxonomy_Campaign' ) ) {
 	 */
 	class P4_Taxonomy_Campaign {
 
-		/** @var array $context */
+		/**
+		 * Context
+		 *
+		 * @var array $context
+		 */
 		public $context = [];
 
-		/** @var array $templates */
+		/**
+		 * Templates
+		 *
+		 * @var array $templates
+		 */
 		protected $templates = [];
 
 		/**
