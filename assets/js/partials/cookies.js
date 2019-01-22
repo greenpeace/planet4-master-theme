@@ -24,13 +24,13 @@ $(document).ready(function () {
 
   const cookie = readCookie('greenpeace');
   if (cookie == null) {
-    $('.cookie-block').show();
-    const height = $('.cookie-block').height();
+    $('.cookie-notice').show();
+    const height = $('.cookie-notice').height();
     $('footer').css('margin-bottom', height + 'px');
   }
 
   $('#hidecookie').click(function () {
-    $('.cookie-block').slideUp('slow');
+    $('.cookie-notice').slideUp('slow');
     $('footer').css('margin-bottom', '0');
     createCookie('greenpeace', '2', 365);
   });
