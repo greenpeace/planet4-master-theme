@@ -5,7 +5,8 @@ workflows:
       - php70-build
       - php71-build
       - php72-build
-
+      - build-and-test-codeception:
+          context: org-global
 version: 2
 
 job-references:
@@ -82,3 +83,76 @@ jobs:
     docker:
       - image: circleci/php:7.2
       - image: *mysql_image
+
+  build-and-test-codeception:
+    docker:
+      - image: gcr.io/planet-4-151612/p4-builder:latest
+    working_directory:  /home/circleci/
+    environment:
+      APP_HOSTNAME: www.planet4.test
+      APP_HOSTPATH:
+      CLOUDSQL_INSTANCE: p4-develop-k8s
+      CONTAINER_PREFIX: planet4-base
+      GOOGLE_PROJECT_ID: planet-4-151612
+      HELM_NAMESPACE: develop
+      TYPE: "Build"
+      WP_DB_NAME: planet4-base_wordpress
+      WP_TITLE: Greenpeace Base Development
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Build - Configure
+          command: |
+            activate-gcloud-account.sh
+            mkdir -p /tmp/workspace/var
+            mkdir -p /tmp/workspace/src
+            echo "${CIRCLE_BUILD_NUM}" > /tmp/workspace/var/circle-build-num
+      - run:
+          name: Build - Build containers
+          working_directory: /home/circleci
+          command: |
+            echo "Master theme branch is ${CIRCLE_BRANCH}"
+            sleep 60
+            MASTER_THEME_BRANCH=dev-${CIRCLE_BRANCH} MERGE_SOURCE=git@github.com:greenpeace/planet4-base-fork.git MERGE_REF=develop make
+      - run:
+          name: Test - Clone planet4-docker-compose
+          command: |
+            git clone https://github.com/greenpeace/planet4-docker-compose
+
+      - run:
+          name: Test - Run tests
+          command: |
+            export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
+            export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
+            export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
+
+            pushd planet4-docker-compose
+            make ci
+            popd
+
+      - run:
+          name: Test - Extract test artifacts
+          when: always
+          command: |
+            export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
+            export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
+            export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
+
+            pushd planet4-docker-compose
+            make ci-extract-artifacts
+            popd
+
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - var
+
+      - store_test_results:
+          path: /tmp/artifacts
+
+      - store_artifacts:
+          path: /tmp/artifacts
+      - run:
+          name: Build - Notify failure
+          when: on_fail
+          command: notify-job-failure.sh
