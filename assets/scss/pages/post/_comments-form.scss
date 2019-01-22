@@ -75,7 +75,7 @@
   input {
     border-bottom: 1px solid $black;
     background-color: transparent;
-    padding: 7px 5px 5px;
+    padding: 7px $n5 $n5;
     width: 100%;
 
     &:focus {

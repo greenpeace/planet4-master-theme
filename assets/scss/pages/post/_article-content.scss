@@ -82,7 +82,7 @@
 
     @include medium-and-up {
       font-size: 1rem;
-      margin: 0 0 20px 0;
+      margin: 0 0 $n20 0;
       line-height: 1.6;
     }
 
@@ -126,7 +126,7 @@
   .alignleft {
     @include small-and-up {
       float: left;
-      margin: 0 10px 10px 0;
+      margin: 0 $n10 $n10 0;
       padding-top: 6px;
     }
   }
@@ -134,7 +134,7 @@
   .alignright {
     @include small-and-up {
       float: right;
-      margin: 0 0 10px 10px;
+      margin: 0 0 $n10 $n10;
       padding-top: 6px;
     }
   }
@@ -150,7 +150,7 @@
     font-size: 1.5rem;
     line-height: 1.4;
     font-style: italic;
-    margin: 15px 0;
+    margin: $n15 0;
     padding: 13px 0 16px 0;
 
     @include medium-and-up {
@@ -289,14 +289,14 @@
       color: $white;
       height: 36px;
       font-size: 0.93rem;
-      padding: 6px 20px;
+      padding: 6px $n20;
       box-sizing: border-box;
     }
 
     td {
       min-height: 120px;
       font-size: 0.9rem;
-      padding: 20px;
+      padding: $n20;
       vertical-align: top;
 
       @include mobile-only {
@@ -356,7 +356,7 @@
   }
 
   h4 {
-    padding: 20px 0 10px 0;
+    padding: $n20 0 $n10 0;
     font-weight: 700;
   }
 }
@@ -417,17 +417,17 @@
     width: 100%;
     max-width: 100%;
     background: linear-gradient(210deg, transparentize($med-blue, .8) 0%, $med-blue 100%);
-    padding: 10px 20px;
+    padding: $n10 $n20;
 
     @include medium-and-up {
       position: absolute;
       left: 0;
       bottom: 0;
-      padding: 20px 30px;
+      padding: $n20 $n30;
     }
 
     @include large-and-up {
-      padding: 20px 30px;
+      padding: $n20 $n30;
     }
   }
 }

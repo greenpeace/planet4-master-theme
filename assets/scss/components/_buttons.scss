@@ -11,7 +11,7 @@
   border: 1px solid transparent;
   cursor: pointer;
   line-height: 3;
-  padding: 0 30px;
+  padding: 0 $n30;
   appearance: none;
   transition-property: color, background-color, border-color;
   transition-duration: 150ms;
@@ -73,7 +73,7 @@
   text-overflow: ellipsis;
   margin-bottom: 40px;
   width: 100%;
-  padding: 2px 30px;
+  padding: 2px $n30;
 
   html[dir="rtl"] & {
     font-size: 1.175rem;
@@ -136,7 +136,7 @@
   line-height: 1.65;
   min-width: 180px;
   margin: 0;
-  padding: 2px 30px;
+  padding: 2px $n30;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
   transition: color background-color font-weight 100ms;
 
@@ -183,7 +183,7 @@
   background-color: transparent;
   border-color: $blue-tiber;
   color: $blue-tiber;
-  padding: 0 50px 0 30px;
+  padding: 0 $n50 0 $n30;
   position: relative;
   font-weight: 400;
 
@@ -210,7 +210,7 @@
 .btn-filter-item-solid {
   background-color: $blue-tiber;
   border-color: $blue-tiber;
-  padding: 0 50px 0 30px;
+  padding: 0 $n50 0 $n30;
   position: relative;
   text-transform: none;
 

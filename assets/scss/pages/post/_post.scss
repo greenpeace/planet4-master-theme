@@ -9,18 +9,18 @@
   }
 
   .page-header {
-    padding: 90px 0 20px;
+    padding: $n90 0 $n20;
 
     @include medium-and-up {
       padding: 104px 0 26px;
     }
 
     @include large-and-up {
-      padding: 144px 0 30px;
+      padding: 144px 0 $n30;
     }
 
     @include x-large-and-up {
-      padding: 144px 0 40px;
+      padding: 144px 0 $n40;
     }
 
     .page-header-title {
@@ -55,7 +55,7 @@
       }
 
       span.separator {
-        margin: 0 5px;
+        margin: 0 $n5;
       }
 
       span.comment-link {

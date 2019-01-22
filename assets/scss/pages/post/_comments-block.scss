@@ -1,11 +1,11 @@
 .comments-block {
   margin-top: 0;
-  padding: 40px 15px;
+  padding: $n40 15px;
   border-top: 1px solid $blue;
   background-color: $comment-block;
 
   @include medium-and-up {
-    padding: 50px 30px;
+    padding: $n50 $n30;
     margin-top: 0;
   }
 
@@ -63,7 +63,7 @@
   font-size: 1.125rem;
   font-family: $roboto;
   font-weight: 300;
-  margin: 20px 0;
+  margin: $n20 0;
   color: $grey-60;
 }
 
