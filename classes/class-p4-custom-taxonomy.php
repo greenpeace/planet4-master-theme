@@ -27,15 +27,15 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		 * Register actions for WordPress hooks and filters.
 		 */
 		private function hooks() {
-			add_action( 'init', array( $this, 'register_taxonomy' ), 2 );
-			add_action( 'created_term', array( $this, 'trigger_rewrite_rules' ), 10, 3 );
-			add_action( 'edited_term', array( $this, 'trigger_rewrite_rules' ), 10, 3 );
-			add_action( 'delete_term', array( $this, 'trigger_rewrite_rules' ), 10, 3 );
-			add_action( 'save_post', array( $this, 'save_taxonomy_page_type' ), 10, 2 );
-			add_filter( 'available_permalink_structure_tags', array( $this, 'add_taxonomy_as_permalink_structure' ), 10, 1 );
+			add_action( 'init', [ $this, 'register_taxonomy' ], 2 );
+			add_action( 'created_term', [ $this, 'trigger_rewrite_rules' ], 10, 3 );
+			add_action( 'edited_term', [ $this, 'trigger_rewrite_rules' ], 10, 3 );
+			add_action( 'delete_term', [ $this, 'trigger_rewrite_rules' ], 10, 3 );
+			add_action( 'save_post', [ $this, 'save_taxonomy_page_type' ], 10, 2 );
+			add_filter( 'available_permalink_structure_tags', [ $this, 'add_taxonomy_as_permalink_structure' ], 10, 1 );
 
 			// Rewrites the permalink to a post belonging to this taxonomy.
-			add_filter( 'post_link',                          array( $this, 'filter_permalink' ), 10, 3 );
+			add_filter( 'post_link',                          [ $this, 'filter_permalink' ], 10, 3 );
 
 			// Rewrites the permalink to this taxonomy's page.
 			add_filter( 'term_link',                          array( $this, 'filter_term_permalink' ), 10, 3 );
