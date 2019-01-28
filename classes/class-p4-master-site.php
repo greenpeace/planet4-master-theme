@@ -92,7 +92,7 @@ class P4_Master_Site extends TimberSite {
 		$this->theme_dir        = get_template_directory_uri();
 		$this->theme_images_dir = $this->theme_dir . '/images/';
 		$this->sort_options     = [
-			'relevant'  => [
+			'_score'  => [
 				'name'  => __( 'Most relevant', 'planet4-master-theme' ),
 				'order' => 'DESC',
 			],

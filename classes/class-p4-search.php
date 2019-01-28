@@ -19,7 +19,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		const POSTS_PER_PAGE        = 10;
 		const POSTS_PER_LOAD        = 5;
 		const SHOW_SCROLL_TIMES     = 2;
-		const DEFAULT_SORT          = 'relevant';
+		const DEFAULT_SORT          = '_score';
 		const DEFAULT_MIN_WEIGHT    = 1;
 		const DEFAULT_PAGE_WEIGHT   = 20;
 		const DEFAULT_ACTION_WEIGHT = 25;
@@ -491,10 +491,58 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					}, 10, 1 );
 				}
 
+				add_filter( 'ep_formatted_args', [ $this, 'set_results_weight' ], 20, 1 );
+
 				$posts = ( new WP_Query( $args ) )->posts;
 			}
 
 			return (array) $posts;
+		}
+
+		/**
+		 * .
+		 *
+		 * @param mixed  $formatted_args .
+		 * @param string $args .
+		 *
+		 * @return mixed
+		 */
+		public function set_results_weight( $formatted_args ) {
+
+			// Move the existing query.
+			$existing_query  = $formatted_args['query'];
+			unset( $formatted_args['query'] );
+			$formatted_args['query']['function_score']['query'] = $existing_query;
+
+			$options = get_option( 'planet4_options' );
+
+			/**
+			 * Use any combination of filters here, any matched filter will adjust
+			 * the weighted results according to the scoring settings set below.
+			 */
+			$formatted_args['query']['function_score']['functions'] = [
+				[
+					'filter' => [
+						'match' => [
+							'post_type' => 'page',
+						],
+					],
+					'weight' => self::DEFAULT_PAGE_WEIGHT,
+				],
+				[
+					'filter' => [
+						'term' => [
+							'post_parent' => esc_sql( $options['act_page'] ),
+						],
+					],
+					'weight' => self::DEFAULT_ACTION_WEIGHT,
+				],
+			];
+
+			// Specify how the computed scores are combined.
+			$formatted_args['query']['function_score']['score_mode'] = 'sum';
+
+			return $formatted_args;
 		}
 
 		/**
@@ -543,7 +591,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['source_selection']  = false;
 			$context['page_category']     = $category->name ?? __( 'Search page', 'planet4-master-theme' );
 			$context['sort_options']      = [
-				'relevant'  => [
+				'_score'  => [
 					'name'  => __( 'Most relevant', 'planet4-master-theme' ),
 					'order' => 'DESC',
 				],
@@ -884,7 +932,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		public function enqueue_public_assets() {
 			if ( is_search() ) {
-				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [ 'jquery' ], '0.2.3', true );
+				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [ 'jquery' ], '0.2.4', true );
 				wp_localize_script( 'search', 'localizations', $this->localizations );
 				wp_enqueue_script( 'search' );
 			}
