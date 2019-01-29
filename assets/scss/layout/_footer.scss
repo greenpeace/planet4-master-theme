@@ -1,6 +1,6 @@
 .site-footer {
   font-family: $roboto;
-  padding: 45px 0 25px;
+  padding: 45px 0 $n25;
   background: $dark-blue;
   position: relative;
   z-index: 2;
@@ -9,11 +9,11 @@
   clear: both;
 
   @include medium-and-up {
-    padding: 25px 0 20px;
+    padding: $n25 0 $n20;
   }
 
   @include large-and-up {
-    padding: 55px 0 25px;
+    padding: 55px 0 $n25;
   }
 
   p {
@@ -40,7 +40,7 @@
 
   li {
     display: inline-block;
-    margin: 0 10px;
+    margin: 0 $n10;
   }
 
   a {

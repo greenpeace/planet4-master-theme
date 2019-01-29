@@ -10,10 +10,10 @@
 
 .author-block-info {
   background: $grey-20;
-  padding: 35px 20px;
+  padding: $n35 $n20;
 
   @include medium-and-up {
-    padding: 25px;
+    padding: $n25;
     position: relative;
     z-index: 1;
   }

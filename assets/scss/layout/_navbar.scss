@@ -284,11 +284,11 @@ $menu-height-large: 3.75rem;
       box-sizing: border-box;
       width: 100%;
       text-align: left;
-      padding: 0 70px 0 67px;
+      padding: 0 $n70 0 67px;
 
       html[dir="rtl"] & {
         text-align: right;
-        padding: 0 67px 0 70px;
+        padding: 0 67px 0 $n70;
       }
 
       &:before {
@@ -325,14 +325,14 @@ $menu-height-large: 3.75rem;
     }
 
     .nav-link {
-      padding: 0 40px 0 50px;
+      padding: 0 $n40 0 $n50;
       display: block;
       line-height: 2.8125rem;
       font-size: 1rem;
       margin: 0.5em 0;
 
       html[dir="rtl"] & {
-        padding: 0 50px 0 40px;
+        padding: 0 $n50 0 $n40;
       }
     }
 
@@ -359,7 +359,7 @@ $menu-height-large: 3.75rem;
       display: block;
       min-width: 200px;
       margin: 1.5em auto;
-      padding: 5px 30px;
+      padding: $n5 $n30;
     }
   }
 
@@ -476,7 +476,7 @@ $menu-height-large: 3.75rem;
 
   .form-control {
     border-radius: 0;
-    padding: 5px 10px;
+    padding: $n5 $n10;
   }
 }
 
