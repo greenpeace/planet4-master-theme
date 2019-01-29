@@ -24,13 +24,13 @@
     font-style: normal;
     text-transform: none;
     margin-left: 10px;
-    padding: 0 30px 0 10px;
+    padding: 0 $n30 0 $n10;
     border-width: 2px;
 
     @include small-and-up {
       font-size: 1rem;
       line-height: 1.9;
-      padding: 0 40px 0 15px;
+      padding: 0 $n40 0 15px;
     }
 
     @include large-and-up {

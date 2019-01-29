@@ -9,18 +9,18 @@
   }
 
   .page-header {
-    padding: 90px 0 20px;
+    padding: $n90 0 $n20;
 
     @include medium-and-up {
       padding: 104px 0 26px;
     }
 
     @include large-and-up {
-      padding: 144px 0 30px;
+      padding: 144px 0 $n30;
     }
 
     @include x-large-and-up {
-      padding: 144px 0 40px;
+      padding: 144px 0 $n40;
     }
 
     .page-header-title {
@@ -55,7 +55,7 @@
       }
 
       span.separator {
-        margin: 0 5px;
+        margin: 0 $n5;
       }
 
       span.comment-link {
@@ -149,20 +149,26 @@
 
     .image-zoomer-close {
       position: absolute;
-      right: 20px;
+      right: 35px;
       top: 20px;
       width: 20px;
       height: 20px;
       z-index: 850000;
+
+      html[dir="rtl"] & {
+        right: auto;
+        left: 35px;
+      }
     }
 
     img {
       position: absolute;
       width: 100%;
-      height: auto;
+      height: 100%;
       top: 0;
       bottom: 0;
       margin: auto;
+      object-fit: contain;
     }
   }
 }
