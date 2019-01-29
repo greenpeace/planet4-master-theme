@@ -70,6 +70,11 @@
     }
   }
 
+  blockquote,
+  blockquote > p {
+    @include blockquote;
+  }
+
   p {
     line-height: 1.6;
     margin: 0 0 18px 0;
@@ -143,27 +148,6 @@
     margin-left: auto;
     margin-right: auto;
     display: block;
-  }
-
-  blockquote,
-  blockquote > p {
-    font-size: 1.5rem;
-    line-height: 1.4;
-    font-style: italic;
-    margin: $n15 0;
-    padding: 13px 0 16px 0;
-
-    @include medium-and-up {
-      font-size: 2.375rem;
-    }
-
-    @include large-and-up {
-      max-width: 80%;
-    }
-
-    @include x-large-and-up {
-      font-size: 2.5rem;
-    }
   }
 
   cite {

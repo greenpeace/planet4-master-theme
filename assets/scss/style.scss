@@ -5,14 +5,14 @@ Theme URI: https://github.com/greenpeace/planet4-master-theme
 Description: Master theme for the Planet 4 Wordpress project
 Author: Greenpeace International
 Author URI: https://github.com/greenpeace
-Version: 1.30.0
+Version: 1.31.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 Tags: light, accessibility-ready
 Text Domain: planet4-master-theme
 */
 
-// Global
+// Base
 @import "base/variables";
 @import "base/functions";
 @import "base/mixins";
@@ -20,21 +20,23 @@ Text Domain: planet4-master-theme
 @import "base/typography";
 @import "base/icons";
 
-// Modules
+// Components
+@import "components/blockquote";
 @import "components/buttons";
-@import "components/forms";
+@import "components/share-buttons";
+@import "components/spinner";
+@import "components/skip-links";
+@import "components/tweet-block";
 
-// Blocks
+// Layout
+@import "layout/breadcrumbs";
+@import "layout/cookies";
 @import "layout/footer";
+@import "layout/forms";
 @import "layout/navbar";
 @import "layout/page-header";
 @import "layout/page-section";
-@import "layout/share-buttons";
 @import "layout/skewed-overlay";
-@import "layout/skip-links";
-@import "layout/tweet-block";
-@import "layout/breadcrumbs";
-@import "layout/cookies";
 
 // Posts
 @import "pages/post/post";
