@@ -1,16 +1,16 @@
 .page-section {
-  margin: 0 auto 40px auto;
+  margin: 0 auto $n40 auto;
 
   @include medium-and-up {
-    margin: 0 auto 40px auto;
+    margin: 0 auto $n40 auto;
   }
 
   @include large-and-up {
-    margin: 0 auto 60px auto;
+    margin: 0 auto $n60 auto;
   }
 
   @include x-large-and-up {
-    margin: 0 auto 80px auto;
+    margin: 0 auto $n80 auto;
   }
 }
 
@@ -51,7 +51,7 @@
 
   @include x-large-and-up {
     font-size: 1.125rem;
-    margin: 20px 0;
+    margin: $n20 0;
 
     .row & {
       margin-top: 0;

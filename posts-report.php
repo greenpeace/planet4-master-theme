@@ -1,4 +1,9 @@
 <?php
+/**
+ * Renders posts reports template
+ *
+ * @package P4MT
+ */
 
 use Timber\Timber;
 

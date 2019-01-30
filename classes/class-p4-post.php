@@ -1,4 +1,9 @@
 <?php
+/**
+ * P4 Post Class
+ *
+ * @package P4MT
+ */
 
 use Timber\Post as TimberPost;
 use Timber\Term as TimberTerm;
@@ -10,13 +15,32 @@ if ( ! class_exists( 'P4_Post' ) ) {
 	 */
 	class P4_Post extends TimberPost {
 
-		/** @var array $issues_nav_data */
+		/**
+		 * Issues navigation
+		 *
+		 * @var array $issues_nav_data
+		 */
 		protected $issues_nav_data;
-		/** @var string $content_type */
+
+		/**
+		 * Content type
+		 *
+		 * @var string $content_type
+		 */
 		protected $content_type;
-		/** @var TimberTerm[] $page_types */
+
+		/**
+		 * Page types
+		 *
+		 * @var TimberTerm[] $page_types
+		 */
 		protected $page_types;
-		/** @var P4_User $author */
+
+		/**
+		 * Author
+		 *
+		 * @var P4_User $author
+		 */
 		protected $author;
 
 		/**
@@ -95,13 +119,13 @@ if ( ! class_exists( 'P4_Post' ) ) {
 				// Get the Issue pages that are relevant to the Categories of the current Post.
 				if ( $categories_ids && $explore_page_id ) {
 					$args = [
-						'post_parent'  => $explore_page_id,
-						'post_type'    => 'page',
-						'post_status'  => 'publish',
+						'post_parent' => $explore_page_id,
+						'post_type'   => 'page',
+						'post_status' => 'publish',
 					];
 
 					$args['category__in'] = $categories_ids;
-					$issues = ( new WP_Query( $args ) )->posts;
+					$issues               = ( new WP_Query( $args ) )->posts;
 
 					if ( $issues ) {
 						foreach ( $issues as $issue ) {

@@ -1,4 +1,5 @@
 <?php
+// phpcs:ignoreFile
 /**
  * Placeholder file to avoid this error:
  * "Notice: Theme without sidebar.php is deprecated since
@@ -6,4 +7,7 @@
  *  Please include a sidebar.php template in your theme."
  *
  * No output.
+ *
+ * @package P4MT
  */
+

@@ -1,5 +1,5 @@
 .share-buttons {
-  margin: 0 0 10px 0;
+  margin: 0 0 $n10 0;
 
   @include medium-and-up {
     margin: 0;
@@ -33,7 +33,7 @@
     font-size: 1.125rem;
     opacity: 0.9;
     outline: none;
-    padding: 5px 0;
+    padding: $n5 0;
     width: 4rem;
     text-align: center;
     line-height: 1.2;

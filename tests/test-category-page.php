@@ -1,13 +1,15 @@
 <?php
+/**
+ * Category Page Test Class
+ *
+ * @package P4MT
+ */
 
 use SteveGrunwell\PHPUnit_Markup_Assertions\MarkupAssertionsTrait;
-
 
 /**
  * Class CategoryPageTest.
  * Test category php template and category twig template.
- *
- * @package Planet4_Master_Theme
  */
 class CategoryPageTest extends P4_TestCase {
 
@@ -29,10 +31,11 @@ class CategoryPageTest extends P4_TestCase {
 
 		// Wrap WP_Post around P4_Post.
 		$post   = new P4_Post( $post->ID );
-		$output = TimberHelper::ob_function( function () use ( $post ) {
-			Timber::render( 'tease-taxonomy-post.twig', [ 'post' => $post ] );
-		} );
-
+		$output = TimberHelper::ob_function(
+			function () use ( $post ) {
+					Timber::render( 'tease-taxonomy-post.twig', [ 'post' => $post ] );
+			}
+		);
 
 		// Test image markup.
 		$this->assertHasElementWithAttributes(
@@ -75,9 +78,11 @@ class CategoryPageTest extends P4_TestCase {
 
 		// Wrap WP_Post around P4_Post.
 		$post   = new P4_Post( $post->ID );
-		$output = TimberHelper::ob_function( function () use ( $post ) {
-			Timber::render( 'tease-taxonomy-post.twig', [ 'post' => $post ] );
-		} );
+		$output = TimberHelper::ob_function(
+			function () use ( $post ) {
+					Timber::render( 'tease-taxonomy-post.twig', [ 'post' => $post ] );
+			}
+		);
 
 		// Test tag markup.
 		$this->assertElementContains(
@@ -109,9 +114,11 @@ class CategoryPageTest extends P4_TestCase {
 		$this->assertFalse( is_404() );
 		$this->assertTrue( is_category() );
 
-		$output = TimberHelper::ob_function( function () {
-			include get_template_directory() . '/category.php';
-		} );
+		$output = TimberHelper::ob_function(
+			function () {
+					include get_template_directory() . '/category.php';
+			}
+		);
 
 		// Test that contains 10 posts in the markup.
 		$this->assertSelectorCount( 10, 'li.search-result-list-item', $output );
