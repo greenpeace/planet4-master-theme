@@ -8,7 +8,6 @@ $(function() {
   var $es               = $('#es', $search_form);
   var $load_more_button = $( '.btn-load-more-click-scroll' );
   var load_more_count   = 0;
-  var selected_sort     = false;
   var loaded_more       = false;
   var is_elastic_search = false;
 
@@ -24,7 +23,6 @@ $(function() {
   // Submit form on Sort change event.
   $( '#select_order' ).off( 'change' ).on( 'change', function() {
     check_if_elasticsearch();
-    selected_sort = true;
     $( '#orderby', $search_form ).val( $( this ).val() ).parent().submit();
     return false;
   });

@@ -370,16 +370,21 @@ if ( ! class_exists( 'P4_Search' ) ) {
 										$args['post_mime_type'] = self::DOCUMENT_TYPES;
 
 										if ( $this->is_elastic_search ) {
-											add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
-												if ( ! empty( $args['post_mime_type'] ) ) {
-													$formatted_args['post_filter']['bool']['must'] = array(
-														'terms' => array(
-															'post_mime_type' => $args['post_mime_type'],
-														),
-													);
-												}
-												return $formatted_args;
-											}, 10, 1 );
+											add_filter(
+												'ep_formatted_args',
+												function ( $formatted_args ) use ( $args ) {
+													if ( ! empty( $args['post_mime_type'] ) ) {
+														$formatted_args['post_filter']['bool']['must'] = [
+															'terms' => [
+																'post_mime_type' => $args['post_mime_type'],
+															],
+														];
+													}
+													return $formatted_args;
+												},
+												10,
+												1
+											);
 										}
 										break;
 									case 2:
@@ -390,23 +395,28 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 										// Workaround for making 'post_parent__not_in' to work with ES.
 										if ( $this->is_elastic_search ) {
-											add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
-												// Make sure it is not an Action page.
-												if ( ! empty( $args['post_parent__not_in'] ) ) {
-													$formatted_args['post_filter']['bool']['must_not'][] = array(
-														'terms' => array(
-															'post_parent' => array_values( (array) $args['post_parent__not_in'] ),
-														),
-													);
-												}
-												// Make sure it is a Page.
-												$formatted_args['post_filter']['bool']['must'][] = array(
-													'terms' => array(
-														'post_type' => array_values( (array) $args['post_type'] ),
-													),
-												);
-												return $formatted_args;
-											}, 10, 1 );
+											add_filter(
+												'ep_formatted_args',
+												function ( $formatted_args ) use ( $args ) {
+													// Make sure it is not an Action page.
+													if ( ! empty( $args['post_parent__not_in'] ) ) {
+														$formatted_args['post_filter']['bool']['must_not'][] = [
+															'terms' => [
+																'post_parent' => array_values( (array) $args['post_parent__not_in'] ),
+															],
+														];
+													}
+													// Make sure it is a Page.
+													$formatted_args['post_filter']['bool']['must'][] = [
+														'terms' => [
+															'post_type' => array_values( (array) $args['post_type'] ),
+														],
+													];
+													return $formatted_args;
+												},
+												10,
+												1
+											);
 										}
 										break;
 									case 3:
@@ -414,17 +424,22 @@ if ( ! class_exists( 'P4_Search' ) ) {
 										$args['post_status'] = 'publish';
 
 										if ( $this->is_elastic_search ) {
-											add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
-												// Make sure it is a Post.
-												if ( ! empty( $args['post_type'] ) ) {
-													$formatted_args['post_filter']['bool']['must'][] = array(
-														'terms' => array(
-															'post_type' => array_values( (array) $args['post_type'] ),
-														),
-													);
-												}
-												return $formatted_args;
-											}, 10, 1 );
+											add_filter(
+												'ep_formatted_args',
+												function ( $formatted_args ) use ( $args ) {
+													// Make sure it is a Post.
+													if ( ! empty( $args['post_type'] ) ) {
+														$formatted_args['post_filter']['bool']['must'][] = [
+															'terms' => [
+																'post_type' => array_values( (array) $args['post_type'] ),
+															],
+														];
+													}
+													return $formatted_args;
+												},
+												10,
+												1
+											);
 										}
 										break;
 								}
@@ -484,11 +499,16 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 				// Get only DOCUMENT_TYPES from the attachments.
 				if ( ! $this->search_query && ! $this->filters ) {
-					add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
-						// TODO - Fix parsing exception in EP API call to Elasticsearch.
-						$formatted_args['post_mime_type'] = self::DOCUMENT_TYPES;
-						return $formatted_args;
-					}, 10, 1 );
+					add_filter(
+						'ep_formatted_args',
+						function ( $formatted_args ) use ( $args ) {
+							// TODO - Fix parsing exception in EP API call to Elasticsearch.
+							$formatted_args['post_mime_type'] = self::DOCUMENT_TYPES;
+							return $formatted_args;
+						},
+						10,
+						1
+					);
 				}
 
 				add_filter( 'ep_formatted_args', [ $this, 'set_results_weight' ], 20, 1 );
@@ -500,17 +520,16 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		}
 
 		/**
-		 * .
+		 * Apply custom weight to search results.
 		 *
-		 * @param mixed  $formatted_args .
-		 * @param string $args .
+		 * @param mixed $formatted_args Assoc array with the args that ES expects.
 		 *
 		 * @return mixed
 		 */
 		public function set_results_weight( $formatted_args ) {
 
 			// Move the existing query.
-			$existing_query  = $formatted_args['query'];
+			$existing_query = $formatted_args['query'];
 			unset( $formatted_args['query'] );
 			$formatted_args['query']['function_score']['query'] = $existing_query;
 
@@ -591,7 +610,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['source_selection']  = false;
 			$context['page_category']     = $category->name ?? __( 'Search page', 'planet4-master-theme' );
 			$context['sort_options']      = [
-				'_score'  => [
+				'_score'    => [
 					'name'  => __( 'Most relevant', 'planet4-master-theme' ),
 					'order' => 'DESC',
 				],
@@ -807,7 +826,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 							$context['page_types'][ $page_type->term_id ]['results'] ++;
 						}
 					}
-					$context['posts_data'][ $post->ID ]['page_types']        = $page_types;
+					$context['posts_data'][ $post->ID ]['page_types'] = $page_types;
 				}
 
 				// Tag <-> Campaign.
