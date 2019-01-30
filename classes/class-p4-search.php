@@ -513,6 +513,22 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 				add_filter( 'ep_formatted_args', [ $this, 'set_results_weight' ], 20, 1 );
 
+				// Remove from results any Documents that should not be there.
+				// TODO - This is a temp fix until we manage to query ES for only the desired documents.
+				add_filter(
+					'ep_search_results_array',
+					function ( $results, $response, $args, $scope ) {
+						foreach ( $results['posts'] as $key => $post ) {
+							if ( $post['post_mime_type'] && ! in_array( $post['post_mime_type'], self::DOCUMENT_TYPES, true ) ) {
+								unset( $results['posts'][ $key ] );
+							}
+						}
+						return $results;
+					},
+					10,
+					4
+				);
+
 				$posts = ( new WP_Query( $args ) )->posts;
 			}
 
