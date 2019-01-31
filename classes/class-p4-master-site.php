@@ -92,7 +92,7 @@ class P4_Master_Site extends TimberSite {
 		$this->theme_dir        = get_template_directory_uri();
 		$this->theme_images_dir = $this->theme_dir . '/images/';
 		$this->sort_options     = [
-			'relevant'  => [
+			'_score'    => [
 				'name'  => __( 'Most relevant', 'planet4-master-theme' ),
 				'order' => 'DESC',
 			],
@@ -657,7 +657,7 @@ class P4_Master_Site extends TimberSite {
 		if ( ! is_admin() && is_search() ||
 			wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
 			$mime_types = implode( ',', P4_Search::DOCUMENT_TYPES );
-			$where .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
+			$where     .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
 		}
 		return $where;
 	}
