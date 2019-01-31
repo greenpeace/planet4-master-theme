@@ -19,7 +19,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		const POSTS_PER_PAGE        = 10;
 		const POSTS_PER_LOAD        = 5;
 		const SHOW_SCROLL_TIMES     = 2;
-		const DEFAULT_SORT          = 'relevant';
+		const DEFAULT_SORT          = '_score';
 		const DEFAULT_MIN_WEIGHT    = 1;
 		const DEFAULT_PAGE_WEIGHT   = 20;
 		const DEFAULT_ACTION_WEIGHT = 25;
@@ -370,16 +370,21 @@ if ( ! class_exists( 'P4_Search' ) ) {
 										$args['post_mime_type'] = self::DOCUMENT_TYPES;
 
 										if ( $this->is_elastic_search ) {
-											add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
-												if ( ! empty( $args['post_mime_type'] ) ) {
-													$formatted_args['post_filter']['bool']['must'] = array(
-														'terms' => array(
-															'post_mime_type' => $args['post_mime_type'],
-														),
-													);
-												}
-												return $formatted_args;
-											}, 10, 1 );
+											add_filter(
+												'ep_formatted_args',
+												function ( $formatted_args ) use ( $args ) {
+													if ( ! empty( $args['post_mime_type'] ) ) {
+														$formatted_args['post_filter']['bool']['must'] = [
+															'terms' => [
+																'post_mime_type' => $args['post_mime_type'],
+															],
+														];
+													}
+													return $formatted_args;
+												},
+												10,
+												1
+											);
 										}
 										break;
 									case 2:
@@ -390,23 +395,28 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 										// Workaround for making 'post_parent__not_in' to work with ES.
 										if ( $this->is_elastic_search ) {
-											add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
-												// Make sure it is not an Action page.
-												if ( ! empty( $args['post_parent__not_in'] ) ) {
-													$formatted_args['post_filter']['bool']['must_not'][] = array(
-														'terms' => array(
-															'post_parent' => array_values( (array) $args['post_parent__not_in'] ),
-														),
-													);
-												}
-												// Make sure it is a Page.
-												$formatted_args['post_filter']['bool']['must'][] = array(
-													'terms' => array(
-														'post_type' => array_values( (array) $args['post_type'] ),
-													),
-												);
-												return $formatted_args;
-											}, 10, 1 );
+											add_filter(
+												'ep_formatted_args',
+												function ( $formatted_args ) use ( $args ) {
+													// Make sure it is not an Action page.
+													if ( ! empty( $args['post_parent__not_in'] ) ) {
+														$formatted_args['post_filter']['bool']['must_not'][] = [
+															'terms' => [
+																'post_parent' => array_values( (array) $args['post_parent__not_in'] ),
+															],
+														];
+													}
+													// Make sure it is a Page.
+													$formatted_args['post_filter']['bool']['must'][] = [
+														'terms' => [
+															'post_type' => array_values( (array) $args['post_type'] ),
+														],
+													];
+													return $formatted_args;
+												},
+												10,
+												1
+											);
 										}
 										break;
 									case 3:
@@ -414,17 +424,22 @@ if ( ! class_exists( 'P4_Search' ) ) {
 										$args['post_status'] = 'publish';
 
 										if ( $this->is_elastic_search ) {
-											add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
-												// Make sure it is a Post.
-												if ( ! empty( $args['post_type'] ) ) {
-													$formatted_args['post_filter']['bool']['must'][] = array(
-														'terms' => array(
-															'post_type' => array_values( (array) $args['post_type'] ),
-														),
-													);
-												}
-												return $formatted_args;
-											}, 10, 1 );
+											add_filter(
+												'ep_formatted_args',
+												function ( $formatted_args ) use ( $args ) {
+													// Make sure it is a Post.
+													if ( ! empty( $args['post_type'] ) ) {
+														$formatted_args['post_filter']['bool']['must'][] = [
+															'terms' => [
+																'post_type' => array_values( (array) $args['post_type'] ),
+															],
+														];
+													}
+													return $formatted_args;
+												},
+												10,
+												1
+											);
 										}
 										break;
 								}
@@ -484,17 +499,85 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 				// Get only DOCUMENT_TYPES from the attachments.
 				if ( ! $this->search_query && ! $this->filters ) {
-					add_filter( 'ep_formatted_args', function ( $formatted_args ) use ( $args ) {
-						// TODO - Fix parsing exception in EP API call to Elasticsearch.
-						$formatted_args['post_mime_type'] = self::DOCUMENT_TYPES;
-						return $formatted_args;
-					}, 10, 1 );
+					add_filter(
+						'ep_formatted_args',
+						function ( $formatted_args ) use ( $args ) {
+							// TODO - Fix parsing exception in EP API call to Elasticsearch.
+							$formatted_args['post_mime_type'] = self::DOCUMENT_TYPES;
+							return $formatted_args;
+						},
+						10,
+						1
+					);
 				}
+
+				add_filter( 'ep_formatted_args', [ $this, 'set_results_weight' ], 20, 1 );
+
+				// Remove from results any Documents that should not be there.
+				// TODO - This is a temp fix until we manage to query ES for only the desired documents.
+				add_filter(
+					'ep_search_results_array',
+					function ( $results, $response, $args, $scope ) {
+						foreach ( $results['posts'] as $key => $post ) {
+							if ( $post['post_mime_type'] && ! in_array( $post['post_mime_type'], self::DOCUMENT_TYPES, true ) ) {
+								unset( $results['posts'][ $key ] );
+							}
+						}
+						return $results;
+					},
+					10,
+					4
+				);
 
 				$posts = ( new WP_Query( $args ) )->posts;
 			}
 
 			return (array) $posts;
+		}
+
+		/**
+		 * Apply custom weight to search results.
+		 *
+		 * @param mixed $formatted_args Assoc array with the args that ES expects.
+		 *
+		 * @return mixed
+		 */
+		public function set_results_weight( $formatted_args ) {
+
+			// Move the existing query.
+			$existing_query = $formatted_args['query'];
+			unset( $formatted_args['query'] );
+			$formatted_args['query']['function_score']['query'] = $existing_query;
+
+			$options = get_option( 'planet4_options' );
+
+			/**
+			 * Use any combination of filters here, any matched filter will adjust
+			 * the weighted results according to the scoring settings set below.
+			 */
+			$formatted_args['query']['function_score']['functions'] = [
+				[
+					'filter' => [
+						'match' => [
+							'post_type' => 'page',
+						],
+					],
+					'weight' => self::DEFAULT_PAGE_WEIGHT,
+				],
+				[
+					'filter' => [
+						'term' => [
+							'post_parent' => esc_sql( $options['act_page'] ),
+						],
+					],
+					'weight' => self::DEFAULT_ACTION_WEIGHT,
+				],
+			];
+
+			// Specify how the computed scores are combined.
+			$formatted_args['query']['function_score']['score_mode'] = 'sum';
+
+			return $formatted_args;
 		}
 
 		/**
@@ -543,7 +626,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['source_selection']  = false;
 			$context['page_category']     = $category->name ?? __( 'Search page', 'planet4-master-theme' );
 			$context['sort_options']      = [
-				'relevant'  => [
+				'_score'    => [
 					'name'  => __( 'Most relevant', 'planet4-master-theme' ),
 					'order' => 'DESC',
 				],
@@ -759,7 +842,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 							$context['page_types'][ $page_type->term_id ]['results'] ++;
 						}
 					}
-					$context['posts_data'][ $post->ID ]['page_types']        = $page_types;
+					$context['posts_data'][ $post->ID ]['page_types'] = $page_types;
 				}
 
 				// Tag <-> Campaign.
@@ -884,7 +967,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		public function enqueue_public_assets() {
 			if ( is_search() ) {
-				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [ 'jquery' ], '0.2.3', true );
+				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [ 'jquery' ], '0.2.4', true );
 				wp_localize_script( 'search', 'localizations', $this->localizations );
 				wp_enqueue_script( 'search' );
 			}
