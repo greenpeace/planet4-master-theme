@@ -17,6 +17,11 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 		 * @var string $taxonomy
 		 */
 		private $taxonomy = 'post_tag';
+
+		/** @var string $post_type */
+		private $post_type = 'campaigns';
+
+		/** @var array $page_types */
 		/**
 		 * Page Types
 		 *
@@ -47,8 +52,10 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 		 * Class hooks.
 		 */
 		private function hooks() {
-			add_action( 'init', [ $this, 'register_campaigns_cpt' ] );
 
+			add_action( 'init', [ $this, 'register_campaigns_cpt' ] );
+			add_action( 'add_meta_boxes',  [ $this, 'campaign_page_templates_meta_box' ] );
+			add_action( 'save_post', [ $this, 'save_campaign_page_templates_meta_box_data' ] );
 			add_action( 'post_tag_add_form_fields', [ $this, 'add_taxonomy_form_fields' ] );
 			add_action( 'post_tag_edit_form_fields', [ $this, 'add_taxonomy_form_fields' ] );
 			add_action( 'create_post_tag', [ $this, 'save_taxonomy_meta' ] );

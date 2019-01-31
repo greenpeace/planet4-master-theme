@@ -64,7 +64,7 @@
     "selector-pseudo-class-case": "lower",
     "selector-pseudo-element-case": "lower",
     "selector-type-case": "lower",
-    "selector-type-no-unknown": true,
+    "selector-type-no-unknown": [true, { "ignoreTypes": ["/^_/","/^x/"] }],
     "selector-max-empty-lines": 0,
 
     "rule-empty-line-before": ["always", {"except": ["first-nested", "after-single-line-comment"]}],
