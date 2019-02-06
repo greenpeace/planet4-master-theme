@@ -625,7 +625,7 @@ class P4_Master_Site extends TimberSite {
 		$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
 		$selected_sort = sanitize_sql_orderby( $selected_sort );
 
-		if ( $selected_sort && P4_Search::DEFAULT_SORT !== $selected_sort ) {
+		if ( $selected_sort && 'relevant' !== $selected_sort && '_score' !== $selected_sort ) {
 			// First orderby 'weight' meta_key.
 			$primary_sort  = 'meta_value';
 			$primary_order = 'DESC';
