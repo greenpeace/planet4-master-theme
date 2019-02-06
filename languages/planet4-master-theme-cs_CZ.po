@@ -3,8 +3,8 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=( n == 1 ) ? 0 : ( n >= 2 && n <= 4 ) ? 1 : "
 "2;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2018-11-29 13:31+0000\n"
-"PO-Revision-Date: 2018-11-29 13:39+0000\n"
+"POT-Creation-Date: 2018-12-13 11:03+0000\n"
+"PO-Revision-Date: 2019-02-06 07:34+0000\n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,15 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.2.0; wp-4.9.8"
+"X-Loco-Version: 2.2.0; wp-5.0.3"
+
+#: single.php:33
+msgid "Post page"
+msgstr "Publikovat"
+
+#: single.php:67
+msgid "Leave Your Reply"
+msgstr "Zanech zprávu"
 
 #: 404.php:16
 msgid "Sorry, we can't find that page!"
@@ -35,6 +43,27 @@ msgstr "Vložte hledaný výraz"
 #: 404.php:18
 msgid "404 Page"
 msgstr "Chyba 404"
+
+#: tag.php:48
+msgid "Unknown Campaign page"
+msgstr "Neznámá stránka kampaně"
+
+#: tag.php:54
+msgid "Things you can do"
+msgstr "Jak se můžeš zapojit"
+
+#: tag.php:55
+msgid "We want you to take action because together we're strong."
+msgstr ""
+"Jedině společně můžeme dosáhnout změny. Přidej se.\n"
+
+#: tag.php:83
+msgid "Related Campaigns"
+msgstr "Související kampaně"
+
+#: tag.php:84
+msgid "This Campaign is not assigned to an Issue"
+msgstr "Tato kampaň není přiřazena k žádnému tématu"
 
 #: functions.php:85
 msgid "Most relevant"
@@ -59,35 +88,6 @@ msgstr "DARUJ"
 #: functions.php:271
 msgid "International (English)"
 msgstr "International (English)"
-
-#: single.php:33
-msgid "Post page"
-msgstr "Publikovat"
-
-#: single.php:67
-msgid "Leave Your Reply"
-msgstr "Zanech zprávu"
-
-#: tag.php:48
-msgid "Unknown Campaign page"
-msgstr "Neznámá stránka kampaně"
-
-#: tag.php:54
-msgid "Things you can do"
-msgstr "Jak se můžeš zapojit"
-
-#: tag.php:55
-msgid "We want you to take action because together we're strong."
-msgstr ""
-"Jedině společně můžeme dosáhnout změny. Přidej se.\n"
-
-#: tag.php:83
-msgid "Related Campaigns"
-msgstr "Související kampaně"
-
-#: tag.php:84
-msgid "This Campaign is not assigned to an Issue"
-msgstr "Tato kampaň není přiřazena k žádnému tématu"
 
 #: classes/class-p4-post.php:190 classes/class-p4-search.php:570
 msgid "ACTION"
@@ -172,13 +172,146 @@ msgstr "O Greenpeace"
 msgid "Articles"
 msgstr "Články"
 
-#: templates/author.twig:33
+#: templates/author.twig:36
 msgid "Posts by "
 msgstr "Napsal/a"
 
-#: templates/author.twig:53 templates/page_type.twig:38
+#: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
 msgstr ""
+
+#: templates/navigation-bar.twig:6
+msgid "Toggle navigation menu"
+msgstr ""
+
+#: templates/navigation-bar.twig:7 templates/search.twig:8
+#: templates/search.twig:45 templates/404.twig:17
+msgid "Search"
+msgstr "Hledat"
+
+#: templates/navigation-bar.twig:15
+msgid "Menu"
+msgstr "Menu"
+
+#: templates/navigation-bar.twig:20
+msgid "Close Menu"
+msgstr "Zavřít menu"
+
+#: templates/navigation-bar.twig:29
+msgid "Selected"
+msgstr "Vybrané"
+
+#: templates/navigation-bar.twig:30
+msgid "Change Country"
+msgstr "Změnit zemi"
+
+#: templates/navigation-bar.twig:60
+msgid "Toggle search form"
+msgstr "Přepnout na formulář"
+
+#: templates/cookies.twig:8
+msgid "GOT IT!"
+msgstr "Rozumím"
+
+#: templates/search.twig:16
+msgid "We're sorry we couldn't find any matches for your search term."
+msgstr "Omlouváme se, pro vyhledávaný výraz se nám nepodařilo nic najít. "
+
+#: templates/search.twig:18
+msgid "Check for typos, and try your search again"
+msgstr "Zkontroluj zadaný text a zkus to znova"
+
+#: templates/search.twig:19
+msgid "Try searching for somthing else"
+msgstr "Zkuste změnit zadání"
+
+#: templates/search.twig:20
+msgid "Search our archive. You'll be redirected to the archive site."
+msgstr "Hledat v archívu. Budete přesměrování na jinou stránku."
+
+#: templates/search.twig:24
+msgid "We also included results for "
+msgstr "Zobrazili jsme také výsledky pro dotaz "
+
+#: templates/search.twig:38
+msgid "This Site"
+msgstr "Tato stránka"
+
+#: templates/search.twig:39
+msgid "Archive"
+msgstr "Archív"
+
+#: templates/search.twig:57
+msgid "Filters"
+msgstr "Filtry"
+
+#: templates/search.twig:63 templates/search.twig:164
+msgid "Refine your search"
+msgstr "Specifikovat vyhledávání"
+
+#: templates/search.twig:71
+msgid "ISSUE"
+msgstr "TÉMA"
+
+#: templates/search.twig:92
+msgid "CATEGORY"
+msgstr "KATEGORIE"
+
+#: templates/search.twig:113
+msgid "CONTENT TYPES"
+msgstr "TYP OBSAHU"
+
+#: templates/search.twig:137
+msgid "CAMPAIGN"
+msgstr "KAMPAŇ"
+
+#: templates/search.twig:156
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: templates/search.twig:157
+msgid "Apply Filters"
+msgstr "Použít filtry"
+
+#: templates/search.twig:167
+msgid "ACTIVE FILTERS"
+msgstr "Aktivní filtry"
+
+#: templates/search.twig:176
+msgid "Clear All"
+msgstr "Smazat vše"
+
+#: templates/search.twig:183
+msgid "Issue"
+msgstr "Téma"
+
+#: templates/search.twig:202
+msgid "Campaign"
+msgstr "Kampaň"
+
+#: templates/search.twig:221
+msgid "Category"
+msgstr "Kategorie"
+
+#: templates/search.twig:240
+msgid "Content type"
+msgstr "Typ obsahu"
+
+#: templates/search.twig:263
+msgid "Sort by"
+msgstr "Řadit podle"
+
+#: templates/search.twig:300
+msgid "Suggested search terms"
+msgstr "Návrh vyhledávání"
+
+#: templates/tease-search.twig:67
+msgid "take action"
+msgstr "Jdu do toho"
+
+#: templates/tease-search.twig:70
+msgid "Download"
+msgstr "Stáhnout"
 
 #: templates/base.twig:10
 msgid "Skip to Navigation"
@@ -192,145 +325,61 @@ msgstr "Přejít k obsahu"
 msgid "Skip to Footer"
 msgstr "Přejít k patičce"
 
-#: templates/cookies.twig:8
-msgid "GOT IT!"
-msgstr "Rozumím"
-
-#: templates/navigation-bar.twig:13
-msgid "Menu"
-msgstr "Menu"
-
-#: templates/navigation-bar.twig:18
-msgid "Close Menu"
-msgstr "Zavřít menu"
-
-#: templates/navigation-bar.twig:27
-msgid "Selected"
-msgstr "Vybrané"
-
-#: templates/navigation-bar.twig:28
-msgid "Change Country"
-msgstr "Změnit zemi"
-
-#: templates/navigation-bar.twig:58
-msgid "Toggle search form"
-msgstr "Přepnout na formulář"
-
-#: templates/navigation-bar.twig:66 templates/search.twig:44
-msgid "Search"
-msgstr "Hledat"
-
-#: templates/page_type.twig:18
-msgid "Results"
-msgstr "Výsledky"
-
-#: templates/search.twig:15
-msgid "We're sorry we couldn't find any matches for your search term."
-msgstr "Omlouváme se, pro vyhledávaný výraz se nám nepodařilo nic najít. "
-
-#: templates/search.twig:17
-msgid "Check for typos, and try your search again"
-msgstr "Zkontroluj zadaný text a zkus to znova"
-
-#: templates/search.twig:18
-msgid "Try searching for somthing else"
-msgstr "Zkuste změnit zadání"
-
-#: templates/search.twig:19
-msgid "Search our archive. You'll be redirected to the archive site."
-msgstr "Hledat v archívu. Budete přesměrování na jinou stránku."
-
-#: templates/search.twig:23
-msgid "We also included results for "
-msgstr "Zobrazili jsme také výsledky pro dotaz "
-
-#: templates/search.twig:37
-msgid "This Site"
-msgstr "Tato stránka"
-
-#: templates/search.twig:38
-msgid "Archive"
-msgstr "Archív"
-
-#: templates/search.twig:56
-msgid "Filters"
-msgstr "Filtry"
-
-#: templates/search.twig:62 templates/search.twig:163
-msgid "Refine your search"
-msgstr "Specifikovat vyhledávání"
-
-#: templates/search.twig:70
-msgid "ISSUE"
-msgstr "TÉMA"
-
-#: templates/search.twig:91
-msgid "CATEGORY"
-msgstr "KATEGORIE"
-
-#: templates/search.twig:112
-msgid "CONTENT TYPES"
-msgstr "TYP OBSAHU"
-
-#: templates/search.twig:136
-msgid "CAMPAIGN"
-msgstr "KAMPAŇ"
-
-#: templates/search.twig:155
-msgid "Cancel"
-msgstr "Zrušit"
-
-#: templates/search.twig:156
-msgid "Apply Filters"
-msgstr "Použít filtry"
-
-#: templates/search.twig:166
-msgid "ACTIVE FILTERS"
-msgstr "Aktivní filtry"
-
-#: templates/search.twig:175
-msgid "Clear All"
-msgstr "Smazat vše"
-
-#: templates/search.twig:182
-msgid "Issue"
-msgstr "Téma"
-
-#: templates/search.twig:201
-msgid "Campaign"
-msgstr "Kampaň"
-
-#: templates/search.twig:220
-msgid "Category"
-msgstr "Kategorie"
-
-#: templates/search.twig:239
-msgid "Content type"
-msgstr "Typ obsahu"
-
-#: templates/search.twig:262
-msgid "Sort by"
-msgstr "Řadit podle"
-
-#: templates/search.twig:299
-msgid "Suggested search terms"
-msgstr "Návrh vyhledávání"
-
-#: templates/single.twig:41
+#: templates/single.twig:41 templates/tease-taxonomy-post.twig:26
 msgid "by"
 msgstr " Napsal/a"
 
-#: templates/tease-search.twig:67
-msgid "take action"
-msgstr "Jdu do toho"
+#: templates/single.twig:53 templates/comments_section.twig:2
+msgid "Comments"
+msgstr ""
 
-#: templates/tease-search.twig:70
-msgid "Download"
-msgstr "Stáhnout"
+#: templates/comments_section.twig:8
+msgid "Discussion"
+msgstr ""
+
+#: templates/taxonomy.twig:18
+msgid "Results"
+msgstr "Výsledky"
+
+#: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
+msgid "Share on"
+msgstr ""
+
+#: templates/blocks/share_buttons.twig:21
+msgid "Share via"
+msgstr ""
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
 msgstr "O autorovi"
+
+#: templates/comment_form/email_field.twig:2
+msgid "Email"
+msgstr ""
+
+#: templates/comment_form/email_field.twig:3
+msgid "Your Email"
+msgstr ""
+
+#: templates/comment_form/comment_field.twig:2
+msgid "Comment"
+msgstr ""
+
+#: templates/comment_form/comment_field.twig:3
+msgid "Your Comment"
+msgstr ""
+
+#: templates/comment_form/author_field.twig:2
+msgid "Name"
+msgstr ""
+
+#: templates/comment_form/author_field.twig:3
+msgid "Your Name"
+msgstr ""
+
+#: templates/comment_form/submit_button.twig:1
+msgid "Post Comment"
+msgstr ""
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
