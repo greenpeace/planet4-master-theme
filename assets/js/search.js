@@ -43,6 +43,7 @@ $(function() {
       } else {
         $search_form.append('<input type="hidden" name="es" value="true" />');
       }
+      $( '#orderby', $( this ) ).val( '_score' );
     }
 
     if ( 0 === $('.filter-modal.show').length ) {

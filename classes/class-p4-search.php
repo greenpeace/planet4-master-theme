@@ -21,8 +21,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		const SHOW_SCROLL_TIMES     = 2;
 		const DEFAULT_SORT          = '_score';
 		const DEFAULT_MIN_WEIGHT    = 1;
-		const DEFAULT_PAGE_WEIGHT   = 20;
-		const DEFAULT_ACTION_WEIGHT = 25;
+		const DEFAULT_PAGE_WEIGHT   = 100;
+		const DEFAULT_ACTION_WEIGHT = 2000;
 		const DEFAULT_MAX_WEIGHT    = 30;
 		const DEFAULT_CACHE_TTL     = 600;
 		const DUMMY_THUMBNAIL       = '/images/dummy-thumbnail.png';
@@ -967,7 +967,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		public function enqueue_public_assets() {
 			if ( is_search() ) {
-				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [ 'jquery' ], '0.2.4', true );
+				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [ 'jquery' ], '0.2.5', true );
 				wp_localize_script( 'search', 'localizations', $this->localizations );
 				wp_enqueue_script( 'search' );
 			}
