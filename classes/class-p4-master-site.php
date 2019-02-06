@@ -156,8 +156,8 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'save_post', [ $this, 'p4_auto_generate_excerpt' ], 10, 2 );
 		add_filter( 'img_caption_shortcode', [ $this, 'override_img_caption_shortcode' ], 10, 3 );
 
-		add_action( 'wp_ajax_get_paged_posts', [ 'P4_Search', 'get_paged_posts' ] );
-		add_action( 'wp_ajax_nopriv_get_paged_posts', [ 'P4_Search', 'get_paged_posts' ] );
+		add_action( 'wp_ajax_get_paged_posts', [ 'P4_ElasticSearch', 'get_paged_posts' ] );
+		add_action( 'wp_ajax_nopriv_get_paged_posts', [ 'P4_ElasticSearch', 'get_paged_posts' ] );
 
 		add_action( 'admin_head', [ $this, 'add_help_sidebar' ] );
 
@@ -299,7 +299,7 @@ class P4_Master_Site extends TimberSite {
 		$context['site']         = $this;
 		$context['current_url']  = home_url( $wp->request );
 		$context['sort_options'] = $this->sort_options;
-		$context['default_sort'] = P4_Search::DEFAULT_SORT;
+		$context['default_sort'] = P4_ElasticSearch::DEFAULT_SORT;
 
 		$options = get_option( 'planet4_options' );
 
@@ -503,9 +503,9 @@ class P4_Master_Site extends TimberSite {
 			$( '#parent_id' ).off('change').on( 'change', function () {
 				// Check selected Parent page and give bigger weight if it will be an Action page
 				if ( '<?php echo esc_js( $options['act_page'] ); ?>' === $(this).val() ) {
-					$( '#weight' ).val( <?php echo esc_js( P4_Search::DEFAULT_ACTION_WEIGHT ); ?> );
+					$( '#weight' ).val( <?php echo esc_js( P4_ElasticSearch::DEFAULT_ACTION_WEIGHT ); ?> );
 				} else {
-					$( '#weight' ).val( <?php echo esc_js( P4_Search::DEFAULT_PAGE_WEIGHT ); ?> );
+					$( '#weight' ).val( <?php echo esc_js( P4_ElasticSearch::DEFAULT_PAGE_WEIGHT ); ?> );
 				}
 			});
 		</script>
@@ -536,8 +536,8 @@ class P4_Master_Site extends TimberSite {
 			FILTER_VALIDATE_INT,
 			[
 				'options' => [
-					'min_range' => P4_Search::DEFAULT_MIN_WEIGHT,
-					'max_range' => P4_Search::DEFAULT_MAX_WEIGHT,
+					'min_range' => P4_ElasticSearch::DEFAULT_MIN_WEIGHT,
+					'max_range' => P4_ElasticSearch::DEFAULT_MAX_WEIGHT,
 				],
 			]
 		);
@@ -545,7 +545,7 @@ class P4_Master_Site extends TimberSite {
 		// If this is a new Page then set default weight for it.
 		if ( ! $weight && 'post-new.php' === $pagenow ) {
 			if ( 'page' === $post->post_type ) {
-				$weight = P4_Search::DEFAULT_PAGE_WEIGHT;
+				$weight = P4_ElasticSearch::DEFAULT_PAGE_WEIGHT;
 			}
 		}
 
@@ -578,7 +578,7 @@ class P4_Master_Site extends TimberSite {
 			return;
 		}
 
-		$wp->set( 'posts_per_page', P4_Search::POSTS_LIMIT );
+		$wp->set( 'posts_per_page', P4_ElasticSearch::POSTS_LIMIT );
 		$wp->set( 'no_found_rows', true );
 	}
 
@@ -625,7 +625,7 @@ class P4_Master_Site extends TimberSite {
 		$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
 		$selected_sort = sanitize_sql_orderby( $selected_sort );
 
-		if ( $selected_sort && 'relevant' !== $selected_sort && '_score' !== $selected_sort ) {
+		if ( $selected_sort && P4_ElasticSearch::DEFAULT_SORT !== $selected_sort ) {
 			// First orderby 'weight' meta_key.
 			$primary_sort  = 'meta_value';
 			$primary_order = 'DESC';
@@ -650,13 +650,13 @@ class P4_Master_Site extends TimberSite {
 		global $wpdb;
 
 		// TODO - This method and all Search related methods in this class
-		// TODO - after this commit CAN and SHOULD be transferred inside the P4_Search class.
+		// TODO - after this commit CAN and SHOULD be transferred inside the P4_ElasticSearch class.
 		// TODO - Would have spotted the necessary change much faster.
 		$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
 
 		if ( ! is_admin() && is_search() ||
 			wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
-			$mime_types = implode( ',', P4_Search::DOCUMENT_TYPES );
+			$mime_types = implode( ',', P4_ElasticSearch::DOCUMENT_TYPES );
 			$where     .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
 		}
 		return $where;

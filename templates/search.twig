@@ -275,7 +275,7 @@
 								<label class="mr-sm-2" for="select_order">{{ __('Sort by', 'planet4-master-theme' ) }}</label>
 								<select id="select_order" name="select_order" class="">
 									{% for key, sort_option in sort_options %}
-										{% if ( not search_query and ( key == '_score' or key == 'relevant' ) ) %}
+										{% if ( not search_query and key == '_score' ) %}
 											<option value="{{ key }}" disabled>{{ __( sort_option.name, 'planet4-master-theme' ) }}</option>
 										{% elseif key == selected_sort %}
 											<option value="{{ key }}" selected>{{ __( sort_option.name, 'planet4-master-theme' ) }}</option>
