@@ -122,8 +122,8 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 		 */
 		public function load( $search_query, $selected_sort = self::DEFAULT_SORT, $filters = [], $templates = [ 'search.twig', 'archive.twig', 'index.twig' ], $context = null ) {
 			$this->initialize();
-			$this->search_query      = $search_query;
-			$this->templates         = $templates;
+			$this->search_query = $search_query;
+			$this->templates    = $templates;
 
 			if ( $context ) {
 				$this->context = $context;
@@ -183,9 +183,9 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 					$search_async->current_page = $paged;
 
 					parse_str( $query_string, $filters_array );
-					$selected_sort     = $filters_array['orderby'] ?? self::DEFAULT_SORT;
-					$selected_filters  = $filters_array['f'] ?? [];
-					$filters           = [];
+					$selected_sort    = $filters_array['orderby'] ?? self::DEFAULT_SORT;
+					$selected_filters = $filters_array['f'] ?? [];
+					$filters          = [];
 
 					// Handle submitted filter options.
 					if ( $selected_filters && is_array( $selected_filters ) ) {
@@ -201,8 +201,8 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 
 					// Validate user input (sort, filters, etc).
 					if ( $search_async->validate( $selected_sort, $filters, $search_async->context ) ) {
-						$search_async->selected_sort     = $selected_sort;
-						$search_async->filters           = $filters;
+						$search_async->selected_sort = $selected_sort;
+						$search_async->filters       = $filters;
 					}
 
 					// TODO - Set the correct filters so that it will work when searching for specific term with filters applied.
@@ -536,17 +536,17 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 		protected function set_general_context( &$context ) {
 
 			// Search context.
-			$context['posts']             = $this->posts;
-			$context['paged_posts']       = $this->paged_posts;
-			$context['current_page']      = $this->current_page;
-			$context['search_query']      = $this->search_query;
-			$context['selected_sort']     = $this->selected_sort;
-			$context['default_sort']      = self::DEFAULT_SORT;
-			$context['filters']           = $this->filters;
-			$context['found_posts']       = count( (array) $this->posts );
-			$context['source_selection']  = false;
-			$context['page_category']     = $category->name ?? __( 'Search page', 'planet4-master-theme' );
-			$context['sort_options']      = [
+			$context['posts']            = $this->posts;
+			$context['paged_posts']      = $this->paged_posts;
+			$context['current_page']     = $this->current_page;
+			$context['search_query']     = $this->search_query;
+			$context['selected_sort']    = $this->selected_sort;
+			$context['default_sort']     = self::DEFAULT_SORT;
+			$context['filters']          = $this->filters;
+			$context['found_posts']      = count( (array) $this->posts );
+			$context['source_selection'] = false;
+			$context['page_category']    = $category->name ?? __( 'Search page', 'planet4-master-theme' );
+			$context['sort_options']     = [
 				'_score'    => [
 					'name'  => __( 'Most relevant', 'planet4-master-theme' ),
 					'order' => 'DESC',
