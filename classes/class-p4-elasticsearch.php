@@ -94,7 +94,7 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 		public $current_page;
 
 		/**
-		 * P4_Search constructor.
+		 * P4_ElasticSearch constructor.
 		 */
 		public function __construct() {}
 
@@ -797,7 +797,7 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 		public function validate( &$selected_sort, &$filters, $context ) : bool {
 			$selected_sort = filter_var( $selected_sort, FILTER_SANITIZE_STRING );
 			if ( ! isset( $context['sort_options'] ) || ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) ) {
-				$selected_sort = P4_Search::DEFAULT_SORT;
+				$selected_sort = P4_ElasticSearch::DEFAULT_SORT;
 			}
 
 			if ( $filters ) {
