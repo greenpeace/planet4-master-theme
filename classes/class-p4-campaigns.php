@@ -84,8 +84,27 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				$happypoint_attachment_url   = $happypoint_image_attributes ? $happypoint_image_attributes[0] : '';
 
 				$happypoint_bg_opacity = get_term_meta( $wp_tag->term_id, 'happypoint_bg_opacity', true );
-				$happypoint_bg_opacity = $happypoint_bg_opacity ?? '30'; ?>
+				$happypoint_bg_opacity = $happypoint_bg_opacity ?? '30';
 
+				$redirect_page = get_term_meta( $wp_tag->term_id, 'redirect_page', true );
+				$dropdown_args = [
+					'show_option_none' => __( 'Select Page', 'planet4-master-theme-backend' ),
+					'hide_empty'       => 0,
+					'hierarchical'     => true,
+					'selected'         => $redirect_page,
+					'name'             => 'redirect_page',
+				];
+				?>
+
+				<tr class="form-field edit-wrap">
+					<th>
+						<label><?php echo __( 'Redirect Page', 'planet4-master-theme-backend' ); ?></label>
+					</th>
+					<td>
+						<?php wp_dropdown_pages( $dropdown_args ); ?>
+						<p class="description"><?php echo __( 'Leave this empty if you want to use the automated Tag page. Otherwise pick a page to redirect this Tag to.', 'planet4-master-theme-backend' ); ?></p>
+					</td>
+				</tr>
 				<tr>
 					<th colspan="2">
 						<?php esc_html_e( 'Column block: Choose which Page Types will populate the content of the Column block. If no box is checked Publications will appear by default.', 'planet4-master-theme-backend' ); ?>
@@ -144,7 +163,20 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 						<p class="description"><?php echo __( 'We use an overlay to fade the image back. Use a number between 1 and 100, the higher the number, the more faded the image will look. If you leave this empty, the default of 30 will be used.', 'planet4-master-theme-backend' ); ?></p>
 					</td>
 				</tr>
-			<?php } else { ?>
+				<?php
+			} else {
+				$dropdown_args = [
+					'show_option_none' => __( 'Select Page', 'planet4-master-theme-backend' ),
+					'hide_empty'       => 0,
+					'hierarchical'     => true,
+					'name'             => 'redirect_page',
+				];
+				?>
+				<div class="form-field add-wrap">
+					<label><?php echo __( 'Redirect Page', 'planet4-master-theme-backend' ); ?></label>
+					<?php wp_dropdown_pages( $dropdown_args ); ?>
+					<p class="description"><?php echo __( 'Leave this empty if you want to use the automated Tag page. Otherwise pick a page to redirect this Tag to.', 'planet4-master-theme-backend' ); ?></p>
+				</div>
 				<div class="form-field add-wrap term-image-wrap">
 					<label><?php esc_html_e( 'Image', 'planet4-master-theme-backend' ); ?></label>
 					<input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag_attachment_id field-id" value="" />
@@ -197,6 +229,11 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 
 			if ( $this->validate( $happypoint_bg_opacity ) ) {
 				update_term_meta( $term_id, $field_id, $happypoint_bg_opacity );
+			}
+
+			$redirect_page = $_POST['redirect_page'] ?? 0;
+			if ( $this->validate_page_types( $redirect_page ) ) {
+				update_term_meta( $term_id, 'redirect_page', $redirect_page );
 			}
 		}
 
