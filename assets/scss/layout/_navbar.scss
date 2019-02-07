@@ -467,6 +467,7 @@ $menu-height-large: 3.75rem;
     .icon {
       vertical-align: middle;
       font-size: 1.3125rem;
+      top: 0;
     }
 
     @include large-and-up {
