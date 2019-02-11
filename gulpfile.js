@@ -19,7 +19,6 @@ const path_scss = 'assets/scss/**/*.scss';
 const path_style = 'assets/scss/style.scss';
 const path_icons = 'images/icons/*.svg';
 const path_img = 'images/';
-
 const path_dest = './';
 
 let error_handler = {

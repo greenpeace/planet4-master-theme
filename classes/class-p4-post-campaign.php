@@ -18,15 +18,12 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		 */
 		private $taxonomy = 'post_tag';
 
-		/** @var string $post_type */
+		/** Post Type
+		 *
+		 * @var string $post_type
+		 */
 		private $post_type = 'campaigns';
 
-		/**
-		 * Page Types
-		 *
-		 * @var array $page_types
-		 */
-		public $page_types = [];
 
 		/**
 		 * Taxonomy_Image constructor.
@@ -43,6 +40,21 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			add_action( 'init', [ $this, 'register_campaigns_cpt' ] );
 			add_action( 'add_meta_boxes', [ $this, 'campaign_page_templates_meta_box' ] );
 			add_action( 'save_post_campaigns', [ $this, 'save_campaign_page_templates_meta_box_data' ] );
+		}
+
+		/**
+		 * Return a list of the available campaign themes
+		 */
+		public function campaign_themes() {
+			$campaign_theme = array(
+				'antarctic' => __( 'Antarctic', 'planet4-master-theme-backend' ),
+				'arctic'    => __( 'Arctic', 'planet4-master-theme-backend' ),
+				'forest'    => __( 'Forest', 'planet4-master-theme-backend' ),
+				'oceans'    => __( 'Oceans', 'planet4-master-theme-backend' ),
+				'oil'       => __( 'Oil', 'planet4-master-theme-backend' ),
+				'plastic'   => __( 'Plastics', 'planet4-master-theme-backend' ),
+			);
+			return $campaign_theme;
 		}
 
 		/**
@@ -82,7 +94,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'hierarchical'       => false,
 				'menu_position'      => null,
 				'menu_icon'          => 'dashicons-megaphone',
-				'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+				'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt' ),
 			);
 
 			register_post_type( $this->post_type, $args );
@@ -112,23 +124,17 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			wp_nonce_field( 'campaign_page_template_nonce_' . $post->ID, 'campaign_page_template_nonce' );
 
 			$value = get_post_meta( $post->ID, '_campaign_page_template', true );
-
-			$campaign_templates = array(
-				'antarctic' => __( 'Antarctic', 'planet4-master-theme-backend' ),
-				'arctic'    => __( 'Arctic', 'planet4-master-theme-backend' ),
-				'forest'    => __( 'Forest', 'planet4-master-theme-backend' ),
-				'oceans'    => __( 'Oceans', 'planet4-master-theme-backend' ),
-				'oil'       => __( 'Oil', 'planet4-master-theme-backend' ),
-				'plastic'   => __( 'Plastics', 'planet4-master-theme-backend' ),
-			);
+			$campaign_templates = $this->campaign_themes();
 			?>
 			<select id="campaign_page_template" name="campaign_page_template">
-				<option value=""><?php _e( 'Select Campaign Template', 'planet4-master-theme-backend' ); ?></option>
+				<option value=""><?php _e( 'Select Campaign Template', 'planet4-master-theme-backend' ); ?>
+				</option>
 				<?php
 				foreach ( $campaign_templates as $campaign => $campaign_template ) {
 					?>
-					<option
-					value="<?php echo $campaign; ?>" <?php selected( $value, $campaign ); ?>><?php echo $campaign_template; ?></option>
+					<option value="<?php echo $campaign; ?>" <?php selected( $value, $campaign ); ?>>
+					<?php echo $campaign_template; ?>
+					</option>
 					<?php
 				}
 				?>
@@ -170,8 +176,10 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				return;
 			}
 
-			// Sanitize user input.
-			$campaign_page_template = sanitize_text_field( $_POST['campaign_page_template'] );
+			// Validate user input.
+			if ( in_array( $_POST['campaign_page_template'], array_keys( $this->campaign_themes() ) ) ) {
+				$campaign_page_template = $_POST['campaign_page_template'];
+			}
 
 			// Update the meta field in the database.
 			update_post_meta( $post_id, '_campaign_page_template', $campaign_page_template );
