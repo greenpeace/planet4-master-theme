@@ -232,7 +232,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 			}
 
 			$redirect_page = $_POST['redirect_page'] ?? 0;
-			if ( ! is_null( get_post( $redirect_page ) ) ) {
+			if ( ! is_null( get_post( $redirect_page ) ) || ! $redirect_page ) {
 				update_term_meta( $term_id, 'redirect_page', $redirect_page );
 			}
 		}
