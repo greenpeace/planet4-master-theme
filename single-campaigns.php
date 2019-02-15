@@ -1,10 +1,20 @@
 <?php
+/**
+ * The Template for displaying all single campaign posts
+ *
+ * Methods for TimberHelper can be found in the /lib sub-directory
+ *
+ * @package  WordPress
+ * @subpackage  Timber
+ * @since    Timber 0.1
+ */
+
 use Timber\Timber;
 
 // Initializing variables.
 $context = Timber::get_context();
 
-/* @var P4_Post $post */
+// @var P4_Post object $post
 $post            = Timber::query_post( false, 'P4_Post' );
 $context['post'] = $post;
 

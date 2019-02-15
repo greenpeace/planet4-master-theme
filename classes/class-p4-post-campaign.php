@@ -11,13 +11,6 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 	 */
 	class P4_Post_Campaign {
 
-		/**
-		 * Taxonomy
-		 *
-		 * @var string $taxonomy
-		 */
-		private $taxonomy = 'post_tag';
-
 		/** Post Type
 		 *
 		 * @var string $post_type
@@ -87,14 +80,14 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'show_ui'            => true,
 				'show_in_menu'       => true,
 				'query_var'          => true,
-				'rewrite'            => array( 'slug' => 'campaign' ),
+				'rewrite'            => [ 'slug' => 'campaign' ],
 				'capability_type'    => 'post',
 				'has_archive'        => true,
-				'taxonomies'         => array( 'category', 'post_tag' ),
+				'taxonomies'         => [ 'category', 'post_tag' ],
 				'hierarchical'       => false,
 				'menu_position'      => null,
 				'menu_icon'          => 'dashicons-megaphone',
-				'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt' ),
+				'supports'           => [ 'title', 'editor', 'author', 'thumbnail', 'excerpt' ],
 			);
 
 			register_post_type( $this->post_type, $args );
@@ -116,7 +109,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		/**
 		 * Callback function for campaign page template selection
 		 *
-		 * @param $post
+		 * @param object $post The post object.
 		 */
 		public function campaign_page_templates_meta_box_callback( $post ) {
 
@@ -124,6 +117,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			wp_nonce_field( 'campaign_page_template_nonce_' . $post->ID, 'campaign_page_template_nonce' );
 
 			$value = get_post_meta( $post->ID, '_campaign_page_template', true );
+
 			$campaign_templates = $this->campaign_themes();
 			?>
 			<select id="campaign_page_template" name="campaign_page_template">
@@ -145,7 +139,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		/**
 		 * Save campaigns page template data
 		 *
-		 * @param $post_id
+		 * @param number $post_id The post id.
 		 */
 		public function save_campaign_page_templates_meta_box_data( $post_id ) {
 

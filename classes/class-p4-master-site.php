@@ -100,10 +100,6 @@ class P4_Master_Site extends TimberSite {
 				'name'  => __( 'Most recent', 'planet4-master-theme' ),
 				'order' => 'DESC',
 			],
-			// 'post_title' => [
-			// 'name'  => __( 'Title', 'planet4-master-theme' ),
-			// 'order' => 'ASC',
-			// ],
 		];
 	}
 
