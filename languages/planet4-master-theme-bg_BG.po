@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2019-02-15 14:44+0000\n"
+"PO-Revision-Date: 2019-02-15 14:45+0000\n"
 "Language-Team: Bulgarian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,7 +53,7 @@ msgstr "Неща, които можете да направите"
 
 #: tag.php:65
 msgid "We want you to take action because together we're strong."
-msgstr "Искаме и вие да се включите, защото заедно сме силни."
+msgstr "Искаме и Вие да се включите, защото заедно сме силни."
 
 #: tag.php:81
 msgid "Related Campaigns"
@@ -250,7 +250,7 @@ msgstr "Приложи филтрите"
 
 #: templates/search.twig:166
 msgid "ACTIVE FILTERS"
-msgstr "ЗАДАДЕНИ ФИЛТРИ"
+msgstr "ПРИЛОЖЕНИ ФИЛТРИ"
 
 #: templates/search.twig:175
 msgid "Clear All"
@@ -306,7 +306,7 @@ msgstr "Основна тема за проекта \"Planet 4 Wordpress\""
 
 #. Theme URI of the plugin/theme
 msgid "https://github.com/greenpeace/planet4-master-theme"
-msgstr ""
+msgstr "https://github.com/greenpeace/planet4-master-theme"
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
@@ -314,4 +314,4 @@ msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/greenpeace"
-msgstr ""
+msgstr "https://github.com/greenpeace"
