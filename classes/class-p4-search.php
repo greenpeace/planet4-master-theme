@@ -384,7 +384,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 			// This happens when we search for everything or when filtering for attachments, since WP_Query does not support searching within rich text documents.
 			if ( ! $this->search_query || ( isset( $args['post_type'] ) && 'attachment' !== $args['post_type'] ) ) {
-				if ( $posts ) {
+				if ( isset( $posts ) ) {
 					$ids = [];
 					foreach ( $posts as $post ) {
 						$ids[] = $post->ID;

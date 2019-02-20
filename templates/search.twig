@@ -300,7 +300,13 @@
 							</ul>
 							{% if ( load_more and posts|length > paged_posts|length ) %}
 								<div class="col-lg-12 mb-5 load-more-button-div">
-									<button class="btn btn-medium btn-small btn-secondary more-btn {{ load_more.async and not search_query ? 'btn-load-more-async' : '' }} btn-load-more-click-scroll" data-current_page="{{ current_page }}">{{ load_more.button_text }}</button>
+									<button
+										class="btn btn-medium btn-small btn-secondary more-btn {{ load_more.async and not search_query ? 'btn-load-more-async' : '' }} btn-load-more-click-scroll"
+										data-current_page="{{ current_page }}"
+										data-total_posts="{{ found_posts }}"
+										data-posts_per_load="{{ load_more.posts_per_load }}">
+											{{ load_more.button_text }}
+										</button>
 								</div>
 							{% endif %}
 							{% if ( pagination ) %}
