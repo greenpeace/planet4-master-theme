@@ -112,6 +112,7 @@ if ( ! class_exists( 'P4_Sitemap' ) ) {
 				'meta_key'         => '_wp_page_template',
 				'meta_value'       => 'page-templates/evergreen.php',
 				'suppress_filters' => false,
+				'numberposts'      => -1,
 			];
 			$pages = get_posts( $args );
 
