@@ -81,7 +81,7 @@ msgstr ""
 
 #: functions.php:270
 msgid "DONATE"
-msgstr ""
+msgstr "DONASI"
 
 #: functions.php:271
 msgid "International (English)"
