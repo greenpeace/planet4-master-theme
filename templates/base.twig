@@ -20,7 +20,11 @@
 		<!-- End Google Tag Manager (noscript) -->
 	{% endif %}
 
-	{% include 'navigation-bar.twig' with data_nav_bar %}
+	{% if custom_styles.nav_type == 'planet4' %}
+		{% include 'navigation-bar.twig' with data_nav_bar %}
+	{% else %}
+		{% include 'navigation-bar_min.twig' with data_nav_bar %}
+	{% endif %}
 	{% include 'sidebar.twig' with data_nav_bar %}
 	{% include 'blocks/header.twig' %}
 
@@ -35,7 +39,10 @@
 	{% endif %}
 
 	{% block footer %}
-		{% include 'footer.twig' %}
+		{% if not custom_styles.nav_type == 'minimal' %}
+			{% include 'footer.twig' %}
+		{% endif %}
+	
 
 		{% block cookies %}
 			{% include 'cookies.twig' %}

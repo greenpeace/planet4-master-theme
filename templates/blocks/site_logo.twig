@@ -1,1 +1,6 @@
-<img src="{{ data_nav_bar.images }}gp-logo.svg" alt="Greenpeace">
+{% if custom_styles.campaign_logo %}
+    {% set logo = custom_styles.campaign_logo %}
+    <img src="{{ data_nav_bar.images }}{{ logo }}/logo-{{ custom_styles.logo_color}}.png" alt="Greenpeace">
+{% else %}
+    <img src="{{ data_nav_bar.images }}gp-logo.svg" alt="Greenpeace">
+{% endif %}
