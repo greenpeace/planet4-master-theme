@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-02-20 12:24+0000\n"
+"PO-Revision-Date: 2019-02-21 08:40+0000\n"
 "Language-Team: Finnish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -324,7 +324,7 @@ msgstr ""
 # No such thing in Finnish, please remove.
 #: templates/single.twig:41 templates/tease-taxonomy-post.twig:26
 msgid "by"
-msgstr " Teksti"
+msgstr " Kirjoittaja"
 
 #: templates/single.twig:53 templates/comments_section.twig:2
 msgid "Comments"
