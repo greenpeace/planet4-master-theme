@@ -13,6 +13,11 @@ if ( ! class_exists( 'P4_Sitemap' ) ) {
 	class P4_Sitemap {
 
 		/**
+		 * Limit the number of evergreen pages
+		 */
+		const MAX_EVERGREEN_PAGES = 100;
+
+		/**
 		 * Gets data for the Action pages.
 		 *
 		 * @return array
@@ -112,7 +117,7 @@ if ( ! class_exists( 'P4_Sitemap' ) ) {
 				'meta_key'         => '_wp_page_template',
 				'meta_value'       => 'page-templates/evergreen.php',
 				'suppress_filters' => false,
-				'numberposts'      => -1,
+				'numberposts'      => self::MAX_EVERGREEN_PAGES,
 			];
 			$pages = get_posts( $args );
 
