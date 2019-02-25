@@ -28,6 +28,10 @@ blockquote > h5 {
   font-family: $lora;
   color: $dark-shade-black;
   font-size: 2.5rem;
+
+  @include medium-and-up {
+    font-size: 2.5rem;
+  }
 }
 
 blockquote > h6 {
@@ -35,4 +39,12 @@ blockquote > h6 {
   font-family: $lora;
   color: $dark-shade-black;
   font-size: 1.5rem;
+
+  @include medium-and-up {
+    font-size: 1.5rem;
+  }
+
+  @include x-large-and-up {
+    font-size: 1.5rem;
+  }
 }
