@@ -63,6 +63,7 @@ msgstr ""
 #: tag.php:82
 msgid "This Campaign is not assigned to an Issue"
 msgstr ""
+"Kampanye ini tidak berkaitan dengan sebuah isu\n"
 
 #: functions.php:85
 msgid "Most relevant"
