@@ -132,6 +132,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_box_search' ] );
 		add_action( 'save_post', [ $this, 'save_meta_box_search' ], 10, 2 );
 		add_action( 'save_post', [ $this, 'set_featured_image' ], 10, 3 );
+		add_action( 'post_updated', [ $this, 'clean_post_cache' ], 10, 3 );
 		add_action( 'after_setup_theme', [ $this, 'p4_master_theme_setup' ] );
 		add_action( 'admin_menu', [ $this, 'add_restricted_tags_box' ] );
 		add_action( 'do_meta_boxes', [ $this, 'remove_default_tags_box' ] );
@@ -191,6 +192,22 @@ class P4_Master_Site extends TimberSite {
 				set_post_thumbnail( $post_id, $matches[1][0] );
 			}
 		}
+	}
+
+	/**
+	 * Sets as featured image of the post the first image found attached in the post's content (if any).
+	 *
+	 * @param int     $post_id The ID of the current Post.
+	 * @param WP_Post $post_after The current Post.
+	 * @param WP_Post $post_before Whether this is an existing post being updated or not.
+	 */
+	public function clean_post_cache( $post_id, $post_after, $post_before ) {
+
+		// Ignore autosave.
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+		clean_post_cache( $post_id );
 	}
 
 	/**
