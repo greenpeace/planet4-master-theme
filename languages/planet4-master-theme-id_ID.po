@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2019-02-26 09:28+0000\n"
+"PO-Revision-Date: 2019-02-26 09:43+0000\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,11 +25,12 @@ msgstr ""
 
 #: single.php:47
 msgid "Post page"
-msgstr ""
+msgstr "Unggah halaman"
 
 #: single.php:76
 msgid "Leave Your Reply"
 msgstr ""
+"Tinggalkan Balasan Kamu\n"
 
 #: 404.php:30
 msgid "Sorry, we can't find that page!"
@@ -37,11 +38,11 @@ msgstr "Maaf, kami tidak bisa menemukan halaman tersebut!"
 
 #: 404.php:31
 msgid "Enter your search term below"
-msgstr ""
+msgstr "Masukkan pencarian di bawah"
 
 #: 404.php:32
 msgid "404 Page"
-msgstr ""
+msgstr "Halaman Tidak Ditemukan"
 
 #: tag.php:58
 msgid "Unknown Campaign page"
@@ -58,7 +59,7 @@ msgstr "Kami ingin kamu beraksi karena kita kuat jika bersama"
 
 #: tag.php:81
 msgid "Related Campaigns"
-msgstr ""
+msgstr "Kampanye Yang Terkait"
 
 #: tag.php:82
 msgid "This Campaign is not assigned to an Issue"
@@ -67,19 +68,19 @@ msgstr ""
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr ""
+msgstr "Paling relevan"
 
 #: functions.php:89
 msgid "Most recent"
-msgstr ""
+msgstr "Terbaru"
 
 #: functions.php:287
 msgid "International (English)"
-msgstr ""
+msgstr "Internasional (Bahasa Inggris)"
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
-msgstr ""
+msgstr "Cari halaman"
 
 #. translators:
 #: classes/class-p4-search.php:412
@@ -94,89 +95,90 @@ msgstr[1] ""
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
+msgstr[0] "%d hasil"
 msgstr[1] ""
 
 #: classes/class-p4-search.php:478
 msgid "Action"
-msgstr ""
+msgstr "Aksi"
 
 #: classes/class-p4-search.php:482
 msgid "Document"
-msgstr ""
+msgstr "Dokumen"
 
 #: classes/class-p4-search.php:486
 msgid "Page"
-msgstr ""
+msgstr "Halaman"
 
 #: classes/class-p4-search.php:490
 msgid "Post"
-msgstr ""
+msgstr "Unggahan"
 
 #: classes/class-p4-search.php:570
 msgid "ACTION"
-msgstr ""
+msgstr "AKSI"
 
 #: classes/class-p4-search.php:574
 msgid "PAGE"
-msgstr ""
+msgstr "HALAMAN"
 
 #: classes/class-p4-search.php:580
 msgid "DOCUMENT"
-msgstr ""
+msgstr "DOKUMEN"
 
 #: classes/class-p4-search.php:585
 msgid "POST"
-msgstr ""
+msgstr "UNGGAHAN"
 
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr ""
+msgstr "TUNJUKKAN %s LEBIH BANYAK PENCARIAN"
 
 #. Name of the template
 msgid "Evergreen Page"
-msgstr ""
+msgstr "Halaman Statis"
 
 #. Name of the template
 msgid "Sitemap Page"
-msgstr ""
+msgstr "Halaman Peta Situs"
 
 #: page-templates/sitemap.php:31
 msgid "Act"
-msgstr ""
+msgstr "Beraksi"
 
 #: page-templates/sitemap.php:32
 msgid "Explore"
-msgstr ""
+msgstr "Jelajahi"
 
 #: page-templates/sitemap.php:33
 msgid "About Greenpeace"
-msgstr ""
+msgstr "Tentang Greenpeace"
 
 #: page-templates/sitemap.php:34
 msgid "Articles"
-msgstr ""
+msgstr "Artikel"
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: templates/navigation-bar.twig:18
 msgid "Close Menu"
-msgstr ""
+msgstr "Tutup Menu"
 
 #: templates/navigation-bar.twig:27
 msgid "Selected"
-msgstr ""
+msgstr "Terpilih"
 
 #: templates/navigation-bar.twig:28
 msgid "Change Country"
 msgstr ""
+"Ubah Negara\n"
 
 #: templates/navigation-bar.twig:48
 msgid "DONATE"
-msgstr ""
+msgstr "DONASI"
 
 #: templates/navigation-bar.twig:58
 msgid "Toggle search form"
@@ -184,11 +186,11 @@ msgstr "Formulir pencarian Toggle"
 
 #: templates/navigation-bar.twig:66 templates/search.twig:44
 msgid "Search"
-msgstr ""
+msgstr "Cari"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr ""
+msgstr "YA, SAYA MENGERTI!"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
@@ -197,6 +199,7 @@ msgstr "Maaf, kami tidak dapat menemukan apa yang kamu cari."
 #: templates/search.twig:17
 msgid "Check for typos, and try your search again"
 msgstr ""
+"Cek kesalahan dalam penulisan, dan coba pencarian lagi\n"
 
 #: templates/search.twig:18
 msgid "Try searching for somthing else"
@@ -205,7 +208,7 @@ msgstr ""
 
 #: templates/search.twig:19
 msgid "Search our archive. You'll be redirected to the archive site."
-msgstr ""
+msgstr "Cari arsip kami. Kamu akan diarahkan ke situs arsip."
 
 #: templates/search.twig:23
 msgid "We also included results for "
@@ -218,63 +221,63 @@ msgstr "Situs Ini"
 
 #: templates/search.twig:38
 msgid "Archive"
-msgstr ""
+msgstr "Arsip"
 
 #: templates/search.twig:56
 msgid "Filters"
-msgstr ""
+msgstr "Filter"
 
 #: templates/search.twig:62 templates/search.twig:163
 msgid "Refine your search"
-msgstr ""
+msgstr "Perbaiki pencarianmu"
 
 #: templates/search.twig:70
 msgid "ISSUE"
-msgstr ""
+msgstr "ISU"
 
 #: templates/search.twig:91
 msgid "CATEGORY"
-msgstr ""
+msgstr "KATEGORI"
 
 #: templates/search.twig:112
 msgid "CONTENT TYPES"
-msgstr ""
+msgstr "TIPE KONTEN"
 
 #: templates/search.twig:136
 msgid "CAMPAIGN"
-msgstr ""
+msgstr "KAMPANYE"
 
 #: templates/search.twig:155
 msgid "Cancel"
-msgstr ""
+msgstr "Batalkan"
 
 #: templates/search.twig:156
 msgid "Apply Filters"
-msgstr ""
+msgstr "Pakai filter"
 
 #: templates/search.twig:166
 msgid "ACTIVE FILTERS"
-msgstr ""
+msgstr "FILTER AKTIF"
 
 #: templates/search.twig:175
 msgid "Clear All"
-msgstr ""
+msgstr "Hapus Semua"
 
 #: templates/search.twig:182
 msgid "Issue"
-msgstr ""
+msgstr "Isu"
 
 #: templates/search.twig:201
 msgid "Campaign"
-msgstr ""
+msgstr "Kampanye"
 
 #: templates/search.twig:220
 msgid "Category"
-msgstr ""
+msgstr "Kategori"
 
 #: templates/search.twig:239
 msgid "Content type"
-msgstr ""
+msgstr "Tipe konten"
 
 #: templates/search.twig:262
 msgid "Sort by"
@@ -290,32 +293,32 @@ msgstr "ikut beraksi"
 
 #: templates/tease-search.twig:65
 msgid "Download"
-msgstr ""
+msgstr "Unduh"
 
 #: templates/single.twig:39
 msgid "by"
-msgstr ""
+msgstr "oleh"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr ""
+msgstr "tentang penulis"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
-msgstr ""
+msgstr "Tema Utama Planet 4 Greenpeace"
 
 #. Description of the plugin/theme
 msgid "Master theme for the Planet 4 Wordpress project"
-msgstr ""
+msgstr "Tema utama untuk proyek Wordrpress Planet 4"
 
 #. Theme URI of the plugin/theme
 msgid "https://github.com/greenpeace/planet4-master-theme"
-msgstr ""
+msgstr "https://github.com/greenpeace/planet4-master-theme"
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
-msgstr ""
+msgstr "Greenpeace Internasional"
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/greenpeace"
-msgstr ""
+msgstr "https://github.com/greenpeace"
