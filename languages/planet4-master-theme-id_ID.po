@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2019-02-26 09:21+0000\n"
+"PO-Revision-Date: 2019-02-26 09:22+0000\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,6 +46,7 @@ msgstr ""
 #: tag.php:58
 msgid "Unknown Campaign page"
 msgstr ""
+"Halaman Kampanye Tidak Diketahui\n"
 
 #: tag.php:64
 msgid "Things you can do"
@@ -53,7 +54,7 @@ msgstr ""
 
 #: tag.php:65
 msgid "We want you to take action because together we're strong."
-msgstr ""
+msgstr "Kami ingin kamu beraksi karena kita kuat jika bersama"
 
 #: tag.php:81
 msgid "Related Campaigns"
@@ -207,6 +208,7 @@ msgstr ""
 #: templates/search.twig:23
 msgid "We also included results for "
 msgstr ""
+"Kami juga menyertakan pencarian untuk\n"
 
 #: templates/search.twig:37
 msgid "This Site"
