@@ -1,9 +1,20 @@
 <?php
+/**
+ * Template Variables for Campaigns.
+ *
+ * @package P4MT
+ */
+
 use Timber\Timber;
 
 // Initializing variables.
-$context         = Timber::get_context();
-/** @var P4_Post $post */
+$context = Timber::get_context();
+
+/**
+ * Post object.
+ *
+ * @var P4_Post $post
+ * */
 $post            = Timber::query_post( false, 'P4_Post' );
 $context['post'] = $post;
 
@@ -43,12 +54,15 @@ $context['og_title']            = $post->get_og_title();
 $context['og_description']      = $post->get_og_description();
 $context['og_image_data']       = $post->get_og_image();
 $context['custom_body_classes'] = 'brown-bg theme-oil';
+$context['custom_styles']       = $custom_styles;
 
-$context['filter_url'] = add_query_arg( [
-	's'                                       => ' ',
-	'orderby'                                 => 'relevant',
-	'f[ptype][' . $context['page_type'] . ']' => $context['page_term_id'],
-], get_home_url()
+$context['filter_url'] = add_query_arg(
+	[
+		's'                                       => ' ',
+		'orderby'                                 => 'relevant',
+		'f[ptype][' . $context['page_type'] . ']' => $context['page_term_id'],
+	],
+	get_home_url()
 );
 
 
@@ -64,31 +78,6 @@ if ( ! empty( $take_action_page ) ) {
 	$post->take_action_boxout = "[shortcake_take_action_boxout take_action_page='$take_action_page' /]";
 }
 
-// Build an arguments array to customize WordPress comment form.
-$comments_args = [
-	'comment_notes_before' => '',
-	'comment_notes_after'  => '',
-	'comment_field'        => Timber::compile( 'comment_form/comment_field.twig' ),
-	'submit_button'        => Timber::compile( 'comment_form/submit_button.twig' ),
-	'title_reply'          => __( 'Leave Your Reply', 'planet4-master-theme' ),
-	'fields'               => apply_filters( 'comment_form_default_fields',
-		[
-			'author' => Timber::compile( 'comment_form/author_field.twig' ),
-			'email'  => Timber::compile( 'comment_form/email_field.twig' ),
-		]
-	),
-];
-
-$context['comments_args']       = $comments_args;
-$context['show_comments']       = comments_open( $post->ID );
-$context['post_comments_count'] = get_comments(
-	[
-		'post_id' => $post->ID,
-		'status'  => 'approve',
-		'type'    => 'comment',
-		'count'   => true,
-	]
-);
 
 $context['post_tags'] = implode( ', ', $post->tags() );
 

@@ -1,4 +1,4 @@
-{% if custom_styles.campaign_logo %}
+{% if custom_styles.campaign_logo != 'greenpeace' %}
     {% set logo = custom_styles.campaign_logo %}
     <img src="{{ data_nav_bar.images }}{{ logo }}/logo-{{ custom_styles.logo_color}}.png" alt="Greenpeace">
 {% else %}
