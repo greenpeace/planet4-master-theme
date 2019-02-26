@@ -587,6 +587,7 @@ $menu-height-large: 3.75rem;
     list-style: none;
     padding-left: 50px;
     font-size: 1rem;
+    break-inside: avoid;
 
     html[dir="rtl"] & {
       padding-left: 0;
