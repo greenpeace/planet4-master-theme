@@ -1,9 +1,20 @@
 <?php
+/**
+ * Template Variables for Campaigns.
+ *
+ * @package P4MT
+ */
+
 use Timber\Timber;
 
 // Initializing variables.
-$context         = Timber::get_context();
-/** @var P4_Post $post */
+$context = Timber::get_context();
+
+/**
+ * Post object.
+ *
+ * @var P4_Post $post
+ * */
 $post            = Timber::query_post( false, 'P4_Post' );
 $context['post'] = $post;
 
@@ -44,11 +55,12 @@ $context['og_description']      = $post->get_og_description();
 $context['og_image_data']       = $post->get_og_image();
 $context['custom_body_classes'] = 'brown-bg theme-oil';
 
-$context['filter_url'] = add_query_arg( [
-	's'                                       => ' ',
-	'orderby'                                 => 'relevant',
-	'f[ptype][' . $context['page_type'] . ']' => $context['page_term_id'],
-], get_home_url()
+$context['filter_url'] = add_query_arg(
+	[
+		's'                                       => ' ',
+		'orderby'                                 => 'relevant',
+		'f[ptype][' . $context['page_type'] . ']' => $context['page_term_id'],
+	], get_home_url()
 );
 
 
