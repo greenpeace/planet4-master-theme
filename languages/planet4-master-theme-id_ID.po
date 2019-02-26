@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2019-02-26 09:22+0000\n"
+"PO-Revision-Date: 2019-02-26 09:23+0000\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -179,7 +179,7 @@ msgstr ""
 
 #: templates/navigation-bar.twig:58
 msgid "Toggle search form"
-msgstr ""
+msgstr "Formulir pencarian Toggle"
 
 #: templates/navigation-bar.twig:66 templates/search.twig:44
 msgid "Search"
@@ -200,6 +200,7 @@ msgstr ""
 #: templates/search.twig:18
 msgid "Try searching for somthing else"
 msgstr ""
+"Coba lakukan pencarian lain\n"
 
 #: templates/search.twig:19
 msgid "Search our archive. You'll be redirected to the archive site."
@@ -212,7 +213,7 @@ msgstr ""
 
 #: templates/search.twig:37
 msgid "This Site"
-msgstr ""
+msgstr "Situs Ini"
 
 #: templates/search.twig:38
 msgid "Archive"
