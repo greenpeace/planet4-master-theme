@@ -84,6 +84,8 @@ $(function() {
   $load_more_button.off( 'click' ).on( 'click', function() {
     // If this button has this class then Lazy-loading is enabled.
     if ( $(this).hasClass( 'btn-load-more-async' ) ) {
+      var total_posts = $(this).data('total_posts');
+      var posts_per_load = $(this).data('posts_per_load');
       var next_page = $(this).data( 'current_page' ) + 1;
       $(this).data( 'current_page', next_page );
 
@@ -101,6 +103,9 @@ $(function() {
         // Append the response at the bottom of the results and then show it.
         $( '.multiple-search-result .list-unstyled' ).append( response );
         $( '.row-hidden:last' ).removeClass( 'row-hidden' ).show( 'fast' );
+        if (posts_per_load * next_page > total_posts) {
+          $load_more_button.hide();
+        }
       }).fail(function ( jqXHR, textStatus, errorThrown ) {
         console.log(errorThrown); //eslint-disable-line no-console
       });
