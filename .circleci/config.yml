@@ -7,6 +7,9 @@ workflows:
       - php72-build
       - build-and-test-codeception:
           context: org-global
+          filters:
+            branches:
+              ignore: languages
 version: 2
 
 job-references:
