@@ -3,8 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-02-19 13:34+0000\n"
-"Last-Translator: Konstantinos Kokkorogiannis <kkokkoro@greenpeace.org>\n"
+"PO-Revision-Date: 2019-02-21 10:39+0000\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,9 +16,10 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: Ayip Fahmi <afahmifa@greenpeace.org>\n"
+"Language: id_ID\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
-"Language: id_ID\n"
 "Report-Msgid-Bugs-To: \n"
 "X-Loco-Version: 2.2.0; wp-5.0.3"
 
@@ -81,7 +81,7 @@ msgstr ""
 
 #: functions.php:270
 msgid "DONATE"
-msgstr ""
+msgstr "DONASI"
 
 #: functions.php:271
 msgid "International (English)"
@@ -93,7 +93,7 @@ msgstr ""
 
 #: classes/class-p4-post.php:192 classes/class-p4-search.php:574
 msgid "PAGE"
-msgstr ""
+msgstr "HALAMAN"
 
 #: classes/class-p4-post.php:196 classes/class-p4-search.php:580
 msgid "DOCUMENT"
@@ -125,7 +125,7 @@ msgstr[1] ""
 
 #: classes/class-p4-search.php:478
 msgid "Action"
-msgstr ""
+msgstr "Aksi"
 
 #: classes/class-p4-search.php:482
 msgid "Document"
@@ -154,7 +154,7 @@ msgstr ""
 
 #: page-templates/sitemap.php:18
 msgid "Act"
-msgstr ""
+msgstr "Aksi"
 
 #: page-templates/sitemap.php:19
 msgid "Explore"
@@ -191,7 +191,7 @@ msgstr ""
 
 #: templates/navigation-bar.twig:20
 msgid "Close Menu"
-msgstr ""
+msgstr "Tutup Menu"
 
 #: templates/navigation-bar.twig:29
 msgid "Selected"
@@ -283,15 +283,15 @@ msgstr ""
 
 #: templates/search.twig:202
 msgid "Campaign"
-msgstr ""
+msgstr "Kampanye"
 
 #: templates/search.twig:221
 msgid "Category"
-msgstr ""
+msgstr "Kategori"
 
 #: templates/search.twig:240
 msgid "Content type"
-msgstr ""
+msgstr "Jenis konten"
 
 #: templates/search.twig:263
 msgid "Sort by"
@@ -367,7 +367,7 @@ msgstr ""
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr "Name"
+msgstr ""
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
