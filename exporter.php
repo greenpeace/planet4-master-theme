@@ -36,8 +36,8 @@ if ( 'all' != $args['content'] && post_type_exists( $args['content'] ) ) {
 	$where = $wpdb->prepare( "{$wpdb->posts}.post_type = %s", $args['content'] );
 } else {
 	$post_types = get_post_types( array( 'can_export' => true ) );
-	$esses      = array_fill( 0, count( $post_types ), '%s' );
-	$where      = $wpdb->prepare( "{$wpdb->posts}.post_type IN (" . implode( ',', $esses ) . ')', $post_types );
+	$esses      = implode( ',', array_fill( 0, count( $post_types ), '%s' ) );
+	$where      = $wpdb->prepare( "{$wpdb->posts}.post_type IN ( %s )", $esses );
 }
 
 if ( $args['status'] && ( 'post' == $args['content'] || 'page' == $args['content'] ) ) {
@@ -48,8 +48,9 @@ if ( $args['status'] && ( 'post' == $args['content'] || 'page' == $args['content
 
 $join = '';
 if ( $args['category'] && 'post' == $args['content'] ) {
-	if ( $term = term_exists( $args['category'], 'category' ) ) {
-		$join  = "INNER JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id)";
+	$term = term_exists( $args['category'], 'category' );
+	if ( $term ) {
+		$join   = "INNER JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id)";
 		$where .= $wpdb->prepare( " AND {$wpdb->term_relationships}.term_taxonomy_id = %d", $term['term_taxonomy_id'] );
 	}
 }
@@ -67,28 +68,30 @@ if ( 'post' == $args['content'] || 'page' == $args['content'] ) {
 		$where .= $wpdb->prepare( " AND {$wpdb->posts}.post_date < %s", date( 'Y-m-d', strtotime( '+1 month', strtotime( $args['end_date'] ) ) ) );
 	}
 }
-$post_ids = apply_filters( 'export_post_ids', $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} $join WHERE $where" ), $args );
+$post_ids = apply_filters( 'export_post_ids', $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} %s WHERE %s", $join, $where ), $args );
 
-$cats = $tags = $terms = array();
+$cats  = [];
+$tags  = [];
+$terms = [];
 if ( isset( $term ) && $term ) {
 	$cat  = get_term( $term['term_id'], 'category' );
 	$cats = array( $cat->term_id => $cat );
 	unset( $term, $cat );
-} else if ( 'all' == $args['content'] ) {
+} elseif ( 'all' == $args['content'] ) {
 	$categories = (array) get_categories( array( 'get' => 'all' ) );
 	$tags       = (array) get_tags( array( 'get' => 'all' ) );
 
 	$custom_taxonomies = get_taxonomies( array( '_builtin' => false ) );
 	$custom_terms      = (array) get_terms( $custom_taxonomies, array( 'get' => 'all' ) );
 	while ( $cat = array_shift( $categories ) ) {
-		if ( $cat->parent == 0 || isset( $cats[ $cat->parent ] ) ) {
+		if ( 0 == $cat->parent || isset( $cats[ $cat->parent ] ) ) {
 			$cats[ $cat->term_id ] = $cat;
 		} else {
 			$categories[] = $cat;
 		}
 	}
 	while ( $t = array_shift( $custom_terms ) ) {
-		if ( $t->parent == 0 || isset( $terms[ $t->parent ] ) ) {
+		if ( 0 == $t->parent || isset( $terms[ $t->parent ] ) ) {
 			$terms[ $t->term_id ] = $t;
 		} else {
 			$custom_terms[] = $t;
@@ -98,6 +101,11 @@ if ( isset( $term ) && $term ) {
 	unset( $categories, $custom_taxonomies, $custom_terms );
 }
 
+/**
+ * Wrap strings in nested CDATA tags.
+ *
+ * @param string $str String to replace.
+ */
 function p4_px_single_post_cdata( $str ) {
 	if ( seems_utf8( $str ) == false ) {
 		$str = utf8_encode( $str );
@@ -107,6 +115,9 @@ function p4_px_single_post_cdata( $str ) {
 	return $str;
 }
 
+/**
+ * Get the site url.
+ */
 function p4_px_single_post_site_url() {
 	if ( is_multisite() ) {
 		return network_home_url();
@@ -115,6 +126,11 @@ function p4_px_single_post_site_url() {
 	}
 }
 
+/**
+ * Get the Category name.
+ *
+ * @param object $category Category object.
+ */
 function p4_px_single_post_cat_name( $category ) {
 	if ( empty( $category->name ) ) {
 		return;
@@ -123,6 +139,11 @@ function p4_px_single_post_cat_name( $category ) {
 	echo '<wp:cat_name>' . p4_px_single_post_cdata( $category->name ) . '</wp:cat_name>';
 }
 
+/**
+ * Get the Category description.
+ *
+ * @param object $category Category object.
+ */
 function p4_px_single_post_category_description( $category ) {
 	if ( empty( $category->description ) ) {
 		return;
@@ -131,6 +152,11 @@ function p4_px_single_post_category_description( $category ) {
 	echo '<wp:category_description>' . p4_px_single_post_cdata( $category->description ) . '</wp:category_description>';
 }
 
+/**
+ * Get the Post Tag name.
+ *
+ * @param object $tag Tag object.
+ */
 function p4_px_single_post_tag_name( $tag ) {
 	if ( empty( $tag->name ) ) {
 		return;
@@ -139,6 +165,11 @@ function p4_px_single_post_tag_name( $tag ) {
 	echo '<wp:tag_name>' . p4_px_single_post_cdata( $tag->name ) . '</wp:tag_name>';
 }
 
+/**
+ * Get the Post Tag description.
+ *
+ * @param object $tag Tag object.
+ */
 function p4_px_single_post_tag_description( $tag ) {
 	if ( empty( $tag->description ) ) {
 		return;
@@ -147,6 +178,11 @@ function p4_px_single_post_tag_description( $tag ) {
 	echo '<wp:tag_description>' . p4_px_single_post_cdata( $tag->description ) . '</wp:tag_description>';
 }
 
+/**
+ * Get the Post Term name.
+ *
+ * @param object $term Term object.
+ */
 function p4_px_single_post_term_name( $term ) {
 	if ( empty( $term->name ) ) {
 		return;
@@ -155,6 +191,11 @@ function p4_px_single_post_term_name( $term ) {
 	echo '<wp:term_name>' . p4_px_single_post_cdata( $term->name ) . '</wp:term_name>';
 }
 
+/**
+ * Get the Post Term description.
+ *
+ * @param object $term Tag object.
+ */
 function p4_px_single_post_term_description( $term ) {
 	if ( empty( $term->description ) ) {
 		return;
@@ -163,13 +204,18 @@ function p4_px_single_post_term_description( $term ) {
 	echo '<wp:term_description>' . p4_px_single_post_cdata( $term->description ) . '</wp:term_description>';
 }
 
+/**
+ * Get the Post's authors.
+ *
+ * @param array $post_ids Tag object.
+ */
 function p4_px_single_post_authors_list( $post_ids ) {
 	global $wpdb;
 
 	$post_ids = implode( ',', $post_ids );
 
 	$authors = array();
-	$results = $wpdb->get_results( "SELECT DISTINCT post_author FROM $wpdb->posts WHERE ID IN ( $post_ids ) AND post_status != 'auto-draft'" );
+	$results = $wpdb->get_results( "SELECT DISTINCT post_author FROM $wpdb->posts WHERE ID IN '%s' AND post_status != 'auto-draft'", $post_ids );
 	foreach ( (array) $results as $result ) {
 		$authors[] = get_userdata( $result->post_author );
 	}
@@ -188,6 +234,9 @@ function p4_px_single_post_authors_list( $post_ids ) {
 	}
 }
 
+/**
+ * Get the Post Taxonomy.
+ */
 function p4_px_single_post_taxonomy() {
 	$post = get_post();
 
@@ -202,6 +251,12 @@ function p4_px_single_post_taxonomy() {
 	}
 }
 
+/**
+ * Filter out Edit lock meta key.
+ *
+ * @param boolean $return_me Edit lock status.
+ * @param string  $meta_key Current post meta key.
+ */
 function p4_px_single_post_filter_postmeta( $return_me, $meta_key ) {
 	if ( '_edit_lock' == $meta_key ) {
 		$return_me = true;
@@ -212,7 +267,7 @@ function p4_px_single_post_filter_postmeta( $return_me, $meta_key ) {
 
 add_filter( 'p4_px_single_post_export_skip_postmeta', 'p4_px_single_post_filter_postmeta', 10, 2 );
 
-$post_id = explode( ",", $_GET['post'] );
+$post_id = explode( ',', $_GET['post'] );
 
 echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . "\" ?>\n";
 
@@ -255,20 +310,20 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . "\" ?>\n";
 
 		<?php foreach ( $cats as $c ) : ?>
 			<wp:category>
-				<wp:term_id><?php echo $c->term_id ?></wp:term_id>
+				<wp:term_id><?php echo $c->term_id; ?></wp:term_id>
 				<wp:category_nicename><?php echo $c->slug; ?></wp:category_nicename>
 				<wp:category_parent><?php echo $c->parent ? $cats[ $c->parent ]->slug : ''; ?></wp:category_parent><?php p4_px_single_post_cat_name( $c ); ?><?php p4_px_single_post_category_description( $c ); ?>
 			</wp:category>
 		<?php endforeach; ?>
 		<?php foreach ( $tags as $t ) : ?>
 			<wp:tag>
-				<wp:term_id><?php echo $t->term_id ?></wp:term_id>
+				<wp:term_id><?php echo $t->term_id; ?></wp:term_id>
 				<wp:tag_slug><?php echo $t->slug; ?></wp:tag_slug><?php p4_px_single_post_tag_name( $t ); ?><?php p4_px_single_post_tag_description( $t ); ?>
 			</wp:tag>
 		<?php endforeach; ?>
 		<?php foreach ( $terms as $t ) : ?>
 			<wp:term>
-				<wp:term_id><?php echo $t->term_id ?></wp:term_id>
+				<wp:term_id><?php echo $t->term_id; ?></wp:term_id>
 				<wp:term_taxonomy><?php echo $t->taxonomy; ?></wp:term_taxonomy>
 				<wp:term_slug><?php echo $t->slug; ?></wp:term_slug>
 				<wp:term_parent><?php echo $t->parent ? $terms[ $t->parent ]->slug : ''; ?></wp:term_parent><?php p4_px_single_post_term_name( $t ); ?><?php p4_px_single_post_term_description( $t ); ?>
@@ -280,34 +335,34 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . "\" ?>\n";
 		?>
 
 		<?php
-		if ( $post_id != "" ) {
+		if ( '' !== $post_id ) {
 			global $wp_query;
 			$wp_query->in_the_loop = true;
 			for ( $i = 0; $i < count( $post_id ); $i ++ ) {
-				$next_posts = array( $post_id[ $i ] );
+				$next_posts  = array( $post_id[ $i ] );
 				$attachments = get_attached_media( '', $post_id[ $i ] );
 				if ( ! empty( $attachments ) ) {
-					foreach( $attachments as $attachment ) {
+					foreach ( $attachments as $attachment ) {
 						array_push( $next_posts, $attachment->ID );
 					}
 				}
-				$where      = 'WHERE ID IN (' . implode( ',', $next_posts ) . ')';
-				$posts      = $wpdb->get_results( "SELECT * FROM {$wpdb->posts} $where" );
+				$where = implode( ',', $next_posts );
+				$posts = $wpdb->get_results( "SELECT * FROM {$wpdb->posts} WHERE ID IN %s", $where );
 				foreach ( $posts as $post ) {
 					setup_postdata( $post );
 					$is_sticky = is_sticky( $post->ID ) ? 1 : 0;
 					?>
 					<item>
 						<title><?php echo apply_filters( 'the_title_rss', $post->post_title ); ?></title>
-						<link><?php the_permalink_rss() ?></link>
+						<link><?php the_permalink_rss(); ?></link>
 						<pubDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false ); ?></pubDate>
 						<dc:creator><?php echo p4_px_single_post_cdata( get_the_author_meta( 'login' ) ); ?></dc:creator>
 						<guid isPermaLink="false"><?php the_guid(); ?></guid>
 						<description></description>
-						<content:encoded><?php echo p4_px_single_post_cdata( apply_filters( 'the_content_export', $post->post_content ) );
-							?></content:encoded>
-						<excerpt:encoded><?php echo p4_px_single_post_cdata( apply_filters( 'the_excerpt_export', $post->post_excerpt ) );
-							?></excerpt:encoded>
+						<content:encoded><?php echo p4_px_single_post_cdata( apply_filters( 'the_content_export', $post->post_content ) ); ?>
+							</content:encoded>
+						<excerpt:encoded><?php echo p4_px_single_post_cdata( apply_filters( 'the_excerpt_export', $post->post_excerpt ) ); ?>
+							</excerpt:encoded>
 						<wp:post_id><?php echo $post->ID; ?></wp:post_id>
 						<wp:post_date><?php echo $post->post_date; ?></wp:post_date>
 						<wp:post_date_gmt><?php echo $post->post_date_gmt; ?></wp:post_date_gmt>
@@ -320,11 +375,12 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . "\" ?>\n";
 						<wp:post_type><?php echo $post->post_type; ?></wp:post_type>
 						<wp:post_password><?php echo $post->post_password; ?></wp:post_password>
 						<wp:is_sticky><?php echo $is_sticky; ?></wp:is_sticky>
-						<?php if ( $post->post_type == 'attachment' ) : ?>
+						<?php if ( 'attachment' == $post->post_type ) : ?>
 							<wp:attachment_url><?php echo wp_get_attachment_url( $post->ID ); ?></wp:attachment_url>
 						<?php endif; ?>
 						<?php p4_px_single_post_taxonomy(); ?>
-						<?php $postmeta = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->postmeta WHERE post_id = %d", $post->ID ) );
+						<?php
+						$postmeta = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->postmeta WHERE post_id = %d", $post->ID ) );
 						foreach ( $postmeta as $meta ) :
 							if ( apply_filters( 'p4_px_single_post_export_skip_postmeta', false, $meta->meta_key, $meta ) ) {
 								continue;
@@ -335,8 +391,10 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . "\" ?>\n";
 								<wp:meta_value><?php echo p4_px_single_post_cdata( $meta->meta_value ); ?></wp:meta_value>
 							</wp:postmeta>
 						<?php endforeach; ?>
-						<?php $comments = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->comments WHERE comment_post_ID = %d AND comment_approved <> 'spam'", $post->ID ) );
-						foreach ( $comments as $c ) : ?>
+						<?php
+						$comments = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->comments WHERE comment_post_ID = %d AND comment_approved <> 'spam'", $post->ID ) );
+						foreach ( $comments as $c ) :
+							?>
 							<wp:comment>
 								<wp:comment_id><?php echo $c->comment_ID; ?></wp:comment_id>
 								<wp:comment_author><?php echo p4_px_single_post_cdata( $c->comment_author ); ?></wp:comment_author>
@@ -345,13 +403,15 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . "\" ?>\n";
 								<wp:comment_author_IP><?php echo $c->comment_author_IP; ?></wp:comment_author_IP>
 								<wp:comment_date><?php echo $c->comment_date; ?></wp:comment_date>
 								<wp:comment_date_gmt><?php echo $c->comment_date_gmt; ?></wp:comment_date_gmt>
-								<wp:comment_content><?php echo p4_px_single_post_cdata( $c->comment_content ) ?></wp:comment_content>
+								<wp:comment_content><?php echo p4_px_single_post_cdata( $c->comment_content ); ?></wp:comment_content>
 								<wp:comment_approved><?php echo $c->comment_approved; ?></wp:comment_approved>
 								<wp:comment_type><?php echo $c->comment_type; ?></wp:comment_type>
 								<wp:comment_parent><?php echo $c->comment_parent; ?></wp:comment_parent>
 								<wp:comment_user_id><?php echo $c->user_id; ?></wp:comment_user_id>
-								<?php $c_meta = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->commentmeta WHERE comment_id = %d", $c->comment_ID ) );
-								foreach ( $c_meta as $meta ) : ?>
+								<?php
+								$c_meta = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->commentmeta WHERE comment_id = %d", $c->comment_ID ) );
+								foreach ( $c_meta as $meta ) :
+									?>
 									<wp:commentmeta>
 										<wp:meta_key><?php echo $meta->meta_key; ?></wp:meta_key>
 										<wp:meta_value><?php echo p4_px_single_post_cdata( $meta->meta_value ); ?></wp:meta_value>
