@@ -35,6 +35,9 @@ $(document).ready(function () {
     $('footer').css('margin-bottom', '0');
     createCookie('greenpeace', '2', 365);
 
+    // Remove the 'no_track' cookie, if user accept the cookies consent.
+    createCookie('no_track', '0', -1);
+
     // DataLayer push event on cookies consent.
     window.dataLayer = window.dataLayer || [];
     dataLayer.push({
