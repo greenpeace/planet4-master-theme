@@ -230,129 +230,157 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'#196b71',
 			];
 
-			$cmb = new_cmb2_box( [
-				'id'           => 'campaign_nav_settings_mb',
-				'title'        => __( 'Page Design', 'planet4-master-theme-backend' ),
-				'object_types' => [
-					'campaigns',
-				],
-				'context'      => 'normal',
-				'priority'     => 'high',
-				'show_names'   => true, // Show field names on the left.
-			] );
+			$cmb = new_cmb2_box(
+				[
+					'id'           => 'campaign_nav_settings_mb',
+					'title'        => __( 'Page Design', 'planet4-master-theme-backend' ),
+					'object_types' => [
+						'campaigns',
+					],
+					'context'      => 'normal',
+					'priority'     => 'high',
+					'show_names'   => true, // Show field names on the left.
+				]
+			);
 
-			$cmb->add_field( [
-				'name'    => __( 'Navigation', 'planet4-master-theme-backend' ),
-				'id'      => 'campaign_nav_type',
-				'type'    => 'radio_inline',
-				'options' => [
-					'planet4' => __( 'Planet 4 Navigation', 'planet4-master-theme-backend' ),
-					'minimal' => __( 'Minimal Navigation', 'planet4-master-theme-backend' ),
-				],
-				'default' => 'planet4',
-			] );
+			$cmb->add_field(
+				[
+					'name'    => __( 'Navigation', 'planet4-master-theme-backend' ),
+					'id'      => 'campaign_nav_type',
+					'type'    => 'radio_inline',
+					'options' => [
+						'planet4' => __( 'Planet 4 Navigation', 'planet4-master-theme-backend' ),
+						'minimal' => __( 'Minimal Navigation', 'planet4-master-theme-backend' ),
+					],
+					'default' => 'planet4',
+				]
+			);
 
-			$cmb->add_field( [
-				'name'       => __( 'Navigation Color', 'planet4-master-theme-backend' ),
-				'id'         => 'campaign_nav_color',
-				'type'       => 'colorpicker',
-				'classes'    => 'palette-only',
-				'default'    => '#ffffff',
-				'attributes' => [
-					'data-colorpicker' => json_encode( [
-						'palettes' => $header_palette,
-					] ),
-				],
-			] );
+			$cmb->add_field(
+				[
+					'name'       => __( 'Navigation Color', 'planet4-master-theme-backend' ),
+					'id'         => 'campaign_nav_color',
+					'type'       => 'colorpicker',
+					'classes'    => 'palette-only',
+					'default'    => '#ffffff',
+					'attributes' => [
+						'data-colorpicker' => json_encode(
+							[
+								'palettes' => $header_palette,
+							]
+						),
+					],
+				]
+			);
 
-			$cmb->add_field( [
-				'name'       => __( 'Header Color', 'planet4-master-theme-backend' ),
-				'id'         => 'campaign_header_color',
-				'type'       => 'colorpicker',
-				'classes'    => 'palette-only',
-				'default'    => '#ffffff',
-				'attributes' => [
-					'data-colorpicker' => json_encode( [
-						'palettes' => $header_palette,
-					] ),
-				],
-			] );
+			$cmb->add_field(
+				[
+					'name'       => __( 'Header Color', 'planet4-master-theme-backend' ),
+					'id'         => 'campaign_header_color',
+					'type'       => 'colorpicker',
+					'classes'    => 'palette-only',
+					'default'    => '#ffffff',
+					'attributes' => [
+						'data-colorpicker' => json_encode(
+							[
+								'palettes' => $header_palette,
+							]
+						),
+					],
+				]
+			);
 
-			$cmb->add_field( [
-				'name'             => 'Header Primary Font',
-				'desc'             => 'Select an option',
-				'id'               => 'campaign_header_primary',
-				'type'             => 'select',
-				'show_option_none' => '-----',
-				'options'          => [
-					'anton'            => __( 'Anton', 'planet4-master-theme-backend' ),
-					'montserrat_bold'  => __( 'Montserrat Bold', 'planet4-master-theme-backend' ),
-					'montserrat_light' => __( 'Montserrat Light', 'planet4-master-theme-backend' ),
-					'sanctuary'        => __( 'Sanctuary', 'planet4-master-theme-backend' ),
-					'kanit'            => __( 'Kanit Extra Bold', 'planet4-master-theme-backend' ),
-					'save_the_arctic'  => __( 'Save the Arctic', 'planet4-master-theme-backend' ),
-				],
-			] );
+			$cmb->add_field(
+				[
+					'name'             => 'Header Primary Font',
+					'desc'             => 'Select an option',
+					'id'               => 'campaign_header_primary',
+					'type'             => 'select',
+					'show_option_none' => '-----',
+					'options'          => [
+						'anton'            => __( 'Anton', 'planet4-master-theme-backend' ),
+						'montserrat_bold'  => __( 'Montserrat Bold', 'planet4-master-theme-backend' ),
+						'montserrat_light' => __( 'Montserrat Light', 'planet4-master-theme-backend' ),
+						'sanctuary'        => __( 'Sanctuary', 'planet4-master-theme-backend' ),
+						'kanit'            => __( 'Kanit Extra Bold', 'planet4-master-theme-backend' ),
+						'save_the_arctic'  => __( 'Save the Arctic', 'planet4-master-theme-backend' ),
+					],
+				]
+			);
 
-			$cmb->add_field( [
-				'name'             => 'Header Secondary Font',
-				'desc'             => 'Select an option',
-				'id'               => 'campaign_header_secondary',
-				'type'             => 'select',
-				'show_option_none' => '-----',
-				'options'          => [
-					'monsterrat_semi'   => __( 'Montserrat Semi Bold', 'planet4-master-theme-backend' ),
-					'kanit_semi'        => __( 'Kanit Semi Bold', 'planet4-master-theme-backend' ),
-					'open_sans'         => __( 'Open Sans', 'planet4-master-theme-backend' ),
-					'open_sans_shadows' => __( 'Open Sans Shadows', 'planet4-master-theme-backend' ),
-				],
-			] );
+			$cmb->add_field(
+				[
+					'name'             => 'Header Secondary Font',
+					'desc'             => 'Select an option',
+					'id'               => 'campaign_header_secondary',
+					'type'             => 'select',
+					'show_option_none' => '-----',
+					'options'          => [
+						'monsterrat_semi'   => __( 'Montserrat Semi Bold', 'planet4-master-theme-backend' ),
+						'kanit_semi'        => __( 'Kanit Semi Bold', 'planet4-master-theme-backend' ),
+						'open_sans'         => __( 'Open Sans', 'planet4-master-theme-backend' ),
+						'open_sans_shadows' => __( 'Open Sans Shadows', 'planet4-master-theme-backend' ),
+					],
+				]
+			);
 
-			$cmb->add_field( [
-				'name'    => __( 'Body Font', 'planet4-master-theme-backend' ),
-				'id'      => 'campaign_body_font',
-				'type'    => 'radio_inline',
-				'options' => [
-					'lora'   => __( 'Serif', 'planet4-master-theme-backend' ),
-					'roboto' => __( 'Sans Serif', 'planet4-master-theme-backend' ),
-				],
-				'default' => 'lora',
-			] );
+			$cmb->add_field(
+				[
+					'name'    => __( 'Body Font', 'planet4-master-theme-backend' ),
+					'id'      => 'campaign_body_font',
+					'type'    => 'radio_inline',
+					'options' => [
+						'lora'   => __( 'Serif', 'planet4-master-theme-backend' ),
+						'roboto' => __( 'Sans Serif', 'planet4-master-theme-backend' ),
+					],
+					'default' => 'lora',
+				]
+			);
 
-			$cmb->add_field( [
-				'name'       => __( 'Primary Button Color', 'planet4-master-theme-backend' ),
-				'id'         => 'campaign_primary_color',
-				'type'       => 'colorpicker',
-				'classes'    => 'palette-only',
-				'default'    => '#ffffff',
-				'attributes' => [
-					'data-colorpicker' => json_encode( [
-						'palettes' => $primary_palette,
-					] ),
-				],
-			] );
+			$cmb->add_field(
+				[
+					'name'       => __( 'Primary Button Color', 'planet4-master-theme-backend' ),
+					'id'         => 'campaign_primary_color',
+					'type'       => 'colorpicker',
+					'classes'    => 'palette-only',
+					'default'    => '#ffffff',
+					'attributes' => [
+						'data-colorpicker' => json_encode(
+							[
+								'palettes' => $primary_palette,
+							]
+						),
+					],
+				]
+			);
 
-			$cmb->add_field( [
-				'name'       => __( 'Secondary Button Color', 'planet4-master-theme-backend' ),
-				'id'         => 'campaign_secondary_color',
-				'type'       => 'colorpicker',
-				'classes'    => 'palette-only',
-				'default'    => '#ffffff',
-				'attributes' => [
-					'data-colorpicker' => json_encode( [
-						'palettes' => $secondary_palette,
-					] ),
-				],
-			] );
+			$cmb->add_field(
+				[
+					'name'       => __( 'Secondary Button Color', 'planet4-master-theme-backend' ),
+					'id'         => 'campaign_secondary_color',
+					'type'       => 'colorpicker',
+					'classes'    => 'palette-only',
+					'default'    => '#ffffff',
+					'attributes' => [
+						'data-colorpicker' => json_encode(
+							[
+								'palettes' => $secondary_palette,
+							]
+						),
+					],
+				]
+			);
 
-			$cmb->add_field( [
-				'name'    => 'Logo',
-				'desc'    => 'Change the campaign logo',
-				'id'      => 'campaign_logo',
-				'type'    => 'select',
-				'default' => 'greenpeace',
-				'options' => $themes,
-			] );
+			$cmb->add_field(
+				[
+					'name'    => 'Logo',
+					'desc'    => 'Change the campaign logo',
+					'id'      => 'campaign_logo',
+					'type'    => 'select',
+					'default' => 'greenpeace',
+					'options' => $themes,
+				]
+			);
 		}
 
 		/**
