@@ -153,6 +153,8 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'wp_ajax_get_paged_posts', [ 'P4_Search', 'get_paged_posts' ] );
 		add_action( 'wp_ajax_nopriv_get_paged_posts', [ 'P4_Search', 'get_paged_posts' ] );
 
+		add_action( 'admin_head', [ $this, 'add_help_tabs' ] );
+
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_head', 'wp_generator' );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
@@ -1078,5 +1080,15 @@ class P4_Master_Site extends TimberSite {
 				. do_shortcode( $content ) . '<p class="wp-caption-text">' . $atts['caption'] . $image_credit . '</p></div>';
 
 		return $output;
+	}
+
+	public function add_help_tabs() {
+		if ( get_current_screen() ) {
+			$screen = get_current_screen();
+			$sidebar = $screen->get_help_sidebar();
+			$sidebar .= '<p><a target="_blank" href="https://planet4.greenpeace.org/">Planet 4 Handbook</a></p>';
+
+			$screen->set_help_sidebar($sidebar);
+		}
 	}
 }
