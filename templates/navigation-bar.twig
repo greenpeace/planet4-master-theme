@@ -63,9 +63,6 @@
 			<input id="search_input" type="text" class="form-control" placeholder="{{ search_label }}"
 				   value="{{ data_nav_bar.search_query|e('wp_kses_post')|raw }}" name="s" aria-label="Search">
 			<input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}"/>
-			{% if true == is_elastic_search %}
-				<input id="es" type="hidden" name="es" value="{{ is_elastic_search }}"/>
-			{% endif %}
 			<button class="top-nav-search-btn" type="submit">
 				{{ 'search'|svgicon }}
 				<span class="screen-reader-text">{{ search_label }}</span>
