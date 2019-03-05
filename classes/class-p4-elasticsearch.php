@@ -135,5 +135,50 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 				4
 			);
 		}
+
+		/**
+		 * Apply custom weight to search results.
+		 *
+		 * @param mixed $formatted_args Assoc array with the args that ES expects.
+		 *
+		 * @return mixed
+		 */
+		public function set_results_weight( $formatted_args ) {
+
+			// Move the existing query.
+			$existing_query = $formatted_args['query'];
+			unset( $formatted_args['query'] );
+			$formatted_args['query']['function_score']['query'] = $existing_query;
+
+			$options = get_option( 'planet4_options' );
+
+			/**
+			 * Use any combination of filters here, any matched filter will adjust
+			 * the weighted results according to the scoring settings set below.
+			 */
+			$formatted_args['query']['function_score']['functions'] = [
+				[
+					'filter' => [
+						'match' => [
+							'post_type' => 'page',
+						],
+					],
+					'weight' => self::DEFAULT_PAGE_WEIGHT,
+				],
+				[
+					'filter' => [
+						'term' => [
+							'post_parent' => esc_sql( $options['act_page'] ),
+						],
+					],
+					'weight' => self::DEFAULT_ACTION_WEIGHT,
+				],
+			];
+
+			// Specify how the computed scores are combined.
+			$formatted_args['query']['function_score']['score_mode'] = 'sum';
+
+			return $formatted_args;
+		}
 	}
 }
