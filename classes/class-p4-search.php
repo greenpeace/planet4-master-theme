@@ -768,31 +768,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		}
 
 		/**
-		 * Adds a section with pagination.
-		 *
-		 * @param array|null $pagination The array with the data for the pagination.
-		 */
-		public function add_pagination( $pagination = null ) {
-			// Add pagination temporarily until we have a lazy loading solution. Use Timber::get_pagination() if we want a more customized one.
-			$this->context['pagination'] = $pagination ?? [
-				'screen_reader_text' => ' ',
-			];
-		}
-
-		/**
-		 * Adds a section with suggested keywords.
-		 *
-		 * @param array|null $suggestions The array with the suggested keywords.
-		 */
-		public function add_suggestions( $suggestions = null ) {
-			$this->context['suggestions'] = $suggestions ?? [
-				'agriculture',
-				'food',
-				'organic',
-			];
-		}
-
-		/**
 		 * View the Search page template.
 		 */
 		public function view() {
