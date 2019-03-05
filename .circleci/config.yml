@@ -152,10 +152,10 @@ jobs:
             - var
 
       - store_test_results:
-          path: /tmp/artifacts
+          path: artifacts/codeception
 
       - store_artifacts:
-          path: /tmp/artifacts
+          path: artifacts/codeception
       - run:
           name: Build - Notify failure
           when: on_fail
