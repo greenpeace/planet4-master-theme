@@ -121,7 +121,6 @@ jobs:
           name: Test - Clone planet4-docker-compose
           command: |
             git clone https://github.com/greenpeace/planet4-docker-compose
-
       - run:
           name: Test - Run tests
           command: |
@@ -141,12 +140,10 @@ jobs:
           root: /tmp/workspace
           paths:
             - var
-
       - store_test_results:
-          path: /tmp/artifacts
-
+          path: planet4-docker-compose/artifacts
       - store_artifacts:
-          path: /tmp/artifacts
+          path: planet4-docker-compose/artifacts
       - run:
           name: Build - Notify failure
           when: on_fail
