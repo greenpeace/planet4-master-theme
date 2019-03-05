@@ -102,6 +102,9 @@ class CategoryPageTest extends P4_TestCase {
 	 */
 	public function test_category_page_results() {
 
+		$user = get_user_by( 'login', 'p4_author' );
+		wp_set_current_user( $user->ID );
+
 		$post_data = $this->get_posts()['post_with_category_tag_custom_term'];
 		$posts     = $this->factory->post->create_many( 10, $post_data );
 
