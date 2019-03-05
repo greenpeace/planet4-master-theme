@@ -274,22 +274,23 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * @return array The posts of the search.
 		 */
 		public function get_posts( $paged = 1 ) : array {
-
 			$args = [];
-			$this->set_application_args( $args, $paged );
-			$this->set_engine_args( $args );
-			$posts = ( new WP_Query( $args ) )->posts;
 
+			$this->set_general_args( $args, $paged );
+			$this->set_filters_args( $args );
+			$this->set_engines_args( $args );
+
+			$posts = ( new WP_Query( $args ) )->posts;
 			return (array) $posts;
 		}
 
 		/**
 		 * Sets arguments for the WP_Query that are related to the application.
 		 *
-		 * @param array $args Assoc array with arguments for the WP_Query.
+		 * @param array $args The search query args.
 		 * @param int   $paged The number of the page of the results to be shown when using pagination/load_more.
 		 */
-		protected function set_application_args( &$args, $paged ) {
+		protected function set_general_args( &$args, $paged ) {
 			$args = [
 				'posts_per_page' => self::POSTS_LIMIT,          // Set a high maximum because -1 will get ALL posts and this can be very intensive in production.
 				'no_found_rows'  => true,                       // This means that the result counters of each filter might not be 100% precise.
@@ -324,9 +325,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$args  = array_merge( $args, $args2 );
 			}
 
-			// Add more arguments for the WP_Query based on the selected filters (if any).
-			$this->set_filters_args( $args );
-
 			$args['s'] = $this->search_query;
 			// Add sort by date.
 			$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
@@ -341,18 +339,16 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		/**
 		 * Adds arguments for the WP_Query that are related only to the search engine.
 		 *
-		 * @param $args
-		 *
-		 * @return mixed
+		 * @param array $args The search query args.
 		 */
-		abstract public function set_engine_args( &$args );
+		abstract public function set_engines_args( &$args );
 
 		/**
 		 * Applies user selected filters to the search if there are any and gets the filtered posts.
 		 *
-		 * @param array $args Query args.
+		 * @param array $args The search query args.
 		 */
-		public function set_filters_args( &$args) {
+		public function set_filters_args( &$args ) {
 			if ( $this->filters ) {
 				foreach ( $this->filters as $type => $filter_type ) {
 					foreach ( $filter_type as $filter ) {

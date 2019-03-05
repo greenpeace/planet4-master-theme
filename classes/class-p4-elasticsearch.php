@@ -17,7 +17,7 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 		 *
 		 * @param array $args Query args.
 		 */
-		public function set_filters_args( &$args) {
+		public function set_filters_args( &$args ) {
 			parent::set_filters_args( $args );
 
 			if ( $this->filters ) {
@@ -99,7 +99,7 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 		 *
 		 * @param array $args The array with the arguments that will be passed to WP_Query.
 		 */
-		public function set_engine_args( &$args ) {
+		public function set_engines_args( &$args ) {
 
 			$args['ep_integrate'] = true;
 
