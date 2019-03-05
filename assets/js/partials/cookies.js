@@ -1,3 +1,4 @@
+/* global dataLayer */
 function createCookie(name, value, days) {
   var date = new Date();
   date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -33,5 +34,14 @@ $(document).ready(function () {
     $('.cookie-notice').slideUp('slow');
     $('footer').css('margin-bottom', '0');
     createCookie('greenpeace', '2', 365);
+
+    // Remove the 'no_track' cookie, if user accept the cookies consent.
+    createCookie('no_track', '0', -1);
+
+    // DataLayer push event on cookies consent.
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({
+      'event' : 'cookiesConsent'
+    });
   });
 });

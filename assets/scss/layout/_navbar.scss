@@ -558,11 +558,10 @@ $menu-height-large: 3.75rem;
     line-height: 1.5;
     font-weight: bold;
     color: $grey-40;
-    @include margin($left: $n25);
+    @include margin($left: -$n25);
 
     html[dir="rtl"] & {
-      margin-left: 0;
-      margin-right: -1.5em;
+      @include margin($left: 0, $right: -$n25);
       text-transform: lowercase;
     }
 
