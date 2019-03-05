@@ -92,7 +92,7 @@ class P4_Master_Site extends TimberSite {
 		$this->theme_dir        = get_template_directory_uri();
 		$this->theme_images_dir = $this->theme_dir . '/images/';
 		$this->sort_options     = [
-			'relevant'  => [
+			'_score'    => [
 				'name'  => __( 'Most relevant', 'planet4-master-theme' ),
 				'order' => 'DESC',
 			],
@@ -144,14 +144,20 @@ class P4_Master_Site extends TimberSite {
 				return 60;
 			}
 		);
+		add_filter(
+			'http_request_timeout',
+			function( $timeout ) {
+				return 10;
+			}
+		);
 		add_action( 'after_setup_theme', [ $this, 'add_image_sizes' ] );
 		add_action( 'admin_head', [ $this, 'remove_add_post_element' ] );
 		add_filter( 'post_gallery', [ $this, 'carousel_post_gallery' ], 10, 2 );
 		add_action( 'save_post', [ $this, 'p4_auto_generate_excerpt' ], 10, 2 );
 		add_filter( 'img_caption_shortcode', [ $this, 'override_img_caption_shortcode' ], 10, 3 );
 
-		add_action( 'wp_ajax_get_paged_posts', [ 'P4_Search', 'get_paged_posts' ] );
-		add_action( 'wp_ajax_nopriv_get_paged_posts', [ 'P4_Search', 'get_paged_posts' ] );
+		add_action( 'wp_ajax_get_paged_posts', [ 'P4_ElasticSearch', 'get_paged_posts' ] );
+		add_action( 'wp_ajax_nopriv_get_paged_posts', [ 'P4_ElasticSearch', 'get_paged_posts' ] );
 
 		add_action( 'admin_head', [ $this, 'add_help_sidebar' ] );
 
@@ -641,6 +647,8 @@ class P4_Master_Site extends TimberSite {
 	 * @return string The edited WHERE clause.
 	 */
 	public function edit_search_mime_types( $where ) : string {
+		global $wpdb;
+
 		// TODO - This method and all Search related methods in this class
 		// TODO - after this commit CAN and SHOULD be transferred inside the P4_Search class.
 		// TODO - Would have spotted the necessary change much faster.
@@ -649,7 +657,7 @@ class P4_Master_Site extends TimberSite {
 		if ( ! is_admin() && is_search() ||
 			wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
 			$mime_types = implode( ',', P4_Search::DOCUMENT_TYPES );
-			$where     .= ' AND post_mime_type IN("' . $mime_types . '","") ';
+			$where     .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
 		}
 		return $where;
 	}
