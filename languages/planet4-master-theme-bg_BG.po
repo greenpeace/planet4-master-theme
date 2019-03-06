@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2019-02-15 14:45+0000\n"
+"PO-Revision-Date: 2019-03-06 17:56+0000\n"
 "Language-Team: Bulgarian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -174,7 +174,7 @@ msgstr "Промени държавата"
 
 #: templates/navigation-bar.twig:48
 msgid "DONATE"
-msgstr "ДАРЕТЕ"
+msgstr "ДАРИ"
 
 #: templates/navigation-bar.twig:58
 msgid "Toggle search form"
