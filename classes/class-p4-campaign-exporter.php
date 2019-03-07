@@ -14,12 +14,12 @@ if ( ! class_exists( 'P4_Campaign_Exporter' ) ) {
 		 * AutoLoad Hooks
 		 * */
 		public function __construct() {
-			add_action( 'admin_action_export_data', array( $this, 'single_post_export_data' ) );
-			add_filter( 'post_row_actions', array( $this, 'single_post_export' ), 10, 2 );
-			add_filter( 'page_row_actions', array( $this, 'single_post_export' ), 10, 2 );
-			add_action( 'admin_footer-edit.php', array( $this, 'single_post_export_bulk' ) );
-			add_action( 'load-edit.php', array( $this, 'single_post_export_bulk_action' ) );
-			add_action( 'admin_head', array( $this, 'add_import_button' ) );
+			add_action( 'admin_action_export_data', [ $this, 'single_post_export_data' ] );
+			add_filter( 'post_row_actions', [ $this, 'single_post_export' ], 10, 2 );
+			add_filter( 'page_row_actions', [ $this, 'single_post_export' ], 10, 2 );
+			add_action( 'admin_footer-edit.php', [ $this, 'single_post_export_bulk' ] );
+			add_action( 'load-edit.php', [ $this, 'single_post_export_bulk_action' ] );
+			add_action( 'admin_head', [ $this, 'add_import_button' ] );
 		}
 
 		/**
@@ -42,7 +42,7 @@ if ( ! class_exists( 'P4_Campaign_Exporter' ) ) {
 		 */
 		public function single_post_export_bulk() {
 			if ( ! empty( $_GET['post_type'] ) &&
-			'campaigns' == $_GET['post_type'] &&
+			'campaign' == $_GET['post_type'] &&
 			current_user_can( 'edit_posts' ) ) { ?>
 			<script type="text/javascript">
 				jQuery(document).ready(function () {
@@ -83,7 +83,7 @@ if ( ! class_exists( 'P4_Campaign_Exporter' ) ) {
 		 */
 		public function single_post_export( $actions, $post ) {
 			if ( ! empty( $_GET['post_type'] ) &&
-				'campaigns' == $_GET['post_type'] &&
+				'campaign' == $_GET['post_type'] &&
 				current_user_can( 'edit_posts' ) ) {
 				$export_url        = esc_url( admin_url( 'admin.php?action=export_data&amp;post=' . $post->ID ) );
 				$actions['export'] = '<a href="' . $export_url . '" title="' . __( 'Export', 'planet4-master-theme-backend' ) . '" rel="permalink">' . __( 'Export', 'planet4-master-theme-backend' ) . '</a>';
@@ -101,7 +101,7 @@ if ( ! class_exists( 'P4_Campaign_Exporter' ) ) {
 			?>
 			<script>
 				jQuery(function(){
-					jQuery("body.post-type-campaigns .wrap .page-title-action").after('<a href="admin.php?import=wordpress" class="page-title-action"><?php _e( 'Import', 'planet4-master-theme-backend' ); ?></a>');
+					jQuery("body.post-type-campaign .wrap .page-title-action").after('<a href="admin.php?import=wordpress" class="page-title-action"><?php _e( 'Import', 'planet4-master-theme-backend' ); ?></a>');
 				});
 			</script>
 			<?php
