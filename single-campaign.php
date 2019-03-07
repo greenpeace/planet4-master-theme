@@ -42,6 +42,7 @@ $post->set_issues_links();
 // p4_take_action_page parameter to populate the take action boxout block
 // Author override parameter. If this is set then the author profile section will not be displayed.
 $page_meta_data                 = get_post_meta( $post->ID );
+$campaign_template              = ! empty( $page_meta_data['_campaign_page_template'][0] ) ? $page_meta_data['_campaign_page_template'][0] : 'antarctic';
 $page_terms_data                = get_the_terms( $post, 'p4-page-type' );
 $context['background_image']    = $page_meta_data['p4_background_image_override'][0] ?? '';
 $take_action_page               = $page_meta_data['p4_take_action_page'][0] ?? '';
@@ -53,31 +54,8 @@ $context['social_accounts']     = $post->get_social_accounts( $context['footer_s
 $context['og_title']            = $post->get_og_title();
 $context['og_description']      = $post->get_og_description();
 $context['og_image_data']       = $post->get_og_image();
-$context['custom_body_classes'] = 'brown-bg theme-oil';
 $context['custom_styles']       = $custom_styles;
-
-$context['filter_url'] = add_query_arg(
-	[
-		's'                                       => ' ',
-		'orderby'                                 => 'relevant',
-		'f[ptype][' . $context['page_type'] . ']' => $context['page_term_id'],
-	],
-	get_home_url()
-);
-
-
-// Build the shortcode for articles block.
-if ( 'yes' === $post->include_articles ) {
-	$post->articles = "[shortcake_articles exclude_post_id='" . $post->ID . "' /]";
-}
-
-// Build the shortcode for take action boxout block
-// Break the content to retrieve first 2 paragraphs and split the content if the take action page has been defined.
-if ( ! empty( $take_action_page ) ) {
-	$post->take_action_page   = $take_action_page;
-	$post->take_action_boxout = "[shortcake_take_action_boxout take_action_page='$take_action_page' /]";
-}
-
+$context['custom_body_classes'] = 'brown-bg theme-' . $campaign_template;
 
 $context['post_tags'] = implode( ', ', $post->tags() );
 

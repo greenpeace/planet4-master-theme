@@ -15,7 +15,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		 *
 		 * @var string $post_type
 		 */
-		private $post_type = 'campaigns';
+		private $post_type = 'campaign';
 
 
 		/**
@@ -102,7 +102,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'campaigns-page-templates',
 				__( 'Campaign Templates', 'planet4-master-theme-backend' ),
 				array( $this, 'campaign_page_templates_meta_box_callback' ),
-				'campaigns',
+				'campaign',
 				'side'
 			);
 		}
@@ -235,7 +235,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'id'           => 'campaign_nav_settings_mb',
 					'title'        => __( 'Page Design', 'planet4-master-theme-backend' ),
 					'object_types' => [
-						'campaigns',
+						'campaign',
 					],
 					'context'      => 'normal',
 					'priority'     => 'high',
@@ -392,6 +392,3 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		}
 	}
 }
-
-
-
