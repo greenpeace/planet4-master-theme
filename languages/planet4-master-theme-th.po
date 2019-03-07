@@ -117,7 +117,7 @@ msgstr ""
 
 #: classes/class-p4-search.php:574
 msgid "PAGE"
-msgstr ""
+msgstr "หน้า"
 
 #: classes/class-p4-search.php:580
 msgid "DOCUMENT"
