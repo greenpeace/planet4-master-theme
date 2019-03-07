@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2019-02-15 14:45+0000\n"
-"Language-Team: Bulgarian\n"
+"PO-Revision-Date: 2019-03-07 09:33+0000\n"
+"Language-Team: Thai\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,8 +16,8 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: Bojidar Nikolov <bnikolov@greenpeace.org>\n"
-"Language: bg_BG\n"
+"Last-Translator: nwisanuk <nwisanuk@greenpeace.org>\n"
+"Language: th\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: \n"
@@ -29,15 +29,15 @@ msgstr ""
 
 #: single.php:76
 msgid "Leave Your Reply"
-msgstr "Напишете коментар"
+msgstr ""
 
 #: 404.php:30
 msgid "Sorry, we can't find that page!"
-msgstr "Съжаляваме, но не можем да намерим тази страница!"
+msgstr ""
 
 #: 404.php:31
 msgid "Enter your search term below"
-msgstr "Въведете ключова дума за търсене отдолу"
+msgstr ""
 
 #: 404.php:32
 msgid "404 Page"
@@ -49,15 +49,15 @@ msgstr ""
 
 #: tag.php:64
 msgid "Things you can do"
-msgstr "Неща, които можете да направите"
+msgstr ""
 
 #: tag.php:65
 msgid "We want you to take action because together we're strong."
-msgstr "Искаме и Вие да се включите, защото заедно сме силни."
+msgstr ""
 
 #: tag.php:81
 msgid "Related Campaigns"
-msgstr "Свързани кампании"
+msgstr ""
 
 #: tag.php:82
 msgid "This Campaign is not assigned to an Issue"
@@ -65,15 +65,15 @@ msgstr ""
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr "Най-уместни"
+msgstr ""
 
 #: functions.php:89
 msgid "Most recent"
-msgstr "Най-нови"
+msgstr ""
 
 #: functions.php:287
 msgid "International (English)"
-msgstr "International (English)"
+msgstr ""
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
@@ -84,16 +84,16 @@ msgstr ""
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] "%1$d резултат за '%2$s'"
-msgstr[1] "%1$d резултати за '%2$s'"
+msgstr[0] ""
+msgstr[1] ""
 
 #. translators:
 #: classes/class-p4-search.php:418
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] "%d резултат"
-msgstr[1] "%d резултата"
+msgstr[0] ""
+msgstr[1] ""
 
 #: classes/class-p4-search.php:478
 msgid "Action"
@@ -101,11 +101,11 @@ msgstr ""
 
 #: classes/class-p4-search.php:482
 msgid "Document"
-msgstr "Документ"
+msgstr ""
 
 #: classes/class-p4-search.php:486
 msgid "Page"
-msgstr "Страница"
+msgstr ""
 
 #: classes/class-p4-search.php:490
 msgid "Post"
@@ -117,11 +117,11 @@ msgstr ""
 
 #: classes/class-p4-search.php:574
 msgid "PAGE"
-msgstr "СТРАНИЦА"
+msgstr ""
 
 #: classes/class-p4-search.php:580
 msgid "DOCUMENT"
-msgstr "ДОКУМЕНТ"
+msgstr ""
 
 #: classes/class-p4-search.php:585
 msgid "POST"
@@ -130,7 +130,7 @@ msgstr ""
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr "ПОКАЖИ ОЩЕ %s РЕЗУЛТАТА"
+msgstr ""
 
 #. Name of the template
 msgid "Evergreen Page"
@@ -138,7 +138,7 @@ msgstr ""
 
 #. Name of the template
 msgid "Sitemap Page"
-msgstr "Страница с карта на сайта"
+msgstr ""
 
 #: page-templates/sitemap.php:31
 msgid "Act"
@@ -150,31 +150,31 @@ msgstr ""
 
 #: page-templates/sitemap.php:33
 msgid "About Greenpeace"
-msgstr "За „Грийнпийс“"
+msgstr "เกี่ยวกับกรีนพีซ"
 
 #: page-templates/sitemap.php:34
 msgid "Articles"
-msgstr "Публикации"
+msgstr ""
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
-msgstr "Меню"
+msgstr ""
 
 #: templates/navigation-bar.twig:18
 msgid "Close Menu"
-msgstr "Затвори менюто"
+msgstr ""
 
 #: templates/navigation-bar.twig:27
 msgid "Selected"
-msgstr "Избрано"
+msgstr ""
 
 #: templates/navigation-bar.twig:28
 msgid "Change Country"
-msgstr "Промени държавата"
+msgstr ""
 
 #: templates/navigation-bar.twig:48
 msgid "DONATE"
-msgstr "ДАРЕТЕ"
+msgstr ""
 
 #: templates/navigation-bar.twig:58
 msgid "Toggle search form"
@@ -182,47 +182,47 @@ msgstr ""
 
 #: templates/navigation-bar.twig:66 templates/search.twig:44
 msgid "Search"
-msgstr "Търсене"
+msgstr ""
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr "РАЗБРАНО!"
+msgstr ""
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr "Съжаляваме, но не открихме съвпадения с търсеното от Вас."
+msgstr ""
 
 #: templates/search.twig:17
 msgid "Check for typos, and try your search again"
-msgstr "Проверете за грешки и опитайте отново"
+msgstr ""
 
 #: templates/search.twig:18
 msgid "Try searching for somthing else"
-msgstr "Опитайте с различно търсене"
+msgstr ""
 
 #: templates/search.twig:19
 msgid "Search our archive. You'll be redirected to the archive site."
-msgstr "Потърсете в архива ни. Ще бъдете пренасочени към него."
+msgstr ""
 
 #: templates/search.twig:23
 msgid "We also included results for "
-msgstr "Включили сме резултати и за"
+msgstr ""
 
 #: templates/search.twig:37
 msgid "This Site"
-msgstr "Този сайт"
+msgstr ""
 
 #: templates/search.twig:38
 msgid "Archive"
-msgstr "Архив"
+msgstr ""
 
 #: templates/search.twig:56
 msgid "Filters"
-msgstr "Филтри"
+msgstr ""
 
 #: templates/search.twig:62 templates/search.twig:163
 msgid "Refine your search"
-msgstr "Конкретизирайте търсенето"
+msgstr ""
 
 #: templates/search.twig:70
 msgid "ISSUE"
@@ -230,31 +230,31 @@ msgstr ""
 
 #: templates/search.twig:91
 msgid "CATEGORY"
-msgstr "КАТЕГОРИЯ"
+msgstr ""
 
 #: templates/search.twig:112
 msgid "CONTENT TYPES"
-msgstr "ВИДОВЕ СЪДЪРЖАНИЕ"
+msgstr ""
 
 #: templates/search.twig:136
 msgid "CAMPAIGN"
-msgstr "КАМПАНИЯ"
+msgstr ""
 
 #: templates/search.twig:155
 msgid "Cancel"
-msgstr "Отмени"
+msgstr ""
 
 #: templates/search.twig:156
 msgid "Apply Filters"
-msgstr "Приложи филтрите"
+msgstr ""
 
 #: templates/search.twig:166
 msgid "ACTIVE FILTERS"
-msgstr "ПРИЛОЖЕНИ ФИЛТРИ"
+msgstr ""
 
 #: templates/search.twig:175
 msgid "Clear All"
-msgstr "Изчисти всички"
+msgstr ""
 
 #: templates/search.twig:182
 msgid "Issue"
@@ -262,23 +262,23 @@ msgstr ""
 
 #: templates/search.twig:201
 msgid "Campaign"
-msgstr "Кампания"
+msgstr ""
 
 #: templates/search.twig:220
 msgid "Category"
-msgstr "Категория"
+msgstr ""
 
 #: templates/search.twig:239
 msgid "Content type"
-msgstr "Вид съдържание"
+msgstr ""
 
 #: templates/search.twig:262
 msgid "Sort by"
-msgstr "Подреди по"
+msgstr ""
 
 #: templates/search.twig:299
 msgid "Suggested search terms"
-msgstr "Предложени ключови думи"
+msgstr ""
 
 #: templates/tease-search.twig:62
 msgid "take action"
@@ -286,15 +286,15 @@ msgstr ""
 
 #: templates/tease-search.twig:65
 msgid "Download"
-msgstr "Изтегляне"
+msgstr ""
 
 #: templates/single.twig:39
 msgid "by"
-msgstr "от"
+msgstr ""
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr "За автора"
+msgstr ""
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
@@ -302,11 +302,11 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid "Master theme for the Planet 4 Wordpress project"
-msgstr "Основна тема за проекта \"Planet 4 Wordpress\""
+msgstr ""
 
 #. Theme URI of the plugin/theme
 msgid "https://github.com/greenpeace/planet4-master-theme"
-msgstr "https://github.com/greenpeace/planet4-master-theme"
+msgstr ""
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
@@ -314,4 +314,4 @@ msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/greenpeace"
-msgstr "https://github.com/greenpeace"
+msgstr ""
