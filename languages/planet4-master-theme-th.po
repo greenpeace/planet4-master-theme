@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2019-03-07 10:44+0000\n"
+"PO-Revision-Date: 2019-03-07 10:49+0000\n"
 "Language-Team: Thai\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -166,7 +166,7 @@ msgstr ""
 
 #: templates/navigation-bar.twig:27
 msgid "Selected"
-msgstr ""
+msgstr "เลือกแล้ว"
 
 #: templates/navigation-bar.twig:28
 msgid "Change Country"
@@ -182,7 +182,7 @@ msgstr ""
 
 #: templates/navigation-bar.twig:66 templates/search.twig:44
 msgid "Search"
-msgstr ""
+msgstr "ค้นหา"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
@@ -218,7 +218,7 @@ msgstr ""
 
 #: templates/search.twig:56
 msgid "Filters"
-msgstr ""
+msgstr "ตัวกรอง"
 
 #: templates/search.twig:62 templates/search.twig:163
 msgid "Refine your search"
@@ -230,7 +230,7 @@ msgstr ""
 
 #: templates/search.twig:91
 msgid "CATEGORY"
-msgstr ""
+msgstr "หมวดหมู่"
 
 #: templates/search.twig:112
 msgid "CONTENT TYPES"
@@ -238,7 +238,7 @@ msgstr ""
 
 #: templates/search.twig:136
 msgid "CAMPAIGN"
-msgstr ""
+msgstr "แคมเปญ"
 
 #: templates/search.twig:155
 msgid "Cancel"
@@ -262,11 +262,11 @@ msgstr ""
 
 #: templates/search.twig:201
 msgid "Campaign"
-msgstr ""
+msgstr "แคมเปญ"
 
 #: templates/search.twig:220
 msgid "Category"
-msgstr ""
+msgstr "หมวดหมู่"
 
 #: templates/search.twig:239
 msgid "Content type"
@@ -274,7 +274,7 @@ msgstr ""
 
 #: templates/search.twig:262
 msgid "Sort by"
-msgstr ""
+msgstr "จัดเรียงตาม"
 
 #: templates/search.twig:299
 msgid "Suggested search terms"
@@ -290,11 +290,11 @@ msgstr ""
 
 #: templates/single.twig:39
 msgid "by"
-msgstr ""
+msgstr "โดย"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr ""
+msgstr "เกี่ยวกับผู้เขียน"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
