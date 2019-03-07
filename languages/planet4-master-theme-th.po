@@ -158,7 +158,7 @@ msgstr ""
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
-msgstr ""
+msgstr "เมนู"
 
 #: templates/navigation-bar.twig:18
 msgid "Close Menu"
