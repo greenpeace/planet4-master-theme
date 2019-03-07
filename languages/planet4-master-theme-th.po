@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-03-07 10:52+0000\n"
+"PO-Revision-Date: 2019-03-07 11:04+0000\n"
 "Language-Team: Thai\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +41,7 @@ msgstr ""
 
 #: 404.php:18
 msgid "404 Page"
-msgstr ""
+msgstr "หน้า 404"
 
 #: tag.php:48
 msgid "Unknown Campaign page"
@@ -81,7 +81,7 @@ msgstr ""
 
 #: functions.php:270
 msgid "DONATE"
-msgstr ""
+msgstr "บริจาค"
 
 #: functions.php:271
 msgid "International (English)"
@@ -235,7 +235,7 @@ msgstr ""
 
 #: templates/search.twig:39
 msgid "Archive"
-msgstr ""
+msgstr "คลังข้อมูลเก่าเก็บ"
 
 #: templates/search.twig:57
 msgid "Filters"
@@ -267,15 +267,15 @@ msgstr "ยกเลิก"
 
 #: templates/search.twig:157
 msgid "Apply Filters"
-msgstr ""
+msgstr "ปรับเปลี่ยนตัวกรอง"
 
 #: templates/search.twig:167
 msgid "ACTIVE FILTERS"
-msgstr ""
+msgstr "ตัวกรองที่ใช้อยู่"
 
 #: templates/search.twig:176
 msgid "Clear All"
-msgstr ""
+msgstr "ล้างทั้งหมด"
 
 #: templates/search.twig:183
 msgid "Issue"
@@ -307,7 +307,7 @@ msgstr ""
 
 #: templates/tease-search.twig:70
 msgid "Download"
-msgstr ""
+msgstr "ดาวน์โหลด"
 
 #: templates/base.twig:10
 msgid "Skip to Navigation"
@@ -327,7 +327,7 @@ msgstr "โดย"
 
 #: templates/single.twig:53 templates/comments_section.twig:2
 msgid "Comments"
-msgstr ""
+msgstr "ข้อคิดเห็น"
 
 #: templates/comments_section.twig:8
 msgid "Discussion"
@@ -351,27 +351,27 @@ msgstr "เกี่ยวกับผู้เขียน"
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
-msgstr ""
+msgstr "อีเมล์"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
-msgstr ""
+msgstr "อีเมล์ของคุณ"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
-msgstr ""
+msgstr "ข้อคิดเห็น"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr ""
+msgstr "ข้อคิดเห็นของคุณ"
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr ""
+msgstr "ชื่อ"
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
-msgstr ""
+msgstr "ชื่อของคุณ"
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post Comment"
