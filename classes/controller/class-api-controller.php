@@ -52,7 +52,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 
 			$this->api_param = [
 				'query'        => '(Mediatype:Image)',
-				'fields'       => 'Title,Caption,Artist,ArtistShortID,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier,original-language-title,original-language-description,original-language,restrictions',
+				'fields'       => 'Title,Caption,copyright,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier,original-language-title,original-language-description,original-language,restrictions,copyright',
 				'countperpage' => self::MEDIAS_PER_PAGE,
 				'format'       => 'json',
 				'token'        => $this->ml_auth_token,
@@ -190,7 +190,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 			if ( is_array( $details ) && $details ) {
 				$media_details['image_title']   = $details['Title'];
 				$media_details['image_caption'] = $details['Caption'];
-				$media_details['image_credit']  = $details['Artist'];
+				$media_details['image_credit']  = $details['copyright'];
 				$media_details['gpml_image_id'] = $details['SystemIdentifier'];
 
 				if ( $details['Path_TR7']['URI'] ) {
