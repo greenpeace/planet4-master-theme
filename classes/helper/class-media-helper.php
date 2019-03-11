@@ -75,7 +75,7 @@ class MediaHelper {
 				wp_update_attachment_metadata( $attachment_id, $attachment_data );
 
 				// Add credit to alt field.
-				$alt_text = '' !== $image->get_credit() ? $alt_text . ' © ' . $image->get_credit() : $alt_text;
+				$alt_text = '' !== $image->get_credit() ? $alt_text . ' ' . $image->get_credit() : $alt_text;
 
 				// Set the image Alt-Text & image Credit.
 				update_post_meta( $attachment_id, '_wp_attachment_image_alt', $alt_text );
