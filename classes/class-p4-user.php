@@ -67,11 +67,11 @@ if ( ! class_exists( 'P4_User' ) ) {
 		/**
 		 * Author display name.
 		 *
-		 * @return null|string
+		 * @return string
 		 */
-		public function name() {
+		public function name() : string {
 			if ( $this->is_fake ) {
-				return $this->display_name;
+				return (string) $this->display_name;
 			} else {
 				return parent::name();
 			}

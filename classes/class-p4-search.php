@@ -11,18 +11,18 @@ use Timber\Post as TimberPost;
 if ( ! class_exists( 'P4_Search' ) ) {
 
 	/**
-	 * Class P4_Search
+	 * Abstract Class P4_Search
 	 */
-	class P4_Search {
+	abstract class P4_Search {
 
 		const POSTS_LIMIT           = 300;
 		const POSTS_PER_PAGE        = 10;
 		const POSTS_PER_LOAD        = 5;
 		const SHOW_SCROLL_TIMES     = 2;
-		const DEFAULT_SORT          = 'relevant';
+		const DEFAULT_SORT          = '_score';
 		const DEFAULT_MIN_WEIGHT    = 1;
-		const DEFAULT_PAGE_WEIGHT   = 20;
-		const DEFAULT_ACTION_WEIGHT = 25;
+		const DEFAULT_PAGE_WEIGHT   = 100;
+		const DEFAULT_ACTION_WEIGHT = 2000;
 		const DEFAULT_MAX_WEIGHT    = 30;
 		const DEFAULT_CACHE_TTL     = 600;
 		const DUMMY_THUMBNAIL       = '/images/dummy-thumbnail.png';
@@ -170,7 +170,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 				// Check if call action is correct.
 				if ( 'get_paged_posts' === $search_action ) {
-					$search_async               = new self();
+					$search_async = new static();
+					$search_async->set_context( $search_async->context );
 					$search_async->search_query = trim( get_search_query() );
 
 					// Get the decoded url query string and then use it as key for redis.
@@ -182,8 +183,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					$search_async->current_page = $paged;
 
 					parse_str( $query_string, $filters_array );
-					$selected_sort    = $filters_array['orderby'];
-					$selected_filters = $filters_array['f'];
+					$selected_sort    = $filters_array['orderby'] ?? self::DEFAULT_SORT;
+					$selected_filters = $filters_array['f'] ?? [];
 					$filters          = [];
 
 					// Handle submitted filter options.
@@ -255,22 +256,13 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		protected function get_timber_posts( $paged = 1 ) : array {
 			$timber_posts = [];
 
-			if ( $this->search_query && ! $this->filters ) {
-				/*
-				 * With no args passed to this call, Timber uses the main query which we filter for customisations via P4_Master_Site class.
-				 * When customising this query, use filters on the main query to avoid bypassing SearchWP's handling of the query.
-				 */
-				$timber_posts = Timber::get_posts();
-			} else {
-				$posts = $this->get_posts( $paged );
-				// Use Timber's Post instead of WP_Post so that we can make use of Timber within the template.
-				if ( $posts ) {
-					foreach ( $posts as $post ) {
-						$timber_posts[] = new TimberPost( $post->ID );
-					}
+			$posts = $this->get_posts( $paged );
+			// Use Timber's Post instead of WP_Post so that we can make use of Timber within the template.
+			if ( $posts ) {
+				foreach ( $posts as $post ) {
+					$timber_posts[] = new TimberPost( $post->ID );
 				}
 			}
-
 			return (array) $timber_posts;
 		}
 
@@ -281,8 +273,24 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 *
 		 * @return array The posts of the search.
 		 */
-		protected function get_posts( $paged = 1 ) : array {
+		public function get_posts( $paged = 1 ) : array {
+			$args = [];
 
+			$this->set_general_args( $args, $paged );
+			$this->set_filters_args( $args );
+			$this->set_engines_args( $args );
+
+			$posts = ( new WP_Query( $args ) )->posts;
+			return (array) $posts;
+		}
+
+		/**
+		 * Sets arguments for the WP_Query that are related to the application.
+		 *
+		 * @param array $args The search query args.
+		 * @param int   $paged The number of the page of the results to be shown when using pagination/load_more.
+		 */
+		protected function set_general_args( &$args, $paged ) {
 			$args = [
 				'posts_per_page' => self::POSTS_LIMIT,          // Set a high maximum because -1 will get ALL posts and this can be very intensive in production.
 				'no_found_rows'  => true,                       // This means that the result counters of each filter might not be 100% precise.
@@ -317,6 +325,30 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$args  = array_merge( $args, $args2 );
 			}
 
+			$args['s'] = $this->search_query;
+			// Add sort by date.
+			$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
+			$selected_sort = sanitize_sql_orderby( $selected_sort );
+
+			if ( $selected_sort && self::DEFAULT_SORT !== $selected_sort ) {
+				$args['orderby'] = 'date';
+				$args['order']   = 'desc';
+			}
+		}
+
+		/**
+		 * Adds arguments for the WP_Query that are related only to the search engine.
+		 *
+		 * @param array $args The search query args.
+		 */
+		abstract public function set_engines_args( &$args );
+
+		/**
+		 * Applies user selected filters to the search if there are any and gets the filtered posts.
+		 *
+		 * @param array $args The search query args.
+		 */
+		public function set_filters_args( &$args ) {
 			if ( $this->filters ) {
 				foreach ( $this->filters as $type => $filter_type ) {
 					foreach ( $filter_type as $filter ) {
@@ -336,6 +368,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 								];
 								break;
 							case 'ptype':
+								// This taxonomy is used only for Posts.
+								$args['post_type']   = 'post';
 								$args['tax_query'][] = [
 									'taxonomy' => 'p4-page-type',
 									'field'    => 'term_id',
@@ -371,58 +405,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					}
 				}
 			}
-
-			/*
-			 * 1. Pass params for SWP_Query and get posts.
-			 * 2. If more params that are not supported by SWP_Query like post_parent, post_parent__not_in,
-			 *    tag__and, category__and, are required then pass them to WP_Query and get posts.
-			 * 3. Get the respective Timber Posts, so that we can use Timber functionality in our search template.
-			 */
-			if ( $this->search_query ) {
-				$posts = ( new SWP_Query( $args ) )->posts;
-			}
-
-			// This happens when we search for everything or when filtering for attachments, since WP_Query does not support searching within rich text documents.
-			if ( ! $this->search_query || ( isset( $args['post_type'] ) && 'attachment' !== $args['post_type'] ) ) {
-				if ( isset( $posts ) ) {
-					$ids = [];
-					foreach ( $posts as $post ) {
-						$ids[] = $post->ID;
-					}
-					$args['post__in'] = $ids;
-					// If posts were found by SearchWP and we sort by relevance then keep
-					// the order that they were found with by SearchWP.
-					if ( self::DEFAULT_SORT === $this->selected_sort ) {
-						$args['orderby'] = 'post__in';
-					}
-				}
-
-				// Get the stem of the word and use it instead of the original word,
-				// because WP_Query does not automatically use the stem of the word.
-				$stem = $this->get_stem( $this->search_query );
-				if ( $stem ) {
-					$args['s'] = $stem;
-				}
-
-				$posts = ( new WP_Query( $args ) )->posts;
-			}
-
-			return (array) $posts;
-		}
-
-		/**
-		 * Gets the stem of a word that was produced and stored by SearchWP in the swp_terms table.
-		 *
-		 * @param string $word The original word.
-		 *
-		 * @return string The stem of the word.
-		 */
-		protected function get_stem( $word ) : string {
-			global $wpdb;
-
-			$statement = $wpdb->prepare( "SELECT `stem` FROM `{$wpdb->prefix}swp_terms` where `term` = %s", $word );
-			$result    = $wpdb->get_col( $statement ); // WPCS: unprepared SQL OK.
-			return $result[0] ?? '';
 		}
 
 		/**
@@ -454,6 +436,16 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['found_posts']      = count( (array) $this->posts );
 			$context['source_selection'] = false;
 			$context['page_category']    = $category->name ?? __( 'Search page', 'planet4-master-theme' );
+			$context['sort_options']     = [
+				'_score'    => [
+					'name'  => __( 'Most relevant', 'planet4-master-theme' ),
+					'order' => 'DESC',
+				],
+				'post_date' => [
+					'name'  => __( 'Most recent', 'planet4-master-theme' ),
+					'order' => 'DESC',
+				],
+			];
 
 			if ( $this->search_query ) {
 				$context['page_title'] = sprintf(
@@ -647,20 +639,22 @@ if ( ! class_exists( 'P4_Search' ) ) {
 						$content_type      = 'post';
 						$context['content_types']['3']['results']++;
 				}
-
-				// Page Type <-> Category.
-				$page_types = get_the_terms( $post->ID, 'p4-page-type' );
-				if ( $page_types ) {
-					foreach ( (array) $page_types as $page_type ) {
-						// p4-page-type filters.
-						$context['page_types'][ $page_type->term_id ]['term_id'] = $page_type->term_id;
-						$context['page_types'][ $page_type->term_id ]['name']    = $page_type->name;
-						$context['page_types'][ $page_type->term_id ]['results']++;
-					}
-				}
 				$context['posts_data'][ $post->ID ]['content_type_text'] = $content_type_text;
 				$context['posts_data'][ $post->ID ]['content_type']      = $content_type;
-				$context['posts_data'][ $post->ID ]['page_types']        = $page_types;
+
+				// Page Type <-> Category. This taxonomy is used only for Posts.
+				if ( 'post' === $post->post_type ) {
+					$page_types = get_the_terms( $post->ID, 'p4-page-type' );
+					if ( is_array( $page_types ) ) {
+						foreach ( (array) $page_types as $page_type ) {
+							// p4-page-type filters.
+							$context['page_types'][ $page_type->term_id ]['term_id'] = $page_type->term_id;
+							$context['page_types'][ $page_type->term_id ]['name']    = $page_type->name;
+							$context['page_types'][ $page_type->term_id ]['results'] ++;
+						}
+					}
+					$context['posts_data'][ $post->ID ]['page_types'] = $page_types;
+				}
 
 				// Tag <-> Campaign.
 				$tags = get_the_terms( $post->ID, 'post_tag' );
@@ -693,7 +687,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		public function validate( &$selected_sort, &$filters, $context ) : bool {
 			$selected_sort = filter_var( $selected_sort, FILTER_SANITIZE_STRING );
 			if ( ! isset( $context['sort_options'] ) || ! in_array( $selected_sort, array_keys( $context['sort_options'] ), true ) ) {
-				$selected_sort = P4_Search::DEFAULT_SORT;
+				$selected_sort = self::DEFAULT_SORT;
 			}
 
 			if ( $filters ) {
@@ -721,31 +715,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				// Translators: %s = number of results per page.
 				'button_text'    => sprintf( __( 'SHOW %s MORE RESULTS', 'planet4-master-theme' ), self::POSTS_PER_LOAD ),
 				'async'          => true,
-			];
-		}
-
-		/**
-		 * Adds a section with pagination.
-		 *
-		 * @param array|null $pagination The array with the data for the pagination.
-		 */
-		public function add_pagination( $pagination = null ) {
-			// Add pagination temporarily until we have a lazy loading solution. Use Timber::get_pagination() if we want a more customized one.
-			$this->context['pagination'] = $pagination ?? [
-				'screen_reader_text' => ' ',
-			];
-		}
-
-		/**
-		 * Adds a section with suggested keywords.
-		 *
-		 * @param array|null $suggestions The array with the suggested keywords.
-		 */
-		public function add_suggestions( $suggestions = null ) {
-			$this->context['suggestions'] = $suggestions ?? [
-				'agriculture',
-				'food',
-				'organic',
 			];
 		}
 
@@ -784,7 +753,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		public function enqueue_public_assets() {
 			if ( is_search() ) {
-				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [ 'jquery' ], '0.1.9', true );
+				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [ 'jquery' ], '0.2.6', true );
 				wp_localize_script( 'search', 'localizations', $this->localizations );
 				wp_enqueue_script( 'search' );
 			}
