@@ -71,7 +71,7 @@ jQuery(document).ready(function () {
                         }
 
                         // Add credit to alt text.
-                        alt_text = '' !== image.credit ? alt_text + ' © ' + image.credit : alt_text;
+                        alt_text = '' !== image.credit ? alt_text + ' ' + image.credit : alt_text;
 
                         options = {
                             id: image.wordpress_id,
