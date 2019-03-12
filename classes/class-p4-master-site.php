@@ -312,6 +312,9 @@ class P4_Master_Site extends TimberSite {
 		$context['donatetext']           = $options['donate_text'] ?? __( 'DONATE', 'planet4-master-theme' );
 		$context['website_navbar_title'] = $options['website_navigation_title'] ?? __( 'International (English)', 'planet4-master-theme' );
 
+		// P4 structured data.
+		$context['p4_structured_data'] = $this->generate_p4_structured_data();
+
 		// Footer context.
 		$context['copyright_text_line1']  = $options['copyright_line1'] ?? '';
 		$context['copyright_text_line2']  = $options['copyright_line2'] ?? '';
@@ -1102,5 +1105,35 @@ class P4_Master_Site extends TimberSite {
 
 			$screen->set_help_sidebar( $sidebar );
 		}
+	}
+
+	/**
+	 * Generate structured data for a search engine.
+	 */
+	public function generate_p4_structured_data() {
+		$p4_site_url   = get_site_url();
+		$p4_site_title = get_bloginfo( 'name' );
+
+		// Filter social menu links.
+		$footer_social_menu = wp_get_nav_menu_items( 'Footer Social' );
+		$social_menu_links  = [];
+
+		foreach ( $footer_social_menu as $menu_details ) {
+			$social_menu_links[] = $menu_details->url;
+		}
+
+		$p4_structured_data  = '<script type=\'application/ld+json\'>';
+		$p4_structured_data .= '{"@context":"http:\/\/schema.org","@type":"WebSite","url":"' . $p4_site_url . '","name":"' . $p4_site_title . '","alternateName":"Greenpeace",';
+		$p4_structured_data .= '"potentialAction":{"@type":"SearchAction","target":"' . $p4_site_url . '?s={search_term_string}&orderby=_score","query-input":"required name=search_term_string"}}';
+		$p4_structured_data .= '</script>
+		<script type=\'application/ld+json\'>';
+		$p4_structured_data .= '{"@context":"http:\/\/schema.org","@type":"Organization","url":"' . $p4_site_url . '",';
+		if ( $social_menu_links ) {
+			$p4_structured_data .= '"sameAs":["' . implode( '","', $social_menu_links ) . '"],';
+		}
+		$p4_structured_data .= '"name":"' . $p4_site_title . '","logo":"' . $p4_site_url . '/wp-content/themes/planet4-master-theme/images/Greenpeace-logo.png"}';
+		$p4_structured_data .= '</script>';
+
+		return $p4_structured_data;
 	}
 }
