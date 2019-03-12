@@ -488,7 +488,7 @@ class P4_Master_Site extends TimberSite {
 		$weight  = get_post_meta( $post->ID, 'weight', true );
 		$options = get_option( 'planet4_options' );
 
-		echo '<label for="my_meta_box_text">' . esc_html__( 'Weight (1-' . P4_Search::DEFAULT_MAX_WEIGHT . ')', 'planet4-master-theme-backend' ) . '</label>
+		echo '<label for="my_meta_box_text">' . esc_html__( 'Weight', 'planet4-master-theme-backend' ) . ' (1-' . P4_Search::DEFAULT_MAX_WEIGHT . ')</label>
 				<input id="weight" type="text" name="weight" value="' . esc_attr( $weight ) . '" />';
 		?><script>
 			$ = jQuery;

@@ -684,7 +684,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
 
 			if ( ! is_admin() && is_search() ||
-			     wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
+				wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
 				$mime_types = implode( ',', self::DOCUMENT_TYPES );
 				$where     .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
 			}
