@@ -23,7 +23,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		const DEFAULT_MIN_WEIGHT    = 1;
 		const DEFAULT_PAGE_WEIGHT   = 100;
 		const DEFAULT_ACTION_WEIGHT = 2000;
-		const DEFAULT_MAX_WEIGHT    = 30;
+		const DEFAULT_MAX_WEIGHT    = 3000;
 		const DEFAULT_CACHE_TTL     = 600;
 		const DUMMY_THUMBNAIL       = '/images/dummy-thumbnail.png';
 		const DOCUMENT_TYPES        = [
@@ -109,6 +109,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
 			];
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
+			add_filter( 'posts_where', [ $this, 'edit_search_mime_types' ] );
 		}
 
 		/**
@@ -146,11 +147,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 				// If posts were found either in object cache or primary database then get the first POSTS_PER_LOAD results.
 				if ( $this->posts ) {
-					// TODO - This if will be removed after applying Lazy-loading also when searching for specific term.
-					// TODO - For now get paged posts only when searching for everything.
-					if ( ! $this->search_query ) {
-						$this->paged_posts = array_slice( $this->posts, 0, self::POSTS_PER_LOAD );
-					}
+					$this->paged_posts = array_slice( $this->posts, 0, self::POSTS_PER_LOAD );
 				}
 
 				$this->current_page = ( 0 === get_query_var( 'paged' ) ) ? 1 : get_query_var( 'paged' );
@@ -172,7 +169,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				if ( 'get_paged_posts' === $search_action ) {
 					$search_async = new static();
 					$search_async->set_context( $search_async->context );
-					$search_async->search_query = trim( get_search_query() );
+					$search_async->search_query = urldecode( filter_input( INPUT_GET, 'search_query', FILTER_SANITIZE_STRING ) );
 
 					// Get the decoded url query string and then use it as key for redis.
 					$query_string_full = urldecode( filter_input( INPUT_SERVER, 'QUERY_STRING', FILTER_SANITIZE_STRING ) );
@@ -205,7 +202,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 						$search_async->filters       = $filters;
 					}
 
-					// TODO - Set the correct filters so that it will work when searching for specific term with filters applied.
 					// Check Object cache for stored key.
 					$search_async->check_cache( $query_string, "$group:$subgroup" );
 
@@ -676,6 +672,26 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		}
 
 		/**
+		 * Customize which mime types we want to search for regarding attachments.
+		 *
+		 * @param string $where The WHERE clause of the query.
+		 *
+		 * @return string The edited WHERE clause.
+		 */
+		public function edit_search_mime_types( $where ) : string {
+			global $wpdb;
+
+			$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
+
+			if ( ! is_admin() && is_search() ||
+			     wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
+				$mime_types = implode( ',', self::DOCUMENT_TYPES );
+				$where     .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
+			}
+			return $where;
+		}
+
+		/**
 		 * Validates the input.
 		 *
 		 * @param string $selected_sort The selected orderby to be validated.
@@ -709,7 +725,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * @param array|null $args The array with the data for the pagination.
 		 */
 		public function add_load_more( $args = null ) {
-			// Add pagination temporarily until we have a lazy loading solution. Use Timber::get_pagination() if we want a more customized one.
 			$this->context['load_more'] = $args ?? [
 				'posts_per_load' => self::POSTS_PER_LOAD,
 				// Translators: %s = number of results per page.
@@ -753,7 +768,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		public function enqueue_public_assets() {
 			if ( is_search() ) {
-				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [ 'jquery' ], '0.2.6', true );
+				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [ 'jquery' ], '0.2.7', true );
 				wp_localize_script( 'search', 'localizations', $this->localizations );
 				wp_enqueue_script( 'search' );
 			}
