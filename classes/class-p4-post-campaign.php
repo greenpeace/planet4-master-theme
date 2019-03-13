@@ -33,7 +33,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			add_action( 'cmb2_admin_init', [ $this, 'register_campaigns_metaboxes' ] );
 			add_action( 'add_meta_boxes', [ $this, 'campaign_page_templates_meta_box' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
-			add_action( 'save_post_campaigns', [ $this, 'save_campaign_page_templates_meta_box_data' ] );
+			add_action( 'save_post_campaign', [ $this, 'save_campaign_page_templates_meta_box_data' ] );
 		}
 
 		/**
