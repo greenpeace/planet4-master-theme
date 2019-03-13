@@ -262,7 +262,6 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'id'         => 'campaign_nav_color',
 					'type'       => 'colorpicker',
 					'classes'    => 'palette-only',
-					'default'    => '#ffffff',
 					'attributes' => [
 						'data-colorpicker' => json_encode(
 							[
@@ -279,7 +278,6 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'id'         => 'campaign_header_color',
 					'type'       => 'colorpicker',
 					'classes'    => 'palette-only',
-					'default'    => '#ffffff',
 					'attributes' => [
 						'data-colorpicker' => json_encode(
 							[
@@ -343,7 +341,6 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'id'         => 'campaign_primary_color',
 					'type'       => 'colorpicker',
 					'classes'    => 'palette-only',
-					'default'    => '#ffffff',
 					'attributes' => [
 						'data-colorpicker' => json_encode(
 							[
@@ -360,7 +357,6 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'id'         => 'campaign_secondary_color',
 					'type'       => 'colorpicker',
 					'classes'    => 'palette-only',
-					'default'    => '#ffffff',
 					'attributes' => [
 						'data-colorpicker' => json_encode(
 							[
