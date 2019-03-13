@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-03-13 04:25+0000\n"
+"PO-Revision-Date: 2019-03-13 04:36+0000\n"
 "Last-Translator: Nor Supang <schatuch@greenpeace.org>\n"
 "Language-Team: Thai\n"
 "MIME-Version: 1.0\n"
@@ -219,7 +219,7 @@ msgstr "กรุณาตรวจสอบคำผิดและลองค
 
 #: templates/search.twig:19
 msgid "Try searching for somthing else"
-msgstr ""
+msgstr "ค้นหาในคำอื่นๆ"
 
 #: templates/search.twig:20
 msgid "Search our archive. You'll be redirected to the archive site."
@@ -339,11 +339,11 @@ msgstr "ผลการค้นหา"
 
 #: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
 msgid "Share on"
-msgstr ""
+msgstr "แชร์"
 
 #: templates/blocks/share_buttons.twig:21
 msgid "Share via"
-msgstr ""
+msgstr "แชร์"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
