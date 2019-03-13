@@ -23,7 +23,7 @@ $custom_styles = [];
 
 $custom_styles['css']['nav_color']     = $post->campaign_nav_color ? ".navbar { background-color: {$post->campaign_nav_color} !important;}" : null;
 $custom_styles['nav_type']             = $post->campaign_nav_type;
-$custom_styles['logo_color']           = $post->campaign_logo_color;
+$custom_styles['campaign_logo_color']  = $post->campaign_logo_color ?? 'light';
 $custom_styles['css']['header_bg']     = $post->campaign_header_color ? ".page-header { background: {$post->campaign_header_color} !important;}" : null;
 $custom_styles['css']['header_serif']  = $post->campaign_header_serif ? ".page-header { font-family: {$post->campaign_header_serif}!important;}" : null;
 $custom_styles['css']['header_sans']   = $post->campaign_header_sans ? ".page-header { font-family: {$post->campaign_header_sans} !important;}" : null;

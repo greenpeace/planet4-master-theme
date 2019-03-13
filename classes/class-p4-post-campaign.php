@@ -381,6 +381,20 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'options' => $themes,
 				]
 			);
+
+			$cmb->add_field(
+				[
+					'name'    => 'Logo Color',
+					'desc'    => 'Change the campaign logo color (if not default)',
+					'id'      => 'campaign_logo_color',
+					'type'    => 'radio_inline',
+					'default' => 'light',
+					'options' => [
+						'light' => __( 'Light', 'planet4-master-theme-backend' ),
+						'dark'  => __( 'Dark', 'planet4-master-theme-backend' ),
+					],
+				]
+			);
 		}
 
 		/**
