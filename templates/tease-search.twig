@@ -19,6 +19,9 @@
 		<div class="search-results-load row-hidden" style="display: none;">
 	{% endif %}
 {% endif %}
+
+{% cache 'search/tease' post %}
+
 	{% if ( is_action ) %}
 		<li id="result-row-{{ post.ID }}" class="media search-result-list-item search-result-list-item-bg" style="background-image:linear-gradient(180deg, rgba(213, 239, 242, 1), rgba(255, 255, 255, 0.3)), url('{{ post.thumbnail.src }}');">
 			<div class="blank-block"></div>
@@ -76,6 +79,7 @@
 			<p class="search-result-item-content">{{ post.preview().read_more('')|excerpt( 25 )|raw }}</p>
 		</div>
 	</li>
+{% endcache %}
 {% if ( ( loop.index0 % 5 == 4 ) or loop.last ) %}
 	</div>
 {% endif %}
