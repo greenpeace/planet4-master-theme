@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-03-13 05:22+0000\n"
+"PO-Revision-Date: 2019-03-14 08:28+0000\n"
 "Language-Team: Thai\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.2.0; wp-5.0.3"
+"X-Loco-Version: 2.2.1; wp-5.0.3"
 
 #: single.php:33
 msgid "Post page"
@@ -29,7 +29,7 @@ msgstr ""
 
 #: single.php:67
 msgid "Leave Your Reply"
-msgstr ""
+msgstr "แสดงความเห็น"
 
 #: 404.php:16
 msgid "Sorry, we can't find that page!"
@@ -112,7 +112,7 @@ msgstr "ค้นหาเพจ"
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] ""
+msgstr[0] "ผลการค้นหาสำหรับ"
 msgstr[1] ""
 
 #. translators:
@@ -120,7 +120,7 @@ msgstr[1] ""
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
+msgstr[0] "ผลการค้นหา"
 msgstr[1] ""
 
 #: classes/class-p4-search.php:478
@@ -170,7 +170,7 @@ msgstr "บทความ"
 
 #: templates/author.twig:36
 msgid "Posts by "
-msgstr ""
+msgstr "โพสต์โดย"
 
 #: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
@@ -327,23 +327,23 @@ msgstr "โดย"
 
 #: templates/single.twig:53 templates/comments_section.twig:2
 msgid "Comments"
-msgstr ""
+msgstr "ความเห็น"
 
 #: templates/comments_section.twig:8
 msgid "Discussion"
-msgstr ""
+msgstr "การสทนา"
 
 #: templates/taxonomy.twig:18
 msgid "Results"
-msgstr ""
+msgstr "ผลการค้นหา"
 
 #: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
 msgid "Share on"
-msgstr ""
+msgstr "แชร์"
 
 #: templates/blocks/share_buttons.twig:21
 msgid "Share via"
-msgstr ""
+msgstr "แชร์"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
@@ -351,27 +351,27 @@ msgstr "เกี่ยวกับผู้เขียน"
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
-msgstr ""
+msgstr "อีเมล"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
-msgstr ""
+msgstr "อีเมล"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
-msgstr ""
+msgstr "คอมเมนท์"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr ""
+msgstr "ความเห็นของคุณ"
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr ""
+msgstr "ชื่อ"
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
-msgstr ""
+msgstr "ชื่อ"
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post Comment"
