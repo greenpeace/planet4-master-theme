@@ -5,19 +5,10 @@
 	{% set is_document = true %}
 {% endif %}
 
-{# TODO - This if will be removed after applying Lazy-loading when searching for specific term. #}
-{% if ( search_query ) %}
-	{% if ( not load_more or loop.index0 == 0 ) %}
-		<div class="search-results-load">
-	{% elseif ( loop.index0 is divisible by(5) ) %}
-		<div class="search-results-load row-hidden" style="display: none;">
-	{% endif %}
-{% else %}
-	{% if ( current_page == 1 and loop.index0 == 0 ) %}
-		<div class="search-results-load">
-	{% elseif ( first_of_the_page and loop.index0 is divisible by(5) ) %}
-		<div class="search-results-load row-hidden" style="display: none;">
-	{% endif %}
+{% if ( current_page == 1 and loop.index0 == 0 ) %}
+	<div class="search-results-load">
+{% elseif ( first_of_the_page and loop.index0 is divisible by(5) ) %}
+	<div class="search-results-load row-hidden" style="display: none;">
 {% endif %}
 	{% if ( is_action ) %}
 		<li id="result-row-{{ post.ID }}" class="media search-result-list-item search-result-list-item-bg" style="background-image:linear-gradient(180deg, rgba(213, 239, 242, 1), rgba(255, 255, 255, 0.3)), url('{{ post.thumbnail.src }}');">
