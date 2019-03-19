@@ -202,12 +202,27 @@ class P4_Master_Site extends TimberSite {
 	 * @param WP_Post $post_before Whether this is an existing post being updated or not.
 	 */
 	public function clean_post_cache( $post_id, $post_after, $post_before ) {
-
 		// Ignore autosave.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
-		clean_post_cache( $post_id );
+		// Lua Script.
+		$lua = <<<LUA
+local k =  0
+for i, name in ipairs(redis.call('KEYS', KEYS[1]))
+do
+    redis.call('DEL', name)
+    k = k+1
+end
+return k
+LUA;
+
+		$group = 'nginx-cache';
+		$redis = new Redis();
+		if ( $redis->connect( '127.0.0.1', 6379, 5 ) ) {
+			$redis->eval( $lua, [ $group . '*' ], 1 );
+			wp_cache_delete_group( $group );
+		}
 	}
 
 	/**
