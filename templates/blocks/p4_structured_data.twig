@@ -1,0 +1,31 @@
+{% set social_menu_links = [] %}
+{% if footer_social_menu %}
+	{% for menu_details in footer_social_menu %}
+		{% set social_menu_links = social_menu_links|merge([menu_details.url]) %}
+	{% endfor %}
+{% endif %}
+{% set website_info = {
+	'@context': 'http://schema.org',
+	'@type': 'WebSite',
+	'url': site.link,
+	'name': site.name,
+	'alternateName': 'Greenpeace',
+	'potentialAction': {
+		'@type': 'SearchAction',
+		'target': ( site.link ~ '/?s={search_term_string}&orderby=_score' ),
+		'query-input': 'required name=search_term_string',
+	}
+} %}
+{% set org_info = {
+	'@context': 'http://schema.org',
+	'@type': 'Organization',
+	'url': site.link,
+} %}
+{% if social_menu_links %}
+	{% set org_info = org_info|merge( {'sameAs': social_menu_links } ) %}
+{% endif %}
+{% set org_info = org_info|merge({ 'name': site.name }) %}
+{% set org_info = org_info|merge({ 'logo': site.link ~ '/wp-content/themes/planet4-master-theme/images/Greenpeace-logo.png' }) %}
+
+<script type='application/ld+json'>{{ website_info|json_encode()|raw }}</script>
+<script type='application/ld+json'>{{ org_info|json_encode()|raw }}</script>

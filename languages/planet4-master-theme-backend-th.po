@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-08 09:59+0000\n"
-"PO-Revision-Date: 2019-03-07 09:38+0000\n"
-"Last-Translator: nwisanuk <nwisanuk@greenpeace.org>\n"
-"Language-Team: Thai\n"
+"PO-Revision-Date: 2019-03-13 04:53+0000\n"
+"Last-Translator: Nor Supang <schatuch@greenpeace.org>\n"
+"Language-Team: \n"
 "Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
@@ -84,7 +84,7 @@ msgstr ""
 
 #: functions.php:719
 msgid "Author Override"
-msgstr "แทนที่ชื่อผู้แต่ง"
+msgstr ""
 
 #: functions.php:720
 msgid "Enter author name if you want to override the author"
