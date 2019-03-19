@@ -100,10 +100,6 @@ class P4_Master_Site extends TimberSite {
 				'name'  => __( 'Most recent', 'planet4-master-theme' ),
 				'order' => 'DESC',
 			],
-			// 'post_title' => [
-			// 'name'  => __( 'Title', 'planet4-master-theme' ),
-			// 'order' => 'ASC',
-			// ],
 		];
 	}
 
@@ -121,10 +117,6 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'init', [ $this, 'register_taxonomies' ], 2 );
 		add_action( 'init', [ $this, 'register_oembed_provider' ] );
 		add_action( 'pre_get_posts', [ $this, 'add_search_options' ] );
-		add_filter( 'searchwp_query_main_join', [ $this, 'edit_searchwp_main_join_action_pages' ], 10, 2 );
-		add_filter( 'searchwp_query_orderby', [ $this, 'edit_searchwp_orderby_action_pages' ] );
-		add_filter( 'searchwp_query_orderby', [ $this, 'edit_searchwp_query_orderby' ], 11, 2 );
-		add_filter( 'posts_where', [ $this, 'edit_search_mime_types' ] );
 		add_action( 'cmb2_admin_init', [ $this, 'register_header_metabox' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
@@ -496,7 +488,7 @@ class P4_Master_Site extends TimberSite {
 		$weight  = get_post_meta( $post->ID, 'weight', true );
 		$options = get_option( 'planet4_options' );
 
-		echo '<label for="my_meta_box_text">' . esc_html__( 'Weight (1-30)', 'planet4-master-theme-backend' ) . '</label>
+		echo '<label for="my_meta_box_text">' . esc_html__( 'Weight', 'planet4-master-theme-backend' ) . ' (1-' . P4_Search::DEFAULT_MAX_WEIGHT . ')</label>
 				<input id="weight" type="text" name="weight" value="' . esc_attr( $weight ) . '" />';
 		?><script>
 			$ = jQuery;
@@ -580,86 +572,6 @@ class P4_Master_Site extends TimberSite {
 
 		$wp->set( 'posts_per_page', P4_Search::POSTS_LIMIT );
 		$wp->set( 'no_found_rows', true );
-	}
-
-	/**
-	 * Edit the searchwp main join clause, so that it can boost Action Pages priority
-	 * based on a custom meta_key that holds the weight.
-	 *
-	 * @param string $sql The main JOIN clause.
-	 * @param string $engine The SearchWP selected engine.
-	 *
-	 * @return string The edited JOIN statement.
-	 */
-	public function edit_searchwp_main_join_action_pages( $sql, $engine ) : string {
-		global $wpdb;
-
-		$meta_key = 'weight';  // The meta_key you want to order by.
-		$sql     .= " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '{$meta_key}' AND {$wpdb->postmeta}.meta_value != ''";
-		return $sql;
-	}
-
-	/**
-	 * Customize the order of search results when sorting by Most Relevant, so that it boosts Action pages up.
-	 *
-	 * @param string $orderby The ORDER BY sql clause.
-	 *
-	 * @return string The edited ORDER BY clause.
-	 */
-	public function edit_searchwp_orderby_action_pages( $orderby ) : string {
-		global $wpdb;
-
-		$orderby     = str_replace( 'ORDER BY', '', $orderby );
-		$new_orderby = "ORDER BY {$wpdb->postmeta}.meta_value+0 DESC, " . $orderby;
-		return $new_orderby;
-	}
-
-	/**
-	 * Customize the order of search results.
-	 *
-	 * @param string $orderby The ORDER BY sql clause.
-	 *
-	 * @return string The customized part of the query related to the ORDER BY.
-	 */
-	public function edit_searchwp_query_orderby( $orderby ) : string {
-		$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
-		$selected_sort = sanitize_sql_orderby( $selected_sort );
-
-		if ( $selected_sort && P4_Search::DEFAULT_SORT !== $selected_sort ) {
-			// First orderby 'weight' meta_key.
-			$primary_sort  = 'meta_value';
-			$primary_order = 'DESC';
-			// If 'weight' is same then orderby selected_order.
-			$selected_order = $this->sort_options[ $selected_sort ]['order'];
-			$orderby        = esc_sql( sprintf( 'ORDER BY %s %s, %s %s', $primary_sort, $primary_order, $selected_sort, $selected_order ) );
-		} else {
-			$orderby = esc_sql( $orderby );
-		}
-
-		return $orderby;
-	}
-
-	/**
-	 * Customize which mime types we want to search for regarding attachments.
-	 *
-	 * @param string $where The WHERE clause of the query.
-	 *
-	 * @return string The edited WHERE clause.
-	 */
-	public function edit_search_mime_types( $where ) : string {
-		global $wpdb;
-
-		// TODO - This method and all Search related methods in this class
-		// TODO - after this commit CAN and SHOULD be transferred inside the P4_Search class.
-		// TODO - Would have spotted the necessary change much faster.
-		$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
-
-		if ( ! is_admin() && is_search() ||
-			wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
-			$mime_types = implode( ',', P4_Search::DOCUMENT_TYPES );
-			$where     .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
-		}
-		return $where;
 	}
 
 	/**
