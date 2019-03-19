@@ -68,7 +68,9 @@ if ( 'post' == $args['content'] || 'page' == $args['content'] ) {
 		$where .= $wpdb->prepare( " AND {$wpdb->posts}.post_date < %s", date( 'Y-m-d', strtotime( '+1 month', strtotime( $args['end_date'] ) ) ) );
 	}
 }
-$post_ids = apply_filters( 'export_post_ids', $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} %s WHERE %s", $join, $where ), $args );
+$sql = sprintf( "SELECT ID FROM {$wpdb->posts} %s WHERE %s", $join, $where );
+// Ignore lint on the following line because it doesn't detect the context of the $sql variable.
+$post_ids = apply_filters( 'export_post_ids', $wpdb->get_col( $sql ), $args );  // phpcs:ignore 
 
 $cats  = [];
 $tags  = [];
@@ -212,10 +214,15 @@ function p4_px_single_post_term_description( $term ) {
 function p4_px_single_post_authors_list( $post_ids ) {
 	global $wpdb;
 
-	$post_ids = implode( ',', $post_ids );
+	$post_ids = array_map( 'intval', $post_ids );  // santize the post_ids manually.
+	$post_ids = array_filter( $post_ids ); // strip ones that didn't validate.
+	$post_ids = implode( ', ', $post_ids );
 
 	$authors = array();
-	$results = $wpdb->get_results( "SELECT DISTINCT post_author FROM $wpdb->posts WHERE ID IN '%s' AND post_status != 'auto-draft'", $post_ids );
+
+	// Ignore lint on the following line because it doesn't detect the context of the $post_ids.
+	$results = $wpdb->get_results( sprintf( "SELECT DISTINCT post_author FROM $wpdb->posts WHERE ID IN( %s ) AND post_status != 'auto-draft'", $post_ids ) ); // phpcs:ignore
+
 	foreach ( (array) $results as $result ) {
 		$authors[] = get_userdata( $result->post_author );
 	}
@@ -346,8 +353,10 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . "\" ?>\n";
 						array_push( $next_posts, $attachment->ID );
 					}
 				}
+				$where = array_map( 'intval', $post_ids );  // santize the post_ids manually.
+				$where = array_filter( $post_ids ); // strip ones that didn't validate.
 				$where = implode( ',', $next_posts );
-				$posts = $wpdb->get_results( "SELECT * FROM {$wpdb->posts} WHERE ID IN %s", $where );
+				$posts = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->posts} WHERE ID IN (%s)", $where ) );
 				foreach ( $posts as $post ) {
 					setup_postdata( $post );
 					$is_sticky = is_sticky( $post->ID ) ? 1 : 0;
