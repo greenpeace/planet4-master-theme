@@ -84,9 +84,9 @@ $(function() {
   $load_more_button.off( 'click' ).on( 'click', function() {
     // If this button has this class then Lazy-loading is enabled.
     if ( $(this).hasClass( 'btn-load-more-async' ) ) {
-      var total_posts = $(this).data('total_posts');
+      var total_posts    = $(this).data('total_posts');
       var posts_per_load = $(this).data('posts_per_load');
-      var next_page = $(this).data( 'current_page' ) + 1;
+      var next_page      = $(this).data( 'current_page' ) + 1;
       $(this).data( 'current_page', next_page );
 
       $.ajax({
@@ -95,6 +95,7 @@ $(function() {
         data: {
           action:          'get_paged_posts',
           'search-action': 'get_paged_posts',
+          'search_query':  $( '#search_input' ).val().trim(),
           'paged':         next_page,
           'query-string':  decodeURIComponent( location.search ).substr( 1 )		// Ignore the ? in the search url (first char).
         },
@@ -122,7 +123,7 @@ $(function() {
   // Reveal more results just by scrolling down the first 2 times.
   $( window ).scroll(function() {
     if ($load_more_button.length > 0) {
-      var element_top    = $load_more_button.offset().top,
+      var element_top  = $load_more_button.offset().top,
         element_height = $load_more_button.outerHeight(),
         window_height  = $(window).height(),
         window_scroll  = $(this).scrollTop(),
@@ -131,7 +132,10 @@ $(function() {
       if ( load_more_count < localizations.show_scroll_times ) {
         // If next page has not loaded then load next page as soon as scrolling
         // reaches 'load_earlier_offset' pixels before the Load more button.
-        if ( ! loaded_more && window_scroll > (element_top + element_height - window_height - load_earlier_offset)) {
+        if ( ! loaded_more
+            && window_scroll > ( element_top + element_height - window_height - load_earlier_offset )
+            && ( ( load_more_count + 1 ) * $load_more_button.data('posts_per_load') ) < $load_more_button.data('total_posts' ) ) {
+
           load_more_count++;
           $load_more_button.click();
           loaded_more = true;
