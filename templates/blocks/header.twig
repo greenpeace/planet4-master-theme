@@ -43,7 +43,12 @@
 			{% if ( header_button_title and header_button_link ) %}
 				<div class="row">
 					<div class="col-md-4">
-						<a href="{{ header_button_link }}" class="btn btn-primary btn-medium page-header-btn">{{ header_button_title }}</a>
+						<p>{{ header_button_link_checkbox }}</p>
+						<a href="{{ header_button_link }}"
+						    {% if ( header_button_link_checkbox ) %}
+								target="_blank"
+							{% endif %}
+						   class="btn btn-primary btn-medium page-header-btn">{{ header_button_title }}</a>
 					</div>
 				</div>
 			{% endif %}

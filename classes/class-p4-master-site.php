@@ -669,6 +669,15 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_header->add_field(
 			[
+				'name' => __( 'New Tab', 'planet4-master-theme-backend' ),
+				'desc' => __( 'Open header button link in new tab', 'planet4-master-theme-backend' ),
+				'id'   => $prefix . 'button_link_checkbox',
+				'type' => 'checkbox',
+			]
+		);
+
+		$p4_header->add_field(
+			[
 				'name'         => __( 'Background overide', 'planet4-master-theme-backend' ),
 				'desc'         => __( 'Upload an image', 'planet4-master-theme-backend' ),
 				'id'           => 'background_image',

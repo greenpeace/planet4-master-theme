@@ -66,6 +66,14 @@ msgstr ""
 msgid "Header button link comes here"
 msgstr ""
 
+#: functions.php:682
+msgid "New Tab"
+msgstr ""
+
+#: functions.php:683
+msgid "Open header button link in new tab"
+msgstr ""
+
 #: functions.php:689
 msgid "Background overide"
 msgstr ""
