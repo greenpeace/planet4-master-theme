@@ -15,7 +15,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		 *
 		 * @var string $post_type
 		 */
-		private $post_type = 'campaigns';
+		private $post_type = 'campaign';
 
 
 		/**
@@ -29,24 +29,25 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		 * Class hooks.
 		 */
 		private function hooks() {
-
 			add_action( 'init', [ $this, 'register_campaigns_cpt' ] );
+			add_action( 'cmb2_admin_init', [ $this, 'register_campaigns_metaboxes' ] );
 			add_action( 'add_meta_boxes', [ $this, 'campaign_page_templates_meta_box' ] );
-			add_action( 'save_post_campaigns', [ $this, 'save_campaign_page_templates_meta_box_data' ] );
+			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
+			add_action( 'save_post_campaign', [ $this, 'save_campaign_page_templates_meta_box_data' ] );
 		}
 
 		/**
 		 * Return a list of the available campaign themes
 		 */
 		public function campaign_themes() {
-			$campaign_theme = array(
+			$campaign_theme = [
 				'antarctic' => __( 'Antarctic', 'planet4-master-theme-backend' ),
 				'arctic'    => __( 'Arctic', 'planet4-master-theme-backend' ),
 				'forest'    => __( 'Forest', 'planet4-master-theme-backend' ),
 				'oceans'    => __( 'Oceans', 'planet4-master-theme-backend' ),
 				'oil'       => __( 'Oil', 'planet4-master-theme-backend' ),
 				'plastic'   => __( 'Plastics', 'planet4-master-theme-backend' ),
-			);
+			];
 			return $campaign_theme;
 		}
 
@@ -101,7 +102,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'campaigns-page-templates',
 				__( 'Campaign Templates', 'planet4-master-theme-backend' ),
 				array( $this, 'campaign_page_templates_meta_box_callback' ),
-				'campaigns',
+				'campaign',
 				'side'
 			);
 		}
@@ -177,6 +178,227 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			// Update the meta field in the database.
 			update_post_meta( $post_id, '_campaign_page_template', $campaign_page_template );
+		}
+
+		/**
+		 * Register Color Picker Metabox for navigation
+		 */
+		public function register_campaigns_metaboxes() {
+			$prefix = 'sc_ch_';
+			$themes = $this->campaign_themes();
+			// Add default Greenpeace logo to array.
+			$themes['greenpeace'] = __( 'Greenpeace', 'planet4-master-theme-backend' );
+
+			$header_palette = [
+				'#ffffff',
+				'#1a1a1a',
+				'#333333',
+				'#686867',
+				'#979796',
+				'#cacac9',
+				'#e3e2e2',
+				'#8cbf4f',
+				'#a9cd7a',
+				'#c7dda4',
+			];
+
+			$primary_palette = [
+				'#093944',
+				'#e9cbba',
+				'#e88c74',
+				'#9f1916',
+				'#7a1a0f',
+				'#3c120e',
+				'#14233a',
+				'#ec6d3d',
+				'#e9582e',
+				'#e9582e',
+				'#fcd00a',
+			];
+
+			$secondary_palette = [
+				'#3aa975',
+				'#25784f',
+				'#94d1d5',
+				'#40bbd2',
+				'#1bb5d5',
+				'#0ca9d5',
+				'#037899',
+				'#2db4b3',
+				'#5bbfca',
+				'#23928c',
+				'#196b71',
+			];
+
+			$cmb = new_cmb2_box(
+				[
+					'id'           => 'campaign_nav_settings_mb',
+					'title'        => __( 'Page Design', 'planet4-master-theme-backend' ),
+					'object_types' => [
+						'campaign',
+					],
+					'context'      => 'normal',
+					'priority'     => 'high',
+					'show_names'   => true, // Show field names on the left.
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'    => __( 'Navigation', 'planet4-master-theme-backend' ),
+					'id'      => 'campaign_nav_type',
+					'type'    => 'radio_inline',
+					'options' => [
+						'planet4' => __( 'Planet 4 Navigation', 'planet4-master-theme-backend' ),
+						'minimal' => __( 'Minimal Navigation', 'planet4-master-theme-backend' ),
+					],
+					'default' => 'planet4',
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'       => __( 'Navigation Color', 'planet4-master-theme-backend' ),
+					'id'         => 'campaign_nav_color',
+					'type'       => 'colorpicker',
+					'classes'    => 'palette-only',
+					'attributes' => [
+						'data-colorpicker' => json_encode(
+							[
+								'palettes' => $header_palette,
+							]
+						),
+					],
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'       => __( 'Header Color', 'planet4-master-theme-backend' ),
+					'id'         => 'campaign_header_color',
+					'type'       => 'colorpicker',
+					'classes'    => 'palette-only',
+					'attributes' => [
+						'data-colorpicker' => json_encode(
+							[
+								'palettes' => $header_palette,
+							]
+						),
+					],
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'             => 'Header Primary Font',
+					'desc'             => 'Select an option',
+					'id'               => 'campaign_header_primary',
+					'type'             => 'select',
+					'show_option_none' => '-----',
+					'options'          => [
+						'anton'            => __( 'Anton', 'planet4-master-theme-backend' ),
+						'montserrat_bold'  => __( 'Montserrat Bold', 'planet4-master-theme-backend' ),
+						'montserrat_light' => __( 'Montserrat Light', 'planet4-master-theme-backend' ),
+						'sanctuary'        => __( 'Sanctuary', 'planet4-master-theme-backend' ),
+						'kanit'            => __( 'Kanit Extra Bold', 'planet4-master-theme-backend' ),
+						'save_the_arctic'  => __( 'Save the Arctic', 'planet4-master-theme-backend' ),
+					],
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'             => 'Header Secondary Font',
+					'desc'             => 'Select an option',
+					'id'               => 'campaign_header_secondary',
+					'type'             => 'select',
+					'show_option_none' => '-----',
+					'options'          => [
+						'monsterrat_semi'   => __( 'Montserrat Semi Bold', 'planet4-master-theme-backend' ),
+						'kanit_semi'        => __( 'Kanit Semi Bold', 'planet4-master-theme-backend' ),
+						'open_sans'         => __( 'Open Sans', 'planet4-master-theme-backend' ),
+						'open_sans_shadows' => __( 'Open Sans Shadows', 'planet4-master-theme-backend' ),
+					],
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'    => __( 'Body Font', 'planet4-master-theme-backend' ),
+					'id'      => 'campaign_body_font',
+					'type'    => 'radio_inline',
+					'options' => [
+						'lora'   => __( 'Serif', 'planet4-master-theme-backend' ),
+						'roboto' => __( 'Sans Serif', 'planet4-master-theme-backend' ),
+					],
+					'default' => 'lora',
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'       => __( 'Primary Button Color', 'planet4-master-theme-backend' ),
+					'id'         => 'campaign_primary_color',
+					'type'       => 'colorpicker',
+					'classes'    => 'palette-only',
+					'attributes' => [
+						'data-colorpicker' => json_encode(
+							[
+								'palettes' => $primary_palette,
+							]
+						),
+					],
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'       => __( 'Secondary Button Color', 'planet4-master-theme-backend' ),
+					'id'         => 'campaign_secondary_color',
+					'type'       => 'colorpicker',
+					'classes'    => 'palette-only',
+					'attributes' => [
+						'data-colorpicker' => json_encode(
+							[
+								'palettes' => $secondary_palette,
+							]
+						),
+					],
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'    => 'Logo',
+					'desc'    => 'Change the campaign logo',
+					'id'      => 'campaign_logo',
+					'type'    => 'select',
+					'default' => 'greenpeace',
+					'options' => $themes,
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'    => 'Logo Color',
+					'desc'    => 'Change the campaign logo color (if not default)',
+					'id'      => 'campaign_logo_color',
+					'type'    => 'radio_inline',
+					'default' => 'light',
+					'options' => [
+						'light' => __( 'Light', 'planet4-master-theme-backend' ),
+						'dark'  => __( 'Dark', 'planet4-master-theme-backend' ),
+					],
+				]
+			);
+		}
+
+		/**
+		 * Load assets.
+		 */
+		public function enqueue_admin_assets() {
+			wp_register_style( 'cmb-style', get_template_directory_uri() . '/assets/css/campaign.css' );
+			wp_enqueue_style( 'cmb-style' );
 		}
 	}
 }

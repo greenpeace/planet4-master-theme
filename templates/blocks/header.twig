@@ -1,5 +1,7 @@
 {% if ( header_title ) %}
-	<div class="skewed-overlay"></div>
+	{% if post.post_type != 'campaign'  %}
+		<div class="skewed-overlay"></div>
+	{% endif %}
 	<div class="page-header">
 		{% if ( background_image ) %}
 			<div class="page-header-background">

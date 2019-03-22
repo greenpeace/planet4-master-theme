@@ -17,14 +17,12 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 		 * @var string $taxonomy
 		 */
 		private $taxonomy = 'post_tag';
-
 		/**
 		 * Page Types
 		 *
 		 * @var array $page_types
 		 */
 		public $page_types = [];
-
 		/**
 		 * Localizations
 		 *
@@ -46,7 +44,6 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 		 * Class hooks.
 		 */
 		private function hooks() {
-
 			add_action( 'post_tag_add_form_fields', [ $this, 'add_taxonomy_form_fields' ] );
 			add_action( 'post_tag_edit_form_fields', [ $this, 'add_taxonomy_form_fields' ] );
 			add_action( 'create_post_tag', [ $this, 'save_taxonomy_meta' ] );
