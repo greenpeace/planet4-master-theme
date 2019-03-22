@@ -24,6 +24,10 @@ class OpenGraphTest extends P4_TestCase {
 	 */
 	public function test_post_custom_open_graph_data( $post_data, $template ) {
 
+		// Get author user.
+		$user = get_user_by( 'login', 'p4_author' );
+		wp_set_current_user( $user->ID );
+
 		$attachment_id                             = $this->factory->attachment->create_upload_object( dirname( __DIR__ ) . '/tests/data/images/pressmedia.jpg', 0 );
 		$post_data['meta_input']['p4_og_image_id'] = $attachment_id;
 		$post_id                                   = $this->factory->post->create( $post_data );
@@ -82,6 +86,10 @@ class OpenGraphTest extends P4_TestCase {
 	 * @dataProvider posts_provider
 	 */
 	public function test_post_open_graph_data( $post_data, $template ) {
+
+		// Get author user.
+		$user = get_user_by( 'login', 'p4_author' );
+		wp_set_current_user( $user->ID );
 
 		// Create a sample post.
 		$post_id = $this->factory->post->create( $post_data );

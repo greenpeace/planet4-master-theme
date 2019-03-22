@@ -30,7 +30,7 @@ if ( is_main_query() && is_search() ) {
 			}
 		}
 
-		$search = new P4_Search();
+		$search = new P4_ElasticSearch();
 		$search->load( trim( get_search_query() ), $selected_sort, $filters );
 		$search->add_load_more();
 		$search->view();

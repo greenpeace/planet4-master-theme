@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-02-20 12:24+0000\n"
-"Language-Team: Finnish\n"
+"PO-Revision-Date: 2019-03-13 05:22+0000\n"
+"Language-Team: Thai\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,8 +16,8 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: mhedelai <mhedelai@greenpeace.org>\n"
-"Language: fi\n"
+"Last-Translator: Nor Supang <schatuch@greenpeace.org>\n"
+"Language: th\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: \n"
@@ -29,15 +29,15 @@ msgstr ""
 
 #: single.php:67
 msgid "Leave Your Reply"
-msgstr "Jata kommenttisi"
+msgstr ""
 
 #: 404.php:16
 msgid "Sorry, we can't find that page!"
-msgstr "Metsään meni, emme löytäneet tätä sivua."
+msgstr "ขออภัย เราไม่พบหน้าที่คุณค้นหา"
 
 #: 404.php:17
 msgid "Enter your search term below"
-msgstr "Kirjoita hakusana alle"
+msgstr ""
 
 #: 404.php:18
 msgid "404 Page"
@@ -49,27 +49,27 @@ msgstr ""
 
 #: tag.php:54
 msgid "Things you can do"
-msgstr "Vaikuta kanssamme"
+msgstr ""
 
 #: tag.php:55
 msgid "We want you to take action because together we're strong."
-msgstr "Yhdessä olemme vahvempia. Tule mukaan!"
+msgstr ""
 
 #: tag.php:83
 msgid "Related Campaigns"
-msgstr "Aiheeseen liittyvää"
+msgstr "งานรณรงค์ที่เกี่ยวข้อง"
 
 #: tag.php:84
 msgid "This Campaign is not assigned to an Issue"
-msgstr ""
+msgstr "งานรณรงค์นี้ไม่ได้อยู่ในประเด็นดังกล่าว"
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr "Osuvimmat"
+msgstr "สิ่งที่เกี่ยวข้อง"
 
 #: functions.php:89
 msgid "Most recent"
-msgstr "Viimeisimmät"
+msgstr "ล่าสุด"
 
 #: functions.php:247
 msgid "Toggle worldwide site selection menu"
@@ -81,7 +81,7 @@ msgstr ""
 
 #: functions.php:270
 msgid "DONATE"
-msgstr "LAHJOITA"
+msgstr "บริจาค"
 
 #: functions.php:271
 msgid "International (English)"
@@ -89,84 +89,84 @@ msgstr ""
 
 #: classes/class-p4-post.php:190 classes/class-p4-search.php:570
 msgid "ACTION"
-msgstr "ACTION"
+msgstr ""
 
 #: classes/class-p4-post.php:192 classes/class-p4-search.php:574
 msgid "PAGE"
-msgstr "SIVU"
+msgstr "เพจ"
 
 #: classes/class-p4-post.php:196 classes/class-p4-search.php:580
 msgid "DOCUMENT"
-msgstr "DOKUMENTTI"
+msgstr "เอกสาร"
 
 #: classes/class-p4-post.php:199 classes/class-p4-search.php:585
 msgid "POST"
-msgstr ""
+msgstr "โพสต์"
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
-msgstr "Etsi sivulta"
+msgstr "ค้นหาเพจ"
 
 #. translators:
 #: classes/class-p4-search.php:412
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] "%1$d tulos hakusanalle '%2$s'"
-msgstr[1] "%1$d tulosta hakusanalle '%2$s'"
+msgstr[0] ""
+msgstr[1] ""
 
 #. translators:
 #: classes/class-p4-search.php:418
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] "tulos"
-msgstr[1] "tulosta"
+msgstr[0] ""
+msgstr[1] ""
 
 #: classes/class-p4-search.php:478
 msgid "Action"
-msgstr "action"
+msgstr ""
 
 #: classes/class-p4-search.php:482
 msgid "Document"
-msgstr "Dokumentti"
+msgstr "เอกสาร"
 
 #: classes/class-p4-search.php:486
 msgid "Page"
-msgstr "Sivu"
+msgstr "เพจ"
 
 #: classes/class-p4-search.php:490
 msgid "Post"
-msgstr ""
+msgstr "โพสต์"
 
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr "NÄYTÄ %s LISÄÄ"
+msgstr "แสดงผลการค้นหาเพิ่มเติม"
 
 #. Name of the template
 msgid "Evergreen Page"
-msgstr "Evergreen Page"
+msgstr ""
 
 #. Name of the template
 msgid "Sitemap Page"
-msgstr "Sivukartta"
+msgstr ""
 
 #: page-templates/sitemap.php:18
 msgid "Act"
-msgstr "toimi"
+msgstr "มีส่วนร่วมกับเรา"
 
 #: page-templates/sitemap.php:19
 msgid "Explore"
-msgstr "Tutki"
+msgstr "งานรณรงค์กรีนพีซ"
 
 #: page-templates/sitemap.php:20
 msgid "About Greenpeace"
-msgstr "Meistä"
+msgstr "เกี่ยวกับกรีนพีซ"
 
 #: page-templates/sitemap.php:21
 msgid "Articles"
-msgstr "Artikkelit"
+msgstr "บทความ"
 
 #: templates/author.twig:36
 msgid "Posts by "
@@ -174,7 +174,7 @@ msgstr ""
 
 #: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
-msgstr "Lataa lisää"
+msgstr ""
 
 #: templates/navigation-bar.twig:6
 msgid "Toggle navigation menu"
@@ -183,23 +183,23 @@ msgstr ""
 #: templates/navigation-bar.twig:7 templates/search.twig:8
 #: templates/search.twig:45 templates/404.twig:17
 msgid "Search"
-msgstr "Etsi"
+msgstr "ค้นหา"
 
 #: templates/navigation-bar.twig:15
 msgid "Menu"
-msgstr "Valikko"
+msgstr "เมนู"
 
 #: templates/navigation-bar.twig:20
 msgid "Close Menu"
-msgstr "Sulje"
+msgstr "ปิดเมนู"
 
 #: templates/navigation-bar.twig:29
 msgid "Selected"
-msgstr "Valinnat"
+msgstr ""
 
 #: templates/navigation-bar.twig:30
 msgid "Change Country"
-msgstr "Vaihda maata"
+msgstr ""
 
 #: templates/navigation-bar.twig:60
 msgid "Toggle search form"
@@ -207,107 +207,107 @@ msgstr ""
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr "SELVÄ!"
+msgstr "สำเร็จ!"
 
 #: templates/search.twig:16
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr "Emme löytäneet etsimääsi."
+msgstr "ขออภัย เราไม่สามารถค้นหาจากคำค้นหาของคุณ"
 
 #: templates/search.twig:18
 msgid "Check for typos, and try your search again"
-msgstr "Tarkista kirjoitusvirheet ja kokeile uudestaan."
+msgstr "กรุณาตรวจสอบคำผิดแล้วค้นหาอีกครั้ง"
 
 #: templates/search.twig:19
 msgid "Try searching for somthing else"
-msgstr "Koeta etsiä jotakin muuta."
+msgstr "ลองค้นหาด้วยคำอื่นๆ"
 
 #: templates/search.twig:20
 msgid "Search our archive. You'll be redirected to the archive site."
-msgstr "Etsi arkistostamme. Sinut ohjataan arktistoon."
+msgstr "ค้นหาจากคลังข้อมูล"
 
 #: templates/search.twig:24
 msgid "We also included results for "
-msgstr ""
+msgstr "เรารวบรวมการค้นหาอื่นๆสำหรับ"
 
 #: templates/search.twig:38
 msgid "This Site"
-msgstr "Tältä sivustolta"
+msgstr "เว็บไซต์นี้"
 
 #: templates/search.twig:39
 msgid "Archive"
-msgstr "Arkisto"
+msgstr "คลังข้อมูล"
 
 #: templates/search.twig:57
 msgid "Filters"
-msgstr "Valinnat"
+msgstr ""
 
 #: templates/search.twig:63 templates/search.twig:164
 msgid "Refine your search"
-msgstr "Etsi uudelleen"
+msgstr ""
 
 #: templates/search.twig:71
 msgid "ISSUE"
-msgstr ""
+msgstr "ประเด็น"
 
 #: templates/search.twig:92
 msgid "CATEGORY"
-msgstr "KATEGORIA"
+msgstr "หมวดหมู่"
 
 #: templates/search.twig:113
 msgid "CONTENT TYPES"
-msgstr "CONTENT TYPES"
+msgstr "ประเภทคอนเทนต์"
 
 #: templates/search.twig:137
 msgid "CAMPAIGN"
-msgstr "KAMPANJA"
+msgstr "งานรณรงค์"
 
 #: templates/search.twig:156
 msgid "Cancel"
-msgstr "Peruuta"
+msgstr "ยกเลิก"
 
 #: templates/search.twig:157
 msgid "Apply Filters"
-msgstr "Valitse"
+msgstr ""
 
 #: templates/search.twig:167
 msgid "ACTIVE FILTERS"
-msgstr "VALITUT"
+msgstr ""
 
 #: templates/search.twig:176
 msgid "Clear All"
-msgstr "Tyhjennä"
+msgstr ""
 
 #: templates/search.twig:183
 msgid "Issue"
-msgstr ""
+msgstr "ประเด็น"
 
 #: templates/search.twig:202
 msgid "Campaign"
-msgstr "Kampanja"
+msgstr "งานรณรงค์"
 
 #: templates/search.twig:221
 msgid "Category"
-msgstr "Kategoria"
+msgstr "หมวดหมู่"
 
 #: templates/search.twig:240
 msgid "Content type"
-msgstr "Content type"
+msgstr "ประเภทคอนเทนต์"
 
 #: templates/search.twig:263
 msgid "Sort by"
-msgstr "Järjestä"
+msgstr ""
 
 #: templates/search.twig:300
 msgid "Suggested search terms"
-msgstr "Ehdotukset"
+msgstr ""
 
 #: templates/tease-search.twig:67
 msgid "take action"
-msgstr "toimi nyt"
+msgstr "สร้างการเปลี่ยนแปลง"
 
 #: templates/tease-search.twig:70
 msgid "Download"
-msgstr "Lataa"
+msgstr "ดาวน์โหลด"
 
 #: templates/base.twig:10
 msgid "Skip to Navigation"
@@ -321,62 +321,61 @@ msgstr ""
 msgid "Skip to Footer"
 msgstr ""
 
-# No such thing in Finnish, please remove.
 #: templates/single.twig:41 templates/tease-taxonomy-post.twig:26
 msgid "by"
-msgstr " Teksti"
+msgstr "โดย"
 
 #: templates/single.twig:53 templates/comments_section.twig:2
 msgid "Comments"
-msgstr "kommentit"
+msgstr ""
 
 #: templates/comments_section.twig:8
 msgid "Discussion"
-msgstr "Kommentit"
+msgstr ""
 
 #: templates/taxonomy.twig:18
 msgid "Results"
-msgstr "Tulokset"
+msgstr ""
 
 #: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
 msgid "Share on"
-msgstr "Jaa"
+msgstr ""
 
 #: templates/blocks/share_buttons.twig:21
 msgid "Share via"
-msgstr "Jaa"
+msgstr ""
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr "kirjoittajasta"
+msgstr "เกี่ยวกับผู้เขียน"
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
-msgstr "Sähköposti"
+msgstr ""
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
-msgstr "Söhköpostisi"
+msgstr ""
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
-msgstr "Kommentti"
+msgstr ""
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr "Kommenttisi"
+msgstr ""
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr "Nimi"
+msgstr ""
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
-msgstr "Nimesi"
+msgstr ""
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post Comment"
-msgstr "Lähetä"
+msgstr ""
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
@@ -392,7 +391,7 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
-msgstr "Greenpeace International"
+msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/greenpeace"
