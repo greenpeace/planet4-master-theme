@@ -69,4 +69,10 @@ $context['og_description']          = $post->get_og_description();
 $context['og_image_data']           = $post->get_og_image();
 $context['custom_body_classes']     = 'brown-bg';
 
+// P4 Campaign/dataLayer fields.
+$context['cf_campaign_name'] = $page_meta_data['p4_campaign_name'][0] ?? '';
+$context['cf_basket_name']   = $page_meta_data['p4_basket_name'][0] ?? '';
+$context['cf_scope']         = $page_meta_data['p4_scope'][0] ?? '';
+$context['cf_department']    = $page_meta_data['p4_department'][0] ?? '';
+
 Timber::render( [ 'page-' . $post->post_name . '.twig', 'page.twig' ], $context );
