@@ -29,7 +29,6 @@
 					<span class="screen-reader-text">{{ __( 'Selected', 'planet4-master-theme' ) }}:</span> {{ website_navbar_title }}
 					<span class="screen-reader-text">{{ __( 'Change Country', 'planet4-master-theme' ) }}</span>
 				</button>
-				{% include 'countries.twig' %}
 			</li>
 			{% for key,item in navbar_menu.get_items %}
 				{% if 'wpml-ls-item' in item.class %}
