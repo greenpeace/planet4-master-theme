@@ -45,10 +45,10 @@
 					<div class="col-md-4">
 						<p>{{ header_button_link_checkbox }}</p>
 						<a href="{{ header_button_link }}"
-						    {% if ( header_button_link_checkbox ) %}
-								target="_blank"
-							{% endif %}
-						   class="btn btn-primary btn-medium page-header-btn">{{ header_button_title }}</a>
+								{% if ( header_button_link_checkbox ) %}
+									target="_blank"
+								{% endif %}
+						class="btn btn-primary btn-medium page-header-btn">{{ header_button_title }}</a>
 					</div>
 				</div>
 			{% endif %}
