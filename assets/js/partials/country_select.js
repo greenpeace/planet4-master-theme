@@ -28,15 +28,15 @@ $(document).ready(function() {
   );
 
   $.each(countries_json, function (index, element) {
-    if ( "0" === index ) {
+    if ( '0' === index ) {
       $('.international', countries_html)
         .attr( 'href', element[0].url )
         .text( element[0].name );
 
     } else {
       let countries_sublist = $(
-        '<li><h3 class="country-group-letter">' + index +
-          '</h3>' +
+        '<li>' +
+          '<h3 class="country-group-letter">' + index + '</h3>' +
           '<ul class="countries_sublist"></ul>' +
         '</li>'
       );
