@@ -35,3 +35,8 @@ You can then run `composer run-script theme:activate` to activate it.
 ## Contribute
 
 Please read the [Contribution Guidelines](https://planet4.greenpeace.org/handbook/dev-contribute-to-planet4/) for Planet4.
+
+## Automated testing
+Automated tests done using [BrowserStack](https://www.browserstack.com).
+
+<img src="https://gist.githubusercontent.com/kirdia/2c7c68ed532310006bc4f5e50d6c06a2/raw/4d48287cd23a0d58694d1b9e61ffdf22cd7d8e66/browserstack-logo.svg?sanitize=true" alt="BrowserStack Logo" width="300" />
