@@ -25,13 +25,6 @@ job-references:
   install_dependencies: &install_dependencies
     name: "Install Dependencies"
     command: |
-      sudo apt-get update && sudo apt-get install subversion
-      sudo -E docker-php-ext-install mysqli
-      sudo sh -c "printf '\ndeb http://ftp.us.debian.org/debian sid main\n' >> /etc/apt/sources.list"
-      sudo apt-get update && sudo apt-get install mysql-client-5.7
-      curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-      sudo apt-get update && sudo apt-get install build-essential nodejs
-      sudo npm install -g stylelint eslint
       composer install --dev
 
   php_job: &php_job
@@ -55,9 +48,9 @@ job-references:
             mkdir -p /tmp/test-results/phpunit
             rm -rf $WP_TESTS_DIR $WP_CORE_DIR
             bash bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 latest
-            vendor/bin/phpunit --log-junit /tmp/test-results/phpunit/$CIRCLE_STAGE.xml
+            vendor/bin/phpunit --log-junit /tmp/test-results/phpunit/$CIRCLE_STAGE.xml --coverage-html /tmp/coverage-report --coverage-text
       - run:
-          name: "styelint"
+          name: "stylelint"
           when: always
           command: stylelint $HOME/project/assets/scss/**/*.scss $HOME/project/assets/css/*.css
       - run:
@@ -66,25 +59,27 @@ job-references:
           command: eslint $HOME/project/assets/js/**/*.js
       - store_test_results:
           path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/coverage-report
 
 
 jobs:
   php70-build:
     <<: *php_job
     docker:
-      - image: circleci/php:7.0
+      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.0
       - image: *mysql_image
 
   php71-build:
     <<: *php_job
     docker:
-      - image: circleci/php:7.1
+      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.1
       - image: *mysql_image
 
   php72-build:
     <<: *php_job
     docker:
-      - image: circleci/php:7.2
+      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.2
       - image: *mysql_image
 
   build-and-test-codeception:
