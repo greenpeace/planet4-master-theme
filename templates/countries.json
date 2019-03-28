@@ -1,0 +1,286 @@
+{
+  "0": [
+    {
+      "name": "International",
+      "url": "http://www.greenpeace.org/international"
+    }
+  ],
+  "A": [
+    {
+      "name": "Africa | English",
+      "url": "https://www.greenpeace.org/africa/en/"
+    },
+    {
+      "name": "Africa | Français",
+      "url": "https://www.greenpeace.org/africa/fr/"
+    },
+    {
+      "name": "Argentina | Español",
+      "url": "https://www.greenpeace.org/argentina/"
+    },
+    {
+      "name": "Australia | English",
+      "url": "https://www.greenpeace.org/australia/"
+    },
+    {
+      "name": "Austria | Deutsch",
+      "url": "https://www.greenpeace.org/austria/"
+    }
+  ],
+  "B": [
+    {
+      "name": "Belgium | Français",
+      "url": "https://www.greenpeace.org/belgium/fr/"
+    },
+    {
+      "name": "Belgium | Nederlands",
+      "url": "https://www.greenpeace.org/belgium/nl/"
+    },
+    {
+      "name": "Brazil | Português",
+      "url": "https://www.greenpeace.org/brasil/"
+    },
+    {
+      "name": "Bulgaria | български",
+      "url": "https://www.greenpeace.org/bulgaria/"
+    }
+  ],
+  "C": [
+    {
+      "name": "Canada | English",
+      "url": "http://www.greenpeace.org/canada/en/"
+    },
+    {
+      "name": "Canada | Français",
+      "url": "http://www.greenpeace.org/canada/fr/"
+    },
+    {
+      "name": "Chile | Español",
+      "url": "http://www.greenpeace.org/chile/"
+    },
+    {
+      "name": "China Mainland | 简体中文",
+      "url": "http://www.greenpeace.org.cn"
+    },
+    {
+      "name": "Colombia | Español",
+      "url": "http://www.greenpeace.org/colombia/"
+    },
+    {
+      "name": "Croatia | Hrvatski",
+      "url": "http://www.greenpeace.org/croatia"
+    },
+    {
+      "name": "Czech Republic | Česky",
+      "url": "http://www.greenpeace.cz"
+    }
+  ],
+  "D": [
+    {
+      "name": "Denmark | Dansk",
+      "url": "http://www.greenpeace.org/denmark/da/"
+    }
+  ],
+  "E": [
+    {
+      "name": "East Asia | English",
+      "url": "https://www.greenpeace.org/eastasia/"
+    },
+    {
+      "name": "European Union | English",
+      "url": "https://www.greenpeace.org/eu-unit"
+    }
+  ],
+  "F": [
+    {
+      "name": "Finland | Suomea",
+      "url": "https://www.greenpeace.org/finland"
+    },
+    {
+      "name": "France | Français",
+      "url": "https://www.greenpeace.org/france"
+    }
+  ],
+  "G": [
+    {
+      "name": "Germany | Deutsch",
+      "url": "https://www.greenpeace.de"
+    },
+    {
+      "name": "Greece | Ελληνικά",
+      "url": "https://www.greenpeace.org/greece"
+    }
+  ],
+  "H": [
+    {
+      "name": "Hong Kong | 繁體中文",
+      "url": "https://www.greenpeace.org/hk/"
+    },
+    {
+      "name": "Hungary | Magyar",
+      "url": "http://www.greenpeace.org/hungary/"
+    }
+  ],
+  "I": [
+    {
+      "name": "India | English",
+      "url": "https://www.greenpeace.org/india/en/"
+    },
+    {
+      "name": "India | Hindi",
+      "url": "https://www.greenpeace.org/india/hi/"
+    },
+    {
+      "name": "Indonesia | Indonesia",
+      "url": "ttps://www.greenpeace.org/seasia/id/"
+    },
+    {
+      "name": "Israel | עברית",
+      "url": "https://www.greenpeace.org/israel/"
+    },
+    {
+      "name": "Italy | Italiano",
+      "url": "https://www.greenpeace.org/italy/"
+    }
+  ],
+  "J": [
+    {
+      "name": "Japan | 日本語",
+      "url": "https://www.greenpeace.org/japan/"
+    }
+  ],
+  "K": [
+    {
+      "name": "Korea | 한국어",
+      "url": "https://www.greenpeace.org/korea/"
+    }
+  ],
+  "L": [
+    {
+      "name": "Luxembourg | Deutsch",
+      "url": "http://www.greenpeace.org/luxembourg/de/"
+    },
+    {
+      "name": "Luxembourg | Français",
+      "url": "http://www.greenpeace.org/luxembourg/fr/"
+    }
+  ],
+  "M": [
+    {
+      "name": "Malaysia | English",
+      "url": "https://www.greenpeace.org/seasia/about-us/Malaysia/"
+    },
+    {
+      "name": "Mexico | Español",
+      "url": "https://www.greenpeace.org/mexico/"
+    },
+    {
+      "name": "Middle East and North Africa | العربية",
+      "url": "https://www.greenpeace.org/mena/ar/"
+    },
+    {
+      "name": "Middle East and North Africa | English",
+      "url": "https://www.greenpeace.org/mena/en/"
+    }
+  ],
+  "N": [
+    {
+      "name": "Netherlands | Nederlands",
+      "url": "http://www.greenpeace.nl"
+    },
+    {
+      "name": "New Zealand | English",
+      "url": "https://www.greenpeace.org/new-zealand"
+    },
+    {
+      "name": "Norway | Norsk",
+      "url": "http://www.greenpeace.org/norway/no/"
+    }
+  ],
+  "P": [
+    {
+      "name": "Philippines | English",
+      "url": "https://www.greenpeace.org/seasia/ph/"
+    },
+    {
+      "name": "Poland | Polska",
+      "url": "https://www.greenpeace.pl"
+    }
+  ],
+  "R": [
+    {
+      "name": "Romania | Română",
+      "url": "http://www.greenpeace.org/romania/ro/"
+    },
+    {
+      "name": "Russia | Русский",
+      "url": "https://www.greenpeace.org/russia/ru/"
+    }
+  ],
+  "S": [
+    {
+      "name": "Slovakia | Slovensko",
+      "url": "http://www.greenpeace.org/slovakia/sk/"
+    },
+    {
+      "name": "Slovenia | Slovenjia",
+      "url": "https://www.greenpeace.org/slovenia/"
+    },
+    {
+      "name": "Southeast Asia | English",
+      "url": "https://www.greenpeace.org/seasia/"
+    },
+    {
+      "name": "Spain | Español",
+      "url": "https://es.greenpeace.org/es/"
+    },
+    {
+      "name": "Spain | Català",
+      "url": "https://es.greenpeace.org/ca/"
+    },
+    {
+      "name": "Spain | Euskara",
+      "url": "https://es.greenpeace.org/eu/"
+    },
+    {
+      "name": "Spain | Galego",
+      "url": "https://es.greenpeace.org/gl/"
+    },
+    {
+      "name": "Sweden | Svenska",
+      "url": "http://www.greenpeace.org/sweden/se/"
+    },
+    {
+      "name": "Switzerland | Deutsch",
+      "url": "https://www.greenpeace.ch/"
+    },
+    {
+      "name": "Switzerland | Français",
+      "url": "https://www.greenpeace.ch/fr/"
+    }
+  ],
+  "T": [
+    {
+      "name": "Taiwan | 正體中文",
+      "url": "https://www.greenpeace.org/taiwan/"
+    },
+    {
+      "name": "Thailand | ไทย",
+      "url": "https://www.greenpeace.org/seasia/th/"
+    },
+    {
+      "name": "Turkey | Türk",
+      "url": "https://www.greenpeace.org/turkey/"
+    }
+  ],
+  "U": [
+    {
+      "name": "United Kingdom | English",
+      "url": "https://www.greenpeace.org.uk"
+    },
+    {
+      "name": "USA | English",
+      "url": "https://www.greenpeace.org/usa/"
+    }
+  ]
+}
