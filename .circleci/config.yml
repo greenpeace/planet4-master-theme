@@ -111,24 +111,21 @@ jobs:
           working_directory: /home/circleci
           command: |
             echo "Master theme branch is ${CIRCLE_BRANCH}"
-            sleep 60
+            sleep 10
             MASTER_THEME_BRANCH=dev-${CIRCLE_BRANCH} MERGE_SOURCE=git@github.com:greenpeace/planet4-base-fork.git MERGE_REF=planet-3182 make
       - run:
           name: Test - Clone planet4-docker-compose
           command: |
             git clone https://github.com/greenpeace/planet4-docker-compose
+            cd planet4-docker-compose
+            git checkout planet-3182
       - run:
           name: Test - Run tests
           command: |
             export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
             export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
             export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
-
-            pushd planet4-docker-compose
-            git checkout planet-3182
-            make ci test
-            popd
-
+            make -C planet4-docker-compose ci test
       - run:
           name: Test - Extract test artifacts
           when: always
