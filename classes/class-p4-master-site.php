@@ -801,6 +801,101 @@ class P4_Master_Site extends TimberSite {
 				'preview_size' => 'large',
 			]
 		);
+
+		// P4 Datalayer/Campaign fields.
+		$p4_campaign_fields = new_cmb2_box(
+			[
+				'id'           => $prefix . 'campaign_fields',
+				'title'        => __( 'Campaign information (dataLayer)', 'planet4-master-theme-backend' ),
+				'object_types' => [ 'page' ],
+				'closed'       => true,  // Keep the metabox closed by default.
+			]
+		);
+
+		$campaign_options = [
+			0                                    => __( '- Select Campaign -', 'planet4-master-theme-backend' ),
+			'Local Campaign'                     => 'Local Campaign',
+			'Ocean Sanctuaries'                  => 'Ocean Sanctuaries',
+			'Climate Emergency Response'         => 'Climate Emergency Response',
+			'All Eyes on the Amazon'             => 'All Eyes on the Amazon',
+			'Asia Energy Transition'             => 'Asia Energy Transition',
+			'BrAndino: Hold the Line'            => 'BrAndino: Hold the Line',
+			'Break Free'                         => 'Break Free',
+			'Climate Justice Liability'          => 'Climate Justice Liability',
+			'Congo Basin Forests'                => 'Congo Basin Forests',
+			'Corporate ICE/ Clean Air Now'       => 'Corporate ICE/ Clean Air Now',
+			'European Energy Transition'         => 'European Energy Transition',
+			'Cross-commodities markets campaign' => 'Cross-commodities markets campaign',
+			'The Future of Europe project'       => 'The Future of Europe project',
+			'Greenpeace Fires'                   => 'Greenpeace Fires',
+			'Indonesia Forests'                  => 'Indonesia Forests',
+			'Meat & Dairy'                       => 'Meat & Dairy',
+			'Plastics Free Future'               => 'Plastics Free Future',
+			'Shifting the trillions'             => 'Shifting the trillions',
+			'Stolen Fish'                        => 'Stolen Fish',
+			'Amazon Reef'                        => 'Amazon Reef',
+			'People vs. Oil'                     => 'People vs. Oil',
+			'Pipelines'                          => 'Pipelines',
+			'Ends of the Earth'                  => 'Ends of the Earth',
+			'Patagonia'                          => 'Patagonia',
+			'Urban Revolution'                   => 'Urban Revolution',
+		];
+
+		$p4_campaign_fields->add_field(
+			[
+				'name'    => __( 'Campaign Name', 'planet4-master-theme-backend' ),
+				'desc'    => __( 'The value added in "Campaign Name" field is used in the GTM dataLayer push event', 'planet4-master-theme-backend' ),
+				'id'      => $prefix . 'campaign_name',
+				'type'    => 'select',
+				'options' => $campaign_options,
+			]
+		);
+
+		$basket_options = [
+			0                      => __( '- Select Basket -', 'planet4-master-theme-backend' ),
+			'Forests'              => 'Forests',
+			'Oceans'               => 'Oceans',
+			'Good Life'            => 'Good Life',
+			'Food'                 => 'Food',
+			'Climate & Energy'     => 'Climate & Energy',
+			'Oil'                  => 'Oil',
+			'Political & Business' => 'Political & Business',
+		];
+
+		$p4_campaign_fields->add_field(
+			[
+				'name'    => __( 'Basket Name', 'planet4-master-theme-backend' ),
+				'desc'    => __( 'The value added in "Basket Name" field is used in the GTM dataLayer push event', 'planet4-master-theme-backend' ),
+				'id'      => $prefix . 'basket_name',
+				'type'    => 'select',
+				'options' => $basket_options,
+			]
+		);
+
+		$scope_options = [
+			0          => __( '- Select Scope -', 'planet4-master-theme-backend' ),
+			'Global'   => 'Global',
+			'National' => 'National',
+		];
+
+		$p4_campaign_fields->add_field(
+			[
+				'name'    => __( 'Scope', 'planet4-master-theme-backend' ),
+				'desc'    => __( 'The value added in "Scope" field is used in the GTM dataLayer push event', 'planet4-master-theme-backend' ),
+				'id'      => $prefix . 'scope',
+				'type'    => 'select',
+				'options' => $scope_options,
+			]
+		);
+
+		$p4_campaign_fields->add_field(
+			[
+				'name' => __( 'Department', 'planet4-master-theme-backend' ),
+				'desc' => __( 'The value added in "Department" field is used in the GTM dataLayer push event', 'planet4-master-theme-backend' ),
+				'id'   => $prefix . 'department',
+				'type' => 'text_medium',
+			]
+		);
 	}
 
 	/**
