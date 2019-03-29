@@ -102,7 +102,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * Initialize the class. Hook necessary actions and filters.
 		 */
 		protected function initialize() {
-			$this->start = TimberHelper::start_timer();
 			$this->localizations = [
 				// The ajaxurl variable is a global js variable defined by WP itself but only for the WP admin
 				// For the frontend we need to define it ourselves and pass it to js.
@@ -738,8 +737,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * View the Search page template.
 		 */
 		public function view() {
-			Timber::render( $this->templates, $this->context, 600 );
-			echo '<!-- Timber timer ' . TimberHelper::stop_timer($this->start) . ' -->';
+			Timber::render( $this->templates, $this->context, self::DEFAULT_CACHE_TTL );
 		}
 
 		/**
@@ -760,7 +758,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					} else {
 						$paged_context['first_of_the_page'] = false;
 					}
-					Timber::render( [ 'tease-search.twig' ], $paged_context );
+					Timber::render( [ 'tease-search.twig' ], $paged_context, self::DEFAULT_CACHE_TTL );
 				}
 			}
 		}
