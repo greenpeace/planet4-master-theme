@@ -813,7 +813,7 @@ class P4_Master_Site extends TimberSite {
 		);
 
 		$campaign_options = [
-			0                                    => __( '- Select Campaign -', 'planet4-master-theme-backend' ),
+			'not set'                            => __( '- Select Campaign -', 'planet4-master-theme-backend' ),
 			'Local Campaign'                     => 'Local Campaign',
 			'Ocean Sanctuaries'                  => 'Ocean Sanctuaries',
 			'Climate Emergency Response'         => 'Climate Emergency Response',
@@ -852,7 +852,7 @@ class P4_Master_Site extends TimberSite {
 		);
 
 		$basket_options = [
-			0                      => __( '- Select Basket -', 'planet4-master-theme-backend' ),
+			'not set'              => __( '- Select Basket -', 'planet4-master-theme-backend' ),
 			'Forests'              => 'Forests',
 			'Oceans'               => 'Oceans',
 			'Good Life'            => 'Good Life',
@@ -873,7 +873,7 @@ class P4_Master_Site extends TimberSite {
 		);
 
 		$scope_options = [
-			0          => __( '- Select Scope -', 'planet4-master-theme-backend' ),
+			'not set'  => __( '- Select Scope -', 'planet4-master-theme-backend' ),
 			'Global'   => 'Global',
 			'National' => 'National',
 		];
