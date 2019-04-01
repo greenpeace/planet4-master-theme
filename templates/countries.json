@@ -2,7 +2,7 @@
   "0": [
     {
       "name": "International",
-      "url": "http://www.greenpeace.org/international"
+      "url": "https://www.greenpeace.org/international/"
     }
   ],
   "A": [
@@ -72,7 +72,7 @@
     },
     {
       "name": "Czech Republic | Česky",
-      "url": "http://www.greenpeace.cz"
+      "url": "https://www.greenpeace.org/czech/"
     }
   ],
   "D": [
@@ -88,13 +88,13 @@
     },
     {
       "name": "European Union | English",
-      "url": "https://www.greenpeace.org/eu-unit"
+      "url": "https://www.greenpeace.org/eu-unit/"
     }
   ],
   "F": [
     {
       "name": "Finland | Suomea",
-      "url": "https://www.greenpeace.org/finland"
+      "url": "https://www.greenpeace.org/finland/"
     },
     {
       "name": "France | Français",
@@ -108,7 +108,7 @@
     },
     {
       "name": "Greece | Ελληνικά",
-      "url": "https://www.greenpeace.org/greece"
+      "url": "https://www.greenpeace.org/greece/"
     }
   ],
   "H": [
@@ -132,7 +132,7 @@
     },
     {
       "name": "Indonesia | Indonesia",
-      "url": "ttps://www.greenpeace.org/seasia/id/"
+      "url": "https://www.greenpeace.org/seasia/id/"
     },
     {
       "name": "Israel | עברית",
@@ -186,11 +186,11 @@
   "N": [
     {
       "name": "Netherlands | Nederlands",
-      "url": "http://www.greenpeace.nl"
+      "url": "https://www.greenpeace.org/nl/"
     },
     {
       "name": "New Zealand | English",
-      "url": "https://www.greenpeace.org/new-zealand"
+      "url": "https://www.greenpeace.org/new-zealand/"
     },
     {
       "name": "Norway | Norsk",
