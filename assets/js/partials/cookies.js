@@ -24,10 +24,13 @@ $(document).ready(function () {
   'use strict';
 
   const cookie = readCookie('greenpeace');
+  const nro = $('body').data('nro');
   if (cookie == null) {
     $('.cookie-notice').show();
     const height = $('.cookie-notice').height();
     $('footer').css('margin-bottom', height + 'px');
+  } else {
+    createCookie('gp_nro', nro, 365);
   }
 
   $('#hidecookie').click(function () {
@@ -37,6 +40,9 @@ $(document).ready(function () {
 
     // Remove the 'no_track' cookie, if user accept the cookies consent.
     createCookie('no_track', '0', -1);
+
+    // Create cookie to store last visited nro.
+    createCookie('gp_nro', nro, 365);
 
     // DataLayer push event on cookies consent.
     window.dataLayer = window.dataLayer || [];
