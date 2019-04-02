@@ -4,7 +4,7 @@ msgstr ""
 "n%100==3||n%100==4 ? 2 : 3;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-08-10 12:32+0000\n"
-"PO-Revision-Date: 2019-04-02 18:20+0000\n"
+"PO-Revision-Date: 2019-04-02 18:25+0000\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -110,7 +110,7 @@ msgstr ""
 
 #: classes/class-p4-search.php:482
 msgid "Document"
-msgstr ""
+msgstr "Dokument"
 
 #: classes/class-p4-search.php:486
 msgid "Page"
@@ -130,7 +130,7 @@ msgstr ""
 
 #: classes/class-p4-search.php:580
 msgid "DOCUMENT"
-msgstr ""
+msgstr "DOKUMENT"
 
 #: classes/class-p4-search.php:585
 msgid "POST"
@@ -171,7 +171,7 @@ msgstr ""
 
 #: templates/navigation-bar.twig:18
 msgid "Close Menu"
-msgstr ""
+msgstr "Zapri meni"
 
 #: templates/navigation-bar.twig:27
 msgid "Selected"
@@ -235,11 +235,11 @@ msgstr "KATEGORIJA"
 
 #: templates/search.twig:112
 msgid "CONTENT TYPES"
-msgstr ""
+msgstr "TIPI VSEBIN"
 
 #: templates/search.twig:136
 msgid "CAMPAIGN"
-msgstr ""
+msgstr "KAMPANJA"
 
 #: templates/search.twig:155
 msgid "Cancel"
@@ -263,7 +263,7 @@ msgstr ""
 
 #: templates/search.twig:201
 msgid "Campaign"
-msgstr ""
+msgstr "Kampanja"
 
 #: templates/search.twig:220
 msgid "Category"
@@ -271,7 +271,7 @@ msgstr "Kategorija"
 
 #: templates/search.twig:239
 msgid "Content type"
-msgstr ""
+msgstr "Tip vsebine"
 
 #: templates/search.twig:262
 msgid "Sort by"
@@ -311,7 +311,7 @@ msgstr ""
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr ""
+msgstr "o avtorju"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
