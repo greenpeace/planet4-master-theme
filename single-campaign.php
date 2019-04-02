@@ -23,6 +23,7 @@ $custom_styles = [];
 
 // Set specific CSS for Montserrat.
 $pf = $post->campaign_header_primary;
+
 $header_font_style = [
 	'Montserrat'       => "font-family: 'Montserrat' !important; font-weight: 900 !important;",
 	'Montserrat_Light' => "font-family: 'Montserrat' !important; font-weight: 500 !important;",
