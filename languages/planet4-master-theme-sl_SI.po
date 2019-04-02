@@ -4,7 +4,7 @@ msgstr ""
 "n%100==3||n%100==4 ? 2 : 3;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-08-10 12:32+0000\n"
-"PO-Revision-Date: 2019-04-02 18:56+0000\n"
+"PO-Revision-Date: 2019-04-02 18:58+0000\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,7 +54,7 @@ msgstr "Stran 404"
 
 #: tag.php:56
 msgid "Unknown Campaign page"
-msgstr ""
+msgstr "Neznano ime kampanje"
 
 #: tag.php:62
 msgid "Things you can do"
@@ -62,7 +62,7 @@ msgstr "Stvari, ki jih lahko storite"
 
 #: tag.php:63
 msgid "We want you to take action because together we're strong."
-msgstr ""
+msgstr "Želimo da ukrepate, saj smo skupaj močnejši."
 
 #: tag.php:91
 msgid "Related Campaigns"
@@ -191,7 +191,7 @@ msgstr "Iskanje"
 
 #: templates/search.twig:15
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr ""
+msgstr "Ups! Za vaše iskanje nismo našli nobenega rezultata."
 
 #: templates/search.twig:17
 msgid "Check for typos, and try your search again"
@@ -207,7 +207,7 @@ msgstr "Išči po arhivu. Preusmerjeni boste na stran z arhivi."
 
 #: templates/search.twig:23
 msgid "We also included results for "
-msgstr ""
+msgstr "Dodali smo tudi rezultate za"
 
 #: templates/search.twig:37
 msgid "This Site"
