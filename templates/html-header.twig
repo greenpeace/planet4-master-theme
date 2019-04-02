@@ -56,7 +56,7 @@
           }
 
           if ( google_tag_value ) {
-			window.dataLayer = window.dataLayer || [];
+			var dataLayer = window.dataLayer = window.dataLayer || [];
 			dataLayer.push({
 				'pageType' : '{{ page_category }}',
 				'signedIn' : 'false',
@@ -64,6 +64,20 @@
 				'userID' : '',
 				'post_tags': '{{ post_tags }}'
 			});
+
+			var cf_campaign_name = '{% if cf_campaign_name is defined and cf_campaign_name is not null %}{{ cf_campaign_name }}{% endif %}';
+			var cf_basket_name   = '{% if cf_basket_name is defined and cf_basket_name is not null %}{{ cf_basket_name }}{% endif %}';
+			var cf_scope         = '{% if cf_scope is defined and cf_scope is not null %}{{ cf_scope }}{% endif %}';
+			var cf_department    = '{% if cf_department is defined and cf_department is not null %}{{ cf_department }}{% endif %}';
+
+			if ( cf_campaign_name || cf_basket_name || cf_scope || cf_department ) {
+				dataLayer.push({
+					'gCampaign' : cf_campaign_name,
+					'gBasket' : cf_basket_name,
+					'gScope': cf_scope,
+					'gDepartment': cf_department,
+				});
+			}
           }
         </script>
         <script>
