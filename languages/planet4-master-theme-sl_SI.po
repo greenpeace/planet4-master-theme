@@ -4,7 +4,7 @@ msgstr ""
 "n%100==3||n%100==4 ? 2 : 3;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-08-10 12:32+0000\n"
-"PO-Revision-Date: 2019-04-02 18:43+0000\n"
+"PO-Revision-Date: 2019-04-02 18:44+0000\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -66,7 +66,7 @@ msgstr ""
 
 #: tag.php:91
 msgid "Related Campaigns"
-msgstr ""
+msgstr "Sorodne kampanje"
 
 #: tag.php:92
 msgid "This Campaign is not assigned to an Issue"
@@ -114,11 +114,11 @@ msgstr "Dokument"
 
 #: classes/class-p4-search.php:486
 msgid "Page"
-msgstr ""
+msgstr "Stran"
 
 #: classes/class-p4-search.php:490
 msgid "Post"
-msgstr ""
+msgstr "Objava"
 
 #: classes/class-p4-search.php:570
 msgid "ACTION"
@@ -126,7 +126,7 @@ msgstr ""
 
 #: classes/class-p4-search.php:574
 msgid "PAGE"
-msgstr ""
+msgstr "STRAN"
 
 #: classes/class-p4-search.php:580
 msgid "DOCUMENT"
@@ -134,7 +134,7 @@ msgstr "DOKUMENT"
 
 #: classes/class-p4-search.php:585
 msgid "POST"
-msgstr ""
+msgstr "OBJAVA"
 
 #: classes/class-p4-search.php:660
 #, php-format
