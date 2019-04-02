@@ -4,7 +4,7 @@ msgstr ""
 "n%100==3||n%100==4 ? 2 : 3;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-08-10 12:32+0000\n"
-"PO-Revision-Date: 2019-04-02 09:56+0000\n"
+"PO-Revision-Date: 2019-04-02 18:19+0000\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,7 +50,7 @@ msgstr ""
 
 #: 404.php:32
 msgid "404 Page"
-msgstr ""
+msgstr "Stran 404"
 
 #: tag.php:56
 msgid "Unknown Campaign page"
@@ -89,20 +89,20 @@ msgstr ""
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%1$d rezultat za '%2$s'"
+msgstr[1] "%1$d rezultata za '%2$s'"
+msgstr[2] "%1$d rezultati za '%2$s'"
+msgstr[3] "%1$d rezultatov za '%2$s'"
 
 #. translators:
 #: classes/class-p4-search.php:418
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%d rezultat"
+msgstr[1] "%d rezultata"
+msgstr[2] "%d rezultati"
+msgstr[3] "%d rezultatov"
 
 #: classes/class-p4-search.php:478
 msgid "Action"
