@@ -296,12 +296,12 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'type'             => 'select',
 					'show_option_none' => '-----',
 					'options'          => [
-						'anton'            => __( 'Anton', 'planet4-master-theme-backend' ),
-						'montserrat_bold'  => __( 'Montserrat Bold', 'planet4-master-theme-backend' ),
-						'montserrat_light' => __( 'Montserrat Light', 'planet4-master-theme-backend' ),
-						'sanctuary'        => __( 'Sanctuary', 'planet4-master-theme-backend' ),
-						'kanit'            => __( 'Kanit Extra Bold', 'planet4-master-theme-backend' ),
-						'save_the_arctic'  => __( 'Save the Arctic', 'planet4-master-theme-backend' ),
+						'Anton'            => __( 'Anton', 'planet4-master-theme-backend' ),
+						'Montserrat'       => __( 'Montserrat Bold', 'planet4-master-theme-backend' ),
+						'Montserrat_Light' => __( 'Montserrat Light', 'planet4-master-theme-backend' ),
+						'Sanctuary'        => __( 'Sanctuary', 'planet4-master-theme-backend' ),
+						'Kanit'            => __( 'Kanit Extra Bold', 'planet4-master-theme-backend' ),
+						'Save the Arctic'  => __( 'Save the Arctic', 'planet4-master-theme-backend' ),
 					],
 				]
 			);
