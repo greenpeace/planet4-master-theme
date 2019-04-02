@@ -4,7 +4,7 @@ msgstr ""
 "n%100==3||n%100==4 ? 2 : 3;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-08-10 12:32+0000\n"
-"PO-Revision-Date: 2019-04-02 18:36+0000\n"
+"PO-Revision-Date: 2019-04-02 18:39+0000\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -139,7 +139,7 @@ msgstr ""
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr ""
+msgstr "PRIKAŽI %s NADALJNIH REZULTATOV"
 
 #. Name of the template
 msgid "Evergreen Page"
@@ -151,7 +151,7 @@ msgstr ""
 
 #: page-templates/sitemap.php:31
 msgid "Act"
-msgstr ""
+msgstr "Ukrepaj"
 
 #: page-templates/sitemap.php:32
 msgid "Explore"
@@ -163,7 +163,7 @@ msgstr ""
 
 #: page-templates/sitemap.php:34
 msgid "Articles"
-msgstr ""
+msgstr "Članki"
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
@@ -195,7 +195,7 @@ msgstr ""
 
 #: templates/search.twig:17
 msgid "Check for typos, and try your search again"
-msgstr ""
+msgstr "Preverite škrate v besedilu in poskusite znova"
 
 #: templates/search.twig:18
 msgid "Try searching for somthing else"
