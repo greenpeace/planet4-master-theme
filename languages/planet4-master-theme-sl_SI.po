@@ -167,7 +167,7 @@ msgstr ""
 
 #: templates/navigation-bar.twig:13
 msgid "Menu"
-msgstr ""
+msgstr "Meni"
 
 #: templates/navigation-bar.twig:18
 msgid "Close Menu"
@@ -219,7 +219,7 @@ msgstr "Arhiv"
 
 #: templates/search.twig:56
 msgid "Filters"
-msgstr ""
+msgstr "Filtri"
 
 #: templates/search.twig:62 templates/search.twig:163
 msgid "Refine your search"
