@@ -4,7 +4,7 @@ msgstr ""
 "n%100==3||n%100==4 ? 2 : 3;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-08-10 12:32+0000\n"
-"PO-Revision-Date: 2019-04-02 18:19+0000\n"
+"PO-Revision-Date: 2019-04-02 18:20+0000\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -179,7 +179,7 @@ msgstr ""
 
 #: templates/navigation-bar.twig:28
 msgid "Change Country"
-msgstr ""
+msgstr "Spremeni državo"
 
 #: templates/navigation-bar.twig:58
 msgid "Toggle search form"
@@ -231,7 +231,7 @@ msgstr ""
 
 #: templates/search.twig:91
 msgid "CATEGORY"
-msgstr ""
+msgstr "KATEGORIJA"
 
 #: templates/search.twig:112
 msgid "CONTENT TYPES"
@@ -247,11 +247,11 @@ msgstr "Prekliči"
 
 #: templates/search.twig:156
 msgid "Apply Filters"
-msgstr ""
+msgstr "Uporabi filtre"
 
 #: templates/search.twig:166
 msgid "ACTIVE FILTERS"
-msgstr ""
+msgstr "AKTIVNI FILTRI"
 
 #: templates/search.twig:175
 msgid "Clear All"
@@ -267,7 +267,7 @@ msgstr ""
 
 #: templates/search.twig:220
 msgid "Category"
-msgstr ""
+msgstr "Kategorija"
 
 #: templates/search.twig:239
 msgid "Content type"
