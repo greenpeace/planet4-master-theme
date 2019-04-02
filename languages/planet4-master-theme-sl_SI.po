@@ -4,7 +4,7 @@ msgstr ""
 "n%100==3||n%100==4 ? 2 : 3;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-08-10 12:32+0000\n"
-"PO-Revision-Date: 2019-04-02 18:27+0000\n"
+"PO-Revision-Date: 2019-04-02 18:32+0000\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,11 +26,11 @@ msgstr ""
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr ""
+msgstr "primernosti"
 
 #: functions.php:89
 msgid "Most recent"
-msgstr "Najnovejše"
+msgstr "datumu"
 
 #: functions.php:267
 msgid "DONATE"
@@ -275,7 +275,7 @@ msgstr "Tip vsebine"
 
 #: templates/search.twig:262
 msgid "Sort by"
-msgstr ""
+msgstr "Razvrsti po"
 
 #: templates/search.twig:299
 msgid "Suggested search terms"
