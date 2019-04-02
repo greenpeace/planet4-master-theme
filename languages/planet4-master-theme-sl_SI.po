@@ -4,7 +4,7 @@ msgstr ""
 "n%100==3||n%100==4 ? 2 : 3;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-08-10 12:32+0000\n"
-"PO-Revision-Date: 2019-04-02 18:25+0000\n"
+"PO-Revision-Date: 2019-04-02 18:27+0000\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -223,7 +223,7 @@ msgstr "Filtri"
 
 #: templates/search.twig:62 templates/search.twig:163
 msgid "Refine your search"
-msgstr ""
+msgstr "Zožaj rezultat iskanja"
 
 #: templates/search.twig:70
 msgid "ISSUE"
