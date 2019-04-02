@@ -4,7 +4,7 @@
 
 {% endblock %}
 
-<body class="{{ body_class }} {{ custom_body_classes|default("") }}">
+<body class="{{ body_class }} {{ custom_body_classes|default("") }}" data-nro="{{ site.link }}">
 
 	<ul class="skip-links">
 		<li><a href="#header">{{ __( 'Skip to Navigation', 'planet4-master-theme' ) }}</a></li>
@@ -43,5 +43,6 @@
 
 		{{ function('wp_footer') }}
 	{% endblock %}
+	<script id="countries_script" type="application/json">{% include "countries.json" %}</script>
 </body>
 </html>
