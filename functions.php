@@ -24,6 +24,13 @@ if ( ! class_exists( 'Timber' ) ) {
 	);
 
 	return;
+} else {
+	# Enable Timber template cache unless this is a debug environment
+	if (defined('WP_DEBUG') && is_bool(WP_DEBUG)) {
+		Timber::$cache=!WP_DEBUG;
+	} else {
+		Timber::$cache=true;
+	}
 }
 
 require_once( __DIR__ . '/classes/class-p4-master-site.php' );
