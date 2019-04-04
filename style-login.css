@@ -82,4 +82,5 @@ body.login div#login form#loginform p.submit input#wp-submit {
 	color: white;
 	padding: 0.5em 40px;
 	line-height: 1;
+	border-radius: 0;
 }
