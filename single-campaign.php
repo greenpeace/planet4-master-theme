@@ -18,8 +18,35 @@ $context = Timber::get_context();
 $post            = Timber::query_post( false, 'P4_Post' );
 $context['post'] = $post;
 
-// Set Navigation Issues links.
-$post->set_issues_links();
+// Save custom style settings.
+$custom_styles = [];
+
+// Set specific CSS for Montserrat.
+$pf = $post->campaign_header_primary;
+
+$header_font_style = [
+	'Montserrat'       => "font-family: 'Montserrat' !important; font-weight: 900 !important;",
+	'Montserrat_Light' => "font-family: 'Montserrat' !important; font-weight: 500 !important;",
+];
+
+if ( $pf && array_key_exists( $pf, $header_font_style ) ) {
+	$header_font = $header_font_style[ $pf ];
+} else {
+	$header_font = "font-family: {$pf} !important;";
+}
+
+$custom_styles['css']['nav_color']               = $post->campaign_nav_color ? ".navbar { background-color: {$post->campaign_nav_color} !important;}" : null;
+$custom_styles['nav_type']                       = $post->campaign_nav_type;
+$custom_styles['campaign_logo_color']            = $post->campaign_logo_color ?? 'light';
+$custom_styles['css']['header_color']            = $post->campaign_header_color ? " h1, h2, h3, h4, h5 { color: {$post->campaign_header_color} !important;}" : null;
+$custom_styles['css']['campaign_header_primary'] = $post->campaign_header_primary ? " h1, h2, h3, h4, h5 { {$header_font} }" : null;
+$custom_styles['css']['header_serif']            = $post->campaign_header_serif ? " .page-header { font-family: {$post->campaign_header_serif}!important;}" : null;
+$custom_styles['css']['header_sans']             = $post->campaign_header_sans ? " .page-header { font-family: {$post->campaign_header_sans} !important;}" : null;
+$custom_styles['css']['body_font']               = $post->campaign_body_font ? " body, p { font-family: '{$post->campaign_body_font}' !important;}" : null;
+$custom_styles['css']['btn_primary']             = $post->campaign_primary_color ? " .btn-primary { background: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} !important;}" : null;
+$custom_styles['css']['btn_secondary']           = $post->campaign_secondary_color ? " .btn-secondary:hover { background: $post->campaign_secondary_color !important; border-color: {$post->campaign_primary_color}; }" : null;
+$custom_styles['css']['anchor']                  = $post->campaign_secondary_color ? " a { color: {$post->campaign_secondary_color } !important; }" : null;
+$custom_styles['campaign_logo']                  = $post->campaign_logo ?? null;
 
 // Get the cmb2 custom fields data.
 $page_meta_data    = get_post_meta( $post->ID );
