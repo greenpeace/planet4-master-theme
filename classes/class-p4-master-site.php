@@ -162,6 +162,31 @@ class P4_Master_Site extends TimberSite {
 				'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme-backend' ),
 			]
 		);
+
+		add_filter( 'login_headerurl', [ $this, 'add_login_logo_url' ] );
+		add_filter( 'login_headertitle', [ $this, 'add_login_logo_url_title' ] );
+		add_action( 'login_enqueue_scripts', [ $this, 'add_login_stylesheet' ] );
+	}
+
+	/**
+	 * Sets the URL for the logo link in the login page.
+	 */
+	function add_login_logo_url() {
+		return home_url();
+	}
+
+	/**
+	 * Sets the title for the logo link in the login page.
+	 */
+	function add_login_logo_url_title() {
+		return get_bloginfo( 'name' );
+	}
+
+	/**
+	 * Sets a custom stylesheet for the login page.
+	 */
+	public function add_login_stylesheet() {
+		wp_enqueue_style( 'custom-login', $this->theme_dir . '/style-login.css' );
 	}
 
 	/**
