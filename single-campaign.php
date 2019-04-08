@@ -46,6 +46,7 @@ $custom_styles['css']['body_font']               = $post->campaign_body_font ? "
 $custom_styles['css']['btn_primary']             = $post->campaign_primary_color ? " .btn-primary { background: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} !important;}" : null;
 $custom_styles['css']['btn_secondary']           = $post->campaign_secondary_color ? " .btn-secondary:hover { background: $post->campaign_secondary_color !important; border-color: {$post->campaign_primary_color}; }" : null;
 $custom_styles['css']['anchor']                  = $post->campaign_secondary_color ? " a { color: {$post->campaign_secondary_color } !important; }" : null;
+$custom_styles['css']['cover-card-btn']          = $post->campaign_primary_color ? " .cover-card:hover .cover-card-btn { background-color: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} !important;}" : null;
 $custom_styles['campaign_logo']                  = $post->campaign_logo ?? null;
 
 // Get the cmb2 custom fields data.
