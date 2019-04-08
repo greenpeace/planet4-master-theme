@@ -101,10 +101,14 @@
 
 	{% include 'blocks/p4_structured_data.twig' %}
 
-	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link rel="pingback" href="{{ site.pingback_url }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<link rel="shortcut icon" type="image/ico" href="{{ theme.uri }}/favicon.ico"/>
 	<link rel="dns-prefetch" href="//act.greenpeace.org">
 	{{ wp_head }}
+	{% if custom_styles %}
+		<style type="text/css">
+			{% for style in custom_styles.css %}{{ style|raw }}{% endfor %}
+		</style>
+	{% endif %}
 </head>

@@ -639,7 +639,7 @@ class P4_Master_Site extends TimberSite {
 			[
 				'id'           => $prefix . 'metabox',
 				'title'        => __( 'Page Header Fields', 'planet4-master-theme-backend' ),
-				'object_types' => [ 'page' ], // Post type.
+				'object_types' => [ 'page', 'campaign' ], // Post type.
 			]
 		);
 
