@@ -44,9 +44,13 @@ $custom_styles['css']['header_serif']            = $post->campaign_header_serif 
 $custom_styles['css']['header_sans']             = $post->campaign_header_sans ? " .page-header { font-family: {$post->campaign_header_sans} !important;}" : null;
 $custom_styles['css']['body_font']               = $post->campaign_body_font ? " body, p { font-family: '{$post->campaign_body_font}' !important;}" : null;
 $custom_styles['css']['btn_primary']             = $post->campaign_primary_color ? " .btn-primary { background: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} !important;}" : null;
-$custom_styles['css']['btn_secondary']           = $post->campaign_secondary_color ? " .btn-secondary:hover { background: $post->campaign_secondary_color !important; border-color: {$post->campaign_primary_color}; }" : null;
 $custom_styles['css']['anchor']                  = $post->campaign_secondary_color ? " a { color: {$post->campaign_secondary_color } !important; }" : null;
 $custom_styles['campaign_logo']                  = $post->campaign_logo ?? null;
+
+$custom_styles['css']['btn_secondary'] = $post->campaign_secondary_color
+	? " .btn-secondary { background: none !important;  border: 1px solid $post->campaign_secondary_color !important; color: {$post->campaign_secondary_color}; }
+	    .btn-secondary:hover { background: $post->campaign_secondary_color !important; border-color: {$post->campaign_secondary_color};; color: white !important; }"
+	: null;
 
 // Get the cmb2 custom fields data.
 $page_meta_data    = get_post_meta( $post->ID );
