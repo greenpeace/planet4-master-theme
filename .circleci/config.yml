@@ -3,8 +3,7 @@ workflows:
   main:
     jobs:
       - php70-build
-      - php71-build
-      - php72-build
+      - php73-build
       - build-and-test-codeception:
           context: org-global
           filters:
@@ -67,19 +66,13 @@ jobs:
   php70-build:
     <<: *php_job
     docker:
-      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.0
+      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.0-develop
       - image: *mysql_image
 
-  php71-build:
+  php73-build:
     <<: *php_job
     docker:
-      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.1
-      - image: *mysql_image
-
-  php72-build:
-    <<: *php_job
-    docker:
-      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.2
+      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.3-develop
       - image: *mysql_image
 
   build-and-test-codeception:
