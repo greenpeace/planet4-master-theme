@@ -39,7 +39,9 @@
 	{% endif %}
 
 	{% block footer %}
-		{% if not custom_styles.nav_type == 'minimal' %}
+		{% if custom_styles.nav_type == 'minimal' %}
+			{% include 'footer_min.twig' %}
+		{% else %}
 			{% include 'footer.twig' %}
 		{% endif %}
 

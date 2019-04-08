@@ -70,7 +70,7 @@ if ( 'post' == $args['content'] || 'page' == $args['content'] ) {
 }
 $sql = sprintf( "SELECT ID FROM {$wpdb->posts} %s WHERE %s", $join, $where );
 // Ignore lint on the following line because it doesn't detect the context of the $sql variable.
-$post_ids = apply_filters( 'export_post_ids', $wpdb->get_col( $sql ), $args );  // phpcs:ignore 
+$post_ids = apply_filters( 'export_post_ids', $wpdb->get_col( $sql ), $args );  // phpcs:ignore
 
 $cats  = [];
 $tags  = [];
