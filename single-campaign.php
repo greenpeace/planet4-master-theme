@@ -55,7 +55,11 @@ $custom_styles['css']['btn_secondary'] = $post->campaign_secondary_color
 
 // Get the cmb2 custom fields data.
 $page_meta_data    = get_post_meta( $post->ID );
-$campaign_template = ! empty( $page_meta_data['_campaign_page_template'][0] ) ? $page_meta_data['_campaign_page_template'][0] : 'antarctic';
+$campaign_template = ! empty( $page_meta_data['_campaign_page_template'][0] ) ? $page_meta_data['_campaign_page_template'][0] : false;
+
+if ( $campaign_template ) {
+	$context['custom_body_classes'] = 'brown-bg theme-' . $campaign_template;
+}
 
 $context['post']                = $post;
 $context['header_title']        = is_front_page() ? ( $page_meta_data['p4_title'][0] ?? '' ) : ( $page_meta_data['p4_title'][0] ?? $post->title );
@@ -74,7 +78,6 @@ $context['og_title']                = $post->get_og_title();
 $context['og_description']          = $post->get_og_description();
 $context['og_image_data']           = $post->get_og_image();
 $context['custom_styles']           = $custom_styles;
-$context['custom_body_classes']     = 'brown-bg theme-' . $campaign_template;
 
 
 if ( post_password_required( $post->ID ) ) {
