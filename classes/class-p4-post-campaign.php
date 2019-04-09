@@ -122,7 +122,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			$campaign_templates = $this->campaign_themes();
 			?>
 			<select id="campaign_page_template" name="campaign_page_template">
-				<option value=""><?php _e( 'Select Campaign Template', 'planet4-master-theme-backend' ); ?>
+				<option value=""><?php _e( 'Default Template', 'planet4-master-theme-backend' ); ?>
 				</option>
 				<?php
 				foreach ( $campaign_templates as $campaign => $campaign_template ) {
