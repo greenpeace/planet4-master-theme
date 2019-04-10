@@ -155,7 +155,7 @@
 }
 
 .site-footer_min {
-  padding: 22px 0;
+  padding: 40px 0;
   line-height: 1;
 
   .footer-social-media {
@@ -163,7 +163,7 @@
     font-size: 2rem;
     margin: auto;
     text-align: center;
-    width: 17.5rem;
+    width: 12.5rem;
 
     @supports (justify-content: space-between) {
       & {
@@ -181,15 +181,23 @@
       transition: color 100ms linear;
 
       &:hover {
-        color: $white;
+        color: $grey-20;
       }
+    }
+
+    .list-unstyled {
+      width: 200px;
     }
   }
 
   .gp-year {
     color: $white;
-    font-size: 1rem;
-    font-family: $roboto;
-    margin: 30px 0 0 0;
+    font-size: 0.8rem;
+    font-family: $lora;
+    margin: 40px 0 30px 0;
+  }
+
+  .icon {
+    fill: $white;
   }
 }
