@@ -79,7 +79,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'public'             => true,
 				'publicly_queryable' => true,
 				'show_ui'            => true,
-				'show_in_menu'       => true,
+				'show_in_menu'       => false,
 				'query_var'          => true,
 				'rewrite'            => [ 'slug' => 'campaign' ],
 				'capability_type'    => 'post',
