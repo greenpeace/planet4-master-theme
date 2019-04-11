@@ -51,5 +51,5 @@ $(document).ready(function() {
     }
   });
 
-  $('#navbar-dropdown li').append( countries_html );
+  $('#navbar-dropdown #country-select').append( countries_html );
 });
