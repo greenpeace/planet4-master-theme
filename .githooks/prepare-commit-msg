@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+# If the branch name contains the issue number, it will append it to the
+# commit message. Example:
+#
+#   BRANCH NAME               APPEND
+#   feature/PLANET-3125-fix   PLANET-3125
+#   planet-3125               PLANET-3125
+#   some-name                 fail
+
+# If this is not a commit, exit successfully.
+if [[ $2 != "commit" ]]; then
+  exit 0;
+fi
+
+# Customize which branches should be skipped when
+# prepending commit message.
+if [ -z "$BRANCHES_TO_SKIP" ]; then
+  BRANCHES_TO_SKIP=(master develop)
+fi
+
+# Get current branch.
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+
+# Get planet4 branch.
+PLANET_BRANCH_NAME=$(echo "$BRANCH_NAME" | awk 'match($0,/(PLANET|planet)-[0-9]*/) {print toupper(substr($0,RSTART,RLENGTH))}')
+
+# Is current branch in excluded list?
+BRANCH_EXCLUDED=$(printf "%s\\n" "${BRANCHES_TO_SKIP[@]}" | awk -v branch=$BRANCH_NAME "BEGIN{count=0} /^branch$/ {count++} END{print count}")
+
+# Check if planet4 branch exists in commit message.
+ISSUE_IN_COMMIT=$(grep -cE "(PLANET|planet)-[0-9]*" "$1" || true)
+
+# If current branch is in the excluded list, nothing to do here, exit successfully.
+if [[ $BRANCH_EXCLUDED -eq 1 ]]; then
+  exit 0;
+fi
+
+# If commit message already includes planet4 issue, nothing to do here, exit successfully.
+if [[ $ISSUE_IN_COMMIT -ge 1 ]]; then
+  exit 0;
+fi
+
+# If planet-xxx is not included in the branch name exit unsuccessfully.
+if [[ -z "$PLANET_BRANCH_NAME" ]]; then
+  echo "Error! Issue number is not part of the branch name or the commit message.";
+  echo "Commit message should start with PLANET-xxx or branch name should contain planet-xxx or PLANET-xxx.";
+  exit 1;
+fi
+
+# Finally prepend the planet4 branch name to the commit message.
+sed -i.bak -e "1s/^/$PLANET_BRANCH_NAME /" "$1";

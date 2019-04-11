@@ -20,6 +20,7 @@ const path_style = 'assets/scss/style.scss';
 const path_icons = 'images/icons/*.svg';
 const path_img = 'images/';
 const path_dest = './';
+const path_git_hooks = '.githooks/*';
 
 let error_handler = {
   errorHandler: notify.onError({
@@ -107,11 +108,19 @@ function backstop_test(done) {
   done();
 }
 
+function git_hooks() {
+  return gulp.src(path_git_hooks)
+    .pipe(plumber(error_handler))
+    .pipe(gulp.dest('.git/hooks/', {'mode': '755', 'overwrite': true}))
+    .pipe(notify('Copied git hooks'));
+}
+
 exports.icons = icons;
 exports.sass = sass;
 exports.uglify = uglify;
 exports.backstop_reference = backstop_reference;
 exports.backstop_test = backstop_test;
 exports.watch = watch;
+exports.git_hooks = git_hooks;
 exports.test = gulp.parallel(lint_css, lint_js);
 exports.default = gulp.series(lint_css, lint_js, sass, uglify);
