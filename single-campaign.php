@@ -35,7 +35,7 @@ if ( $pf && array_key_exists( $pf, $header_font_style ) ) {
 	$header_font = "font-family: {$pf} !important;";
 }
 
-$footer_links_color = $post->campaign_logo_color == 'light' ? 'white' : 'black';
+$footer_links_color = $post->campaign_logo_color == 'light' ? '#FFFFFF' : '#1A1A1A';
 
 $custom_styles['css']['nav_color']               = $post->campaign_nav_color ? ".navbar { background-color: {$post->campaign_nav_color} !important;}" : null;
 $custom_styles['nav_type']                       = $post->campaign_nav_type;
