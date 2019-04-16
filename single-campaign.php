@@ -38,9 +38,11 @@ if ( $pf && array_key_exists( $pf, $header_font_style ) ) {
 $footer_links_color = 'light' === $post->campaign_logo_color ? '#FFFFFF' : '#1A1A1A';
 
 $custom_styles['css']['nav_color']               = $post->campaign_nav_color ? ".navbar { background-color: {$post->campaign_nav_color} !important;}" : null;
+$custom_styles['css']['footer_color']            = $post->campaign_nav_color ? ".site-footer { background-color: {$post->campaign_nav_color} !important;}" : null;
 $custom_styles['nav_type']                       = $post->campaign_nav_type;
 $custom_styles['campaign_logo_color']            = $post->campaign_logo_color ?? 'light';
 $custom_styles['css']['footer_elements_color']   = ".site-footer .footer-social-media a { color: {$footer_links_color} !important }";
+$custom_styles['css']['footer_year_color']       = ".site-footer .gp-year { color: {$footer_links_color} !important }";
 $custom_styles['css']['header_color']            = $post->campaign_header_color ? " h1, h2, h3, h4, h5 { color: {$post->campaign_header_color} !important;}" : null;
 $custom_styles['css']['campaign_header_primary'] = $post->campaign_header_primary ? " h1, h2, h3, h4, h5 { {$header_font} }" : null;
 $custom_styles['css']['header_serif']            = $post->campaign_header_serif ? " .page-header { font-family: {$post->campaign_header_serif}!important;}" : null;
