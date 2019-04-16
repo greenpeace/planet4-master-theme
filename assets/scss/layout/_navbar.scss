@@ -1,5 +1,6 @@
 $menu-height-small: 3.375rem;
 $menu-height-large: 3.75rem;
+$min-height: 40px;
 
 .top-navigation {
   position: fixed;
@@ -680,6 +681,53 @@ $menu-height-large: 3.75rem;
 
     &:not(:last-child)::after {
       content: " | ";
+    }
+  }
+}
+
+.navigation-bar_min {
+  height: $min-height;
+
+  .site-logo,
+  .btn-navbar-toggle,
+  .navbar-search-toggle,
+  .country-dropdown-toggle,
+  .nav-item,
+  .nav-link {
+    line-height: 2.25rem;
+    @include padding(0, 0, 0, 0);
+
+    @include medium-and-up {
+      line-height: 2.25rem;
+      font-size: 1.125rem;
+    }
+
+    @include large-and-up {
+      margin-left: 10px;
+    }
+
+    @include x-large-and-up {
+      margin-left: 36px;
+    }
+  }
+
+  .site-logo {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+
+    @include large-and-up {
+      position: static;
+      width: auto;
+      text-align: left;
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    img {
+      height: 1.1rem;
     }
   }
 }
