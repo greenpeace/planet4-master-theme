@@ -162,6 +162,32 @@ class P4_Master_Site extends TimberSite {
 				'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme-backend' ),
 			]
 		);
+
+		add_filter( 'login_headerurl', [ $this, 'add_login_logo_url' ] );
+		add_filter( 'login_headertitle', [ $this, 'add_login_logo_url_title' ] );
+		add_action( 'login_enqueue_scripts', [ $this, 'add_login_stylesheet' ] );
+		add_action( 'cmb2_after_form', [ $this, 'cmb2_after_form_do_js_validation' ], 10, 2 );
+	}
+
+	/**
+	 * Sets the URL for the logo link in the login page.
+	 */
+	function add_login_logo_url() {
+		return home_url();
+	}
+
+	/**
+	 * Sets the title for the logo link in the login page.
+	 */
+	function add_login_logo_url_title() {
+		return get_bloginfo( 'name' );
+	}
+
+	/**
+	 * Sets a custom stylesheet for the login page.
+	 */
+	public function add_login_stylesheet() {
+		wp_enqueue_style( 'custom-login', $this->theme_dir . '/style-login.css' );
 	}
 
 	/**
@@ -614,7 +640,7 @@ class P4_Master_Site extends TimberSite {
 			[
 				'id'           => $prefix . 'metabox',
 				'title'        => __( 'Page Header Fields', 'planet4-master-theme-backend' ),
-				'object_types' => [ 'page' ], // Post type.
+				'object_types' => [ 'page', 'campaign' ], // Post type.
 			]
 		);
 
@@ -807,8 +833,11 @@ class P4_Master_Site extends TimberSite {
 			[
 				'id'           => $prefix . 'campaign_fields',
 				'title'        => __( 'Campaign information (dataLayer)', 'planet4-master-theme-backend' ),
-				'object_types' => [ 'page' ],
+				'object_types' => [ 'page', 'campaign' ], // Post type.
 				'closed'       => true,  // Keep the metabox closed by default.
+				'context'      => 'side', // show cmb2box in right sidebar.
+				'priority'     => 'low',
+				'show_names'   => false, // Hide the labels.
 			]
 		);
 
@@ -843,11 +872,13 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_campaign_fields->add_field(
 			[
-				'name'    => __( 'Campaign Name', 'planet4-master-theme-backend' ),
-				'desc'    => __( 'The value added in "Campaign Name" field is used in the GTM dataLayer push event', 'planet4-master-theme-backend' ),
-				'id'      => $prefix . 'campaign_name',
-				'type'    => 'select',
-				'options' => $campaign_options,
+				'name'       => __( 'Campaign Name', 'planet4-master-theme-backend' ),
+				'id'         => $prefix . 'campaign_name',
+				'type'       => 'select',
+				'options'    => $campaign_options,
+				'attributes' => [
+					'data-validation' => 'required',
+				],
 			]
 		);
 
@@ -864,11 +895,13 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_campaign_fields->add_field(
 			[
-				'name'    => __( 'Basket Name', 'planet4-master-theme-backend' ),
-				'desc'    => __( 'The value added in "Basket Name" field is used in the GTM dataLayer push event', 'planet4-master-theme-backend' ),
-				'id'      => $prefix . 'basket_name',
-				'type'    => 'select',
-				'options' => $basket_options,
+				'name'       => __( 'Basket Name', 'planet4-master-theme-backend' ),
+				'id'         => $prefix . 'basket_name',
+				'type'       => 'select',
+				'options'    => $basket_options,
+				'attributes' => [
+					'data-validation' => 'required',
+				],
 			]
 		);
 
@@ -880,20 +913,24 @@ class P4_Master_Site extends TimberSite {
 
 		$p4_campaign_fields->add_field(
 			[
-				'name'    => __( 'Scope', 'planet4-master-theme-backend' ),
-				'desc'    => __( 'The value added in "Scope" field is used in the GTM dataLayer push event', 'planet4-master-theme-backend' ),
-				'id'      => $prefix . 'scope',
-				'type'    => 'select',
-				'options' => $scope_options,
+				'name'       => __( 'Scope', 'planet4-master-theme-backend' ),
+				'id'         => $prefix . 'scope',
+				'type'       => 'select',
+				'options'    => $scope_options,
+				'attributes' => [
+					'data-validation' => 'required',
+				],
 			]
 		);
 
 		$p4_campaign_fields->add_field(
 			[
-				'name' => __( 'Department', 'planet4-master-theme-backend' ),
-				'desc' => __( 'The value added in "Department" field is used in the GTM dataLayer push event', 'planet4-master-theme-backend' ),
-				'id'   => $prefix . 'department',
-				'type' => 'text_medium',
+				'name'       => __( 'Department', 'planet4-master-theme-backend' ),
+				'id'         => $prefix . 'department',
+				'type'       => 'text_medium',
+				'attributes' => [
+					'placeholder' => __( 'Add Department', 'planet4-master-theme-backend' ),
+				],
 			]
 		);
 	}
@@ -1118,5 +1155,100 @@ class P4_Master_Site extends TimberSite {
 
 			$screen->set_help_sidebar( $sidebar );
 		}
+	}
+
+	/**
+	 * Validate CMB2 fields that have the 'data-validation' attribute set to 'required'.
+	 *
+	 * @param int  $post_id The ID of the current Post.
+	 * @param CMB2 $cmb The CMB2 object.
+	 */
+	public function cmb2_after_form_do_js_validation( $post_id, $cmb ) {
+		static $added = false;
+
+		// Only add this to the page once (not for every metabox).
+		if ( $added ) {
+			return;
+		}
+
+		$added = true;
+		?>
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+
+				$form       = $( document.getElementById( 'post' ) );
+				$htmlbody   = $( 'html, body' );
+				$toValidate = $( '[data-validation]' );
+
+				if ( ! $toValidate.length ) {
+					return;
+				}
+
+				function checkValidation( evt ) {
+					var labels = [];
+					var $first_error_row = null;
+					var $row = null;
+
+					function add_required( $row ) {
+						$row.css({ 'background-color': 'rgb(255, 170, 170)' });
+						$first_error_row = $first_error_row ? $first_error_row : $row;
+						labels.push( $row.find( '.cmb-th label' ).text() );
+					}
+
+					function remove_required( $row ) {
+						$row.css({ background: '' });
+					}
+
+					$toValidate.each( function() {
+						var $this = $(this);
+						var val   = $this.val();
+						$row      = $this.parents( '.cmb-row' );
+
+						if ( $this.is( '[type="button"]' ) || $this.is( '.cmb2-upload-file-id' ) ) {
+							return true;
+						}
+
+						// Apply validation only for campaign post types.
+						if ( 'campaign' === $( '#post_type' ).val() && 'required' === $this.data( 'validation' ) ) {
+							if ( $row.is( '.cmb-type-file-list' ) ) {
+
+								var has_LIs = $row.find( 'ul.cmb-attach-list li' ).length > 0;
+
+								if ( ! has_LIs ) {
+									add_required( $row );
+								} else {
+									remove_required( $row );
+								}
+
+							} else {
+								if ( ! val || 'not set' === val ) {
+									add_required( $row );
+								} else {
+									remove_required( $row );
+								}
+							}
+						}
+
+					});
+
+					if ( $first_error_row ) {
+						evt.preventDefault();
+						// Open campaign fields postbox, if closed.
+						var p4_postbox = $first_error_row.parents( '.cmb2-postbox' );
+						if ( 'p4_campaign_fields' === p4_postbox.attr( 'id' ) && p4_postbox.hasClass( 'closed' ) ) {
+							$htmlbody.find( '#p4_campaign_fields' ).removeClass( 'closed' );
+						}
+						$htmlbody.animate({
+							scrollTop: ( $first_error_row.offset().top - 200 )
+						}, 1000);
+
+					}
+
+				}
+
+				$form.on( 'submit', checkValidation );
+			});
+		</script>
+		<?php
 	}
 }

@@ -737,7 +737,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * View the Search page template.
 		 */
 		public function view() {
-			Timber::render( $this->templates, $this->context );
+			Timber::render( $this->templates, $this->context, self::DEFAULT_CACHE_TTL, \Timber\Loader::CACHE_OBJECT );
 		}
 
 		/**
@@ -758,7 +758,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					} else {
 						$paged_context['first_of_the_page'] = false;
 					}
-					Timber::render( [ 'tease-search.twig' ], $paged_context );
+					Timber::render( [ 'tease-search.twig' ], $paged_context, self::DEFAULT_CACHE_TTL, \Timber\Loader::CACHE_OBJECT );
 				}
 			}
 		}
