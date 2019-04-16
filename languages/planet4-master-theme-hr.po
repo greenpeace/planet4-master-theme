@@ -1,0 +1,323 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
+"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2;\n"
+"Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
+"POT-Creation-Date: 2018-06-08 09:06+0000\n"
+"PO-Revision-Date: 2019-04-10 11:00+0000\n"
+"Language-Team: Croatian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: Lucija Jakus <ljakus@greenpeace.org>\n"
+"Language: hr\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.2.2; wp-5.1.1"
+
+#: single.php:47
+msgid "Post page"
+msgstr "Stranica članaka"
+
+#: single.php:76
+msgid "Leave Your Reply"
+msgstr "Ostavi svoj odgovor"
+
+#: 404.php:30
+msgid "Sorry, we can't find that page!"
+msgstr "Žao nam je, ne možemo naći tu stranicu!"
+
+#: 404.php:31
+msgid "Enter your search term below"
+msgstr "U nastavku unesi pojam za pretraživanje"
+
+#: 404.php:32
+msgid "404 Page"
+msgstr "Stranica 404"
+
+#: tag.php:58
+msgid "Unknown Campaign page"
+msgstr "Nepoznata stranica kampanje"
+
+#: tag.php:64
+msgid "Things you can do"
+msgstr "Što možeš učiniti"
+
+# Želimo da poduzmete akciju jer smo zajedno jači.
+#: tag.php:65
+msgid "We want you to take action because together we're strong."
+msgstr "Želimo da nam se priključiš jer smo zajedno jači."
+
+#: tag.php:81
+msgid "Related Campaigns"
+msgstr "Povezane Kampanje"
+
+#: tag.php:82
+msgid "This Campaign is not assigned to an Issue"
+msgstr "Ova kampanja nije dodijeljena problemu"
+
+#: functions.php:85
+msgid "Most relevant"
+msgstr "Najvažnije"
+
+#: functions.php:89
+msgid "Most recent"
+msgstr "Najnoviji"
+
+#: functions.php:287
+msgid "International (English)"
+msgstr "International (engleski)"
+
+#: classes/class-p4-search.php:407
+msgid "Search page"
+msgstr "Stranica pretrage"
+
+#. translators:
+#: classes/class-p4-search.php:412
+#, php-format
+msgid "%1$d result for '%2$s'"
+msgid_plural "%1$d results for '%2$s'"
+msgstr[0] "%1$d rezultat za'%2$s'"
+msgstr[1] "%1$d rezultata za'%2$s'"
+msgstr[2] ""
+
+#. translators:
+#: classes/class-p4-search.php:418
+#, php-format
+msgid "%d result"
+msgid_plural "%d results"
+msgstr[0] "%d rezultat"
+msgstr[1] "%d rezultata"
+msgstr[2] ""
+
+#: classes/class-p4-search.php:478
+msgid "Action"
+msgstr ""
+
+#: classes/class-p4-search.php:482
+msgid "Document"
+msgstr "Dokument"
+
+#: classes/class-p4-search.php:486
+msgid "Page"
+msgstr "Stranica"
+
+#: classes/class-p4-search.php:490
+msgid "Post"
+msgstr "Članak"
+
+#: classes/class-p4-search.php:570
+msgid "ACTION"
+msgstr ""
+
+#: classes/class-p4-search.php:574
+msgid "PAGE"
+msgstr "STRANICA"
+
+#: classes/class-p4-search.php:580
+msgid "DOCUMENT"
+msgstr "DOKUMENT"
+
+#: classes/class-p4-search.php:585
+msgid "POST"
+msgstr "ČLANAK"
+
+#: classes/class-p4-search.php:660
+#, php-format
+msgid "SHOW %s MORE RESULTS"
+msgstr "PRIKAŽI %s VIŠE "
+
+#. Name of the template
+msgid "Evergreen Page"
+msgstr "Vjerodostojna stranica"
+
+#. Name of the template
+msgid "Sitemap Page"
+msgstr "Mapa stranice"
+
+#: page-templates/sitemap.php:31
+msgid "Act"
+msgstr ""
+
+#: page-templates/sitemap.php:32
+msgid "Explore"
+msgstr ""
+
+#: page-templates/sitemap.php:33
+msgid "About Greenpeace"
+msgstr "O Greenpeaceu"
+
+#: page-templates/sitemap.php:34
+msgid "Articles"
+msgstr "Članci"
+
+# Menu? Izbornik?
+#: templates/navigation-bar.twig:13
+msgid "Menu"
+msgstr ""
+
+#: templates/navigation-bar.twig:18
+msgid "Close Menu"
+msgstr "Zatvori Menu"
+
+#: templates/navigation-bar.twig:27
+msgid "Selected"
+msgstr "Označeno"
+
+#: templates/navigation-bar.twig:28
+msgid "Change Country"
+msgstr "Promijeni državu"
+
+#: templates/navigation-bar.twig:48
+msgid "DONATE"
+msgstr "DONIRAJ"
+
+#: templates/navigation-bar.twig:58
+msgid "Toggle search form"
+msgstr "Promijenite obrazac za pretraživanje"
+
+#: templates/navigation-bar.twig:66 templates/search.twig:44
+msgid "Search"
+msgstr "Traži"
+
+#: templates/cookies.twig:8
+msgid "GOT IT!"
+msgstr "RAZUMIJEM"
+
+# ???
+#: templates/search.twig:15
+msgid "We're sorry we couldn't find any matches for your search term."
+msgstr "Žao nam je što nismo podudaranja s ovim pojmom za pretraživanje."
+
+#: templates/search.twig:17
+msgid "Check for typos, and try your search again"
+msgstr "Provjeri tipfelere, zatim pokušaj ponovo"
+
+#: templates/search.twig:18
+msgid "Try searching for somthing else"
+msgstr "Pokušaj tražiti nešto drugo"
+
+#: templates/search.twig:19
+msgid "Search our archive. You'll be redirected to the archive site."
+msgstr "Pretraži našu arhivu. Bit ćete preusmjeren/a na web-lokaciju arhive."
+
+#: templates/search.twig:23
+msgid "We also included results for "
+msgstr "Uključili smo i rezultate za"
+
+#: templates/search.twig:37
+msgid "This Site"
+msgstr "Ova stranica"
+
+#: templates/search.twig:38
+msgid "Archive"
+msgstr "Arhiva"
+
+#: templates/search.twig:56
+msgid "Filters"
+msgstr "Filteri"
+
+#: templates/search.twig:62 templates/search.twig:163
+msgid "Refine your search"
+msgstr "Bolje definiraj svoje pretraživanje"
+
+#: templates/search.twig:70
+msgid "ISSUE"
+msgstr "PROBLEM"
+
+#: templates/search.twig:91
+msgid "CATEGORY"
+msgstr "KATEGORIJA"
+
+#: templates/search.twig:112
+msgid "CONTENT TYPES"
+msgstr "TIP SADRŽAJA"
+
+#: templates/search.twig:136
+msgid "CAMPAIGN"
+msgstr "KAMPANJA"
+
+#: templates/search.twig:155
+msgid "Cancel"
+msgstr "Odustani"
+
+#: templates/search.twig:156
+msgid "Apply Filters"
+msgstr "primjeni filtere"
+
+#: templates/search.twig:166
+msgid "ACTIVE FILTERS"
+msgstr ""
+
+#: templates/search.twig:175
+msgid "Clear All"
+msgstr "Očisti sve"
+
+#: templates/search.twig:182
+msgid "Issue"
+msgstr "Problem"
+
+#: templates/search.twig:201
+msgid "Campaign"
+msgstr "Kampanja"
+
+#: templates/search.twig:220
+msgid "Category"
+msgstr "Kategorija"
+
+#: templates/search.twig:239
+msgid "Content type"
+msgstr "Tip sadržaja"
+
+#: templates/search.twig:262
+msgid "Sort by"
+msgstr "Sortiraj po"
+
+#: templates/search.twig:299
+msgid "Suggested search terms"
+msgstr "Predloženi pojmovi za pretraživanje"
+
+#: templates/tease-search.twig:62
+msgid "take action"
+msgstr "aktiviraj se"
+
+#: templates/tease-search.twig:65
+msgid "Download"
+msgstr "Preuzmi"
+
+#: templates/single.twig:39
+msgid "by"
+msgstr ""
+
+#: templates/blocks/author_profile.twig:4
+msgid "about the author"
+msgstr "o autoru"
+
+#. Theme Name of the plugin/theme
+msgid "Greenpeace Planet 4 Master Theme"
+msgstr "Greenpeace Planet 4 Glavna tema"
+
+#. Description of the plugin/theme
+msgid "Master theme for the Planet 4 Wordpress project"
+msgstr "Glavna tema za Planet 4 Wordpress projekt"
+
+#. Theme URI of the plugin/theme
+msgid "https://github.com/greenpeace/planet4-master-theme"
+msgstr "https://github.com/greenpeace/planet4-master-theme"
+
+#. Author of the plugin/theme
+msgid "Greenpeace International"
+msgstr "Greenpeace International"
+
+#. Author URI of the plugin/theme
+msgid "https://github.com/greenpeace"
+msgstr "https://github.com/greenpeace"
