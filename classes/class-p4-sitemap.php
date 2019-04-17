@@ -116,6 +116,8 @@ if ( ! class_exists( 'P4_Sitemap' ) ) {
 				'post_status'      => 'publish',
 				'meta_key'         => '_wp_page_template',
 				'meta_value'       => 'page-templates/evergreen.php',
+				'orderby'          => 'post_title',
+				'order'            => 'ASC',
 				'suppress_filters' => false,
 				'numberposts'      => self::MAX_EVERGREEN_PAGES,
 			];
