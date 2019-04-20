@@ -45,5 +45,6 @@ new P4_Master_Site(
 		'P4_Control_Panel',
 		'P4_Post_Report_Controller',
 		'P4_Cookies',
+		'P4_Dev_Report',
 	]
 );
