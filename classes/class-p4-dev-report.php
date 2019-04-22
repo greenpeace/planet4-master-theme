@@ -62,11 +62,18 @@ if ( ! class_exists( 'P4_Dev_Report' ) ) {
 					if ( '.git' === substr( $url, -4 ) ) {
 						$url = substr( $url, 0, -4 );
 					}
-					$url .= '/commit/' . $gp_package[2]['reference'];
+					if ( 'dev-' === substr( $gp_package[1], 0, 4 ) ) {
+						$branch = substr( $gp_package[1], 4 );
+					} else {
+						$branch = $gp_package[1];
+					}
+					$branch_history_url = $url . '/commits/' . $branch;
+					$commit_url         = $url . '/commit/' . $gp_package[2]['reference'];
+
 					echo '<h3>' . esc_html( $gp_package[0] ) . "</h3>\n";
-					echo '<p>Version (tag/branch): ' . esc_html( $gp_package[1] ) . "</p>\n";
+					echo "<p>Version (tag/branch): <a href='" . esc_url( $branch_history_url ) . "'>" . esc_html( $branch ) . "</a></p>\n";
 					echo "<p>Source repo: <a href='" . esc_url( $gp_package[2]['url'] ) . "'>" . esc_html( $gp_package[2]['url'] ) . "</a></p>\n";
-					echo "<p>Source hash: <a href='" . esc_url( $url ) . "'>" . esc_html( $gp_package[2]['reference'] ) . "</a></p>\n";
+					echo "<p>Source hash: <a href='" . esc_url( $commit_url ) . "'>" . esc_html( $gp_package[2]['reference'] ) . "</a></p>\n";
 
 				}
 			}
