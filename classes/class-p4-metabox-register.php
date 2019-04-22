@@ -11,7 +11,7 @@
 class P4_Metabox_Register {
 
 	/**
-	 * Meta box prefix
+	 * Meta box prefix.
 	 *
 	 * @var string $prefix
 	 */
