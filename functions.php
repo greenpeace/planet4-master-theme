@@ -37,6 +37,7 @@ require_once( __DIR__ . '/classes/class-p4-master-site.php' );
 
 new P4_Master_Site(
 	[
+		'P4_Metabox_Register',
 		'P4_Custom_Taxonomy',
 		'P4_Campaigns',
 		'P4_Post_Campaign',
