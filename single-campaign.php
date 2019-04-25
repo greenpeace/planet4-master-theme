@@ -77,9 +77,9 @@ $custom_styles['css']['btn_secondary_hover']     = $post->campaign_secondary_col
 		}"
 	: null;
 
-$custom_styles['css']['anchor']                  = $post->campaign_secondary_color ? " a { color: {$post->campaign_secondary_color } !important; }" : null;
-$custom_styles['css']['cover-card-btn']          = $post->campaign_primary_color ? " .cover-card:hover .cover-card-btn { background-color: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} !important;}" : null;
-$custom_styles['campaign_logo']                  = $post->campaign_logo ?? null;
+$custom_styles['css']['anchor']         = $post->campaign_secondary_color ? " a { color: {$post->campaign_secondary_color } !important; }" : null;
+$custom_styles['css']['cover-card-btn'] = $post->campaign_primary_color ? " .cover-card:hover .cover-card-btn { background-color: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} !important;}" : null;
+$custom_styles['campaign_logo']         = $post->campaign_logo ?? null;
 
 // Get the cmb2 custom fields data.
 $page_meta_data    = get_post_meta( $post->ID );
