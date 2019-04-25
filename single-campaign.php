@@ -64,7 +64,7 @@ $custom_styles['css']['btn_primary']             = $post->campaign_primary_color
 $custom_styles['css']['btn_primary_hover']       = $post->campaign_primary_color ? " .btn-primary:hover { background: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} !important;}" : null;
 $custom_styles['css']['btn_secondary']           = $post->campaign_secondary_color
 	? " .btn-secondary, .btn-action.cover-card-btn {
-			background: rgba(255, 255, 255, .6) !important;
+			background: rgba(255, 255, 255, .75) !important;
 			border: 1px solid {$post->campaign_secondary_color} !important;
 			color: {$post->campaign_secondary_color} !important;
 		}"
