@@ -199,7 +199,7 @@ function scroll_ml_images() {
             // Append the response at the bottom of the results.
             $( '.ml-media-list' ).append( response );
 
-            //Set back to zero to allow loading to be triggered on scroll again
+            // Set back to zero to allow loading to be triggered on scroll again.
             scroll_more = 0;
         }).fail(function ( jqXHR, textStatus, errorThrown ) {
             console.log(errorThrown); //eslint-disable-line no-console
