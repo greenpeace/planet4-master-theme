@@ -199,10 +199,8 @@ function scroll_ml_images() {
             // Append the response at the bottom of the results.
             $( '.ml-media-list' ).append( response );
 
-            // Add a throttle to avoid multiple scroll events from firing together.
-            setTimeout(function () {
-                scroll_more = 0;
-            }, 1500);
+            //Set back to zero to allow loading to be triggered on scroll again
+            scroll_more = 0;
         }).fail(function ( jqXHR, textStatus, errorThrown ) {
             console.log(errorThrown); //eslint-disable-line no-console
             scroll_more = 0;
