@@ -42,6 +42,7 @@ new P4_Master_Site(
 		'P4_Campaigns',
 		'P4_Post_Campaign',
 		'P4_Campaign_Exporter',
+		'P4_Campaign_Importer',
 		'P4_Settings',
 		'P4_Control_Panel',
 		'P4_Post_Report_Controller',
