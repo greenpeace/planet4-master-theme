@@ -20,7 +20,7 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 		}
 
 		/**
-		 * Filter the old attachement IDs from Campaign and replace them with the newly imported attachment Ids.
+		 * Filter the old attachement Ids from Campaign and replace them with the newly imported attachment Ids.
 		 *
 		 * @param integer $post_id Post ID.
 		 * @param integer $original_post_id Original Post ID.
@@ -33,15 +33,15 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 				$old_ids      = [];
 				$filter_term  = [];
 
-				// wp-x-ID tags content.
+				// Filter attachment ids from caption.
 				preg_match_all( '#((wp-image-|wp-att-|attachment\_)(\d+))#', $post_content, $matches, PREG_SET_ORDER );
 				foreach ( $matches as $match ) {
 					$old_ids[]     = $match[3];
 					$filter_term[] = $match[1];
 				}
 
-				// shortcake image ID filter.
-				preg_match_all( '#\[shortcake\_[a-zA-Z0-9\_\"\'\-\s\:\/\/\=\.]*\s((multiple_image|background|video_poster_img)[=][\"|\']([\d\s\,]*)[\"|\'])#', $post_content, $matches, PREG_SET_ORDER );
+				// Filter attachment ids from shortcake code(shortcake_gallery, shortcake_happy_point, shortcake_media_video).
+				preg_match_all( '#\[shortcake\_[a-zA-Z0-9\_\"\'\-\s\:\/\/\=\.\?\&]*\s((multiple_image|background|video_poster_img)[=][\"|\']([\d\s\,]*)[\"|\'])#', $post_content, $matches, PREG_SET_ORDER );
 				foreach ( $matches as $match ) {
 					if ( 'multiple_image' === $match[2] ) {
 						$multiple_images = explode( ',', $match[3] );
@@ -52,14 +52,14 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 					$filter_term[] = $match[1];
 				}
 
-				// filter shortcake_carousel_header, shortcake_split_two_columns.
-				preg_match_all( '#\s((image_[0-9]*|issue_image|tag_image)[=][\"|\']([\d\s\,]*)[\"|\'])#', $post_content, $matches, PREG_SET_ORDER );
+				// Filter attachment ids from shortcake code(shortcake_carousel_header, shortcake_split_two_columns, shortcake_columns).
+				preg_match_all( '#\s((image_[0-9]*|attachment_[0-9]*|issue_image|tag_image)[=][\"|\']([\d\s\,]*)[\"|\'])#', $post_content, $matches, PREG_SET_ORDER );
 				foreach ( $matches as $match ) {
 					$old_ids[]     = $match[3];
 					$filter_term[] = $match[1];
 				}
 
-				// [gallery] shortcode
+				// Filter attachment ids from [gallery] shortcode.
 				preg_match_all( '#\[gallery\s+([ids=\"\']+([\d\s,]*)[\"\']).#', $post_content, $matches, PREG_SET_ORDER );
 				foreach ( $matches as $match ) {
 					foreach ( explode( ',', $match[2] ) as $id ) {
@@ -72,7 +72,10 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 				sort( $old_ids );
 
 				global $wpdb;
+
+				// phpcs:disable
 				$result = $wpdb->get_results( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_wp_attachment_metadata' AND meta_value LIKE '%imported_attachment_id%'" );
+				// phpcs:enable
 
 				$attachment_mapping = [];
 
@@ -141,7 +144,10 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 		 */
 		public function action_import_end() {
 			global $wpdb;
+
+			// phpcs:disable
 			$result = $wpdb->get_results( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_wp_attachment_metadata' AND meta_value LIKE '%imported_attachment_id%'" );
+			// phpcs:enable
 
 			foreach ( $result as $attachment_metadata ) {
 				$attachment_data = maybe_unserialize( $attachment_metadata->meta_value );

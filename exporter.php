@@ -276,8 +276,8 @@ add_filter( 'p4_px_single_post_export_skip_postmeta', 'p4_px_single_post_filter_
 
 $post_id = explode( ',', $_GET['post'] );
 
-// Add campaign related attachements in XML file.
-require_once 'exporter_helper.php';
+// Add campaign attachements in XML file.
+require_once 'exporter-helper.php';
 $post_id = get_campaign_attachments( $post_id );
 
 echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . "\" ?>\n";

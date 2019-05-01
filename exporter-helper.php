@@ -8,45 +8,53 @@
 /**
  * Returns all attachment ids from campaign post content.
  *
- * @param integer $post_ids Post ID.
+ * @param string $post_ids Post IDs.
+ * @return string  $post_ids Post IDs.
  */
 function get_campaign_attachments( $post_ids ) {
 
 	global $wpdb;
 
+	// phpcs:disable
 	$attachments = $wpdb->get_results( "SELECT ID, guid, post_parent FROM {$wpdb->posts} WHERE post_type = 'attachment'", OBJECT_K );
+	// phpcs:enable
+
 	if ( empty( $attachments ) ) {
 		return $post_ids;
 	}
 
-	$ids = array();
+	$ids = [];
 
 	/**
 	 * Post thumbnails
 	 */
 	if ( $post_ids ) {
+		// phpcs:disable
 		$ids = $wpdb->get_col( sprintf( "SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_thumbnail_id' AND post_id IN(%s)", implode( ',', $post_ids ) ) );
+		// phpcs:enable
 	}
 
 	/**
 	 * Uploaded to (post_parent)
 	 */
 	foreach ( $attachments as $id => $att ) {
-		if ( in_array( $att->post_parent, $post_ids ) ) {
+		if ( in_array( $att->post_parent, $post_ids, true ) ) {
 			$ids[] = $id;
 		}
 	}
 
-	foreach ( $wpdb->get_col( "SELECT post_content FROM {$wpdb->posts} WHERE ID IN( " . implode( ',', $post_ids ) . " ) AND post_content REGEXP '((wp-image-|wp-att-)[0-9][0-9]*)|\\\[gallery |href=|src='" ) as $text ) {
+	// phpcs:disable
+	foreach ( $wpdb->get_col( "SELECT post_content FROM {$wpdb->posts} WHERE ID IN( " . implode( ',', $post_ids ) . " ) AND post_content REGEXP '((wp-image-|wp-att-)[0-9][0-9]*)|\\\[gallery |shortcake\_|href=|src='" ) as $text ) {
+	// phpcs:enable
 
-		// wp-x-ID tags content.
-		preg_match_all( '#(wp-image-|wp-att-)(\d+)#', $text, $matches, PREG_SET_ORDER );
+		// Filter attachment ids from caption.
+		preg_match_all( '#(wp-image-|wp-att-|attachment\_)(\d+)#', $text, $matches, PREG_SET_ORDER );
 		foreach ( $matches as $match ) {
 			$ids[] = $match[2];
 		}
 
-		// shortcake image ID filter.
-		preg_match_all( '#\[shortcake\_[a-zA-Z0-9\_\"\'\-\s\:\/\/\=\.]*\s(multiple_image|background|video_poster_img)[=][\"|\']([\d\s\,]*)[\"|\']#', $text, $matches, PREG_SET_ORDER );
+		// Filter attachment ids from shortcake code(shortcake_gallery, shortcake_happy_point, shortcake_media_video).
+		preg_match_all( '#\[shortcake\_[a-zA-Z0-9\_\"\'\-\s\:\/\/\=\.\?\&]*\s(multiple_image|background|video_poster_img)[=][\"|\']([\d\s\,]*)[\"|\']#', $text, $matches, PREG_SET_ORDER );
 		foreach ( $matches as $match ) {
 			if ( 'multiple_image' === $match[1] ) {
 				$multiple_images = explode( ',', $match[2] );
@@ -56,13 +64,13 @@ function get_campaign_attachments( $post_ids ) {
 			}
 		}
 
-		// filter shortcake_carousel_header, shortcake_split_two_columns.
-		preg_match_all( '#\s(image_[0-9]*|issue_image|tag_image)[=][\"|\']([\d\s\,]*)[\"|\']#', $text, $matches, PREG_SET_ORDER );
+		// Filter attachment ids from shortcake code(shortcake_carousel_header, shortcake_split_two_columns, shortcake_columns).
+		preg_match_all( '#\s(image_[0-9]*|attachment_[0-9]*|issue_image|tag_image)[=][\"|\']([\d\s\,]*)[\"|\']#', $text, $matches, PREG_SET_ORDER );
 		foreach ( $matches as $match ) {
 			$ids[] = $match[2];
 		}
 
-		// [gallery] shortcode.
+		// Filter attachment ids from [gallery] shortcode.
 		preg_match_all( '#\[gallery\s+[ids=\"\']+([\d\s,]*)[\"\'].#', $text, $matches, PREG_SET_ORDER );
 		foreach ( $matches as $match ) {
 			foreach ( explode( ',', $match[1] ) as $id ) {
