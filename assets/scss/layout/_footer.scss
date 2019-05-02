@@ -27,9 +27,13 @@
 
 .footer-social-media {
   color: $grey-20;
-  font-size: 3.125rem;
+  font-size: 2rem;
   margin: auto;
   text-align: center;
+
+  @include small-and-up {
+    font-size: 3.125rem;
+  }
 
   @supports (justify-content: space-between) {
     & {
