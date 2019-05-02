@@ -12,8 +12,6 @@ workflows:
       - rips-test:
           context: rips-scans
           filters:
-            branches:
-              ignore: languages
             tags:
               only: /^v\p{Digit}+\.\p{Digit}+\.\p{Digit}+.*/
 
