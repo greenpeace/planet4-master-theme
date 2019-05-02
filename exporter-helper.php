@@ -30,7 +30,7 @@ function get_campaign_attachments( $post_ids ) {
 	 */
 	if ( $post_ids ) {
 		// phpcs:disable
-		$ids = $wpdb->get_col( sprintf( "SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_thumbnail_id' AND post_id IN(%s)", implode( ',', $post_ids ) ) );
+		$ids = $wpdb->get_col( sprintf( "SELECT meta_value FROM {$wpdb->postmeta} WHERE ( meta_key = '_thumbnail_id' or meta_key = 'background_image_id' ) AND post_id IN(%s)", implode( ',', $post_ids ) ) );
 		// phpcs:enable
 	}
 

@@ -112,10 +112,24 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 					$post_content = str_replace( $filter_data[0], $filter_data[1], $post_content );
 				}
 
+				// Update Page header fields background image in postmeta.
+				$campaign_postmeta = [];
+				if ( isset( $post['postmeta'] ) ) {
+					foreach ( $post['postmeta'] as $metakey => $metadata ) {
+						if ( 'background_image_id' === $metadata['key'] ) {
+							if ( isset( $attachment_mapping[ $metadata['value'] ] ) ) {
+								$post['postmeta'][ $metakey ]['value'] = $attachment_mapping[ $metadata['value'] ];
+							}
+						}
+					}
+					$campaign_postmeta = $post['postmeta'];
+				}
+
 				$updated_post = [
 					'ID'           => $post_id,
 					'post_title'   => $post['post_title'],
 					'post_content' => $post_content,
+					'postmeta'     => $campaign_postmeta,
 				];
 				wp_update_post( $updated_post );
 			}
