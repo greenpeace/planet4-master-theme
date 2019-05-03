@@ -1,6 +1,6 @@
 /* global localizations */
 
-$ = jQuery; //eslint-disable-line no-global-assign
+$ = jQuery; // eslint-disable-line no-global-assign.
 
 // Search page.
 $(function() {
@@ -46,16 +46,16 @@ $(function() {
     }
   });
 
+  let $search_results = $( '.multiple-search-result' );
   // Add filter by clicking on the page type label inside a result item.
   // Delegate event handler to the dynamically created descendant elements.
-  $( '.multiple-search-result' ).off( 'click', '.search-result-item-head' ).on( 'click', '.search-result-item-head', function() {
-    $( '.p4-custom-control-input[value=' + $( this ).data( 'term_id' ) + ']' ).prop( 'checked', true);
-    $search_form.submit();
+  $search_results.off( 'click', '.search-result-item-head' ).on( 'click', '.search-result-item-head', function() {
+    window.location.href = $( this ).data( 'href' );
   });
 
   // Navigate to the page of the search result item when clicking on it's thumbnail image.
   // Delegate event handler to the dynamically created descendant elements.
-  $( '.multiple-search-result' ).off( 'click', '.search-result-item-image').on( 'click', '.search-result-item-image', function() {
+  $search_results.off( 'click', '.search-result-item-image').on( 'click', '.search-result-item-image', function() {
     window.location.href = $( '.search-result-item-headline', $( this ).parent() ).attr( 'href' );
   });
 
@@ -120,13 +120,13 @@ $(function() {
     }
   });
 
-  // Reveal more results just by scrolling down the first 2 times.
+  // Reveal more results just by scrolling down the first 'show_scroll_times' times.
   $( window ).scroll(function() {
     if ($load_more_button.length > 0) {
-      var element_top  = $load_more_button.offset().top,
-        element_height = $load_more_button.outerHeight(),
-        window_height  = $(window).height(),
-        window_scroll  = $(this).scrollTop(),
+      let element_top       = $load_more_button.offset().top,
+        element_height      = $load_more_button.outerHeight(),
+        window_height       = $(window).height(),
+        window_scroll       = $(this).scrollTop(),
         load_earlier_offset = 250;
 
       if ( load_more_count < localizations.show_scroll_times ) {
