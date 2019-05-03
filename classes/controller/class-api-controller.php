@@ -15,7 +15,7 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 		const ML_AUTH_URL     = self::ML_BASE_URL . '/API/Authentication/v1.0/Login';
 		const ML_SEARCH_URL   = self::ML_BASE_URL . '/API/search/v3.0/search';
 		const ML_CALL_TIMEOUT = 10;            // Seconds after which the api call will timeout if not responded.
-		const MEDIAS_PER_PAGE = 20;
+		const MEDIAS_PER_PAGE = 30;
 
 		const ERROR   = 0;
 		const WARNING = 1;

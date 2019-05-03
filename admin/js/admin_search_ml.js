@@ -25,6 +25,7 @@ jQuery(document).ready(function () {
             $( '.ml_spinner' ).remove();
             // Show the search query response.
             $( '.media-frame-content:last' ).append( response );
+            $( '.media-frame-content' ).attr( 'data-columns', '7' );
             $( '.ml-media-sidebar' ).hide();
 
             // Inject ml-media-panel in the attachments browser
