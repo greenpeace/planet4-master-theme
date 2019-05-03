@@ -190,44 +190,30 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			$themes['greenpeace'] = __( 'Greenpeace', 'planet4-master-theme-backend' );
 
 			$header_palette = [
-				'#ffffff',
-				'#1a1a1a',
-				'#333333',
-				'#686867',
-				'#979796',
-				'#cacac9',
-				'#e3e2e2',
-				'#8cbf4f',
-				'#a9cd7a',
-				'#c7dda4',
+				'#E5E5E5',
+				'#32CA89',
+				'#1BB6D6',
+				'#22938D',
+				'#186A70',
+				'#043029',
+				'#093944',
+				'#042233',
+				'#1A1A1A',
 			];
 
 			$primary_palette = [
-				'#093944',
-				'#e9cbba',
-				'#e88c74',
-				'#9f1916',
-				'#7a1a0f',
-				'#3c120e',
-				'#14233a',
-				'#ec6d3d',
-				'#e9582e',
-				'#e9582e',
-				'#fcd00a',
+				'#ffd204',
+				'#6ed961',
+				'#21cbca',
+				'#ee562d',
+				'#7a1805',
+				'#2077bf',
 			];
 
 			$secondary_palette = [
-				'#3aa975',
-				'#25784f',
-				'#94d1d5',
-				'#40bbd2',
-				'#1bb5d5',
-				'#0ca9d5',
-				'#037899',
-				'#2db4b3',
-				'#5bbfca',
-				'#23928c',
-				'#196b71',
+				'#042233',
+				'#093944',
+				'#074365',
 			];
 
 			$cmb = new_cmb2_box(

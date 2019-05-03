@@ -37,6 +37,15 @@ if ( $pf && array_key_exists( $pf, $header_font_style ) ) {
 
 $footer_links_color = 'light' === $post->campaign_logo_color ? '#FFFFFF' : '#1A1A1A';
 
+$passive_button_colors_map = [
+	'#ffd204' => '#ffe467',
+	'#6ed961' => '#a7e021',
+	'#21cbca' => '#77ebe0',
+	'#ee562d' => '#f36d3a',
+	'#7a1805' => '#a01604',
+	'#2077bf' => '#2077bf',
+];
+
 $custom_styles['css']['nav_color']               = $post->campaign_nav_color ? ".navbar { background-color: {$post->campaign_nav_color} !important;}" : null;
 $custom_styles['css']['footer_color']            = $post->campaign_nav_color ? ".site-footer { background-color: {$post->campaign_nav_color} !important;}" : null;
 $custom_styles['nav_type']                       = $post->campaign_nav_type;
@@ -51,15 +60,26 @@ $custom_styles['css']['campaign_header_primary'] = $post->campaign_header_primar
 $custom_styles['css']['header_serif']            = $post->campaign_header_serif ? " .page-header { font-family: {$post->campaign_header_serif}!important;}" : null;
 $custom_styles['css']['header_sans']             = $post->campaign_header_sans ? " .page-header { font-family: {$post->campaign_header_sans} !important;}" : null;
 $custom_styles['css']['body_font']               = $post->campaign_body_font ? " body, p { font-family: '{$post->campaign_body_font}' !important;}" : null;
-$custom_styles['css']['btn_primary']             = $post->campaign_primary_color ? " .btn-primary { background: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} !important;}" : null;
-$custom_styles['css']['anchor']                  = $post->campaign_secondary_color ? " a { color: {$post->campaign_secondary_color } !important; }" : null;
-$custom_styles['css']['cover-card-btn']          = $post->campaign_primary_color ? " .cover-card:hover .cover-card-btn { background-color: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} !important;}" : null;
-$custom_styles['campaign_logo']                  = $post->campaign_logo ?? null;
-
-$custom_styles['css']['btn_secondary'] = $post->campaign_secondary_color
-	? " .btn-secondary { background: none !important;  border: 1px solid $post->campaign_secondary_color !important; color: {$post->campaign_secondary_color}; }
-	    .btn-secondary:hover { background: $post->campaign_secondary_color !important; border-color: {$post->campaign_secondary_color};; color: white !important; }"
+$custom_styles['css']['btn_primary']             = $post->campaign_primary_color ? " .btn-primary { background: {$passive_button_colors_map[$post->campaign_primary_color]} !important; border-color: {$passive_button_colors_map[$post->campaign_primary_color]} !important;}" : null;
+$custom_styles['css']['btn_primary_hover']       = $post->campaign_primary_color ? " .btn-primary:hover { background: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} !important;}" : null;
+$custom_styles['css']['btn_secondary']           = $post->campaign_secondary_color
+	? " .btn-secondary, .btn-action.cover-card-btn {
+			background: rgba(255, 255, 255, .75) !important;
+			border: 1px solid {$post->campaign_secondary_color} !important;
+			color: {$post->campaign_secondary_color} !important;
+		}"
 	: null;
+$custom_styles['css']['btn_secondary_hover']     = $post->campaign_secondary_color
+	? " .btn-secondary:hover {
+			background: {$post->campaign_secondary_color} !important;
+			border: 1px solid {$post->campaign_secondary_color} !important;
+			color: white !important;
+		}"
+	: null;
+
+$custom_styles['css']['anchor']         = $post->campaign_secondary_color ? " a { color: {$post->campaign_secondary_color } !important; }" : null;
+$custom_styles['css']['cover-card-btn'] = $post->campaign_primary_color ? " .cover-card:hover .cover-card-btn { background-color: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} !important;}" : null;
+$custom_styles['campaign_logo']         = $post->campaign_logo ?? null;
 
 // Get the cmb2 custom fields data.
 $page_meta_data    = get_post_meta( $post->ID );
