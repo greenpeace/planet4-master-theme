@@ -23,14 +23,14 @@ function get_campaign_attachments( $post_ids ) {
 		return $post_ids;
 	}
 
-	$ids = [];
+	$attachment_ids = [];
 
 	/**
 	 * Post thumbnails
 	 */
 	if ( $post_ids ) {
 		// phpcs:disable
-		$ids = $wpdb->get_col( sprintf( "SELECT meta_value FROM {$wpdb->postmeta} WHERE ( meta_key = '_thumbnail_id' or meta_key = 'background_image_id' ) AND post_id IN(%s)", implode( ',', $post_ids ) ) );
+		$attachment_ids = $wpdb->get_col( sprintf( "SELECT meta_value FROM {$wpdb->postmeta} WHERE ( meta_key = '_thumbnail_id' or meta_key = 'background_image_id' ) AND post_id IN(%s)", implode( ',', $post_ids ) ) );
 		// phpcs:enable
 	}
 
@@ -39,7 +39,7 @@ function get_campaign_attachments( $post_ids ) {
 	 */
 	foreach ( $attachments as $id => $att ) {
 		if ( in_array( $att->post_parent, $post_ids, true ) ) {
-			$ids[] = $id;
+			$attachment_ids[] = $id;
 		}
 	}
 
@@ -50,7 +50,7 @@ function get_campaign_attachments( $post_ids ) {
 		// Filter attachment ids from caption.
 		preg_match_all( '#(wp-image-|wp-att-|attachment\_)(\d+)#', $text, $matches, PREG_SET_ORDER );
 		foreach ( $matches as $match ) {
-			$ids[] = $match[2];
+			$attachment_ids[] = $match[2];
 		}
 
 		// Filter attachment ids from shortcake code(shortcake_gallery, shortcake_happy_point, shortcake_media_video).
@@ -58,33 +58,33 @@ function get_campaign_attachments( $post_ids ) {
 		foreach ( $matches as $match ) {
 			if ( 'multiple_image' === $match[1] ) {
 				$multiple_images = explode( ',', $match[2] );
-				$ids             = array_merge( $ids, $multiple_images );
+				$attachment_ids  = array_merge( $attachment_ids, $multiple_images );
 			} else {
-				$ids[] = $match[2];
+				$attachment_ids[] = $match[2];
 			}
 		}
 
 		// Filter attachment ids from shortcake code(shortcake_carousel_header, shortcake_split_two_columns, shortcake_columns).
 		preg_match_all( '#\s(image_[0-9]*|attachment_[0-9]*|issue_image|tag_image)[=][\"|\']([\d\s\,]*)[\"|\']#', $text, $matches, PREG_SET_ORDER );
 		foreach ( $matches as $match ) {
-			$ids[] = $match[2];
+			$attachment_ids[] = $match[2];
 		}
 
 		// Filter attachment ids from [gallery] shortcode.
 		preg_match_all( '#\[gallery\s+[ids=\"\']+([\d\s,]*)[\"\'].#', $text, $matches, PREG_SET_ORDER );
 		foreach ( $matches as $match ) {
 			foreach ( explode( ',', $match[1] ) as $id ) {
-				$ids[] = (int) $id;
+				$attachment_ids[] = (int) $id;
 			}
 		}
 	}
 
-	$ids = array_unique( $ids );
-	sort( $ids );
+	$attachment_ids = array_unique( $attachment_ids );
+	sort( $attachment_ids );
 
 	// The post ids are reorderd as sort all attachment ids first and then append the post id to array.(Added for simplification of import process).
-	$ids      = array_diff( $ids, $post_ids );
-	$post_ids = array_merge( $ids, $post_ids );
+	$attachment_ids = array_diff( $attachment_ids, $post_ids );
+	$post_ids       = array_merge( $attachment_ids, $post_ids );
 
 	return $post_ids;
 }
