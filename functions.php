@@ -35,18 +35,32 @@ if ( ! class_exists( 'Timber' ) ) {
 
 require_once( __DIR__ . '/classes/class-p4-master-site.php' );
 
+$services = [
+	'P4_Metabox_Register',
+	'P4_Custom_Taxonomy',
+	'P4_Campaigns',
+	'P4_Post_Campaign',
+	'P4_Settings',
+	'P4_Control_Panel',
+	'P4_Post_Report_Controller',
+	'P4_Cookies',
+	'P4_Dev_Report',
+];
+
+if ( is_admin() ) {
+	// Load `P4_Campaign_Exporter` class on admin campaign listing page and campaign export only.
+	if ( 'campaign' === filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING ) || 'export_data' === filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING ) ) {
+		$services[] = 'P4_Campaign_Exporter';
+	}
+
+	// Load `P4_Campaign_Importer` class on admin campaign import only.
+	// phpcs:disable
+	if ( 'wordpress' === filter_input( INPUT_GET, 'import', FILTER_SANITIZE_STRING ) ) {
+	// phpcs:enable
+		$services[] = 'P4_Campaign_Importer';
+	}
+}
+
 new P4_Master_Site(
-	[
-		'P4_Metabox_Register',
-		'P4_Custom_Taxonomy',
-		'P4_Campaigns',
-		'P4_Post_Campaign',
-		'P4_Campaign_Exporter',
-		'P4_Campaign_Importer',
-		'P4_Settings',
-		'P4_Control_Panel',
-		'P4_Post_Report_Controller',
-		'P4_Cookies',
-		'P4_Dev_Report',
-	]
+	$services
 );

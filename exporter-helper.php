@@ -8,8 +8,8 @@
 /**
  * Returns all attachment ids from campaign post content.
  *
- * @param string $post_ids Post IDs.
- * @return string  $post_ids Post IDs.
+ * @param array $post_ids Post IDs.
+ * @return array  $post_ids Post IDs.
  */
 function get_campaign_attachments( $post_ids ) {
 
