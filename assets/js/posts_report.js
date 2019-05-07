@@ -1,3 +1,5 @@
+/* global jQuery, wp */
+
 var postCollection,
   pageCollection,
   postsView,
@@ -8,6 +10,10 @@ var p4_data = p4_data || {};
 var wp = window.wp || {};
 
 (function ($) {
+
+  if ('undefined' === wp.api) {
+    return;
+  }
 
   $(document).ready(function () {
     $('#from').datepicker({
@@ -177,7 +183,8 @@ var wp = window.wp || {};
     $('#pages-table').html(pagesView.render().el);
   };
 
-  $(document).ready(function () {
+  // Initialize page when wp api client has finished loading.
+  wp.api.loadPromise.done(function () {
     p4.initialize();
   });
 })(jQuery);

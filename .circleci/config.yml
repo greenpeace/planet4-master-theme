@@ -9,6 +9,14 @@ workflows:
           filters:
             branches:
               ignore: languages
+      - rips-test:
+          context: rips-scans
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v\p{Digit}+\.\p{Digit}+\.\p{Digit}+.*/
+
 version: 2
 
 job-references:
@@ -136,3 +144,12 @@ jobs:
           name: Build - Notify failure
           when: on_fail
           command: notify-job-failure.sh
+
+  rips-test:
+    docker:
+      - image: rips/rips-cli:circleci
+    environment:
+      RIPS_APPLICATION_ID: 32
+    steps:
+      - checkout
+      - run: rips-cli -vvv rips:scan:start -a $RIPS_APPLICATION_ID -p ~/project/ -t 1
