@@ -89,6 +89,10 @@ if ( $campaign_template ) {
 	$context['custom_body_classes'] = 'brown-bg theme-' . $campaign_template;
 }
 
+// Set GTM Data Layer values.
+$post->set_data_layer();
+$data_layer = $post->get_data_layer();
+
 $context['post']                        = $post;
 $context['header_title']                = is_front_page() ? ( $page_meta_data['p4_title'][0] ?? '' ) : ( $page_meta_data['p4_title'][0] ?? $post->title );
 $context['header_subtitle']             = $page_meta_data['p4_subtitle'][0] ?? '';
@@ -96,8 +100,8 @@ $context['header_description']          = wpautop( $page_meta_data['p4_descripti
 $context['header_button_title']         = $page_meta_data['p4_button_title'][0] ?? '';
 $context['header_button_link']          = $page_meta_data['p4_button_link'][0] ?? '';
 $context['header_button_link_checkbox'] = $page_meta_data['p4_button_link_checkbox'][0] ?? '';
-$context['page_category']               = is_front_page() ? 'Front Page' : ( $category->name ?? 'Unknown page' );
 $context['social_accounts']             = $post->get_social_accounts( $context['footer_social_menu'] );
+$context['page_category']               = $data_layer['page_category'];
 $context['post_tags']                   = implode( ', ', $post->tags() );
 
 $background_image_id                = get_post_meta( get_the_ID(), 'background_image_id', 1 );

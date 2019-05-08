@@ -6,7 +6,6 @@
  */
 
 use Timber\Timber;
-use Timber\Loader as TimberLoader;
 
 if ( ! class_exists( 'P4_Taxonomy_Campaign' ) ) {
 
@@ -66,7 +65,6 @@ if ( ! class_exists( 'P4_Taxonomy_Campaign' ) ) {
 		 * View the Campaign template.
 		 */
 		public function view() {
-			( new TimberLoader() )->clear_cache_timber();
 			Timber::render( $this->templates, $this->context );
 		}
 	}
