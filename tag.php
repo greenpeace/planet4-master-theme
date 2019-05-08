@@ -59,9 +59,7 @@ if ( is_tag() ) {
 		if ( $tag_image_id ) {
 			$context['og_image_data'] = wp_get_attachment_image_src( $tag_image_id, 'full' );
 		}
-
-		$context['page_category'] = $posts[0]->post_title ?? __( 'Unknown Campaign page', 'planet4-master-theme' );
-
+		$context['page_category'] = 'Tag Page';
 
 		$campaign = new P4_Taxonomy_Campaign( $templates, $context );
 

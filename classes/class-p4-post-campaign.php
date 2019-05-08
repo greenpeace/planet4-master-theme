@@ -11,11 +11,10 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 	 */
 	class P4_Post_Campaign {
 
-		/** Post Type
-		 *
-		 * @var string $post_type
+		/**
+		 * Post Type
 		 */
-		private $post_type = 'campaign';
+		const POST_TYPE = 'campaign';
 
 
 		/**
@@ -91,7 +90,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'supports'           => [ 'title', 'editor', 'author', 'thumbnail', 'excerpt' ],
 			);
 
-			register_post_type( $this->post_type, $args );
+			register_post_type( self::POST_TYPE, $args );
 		}
 
 		/**
