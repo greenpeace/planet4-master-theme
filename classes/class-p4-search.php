@@ -431,7 +431,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['filters']          = $this->filters;
 			$context['found_posts']      = count( (array) $this->posts );
 			$context['source_selection'] = false;
-			$context['page_category']    = $category->name ?? __( 'Search page', 'planet4-master-theme' );
+			$context['page_category']    = 'Search Page';
 			$context['sort_options']     = [
 				'_score'    => [
 					'name'  => __( 'Most relevant', 'planet4-master-theme' ),
