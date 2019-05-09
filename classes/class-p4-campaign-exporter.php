@@ -65,12 +65,13 @@ if ( ! class_exists( 'P4_Campaign_Exporter' ) ) {
 			}
 			switch ( $action ) {
 				case 'export':
-					$sendback = 'admin.php?action=export_data&post=' . join( ',', $_REQUEST['post'] );
+					$sendback = 'admin.php?action=export_data&post=' . join( ',', array_map( 'absint', $_REQUEST['post'] ) );
 					break;
 
 				default:
 					return;
 			}
+
 			wp_redirect( $sendback );
 			exit();
 		}
