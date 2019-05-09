@@ -10,8 +10,12 @@
  */
 
 $timber_context = $GLOBALS['timberContext'];
-if ( ! isset( $timber_context ) ) {
-	throw new \Exception( 'Timber context not set in footer.' );
+try {
+	if ( ! isset( $timber_context ) ) {
+		throw new \Exception( 'Timber context not set in footer.' );
+	}
+} catch ( Exception $e ) {
+	die( 'Error: ' . $e->getMessage() );
 }
 $timber_context['content'] = ob_get_contents();
 ob_end_clean();
