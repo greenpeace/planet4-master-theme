@@ -359,6 +359,26 @@ class P4_Metabox_Register {
 			]
 		);
 
+		$goal_options = [
+			'not set'         => __( '- Select Goal -', 'planet4-master-theme-backend' ),
+			'Petition Signup' => 'Petition Signup',
+			'Action Alert'    => 'Action Alert',
+			'Contact Form'    => 'Contact Form',
+			'Other'           => 'Other',
+		];
+
+		$p4_campaign_fields->add_field(
+			[
+				'name'       => __( 'Goal', 'planet4-master-theme-backend' ),
+				'id'         => $this->prefix . 'goal',
+				'type'       => 'select',
+				'options'    => $goal_options,
+				'attributes' => [
+					'data-validation' => 'required',
+				],
+			]
+		);
+
 		$p4_campaign_fields->add_field(
 			[
 				'name'       => __( 'Department', 'planet4-master-theme-backend' ),
