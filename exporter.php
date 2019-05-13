@@ -221,7 +221,7 @@ function p4_px_single_post_authors_list( $post_ids ) {
 	$authors = array();
 
 	// Ignore lint on the following line because it doesn't detect the context of the $post_ids.
-	$results = $wpdb->get_results( sprintf( "SELECT DISTINCT post_author FROM $wpdb->posts WHERE ID IN( %s ) AND post_status != 'auto-draft'", $post_ids ) ); // phpcs:ignore
+	$results = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT post_author FROM $wpdb->posts WHERE ID IN( %s ) AND post_status != 'auto-draft'", $post_ids ) ); // phpcs:ignore
 
 	foreach ( (array) $results as $result ) {
 		$authors[] = get_userdata( $result->post_author );
