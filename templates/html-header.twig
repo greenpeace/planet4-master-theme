@@ -51,6 +51,9 @@
           var google_tag_value = '{{ google_tag_value }}';
           var enforce_cookies_policy = '{{ enforce_cookies_policy }}';
 
+          // Global to be used at EN form submission time
+          window.cf_goal = '{% if cf_goal is defined and cf_goal is not null %}{{ cf_goal }}{% endif %}';
+
           if ( enforce_cookies_policy && 1 !== parseInt( cookie_consent ) ) {
             google_tag_value = '';
           }
