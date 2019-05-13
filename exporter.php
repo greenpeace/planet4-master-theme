@@ -216,12 +216,11 @@ function p4_px_single_post_authors_list( $post_ids ) {
 
 	$post_ids = array_map( 'intval', $post_ids );  // santize the post_ids manually.
 	$post_ids = array_filter( $post_ids ); // strip ones that didn't validate.
-	$post_ids = implode( ', ', $post_ids );
 
 	$authors = array();
 
-	// Ignore lint on the following line because it doesn't detect the context of the $post_ids.
-	$results = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT post_author FROM $wpdb->posts WHERE ID IN( %s ) AND post_status != 'auto-draft'", $post_ids ) ); // phpcs:ignore
+	$placeholders = implode( ',', array_fill( 0, count( $post_ids ), '%d' ) );
+	$results      = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT post_author FROM $wpdb->posts WHERE ID IN($placeholders) AND post_status != 'auto-draft'", $post_ids ) ); // phpcs:ignore
 
 	foreach ( (array) $results as $result ) {
 		$authors[] = get_userdata( $result->post_author );
