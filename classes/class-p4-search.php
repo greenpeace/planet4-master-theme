@@ -26,6 +26,12 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		const DEFAULT_MAX_WEIGHT    = 3000;
 		const DEFAULT_CACHE_TTL     = 600;
 		const DUMMY_THUMBNAIL       = '/images/dummy-thumbnail.png';
+		const POST_TYPES            = [
+			'page',
+			'campaign',
+			'post',
+			'attachment',
+		];
 		const DOCUMENT_TYPES        = [
 			'application/pdf',
 		];
@@ -273,7 +279,12 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$args = [];
 
 			$this->set_general_args( $args, $paged );
-			$this->set_filters_args( $args );
+			try {
+				$this->set_filters_args( $args );
+			} catch ( UnexpectedValueException $e ) {
+				$this->context['exception'] = $e->getMessage();
+				return [];
+			}
 			$this->set_engines_args( $args );
 
 			$posts = ( new WP_Query( $args ) )->posts;
@@ -290,7 +301,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$args = [
 				'posts_per_page' => self::POSTS_LIMIT,          // Set a high maximum because -1 will get ALL posts and this can be very intensive in production.
 				'no_found_rows'  => true,                       // This means that the result counters of each filter might not be 100% precise.
-				'post_type'      => 'any',
+				'post_type'      => self::POST_TYPES,
 				'post_status'    => [ 'publish', 'inherit' ],
 			];
 
@@ -343,6 +354,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * Applies user selected filters to the search if there are any and gets the filtered posts.
 		 *
 		 * @param array $args The search query args.
+		 *
+		 * @throws UnexpectedValueException When filter type is not recognized.
 		 */
 		public function set_filters_args( &$args ) {
 			if ( $this->filters ) {
@@ -386,7 +399,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 										$args['post_mime_type'] = self::DOCUMENT_TYPES;
 										break;
 									case 2:
-										$args['post_type']             = 'page';
+										$args['post_type']             = [ 'page', 'campaign' ];
 										$args['post_status']           = 'publish';
 										$options                       = get_option( 'planet4_options' );
 										$args['post_parent__not_in'][] = esc_sql( $options['act_page'] );
@@ -395,8 +408,12 @@ if ( ! class_exists( 'P4_Search' ) ) {
 										$args['post_type']   = 'post';
 										$args['post_status'] = 'publish';
 										break;
+									default:
+										throw new UnexpectedValueException( 'Unexpected content type!' );
 								}
 								break;
+							default:
+								throw new UnexpectedValueException( 'Unexpected filter!' );
 						}
 					}
 				}
@@ -410,7 +427,11 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		protected function set_context( &$context ) {
 			$this->set_general_context( $context );
-			$this->set_filters_context( $context );
+			try {
+				$this->set_filters_context( $context );
+			} catch ( UnexpectedValueException $e ) {
+				$this->context['exception'] = $e->getMessage();
+			}
 			$this->set_results_context( $context );
 		}
 
@@ -431,7 +452,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$context['filters']          = $this->filters;
 			$context['found_posts']      = count( (array) $this->posts );
 			$context['source_selection'] = false;
-			$context['page_category']    = $category->name ?? __( 'Search page', 'planet4-master-theme' );
+			$context['page_category']    = 'Search Page';
 			$context['sort_options']     = [
 				'_score'    => [
 					'name'  => __( 'Most relevant', 'planet4-master-theme' ),
@@ -460,6 +481,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * Set filters context
 		 *
 		 * @param mixed $context Context.
+		 *
+		 * @throws UnexpectedValueException When filter type is not recognized.
 		 */
 		protected function set_filters_context( &$context ) {
 			// Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
@@ -551,6 +574,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 							case 'ctype':
 								$context['content_types'][ $filter['id'] ]['checked'] = 'checked';
 								break;
+							default:
+								throw new UnexpectedValueException( 'Unexpected filter!' );
 						}
 					}
 				}
@@ -593,28 +618,16 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$options = get_option( 'planet4_options' );
 
 			// Pass planet4 settings.
-			$context['settings'] = get_option( 'planet4_options' );
+			$context['settings'] = $options;
 
 			// Set default thumbnail.
 			$context['posts_data']['dummy_thumbnail'] = get_template_directory_uri() . self::DUMMY_THUMBNAIL;
 
 			foreach ( (array) $posts as $post ) {
-				// Category <-> Issue.
-				// Consider Issues that have multiple Categories.
-				$categories = get_the_category( $post->ID );
-				if ( $categories ) {
-					foreach ( $categories as $category ) {
-						if ( $category->parent === (int) $options['issues_parent_category'] ) {
-							$context['categories'][ $category->term_id ]['term_id'] = $category->term_id;
-							$context['categories'][ $category->term_id ]['name']    = $category->name;
-							$context['categories'][ $category->term_id ]['results']++;
-						}
-					}
-				}
-
 				// Post Type (+Action) <-> Content Type.
 				switch ( $post->post_type ) {
 					case 'page':
+					case 'campaign':
 						if ( $post->post_parent === (int) $options['act_page'] ) {
 							$content_type_text = __( 'ACTION', 'planet4-master-theme' );
 							$content_type      = 'action';
@@ -630,10 +643,13 @@ if ( ! class_exists( 'P4_Search' ) ) {
 						$content_type      = 'document';
 						$context['content_types']['1']['results']++;
 						break;
-					default:
+					case 'post':
 						$content_type_text = __( 'POST', 'planet4-master-theme' );
 						$content_type      = 'post';
 						$context['content_types']['3']['results']++;
+						break;
+					default:
+						continue 2;     // Ignore other post_types and continue with next $post.
 				}
 				$context['posts_data'][ $post->ID ]['content_type_text'] = $content_type_text;
 				$context['posts_data'][ $post->ID ]['content_type']      = $content_type;
@@ -653,19 +669,34 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				}
 
 				// Tag <-> Campaign.
-				$tags = get_the_terms( $post->ID, 'post_tag' );
-				if ( $tags ) {
-					foreach ( (array) $tags as $tag ) {
-						// Set tags info for each result item.
-						$context['posts_data'][ $post->ID ]['tags'][] = [
-							'name' => $tag->name,
-							'link' => get_tag_link( $tag ),
-						];
+				if ( 'attachment' !== $post->post_type ) {
+					// Category <-> Issue.
+					// Consider Issues that have multiple Categories.
+					$categories = get_the_category( $post->ID );
+					if ( $categories ) {
+						foreach ( $categories as $category ) {
+							if ( $category->parent === (int) $options['issues_parent_category'] ) {
+								$context['categories'][ $category->term_id ]['term_id'] = $category->term_id;
+								$context['categories'][ $category->term_id ]['name']    = $category->name;
+								$context['categories'][ $category->term_id ]['results']++;
+							}
+						}
+					}
 
-						// Tag filters.
-						$context['tags'][ $tag->term_id ]['term_id'] = $tag->term_id;
-						$context['tags'][ $tag->term_id ]['name']    = $tag->name;
-						$context['tags'][ $tag->term_id ]['results']++;
+					$tags = get_the_terms( $post->ID, 'post_tag' );
+					if ( $tags ) {
+						foreach ( (array) $tags as $tag ) {
+							// Set tags info for each result item.
+							$context['posts_data'][ $post->ID ]['tags'][] = [
+								'name' => $tag->name,
+								'link' => get_tag_link( $tag ),
+							];
+
+							// Tag filters.
+							$context['tags'][ $tag->term_id ]['term_id'] = $tag->term_id;
+							$context['tags'][ $tag->term_id ]['name']    = $tag->name;
+							$context['tags'][ $tag->term_id ]['results'] ++;
+						}
 					}
 				}
 			}

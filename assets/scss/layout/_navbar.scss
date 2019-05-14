@@ -232,8 +232,8 @@ $min-height: 40px;
     background: rgba(255, 255, 255, 0.05);
   }
 
-  // All other dropdown styles
-  @media (max-width: #{$large-width}) {
+  // All other dropdown styles - This special rule has a 1px offset as it uses max-width instead of min-width
+  @media (max-width: #{$large-width - 1}) {
     box-sizing: border-box;
     flex-direction: column;
     justify-content: space-between;

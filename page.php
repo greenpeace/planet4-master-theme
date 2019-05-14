@@ -50,6 +50,9 @@ if ( is_array( $page_tags ) && $page_tags ) {
 	$context['campaigns'] = $tags;
 }
 
+// Set GTM Data Layer values.
+$post->set_data_layer();
+$data_layer = $post->get_data_layer();
 
 $context['post']                        = $post;
 $context['header_title']                = is_front_page() ? ( $page_meta_data['p4_title'][0] ?? '' ) : ( $page_meta_data['p4_title'][0] ?? $post->title );
@@ -58,8 +61,8 @@ $context['header_description']          = wpautop( $page_meta_data['p4_descripti
 $context['header_button_title']         = $page_meta_data['p4_button_title'][0] ?? '';
 $context['header_button_link']          = $page_meta_data['p4_button_link'][0] ?? '';
 $context['header_button_link_checkbox'] = $page_meta_data['p4_button_link_checkbox'][0] ?? '';
-$context['page_category']               = is_front_page() ? 'Front Page' : ( $category->name ?? 'Unknown page' );
 $context['social_accounts']             = $post->get_social_accounts( $context['footer_social_menu'] );
+$context['page_category']               = $data_layer['page_category'];
 $context['post_tags']                   = implode( ', ', $post->tags() );
 
 $background_image_id                = get_post_meta( get_the_ID(), 'background_image_id', 1 );
@@ -75,7 +78,6 @@ $context['cf_campaign_name'] = $page_meta_data['p4_campaign_name'][0] ?? '';
 $context['cf_basket_name']   = $page_meta_data['p4_basket_name'][0] ?? '';
 $context['cf_scope']         = $page_meta_data['p4_scope'][0] ?? '';
 $context['cf_department']    = $page_meta_data['p4_department'][0] ?? '';
-
 
 if ( post_password_required( $post->ID ) ) {
 	Timber::render( 'single-page.twig', $context );

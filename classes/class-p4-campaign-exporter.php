@@ -26,12 +26,9 @@ if ( ! class_exists( 'P4_Campaign_Exporter' ) ) {
 		 * Main function
 		 */
 		public function single_post_export_data() {
-			if ( ! ( isset( $_GET['post'] ) || isset( $_POST['post'] ) || ( isset( $_REQUEST['action'] ) ) ) ) {
-				wp_die( 'No post to export has been supplied!' );
-			}
-			$post_id = ( isset( $_GET['post'] ) ? $_GET['post'] : $_POST['post'] );
-			if ( ! empty( $post_id ) ) {
-				include( get_template_directory() . '/exporter.php' );
+			$post_id = filter_input( INPUT_GET, 'post', FILTER_SANITIZE_NUMBER_INT ) ?? filter_input( INPUT_POST, 'post', FILTER_SANITIZE_NUMBER_INT );
+			if ( ! empty( $post_id ) && 'export_data' === filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING ) ) {
+				include get_template_directory() . '/exporter.php';
 			} else {
 				wp_die( 'No post to export has been supplied!' );
 			}
@@ -41,12 +38,11 @@ if ( ! class_exists( 'P4_Campaign_Exporter' ) ) {
 		 * Export multiple data
 		 */
 		public function single_post_export_bulk() {
-			if ( ! empty( $_GET['post_type'] ) &&
-			'campaign' == $_GET['post_type'] &&
+			if ( P4_Post_Campaign::POST_TYPE === filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING ) &&
 			current_user_can( 'edit_posts' ) ) { ?>
 			<script type="text/javascript">
 				jQuery(document).ready(function () {
-					jQuery('<option>').val('export').text('<?php _e( 'Export', 'planet4-master-theme-backend' ); ?>').appendTo("select[name='action']");
+					jQuery('<option>').val('export').text('<?php esc_html_e( 'Export', 'planet4-master-theme-backend' ); ?>').appendTo("select[name='action']");
 				});
 			</script>
 				<?php
@@ -59,31 +55,39 @@ if ( ! class_exists( 'P4_Campaign_Exporter' ) ) {
 		public function single_post_export_bulk_action() {
 			$wp_list_table   = _get_list_table( 'WP_Posts_List_Table' );
 			$action          = $wp_list_table->current_action();
-			$allowed_actions = array( 'export' );
-			if ( ! in_array( $action, $allowed_actions ) ) {
+			$allowed_actions = [ 'export' ];
+			if ( ! in_array( $action, $allowed_actions, true ) ) {
 				return false;
 			}
+
+			$validated_posts = array_filter(
+				$_REQUEST['post'],
+				function ( $element ) {
+					return filter_var( $element, FILTER_VALIDATE_INT );
+				}
+			);
+
 			switch ( $action ) {
 				case 'export':
-					$sendback = 'admin.php?action=export_data&post=' . join( ',', $_REQUEST['post'] );
+					$sendback = 'admin.php?action=export_data&post=' . join( ',', $validated_posts );
 					break;
 
 				default:
-					return;
+					return false;
 			}
-			wp_redirect( $sendback );
+			wp_safe_redirect( $sendback );
 			exit();
 		}
 
 		/**
 		 * Add Export Link
 		 *
-		 * @param object $actions Export Actions object.
-		 * @param object $post Post object.
+		 * @param array   $actions array.
+		 * @param WP_Post $post object.
+		 * @return array  $actions array.
 		 */
-		public function single_post_export( $actions, $post ) {
-			if ( ! empty( $_GET['post_type'] ) &&
-				'campaign' == $_GET['post_type'] &&
+		public function single_post_export( $actions, $post ) : array {
+			if ( P4_Post_Campaign::POST_TYPE === filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING ) &&
 				current_user_can( 'edit_posts' ) ) {
 				$export_url        = esc_url( admin_url( 'admin.php?action=export_data&amp;post=' . $post->ID ) );
 				$actions['export'] = '<a href="' . $export_url . '" title="' . __( 'Export', 'planet4-master-theme-backend' ) . '" rel="permalink">' . __( 'Export', 'planet4-master-theme-backend' ) . '</a>';
@@ -101,7 +105,7 @@ if ( ! class_exists( 'P4_Campaign_Exporter' ) ) {
 			?>
 			<script>
 				jQuery(function(){
-					jQuery("body.post-type-campaign .wrap .page-title-action").after('<a href="admin.php?import=wordpress" class="page-title-action"><?php _e( 'Import', 'planet4-master-theme-backend' ); ?></a>');
+					jQuery("body.post-type-campaign .wrap .page-title-action").after('<a href="admin.php?import=wordpress" class="page-title-action"><?php esc_html_e( 'Import', 'planet4-master-theme-backend' ); ?></a>');
 				});
 			</script>
 			<?php
