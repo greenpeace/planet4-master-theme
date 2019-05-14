@@ -4,7 +4,7 @@ msgstr ""
 "n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2019-05-14 13:55+0000\n"
+"PO-Revision-Date: 2019-05-14 13:56+0000\n"
 "Language-Team: Croatian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,7 +55,7 @@ msgstr "Što možeš učiniti"
 # Želimo da poduzmete akciju jer smo zajedno jači.
 #: tag.php:65
 msgid "We want you to take action because together we're strong."
-msgstr "Želimo da nam se priključiš jer smo zajedno jači."
+msgstr "Priključi nam se - zajedno smo jači!"
 
 #: tag.php:81
 msgid "Related Campaigns"
