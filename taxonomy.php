@@ -28,6 +28,7 @@ $post_args = [
 	'p4-page-type'   => $context['taxonomy']->slug,
 ];
 
+$context['page_category']   = 'Post Type Page';
 $context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';
 
 if ( get_query_var( 'page' ) ) {

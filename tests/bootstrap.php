@@ -11,7 +11,7 @@ if ( ! $_tests_dir ) {
 }
 
 if ( ! file_exists( $_tests_dir . '/includes/functions.php' ) ) {
-	throw new Exception( "Could not find $_tests_dir/includes/functions.php, have you run bin/install-wp-tests.sh ?" );
+	die( "Could not find $_tests_dir/includes/functions.php, have you run bin/install-wp-tests.sh ?\n" );
 }
 
 // Give access to tests_add_filter() function.
@@ -51,11 +51,11 @@ function _register_theme() {
 	$plugins_dir = dirname( __FILE__ ) . '/../vendor/plugins';
 	$timber      = $plugins_dir . '/timber/timber.php';
 	if ( file_exists( $timber ) ) {
-		require_once( $timber );
+		require_once $timber;
 	} else {
 		$timber_library = $plugins_dir . '/timber-library/timber.php';
 		if ( file_exists( $timber_library ) ) {
-			require_once( $timber_library );
+			require_once $timber_library;
 		}
 	}
 }
