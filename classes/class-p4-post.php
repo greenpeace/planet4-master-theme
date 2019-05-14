@@ -44,6 +44,13 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		protected $author;
 
 		/**
+		 * Associative array with the values to be passed to GTM Data Layer.
+		 *
+		 * @var array $datalayer
+		 */
+		protected $data_layer;
+
+		/**
 		 * P4_Post constructor.
 		 *
 		 * @param mixed $pid The post id. If left null it will try to figure out the current post id based on being inside The_Loop.
@@ -55,7 +62,36 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		}
 
 		/**
-		 * Checks if post is the act page.
+		 * Sets the GTM Data Layer values of current P4 Post.
+		 */
+		public function set_data_layer() {
+			if ( is_front_page() ) {
+				$this->data_layer['page_category'] = 'Homepage';
+			} elseif ( $this->is_act_page() ) {
+				$this->data_layer['page_category'] = 'Act';
+			} elseif ( $this->is_explore_page() ) {
+				$this->data_layer['page_category'] = 'Explore';
+			} elseif ( $this->is_take_action_page() ) {
+				$this->data_layer['page_category'] = 'Take Action';
+			} elseif ( $this->is_issue_page() ) {
+				$this->data_layer['page_category'] = 'Issue Page';
+			} elseif ( $this->is_campaign_page() ) {
+				$this->data_layer['page_category'] = 'Campaign Page';
+			} elseif ( is_tag() ) {
+				$this->data_layer['page_category'] = 'Tag Page';
+			} else {
+				$this->data_layer['page_category'] = 'Default Page';
+			}
+		}
+
+		/**
+		 * Get the array for the GTM Data Layer.
+		 */
+		public function get_data_layer() {
+			return $this->data_layer;
+		}
+		/**
+		 * Checks if post is the Act page.
 		 *
 		 * @return bool
 		 */
@@ -66,7 +102,7 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		}
 
 		/**
-		 * Checks if post is the explore page.
+		 * Checks if post is the Explore page.
 		 *
 		 * @return bool
 		 */
@@ -77,7 +113,7 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		}
 
 		/**
-		 * Checks if post is a take action page (child of act page).
+		 * Checks if post is a Take Action page (child of act page).
 		 *
 		 * @return bool
 		 */
@@ -97,7 +133,40 @@ if ( ! class_exists( 'P4_Post' ) ) {
 				$pages = get_posts( $take_action_pages_args );
 			}
 
-			return in_array( $this->id, $pages );
+			return in_array( $this->id, $pages, true );
+		}
+
+		/**
+		 * Checks if post is an Issue page (child of explore page).
+		 *
+		 * @return bool
+		 */
+		public function is_issue_page() : bool {
+			$explore_page_id = planet4_get_option( 'explore_page' );
+			$pages           = [];
+
+			if ( 0 !== absint( $explore_page_id ) ) {
+				$issue_pages_args = [
+					'post_type'        => 'page',
+					'post_parent'      => $explore_page_id,
+					'numberposts'      => - 1,
+					'fields'           => 'ids',
+					'suppress_filters' => false,
+				];
+
+				$pages = get_posts( $issue_pages_args );
+			}
+
+			return in_array( $this->id, $pages, true );
+		}
+
+		/**
+		 * Checks if post is Campaign page.
+		 *
+		 * @return bool
+		 */
+		public function is_campaign_page() : bool {
+			return P4_Post_Campaign::POST_TYPE === $this->post_type;
 		}
 
 		/**

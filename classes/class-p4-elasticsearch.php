@@ -16,6 +16,8 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 		 * Applies user selected filters to the search if there are any and gets the filtered posts.
 		 *
 		 * @param array $args Query args.
+		 *
+		 * @throws UnexpectedValueException When filter type is not recognized.
 		 */
 		public function set_filters_args( &$args ) {
 			parent::set_filters_args( $args );
@@ -24,8 +26,14 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 				foreach ( $this->filters as $type => $filter_type ) {
 					foreach ( $filter_type as $filter ) {
 						switch ( $type ) {
+							case 'cat':
+							case 'tag':
+							case 'ptype':
+								break;
 							case 'ctype':
 								switch ( $filter['id'] ) {
+									case 0:
+										break;
 									case 1:
 										add_filter(
 											'ep_formatted_args',
@@ -86,8 +94,12 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 											1
 										);
 										break;
+									default:
+										throw new UnexpectedValueException( 'Unexpected content type!' );
 								}
 								break;
+							default:
+								throw new UnexpectedValueException( 'Unexpected filter!' );
 						}
 					}
 				}

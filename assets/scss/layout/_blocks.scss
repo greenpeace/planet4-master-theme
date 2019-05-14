@@ -1,0 +1,14 @@
+.block {
+  display: inline-block;
+  width: 100%;
+  margin-top: $space-lg;
+  margin-bottom: $space-xxl;
+}
+
+.block-header {
+  margin-top: 0;
+}
+
+.block-footer {
+  margin-bottom: 0;
+}

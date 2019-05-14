@@ -17,18 +17,13 @@
 .page-section-header {
   font-family: $roboto;
   font-size: 1.375rem;
+  line-height: 1.2;
   font-weight: 700;
   color: $black;
-  margin-bottom: 15px;
-
-  @include medium-and-up {
-    font-size: 1.5rem;
-    line-height: 1.2;
-  }
+  margin-bottom: $space-lg;
 
   @include large-and-up {
     font-size: 1.75rem;
-    margin-bottom: 20px;
   }
 
   @include x-large-and-up {
@@ -39,19 +34,14 @@
 .page-section-description {
   font-size: 1rem;
   line-height: 1.6;
-  margin: 0 0 24px;
+  margin-bottom: $space-xl;
 
   @include medium-and-up {
     width: 100%;
   }
 
-  @include large-and-up {
-    font-size: 1rem;
-  }
-
   @include x-large-and-up {
     font-size: 1.125rem;
-    margin: $n20 0;
 
     .row & {
       margin-top: 0;
