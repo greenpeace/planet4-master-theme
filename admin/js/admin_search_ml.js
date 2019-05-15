@@ -123,7 +123,7 @@ $(document).off('click').on('click', '#ml-button-insert', function () {
         // Switch the media library tab.
         $( '.media-router' ).find('a:nth-child(2)').click();
         // Set the media name in search field & trigger the search media event.
-        $( '#media-search-input' ).val(ml_selected_image).keyup();
+        $( '#media-search-input' ).val( ml_selected_image.toLowerCase() ).keyup();
 
 		$( '#ml_loader', $('.supports-drag-drop:last-of-type') ).removeClass('is-active');
 
