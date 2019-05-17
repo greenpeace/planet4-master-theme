@@ -246,11 +246,11 @@ msgid "Copyright Text Line 2"
 msgstr ""
 
 #: classes/class-p4-settings.php:86
-msgid "Google Tag Manager Identifier"
+msgid "Google Tag Manager Container"
 msgstr ""
 
 #: classes/class-p4-settings.php:92
-msgid "Engaging Network ID"
+msgid "Engaging Networks Subscribe Form URL"
 msgstr ""
 
 #: classes/class-p4-settings.php:98
@@ -331,7 +331,7 @@ msgid "Add 404 page text"
 msgstr ""
 
 #: classes/class-p4-settings.php:194
-msgid "Default p4-pagetype"
+msgid "Default P4 Post Type"
 msgstr ""
 
 #: classes/class-p4-settings.php:200
@@ -361,7 +361,7 @@ msgid "Select Category"
 msgstr ""
 
 #: classes/class-p4-settings.php:308
-msgid "Select Pagetype"
+msgid "Select Posttype"
 msgstr ""
 
 #: classes/class-p4-control-panel.php:43
