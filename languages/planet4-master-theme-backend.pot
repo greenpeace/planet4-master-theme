@@ -181,40 +181,40 @@ msgstr ""
 
 #: classes/class-p4-custom-taxonomy.php:148
 msgctxt "taxonomy general name"
-msgid "Page Types"
+msgid "Post Types"
 msgstr ""
 
 #: classes/class-p4-custom-taxonomy.php:149
 msgctxt "taxonomy singular name"
-msgid "Page Type"
+msgid "Post Type"
 msgstr ""
 
 #: classes/class-p4-custom-taxonomy.php:150
-msgid "Search in Page Type"
+msgid "Search in Post Type"
 msgstr ""
 
 #: classes/class-p4-custom-taxonomy.php:151
-msgid "All Page Types"
+msgid "All Post Types"
 msgstr ""
 
 #: classes/class-p4-custom-taxonomy.php:155
-msgid "Edit Page Type"
+msgid "Edit Post Type"
 msgstr ""
 
 #: classes/class-p4-custom-taxonomy.php:156
-msgid "Update Page Type"
+msgid "Update Post Type"
 msgstr ""
 
 #: classes/class-p4-custom-taxonomy.php:157
-msgid "Add new Page Type"
+msgid "Add new Post Type"
 msgstr ""
 
 #: classes/class-p4-custom-taxonomy.php:158
-msgid "New Page Type"
+msgid "New Post Type"
 msgstr ""
 
 #: classes/class-p4-custom-taxonomy.php:159
-msgid "Page Types"
+msgid "Post Types"
 msgstr ""
 
 #: classes/class-p4-settings.php:39

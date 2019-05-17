@@ -198,23 +198,23 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 		}
 
 		/**
-		 * Register a custom taxonomy for planet4 page types.
+		 * Register a custom taxonomy for planet4 post types.
 		 */
 		public function register_taxonomy() {
 
 			$p4_page_type = [
-				'name'              => _x( 'Page Types', 'taxonomy general name', 'planet4-master-theme-backend' ),
-				'singular_name'     => _x( 'Page Type', 'taxonomy singular name', 'planet4-master-theme-backend' ),
-				'search_items'      => __( 'Search in Page Type', 'planet4-master-theme-backend' ),
-				'all_items'         => __( 'All Page Types', 'planet4-master-theme-backend' ),
+				'name'              => _x( 'Post Types', 'taxonomy general name', 'planet4-master-theme-backend' ),
+				'singular_name'     => _x( 'Post Type', 'taxonomy singular name', 'planet4-master-theme-backend' ),
+				'search_items'      => __( 'Search in Post Type', 'planet4-master-theme-backend' ),
+				'all_items'         => __( 'All Post Types', 'planet4-master-theme-backend' ),
 				'most_used_items'   => null,
 				'parent_item'       => null,
 				'parent_item_colon' => null,
-				'edit_item'         => __( 'Edit Page Type', 'planet4-master-theme-backend' ),
-				'update_item'       => __( 'Update Page Type', 'planet4-master-theme-backend' ),
-				'add_new_item'      => __( 'Add new Page Type', 'planet4-master-theme-backend' ),
-				'new_item_name'     => __( 'New Page Type', 'planet4-master-theme-backend' ),
-				'menu_name'         => __( 'Page Types', 'planet4-master-theme-backend' ),
+				'edit_item'         => __( 'Edit Post Type', 'planet4-master-theme-backend' ),
+				'update_item'       => __( 'Update Post Type', 'planet4-master-theme-backend' ),
+				'add_new_item'      => __( 'Add new Post Type', 'planet4-master-theme-backend' ),
+				'new_item_name'     => __( 'New Post Type', 'planet4-master-theme-backend' ),
+				'menu_name'         => __( 'Post Types', 'planet4-master-theme-backend' ),
 			];
 
 			$args = [
