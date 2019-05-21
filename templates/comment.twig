@@ -1,7 +1,7 @@
 <article class="single-comment {{ comment.comment_type }}" id="comment-{{ comment.ID }}">
 	<p itemprop="commentText" class="single-comment-text">{{ comment.comment_content|wpautop|striptags( '<br>,<p>' )|raw }}</p>
 	<footer class="single-comment-meta">
-		<span class="author-info" itemprop="author">{{ comment.author.name }}</span>
+		<span class="author-info" itemprop="author">{{ comment.comment_author }}</span>
 		<time datetime="" class="comment-date" itemprop="commentTime">{{ comment.date }}</time>
 		{# Add custom css classes to reply button #}
 		{{ fn('str_replace', 'comment-reply-link', 'comment-reply-link btn btn-small btn-secondary comment-reply-btn',  comment.reply_link)|raw }}
