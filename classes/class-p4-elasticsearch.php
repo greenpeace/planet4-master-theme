@@ -129,6 +129,7 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 				);
 			}
 
+			add_filter( 'ep_formatted_args', [ $this, 'set_full_text_search' ], 19, 1 );
 			add_filter( 'ep_formatted_args', [ $this, 'set_results_weight' ], 20, 1 );
 
 			// Remove from results any Documents that should not be there.
@@ -146,6 +147,27 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 				10,
 				4
 			);
+		}
+
+		/**
+		 * Apply full-text search.
+		 *
+		 * @param mixed $formatted_args Assoc array with the args that ES expects.
+		 *
+		 * @return mixed
+		 */
+		public function set_full_text_search( $formatted_args ) {
+			if ( isset( $formatted_args['query']['function_score']['query']['bool'] ) ) {
+				// Create/change the bool query from should to must.
+				$formatted_args['query']['function_score']['query']['bool']['must'] = $formatted_args['query']['function_score']['query']['bool']['should'];
+				// Add the operator AND to the new bool query.
+				$formatted_args['query']['function_score']['query']['bool']['must'][0]['multi_match']['operator'] = 'AND';
+				// Erase the old should query.
+				unset( $formatted_args['query']['function_score']['query']['bool']['should'] );
+				// Erase the phrase matching (to make sure we get results that include both 'courageous' AND 'act' instead of only those with 'courageous act'.
+				unset( $formatted_args['query']['function_score']['query']['bool']['must'][0]['multi_match']['type'] );
+			}
+			return $formatted_args;
 		}
 
 		/**
