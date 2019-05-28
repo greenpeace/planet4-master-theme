@@ -15,7 +15,7 @@ workflows:
             branches:
               ignore: /.*/
             tags:
-              only: /^v\p{Digit}+\.\p{Digit}+\.\p{Digit}+.*/
+              only: /^v\p{Digit}+\.\p{Digit}+.*/
 
 version: 2
 
