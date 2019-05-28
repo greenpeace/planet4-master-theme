@@ -92,13 +92,13 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name' => __( 'Google Tag Manager Identifier', 'planet4-master-theme-backend' ),
+					'name' => __( 'Google Tag Manager Container', 'planet4-master-theme-backend' ),
 					'id'   => 'google_tag_manager_identifier',
 					'type' => 'text',
 				],
 
 				[
-					'name' => __( 'Engaging Network ID', 'planet4-master-theme-backend' ),
+					'name' => __( 'Engaging Networks Subscribe Form URL', 'planet4-master-theme-backend' ),
 					'id'   => 'engaging_network_form_id',
 					'type' => 'text',
 				],
@@ -203,7 +203,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name' => __( 'Default p4-pagetype', 'planet4-master-theme-backend' ),
+					'name' => __( 'Default P4 Post Type', 'planet4-master-theme-backend' ),
 					'id'   => 'default_p4_pagetype',
 					'type' => 'pagetype_select_taxonomy',
 				],
@@ -330,7 +330,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 
 			wp_dropdown_categories(
 				[
-					'show_option_none' => __( 'Select Pagetype', 'planet4-master-theme-backend' ),
+					'show_option_none' => __( 'Select Posttype', 'planet4-master-theme-backend' ),
 					'hide_empty'       => 0,
 					'orderby'          => 'name',
 					'selected'         => $value,
