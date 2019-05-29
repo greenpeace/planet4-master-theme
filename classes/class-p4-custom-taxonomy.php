@@ -218,14 +218,15 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 			];
 
 			$args = [
-				'hierarchical' => false,
-				'labels'       => $p4_page_type,
-				'rewrite'      => [
+				'hierarchical'      => false,
+				'labels'            => $p4_page_type,
+				'rewrite'           => [
 					'slug' => self::TAXONOMY_SLUG,
 				],
-				'show_ui'      => true,
-				'query_var'    => true,
-				'meta_box_cb'  => [ $this, 'create_taxonomy_metabox_markup' ],
+				'show_ui'           => true,
+				'show_admin_column' => true,
+				'query_var'         => true,
+				'meta_box_cb'       => [ $this, 'create_taxonomy_metabox_markup' ],
 			];
 
 			register_taxonomy( self::TAXONOMY, [ self::TAXONOMY_PARAMETER, 'post' ], $args );
