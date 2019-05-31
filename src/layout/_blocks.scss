@@ -1,0 +1,25 @@
+.block {
+  display: inline-block;
+  width: 100%;
+  margin-top: $space-md;
+  margin-bottom: $space-xl;
+
+  @include large-and-up {
+    margin-top: $space-lg;
+    margin-bottom: $space-xxl;
+  }
+}
+
+.block-header {
+  margin-top: 0;
+  margin-bottom: $space-lg;
+
+  @include large-and-up {
+    margin-bottom: $space-xxl;
+  }
+}
+
+.block-footer {
+  margin-top: $space-lg;
+  margin-bottom: 0;
+}
