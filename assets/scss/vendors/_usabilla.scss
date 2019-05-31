@@ -1,4 +1,6 @@
 body div.usabilla_live_button_container {
-  top: auto !important;
-  bottom: 25% !important;
+  @include medium-and-up {
+    top: auto !important;
+    bottom: 25% !important;
+  }
 }
