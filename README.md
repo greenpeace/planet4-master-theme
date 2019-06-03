@@ -32,6 +32,17 @@ theme activate:
 
 You can then run `composer run-script theme:activate` to activate it.
 
+## Task automation
+We use gulp as automation tools for local development.
+
+Available tasks
+
+* `gulp sass` 'concatanates/compiles sass files into a minified single stylesheet'
+* `gulp uglify` 'concatanates/mangles js files into a minified single js file'
+* `gulp watch` 'watches for changes in js or sccs and runs the minification tasks'
+* `gulp git_hooks` 'copies repo's git hooks to local git repo'
+
+
 ## Contribute
 
 Please read the [Contribution Guidelines](https://planet4.greenpeace.org/handbook/dev-contribute-to-planet4/) for Planet4.
