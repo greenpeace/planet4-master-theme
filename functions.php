@@ -5,6 +5,8 @@
  * @package P4MT
  */
 
+use Timber\Timber;
+
 if ( ! class_exists( 'Timber' ) ) {
 	add_action(
 		'admin_notices',
@@ -36,18 +38,32 @@ if ( ! class_exists( 'Timber' ) ) {
 require_once( __DIR__ . '/classes/class-p4-master-site.php' );
 
 $services = [
-	'P4_Metabox_Register',
 	'P4_Custom_Taxonomy',
-	'P4_Campaigns',
 	'P4_Post_Campaign',
 	'P4_Settings',
-	'P4_Control_Panel',
 	'P4_Post_Report_Controller',
 	'P4_Cookies',
 	'P4_Dev_Report',
 ];
 
 if ( is_admin() ) {
+	global $pagenow;
+
+	// Load P4 Control Panel only on Dashboard page.
+	if ( 'index.php' === $pagenow ) {
+		$services[] = 'P4_Control_Panel';
+	}
+
+	// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
+	if ( 'post-new.php' === $pagenow || 'post.php' === $pagenow ) {
+		$services[] = 'P4_Metabox_Register';
+	}
+
+	// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
+	if ( 'edit-tags.php' === $pagenow || 'term.php' === $pagenow ) {
+		$services[] = 'P4_Campaigns';
+	}
+
 	// Load `P4_Campaign_Exporter` class on admin campaign listing page and campaign export only.
 	if ( 'campaign' === filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING ) || 'export_data' === filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING ) ) {
 		$services[] = 'P4_Campaign_Exporter';
