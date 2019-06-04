@@ -37,13 +37,6 @@ class P4_Master_Site extends TimberSite {
 	protected $sort_options;
 
 	/**
-	 * Services
-	 *
-	 * @var array $services
-	 */
-	protected $services;
-
-	/**
 	 * Child CSS
 	 *
 	 * @var array $child_css
@@ -52,35 +45,11 @@ class P4_Master_Site extends TimberSite {
 
 	/**
 	 * P4_Master_Site constructor.
-	 *
-	 * @param array $services The dependencies to inject.
 	 */
-	public function __construct( $services = [] ) {
-
-		$this->load();
+	public function __construct() {
 		$this->settings();
 		$this->hooks();
-		$this->services( $services );
-
 		parent::__construct();
-	}
-
-	/**
-	 * Load required files.
-	 */
-	protected function load() {
-		/**
-		 * Class names need to be prefixed with P4 and should use capitalized words separated by underscores.
-		 * Any acronyms should be all upper case.
-		 */
-		spl_autoload_register(
-			function ( $class_name ) {
-				if ( strpos( $class_name, 'P4_' ) !== false ) {
-					$file_name = 'class-' . str_ireplace( [ 'P4\\', '_' ], [ '', '-' ], strtolower( $class_name ) );
-					require_once __DIR__ . '/' . $file_name . '.php';
-				}
-			}
-		);
 	}
 
 	/**
@@ -264,28 +233,6 @@ class P4_Master_Site extends TimberSite {
 			$mofile = get_template_directory() . '/languages/' . $domain . '-' . $locale . '.mo';
 			load_textdomain( $domain, $mofile );
 		}
-	}
-
-	/**
-	 * Inject dependencies.
-	 *
-	 * @param array $services The dependencies to inject.
-	 */
-	private function services( $services = [] ) {
-		if ( $services ) {
-			foreach ( $services as $service ) {
-				$this->services[ $service ] = new $service();
-			}
-		}
-	}
-
-	/**
-	 * Gets the loaded services.
-	 *
-	 * @return array The loaded services.
-	 */
-	public function get_services() : array {
-		return $this->services;
 	}
 
 	/**
