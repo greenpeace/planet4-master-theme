@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2018-11-29 13:31+0000\n"
-"PO-Revision-Date: 2018-12-05 17:38+0000\n"
+"POT-Creation-Date: 2018-12-13 11:03+0000\n"
+"PO-Revision-Date: 2019-05-29 15:01+0000\n"
 "Language-Team: Spanish (Mexico)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,12 +16,20 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: Gabriel Herrera <gherrera@greenpeace.org>\n"
+"Last-Translator: Luca Tiralongo <ltiralon@greenpeace.org>\n"
 "Language: es_MX\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.2.0; wp-4.9.8"
+"X-Loco-Version: 2.2.2; wp-5.2.1"
+
+#: single.php:33
+msgid "Post page"
+msgstr "Página de publicación"
+
+#: single.php:67
+msgid "Leave Your Reply"
+msgstr "Deja tu Comentario"
 
 #: 404.php:16
 msgid "Sorry, we can't find that page!"
@@ -34,6 +42,26 @@ msgstr "Ingresa tu búsqueda"
 #: 404.php:18
 msgid "404 Page"
 msgstr "Página 404"
+
+#: tag.php:48
+msgid "Unknown Campaign page"
+msgstr "Página no encontrada"
+
+#: tag.php:54
+msgid "Things you can do"
+msgstr "¿Qué puedes hacer?"
+
+#: tag.php:55
+msgid "We want you to take action because together we're strong."
+msgstr "Actúa, la unión nos hace más fuertes"
+
+#: tag.php:83
+msgid "Related Campaigns"
+msgstr "Campañas Relacionadas"
+
+#: tag.php:84
+msgid "This Campaign is not assigned to an Issue"
+msgstr "Esta campaña no está asignada a ninguna categoría"
 
 #: functions.php:85
 msgid "Most relevant"
@@ -58,34 +86,6 @@ msgstr "DONAR"
 #: functions.php:271
 msgid "International (English)"
 msgstr "Internacional (Inglés)"
-
-#: single.php:33
-msgid "Post page"
-msgstr "Página de publicación"
-
-#: single.php:67
-msgid "Leave Your Reply"
-msgstr "Deja tu Comentario"
-
-#: tag.php:48
-msgid "Unknown Campaign page"
-msgstr "Página no encontrada"
-
-#: tag.php:54
-msgid "Things you can do"
-msgstr "¿Qué puedes hacer?"
-
-#: tag.php:55
-msgid "We want you to take action because together we're strong."
-msgstr "Actúa, la unión nos hace más fuertes"
-
-#: tag.php:83
-msgid "Related Campaigns"
-msgstr "Campañas Relacionadas"
-
-#: tag.php:84
-msgid "This Campaign is not assigned to an Issue"
-msgstr "Esta campaña no está asignada a ninguna categoría"
 
 #: classes/class-p4-post.php:190 classes/class-p4-search.php:570
 msgid "ACTION"
@@ -168,13 +168,146 @@ msgstr "Sobre Greenpeace"
 msgid "Articles"
 msgstr "Artículos"
 
-#: templates/author.twig:33
+#: templates/author.twig:36
 msgid "Posts by "
 msgstr "Artículos por"
 
-#: templates/author.twig:53 templates/page_type.twig:38
+#: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
 msgstr "Cargar más"
+
+#: templates/navigation-bar.twig:6
+msgid "Toggle navigation menu"
+msgstr ""
+
+#: templates/navigation-bar.twig:7 templates/search.twig:8
+#: templates/search.twig:45 templates/404.twig:17
+msgid "Search"
+msgstr "Buscar"
+
+#: templates/navigation-bar.twig:15
+msgid "Menu"
+msgstr "Menú"
+
+#: templates/navigation-bar.twig:20
+msgid "Close Menu"
+msgstr "Cerrar Menú"
+
+#: templates/navigation-bar.twig:29
+msgid "Selected"
+msgstr "Seleccionado"
+
+#: templates/navigation-bar.twig:30
+msgid "Change Country"
+msgstr "Cambiar País"
+
+#: templates/navigation-bar.twig:60
+msgid "Toggle search form"
+msgstr "Cambiar búsqueda"
+
+#: templates/cookies.twig:8
+msgid "GOT IT!"
+msgstr "ACEPTO"
+
+#: templates/search.twig:16
+msgid "We're sorry we couldn't find any matches for your search term."
+msgstr "Lo sentimos. No logramos encontrar nada con esos términos."
+
+#: templates/search.twig:18
+msgid "Check for typos, and try your search again"
+msgstr "Revisa tu busqueda e intenta nuevamente"
+
+#: templates/search.twig:19
+msgid "Try searching for somthing else"
+msgstr "Intenta buscar otra cosa"
+
+#: templates/search.twig:20
+msgid "Search our archive. You'll be redirected to the archive site."
+msgstr "Buscar en el archivo. Te dirigiremos a nuestro antiguo sitio."
+
+#: templates/search.twig:24
+msgid "We also included results for "
+msgstr "También incluimos resultados para:"
+
+#: templates/search.twig:38
+msgid "This Site"
+msgstr "Este Sitio"
+
+#: templates/search.twig:39
+msgid "Archive"
+msgstr "Archivo"
+
+#: templates/search.twig:57
+msgid "Filters"
+msgstr "Filtros"
+
+#: templates/search.twig:63 templates/search.twig:164
+msgid "Refine your search"
+msgstr "Mejora tu Búsqueda"
+
+#: templates/search.twig:71
+msgid "ISSUE"
+msgstr "Nuestros temas"
+
+#: templates/search.twig:92
+msgid "CATEGORY"
+msgstr "CATEGORÍA"
+
+#: templates/search.twig:113
+msgid "CONTENT TYPES"
+msgstr "TIPOS DE CONTENIDO"
+
+#: templates/search.twig:137
+msgid "CAMPAIGN"
+msgstr "CAMPAÑA"
+
+#: templates/search.twig:156
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: templates/search.twig:157
+msgid "Apply Filters"
+msgstr "Aplicar Filtros"
+
+#: templates/search.twig:167
+msgid "ACTIVE FILTERS"
+msgstr "Filtros Activos"
+
+#: templates/search.twig:176
+msgid "Clear All"
+msgstr "Limpiar Todo"
+
+#: templates/search.twig:183
+msgid "Issue"
+msgstr "Issue"
+
+#: templates/search.twig:202
+msgid "Campaign"
+msgstr "Campaña"
+
+#: templates/search.twig:221
+msgid "Category"
+msgstr "Categoría"
+
+#: templates/search.twig:240
+msgid "Content type"
+msgstr "Tipo de Contenido"
+
+#: templates/search.twig:263
+msgid "Sort by"
+msgstr "Ordenar por"
+
+#: templates/search.twig:300
+msgid "Suggested search terms"
+msgstr "Términos de búsqueda sugeridos"
+
+#: templates/tease-search.twig:67
+msgid "take action"
+msgstr "Participa"
+
+#: templates/tease-search.twig:70
+msgid "Download"
+msgstr "Descargar"
 
 #: templates/base.twig:10
 msgid "Skip to Navigation"
@@ -188,145 +321,61 @@ msgstr "Ir al contenido"
 msgid "Skip to Footer"
 msgstr "Ir al pie de página"
 
-#: templates/cookies.twig:8
-msgid "GOT IT!"
-msgstr "ACEPTO"
-
-#: templates/navigation-bar.twig:13
-msgid "Menu"
-msgstr "Menú"
-
-#: templates/navigation-bar.twig:18
-msgid "Close Menu"
-msgstr "Cerrar Menú"
-
-#: templates/navigation-bar.twig:27
-msgid "Selected"
-msgstr "Seleccionado"
-
-#: templates/navigation-bar.twig:28
-msgid "Change Country"
-msgstr "Cambiar País"
-
-#: templates/navigation-bar.twig:58
-msgid "Toggle search form"
-msgstr "Cambiar búsqueda"
-
-#: templates/navigation-bar.twig:66 templates/search.twig:44
-msgid "Search"
-msgstr "Buscar"
-
-#: templates/page_type.twig:18
-msgid "Results"
-msgstr "Resultados"
-
-#: templates/search.twig:15
-msgid "We're sorry we couldn't find any matches for your search term."
-msgstr "Lo sentimos. No logramos encontrar nada con esos términos."
-
-#: templates/search.twig:17
-msgid "Check for typos, and try your search again"
-msgstr "Revisa tu busqueda e intenta nuevamente"
-
-#: templates/search.twig:18
-msgid "Try searching for somthing else"
-msgstr "Intenta buscar otra cosa"
-
-#: templates/search.twig:19
-msgid "Search our archive. You'll be redirected to the archive site."
-msgstr "Buscar en el archivo. Te dirigiremos a nuestro antiguo sitio."
-
-#: templates/search.twig:23
-msgid "We also included results for "
-msgstr "También incluimos resultados para:"
-
-#: templates/search.twig:37
-msgid "This Site"
-msgstr "Este Sitio"
-
-#: templates/search.twig:38
-msgid "Archive"
-msgstr "Archivo"
-
-#: templates/search.twig:56
-msgid "Filters"
-msgstr "Filtros"
-
-#: templates/search.twig:62 templates/search.twig:163
-msgid "Refine your search"
-msgstr "Mejora tu Búsqueda"
-
-#: templates/search.twig:70
-msgid "ISSUE"
-msgstr "Nuestros temas"
-
-#: templates/search.twig:91
-msgid "CATEGORY"
-msgstr "CATEGORÍA"
-
-#: templates/search.twig:112
-msgid "CONTENT TYPES"
-msgstr "TIPOS DE CONTENIDO"
-
-#: templates/search.twig:136
-msgid "CAMPAIGN"
-msgstr "CAMPAÑA"
-
-#: templates/search.twig:155
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: templates/search.twig:156
-msgid "Apply Filters"
-msgstr "Aplicar Filtros"
-
-#: templates/search.twig:166
-msgid "ACTIVE FILTERS"
-msgstr "Filtros Activos"
-
-#: templates/search.twig:175
-msgid "Clear All"
-msgstr "Limpiar Todo"
-
-#: templates/search.twig:182
-msgid "Issue"
-msgstr "Issue"
-
-#: templates/search.twig:201
-msgid "Campaign"
-msgstr "Campaña"
-
-#: templates/search.twig:220
-msgid "Category"
-msgstr "Categoría"
-
-#: templates/search.twig:239
-msgid "Content type"
-msgstr "Tipo de Contenido"
-
-#: templates/search.twig:262
-msgid "Sort by"
-msgstr "Ordenar por"
-
-#: templates/search.twig:299
-msgid "Suggested search terms"
-msgstr "Términos de búsqueda sugeridos"
-
-#: templates/single.twig:41
+#: templates/single.twig:41 templates/tease-taxonomy-post.twig:26
 msgid "by"
 msgstr "por"
 
-#: templates/tease-search.twig:67
-msgid "take action"
-msgstr "Participa"
+#: templates/single.twig:53 templates/comments_section.twig:2
+msgid "Comments"
+msgstr "Comentarios"
 
-#: templates/tease-search.twig:70
-msgid "Download"
-msgstr "Descargar"
+#: templates/comments_section.twig:8
+msgid "Discussion"
+msgstr ""
+
+#: templates/taxonomy.twig:18
+msgid "Results"
+msgstr "Resultados"
+
+#: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
+msgid "Share on"
+msgstr ""
+
+#: templates/blocks/share_buttons.twig:21
+msgid "Share via"
+msgstr ""
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
 msgstr "Sobre el Autor"
+
+#: templates/comment_form/email_field.twig:2
+msgid "Email"
+msgstr ""
+
+#: templates/comment_form/email_field.twig:3
+msgid "Your Email"
+msgstr ""
+
+#: templates/comment_form/comment_field.twig:2
+msgid "Comment"
+msgstr "Comentario"
+
+#: templates/comment_form/comment_field.twig:3
+msgid "Your Comment"
+msgstr ""
+
+#: templates/comment_form/author_field.twig:2
+msgid "Name"
+msgstr ""
+
+#: templates/comment_form/author_field.twig:3
+msgid "Your Name"
+msgstr ""
+
+#: templates/comment_form/submit_button.twig:1
+msgid "Post Comment"
+msgstr ""
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
