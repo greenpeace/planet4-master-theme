@@ -29,9 +29,12 @@ function get_campaign_attachments( $post_ids ) {
 	 * Post thumbnails
 	 */
 	if ( $post_ids ) {
-		// phpcs:disable
-		$attachment_ids = $wpdb->get_col( sprintf( "SELECT meta_value FROM {$wpdb->postmeta} WHERE ( meta_key = '_thumbnail_id' or meta_key = 'background_image_id' ) AND post_id IN(%s)", implode( ',', $post_ids ) ) );
-		// phpcs:enable
+		$placeholders   = implode( ',', array_fill( 0, count( $post_ids ), '%d' ) );
+		$results        = $wpdb->get_results( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->postmeta} WHERE ( meta_key = '_thumbnail_id' or meta_key = 'background_image_id' ) AND post_id IN($placeholders)", $post_ids ) ); // phpcs:ignore
+		$attachment_ids = [];
+		foreach ( (array) $results as $result ) {
+			$attachment_ids[] = $result->meta_value;
+		}
 	}
 
 	/**
@@ -43,9 +46,11 @@ function get_campaign_attachments( $post_ids ) {
 		}
 	}
 
-	// phpcs:disable
-	foreach ( $wpdb->get_col( "SELECT post_content FROM {$wpdb->posts} WHERE ID IN( " . implode( ',', $post_ids ) . " ) AND post_content REGEXP '((wp-image-|wp-att-)[0-9][0-9]*)|\\\[gallery |shortcake\_|href=|src='" ) as $text ) {
-	// phpcs:enable
+	$placeholders = implode( ',', array_fill( 0, count( $post_ids ), '%d' ) );
+	$results      = $wpdb->get_results( $wpdb->prepare( "SELECT post_content FROM {$wpdb->posts} WHERE ID IN($placeholders) AND post_content REGEXP '((wp-image-|wp-att-)[0-9][0-9]*)|\\\[gallery |shortcake\_|href=|src='", $post_ids ) ); // phpcs:ignore
+
+	foreach ( (array) $results as $text ) {
+		$text = $text->post_content;
 
 		// Filter attachment ids from caption.
 		preg_match_all( '#(wp-image-|wp-att-|attachment\_)(\d+)#', $text, $matches, PREG_SET_ORDER );

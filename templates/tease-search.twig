@@ -46,7 +46,7 @@
 						<a href="{{ post.link() }}" class="search-result-item-headline">{{ post.title|e('wp_kses_post')|raw }}</a>
 					{% endif %}
 
-					{% if ( not is_action ) %}
+					{% if ( 'page' != post.post_type ) %}
 						<div class="search-result-item-info">
 							<span class="search-result-item-date">{{ post.post_date|date('d/m/Y') }}</span>
 						</div>
