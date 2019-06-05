@@ -28,6 +28,8 @@ body.login h1 a {
 body.login div#login form#loginform p.galogin a {
   text-decoration: none;
   font-weight: normal;
+  diplay: block;
+  line-height: 3rem;
 }
 
 body.login div#login form#loginform p.galogin-powered {
@@ -58,10 +60,10 @@ form#loginform p.galogin {
   text-align: center;
   vertical-align: middle;
   border-radius: 0px;
-  padding: 4px;
-  height: 27px;
+  padding: 0;
+  margin: 0;
+  height: auto;
   font-size: 14px;
-  margin-bottom: 6px;
 }
 
 body.login #login_error, body.login .message, body.login .success {
