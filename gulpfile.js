@@ -106,7 +106,8 @@ function watch() {
 function serve() {
   connect.server({
     root: 'dist',
-    livereload: true
+    livereload: true,
+    port: 9000
   });
 }
 
