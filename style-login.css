@@ -28,7 +28,7 @@ body.login h1 a {
 body.login div#login form#loginform p.galogin a {
   text-decoration: none;
   font-weight: normal;
-  diplay: block;
+  display: block;
   line-height: 3rem;
 }
 
