@@ -4,7 +4,7 @@ msgstr ""
 "&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-06-06 17:14+0000\n"
+"PO-Revision-Date: 2019-06-06 17:45+0000\n"
 "Language-Team: Polish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -179,11 +179,11 @@ msgstr "Wiadomości "
 
 #: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
-msgstr ""
+msgstr "Pokaż więcej..."
 
 #: templates/navigation-bar.twig:6
 msgid "Toggle navigation menu"
-msgstr ""
+msgstr "Ukryj menu"
 
 #: templates/navigation-bar.twig:7 templates/search.twig:8
 #: templates/search.twig:45 templates/404.twig:17
@@ -192,23 +192,23 @@ msgstr "Szukaj"
 
 #: templates/navigation-bar.twig:15
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: templates/navigation-bar.twig:20
 msgid "Close Menu"
-msgstr ""
+msgstr "Zamknij menu"
 
 #: templates/navigation-bar.twig:29
 msgid "Selected"
-msgstr ""
+msgstr "Wybrane"
 
 #: templates/navigation-bar.twig:30
 msgid "Change Country"
-msgstr ""
+msgstr "Zmień kraj"
 
 #: templates/navigation-bar.twig:60
 msgid "Toggle search form"
-msgstr ""
+msgstr "Zwiń pole wyszukiwania"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
@@ -224,11 +224,12 @@ msgstr ""
 
 #: templates/search.twig:19
 msgid "Try searching for somthing else"
-msgstr ""
+msgstr "Spróbuj wuszukać coś innego"
 
 #: templates/search.twig:20
 msgid "Search our archive. You'll be redirected to the archive site."
 msgstr ""
+"Przeszukaj nasze archiwum. Przeniesiemy Cię do naszej strony archwalnej."
 
 #: templates/search.twig:24
 msgid "We also included results for "
@@ -236,19 +237,19 @@ msgstr ""
 
 #: templates/search.twig:38
 msgid "This Site"
-msgstr ""
+msgstr "Ta strona"
 
 #: templates/search.twig:39
 msgid "Archive"
-msgstr ""
+msgstr "Archiwum"
 
 #: templates/search.twig:57
 msgid "Filters"
-msgstr ""
+msgstr "Filtry"
 
 #: templates/search.twig:63 templates/search.twig:164
 msgid "Refine your search"
-msgstr ""
+msgstr "Zmień zapytanie"
 
 #: templates/search.twig:71
 msgid "ISSUE"
@@ -256,19 +257,19 @@ msgstr ""
 
 #: templates/search.twig:92
 msgid "CATEGORY"
-msgstr ""
+msgstr "KATEGORIA"
 
 #: templates/search.twig:113
 msgid "CONTENT TYPES"
-msgstr ""
+msgstr "RODZAJ TREŚCI"
 
 #: templates/search.twig:137
 msgid "CAMPAIGN"
-msgstr ""
+msgstr "KAMPANIA"
 
 #: templates/search.twig:156
 msgid "Cancel"
-msgstr ""
+msgstr "Anuluj"
 
 #: templates/search.twig:157
 msgid "Apply Filters"
