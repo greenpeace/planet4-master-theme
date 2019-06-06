@@ -4,7 +4,7 @@ msgstr ""
 "&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-06-06 17:45+0000\n"
+"PO-Revision-Date: 2019-06-06 17:56+0000\n"
 "Language-Team: Polish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +26,7 @@ msgstr ""
 
 #: single.php:33
 msgid "Post page"
-msgstr ""
+msgstr "Post page"
 
 #: single.php:67
 msgid "Leave Your Reply"
@@ -64,7 +64,7 @@ msgstr "Powiązane kampanie"
 
 #: tag.php:84
 msgid "This Campaign is not assigned to an Issue"
-msgstr ""
+msgstr "Ta kampania nie jest przypisana do tematu"
 
 #: functions.php:85
 msgid "Most relevant"
@@ -76,7 +76,7 @@ msgstr "Najpierw najnowsze"
 
 #: functions.php:247
 msgid "Toggle worldwide site selection menu"
-msgstr ""
+msgstr "Ukryj wybór stron innych biur"
 
 #: functions.php:248
 msgid "Toggle search box"
@@ -88,7 +88,7 @@ msgstr "WESPRZYJ ❤"
 
 #: functions.php:271
 msgid "International (English)"
-msgstr ""
+msgstr "International (Angielski)"
 
 #: classes/class-p4-post.php:190 classes/class-p4-search.php:570
 msgid "ACTION"
@@ -142,7 +142,7 @@ msgstr "Strona"
 
 #: classes/class-p4-search.php:490
 msgid "Post"
-msgstr "WPis"
+msgstr "Wpis"
 
 #: classes/class-p4-search.php:660
 #, php-format
@@ -151,7 +151,7 @@ msgstr "POKAŻ %s WYNIKÓW"
 
 #. Name of the template
 msgid "Evergreen Page"
-msgstr ""
+msgstr "Strona statyczna"
 
 #. Name of the template
 msgid "Sitemap Page"
@@ -212,15 +212,15 @@ msgstr "Zwiń pole wyszukiwania"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr ""
+msgstr "OK!"
 
 #: templates/search.twig:16
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr ""
+msgstr "Przepraszamy, ale nic nie mamy wyników dla tego zapytania."
 
 #: templates/search.twig:18
 msgid "Check for typos, and try your search again"
-msgstr ""
+msgstr "Sprawdź, czy nie ma literówek i wyszukaj ponownie"
 
 #: templates/search.twig:19
 msgid "Try searching for somthing else"
@@ -233,7 +233,7 @@ msgstr ""
 
 #: templates/search.twig:24
 msgid "We also included results for "
-msgstr ""
+msgstr "Zawarliśmy również wyniki dla"
 
 #: templates/search.twig:38
 msgid "This Site"
@@ -253,7 +253,7 @@ msgstr "Zmień zapytanie"
 
 #: templates/search.twig:71
 msgid "ISSUE"
-msgstr ""
+msgstr "TEMAT"
 
 #: templates/search.twig:92
 msgid "CATEGORY"
@@ -273,115 +273,115 @@ msgstr "Anuluj"
 
 #: templates/search.twig:157
 msgid "Apply Filters"
-msgstr ""
+msgstr "Filtruj"
 
 #: templates/search.twig:167
 msgid "ACTIVE FILTERS"
-msgstr ""
+msgstr "AKTYWNE FILTRY"
 
 #: templates/search.twig:176
 msgid "Clear All"
-msgstr ""
+msgstr "Wyczyść wszystko"
 
 #: templates/search.twig:183
 msgid "Issue"
-msgstr ""
+msgstr "Temat"
 
 #: templates/search.twig:202
 msgid "Campaign"
-msgstr ""
+msgstr "Kampania"
 
 #: templates/search.twig:221
 msgid "Category"
-msgstr ""
+msgstr "Kategoria"
 
 #: templates/search.twig:240
 msgid "Content type"
-msgstr ""
+msgstr "Rodzij treści"
 
 #: templates/search.twig:263
 msgid "Sort by"
-msgstr ""
+msgstr "Sortuj według"
 
 #: templates/search.twig:300
 msgid "Suggested search terms"
-msgstr ""
+msgstr "Sugerowane wyszukanie"
 
 #: templates/tease-search.twig:67
 msgid "take action"
-msgstr ""
+msgstr "działaj"
 
 #: templates/tease-search.twig:70
 msgid "Download"
-msgstr ""
+msgstr "Pobierz"
 
 #: templates/base.twig:10
 msgid "Skip to Navigation"
-msgstr ""
+msgstr "Skocz do nawigacji"
 
 #: templates/base.twig:11
 msgid "Skip to Content"
-msgstr ""
+msgstr "Skocz do treści"
 
 #: templates/base.twig:12
 msgid "Skip to Footer"
-msgstr ""
+msgstr "Skocz do stopki"
 
 #: templates/single.twig:41 templates/tease-taxonomy-post.twig:26
 msgid "by"
-msgstr ""
+msgstr "Autor"
 
 #: templates/single.twig:53 templates/comments_section.twig:2
 msgid "Comments"
-msgstr ""
+msgstr "Komentarze"
 
 #: templates/comments_section.twig:8
 msgid "Discussion"
-msgstr ""
+msgstr "Dyskusja"
 
 #: templates/taxonomy.twig:18
 msgid "Results"
-msgstr ""
+msgstr "Wyniki"
 
 #: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
 msgid "Share on"
-msgstr ""
+msgstr "Udostępnij w"
 
 #: templates/blocks/share_buttons.twig:21
 msgid "Share via"
-msgstr ""
+msgstr "Udostępnij przez"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr ""
+msgstr "o autorze"
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
-msgstr ""
+msgstr "Adres email"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
-msgstr ""
+msgstr "Skomentuj"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr ""
+msgstr "Twój komentarz"
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr ""
+msgstr "Imię"
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
-msgstr ""
+msgstr "Twoje imię"
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post Comment"
-msgstr ""
+msgstr "Opublikuj komentarz"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
