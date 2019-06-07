@@ -2,6 +2,7 @@
 vendor/*
 !vendor/composer
 !vendor/autoload.php
+node_modules
 
 # Logs #
 ########
