@@ -9,7 +9,10 @@ const plumber = require('gulp-plumber');
 const scss = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const stylelint = require('gulp-stylelint');
+const svgsprite = require('gulp-svg-sprite');
 
+const icons_dest = './dist/images/';
+const icons_src = 'src/icons/*.svg';
 const kss_dest = 'theme/kss-assets/css';
 const kss_scss = 'theme/kss-assets/css/*.scss';
 const kss_style = 'theme/kss-assets/css/kss.scss';
@@ -17,11 +20,29 @@ const style_dest = './dist'
 const style_scss = 'src/**/*.scss';
 const style = 'src/index.scss';
 
+
 let error_handler = {
   errorHandler: notify.onError({
     title: 'Gulp',
     message: 'Error: <%= error.message %>'
   })
+};
+
+const icons_config = {
+  shape: {
+    dimension: {
+      maxWidth: 64,
+      maxHeight: 64
+    },
+    spacing: {
+      padding: 0,
+      box: 'content'
+    }
+  },
+  mode: {
+    inline: true,
+    symbol: true
+  }
 };
 
 function lint_css() {
@@ -55,6 +76,12 @@ function style_sass() {
     .pipe(connect.reload());
 }
 
+function icons() {
+  return gulp.src(icons_src)
+    .pipe(svgsprite(icons_config))
+    .pipe(gulp.dest(icons_dest));
+}
+
 function render() {
   return kss({
     source: 'src/',
@@ -79,5 +106,5 @@ function serve() {
   });
 }
 
-exports.build = gulp.series(lint_css, kss_sass, style_sass, render);
+exports.build = gulp.series(lint_css, kss_sass, style_sass, icons, render);
 exports.default = gulp.parallel(watch, serve);

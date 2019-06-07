@@ -1,3 +1,25 @@
+// Share buttons
+//
+// Markup:
+// <div class="share-buttons">
+//   <!-- Facebook -->
+//   <a href="#" class="share-btn facebook">
+//     <svg viewBox="0 0 32 32" class="icon"><use xlink:href="images/symbol/svg/sprite.symbol.svg#facebook-f"></use></svg>
+//     <span class="sr-only">Share on Facebook</span>
+//   </a>
+//   <!-- Twitter -->
+//   <a href="#" class="share-btn twitter">
+//     <svg viewBox="0 0 32 32" class="icon"><use xlink:href="images/symbol/svg/sprite.symbol.svg#twitter"></use></svg>
+//     <span class="sr-only">Share on Twitter</span>
+//   </a>
+//   <!-- Email -->
+//   <a href="#" class="share-btn email">
+//     <svg viewBox="0 0 32 32" class="icon"><use xlink:href="images/symbol/svg/sprite.symbol.svg#envelope"></use></svg>
+//     <span class="sr-only">Share via Email</span>
+//   </a>
+// </div>
+//
+// Styleguide Components.share_buttons
 .share-buttons {
   margin: 0 0 $n10 0;
 
