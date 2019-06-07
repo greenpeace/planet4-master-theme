@@ -1,3 +1,71 @@
+// Navbar
+//
+// Adds a navigation bar to the top of the site.
+//
+// Markup:
+// <nav id="header" class="top-navigation navbar">
+// <a class="site-logo" href="#">
+//   Logo
+// </a>
+// <button
+//     class="btn btn-navbar-toggle navbar-dropdown-toggle"
+//     data-toggle="open"
+//     data-target="#navbar-dropdown"
+//     aria-expanded="false"
+//     aria-label="{{ toggle_label }}"
+// >
+//   <span>Menu</span>
+// </button>
+// <ul id="navbar-dropdown" class="navbar-dropdown list-unstyled">
+//   <li class="nav-item" id="country-select">
+//     <button class="close-navbar-dropdown">
+//       <span class="screen-reader-text">Close Menu</span>
+//     </button>
+//     <button
+//         class="country-dropdown-toggle"
+//         data-toggle="open"
+//         data-target="#country-list"
+//         aria-expanded="false"
+//         aria-label="#"
+//     >
+//       <span class="screen-reader-text">...:</span> Navbar title
+//       <span class="screen-reader-text">...</span>
+//     </button>
+//   </li>
+//   <li class="nav-item wpml-ls-item">
+//     <a class="nav-link" href="#">EN</a>
+//     <a class="nav-link" href="#">NL</a>
+//   </li>
+//   <li class="nav-item">
+//     <a class="nav-link" href="#">ABOUT US</a>
+//   </li>
+//   <li class="nav-item">
+//     <a class="btn btn-donate" href="#">DONATE</a>
+//   </li>
+// </ul>
+// <button
+//     class="navbar-search-toggle"
+//     data-toggle="open"
+//     data-target="#search_form"
+//     aria-expanded="false"
+//     aria-label="{{ data_nav_bar.navbar_search_toggle }}"
+// >
+//   <span class="screen-reader-text">Toggle search form</span>
+// </button>
+// <form id="search_form" action="#" class="form nav-item nav-search-wrap">
+//   <input id="search_input" type="search" class="form-control" placeholder="Search"
+//        value="" name="s" aria-label="Search">
+//   <input id="orderby" type="hidden" name="orderby" value=""/>
+//   <button class="top-nav-search-btn" type="submit">
+//     <svg viewBox="0 0 32 32" class="icon"><use xlink:href="images/symbol/svg/sprite.symbol.svg#search"></use></svg>
+//     <span class="screen-reader-text">Search</span>
+//   </button>
+// </form>
+// </nav>
+//
+// .navbar - Navigation bar
+//
+// Styleguide Layout.navbar
 $menu-height-small: 3.375rem;
 $menu-height-large: 3.75rem;
 $min-height: 40px;

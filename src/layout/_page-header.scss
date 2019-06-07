@@ -1,3 +1,46 @@
+// Page Header
+//
+// Creates a page header with tags, post title, authorship data and comments.
+//
+// Markup:
+// <header class="page-header">
+//   <div class="page-header-background">
+//   </div>
+//   <div class="container">
+//     <div class="top-page-tags">
+//       <a class="tag-item tag-item--main page-type" href="#">A page tag</a>
+//       <div class="tag-wrap issues">
+//         <a class="tag-item tag-item--main" href="#">Some issue</a>
+//       </div>
+//       <div class="tag-wrap tags">
+//         <a class="tag-item tag" href="#">#tag</a>
+//       </div>
+//     </div>
+//     <h1 class="page-header-title">The post title</h1>
+//   </div>
+//   <div class="row">
+//     <div class="col-md-6">
+//       <div class="single-post-meta">
+//         <address class="single-post-author">
+//           by <a href="#">Jane Doe</a>
+//         </address>
+//         <time class="single-post-time" pubdate>June 6th, 2019</time>
+//           <span class="separator">|</span>
+//           <span id="comments-link" class="comment-link">
+//             <img src="/images/icons/speech_bubble.svg">
+//             <a class="quantity"> 11 <span class="display-text">Comments</span> </a>
+//           </span>
+//       </div>
+//     </div>
+//     <div class="col-md-6">
+//       (share buttons)
+//     </div>
+//   </div>
+// </header>
+//
+// .page-header - Page Header
+//
+// Styleguide Layout.page-header
 .header-wrapper {
   height: 0;
 }

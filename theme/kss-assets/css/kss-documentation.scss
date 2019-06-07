@@ -37,6 +37,7 @@ $kss-modifiers-name-color: $cowabunga;
 .kss-section__content {
   border: 1px solid $gray;
   padding: 1em;
+  background: $light-gray;
 
   ol,
   ul,
@@ -224,7 +225,6 @@ $kss-modifiers-name-color: $cowabunga;
 }
 
 .kss-section__markup {
-  margin-top: 10px;
   background-color: $gray;
   padding: 1em;
 

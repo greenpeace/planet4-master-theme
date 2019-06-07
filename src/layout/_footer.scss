@@ -1,3 +1,48 @@
+// Footer
+//
+// Markup:
+// <footer class="site-footer" id="footer">
+// 	<div class="container">
+// 		<ul class="footer-social-media list-unstyled col-md-8 col-lg-5">
+// 		  <li>
+//          <a href="#">
+//            <svg viewBox="0 0 32 32" class="icon"><use xlink:href="images/symbol/svg/sprite.symbol.svg#facebook-f"></use></svg>
+// 			    </a>
+//      </li>
+// 		  <li>
+//          <a href="#">
+//            <svg viewBox="0 0 32 32" class="icon"><use xlink:href="images/symbol/svg/sprite.symbol.svg#twitter"></use></svg>
+// 			    </a>
+//      </li>
+// 		  <li>
+//          <a href="#">
+//            <svg viewBox="0 0 32 32" class="icon"><use xlink:href="images/symbol/svg/sprite.symbol.svg#instagram"></use></svg>
+// 			    </a>
+//      </li>
+// 		</ul>
+// 		<ul class="list-unstyled footer-links">
+// 			<li><a href="#">Primary Link 1</a></li>
+// 			<li><a href="#">Primary Link 2</a></li>
+// 			<li><a href="#">Primary Link 3</a></li>
+// 		</ul>
+// 		<ul class="list-unstyled footer-links-secondary">
+// 			<li><a href="#">Secondary Link 1</a></li>
+// 			<li><a href="#">Secondary Link 2</a></li>
+// 			<li><a href="#">Secondary Link 3</a></li>
+// 		</ul>
+// 		<p class="copyright-text col-md-8">
+// 			Copyright Line 1
+// 		</p>
+// 		<p class="gp-year">
+//      <svg viewBox="0 0 32 32" class="icon"><use xlink:href="/kss-assets/img/sprite.symbol.svg#creative-commons"></use></svg>
+// 			Copyright Line 2 - 2019
+// 		</p>
+// 	</div>
+// </footer>
+//
+// .site-footer - Site Footer
+//
+// Styleguide Components.footer
 .site-footer {
   font-family: $roboto;
   padding: 45px 0 $n25;
