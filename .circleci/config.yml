@@ -7,19 +7,36 @@ defaults: &defaults
 version: 2
 
 jobs:
-  deploy:
+  deploy-tag:
     <<: *defaults
     environment:
       GOOGLE_PROJECT_ID: planet4-production
     steps:
       - run: trigger-build-api.sh planet4-styleguide-deploy master
 
+  deploy-dev:
+    <<: *defaults
+    environment:
+      GOOGLE_PROJECT_ID: planet4-production
+    steps:
+      - run: trigger-build-api.sh planet4-styleguide-deploy develop
+
+
 workflows:
   version: 2
-  main:
+  dev:
     jobs:
-      - deploy:
+      - deploy-dev:
           context: org-global
           filters:
             branches:
               only: master
+  tag:
+    jobs:
+      - deploy-tag:
+          context: org-global
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v\p{Digit}+\.\p{Digit}+\.\p{Digit}+.*/
