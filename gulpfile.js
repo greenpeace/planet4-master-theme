@@ -2,6 +2,7 @@
 
 const cleancss = require('gulp-clean-css');
 const connect = require('gulp-connect');
+const fs = require('fs');
 const gulp = require('gulp');
 const kss = require('kss');
 const notify = require('gulp-notify');
@@ -83,6 +84,8 @@ function icons() {
 }
 
 function render() {
+  const version = fs.readFileSync('version.txt');
+
   return kss({
     source: 'src/',
     destination: 'dist/',
@@ -91,8 +94,9 @@ function render() {
       'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css?ver=4.1.1',
       'index.css'
     ],
-    title: 'Planet 4 Styleguide'
-    });
+    title: 'Planet 4 Styleguide',
+    version: version
+  });
 }
 
 function watch() {

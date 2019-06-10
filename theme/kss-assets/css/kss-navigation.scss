@@ -125,3 +125,11 @@ $kss-nav-item-link-active: $cowabunga;
     font-size: rem(12px);
   }
 }
+
+.version {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: $creme;
+  font-size: 0.8rem;
+}
