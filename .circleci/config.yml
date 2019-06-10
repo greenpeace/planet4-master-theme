@@ -1,0 +1,25 @@
+---
+defaults: &defaults
+  docker:
+    - image: gcr.io/planet-4-151612/circleci-base:latest
+  working_directory: /home/circleci/app
+
+version: 2
+
+jobs:
+  deploy:
+    <<: *defaults
+    environment:
+      GOOGLE_PROJECT_ID: planet4-production
+    steps:
+      - run: trigger-build-api.sh planet4-styleguide-deploy master
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - deploy:
+          context: org-global
+          filters:
+            branches:
+              only: master
