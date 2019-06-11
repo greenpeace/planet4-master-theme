@@ -87,6 +87,14 @@ function render() {
   const version = fs.readFileSync('version.txt');
   const hostname = fs.readFileSync('hostname.txt');
   const hostpath = fs.readFileSync('hostpath.txt');
+  let path;
+
+  if (hostname.length) {
+    path = `//${hostname}/`;
+    if (hostpath.length) {
+      path += `${hostpath}/`;
+    }
+  }
 
   return kss({
     source: 'src/',
@@ -98,8 +106,7 @@ function render() {
     ],
     title: 'Planet 4 Styleguide',
     version: version,
-    hostname: hostname,
-    hostpath: hostpath
+    path: path
   });
 }
 
