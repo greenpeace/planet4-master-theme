@@ -78,7 +78,7 @@
   "D": [
     {
       "name": "Denmark | Dansk",
-      "url": "http://www.greenpeace.org/denmark/da/"
+      "url": "http://www.greenpeace.org/denmark/"
     }
   ],
   "E": [
@@ -194,7 +194,7 @@
     },
     {
       "name": "Norway | Norsk",
-      "url": "http://www.greenpeace.org/norway/no/"
+      "url": "http://www.greenpeace.org/norway/"
     }
   ],
   "P": [
@@ -248,7 +248,7 @@
     },
     {
       "name": "Sweden | Svenska",
-      "url": "http://www.greenpeace.org/sweden/se/"
+      "url": "http://www.greenpeace.org/sweden/"
     },
     {
       "name": "Switzerland | Deutsch",
@@ -266,7 +266,7 @@
     },
     {
       "name": "Thailand | ไทย",
-      "url": "https://www.greenpeace.org/seasia/th/"
+      "url": "https://www.greenpeace.org/thailand/"
     },
     {
       "name": "Turkey | Türk",
