@@ -1,3 +1,22 @@
+// Forms
+//
+// Markup:
+// <label class="custom-control custom-checkbox">
+//   <input type="checkbox" name="checkbox_name" />
+//   <span class="custom-control-description">Check me</span>
+// </label>
+// <label class="custom-control custom-radio">
+//   <input type="radio" name="radio_name" value="1" />
+//   <span class="custom-control-description">Select me</span>
+// </label>
+// <label class="custom-control custom-checkbox">
+//   <input type="radio" name="radio_name" value="2" />
+//   <span class="custom-control-description">Or me</span>
+// </label>
+//
+// .custom-checkbox - Custom Checkbox
+//
+// Styleguide Components.forms
 input[type="checkbox"] {
   position: absolute;
   opacity: 0;
