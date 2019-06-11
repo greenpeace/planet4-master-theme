@@ -85,6 +85,8 @@ function icons() {
 
 function render() {
   const version = fs.readFileSync('version.txt');
+  const hostname = fs.readFileSync('hostname.txt');
+  const hostpath = fs.readFileSync('hostpath.txt');
 
   return kss({
     source: 'src/',
@@ -95,7 +97,9 @@ function render() {
       'index.css'
     ],
     title: 'Planet 4 Styleguide',
-    version: version
+    version: version,
+    hostname: hostname,
+    hostpath: hostpath
   });
 }
 
