@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
-"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10 >= 2 && n%10<=4 "
+"&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-06-10 12:36+0000\n"
-"Language-Team: Croatian\n"
+"PO-Revision-Date: 2019-06-06 17:56+0000\n"
+"Language-Team: Polish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,8 +17,8 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: Lucija Jakus <ljakus@greenpeace.org>\n"
-"Language: hr\n"
+"Last-Translator: Marianna Hoszowska <mhoszows@greenpeace.org>\n"
+"Language: pl_PL\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: \n"
@@ -26,76 +26,77 @@ msgstr ""
 
 #: single.php:33
 msgid "Post page"
-msgstr "Stranica članaka"
+msgstr "Post page"
 
 #: single.php:67
 msgid "Leave Your Reply"
-msgstr "Ostavi svoj komentar"
+msgstr "Dodaj odpowiedź"
 
 #: 404.php:16
 msgid "Sorry, we can't find that page!"
-msgstr "Žao nam je, ne možemo naći tu stranicu!"
+msgstr ""
+"Ups, nie możemy znaleźć tej strony. \n"
+"Może wymarła?"
 
 #: 404.php:17
 msgid "Enter your search term below"
-msgstr "U nastavku unesi pojam za pretraživanje"
+msgstr "Wpisz słowo, które chcesz wyszukać"
 
 #: 404.php:18
 msgid "404 Page"
-msgstr "Stranica 404"
+msgstr "Strona 404"
 
 #: tag.php:48
 msgid "Unknown Campaign page"
-msgstr "Nepoznata stranica kampanje"
+msgstr "Nieznana strona kampanii"
 
 #: tag.php:54
 msgid "Things you can do"
-msgstr "Što možeš učiniti"
+msgstr "Co TY możesz zrobić?"
 
-# Želimo da poduzmete akciju jer smo zajedno jači.
 #: tag.php:55
 msgid "We want you to take action because together we're strong."
-msgstr "Priključi nam se - zajedno smo jači!"
+msgstr "Chcemy zachęcić Cię do działania, bo razem mamy większą moc!"
 
 #: tag.php:83
 msgid "Related Campaigns"
-msgstr "Povezane Kampanje"
+msgstr "Powiązane kampanie"
 
 #: tag.php:84
 msgid "This Campaign is not assigned to an Issue"
-msgstr "Ova kampanja nije dodijeljena problemu"
+msgstr "Ta kampania nie jest przypisana do tematu"
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr "Najvažnije"
+msgstr "Według trafności"
 
 #: functions.php:89
 msgid "Most recent"
-msgstr "Najnovije"
+msgstr "Najpierw najnowsze"
 
 #: functions.php:247
 msgid "Toggle worldwide site selection menu"
-msgstr "Uključi selekciju po zemljama svijeta"
+msgstr "Ukryj wybór stron innych biur"
 
 #: functions.php:248
 msgid "Toggle search box"
-msgstr "Uključi pretraživanje"
+msgstr "Schowaj pole wyszukania"
 
 #: functions.php:270
 msgid "DONATE"
-msgstr "DONIRAJ"
+msgstr "WESPRZYJ ❤"
 
 #: functions.php:271
 msgid "International (English)"
-msgstr "International (engleski)"
+msgstr "International (Angielski)"
 
 #: classes/class-p4-post.php:190 classes/class-p4-search.php:570
 msgid "ACTION"
-msgstr "UKLJUČI SE"
+msgstr "DZIAŁANIE"
 
 #: classes/class-p4-post.php:192 classes/class-p4-search.php:574
 msgid "PAGE"
-msgstr "STRANICA"
+msgstr "STRONA"
 
 #: classes/class-p4-post.php:196 classes/class-p4-search.php:580
 msgid "DOCUMENT"
@@ -103,19 +104,19 @@ msgstr "DOKUMENT"
 
 #: classes/class-p4-post.php:199 classes/class-p4-search.php:585
 msgid "POST"
-msgstr "ČLANAK"
+msgstr "WPIS"
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
-msgstr "Stranica pretrage"
+msgstr "Strona wyszukania"
 
 #. translators:
 #: classes/class-p4-search.php:412
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] "%1$d rezultat za'%2$s'"
-msgstr[1] "%1$d rezultata za'%2$s'"
+msgstr[0] "Liczba wyników dla '%2$s': %1$d"
+msgstr[1] "Liczba wyników dla '%2$s': %1$d"
 msgstr[2] ""
 
 #. translators:
@@ -123,13 +124,13 @@ msgstr[2] ""
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] "%d rezultat"
-msgstr[1] "%d rezultata"
+msgstr[0] "Liczba wyników: %d"
+msgstr[1] "Liczba wyników: %d"
 msgstr[2] ""
 
 #: classes/class-p4-search.php:478
 msgid "Action"
-msgstr "Aktiviraj se"
+msgstr "Działanie"
 
 #: classes/class-p4-search.php:482
 msgid "Document"
@@ -137,223 +138,222 @@ msgstr "Dokument"
 
 #: classes/class-p4-search.php:486
 msgid "Page"
-msgstr "Stranica"
+msgstr "Strona"
 
 #: classes/class-p4-search.php:490
 msgid "Post"
-msgstr "Članak"
+msgstr "Wpis"
 
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr "PRIKAŽI %s VIŠE "
+msgstr "POKAŻ %s WYNIKÓW"
 
 #. Name of the template
 msgid "Evergreen Page"
-msgstr "Vjerodostojna stranica"
+msgstr "Strona statyczna"
 
 #. Name of the template
 msgid "Sitemap Page"
-msgstr "Mapa stranice"
+msgstr "Mapa strony"
 
 #: page-templates/sitemap.php:18
 msgid "Act"
-msgstr "Aktiviraj se"
+msgstr "Działaj"
 
 #: page-templates/sitemap.php:19
 msgid "Explore"
-msgstr "Istraži"
+msgstr "Dowiedz się"
 
 #: page-templates/sitemap.php:20
 msgid "About Greenpeace"
-msgstr "O Greenpeaceu"
+msgstr "O Greenpeace"
 
 #: page-templates/sitemap.php:21
 msgid "Articles"
-msgstr "Članci"
+msgstr "Artykuły"
 
 #: templates/author.twig:36
 msgid "Posts by "
-msgstr "-"
+msgstr "Wiadomości "
 
 #: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
-msgstr "Više"
+msgstr "Pokaż więcej..."
 
 #: templates/navigation-bar.twig:6
 msgid "Toggle navigation menu"
-msgstr "Uključ"
+msgstr "Ukryj menu"
 
 #: templates/navigation-bar.twig:7 templates/search.twig:8
 #: templates/search.twig:45 templates/404.twig:17
 msgid "Search"
-msgstr "Traži"
+msgstr "Szukaj"
 
-# Menu? Izbornik?
 #: templates/navigation-bar.twig:15
 msgid "Menu"
-msgstr "Izbornik"
+msgstr "Menu"
 
 #: templates/navigation-bar.twig:20
 msgid "Close Menu"
-msgstr "Zatvori Menu"
+msgstr "Zamknij menu"
 
 #: templates/navigation-bar.twig:29
 msgid "Selected"
-msgstr "Označeno"
+msgstr "Wybrane"
 
 #: templates/navigation-bar.twig:30
 msgid "Change Country"
-msgstr "Promijeni državu"
+msgstr "Zmień kraj"
 
 #: templates/navigation-bar.twig:60
 msgid "Toggle search form"
-msgstr "Promijenite obrazac za pretraživanje"
+msgstr "Zwiń pole wyszukiwania"
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr "RAZUMIJEM"
+msgstr "OK!"
 
-# ???
 #: templates/search.twig:16
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr "Žao nam je što nismo podudaranja s ovim pojmom za pretraživanje."
+msgstr "Przepraszamy, ale nic nie mamy wyników dla tego zapytania."
 
 #: templates/search.twig:18
 msgid "Check for typos, and try your search again"
-msgstr "Provjeri tipfelere, zatim pokušaj ponovo"
+msgstr "Sprawdź, czy nie ma literówek i wyszukaj ponownie"
 
 #: templates/search.twig:19
 msgid "Try searching for somthing else"
-msgstr "Pokušaj tražiti nešto drugo"
+msgstr "Spróbuj wuszukać coś innego"
 
 #: templates/search.twig:20
 msgid "Search our archive. You'll be redirected to the archive site."
-msgstr "Pretraži našu arhivu. Bit ćete preusmjeren/a na web-lokaciju arhive."
+msgstr ""
+"Przeszukaj nasze archiwum. Przeniesiemy Cię do naszej strony archwalnej."
 
 #: templates/search.twig:24
 msgid "We also included results for "
-msgstr "Uključili smo i rezultate za"
+msgstr "Zawarliśmy również wyniki dla"
 
 #: templates/search.twig:38
 msgid "This Site"
-msgstr "Ova stranica"
+msgstr "Ta strona"
 
 #: templates/search.twig:39
 msgid "Archive"
-msgstr "Arhiva"
+msgstr "Archiwum"
 
 #: templates/search.twig:57
 msgid "Filters"
-msgstr "Filteri"
+msgstr "Filtry"
 
 #: templates/search.twig:63 templates/search.twig:164
 msgid "Refine your search"
-msgstr "Definiraj svoje pretraživanje"
+msgstr "Zmień zapytanie"
 
 #: templates/search.twig:71
 msgid "ISSUE"
-msgstr "PROBLEM"
+msgstr "TEMAT"
 
 #: templates/search.twig:92
 msgid "CATEGORY"
-msgstr "KATEGORIJA"
+msgstr "KATEGORIA"
 
 #: templates/search.twig:113
 msgid "CONTENT TYPES"
-msgstr "TIP SADRŽAJA"
+msgstr "RODZAJ TREŚCI"
 
 #: templates/search.twig:137
 msgid "CAMPAIGN"
-msgstr "KAMPANJA"
+msgstr "KAMPANIA"
 
 #: templates/search.twig:156
 msgid "Cancel"
-msgstr "Odustani"
+msgstr "Anuluj"
 
 #: templates/search.twig:157
 msgid "Apply Filters"
-msgstr "primjeni filtere"
+msgstr "Filtruj"
 
 #: templates/search.twig:167
 msgid "ACTIVE FILTERS"
-msgstr "UKLJUČENI FILTERI"
+msgstr "AKTYWNE FILTRY"
 
 #: templates/search.twig:176
 msgid "Clear All"
-msgstr "Očisti sve"
+msgstr "Wyczyść wszystko"
 
 #: templates/search.twig:183
 msgid "Issue"
-msgstr "Problem"
+msgstr "Temat"
 
 #: templates/search.twig:202
 msgid "Campaign"
-msgstr "Kampanja"
+msgstr "Kampania"
 
 #: templates/search.twig:221
 msgid "Category"
-msgstr "Kategorija"
+msgstr "Kategoria"
 
 #: templates/search.twig:240
 msgid "Content type"
-msgstr "Tip sadržaja"
+msgstr "Rodzij treści"
 
 #: templates/search.twig:263
 msgid "Sort by"
-msgstr "Sortiraj po"
+msgstr "Sortuj według"
 
 #: templates/search.twig:300
 msgid "Suggested search terms"
-msgstr "Predloženi pojmovi za pretraživanje"
+msgstr "Sugerowane wyszukanie"
 
 #: templates/tease-search.twig:67
 msgid "take action"
-msgstr "aktiviraj se"
+msgstr "działaj"
 
 #: templates/tease-search.twig:70
 msgid "Download"
-msgstr "Preuzmi"
+msgstr "Pobierz"
 
 #: templates/base.twig:10
 msgid "Skip to Navigation"
-msgstr "Preskoči na navigaciju"
+msgstr "Skocz do nawigacji"
 
 #: templates/base.twig:11
 msgid "Skip to Content"
-msgstr "Preskoči na sadržaj"
+msgstr "Skocz do treści"
 
 #: templates/base.twig:12
 msgid "Skip to Footer"
-msgstr "Preskoči na podnožje"
+msgstr "Skocz do stopki"
 
 #: templates/single.twig:41 templates/tease-taxonomy-post.twig:26
 msgid "by"
-msgstr "-"
+msgstr "Autor"
 
 #: templates/single.twig:53 templates/comments_section.twig:2
 msgid "Comments"
-msgstr "Komentari"
+msgstr "Komentarze"
 
 #: templates/comments_section.twig:8
 msgid "Discussion"
-msgstr "Diskusija"
+msgstr "Dyskusja"
 
 #: templates/taxonomy.twig:18
 msgid "Results"
-msgstr "Rezultati"
+msgstr "Wyniki"
 
 #: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
 msgid "Share on"
-msgstr "Podijeli na"
+msgstr "Udostępnij w"
 
 #: templates/blocks/share_buttons.twig:21
 msgid "Share via"
-msgstr "Podijeli putem"
+msgstr "Udostępnij przez"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr "o autoru"
+msgstr "o autorze"
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
@@ -361,44 +361,44 @@ msgstr "Email"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
-msgstr "Tvoj email"
+msgstr "Adres email"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
-msgstr "Komentar"
+msgstr "Skomentuj"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr "Tvoj komentar"
+msgstr "Twój komentarz"
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr "Ime"
+msgstr "Imię"
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
-msgstr "Tvoje ime"
+msgstr "Twoje imię"
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post Comment"
-msgstr "Objavi komentar"
+msgstr "Opublikuj komentarz"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
-msgstr "Greenpeace Planet 4 Glavna tema"
+msgstr ""
 
 #. Description of the plugin/theme
 msgid "Master theme for the Planet 4 Wordpress project"
-msgstr "Glavna tema za Planet 4 Wordpress projekt"
+msgstr ""
 
 #. Theme URI of the plugin/theme
 msgid "https://github.com/greenpeace/planet4-master-theme"
-msgstr "https://github.com/greenpeace/planet4-master-theme"
+msgstr ""
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
-msgstr "Greenpeace International"
+msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/greenpeace"
-msgstr "https://github.com/greenpeace"
+msgstr ""
