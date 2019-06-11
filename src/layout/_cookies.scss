@@ -2,19 +2,17 @@
 //
 // Markup:
 // <div class="cookie-notice" id="set-cookie" style="display: block;">
-// 		<div class="row m-0">
-// 			<div class="col-sm-9 col-md-10">
-// 				We use cookies to enhance your experience. By clicking “Got it!” you agree to our <a href="http://www.greenpeace.org/international/privacy/">Privacy &amp; Cookies Policy</a>. You can <a href="https://www.greenpeace.org/international/privacy/#change-your-cookies-preferences">change your cookies settings anytime</a>.
-// 			</div>
-// 			<div class="col-sm-3 col-md-2">
-// 				<button class="btn btn-secondary p-0" id="hidecookie">GOT IT!</button>
-// 			</div>
-// 		</div>
-// 	</div>
+//   <div class="row m-0">
+//     <div class="col-sm-9 col-md-10">
+//       We use cookies to enhance your experience. By clicking “Got it!” you agree to our <a href="http://www.greenpeace.org/international/privacy/">Privacy &amp; Cookies Policy</a>. You can <a href="https://www.greenpeace.org/international/privacy/#change-your-cookies-preferences">change your cookies settings anytime</a>.
+//     </div>
+//     <div class="col-sm-3 col-md-2">
+//       <button class="btn btn-secondary p-0" id="hidecookie">GOT IT!</button>
+//     </div>
+//   </div>
+// </div>
 //
-// .cookie-notice - Cookie Notice
-//
-// Styleguide Components.cookie-notice
+// Styleguide Layout.cookie-notice
 .cookie-notice {
   z-index: 100;
   display: none;
