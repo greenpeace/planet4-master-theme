@@ -13,32 +13,33 @@ Text Domain: planet4-master-theme
 */
 
 // Base
-@import "base/variables";
-@import "base/functions";
-@import "base/mixins";
-@import "base/fonts";
-@import "base/typography";
-@import "base/icons";
+@import "styleguide/src/base/variables";
+@import "styleguide/src/base/colors";
+@import "styleguide/src/base/functions";
+@import "styleguide/src/base/mixins";
+@import "styleguide/src/base/fonts";
+@import "styleguide/src/base/typography";
+@import "styleguide/src/base/icons";
 
 // Components
-@import "components/blockquote";
-@import "components/buttons";
-@import "components/share-buttons";
-@import "components/spinner";
-@import "components/skip-links";
-@import "components/tweet-block";
+@import "styleguide/src/components/blockquote";
+@import "styleguide/src/components/buttons";
+@import "styleguide/src/components/share-buttons";
+@import "styleguide/src/components/spinner";
+@import "styleguide/src/components/skip-links";
+@import "styleguide/src/components/tweet-block";
 
 // Layout
-@import "layout/breadcrumbs";
-@import "layout/blocks";
-@import "layout/cookies";
-@import "layout/footer";
-@import "layout/forms";
-@import "layout/navbar";
-@import "layout/page-header";
-@import "layout/page-section";
-@import "layout/skewed-overlay";
-@import "layout/tables";
+@import "styleguide/src/layout/breadcrumbs";
+@import "styleguide/src/layout/blocks";
+@import "styleguide/src/layout/cookies";
+@import "styleguide/src/layout/footer";
+@import "styleguide/src/layout/forms";
+@import "styleguide/src/layout/navbar";
+@import "styleguide/src/layout/page-header";
+@import "styleguide/src/layout/page-section";
+@import "styleguide/src/layout/skewed-overlay";
+@import "styleguide/src/layout/tables";
 
 // Posts
 @import "pages/post/post";
