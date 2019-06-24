@@ -52,7 +52,7 @@ test:
 pull:
 	docker pull gcr.io/planet-4-151612/openresty:latest
 
-checkout-develop:
+checkout-master:
 	rsync -av /home/circleci/app/ $(APP_SOURCE)/ --exclude=deploy
 	echo $${CIRCLE_SHA1:0:8} > $(APP_SOURCE)/version.txt
 	yq -r .hostname /home/circleci/app/deploy/env/dev/values.yaml | tr -d '\n' > $(APP_SOURCE)/hostname.txt
@@ -69,10 +69,6 @@ docker/public:
 	sudo npm install -g gulp-cli
 	cd docker/source ; gulp build
 	mv docker/source/dist docker/public
-
-checkout-master: docker/checkout-master
-
-checkout-tag: docker/checkout-tag
 
 build: test pull docker/public echo-build
 	docker build --tag=greenpeaceinternational/p4-styleguide:$(BUILD_NUM) docker
