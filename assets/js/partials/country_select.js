@@ -44,11 +44,13 @@ $(document).ready(function() {
         );
         $('.countries_list', countries_html).append(countries_sublist);
 
-        $.each(element, function (index, inner_element) {
-          $('.countries_sublist', countries_sublist).append(
-            '<li>' +
-            '<a href="' + inner_element.url + '">' + inner_element.name + '</a>' +
-            '</li>');
+        $.each(element, function (index, country) {
+          $.each(country.lang, function (index, lang) {
+            $('.countries_sublist', countries_sublist).append(
+              '<li>' +
+              '<a href="' + lang.url + '">' + country.name + ' | ' + lang.name + '</a>' +
+              '</li>');
+          });
         });
       }
     });
