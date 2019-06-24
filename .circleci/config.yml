@@ -7,20 +7,35 @@ defaults: &defaults
 version: 2
 
 jobs:
-  deploy-tag:
-    <<: *defaults
-    environment:
-      GOOGLE_PROJECT_ID: planet4-production
-    steps:
-      - run: trigger-build-api.sh planet4-styleguide-deploy master
-
   deploy-dev:
     <<: *defaults
     environment:
       GOOGLE_PROJECT_ID: planet4-production
     steps:
-      - run: trigger-build-api.sh planet4-styleguide-deploy develop
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - checkout
+      - run: activate-gcloud-account.sh
+      - run: docker-login.sh
+      - run: make -C deploy checkout-develop
+      - run: make -C deploy build
+      - run: make -C deploy docker-push
+      - run: make -C deploy dev
 
+  deploy-tag:
+    <<: *defaults
+    environment:
+      GOOGLE_PROJECT_ID: planet4-production
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - checkout
+      - run: activate-gcloud-account.sh
+      - run: docker-login.sh
+      - run: make -C deploy checkout-tag
+      - run: make -C deploy build
+      - run: make -C deploy docker-push
+      - run: make -C deploy prod
 
 workflows:
   version: 2
