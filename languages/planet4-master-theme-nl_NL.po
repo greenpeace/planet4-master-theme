@@ -3,8 +3,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-05-29 10:25+0000\n"
-"Last-Translator: Luca Tiralongo <ltiralon@greenpeace.org>\n"
+"PO-Revision-Date: 2019-06-19 15:39+0000\n"
+"Last-Translator: Oscar Keur <okeur@greenpeace.org>\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: \n"
 "Language: nl_NL\n"
-"X-Loco-Version: 2.2.2; wp-5.2.1"
+"X-Loco-Version: 2.3.0; wp-5.2.1"
 
 #: single.php:33
 msgid "Post page"
@@ -37,7 +37,7 @@ msgstr "Sorry, die pagina kunnen we niet vinden!"
 
 #: 404.php:17
 msgid "Enter your search term below"
-msgstr ""
+msgstr "Vul uw zoekterm hieronder in"
 
 #: 404.php:18
 msgid "404 Page"
@@ -73,11 +73,11 @@ msgstr "Meest recent"
 
 #: functions.php:247
 msgid "Toggle worldwide site selection menu"
-msgstr ""
+msgstr "Open/Sluit het menu voor wereldwijde sites"
 
 #: functions.php:248
 msgid "Toggle search box"
-msgstr ""
+msgstr "Open/Sluit het zoekvak"
 
 #: functions.php:270
 msgid "DONATE"
@@ -170,15 +170,15 @@ msgstr "Artikelen"
 
 #: templates/author.twig:36
 msgid "Posts by "
-msgstr ""
+msgstr "Berichten door"
 
 #: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
-msgstr ""
+msgstr "Laad meer"
 
 #: templates/navigation-bar.twig:6
 msgid "Toggle navigation menu"
-msgstr ""
+msgstr "Open/Sluit het navigatiemenu"
 
 #: templates/navigation-bar.twig:7 templates/search.twig:8
 #: templates/search.twig:45 templates/404.twig:17
@@ -311,15 +311,15 @@ msgstr "Download"
 
 #: templates/base.twig:10
 msgid "Skip to Navigation"
-msgstr ""
+msgstr "Ga door naar navigatie"
 
 #: templates/base.twig:11
 msgid "Skip to Content"
-msgstr ""
+msgstr "Ga door naar inhoud"
 
 #: templates/base.twig:12
 msgid "Skip to Footer"
-msgstr ""
+msgstr "Ga door naar einde (Footer)"
 
 #: templates/single.twig:41 templates/tease-taxonomy-post.twig:26
 msgid "by"
@@ -327,23 +327,23 @@ msgstr "door"
 
 #: templates/single.twig:53 templates/comments_section.twig:2
 msgid "Comments"
-msgstr ""
+msgstr "Opmerkingen"
 
 #: templates/comments_section.twig:8
 msgid "Discussion"
-msgstr ""
+msgstr "Discussie"
 
 #: templates/taxonomy.twig:18
 msgid "Results"
-msgstr ""
+msgstr "Resultaten"
 
 #: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
 msgid "Share on"
-msgstr ""
+msgstr "Deel op"
 
 #: templates/blocks/share_buttons.twig:21
 msgid "Share via"
-msgstr ""
+msgstr "Deel via"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
@@ -351,31 +351,31 @@ msgstr "over de auteur"
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
-msgstr ""
+msgstr "Uw Email"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
-msgstr ""
+msgstr "Opmerking"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr ""
+msgstr "Uw opmerking"
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
-msgstr ""
+msgstr "Uw naam"
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post Comment"
-msgstr ""
+msgstr "Verstuur opmerking"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"

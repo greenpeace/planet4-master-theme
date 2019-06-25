@@ -568,10 +568,6 @@ class P4_Master_Site extends TimberSite {
 	 * Remove "Add Post Element" button for POST & rename on page as "Add Page Element".
 	 */
 	function remove_add_post_element() {
-		if ( 'post' === get_post_type() ) {
-			remove_action( 'media_buttons', [ Shortcode_UI::get_instance(), 'action_media_buttons' ] );
-		}
-
 		if ( 'page' === get_post_type() ) {
 			remove_action( 'media_buttons', [ Shortcode_UI::get_instance(), 'action_media_buttons' ] );
 			add_action( 'media_buttons', [ $this, 'action_page_media_buttons' ] );
