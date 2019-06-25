@@ -41,6 +41,9 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 			add_filter( 'term_link', [ $this, 'filter_term_permalink' ], 10, 3 );
 			add_filter( 'post_rewrite_rules', [ $this, 'replace_taxonomy_terms_in_rewrite_rules' ], 10, 1 );
 			add_filter( 'root_rewrite_rules', [ $this, 'add_terms_rewrite_rules' ], 10, 1 );
+
+			// Provides a filter element for the taxonomy in the posts list.
+			add_action( 'restrict_manage_posts', [ $this, 'filter_posts_by_page_type' ], 10, 2 );
 		}
 
 		/**
@@ -403,6 +406,41 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 					}
 				}
 			}
+		}
+
+		/**
+		 * Adds a filter element to the posts list that allows filtering by the custom taxonomy terms.
+		 * Action for restrict_manage_posts.
+		 *
+		 * @param string $post_type WordPress post type slug.
+		 * @param string $which The location of the extra table nav markup ('top' or 'bottom').
+		 */
+		public function filter_posts_by_page_type( $post_type, $which ) {
+			// Apply this only to a specific post type.
+			if ( 'post' !== $post_type ) {
+				return;
+			}
+
+			// Retrieve taxonomy terms.
+			$terms = get_terms( self::TAXONOMY );
+
+			// Display filter HTML.
+			?>
+			<select name="<?php echo self::TAXONOMY; ?>" id="<?php echo self::TAXONOMY; ?>" class="postform">
+				<option value=""><?php echo __( 'All Post Types', 'planet4-master-theme-backend' ); ?></option>
+
+				<?php
+				foreach ( $terms as $term ) {
+					printf(
+						'<option value="%1$s" %2$s>%3$s</option>',
+						$term->slug,
+						( ( isset( $_GET[ self::TAXONOMY ] ) && ( $_GET[ self::TAXONOMY ] == $term->slug ) ) ? ' selected="selected"' : '' ),
+						$term->name
+					);
+				}
+				?>
+			</select>
+			<?php
 		}
 	}
 }
