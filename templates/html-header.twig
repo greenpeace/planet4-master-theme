@@ -12,7 +12,7 @@
 			{% set og_title = site.name %}
 		{% endif %}
 	{% endif %}
-
+	<meta name="title" content="{{ og_title|e('html_attr')|raw }}"/>
 	<meta property="og:title" content="{{ og_title|e('html_attr')|raw }}" />
 	<meta property="og:type" content="article" />
 	<meta property="og:url" content="{{ current_url }}" />
