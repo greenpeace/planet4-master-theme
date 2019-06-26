@@ -297,7 +297,7 @@ msgstr "Kategoria"
 
 #: templates/search.twig:240
 msgid "Content type"
-msgstr "Rodzij treści"
+msgstr "Rodzaj treści"
 
 #: templates/search.twig:263
 msgid "Sort by"
