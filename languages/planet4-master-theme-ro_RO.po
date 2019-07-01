@@ -4,7 +4,7 @@ msgstr ""
 "=0)))? 2 : 1));\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-06-27 14:51+0000\n"
+"PO-Revision-Date: 2019-07-01 14:30+0000\n"
 "Language-Team: Romanian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,7 +46,7 @@ msgstr "Eroare 404"
 
 #: tag.php:48
 msgid "Unknown Campaign page"
-msgstr ""
+msgstr "Pagină de campanie necunoscută"
 
 #: tag.php:54
 msgid "Things you can do"
@@ -86,7 +86,7 @@ msgstr "DONEAZĂ"
 
 #: functions.php:271
 msgid "International (English)"
-msgstr ""
+msgstr "Internaţional (Engleză)"
 
 #: classes/class-p4-post.php:190 classes/class-p4-search.php:570
 msgid "ACTION"
@@ -302,7 +302,7 @@ msgstr "Sortează în funcţie de"
 
 #: templates/search.twig:300
 msgid "Suggested search terms"
-msgstr ""
+msgstr "Termeni de căutare sugeraţi"
 
 #: templates/tease-search.twig:67
 msgid "take action"
@@ -314,15 +314,15 @@ msgstr "Download"
 
 #: templates/base.twig:10
 msgid "Skip to Navigation"
-msgstr ""
+msgstr "Mergi la navigare"
 
 #: templates/base.twig:11
 msgid "Skip to Content"
-msgstr ""
+msgstr "Mergi la conţinut"
 
 #: templates/base.twig:12
 msgid "Skip to Footer"
-msgstr ""
+msgstr "Mergi la meniul din subsol"
 
 #: templates/single.twig:41 templates/tease-taxonomy-post.twig:26
 msgid "by"
@@ -382,7 +382,7 @@ msgstr "Adaugă comentariu"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
-msgstr ""
+msgstr "Greenpeace Planet 4 Master Theme"
 
 #. Description of the plugin/theme
 msgid "Master theme for the Planet 4 Wordpress project"
@@ -394,7 +394,7 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
-msgstr ""
+msgstr "Greenpeace International"
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/greenpeace"
