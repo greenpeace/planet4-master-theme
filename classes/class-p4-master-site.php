@@ -132,7 +132,7 @@ class P4_Master_Site extends TimberSite {
 		);
 
 		add_filter( 'login_headerurl', [ $this, 'add_login_logo_url' ] );
-		add_filter( 'login_headertitle', [ $this, 'add_login_logo_url_title' ] );
+		add_filter( 'login_headertext', [ $this, 'add_login_logo_url_title' ] );
 		add_action( 'login_enqueue_scripts', [ $this, 'add_login_stylesheet' ] );
 		add_filter( 'comment_form_submit_field', [ $this, 'gdpr_cc_comment_form_add_class' ], 150, 2 );
 	}
