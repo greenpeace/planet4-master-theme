@@ -96,7 +96,7 @@ if ( ! class_exists( 'P4_Post_Report_Controller' ) ) {
 			wp_enqueue_script( 'jquery-ui-datepicker' );
 			wp_register_script(
 				'posts-report',
-				$this->theme_dir . '/assets/js/posts_report.js',
+				$this->theme_dir . '/admin/js/posts_report.js',
 				[
 					'jquery',
 					'wp-api',

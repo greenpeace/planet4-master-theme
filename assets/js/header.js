@@ -9,12 +9,12 @@ $(document).ready(function() {
     evt.preventDefault();
     evt.stopPropagation();
 
-    var $button = $(this);
-    var target = $button.data('target');
+    const $button = $(this);
+    const target = $button.data('target');
     if (!target) {
       throw new Error('Missing `data-target` attribute: specify the container to be toggled');
     }
-    var toggleClass = $button.data('toggle');
+    const toggleClass = $button.data('toggle');
     if (!toggleClass) {
       throw new Error('Missing `data-toggle` attribute: specify the class to toggle');
     }
@@ -31,10 +31,10 @@ $(document).ready(function() {
 
   // Close all menus when clicking somewhere else
   $(document).on('click', function closeInactiveMenus(evt) {
-    var clickedElement = evt.target;
+    const clickedElement = evt.target;
     $('button[aria-expanded="true"]').each(function(i, button) {
-      var $button = $(button);
-      var buttonTarget = $($button.data('target')).get( 0 );
+      const $button = $(button);
+      const buttonTarget = $($button.data('target')).get( 0 );
       if (buttonTarget && ! $.contains(buttonTarget, clickedElement)) {
         // Spoof a click on the open menu's toggle to close that menu.
         $button.trigger('click');
@@ -57,8 +57,8 @@ $(document).ready(function() {
   });
 
   // Hide Header on on scroll down
-  function hasScrolled() {
-    var st = $(this).scrollTop();
+  function hasScrolled(lastScrollTop, delta, navbarHeight) {
+    const st = $(this).scrollTop();
     if (Math.abs(lastScrollTop - st) <= delta) {
       return;
     }
@@ -73,21 +73,21 @@ $(document).ready(function() {
   }
 
   if($( window ).width() <= 768) {
-    var didScroll;
-    var lastScrollTop = 0;
-    var delta = 5;
-    var navbarHeight = $('.top-navigation').outerHeight();
+    let didScroll;
+    let lastScrollTop = 0;
+    const delta = 5;
+    const navbarHeight = $('.top-navigation').outerHeight();
     $(window).scroll(function(){
       didScroll = true;
     });
     setInterval(function() {
       if (didScroll) {
-        hasScrolled();
+        hasScrolled(lastScrollTop, delta, navbarHeight);
         didScroll = false;
       }
     }, 250);
 
-    var $slider = $('.mobile-menus');
+    const $slider = $('.mobile-menus');
     $(document).click(function() {
       if($('.menu').hasClass('active')){
         //Hide the menus if visible
@@ -97,7 +97,7 @@ $(document).ready(function() {
         $('.menu').removeClass('active');
       }
       if($('.search-box').hasClass('active')){
-        //Hide the search if visible
+        // Hide the search if visible
         $searchBox.slideToggle().toggleClass('active');
       }
     });
@@ -110,8 +110,8 @@ $(document).ready(function() {
       });
     });
 
-    var $searchBox = $('#search .search-box');
-    var $searchTrigger = $('#search-trigger');
+    const $searchBox = $('#search .search-box');
+    const $searchTrigger = $('#search-trigger');
 
     $searchTrigger.on('click', function(event) {
       event.stopPropagation();

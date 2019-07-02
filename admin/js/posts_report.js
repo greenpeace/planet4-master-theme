@@ -1,13 +1,13 @@
 /* global jQuery, wp */
 
-var postCollection,
-  pageCollection,
-  postsView,
-  pagesView;
+let postCollection;
+let pageCollection;
+let postsView;
+let pagesView;
 
-var p4 = p4 || {};
-var p4_data = p4_data || {};
-var wp = window.wp || {};
+const p4 = p4 || {};
+const p4_data = p4_data || {};
+const wp = window.wp || {};
 
 (function ($) {
 
@@ -32,9 +32,9 @@ var wp = window.wp || {};
 
     $('#posts-filter').off('click').on('click', function () {
 
-      var filters = {};
-      var from = $('#from').datepicker().val();
-      var to = $('#to').datepicker().val();
+      let filters = {};
+      const from = $('#from').datepicker().val();
+      const to = $('#to').datepicker().val();
       if ('' !== from) {
         filters.after = from + 'T00:00:00';
       }
@@ -68,7 +68,7 @@ var wp = window.wp || {};
 
     refreshPosts: function (filters) {
       this.showSpinner();
-      var params = {
+      const params = {
         per_page: 50,
         status: 'publish',
         orderby: 'modified',
@@ -130,7 +130,7 @@ var wp = window.wp || {};
 
     refreshPages: function (filters) {
       this.showSpinner();
-      var params = {
+      const params = {
         per_page: 50,
         status: 'publish',
         orderby: 'modified',
