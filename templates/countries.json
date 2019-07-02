@@ -21,7 +21,7 @@
     },
     {
       "name": "Argentina",
-      "code": "AR",
+      "codes": ["AR"],
       "lang": [
         {
           "name": "Español",
@@ -31,7 +31,7 @@
     },
     {
       "name": "Australia",
-      "code": "AU",
+      "codes": ["AU"],
       "lang": [
         {
           "name": "English",
@@ -41,7 +41,7 @@
     },
     {
       "name": "Austria",
-      "code": "AT",
+      "codes": ["AT"],
       "lang": [
         {
           "name": "Deutsch",
@@ -53,7 +53,7 @@
   "B": [
     {
       "name": "Belgium",
-      "code": "BE",
+      "codes": ["BE"],
       "lang": [
         {
           "name": "Français",
@@ -67,7 +67,7 @@
     },
     {
       "name": "Brazil",
-      "code": "BR",
+      "codes": ["BR"],
       "lang": [
         {
           "name": "Português",
@@ -77,7 +77,7 @@
     },
     {
       "name": "Bulgaria",
-      "code": "BG",
+      "codes": ["BG"],
       "lang": [
         {
           "name": "български",
@@ -89,7 +89,7 @@
   "C": [
     {
       "name": "Canada",
-      "code": "CA",
+      "codes": ["CA"],
       "lang": [
         {
           "name": "English",
@@ -103,7 +103,7 @@
     },
     {
       "name": "Chile",
-      "code": "CL",
+      "codes": ["CL"],
       "lang": [
         {
           "name": "Español",
@@ -113,7 +113,7 @@
     },
     {
       "name": "China Mainland",
-      "code": "CN",
+      "codes": ["CN"],
       "lang": [
         {
           "name": "简体中文",
@@ -123,7 +123,7 @@
     },
     {
       "name": "Colombia",
-      "code": "CO",
+      "codes": ["CO"],
       "lang": [
         {
           "name": "Español",
@@ -133,7 +133,7 @@
     },
     {
       "name": "Croatia",
-      "code": "HR",
+      "codes": ["HR"],
       "lang": [
         {
           "name": "Hrvatski",
@@ -143,7 +143,7 @@
     },
     {
       "name": "Czech Republic",
-      "code": "CZ",
+      "codes": ["CZ"],
       "lang": [
         {
           "name": "Česky",
@@ -155,7 +155,7 @@
   "D": [
     {
       "name": "Denmark",
-      "code": "DK",
+      "codes": ["DK"],
       "lang": [
         {
           "name": "Dansk",
@@ -187,7 +187,7 @@
   "F": [
     {
       "name": "Finland",
-      "code": "FI",
+      "codes": ["FI"],
       "lang": [
         {
           "name": "Suomea",
@@ -197,7 +197,7 @@
     },
     {
       "name": "France",
-      "code": "FR",
+      "codes": ["FR"],
       "lang": [
         {
           "name": "Français",
@@ -209,7 +209,7 @@
   "G": [
     {
       "name": "Germany",
-      "code": "DE",
+      "codes": ["DE"],
       "lang": [
         {
           "name": "Deutsch",
@@ -219,7 +219,7 @@
     },
     {
       "name": "Greece",
-      "code": "GR",
+      "codes": ["GR"],
       "lang": [
         {
           "name": "Ελληνικά",
@@ -231,7 +231,7 @@
   "H": [
     {
       "name": "Hong Kong",
-      "code": "HK",
+      "codes": ["HK"],
       "lang": [
         {
           "name": "繁體中文",
@@ -241,7 +241,7 @@
     },
     {
       "name": "Hungary",
-      "code": "HU",
+      "codes": ["HU"],
       "lang": [
         {
           "name": "Magyar",
@@ -253,7 +253,7 @@
   "I": [
     {
       "name": "India",
-      "code": "IN",
+      "codes": ["IN"],
       "lang": [
         {
           "name": "English",
@@ -267,7 +267,7 @@
     },
     {
       "name": "Indonesia",
-      "code": "ID",
+      "codes": ["ID"],
       "lang": [
         {
           "name": "Indonesia",
@@ -277,7 +277,7 @@
     },
     {
       "name": "Israel",
-      "code": "IL",
+      "codes": ["IL"],
       "lang": [
         {
           "name": "עברית",
@@ -287,7 +287,7 @@
     },
     {
       "name": "Italy",
-      "code": "IT",
+      "codes": ["IT"],
       "lang": [
         {
           "name": "Italiano",
@@ -299,7 +299,7 @@
   "J": [
     {
       "name": "Japan",
-      "code": "JP",
+      "codes": ["JP"],
       "lang": [
         {
           "name": "日本語",
@@ -311,7 +311,7 @@
   "K": [
     {
       "name": "Korea",
-      "code": "KR",
+      "codes": ["KR"],
       "lang": [
         {
           "name": "한국어",
@@ -323,7 +323,7 @@
   "L": [
     {
       "name": "Luxembourg",
-      "code": "LU",
+      "codes": ["LU"],
       "lang": [
         {
           "name": "Deutsch",
@@ -339,7 +339,7 @@
   "M": [
     {
       "name": "Malaysia",
-      "code": "MY",
+      "codes": ["MY"],
       "lang": [
         {
           "name": "English",
@@ -349,7 +349,7 @@
     },
     {
       "name": "Mexico",
-      "code": "MX",
+      "codes": ["MX"],
       "lang": [
         {
           "name": "Español",
@@ -374,7 +374,7 @@
   "N": [
     {
       "name": "Netherlands",
-      "code": "NL",
+      "codes": ["NL"],
       "lang": [
         {
           "name": "Nederlands",
@@ -384,7 +384,7 @@
     },
     {
       "name": "New Zealand",
-      "code": "NZ",
+      "codes": ["NZ"],
       "lang": [
         {
           "name": "English",
@@ -394,7 +394,7 @@
     },
     {
       "name": "Norway",
-      "code": "NO",
+      "codes": ["NO"],
       "lang": [
         {
           "name": "Norsk",
@@ -406,7 +406,7 @@
   "P": [
     {
       "name": "Philippines",
-      "code": "PH",
+      "codes": ["PH"],
       "lang": [
         {
           "name": "English",
@@ -416,7 +416,7 @@
     },
     {
       "name": "Poland",
-      "code": "PL",
+      "codes": ["PL"],
       "lang": [
         {
           "name": "Polska",
@@ -428,7 +428,7 @@
   "R": [
     {
       "name": "Romania",
-      "code": "RO",
+      "codes": ["RO"],
       "lang": [
         {
           "name": "Română",
@@ -438,7 +438,7 @@
     },
     {
       "name": "Russia",
-      "code": "RU",
+      "codes": ["RU"],
       "lang": [
         {
           "name": "Русский",
@@ -450,7 +450,7 @@
   "S": [
     {
       "name": "Slovakia",
-      "code": "SK",
+      "codes": ["SK"],
       "lang": [
         {
           "name": "Slovensko",
@@ -460,7 +460,7 @@
     },
     {
       "name": "Slovenia",
-      "code": "SI",
+      "codes": ["SI"],
       "lang": [
         {
           "name": "Slovenjia",
@@ -479,7 +479,7 @@
     },
     {
       "name": "Spain",
-      "code": "ES",
+      "codes": ["ES"],
       "lang": [
         {
           "name": "Español",
@@ -501,7 +501,7 @@
     },
     {
       "name": "Sweden",
-      "code": "SE",
+      "codes": ["SE"],
       "lang": [
         {
           "name": "Svenska",
@@ -511,7 +511,7 @@
     },
     {
       "name": "Switzerland",
-      "code": "CH",
+      "codes": ["CH"],
       "lang": [
         {
           "name": "Deutsch",
@@ -527,7 +527,7 @@
   "T": [
     {
       "name": "Taiwan",
-      "code": "TW",
+      "codes": ["TW"],
       "lang": [
         {
           "name": "正體中文",
@@ -537,7 +537,7 @@
     },
     {
       "name": "Thailand",
-      "code": "TH",
+      "codes": ["TH"],
       "lang": [
         {
           "name": "ไทย",
@@ -547,7 +547,7 @@
     },
     {
       "name": "Turkey",
-      "code": "TR",
+      "codes": ["TR"],
       "lang": [
         {
           "name": "Türk",
@@ -559,7 +559,7 @@
   "U": [
     {
       "name": "United Kingdom",
-      "code": "GB",
+      "codes": ["GB"],
       "lang": [
         {
           "name": "English",
@@ -569,7 +569,7 @@
     },
     {
       "name": "USA",
-      "code": "US",
+      "codes": ["US"],
       "lang": [
         {
           "name": "English",
