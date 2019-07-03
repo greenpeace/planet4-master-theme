@@ -243,7 +243,6 @@ $min-height: 40px;
   html[dir="rtl"] & {
     left: auto;
     right: 0;
-    padding-right: 0;
   }
 
   @include small-and-up {
@@ -720,7 +719,7 @@ $min-height: 40px;
   }
 
   .nav-link {
-    display: inline-block;
+    display: inline;
     font-size: 0.875rem;
     padding: 0;
 
