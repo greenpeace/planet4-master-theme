@@ -25,12 +25,14 @@ class MediaHelper {
 		$file     = $url;
 		$filename = basename( $file );
 
-		$context = stream_context_create( [
-			'ssl' => [
-				'verify_peer'      => false,
-				'verify_peer_name' => false,
-			],
-		]);
+		$context = stream_context_create(
+			[
+				'ssl' => [
+					'verify_peer'      => false,
+					'verify_peer_name' => false,
+				],
+			]
+		);
 
 		// Upload file into WP upload dir.
 		$upload_file = wp_upload_bits( $filename, null, file_get_contents( $url, false, $context ) );
@@ -88,7 +90,6 @@ class MediaHelper {
 		} else {
 			return $upload_file['error'];
 		}
-
 
 	}
 

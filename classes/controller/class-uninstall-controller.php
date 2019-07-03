@@ -7,6 +7,7 @@ if ( ! class_exists( 'Uninstall_Controller' ) ) {
 	 * Planet4 - Media Library uninstaller
 	 *
 	 * Used when clicking "Delete" from inside of WordPress's plugins page.
+	 *
 	 * @package P4ML\Controllers
 	 */
 	class Uninstall_Controller {

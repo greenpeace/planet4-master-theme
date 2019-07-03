@@ -35,12 +35,14 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 		 * Render the settings page of the plugin.
 		 */
 		public function prepare_settings() {
-			$this->view->settings( [
-				'settings'            => get_option( 'p4ml_main_settings' ),
-				'available_languages' => P4ML_LANGUAGES,
-				'messages'            => $this->messages,
-				'domain'              => 'planet4-medialibrary',
-			] );
+			$this->view->settings(
+				[
+					'settings'            => get_option( 'p4ml_main_settings' ),
+					'available_languages' => P4ML_LANGUAGES,
+					'messages'            => $this->messages,
+					'domain'              => 'planet4-medialibrary',
+				]
+			);
 		}
 
 		/**
