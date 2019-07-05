@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css?family=Anton:400,500,600,800");
+
+$anton: "Anton", sans-serif;
+
+// Headings
+//
+// Heading elements `<h1> <h6>`, on "People vs Oil" campaign use Anton font.
+//
+// Markup:
+// <h1 class="theme-oil">The quick brown fox jumps over the lazy dog</h1>
+// <h2 class="theme-oil">The quick brown fox jumps over the lazy dog</h2>
+// <h3 class="theme-oil">The quick brown fox jumps over the lazy dog</h3>
+// <h4 class="theme-oil">The quick brown fox jumps over the lazy dog</h4>
+// <h5 class="theme-oil">The quick brown fox jumps over the lazy dog</h5>
+// <h6 class="theme-oil">The quick brown fox jumps over the lazy dog</h6>
+//
+// Styleguide Themes.oil.headings
+.theme-oil {
+  font-family: $anton;
+}
