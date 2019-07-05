@@ -25,7 +25,7 @@ if ( ! class_exists( 'Loader' ) ) {
 		 * Singleton creational pattern.
 		 * Makes sure there is only one instance at all times.
 		 *
-		 * @param array $services The Controller services to inject.
+		 * @param array  $services The Controller services to inject.
 		 * @param string $view_class The View class name.
 		 *
 		 * @return Loader
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Loader' ) ) {
 		 * after WordPress has finished loading but before any headers are sent.
 		 * Most of WP is loaded at this stage (but not all) and the user is authenticated.
 		 *
-		 * @param array $services The Controller services to inject.
+		 * @param array  $services The Controller services to inject.
 		 * @param string $view_class The View class name.
 		 */
 		private function __construct( $services = array(), $view_class ) {
@@ -85,7 +85,9 @@ if ( ! class_exists( 'Loader' ) ) {
 							'<u>' . esc_html__( 'Plugin Requirements Error!', 'planet4-medialibrary' ) . '</u><br /><br />' . esc_html( P4ML_PLUGIN_NAME ) . esc_html__( ' requires a newer version of the following plugin.', 'planet4-medialibrary' ) . '<br />' .
 							'<br/>' . esc_html__( 'Minimum required version of ', 'planet4-medialibrary' ) . esc_html( $plugin['Name'] ) . ': <strong>' . esc_html( $plugin['min_version'] ) . '</strong>' .
 							'<br/>' . esc_html__( 'Installed version of ', 'planet4-medialibrary' ) . esc_html( $plugin['Name'] ) . ': <strong>' . esc_html( $plugin['Version'] ) . '</strong>' .
-							'</div>', 'Plugin Requirements Error', array(
+							'</div>',
+							'Plugin Requirements Error',
+							array(
 								'response'  => \WP_Http::OK,
 								'back_link' => true,
 							)
@@ -98,7 +100,9 @@ if ( ! class_exists( 'Loader' ) ) {
 						'<u>' . esc_html__( 'Plugin Requirements Error!', 'planet4-medialibrary' ) . '</u><br /><br />' . esc_html( P4ML_PLUGIN_NAME . __( ' requires a newer version of PHP.', 'planet4-medialibrary' ) ) . '<br />' .
 						'<br/>' . esc_html__( 'Minimum required version of PHP: ', 'planet4-medialibrary' ) . '<strong>' . esc_html( $this->required_php ) . '</strong>' .
 						'<br/>' . esc_html__( 'Running version of PHP: ', 'planet4-medialibrary' ) . '<strong>' . esc_html( phpversion() ) . '</strong>' .
-						'</div>', 'Plugin Requirements Error', array(
+						'</div>',
+						'Plugin Requirements Error',
+						array(
 							'response'  => \WP_Http::OK,
 							'back_link' => true,
 						)
@@ -131,7 +135,7 @@ if ( ! class_exists( 'Loader' ) ) {
 					$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $required_plugin['rel_path'] );
 
 					if ( ! is_plugin_active( $required_plugin['rel_path'] ) ||
-					     ! version_compare( $plugin_data['Version'], $required_plugin['min_version'], '>=' ) ) {
+						 ! version_compare( $plugin_data['Version'], $required_plugin['min_version'], '>=' ) ) {
 						$plugin = array_merge( $plugin_data, $required_plugin );
 
 						return false;
@@ -177,7 +181,9 @@ if ( ! class_exists( 'Loader' ) ) {
 	wp_die(
 		'<div class="error fade">' .
 		'<u>' . esc_html__( 'Plugin Conflict Error!', 'planet4-medialibrary' ) . '</u><br /><br />' . esc_html__( 'Class Loader already exists.', 'planet4-medialibrary' ) . '<br />' .
-		'</div>', 'Plugin Conflict Error', array(
+		'</div>',
+		'Plugin Conflict Error',
+		array(
 			'response'  => \WP_Http::OK,
 			'back_link' => true,
 		)

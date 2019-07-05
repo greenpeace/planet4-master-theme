@@ -10,6 +10,7 @@ if ( ! class_exists( 'Controller' ) ) {
 	 * Class Controller
 	 *
 	 * This class will control all the main functions of the plugin.
+	 *
 	 * @package P4ML\Controllers\Menu
 	 */
 	abstract class Controller {
@@ -50,12 +51,15 @@ if ( ! class_exists( 'Controller' ) ) {
 		 */
 		public function error( $msg, $title = '' ) {
 			if ( is_string( $msg ) ) {
-				array_push($this->messages, [
-					'msg'     => esc_html( $msg ),
-					'title'   => $title ? esc_html( $title ) : esc_html__( 'Error', 'planet4-medialibrary' ),
-					'type'    => self::ERROR,
-					'classes' => 'p4ml_error_message',
-				] );
+				array_push(
+					$this->messages,
+					[
+						'msg'     => esc_html( $msg ),
+						'title'   => $title ? esc_html( $title ) : esc_html__( 'Error', 'planet4-medialibrary' ),
+						'type'    => self::ERROR,
+						'classes' => 'p4ml_error_message',
+					]
+				);
 			}
 		}
 
@@ -67,12 +71,15 @@ if ( ! class_exists( 'Controller' ) ) {
 		 */
 		public function warning( $msg, $title = '' ) {
 			if ( is_string( $msg ) ) {
-				array_push($this->messages, [
-					'msg'     => esc_html( $msg ),
-					'title'   => $title ? esc_html( $title ) : esc_html__( 'Warning', 'planet4-medialibrary' ),
-					'type'    => self::WARNING,
-					'classes' => 'p4ml_warning_message',
-				] );
+				array_push(
+					$this->messages,
+					[
+						'msg'     => esc_html( $msg ),
+						'title'   => $title ? esc_html( $title ) : esc_html__( 'Warning', 'planet4-medialibrary' ),
+						'type'    => self::WARNING,
+						'classes' => 'p4ml_warning_message',
+					]
+				);
 			}
 		}
 
@@ -84,12 +91,15 @@ if ( ! class_exists( 'Controller' ) ) {
 		 */
 		public function notice( $msg, $title = '' ) {
 			if ( is_string( $msg ) ) {
-				array_push($this->messages, [
-					'msg'     => esc_html( $msg ),
-					'title'   => $title ? esc_html( $title ) : esc_html__( 'Notice', 'planet4-medialibrary' ),
-					'type'    => self::NOTICE,
-					'classes' => 'p4ml_notice_message',
-				] );
+				array_push(
+					$this->messages,
+					[
+						'msg'     => esc_html( $msg ),
+						'title'   => $title ? esc_html( $title ) : esc_html__( 'Notice', 'planet4-medialibrary' ),
+						'type'    => self::NOTICE,
+						'classes' => 'p4ml_notice_message',
+					]
+				);
 			}
 		}
 
@@ -101,12 +111,15 @@ if ( ! class_exists( 'Controller' ) ) {
 		 */
 		public function success( $msg, $title = '' ) {
 			if ( is_string( $msg ) ) {
-				array_push($this->messages, [
-					'msg'     => esc_html( $msg ),
-					'title'   => $title ? esc_html( $title ) : esc_html__( 'Success', 'planet4-medialibrary' ),
-					'type'    => self::SUCCESS,
-					'classes' => 'p4ml_success_message',
-				] );
+				array_push(
+					$this->messages,
+					[
+						'msg'     => esc_html( $msg ),
+						'title'   => $title ? esc_html( $title ) : esc_html__( 'Success', 'planet4-medialibrary' ),
+						'type'    => self::SUCCESS,
+						'classes' => 'p4ml_success_message',
+					]
+				);
 			}
 		}
 	}

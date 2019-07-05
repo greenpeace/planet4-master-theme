@@ -29,12 +29,12 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		public function __construct( View $view ) {
 			parent::__construct( $view );
 
-			add_filter( 'media_upload_tabs',                    [ $this, 'media_library_tab' ] );
-			add_action( 'media_upload_gpi_media_library',       [ $this, 'add_library_form' ] );
+			add_filter( 'media_upload_tabs', [ $this, 'media_library_tab' ] );
+			add_action( 'media_upload_gpi_media_library', [ $this, 'add_library_form' ] );
 			add_action( 'wp_ajax_download_images_from_library', [ $this, 'download_images_from_library' ] );
-			add_action( 'wp_ajax_get_paged_medias',             [ $this, 'get_paged_medias' ] );
-			add_action( 'wp_ajax_get_search_medias',            [ $this, 'get_search_medias' ] );
-			add_action( 'post-upload-ui',                       [ $this, 'media_library_post_upload_ui' ] );
+			add_action( 'wp_ajax_get_paged_medias', [ $this, 'get_paged_medias' ] );
+			add_action( 'wp_ajax_get_search_medias', [ $this, 'get_search_medias' ] );
+			add_action( 'post-upload-ui', [ $this, 'media_library_post_upload_ui' ] );
 		}
 
 		/**
@@ -78,13 +78,15 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 			}
 
 			$this->load_iframe_assets();
-			$this->view->ml_view( [
-				'data' => [
-					'image_list'    => $image_list['result'],
-					'error_message' => $error_message,
-					'domain'        => 'planet4-medialibrary',
-				],
-			] );
+			$this->view->ml_view(
+				[
+					'data' => [
+						'image_list'    => $image_list['result'],
+						'error_message' => $error_message,
+						'domain'        => 'planet4-medialibrary',
+					],
+				]
+			);
 		}
 
 		/**
@@ -115,13 +117,15 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 					$error_message = __( 'Error while fetching data from remote server!!!', 'planet4-medialibrary' );
 				}
 
-				$this->view->ml_search_view( [
-					'data' => [
-						'image_list'    => $image_list['result'],
-						'error_message' => $error_message,
-						'domain'        => 'planet4-medialibrary',
-					],
-				] );
+				$this->view->ml_search_view(
+					[
+						'data' => [
+							'image_list'    => $image_list['result'],
+							'error_message' => $error_message,
+							'domain'        => 'planet4-medialibrary',
+						],
+					]
+				);
 
 				wp_die();
 			}
@@ -157,21 +161,25 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 				}
 
 				if ( 'true' === $search_flag ) {
-					$this->view->ml_search_media_view( [
-						'data' => [
-							'image_list'    => $image_list['result'],
-							'error_message' => $error_message,
-							'domain'        => 'planet4-medialibrary',
-						],
-					] );
+					$this->view->ml_search_media_view(
+						[
+							'data' => [
+								'image_list'    => $image_list['result'],
+								'error_message' => $error_message,
+								'domain'        => 'planet4-medialibrary',
+							],
+						]
+					);
 				} else {
-					$this->view->ml_media_view( [
-						'data' => [
-							'image_list'    => $image_list['result'],
-							'error_message' => $error_message,
-							'domain'        => 'planet4-medialibrary',
-						],
-					] );
+					$this->view->ml_media_view(
+						[
+							'data' => [
+								'image_list'    => $image_list['result'],
+								'error_message' => $error_message,
+								'domain'        => 'planet4-medialibrary',
+							],
+						]
+					);
 				}
 
 				wp_die();
