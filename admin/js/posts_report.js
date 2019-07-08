@@ -1,15 +1,15 @@
-/* global jQuery, wp */
-
-let postCollection;
-let pageCollection;
-let postsView;
-let pagesView;
-
-const p4 = p4 || {};
-const p4_data = p4_data || {};
-const wp = window.wp || {};
+/* global jQuery */
 
 (function ($) {
+
+  let postCollection;
+  let pageCollection;
+  let postsView;
+  let pagesView;
+
+  const p4 = window.p4 || {};
+  const p4_data = window.p4_data || {};
+  const wp = window.wp || {};
 
   if ('undefined' === wp.api) {
     return;
