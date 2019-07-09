@@ -135,6 +135,7 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'login_headertext', [ $this, 'add_login_logo_url_title' ] );
 		add_action( 'login_enqueue_scripts', [ $this, 'add_login_stylesheet' ] );
 		add_filter( 'comment_form_submit_field', [ $this, 'gdpr_cc_comment_form_add_class' ], 150, 2 );
+		add_filter( 'embed_oembed_html', [ $this, 'filter_youtube_oembed_nocookie' ], 10, 2 );
 	}
 
 	/**
@@ -783,4 +784,26 @@ class P4_Master_Site extends TimberSite {
 
 		return $submit_field;
 	}
+
+	/**
+	 * Filter function for embed_oembed_html.
+	 * Transform youtube embeds to youtube-nocookie.
+	 *
+	 * @see https://developer.wordpress.org/reference/hooks/embed_oembed_html/
+	 *
+	 * @param mixed  $cache The cached HTML result, stored in post meta.
+	 * @param string $url   The attempted embed URL.
+	 *
+	 * @return mixed
+	 */
+	public function filter_youtube_oembed_nocookie( $cache, $url ) {
+		if ( ! empty( $url ) ) {
+			if ( strpos( $url, 'youtube.com' ) !== false || strpos( $url, 'youtu.be' ) !== false ) {
+				$cache = str_replace( 'youtube.com', 'youtube-nocookie.com', $cache );
+			}
+		}
+
+		return $cache;
+	}
+
 }
