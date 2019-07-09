@@ -10,7 +10,7 @@
 
 a.pdf-link::before {
   content: "";
-  background-image: url("assets/scss/styleguide/src/icons/file-pdf.svg");
+  background-image: url("images/file-pdf.svg");
   background-position: 50% 50%;
   background-size: 1rem 1rem;
   background-repeat: no-repeat;
@@ -24,8 +24,8 @@ a.pdf-link::before {
     & {
       background-image: none;
       background-color: $blue;
-      -webkit-mask-image: url("assets/scss/styleguide/src/icons/file-pdf.svg");
-      mask-image: url("assets/scss/styleguide/src/icons/file-pdf.svg");
+      -webkit-mask-image: url("images/file-pdf.svg");
+      mask-image: url("images/file-pdf.svg");
       mask-repeat: no-repeat;
       -webkit-mask-repeat: no-repeat;
       margin-right: 0;
