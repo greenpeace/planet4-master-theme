@@ -94,9 +94,7 @@ final class P4_Loader {
 			global $pagenow;
 
 			// Load P4 Control Panel only on Dashboard page.
-			if ( 'index.php' === $pagenow ) {
-				$this->default_services[] = 'P4_Control_Panel';
-			}
+			$this->default_services[] = 'P4_Control_Panel';
 
 			// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
 			if ( 'post-new.php' === $pagenow || 'post.php' === $pagenow ) {
