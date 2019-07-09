@@ -6,6 +6,7 @@
  */
 
 use P4EN\Controllers\Ensapi_Controller as ENS_API;
+use ElasticPress\Elasticsearch as ES;
 
 if ( ! class_exists( 'P4_Control_Panel' ) ) {
 
@@ -28,14 +29,13 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 			// Display the Control Panel only to Administrators.
 			if ( current_user_can( 'manage_options' ) || current_user_can( 'editor' ) ) {
 				add_action( 'wp_dashboard_setup', [ $this, 'add_dashboard_widgets' ], 9 );
+
 				add_action( 'wp_ajax_flush_cache', [ $this, 'flush_cache' ] );
 				add_action( 'wp_ajax_check_cache', [ $this, 'check_cache' ] );
-				add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
-			}
-
-			if ( current_user_can( 'manage_options' ) ) {
 				add_action( 'wp_ajax_check_engaging_networks', [ $this, 'check_engaging_networks' ] );
-				add_action( 'wp_ajax_check_search_indexer', [ $this, 'check_search_indexer' ] );
+				add_action( 'wp_ajax_check_elasticsearch', [ $this, 'check_elasticsearch' ] );
+
+				add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 			}
 		}
 
@@ -57,48 +57,57 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 			wp_nonce_field( 'cp-action' );
 
 			if ( current_user_can( 'manage_options' ) || current_user_can( 'editor' ) ) {
-				$this->add_item(
-					[
-						'title'    => __( 'Cache', 'planet4-master-theme-backend' ),
-						'subitems' => [
-							[
-								'title'   => __( 'Flush Object Cache', 'planet4-master-theme-backend' ),
-								'action'  => 'flush_cache',
-								'confirm' => __( 'Are you sure you want to delete all Object Cache keys?', 'planet4-master-theme-backend' ),
+				if ( is_plugin_active( 'wp-redis/wp-redis.php' ) ) {
+					$this->add_item(
+						[
+							'title'    => __( 'Cache', 'planet4-master-theme-backend' ),
+							'subitems' => [
+								[
+									'title'   => __( 'Flush Object Cache', 'planet4-master-theme-backend' ),
+									'action'  => 'flush_cache',
+									'confirm' => __( 'Are you sure you want to delete all Object Cache keys?', 'planet4-master-theme-backend' ),
+								],
+								[
+									'title'  => __( 'Check Object Cache', 'planet4-master-theme-backend' ),
+									'action' => 'check_cache',
+								],
 							],
-							[
-								'title'  => __( 'Check Object Cache', 'planet4-master-theme-backend' ),
-								'action' => 'check_cache',
-							],
-						],
-					]
-				);
-			}
+						]
+					);
+				}
 
-			if ( current_user_can( 'manage_options' ) ) {
-				$this->add_item(
-					[
-						'title'    => __( 'Engaging Networks', 'planet4-master-theme-backend' ),
-						'subitems' => [
-							[
-								'title'  => __( 'Check Engaging Networks', 'planet4-master-theme-backend' ),
-								'action' => 'check_engaging_networks',
+				if ( is_plugin_active( 'planet4-plugin-engagingnetworks/planet4-engagingnetworks.php' ) ) {
+					$this->add_item(
+						[
+							'title'    => __( 'Engaging Networks', 'planet4-master-theme-backend' ),
+							'subitems' => [
+								[
+									'title'  => __( 'Check Engaging Networks', 'planet4-master-theme-backend' ),
+									'action' => 'check_engaging_networks',
+								],
 							],
-						],
-					]
-				);
+						]
+					);
+				}
 
-				$this->add_item(
-					[
-						'title'    => __( 'Search', 'planet4-master-theme-backend' ),
-						'subitems' => [
-							[
-								'title'  => __( 'Check Search Indexer', 'planet4-master-theme-backend' ),
-								'action' => 'check_search_indexer',
+				if ( is_plugin_active( 'elasticpress/elasticpress.php' ) ) {
+					$this->add_item(
+						[
+							'title'    => __( 'Search', 'planet4-master-theme-backend' ),
+							'subitems' => [
+								[
+									'title' => __( 'Sync Elasticsearch', 'planet4-master-theme-backend' ),
+									'url'   => 'admin.php?page=elasticpress&do_sync',   // If we give 'url' key instead of 'action' then we will do usual request instead of ajax request.
+									// 'action' => 'ep_index', // Could use this EP action to perform sync asynchronously.
+								],
+								[
+									'title'  => __( 'Check Elasticsearch', 'planet4-master-theme-backend' ),
+									'action' => 'check_elasticsearch',
+								],
 							],
-						],
-					]
-				);
+						]
+					);
+				}
 			}
 		}
 
@@ -112,7 +121,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 					<div class="welcome-panel"><span><strong>' . esc_html( $data['title'] ) . '</strong></span>';
 			foreach ( $data['subitems'] as $subitem ) {
 				echo '<div>
-						<a href="#" class="btn btn-cp-action btn-' . esc_attr( $subitem['action'] ) . '-async" data-action="' . esc_attr( $subitem['action'] ) . '" data-confirm="' . esc_attr( isset( $subitem['confirm'] ) ? $subitem['confirm'] : '' ) . '">' . esc_html( $subitem['title'] ) . '</a>
+						<a href="' . esc_url( $subitem['url'] ?? '#' ) . '" class="btn btn-cp-action ' . esc_attr( $subitem['action'] ?? '' ) . '" data-action="' . esc_attr( $subitem['action'] ?? '' ) . '" data-confirm="' . esc_attr( $subitem['confirm'] ?? '' ) . '">' . esc_html( $subitem['title'] ) . '</a>
 						<span class="cp-subitem-response"></span>
 					</div>';
 			}
@@ -211,17 +220,19 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 					$main_settings = get_option( 'p4en_main_settings' );    // Retrieve stored EN Private API key.
 
 					if ( isset( $main_settings['p4en_private_api'] ) && $main_settings['p4en_private_api'] ) {
-						$ens_api           = new ENS_API();
 						$ens_private_token = $main_settings['p4en_private_api'];
-						$ens_response      = $ens_api->authenticate( $ens_private_token );
+						$ens_api           = new ENS_API( $ens_private_token );
 
-						if ( is_array( $ens_response ) && $ens_response['body'] ) {
-							$response['message'] = __( 'Success', 'planet4-master-theme-backend' );
+						if ( $ens_api->is_authenticated() ) {
+							$response['message'] = __( 'Planet4 is connected to EngagingNetworks', 'planet4-master-theme-backend' );
 							$response['class']   = 'cp-success';
-						} elseif ( is_string( $ens_response ) ) {
-							$response['message'] = $ens_response;
+						} else {
+							$response['message'] = __( 'Planet4 is not connected to EngagingNetworks. Please, make sure you have registered your IP address for the ENS API key you have supplied in plugin settings page.', 'planet4-master-theme-backend' );
 							$response['class']   = 'cp-error';
 						}
+					} else {
+						$response['message'] = __( 'Please check your EngagingNetworks plugin settings', 'planet4-master-theme-backend' );
+						$response['class']   = 'cp-error';
 					}
 
 					if ( $response ) {
@@ -233,9 +244,9 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 		}
 
 		/**
-		 * Adds a check button to check the Indexer of the SearchWP plugin.
+		 * Adds a check button to check communication to the ES cluster.
 		 */
-		public function check_search_indexer() {
+		public function check_elasticsearch() {
 			// If this is an ajax call.
 			if ( wp_doing_ajax() ) {
 				// Allow this action only to Administrators.
@@ -247,28 +258,15 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 				$cp_action = filter_input( INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING );
 
 				// CSRF check and action check.
-				if ( wp_verify_nonce( $cp_nonce, 'cp-action' ) && 'check_search_indexer' === $cp_action ) {
-					$threshold = 180;   // Period in seconds over which the Indexer will be considered stalled.
-					$response  = [];
+				if ( wp_verify_nonce( $cp_nonce, 'cp-action' ) && 'check_elasticsearch' === $cp_action ) {
+					$response = [];
 
-					$last_activity = searchwp_get_setting( 'last_activity', 'stats' );
-					$running       = searchwp_get_setting( 'running' );
-					$doing_delta   = searchwp_get_option( 'doing_delta' );
-					$busy          = searchwp_get_option( 'busy' );
-
-					if ( ! is_null( $last_activity ) && false !== $last_activity ) {
-						// If more than $threshold seconds have passed and the Indexer
-						// is not running or doing_delta or busy then consider it stalled.
-						if (
-							( current_time( 'timestamp' ) > $last_activity + absint( $threshold ) )
-							&& ! $running && ! $doing_delta && ! $busy
-						) {
-							$response['message'] = __( 'Indexer has stalled', 'planet4-master-theme-backend' );
-							$response['class']   = 'cp-error';
-						} else {
-							$response['message'] = __( 'Indexer is awake', 'planet4-master-theme-backend' );
-							$response['class']   = 'cp-success';
-						}
+					if ( ( new ES() )->get_elasticsearch_version() ) {   // For version up to 2.8.* we can call ep_elasticsearch_can_connect() to check connection.
+						$response['message'] = __( 'Planet4 is connected to Elasticsearch', 'planet4-master-theme-backend' );
+						$response['class']   = 'cp-success';
+					} else {
+						$response['message'] = __( 'Planet4 is not connected to Elasticsearch', 'planet4-master-theme-backend' );
+						$response['class']   = 'cp-error';
 					}
 
 					if ( $response ) {
@@ -289,7 +287,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 			}
 			$theme_dir = get_template_directory_uri();
 			wp_enqueue_style( 'dashboard-style', "$theme_dir/assets/css/dashboard.css", [], '0.1.0' );
-			wp_enqueue_script( 'dashboard-script', "$theme_dir/assets/js/dashboard.js", [ 'jquery' ], '0.1.0', true );
+			wp_enqueue_script( 'dashboard-script', "$theme_dir/assets/js/dashboard.js", [ 'jquery' ], '0.2.0', true );
 		}
 	}
 }
