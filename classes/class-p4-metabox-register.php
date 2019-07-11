@@ -95,28 +95,31 @@ class P4_Metabox_Register {
 
 		$p4_header->add_field(
 			[
-				'name' => __( 'Header Button Title', 'planet4-master-theme-backend' ),
-				'desc' => __( 'Header button title comes here', 'planet4-master-theme-backend' ),
-				'id'   => $this->prefix . 'button_title',
-				'type' => 'text_medium',
+				'name'       => __( 'Header Button Title', 'planet4-master-theme-backend' ),
+				'desc'       => __( 'Header button title comes here', 'planet4-master-theme-backend' ),
+				'id'         => $this->prefix . 'button_title',
+				'type'       => 'text_medium',
+				'show_on_cb' => [ $this, 'is_not_campaign_post' ],
 			]
 		);
 
 		$p4_header->add_field(
 			[
-				'name' => __( 'Header Button Link', 'planet4-master-theme-backend' ),
-				'desc' => __( 'Header button link comes here', 'planet4-master-theme-backend' ),
-				'id'   => $this->prefix . 'button_link',
-				'type' => 'text_medium',
+				'name'       => __( 'Header Button Link', 'planet4-master-theme-backend' ),
+				'desc'       => __( 'Header button link comes here', 'planet4-master-theme-backend' ),
+				'id'         => $this->prefix . 'button_link',
+				'type'       => 'text_medium',
+				'show_on_cb' => [ $this, 'is_not_campaign_post' ],
 			]
 		);
 
 		$p4_header->add_field(
 			[
-				'name' => __( 'New Tab', 'planet4-master-theme-backend' ),
-				'desc' => __( 'Open header button link in new tab', 'planet4-master-theme-backend' ),
-				'id'   => $this->prefix . 'button_link_checkbox',
-				'type' => 'checkbox',
+				'name'       => __( 'New Tab', 'planet4-master-theme-backend' ),
+				'desc'       => __( 'Open header button link in new tab', 'planet4-master-theme-backend' ),
+				'id'         => $this->prefix . 'button_link_checkbox',
+				'type'       => 'checkbox',
+				'show_on_cb' => [ $this, 'is_not_campaign_post' ],
 			]
 		);
 
@@ -416,5 +419,14 @@ class P4_Metabox_Register {
 
 		$added = true;
 		wp_enqueue_script( 'cmb2_form_validation', get_template_directory_uri() . '/admin/js/cmb2_form_validation.js', [], '0.1', true );
+	}
+
+	/**
+	 * Checks if current post is not of campaign post type.
+	 *
+	 * @return bool
+	 */
+	public function is_not_campaign_post() {
+		return P4_Post_Campaign::POST_TYPE !== get_post_type();
 	}
 }
