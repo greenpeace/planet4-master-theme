@@ -1,0 +1,137 @@
+workflows:
+  version: 2
+  main:
+    jobs:
+      - php72-build
+      - php73-build
+      - build-and-test-codeception:
+          context: org-global
+          filters:
+            branches:
+              ignore: languages
+version: 2
+
+job-references:
+  mysql_image: &mysql_image
+    circleci/mysql:5.7
+
+  setup_environment: &setup_environment
+    name: "Setup Environment Variables"
+    command: |
+      echo "export PATH=$HOME/.composer/vendor/bin:$PATH" >> $BASH_ENV
+      source /home/circleci/.bashrc
+
+  install_dependencies: &install_dependencies
+    name: "Install Dependencies"
+    command: |
+      composer install --dev
+
+  php_job: &php_job
+    environment:
+      - WP_TESTS_DIR: "/tmp/wordpress-tests-lib"
+      - WP_CORE_DIR: "/tmp/wordpress/"
+    steps:
+      - checkout
+      - run: *setup_environment
+      - run: *install_dependencies
+      - run:
+          name: "phpcs"
+          command: |
+            mkdir -p /tmp/test-results/phpcs
+            vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs
+            vendor/bin/phpcs --report=junit --report-file=/tmp/test-results/phpcs/$CIRCLE_STAGE.xml
+      - run:
+          name: "phpunit"
+          when: always
+          command: |
+            mkdir -p /tmp/test-results/phpunit
+            rm -rf $WP_TESTS_DIR $WP_CORE_DIR
+            bash bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 latest
+            vendor/bin/phpunit --log-junit /tmp/test-results/phpunit/$CIRCLE_STAGE.xml --coverage-html /tmp/coverage-report --coverage-text
+      - run:
+          name: "stylelint"
+          when: always
+          command: stylelint $HOME/project/assets/scss/**/*.scss $HOME/project/assets/css/*.css $HOME/project/admin/css/*.css $HOME/project/admin/scss/*.scss
+      - run:
+          name: "eslint"
+          when: always
+          command: eslint $HOME/project/assets/js/**/*.js $HOME/project/admin/js/blocks/*.js
+      - store_test_results:
+          path: /tmp/test-results
+
+
+jobs:
+  php72-build:
+    <<: *php_job
+    docker:
+      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.2-develop
+      - image: *mysql_image
+
+  php73-build:
+    <<: *php_job
+    docker:
+      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.3-develop
+      - image: *mysql_image
+
+  build-and-test-codeception:
+    docker:
+      - image: greenpeaceinternational/p4-builder:latest
+    working_directory: /home/circleci/
+    environment:
+      APP_HOSTNAME: www.planet4.test
+      APP_HOSTPATH:
+      CLOUDSQL_INSTANCE: p4-develop-k8s
+      CONTAINER_PREFIX: planet4-base
+      GOOGLE_PROJECT_ID: planet-4-151612
+      HELM_NAMESPACE: develop
+      TYPE: "Build"
+      WP_DB_NAME: planet4-base_wordpress
+      WP_TITLE: Greenpeace Base Development
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Build - Configure
+          command: |
+            activate-gcloud-account.sh
+            mkdir -p /tmp/workspace/var
+            mkdir -p /tmp/workspace/src
+            echo "${CIRCLE_BUILD_NUM}" > /tmp/workspace/var/circle-build-num
+      - run:
+          name: Build - Build containers
+          working_directory: /home/circleci
+          command: |
+            echo "Plugin gutenberg blocks branch is ${CIRCLE_BRANCH}"
+            sleep 10
+            PLUGIN_GUTENBERG_BLOCKS_BRANCH=dev-${CIRCLE_BRANCH} MERGE_SOURCE=git@github.com:greenpeace/planet4-base-fork.git MERGE_REF=develop make
+      - run:
+          name: Test - Clone planet4-docker-compose
+          command: |
+            git clone https://github.com/greenpeace/planet4-docker-compose
+
+      - run:
+          name: Test - Run tests
+          command: |
+            export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
+            export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
+            export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
+            make -C planet4-docker-compose ci test
+
+      - run:
+          name: Test - Extract test artifacts
+          when: always
+          command: |
+            export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
+            export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
+            export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
+            make -C planet4-docker-compose ci-extract-artifacts
+
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - var
+
+      - store_test_results:
+          path: planet4-docker-compose/artifacts
+
+      - store_artifacts:
+          path: planet4-docker-compose/artifacts

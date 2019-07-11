@@ -1,0 +1,24 @@
+{
+  "name": "greenpeace/planet4-plugin-gutenberg-blocks",
+  "description": "This repository contains the WordPress plugin that provides the gutenberg blocks for Planet4 project",
+  "type": "wordpress-plugin",
+  "license": "GPL-3.0+",
+  "authors": [
+    {
+      "name": "Greenpeace International",
+      "email": "planet4-group@greenpeace.org"
+    }
+  ],
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.4.2",
+    "wp-coding-standards/wpcs": "^2.1.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.4.0",
+    "stevegrunwell/phpunit-markup-assertions": "^1.2",
+    "phpunit/phpunit": "^6.2"
+  },
+  "require": {},
+  "scripts": {
+    "fixes": "vendor/bin/phpcbf",
+    "sniffs": "vendor/bin/phpcs"
+  }
+}
