@@ -15,6 +15,22 @@ namespace P4GBKS\Blocks;
 class Base_Block {
 
 	/**
+	 * @param $attributes
+	 *
+	 * @return mixed
+	 */
+	public function render( $attributes ) {
+
+		$data = $this->prepare_data( $attributes );
+
+		\Timber::$locations = P4GBKS_PLUGIN_DIR . '/templates/blocks';
+
+		$coversBlock = \Timber::compile( static::BLOCK_NAME. '.twig', $data );
+
+		return $coversBlock;
+	}
+
+	/**
 	 * Outputs an error message.
 	 *
 	 * @param string $message Error message.

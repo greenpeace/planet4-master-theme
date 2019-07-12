@@ -61,7 +61,7 @@ if ( ! defined( 'P4GBKS_PLUGIN_SLUG_NAME' ) ) {
 	define( 'P4GBKS_PLUGIN_SLUG_NAME', 'blocks' );
 }
 if ( ! defined( 'P4GBKS_INCLUDES_DIR' ) ) {
-	define( 'P4GBKS_INCLUDES_DIR', P4GBKS_PLUGIN_DIR . '/includes/' );
+	define( 'P4GBKS_INCLUDES_DIR', P4GBKS_PLUGIN_DIR . '/templates/' );
 }
 if ( ! defined( 'P4GBKS_TEMPLATE_OVERRIDE_SUBDIR' ) ) {
 	define( 'P4GBKS_TEMPLATE_OVERRIDE_SUBDIR', '/templates/plugins/planet4-plugin-gutenberg-blocks/includes/' );

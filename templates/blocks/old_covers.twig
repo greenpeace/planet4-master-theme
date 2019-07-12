@@ -1,0 +1,67 @@
+{% block covers %}
+
+	{% if ( covers ) %}
+
+		{% if ( covers_view == "0" ) %}
+			{% set covers_view_class = 'show-3-covers' %}
+		{% elseif ( covers_view == "3" ) %}
+			{% set covers_view_class = 'show-6-covers' %}
+		{% else %}
+			{% set covers_view_class = 'show-all-covers' %}
+		{% endif %}
+
+		<section class="block covers-block {{ covers_view_class }}">
+			<div class="container">
+
+				{% if ( fields.title ) %}
+					<header>
+						<h2 class="page-section-header">{{ fields.title }}</h2>
+					</header>
+				{% endif %}
+				{% if ( fields.description ) %}
+					<p class="page-section-description">{{ fields.description|e('wp_kses_post')|raw }}</p>
+				{% endif %}
+
+				<div class="row limit-visibility">
+					{% for cover in covers %}
+						<div class="col-lg-4 col-md-6 cover-card-column">
+							<div class="cover-card card-one" style="background-image: url({{ cover.image }});">
+								<div class="cover-card-content">
+									{% if ( cover.tags ) %}
+										{% for tag in cover.tags %}
+											<a class="cover-card-tag"
+											   href="{{ tag.href|e('esc_url') }}">#{{ tag.name|e('wp_kses_post')|raw }}</a>
+										{% endfor %}
+									{% endif %}
+									<h2 class="cover-card-heading">{{ cover.title|e('wp_kses_post')|raw }}</h2>
+									<p>{{ cover.excerpt|truncate(20)|e('wp_kses_post')|raw }}</p>
+								</div>
+								<a class="btn btn-action btn-block cover-card-btn"
+									 href="{{ cover.button_link|e('esc_url') }}">{{ cover.button_text }}</a>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+
+				{% if ( fields.button_text ) %}
+					<div class="row">
+						{% if ( ( covers|length > 3 and covers_view == 0 ) or
+								( covers|length > 6 and covers_view == 3 ) ) %}
+							<div class="col-lg-5 col-md-12 load-more-covers-button-div">
+								<button class="btn btn-block btn-secondary btn-load-more-covers-click">{{ fields.button_text }}</button>
+							</div>
+						{% elseif ( ( covers|length == 3 and covers_view == 0 ) or
+									( covers|length in [5,6] and covers_view == 3 ) or
+									( covers|length > 4 and covers_view == 1 )) %}
+							<div class="col-lg-5 col-md-12 load-more-covers-button-div d-lg-none">
+								<button class="btn btn-block btn-secondary btn-load-more-covers-click">{{ fields.button_text }}</button>
+							</div>
+						{% endif %}
+					</div>
+				{% endif %}
+
+			</div>
+		</section>
+	{% endif %}
+
+{% endblock %}

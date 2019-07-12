@@ -90,15 +90,10 @@ final class Loader {
 		$this->load_files();
 		$this->check_requirements();
 
-		add_action( 'plugins_loaded', [ $this, 'load_i18n' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
-
-		// Register a block category.
-		add_filter( 'block_categories', [ $this, 'register_block_category' ], 10, 2 );
-
 		// Load Blocks.
 		$this->blocks = [
 			new Blocks\Covers(),
+			new Blocks\SubMenu(),
 		];
 	}
 
@@ -170,7 +165,14 @@ final class Loader {
 	 */
 	private function hook_plugin() {
 		add_action( 'admin_menu', [ $this, 'load_i18n' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'load_admin_assets' ] );
+		// Load the editor scripts
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );
+
+		add_action( 'plugins_loaded', [ $this, 'load_i18n' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
+
+		// Register a block category.
+		add_filter( 'block_categories', [ $this, 'register_block_category' ], 10, 2 );
 		// Provide hook for other plugins.
 		do_action( 'p4gbks_plugin_loaded' );
 	}
@@ -278,14 +280,11 @@ final class Loader {
 	 *
 	 * @param string $hook The slug name of the current admin page.
 	 */
-	public function load_admin_assets( $hook ) {
+	public function enqueue_editor_scripts( $hook ) {
 		// Load the assets only on the plugin's pages.
-		if ( strpos( $hook, P4GBKS_PLUGIN_SLUG_NAME ) === false ) {
-			return;
-		}
-
-		wp_enqueue_style( 'p4gbks_admin_style', P4GBKS_ADMIN_DIR . 'css/admin.css', array(), '0.1' );
-		wp_enqueue_script( 'p4gbks_admin_script', P4GBKS_ADMIN_DIR . 'js/admin.js', array(), '0.1', true );
+//		if ( strpos( $hook, P4GBKS_PLUGIN_SLUG_NAME ) === false ) {
+//			return;
+//		}
 
 		wp_enqueue_style( 'wp-components' );
 
@@ -293,11 +292,10 @@ final class Loader {
 		// but not in the admin side.
 
 		wp_enqueue_style(
-			'p4ge-blocks',
-			P4GBKS_PLUGIN_URL . 'react-blocks/build/style.min.css', // - Bundled CSS for the blocks
-			[ 'bootstrap' ],
-			'0.1',
-			true
+			'p4gbks_admin_style',
+			P4GBKS_ADMIN_DIR . '../react-blocks/build/style.min.css', // - Bundled CSS for the blocks
+			[  ],
+			'0.1'
 		);
 
 		// Enqueue editor script for all Blocks in this Plugin.
@@ -309,7 +307,7 @@ final class Loader {
 				'wp-components',  // - Wordpress components
 				'wp-element',     // - WP React wrapper
 				'wp-data',        // - WP data helpers
-				'wp-i18n',         // - Exports the __() function
+				'wp-i18n',        // - Exports the __() function
 			],
 			'0.1',
 			true
@@ -320,7 +318,7 @@ final class Loader {
 		$reflection_vars = [
 			'home' => P4GBKS_PLUGIN_URL . '/public/',
 		];
-		wp_localize_script( 'planet4-gutenberg-experiments-editor-script', 'p4ge_vars', $reflection_vars );
+		wp_localize_script( 'planet4-blocks-script', 'p4ge_vars', $reflection_vars );
 	}
 
 	/**

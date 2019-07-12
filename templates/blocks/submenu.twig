@@ -1,0 +1,37 @@
+{% block submenu %}
+
+	{% if ( menu ) %}
+		<section class="block submenu-block
+			{% if style == 1 %}submenu-long{% endif %}
+			{% if style == 2 %}submenu-short{% endif %}
+			{% if style == 3 %}submenu-sidebar{% endif %}">
+
+			{% if ( title ) %}
+				<h2>{{ title }}</h2>
+			{% endif %}
+			<div class="submenu-menu">
+				{{ _self.show_menu(menu, 'submenu-item') }}
+			</div>
+		</section>
+
+		<a href="#" class="back-top">&nbsp;</a>
+	{% endif %}
+
+{% endblock %}
+
+{% macro show_menu(items, class) %}
+	<ul class={{ class }}>
+		{% for item in items %}
+			<li class="list-style-{{ item.style }} {% if item.link %}list-link{% else %}list-heading{% endif %}">
+				{% if ( item.link ) %}
+					<a href="#{{ item.id }}" class="icon-link submenu-link" data-hash="{{ item.hash }}">{{ item.text }}</a>
+				{% else %}
+					<span class="submenu-heading">{{ item.text }}</span>
+				{% endif %}
+				{% if ( item.children ) %}
+					{{ _self.show_menu(item.children, '') }}
+				{% endif %}
+			</li>
+		{% endfor %}
+	</ul>
+{% endmacro %}

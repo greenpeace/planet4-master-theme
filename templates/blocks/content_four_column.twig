@@ -1,0 +1,81 @@
+{% block content_four_column %}
+
+	{% if ( posts ) %}
+		{% if ( posts_view == 0) %}
+			{% set posts_view_class = 'show-1-row' %}
+		{% elseif ( posts_view == 3) %}
+			{% set posts_view_class = 'show-2-rows' %}
+		{% else %}
+			{% set posts_view_class = 'show-all-rows' %}
+		{% endif %}
+
+		<section class="block four-column-content {{ posts_view_class }}">
+			<div class="container">
+
+				{% if (title) %}
+					<h2 class="page-section-header">{{ title }}</h2>
+				{% endif %}
+
+				{% if (description) %}
+					<p class="page-section-description">{{ description|e('wp_kses_post')|raw }}</p>
+				{% endif %}
+
+				<div class="row publications-slider limit-visibility">
+					{% for post in posts %}
+						<div class="col-md-4 col-lg-3 post-column">
+							<div class="four-column-content-wrap clearfix">
+								<div class="four-column-content-info">
+									<div class="four-column-content-symbol">
+										{% if ( post.thumbnail ) %}
+											<a href="{{ post.link }}">
+												<img src="{{ post.thumbnail }}"
+													 alt="{{ post.alt_text }}"
+													 srcset="{{ post.srcset }}">
+											</a>
+										{% endif %}
+									</div>
+									<div class="four-column-content-information">
+										{% if ( post.post_title ) %}
+											<a href="{{ post.link }}">
+												<h4>{{ post.post_title|e('wp_kses_post')|raw }}</h4>
+											</a>
+										{% endif %}
+										{% if ( post.post_date ) %}
+											<p class="publication-date">{{ post.post_date|date('F Y') }}</p>
+										{% endif %}
+										{% if ( post.post_excerpt ) %}
+											<p class="d-none d-md-block">{{ post.post_excerpt|truncate( 30, true )|e('wp_kses_post')|raw }}</p>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+
+
+				{% if ( posts|length <= 4
+					or ( posts|length > 4 and posts|length <= 8 and posts_view == 3 )
+					or ( posts|length > 3 and posts|length <= 6 and posts_view == 3 )
+					or posts_view == 1 ) %}
+					<div class="row load-more-posts-button-div" style="display: none;">
+						<div class="col-md-12 col-lg-5 col-xl-5">
+							<button class="btn btn-block btn-secondary btn-load-more-posts-click">
+								{{ __( 'Load More', 'planet4-blocks' ) }}
+							</button>
+						</div>
+					</div>
+				{% else %}
+					<div class="row load-more-posts-button-div">
+						<div class="col-md-12 col-lg-5 col-xl-5">
+							<button class="btn btn-block btn-secondary btn-load-more-posts-click">
+								{{ __( 'Load More', 'planet4-blocks' ) }}
+							</button>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</section>
+	{% endif %}
+
+{% endblock %}
