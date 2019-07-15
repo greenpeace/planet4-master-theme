@@ -247,7 +247,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 			} else {
 
 				$tag_data     = get_term( $term_id );
-				$post_content = '[shortcake_newcovers cover_type="1" tags="' . $term_id . '" covers_view="0" /]
+				$post_content = '[shortcake_newcovers cover_type="1" tags="' . $term_id . '" covers_view="0" title="' . __( 'Things you can do', 'planet4-master-theme' ) . '"  description="' . __( 'We want you to take action because together we\'re strong.', 'planet4-master-theme' ) . '" /]
 
 [shortcake_articles tags="' . $term_id . '" ignore_categories="false" /]
 
