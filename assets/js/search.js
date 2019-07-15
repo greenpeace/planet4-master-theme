@@ -1,13 +1,13 @@
 /* global localizations */
 
-$ = jQuery; // eslint-disable-line no-global-assign.
+$ = jQuery; // eslint-disable-line no-global-assign
 
 // Search page.
 $(function() {
-  var $search_form      = $( '#search_form' );
-  var $load_more_button = $( '.btn-load-more-click-scroll' );
-  var load_more_count   = 0;
-  var loaded_more       = false;
+  const $search_form      = $( '#search_form' );
+  const $load_more_button = $( '.btn-load-more-click-scroll' );
+  let load_more_count   = 0;
+  let loaded_more       = false;
 
   $( '#search-type button' ).click(function() {
     $( '#search-type button' ).removeClass( 'active' );
@@ -31,15 +31,16 @@ $(function() {
 
   // Add all selected filters to the form submit.
   $search_form.on( 'submit', function() {
+    let $checkbox;
     if ( 0 === $('.filter-modal.show').length ) {
       $( 'input[name^="f["]:not(.modal-checkbox):checked' ).each( function() {
-        var $checkbox = $( this ).clone( true );
+        $checkbox = $( this ).clone( true );
         $checkbox.css('display', 'none');
         $search_form.append( $checkbox );
       } );
     } else {
       $( 'input[name^="f["].modal-checkbox:checked').each( function() {
-        var $checkbox = $( this ).clone( true );
+        $checkbox = $( this ).clone( true );
         $checkbox.css('display', 'none');
         $search_form.append( $checkbox );
       } );
@@ -84,9 +85,9 @@ $(function() {
   $load_more_button.off( 'click' ).on( 'click', function() {
     // If this button has this class then Lazy-loading is enabled.
     if ( $(this).hasClass( 'btn-load-more-async' ) ) {
-      var total_posts    = $(this).data('total_posts');
-      var posts_per_load = $(this).data('posts_per_load');
-      var next_page      = $(this).data( 'current_page' ) + 1;
+      const total_posts    = $(this).data('total_posts');
+      const posts_per_load = $(this).data('posts_per_load');
+      const next_page      = $(this).data( 'current_page' ) + 1;
       $(this).data( 'current_page', next_page );
 
       $.ajax({
@@ -97,7 +98,7 @@ $(function() {
           'search-action': 'get_paged_posts',
           'search_query':  $( '#search_input' ).val().trim(),
           'paged':         next_page,
-          'query-string':  decodeURIComponent( location.search ).substr( 1 )		// Ignore the ? in the search url (first char).
+          'query-string':  decodeURIComponent( location.search ).substr( 1 ) // Ignore the ? in the search url (first char).
         },
         dataType: 'html'
       }).done(function ( response ) {
@@ -111,7 +112,7 @@ $(function() {
         console.log(errorThrown); //eslint-disable-line no-console
       });
     } else {
-      var $row = $( '.row-hidden', $load_more_button.closest( '.container' ) );
+      const $row = $( '.row-hidden', $load_more_button.closest( '.container' ) );
 
       if ( 1 === $row.length ) {
         $load_more_button.closest( '.load-more-button-div' ).hide( 'fast' );

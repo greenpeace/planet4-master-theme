@@ -18,9 +18,6 @@ $context             = Timber::get_context();
 $context['taxonomy'] = get_queried_object();
 $context['wp_title'] = $context['taxonomy']->name;
 
-wp_register_script( 'load_more', get_template_directory_uri() . '/assets/js/load_more.js', [ 'jquery', 'main' ], '0.0.2', true );
-wp_enqueue_script( 'load_more' );
-
 $post_args = [
 	'posts_per_page' => 10,
 	'post_type'      => 'post',

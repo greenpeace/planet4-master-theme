@@ -1,6 +1,6 @@
 /* global ajaxurl */
 
-$ = jQuery; //eslint-disable-line no-global-assign
+$ = jQuery; // eslint-disable-line no-global-assign
 
 // Dashboard page.
 $(function() {
@@ -8,10 +8,10 @@ $(function() {
     if ( $(this).data('action') ) {  // Added this check in order to allow to do a usual page navigation instead of an ajax request.
       event.preventDefault();
 
-      var $btn = $(this);
-      var $response = $('.cp-subitem-response', $btn.parent());
-      var confirmation_text = $btn.data('confirm');
-      var answer;
+      const $btn = $(this);
+      const $response = $('.cp-subitem-response', $btn.parent());
+      const confirmation_text = $btn.data('confirm');
+      let answer;
 
       if (confirmation_text) {
         answer = confirm(confirmation_text);
