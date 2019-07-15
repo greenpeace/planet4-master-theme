@@ -20,6 +20,7 @@ const path_git_hooks = '.githooks/*';
 const path_icons = 'assets/scss/styleguide/src/icons/*.svg';
 const path_img = 'images/';
 const path_js = 'assets/js/*.js';
+const path_exclude_js = '!assets/js/search.js';
 const path_js_admin = 'admin/js/*.js';
 const path_scss = 'assets/scss/**/*.scss';
 const path_style = 'assets/scss/style.scss';
@@ -78,7 +79,7 @@ function sass() {
 }
 
 function uglify() {
-  return gulp.src(path_js)
+  return gulp.src([path_js, path_exclude_js])
     .pipe(plumber(error_handler))
     .pipe(sourcemaps.init())
     .pipe(concat('main.js'))
