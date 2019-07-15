@@ -16,8 +16,11 @@ $(document).on('ready', function() {
   }
 
   $('.post-content img').each(function() {
-    $(this).off('click').on('click', function() {
-      zoomImage(this);
-    });
+    const isInBlock = $(this).parents('.block').length;
+    if (!isInBlock) {
+      $(this).off('click').on('click', function() {
+        zoomImage(this);
+      });
+    }
   });
 });
