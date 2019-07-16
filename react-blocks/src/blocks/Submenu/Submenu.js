@@ -1,20 +1,16 @@
-import {React, Component} from 'react';
+import {React, Component, Fragment} from 'react';
 import {
-  CheckboxControl,
-  SelectControl,
+  Button,
   TextControl,
   ServerSideRender
 } from '@wordpress/components';
 import {LayoutSelector} from '../../components/LayoutSelector/LayoutSelector';
 import {Preview} from '../../components/Preview';
+import {MenuLevel} from "./MenuLevel";
 
 export class Submenu extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tagTokens: [],
-      postTypeTokens: []
-    };
   }
 
   renderEdit() {
@@ -23,6 +19,11 @@ export class Submenu extends Component {
     return (
 
       <div>
+        <h2>{__('Anchor Link Submenu', 'p4ge')}</h2>
+        <p><i>{__(
+          'An in-page table of contents to help users have a sense of what\'s on the page and let them jump to a topic they are interested in.',
+          'p4ge'
+        )}</i></p>
         <h3>{__('What style of menu do you need?', 'p4ge')}</h3>
 
         <div>
@@ -51,7 +52,6 @@ export class Submenu extends Component {
           />
         </div>
 
-
         <div>
           <TextControl
             label="Submenu Title"
@@ -61,123 +61,57 @@ export class Submenu extends Component {
           />
         </div>
 
-        <div>
-          <br/>
-          <div>Level 1</div>
-          <SelectControl
-            label="Submenu item"
-            help="Submenu item"
-            value={this.props.heading1}
-            options={[
-              {label: 'None', value: '0'},
-              {label: 'Heading 1', value: '1'},
-              {label: 'Heading 2', value: '2'},
-            ]}
-            onChange={this.props.onHeadingChange}
-            className='block-attribute-wrapper'
-          />
-
-          <CheckboxControl
-            label="Link"
-            help="Submenu item"
-            value={this.props.link1}
-            checked={this.props.link1}
-            onChange={this.props.onRowsChange}
-            className="block-attribute-wrapper"
-          />
-
-          <SelectControl
-            label="List style"
-            help="List style"
-            value={this.props.style1}
-            options={[
-              {label: 'None', value: 'none'},
-              {label: 'Bullet', value: 'bullet'},
-              {label: 'Number', value: 'number'},
-            ]}
-            onChange={this.props.onRowsChange}
-            className='block-attribute-wrapper'
-          />
-        </div>
+        <hr/>
+        {this.props.levels.map((heading, i) => {
+          return (
+            <MenuLevel
+              {...heading}
+              onHeadingChange={this.props.onHeadingChange}
+              onLinkChange={this.props.onLinkChange}
+              onStyleChange={this.props.onStyleChange}
+              index={i}
+            />
+          );
+        })}
 
         <div>
-          <div>Level 2</div>
-          <SelectControl
-            label="Submenu item"
-            help="Submenu item"
-            value={this.props.heading2}
-            options={[
-              {label: 'None', value: '0'},
-              {label: 'Heading 1', value: '1'},
-              {label: 'Heading 2', value: '2'},
-            ]}
-            onChange={this.props.onRowsChange}
-            class="sdaf"
-            className='block-attribute-wrapper'
-          />
-
-          <CheckboxControl
-            label="Link"
-            help="Submenu item"
-            value={this.props.link1}
-            checked={this.props.link1}
-            onChange={this.props.onRowsChange}
-            className="block-attribute-wrapper"
-          />
-
-          <SelectControl
-            label="List style"
-            help="List style"
-            value={this.props.style2}
-            options={[
-              {label: 'None', value: 'none'},
-              {label: 'Bullet', value: 'bullet'},
-              {label: 'Number', value: 'number'},
-            ]}
-            onChange={this.props.onRowsChange}
-            className='block-attribute-wrapper'
-          />
+          <Button isPrimary
+                  onClick={this.props.addLevel}
+                  disabled={this.props.levels.length >= 3 || this.props.levels.slice(-1)[0].heading === 0}
+          >
+            Add level
+          </Button>
+          <Button isDefault
+                  onClick={this.props.removeLevel} disabled={this.props.levels.length <= 1}
+          >
+            Remove level
+          </Button>
         </div>
-
-        {/*{*/}
-        {/*	this.props.submenu_style === 3 &&*/}
-        {/*	(this.props.tags.length === 0 || this.props.post_types.length === 0)*/}
-        {/*	? <div>*/}
-        {/*			<label>Manual override</label>*/}
-        {/*			<FormTokenField*/}
-        {/*				value={ this.props.selectedPosts }*/}
-        {/*				suggestions={ postsSuggestions }*/}
-        {/*				label='CAUTION: Adding covers manually will override the automatic functionality.*/}
-        {/*				DRAG & DROP: Drag and drop to reorder cover display priority.'*/}
-        {/*				onChange={ tokens => this.props.onSelectedPostsChange(tokens) }*/}
-        {/*				placeholder="Select Tags"*/}
-        {/*			/>*/}
-        {/*		</div>*/}
-        {/*	: null*/}
-        {/*}*/}
-
       </div>
     );
   }
 
   render() {
     return (
-      <div>
+      <Fragment>
         {
           this.props.isSelected
             ? this.renderEdit()
             : null
         }
-        {/*<Preview showBar={ this.props.isSelected }>*/}
-        {/*	<ServerSideRender*/}
-        {/*		block={ 'planet4-blocks/submenu' }*/}
-        {/*		attributes={{*/}
-        {/*			submenu_style: this.props.submenu_style,*/}
-        {/*			title: this.props.title,*/}
-        {/*		}}>*/}
-        {/*	</ServerSideRender>*/}
-        {/*</Preview>*/}
-      </div>
+        <Preview showBar={this.props.isSelected}>
+          <ServerSideRender
+            block={'planet4-blocks/submenu'}
+            attributes={{
+              submenu_style: this.props.submenu_style,
+              title: this.props.title,
+              levels: this.props.levels,
+            }}
+            urlQueryArgs={{post_id: document.querySelector('#post_ID').value}}
+          >
+          </ServerSideRender>
+        </Preview>
+      </Fragment>
     );
-  }
-};
+  };
+}
