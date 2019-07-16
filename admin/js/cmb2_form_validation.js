@@ -9,12 +9,12 @@ jQuery(document).ready(function($) {
   }
 
   function checkValidation( evt ) {
-    var labels = [];
-    var $first_error_row = null;
-    var $row = null;
+    let labels = [];
+    let $first_error_row = null;
+    let $row = null;
 
     function add_required( $row ) {
-      $row.css({ 'background-color': 'rgb(255, 170, 170)' });
+      $row.css({'background-color': 'rgb(255, 170, 170)'});
       $first_error_row = $first_error_row ? $first_error_row : $row;
       labels.push( $row.find( '.cmb-th label' ).text() );
     }
@@ -24,9 +24,9 @@ jQuery(document).ready(function($) {
     }
 
     $toValidate.each( function() {
-      var $this = $(this);
-      var val   = $this.val();
-      $row      = $this.parents( '.cmb-row' );
+      const $this = $(this);
+      const val = $this.val();
+      $row = $this.parents( '.cmb-row' );
 
       if ( $this.is( '[type="button"]' ) || $this.is( '.cmb2-upload-file-id' ) ) {
         return true;
@@ -36,7 +36,7 @@ jQuery(document).ready(function($) {
       if ( 'campaign' === $( '#post_type' ).val() && 'required' === $this.data( 'validation' ) ) {
         if ( $row.is( '.cmb-type-file-list' ) ) {
 
-          var has_LIs = $row.find( 'ul.cmb-attach-list li' ).length > 0;
+          const has_LIs = $row.find( 'ul.cmb-attach-list li' ).length > 0;
 
           if ( ! has_LIs ) {
             add_required( $row );
@@ -58,7 +58,7 @@ jQuery(document).ready(function($) {
     if ( $first_error_row ) {
       evt.preventDefault();
       // Open campaign fields postbox, if closed.
-      var p4_postbox = $first_error_row.parents( '.cmb2-postbox' );
+      const p4_postbox = $first_error_row.parents( '.cmb2-postbox' );
       if ( 'p4_campaign_fields' === p4_postbox.attr( 'id' ) && p4_postbox.hasClass( 'closed' ) ) {
         $htmlbody.find( '#p4_campaign_fields' ).removeClass( 'closed' );
       }
