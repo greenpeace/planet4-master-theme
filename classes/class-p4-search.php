@@ -800,7 +800,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		public function enqueue_public_assets() {
 			if ( is_search() ) {
 				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [ 'jquery' ], '0.2.8', true );
-				wp_localize_script( 'search', 'localizations', $this->localizations );
+				wp_localize_script( 'main', 'localizations', $this->localizations );
 				wp_enqueue_script( 'search' );
 			}
 		}
