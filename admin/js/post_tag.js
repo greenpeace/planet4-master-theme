@@ -9,11 +9,11 @@ $(document).ready(function() {
   */
   $('.insert-media').off('click').on('click', function () {
     if ( typeof wp !== 'undefined' ) {
-      var field      = $(this).closest('.form-field');
-      var add_field  = $(this).closest('.add-wrap');
-      var edit_field = $(this).closest('.edit-wrap');
+      const field      = $(this).closest('.form-field');
+      const add_field  = $(this).closest('.add-wrap');
+      const edit_field = $(this).closest('.edit-wrap');
 
-      var media_modal = wp.media({
+      const media_modal = wp.media({
         title: localizations.media_title,
         library: {
           type: 'image'
@@ -22,7 +22,7 @@ $(document).ready(function() {
       });
 
       media_modal.on('select', function () {
-        var $selected_image = media_modal.state().get('selection').first().toJSON();
+        const $selected_image = media_modal.state().get('selection').first().toJSON();
         $('.field-id', field).val($selected_image.id);
         $('.field-url', field).val($selected_image.url);
         $('.attachment-thumbnail', add_field).attr('src', $selected_image.sizes.thumbnail.url);
@@ -47,7 +47,7 @@ $(document).ready(function() {
   });
 
   $('.dashicons-dismiss').off('click').on('click', function () {
-    var field = $(this).closest('.form-field');
+    const field = $(this).closest('.form-field');
 
     $('.field-id', field).val(0);
     $('.field-url', field).val('');

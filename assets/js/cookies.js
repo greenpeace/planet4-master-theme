@@ -1,15 +1,16 @@
 /* global dataLayer */
 function createCookie(name, value, days) {
-  var date = new Date();
+  let date = new Date();
   date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
   document.cookie = encodeURI(name) + '=' + encodeURI(value) + ';domain=.' + document.domain + ';path=/;' + '; expires=' + date.toGMTString();
 }
 
 function readCookie(name) {
-  var nameEQ = name + '=';
-  var ca = document.cookie.split(';');
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
+  const nameEQ = name + '=';
+  const ca = document.cookie.split(';');
+  let c;
+  for (let i = 0; i < ca.length; i++) {
+    c = ca[i];
     while (c.charAt(0) === ' ') {
       c = c.substring(1, c.length);
     }
@@ -25,6 +26,7 @@ $(document).ready(function () {
 
   const cookie = readCookie('greenpeace');
   const nro = $('body').data('nro');
+
   if (cookie == null) {
     $('.cookie-notice').show();
     const height = $('.cookie-notice').height();

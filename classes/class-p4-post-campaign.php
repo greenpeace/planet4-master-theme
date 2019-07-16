@@ -382,7 +382,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		 * Load assets.
 		 */
 		public function enqueue_admin_assets() {
-			wp_register_style( 'cmb-style', get_template_directory_uri() . '/assets/css/campaign.css' );
+			wp_register_style( 'cmb-style', get_template_directory_uri() . '/admin/css/campaign.css' );
 			wp_enqueue_style( 'cmb-style' );
 		}
 	}

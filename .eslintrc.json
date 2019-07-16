@@ -30,6 +30,7 @@
             "error",
             "always"
         ],
-        "new-cap": "error"
+        "new-cap": "error",
+        "no-var": 1
     }
 }

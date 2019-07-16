@@ -286,8 +286,8 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 				return;
 			}
 			$theme_dir = get_template_directory_uri();
-			wp_enqueue_style( 'dashboard-style', "$theme_dir/assets/css/dashboard.css", [], '0.1.0' );
-			wp_enqueue_script( 'dashboard-script', "$theme_dir/assets/js/dashboard.js", [ 'jquery' ], '0.2.0', true );
+			wp_enqueue_style( 'dashboard-style', "$theme_dir/admin/css/dashboard.css", [], '0.1.0' );
+			wp_enqueue_script( 'dashboard-script', "$theme_dir/admin/js/dashboard.js", [ 'jquery' ], '0.2.0', true );
 		}
 	}
 }
