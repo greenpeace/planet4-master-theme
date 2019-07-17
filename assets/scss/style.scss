@@ -12,8 +12,34 @@ Tags: light, accessibility-ready
 Text Domain: planet4-master-theme
 */
 
-// Base
+// Main variables
 @import "styleguide/src/base/variables";
+
+// Import Bootstrap entirely
+// $body-bg: blue;
+// $grid-columns: 12;
+// $grid-gutter-width: 16px;
+
+// $container-max-widths: (
+//   sm: $page-width-sm,
+//   md: $page-width-md,
+//   lg: $page-width-lg,
+//   xl: $page-width-xl
+// );
+
+// Required
+// @import "../../node_modules/bootstrap/scss/functions";
+// @import "../../node_modules/bootstrap/scss/variables";
+// @import "../../node_modules/bootstrap/scss/mixins";
+
+// // Optional
+// @import "../../node_modules/bootstrap/scss/reboot";
+// @import "../../node_modules/bootstrap/scss/type";
+// @import "../../node_modules/bootstrap/scss/images";
+// @import "../../node_modules/bootstrap/scss/code";
+// @import "../../node_modules/bootstrap/scss/grid";
+
+// Base
 @import "styleguide/src/base/colors";
 @import "styleguide/src/base/functions";
 @import "styleguide/src/base/mixins";

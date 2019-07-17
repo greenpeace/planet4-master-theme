@@ -28,5 +28,8 @@
 		"last 2 version",
 		"> 0.2%",
 		"not dead"
-	]
+	],
+	"dependencies": {
+		"bootstrap": "^4.1.1"
+	}
 }
