@@ -1,4 +1,5 @@
-jQuery(document).ready(function($) {
+$(document).ready(function() {
+  'use strict';
 
   let $form       = $( document.getElementById( 'post' ) );
   let $htmlbody   = $( 'html, body' );

@@ -1,9 +1,9 @@
 /* global ajaxurl */
 
-$ = jQuery; // eslint-disable-line no-global-assign
-
 // Dashboard page.
-$(function() {
+$(document).ready(function() {
+  'use strict';
+
   $('.btn-cp-action').off('click').on('click', function (event) {
     if ( $(this).data('action') ) {  // Added this check in order to allow to do a usual page navigation instead of an ajax request.
       event.preventDefault();

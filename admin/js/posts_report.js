@@ -1,6 +1,7 @@
-/* global jQuery */
+/* global $ */
 
-(function ($) {
+$(document).ready(function() {
+  'use strict';
 
   let postCollection;
   let pageCollection;
