@@ -3,7 +3,12 @@
 <head>
 	<meta charset="{{ site.charset }}">
 	<title>{% if wp_title %}{{ wp_title|e('esc_html')|raw }} - {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
-	<meta name="description" content="{{ site.description }}">
+
+	{% if (post.post_excerpt) %}
+		<meta name="description" content="{{ post.post_excerpt|striptags }}">
+	{% else %}
+		<meta name="description" content="{{ site.description }}">
+	{% endif %}
 
 	{% if not (og_title is defined)  %}
 		{% if (wp_title) %}
