@@ -27,7 +27,8 @@ class Base_Block {
 
 		$coversBlock = \Timber::compile( static::BLOCK_NAME. '.twig', $data );
 
-		return $coversBlock;
+		// Return empty string if rendered output contains only whitespace or new lines.
+		return ctype_space( $coversBlock ) ? '' : $coversBlock;
 	}
 
 	/**

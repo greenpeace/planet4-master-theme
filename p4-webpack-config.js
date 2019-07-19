@@ -1,13 +1,15 @@
 const defaultConfig = require("./node_modules/@wordpress/scripts/config/webpack.config");    // Require default Webpack config
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const TerserJSPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   ...defaultConfig,
   entry: {
     editorIndex: './react-blocks/src/editorIndex.js',
     frontendIndex: './react-blocks/src/frontendIndex.js',
-    blockStyles: './react-blocks/src/styles/style.scss'
+    style: './react-blocks/src/styles/style.scss',
+    editorStyle: './react-blocks/src/styles/editorStyle.scss'
   },
   output: {
     filename: '[name].js',
@@ -19,7 +21,12 @@ module.exports = {
       ...defaultConfig.module.rules,
       {
         test: /\.(sass|scss)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'resolve-url-loader', 'sass-loader']
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/,
+        use:
+          ['url-loader']
       }
     ]
   },
@@ -27,14 +34,16 @@ module.exports = {
     ...defaultConfig.plugins,
     // extract css into dedicated file
     new MiniCssExtractPlugin({
-      filename: './style.min.css'
-    })
+      chunkFilename: '[id].css',
+      ignoreOrder: false, // Enable to remove warnings about conflicting order
+      filename: './[name].min.css'
+    }),
   ],
   optimization: {
     ...defaultConfig.optimization,
     minimizer: [
       // enable the css minification plugin
-      new OptimizeCSSAssetsPlugin({})
+      new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})
     ]
   }
 };

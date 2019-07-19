@@ -281,10 +281,6 @@ final class Loader {
 	 * @param string $hook The slug name of the current admin page.
 	 */
 	public function enqueue_editor_scripts( $hook ) {
-		// Load the assets only on the plugin's pages.
-//		if ( strpos( $hook, P4GBKS_PLUGIN_SLUG_NAME ) === false ) {
-//			return;
-//		}
 
 		wp_enqueue_style( 'wp-components' );
 
@@ -293,7 +289,14 @@ final class Loader {
 
 		wp_enqueue_style(
 			'p4gbks_admin_style',
-			P4GBKS_ADMIN_DIR . '../react-blocks/build/style.min.css', // - Bundled CSS for the blocks
+			P4GBKS_PLUGIN_URL . 'react-blocks/build/editorStyle.min.css', // - Bundled CSS for the blocks
+			[  ],
+			'0.1'
+		);
+
+		wp_enqueue_style(
+			'p4gbks_style',
+			P4GBKS_PLUGIN_URL . 'react-blocks/build/style.min.css', // - Bundled CSS for the blocks
 			[  ],
 			'0.1'
 		);
