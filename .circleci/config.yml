@@ -2,7 +2,7 @@ workflows:
   version: 2
   main:
     jobs:
-      - php70-build
+      - php72-build
       - php73-build
       - build-and-test-codeception:
           context: org-global
@@ -71,10 +71,10 @@ job-references:
 
 
 jobs:
-  php70-build:
+  php72-build:
     <<: *php_job
     docker:
-      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.0-develop
+      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.2-develop
       - image: *mysql_image
 
   php73-build:
