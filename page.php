@@ -80,6 +80,8 @@ $context['cf_scope']         = $page_meta_data['p4_scope'][0] ?? '';
 $context['cf_department']    = $page_meta_data['p4_department'][0] ?? '';
 
 if ( post_password_required( $post->ID ) ) {
+	$context['login_url'] = wp_login_url();
+
 	Timber::render( 'single-page.twig', $context );
 } else {
 	Timber::render( [ 'page-' . $post->post_name . '.twig', 'page.twig' ], $context );
