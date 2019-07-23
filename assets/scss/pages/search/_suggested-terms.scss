@@ -38,7 +38,7 @@
       line-height: 2.3;
 
       @include medium-and-up {
-        font-size: 1.375rem;
+        font-size: $font-size-lg;
       }
 
       @include large-and-up {
@@ -46,7 +46,7 @@
       }
 
       @include x-large-and-up {
-        font-size: 1.375rem;
+        font-size: $font-size-lg;
       }
     }
   }
