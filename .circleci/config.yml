@@ -2,7 +2,7 @@ workflows:
   version: 2
   main:
     jobs:
-      - php70-build
+      - php72-build
       - php73-build
       - build-and-test-codeception:
           context: org-global
@@ -71,10 +71,10 @@ job-references:
 
 
 jobs:
-  php70-build:
+  php72-build:
     <<: *php_job
     docker:
-      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.0-develop
+      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.2-develop
       - image: *mysql_image
 
   php73-build:
@@ -147,9 +147,9 @@ jobs:
 
   rips-test:
     docker:
-      - image: rips/rips-cli:circleci
+      - image: rips/rips-cli:3
     environment:
-      RIPS_APPLICATION_ID: 32
+      RIPS_APPLICATION_ID: 21
     steps:
       - checkout
       - run: rips-cli -vvv rips:scan:start -a $RIPS_APPLICATION_ID -p ~/project/ -t 1

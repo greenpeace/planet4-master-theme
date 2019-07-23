@@ -29,6 +29,8 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		 */
 		private function hooks() {
 			add_action( 'init', [ $this, 'register_campaigns_cpt' ] );
+			add_action( 'init', [ $this, 'add_campaign_caps_admin' ] );
+			add_action( 'init', [ $this, 'add_campaigner_role' ] );
 			add_action( 'cmb2_admin_init', [ $this, 'register_campaigns_metaboxes' ] );
 			add_action( 'add_meta_boxes', [ $this, 'campaign_page_templates_meta_box' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
@@ -81,7 +83,8 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'show_in_menu'       => false,
 				'query_var'          => true,
 				'rewrite'            => [ 'slug' => 'campaign' ],
-				'capability_type'    => 'post',
+				'capability_type'    => [ 'campaign', 'campaigns' ],
+				'map_meta_cap'       => true,
 				'has_archive'        => true,
 				'taxonomies'         => [ 'category', 'post_tag' ],
 				'hierarchical'       => false,
@@ -91,6 +94,65 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			);
 
 			register_post_type( self::POST_TYPE, $args );
+		}
+
+		/**
+		 * Add Campaign capabilities to Administrator User.
+		 */
+		public function add_campaign_caps_admin() {
+			$role = get_role( 'administrator' );
+
+			$role->add_cap( 'edit_campaign' );
+			$role->add_cap( 'read_campaign' );
+			$role->add_cap( 'delete_campaign' );
+			$role->add_cap( 'edit_campaigns' );
+			$role->add_cap( 'edit_others_campaigns' );
+			$role->add_cap( 'publish_campaigns' );
+			$role->add_cap( 'read_private_campaigns' );
+			$role->add_cap( 'delete_campaigns' );
+			$role->add_cap( 'delete_private_campaigns' );
+			$role->add_cap( 'delete_published_campaigns' );
+			$role->add_cap( 'delete_others_campaigns' );
+			$role->add_cap( 'edit_private_campaigns' );
+			$role->add_cap( 'edit_published_campaigns' );
+		}
+
+		/**
+		 * Add Campaigner role.
+		 */
+		public function add_campaigner_role() {
+			add_role(
+				'campaigner',
+				__( 'Campaigner', 'planet4-master-theme-backend' ),
+				[
+					// General.
+					'read'                       => true,
+
+					// Media upload.
+					'upload_files'               => true,
+
+					// Edit(own), View, Delete(own) posts.
+					'edit_post'                  => true,
+					'read_post'                  => true,
+					'edit_posts'                 => true,
+					'delete_posts'               => true,
+
+					// Campaign capabilities.
+					'edit_campaign'              => true,
+					'read_campaign'              => true,
+					'delete_campaign'            => true,
+					'edit_campaigns'             => true,
+					'edit_others_campaigns'      => true,
+					'publish_campaigns'          => true,
+					'read_private_campaigns'     => true,
+					'delete_campaigns'           => true,
+					'delete_private_campaigns'   => true,
+					'delete_published_campaigns' => true,
+					'delete_others_campaigns'    => true,
+					'edit_private_campaigns'     => true,
+					'edit_published_campaigns'   => true,
+				]
+			);
 		}
 
 		/**

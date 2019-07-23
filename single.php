@@ -94,6 +94,8 @@ $context['post_comments_count'] = get_comments(
 $context['post_tags'] = implode( ', ', $post->tags() );
 
 if ( post_password_required( $post->ID ) ) {
+	$context['login_url'] = wp_login_url();
+
 	Timber::render( 'single-password.twig', $context );
 } else {
 	Timber::render( [ 'single-' . $post->ID . '.twig', 'single-' . $post->post_type . '.twig', 'single.twig' ], $context );
