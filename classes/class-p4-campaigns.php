@@ -94,6 +94,8 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 					'selected'         => $redirect_page,
 					'name'             => 'redirect_page',
 				];
+				$redirect_edit = '<a href="post.php?post=' . $redirect_page . '&action=edit" target="_blank">Edit</a>';
+
 				?>
 
 				<tr class="form-field edit-wrap">
@@ -101,7 +103,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 						<label><?php echo __( 'Redirect Page', 'planet4-master-theme-backend' ); ?></label>
 					</th>
 					<td>
-						<?php wp_dropdown_pages( $dropdown_args ); ?>
+						<?php wp_dropdown_pages( $dropdown_args ); ?> <?php echo $redirect_edit; ?>
 						<p class="description"><?php echo __( 'Leave this empty if you want to use the automated Tag page. Otherwise pick a page to redirect this Tag to.', 'planet4-master-theme-backend' ); ?></p>
 					</td>
 				</tr>
@@ -212,6 +214,9 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 			if ( $this->validate( $attachment_id ) ) {
 				update_term_meta( $term_id, $field_id, $attachment_id );
 				update_term_meta( $term_id, $field_url, $attachment_url );
+				$tag_attachment_id = $attachment_id;
+			} else {
+				$tag_attachment_id = '';
 			}
 
 			$field_id       = 'happypoint_attachment_id';
@@ -222,6 +227,9 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 			if ( $this->validate( $attachment_id ) ) {
 				update_term_meta( $term_id, $field_id, $attachment_id );
 				update_term_meta( $term_id, $field_url, $attachment_url );
+				$happy_background_code = ' background="' . $attachment_id . '" ';
+			} else {
+				$happy_background_code = '';
 			}
 
 			$field_id              = 'happypoint_bg_opacity';
@@ -229,11 +237,44 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 
 			if ( $this->validate( $happypoint_bg_opacity ) ) {
 				update_term_meta( $term_id, $field_id, $happypoint_bg_opacity );
+			} else {
+				$happypoint_bg_opacity = 30;
 			}
 
 			$redirect_page = $_POST['redirect_page'] ?? 0;
-			if ( ! is_null( get_post( $redirect_page ) ) || ! $redirect_page ) {
+			if ( ! is_null( get_post( $redirect_page ) ) && 0 != $redirect_page ) {
 				update_term_meta( $term_id, 'redirect_page', $redirect_page );
+			} else {
+
+				$tag_data = get_term( $term_id );
+
+				if ( WP_Error != $tag_data ) {
+					$post_content = '[shortcake_newcovers cover_type="1" tags="' . $term_id . '" covers_view="0" title="' . __( 'Things you can do', 'planet4-master-theme' ) . '"  description="' . __( 'We want you to take action because together we\'re strong.', 'planet4-master-theme' ) . '" /]
+
+[shortcake_articles tags="' . $term_id . '" ignore_categories="false" /]
+
+[shortcake_newcovers cover_type="3" title="' . __( 'Publications', 'planet4-blocks' ) . '" tags="' . $term_id . '" post_types="62" covers_view="0" /]
+
+[shortcake_happy_point ' . $happy_background_code . ' opacity="' . $happypoint_bg_opacity . '"/]';
+
+					$my_post = array(
+						'post_title'   => '#' . $tag_data->name,
+						'post_content' => $post_content,
+						'post_status'  => 'publish',
+						'post_type'    => 'page',
+					);
+
+					// Insert the post into the database.
+					$tag_page_id = wp_insert_post( $my_post );
+					if ( is_int( $tag_page_id ) ) {
+						update_post_meta( $tag_page_id, 'p4_description', $tag_data->description );
+					}
+
+					if ( $tag_attachment_id ) {
+						update_post_meta( $tag_page_id, 'background_image_id', $tag_attachment_id );
+					}
+					update_term_meta( $term_id, 'redirect_page', $tag_page_id );
+				}
 			}
 		}
 
