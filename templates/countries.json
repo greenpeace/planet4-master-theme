@@ -367,6 +367,10 @@
         {
           "name": "English",
           "url": "https://www.greenpeace.org/mena/en/"
+        },
+        {
+          "name": "Français",
+          "url": "https://www.greenpeace.org/mena/fr/"
         }
       ]
     }
