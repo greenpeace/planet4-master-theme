@@ -133,7 +133,7 @@
   margin-bottom: 10px;
 
   @include medium-and-up {
-    font-size: 1rem;
+    font-size: $font-size-sm;
     margin-bottom: 0;
   }
 
@@ -149,11 +149,11 @@
   margin-bottom: 30px;
 
   @include medium-and-up {
-    font-size: 0.875rem;
+    font-size: $font-size-xxs;
   }
 
   @include large-and-up {
-    font-size: 1rem;
+    font-size: $font-size-sm;
   }
 }
 
@@ -193,7 +193,7 @@
   font-size: 0.75rem;
 
   @include medium-and-up {
-    font-size: 0.875rem;
+    font-size: $font-size-xxs;
   }
 
   @include medium-and-up {
