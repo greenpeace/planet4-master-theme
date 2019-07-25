@@ -262,6 +262,19 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'#1A1A1A',
 			];
 
+			$nav_palette = [
+				'#FFFFFF',
+				'#E5E5E5',
+				'#32CA89',
+				'#1BB6D6',
+				'#22938D',
+				'#186A70',
+				'#043029',
+				'#093944',
+				'#042233',
+				'#1A1A1A',
+			];
+
 			$primary_palette = [
 				'#ffd204',
 				'#6ed961',
@@ -310,9 +323,9 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'type'       => 'colorpicker',
 					'classes'    => 'palette-only',
 					'attributes' => [
-						'data-colorpicker' => json_encode(
+						'data-colorpicker' => wp_json_encode(
 							[
-								'palettes' => $header_palette,
+								'palettes' => $nav_palette,
 							]
 						),
 					],
@@ -326,7 +339,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'type'       => 'colorpicker',
 					'classes'    => 'palette-only',
 					'attributes' => [
-						'data-colorpicker' => json_encode(
+						'data-colorpicker' => wp_json_encode(
 							[
 								'palettes' => $header_palette,
 							]
