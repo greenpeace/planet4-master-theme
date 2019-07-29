@@ -15,12 +15,12 @@
 }
 
 .result-statement {
-  font-size: 1.75rem;
+  font-size: $font-size-xl;
   margin-bottom: 8px;
   line-height: 1.2;
 
   @include small-and-up {
-    font-size: 3rem;
+    font-size: $font-size-xxxl;
   }
 
   @include large-and-up {
@@ -49,7 +49,7 @@
   }
 
   .search-help-info {
-    font-size: 1rem;
+    font-size: $font-size-sm;
     margin-bottom: 24px;
     padding-left: 20px;
     color: $grey-60;
@@ -67,7 +67,7 @@
     }
 
     @include x-large-and-up {
-      font-size: 1.375rem;
+      font-size: $font-size-lg;
       margin-bottom: 40px;
       padding-left: 50px;
     }

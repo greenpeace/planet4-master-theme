@@ -37,7 +37,7 @@
     }
 
     @include medium-and-up {
-      font-size: 1rem;
+      font-size: $font-size-sm;
       margin-bottom: 20px;
     }
 
@@ -51,7 +51,7 @@
   }
 
   h2 {
-    font-size: 1.375rem;
+    font-size: $font-size-lg;
     line-height: 1.2;
     margin-bottom: 15px;
     padding-top: 8px;
@@ -62,7 +62,7 @@
     }
 
     @include large-and-up {
-      font-size: 1.75rem;
+      font-size: $font-size-xl;
       margin-bottom: 20px;
     }
 
@@ -90,7 +90,7 @@
     }
 
     @include medium-and-up {
-      font-size: 1rem;
+      font-size: $font-size-sm;
       margin: 0 0 $n20 0;
       line-height: 1.6;
     }
@@ -285,7 +285,7 @@
   }
 
   @include medium-and-up {
-    font-size: 1rem;
+    font-size: $font-size-sm;
   }
 
   @include x-large-and-up {

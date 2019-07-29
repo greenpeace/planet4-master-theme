@@ -2,7 +2,7 @@
   position: relative;
 
   h4 {
-    font-size: 1.75rem;
+    font-size: $font-size-xl;
     margin-bottom: 48px;
     font-weight: bold;
   }
@@ -19,7 +19,7 @@
       color: $header-footer-bg;
       font-weight: bold;
       position: relative;
-      font-size: 1rem;
+      font-size: $font-size-sm;
       margin-bottom: 24px;
 
       @include small-and-up {
@@ -30,7 +30,7 @@
 
       @include large-and-up {
         padding: 11px $n30;
-        font-size: 1.25rem;
+        font-size: $font-size-md;
       }
 
       span {
@@ -116,7 +116,7 @@
       color: $grey;
 
       @include small-and-up {
-        font-size: 1rem;
+        font-size: $font-size-sm;
       }
 
       @include x-large-and-up {
@@ -137,7 +137,7 @@
     }
 
     .btn-filter {
-      font-size: 1rem;
+      font-size: $font-size-sm;
       height: 40px;
       width: 130px;
       line-height: 40px;
@@ -153,12 +153,12 @@
       }
 
       .icon {
-        font-size: 1.25rem;
+        font-size: $font-size-md;
         margin-right: 20px;
       }
 
       @include small-and-up {
-        font-size: 1rem;
+        font-size: $font-size-sm;
         height: 48px;
         width: 150px;
         line-height: 48px;
@@ -182,7 +182,7 @@
 
   .active-filter {
     h5 {
-      font-size: 1.25rem;
+      font-size: $font-size-md;
       color: $grey-40;
       margin-bottom: 20px;
     }
