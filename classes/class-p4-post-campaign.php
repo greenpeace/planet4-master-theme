@@ -305,7 +305,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$cmb->add_field(
 				[
-					'name'       => __( 'Navigation Color', 'planet4-master-theme-backend' ),
+					'name'       => __( 'Navigation Background Color', 'planet4-master-theme-backend' ),
 					'id'         => 'campaign_nav_color',
 					'type'       => 'colorpicker',
 					'classes'    => 'palette-only',
@@ -321,7 +321,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$cmb->add_field(
 				[
-					'name'       => __( 'Header Color', 'planet4-master-theme-backend' ),
+					'name'       => __( 'Header Text Color', 'planet4-master-theme-backend' ),
 					'id'         => 'campaign_header_color',
 					'type'       => 'colorpicker',
 					'classes'    => 'palette-only',
@@ -400,7 +400,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$cmb->add_field(
 				[
-					'name'       => __( 'Secondary Button Color', 'planet4-master-theme-backend' ),
+					'name'       => __( 'Secondary Button Color and Link Text Color', 'planet4-master-theme-backend' ),
 					'id'         => 'campaign_secondary_color',
 					'type'       => 'colorpicker',
 					'classes'    => 'palette-only',
