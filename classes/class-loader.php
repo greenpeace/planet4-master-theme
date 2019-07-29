@@ -165,7 +165,7 @@ final class Loader {
 	 */
 	private function hook_plugin() {
 		add_action( 'admin_menu', [ $this, 'load_i18n' ] );
-		// Load the editor scripts
+		// Load the editor scripts.
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );
 
 		add_action( 'plugins_loaded', [ $this, 'load_i18n' ] );
@@ -290,14 +290,14 @@ final class Loader {
 		wp_enqueue_style(
 			'p4gbks_admin_style',
 			P4GBKS_PLUGIN_URL . 'react-blocks/build/editorStyle.min.css', // - Bundled CSS for the blocks
-			[  ],
+			[],
 			'0.1'
 		);
 
 		wp_enqueue_style(
 			'p4gbks_style',
 			P4GBKS_PLUGIN_URL . 'react-blocks/build/style.min.css', // - Bundled CSS for the blocks
-			[  ],
+			[],
 			'0.1'
 		);
 

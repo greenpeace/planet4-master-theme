@@ -4,11 +4,7 @@ workflows:
     jobs:
       - php72-build
       - php73-build
-      - build-and-test-codeception:
-          context: org-global
-          filters:
-            branches:
-              ignore: languages
+
 version: 2
 
 job-references:
@@ -51,11 +47,11 @@ job-references:
       - run:
           name: "stylelint"
           when: always
-          command: stylelint $HOME/project/assets/scss/**/*.scss $HOME/project/assets/css/*.css $HOME/project/admin/css/*.css $HOME/project/admin/scss/*.scss
+          command: stylelint $HOME/project/react-blocks/src/styles/**/*.scss
       - run:
           name: "eslint"
           when: always
-          command: eslint $HOME/project/assets/js/**/*.js $HOME/project/admin/js/blocks/*.js
+          command: eslint public/js/**/*.js
       - store_test_results:
           path: /tmp/test-results
 

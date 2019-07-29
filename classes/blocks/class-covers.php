@@ -1,12 +1,16 @@
 <?php
-
 /**
+ * Covers block class
  *
+ * @package P4GBKS
+ * @since 0.1
  */
+
 namespace P4GBKS\Blocks;
 
 /**
  * Class Covers
+ *
  * @package P4GBKS\Blocks
  */
 class Covers extends Base_Block {
@@ -20,69 +24,83 @@ class Covers extends Base_Block {
 
 	const POSTS_LIMIT = 50;
 
+	/**
+	 * @param array  $attributes Block attributes.
+	 * @param string $content    Block content.
+	 *
+	 * @return mixed
+	 */
 	public function add_block_shortcode( $attributes, $content ) {
-		$attributes = shortcode_atts( [
-			'cover_type'  => 1,
-			'covers_view' => 1,
-			'title'       => '',
-			'description' => '',
-			'tags'        => [],
-		], $attributes, 'shortcake_newcovers' );
+		$attributes = shortcode_atts(
+			[
+				'cover_type'  => 1,
+				'covers_view' => 1,
+				'title'       => '',
+				'description' => '',
+				'tags'        => [],
+			],
+			$attributes,
+			'shortcake_newcovers'
+		);
 
-		$attributes['tags']       = [ 6, 8 ];// explode(',', $attributes['tags']);
+		$attributes['tags']       = explode( ',', $attributes['tags'] );
 		$attributes['cover_type'] = (int) $attributes['cover_type'];
 
 		return $this->render( $attributes );
 	}
 
+	/**
+	 * Covers constructor.
+	 */
 	public function __construct() {
 		add_shortcode( 'shortcake_newcovers', [ $this, 'add_block_shortcode' ] );
 
-		register_block_type( 'planet4-blocks/covers', [  // - Register the block for the editor
-			'editor_script'   => 'planet4-blocks',           //   in the PHP side.
-			'render_callback' => [ $this, 'render' ],                     // - This render callback will be exposed
-			//   to render the block.
+		register_block_type(
+			'planet4-blocks/covers',
+			[  // - Register the block for the editor
+				'editor_script'   => 'planet4-blocks',           // in the PHP side.
+				'render_callback' => [ $this, 'render' ],                     // - This render callback will be exposed
+			// to render the block.
 
-			// These attributes match the current fields
-			'attributes'      => [
-				'cover_type'  => [
-					'type'    => 'integer',
-					'default' => 1,
-				],
-				'covers_view' => [
-					'type'    => 'integer',
-					'default' => 1,
-				],
-				'title'       => [
-					'type'    => 'string',
-					'default' => '',
-				],
-				'description' => [
-					'type'    => 'description',
-					'default' => '',
-				],
-				'tags'        => [
-					'type'  => 'array',
-					'items' => [
-						'type' => 'integer', // Array definitions require an item type
+			// These attributes match the current fields.
+				'attributes'      => [
+					'cover_type'  => [
+						'type'    => 'integer',
+						'default' => 1,
+					],
+					'covers_view' => [
+						'type'    => 'integer',
+						'default' => 1,
+					],
+					'title'       => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'description' => [
+						'type'    => 'description',
+						'default' => '',
+					],
+					'tags'        => [
+						'type'  => 'array',
+						'items' => [
+							'type' => 'integer', // Array definitions require an item type.
+						],
+					],
+					'post_types'  => [
+						'type'  => 'array',
+						'items' => [
+							'type' => 'integer',
+						],
 					],
 				],
-				'post_types'  => [
-					'type'  => 'array',
-					'items' => [
-						'type' => 'integer',
-					],
-				],
-			],
-		] );
+			]
+		);
 	}
 
 	/**
 	 * Get all the data that will be needed to render the block correctly.
 	 *
 	 * @param array $fields This is the array of fields of this block.
-	 * @param string $content This is the post content.
-	 * @param string $shortcode_tag The shortcode tag of this block.
 	 *
 	 * @return array The data to be passed in the View.
 	 */
@@ -137,7 +155,6 @@ class Covers extends Base_Block {
 			];
 			// If user selected a tag to associate with the Take Action page covers.
 			if ( $tag_ids ) {
-				// $tag_ids         = explode( ',', $tag_ids );
 				$args['tag__in'] = $tag_ids;
 			}
 

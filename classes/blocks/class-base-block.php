@@ -15,7 +15,7 @@ namespace P4GBKS\Blocks;
 class Base_Block {
 
 	/**
-	 * @param $attributes
+	 * @param array $attributes Block attributes.
 	 *
 	 * @return mixed
 	 */

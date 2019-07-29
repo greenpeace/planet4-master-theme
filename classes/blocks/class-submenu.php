@@ -22,6 +22,9 @@ class Submenu extends Base_Block {
 	/** @const string BLOCK_NAME */
 	const BLOCK_NAME = 'submenu';
 
+	/**
+	 * Submenu constructor.
+	 */
 	public function __construct() {
 		// - Register the block for the editor
 		// in the PHP side.
@@ -40,7 +43,7 @@ class Submenu extends Base_Block {
 						'default' => '',
 					],
 					/**
-					 * levels is an array of objects.
+					 * Levels is an array of objects.
 					 * Object structure:
 					 * {
 					 *   heading: 'integer'
@@ -116,7 +119,7 @@ class Submenu extends Base_Block {
 
 		// make array of heading level metadata keyed by tag name.
 		$heading_meta = [];
-		$index=1;
+		$index        = 1;
 		foreach ( $levels as $level ) {
 			$heading = $this->heading_attributes( $level );
 			if ( ! $heading ) {
@@ -162,9 +165,9 @@ class Submenu extends Base_Block {
 	/**
 	 * Process flat array of DOM nodes to build up menu tree structure.
 	 *
-	 * @param int $current_level Current menu nesting level.
+	 * @param int        $current_level Current menu nesting level.
 	 * @param \DOMNode[] $nodes Array of heading DOM nodes, passed by reference.
-	 * @param array $heading_meta Metadata about each heading tag.
+	 * @param array      $heading_meta Metadata about each heading tag.
 	 *
 	 * @return array menu tree structure
 	 */
@@ -199,10 +202,10 @@ class Submenu extends Base_Block {
 	/**
 	 * Create a std object representing a node/heading.
 	 *
-	 * @param string $text Heading/menu item text.
-	 * @param string $type Type/name of the tag.
+	 * @param string      $text Heading/menu item text.
+	 * @param string      $type Type/name of the tag.
 	 * @param bool|string $link True if this menu item should link to the heading.
-	 * @param string $style List style for menu item.
+	 * @param string      $style List style for menu item.
 	 *
 	 * @return \stdClass
 	 */
