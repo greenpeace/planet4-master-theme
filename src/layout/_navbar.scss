@@ -394,7 +394,7 @@ $min-height: 40px;
       padding: 0 $n40 0 $n50;
       display: block;
       line-height: 2.8125rem;
-      font-size: 1rem;
+      font-size: $font-size-sm;
       margin: 0.5em 0;
 
       html[dir="rtl"] & {
@@ -521,7 +521,7 @@ $min-height: 40px;
     position: absolute;
     top: 11px;
     right: 16px;
-    font-size: 1.25rem;
+    font-size: $font-size-md;
     line-height: 26px;
     color: $dark-blue;
 
@@ -549,7 +549,7 @@ $min-height: 40px;
 
 .country-dropdown-toggle {
   cursor: pointer;
-  font-size: 1rem;
+  font-size: $font-size-sm;
   border: 0;
   color: transparentize($white, 0.2);
   background: transparent;
@@ -619,7 +619,7 @@ $min-height: 40px;
   }
 
   .country-group-letter {
-    font-size: 1rem;
+    font-size: $font-size-sm;
     position: absolute;
     line-height: 1.5;
     font-weight: bold;
@@ -651,7 +651,7 @@ $min-height: 40px;
     position: relative;
     list-style: none;
     padding-left: 50px;
-    font-size: 1rem;
+    font-size: $font-size-sm;
     break-inside: avoid;
 
     html[dir="rtl"] & {
@@ -720,7 +720,7 @@ $min-height: 40px;
 
   .nav-link {
     display: inline;
-    font-size: 0.875rem;
+    font-size: $font-size-xxs;
     padding: 0;
 
     html[dir="rtl"] & {

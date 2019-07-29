@@ -12,19 +12,19 @@
 //
 // Styleguide Layout.breadcrumbs
 .top-page-tags {
-  font-size: 0.875rem;
+  font-size: $font-size-xxs;
   margin-bottom: $space-xs;
   font-family: $roboto;
 
   @include medium-and-up {
-    font-size: 1rem;
+    font-size: $font-size-sm;
   }
 
   a {
-    font-size: 0.875rem;
+    font-size: $font-size-xxs;
 
     @include medium-and-up {
-      font-size: 1rem;
+      font-size: $font-size-sm;
     }
   }
 
@@ -56,7 +56,7 @@
     display: inline-block;
 
     @include x-large-and-up {
-      font-size: 1rem;
+      font-size: $font-size-sm;
     }
 
     &:not(:only-child):not(:last-child) {

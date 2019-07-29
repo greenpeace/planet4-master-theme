@@ -24,7 +24,7 @@
   background: $cookie-bkg url("images/cookie-right-gradient-sm.png") no-repeat right;
 
   p {
-    font-size: 0.875rem;
+    font-size: $font-size-xxs;
     margin-bottom: 10px;
     font-weight: 500;
     color: $cookie-blue;
@@ -33,7 +33,7 @@
     line-height: 18px;
 
     @include medium-and-up {
-      font-size: 0.9375rem;
+      font-size: $font-size-xs;
       margin-bottom: 0;
       display: inline-block;
       vertical-align: middle;
@@ -73,7 +73,7 @@
   .btn {
     height: 32px;
     line-height: 32px;
-    font-size: 0.9375rem;
+    font-size: $font-size-xs;
     width: 100%;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     background-color: transparentize($white, .2);
