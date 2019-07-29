@@ -1,0 +1,47 @@
+{% block articles %}
+	{% if ( recent_posts ) %}
+		<section class="block article-listing">
+			{{ fn( 'wp_nonce_field', nonce_action, '_articles_wpnonce', true, false )|raw }}
+			<div class="container">
+				{% if ( fields.title ) %}
+					<header>
+						<h2 class="page-section-header">{{ fields.title }}</h2>
+					</header>
+				{% endif %}
+				{% if ( fields.description ) %}
+					<p class="page-section-description">{{ fields.description|e('wp_kses_post')|raw }}</p>
+				{% endif %}
+
+				<div class="article-list-section clearfix">
+					{% for key,recent_post in recent_posts %}
+						{% include ['tease-articles.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
+					{% endfor %}
+				</div>
+
+				{% if ( total_pages > 1 ) %}
+					<div class="row">
+						{% if ( fields.read_more_link ) %}
+							<div class="col-md-12 col-lg-5 col-xl-5 mr-auto">
+								<a class="btn btn-secondary btn-block article-load-more"
+								href="{{ fields.read_more_link }}">{{ fields.read_more_text }}</a>
+							</div>
+						{% else %}
+							<div class="col-md-12 col-lg-5 col-xl-5">
+								<button class="btn btn-secondary btn-block article-load-more load-more"
+								data-content=".article-list-section"
+								data-page="1"
+								data-total_pages="{{ total_pages }}"
+								data-article_count="{{ fields.count }}"
+								data-nonce_element_id="_articles_wpnonce"
+										{% for key,value in dataset %}
+											data-{{ value }}
+										{% endfor %}
+								>{{ fields.read_more_text }}</button>
+							</div>
+						{% endif %}
+					</div>
+				{% endif %}
+			</div>
+		</section>
+	{% endif %}
+{% endblock %}
