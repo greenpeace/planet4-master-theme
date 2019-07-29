@@ -43,7 +43,7 @@ if ( is_array( $page_tags ) && $page_tags ) {
 $context['post']                        = $post;
 $context['header_title']                = is_front_page() ? '' : ( $page_meta_data['p4_title'][0] ?? $post->title );
 $context['header_subtitle']             = $page_meta_data['p4_subtitle'][0] ?? '';
-$context['header_description']          = wpautop( $page_meta_data['p4_description'][0] ) ?? '';
+$context['header_description']          = wpautop( $page_meta_data['p4_description'][0] ?? '' );
 $context['header_button_title']         = $page_meta_data['p4_button_title'][0] ?? '';
 $context['header_button_link']          = $page_meta_data['p4_button_link'][0] ?? '';
 $context['header_button_link_checkbox'] = $page_meta_data['p4_button_link_checkbox'] ?? '';
@@ -51,4 +51,10 @@ $context['background_image']            = wp_get_attachment_url( get_post_meta( 
 $context['custom_body_classes']         = 'white-bg';
 $context['page_category']               = 'Evergreen Page';
 
-Timber::render( [ 'evergreen.twig' ], $context );
+if ( post_password_required( $post->ID ) ) {
+	$context['login_url'] = wp_login_url();
+
+	Timber::render( 'single-page.twig', $context );
+} else {
+	Timber::render( [ 'evergreen.twig' ], $context );
+}
