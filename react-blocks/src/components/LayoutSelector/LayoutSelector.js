@@ -6,7 +6,7 @@ export class LayoutSelector extends Component {
     super(props);
     this.state = {
       selectedOption: props.selectedOption
-    }
+    };
     this.setSelected = this.setSelected.bind(this);
   }
 
@@ -39,7 +39,7 @@ export class LayoutSelector extends Component {
               }
               {
                 layoutOption.help
-                  ? <p className='help'>{layoutOption.help}</p>
+                  ? <p className='help' dangerouslySetInnerHTML={{__html: layoutOption.help}}/>
                   : null
               }
             </label>

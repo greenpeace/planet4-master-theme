@@ -1,9 +1,136 @@
-#editor .editor-writing-flow > div > div > div > .editor-block-list__layout > div[data-type="planet4-blocks/submenu"] {
-  max-width: unset;
-  width: 100%;
+.submenu-block {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 5px 5px 5px 0 rgba(128, 128, 128, 0.5);
+
+  h1,
+  h2 {
+    padding-left: 16px;
+    color: $grey-60;
+    font-family: $roboto;
+  }
+
+  .submenu-menu {
+    display: flex;
+    flex-wrap: wrap;
+
+    ul.submenu-item {
+      flex-basis: 100%;
+      padding: 0;
+
+      @include large-and-up {
+        flex-basis: 50%;
+      }
+    }
+
+    a {
+      color: $menu-blue;
+      text-decoration: none;
+    }
+
+    ul {
+      margin: 0.75em 0;
+      list-style: none;
+      padding: 0 16px;
+    }
+
+    li {
+      padding-left: 16px;
+
+      &.list-style-bullet::before {
+        content: "";
+        background-image: url("../../../public/images/icons/angle-right.svg");
+        background-position: 50% 50%;
+        background-size: 1rem 1rem;
+        background-repeat: no-repeat;
+        margin-right: 2px;
+        height: 1rem;
+        width: 1rem;
+        margin-bottom: -2px;
+        display: inline-block;
+        @supports (mask-repeat: no-repeat) or (-webkit-mask-repeat: no-repeat) {
+          & {
+            background-image: none;
+            background-color: $menu-blue;
+            -webkit-mask-image: url("../../../public/images/icons/angle-right.svg");
+            mask-image: url("../../../public/images/icons/angle-right.svg");
+            mask-repeat: no-repeat;
+            -webkit-mask-repeat: no-repeat;
+            margin-right: 0;
+          }
+        }
+      }
+
+      &.list-style-number {
+        list-style: decimal;
+        margin-left: 20px;
+      }
+    }
+  }
+
+  &.submenu-short {
+    .submenu-menu {
+      ul.submenu-item {
+        flex-basis: 100%;
+        column-count: 3;
+
+        li:before {
+          content: "";
+        }
+      }
+    }
+  }
+
+  &.submenu-long {
+    .submenu-menu {
+      ul.submenu-item {
+        flex-basis: 100%;
+        column-count: 2;
+      }
+    }
+  }
+
+  &.submenu-sidebar {
+    z-index: 4;
+
+    @include medium-and-up {
+      float: right;
+      max-width: 350px;
+      margin: 0 0 15px 15px;
+    }
+
+    .submenu-menu {
+      ul.submenu-item {
+        flex-basis: 100%;
+
+        @include large-and-up {
+          flex-basis: 100%;
+        }
+      }
+    }
+  }
 }
 
-.block-attribute-wrapper {
-  display: inline-block;
-  margin-right: 20px;
+.back-top,
+div.page-template > .back-top {
+  background-image: url("../../../public/images/arrow-up.svg");
+  background-repeat: no-repeat;
+  position: fixed;
+  height: 44px;
+  width: 44px;
+  left: calc(85% - 26px);
+  bottom: 50px;
+  background-color: #074365;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+  display: none;
+  z-index: 1000;
+
+  @include x-large-and-up {
+    height: 60px;
+    width: 60px;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
 }

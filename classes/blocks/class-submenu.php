@@ -8,11 +8,13 @@
 
 namespace P4GBKS\Blocks;
 
+use DOMDocument;
+use DOMXPath;
 
 /**
- * Class SubMenu_Controller
+ * Class SubMenu
  *
- * @package P4BKS\Controllers\Blocks
+ * @package P4GBKS\Blocks
  * @since 0.1
  */
 class Submenu extends Base_Block {
@@ -29,42 +31,27 @@ class Submenu extends Base_Block {
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],
 				'attributes'      => [
-					'submenu_style'  => [
+					'submenu_style' => [
 						'type'    => 'integer',
 						'default' => 1,
 					],
-					'title'       => [
+					'title'         => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'heading1'        => [
+					/**
+					 * levels is an array of objects.
+					 * Object structure:
+					 * {
+					 *   heading: 'integer'
+					 *   link: 'boolean'
+					 *   style: 'string'
+					 * }
+					 */
+					'levels'        => [
 						'type'  => 'array',
 						'items' => [
-							'type' => 'string',
-						],
-					],
-					'link1'  => [
-						'type'  => 'boolean',
-					],
-					'style1'  => [
-						'type'  => 'array',
-						'items' => [
-							'type' => 'string',
-						],
-					],
-					'heading2'        => [
-						'type'  => 'array',
-						'items' => [
-							'type' => 'string',
-						],
-					],
-					'link2'  => [
-						'type'  => 'boolean',
-					],
-					'style2'  => [
-						'type'  => 'array',
-						'items' => [
-							'type' => 'string',
+							'type' => 'object',
 						],
 					],
 				],
@@ -76,24 +63,36 @@ class Submenu extends Base_Block {
 	 * Get all the data that will be needed to render the block correctly.
 	 *
 	 * @param array $attributes This is the array of fields of this block.
-	 * @param string $content This is the post content.
-	 * @param string $shortcode_tag The shortcode tag of this block.
 	 *
 	 * @return array The data to be passed in the View.
 	 */
-	public function prepare_data( $attributes, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ): array {
+	public function prepare_data( $attributes ): array {
 
-		global $post;
+		// If request is coming from backend rendering.
+		if ( $this->is_rest_request() ) {
+			$post_id = filter_input( INPUT_GET, 'post_id', FILTER_VALIDATE_INT );
+			if ( $post_id > 0 ) {
+				$post = get_post( $post_id );
+			}
+		} else {
+			$post = get_queried_object();
+		}
 
-		$content = $post->post_content;
-//		$menu    = $this->parse_post_content( $content, $attributes );
+		$menu = [];
+		if ( ! is_null( $post ) && isset( $attributes['levels'] ) ) {
+			$content = $post->post_content;
+			$menu    = $this->parse_post_content( $content, $attributes['levels'] );
+		}
 
-//		wp_enqueue_script( 'submenu', P4GBKS_ADMIN_DIR . 'js/submenu.js', [ 'jquery' ], '0.2', true );
-//		wp_localize_script( 'submenu', 'submenu', $menu );
+		// Enqueue js for the frontend.
+		if ( ! $this->is_rest_request() ) {
+			wp_enqueue_script( 'submenu', P4GBKS_PLUGIN_URL . 'public/js/submenu.js', [ 'jquery' ], '0.2', true );
+			wp_localize_script( 'submenu', 'submenu', $menu );
+		}
 
 		$block_data = [
 			'title' => $attributes['title'] ?? '',
-//			'menu'  => $menu,
+			'menu'  => $menu,
 			'style' => $attributes['submenu_style'] ?? '1',
 		];
 
@@ -104,31 +103,34 @@ class Submenu extends Base_Block {
 	 * Parse post's content to extract headings and build menu
 	 *
 	 * @param string $content Post content.
-	 * @param array $attributes Submenu block attributes.
+	 * @param array  $levels Submenu block attributes.
 	 *
 	 * @return array
 	 */
-	private function parse_post_content( $content, $attributes ) {
+	private function parse_post_content( $content, $levels ) {
 
 		// Validate, if $content is empty.
-		if ( ! $content ) {
+		if ( ! $content || is_null( $levels ) ) {
 			return [];
 		}
 
 		// make array of heading level metadata keyed by tag name.
 		$heading_meta = [];
-		foreach ( range( 1, 3 ) as $heading_num ) {
-			$heading = $this->heading_attributes( $heading_num, $attributes );
+		$index=1;
+		foreach ( $levels as $level ) {
+			$heading = $this->heading_attributes( $level );
 			if ( ! $heading ) {
 				break;
 			}
-			$heading['level']                = $heading_num;
+			$heading['level']                = $index++;
 			$heading_meta[ $heading['tag'] ] = $heading;
 		}
 
-		$dom = new \DOMDocument();
+		$dom = new DOMDocument();
+		libxml_use_internal_errors( true );
+
 		$dom->loadHtml( $content );
-		$xpath = new \DOMXPath( $dom );
+		$xpath = new DOMXPath( $dom );
 
 		// get all the headings as an array of nodes.
 		$xpath_expression = '//' . join( ' | //', array_keys( $heading_meta ) );
@@ -142,19 +144,18 @@ class Submenu extends Base_Block {
 	/**
 	 * Extract shortcode attributes for given heading level.
 	 *
-	 * @param int $menu_level Level 1, 2 or 3.
-	 * @param array $attributes Shortcode UI attributes.
+	 * @param array $level Block level attributes.
 	 *
 	 * @return array|null associative array or null if menu level is not configured
 	 */
-	private function heading_attributes( $menu_level, $attributes ) {
-		return empty( $attributes[ 'heading' . $menu_level ] )
+	private function heading_attributes( $level ) {
+		return empty( $level )
 			? null
 			: [
-				'heading' => $attributes[ 'heading' . $menu_level ],
-				'tag'     => 'h' . $attributes[ 'heading' . $menu_level ],
-				'link'    => $attributes[ 'link' . $menu_level ] ?? false,
-				'style'   => $attributes[ 'style' . $menu_level ] ?? 'none',
+				'heading' => $level['heading'],
+				'tag'     => 'h' . $level['heading'],
+				'link'    => $level['link'] ?? false,
+				'style'   => $level['style'] ?? 'none',
 			];
 	}
 

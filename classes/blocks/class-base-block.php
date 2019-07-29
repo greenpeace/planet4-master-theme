@@ -25,10 +25,13 @@ class Base_Block {
 
 		\Timber::$locations = P4GBKS_PLUGIN_DIR . '/templates/blocks';
 
-		$coversBlock = \Timber::compile( static::BLOCK_NAME. '.twig', $data );
+		$block_output = \Timber::compile( static::BLOCK_NAME . '.twig', $data );
 
 		// Return empty string if rendered output contains only whitespace or new lines.
-		return ctype_space( $coversBlock ) ? '' : $coversBlock;
+		// If it is a rest request from editor/admin area, return a message that block has no content.
+		$empty_content = $this->is_rest_request() ? 'Block content is empty. Check the block\'s settings or remove it.' : '';
+
+		return ctype_space( $block_output ) ? $empty_content : $block_output;
 	}
 
 	/**
@@ -47,5 +50,17 @@ class Base_Block {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Returns if current request is a rest api request.
+	 *
+	 * @return bool
+	 */
+	protected function is_rest_request() {
+		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+			return true;
+		}
+		return false;
 	}
 }
