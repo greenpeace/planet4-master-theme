@@ -1,6 +1,6 @@
 // Scroll to comments
 
-$(document).ready(function() {
+jQuery(function($) {
   'use strict';
 
   $('#comments-link').click(function() {

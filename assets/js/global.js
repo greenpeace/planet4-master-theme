@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(function($) {
   'use strict';
 
   $('.page-template img, .post-content img').each( function() {
