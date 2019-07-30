@@ -88,6 +88,7 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'pre_get_posts', [ $this, 'add_search_options' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
+		add_filter( 'safe_style_css', [ $this, 'set_custom_allowed_css_properties' ] );
 		add_filter( 'wp_kses_allowed_html', [ $this, 'set_custom_allowed_attributes_filter' ] );
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_box_search' ] );
 		add_action( 'save_post', [ $this, 'save_meta_box_search' ], 10, 2 );
@@ -324,7 +325,20 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Set attributes that should be allowed for posts filter
+	 * Set CSS properties that should be allowed for posts filter
+	 * Allow img object-position.
+	 *
+	 * @param array $allowedproperties Default allowed CSS properties.
+	 *
+	 * @return array
+	 */
+	public function set_custom_allowed_css_properties( $allowedproperties ) {
+		$allowedproperties[] = 'object-position';
+		return $allowedproperties;
+	}
+
+	/**
+	 * Set HTML attributes that should be allowed for posts filter
 	 * Allow img srcset and sizes attributes.
 	 * Allow iframes in posts.
 	 *
@@ -371,6 +385,7 @@ class P4_Master_Site extends TimberSite {
 			'srcset' => true,
 			'sizes'  => true,
 			'width'  => true,
+			'style'  => true,
 			'vspace' => true,
 		];
 
