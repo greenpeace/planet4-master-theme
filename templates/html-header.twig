@@ -4,50 +4,52 @@
 	<meta charset="{{ site.charset }}">
 	<title>{% if wp_title %}{{ wp_title|e('esc_html')|raw }} - {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
 
-	{% if (post.post_excerpt) %}
-		<meta name="description" content="{{ post.post_excerpt|striptags }}">
-	{% else %}
-		<meta name="description" content="{{ site.description }}">
-	{% endif %}
-
-	{% if not (og_title is defined)  %}
-		{% if (wp_title) %}
-			{% set og_title = wp_title|raw~' - '~site.name %}
+	{% if (post and (1 != fn('post_password_required', post))) %}
+		{% if (post.post_excerpt) %}
+			<meta name="description" content="{{ post.post_excerpt|striptags }}">
 		{% else %}
-			{% set og_title = site.name %}
+			<meta name="description" content="{{ site.description }}">
 		{% endif %}
-	{% endif %}
-	<meta name="title" content="{{ og_title|e('html_attr')|raw }}"/>
-	<meta property="og:title" content="{{ og_title|e('html_attr')|raw }}" />
-	<meta property="og:type" content="article" />
-	<meta property="og:url" content="{{ current_url }}" />
-	{% if (og_description)  %}
-		<meta property="og:description" content="{{ og_description|e('html_attr')|raw }}" />
-	{% endif %}
-	{% if (og_image_data) %}
-		<meta property="og:image" content="{{ og_image_data[0] }}" />
-		<meta property="og:image:width" content="{{ og_image_data[1] }}" />
-		<meta property="og:image:height" content="{{ og_image_data[2] }}" />
-	{% endif %}
-	<meta property="og:site_name" content="{{ site.name }}" />
 
-	{% if facebook_page_id %}
-		<meta property="fb:pages" content="{{ facebook_page_id }}" />
-	{% endif %}
+		{% if not (og_title is defined)  %}
+			{% if (wp_title) %}
+				{% set og_title = wp_title|raw~' - '~site.name %}
+			{% else %}
+				{% set og_title = site.name %}
+			{% endif %}
+		{% endif %}
+		<meta name="title" content="{{ og_title|e('html_attr')|raw }}"/>
+		<meta property="og:title" content="{{ og_title|e('html_attr')|raw }}" />
+		<meta property="og:type" content="article" />
+		<meta property="og:url" content="{{ current_url }}" />
+		{% if (og_description)  %}
+			<meta property="og:description" content="{{ og_description|e('html_attr')|raw }}" />
+		{% endif %}
+		{% if (og_image_data) %}
+			<meta property="og:image" content="{{ og_image_data[0] }}" />
+			<meta property="og:image:width" content="{{ og_image_data[1] }}" />
+			<meta property="og:image:height" content="{{ og_image_data[2] }}" />
+		{% endif %}
+		<meta property="og:site_name" content="{{ site.name }}" />
 
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:site" content="{{ site.name }}" />
-	<meta name="twitter:title" content="{{ og_title|e('html_attr')|raw }}">
-	{% if (og_description) %}
-		<meta name="twitter:description" content="{{ og_description|e('html_attr')|raw }}">
-	{% endif %}
+		{% if facebook_page_id %}
+			<meta property="fb:pages" content="{{ facebook_page_id }}" />
+		{% endif %}
 
-	{% if (post.author is not null) %}
-		<meta name="twitter:creator" content="{{ post.author.name }}">
-	{% endif %}
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="{{ site.name }}" />
+		<meta name="twitter:title" content="{{ og_title|e('html_attr')|raw }}">
+		{% if (og_description) %}
+			<meta name="twitter:description" content="{{ og_description|e('html_attr')|raw }}">
+		{% endif %}
 
-	{% if (og_image_data) %}
-		<meta name="twitter:image" content="{{ og_image_data[0] }}" />
+		{% if (post.author is not null) %}
+			<meta name="twitter:creator" content="{{ post.author.name }}">
+		{% endif %}
+
+		{% if (og_image_data) %}
+			<meta name="twitter:image" content="{{ og_image_data[0] }}" />
+		{% endif %}
 	{% endif %}
 
 	{% if google_tag_value %}
