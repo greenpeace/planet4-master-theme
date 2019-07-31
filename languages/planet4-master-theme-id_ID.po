@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-07-31 07:12+0000\n"
+"PO-Revision-Date: 2019-07-31 07:13+0000\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -173,7 +173,7 @@ msgstr "Artikel"
 
 #: templates/author.twig:36
 msgid "Posts by "
-msgstr ""
+msgstr "Post oleh"
 
 #: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
@@ -342,11 +342,11 @@ msgstr "Diskusi"
 
 #: templates/taxonomy.twig:18
 msgid "Results"
-msgstr ""
+msgstr "Hasil"
 
 #: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
 msgid "Share on"
-msgstr ""
+msgstr "Bagikan di"
 
 #: templates/blocks/share_buttons.twig:21
 msgid "Share via"
