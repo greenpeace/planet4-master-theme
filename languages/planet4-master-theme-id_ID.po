@@ -177,7 +177,7 @@ msgstr ""
 
 #: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
-msgstr ""
+msgstr "Selengkapnya"
 
 #: templates/navigation-bar.twig:6
 msgid "Toggle navigation menu"
@@ -374,7 +374,7 @@ msgstr ""
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
