@@ -318,7 +318,7 @@ msgstr "Unduh"
 
 #: templates/base.twig:10
 msgid "Skip to Navigation"
-msgstr ""
+msgstr "Langsung Ke Navigasi"
 
 #: templates/base.twig:11
 msgid "Skip to Content"
