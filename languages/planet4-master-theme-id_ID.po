@@ -382,7 +382,7 @@ msgstr ""
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post Comment"
-msgstr ""
+msgstr "Tampilkan Komentar"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
