@@ -350,7 +350,7 @@ msgstr "Bagikan di"
 
 #: templates/blocks/share_buttons.twig:21
 msgid "Share via"
-msgstr ""
+msgstr "Bagikan melalui"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
