@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-07-31 07:18+0000\n"
+"PO-Revision-Date: 2019-07-31 07:21+0000\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,7 +76,7 @@ msgstr "Terbaru"
 
 #: functions.php:247
 msgid "Toggle worldwide site selection menu"
-msgstr ""
+msgstr "Menu Pilihan Situs Dunia Toggle"
 
 #: functions.php:248
 msgid "Toggle search box"
@@ -362,7 +362,7 @@ msgstr "Email"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
-msgstr ""
+msgstr "Email Anda"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
@@ -370,7 +370,7 @@ msgstr "Komentar"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr ""
+msgstr "Komentar Anda"
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
