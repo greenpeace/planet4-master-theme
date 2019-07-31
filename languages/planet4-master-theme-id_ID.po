@@ -378,7 +378,7 @@ msgstr "Nama"
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
-msgstr ""
+msgstr "Nama Anda"
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post Comment"
