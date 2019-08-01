@@ -98,6 +98,7 @@ final class Loader {
 			new Blocks\Media(),
 			new Blocks\SocialMedia(),
 			new Blocks\SubMenu(),
+			new Blocks\Timeline(),
 		];
 	}
 
