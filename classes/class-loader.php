@@ -92,6 +92,7 @@ final class Loader {
 
 		// Load Blocks.
 		$this->blocks = [
+			new Blocks\Cookies(),
 			new Blocks\Covers(),
 			new Blocks\SubMenu(),
 		];
