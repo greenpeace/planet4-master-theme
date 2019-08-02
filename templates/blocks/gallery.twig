@@ -1,0 +1,136 @@
+{% block gallery %}
+	{% if ( images ) %}
+
+		{% if ( layout == 1 ) %} {# If the chosen layout is Carousel #}
+
+			{# Start of the Carousel template #}
+			<section class="block carousel-wrap">
+				<div id="{{ id }}" class="carousel slide" data-ride="carousel">
+
+					{% if ( title ) %}
+						<header>
+							<h2 class="page-section-header">{{ title }}</h2>
+						</header>
+					{% endif %}
+
+					{% if ( description ) %}
+						<p class="page-section-description">{{ description|e('wp_kses_post')|raw }}</p>
+					{% endif %}
+
+					{% if images|length > 1 %}
+						<ol class="carousel-indicators">
+							{% for key,single_image in images %}
+								<li data-target="#{{ id }}" data-slide-to="{{ key }}" {% if key == 0 %} class="active" {% endif %}></li>
+							{% endfor %}
+						</ol>
+					{% endif %}
+
+					<div class="carousel-inner" role="listbox">
+						{% if images|length > 1 %}
+							<a class="carousel-control-prev" href="#{{ id }}" role="button" data-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
+								<span class="sr-only">{{ __( 'Previous' ) }}</span>
+							</a>
+						{% endif %}
+
+						{% for key,single_image in images %}
+							<div class="carousel-item {% if key == 0 %}active{% endif %}">
+								<img src="{{ single_image.image_src }}"
+									 data-background-position="{{ single_image.focus_image }}"
+									 srcset="{{ single_image.image_srcset }}"
+									 sizes="{{ single_image.image_sizes }}"
+									 alt="{{ single_image.alt_text }}">
+
+								{% if ( single_image.caption or single_image.credits ) %}
+									<div class="carousel-caption">
+										<p>
+											{% if ( single_image.caption ) %}
+												{{ single_image.caption }}
+											{% endif %}
+											{% if ( single_image.credits ) %}
+												{{ single_image.credits }}
+											{% endif %}
+										</p>
+									</div>
+								{% endif %}
+							</div>
+						{% endfor %}
+
+						{% if images|length > 1 %}
+							<a class="carousel-control-next" href="#{{ id }}" role="button" data-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"><i></i></span>
+								<span class="sr-only">{{ __( 'Next' ) }}</span>
+							</a>
+						{% endif %}
+					</div>
+				</div>
+			</section>
+			{# End of the Carousel template #}
+
+		{% elseif ( layout == 2 ) %} {# If the chosen layout is Three Column #}
+
+			{# Ordinals are used for class names for the three columns #}
+			{% set ordinals = ['first', 'second', 'third'] %}
+
+			{# Start of the Three Column template #}
+			<section class="block split-three-column">
+				<div class="container">
+					{% if ( title ) %}
+						<header>
+							<h2 class="page-section-header">{{ title }}</h2>
+						</header>
+					{% endif %}
+
+					{% if ( description ) %}
+						<p class="page-section-description">{{ description|e('wp_kses_post')|raw }}</p>
+					{% endif %}
+
+					<div class="three-column-images row">
+						{% for key,single_image in images | slice (0, 3) %}
+							<div class="col">
+								<div class="{{ ordinals[key] }}-column split-image">
+									{% if ( single_image.image_src ) %}
+										<img src="{{ single_image.image_src }}"
+											 srcset="{{ single_image.image_srcset }}"
+											 sizes="{{ single_image.image_sizes }}"
+											 style="background-position:{{ single_image.focus_image }};"
+											 alt="{{ single_image.alt_text }}" class="img_{{ post_type }}">
+									{% endif %}
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</section>
+			{# End of the Three Column template #}
+
+		{% elseif ( layout == 3 ) %}
+
+			<section class="block gallery-grid">
+
+				{% if ( title or description ) %}
+					{% if ( title ) %}
+						<header>
+							<h2 class="page-section-header">{{ title }}</h2>
+						</header>
+					{% endif %}
+
+					{% if ( description ) %}
+						<p class="page-section-description">{{ description|e('wp_kses_post')|raw }}</p>
+					{% endif %}
+				{% endif %}
+
+				<div class="container">
+					<div class="grid-row">
+						{% for single_image in images %}
+							<div class="grid-item">
+								<img src="{{ single_image.image_src }}" style="object-position: {{ single_image.focus_image }};" alt="{{ single_image.alt_text }}">
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</section>
+
+		{% endif %}
+	{% endif %}
+{% endblock %}
