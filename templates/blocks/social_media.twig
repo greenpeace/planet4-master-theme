@@ -1,0 +1,27 @@
+{% block social_media %}
+	<section class="block social-media-block">
+		{% if ( title ) %}
+			<header>
+				<h2 class="page-section-header">{{ title }}</h2>
+			</header>
+		{% endif %}
+		{% if ( description ) %}
+			<div class="page-section-description">{{ description|e('wp_kses_post')|raw }}</div>
+		{% endif %}
+
+		<div class="social-media-embed {{ alignment_class }}">
+			{% if ( embed_code ) %}
+				{{ embed_code|raw }}
+			{% elseif ( facebook_page_url ) %}
+				<iframe src="https://www.facebook.com/plugins/page.php?href={{ facebook_page_url|url_encode }}&tabs={{ facebook_page_tab }}&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+						width="340"
+						height="500"
+						style="border:none;overflow:hidden"
+						scrolling="no"
+						frameborder="0"
+						allowTransparency="true"
+						allow="encrypted-media"></iframe>
+			{% endif %}
+		</div>
+	</section>
+{% endblock %}

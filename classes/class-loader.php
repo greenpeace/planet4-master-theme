@@ -95,6 +95,7 @@ final class Loader {
 			new Blocks\Cookies(),
 			new Blocks\Covers(),
 			new Blocks\Media(),
+			new Blocks\SocialMedia(),
 			new Blocks\SubMenu(),
 		];
 	}
