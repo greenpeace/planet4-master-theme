@@ -27,9 +27,12 @@ class Base_Block {
 
 		$block_output = \Timber::compile( static::BLOCK_NAME . '.twig', $data );
 
+		// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
+		$empty_message = defined( 'static::EMPTY_MESSAGE' ) ? __( static::EMPTY_MESSAGE, 'planet4-blocks' ) : "Block content is empty. Check the block's settings or remove it.";
+
 		// Return empty string if rendered output contains only whitespace or new lines.
 		// If it is a rest request from editor/admin area, return a message that block has no content.
-		$empty_content = $this->is_rest_request() ? 'Block content is empty. Check the block\'s settings or remove it.' : '';
+		$empty_content = $this->is_rest_request() ? '<div class="EmptyMessage">' . $empty_message . '</div>' : '';
 
 		return ctype_space( $block_output ) ? $empty_content : $block_output;
 	}
