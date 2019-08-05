@@ -74,8 +74,9 @@ Text Domain: planet4-master-theme
 @import "base/rtl";
 
 // Vendor overrides
-@import "vendors/extensions/fontawesome";
+@import "vendors/fontawesome";
 @import "vendors/usabilla";
+@import "vendors/gtm";
 
 // To be taken care of later
 @import "base/shame";
