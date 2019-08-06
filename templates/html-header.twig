@@ -4,104 +4,105 @@
 	<meta charset="{{ site.charset }}">
 	<title>{% if wp_title %}{{ wp_title|e('esc_html')|raw }} - {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
 
-	{% if (post.post_excerpt) %}
-		<meta name="description" content="{{ post.post_excerpt|striptags }}">
-	{% else %}
-		<meta name="description" content="{{ site.description }}">
-	{% endif %}
-
-	{% if not (og_title is defined)  %}
-		{% if (wp_title) %}
-			{% set og_title = wp_title|raw~' - '~site.name %}
+	{% if (post and (1 != fn('post_password_required', post))) %}
+		{% if (post.post_excerpt) %}
+			<meta name="description" content="{{ post.post_excerpt|striptags }}">
 		{% else %}
-			{% set og_title = site.name %}
+			<meta name="description" content="{{ site.description }}">
 		{% endif %}
-	{% endif %}
-	<meta name="title" content="{{ og_title|e('html_attr')|raw }}"/>
-	<meta property="og:title" content="{{ og_title|e('html_attr')|raw }}" />
-	<meta property="og:type" content="article" />
-	<meta property="og:url" content="{{ current_url }}" />
-	{% if (og_description)  %}
-		<meta property="og:description" content="{{ og_description|e('html_attr')|raw }}" />
-	{% endif %}
-	{% if (og_image_data) %}
-		<meta property="og:image" content="{{ og_image_data[0] }}" />
-		<meta property="og:image:width" content="{{ og_image_data[1] }}" />
-		<meta property="og:image:height" content="{{ og_image_data[2] }}" />
-	{% endif %}
-	<meta property="og:site_name" content="{{ site.name }}" />
 
-	{% if facebook_page_id %}
-		<meta property="fb:pages" content="{{ facebook_page_id }}" />
-	{% endif %}
+		{% if not (og_title is defined)  %}
+			{% if (wp_title) %}
+				{% set og_title = wp_title|raw~' - '~site.name %}
+			{% else %}
+				{% set og_title = site.name %}
+			{% endif %}
+		{% endif %}
+		<meta name="title" content="{{ og_title|e('html_attr')|raw }}"/>
+		<meta property="og:title" content="{{ og_title|e('html_attr')|raw }}" />
+		<meta property="og:type" content="article" />
+		<meta property="og:url" content="{{ current_url }}" />
+		{% if (og_description)  %}
+			<meta property="og:description" content="{{ og_description|e('html_attr')|raw }}" />
+		{% endif %}
+		{% if (og_image_data) %}
+			<meta property="og:image" content="{{ og_image_data[0] }}" />
+			<meta property="og:image:width" content="{{ og_image_data[1] }}" />
+			<meta property="og:image:height" content="{{ og_image_data[2] }}" />
+		{% endif %}
+		<meta property="og:site_name" content="{{ site.name }}" />
 
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:site" content="{{ site.name }}" />
-	<meta name="twitter:title" content="{{ og_title|e('html_attr')|raw }}">
-	{% if (og_description) %}
-		<meta name="twitter:description" content="{{ og_description|e('html_attr')|raw }}">
-	{% endif %}
+		{% if facebook_page_id %}
+			<meta property="fb:pages" content="{{ facebook_page_id }}" />
+		{% endif %}
 
-	{% if (post.author is not null) %}
-		<meta name="twitter:creator" content="{{ post.author.name }}">
-	{% endif %}
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="{{ site.name }}" />
+		<meta name="twitter:title" content="{{ og_title|e('html_attr')|raw }}">
+		{% if (og_description) %}
+			<meta name="twitter:description" content="{{ og_description|e('html_attr')|raw }}">
+		{% endif %}
 
-	{% if (og_image_data) %}
-		<meta name="twitter:image" content="{{ og_image_data[0] }}" />
+		{% if (post.author is not null) %}
+			<meta name="twitter:creator" content="{{ post.author.name }}">
+		{% endif %}
+
+		{% if (og_image_data) %}
+			<meta name="twitter:image" content="{{ og_image_data[0] }}" />
+		{% endif %}
 	{% endif %}
 
 	{% if google_tag_value %}
-	<script>
-          var cookie_consent = document.cookie.split(';').filter(function(c) {return c.indexOf('greenpeace=2') >= 0}).length;
-          var google_tag_value = '{{ google_tag_value }}';
-          var enforce_cookies_policy = '{{ enforce_cookies_policy }}';
+		<script>
+			var cookie_consent = document.cookie.split(';').filter(function(c) {return c.indexOf('greenpeace=2') >= 0}).length;
+			var google_tag_value = '{{ google_tag_value }}';
+			var enforce_cookies_policy = '{{ enforce_cookies_policy }}';
 
-          if ( enforce_cookies_policy && 1 !== parseInt( cookie_consent ) ) {
-            google_tag_value = '';
-          }
+			if ( enforce_cookies_policy && 1 !== parseInt( cookie_consent ) ) {
+				google_tag_value = '';
+			}
 
-          if ( google_tag_value ) {
-						var dataLayer = window.dataLayer = window.dataLayer || [];
-						dataLayer.push({
-							'pageType' : '{{ page_category }}',
-							'signedIn' : 'false',
-							'visitorType' : '',
-							'userID' : '',
-							'post_tags': '{{ post_tags }}'
-						});
+			if ( google_tag_value ) {
+				var dataLayer = window.dataLayer = window.dataLayer || [];
+				dataLayer.push({
+					'pageType' : '{{ page_category }}',
+					'signedIn' : 'false',
+					'visitorType' : '',
+					'userID' : '',
+					'post_tags': '{{ post_tags }}'
+				});
 
-						var cf_campaign_name = '{% if cf_campaign_name is defined and cf_campaign_name is not null %}{{ cf_campaign_name|raw }}{% endif %}';
-						var cf_basket_name   = '{% if cf_basket_name is defined and cf_basket_name is not null %}{{ cf_basket_name|raw }}{% endif %}';
-						var cf_scope         = '{% if cf_scope is defined and cf_scope is not null %}{{ cf_scope|raw }}{% endif %}';
-						var cf_department    = '{% if cf_department is defined and cf_department is not null %}{{ cf_department|raw }}{% endif %}';
+				var cf_campaign_name = '{% if cf_campaign_name is defined and cf_campaign_name is not null %}{{ cf_campaign_name|raw }}{% endif %}';
+				var cf_basket_name   = '{% if cf_basket_name is defined and cf_basket_name is not null %}{{ cf_basket_name|raw }}{% endif %}';
+				var cf_scope         = '{% if cf_scope is defined and cf_scope is not null %}{{ cf_scope|raw }}{% endif %}';
+				var cf_department    = '{% if cf_department is defined and cf_department is not null %}{{ cf_department|raw }}{% endif %}';
 
-						if ( cf_campaign_name || cf_basket_name || cf_scope || cf_department ) {
-							dataLayer.push({
-								'gCampaign' : cf_campaign_name,
-								'gBasket' : cf_basket_name,
-								'gScope': cf_scope,
-								'gDepartment': cf_department,
-							});
-						}
-          }
-        </script>
-        <script>
-          if ( google_tag_value ) {
-                (function (w, d, s, l, i) {
-                    w[l] = w[l] || [];
-                    w[l].push({
-                        'gtm.start':
-                            new Date().getTime(), event: 'gtm.js'
-                    });
-                    var f = d.getElementsByTagName(s)[0],
-                        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-                    j.async = true;
-                    j.src =
-                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                    f.parentNode.insertBefore(j, f);
-                })(window, document, 'script', 'dataLayer', google_tag_value);
-          }
-        </script>
+				if ( cf_campaign_name || cf_basket_name || cf_scope || cf_department ) {
+					dataLayer.push({
+						'gCampaign' : cf_campaign_name,
+						'gBasket' : cf_basket_name,
+						'gScope': cf_scope,
+						'gDepartment': cf_department,
+					});
+				}
+			}
+		</script>
+		<script>
+			if ( google_tag_value ) {
+				(function (w, d, s, l, i) {
+					w[l] = w[l] || [];
+					w[l].push({
+						'gtm.start':
+						new Date().getTime(), event: 'gtm.js'
+					});
+					var f = d.getElementsByTagName(s)[0],
+							j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+					j.async = true;
+					j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+					f.parentNode.insertBefore(j, f);
+				})(window, document, 'script', 'dataLayer', google_tag_value);
+			}
+		</script>
 	{% endif %}
 
 	{% include 'blocks/p4_structured_data.twig' %}

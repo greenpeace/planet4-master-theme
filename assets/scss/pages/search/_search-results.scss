@@ -147,7 +147,7 @@
     }
 
     i {
-      font-size: 1rem;
+      font-size: $font-size-sm;
       font-weight: bold;
       margin-right: 10px;
       float: left;
@@ -179,7 +179,7 @@
   margin-bottom: 10px;
 
   @include small-and-up {
-    font-size: 1.375rem;
+    font-size: $font-size-lg;
   }
 
   @include large-and-up {
@@ -192,17 +192,17 @@
   color: $grey-60;
   line-height: normal;
   margin-bottom: 10px;
-  font-size: 0.875rem;
+  font-size: $font-size-xxs;
 
   @include large-and-up {
-    font-size: 0.9375rem;
+    font-size: $font-size-xs;
   }
 }
 
 .search-result-item-content {
   display: none;
   color: $dark-shade-black;
-  font-size: 1rem;
+  font-size: $font-size-sm;
   font-family: $lora;
   line-height: 1.6;
   margin: $n10 0 0;

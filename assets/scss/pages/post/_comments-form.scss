@@ -17,14 +17,14 @@
 
   input,
   textarea {
-    font-size: 0.9375rem;
+    font-size: $font-size-xs;
     font-weight: 300;
     border-radius: 0;
     border: none;
     transition: background-color 150ms linear;
 
     @include large-and-up {
-      font-size: 1rem;
+      font-size: $font-size-sm;
     }
 
     &:focus {
@@ -45,7 +45,7 @@
   }
 
   label {
-    font-size: 1rem;
+    font-size: $font-size-sm;
     font-weight: 500;
   }
 
@@ -64,7 +64,7 @@
 
     @include medium-and-up {
       margin-bottom: 40px;
-      font-size: 1rem;
+      font-size: $font-size-sm;
     }
 
     @include large-and-up {
