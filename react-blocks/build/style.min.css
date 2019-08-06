@@ -1,0 +1,21 @@
+/**
+* Test if `$value` is a valid direction
+*
+* @param {*} $value - Value to test
+* @return {Bool}
+*/
+/**
+* Convert a direction to legacy syntax
+*
+* @param {Keyword | Angle} $value - Value to convert
+* @require {function} is-direction
+* @require {function} convert-angle
+*/
+/* Generates mutilevel nested comments
+level-1 is the first level comment with a margin of 50px
+level-2 is the first level comment with a margin of 100px
+and so on...
+*/
+
+
+/*# sourceMappingURL=style.min.css.map*/

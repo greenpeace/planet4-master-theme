@@ -1,0 +1,102 @@
+// Breadcrumbs
+//
+// Markup:
+// <div class="top-page-tags">
+//   <a class="tag-item tag-item--main page-type" href="#">Press Release</a>
+//   <div class="tag-wrap tags">
+//     <a class="tag-item" href="#">#Climate</a>
+//     <a class="tag-item" href="#">#Oceans</a>
+//     <a class="tag-item" href="#">#Oil</a>
+//   </div>
+// </div>
+//
+// Styleguide Layout.breadcrumbs
+.top-page-tags {
+  font-size: $font-size-xxs;
+  margin-bottom: $space-xs;
+  font-family: $roboto;
+
+  @include medium-and-up {
+    font-size: $font-size-sm;
+  }
+
+  a {
+    font-size: $font-size-xxs;
+
+    @include medium-and-up {
+      font-size: $font-size-sm;
+    }
+  }
+
+  .tag-wrap {
+    display: inline;
+    position: relative;
+    color: $blue;
+  }
+
+  .tag-item--main + .tag-wrap,
+  .tag-wrap + .tag-wrap {
+    &:before {
+      content: "\2022";
+      pointer-events: none;
+      display: inline-block;
+      margin-left: -12px;
+      margin-right: 8px;
+
+      html[dir="rtl"] & {
+        margin-right: -12px;
+        margin-left: 8px;
+      }
+    }
+  }
+
+  .tag-item {
+    color: $blue;
+    font-weight: 400;
+    display: inline-block;
+
+    @include x-large-and-up {
+      font-size: $font-size-sm;
+    }
+
+    &:not(:only-child):not(:last-child) {
+      margin-right: 7px;
+
+      html[dir="rtl"] & {
+        margin-right: 0;
+        margin-left: 7px;
+      }
+
+      &.page-type {
+        margin-right: 20px;
+
+        html[dir="rtl"] & {
+          margin-right: 0;
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+
+  .tag-item--main {
+    font-weight: 500;
+
+    &.page-type {
+      text-transform: uppercase;
+
+      html[dir="rtl"] & {
+        text-transform: lowercase;
+        margin-right: 0;
+      }
+    }
+  }
+
+  .issues {
+    margin-right: 20px;
+
+    html[dir="rtl"] & {
+      margin-right: 0;
+      margin-left: 20px;
+    }
+  }
+}

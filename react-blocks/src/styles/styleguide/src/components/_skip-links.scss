@@ -1,0 +1,29 @@
+// Skip to... links
+//
+// Markup:
+// <ul class="skip-links">
+//   <li><a href="#header">Skip to Navigation</a></li>
+//   <li><a href="#content">Skip to Content</a></li>
+//   <li><a href="#footer">Skip to Footer</a></li>
+// </ul>
+//
+// .skip-links - Skip to... links
+//
+// Styleguide Components.skip-links
+.skip-links {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  a {
+    position: absolute;
+    top: -50px;
+    left: 15px;
+    color: $top-nav;
+    z-index: 100;
+
+    &:focus {
+      top: 60px;
+    }
+  }
+}

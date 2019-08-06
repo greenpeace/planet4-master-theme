@@ -1,0 +1,117 @@
+// Typography
+//
+// Styleguide Style.typography
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Paragraphs
+//
+// All plain text elements use Lora font.
+//
+// Markup:
+// <p>The quick brown fox jumps over the lazy dog</p>
+//
+// Styleguide Style.typography.paragraphs
+p {
+  hyphens: none;
+}
+
+// Headings
+//
+// Heading elements `<h1> <h6>`. All headings use Roboto font.
+//
+// Markup:
+// <h1>The quick brown fox jumps over the lazy dog</h1>
+// <h2>The quick brown fox jumps over the lazy dog</h2>
+// <h3>The quick brown fox jumps over the lazy dog</h3>
+// <h4>The quick brown fox jumps over the lazy dog</h4>
+// <h5>The quick brown fox jumps over the lazy dog</h5>
+// <h6>The quick brown fox jumps over the lazy dog</h6>
+//
+// Styleguide Style.typography.headings
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $roboto;
+}
+
+h1,
+h2 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: $font-size-xxl;
+  line-height: 1.225;
+  margin-bottom: 30px;
+
+  @include large-and-up {
+    font-size: 3.5rem;
+    margin-bottom: 48px;
+  }
+  @include x-large-and-up {
+    font-size: 4.125rem;
+  }
+}
+
+h2 {
+  font-size: 1.625rem;
+  line-height: 1.38;
+  margin-bottom: 5px;
+
+  @include medium-and-up {
+    font-size: 2.125rem;
+  }
+
+  @include large-and-up {
+    font-size: 2.25rem;
+  }
+
+  @include x-large-and-up {
+    font-size: 2.375rem;
+    margin-bottom: 24px;
+  }
+}
+
+.white-text {
+  color: $white;
+}
+
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+// Links
+//
+// Link elements `<a>`.
+//
+// Markup:
+// <a href="#">The quick brown fox jumps over the lazy dog</a>
+//
+// :hover     - hovered state
+//
+// Styleguide Style.typography.links
+a {
+  color: $blue;
+  text-decoration: none;
+
+  &:hover {
+    color: $blue;
+    text-decoration: underline;
+  }
+}

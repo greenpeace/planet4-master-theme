@@ -1,0 +1,92 @@
+// Cookie Notice
+//
+// Markup:
+// <div class="cookie-notice" id="set-cookie" style="display: block;">
+//   <div class="row m-0">
+//     <div class="col-sm-9 col-md-10">
+//       We use cookies to enhance your experience. By clicking “Got it!” you agree to our <a href="http://www.greenpeace.org/international/privacy/">Privacy &amp; Cookies Policy</a>. You can <a href="https://www.greenpeace.org/international/privacy/#change-your-cookies-preferences">change your cookies settings anytime</a>.
+//     </div>
+//     <div class="col-sm-3 col-md-2">
+//       <button class="btn btn-secondary p-0" id="hidecookie">GOT IT!</button>
+//     </div>
+//   </div>
+// </div>
+//
+// Styleguide Layout.cookie-notice
+.cookie-notice {
+  z-index: 100;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 0;
+  background: $cookie-bkg url("images/cookie-right-gradient-sm.png") no-repeat right;
+
+  p {
+    font-size: $font-size-xxs;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: $cookie-blue;
+    text-align: left;
+    font-family: $roboto;
+    line-height: 18px;
+
+    @include medium-and-up {
+      font-size: $font-size-xs;
+      margin-bottom: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    @include large-and-up {
+      font-size: 1.0625rem;
+    }
+    @include x-large-and-up {
+      font-size: 1.0625rem;
+    }
+  }
+
+  a {
+    color: $cookie-blue;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  div.col-9 {
+    @include mobile-only {
+      margin: 0 auto;
+      max-width: 95%;
+      flex: 95%;
+    }
+  }
+
+  div.col {
+    @include mobile-only {
+      margin: 0 auto;
+      max-width: 95%;
+    }
+  }
+
+  .btn {
+    height: 32px;
+    line-height: 32px;
+    font-size: $font-size-xs;
+    width: 100%;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    background-color: transparentize($white, .2);
+
+    html[dir="rtl"] & {
+      font-size: 1.175rem;
+      line-height: 2.5;
+      height: auto;
+    }
+
+    &:hover {
+      border-color: $dark-blue;
+      background-color: $dark-blue;
+    }
+  }
+}

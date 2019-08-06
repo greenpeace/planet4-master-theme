@@ -1,0 +1,116 @@
+// Forms
+//
+// Markup:
+// <label class="custom-control custom-checkbox">
+//   <input type="checkbox" name="checkbox_name" />
+//   <span class="custom-control-description">Check me</span>
+// </label>
+// <label class="custom-control custom-radio">
+//   <input type="radio" name="radio_name" value="1" />
+//   <span class="custom-control-description">Select me</span>
+// </label>
+// <label class="custom-control custom-checkbox">
+//   <input type="radio" name="radio_name" value="2" />
+//   <span class="custom-control-description">Or me</span>
+// </label>
+//
+// Styleguide Layout.forms
+input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+
+  & + .custom-control-description {
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  & + .custom-control-description:before {
+    content: "";
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: top;
+    width: 26px;
+    height: 26px;
+    background: transparent;
+    border: 3px solid $med-blue;
+
+    html[dir="rtl"] & {
+      margin-right: 0;
+      margin-left: 10px;
+    }
+  }
+
+  &:checked + .custom-control-description:before {
+    background: $med-blue;
+  }
+
+  &:checked + .custom-control-description:after {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    background: white;
+    width: 4px;
+    height: 4px;
+    box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+    transform: rotate(45deg);
+
+    html[dir="rtl"] & {
+      left: auto;
+      right: 7px;
+    }
+  }
+
+  &:disabled + .custom-control-description {
+    cursor: auto;
+  }
+
+  &:disabled + .custom-control-description:before {
+    box-shadow: none;
+    border-color: #aaa;
+  }
+}
+
+input[type="radio"] {
+  font-family: $roboto;
+  font-size: 1.125rem;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+
+  & + .custom-control-description {
+    vertical-align: text-bottom;
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  & + .custom-control-description:before {
+    content: "";
+    margin-right: 32px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 2.5px solid $grey-40;
+    border-radius: 50%;
+    padding: 2px;
+    text-align: center;
+  }
+
+  &:hover + .custom-control-description:before {
+    border: 2.5px solid $grey-60;
+  }
+
+  &:checked + .custom-control-description:before {
+    background: $med-blue;
+    box-shadow: inset 0 0 0 2px white;
+    border: 2.5px solid $dark-blue;
+  }
+}
+
+.form-control {
+  border-radius: unset;
+}

@@ -1,0 +1,59 @@
+// Blockquote
+//
+// Markup:
+// <blockquote>
+//   “You have to treat ice with respect, otherwise it breaks. We should do the same with nature.”
+// </blockquote>
+//
+// Styleguide Components.blockquote
+
+@mixin blockquote {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  font-style: italic;
+  margin: $n15 0;
+  padding: 13px 0 16px 0;
+
+  @include medium-and-up {
+    font-size: 2.375rem;
+  }
+
+  @include large-and-up {
+    max-width: 80%;
+  }
+
+  @include x-large-and-up {
+    font-size: $font-size-xxl;
+  }
+}
+
+blockquote,
+blockquote > p {
+  @include blockquote;
+}
+
+blockquote > h5 {
+  @include blockquote;
+  font-family: $lora;
+  color: $dark-shade-black;
+  font-size: $font-size-xxl;
+
+  @include medium-and-up {
+    font-size: $font-size-xxl;
+  }
+}
+
+blockquote > h6 {
+  @include blockquote;
+  font-family: $lora;
+  color: $dark-shade-black;
+  font-size: 1.5rem;
+
+  @include medium-and-up {
+    font-size: 1.5rem;
+  }
+
+  @include x-large-and-up {
+    font-size: 1.5rem;
+  }
+}

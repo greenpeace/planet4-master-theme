@@ -1,0 +1,22 @@
+
+vendor
+node_modules/
+
+# Translation backups #
+################
+/languages/*.po~
+/languages/*.pot~
+
+# Logs #
+########
+*.log
+
+# OS generated files #
+######################
+.DS_Store
+Thumbs.db
+
+# IDE generated files #
+#######################
+.idea
+reports
