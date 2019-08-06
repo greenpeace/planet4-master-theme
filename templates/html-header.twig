@@ -67,11 +67,13 @@
 
 			// Needed anti-flicker snippet if Optimizer is enabled
 			var google_optimizer = '{{ google_optimizer }}';
-			(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
-			h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
-			(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
-			})(window,document.documentElement,'async-hide','dataLayer',google_optimizer * 1000,
-			{google_tag_value:true});
+			if (google_optimizer) {
+				(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+				h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+				(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+				})(window,document.documentElement,'async-hide','dataLayer',2000,
+				{'{{ google_tag_value }}':true});
+			}
 
 			var cf_campaign_name = '{% if cf_campaign_name is defined and cf_campaign_name is not null %}{{ cf_campaign_name|raw }}{% endif %}';
 			var cf_basket_name   = '{% if cf_basket_name is defined and cf_basket_name is not null %}{{ cf_basket_name|raw }}{% endif %}';
