@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+jQuery(function($) {
 
   let $form       = $( document.getElementById( 'post' ) );
   let $htmlbody   = $( 'html, body' );
