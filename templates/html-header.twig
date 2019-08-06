@@ -54,7 +54,14 @@
 
 	{% if google_tag_value %}
 		<script>
+			var cookie_consent = document.cookie.split(';').filter(function(c) {return c.indexOf('greenpeace=2') >= 0}).length;
 			var google_tag_value = '{{ google_tag_value }}';
+			var enforce_cookies_policy = '{{ enforce_cookies_policy }}';
+			var gtm_allow = true;
+
+			if ( enforce_cookies_policy && 1 !== parseInt( cookie_consent ) ) {
+				gtm_allow = false;
+			}
 
 			var dataLayer = window.dataLayer = window.dataLayer || [];
 			dataLayer.push({
@@ -64,14 +71,6 @@
 				'userID' : '',
 				'post_tags': '{{ post_tags }}'
 			});
-
-			// Needed anti-flicker snippet if Optimizer is enabled
-			var google_optimizer = '{{ google_optimizer }}';
-			(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
-			h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
-			(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
-			})(window,document.documentElement,'async-hide','dataLayer',google_optimizer * 1000,
-			{google_tag_value:true});
 
 			var cf_campaign_name = '{% if cf_campaign_name is defined and cf_campaign_name is not null %}{{ cf_campaign_name|raw }}{% endif %}';
 			var cf_basket_name   = '{% if cf_basket_name is defined and cf_basket_name is not null %}{{ cf_basket_name|raw }}{% endif %}';
@@ -87,12 +86,14 @@
 				});
 			}
 
-			var cookie_consent = document.cookie.split(';').filter(function(c) {return c.indexOf('greenpeace=2') >= 0}).length;
-			var enforce_cookies_policy = '{{ enforce_cookies_policy }}';
-			var gtm_allow = true;
-
-			if ( enforce_cookies_policy && 1 !== parseInt( cookie_consent ) ) {
-				gtm_allow = false;
+			// Needed anti-flicker snippet if Optimizer is enabled
+			var google_optimizer = '{{ google_optimizer }}';
+			if ( google_optimizer ) {
+				(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+				h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+				(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+				})(window,document.documentElement,'async-hide','dataLayer',500,
+				{google_tag_value:true});
 			}
 
 			if ( google_tag_value && gtm_allow) {
