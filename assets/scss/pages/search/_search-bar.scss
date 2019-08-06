@@ -9,7 +9,7 @@
   }
 
   input {
-    font-size: 1rem;
+    font-size: $font-size-sm;
     height: 2.75em;
     line-height: 2.75;
     appearance: none;
@@ -70,7 +70,7 @@
 
   .search-btn,
   .btn-secondary {
-    font-size: 1rem;
+    font-size: $font-size-sm;
     line-height: 2.75;
 
     @include large-and-up {

@@ -20,7 +20,7 @@
 }
 
 .author-block-info-title {
-  font-size: 1.25rem;
+  font-size: $font-size-md;
   font-weight: bold;
   text-transform: uppercase;
 
@@ -45,7 +45,7 @@
 }
 
 .author-block-info-bio {
-  font-size: 1rem;
+  font-size: $font-size-sm;
   line-height: 1.5;
   margin: 0;
   max-height: 7.5rem; // number of lines * line-height

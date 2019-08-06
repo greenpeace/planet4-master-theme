@@ -34,14 +34,14 @@ div.search-filter-results {
     }
 
     @include large-and-up {
-      font-size: 1.75rem;
+      font-size: $font-size-xl;
     }
   }
 
   select {
     height: 40px;
     width: 151px;
-    font-size: 1rem;
+    font-size: $font-size-sm;
     padding: 0 $n10;
     border-color: $faded-jade;
     background: transparent;
@@ -53,12 +53,12 @@ div.search-filter-results {
     @include large-and-up {
       height: 44px;
       width: 224px;
-      font-size: 1.25rem;
+      font-size: $font-size-md;
     }
 
     @include large-and-up {
       width: 270px;
-      font-size: 1.375rem;
+      font-size: $font-size-lg;
     }
   }
 

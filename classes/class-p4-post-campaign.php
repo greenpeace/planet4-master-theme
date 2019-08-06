@@ -262,6 +262,19 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'#1A1A1A',
 			];
 
+			$nav_palette = [
+				'#FFFFFF',
+				'#E5E5E5',
+				'#32CA89',
+				'#1BB6D6',
+				'#22938D',
+				'#186A70',
+				'#043029',
+				'#093944',
+				'#042233',
+				'#1A1A1A',
+			];
+
 			$primary_palette = [
 				'#ffd204',
 				'#6ed961',
@@ -305,14 +318,14 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$cmb->add_field(
 				[
-					'name'       => __( 'Navigation Color', 'planet4-master-theme-backend' ),
+					'name'       => __( 'Navigation Background Color', 'planet4-master-theme-backend' ),
 					'id'         => 'campaign_nav_color',
 					'type'       => 'colorpicker',
 					'classes'    => 'palette-only',
 					'attributes' => [
-						'data-colorpicker' => json_encode(
+						'data-colorpicker' => wp_json_encode(
 							[
-								'palettes' => $header_palette,
+								'palettes' => $nav_palette,
 							]
 						),
 					],
@@ -321,12 +334,12 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$cmb->add_field(
 				[
-					'name'       => __( 'Header Color', 'planet4-master-theme-backend' ),
+					'name'       => __( 'Header Text Color', 'planet4-master-theme-backend' ),
 					'id'         => 'campaign_header_color',
 					'type'       => 'colorpicker',
 					'classes'    => 'palette-only',
 					'attributes' => [
-						'data-colorpicker' => json_encode(
+						'data-colorpicker' => wp_json_encode(
 							[
 								'palettes' => $header_palette,
 							]
@@ -400,7 +413,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$cmb->add_field(
 				[
-					'name'       => __( 'Secondary Button Color', 'planet4-master-theme-backend' ),
+					'name'       => __( 'Secondary Button Color and Link Text Color', 'planet4-master-theme-backend' ),
 					'id'         => 'campaign_secondary_color',
 					'type'       => 'colorpicker',
 					'classes'    => 'palette-only',

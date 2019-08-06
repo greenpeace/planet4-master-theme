@@ -26,7 +26,9 @@
 		{% include 'navigation-bar.twig' with data_nav_bar %}
 	{% endif %}
 	{% include 'sidebar.twig' with data_nav_bar %}
-	{% include 'blocks/header.twig' %}
+	{% if post.post_type != 'campaign'  %}
+		{% include 'blocks/header.twig' %}
+	{% endif %}
 
 	{% block content %}
 		Sorry, no content

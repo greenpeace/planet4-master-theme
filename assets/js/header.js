@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(function($) {
   'use strict';
 
   $(document).on('click', [

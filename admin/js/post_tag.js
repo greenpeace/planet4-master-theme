@@ -1,8 +1,6 @@
 /* global wp, localizations */
 
-$ = jQuery; //eslint-disable-line no-global-assign
-
-$(document).ready(function() {
+jQuery(function($) {
 
   /**
   * Taxonomy_Image
