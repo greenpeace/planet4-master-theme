@@ -284,7 +284,6 @@ class P4_Master_Site extends TimberSite {
 		// Do not embed google tag manager js if 'greenpeace' cookie is not set or enforce_cookies_policy setting is not enabled.
 		$context['enforce_cookies_policy'] = isset( $options['enforce_cookies_policy'] ) ? true : false;
 		$context['google_tag_value']       = $options['google_tag_manager_identifier'] ?? '';
-		$context['google_optimizer']       = isset( $options['google_optimizer'] ) ? true : false;
 		$context['facebook_page_id']       = $options['facebook_page_id'] ?? '';
 
 		$context['donatelink']           = $options['donate_button'] ?? '#';
