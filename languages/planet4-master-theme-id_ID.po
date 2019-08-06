@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-05-29 10:23+0000\n"
+"PO-Revision-Date: 2019-07-31 07:21+0000\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,12 +16,12 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: Luca Tiralongo <ltiralon@greenpeace.org>\n"
+"Last-Translator: Ayip Fahmi <afahmifa@greenpeace.org>\n"
 "Language: id_ID\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.2.2; wp-5.2.1"
+"X-Loco-Version: 2.3.0; wp-5.2.2"
 
 #: single.php:33
 msgid "Post page"
@@ -76,11 +76,11 @@ msgstr "Terbaru"
 
 #: functions.php:247
 msgid "Toggle worldwide site selection menu"
-msgstr ""
+msgstr "Menu Pilihan Situs Dunia Toggle"
 
 #: functions.php:248
 msgid "Toggle search box"
-msgstr ""
+msgstr "Kotak Pencarian Toggle"
 
 #: functions.php:270
 msgid "DONATE"
@@ -173,15 +173,15 @@ msgstr "Artikel"
 
 #: templates/author.twig:36
 msgid "Posts by "
-msgstr ""
+msgstr "Post oleh"
 
 #: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
-msgstr ""
+msgstr "Selengkapnya"
 
 #: templates/navigation-bar.twig:6
 msgid "Toggle navigation menu"
-msgstr ""
+msgstr "Menu Navigasi Toggle"
 
 #: templates/navigation-bar.twig:7 templates/search.twig:8
 #: templates/search.twig:45 templates/404.twig:17
@@ -318,15 +318,15 @@ msgstr "Unduh"
 
 #: templates/base.twig:10
 msgid "Skip to Navigation"
-msgstr ""
+msgstr "Langsung Ke Navigasi"
 
 #: templates/base.twig:11
 msgid "Skip to Content"
-msgstr ""
+msgstr "Langsung Ke Konten"
 
 #: templates/base.twig:12
 msgid "Skip to Footer"
-msgstr ""
+msgstr "Langsung Ke Footer"
 
 #: templates/single.twig:41 templates/tease-taxonomy-post.twig:26
 msgid "by"
@@ -334,23 +334,23 @@ msgstr "oleh"
 
 #: templates/single.twig:53 templates/comments_section.twig:2
 msgid "Comments"
-msgstr ""
+msgstr "Komentar"
 
 #: templates/comments_section.twig:8
 msgid "Discussion"
-msgstr ""
+msgstr "Diskusi"
 
 #: templates/taxonomy.twig:18
 msgid "Results"
-msgstr ""
+msgstr "Hasil"
 
 #: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
 msgid "Share on"
-msgstr ""
+msgstr "Bagikan di"
 
 #: templates/blocks/share_buttons.twig:21
 msgid "Share via"
-msgstr ""
+msgstr "Bagikan melalui"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
@@ -358,31 +358,31 @@ msgstr "tentang penulis"
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
-msgstr ""
+msgstr "Email Anda"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
-msgstr ""
+msgstr "Komentar"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr ""
+msgstr "Komentar Anda"
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
-msgstr ""
+msgstr "Nama Anda"
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post Comment"
-msgstr ""
+msgstr "Tampilkan Komentar"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
