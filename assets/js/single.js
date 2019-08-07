@@ -1,4 +1,4 @@
-$(document).on('ready', function() {
+jQuery(function($) {
   'use strict';
 
   function unzoom() {
