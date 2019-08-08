@@ -1,0 +1,21 @@
+{% block media_video %}
+	{% if ( fields ) %}
+		<section class="block media-block">
+			{% if ( fields.title ) %}
+				<header>
+					<h2 class="page-section-header">{{ fields.title }}</h2>
+				</header>
+			{% endif %}
+			{% if ( fields.description ) %}
+				<div class="page-section-description">{{ fields.description|e('wp_kses_post')|raw }}</div>
+			{% endif %}
+			<div class="{{ fields.type }}-embed">
+				{% if fields.embed_html %}
+					{{ fields.embed_html | raw }}
+				{% else %}
+					<p>Failed to embed media.</p>
+				{% endif %}
+			</div>
+		</section>
+	{% endif %}
+{% endblock %}
