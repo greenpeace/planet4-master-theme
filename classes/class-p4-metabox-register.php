@@ -297,7 +297,7 @@ class P4_Metabox_Register {
 			'The Future of Europe project'       => 'The Future of Europe project',
 			'Greenpeace Fires'                   => 'Greenpeace Fires',
 			'Indonesia Forests'                  => 'Indonesia Forests',
-			'Meat & Dairy'                       => 'Meat & Dairy',
+			'Meat &amp; Dairy'                   => 'Meat & Dairy',
 			'Plastics Free Future'               => 'Plastics Free Future',
 			'Shifting the trillions'             => 'Shifting the trillions',
 			'Stolen Fish'                        => 'Stolen Fish',
@@ -322,14 +322,14 @@ class P4_Metabox_Register {
 		);
 
 		$basket_options = [
-			'not set'              => __( '- Select Basket -', 'planet4-master-theme-backend' ),
-			'Forests'              => 'Forests',
-			'Oceans'               => 'Oceans',
-			'Good Life'            => 'Good Life',
-			'Food'                 => 'Food',
-			'Climate & Energy'     => 'Climate & Energy',
-			'Oil'                  => 'Oil',
-			'Political & Business' => 'Political & Business',
+			'not set'                  => __( '- Select Basket -', 'planet4-master-theme-backend' ),
+			'Forests'                  => 'Forests',
+			'Oceans'                   => 'Oceans',
+			'Good Life'                => 'Good Life',
+			'Food'                     => 'Food',
+			'Climate &amp; Energy'     => 'Climate & Energy',
+			'Oil'                      => 'Oil',
+			'Political &amp; Business' => 'Political & Business',
 		];
 
 		$p4_campaign_fields->add_field(
