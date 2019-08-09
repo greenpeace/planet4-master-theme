@@ -1,0 +1,95 @@
+<script type="text/html" id="tmpl-en-selected-fields">
+
+</script>
+
+<script type="text/html" id="tmpl-en-selected-field">
+	<tr class="field-item" data-en-id="<%= id %>" data-en-name="<%= name %>" data-en-type="<%= en_type %>">
+		<td><a><span class="dashicons dashicons-sort pointer"></span></a></td>
+		<td style="width:25%;"><%= name %></td>
+		<td><%= en_type %></td>
+		<td>
+			<input type="checkbox" data-attribute="required" <% print( required ?  'checked': '') %> <% print( input_type=='hidden' ?  ' disabled': '') %>	/>
+		</td>
+		<td>
+			<input type="text" data-attribute="label" value="<%- label %>" <% print( input_type=='hidden' || input_type=='checkbox' ?  ' disabled': '') %> />
+		</td>
+		<td>
+			<select class="field-type-select" data-attribute="input_type">
+				<option value="0">{{ __( '--Select--', 'planet4-gutenberg-engagingnetworks' ) }}</option>
+				<option value="checkbox"  <% print( input_type == 'checkbox' ?  'selected': '') %> >{{ __( 'Checkbox', 'planet4-gutenberg-engagingnetworks' ) }}</option>
+				<option value="country"  <% print( input_type == 'country' ?  'selected': '') %> >{{ __( 'Country', 'planet4-gutenberg-engagingnetworks' ) }}</option>
+				<option value="email"  <% print( input_type == 'email' ?  'selected': '') %> >{{ __( 'Email', 'planet4-gutenberg-engagingnetworks' ) }}</option>
+				<option value="hidden"  <% print( input_type == 'hidden' ?  'selected': '') %> >{{ __( 'Hidden', 'planet4-gutenberg-engagingnetworks' ) }}</option>
+				<option value="text"  <% print( input_type == 'text' ?  'selected': '') %> >{{ __( 'Text', 'planet4-gutenberg-engagingnetworks' ) }}</option>
+			</select>
+		</td>
+		<td class="actions">
+			<a><span class="dashicons dashicons-no remove-en-field"></span></a>
+		</td>
+	</tr>
+</script>
+
+
+<script type="text/html" id="tmpl-en-hidden-field-dialog">
+	<div style="display: none;" class="dialog">
+		<p>{{ __( 'Hidden Field customization', 'planet4-gutenberg-engagingnetworks' ) }}</p>
+		<p>
+			<label class="control-label">{{ __( 'Default Value', 'planet4-gutenberg-engagingnetworks' ) }}</label>
+			<div>
+				<input type="text" class="form-control" data-attribute="default_value" value="<%= default_value %>" />
+			</div>
+		</p>
+	</div>
+</script>
+
+<script type="text/html" id="tmpl-en-text-field-dialog">
+	<div style="display: none;" class="dialog">
+		<p>{{ __( 'Text Field customization', 'planet4-gutenberg-engagingnetworks' ) }}</p>
+		<hr>
+		<p>{{ __( 'The next two fields handle the validation of the text input. If both regex and function name are entered, only the regex will be used.', 'planet4-gutenberg-engagingnetworks' ) }}</p>
+		<hr>
+		<label class="control-label">{{ __( 'JS Function validation regex', 'planet4-gutenberg-engagingnetworks' ) }}</label>
+		<div>
+			<p>Use the regex <b>without</b> leading and trailing / character</p>
+			<p> <a href="https://planet4.greenpeace.org/handbook/block-form/#regex-validation" target="_blank"> Documentation in handbook </a></p>
+			<input type="text" class="form-control" data-attribute="js_validate_regex"
+				   value="<%= js_validate_regex %>"/>
+		</div>
+		<label class="control-label">{{ __( 'JS validation regex error message', 'planet4-gutenberg-engagingnetworks' ) }}</label>
+		<div>
+			<input type="text" class="form-control" data-attribute="js_validate_regex_msg"
+				   value="<%= js_validate_regex_msg %>"/>
+		</div>
+
+		<hr>
+		<label class="control-label">{{ __( 'JS Function validation callback', 'planet4-gutenberg-engagingnetworks' ) }}</label>
+		<div>
+			<p><a href="https://planet4.greenpeace.org/handbook/block-form/#callback-js-function" target="_blank">
+					Documentation in handbook </a></p>
+			<input type="text" class="form-control" data-attribute="js_validate_function"
+				   value="<%= js_validate_function %>"/>
+		</div>
+	</div>
+</script>
+
+<script type="text/html" id="tmpl-en-question-dialog">
+	<div style="display: none;" class="dialog" data-en-id="<%= id %>">
+		<p>
+			<label class="control-label">{{ __( 'Locales', 'planet4-gutenberg-engagingnetworks' ) }}</label>
+			<div>
+				<select class="form-control question-locale-select" data-attribute="locales">
+					<% _.each( locales, function( label_option, locale ) { %>
+					<option value="<%= label_option %>" <% print( label == label_option ?  'selected': '') %>><%= locale %></option>
+					<% }); %>
+				</select>
+			</div>
+			<br /><strong>{{ __( 'Question/Opt-in', 'planet4-gutenberg-engagingnetworks' ) }}</strong><br />
+			<br /><label class="question-label"></label><br /><br />
+			<% if ( 'GEN' == en_type )  { %>
+				<% _.each( question_options, function( question_option, value ) { %>
+				<input type="checkbox" value="<%= value %>" <% print( question_option.selected ?  'checked' : '') %> disabled /><%= question_option.label %><br />
+				<% }); %>
+			<% } %>
+		</p>
+	</div>
+</script>

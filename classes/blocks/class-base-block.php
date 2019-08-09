@@ -20,7 +20,6 @@ class Base_Block {
 	 * @return mixed
 	 */
 	public function render( $attributes ) {
-
 		$data = $this->prepare_data( $attributes );
 
 		\Timber::$locations = P4GEN_PLUGIN_DIR . '/templates/blocks';
@@ -45,7 +44,7 @@ class Base_Block {
 			\Timber::render(
 				P4GEN_PLUGIN_DIR . 'templates/block-error-message.twig',
 				array(
-					'category' => __( 'Error', 'planet4-engagingnetworks' ),
+					'category' => __( 'Error', 'planet4-gutenberg-engagingnetworks' ),
 					'message'  => $message,
 				)
 			);

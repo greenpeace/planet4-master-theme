@@ -1,0 +1,29 @@
+<div class="thankyou {% if fields.en_form_style != 'side-style' %}full-width{% endif %}" style="display: none">
+	{% if error %}
+		<span class="enform-error">{{ error }}</span>
+	{% else %}
+
+		<header>
+			<h2 class="page-section-header">{{ fields.thankyou_title }}</h2>
+		</header>
+		<p class="page-section-description">{{  fields.thankyou_subtitle|e('wp_kses_post')|raw }}</p>
+
+		<div class="sub-section formblock-flex">
+
+			<div class="form-group">
+				<h5>{{ fields.thankyou_donate_message }}</h5>
+			</div>
+
+			<div class="social-media form-group">
+				{% include "blocks/share_buttons.twig" with {post:post} %}
+			</div>
+
+			<div class="form-group">
+				<h5>{{ fields.thankyou_take_action_message }}</h5>
+			</div>
+
+			<a href="{{ fields.donatelink }}" class="btn btn-primary btn-block">{{ __( 'Donate', 'planet4-gutenberg-engagingnetworks' ) }}</a>
+
+		</div>
+	{% endif %}
+</div>

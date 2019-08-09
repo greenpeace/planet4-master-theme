@@ -1,0 +1,67 @@
+{% block settings_content %}
+
+    {% embed "message.twig" with messages %}{% endembed %}
+
+    <div id="settings_div" class="wrap">
+        <h2>{{ __( 'Settings', domain ) }}</h2>
+    </div>
+
+    {{ fn( 'settings_errors' ) }}
+
+    <form id="p4en_main_settings_form" name="p4en_main_settings_form" method="post" action="options.php">{# ../../../../wp-admin/options.php #}
+
+        {{ fn( 'settings_fields', 'p4en_main_settings_group' ) }}
+        {{ fn( 'do_settings_sections', 'p4en_main_settings_group' ) }}
+
+        <table class="form-table">
+            <tr valign="top">
+                <th>{{ __( 'Full Admin Public API Key', domain ) }}:</th>
+                <td>
+                    <input id="p4en_public_api"
+                        name="p4en_main_settings[p4en_public_api]"
+                        value="{{ settings.p4en_public_api|e('html_attr') }}"
+                        size="50"
+                        placeholder="{{ __( 'Enter your Engaging Networks account full admin public token', 'planet4-gutenberg-engagingnetworks' ) }}" />
+                </td>
+            </tr>
+            <tr valign="top">
+                <th>{{ __( 'Full Admin Private/Secret API Key', domain ) }}:</th>
+                <td>
+                    <input type="password"
+                        id="p4en_private_api"
+                        name="p4en_main_settings[p4en_private_api]"
+                        value="{{ settings.p4en_private_api|e('html_attr') }}"
+                        size="50"
+                        placeholder="{{ __( 'Enter your Engaging Networks account full admin private token', 'planet4-gutenberg-engagingnetworks' ) }}" />
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <table class="form-table">
+            <tr valign="top">
+                <th>{{ __( 'Frontend Public API Key', domain ) }}:</th>
+                <td>
+                    <input id="p4en_frontend_public_api"
+                           name="p4en_main_settings[p4en_frontend_public_api]"
+                           value="{{ settings.p4en_frontend_public_api|e('html_attr') }}"
+                           size="50"
+                           placeholder="{{ __( 'Enter your Engaging Networks account frontend public token', 'planet4-gutenberg-engagingnetworks' ) }}" />
+                </td>
+            </tr>
+            <tr valign="top">
+                <th>{{ __( 'Frontend Private/Secret API Key', domain ) }}:</th>
+                <td>
+                    <input type="password"
+                           id="p4en_frontend_private_api"
+                           name="p4en_main_settings[p4en_frontend_private_api]"
+                           value="{{ settings.p4en_frontend_private_api|e('html_attr') }}"
+                           size="50"
+                           placeholder="{{ __( 'Enter your Engaging Networks account frontend private token', 'planet4-gutenberg-engagingnetworks' ) }}" />
+                </td>
+            </tr>
+        </table>
+        {{ fn( 'submit_button', __( 'Save Changes', domain ), 'primary', 'p4en_main_settings_save_button' ) }}
+    </form>
+    <div class="clear"></div>
+
+{% endblock %}

@@ -8,7 +8,7 @@
  *
  * Author: Greenpeace International
  * Author URI: http://www.greenpeace.org/
- * Text Domain: planet4-engagingnetworks
+ * Text Domain: planet4-gutenberg-engagingnetworks
  *
  * License:     GPLv3
  * Copyright (C) 2018 Greenpeace International
@@ -85,6 +85,9 @@ if ( ! defined( 'P4GEN_ALLOWED_PAGETYPE' ) ) {
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	define( 'WP_UNINSTALL_PLUGIN', P4GEN_PLUGIN_BASENAME );
 }
+if ( ! defined( 'P4_REST_SLUG' ) ) {
+	define( 'P4_REST_SLUG', 'planet4-engaging-networks' );
+}
 
 require_once __DIR__ . '/classes/class-loader.php';
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -96,10 +99,14 @@ require_once ABSPATH . 'wp-admin/includes/plugin.php';
 ==========================
 */
 P4GEN\Loader::get_instance(
-	[
-		// --- Add here your own Block Controller ---
-		// DEPRECATED: Blocks could be registered inside Loader class
+	// --- Add here your own Block Controller ---
+	// DEPRECATED: Blocks could be registered inside Loader class
 	// 'P4GEN\Controllers\Blocks\NewCovers_Controller',
+	[
+		'P4GEN\Controllers\Menu\Enform_Post_Controller',
+		'P4GEN\Controllers\Menu\Settings_Controller',
+		'P4GEN\Controllers\Blocks\ENBlock_Controller',
+		'P4GEN\Controllers\Api\Rest_Controller',
 	],
 	'P4GEN\Views\View'
 );

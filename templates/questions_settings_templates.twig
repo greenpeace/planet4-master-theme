@@ -1,0 +1,84 @@
+<script type="text/html" id="tmpl-en-available-questions">
+	<h2 class="page-header">{{ __('List of available en questions and opt-ins', 'planet4-gutenberg-engagingnetworks') }}</h2>
+	<div class="hidden" id="en_loader">
+		<img src="/wp-admin/images/wpspin_light-2x.gif"/>
+	</div>
+	<div class="lead my-3">
+		<%= col.length %> {{ __('questions available', 'planet4-gutenberg-engagingnetworks') }}
+		<button class="btn button reload-questions ml-2">{{ __('Reload', 'planet4-gutenberg-engagingnetworks') }}</button>
+	</div>
+	<ul class="media-list row available-questions-container"></ul>
+</script>
+
+<script type="text/html" id="tmpl-en-questions">
+	<h2 class="page-header">{{ __('List of selected en questions and opt-ins', 'planet4-gutenberg-engagingnetworks') }}</h2>
+	<div class="lead my-3">
+		<%= col.length %> {{ __('questions selected', 'planet4-gutenberg-engagingnetworks') }}
+		<button class="btn button reload-questions ml-2">{{ __('Reload', 'planet4-gutenberg-engagingnetworks') }}</button>
+	</div>
+	<ul class="media-list row questions-container"></ul>
+	<div id="new-question-div"></div>
+</script>
+
+<script type="text/html" id="tmpl-en-available-question">
+	<div class="card-body">
+		<h5 class="card-title"><%- name %></h5>
+		<p class="card-text">
+			<input type="hidden" disabled="disabled" class="form-control" value="<%- questionId %>">
+			<span class="text-muted">{{ __('Type', 'planet4-gutenberg-engagingnetworks') }}:</span>
+			<% if ('GEN' === type) { %> Question <% } else if ('OPT' === type) { %> Opt-in <% } else { print(type) } %>
+		</p>
+		<button class="btn button card-link add-question"><span class="dashicons dashicons-plus field-dashicon"></span> Add</button>
+	</div>
+</script>
+
+<script type="text/html" id="tmpl-en-question">
+	<div class="card-body">
+		<h5 class="card-title"><%- name %></h5>
+		<div class="card-text">
+			<p class="mb-2"><span class="text-muted">{{ __('Question', 'planet4-gutenberg-engagingnetworks') }}:</span> <%- label %></p>
+			<p>
+				<span class="text-muted">{{ __('Type', 'planet4-gutenberg-engagingnetworks') }}:</span>
+				<% if ('GEN' === type) { %> Question <% } else if ('OPT' === type) { %> Opt-in <% } else { print(type) } %>
+			</p>
+			<input type="hidden" disabled="disabled" class="form-control" value="<%- questionId %>">
+		</div>
+		<button class="btn button edit-this-question"><span class="dashicons dashicons-edit field-dashicon"></span> Edit</button>
+		<button class="btn button delete-question"><span class="dashicons dashicons-trash field-dashicon"></span> Delete</button>
+	</div>
+</script>
+
+<script type="text/html" id="tmpl-new-en-question">
+	<hr>
+	<h4><%= label== '' ? 'Create Question ' : 'Edit Question ->  ' + name %> </h4>
+	<form role="form" class="form-horizontal question-form">
+		<div class="form-group">
+			<label class="col-md-3 control-label">{{ __('Question name', 'planet4-gutenberg-engagingnetworks') }}:</label>
+			<div class="col-md-3">
+				<input type="text" class="form-control question-name-input" value="<%- name %>" id="en_question_name"
+					   disabled>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-3 control-label">{{ __('Question', 'planet4-gutenberg-engagingnetworks') }}:</label>
+			<div class="col-md-3">
+				<input type="text" class="form-control question-label-input" value="<%- label %>"
+					   id="en_question_label">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-3 control-label">{{ __('Type', 'planet4-gutenberg-engagingnetworks') }}:</label>
+			<div class="col-md-3">
+				<input type="text" class="form-control question-type-input" value="<%- type %>" id="en_question_type" disabled>
+				<input type="hidden" value="<%- id %>" id="en_question_id">
+				<input type="hidden" value="<%- questionId %>" id="en_question__id">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-2">
+				<button class="button button-primary <%= label== '' ? 'create-question' : 'edit-question' %>" <%= 'data-id="' + id +'"' %>>{{ __('Submit') }}</button>
+				<button class="button cancel-question">{{ __('Cancel') }}</button>
+			</div>
+		</div>
+	</form>
+</script>

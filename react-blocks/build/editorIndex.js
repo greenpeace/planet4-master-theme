@@ -305,8 +305,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _components_Preview__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../components/Preview */ "./react-blocks/src/components/Preview.js");
 /* harmony import */ var _components_LayoutSelector_LayoutSelector__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../components/LayoutSelector/LayoutSelector */ "./react-blocks/src/components/LayoutSelector/LayoutSelector.js");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _components_FormSectionTitle_FormSectionTitle__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../components/FormSectionTitle/FormSectionTitle */ "./react-blocks/src/components/FormSectionTitle/FormSectionTitle.js");
+/* harmony import */ var _components_FormHelp_FormHelp__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../components/FormHelp/FormHelp */ "./react-blocks/src/components/FormHelp/FormHelp.js");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__);
+
+
 
 
 
@@ -332,90 +336,126 @@ function (_Component) {
     key: "renderEdit",
     value: function renderEdit() {
       var __ = wp.i18n.__;
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(react__WEBPACK_IMPORTED_MODULE_6__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("h2", null, __('EN Form options', 'p4gen')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("i", null, __('Display options for EN Forms', 'p4gen'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_components_LayoutSelector_LayoutSelector__WEBPACK_IMPORTED_MODULE_8__["LayoutSelector"], {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_components_FormSectionTitle_FormSectionTitle__WEBPACK_IMPORTED_MODULE_9__["FormSectionTitle"], null, __('EN Form options', 'planet4-gutenberg-engagingnetworks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_components_FormHelp_FormHelp__WEBPACK_IMPORTED_MODULE_10__["FormHelp"], null, __('Display options for EN Forms', 'planet4-gutenberg-engagingnetworks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["SelectControl"], {
+        label: __('Engaging Network Live Pages', 'planet4-gutenberg-engagingnetworks'),
+        value: this.props.en_page_id,
+        options: [{
+          label: 'No pages',
+          value: 'No pages'
+        }],
+        onChange: this.props.onGoalChange
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("i", null, this.props.pages ? __('Select the Live EN page that this form will be submitted to.', 'planet4-gutenberg-engagingnetworks') : __('Check your EngagingNetworks settings!', 'planet4-gutenberg-engagingnetworks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["SelectControl"], {
+        label: __('- Select Goal -', 'planet4-gutenberg-engagingnetworks'),
+        value: this.props.enform_goal,
+        options: [{
+          label: 'Petition Signup',
+          value: 'Petition Signup'
+        }, {
+          label: 'Action Alert',
+          value: 'Action Alert'
+        }, {
+          label: 'Contact Form',
+          value: 'Contact Form'
+        }, {
+          label: 'Other',
+          value: 'Other'
+        }],
+        onChange: this.props.onGoalChange
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_components_LayoutSelector_LayoutSelector__WEBPACK_IMPORTED_MODULE_8__["LayoutSelector"], {
         selectedOption: this.props.en_form_style,
         onSelectedLayoutChange: this.props.onSelectedLayoutChange,
         options: [{
-          label: __('Page body / text size width. No background.', 'p4gen'),
-          image: window.p4ge_vars.home + 'images/enfullwidth.jpg',
-          value: 1,
-          help: __('Use: on long pages (more than 5 screens) when list items are long (+ 10 words)<br>No max items<br>recommended.', 'p4gen')
+          label: __('Page body / text size width. No background.', 'planet4-gutenberg-engagingnetworks'),
+          image: window.p4en_vars.home + 'images/enfullwidth.png',
+          value: 'full-width-bg',
+          help: __('Use: on long pages (more than 5 screens) when list items are long (+ 10 words)<br>No max items<br>recommended.', 'planet4-gutenberg-engagingnetworks')
         }, {
-          label: __('Full page width. With background image.', 'p4gen'),
-          image: window.p4ge_vars.home + 'images/enfullwidthbg.jpg',
-          value: 2,
-          help: __('This form has a background image that expands the full width of the browser (aka "Happy Point").', 'p4gen')
+          label: __('Full page width. With background image.', 'planet4-gutenberg-engagingnetworks'),
+          image: window.p4en_vars.home + 'images/enfullwidthbg.png',
+          value: 'full-width',
+          help: __('This form has a background image that expands the full width of the browser (aka "Happy Point").', 'planet4-gutenberg-engagingnetworks')
         }, {
-          label: __('Form on the side.', 'p4gen'),
-          image: window.p4ge_vars.home + 'images/submenu-sidebar.jpg',
-          value: 3,
-          help: __('Form will be added to the top of the page, on the right side for most languages and on the left side for Right-to-left(RTL) languages.', 'p4gen')
+          label: __('Form on the side.', 'planet4-gutenberg-engagingnetworks'),
+          image: window.p4en_vars.home + 'images/submenu-sidebar.jpg',
+          value: 'side-style',
+          help: __('Form will be added to the top of the page, on the right side for most languages and on the left side for Right-to-left(RTL) languages.', 'planet4-gutenberg-engagingnetworks')
         }]
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["TextControl"], {
-        label: __('Form Title', 'planet4-engagingnetworks'),
-        placeholder: __('Enter title', 'planet4-engagingnetworks'),
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TextControl"], {
+        label: __('Form Title', 'planet4-gutenberg-engagingnetworks'),
+        placeholder: __('Enter title', 'planet4-gutenberg-engagingnetworks'),
         value: this.props.title,
         onChange: this.props.onTitleChange
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["TextControl"], {
-        label: __('Form Description', 'planet4-engagingnetworks'),
-        placeholder: __('Enter description', 'planet4-engagingnetworks'),
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TextControl"], {
+        label: __('Form Description', 'planet4-gutenberg-engagingnetworks'),
+        placeholder: __('Enter description', 'planet4-gutenberg-engagingnetworks'),
         value: this.props.description,
         onChange: this.props.onDescriptionChange
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["TextControl"], {
-        label: __('Content Title', 'planet4-engagingnetworks'),
-        placeholder: __('Enter content title', 'planet4-engagingnetworks'),
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TextControl"], {
+        label: __('Content Title', 'planet4-gutenberg-engagingnetworks'),
+        placeholder: __('Enter content title', 'planet4-gutenberg-engagingnetworks'),
         value: this.props.content_title,
         onChange: this.props.onContentTitleChange
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["TextareaControl"], {
-        label: __('Content Description', 'planet4-engagingnetworks'),
-        placeholder: __('Enter content description', 'planet4-engagingnetworks'),
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TextareaControl"], {
+        label: __('Content Description', 'planet4-gutenberg-engagingnetworks'),
+        placeholder: __('Enter content description', 'planet4-gutenberg-engagingnetworks'),
         value: this.props.cnotent_description,
         onChange: this.props.onContentDescriptionChange
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["TextControl"], {
-        label: __('Call to Action button (e.g. "Sign up now!")', 'planet4-engagingnetworks'),
-        placeholder: __('Enter the "Call to Action" button text', 'planet4-engagingnetworks'),
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TextControl"], {
+        label: __('Call to Action button (e.g. "Sign up now!")', 'planet4-gutenberg-engagingnetworks'),
+        placeholder: __('Enter the "Call to Action" button text', 'planet4-gutenberg-engagingnetworks'),
         value: this.props.button_text,
         onChange: this.props.onCTAButtonTextChange
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["TextareaControl"], {
-        label: __('Text below Call to Action button', 'planet4-engagingnetworks'),
-        placeholder: __('Enter text to go below the button', 'planet4-engagingnetworks'),
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TextareaControl"], {
+        label: __('Text below Call to Action button', 'planet4-gutenberg-engagingnetworks'),
+        placeholder: __('Enter text to go below the button', 'planet4-gutenberg-engagingnetworks'),
         value: this.props.text_below_button,
-        onChange: this.props.onCTAButtonTextChange
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["TextControl"], {
-        label: __('"Thank you" main text / Title (e.g. "Thank you for signing!")', 'planet4-engagingnetworks'),
-        placeholder: __('Enter "Thank you" main text / Title', 'planet4-engagingnetworks'),
+        onChange: this.props.onCTATextBelowButtonChange
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_components_FormSectionTitle_FormSectionTitle__WEBPACK_IMPORTED_MODULE_9__["FormSectionTitle"], null, __('"Thank You" message settings', 'planet4-gutenberg-engagingnetworks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TextControl"], {
+        label: __('"Main text / Title', 'planet4-gutenberg-engagingnetworks'),
+        placeholder: __('e.g. "Thank you for signing!"', 'planet4-gutenberg-engagingnetworks'),
         value: this.props.thankyou_title,
         onChange: this.props.onMainThankYouTextChange
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["TextControl"], {
-        label: __('"Thank You" secondary message / Subtitle (e.g. "Your support means world")', 'planet4-engagingnetworks'),
-        placeholder: __('Enter Thank you Subtitle', 'planet4-engagingnetworks'),
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TextControl"], {
+        label: __('Secondary message / Subtitle', 'planet4-gutenberg-engagingnetworks'),
+        placeholder: __('e.g. "Your support means world"', 'planet4-gutenberg-engagingnetworks'),
         value: this.props.thankyou_subtitle,
         onChange: this.props.onSecondaryThankYouMessageChange
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["TextControl"], {
-        label: __('"Thank You" social media message (e.g. "Can you share it with your family and friends?")', 'planet4-engagingnetworks'),
-        placeholder: __('Enter Donate Message', 'planet4-engagingnetworks'),
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TextControl"], {
+        label: __('"Social media message', 'planet4-gutenberg-engagingnetworks'),
+        placeholder: __('e.g. "Can you share it with your family and friends?"', 'planet4-gutenberg-engagingnetworks'),
         value: this.props.thankyou_donate_message,
         onChange: this.props.onThankYouDonateMessageChange
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["TextControl"], {
-        label: __('"Thank You" donate message (e.g. "or make a donation")', 'planet4-engagingnetworks'),
-        placeholder: __('Enter Take Action Message', 'planet4-engagingnetworks'),
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TextControl"], {
+        label: __('Donate message', 'planet4-gutenberg-engagingnetworks'),
+        placeholder: __('e.g. "or make a donation"', 'planet4-gutenberg-engagingnetworks'),
         value: this.props.thankyou_take_action_message,
         onChange: this.props.onThankYouTakeActionMessageChange
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["TextControl"], {
-        label: __('"Thank you page" url (Title and Subtitle will not be shown)', 'planet4-engagingnetworks'),
-        placeholder: __('Enter "Thank you page" url', 'planet4-engagingnetworks'),
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TextControl"], {
+        label: __('"URL (Title and Subtitle will not be shown)', 'planet4-gutenberg-engagingnetworks'),
+        placeholder: __('Enter "Thank you page" url', 'planet4-gutenberg-engagingnetworks'),
         value: this.props.thankyou_url,
         onChange: this.props.onThankYouTakeActionMessageChange
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("hr", null)));
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, "Background"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["SelectControl"], {
+        label: __('Planet 4 Engaging Networks form', 'planet4-gutenberg-engagingnetworks'),
+        value: this.props.en_page_id,
+        options: [{
+          label: 'No forms',
+          value: 'No forms'
+        }],
+        onChange: this.props.onGoalChange
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("i", null, this.props.forms ? __('Select the P4EN Form that will be displayed.', 'planet4-gutenberg-engagingnetworks') : __('Create an EN Form', 'planet4-gutenberg-engagingnetworks'))))));
     }
   }, {
     key: "render",
     value: function render() {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", null, this.props.isSelected ? this.renderEdit() : null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_components_Preview__WEBPACK_IMPORTED_MODULE_7__["Preview"], {
-        showBar: this.props.isSelected
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["ServerSideRender"], {
-        block: 'planet4-engagingnetworks/enform',
+        showBar: this.props.isSelected,
+        isSelected: this.props.isSelected
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["ServerSideRender"], {
+        block: 'planet4-gutenberg-engagingnetworks/enform',
         attributes: {
+          en_form_id: this.props.en_form_id,
+          en_form_style: this.props.en_form_style,
           title: this.props.title,
           description: this.props.description,
           content_title: this.props.content_title,
@@ -425,7 +465,8 @@ function (_Component) {
           thankyou_subtitle: this.props.thankyou_subtitle,
           thankyou_donate_message: this.props.thankyou_donate_message,
           thankyou_take_action_message: this.props.thankyou_take_action_message,
-          thankyou_url: this.props.thankyou_url
+          thankyou_url: this.props.thankyou_url,
+          en_page_id: this.props.en_page_id
         }
       })));
     }
@@ -461,10 +502,10 @@ var ENFormBlock = function ENFormBlock() {
   _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, ENFormBlock);
 
   var registerBlockType = wp.blocks.registerBlockType;
-  registerBlockType('planet4-engagingnetworks/enform', {
+  registerBlockType('planet4-gutenberg-engagingnetworks/enform', {
     title: 'EN Form',
-    icon: 'visibility',
-    category: 'planet4-engagingnetworks',
+    icon: 'feedback',
+    category: 'planet4-gutenberg-engagingnetworks',
     // Transform the shortcode into a Gutenberg block
     // this is used when a user clicks "Convert to blocks"
     // on the "Classic Editor" block
@@ -514,23 +555,53 @@ var ENFormBlock = function ENFormBlock() {
       }]
     },
     attributes: {
+      en_page_id: {
+        type: 'integer'
+      },
+      enform_goal: {
+        type: 'string'
+      },
+      en_form_style: {
+        type: 'string'
+      },
       title: {
         type: 'string'
       },
       description: {
         type: 'string'
       },
-      necessary_cookies_name: {
+      content_title: {
         type: 'string'
       },
-      necessary_cookies_description: {
+      content_description: {
         type: 'string'
       },
-      all_cookies_name: {
+      button_text: {
         type: 'string'
       },
-      all_cookies_description: {
+      text_below_button: {
         type: 'string'
+      },
+      thankyou_title: {
+        type: 'string'
+      },
+      thankyou_subtitle: {
+        type: 'string'
+      },
+      thankyou_donate_message: {
+        type: 'string'
+      },
+      thankyou_take_action_message: {
+        type: 'string'
+      },
+      thankyou_url: {
+        type: 'string'
+      },
+      background: {
+        type: 'string'
+      },
+      en_form_id: {
+        type: 'integer'
       }
     },
     edit: function edit(_ref) {
@@ -550,27 +621,33 @@ var ENFormBlock = function ENFormBlock() {
         });
       }
 
-      function onNecessaryCookiesNameChange(value) {
+      function onContentTitleChange(value) {
         setAttributes({
-          necessary_cookies_name: value
+          content_title: value
         });
       }
 
-      function onNecessaryCookiesDescriptionChange(value) {
+      function onContentDescriptionChange(value) {
         setAttributes({
-          necessary_cookies_description: value
+          content_description: value
         });
       }
 
-      function onAllCookiesNameChange(value) {
+      function onCTAButtonTextChange(value) {
         setAttributes({
-          all_cookies_name: value
+          button_text: value
         });
       }
 
-      function onAllCookiesDescriptionChange(value) {
+      function onCTATextBelowButtonChange(value) {
         setAttributes({
-          all_cookies_description: value
+          text_below_button: value
+        });
+      }
+
+      function onSelectedLayoutChange(value) {
+        setAttributes({
+          en_form_style: value
         });
       }
 
@@ -578,10 +655,11 @@ var ENFormBlock = function ENFormBlock() {
         isSelected: isSelected,
         onTitleChange: onTitleChange,
         onDescriptionChange: onDescriptionChange,
-        onNecessaryCookiesNameChange: onNecessaryCookiesNameChange,
-        onNecessaryCookiesDescriptionChange: onNecessaryCookiesDescriptionChange,
-        onAllCookiesNameChange: onAllCookiesNameChange,
-        onAllCookiesDescriptionChange: onAllCookiesDescriptionChange
+        onContentTitleChange: onContentTitleChange,
+        onContentDescriptionChange: onContentDescriptionChange,
+        onCTAButtonTextChange: onCTAButtonTextChange,
+        onCTATextBelowButtonChange: onCTATextBelowButtonChange,
+        onSelectedLayoutChange: onSelectedLayoutChange
       }));
     },
     save: function save() {
@@ -589,6 +667,118 @@ var ENFormBlock = function ENFormBlock() {
     }
   });
 };
+
+/***/ }),
+
+/***/ "./react-blocks/src/components/FormHelp/FormHelp.js":
+/*!**********************************************************!*\
+  !*** ./react-blocks/src/components/FormHelp/FormHelp.js ***!
+  \**********************************************************/
+/*! exports provided: FormHelp */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormHelp", function() { return FormHelp; });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+
+
+
+
+
+
+
+var FormHelp =
+/*#__PURE__*/
+function (_Component) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(FormHelp, _Component);
+
+  function FormHelp() {
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, FormHelp);
+
+    return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(this, _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(FormHelp).apply(this, arguments));
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(FormHelp, [{
+    key: "render",
+    value: function render() {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
+        className: "FormHelp"
+      }, this.props.children);
+    }
+  }]);
+
+  return FormHelp;
+}(react__WEBPACK_IMPORTED_MODULE_6__["Component"]);
+
+/***/ }),
+
+/***/ "./react-blocks/src/components/FormSectionTitle/FormSectionTitle.js":
+/*!**************************************************************************!*\
+  !*** ./react-blocks/src/components/FormSectionTitle/FormSectionTitle.js ***!
+  \**************************************************************************/
+/*! exports provided: FormSectionTitle */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormSectionTitle", function() { return FormSectionTitle; });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+
+
+
+
+
+
+
+var FormSectionTitle =
+/*#__PURE__*/
+function (_Component) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(FormSectionTitle, _Component);
+
+  function FormSectionTitle() {
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, FormSectionTitle);
+
+    return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(this, _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(FormSectionTitle).apply(this, arguments));
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(FormSectionTitle, [{
+    key: "render",
+    value: function render() {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
+        className: "FormSectionTitle"
+      }, this.props.children);
+    }
+  }]);
+
+  return FormSectionTitle;
+}(react__WEBPACK_IMPORTED_MODULE_6__["Component"]);
 
 /***/ }),
 
@@ -662,18 +852,19 @@ function (_Component) {
 
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", {
         className: "LayoutSelector"
-      }, this.props.options.map(function (layoutOption) {
+      }, this.props.options.map(function (layoutOption, i) {
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("label", {
-          className: "LayoutOption"
+          className: "LayoutOption",
+          key: i
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", {
           style: {
             display: 'flex'
           }
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["RadioControl"], {
           name: 'layoutOption',
-          selected: Number(_this2.state.selectedOption),
+          selected: _this2.state.selectedOption,
           options: [{
-            value: Number(layoutOption.value)
+            value: layoutOption.value
           }],
           onChange: _this2.setSelected
         }), layoutOption.label), layoutOption.image ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("img", {
@@ -739,10 +930,12 @@ function (_Component) {
     key: "render",
     value: function render() {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-        className: "Preview"
+        className: 'Preview ' + (this.props.isSelected ? 'FloatingPreview' : '')
       }, this.props.showBar ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
         className: "PreviewBar"
-      }, "Preview") : null, this.props.children);
+      }, "Preview") : null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
+        className: "PreviewContainer"
+      }, this.props.children));
     }
   }]);
 

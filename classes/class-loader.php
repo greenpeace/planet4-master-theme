@@ -88,6 +88,7 @@ final class Loader {
 	private function __construct( $services, $view_class ) {
 
 		$this->load_files();
+		$this->load_services( $services, $view_class );
 		$this->check_requirements();
 
 		// Load Blocks.
@@ -302,7 +303,7 @@ final class Loader {
 
 		// Enqueue editor script for all Blocks in this Plugin.
 		wp_enqueue_script(
-			'planet4-engagingnetworks-script',                       // - Script handler
+			'planet4-gutenberg-engagingnetworks-script',                       // - Script handler
 			P4GEN_PLUGIN_URL . 'react-blocks/build/editorIndex.js',                                     // - Bundled JS for the editor
 			[
 				'wp-blocks',      // - Helpers for registering blocks
@@ -318,9 +319,9 @@ final class Loader {
 		// Variables exposed from PHP to JS,
 		// WP calls this "localizing a script"...
 		$reflection_vars = [
-			'home' => P4GEN_PLUGIN_URL . '/public/',
+			'home' => P4GEN_PLUGIN_URL . 'public/',
 		];
-		wp_localize_script( 'planet4-engagingnetworks-script', 'p4ge_vars', $reflection_vars );
+		wp_localize_script( 'planet4-gutenberg-engagingnetworks-script', 'p4en_vars', $reflection_vars );
 	}
 
 	/**
@@ -387,8 +388,8 @@ final class Loader {
 			$categories,
 			[
 				[
-					'slug'  => 'planet4-engagingnetworks',
-					'title' => __( 'Planet4 EN Blocks', 'planet4-engagingnetworks' ),
+					'slug'  => 'planet4-gutenberg-engagingnetworks',
+					'title' => __( 'Planet4 EN Blocks', 'planet4-gutenberg-engagingnetworks' ),
 				],
 			]
 		);

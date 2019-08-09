@@ -4,10 +4,10 @@ export class ENFormBlock {
   constructor() {
     const {registerBlockType} = wp.blocks;
 
-    registerBlockType('planet4-engagingnetworks/enform', {
+    registerBlockType('planet4-gutenberg-engagingnetworks/enform', {
       title: 'EN Form',
-      icon: 'visibility',
-      category: 'planet4-engagingnetworks',
+      icon: 'feedback',
+      category: 'planet4-gutenberg-engagingnetworks',
 
       // Transform the shortcode into a Gutenberg block
       // this is used when a user clicks "Convert to blocks"
@@ -60,23 +60,53 @@ export class ENFormBlock {
         ]
       },
       attributes: {
+        en_page_id: {
+          type: 'integer',
+        },
+        enform_goal: {
+          type: 'string',
+        },
+        en_form_style: {
+          type: 'string',
+        },
         title: {
           type: 'string',
         },
         description: {
           type: 'string',
         },
-        necessary_cookies_name: {
+        content_title: {
           type: 'string',
         },
-        necessary_cookies_description: {
+        content_description: {
           type: 'string',
         },
-        all_cookies_name: {
+        button_text: {
           type: 'string',
         },
-        all_cookies_description: {
+        text_below_button: {
           type: 'string',
+        },
+        thankyou_title: {
+          type: 'string',
+        },
+        thankyou_subtitle: {
+          type: 'string',
+        },
+        thankyou_donate_message: {
+          type: 'string',
+        },
+        thankyou_take_action_message: {
+          type: 'string',
+        },
+        thankyou_url: {
+          type: 'string',
+        },
+        background: {
+          type: 'string',
+        },
+        en_form_id: {
+          type: 'integer',
         },
       },
       edit: ({ isSelected, attributes, setAttributes }) => {
@@ -88,20 +118,24 @@ export class ENFormBlock {
           setAttributes({description: value});
         }
 
-        function onNecessaryCookiesNameChange(value) {
-          setAttributes({necessary_cookies_name: value});
+        function onContentTitleChange(value) {
+          setAttributes({content_title: value});
         }
 
-        function onNecessaryCookiesDescriptionChange(value) {
-          setAttributes({necessary_cookies_description: value});
+        function onContentDescriptionChange(value) {
+          setAttributes({content_description: value});
         }
 
-        function onAllCookiesNameChange(value) {
-          setAttributes({all_cookies_name: value});
+        function onCTAButtonTextChange(value) {
+          setAttributes({button_text: value});
         }
 
-        function onAllCookiesDescriptionChange(value) {
-          setAttributes({all_cookies_description: value});
+        function onCTATextBelowButtonChange(value) {
+          setAttributes({text_below_button: value});
+        }
+
+        function onSelectedLayoutChange(value) {
+          setAttributes({en_form_style: value});
         }
 
         return <ENForm
@@ -109,10 +143,11 @@ export class ENFormBlock {
           isSelected={isSelected}
           onTitleChange={onTitleChange}
           onDescriptionChange={onDescriptionChange}
-          onNecessaryCookiesNameChange={onNecessaryCookiesNameChange}
-          onNecessaryCookiesDescriptionChange={onNecessaryCookiesDescriptionChange}
-          onAllCookiesNameChange={onAllCookiesNameChange}
-          onAllCookiesDescriptionChange={onAllCookiesDescriptionChange}
+          onContentTitleChange={onContentTitleChange}
+          onContentDescriptionChange={onContentDescriptionChange}
+          onCTAButtonTextChange={onCTAButtonTextChange}
+          onCTATextBelowButtonChange={onCTATextBelowButtonChange}
+          onSelectedLayoutChange={onSelectedLayoutChange}
         />
       },
       save() {

@@ -16,6 +16,17 @@ level-1 is the first level comment with a margin of 50px
 level-2 is the first level comment with a margin of 100px
 and so on...
 */
+.FormSectionTitle {
+  font-size: 14pt;
+  border-bottom: 1px solid #ccc;
+  padding-top: 16px;
+  padding-bottom: 8px;
+  margin-bottom: 16px; }
+
+.FormHelp {
+  font-style: italic;
+  color: #666; }
+
 .LayoutSelector {
   display: flex;
   width: 100%;
@@ -31,6 +42,28 @@ and so on...
     font-family: "Roboto", sans-serif;
     font-size: 10pt;
     margin-top: 10px; }
+
+.Preview .PreviewContainer {
+  position: relative; }
+
+.Preview.FloatingPreview {
+  position: fixed;
+  right: 0;
+  bottom: 20px;
+  width: 500px;
+  background: white;
+  padding: 16px;
+  box-shadow: 0 0 10px #66cc00;
+  border-radius: 10px;
+  border: 1px solid green;
+  z-index: 9999999;
+  max-height: 450px; }
+  .Preview.FloatingPreview .PreviewContainer {
+    transform: scale(0.5) translateX(-50%) translateY(-50%);
+    width: 200%; }
+  .Preview.FloatingPreview .PreviewBar {
+    font-size: 9pt;
+    padding: 8px; }
 
 .Preview .PreviewBar {
   border-bottom: 1px solid #8bcc49;

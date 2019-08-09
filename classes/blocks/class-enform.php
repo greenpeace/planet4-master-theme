@@ -7,6 +7,8 @@
 
 namespace P4GEN\Blocks;
 
+use P4GEN\Controllers\Menu\Enform_Post_Controller;
+
 /**
  * Class ENForm
  *
@@ -27,12 +29,23 @@ class ENForm extends Base_Block {
 	public function add_block_shortcode( $attributes, $content ) {
 		$attributes = shortcode_atts(
 			[
-				'title'                         => '',
-				'description'                   => '',
-				'necessary_cookies_name'        => '',
-				'necessary_cookies_description' => '',
-				'all_cookies_name'              => '',
-				'all_cookies_description'       => '',
+				'en_page_id'    			         => '',
+				'enform_goal'    			         => '',
+				'enform_style'    			       => '',
+				'enform_style'    			       => '',
+				'title'                        => '',
+				'description'                  => '',
+				'content_title'                => '',
+				'content_description'          => '',
+				'button_text'                  => '',
+				'text_below_button'            => '',
+				'thankyou_title'               => '',
+				'thankyou_subtitle'            => '',
+				'thankyou_donate_message'      => '',
+				'thankyou_take_action_message' => '',
+				'thankyou_url'                 => '',
+				'background'                   => '',
+				'en_form_id'                   => '',
 			],
 			$attributes,
 			'shortcake_enform'
@@ -45,39 +58,83 @@ class ENForm extends Base_Block {
 	 * Cookies constructor.
 	 */
 	public function __construct() {
-		add_shortcode( 'shortcake_enform', [ $this, 'add_block_shortcode' ] );
+		//add_shortcode( 'shortcake_enform', [ $this, 'add_block_shortcode' ] );
 
 		// - Register the block for the editor
 		// in the PHP side.
 		register_block_type(
-			'planet4-engagingnetworks/enform',
+			'planet4-gutenberg-engagingnetworks/enform',
 			[
-				'editor_script'   => 'planet4-engagingnetworks/enform',
+				'editor_script'   => 'planet4-gutenberg-engagingnetworks/enform',
 				'render_callback' => [ $this, 'render' ],
 				'attributes'      => [
-					'title'                         => [
+					'en_page_id'    			         => [
+						'type'    => 'integer',
+						'default' => 0,
+					],
+					'enform_goal'    			         => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'description'                   => [
+					'en_form_style'    			       => [
+						'type'    => 'string',
+						'default' => 'fullwidth',
+					],
+					'enform_style'    			       => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'necessary_cookies_name'        => [
+					'title'                        => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'necessary_cookies_description' => [
+					'description'                  => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'all_cookies_name'              => [
+					'content_title'                => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'all_cookies_description'       => [
+					'content_description'          => [
 						'type'    => 'string',
 						'default' => '',
+					],
+					'button_text'                  => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'text_below_button'            => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'thankyou_title'               => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'thankyou_subtitle'            => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'thankyou_donate_message'      => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'thankyou_take_action_message' => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'thankyou_url'                 => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'background'                   => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'en_form_id'                   => [
+						'type'    => 'integer',
+						'default' => 0,
 					],
 				],
 			]
@@ -93,29 +150,43 @@ class ENForm extends Base_Block {
 	 */
 	public function prepare_data( $attributes ): array {
 
-		// If request is coming from backend rendering.
-		if ( $this->is_rest_request() ) {
-			$post_id = filter_input( INPUT_GET, 'post_id', FILTER_VALIDATE_INT );
-			if ( $post_id > 0 ) {
-				$post = get_post( $post_id );
-			}
-		} else {
-			$post = get_queried_object();
-		}
-
 		// Enqueue js for the frontend.
-		if ( ! $this->is_rest_request() ) {
-			wp_enqueue_script( 'enform', P4GEN_PLUGIN_URL . 'public/js/enform.js', [ 'jquery' ], '0.1', true );
+		//if ( ! $this->is_rest_request() ) {
+			//wp_enqueue_script( 'enform', P4GEN_PLUGIN_URL . 'public/js/enform.js', [ 'jquery' ], '0.1', true );
+		//}
+
+		//$fields = $this->ignore_unused_attributes( $fields );
+
+		// Handle background image.
+		if ( isset( $attributes['background'] ) ) {
+			$options                     = get_option( 'planet4_options' );
+			$p4_happy_point_bg_image     = $options['happy_point_bg_image_id'] ?? '';
+			$image_id                    = '' !== $attributes['background'] ? $attributes['background'] : $p4_happy_point_bg_image;
+			$img_meta                    = wp_get_attachment_metadata( $image_id );
+			$attributes['background_src']    = wp_get_attachment_image_src( $image_id, 'retina-large' );
+			$attributes['background_srcset'] = wp_get_attachment_image_srcset( $image_id, 'retina-large', $img_meta );
+			$attributes['background_sizes']  = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
+		}
+		$attributes['default_image'] = get_bloginfo( 'template_directory' ) . '/images/happy-point-block-bg.jpg';
+
+		$data = [];
+
+		if ( isset( $attributes['thankyou_url'] ) && 0 !== strpos( $attributes['thankyou_url'], 'http' ) ) {
+			$attributes['thankyou_url'] = 'http://' . $attributes['thankyou_url'];
+		} else {
+			$options              = get_option( 'planet4_options' );
+			$attributes['donatelink'] = $options['donate_button'] ?? '#';
 		}
 
-		$data = [
-			'title'                         => $attributes['title'] ?? '',
-			'description'                   => $attributes['description'] ?? '',
-			'necessary_cookies_name'        => $attributes['necessary_cookies_name'] ?? '',
-			'necessary_cookies_description' => $attributes['necessary_cookies_description'] ?? '',
-			'all_cookies_name'              => $attributes['all_cookies_name'] ?? '',
-			'all_cookies_description'       => $attributes['all_cookies_description'] ?? '',
-		];
+		$data = array_merge(
+			$data,
+			[
+				'fields'       => $attributes,
+				'redirect_url' => isset( $attributes['thankyou_url'] ) ? filter_var( $attributes['thankyou_url'], FILTER_VALIDATE_URL ) : '',
+				'nonce_action' => 'enform_submit',
+				'form'         => '[' . Enform_Post_Controller::POST_TYPE . ' id="' . $attributes['en_form_id'] . '" en_form_style="' . $attributes['en_form_style'] . '" /]',
+			]
+		);
 
 		return $data;
 	}

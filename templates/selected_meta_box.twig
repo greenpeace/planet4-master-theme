@@ -1,0 +1,56 @@
+{% block selected_meta_box %}
+	<p>
+		{{ __( 'Hover over %s icons to get more information about each field attribute.', 'planet4-gutenberg-engagingnetworks' )|format("<span class=\"dashicons dashicons-info\"></span>")|raw  }}
+		<br/>
+		{{ __( 'Form fields will be saved only on publish/update.', 'planet4-gutenberg-engagingnetworks' ) }}
+	</p>
+	<table id="en_form_selected_fields_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+		<thead style="text-align: left;">
+		<tr valign="top" align="left">
+			<th></th>
+			<th>{{ __( 'Name', 'planet4-gutenberg-engagingnetworks' ) }}
+				<span class="dashicons dashicons-info"
+					  title="{{ __( 'Name of the field/question from engaging networks account', 'planet4-gutenberg-engagingnetworks' ) }}">
+				</span>
+			</th>
+			<th>{{ __( 'EN Type', 'planet4-gutenberg-engagingnetworks' ) }}
+				<span class="dashicons dashicons-info"
+					  title="{{ __( 'Engaging networks type of the field. Used only for presentational purpose', 'planet4-gutenberg-engagingnetworks' ) }}">
+				</span>
+			</th>
+			<th>
+				{{ __( 'Required', 'planet4-gutenberg-engagingnetworks' ) }}
+				<span class="dashicons dashicons-info"
+					  title="{{ __( 'Set if the field should be required for the form submission', 'planet4-gutenberg-engagingnetworks' ) }}">
+				</span>
+			</th>
+			<th>{{ __( 'Label', 'planet4-gutenberg-engagingnetworks' ) }}
+				<span class="dashicons dashicons-info"
+					  title="{{ __( 'Set the label of the field that should be used for the form rendering', 'planet4-gutenberg-engagingnetworks' ) }}">
+				</span>
+			</th>
+			<th>{{ __( 'P4 field type', 'planet4-gutenberg-engagingnetworks' ) }}
+				<span class="dashicons dashicons-info"
+					  title="{{ __( 'Set the type of the field. The type refers to the input/tag that will be used to render the field as part of the form.
+							This is NOT related to engaging networks field types.', 'planet4-gutenberg-engagingnetworks' ) }}">
+				</span>
+			</th>
+			<th>{{ __( 'Actions', 'planet4-gutenberg-engagingnetworks' ) }}</th>
+		</tr>
+		</thead>
+		<tbody>
+		</tbody>
+		<tfoot style="text-align: left;">
+		<tr valign="top">
+			<th></th>
+			<th>{{ __( 'Name', 'planet4-gutenberg-engagingnetworks' ) }}</th>
+			<th>{{ __( 'EN Type', 'planet4-gutenberg-engagingnetworks' ) }}</th>
+			<th>{{ __( 'Required', 'planet4-gutenberg-engagingnetworks' ) }}</th>
+			<th>{{ __( 'Label', 'planet4-gutenberg-engagingnetworks' ) }}</th>
+			<th>{{ __( 'Type', 'planet4-gutenberg-engagingnetworks' ) }}</th>
+			<th>{{ __( 'Actions', 'planet4-gutenberg-engagingnetworks' ) }}</th>
+		</tr>
+		</tfoot>
+	</table>
+	<input type="hidden" id="p4enform_fields" name="p4enform_fields" value="{{ fields }}"/>
+{% endblock %}

@@ -1,0 +1,474 @@
+.enform-full-width-bg {
+  @include background-before-opacity($light-blue-bg);
+  width: 100vw;
+  min-height: 444px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  picture {
+    align-self: start;
+
+    img {
+      position: absolute;
+      height: auto;
+      width: 100%;
+      object-fit: cover;
+      object-position: center center;
+      opacity: 0.3;
+
+      @supports (object-fit: cover) {
+        & {
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+.form-caption {
+  float: none;
+  width: 100%;
+  padding-top: 53px;
+  padding-bottom: 53px;
+  padding-left: $n15;
+  padding-right: $n15;
+
+  @include medium-and-up {
+    padding-top: 106px;
+    padding-bottom: 106px;
+  }
+
+  @include large-and-up {
+    float: left;
+    padding-top: 176px;
+    width: 50%;
+    padding-left: 0;
+    padding-right: 0;
+
+    html[dir="rtl"] & {
+      float: right;
+    }
+
+    .form-caption-background {
+      display: none;
+    }
+  }
+
+  h1, h2, h3 {
+    color: white;
+    font-family: $roboto;
+  }
+
+  h1 {
+    margin-bottom: 24px;
+    line-height: 1.1;
+
+    @include large-and-up {
+      margin-bottom: 32px;
+    }
+  }
+
+  h2 {
+    margin-bottom: 18px;
+    line-height: 1.2;
+
+    @include large-and-up {
+      margin-bottom: 24px;
+    }
+  }
+
+  h3 {
+    margin-bottom: 8px;
+    font-size: 1.25rem;
+
+    @include medium-and-up {
+      font-size: 1.675rem;
+    }
+
+    @include large-and-up {
+      font-size: 1.75rem;
+    }
+  }
+
+  p {
+    color: white;
+    font-family: $roboto;
+    font-size: 1rem;
+    line-height: 1.37rem;
+  }
+}
+
+.enform {
+  margin-top: 36px;
+  font-family: $roboto;
+  height: inherit;
+  padding: $n20;
+  background: #074365;
+  width: 100%;
+
+  .enform-full-width & {
+    color: white;
+  }
+
+  .enform-full-width-bg & {
+    background: none;
+  }
+
+  form {
+    margin: 0;
+
+    input,
+    .custom-select,
+    select.form-control.en__field__input--select,
+    button {
+      height: 46px;
+      border-radius: 0;
+      border-color: transparent;
+      margin-bottom: 16px;
+      min-width: 200px;
+
+      @include medium-and-up {
+        margin-bottom: inherit;
+      }
+
+      &.is-invalid {
+        border-color: #ff3333;
+      }
+
+      + .invalid-feedback {
+        background: #ff3333;
+        color: white;
+        padding: $n5;
+      }
+    }
+
+    .custom-checkbox input {
+      height: auto;
+    }
+
+    .formblock-flex {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+
+      @include medium-and-up {
+        justify-content: space-between;
+      }
+
+      .en__field {
+        width: 100%;
+
+        @include medium-and-up {
+          width: 49%;
+        }
+      }
+    }
+
+    .submit {
+      margin: 0;
+      line-height: 1;
+
+      @include medium-and-up {
+        display: flex;
+        flex-direction: row-reverse;
+      }
+    }
+
+    input[type=submit] {
+      margin-bottom: 0;
+      line-height: 1;
+    }
+
+    .form-check-label-block {
+      display: inline-block;
+      padding: $n10 0 0 0;
+      margin-bottom: $n5;
+
+      .enform-full-width-bg & {
+        color: $black;
+      }
+
+      input[type=checkbox], input[type=radio] {
+        & + .custom-control-description {
+          font-size: 0.85rem;
+        }
+
+        & + .custom-control-description:before {
+          border: 1px solid #1a1a1a;
+          vertical-align: middle;
+
+          .enform-full-width-bg & {
+            border: 3px solid $med-blue;
+          }
+        }
+      }
+    }
+
+    .enform-legal {
+      padding-top: 1em;
+
+      p {
+        font-size: 0.75rem;
+        line-height: 1rem;
+        float: right;
+      }
+    }
+  }
+
+  h2 {
+    .enform-full-width & {
+      color: white;
+    }
+
+    &.thankyou {
+      margin-bottom: 0;
+    }
+
+    @include medium-and-up {
+      font-size: 1.75rem;
+      line-height: 34px;
+    }
+
+    @include large-and-up {
+      font-size: 2.125rem;
+    }
+
+    @include x-large-and-up {
+      font-size: 2.25rem;
+    }
+  }
+
+  .thankyou-subtitle {
+    font-weight: normal;
+  }
+}
+
+.en-spinner {
+  border-color: $white !important;
+  border-right-color: transparent!important;
+  display: none;
+  vertical-align: middle;
+}
+
+.enform-side-style {
+  width: 100vw;
+  min-height: 444px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  .caption-overlay {
+    display: block;
+    /*background: url("public/images/carousel-blurred-overlay.png");*/
+    background-position: bottom right;
+    background-size: cover;
+    height: 100%;
+    width: 90%;
+    position: absolute;
+    margin-left: 0;
+    z-index: 1;
+
+    html[dir="rtl"] & {
+      background-position: bottom left;
+    }
+
+    @include medium-and-up {
+      width: 50%;
+    }
+  }
+
+  // Darken background
+  &::after {
+    @include fill-container;
+    content: "";
+    background: rgba(30, 30, 30, 0.45);
+  }
+
+  picture {
+    align-self: start;
+
+    @include large-and-up {
+      display: block;
+    }
+
+    img {
+      position: absolute;
+      height: auto;
+      width: 100%;
+      object-fit: cover;
+      object-position: center center;
+      opacity: 1;
+
+      @supports (object-fit: cover) {
+        & {
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .enform {
+    overflow: hidden;
+    align-items: center;
+    min-height: 444px;
+    background: white;
+    padding-top: 28px;
+    float: none;
+    width: 100vw;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    @include large-and-up {
+      margin-top: 96px;
+      margin-bottom: 60px;
+      float: right;
+
+      html[dir="rtl"] & {
+        float: left;
+      }
+
+      width: 40%;
+      max-width: 444px;
+      box-sizing: content-box;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+      padding: 28px 30px 24px 30px;
+    }
+
+    .enform-legal {
+      p {
+        float: none;
+      }
+    }
+  }
+
+  .title-and-description {
+    color: #1a1a1a;
+    padding: $n15;
+
+    @include large-and-up {
+      padding: 0;
+    }
+  }
+
+  .form-container {
+    background: $white;
+    padding: $n15;
+
+    @include large-and-up {
+      padding: 0;
+    }
+
+    .formblock-flex .en__field {
+      width: 100%;
+    }
+
+    .en__field__element {
+      position: relative;
+
+      input[type=text],
+      select,
+      input[type=email],
+      input[type=tel] {
+        border: 1px solid #1a1a1a;
+        margin-bottom: 20px;
+        padding: $n10;
+
+        &.is-invalid {
+          border: 1px solid #ff3333;
+          margin-bottom: 6px;
+        }
+      }
+    }
+
+    .invalid-feedback {
+      color: #ff3333;
+      font-weight: bold;
+      margin: 0;
+      padding: 0;
+      background: none;
+    }
+  }
+
+  .en__field__top__label {
+    position: absolute;
+    top: -.6rem;
+    background: white;
+    left: $n10;
+    padding: 0 8px;
+    font-weight: 600;
+    font-size: .75rem;
+
+    html[dir="rtl"] & {
+      left: auto;
+      right: $n10;
+    }
+  }
+}
+
+.thankyou {
+  position: relative;
+  min-height: inherit;
+
+  @include mobile-only {
+    margin: 0 20px;
+  }
+
+  &.full-width {
+    max-width: 444px;
+    left: 33%;
+  }
+
+  .page-section-header {
+    line-height: 1.2;
+  }
+
+  .page-section-description {
+    line-height: 1.4;
+  }
+
+  .sub-section {
+    margin-bottom: 2em;
+    width: 100%;
+
+    .form-group {
+      margin-bottom: 2em;
+    }
+
+    .social-media {
+      .share-buttons {
+        float: none;
+      }
+
+      .share-btn {
+        width: 32.5%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+      }
+
+      .twitter {
+        background: #00acee none repeat scroll 0 0;
+      }
+    }
+  }
+}
+
+.en__field--select {
+  border: 1px solid #1a1a1a;
+  border-radius: 0;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  .en__field__element--select {
+    margin-bottom: 0;
+
+    select.form-control.en__field__input--select {
+      width: 100%;
+      display: block;
+      margin-bottom: 0;
+
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+  }
+}
