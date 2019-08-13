@@ -98,6 +98,13 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
+					'name' => __( 'Google Optimize anti-flicker snippet', 'planet4-master-theme-backend' ),
+					'desc' => __( 'It will include the relevant snippet for A/B testing.' ),
+					'id'   => 'google_optimizer',
+					'type' => 'checkbox',
+				],
+
+				[
 					'name' => __( 'Engaging Networks Subscribe Form URL', 'planet4-master-theme-backend' ),
 					'id'   => 'engaging_network_form_id',
 					'type' => 'text',
