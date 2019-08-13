@@ -98,7 +98,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name' => __( 'Use Google Optimizer', 'planet4-master-theme-backend' ),
+					'name' => __( 'Google Optimize anti-flicker snippet', 'planet4-master-theme-backend' ),
 					'desc' => __( 'It will include the relevant snippet for A/B testing.' ),
 					'id'   => 'google_optimizer',
 					'type' => 'checkbox',
