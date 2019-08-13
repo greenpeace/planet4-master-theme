@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(function($) {
   'use strict';
 
   $('div.wp-caption[class*="align"]').each( function() {

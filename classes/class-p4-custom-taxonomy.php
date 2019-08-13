@@ -226,6 +226,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 				'rewrite'           => [
 					'slug' => self::TAXONOMY_SLUG,
 				],
+				'show_in_rest'      => true,
 				'show_ui'           => true,
 				'show_admin_column' => true,
 				'query_var'         => true,

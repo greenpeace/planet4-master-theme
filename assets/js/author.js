@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(function($) {
   'use strict';
 
   // Underline headline on thumbnail hover.

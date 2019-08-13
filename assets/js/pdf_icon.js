@@ -1,6 +1,6 @@
 // Add pdf icon to pdf links
 
-$(document).ready(function() {
+jQuery(function($) {
   'use strict';
 
   $('a[href$=".pdf"]').each(function() {

@@ -41,7 +41,7 @@ if ( ! class_exists( 'P4_Campaign_Exporter' ) ) {
 			if ( P4_Post_Campaign::POST_TYPE === filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING ) &&
 			current_user_can( 'edit_posts' ) ) { ?>
 			<script type="text/javascript">
-				jQuery(document).ready(function () {
+				jQuery(function ($) {
 					jQuery('<option>').val('export').text('<?php esc_html_e( 'Export', 'planet4-master-theme-backend' ); ?>').appendTo("select[name='action']");
 				});
 			</script>

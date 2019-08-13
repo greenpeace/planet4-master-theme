@@ -87,20 +87,20 @@
       }
 
       @include medium-and-up {
-        font-size: 0.875rem;
+        font-size: $font-size-xxs;
         font-weight: 300;
         color: $grey-60;
         margin: 0;
       }
 
       @include large-and-up {
-        font-size: 0.9375rem;
+        font-size: $font-size-xs;
         margin: -10px 0 0 0;
       }
 
       @include x-large-and-up {
         margin: 0;
-        font-size: 1rem;
+        font-size: $font-size-sm;
       }
     }
 
@@ -133,6 +133,13 @@
           left: -15px;
         }
       }
+    }
+  }
+
+  div.post-content {
+    .container {
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 

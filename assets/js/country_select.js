@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(function($) {
   'use strict';
 
   $('.country-select-dropdown').click(function(){

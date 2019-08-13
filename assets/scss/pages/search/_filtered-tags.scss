@@ -1,5 +1,5 @@
 .search-info {
-  font-size: 0.875rem;
+  font-size: $font-size-xxs;
   margin-bottom: 0;
   font-family: $roboto;
   font-style: italic;
@@ -11,7 +11,7 @@
   }
 
   @include large-and-up {
-    font-size: 1.75rem;
+    font-size: $font-size-xl;
   }
 
   @include x-large-and-up {
@@ -19,7 +19,7 @@
   }
 
   .btn-filter-item {
-    font-size: 0.875rem;
+    font-size: $font-size-xxs;
     line-height: 1.6;
     font-style: normal;
     text-transform: none;
@@ -28,13 +28,13 @@
     border-width: 2px;
 
     @include small-and-up {
-      font-size: 1rem;
+      font-size: $font-size-sm;
       line-height: 1.9;
       padding: 0 $n40 0 15px;
     }
 
     @include large-and-up {
-      font-size: 1.375rem;
+      font-size: $font-size-lg;
     }
   }
 }

@@ -1,6 +1,4 @@
-/* global jQuery */
-
-(function ($) {
+jQuery(function($) {
 
   let postCollection;
   let pageCollection;
@@ -15,38 +13,34 @@
     return;
   }
 
-  $(document).ready(function () {
-    $('#from').datepicker({
-      dateFormat: 'yy-mm-dd',
-      defaultDate: '-3w',
-      changeMonth: true,
-      numberOfMonths: 2
-    });
-
-    $('#to').datepicker({
-      dateFormat: 'yy-mm-dd',
-      defaultDate: '-1w',
-      changeMonth: true,
-      numberOfMonths: 2
-    });
-
-    $('#posts-filter').off('click').on('click', function () {
-
-      let filters = {};
-      const from = $('#from').datepicker().val();
-      const to = $('#to').datepicker().val();
-      if ('' !== from) {
-        filters.after = from + 'T00:00:00';
-      }
-      if ('' !== to) {
-        filters.before = to + 'T00:00:00';
-      }
-
-      postsView.refreshPosts(filters);
-      pagesView.refreshPages(filters);
-    });
+  $('#from').datepicker({
+    dateFormat: 'yy-mm-dd',
+    defaultDate: '-3w',
+    changeMonth: true,
+    numberOfMonths: 2
   });
 
+  $('#to').datepicker({
+    dateFormat: 'yy-mm-dd',
+    defaultDate: '-1w',
+    changeMonth: true,
+    numberOfMonths: 2
+  });
+
+  $('#posts-filter').off('click').on('click', function () {
+    let filters = {};
+    const from = $('#from').datepicker().val();
+    const to = $('#to').datepicker().val();
+    if ('' !== from) {
+      filters.after = from + 'T00:00:00';
+    }
+    if ('' !== to) {
+      filters.before = to + 'T00:00:00';
+    }
+
+    postsView.refreshPosts(filters);
+    pagesView.refreshPages(filters);
+  });
 
   p4.PostsView = wp.Backbone.View.extend({
 
@@ -187,4 +181,4 @@
   wp.api.loadPromise.done(function () {
     p4.initialize();
   });
-})(jQuery);
+});
