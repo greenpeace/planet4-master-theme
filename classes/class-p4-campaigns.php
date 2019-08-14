@@ -214,7 +214,8 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 			if ( $this->validate( $attachment_id ) ) {
 				update_term_meta( $term_id, $field_id, $attachment_id );
 				update_term_meta( $term_id, $field_url, $attachment_url );
-				$tag_attachment_id = $attachment_id;
+				$tag_attachment_id  = $attachment_id;
+				$tag_attachment_url = $attachment_url;
 			} else {
 				$tag_attachment_id = '';
 			}
@@ -272,6 +273,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 
 					if ( $tag_attachment_id ) {
 						update_post_meta( $tag_page_id, 'background_image_id', $tag_attachment_id );
+						update_post_meta( $tag_page_id, 'background_image', $tag_attachment_url );
 					}
 					update_term_meta( $term_id, 'redirect_page', $tag_page_id );
 				}
