@@ -1,0 +1,14 @@
+.social-media-block {
+  z-index: 3;
+
+  .social-media-embed {
+    &.aligncenter {
+      text-align: center;
+
+      > * {
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+    }
+  }
+}

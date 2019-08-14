@@ -9,4 +9,9 @@
   .submenu-sidebar {
     float: unset !important;
   }
+
+  // Unset social media embed float to make block render within the preview component.
+  .social-media-embed {
+    float: unset !important;
+  }
 }
