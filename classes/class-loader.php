@@ -8,6 +8,9 @@
 
 namespace P4GEN;
 
+use P4GEN\Controllers\Ensapi_Controller as Ensapi;
+use P4GEN\Controllers\Menu\Enform_Post_Controller;
+
 use WP_CLI;
 
 /**
@@ -58,6 +61,13 @@ final class Loader {
 	 * @var $blocks
 	 */
 	private $blocks;
+
+	/**
+	 * Page types for EN forms
+	 *
+	 * @const array ENFORM_PAGE_TYPES
+	 */
+	const ENFORM_PAGE_TYPES = [ 'PET', 'EMS' ];
 
 	/**
 	 * Singleton creational pattern.
@@ -320,8 +330,49 @@ final class Loader {
 		// WP calls this "localizing a script"...
 		$reflection_vars = [
 			'home' => P4GEN_PLUGIN_URL . 'public/',
+			'pages' => $this->get_pages(),
+			'forms' => $this->get_forms()
 		];
 		wp_localize_script( 'planet4-gutenberg-engagingnetworks-script', 'p4en_vars', $reflection_vars );
+	}
+
+	public function get_forms() {
+		// Get EN Forms.
+		$query = new \WP_Query(
+			[
+				'post_status'      => 'publish',
+				'post_type'        => Enform_Post_Controller::POST_TYPE,
+				'orderby'          => 'post_title',
+				'order'            => 'asc',
+				'suppress_filters' => false,
+				'numberposts'      => 100,
+			]
+		);
+		return $query->posts;
+	}
+
+	public function get_pages() {
+		$pages = [];
+
+		// Get EN pages only on admin panel.
+		if ( is_admin() ) {
+			$main_settings = get_option( 'p4en_main_settings' );
+
+			if ( isset( $main_settings['p4en_private_api'] ) ) {
+				$pages[] = $main_settings['p4en_private_api'];
+				$ens_private_token = $main_settings['p4en_private_api'];
+				$this->ens_api     = new Ensapi( $ens_private_token );
+				$pages             = $this->ens_api->get_pages_by_types_status( self::ENFORM_PAGE_TYPES, 'live' );
+				uasort(
+					$pages,
+					function ( $a, $b ) {
+						return ( $a['name'] ?? '' ) <=> ( $b['name'] ?? '' );
+					}
+				);
+			}
+		}
+
+		return $pages;
 	}
 
 	/**

@@ -1,18 +1,19 @@
 .Preview {
+  transition: padding .5s;
+
   .PreviewContainer {
     position: relative;
   }
 
   &.FloatingPreview {
     position: fixed;
-    right: 0;
-    bottom: 20px;
+    right: $space-lg;
+    bottom: 0;
     width: 500px;
     background: white;
     padding: $space-md;
     box-shadow: 0 0 10px #66cc00;
-    border-radius: 10px;
-    border: 1px solid green;
+    border-radius: $space-md $space-md 0 0;
     z-index: 9999999;
     max-height: 450px;
 
@@ -31,6 +32,11 @@
     border-bottom: 1px solid $gp-green-80;
     font-style: italic;
     padding: $space-sm;
+
+    .DetachPreview {
+      cursor: pointer;
+      float: right;
+    }
   }
 
   // Unset submenu sidebar float to make block editable in preview/edit.

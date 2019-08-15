@@ -3,6 +3,7 @@ import {ENForm} from './ENForm.js';
 export class ENFormBlock {
   constructor() {
     const {registerBlockType} = wp.blocks;
+    const { withSelect } = wp.data;
 
     registerBlockType('planet4-gutenberg-engagingnetworks/enform', {
       title: 'EN Form',
@@ -109,7 +110,34 @@ export class ENFormBlock {
           type: 'integer',
         },
       },
-      edit: ({ isSelected, attributes, setAttributes }) => {
+      edit: withSelect( ( select ) => {
+        const tagsTaxonomy = 'post_tag';
+        const postTypesTaxonomy = 'p4-page-type';
+        const args = {
+          hide_empty: false,
+        };
+        const { getEntityRecords } = select( 'core' );
+
+        // We should probably wrap all these in a single call,
+        // or maybe use our own way of retrieving data from the
+        // API, I don't know how this scales.
+        const tagsList = getEntityRecords( 'taxonomy', tagsTaxonomy, args );
+        const postTypesList = getEntityRecords( 'taxonomy', postTypesTaxonomy );
+        const posts = getEntityRecords( 'postType', 'post' );
+
+        return {
+          postTypesList,
+          tagsList,
+          posts
+        };
+      } )( ( {
+        postTypesList,
+        tagsList,
+        posts,
+        isSelected,
+        attributes,
+        setAttributes
+      } ) => {
         function onTitleChange(value) {
           setAttributes({title: value});
         }
@@ -138,6 +166,18 @@ export class ENFormBlock {
           setAttributes({en_form_style: value});
         }
 
+        function onSelectImage({id}) {
+          setAttributes({background: id});
+        }
+
+        function onSelectURL({url}) {
+          setAttributes({id: null});
+        }
+
+        function onUploadError({message}) {
+          console.log(message);
+        }
+
         return <ENForm
           {...attributes}
           isSelected={isSelected}
@@ -148,8 +188,11 @@ export class ENFormBlock {
           onCTAButtonTextChange={onCTAButtonTextChange}
           onCTATextBelowButtonChange={onCTATextBelowButtonChange}
           onSelectedLayoutChange={onSelectedLayoutChange}
+          onSelectImage={onSelectImage}
+          onSelectURL={onSelectURL}
+          onUploadError={onUploadError}
         />
-      },
+      }),
       save() {
         return null;
       }

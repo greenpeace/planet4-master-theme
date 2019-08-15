@@ -20,45 +20,26 @@ class ENForm extends Base_Block {
 	const BLOCK_NAME = 'enform';
 
 	/**
-	 * Register old shortcode for backwarsd compatibility.
+	 * Page types for EN forms
 	 *
-	 * @param array $attributes This is the array of fields of this block.
-	 *
-	 * @param array $content The content of the post.
+	 * @const array ENFORM_PAGE_TYPES
 	 */
-	public function add_block_shortcode( $attributes, $content ) {
-		$attributes = shortcode_atts(
-			[
-				'en_page_id'    			         => '',
-				'enform_goal'    			         => '',
-				'enform_style'    			       => '',
-				'enform_style'    			       => '',
-				'title'                        => '',
-				'description'                  => '',
-				'content_title'                => '',
-				'content_description'          => '',
-				'button_text'                  => '',
-				'text_below_button'            => '',
-				'thankyou_title'               => '',
-				'thankyou_subtitle'            => '',
-				'thankyou_donate_message'      => '',
-				'thankyou_take_action_message' => '',
-				'thankyou_url'                 => '',
-				'background'                   => '',
-				'en_form_id'                   => '',
-			],
-			$attributes,
-			'shortcake_enform'
-		);
+	const ENFORM_PAGE_TYPES = [ 'PET', 'EMS' ];
 
-		return $this->render( $attributes );
-	}
+	/**
+	 * ENSAPI Object
+	 *
+	 * @var Ensapi $ensapi
+	 */
+	private $ens_api = null;
 
 	/**
 	 * Cookies constructor.
 	 */
 	public function __construct() {
 		//add_shortcode( 'shortcake_enform', [ $this, 'add_block_shortcode' ] );
+		// Variables exposed from PHP to JS,
+		// WP calls this "localizing a script"...
 
 		// - Register the block for the editor
 		// in the PHP side.
@@ -139,6 +120,42 @@ class ENForm extends Base_Block {
 				],
 			]
 		);
+	}
+
+
+	/**
+	 * Register old shortcode for backwarsd compatibility.
+	 *
+	 * @param array $attributes This is the array of fields of this block.
+	 *
+	 * @param array $content The content of the post.
+	 */
+	public function add_block_shortcode( $attributes, $content ) {
+		$attributes = shortcode_atts(
+			[
+				'en_page_id'    			         => '',
+				'enform_goal'    			         => '',
+				'enform_style'    			       => '',
+				'enform_style'    			       => '',
+				'title'                        => '',
+				'description'                  => '',
+				'content_title'                => '',
+				'content_description'          => '',
+				'button_text'                  => '',
+				'text_below_button'            => '',
+				'thankyou_title'               => '',
+				'thankyou_subtitle'            => '',
+				'thankyou_donate_message'      => '',
+				'thankyou_take_action_message' => '',
+				'thankyou_url'                 => '',
+				'background'                   => '',
+				'en_form_id'                   => '',
+			],
+			$attributes,
+			'shortcake_enform'
+		);
+
+		return $this->render( $attributes );
 	}
 
 	/**

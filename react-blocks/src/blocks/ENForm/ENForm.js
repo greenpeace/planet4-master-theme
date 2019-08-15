@@ -3,12 +3,14 @@ import {Preview} from '../../components/Preview';
 import {LayoutSelector} from '../../components/LayoutSelector/LayoutSelector';
 import {FormSectionTitle} from '../../components/FormSectionTitle/FormSectionTitle';
 import {FormHelp} from '../../components/FormHelp/FormHelp';
+import {InlineFormFeedback} from '../../components/InlineFormFeedback/InlineFormFeedback';
 import {
   TextControl,
   TextareaControl,
   SelectControl,
   ServerSideRender
 } from '@wordpress/components';
+import {MediaPlaceholder} from "@wordpress/editor";
 
 export class ENForm extends Component {
   constructor(props) {
@@ -17,6 +19,14 @@ export class ENForm extends Component {
 
   renderEdit() {
     const {__} = wp.i18n;
+
+    const pages = window.p4en_vars.pages.map(page => {
+      return { label: page, value: page };
+    });
+
+    const en_forms = window.p4en_vars.forms.map(form => {
+      return { label: form.post_title, value: form.ID };
+    });
 
     return (
       <div>
@@ -27,7 +37,7 @@ export class ENForm extends Component {
           )}</FormSectionTitle>
 
           <FormHelp>{__(
-            'Display options for EN Forms',
+            'Display options for   EN Forms',
             'planet4-gutenberg-engagingnetworks'
           )}</FormHelp>
 
@@ -36,13 +46,20 @@ export class ENForm extends Component {
             value={this.props.en_page_id}
             options={[
               { label: 'No pages', value: 'No pages' },
+              ...pages
             ]}
+            disabled={!pages.length}
             onChange={this.props.onGoalChange}
           />
-          <p><i>{ this.props.pages
-            ? __( 'Select the Live EN page that this form will be submitted to.', 'planet4-gutenberg-engagingnetworks' )
-            : __( 'Check your EngagingNetworks settings!', 'planet4-gutenberg-engagingnetworks' )
-          }</i></p>
+
+          { pages.length
+            ? <FormHelp>
+                { __( 'Select the Live EN page that this form will be submitted to.', 'planet4-gutenberg-engagingnetworks' ) }
+              </FormHelp>
+            : <InlineFormFeedback>
+                { __( 'Check your EngagingNetworks settings!', 'planet4-gutenberg-engagingnetworks' ) }
+              </InlineFormFeedback>
+          }
 
           <SelectControl
             label={__( '- Select Goal -', 'planet4-gutenberg-engagingnetworks' )}
@@ -143,7 +160,7 @@ export class ENForm extends Component {
 
           <div>
             <TextControl
-              label={ __( '"Main text / Title', 'planet4-gutenberg-engagingnetworks' ) }
+              label={ __( 'Main text / Title', 'planet4-gutenberg-engagingnetworks' ) }
               placeholder={ __( 'e.g. "Thank you for signing!"', 'planet4-gutenberg-engagingnetworks' ) }
               value={this.props.thankyou_title}
               onChange={this.props.onMainThankYouTextChange}
@@ -161,7 +178,7 @@ export class ENForm extends Component {
 
           <div>
             <TextControl
-              label={ __( '"Social media message', 'planet4-gutenberg-engagingnetworks' ) }
+              label={ __( 'Social media message', 'planet4-gutenberg-engagingnetworks' ) }
               placeholder={ __( 'e.g. "Can you share it with your family and friends?"', 'planet4-gutenberg-engagingnetworks' ) }
               value={this.props.thankyou_donate_message}
               onChange={this.props.onThankYouDonateMessageChange}
@@ -179,7 +196,7 @@ export class ENForm extends Component {
 
           <div>
             <TextControl
-              label={ __( '"URL (Title and Subtitle will not be shown)', 'planet4-gutenberg-engagingnetworks' ) }
+              label={ __( 'URL (Title and Subtitle will not be shown)', 'planet4-gutenberg-engagingnetworks' ) }
               placeholder={ __( 'Enter "Thank you page" url', 'planet4-gutenberg-engagingnetworks' ) }
               value={this.props.thankyou_url}
               onChange={this.props.onThankYouTakeActionMessageChange}
@@ -187,15 +204,26 @@ export class ENForm extends Component {
           </div>
 
           <div>
-            <div>Background</div>
+            <MediaPlaceholder
+              labels={{ title: __('Background', 'planet4-gutenberg-engagingnetworks'), instructions: __('Select an image.', 'planet4-gutenberg-engagingnetworks')}}
+              icon="format-image"
+              onSelect={this.props.onSelectImage}
+              onSelectURL={this.props.onSelectURL}
+              onError={this.props.onUploadError}
+              accept="image/*"
+              allowedTypes={["image"]}
+            />
+          </div>
 
+          <div>
             <SelectControl
               label={__( 'Planet 4 Engaging Networks form', 'planet4-gutenberg-engagingnetworks' )}
               value={this.props.en_page_id}
               options={[
                 { label: 'No forms', value: 'No forms' },
+                ...en_forms
               ]}
-              onChange={this.props.onGoalChange}
+              onChange={this.props.onFormChange}
             />
             <p><i>{ this.props.forms
               ? __( 'Select the P4EN Form that will be displayed.', 'planet4-gutenberg-engagingnetworks' )

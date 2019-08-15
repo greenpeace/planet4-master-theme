@@ -27,6 +27,12 @@ and so on...
   font-style: italic;
   color: #666; }
 
+.InlineFormFeedback {
+  padding: 10px;
+  background: #fff6cd;
+  border: 1px solid #ffd204;
+  margin-bottom: 16px; }
+
 .LayoutSelector {
   display: flex;
   width: 100%;
@@ -43,35 +49,36 @@ and so on...
     font-size: 10pt;
     margin-top: 10px; }
 
-.Preview .PreviewContainer {
-  position: relative; }
-
-.Preview.FloatingPreview {
-  position: fixed;
-  right: 0;
-  bottom: 20px;
-  width: 500px;
-  background: white;
-  padding: 16px;
-  box-shadow: 0 0 10px #66cc00;
-  border-radius: 10px;
-  border: 1px solid green;
-  z-index: 9999999;
-  max-height: 450px; }
-  .Preview.FloatingPreview .PreviewContainer {
-    transform: scale(0.5) translateX(-50%) translateY(-50%);
-    width: 200%; }
-  .Preview.FloatingPreview .PreviewBar {
-    font-size: 9pt;
-    padding: 8px; }
-
-.Preview .PreviewBar {
-  border-bottom: 1px solid #8bcc49;
-  font-style: italic;
-  padding: 12px; }
-
-.Preview .submenu-sidebar {
-  float: unset !important; }
+.Preview {
+  transition: padding .5s; }
+  .Preview .PreviewContainer {
+    position: relative; }
+  .Preview.FloatingPreview {
+    position: fixed;
+    right: 32px;
+    bottom: 0;
+    width: 500px;
+    background: white;
+    padding: 16px;
+    box-shadow: 0 0 10px #66cc00;
+    border-radius: 16px 16px 0 0;
+    z-index: 9999999;
+    max-height: 450px; }
+    .Preview.FloatingPreview .PreviewContainer {
+      transform: scale(0.5) translateX(-50%) translateY(-50%);
+      width: 200%; }
+    .Preview.FloatingPreview .PreviewBar {
+      font-size: 9pt;
+      padding: 8px; }
+  .Preview .PreviewBar {
+    border-bottom: 1px solid #8bcc49;
+    font-style: italic;
+    padding: 12px; }
+    .Preview .PreviewBar .DetachPreview {
+      cursor: pointer;
+      float: right; }
+  .Preview .submenu-sidebar {
+    float: unset !important; }
 
 
 /*# sourceMappingURL=editorStyle.min.css.map*/
