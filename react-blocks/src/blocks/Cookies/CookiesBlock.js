@@ -8,6 +8,9 @@ export class CookiesBlock {
       title: 'Cookies',
       icon: 'visibility',
       category: 'planet4-blocks',
+      supports: {
+        multiple: false, // Use the block just once per post.
+      },
 
       // Transform the shortcode into a Gutenberg block
       // this is used when a user clicks "Convert to blocks"
