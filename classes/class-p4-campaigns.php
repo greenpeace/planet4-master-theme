@@ -242,14 +242,14 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				$happypoint_bg_opacity = 30;
 			}
 
-			$redirect_page = $_POST['redirect_page'] ?? 0;
-			if ( ! is_null( get_post( $redirect_page ) ) && 0 != $redirect_page ) {
+			$redirect_page = filter_input( INPUT_POST, 'redirect_page', FILTER_VALIDATE_INT ) ?? 0;
+			if ( $redirect_page ) {
 				update_term_meta( $term_id, 'redirect_page', $redirect_page );
 			} else {
 
 				$tag_data = get_term( $term_id );
 
-				if ( WP_Error != $tag_data ) {
+				if ( $tag_data instanceof \WP_Term ) {
 					$post_content = '[shortcake_newcovers cover_type="1" tags="' . $term_id . '" covers_view="0" title="' . __( 'Things you can do', 'planet4-master-theme' ) . '"  description="' . __( 'We want you to take action because together we\'re strong.', 'planet4-master-theme' ) . '" /]
 
 [shortcake_articles tags="' . $term_id . '" ignore_categories="false" /]
@@ -269,6 +269,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 					$tag_page_id = wp_insert_post( $my_post );
 					if ( is_int( $tag_page_id ) ) {
 						update_post_meta( $tag_page_id, 'p4_description', $tag_data->description );
+						update_post_meta( $tag_page_id, 'p4_do_not_index', true );
 					}
 
 					if ( $tag_attachment_id ) {

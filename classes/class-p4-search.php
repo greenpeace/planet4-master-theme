@@ -332,6 +332,27 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$args  = array_merge( $args, $args2 );
 			}
 
+			// TODO - Provide better fix for excluding auto-created Campaign Pages from Search results.
+			// We should exclude them from indexing in the first place (if possible), or at least exclude them via the Elasticsearch curl request.
+			// All the existing auto-created Campaign Pages should get updated in order to get the p4_do_not_index meta.
+			$query = new WP_Query(
+				[
+					'post_type'   => 'page',
+					'post_status' => 'publish',
+					'meta_query'  => [
+						[
+							'key'     => 'p4_do_not_index',
+							'compare' => 'EXISTS',
+						],
+					],
+					'fields'      => 'ids',
+				]
+			);
+
+			if ( 0 !== $query->post_count ) {
+				$args['post__not_in'] = $query->posts;
+			}
+
 			$args['s'] = $this->search_query;
 			// Add sort by date.
 			$selected_sort = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
