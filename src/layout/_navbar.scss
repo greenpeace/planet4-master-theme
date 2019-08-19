@@ -5,7 +5,7 @@
 // Markup:
 // <nav id="header" class="top-navigation navbar">
 // <a class="site-logo" href="#">
-//   Logo
+//   <img src="https://www.greenpeace.org/international/wp-content/themes/planet4-master-theme/images/gp-logo.svg" alt="Greenpeace">
 // </a>
 // <button
 //     class="btn btn-navbar-toggle navbar-dropdown-toggle"
@@ -204,6 +204,16 @@ $min-height: 40px;
   }
 }
 
+// Logo
+//
+// Greenpeace logo.
+//
+// Markup:
+// <a class="site-logo" href="#">
+//   <img src="https://www.greenpeace.org/international/wp-content/themes/planet4-master-theme/images/gp-logo.svg" alt="Greenpeace">
+// </a>
+//
+// Styleguide Style.logo
 .site-logo {
   position: absolute;
   width: 100%;
