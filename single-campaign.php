@@ -118,6 +118,12 @@ $context['cf_basket_name']   = $page_meta_data['p4_basket_name'][0] ?? '';
 $context['cf_scope']         = $page_meta_data['p4_scope'][0] ?? '';
 $context['cf_department']    = $page_meta_data['p4_department'][0] ?? '';
 
+// Social footer link overrides.
+$context['social_overrides']              = [];
+$context['social_overrides']['facebook']  = $page_meta_data['campaign_facebook_url'][0] ?? '';
+$context['social_overrides']['twitter']   = $page_meta_data['campaign_twitter_url'][0] ?? '';
+$context['social_overrides']['instagram'] = $page_meta_data['campaign_instagram_url'][0] ?? '';
+
 if ( post_password_required( $post->ID ) ) {
 	Timber::render( 'single-password.twig', $context );
 } else {
