@@ -93,6 +93,7 @@ final class Loader {
 		// Load Blocks.
 		$this->blocks = [
 			new Blocks\Articles(),
+			new Blocks\Columns(),
 			new Blocks\Cookies(),
 			new Blocks\Covers(),
 			new Blocks\Gallery(),
@@ -319,7 +320,7 @@ final class Loader {
 				'wp-i18n',        // - Exports the __() function
 				'wp-editor',
 			],
-			'0.1.5',
+			'0.1.6',
 			true
 		);
 

@@ -1,0 +1,64 @@
+{% set is_campaign = ( 'campaign' == fn( 'get_post_type' ) ) %}
+
+{% block columns %}
+	{% if ( fields ) %}
+		{% if fields.columns_block_style == 'tasks' %}
+			{% include 'columns_tasks.twig' %}
+		{% else %}
+			<section class="block columns-block block-style-{{ fields.columns_block_style }}">
+				<div class="container">
+					{% if ( fields.columns_title ) %}
+						<header>
+							<h2 class="page-section-header">{{ fields.columns_title|e('wp_kses_post')|raw }}</h2>
+						</header>
+					{% endif %}
+					{% if ( fields.columns_description ) %}
+						<div class="page-section-description">{{ fields.columns_description|e('wp_kses_post')|raw }}</div>
+					{% endif %}
+
+					<div class="row">
+						{% for i in 1..4 %}
+							{% set title = fields['title_'~i] %}
+							{% set attachment = fields['attachment_'~i] %}
+							{% set description = fields['description_'~i] %}
+							{% set link = fields['link_'~i] %}
+							{% set cta_text = fields['cta_text_'~i] %}
+
+							{% if title or description %}
+								<div class="col-md-6 col-lg column-wrap {% if cta_text and link %}has-cta{% endif %}">
+									{% if attachment and fields.columns_block_style != 'no_image' %}
+										<div class="attachment-container">
+											{% if link %}<a href="{{ link|e('esc_url') }}">{% endif %}
+												<img src="{{ attachment }}" alt="{{ title }}">
+												{% if link %}</a>{% endif %}
+										</div>
+									{% endif %}
+
+									<h3>
+										{% if link and not is_campaign %}<a href="{{ link|e('esc_url') }}">{% endif %}
+											{{ title|e('wp_kses_post')|raw }}
+											{% if link and not is_campaign %}</a>{% endif %}
+									</h3>
+									{% if description %}
+										<p>{{ description|e('wp_kses_post')|raw }}</p>
+									{% endif %}
+									{% if cta_text and link %}
+										<a href="{{ link|e('esc_url') }}"
+												{{  'true' == attribute( fields, 'link_new_tab_'~i) ? 'target="_blank"' }}
+												{% if fields.columns_block_style == 'no_image' %}
+											class="btn btn-secondary"
+										{% else %}
+											class="call-to-action-link"
+												{% endif %}>
+											{{ cta_text|e('wp_kses_post')|raw }}
+										</a>
+									{% endif %}
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</section>
+		{% endif %}
+	{% endif %}
+{% endblock %}
