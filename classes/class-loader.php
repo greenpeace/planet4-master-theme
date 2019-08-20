@@ -92,6 +92,7 @@ final class Loader {
 
 		// Load Blocks.
 		$this->blocks = [
+			new Blocks\Articles(),
 			new Blocks\Cookies(),
 			new Blocks\Covers(),
 			new Blocks\Media(),
@@ -315,7 +316,7 @@ final class Loader {
 				'wp-data',        // - WP data helpers
 				'wp-i18n',        // - Exports the __() function
 			],
-			'0.1.2',
+			'0.1.3',
 			true
 		);
 
