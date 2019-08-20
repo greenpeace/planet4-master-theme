@@ -231,7 +231,7 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 				'show_admin_column' => true,
 				'query_var'         => true,
 				'meta_box_cb'       => [ $this, 'create_taxonomy_metabox_markup' ],
-				'show_in_rest'      => true
+				'show_in_rest'      => true,
 			];
 
 			register_taxonomy( self::TAXONOMY, [ self::TAXONOMY_PARAMETER, 'post' ], $args );
