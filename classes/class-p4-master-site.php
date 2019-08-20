@@ -445,8 +445,12 @@ class P4_Master_Site extends TimberSite {
 	 * @param string $hook Hook.
 	 */
 	public function enqueue_admin_assets( $hook ) {
+		$css_creation = filectime( get_template_directory() . '/style.css' );
+
 		// Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
 		wp_register_script( 'jquery-3', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', [], '3.3.1', true );
+		wp_enqueue_style( 'bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css', [], '4.1.1' );
+		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], $css_creation );
 	}
 
 	/**
