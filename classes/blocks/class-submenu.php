@@ -22,6 +22,9 @@ class Submenu extends Base_Block {
 	/** @const string BLOCK_NAME */
 	const BLOCK_NAME = 'submenu';
 
+	/** @const string EMPTY_MESSAGE */
+	const EMPTY_MESSAGE = 'The submenu block produces no output on the editor.';
+
 	/**
 	 * Submenu constructor.
 	 */
