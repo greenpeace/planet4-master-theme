@@ -70,6 +70,7 @@ export class Submenu extends Component {
               onLinkChange={this.props.onLinkChange}
               onStyleChange={this.props.onStyleChange}
               index={i}
+              key={i}
             />
           );
         })}

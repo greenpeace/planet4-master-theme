@@ -18,9 +18,9 @@ export class LayoutSelector extends Component {
   render() {
     return <div className='LayoutSelector'>
       {
-        this.props.options.map(layoutOption => {
+        this.props.options.map((layoutOption, i) => {
           return (
-            <label className='LayoutOption'>
+            <label className='LayoutOption' key={i}>
               <div style={{display: 'flex'}}>
                 <RadioControl
                   name={'layoutOption'}
