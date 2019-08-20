@@ -434,7 +434,6 @@ function (_Component) {
         }].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(pagesByType)));
       }
 
-      console.log("Flattened", flattenedPages);
       var en_forms = window.p4en_vars.forms.map(function (form) {
         return {
           label: form.post_title,
@@ -548,7 +547,6 @@ function (_Component) {
         },
         icon: "format-image",
         onSelect: this.props.onSelectImage,
-        onSelectURL: this.props.onSelectURL,
         onError: this.props.onUploadError,
         accept: "image/*",
         allowedTypes: ["image"]
@@ -583,7 +581,8 @@ function (_Component) {
           thankyou_subtitle: this.props.thankyou_subtitle,
           thankyou_donate_message: this.props.thankyou_donate_message,
           thankyou_take_action_message: this.props.thankyou_take_action_message,
-          thankyou_url: this.props.thankyou_url
+          thankyou_url: this.props.thankyou_url,
+          background: this.props.background
         }
       })));
     }
@@ -780,22 +779,20 @@ var ENFormBlock = function ENFormBlock() {
         });
       }
 
-      function onSelectImage(_ref2) {
-        var id = _ref2.id;
+      function onSelectImage(imageData) {
         setAttributes({
-          background: id
+          background: imageData.id
         });
       }
 
-      function onSelectURL(_ref3) {
-        var url = _ref3.url;
+      function onSelectURL(_ref2) {
+        var url = _ref2.url;
         setAttributes({
           id: null
         });
       }
 
       function onMainThankYouTextChange(value) {
-        console.log("Thak you", value);
         setAttributes({
           thankyou_title: value
         });
@@ -831,8 +828,8 @@ var ENFormBlock = function ENFormBlock() {
         });
       }
 
-      function onUploadError(_ref4) {
-        var message = _ref4.message;
+      function onUploadError(_ref3) {
+        var message = _ref3.message;
         console.log(message);
       }
 

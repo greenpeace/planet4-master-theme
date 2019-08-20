@@ -33,8 +33,6 @@ export class ENForm extends Component {
       );
     }
 
-    console.log("Flattened", flattenedPages);
-
     const en_forms = window.p4en_vars.forms.map(form => {
       return { label: form.post_title, value: form.ID };
     });
@@ -218,8 +216,7 @@ export class ENForm extends Component {
             <MediaPlaceholder
               labels={{ title: __('Background', 'planet4-gutenberg-engagingnetworks'), instructions: __('Select an image.', 'planet4-gutenberg-engagingnetworks')}}
               icon="format-image"
-              onSelect={this.props.onSelectImage}
-              onSelectURL={this.props.onSelectURL}
+              onSelect={ this.props.onSelectImage }
               onError={this.props.onUploadError}
               accept="image/*"
               allowedTypes={["image"]}
@@ -271,6 +268,7 @@ export class ENForm extends Component {
               thankyou_donate_message: this.props.thankyou_donate_message,
               thankyou_take_action_message: this.props.thankyou_take_action_message,
               thankyou_url: this.props.thankyou_url,
+              background: this.props.background,
             }}
           >
           </ServerSideRender>

@@ -51,6 +51,8 @@ and so on...
 
 .Preview {
   transition: padding .5s; }
+  .Preview section:first-child {
+    margin-top: 0; }
   .Preview .PreviewContainer {
     position: relative; }
   .Preview.FloatingPreview {

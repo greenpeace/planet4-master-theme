@@ -1,6 +1,10 @@
 .Preview {
   transition: padding .5s;
 
+  section:first-child {
+    margin-top: 0;
+  }
+
   .PreviewContainer {
     position: relative;
   }

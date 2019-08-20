@@ -146,8 +146,8 @@ export class ENFormBlock {
           setAttributes({en_form_style: value});
         }
 
-        function onSelectImage({id}) {
-          setAttributes({background: id});
+        function onSelectImage(imageData) {
+          setAttributes({background: imageData.id});
         }
 
         function onSelectURL({url}) {
@@ -155,7 +155,6 @@ export class ENFormBlock {
         }
 
         function onMainThankYouTextChange(value) {
-          console.log("Thak you", value);
           setAttributes({thankyou_title: value});
         }
 
