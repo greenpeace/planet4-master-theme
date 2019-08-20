@@ -89,6 +89,32 @@ if ( ! defined( 'P4_REST_SLUG' ) ) {
 	define( 'P4_REST_SLUG', 'planet4-engaging-networks' );
 }
 
+add_filter( 'timber/twig', 'add_to_twig' );
+
+/**
+ * Adds functionality to Twig.
+ *
+ * @param \Twig\Environment $twig The Twig environment.
+ * @return \Twig\Environment
+ */
+function add_to_twig( $twig ) {
+	// Adding functions as filters.
+	$twig->addFilter(
+		new Twig_SimpleFilter(
+			'object_to_array',
+			function ( $std_class_object ) {
+				$response = [];
+				foreach ( $std_class_object as $key => $value ) {
+					$response[ $key ] = $value;
+				}
+				return $response;
+			}
+		)
+	);
+
+	return $twig;
+}
+
 require_once __DIR__ . '/classes/class-loader.php';
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 

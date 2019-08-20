@@ -177,7 +177,7 @@ if ( ! class_exists( 'Enform_Post_Controller' ) ) {
 			global $pagenow;
 
 			// Define attributes and their defaults.
-			$atts = shortcode_atts(
+			$atts = array_merge(
 				[
 					'id'            => 'id',
 					'en_form_style' => 'full-width',

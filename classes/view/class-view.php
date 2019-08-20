@@ -71,9 +71,13 @@ if ( ! class_exists( 'View' ) ) {
 		 * @param array        $data The data to pass to the template.
 		 * @param string       $sub_dir The path to a subdirectory where the template is located (relative to $template_dir).
 		 */
-		public function view_template( $template_name, $data, $sub_dir = '' ) {
+		public function view_template( $template_name, $data, $sub_dir = '', $compile = false ) {
 			Timber::$locations = $this->template_dir;
-			Timber::render( [ $sub_dir . $template_name . '.twig' ], $data );
+			if (!$compile) {
+				Timber::render( [ $sub_dir . $template_name . '.twig' ], $data );
+			} else {
+				return Timber::compile( [ $sub_dir . $template_name . '.twig' ], $data );
+			}
 		}
 
 		/**

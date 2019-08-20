@@ -8,6 +8,7 @@
 namespace P4GEN\Blocks;
 
 use P4GEN\Controllers\Menu\Enform_Post_Controller;
+use P4GEN\Views\View;
 
 /**
  * Class ENForm
@@ -25,6 +26,11 @@ class ENForm extends Base_Block {
 	 * @const array ENFORM_PAGE_TYPES
 	 */
 	const ENFORM_PAGE_TYPES = [ 'PET', 'EMS' ];
+
+	/**
+	 * Custom meta field where fields configuration is saved to.
+	 */
+	const FIELDS_META = 'p4enform_fields';
 
 	/**
 	 * ENSAPI Object
@@ -166,6 +172,7 @@ class ENForm extends Base_Block {
 	 * @return array The data to be passed in the View.
 	 */
 	public function prepare_data( $attributes ): array {
+		global $pagenow;
 
 		// Enqueue js for the frontend.
 		//if ( ! $this->is_rest_request() ) {
@@ -195,13 +202,40 @@ class ENForm extends Base_Block {
 			$attributes['donatelink'] = $options['donate_button'] ?? '#';
 		}
 
+		$view = new View();
+		$post_id = $attributes['en_form_id'];
+
+		if ( $post_id ) {
+		// if ( ! is_admin() ||
+		// 	( 'post.php' === $pagenow && $post_id && self::POST_TYPE === get_post_type( $post_id ) ) ||
+		// 	( 'admin-ajax.php' === $pagenow && self::POST_TYPE === get_post_type( $attributes['id'] ) ) ) {
+
+			$fields = get_post_meta( $post_id, self::FIELDS_META, true );
+
+			$data = [
+				'form_fields'   => $fields,
+				'en_form_style' => $attributes['en_form_style'],
+			];
+
+			// echo "<pre>";
+			// var_dump($pagenow);
+			// var_dump($post_id);
+			// var_dump($fields);
+			// echo "</pre>";
+			//die('aca');
+
+			$renderedForm = $view->view_template('enform_post', $data, '/blocks/', true);
+		} else {
+			$renderedForm = '';
+		}
+
 		$data = array_merge(
 			$data,
 			[
 				'fields'       => $attributes,
 				'redirect_url' => isset( $attributes['thankyou_url'] ) ? filter_var( $attributes['thankyou_url'], FILTER_VALIDATE_URL ) : '',
 				'nonce_action' => 'enform_submit',
-				'form'         => '[' . Enform_Post_Controller::POST_TYPE . ' id="' . $attributes['en_form_id'] . '" en_form_style="' . $attributes['en_form_style'] . '" /]',
+				'form'         => $renderedForm,
 			]
 		);
 

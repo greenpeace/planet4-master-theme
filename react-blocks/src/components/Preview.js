@@ -12,7 +12,7 @@ export class Preview extends Component {
 		this.setState({ detach: !this.state.detach })
 	}
 	render() {
-		return <div className={ 'Preview ' + (this.state.detach ? 'FloatingPreview' : '') }>
+		return <div className={ 'Preview ' + (this.props.isSelected && this.state.detach ? 'FloatingPreview' : '') }>
 			{
 				this.props.showBar
 				? <div className='PreviewBar'>

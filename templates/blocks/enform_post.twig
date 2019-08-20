@@ -17,7 +17,7 @@
 
 		{# Iterate over form fields and render each field #}
 		{% for key,field in form_fields %}
-			{% set errorMessage = __( 'This field is required', 'planet4-gutenberg-engagingnetworks' ) %}
+			{% set errorMessage = __( 'This field is required', 'planet4-engagingnetworks' ) %}
 
 			{# Construct input field name based on en type #}
 			{% if field.en_type == 'GEN' or field.en_type == 'OPT' %}
@@ -26,104 +26,138 @@
 				{% set en_input_name = 'supporter.'~field.property %}
 			{% endif %}
 
-			{# Construct error message #}
-			{% if field.input_type == 'email' %}
-				{% set errorMessage = __( 'Please enter a valid e-mail address.', 'planet4-gutenberg-engagingnetworks' ) %}
-			{% elseif field.input_type == 'country' %}
-				{% set errorMessage = __( 'Please select a country.', 'planet4-gutenberg-engagingnetworks' ) %}
-			{% endif %}
+			{% if ('text' == field.input_type or 'email' == field.input_type ) %}
+				{% if 'email' == field.input_type %}
+					{% set errorMessage = __( 'Please enter a valid e-mail address.', 'planet4-engagingnetworks' ) %}
+				{% endif %}
+				<div class="en__field en__field--{{ 'country' == field.input_type ? 'select' : 'text' }} en__field--{{ field.id }} en__field--{{ field.property }}">
+					<div class="en__field__element en__field__element--text form-group" {{ field.en_type == 'GEN' ? "style=\"display: flex; flex-direction: row;\"" : 'style="display:block;"' }}>
 
-			{% if 'hidden' != field.input_type %}
-				{% if ('text' == field.input_type or 'email' == field.input_type ) %}
-					<div
-						class="en__field en__field--{{ 'country' == field.input_type ? 'select' : 'text' }} en__field--{{ field.id }} en__field--{{ field.property }}">
-						<div
-							class="en__field__element en__field__element--text form-group" {{ field.en_type == 'GEN' ? "style=\"display: flex; flex-direction: row;\"" : 'style="display:block;"' }}>
-
-							{% if en_form_style == 'side-style' %}
-								<label class="en__field__top__label">
-									{{ field.label }}
-								</label>
-							{% elseif 'GEN' == field.en_type %}
-								<label for="en__field_supporter_questions_{{ field.id }}"
-									   class="en__field__label en__field__label--item form-check-label">
-									{{ field.label }}{{ 'true' == field.required ? '*' : '' }}
-								</label>
+						{% if en_form_style == 'side-style' %}
+							<label class="en__field__top__label">
+								{{ field.label }}
+							</label>
+						{% elseif 'GEN' == field.en_type %}
+							<label for="en__field_supporter_questions_{{ field.id }}"
+								   class="en__field__label en__field__label--item form-check-label">
+								{{ field.label }}{{ 'true' == field.required ? '*' : '' }}
+							</label>
+						{% endif %}
+						<input
+							id="en__field_supporter_{{ field.property }}"
+							name="{{ en_input_name }}"
+							type="{{ 'phoneNumber' == field.name ? 'tel' : field.input_type }}"
+							class="en__field__input en__field__input--text form-control"
+							value="{{ value }}"
+							data-errormessage="{{ errorMessage }}"
+							data-validate_regex="{{ field.js_validate_regex }}"
+							data-validate_regex_msg="{{ field.js_validate_regex_msg }}"
+							data-validate_callback="{{ field.js_validate_function }}"
+							{% if en_form_style != 'side-style' %}
+								placeholder="{{ field.label }}{{ 'Birth' in field.name ? ' (yyyy-mm-dd)' : '' }}{{ 'true' == field.required ? '*' : '' }}"
 							{% endif %}
-							<input
-								id="en__field_supporter_{{ field.property }}"
-								name="{{ en_input_name }}"
-								type="{{ 'phoneNumber' == field.name ? 'tel' : field.input_type }}"
-								class="en__field__input en__field__input--text form-control"
-								value="{{ value }}"
-								data-errormessage="{{ errorMessage }}"
-								data-validate_regex="{{ field.js_validate_regex }}"
-								data-validate_regex_msg="{{ field.js_validate_regex_msg }}"
-								data-validate_callback="{{ field.js_validate_function }}"
-								{% if en_form_style != 'side-style' %}
-									placeholder="{{ field.label }}{{ 'Birth' in field.name ? ' (yyyy-mm-dd)' : '' }}{{ 'true' == field.required ? '*' : '' }}"
-								{% endif %}
-								{{ 'true' == field.required or 'email' == field.input_type ? 'required' : '' }}
-								size="40"/>
+							{{ 'true' == field.required or 'email' == field.input_type ? 'required' : '' }}
+							size="40"/>
+					</div>
+				</div>
+			{% elseif 'checkbox' == field.input_type %}
+				{% if 'GEN' == field.en_type %}
+					<span class="custom-control-description">
+						{{ field.label|e('wp_kses_post')|raw }}
+					</span><br />
+					{% set i = 0 %}
+					{% for locale, question_options in field.question_options|object_to_array %}
+						{% if ( locale == field.selected_locale ) %}
+							{% for question_option in question_options %}
+							{% set question_option = question_option|object_to_array %}
+								<div class="en__field en__field--check en__field--{{ field.id }}">
+									<div class="en__field__element en__field__element--check form-group form-check-label-block custom-control p4-custom-control-input">
+										<label class="custom-checkbox">
+											<input
+												id="en__field_supporter_questions_{{ field.id }}{{ i }}"
+												name="{{ en_input_name }}"
+												type="checkbox"
+												class="en__field__input en__field__input--checkbox"
+												value="{{ question_option.option_value }}"
+												data-errormessage="{{ errorMessage }}"
+												{{ question_option.option_selected ?  ' checked' : '' }}
+												{{ 'true' == field.required ? 'required' : '' }}
+											/>
+											<span class="custom-control-description">
+												{{ question_option.option_label|e('wp_kses_post')|raw }}
+											</span><br />
+										</label>
+									</div>
+								</div>
+								{% set i = i+1 %}
+							{% endfor %}
+						{% endif %}
+					{% endfor %}
+				{% elseif 'OPT' == field.en_type %}
+					<div class="en__field en__field--check en__field--{{ field.id }}">
+						<div class="en__field__element en__field__element--check form-group form-check-label-block custom-control p4-custom-control-input">
+							<label class="custom-checkbox">
+								<input
+									id="en__field_supporter_questions_{{ field.id }}"
+									name="{{ en_input_name }}"
+									type="checkbox"
+									class="en__field__input en__field__input--checkbox"
+									value="{{ value }}"
+									data-errormessage="{{ errorMessage }}"
+									{{ 1 == field.selected ?  ' checked' : '' }}
+									{{ 'true' == field.required ? 'required' : '' }}
+								/>
+								<span class="custom-control-description">
+									{{ field.label|e('wp_kses_post')|raw }}{{ 'true' == field.required ? '*' : '' }}
+								</span>
+							</label>
 						</div>
 					</div>
-				{% elseif 'checkbox' == field.input_type %}
-					{% if 'GEN' == field.en_type %}
-						<span class="custom-control-description">
-										{{ field.label|e('wp_kses_post')|raw }}
-									</span><br />
-						{% for value, question_option in field.question_options|object_to_array %}
+				{% endif %}
+			{% elseif 'radio' == field.input_type %}
+				<span class="custom-control-description">
+					{{ field.label|e('wp_kses_post')|raw }}
+				</span><br />
+				{% set i = 0 %}
+				{% for locale, radio_options in field.radio_options|object_to_array %}
+					{% if ( locale == field.selected_locale ) %}
+						{% for radio_option in radio_options %}
+							{% set radio_option = radio_option|object_to_array %}
 							<div class="en__field en__field--check en__field--{{ field.id }}">
 								<div class="en__field__element en__field__element--check form-group form-check-label-block custom-control p4-custom-control-input">
-									<label class="custom-checkbox">
+									<label class="custom-radio">
 										<input
-											id="en__field_supporter_{{ field.name }}"
+											id="en__field_supporter_questions_{{ field.id }}{{ i }}"
 											name="{{ en_input_name }}"
-											type="checkbox"
-											class="en__field__input en__field__input--checkbox"
-											value="{{ value }}"
-											{{ question_option.selected ?  ' checked' : '' }}
+											type="radio"
+											class="en__field__input en__field__input--radio"
+											value="{{ radio_option.option_value }}"
+											data-errormessage="{{ errorMessage }}"
+											{{ radio_option.option_selected ?  ' checked' : '' }}
+											{{ 'true' == field.required ? 'required' : '' }}
 										/>
 										<span class="custom-control-description">
-											{{ question_option.label|e('wp_kses_post')|raw }}
+											{{ radio_option.option_label|e('wp_kses_post')|raw }}
 										</span><br />
 									</label>
 								</div>
 							</div>
+							{% set i = i+1 %}
 						{% endfor %}
-					{% elseif 'OPT' == field.en_type %}
-						<div class="en__field en__field--check en__field--{{ field.id }}">
-							<div class="en__field__element en__field__element--check form-group form-check-label-block custom-control p4-custom-control-input">
-								<label class="custom-checkbox">
-									<input
-										id="en__field_supporter_{{ field.name }}"
-										name="{{ en_input_name }}"
-										type="checkbox"
-										class="en__field__input en__field__input--checkbox"
-										value="{{ value }}"
-										data-errormessage="{{ errorMessage }}"
-										{{ 1 == field.selected ?  ' checked' : '' }}
-										{{ 'true' == field.required ? 'required' : '' }}
-									/>
-									<span class="custom-control-description">
-										{{ field.label|e('wp_kses_post')|raw }}{{ 'true' == field.required ? '*' : '' }}
-									</span>
-								</label>
-							</div>
-						</div>
 					{% endif %}
-				{% elseif 'country' == field.input_type %}
-					<div class="en__field en__field--select en__field--{{ field.id }}">
-						<div class="en__field__element en__field__element--select form-group">
-							{% include 'country_select.twig' with { errorMessage: errorMessage } %}
-							{% if en_form_style == 'side-style' %}
-								<label class="en__field__top__label">
-									{{ field.label }}
-								</label>
-							{% endif %}
-						</div>
+				{% endfor %}
+			{% elseif 'country' == field.input_type %}
+				{% set errorMessage = __( 'Please select a country.', 'planet4-engagingnetworks' ) %}
+				<div class="en__field en__field--select en__field--{{ field.id }}">
+					<div class="en__field__element en__field__element--select form-group">
+						{% include 'country_select.twig' with { errorMessage: errorMessage } %}
+						{% if en_form_style == 'side-style' %}
+							<label class="en__field__top__label">
+								{{ field.label }}
+							</label>
+						{% endif %}
 					</div>
-				{% endif %}
+				</div>
 			{% endif %}
 		{% endfor %}
 	</div>

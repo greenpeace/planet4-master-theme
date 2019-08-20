@@ -416,12 +416,25 @@ function (_Component) {
     key: "renderEdit",
     value: function renderEdit() {
       var __ = wp.i18n.__;
-      var pages = window.p4en_vars.pages.map(function (page) {
-        return {
-          label: page,
-          value: page
-        };
-      });
+      var flattenedPages = [];
+      var pagesByType;
+
+      for (var i in window.p4en_vars.pages) {
+        var _flattenedPages;
+
+        pagesByType = window.p4en_vars.pages[i].map(function (page) {
+          return {
+            label: page.name,
+            value: page.id
+          };
+        });
+        flattenedPages = (_flattenedPages = flattenedPages).concat.apply(_flattenedPages, [{
+          label: '-- ' + i,
+          value: i
+        }].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(pagesByType)));
+      }
+
+      console.log("Flattened", flattenedPages);
       var en_forms = window.p4en_vars.forms.map(function (form) {
         return {
           label: form.post_title,
@@ -434,10 +447,10 @@ function (_Component) {
         options: [{
           label: 'No pages',
           value: 'No pages'
-        }].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(pages)),
-        disabled: !pages.length,
-        onChange: this.props.onGoalChange
-      }), pages.length ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_components_FormHelp_FormHelp__WEBPACK_IMPORTED_MODULE_11__["FormHelp"], null, __('Select the Live EN page that this form will be submitted to.', 'planet4-gutenberg-engagingnetworks')) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_components_InlineFormFeedback_InlineFormFeedback__WEBPACK_IMPORTED_MODULE_12__["InlineFormFeedback"], null, __('Check your EngagingNetworks settings!', 'planet4-gutenberg-engagingnetworks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["SelectControl"], {
+        }].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(flattenedPages)),
+        disabled: !flattenedPages.length,
+        onChange: this.props.onPageChange
+      }), flattenedPages.length ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_components_FormHelp_FormHelp__WEBPACK_IMPORTED_MODULE_11__["FormHelp"], null, __('Select the Live EN page that this form will be submitted to.', 'planet4-gutenberg-engagingnetworks')) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_components_InlineFormFeedback_InlineFormFeedback__WEBPACK_IMPORTED_MODULE_12__["InlineFormFeedback"], null, __('Check your EngagingNetworks settings!', 'planet4-gutenberg-engagingnetworks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["SelectControl"], {
         label: __('- Select Goal -', 'planet4-gutenberg-engagingnetworks'),
         value: this.props.enform_goal,
         options: [{
@@ -491,7 +504,7 @@ function (_Component) {
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["TextareaControl"], {
         label: __('Content Description', 'planet4-gutenberg-engagingnetworks'),
         placeholder: __('Enter content description', 'planet4-gutenberg-engagingnetworks'),
-        value: this.props.cnotent_description,
+        value: this.props.content_description,
         onChange: this.props.onContentDescriptionChange
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["TextControl"], {
         label: __('Call to Action button (e.g. "Sign up now!")', 'planet4-gutenberg-engagingnetworks'),
@@ -516,18 +529,18 @@ function (_Component) {
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["TextControl"], {
         label: __('Social media message', 'planet4-gutenberg-engagingnetworks'),
         placeholder: __('e.g. "Can you share it with your family and friends?"', 'planet4-gutenberg-engagingnetworks'),
-        value: this.props.thankyou_donate_message,
-        onChange: this.props.onThankYouDonateMessageChange
+        value: this.props.thankyou_take_action_message,
+        onChange: this.props.onThankYouTakeActionMessageChange
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["TextControl"], {
         label: __('Donate message', 'planet4-gutenberg-engagingnetworks'),
         placeholder: __('e.g. "or make a donation"', 'planet4-gutenberg-engagingnetworks'),
-        value: this.props.thankyou_take_action_message,
-        onChange: this.props.onThankYouTakeActionMessageChange
+        value: this.props.thankyou_donate_message,
+        onChange: this.props.onThankYouDonateMessageChange
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["TextControl"], {
         label: __('URL (Title and Subtitle will not be shown)', 'planet4-gutenberg-engagingnetworks'),
         placeholder: __('Enter "Thank you page" url', 'planet4-gutenberg-engagingnetworks'),
         value: this.props.thankyou_url,
-        onChange: this.props.onThankYouTakeActionMessageChange
+        onChange: this.props.onThankYouURLChange
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_wordpress_editor__WEBPACK_IMPORTED_MODULE_14__["MediaPlaceholder"], {
         labels: {
           title: __('Background', 'planet4-gutenberg-engagingnetworks'),
@@ -541,13 +554,13 @@ function (_Component) {
         allowedTypes: ["image"]
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["SelectControl"], {
         label: __('Planet 4 Engaging Networks form', 'planet4-gutenberg-engagingnetworks'),
-        value: this.props.en_page_id,
+        value: this.props.en_form_id,
         options: [{
           label: 'No forms',
           value: 'No forms'
         }].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(en_forms)),
         onChange: this.props.onFormChange
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("i", null, this.props.forms ? __('Select the P4EN Form that will be displayed.', 'planet4-gutenberg-engagingnetworks') : __('Create an EN Form', 'planet4-gutenberg-engagingnetworks'))))));
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_components_FormHelp_FormHelp__WEBPACK_IMPORTED_MODULE_11__["FormHelp"], null, this.props.forms ? __('Select the P4EN Form that will be displayed.', 'planet4-gutenberg-engagingnetworks') : __('Create an EN Form', 'planet4-gutenberg-engagingnetworks')))));
     }
   }, {
     key: "render",
@@ -558,6 +571,7 @@ function (_Component) {
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["ServerSideRender"], {
         block: 'planet4-gutenberg-engagingnetworks/enform',
         attributes: {
+          en_page_id: this.props.en_page_id,
           en_form_id: this.props.en_form_id,
           en_form_style: this.props.en_form_style,
           title: this.props.title,
@@ -569,8 +583,7 @@ function (_Component) {
           thankyou_subtitle: this.props.thankyou_subtitle,
           thankyou_donate_message: this.props.thankyou_donate_message,
           thankyou_take_action_message: this.props.thankyou_take_action_message,
-          thankyou_url: this.props.thankyou_url,
-          en_page_id: this.props.en_page_id
+          thankyou_url: this.props.thankyou_url
         }
       })));
     }
@@ -606,7 +619,6 @@ var ENFormBlock = function ENFormBlock() {
   _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, ENFormBlock);
 
   var registerBlockType = wp.blocks.registerBlockType;
-  var withSelect = wp.data.withSelect;
   registerBlockType('planet4-gutenberg-engagingnetworks/enform', {
     title: 'EN Form',
     icon: 'feedback',
@@ -709,34 +721,22 @@ var ENFormBlock = function ENFormBlock() {
         type: 'integer'
       }
     },
-    edit: withSelect(function (select) {
-      var tagsTaxonomy = 'post_tag';
-      var postTypesTaxonomy = 'p4-page-type';
-      var args = {
-        hide_empty: false
-      };
-
-      var _select = select('core'),
-          getEntityRecords = _select.getEntityRecords; // We should probably wrap all these in a single call,
-      // or maybe use our own way of retrieving data from the
-      // API, I don't know how this scales.
-
-
-      var tagsList = getEntityRecords('taxonomy', tagsTaxonomy, args);
-      var postTypesList = getEntityRecords('taxonomy', postTypesTaxonomy);
-      var posts = getEntityRecords('postType', 'post');
-      return {
-        postTypesList: postTypesList,
-        tagsList: tagsList,
-        posts: posts
-      };
-    })(function (_ref) {
-      var postTypesList = _ref.postTypesList,
-          tagsList = _ref.tagsList,
-          posts = _ref.posts,
+    edit: function edit(_ref) {
+      var attributes = _ref.attributes,
           isSelected = _ref.isSelected,
-          attributes = _ref.attributes,
           setAttributes = _ref.setAttributes;
+
+      function onPageChange(value) {
+        setAttributes({
+          en_page_id: parseInt(value)
+        });
+      }
+
+      function onGoalChange(value) {
+        setAttributes({
+          enform_goal: value
+        });
+      }
 
       function onTitleChange(value) {
         setAttributes({
@@ -794,6 +794,43 @@ var ENFormBlock = function ENFormBlock() {
         });
       }
 
+      function onMainThankYouTextChange(value) {
+        console.log("Thak you", value);
+        setAttributes({
+          thankyou_title: value
+        });
+      }
+
+      function onSecondaryThankYouMessageChange(value) {
+        setAttributes({
+          thankyou_subtitle: value
+        });
+      }
+
+      function onThankYouTakeActionMessageChange(value) {
+        setAttributes({
+          thankyou_take_action_message: value
+        });
+      }
+
+      function onThankYouDonateMessageChange(value) {
+        setAttributes({
+          thankyou_donate_message: value
+        });
+      }
+
+      function onThankYouURLChange(value) {
+        setAttributes({
+          thankyou_url: value
+        });
+      }
+
+      function onFormChange(value) {
+        setAttributes({
+          en_form_id: value
+        });
+      }
+
       function onUploadError(_ref4) {
         var message = _ref4.message;
         console.log(message);
@@ -801,6 +838,8 @@ var ENFormBlock = function ENFormBlock() {
 
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_ENForm_js__WEBPACK_IMPORTED_MODULE_3__["ENForm"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, attributes, {
         isSelected: isSelected,
+        onPageChange: onPageChange,
+        onGoalChange: onGoalChange,
         onTitleChange: onTitleChange,
         onDescriptionChange: onDescriptionChange,
         onContentTitleChange: onContentTitleChange,
@@ -810,9 +849,15 @@ var ENFormBlock = function ENFormBlock() {
         onSelectedLayoutChange: onSelectedLayoutChange,
         onSelectImage: onSelectImage,
         onSelectURL: onSelectURL,
+        onMainThankYouTextChange: onMainThankYouTextChange,
+        onSecondaryThankYouMessageChange: onSecondaryThankYouMessageChange,
+        onThankYouTakeActionMessageChange: onThankYouTakeActionMessageChange,
+        onThankYouURLChange: onThankYouURLChange,
+        onThankYouDonateMessageChange: onThankYouDonateMessageChange,
+        onFormChange: onFormChange,
         onUploadError: onUploadError
       }));
-    }),
+    },
     save: function save() {
       return null;
     }
@@ -1154,7 +1199,7 @@ function (_Component) {
     key: "render",
     value: function render() {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", {
-        className: 'Preview ' + (this.state.detach ? 'FloatingPreview' : '')
+        className: 'Preview ' + (this.props.isSelected && this.state.detach ? 'FloatingPreview' : '')
       }, this.props.showBar ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", {
         className: "PreviewBar"
       }, "Preview", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("button", {

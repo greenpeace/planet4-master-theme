@@ -202,6 +202,11 @@ and so on...
   display: none;
   vertical-align: middle; }
 
+body.wp-admin .enform-side-style,
+body.wp-admin .enform-full-width-bg {
+  pointer-events: none;
+  width: 100%; }
+
 .enform-side-style {
   width: 100vw;
   min-height: 444px;

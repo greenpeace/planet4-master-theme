@@ -3,7 +3,6 @@ import {ENForm} from './ENForm.js';
 export class ENFormBlock {
   constructor() {
     const {registerBlockType} = wp.blocks;
-    const { withSelect } = wp.data;
 
     registerBlockType('planet4-gutenberg-engagingnetworks/enform', {
       title: 'EN Form',
@@ -110,34 +109,15 @@ export class ENFormBlock {
           type: 'integer',
         },
       },
-      edit: withSelect( ( select ) => {
-        const tagsTaxonomy = 'post_tag';
-        const postTypesTaxonomy = 'p4-page-type';
-        const args = {
-          hide_empty: false,
-        };
-        const { getEntityRecords } = select( 'core' );
+      edit: ({attributes, isSelected, setAttributes}) => {
+        function onPageChange(value) {
+          setAttributes({en_page_id: parseInt(value)});
+        }
 
-        // We should probably wrap all these in a single call,
-        // or maybe use our own way of retrieving data from the
-        // API, I don't know how this scales.
-        const tagsList = getEntityRecords( 'taxonomy', tagsTaxonomy, args );
-        const postTypesList = getEntityRecords( 'taxonomy', postTypesTaxonomy );
-        const posts = getEntityRecords( 'postType', 'post' );
+        function onGoalChange(value) {
+          setAttributes({enform_goal: value});
+        }
 
-        return {
-          postTypesList,
-          tagsList,
-          posts
-        };
-      } )( ( {
-        postTypesList,
-        tagsList,
-        posts,
-        isSelected,
-        attributes,
-        setAttributes
-      } ) => {
         function onTitleChange(value) {
           setAttributes({title: value});
         }
@@ -174,6 +154,31 @@ export class ENFormBlock {
           setAttributes({id: null});
         }
 
+        function onMainThankYouTextChange(value) {
+          console.log("Thak you", value);
+          setAttributes({thankyou_title: value});
+        }
+
+        function onSecondaryThankYouMessageChange(value) {
+          setAttributes({thankyou_subtitle: value});
+        }
+
+        function onThankYouTakeActionMessageChange(value) {
+          setAttributes({thankyou_take_action_message: value});
+        }
+
+        function onThankYouDonateMessageChange(value) {
+          setAttributes({thankyou_donate_message: value});
+        }
+
+        function onThankYouURLChange(value) {
+          setAttributes({thankyou_url: value});
+        }
+
+        function onFormChange(value) {
+          setAttributes({en_form_id: value});
+        }
+
         function onUploadError({message}) {
           console.log(message);
         }
@@ -181,6 +186,8 @@ export class ENFormBlock {
         return <ENForm
           {...attributes}
           isSelected={isSelected}
+          onPageChange={onPageChange}
+          onGoalChange={onGoalChange}
           onTitleChange={onTitleChange}
           onDescriptionChange={onDescriptionChange}
           onContentTitleChange={onContentTitleChange}
@@ -190,9 +197,15 @@ export class ENFormBlock {
           onSelectedLayoutChange={onSelectedLayoutChange}
           onSelectImage={onSelectImage}
           onSelectURL={onSelectURL}
+          onMainThankYouTextChange={onMainThankYouTextChange}
+          onSecondaryThankYouMessageChange={onSecondaryThankYouMessageChange}
+          onThankYouTakeActionMessageChange={onThankYouTakeActionMessageChange}
+          onThankYouURLChange={onThankYouURLChange}
+          onThankYouDonateMessageChange={onThankYouDonateMessageChange}
+          onFormChange={onFormChange}
           onUploadError={onUploadError}
         />
-      }),
+      },
       save() {
         return null;
       }

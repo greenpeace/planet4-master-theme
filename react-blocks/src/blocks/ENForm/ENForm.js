@@ -20,9 +20,20 @@ export class ENForm extends Component {
   renderEdit() {
     const {__} = wp.i18n;
 
-    const pages = window.p4en_vars.pages.map(page => {
-      return { label: page, value: page };
-    });
+    let flattenedPages = [];
+    let pagesByType;
+
+    for (var i in window.p4en_vars.pages) {
+      pagesByType = window.p4en_vars.pages[i].map(page => {
+        return { label: page.name, value: page.id };
+      });
+      flattenedPages = flattenedPages.concat(
+        { label: '-- ' + i, value: i }, // Page type label
+        ...pagesByType
+      );
+    }
+
+    console.log("Flattened", flattenedPages);
 
     const en_forms = window.p4en_vars.forms.map(form => {
       return { label: form.post_title, value: form.ID };
@@ -46,13 +57,13 @@ export class ENForm extends Component {
             value={this.props.en_page_id}
             options={[
               { label: 'No pages', value: 'No pages' },
-              ...pages
+              ...flattenedPages
             ]}
-            disabled={!pages.length}
-            onChange={this.props.onGoalChange}
+            disabled={!flattenedPages.length}
+            onChange={this.props.onPageChange}
           />
 
-          { pages.length
+          { flattenedPages.length
             ? <FormHelp>
                 { __( 'Select the Live EN page that this form will be submitted to.', 'planet4-gutenberg-engagingnetworks' ) }
               </FormHelp>
@@ -130,7 +141,7 @@ export class ENForm extends Component {
             <TextareaControl
               label={ __( 'Content Description', 'planet4-gutenberg-engagingnetworks' ) }
               placeholder={ __( 'Enter content description', 'planet4-gutenberg-engagingnetworks' ) }
-              value={this.props.cnotent_description}
+              value={this.props.content_description}
               onChange={this.props.onContentDescriptionChange}
             />
           </div>
@@ -180,8 +191,8 @@ export class ENForm extends Component {
             <TextControl
               label={ __( 'Social media message', 'planet4-gutenberg-engagingnetworks' ) }
               placeholder={ __( 'e.g. "Can you share it with your family and friends?"', 'planet4-gutenberg-engagingnetworks' ) }
-              value={this.props.thankyou_donate_message}
-              onChange={this.props.onThankYouDonateMessageChange}
+              value={this.props.thankyou_take_action_message}
+              onChange={this.props.onThankYouTakeActionMessageChange}
             />
           </div>
 
@@ -189,8 +200,8 @@ export class ENForm extends Component {
             <TextControl
               label={ __( 'Donate message', 'planet4-gutenberg-engagingnetworks' ) }
               placeholder={ __( 'e.g. "or make a donation"', 'planet4-gutenberg-engagingnetworks' ) }
-              value={this.props.thankyou_take_action_message}
-              onChange={this.props.onThankYouTakeActionMessageChange}
+              value={this.props.thankyou_donate_message}
+              onChange={this.props.onThankYouDonateMessageChange}
             />
           </div>
 
@@ -199,7 +210,7 @@ export class ENForm extends Component {
               label={ __( 'URL (Title and Subtitle will not be shown)', 'planet4-gutenberg-engagingnetworks' ) }
               placeholder={ __( 'Enter "Thank you page" url', 'planet4-gutenberg-engagingnetworks' ) }
               value={this.props.thankyou_url}
-              onChange={this.props.onThankYouTakeActionMessageChange}
+              onChange={this.props.onThankYouURLChange}
             />
           </div>
 
@@ -218,17 +229,17 @@ export class ENForm extends Component {
           <div>
             <SelectControl
               label={__( 'Planet 4 Engaging Networks form', 'planet4-gutenberg-engagingnetworks' )}
-              value={this.props.en_page_id}
+              value={this.props.en_form_id}
               options={[
                 { label: 'No forms', value: 'No forms' },
                 ...en_forms
               ]}
               onChange={this.props.onFormChange}
             />
-            <p><i>{ this.props.forms
+            <FormHelp>{ this.props.forms
               ? __( 'Select the P4EN Form that will be displayed.', 'planet4-gutenberg-engagingnetworks' )
               : __( 'Create an EN Form', 'planet4-gutenberg-engagingnetworks' )
-            }</i></p>
+            }</FormHelp>
           </div>
         </div>
       </div>
@@ -247,6 +258,7 @@ export class ENForm extends Component {
           <ServerSideRender
             block={'planet4-gutenberg-engagingnetworks/enform'}
             attributes={{
+              en_page_id: this.props.en_page_id,
               en_form_id: this.props.en_form_id,
               en_form_style: this.props.en_form_style,
               title: this.props.title,
@@ -259,7 +271,6 @@ export class ENForm extends Component {
               thankyou_donate_message: this.props.thankyou_donate_message,
               thankyou_take_action_message: this.props.thankyou_take_action_message,
               thankyou_url: this.props.thankyou_url,
-              en_page_id: this.props.en_page_id,
             }}
           >
           </ServerSideRender>
