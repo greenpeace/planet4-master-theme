@@ -70,12 +70,9 @@ class Articles extends Base_Block {
 
 		register_block_type(
 			'planet4-blocks/articles',
-			[  // - Register the block for the editor.
-				'editor_script'   => 'planet4-blocks',           // in the PHP side.
-				'render_callback' => [ $this, 'render' ],        // - This render callback will be exposed.
-			// to render the block.
-
-			// These attributes match the current fields.
+			[
+				'editor_script'   => 'planet4-blocks',
+				'render_callback' => [ $this, 'render' ],
 				'attributes'      => [
 					'title'             => [
 						'type'    => 'string',

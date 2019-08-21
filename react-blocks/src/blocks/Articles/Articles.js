@@ -139,7 +139,7 @@ export class Articles extends Component {
           <TextControl
             label={__('Title', 'p4ge')}
             placeholder={__('Enter title', 'p4ge')}
-            help={__('Your default is set to [ Load More ]', 'p4ge')}
+            help={__('Your default is set to [ Related Articles ]', 'p4ge')}
             value={this.props.title}
             onChange={this.props.onTitleChange}
           />
@@ -159,7 +159,7 @@ export class Articles extends Component {
           <TextControl
             label={__('Button Text', 'p4ge')}
             placeholder={__('Override button text', 'p4ge')}
-            help={__('Your default is set to', 'p4ge')}
+            help={__('Your default is set to [ Load More ]', 'p4ge')}
             value={this.props.read_more_text}
             onChange={this.props.onReadmoretextChange}
           />
