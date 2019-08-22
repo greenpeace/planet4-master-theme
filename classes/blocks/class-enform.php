@@ -40,9 +40,17 @@ class ENForm extends Base_Block {
 	private $ens_api = null;
 
 	/**
+	 * Class Loader reference
+	 *
+	 * @var \P4GEN\Loader $loader;
+	 */
+	private $loader;
+
+	/**
 	 * Cookies constructor.
 	 */
-	public function __construct() {
+	public function __construct( $loader ) {
+		$this->loader = $loader;
 		//add_shortcode( 'shortcake_enform', [ $this, 'add_block_shortcode' ] );
 		// Variables exposed from PHP to JS,
 		// WP calls this "localizing a script"...
@@ -175,9 +183,9 @@ class ENForm extends Base_Block {
 		global $pagenow;
 
 		// Enqueue js for the frontend.
-		//if ( ! $this->is_rest_request() ) {
-			//wp_enqueue_script( 'enform', P4GEN_PLUGIN_URL . 'public/js/enform.js', [ 'jquery' ], '0.1', true );
-		//}
+		if ( ! $this->is_rest_request() ) {
+			$this->loader->enqueue_public_assets();
+		}
 
 		//$fields = $this->ignore_unused_attributes( $fields );
 
@@ -216,13 +224,6 @@ class ENForm extends Base_Block {
 				'form_fields'   => $fields,
 				'en_form_style' => $attributes['en_form_style'],
 			];
-
-			// echo "<pre>";
-			// var_dump($pagenow);
-			// var_dump($post_id);
-			// var_dump($fields);
-			// echo "</pre>";
-			//die('aca');
 
 			$renderedForm = $view->view_template('enform_post', $data, '/blocks/', true);
 		} else {

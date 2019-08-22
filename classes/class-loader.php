@@ -103,7 +103,7 @@ final class Loader {
 
 		// Load Blocks.
 		$this->blocks = [
-			new Blocks\ENForm(),
+			new Blocks\ENForm($this),
 		];
 	}
 
@@ -380,12 +380,12 @@ final class Loader {
 	 */
 	public function enqueue_public_assets() {
 		// plugin-blocks assets.
-		$css_blocks_creation = filectime( P4GEN_PLUGIN_DIR . '/style.css' );
-		$js_blocks_creation  = filectime( P4GEN_PLUGIN_DIR . '/main.js' );
+		$css_blocks_creation = filectime( P4GEN_PLUGIN_DIR . '/react-blocks/build/style.min.css' );
+		$js_blocks_creation  = filectime( P4GEN_PLUGIN_DIR . '/public/js/enform_side_style.js' );
 		// Add master theme's main css as dependency for blocks css.
 		wp_enqueue_style(
 			'plugin-engagingnetworks',
-			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/style.css',
+			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/react-blocks/build/style.min.css',
 			[
 				'bootstrap',
 				'slick',
@@ -393,17 +393,37 @@ final class Loader {
 			],
 			$css_blocks_creation
 		);
+
 		// Add master theme's main js as dependency for blocks js.
+
 		wp_register_script(
-			'plugin-engagingnetworks',
-			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/main.js',
+			'plugin-engagingnetworks-blocks-wide',
+			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/public/js/blocks_wide.js',
 			[
 				'jquery',
 				'main',
-				'slick',
-				'popperjs',
-				'bootstrapjs',
-				'hammer',
+			],
+			$js_blocks_creation,
+			true
+		);
+
+		wp_register_script(
+			'plugin-engagingnetworks-submit',
+			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/public/js/enform_submit.js',
+			[
+				'jquery',
+				'main',
+			],
+			$js_blocks_creation,
+			true
+		);
+
+		wp_register_script(
+			'plugin-engagingnetworks',
+			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/public/js/enform_side_style.js',
+			[
+				'jquery',
+				'main',
 			],
 			$js_blocks_creation,
 			true
@@ -415,6 +435,8 @@ final class Loader {
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
 			]
 		);
+		wp_enqueue_script( 'plugin-engagingnetworks-blocks-wide' );
+		wp_enqueue_script( 'plugin-engagingnetworks-submit' );
 		wp_enqueue_script( 'plugin-engagingnetworks' );
 	}
 
