@@ -89,6 +89,42 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 require_once __DIR__ . '/classes/class-loader.php';
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
+/*
+==========================
+	F I L T E R
+==========================
+*/
+
+const POST_BLOCK_TYPES = [
+	'planet4-blocks/counter',
+	'planet4-blocks/gallery',
+	'planet4-blocks/timeline',
+];
+
+// pages allow all block types.
+const PAGE_BLOCK_TYPES = true;
+
+// campaigns allow all block types.
+const CAMPAIGN_BLOCK_TYPES = true;
+
+/**
+ * Allowed block types based on post type
+ *
+ * @param array  $allowed_block_types array of allowed block types.
+ * @param object $post current post.
+ *
+ * @return true if all blocks allowed, false if none or an array of allowed blocks
+ */
+function my_plugin_allowed_block_types( $allowed_block_types, $post ) {
+	$allowed_block_types = [
+		'post'     => POST_BLOCK_TYPES,
+		'page'     => PAGE_BLOCK_TYPES,
+		'campaing' => CAMPAIGN_BLOCK_TYPES,
+	];
+	return $allowed_block_types[ $post->post_type ];
+}
+
+add_filter( 'allowed_block_types', 'my_plugin_allowed_block_types', 10, 2 );
 
 /*
 ==========================
