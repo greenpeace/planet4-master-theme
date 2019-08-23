@@ -228,7 +228,7 @@ export class ENForm extends Component {
               label={__( 'Planet 4 Engaging Networks form', 'planet4-gutenberg-engagingnetworks' )}
               value={this.props.en_form_id}
               options={[
-                { label: 'No forms', value: 'No forms' },
+                { label: 'No forms', value: 0 },
                 ...en_forms
               ]}
               onChange={this.props.onFormChange}
@@ -261,7 +261,7 @@ export class ENForm extends Component {
               title: this.props.title,
               description: this.props.description,
               content_title: this.props.content_title,
-              cnotent_description: this.props.cnotent_description,
+              content_description: this.props.content_description,
               button_text: this.props.button_text,
               thankyou_title: this.props.thankyou_title,
               thankyou_subtitle: this.props.thankyou_subtitle,

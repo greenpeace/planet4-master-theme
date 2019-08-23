@@ -206,6 +206,12 @@ body.wp-admin .enform-side-style,
 body.wp-admin .enform-full-width-bg {
   pointer-events: none;
   width: 100%; }
+  body.wp-admin .enform-side-style .container,
+  body.wp-admin .enform-full-width-bg .container {
+    z-index: 1; }
+
+body.wp-admin .enform .form-container input {
+  box-sizing: border-box; }
 
 .enform-side-style {
   width: 100vw;

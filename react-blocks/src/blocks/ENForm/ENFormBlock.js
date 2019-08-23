@@ -19,6 +19,24 @@ export class ENFormBlock {
             // Shortcode tag can also be an array of shortcode aliases
             tag: 'shortcake_enform',
             attributes: {
+              en_page_id: {
+                type: 'integer',
+                shortcode: function (attributes) {
+                  return attributes.named.en_page_id;
+                }
+              },
+              enform_goal: {
+                type: 'string',
+                shortcode: function (attributes) {
+                  return attributes.named.enform_goal;
+                }
+              },
+              en_form_style: {
+                type: 'string',
+                shortcode: function (attributes) {
+                  return attributes.named.en_form_style;
+                }
+              },
               title: {
                 type: 'string',
                 shortcode: function (attributes) {
@@ -31,30 +49,72 @@ export class ENFormBlock {
                   return attributes.named.description;
                 }
               },
-              necessary_cookies_name: {
+              content_title: {
                 type: 'string',
                 shortcode: function (attributes) {
-                  return attributes.named.necessary_cookies_name;
+                  return attributes.named.content_title;
                 }
               },
-              necessary_cookies_description: {
+              content_description: {
                 type: 'string',
                 shortcode: function (attributes) {
-                  return attributes.named.necessary_cookies_description;
+                  return attributes.named.content_description;
                 }
               },
-              all_cookies_name: {
+              button_text: {
                 type: 'string',
                 shortcode: function (attributes) {
-                  return attributes.named.all_cookies_name;
+                  return attributes.named.button_text;
                 }
               },
-              all_cookies_description: {
+              text_below_button: {
                 type: 'string',
                 shortcode: function (attributes) {
-                  return attributes.named.all_cookies_description;
+                  return attributes.named.text_below_button;
                 }
-              }
+              },
+              thankyou_title: {
+                type: 'string',
+                shortcode: function (attributes) {
+                  return attributes.named.thankyou_title;
+                }
+              },
+              thankyou_subtitle: {
+                type: 'string',
+                shortcode: function (attributes) {
+                  return attributes.named.thankyou_subtitle;
+                }
+              },
+              thankyou_donate_message: {
+                type: 'string',
+                shortcode: function (attributes) {
+                  return attributes.named.thankyou_donate_message;
+                }
+              },
+              thankyou_take_action_message: {
+                type: 'string',
+                shortcode: function (attributes) {
+                  return attributes.named.thankyou_take_action_message;
+                }
+              },
+              thankyou_url: {
+                type: 'string',
+                shortcode: function (attributes) {
+                  return attributes.named.thankyou_url;
+                }
+              },
+              background: {
+                type: 'integer',
+                shortcode: function (attributes) {
+                  return attributes.named.background;
+                }
+              },
+              en_form_id: {
+                type: 'integer',
+                shortcode: function (attributes) {
+                  return attributes.named.en_form_id;
+                }
+              },
             },
           },
         ]
@@ -103,7 +163,7 @@ export class ENFormBlock {
           type: 'string',
         },
         background: {
-          type: 'string',
+          type: 'integer',
         },
         en_form_id: {
           type: 'integer',
@@ -147,7 +207,7 @@ export class ENFormBlock {
         }
 
         function onSelectImage(imageData) {
-          setAttributes({background: imageData.id});
+          setAttributes({background: Number(imageData.id)});
         }
 
         function onSelectURL({url}) {
@@ -175,7 +235,7 @@ export class ENFormBlock {
         }
 
         function onFormChange(value) {
-          setAttributes({en_form_id: value});
+          setAttributes({en_form_id: Number(value)});
         }
 
         function onUploadError({message}) {

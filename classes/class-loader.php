@@ -435,6 +435,15 @@ final class Loader {
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
 			]
 		);
+
+		wp_localize_script(
+			'plugin-engagingnetworks-submit',
+			'en_vars',
+			[
+				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+			]
+		);
+
 		wp_enqueue_script( 'plugin-engagingnetworks-blocks-wide' );
 		wp_enqueue_script( 'plugin-engagingnetworks-submit' );
 		wp_enqueue_script( 'plugin-engagingnetworks' );

@@ -555,7 +555,7 @@ function (_Component) {
         value: this.props.en_form_id,
         options: [{
           label: 'No forms',
-          value: 'No forms'
+          value: 0
         }].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(en_forms)),
         onChange: this.props.onFormChange
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_components_FormHelp_FormHelp__WEBPACK_IMPORTED_MODULE_11__["FormHelp"], null, this.props.forms ? __('Select the P4EN Form that will be displayed.', 'planet4-gutenberg-engagingnetworks') : __('Create an EN Form', 'planet4-gutenberg-engagingnetworks')))));
@@ -575,7 +575,7 @@ function (_Component) {
           title: this.props.title,
           description: this.props.description,
           content_title: this.props.content_title,
-          cnotent_description: this.props.cnotent_description,
+          content_description: this.props.content_description,
           button_text: this.props.button_text,
           thankyou_title: this.props.thankyou_title,
           thankyou_subtitle: this.props.thankyou_subtitle,
@@ -631,6 +631,24 @@ var ENFormBlock = function ENFormBlock() {
         // Shortcode tag can also be an array of shortcode aliases
         tag: 'shortcake_enform',
         attributes: {
+          en_page_id: {
+            type: 'integer',
+            shortcode: function shortcode(attributes) {
+              return attributes.named.en_page_id;
+            }
+          },
+          enform_goal: {
+            type: 'string',
+            shortcode: function shortcode(attributes) {
+              return attributes.named.enform_goal;
+            }
+          },
+          en_form_style: {
+            type: 'string',
+            shortcode: function shortcode(attributes) {
+              return attributes.named.en_form_style;
+            }
+          },
           title: {
             type: 'string',
             shortcode: function shortcode(attributes) {
@@ -643,28 +661,70 @@ var ENFormBlock = function ENFormBlock() {
               return attributes.named.description;
             }
           },
-          necessary_cookies_name: {
+          content_title: {
             type: 'string',
             shortcode: function shortcode(attributes) {
-              return attributes.named.necessary_cookies_name;
+              return attributes.named.content_title;
             }
           },
-          necessary_cookies_description: {
+          content_description: {
             type: 'string',
             shortcode: function shortcode(attributes) {
-              return attributes.named.necessary_cookies_description;
+              return attributes.named.content_description;
             }
           },
-          all_cookies_name: {
+          button_text: {
             type: 'string',
             shortcode: function shortcode(attributes) {
-              return attributes.named.all_cookies_name;
+              return attributes.named.button_text;
             }
           },
-          all_cookies_description: {
+          text_below_button: {
             type: 'string',
             shortcode: function shortcode(attributes) {
-              return attributes.named.all_cookies_description;
+              return attributes.named.text_below_button;
+            }
+          },
+          thankyou_title: {
+            type: 'string',
+            shortcode: function shortcode(attributes) {
+              return attributes.named.thankyou_title;
+            }
+          },
+          thankyou_subtitle: {
+            type: 'string',
+            shortcode: function shortcode(attributes) {
+              return attributes.named.thankyou_subtitle;
+            }
+          },
+          thankyou_donate_message: {
+            type: 'string',
+            shortcode: function shortcode(attributes) {
+              return attributes.named.thankyou_donate_message;
+            }
+          },
+          thankyou_take_action_message: {
+            type: 'string',
+            shortcode: function shortcode(attributes) {
+              return attributes.named.thankyou_take_action_message;
+            }
+          },
+          thankyou_url: {
+            type: 'string',
+            shortcode: function shortcode(attributes) {
+              return attributes.named.thankyou_url;
+            }
+          },
+          background: {
+            type: 'integer',
+            shortcode: function shortcode(attributes) {
+              return attributes.named.background;
+            }
+          },
+          en_form_id: {
+            type: 'integer',
+            shortcode: function shortcode(attributes) {
+              return attributes.named.en_form_id;
             }
           }
         }
@@ -714,7 +774,7 @@ var ENFormBlock = function ENFormBlock() {
         type: 'string'
       },
       background: {
-        type: 'string'
+        type: 'integer'
       },
       en_form_id: {
         type: 'integer'
@@ -781,7 +841,7 @@ var ENFormBlock = function ENFormBlock() {
 
       function onSelectImage(imageData) {
         setAttributes({
-          background: imageData.id
+          background: Number(imageData.id)
         });
       }
 
@@ -824,7 +884,7 @@ var ENFormBlock = function ENFormBlock() {
 
       function onFormChange(value) {
         setAttributes({
-          en_form_id: value
+          en_form_id: Number(value)
         });
       }
 

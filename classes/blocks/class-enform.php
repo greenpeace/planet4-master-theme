@@ -124,8 +124,8 @@ class ENForm extends Base_Block {
 						'default' => '',
 					],
 					'background'                   => [
-						'type'    => 'string',
-						'default' => '',
+						'type'    => 'integer',
+						'default' => 0,
 					],
 					'en_form_id'                   => [
 						'type'    => 'integer',
