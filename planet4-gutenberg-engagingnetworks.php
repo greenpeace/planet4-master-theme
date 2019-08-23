@@ -89,7 +89,7 @@ if ( ! defined( 'P4_REST_SLUG' ) ) {
 	define( 'P4_REST_SLUG', 'planet4-engaging-networks' );
 }
 
-add_filter( 'timber/twig', 'add_to_twig' );
+add_filter( 'timber/twig', 'p4_en_forms_twig_filters' );
 
 /**
  * Adds functionality to Twig.
@@ -97,7 +97,7 @@ add_filter( 'timber/twig', 'add_to_twig' );
  * @param \Twig\Environment $twig The Twig environment.
  * @return \Twig\Environment
  */
-function add_to_twig( $twig ) {
+function p4_en_forms_twig_filters( $twig ) {
 	// Adding functions as filters.
 	$twig->addFilter(
 		new Twig_SimpleFilter(
