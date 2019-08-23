@@ -1,0 +1,13 @@
+{% block timeline %}
+	<section class="block timeline-block">
+		{% if ( timeline_title ) %}
+			<header>
+				<h2 class="page-section-header">{{ timeline_title }}</h2>
+			</header>
+		{% endif %}
+		{% if ( description ) %}
+			<p class="page-section-description">{{ description|e('wp_kses_post')|raw }}</p>
+		{% endif %}
+		<div id="{{ timeline_id }}"></div>
+	</section>
+{% endblock %}

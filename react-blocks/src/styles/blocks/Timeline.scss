@@ -1,0 +1,321 @@
+.timeline-block {
+  height: 600px;
+
+  .tl-storyslider .tl-slider-background {
+    background: none !important;
+  }
+
+  .tl-timeline {
+    background: none;
+  }
+
+  @include medium-and-up {
+    height: 680px;
+  }
+
+  @include large-and-up {
+    height: 760px;
+  }
+
+  .tl-slidenav-icon {
+    opacity: 0.5;
+    margin-left: 0 !important;
+
+    &:before {
+      content: "";
+      display: block;
+      margin: auto;
+      width: 25px;
+      height: 45px;
+      background-size: cover;
+      background-position: right;
+
+      @include medium-and-up {
+        width: 25px;
+        height: 45px;
+      }
+
+      @include large-and-up {
+        width: 25px;
+        height: 45px;
+      }
+    }
+  }
+
+  .tl-slidenav-previous {
+    .tl-slidenav-icon:before {
+      background-image: url("../../../public/images/timeline-arrow-left.png");
+
+      @include medium-and-up {
+        margin-left: 0;
+      }
+    }
+
+    &:hover {
+      .tl-slidenav-icon {
+        opacity: 1;
+        margin-left: 0 !important;
+      }
+    }
+  }
+
+  .tl-slidenav-next {
+    .tl-slidenav-icon:before {
+      background-image: url("../../../public/images/timeline-arrow-right.png");
+
+      @include medium-and-up {
+        margin-right: 0;
+      }
+    }
+
+    &:hover {
+      .tl-slidenav-icon {
+        opacity: 1;
+        margin-left: 0 !important;
+      }
+    }
+  }
+
+  .tl-timeline,
+  .tl-timeline blockquote cite,
+  .tl-timeline blockquote p cite,
+  .tl-timeline .vcard,
+  .tl-timeline .tl-note,
+  .tl-timenav .tl-attribution,
+  .tl-text .tl-headline-date,
+  .tl-text h3.tl-headline-date,
+  .tl-text .tl-text-date {
+    font-family: $roboto;
+  }
+
+  .tl-skinny .tl-slide .tl-slide-content-container .tl-slide-content .tl-text .tl-text-content-container {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+  }
+
+  .tl-slide .tl-slide-content-container .tl-media .tl-media-content-container .tl-credit {
+    font-size: .62rem;
+    line-height: 1rem;
+    color: #999999;
+  }
+
+  .tl-slide {
+    padding-top: 24px;
+
+    .tl-slide-content-container {
+      .tl-slide-content {
+        width: 100% !important;
+        display: flex;
+        flex-direction: column-reverse;
+
+        @include medium-and-up {
+          padding-left: 72px !important;
+          padding-right: 72px !important;
+        }
+
+        @include large-and-up {
+          display: table;
+          padding-left: 120px !important;
+          padding-right: 120px !important;
+        }
+
+        .tl-media {
+          float: none;
+          width: auto;
+          min-width: 0;
+
+          @include medium-and-up {
+            max-width: 75% !important;
+          }
+
+          @include large-and-up {
+            float: left;
+            width: 100%;
+            max-width: 100% !important;
+          }
+
+          img {
+            width: 100%;
+            max-width: 100%;
+            max-height: 100% !important;
+          }
+        }
+
+        .tl-text {
+          vertical-align: top;
+          width: auto;
+          padding-left: 0;
+          padding-right: 0;
+          margin-top: 0;
+          max-width: 100%;
+
+          @include large-and-up {
+            padding-left: 28px;
+            width: 50%;
+          }
+
+          h3.tl-headline-date {
+            font-size: .875rem;
+            margin-bottom: $space-md;
+          }
+
+          h2.tl-headline {
+            font-size: 1.5rem;
+            line-height: 1.87rem;
+            margin-bottom: $n20;
+          }
+
+          .tl-text-content {
+            margin-bottom: 24px;
+
+            p {
+              font-size: .875rem;
+              line-height: 1.2rem;
+              margin-top: 0;
+
+              &:last-child {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .tl-text .tl-text-content p {
+    font-family: $lora;
+  }
+
+  .tl-timeline blockquote,
+  .tl-timeline blockquote p {
+    font-family: $lora;
+  }
+}
+
+.post-content {
+  .timeline-block {
+    h2.tl-headline {
+      font-size: 1.5rem;
+      line-height: 1.87rem;
+      margin-bottom: $n20;
+      padding: 0 !important;
+    }
+
+    .tl-timeline {
+      .tl-slidenav-next {
+        display: none;
+
+        @include small-and-up {
+          display: block;
+        }
+      }
+
+      .tl-slidenav-previous {
+        display: none;
+
+        @include small-and-up {
+          display: block;
+        }
+      }
+
+      .tl-slide {
+        padding-top: 24px;
+
+        .tl-slide-content-container {
+          .tl-slide-content {
+            width: 100% !important;
+            display: flex;
+            flex-direction: column-reverse;
+
+            @include medium-and-up {
+              padding-left: 120px !important;
+              padding-right: 120px !important;
+            }
+
+            @include large-and-up {
+              display: table;
+              padding-left: 120px !important;
+              padding-right: 120px !important;
+            }
+
+            .tl-media {
+              float: none;
+              width: auto;
+              min-width: 0;
+
+              @include small-and-up {
+                margin-right: $space-xxl;
+                margin-left: $space-xxl;
+              }
+
+              @include medium-and-up {
+                margin-right: 0;
+                margin-left: 0;
+                max-width: 50% !important;
+              }
+
+              @include large-and-up {
+                float: left;
+                width: 100%;
+                max-width: 100% !important;
+              }
+
+              img {
+                width: 100%;
+                max-width: 100%;
+                max-height: 100% !important;
+              }
+            }
+
+            .tl-text {
+              vertical-align: top;
+              width: auto;
+              padding-left: 0;
+              padding-right: 0;
+              margin-top: 0;
+              max-width: 100%;
+
+              @include small-and-up {
+                margin-right: $space-xxl;
+                margin-left: $space-xxl;
+              }
+
+              @include medium-and-up {
+                margin-right: 0;
+                margin-left: 0;
+              }
+
+              @include large-and-up {
+                margin-right: 0;
+                margin-left: 0;
+                padding-left: 28px;
+                width: 50%;
+              }
+
+              h3.tl-headline-date {
+                font-size: .875rem;
+                margin-bottom: $space-md;
+              }
+            }
+          }
+        }
+
+        .tl-text-content {
+          margin-bottom: 24px;
+
+          p {
+            font-size: .875rem;
+            line-height: 1.2rem;
+            margin-top: 0;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
