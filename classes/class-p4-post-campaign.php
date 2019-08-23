@@ -451,6 +451,33 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					],
 				]
 			);
+
+			$cmb->add_field(
+				[
+					'name' => __( 'Facebook URL', 'planet4-master-theme-backend' ),
+					'desc' => __( 'URL for the footer Facebook icon', 'planet4-master-theme-backend' ),
+					'id'   => 'campaign_facebook_url',
+					'type' => 'text_medium',
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name' => __( 'Twitter URL', 'planet4-master-theme-backend' ),
+					'desc' => __( 'URL for the footer Twitter icon', 'planet4-master-theme-backend' ),
+					'id'   => 'campaign_twitter_url',
+					'type' => 'text_medium',
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name' => __( 'Instagram URL', 'planet4-master-theme-backend' ),
+					'desc' => __( 'URL for the footer Instagram icon', 'planet4-master-theme-backend' ),
+					'id'   => 'campaign_instagram_url',
+					'type' => 'text_medium',
+				]
+			);
 		}
 
 		/**
