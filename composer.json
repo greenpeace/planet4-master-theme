@@ -1,6 +1,6 @@
 {
-  "name": "greenpeace/planet4-plugin-gutenberg-blocks",
-  "description": "This repository contains the WordPress plugin that provides the gutenberg blocks for Planet4 project",
+  "name": "greenpeace/planet4-plugin-gutenberg-engagingnetworks",
+  "description": "This repository contains the wordpress plugin that connects Planet 4 with the Engaging Networks platform.",
   "type": "wordpress-plugin",
   "license": "GPL-3.0+",
   "authors": [
