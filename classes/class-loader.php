@@ -173,9 +173,7 @@ final class Loader {
 		add_action( 'admin_menu', [ $this, 'load_i18n' ] );
 		// Load the editor scripts.
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );
-
-		add_action( 'plugins_loaded', [ $this, 'load_i18n' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
 
 		// Register a block category.
 		add_filter( 'block_categories', [ $this, 'register_block_category' ], 10, 2 );
@@ -239,6 +237,8 @@ final class Loader {
 					]
 				);
 			}
+		} else {
+			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
 		}
 	}
 
@@ -335,12 +335,12 @@ final class Loader {
 	 */
 	public function enqueue_public_assets() {
 		// plugin-blocks assets.
-		$css_blocks_creation = filectime( P4GBKS_PLUGIN_DIR . '/style.css' );
-		$js_blocks_creation  = filectime( P4GBKS_PLUGIN_DIR . '/main.js' );
+		$css_blocks_creation = filectime( P4GBKS_PLUGIN_DIR . '/react-blocks/build/style.min.css' );
+
 		// Add master theme's main css as dependency for blocks css.
 		wp_enqueue_style(
 			'plugin-blocks',
-			plugins_url( P4GBKS_PLUGIN_DIRNAME ) . '/style.css',
+			P4GBKS_PLUGIN_URL . 'react-blocks/build/style.min.css',
 			[
 				'bootstrap',
 				'slick',
@@ -348,29 +348,6 @@ final class Loader {
 			],
 			$css_blocks_creation
 		);
-		// Add master theme's main js as dependency for blocks js.
-		wp_register_script(
-			'plugin-blocks',
-			plugins_url( P4GBKS_PLUGIN_DIRNAME ) . '/main.js',
-			[
-				'jquery',
-				'main',
-				'slick',
-				'popperjs',
-				'bootstrapjs',
-				'hammer',
-			],
-			$js_blocks_creation,
-			true
-		);
-		wp_localize_script(
-			'plugin-blocks',
-			'p4_vars',
-			[
-				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-			]
-		);
-		wp_enqueue_script( 'plugin-blocks' );
 	}
 
 	/**
