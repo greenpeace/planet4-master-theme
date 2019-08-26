@@ -44,6 +44,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			$campaign_theme = [
 				'antarctic' => __( 'Antarctic', 'planet4-master-theme-backend' ),
 				'arctic'    => __( 'Arctic', 'planet4-master-theme-backend' ),
+				'climate'   => __( 'Climate Emergency', 'planet4-master-theme-backend' ),
 				'forest'    => __( 'Forest', 'planet4-master-theme-backend' ),
 				'oceans'    => __( 'Oceans', 'planet4-master-theme-backend' ),
 				'oil'       => __( 'Oil', 'planet4-master-theme-backend' ),
@@ -265,6 +266,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			$nav_palette = [
 				'#FFFFFF',
 				'#E5E5E5',
+				'#66CC00',
 				'#32CA89',
 				'#1BB6D6',
 				'#22938D',
@@ -277,6 +279,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$primary_palette = [
 				'#ffd204',
+				'#66cc00',
 				'#6ed961',
 				'#21cbca',
 				'#ee562d',
@@ -334,6 +337,32 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$cmb->add_field(
 				[
+					'name'    => __( 'Navigation bottom border', 'planet4-master-theme-backend' ),
+					'id'      => 'campaign_nav_border',
+					'type'    => 'radio_inline',
+					'options' => [
+						'none'   => __( 'No border', 'planet4-master-theme-backend' ),
+						'border' => __( 'White bottom border', 'planet4-master-theme-backend' ),
+					],
+					'default' => 'none',
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'    => __( 'Footer Theme', 'planet4-master-theme-backend' ),
+					'id'      => 'campaign_footer_theme',
+					'type'    => 'radio_inline',
+					'options' => [
+						'default' => __( 'Default', 'planet4-master-theme-backend' ),
+						'white'   => __( 'White', 'planet4-master-theme-backend' ),
+					],
+					'default' => 'default',
+				]
+			);
+
+			$cmb->add_field(
+				[
 					'name'       => __( 'Header Text Color', 'planet4-master-theme-backend' ),
 					'id'         => 'campaign_header_color',
 					'type'       => 'colorpicker',
@@ -357,6 +386,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'show_option_none' => '-----',
 					'options'          => [
 						'Anton'            => __( 'Anton', 'planet4-master-theme-backend' ),
+						'Jost'             => __( 'Jost', 'planet4-master-theme-backend' ),
 						'Montserrat'       => __( 'Montserrat Bold', 'planet4-master-theme-backend' ),
 						'Montserrat_Light' => __( 'Montserrat Light', 'planet4-master-theme-backend' ),
 						'Sanctuary'        => __( 'Sanctuary', 'planet4-master-theme-backend' ),
@@ -388,8 +418,9 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'id'      => 'campaign_body_font',
 					'type'    => 'radio_inline',
 					'options' => [
-						'lora'   => __( 'Serif', 'planet4-master-theme-backend' ),
-						'roboto' => __( 'Sans Serif', 'planet4-master-theme-backend' ),
+						'lora'     => __( 'Serif', 'planet4-master-theme-backend' ),
+						'roboto'   => __( 'Sans Serif', 'planet4-master-theme-backend' ),
+						'campaign' => __( 'Campaign default', 'planet4-master-theme-backend' ),
 					],
 					'default' => 'lora',
 				]

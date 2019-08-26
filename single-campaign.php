@@ -18,6 +18,14 @@ $context = Timber::get_context();
 $post            = Timber::query_post( false, 'P4_Post' );
 $context['post'] = $post;
 
+// Get the cmb2 custom fields data.
+$page_meta_data    = get_post_meta( $post->ID );
+$campaign_template = ! empty( $page_meta_data['_campaign_page_template'][0] ) ? $page_meta_data['_campaign_page_template'][0] : false;
+
+if ( $campaign_template ) {
+	$context['custom_body_classes'] = 'brown-bg theme-' . $campaign_template;
+}
+
 // Save custom style settings.
 $custom_styles = [];
 
@@ -37,8 +45,18 @@ if ( $pf && array_key_exists( $pf, $header_font_style ) ) {
 
 $footer_links_color = 'light' === $post->campaign_logo_color ? '#FFFFFF' : '#1A1A1A';
 
+$footer_theme = $post->campaign_footer_theme ?? null;
+
+if ( 'white' == $footer_theme ) {
+	$footer_links_color = $post->campaign_nav_color ?? null;
+	$footer_color       = '#FFFFFF';
+} else {
+	$footer_color = $post->campaign_nav_color ?? null;
+}
+
 $passive_button_colors_map = [
 	'#ffd204' => '#ffe467',
+	'#66cc00' => '#66cc00',
 	'#6ed961' => '#a7e021',
 	'#21cbca' => '#77ebe0',
 	'#ee562d' => '#f36d3a',
@@ -46,10 +64,35 @@ $passive_button_colors_map = [
 	'#2077bf' => '#2077bf',
 ];
 
+$campaigns_font_map = [
+	'default'   => 'lora',
+	'antarctic' => 'sanctuary',
+	'arctic'    => 'Save the Arctic',
+	'climate'   => 'Jost',
+	'forest'    => 'Kanit',
+	'oceans'    => 'Montserrat',
+	'oil'       => 'Anton',
+	'plastic'   => 'Montserrat',
+];
+
+if ( $campaign_template ) {
+	$context['custom_body_classes'] = 'brown-bg theme-' . $campaign_template;
+	$campaign_font                  = $campaigns_font_map[ $campaign_template ];
+} else {
+	$campaign_font = $campaigns_font_map['default'];
+}
+
+if ( 'campaign' == $post->campaign_body_font ) {
+	$body_font = $campaign_font;
+} else {
+	$body_font = $post->campaign_body_font ?? null;
+}
+
 $custom_styles['css']['nav_color']               = $post->campaign_nav_color ? ".navbar { background-color: {$post->campaign_nav_color} !important;}" : null;
-$custom_styles['css']['footer_color']            = $post->campaign_nav_color ? ".site-footer { background-color: {$post->campaign_nav_color} !important;}" : null;
 $custom_styles['nav_type']                       = $post->campaign_nav_type;
+$custom_styles['nav_border']                     = $post->campaign_nav_border;
 $custom_styles['campaign_logo_color']            = $post->campaign_logo_color ?? 'light';
+$custom_styles['css']['footer_color']            = $footer_color ? ".site-footer { background-color: {$footer_color} !important;}" : null;
 $custom_styles['css']['footer_svg_icons_color']  = ".site-footer_min .icon { fill: {$footer_links_color} !important }";
 $custom_styles['css']['footer_elements_color']   = ".site-footer a { color: {$footer_links_color} !important }";
 $custom_styles['css']['footer_separatos_color']  = ".site-footer li { color: {$footer_links_color} !important }";
@@ -59,7 +102,7 @@ $custom_styles['css']['header_color']            = $post->campaign_header_color 
 $custom_styles['css']['campaign_header_primary'] = $post->campaign_header_primary ? " h1, h2, h3, h4, h5 { {$header_font} }" : null;
 $custom_styles['css']['header_serif']            = $post->campaign_header_serif ? " .page-header { font-family: {$post->campaign_header_serif}!important;}" : null;
 $custom_styles['css']['header_sans']             = $post->campaign_header_sans ? " .page-header { font-family: {$post->campaign_header_sans} !important;}" : null;
-$custom_styles['css']['body_font']               = $post->campaign_body_font ? " body, p { font-family: '{$post->campaign_body_font}' !important;}" : null;
+$custom_styles['css']['body_font']               = $body_font ? " body, p { font-family: '{$body_font}' !important;}" : null;
 $custom_styles['css']['btn_primary']             = $post->campaign_primary_color ? " .btn-primary { background: {$passive_button_colors_map[$post->campaign_primary_color]} !important; border-color: {$passive_button_colors_map[$post->campaign_primary_color]} !important;}" : null;
 $custom_styles['css']['btn_primary_hover']       = $post->campaign_primary_color ? " .btn-primary:hover { background: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} !important;}" : null;
 $custom_styles['css']['btn_secondary']           = $post->campaign_secondary_color
@@ -80,14 +123,6 @@ $custom_styles['css']['btn_secondary_hover']     = $post->campaign_secondary_col
 $custom_styles['css']['anchor']         = $post->campaign_secondary_color ? " a { color: {$post->campaign_secondary_color } !important; }" : null;
 $custom_styles['css']['cover-card-btn'] = $post->campaign_primary_color ? " .cover-card:hover .cover-card-btn { background-color: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} !important;}" : null;
 $custom_styles['campaign_logo']         = $post->campaign_logo ?? null;
-
-// Get the cmb2 custom fields data.
-$page_meta_data    = get_post_meta( $post->ID );
-$campaign_template = ! empty( $page_meta_data['_campaign_page_template'][0] ) ? $page_meta_data['_campaign_page_template'][0] : false;
-
-if ( $campaign_template ) {
-	$context['custom_body_classes'] = 'brown-bg theme-' . $campaign_template;
-}
 
 // Set GTM Data Layer values.
 $post->set_data_layer();
