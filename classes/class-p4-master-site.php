@@ -149,6 +149,29 @@ class P4_Master_Site extends TimberSite {
 				return $roles;
 			}
 		);
+
+		add_action( 'init', [ $this, 'login_redirect' ], 1 );
+	}
+
+	/**
+	 * Detects and redirects login from non-canonical domain to preferred domain
+	 */
+	function login_redirect() {
+		if ( ! isset( $GLOBALS['pagenow'] ) || 'wp-login.php' !== $GLOBALS['pagenow'] ) {
+			// Not on the login page, as you were.
+			return;
+		}
+
+		if ( ! isset( $_SERVER['HTTP_HOST'] ) || ! isset( $_SERVER['SERVER_NAME'] ) ) {
+			// If either of these are unset, we can't be sure we want to redirect.
+			return;
+		}
+
+		if ( $_SERVER['HTTP_HOST'] !== $_SERVER['SERVER_NAME'] ) {
+			if ( wp_redirect( str_replace( $_SERVER['HTTP_HOST'], $_SERVER['SERVER_NAME'], get_admin_url() ) ) ) {
+				exit;
+			}
+		}
 	}
 
 	/**
