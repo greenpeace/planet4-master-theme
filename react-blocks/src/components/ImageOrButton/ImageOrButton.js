@@ -1,0 +1,54 @@
+import {React, Component} from 'react';
+import {Button} from '@wordpress/components';
+import {MediaUpload,MediaUploadCheck} from '@wordpress/editor';
+
+export class ImageOrButton extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const {__} = wp.i18n;
+
+    const getImageOrButton = (openEvent) => {
+      if ( this.props.imageId ) {
+
+        return (
+
+          <img
+            src={ this.props.imageUrl }
+            onClick={ openEvent }
+            className={ this.props.imgClass }
+          />
+
+        );
+      }
+      else {
+        return (
+          <div className='button-container'>
+            <Button
+              onClick={ openEvent }
+              className='button'>
+              { this.props.buttonLabel }
+            </Button>
+
+            <div>{ this.props.help }</div>
+          </div>
+        );
+      }
+    };
+
+    return <div className='ImageOrButton'>
+      <MediaUploadCheck>
+        <MediaUpload
+          title={this.props.title}
+          type='image'
+          onSelect={this.props.onSelectImage}
+          value={this.props.imageId}
+          allowedTypes={['image']}
+          render={ ({ open }) => getImageOrButton(open) }
+        />
+      </MediaUploadCheck>
+    </div>;
+  }
+}
