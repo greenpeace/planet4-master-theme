@@ -10,10 +10,16 @@
 						{% set name = class_name %}
 					{% endif %}
 				{% endfor %}
-				<li><a href="{{ social.url }}">
-					{{ name|svgicon }}
-					<span class="sr-only">{{ social.title }}</span>
-				</a></li>
+				<li>
+				  {% set social_url = social.url %}
+					{% if social_overrides is defined and social_overrides[name] is defined %}
+					  {% set social_url = social_overrides[name] %}
+					{% endif %}
+					<a href="{{ social_url }}">
+						{{ name|svgicon }}
+						<span class="sr-only">{{ social.title }}</span>
+					</a>
+				</li>
 			{% endfor %}
 		</ul>
 
