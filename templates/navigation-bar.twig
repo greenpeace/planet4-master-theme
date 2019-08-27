@@ -1,5 +1,5 @@
 {% block navigation_bar %}
-	<nav id="header" class="top-navigation navbar">
+	<nav id="header" class="top-navigation navbar {% if custom_styles.nav_border == 'border' %}navigation-bar_border{% endif %}">
 		<a class="site-logo" href="{{ data_nav_bar.home_url }}">
 			{% include 'blocks/site_logo.twig' %}
 		</a>
