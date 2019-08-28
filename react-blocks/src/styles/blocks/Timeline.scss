@@ -45,6 +45,7 @@
   .tl-slidenav-previous {
     .tl-slidenav-icon:before {
       background-image: url("../../../public/images/timeline-arrow-left.png");
+      content: "";
 
       @include medium-and-up {
         margin-left: 0;
@@ -62,6 +63,7 @@
   .tl-slidenav-next {
     .tl-slidenav-icon:before {
       background-image: url("../../../public/images/timeline-arrow-right.png");
+      content: "";
 
       @include medium-and-up {
         margin-right: 0;
