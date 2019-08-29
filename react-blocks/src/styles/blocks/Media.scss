@@ -1,0 +1,43 @@
+.media-block {
+  .video-embed {
+    height: 240px;
+
+    video[poster] {
+      object-fit: inherit;
+    }
+
+    @include small-and-up {
+      height: 240px;
+    }
+
+    @include medium-and-up {
+      height: 400px;
+    }
+
+    @include large-and-up {
+      height: 530px;
+    }
+
+    @include x-large-and-up {
+      height: 630px;
+    }
+  }
+
+  iframe,
+  .wp-video,
+  .wp-video-shortcode {
+    // media player element specifies width inline and WordPress attributes don't allow percentage
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+
+    @include medium-and-up {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+}
