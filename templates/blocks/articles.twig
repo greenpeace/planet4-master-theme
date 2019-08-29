@@ -23,7 +23,8 @@
 						{% if ( fields.read_more_link ) %}
 							<div class="col-md-12 col-lg-5 col-xl-5 mr-auto">
 								<a class="btn btn-secondary btn-block article-load-more"
-								href="{{ fields.read_more_link }}">{{ fields.read_more_text }}</a>
+								href="{{ fields.read_more_link }}"
+								{{ fields.button_link_new_tab ? 'target="_blank"' }}>{{ fields.read_more_text }}</a>
 							</div>
 						{% else %}
 							<div class="col-md-12 col-lg-5 col-xl-5">

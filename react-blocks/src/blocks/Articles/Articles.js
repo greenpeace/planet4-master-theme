@@ -139,7 +139,7 @@ export class Articles extends Component {
           <TextControl
             label={__('Title', 'p4ge')}
             placeholder={__('Enter title', 'p4ge')}
-            help={__('Your default is set to [ Related Articles ]', 'p4ge')}
+            help={__('Your default is set to [ Latest Articles ]', 'p4ge')}
             value={this.props.title}
             onChange={this.props.onTitleChange}
           />
@@ -180,7 +180,8 @@ export class Articles extends Component {
             label={__('Open in a new Tab', 'p4ge')}
             help={__('Open button link in new tab', 'p4ge')}
             value={this.props.button_link_new_tab}
-            onChange={this.props.onButtonLinkTabChange}
+            checked={this.props.button_link_new_tab}
+            onChange={(e) => this.props.onButtonLinkTabChange(e)}
           />
         </div>
 
@@ -219,7 +220,8 @@ export class Articles extends Component {
                   label={__('Ignore categories', 'p4ge')}
                   help={__('Ignore categories when filtering posts to populate the content of this block', 'p4ge')}
                   value={this.props.ignore_categories}
-                  onChange={this.props.onIgnoreCategoriesChange}
+                  checked={this.props.ignore_categories}
+                  onChange={(e) => this.props.onIgnoreCategoriesChange(e)}
                 />
               </div>
             </Fragment>
