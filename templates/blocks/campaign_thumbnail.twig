@@ -2,9 +2,9 @@
 	{% if ( fields.tags ) %}
 
 		{% if ( covers_view is defined ) %}
-			{% if ( covers_view == "0" ) %}
+			{% if ( covers_view == '1' ) %}
 				{% set covers_view_class = 'show-3-covers' %}
-			{% elseif ( covers_view == "3" ) %}
+			{% elseif ( covers_view == '2' ) %}
 				{% set covers_view_class = 'show-6-covers' %}
 			{% else %}
 				{% set covers_view_class = 'show-all-covers' %}
@@ -41,8 +41,8 @@
 				</div>
 
 				{% if ( covers_view is defined ) %}
-					{% if ( ( fields.tags|length > 3 and covers_view == 0 ) or
-						( fields.tags|length > 6 and covers_view == 3 ) ) %}
+					{% if ( ( fields.tags|length > 3 and covers_view == '1' ) or
+						( fields.tags|length > 6 and covers_view == '3' ) ) %}
 						<div class="row">
 							<div class="col-md-12 col-lg-5 col-xl-5 mt-3 load-more-campaigns-button-div">
 								<button class="btn btn-block btn-secondary btn-load-more-campaigns-click">

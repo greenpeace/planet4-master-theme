@@ -80,7 +80,7 @@ export class Covers extends Component {
               options={ [
                 { label: '1 Row', value: '1' },
                 { label: '2 Rows', value: '2' },
-                { label: 'All rows', value: 'all' },
+                { label: 'All rows', value: '3' },
               ] }
               onChange={ this.props.onRowsChange }
             />
