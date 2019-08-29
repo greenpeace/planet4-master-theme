@@ -1,0 +1,53 @@
+// use the padding-top trick to get fixed aspect ratio
+@mixin aspect-ratio-column($ratio, $columns) {
+  width: 100% / $columns;
+  padding-top: 100% / $columns / $ratio;
+}
+
+.gallery-grid {
+  .grid-row {
+    text-align: center;
+
+    .grid-item {
+      display: inline-block;
+      padding: 12px;
+
+      img {
+        @supports (object-fit: cover) {
+          object-fit: cover;
+          width: 100%;
+          height: 210px;
+
+          @include x-large-and-up {
+            height: 250px;
+          }
+        }
+      }
+    }
+  }
+
+  @supports (display: grid) {
+    .grid-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-column-gap: $space-sm;
+      grid-row-gap: $space-sm;
+
+      @include medium-and-up {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @include large-and-up {
+        grid-template-columns: repeat(4, 1fr);
+
+        .post-content & {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .grid-item {
+        padding: 0;
+      }
+    }
+  }
+}

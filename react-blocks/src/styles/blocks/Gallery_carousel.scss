@@ -1,0 +1,278 @@
+.carousel-wrap {
+  overflow: hidden;
+
+  .single-post & {
+    padding-bottom: 30px;
+  }
+
+  h1 {
+    font-size: $font-size-lg;
+    color: $black;
+    margin-bottom: 22px;
+    margin-left: 0;
+
+    html[dir="rtl"] & {
+      text-align: right;
+    }
+
+    @include large-and-up {
+      font-size: $font-size-xl;
+      margin-bottom: 20px;
+    }
+
+    @include x-large-and-up {
+      font-size: 1.875rem;
+      margin-bottom: 22px;
+    }
+  }
+
+  .carousel-item {
+    .carousal-item-credit {
+      position: absolute;
+      right: 0;
+      top: 0;
+      color: $white;
+      font-size: $font-size-xxs;
+      margin: $n15;
+      font-weight: normal;
+    }
+
+    img {
+      height: 300px;
+      width: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+
+      @include medium-and-up {
+        height: 400px;
+      }
+
+      @include large-and-up {
+        height: 500px;
+      }
+
+      @include x-large-and-up {
+        height: 600px;
+      }
+    }
+  }
+
+  .carousel-item.active,
+  .carousel-item-next,
+  .carousel-item-prev {
+    display: block;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .carousel-caption {
+    text-align: left;
+    left: auto;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    font-family: $roboto;
+    padding: $n30 200px $n30 $n50;
+    background: linear-gradient(210deg, rgba(10, 51, 81, 0.2) 0%, rgba(10, 51, 81, 1) 100%);
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr="#0a3351", endColorstr="#0a3351", GradientType=1);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#0A3351', endColorstr='#0A3351' ,GradientType=0)";
+
+    html[dir="rtl"] & {
+      text-align: right;
+    }
+
+    @include mobile-only {
+      position: relative;
+      z-index: 10;
+      padding: $n20 $n15 $n20;
+      color: $white;
+    }
+
+    @include medium-and-up {
+      padding: $n30;
+    }
+
+    h3 {
+      font-size: $font-size-sm;
+
+      @include medium-and-up {
+        font-size: 1.0625rem;
+        width: 60%;
+      }
+    }
+
+    p {
+      font-family: $roboto;
+      font-size: 0.8125rem;
+
+      @include large-and-up {
+        width: 100%;
+      }
+    }
+  }
+
+  .carousel-indicators {
+    right: 25%;
+    bottom: 80px;
+    left: auto;
+
+    html[dir="rtl"] & {
+      right: auto;
+      left: 25%;
+    }
+
+    @include mobile-only {
+      bottom: 0;
+      right: 0;
+      left: 0;
+    }
+
+    @include small-and-up {
+      bottom: 30px;
+      right: 0;
+
+      html[dir="rtl"] & {
+        left: 0;
+        right: auto;
+      }
+    }
+
+    @include medium-and-up {
+      bottom: 10px;
+      margin-right: 2%;
+
+      html[dir="rtl"] & {
+        margin-right: inherit;
+        margin-left: 2%;
+      }
+    }
+
+    li {
+      width: 8px;
+      height: 8px;
+      margin: 0 8px;
+      border-radius: 50%;
+      background: $white;
+      cursor: pointer;
+
+      @include small-and-up {
+        width: 12px;
+        height: 12px;
+        margin: 0 $n15;
+      }
+
+      &.active {
+        background: $carousel-indi-color;
+      }
+    }
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    height: 100%;
+    top: 0;
+    width: 30%;
+    z-index: 3;
+
+    @include mobile-only {
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        margin-bottom: 15vw;
+        position: absolute;
+        top: 150px;
+      }
+    }
+
+    @include small-and-up {
+      width: 50%;
+    }
+  }
+
+  .carousel-control-next {
+    @include small-and-up {
+      margin-right: -25%;
+    }
+  }
+
+  .carousel-control-prev {
+    @include small-and-up {
+      margin-left: -25%;
+    }
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    display: block;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    margin-top: -50px;
+
+    @include small-and-up {
+      width: 45px;
+      height: 45px;
+    }
+
+    @include large-and-up {
+      width: 65px;
+      height: 65px;
+    }
+  }
+
+  .carousel-control-prev-icon {
+    background: url("../../../public/images/carousel-marker-prev.png");
+    background-size: cover;
+
+    @include small-and-up {
+      margin-left: 113px;
+      background: url("../../../public/images/carousel-marker-prev-S-M.png");
+    }
+
+    @include medium-and-up {
+      margin-left: 25%;
+    }
+
+    @include large-and-up {
+      margin-left: 133px;
+      background: url("../../../public/images/carousel-marker-prev.png");
+
+      &:hover {
+        background-position-x: 66px;
+      }
+    }
+
+    @include x-large-and-up {
+      margin-left: 45%;
+    }
+  }
+
+  .carousel-control-next-icon {
+    background: url("../../../public/images/carousel-marker-next.png");
+    background-size: cover;
+
+    @include small-and-up {
+      margin-right: 113px;
+      background: url("../../../public/images/carousel-marker-next-S-M.png");
+    }
+
+    @include medium-and-up {
+      margin-right: 25%;
+    }
+
+    @include large-and-up {
+      margin-right: 133px;
+      background: url("../../../public/images/carousel-marker-next.png");
+
+      &:hover {
+        background-position-x: 66px;
+      }
+    }
+
+    @include x-large-and-up {
+      margin-right: 45%;
+    }
+  }
+}
