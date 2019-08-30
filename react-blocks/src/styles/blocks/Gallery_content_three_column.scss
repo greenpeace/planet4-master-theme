@@ -1,0 +1,141 @@
+.split-three-column {
+  .three-column-images {
+    min-height: 184px;
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    margin: auto;
+
+    @include medium-and-up {
+      min-height: 330px;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    @include x-large-and-up {
+      min-height: 430px;
+    }
+  }
+
+  .split-image {
+    position: absolute;
+
+    img {
+      height: 184px;
+      position: relative;
+      left: -35%;
+      max-width: inherit;
+      object-fit: cover;
+
+      @include mobile-only {
+        width: 200px;
+      }
+
+      @include medium-and-up {
+        height: 330px;
+        width: 400px;
+      }
+
+      @include large-and-up {
+        left: -25%;
+      }
+
+      @include x-large-and-up {
+        left: -30%;
+        height: 430px;
+        width: 500px;
+      }
+
+      html[dir="rtl"] & {
+        right: -25%;
+
+        @include large-and-up {
+          right: -15%;
+        }
+
+        @include x-large-and-up {
+          right: -20%;
+          height: 430px;
+        }
+      }
+    }
+  }
+
+  html[dir="rtl"] & {
+    .first-column {
+      margin-right: -50px;
+      margin-left: -130px;
+
+      img {
+        right: 35px;
+      }
+    }
+
+    .second-column {
+      transform: skew(-25deg);
+      border-left: 10px solid $brown-bg;
+      border-right: 10px solid $brown-bg;
+      z-index: 2;
+      width: 110%;
+      right: 0;
+      top: 0;
+      overflow: hidden;
+
+      img {
+        transform: skew(25deg);
+        @include mobile-only {
+          right: -50px;
+        }
+      }
+    }
+  }
+
+  .first-column {
+    margin-left: -50px;
+    margin-right: -130px;
+
+    img {
+      left: 35px;
+    }
+  }
+
+  .second-column {
+    transform: skew(25deg);
+    border-left: 10px solid $brown-bg;
+    border-right: 10px solid $brown-bg;
+    z-index: 2;
+    width: 110%;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+
+    img {
+      width: 600px;
+
+      transform: skew(-25deg);
+      @include mobile-only {
+        width: 200px;
+        left: -50px;
+      }
+
+      @include small-and-up {
+        left: -180px;
+      }
+
+      @include medium-and-up {
+        left: -100px;
+      }
+    }
+
+    .img_post {
+      @include small-and-up {
+        width: 500px;
+        left: -150px;
+      }
+    }
+  }
+
+  .third-column {
+    z-index: 1;
+  }
+}
