@@ -184,7 +184,7 @@ export class Timeline extends Component {
               label={__('Language', 'p4ge')}
               value={this.props.language}
               options={languages}
-              onChange={(e) => this.props.onLanguageChange(this.props.index, e)}
+              onChange={(e) => this.props.onLanguageChange(e)}
             />
           </div>
 
@@ -193,17 +193,17 @@ export class Timeline extends Component {
               label={__('Timeline navigation position', 'p4ge')}
               value={this.props.timenav_position}
               options={position}
-              onChange={(e) => this.props.onTimenavPositionChange(this.props.index, e)}
+              onChange={(e) => this.props.onTimenavPositionChange(e)}
             />
           </div>
 
           <div>
             <CheckboxControl
-              heading={__('Start at end', 'p4ge')}
+              label={__('Start at end', 'p4ge')}
               help={__('Begin at the end of the timeline', 'p4ge')}
               value={this.props.start_at_end}
               checked={this.props.start_at_end}
-              onChange={(e) => this.props.onStartAtEndChange(this.props.index, e)}
+              onChange={(e) => this.props.onStartAtEndChange(e)}
             />
           </div>
 
