@@ -40,13 +40,13 @@ export class TimelineBlock {
                 }
               },
               language: {
-                type: 'string',
+                type: 'array',
                 shortcode: function (attributes) {
                   return attributes.named.language;
                 }
               },
               timenav_position: {
-                type: 'string',
+                type: 'array',
                 shortcode: function (attributes) {
                   return attributes.named.timenav_position;
                 }
@@ -73,6 +73,7 @@ export class TimelineBlock {
         },
         language: {
           type: 'string',
+          default: 'en',
         },
         timenav_position: {
           type: 'string',
