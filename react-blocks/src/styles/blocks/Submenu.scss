@@ -84,7 +84,11 @@
     .submenu-menu {
       ul.submenu-item {
         flex-basis: 100%;
-        column-count: 2;
+        column-count: 1;
+
+        @include medium-and-up {
+          column-count: 2;
+        }
       }
     }
   }
