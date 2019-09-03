@@ -126,22 +126,6 @@
 			{% for style in custom_styles.css %}{{ style|raw }}{% endfor %}
 		</style>
 	{% endif %}
-	<style type="text/css">
-		.post-content [href^="http"]:not([href*="{{ site.url }}"])::after {
-			content: "(external link)";
-			display: inline-block;
-			width: 1em;
-			height: 1em;
-			text-indent: 1em;
-			white-space: nowrap;
-			overflow: hidden;
-			background-image: url("{{ site.url }}/wp-content/themes/planet4-master-theme/images/external_link.svg");
-			background-repeat: no-repeat;
-			background-position: center;
-			background-size: 100%;
-			margin-left: .1em;
-			margin-bottom: 0;
-			fill: inherit !important;
-		}
-	</style>
+
+	{% include 'external_links.twig' %}
 </head>

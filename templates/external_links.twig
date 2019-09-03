@@ -1,0 +1,20 @@
+<style type="text/css">
+	.page-template [href^="http"]:not([href*="{{ site.url }}"])::after,
+	.post-content [href^="http"]:not([href*="{{ site.url }}"])::after {
+		content: "(external link)";
+		display: inline-block;
+		width: 1em;
+		height: 1em;
+		text-indent: 1em;
+		white-space: nowrap;
+		overflow: hidden;
+		margin-left: .1em;
+		margin-bottom: 0;
+
+		background-image: url("{{ site.url }}/wp-content/themes/planet4-master-theme/images/external_link.svg");
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 100%;
+		fill: inherit !important;
+	}
+</style>
