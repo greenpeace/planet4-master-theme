@@ -149,6 +149,29 @@ class P4_Master_Site extends TimberSite {
 				return $roles;
 			}
 		);
+
+		add_action( 'init', [ $this, 'login_redirect' ], 1 );
+	}
+
+	/**
+	 * Detects and redirects login from non-canonical domain to preferred domain
+	 */
+	function login_redirect() {
+		if ( ! isset( $GLOBALS['pagenow'] ) || 'wp-login.php' !== $GLOBALS['pagenow'] ) {
+			// Not on the login page, as you were.
+			return;
+		}
+
+		if ( ! isset( $_SERVER['HTTP_HOST'] ) || ! isset( $_SERVER['SERVER_NAME'] ) ) {
+			// If either of these are unset, we can't be sure we want to redirect.
+			return;
+		}
+
+		if ( $_SERVER['HTTP_HOST'] !== $_SERVER['SERVER_NAME'] ) {
+			if ( wp_redirect( str_replace( $_SERVER['HTTP_HOST'], $_SERVER['SERVER_NAME'], get_admin_url() ) ) ) {
+				exit;
+			}
+		}
 	}
 
 	/**
@@ -445,6 +468,8 @@ class P4_Master_Site extends TimberSite {
 	 * @param string $hook Hook.
 	 */
 	public function enqueue_admin_assets( $hook ) {
+		$css_creation = filectime( get_template_directory() . '/style.css' );
+
 		// Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
 		wp_register_script( 'jquery-3', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', [], '3.3.1', true );
 	}
