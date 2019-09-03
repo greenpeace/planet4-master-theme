@@ -83,6 +83,9 @@ class MediaHelper {
 				update_post_meta( $attachment_id, '_wp_attachment_image_alt', $alt_text );
 				update_post_meta( $attachment_id, '_credit_text', $image->get_credit() );
 
+				// Set media restriction details.
+				update_post_meta( $attachment_id, '_media_restriction', $image->get_media_restrictions() );
+
 				return $attachment_id;
 			} else {
 				return __( 'Error while inserting attachment...!', 'planet4-medialibrary' );
