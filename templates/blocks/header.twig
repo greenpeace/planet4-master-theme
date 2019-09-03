@@ -33,25 +33,27 @@
 				</div>
 			{% endif %}
 			<h1 class="page-header-title">{{ header_title|e('wp_kses_post')|raw }}</h1>
-			{% if ( post.is_take_action_page ) %}
-				{% include "blocks/share_buttons.twig" with {post:post} %}
-			{% endif %}
-			{% if ( header_subtitle ) %}
-				<h3 class="page-header-subtitle">{{ header_subtitle }}</h3>
-			{% endif %}
-			{% if ( header_description ) %}
-				<div class="page-header-content">{{ header_description|e('wp_kses_post')|raw }}</div>
-			{% endif %}
-			{% if ( header_button_title and header_button_link ) %}
-				<div class="row">
-					<div class="col-md-12">
-						<a href="{{ header_button_link }}"
-								{% if ( header_button_link_checkbox ) %}
-									target="_blank"
-								{% endif %}
-						class="btn btn-primary btn-medium page-header-btn">{{ header_button_title }}</a>
+			{% if not post.password_required %}
+				{% if ( post.is_take_action_page ) %}
+					{% include "blocks/share_buttons.twig" with {post:post} %}
+				{% endif %}
+				{% if ( header_subtitle ) %}
+					<h3 class="page-header-subtitle">{{ header_subtitle }}</h3>
+				{% endif %}
+				{% if ( header_description ) %}
+					<div class="page-header-content">{{ header_description|e('wp_kses_post')|raw }}</div>
+				{% endif %}
+				{% if ( header_button_title and header_button_link ) %}
+					<div class="row">
+						<div class="col-md-12">
+							<a href="{{ header_button_link }}"
+									{% if ( header_button_link_checkbox ) %}
+										target="_blank"
+									{% endif %}
+							class="btn btn-primary btn-medium page-header-btn">{{ header_button_title }}</a>
+						</div>
 					</div>
-				</div>
+				{% endif %}
 			{% endif %}
 		</div>
 	</div>
