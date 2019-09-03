@@ -26,6 +26,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		const DEFAULT_MAX_WEIGHT    = 3000;
 		const DEFAULT_CACHE_TTL     = 600;
 		const DUMMY_THUMBNAIL       = '/images/dummy-thumbnail.png';
+		const EXCLUDE_FROM_SEARCH   = 'p4_do_not_index';
 		const POST_TYPES            = [
 			'page',
 			'campaign',
@@ -278,13 +279,18 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		public function get_posts( $paged = 1 ) : array {
 			$args = [];
 
+			// Set General Query arguments.
 			$this->set_general_args( $args, $paged );
+
+			// Set Filters Query arguments.
 			try {
 				$this->set_filters_args( $args );
 			} catch ( UnexpectedValueException $e ) {
 				$this->context['exception'] = $e->getMessage();
 				return [];
 			}
+
+			// Set Engine Query arguments.
 			$this->set_engines_args( $args );
 
 			$posts = ( new WP_Query( $args ) )->posts;
@@ -311,46 +317,37 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			}
 
 			if ( $this->search_query ) {
-				$args['s'] = $this->search_query;
+				$args['s']          = $this->search_query;
+				$args['meta_query'] = [
+					[
+						'key'     => self::EXCLUDE_FROM_SEARCH,
+						'compare' => 'NOT EXISTS',
+					],
+				];
 			} else {
-				// If we search for everything then order first by 'weight' and then by 'post_date'.
 				$args2 = [
-					'orderby'    => 'meta_value date',
+					'orderby'    => 'meta_value date',  // If we search for everything then order first by 'weight' and then by 'post_date'.
 					'order'      => 'DESC DESC',
 					'meta_query' => [
-						'relation' => 'OR',
+						'relation' => 'AND',
 						[
-							'key'     => 'weight',
-							'compare' => 'NOT EXISTS',
+							'relation' => 'OR',
+							[
+								'key'     => 'weight',
+								'compare' => 'NOT EXISTS',
+							],
+							[
+								'key'     => 'weight',
+								'compare' => 'EXISTS',
+							],
 						],
 						[
-							'key'     => 'weight',
-							'compare' => 'EXISTS',
+							'key'     => self::EXCLUDE_FROM_SEARCH,
+							'compare' => 'NOT EXISTS',
 						],
 					],
 				];
 				$args  = array_merge( $args, $args2 );
-			}
-
-			// TODO - Provide better fix for excluding auto-created Campaign Pages from Search results.
-			// We should exclude them from indexing in the first place (if possible), or at least exclude them via the Elasticsearch curl request.
-			// All the existing auto-created Campaign Pages should get updated in order to get the p4_do_not_index meta.
-			$query = new WP_Query(
-				[
-					'post_type'   => 'page',
-					'post_status' => 'publish',
-					'meta_query'  => [
-						[
-							'key'     => 'p4_do_not_index',
-							'compare' => 'EXISTS',
-						],
-					],
-					'fields'      => 'ids',
-				]
-			);
-
-			if ( 0 !== $query->post_count ) {
-				$args['post__not_in'] = $query->posts;
 			}
 
 			$args['s'] = $this->search_query;
