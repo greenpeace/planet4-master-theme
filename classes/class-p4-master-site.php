@@ -472,7 +472,6 @@ class P4_Master_Site extends TimberSite {
 
 		// Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
 		wp_register_script( 'jquery-3', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', [], '3.3.1', true );
-		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], $css_creation );
 	}
 
 	/**
