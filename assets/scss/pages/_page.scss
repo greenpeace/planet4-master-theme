@@ -54,10 +54,10 @@ div.page-template {
     margin-right: auto;
     display: block;
   }
-}
 
-.single-campaign {
-  .container {
-    padding-top: $n50;
+  .single-campaign & {
+    section:first-child {
+      padding-top: $n50;
+    }
   }
 }
