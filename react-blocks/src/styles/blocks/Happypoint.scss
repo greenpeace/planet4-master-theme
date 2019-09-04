@@ -1,0 +1,181 @@
+.happy-point-block-wrap {
+  @include background-before-opacity($light-blue-bg);
+  width: 100vw;
+  height: 444px;
+  overflow: hidden;
+  display: block;
+
+  body.wp-admin & {
+    width: 100%;
+  }
+
+  @include medium-and-up {
+    max-height: 480px;
+  }
+
+  @include large-and-up {
+    max-height: 500px;
+  }
+
+  @include x-large-and-up {
+    height: 620px;
+    width: 100vw;
+    position: relative;
+    @include background-before-opacity($light-blue-bg);
+  }
+
+  .container {
+    height: inherit;
+    width: 100%;
+
+    @include medium-and-up {
+      max-width: none;
+    }
+
+    .row {
+      height: inherit;
+    }
+  }
+
+  .happy-point {
+    height: inherit;
+    padding-top: 50px;
+
+    @include medium-and-up {
+      text-align: center;
+      padding-top: 150px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    @include x-large-and-up {
+      padding-top: 220px;
+    }
+
+    iframe {
+      height: 390px;
+
+      @include mobile-only {
+        position: absolute;
+        width: 100vw;
+        bottom: 0;
+      }
+
+      @include medium-and-up {
+        width: 80vw;
+      }
+
+      @include large-and-up {
+        width: 100%;
+      }
+    }
+  }
+
+  h2 {
+    width: 75%;
+    font-size: 1.625rem;
+    line-height: 32px;
+    margin-bottom: 24px;
+
+    @include medium-and-up {
+      font-size: $font-size-xl;
+      line-height: 34px;
+      margin-bottom: 20px;
+      color: $black;
+    }
+
+    @include large-and-up {
+      font-size: 2.125rem;
+      margin-bottom: 30px;
+    }
+
+    @include x-large-and-up {
+      font-size: 2.25rem;
+      margin-bottom: 42px;
+    }
+  }
+
+  h5 {
+    font-size: $font-size-sm;
+    line-height: 24px;
+
+    @include medium-and-up {
+      font-size: 1.125rem;
+      line-height: 28px;
+    }
+
+    @include large-and-up {
+      line-height: 24px;
+    }
+  }
+
+  p {
+    font-family: $roboto;
+    font-size: 0.8125rem;
+    line-height: 18px;
+    color: $shadow-color;
+    text-align: left;
+
+    @include medium-and-up {
+      text-align: center;
+    }
+
+    @include large-and-up {
+      text-align: left;
+    }
+  }
+
+  > picture {
+    img {
+      position: absolute;
+      height: auto;
+      width: 100%;
+      object-fit: cover;
+
+      @supports (object-fit: cover) {
+        & {
+          height: 500px;
+        }
+      }
+    }
+  }
+
+  form {
+    input, .custom-select {
+      height: 42px;
+      border-radius: 0;
+      border-color: transparent;
+      margin-bottom: 16px;
+
+      @include medium-and-up {
+        margin-bottom: inherit;
+      }
+    }
+  }
+
+  .subscriber-btn {
+    margin-top: 0;
+    margin-bottom: 16px;
+    width: 100%;
+    padding: $n10;
+    border: 1px solid transparent;
+
+    &:hover {
+      background-color: $orange-hover;
+    }
+
+    @include medium-and-up {
+      margin-top: 16px;
+    }
+
+    @include large-and-up {
+      margin-top: 0;
+      height: 42px;
+      line-height: 42px;
+    }
+
+    @include x-large-and-up {
+      margin-bottom: 8px;
+    }
+  }
+}

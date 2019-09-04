@@ -96,6 +96,7 @@ final class Loader {
 			new Blocks\Cookies(),
 			new Blocks\Covers(),
 			new Blocks\Gallery(),
+			new Blocks\Happypoint(),
 			new Blocks\Media(),
 			new Blocks\SocialMedia(),
 			new Blocks\SubMenu(),
@@ -292,7 +293,6 @@ final class Loader {
 
 		// These styles from the master theme are enqueued on the frontend
 		// but not in the admin side.
-
 		wp_enqueue_style(
 			'p4gbks_admin_style',
 			P4GBKS_PLUGIN_URL . 'react-blocks/build/editorStyle.min.css', // - Bundled CSS for the blocks
@@ -304,7 +304,7 @@ final class Loader {
 			'p4gbks_style',
 			P4GBKS_PLUGIN_URL . 'react-blocks/build/style.min.css', // - Bundled CSS for the blocks
 			[],
-			'0.1'
+			'0.1.2'
 		);
 
 		// Enqueue editor script for all Blocks in this Plugin.
@@ -317,8 +317,9 @@ final class Loader {
 				'wp-element',     // - WP React wrapper
 				'wp-data',        // - WP data helpers
 				'wp-i18n',        // - Exports the __() function
+				'wp-editor',
 			],
-			'0.1.4',
+			'0.1.5',
 			true
 		);
 
