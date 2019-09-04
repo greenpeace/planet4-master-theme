@@ -52,29 +52,24 @@ h1 {
   margin-bottom: 30px;
 
   @include large-and-up {
-    font-size: 3.5rem;
+    font-size: $font-size-xxxl;
     margin-bottom: 48px;
   }
   @include x-large-and-up {
-    font-size: 4.125rem;
+    font-size: $font-size-xxxxl;
   }
 }
 
 h2 {
-  font-size: 1.625rem;
+  font-size: $font-size-xl;
   line-height: 1.38;
   margin-bottom: 5px;
 
   @include medium-and-up {
-    font-size: 2.125rem;
-  }
-
-  @include large-and-up {
-    font-size: 2.25rem;
+    font-size: $font-size-xxl;
   }
 
   @include x-large-and-up {
-    font-size: 2.375rem;
     margin-bottom: 24px;
   }
 }

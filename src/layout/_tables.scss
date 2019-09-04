@@ -17,14 +17,14 @@
       background-color: $dark-blue;
       color: $white;
       height: 36px;
-      font-size: 0.93rem;
+      font-size: $font-size-xs;
       padding: 6px $n20;
       box-sizing: border-box;
     }
 
     td {
       min-height: 120px;
-      font-size: 0.9rem;
+      font-size: $font-size-xs;
       padding: $n20;
       vertical-align: top;
 
@@ -33,7 +33,7 @@
       }
 
       @include x-large-and-up {
-        font-size: 1.125rem;
+        font-size: $font-size-md;
       }
     }
 

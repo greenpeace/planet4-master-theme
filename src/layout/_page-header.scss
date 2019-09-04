@@ -86,7 +86,7 @@
     }
 
     @include x-large-and-up {
-      font-size: 2.25rem;
+      font-size: $font-size-xxl;
       margin-bottom: 30px;
       line-height: 1.1;
     }
@@ -148,7 +148,7 @@
   }
 
   @include x-large-and-up {
-    font-size: 3.5rem;
+    font-size: $font-size-xxxl;
     line-height: 1.1;
     margin-bottom: 20px;
   }
@@ -162,16 +162,16 @@
   margin: 0;
 
   @include medium-and-up {
-    font-size: 1.5rem;
+    font-size: $font-size-lg;
     margin: 0 0 22px 0;
   }
 
   @include large-and-up {
-    font-size: 1.875rem;
+    font-size: $font-size-xl;
   }
 
   @include x-large-and-up {
-    font-size: 2.25rem;
+    font-size: $font-size-xxl;
   }
 }
 
@@ -212,6 +212,6 @@
   }
 
   @include x-large-and-up {
-    font-size: 1.125rem;
+    font-size: $font-size-md;
   }
 }
