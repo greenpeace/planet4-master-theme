@@ -308,6 +308,31 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$cmb->add_field(
 				[
+					'name'    => 'Logo',
+					'desc'    => 'Change the campaign logo',
+					'id'      => 'campaign_logo',
+					'type'    => 'select',
+					'default' => 'greenpeace',
+					'options' => $themes,
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'    => 'Logo Color',
+					'desc'    => 'Change the campaign logo color (if not default)',
+					'id'      => 'campaign_logo_color',
+					'type'    => 'radio_inline',
+					'default' => 'light',
+					'options' => [
+						'light' => __( 'Light', 'planet4-master-theme-backend' ),
+						'dark'  => __( 'Dark', 'planet4-master-theme-backend' ),
+					],
+				]
+			);
+
+			$cmb->add_field(
+				[
 					'name'    => __( 'Navigation', 'planet4-master-theme-backend' ),
 					'id'      => 'campaign_nav_type',
 					'type'    => 'radio_inline',
@@ -350,19 +375,6 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$cmb->add_field(
 				[
-					'name'    => __( 'Footer Theme', 'planet4-master-theme-backend' ),
-					'id'      => 'campaign_footer_theme',
-					'type'    => 'radio_inline',
-					'options' => [
-						'default' => __( 'Default', 'planet4-master-theme-backend' ),
-						'white'   => __( 'White', 'planet4-master-theme-backend' ),
-					],
-					'default' => 'default',
-				]
-			);
-
-			$cmb->add_field(
-				[
 					'name'       => __( 'Header Text Color', 'planet4-master-theme-backend' ),
 					'id'         => 'campaign_header_color',
 					'type'       => 'colorpicker',
@@ -371,6 +383,38 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 						'data-colorpicker' => wp_json_encode(
 							[
 								'palettes' => $header_palette,
+							]
+						),
+					],
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'       => __( 'Primary Button Color', 'planet4-master-theme-backend' ),
+					'id'         => 'campaign_primary_color',
+					'type'       => 'colorpicker',
+					'classes'    => 'palette-only',
+					'attributes' => [
+						'data-colorpicker' => json_encode(
+							[
+								'palettes' => $primary_palette,
+							]
+						),
+					],
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'       => __( 'Secondary Button Color and Link Text Color', 'planet4-master-theme-backend' ),
+					'id'         => 'campaign_secondary_color',
+					'type'       => 'colorpicker',
+					'classes'    => 'palette-only',
+					'attributes' => [
+						'data-colorpicker' => json_encode(
+							[
+								'palettes' => $secondary_palette,
 							]
 						),
 					],
@@ -428,58 +472,14 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$cmb->add_field(
 				[
-					'name'       => __( 'Primary Button Color', 'planet4-master-theme-backend' ),
-					'id'         => 'campaign_primary_color',
-					'type'       => 'colorpicker',
-					'classes'    => 'palette-only',
-					'attributes' => [
-						'data-colorpicker' => json_encode(
-							[
-								'palettes' => $primary_palette,
-							]
-						),
-					],
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'       => __( 'Secondary Button Color and Link Text Color', 'planet4-master-theme-backend' ),
-					'id'         => 'campaign_secondary_color',
-					'type'       => 'colorpicker',
-					'classes'    => 'palette-only',
-					'attributes' => [
-						'data-colorpicker' => json_encode(
-							[
-								'palettes' => $secondary_palette,
-							]
-						),
-					],
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'    => 'Logo',
-					'desc'    => 'Change the campaign logo',
-					'id'      => 'campaign_logo',
-					'type'    => 'select',
-					'default' => 'greenpeace',
-					'options' => $themes,
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'    => 'Logo Color',
-					'desc'    => 'Change the campaign logo color (if not default)',
-					'id'      => 'campaign_logo_color',
+					'name'    => __( 'Footer Theme', 'planet4-master-theme-backend' ),
+					'id'      => 'campaign_footer_theme',
 					'type'    => 'radio_inline',
-					'default' => 'light',
 					'options' => [
-						'light' => __( 'Light', 'planet4-master-theme-backend' ),
-						'dark'  => __( 'Dark', 'planet4-master-theme-backend' ),
+						'default' => __( 'Default', 'planet4-master-theme-backend' ),
+						'white'   => __( 'White', 'planet4-master-theme-backend' ),
 					],
+					'default' => 'default',
 				]
 			);
 
