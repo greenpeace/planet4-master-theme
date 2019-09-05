@@ -24,9 +24,9 @@ export class LayoutSelector extends Component {
               <div style={{display: 'flex'}}>
                 <RadioControl
                   name={'layoutOption'}
-                  selected={Number(this.state.selectedOption)}
+                  selected={this.state.selectedOption}
                   options={[
-                    {value: Number(layoutOption.value)}
+                    {value: layoutOption.value}
                   ]}
                   onChange={this.setSelected}
                 />

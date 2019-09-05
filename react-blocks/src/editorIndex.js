@@ -1,4 +1,5 @@
 import { ArticlesBlock } from './blocks/Articles/ArticlesBlock';
+import { ColumnsBlock } from './blocks/Columns/ColumnsBlock';
 import { CookiesBlock } from './blocks/Cookies/CookiesBlock';
 import { CoversBlock } from './blocks/Covers/CoversBlock';
 import { GalleryBlock } from './blocks/Gallery/GalleryBlock';
@@ -9,6 +10,7 @@ import { SubmenuBlock } from './blocks/Submenu/SubmenuBlock';
 import { TimelineBlock } from './blocks/Timeline/TimelineBlock';
 
 const articlesBlock = new ArticlesBlock();
+const columnsBlock = new ColumnsBlock();
 const cookiesBlock = new CookiesBlock();
 const coversBlock = new CoversBlock();
 const galleryBlock = new GalleryBlock();
