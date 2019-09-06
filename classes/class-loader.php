@@ -328,8 +328,11 @@ final class Loader {
 
 		// Variables exposed from PHP to JS,
 		// WP calls this "localizing a script"...
+		$option_values = get_option( 'planet4_options' );
+
 		$reflection_vars = [
-			'home' => P4GBKS_PLUGIN_URL . '/public/',
+			'home'            => P4GBKS_PLUGIN_URL . '/public/',
+			'planet4_options' => $option_values,
 		];
 		wp_localize_script( 'planet4-blocks-script', 'p4ge_vars', $reflection_vars );
 	}

@@ -33,7 +33,7 @@ class Covers extends Base_Block {
 	public function add_block_shortcode( $attributes, $content ) {
 		$attributes = shortcode_atts(
 			[
-				'cover_type'  => 1,
+				'cover_type'  => '1',
 				'covers_view' => 1,
 				'title'       => '',
 				'description' => '',
@@ -43,8 +43,7 @@ class Covers extends Base_Block {
 			'shortcake_newcovers'
 		);
 
-		$attributes['tags']       = explode( ',', $attributes['tags'] );
-		$attributes['cover_type'] = (int) $attributes['cover_type'];
+		$attributes['tags'] = explode( ',', $attributes['tags'] );
 
 		return $this->render( $attributes );
 	}
@@ -60,13 +59,12 @@ class Covers extends Base_Block {
 			[  // - Register the block for the editor
 				'editor_script'   => 'planet4-blocks',           // in the PHP side.
 				'render_callback' => [ $this, 'render' ],                     // - This render callback will be exposed
-			// to render the block.
+																			// to render the block.
 
-			// These attributes match the current fields.
+				// These attributes match the current fields.
 				'attributes'      => [
 					'cover_type'  => [
-						'type'    => 'integer',
-						'default' => 1,
+						'type' => 'string',
 					],
 					'covers_view' => [
 						'type'    => 'integer',
@@ -92,6 +90,12 @@ class Covers extends Base_Block {
 							'type' => 'integer',
 						],
 					],
+					'posts'       => [
+						'type'  => 'array',
+						'items' => [
+							'type' => 'integer',
+						],
+					],
 				],
 			]
 		);
@@ -108,11 +112,11 @@ class Covers extends Base_Block {
 		$cover_type = $fields['cover_type'] ?? '';
 		$covers     = false;
 
-		if ( 1 === $cover_type ) {
+		if ( '1' === $cover_type ) {
 			$covers = $this->populate_posts_for_act_pages( $fields );
-		} elseif ( 2 === $cover_type ) {
+		} elseif ( '2' === $cover_type ) {
 			$covers = $this->populate_posts_for_campaigns( $fields );
-		} elseif ( 3 === $cover_type ) {
+		} elseif ( '3' === $cover_type ) {
 			$covers = $this->populate_posts_for_cfc( $fields );
 		}
 
@@ -136,7 +140,7 @@ class Covers extends Base_Block {
 	 * @return \WP_Post[]
 	 */
 	private function filter_posts_for_act_pages( $fields ) {
-		$tag_ids       = $fields['tags'] ?? '';
+		$tag_ids       = $fields['tags'] ?? [];
 		$options       = get_option( 'planet4_options' );
 		$parent_act_id = $options['act_page'];
 
@@ -154,7 +158,7 @@ class Covers extends Base_Block {
 				'numberposts'      => self::POSTS_LIMIT,
 			];
 			// If user selected a tag to associate with the Take Action page covers.
-			if ( $tag_ids ) {
+			if ( ! empty( $tag_ids ) ) {
 				$args['tag__in'] = $tag_ids;
 			}
 
@@ -174,7 +178,7 @@ class Covers extends Base_Block {
 	 * @return \WP_Post[]
 	 */
 	private function filter_posts_by_ids( $fields ) {
-		$post_ids = $fields['posts'] ?? '';
+		$post_ids = $fields['posts'] ?? [];
 
 		if ( ! empty( $post_ids ) ) {
 
@@ -209,8 +213,8 @@ class Covers extends Base_Block {
 	 */
 	private function filter_posts_for_cfc( $fields ) {
 
-		$tag_ids    = $fields['tags'] ?? '';
-		$post_types = $fields['post_types'] ?? '';
+		$tag_ids    = $fields['tags'] ?? [];
+		$post_types = $fields['post_types'] ?? [];
 
 		$query_args = [
 			'post_type'      => 'post',
@@ -282,13 +286,10 @@ class Covers extends Base_Block {
 	private function populate_posts_for_campaigns( &$fields ) {
 
 		// Get user defined tags from backend.
-		$tag_ids = $fields['tags'] ?? '';
+		$tag_ids = $fields['tags'] ?? [];
 
 		// If tags is empty or is not a comma separated integers string then define tags as empty.
-		if ( empty( $tag_ids ) || 1 !== preg_match( '/^\d+(,\d+)*$/', $tag_ids ) ) {
-			$tags = [];
-		} else {
-			// Explode comma separated list of tag ids and get an array of \WP_Terms objects.
+		if ( ! empty( $tag_ids ) ) {
 			$tags = get_tags( [ 'include' => $tag_ids ] );
 		}
 
@@ -321,10 +322,10 @@ class Covers extends Base_Block {
 	 * @return array
 	 */
 	private function populate_posts_for_act_pages( &$fields ) {
-		$post_ids = $fields['posts'] ?? '';
+		$post_ids = $fields['posts'] ?? [];
 		$options  = get_option( 'planet4_options' );
 
-		if ( '' !== $post_ids ) {
+		if ( ! empty( $post_ids ) ) {
 			$actions = $this->filter_posts_by_ids( $fields );
 		} else {
 			$actions = $this->filter_posts_for_act_pages( $fields );
@@ -371,9 +372,9 @@ class Covers extends Base_Block {
 	 */
 	private function populate_posts_for_cfc( &$fields ) {
 
-		$post_ids = $fields['posts'] ?? '';
+		$post_ids = $fields['posts'] ?? [];
 
-		if ( '' !== $post_ids ) {
+		if ( ! empty( $post_ids ) ) {
 			$posts = $this->filter_posts_by_ids( $fields );
 		} else {
 			$posts = $this->filter_posts_for_cfc( $fields );

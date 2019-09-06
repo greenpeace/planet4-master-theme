@@ -27,15 +27,31 @@ export class CoversBlock {
                   // it is a function which expects an object with at least
                   // a `named` key with `cover_type` property whose default value is 1.
                   // See: https://simonsmith.io/destructuring-objects-as-function-parameters-in-es6
-                  shortcode: ( { named: { cover_type = '1' } } ) => cover_type,
+                  shortcode: ({named: {cover_type = '1'}}) => cover_type,
                 },
                 title: {
                   type: 'string',
-                  shortcode: ( { named: { title = '' } } ) => title,
+                  shortcode: ({named: {title = ''}}) => title,
                 },
                 description: {
                   type: 'string',
-                  shortcode: ( { named: { description = '' } } ) => description,
+                  shortcode: ({named: {description = ''}}) => description,
+                },
+                covers_view: {
+                  type: 'string',
+                  shortcode: ({named: {covers_view = ''}}) => covers_view,
+                },
+                tags: {
+                  type: 'string',
+                  shortcode: ({named: {tags = ''}}) => tags.split(','),
+                },
+                post_types: {
+                  type: 'string',
+                  shortcode: ({named: {post_types = ''}}) => post_types.split(','),
+                },
+                posts: {
+                  type: 'string',
+                  shortcode: ({named: {posts = ''}}) => posts.split(','),
                 },
               },
             },
@@ -66,8 +82,7 @@ export class CoversBlock {
             default: '1'
           },
           cover_type: {
-            type: 'integer',
-            default: 1
+            type: 'string',
           }
         },
         // withSelect is a "Higher Order Component", it works as
@@ -78,7 +93,9 @@ export class CoversBlock {
           const postTypesTaxonomy = 'p4-page-type';
           const args = {
             hide_empty: false,
+            per_page: -1,
           };
+
           const { getEntityRecords } = select( 'core' );
 
           // We should probably wrap all these in a single call,
@@ -86,23 +103,20 @@ export class CoversBlock {
           // API, I don't know how this scales.
           const tagsList = getEntityRecords( 'taxonomy', tagsTaxonomy, args );
           const postTypesList = getEntityRecords( 'taxonomy', postTypesTaxonomy );
-          const posts = getEntityRecords( 'postType', 'post' );
 
           return {
             postTypesList,
             tagsList,
-            posts
           };
         } )( ( {
           postTypesList,
           tagsList,
-          posts,
           isSelected,
           attributes,
           setAttributes
         } ) => {
 
-            if ( !tagsList || !postTypesList || !posts ) {
+            if ( !tagsList || !postTypesList ) {
                 return "Populating block's fields...";
             }
 
@@ -130,8 +144,8 @@ export class CoversBlock {
               setAttributes( { tags: tagIds } );
             }
 
-            function onSelectedPostsChange( value ) {
-              setAttributes( { selectedPosts: value.tokens } );
+            function onSelectedPostsChange(value) {
+              setAttributes({posts: value});
             }
 
             function onSelectedPostTypesChange( postTypeIds ) {
@@ -139,7 +153,16 @@ export class CoversBlock {
             }
 
             function onSelectedLayoutChange( value ) {
-              setAttributes( { cover_type: Number(value) } );
+
+              // Post types are available only on cover_type 3, so we reset the post_types attribute in the other 2 cases.
+              if ( '1' === value) {
+                setAttributes( { post_types: [] } );
+              }
+              if ( '2' === value) {
+                setAttributes( { post_types: []} );
+              }
+              // Reset posts attribute when changing layout also.
+              setAttributes({cover_type: value, posts: []});
             }
 
             // We pass down all the attributes to Covers as props using
@@ -150,7 +173,6 @@ export class CoversBlock {
               isSelected={ isSelected }
               tagsList={ tagsList }
               postTypesList={ postTypesList }
-              posts={ posts }
               onSelectedTagsChange={ onSelectedTagsChange }
               onSelectedLayoutChange={ onSelectedLayoutChange }
               onTitleChange={ onTitleChange }
