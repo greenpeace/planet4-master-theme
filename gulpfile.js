@@ -23,6 +23,7 @@ const path_js = 'assets/js/*.js';
 const path_exclude_js = '!assets/js/search.js';
 const path_js_admin = 'admin/js/*.js';
 const path_scss = 'assets/scss/**/*.scss';
+const path_admin_css = 'admin/css/**/*.css';
 const path_style = 'assets/scss/style.scss';
 
 let error_handler = {
@@ -50,7 +51,7 @@ const icons_config = {
 };
 
 function lint_css() {
-  return gulp.src(path_scss)
+  return gulp.src([path_scss, path_admin_css])
     .pipe(plumber(error_handler))
     .pipe(stylelint({
       reporters: [{ formatter: 'string', console: true}]
