@@ -75,7 +75,7 @@ body:not(.wp-admin) {
 
   input[type="radio"] {
     font-family: $roboto;
-    font-size: 1.125rem;
+    font-size: $font-size-md;
     position: absolute;
     opacity: 0;
     cursor: pointer;

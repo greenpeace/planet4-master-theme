@@ -39,10 +39,10 @@
       vertical-align: middle;
     }
     @include large-and-up {
-      font-size: 1.0625rem;
+      font-size: $font-size-xxs;
     }
     @include x-large-and-up {
-      font-size: 1.0625rem;
+      font-size: $font-size-xxs;
     }
   }
 
@@ -79,7 +79,7 @@
     background-color: transparentize($white, .2);
 
     html[dir="rtl"] & {
-      font-size: 1.175rem;
+      font-size: $font-size-sm;
       line-height: 2.5;
       height: auto;
     }

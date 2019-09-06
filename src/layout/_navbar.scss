@@ -124,7 +124,7 @@ $min-height: 40px;
 
   @include medium-and-up {
     line-height: $menu-height-large;
-    font-size: 1.125rem;
+    font-size: $font-size-md;
   }
 }
 
@@ -149,7 +149,7 @@ $min-height: 40px;
   z-index: 1;
 
   .icon {
-    font-size: 1.125rem;
+    font-size: $font-size-md;
   }
 }
 
@@ -542,7 +542,7 @@ $min-height: 40px;
 
     .icon {
       vertical-align: middle;
-      font-size: 1.3125rem;
+      font-size: $font-size-lg;
       top: 5px;
     }
 
@@ -774,7 +774,7 @@ $min-height: 40px;
 
     @include medium-and-up {
       line-height: 2.25rem;
-      font-size: 1.125rem;
+      font-size: $font-size-md;
     }
 
     @include large-and-up {
