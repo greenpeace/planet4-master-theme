@@ -20,3 +20,4 @@ Thumbs.db
 #######################
 .idea
 reports
+react-blocks/build/*.deps.json
