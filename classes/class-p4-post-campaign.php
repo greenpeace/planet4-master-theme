@@ -35,6 +35,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			add_action( 'add_meta_boxes', [ $this, 'campaign_page_templates_meta_box' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 			add_action( 'save_post_campaign', [ $this, 'save_campaign_page_templates_meta_box_data' ] );
+			add_action( 'cmb2_render_footer_icon_link', [ $this, 'cmb2_render_footer_icon_link_field_callback' ], 10, 5 );
 		}
 
 		/**
@@ -485,28 +486,41 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$cmb->add_field(
 				[
-					'name' => __( 'Facebook URL', 'planet4-master-theme-backend' ),
-					'desc' => __( 'URL for the footer Facebook icon', 'planet4-master-theme-backend' ),
-					'id'   => 'campaign_facebook_url',
-					'type' => 'text_medium',
+					'name' => __( 'Footer item 1', 'planet4-master-theme-backend' ),
+					'id'   => 'campaign_footer_item1',
+					'type' => 'footer_icon_link',
 				]
 			);
 
 			$cmb->add_field(
 				[
-					'name' => __( 'Twitter URL', 'planet4-master-theme-backend' ),
-					'desc' => __( 'URL for the footer Twitter icon', 'planet4-master-theme-backend' ),
-					'id'   => 'campaign_twitter_url',
-					'type' => 'text_medium',
+					'name' => __( 'Footer item 2', 'planet4-master-theme-backend' ),
+					'id'   => 'campaign_footer_item2',
+					'type' => 'footer_icon_link',
 				]
 			);
 
 			$cmb->add_field(
 				[
-					'name' => __( 'Instagram URL', 'planet4-master-theme-backend' ),
-					'desc' => __( 'URL for the footer Instagram icon', 'planet4-master-theme-backend' ),
-					'id'   => 'campaign_instagram_url',
-					'type' => 'text_medium',
+					'name' => __( 'Footer item 3', 'planet4-master-theme-backend' ),
+					'id'   => 'campaign_footer_item3',
+					'type' => 'footer_icon_link',
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name' => __( 'Footer item 4', 'planet4-master-theme-backend' ),
+					'id'   => 'campaign_footer_item4',
+					'type' => 'footer_icon_link',
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name' => __( 'Footer item 5', 'planet4-master-theme-backend' ),
+					'id'   => 'campaign_footer_item5',
+					'type' => 'footer_icon_link',
 				]
 			);
 		}
@@ -517,6 +531,102 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		public function enqueue_admin_assets() {
 			wp_register_style( 'cmb-style', get_template_directory_uri() . '/admin/css/campaign.css' );
 			wp_enqueue_style( 'cmb-style' );
+		}
+
+		/**
+		 * Returns options markup for a icon select field.
+		 *
+		 * @param  mixed $value Selected/saved icon.
+		 * @return string       html string containing all icon options
+		 */
+		public function cmb2_get_icon_options( $value = false ) {
+			$icons_directory = dirname( __FILE__ ) . '/../assets/scss/styleguide/src/icons';
+			$icon_list       = [];
+			foreach ( glob( $icons_directory . '/*.svg' ) as $file ) {
+				$icon_id               = basename( $file, '.svg' );
+				$icon_list[ $icon_id ] = $icon_id;
+			}
+
+			$icon_options = '<option value="">- Select Icon ID-</option>';
+			foreach ( $icon_list as $id => $icon ) {
+				$icon_options .= '<option value="' . $id . '" ' . selected( $value, $id, false ) . '>' . $icon . '</option>';
+			}
+
+			return $icon_options;
+		}
+
+		/**
+		 * CMB2 custom field(footer_icon_link) callback function.
+		 *
+		 * @param array $field The CMB2 field array.
+		 * @param array $value The CMB2 field Value.
+		 * @param array $object_id The id of the object.
+		 * @param array $object_type The type of object.
+		 * @param array $field_type Instance of the `cmb2_Meta_Box_types` object.
+		 */
+		public function cmb2_render_footer_icon_link_field_callback( $field, $value, $object_id, $object_type, $field_type ) {
+			$value = wp_parse_args(
+				$value,
+				[
+					'url'  => '',
+					'icon' => '',
+				]
+			);
+			?>
+			<div class="alignleft">
+			<?php
+				echo wp_kses(
+					$field_type->input(
+						array(
+							'class'       => 'cmb-type-text-medium',
+							'name'        => esc_attr( $field_type->_name( '[url]' ) ),
+							'id'          => esc_attr( $field_type->_id( '_url' ) ),
+							'type'        => 'text',
+							'value'       => esc_url( $value['url'] ),
+							'placeholder' => 'Footer item link',
+						)
+					),
+					[
+						'input' => [
+							'class'       => [],
+							'placeholder' => [],
+							'name'        => [],
+							'id'          => [],
+							'type'        => [],
+							'value'       => [],
+							'data-hash'   => [],
+						],
+					]
+				);
+			?>
+			</div>
+			<div class="alignleft">
+				<?php
+				echo wp_kses(
+					$field_type->select(
+						array(
+							'name'    => esc_attr( $field_type->_name( '[icon]' ) ),
+							'id'      => esc_attr( $field_type->_id( '_icon' ) ),
+							'options' => $this->cmb2_get_icon_options( $value['icon'] ),
+							'desc'    => __( ' Add footer item link and select footer link icon.', 'planet4-master-theme-backend' ),
+						)
+					),
+					[
+						'select' => [
+							'id'        => [],
+							'class'     => [],
+							'name'      => [],
+							'data-hash' => [],
+						],
+						'option' => [
+							'value'    => [],
+							'selected' => [],
+						],
+					]
+				);
+				?>
+			</div>
+			<?php
 		}
 	}
 }
