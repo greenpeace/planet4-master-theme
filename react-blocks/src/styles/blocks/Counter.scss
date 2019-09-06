@@ -1,0 +1,83 @@
+.counter-block {
+  text-align: center;
+  font-family: $roboto;
+  margin-top: $space-xl;
+  margin-bottom: $space-xl;
+
+  .enform-extra-header-placeholder & {
+    margin-top: 40px;
+    margin-bottom: 30px;
+
+    .counter-text {
+      text-align: left;
+    }
+
+    .progress-container {
+      height: 20px;
+    }
+  }
+
+  &.counter-style-4 {
+    display: none;
+  }
+
+  .counter-target {
+    display: block;
+
+    line-height: 1;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: $space-lg;
+  }
+
+  &.counter-style-1 {
+    .counter-target {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: $space-lg;
+    }
+  }
+
+  .progress-container {
+    background-color: $grey-20;
+    height: 30px;
+    margin-bottom: $space-lg;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    background-color: $dark-blue;
+    height: 100%;
+    transform: skew(-30deg, 0deg);
+    margin-left: -10px;
+  }
+
+  .enform-progress-bar {
+    background-color: $orange;
+  }
+
+  .progress-arc {
+    max-width: 225px;
+    margin-bottom: -20px;
+
+    fill: none;
+    stroke-width: 3;
+
+    .background {
+      stroke: $grey-20;
+    }
+
+    .foreground {
+      stroke: $dark-blue;
+    }
+  }
+
+  .counter-text {
+    margin-bottom: 0;
+    font-size: 1rem;
+  }
+
+  .counter-text-goal_reached {
+    font-weight: bold;
+  }
+}

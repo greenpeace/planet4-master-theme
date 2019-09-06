@@ -1,0 +1,36 @@
+{% block counter %}
+    {% if ( fields ) %}
+        <section class="block container counter-block counter-style-{{ fields.style }}">
+            <div class="container">
+                {% if ( fields.title ) %}
+                    <header>
+                        <h2 class="page-section-header">{{ fields.title }}</h2>
+                    </header>
+                {% endif %}
+                {% if ( fields.description ) %}
+                    <p class="page-section-description">{{ fields.description|e('wp_kses_post')|raw }}</p>
+                {% endif %}
+            </div>
+            <div class="content-counter">
+                {% if fields.style == 'bar' or fields.style == 'en-forms-bar' %}
+                    <div class="progress-container">
+                        <div class="progress-bar {{ 'en-forms-bar' == fields.style ? 'enform-progress-bar' }}" style="width: calc( {{ fields.percent }}% + 20px);"></div>
+                    </div>
+                {% elseif fields.style == 'arc' %}
+                    <svg class="progress-arc" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 14">
+                        {% set arcLength = 31.5 %}
+                        <path class="background" d="M 2 12 A 1 1 0 1 1 22 12"/>
+                        <path class="foreground" d="M 2 12 A 1 1 0 1 1 22 12"
+                              stroke-dasharray="{{ arcLength }}"
+                              stroke-dashoffset="{{ (1 - fields.percent / 100 ) * arcLength }}"/>
+                    </svg>
+                {% endif %}
+
+                <p class="counter-text {{ 100 <= fields.percent ? 'counter-text-goal_reached' }}">
+                    <span class="counter-target">{{ fields.completed | number_format }}</span>
+                    {{ fields.text }}
+                </p>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}
