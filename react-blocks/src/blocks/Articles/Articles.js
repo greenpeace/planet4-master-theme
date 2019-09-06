@@ -140,7 +140,7 @@ export class Articles extends Component {
             label={__('Title', 'p4ge')}
             placeholder={__('Enter title', 'p4ge')}
             help={__('Your default is set to [ Latest Articles ]', 'p4ge')}
-            value={this.props.title}
+            value={this.props.article_heading}
             onChange={this.props.onTitleChange}
           />
         </div>
@@ -150,7 +150,7 @@ export class Articles extends Component {
           <TextareaControl
             label={__('Description', 'p4ge')}
             placeholder={__('Enter description', 'p4ge')}
-            value={this.props.description}
+            value={this.props.articles_description}
             onChange={this.props.onDescriptionChange}
           />
         </div>
@@ -194,7 +194,7 @@ export class Articles extends Component {
                   label={__('Articles count', 'p4ge')}
                   help={__('Number of articles', 'p4ge')}
                   type="number"
-                  value={this.props.count}
+                  value={this.props.article_count}
                   onChange={this.props.onCountChange}
                 />
               </div>
@@ -268,9 +268,9 @@ export class Articles extends Component {
               tags: this.props.tags,
               post_types: this.props.post_types,
               posts: this.props.posts,
-              title: this.props.title,
-              description: this.props.description,
-              count: this.props.count,
+              article_heading: this.props.article_heading,
+              articles_description: this.props.articles_description,
+              article_count: this.props.article_count,
               ignore_categories: this.props.ignore_categories,
             }}>
           </ServerSideRender>

@@ -74,42 +74,42 @@ class Articles extends Base_Block {
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],
 				'attributes'      => [
-					'title'             => [
+					'article_heading'      => [
 						'type'    => 'string',
 						'default' => $article_title,
 					],
-					'count'             => [
+					'article_count'        => [
 						'type' => 'integer',
 					],
-					'read_more_text'    => [
+					'read_more_text'       => [
 						'type'    => 'string',
 						'default' => $article_button_title,
 					],
-					'read_more_link'    => [
+					'read_more_link'       => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'description'       => [
+					'articles_description' => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'tags'              => [
+					'tags'                 => [
 						'type'  => 'array',
 						'items' => [
 							'type' => 'integer', // Array definitions require an item type.
 						],
 					],
-					'post_types'        => [
+					'post_types'           => [
 						'type'  => 'array',
 						'items' => [
 							'type' => 'integer',
 						],
 					],
-					'ignore_categories' => [
+					'ignore_categories'    => [
 						'type'    => 'boolean',
 						'default' => false,
 					],
-					'posts'             => [
+					'posts'                => [
 						'type'  => 'array',
 						'items' => [
 							'type' => 'integer',

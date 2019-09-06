@@ -20,19 +20,19 @@ export class ArticlesBlock {
             // Shortcode tag can also be an array of shortcode aliases
             tag: 'shortcake_articles',
             attributes: {
-              title: {
+              article_heading: {
                 type: 'string',
                 shortcode: function (attributes) {
                   return attributes.named.article_heading;
                 }
               },
-              description: {
+              articles_description: {
                 type: 'string',
                 shortcode: function (attributes) {
                   return attributes.named.articles_description;
                 }
               },
-              count: {
+              article_count: {
                 type: 'string',
                 shortcode: function (attributes) {
                   return attributes.named.article_count;
@@ -65,19 +65,19 @@ export class ArticlesBlock {
               tags: {
                 type: 'string',
                 shortcode: function (attributes) {
-                  return attributes.named.tags.split(',');
+                  return attributes.named.tags ? attributes.named.tags.split(',') : [];
                 }
               },
               post_types: {
                 type: 'string',
                 shortcode: function (attributes) {
-                  return attributes.named.post_types.split(',');
+                  return attributes.named.tags ? attributes.named.post_types.split(',') : [];
                 }
               },
               posts: {
                 type: 'string',
                 shortcode: function (attributes) {
-                  return attributes.named.posts.split(',');
+                  return attributes.named.tags ? attributes.named.posts.split(',') : [];
                 }
               },
             },
@@ -86,13 +86,13 @@ export class ArticlesBlock {
       },
       // This attributes definition mimics the one in the PHP side.
       attributes: {
-        title: {
+        article_heading: {
           type: 'string',
         },
-        description: {
+        articles_description: {
           type: 'string',
         },
-        count: {
+        article_count: {
           type: 'integer',
           default: 3
         },
@@ -163,11 +163,11 @@ export class ArticlesBlock {
         // Articles component, they update the corresponding attribute.
 
         function onTitleChange(value) {
-          setAttributes({title: value});
+          setAttributes({article_heading: value});
         }
 
         function onDescriptionChange(value) {
-          setAttributes({description: value});
+          setAttributes({articles_description: value});
         }
 
         function onReadmoretextChange(value) {
@@ -175,7 +175,7 @@ export class ArticlesBlock {
         }
 
         function onCountChange(value) {
-          setAttributes({count: Number(value)});
+          setAttributes({article_count: Number(value)});
         }
 
         function onReadmorelinkChange(value) {

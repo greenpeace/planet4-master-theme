@@ -3,13 +3,13 @@
 		<section class="block article-listing">
 			{{ fn( 'wp_nonce_field', nonce_action, '_articles_wpnonce', true, false )|raw }}
 			<div class="container">
-				{% if ( fields.title ) %}
+				{% if ( fields.article_heading ) %}
 					<header>
-						<h2 class="page-section-header">{{ fields.title }}</h2>
+						<h2 class="page-section-header">{{ fields.article_heading }}</h2>
 					</header>
 				{% endif %}
-				{% if ( fields.description ) %}
-					<p class="page-section-description">{{ fields.description|e('wp_kses_post')|raw }}</p>
+				{% if ( fields.articles_description ) %}
+					<p class="page-section-description">{{ fields.articles_description|e('wp_kses_post')|raw }}</p>
 				{% endif %}
 
 				<div class="article-list-section clearfix">
@@ -32,7 +32,7 @@
 								data-content=".article-list-section"
 								data-page="1"
 								data-total_pages="{{ total_pages }}"
-								data-article_count="{{ fields.count }}"
+								data-article_count="{{ fields.article_count }}"
 								data-nonce_element_id="_articles_wpnonce"
 										{% for key,value in dataset %}
 											data-{{ value }}
