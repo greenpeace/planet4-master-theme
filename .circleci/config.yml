@@ -59,11 +59,11 @@ job-references:
       - run:
           name: "stylelint"
           when: always
-          command: stylelint $HOME/project/assets/scss/**/*.scss $HOME/project/assets/css/*.css
+          command: stylelint "$HOME/project/assets/scss/**/*.scss" "$HOME/project/admin/css/*.css"
       - run:
           name: "eslint"
           when: always
-          command: eslint $HOME/project/assets/js/**/*.js
+          command: eslint "$HOME/project/assets/js/**/*.js" "$HOME/project/admin/js/**/*.js"
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
