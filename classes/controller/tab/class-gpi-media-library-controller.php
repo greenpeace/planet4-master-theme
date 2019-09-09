@@ -35,6 +35,8 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 			add_action( 'wp_ajax_get_paged_medias', [ $this, 'get_paged_medias' ] );
 			add_action( 'wp_ajax_get_search_medias', [ $this, 'get_search_medias' ] );
 			add_action( 'post-upload-ui', [ $this, 'media_library_post_upload_ui' ] );
+			add_filter( 'attachment_fields_to_edit', [ $this, 'add_image_attachment_fields_to_edit' ], null, 2 );
+			add_filter( 'attachment_fields_to_save', [ $this, 'add_image_attachment_fields_to_save' ], null, 2 );
 		}
 
 		/**
@@ -264,6 +266,48 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 
 			echo wp_json_encode( $response );
 			wp_die();
+		}
+
+		/**
+		 * Add custom media metadata fields.
+		 *
+		 * @param array    $form_fields An array of fields included in the attachment form.
+		 * @param \WP_Post $post The attachment record in the database.
+		 *
+		 * @return array Final array of form fields to use.
+		 */
+		public function add_image_attachment_fields_to_edit( $form_fields, $post ) {
+
+			$media_restriction = get_post_meta( $post->ID, '_media_restriction', true );
+			if ( $media_restriction ) {
+				// Add a Image Restriction field.
+				$form_fields['media_restriction'] = [
+					'label' => __( 'Restriction', 'planet4-medialibrary' ),
+					'input' => 'html',
+					'value' => $media_restriction,
+					'helps' => __( 'The restrictions on media usage.', 'planet4-medialibrary' ),
+					'html'  => ( $media_restriction ? '<span style="color: #ff8c00;">' . $media_restriction . '</span>' : '' ),
+				];
+
+			}
+
+			return $form_fields;
+		}
+
+		/**
+		 * Save custom media metadata fields
+		 *
+		 * @param \WP_Post $post        The $post data for the attachment.
+		 * @param array    $attachment  The $attachment part of the form $_POST ($_POST[attachments][postID]).
+		 *
+		 * @return \WP_Post $post
+		 */
+		public function add_image_attachment_fields_to_save( $post, $attachment ) {
+			if ( isset( $attachment['media_restriction'] ) ) {
+				update_post_meta( $post['ID'], '_media_restriction', $attachment['media_restriction'] );
+			}
+
+			return $post;
 		}
 	}
 }
