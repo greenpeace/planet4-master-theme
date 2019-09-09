@@ -64,10 +64,6 @@ class Articles extends Base_Block {
 	public function __construct() {
 		add_shortcode( 'shortcake_articles', [ $this, 'add_block_shortcode' ] );
 
-		$options              = get_option( 'planet4_options' );
-		$article_title        = $options['articles_block_title'] ?? __( 'Related Articles', 'planet4-blocks' );
-		$article_button_title = $options['articles_block_button_title'] ?? __( 'READ ALL THE NEWS', 'planet4-blocks' );
-
 		register_block_type(
 			'planet4-blocks/articles',
 			[
@@ -75,15 +71,13 @@ class Articles extends Base_Block {
 				'render_callback' => [ $this, 'render' ],
 				'attributes'      => [
 					'article_heading'      => [
-						'type'    => 'string',
-						'default' => $article_title,
+						'type' => 'string',
 					],
 					'article_count'        => [
 						'type' => 'integer',
 					],
 					'read_more_text'       => [
-						'type'    => 'string',
-						'default' => $article_button_title,
+						'type' => 'string',
 					],
 					'read_more_link'       => [
 						'type'    => 'string',
@@ -144,10 +138,10 @@ class Articles extends Base_Block {
 			$fields['exclude_post_id'] = $exclude_post_id;
 		}
 
-		$fields['title']          = $fields['title'] ?? $article_title;
-		$fields['read_more_text'] = $fields['read_more_text'] ?? $article_button_title;
-		$fields['count']          = ( empty( $fields['count'] ) || $fields['count'] < 0 ) ? 3 : $fields['count'];
-		$fields['description']    = $fields['description'] ?? '';
+		$fields['article_heading']      = ! empty( $fields['article_heading'] ) ? $fields['article_heading'] : $article_title;
+		$fields['read_more_text']       = ! empty( $fields['read_more_text'] ) ? $fields['read_more_text'] : $article_button_title;
+		$fields['article_count']        = ( empty( $fields['article_count'] ) || $fields['article_count'] < 0 ) ? 3 : $fields['article_count'];
+		$fields['articles_description'] = $fields['articles_description'] ?? '';
 
 		// Four scenarios for filtering posts.
 		// 1) inside tag page - Get posts that have the specific tag assigned.
@@ -176,8 +170,8 @@ class Articles extends Base_Block {
 		// Ignore rule, arguments contain suppress_filters.
 		// phpcs:ignore$fields['article_count']
 		$all_posts    = wp_get_recent_posts( $args );
-		$total_pages  = 0 !== $fields['count'] ? ceil( count( (array) $all_posts ) / $fields['count'] ) : 0;
-		$sliced_posts = array_slice( $all_posts, 0, $fields['count'] );
+		$total_pages  = 0 !== $fields['article_count'] ? ceil( count( (array) $all_posts ) / $fields['article_count'] ) : 0;
+		$sliced_posts = array_slice( $all_posts, 0, $fields['article_count'] );
 		$recent_posts = [];
 
 		// Populate posts array for frontend template if results have been returned.
