@@ -1,0 +1,70 @@
+{% block split_two_columns %}
+
+{% if ( issue ) %}
+	<section class="block-wide split-two-column">
+		<div class="split-two-column-item item--left">
+			{% if ( issue.image ) %}
+				{% if ( issue.focus ) %}
+						<div class="split-two-column-item-image">
+							<img src="{{ issue.image }}"
+								 srcset="{{ issue.srcset }}"
+								 alt="{{ issue.image_alt }}" style="object-position: {{ issue.focus }};">
+						</div>
+				{% else %}
+						<div class="split-two-column-item-image">
+							<img src="{{ issue.image }}"
+								 srcset="{{ issue.srcset }}"
+								 alt="{{ issue.image_alt }}">
+						</div>
+				{% endif %}
+			{% endif %}
+			<div class="split-two-column-item-content">
+				{% if ( issue.title ) %}
+					<h2 class="split-two-column-item-title">
+						{% if ( issue.link_url ) %}
+							<a href="{{ issue.link_url }}">{{ issue.title }}</a>
+						{% else %}
+							{{ issue.title }}
+						{% endif %}
+					</h2>
+				{% endif %}
+				{% if ( issue.description ) %}
+					<p class="split-two-column-item-subtitle">{{ issue.description|truncate(25, true)|raw }}</p>
+				{% endif %}
+				{% if ( issue.link_text and issue.link_url ) %}
+					<a class="split-two-column-item-link" href="{{ issue.link_url }}">{{ issue.link_text }}</a>
+				{% endif %}
+			</div>
+		</div>
+		<div class="split-two-column-item item--right">
+			{% if ( campaign.image ) %}
+				{% if ( campaign.focus ) %}
+					<div class="split-two-column-item-image">
+						<img src="{{ campaign.image }}"
+							 srcset="{{ campaign.srcset }}"
+							 alt="{{ campaign.image_alt }}" style="object-position: {{ campaign.focus }};">
+					</div>
+				{% else %}
+					<div class="split-two-column-item-image">
+						<img src="{{ campaign.image }}"
+							 srcset="{{ campaign.srcset }}"
+							 alt="{{ campaign.image_alt }}">
+					</div>
+				{% endif %}
+			{% endif %}
+			<div class="split-two-column-item-content">
+				{% if ( campaign.name ) %}
+					<a class="split-two-column-item-tag" href="{{ campaign.link }}">#{{ campaign.name }}</a>
+				{% endif %}
+				{% if ( campaign.description ) %}
+					<p class="split-two-column-item-subtitle">{{ campaign.description|truncate(25, true)|raw }}</p>
+				{% endif %}
+				{% if ( campaign.button_text and campaign.button_link ) %}
+					<a class="btn btn-small btn-primary btn-block split-two-column-item-button" href="{{ campaign.button_link }}">{{ campaign.button_text }}</a>
+				{% endif %}
+			</div>
+		</div>
+	</section>
+{% endif %}
+
+{% endblock %}

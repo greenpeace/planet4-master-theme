@@ -101,6 +101,7 @@ final class Loader {
 			new Blocks\Happypoint(),
 			new Blocks\Media(),
 			new Blocks\SocialMedia(),
+			new Blocks\SplitTwoColumns(),
 			new Blocks\SubMenu(),
 			new Blocks\Timeline(),
 		];
@@ -299,14 +300,14 @@ final class Loader {
 			'p4gbks_admin_style',
 			P4GBKS_PLUGIN_URL . 'react-blocks/build/editorStyle.min.css', // - Bundled CSS for the blocks
 			[],
-			'0.1'
+			'0.2'
 		);
 
 		wp_enqueue_style(
 			'p4gbks_style',
 			P4GBKS_PLUGIN_URL . 'react-blocks/build/style.min.css', // - Bundled CSS for the blocks
 			[],
-			'0.1.2'
+			'0.1.3'
 		);
 
 		// Enqueue editor script for all Blocks in this Plugin.

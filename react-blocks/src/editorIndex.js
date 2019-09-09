@@ -7,6 +7,7 @@ import { GalleryBlock } from './blocks/Gallery/GalleryBlock';
 import { HappypointBlock } from './blocks/Happypoint/HappypointBlock';
 import { MediaBlock } from './blocks/Media/MediaBlock';
 import { SocialmediaBlock } from './blocks/Socialmedia/SocialmediaBlock';
+import { SplittwocolumnsBlock } from './blocks/Splittwocolumns/SplittwocolumnsBlock';
 import { SubmenuBlock } from './blocks/Submenu/SubmenuBlock';
 import { TimelineBlock } from './blocks/Timeline/TimelineBlock';
 
@@ -19,6 +20,7 @@ const galleryBlock = new GalleryBlock();
 const happypointBlock = new HappypointBlock();
 const mediaBlock = new MediaBlock();
 const socialmediaBlock = new SocialmediaBlock();
+const splittwocolumnsBlock = new SplittwocolumnsBlock();
 const submenuBlock = new SubmenuBlock();
 const timelineBlock = new TimelineBlock();
 
