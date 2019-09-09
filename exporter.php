@@ -220,7 +220,16 @@ function p4_px_single_post_authors_list( $post_ids ) {
 	$authors = array();
 
 	$placeholders = implode( ',', array_fill( 0, count( $post_ids ), '%d' ) );
-	$results      = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT post_author FROM $wpdb->posts WHERE ID IN($placeholders) AND post_status != 'auto-draft'", $post_ids ) ); // phpcs:ignore
+
+	$sql = 'SELECT DISTINCT post_author 
+			FROM %1$s  
+			WHERE ID IN(' . $placeholders . ') AND post_status != \'auto-draft\'';
+
+	$values       = [];
+	$values[0]    = $wpdb->posts;
+	$values       = array_merge( $values, $post_ids );
+	$prepared_sql = $wpdb->prepare( $sql, $values );     // WPCS: unprepared SQL OK.
+	$results      = $wpdb->get_results( $prepared_sql ); // phpcs:ignore
 
 	foreach ( (array) $results as $result ) {
 		$authors[] = get_userdata( $result->post_author );
