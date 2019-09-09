@@ -116,12 +116,76 @@ const CAMPAIGN_BLOCK_TYPES = true;
  * @return true if all blocks allowed, false if none or an array of allowed blocks
  */
 function my_plugin_allowed_block_types( $allowed_block_types, $post ) {
+	$wordpress_blocks = [
+		'core/paragraph',
+		'core/heading',
+		'core/image',
+		// 'core/gallery' - functionality replaced by P4 galleries
+		'core/list',
+		'core/quote', // TODO: Styling or removal.
+		'core/audio',
+		'core/cover',
+		'core/file',
+		// 'core/video' - TODO: Decision. Ideally only allow embedded video
+		'core/preformatted',
+		// 'core/code' - functionality not needed and not styled
+		'core/html',
+		'core/table', // TODO: Styling.
+		// 'core/pullquote' - removed, normal quote element is available.
+		// 'core/verse' - removed, not needed, not styled.
+		'core/button', // TODO: Styling.
+		// 'core/media-text' // removed, not needed.
+		// 'core/more' - removed, not needed.
+		// 'core/nextpage' - removed, not needed.
+		'core/separator', // TODO: Styling.
+		// 'core/spacer' - removed. TODO: Provide our own spacer that has less options.
+		'core/shortcode',
+		// 'core/archives' - removed, not needed.
+		// 'core/categories' - removed, not needed.
+		// 'core/latest-comments' - removed, not needed.
+		// 'core/latest-posts' // removed, functionality replaced by P4 article list.
+		'core/embed',
+		'core-embed/twitter',
+		'core-embed/youtube',
+		'core-embed/facebook',
+		'core-embed/instagram',
+		'core-embed/wordpress',
+		'core-embed/soundcloud',
+		'core-embed/spotify',
+		'core-embed/flickr',
+		'core-embed/vimeo',
+		'core-embed/animoto',
+		'core-embed/cloudup',
+		'core-embed/collegehumor',
+		'core-embed/dailymotion',
+		'core-embed/funnyordie',
+		'core-embed/hulu',
+		'core-embed/imgur',
+		'core-embed/issuu',
+		'core-embed/kickstarter',
+		'core-embed/meetup-com',
+		'core-embed/mixcloud',
+		'core-embed/photobucket',
+		'core-embed/polldaddy',
+		'core-embed/reddit',
+		'core-embed/reverbnation',
+		'core-embed/screencast',
+		'core-embed/scribd',
+		'core-embed/slideshare',
+		'core-embed/smugmug',
+		'core-embed/speaker',
+		'core-embed/ted',
+		'core-embed/tumblr',
+		'core-embed/videopress',
+		'core-embed/wordpress-tv',
+	];
+
 	$allowed_block_types = [
 		'post'     => POST_BLOCK_TYPES,
 		'page'     => PAGE_BLOCK_TYPES,
-		'campaing' => CAMPAIGN_BLOCK_TYPES,
+		'campaign' => CAMPAIGN_BLOCK_TYPES,
 	];
-	return $allowed_block_types[ $post->post_type ];
+	return array_merge( $wordpress_blocks, $allowed_block_types[ $post->post_type ] );
 }
 
 add_filter( 'allowed_block_types', 'my_plugin_allowed_block_types', 10, 2 );
