@@ -137,7 +137,12 @@ class Articles extends Base_Block {
 		$options              = get_option( 'planet4_options' );
 		$article_title        = $options['articles_block_title'] ?? __( 'Related Articles', 'planet4-blocks' );
 		$article_button_title = $options['articles_block_button_title'] ?? __( 'READ ALL THE NEWS', 'planet4-blocks' );
-		$exclude_post_id      = (int) ( $fields['exclude_post_id'] ?? '' );
+		$post_type            = get_post_type();
+
+		if ( 'post' === $post_type ) {
+			$exclude_post_id           = get_the_ID();
+			$fields['exclude_post_id'] = $exclude_post_id;
+		}
 
 		$fields['title']          = $fields['title'] ?? $article_title;
 		$fields['read_more_text'] = $fields['read_more_text'] ?? $article_button_title;
