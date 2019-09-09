@@ -534,28 +534,6 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		}
 
 		/**
-		 * Returns options markup for a icon select field.
-		 *
-		 * @param  mixed $value Selected/saved icon.
-		 * @return string       html string containing all icon options
-		 */
-		public function cmb2_get_icon_options( $value = false ) {
-			$icons_directory = dirname( __FILE__ ) . '/../assets/scss/styleguide/src/icons';
-			$icon_list       = [];
-			foreach ( glob( $icons_directory . '/*.svg' ) as $file ) {
-				$icon_id               = basename( $file, '.svg' );
-				$icon_list[ $icon_id ] = $icon_id;
-			}
-
-			$icon_options = '<option value="">- Select Icon ID-</option>';
-			foreach ( $icon_list as $id => $icon ) {
-				$icon_options .= '<option value="' . $id . '" ' . selected( $value, $id, false ) . '>' . $icon . '</option>';
-			}
-
-			return $icon_options;
-		}
-
-		/**
 		 * CMB2 custom field(footer_icon_link) callback function.
 		 *
 		 * @param array $field The CMB2 field array.
@@ -583,7 +561,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 							'id'          => esc_attr( $field_type->_id( '_url' ) ),
 							'type'        => 'text',
 							'value'       => esc_url( $value['url'] ),
-							'placeholder' => 'Footer item link',
+							'placeholder' => __( 'Footer item link', 'planet4-master-theme-backend' ),
 						)
 					),
 					[
@@ -601,31 +579,33 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			?>
 			</div>
 			<div class="alignleft">
-				<?php
+			<?php
 				echo wp_kses(
-					$field_type->select(
+					$field_type->input(
 						array(
-							'name'    => esc_attr( $field_type->_name( '[icon]' ) ),
-							'id'      => esc_attr( $field_type->_id( '_icon' ) ),
-							'options' => $this->cmb2_get_icon_options( $value['icon'] ),
-							'desc'    => __( ' Add footer item link and select footer link icon.', 'planet4-master-theme-backend' ),
+							'class'       => 'cmb-type-text-medium',
+							'name'        => esc_attr( $field_type->_name( '[icon]' ) ),
+							'id'          => esc_attr( $field_type->_id( '_icon' ) ),
+							'type'        => 'text',
+							'value'       => $value['icon'],
+							'placeholder' => __( 'Footer icon name', 'planet4-master-theme-backend' ),
 						)
 					),
 					[
-						'select' => [
-							'id'        => [],
-							'class'     => [],
-							'name'      => [],
-							'data-hash' => [],
-						],
-						'option' => [
-							'value'    => [],
-							'selected' => [],
+						'input' => [
+							'class'       => [],
+							'placeholder' => [],
+							'name'        => [],
+							'id'          => [],
+							'type'        => [],
+							'value'       => [],
+							'data-hash'   => [],
 						],
 					]
 				);
-				?>
+			?>
 			</div>
+			<div class="alignleft"> <?php esc_html_e( 'In the “Footer icon name” field add the name of the icon you want from the', 'planet4-master-theme-backend' ); ?> <a target="_blank" href="https://github.com/greenpeace/planet4-styleguide/tree/master/src/icons"><?php esc_html_e( 'list of icons in the CSS styleguide', 'planet4-master-theme-backend' ); ?></a>. e.g. twitter-square</div>
 			<?php
 		}
 	}
