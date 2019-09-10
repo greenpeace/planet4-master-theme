@@ -38,6 +38,13 @@ class MediaImage implements \JsonSerializable {
 	private $credit;
 
 	/**
+	 * Image restrictions.
+	 *
+	 * @var $restrictions
+	 */
+	private $restrictions;
+
+	/**
 	 * GPML image path.
 	 *
 	 * @var $path_tr1
@@ -155,6 +162,26 @@ class MediaImage implements \JsonSerializable {
 	 */
 	public function set_credit( $credit ) {
 		$this->credit = $credit;
+		return $this;
+	}
+
+	/**
+	 * Retrieves a attachement restrictions.
+	 *
+	 * @return mixed
+	 */
+	public function get_media_restrictions() {
+		return $this->restrictions;
+	}
+
+	/**
+	 * Update attachement restrictions.
+	 *
+	 * @param mixed $restrictions The media attachment restrictions.
+	 * @return mixed
+	 */
+	public function set_media_restrictions( $restrictions ) {
+		$this->restrictions = $restrictions;
 		return $this;
 	}
 

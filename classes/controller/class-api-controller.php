@@ -78,16 +78,19 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 				if ( false === $ml_auth_token ) {
 
 					// With the safe version of wp_remote_{VERB) functions, the URL is validated to avoid redirection and request forgery attacks.
-					$response = wp_safe_remote_post( $url, [
-						'body'      => [
-							'Login'    => $p4ml_login_id,
-							'Password' => $p4ml_password,
-							'format'   => 'json',
-						],
-						'timeout'   => self::ML_CALL_TIMEOUT,
-						'sslverify' => false,
+					$response = wp_safe_remote_post(
+						$url,
+						[
+							'body'      => [
+								'Login'    => $p4ml_login_id,
+								'Password' => $p4ml_password,
+								'format'   => 'json',
+							],
+							'timeout'   => self::ML_CALL_TIMEOUT,
+							'sslverify' => false,
 
-					] );
+						]
+					);
 
 					// Authentication failure.
 					if ( is_wp_error( $response ) ) {
@@ -149,10 +152,13 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 			}
 
 			// With the safe version of wp_remote_{VERB) functions, the URL is validated to avoid redirection and request forgery attacks.
-			$response = wp_remote_get( $url, [
-				'timeout'   => self::ML_CALL_TIMEOUT,
-				'sslverify' => false,
-			] );
+			$response = wp_remote_get(
+				$url,
+				[
+					'timeout'   => self::ML_CALL_TIMEOUT,
+					'sslverify' => false,
+				]
+			);
 
 			if ( is_wp_error( $response ) ) {
 				$response_data['status_code']   = $response->get_error_code();
@@ -228,12 +234,15 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 		 */
 		public function error( $msg, $title = '' ) {
 			if ( is_string( $msg ) ) {
-				array_push($this->messages, [
-					'msg'     => esc_html( $msg ),
-					'title'   => $title ? esc_html( $title ) : esc_html__( 'Error', 'planet4-medialibrary' ),
-					'type'    => self::ERROR,
-					'classes' => 'p4ml_error_message',
-				] );
+				array_push(
+					$this->messages,
+					[
+						'msg'     => esc_html( $msg ),
+						'title'   => $title ? esc_html( $title ) : esc_html__( 'Error', 'planet4-medialibrary' ),
+						'type'    => self::ERROR,
+						'classes' => 'p4ml_error_message',
+					]
+				);
 			}
 		}
 
@@ -245,12 +254,15 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 		 */
 		public function warning( $msg, $title = '' ) {
 			if ( is_string( $msg ) ) {
-				array_push($this->messages, [
-					'msg'     => esc_html( $msg ),
-					'title'   => $title ? esc_html( $title ) : esc_html__( 'Warning', 'planet4-medialibrary' ),
-					'type'    => self::WARNING,
-					'classes' => 'p4ml_warning_message',
-				] );
+				array_push(
+					$this->messages,
+					[
+						'msg'     => esc_html( $msg ),
+						'title'   => $title ? esc_html( $title ) : esc_html__( 'Warning', 'planet4-medialibrary' ),
+						'type'    => self::WARNING,
+						'classes' => 'p4ml_warning_message',
+					]
+				);
 			}
 		}
 
@@ -262,12 +274,15 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 		 */
 		public function notice( $msg, $title = '' ) {
 			if ( is_string( $msg ) ) {
-				array_push($this->messages, [
-					'msg'     => esc_html( $msg ),
-					'title'   => $title ? esc_html( $title ) : esc_html__( 'Notice', 'planet4-medialibrary' ),
-					'type'    => self::NOTICE,
-					'classes' => 'p4ml_notice_message',
-				] );
+				array_push(
+					$this->messages,
+					[
+						'msg'     => esc_html( $msg ),
+						'title'   => $title ? esc_html( $title ) : esc_html__( 'Notice', 'planet4-medialibrary' ),
+						'type'    => self::NOTICE,
+						'classes' => 'p4ml_notice_message',
+					]
+				);
 			}
 		}
 
@@ -279,12 +294,15 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 		 */
 		public function success( $msg, $title = '' ) {
 			if ( is_string( $msg ) ) {
-				array_push($this->messages, [
-					'msg'     => esc_html( $msg ),
-					'title'   => $title ? esc_html( $title ) : esc_html__( 'Success', 'planet4-medialibrary' ),
-					'type'    => self::SUCCESS,
-					'classes' => 'p4ml_success_message',
-				] );
+				array_push(
+					$this->messages,
+					[
+						'msg'     => esc_html( $msg ),
+						'title'   => $title ? esc_html( $title ) : esc_html__( 'Success', 'planet4-medialibrary' ),
+						'type'    => self::SUCCESS,
+						'classes' => 'p4ml_success_message',
+					]
+				);
 			}
 		}
 
@@ -304,10 +322,13 @@ if ( ! class_exists( 'MediaLibraryApi_Controller' ) ) {
 			$url = add_query_arg( $this->api_param, $url );
 
 			// With the safe version of wp_remote_{VERB) functions, the URL is validated to avoid redirection and request forgery attacks.
-			$response = wp_remote_get( $url, [
-				'timeout'   => self::ML_CALL_TIMEOUT,
-				'sslverify' => false,
-			] );
+			$response = wp_remote_get(
+				$url,
+				[
+					'timeout'   => self::ML_CALL_TIMEOUT,
+					'sslverify' => false,
+				]
+			);
 
 			if ( is_wp_error( $response ) ) {
 				return $response->get_error_message() . ' ' . $response->get_error_code();

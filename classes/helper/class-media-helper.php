@@ -25,12 +25,14 @@ class MediaHelper {
 		$file     = $url;
 		$filename = basename( $file );
 
-		$context = stream_context_create( [
-			'ssl' => [
-				'verify_peer'      => false,
-				'verify_peer_name' => false,
-			],
-		]);
+		$context = stream_context_create(
+			[
+				'ssl' => [
+					'verify_peer'      => false,
+					'verify_peer_name' => false,
+				],
+			]
+		);
 
 		// Upload file into WP upload dir.
 		$upload_file = wp_upload_bits( $filename, null, file_get_contents( $url, false, $context ) );
@@ -81,6 +83,9 @@ class MediaHelper {
 				update_post_meta( $attachment_id, '_wp_attachment_image_alt', $alt_text );
 				update_post_meta( $attachment_id, '_credit_text', $image->get_credit() );
 
+				// Set media restriction details.
+				update_post_meta( $attachment_id, '_media_restriction', $image->get_media_restrictions() );
+
 				return $attachment_id;
 			} else {
 				return __( 'Error while inserting attachment...!', 'planet4-medialibrary' );
@@ -88,7 +93,6 @@ class MediaHelper {
 		} else {
 			return $upload_file['error'];
 		}
-
 
 	}
 
