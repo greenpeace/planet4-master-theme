@@ -160,6 +160,8 @@ $context['social_overrides']['twitter']   = $page_meta_data['campaign_twitter_ur
 $context['social_overrides']['instagram'] = $page_meta_data['campaign_instagram_url'][0] ?? '';
 
 if ( post_password_required( $post->ID ) ) {
+	$context['login_url'] = wp_login_url();
+
 	Timber::render( 'single-password.twig', $context );
 } else {
 	Timber::render( array( 'single-' . $post->ID . '.twig', 'single-' . $post->post_type . '.twig', 'single.twig' ), $context );
