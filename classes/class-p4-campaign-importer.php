@@ -70,7 +70,9 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 					global $wpdb;
 
 					// phpcs:disable
-					$result = $wpdb->get_results( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_wp_attachment_metadata' AND meta_value LIKE '%imported_attachment_id%'" );
+					$sql          = 'SELECT post_id, meta_value FROM %1$s WHERE meta_key = \'_wp_attachment_metadata\' AND meta_value LIKE \'%imported_attachment_id%\'';
+					$prepared_sql = $wpdb->prepare( $sql, [ $wpdb->postmeta ] );
+					$result       = $wpdb->get_results( $prepared_sql );
 					// phpcs:enable
 
 					foreach ( $result as $attachment_metadata ) {
@@ -161,7 +163,9 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 			global $wpdb;
 
 			// phpcs:disable
-			$result = $wpdb->get_results( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_wp_attachment_metadata' AND meta_value LIKE '%imported_attachment_id%'" );
+			$sql          = 'SELECT post_id, meta_value FROM %1$s WHERE meta_key = \'_wp_attachment_metadata\' AND meta_value LIKE \'%imported_attachment_id%\'';
+			$prepared_sql = $wpdb->prepare( $sql, [ $wpdb->postmeta ] );
+			$result       = $wpdb->get_results( $prepared_sql );
 			// phpcs:enable
 
 			foreach ( $result as $attachment_metadata ) {

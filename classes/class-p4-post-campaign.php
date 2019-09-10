@@ -35,6 +35,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			add_action( 'add_meta_boxes', [ $this, 'campaign_page_templates_meta_box' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 			add_action( 'save_post_campaign', [ $this, 'save_campaign_page_templates_meta_box_data' ] );
+			add_action( 'cmb2_render_footer_icon_link', [ $this, 'cmb2_render_footer_icon_link_field_callback' ], 10, 5 );
 		}
 
 		/**
@@ -81,7 +82,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'public'             => true,
 				'publicly_queryable' => true,
 				'show_ui'            => true,
-				'show_in_menu'       => false,
+				'show_in_menu'       => true,
 				'query_var'          => true,
 				'rewrite'            => [ 'slug' => 'campaign' ],
 				'capability_type'    => [ 'campaign', 'campaigns' ],
@@ -308,6 +309,31 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$cmb->add_field(
 				[
+					'name'    => 'Logo',
+					'desc'    => 'Change the campaign logo',
+					'id'      => 'campaign_logo',
+					'type'    => 'select',
+					'default' => 'greenpeace',
+					'options' => $themes,
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'    => 'Logo Color',
+					'desc'    => 'Change the campaign logo color (if not default)',
+					'id'      => 'campaign_logo_color',
+					'type'    => 'radio_inline',
+					'default' => 'light',
+					'options' => [
+						'light' => __( 'Light', 'planet4-master-theme-backend' ),
+						'dark'  => __( 'Dark', 'planet4-master-theme-backend' ),
+					],
+				]
+			);
+
+			$cmb->add_field(
+				[
 					'name'    => __( 'Navigation', 'planet4-master-theme-backend' ),
 					'id'      => 'campaign_nav_type',
 					'type'    => 'radio_inline',
@@ -350,19 +376,6 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$cmb->add_field(
 				[
-					'name'    => __( 'Footer Theme', 'planet4-master-theme-backend' ),
-					'id'      => 'campaign_footer_theme',
-					'type'    => 'radio_inline',
-					'options' => [
-						'default' => __( 'Default', 'planet4-master-theme-backend' ),
-						'white'   => __( 'White', 'planet4-master-theme-backend' ),
-					],
-					'default' => 'default',
-				]
-			);
-
-			$cmb->add_field(
-				[
 					'name'       => __( 'Header Text Color', 'planet4-master-theme-backend' ),
 					'id'         => 'campaign_header_color',
 					'type'       => 'colorpicker',
@@ -371,6 +384,38 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 						'data-colorpicker' => wp_json_encode(
 							[
 								'palettes' => $header_palette,
+							]
+						),
+					],
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'       => __( 'Primary Button Color', 'planet4-master-theme-backend' ),
+					'id'         => 'campaign_primary_color',
+					'type'       => 'colorpicker',
+					'classes'    => 'palette-only',
+					'attributes' => [
+						'data-colorpicker' => json_encode(
+							[
+								'palettes' => $primary_palette,
+							]
+						),
+					],
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name'       => __( 'Secondary Button Color and Link Text Color', 'planet4-master-theme-backend' ),
+					'id'         => 'campaign_secondary_color',
+					'type'       => 'colorpicker',
+					'classes'    => 'palette-only',
+					'attributes' => [
+						'data-colorpicker' => json_encode(
+							[
+								'palettes' => $secondary_palette,
 							]
 						),
 					],
@@ -428,85 +473,54 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$cmb->add_field(
 				[
-					'name'       => __( 'Primary Button Color', 'planet4-master-theme-backend' ),
-					'id'         => 'campaign_primary_color',
-					'type'       => 'colorpicker',
-					'classes'    => 'palette-only',
-					'attributes' => [
-						'data-colorpicker' => json_encode(
-							[
-								'palettes' => $primary_palette,
-							]
-						),
-					],
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'       => __( 'Secondary Button Color and Link Text Color', 'planet4-master-theme-backend' ),
-					'id'         => 'campaign_secondary_color',
-					'type'       => 'colorpicker',
-					'classes'    => 'palette-only',
-					'attributes' => [
-						'data-colorpicker' => json_encode(
-							[
-								'palettes' => $secondary_palette,
-							]
-						),
-					],
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'    => 'Logo',
-					'desc'    => 'Change the campaign logo',
-					'id'      => 'campaign_logo',
-					'type'    => 'select',
-					'default' => 'greenpeace',
-					'options' => $themes,
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'    => 'Logo Color',
-					'desc'    => 'Change the campaign logo color (if not default)',
-					'id'      => 'campaign_logo_color',
+					'name'    => __( 'Footer Theme', 'planet4-master-theme-backend' ),
+					'id'      => 'campaign_footer_theme',
 					'type'    => 'radio_inline',
-					'default' => 'light',
 					'options' => [
-						'light' => __( 'Light', 'planet4-master-theme-backend' ),
-						'dark'  => __( 'Dark', 'planet4-master-theme-backend' ),
+						'default' => __( 'Default', 'planet4-master-theme-backend' ),
+						'white'   => __( 'White', 'planet4-master-theme-backend' ),
 					],
+					'default' => 'default',
 				]
 			);
 
 			$cmb->add_field(
 				[
-					'name' => __( 'Facebook URL', 'planet4-master-theme-backend' ),
-					'desc' => __( 'URL for the footer Facebook icon', 'planet4-master-theme-backend' ),
-					'id'   => 'campaign_facebook_url',
-					'type' => 'text_medium',
+					'name' => __( 'Footer item 1', 'planet4-master-theme-backend' ),
+					'id'   => 'campaign_footer_item1',
+					'type' => 'footer_icon_link',
 				]
 			);
 
 			$cmb->add_field(
 				[
-					'name' => __( 'Twitter URL', 'planet4-master-theme-backend' ),
-					'desc' => __( 'URL for the footer Twitter icon', 'planet4-master-theme-backend' ),
-					'id'   => 'campaign_twitter_url',
-					'type' => 'text_medium',
+					'name' => __( 'Footer item 2', 'planet4-master-theme-backend' ),
+					'id'   => 'campaign_footer_item2',
+					'type' => 'footer_icon_link',
 				]
 			);
 
 			$cmb->add_field(
 				[
-					'name' => __( 'Instagram URL', 'planet4-master-theme-backend' ),
-					'desc' => __( 'URL for the footer Instagram icon', 'planet4-master-theme-backend' ),
-					'id'   => 'campaign_instagram_url',
-					'type' => 'text_medium',
+					'name' => __( 'Footer item 3', 'planet4-master-theme-backend' ),
+					'id'   => 'campaign_footer_item3',
+					'type' => 'footer_icon_link',
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name' => __( 'Footer item 4', 'planet4-master-theme-backend' ),
+					'id'   => 'campaign_footer_item4',
+					'type' => 'footer_icon_link',
+				]
+			);
+
+			$cmb->add_field(
+				[
+					'name' => __( 'Footer item 5', 'planet4-master-theme-backend' ),
+					'id'   => 'campaign_footer_item5',
+					'type' => 'footer_icon_link',
 				]
 			);
 		}
@@ -517,6 +531,82 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		public function enqueue_admin_assets() {
 			wp_register_style( 'cmb-style', get_template_directory_uri() . '/admin/css/campaign.css' );
 			wp_enqueue_style( 'cmb-style' );
+		}
+
+		/**
+		 * CMB2 custom field(footer_icon_link) callback function.
+		 *
+		 * @param array $field The CMB2 field array.
+		 * @param array $value The CMB2 field Value.
+		 * @param array $object_id The id of the object.
+		 * @param array $object_type The type of object.
+		 * @param array $field_type Instance of the `cmb2_Meta_Box_types` object.
+		 */
+		public function cmb2_render_footer_icon_link_field_callback( $field, $value, $object_id, $object_type, $field_type ) {
+			$value = wp_parse_args(
+				$value,
+				[
+					'url'  => '',
+					'icon' => '',
+				]
+			);
+			?>
+			<div class="alignleft">
+			<?php
+				echo wp_kses(
+					$field_type->input(
+						array(
+							'class'       => 'cmb-type-text-medium',
+							'name'        => esc_attr( $field_type->_name( '[url]' ) ),
+							'id'          => esc_attr( $field_type->_id( '_url' ) ),
+							'type'        => 'text',
+							'value'       => esc_url( $value['url'] ),
+							'placeholder' => __( 'Footer item link', 'planet4-master-theme-backend' ),
+						)
+					),
+					[
+						'input' => [
+							'class'       => [],
+							'placeholder' => [],
+							'name'        => [],
+							'id'          => [],
+							'type'        => [],
+							'value'       => [],
+							'data-hash'   => [],
+						],
+					]
+				);
+			?>
+			</div>
+			<div class="alignleft">
+			<?php
+				echo wp_kses(
+					$field_type->input(
+						array(
+							'class'       => 'cmb-type-text-medium',
+							'name'        => esc_attr( $field_type->_name( '[icon]' ) ),
+							'id'          => esc_attr( $field_type->_id( '_icon' ) ),
+							'type'        => 'text',
+							'value'       => $value['icon'],
+							'placeholder' => __( 'Footer icon name', 'planet4-master-theme-backend' ),
+						)
+					),
+					[
+						'input' => [
+							'class'       => [],
+							'placeholder' => [],
+							'name'        => [],
+							'id'          => [],
+							'type'        => [],
+							'value'       => [],
+							'data-hash'   => [],
+						],
+					]
+				);
+			?>
+			</div>
+			<div class="alignleft"> <?php esc_html_e( 'In the “Footer icon name” field add the name of the icon you want from the', 'planet4-master-theme-backend' ); ?> <a target="_blank" href="https://github.com/greenpeace/planet4-styleguide/tree/master/src/icons"><?php esc_html_e( 'list of icons in the CSS styleguide', 'planet4-master-theme-backend' ); ?></a>. e.g. twitter-square</div>
+			<?php
 		}
 	}
 }

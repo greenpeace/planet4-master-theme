@@ -1,31 +1,43 @@
 <footer class="site-footer_min site-footer" id="footer">
-    <div class="container">
-        <ul class="footer-social-media list-unstyled">
-            {% for social in footer_social_menu %}
-                {% set name = "" %}
-                {% for class_name in social.classes %}
-                    {% if 'fa-' in class_name %}
-                        {% set name = class_name[3:] %}
-                    {% else %}
-                        {% set name = class_name %}
-                    {% endif %}
-                {% endfor %}
-                <li>
-                    {% set social_url = social.url %}
-                    {% if social_overrides is defined and social_overrides[name] is defined %}
-                        {% set social_url = social_overrides[name] %}
-                    {% endif %}
-                    <a href="{{ social_url }}">
-                        {{ name|svgicon }}
-                        <span class="sr-only">{{ social.title }}</span>
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
+	<div class="container">
+		<ul class="footer-social-media list-unstyled">
+			{% if social_overrides is defined and social_overrides|length %}
+				{% for social in social_overrides %}
+					<li>
+						<a href="{{ social.url }}">
+							{{ social.icon|svgicon }}
+							<span class="sr-only">{{ social.icon }}</span>
+						</a>
+					</li>
+				{% endfor %}
+			{% else %}
+				{% for social in footer_social_menu %}
+					{% set name = "" %}
+					{% for class_name in social.classes %}
+						{% if 'fa-' in class_name %}
+							{% set name = class_name[3:] %}
+						{% else %}
+							{% set name = class_name %}
+						{% endif %}
+					{% endfor %}
+					<li>
+						{% set social_url = social.url %}
+						<a href="{{ social_url }}">
+							{{ name|svgicon }}
+							<span class="sr-only">{{ social.title }}</span>
+						</a>
+					</li>
+				{% endfor %}
+			{% endif %}
+		</ul>
 
-        <p class="gp-year">
-            {{ 'creative-commons'|svgicon }}
-            {{ copyright_text_line2|e('wp_kses_post')|raw }} {{"now"|date('Y')}}
-        </p>
-    </div>
+		<div class="copyright-text col-md-8">
+			{{ copyright_text_line1|e('wp_kses_post')|raw }}
+		</div>
+
+		<p class="gp-year">
+			{{ 'creative-commons'|svgicon }}
+			{{ copyright_text_line2|e('wp_kses_post')|raw }} {{"now"|date('Y')}}
+		</p>
+	</div>
 </footer>
