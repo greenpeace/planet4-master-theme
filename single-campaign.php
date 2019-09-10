@@ -48,7 +48,7 @@ $footer_links_color = 'light' === $post->campaign_logo_color ? '#FFFFFF' : '#1A1
 $footer_theme = $post->campaign_footer_theme ?? null;
 
 if ( 'white' == $footer_theme ) {
-	$footer_links_color = $post->campaign_nav_color ?? null;
+	$footer_links_color = $post->campaign_nav_color ?? '#1A1A1A';
 	$footer_color       = '#FFFFFF';
 } else {
 	$footer_color = $post->campaign_nav_color ?? null;
@@ -97,7 +97,7 @@ $custom_styles['css']['footer_svg_icons_color']  = ".site-footer_min .icon { fil
 $custom_styles['css']['footer_elements_color']   = ".site-footer a { color: {$footer_links_color} !important }";
 $custom_styles['css']['footer_separatos_color']  = ".site-footer li { color: {$footer_links_color} !important }";
 $custom_styles['css']['footer_year_color']       = ".site-footer .gp-year { color: {$footer_links_color} !important; font-family: Roboto !important }";
-$custom_styles['css']['footer_copyright_color']  = ".site-footer p.copyright-text { color: {$footer_links_color} !important }";
+$custom_styles['css']['footer_copyright_color']  = ".site-footer .copyright-text { color: {$footer_links_color} !important }";
 $custom_styles['css']['header_color']            = $post->campaign_header_color ? " h1, h2, h3, h4, h5 { color: {$post->campaign_header_color} !important;}" : null;
 $custom_styles['css']['campaign_header_primary'] = $post->campaign_header_primary ? " h1, h2, h3, h4, h5 { {$header_font} }" : null;
 $custom_styles['css']['header_serif']            = $post->campaign_header_serif ? " .page-header { font-family: {$post->campaign_header_serif}!important;}" : null;
@@ -154,10 +154,17 @@ $context['cf_scope']         = $page_meta_data['p4_scope'][0] ?? '';
 $context['cf_department']    = $page_meta_data['p4_department'][0] ?? '';
 
 // Social footer link overrides.
-$context['social_overrides']              = [];
-$context['social_overrides']['facebook']  = $page_meta_data['campaign_facebook_url'][0] ?? '';
-$context['social_overrides']['twitter']   = $page_meta_data['campaign_twitter_url'][0] ?? '';
-$context['social_overrides']['instagram'] = $page_meta_data['campaign_instagram_url'][0] ?? '';
+$context['social_overrides'] = [];
+
+for ( $i = 1; $i <= 5; $i++ ) {
+	if ( isset( $page_meta_data[ 'campaign_footer_item' . $i ] ) ) {
+		$campaign_footer_item = maybe_unserialize( $page_meta_data[ 'campaign_footer_item' . $i ][0] );
+		if ( $campaign_footer_item['url'] && $campaign_footer_item['icon'] ) {
+			$context['social_overrides'][ $i ]['url']  = $campaign_footer_item['url'];
+			$context['social_overrides'][ $i ]['icon'] = $campaign_footer_item['icon'];
+		}
+	}
+}
 
 if ( post_password_required( $post->ID ) ) {
 	$context['login_url'] = wp_login_url();

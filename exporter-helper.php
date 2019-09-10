@@ -16,7 +16,13 @@ function get_campaign_attachments( $post_ids ) {
 	global $wpdb;
 
 	// phpcs:disable
-	$attachments = $wpdb->get_results( "SELECT ID, guid, post_parent FROM {$wpdb->posts} WHERE post_type = 'attachment'", OBJECT_K );
+	$sql = 'SELECT ID, guid, post_parent FROM %1$s WHERE post_type = \'attachment\'';
+	$prepared_sql = $wpdb->prepare(
+		$sql,
+		[
+			$wpdb->posts,
+		] );
+	$attachments = $wpdb->get_results( $prepared_sql, OBJECT_K );
 	// phpcs:enable
 
 	if ( empty( $attachments ) ) {
@@ -30,7 +36,12 @@ function get_campaign_attachments( $post_ids ) {
 	 */
 	if ( $post_ids ) {
 		$placeholders   = implode( ',', array_fill( 0, count( $post_ids ), '%d' ) );
-		$results        = $wpdb->get_results( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->postmeta} WHERE ( meta_key = '_thumbnail_id' or meta_key = 'background_image_id' ) AND post_id IN($placeholders)", $post_ids ) ); // phpcs:ignore
+		$sql            = 'SELECT meta_value FROM %1$s  WHERE ( meta_key = \'_thumbnail_id\' or meta_key = \'background_image_id\' ) AND post_id IN(' . $placeholders . ')';
+		$values         = [];
+		$values[0]      = $wpdb->postmeta;
+		$values         = array_merge( $values, $post_ids );
+		$prepared_sql   = $wpdb->prepare( $sql, $values );     // WPCS: unprepared SQL OK.
+		$results        = $wpdb->get_results( $prepared_sql ); // WPCS: unprepared SQL OK.
 		$attachment_ids = [];
 		foreach ( (array) $results as $result ) {
 			$attachment_ids[] = $result->meta_value;
@@ -47,7 +58,17 @@ function get_campaign_attachments( $post_ids ) {
 	}
 
 	$placeholders = implode( ',', array_fill( 0, count( $post_ids ), '%d' ) );
-	$results      = $wpdb->get_results( $wpdb->prepare( "SELECT post_content FROM {$wpdb->posts} WHERE ID IN($placeholders) AND post_content REGEXP '((wp-image-|wp-att-)[0-9][0-9]*)|\\\[gallery |shortcake\_|href=|src='", $post_ids ) ); // phpcs:ignore
+
+	$sql = 'SELECT post_content 
+			FROM %1$s 
+			WHERE ID IN(' . $placeholders . ') 
+				AND post_content REGEXP \'((wp-image-|wp-att-)[0-9][0-9]*)|\\\[gallery |shortcake\_|href=|src=\'';
+
+	$values       = [];
+	$values[0]    = $wpdb->posts;
+	$values       = array_merge( $values, $post_ids );
+	$prepared_sql = $wpdb->prepare( $sql, $values );     // WPCS: unprepared SQL OK.
+	$results      = $wpdb->get_results( $prepared_sql ); // WPCS: unprepared SQL OK.
 
 	foreach ( (array) $results as $text ) {
 		$text = $text->post_content;
