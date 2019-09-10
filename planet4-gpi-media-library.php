@@ -3,7 +3,7 @@
  * Plugin Name: Planet4 - Gpi Media Library
  * Description: Connects Planet4 with the Media Library platform.
  * Plugin URI: http://github.com/greenpeace/planet4-plugin-medialibrary
- * Version: 1.7
+ * Version: 1.9
  * Php Version: 7.0
  *
  * Author: Greenpeace International
