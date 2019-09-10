@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-09-10 09:41+0000\n"
+"PO-Revision-Date: 2019-09-10 09:45+0000\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,11 +73,11 @@ msgstr "הכי עדכני"
 
 #: functions.php:247
 msgid "Toggle worldwide site selection menu"
-msgstr ""
+msgstr "הפעלה/כיבוי של תפריט הבחירה העולמי"
 
 #: functions.php:248
 msgid "Toggle search box"
-msgstr ""
+msgstr "הפעלה/כיבוי של ארגז החיפוש"
 
 #: functions.php:270
 msgid "DONATE"
@@ -170,15 +170,15 @@ msgstr "מאמרים"
 
 #: templates/author.twig:36
 msgid "Posts by "
-msgstr ""
+msgstr "פרסומים על-ידי"
 
 #: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
-msgstr ""
+msgstr "טען עוד"
 
 #: templates/navigation-bar.twig:6
 msgid "Toggle navigation menu"
-msgstr ""
+msgstr "הפעלה/כיבוי של סרגל הניווט"
 
 #: templates/navigation-bar.twig:7 templates/search.twig:8
 #: templates/search.twig:45 templates/404.twig:17
@@ -313,15 +313,15 @@ msgstr "הורדה"
 
 #: templates/base.twig:10
 msgid "Skip to Navigation"
-msgstr ""
+msgstr "דלג לניווט"
 
 #: templates/base.twig:11
 msgid "Skip to Content"
-msgstr ""
+msgstr "דלג לתוכן"
 
 #: templates/base.twig:12
 msgid "Skip to Footer"
-msgstr ""
+msgstr "דלג לסוף"
 
 #: templates/single.twig:41 templates/tease-taxonomy-post.twig:26
 msgid "by"
@@ -329,23 +329,23 @@ msgstr "על-ידי"
 
 #: templates/single.twig:53 templates/comments_section.twig:2
 msgid "Comments"
-msgstr ""
+msgstr "תגובות"
 
 #: templates/comments_section.twig:8
 msgid "Discussion"
-msgstr ""
+msgstr "דיון"
 
 #: templates/taxonomy.twig:18
 msgid "Results"
-msgstr ""
+msgstr "תוצאות"
 
 #: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
 msgid "Share on"
-msgstr ""
+msgstr "שיתוף"
 
 #: templates/blocks/share_buttons.twig:21
 msgid "Share via"
-msgstr ""
+msgstr "שיתוף"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
@@ -353,31 +353,31 @@ msgstr "אודות הכותב"
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
-msgstr ""
+msgstr "אימייל"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
-msgstr ""
+msgstr "האימייל שלך"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
-msgstr ""
+msgstr "תגובה"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr ""
+msgstr "התגובה שלך"
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr ""
+msgstr "שם"
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
-msgstr ""
+msgstr "שמך"
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post Comment"
-msgstr ""
+msgstr "פרסום תגובה"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
