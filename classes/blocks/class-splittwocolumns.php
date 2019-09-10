@@ -76,25 +76,6 @@ class SplitTwoColumns extends Base_Block {
 				],
 			]
 		);
-
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );
-	}
-
-	/**
-	 * Load assets only on the admin pages of the plugin.
-	 *
-	 * @param string $hook The slug name of the current admin page.
-	 */
-	public function enqueue_editor_scripts( $hook ) {
-
-		$option_values   = get_option( 'planet4_options' );
-		$explore_page_id = $option_values['explore_page'] ?? '';
-		// Variables exposed from PHP to JS,
-		// WP calls this "localizing a script"...
-		$reflection_vars = [
-			'explore_page' => $explore_page_id,
-		];
-		wp_localize_script( 'planet4-blocks-script', 'p4ge_vars', $reflection_vars );
 	}
 
 	/**

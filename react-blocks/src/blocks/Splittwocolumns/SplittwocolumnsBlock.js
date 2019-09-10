@@ -150,7 +150,7 @@ export class SplittwocolumnsBlock {
             per_page: -1,
             sort_order: 'asc',
             sort_column: 'post_title',
-            parent: window.p4ge_vars.explore_page,
+            parent: window.p4ge_vars.planet4_options.explore_page,
             post_status: 'publish',
           };
           const issuepageList = getEntityRecords('postType', issuePage, issue_page_args);
