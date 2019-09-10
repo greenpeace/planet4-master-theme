@@ -2,6 +2,8 @@ const defaultConfig = require("./node_modules/@wordpress/scripts/config/webpack.
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserJSPlugin = require('terser-webpack-plugin');
+const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
+const RemovePlugin = require('remove-files-webpack-plugin');
 
 module.exports = {
   ...defaultConfig,
@@ -33,11 +35,33 @@ module.exports = {
   plugins: [
     ...defaultConfig.plugins,
     // extract css into dedicated file
+    new FixStyleOnlyEntriesPlugin(),
     new MiniCssExtractPlugin({
       chunkFilename: '[id].css',
       ignoreOrder: false, // Enable to remove warnings about conflicting order
       filename: './[name].min.css'
     }),
+    new RemovePlugin({
+      /**
+       * After compilation removes all files in `dist/styles` folder,
+       * that have `.map` type.
+       */
+      after: {
+        test: [
+          {
+            folder: 'react-blocks/build/',
+            method: (filePath) => {
+              return [
+                'editorStyle.deps.json',
+                'style.deps.json',
+              ].filter(item => {
+                return new RegExp(item, 'm').test(filePath);
+              }).length > 0;
+            }
+          }
+        ]
+      }
+    })
   ],
   optimization: {
     ...defaultConfig.optimization,
