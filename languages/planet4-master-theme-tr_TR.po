@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-09-11 14:58+0000\n"
+"PO-Revision-Date: 2019-09-13 09:03+0000\n"
 "Language-Team: Turkish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: Andrada Radu <aradu@greenpeace.org>\n"
+"Last-Translator: Ayberk Goktepe <agoktepe@greenpeace.org>\n"
 "Language: tr_TR\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
@@ -25,19 +25,19 @@ msgstr ""
 
 #: single.php:33
 msgid "Post page"
-msgstr ""
+msgstr "İçerik sayfası"
 
 #: single.php:67
 msgid "Leave Your Reply"
-msgstr ""
+msgstr "Yorumunu bırak"
 
 #: 404.php:16
 msgid "Sorry, we can't find that page!"
-msgstr ""
+msgstr "Üzgünüz, bu sayfayı bulamıyoruz."
 
 #: 404.php:17
 msgid "Enter your search term below"
-msgstr ""
+msgstr "Arama kriterini aşağıya gir"
 
 #: 404.php:18
 msgid "404 Page"
@@ -49,7 +49,7 @@ msgstr ""
 
 #: tag.php:54
 msgid "Things you can do"
-msgstr ""
+msgstr "Yapabileceklerin"
 
 #: tag.php:55
 msgid "We want you to take action because together we're strong."
@@ -57,19 +57,19 @@ msgstr ""
 
 #: tag.php:83
 msgid "Related Campaigns"
-msgstr ""
+msgstr "İlgili Kampanyalar"
 
 #: tag.php:84
 msgid "This Campaign is not assigned to an Issue"
-msgstr ""
+msgstr "Bu kampanya bir kategoriye atanmamış"
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr ""
+msgstr "En ilgili"
 
 #: functions.php:89
 msgid "Most recent"
-msgstr ""
+msgstr "En güncel"
 
 #: functions.php:247
 msgid "Toggle worldwide site selection menu"
@@ -81,11 +81,11 @@ msgstr ""
 
 #: functions.php:270
 msgid "DONATE"
-msgstr ""
+msgstr "Dergi Abonesi Ol"
 
 #: functions.php:271
 msgid "International (English)"
-msgstr ""
+msgstr "International"
 
 #: classes/class-p4-post.php:190 classes/class-p4-search.php:570
 msgid "ACTION"
@@ -93,19 +93,19 @@ msgstr ""
 
 #: classes/class-p4-post.php:192 classes/class-p4-search.php:574
 msgid "PAGE"
-msgstr ""
+msgstr "SAYFA"
 
 #: classes/class-p4-post.php:196 classes/class-p4-search.php:580
 msgid "DOCUMENT"
-msgstr ""
+msgstr "DOSYA"
 
 #: classes/class-p4-post.php:199 classes/class-p4-search.php:585
 msgid "POST"
-msgstr ""
+msgstr "İÇERİK"
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
-msgstr ""
+msgstr "Sayfada ara"
 
 #. translators:
 #: classes/class-p4-search.php:412
@@ -129,52 +129,52 @@ msgstr ""
 
 #: classes/class-p4-search.php:482
 msgid "Document"
-msgstr ""
+msgstr "Dosya"
 
 #: classes/class-p4-search.php:486
 msgid "Page"
-msgstr ""
+msgstr "Sayfa"
 
 #: classes/class-p4-search.php:490
 msgid "Post"
-msgstr ""
+msgstr "İçerik"
 
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr ""
+msgstr "%s DAHA SONUÇ GÖSTER"
 
 #. Name of the template
 msgid "Evergreen Page"
-msgstr ""
+msgstr "Sabit Sayfa"
 
 #. Name of the template
 msgid "Sitemap Page"
-msgstr ""
+msgstr "Site Haritası"
 
 #: page-templates/sitemap.php:18
 msgid "Act"
-msgstr ""
+msgstr "Harekete Geç"
 
 #: page-templates/sitemap.php:19
 msgid "Explore"
-msgstr ""
+msgstr "Keşfet"
 
 #: page-templates/sitemap.php:20
 msgid "About Greenpeace"
-msgstr ""
+msgstr "Greenpeace Hakkında"
 
 #: page-templates/sitemap.php:21
 msgid "Articles"
-msgstr ""
+msgstr "Yazılar"
 
 #: templates/author.twig:36
 msgid "Posts by "
-msgstr ""
+msgstr "İçerikler"
 
 #: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
-msgstr ""
+msgstr "Daha fazlası"
 
 #: templates/navigation-bar.twig:6
 msgid "Toggle navigation menu"
@@ -183,23 +183,23 @@ msgstr ""
 #: templates/navigation-bar.twig:7 templates/search.twig:8
 #: templates/search.twig:45 templates/404.twig:17
 msgid "Search"
-msgstr ""
+msgstr "Sitede Ara"
 
 #: templates/navigation-bar.twig:15
 msgid "Menu"
-msgstr ""
+msgstr "Menü"
 
 #: templates/navigation-bar.twig:20
 msgid "Close Menu"
-msgstr ""
+msgstr "Menüyü Kapat"
 
 #: templates/navigation-bar.twig:29
 msgid "Selected"
-msgstr ""
+msgstr "Seçili"
 
 #: templates/navigation-bar.twig:30
 msgid "Change Country"
-msgstr ""
+msgstr "Ülkeyi Değiştir"
 
 #: templates/navigation-bar.twig:60
 msgid "Toggle search form"
@@ -207,7 +207,7 @@ msgstr ""
 
 #: templates/cookies.twig:8
 msgid "GOT IT!"
-msgstr ""
+msgstr "ANLADIM!"
 
 #: templates/search.twig:16
 msgid "We're sorry we couldn't find any matches for your search term."
@@ -215,7 +215,7 @@ msgstr ""
 
 #: templates/search.twig:18
 msgid "Check for typos, and try your search again"
-msgstr ""
+msgstr "Yazımı kontrol et veya yeniden arama yap"
 
 #: templates/search.twig:19
 msgid "Try searching for somthing else"
@@ -223,7 +223,7 @@ msgstr ""
 
 #: templates/search.twig:20
 msgid "Search our archive. You'll be redirected to the archive site."
-msgstr ""
+msgstr "Arşivimizi ara. Arşiv sitesine yönlendirileceksiniz."
 
 #: templates/search.twig:24
 msgid "We also included results for "
@@ -231,43 +231,43 @@ msgstr ""
 
 #: templates/search.twig:38
 msgid "This Site"
-msgstr ""
+msgstr "Bu site"
 
 #: templates/search.twig:39
 msgid "Archive"
-msgstr ""
+msgstr "Arşiv"
 
 #: templates/search.twig:57
 msgid "Filters"
-msgstr ""
+msgstr "Filtreler"
 
 #: templates/search.twig:63 templates/search.twig:164
 msgid "Refine your search"
-msgstr ""
+msgstr "Arama sonuçlarını daralt"
 
 #: templates/search.twig:71
 msgid "ISSUE"
-msgstr ""
+msgstr "ÇALIŞTIĞIMIZ ALAN"
 
 #: templates/search.twig:92
 msgid "CATEGORY"
-msgstr ""
+msgstr "KATEGORİ"
 
 #: templates/search.twig:113
 msgid "CONTENT TYPES"
-msgstr ""
+msgstr "İÇERİK ÇEŞİTLERİ"
 
 #: templates/search.twig:137
 msgid "CAMPAIGN"
-msgstr ""
+msgstr "KAMPANYA"
 
 #: templates/search.twig:156
 msgid "Cancel"
-msgstr ""
+msgstr "İptal"
 
 #: templates/search.twig:157
 msgid "Apply Filters"
-msgstr ""
+msgstr "Filtre Uygula"
 
 #: templates/search.twig:167
 msgid "ACTIVE FILTERS"
@@ -275,51 +275,51 @@ msgstr ""
 
 #: templates/search.twig:176
 msgid "Clear All"
-msgstr ""
+msgstr "Hepsini Temizle"
 
 #: templates/search.twig:183
 msgid "Issue"
-msgstr ""
+msgstr "Çalıştığımız Alan"
 
 #: templates/search.twig:202
 msgid "Campaign"
-msgstr ""
+msgstr "Kampanya"
 
 #: templates/search.twig:221
 msgid "Category"
-msgstr ""
+msgstr "Kategori"
 
 #: templates/search.twig:240
 msgid "Content type"
-msgstr ""
+msgstr "İçerik Çeşidi"
 
 #: templates/search.twig:263
 msgid "Sort by"
-msgstr ""
+msgstr "Sırala"
 
 #: templates/search.twig:300
 msgid "Suggested search terms"
-msgstr ""
+msgstr "Tavsiye edilen arama terimleri"
 
 #: templates/tease-search.twig:67
 msgid "take action"
-msgstr ""
+msgstr "Şimdi harekete geç"
 
 #: templates/tease-search.twig:70
 msgid "Download"
-msgstr ""
+msgstr "İndir"
 
 #: templates/base.twig:10
 msgid "Skip to Navigation"
-msgstr ""
+msgstr "Navigasyona geç"
 
 #: templates/base.twig:11
 msgid "Skip to Content"
-msgstr ""
+msgstr "İçeriğe Geç"
 
 #: templates/base.twig:12
 msgid "Skip to Footer"
-msgstr ""
+msgstr "Sayfa alt bilgisine geç"
 
 #: templates/single.twig:41 templates/tease-taxonomy-post.twig:26
 msgid "by"
@@ -327,23 +327,23 @@ msgstr ""
 
 #: templates/single.twig:53 templates/comments_section.twig:2
 msgid "Comments"
-msgstr ""
+msgstr "Yorumlar"
 
 #: templates/comments_section.twig:8
 msgid "Discussion"
-msgstr ""
+msgstr "Tartışma"
 
 #: templates/taxonomy.twig:18
 msgid "Results"
-msgstr ""
+msgstr "Sonuçlar"
 
 #: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
 msgid "Share on"
-msgstr ""
+msgstr "Paylaş"
 
 #: templates/blocks/share_buttons.twig:21
 msgid "Share via"
-msgstr ""
+msgstr "Paylaş"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
@@ -351,31 +351,31 @@ msgstr ""
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
-msgstr ""
+msgstr "E-Posta"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
-msgstr ""
+msgstr "E-Posta adresin"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
-msgstr ""
+msgstr "Yorum"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr ""
+msgstr "Yorum"
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr ""
+msgstr "İsim"
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
-msgstr ""
+msgstr "İsmin"
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post Comment"
-msgstr ""
+msgstr "İçerik yorumu"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
