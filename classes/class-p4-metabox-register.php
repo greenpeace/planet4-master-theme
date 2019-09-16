@@ -399,7 +399,7 @@ class P4_Metabox_Register {
 				'post_type'        => 'page',
 				'post_parent'      => $parent_act_id,
 				'post_status'      => 'publish',
-				'orderby'          => 'menu_order',
+				'orderby'          => 'post_title',
 				'order'            => 'ASC',
 				'suppress_filters' => false,
 				'numberposts'      => self::MAX_TAKE_ACTION_PAGES,
