@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-09-15 19:45+0000\n"
+"PO-Revision-Date: 2019-09-16 12:36+0000\n"
 "Language-Team: Turkish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,7 +45,7 @@ msgstr ""
 
 #: tag.php:48
 msgid "Unknown Campaign page"
-msgstr ""
+msgstr "Bilinmeyen Kampanya sayfası"
 
 #: tag.php:54
 msgid "Things you can do"
@@ -89,7 +89,7 @@ msgstr "International"
 
 #: classes/class-p4-post.php:190 classes/class-p4-search.php:570
 msgid "ACTION"
-msgstr ""
+msgstr "EYLEM"
 
 #: classes/class-p4-post.php:192 classes/class-p4-search.php:574
 msgid "PAGE"
@@ -125,7 +125,7 @@ msgstr[1] ""
 
 #: classes/class-p4-search.php:478
 msgid "Action"
-msgstr ""
+msgstr "Eylem"
 
 #: classes/class-p4-search.php:482
 msgid "Document"
@@ -347,7 +347,7 @@ msgstr "Paylaş"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr ""
+msgstr "yazar hakkında"
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
@@ -391,7 +391,7 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
-msgstr ""
+msgstr "Greenpeace International"
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/greenpeace"
