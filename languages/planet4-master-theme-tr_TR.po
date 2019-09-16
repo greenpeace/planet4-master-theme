@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-09-16 12:36+0000\n"
+"PO-Revision-Date: 2019-09-16 12:37+0000\n"
 "Language-Team: Turkish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +41,7 @@ msgstr "Arama kriterini aşağıya gir"
 
 #: 404.php:18
 msgid "404 Page"
-msgstr ""
+msgstr "404 Sayfası"
 
 #: tag.php:48
 msgid "Unknown Campaign page"
@@ -112,7 +112,7 @@ msgstr "Sayfada ara"
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] ""
+msgstr[0] "'%2$s' için %1$d result"
 msgstr[1] ""
 
 #. translators:
@@ -120,7 +120,7 @@ msgstr[1] ""
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
+msgstr[0] "%d sonuç"
 msgstr[1] ""
 
 #: classes/class-p4-search.php:478
