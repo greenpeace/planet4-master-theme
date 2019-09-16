@@ -227,7 +227,7 @@ msgstr "Arşivimizi ara. Arşiv sitesine yönlendirileceksiniz."
 
 #: templates/search.twig:24
 msgid "We also included results for "
-msgstr ""
+msgstr "Şu sonuçları da ekledik"
 
 #: templates/search.twig:38
 msgid "This Site"
