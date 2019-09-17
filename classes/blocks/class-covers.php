@@ -43,8 +43,6 @@ class Covers extends Base_Block {
 			'shortcake_newcovers'
 		);
 
-		$attributes['tags'] = explode( ',', $attributes['tags'] );
-
 		return $this->render( $attributes );
 	}
 

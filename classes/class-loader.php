@@ -300,22 +300,15 @@ final class Loader {
 		// but not in the admin side.
 		wp_enqueue_style(
 			'p4gbks_admin_style',
-			P4GBKS_PLUGIN_URL . 'react-blocks/build/editorStyle.min.css', // - Bundled CSS for the blocks
+			P4GBKS_PLUGIN_URL . 'assets/build/editorStyle.min.css', // - Bundled CSS for the blocks
 			[],
 			'0.2'
-		);
-
-		wp_enqueue_style(
-			'p4gbks_style',
-			P4GBKS_PLUGIN_URL . 'react-blocks/build/style.min.css', // - Bundled CSS for the blocks
-			[],
-			'0.1.3'
 		);
 
 		// Enqueue editor script for all Blocks in this Plugin.
 		wp_enqueue_script(
 			'planet4-blocks-script',                       // - Script handler
-			P4GBKS_PLUGIN_URL . 'react-blocks/build/editorIndex.js',                                     // - Bundled JS for the editor
+			P4GBKS_PLUGIN_URL . 'assets/build/editorIndex.js',                                     // - Bundled JS for the editor
 			[
 				'wp-blocks',      // - Helpers for registering blocks
 				'wp-components',  // - Wordpress components
@@ -344,12 +337,12 @@ final class Loader {
 	 */
 	public function enqueue_public_assets() {
 		// plugin-blocks assets.
-		$css_blocks_creation = filectime( P4GBKS_PLUGIN_DIR . '/react-blocks/build/style.min.css' );
+		$css_blocks_creation = filectime( P4GBKS_PLUGIN_DIR . '/assets/build/style.min.css' );
 
 		// Add master theme's main css as dependency for blocks css.
 		wp_enqueue_style(
 			'plugin-blocks',
-			P4GBKS_PLUGIN_URL . 'react-blocks/build/style.min.css',
+			P4GBKS_PLUGIN_URL . 'assets/build/style.min.css',
 			[
 				'bootstrap',
 				'slick',

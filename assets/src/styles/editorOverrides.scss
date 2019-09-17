@@ -1,0 +1,18 @@
+.editor-post-title__block textarea.editor-post-title__input {
+	font-family: $roboto;
+  font-size: $font-size-xl;
+  line-height: 1.225;
+  margin-bottom: 30px;
+
+  @include large-and-up {
+    font-size: $font-size-xxl;
+    margin-bottom: 48px;
+  }
+  @include x-large-and-up {
+    font-size: $font-size-xxxl;
+  }
+}
+
+.edit-post-visual-editor {
+	@include table;
+}

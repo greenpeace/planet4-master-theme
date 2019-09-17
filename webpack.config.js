@@ -8,14 +8,14 @@ const RemovePlugin = require('remove-files-webpack-plugin');
 module.exports = {
   ...defaultConfig,
   entry: {
-    editorIndex: './react-blocks/src/editorIndex.js',
-    frontendIndex: './react-blocks/src/frontendIndex.js',
-    style: './react-blocks/src/styles/style.scss',
-    editorStyle: './react-blocks/src/styles/editorStyle.scss'
+    editorIndex: './assets/src/editorIndex.js',
+    frontendIndex: './assets/src/frontendIndex.js',
+    style: './assets/src/styles/style.scss',
+    editorStyle: './assets/src/styles/editorStyle.scss'
   },
   output: {
     filename: '[name].js',
-    path: __dirname + '/react-blocks/build'
+    path: __dirname + '/assets/build'
   },
   module: {
     ...defaultConfig.module,
@@ -23,33 +23,49 @@ module.exports = {
       ...defaultConfig.module.rules,
       {
         test: /\.(sass|scss)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'resolve-url-loader', 'sass-loader']
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: function() {
+                return require('autoprefixer');
+              }
+            }
+          },
+          'sass-loader'
+        ]
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/,
         use:
-          ['url-loader']
+          [
+            {
+              loader: 'file-loader',
+              options: {
+                publicPath: __dirname + '/public'
+              }
+            }
+          ]
       }
     ]
   },
   plugins: [
     ...defaultConfig.plugins,
-    // extract css into dedicated file
     new FixStyleOnlyEntriesPlugin(),
+    // extract css into dedicated file
     new MiniCssExtractPlugin({
       chunkFilename: '[id].css',
       ignoreOrder: false, // Enable to remove warnings about conflicting order
       filename: './[name].min.css'
     }),
     new RemovePlugin({
-      /**
-       * After compilation removes all files in `dist/styles` folder,
-       * that have `.map` type.
-       */
       after: {
         test: [
           {
-            folder: 'react-blocks/build/',
+            folder: 'assets/build/',
             method: (filePath) => {
               return [
                 'editorStyle.deps.json',
