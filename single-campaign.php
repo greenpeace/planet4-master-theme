@@ -167,6 +167,8 @@ for ( $i = 1; $i <= 5; $i++ ) {
 }
 
 if ( post_password_required( $post->ID ) ) {
+	$context['login_url'] = wp_login_url();
+
 	Timber::render( 'single-password.twig', $context );
 } else {
 	Timber::render( array( 'single-' . $post->ID . '.twig', 'single-' . $post->post_type . '.twig', 'single.twig' ), $context );
