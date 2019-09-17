@@ -61,6 +61,7 @@ $context['header_description']          = wpautop( $page_meta_data['p4_descripti
 $context['header_button_title']         = $page_meta_data['p4_button_title'][0] ?? '';
 $context['header_button_link']          = $page_meta_data['p4_button_link'][0] ?? '';
 $context['header_button_link_checkbox'] = $page_meta_data['p4_button_link_checkbox'][0] ?? '';
+$context['hide_page_title_checkbox']    = $page_meta_data['p4_hide_page_title_checkbox'][0] ?? '';
 $context['social_accounts']             = $post->get_social_accounts( $context['footer_social_menu'] );
 $context['page_category']               = $data_layer['page_category'];
 $context['post_tags']                   = implode( ', ', $post->tags() );

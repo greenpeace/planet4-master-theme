@@ -21,6 +21,17 @@ $context = Timber::get_context();
 $post            = Timber::query_post( false, 'P4_Post' );
 $context['post'] = $post;
 
+// Strip Take Action Boxout block from the post content to add outside the normal block container.
+if ( false !== strpos( $post->post_content, '[shortcake_take_action_boxout' ) ) {
+
+	$take_action_boxout_block_start  = strpos( $post->post_content, '[shortcake_take_action_boxout' );
+	$take_action_boxout_block_end    = strpos( $post->post_content, ']', $take_action_boxout_block_start );
+	$take_action_boxout_block_length = $take_action_boxout_block_end - $take_action_boxout_block_start + 1;
+	$take_action_boxout_block        = substr( $post->post_content, $take_action_boxout_block_start, $take_action_boxout_block_length );
+
+	$post->post_content = str_replace( $take_action_boxout_block, '', $post->post_content );
+}
+
 // Set Navigation Issues links.
 $post->set_issues_links();
 
@@ -59,7 +70,9 @@ if ( 'yes' === $post->include_articles ) {
 
 // Build the shortcode for take action boxout block
 // Break the content to retrieve first 2 paragraphs and split the content if the take action page has been defined.
-if ( ! empty( $take_action_page ) ) {
+if ( isset( $take_action_boxout_block ) ) {
+	$post->take_action_boxout = $take_action_boxout_block;
+} elseif ( ! empty( $take_action_page ) ) {
 	$post->take_action_page   = $take_action_page;
 	$post->take_action_boxout = "[shortcake_take_action_boxout take_action_page='$take_action_page' /]";
 }

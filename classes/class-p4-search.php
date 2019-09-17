@@ -150,7 +150,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$subgroup     = $this->search_query ? $this->search_query : 'all';
 
 				// Check Object cache for stored key.
-				$this->check_cache( $query_string, "$group:$subgroup" );
+				$cache_key_set = $this->prepare_keys_for_cache( $query_string, $group, $subgroup );
+				$this->check_cache( $cache_key_set->key, $cache_key_set->group );
 
 				// If posts were found either in object cache or primary database then get the first POSTS_PER_LOAD results.
 				if ( $this->posts ) {
@@ -210,7 +211,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					}
 
 					// Check Object cache for stored key.
-					$search_async->check_cache( $query_string, "$group:$subgroup" );
+					$cache_key_set = $search_async->prepare_keys_for_cache( urldecode( $query_string ), $group, $subgroup );
+					$search_async->check_cache( $cache_key_set->key, $cache_key_set->group );
 
 					// Check if there are results already in the cache else fallback to the primary database.
 					if ( $search_async->posts ) {
@@ -821,6 +823,23 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				wp_localize_script( 'main', 'localizations', $this->localizations );
 				wp_enqueue_script( 'search' );
 			}
+		}
+
+		/**
+		 * Prepare query strings for cache keys.
+		 *
+		 * @param string $query_string Search query string.
+		 * @param string $group        Cache group.
+		 * @param string $subgroup     Cache subgroup.
+		 *
+		 * @return stdClass
+		 */
+		private function prepare_keys_for_cache( $query_string, $group, $subgroup ) {
+			$cache_key_set        = new stdClass();
+			$cache_key_set->key   = urlencode( $query_string );
+			$cache_key_set->group = urlencode( $group ) . ':' . urlencode( $subgroup );
+
+			return $cache_key_set;
 		}
 	}
 }
