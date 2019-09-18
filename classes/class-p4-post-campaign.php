@@ -91,7 +91,6 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'capability_type'    => [ 'campaign', 'campaigns' ],
 				'map_meta_cap'       => true,
 				'has_archive'        => true,
-				'taxonomies'         => [ 'category', 'post_tag' ],
 				'hierarchical'       => false,
 				'menu_position'      => null,
 				'menu_icon'          => 'dashicons-megaphone',
