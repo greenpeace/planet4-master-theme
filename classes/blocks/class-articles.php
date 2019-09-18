@@ -40,7 +40,7 @@ class Articles extends Base_Block {
 	public function add_block_shortcode( $attributes, $content ) {
 		$attributes = shortcode_atts(
 			[
-				'article_count'        => self::MAX_ARTICLES,
+				'article_count'        => '',
 				'article_heading'      => '',
 				'read_more_text'       => '',
 				'read_more_link'       => '',
