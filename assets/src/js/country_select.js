@@ -1,4 +1,4 @@
-jQuery(function($) {
+export const setupCountrySelect = function($) {
   'use strict';
 
   $('.country-select-dropdown').click(function(){
@@ -57,4 +57,4 @@ jQuery(function($) {
 
     $('#navbar-dropdown #country-select').append(countries_html);
   }
-});
+};

@@ -71,7 +71,7 @@
       }
 
       &.search-result-list-item-bg {
-        @include background("images/search-list.jpg");
+        @include background("/images/search-list.jpg");
         padding: 24px 15px $n30;
         margin: $n15;
         box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
