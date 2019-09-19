@@ -105,7 +105,7 @@ class Counter extends Base_Block {
 		}
 		$target = floatval( $fields['target'] );
 
-		if ( array_key_exists( 'completed_api', $fields ) ) {
+		if ( array_key_exists( 'completed_api', $fields ) & strlen( $fields['completed_api'] ) > 0 ) {
 			$response_api  = wp_safe_remote_get( $fields['completed_api'] );
 			$response_body = json_decode( $response_api['body'], true );
 			if ( is_array( $response_body ) && array_key_exists( 'unique_count', $response_body ) && is_int( $response_body['unique_count'] ) ) {
