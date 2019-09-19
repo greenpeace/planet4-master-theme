@@ -1,3 +1,5 @@
+// global jQuery
+
 import { setupCookies } from './cookies';
 import { setupAuthor } from './author';
 import { setupCommentsAnchor } from './comments_anchor';
@@ -10,7 +12,13 @@ import { setupPDFIcon } from './pdf_icon';
 import { setupSearch } from './search';
 import { setupImageZoomer } from './single';
 
-$ = $ || jQuery; //eslint-disable-line no-global-assign
+import 'bootstrap';
+
+window.$ = $ || jQuery;
+
+console.log("Loaded"); // eslint-disable-line
+
+console.log(window.$); // eslint-disable-line
 
 jQuery(function($) {
   setupCookies($);
