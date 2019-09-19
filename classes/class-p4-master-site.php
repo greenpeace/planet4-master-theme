@@ -468,7 +468,7 @@ class P4_Master_Site extends TimberSite {
 	 * @param string $hook Hook.
 	 */
 	public function enqueue_admin_assets( $hook ) {
-		$css_creation = filectime( get_template_directory() . '/style.css' );
+		$css_creation = filectime( get_template_directory() . '/assets/build/style.min.css' );
 
 		// Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
 		wp_register_script( 'jquery-3', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', [], '3.3.1', true );
@@ -483,13 +483,13 @@ class P4_Master_Site extends TimberSite {
 		$js_creation  = filectime( get_template_directory() . '/assets/build/index.js' );
 
 		// CSS files.
-		wp_enqueue_style( 'bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css', [], '4.1.1' );
+		wp_enqueue_style( 'bootstrap', $this->theme_dir . '/assets/build/bootstrap.min.css', [], '4.1.1' );
 		wp_enqueue_style( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css', [], '1.9.0' );
 		wp_enqueue_style( 'parent-style', $this->theme_dir . '/assets/build/style.min.css', [], $css_creation );
 		// JS files.
 		wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', [], '3.3.1', true );
-		wp_enqueue_script( 'popperjs', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', [], '1.14.3', true );
-		wp_enqueue_script( 'bootstrapjs', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js', [], '4.1.1', true );
+		// wp_enqueue_script( 'popperjs', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', [], '1.14.3', true );
+		// wp_enqueue_script( 'bootstrapjs', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js', [], '4.1.1', true );
 		wp_enqueue_script( 'main', $this->theme_dir . '/assets/build/index.js', [ 'jquery' ], $js_creation, true );
 		wp_enqueue_script( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js', [], '1.9.0', true );
 		wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );

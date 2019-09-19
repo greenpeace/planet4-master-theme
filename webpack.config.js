@@ -10,6 +10,7 @@ module.exports = {
   entry: {
     index: './assets/src/js/app.js',
     style: './assets/src/scss/style.scss',
+    bootstrap: './assets/src/scss/bootstrap-build.scss',
   },
   output: {
     filename: '[name].js',
@@ -51,7 +52,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       chunkFilename: '[id].css',
       ignoreOrder: false, // Enable to remove warnings about conflicting order
-      filename: './[name].min.css'
+    filename: './[name].min.css'
     }),
     new RemovePlugin({
       /**
