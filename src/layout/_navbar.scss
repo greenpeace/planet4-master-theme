@@ -185,13 +185,13 @@ $min-height: 40px;
 .navbar-search-toggle {
   cursor: pointer;
   border: 0;
-  background: url("images/search.svg") center center no-repeat;
+  background: url("/images/search.svg") center center no-repeat;
   background-size: 28px;
   margin-left: auto;
 
   &.open {
     outline: 0;
-    background: url("images/close-icon.svg") center center no-repeat;
+    background: url("/images/close-icon.svg") center center no-repeat;
   }
 
   html[dir="rtl"] & {
@@ -315,7 +315,7 @@ $min-height: 40px;
     position: absolute;
     top: 0;
     left: 0;
-    background: $dark-blue url("images/dropdown-gradient.svg") no-repeat;
+    background: $dark-blue url("/images/dropdown-gradient.svg") no-repeat;
     overflow-y: auto;
     overflow-x: hidden;
     z-index: 2;
@@ -326,7 +326,7 @@ $min-height: 40px;
       right: 0;
       height: $menu-height-small;
       width: $menu-height-small;
-      background: url("images/close-icon.svg") center center no-repeat;
+      background: url("/images/close-icon.svg") center center no-repeat;
       z-index: 2;
       border: 0;
 
@@ -375,7 +375,7 @@ $min-height: 40px;
         height: 1.75em;
         width: 50px;
         display: inline-block;
-        background: url("images/country-icon.svg") center center no-repeat;
+        background: url("/images/country-icon.svg") center center no-repeat;
         border-right: 1px solid transparentize($white, 0.9);
         background-size: contain;
 
@@ -577,7 +577,7 @@ $min-height: 40px;
     content: "";
     width: 8px;
     height: 8px;
-    background: url("images/down-arrow-blue.svg") no-repeat center center;
+    background: url("/images/down-arrow-blue.svg") no-repeat center center;
     background-size: contain;
     display: inline-block;
     margin-left: 10px;
@@ -589,7 +589,7 @@ $min-height: 40px;
     color: $white;
 
     &::after {
-      background-image: url("images/down-arrow-white.svg");
+      background-image: url("/images/down-arrow-white.svg");
     }
   }
 
