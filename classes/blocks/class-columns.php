@@ -32,9 +32,51 @@ class Columns extends Base_Block {
 	const MAX_COLUMNS     = 4;
 
 	/**
+	 * Register shortcake shortcode.
+	 *
+	 * @param array  $attributes Shortcode attributes.
+	 * @param string $content   Content.
+	 *
+	 * @return mixed
+	 */
+	public function add_block_shortcode( $attributes, $content ) {
+		$columns = [];
+		for ( $i = 1; $i <= static::MAX_COLUMNS; $i++ ) {
+			if ( ! empty( $attributes[ 'title_' . $i ] ) ) {
+				$column = [
+					'title'        => $attributes[ 'title_' . $i ] ?? '',
+					'description'  => $attributes[ 'description_' . $i ] ?? '',
+					'attachment'   => $attributes[ 'attachment_' . $i ] ?? '',
+					'cta_text'     => $attributes[ 'cta_text_' . $i ] ?? '',
+					'cta_link'     => $attributes[ 'link_' . $i ] ?? '',
+					'link_new_tab' => $attributes[ 'link_new_tab_' . $i ] ?? '',
+				];
+
+				array_push( $columns, $column );
+			}
+		}
+
+		$attributes['columns'] = $columns;
+
+		$attributes = shortcode_atts(
+			[
+				'columns_block_style' => '',
+				'columns_title'       => '',
+				'columns_description' => '',
+				'columns'             => [],
+			],
+			$attributes,
+			'shortcake_columns'
+		);
+
+		return $this->render( $attributes );
+	}
+
+	/**
 	 * Columns constructor.
 	 */
 	public function __construct() {
+		add_shortcode( 'shortcake_columns', [ $this, 'add_block_shortcode' ] );
 
 		register_block_type(
 			'planet4-blocks/columns',

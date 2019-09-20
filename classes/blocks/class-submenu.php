@@ -26,11 +26,55 @@ class Submenu extends Base_Block {
 	const EMPTY_MESSAGE = 'The submenu block produces no output on the editor.';
 
 	/**
+	 * Register shortcake shortcode.
+	 *
+	 * @param array  $attributes Shortcode attributes.
+	 * @param string $content   Content.
+	 *
+	 * @return mixed
+	 */
+	public function add_block_shortcode( $attributes, $content ) {
+
+		$levels = [];
+		for ( $i = 1; $i <= 3; $i++ ) {
+			if ( ! empty( $attributes[ 'heading' . $i ] ) ) {
+				$level = [
+					'heading' => $attributes[ 'heading' . $i ] ?? '',
+					'link'    => $attributes[ 'link' . $i ] ?? '',
+					'style'   => $attributes[ 'style' . $i ] ?? '',
+				];
+
+				array_push( $levels, $level );
+			}
+		}
+
+		$attributes['levels'] = $levels;
+
+		$attributes = shortcode_atts(
+			[
+				'submenu_style' => '',
+				'title'         => '',
+				'levels'        => [
+					[
+						'heading' => '',
+						'link'    => '',
+						'style'   => '',
+					],
+				],
+			],
+			$attributes,
+			'shortcake_submenu'
+		);
+
+		return $this->render( $attributes );
+	}
+
+	/**
 	 * Submenu constructor.
 	 */
 	public function __construct() {
-		// - Register the block for the editor
-		// in the PHP side.
+		add_shortcode( 'shortcake_submenu', [ $this, 'add_block_shortcode' ] );
+
 		register_block_type(
 			'planet4-blocks/submenu',
 			[

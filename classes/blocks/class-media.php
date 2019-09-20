@@ -24,9 +24,34 @@ class Media extends Base_Block {
 	const BLOCK_NAME = 'media_video';
 
 	/**
+	 * Register shortcake shortcode.
+	 *
+	 * @param array  $attributes Shortcode attributes.
+	 * @param string $content   Content.
+	 *
+	 * @return mixed
+	 */
+	public function add_block_shortcode( $attributes, $content ) {
+
+		$attributes = shortcode_atts(
+			[
+				'video_title'      => '',
+				'description'      => '',
+				'youtube_id'       => '',
+				'video_poster_img' => '',
+			],
+			$attributes,
+			'shortcake_media_video'
+		);
+
+		return $this->render( $attributes );
+	}
+
+	/**
 	 * Media constructor.
 	 */
 	public function __construct() {
+		add_shortcode( 'shortcake_media_video', [ $this, 'add_block_shortcode' ] );
 
 		register_block_type(
 			'planet4-blocks/media-video',

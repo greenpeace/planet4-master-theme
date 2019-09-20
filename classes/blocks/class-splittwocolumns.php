@@ -24,9 +24,44 @@ class SplitTwoColumns extends Base_Block {
 	const BLOCK_NAME = 'split_two_columns';
 
 	/**
+	 * Register shortcake shortcode.
+	 *
+	 * @param array  $attributes Shortcode attributes.
+	 * @param string $content   Content.
+	 *
+	 * @return mixed
+	 */
+	public function add_block_shortcode( $attributes, $content ) {
+
+		$attributes = shortcode_atts(
+			[
+				'select_issue'      => '',
+				'title'             => '',
+				'issue_description' => '',
+				'issue_link_text'   => '',
+				'issue_link_path'   => '',
+				'issue_image'       => '',
+				'focus_issue_image' => '',
+				'select_tag'        => '',
+				'tag_description'   => '',
+				'button_text'       => '',
+				'button_link'       => '',
+				'tag_image'         => '',
+				'focus_tag_image'   => '',
+			],
+			$attributes,
+			'shortcake_split_two_columns'
+		);
+
+		return $this->render( $attributes );
+	}
+
+
+	/**
 	 * SplitTwoColumns constructor.
 	 */
 	public function __construct() {
+		add_shortcode( 'shortcake_split_two_columns', [ $this, 'add_block_shortcode' ] );
 
 		register_block_type(
 			'planet4-blocks/split-two-columns',

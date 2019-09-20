@@ -35,9 +35,35 @@ class Gallery extends Base_Block {
 	const LAYOUT_GRID          = 3;
 
 	/**
+	 * Register shortcake shortcode.
+	 *
+	 * @param array  $attributes Shortcode attributes.
+	 * @param string $content   Content.
+	 *
+	 * @return mixed
+	 */
+	public function add_block_shortcode( $attributes, $content ) {
+
+		$attributes = shortcode_atts(
+			[
+				'gallery_block_style'        => '',
+				'gallery_block_title'        => '',
+				'gallery_block_description'  => '',
+				'multiple_image'             => '',
+				'gallery_block_focus_points' => '',
+			],
+			$attributes,
+			'shortcake_gallery'
+		);
+
+		return $this->render( $attributes );
+	}
+
+	/**
 	 * Gallery constructor.
 	 */
 	public function __construct() {
+		add_shortcode( 'shortcake_gallery', [ $this, 'add_block_shortcode' ] );
 
 		register_block_type(
 			'planet4-blocks/gallery',
