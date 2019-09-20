@@ -1,4 +1,5 @@
 import { ArticlesBlock } from './blocks/Articles/ArticlesBlock';
+import { CarouselHeaderBlock } from './blocks/Carouselheader/CarouselHeaderBlock';
 import { ColumnsBlock } from './blocks/Columns/ColumnsBlock';
 import { CookiesBlock } from './blocks/Cookies/CookiesBlock';
 import { CounterBlock } from './blocks/Counter/CounterBlock';
@@ -12,6 +13,7 @@ import { SubmenuBlock } from './blocks/Submenu/SubmenuBlock';
 import { TimelineBlock } from './blocks/Timeline/TimelineBlock';
 
 const articlesBlock = new ArticlesBlock();
+const carouselHeaderBlock = new CarouselHeaderBlock();
 const columnsBlock = new ColumnsBlock();
 const cookiesBlock = new CookiesBlock();
 const counterBlock = new CounterBlock();
@@ -23,4 +25,3 @@ const socialmediaBlock = new SocialmediaBlock();
 const splittwocolumnsBlock = new SplittwocolumnsBlock();
 const submenuBlock = new SubmenuBlock();
 const timelineBlock = new TimelineBlock();
-

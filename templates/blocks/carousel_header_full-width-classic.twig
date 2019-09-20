@@ -1,0 +1,74 @@
+{% import _self as carouselTools %}
+{% macro truncateChars(text, maxLength) %}
+    {{ text|length > maxLength ? text|slice(0, maxLength) ~ '…' : text }}
+{% endmacro %}
+
+<section class="block block-header block-wide carousel-header_{{ fields.block_style }}">
+	<div id="carousel-wrapper-header"
+		data-block-style="{{ fields.block_style }}"
+		data-carousel-autoplay="{{ fields.carousel_autoplay }}">
+
+		{% if fields.total_images > 1 %}
+			<ol class="carousel-indicators"></ol>
+		{% endif %}
+		<div class="carousel-inner" role="listbox">
+
+			{% for slide in fields.slides %}
+
+				{% if ( slide.header and slide.image ) %}
+					{% if ( loop.first ) %}
+						{% set css_class = 'carousel-item active initial' %}
+					{% else %}
+						{% set css_class = 'carousel-item' %}
+					{% endif %}
+					<div class="{{ css_class }}" data-slide="{{ i }}">
+						<div class="carousel-item-mask">
+							<div class="background-holder">
+								{% if slide.image %}
+									<img src="{{ slide.image }}"
+										data-background-position="{{ slide.focus_image }}"
+										srcset="{{ slide.image_srcset }}"
+										sizes="{{ slide.image_sizes }}"
+										alt="{{ slide.image_alt  }}">
+
+									<div class="carousel-caption">
+										<div class="caption-overlay"></div>
+										<div class="container main-header">
+											<div class="carousel-captions-wrapper">
+												{% if slide.header  %}
+													<{{ slide.header_size|default('h1') }}>{{ carouselTools.truncateChars( slide.header , 32 ) }}</{{ slide.header_size|default('h1') }}>
+												{% endif %}
+												{% if slide.description %}
+													<p>{{ carouselTools.truncateChars( slide.description, 200 ) }}</p>
+												{% endif %}
+											</div>
+
+											<div class="col-xs-12 col-sm-8 col-md-4 action-button">
+												{% if slide.link_text %}
+													<a href="{{ slide.link_url }}"
+															{{  'true' == slide.link_url_new_tab ? 'target="_blank"' }}
+														class="btn btn-small btn-medium btn-primary btn-block">{{ slide.link_text }}</a>
+												{% endif %}
+											</div>
+										</div>
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+
+		</div>
+		{% if fields.total_images > 1 %}
+			<a class="carousel-control-prev" href="#carousel-wrapper-header" role="button" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
+				<span class="sr-only">Prev</span>
+			</a>
+			<a class="carousel-control-next" href="#carousel-wrapper-header" role="button" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"><i></i></span>
+				<span class="sr-only">Next</span>
+			</a>
+		{% endif %}
+	</div>
+</section>
