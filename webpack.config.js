@@ -4,6 +4,26 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserJSPlugin = require('terser-webpack-plugin');
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const RemovePlugin = require('remove-files-webpack-plugin');
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+
+console.log('DIRECTORY: ', __dirname);
+
+const icons_config = {
+  shape: {
+    dimension: {
+      maxWidth: 64,
+      maxHeight: 64
+    },
+    spacing: {
+      padding: 0,
+      box: 'content'
+    }
+  },
+  mode: {
+    inline: true,
+    symbol: true
+  }
+};
 
 module.exports = {
   ...defaultConfig,
@@ -38,10 +58,13 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/,
-        use: [
-          'file-loader'
-        ]
+        test: /icons\/.*\.svg$/,
+        loader: 'svg-sprite-loader',
+        options: {
+          extract: true,
+          spriteFilename: '/images/symbol/svg/symbol.svg',
+          runtimeCompat: true
+        }
       }
     ]
   },
@@ -73,6 +96,9 @@ module.exports = {
           }
         ]
       }
+    }),
+    new SpriteLoaderPlugin({
+      plainSprite: true
     })
   ],
   optimization: {

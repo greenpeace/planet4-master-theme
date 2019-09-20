@@ -14,6 +14,12 @@ import { setupImageZoomer } from './single';
 
 import 'bootstrap';
 
+function requireAll(r) {
+  r.keys().forEach(r);
+}
+
+requireAll(require.context('../scss/styleguide/src/icons/', true, /\.svg$/));
+
 window.$ = $ || jQuery;
 
 console.log("Loaded"); // eslint-disable-line

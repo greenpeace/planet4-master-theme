@@ -344,7 +344,7 @@ class P4_Master_Site extends TimberSite {
 	 * @param string $name Icon name.
 	 */
 	public function svgicon( $name ) {
-		$svg_icon_template = '<svg viewBox="0 0 32 32" class="icon"><use xlink:href="' . $this->theme_images_dir . 'symbol/svg/sprite.symbol.svg#' . $name . '"></use></svg>';
+		$svg_icon_template = '<svg viewBox="0 0 32 32" class="icon"><use xlink:href="' . $this->theme_dir . '/assets/build/images/symbol/svg/sprite.symbol.svg#' . $name . '"></use></svg>';
 		return new \Twig_Markup( $svg_icon_template, 'UTF-8' );
 	}
 
