@@ -94,7 +94,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'hierarchical'       => false,
 				'menu_position'      => null,
 				'menu_icon'          => 'dashicons-megaphone',
-				'supports'           => [ 'title', 'editor', 'author', 'thumbnail', 'excerpt' ],
+				'supports'           => [ 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'revisions' ],
 			);
 
 			register_post_type( self::POST_TYPE, $args );

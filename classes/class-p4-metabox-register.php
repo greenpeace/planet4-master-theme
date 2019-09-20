@@ -282,7 +282,7 @@ class P4_Metabox_Register {
 			[
 				'id'           => $this->prefix . 'campaign_fields',
 				'title'        => __( 'Campaign information (dataLayer)', 'planet4-master-theme-backend' ),
-				'object_types' => [ 'page', 'campaign' ], // Post type.
+				'object_types' => [ 'page', 'campaign', 'post' ], // Post type.
 				'closed'       => true,  // Keep the metabox closed by default.
 				'context'      => 'side', // show cmb2box in right sidebar.
 				'priority'     => 'low',
