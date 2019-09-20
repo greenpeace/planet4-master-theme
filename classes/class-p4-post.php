@@ -361,6 +361,31 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		}
 
 		/**
+		 * Get values for share buttons content.
+		 *
+		 * @return string
+		 */
+		public function share_meta() {
+			$og_title       = get_post_meta( $this->id, 'p4_og_title', true );
+			$og_description = get_post_meta( $this->id, 'p4_og_description', true );
+			$link           = get_permalink( $this->id );
+
+			if ( '' === $og_title ) {
+				if ( '' !== $this->post_title ) {
+					$og_title = $this->post_title;
+				}
+			}
+
+			$social_meta = array(
+				'title'       => $og_title,
+				'description' => $og_description,
+				'link'        => $link,
+			);
+
+			return $social_meta;
+		}
+
+		/**
 		 * Get post's author override status.
 		 *
 		 * @return bool

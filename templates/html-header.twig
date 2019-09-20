@@ -11,7 +11,7 @@
 			<meta name="description" content="{{ site.description }}">
 		{% endif %}
 
-		{% if not (og_title is defined)  %}
+		{% if not (og_title is defined) %}
 			{% if (wp_title) %}
 				{% set og_title = wp_title|raw~' - '~site.name %}
 			{% else %}
@@ -22,7 +22,7 @@
 		<meta property="og:title" content="{{ og_title|e('html_attr')|raw }}" />
 		<meta property="og:type" content="article" />
 		<meta property="og:url" content="{{ current_url }}" />
-		{% if (og_description)  %}
+		{% if (og_description) %}
 			<meta property="og:description" content="{{ og_description|e('html_attr')|raw }}" />
 		{% endif %}
 		{% if (og_image_data) %}
