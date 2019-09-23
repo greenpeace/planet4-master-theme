@@ -7,6 +7,8 @@
 
 namespace P4GBKS\Blocks;
 
+use Timber\Timber;
+
 /**
  * Class Articles
  *
@@ -179,6 +181,12 @@ class Articles extends Base_Block {
 			$recent_posts = $this->populate_post_items( $sliced_posts );
 		}
 
+		// Enqueue js for the frontend.
+		if ( ! $this->is_rest_request() ) {
+			wp_enqueue_script( 'load-more', P4GBKS_PLUGIN_URL . 'public/js/load_more.js', [ 'jquery' ], '0.3', true );
+			wp_localize_script( 'load-more', 'more_url', [ '/wp-admin/admin-ajax.php' ] );
+		}
+
 		$dataset = urldecode( http_build_query( $args, '', ' ' ) );
 		$dataset = explode( ' ', $dataset );
 
@@ -209,7 +217,7 @@ class Articles extends Base_Block {
 
 			// CSRF check.
 			if ( wp_verify_nonce( $nonce, 'load_more' ) ) {
-				Timber::$locations = P4BKS_INCLUDES_DIR;
+				Timber::$locations = P4GBKS_INCLUDES_DIR;
 
 				if ( isset( $dataset['args'] ) ) {
 					foreach ( $dataset['args'] as $key => $value ) {
