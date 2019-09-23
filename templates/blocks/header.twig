@@ -2,7 +2,8 @@
 	{% if post.post_type != 'campaign'  %}
 		<div class="skewed-overlay"></div>
 	{% endif %}
-	<div class="page-header">
+	{% set page_header_show = ( header_subtitle or header_description or hide_page_title_checkbox != 'on' )  %}
+	<div class="page-header {% if not page_header_show %}page-header-hidden{% endif %}">
 		{% if ( background_image ) %}
 			<div class="page-header-background">
 				<img src="{{ background_image }}"
