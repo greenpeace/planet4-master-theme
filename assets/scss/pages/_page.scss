@@ -31,6 +31,16 @@ div.page-template {
   img {
     max-width: 100%;
     height: auto;
+
+    &.alignnone {
+      margin-top: $space-md;
+      margin-bottom: $space-xl;
+
+      @include large-and-up {
+        margin-top: $space-lg;
+        margin-bottom: $space-xxl;
+      }
+    }
   }
 
   .alignleft {

@@ -130,6 +130,16 @@
   img {
     max-width: 100%;
     height: auto;
+
+    &.alignnone {
+      margin-top: $space-md;
+      margin-bottom: $space-xl;
+
+      @include large-and-up {
+        margin-top: $space-lg;
+        margin-bottom: $space-xxl;
+      }
+    }
   }
 
   .alignleft {
@@ -309,21 +319,15 @@
   display: inline-block;
   width: auto !important;
   max-width: 100%;
-  margin-bottom: 18px;
 
-  @include medium-and-up {
-    margin-bottom: 22px;
-    padding-top: 6px;
-  }
+  &.alignnone {
+    margin-bottom: $space-xl;
+    margin-top: $space-md;
 
-  @include large-and-up {
-    margin-bottom: 26px;
-    padding-top: 10px;
-  }
-
-  @include x-large-and-up {
-    margin-bottom: 30px;
-    padding-top: 12px;
+    @include large-and-up {
+      margin-bottom: $space-xxl;
+      margin-top: $space-lg;
+    }
   }
 
   img {
