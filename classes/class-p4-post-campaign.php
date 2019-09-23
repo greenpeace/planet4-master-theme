@@ -323,6 +323,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'#093944',
 				'#042233',
 				'#1A1A1A',
+				'#1B4A1B'
 			];
 
 			$primary_palette = [
@@ -333,6 +334,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'#ee562d',
 				'#7a1805',
 				'#2077bf',
+				'#1B4A1B'
 			];
 
 			$secondary_palette = [

@@ -62,6 +62,7 @@ $passive_button_colors_map = [
 	'#ee562d' => '#f36d3a',
 	'#7a1805' => '#a01604',
 	'#2077bf' => '#2077bf',
+	'#1b4a1b' => '#1b4a1b',
 ];
 
 $campaigns_font_map = [
@@ -103,7 +104,7 @@ $custom_styles['css']['campaign_header_primary'] = $post->campaign_header_primar
 $custom_styles['css']['header_serif']            = $post->campaign_header_serif ? " .page-header { font-family: {$post->campaign_header_serif}!important;}" : null;
 $custom_styles['css']['header_sans']             = $post->campaign_header_sans ? " .page-header { font-family: {$post->campaign_header_sans} !important;}" : null;
 $custom_styles['css']['body_font']               = $body_font ? " body, p { font-family: '{$body_font}' !important;}" : null;
-$custom_styles['css']['btn_primary']             = $post->campaign_primary_color ? " .btn-primary { background: {$passive_button_colors_map[$post->campaign_primary_color]} !important; border-color: {$passive_button_colors_map[$post->campaign_primary_color]} !important;}" : null;
+$custom_styles['css']['btn_primary']             = $post->campaign_primary_color ? " .btn-primary { background: {$passive_button_colors_map[strtolower($post->campaign_primary_color)]} !important; border-color: {$passive_button_colors_map[$post->campaign_primary_color]} !important;}" : null;
 $custom_styles['css']['btn_primary_hover']       = $post->campaign_primary_color ? " .btn-primary:hover { background: {$post->campaign_primary_color} !important; border-color: {$post->campaign_primary_color} !important;}" : null;
 $custom_styles['css']['btn_secondary']           = $post->campaign_secondary_color
 	? " .btn-secondary, .btn-action.cover-card-btn {
