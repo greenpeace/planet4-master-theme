@@ -34,6 +34,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			add_action( 'init', [ $this, 'add_campaign_caps_author' ] );
 			add_action( 'init', [ $this, 'add_campaign_caps_contributor' ] );
 			add_action( 'init', [ $this, 'add_campaigner_role' ] );
+			add_action( 'init', [ $this, 'add_campaigner_caps_import' ] );
 			add_action( 'cmb2_admin_init', [ $this, 'register_campaigns_metaboxes' ] );
 			add_action( 'add_meta_boxes', [ $this, 'campaign_page_templates_meta_box' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
@@ -91,11 +92,10 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'capability_type'    => [ 'campaign', 'campaigns' ],
 				'map_meta_cap'       => true,
 				'has_archive'        => true,
-				'taxonomies'         => [ 'category', 'post_tag' ],
 				'hierarchical'       => false,
 				'menu_position'      => null,
 				'menu_icon'          => 'dashicons-megaphone',
-				'supports'           => [ 'title', 'editor', 'author', 'thumbnail', 'excerpt' ],
+				'supports'           => [ 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'revisions' ],
 			);
 
 			register_post_type( self::POST_TYPE, $args );
@@ -203,6 +203,15 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'edit_published_campaigns'   => true,
 				]
 			);
+		}
+
+		/**
+		 * Add Campaign import capabilities to Campaigner User.
+		 */
+		public function add_campaigner_caps_import() {
+			$role = get_role( 'campaigner' );
+
+			$role->add_cap( 'import' );
 		}
 
 		/**

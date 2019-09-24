@@ -37,7 +37,7 @@
 			{% endif %}
 			{% if not post.password_required %}
 				{% if ( post.is_take_action_page ) %}
-					{% include "blocks/share_buttons.twig" with {post:post} %}
+					{% include "blocks/share_buttons.twig" with {social:post.share_meta} %}
 				{% endif %}
 				{% if ( header_subtitle ) %}
 					<h3 class="page-header-subtitle">{{ header_subtitle }}</h3>

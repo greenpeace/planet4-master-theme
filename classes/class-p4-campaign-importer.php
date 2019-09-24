@@ -24,6 +24,7 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 		public function __construct() {
 			add_action( 'wp_import_insert_post', [ $this, 'update_campaign_attachements' ], 10, 4 );
 			add_filter( 'wp_import_post_terms', [ $this, 'filter_wp_import_post_terms' ], 10, 3 );
+			add_filter( 'wp_import_post_data_processed', [ $this, 'set_imported_campaigns_as_drafts' ], 10, 2 );
 			add_action( 'import_end', [ $this, 'action_import_end' ], 10, 0 );
 		}
 
@@ -173,6 +174,23 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 				unset( $attachment_data['image_meta']['imported_attachment_id'] );
 				wp_update_attachment_metadata( $attachment_metadata->post_id, $attachment_data );
 			}
+		}
+
+		/**
+		 * Filter for wp_import_post_data_processed.
+		 * Set imported campaign posts as drafts.
+		 *
+		 * @param array $postdata Post data that can be filtered.
+		 * @param array $post     The post array to be inserted.
+		 *
+		 * @return array
+		 */
+		public function set_imported_campaigns_as_drafts( $postdata, $post ) {
+			if ( 'campaign' === $post['post_type'] ) {
+				$postdata['post_status'] = 'draft';
+			}
+
+			return $postdata;
 		}
 	}
 }
