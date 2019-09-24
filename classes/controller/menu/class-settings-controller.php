@@ -19,8 +19,8 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 
 			if ( in_array( 'administrator', $current_user->roles, true ) || in_array( 'editor', $current_user->roles, true ) ) {
 				add_menu_page(
-					__( 'Media Library', 'planet4-medialibrary' ),
-					__( 'MediaLibrary', 'planet4-medialibrary' ),
+					__( 'GPI Media Library', 'planet4-medialibrary' ),
+					__( 'GPI Media Library', 'planet4-medialibrary' ),
 					'manage_options',
 					'mlsettings',
 					[ $this, 'prepare_settings' ],
