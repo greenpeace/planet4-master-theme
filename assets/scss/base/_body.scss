@@ -40,6 +40,18 @@ body {
 a {
   color: $blue;
 
+  .external_link {
+    height: .55rem;
+    width: .55rem;
+    margin-left: .3rem;
+    margin-right: .4rem;
+
+    html[dir="rtl"] & {
+      margin-left: .4rem;
+      margin-right: .3rem;
+    }
+  }
+
   &:hover {
     color: $blue;
     text-decoration: underline;
