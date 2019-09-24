@@ -69,5 +69,9 @@ div.page-template {
     section:first-child {
       padding-top: $n50;
     }
+
+    > p:last-child {
+      margin-bottom: $space-xxl;
+    }
   }
 }
