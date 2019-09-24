@@ -119,6 +119,11 @@ final class P4_Loader {
 			}
 		}
 
+		// Run P4_Activator after theme switched to planet4-master-theme or a planet4 child theme.
+		if ( get_option( 'theme_switched' ) ) {
+			$this->default_services[] = 'P4_Activator';
+		}
+
 		$services = array_merge( $services, $this->default_services );
 		if ( $services ) {
 			foreach ( $services as $service ) {
