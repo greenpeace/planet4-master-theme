@@ -6,8 +6,6 @@ const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const RemovePlugin = require('remove-files-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
-console.log('DIRECTORY: ', __dirname);
-
 const icons_config = {
   shape: {
     dimension: {
@@ -62,7 +60,7 @@ module.exports = {
         loader: 'svg-sprite-loader',
         options: {
           extract: true,
-          spriteFilename: '/images/symbol/svg/symbol.svg',
+          spriteFilename: '/images/symbol/svg/symbolB.svg',
           runtimeCompat: true
         }
       }

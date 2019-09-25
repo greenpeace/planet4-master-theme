@@ -7,7 +7,6 @@ export const setupCookies = function($) {
   }
 
   function readCookie(name) {
-    console.log("Reading cookie", name); // eslint-disable-line
     const nameEQ = name + '=';
     const ca = document.cookie.split(';');
     let c;
@@ -52,9 +51,3 @@ export const setupCookies = function($) {
     });
   });
 }
-
-// jQuery(function($) {
-//   'use strict';
-
-
-// });
