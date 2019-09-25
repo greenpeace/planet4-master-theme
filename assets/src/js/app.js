@@ -22,10 +22,6 @@ requireAll(require.context('../scss/styleguide/src/icons/', true, /\.svg$/));
 
 window.$ = $ || jQuery;
 
-console.log("Loaded"); // eslint-disable-line
-
-console.log(window.$); // eslint-disable-line
-
 jQuery(function($) {
   setupCookies($);
   setupAuthor($);
