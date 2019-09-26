@@ -228,7 +228,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 			if ( $this->validate( $attachment_id ) ) {
 				update_term_meta( $term_id, $field_id, $attachment_id );
 				update_term_meta( $term_id, $field_url, $attachment_url );
-				$happy_background_code = ' background="' . $attachment_id . '" ';
+				$happy_background_code = $attachment_id;
 			} else {
 				$happy_background_code = '';
 			}
@@ -250,13 +250,44 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				$tag_data = get_term( $term_id );
 
 				if ( $tag_data instanceof \WP_Term ) {
-					$post_content = '[shortcake_newcovers cover_type="1" tags="' . $term_id . '" covers_view="0" title="' . __( 'Things you can do', 'planet4-master-theme' ) . '"  description="' . __( 'We want you to take action because together we\'re strong.', 'planet4-master-theme' ) . '" /]
 
-[shortcake_articles tags="' . $term_id . '" ignore_categories="false" /]
+					$covers_block1_attributes = [
+						'title'       => __( 'Things you can do', 'planet4-master-theme' ),
+						'description' => __( 'We want you to take action because together we\'re strong.', 'planet4-master-theme' ),
+						'tags'        => [ $term_id ],
+						'posts'       => [],
+						'post_types'  => [],
+						'cover_type'  => '1',
+						'covers_view' => '0',
+					];
 
-[shortcake_newcovers cover_type="3" title="' . __( 'Publications', 'planet4-blocks' ) . '" tags="' . $term_id . '" post_types="62" covers_view="0" /]
+					$articles_block_attributes = [
+						'tags'              => [ $term_id ],
+						'ignore_categories' => false,
+					];
 
-[shortcake_happy_point ' . $happy_background_code . ' opacity="' . $happypoint_bg_opacity . '"/]';
+					$covers_block2_attributes = [
+						'title'       => __( 'Publications', 'planet4-blocks' ),
+						'tags'        => [ $term_id ],
+						'posts'       => [],
+						'post_types'  => [ 62 ],
+						'cover_type'  => '3',
+						'covers_view' => '0',
+					];
+
+					$happypoint_block_attributes = [
+						'mailing_list_iframe' => true,
+						'opacity'             => $happypoint_bg_opacity ?? 30,
+						'id'                  => $happy_background_code ?? '',
+					];
+
+					$post_content = $this->make_gutenberg_comment( 'planet4-blocks/covers', $covers_block1_attributes ) . '
+
+' . $this->make_gutenberg_comment( 'planet4-blocks/articles', $articles_block_attributes ) . '
+
+' . $this->make_gutenberg_comment( 'planet4-blocks/covers', $covers_block2_attributes ) . '
+
+' . $this->make_gutenberg_comment( 'planet4-blocks/happypoint', $happypoint_block_attributes );
 
 					$my_post = array(
 						'post_title'   => '#' . $tag_data->name,
@@ -369,6 +400,18 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				}
 			}
 			return true;
+		}
+
+		/**
+		 * Uses block's filtered/converted attributes and it's name to convert it to a gutenberg equivalent block.
+		 *
+		 * @param string $block_name Gutenberg block name.
+		 * @param array  $block_attributes block attribute array.
+		 *
+		 * @return string
+		 */
+		protected function make_gutenberg_comment( $block_name, $block_attributes ) {
+			return '<!-- wp:' . $block_name . ' ' . wp_json_encode( $block_attributes, JSON_UNESCAPED_SLASHES ) . ' /-->';
 		}
 
 		/**

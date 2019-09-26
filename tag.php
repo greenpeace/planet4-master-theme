@@ -10,11 +10,9 @@
  */
 
 use Timber\Timber;
-use P4BKS\Controllers\Blocks\Covers_Controller as Covers;
-use P4BKS\Controllers\Blocks\Articles_Controller as Articles;
-use P4BKS\Controllers\Blocks\ContentFourColumn_Controller as ContentFourColumn;
-use P4BKS\Controllers\Blocks\CampaignThumbnail_Controller as CampaignThumbnail;
-use P4BKS\Controllers\Blocks\HappyPoint_Controller as HappyPoint;
+use P4GBKS\Blocks\Covers;
+use P4GBKS\Blocks\Articles;
+use P4GBKS\Blocks\HappyPoint;
 
 $context = Timber::get_context();
 
@@ -68,21 +66,22 @@ if ( is_tag() ) {
 			[
 				'title'       => __( 'Things you can do', 'planet4-master-theme' ),
 				'description' => __( 'We want you to take action because together we\'re strong.', 'planet4-master-theme' ),
-				'select_tag'  => $context['tag']->term_id,
-				'covers_view' => '0',   // Show 6 covers in Campaign page.
+				'tags'        => [ $context['tag']->term_id ],
+				'cover_type'  => '1',   // Show Take Action Cover.
 			]
 		);
 
 		$campaign->add_block(
 			Articles::BLOCK_NAME,
 			[
-				'tags' => $context['tag']->term_id,
+				'tags' => [ $context['tag']->term_id ],
 			]
 		);
 
+		// Convert old CFC block to Covers block [Content Cover].
 		$cfc_args = [
-			'select_tag' => $context['tag']->term_id,
-			'posts_view' => '0',   // Show 1 row of posts.
+			'tags'       => [ $context['tag']->term_id ],
+			'cover_type' => '3',
 		];
 
 		// Get the selected page types for this campaign so that we add posts in the CFC block only for those page types.
@@ -91,18 +90,17 @@ if ( is_tag() ) {
 			foreach ( $selected_page_types[0] as $selected_page_type ) {
 				$cfc_args[ "p4_page_type_$selected_page_type" ] = 'true';
 			}
-		} else {
-			// If none is selected, then display Publications by default (for backwards compatibility).
-			$cfc_args['p4_page_type_publication'] = 'true';
 		}
 
-		$campaign->add_block( ContentFourColumn::BLOCK_NAME, $cfc_args );
+		$campaign->add_block( Covers::BLOCK_NAME, $cfc_args );
 
+		// Convert old CampaignThumbnail block to Covers block[Campaign covers].
 		$campaign->add_block(
-			CampaignThumbnail::BLOCK_NAME,
+			Covers::BLOCK_NAME,
 			[
 				'title'       => __( 'Related Campaigns', 'planet4-master-theme' ),
 				'category_id' => $category->term_id ?? __( 'This Campaign is not assigned to an Issue', 'planet4-master-theme' ),
+				'cover_type'  => '2', // Show Campaign covers.
 			]
 		);
 
@@ -114,12 +112,10 @@ if ( is_tag() ) {
 		$campaign->add_block(
 			HappyPoint::BLOCK_NAME,
 			[
-				'background'          => $background,
-				'background_html'     => wp_get_attachment_image( $background ),
-				'background_src'      => wp_get_attachment_image_src( $background, 'full' ),
+				'mailing_list_iframe' => true,
+				'id'                  => $background,
 				'engaging_network_id' => $options['engaging_network_form_id'] ?? '',
 				'opacity'             => $opacity,
-				'mailing_list_iframe' => 'true',
 			]
 		);
 
