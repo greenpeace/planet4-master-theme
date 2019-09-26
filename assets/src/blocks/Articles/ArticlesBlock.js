@@ -80,6 +80,12 @@ export class ArticlesBlock {
                   return attributes.named.tags ? attributes.named.posts.split(',') : [];
                 }
               },
+              exclude_post_id: {
+                type: 'integer',
+                shortcode: function (attributes) {
+                  return Number(attributes.named.exclude_post_id);
+                }
+              },
             },
           },
         ]
@@ -118,7 +124,11 @@ export class ArticlesBlock {
         button_link_new_tab: {
           type: 'boolean',
           default: false
-        }
+        },
+        exclude_post_id: {
+          type: 'integer',
+          default: ''
+        },
       },
       // withSelect is a "Higher Order Component", it works as
       // a Decorator, it will provide some basic API functionality
