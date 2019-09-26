@@ -253,7 +253,7 @@ export class ENForm extends Component {
         }
         <Preview showBar={this.props.isSelected} isSelected={this.props.isSelected}>
           <ServerSideRender
-            block={'planet4-gutenberg-engagingnetworks/enform'}
+            block={'planet4-blocks/enform'}
             attributes={{
               en_page_id: this.props.en_page_id,
               en_form_id: this.props.en_form_id,
