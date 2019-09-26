@@ -22,10 +22,10 @@ $post            = Timber::query_post( false, 'P4_Post' );
 $context['post'] = $post;
 
 // Strip Take Action Boxout block from the post content to add outside the normal block container.
-if ( false !== strpos( $post->post_content, '[shortcake_take_action_boxout' ) ) {
+if ( false !== strpos( $post->post_content, '<!-- wp:planet4-blocks/take-action-boxout' ) ) {
 
-	$take_action_boxout_block_start  = strpos( $post->post_content, '[shortcake_take_action_boxout' );
-	$take_action_boxout_block_end    = strpos( $post->post_content, ']', $take_action_boxout_block_start );
+	$take_action_boxout_block_start  = strpos( $post->post_content, '<!-- wp:planet4-blocks/take-action-boxout' );
+	$take_action_boxout_block_end    = strpos( $post->post_content, '/-->', $take_action_boxout_block_start ) + 3;
 	$take_action_boxout_block_length = $take_action_boxout_block_end - $take_action_boxout_block_start + 1;
 	$take_action_boxout_block        = substr( $post->post_content, $take_action_boxout_block_start, $take_action_boxout_block_length );
 
@@ -65,7 +65,11 @@ $context['filter_url'] = add_query_arg(
 
 // Build the shortcode for articles block.
 if ( 'yes' === $post->include_articles ) {
-	$post->articles = "[shortcake_articles exclude_post_id='" . $post->ID . "' /]";
+	$block_attributes = [
+		'exclude_post_id' => $post->ID,
+	];
+
+	$post->articles = '<!-- wp:planet4-blocks/articles ' . wp_json_encode( $block_attributes, JSON_UNESCAPED_SLASHES ) . ' /-->';
 }
 
 // Build the shortcode for take action boxout block
@@ -73,8 +77,13 @@ if ( 'yes' === $post->include_articles ) {
 if ( isset( $take_action_boxout_block ) ) {
 	$post->take_action_boxout = $take_action_boxout_block;
 } elseif ( ! empty( $take_action_page ) ) {
-	$post->take_action_page   = $take_action_page;
-	$post->take_action_boxout = "[shortcake_take_action_boxout take_action_page='$take_action_page' /]";
+	$post->take_action_page = $take_action_page;
+
+	$block_attributes = [
+		'take_action_page' => $post->ID,
+	];
+
+	$post->take_action_boxout = '<!-- wp:planet4-blocks/take-action-boxout ' . wp_json_encode( $block_attributes, JSON_UNESCAPED_SLASHES ) . ' /-->';
 }
 
 // Build an arguments array to customize WordPress comment form.
