@@ -50,6 +50,7 @@
   text-align: center;
   transition: margin 1s;
   clear: both;
+  line-height: 0;
 
   @include medium-and-up {
     padding: $n25 0 $n20;
@@ -66,6 +67,10 @@
   a {
     color: inherit;
   }
+
+  li {
+    line-height: 1;
+  }
 }
 
 .footer-social-media {
@@ -73,6 +78,8 @@
   font-size: $font-size-xl;
   margin: auto;
   text-align: center;
+  width: max-content;
+  margin-bottom: 16px;
 
   @include small-and-up {
     font-size: $font-size-xxxl;
@@ -87,7 +94,7 @@
 
   li {
     display: inline-block;
-    margin: 0 $n10;
+    margin: 0 8px 0 0;
   }
 
   a {
@@ -128,13 +135,12 @@
   color: $white;
   font-weight: bold;
   font-size: $font-size-md;
-  line-height: 3;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 
   @include medium-and-up {
     font-size: $font-size-sm;
-    margin-bottom: 0;
+    margin-bottom: 16px;
   }
 
   @include large-and-up {
@@ -144,7 +150,6 @@
 
 .footer-links-secondary {
   color: $grey-10;
-  line-height: 2.5;
   text-transform: uppercase;
   margin-bottom: 30px;
 
@@ -209,7 +214,7 @@
     font-size: $font-size-xl;
     margin: auto;
     text-align: center;
-    width: 12.5rem;
+    width: max-content;
 
     @supports (justify-content: space-between) {
       & {
@@ -220,7 +225,7 @@
 
     li {
       display: inline-block;
-      margin: 0;
+      margin: 0 8px 0 0;
     }
 
     a {
