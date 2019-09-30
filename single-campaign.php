@@ -48,8 +48,9 @@ $footer_links_color = 'light' === $post->campaign_logo_color ? '#FFFFFF' : '#1A1
 $footer_theme = $post->campaign_footer_theme ?? null;
 
 if ( 'white' == $footer_theme ) {
-	$footer_links_color = $post->campaign_nav_color ?? '#1A1A1A';
-	$footer_color       = '#FFFFFF';
+	$default_footer_links_color = $post->campaign_nav_color ?? '#1A1A1A';
+	$footer_links_color         = $post->footer_links_color ?? $default_footer_links_color;
+	$footer_color               = '#FFFFFF';
 } else {
 	$footer_color = $post->campaign_nav_color ?? null;
 }
