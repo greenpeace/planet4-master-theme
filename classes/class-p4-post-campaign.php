@@ -89,6 +89,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'hierarchical'       => false,
 				'menu_position'      => null,
 				'menu_icon'          => 'dashicons-megaphone',
+				'show_in_rest'       => true,
 				'supports'           => [ 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'revisions' ],
 			);
 
