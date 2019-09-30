@@ -1,0 +1,85 @@
+<article class="article-list-item {% for tag in recent_post.tags %}tag-{{ tag.slug|e('wp_kses_post') }} {% endfor %}" >
+	{% if recent_post.thumbnail_ratio < 1 %}
+		<div class="article-list-item-image">
+			<div class="article-image-holder">
+				<a href="{{ recent_post.link }}">
+					<img class="d-flex topicwise-article-image" src="{{ fn('get_the_post_thumbnail_url', recent_post.ID, 'articles-medium-large' ) }}" alt="{{ recent_post.alt_text }}">
+				</a>
+			</div>
+		</div>
+	{% else %}
+		<div class="article-list-item-image article-list-item-image-max-width">
+			<a href="{{ recent_post.link }}">
+				<img class="d-flex topicwise-article-image" src="{{ fn('get_the_post_thumbnail_url', recent_post.ID, 'articles-medium-large' )  }}" alt="{{ recent_post.alt_text }}">
+			</a>
+		</div>
+	{% endif %}
+
+	<div class="article-list-item-body">
+		{% set is_campaign = ( 'campaign' == fn( 'get_post_type' ) ) %}
+
+		{% if ( recent_post.tags or recent_post.page_type or recent_post.page_types ) %}
+			<div class="article-list-item-tags top-page-tags">
+				{% if ( recent_post.page_type ) %}
+					{% if is_campaign %}
+						<span class="tag-item tag-item--main page-type page-type-{{ recent_post.page_type|replace(' ', '_')|lower }}">{{ recent_post.page_type|e('wp_kses_post')|raw }}</span>
+					{% else %}
+						<a class="tag-item tag-item--main page-type page-type-{{ recent_post.page_type|replace(' ', '_')|lower }}" href="{{ fn( 'get_term_link', recent_post.page_type_id ) }}">{{ recent_post.page_type|e('wp_kses_post')|raw }}</a>
+					{% endif %}
+				{% else %}
+					{% for page_type in recent_post.page_types %}
+						{% if is_campaign %}
+							<span class="tag-item tag-item--main page-type page-type-{{ page_type.name|replace(' ', '_')|lower }}">{{ page_type.name|e('wp_kses_post')|raw }}</span>
+						{% else %}
+							<a class="tag-item tag-item--main page-type page-type-{{ page_type.name|replace(' ', '_')|lower }}" href="{{ page_type.link }}">{{ page_type.name|e('wp_kses_post')|raw }}</a>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+
+				{% if (recent_post.tags) %}
+					<div class="tag-wrap tags">
+						{% for tag in recent_post.tags %}
+							<a class="tag-item tag" href="{{ tag.link }}">#{{ tag.name|e('wp_kses_post')|raw }}</a>
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
+		{% endif %}
+
+		<header>
+			{% if ( recent_post.post_title ) %}
+				<h4 class="article-list-item-headline">
+					<a href="{{ recent_post.link }}">{{ recent_post.post_title }}</a>
+				</h4>
+			{% endif %}
+			<p class="article-list-item-meta">
+				{% if ( recent_post.author_name ) %}
+					<span class="article-list-item-author">{{ __( 'by', 'planet4-blocks' ) }}
+						{% if ( recent_post.author_override or is_campaign ) %}
+							{{ recent_post.author_name }}
+						{% else %}
+							<a href="{{ recent_post.author_url }}">{{ recent_post.author_name }}</a>
+						{% endif %}
+					</span>
+				{% elseif recent_post.author %}
+					<span class="article-list-item-author">{{ __( 'by', 'planet4-blocks' ) }}
+						{% if ( recent_post.author.is_fake or is_campaign ) %}
+							{{ recent_post.author.name }}
+						{% else %}
+							<a href="{{ recent_post.author.link }}">{{ recent_post.author.name }}</a>
+						{% endif %}
+					</span>
+				{% endif %}
+				{% if ( recent_post.post_date ) %}
+					<time class="article-list-item-date" datetime="">{{ recent_post.post_date|date }}</time>
+				{% endif %}
+			</p>
+		</header>
+
+		{% if ( recent_post.post_excerpt ) %}
+			<p class="article-list-item-content">
+				{{ recent_post.post_excerpt|excerpt( 30 )|e('wp_kses_post')|raw }}
+			</p>
+		{% endif %}
+	</div>
+</article>
