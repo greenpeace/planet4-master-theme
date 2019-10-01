@@ -79,7 +79,7 @@
   margin: auto;
   text-align: center;
   width: max-content;
-  margin-bottom: 16px;
+  margin-bottom: 32px;
 
   @include small-and-up {
     font-size: $font-size-xxxl;
@@ -94,7 +94,7 @@
 
   li {
     display: inline-block;
-    margin: 0 8px 0 0;
+    margin: 0 16px 0 0;
   }
 
   a {
@@ -225,7 +225,7 @@
 
     li {
       display: inline-block;
-      margin: 0 8px 0 0;
+      margin: 0 16px 0 0;
     }
 
     a {
