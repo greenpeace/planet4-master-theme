@@ -374,14 +374,20 @@ final class Loader {
 	 * @return array
 	 */
 	public function register_block_category( $categories ) {
+		// get_block_categories method at wp-admin/includes/post.php has some hardcoded (!!!) default categories
+		// index 0 holds common blocks menu entry data, so it seems safe to do the bellow array operations.
+		$common = [
+			$categories[0],
+		];
+
+		$categories[0] = [
+			'slug'  => 'planet4-blocks',
+			'title' => __( 'Planet 4 Blocks', 'planet4-blocks' ),
+		];
+
 		return array_merge(
-			$categories,
-			[
-				[
-					'slug'  => 'planet4-blocks',
-					'title' => __( 'Planet4 Blocks', 'planet4-blocks' ),
-				],
-			]
+			$common,
+			$categories
 		);
 	}
 
