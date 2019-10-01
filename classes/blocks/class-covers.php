@@ -122,6 +122,11 @@ class Covers extends Base_Block {
 
 		$covers_view = isset( $fields['covers_view'] ) ? intval( $fields['covers_view'] ) : 1;
 
+		// Enqueue js for the frontend.
+		if ( ! $this->is_rest_request() ) {
+			wp_enqueue_script( 'covers', P4GBKS_PLUGIN_URL . 'public/js/load_more.js', [ 'jquery' ], '0.1', true );
+		}
+
 		$data = [
 			'fields'      => $fields,
 			'covers'      => $covers,
