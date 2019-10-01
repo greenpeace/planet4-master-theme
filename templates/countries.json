@@ -408,6 +408,16 @@
     }
   ],
   "P": [
+		{
+			"name": "Peru",
+			"codes": ["PE"],
+			"lang": [
+				{
+					"name": "Español",
+					"url": "https://www.greenpeace.org/peru/"
+				}
+			]
+		},
     {
       "name": "Philippines",
       "codes": ["PH"],
