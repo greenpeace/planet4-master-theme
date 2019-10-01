@@ -184,7 +184,7 @@ class Articles extends Base_Block {
 		// Enqueue js for the frontend.
 		if ( ! $this->is_rest_request() ) {
 			wp_enqueue_script( 'load-more', P4GBKS_PLUGIN_URL . 'public/js/load_more.js', [ 'jquery' ], '0.3', true );
-			wp_localize_script( 'load-more', 'more_url', [ '/wp-admin/admin-ajax.php' ] );
+			wp_localize_script( 'load-more', 'more_url', [ admin_url( 'admin-ajax.php' ) ] );
 		}
 
 		$dataset = urldecode( http_build_query( $args, '', ' ' ) );
