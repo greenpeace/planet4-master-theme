@@ -23,7 +23,7 @@
 		<meta property="og:type" content="article" />
 		<meta property="og:url" content="{{ current_url }}" />
 		{% if (og_description) %}
-			<meta property="og:description" content="{{ og_description|e('html_attr')|raw }}" />
+			<meta property="og:description" content="{{ og_description|striptags }}" />
 		{% endif %}
 		{% if (og_image_data) %}
 			<meta property="og:image" content="{{ og_image_data[0] }}" />
