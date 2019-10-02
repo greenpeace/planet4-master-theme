@@ -88,6 +88,7 @@ final class Loader {
 	private function __construct( $services, $view_class ) {
 
 		$this->load_files();
+		$this->load_commands();
 		$this->check_requirements();
 
 		// Load Blocks.
@@ -163,7 +164,7 @@ final class Loader {
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			try {
 				WP_CLI::add_command(
-					'p4-blocks',
+					'p4-gblocks',
 					'P4GBKS\Command\Controller'
 				);
 			} catch ( \Exception $e ) {
