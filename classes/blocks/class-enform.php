@@ -58,9 +58,8 @@ class ENForm extends Base_Block {
 		// - Register the block for the editor
 		// in the PHP side.
 		register_block_type(
-			'planet4-gutenberg-engagingnetworks/enform',
+			'planet4-blocks/enform',
 			[
-				'editor_script'   => 'planet4-gutenberg-engagingnetworks/enform',
 				'render_callback' => [ $this, 'render' ],
 				'attributes'      => [
 					'en_page_id'    			         => [

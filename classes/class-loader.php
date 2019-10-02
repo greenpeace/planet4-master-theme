@@ -322,7 +322,7 @@ final class Loader {
 				'wp-data',        // - WP data helpers
 				'wp-i18n',        // - Exports the __() function
 			],
-			'0.1',
+			'0.1.1',
 			true
 		);
 
@@ -466,15 +466,27 @@ final class Loader {
 	 * @return array
 	 */
 	public function register_block_category( $categories ) {
-		return array_merge(
-			$categories,
-			[
+		$register_block_category = true;
+		// Check 'planet4-blocks' category already exists.
+		foreach ( $categories as $category ) {
+			if ( 'planet4-blocks' === $category['slug'] ) {
+				$register_block_category = false;
+			}
+		}
+
+		if ( true === $register_block_category ) {
+			return array_merge(
+				$categories,
 				[
-					'slug'  => 'planet4-gutenberg-engagingnetworks',
-					'title' => __( 'Planet4 EN Blocks', 'planet4-gutenberg-engagingnetworks' ),
-				],
-			]
-		);
+					[
+						'slug'  => 'planet4-blocks',
+						'title' => __( 'planet4-blocks', 'planet4-gutenberg-engagingnetworks' ),
+					],
+				]
+			);
+		} else {
+			return $categories;
+		}
 	}
 
 	/**

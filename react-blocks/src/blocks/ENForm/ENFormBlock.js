@@ -4,10 +4,10 @@ export class ENFormBlock {
   constructor() {
     const {registerBlockType} = wp.blocks;
 
-    registerBlockType('planet4-gutenberg-engagingnetworks/enform', {
+    registerBlockType('planet4-blocks/enform', {
       title: 'EN Form',
       icon: 'feedback',
-      category: 'planet4-gutenberg-engagingnetworks',
+      category: 'planet4-blocks',
 
       // Transform the shortcode into a Gutenberg block
       // this is used when a user clicks "Convert to blocks"
