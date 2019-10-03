@@ -10,7 +10,7 @@ export class SplittwocolumnsBlock {
 
       registerBlockType( 'planet4-blocks/split-two-columns', {
         title: __('Split Two Columns', 'p4ge'),
-        icon: 'format-gallery',
+        icon: 'editor-table',
         category: 'planet4-blocks',
         /**
          * Transforms old 'shortcake' shortcode to new gutenberg block.

@@ -6,7 +6,7 @@ export class CookiesBlock {
 
     registerBlockType('planet4-blocks/cookies', {
       title: 'Cookies',
-      icon: 'visibility',
+      icon: 'welcome-view-site',
       category: 'planet4-blocks',
       supports: {
         multiple: false, // Use the block just once per post.

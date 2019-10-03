@@ -7,7 +7,7 @@ export class ArticlesBlock {
 
     registerBlockType('planet4-blocks/articles', {
       title: 'Articles',
-      icon: 'welcome-widgets-menus',
+      icon: 'excerpt-view',
       category: 'planet4-blocks',
 
       // Transform the shortcode into a Gutenberg block

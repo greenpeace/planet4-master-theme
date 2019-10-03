@@ -7,7 +7,7 @@ export class SocialmediaBlock {
 
     registerBlockType('planet4-blocks/social-media', {
       title: __('Social Media', 'p4ge'),
-      icon: 'welcome-widgets-menus',
+      icon: 'share',
       category: 'planet4-blocks',
 
       // Transform the shortcode into a Gutenberg block
