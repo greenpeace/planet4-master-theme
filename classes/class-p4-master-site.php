@@ -151,6 +151,8 @@ class P4_Master_Site extends TimberSite {
 		);
 
 		add_action( 'init', [ $this, 'login_redirect' ], 1 );
+
+		add_filter( 'redirect_canonical', [ $this, 'no_guess_redirect' ] );
 	}
 
 	/**
@@ -857,6 +859,22 @@ class P4_Master_Site extends TimberSite {
 		}
 
 		return $cache;
+	}
+
+	/**
+	 * Filter function to disable WordPress redirect guessing.
+	 *
+	 * @see https://core.trac.wordpress.org/ticket/16557
+	 *
+	 * @param string $redirect_url The redirect URL.
+	 *
+	 * @return mixed
+	 */
+	public function no_guess_redirect( $redirect_url ) {
+		if ( is_404() ) {
+			return false;
+		}
+		return $redirect_url;
 	}
 
 }
