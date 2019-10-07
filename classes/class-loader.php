@@ -104,6 +104,7 @@ final class Loader {
 			new Blocks\SocialMedia(),
 			new Blocks\SplitTwoColumns(),
 			new Blocks\SubMenu(),
+			new Blocks\TakeActionBoxout(),
 			new Blocks\Timeline(),
 		];
 	}

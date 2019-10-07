@@ -10,6 +10,10 @@ export class ImageOrButton extends Component {
   render() {
     const {__} = wp.i18n;
 
+    if ( typeof this.props.disabled == 'undefined' ) {
+      this.props.disabled = false;
+    }
+
     const getImageOrButton = (openEvent) => {
       if ( this.props.imageId ) {
 
@@ -28,7 +32,8 @@ export class ImageOrButton extends Component {
           <div className='button-container'>
             <Button
               onClick={ openEvent }
-              className='button'>
+              className='button'
+              disabled={ this.props.disabled }>
               { this.props.buttonLabel }
             </Button>
 

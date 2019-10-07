@@ -1,0 +1,28 @@
+{% block take_action_boxout %}
+
+    {% if ( boxout ) %}
+
+        {% if ( boxout.image ) %}
+            {% set bg_image = 'style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)), url(\''~boxout.image~'\');"' %}
+        {% else %}
+            {% set bg_image = '' %}
+        {% endif %}
+        <section id="action-card" class="cover-card single-cover dark-card-bg action-card" {{ bg_image|raw }}>
+            {% if ( boxout.campaigns ) %}
+                {% for campaign in boxout.campaigns %}
+                    <a href="{{ campaign.link|default('#') }}" class="cover-card-tag">#{{ campaign.name|e('wp_kses_post')|raw }}</a>
+                {% endfor %}
+            {% endif %}
+            {% if ( boxout.title ) %}
+                <h2 class="cover-card-heading">{{ boxout.title|e('wp_kses_post')|raw }}</h2>
+            {% endif %}
+            {% if ( boxout.excerpt ) %}
+                <p>{{ boxout.excerpt|e('wp_kses_post')|excerpt(25)|raw }}</p>
+            {% endif %}
+            {% if ( boxout.link ) %}
+                <a class="btn btn-action btn-block cover-card-btn" {{  'true' == boxout.new_tab ? 'target="_blank"' }} href="{{ boxout.link }}">{{ boxout.link_text }}</a>
+            {% endif %}
+        </section>
+    {% endif %}
+
+{% endblock %}
