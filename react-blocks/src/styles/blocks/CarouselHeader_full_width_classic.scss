@@ -1,0 +1,735 @@
+// $slide-transition-speed should match SLIDE_TRANSITION_SPEED in carousel-header.js
+$slide-transition-speed: .3s;
+$text-slide-offset: 50px;
+
+$mobile-image-height: 280px;
+$medium-image-height: 600px;
+
+// 0% and 20% are equal to simulate a delay without using animation-delay
+@keyframes initial-header-animation {
+  0% {
+    transform: translateX(550px);
+  }
+
+  20% {
+    transform: translateX(550px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+// 0% and 40% are equal to simulate a delay without using animation-delay
+@keyframes initial-paragraph-animation {
+  0% {
+    transform: translateX(550px);
+  }
+
+  40% {
+    transform: translateX(550px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+// 0% and 50% are equal to simulate a delay without using animation-delay
+@keyframes initial-cta-animation {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes texts-from-right-animation {
+  from {
+    transform: translateX($text-slide-offset);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes texts-from-left-animation {
+  from {
+    transform: translateX(-$text-slide-offset);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.carousel-header_full-width-classic {
+  position: relative;
+  width: 100vw;
+
+  .carousel-inner {
+    position: relative;
+    overflow: visible;
+    height: 580px;
+    padding-bottom: 0;
+
+    @include medium-and-up {
+      height: 960px;
+    }
+
+    @include large-and-up {
+      height: 620px;
+    }
+
+    .backgrounds-holder {
+      @include fill-container;
+
+      div {
+        @include fill-container;
+        z-index: 500;
+        display: none;
+      }
+    }
+  }
+
+  .carousel-item {
+    display: block;
+    pointer-events: none;
+    height: $mobile-image-height;
+    position: absolute;
+    top: 0;
+    background-size: cover;
+    opacity: 0;
+    z-index: 3500;
+
+    @include medium-and-up {
+      height: $medium-image-height;
+    }
+
+    @include large-and-up {
+      height: 100%;
+    }
+
+    img {
+      display: none;
+    }
+
+    &.initial {
+      display: block;
+      left: 0;
+      z-index: 2000;
+      opacity: 1;
+      transition: unset;
+
+      .carousel-item-mask {
+        width: 100%;
+      }
+
+      .carousel-caption .main-header {
+        h1, h2, h3 {
+          animation-name: initial-header-animation;
+          animation-duration: 1s;
+          animation-timing-function: ease-in-out;
+          animation-iteration-count: 1;
+        }
+
+        p {
+          animation-name: initial-paragraph-animation;
+          animation-duration: 1s;
+          animation-timing-function: ease-in-out;
+          animation-iteration-count: 1;
+        }
+
+        .action-button {
+          animation-name: initial-cta-animation;
+          animation-duration: 2s;
+          animation-timing-function: ease-in-out;
+          animation-iteration-count: 1;
+        }
+      }
+    }
+
+    .carousel-item-mask {
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .background-holder {
+      width: 100vw;
+      height: $mobile-image-height;
+      background-size: cover;
+
+      @include medium-and-up {
+        height: $medium-image-height;
+      }
+
+      @include large-and-up {
+        height: 100%;
+      }
+
+      // Darken background
+      &::after {
+        @include fill-container;
+        content: "";
+        background: none;
+
+        @include large-and-up {
+          background: rgba(30, 30, 30, 0.45);
+        }
+      }
+    }
+
+    &.active {
+      display: block;
+      left: 0;
+      z-index: 2000;
+      opacity: 1;
+      transition: unset;
+      pointer-events: all;
+
+      .carousel-item-mask {
+        width: 100%;
+      }
+
+      .carousel-caption .main-header {
+        h1, h2, h3, p {
+          transform: translateX(0);
+          transition: unset;
+        }
+
+        .action-button {
+          opacity: 1;
+        }
+      }
+    }
+
+    &.slide-left {
+      .carousel-item-mask {
+        width: 0;
+        transition: width $slide-transition-speed;
+      }
+    }
+
+    &.slide-right {
+      .carousel-item-mask {
+        width: 0;
+        margin-left: auto;
+        right: 0;
+
+        html[dir="rtl"] & {
+          right: auto;
+          margin-left: 0;
+          margin-right: auto;
+          left: 0;
+        }
+
+        transition: width $slide-transition-speed;
+
+        // This "width + overflow: hidden" reveal trick depends on
+        // the direction property to allow masking content from the left, see:
+        // https://stackoverflow.com/questions/22126759/how-to-cut-off-overflow-on-the-left-side?rq=1
+        //
+        // It exists as a workaround for `clip-path` which is not yet well supported on Safari & Firefox.
+        // TODO: Remove in favor of `clip-path` when supported in all major browsers
+        // Check for compatibility: https://caniuse.com/#feat=css-clip-path
+        direction: rtl;
+      }
+
+      .carousel-item-mask * {
+        direction: ltr;
+      }
+    }
+
+    &.prev {
+      z-index: 1000;
+      display: block;
+      opacity: 1;
+
+      .carousel-caption .main-header .carousel-captions-wrapper {
+        h1, h2, h3, p {
+          animation-name: texts-from-left-animation;
+          animation-duration: $slide-transition-speed;
+          animation-timing-function: ease-in-out;
+          animation-iteration-count: 1;
+
+          html[dir="rtl"] & {
+            animation-name: texts-from-right-animation;
+          }
+        }
+      }
+    }
+
+    &.next {
+      z-index: 1000;
+      display: block;
+      opacity: 1;
+
+      .carousel-caption .main-header .carousel-captions-wrapper {
+        h1, h2, h3, p {
+          animation-name: texts-from-right-animation;
+          animation-duration: $slide-transition-speed;
+          animation-timing-function: ease-in-out;
+          animation-iteration-count: 1;
+
+          html[dir="rtl"] & {
+            animation-name: texts-from-left-animation;
+          }
+        }
+      }
+    }
+
+    .carousel-caption {
+      display: block;
+      position: relative;
+      z-index: 2500;
+      text-align: left;
+      left: 0;
+      right: 0;
+      top: $mobile-image-height;
+      padding-top: 24px;
+      padding-bottom: 24px;
+      padding-left: 24px;
+      padding-right: 24px;
+      background: $white;
+      height: auto;
+
+      @include medium-and-up {
+        top: $medium-image-height;
+        padding-top: $n40;
+        padding-left: $n40;
+        padding-right: $n40;
+      }
+
+      @include large-and-up {
+        display: block;
+        position: relative;
+        top: 0;
+        left: 0;
+        padding: 0 0 $n60 0;
+        padding-bottom: 0;
+        background: none;
+        height: 100%;
+      }
+
+      .carousel-captions-wrapper {
+        @include medium-and-up {
+          width: #{460 + ($text-slide-offset * 2)};
+        }
+        @include large-and-up {
+          width: #{320 + ($text-slide-offset * 2)};
+        }
+        @include x-large-and-up {
+          width: #{480 + ($text-slide-offset * 2)};
+        }
+        overflow: hidden;
+        margin-left: -$text-slide-offset;
+        padding-left: $text-slide-offset;
+        margin-right: -$text-slide-offset;
+        padding-right: $text-slide-offset;
+      }
+
+      .caption-overlay {
+        display: none;
+        background: url("../../../public/images/carousel-blurred-overlay.png");
+        background-position: bottom right;
+        background-size: cover;
+        height: 100%;
+        width: 50%;
+        position: absolute;
+        opacity: 0;
+
+        html[dir="rtl"] & {
+          background-position: bottom left;
+        }
+
+        @include large-and-up {
+          display: block;
+          opacity: 1;
+        }
+
+        @include x-large-and-up {
+          width: 580px;
+        }
+      }
+
+      .main-header {
+        color: $article-heading-color;
+        padding-top: 0;
+        padding-bottom: 0;
+        height: 100%;
+
+        @include large-and-up {
+          padding-left: $n30;
+          padding-right: 0;
+          padding-top: 180px;
+          padding-bottom: 32px;
+
+          html[dir="rtl"] & {
+            text-align: right;
+            padding-right: $n30;
+          }
+        }
+
+        @include x-large-and-up {
+          padding-left: 0;
+          padding-right: 0;
+          padding-top: 180px;
+          padding-bottom: 54px;
+        }
+
+        h1, h2, h3 {
+          width: 100%;
+          font-weight: bold;
+          color: $black;
+          padding-left: 0;
+          transition: unset;
+          transform: translateX($text-slide-offset);
+        }
+
+        h1 {
+          font-size: 1.62rem;
+          margin-bottom: 18px;
+          line-height: 1.2;
+
+          html[dir="rtl"] & {
+            text-align: right;
+            padding-right: 0;
+          }
+
+          @include small-and-up {
+            font-size: $font-size-xl;
+          }
+
+          @include medium-and-up {
+            font-size: 2.25rem;
+            margin-bottom: 24px;
+          }
+
+          @include large-and-up {
+            max-width: 100%;
+            width: 100%;
+            color: $white;
+            margin-bottom: 32px;
+            line-height: 1.2;
+            font-size: $font-size-xxl;
+          }
+
+          @include x-large-and-up {
+            font-size: $font-size-xxxl;
+            line-height: 1.1;
+            max-width: 100%;
+            width: 100%;
+          }
+        }
+
+        h2 {
+          font-size: $font-size-lg;
+          margin-bottom: 10px;
+          line-height: 1.2;
+          transform: translateX($text-slide-offset);
+
+          html[dir="rtl"] & {
+            text-align: right;
+            padding-right: 0;
+          }
+
+          @include medium-and-up {
+            font-size: $font-size-xl;
+            margin-bottom: 18px;
+          }
+
+          @include large-and-up {
+            line-height: 1.2;
+            color: $white;
+            max-width: 100%;
+            width: 100%;
+          }
+
+          @include x-large-and-up {
+            font-size: $font-size-xxl;
+            margin-bottom: 24px;
+          }
+        }
+
+        h3 {
+          font-size: $font-size-md;
+          margin-bottom: 8px;
+          line-height: 1.2;
+
+          html[dir="rtl"] & {
+            text-align: right;
+            padding-right: 0;
+          }
+
+          @include medium-and-up {
+            font-size: $font-size-lg;
+            margin-bottom: 12px;
+          }
+
+          @include large-and-up {
+            line-height: 1.2;
+            color: $white;
+            max-width: 100%;
+            width: 100%;
+          }
+
+          @include x-large-and-up {
+            font-size: $font-size-xl;
+            margin-bottom: 18px;
+          }
+        }
+
+        p {
+          display: block;
+          color: $black;
+          font-family: $roboto;
+          font-size: .875rem;
+          font-weight: 500;
+          line-height: 22px;
+          width: 100%;
+          text-align: left;
+          padding-left: 0;
+          margin-bottom: 24px;
+          max-width: 100%;
+
+          html[dir="rtl"] & {
+            text-align: right;
+            padding-right: 0;
+          }
+
+          transform: translateX($text-slide-offset);
+
+          @include small-and-up {
+            font-size: $font-size-sm;
+          }
+
+          @include medium-and-up {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            display: block;
+          }
+
+          @include large-and-up {
+            font-size: 1.125rem;
+            margin-bottom: 36px;
+            color: $white;
+          }
+
+          @include x-large-and-up {
+            font-size: 1.125rem;
+            line-height: 1.6;
+          }
+        }
+
+        .action-button {
+          left: 0;
+          right: 0;
+          position: relative;
+          font-family: $roboto;
+          width: 100%;
+          bottom: inherit;
+          margin-bottom: 24px;
+          text-align: center;
+          max-width: 100%;
+          padding-left: 0;
+          padding-right: 0;
+
+          @include small-and-up {
+            width: auto;
+            bottom: inherit;
+            position: relative;
+          }
+
+          @include medium-and-up {
+            text-align: left;
+            position: inherit;
+            bottom: 60px;
+            margin-top: 0;
+            margin-left: 0;
+            width: auto;
+
+            html[dir="rtl"] & {
+              text-align: right;
+              margin-left: auto;
+              margin-right: 0;
+            }
+          }
+
+          .btn {
+            font-size: $font-size-xxs;
+            line-height: 58px;
+            width: auto;
+            min-width: 240px;
+            max-width: 100%;
+            padding-left: 24px;
+            padding-right: 24px;
+            height: 60px;
+            letter-spacing: 1px;
+            font-weight: 900;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            html[dir="rtl"] & {
+              font-size: 1.175rem;
+              line-height: 2.5;
+            }
+
+            @include small-and-up {
+              height: 54px;
+              line-height: 51px;
+            }
+
+            @include medium-and-up {
+              font-size: $font-size-sm;
+              min-width: 280px;
+
+              html[dir="rtl"] & {
+                font-size: 1.3rem;
+                line-height: 2.5;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .carousel-control-prev {
+    display: none;
+    z-index: 4000;
+    margin-left: 0;
+
+    @include large-and-up {
+      display: flex;
+      top: 50%;
+      margin-top: -46px;
+      height: 92px;
+      width: 78px;
+      transition: transform .2s, background-color .2s;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, .15);
+        transform: translateX(-5px);
+      }
+    }
+
+    .carousel-control-prev-icon {
+      display: none;
+      text-align: center;
+      width: 24px;
+      height: 46px;
+      background: url("../../../public/images/carousel-arrow-prev.png");
+      background-size: cover;
+
+      @include large-and-up {
+        display: block;
+        margin: auto;
+      }
+    }
+  }
+
+  .carousel-control-next {
+    display: none;
+    margin-right: 0;
+    z-index: 4000;
+
+    @include large-and-up {
+      top: 50%;
+      display: flex;
+      margin-top: -46px;
+      height: 92px;
+      width: 78px;
+      transition: transform .2s, background-color .2s;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, .15);
+        transform: translateX(5px);
+      }
+    }
+
+    .carousel-control-next-icon {
+      text-align: center;
+      width: 24px;
+      height: 46px;
+      cursor: pointer;
+      background: url("../../../public/images/carousel-arrow-next.png");
+      background-size: contain;
+      display: none;
+
+      @include large-and-up {
+        display: block;
+        margin: auto;
+      }
+    }
+  }
+
+  .carousel-indicators {
+    z-index: 4000;
+    display: block;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    padding: 0 0 24px 0;
+    margin: 0;
+    bottom: 0;
+    height: 44px;
+
+    @include medium-and-up {
+      text-align: right;
+      width: auto;
+
+      html[dir="rtl"] & {
+        right: auto;
+      }
+    }
+
+    @include large-and-up {
+      position: absolute;
+      left: auto;
+      text-align: left;
+      padding-left: 0;
+      padding-right: 0;
+      width: auto;
+      display: block;
+    }
+
+    @include x-large-and-up {
+      padding-left: 0;
+    }
+
+    li {
+      background-color: rgba(0, 0, 0, 0.4);
+      width: 40px;
+      height: 3px;
+      border-radius: 0;
+      margin: 0 3px;
+      cursor: pointer;
+      display: inline-table;
+      right: 0;
+
+      @include large-and-up {
+        background-color: rgba(255, 255, 255, 0.4);
+      }
+
+      &.active {
+        background: $black;
+        @include large-and-up {
+          background: $white;
+        }
+      }
+    }
+  }
+}

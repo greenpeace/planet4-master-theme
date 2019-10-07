@@ -93,6 +93,7 @@ final class Loader {
 		// Load Blocks.
 		$this->blocks = [
 			new Blocks\Articles(),
+			new Blocks\CarouselHeader(),
 			new Blocks\Columns(),
 			new Blocks\Cookies(),
 			new Blocks\Counter(),

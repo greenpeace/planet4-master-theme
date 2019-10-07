@@ -1,0 +1,9 @@
+{% block carousel_header %}
+	{% if ( fields ) %}
+		{% if fields.block_style %}
+			{% include './carousel_header_' ~ fields.block_style ~ '.twig' %}
+		{% else %}
+			{% include './carousel_header_zoom-and-slide-to-gray.twig' %}
+		{% endif %}
+	{% endif %}
+{% endblock %}

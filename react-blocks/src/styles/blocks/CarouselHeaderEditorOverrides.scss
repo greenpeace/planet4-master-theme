@@ -1,0 +1,67 @@
+/**
+  Overrides for carousel header
+ */
+
+.Preview {
+  .carousel-header {
+    width: unset;
+  }
+
+  .carousel-header_full-width-classic {
+    width: unset;
+
+    .carousel-item.active {
+      position: relative !important;
+    }
+  }
+
+  .carousel-header .carousel-item {
+    position: relative !important;
+  }
+
+  // Hard copies of bootstrap styles
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .carousel-control-next, .carousel-control-prev {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 15%;
+    color: #fff;
+    text-align: center;
+    opacity: .5;
+  }
+
+  .carousel-control-next {
+    right: 0;
+  }
+
+  .carousel-header .carousel-control-next {
+    height: 100%;
+    top: 0;
+    width: 30%;
+    z-index: 3;
+  }
+
+  @media (min-width: 576px) {
+    .carousel-header .carousel-control-next {
+      width: 50%;
+      margin-right: -25%;
+    }
+  }
+}
