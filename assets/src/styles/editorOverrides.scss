@@ -1,5 +1,5 @@
 .editor-post-title__block textarea.editor-post-title__input {
-	font-family: $roboto;
+  font-family: $roboto;
   font-size: $font-size-xl;
   line-height: 1.225;
   margin-bottom: 30px;
@@ -14,7 +14,7 @@
 }
 
 .edit-post-visual-editor {
-	@include table;
+  @include table;
 }
 
 .wp-block-image.caption-style-blue-overlay {
@@ -22,6 +22,7 @@
     // This is to take into account the image resizer handle
     margin-bottom: 8px;
   }
+
   .editor-rich-text {
     position: absolute;
     top: 0;
@@ -39,4 +40,71 @@
 
 .components-panel__body label {
   font-size: 13px;
+}
+
+.wp-block-button .wp-block-button__link[role="textbox"] {
+  display: inline-block;
+  font-family: $roboto;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: $white;
+  font-weight: 500;
+  border-radius: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  line-height: 3;
+  padding: 0 $n30;
+  appearance: none;
+  transition-property: color, background-color, border-color;
+  transition-duration: 150ms;
+  transition-timing-function: linear;
+}
+
+.wp-block-button.is-style-secondary .wp-block-button__link[role="textbox"],
+[class="wp-block-button"] .wp-block-button__link[role="textbox"] {
+  background-color: transparentize($white, .7);
+  border-color: $dark-blue;
+  color: $dark-blue;
+  box-shadow: none;
+  font-size: $font-size-xxs;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  padding: 2px $n30;
+
+  html[dir="rtl"] & {
+    font-size: $font-size-sm;
+    line-height: 2.5;
+  }
+}
+
+.wp-block-button.is-style-cta .wp-block-button__link[role="textbox"] {
+  background-color: $orange;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+}
+
+.wp-block-button.is-style-donate .wp-block-button__link[role="textbox"] {
+  background-color: $aquamarine;
+  color: $grey;
+  font-size: $font-size-sm;
+  line-height: 1.65;
+  min-width: 180px;
+  margin: 0;
+  padding: 2px $n30;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+  transition: color background-color font-weight 100ms;
+
+  .editor-styles-wrapper & {
+    min-width: auto;
+    line-height: 3;
+  }
+}
+
+.editor-rich-text__editable.wp-block-button__link:not([role="textbox"]) {
+  background-color: $white;
+  border-radius: 0;
+  border: none;
+  color: $dark-shade-black !important;
 }
