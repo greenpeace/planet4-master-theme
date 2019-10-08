@@ -87,6 +87,9 @@ module.exports = {
             method: (filePath) => {
               return [
                 'style.deps.json',
+                'index.asset.php',
+                'bootstrap.asset.php',
+                'style.asset.php',
               ].filter(item => {
                 return new RegExp(item, 'm').test(filePath);
               }).length > 0;
