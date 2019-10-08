@@ -102,10 +102,36 @@ const POST_BLOCK_TYPES = [
 ];
 
 // pages allow all block types.
-const PAGE_BLOCK_TYPES = true;
+const PAGE_BLOCK_TYPES = [
+	'planet4-blocks/articles',
+	'planet4-blocks/columns',
+	'planet4-blocks/cookies',
+	'planet4-blocks/counter',
+	'planet4-blocks/covers',
+	'planet4-blocks/gallery',
+	'planet4-blocks/happypoint',
+	'planet4-blocks/media',
+	'planet4-blocks/social-media',
+	'planet4-blocks/split-two-columns',
+	'planet4-blocks/submenu',
+	'planet4-blocks/timeline',
+];
 
 // campaigns allow all block types.
-const CAMPAIGN_BLOCK_TYPES = true;
+const CAMPAIGN_BLOCK_TYPES = [
+	'planet4-blocks/articles',
+	'planet4-blocks/columns',
+	'planet4-blocks/cookies',
+	'planet4-blocks/counter',
+	'planet4-blocks/covers',
+	'planet4-blocks/gallery',
+	'planet4-blocks/happypoint',
+	'planet4-blocks/media',
+	'planet4-blocks/social-media',
+	'planet4-blocks/split-two-columns',
+	'planet4-blocks/submenu',
+	'planet4-blocks/timeline',
+];
 
 /**
  * Allowed block types based on post type
@@ -115,20 +141,20 @@ const CAMPAIGN_BLOCK_TYPES = true;
  *
  * @return true if all blocks allowed, false if none or an array of allowed blocks
  */
-function my_plugin_allowed_block_types( $allowed_block_types, $post ) {
+function set_allowed_block_types( $allowed_block_types, $post ) {
 	$wordpress_blocks = [
 		'core/paragraph',
 		'core/heading',
 		'core/image',
-		// 'core/gallery' - functionality replaced by P4 galleries
+		// 'core/gallery' - functionality replaced by P4 galleries.
 		'core/list',
 		'core/quote', // TODO: Styling or removal.
-		'core/audio',
+		// 'core/audio' // removed, not needed.
 		'core/cover',
 		'core/file',
-		// 'core/video' - TODO: Decision. Ideally only allow embedded video
-		'core/preformatted',
-		// 'core/code' - functionality not needed and not styled
+		// 'core/video' - TODO: Decision. Ideally only allow embedded video.
+		// 'core/preformatted' // removed, not needed.
+		// 'core/code' - functionality not needed and not styled.
 		'core/html',
 		'core/table', // TODO: Styling.
 		// 'core/pullquote' - removed, normal quote element is available.
@@ -188,7 +214,7 @@ function my_plugin_allowed_block_types( $allowed_block_types, $post ) {
 	return array_merge( $wordpress_blocks, $allowed_block_types[ $post->post_type ] );
 }
 
-add_filter( 'allowed_block_types', 'my_plugin_allowed_block_types', 10, 2 );
+add_filter( 'allowed_block_types', 'set_allowed_block_types', 10, 2 );
 
 /*
 ==========================
@@ -199,7 +225,7 @@ P4GBKS\Loader::get_instance(
 	[
 		// --- Add here your own Block Controller ---
 		// DEPRECATED: Blocks could be registered inside Loader class
-	// 'P4GBKS\Controllers\Blocks\NewCovers_Controller',
+		// 'P4GBKS\Controllers\Blocks\NewCovers_Controller'
 	],
 	'P4GBKS\Views\View'
 );
