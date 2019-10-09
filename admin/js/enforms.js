@@ -151,6 +151,7 @@ const p4_enform = (function ($) {
       question_options: {},
       radio_options: {},
       selected: '',
+      dependency: '',
     }
   });
 
@@ -458,6 +459,7 @@ const p4_enform = (function ($) {
       'change input[type="text"]': 'inputChanged',
       'change input[type="checkbox"]': 'checkboxChanged',
       'change .question-locale-select': 'localeChanged',
+      'change .dependency-select': 'dependencyChanged',
     },
 
     /**
@@ -511,6 +513,18 @@ const p4_enform = (function ($) {
     },
 
     /**
+     * Handles dependency select changes and stores them to the model.
+     *
+     * @param event Event object.
+     */
+    dependencyChanged(event) {
+      const $target  = $(event.target);
+      const value    = $('option:selected', $target).val();
+      $('option:selected', $target).attr('selected','selected');
+      this.model.set('dependency', value);
+    },
+
+    /**
      * Initialize view instance.
      *
      * @param options Options object.
@@ -551,6 +565,38 @@ const p4_enform = (function ($) {
       const dialog = this.dialog;
       $(this.row).find('.dashicons-edit').off('click').on('click', function (e) {
         e.preventDefault();
+
+        // Filter dependency fields and add them on dialog popup.
+        let dependency_options = '';
+        if ( 'checkbox' === $(this).closest('tr').find('.field-type-select').val() ) {
+          let selected_en_fields = p4_enform.fields.models;
+
+          if ( selected_en_fields.length ) {
+            let dependency_array = [];
+            let dependency_field = '';
+            let field_name = $(this).closest('tr').find('td:eq(1)').text();
+            _.each(selected_en_fields, function (field) {
+              if ( 'checkbox' === field.attributes.input_type && field.attributes.name !== field_name ) {
+                dependency_array.push(field.attributes.name);
+              }
+
+              if ( field.attributes.name === field_name ) {
+                dependency_field = field.attributes.dependency;
+              }
+            }, this);
+
+            $.each(dependency_array, function(key, value) {
+              let selected_option = '';
+              if ( dependency_field === value ) {
+                selected_option = 'selected';
+              }
+              dependency_options += '<option value="'+value+'" '+selected_option+'>'+value+'</option>';
+            });
+
+          }
+        }
+
+        dialog.html(dialog.html().replace( '</select><span></span>', dependency_options+'</select>' ));
         dialog.dialog('open');
       });
 
@@ -570,6 +616,7 @@ const p4_enform = (function ($) {
       this.model.set('js_validate_regex_msg', '');
       this.model.set('js_validate_function', '');
       this.model.set('hidden', false);
+      this.model.set('dependency', '');
       this.remove();
     }
   });

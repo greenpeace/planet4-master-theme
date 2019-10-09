@@ -420,6 +420,17 @@ final class Loader {
 
 		wp_register_script(
 			'plugin-engagingnetworks',
+			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/public/js/enform_dependency.js',
+			[
+				'jquery',
+				'main',
+			],
+			$js_blocks_creation,
+			true
+		);
+
+		wp_register_script(
+			'plugin-engagingnetworks',
 			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/public/js/enform_side_style.js',
 			[
 				'jquery',
