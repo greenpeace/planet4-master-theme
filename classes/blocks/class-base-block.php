@@ -12,7 +12,16 @@ namespace P4GBKS\Blocks;
  *
  * @package P4GBKS\Blocks
  */
-class Base_Block {
+abstract class Base_Block {
+
+	/**
+	 * Get all the data that will be needed to render the block correctly.
+	 *
+	 * @param array $fields This is the array of fields of this block.
+	 *
+	 * @return array The data to be passed in the View.
+	 */
+	abstract public function prepare_data( $fields ): array;
 
 	/**
 	 * @param array $attributes Block attributes.
