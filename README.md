@@ -56,14 +56,14 @@ Plugin depends on [timber-library](https://el.wordpress.org/plugins/timber-libra
   
 1. Create a new class that extends `Base_Block` ( `P4GBKS\Blocks\Base_Block` ) inside directory _classes/blocks_. The class name should follow naming convention, for example **Blockname** and its file name should be class-**blockname**.php.  
   
-2. Implement its parent's class abstract method. In block's **constructor** you need to define the block's details (fields, schema) using `register_block_type` and in method **prepare_data()** you need to prepare the data which will be used for rendering.  
+1. Implement its parent's class abstract method. In block's **constructor** you need to define the block's details (fields, schema) using `register_block_type` and in method **prepare_data()** you need to prepare the data which will be used for rendering.  
   
-3. Create the template file that will be used to render your block inside directory _templates/blocks_. If the name of the file is **blockname**.twig then  
+1. Create the template file that will be used to render your block inside directory _templates/blocks_. If the name of the file is **blockname**.twig then  
 you need to set the BLOCK_NAME constant as **'blockname'** It also works with html templates. Just add 'php' as the 3rd argument of the block() method.  
   
-4. Add your new class name to the array inside Loader's ( `P4GBKS\Loader` ) constructor.
+1. Add your new class name to the array inside Loader's ( `P4GBKS\Loader` ) constructor.
  
-5. Create a new folder inside _react-blocks/src/blocks_ named after your block **Blockname** (first letter capital - rest lowercase). Create two new files inside that folder named **Blockname.js**  and **BlocknameBlock.js**.  
+1. Create a new folder inside _react-blocks/src/blocks_ named after your block **Blockname** (first letter capital - rest lowercase). Create two new files inside that folder named **Blockname.js**  and **BlocknameBlock.js**.  
  
 	 **BlocknameBlock.js** should be a class that uses wordpress [registerBlockType](https://developer.wordpress.org/block-editor/developers/block-api/block-registration/) to define the block's attributes, schema and `edit()` function.
  `edit()` function should return a react component that will be used for rendering the block in the editor. 
@@ -72,8 +72,12 @@ you need to set the BLOCK_NAME constant as **'blockname'** It also works with ht
 	**Blockname.js** should be a class that defines a react component that implements `renderEdit()` and `render()`.
 `renderEdit()` should be used to render the block in the editor
 `render()` should be used to render the block's preview in the editor using [ServerSideRender](https://developer.wordpress.org/block-editor/components/server-side-render/) and Preview components.
+
+1. Create a new sccs file inside _react-blocks/src/blocks/styles_ named after your block **Blockname.scss** to use for block's frontend styling.
+
+    Create a new file named **BlocknameEditor.scss** to use for block's editor styling if you need to style the block in the editor.
  
-7. Finally, before committing do **npm run build** to build the plugin's assets and **vendor/bin/phpcs** to check for any php styling errors in your code.
+1. Finally, before committing do **npm run build** to build the plugin's assets and **vendor/bin/phpcs** to check for any php styling errors in your code.
   
   
 ## Assets build
