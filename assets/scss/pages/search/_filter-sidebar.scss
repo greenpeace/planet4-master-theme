@@ -152,7 +152,7 @@
         cursor: pointer;
       }
 
-      .icon {
+      .icon-cross {
         font-size: $font-size-md;
         margin-right: 20px;
       }
@@ -208,12 +208,12 @@
         min-width: 40%;
       }
 
-      .icon {
+      .icon-cross {
         font-size: 0.75rem;
         position: absolute;
         right: 0;
         top: 0;
-        margin: $n15;
+        margin-right: $n15;
       }
 
       .activefilter-tag {
