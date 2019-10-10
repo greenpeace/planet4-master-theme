@@ -202,11 +202,12 @@ class ENForm extends Base_Block {
 
 		$data = [];
 
-		if ( isset( $attributes['thankyou_url'] ) && 0 !== strpos( $attributes['thankyou_url'], 'http' ) ) {
+		if ( isset( $attributes['thankyou_url'] ) && $attributes['thankyou_url'] && 0 !== strpos( $attributes['thankyou_url'], 'http' ) ) {
 			$attributes['thankyou_url'] = 'http://' . $attributes['thankyou_url'];
 		} else {
-			$options              = get_option( 'planet4_options' );
-			$attributes['donatelink'] = $options['donate_button'] ?? '#';
+			$options                   = get_option( 'planet4_options' );
+			$attributes['donatelink']  = $options['donate_button'] ?? '#';
+			$attributes['donate_text'] = $options['donate_text'] ?? __( 'Donate', 'planet4-gutenberg-engagingnetworks' );
 		}
 
 		$view = new View();
