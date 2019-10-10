@@ -33,15 +33,15 @@ export class HappypointBlock {
                 },
                 id: {
                   type: 'integer',
-                  shortcode: ({named: {id = ''}}) => id,
+                  shortcode: ({named: {background}}) => Number(background),
                 },
                 focus_image: {
                   type: 'string',
                   shortcode: ({named: {focus_image = ''}}) => focus_image,
                 },
                 mailing_list_iframe: {
-                  type: 'string',
-                  shortcode: ({named: {mailing_list_iframe = ''}}) => mailing_list_iframe,
+                  type: 'boolean',
+                  shortcode: ({named: {mailing_list_iframe}}) => mailing_list_iframe == 'true',
                 },
                 iframe_url: {
                   type: 'string',

@@ -34,15 +34,15 @@ export class CounterBlock {
               },
               completed: {
                 type: 'integer',
-                shortcode: ( { named: { completed = 0 } } ) => completed,
+                shortcode: ( { named: { completed = 0 } } ) => Number(completed),
               },
               completed_api: {
                 type: 'string',
-                shortcode: ( { named: { completed_api = '' } } ) => completed_api,
+                shortcode: ( { named: { completed_api = '' } } ) => completed_api === '' ? null : completed_api,
               },
               target: {
                 type: 'integer',
-                shortcode: ( { named: { target = 0 } } ) => target,
+                shortcode: ( { named: { target = 0 } } ) => Number(target),
               },
               text: {
                 type: 'string',

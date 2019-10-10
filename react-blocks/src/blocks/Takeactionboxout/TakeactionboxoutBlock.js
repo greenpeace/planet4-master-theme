@@ -27,7 +27,7 @@ export class TakeactionboxoutBlock {
 							take_action_page: {
 								type: 'integer',
 								shortcode: function (attributes) {
-									return attributes.named.take_action_page;
+									return Number(attributes.named.take_action_page);
 								}
 							},
 							custom_title: {
@@ -55,20 +55,22 @@ export class TakeactionboxoutBlock {
 								}
 							},
 							custom_link_new_tab: {
-								type: 'string',
+								type: 'boolean',
 								shortcode: function (attributes) {
 									return attributes.named.custom_link_new_tab;
 								}
 							},
 							tag_ids: {
-								type: 'string',
+								type: 'array',
 								shortcode: function (attributes) {
-									return attributes.named.tag_ids ? attributes.named.tag_ids.split(',') : [];
+									return attributes.named.tag_ids ?
+                    attributes.named.tag_ids.split(',').map(tag => Number(tag)).filter(tag => tag > 0)
+                    : [];
 								}
 							},
 							background_image: {
 								type: 'integer',
-								shortcode: ({named: {background_image = ''}}) => background_image,
+								shortcode: ({named: {background_image = ''}}) => Number(background_image) > 0 ? Number(background_image) : 0,
 							},
 						},
 					},

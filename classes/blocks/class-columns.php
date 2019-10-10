@@ -97,7 +97,28 @@ class Columns extends Base_Block {
 						'type'    => 'array',
 						'default' => [],
 						'items'   => [
-							'type' => 'object',
+							'type'       => 'object',
+							// In JSON Schema you can specify object properties in the properties attribute.
+							'properties' => [
+								'title'        => [
+									'type' => 'string',
+								],
+								'description'  => [
+									'type' => 'string',
+								],
+								'attachment'   => [
+									'type' => 'string',
+								],
+								'cta_link'     => [
+									'type' => 'string',
+								],
+								'link_new_tab' => [
+									'type' => 'string',
+								],
+								'cta_text'     => [
+									'type' => 'string',
+								],
+							],
 						],
 					],
 				],

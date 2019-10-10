@@ -22,7 +22,7 @@ export class CoversBlock {
               tag: 'shortcake_newcovers',
               attributes: {
                 cover_type: {
-                  type: 'integer',
+                  type: 'string',
                   // This `shortcode` definition will be used as a callback,
                   // it is a function which expects an object with at least
                   // a `named` key with `cover_type` property whose default value is 1.
@@ -39,19 +39,29 @@ export class CoversBlock {
                 },
                 covers_view: {
                   type: 'string',
-                  shortcode: ({named: {covers_view = ''}}) => covers_view,
+                  shortcode: ({named: {covers_view}}) => {
+                    switch (covers_view) {
+                      case '0':
+                        return '1';
+                      case '3':
+                        return '2';
+                      case '1':
+                        return '3';
+                    }
+                    return '1';
+                  },
                 },
                 tags: {
-                  type: 'string',
-                  shortcode: ({named: {tags = ''}}) => tags.split(','),
+                  type: 'array',
+                  shortcode: ({named: {tags = ''}}) => tags.split(',').map(tag => Number(tag)).filter(tag => tag > 0),
                 },
                 post_types: {
-                  type: 'string',
-                  shortcode: ({named: {post_types = ''}}) => post_types.split(','),
+                  type: 'array',
+                  shortcode: ({named: {post_types = ''}}) => post_types.split(',').map(post_type => Number(post_type)).filter(post_type => post_type > 0),
                 },
                 posts: {
-                  type: 'string',
-                  shortcode: ({named: {posts = ''}}) => posts.split(','),
+                  type: 'array',
+                  shortcode: ({named: {posts = ''}}) => posts.split(',').map(post => Number(post)).filter(post => post > 0),
                 },
               },
             },

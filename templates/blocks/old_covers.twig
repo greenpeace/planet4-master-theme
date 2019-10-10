@@ -45,7 +45,7 @@
 
 				{% if ( fields.button_text ) %}
 					<div class="row">
-						{% if ( ( covers|length > 3 and covers_view == 0 ) or
+						{% if ( ( covers|length > 3 and covers_view == '1' ) or
 								( covers|length > 6 and covers_view == '3' ) ) %}
 							<div class="col-lg-5 col-md-12 load-more-covers-button-div">
 								<button class="btn btn-block btn-secondary btn-load-more-covers-click">{{ fields.button_text }}</button>

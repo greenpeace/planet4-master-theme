@@ -129,10 +129,10 @@ class SplitTwoColumns extends Base_Block {
 		$campaign_image_id = $fields['tag_image'] ?? get_term_meta( $tag_id, 'tag_attachment_id', true );
 		$issue_image_id    = $fields['issue_image'] ?? get_post_thumbnail_id( $issue_id );
 
-		$issue_title       = $fields['title'] ?? ( $issue_meta_data['p4_title'][0] ?? get_the_title( $issue_id ) );
-		$issue_description = $fields['issue_description'] ?? ( $issue_meta_data['p4_description'][0] ?? '' );
-		$issue_link_text   = $fields['issue_link_text'] ?? __( 'Learn more about this issue', 'planet4-blocks' );
-		$issue_link_path   = $fields['issue_link_path'] ?? get_permalink( $issue_id );
+		$issue_title       = empty( $fields['title'] ) ? ( $issue_meta_data['p4_title'][0] ?? get_the_title( $issue_id ) ) : $fields['title'];
+		$issue_description = empty( $fields['issue_description'] ) ? ( $issue_meta_data['p4_description'][0] ?? '' ) : $fields['issue_description'];
+		$issue_link_text   = empty( $fields['issue_link_text'] ) ? __( 'Learn more about this issue', 'planet4-blocks' ) : $fields['issue_link_text'];
+		$issue_link_path   = empty( $fields['issue_link_path'] ) ? get_permalink( $issue_id ) : $fields['issue_link_path'];
 
 		$data = [
 			'issue'    => [
@@ -151,7 +151,7 @@ class SplitTwoColumns extends Base_Block {
 				'image_alt'   => get_post_meta( $campaign_image_id, '_wp_attachment_image_alt', true ),
 				'name'        => $tag instanceof \WP_Error ? '' : html_entity_decode( $tag->name ),
 				'link'        => get_tag_link( $tag ),
-				'description' => $fields['tag_description'] ?? ( $tag instanceof \WP_Error ? '' : $tag->description ),
+				'description' => empty( $fields['tag_description'] ) ? ( $tag instanceof \WP_Error ? '' : $tag->description ) : $fields['tag_description'],
 				'button_text' => $fields['button_text'] ?? __( 'Get Involved', 'planet4-blocks' ),
 				'button_link' => $fields['button_link'] ?? get_tag_link( $tag ),
 				'focus'       => $fields['focus_tag_image'] ?? '',

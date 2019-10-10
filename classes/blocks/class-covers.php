@@ -34,7 +34,7 @@ class Covers extends Base_Block {
 		$attributes = shortcode_atts(
 			[
 				'cover_type'  => '1',
-				'covers_view' => 1,
+				'covers_view' => '1',
 				'title'       => '',
 				'description' => '',
 				'tags'        => [],
@@ -67,8 +67,8 @@ class Covers extends Base_Block {
 						'type' => 'string',
 					],
 					'covers_view' => [
-						'type'    => 'integer',
-						'default' => 1,
+						'type'    => 'string',
+						'default' => '1',
 					],
 					'title'       => [
 						'type'    => 'string',
