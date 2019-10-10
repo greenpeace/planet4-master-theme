@@ -151,17 +151,10 @@ class SplitTwoColumns extends Base_Block {
 				'image_alt'   => get_post_meta( $campaign_image_id, '_wp_attachment_image_alt', true ),
 				'name'        => $tag instanceof \WP_Error ? '' : html_entity_decode( $tag->name ),
 				'link'        => get_tag_link( $tag ),
-<<<<<<< HEAD
 				'description' => empty( $fields['tag_description'] ) ? ( $tag instanceof \WP_Error ? '' : $tag->description ) : $fields['tag_description'],
 				'button_text' => $fields['button_text'] ?? __( 'Get Involved', 'planet4-blocks' ),
 				'button_link' => $fields['button_link'] ?? get_tag_link( $tag ),
 				'focus'       => $fields['focus_tag_image'] ?? '',
-=======
-				'description' => $fields['tag_description'] ? $fields['tag_description'] : ( $tag instanceof \WP_Error ? '' : $tag->description ),
-				'button_text' => $fields['button_text'] ? $fields['button_text'] : __( 'Get Involved', 'planet4-blocks' ),
-				'button_link' => $fields['button_link'] ? $fields['button_link'] : get_tag_link( $tag ),
-				'focus'       => $fields['focus_tag_image'] ? $fields['focus_tag_image'] : '',
->>>>>>> Moving from Bootstrap to Webpack and polishing styles both in the frontend and editor
 			],
 		];
 
