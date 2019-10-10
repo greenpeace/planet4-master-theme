@@ -322,7 +322,7 @@ final class Loader {
 				'wp-data',        // - WP data helpers
 				'wp-i18n',        // - Exports the __() function
 			],
-			'0.1.1',
+			'0.1.3',
 			true
 		);
 
