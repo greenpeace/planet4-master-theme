@@ -253,16 +253,18 @@ export class ENForm extends Component {
             />
           </div>
 
-          <div>
-            <MediaPlaceholder
-              labels={{ title: __('Background', 'planet4-gutenberg-engagingnetworks'), instructions: __('Select an image.', 'planet4-gutenberg-engagingnetworks')}}
-              icon="format-image"
-              onSelect={ this.props.onSelectImage }
-              onError={this.props.onUploadError}
-              accept="image/*"
-              allowedTypes={["image"]}
-            />
-          </div>
+          { "full-width-bg" !== this.props.en_form_style &&
+            <div>
+              <MediaPlaceholder
+                labels={{ title: __('Background', 'planet4-gutenberg-engagingnetworks'), instructions: __('Select an image.', 'planet4-gutenberg-engagingnetworks')}}
+                icon="format-image"
+                onSelect={ this.props.onSelectImage }
+                onError={this.props.onUploadError}
+                accept="image/*"
+                allowedTypes={["image"]}
+              />
+            </div>
+          }
 
           <div>
             <SelectControl
