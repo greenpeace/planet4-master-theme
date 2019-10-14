@@ -57,7 +57,7 @@ export class ArticlesBlock {
                 }
               },
               ignore_categories: {
-                type: 'string',
+                type: 'boolean',
                 shortcode: function (attributes) {
                   return attributes.named.ignore_categories;
                 }

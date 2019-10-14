@@ -56,7 +56,7 @@ export class SubmenuBlock {
                   if (attributes.named.heading1 > 0) {
                     let level = {
                       heading: Number(attributes.named.heading1),
-                      link: attributes.named.link1 || false,
+                      link: Boolean(attributes.named.link1) || false,
                       style: attributes.named.style1 || 'none'
                     };
                     levels.push(Object.assign({}, level));
@@ -64,7 +64,7 @@ export class SubmenuBlock {
                     if (attributes.named.heading2 > 0) {
                       let level = {
                         heading: Number(attributes.named.heading2),
-                        link: attributes.named.link2 || false,
+                        link: Boolean(attributes.named.link2) || false,
                         style: attributes.named.style2 || 'none'
                       };
                       levels.push(Object.assign({}, level));
@@ -72,7 +72,7 @@ export class SubmenuBlock {
                       if (attributes.named.heading3 > 0) {
                         let level = {
                           heading: Number(attributes.named.heading3),
-                          link: attributes.named.link3 || false,
+                          link: Boolean(attributes.named.link3) || false,
                           style: attributes.named.style3 || 'none'
                         };
                         levels.push(Object.assign({}, level));

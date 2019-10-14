@@ -105,6 +105,10 @@ class Articles extends Base_Block {
 						'type'    => 'boolean',
 						'default' => false,
 					],
+					'button_link_new_tab'  => [
+						'type'    => 'boolean',
+						'default' => false,
+					],
 					'posts'                => [
 						'type'  => 'array',
 						'items' => [

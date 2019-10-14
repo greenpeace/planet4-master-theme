@@ -35,7 +35,7 @@ export class GalleryBlock {
               attributes: {
                 gallery_block_style: {
                   type: 'integer',
-                  shortcode: ({named: {gallery_block_style = ''}}) => gallery_block_style,
+                  shortcode: ({named: {gallery_block_style = ''}}) => Number(gallery_block_style),
                 },
                 gallery_block_title: {
                   type: 'string',

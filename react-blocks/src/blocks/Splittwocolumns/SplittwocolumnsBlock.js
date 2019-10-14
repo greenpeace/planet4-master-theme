@@ -34,7 +34,7 @@ export class SplittwocolumnsBlock {
               attributes: {
                 select_issue: {
                   type: 'integer',
-                  shortcode: ({named: {select_issue = ''}}) => select_issue,
+                  shortcode: ({named: {select_issue = ''}}) => Number(select_issue) > 0 ? Number(select_issue) : null,
                 },
                 title: {
                   type: 'string',
@@ -54,7 +54,7 @@ export class SplittwocolumnsBlock {
                 },
                 issue_image: {
                   type: 'integer',
-                  shortcode: ({named: {issue_image = ''}}) => issue_image,
+                  shortcode: ({named: {issue_image = ''}}) => Number(issue_image) > 0 ? Number(issue_image) : null,
                 },
                 focus_issue_image: {
                   type: 'string',
@@ -62,7 +62,7 @@ export class SplittwocolumnsBlock {
                 },
                 select_tag: {
                   type: 'integer',
-                  shortcode: ({named: {select_tag = ''}}) => select_tag,
+                  shortcode: ({named: {select_tag = ''}}) => Number(select_tag) > 0 ? Number(select_tag) : null,
                 },
                 tag_description: {
                   type: 'string',
@@ -78,7 +78,7 @@ export class SplittwocolumnsBlock {
                 },
                 tag_image: {
                   type: 'integer',
-                  shortcode: ({named: {tag_image = ''}}) => tag_image,
+                  shortcode: ({named: {tag_image = ''}}) => Number(tag_image) > 0 ? Number(tag_image) : null,
                 },
                 focus_tag_image: {
                   type: 'string',

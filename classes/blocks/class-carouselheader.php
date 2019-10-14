@@ -47,29 +47,32 @@ class CarouselHeader extends Base_Block {
 							'type'       => 'object',
 							// In JSON Schema you can specify object properties in the properties attribute.
 							'properties' => [
-								'image'        => [
+								'image'            => [
 									'type' => 'integer',
 								],
-								'header'       => [
+								'header'           => [
 									'type' => 'string',
 								],
-								'header_size'  => [
+								'header_size'      => [
 									'type' => 'string',
 								],
-								'subheader'    => [
+								'subheader'        => [
 									'type' => 'string',
 								],
-								'description'  => [
+								'description'      => [
 									'type' => 'string',
 								],
-								'link_text'    => [
+								'link_text'        => [
 									'type' => 'string',
 								],
-								'link_url'     => [
+								'link_url'         => [
 									'type' => 'string',
 								],
-								'focal_points' => [
+								'focal_points'     => [
 									'type' => 'object',
+								],
+								'link_url_new_tab' => [
+									'type' => 'boolean',
 								],
 							],
 						],

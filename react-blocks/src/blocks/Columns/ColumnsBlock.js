@@ -50,49 +50,54 @@ export class ColumnsBlock {
                     if (attributes.named.title_1) {
                       let column = {
                         title: attributes.named.title_1,
-                        description: attributes.named.description_1 || '',
-                        cta_link: attributes.named.link_1 || '',
-                        cta_text: attributes.named.cta_text_1 || '',
-                        link_new_tab: attributes.named.link_new_tab_1 || false
+                        description: attributes.named.description_1 || ''
                       };
-                      if (attributes.named.columns_block_style != 'no_image')
+                      if (attributes.named.columns_block_style != 'no_image') {
                         column.attachment = attributes.named.attachment_1 || false;
+                      }
+                      column.cta_link = attributes.named.link_1 || '';
+                      column.link_new_tab = attributes.named.link_new_tab_1 || false;
+                      column.cta_text = attributes.named.cta_text_1 || '';
                       columns.push(Object.assign({}, column));
 
                       if (attributes.named.title_2) {
                         let column = {
                           title: attributes.named.title_2,
-                          description: attributes.named.description_2 || '',
-                          cta_link: attributes.named.link_2 || '',
-                          cta_text: attributes.named.cta_text_2 || '',
-                          link_new_tab: attributes.named.link_new_tab_2 || false
+                          description: attributes.named.description_2 || ''
                         };
-                        if (attributes.named.columns_block_style != 'no_image')
+                        if (attributes.named.columns_block_style != 'no_image') {
                           column.attachment = attributes.named.attachment_2 || false;
+                        }
+                        column.cta_link = attributes.named.link_2 || '';
+                        column.link_new_tab = attributes.named.link_new_tab_2 || false;
+                        column.cta_text = attributes.named.cta_text_2 || '';
                         columns.push(Object.assign({}, column));
+
 
                         if (attributes.named.title_3) {
                           let column = {
                             title: attributes.named.title_3,
-                            description: attributes.named.description_3 || '',
-                            cta_link: attributes.named.link_3 || '',
-                            cta_text: attributes.named.cta_text_3 || '',
-                            link_new_tab: attributes.named.link_new_tab_3 || false
+                            description: attributes.named.description_3 || ''
                           };
-                          if (attributes.named.columns_block_style != 'no_image')
+                          if (attributes.named.columns_block_style != 'no_image') {
                             column.attachment = attributes.named.attachment_3 || false;
+                          }
+                          column.cta_link = attributes.named.link_3 || '';
+                          column.link_new_tab = attributes.named.link_new_tab_3 || false;
+                          column.cta_text = attributes.named.cta_text_3 || '';
                           columns.push(Object.assign({}, column));
 
                           if (attributes.named.title_4) {
                             let column = {
                               title: attributes.named.title_4,
-                              description: attributes.named.description_4 || '',
-                              cta_link: attributes.named.link_4 || '',
-                              cta_text: attributes.named.cta_text_4 || '',
-                              link_new_tab: attributes.named.link_new_tab_4 || false
+                              description: attributes.named.description_4 || ''
                             };
-                            if (attributes.named.columns_block_style != 'no_image')
+                            if (attributes.named.columns_block_style != 'no_image') {
                               column.attachment = attributes.named.attachment_4 || false;
+                            }
+                            column.cta_link = attributes.named.link_4 || '';
+                            column.link_new_tab = attributes.named.link_new_tab_4 || false;
+                            column.cta_text = attributes.named.cta_text_4 || '';
                             columns.push(Object.assign({}, column));
                           }
                         }

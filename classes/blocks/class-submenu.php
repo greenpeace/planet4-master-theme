@@ -101,7 +101,19 @@ class Submenu extends Base_Block {
 					'levels'        => [
 						'type'  => 'array',
 						'items' => [
-							'type' => 'object',
+							'type'       => 'object',
+							// In JSON Schema you can specify object properties in the properties attribute.
+							'properties' => [
+								'heading' => [
+									'type' => 'integer',
+								],
+								'link'    => [
+									'type' => 'boolean',
+								],
+								'style'   => [
+									'type' => 'string',
+								],
+							],
 						],
 					],
 				],
