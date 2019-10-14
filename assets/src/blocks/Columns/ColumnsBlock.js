@@ -1,4 +1,5 @@
 import {Columns} from './Columns.js';
+import {withSelect} from '@wordpress/data';
 
 const {__} = wp.i18n;
 
@@ -143,7 +144,35 @@ export class ColumnsBlock {
             },
           }
         },
-        edit: ({isSelected, attributes, setAttributes}) => {
+        edit: withSelect( ( select, props ) => {
+
+          const { attributes } = props;
+          const { columns } = attributes;
+
+          if ( columns && 0 < columns.length ) {
+
+            var img_urls = [];
+
+            for ( let column of columns ) {
+              if ( column['attachment'] && ( 0 < column['attachment'] ) ) {
+
+                img_urls.push( select('core').getMedia( column['attachment'] ) );
+              }
+            }
+          }
+
+          return { img_urls, columns };
+
+        } )( ( { isSelected, attributes, setAttributes, img_urls, columns} ) => {
+
+          for (const [i, column] of columns.entries() ) {
+            if ( column['attachment'] && !img_urls[i] ) {
+              return 'Populating img URLs...';
+            } else if ( img_urls[i] ) {
+              let img_url = img_urls[i].media_details.sizes.medium.source_url;
+              column['img_url'] = img_url;
+            }
+          }
 
           function onTitleChange(value) {
             setAttributes({columns_title: value});
@@ -154,10 +183,10 @@ export class ColumnsBlock {
           }
 
           function onSelectImage(index, value) {
-            const {columns} = attributes;
             let {id}          = value;
             let new_columns   = [...columns];
             new_columns[index]['attachment'] = id;
+
             setAttributes({columns: new_columns});
           }
 
@@ -257,7 +286,7 @@ export class ColumnsBlock {
             onLinkNewTabChange={onLinkNewTabChange}
             onCTAButtonTextChange={onCTAButtonTextChange}
           />
-        },
+        } ),
         save() {
           return null;
         }

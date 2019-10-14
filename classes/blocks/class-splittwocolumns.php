@@ -126,8 +126,8 @@ class SplitTwoColumns extends Base_Block {
 
 		$tag_id            = absint( $fields['select_tag'] ?? '' );
 		$tag               = get_term( $tag_id );
-		$campaign_image_id = !empty( $fields['tag_image'] ) ? $fields['tag_image'] : get_term_meta( $tag_id, 'tag_attachment_id', true );
-		$issue_image_id    = !empty( $fields['issue_image'] ) ? $fields['issue_image'] : get_post_thumbnail_id( $issue_id );
+		$campaign_image_id = ! empty( $fields['tag_image'] ) ? $fields['tag_image'] : get_term_meta( $tag_id, 'tag_attachment_id', true );
+		$issue_image_id    = ! empty( $fields['issue_image'] ) ? $fields['issue_image'] : get_post_thumbnail_id( $issue_id );
 
 		$issue_title       = empty( $fields['title'] ) ? ( $issue_meta_data['p4_title'][0] ?? get_the_title( $issue_id ) ) : $fields['title'];
 		$issue_description = empty( $fields['issue_description'] ) ? ( $issue_meta_data['p4_description'][0] ?? '' ) : $fields['issue_description'];
@@ -152,10 +152,9 @@ class SplitTwoColumns extends Base_Block {
 				'name'        => $tag instanceof \WP_Error ? '' : html_entity_decode( $tag->name ),
 				'link'        => get_tag_link( $tag ),
 				'description' =>
-					!empty( $fields['tag_description'] )
+					! empty( $fields['tag_description'] )
 						? $fields['tag_description']
-						: $tag->description ?? ''
-				,
+						: $tag->description ?? '',
 				'button_text' => $fields['button_text'] ?? __( 'Get Involved', 'planet4-blocks' ),
 				'button_link' => $fields['button_link'] ?? get_tag_link( $tag ),
 				'focus'       => $fields['focus_tag_image'] ?? '',
