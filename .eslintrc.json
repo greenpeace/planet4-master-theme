@@ -32,5 +32,8 @@
         ],
         "new-cap": "error",
         "no-var": 1
+    },
+    "parserOptions": {
+      "sourceType": "module"
     }
 }

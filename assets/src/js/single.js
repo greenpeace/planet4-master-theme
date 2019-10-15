@@ -1,4 +1,4 @@
-jQuery(function($) {
+export const setupImageZoomer = function($) {
   'use strict';
 
   function unzoom() {
@@ -23,4 +23,4 @@ jQuery(function($) {
       });
     }
   });
-});
+};

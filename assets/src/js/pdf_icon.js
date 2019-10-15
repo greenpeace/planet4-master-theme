@@ -1,6 +1,5 @@
 // Add pdf icon to pdf links
-
-jQuery(function($) {
+export const setupPDFIcon = function($) {
   'use strict';
 
   $('a[href$=".pdf"]').each(function() {
@@ -10,4 +9,4 @@ jQuery(function($) {
       link.addClass('icon-link pdf-link');
     }
   });
-});
+};

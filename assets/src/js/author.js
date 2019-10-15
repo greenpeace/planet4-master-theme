@@ -1,4 +1,4 @@
-jQuery(function($) {
+export const setupAuthor = function($) {
   'use strict';
 
   // Underline headline on thumbnail hover.
@@ -7,4 +7,4 @@ jQuery(function($) {
   }, function() {
     $('.search-result-item-headline', $(this).parent()).removeClass('search-hover');
   });
-});
+};
