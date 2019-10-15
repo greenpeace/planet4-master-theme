@@ -104,6 +104,7 @@ const POST_BLOCK_TYPES = [
 // pages allow all block types.
 const PAGE_BLOCK_TYPES = [
 	'planet4-blocks/articles',
+	'planet4-blocks/carousel-header',
 	'planet4-blocks/columns',
 	'planet4-blocks/cookies',
 	'planet4-blocks/counter',
@@ -120,6 +121,7 @@ const PAGE_BLOCK_TYPES = [
 // campaigns allow all block types.
 const CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/articles',
+	'planet4-blocks/carousel-header',
 	'planet4-blocks/columns',
 	'planet4-blocks/cookies',
 	'planet4-blocks/counter',
@@ -206,12 +208,14 @@ function set_allowed_block_types( $allowed_block_types, $post ) {
 		'core-embed/wordpress-tv',
 	];
 
-	$allowed_post_types  = array_merge( $wordpress_blocks, POST_BLOCK_TYPES );
-	$allowed_block_types = [
-		'post'     => $allowed_post_types,
+	$allowed_p4_block_types = [
+		'post'     => POST_BLOCK_TYPES,
 		'page'     => PAGE_BLOCK_TYPES,
 		'campaign' => CAMPAIGN_BLOCK_TYPES,
 	];
+
+	$allowed_block_types = array_merge( $wordpress_blocks, $allowed_p4_block_types[ $post->post_type ] );
+
 	return $allowed_block_types;
 }
 
