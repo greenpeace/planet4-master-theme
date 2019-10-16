@@ -17,12 +17,12 @@ export class ENFormBlock {
           {
             type: 'shortcode',
             // Shortcode tag can also be an array of shortcode aliases
-            tag: 'shortcake_enform',
+            tag: 'shortcake_enblock',
             attributes: {
               en_page_id: {
                 type: 'integer',
                 shortcode: function (attributes) {
-                  return attributes.named.en_page_id;
+                  return Number(attributes.named.en_page_id);
                 }
               },
               enform_goal: {
@@ -49,10 +49,22 @@ export class ENFormBlock {
                   return attributes.named.description;
                 }
               },
+              campaign_logo: {
+                type: 'boolean',
+                shortcode: function (attributes) {
+                  return boolean(attributes.named.campaign_logo);
+                }
+              },
               content_title: {
                 type: 'string',
                 shortcode: function (attributes) {
                   return attributes.named.content_title;
+                }
+              },
+              content_title_size: {
+                type: 'string',
+                shortcode: function (attributes) {
+                  return attributes.named.content_title_size;
                 }
               },
               content_description: {
@@ -91,10 +103,16 @@ export class ENFormBlock {
                   return attributes.named.thankyou_donate_message;
                 }
               },
-              thankyou_take_action_message: {
+              thankyou_social_media_message: {
                 type: 'string',
                 shortcode: function (attributes) {
-                  return attributes.named.thankyou_take_action_message;
+                  return attributes.named.thankyou_social_media_message;
+                }
+              },
+              donate_button_checkbox: {
+                type: 'boolean',
+                shortcode: function (attributes) {
+                  return boolean(attributes.named.donate_button_checkbox);
                 }
               },
               thankyou_url: {
@@ -112,7 +130,7 @@ export class ENFormBlock {
               en_form_id: {
                 type: 'integer',
                 shortcode: function (attributes) {
-                  return attributes.named.en_form_id;
+                  return Number(attributes.named.en_form_id);
                 }
               },
             },
@@ -135,7 +153,13 @@ export class ENFormBlock {
         description: {
           type: 'string',
         },
+        campaign_logo: {
+          type: 'boolean',
+        },
         content_title: {
+          type: 'string',
+        },
+        content_title_size: {
           type: 'string',
         },
         content_description: {
@@ -156,8 +180,11 @@ export class ENFormBlock {
         thankyou_donate_message: {
           type: 'string',
         },
-        thankyou_take_action_message: {
+        thankyou_social_media_message: {
           type: 'string',
+        },
+        donate_button_checkbox: {
+          type: 'boolean',
         },
         thankyou_url: {
           type: 'string',
@@ -186,8 +213,16 @@ export class ENFormBlock {
           setAttributes({description: value});
         }
 
+        function onCampaignLogoChange(value) {
+          setAttributes({campaign_logo: value});
+        }
+
         function onContentTitleChange(value) {
           setAttributes({content_title: value});
+        }
+
+        function onContentTitleSizeChange(value) {
+          setAttributes({content_title_size: value});
         }
 
         function onContentDescriptionChange(value) {
@@ -223,7 +258,11 @@ export class ENFormBlock {
         }
 
         function onThankYouTakeActionMessageChange(value) {
-          setAttributes({thankyou_take_action_message: value});
+          setAttributes({thankyou_social_media_message: value});
+        }
+
+        function onDonateButtonCheckboxChange(value) {
+          setAttributes({donate_button_checkbox: value});
         }
 
         function onThankYouDonateMessageChange(value) {
@@ -249,7 +288,9 @@ export class ENFormBlock {
           onGoalChange={onGoalChange}
           onTitleChange={onTitleChange}
           onDescriptionChange={onDescriptionChange}
+          onCampaignLogoChange={onCampaignLogoChange}
           onContentTitleChange={onContentTitleChange}
+          onContentTitleSizeChange={onContentTitleSizeChange}
           onContentDescriptionChange={onContentDescriptionChange}
           onCTAButtonTextChange={onCTAButtonTextChange}
           onCTATextBelowButtonChange={onCTATextBelowButtonChange}
@@ -259,6 +300,7 @@ export class ENFormBlock {
           onMainThankYouTextChange={onMainThankYouTextChange}
           onSecondaryThankYouMessageChange={onSecondaryThankYouMessageChange}
           onThankYouTakeActionMessageChange={onThankYouTakeActionMessageChange}
+          onDonateButtonCheckboxChange={onDonateButtonCheckboxChange}
           onThankYouURLChange={onThankYouURLChange}
           onThankYouDonateMessageChange={onThankYouDonateMessageChange}
           onFormChange={onFormChange}

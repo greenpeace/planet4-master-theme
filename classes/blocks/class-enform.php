@@ -62,71 +62,81 @@ class ENForm extends Base_Block {
 			[
 				'render_callback' => [ $this, 'render' ],
 				'attributes'      => [
-					'en_page_id'    			         => [
+					'en_page_id'                    => [
 						'type'    => 'integer',
 						'default' => 0,
 					],
-					'enform_goal'    			         => [
+					'enform_goal'                   => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'en_form_style'    			       => [
+					'en_form_style'                 => [
 						'type'    => 'string',
 						'default' => 'fullwidth',
 					],
-					'enform_style'    			       => [
+					'enform_style'                  => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'title'                        => [
+					'title'                         => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'description'                  => [
+					'description'                   => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'content_title'                => [
+					'campaign_logo'                 => [
+						'type' => 'boolean',
+					],
+					'content_title'                 => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'content_description'          => [
+					'content_title_size'            => [
+						'type'    => 'string',
+						'default' => 'h1',
+					],
+					'content_description'           => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'button_text'                  => [
+					'button_text'                   => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'text_below_button'            => [
+					'text_below_button'             => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'thankyou_title'               => [
+					'thankyou_title'                => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'thankyou_subtitle'            => [
+					'thankyou_subtitle'             => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'thankyou_donate_message'      => [
+					'thankyou_donate_message'       => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'thankyou_take_action_message' => [
+					'thankyou_social_media_message' => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'thankyou_url'                 => [
+					'donate_button_checkbox'        => [
+						'type' => 'boolean',
+					],
+					'thankyou_url'                  => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'background'                   => [
+					'background'                    => [
 						'type'    => 'integer',
 						'default' => 0,
 					],
-					'en_form_id'                   => [
+					'en_form_id'                    => [
 						'type'    => 'integer',
 						'default' => 0,
 					],
@@ -205,9 +215,10 @@ class ENForm extends Base_Block {
 		if ( isset( $attributes['thankyou_url'] ) && $attributes['thankyou_url'] && 0 !== strpos( $attributes['thankyou_url'], 'http' ) ) {
 			$attributes['thankyou_url'] = 'http://' . $attributes['thankyou_url'];
 		} else {
-			$options                   = get_option( 'planet4_options' );
-			$attributes['donatelink']  = $options['donate_button'] ?? '#';
-			$attributes['donate_text'] = $options['donate_text'] ?? __( 'Donate', 'planet4-gutenberg-engagingnetworks' );
+			$options                              = get_option( 'planet4_options' );
+			$attributes['donatelink']             = $options['donate_button'] ?? '#';
+			$attributes['donate_text']            = $options['donate_text'] ?? __( 'Donate', 'planet4-gutenberg-engagingnetworks' );
+			$attributes['donate_button_checkbox'] = isset( $attributes['donate_button_checkbox'] ) ? $attributes['donate_button_checkbox'] : 'false';
 		}
 
 		$view = new View();

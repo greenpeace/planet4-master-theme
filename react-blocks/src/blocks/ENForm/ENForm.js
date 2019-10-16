@@ -7,6 +7,7 @@ import {InlineFormFeedback} from '../../components/InlineFormFeedback/InlineForm
 import {
   TextControl,
   TextareaControl,
+  ToggleControl,
   SelectControl,
   ServerSideRender
 } from '@wordpress/components';
@@ -19,6 +20,9 @@ export class ENForm extends Component {
 
   renderEdit() {
     const {__} = wp.i18n;
+
+    const {getCurrentPostType} = wp.data.select("core/editor");
+    const currentPostType      = getCurrentPostType();
 
     let flattenedPages = [];
     let pagesByType;
@@ -126,23 +130,53 @@ export class ENForm extends Component {
             />
           </div>
 
-          <div>
-            <TextControl
-              label={ __( 'Content Title', 'planet4-gutenberg-engagingnetworks' ) }
-              placeholder={ __( 'Enter content title', 'planet4-gutenberg-engagingnetworks' ) }
-              value={this.props.content_title}
-              onChange={this.props.onContentTitleChange}
-            />
-          </div>
+          { "side-style" === this.props.en_form_style &&
+          (<div>
 
-          <div>
-            <TextareaControl
-              label={ __( 'Content Description', 'planet4-gutenberg-engagingnetworks' ) }
-              placeholder={ __( 'Enter content description', 'planet4-gutenberg-engagingnetworks' ) }
-              value={this.props.content_description}
-              onChange={this.props.onContentDescriptionChange}
-            />
-          </div>
+              { "campaign" === currentPostType && (
+                <div>
+                  <ToggleControl
+                    label={__('Use Campaign Logo?', 'p4ge')}
+                    value={this.props.campaign_logo}
+                    checked={this.props.campaign_logo}
+                    onChange={this.props.onCampaignLogoChange}
+                  />
+                </div>
+              )}
+
+              <div>
+                <TextControl
+                  label={ __( 'Content Title', 'planet4-gutenberg-engagingnetworks' ) }
+                  placeholder={ __( 'Enter content title', 'planet4-gutenberg-engagingnetworks' ) }
+                  value={this.props.content_title}
+                  onChange={this.props.onContentTitleChange}
+                />
+              </div>
+
+              <div>
+                <SelectControl
+                  label={ __( 'Content Title text size', 'planet4-gutenberg-engagingnetworks' ) }
+                  value={this.props.content_title_size}
+                  options={ [
+                    { label: __( 'Select title size', 'planet4-gutenberg-engagingnetworks' ), value: '' },
+                    { label: 'h1', value: 'h1' },
+                    { label: 'h2', value: 'h2' },
+                    { label: 'h3', value: 'h3' },
+                  ] }
+                  onChange={this.props.onContentTitleSizeChange}
+                />
+              </div>
+
+              <div>
+                <TextareaControl
+                  label={ __( 'Content Description', 'planet4-gutenberg-engagingnetworks' ) }
+                  placeholder={ __( 'Enter content description', 'planet4-gutenberg-engagingnetworks' ) }
+                  value={this.props.content_description}
+                  onChange={this.props.onContentDescriptionChange}
+                />
+              </div>
+            </div>)
+          }
 
           <div>
             <TextControl
@@ -189,10 +223,17 @@ export class ENForm extends Component {
             <TextControl
               label={ __( 'Social media message', 'planet4-gutenberg-engagingnetworks' ) }
               placeholder={ __( 'e.g. "Can you share it with your family and friends?"', 'planet4-gutenberg-engagingnetworks' ) }
-              value={this.props.thankyou_take_action_message}
+              value={this.props.thankyou_social_media_message}
               onChange={this.props.onThankYouTakeActionMessageChange}
             />
           </div>
+
+          <ToggleControl
+            label={__('Hide "Thank You" donate button', 'p4ge')}
+            value={this.props.donate_button_checkbox}
+            checked={this.props.donate_button_checkbox}
+            onChange={this.props.onDonateButtonCheckboxChange}
+          />
 
           <div>
             <TextControl
@@ -260,13 +301,16 @@ export class ENForm extends Component {
               en_form_style: this.props.en_form_style,
               title: this.props.title,
               description: this.props.description,
+              campaign_logo: this.props.campaign_logo,
               content_title: this.props.content_title,
+              content_title_size: this.props.content_title_size,
               content_description: this.props.content_description,
               button_text: this.props.button_text,
               thankyou_title: this.props.thankyou_title,
               thankyou_subtitle: this.props.thankyou_subtitle,
               thankyou_donate_message: this.props.thankyou_donate_message,
-              thankyou_take_action_message: this.props.thankyou_take_action_message,
+              thankyou_social_media_message: this.props.thankyou_social_media_message,
+              donate_button_checkbox: this.props.donate_button_checkbox,
               thankyou_url: this.props.thankyou_url,
               background: this.props.background,
             }}
