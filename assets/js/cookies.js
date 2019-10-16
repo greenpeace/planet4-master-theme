@@ -28,7 +28,7 @@ jQuery(function($) {
   const nro = $('body').data('nro');
 
   if (cookie == null) {
-    $('.cookie-notice').show();
+    $('.cookie-notice').css('display', 'flex');
     const height = $('.cookie-notice').height();
     $('footer').css('margin-bottom', height + 'px');
   } else {
