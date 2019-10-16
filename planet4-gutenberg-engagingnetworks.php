@@ -118,6 +118,26 @@ function p4_en_forms_twig_filters( $twig ) {
 require_once __DIR__ . '/classes/class-loader.php';
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
+/**
+ * Allow EN block
+ *
+ * @param array  $allowed_block_types array of allowed block types.
+ * @param object $post current post.
+ *
+ * @return true if all blocks allowed, false if none or an array of allowed blocks
+ */
+function allow_en_block( $allowed_block_types, $post ) {
+
+	$allowed_en_block_type = [
+		'post'     => [],
+		'page'     => [ 'planet4-blocks/enform' ],
+		'campaign' => [ 'planet4-blocks/enform' ],
+	];
+
+	return array_merge( $allowed_block_types, $allowed_en_block_type[ $post->post_type ] );
+}
+
+add_filter( 'allowed_block_types', 'allow_en_block', 11, 2 );
 
 /*
 ==========================
