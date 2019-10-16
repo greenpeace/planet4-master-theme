@@ -103,7 +103,7 @@ final class Loader {
 
 		// Load Blocks.
 		$this->blocks = [
-			new Blocks\ENForm($this),
+			new Blocks\ENForm( $this ),
 		];
 	}
 

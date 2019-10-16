@@ -18,7 +18,7 @@
 				{% include "blocks/share_buttons.twig" with {post:post} %}
 			</div>
 
-			{% if '' == fields.donate_button_checkbox %}
+			{% if 'false' == fields.donate_button_checkbox %}
 				<div class="form-group">
 					<h5>{{ fields.thankyou_take_action_message }}</h5>
 				</div>

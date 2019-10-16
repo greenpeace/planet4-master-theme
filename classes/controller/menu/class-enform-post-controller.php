@@ -378,6 +378,7 @@ if ( ! class_exists( 'Enform_Post_Controller' ) ) {
 			wp_enqueue_script( 'jquery-ui-dialog' );
 			wp_enqueue_script( 'jquery-ui-tooltip' );
 			wp_enqueue_style( 'wp-jquery-ui-dialog' );
+			wp_enqueue_style( 'p4en_admin_style_blocks', P4GEN_ADMIN_DIR . 'css/admin_en.css', [], '0.1' );
 			wp_enqueue_script(
 				'enforms',
 				P4GEN_ADMIN_DIR . 'js/enforms.js',

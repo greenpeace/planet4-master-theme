@@ -4,7 +4,7 @@
  *
  * This is the long description.
  *
- * @package P4EN
+ * @package P4GEN
  */
 
 namespace P4GEN\Controllers\Menu;

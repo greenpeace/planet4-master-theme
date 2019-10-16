@@ -7,8 +7,8 @@
 
 namespace P4GEN\Blocks;
 
-use P4GEN\Controllers\Menu\Enform_Post_Controller;
 use P4GEN\Views\View;
+use P4GEN\Controllers\Ensapi_Controller as Ensapi;
 
 /**
  * Class ENForm
@@ -28,16 +28,16 @@ class ENForm extends Base_Block {
 	const ENFORM_PAGE_TYPES = [ 'PET', 'EMS' ];
 
 	/**
-	 * Custom meta field where fields configuration is saved to.
-	 */
-	const FIELDS_META = 'p4enform_fields';
-
-	/**
 	 * ENSAPI Object
 	 *
 	 * @var Ensapi $ensapi
 	 */
 	private $ens_api = null;
+
+	/**
+	 * Custom meta field where fields configuration is saved to.
+	 */
+	const FIELDS_META = 'p4enform_fields';
 
 	/**
 	 * Class Loader reference
@@ -47,16 +47,15 @@ class ENForm extends Base_Block {
 	private $loader;
 
 	/**
-	 * Cookies constructor.
+	 * ENForm constructor.
+	 *
+	 * @param array $loader Loader instance.
 	 */
 	public function __construct( $loader ) {
 		$this->loader = $loader;
-		//add_shortcode( 'shortcake_enform', [ $this, 'add_block_shortcode' ] );
-		// Variables exposed from PHP to JS,
-		// WP calls this "localizing a script"...
 
-		// - Register the block for the editor
-		// in the PHP side.
+		add_shortcode( 'shortcake_enblock', [ $this, 'add_block_shortcode' ] );
+
 		register_block_type(
 			'planet4-blocks/enform',
 			[
@@ -143,6 +142,9 @@ class ENForm extends Base_Block {
 				],
 			]
 		);
+
+		add_action( 'wp_ajax_get_en_session_token', [ $this, 'get_session_token' ] );
+		add_action( 'wp_ajax_nopriv_get_en_session_token', [ $this, 'get_session_token' ] );
 	}
 
 
@@ -156,10 +158,9 @@ class ENForm extends Base_Block {
 	public function add_block_shortcode( $attributes, $content ) {
 		$attributes = shortcode_atts(
 			[
-				'en_page_id'    			         => '',
-				'enform_goal'    			         => '',
-				'enform_style'    			       => '',
-				'enform_style'    			       => '',
+				'en_page_id'                   => '',
+				'enform_goal'                  => '',
+				'enform_style'                 => '',
 				'title'                        => '',
 				'description'                  => '',
 				'content_title'                => '',
@@ -169,6 +170,7 @@ class ENForm extends Base_Block {
 				'thankyou_title'               => '',
 				'thankyou_subtitle'            => '',
 				'thankyou_donate_message'      => '',
+				'donate_button_checkbox'       => '',
 				'thankyou_take_action_message' => '',
 				'thankyou_url'                 => '',
 				'background'                   => '',
@@ -200,10 +202,10 @@ class ENForm extends Base_Block {
 
 		// Handle background image.
 		if ( isset( $attributes['background'] ) ) {
-			$options                     = get_option( 'planet4_options' );
-			$p4_happy_point_bg_image     = $options['happy_point_bg_image_id'] ?? '';
-			$image_id                    = '' !== $attributes['background'] ? $attributes['background'] : $p4_happy_point_bg_image;
-			$img_meta                    = wp_get_attachment_metadata( $image_id );
+			$options                         = get_option( 'planet4_options' );
+			$p4_happy_point_bg_image         = $options['happy_point_bg_image_id'] ?? '';
+			$image_id                        = '' !== $attributes['background'] ? $attributes['background'] : $p4_happy_point_bg_image;
+			$img_meta                        = wp_get_attachment_metadata( $image_id );
 			$attributes['background_src']    = wp_get_attachment_image_src( $image_id, 'retina-large' );
 			$attributes['background_srcset'] = wp_get_attachment_image_srcset( $image_id, 'retina-large', $img_meta );
 			$attributes['background_sizes']  = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
@@ -215,13 +217,18 @@ class ENForm extends Base_Block {
 		if ( isset( $attributes['thankyou_url'] ) && $attributes['thankyou_url'] && 0 !== strpos( $attributes['thankyou_url'], 'http' ) ) {
 			$attributes['thankyou_url'] = 'http://' . $attributes['thankyou_url'];
 		} else {
-			$options                              = get_option( 'planet4_options' );
-			$attributes['donatelink']             = $options['donate_button'] ?? '#';
-			$attributes['donate_text']            = $options['donate_text'] ?? __( 'Donate', 'planet4-gutenberg-engagingnetworks' );
-			$attributes['donate_button_checkbox'] = isset( $attributes['donate_button_checkbox'] ) ? $attributes['donate_button_checkbox'] : 'false';
+			$options                   = get_option( 'planet4_options' );
+			$attributes['donatelink']  = $options['donate_button'] ?? '#';
+			$attributes['donate_text'] = $options['donate_text'] ?? __( 'Donate', 'planet4-gutenberg-engagingnetworks' );
+
+			$donate_button_checkbox = 'false';
+			if ( isset( $attributes['donate_button_checkbox'] ) && $attributes['donate_button_checkbox'] ) {
+				$donate_button_checkbox = 'true';
+			}
+			$attributes['donate_button_checkbox'] = $donate_button_checkbox;
 		}
 
-		$view = new View();
+		$view    = new View();
 		$post_id = $attributes['en_form_id'];
 
 		if ( $post_id ) {
@@ -236,9 +243,9 @@ class ENForm extends Base_Block {
 				'en_form_style' => $attributes['en_form_style'],
 			];
 
-			$renderedForm = $view->view_template('enform_post', $data, '/blocks/', true);
+			$rendered_form = $view->view_template( 'enform_post', $data, '/blocks/', true );
 		} else {
-			$renderedForm = '';
+			$rendered_form = '';
 		}
 
 		$data = array_merge(
@@ -247,10 +254,28 @@ class ENForm extends Base_Block {
 				'fields'       => $attributes,
 				'redirect_url' => isset( $attributes['thankyou_url'] ) ? filter_var( $attributes['thankyou_url'], FILTER_VALIDATE_URL ) : '',
 				'nonce_action' => 'enform_submit',
-				'form'         => $renderedForm,
+				'form'         => $rendered_form,
 			]
 		);
 
 		return $data;
+	}
+
+	/**
+	 * Get en session token for frontend api calls.
+	 */
+	public function get_session_token() {
+		// If this is an ajax call.
+		if ( wp_doing_ajax() ) {
+
+			$response          = [];
+			$main_settings     = get_option( 'p4en_main_settings' );
+			$ens_private_token = $main_settings['p4en_frontend_private_api'];
+			$this->ens_api     = new Ensapi( $ens_private_token, false );
+			$token             = $this->ens_api->get_public_session_token();
+			$response['token'] = $token;
+
+			wp_send_json( $response );
+		}
 	}
 }
