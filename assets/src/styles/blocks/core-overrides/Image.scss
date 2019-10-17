@@ -1,4 +1,4 @@
-.wp-block-image {
+.wp-block-image.caption-style-blue-overlay {
 	position: relative;
 
 	.alignleft,
@@ -6,8 +6,8 @@
 		position: relative;
 	}
 
-  // width: auto !important;
-  // max-width: 100%;
+  width: auto;
+  max-width: 100%;
 
   .alignnone {
     margin-bottom: $space-xl;
@@ -20,6 +20,7 @@
   }
 
   img {
+    width: 100%;
     max-width: 100%;
     height: auto;
   }
@@ -64,27 +65,15 @@
   }
 }
 
-/*
-.wp-block-image figcaption {
-	font-size: 0.8125rem;
-	margin: 0;
-	line-height: 1.4;
-	color: $white;
-	font-family: $roboto;
-	width: 100%;
-	max-width: 100%;
-	background: linear-gradient(210deg, transparentize($med-blue, .8) 0%, $med-blue 100%);
-	padding: $n10 $n20;
-
-	@include medium-and-up {
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		padding: $n20 $n30;
-	}
-
-	@include large-and-up {
-		padding: $n20 $n30;
-	}
+figcaption {
+  .caption-alignment-left & {
+    text-align: left;
+  }
+  .caption-alignment-center & {
+    text-align: center;
+  }
+  .caption-alignment-right & {
+    text-align: right;
+  }
 }
-*/
+

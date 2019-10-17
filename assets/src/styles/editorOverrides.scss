@@ -16,3 +16,27 @@
 .edit-post-visual-editor {
 	@include table;
 }
+
+.wp-block-image.caption-style-blue-overlay {
+  figcaption {
+    // This is to take into account the image resizer handle
+    margin-bottom: 8px;
+  }
+  .editor-rich-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    .editor-format-toolbar {
+      margin-top: 48px;
+      box-shadow: 0 2px 8px black;
+      z-index: 99999;
+    }
+  }
+}
+
+.components-panel__body label {
+  font-size: 13px;
+}
