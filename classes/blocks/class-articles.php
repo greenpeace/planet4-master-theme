@@ -115,6 +115,10 @@ class Articles extends Base_Block {
 							'type' => 'integer',
 						],
 					],
+					'exclude_post_id'      => [
+						'type'    => 'integer',
+						'default' => '',
+					],
 				],
 			]
 		);
