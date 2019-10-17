@@ -153,7 +153,7 @@ function set_allowed_block_types( $allowed_block_types, $post ) {
 		'core/list',
 		'core/quote', // TODO: Styling or removal.
 		// 'core/audio' // removed, not needed.
-		'core/cover',
+		// 'core/cover', - removed, not needed.
 		'core/file',
 		// 'core/video' - TODO: Decision. Ideally only allow embedded video.
 		// 'core/preformatted' // removed, not needed.
@@ -183,12 +183,12 @@ function set_allowed_block_types( $allowed_block_types, $post ) {
 		'core-embed/spotify',
 		'core-embed/flickr',
 		'core-embed/vimeo',
-		'core-embed/animoto',
-		'core-embed/cloudup',
-		'core-embed/collegehumor',
+		// 'core-embed/animoto', - removed, not needed.
+		// 'core-embed/cloudup', - removed, not needed.
+		// 'core-embed/collegehumor', - removed, not needed.
 		'core-embed/dailymotion',
 		'core-embed/funnyordie',
-		'core-embed/hulu',
+		// 'core-embed/hulu', - removed, not needed.
 		'core-embed/imgur',
 		'core-embed/issuu',
 		'core-embed/kickstarter',
@@ -197,16 +197,16 @@ function set_allowed_block_types( $allowed_block_types, $post ) {
 		'core-embed/photobucket',
 		'core-embed/polldaddy',
 		'core-embed/reddit',
-		'core-embed/reverbnation',
-		'core-embed/screencast',
+		// 'core-embed/reverbnation', - removed, not needed.
+		// 'core-embed/screencast', - removed, not needed.
 		'core-embed/scribd',
 		'core-embed/slideshare',
-		'core-embed/smugmug',
+		// 'core-embed/smugmug', removed, not needed.
 		'core-embed/speaker',
 		'core-embed/ted',
-		'core-embed/tumblr',
+		// 'core-embed/tumblr', removed, not needed.
 		'core-embed/videopress',
-		'core-embed/wordpress-tv',
+		// 'core-embed/wordpress-tv', removed, not needed.
 	];
 
 	$allowed_p4_block_types = [
