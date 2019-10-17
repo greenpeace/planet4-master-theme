@@ -25,7 +25,12 @@ module.exports = {
         test: /\.(sass|scss)$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              url: false
+            }
+          },
           {
             loader: 'postcss-loader',
             options: {
@@ -35,7 +40,12 @@ module.exports = {
               }
             }
           },
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }
         ]
       },
       {
