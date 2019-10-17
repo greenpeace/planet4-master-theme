@@ -42,7 +42,12 @@ module.exports = {
         test: /\.(sass|scss)$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              url: false
+            }
+          },
           {
             loader: 'postcss-loader',
             options: {
@@ -52,7 +57,12 @@ module.exports = {
               }
             }
           },
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            }
+          }
         ]
       },
       {
@@ -60,10 +70,10 @@ module.exports = {
         loader: 'svg-sprite-loader',
         options: {
           extract: true,
-          spriteFilename: '/images/symbol/svg/symbolB.svg',
+          spriteFilename: '../../images/symbol/svg/sprite.symbol.svg',
           runtimeCompat: true
         }
-      }
+      },
     ]
   },
   plugins: [
