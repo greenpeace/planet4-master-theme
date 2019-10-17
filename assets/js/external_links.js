@@ -10,7 +10,7 @@ jQuery(function($) {
       </g>
   </svg>`;
 
-  $('.page-template a, article a').each(function () {
+  $('.page-template a:not(.btn), article a:not(.btn)').each(function () {
     let href = undefined === $(this).attr('href') ? '' : $(this).attr('href');
     if (href != '' && href.indexOf(siteURL) <= -1 && href.length > 0) {
       if ($(this).text().trim().length == 0) {
