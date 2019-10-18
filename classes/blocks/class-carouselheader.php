@@ -107,8 +107,11 @@ class CarouselHeader extends Base_Block {
 			}
 
 			if ( isset( $slide['focal_points'] ) ) {
-				$focus_image          = round( $slide['focal_points']['x'] * 100, 0 ) . '% '
-										. round( $slide['focal_points']['y'] * 100, 0 ) . '%';
+
+				$x = isset( $slide['focal_points']['x'] ) ? round( $slide['focal_points']['x'] * 100, 0 ) . '% ' : '50%';
+				$y = isset( $slide['focal_points']['y'] ) ? round( $slide['focal_points']['y'] * 100, 0 ) . '% ' : '50%';
+
+				$focus_image          = "$x $y";
 				$slide['focus_image'] = $focus_image;
 			}
 			$temp_image         = wp_prepare_attachment_for_js( $image_id );
