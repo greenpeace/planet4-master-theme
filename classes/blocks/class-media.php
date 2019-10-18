@@ -118,11 +118,6 @@ class Media extends Base_Block {
 			$embed_html = wp_oembed_get( $media_url );
 		}
 
-		// Enqueue js for the frontend.
-		if ( ! $this->is_rest_request() ) {
-			wp_enqueue_script( 'media', P4GBKS_PLUGIN_URL . 'public/js/media.js', [ 'jquery' ], '0.1', true );
-		}
-
 		$data = [
 			'fields' => [
 				'title'       => $fields['video_title'],

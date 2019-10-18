@@ -16,20 +16,90 @@
   }
 }
 
-.embed-container {
+.wp-block-embed-youtube .wp-block-embed__wrapper, .wp-block-embed-vimeo .wp-block-embed__wrapper, .wp-block-embed-dailymotion .wp-block-embed__wrapper, .wp-block-embed-kickstarter .wp-block-embed__wrapper {
   position: relative;
   padding-bottom: 56.25%;
   overflow: hidden;
   max-width: 100%;
-  height: auto;
+  max-height: 100%;
 }
 
-.embed-container iframe,
-.embed-container object,
-.embed-container embed {
+.wp-block-embed-youtube iframe, .wp-block-embed-vimeo iframe, .wp-block-embed-dailymotion iframe, .wp-block-embed-kickstarter iframe {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.wp-block-embed-youtube, .wp-block-embed-vimeo, .wp-block-embed-dailymotion, .wp-block-embed-kickstarter {
+  @include  small-and-up {
+    max-width: 360px;
+    max-height: 202px;
+  }
+
+  @include medium-and-up {
+    max-width: 690px;
+    max-height: 388px;
+  }
+
+  @include large-and-up {
+    max-width: 930px;
+    max-height: 523px;
+  }
+
+  @include x-large-and-up {
+    max-width: 730px;
+    max-height: 410px;
+  }
+}
+
+.wp-block-embed-twitter, .wp-block-embed-instagram, .wp-block-embed-soundcloud, .wp-block-embed-reddit, .wp-block-embed-flickr {
+  width: 330px;
+
+  @include  small-and-up {
+    width: 330px;
+  }
+
+  @include medium-and-up {
+    width: 510px;
+  }
+
+  @include large-and-up {
+    width: 610px;
+  }
+
+  @include x-large-and-up {
+    width: 630px;
+  }
+}
+
+.wp-block-embed-twitter iframe, .wp-block-embed-instagram iframe, .wp-block-embed-soundcloud iframe, .wp-block-embed-reddit iframe, .wp-block-embed-flickr iframe {
+  width: 100% !important;
+}
+
+.wp-block-embed-twitter {
+  .wp-block-embed__wrapper {
+    padding-bottom: unset;
+  }
+}
+
+.instagram-media {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.wp-block-embed-reddit {
+  .wp-block-embed__wrapper {
+    padding-bottom: unset;
+  }
+
+  .embedly-card-hug {
+    max-width: 100% !important;
+    margin: unset !important;
+  }
+}
+
+.wp-block-embed-flickr img {
+  width: 100%;
 }
