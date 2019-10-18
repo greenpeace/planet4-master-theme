@@ -382,9 +382,16 @@ class Articles extends Base_Block {
 		$tags = $fields['tags'] ?? [];
 
 		// If user has not provided any tag, use post's tags.
-		if ( empty( $tags ) ) {
+		if ( empty( $tags ) && $exclude_post_id ) {
 			// Get page/post tags.
 			$tags = get_the_tags();
+
+			$tags = ! is_array( $tags ) ? [] : array_map(
+				function ( $tag ) {
+					return $tag->term_id;
+				},
+				$tags
+			);
 		}
 
 		// Get all posts with arguments.
