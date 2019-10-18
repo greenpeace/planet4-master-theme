@@ -26,7 +26,7 @@
 
 	<div class="page-template">
 		{% for name, block in blocks %}
-			{{ block|shortcodes|raw }}
+			{{ fn('do_blocks', block )|raw }}
 		{% endfor %}
 	</div>
 {% endblock %}
