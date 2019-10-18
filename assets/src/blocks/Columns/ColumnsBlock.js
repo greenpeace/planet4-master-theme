@@ -130,7 +130,7 @@ export class ColumnsBlock {
               type: 'string'
             },
             attachment:{
-              type: 'string'
+              type: 'integer'
             },
             cta_link:{
               type: 'string'
@@ -182,7 +182,7 @@ export class ColumnsBlock {
                 let new_columns = [...columns];
                 let i;
                 for ( i = 0; i < columns.length; i++ ) {
-                  new_columns[i]['attachment'] = '';
+                  new_columns[i]['attachment'] = 0;
                 }
                 setAttributes({columns: new_columns});
               }
@@ -197,7 +197,7 @@ export class ColumnsBlock {
                 columns: [...columns, {
                   title:'',
                   description:'',
-                  attachment:'',
+                  attachment:0,
                   cta_link:'',
                   cta_text:'',
                   link_new_tab:'',

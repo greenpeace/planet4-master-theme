@@ -107,7 +107,7 @@ class Columns extends Base_Block {
 									'type' => 'string',
 								],
 								'attachment'   => [
-									'type' => 'string',
+									'type' => 'integer',
 								],
 								'cta_link'     => [
 									'type' => 'string',
@@ -135,8 +135,6 @@ class Columns extends Base_Block {
 	 */
 	public function prepare_data( $attributes ): array {
 
-		$shortcode_tag = 'shortcake_' . self::BLOCK_NAME;
-
 		$attributes_temp = [
 			'columns_block_style' => $attributes['columns_block_style'] ?? static::LAYOUT_NO_IMAGE,
 			'columns_title'       => $attributes['columns_title'] ?? '',
@@ -157,13 +155,14 @@ class Columns extends Base_Block {
 
 			$attributes_temp = array_merge( $attributes_temp, $column_atts );
 
-			if ( ! empty( $attributes[ "title_$i" ] ) ) {
-				$columns_set = $i;
+			if ( ! empty( $attributes['columns'][ $i - 1 ]['title'] ) ) {
+				$columns_set++;
 			}
 		}
 
-		$attributes                  = shortcode_atts( $attributes_temp, $attributes, $shortcode_tag );
-		$attributes['no_of_columns'] = $columns_set;
+		// Store the block attributes as expected by the twig template, old block style.
+		$attributes_normalized                  = $attributes_temp;
+		$attributes_normalized['no_of_columns'] = $columns_set;
 
 		// Define the image size that will be used, based on layout chosen and number of columns.
 		$columns_block_style = $attributes['columns_block_style'];
@@ -179,15 +178,15 @@ class Columns extends Base_Block {
 				$image_size = 'thumbnail';
 			}
 			for ( $i = 1; $i <= static::MAX_COLUMNS; $i ++ ) {
-				list( $src ) = wp_get_attachment_image_src( $attributes[ "attachment_$i" ], $image_size );
+				list( $src ) = wp_get_attachment_image_src( $attributes_normalized[ "attachment_$i" ], $image_size );
 				if ( $src ) {
-					$attributes[ "attachment_$i" ] = $src;
+					$attributes_normalized[ "attachment_$i" ] = $src;
 				}
 			}
 		}
 
 		$block_data = [
-			'fields'              => $attributes,
+			'fields'              => $attributes_normalized,
 			'available_languages' => P4GBKS_LANGUAGES,
 		];
 		return $block_data;
