@@ -286,7 +286,7 @@
         top: 40%;
         right: 15px;
         pointer-events: none;
-        background-image: url("../../../public/images/icons/angle-right.svg");
+        background-image: url("public/images/icons/angle-right.svg");
         background-position: 50% 50%;
         background-size: 1rem 1rem;
         background-repeat: no-repeat;
@@ -299,8 +299,8 @@
           & {
             background-image: none;
             background-color: $yellow;
-            -webkit-mask-image: url("../../../public/images/icons/angle-right.svg");
-            mask-image: url("../../../public/images/icons/angle-right.svg");
+            -webkit-mask-image: url("public/images/icons/angle-right.svg");
+            mask-image: url("public/images/icons/angle-right.svg");
             mask-repeat: no-repeat;
             -webkit-mask-repeat: no-repeat;
             margin-right: 0;

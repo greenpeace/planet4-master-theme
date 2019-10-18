@@ -304,7 +304,7 @@ final class Loader {
 		// but not in the admin side.
 		wp_enqueue_style(
 			'p4gbks_admin_style',
-			P4GBKS_PLUGIN_URL . 'assets/build/editorStyle.min.css', // - Bundled CSS for the blocks
+			P4GBKS_PLUGIN_URL . 'editorStyle.min.css', // - Bundled CSS for the blocks
 			[],
 			'0.2'
 		);
@@ -346,7 +346,7 @@ final class Loader {
 		// Add master theme's main css as dependency for blocks css.
 		wp_enqueue_style(
 			'plugin-blocks',
-			P4GBKS_PLUGIN_URL . 'assets/build/style.min.css',
+			P4GBKS_PLUGIN_URL . 'style.min.css',
 			[
 				'bootstrap',
 				'slick',
