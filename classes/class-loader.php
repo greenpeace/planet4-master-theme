@@ -182,6 +182,9 @@ final class Loader {
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
 
+		// Setup image sizes.
+		add_action( 'admin_init', [ $this, 'setup_image_sizes' ] );
+
 		// Register a block category.
 		add_filter( 'block_categories', [ $this, 'register_block_category' ], 10, 2 );
 		// Provide hook for other plugins.
@@ -350,6 +353,22 @@ final class Loader {
 				'parent-style',
 			],
 			$css_blocks_creation
+		);
+	}
+
+	/**
+	 * Add sizes to the image size selector in the Image block's settings sidebar
+	 */
+	public function setup_image_sizes() {
+		// These array keys should match the image sizes added
+		// through add_image_size (search for them in the master theme).
+		$custom_sizes['articles-medium-large'] = 'Articles Medium Large';
+		$custom_sizes['retina-large']          = 'Retina Large';
+		add_filter(
+			'image_size_names_choose',
+			function( $sizes ) use ( $custom_sizes ) {
+				return array_merge( $sizes, $custom_sizes );
+			}
 		);
 	}
 

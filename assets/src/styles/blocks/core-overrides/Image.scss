@@ -1,0 +1,79 @@
+.wp-block-image.caption-style-blue-overlay {
+	position: relative;
+
+	.alignleft,
+	.alignright {
+		position: relative;
+	}
+
+  width: auto;
+  max-width: 100%;
+
+  .alignnone {
+    margin-bottom: $space-xl;
+    margin-top: $space-md;
+
+    @include large-and-up {
+      margin-bottom: $space-xxl;
+      margin-top: $space-lg;
+    }
+  }
+
+  img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  @include medium-and-up {
+    .image-credit {
+      position: absolute;
+      text-align: right;
+      right: 10px;
+      width: 100%;
+      color: $white;
+      z-index: 2;
+    }
+  }
+
+  .image-desc {
+    display: block;
+  }
+
+  figcaption {
+    font-size: 0.8125rem;
+    margin: 0;
+    line-height: 1.4;
+    color: $white;
+    font-family: $roboto;
+    width: 100%;
+    max-width: 100%;
+    background: linear-gradient(210deg, transparentize($med-blue, .8) 0%, $med-blue 100%);
+    padding: $n10 $n20;
+
+    @include medium-and-up {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+			padding: $n20 $n30;
+			height: auto;
+    }
+
+    @include large-and-up {
+      padding: $n20 $n30;
+    }
+  }
+}
+
+figcaption {
+  .caption-alignment-left & {
+    text-align: left;
+  }
+  .caption-alignment-center & {
+    text-align: center;
+  }
+  .caption-alignment-right & {
+    text-align: right;
+  }
+}
+

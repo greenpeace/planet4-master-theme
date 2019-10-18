@@ -13,6 +13,7 @@ import { SubmenuBlock } from './blocks/Submenu/SubmenuBlock';
 import { TakeactionboxoutBlock } from './blocks/Takeactionboxout/TakeactionboxoutBlock';
 import { TimelineBlock } from './blocks/Timeline/TimelineBlock';
 import { addSubAndSuperscript } from './RichTextEnhancements';
+import { setupImageBlockExtension } from './ImageBlockExtension';
 
 const articlesBlock = new ArticlesBlock();
 const carouselHeaderBlock = new CarouselHeaderBlock();
@@ -30,3 +31,4 @@ const takeActionBoxoutBlock = new TakeactionboxoutBlock();
 const timelineBlock = new TimelineBlock();
 
 addSubAndSuperscript(window.wp);
+setupImageBlockExtension();
