@@ -11,7 +11,7 @@
 			<input type="checkbox" data-attribute="required" <% print( required ?  'checked': '') %> <% print( input_type=='hidden' ?  ' disabled': '') %>	/>
 		</td>
 		<td>
-			<input type="text" data-attribute="label" value="<%- label %>" <% print( input_type=='hidden' || input_type=='checkbox' ?  ' disabled': '') %> />
+			<input type="text" data-attribute="label" value="<%- label %>" <% print( input_type=='hidden' || input_type=='checkbox' || input_type=='radio' ?  ' disabled': '') %> />
 		</td>
 		<td>
 			<select class="field-type-select" data-attribute="input_type">
@@ -21,10 +21,14 @@
 				<option value="email"  <% print( input_type == 'email' ?  'selected': '') %> >{{ __( 'Email', 'planet4-gutenberg-engagingnetworks' ) }}</option>
 				<option value="hidden"  <% print( input_type == 'hidden' ?  'selected': '') %> >{{ __( 'Hidden', 'planet4-gutenberg-engagingnetworks' ) }}</option>
 				<option value="text"  <% print( input_type == 'text' ?  'selected': '') %> >{{ __( 'Text', 'planet4-gutenberg-engagingnetworks' ) }}</option>
+				<option value="radio"  <% print( input_type == 'radio' ?  'selected': '') %> >{{ __( 'Radio', 'planet4-gutenberg-engagingnetworks' ) }}</option>
 			</select>
 		</td>
 		<td class="actions">
+			<% if ( input_type != 'email' ) { %>
+			<a><span class="dashicons dashicons-edit pointer"></span></a>
 			<a><span class="dashicons dashicons-no remove-en-field"></span></a>
+			<% } %>
 		</td>
 	</tr>
 </script>
@@ -72,24 +76,64 @@
 	</div>
 </script>
 
-<script type="text/html" id="tmpl-en-question-dialog">
+<script type="text/html" id="tmpl-en-checkbox-dialog">
 	<div style="display: none;" class="dialog" data-en-id="<%= id %>">
 		<p>
 			<label class="control-label">{{ __( 'Locales', 'planet4-gutenberg-engagingnetworks' ) }}</label>
-			<div>
-				<select class="form-control question-locale-select" data-attribute="locales">
-					<% _.each( locales, function( label_option, locale ) { %>
-					<option value="<%= label_option %>" <% print( label == label_option ?  'selected': '') %>><%= locale %></option>
-					<% }); %>
-				</select>
-			</div>
-			<br /><strong>{{ __( 'Question/Opt-in', 'planet4-gutenberg-engagingnetworks' ) }}</strong><br />
-			<br /><label class="question-label"></label><br /><br />
-			<% if ( 'GEN' == en_type )  { %>
-				<% _.each( question_options, function( question_option, value ) { %>
-				<input type="checkbox" value="<%= value %>" <% print( question_option.selected ?  'checked' : '') %> disabled /><%= question_option.label %><br />
+		<div>
+			<select class="form-control question-locale-select" data-attribute="selected_locale">
+				<% _.each( locales, function( label_option, locale ) { %>
+				<option value="<%= label_option %>" <% print( label == label_option ?  'selected': '') %>><%= locale %></option>
 				<% }); %>
+			</select>
+		</div>
+		<br />
+		<strong>
+			<% if ( 'GEN' == en_type )  { %>
+			{{ __( 'Question', 'planet4-gutenberg-engagingnetworks' ) }}
+			<% } else if ( 'OPT' == en_type )  { %>
+			{{ __( 'Opt-in', 'planet4-gutenberg-engagingnetworks' ) }}
 			<% } %>
+		</strong>
+		<br /><label class="question-label"><%= label %></label><br /><br />
+		<% if ( 'GEN' == en_type )  { %>
+		<% _.each( question_options[ selected_locale ], function( question_option ) { %>
+		<input type="checkbox" value="<%= question_option.option_value %>" <% print( question_option.option_selected ?  'checked' : '') %> disabled /><%= question_option.option_label %><br />
+		<% }); %>
+		<% } %>
+		</p>
+	</div>
+</script>
+
+<script type="text/html" id="tmpl-en-radio-dialog">
+	<div style="display: none;" class="dialog" data-en-id="<%= id %>">
+		<p>
+			<label class="control-label">{{ __( 'Locales', 'planet4-gutenberg-engagingnetworks' ) }}</label>
+		<div>
+			<select class="form-control question-locale-select" data-attribute="selected_locale">
+				<% _.each( locales, function( label_option, locale ) { %>
+				<option value="<%= label_option %>" <% print( label == label_option ?  'selected': '') %>><%= locale %></option>
+				<% }); %>
+			</select>
+		</div>
+		<br />
+		<strong>
+			<% if ( 'GEN' == en_type )  { %>
+			{{ __( 'Question', 'planet4-gutenberg-engagingnetworks' ) }}
+			<% } else if ( 'OPT' == en_type )  { %>
+			{{ __( 'Opt-in', 'planet4-gutenberg-engagingnetworks' ) }}
+			<% } %>
+		</strong>
+		<br /><label class="question-label"><%= label %></label><br /><br />
+		<% _.each( radio_options[ selected_locale ], function( radio_option ) { %>
+		<input
+				id="en__field_supporter_{{ field.name }}"
+				type="radio"
+				class="en__field__input en__field__input--radio"
+				value="<%= radio_option.option_value %>"
+		<% print( radio_option.option_selected ?  'checked' : '') %> disabled
+		/> <%= radio_option.option_label %><br />
+		<% }); %>
 		</p>
 	</div>
 </script>

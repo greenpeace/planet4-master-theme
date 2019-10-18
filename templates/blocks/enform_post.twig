@@ -150,7 +150,7 @@
 				{% set errorMessage = __( 'Please select a country.', 'planet4-engagingnetworks' ) %}
 				<div class="en__field en__field--select en__field--{{ field.id }}">
 					<div class="en__field__element en__field__element--select form-group">
-						{% include 'country_select.twig' with { errorMessage: errorMessage } %}
+						{% include 'blocks/country_select.twig' with { errorMessage: errorMessage } %}
 						{% if en_form_style == 'side-style' %}
 							<label class="en__field__top__label">
 								{{ field.label }}

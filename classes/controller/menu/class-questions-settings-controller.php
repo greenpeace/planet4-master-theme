@@ -2,7 +2,7 @@
 /**
  * Question Settings Controller
  *
- * @package P4EN
+ * @package P4GEN\Controllers
  */
 
 namespace P4GEN\Controllers\Menu;

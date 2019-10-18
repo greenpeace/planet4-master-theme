@@ -42,41 +42,41 @@ jQuery(function ($) {
               let selected = '';
 
               switch ( field_data['htmlFieldType'] ) {
-              case 'checkbox':
-                if ('OPT' === field_data['en_type']) {
-                  label = value.content.data[0].label;
-                  selected = value.content.data[0].selected;
+                case 'checkbox':
+                  if ('OPT' === field_data['en_type']) {
+                    label = value.content.data[0].label;
+                    selected = value.content.data[0].selected;
 
-                } else if ('GEN' === field_data['en_type']) {
+                  } else if ('GEN' === field_data['en_type']) {
+                    label = value.label;
+                    field_data['question_options'][value.locale] = [];
+
+                    $.each(value.content.data, function (i, option) {
+                      field_data['question_options'][value.locale].push({
+                        'option_label': _.escape( option.label ),
+                        'option_value': _.escape( option.value ),
+                        'option_selected': option.selected
+                      });
+
+                    });
+                  }
+                  field_data['locales'][value.locale] = _.escape(label);
+                  field_data['selected'] = selected;
+                  break;
+
+                case 'radio':
                   label = value.label;
-                  field_data['question_options'][value.locale] = [];
+                  field_data['locales'][value.locale] = _.escape(label);
+                  field_data['radio_options'][value.locale] = [];
 
                   $.each(value.content.data, function (i, option) {
-                    field_data['question_options'][value.locale].push({
+                    field_data['radio_options'][value.locale].push({
                       'option_label': _.escape( option.label ),
                       'option_value': _.escape( option.value ),
                       'option_selected': option.selected
                     });
-
                   });
-                }
-                field_data['locales'][value.locale] = _.escape(label);
-                field_data['selected'] = selected;
-                break;
-
-              case 'radio':
-                label = value.label;
-                field_data['locales'][value.locale] = _.escape(label);
-                field_data['radio_options'][value.locale] = [];
-
-                $.each(value.content.data, function (i, option) {
-                  field_data['radio_options'][value.locale].push({
-                    'option_label': _.escape( option.label ),
-                    'option_value': _.escape( option.value ),
-                    'option_selected': option.selected
-                  });
-                });
-                break;
+                  break;
               }
             }
           });
@@ -309,55 +309,66 @@ const p4_enform = (function ($) {
       const attr       = $(event.target).data('attribute');
       const en_type    = this.model.get('en_type');
       let $label       = this.$el.find('input[data-attribute="label"]');
+      let $required    = this.$el.find('input[data-attribute="required"]');
 
       this.model.set(attr, input_type);
       $tr.find('.dashicons-edit').parent().remove();
-      $label.val('').trigger('change');
 
       switch ( input_type ) {
-      case 'text':
-        $label.prop('disabled', false);
-        this.$el.find('.actions').prepend('<a><span class="dashicons dashicons-edit pointer"></span></a>');
-        this.createFieldDialog();
-        break;
-
-      case 'hidden':
-        this.$el.find('input[data-attribute="required"]').prop('checked', false).trigger('change').prop('disabled', true);
-        $label.prop('disabled', true);
-        this.$el.find('.actions').prepend('<a><span class="dashicons dashicons-edit pointer"></span></a>');
-        this.createFieldDialog();
-        break;
-
-      case 'checkbox':
-        if ( ('OPT' === en_type || 'GEN' === en_type) ) {
-          $label.prop('disabled', true);
+        case 'checkbox':
+          if ( 'OPT' === en_type || 'GEN' === en_type ) {
+            $required.prop('disabled', false);
+            $label.prop('disabled', true);
+          } else {
+            $label.prop('disabled', false);
+          }
           this.$el.find('.actions').prepend('<a><span class="dashicons dashicons-edit pointer"></span></a>');
           this.createFieldDialog();
-        }
-        break;
+          break;
 
-      case 'radio':
-        if ( ('OPT' === en_type || 'GEN' === en_type) ) {
+        case 'country':
+          $required.prop('disabled', false);
+          $label.prop('disabled', false);
+          break;
+
+        case 'email':
+          $required.prop('disabled', false);
+          $label.prop('disabled', false);
+          break;
+
+        case 'hidden':
+          $required.prop('checked', false).trigger('change').prop('disabled', true);
           $label.prop('disabled', true);
+          $label.val('').trigger('change');
           this.$el.find('.actions').prepend('<a><span class="dashicons dashicons-edit pointer"></span></a>');
           this.createFieldDialog();
-        }
-        break;
+          break;
 
-      default:
-        if (null !== this.dialog_view) {
-          this.dialog_view.destroy();
-          this.dialog_view = null;
-        }
-        $('body').find('.dialog-' + id).remove();
-        this.$el.find('.dashicons-edit').parent().remove();
-      }
+        case 'text':
+          $required.prop('disabled', false);
+          $label.prop('disabled', false);
+          this.$el.find('.actions').prepend('<a><span class="dashicons dashicons-edit pointer"></span></a>');
+          this.createFieldDialog();
+          break;
 
-      if ('hidden' !== input_type) {
-        this.$el.find('input[data-attribute="required"]').prop('disabled', false);
-        if ('OPT' !== en_type) {
-          this.$el.find('input[data-attribute="label"]').prop('disabled', false);
-        }
+        case 'radio':
+          $required.prop('disabled', false);
+          if ( 'OPT' === en_type || 'GEN' === en_type ) {
+            $label.prop('disabled', true);
+          } else {
+            $label.prop('disabled', false);
+          }
+          this.$el.find('.actions').prepend('<a><span class="dashicons dashicons-edit pointer"></span></a>');
+          this.createFieldDialog();
+          break;
+
+        default:
+          if (null !== this.dialog_view) {
+            this.dialog_view.destroy();
+            this.dialog_view = null;
+          }
+          $('body').find('.dialog-' + id).remove();
+          this.$el.find('.dashicons-edit').parent().remove();
       }
     },
 
@@ -376,18 +387,18 @@ const p4_enform = (function ($) {
       let tmpl = '';
 
       switch ( input_type ) {
-      case 'text':
-        tmpl = '#tmpl-en-text-field-dialog';
-        break;
-      case 'hidden':
-        tmpl = '#tmpl-en-hidden-field-dialog';
-        break;
-      case 'checkbox':
-        tmpl = '#tmpl-en-checkbox-dialog';
-        break;
-      case 'radio':
-        tmpl = '#tmpl-en-radio-dialog';
-        break;
+        case 'text':
+          tmpl = '#tmpl-en-text-field-dialog';
+          break;
+        case 'hidden':
+          tmpl = '#tmpl-en-hidden-field-dialog';
+          break;
+        case 'checkbox':
+          tmpl = '#tmpl-en-checkbox-dialog';
+          break;
+        case 'radio':
+          tmpl = '#tmpl-en-radio-dialog';
+          break;
       }
 
       if (null !== this.dialog_view) {

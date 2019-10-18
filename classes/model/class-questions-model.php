@@ -2,7 +2,7 @@
 /**
  * Questions model class
  *
- * @package P4EN
+ * @package P4GEN
  */
 
 namespace P4GEN\Model;

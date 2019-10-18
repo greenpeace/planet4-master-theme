@@ -145,13 +145,9 @@ add_filter( 'allowed_block_types', 'allow_en_block', 11, 2 );
 ==========================
 */
 P4GEN\Loader::get_instance(
-	// --- Add here your own Block Controller ---
-	// DEPRECATED: Blocks could be registered inside Loader class
-	// 'P4GEN\Controllers\Blocks\NewCovers_Controller',
 	[
 		'P4GEN\Controllers\Menu\Enform_Post_Controller',
 		'P4GEN\Controllers\Menu\Settings_Controller',
-		'P4GEN\Controllers\Blocks\ENBlock_Controller',
 		'P4GEN\Controllers\Api\Rest_Controller',
 	],
 	'P4GEN\Views\View'
