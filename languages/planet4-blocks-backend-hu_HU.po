@@ -1,14 +1,13 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-07 10:10+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: \n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"PO-Revision-Date: 2018-10-24 16:01+0000\n"
+"Last-Translator: bdobos <bdobos@greenpeace.org>\n"
+"Language-Team: Hungarian\n"
+"Language: hu_HU\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,99 +15,99 @@ msgstr ""
 
 #: classes/class-loader.php:90
 msgid "Requirements Error(s)"
-msgstr ""
+msgstr "Követelmény hibák"
 
 #: classes/class-loader.php:93
 msgid "plugin needs to be installed and activated."
-msgstr ""
+msgstr "plugin telepítése és bekapcsolása szükséges."
 
 #: classes/class-loader.php:97
 msgid "Minimum version "
-msgstr ""
+msgstr "Minimális verzió "
 
 #: classes/class-loader.php:98
 msgid "Current version "
-msgstr ""
+msgstr "Jelenlegi verzió "
 
 #: classes/class-loader.php:113
 msgid "PHP Requirements Error"
-msgstr ""
+msgstr "PHP követelmény hiba"
 
 #: classes/class-loader.php:113
 msgid " requires a newer version of PHP."
-msgstr ""
+msgstr " újabb PHP-verziót követel meg."
 
 #: classes/class-loader.php:114
 msgid "Minimum required version of PHP: "
-msgstr ""
+msgstr "A minimális PHP-verzió: "
 
 #: classes/class-loader.php:115
 msgid "Running version of PHP: "
-msgstr ""
+msgstr "Jelenlegi PHP-verzió: "
 
 #: classes/class-loader.php:200
 msgid "Conflict Error"
-msgstr ""
+msgstr "Összeférhetetlenségi hiba"
 
 #: classes/class-loader.php:200
 msgid "Class P4BKS_Loader already exists."
-msgstr ""
+msgstr "A P4BKS_Loader osztály már létezik."
 
 #: classes/controller/blocks/class-cookies-controller.php:32
 msgid "Cookies title"
-msgstr ""
+msgstr "Sütik cím"
 
 #: classes/controller/blocks/class-cookies-controller.php:33
 msgid "Main title for cookies block"
-msgstr ""
+msgstr "Sütik-blokk főcíme"
 
 #: classes/controller/blocks/class-cookies-controller.php:38
 msgid "Cookies general description"
-msgstr ""
+msgstr "Általános leírás a sütikről"
 
 #: classes/controller/blocks/class-cookies-controller.php:39
 msgid "Main description for cookies block"
-msgstr ""
+msgstr "Sütik-blokk fő leírása"
 
 #: classes/controller/blocks/class-cookies-controller.php:44
 msgid "Necessary Cookies Name"
-msgstr ""
+msgstr "Szükséges sütik neve"
 
 #: classes/controller/blocks/class-cookies-controller.php:45
 msgid "Label for the 'necessary cookies' checkbox"
-msgstr ""
+msgstr "Felirat a \"szükséges sütik\" jelölőnégyzethez"
 
 #: classes/controller/blocks/class-cookies-controller.php:50
 msgid "Necessary Cookies Description"
-msgstr ""
+msgstr "Szükséges sütik leírása"
 
 #: classes/controller/blocks/class-cookies-controller.php:51
 msgid "Description for the 'necessary cookies' paragraph"
-msgstr ""
+msgstr "Leírás a \"szükséges sütik\"-bekezdéshez"
 
 #: classes/controller/blocks/class-cookies-controller.php:56
 msgid "All Cookies Name"
-msgstr ""
+msgstr "Összes süti neve"
 
 #: classes/controller/blocks/class-cookies-controller.php:57
 msgid "Label for the 'all cookies' checkbox"
-msgstr ""
+msgstr "Felirat az \"összes süti\" jelölőnégyzethez"
 
 #: classes/controller/blocks/class-cookies-controller.php:62
 msgid "All Cookies Description"
-msgstr ""
+msgstr "Összes süti leírása"
 
 #: classes/controller/blocks/class-cookies-controller.php:63
 msgid "Description for the 'all cookies' paragraph"
-msgstr ""
+msgstr "Leírás az \"összes süti\"-bekezdéshez"
 
 #: classes/controller/blocks/class-cookies-controller.php:71
 msgid "Cookies"
-msgstr ""
+msgstr "Sütik"
 
 #: classes/controller/blocks/class-mediablock-controller.php:30
 msgid "Select Image for the media block"
-msgstr ""
+msgstr "Válassz képet a Média-blokkhoz"
 
 #: classes/controller/blocks/class-mediablock-controller.php:34
 #: classes/controller/blocks/class-mediablock-controller.php:35
@@ -119,32 +118,32 @@ msgstr ""
 #: classes/controller/blocks/class-carouselheader-controller.php:39
 #: classes/controller/blocks/class-carouselheader-controller.php:40
 msgid "Select Image"
-msgstr ""
+msgstr "Kép kiválasztása"
 
 #. A block that displays an image that supports transparency and blends with the background.
 #: classes/controller/blocks/class-mediablock-controller.php:42
 msgid "Media block"
-msgstr ""
+msgstr "Média-blokk"
 
 #: classes/controller/blocks/class-mediavideo-controller.php:27
 msgid "Video Title"
-msgstr ""
+msgstr "Videó címe"
 
 #: classes/controller/blocks/class-mediavideo-controller.php:31
 msgid "Enter video title"
-msgstr ""
+msgstr "Add meg a videó címét"
 
 #: classes/controller/blocks/class-mediavideo-controller.php:35
 msgid "Youtube ID"
-msgstr ""
+msgstr "Youtube azonosító"
 
 #: classes/controller/blocks/class-mediavideo-controller.php:39
 msgid "Enter youtube video id"
-msgstr ""
+msgstr "Add meg a YouTube-videó azonosítóját"
 
 #: classes/controller/blocks/class-mediavideo-controller.php:46
 msgid "Youtube Video"
-msgstr ""
+msgstr "Youtube videó"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:27
 #: classes/controller/blocks/class-covers-controllers.php:25
@@ -156,7 +155,7 @@ msgstr ""
 #: classes/controller/blocks/class-twocolumn-controller.php:44
 #: classes/controller/blocks/class-twocolumn-controller.php:81
 msgid "Title"
-msgstr ""
+msgstr "Cím"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:31
 #: classes/controller/blocks/class-covers-controllers.php:29
@@ -164,7 +163,7 @@ msgstr ""
 #: classes/controller/blocks/class-splittwocolumns-controller.php:89
 #: classes/controller/blocks/class-carousel-controller.php:75
 msgid "Enter title"
-msgstr ""
+msgstr "Add meg a címet"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:35
 #: classes/controller/blocks/class-covers-controllers.php:34
@@ -174,57 +173,59 @@ msgstr ""
 #: classes/controller/blocks/class-twocolumn-controller.php:53
 #: classes/controller/blocks/class-twocolumn-controller.php:89
 msgid "Description"
-msgstr ""
+msgstr "Leírás"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:39
 #: classes/controller/blocks/class-covers-controllers.php:38
 #: classes/controller/blocks/class-splittwocolumns-controller.php:99
 #: classes/controller/blocks/class-splittwocolumns-controller.php:151
 msgid "Enter description"
-msgstr ""
+msgstr "Add meg a leírást"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:43
 msgid "Image 1"
-msgstr ""
+msgstr "1. Kép"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:47
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:48
 msgid "Select First Image"
-msgstr ""
+msgstr "Válaszd ki az első képet"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:51
 msgid "Image 2"
-msgstr ""
+msgstr "2. Kép"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:55
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:56
 msgid "Select Second Image"
-msgstr ""
+msgstr "Válaszd ki a második képet"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:59
 msgid "Image 3"
-msgstr ""
+msgstr "3. Kép"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:63
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:64
 msgid "Select Third Image"
-msgstr ""
+msgstr "Válaszd ki a harmadik képet"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:70
 msgid "Three Columns"
-msgstr ""
+msgstr "Háromosztatú kép"
 
 #: classes/controller/blocks/class-covers-controllers.php:44
 msgid "Select Tags"
-msgstr ""
+msgstr "Válassz Cimkéket"
 
 #: classes/controller/blocks/class-covers-controllers.php:45
 msgid "Associate this block with Actions that have specific Tags"
 msgstr ""
+"Társítsd ez a blokkot olyan Cselekvésekkel, amelyek bizonyos Cimkékkel "
+"rendelkeznek"
 
 #: classes/controller/blocks/class-covers-controllers.php:51
 msgid "Number of covers displayed"
-msgstr ""
+msgstr "Megjelenített borítók száma"
 
 #: classes/controller/blocks/class-covers-controllers.php:52
 msgid ""
@@ -236,46 +237,57 @@ msgid ""
 "\t\t\t\t\t\t\t\t\t\tShow All Covers: Displays all available Covers on "
 "desktop and 4 Covers on mobile."
 msgstr ""
+"1 sor mutatása: 3 Borítót jelenít meg asztali gépen, és 2 Borítót mobilon."
+"<br> \n"
+"\n"
+"2 sor mutatása: 6 Borítót jelenít meg asztali gépen, és 4 Borítót mobilon."
+"<br>\n"
+"\n"
+"(Egy újabb sor fog megjelenni mindig, amikor a felhasználó a Többet "
+"szeretnék látni gombra kattint)<br>\n"
+"\n"
+"Összes Borító mutatása: az összes Borítot megjeleníti asztali gépen, és 4 "
+"Borítót jelenít meg mobilon."
 
 #. placeholder is a number.
 #: classes/controller/blocks/class-covers-controllers.php:63
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:87
 msgid "Show 1 Row"
-msgstr ""
+msgstr "1 sor mutatása"
 
 #. placeholder is a number.
 #: classes/controller/blocks/class-covers-controllers.php:68
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:91
 msgid "Show 2 Rows"
-msgstr ""
+msgstr "2 sor mutatása"
 
 #: classes/controller/blocks/class-covers-controllers.php:72
 msgid "Show All Covers"
-msgstr ""
+msgstr "Összes borító mutatása"
 
 #: classes/controller/blocks/class-covers-controllers.php:85
 msgid "Take Action Covers"
-msgstr ""
+msgstr "Cselekvésre ösztönző borítók"
 
 #: classes/controller/blocks/class-campaignthumbnail-controller.php:36
 msgid "Campaign Thumbnail"
-msgstr ""
+msgstr "Kampány-bélyegképek"
 
 #: classes/controller/blocks/class-tasks-controller.php:30
 msgid "Tasks Title"
-msgstr ""
+msgstr "Feladatok címe"
 
 #: classes/controller/blocks/class-tasks-controller.php:34
 msgid "Enter tasks title"
-msgstr ""
+msgstr "Add meg a feladatok címét"
 
 #: classes/controller/blocks/class-tasks-controller.php:39
 msgid "Tasks Description"
-msgstr ""
+msgstr "Feladatok leírása"
 
 #: classes/controller/blocks/class-tasks-controller.php:43
 msgid "Enter tasks description"
-msgstr ""
+msgstr "Add meg a feladatok leírását"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:55
@@ -285,157 +297,163 @@ msgid ""
 "\t\t\t\t\t\t\t\t\t<i>Title is mandatory. In order for the task to be "
 "appeared title has to be filled.</i>"
 msgstr ""
+"Feladat %s: Cím <br> \n"
+"\n"
+"<i>A cím kötelező. Ahhoz, hogy a feladat megjelenjen, a cím mezőt ki kell "
+"tölteni.</i>"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:61
 #, php-format
 msgid "Enter title of %s task/column"
-msgstr ""
+msgstr "Add meg a %s feladat/oszlop címét"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:69
 #, php-format
 msgid "Task %s: Description"
-msgstr ""
+msgstr "Feladat %s: Leírás"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:74
 #, php-format
 msgid "Enter description of %s task/column"
-msgstr ""
+msgstr "Add meg a(z) %s feladat/oszlop leírását"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:82
 #, php-format
 msgid "Select Image for %s task/column"
-msgstr ""
+msgstr "Válassz képet a(z) %s feladathoz/oszlophoz"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:93
 #, php-format
 msgid "Task %s: Button Text"
-msgstr ""
+msgstr "Feladat %s: Gombszöveg"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:98
 #, php-format
 msgid "Enter button text of %s task/column"
-msgstr ""
+msgstr "Add meg a(z) %s feladat/oszlop gombszövegét"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:106
 #, php-format
 msgid "Task %s: Button Link"
-msgstr ""
+msgstr "Feladat %s: Gomb linkje"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:111
 #, php-format
 msgid "Enter button link of %s task/column"
-msgstr ""
+msgstr "Add meg a(z) %s feladat/oszlop gombhivatkozását"
 
 #. A block that contains different columns each one with title and description and an image.
 #: classes/controller/blocks/class-tasks-controller.php:120
 msgid "Take action tasks"
-msgstr ""
+msgstr "Cselekvési lehetőségek, feladatok"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:24
 #: classes/controller/blocks/class-carouselheader-controller.php:48
 #: classes/controller/blocks/class-happypoint-controller.php:38
 msgid "1 - Top Left"
-msgstr ""
+msgstr "1 - Felül balra"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:25
 #: classes/controller/blocks/class-carouselheader-controller.php:49
 #: classes/controller/blocks/class-happypoint-controller.php:42
 msgid "2 - Top Center"
-msgstr ""
+msgstr "2 - Felül középen"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:26
 #: classes/controller/blocks/class-carouselheader-controller.php:50
 #: classes/controller/blocks/class-happypoint-controller.php:46
 msgid "3 - Top Right"
-msgstr ""
+msgstr "3 - Felül jobbra"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:27
 #: classes/controller/blocks/class-carouselheader-controller.php:51
 #: classes/controller/blocks/class-happypoint-controller.php:50
 msgid "4 - Middle Left"
-msgstr ""
+msgstr "4 - Középen balra"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:28
 #: classes/controller/blocks/class-carouselheader-controller.php:52
 #: classes/controller/blocks/class-happypoint-controller.php:54
 msgid "5 - Middle Center"
-msgstr ""
+msgstr "5 - Középen"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:29
 #: classes/controller/blocks/class-carouselheader-controller.php:53
 #: classes/controller/blocks/class-happypoint-controller.php:58
 msgid "6 - Middle Right"
-msgstr ""
+msgstr "6 - Középen jobbra"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:30
 #: classes/controller/blocks/class-carouselheader-controller.php:54
 #: classes/controller/blocks/class-happypoint-controller.php:62
 msgid "7 - Bottom Left"
-msgstr ""
+msgstr "7 - Alul balra"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:31
 #: classes/controller/blocks/class-carouselheader-controller.php:55
 #: classes/controller/blocks/class-happypoint-controller.php:66
 msgid "8 - Bottom Center"
-msgstr ""
+msgstr "8 - Alul középen"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:32
 #: classes/controller/blocks/class-carouselheader-controller.php:56
 #: classes/controller/blocks/class-happypoint-controller.php:70
 msgid "9 - Bottom Right"
-msgstr ""
+msgstr "9 - Alul jobbra"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:68
 msgid "Issue fields (Column 1 - Left side)"
-msgstr ""
+msgstr "Ügy mezők (Oszlop 1 - bal oldalon)"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:69
 msgid "Select an issue"
-msgstr ""
+msgstr "Válassz ügyet"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:72
 msgid "Campaign fields (Column 2 - Right side)"
-msgstr ""
+msgstr "Kampány mezői (Oszlop 2 - jobb oldalon)"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:73
 msgid "Select a tag"
-msgstr ""
+msgstr "Válassz cimkét"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:80
 msgid "Associate this block to the Issue that it will talk about"
-msgstr ""
+msgstr "Társítsd ezt a Blokkot egy Ügyhöz, amiről szól"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:85
 msgid "Issue Title"
-msgstr ""
+msgstr "Ügy címe"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:92
 msgid "(Optional) Fill this only if you need to override issue title."
 msgstr ""
+"(Opcionális) Csak akkor töltsd ki, ha felül szeretnéd írni az ügy címét."
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:95
 msgid "Issue Description"
-msgstr ""
+msgstr "Ügy leírása"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:101
 msgid "(Optional) Fill this only if you need to override issue description."
 msgstr ""
+"(Opcionális) Csak akkor töltsd ki, ha felül szeretnéd írni az ügy leírását. "
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:104
 msgid "Issue link text"
-msgstr ""
+msgstr "Ügy hivatkozásszövege"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:108
 msgid "Enter link text"
-msgstr ""
+msgstr "Add meg a hivatkozásszöveget"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:110
 #: classes/controller/blocks/class-splittwocolumns-controller.php:119
@@ -446,105 +464,109 @@ msgstr ""
 #: classes/controller/blocks/class-splittwocolumns-controller.php:171
 #: classes/controller/blocks/class-splittwocolumns-controller.php:180
 msgid "(Optional)"
-msgstr ""
+msgstr "(Opcionális)"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:113
 msgid "Issue link path"
-msgstr ""
+msgstr "Ügy elérési útja"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:117
 msgid "Enter link path"
-msgstr ""
+msgstr "Add meg az elérési utat"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:122
 msgid "Issue Image"
-msgstr ""
+msgstr "Ügy képe"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:126
 #: classes/controller/blocks/class-splittwocolumns-controller.php:127
 msgid "Select Image for Issue"
-msgstr ""
+msgstr "Válassz képet az ügyhöz"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:131
 msgid "Select focus point for issue image"
-msgstr ""
+msgstr "Válassz fókuszpontot az ügy képéhez"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:141
 msgid "Associate the selected Issue with a Tag"
-msgstr ""
+msgstr "Társítsd a kiválasztott Ügyet egy Cimkéhez"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:147
 msgid "Campaign Description"
-msgstr ""
+msgstr "Kampány leírása"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:156
 msgid "Campaign button text"
-msgstr ""
+msgstr "Kampány gombfelirata"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:160
 msgid "Enter button text"
-msgstr ""
+msgstr "Add meg a gombfeliratot"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:165
 msgid "Campaign button link"
-msgstr ""
+msgstr "Kampány gombhivatkozása"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:169
 msgid "Enter button link"
-msgstr ""
+msgstr "Add meg a gombhivatkozást"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:174
 msgid "Campaign Image"
-msgstr ""
+msgstr "Kampány képe"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:178
 #: classes/controller/blocks/class-splittwocolumns-controller.php:179
 msgid "Select Image for Campaign"
-msgstr ""
+msgstr "Válassz képet a kampányhoz"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:183
 msgid "Select focus point for campaign image"
-msgstr ""
+msgstr "Válassz fókuszpontot a kampány képéhez"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:200
 msgid "Split Two Columns"
-msgstr ""
+msgstr "Kétosztatú borító (ügy / kampány)"
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:57
 msgid "Select a Take Action Page"
-msgstr ""
+msgstr "Válassz Cselekvés-oldalt"
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:58
 msgid "Associate this block with a Take Action page"
-msgstr ""
+msgstr "Társítsd ezt a blokkot egy Cselekedj-oldalhoz"
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:66
 msgid "Take Action Boxout"
-msgstr ""
+msgstr "Cselekvés doboz"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:52
 msgid ""
 "Title. <i>If it is not defined, title will default to 'Publications'</i>"
 msgstr ""
+"Cím. <i>Ha nincs megadva, az alapértelmezett \"Kiadványok\" lesz "
+"használva</i>"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:57
 #: classes/controller/blocks/class-submenu-controller.php:132
 msgid "Enter title for this block"
-msgstr ""
+msgstr "Add meg a blokk címét"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:63
 msgid "Select a Tag"
-msgstr ""
+msgstr "Válassz Cimkét"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:64
 #: classes/controller/blocks/class-submenu-controller.php:103
 msgid "Associate this block with Posts that have a specific Tag"
 msgstr ""
+"Társítsd ezt a blokkot azokhoz a Bejegyzésekez, amelyek bizonyos Cimkékkel "
+"rendelkeznek"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:76
 msgid "Number of Posts displayed"
-msgstr ""
+msgstr "Megjelenített hozzászólások száma"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:77
 msgid ""
@@ -556,154 +578,167 @@ msgid ""
 "\t\t\t\t\t\t\t\t\tShow All Rows: Displays all available Posts on desktop and "
 "4 Posts on mobile."
 msgstr ""
+"1 sor mutatása: 4 Bejegyzést jelenít meg asztali gépen, 3 Bejegyzést mobilon."
+"<br> \n"
+"\n"
+"2 sor mutatása: 8 Bejegyzést jelenít meg asztali gépen, 6 Bejegyzést mobilon."
+"<br>\n"
+"\n"
+"(Egy újabb sor fog megjelenni mindig, amikor a felhasználó a Többet "
+"szeretnék látni gombra kattint<br>\n"
+"\n"
+"Összes sor mutatása: az összes Bejegyzést megjeleníti asztali gépen, és 4 "
+"Bejegyzést jelenít meg mobilon"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:95
 msgid "Show All Posts"
-msgstr ""
+msgstr "Összes bejegyzés mutatása"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:102
 msgid "Content Four Column"
-msgstr ""
+msgstr "Tartalom négy oszlop"
 
 #: classes/controller/blocks/class-carousel-controller.php:79
 msgid "Select Carousel Images"
-msgstr ""
+msgstr "Válassz képeket a Lapozóba"
 
 #: classes/controller/blocks/class-carousel-controller.php:91
 msgid "Carousel"
-msgstr ""
+msgstr "Lapozó"
 
 #: classes/controller/blocks/class-carouselsplit-controller.php:28
 msgid "Images"
-msgstr ""
+msgstr "Képek"
 
 #: classes/controller/blocks/class-carouselsplit-controller.php:33
 #: classes/controller/blocks/class-carouselsplit-controller.php:34
 msgid "Select Images for Carousel"
-msgstr ""
+msgstr "Válassz képeket a Lapozóba"
 
 #. A block that contains a carousel with split images.
 #: classes/controller/blocks/class-carouselsplit-controller.php:41
 msgid "Carousel Split"
-msgstr ""
+msgstr "Lapozó felosztása"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:43
 #, php-format
 msgid "Select Image for %s column"
-msgstr ""
+msgstr "Válassz képet a(z) %s oszlophoz"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:56
 #, php-format
 msgid "Enter title of %s column"
-msgstr ""
+msgstr "Add meg a(z) %s oszlop címét"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:66
 #, php-format
 msgid "Enter description of %s column"
-msgstr ""
+msgstr "Add meg a(z) %s oszlop leírását"
 
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:71
 #: classes/controller/blocks/class-carouselheader-controller.php:91
 msgid "Text for link"
-msgstr ""
+msgstr "Hivatkozás szövege"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:76
 #, php-format
 msgid "Enter %s link text"
-msgstr ""
+msgstr "Add meg a(z) %s hivatkozás szövegét"
 
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:81
 #: classes/controller/blocks/class-carouselheader-controller.php:101
 msgid "Url for link"
-msgstr ""
+msgstr "Hivatkozás URL-e"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:86
 #, php-format
 msgid "Enter %s link url"
-msgstr ""
+msgstr "Add meg a(z %s hivatkozás URL-ét"
 
 #. A block that contains 4 different columns each one with title and description.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:97
 msgid "Static Four Column"
-msgstr ""
+msgstr "Statikus négy oszlop"
 
 #: classes/controller/blocks/class-controller.php:74
 msgid "Shortcode UI plugin must be active for Planet4 - Blocks plugin to work."
 msgstr ""
+"A Shortcode UI bővítményt be kell kapcsolni ahhoz, hogy a Planet4 - Blokkok "
+"bővítmény működni tudjon."
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:35
 #, php-format
 msgid "Select file for %s image"
-msgstr ""
+msgstr "Válassz fájlt a(z) %s képhez"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:44
 #, php-format
 msgid "Select focus point for image %s"
-msgstr ""
+msgstr "Válassz fókusztpontot a(z) %s képhez"
 
 #: classes/controller/blocks/class-carouselheader-controller.php:60
 msgid "Header"
-msgstr ""
+msgstr "Főcím"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:65
 #, php-format
 msgid "Enter header of %s image"
-msgstr ""
+msgstr "Add meg a(z) %s kép főcímét"
 
 #: classes/controller/blocks/class-carouselheader-controller.php:71
 #: classes/controller/blocks/class-subheader-controller.php:37
 msgid "Subheader"
-msgstr ""
+msgstr "Alcím"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:76
 #, php-format
 msgid "Enter subheader of %s image"
-msgstr ""
+msgstr "Add meg a(z) %s kép alcímét"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:86
 #, php-format
 msgid "Enter description of %s image"
-msgstr ""
+msgstr "Add meg a(z) %s kép leírását"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:96
 #, php-format
 msgid "Enter link text for %s image"
-msgstr ""
+msgstr "Add meg a(z) %s kép hivatkozásszövegét"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:106
 #, php-format
 msgid "Enter link url for %s image"
-msgstr ""
+msgstr "Add meg a(z) %s kép hivatkozás URL-ét"
 
 #. A block that contains 4 different columns each one with title and description.
 #: classes/controller/blocks/class-carouselheader-controller.php:117
 msgid "Carousel Header"
-msgstr ""
+msgstr "Főcím lapozó"
 
 #: classes/controller/blocks/class-happypoint-controller.php:24
 msgid "Background"
-msgstr ""
+msgstr "Háttér"
 
 #: classes/controller/blocks/class-happypoint-controller.php:28
 #: classes/controller/blocks/class-happypoint-controller.php:29
 msgid "Select Background Image"
-msgstr ""
+msgstr "Válassz háttérképet"
 
 #: classes/controller/blocks/class-happypoint-controller.php:32
 msgid "Select focus point for background image"
-msgstr ""
+msgstr "Válassz fókuszpontot a háttérképhez"
 
 #: classes/controller/blocks/class-happypoint-controller.php:75
 msgid ""
@@ -711,34 +746,37 @@ msgid ""
 "<br /> the higher the number, the more faded the image will look. If you "
 "leave this <br/> empty, the default of 30 will be used.</i>"
 msgstr ""
+"Fedést használunk a kép halványítására. Írj be egy számot 1 és 100 között: "
+"minél nagyobb a szám, annál halványabb lesz a kép. Ha üresen hagyod, az "
+"alapértelmezett érték (30) lesz használva."
 
 #: classes/controller/blocks/class-happypoint-controller.php:81
 msgid "Use mailing list iframe"
-msgstr ""
+msgstr "Levéllista Iframe használata"
 
 #: classes/controller/blocks/class-happypoint-controller.php:86
 msgid "Iframe url"
-msgstr ""
+msgstr "Iframe URL"
 
 #: classes/controller/blocks/class-happypoint-controller.php:93
 msgid "Enter iframe url"
-msgstr ""
+msgstr "Add meg az Iframe URL-ét"
 
 #: classes/controller/blocks/class-happypoint-controller.php:100
 msgid "Happy Point"
-msgstr ""
+msgstr "Feliratkozási doboz"
 
 #: classes/controller/blocks/class-submenu-controller.php:86
 msgid "None"
-msgstr ""
+msgstr "Nincs"
 
 #: classes/controller/blocks/class-submenu-controller.php:92
 msgid "Heading"
-msgstr ""
+msgstr "Főcím"
 
 #: classes/controller/blocks/class-submenu-controller.php:98
 msgid "Anchor Link Submenu"
-msgstr ""
+msgstr "Tartalomjegyzék"
 
 #: classes/controller/blocks/class-submenu-controller.php:99
 msgid ""
@@ -746,114 +784,117 @@ msgid ""
 "\t\t\t\t\t\t\t\t\t\t\t\tthe page and let them jump to a topic they are "
 "interested in."
 msgstr ""
+"Tartalomjegyzék az oldalon, amely segít a felhasználóknak áttekinteni, hogy "
+"mi található az oldalon, és segít nekik gyorsan ahhoz a részhez navigálni, "
+"ami érdekli őket. "
 
 #: classes/controller/blocks/class-submenu-controller.php:102
 msgid "What style of menu do you need?"
-msgstr ""
+msgstr "Milyen stílusú menüre van szükséged?"
 
 #: classes/controller/blocks/class-submenu-controller.php:108
 msgid "Long full-width"
-msgstr ""
+msgstr "Hosszú (teljes szélességű)"
 
 #: classes/controller/blocks/class-submenu-controller.php:114
 msgid "Short full-width"
-msgstr ""
+msgstr "Rövid (teljes szélességű)"
 
 #: classes/controller/blocks/class-submenu-controller.php:120
 msgid "Short sidebar"
-msgstr ""
+msgstr "Rövid (oldalsáv)"
 
 #: classes/controller/blocks/class-submenu-controller.php:127
 msgid "<h3>Submenu title</h3>"
-msgstr ""
+msgstr "<h3>Almenü címe</h3>"
 
 #: classes/controller/blocks/class-submenu-controller.php:164
 msgid "Submenu"
-msgstr ""
+msgstr "Almenü"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:48
 msgid "Enter title of first column"
-msgstr ""
+msgstr "Add meg az első oszlop címét"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:57
 msgid "Enter description of first column"
-msgstr ""
+msgstr "Add meg az első oszlop leírását"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:62
 #: classes/controller/blocks/class-twocolumn-controller.php:97
 msgid "Button text"
-msgstr ""
+msgstr "Gombfelirat"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:70
 #: classes/controller/blocks/class-twocolumn-controller.php:105
 msgid "Button link"
-msgstr ""
+msgstr "Gombhivatkozás"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:74
 msgid "Enter button link of first column"
-msgstr ""
+msgstr "Add meg az első oszlop gombhivatkozását"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:85
 msgid "Enter title of second column"
-msgstr ""
+msgstr "Add meg a második oszlop címét"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:93
 msgid "Enter description of second column"
-msgstr ""
+msgstr "Add meg a második oszlop leírását"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:109
 msgid "Enter button link of second column"
-msgstr ""
+msgstr "Add meg a második oszlop gombhivatkozását"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:123
 msgid "Two Columns"
-msgstr ""
+msgstr "Két oszlop"
 
 #: classes/controller/blocks/class-articles-controller.php:58
 msgid "Article Heading"
-msgstr ""
+msgstr "Cikk címsora"
 
 #: classes/controller/blocks/class-articles-controller.php:62
 msgid "Enter article heading"
-msgstr ""
+msgstr "Add meg a cikk címét"
 
 #: classes/controller/blocks/class-articles-controller.php:66
 msgid "Article Count"
-msgstr ""
+msgstr "Cikkek száma"
 
 #: classes/controller/blocks/class-articles-controller.php:70
 msgid "Enter articles count"
-msgstr ""
+msgstr "Add meg a cikkek számát"
 
 #: classes/controller/blocks/class-articles-controller.php:74
 msgid "Read More Text"
-msgstr ""
+msgstr "Olvass tovább-szöveg"
 
 #: classes/controller/blocks/class-articles-controller.php:78
 msgid "Add read more button text"
-msgstr ""
+msgstr "Add meg az Olvass tovább-gomb szövegét"
 
 #: classes/controller/blocks/class-articles-controller.php:82
 msgid "Read More Link"
-msgstr ""
+msgstr "Olvass tovább-hivatkozás"
 
 #: classes/controller/blocks/class-articles-controller.php:86
 msgid "Add read more button link"
-msgstr ""
+msgstr "Add meg az Olvass tovább-gomb hivatkozását"
 
 #: classes/controller/blocks/class-articles-controller.php:97
 msgid "Articles"
-msgstr ""
+msgstr "Cikkek"
 
 #: classes/controller/menu/class-settings-controller.php:21
 #: classes/controller/menu/class-settings-controller.php:22
 msgid "Blocks"
-msgstr ""
+msgstr "Blokkok"
 
 #: includes/settings.twig:4
 msgid "Settings"
-msgstr ""
+msgstr "Beállítások"
 
 #: includes/settings.twig:20
 msgid "Select Language"
-msgstr ""
+msgstr "Nyelv kiválasztása"
