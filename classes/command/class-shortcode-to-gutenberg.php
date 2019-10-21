@@ -62,9 +62,10 @@ class Shortcode_To_Gutenberg {
 	 */
 	public function replace_all( $post_id ) {
 		$args = [
-			'post_type'   => 'any',
-			'post_status' => [ 'publish', 'pending', 'draft', 'future', 'private' ],
-			'nopaging'    => true,
+			'post_type'        => 'any',
+			'post_status'      => [ 'publish', 'pending', 'draft', 'future', 'private' ],
+			'nopaging'         => true,
+			'suppress_filters' => true,
 		];
 
 		if ( $post_id ) {
