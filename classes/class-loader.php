@@ -309,6 +309,14 @@ final class Loader {
 			'0.2'
 		);
 
+		wp_enqueue_script(
+			'p4gbks_admin_script',
+			P4GBKS_PLUGIN_URL . 'admin/js/editor.js',
+			[],
+			'0.1',
+			true
+		);
+
 		// Enqueue editor script for all Blocks in this Plugin.
 		wp_enqueue_script(
 			'planet4-blocks-script',                       // - Script handler
