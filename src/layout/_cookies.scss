@@ -20,8 +20,15 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 10px 0;
-  background: $cookie-bkg url("images/cookie-right-gradient-sm.png") no-repeat right;
+  background: $cookie-bkg url("/images/cookie-right-gradient-sm.png") no-repeat right;
+  min-height: 80px;
+  flex-direction: column;
+  padding: 36px;
+
+  @include medium-and-up {
+    flex-direction: row;
+    padding: 24px 36px;
+  }
 
   p {
     font-size: $font-size-xxs;
@@ -30,12 +37,19 @@
     color: $cookie-blue;
     text-align: left;
     font-family: $roboto;
-    line-height: 18px;
+    line-height: 1.5rem;
+    width: 100%;
+    padding-right: $space-md;
+
+    html[dir="rtl"] & {
+      padding-right: 0;
+      padding-left: $space-md;
+    }
 
     @include medium-and-up {
       font-size: $font-size-xs;
       margin-bottom: 0;
-      display: inline-block;
+      display: flex;
       vertical-align: middle;
     }
     @include large-and-up {
@@ -55,21 +69,6 @@
     }
   }
 
-  div.col-9 {
-    @include mobile-only {
-      margin: 0 auto;
-      max-width: 95%;
-      flex: 95%;
-    }
-  }
-
-  div.col {
-    @include mobile-only {
-      margin: 0 auto;
-      max-width: 95%;
-    }
-  }
-
   .btn {
     height: 32px;
     line-height: 32px;
@@ -77,6 +76,11 @@
     width: 100%;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     background-color: transparentize($white, .2);
+    margin-bottom: 0;
+
+    @include medium-and-up {
+      width: 150px;
+    }
 
     html[dir="rtl"] & {
       font-size: $font-size-sm;
