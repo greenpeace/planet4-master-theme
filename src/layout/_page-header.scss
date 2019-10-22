@@ -61,11 +61,7 @@
   }
 
   &.page-header-hidden {
-    padding: $menu-height-small 0 0 0;
-
-    @include medium-and-up {
-      padding: $menu-height-large 0 0 0;
-    }
+    padding: 0 !important;
   }
 
   .container > *:not(.row) {
