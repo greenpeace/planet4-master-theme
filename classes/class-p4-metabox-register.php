@@ -145,11 +145,10 @@ class P4_Metabox_Register {
 
 		$p4_header->add_field(
 			[
-				'name'       => __( 'Hide page title', 'planet4-master-theme-backend' ),
-				'desc'       => __( 'Hide page title on frontend page.', 'planet4-master-theme-backend' ),
-				'id'         => $this->prefix . 'hide_page_title_checkbox',
-				'type'       => 'checkbox',
-				'show_on_cb' => [ $this, 'is_not_campaign_post' ],
+				'name' => __( 'Hide page title', 'planet4-master-theme-backend' ),
+				'desc' => __( 'Hide page title on frontend page.', 'planet4-master-theme-backend' ),
+				'id'   => $this->prefix . 'hide_page_title_checkbox',
+				'type' => 'checkbox',
 			]
 		);
 	}
