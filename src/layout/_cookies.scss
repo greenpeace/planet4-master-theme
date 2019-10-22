@@ -40,6 +40,7 @@
     line-height: 1.5rem;
     width: 100%;
     padding-right: $space-md;
+    display: block;
 
     html[dir="rtl"] & {
       padding-right: 0;
@@ -49,7 +50,6 @@
     @include medium-and-up {
       font-size: $font-size-xs;
       margin-bottom: 0;
-      display: flex;
       vertical-align: middle;
     }
     @include large-and-up {
