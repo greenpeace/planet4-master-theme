@@ -1,14 +1,13 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-07 10:10+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: \n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"PO-Revision-Date: 2018-08-15 12:20+0000\n"
+"Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
+"Language-Team: Portuguese (Brazil)\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,99 +15,99 @@ msgstr ""
 
 #: classes/class-loader.php:90
 msgid "Requirements Error(s)"
-msgstr ""
+msgstr "Erro de requerimento(s)"
 
 #: classes/class-loader.php:93
 msgid "plugin needs to be installed and activated."
-msgstr ""
+msgstr "plugin precisa estar instalado e ativado."
 
 #: classes/class-loader.php:97
 msgid "Minimum version "
-msgstr ""
+msgstr "Versão mínima:"
 
 #: classes/class-loader.php:98
 msgid "Current version "
-msgstr ""
+msgstr "Versão atual"
 
 #: classes/class-loader.php:113
 msgid "PHP Requirements Error"
-msgstr ""
+msgstr "Erro de requerimento PHP"
 
 #: classes/class-loader.php:113
 msgid " requires a newer version of PHP."
-msgstr ""
+msgstr "requer uma versão mais recente do PHP."
 
 #: classes/class-loader.php:114
 msgid "Minimum required version of PHP: "
-msgstr ""
+msgstr "Versão mínima requerida do PHP:"
 
 #: classes/class-loader.php:115
 msgid "Running version of PHP: "
-msgstr ""
+msgstr "Versão atual do PHP:"
 
 #: classes/class-loader.php:200
 msgid "Conflict Error"
-msgstr ""
+msgstr "Erro de conflito"
 
 #: classes/class-loader.php:200
 msgid "Class P4BKS_Loader already exists."
-msgstr ""
+msgstr "Classe P4BKS_Loader já existe"
 
 #: classes/controller/blocks/class-cookies-controller.php:32
 msgid "Cookies title"
-msgstr ""
+msgstr "Título dos Cookies"
 
 #: classes/controller/blocks/class-cookies-controller.php:33
 msgid "Main title for cookies block"
-msgstr ""
+msgstr "Título para bloco dos cookies"
 
 #: classes/controller/blocks/class-cookies-controller.php:38
 msgid "Cookies general description"
-msgstr ""
+msgstr "Descrição geral dos Cookies"
 
 #: classes/controller/blocks/class-cookies-controller.php:39
 msgid "Main description for cookies block"
-msgstr ""
+msgstr "Bloco com descrição principal dos cookies"
 
 #: classes/controller/blocks/class-cookies-controller.php:44
 msgid "Necessary Cookies Name"
-msgstr ""
+msgstr "Nome dos \"Cookies necessários\""
 
 #: classes/controller/blocks/class-cookies-controller.php:45
 msgid "Label for the 'necessary cookies' checkbox"
-msgstr ""
+msgstr "Texto para checkbox de \"cookies necessários\""
 
 #: classes/controller/blocks/class-cookies-controller.php:50
 msgid "Necessary Cookies Description"
-msgstr ""
+msgstr "Descrição dos \"Cookies necessários\""
 
 #: classes/controller/blocks/class-cookies-controller.php:51
 msgid "Description for the 'necessary cookies' paragraph"
-msgstr ""
+msgstr "Descrição para o parágrafo \"Cookies necessários\""
 
 #: classes/controller/blocks/class-cookies-controller.php:56
 msgid "All Cookies Name"
-msgstr ""
+msgstr "All Cookies nome"
 
 #: classes/controller/blocks/class-cookies-controller.php:57
 msgid "Label for the 'all cookies' checkbox"
-msgstr ""
+msgstr "Texto para a checkbox de \"All cookies\""
 
 #: classes/controller/blocks/class-cookies-controller.php:62
 msgid "All Cookies Description"
-msgstr ""
+msgstr "All Cookies descrição"
 
 #: classes/controller/blocks/class-cookies-controller.php:63
 msgid "Description for the 'all cookies' paragraph"
-msgstr ""
+msgstr "Descrição para o parágrafo \"Todos os cookies\""
 
 #: classes/controller/blocks/class-cookies-controller.php:71
 msgid "Cookies"
-msgstr ""
+msgstr "Cookies"
 
 #: classes/controller/blocks/class-mediablock-controller.php:30
 msgid "Select Image for the media block"
-msgstr ""
+msgstr "Selecione uma imagem para o bloco de mídia"
 
 #: classes/controller/blocks/class-mediablock-controller.php:34
 #: classes/controller/blocks/class-mediablock-controller.php:35
@@ -119,32 +118,32 @@ msgstr ""
 #: classes/controller/blocks/class-carouselheader-controller.php:39
 #: classes/controller/blocks/class-carouselheader-controller.php:40
 msgid "Select Image"
-msgstr ""
+msgstr "Selecione imagem"
 
 #. A block that displays an image that supports transparency and blends with the background.
 #: classes/controller/blocks/class-mediablock-controller.php:42
 msgid "Media block"
-msgstr ""
+msgstr "Bloco de mídia"
 
 #: classes/controller/blocks/class-mediavideo-controller.php:27
 msgid "Video Title"
-msgstr ""
+msgstr "Título do vídeo"
 
 #: classes/controller/blocks/class-mediavideo-controller.php:31
 msgid "Enter video title"
-msgstr ""
+msgstr "Coloque o título do vídeo"
 
 #: classes/controller/blocks/class-mediavideo-controller.php:35
 msgid "Youtube ID"
-msgstr ""
+msgstr "ID do vídeo do YouTube"
 
 #: classes/controller/blocks/class-mediavideo-controller.php:39
 msgid "Enter youtube video id"
-msgstr ""
+msgstr "Coloque a ID do vídeo no YouTube (o final da URL)"
 
 #: classes/controller/blocks/class-mediavideo-controller.php:46
 msgid "Youtube Video"
-msgstr ""
+msgstr "Vídeo do YouTube"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:27
 #: classes/controller/blocks/class-covers-controllers.php:25
@@ -156,7 +155,7 @@ msgstr ""
 #: classes/controller/blocks/class-twocolumn-controller.php:44
 #: classes/controller/blocks/class-twocolumn-controller.php:81
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:31
 #: classes/controller/blocks/class-covers-controllers.php:29
@@ -164,7 +163,7 @@ msgstr ""
 #: classes/controller/blocks/class-splittwocolumns-controller.php:89
 #: classes/controller/blocks/class-carousel-controller.php:75
 msgid "Enter title"
-msgstr ""
+msgstr "Coloque o título"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:35
 #: classes/controller/blocks/class-covers-controllers.php:34
@@ -174,57 +173,57 @@ msgstr ""
 #: classes/controller/blocks/class-twocolumn-controller.php:53
 #: classes/controller/blocks/class-twocolumn-controller.php:89
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:39
 #: classes/controller/blocks/class-covers-controllers.php:38
 #: classes/controller/blocks/class-splittwocolumns-controller.php:99
 #: classes/controller/blocks/class-splittwocolumns-controller.php:151
 msgid "Enter description"
-msgstr ""
+msgstr "Coloque a descrição"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:43
 msgid "Image 1"
-msgstr ""
+msgstr "Imagem 1"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:47
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:48
 msgid "Select First Image"
-msgstr ""
+msgstr "Selecione a primeira imagem"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:51
 msgid "Image 2"
-msgstr ""
+msgstr "Imagem 2"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:55
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:56
 msgid "Select Second Image"
-msgstr ""
+msgstr "Selecione a segunda imagem"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:59
 msgid "Image 3"
-msgstr ""
+msgstr "Imagem 3"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:63
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:64
 msgid "Select Third Image"
-msgstr ""
+msgstr "Selecione a terceira imagem"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:70
 msgid "Three Columns"
-msgstr ""
+msgstr "Três colunas"
 
 #: classes/controller/blocks/class-covers-controllers.php:44
 msgid "Select Tags"
-msgstr ""
+msgstr "Selecione Tags"
 
 #: classes/controller/blocks/class-covers-controllers.php:45
 msgid "Associate this block with Actions that have specific Tags"
-msgstr ""
+msgstr "Associar esse bloco com Ações que tenham Tags específicas"
 
 #: classes/controller/blocks/class-covers-controllers.php:51
 msgid "Number of covers displayed"
-msgstr ""
+msgstr "Número de capas exibidas"
 
 #: classes/controller/blocks/class-covers-controllers.php:52
 msgid ""
@@ -236,46 +235,53 @@ msgid ""
 "\t\t\t\t\t\t\t\t\t\tShow All Covers: Displays all available Covers on "
 "desktop and 4 Covers on mobile."
 msgstr ""
+"Mostrar 1 linha: Exibe 3 capas no desktop e 2 capas no celular. <br>\n"
+"\t\t\t\t\t\t\t\t\t\tMostrar 2 linhas: Exibe 6 capas no desktop e 4 capas no "
+"celular. <br>\n"
+"\t\t\t\t\t\t\t\t\t\t(Outra linha será exibida cada vez que o botão \"Ver "
+"mais\" for clicado)<br>\n"
+"\t\t\t\t\t\t\t\t\t\tMostrar todas as capas: Exibe todas as capas disponíveis "
+"no desktop e 4 capas no celular."
 
 #. placeholder is a number.
 #: classes/controller/blocks/class-covers-controllers.php:63
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:87
 msgid "Show 1 Row"
-msgstr ""
+msgstr "Mostrar 1 linha"
 
 #. placeholder is a number.
 #: classes/controller/blocks/class-covers-controllers.php:68
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:91
 msgid "Show 2 Rows"
-msgstr ""
+msgstr "Mostrar 2 linhas"
 
 #: classes/controller/blocks/class-covers-controllers.php:72
 msgid "Show All Covers"
-msgstr ""
+msgstr "Mostrar todas as capas"
 
 #: classes/controller/blocks/class-covers-controllers.php:85
 msgid "Take Action Covers"
-msgstr ""
+msgstr "Capas do bloco de ação"
 
 #: classes/controller/blocks/class-campaignthumbnail-controller.php:36
 msgid "Campaign Thumbnail"
-msgstr ""
+msgstr "Thumb da campanha"
 
 #: classes/controller/blocks/class-tasks-controller.php:30
 msgid "Tasks Title"
-msgstr ""
+msgstr "Título da tarefa"
 
 #: classes/controller/blocks/class-tasks-controller.php:34
 msgid "Enter tasks title"
-msgstr ""
+msgstr "Coloque o título das tarefas"
 
 #: classes/controller/blocks/class-tasks-controller.php:39
 msgid "Tasks Description"
-msgstr ""
+msgstr "Descrição da tarefa"
 
 #: classes/controller/blocks/class-tasks-controller.php:43
 msgid "Enter tasks description"
-msgstr ""
+msgstr "Coloque a descrição das tarefas"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:55
@@ -285,157 +291,162 @@ msgid ""
 "\t\t\t\t\t\t\t\t\t<i>Title is mandatory. In order for the task to be "
 "appeared title has to be filled.</i>"
 msgstr ""
+"Título da tarefa %s: <br> \n"
+"\t\t\t\t\t\t\t\t\t<i>O título é obrigatório. Para a tarefa aparecer, o "
+"título precisa ser preenchido.</i>"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:61
 #, php-format
 msgid "Enter title of %s task/column"
-msgstr ""
+msgstr "Coloque o título da tarefa/coluna %s"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:69
 #, php-format
 msgid "Task %s: Description"
-msgstr ""
+msgstr "Descrição da tarefa %s"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:74
 #, php-format
 msgid "Enter description of %s task/column"
-msgstr ""
+msgstr "Coloque a descrição da coluna/tarefa %s"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:82
 #, php-format
 msgid "Select Image for %s task/column"
-msgstr ""
+msgstr "Selecione uma imagem para a tarefa/coluna %s"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:93
 #, php-format
 msgid "Task %s: Button Text"
-msgstr ""
+msgstr "Texto do botão das tarefas %s"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:98
 #, php-format
 msgid "Enter button text of %s task/column"
-msgstr ""
+msgstr "Coloque o texto do botão da coluna %s"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:106
 #, php-format
 msgid "Task %s: Button Link"
-msgstr ""
+msgstr "Link do botão das tarefas %s"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:111
 #, php-format
 msgid "Enter button link of %s task/column"
-msgstr ""
+msgstr "Coloque o link do botão para o %s da tarefa/coluna"
 
 #. A block that contains different columns each one with title and description and an image.
 #: classes/controller/blocks/class-tasks-controller.php:120
 msgid "Take action tasks"
-msgstr ""
+msgstr "Tarefas de ação"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:24
 #: classes/controller/blocks/class-carouselheader-controller.php:48
 #: classes/controller/blocks/class-happypoint-controller.php:38
 msgid "1 - Top Left"
-msgstr ""
+msgstr "1 - Acima à esq."
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:25
 #: classes/controller/blocks/class-carouselheader-controller.php:49
 #: classes/controller/blocks/class-happypoint-controller.php:42
 msgid "2 - Top Center"
-msgstr ""
+msgstr "2 - Acima ao centro"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:26
 #: classes/controller/blocks/class-carouselheader-controller.php:50
 #: classes/controller/blocks/class-happypoint-controller.php:46
 msgid "3 - Top Right"
-msgstr ""
+msgstr "3 - Acima à dir. "
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:27
 #: classes/controller/blocks/class-carouselheader-controller.php:51
 #: classes/controller/blocks/class-happypoint-controller.php:50
 msgid "4 - Middle Left"
-msgstr ""
+msgstr "4 - Meio à esq."
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:28
 #: classes/controller/blocks/class-carouselheader-controller.php:52
 #: classes/controller/blocks/class-happypoint-controller.php:54
 msgid "5 - Middle Center"
-msgstr ""
+msgstr "5 - Meio centro"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:29
 #: classes/controller/blocks/class-carouselheader-controller.php:53
 #: classes/controller/blocks/class-happypoint-controller.php:58
 msgid "6 - Middle Right"
-msgstr ""
+msgstr "6 - Meio à dir."
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:30
 #: classes/controller/blocks/class-carouselheader-controller.php:54
 #: classes/controller/blocks/class-happypoint-controller.php:62
 msgid "7 - Bottom Left"
-msgstr ""
+msgstr "7 - Embaixo à esq."
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:31
 #: classes/controller/blocks/class-carouselheader-controller.php:55
 #: classes/controller/blocks/class-happypoint-controller.php:66
 msgid "8 - Bottom Center"
-msgstr ""
+msgstr "8 - Embaixo ao centro"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:32
 #: classes/controller/blocks/class-carouselheader-controller.php:56
 #: classes/controller/blocks/class-happypoint-controller.php:70
 msgid "9 - Bottom Right"
-msgstr ""
+msgstr "9 - Embaixo à dir. "
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:68
 msgid "Issue fields (Column 1 - Left side)"
-msgstr ""
+msgstr "Campos do Problema (Coluna 1 - lado esquerdo)"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:69
 msgid "Select an issue"
-msgstr ""
+msgstr "Selecione um problema"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:72
 msgid "Campaign fields (Column 2 - Right side)"
-msgstr ""
+msgstr "Campos da Campanha (Coluna 2 - lado direito)"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:73
 msgid "Select a tag"
-msgstr ""
+msgstr "Selecione uma tag"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:80
 msgid "Associate this block to the Issue that it will talk about"
-msgstr ""
+msgstr "Associar este bloco com o Problema relacionado a ele"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:85
 msgid "Issue Title"
-msgstr ""
+msgstr "Título do Problema"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:92
 msgid "(Optional) Fill this only if you need to override issue title."
-msgstr ""
+msgstr "(Opcional) Preencha aqui apenas se você precisar alterar o título."
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:95
 msgid "Issue Description"
-msgstr ""
+msgstr "Descrição do Problema"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:101
 msgid "(Optional) Fill this only if you need to override issue description."
 msgstr ""
+"(Opcional) Preencha aqui apenas se você precisar alterar a descrição do "
+"problema."
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:104
 msgid "Issue link text"
-msgstr ""
+msgstr "Texto do link deste Problema"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:108
 msgid "Enter link text"
-msgstr ""
+msgstr "Coloque o texto do link"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:110
 #: classes/controller/blocks/class-splittwocolumns-controller.php:119
@@ -446,105 +457,106 @@ msgstr ""
 #: classes/controller/blocks/class-splittwocolumns-controller.php:171
 #: classes/controller/blocks/class-splittwocolumns-controller.php:180
 msgid "(Optional)"
-msgstr ""
+msgstr "(Opcional)"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:113
 msgid "Issue link path"
-msgstr ""
+msgstr "Caminho do link deste Problema"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:117
 msgid "Enter link path"
-msgstr ""
+msgstr "Coloque o caminho do link"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:122
 msgid "Issue Image"
-msgstr ""
+msgstr "Imagem do Problema"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:126
 #: classes/controller/blocks/class-splittwocolumns-controller.php:127
 msgid "Select Image for Issue"
-msgstr ""
+msgstr "Selecione uma imagem para o Problema"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:131
 msgid "Select focus point for issue image"
-msgstr ""
+msgstr "Selecione o ponto focal da imagem do problema"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:141
 msgid "Associate the selected Issue with a Tag"
-msgstr ""
+msgstr "Associar o Problema selecionado à Tag"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:147
 msgid "Campaign Description"
-msgstr ""
+msgstr "Descrição da Campanha"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:156
 msgid "Campaign button text"
-msgstr ""
+msgstr "Texto do botão da campanha"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:160
 msgid "Enter button text"
-msgstr ""
+msgstr "Coloque o texto do botão"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:165
 msgid "Campaign button link"
-msgstr ""
+msgstr "Link do botão da campanha"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:169
 msgid "Enter button link"
-msgstr ""
+msgstr "Coloque o texto do botão"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:174
 msgid "Campaign Image"
-msgstr ""
+msgstr "Imagem da campanha"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:178
 #: classes/controller/blocks/class-splittwocolumns-controller.php:179
 msgid "Select Image for Campaign"
-msgstr ""
+msgstr "Selecione uma imagem para a Campanha"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:183
 msgid "Select focus point for campaign image"
-msgstr ""
+msgstr "Selecione o ponto focal da imagem da campanha"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:200
 msgid "Split Two Columns"
-msgstr ""
+msgstr "2 colunas divididas"
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:57
 msgid "Select a Take Action Page"
-msgstr ""
+msgstr "Selecione uma página de Ação"
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:58
 msgid "Associate this block with a Take Action page"
-msgstr ""
+msgstr "Associar este bloco com uma página Agir Agora"
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:66
 msgid "Take Action Boxout"
-msgstr ""
+msgstr "Caixa de ação"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:52
 msgid ""
 "Title. <i>If it is not defined, title will default to 'Publications'</i>"
 msgstr ""
+"Título. <i>Se não for definido, o título padrão vai ser 'Publicações'</i>"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:57
 #: classes/controller/blocks/class-submenu-controller.php:132
 msgid "Enter title for this block"
-msgstr ""
+msgstr "Coloque o título deste bloco"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:63
 msgid "Select a Tag"
-msgstr ""
+msgstr "Selecione uma Tag"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:64
 #: classes/controller/blocks/class-submenu-controller.php:103
 msgid "Associate this block with Posts that have a specific Tag"
-msgstr ""
+msgstr "Associar este bloco com Posts que tenham uma Tag específica"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:76
 msgid "Number of Posts displayed"
-msgstr ""
+msgstr "Número de posts exibidos"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:77
 msgid ""
@@ -556,154 +568,163 @@ msgid ""
 "\t\t\t\t\t\t\t\t\tShow All Rows: Displays all available Posts on desktop and "
 "4 Posts on mobile."
 msgstr ""
+"Mostrar 1 linha: Exibe 4 posts no desktop e 3 posts no celular. <br>\n"
+"\t\t\t\t\t\t\t\t\t\tMostrar 2 linhas: Exibe 8 posts no desktop e 6 posts no "
+"celular. <br>\n"
+"\t\t\t\t\t\t\t\t\t\t(Outra linha será exibida cada vez que o botão \"Ver "
+"mais\" for clicado)<br>\n"
+"\t\t\t\t\t\t\t\t\t\tMostrar todas as linhas: Exibe todos os posts "
+"disponíveis no desktop e 4 posts no celular."
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:95
 msgid "Show All Posts"
-msgstr ""
+msgstr "Mostrar todos os posts"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:102
 msgid "Content Four Column"
-msgstr ""
+msgstr "Coluna de quatro conteúdos"
 
 #: classes/controller/blocks/class-carousel-controller.php:79
 msgid "Select Carousel Images"
-msgstr ""
+msgstr "Selecione as imagens para o carrossel"
 
 #: classes/controller/blocks/class-carousel-controller.php:91
 msgid "Carousel"
-msgstr ""
+msgstr "Carrossel"
 
 #: classes/controller/blocks/class-carouselsplit-controller.php:28
 msgid "Images"
-msgstr ""
+msgstr "Imagens"
 
 #: classes/controller/blocks/class-carouselsplit-controller.php:33
 #: classes/controller/blocks/class-carouselsplit-controller.php:34
 msgid "Select Images for Carousel"
-msgstr ""
+msgstr "Selecione imagens para o carrossel"
 
 #. A block that contains a carousel with split images.
 #: classes/controller/blocks/class-carouselsplit-controller.php:41
 msgid "Carousel Split"
-msgstr ""
+msgstr "Divisão do Carrossel"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:43
 #, php-format
 msgid "Select Image for %s column"
-msgstr ""
+msgstr "Selecione uma imagem para a coluna %s"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:56
 #, php-format
 msgid "Enter title of %s column"
-msgstr ""
+msgstr "Coloque o título da coluna %s"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:66
 #, php-format
 msgid "Enter description of %s column"
-msgstr ""
+msgstr "Coloque a descrição da coluna %s"
 
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:71
 #: classes/controller/blocks/class-carouselheader-controller.php:91
 msgid "Text for link"
-msgstr ""
+msgstr "Texto do link"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:76
 #, php-format
 msgid "Enter %s link text"
-msgstr ""
+msgstr "Coloque %s texto do link"
 
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:81
 #: classes/controller/blocks/class-carouselheader-controller.php:101
 msgid "Url for link"
-msgstr ""
+msgstr "URL para o link"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:86
 #, php-format
 msgid "Enter %s link url"
-msgstr ""
+msgstr "Coloque %s a url do link"
 
 #. A block that contains 4 different columns each one with title and description.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:97
 msgid "Static Four Column"
-msgstr ""
+msgstr "4 colunas estáticas"
 
 #: classes/controller/blocks/class-controller.php:74
 msgid "Shortcode UI plugin must be active for Planet4 - Blocks plugin to work."
 msgstr ""
+"O plugin Shortcode UI precisa estar ativo para o plugin Plant4 - Blocks "
+"funcionar"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:35
 #, php-format
 msgid "Select file for %s image"
-msgstr ""
+msgstr "Selecione o arquivo para as imagens %s"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:44
 #, php-format
 msgid "Select focus point for image %s"
-msgstr ""
+msgstr "Selecione o ponto focal da imagem %"
 
 #: classes/controller/blocks/class-carouselheader-controller.php:60
 msgid "Header"
-msgstr ""
+msgstr "Cabeçalho"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:65
 #, php-format
 msgid "Enter header of %s image"
-msgstr ""
+msgstr "Coloque o cabeçalho da imagem %s"
 
 #: classes/controller/blocks/class-carouselheader-controller.php:71
 #: classes/controller/blocks/class-subheader-controller.php:37
 msgid "Subheader"
-msgstr ""
+msgstr "Subcabeçalho"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:76
 #, php-format
 msgid "Enter subheader of %s image"
-msgstr ""
+msgstr "Coloque o sub-cabeçalho da imagem %s"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:86
 #, php-format
 msgid "Enter description of %s image"
-msgstr ""
+msgstr "Coloque a descrição da imagem %s"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:96
 #, php-format
 msgid "Enter link text for %s image"
-msgstr ""
+msgstr "Coloque o texto do link para a imagem %s"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:106
 #, php-format
 msgid "Enter link url for %s image"
-msgstr ""
+msgstr "Coloque a url da imagem %s"
 
 #. A block that contains 4 different columns each one with title and description.
 #: classes/controller/blocks/class-carouselheader-controller.php:117
 msgid "Carousel Header"
-msgstr ""
+msgstr "Cabeçalho do carrossel"
 
 #: classes/controller/blocks/class-happypoint-controller.php:24
 msgid "Background"
-msgstr ""
+msgstr "Fundo"
 
 #: classes/controller/blocks/class-happypoint-controller.php:28
 #: classes/controller/blocks/class-happypoint-controller.php:29
 msgid "Select Background Image"
-msgstr ""
+msgstr "Selecione uma imagem de fundo"
 
 #: classes/controller/blocks/class-happypoint-controller.php:32
 msgid "Select focus point for background image"
-msgstr ""
+msgstr "Selecione o ponto focal da imagem de fundo"
 
 #: classes/controller/blocks/class-happypoint-controller.php:75
 msgid ""
@@ -711,34 +732,42 @@ msgid ""
 "<br /> the higher the number, the more faded the image will look. If you "
 "leave this <br/> empty, the default of 30 will be used.</i>"
 msgstr ""
+"<i>Uma camada de esmaecimento é usada em cima da imagem de fundo. <br />"
+"Escolha um número entre 1 e 100, sendo que quanto mais alto for o número, "
+"mais <br /> esmaecida a imagem vai ficar. Se nenhum número for escolhido, o "
+"padrão (30) será usado. </i>\n"
+"\n"
+"We use an overlay to fade the image back. Use a number between 1 and 100,<br "
+"/> the higher the number, the more faded the image will look. If you leave "
+"this <br/> empty, the default of 30 will be used.</i>"
 
 #: classes/controller/blocks/class-happypoint-controller.php:81
 msgid "Use mailing list iframe"
-msgstr ""
+msgstr "Usar um iframe de mailing list"
 
 #: classes/controller/blocks/class-happypoint-controller.php:86
 msgid "Iframe url"
-msgstr ""
+msgstr "URL do iframe"
 
 #: classes/controller/blocks/class-happypoint-controller.php:93
 msgid "Enter iframe url"
-msgstr ""
+msgstr "Coloque a url do iframe"
 
 #: classes/controller/blocks/class-happypoint-controller.php:100
 msgid "Happy Point"
-msgstr ""
+msgstr "Ponto Feliz"
 
 #: classes/controller/blocks/class-submenu-controller.php:86
 msgid "None"
-msgstr ""
+msgstr "Nenhum"
 
 #: classes/controller/blocks/class-submenu-controller.php:92
 msgid "Heading"
-msgstr ""
+msgstr "Cabecilho"
 
 #: classes/controller/blocks/class-submenu-controller.php:98
 msgid "Anchor Link Submenu"
-msgstr ""
+msgstr "Link de submenu de âncora"
 
 #: classes/controller/blocks/class-submenu-controller.php:99
 msgid ""
@@ -746,114 +775,117 @@ msgid ""
 "\t\t\t\t\t\t\t\t\t\t\t\tthe page and let them jump to a topic they are "
 "interested in."
 msgstr ""
+"Um índice na página ajuda os usuários a ter uma ideia do que há na página\n"
+"\t\t\t\t\t\t\t\t\t\t\t\te os ajuda a ir num tópico que eles estão "
+"interessados.\n"
 
 #: classes/controller/blocks/class-submenu-controller.php:102
 msgid "What style of menu do you need?"
-msgstr ""
+msgstr "Que estilo de menu você precisa?"
 
 #: classes/controller/blocks/class-submenu-controller.php:108
 msgid "Long full-width"
-msgstr ""
+msgstr "Tamanho completo"
 
 #: classes/controller/blocks/class-submenu-controller.php:114
 msgid "Short full-width"
-msgstr ""
+msgstr "Texto curto completo"
 
 #: classes/controller/blocks/class-submenu-controller.php:120
 msgid "Short sidebar"
-msgstr ""
+msgstr "Barra lateral curta"
 
 #: classes/controller/blocks/class-submenu-controller.php:127
 msgid "<h3>Submenu title</h3>"
-msgstr ""
+msgstr "<h3>Título do submenu</h3>"
 
 #: classes/controller/blocks/class-submenu-controller.php:164
 msgid "Submenu"
-msgstr ""
+msgstr "Submenu"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:48
 msgid "Enter title of first column"
-msgstr ""
+msgstr "Coloque o título da primeira coluna"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:57
 msgid "Enter description of first column"
-msgstr ""
+msgstr "Coloque a descrição da primeira coluna"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:62
 #: classes/controller/blocks/class-twocolumn-controller.php:97
 msgid "Button text"
-msgstr ""
+msgstr "Texto do botão"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:70
 #: classes/controller/blocks/class-twocolumn-controller.php:105
 msgid "Button link"
-msgstr ""
+msgstr "Link do botão"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:74
 msgid "Enter button link of first column"
-msgstr ""
+msgstr "Coloque o link do botão da primeira coluna"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:85
 msgid "Enter title of second column"
-msgstr ""
+msgstr "Coloque o título da segunda coluna"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:93
 msgid "Enter description of second column"
-msgstr ""
+msgstr "Coloque a descrição da segunda coluna"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:109
 msgid "Enter button link of second column"
-msgstr ""
+msgstr "Coloque o link do botão da segunda coluna"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:123
 msgid "Two Columns"
-msgstr ""
+msgstr "Duas colunas"
 
 #: classes/controller/blocks/class-articles-controller.php:58
 msgid "Article Heading"
-msgstr ""
+msgstr "Heading do artigo"
 
 #: classes/controller/blocks/class-articles-controller.php:62
 msgid "Enter article heading"
-msgstr ""
+msgstr "Coloque o cabeçalho do artigo"
 
 #: classes/controller/blocks/class-articles-controller.php:66
 msgid "Article Count"
-msgstr ""
+msgstr "Contagem de artigos"
 
 #: classes/controller/blocks/class-articles-controller.php:70
 msgid "Enter articles count"
-msgstr ""
+msgstr "Coloque a contagem do artigo"
 
 #: classes/controller/blocks/class-articles-controller.php:74
 msgid "Read More Text"
-msgstr ""
+msgstr "Texto para ler mais"
 
 #: classes/controller/blocks/class-articles-controller.php:78
 msgid "Add read more button text"
-msgstr ""
+msgstr "Adicionar texto \"leia mais\""
 
 #: classes/controller/blocks/class-articles-controller.php:82
 msgid "Read More Link"
-msgstr ""
+msgstr "Link para ler mais"
 
 #: classes/controller/blocks/class-articles-controller.php:86
 msgid "Add read more button link"
-msgstr ""
+msgstr "Adicionar botão \"leia mais\""
 
 #: classes/controller/blocks/class-articles-controller.php:97
 msgid "Articles"
-msgstr ""
+msgstr "Artigos"
 
 #: classes/controller/menu/class-settings-controller.php:21
 #: classes/controller/menu/class-settings-controller.php:22
 msgid "Blocks"
-msgstr ""
+msgstr "Blocos"
 
 #: includes/settings.twig:4
 msgid "Settings"
-msgstr ""
+msgstr "Configurações"
 
 #: includes/settings.twig:20
 msgid "Select Language"
-msgstr ""
+msgstr "Selecione o idioma"

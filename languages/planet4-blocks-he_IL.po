@@ -1,31 +1,27 @@
-#, fuzzy
+# Planet4 Plugin Blocks English base file.
+# Copyright (C) 2017 Greenpeace International
+# License:     GPLv3
+# 
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: Planet4 - Blocks\n"
+"Project-Id-Version: Planet4 blocks plugin frontend\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-20 10:13+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2019-09-25 10:32+0000\n"
+"Last-Translator: Elad Aybes <eaybes@greenpeace.org>\n"
+"Language-Team: Hebrew\n"
+"Language: he_IL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: planet4-blocks.php\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
-"Language: "
+"X-Loco-Version: 2.3.0; wp-5.2.3"
 
 #: classes/controller/blocks/class-covers-controller.php:153
 #: classes/controller/blocks/class-newcovers-controller.php:475
 msgid "Take Action"
-msgstr ""
+msgstr "לעשות משהו"
 
 #: classes/controller/blocks/class-covers-controller.php:176
 #: classes/controller/blocks/class-newcovers-controller.php:499
@@ -33,23 +29,23 @@ msgstr ""
 #: includes/blocks/content_four_column.twig:64
 #: includes/blocks/content_four_column.twig:72
 msgid "Load More"
-msgstr ""
+msgstr "טען עוד"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:277
 msgid "Learn more about this issue"
-msgstr ""
+msgstr "ללמוד עוד על הנושא הזה"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:298
 msgid "Get Involved"
-msgstr ""
+msgstr "לעשות משהו"
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:129
 msgid "take action"
-msgstr ""
+msgstr "לעשות משהו"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:236
 msgid "Publications"
-msgstr ""
+msgstr "פרסומים"
 
 #: classes/controller/blocks/class-happypoint-controller.php:158
 msgid "Background image"
@@ -58,34 +54,34 @@ msgstr ""
 #: classes/controller/blocks/class-articles-controller.php:75
 #: classes/controller/blocks/class-articles-controller.php:217
 msgid "Related Articles"
-msgstr ""
+msgstr "מאמרים קשורים"
 
 #: classes/controller/blocks/class-articles-controller.php:76
 #: classes/controller/blocks/class-articles-controller.php:218
 msgid "READ ALL THE NEWS"
-msgstr ""
+msgstr "קרא את כל החדשות"
 
 #: includes/teasers/tease-articles.twig:47
 #: includes/teasers/tease-articles.twig:55
 msgid "by"
-msgstr ""
+msgstr "על-ידי"
 
 #. Plugin Name of the plugin/theme
 msgid "Planet4 - Blocks"
-msgstr ""
+msgstr "פלאנט4 - בלוקים"
 
 #. Description of the plugin/theme
 msgid "Creates all the blocks that will be available for usage by Shortcake."
-msgstr ""
+msgstr "יוצר את כל הבלוקים שיהיו זמינים לשימוש עם שורטקייק."
 
 #. URI of the plugin
 msgid "http://github.com/greenpeace/planet4-plugin-blocks"
-msgstr ""
+msgstr "http://github.com/greenpeace/planet4-plugin-blocks"
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
-msgstr ""
+msgstr "גרינפיס אינטרנשיונל"
 
 #. Author URI of the plugin/theme
 msgid "http://www.greenpeace.org/"
-msgstr ""
+msgstr "http://www.greenpeace.org/"

@@ -1,12 +1,11 @@
-#, fuzzy
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2018-12-20 10:13+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2019-02-11 12:05+0000\n"
+"Last-Translator: Emina Serbic <eserbic@greenpeace.org>\n"
+"Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,12 +19,14 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
-"Language: "
+"Language: sv_SE\n"
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.2.0; wp-5.0.3"
 
 #: classes/controller/blocks/class-covers-controller.php:153
 #: classes/controller/blocks/class-newcovers-controller.php:475
 msgid "Take Action"
-msgstr ""
+msgstr "Agera"
 
 #: classes/controller/blocks/class-covers-controller.php:176
 #: classes/controller/blocks/class-newcovers-controller.php:499
@@ -33,59 +34,59 @@ msgstr ""
 #: includes/blocks/content_four_column.twig:64
 #: includes/blocks/content_four_column.twig:72
 msgid "Load More"
-msgstr ""
+msgstr "Ladda fler"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:277
 msgid "Learn more about this issue"
-msgstr ""
+msgstr "Läs mer om fokusområdet"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:298
 msgid "Get Involved"
-msgstr ""
+msgstr "Engagera dig"
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:129
 msgid "take action"
-msgstr ""
+msgstr "agera"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:236
 msgid "Publications"
-msgstr ""
+msgstr "Publikationer"
 
 #: classes/controller/blocks/class-happypoint-controller.php:158
 msgid "Background image"
-msgstr ""
+msgstr "Bakgrundsbild"
 
 #: classes/controller/blocks/class-articles-controller.php:75
 #: classes/controller/blocks/class-articles-controller.php:217
 msgid "Related Articles"
-msgstr ""
+msgstr "Relaterade artiklar"
 
 #: classes/controller/blocks/class-articles-controller.php:76
 #: classes/controller/blocks/class-articles-controller.php:218
 msgid "READ ALL THE NEWS"
-msgstr ""
+msgstr "LÄS ALLA NYHETER"
 
 #: includes/teasers/tease-articles.twig:47
 #: includes/teasers/tease-articles.twig:55
 msgid "by"
-msgstr ""
+msgstr "av"
 
 #. Plugin Name of the plugin/theme
 msgid "Planet4 - Blocks"
-msgstr ""
+msgstr "Planet4 - Blocks"
 
 #. Description of the plugin/theme
 msgid "Creates all the blocks that will be available for usage by Shortcake."
-msgstr ""
+msgstr "Creates all the blocks that will be available for usage by Shortcake."
 
 #. URI of the plugin
 msgid "http://github.com/greenpeace/planet4-plugin-blocks"
-msgstr ""
+msgstr "http://github.com/greenpeace/planet4-plugin-blocks"
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
-msgstr ""
+msgstr "Greenpeace International"
 
 #. Author URI of the plugin/theme
 msgid "http://www.greenpeace.org/"
-msgstr ""
+msgstr "http://www.greenpeace.org/"
