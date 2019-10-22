@@ -52,6 +52,7 @@ a {
       html[dir="rtl"] & {
         margin-left: .4rem;
         margin-right: .3rem;
+        transform: scaleX(-1);
       }
     }
   }
