@@ -21,7 +21,7 @@
 						</ul>
 					{% endif %}
 					{% if ( corrected_term ) %}
-						<p class="search-info">{{ __( 'We also included results for ', 'planet4-master-theme' ) }} <span class="btn btn-filter-item">{{ corrected_term }} <i class="icon-cross"></i></span></p>
+						<p class="search-info">{{ __( 'We also included results for ', 'planet4-master-theme' ) }} <span class="btn btn-filter-item">{{ corrected_term }} <i class="icon-cross">{{ 'times'|svgicon }}</i></span></p>
 					{% endif %}
 				</div>
 				<div class="col-md-12">
@@ -181,7 +181,7 @@
 										{% for filter_type in filters %}
 											{% for filter in filter_type %}
 												<button class="activefilter-tag" data-id="{{ filter.id }}">
-													{{ filter.name|e('wp_kses_post')|raw }} <i class="icon-cross"></i>
+													{{ filter.name|e('wp_kses_post')|raw }} <i class="icon-cross">{{ 'times'|svgicon }}</i>
 												</button>
 											{% endfor %}
 										{% endfor %}
