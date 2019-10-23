@@ -420,7 +420,15 @@ class Articles extends Base_Block {
 		}
 
 		if ( ! empty( $tags ) ) {
-			$args['tag__in'] = $tags;
+			$filtered_tag = [];
+			foreach ( $tags as $tag_id ) {
+				$tag = get_tag( $tag_id );
+				// Check if tag exist or not.
+				if ( $tag instanceof \WP_Term ) {
+					$filtered_tag[] = $tag_id;
+				}
+			}
+			$args['tag__in'] = $filtered_tag;
 		}
 
 		return $args;
