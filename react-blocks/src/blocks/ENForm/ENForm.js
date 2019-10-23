@@ -95,12 +95,12 @@ export class ENForm extends Component {
                 {
                   label: __('Page body / text size width. No background.', 'planet4-gutenberg-engagingnetworks'),
                   image: window.p4en_vars.home + 'images/enfullwidth.png',
-                  value: 'full-width-bg',
+                  value: 'full-width',
                   help: __('Use: on long pages (more than 5 screens) when list items are long (+ 10 words)<br>No max items<br>recommended.', 'planet4-gutenberg-engagingnetworks'),
                 }, {
                   label: __('Full page width. With background image.', 'planet4-gutenberg-engagingnetworks'),
                   image: window.p4en_vars.home + 'images/enfullwidthbg.png',
-                  value: 'full-width',
+                  value: 'full-width-bg',
                   help: __('This form has a background image that expands the full width of the browser (aka "Happy Point").', 'planet4-gutenberg-engagingnetworks'),
                 },
                 {
@@ -255,7 +255,7 @@ export class ENForm extends Component {
             />
           </div>
 
-          { "full-width-bg" !== this.props.en_form_style &&
+          { "full-width" !== this.props.en_form_style &&
             <div>
               <MediaPlaceholder
                 labels={{ title: __('Background', 'planet4-gutenberg-engagingnetworks'), instructions: __('Select an image.', 'planet4-gutenberg-engagingnetworks')}}
