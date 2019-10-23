@@ -9,6 +9,7 @@ namespace P4GBKS\Command;
 
 use P4GBKS\Command\Converters\Shortcode_Converter_Factory;
 use WP_Query;
+use WP_CLI;
 
 /**
  * Class for updating old shortcodes to Gutenberg blocks
@@ -84,6 +85,8 @@ class Shortcode_To_Gutenberg {
 			$post->post_content = $this->update_text( $post->post_content );
 			wp_update_post( $post );
 			$updated ++;
+
+			WP_CLI::log( "Updated post $post->ID" );
 		}
 
 		return $updated;
