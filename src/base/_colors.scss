@@ -200,3 +200,38 @@ $shadow-color:          $grey-60;
 $hover-nav:             #052a30;
 $cookie-bkg:            #c0dbe2;
 $cookie-blue:           #094464;
+
+// Allower colors for blocks palette
+$palette: (
+  "dark-shade-black": $dark-shade-black,
+  "grey-60": $grey-60,
+  "grey-40": $grey-40,
+  "grey-20": $grey-20,
+  "grey-10": $grey-10,
+  "grey": $grey,
+  "green": $green,
+  "green-80": $green-80,
+  "gp-green": $gp-green,
+  "dark-tiber": $dark-tiber,
+  "genoa": $genoa,
+  "inch-worm": $inch-worm,
+  "x-dark-blue": $x-dark-blue,
+  "allports": $allports,
+  "spray": spray,
+  "dark-blue": $dark-blue,
+  "blue": $blue,
+  "blue-60": $blue-60,
+  "crimson": $crimson,
+  "orange-hover": $orange-hover,
+  "yellow": $yellow
+);
+
+@each $name, $color in $palette {
+  .has-#{$name}-color {
+    color: $color;
+  }
+
+  .has-#{$name}-background-color {
+    background-color: $color;
+  }
+}
