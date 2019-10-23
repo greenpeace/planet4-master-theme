@@ -88,6 +88,7 @@ final class Loader {
 	private function __construct( $services, $view_class ) {
 
 		$this->load_files();
+		$this->load_services( $services, $view_class );
 		$this->load_commands();
 		$this->check_requirements();
 
