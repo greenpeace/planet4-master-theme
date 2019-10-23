@@ -12,6 +12,9 @@ import {
   ServerSideRender
 } from '@wordpress/components';
 import {MediaPlaceholder} from "@wordpress/editor";
+import {ValidationMessage} from "../../components/ValidationMessage/ValidationMessage";
+
+const {__} = wp.i18n;
 
 export class ENForm extends Component {
   constructor(props) {
@@ -19,8 +22,6 @@ export class ENForm extends Component {
   }
 
   renderEdit() {
-    const {__} = wp.i18n;
-
     const {getCurrentPostType} = wp.data.select("core/editor");
     const currentPostType      = getCurrentPostType();
 
@@ -58,7 +59,7 @@ export class ENForm extends Component {
             label={__( 'Engaging Network Live Pages', 'planet4-gutenberg-engagingnetworks' )}
             value={this.props.en_page_id}
             options={[
-              { label: 'No pages', value: 'No pages' },
+              { label: 'No pages', value: 0 },
               ...flattenedPages
             ]}
             disabled={!flattenedPages.length}
@@ -234,15 +235,16 @@ export class ENForm extends Component {
             checked={this.props.donate_button_checkbox}
             onChange={this.props.onDonateButtonCheckboxChange}
           />
-
-          <div>
-            <TextControl
-              label={ __( 'Donate message', 'planet4-gutenberg-engagingnetworks' ) }
-              placeholder={ __( 'e.g. "or make a donation"', 'planet4-gutenberg-engagingnetworks' ) }
-              value={this.props.thankyou_donate_message}
-              onChange={this.props.onThankYouDonateMessageChange}
-            />
-          </div>
+          { true !== this.props.donate_button_checkbox && (
+            <div>
+              <TextControl
+                label={ __( 'Donate message', 'planet4-gutenberg-engagingnetworks' ) }
+                placeholder={ __( 'e.g. "or make a donation"', 'planet4-gutenberg-engagingnetworks' ) }
+                value={this.props.thankyou_donate_message}
+                onChange={this.props.onThankYouDonateMessageChange}
+              />
+            </div> )
+          }
 
           <div>
             <TextControl
@@ -287,6 +289,20 @@ export class ENForm extends Component {
   }
 
   render() {
+    let validationMessage = [];
+
+    if ( false === this.props.isSelected ) {
+      if ( undefined === this.props.en_page_id || 0 === this.props.en_page_id ) {
+        validationMessage.push( __( '"Engaging Network Live Pages" field is required!', 'planet4-gutenberg-engagingnetworks' ));
+      }
+      if ( undefined === this.props.button_text || '' === this.props.button_text ) {
+        validationMessage.push( __( '"Call to Action button" field is required!', 'planet4-gutenberg-engagingnetworks' ));
+      }
+      if ( undefined === this.props.en_form_id || 0 === this.props.en_form_id ) {
+        validationMessage.push( __( '"Planet 4 Engaging Networks form" field is required!', 'planet4-gutenberg-engagingnetworks' ));
+      }
+    }
+
     return (
       <div>
         {
@@ -295,29 +311,36 @@ export class ENForm extends Component {
             : null
         }
         <Preview showBar={this.props.isSelected} isSelected={this.props.isSelected}>
-          <ServerSideRender
-            block={'planet4-blocks/enform'}
-            attributes={{
-              en_page_id: this.props.en_page_id,
-              en_form_id: this.props.en_form_id,
-              en_form_style: this.props.en_form_style,
-              title: this.props.title,
-              description: this.props.description,
-              campaign_logo: this.props.campaign_logo,
-              content_title: this.props.content_title,
-              content_title_size: this.props.content_title_size,
-              content_description: this.props.content_description,
-              button_text: this.props.button_text,
-              thankyou_title: this.props.thankyou_title,
-              thankyou_subtitle: this.props.thankyou_subtitle,
-              thankyou_donate_message: this.props.thankyou_donate_message,
-              thankyou_social_media_message: this.props.thankyou_social_media_message,
-              donate_button_checkbox: this.props.donate_button_checkbox,
-              thankyou_url: this.props.thankyou_url,
-              background: this.props.background,
-            }}
-          >
-          </ServerSideRender>
+
+          { validationMessage.length ?
+              <ValidationMessage
+                message={validationMessage}
+              />
+            :
+              <ServerSideRender
+                block={'planet4-blocks/enform'}
+                attributes={{
+                  en_page_id: this.props.en_page_id,
+                  en_form_id: this.props.en_form_id,
+                  en_form_style: this.props.en_form_style,
+                  title: this.props.title,
+                  description: this.props.description,
+                  campaign_logo: this.props.campaign_logo,
+                  content_title: this.props.content_title,
+                  content_title_size: this.props.content_title_size,
+                  content_description: this.props.content_description,
+                  button_text: this.props.button_text,
+                  thankyou_title: this.props.thankyou_title,
+                  thankyou_subtitle: this.props.thankyou_subtitle,
+                  thankyou_donate_message: this.props.thankyou_donate_message,
+                  thankyou_social_media_message: this.props.thankyou_social_media_message,
+                  donate_button_checkbox: this.props.donate_button_checkbox,
+                  thankyou_url: this.props.thankyou_url,
+                  background: this.props.background,
+                }}
+              >
+              </ServerSideRender>
+          }
         </Preview>
       </div>
     );

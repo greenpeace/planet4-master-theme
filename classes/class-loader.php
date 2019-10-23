@@ -301,7 +301,7 @@ final class Loader {
 			'P4GEN_admin_style',
 			P4GEN_PLUGIN_URL . 'react-blocks/build/editorStyle.min.css', // - Bundled CSS for the blocks
 			[],
-			'0.1'
+			'0.2'
 		);
 
 		wp_enqueue_style(
@@ -322,7 +322,7 @@ final class Loader {
 				'wp-data',        // - WP data helpers
 				'wp-i18n',        // - Exports the __() function
 			],
-			'0.1.3',
+			'0.1.4',
 			true
 		);
 
