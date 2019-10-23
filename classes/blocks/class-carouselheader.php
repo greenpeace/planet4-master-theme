@@ -92,7 +92,7 @@ class CarouselHeader extends Base_Block {
 	public function prepare_data( $fields ): array {
 
 		if ( ! isset( $fields['block_style'] ) || empty( $fields['block_style'] ) ) {
-			$fields['block_style'] = 'full-width-classic';
+			$fields['block_style'] = 'zoom-and-slide-to-gray';
 		}
 
 		$total_images = 0;
