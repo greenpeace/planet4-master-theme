@@ -19,6 +19,9 @@
 							{% set url = fields.engaging_network_id %}
 						{% endif %}
 						<div class="col-md-10 happy-point" id="happy-point" data-src="{{ url }}">
+							{% if ( 'true' == fields.load_iframe ) %}
+								<iframe src="{{ url }}" cellspacing="0" allowtransparency="true" frameborder="0" scrolling="no" width="100%"></iframe>
+							{% endif %}
 						</div>
 					{% endif %}
 				</div>
