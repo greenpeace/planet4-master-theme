@@ -98,8 +98,8 @@ require_once ABSPATH . 'wp-admin/includes/plugin.php';
 const POST_BLOCK_TYPES = [
 	'planet4-blocks/counter',
 	'planet4-blocks/gallery',
-	'planet4-blocks/timeline',
 	'planet4-blocks/take-action-boxout',
+	'planet4-blocks/timeline',
 ];
 
 // pages allow all block types.
@@ -116,6 +116,7 @@ const PAGE_BLOCK_TYPES = [
 	'planet4-blocks/social-media',
 	'planet4-blocks/split-two-columns',
 	'planet4-blocks/submenu',
+	'planet4-blocks/take-action-boxout',
 	'planet4-blocks/timeline',
 ];
 
@@ -167,7 +168,7 @@ function set_allowed_block_types( $allowed_block_types, $post ) {
 		// 'core/more' - removed, not needed.
 		// 'core/nextpage' - removed, not needed.
 		'core/separator', // TODO: Styling.
-		// 'core/spacer' - removed. TODO: Provide our own spacer that has less options.
+		'core/spacer',
 		'core/shortcode',
 		// 'core/archives' - removed, not needed.
 		// 'core/categories' - removed, not needed.
