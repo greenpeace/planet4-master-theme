@@ -62,6 +62,11 @@
 .article-list-item-image {
   order: 2;
 
+  img {
+    width: 100% !important;
+    object-fit: cover;
+  }
+
   @include medium-and-up {
     flex-basis: 30%;
     order: 0;
