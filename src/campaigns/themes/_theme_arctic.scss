@@ -1,0 +1,95 @@
+body.theme-arctic {
+  $open-sans: "Open Sans", sans-serif;
+  $save-the-arctic: "Save the Arctic", sans-serif;
+
+  $arctic-black: #1f262a;
+  $arctic-greyblue: #d2dde4;
+  $arctic-cream: #ecebe3;
+  $arctic-blue: #035880;
+  $arctic-light-blue: #b8e4f8;
+  $arctic-turquoise: #00b6c2;
+  $arctic-red: #ec4a4a;
+  $arctic-faded-red: #f06e6e;
+
+  @mixin arctic-button($background: $arctic-faded-red, $foreground: white) {
+    //todo: check letter spacing
+    @include button($background, $foreground, $save-the-arctic, 60);
+    font-weight: $bold;
+    line-height: 44px;
+  }
+
+  font-family: $roboto;
+  background: white;
+
+  .btn-primary {
+    @include arctic-button;
+
+    &:hover {
+      background: $arctic-red;
+      color: white;
+    }
+  }
+
+  .btn-secondary {
+    &:not(#hidecookie) {
+      @include arctic-button(white, $arctic-blue);
+      border: 3px solid $arctic-light-blue;
+      height: 44px;
+      line-height: 38px;
+
+      &:hover {
+        background: $arctic-light-blue;
+        border-color: $arctic-light-blue;
+        color: $arctic-blue;
+      }
+    }
+  }
+
+  .page-section-header {
+    @include page-section-header($save-the-arctic, $arctic-blue, $bold);
+  }
+
+  a {
+    color: $arctic-faded-red;
+    text-transform: uppercase;
+
+    &:hover {
+      color: $arctic-red;
+    }
+  }
+
+  /*  BLOCKS START */
+  .page-header {
+    @include page-header-block($save-the-arctic);
+
+    .page-header-title {
+      font-size: 3.125rem;
+      line-height: 3.75rem;
+      color: $arctic-blue;
+    }
+
+    .page-header-subtitle {
+      font-size: $font-size-xl;
+      line-height: 2.125rem;
+      color: $arctic-blue;
+    }
+
+    .page-header-background:after {
+      background: linear-gradient(to top, white 0%, white 1%, $transparent);
+      bottom: -0.1%;
+      height: 50%;
+    }
+
+    // secondary gradient for when image is taller than container
+    &:after {
+      content: "";
+      display: block;
+      background: linear-gradient(to top, white 0%, white 1%, $transparent);
+      position: absolute;
+      bottom: -0.5%;
+      height: 50%;
+      left: 0;
+      right: 0;
+    }
+  }
+}
