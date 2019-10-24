@@ -82,13 +82,24 @@ if ( is_tag() ) {
 		$cfc_args = [
 			'tags'       => [ $context['tag']->term_id ],
 			'cover_type' => '3',
+			'title'      => __( 'Publications', 'planet4-master-theme' ),
 		];
 
 		// Get the selected page types for this campaign so that we add posts in the CFC block only for those page types.
 		$selected_page_types = get_term_meta( $context['tag']->term_id, 'selected_page_types' );
+
 		if ( isset( $selected_page_types[0] ) && $selected_page_types[0] ) {
 			foreach ( $selected_page_types[0] as $selected_page_type ) {
-				$cfc_args[ "p4_page_type_$selected_page_type" ] = 'true';
+				$p4_page_type = get_term_by( 'name', $selected_page_type, 'p4-page-type' );
+				if ( $p4_page_type instanceof \WP_Term ) {
+					$cfc_args['post_types'] = $p4_page_type->term_id;
+				}
+			}
+		} else {
+			// If none is selected, then display Publications by default (for backwards compatibility).
+			$p4_page_type = get_term_by( 'slug', 'publication', 'p4-page-type' );
+			if ( $p4_page_type instanceof \WP_Term ) {
+				$cfc_args['post_types'] = $p4_page_type->term_id;
 			}
 		}
 
