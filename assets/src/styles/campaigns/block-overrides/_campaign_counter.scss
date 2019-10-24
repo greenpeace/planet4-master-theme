@@ -1,0 +1,23 @@
+@mixin campaign-counter($counter-color, $counter-font: $roboto) {
+  font-family: $counter-font;
+
+  &.counter-style-en-forms-bar {
+    margin-top: 0 !important;
+    margin-bottom: 10px !important;
+
+    .progress-container {
+      display: none;
+    }
+  }
+
+  .counter-target {
+    margin-bottom: 0;
+    color: $counter-color;
+    font-weight: bold;
+    font-size: $font-size-lg;
+
+    @include medium-and-up {
+      font-size: $font-size-xl;
+    }
+  }
+}

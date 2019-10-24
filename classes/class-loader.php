@@ -233,6 +233,7 @@ final class Loader {
 		} else {
 			add_action( 'plugins_loaded', [ $this, 'load_i18n' ] );
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
+			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_campaigns_assets' ] );
 		}
 	}
 
@@ -348,6 +349,27 @@ final class Loader {
 		);
 
 		wp_enqueue_script( 'post_action', P4GBKS_PLUGIN_URL . 'public/js/post_action.js', [ 'jquery' ], '0.1', true );
+	}
+
+	/**
+	 * Load assets for the frontend.
+	 */
+	public function enqueue_campaigns_assets() {
+		// plugin-blocks assets.
+		$css_campaigns_creation = filectime( P4GBKS_PLUGIN_DIR . '/assets/build/campaigns.min.css' );
+
+		$post_type = get_post_type();
+
+		if ( 'campaign' === $post_type ) {
+			wp_enqueue_style(
+				'campaigns',
+				P4GBKS_PLUGIN_URL . '/assets/build/campaigns.min.css',
+				[
+					'plugin-blocks',
+				],
+				$css_campaigns_creation
+			);
+		}
 	}
 
 	/**

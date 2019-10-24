@@ -1,0 +1,348 @@
+@mixin campaign_columns_style_icons($icon-background, $icon-filter,
+$header-font, $header-weight,
+$link-font, $link-weight, $link-icon: none, $link-icon-hover: none) {
+  h2 {
+    @extend .page-section-header;
+    margin-bottom: 40px;
+  }
+
+  > .container > .row {
+    margin: 0 -8px;
+
+    > [class^=col-] {
+      padding: 0 8px;
+    }
+  }
+
+  .column-wrap {
+    float: none;
+    padding: 0 6px;
+
+    .attachment-container {
+      background: $icon-background;
+      text-align: center;
+      width: 100%;
+      padding-top: 43px;
+      padding-bottom: 43px;
+      height: auto;
+      margin-bottom: 20px;
+
+      img {
+        filter: $icon-filter;
+        height: 96px;
+        width: auto;
+      }
+    }
+
+    h3 {
+      margin-bottom: 10px;
+      text-align: left;
+
+      a {
+        font-family: $header-font;
+        font-weight: $header-weight;
+        color: black;
+        font-size: $font-size-md;
+        line-height: 1.5625rem;
+      }
+    }
+
+    p {
+      margin-bottom: 10px;
+      font-size: $font-size-xxs;
+      line-height: 1.375rem;
+    }
+
+    a {
+      font-family: $link-font;
+      font-weight: $link-weight;
+      font-size: $font-size-xxs;
+      line-height: 1.1875rem;
+      text-transform: uppercase;
+    }
+
+    > a {
+      position: relative;
+      padding-right: 18px;
+      display: inline-block;
+
+      @if ($link-icon != none) {
+        &:after {
+          @include arrow-right() {
+            height: 10px;
+            width: 10px;
+            background: $link-icon no-repeat;
+          }
+        }
+
+        &:hover:after {
+          background-image: $link-icon-hover;
+        }
+      }
+    }
+  }
+}
+
+@mixin campaign_columns_style_image() {
+  .column-wrap {
+    h3 {
+      font-family: $roboto !important;
+    }
+  }
+}
+
+@mixin campaign_columns_style_no_image($font, $header-colour: black, $header-weight: $regular, $text-transform: uppercase) {
+  h2 {
+    @extend .page-section-header;
+    margin-bottom: 40px;
+  }
+
+  .column-wrap {
+    padding-bottom: 0;
+
+    h3 > a,
+    h3 {
+      font-family: $font;
+      font-size: $font-size-xl;
+      font-weight: $header-weight;
+      line-height: 2.5rem;
+      text-transform: $text-transform;
+    }
+
+    p {
+      font-size: 1.125rem;
+      line-height: 1.875rem;
+      margin-bottom: 0;
+    }
+
+    .btn-secondary {
+      display: none;
+    }
+  }
+}
+
+@mixin campaign_columns_style_image($font: $roboto, $header-colour: black, $header-weight: $regular) {
+  margin-bottom: $space-lg;
+
+  h2.page-section-header {
+    line-height: 3rem;
+    font-size: 2.5rem;
+    margin-bottom: $space-xl;
+
+    @include large-and-up {
+      margin-bottom: $space-xxl;
+    }
+  }
+
+  .column-wrap {
+    margin-bottom: $space-xl;
+
+    @include medium-and-up {
+      &.has-cta {
+        padding-bottom: $space-xl + $space-md;
+      }
+    }
+
+    a {
+      text-transform: none;
+      width: 100%;
+      display: block;
+      text-align: left;
+      font-size: $font-size-lg;
+
+      &.call-to-action-link {
+        display: block;
+        font-size: 1rem;
+        text-align: center;
+        left: 0;
+
+        @include medium-and-up {
+          margin-top: $space-lg;
+        }
+      }
+    }
+
+    h3 {
+      margin-bottom: $space-lg;
+
+      font-family: $font !important;
+      font-weight: bold;
+      display: block;
+      text-align: left;
+    }
+
+    .attachment-container {
+      margin-bottom: $space-lg;
+    }
+  }
+}
+
+@mixin campaign_columns_style_tasks {
+  font-size: 1.125rem;
+  line-height: 1.875rem;
+
+  h3 {
+    margin-bottom: 10px;
+  }
+
+  .can-do-steps {
+    text-align: center;
+
+    .step-number {
+      background: none;
+      border: none;
+      border-radius: 0;
+      font-size: 1.875rem;
+      height: 120px;
+      width: 120px;
+      line-height: 120px;
+      margin: 0 auto 34px auto;
+
+      .step-number-inner {
+        background: none;
+        background-size: cover;
+        border: none;
+        border-radius: 0;
+        color: black;
+        display: block;
+        font-weight: $regular;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    }
+
+    .step-info {
+      h5,
+      p,
+      img {
+        max-width: 500px;
+      }
+
+      h5,
+      p {
+        margin: 0 auto 16px auto;
+        padding: 0;
+      }
+
+      h5 {
+        color: black;
+        font-size: $font-size-md;
+        font-weight: $regular;
+        line-height: 1.5625rem;
+        text-transform: uppercase;
+      }
+
+      p {
+        font-size: $font-size-sm;
+        line-height: 1.5625rem;
+        opacity: unset;
+      }
+
+      img {
+        width: auto;
+        height: auto;
+        margin-bottom: 20px;
+        max-height: 210px;
+
+        @include x-large-and-up {
+          max-height: 250px;
+        }
+
+        @supports (object-fit: cover) {
+          width: 100%;
+          height: 210px;
+
+          @include x-large-and-up {
+            height: 250px;
+          }
+        }
+      }
+
+      .btn {
+        width: auto;
+      }
+    }
+  }
+
+  .can-do-steps-mobile {
+    margin: 30px 0 0 0;
+
+    .card-header {
+      background: none;
+      border: none;
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+      font-size: $font-size-md;
+      height: 70px;
+      justify-content: center;
+      line-height: 1.5625rem;
+      margin-bottom: 20px;
+      padding: 20px 10px 20px 90px;
+      position: relative;
+      text-transform: uppercase;
+
+      .step-number {
+        background: none;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: none;
+        color: inherit;
+        float: unset;
+        font-size: $font-size-sm;
+        font-weight: $regular;
+        padding: unset;
+        position: absolute;
+        text-align: center;
+        vertical-align: unset;
+        height: 70px;
+        line-height: 70px;
+        width: 70px;
+        top: 0;
+        left: 0;
+      }
+    }
+
+    .card-block {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+
+      .mobile-accordion-info {
+        margin: 0 50px;
+        padding: 0;
+        width: auto;
+
+        p {
+          font-size: 1.125rem;
+          line-height: 1.875rem;
+          margin: 0 0 25px 0;
+          padding: 0;
+        }
+      }
+
+      .accordion-image-wrap {
+        margin: 0 50px;
+        padding: 0;
+
+        img {
+          width: auto;
+          height: auto;
+          max-height: 190px;
+          margin-bottom: 30px;
+
+          @include medium-and-up {
+            max-height: 220px;
+          }
+        }
+      }
+
+      .btn {
+        margin-bottom: 30px;
+        width: auto;
+      }
+    }
+  }
+}

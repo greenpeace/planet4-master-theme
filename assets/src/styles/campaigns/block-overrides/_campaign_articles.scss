@@ -1,0 +1,81 @@
+@mixin campaign-articles($headline-font, $meta-font, $meta-colour, $tag-font, $tag-colour, $font-weight: $regular) {
+  .article-list-item {
+    background: white;
+    box-shadow: none;
+
+    & + .article-list-item {
+      margin-top: 40px;
+    }
+  }
+
+  .article-list-item-body {
+    padding-left: 0;
+    padding-right: 0;
+
+    @include medium-and-up {
+      padding: 0;
+    }
+  }
+
+  .article-list-item-image {
+    order: 0;
+  }
+
+  .article-list-item-headline {
+    margin-top: 0;
+    font-size: $font-size-md;
+    line-height: 1.5625rem;
+    font-family: $headline-font;
+    font-weight: $font-weight;
+
+    a {
+      color: black;
+      text-transform: uppercase;
+    }
+  }
+
+  .article-list-item-meta {
+    font-family: $meta-font;
+    font-style: normal;
+    color: $meta-colour;
+    font-size: $font-size-sm;
+    line-height: 1.5625rem;
+    font-weight: $font-weight;
+
+    a {
+      text-transform: none;
+      color: $meta-colour;
+    }
+  }
+
+  .article-list-item-tags {
+    .tag-item {
+      font-family: $tag-font;
+      color: $tag-colour;
+      font-size: $font-size-sm;
+      line-height: 1.5625rem;
+      margin-bottom: 0;
+      font-weight: $font-weight;
+      text-transform: uppercase;
+
+      &:not(:only-child):not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+
+    .tag-wrap {
+      display: none;
+    }
+  }
+
+  .article-list-item-author:after {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .article-list-item-content {
+    font-size: $font-size-xxs;
+    line-height: 1.375rem;
+    font-weight: $regular;
+  }
+}

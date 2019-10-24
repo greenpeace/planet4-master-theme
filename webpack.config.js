@@ -11,7 +11,8 @@ module.exports = {
     editorIndex: './assets/src/editorIndex.js',
     frontendIndex: './assets/src/frontendIndex.js',
     style: './assets/src/styles/style.scss',
-    editorStyle: './assets/src/styles/editorStyle.scss'
+    editorStyle: './assets/src/styles/editorStyle.scss',
+    campaigns: './assets/src/styles/campaigns.scss'
   },
   output: {
     filename: '[name].js',
