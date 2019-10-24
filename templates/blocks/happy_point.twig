@@ -12,15 +12,15 @@
 			</picture>
 			<div class="container">
 				<div class="row justify-content-md-center">
-					{% if ( (fields.mailing_list_iframe == 'true') or fields.iframe_url ) %}
+					{% if ( fields.mailing_list_iframe == 'true' or fields.iframe_url ) %}
 						{% if ( fields.iframe_url ) %}
 							{% set url = fields.iframe_url %}
 						{% else %}
 							{% set url = fields.engaging_network_id %}
 						{% endif %}
 						<div class="col-md-10 happy-point" id="happy-point" data-src="{{ url }}">
-							{% if ( fields.load_iframe ) %}
-								<iframe src="https://act.greenpeace.org/page/16381/subscribe/1" cellspacing="0" allowtransparency="true" frameborder="0" scrolling="no" width="100%"></iframe>
+							{% if ( 'true' == fields.load_iframe ) %}
+								<iframe src="{{ url }}" cellspacing="0" allowtransparency="true" frameborder="0" scrolling="no" width="100%"></iframe>
 							{% endif %}
 						</div>
 					{% endif %}
