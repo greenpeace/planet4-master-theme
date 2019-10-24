@@ -80,7 +80,7 @@ if ( isset( $take_action_boxout_block ) ) {
 	$post->take_action_page = $take_action_page;
 
 	$block_attributes = [
-		'take_action_page' => $post->ID,
+		'take_action_page' => $take_action_page,
 	];
 
 	$post->take_action_boxout = '<!-- wp:planet4-blocks/take-action-boxout ' . wp_json_encode( $block_attributes, JSON_UNESCAPED_SLASHES ) . ' /-->';
