@@ -93,7 +93,7 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 			$sql = 'SELECT ID, post_title
                     FROM %1$s
                     WHERE post_status = \'publish\'
-                        AND `post_content` REGEXP \'shortcake_carousel_header.*full-width-classic\'';
+                        AND `post_content` REGEXP \'<!-- wp:planet4-blocks/carousel-header\'';
 
 			$prepared_sql = $wpdb->prepare( $sql, $wpdb->posts );
 			$results      = $wpdb->get_results( $prepared_sql );
@@ -112,11 +112,11 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 			$sql = 'SELECT ID, post_title
                     FROM %1$s
                     WHERE post_status = \'publish\'
-                        AND `post_content` REGEXP \'shortcake_carousel_header\'
+                        AND `post_content` REGEXP \'<!-- wp:planet4-blocks/carousel-header\'
                         AND ID NOT IN (SELECT ID
                             FROM %2$s
                             WHERE post_status = \'publish\'
-                            AND `post_content` REGEXP \'shortcake_carousel_header.*full-width-classic\')';
+                            AND `post_content` REGEXP \'<!-- wp:planet4-blocks/carousel-header\')';
 
 			$prepared_sql = $wpdb->prepare( $sql, [ $wpdb->posts, $wpdb->posts ] );
 			$results      = $wpdb->get_results( $prepared_sql );
