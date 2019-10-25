@@ -464,4 +464,8 @@ body.theme-plastic {
   .video-block {
     @include campaign_video($plastics-blue-light);
   }
+
+  .social-share {
+    @include campaign-social-share($plastics-peach-darker, $white);
+  }
 }

@@ -108,6 +108,7 @@ final class Loader {
 			new Blocks\SubMenu(),
 			new Blocks\TakeActionBoxout(),
 			new Blocks\Timeline(),
+			new Blocks\Socialshare(),
 		];
 	}
 

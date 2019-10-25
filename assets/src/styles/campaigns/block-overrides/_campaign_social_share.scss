@@ -1,0 +1,13 @@
+@mixin campaign-social-share($bg-color, $color) {
+  .grid-row {
+    .grid-item {
+      .share-strip {
+        background: $bg-color;
+
+        a {
+          color: $color;
+        }
+      }
+    }
+  }
+}
