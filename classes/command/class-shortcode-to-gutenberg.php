@@ -82,11 +82,11 @@ class Shortcode_To_Gutenberg {
 
 		$updated = 0;
 		foreach ( $posts as $post ) {
+			WP_CLI::log( "Updating post $post->ID" );
+
 			$post->post_content = $this->update_text( $post->post_content );
 			wp_update_post( $post );
 			$updated ++;
-
-			WP_CLI::log( "Updated post $post->ID" );
 		}
 
 		return $updated;
