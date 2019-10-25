@@ -102,6 +102,12 @@
 		<% }); %>
 		<% } %>
 		</p>
+		<label class="control-label">{{ __( 'Dependency', 'planet4-gutenberg-engagingnetworks' ) }}</label>
+		<div>
+			<select class="form-control dependency-select" id="dependency-<%= id %>" data-attribute="dependency" name="dependency">
+				<option value="">{{ __( 'Select Dependency', 'planet4-gutenberg-engagingnetworks' ) }}</option>
+			</select><span></span>
+		</div>
 	</div>
 </script>
 

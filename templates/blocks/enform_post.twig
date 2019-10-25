@@ -61,6 +61,9 @@
 					</div>
 				</div>
 			{% elseif 'checkbox' == field.input_type %}
+				{% if field.dependency %}
+					{% set dependent_field = field.dependency %}
+				{% endif %}
 				{% if 'GEN' == field.en_type %}
 					<span class="custom-control-description">
 						{{ field.label|e('wp_kses_post')|raw }}
@@ -69,7 +72,7 @@
 					{% for locale, question_options in field.question_options|object_to_array %}
 						{% if ( locale == field.selected_locale ) %}
 							{% for question_option in question_options %}
-							{% set question_option = question_option|object_to_array %}
+								{% set question_option = question_option|object_to_array %}
 								<div class="en__field en__field--check en__field--{{ field.id }}">
 									<div class="en__field__element en__field__element--check form-group form-check-label-block custom-control p4-custom-control-input">
 										<label class="custom-checkbox">
@@ -77,11 +80,13 @@
 												id="en__field_supporter_questions_{{ field.id }}{{ i }}"
 												name="{{ en_input_name }}"
 												type="checkbox"
-												class="en__field__input en__field__input--checkbox"
+												class="en__field__input en__field__input--checkbox {{ field.name == dependent_field ? 'dependency-'~field.name : '' }}"
 												value="{{ question_option.option_value }}"
 												data-errormessage="{{ errorMessage }}"
 												{{ question_option.option_selected ?  ' checked' : '' }}
 												{{ 'true' == field.required ? 'required' : '' }}
+												{{ field.name == dependent_field ? 'disabled' : '' }}
+												data-dependency="{{ field.dependency }}"
 											/>
 											<span class="custom-control-description">
 												{{ question_option.option_label|e('wp_kses_post')|raw }}
@@ -96,16 +101,18 @@
 				{% elseif 'OPT' == field.en_type %}
 					<div class="en__field en__field--check en__field--{{ field.id }}">
 						<div class="en__field__element en__field__element--check form-group form-check-label-block custom-control p4-custom-control-input">
-							<label class="custom-checkbox">
+							<label class="custom-checkbox {{ field.name == dependent_field ? 'disable-checkbox' : '' }}">
 								<input
 									id="en__field_supporter_questions_{{ field.id }}"
 									name="{{ en_input_name }}"
 									type="checkbox"
-									class="en__field__input en__field__input--checkbox"
+									class="en__field__input en__field__input--checkbox {{ field.name == dependent_field ? 'dependency-'~field.name : '' }}"
 									value="{{ value }}"
 									data-errormessage="{{ errorMessage }}"
 									{{ 1 == field.selected ?  ' checked' : '' }}
 									{{ 'true' == field.required ? 'required' : '' }}
+									{{ field.name == dependent_field ? 'disabled' : '' }}
+									data-dependency="{{ field.dependency }}"
 								/>
 								<span class="custom-control-description">
 									{{ field.label|e('wp_kses_post')|raw }}{{ 'true' == field.required ? '*' : '' }}
