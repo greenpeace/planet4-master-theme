@@ -444,12 +444,12 @@ class Articles extends Base_Block {
 	private function filter_posts_for_tag_page( &$fields ) {
 
 		$tag_id = $fields['tags'] ?? '';
-		$tag    = get_tag( $tag_id );
+		$tag    = get_tag( $tag_id[0] );
 
 		if ( $tag instanceof \WP_Term ) {
 			// Get all posts with arguments.
 			$args            = self::DEFAULT_POST_ARGS;
-			$args['tag__in'] = [ (int) $tag_id ];
+			$args['tag__in'] = $tag_id;
 
 			return $args;
 		}
