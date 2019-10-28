@@ -1,0 +1,113 @@
+body.theme-oceans {
+  $montserrat: "Montserrat", sans-serif;
+
+  $oceans-black: #1d2120;
+  $oceans-grey: #7a777c;
+  $oceans-peach: #f7aea9;
+  $oceans-pink: #ff80e9;
+  $oceans-blue: #044362;
+  $oceans-aqua: #2cabb1;
+  $oceans-aqua-light: #8fd9d0;
+  $oceans-gradient-start: #379cbb;
+  $oceans-gradient-middle: #ff85e4;
+  $oceans-gradient-end: #f7acab;
+  $gradient: linear-gradient(262deg, $oceans-gradient-start, $oceans-gradient-middle, $oceans-gradient-end);
+
+  @mixin oceans-button($background: $oceans-pink, $foreground: white) {
+    //todo: check letter spacing
+    //todo: sort out transition
+    @include button($background, $foreground, $montserrat, 60);
+    font-weight: $extra-bold;
+    border-radius: 25px;
+    position: relative;
+
+    // use pseudo element and $transparent background on hover
+    // to make it possible to transition the gradient
+    &:hover {
+      &::before {
+        content: " ";
+        background: $gradient;
+        border-radius: 25px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+      }
+      background: $transparent;
+      color: $foreground;
+    }
+  }
+
+  font-family: $roboto;
+  background: white;
+
+  .btn-primary {
+    @include oceans-button;
+  }
+
+  .btn-secondary {
+    &:not(#hidecookie) {
+      @include oceans-button($oceans-aqua);
+    }
+  }
+
+  .page-section-header {
+    @include page-section-header($montserrat, $oceans-blue, $extra-bold, 3.75rem);
+  }
+
+  a {
+    color: $oceans-aqua;
+
+    &:hover {
+      color: $oceans-blue;
+    }
+  }
+
+  .page-header {
+    @include page-header-block($montserrat);
+
+    overflow: hidden;
+
+    .page-header-title {
+      font-size: 3.125rem;
+      line-height: 3.75rem;
+      color: white;
+    }
+
+    .page-header-subtitle {
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+      color: white;
+    }
+
+    .page-header-content {
+      color: white;
+    }
+
+    .page-header-background {
+      bottom: 0;
+
+      @include small-and-up {
+        left: -50vw;
+        right: -50vw;
+        margin: auto;
+
+        img {
+          min-height: 100vh;
+          width: auto;
+          max-width: none;
+          min-width: 100vw;
+        }
+      }
+
+      &:after {
+        background: $oceans-aqua;
+        bottom: 0;
+        height: 100%;
+        opacity: 0.8;
+      }
+    }
+  }
+}
