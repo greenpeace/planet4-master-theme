@@ -150,6 +150,9 @@ class P4_Master_Site extends TimberSite {
 			}
 		);
 
+		// wpautop is already added, this just changes its priority.
+		add_filter( 'the_content', 'wpautop', 9 );
+
 		add_action( 'init', [ $this, 'login_redirect' ], 1 );
 	}
 
