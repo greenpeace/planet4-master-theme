@@ -1,0 +1,25 @@
+@mixin campaign_video($background) {
+  .video-section {
+    background: $background;
+    padding: 10px;
+
+    // increase heights slightly compared with base theme, to retain approx ratios
+    // after adding the padding
+    @include small-and-up {
+      height: 250px;
+    }
+
+    @include medium-and-up {
+      height: 408px;
+    }
+
+    @include large-and-up {
+      padding: 30px;
+      height: 556px;
+    }
+
+    @include x-large-and-up {
+      height: 656px;
+    }
+  }
+}
