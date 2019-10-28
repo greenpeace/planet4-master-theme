@@ -11,19 +11,21 @@
 		<div class="sub-section formblock-flex">
 
 			<div class="form-group">
-				<h5>{{ fields.thankyou_donate_message }}</h5>
+				<h5>{{ fields.thankyou_social_media_message }}</h5>
 			</div>
 
 			<div class="social-media form-group">
-				{% include "blocks/share_buttons.twig" with {post:post} %}
+				{% include "blocks/share_buttons.twig" with {social:social} %}
 			</div>
 
 			{% if 'false' == fields.donate_button_checkbox %}
 				<div class="form-group">
-					<h5>{{ fields.thankyou_take_action_message }}</h5>
+					<h5>{{ fields.thankyou_donate_message }}</h5>
 				</div>
 
-				<a href="{{ fields.donatelink }}" class="btn btn-primary btn-block">{{ fields.donate_text }}</a>
+				<div class="form-group">
+					<a href="{{ fields.donatelink }}" class="btn btn-primary btn-block">{{ fields.donate_text }}</a>
+				</div>
 			{% endif %}
 
 		</div>

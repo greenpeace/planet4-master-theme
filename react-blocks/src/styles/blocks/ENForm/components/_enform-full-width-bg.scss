@@ -1,0 +1,70 @@
+.enform-full-width-bg {
+  @include background-before-opacity($light-blue-bg);
+  width: 100vw;
+  min-height: 444px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  picture {
+    align-self: start;
+
+    img {
+      position: absolute;
+      height: auto;
+      width: 100%;
+      object-fit: cover;
+      object-position: center center;
+      opacity: 0.3;
+
+      @supports (object-fit: cover) {
+        & {
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .enform {
+    background: none;
+
+    .form-description {
+      margin-bottom: 16px;
+    }
+
+    .title-and-description {
+      h2 {
+        margin-bottom: $space-lg;
+      }
+
+      p {
+        margin-bottom: $space-lg;
+      }
+    }
+
+    form {
+      .submit {
+        @include medium-and-up() {
+          margin-top: 0;
+        }
+
+        @include large-and-up {
+          padding-left: 0;
+          margin-top: 0;
+        }
+
+        @include medium-and-up {
+          flex-direction: unset;
+        }
+      }
+
+      .formblock-flex {
+        .en__field {
+          @include large-and-up {
+            width: 49%;
+          }
+        }
+      }
+    }
+  }
+}
