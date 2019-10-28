@@ -165,7 +165,7 @@ class Columns extends Base_Block {
 		$attributes_normalized['no_of_columns'] = $columns_set;
 
 		// Define the image size that will be used, based on layout chosen and number of columns.
-		$columns_block_style = $attributes['columns_block_style'];
+		$columns_block_style = $attributes['columns_block_style'] ?? static::LAYOUT_NO_IMAGE;
 		if ( static::LAYOUT_NO_IMAGE !== $columns_block_style ) {
 
 			if ( static::LAYOUT_TASKS === $columns_block_style || static::LAYOUT_IMAGES === $columns_block_style ) {
@@ -183,6 +183,11 @@ class Columns extends Base_Block {
 					$attributes_normalized[ "attachment_$i" ] = $src;
 				}
 			}
+		}
+
+		// enqueue script that equalizes the heights of the titles of the blocks
+		if ( ! $this->is_rest_request() ) {
+			wp_enqueue_script( 'submenu', P4GBKS_PLUGIN_URL . 'public/js/columns.js', [ 'jquery' ], '0.1', true );
 		}
 
 		$block_data = [
