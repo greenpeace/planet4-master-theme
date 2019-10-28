@@ -1,0 +1,586 @@
+body.theme-forest {
+  $kanit: "Kanit", sans-serif;
+
+  $forest-black: #1d2120;
+  $forest-green: #2caf4f;
+  $forest-light-green: #8bcc49;
+  $forest-dark-green: #1b4a1b;
+  $forest-cream: #f9f9ef;
+  $forest-grey: #8b8d88;
+
+  @mixin forest-button($background: $forest-dark-green, $foreground: $forest-cream) {
+    @include button($background, $foreground, $kanit, 60);
+
+    border: 2px solid $background;
+    height: 46px;
+    line-height: 46px;
+
+    &:hover {
+      color: $background;
+      background: $foreground;
+    }
+  }
+
+  font-family: $roboto;
+  background: white;
+
+  .btn-primary {
+    @include forest-button;
+  }
+
+  .btn-secondary {
+    &:not(#hidecookie) {
+      @include forest-button($forest-green);
+
+      &:hover {
+        background: white;
+      }
+    }
+  }
+
+  .page-section-header {
+    @include page-section-header($kanit, $forest-black, $extra-bold, 3.75rem);
+  }
+
+  a {
+    color: $forest-dark-green;
+    text-transform: uppercase;
+
+    &:hover {
+      color: $forest-green;
+    }
+  }
+
+  /*  BLOCKS START */
+  .page-header {
+    @include page-header-block($kanit);
+
+    .page-header-title {
+      font-size: 3.125rem;
+      line-height: 3.75rem;
+      color: $forest-black;
+      font-weight: $extra-bold;
+    }
+
+    .page-header-subtitle {
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+      color: $forest-black;
+      font-weight: $semi-bold;
+    }
+
+    .page-header-background {
+      bottom: 0;
+      overflow: hidden;
+      height: auto;
+
+      @include small-and-up {
+        top: auto;
+        max-height: 75%;
+      }
+
+      &:after {
+        background: linear-gradient(to bottom, white, $transparent);
+        top: 0;
+        bottom: 25%;
+        height: 75%;
+      }
+    }
+  }
+
+  .covers-block {
+    @include campaign_covers($forest-cream, $kanit, $kanit, $forest-green);
+
+    .cover-card-tag {
+      line-height: 1.1875rem;
+    }
+
+    .cover-card-heading {
+      line-height: 1.5625rem;
+    }
+
+    .cover-card-btn {
+      @extend .btn-secondary;
+    }
+  } // end .covers-block
+
+  .campaign-thumbnail-block {
+    @include campaign_thumbnail($transparent, white, white, $kanit, 50, 0, auto);
+
+    .campaign-card-column a:hover {
+      text-decoration: none;
+    }
+
+    .thumbnail-large {
+      display: flex;
+      flex-direction: column-reverse;
+
+      &:hover:before,
+      &:hover:after {
+        opacity: 1;
+      }
+
+      &:before,
+      &:after {
+        content: "";
+        width: 20px;
+        border-left: 2px solid white;
+        border-right: 2px solid white;
+        position: absolute;
+        left: 50%;
+        margin-left: -10px;
+        top: 40px;
+        height: auto;
+        bottom: 0;
+        opacity: 1;
+        background: $transparent;
+      }
+
+      $skew: 15deg;
+      $offset: 225%;
+
+      &:before {
+        transform: skew(-#{$skew}) translateX($offset);
+      }
+
+      &:after {
+        transform: skew($skew) translateX(-#{$offset});
+      }
+
+      .yellow-cta {
+        display: block;
+        position: relative;
+        font-weight: $bold;
+        line-height: 40px;
+        background: $forest-black;
+        text-align: left;
+        padding: 0 20px;
+        transition: background $transition ease-in-out;
+      }
+
+      //todo
+      &:hover {
+        .yellow-cta {
+          background: $forest-green;
+        }
+      }
+    }
+  } // end .campaign-thumbnail-block
+
+  .four-column-content {
+    @include campaign_content_four_column($forest-dark-green, $kanit, $roboto, $forest-grey);
+
+    .four-column-content-info .four-column-content-information {
+      .publication-date {
+        font-style: italic;
+      }
+    }
+
+    .load-more-posts-button-div .btn-secondary {
+      @extend .btn-primary;
+    }
+  } // end .four-column-content
+
+  .article-listing {
+    @include campaign_articles($kanit, $kanit, $forest-grey, $roboto, $forest-green, $semi-bold);
+
+    .article-list-item-meta {
+      font-weight: $regular;
+      font-style: italic;
+    }
+
+    .article-list-item-tags .tag-item {
+      font-size: $font-size-xxs;
+      line-height: 1.625rem;
+    }
+  } // end .article-listing
+
+  .carousel-wrap {
+    @include campaign_carousel(true, $forest-dark-green, white, $forest-grey, $forest-dark-green, url("images/forest/carousel-arrow.svg"), 28px, 10px);
+
+    .carousel-indicators li {
+      border-radius: 50%;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      width: 17px;
+    }
+  } // end .carousel-block
+
+  .happy-point-block-wrap {
+    @include campaign_happy_point();
+
+    background: $forest-dark-green;
+
+    picture {
+      @include mobile-only {
+        margin-top: -60px;
+      }
+      @include small-and-up {
+        margin-left: -40px;
+      }
+    }
+
+    #happy-point {
+      background: $forest-dark-green;
+      padding-right: 80px;
+
+      @include mobile-only {
+        transform: skewY(9.5deg);
+        padding-bottom: 30px;
+
+        iframe {
+          transform: skewY(-9.5deg);
+        }
+
+        &:before {
+          @include overlay(auto, 0, -20px, 0) {
+            height: 20px;
+            background: white;
+          }
+        }
+
+        &:after {
+          @include overlay(auto, 0, -49px, 0) {
+            height: 80px;
+            border-top: 2px solid white;
+            border-bottom: 2px solid white;
+          }
+        }
+      }
+
+      @include small-and-up {
+        transform: skew(-9.5deg);
+
+        iframe {
+          transform: skew(9.5deg);
+        }
+
+        &:before {
+          @include overlay(0, -20px, 0, auto) {
+            width: 20px;
+            background: white;
+          }
+        }
+
+        &:after {
+          @include overlay(0, -49px, 0, auto) {
+            width: 80px;
+            border-left: 2px solid white;
+            border-right: 2px solid white;
+          }
+        }
+      }
+    }
+  } // end .happy-point-block-wrap
+
+  .split-two-column {
+    @mixin edge-stripe($side) {
+      &:after {
+        @include overlay {
+          #{$side}: auto;
+          border-#{$side}: 2px solid white;
+          @if ($side == "left" or $side == right) {
+            width: 30px;
+          }
+          @else {
+            height: 30px;
+          }
+          background: $transparent;
+        }
+      }
+    }
+
+    @include campaign_split_two_columns(
+      $kanit,
+      1.25rem, 1.5625rem, $forest-cream, $semi-bold,
+      none, 0,
+      none, 0
+    );
+
+    .split-two-column-item {
+      .split-two-column-item-tag,
+      .split-two-column-item-title {
+        &,
+        a {
+          font-weight: $semi-bold;
+        }
+      }
+
+      .split-two-column-item-subtitle {
+        color: $forest-cream;
+      }
+
+      .split-two-column-item-image img {
+        // darken the images a bit to up the contrast
+        filter: brightness(70%);
+      }
+
+      .split-two-column-item-link {
+        @extend .btn-primary;
+      }
+
+      .split-two-column-item-button {
+        @extend .btn-secondary;
+      }
+
+      @include mobile-only {
+        transform: skewY(9.5deg);
+        transform-origin: 0 0;
+        position: static;
+
+        .split-two-column-item-image,
+        .split-two-column-item-content {
+          transform: skewY(-9.5deg);
+          transform-origin: 0 0;
+        }
+
+        &.item--left {
+          padding-bottom: 60px;
+          @include edge-stripe(top);
+
+          .split-two-column-item-image {
+            height: 140%;
+          }
+        }
+
+        &.item--right {
+          overflow: hidden;
+          padding-top: 60px;
+          border-top: 20px solid white;
+
+          @include edge-stripe(bottom);
+        }
+      }
+
+      @include small-and-up {
+        transform: skew(9.5deg);
+        position: static;
+
+        .split-two-column-item-image,
+        .split-two-column-item-content {
+          transform: skew(-9.5deg);
+        }
+
+        .split-two-column-item-image {
+          width: 110%;
+        }
+
+        &.item--left {
+          border-right: 20px solid white;
+          margin-left: -6%;
+          padding-left: 12%;
+
+          @include edge-stripe(left);
+        }
+
+        &.item--right {
+          margin-right: -6%;
+          padding-left: 8%;
+          padding-right: 12%;
+
+          .split-two-column-item-image {
+            left: -15%;
+          }
+
+          @include edge-stripe(right);
+        }
+      }
+
+      @include x-large-and-up {
+        &.item--right {
+          padding-left: 6%;
+        }
+      }
+    }
+  }
+
+  .columns-block.block-style-icons {
+    @include campaign_columns_style_icons(
+      $forest-green,
+      brightness(0) invert(100%),
+      $kanit, $semi-bold,
+      $kanit, $semi-bold, url("images/forest/arrow.svg"), url("images/forest/arrow-light.svg")
+    );
+  } // end .columns-block.block-style-icons
+
+  .submenu-block {
+    @include campaign_submenu(
+      $forest-cream,
+      $kanit, black, 1.875rem, 2.25rem, $semi-bold,
+      $roboto, $forest-dark-green,
+      url("images/forest/arrow.svg"), url("images/forest/arrow-light.svg"), 4px
+    );
+  } // end .submenu-block
+
+  // tasks columns block
+  .columns-block.block-style-tasks {
+    @include campaign_columns_style_tasks;
+
+    h3 {
+      @extend .page-section-header;
+    }
+
+    .can-do-steps {
+      .step-number {
+        background-color: $forest-dark-green;
+        border-radius: 50%;
+        font-size: 2.625rem;
+        height: 150px;
+        width: 150px;
+        margin-bottom: 20px;
+
+        .step-number-inner {
+          border: $forest-cream 2px solid;
+          border-radius: 50%;
+          color: $forest-cream;
+          font-family: $kanit;
+          font-weight: $semi-bold;
+          top: 20px;
+          bottom: 20px;
+          left: 20px;
+          right: 20px;
+          line-height: 106px;
+        }
+      }
+
+      .step-info {
+        h5 {
+          font-family: $kanit;
+          font-weight: $semi-bold;
+        }
+      }
+    }
+
+    .can-do-steps-mobile {
+      .card-header {
+        background: linear-gradient(to right, $transparent 0, $transparent 35px, $forest-dark-green 35px, $forest-dark-green 100%);
+        color: $forest-cream;
+        font-family: $kanit;
+        font-weight: 500;
+
+        .step-number {
+          background: $forest-dark-green;
+          border: 2px solid;
+          border-radius: 50%;
+          line-height: 68px;
+
+          &:after {
+            content: " ";
+            border: 2px solid;
+            border-radius: 50%;
+            position: absolute;
+            margin: 10px;
+            width: 46px;
+            height: 46px;
+            top: 0;
+            left: 0;
+          }
+        }
+
+        &.collapsed {
+          background: linear-gradient(to right, $transparent 0, $transparent 35px, $forest-cream 35px, $forest-cream 100%);
+          color: $forest-light-green;
+
+          .step-number {
+            background: $forest-cream;
+          }
+        }
+      }
+    }
+  } //end take action task block
+
+  .split-three-column {
+    .three-column-info {
+      p {
+        font-size: 1.125rem;
+        margin-bottom: 30px;
+      }
+    }
+
+    @mixin border-sizer($size) {
+      border-width: $size;
+
+      .col:nth-of-type(2) {
+        border-width: $size;
+
+        &::before {
+          left: -$size*2;
+          width: $size*3;
+        }
+
+        &::after {
+          right: -$size*2;
+          width: $size*3;
+        }
+      }
+    }
+
+    .three-column-images {
+      @include campaign_content_three_column_images;
+
+      border-style: solid;
+      border-color: $forest-dark-green;
+      padding: 0;
+
+      @include border-sizer(10px);
+
+      @include medium-and-up {
+        @include border-sizer(20px);
+      }
+
+      @include large-and-up {
+        @include border-sizer(25px);
+        border-width: 30px;
+      }
+
+      .col {
+        margin: 0;
+        overflow: visible;
+
+        &:nth-of-type(2) {
+          border-style: solid;
+          border-color: $forest-dark-green;
+          border-bottom: none;
+          border-top: none;
+          transform: skew(-9.5deg);
+          z-index: 2;
+
+          img {
+            transform: skew(9.5deg);
+          }
+
+          &::before,
+          &::after {
+            border-left: 2px solid white;
+            border-right: 2px solid white;
+            content: " ";
+            position: absolute;
+            height: 100%;
+            z-index: 3;
+            top: 0;
+          }
+        }
+
+        // Third image overlapped first image on small screens without this
+        .third-column {
+          width: 200%;
+          left: -50%;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+
+  .columns-block.block-style-no_image {
+    @include campaign_columns_style_no_image($kanit, $forest-black, 600);
+
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .video-block {
+    @include campaign_video($forest-dark-green);
+  }
+}

@@ -1,0 +1,131 @@
+@mixin campaign_covers($background, $tag-font, $heading-font, $tag-colour, $content-colour: black) {
+  .cover-card-image {
+    overflow: hidden;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cover-card-content {
+    background: $background;
+    margin: 0;
+    padding: 18px 28px 20px;
+
+    @include small-and-up {
+      position: absolute;
+      top: 45.55%;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      transition: top $transition ease-in-out;
+    }
+
+    @include small-and-up {
+      top: 55.55%;
+    }
+
+    @include medium-and-up {
+      top: 45.55%;
+    }
+
+    .cover-card-tag {
+      font-size: $font-size-sm;
+      text-shadow: none;
+      font-family: $tag-font;
+      font-weight: $regular;
+      color: $tag-colour;
+    }
+
+    .cover-card-heading {
+      font-family: $heading-font;
+      text-shadow: none;
+      color: $content-colour;
+      text-transform: uppercase;
+      font-size: $font-size-md;
+      margin-bottom: 0;
+
+      @include mobile-only {
+        max-width: none;
+      }
+    }
+
+    p {
+      font-size: $font-size-xxs;
+      line-height: 1.375rem;
+      display: block;
+      opacity: 0;
+      transition: opacity $transition ease-in-out;
+      margin-bottom: 0;
+      color: $content-colour;
+      height: 0;
+    }
+  }
+
+  .cover-card-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 28px;
+    right: 28px;
+    width: auto;
+    margin: 0;
+    background-color: transparentize($white, .8);
+    border-color: $white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+  }
+
+  .cover-card {
+    padding: 0;
+    box-shadow: none;
+
+    &:before {
+      display: none;
+    }
+
+    &:hover {
+      box-shadow: none;
+    }
+
+    @include mobile-only {
+      padding-top: 55.55%;
+    }
+
+    @include small-and-up {
+      min-height: 476px;
+
+      &:hover {
+        p {
+          opacity: 1;
+          margin-top: 10px;
+          height: auto;
+
+          & + p {
+            margin-bottom: 1rem;
+          }
+        }
+
+        .cover-card-content {
+          top: 0;
+        }
+      }
+    }
+
+    @include medium-and-up {
+      min-height: 414px;
+      margin-bottom: 32px;
+    }
+
+    @include large-and-up {
+      min-height: 423px;
+      max-height: 423px;
+    }
+  }
+
+  @include mobile-only {
+    .load-more-covers-button-div {
+      text-align: center;
+    }
+  }
+}

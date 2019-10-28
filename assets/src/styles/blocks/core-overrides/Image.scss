@@ -1,10 +1,10 @@
 .wp-block-image.caption-style-blue-overlay {
-	position: relative;
+  position: relative;
 
-	.alignleft,
-	.alignright {
-		position: relative;
-	}
+  .alignleft,
+  .alignright {
+    position: relative;
+  }
 
   width: auto;
   max-width: 100%;
@@ -55,8 +55,8 @@
       position: absolute;
       left: 0;
       bottom: 0;
-			padding: $n20 $n30;
-			height: auto;
+      padding: $n20 $n30;
+      height: auto;
     }
 
     @include large-and-up {
@@ -69,11 +69,12 @@ figcaption {
   .caption-alignment-left & {
     text-align: left;
   }
+
   .caption-alignment-center & {
     text-align: center;
   }
+
   .caption-alignment-right & {
     text-align: right;
   }
 }
-

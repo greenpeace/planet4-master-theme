@@ -1,0 +1,82 @@
+@mixin campaign_content_four_column($image-border, $header-font, $date-font, $date-colour) {
+  .four-column-content-info {
+    .four-column-content-symbol {
+      box-shadow: none;
+      overflow: hidden;
+
+      a {
+        display: block;
+      }
+
+      @include mobile-only {
+        margin-bottom: 15px;
+      }
+
+      @if ($image-border != none) {
+        a {
+          background: $image-border;
+          padding: 15px;
+        }
+
+        @include small-and-up {
+          max-width: 180px;
+          margin-top: 0;
+          height: 245px;
+        }
+
+        @include medium-and-up {
+          height: 280px;
+          padding: 20px;
+        }
+
+        @include x-large-and-up {
+          height: 345px;
+        }
+      }
+    }
+
+    .four-column-content-information {
+      a:hover {
+        color: black;
+      }
+
+      h4 {
+        font-family: $header-font;
+        line-height: 1.5625rem;
+        font-size: $font-size-md;
+        color: black;
+        font-weight: $bold;
+        text-transform: uppercase;
+
+        @include mobile-only {
+          font-size: $font-size-sm;
+          line-height: 1.25rem;
+        }
+      }
+
+      .publication-date {
+        font-family: $date-font;
+        line-height: 1.5625rem;
+        font-size: $font-size-sm;
+        color: $date-colour;
+        font-style: normal;
+        margin: 10px 0;
+        font-weight: $regular;
+      }
+
+      p {
+        font-size: $font-size-xxs;
+        line-height: 1.375rem;
+      }
+    }
+  }
+
+  .load-more-posts-button-div {
+    text-align: center;
+
+    div[class^=col-] {
+      max-width: 100%;
+      flex: 1;
+    }
+  }
+}

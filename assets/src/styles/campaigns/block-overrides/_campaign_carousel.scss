@@ -1,0 +1,143 @@
+@mixin campaign_carousel($bordered, $background, $caption, $indicator, $indicator-current, $icon-svg, $icon-size, $indicator-size: 8px) {
+  h1 {
+    @extend .page-section-header;
+    margin-bottom: 40px;
+  }
+
+  @if ($bordered) {
+    padding-bottom: 52px;
+  }
+
+  $spacing: 0;
+  @if ($bordered) {
+    $spacing: 20px;
+  }
+
+  .carousel-inner {
+    background: $background;
+
+    .carousel-item {
+      padding: $spacing;
+    }
+  }
+
+  .carousel-item-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .carousel-caption {
+    color: $caption;
+    background: $background;
+    position: absolute;
+    text-align: left;
+    padding: 30px 10px;
+    @include letter-spacing(20);
+
+    @if ($bordered == false) {
+      padding-bottom: 60px;
+
+      @include mobile-only {
+        padding-left: 34px;
+        padding-right: 34px;
+      }
+    }
+
+    @include small-and-up {
+      padding-left: 100px;
+      padding-right: 100px;
+    }
+
+    @include medium-and-up {
+      @if ($bordered) {
+        padding-left: 124px;
+        padding-right: 124px;
+      }
+      @else {
+        padding-left: 172px;
+        padding-right: 172px;
+      }
+    }
+
+    p {
+      font-size: $font-size-sm;
+      line-height: 1.5625rem;
+      margin: 0;
+
+      @include medium-and-up {
+        font-size: 1.125rem;
+        line-height: 1.875rem;
+      }
+
+      & + p {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  .carousel-indicators {
+    right: 0;
+    left: 0;
+    margin: 0;
+    @if ($bordered) {
+      bottom: -30px;
+    }
+    @else {
+      bottom: 30px;
+    }
+
+    li {
+      width: $indicator-size;
+      height: $indicator-size;
+      margin: 0 12px;
+      border-radius: 0;
+      background: $indicator;
+
+      &.active {
+        background: $indicator-current;
+      }
+    }
+  }
+
+  .carousel-control-prev {
+    left: -#{$spacing};
+
+    &-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  .carousel-control-next {
+    right: -#{$spacing};
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 100px;
+    margin: 0;
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    height: 100px;
+    text-align: center;
+    display: flex;
+
+    @include medium-and-up {
+      @if ($bordered) {
+        width: 128px;
+      }
+      @else {
+        width: 150px;
+      }
+    }
+
+    &-icon {
+      background: $icon-svg no-repeat;
+      background-size: contain;
+      vertical-align: middle;
+      margin: 0;
+      width: $icon-size;
+      height: $icon-size;
+    }
+  }
+}
