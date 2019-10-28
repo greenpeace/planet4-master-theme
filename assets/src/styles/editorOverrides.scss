@@ -21,26 +21,44 @@
   }
 }
 
-.wp-block-image.caption-style-blue-overlay {
-  figcaption {
-    // This is to take into account the image resizer handle
-    margin-bottom: 8px;
+.wp-block-image {
+  display: table;
+
+  // Mimics the behavior of WP's native '.is-resized' CSS class
+  .editor-rich-text.block-editor-rich-text {
+    display: table-caption;
+    caption-side: bottom;
+
+    figcaption {
+      display: block;
+    }
   }
 
-  .editor-rich-text {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  &.caption-style-blue-overlay {
+    overflow: hidden;
 
-    .editor-format-toolbar {
-      margin-top: 48px;
-      box-shadow: 0 2px 8px black;
-      z-index: 99999;
+    figcaption {
+      // This is to take into account the image resizer handle
+      margin-bottom: 8px;
+    }
+
+    .editor-rich-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      .editor-format-toolbar {
+        margin-top: 48px;
+        box-shadow: 0 2px 8px black;
+        z-index: 99999;
+      }
     }
   }
 }
+
+
 
 .components-panel__body label {
   font-size: 13px;
