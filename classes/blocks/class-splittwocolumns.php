@@ -124,10 +124,10 @@ class SplitTwoColumns extends Base_Block {
 		$issue_id        = absint( $fields['select_issue'] ?? '' );
 		$issue_meta_data = get_post_meta( $issue_id );
 
-		$tag_id            = absint( $fields['select_tag'] ? $fields['select_tag'] : '' );
+		$tag_id            = absint( $fields['select_tag'] ?? '' );
 		$tag               = get_term( $tag_id );
-		$campaign_image_id = $fields['tag_image'] ? $fields['tag_image'] : get_term_meta( $tag_id, 'tag_attachment_id', true );
-		$issue_image_id    = $fields['issue_image'] ? $fields['issue_image'] : get_post_thumbnail_id( $issue_id );
+		$campaign_image_id = !empty( $fields['tag_image'] ) ? $fields['tag_image'] : get_term_meta( $tag_id, 'tag_attachment_id', true );
+		$issue_image_id    = !empty( $fields['issue_image'] ) ? $fields['issue_image'] : get_post_thumbnail_id( $issue_id );
 
 		$issue_title       = empty( $fields['title'] ) ? ( $issue_meta_data['p4_title'][0] ?? get_the_title( $issue_id ) ) : $fields['title'];
 		$issue_description = empty( $fields['issue_description'] ) ? ( $issue_meta_data['p4_description'][0] ?? '' ) : $fields['issue_description'];
@@ -143,7 +143,7 @@ class SplitTwoColumns extends Base_Block {
 				'image_alt'   => get_post_meta( $issue_image_id, '_wp_attachment_image_alt', true ),
 				'link_text'   => $issue_link_text,
 				'link_url'    => $issue_link_path,
-				'focus'       => $fields['focus_issue_image'] ? $fields['focus_issue_image'] : '',
+				'focus'       => $fields['focus_issue_image'] ?? '',
 			],
 			'campaign' => [
 				'image'       => wp_get_attachment_url( $campaign_image_id ),
@@ -151,7 +151,11 @@ class SplitTwoColumns extends Base_Block {
 				'image_alt'   => get_post_meta( $campaign_image_id, '_wp_attachment_image_alt', true ),
 				'name'        => $tag instanceof \WP_Error ? '' : html_entity_decode( $tag->name ),
 				'link'        => get_tag_link( $tag ),
-				'description' => empty( $fields['tag_description'] ) ? ( $tag instanceof \WP_Error ? '' : $tag->description ) : $fields['tag_description'],
+				'description' =>
+					!empty( $fields['tag_description'] )
+						? $fields['tag_description']
+						: $tag->description ?? ''
+				,
 				'button_text' => $fields['button_text'] ?? __( 'Get Involved', 'planet4-blocks' ),
 				'button_link' => $fields['button_link'] ?? get_tag_link( $tag ),
 				'focus'       => $fields['focus_tag_image'] ?? '',
