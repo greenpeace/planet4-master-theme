@@ -161,9 +161,8 @@ final class Loader {
 	 */
 	private function hook_plugin() {
 		add_action( 'admin_menu', [ $this, 'load_i18n' ] );
-		// Load the editor scripts.
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
+		// Load the editor scripts only enqueuing editor scripts while in context of the editor.
+		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_editor_scripts' ] );
 
 		// Setup image sizes.
 		add_action( 'admin_init', [ $this, 'setup_image_sizes' ] );
