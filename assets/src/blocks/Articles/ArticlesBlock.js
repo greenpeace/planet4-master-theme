@@ -125,6 +125,10 @@ export class ArticlesBlock {
           type: 'boolean',
           default: false
         },
+        ignore_categories: {
+          type: 'boolean',
+          default: false
+        },
         exclude_post_id: {
           type: 'integer',
           default: ''
