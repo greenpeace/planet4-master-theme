@@ -168,6 +168,9 @@ final class Loader {
 		// Setup image sizes.
 		add_action( 'admin_init', [ $this, 'setup_image_sizes' ] );
 
+		// Set color palette.
+		add_action( 'admin_init', [ $this, 'set_color_palette' ] );
+
 		// Register a block category.
 		add_filter( 'block_categories', [ $this, 'register_block_category' ], 10, 2 );
 		// Provide hook for other plugins.
@@ -420,6 +423,126 @@ final class Loader {
 			$common,
 			$categories
 		);
+	}
+
+
+	/**
+	 * Registers a new color palette for all native blocks
+	 */
+	public function set_color_palette() {
+		add_theme_support(
+			'editor-color-palette',
+			[
+				[
+					'name'  => __( 'Dark Shade Black', 'planet4-blocks-backend' ),
+					'slug'  => 'dark-shade-black',
+					'color' => '#1a1a1a',
+				],
+				[
+					'name'  => __( 'Grey 60%', 'planet4-blocks-backend' ),
+					'slug'  => 'grey-60',
+					'color' => '#666666',
+				],
+				[
+					'name'  => __( 'Grey 40%', 'planet4-blocks-backend' ),
+					'slug'  => 'grey-40',
+					'color' => '#999999',
+				],
+				[
+					'name'  => __( 'Grey 20%', 'planet4-blocks-backend' ),
+					'slug'  => 'grey-20',
+					'color' => '#cccccc',
+				],
+				[
+					'name'  => __( 'Grey 10%', 'planet4-blocks-backend' ),
+					'slug'  => 'grey-10',
+					'color' => '#e5e5e5',
+				],
+				[
+					'name'  => __( 'Grey', 'planet4-blocks-backend' ),
+					'slug'  => 'grey',
+					'color' => '#333333',
+				],
+				[
+					'name'  => __( 'Green', 'planet4-blocks-backend' ),
+					'slug'  => 'green',
+					'color' => '#003300',
+				],
+				[
+					'name'  => __( 'Green 80%', 'planet4-blocks-backend' ),
+					'slug'  => 'green-80',
+					'color' => '#1b4a1b',
+				],
+				[
+					'name'  => __( 'GP Green', 'planet4-blocks-backend' ),
+					'slug'  => 'gp-green',
+					'color' => '#66cc00',
+				],
+				[
+					'name'  => __( 'Dark Tiber', 'planet4-blocks-backend' ),
+					'slug'  => 'dark-tiber',
+					'color' => '#052a30',
+				],
+				[
+					'name'  => __( 'Genoa', 'planet4-blocks-backend' ),
+					'slug'  => 'genoa',
+					'color' => '#186a70',
+				],
+				[
+					'name'  => __( 'Inch Worm', 'planet4-blocks-backend' ),
+					'slug'  => 'inch-worm',
+					'color' => '#a7e021',
+				],
+				[
+					'name'  => __( 'X Dark Blue', 'planet4-blocks-backend' ),
+					'slug'  => 'x-dark-blue',
+					'color' => '#042233',
+				],
+				[
+					'name'  => __( 'All Ports', 'planet4-blocks-backend' ),
+					'slug'  => 'allports',
+					'color' => '#007799',
+				],
+				[
+					'name'  => __( 'Spray', 'planet4-blocks-backend' ),
+					'slug'  => 'spray',
+					'color' => '#86eee7',
+				],
+				[
+					'name'  => __( 'Dark Blue', 'planet4-blocks-backend' ),
+					'slug'  => 'dark-blue',
+					'color' => '#074365',
+				],
+				[
+					'name'  => __( 'Blue', 'planet4-blocks-backend' ),
+					'slug'  => 'blue',
+					'color' => '#2077bf',
+				],
+				[
+					'name'  => __( 'Blue 60%', 'planet4-blocks-backend' ),
+					'slug'  => 'blue-60',
+					'color' => '#63bbfd',
+				],
+				[
+					'name'  => __( 'Crimson', 'planet4-blocks-backend' ),
+					'slug'  => 'crimson',
+					'color' => '#e51538',
+				],
+				[
+					'name'  => __( 'Orange Hover', 'planet4-blocks-backend' ),
+					'slug'  => 'orange-hover',
+					'color' => '#ee562d',
+				],
+				[
+					'name'  => __( 'Yellow', 'planet4-blocks-backend' ),
+					'slug'  => 'yellow',
+					'color' => '#ffd204',
+				],
+			]
+		);
+
+		// Disable custom color option.
+		add_theme_support( 'disable-custom-colors' );
 	}
 
 	/**
