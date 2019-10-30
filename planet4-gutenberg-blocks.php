@@ -233,6 +233,10 @@ P4GBKS\Loader::get_instance(
 		// --- Add here your own Block Controller ---
 		// DEPRECATED: Blocks could be registered inside Loader class
 		// 'P4GBKS\Controllers\Blocks\NewCovers_Controller'
+		'P4GBKS\Controllers\Menu\Settings_Controller',
+		'P4GBKS\Controllers\Menu\Blocks_Usage_Controller',
 	],
-	'P4GBKS\Views\View'
+	'P4GBKS\Views\View',
+	'P4GBKS\Command\Shortcode_To_Gutenberg',
+	'P4GBKS\Command\Controller'
 );

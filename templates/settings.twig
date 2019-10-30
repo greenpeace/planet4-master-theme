@@ -1,0 +1,19 @@
+{% block settings_content %}
+
+    <div id="settings_div" class="wrap">
+        <h2>{{ __( 'Settings', 'planet4-blocks-backend' ) }}</h2>
+    </div>
+
+    <form id="p4bks_main_settings_form" name="p4bks_main_settings_form" method="post">
+        {{ fn( 'wp_nonce_field', nonce_action, '_wpnonce', true, false )|raw }}
+        <p class="submit">
+            <input type="text" name="p4bks_page_id" id="p4bks_page_id" value="" placeholder="{{ __( 'Page ID', 'planet4-blocks-backend' ) }}">
+            <input type="submit" name="p4bks_convert_blocks_button" id="p4bks_convert_blocks_button" class="button button-primary" value="{{ __( 'Convert block(s)', 'planet4-blocks-backend' ) }}">&nbsp;
+            <span class="convert-blocks-response cp-success">{{ message }}</span>
+            <br />{{ __( '1) The blocks "Static four column", "Two columns" and "Take action tasks" will be replaced by block "Columns"', 'planet4-blocks-backend' ) }}
+            <br />{{ __( '2) The blocks "Three columns" and "Carousel" will be replaced by block "Gallery"', 'planet4-blocks-backend' ) }}
+        </p>
+    </form>
+    <div class="clear"></div>
+
+{% endblock %}
