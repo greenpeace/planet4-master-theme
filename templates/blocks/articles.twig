@@ -9,7 +9,7 @@
 					</header>
 				{% endif %}
 				{% if ( fields.articles_description ) %}
-					<div class="page-section-description">{{ fields.articles_description|e('wp_kses_post')|raw }}</div>
+					<div class="page-section-description">{{ fields.articles_description|e('wp_kses_post')|wpautop|raw }}</div>
 				{% endif %}
 
 				<div class="article-list-section clearfix">
