@@ -6,20 +6,20 @@ jQuery(function ($) {
     // on small screens columns are not next to each other
     if ($(window).width() <= 768) {
       $('.columns-block .column-wrap h3').css('min-height', 'auto');
-      return
+      return;
     }
 
     $.each($('.columns-block'), function () {
-      let columnHeadings = $(this).find('.column-wrap h3')
+      let columnHeadings = $(this).find('.column-wrap h3');
 
-      let highestHeadingHeight = 0
+      let highestHeadingHeight = 0;
       columnHeadings.each((index, heading) => {
-        highestHeadingHeight = Math.max(highestHeadingHeight, $(heading).height())
-      })
+        highestHeadingHeight = Math.max(highestHeadingHeight, $(heading).height());
+      });
 
       columnHeadings.each((index, heading) => {
         $(heading).css('min-height', highestHeadingHeight);
-      })
+      });
     });
   }
 

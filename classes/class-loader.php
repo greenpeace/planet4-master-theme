@@ -142,6 +142,23 @@ final class Loader {
 	}
 
 	/**
+	 * Loads all shortcake blocks registered from within this plugin.
+	 *
+	 * @param array  $services The Controller services to inject.
+	 * @param string $view_class The View class name.
+	 */
+	public function load_services( $services, $view_class ) {
+		$this->services = $services;
+		$this->view     = new $view_class();
+
+		if ( $this->services ) {
+			foreach ( $this->services as $service ) {
+				( new $service( $this->view ) )->load();
+			}
+		}
+	}
+
+	/**
 	 * Registers commands for Blocks plugin.
 	 */
 	public function load_commands() {

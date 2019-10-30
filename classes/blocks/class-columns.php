@@ -185,7 +185,7 @@ class Columns extends Base_Block {
 			}
 		}
 
-		// enqueue script that equalizes the heights of the titles of the blocks
+		// enqueue script that equalizes the heights of the titles of the blocks.
 		if ( ! $this->is_rest_request() ) {
 			wp_enqueue_script( 'column-headers', P4GBKS_PLUGIN_URL . 'public/js/columns.js', [ 'jquery' ], '0.1', true );
 		}
