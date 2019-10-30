@@ -15,6 +15,10 @@
 
 .edit-post-visual-editor {
   @include table;
+
+  .wp-block {
+    max-width: 90%;
+  }
 }
 
 .wp-block-image.caption-style-blue-overlay {
