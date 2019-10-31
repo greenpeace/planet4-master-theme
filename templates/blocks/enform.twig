@@ -1,5 +1,5 @@
 {% block enblock %}
-	<section class="block enform-wrap enform-{{ fields.en_form_style }} {% if fields.en_form_style == 'side-style' %}block-header block-wide{% endif %} {%if fields.en_form_style == 'full-width-bg' %}block-footer block-wide{% endif %}">
+	<section class="block enform-wrap enform-{{ fields.en_form_style }} {% if fields.en_form_style == 'side-style' %}block-header block-wide{% endif %} {%if fields.en_form_style == 'full-width-bg' %}block-footer block-wide{% endif %} {% if campaign_data.template %}campaign-{{ campaign_data.template }}{% endif %}">
 		{% if fields.en_form_style == 'full-width-bg' or fields.en_form_style == 'side-style' %}
 			<picture>
 				<img src="{{ fields.background_src.0|default(fields.default_image) }}"
@@ -17,19 +17,24 @@
 			<div class="row">
 				<div class="col-md-12">
 
-					{% if fields.en_form_style == 'side-style' %}
-						<div class="form-caption">
-							<{{ fields.content_title_size | default('h1') }}>{{ fields.content_title }}</{{ fields.content_title_size | default('h1') }}>
-							<p>{{ fields.content_description|e('wp_kses_post')|raw }}</p>
-						</div>
-					{% endif %}
+				{% if fields.en_form_style == 'side-style' %}
+					<div class="form-caption">
+						{% if campaign_data.template %}
+							<img src="{{ campaign_data.logo_path }}" alt="{{ campaign_data.template }}" class="campaign-logo">
+						{% endif %}
+						<{{ fields.content_title_size | default('h1') }}>{{ fields.content_title }}</{{ fields.content_title_size | default('h1') }}>
+					<p>{{ fields.content_description|e('wp_kses_post')|raw }}</p>
+				</div>
+				{% endif %}
 
 					<div class="enform" id="enform" data-redirect-url="{{ redirect_url|default('') }}">
 
 						<div id="enform-content">
 
 							<div class="title-and-description">
-								<h2>{{ fields.title }}</h2>
+								{% if fields.title %}
+									<h2>{{ fields.title }}</h2>
+								{% endif %}
 								{% if fields.en_form_style == 'side-style' %}
 									<div class="enform-extra-header-placeholder"></div>
 								{% endif %}
@@ -37,7 +42,6 @@
 							</div>
 							<div class="form-container">
 								<form id="p4en_form" name="p4en_form" method="post" novalidate>
-									{{ fn( 'wp_nonce_field', nonce_action, '_wpnonce', true, false )|raw }}
 									<input type="hidden" name="enblock_submit" value="{{ enblock_submit }}">
 									<input type="hidden" name="en_page_id" value="{{ fields.en_page_id }}">
 									<input type="hidden" name="thankyou_title" value="{{ fields.thankyou_title }}">

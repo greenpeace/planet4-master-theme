@@ -1,31 +1,3 @@
-.enform-full-width-bg {
-  @include background-before-opacity($light-blue-bg);
-  width: 100vw;
-  min-height: 444px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-
-  picture {
-    align-self: start;
-
-    img {
-      position: absolute;
-      height: auto;
-      width: 100%;
-      object-fit: cover;
-      object-position: center center;
-      opacity: 0.3;
-
-      @supports (object-fit: cover) {
-        & {
-          height: 100%;
-        }
-      }
-    }
-  }
-}
-
 .form-caption {
   float: none;
   width: 100%;
@@ -41,7 +13,7 @@
 
   @include large-and-up {
     float: left;
-    padding-top: 176px;
+    padding-top: 117px;
     width: 50%;
     padding-left: 0;
     padding-right: 0;
@@ -65,7 +37,7 @@
     line-height: 1.1;
 
     @include large-and-up {
-      margin-bottom: 32px;
+      margin-bottom: $space-lg;
     }
   }
 
@@ -96,6 +68,10 @@
     font-family: $roboto;
     font-size: 1rem;
     line-height: 1.37rem;
+
+    html[dir="rtl"] & {
+      font-size: 1rem;
+    }
   }
 }
 
@@ -107,14 +83,6 @@
   background: #074365;
   width: 100%;
 
-  .enform-full-width & {
-    color: white;
-  }
-
-  .enform-full-width-bg & {
-    background: none;
-  }
-
   form {
     margin: 0;
 
@@ -122,14 +90,18 @@
     .custom-select,
     select.form-control.en__field__input--select,
     button {
-      height: 46px;
+      height: 44px;
       border-radius: 0;
       border-color: transparent;
-      margin-bottom: 16px;
+      margin-bottom: $space-md;
       min-width: 200px;
 
       @include medium-and-up {
         margin-bottom: inherit;
+      }
+
+      @include  large-and-up {
+        width: 100% !important;
       }
 
       &.is-invalid {
@@ -163,19 +135,36 @@
       .en__field {
         width: 100%;
 
-        @include medium-and-up {
-          width: 49%;
+        @include large-and-up {
+          width: 32%;
         }
       }
     }
 
     .submit {
       margin: 0;
+      margin-top: 19px;
       line-height: 1;
 
       @include medium-and-up {
         display: flex;
         flex-direction: row-reverse;
+      }
+
+      button {
+        min-width: 200px;
+        margin-bottom: 0;
+        margin-top: $space-lg;
+
+        @include  large-and-up {
+          min-width: 330px;
+        }
+
+        html[dir="rtl"] & {
+          line-height: 1;
+          font-size: 1.375rem;
+          font-weight: bold;
+        }
       }
     }
 
@@ -209,13 +198,28 @@
       }
     }
 
+    .submit-container {
+      .enform-side-style & {
+        width: 100%;
+      }
+    }
+
     .enform-legal {
-      padding-top: 1em;
+      margin-top: $space-md;
+
+      html[dir="rtl"] & {
+        margin-top: $space-xl;
+
+        @include large-and-up {
+          margin-top: $space-lg;
+        }
+      }
 
       p {
-        font-size: 0.75rem;
+        font-size: .625rem;
         line-height: 1rem;
-        float: right;
+        margin-bottom: 0;
+        float: none;
       }
     }
   }
@@ -223,6 +227,14 @@
   h2 {
     .enform-full-width & {
       color: white;
+
+      html[dir="rtl"] & {
+        font-size: 2rem;
+
+        @include large-and-up {
+          font-size: 1.75rem;
+        }
+      }
     }
 
     &.thankyou {
@@ -231,7 +243,7 @@
 
     @include medium-and-up {
       font-size: 1.75rem;
-      line-height: 34px;
+      line-height: 2.5rem;
     }
 
     @include large-and-up {
@@ -273,161 +285,6 @@ body.wp-admin {
   }
 }
 
-.enform-side-style {
-  width: 100vw;
-  min-height: 444px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-
-  .caption-overlay {
-    display: block;
-    /*background: url("public/images/carousel-blurred-overlay.png");*/
-    background-position: bottom right;
-    background-size: cover;
-    height: 100%;
-    width: 90%;
-    position: absolute;
-    margin-left: 0;
-    z-index: 1;
-
-    html[dir="rtl"] & {
-      background-position: bottom left;
-    }
-
-    @include medium-and-up {
-      width: 50%;
-    }
-  }
-
-  // Darken background
-  &::after {
-    @include fill-container;
-    content: "";
-    background: rgba(30, 30, 30, 0.45);
-  }
-
-  picture {
-    align-self: start;
-
-    @include large-and-up {
-      display: block;
-    }
-
-    img {
-      position: absolute;
-      height: auto;
-      width: 100%;
-      object-fit: cover;
-      object-position: center center;
-      opacity: 1;
-
-      @supports (object-fit: cover) {
-        & {
-          height: 100%;
-        }
-      }
-    }
-  }
-
-  .enform {
-    overflow: hidden;
-    align-items: center;
-    min-height: 444px;
-    background: white;
-    padding-top: 28px;
-    float: none;
-    width: 100vw;
-    margin-top: 0;
-    margin-bottom: 0;
-
-    @include large-and-up {
-      margin-top: 96px;
-      margin-bottom: 60px;
-      float: right;
-
-      html[dir="rtl"] & {
-        float: left;
-      }
-
-      width: 40%;
-      max-width: 444px;
-      box-sizing: content-box;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-      padding: 28px 30px 24px 30px;
-    }
-
-    .enform-legal {
-      p {
-        float: none;
-      }
-    }
-  }
-
-  .title-and-description {
-    color: #1a1a1a;
-    padding: $n15;
-
-    @include large-and-up {
-      padding: 0;
-    }
-  }
-
-  .form-container {
-    background: $white;
-    padding: $n15;
-
-    @include large-and-up {
-      padding: 0;
-    }
-
-    .formblock-flex .en__field {
-      width: 100%;
-    }
-
-    .en__field__element {
-      position: relative;
-
-      input[type=text],
-      select,
-      input[type=email],
-      input[type=tel] {
-        border: 1px solid #1a1a1a;
-        margin-bottom: 20px;
-        padding: $n10;
-
-        &.is-invalid {
-          border: 1px solid #ff3333;
-          margin-bottom: 6px;
-        }
-      }
-    }
-
-    .invalid-feedback {
-      color: #ff3333;
-      font-weight: bold;
-      margin: 0;
-      padding: 0;
-      background: none;
-    }
-  }
-
-  .en__field__top__label {
-    position: absolute;
-    top: -.6rem;
-    background: white;
-    left: $n10;
-    padding: 0 8px;
-    font-weight: 600;
-    font-size: .75rem;
-
-    html[dir="rtl"] & {
-      left: auto;
-      right: $n10;
-    }
-  }
-}
-
 .thankyou {
   position: relative;
   min-height: inherit;
@@ -447,6 +304,11 @@ body.wp-admin {
 
   .page-section-description {
     line-height: 1.4;
+  }
+
+  .btn {
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .sub-section {
@@ -491,6 +353,22 @@ body.wp-admin {
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
+    }
+  }
+}
+
+.single-campaign {
+  .enform-side-style {
+    img {
+      margin-top: 54px;
+
+      @include medium-and-up {
+        margin-top: 60px;
+      }
+
+      @include large-and-up {
+        margin-top: 0;
+      }
     }
   }
 }

@@ -158,23 +158,24 @@ class ENForm extends Base_Block {
 	public function add_block_shortcode( $attributes, $content ) {
 		$attributes = shortcode_atts(
 			[
-				'en_page_id'                   => '',
-				'enform_goal'                  => '',
-				'enform_style'                 => '',
-				'title'                        => '',
-				'description'                  => '',
-				'content_title'                => '',
-				'content_description'          => '',
-				'button_text'                  => '',
-				'text_below_button'            => '',
-				'thankyou_title'               => '',
-				'thankyou_subtitle'            => '',
-				'thankyou_donate_message'      => '',
-				'donate_button_checkbox'       => '',
-				'thankyou_take_action_message' => '',
-				'thankyou_url'                 => '',
-				'background'                   => '',
-				'en_form_id'                   => '',
+				'en_page_id'                    => '',
+				'enform_goal'                   => '',
+				'enform_style'                  => '',
+				'title'                         => '',
+				'description'                   => '',
+				'content_title'                 => '',
+				'content_description'           => '',
+				'button_text'                   => '',
+				'text_below_button'             => '',
+				'thankyou_title'                => '',
+				'thankyou_subtitle'             => '',
+				'thankyou_social_media_message' => '',
+				'thankyou_donate_message'       => '',
+				'donate_button_checkbox'        => '',
+				'thankyou_take_action_message'  => '',
+				'thankyou_url'                  => '',
+				'background'                    => '',
+				'en_form_id'                    => '',
 			],
 			$attributes,
 			'shortcake_enform'
@@ -191,7 +192,8 @@ class ENForm extends Base_Block {
 	 * @return array The data to be passed in the View.
 	 */
 	public function prepare_data( $attributes ): array {
-		global $pagenow;
+
+		global $post;
 
 		// Enqueue js for the frontend.
 		if ( ! $this->is_rest_request() ) {
@@ -199,6 +201,17 @@ class ENForm extends Base_Block {
 		}
 
 		//$fields = $this->ignore_unused_attributes( $fields );
+
+		// Extract twitter account from footer.
+		$social_menu = wp_get_nav_menu_items( 'Footer Social' );
+		if ( isset( $social_menu ) && is_iterable( $social_menu ) ) {
+			foreach ( $social_menu as $social_menu_item ) {
+				$url_parts = explode( '/', rtrim( $social_menu_item->url, '/' ) );
+				if ( false !== strpos( $social_menu_item->url, 'twitter' ) ) {
+					$social_accounts['twitter'] = count( $url_parts ) > 0 ? $url_parts[ count( $url_parts ) - 1 ] : '';
+				}
+			}
+		}
 
 		// Handle background image.
 		if ( isset( $attributes['background'] ) ) {
@@ -211,6 +224,22 @@ class ENForm extends Base_Block {
 			$attributes['background_sizes']  = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
 		}
 		$attributes['default_image'] = get_bloginfo( 'template_directory' ) . '/images/happy-point-block-bg.jpg';
+
+		$og_title       = get_post_meta( $post->ID, 'p4_og_title', true );
+		$og_description = get_post_meta( $post->ID, 'p4_og_description', true );
+		$link           = get_permalink( $post->ID );
+
+		if ( '' === $og_title ) {
+			$title = get_the_title( $post->ID );
+			if ( '' !== $title ) {
+				$og_title = $title;
+			}
+		}
+		$social = array(
+			'title'       => $og_title,
+			'description' => $og_description,
+			'link'        => $link,
+		);
 
 		$data = [];
 
@@ -226,6 +255,26 @@ class ENForm extends Base_Block {
 				$donate_button_checkbox = 'true';
 			}
 			$attributes['donate_button_checkbox'] = $donate_button_checkbox;
+		}
+
+		$attributes['content_title_size'] = $attributes['content_title_size'] ?? 'h1';
+
+		$campaign_data = array();
+
+		if ( 'campaign' === get_post_type() && isset( $attributes['campaign_logo'] ) ) {
+			if ( 'true' == $attributes['campaign_logo'] ) {
+				$page_meta_data    = get_post_meta( $post->ID );
+				$campaign_template = ! empty( $page_meta_data['_campaign_page_template'][0] ) ? $page_meta_data['_campaign_page_template'][0] : false;
+
+				if ( $campaign_template ) {
+					$campaign_logo_path = get_bloginfo( 'template_directory' ) . '/images/' . $campaign_template . '/logo-light.png';
+					$campaign_data      = [
+						'template'  => $campaign_template,
+						'logo_path' => $campaign_logo_path,
+						'logo'      => $attributes['campaign_logo'],
+					];
+				}
+			}
 		}
 
 		$view    = new View();
@@ -251,10 +300,12 @@ class ENForm extends Base_Block {
 		$data = array_merge(
 			$data,
 			[
-				'fields'       => $attributes,
-				'redirect_url' => isset( $attributes['thankyou_url'] ) ? filter_var( $attributes['thankyou_url'], FILTER_VALIDATE_URL ) : '',
-				'nonce_action' => 'enform_submit',
-				'form'         => $rendered_form,
+				'fields'          => $attributes,
+				'redirect_url'    => isset( $attributes['thankyou_url'] ) ? filter_var( $attributes['thankyou_url'], FILTER_VALIDATE_URL ) : '',
+				'form'            => $rendered_form,
+				'social'          => $social,
+				'social_accounts' => $social_accounts ?? null,
+				'campaign_data'   => $campaign_data,
 			]
 		);
 

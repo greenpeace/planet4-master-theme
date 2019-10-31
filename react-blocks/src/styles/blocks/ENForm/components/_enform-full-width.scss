@@ -1,0 +1,40 @@
+.enform-full-width {
+  .enform {
+    color: white;
+    padding: $space-lg;
+    padding-bottom: 42px;
+
+    .form-description {
+      margin-bottom: 16px;
+    }
+
+    form {
+      .en__field--check {
+        @include medium-and-up {
+          width: 100%;
+        }
+
+        label {
+          margin-bottom: 0;
+        }
+
+        .form-group {
+          margin-top: 16px;
+          margin-bottom: 0;
+        }
+      }
+
+      .form-check-label-block {
+        padding: 0;
+      }
+
+      .submit-container {
+        width: min-content;
+      }
+
+      .enform-legal {
+        overflow: hidden;
+      }
+    }
+  }
+}
