@@ -112,7 +112,7 @@ const PAGE_BLOCK_TYPES = [
 	'planet4-blocks/covers',
 	'planet4-blocks/gallery',
 	'planet4-blocks/happypoint',
-	'planet4-blocks/media',
+	'planet4-blocks/media-video',
 	'planet4-blocks/social-media',
 	'planet4-blocks/split-two-columns',
 	'planet4-blocks/submenu',

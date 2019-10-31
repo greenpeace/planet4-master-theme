@@ -6,9 +6,9 @@ import {
   ServerSideRender,
   Dashicon,
   Tooltip,
-  ToggleControl
+  ToggleControl, Button
 } from '@wordpress/components';
-import {MediaPlaceholder} from "@wordpress/editor";
+import {MediaPlaceholder, MediaUpload, MediaUploadCheck} from "@wordpress/editor";
 
 import {LayoutSelector} from '../../components/LayoutSelector/LayoutSelector';
 import {Preview} from '../../components/Preview';
@@ -22,6 +22,41 @@ export class Columns extends Component {
       const {__} = wp.i18n;
 
       const {columns_title,columns_description,columns_block_style,columns} = this.props;
+
+      const getImageOrButton = (openEvent, index) => {
+        if ( columns[index] && columns[index]['attachment'] && ( 0 <  columns[index]['attachment'] ) ) {
+
+          return (
+
+            <div align='center'>
+              <img
+                src={ columns[index]['img_url'] }
+                onClick={ openEvent }
+                className='happypoint__imgs'
+                width={'400px'}
+                style={{padding: '10px 10px'}}
+              />
+            </div>
+
+          );
+        }
+        else {
+
+          return (
+
+            <MediaPlaceholder
+              labels={{ title: __('Column %s: Image', 'p4ge').replace('%s', index+1)}}
+              icon="format-image"
+              onSelect={this.props.onSelectImage.bind(this,index)}
+              onSelectURL={this.props.onSelectURL.bind(this,index)}
+              onError={this.props.onUploadError}
+              accept="image/*"
+              allowedTypes={["image"]}
+            />
+
+          );
+        }
+      };
 
       return (
         <Fragment>
@@ -94,15 +129,15 @@ export class Columns extends Component {
                   />
 
                   { 'no_image' != columns_block_style &&
-                    <MediaPlaceholder
-                      labels={{ title: __('Column %s: Image', 'p4ge').replace('%s', index+1)}}
-                      icon="format-image"
-                      onSelect={this.props.onSelectImage.bind(this,index)}
-                      onSelectURL={this.props.onSelectURL.bind(this,index)}
-                      onError={this.props.onUploadError}
-                      accept="image/*"
-                      allowedTypes={["image"]}
-                    />
+
+                    <MediaUploadCheck>
+                      <MediaUpload
+                        title={__('Select Background Image', 'p4ge')}
+                        type='image'
+                        allowedTypes={['image']}
+                        render={ ({ open }) => getImageOrButton(open, index) }
+                      />
+                    </MediaUploadCheck>
                   }
 
                   <TextControl
