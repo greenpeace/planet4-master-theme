@@ -69,6 +69,10 @@ body.theme-climate {
     }
   }
 
+  .skewed-overlay {
+    display: none;
+  }
+
   .page-section-header {
     @include page-section-header($jost, $dark-shade-black, 800, 2rem);
     margin-bottom: $space-md;

@@ -45,6 +45,10 @@ body.theme-arctic {
     }
   }
 
+  .skewed-overlay {
+    display: none;
+  }
+
   .page-section-header {
     @include page-section-header($save-the-arctic, $arctic-blue, $bold);
   }

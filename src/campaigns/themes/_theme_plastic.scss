@@ -52,48 +52,21 @@ body.theme-plastic {
   }
 
   .page-header {
-    @include page-header-block($montserrat);
-
-    overflow: hidden;
+    .page-header-title,
+    .page-header-subtitle {
+      color: $plastics-blue;
+      font-family: $montserrat;
+      text-transform: uppercase;
+    }
 
     .page-header-title {
       font-size: 3.125rem;
       line-height: 4.375rem;
-      color: white;
     }
 
     .page-header-subtitle {
       font-size: $font-size-xl;
       line-height: 2.5rem;
-      color: white;
-    }
-
-    .page-header-content {
-      color: white;
-    }
-
-    .page-header-background {
-      bottom: 0;
-
-      @include small-and-up {
-        left: -50vw;
-        right: -50vw;
-        margin: auto;
-
-        img {
-          min-height: 100vh;
-          width: auto;
-          max-width: none;
-          min-width: 100vw;
-        }
-      }
-
-      &:after {
-        background: linear-gradient(to top left, white, $plastics-blue);
-        bottom: 0;
-        height: 100%;
-        opacity: 0.8;
-      }
     }
   }
 }

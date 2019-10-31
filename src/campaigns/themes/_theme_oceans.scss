@@ -53,6 +53,10 @@ body.theme-oceans {
     }
   }
 
+  .skewed-overlay {
+    display: none;
+  }
+
   .page-section-header {
     @include page-section-header($montserrat, $oceans-blue, $extra-bold, 3.75rem);
   }

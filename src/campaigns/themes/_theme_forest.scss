@@ -38,6 +38,10 @@ body.theme-forest {
     }
   }
 
+  .skewed-overlay {
+    display: none;
+  }
+
   .page-section-header {
     @include page-section-header($kanit, $forest-black, $extra-bold, 3.75rem);
   }
