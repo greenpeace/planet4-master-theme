@@ -11,6 +11,15 @@
 @import "styleguide/src/campaigns/base/mixins";
 @import "styleguide/src/campaigns/base/fonts";
 
+// Themes
+@import "styleguide/src/campaigns/themes/theme_oil";
+@import "styleguide/src/campaigns/themes/theme_arctic";
+@import "styleguide/src/campaigns/themes/theme_climate";
+@import "styleguide/src/campaigns/themes/theme_forest";
+@import "styleguide/src/campaigns/themes/theme_oceans";
+@import "styleguide/src/campaigns/themes/theme_oil";
+@import "styleguide/src/campaigns/themes/theme_plastic";
+
 // Campaigns - Components
 @import "campaigns/components/campaign_thumbnail";
 @import "campaigns/components/campaign_video";
@@ -28,12 +37,3 @@
 @import "campaigns/block-overrides/campaign_split_two_columns";
 @import "campaigns/block-overrides/campaign_submenu";
 @import "campaigns/block-overrides/campaign_enform";
-
-// Themes
-@import "campaigns/themes/theme_oil";
-@import "campaigns/themes/theme_arctic";
-@import "campaigns/themes/theme_climate";
-@import "campaigns/themes/theme_forest";
-@import "campaigns/themes/theme_oceans";
-@import "campaigns/themes/theme_oil";
-@import "campaigns/themes/theme_plastic";
