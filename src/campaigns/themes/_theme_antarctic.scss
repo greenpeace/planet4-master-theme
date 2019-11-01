@@ -40,6 +40,10 @@ body.theme-antarctic {
     }
   }
 
+  .skewed-overlay {
+    display: none;
+  }
+
   .page-section-header {
     @include page-section-header($sanctuary, $antarctic-blue);
   }

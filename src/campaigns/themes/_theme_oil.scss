@@ -55,6 +55,10 @@ body.theme-oil {
     }
   }
 
+  .skewed-overlay {
+    display: none;
+  }
+
   .page-section-header {
     @include page-section-header($anton);
   }
