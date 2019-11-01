@@ -1,21 +1,23 @@
 <?php
 /**
- * Settings class
+ * Reusable Blocks class
  *
- * @package P4BKS\Controllers\Menu
- * @since 1.40.0
+ * @package P4GBKS\Controllers\Menu;
  */
 
 namespace P4GBKS\Controllers\Menu;
 
-use P4GBKS\Command\Shortcode_To_Gutenberg;
-
-if ( ! class_exists( 'Settings_Controller' ) ) {
+if ( ! class_exists( 'Reusable_Blocks_Controller' ) ) {
 
 	/**
-	 * Class Settings_Controller
+	 * Class Reusable_Blocks_Controller
 	 */
-	class Settings_Controller extends Controller {
+	class Reusable_Blocks_Controller extends Controller {
+
+		/**
+		 * Post type name.
+		 */
+		const POST_TYPE = 'wp_block';
 
 		/**
 		 * Create menu/submenu entry.
@@ -25,13 +27,13 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 			$current_user = wp_get_current_user();
 
 			if ( in_array( 'administrator', $current_user->roles, true ) && current_user_can( 'manage_options' ) ) {
-				add_menu_page(
-					__( 'Blocks', 'planet4-blocks-backend' ),
-					__( 'Blocks', 'planet4-blocks-backend' ),
-					'manage_options',
+
+				add_submenu_page(
 					P4GBKS_PLUGIN_SLUG_NAME,
-					null,
-					'dashicons-layout'
+					__( 'All Reusable blocks', 'planet4-blocks-backend' ),
+					__( 'All Reusable blocks', 'planet4-blocks-backend' ),
+					'edit_posts',
+					'edit.php?post_type=' . self::POST_TYPE
 				);
 			}
 		}

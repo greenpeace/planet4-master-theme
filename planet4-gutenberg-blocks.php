@@ -58,7 +58,7 @@ if ( ! defined( 'P4GBKS_PLUGIN_SHORT_NAME' ) ) {
 	define( 'P4GBKS_PLUGIN_SHORT_NAME', 'Blocks' );
 }
 if ( ! defined( 'P4GBKS_PLUGIN_SLUG_NAME' ) ) {
-	define( 'P4GBKS_PLUGIN_SLUG_NAME', 'blocks' );
+	define( 'P4GBKS_PLUGIN_SLUG_NAME', 'plugin_blocks_report' );
 }
 if ( ! defined( 'P4GBKS_INCLUDES_DIR' ) ) {
 	define( 'P4GBKS_INCLUDES_DIR', P4GBKS_PLUGIN_DIR . '/templates/' );
@@ -147,6 +147,7 @@ const CAMPAIGN_BLOCK_TYPES = [
  */
 function set_allowed_block_types( $allowed_block_types, $post ) {
 	$wordpress_blocks = [
+		'core/block',
 		'core/paragraph',
 		'core/heading',
 		'core/image',
@@ -235,6 +236,7 @@ P4GBKS\Loader::get_instance(
 		// 'P4GBKS\Controllers\Blocks\NewCovers_Controller'
 		'P4GBKS\Controllers\Menu\Settings_Controller',
 		'P4GBKS\Controllers\Menu\Blocks_Usage_Controller',
+		'P4GBKS\Controllers\Menu\Reusable_Blocks_Controller',
 	],
 	'P4GBKS\Views\View',
 	'P4GBKS\Command\Shortcode_To_Gutenberg',
