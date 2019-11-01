@@ -14,6 +14,7 @@ import { TakeactionboxoutBlock } from './blocks/Takeactionboxout/Takeactionboxou
 import { TimelineBlock } from './blocks/Timeline/TimelineBlock';
 import { addSubAndSuperscript } from './RichTextEnhancements';
 import { setupImageBlockExtension } from './ImageBlockExtension';
+import { replaceTaxonomyTermSelectors } from "./replaceTaxonomyTermSelectors"
 
 const articlesBlock = new ArticlesBlock();
 const carouselHeaderBlock = new CarouselHeaderBlock();
@@ -32,3 +33,4 @@ const timelineBlock = new TimelineBlock();
 
 addSubAndSuperscript(window.wp);
 setupImageBlockExtension();
+replaceTaxonomyTermSelectors()
