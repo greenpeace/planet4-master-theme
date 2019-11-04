@@ -1,4 +1,96 @@
 body.theme-forest {
+  $kanit: "Kanit", sans-serif;
+
+  $forest-black: #1d2120;
+  $forest-green: #2caf4f;
+  $forest-light-green: #8bcc49;
+  $forest-dark-green: #1b4a1b;
+  $forest-cream: #f9f9ef;
+  $forest-grey: #8b8d88;
+
+  @mixin forest-button($background: $forest-dark-green, $foreground: $forest-cream) {
+    @include button($background, $foreground, $kanit, 60);
+
+    border: 2px solid $background;
+    height: 46px;
+    line-height: 46px;
+
+    &:hover {
+      color: $background;
+      background: $foreground;
+    }
+  }
+
+  font-family: $roboto;
+  background: white;
+
+  .btn-primary {
+    @include forest-button;
+  }
+
+  .btn-secondary {
+    &:not(#hidecookie) {
+      @include forest-button($forest-green);
+
+      &:hover {
+        background: white;
+      }
+    }
+  }
+
+  .skewed-overlay {
+    display: none;
+  }
+
+  .page-section-header {
+    @include page-section-header($kanit, $forest-black, $extra-bold, 3.75rem);
+  }
+
+  a {
+    color: $forest-dark-green;
+    text-transform: uppercase;
+
+    &:hover {
+      color: $forest-green;
+    }
+  }
+
+  .page-header {
+    @include page-header-block($kanit);
+
+    .page-header-title {
+      font-size: 3.125rem;
+      line-height: 3.75rem;
+      color: $forest-black;
+      font-weight: $extra-bold;
+    }
+
+    .page-header-subtitle {
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+      color: $forest-black;
+      font-weight: $semi-bold;
+    }
+
+    .page-header-background {
+      bottom: 0;
+      overflow: hidden;
+      height: auto;
+
+      @include small-and-up {
+        top: auto;
+        max-height: 75%;
+      }
+
+      &:after {
+        background: linear-gradient(to bottom, white, $transparent);
+        top: 0;
+        bottom: 25%;
+        height: 75%;
+      }
+    }
+  }
+
   .covers-block {
     @include campaign_covers($forest-cream, $kanit, $kanit, $forest-green);
 
