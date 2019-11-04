@@ -261,18 +261,17 @@ class ENForm extends Base_Block {
 
 		$campaign_data = array();
 
-		if ( 'campaign' === get_post_type() && isset( $attributes['campaign_logo'] ) ) {
-			if ( 'true' == $attributes['campaign_logo'] ) {
-				$page_meta_data    = get_post_meta( $post->ID );
-				$campaign_template = ! empty( $page_meta_data['_campaign_page_template'][0] ) ? $page_meta_data['_campaign_page_template'][0] : false;
-
-				if ( $campaign_template ) {
+		if ( 'campaign' === get_post_type() ) {
+			$page_meta_data    = get_post_meta( $post->ID );
+			$campaign_template = ! empty( $page_meta_data['_campaign_page_template'][0] ) ? $page_meta_data['_campaign_page_template'][0] : false;
+			$campaign_data     = [
+				'template'  => $campaign_template,
+			];
+			if ( isset( $attributes['campaign_logo'] ) ) {
+				if ( 'true' == $attributes['campaign_logo'] && $campaign_template ) {
 					$campaign_logo_path = get_bloginfo( 'template_directory' ) . '/images/' . $campaign_template . '/logo-light.png';
-					$campaign_data      = [
-						'template'  => $campaign_template,
-						'logo_path' => $campaign_logo_path,
-						'logo'      => $attributes['campaign_logo'],
-					];
+					$campaign_data['logo_path'] = $campaign_logo_path;
+					$campaign_data['logo']      = $attributes['campaign_logo'];
 				}
 			}
 		}
@@ -281,10 +280,6 @@ class ENForm extends Base_Block {
 		$post_id = $attributes['en_form_id'];
 
 		if ( $post_id ) {
-		// if ( ! is_admin() ||
-		// 	( 'post.php' === $pagenow && $post_id && self::POST_TYPE === get_post_type( $post_id ) ) ||
-		// 	( 'admin-ajax.php' === $pagenow && self::POST_TYPE === get_post_type( $attributes['id'] ) ) ) {
-
 			$fields = get_post_meta( $post_id, self::FIELDS_META, true );
 
 			$data = [

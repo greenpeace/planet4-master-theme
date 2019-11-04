@@ -123,7 +123,7 @@ export class ENForm extends Component {
           </div>
 
           <div>
-            <TextControl
+            <TextareaControl
               label={ __( 'Form Description', 'planet4-gutenberg-engagingnetworks' ) }
               placeholder={ __( 'Enter description', 'planet4-gutenberg-engagingnetworks' ) }
               value={this.props.description}
