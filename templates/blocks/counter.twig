@@ -26,10 +26,13 @@
                     </svg>
                 {% endif %}
 
-                <p class="counter-text {{ 100 <= fields.percent ? 'counter-text-goal_reached' }}">
-                    <span class="counter-target">{{ fields.completed | number_format }}</span>
-                    {{ fields.text }}
-                </p>
+                <div class="counter-text {{ 100 <= fields.percent ? 'counter-text-goal_reached' }}">
+                    {{ fields.text|replace( {
+                        '%completed%': '<span class="counter-target">' ~ fields.completed ~ '</span>',
+                        '%target%':    '<span class="counter-target">' ~ fields.target ~ '</span>',
+                        '%remaining%': '<span class="counter-target">' ~ fields.remaining ~ '</span>'
+                    } )|e('wp_kses_post')|raw }}
+                </div>
             </div>
         </section>
     {% endif %}

@@ -115,12 +115,6 @@ class Counter extends Base_Block {
 
 		$fields['completed'] = $completed;
 		$fields['percent']   = $target > 0 ? round( $completed / $target * 100 ) : 0;
-		$fields['text']      = str_replace(
-			// Note: something seems to strip out sensible delimiters like {}, <>, [] and $$ in the WYSIWYG.
-			[ '%completed%', '%target%', '%remaining%' ],
-			[ number_format( $completed ), number_format( $target ), number_format( $target - $completed ) ],
-			$fields['text']
-		);
 
 		// Enqueue js for the frontend.
 		if ( ! $this->is_rest_request() ) {
