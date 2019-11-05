@@ -169,7 +169,7 @@ export class ColumnsBlock {
             if ( column['attachment'] && !img_urls[i] ) {
               return 'Populating img URLs...';
             } else if ( img_urls[i] ) {
-              let img_url = img_urls[i].media_details.sizes.medium.source_url;
+              let img_url = img_urls[i].media_details.source_url;
               column['img_url'] = img_url;
             }
           }
