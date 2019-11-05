@@ -116,6 +116,9 @@ class Counter extends Base_Block {
 		$fields['completed'] = $completed;
 		$fields['percent']   = $target > 0 ? round( $completed / $target * 100 ) : 0;
 
+		$remaining = $target > $completed ? $target - $completed : 0;
+		$fields['remaining'] = floatval( $remaining );
+
 		// Enqueue js for the frontend.
 		if ( ! $this->is_rest_request() ) {
 			wp_enqueue_script( 'counter', P4GBKS_PLUGIN_URL . 'public/js/counter.js', [ 'jquery' ], '0.1', true );
