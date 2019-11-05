@@ -123,6 +123,7 @@ class Covers extends Base_Block {
 		// Enqueue js for the frontend.
 		if ( ! $this->is_rest_request() ) {
 			wp_enqueue_script( 'covers', P4GBKS_PLUGIN_URL . 'public/js/load_more.js', [ 'jquery' ], '0.1', true );
+			wp_enqueue_script( 'pubslider', P4GBKS_PLUGIN_URL . 'public/js/pubslider.js', [ 'jquery' ], '0.1', true );
 		}
 
 		$data = [
