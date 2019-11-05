@@ -43,21 +43,16 @@ if ( ! class_exists( 'P4_Taxonomy_Campaign' ) ) {
 		 * Add a block to the Campaign template.
 		 *
 		 * @param string $block_name The name of the block to be added.
-		 * @param array  $data An associative array with data needed by the block.
+		 * @param array  $block_attributes An associative array with data needed by the block.
 		 */
-		public function add_block( $block_name, $data ) {
+		public function add_block( $block_name, $block_attributes ) {
 
-			if ( $block_name && $data ) {
-
-				$shortcode = '[shortcake_' . $block_name;
-				if ( $data ) {
-					foreach ( $data as $param => $value ) {
-						$shortcode .= " $param=\"$value\"";
-					}
+			if ( $block_name && $block_attributes ) {
+				if ( 'happy_point' === $block_name ) {
+					$block_name = 'happypoint';
 				}
-				$shortcode .= ' /]';
 
-				$this->context['blocks'][ $block_name ] = $shortcode;
+				$this->context['blocks'][] = '<!-- wp:planet4-blocks/' . $block_name . ' ' . wp_json_encode( $block_attributes, JSON_UNESCAPED_SLASHES ) . ' /-->';
 			}
 		}
 

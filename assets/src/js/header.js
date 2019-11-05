@@ -1,4 +1,4 @@
-jQuery(function($) {
+export const setupHeader = function($) {
   'use strict';
 
   $(document).on('click', [
@@ -118,4 +118,4 @@ jQuery(function($) {
       $searchBox.slideToggle().toggleClass('active');
     });
   }
-});
+};

@@ -1,6 +1,5 @@
 // Scroll to comments
-
-jQuery(function($) {
+export const setupCommentsAnchor = function($) {
   'use strict';
 
   $('#comments-link').click(function() {
@@ -8,4 +7,4 @@ jQuery(function($) {
       scrollTop: $('#comments').offset().top - 100
     }, 2000);
   });
-});
+};
