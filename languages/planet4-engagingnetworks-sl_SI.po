@@ -1,19 +1,19 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Planet4 - EngagingNetworks\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-04 10:00+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: \n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"PO-Revision-Date: 2019-10-04 10:06+0000\n"
+"Last-Translator: Nikos Roussos <nroussos@greenpeace.org>\n"
+"Language-Team: Slovenian\n"
+"Language: sl_SI\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : "
+"n%100==3||n%100==4 ? 2 : 3;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.2.0; wp-4.9.8"
+"X-Loco-Version: 2.3.0; wp-5.2.3"
 
 #: classes/class-loader.php:165 classes/class-loader.php:180
 msgid "Plugin Requirements Error!"
@@ -529,7 +529,7 @@ msgstr ""
 
 #: includes/fields_settings_templates.twig:30
 msgid "Mandatory"
-msgstr ""
+msgstr "Obvezno"
 
 #: includes/fields_settings_templates.twig:32
 #: includes/fields_settings_templates.twig:57
@@ -684,4 +684,4 @@ msgid "http://www.greenpeace.org/"
 msgstr ""
 
 msgid "Donate"
-msgstr ""
+msgstr "Doniraj"

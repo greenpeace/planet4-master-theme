@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-04 13:53+0000\n"
-"PO-Revision-Date: 2019-07-05 11:43+0000\n"
-"Last-Translator: Sagar Deshmuk <sdeshmuk@greenpeace.org>\n"
+"POT-Creation-Date: 2019-10-04 10:00+0000\n"
+"PO-Revision-Date: 2019-10-18 14:04+0000\n"
+"Last-Translator: Kostantinos Spiliopoulos <kspiliop@greenpeace.org>\n"
 "Language-Team: Greek\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.3.0; wp-5.2.2"
+"X-Loco-Version: 2.3.0; wp-5.2.4"
 
 #: classes/class-loader.php:165 classes/class-loader.php:180
 msgid "Plugin Requirements Error!"
@@ -494,19 +494,19 @@ msgstr ""
 
 #: includes/country_select.twig:9
 msgid "Select Country"
-msgstr ""
+msgstr "Επίλεξε Χώρα"
 
 #: includes/enform.twig:38 includes/enform_post.twig:20
 msgid "This field is required"
-msgstr ""
+msgstr "Υποχρεωτικό πεδίο"
 
 #: includes/enform.twig:73 includes/enform_post.twig:31
 msgid "Please enter a valid e-mail address."
-msgstr ""
+msgstr "Το email δεν είναι έγκυρο"
 
 #: includes/enform.twig:75 includes/enform_post.twig:33
 msgid "Please select a country."
-msgstr ""
+msgstr "Παρακαλώ επίλεξε χώρα"
 
 #: includes/enform.twig:133 includes/selected_meta_box.twig:22
 #: includes/selected_meta_box.twig:48
@@ -569,7 +569,7 @@ msgstr ""
 
 #: includes/selected_enform_fields.twig:20
 msgid "Country"
-msgstr ""
+msgstr "Χώρα"
 
 #: includes/selected_enform_fields.twig:21
 msgid "Email"
@@ -685,4 +685,7 @@ msgstr ""
 
 #. Author URI of the plugin
 msgid "http://www.greenpeace.org/"
+msgstr ""
+
+msgid "Donate"
 msgstr ""
