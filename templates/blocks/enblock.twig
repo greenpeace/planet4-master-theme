@@ -19,11 +19,11 @@
 
 					{% if fields.en_form_style == 'side-style' %}
 						<div class="form-caption">
-							{% if campaign_data.template %}
+							{% if campaign_data.logo_path %}
 								<img src="{{ campaign_data.logo_path }}" alt="{{ campaign_data.template }}" class="campaign-logo">
 							{% endif %}
 							<{{ fields.content_title_size | default('h1') }}>{{ fields.content_title }}</{{ fields.content_title_size | default('h1') }}>
-							<p>{{ fields.content_description|e('wp_kses_post')|raw }}</p>
+							<p>{{ fields.content_description|e('wp_kses_post')|wpautop|raw }}</p>
 						</div>
 					{% endif %}
 
@@ -38,7 +38,7 @@
 								{% if fields.en_form_style == 'side-style' %}
 									<div class="enform-extra-header-placeholder"></div>
 								{% endif %}
-								<div class="form-description">{{ fields.description|e('wp_kses_post')|raw }}</div>
+								<div class="form-description">{{ fields.description|e('wp_kses_post')|wpautop|raw }}</div>
 							</div>
 							<div class="form-container">
 								<form id="p4en_form" name="p4en_form" method="post" novalidate>

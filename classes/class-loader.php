@@ -408,6 +408,17 @@ final class Loader {
 		);
 
 		wp_register_script(
+			'plugin-engagingnetworks',
+			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/public/js/climate.js',
+			[
+				'jquery',
+				'main',
+			],
+			$js_blocks_creation,
+			true
+		);
+
+		wp_register_script(
 			'plugin-engagingnetworks-submit',
 			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/public/js/enform_submit.js',
 			[
@@ -439,6 +450,7 @@ final class Loader {
 			$js_blocks_creation,
 			true
 		);
+
 		wp_localize_script(
 			'plugin-engagingnetworks',
 			'p4_vars',
