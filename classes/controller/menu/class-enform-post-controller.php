@@ -70,16 +70,16 @@ if ( ! class_exists( 'Enform_Post_Controller' ) ) {
 
 				add_submenu_page(
 					P4GEN_PLUGIN_SLUG_NAME,
-					__( 'All EN Forms', 'planet4-gutenberg-engagingnetworks' ),
-					__( 'All EN Forms', 'planet4-gutenberg-engagingnetworks' ),
+					__( 'All EN Forms', 'planet4-engagingnetworks-backend' ),
+					__( 'All EN Forms', 'planet4-engagingnetworks-backend' ),
 					'edit_posts',
 					'edit.php?post_type=' . self::POST_TYPE
 				);
 
 				add_submenu_page(
 					P4GEN_PLUGIN_SLUG_NAME,
-					__( 'Add New', 'planet4-gutenberg-engagingnetworks' ),
-					__( 'Add New', 'planet4-gutenberg-engagingnetworks' ),
+					__( 'Add New', 'planet4-engagingnetworks-backend' ),
+					__( 'Add New', 'planet4-engagingnetworks-backend' ),
 					'edit_posts',
 					'post-new.php?post_type=' . self::POST_TYPE
 				);
@@ -95,27 +95,27 @@ if ( ! class_exists( 'Enform_Post_Controller' ) ) {
 		public function register_post_type() {
 
 			$labels = array(
-				'name'               => _x( 'Engaging Network Forms', 'en forms', 'planet4-gutenberg-engagingnetworks' ),
-				'singular_name'      => _x( 'Engaging Network Form', 'en form', 'planet4-gutenberg-engagingnetworks' ),
-				'menu_name'          => _x( 'En Forms Menu', 'admin menu', 'planet4-gutenberg-engagingnetworks' ),
-				'name_admin_bar'     => _x( 'En Form', 'add new on admin bar', 'planet4-gutenberg-engagingnetworks' ),
-				'add_new'            => _x( 'Add New', 'en form', 'planet4-gutenberg-engagingnetworks' ),
-				'add_new_item'       => __( 'Add New EN Form', 'planet4-gutenberg-engagingnetworks' ),
-				'new_item'           => __( 'New EN Form', 'planet4-gutenberg-engagingnetworks' ),
-				'edit_item'          => __( 'Edit EN Form', 'planet4-gutenberg-engagingnetworks' ),
-				'view_item'          => __( 'View EN Form', 'planet4-gutenberg-engagingnetworks' ),
-				'all_items'          => __( 'All EN Forms', 'planet4-gutenberg-engagingnetworks' ),
-				'search_items'       => __( 'Search EN Forms', 'planet4-gutenberg-engagingnetworks' ),
-				'parent_item_colon'  => __( 'Parent EN Forms:', 'planet4-gutenberg-engagingnetworks' ),
-				'not_found'          => __( 'No en forms found.', 'planet4-gutenberg-engagingnetworks' ),
-				'not_found_in_trash' => __( 'No en forms found in Trash.', 'planet4-gutenberg-engagingnetworks' ),
+				'name'               => _x( 'Engaging Network Forms', 'en forms', 'planet4-engagingnetworks-backend' ),
+				'singular_name'      => _x( 'Engaging Network Form', 'en form', 'planet4-engagingnetworks-backend' ),
+				'menu_name'          => _x( 'En Forms Menu', 'admin menu', 'planet4-engagingnetworks-backend' ),
+				'name_admin_bar'     => _x( 'En Form', 'add new on admin bar', 'planet4-engagingnetworks-backend' ),
+				'add_new'            => _x( 'Add New', 'en form', 'planet4-engagingnetworks-backend' ),
+				'add_new_item'       => __( 'Add New EN Form', 'planet4-engagingnetworks-backend' ),
+				'new_item'           => __( 'New EN Form', 'planet4-engagingnetworks-backend' ),
+				'edit_item'          => __( 'Edit EN Form', 'planet4-engagingnetworks-backend' ),
+				'view_item'          => __( 'View EN Form', 'planet4-engagingnetworks-backend' ),
+				'all_items'          => __( 'All EN Forms', 'planet4-engagingnetworks-backend' ),
+				'search_items'       => __( 'Search EN Forms', 'planet4-engagingnetworks-backend' ),
+				'parent_item_colon'  => __( 'Parent EN Forms:', 'planet4-engagingnetworks-backend' ),
+				'not_found'          => __( 'No en forms found.', 'planet4-engagingnetworks-backend' ),
+				'not_found_in_trash' => __( 'No en forms found in Trash.', 'planet4-engagingnetworks-backend' ),
 			);
 
 			register_post_type(
 				self::POST_TYPE,
 				[
 					'labels'              => $labels,
-					'description'         => __( 'EN Forms', 'planet4-gutenberg-engagingnetworks' ),
+					'description'         => __( 'EN Forms', 'planet4-engagingnetworks-backend' ),
 					'rewrite'             => false,
 					'query_var'           => false,
 					'public'              => false,
@@ -210,7 +210,7 @@ if ( ! class_exists( 'Enform_Post_Controller' ) ) {
 		public function add_form_meta_box( $post ) {
 			add_meta_box(
 				'meta-box-form',
-				__( 'Form preview', 'planet4-gutenberg-engagingnetworks' ),
+				__( 'Form preview', 'planet4-engagingnetworks-backend' ),
 				[ $this, 'view_meta_box_form' ],
 				[ self::POST_TYPE ],
 				'normal',
@@ -236,7 +236,7 @@ if ( ! class_exists( 'Enform_Post_Controller' ) ) {
 		public function add_selected_meta_box( $post ) {
 			add_meta_box(
 				'meta-box-selected',
-				__( 'Selected Components', 'planet4-gutenberg-engagingnetworks' ),
+				__( 'Selected Components', 'planet4-engagingnetworks-backend' ),
 				[ $this, 'view_selected_meta_box' ],
 				[ self::POST_TYPE ],
 				'normal',
@@ -267,7 +267,7 @@ if ( ! class_exists( 'Enform_Post_Controller' ) ) {
 		public function add_fields_meta_box( $post ) {
 			add_meta_box(
 				'fields_list_box',
-				__( 'Available Fields', 'planet4-gutenberg-engagingnetworks' ),
+				__( 'Available Fields', 'planet4-engagingnetworks-backend' ),
 				[ $this, 'display_fields_custom_box' ],
 				self::POST_TYPE,
 				'normal',
@@ -293,7 +293,7 @@ if ( ! class_exists( 'Enform_Post_Controller' ) ) {
 		public function add_questions_custom_box() {
 			add_meta_box(
 				'questions_list_box',
-				__( 'Available Questions', 'planet4-gutenberg-engagingnetworks' ),
+				__( 'Available Questions', 'planet4-engagingnetworks-backend' ),
 				[ $this, 'display_questions_custom_box' ],
 				self::POST_TYPE
 			);
@@ -314,7 +314,7 @@ if ( ! class_exists( 'Enform_Post_Controller' ) ) {
 		public function add_optins_custom_box() {
 			add_meta_box(
 				'optins_list_box',
-				__( 'Available Opt-ins', 'planet4-gutenberg-engagingnetworks' ),
+				__( 'Available Opt-ins', 'planet4-engagingnetworks-backend' ),
 				[ $this, 'display_optins_custom_box' ],
 				self::POST_TYPE
 			);

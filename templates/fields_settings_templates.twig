@@ -1,16 +1,16 @@
 <script type="text/html" id="tmpl-en-fields">
-    <h2 class="page-header">{{ __('List of fields', 'planet4-gutenberg-engagingnetworks') }}</h2>
+    <h2 class="page-header">{{ __( 'List of fields', 'planet4-engagingnetworks-backend' ) }}</h2>
     <p>
     <div class="hidden" id="en_loader">
         <img src="/wp-admin/images/wpspin_light-2x.gif"/>
     </div>
     </p>
-    <h5><%= col.length %> {{ __('fields defined', 'planet4-gutenberg-engagingnetworks') }}</h5>
+    <h5><%= col.length %> {{ __( 'fields defined', 'planet4-engagingnetworks-backend' ) }}</h5>
     <ul class="media-list row fields-container"></ul>
     <br>
     <p class="">
-        <a href="#fields/new" class="btn button button-primary">{{ __('Add New Field', 'planet4-gutenberg-engagingnetworks') }}</a>
-        <button class="btn button reload-fields">{{ __('Reload', 'planet4-gutenberg-engagingnetworks') }}</button>
+        <a href="#fields/new" class="btn button button-primary">{{ __('Add New Field', 'planet4-engagingnetworks-backend') }}</a>
+        <button class="btn button reload-fields">{{ __('Reload', 'planet4-engagingnetworks-backend') }}</button>
     </p>
     <div id="new-field-div"></div>
 </script>
@@ -27,11 +27,11 @@
     </div>
     <div class="media-body">
         <dl>
-            <dt>{{ __('Mandatory', 'planet4-gutenberg-engagingnetworks') }}:</dt>
+            <dt>{{ __( 'Mandatory', 'planet4-engagingnetworks-backend' ) }}:</dt>
             <dd><input type="checkbox" disabled="disabled" class="form-control" <% print( mandatory ?  'checked': '') %>></dd>
-            <dt>{{ __('Label', 'planet4-gutenberg-engagingnetworks') }}:</dt>
+            <dt>{{ __( 'Label', 'planet4-engagingnetworks-backend' ) }}:</dt>
             <dd><%- label %></dd>
-            <dt>{{ __('Type', 'planet4-gutenberg-engagingnetworks') }}:</dt>
+            <dt>{{ __( 'Type', 'planet4-engagingnetworks-backend' ) }}:</dt>
             <dd><%- type %></dd>
         </dl>
     </div>
@@ -42,25 +42,25 @@
     <h4><%= id <= 0 ? 'Create Field' : 'Edit Field ' + name %> </h4>
     <form role="form" class="form-horizontal field-form">
         <div class="form-group">
-            <label class="col-md-3 control-label">{{ __('Field name', 'planet4-gutenberg-engagingnetworks') }}:</label>
+            <label class="col-md-3 control-label">{{ __( 'Field name', 'planet4-engagingnetworks-backend' ) }}:</label>
             <div class="col-md-3">
                 <input type="text" class="form-control field-name-input" value="<%- name %>" id="en_field_name">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label">{{ __('Is Mandatory', 'planet4-gutenberg-engagingnetworks') }}:</label>
+            <label class="col-md-3 control-label">{{ __( 'Is Mandatory', 'planet4-engagingnetworks-backend' ) }}:</label>
             <div class="col-md-3">
                 <input type="checkbox" class="form-control field-mandatory-checkbox" id="en_field_mandatory" <% print( mandatory ?  'checked': '') %>>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label">{{ __('Label', 'planet4-gutenberg-engagingnetworks') }}:</label>
+            <label class="col-md-3 control-label">{{ __( 'Label', 'planet4-engagingnetworks-backend' ) }}:</label>
             <div class="col-md-3">
                 <input type="text" class="form-control field-label-input" value="<%- label %>" id="en_field_label">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label">{{ __('Type', 'planet4-gutenberg-engagingnetworks') }}:</label>
+            <label class="col-md-3 control-label">{{ __( 'Type', 'planet4-engagingnetworks-backend' ) }}:</label>
             <div class="col-md-3">
                 <select class="form-control field-type-select" id="en_field_type">
                     <option value="0">--Select--</option>

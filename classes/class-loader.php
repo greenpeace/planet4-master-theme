@@ -479,8 +479,8 @@ final class Loader {
 	 * References: http://codex.wordpress.org/I18n_for_WordPress_Developers
 	 */
 	public function load_i18n() {
-		load_plugin_textdomain( 'planet4-blocks', false, P4GEN_PLUGIN_DIRNAME . '/languages/' );
-		load_plugin_textdomain( 'planet4-blocks-backend', false, P4GEN_PLUGIN_DIRNAME . '/languages/' );
+		load_plugin_textdomain( 'planet4-engagingnetworks', false, P4GEN_PLUGIN_DIRNAME . '/languages/' );
+		load_plugin_textdomain( 'planet4-engagingnetworks-backend', false, P4GEN_PLUGIN_DIRNAME . '/languages/' );
 	}
 
 	/**
@@ -505,7 +505,7 @@ final class Loader {
 				[
 					[
 						'slug'  => 'planet4-blocks',
-						'title' => __( 'planet4-blocks', 'planet4-gutenberg-engagingnetworks' ),
+						'title' => __( 'planet4-blocks', 'planet4-engagingnetworks' ),
 					],
 				]
 			);

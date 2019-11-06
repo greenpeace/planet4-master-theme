@@ -64,8 +64,8 @@ if ( ! class_exists( 'Pages_Datatable_Controller' ) ) {
 			if ( in_array( 'administrator', $current_user->roles, true ) || in_array( 'editor', $current_user->roles, true ) ) {
 				add_submenu_page(
 					P4GEN_PLUGIN_SLUG_NAME,
-					__( 'EN Pages', 'planet4-gutenberg-engagingnetworks' ),
-					__( 'EN Pages', 'planet4-gutenberg-engagingnetworks' ),
+					__( 'EN Pages', 'planet4-engagingnetworks-backend' ),
+					__( 'EN Pages', 'planet4-engagingnetworks-backend' ),
 					'edit_pages',
 					'en-pages',
 					[ $this, 'prepare_pages_datatable' ]
@@ -109,16 +109,16 @@ if ( ! class_exists( 'Pages_Datatable_Controller' ) ) {
 								$this->error( $response );
 							}
 						} else {
-							$this->error( __( 'Authentication failed', 'planet4-gutenberg-engagingnetworks' ) );
+							$this->error( __( 'Authentication failed', 'planet4-engagingnetworks-backend' ) );
 						}
 					} else {
-						$this->warning( __( 'Plugin Settings are not configured well!', 'planet4-gutenberg-engagingnetworks' ) );
+						$this->warning( __( 'Plugin Settings are not configured well!', 'planet4-engagingnetworks-backend' ) );
 					}
 				} else {
-					$this->notice( __( 'Select Subtype', 'planet4-gutenberg-engagingnetworks' ) );
+					$this->notice( __( 'Select Subtype', 'planet4-engagingnetworks-backend' ) );
 				}
 			} else {
-				$this->error( __( 'Changes are not saved!', 'planet4-gutenberg-engagingnetworks' ) );
+				$this->error( __( 'Changes are not saved!', 'planet4-engagingnetworks-backend' ) );
 			}
 
 			$data = array_merge(
@@ -129,7 +129,7 @@ if ( ! class_exists( 'Pages_Datatable_Controller' ) ) {
 					'subtypes'       => self::SUBTYPES,
 					'statuses'       => self::STATUSES,
 					'messages'       => $this->messages,
-					'domain'         => 'planet4-gutenberg-engagingnetworks',
+					'domain'         => 'planet4-engagingnetworks',
 				]
 			);
 
@@ -159,7 +159,7 @@ if ( ! class_exists( 'Pages_Datatable_Controller' ) ) {
 				$data['form_submit'] = 1;
 
 				if ( ! wp_verify_nonce( $nonce, $nonce_action ) ) {
-					$this->error( __( 'Nonce verification failed!', 'planet4-gutenberg-engagingnetworks' ) );
+					$this->error( __( 'Nonce verification failed!', 'planet4-engagingnetworks-backend' ) );
 					return false;
 				} else {
 					$pages_datatable_settings = $_POST['p4en_pages_datatable_settings'];
@@ -171,7 +171,7 @@ if ( ! class_exists( 'Pages_Datatable_Controller' ) ) {
 
 					update_user_meta( $current_user->ID, 'p4en_pages_datatable_settings', $pages_datatable_settings );
 
-					$this->success( __( 'Changes saved!', 'planet4-gutenberg-engagingnetworks' ) );
+					$this->success( __( 'Changes saved!', 'planet4-engagingnetworks-backend' ) );
 				}
 			}
 			return true;

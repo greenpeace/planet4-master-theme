@@ -44,7 +44,7 @@ class Base_Block {
 			\Timber::render(
 				P4GEN_PLUGIN_DIR . 'templates/block-error-message.twig',
 				array(
-					'category' => __( 'Error', 'planet4-gutenberg-engagingnetworks' ),
+					'category' => __( 'Error', 'planet4-engagingnetworks-backend' ),
 					'message'  => $message,
 				)
 			);
