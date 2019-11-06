@@ -16,7 +16,7 @@
   }
 }
 
-.wp-block-embed-youtube .wp-block-embed__wrapper, .wp-block-embed-vimeo .wp-block-embed__wrapper, .wp-block-embed-dailymotion .wp-block-embed__wrapper, .wp-block-embed-kickstarter .wp-block-embed__wrapper {
+.embed-container, .wp-block-embed-youtube .wp-block-embed__wrapper, .wp-block-embed-vimeo .wp-block-embed__wrapper, .wp-block-embed-dailymotion .wp-block-embed__wrapper, .wp-block-embed-kickstarter .wp-block-embed__wrapper {
   position: relative;
   padding-bottom: 56.25%;
   overflow: hidden;
@@ -24,7 +24,7 @@
   max-height: 100%;
 }
 
-.wp-block-embed-youtube iframe, .wp-block-embed-vimeo iframe, .wp-block-embed-dailymotion iframe, .wp-block-embed-kickstarter iframe {
+.embed-container iframe, .wp-block-embed-youtube iframe, .wp-block-embed-vimeo iframe, .wp-block-embed-dailymotion iframe, .wp-block-embed-kickstarter iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -32,7 +32,7 @@
   height: 100%;
 }
 
-.wp-block-embed-youtube, .wp-block-embed-vimeo, .wp-block-embed-dailymotion, .wp-block-embed-kickstarter {
+.video-embed, .wp-block-embed-youtube, .wp-block-embed-vimeo, .wp-block-embed-dailymotion, .wp-block-embed-kickstarter {
   @include  small-and-up {
     max-width: 360px;
     max-height: 202px;
