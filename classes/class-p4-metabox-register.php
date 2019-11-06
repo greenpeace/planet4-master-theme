@@ -314,6 +314,7 @@ class P4_Metabox_Register {
 			'People vs. Oil'                     => 'People vs. Oil',
 			'Pipelines'                          => 'Pipelines',
 			'Plastics Free Future'               => 'Plastics Free Future',
+			'Reuse revolution'                   => 'Reuse revolution',
 			'Shifting the trillions'             => 'Shifting the trillions',
 			'Stolen Fish'                        => 'Stolen Fish',
 			'The Future of Europe project'       => 'The Future of Europe project',
@@ -340,6 +341,7 @@ class P4_Metabox_Register {
 			'Food'                     => 'Food',
 			'Climate &amp; Energy'     => 'Climate & Energy',
 			'Oil'                      => 'Oil',
+			'Plastics'                 => 'Plastics',
 			'Political &amp; Business' => 'Political & Business',
 		];
 
