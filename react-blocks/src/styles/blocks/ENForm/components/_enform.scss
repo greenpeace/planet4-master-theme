@@ -356,19 +356,3 @@ body.wp-admin {
     }
   }
 }
-
-.single-campaign {
-  .enform-side-style {
-    img {
-      margin-top: 54px;
-
-      @include medium-and-up {
-        margin-top: 60px;
-      }
-
-      @include large-and-up {
-        margin-top: 0;
-      }
-    }
-  }
-}
