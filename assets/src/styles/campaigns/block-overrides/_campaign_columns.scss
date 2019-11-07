@@ -1,6 +1,7 @@
 @mixin campaign_columns_style_icons($icon-background, $icon-filter,
 $header-font, $header-weight,
-$link-font, $link-weight, $link-icon: none, $link-icon-hover: none) {
+$link-font, $link-weight, $link-icon: none, $link-icon-hover: none,
+$text-transform: uppercase) {
   h2 {
     @extend .page-section-header;
     margin-bottom: 40px;
@@ -58,7 +59,7 @@ $link-font, $link-weight, $link-icon: none, $link-icon-hover: none) {
       font-weight: $link-weight;
       font-size: $font-size-xxs;
       line-height: 1.1875rem;
-      text-transform: uppercase;
+      text-transform: $text-transform;
     }
 
     > a {
@@ -102,6 +103,7 @@ $link-font, $link-weight, $link-icon: none, $link-icon-hover: none) {
 
     h3 > a,
     h3 {
+      color: $header-colour;
       font-family: $font;
       font-size: $font-size-xl;
       font-weight: $header-weight;
@@ -221,7 +223,7 @@ $link-font, $link-weight, $link-icon: none, $link-icon-hover: none) {
 
       h5,
       p {
-        margin: 0 auto 16px auto;
+        margin: 0 auto 24px auto;
         padding: 0;
       }
 

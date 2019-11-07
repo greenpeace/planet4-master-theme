@@ -8,6 +8,9 @@ body.theme-plastic {
   $plastics-blue-mid: #00748f;
   $plastics-blue-light: #1a9db8;
 
+  font-family: $roboto;
+  background: white;
+
   @mixin plastics-button($background: $plastics-peach-darker, $foreground: white) {
     //todo: check letter spacing
     //todo: sort out transition
@@ -15,9 +18,6 @@ body.theme-plastic {
     font-weight: $extra-bold;
     border-radius: 25px;
   }
-
-  font-family: $roboto;
-  background: white;
 
   .btn-primary {
     @include plastics-button;
@@ -30,10 +30,10 @@ body.theme-plastic {
 
   .btn-secondary {
     &:not(#hidecookie) {
-      @include plastics-button($plastics-blue-light);
+      @include plastics-button($plastics-peach-darker);
 
       &:hover {
-        background: $plastics-blue-mid;
+        background: $plastics-peach;
         color: white;
       }
     }
@@ -41,6 +41,8 @@ body.theme-plastic {
 
   .page-section-header {
     @include page-section-header($montserrat, $plastics-blue, $extra-bold, 3.75rem);
+
+    text-transform: none;
   }
 
   a {
@@ -282,8 +284,8 @@ body.theme-plastic {
     @include campaign_columns_style_icons(
       $plastics-blue-mid url("images/plastic/four-column-header.svg") no-repeat,
       brightness(0) invert(100%),
-      $montserrat, $semi-bold,
-      $montserrat, $extra-bold, url("images/plastic/arrow.svg"), url("images/plastic/arrow-light.svg")
+      $montserrat, $semi-bold, $montserrat, $extra-bold,
+      url("images/plastic/arrow.svg"), url("images/plastic/arrow-light.svg"), none
     );
 
     .attachment-container {
@@ -331,9 +333,10 @@ body.theme-plastic {
 
       .step-info {
         h5 {
-          color: $plastics-peach-darker;
+          color: $plastics-blue;
           font-family: $montserrat;
           font-weight: $semi-bold;
+          text-transform: none;
         }
       }
     }
@@ -375,14 +378,10 @@ body.theme-plastic {
         margin-bottom: 30px;
       }
     }
-
-    .three-column-images {
-      @include campaign_content_three_column_images;
-    }
   }
 
   .columns-block.block-style-no_image {
-    @include campaign_columns_style_no_image($montserrat, $plastics-blue, 400);
+    @include campaign_columns_style_no_image($montserrat, $plastics-blue, 400, none);
 
     font-size: 1.875rem;
     line-height: 2.25rem;
@@ -401,7 +400,12 @@ body.theme-plastic {
   }
 
   .columns-block.block-style-image {
-    @include campaign_columns_style_no_image($montserrat, $plastics-blue, 400);
+    @include campaign_columns_style_no_image($montserrat, $plastics-blue, 400, none);
+
+    h2 {
+      text-transform: none;
+      font-size: 2.2rem;
+    }
 
     .column-wrap {
       text-align: center;
@@ -417,6 +421,11 @@ body.theme-plastic {
 
       @include large-and-up {
         margin-bottom: $space-xl;
+      }
+
+      h3 {
+        line-height: 2.1rem;
+        font-size: 1.5rem;
       }
 
       a.call-to-action-link {
