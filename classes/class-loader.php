@@ -311,7 +311,7 @@ final class Loader {
 			'p4gbks_admin_style',
 			P4GBKS_PLUGIN_URL . 'editorStyle.min.css', // - Bundled CSS for the blocks
 			[],
-			'0.2'
+			'0.3'
 		);
 
 		wp_enqueue_script(
@@ -334,7 +334,7 @@ final class Loader {
 				'wp-i18n',        // - Exports the __() function
 				'wp-editor',
 			],
-			'0.1.8',
+			'0.1.9',
 			true
 		);
 
