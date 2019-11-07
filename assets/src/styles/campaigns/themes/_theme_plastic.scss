@@ -43,6 +43,11 @@ body.theme-plastic {
     @include page-section-header($montserrat, $plastics-blue, $extra-bold, 3.75rem);
 
     text-transform: none;
+    font-size: 2.2rem;
+
+    .page-header-subtitle {
+      font-weight: 500;
+    }
   }
 
   a {
@@ -96,8 +101,8 @@ body.theme-plastic {
         color: white;
       }
     }
-  }
-  // end .covers-block
+  } // end .covers-block
+
   .campaign-thumbnail-block {
     @include campaign_thumbnail($plastics-peach, white, white, $montserrat, 50);
 
@@ -116,8 +121,8 @@ body.theme-plastic {
         opacity: 0;
       }
     }
-  }
-  // end .campaign-thumbnail-block
+  } // end .campaign-thumbnail-block
+
   .four-column-content {
     @include campaign_content_four_column(none, $montserrat, $roboto, $plastics-peach);
 
@@ -144,8 +149,8 @@ body.theme-plastic {
     .load-more-posts-button-div .btn-secondary {
       @extend .btn-primary;
     }
-  }
-  // end .four-column-content
+  } // end .four-column-content
+
   .article-listing {
     @include campaign_articles($montserrat, $montserrat, $plastics-peach, $roboto, $plastics-blue-mid, $semi-bold);
 
@@ -159,16 +164,30 @@ body.theme-plastic {
       @include letter-spacing(90);
       font-weight: $extra-bold;
     }
+  } // end .article-listing
+
+  .gallery-grid {
+    h2 {
+      font-size: 2.2rem;
+    }
   }
-  // end .article-listing
+
   .carousel-wrap {
     @include campaign_carousel(false, $plastics-blue-light, white, white, $plastics-blue, url("public/images/plastic/carousel-arrow.svg"), 50px, 10px);
+
+    h2 {
+      font-size: 2.2rem;
+    }
 
     .carousel-indicators li {
       border-radius: 50%;
     }
-  }
-  // end .carousel-block
+
+    .carousel-caption {
+      background: linear-gradient(210deg, rgba(10, 51, 81, .2), $plastics-blue-light);
+    }
+  } // end .carousel-block
+
   .happy-point-block-wrap {
     @include campaign_happy_point();
 
@@ -212,8 +231,8 @@ body.theme-plastic {
         background: url("public/images/plastic/happy-point-desktop.svg") no-repeat;
       }
     }
-  }
-  // end .happy-point-block-wrap
+  } // end .happy-point-block-wrap
+
   .split-two-column {
     @include campaign_split_two_columns(
       $montserrat,
@@ -288,6 +307,10 @@ body.theme-plastic {
       url("public/images/plastic/arrow.svg"), url("public/images/plastic/arrow-light.svg"), none
     );
 
+    h2 {
+      font-size: 2.2rem;
+    }
+
     .attachment-container {
       background-size: cover;
       background-position: center center;
@@ -305,12 +328,15 @@ body.theme-plastic {
     h2 {
       margin-bottom: 30px;
     }
-  }
-  // end .submenu-block
+  } // end .submenu-block
 
   // tasks columns block
   .columns-block.block-style-tasks {
     @include campaign_columns_style_tasks;
+
+    h2 {
+      font-size: 2.2rem;
+    }
 
     h3 {
       @extend .page-section-header;
@@ -369,9 +395,13 @@ body.theme-plastic {
         }
       }
     }
-  }
-  // end take action task block
+  } // end take action task block
+
   .split-three-column {
+    h2 {
+      font-size: 2.2rem;
+    }
+
     .three-column-info {
       p {
         font-size: 1.125rem;
@@ -385,6 +415,10 @@ body.theme-plastic {
 
     font-size: 1.875rem;
     line-height: 2.25rem;
+
+    h2 {
+      font-size: 2.2rem;
+    }
 
     .column-wrap {
       padding-bottom: 0;
