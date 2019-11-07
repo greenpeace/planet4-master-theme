@@ -69,12 +69,14 @@
 
   &.submenu-short {
     .submenu-menu {
-      ul.submenu-item {
-        flex-basis: 100%;
-        column-count: 3;
+      @include medium-and-up {
+        ul.submenu-item {
+          flex-basis: 100%;
+          column-count: 3;
 
-        li:before {
-          content: "";
+          li:before {
+            content: "";
+          }
         }
       }
     }
