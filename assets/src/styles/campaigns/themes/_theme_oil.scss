@@ -216,7 +216,7 @@ body.theme-oil {
   .campaign-thumbnail-block {
     $border: 20px;
 
-    @include campaign_thumbnail(url("images/oil/covers-block.svg") no-repeat, black, black, $anton, -10, #{$border + 16px}, #{$border + 16px});
+    @include campaign_thumbnail(url("public/images/oil/covers-block.svg") no-repeat, black, black, $anton, -10, #{$border + 16px}, #{$border + 16px});
 
     .thumbnail-large {
       img:not(:hover) {
@@ -275,7 +275,7 @@ body.theme-oil {
   }
   // end .article-listing
   .carousel-wrap {
-    @include campaign_carousel(true, $oil-gradient-standard, $oil-black, $oil-grey, $oil-green, url("images/oil/carousel-arrow.svg"), 39px);
+    @include campaign_carousel(true, $oil-gradient-standard, $oil-black, $oil-grey, $oil-green, url("public/images/oil/carousel-arrow.svg"), 39px);
 
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
@@ -323,7 +323,7 @@ body.theme-oil {
         &:after {
           content: "";
           display: block;
-          background: url("images/oil/happy-point-mobile.svg") no-repeat;
+          background: url("public/images/oil/happy-point-mobile.svg") no-repeat;
           padding-top: 94%;
         }
       }
@@ -348,7 +348,7 @@ body.theme-oil {
         }
 
         #happy-point {
-          background: url("images/oil/happy-point-desktop-small.svg") no-repeat;
+          background: url("public/images/oil/happy-point-desktop-small.svg") no-repeat;
           padding-right: 42%;
 
           iframe {
@@ -358,7 +358,7 @@ body.theme-oil {
       }
 
       &.happy-point-cutout-large .container #happy-point {
-        background: url("images/oil/happy-point-desktop-large.svg") no-repeat;
+        background: url("public/images/oil/happy-point-desktop-large.svg") no-repeat;
         padding-right: 27%;
       }
     }
@@ -422,7 +422,7 @@ body.theme-oil {
         font-size: $font-size-xl;
 
         .step-number-inner {
-          background-image: url("images/oil/take-action.svg");
+          background-image: url("public/images/oil/take-action.svg");
           font-family: $anton;
           top: 15px;
           bottom: 15px;
@@ -448,7 +448,7 @@ body.theme-oil {
         padding: 21px 10px 19px 90px;
 
         .step-number {
-          background-image: url("images/oil/take-action.svg");
+          background-image: url("public/images/oil/take-action.svg");
           background-size: cover;
           color: black;
           font-family: $anton;
@@ -503,7 +503,7 @@ body.theme-oil {
 
     .page-header-background {
       &::after {
-        background: url("images/oil/header-shape.svg") no-repeat;
+        background: url("public/images/oil/header-shape.svg") no-repeat;
         content: " ";
         display: block;
         top: 0;
@@ -518,7 +518,7 @@ body.theme-oil {
         margin: 0;
 
         &::after {
-          background: url("images/oil/header-shape-centred.svg") no-repeat;
+          background: url("public/images/oil/header-shape-centred.svg") no-repeat;
         }
       }
 

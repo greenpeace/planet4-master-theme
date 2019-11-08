@@ -125,7 +125,7 @@ body.theme-antarctic {
   } // end .article-listing
 
   .carousel-wrap {
-    @include campaign_carousel(true, $antarctic-pink, white, #B5C7CF, $antarctic-purple, url("images/antarctic/carousel-arrow.svg"), 39px);
+    @include campaign_carousel(true, $antarctic-pink, white, #B5C7CF, $antarctic-purple, url("public/images/antarctic/carousel-arrow.svg"), 39px);
   } // end .carousel-block
 
   .happy-point-block-wrap {
@@ -162,7 +162,7 @@ body.theme-antarctic {
       $antarctic-light-blue,
       grayscale(0) invert(53%) sepia(74%) saturate(2689%) hue-rotate(266deg) brightness(79%) contrast(93%),
       $montserrat, $regular,
-      $sanctuary, $regular, url("images/antarctic/arrow.svg"), url("images/antarctic/arrow-light.svg"));
+      $sanctuary, $regular, url("public/images/antarctic/arrow.svg"), url("public/images/antarctic/arrow-light.svg"));
   } // end .columns-block.block-style-icons
 
   .submenu-block {
@@ -171,7 +171,7 @@ body.theme-antarctic {
       mix($antarctic-light-blue, white, 10%),
       $sanctuary, $antarctic-dark-blue, 1.75rem, 2.5rem, $regular,
       $roboto, $antarctic-purple,
-      url("images/antarctic/arrow.svg"), url("images/antarctic/arrow-light.svg"), 3px
+      url("public/images/antarctic/arrow.svg"), url("public/images/antarctic/arrow-light.svg"), 3px
     );
   } // end .submenu-block
 
@@ -189,7 +189,7 @@ body.theme-antarctic {
         line-height: 116px;
 
         .step-number-inner {
-          background-image: url("images/antarctic/take-action.svg");
+          background-image: url("public/images/antarctic/take-action.svg");
           color: $antarctic-purple;
           font-family: $sanctuary;
         }
@@ -212,7 +212,7 @@ body.theme-antarctic {
 
         .step-number {
           background-color: white;
-          background-image: url("images/antarctic/take-action-mobile.svg");
+          background-image: url("public/images/antarctic/take-action-mobile.svg");
           border: 2px solid white;
           border-radius: 0 50% 50% 0;
           color: $antarctic-purple;

@@ -383,7 +383,7 @@ final class Loader {
 		if ( 'campaign' === $post_type ) {
 			wp_enqueue_style(
 				'campaigns',
-				P4GBKS_PLUGIN_URL . '/assets/build/campaigns.min.css',
+				P4GBKS_PLUGIN_URL . 'campaigns.min.css',
 				[
 					'plugin-blocks',
 				],

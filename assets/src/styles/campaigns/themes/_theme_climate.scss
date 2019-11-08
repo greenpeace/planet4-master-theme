@@ -246,7 +246,7 @@ body.theme-climate {
   .campaign-thumbnail-block {
     $border: 20px;
 
-    @include campaign_thumbnail(url("images/climate/covers-block.svg") no-repeat, black, black, $jost, -10, #{$border + 16px}, #{$border + 16px});
+    @include campaign_thumbnail(url("public/images/climate/covers-block.svg") no-repeat, black, black, $jost, -10, #{$border + 16px}, #{$border + 16px});
 
     .thumbnail-large {
       img:not(:hover) {
@@ -305,7 +305,7 @@ body.theme-climate {
   }
   // end .article-listing
   .carousel-wrap {
-    @include campaign_carousel(true, $climate-gradient-standard, $climate-black, $climate-grey, $climate-green, url("images/climate/carousel-arrow.svg"), 39px);
+    @include campaign_carousel(true, $climate-gradient-standard, $climate-black, $climate-grey, $climate-green, url("public/images/climate/carousel-arrow.svg"), 39px);
 
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
@@ -353,7 +353,7 @@ body.theme-climate {
         &:after {
           content: "";
           display: block;
-          background: url("images/climate/happy-point-mobile.svg") no-repeat;
+          background: url("public/images/climate/happy-point-mobile.svg") no-repeat;
           padding-top: 94%;
         }
       }
@@ -378,7 +378,7 @@ body.theme-climate {
         }
 
         #happy-point {
-          background: url("images/climate/happy-point-desktop-small.svg") no-repeat;
+          background: url("public/images/climate/happy-point-desktop-small.svg") no-repeat;
           padding-right: 42%;
 
           iframe {
@@ -388,7 +388,7 @@ body.theme-climate {
       }
 
       &.happy-point-cutout-large .container #happy-point {
-        background: url("images/climate/happy-point-desktop-large.svg") no-repeat;
+        background: url("public/images/climate/happy-point-desktop-large.svg") no-repeat;
         padding-right: 27%;
       }
     }
@@ -452,7 +452,7 @@ body.theme-climate {
         font-size: $font-size-xl;
 
         .step-number-inner {
-          background-image: url("images/climate/take-action.svg");
+          background-image: url("public/images/climate/take-action.svg");
           font-family: $jost;
           top: 15px;
           bottom: 15px;
@@ -478,7 +478,7 @@ body.theme-climate {
         padding: 21px 10px 19px 90px;
 
         .step-number {
-          background-image: url("images/climate/take-action.svg");
+          background-image: url("public/images/climate/take-action.svg");
           background-size: cover;
           color: black;
           font-family: $jost;
@@ -533,7 +533,7 @@ body.theme-climate {
 
     .page-header-background {
       &::after {
-        background: url("images/climate/header-shape.svg") no-repeat;
+        background: url("public/images/climate/header-shape.svg") no-repeat;
         content: " ";
         display: block;
         top: 0;
@@ -548,7 +548,7 @@ body.theme-climate {
         margin: 0;
 
         &::after {
-          background: url("images/climate/header-shape-centred.svg") no-repeat;
+          background: url("public/images/climate/header-shape-centred.svg") no-repeat;
         }
       }
 

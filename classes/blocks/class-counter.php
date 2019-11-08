@@ -116,7 +116,7 @@ class Counter extends Base_Block {
 		$fields['completed'] = $completed;
 		$fields['percent']   = $target > 0 ? round( $completed / $target * 100 ) : 0;
 
-		$remaining = $target > $completed ? $target - $completed : 0;
+		$remaining           = $target > $completed ? $target - $completed : 0;
 		$fields['remaining'] = floatval( $remaining );
 
 		// Enqueue js for the frontend.
