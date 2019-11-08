@@ -6,14 +6,14 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 module.exports = {
   ...defaultConfig,
   entry: {
-    editorIndex: './react-blocks/src/editorIndex.js',
-    frontendIndex: './react-blocks/src/frontendIndex.js',
-    style: './react-blocks/src/styles/style.scss',
-    editorStyle: './react-blocks/src/styles/editorStyle.scss'
+    editorIndex: './assets/src/editorIndex.js',
+    frontendIndex: './assets/src/frontendIndex.js',
+    style: './assets/src/styles/style.scss',
+    editorStyle: './assets/src/styles/editorStyle.scss'
   },
   output: {
     filename: '[name].js',
-    path: __dirname + '/react-blocks/build'
+    path: __dirname + '/assets/build'
   },
   module: {
     ...defaultConfig.module,

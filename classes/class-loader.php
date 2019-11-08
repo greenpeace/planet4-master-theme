@@ -299,14 +299,14 @@ final class Loader {
 
 		wp_enqueue_style(
 			'P4GEN_admin_style',
-			P4GEN_PLUGIN_URL . 'react-blocks/build/editorStyle.min.css', // - Bundled CSS for the blocks
+			P4GEN_PLUGIN_URL . 'assets/build/editorStyle.min.css', // - Bundled CSS for the blocks
 			[],
 			'0.2'
 		);
 
 		wp_enqueue_style(
 			'P4GEN_style',
-			P4GEN_PLUGIN_URL . 'react-blocks/build/style.min.css', // - Bundled CSS for the blocks
+			P4GEN_PLUGIN_URL . 'assets/build/style.min.css', // - Bundled CSS for the blocks
 			[],
 			'0.1'
 		);
@@ -314,7 +314,7 @@ final class Loader {
 		// Enqueue editor script for all Blocks in this Plugin.
 		wp_enqueue_script(
 			'planet4-gutenberg-engagingnetworks-script',                       // - Script handler
-			P4GEN_PLUGIN_URL . 'react-blocks/build/editorIndex.js',                                     // - Bundled JS for the editor
+			P4GEN_PLUGIN_URL . 'assets/build/editorIndex.js',                                     // - Bundled JS for the editor
 			[
 				'wp-blocks',      // - Helpers for registering blocks
 				'wp-components',  // - Wordpress components
@@ -380,12 +380,12 @@ final class Loader {
 	 */
 	public function enqueue_public_assets() {
 		// plugin-blocks assets.
-		$css_blocks_creation = filectime( P4GEN_PLUGIN_DIR . '/react-blocks/build/style.min.css' );
+		$css_blocks_creation = filectime( P4GEN_PLUGIN_DIR . '/assets/build/style.min.css' );
 		$js_blocks_creation  = filectime( P4GEN_PLUGIN_DIR . '/public/js/enform_side_style.js' );
 		// Add master theme's main css as dependency for blocks css.
 		wp_enqueue_style(
 			'plugin-engagingnetworks',
-			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/react-blocks/build/style.min.css',
+			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/assets/build/style.min.css',
 			[
 				'bootstrap',
 				'slick',
