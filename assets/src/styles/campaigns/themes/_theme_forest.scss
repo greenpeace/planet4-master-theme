@@ -199,7 +199,7 @@ body.theme-forest {
   } // end .article-listing
 
   .carousel-wrap {
-    @include campaign_carousel(true, $forest-dark-green, white, $forest-grey, $forest-dark-green, url("images/forest/carousel-arrow.svg"), 28px, 10px);
+    @include campaign_carousel(true, $forest-dark-green, white, $forest-grey, $forest-dark-green, url("public/images/forest/carousel-arrow.svg"), 28px, 10px);
 
     .carousel-indicators li {
       border-radius: 50%;
@@ -404,7 +404,7 @@ body.theme-forest {
       $forest-green,
       brightness(0) invert(100%),
       $kanit, $semi-bold,
-      $kanit, $semi-bold, url("images/forest/arrow.svg"), url("images/forest/arrow-light.svg")
+      $kanit, $semi-bold, url("public/images/forest/arrow.svg"), url("public/images/forest/arrow-light.svg")
     );
   } // end .columns-block.block-style-icons
 
@@ -413,7 +413,7 @@ body.theme-forest {
       $forest-cream,
       $kanit, black, 1.875rem, 2.25rem, $semi-bold,
       $roboto, $forest-dark-green,
-      url("images/forest/arrow.svg"), url("images/forest/arrow-light.svg"), 4px
+      url("public/images/forest/arrow.svg"), url("public/images/forest/arrow-light.svg"), 4px
     );
   } // end .submenu-block
 

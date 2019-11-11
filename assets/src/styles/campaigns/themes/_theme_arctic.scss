@@ -145,7 +145,7 @@ body.theme-arctic {
   } // end .article-listing
 
   .carousel-wrap {
-    @include campaign_carousel(true, $arctic-light-blue, $arctic-black, $arctic-greyblue, $arctic-blue, url("images/arctic/carousel-arrow.svg"), 24px);
+    @include campaign_carousel(true, $arctic-light-blue, $arctic-black, $arctic-greyblue, $arctic-blue, url("public/images/arctic/carousel-arrow.svg"), 24px);
 
     .carousel-indicators li {
       width: 32px;
@@ -277,7 +277,7 @@ body.theme-arctic {
       $arctic-light-blue,
       grayscale(0) invert(12%) sepia(58%) saturate(7062%) hue-rotate(187deg) brightness(96%) contrast(98%),
       $open-sans, $bold,
-      $open-sans, $bold, url("images/arctic/arrow.svg"), url("images/arctic/arrow-dark.svg")
+      $open-sans, $bold, url("public/images/arctic/arrow.svg"), url("public/images/arctic/arrow-dark.svg")
     );
   } // end .columns-block.block-style-icons
 
@@ -286,7 +286,7 @@ body.theme-arctic {
       $arctic-cream,
       $save-the-arctic, $arctic-blue, 1.75rem, 2.5rem, $bold,
       $roboto, $arctic-faded-red,
-      url("images/arctic/arrow.svg"), url("images/arctic/arrow-dark.svg")
+      url("public/images/arctic/arrow.svg"), url("public/images/arctic/arrow-dark.svg")
     );
   } // end .submenu-block
 

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #c44bc4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 3px;
+        stroke-dasharray: 0 8;
+      }
+    </style>
+  </defs>
+  <rect id="Rectangle_740" data-name="Rectangle 740" class="cls-1" width="122" height="122" rx="61" transform="translate(1.5 1.5)"/>
+</svg>
