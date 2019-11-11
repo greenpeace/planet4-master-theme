@@ -82,6 +82,11 @@
 
 .slide-number-row {
   vertical-align: middle;
+  cursor: pointer;
+  height: 48px;
+  line-height: 48px;
+  padding: 0 16px;
+  border-bottom: 1px solid $grey-40;
 }
 
 .slide-arrow {
@@ -164,14 +169,19 @@
 }
 
 .slide-hr {
-  margin: 10px 0;
+  margin: 0;
 }
 
 .carousel-header-image-container {
   position: relative;
 }
 
-.carousel-header-slide-container:hover {
-  box-shadow: 0 0 5px 5px rgba(18, 63, 82, 0.075);
-  padding: 6px;
+.carousel-header-slide-options-wrapper {
+  padding: 16px;
+  margin: 0;
+  background: $grey-10;
+}
+
+.carousel-header-add-remove-slide {
+  padding-top: 16px;
 }

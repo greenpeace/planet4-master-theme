@@ -53,6 +53,8 @@ const ZoomAndSlideToGrayCarouselHeader = {
       }
     });
 
+    me.$CarouselIndicators.find('li').remove(); // Empty the indicators list
+
     me.$Slides.each(function (i, el) {
       const $slide = $(el);
 
@@ -264,6 +266,8 @@ const FullWidthClassicCarouselHeader = {
     });
 
     me.$CarouselIndicators = me.$CarouselHeaderWrapper.find('.carousel-indicators');
+
+    me.$CarouselIndicators.find('li').remove(); // Empty the indicators list
 
     me.$Slides.each(function (i, el) {
       const $slide = $(el);
@@ -506,15 +510,16 @@ const FullWidthClassicCarouselHeader = {
 };
 
 function initializeCarouselHeader() {
-
   const $CarouselHeaderWrapper = $('#carousel-wrapper-header');
-  switch ($CarouselHeaderWrapper.data('block-style')) {
-  case 'full-width-classic':
-    FullWidthClassicCarouselHeader.setup();
-    break;
-  default:
-    ZoomAndSlideToGrayCarouselHeader.setup();
-    break;
+  if ($CarouselHeaderWrapper.length > 0) {
+    switch ($CarouselHeaderWrapper.data('block-style')) {
+    case 'full-width-classic':
+      FullWidthClassicCarouselHeader.setup();
+      break;
+    default:
+      ZoomAndSlideToGrayCarouselHeader.setup();
+      break;
+    }
   }
 }
 
