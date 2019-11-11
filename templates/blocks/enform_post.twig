@@ -48,7 +48,7 @@
 							name="{{ en_input_name }}"
 							type="{{ 'phoneNumber' == field.name ? 'tel' : field.input_type }}"
 							class="en__field__input en__field__input--text form-control"
-							value="{{ value }}"
+							value="{{ field.label|default(field.name) }}"
 							data-errormessage="{{ errorMessage }}"
 							data-validate_regex="{{ field.js_validate_regex }}"
 							data-validate_regex_msg="{{ field.js_validate_regex_msg }}"
