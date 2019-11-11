@@ -366,7 +366,6 @@ class Articles extends Base_Block {
 
 		$exclude_post_id   = (int) ( $fields['exclude_post_id'] ?? '' );
 		$ignore_categories = $fields['ignore_categories'];
-		$options           = get_option( 'planet4_options' );
 
 		// Get page categories.
 		$post_categories   = get_the_category();
@@ -381,8 +380,16 @@ class Articles extends Base_Block {
 		// Get user defined tags from backend.
 		$tags = $fields['tags'] ?? [];
 
+		// Validate tag ids.
+		$tags = array_filter(
+			$tags,
+			function( $tag_id ) {
+				return get_tag( $tag_id ) instanceof \WP_Term;
+			}
+		);
+
 		// If user has not provided any tag, use post's tags.
-		if ( empty( $tags ) && $exclude_post_id ) {
+		if ( empty( $tags ) ) {
 			// Get page/post tags.
 			$tags = get_the_tags();
 
@@ -397,7 +404,7 @@ class Articles extends Base_Block {
 		// Get all posts with arguments.
 		$args = self::DEFAULT_POST_ARGS;
 
-		if ( $ignore_categories ) {
+		if ( true !== $ignore_categories ) {
 			if ( $category_id_array ) {
 				$args['category__in'] = $category_id_array;
 			}
