@@ -3,12 +3,13 @@
   display: inline-block;
   font-size: 0;
 }
+
 .img-wrap .close {
   position: absolute;
   top: 4px;
   right: 4px;
   z-index: 100;
-  background-color: #FFF;
+  background-color: #fff;
   padding: 6px 3px 4px;
   color: red;
   font-weight: bold;
@@ -19,6 +20,7 @@
   line-height: 12px;
   border-radius: 50%;
 }
+
 .img-wrap:hover .close {
   opacity: 1;
 }
