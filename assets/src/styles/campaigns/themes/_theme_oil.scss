@@ -24,7 +24,7 @@ body.theme-oil {
   $page-header-medium-width: 720px;
   $page-header-small-width: 540px;
 
-  @mixin oil-button($background: $oil-green, $foreground: black) {
+  @mixin oil-button($background: $oil-red, $foreground: black) {
     @include button($background, $foreground, $amiko, -30);
 
     font-weight: $semi-bold;
