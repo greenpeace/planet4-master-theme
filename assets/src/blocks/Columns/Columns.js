@@ -21,7 +21,7 @@ export class Columns extends Component {
     renderEdit() {
       const {__} = wp.i18n;
 
-      const {columns_title,columns_description,columns_block_style,columns} = this.props;
+      const {columns_title,columns_description,columns_block_style,columns,column_img,onDeleteImage} = this.props;
 
       const getImageOrButton = (openEvent, index) => {
         if ( columns[index] && columns[index]['attachment'] && ( 0 <  columns[index]['attachment'] ) ) {
@@ -29,13 +29,22 @@ export class Columns extends Component {
           return (
 
             <div align='center'>
+              <div>{__('Column %s: Image', 'p4ge').replace('%s', index+1)}</div>
+              <div className="img-wrap">
+                <Tooltip text={__('Remove Column Image', 'p4ge')}>
+                  <span className="close" onClick={ev => {
+                    onDeleteImage(index);
+                    ev.stopPropagation()
+                  }}>&times;</span>
+                </Tooltip>
               <img
-                src={ columns[index]['img_url'] }
+                src={ column_img[columns[index]['attachment']] }
                 onClick={ openEvent }
-                className='happypoint__imgs'
+                className='Columns__imgs'
                 width={'400px'}
                 style={{padding: '10px 10px'}}
               />
+              </div>
             </div>
 
           );
@@ -43,17 +52,14 @@ export class Columns extends Component {
         else {
 
           return (
-
-            <MediaPlaceholder
-              labels={{ title: __('Column %s: Image', 'p4ge').replace('%s', index+1)}}
-              icon="format-image"
-              onSelect={this.props.onSelectImage.bind(this,index)}
-              onSelectURL={this.props.onSelectURL.bind(this,index)}
-              onError={this.props.onUploadError}
-              accept="image/*"
-              allowedTypes={["image"]}
-            />
-
+            <div className='column-img-btn-container'>
+              <div className='column-img-label'>{__('Column %s: Image', 'p4ge').replace('%s', index+1)}</div>
+              <Button
+                onClick={ openEvent }
+                className='button'>
+                + {__('Select Column %s: Image', 'p4ge').replace('%s', index+1)}
+              </Button>
+            </div>
           );
         }
       };
@@ -129,15 +135,17 @@ export class Columns extends Component {
                   />
 
                   { 'no_image' != columns_block_style &&
-
-                    <MediaUploadCheck>
-                      <MediaUpload
-                        title={__('Select Background Image', 'p4ge')}
-                        type='image'
-                        allowedTypes={['image']}
-                        render={ ({ open }) => getImageOrButton(open, index) }
-                      />
-                    </MediaUploadCheck>
+                    <div className='components-base-control'>
+                      <MediaUploadCheck>
+                        <MediaUpload
+                          type='image'
+                          onSelect={this.props.onSelectImage.bind(this,index)}
+                          value={item.attachment}
+                          allowedTypes={['image']}
+                          render={ ({ open }) => getImageOrButton(open, index) }
+                        />
+                      </MediaUploadCheck>
+                    </div>
                   }
 
                   <TextControl
