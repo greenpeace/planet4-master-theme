@@ -12,8 +12,11 @@ import { SplittwocolumnsBlock } from './blocks/Splittwocolumns/SplittwocolumnsBl
 import { SubmenuBlock } from './blocks/Submenu/SubmenuBlock';
 import { TakeactionboxoutBlock } from './blocks/Takeactionboxout/TakeactionboxoutBlock';
 import { TimelineBlock } from './blocks/Timeline/TimelineBlock';
-import { addSubAndSuperscript } from './RichTextEnhancements';
+
+//Filters
+import { addBlockFilters } from './BlockFilters';
 import { setupImageBlockExtension } from './ImageBlockExtension';
+import { addSubAndSuperscript } from './RichTextEnhancements';
 
 const articlesBlock = new ArticlesBlock();
 const carouselHeaderBlock = new CarouselHeaderBlock();
@@ -30,5 +33,6 @@ const submenuBlock = new SubmenuBlock();
 const takeActionBoxoutBlock = new TakeactionboxoutBlock();
 const timelineBlock = new TimelineBlock();
 
+addBlockFilters();
 addSubAndSuperscript(window.wp);
 setupImageBlockExtension();

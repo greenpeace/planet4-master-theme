@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
-"POT-Creation-Date: 2018-06-07 11:24+0000\n"
-"PO-Revision-Date: 2018-11-12 13:48+0000\n"
-"Last-Translator: Athanasios Papamatthaiou <apapamat@greenpeace.org>\n"
+"POT-Creation-Date: 2018-12-20 10:13+0000\n"
+"PO-Revision-Date: 2019-11-06 14:20+0000\n"
+"Last-Translator: Nikos Roussos <nroussos@greenpeace.org>\n"
 "Language-Team: Greek\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,48 +20,56 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Language: el\n"
-"Report-Msgid-Bugs-To: "
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.3.1; wp-5.2.4"
 
-#: classes/controller/blocks/class-covers-controllers.php:142
+#: classes/controller/blocks/class-covers-controller.php:153
+#: classes/controller/blocks/class-newcovers-controller.php:475
 msgid "Take Action"
 msgstr "Πάτα εδώ"
 
-#: classes/controller/blocks/class-covers-controllers.php:165
-msgid "Load More ..."
-msgstr "Εμφάνισε περισσότερα…"
+#: classes/controller/blocks/class-covers-controller.php:176
+#: classes/controller/blocks/class-newcovers-controller.php:499
+#: includes/blocks/campaign_thumbnail.twig:47
+#: includes/blocks/content_four_column.twig:64
+#: includes/blocks/content_four_column.twig:72
+msgid "Load More"
+msgstr "Περισσότερα"
 
-#: classes/controller/blocks/class-splittwocolumns-controller.php:240
+#: classes/controller/blocks/class-splittwocolumns-controller.php:277
 msgid "Learn more about this issue"
 msgstr "Μάθε περισσότερα"
 
-#: classes/controller/blocks/class-splittwocolumns-controller.php:261
+#: classes/controller/blocks/class-splittwocolumns-controller.php:298
 msgid "Get Involved"
 msgstr "Πάρε μέρος"
 
-#: classes/controller/blocks/class-takeactionboxout-controller.php:123
+#: classes/controller/blocks/class-takeactionboxout-controller.php:129
 msgid "take action"
 msgstr "πάτα εδώ"
 
-#: classes/controller/blocks/class-contentfourcolumn-controller.php:222
+#: classes/controller/blocks/class-contentfourcolumn-controller.php:236
 msgid "Publications"
 msgstr "Εκθέσεις"
 
-#: classes/controller/blocks/class-articles-controller.php:154
+#: classes/controller/blocks/class-happypoint-controller.php:158
+msgid "Background image"
+msgstr ""
+
+#: classes/controller/blocks/class-articles-controller.php:75
+#: classes/controller/blocks/class-articles-controller.php:217
 msgid "Related Articles"
 msgstr "Σχετικά άρθρα"
 
-#: classes/controller/blocks/class-articles-controller.php:155
+#: classes/controller/blocks/class-articles-controller.php:76
+#: classes/controller/blocks/class-articles-controller.php:218
 msgid "READ ALL THE NEWS"
 msgstr "ΔΙΑΒΑΣΕ ΟΛΑ ΤΑ ΝΕΑ"
 
-#: includes/blocks/articles.twig:61
+#: includes/teasers/tease-articles.twig:47
+#: includes/teasers/tease-articles.twig:55
 msgid "by"
 msgstr "από"
-
-#: includes/blocks/content_four_column.twig:60
-#: includes/blocks/content_four_column.twig:68
-msgid "Load More"
-msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "Planet4 - Blocks"
