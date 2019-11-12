@@ -10,7 +10,8 @@
 //
 // Styleguide Components.buttons
 .btn,
-.wp-block-button a {
+.wp-block-button a,
+.wp-block-file .wp-block-file__button {
   display: inline-block;
   position: relative;
   font-family: $roboto;
@@ -78,7 +79,8 @@
 
 .btn-secondary,
 .wp-block-button.is-style-secondary a,
-[class="wp-block-button"] a {
+[class="wp-block-button"] a,
+.wp-block-file .wp-block-file__button {
   background-color: transparentize($white, .7);
   border-color: $dark-blue;
   color: $dark-blue;
