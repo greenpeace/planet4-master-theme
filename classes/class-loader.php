@@ -299,14 +299,14 @@ final class Loader {
 
 		wp_enqueue_style(
 			'P4GEN_admin_style',
-			P4GEN_PLUGIN_URL . 'assets/build/editorStyle.min.css', // - Bundled CSS for the blocks
+			P4GEN_PLUGIN_URL . 'editorStyle.css', // - Bundled CSS for the blocks
 			[],
 			'0.2'
 		);
 
 		wp_enqueue_style(
 			'P4GEN_style',
-			P4GEN_PLUGIN_URL . 'assets/build/style.min.css', // - Bundled CSS for the blocks
+			P4GEN_PLUGIN_URL . 'style.css', // - Bundled CSS for the blocks
 			[],
 			'0.1'
 		);
@@ -385,7 +385,7 @@ final class Loader {
 		// Add master theme's main css as dependency for blocks css.
 		wp_enqueue_style(
 			'plugin-engagingnetworks',
-			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/assets/build/style.min.css',
+			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/style.css',
 			[
 				'bootstrap',
 				'slick',
