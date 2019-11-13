@@ -66,14 +66,14 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./react-blocks/src/styles/style.scss");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./assets/src/styles/style.scss");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./react-blocks/src/styles/style.scss":
+/***/ "./assets/src/styles/style.scss":
 /*!********************************************!*\
-  !*** ./react-blocks/src/styles/style.scss ***!
+  !*** ./assets/src/styles/style.scss ***!
   \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
