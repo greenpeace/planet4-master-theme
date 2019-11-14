@@ -119,7 +119,10 @@ export class Columns extends Component {
             {columns.map((item, index) => {
               return (
                 <div key={index}>
-                  <div><hr /><i>{__('In order for the column to appear at least <strong>Header or Body</strong> has to be filled.', 'p4ge')}</i></div>
+                  <div><hr /></div>
+                  { !item.title && !item.description &&
+                   <div><b>{__('Please provide a header or a body for this column to be displayed.', 'p4ge')}</b></div>
+                  }
 
                   <TextControl
                     label={__('Column %s: Header', 'p4ge').replace('%s', index+1)}
@@ -141,10 +144,13 @@ export class Columns extends Component {
                           type='image'
                           onSelect={this.props.onSelectImage.bind(this,index)}
                           value={item.attachment}
-                          allowedTypes={['image']}
+                          allowedTypes={columns_block_style === 'icons' ? ['image/png'] : ['image']}
                           render={ ({ open }) => getImageOrButton(open, index) }
                         />
                       </MediaUploadCheck>
+                      { columns_block_style === 'icons' && item.attachment > 0 && typeof column_img[item.attachment] !== 'undefined' && !column_img[item.attachment].endsWith('.png') &&
+                       <div><b>{__('Please select another image for this column, as the current image is not an icon and you have chosen columns style icons. ', 'p4ge')}</b></div>
+                      }
                     </div>
                   }
 
