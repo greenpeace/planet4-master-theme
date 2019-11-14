@@ -375,20 +375,28 @@ final class Loader {
 	 * Load assets for the frontend.
 	 */
 	public function enqueue_campaigns_assets() {
-		// plugin-blocks assets.
-		$css_campaigns_creation = filectime( P4GBKS_PLUGIN_DIR . '/assets/build/campaigns.min.css' );
-
+		// campaign-theme assets.
 		$post_type = get_post_type();
 
 		if ( 'campaign' === $post_type ) {
-			wp_enqueue_style(
-				'campaigns',
-				P4GBKS_PLUGIN_URL . 'campaigns.min.css',
-				[
-					'plugin-blocks',
-				],
-				$css_campaigns_creation
-			);
+
+			$post = get_post();
+
+			$campaign_theme = $post->custom['_campaign_page_template'];
+
+			if ( is_string( $campaign_theme ) ) {
+
+				$css_theme_creation = filectime( P4GBKS_PLUGIN_DIR . "/assets/build/theme_$campaign_theme.min.css" );
+
+				wp_enqueue_style(
+					'theme_antarctic',
+					P4GBKS_PLUGIN_URL . "/assets/build/theme_$campaign_theme.min.css",
+					[
+						'plugin-blocks',
+					],
+					$css_theme_creation
+				);
+			}
 		}
 	}
 
