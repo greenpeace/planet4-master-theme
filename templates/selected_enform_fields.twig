@@ -15,13 +15,13 @@
 		</td>
 		<td>
 			<select class="field-type-select" data-attribute="input_type">
-				<option value="0">{{ __( '--Select--', 'planet4-gutenberg-engagingnetworks' ) }}</option>
-				<option value="checkbox"  <% print( input_type == 'checkbox' ?  'selected': '') %> >{{ __( 'Checkbox', 'planet4-gutenberg-engagingnetworks' ) }}</option>
-				<option value="country"  <% print( input_type == 'country' ?  'selected': '') %> >{{ __( 'Country', 'planet4-gutenberg-engagingnetworks' ) }}</option>
-				<option value="email"  <% print( input_type == 'email' ?  'selected': '') %> >{{ __( 'Email', 'planet4-gutenberg-engagingnetworks' ) }}</option>
-				<option value="hidden"  <% print( input_type == 'hidden' ?  'selected': '') %> >{{ __( 'Hidden', 'planet4-gutenberg-engagingnetworks' ) }}</option>
-				<option value="text"  <% print( input_type == 'text' ?  'selected': '') %> >{{ __( 'Text', 'planet4-gutenberg-engagingnetworks' ) }}</option>
-				<option value="radio"  <% print( input_type == 'radio' ?  'selected': '') %> >{{ __( 'Radio', 'planet4-gutenberg-engagingnetworks' ) }}</option>
+				<option value="0">{{ __( '--Select--', 'planet4-engagingnetworks-backend' ) }}</option>
+				<option value="checkbox"  <% print( input_type == 'checkbox' ?  'selected': '') %> >{{ __( 'Checkbox', 'planet4-engagingnetworks-backend' ) }}</option>
+				<option value="country"  <% print( input_type == 'country' ?  'selected': '') %> >{{ __( 'Country', 'planet4-engagingnetworks-backend' ) }}</option>
+				<option value="email"  <% print( input_type == 'email' ?  'selected': '') %> >{{ __( 'Email', 'planet4-engagingnetworks-backend' ) }}</option>
+				<option value="hidden"  <% print( input_type == 'hidden' ?  'selected': '') %> >{{ __( 'Hidden', 'planet4-engagingnetworks-backend' ) }}</option>
+				<option value="text"  <% print( input_type == 'text' ?  'selected': '') %> >{{ __( 'Text', 'planet4-engagingnetworks-backend' ) }}</option>
+				<option value="radio"  <% print( input_type == 'radio' ?  'selected': '') %> >{{ __( 'Radio', 'planet4-engagingnetworks-backend' ) }}</option>
 			</select>
 		</td>
 		<td class="actions">
@@ -36,9 +36,9 @@
 
 <script type="text/html" id="tmpl-en-hidden-field-dialog">
 	<div style="display: none;" class="dialog">
-		<p>{{ __( 'Hidden Field customization', 'planet4-gutenberg-engagingnetworks' ) }}</p>
+		<p>{{ __( 'Hidden Field customization', 'planet4-engagingnetworks-backend' ) }}</p>
 		<p>
-			<label class="control-label">{{ __( 'Default Value', 'planet4-gutenberg-engagingnetworks' ) }}</label>
+			<label class="control-label">{{ __( 'Default Value', 'planet4-engagingnetworks-backend' ) }}</label>
 			<div>
 				<input type="text" class="form-control" data-attribute="default_value" value="<%= default_value %>" />
 			</div>
@@ -48,25 +48,25 @@
 
 <script type="text/html" id="tmpl-en-text-field-dialog">
 	<div style="display: none;" class="dialog">
-		<p>{{ __( 'Text Field customization', 'planet4-gutenberg-engagingnetworks' ) }}</p>
+		<p>{{ __( 'Text Field customization', 'planet4-engagingnetworks-backend' ) }}</p>
 		<hr>
-		<p>{{ __( 'The next two fields handle the validation of the text input. If both regex and function name are entered, only the regex will be used.', 'planet4-gutenberg-engagingnetworks' ) }}</p>
+		<p>{{ __( 'The next two fields handle the validation of the text input. If both regex and function name are entered, only the regex will be used.', 'planet4-engagingnetworks-backend' ) }}</p>
 		<hr>
-		<label class="control-label">{{ __( 'JS Function validation regex', 'planet4-gutenberg-engagingnetworks' ) }}</label>
+		<label class="control-label">{{ __( 'JS Function validation regex', 'planet4-engagingnetworks-backend' ) }}</label>
 		<div>
 			<p>Use the regex <b>without</b> leading and trailing / character</p>
 			<p> <a href="https://planet4.greenpeace.org/handbook/block-form/#regex-validation" target="_blank"> Documentation in handbook </a></p>
 			<input type="text" class="form-control" data-attribute="js_validate_regex"
 				   value="<%= js_validate_regex %>"/>
 		</div>
-		<label class="control-label">{{ __( 'JS validation regex error message', 'planet4-gutenberg-engagingnetworks' ) }}</label>
+		<label class="control-label">{{ __( 'JS validation regex error message', 'planet4-engagingnetworks-backend' ) }}</label>
 		<div>
 			<input type="text" class="form-control" data-attribute="js_validate_regex_msg"
 				   value="<%= js_validate_regex_msg %>"/>
 		</div>
 
 		<hr>
-		<label class="control-label">{{ __( 'JS Function validation callback', 'planet4-gutenberg-engagingnetworks' ) }}</label>
+		<label class="control-label">{{ __( 'JS Function validation callback', 'planet4-engagingnetworks-backend' ) }}</label>
 		<div>
 			<p><a href="https://planet4.greenpeace.org/handbook/block-form/#callback-js-function" target="_blank">
 					Documentation in handbook </a></p>
@@ -79,7 +79,7 @@
 <script type="text/html" id="tmpl-en-checkbox-dialog">
 	<div style="display: none;" class="dialog" data-en-id="<%= id %>">
 		<p>
-			<label class="control-label">{{ __( 'Locales', 'planet4-gutenberg-engagingnetworks' ) }}</label>
+			<label class="control-label">{{ __( 'Locales', 'planet4-engagingnetworks-backend' ) }}</label>
 		<div>
 			<select class="form-control question-locale-select" data-attribute="selected_locale">
 				<% _.each( locales, function( label_option, locale ) { %>
@@ -90,9 +90,9 @@
 		<br />
 		<strong>
 			<% if ( 'GEN' == en_type )  { %>
-			{{ __( 'Question', 'planet4-gutenberg-engagingnetworks' ) }}
+			{{ __( 'Question', 'planet4-engagingnetworks-backend' ) }}
 			<% } else if ( 'OPT' == en_type )  { %>
-			{{ __( 'Opt-in', 'planet4-gutenberg-engagingnetworks' ) }}
+			{{ __( 'Opt-in', 'planet4-engagingnetworks-backend' ) }}
 			<% } %>
 		</strong>
 		<br /><label class="question-label"><%= label %></label><br /><br />
@@ -102,10 +102,10 @@
 		<% }); %>
 		<% } %>
 		</p>
-		<label class="control-label">{{ __( 'Dependency', 'planet4-gutenberg-engagingnetworks' ) }}</label>
+		<label class="control-label">{{ __( 'Dependency', 'planet4-engagingnetworks-backend' ) }}</label>
 		<div>
 			<select class="form-control dependency-select" id="dependency-<%= id %>" data-attribute="dependency" name="dependency">
-				<option value="">{{ __( 'Select Dependency', 'planet4-gutenberg-engagingnetworks' ) }}</option>
+				<option value="">{{ __( 'Select Dependency', 'planet4-engagingnetworks-backend' ) }}</option>
 			</select><span></span>
 		</div>
 	</div>
@@ -114,7 +114,7 @@
 <script type="text/html" id="tmpl-en-radio-dialog">
 	<div style="display: none;" class="dialog" data-en-id="<%= id %>">
 		<p>
-			<label class="control-label">{{ __( 'Locales', 'planet4-gutenberg-engagingnetworks' ) }}</label>
+			<label class="control-label">{{ __( 'Locales', 'planet4-engagingnetworks-backend' ) }}</label>
 		<div>
 			<select class="form-control question-locale-select" data-attribute="selected_locale">
 				<% _.each( locales, function( label_option, locale ) { %>
@@ -125,9 +125,9 @@
 		<br />
 		<strong>
 			<% if ( 'GEN' == en_type )  { %>
-			{{ __( 'Question', 'planet4-gutenberg-engagingnetworks' ) }}
+			{{ __( 'Question', 'planet4-engagingnetworks-backend' ) }}
 			<% } else if ( 'OPT' == en_type )  { %>
-			{{ __( 'Opt-in', 'planet4-gutenberg-engagingnetworks' ) }}
+			{{ __( 'Opt-in', 'planet4-engagingnetworks-backend' ) }}
 			<% } %>
 		</strong>
 		<br /><label class="question-label"><%= label %></label><br /><br />

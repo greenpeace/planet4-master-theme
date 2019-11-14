@@ -100,7 +100,7 @@ if ( ! class_exists( 'Controller' ) ) {
 					$this->messages,
 					[
 						'msg'     => esc_html( $msg ),
-						'title'   => $title ? esc_html( $title ) : esc_html__( 'Error', 'planet4-gutenberg-engagingnetworks' ),
+						'title'   => $title ? esc_html( $title ) : esc_html__( 'Error', 'planet4-engagingnetworks-backend' ),
 						'type'    => self::ERROR,
 						'classes' => 'p4en_error_message',
 					]
@@ -120,7 +120,7 @@ if ( ! class_exists( 'Controller' ) ) {
 					$this->messages,
 					[
 						'msg'     => esc_html( $msg ),
-						'title'   => $title ? esc_html( $title ) : esc_html__( 'Warning', 'planet4-gutenberg-engagingnetworks' ),
+						'title'   => $title ? esc_html( $title ) : esc_html__( 'Warning', 'planet4-engagingnetworks-backend' ),
 						'type'    => self::WARNING,
 						'classes' => 'p4en_warning_message',
 					]
@@ -140,7 +140,7 @@ if ( ! class_exists( 'Controller' ) ) {
 					$this->messages,
 					[
 						'msg'     => esc_html( $msg ),
-						'title'   => $title ? esc_html( $title ) : esc_html__( 'Notice', 'planet4-gutenberg-engagingnetworks' ),
+						'title'   => $title ? esc_html( $title ) : esc_html__( 'Notice', 'planet4-engagingnetworks-backend' ),
 						'type'    => self::NOTICE,
 						'classes' => 'p4en_notice_message',
 					]
@@ -160,7 +160,7 @@ if ( ! class_exists( 'Controller' ) ) {
 					$this->messages,
 					[
 						'msg'     => esc_html( $msg ),
-						'title'   => $title ? esc_html( $title ) : esc_html__( 'Success', 'planet4-gutenberg-engagingnetworks' ),
+						'title'   => $title ? esc_html( $title ) : esc_html__( 'Success', 'planet4-engagingnetworks-backend' ),
 						'type'    => self::SUCCESS,
 						'classes' => 'p4en_success_message',
 					]

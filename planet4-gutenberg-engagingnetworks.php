@@ -8,7 +8,7 @@
  *
  * Author: Greenpeace International
  * Author URI: http://www.greenpeace.org/
- * Text Domain: planet4-gutenberg-engagingnetworks
+ * Text Domain: planet4-engagingnetworks
  *
  * License:     GPLv3
  * Copyright (C) 2018 Greenpeace International
