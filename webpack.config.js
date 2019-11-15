@@ -12,7 +12,13 @@ module.exports = {
     frontendIndex: './assets/src/frontendIndex.js',
     style: './assets/src/styles/style.scss',
     editorStyle: './assets/src/styles/editorStyle.scss',
-    campaigns: './assets/src/styles/campaigns.scss'
+    theme_antarctic: './assets/src/styles/theme_antarctic.scss',
+    theme_arctic: './assets/src/styles/theme_arctic.scss',
+    theme_climate: './assets/src/styles/theme_climate.scss',
+    theme_forest: './assets/src/styles/theme_forest.scss',
+    theme_oceans: './assets/src/styles/theme_oceans.scss',
+    theme_oil: './assets/src/styles/theme_oil.scss',
+    theme_plastic: './assets/src/styles/theme_plastic.scss',
   },
   output: {
     filename: '[name].js',
