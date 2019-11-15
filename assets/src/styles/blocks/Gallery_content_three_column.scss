@@ -25,7 +25,7 @@
       position: relative;
       left: -35%;
       max-width: inherit;
-      object-fit: cover;
+      object-fit: none;
 
       @include mobile-only {
         width: 200px;
