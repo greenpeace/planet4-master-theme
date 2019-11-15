@@ -390,7 +390,7 @@ final class Loader {
 
 				wp_enqueue_style(
 					'theme_antarctic',
-					P4GBKS_PLUGIN_URL . "/assets/build/theme_$campaign_theme.min.css",
+					P4GBKS_PLUGIN_URL . "theme_$campaign_theme.min.css",
 					[
 						'plugin-blocks',
 					],

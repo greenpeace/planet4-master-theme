@@ -87,6 +87,13 @@ module.exports = {
               return [
                 'editorStyle.deps.json',
                 'style.deps.json',
+                'theme_antarctic.deps.json',
+                'theme_arctic.deps.json',
+                'theme_climate.deps.json',
+                'theme_forest.deps.json',
+                'theme_oceans.deps.json',
+                'theme_oil.deps.json',
+                'theme_plastic.deps.json'
               ].filter(item => {
                 return new RegExp(item, 'm').test(filePath);
               }).length > 0;
