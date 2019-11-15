@@ -46,9 +46,9 @@
 										<a href="{{ link|e('esc_url') }}"
 												{{  'true' == attribute( fields, 'link_new_tab_'~i) ? 'target="_blank"' }}
 												{% if fields.columns_block_style == 'no_image' %}
-											class="btn btn-secondary"
-										{% else %}
-											class="call-to-action-link"
+													class="btn btn-secondary"
+												{% else %}
+													class="call-to-action-link"
 												{% endif %}>
 											{{ cta_text|e('wp_kses_post')|raw }}
 										</a>

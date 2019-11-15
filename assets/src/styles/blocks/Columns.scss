@@ -409,6 +409,8 @@
         box-shadow: none;
 
         .card-header {
+          display: block;
+          cursor: pointer;
           font-weight: 400;
           font-size: $font-size-xs;
           font-family: $roboto;
