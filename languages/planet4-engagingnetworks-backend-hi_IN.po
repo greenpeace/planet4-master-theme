@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 - EngagingNetworks\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-04 13:53+0000\n"
-"PO-Revision-Date: 2019-11-18 10:58+0200\n"
+"PO-Revision-Date: 2019-11-18 14:00+0000\n"
 "Last-Translator: Sagar Deshmuk <sdeshmuk@greenpeace.org>\n"
 "Language-Team: Hindi\n"
 "Language: hi_IN\n"
@@ -11,8 +11,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
-"X-Loco-Version: 2.3.0; wp-5.2.2\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.1; wp-5.3"
 
 #: classes/class-loader.php:165 classes/class-loader.php:180
 msgid "Plugin Requirements Error!"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: classes/class-loader.php:180
 msgid " requires a newer version of PHP."
-msgstr ""
+msgstr " requires a newer version of PHP."
 
 #: classes/class-loader.php:181
 msgid "Minimum required version of PHP: "
@@ -353,8 +353,8 @@ msgstr ""
 #: classes/controller/blocks/class-enform-controller.php:209
 #: classes/controller/blocks/class-enblock-controller.php:280
 msgid ""
-"\"Thank You\" secondary message / Subtitle (e.g. \"Your support means world"
-"\")"
+"\"Thank You\" secondary message / Subtitle (e.g. \"Your support means "
+"world\")"
 msgstr ""
 
 #: classes/controller/blocks/class-enform-controller.php:213
