@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 - EngagingNetworks\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-04 13:53+0000\n"
-"PO-Revision-Date: 2019-11-18 14:00+0000\n"
+"PO-Revision-Date: 2019-11-18 14:01+0000\n"
 "Last-Translator: Sagar Deshmuk <sdeshmuk@greenpeace.org>\n"
 "Language-Team: Hindi\n"
 "Language: hi_IN\n"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: classes/class-loader.php:180
 msgid " requires a newer version of PHP."
-msgstr " requires a newer version of PHP."
+msgstr ""
 
 #: classes/class-loader.php:181
 msgid "Minimum required version of PHP: "
