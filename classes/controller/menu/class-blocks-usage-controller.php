@@ -8,6 +8,8 @@
 
 namespace P4GBKS\Controllers\Menu;
 
+use WP_Block_Type_Registry;
+
 if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 
 	/**
@@ -35,49 +37,37 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 		}
 
 		/**
-		 * Filters array elements on being a shortcake shortcode
-		 *
-		 * @param string $shortcode The shortcode.
-		 * @return bool
-		 */
-		public function is_shortcake( $shortcode ) : bool {
-			$found = strpos( $shortcode, 'shortcake' );
-			return false !== $found ? true : false;
-		}
-
-		/**
 		 * Finds blocks usage in pages/posts.
 		 */
 		public function plugin_blocks_report() {
-			global $wpdb, $shortcode_tags;
+			global $wpdb;
 			$wpdb_prefix = $wpdb->prefix;
 
-			// Array filtering on shortcake shortcodes.
-			$blocks = array_filter( array_keys( $shortcode_tags ), [ $this, 'is_shortcake' ] );
-			sort( $blocks );
+			$block_types = $this->get_block_types();
 
 			// phpcs:disable
-			foreach ( $blocks as $block ) {
-				$block     = substr( $block, 10 );
-				$shortcode = '%<!-- wp:planet4-blocks/' . $wpdb->esc_like( $block ) . ' %';
-				$sql       = $wpdb->prepare(
+			foreach ( $block_types as $block_type ) {
+				$block_comment = '%<!-- wp:' . $wpdb->esc_like( $block_type ) . ' %';
+
+				$sql = $wpdb->prepare(
 					"SELECT ID, post_title
 					FROM `wp_posts` 
 					WHERE post_status = 'publish' 
 					AND `post_content` LIKE %s
 					ORDER BY post_title",
-					$shortcode );
+					$block_comment );
 
 				$results = $wpdb->get_results( $sql );
+
 				if ( !$results ) { continue; }
 
 				// Confusion between old and new covers.
-				if ( 'covers' === $block ) {
-					$block = 'Take Action Covers - Old block';
+				if ( 'planet4-blocks/covers' === $block_type ) {
+					$block_type = 'Take Action Covers - Old block';
 				}
 
 				echo '<hr>';
-				echo '<h2>' . ucfirst( str_replace( '_', ' ', $block ) ) . '</h2>';
+				echo '<h2>' . ucfirst( str_replace( '_', ' ', $block_type ) ) . '</h2>';
 				echo '<table>';
 				echo '<tr style="text-align: left"><th>ID</th><th>Title</th></tr>';
 				foreach ( $results as $result ) {
@@ -213,6 +203,32 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 
 
 			// phpcs:enable
+		}
+
+		/**
+		 * @return string[]
+		 */
+		private function get_block_types(): array
+		{
+            $registered_block_types = WP_Block_Type_Registry::get_instance()->get_all_registered();
+            $p4_block_types = array_filter($registered_block_types, static function (\WP_Block_Type $block_type) {
+                return strpos($block_type->name, 'planet4-blocks/') === 0;
+			});
+            // we only need the name
+			$p4_block_types = array_map( static function (\WP_Block_Type $block_type) {
+				return $block_type->name;
+			}, $p4_block_types );
+
+			$core_block_types = [
+				'html',
+				'table',
+				'button',
+				'separator',
+				'spacer',
+				'shortcode',
+			];
+
+			return array_merge( $p4_block_types, $core_block_types );
 		}
 
 		/**
