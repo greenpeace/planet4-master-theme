@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 - EngagingNetworks\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-04 13:53+0000\n"
-"PO-Revision-Date: 2019-11-18 14:02+0000\n"
+"PO-Revision-Date: 2019-11-18 14:03+0000\n"
 "Last-Translator: Sagar Deshmuk <sdeshmuk@greenpeace.org>\n"
 "Language-Team: Hindi\n"
 "Language: hi_IN\n"
@@ -16,7 +16,7 @@ msgstr ""
 
 #: classes/blocks/class-enform.php:251
 msgid "Donate"
-msgstr "DOnate"
+msgstr ""
 
 #: includes/enblock.twig:59 includes/enform.twig:59
 msgid "Sign"
