@@ -506,7 +506,7 @@ final class Loader {
 				[
 					[
 						'slug'  => 'planet4-blocks',
-						'title' => __( 'planet4-blocks', 'planet4-engagingnetworks' ),
+						'title' => __( 'planet4-blocks', 'planet4-engagingnetworks-backend' ),
 					],
 				]
 			);

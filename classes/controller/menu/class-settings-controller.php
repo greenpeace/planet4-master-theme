@@ -51,7 +51,7 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 					'settings'            => get_option( 'p4en_main_settings' ),
 					'available_languages' => P4GEN_LANGUAGES,
 					'messages'            => $this->messages,
-					'domain'              => 'planet4-engagingnetworks',
+					'domain'              => 'planet4-engagingnetworks-backend',
 				]
 			);
 		}
