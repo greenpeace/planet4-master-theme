@@ -210,14 +210,20 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 		 */
 		private function get_block_types(): array {
 			$registered_block_types = WP_Block_Type_Registry::get_instance()->get_all_registered();
-		
-			$p4_block_types = array_filter( $registered_block_types, static function (\WP_Block_Type $block_type) {
-				return strpos( $block_type->name, 'planet4-blocks/' ) === 0;
-			} );
+
+			$p4_block_types = array_filter(
+				$registered_block_types,
+				static function (\WP_Block_Type $block_type) {
+					return strpos( $block_type->name, 'planet4-blocks/' ) === 0;
+				}
+			);
 			// we only need the name
-			$p4_block_types = array_map( static function (\WP_Block_Type $block_type) {
-				return $block_type->name;
-			}, $p4_block_types );
+			$p4_block_types = array_map(
+				static function (\WP_Block_Type $block_type) {
+					return $block_type->name;
+				},
+				$p4_block_types
+			);
 
 			$core_block_types = [
 				'html',
