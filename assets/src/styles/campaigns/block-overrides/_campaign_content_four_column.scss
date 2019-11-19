@@ -1,40 +1,5 @@
 @mixin campaign_content_four_column($image-border, $header-font, $date-font, $date-colour) {
   .four-column-content-info {
-    .four-column-content-symbol {
-      box-shadow: none;
-      overflow: hidden;
-
-      a {
-        display: block;
-      }
-
-      @include mobile-only {
-        margin-bottom: 15px;
-      }
-
-      @if ($image-border != none) {
-        a {
-          background: $image-border;
-          padding: 15px;
-        }
-
-        @include small-and-up {
-          max-width: 180px;
-          margin-top: 0;
-          height: 245px;
-        }
-
-        @include medium-and-up {
-          height: 280px;
-          padding: 20px;
-        }
-
-        @include x-large-and-up {
-          height: 345px;
-        }
-      }
-    }
-
     .four-column-content-information {
       a:hover {
         color: black;

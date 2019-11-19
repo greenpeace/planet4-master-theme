@@ -37,13 +37,10 @@ export class CarouselHeaderSlide extends Component {
           path: `/wp/v2/media/${this.props.image}`
         }
       ).then(media => {
-        console.log('media request');
-        console.log(media);
         this.setState({
-            image_id: media.id,
-            image_url: media.source_url
-          }
-        );
+          image_id: media.id,
+          image_url: media.source_url
+        });
       });
     }
   }
@@ -81,92 +78,92 @@ export class CarouselHeaderSlide extends Component {
     return (
       <Fragment>
         <div className={this.state.isHidden ? '' : 'carousel-header-slide-container'}>
-          <div className='slide-number-row'>
-            <span>{__('Slide', 'p4ge')} {this.props.index + 1}</span>
+          <div onClick={ev => this.toggleSlide()} className='slide-number-row'>
+            <span>
+              {__('Slide', 'p4ge')} {this.props.index + 1}
+            </span>
             <span className={this.state.isHidden ? 'slide-arrow' : 'slide-arrow slide-open'}>
-            <Button isLink className="" onClick={ev => this.toggleSlide()}>
               <Dashicon icon="arrow-down-alt2"/>
-            </Button>
             </span>
           </div>
-
 
           {!this.state.isHidden &&
 
           <Fragment>
+            <div className='carousel-header-slide-options-wrapper'>
+              <div>{__('Select image and focal point', 'p4ge')}</div>
+              <CarouselHeaderImage
+                image_id={this.state.image_id}
+                image_url={this.state.image_url}
+                focal_points={this.state.focal_points}
+                onRemove={() => this.onImageRemove()}
+                onChange={(image) => this.onImageChange(image)}
+                onFocalPointsChange={(f) => this.onFocalPointsChange(f)}
+              />
+              <div className="ch-url-input-control__wrapper">
 
-            <div>{__('Select image and focal point', 'p4ge')}</div>
-            <CarouselHeaderImage
-              image_id={this.state.image_id}
-              image_url={this.state.image_url}
-              focal_points={this.state.focal_points}
-              onRemove={() => this.onImageRemove()}
-              onChange={(image) => this.onImageChange(image)}
-              onFocalPointsChange={(f) => this.onFocalPointsChange(f)}
-            />
-            <div className="ch-url-input-control__wrapper">
-
+                <TextControl
+                  className="carouselh-header-input"
+                  label={__('Header', 'p4ge')}
+                  placeholder={__('Enter header', 'p4ge')}
+                  value={this.props.header}
+                  onChange={(e) => this.props.onHeaderChange(this.props.index, e)}
+                />
+                <SelectControl
+                  label={__('Header text size', 'p4ge')}
+                  value={this.props.header_size}
+                  options={[
+                    {label: 'h1', value: 'h1'},
+                    {label: 'h2', value: 'h2'},
+                    {label: 'h3', value: 'h3'},
+                  ]}
+                  onChange={(e) => this.props.onHeaderSizeChange(this.props.index, e)}
+                />
+              </div>
+              {this.props.hasSubheader &&
               <TextControl
-                className="carouselh-header-input"
-                label={__('Header', 'p4ge')}
-                placeholder={__('Enter header', 'p4ge')}
-                value={this.props.header}
-                onChange={(e) => this.props.onHeaderChange(this.props.index, e)}
+                label={__('Subheader', 'p4ge')}
+                placeholder={__('Enter subheader', 'p4ge')}
+                value={this.props.subheader}
+                onChange={(e) => this.props.onSubheaderChange(this.props.index, e)}
               />
-              <SelectControl
-                label={__('Header text size', 'p4ge')}
-                value={this.props.header_size}
-                options={[
-                  {label: 'h1', value: 'h1'},
-                  {label: 'h2', value: 'h2'},
-                  {label: 'h3', value: 'h3'},
-                ]}
-                onChange={(e) => this.props.onHeaderSizeChange(this.props.index, e)}
+              }
+              <TextareaControl
+                label={__('Description', 'p4ge')}
+                placeholder={__('Enter description of image', 'p4ge')}
+                value={this.props.description}
+                onChange={(e) => this.props.onDescriptionChange(this.props.index, e)}
               />
-            </div>
-            {this.props.hasSubheader &&
-            <TextControl
-              label={__('Subheader', 'p4ge')}
-              placeholder={__('Enter subheader', 'p4ge')}
-              value={this.props.subheader}
-              onChange={(e) => this.props.onSubheaderChange(this.props.index, e)}
-            />
-            }
-            <TextareaControl
-              label={__('Description', 'p4ge')}
-              placeholder={__('Enter description of image', 'p4ge')}
-              value={this.props.description}
-              onChange={(e) => this.props.onDescriptionChange(this.props.index, e)}
-            />
-            <div className="ch-url-input-control__wrapper">
+              <div className="ch-url-input-control__wrapper">
 
-              <TextControl
-                label={__('Link text and url', 'p4ge')}
-                placeholder={__('Enter link text for image', 'p4ge')}
-                value={this.props.link_text}
-                onChange={(e) => this.props.onLinkTextChange(this.props.index, e)}
-                className='carousel-header-link-text-input'
-              />
-              <form
-                className="ch-url-input-control"
-                onSubmit={event => event.preventDefault()}>
-                <div className="ch-url-input-control__wrapper">
-                  <URLInput
-                    label={__('Url for link', 'p4ge')}
-                    className="ch-url-input-control__input"
-                    value={this.props.link_url}
-                    onChange={(e) => this.props.onLinkUrlChange(this.props.index, e)}
-                    autoFocus={false}
-                  />
-                  <div className="ch-url-input-control__new-tab">
-                    <ToggleControl
-                      help={__('New Tab', 'p4ge')}
-                      checked={this.props.link_url_new_tab}
-                      onChange={(e) => this.props.onLinkNewTabChange(this.props.index, e)}
+                <TextControl
+                  label={__('Link text and url', 'p4ge')}
+                  placeholder={__('Enter link text for image', 'p4ge')}
+                  value={this.props.link_text}
+                  onChange={(e) => this.props.onLinkTextChange(this.props.index, e)}
+                  className='carousel-header-link-text-input'
+                />
+                <form
+                  className="ch-url-input-control"
+                  onSubmit={event => event.preventDefault()}>
+                  <div className="ch-url-input-control__wrapper">
+                    <URLInput
+                      label={__('Url for link', 'p4ge')}
+                      className="ch-url-input-control__input"
+                      value={this.props.link_url}
+                      onChange={(e) => this.props.onLinkUrlChange(this.props.index, e)}
+                      autoFocus={false}
                     />
+                    <div className="ch-url-input-control__new-tab">
+                      <ToggleControl
+                        help={__('New Tab', 'p4ge')}
+                        checked={this.props.link_url_new_tab}
+                        onChange={(e) => this.props.onLinkNewTabChange(this.props.index, e)}
+                      />
+                    </div>
                   </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
           </Fragment>
           }

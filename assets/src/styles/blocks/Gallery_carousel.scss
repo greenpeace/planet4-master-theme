@@ -36,8 +36,7 @@
     img {
       height: 300px;
       width: 100%;
-      object-fit: cover;
-      object-position: 50% 50%;
+      object-fit: none;
 
       @include medium-and-up {
         height: 400px;

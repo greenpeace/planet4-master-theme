@@ -1,1 +1,1 @@
-["react","wp-block-editor","wp-components","wp-data","wp-editor","wp-element","wp-polyfill"]
+["lodash","react","wp-api-fetch","wp-block-editor","wp-components","wp-compose","wp-data","wp-editor","wp-element","wp-i18n","wp-polyfill","wp-url"]

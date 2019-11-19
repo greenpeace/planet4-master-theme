@@ -16,6 +16,7 @@ import { TimelineBlock } from './blocks/Timeline/TimelineBlock';
 //Filters
 import { addBlockFilters } from './BlockFilters';
 import { setupImageBlockExtension } from './ImageBlockExtension';
+import { replaceTaxonomyTermSelectors } from "./replaceTaxonomyTermSelectors"
 import { addSubAndSuperscript } from './RichTextEnhancements';
 
 const articlesBlock = new ArticlesBlock();
@@ -36,3 +37,4 @@ const timelineBlock = new TimelineBlock();
 addBlockFilters();
 addSubAndSuperscript(window.wp);
 setupImageBlockExtension();
+replaceTaxonomyTermSelectors()
