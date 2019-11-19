@@ -127,20 +127,6 @@ body.theme-plastic {
     @include campaign_content_four_column(none, $montserrat, $roboto, $plastics-peach);
 
     .four-column-content-info {
-      .four-column-content-symbol {
-        &:after {
-          @include overlay {
-            background: $plastics-blue-light;
-            opacity: 0.7;
-            transition: opacity $transition ease-in-out;
-          }
-        }
-
-        &:hover:after {
-          opacity: 0;
-        }
-      }
-
       .four-column-content-information .publication-date {
         font-weight: $bold;
       }
