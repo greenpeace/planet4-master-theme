@@ -1,5 +1,3 @@
-// global jQuery
-
 import { setupCookies } from './cookies';
 import { setupAuthor } from './author';
 import { setupCommentsAnchor } from './comments_anchor';
@@ -11,6 +9,7 @@ import { setupLoadMore } from './load_more';
 import { setupPDFIcon } from './pdf_icon';
 import { setupSearch } from './search';
 import { setupImageZoomer } from './single';
+import { setupExternalLinks } from './external_links';
 
 import 'bootstrap';
 
@@ -34,4 +33,5 @@ jQuery(function($) {
   setupPDFIcon($);
   setupSearch($);
   setupImageZoomer($);
+  setupExternalLinks($);
 });

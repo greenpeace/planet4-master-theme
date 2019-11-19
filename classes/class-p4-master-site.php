@@ -112,7 +112,6 @@ class P4_Master_Site extends TimberSite {
 			}
 		);
 		add_action( 'after_setup_theme', [ $this, 'add_image_sizes' ] );
-		add_action( 'admin_head', [ $this, 'remove_add_post_element' ] );
 		add_filter( 'post_gallery', [ $this, 'carousel_post_gallery' ], 10, 2 );
 		add_action( 'save_post', [ $this, 'p4_auto_generate_excerpt' ], 10, 2 );
 		add_filter( 'img_caption_shortcode', [ $this, 'override_img_caption_shortcode' ], 10, 3 );
@@ -504,7 +503,7 @@ class P4_Master_Site extends TimberSite {
 		wp_enqueue_style( 'bootstrap', $this->theme_dir . '/assets/build/bootstrap.min.css', [], '4.1.1' );
 		wp_enqueue_style( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css', [], '1.9.0' );
 
-		// This loads a linked style file since the relative images paths are outside the build directory
+		// This loads a linked style file since the relative images paths are outside the build directory.
 		wp_enqueue_style( 'parent-style', $this->theme_dir . '/style.css', [], $css_creation );
 
 		// JS files.
@@ -635,16 +634,6 @@ class P4_Master_Site extends TimberSite {
 			[ 'post', 'page' ],
 			'side'
 		);
-	}
-
-	/**
-	 * Remove "Add Post Element" button for POST & rename on page as "Add Page Element".
-	 */
-	function remove_add_post_element() {
-		if ( 'page' === get_post_type() ) {
-			remove_action( 'media_buttons', [ Shortcode_UI::get_instance(), 'action_media_buttons' ] );
-			add_action( 'media_buttons', [ $this, 'action_page_media_buttons' ] );
-		}
 	}
 
 	/**

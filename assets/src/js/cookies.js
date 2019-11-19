@@ -4,7 +4,7 @@ export const setupCookies = function($) {
     let date = new Date();
     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
     document.cookie = encodeURI(name) + '=' + encodeURI(value) + ';domain=.' + document.domain + ';path=/;' + '; expires=' + date.toGMTString();
-  }
+  };
 
   window.readCookie = function(name) {
     const nameEQ = name + '=';
@@ -20,9 +20,9 @@ export const setupCookies = function($) {
       }
     }
     return null;
-  }
+  };
 
-  const cookie = readCookie('greenpeace');
+  const cookie = window.readCookie('greenpeace');
   const nro = $('body').data('nro');
 
   if (cookie == null) {
@@ -50,4 +50,4 @@ export const setupCookies = function($) {
       'event' : 'cookiesConsent'
     });
   });
-}
+};

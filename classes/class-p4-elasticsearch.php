@@ -77,6 +77,7 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 										);
 										break;
 									case 3:
+									case 4:
 										add_filter(
 											'ep_formatted_args',
 											function ( $formatted_args ) use ( $args ) {

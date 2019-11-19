@@ -5,7 +5,7 @@
  * @package P4MT
  */
 
-use P4EN\Controllers\Ensapi_Controller as ENS_API;
+use P4GEN\Controllers\Ensapi_Controller as ENS_API;
 use ElasticPress\Elasticsearch as ES;
 
 if ( ! class_exists( 'P4_Control_Panel' ) ) {
@@ -76,7 +76,7 @@ if ( ! class_exists( 'P4_Control_Panel' ) ) {
 					);
 				}
 
-				if ( is_plugin_active( 'planet4-plugin-engagingnetworks/planet4-engagingnetworks.php' ) ) {
+				if ( is_plugin_active( 'planet4-plugin-gutenberg-engagingnetworks/planet4-gutenberg-engagingnetworks.php' ) ) {
 					$this->add_item(
 						[
 							'title'    => __( 'Engaging Networks', 'planet4-master-theme-backend' ),
