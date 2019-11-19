@@ -36,14 +36,17 @@ class CarouselHeader extends Base_Block {
 				'render_callback' => [ $this, 'render' ],
 				'attributes'      => [
 					'block_style'       => [
-						'type' => 'string',
+						'type'    => 'string',
+						'default' => 'zoom-and-slide-to-gray',
 					],
 					'carousel_autoplay' => [
-						'type' => 'string',
+						'type'    => 'string',
+						'default' => '',
 					],
 					'slides'            => [
-						'type'  => 'array',
-						'items' => [
+						'type'    => 'array',
+						'default' => [],
+						'items'   => [
 							'type'       => 'object',
 							// In JSON Schema you can specify object properties in the properties attribute.
 							'properties' => [
@@ -90,33 +93,34 @@ class CarouselHeader extends Base_Block {
 	 * @return array The data to be passed in the View.
 	 */
 	public function prepare_data( $fields ): array {
-
 		if ( ! isset( $fields['block_style'] ) || empty( $fields['block_style'] ) ) {
 			$fields['block_style'] = 'zoom-and-slide-to-gray';
 		}
 
 		$total_images = 0;
-		foreach ( $fields['slides'] as &$slide ) {
-			$image_id   = $slide['image'];
-			$temp_array = wp_get_attachment_image_src( $image_id, 'retina-large' );
-			if ( false !== $temp_array && ! empty( $temp_array ) ) {
-				$slide['image']        = $temp_array[0];
-				$slide['image_srcset'] = wp_get_attachment_image_srcset( $image_id, 'retina-large', wp_get_attachment_metadata( $image_id ) );
-				$slide['image_sizes']  = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
-				$total_images ++;
+		if ( ! empty( $fields['slides'] ) ) {
+			foreach ( $fields['slides'] as &$slide ) {
+				$image_id   = $slide['image'];
+				$temp_array = wp_get_attachment_image_src( $image_id, 'retina-large' );
+				if ( false !== $temp_array && ! empty( $temp_array ) ) {
+					$slide['image']        = $temp_array[0];
+					$slide['image_srcset'] = wp_get_attachment_image_srcset( $image_id, 'retina-large', wp_get_attachment_metadata( $image_id ) );
+					$slide['image_sizes']  = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
+					$total_images ++;
+				}
+
+				if ( isset( $slide['focal_points'] ) ) {
+
+					$x = isset( $slide['focal_points']['x'] ) ? round( $slide['focal_points']['x'] * 100, 0 ) . '% ' : '50%';
+					$y = isset( $slide['focal_points']['y'] ) ? round( $slide['focal_points']['y'] * 100, 0 ) . '% ' : '50%';
+
+					$focus_image          = "$x $y";
+					$slide['focus_image'] = $focus_image;
+				}
+				$temp_image         = wp_prepare_attachment_for_js( $image_id );
+				$slide['image_alt'] = $temp_image['alt'] ?? '';
+
 			}
-
-			if ( isset( $slide['focal_points'] ) ) {
-
-				$x = isset( $slide['focal_points']['x'] ) ? round( $slide['focal_points']['x'] * 100, 0 ) . '% ' : '50%';
-				$y = isset( $slide['focal_points']['y'] ) ? round( $slide['focal_points']['y'] * 100, 0 ) . '% ' : '50%';
-
-				$focus_image          = "$x $y";
-				$slide['focus_image'] = $focus_image;
-			}
-			$temp_image         = wp_prepare_attachment_for_js( $image_id );
-			$slide['image_alt'] = $temp_image['alt'] ?? '';
-
 		}
 		$fields['total_images'] = $total_images;
 
