@@ -419,13 +419,17 @@ if ( ! class_exists( 'P4_Search' ) ) {
 										$args['post_mime_type'] = self::DOCUMENT_TYPES;
 										break;
 									case 2:
-										$args['post_type']             = [ 'page', 'campaign' ];
+										$args['post_type']             = 'page';
 										$args['post_status']           = 'publish';
 										$options                       = get_option( 'planet4_options' );
 										$args['post_parent__not_in'][] = esc_sql( $options['act_page'] );
 										break;
 									case 3:
 										$args['post_type']   = 'post';
+										$args['post_status'] = 'publish';
+										break;
+									case 4:
+										$args['post_type']   = 'campaign';
 										$args['post_status'] = 'publish';
 										break;
 									default:
@@ -564,6 +568,10 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				'name'    => __( 'Action', 'planet4-master-theme' ),
 				'results' => 0,
 			];
+			$context['content_types']['4'] = [
+				'name'    => __( 'Campaign', 'planet4-master-theme' ),
+				'results' => 0,
+			];
 			$context['content_types']['1'] = [
 				'name'    => __( 'Document', 'planet4-master-theme' ),
 				'results' => 0,
@@ -647,7 +655,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				// Post Type (+Action) <-> Content Type.
 				switch ( $post->post_type ) {
 					case 'page':
-					case 'campaign':
 						if ( $post->post_parent === (int) $options['act_page'] ) {
 							$content_type_text = __( 'ACTION', 'planet4-master-theme' );
 							$content_type      = 'action';
@@ -657,6 +664,11 @@ if ( ! class_exists( 'P4_Search' ) ) {
 							$content_type      = 'page';
 							$context['content_types']['2']['results']++;
 						}
+						break;
+					case 'campaign':
+						$content_type_text = __( 'CAMPAIGN', 'planet4-master-theme' );
+						$content_type      = 'campaign';
+						$context['content_types']['4']['results']++;
 						break;
 					case 'attachment':
 						$content_type_text = __( 'DOCUMENT', 'planet4-master-theme' );

@@ -1,4 +1,4 @@
-jQuery(function($) {
+export const setupExternalLinks = function($) {
   let siteURL = window.location.host;
 
   const inlinedSVG = `<svg class="external-icon" width="284px" height="284px" viewBox="0 0 284 284" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -24,4 +24,4 @@ jQuery(function($) {
       }
     }
   });
-});
+};

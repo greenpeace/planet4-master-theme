@@ -62,7 +62,8 @@ export const setupSearch = function($) {
   $('.search-result-item-image').hover(
     function() {
       $('.search-result-item-headline', $(this).parent()).addClass('search-hover');
-    }, function() {
+    },
+    function() {
       $('.search-result-item-headline', $(this).parent()).removeClass('search-hover');
     }
   );
