@@ -115,7 +115,8 @@ class AssignOnlyFlatTermSelector extends Component {
 
   fetchTerms( params = {} ) {
     const { taxonomy } = this.props;
-    const query = { ...DEFAULT_QUERY, ...params };
+    const query = Object.assign({}, DEFAULT_QUERY, params);
+
     const request = apiFetch( {
       path: addQueryArgs( `/wp/v2/${ taxonomy.rest_base }`, query ),
     } );
