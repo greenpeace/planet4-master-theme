@@ -199,7 +199,7 @@ export class ENForm extends Component {
 
           <FormSectionTitle>{__(
             '"Thank You" message settings',
-            'planet4-engagingnetworks'
+            'planet4-engagingnetworks-backend'
           )}</FormSectionTitle>
 
           <div>

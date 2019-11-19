@@ -129,7 +129,7 @@ if ( ! class_exists( 'Pages_Datatable_Controller' ) ) {
 					'subtypes'       => self::SUBTYPES,
 					'statuses'       => self::STATUSES,
 					'messages'       => $this->messages,
-					'domain'         => 'planet4-engagingnetworks',
+					'domain'         => 'planet4-engagingnetworks-backend',
 				]
 			);
 
