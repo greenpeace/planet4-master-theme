@@ -279,12 +279,6 @@ body.theme-climate {
       .four-column-content-information h4 {
         font-weight: $regular;
       }
-
-      @include medium-and-up {
-        .four-column-content-symbol a:not(:hover) img {
-          @include monochrome;
-        }
-      }
     }
   }
   // end .four-column-content
