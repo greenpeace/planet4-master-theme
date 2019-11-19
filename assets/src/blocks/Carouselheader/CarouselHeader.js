@@ -7,6 +7,7 @@ import {
 import {LayoutSelector} from '../../components/LayoutSelector/LayoutSelector';
 import {Preview} from '../../components/Preview';
 import {CarouselHeaderSlide} from "./CarouselHeaderSlide";
+import {initializeCarouselHeader} from "./CarouselHeaderFront";
 
 export class CarouselHeader extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ export class CarouselHeader extends Component {
 
   componentDidMount() {
     this.collapseSlides();
-    if (this.ssrRef.current) {
+    if (this.ssrRef.current && this.ssrRef.current.currentFetchRequest) {
       // Get ServerSideRender component fetch request and attach resolve function.
       this.ssrRef.current.currentFetchRequest.then(function () {
         setTimeout(function () {
@@ -36,7 +37,7 @@ export class CarouselHeader extends Component {
   }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
-    if (this.ssrRef.current) {
+    if (this.ssrRef.current && this.ssrRef.current.currentFetchRequest) {
       this.ssrRef.current.currentFetchRequest.then(function() {
         setTimeout(function () {
           initializeCarouselHeader();

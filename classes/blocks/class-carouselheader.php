@@ -128,7 +128,7 @@ class CarouselHeader extends Base_Block {
 		wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );
 		wp_enqueue_script(
 			'carousel-header',
-			P4GBKS_PLUGIN_URL . 'public/js/carousel_header.js',
+			P4GBKS_PLUGIN_URL . 'assets/build/carouselHeaderFrontIndex.js',
 			[
 				'jquery',
 				'hammer',

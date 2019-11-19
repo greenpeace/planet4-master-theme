@@ -9,7 +9,7 @@ module.exports = {
   ...defaultConfig,
   entry: {
     editorIndex: './assets/src/editorIndex.js',
-    frontendIndex: './assets/src/frontendIndex.js',
+    carouselHeaderFrontIndex: './assets/src/carouselHeaderFrontIndex.js',
     style: './assets/src/styles/style.scss',
     editorStyle: './assets/src/styles/editorStyle.scss',
     theme_antarctic: './assets/src/styles/theme_antarctic.scss',
