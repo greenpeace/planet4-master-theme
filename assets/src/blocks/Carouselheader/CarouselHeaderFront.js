@@ -419,7 +419,7 @@ const FullWidthClassicCarouselHeader = {
     const rightSide = (window.matchMedia('(min-width: 992px)').matches && isRTL)
       || (window.matchMedia('(min-width: 768px) and (max-width: 992px)').matches && !isRTL);
 
-    if (window.matchMedia('(min-width: 768px)').matches) {
+    if (window.matchMedia('(min-width: 768px)').matches && $header.length) {
       let leftOffset = $header.offset().left;
 
       if (rightSide) {
@@ -509,7 +509,7 @@ const FullWidthClassicCarouselHeader = {
   },
 };
 
-function initializeCarouselHeader() {
+export const initializeCarouselHeader = function() {
   const $CarouselHeaderWrapper = $('#carousel-wrapper-header');
   if ($CarouselHeaderWrapper.length > 0) {
     switch ($CarouselHeaderWrapper.data('block-style')) {
@@ -521,11 +521,4 @@ function initializeCarouselHeader() {
       break;
     }
   }
-}
-
-jQuery(function () {
-  'use strict';
-
-  initializeCarouselHeader();
-  // cancelAutoplayInterval();
-});
+};
