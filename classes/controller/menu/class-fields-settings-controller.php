@@ -22,8 +22,8 @@ if ( ! class_exists( 'Fields_Settings_Controller' ) ) {
 			if ( current_user_can( 'manage_options' ) ) {
 				add_submenu_page(
 					P4GEN_PLUGIN_SLUG_NAME,
-					__( 'Field Settings', 'planet4-gutenberg-engagingnetworks' ),
-					__( 'Field Settings', 'planet4-gutenberg-engagingnetworks' ),
+					__( 'Field Settings', 'planet4-engagingnetworks-backend' ),
+					__( 'Field Settings', 'planet4-engagingnetworks-backend' ),
 					'manage_options',
 					'fields-settings',
 					[ $this, 'prepare_page' ]

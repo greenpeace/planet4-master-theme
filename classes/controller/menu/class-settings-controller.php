@@ -31,8 +31,8 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 
 				add_submenu_page(
 					P4GEN_PLUGIN_SLUG_NAME,
-					__( 'Settings', 'planet4-gutenberg-engagingnetworks' ),
-					__( 'Settings', 'planet4-gutenberg-engagingnetworks' ),
+					__( 'Settings', 'planet4-engagingnetworks-backend' ),
+					__( 'Settings', 'planet4-engagingnetworks-backend' ),
 					'manage_options',
 					'settings',
 					array( $this, 'prepare_settings' )
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 					'settings'            => get_option( 'p4en_main_settings' ),
 					'available_languages' => P4GEN_LANGUAGES,
 					'messages'            => $this->messages,
-					'domain'              => 'planet4-gutenberg-engagingnetworks',
+					'domain'              => 'planet4-engagingnetworks-backend',
 				]
 			);
 		}
@@ -99,7 +99,7 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 					add_settings_error(
 						'p4en_main_settings-p4en_public_api',
 						esc_attr( 'p4en_main_settings-p4en_public_api' ),
-						__( 'Invalid value for Public API', 'planet4-gutenberg-engagingnetworks' ),
+						__( 'Invalid value for Public API', 'planet4-engagingnetworks-backend' ),
 						'error'
 					);
 					$has_errors = true;
@@ -108,7 +108,7 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 					add_settings_error(
 						'p4en_main_settings-p4en_private_api',
 						esc_attr( 'p4en_main_settings-p4en_private_api' ),
-						__( 'Invalid value for Private API', 'planet4-gutenberg-engagingnetworks' ),
+						__( 'Invalid value for Private API', 'planet4-engagingnetworks-backend' ),
 						'error'
 					);
 					$has_errors = true;
@@ -117,7 +117,7 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 					add_settings_error(
 						'p4en_main_settings-p4en_frontend_public_api',
 						esc_attr( 'p4en_main_settings-p4en_frontend_public_api' ),
-						__( 'Invalid value for Frontend Public API', 'planet4-gutenberg-engagingnetworks' ),
+						__( 'Invalid value for Frontend Public API', 'planet4-engagingnetworks-backend' ),
 						'error'
 					);
 					$has_errors = true;
@@ -126,7 +126,7 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 					add_settings_error(
 						'p4en_main_settings-p4en_frontend_private_api',
 						esc_attr( 'p4en_main_settings-p4en_frontend_private_api' ),
-						__( 'Invalid value for Frontend Private API', 'planet4-gutenberg-engagingnetworks' ),
+						__( 'Invalid value for Frontend Private API', 'planet4-engagingnetworks-backend' ),
 						'error'
 					);
 					$has_errors = true;

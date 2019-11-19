@@ -47,7 +47,7 @@ job-references:
       - run:
           name: "stylelint"
           when: always
-          command: stylelint $HOME/project/react-blocks/src/styles/**/*.scss
+          command: stylelint $HOME/project/assets/src/styles/**/*.scss
       - run:
           name: "eslint"
           when: always

@@ -1,0 +1,701 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Planet4 - EngagingNetworks\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-04 13:53+0000\n"
+"PO-Revision-Date: 2019-11-18 10:58+0200\n"
+"Last-Translator: Alessandro Lattecreative Dev Agency "
+"<alessandro@lattecreative.com>\n"
+"Language-Team: Korean\n"
+"Language: ko_KR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"X-Loco-Version: 2.3.0; wp-5.2.2\n"
+
+#: classes/class-loader.php:165 classes/class-loader.php:180
+msgid "Plugin Requirements Error!"
+msgstr "Plugin Requirements Error!"
+
+#: classes/class-loader.php:165
+msgid " requires a newer version of the following plugin."
+msgstr " requires a newer version of the following plugin."
+
+#: classes/class-loader.php:166
+msgid "Minimum required version of "
+msgstr "Minimum required version of "
+
+#: classes/class-loader.php:167
+msgid "Installed version of "
+msgstr "Installed version of "
+
+#: classes/class-loader.php:180
+msgid " requires a newer version of PHP."
+msgstr " requires a newer version of PHP."
+
+#: classes/class-loader.php:181
+msgid "Minimum required version of PHP: "
+msgstr "Minimum required version of PHP: "
+
+#: classes/class-loader.php:182
+msgid "Running version of PHP: "
+msgstr "Running version of PHP: "
+
+#: classes/class-loader.php:293
+msgid "Plugin Conflict Error!"
+msgstr "Plugin Conflict Error!"
+
+#: classes/class-loader.php:293
+msgid "Class Loader already exists."
+msgstr "Class Loader already exists."
+
+#: classes/class-loader.php:509
+msgid "planet4-blocks"
+msgstr ""
+
+#: classes/controller/class-enform-questions-list-table.php:75
+#: classes/controller/class-enform-fields-list-table.php:64
+msgid "Could not fetch results from engaging networks"
+msgstr "Could not fetch results from engaging networks"
+
+#: classes/controller/class-enform-questions-list-table.php:107
+#: classes/controller/class-enform-fields-list-table.php:85
+msgid "Id"
+msgstr "Id"
+
+#: classes/controller/class-enform-questions-list-table.php:108
+#: classes/controller/class-enform-fields-list-table.php:86
+#: includes/selected_meta_box.twig:11 includes/selected_meta_box.twig:46
+msgid "Name"
+msgstr "Name"
+
+#: classes/controller/class-enform-questions-list-table.php:109
+#: includes/fields_settings_templates.twig:34
+#: includes/fields_settings_templates.twig:63
+#: includes/selected_meta_box.twig:50
+#: includes/questions_settings_templates.twig:28
+#: includes/questions_settings_templates.twig:41
+#: includes/questions_settings_templates.twig:70
+msgid "Type"
+msgstr "Type"
+
+#: classes/controller/class-enform-questions-list-table.php:110
+#: classes/controller/class-enform-fields-list-table.php:89
+#: includes/selected_meta_box.twig:38 includes/selected_meta_box.twig:51
+msgid "Actions"
+msgstr "Actions"
+
+#: classes/controller/class-enform-questions-list-table.php:152
+#: classes/controller/class-enform-fields-list-table.php:133
+msgid "Add"
+msgstr "Add"
+
+#: classes/controller/class-enform-fields-list-table.php:87
+msgid "Tag"
+msgstr "Tag"
+
+#: classes/controller/class-enform-fields-list-table.php:88
+msgid "Property"
+msgstr "Property"
+
+#: classes/controller/class-enform-fields-list-table.php:125
+msgid "Field"
+msgstr "Field"
+
+#: classes/controller/menu/class-controller.php:103
+msgid "Error"
+msgstr "Error"
+
+#: classes/controller/menu/class-controller.php:123
+msgid "Warning"
+msgstr "Warning"
+
+#: classes/controller/menu/class-controller.php:143
+msgid "Notice"
+msgstr "Notice"
+
+#: classes/controller/menu/class-controller.php:163
+msgid "Success"
+msgstr "Success"
+
+#: classes/controller/menu/class-fields-settings-controller.php:25
+#: classes/controller/menu/class-fields-settings-controller.php:26
+msgid "Field Settings"
+msgstr "Field Settings"
+
+#: classes/controller/menu/class-settings-controller.php:34
+#: classes/controller/menu/class-settings-controller.php:35
+msgid "Settings"
+msgstr "Settings"
+
+#: classes/controller/menu/class-settings-controller.php:101
+msgid "Invalid value for Public API"
+msgstr "Invalid value for Public API"
+
+#: classes/controller/menu/class-settings-controller.php:110
+msgid "Invalid value for Private API"
+msgstr "Invalid value for Private API"
+
+#: classes/controller/menu/class-settings-controller.php:119
+msgid "Invalid value for Frontend Public API"
+msgstr "Invalid value for Frontend Public API"
+
+#: classes/controller/menu/class-settings-controller.php:128
+msgid "Invalid value for Frontend Private API"
+msgstr "Invalid value for Frontend Private API"
+
+#: classes/controller/menu/class-pages-datatable-controller.php:67
+#: classes/controller/menu/class-pages-datatable-controller.php:68
+msgid "EN Pages"
+msgstr "EN Pages"
+
+#: classes/controller/menu/class-pages-datatable-controller.php:112
+msgid "Authentication failed"
+msgstr "Authentication failed"
+
+#: classes/controller/menu/class-pages-datatable-controller.php:115
+msgid "Plugin Settings are not configured well!"
+msgstr "Plugin Settings are not configured well!"
+
+#: classes/controller/menu/class-pages-datatable-controller.php:118
+msgid "Select Subtype"
+msgstr "Select Subtype"
+
+#: classes/controller/menu/class-pages-datatable-controller.php:121
+msgid "Changes are not saved!"
+msgstr "Changes are not saved!"
+
+#: classes/controller/menu/class-pages-datatable-controller.php:162
+msgid "Nonce verification failed!"
+msgstr "Nonce verification failed!"
+
+#: classes/controller/menu/class-pages-datatable-controller.php:174
+msgid "Changes saved!"
+msgstr "Changes saved!"
+
+#: classes/controller/menu/class-enform-post-controller.php:73
+#: classes/controller/menu/class-enform-post-controller.php:74
+#: classes/controller/menu/class-enform-post-controller.php:107
+msgid "All EN Forms"
+msgstr "All EN Forms"
+
+#: classes/controller/menu/class-enform-post-controller.php:81
+#: classes/controller/menu/class-enform-post-controller.php:82
+msgid "Add New"
+msgstr "Add New"
+
+#: classes/controller/menu/class-enform-post-controller.php:98
+msgctxt "en forms"
+msgid "Engaging Network Forms"
+msgstr "Engaging Network Forms"
+
+#: classes/controller/menu/class-enform-post-controller.php:99
+msgctxt "en form"
+msgid "Engaging Network Form"
+msgstr "Engaging Network Form"
+
+#: classes/controller/menu/class-enform-post-controller.php:100
+msgctxt "admin menu"
+msgid "En Forms Menu"
+msgstr "En Forms Menu"
+
+#: classes/controller/menu/class-enform-post-controller.php:101
+msgctxt "add new on admin bar"
+msgid "En Form"
+msgstr "En Form"
+
+#: classes/controller/menu/class-enform-post-controller.php:102
+msgctxt "en form"
+msgid "Add New"
+msgstr "Add New"
+
+#: classes/controller/menu/class-enform-post-controller.php:103
+msgid "Add New EN Form"
+msgstr "Add New EN Form"
+
+#: classes/controller/menu/class-enform-post-controller.php:104
+msgid "New EN Form"
+msgstr "New EN Form"
+
+#: classes/controller/menu/class-enform-post-controller.php:105
+msgid "Edit EN Form"
+msgstr "Edit EN Form"
+
+#: classes/controller/menu/class-enform-post-controller.php:106
+msgid "View EN Form"
+msgstr "View EN Form"
+
+#: classes/controller/menu/class-enform-post-controller.php:108
+msgid "Search EN Forms"
+msgstr "Search EN Forms"
+
+#: classes/controller/menu/class-enform-post-controller.php:109
+msgid "Parent EN Forms:"
+msgstr "Parent EN Forms:"
+
+#: classes/controller/menu/class-enform-post-controller.php:110
+msgid "No en forms found."
+msgstr "No en forms found."
+
+#: classes/controller/menu/class-enform-post-controller.php:111
+msgid "No en forms found in Trash."
+msgstr "No en forms found in Trash."
+
+#: classes/controller/menu/class-enform-post-controller.php:118
+msgid "EN Forms"
+msgstr "EN Forms"
+
+#: classes/controller/menu/class-enform-post-controller.php:213
+msgid "Form preview"
+msgstr "Form preview"
+
+#: classes/controller/menu/class-enform-post-controller.php:239
+msgid "Selected Components"
+msgstr "Selected Components"
+
+#: classes/controller/menu/class-enform-post-controller.php:270
+msgid "Available Fields"
+msgstr "Available Fields"
+
+#: classes/controller/menu/class-enform-post-controller.php:296
+msgid "Available Questions"
+msgstr "Available Questions"
+
+#: classes/controller/menu/class-enform-post-controller.php:317
+msgid "Available Opt-ins"
+msgstr "Available Opt-ins"
+
+#: classes/controller/blocks/class-enform-controller.php:117
+#: classes/controller/blocks/class-enblock-controller.php:120
+msgid "- Select Page -"
+msgstr "- Select Page -"
+
+#: classes/controller/blocks/class-enform-controller.php:139
+#: classes/controller/blocks/class-enblock-controller.php:178
+msgid "Engaging Network Live Pages"
+msgstr "Engaging Network Live Pages"
+
+#: classes/controller/blocks/class-enform-controller.php:140
+#: classes/controller/blocks/class-enblock-controller.php:179
+msgid "Select the Live EN page that this form will be submitted to."
+msgstr "Select the Live EN page that this form will be submitted to."
+
+#: classes/controller/blocks/class-enform-controller.php:140
+#: classes/controller/blocks/class-enblock-controller.php:179
+msgid "Check your EngagingNetworks settings!"
+msgstr "Check your EngagingNetworks settings!"
+
+#: classes/controller/blocks/class-enform-controller.php:150
+#: classes/controller/blocks/class-enblock-controller.php:199
+msgid "What style of form do you need?"
+msgstr "What style of form do you need?"
+
+#: classes/controller/blocks/class-enform-controller.php:155
+#: classes/controller/blocks/class-enblock-controller.php:204
+msgid "Page body / text size width. No background."
+msgstr "Page body / text size width. No background."
+
+#: classes/controller/blocks/class-enform-controller.php:161
+#: classes/controller/blocks/class-enblock-controller.php:210
+msgid "Full page width. With background image."
+msgstr "Full page width. With background image."
+
+#: classes/controller/blocks/class-enform-controller.php:168
+msgid "Background image for full width form (aka \"Happy Point\")"
+msgstr "Background image for full width form (aka \"Happy Point\")"
+
+#: classes/controller/blocks/class-enform-controller.php:172
+#: classes/controller/blocks/class-enform-controller.php:173
+#: classes/controller/blocks/class-enblock-controller.php:227
+#: classes/controller/blocks/class-enblock-controller.php:228
+msgid "Select Background Image"
+msgstr "Select Background Image"
+
+#: classes/controller/blocks/class-enform-controller.php:176
+msgid "Title"
+msgstr "Title"
+
+#: classes/controller/blocks/class-enform-controller.php:180
+#: classes/controller/blocks/class-enblock-controller.php:235
+msgid "Enter title"
+msgstr "Enter title"
+
+#: classes/controller/blocks/class-enform-controller.php:184
+msgid "Description"
+msgstr "Description"
+
+#: classes/controller/blocks/class-enform-controller.php:188
+#: classes/controller/blocks/class-enblock-controller.php:243
+msgid "Enter description"
+msgstr "Enter description"
+
+#: classes/controller/blocks/class-enform-controller.php:192
+#: classes/controller/blocks/class-enblock-controller.php:263
+msgid "Call to Action button (e.g. \"Sign up now!\")"
+msgstr "Call to Action button (e.g. \"Sign up now!\")"
+
+#: classes/controller/blocks/class-enform-controller.php:196
+#: classes/controller/blocks/class-enblock-controller.php:267
+msgid "Enter the \"Call to Action\" button text"
+msgstr "Enter the \"Call to Action\" button text"
+
+#: classes/controller/blocks/class-enform-controller.php:201
+#: classes/controller/blocks/class-enblock-controller.php:272
+msgid "\"Thank you\" main text / Title (e.g. \"Thank you for signing!\")"
+msgstr "\"Thank you\" main text / Title (e.g. \"Thank you for signing!\")"
+
+#: classes/controller/blocks/class-enform-controller.php:205
+#: classes/controller/blocks/class-enblock-controller.php:276
+msgid "Enter \"Thank you\" main text / Title "
+msgstr "Enter \"Thank you\" main text / Title "
+
+#: classes/controller/blocks/class-enform-controller.php:209
+#: classes/controller/blocks/class-enblock-controller.php:280
+msgid ""
+"\"Thank You\" secondary message / Subtitle (e.g. \"Your support means world"
+"\")"
+msgstr ""
+"\"Thank You\" secondary message / Subtitle (e.g. \"Your support means world"
+"\")"
+
+#: classes/controller/blocks/class-enform-controller.php:213
+#: classes/controller/blocks/class-enblock-controller.php:284
+msgid "Enter Thank you Subtitle"
+msgstr "Enter Thank you Subtitle"
+
+#: classes/controller/blocks/class-enform-controller.php:217
+#: classes/controller/blocks/class-enblock-controller.php:288
+msgid "\"Thank you page\" url (Title and Subtitle will not be shown)"
+msgstr "\"Thank you page\" url (Title and Subtitle will not be shown)"
+
+#: classes/controller/blocks/class-enform-controller.php:221
+#: classes/controller/blocks/class-enblock-controller.php:292
+msgid "Enter \"Thank you page\" url"
+msgstr "Enter \"Thank you page\" url"
+
+#: classes/controller/blocks/class-enform-controller.php:240
+#: classes/controller/blocks/class-enform-controller.php:264
+msgid "required"
+msgstr "required"
+
+#: classes/controller/blocks/class-enform-controller.php:275
+#: classes/controller/blocks/class-enblock-controller.php:309
+msgid "Engaging Networks Form"
+msgstr "Engaging Networks Form"
+
+#: classes/controller/blocks/class-enform-controller.php:397
+msgid "Thanks for signing!"
+msgstr "Thanks for signing!"
+
+#: classes/controller/blocks/class-enform-controller.php:455
+msgid "Invalid nonce!"
+msgstr "Invalid nonce!"
+
+#: classes/controller/blocks/class-enblock-controller.php:73
+msgid "What kind of Information do you want to send to EN?"
+msgstr "What kind of Information do you want to send to EN?"
+
+#: classes/controller/blocks/class-enblock-controller.php:74
+msgid ""
+"Make sure to select the same fields of your Engaging Networks page / form"
+msgstr ""
+"Make sure to select the same fields of your Engaging Networks page / form"
+
+#: classes/controller/blocks/class-enblock-controller.php:155
+msgid "- Select Form -"
+msgstr "- Select Form -"
+
+#: classes/controller/blocks/class-enblock-controller.php:169
+msgid "- Select Goal -"
+msgstr "- Select Goal -"
+
+#: classes/controller/blocks/class-enblock-controller.php:188
+msgid "Goal"
+msgstr "Goal"
+
+#: classes/controller/blocks/class-enblock-controller.php:195
+msgid ""
+"When form data submitted to EN, The value added in \"Goal\" field is used in "
+"the GTM dataLayer push event."
+msgstr ""
+"When form data submitted to EN, The value added in \"Goal\" field is used in "
+"the GTM dataLayer push event."
+
+#: classes/controller/blocks/class-enblock-controller.php:205
+msgid "Best to use inside pages. Form width will align with body / text width."
+msgstr ""
+"Best to use inside pages. Form width will align with body / text width."
+
+#: classes/controller/blocks/class-enblock-controller.php:211
+msgid ""
+"This form has a background image that expands the full width of the browser "
+"(aka \"Happy Point\")."
+msgstr ""
+"This form has a background image that expands the full width of the browser "
+"(aka \"Happy Point\")."
+
+#: classes/controller/blocks/class-enblock-controller.php:216
+msgid "Form on the side."
+msgstr "Form on the side."
+
+#: classes/controller/blocks/class-enblock-controller.php:217
+msgid ""
+"Form will be added to the top of the page, on the right side for most "
+"languages and on the left side for Right-to-left(RTL) languages."
+msgstr ""
+"Form will be added to the top of the page, on the right side for most "
+"languages and on the left side for Right-to-left(RTL) languages."
+
+#: classes/controller/blocks/class-enblock-controller.php:223
+msgid "Background image for full width / on the side forms styles"
+msgstr "Background image for full width / on the side forms styles"
+
+#: classes/controller/blocks/class-enblock-controller.php:231
+msgid "Form Title"
+msgstr "Form Title"
+
+#: classes/controller/blocks/class-enblock-controller.php:239
+msgid "Form Description"
+msgstr "Form Description"
+
+#: classes/controller/blocks/class-enblock-controller.php:247
+msgid "Content Title"
+msgstr "Content Title"
+
+#: classes/controller/blocks/class-enblock-controller.php:251
+msgid "Enter content title"
+msgstr "Enter content title"
+
+#: classes/controller/blocks/class-enblock-controller.php:255
+msgid "Content Description"
+msgstr "Content Description"
+
+#: classes/controller/blocks/class-enblock-controller.php:259
+msgid "Enter content description"
+msgstr "Enter content description"
+
+#: classes/controller/blocks/class-enblock-controller.php:296
+msgid "Planet 4 Engaging Networks form"
+msgstr "Planet 4 Engaging Networks form"
+
+#: classes/controller/blocks/class-enblock-controller.php:297
+msgid "Select the P4EN Form that will be displayed."
+msgstr "Select the P4EN Form that will be displayed."
+
+#: classes/controller/blocks/class-enblock-controller.php:297
+msgid "Create an EN Form"
+msgstr "Create an EN Form"
+
+#: includes/questions_settings.twig:4
+msgid "Engaging Networks Questions/Optins Settings"
+msgstr "Engaging Networks Questions/Optins Settings"
+
+#: includes/questions_settings.twig:5
+msgid ""
+"In this page you can define engaging networks questions and opt-ins that you "
+"want to be used for the forms."
+msgstr ""
+"In this page you can define engaging networks questions and opt-ins that you "
+"want to be used for the forms."
+
+#: includes/country_select.twig:9
+msgid "Select Country"
+msgstr "Select Country"
+
+#: includes/enform.twig:38 includes/enform_post.twig:20
+msgid "This field is required"
+msgstr "개인정보 제공 필수 항목입니다"
+
+#: includes/enform.twig:73 includes/enform_post.twig:31
+msgid "Please enter a valid e-mail address."
+msgstr "이메일 형식이 유효하지 않습니다"
+
+#: includes/enform.twig:75 includes/enform_post.twig:33
+msgid "Please select a country."
+msgstr "Please select a country."
+
+#: includes/enform.twig:133 includes/selected_meta_box.twig:22
+#: includes/selected_meta_box.twig:48
+msgid "Required"
+msgstr "Required"
+
+#: includes/fields_settings_templates.twig:2
+msgid "List of fields"
+msgstr "List of fields"
+
+#: includes/fields_settings_templates.twig:8
+msgid "fields defined"
+msgstr "fields defined"
+
+#: includes/fields_settings_templates.twig:12
+msgid "Add New Field"
+msgstr "Add New Field"
+
+#: includes/fields_settings_templates.twig:13
+#: includes/questions_settings_templates.twig:8
+#: includes/questions_settings_templates.twig:17
+msgid "Reload"
+msgstr "Reload"
+
+#: includes/fields_settings_templates.twig:30
+msgid "Mandatory"
+msgstr "Mandatory"
+
+#: includes/fields_settings_templates.twig:32
+#: includes/fields_settings_templates.twig:57
+#: includes/selected_meta_box.twig:27 includes/selected_meta_box.twig:49
+msgid "Label"
+msgstr "Label"
+
+#: includes/fields_settings_templates.twig:45
+msgid "Field name"
+msgstr "Field name"
+
+#: includes/fields_settings_templates.twig:51
+msgid "Is Mandatory"
+msgstr "Is Mandatory"
+
+#: includes/fields_settings.twig:4
+msgid "Engaging Networks Fields Settings"
+msgstr "Engaging Networks Fields Settings"
+
+#: includes/fields_settings.twig:5
+msgid ""
+"In this page you can define engaging networks fields that you want to be "
+"used for the forms."
+msgstr ""
+"In this page you can define engaging networks fields that you want to be "
+"used for the forms."
+
+#: includes/selected_enform_fields.twig:18
+msgid "--Select--"
+msgstr "--Select--"
+
+#: includes/selected_enform_fields.twig:19
+msgid "Checkbox"
+msgstr "Checkbox"
+
+#: includes/selected_enform_fields.twig:20
+msgid "Country"
+msgstr "Country"
+
+#: includes/selected_enform_fields.twig:21
+msgid "Email"
+msgstr "Email"
+
+#: includes/selected_enform_fields.twig:22
+msgid "Hidden"
+msgstr "Hidden"
+
+#: includes/selected_enform_fields.twig:23
+msgid "Text"
+msgstr "Text"
+
+#: includes/selected_enform_fields.twig:35
+msgid "Hidden Field customization"
+msgstr "Hidden Field customization"
+
+#: includes/selected_enform_fields.twig:37
+msgid "Default Value"
+msgstr "Default Value"
+
+#: includes/selected_enform_fields.twig:47
+msgid "Text Field customization"
+msgstr "Text Field customization"
+
+#: includes/selected_enform_fields.twig:49
+msgid ""
+"The next two fields handle the validation of the text input. If both regex "
+"and function name are entered, only the regex will be used."
+msgstr ""
+"The next two fields handle the validation of the text input. If both regex "
+"and function name are entered, only the regex will be used."
+
+#: includes/selected_enform_fields.twig:51
+msgid "JS Function validation regex"
+msgstr "JS Function validation regex"
+
+#: includes/selected_enform_fields.twig:58
+msgid "JS validation regex error message"
+msgstr "JS validation regex error message"
+
+#: includes/selected_enform_fields.twig:65
+msgid "JS Function validation callback"
+msgstr "JS Function validation callback"
+
+#: includes/selected_enform_fields.twig:77
+msgid "Opt-in customization"
+msgstr "Opt-in customization"
+
+#: includes/selected_enform_fields.twig:79
+msgid "Locale"
+msgstr "Locale"
+
+#: includes/selected_enform_fields.twig:87
+msgid "Opt-in label"
+msgstr "Opt-in label"
+
+#: includes/selected_meta_box.twig:3
+#, php-format
+msgid "Hover over %s icons to get more information about each field attribute."
+msgstr ""
+"Hover over %s icons to get more information about each field attribute."
+
+#: includes/selected_meta_box.twig:5
+msgid "Form fields will be saved only on publish/update."
+msgstr "Form fields will be saved only on publish/update."
+
+#: includes/selected_meta_box.twig:16 includes/selected_meta_box.twig:47
+msgid "EN Type"
+msgstr "EN Type"
+
+#: includes/selected_meta_box.twig:32
+msgid "P4 field type"
+msgstr "P4 field type"
+
+#: includes/questions_settings_templates.twig:2
+msgid "List of available en questions and opt-ins"
+msgstr "List of available en questions and opt-ins"
+
+#: includes/questions_settings_templates.twig:7
+msgid "questions available"
+msgstr "questions available"
+
+#: includes/questions_settings_templates.twig:14
+msgid "List of selected en questions and opt-ins"
+msgstr "List of selected en questions and opt-ins"
+
+#: includes/questions_settings_templates.twig:16
+msgid "questions selected"
+msgstr "questions selected"
+
+#: includes/questions_settings_templates.twig:39
+#: includes/questions_settings_templates.twig:63
+msgid "Question"
+msgstr "Question"
+
+#: includes/questions_settings_templates.twig:56
+msgid "Question name"
+msgstr "Question name"
+
+#. Name of the plugin
+msgid "Planet4 - EngagingNetworks"
+msgstr "Planet4 - EngagingNetworks"
+
+#. Description of the plugin
+msgid "Connects Planet4 with the Engaging Networks platform."
+msgstr "Connects Planet4 with the Engaging Networks platform."
+
+#. URI of the plugin
+msgid "http://github.com/greenpeace/planet4-plugin-engagingnetworks"
+msgstr "http://github.com/greenpeace/planet4-plugin-engagingnetworks"
+
+#. Author of the plugin
+msgid "Greenpeace International"
+msgstr "Greenpeace International"
+
+#. Author URI of the plugin
+msgid "http://www.greenpeace.org/"
+msgstr "http://www.greenpeace.org/"
