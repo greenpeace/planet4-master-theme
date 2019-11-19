@@ -61,7 +61,7 @@ class Enform_Fields_List_Table extends \WP_List_Table {
 			$supporter_fields  = $ens_api->get_supporter_fields();
 
 			if ( ! is_array( $supporter_fields ) ) {
-				$this->error = $supporter_fields . ' : ' . __( 'Could not fetch results from engaging networks', 'planet4-gutenberg-engagingnetworks' );
+				$this->error = $supporter_fields . ' : ' . __( 'Could not fetch results from engaging networks', 'planet4-engagingnetworks-backend' );
 			}
 		}
 
@@ -82,11 +82,11 @@ class Enform_Fields_List_Table extends \WP_List_Table {
 	 */
 	public function get_columns() {
 		$columns = [
-			'id'       => __( 'Id', 'planet4-gutenberg-engagingnetworks' ),
-			'name'     => __( 'Name', 'planet4-gutenberg-engagingnetworks' ),
-			'tag'      => __( 'Tag', 'planet4-gutenberg-engagingnetworks' ),
-			'property' => __( 'Property', 'planet4-gutenberg-engagingnetworks' ),
-			'actions'  => __( 'Actions', 'planet4-gutenberg-engagingnetworks' ),
+			'id'       => __( 'Id', 'planet4-engagingnetworks-backend' ),
+			'name'     => __( 'Name', 'planet4-engagingnetworks-backend' ),
+			'tag'      => __( 'Tag', 'planet4-engagingnetworks-backend' ),
+			'property' => __( 'Property', 'planet4-engagingnetworks-backend' ),
+			'actions'  => __( 'Actions', 'planet4-engagingnetworks-backend' ),
 		];
 
 		return $columns;
@@ -122,7 +122,7 @@ class Enform_Fields_List_Table extends \WP_List_Table {
 			'id'       => $item['id'],
 			'name'     => $item['name'],
 			'property' => $item['property'],
-			'type'     => __( 'Field', 'planet4-gutenberg-engagingnetworks' ),
+			'type'     => __( 'Field', 'planet4-engagingnetworks-backend' ),
 		];
 
 		$attributes_string = '';
@@ -130,7 +130,7 @@ class Enform_Fields_List_Table extends \WP_List_Table {
 			$attributes_string .= " data-$attr=\"" . esc_attr( $value ) . '"';
 		}
 
-		return '<button class="add-en-field" ' . $attributes_string . '>' . __( 'Add', 'planet4-gutenberg-engagingnetworks' ) . '</button>';
+		return '<button class="add-en-field" ' . $attributes_string . '>' . __( 'Add', 'planet4-engagingnetworks-backend' ) . '</button>';
 	}
 
 	/**

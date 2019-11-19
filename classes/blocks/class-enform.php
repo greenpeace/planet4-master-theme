@@ -248,7 +248,7 @@ class ENForm extends Base_Block {
 		} else {
 			$options                   = get_option( 'planet4_options' );
 			$attributes['donatelink']  = $options['donate_button'] ?? '#';
-			$attributes['donate_text'] = $options['donate_text'] ?? __( 'Donate', 'planet4-gutenberg-engagingnetworks' );
+			$attributes['donate_text'] = $options['donate_text'] ?? __( 'Donate', 'planet4-engagingnetworks' );
 
 			$donate_button_checkbox = 'false';
 			if ( isset( $attributes['donate_button_checkbox'] ) && $attributes['donate_button_checkbox'] ) {

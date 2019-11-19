@@ -72,7 +72,7 @@ class Enform_Questions_List_Table extends \WP_List_Table {
 			if ( is_array( $supporter_questions ) ) {
 				$supporter_questions = array_filter( $supporter_questions, [ $this, 'check_type' ] );
 			} else {
-				$this->error = $supporter_questions . ' : ' . __( 'Could not fetch results from engaging networks', 'planet4-gutenberg-engagingnetworks' );
+				$this->error = $supporter_questions . ' : ' . __( 'Could not fetch results from engaging networks', 'planet4-engagingnetworks-backend' );
 			}
 		}
 
@@ -104,10 +104,10 @@ class Enform_Questions_List_Table extends \WP_List_Table {
 	 */
 	public function get_columns() {
 		$columns = [
-			'id'      => __( 'Id', 'planet4-gutenberg-engagingnetworks' ),
-			'name'    => __( 'Name', 'planet4-gutenberg-engagingnetworks' ),
-			'type'    => __( 'Type', 'planet4-gutenberg-engagingnetworks' ),
-			'actions' => __( 'Actions', 'planet4-gutenberg-engagingnetworks' ),
+			'id'      => __( 'Id', 'planet4-engagingnetworks-backend' ),
+			'name'    => __( 'Name', 'planet4-engagingnetworks-backend' ),
+			'type'    => __( 'Type', 'planet4-engagingnetworks-backend' ),
+			'actions' => __( 'Actions', 'planet4-engagingnetworks-backend' ),
 		];
 
 		return $columns;
@@ -149,7 +149,7 @@ class Enform_Questions_List_Table extends \WP_List_Table {
 			$attributes_string .= " data-$attr=\"" . esc_attr( $value ) . '"';
 		}
 
-		return '<button class="add-en-field" ' . $attributes_string . '>' . __( 'Add', 'planet4-gutenberg-engagingnetworks' ) . '</button>';
+		return '<button class="add-en-field" ' . $attributes_string . '>' . __( 'Add', 'planet4-engagingnetworks-backend' ) . '</button>';
 	}
 
 	/**

@@ -8,8 +8,8 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "wp-scripts start --config p4-webpack-config.js",
-		"build": "wp-scripts build --config p4-webpack-config.js --mode production",
+		"start": "wp-scripts start",
+		"build": "wp-scripts build --mode production",
 		"lint:css": "wp-scripts lint-style"
 	},
 	"devDependencies": {

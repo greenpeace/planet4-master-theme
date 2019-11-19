@@ -3,12 +3,12 @@
  * Plugin Name: Planet4 - Gutenberg Engaging Networks
  * Description: Contains the Gutenberg blocks that are used by Planet4 project.
  * Plugin URI: http://github.com/greenpeace/planet4-plugin-engaging-networks
- * Version: 0.2
+ * Version: 0.3
  * Php Version: 7.0
  *
  * Author: Greenpeace International
  * Author URI: http://www.greenpeace.org/
- * Text Domain: planet4-gutenberg-engagingnetworks
+ * Text Domain: planet4-engagingnetworks
  *
  * License:     GPLv3
  * Copyright (C) 2018 Greenpeace International
