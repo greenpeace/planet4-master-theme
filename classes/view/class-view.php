@@ -131,7 +131,7 @@ if ( ! class_exists( 'View' ) ) {
 		 * @param array $data All the data needed to render the template.
 		 */
 		public function enform_post( $data ) {
-			$this->view_template( __FUNCTION__, $data, '/blocks/' );
+			$this->view_template( __FUNCTION__, $data );
 		}
 
 		/**

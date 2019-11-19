@@ -175,9 +175,8 @@ final class Loader {
 	 */
 	private function hook_plugin() {
 		add_action( 'admin_menu', [ $this, 'load_i18n' ] );
-
-		// Load the editor scripts only enqueuing editor scripts while in context of the editor.
-		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_editor_scripts' ] );
+		// Load the editor scripts.
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );
 
 		add_action( 'plugins_loaded', [ $this, 'load_i18n' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
@@ -185,8 +184,7 @@ final class Loader {
 		// Register a block category.
 		add_filter( 'block_categories', [ $this, 'register_block_category' ], 10, 2 );
 		// Provide hook for other plugins.
-		// Hook names should be lower case according WP cs.
-		do_action( 'p4gen_plugin_loaded' );
+		do_action( 'P4GEN_plugin_loaded' );
 	}
 
 	/**
