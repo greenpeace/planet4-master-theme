@@ -1,6 +1,6 @@
 {% block articles %}
 	{% if ( recent_posts ) %}
-		<section class="block article-listing">
+		<section class="block articles-block">
 			{{ fn( 'wp_nonce_field', nonce_action, '_articles_wpnonce', true, false )|raw }}
 			<div class="container">
 				{% if ( fields.article_heading ) %}

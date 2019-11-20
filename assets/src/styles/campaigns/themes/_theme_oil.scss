@@ -1,9 +1,11 @@
 body.theme-oil {
   $anton: "Anton", sans-serif;
   $amiko: "Amiko", sans-serif;
+  $open-sans: "Open Sans", sans-serif;
 
   $oil-red: #ff513c;
   $oil-red-2: #e74656;
+  $oil-red-3: #dc442c;
   $oil-purple: #b55eb8;
   $oil-blue: #007eff;
   $oil-turquoise: #58a8de;
@@ -23,7 +25,7 @@ body.theme-oil {
   $page-header-small-width: 540px;
 
   @mixin oil-button($background: $oil-red, $foreground: black) {
-    @include button($background, $foreground, $amiko, -30);
+    @include button($background, $foreground, $open-sans, -30);
 
     font-weight: $semi-bold;
     transition: none;
@@ -35,20 +37,23 @@ body.theme-oil {
 
   .btn-primary {
     @include oil-button;
+    background: $oil-gradient-standard;
 
     &:hover {
-      color: black;
-      background: $oil-gradient-standard;
+      color: white;
+      background: $oil-red-3;
     }
   }
 
   .btn-secondary {
     &:not(#hidecookie) {
-      @include oil-button(black, white);
+      @include oil-button(white, black);
+      border: 1px solid black;
 
       &:hover {
-        color: black;
-        background: $oil-gradient-standard;
+        color: white;
+        background: black;
+        border: 1px solid white;
       }
     }
   }
@@ -207,7 +212,7 @@ body.theme-oil {
     }
   }
   // end .covers-block
-  .campaign-thumbnail-block {
+  .campaign-covers-block {
     $border: 20px;
 
     @include campaign_thumbnail(url("../../public/images/oil/covers-block.svg") no-repeat, black, black, $anton, -10, #{$border + 16px}, #{$border + 16px});
@@ -231,18 +236,18 @@ body.theme-oil {
       }
     }
   }
-  //end .campaign-thumbnail-block
-  .four-column-content {
-    @include campaign_content_four_column($oil-gradient-standard, $amiko, $amiko, $oil-blue);
+  //end .campaign-covers-block
+  .content-covers-block {
+    @include campaign_content_covers($oil-gradient-standard, $amiko, $amiko, $oil-blue);
 
-    .four-column-content-info {
-      .four-column-content-information h4 {
+    .content-covers-block-info {
+      .content-covers-block-information h4 {
         font-weight: $regular;
       }
     }
   }
-  // end .four-column-content
-  .article-listing {
+  // end .content-covers-block
+  .articles-block {
     @include campaign_articles($amiko, $amiko, $oil-orange, $anton, $oil-blue);
 
     .article-list-item-headline a {
@@ -253,7 +258,7 @@ body.theme-oil {
       @include letter-spacing(-10);
     }
   }
-  // end .article-listing
+  // end .articles-block
   .carousel-wrap {
     @include campaign_carousel(true, $oil-gradient-standard, $oil-black, $oil-grey, $oil-red, url("../../public/images/oil/carousel-arrow.svg"), 39px);
 
@@ -441,6 +446,10 @@ body.theme-oil {
         }
       }
     }
+
+    .btn-primary {
+      @extend .btn-primary;
+    }
   }
   // end take action task block
   .split-three-column {
@@ -454,10 +463,22 @@ body.theme-oil {
 
   .columns-block.block-style-image {
     @include campaign_columns_style_image($anton);
+
+    .column-wrap {
+      .btn-primary {
+        @extend .btn-primary;
+      }
+    }
   }
 
   .columns-block.block-style-no_image {
     @include campaign_columns_style_no_image($anton);
+
+    .column-wrap {
+      .btn-primary {
+        @extend .btn-primary;
+      }
+    }
   }
 
   .video-block {

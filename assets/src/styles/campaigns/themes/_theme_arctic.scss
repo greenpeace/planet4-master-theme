@@ -15,10 +15,9 @@ body.theme-arctic {
     //todo: check letter spacing
     @include button($background, $foreground, $save-the-arctic, 60);
     font-weight: $bold;
-    line-height: 44px;
+    line-height: 50px;
   }
 
-  font-family: $roboto;
   background: white;
 
   .btn-primary {
@@ -33,9 +32,10 @@ body.theme-arctic {
   .btn-secondary {
     &:not(#hidecookie) {
       @include arctic-button(white, $arctic-blue);
-      border: 3px solid $arctic-light-blue;
-      height: 44px;
-      line-height: 38px;
+      border: 1px solid $arctic-blue;
+      box-sizing: border-box;
+      height: 50px;
+      line-height: 50px;
 
       &:hover {
         background: $arctic-light-blue;
@@ -117,32 +117,32 @@ body.theme-arctic {
     }
   } // end .covers-block
 
-  .campaign-thumbnail-block {
-    @include campaign_thumbnail($arctic-cream, white, $arctic-faded-red, $open-sans);
+  .campaign-covers-block {
+    @include campaign_covers($arctic-cream, white, $arctic-faded-red, $open-sans);
 
     .thumbnail-large .yellow-cta {
       font-weight: $bold;
     }
-  } // end .campaign-thumbnail-block
+  } // end .campaign-covers-block
 
-  .four-column-content {
-    @include campaign_content_four_column($arctic-light-blue, $save-the-arctic, $open-sans, $arctic-turquoise);
+  .content-covers-block {
+    @include campaign_content_covers($arctic-light-blue, $save-the-arctic, $open-sans, $arctic-turquoise);
 
-    .four-column-content-info .four-column-content-information {
+    .content-covers-block-info .content-covers-block-information {
       .publication-date {
         font-weight: $extra-bold;
       }
     }
-  } // end .four-column-content
+  } // end .content-covers-block
 
-  .article-listing {
+  .articles-block {
     @include campaign_articles($open-sans, $open-sans, $arctic-turquoise, $open-sans, $arctic-faded-red, $bold);
 
     .article-list-item-tags .tag-item {
       font-size: $font-size-xxs;
       line-height: 1.375rem;
     }
-  } // end .article-listing
+  } // end .articles-block
 
   .carousel-wrap {
     @include campaign_carousel(true, $arctic-light-blue, $arctic-black, $arctic-greyblue, $arctic-blue, url("../../public/images/arctic/carousel-arrow.svg"), 24px);
@@ -277,8 +277,12 @@ body.theme-arctic {
       $arctic-light-blue,
       grayscale(0) invert(12%) sepia(58%) saturate(7062%) hue-rotate(187deg) brightness(96%) contrast(98%),
       $open-sans, $bold,
-      $open-sans, $bold, url("../../public/images/arctic/arrow.svg"), url("../../public/images/arctic/arrow-dark.svg")
+      $save-the-arctic, $bold, url("../../public/images/arctic/arrow.svg"), url("../../public/images/arctic/arrow-dark.svg")
     );
+
+    .btn-primary {
+      @extend .btn-primary;
+    }
   } // end .columns-block.block-style-icons
 
   .submenu-block {
@@ -297,6 +301,10 @@ body.theme-arctic {
         margin-bottom: 30px;
       }
     }
+  }
+
+  .columns-block.block-style-image {
+    @include campaign_columns_style_image($save-the-arctic);
   }
 
   .columns-block.block-style-no_image {

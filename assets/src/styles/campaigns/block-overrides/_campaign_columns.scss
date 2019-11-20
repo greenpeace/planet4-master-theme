@@ -7,6 +7,10 @@ $text-transform: uppercase) {
     margin-bottom: 40px;
   }
 
+  h3 {
+    font-family: $header-font !important;
+  }
+
   > .container > .row {
     margin: 0 -8px;
 
@@ -52,42 +56,6 @@ $text-transform: uppercase) {
       margin-bottom: 10px;
       font-size: $font-size-xxs;
       line-height: 1.375rem;
-    }
-
-    a {
-      font-family: $link-font;
-      font-weight: $link-weight;
-      font-size: $font-size-xxs;
-      line-height: 1.1875rem;
-      text-transform: $text-transform;
-    }
-
-    > a {
-      position: relative;
-      padding-right: 18px;
-      display: inline-block;
-
-      @if ($link-icon != none) {
-        &:after {
-          @include arrow-right() {
-            height: 10px;
-            width: 10px;
-            background: $link-icon no-repeat;
-          }
-        }
-
-        &:hover:after {
-          background-image: $link-icon-hover;
-        }
-      }
-    }
-  }
-}
-
-@mixin campaign_columns_style_image() {
-  .column-wrap {
-    h3 {
-      font-family: $roboto !important;
     }
   }
 }
@@ -145,22 +113,7 @@ $text-transform: uppercase) {
     }
 
     a {
-      text-transform: none;
-      width: 100%;
-      display: block;
-      text-align: left;
-      font-size: $font-size-lg;
-
-      &.call-to-action-link {
-        display: block;
-        font-size: 1rem;
-        text-align: center;
-        left: 0;
-
-        @include medium-and-up {
-          margin-top: $space-lg;
-        }
-      }
+      font-family: $font;
     }
 
     h3 {

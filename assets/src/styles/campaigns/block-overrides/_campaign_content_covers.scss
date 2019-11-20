@@ -1,6 +1,6 @@
-@mixin campaign_content_four_column($image-border, $header-font, $date-font, $date-colour) {
-  .four-column-content-info {
-    .four-column-content-information {
+@mixin campaign_content_covers($image-border, $header-font, $date-font, $date-colour) {
+  .content-covers-block-info {
+    .content-covers-block-information {
       a:hover {
         color: black;
       }

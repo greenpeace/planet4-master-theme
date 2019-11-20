@@ -62,7 +62,7 @@
 								{% for col in fields.columns %}
 									<div class="col" data-id="{{ loop.index }}">
 										{% if ( col.cta_text and col.cta_link ) %}
-											<a class="btn btn-small btn-medium btn-secondary"
+											<a class="btn btn-small btn-medium btn-primary"
 												href="{{ col.cta_link }}"
 												{{  col.link_new_tab  ? 'target="_blank"' }}>
 												{{ col.cta_text }}
@@ -129,7 +129,7 @@
 											{% endif %}
 
 											{% if ( col.cta_text and col.cta_link ) %}
-												<a class="btn btn-small btn-secondary"
+												<a class="btn btn-small btn-primary"
 												   href="{{ col.cta_link }}">{{ col.cta_text }}
 												</a>
 											{% endif %}
