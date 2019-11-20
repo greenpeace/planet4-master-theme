@@ -8,8 +8,6 @@
 
 namespace P4GBKS\Controllers\Menu;
 
-use P4GBKS\Command\Shortcode_To_Gutenberg;
-
 if ( ! class_exists( 'Settings_Controller' ) ) {
 
 	/**
@@ -33,31 +31,6 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 					null,
 					'dashicons-layout'
 				);
-			}
-		}
-
-		/**
-		 * Validates the settings input.
-		 *
-		 * @param array $settings The associative array with the settings that are registered for the plugin.
-		 *
-		 * @return bool
-		 */
-		public function validate( $settings ) : bool {
-			$has_errors = false;
-			return ! $has_errors;
-		}
-
-		/**
-		 * Sanitizes the settings input.
-		 *
-		 * @param array $settings The associative array with the settings that are registered for the plugin.
-		 */
-		public function sanitize( &$settings ) {
-			if ( $settings ) {
-				foreach ( $settings as $name => $setting ) {
-					$settings[ $name ] = sanitize_text_field( $setting );
-				}
 			}
 		}
 	}

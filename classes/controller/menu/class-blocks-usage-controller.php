@@ -236,30 +236,5 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 
 			return array_merge( $p4_block_types, $core_block_types );
 		}
-
-		/**
-		 * Validates the settings input.
-		 *
-		 * @param array $settings The associative array with the settings that are registered for the plugin.
-		 *
-		 * @return bool
-		 */
-		public function validate( $settings ) : bool {
-			$has_errors = false;
-			return ! $has_errors;
-		}
-
-		/**
-		 * Sanitizes the settings input.
-		 *
-		 * @param array $settings The associative array with the settings that are registered for the plugin.
-		 */
-		public function sanitize( &$settings ) {
-			if ( $settings ) {
-				foreach ( $settings as $name => $setting ) {
-					$settings[ $name ] = sanitize_text_field( $setting );
-				}
-			}
-		}
 	}
 }
