@@ -53,7 +53,7 @@ body.theme-arctic {
     @include page-section-header($save-the-arctic, $arctic-blue, $bold);
   }
 
-  a {
+  .page-template a {
     color: $arctic-faded-red;
     text-transform: uppercase;
 
