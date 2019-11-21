@@ -137,7 +137,7 @@ export class TakeactionboxoutBlock {
 				if (background_image) {
 					background_image_url = select('core').getMedia(background_image);
 					if ( background_image_url ) {
-						background_image_url = background_image_url.media_details.sizes.medium.source_url;
+						background_image_url = background_image_url.source_url;
 					}
 				}
 
