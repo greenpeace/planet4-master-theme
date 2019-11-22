@@ -219,12 +219,12 @@
   }
 
   .carousel-control-prev-icon {
-    background: url("public/images/carousel-marker-prev.png");
+    background: url("../../public/images/carousel-marker-prev.png");
     background-size: cover;
 
     @include small-and-up {
       margin-left: 113px;
-      background: url("public/images/carousel-marker-prev-S-M.png");
+      background: url("../../public/images/carousel-marker-prev-S-M.png");
     }
 
     @include medium-and-up {
@@ -233,7 +233,7 @@
 
     @include large-and-up {
       margin-left: 133px;
-      background: url("public/images/carousel-marker-prev.png");
+      background: url("../../public/images/carousel-marker-prev.png");
 
       &:hover {
         background-position-x: 66px;
@@ -246,12 +246,12 @@
   }
 
   .carousel-control-next-icon {
-    background: url("public/images/carousel-marker-next.png");
+    background: url("../../public/images/carousel-marker-next.png");
     background-size: cover;
 
     @include small-and-up {
       margin-right: 113px;
-      background: url("public/images/carousel-marker-next-S-M.png");
+      background: url("../../public/images/carousel-marker-next-S-M.png");
     }
 
     @include medium-and-up {
@@ -260,7 +260,7 @@
 
     @include large-and-up {
       margin-right: 133px;
-      background: url("public/images/carousel-marker-next.png");
+      background: url("../../public/images/carousel-marker-next.png");
 
       &:hover {
         background-position-x: 66px;
