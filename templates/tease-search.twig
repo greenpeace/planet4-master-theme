@@ -3,6 +3,8 @@
 	{% set is_action = true %}
 {% elseif ( 'document' == posts_data[post.ID].content_type ) %}
 	{% set is_document = true %}
+{% elseif ( 'campaign' == posts_data[post.ID].content_type ) %}
+	{% set is_campaign = true %}
 {% endif %}
 
 {% if ( current_page == 1 and loop.index0 == 0 ) %}
@@ -25,6 +27,12 @@
 		<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
 			<div class="search-result-item-flex-title">
 				<div>
+					{% if ( is_campaign ) %}
+						<div class="search-results-campaign-label search-results-campaign-label-mobile">
+							{{ __( 'Campaign', 'planet4-master-theme' ) }}
+						</div>
+					{% endif %}
+
 					<div class="search-result-tags top-page-tags">
 						{% for page_type in posts_data[post.ID].page_types %}
 							<button class="search-result-item-head no-btn tag-item tag-item--main page-type" data-href="{{ fn('get_term_link', page_type.term_id) }}">{{ page_type.name|e('wp_kses_post')|raw }}</button>
@@ -60,6 +68,10 @@
 						<a href="{{ fn('wp_get_attachment_url', post.id) }}" download class="btn btn-small btn-secondary">
 							{{ __( 'Download', 'planet4-master-theme' ) }}
 						</a>
+					{% elseif ( is_campaign ) %}
+						<div class="search-results-campaign-label">
+							{{ __( 'Campaign', 'planet4-master-theme' ) }}
+						</div>
 					{% endif %}
 				</div>
 			</div>
