@@ -45,7 +45,8 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              url: false
+              url: false,
+              sourceMap: true,
             }
           },
           {
@@ -54,7 +55,8 @@ module.exports = {
               ident: 'postcss',
               plugins: function() {
                 return require('autoprefixer');
-              }
+              },
+              sourceMap: true,
             }
           },
           {
@@ -83,7 +85,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       chunkFilename: '[id].css',
       ignoreOrder: false, // Enable to remove warnings about conflicting order
-    filename: './[name].min.css'
+      filename: './[name].min.css'
     }),
     new RemovePlugin({
       /**
