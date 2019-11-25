@@ -244,10 +244,103 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			// If cache key expired then retrieve results once again and re-cache them.
 			if ( false === $this->posts ) {
 				$this->posts = $this->get_timber_posts();
+
+				$this->set_archived_results(); //TODO: maybe make this synchronous so that the searching can go on
+
 				if ( $this->posts ) {
 					wp_cache_add( $cache_key, $this->posts, $cache_group, self::DEFAULT_CACHE_TTL );
 				}
 			}
+		}
+
+		/**
+		 * Fetch search results from the archive and add them into the post results array.
+		 */
+		protected function set_archived_results() {
+
+			/**
+			 * q = search query.
+			 * s = site.
+			 * h = hits per site (0 = all).
+			 * n = number of results. defaults to 10, so making it 100 should get enough.
+			 */
+			$archive_url = "https://archive-it.org/search-master/opensearch?q=$this->search_query&s=p3-raw.greenpeace.org&h=0&n=100";
+
+			$archive_response = wp_remote_get( $archive_url, array(
+				'timeout'     => 100
+			) );
+
+			$xml_archive_response_body = wp_remote_retrieve_body( $archive_response );
+
+			$response_body = new SimpleXMLElement( $xml_archive_response_body );
+
+			$filtered_results = $this->get_filtered_archived_results( $response_body );
+
+			if ( 0 == count( $filtered_results ) ) {
+				return;
+			}
+
+			$parsed_items = [];
+
+			foreach ( $filtered_results as $item ) {
+
+				$parsed_item            = (object) array();
+				$parsed_item->title     = (string) $item->title;
+				$parsed_item->link      = (string) $item->link;
+				$parsed_item->excerpt   = (string) $item->description;
+				$parsed_item->post_type = 'archive';
+
+				array_push($parsed_items, $parsed_item );
+			}
+
+			$archive_results_index = self::POSTS_PER_LOAD * 3; //Show arachived results on 3rd page.
+
+			if ( count( $this->posts ) > $archive_results_index ) {
+				array_splice($this->posts, $archive_results_index, 0, $parsed_items );
+			} else {
+				array_push( $this->posts, ...$parsed_items );
+			}
+		}
+
+		/**
+		 * Filter archived results by current site.
+		 *
+		 * @param $results array of all results fetched from archive.
+		 *
+		 * @return array of archived results filtered by the current site.
+		 */
+		protected function get_filtered_archived_results( $results ) {
+			$full_url = explode('/', $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] );
+
+			if ( 'nl' == $full_url[1] ) {
+				$archive_ref = 'secured.greenpeace.nl';
+			} else if ( count($full_url) > 3 ) {
+				//Contains language in URL
+				$archive_ref = $full_url[1].'/'.$full_url[2];
+			} else if ( count($full_url) == 2 ) {
+				$archive_ref = 'international';
+			} else {
+				$archive_ref = $full_url[1];
+			}
+
+			$filtered_items = [];
+
+			$results_count = 0;
+
+			$max_allowed_results = ceil( count( $this->posts ) * 0.2 ); //Archived results should only be 20% of normal results.
+
+			foreach ( $results->channel->item as $item ) {
+				if ( strpos((string) $item->link, $archive_ref ) !== false) {
+					array_push($filtered_items, $item );
+					$results_count++;
+				}
+
+				if ( $results_count > $max_allowed_results ) {
+					break;
+				}
+			}
+
+			return $filtered_items;
 		}
 
 		/**
@@ -294,7 +387,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 			// Set Engine Query arguments.
 			$this->set_engines_args( $args );
-
 			$posts = ( new WP_Query( $args ) )->posts;
 			return (array) $posts;
 		}
