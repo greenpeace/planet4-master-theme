@@ -84,15 +84,6 @@ body.theme-climate {
     }
   }
 
-  .page-section-description {
-    font-size: $font-size-sm;
-    margin-bottom: 32px;
-
-    @include medium-and-up {
-      width: 60%;
-    }
-  }
-
   a {
     color: $climate-blue;
     text-transform: uppercase;
