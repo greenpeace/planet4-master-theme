@@ -356,12 +356,12 @@ $slide-transition-speed: 1s;
       width: 40px;
       height: 40px;
       cursor: pointer;
-      background: url("public/images/carousel-marker-prev.png");
+      background: url("../../public/images/carousel-marker-prev.png");
       background-size: cover;
 
       @include small-and-up {
         margin-left: 113px;
-        background: url("public/images/carousel-marker-prev-S-M.png");
+        background: url("../../public/images/carousel-marker-prev-S-M.png");
         width: 45px;
         height: 45px;
       }
@@ -372,7 +372,7 @@ $slide-transition-speed: 1s;
 
       @include large-and-up {
         margin-left: 133px;
-        background: url("public/images/carousel-marker-prev.png");
+        background: url("../../public/images/carousel-marker-prev.png");
         width: 65px;
         height: 65px;
 
@@ -409,12 +409,12 @@ $slide-transition-speed: 1s;
       width: 40px;
       height: 40px;
       cursor: pointer;
-      background: url("public/images/carousel-marker-next.png");
+      background: url("../../public/images/carousel-marker-next.png");
       background-size: cover;
 
       @include small-and-up {
         margin-right: 113px;
-        background: url("public/images/carousel-marker-next-S-M.png");
+        background: url("../../public/images/carousel-marker-next-S-M.png");
         width: 45px;
         height: 45px;
       }
@@ -425,7 +425,7 @@ $slide-transition-speed: 1s;
 
       @include large-and-up {
         margin-right: 133px;
-        background: url("public/images/carousel-marker-next.png");
+        background: url("../../public/images/carousel-marker-next.png");
         width: 65px;
         height: 65px;
 
