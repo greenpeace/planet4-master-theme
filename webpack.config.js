@@ -118,7 +118,16 @@ module.exports = {
     ...defaultConfig.optimization,
     minimizer: [
       // enable the css minification plugin
-      new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})
+      new TerserJSPlugin({}),
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorOptions: {
+          sourceMap: true,
+          map: {
+            inline: false,
+            annotation: true,
+          }
+        }
+      })
     ]
   }
 };
