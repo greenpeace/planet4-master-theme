@@ -223,7 +223,13 @@ export class Columns extends Component {
                     columns_block_style: this.props.columns_block_style,
                     columns_title: this.props.columns_title,
                     columns_description: this.props.columns_description,
-                    columns: this.props.columns,
+                    columns: this.props.columns.map( column => {
+                      // Needed here as there is no hook to replace this in the rest api
+                      if ( column.link_new_tab !== true ) {
+                        column.link_new_tab = false;
+                      }
+                      return column;
+                    }),
                   }}>
                 </ServerSideRender>
               </Preview>
