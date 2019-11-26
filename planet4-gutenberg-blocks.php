@@ -118,6 +118,7 @@ const PAGE_BLOCK_TYPES = [
 	'planet4-blocks/submenu',
 	'planet4-blocks/take-action-boxout',
 	'planet4-blocks/timeline',
+	'planet4-blocks/socialshare',
 ];
 
 // campaigns allow all block types.
@@ -135,6 +136,7 @@ const CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/split-two-columns',
 	'planet4-blocks/submenu',
 	'planet4-blocks/timeline',
+	'planet4-blocks/socialshare',
 ];
 
 /**
