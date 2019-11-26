@@ -21,7 +21,32 @@ module.exports = {
       ...defaultConfig.module.rules,
       {
         test: /\.(sass|scss)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'resolve-url-loader', 'sass-loader']
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              url: false,
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: function() {
+                return require('autoprefixer');
+              },
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/,
@@ -43,7 +68,16 @@ module.exports = {
     ...defaultConfig.optimization,
     minimizer: [
       // enable the css minification plugin
-      new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})
+      new TerserJSPlugin({}),
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorOptions: {
+          sourceMap: true,
+          map: {
+            inline: false,
+            annotation: true,
+          }
+        }
+      })
     ]
   }
 };
