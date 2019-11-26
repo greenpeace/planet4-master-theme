@@ -159,7 +159,7 @@ body.theme-plastic {
   }
 
   .carousel-wrap {
-    @include campaign_carousel(false, $plastics-blue-light, white, white, $plastics-blue, url("public/images/plastic/carousel-arrow.svg"), 50px, 10px);
+    @include campaign_carousel(false, $plastics-blue-light, white, white, $plastics-blue, url("../../public/images/plastic/carousel-arrow.svg"), 50px, 10px);
 
     h2 {
       font-size: 2.2rem;
@@ -188,7 +188,7 @@ body.theme-plastic {
         left: 0;
         width: 100%;
         height: 200px;
-        background: url("public/images/plastic/happy-point-mobile.svg") no-repeat;
+        background: url("../../public/images/plastic/happy-point-mobile.svg") no-repeat;
       }
     }
 
@@ -214,7 +214,7 @@ body.theme-plastic {
           max-height: 500px;
         }
         width: 250px;
-        background: url("public/images/plastic/happy-point-desktop.svg") no-repeat;
+        background: url("../../public/images/plastic/happy-point-desktop.svg") no-repeat;
       }
     }
   } // end .happy-point-block-wrap
@@ -234,7 +234,7 @@ body.theme-plastic {
 
         &:after {
           @include overlay(0, 0, -1px) {
-            background: url("public/images/plastic/split-column-mobile.svg") no-repeat;
+            background: url("../../public/images/plastic/split-column-mobile.svg") no-repeat;
             background-position: bottom;
           }
         }
@@ -251,7 +251,7 @@ body.theme-plastic {
 
         &:after {
           @include overlay(0, -1px, 0, auto) {
-            background: url("public/images/plastic/split-column-desktop.svg") no-repeat;
+            background: url("../../public/images/plastic/split-column-desktop.svg") no-repeat;
             background-position: right;
             max-width: 150px;
           }
@@ -287,10 +287,10 @@ body.theme-plastic {
 
   .columns-block.block-style-icons {
     @include campaign_columns_style_icons(
-      $plastics-blue-mid url("public/images/plastic/four-column-header.svg") no-repeat,
+      $plastics-blue-mid url("../../public/images/plastic/four-column-header.svg") no-repeat,
       brightness(0) invert(100%),
       $montserrat, $semi-bold, $montserrat, $extra-bold,
-      url("public/images/plastic/arrow.svg"), url("public/images/plastic/arrow-light.svg"), none
+      url("../../public/images/plastic/arrow.svg"), url("../../public/images/plastic/arrow-light.svg"), none
     );
 
     h2 {
@@ -308,7 +308,7 @@ body.theme-plastic {
       mix($plastics-peach, white, 50%),
       $montserrat, $plastics-blue, 3.125rem, 3.75rem, $extra-bold,
       $roboto, $plastics-blue,
-      url("public/images/plastic/arrow-dark.svg"), url("public/images/plastic/arrow-light.svg")
+      url("../../public/images/plastic/arrow-dark.svg"), url("../../public/images/plastic/arrow-light.svg")
     );
 
     h2 {
@@ -336,7 +336,7 @@ body.theme-plastic {
         margin-bottom: 20px;
 
         .step-number-inner {
-          background-image: url("public/images/plastic/take-action.png");
+          background-image: url("../../public/images/plastic/take-action.png");
           color: $plastics-peach-darker;
           font-family: $montserrat;
           font-weight: $semi-bold;
@@ -362,7 +362,7 @@ body.theme-plastic {
 
         .step-number {
           background-color: white;
-          background-image: url("public/images/plastic/take-action.png");
+          background-image: url("../../public/images/plastic/take-action.png");
           border: 2px solid white;
           border-radius: 0 50% 50% 0;
           color: $plastics-peach-darker;
@@ -463,5 +463,9 @@ body.theme-plastic {
 
   .video-block {
     @include campaign_video($plastics-blue-light);
+  }
+
+  .social-share {
+    @include campaign-social-share($plastics-peach-darker, $white);
   }
 }

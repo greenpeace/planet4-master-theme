@@ -162,7 +162,7 @@ export class SplittwocolumnsBlock {
           if (issue_image) {
             issue_image_url = select('core').getMedia(issue_image);
             if ( issue_image_url ) {
-              issue_image_url = issue_image_url.media_details.sizes.medium.source_url;
+              issue_image_url = issue_image_url.source_url;
             }
           }
 
@@ -170,7 +170,7 @@ export class SplittwocolumnsBlock {
           if (tag_image) {
             tag_image_url = select('core').getMedia(tag_image);
             if ( tag_image_url ) {
-              tag_image_url = tag_image_url.media_details.sizes.medium.source_url;
+              tag_image_url = tag_image_url.source_url;
             }
           }
 

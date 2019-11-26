@@ -341,7 +341,7 @@ $medium-image-height: 600px;
 
       .caption-overlay {
         display: none;
-        background: url("public/images/carousel-blurred-overlay.png");
+        background: url("../../public/images/carousel-blurred-overlay.png");
         background-position: bottom right;
         background-size: cover;
         height: 100%;
@@ -631,7 +631,7 @@ $medium-image-height: 600px;
       text-align: center;
       width: 24px;
       height: 46px;
-      background: url("public/images/carousel-arrow-prev.png");
+      background: url("../../public/images/carousel-arrow-prev.png");
       background-size: cover;
 
       @include large-and-up {
@@ -665,7 +665,7 @@ $medium-image-height: 600px;
       width: 24px;
       height: 46px;
       cursor: pointer;
-      background: url("public/images/carousel-arrow-next.png");
+      background: url("../../public/images/carousel-arrow-next.png");
       background-size: contain;
       display: none;
 

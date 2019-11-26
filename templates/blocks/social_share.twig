@@ -1,0 +1,49 @@
+{% block social_share %}
+	{% if ( images ) %}
+		<section class="block social-share">
+
+			{% if ( fields.title or fields.description ) %}
+				{% if ( fields.title ) %}
+					<header>
+						<h2 class="page-section-header">{{ fields.title }}</h2>
+					</header>
+				{% endif %}
+
+				{% if ( fields.description ) %}
+					<div class="page-section-description">{{ fields.description|e('wp_kses_post')|wpautop|raw }}</div>
+				{% endif %}
+			{% endif %}
+
+			<div class="container">
+				<div class="grid-row">
+					{% for key, single_image in images %}
+						<div class="grid-item">
+							<img src="{{ single_image.image_src }}" data-background-position="{{ single_image.focus_image }}"
+								srcset="{{ single_image.image_srcset }}" sizes="{{ single_image.image_sizes }}"
+								alt="{{ single_image.alt_text }}">
+
+							<div class="share-strip">
+								<a href="https://www.facebook.com/sharer/sharer.php?u={{ single_image.social_url }}"
+									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Facebook', 'eventLabel': '{{ single_image.social_url }}'});"
+									target="_blank" class="facebook-share">
+									{{ "facebook"|svgicon }}
+								</a>
+								<a href="https://twitter.com/intent/tweet?url={{ single_image.social_url }}&text={{ single_image.message }}"
+									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Twitter', 'eventLabel': '{{ single_image.social_url }}'});"
+									target="_blank" class="twitter-share">
+									{{ "twitter"|svgicon }}
+								</a>
+								<a href="{{ single_image.image_src }}" download
+									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Download', 'eventLabel': '{{ single_image.social_url }}'});"
+									class="downlaod-share">
+									{{ "download"|svgicon }}
+								</a>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+
+		</section>
+	{% endif %}
+{% endblock %}

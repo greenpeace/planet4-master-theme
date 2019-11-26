@@ -137,7 +137,7 @@ export class ColumnsBlock {
               type: 'string'
             },
             link_new_tab:{
-              type: 'string'
+              type: 'boolean'
             },
             cta_text:{
               type: 'string'

@@ -81,7 +81,7 @@ export class HappypointBlock {
           if (id && (0 < id)) {
             img_url = select('core').getMedia(id);
             if(img_url){
-              img_url = img_url.media_details.sizes.medium.source_url;
+              img_url = img_url.source_url;
             }
           }
 

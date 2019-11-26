@@ -3,7 +3,7 @@
  * Plugin Name: Planet4 - Gutenberg Blocks
  * Description: Contains the Gutenberg blocks that are used by Planet4 project.
  * Plugin URI: http://github.com/greenpeace/planet4-plugin-gutenberg-blocks
- * Version: 0.3
+ * Version: 0.4
  * Php Version: 7.0
  *
  * Author: Greenpeace International
@@ -118,6 +118,7 @@ const PAGE_BLOCK_TYPES = [
 	'planet4-blocks/submenu',
 	'planet4-blocks/take-action-boxout',
 	'planet4-blocks/timeline',
+	'planet4-blocks/socialshare',
 ];
 
 // campaigns allow all block types.
@@ -135,6 +136,7 @@ const CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/split-two-columns',
 	'planet4-blocks/submenu',
 	'planet4-blocks/timeline',
+	'planet4-blocks/socialshare',
 ];
 
 /**
@@ -224,6 +226,35 @@ function set_allowed_block_types( $allowed_block_types, $post ) {
 
 add_filter( 'allowed_block_types', 'set_allowed_block_types', 10, 2 );
 
+/**
+ * @param array $block the block being rendered.
+ * For the "link_new_tab" field the type was initially incorrectly set to
+ * string instead of boolean. As a result we need to catch all empty strings here and
+ * turn them into false.
+ *
+ * Note that this DOES NOT get called when a block is rendered using the REST API column rendered *sigh*.
+ * Even better, there is no hook that allows to modify the request before the parameters are validated.
+ * As this is only for the block renderer of columns, a good option would be to replace the invalid argument
+ * on the frontend before the API is called.
+ * This should be sufficient as we can fix the data after this fix hsa been applied, after which we can remove the workaround.
+ *
+ * @return array
+ */
+function empty_string_to_false_in_link_new_tab_in_columns_blocks( $block ): array {
+	// Yes, that's right, WordPress doesn't follow its own rules here so we have a camel among snakes.
+	if ( 'planet4-blocks/columns' === $block['blockName'] ?? null ) {
+		foreach ( $block['attrs']['columns'] ?? [] as $key => $column ) {
+			if ( true !== $column['link_new_tab'] ) {
+				$block['attrs']['columns'][ $key ]['link_new_tab'] = false;
+			}
+		}
+	}
+
+	return $block;
+}
+
+add_filter( 'render_block_data', 'empty_string_to_false_in_link_new_tab_in_columns_blocks' );
+
 /*
 ==========================
 	L O A D  P L U G I N
@@ -234,11 +265,9 @@ P4GBKS\Loader::get_instance(
 		// --- Add here your own Block Controller ---
 		// DEPRECATED: Blocks could be registered inside Loader class
 		// 'P4GBKS\Controllers\Blocks\NewCovers_Controller'
-		'P4GBKS\Controllers\Menu\Settings_Controller',
-		'P4GBKS\Controllers\Menu\Blocks_Usage_Controller',
-		'P4GBKS\Controllers\Menu\Reusable_Blocks_Controller',
+		\P4GBKS\Controllers\Menu\Settings_Controller::class,
+		\P4GBKS\Controllers\Menu\Blocks_Usage_Controller::class,
+		\P4GBKS\Controllers\Menu\Reusable_Blocks_Controller::class,
 	],
-	'P4GBKS\Views\View',
-	'P4GBKS\Command\Shortcode_To_Gutenberg',
-	'P4GBKS\Command\Controller'
+	\P4GBKS\Views\View::class
 );
