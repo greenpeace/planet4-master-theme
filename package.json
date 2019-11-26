@@ -39,6 +39,7 @@
 	"dependencies": {
 		"@wordpress/components": "^8.3.2",
 		"@wordpress/data": "^4.9.2",
+		"postcss-loader": "^3.0.0",
 		"three": "^0.105.2",
 		"three-fbx-loader": "^1.0.3"
 	}

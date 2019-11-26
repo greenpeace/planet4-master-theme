@@ -387,7 +387,7 @@ final class Loader {
 		// Add master theme's main css as dependency for blocks css.
 		wp_enqueue_style(
 			'plugin-engagingnetworks',
-			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/style.css',
+			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/assets/build/style.min.css',
 			[
 				'bootstrap',
 				'slick',
