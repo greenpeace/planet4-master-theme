@@ -57,12 +57,17 @@ function get_campaign_attachments( $post_ids ) {
 		}
 	}
 
-	$placeholders = implode( ',', array_fill( 0, count( $post_ids ), '%d' ) );
+	$placeholders = [];
+	for ( $i = 2; $i < count( $post_ids ) + 2; $i++ ) {
+		$placeholders[] = "%$i\$d";
+	}
+
+	$placeholders = implode( ',', $placeholders );
 
 	$sql = 'SELECT post_content 
 			FROM %1$s 
 			WHERE ID IN(' . $placeholders . ') 
-				AND post_content REGEXP \'((wp-image-|wp-att-)[0-9][0-9]*)|\\\[gallery |shortcake\_|href=|src=\'';
+				AND post_content REGEXP \'((wp-image-|wp-att-)[0-9][0-9]*)|gallery_block_style|wp\:planet4\-blocks|href=|src=\'';
 
 	$values       = [];
 	$values[0]    = $wpdb->posts;
@@ -80,7 +85,7 @@ function get_campaign_attachments( $post_ids ) {
 		}
 
 		// Filter attachment ids from shortcake code(shortcake_gallery, shortcake_happy_point, shortcake_media_video).
-		preg_match_all( '#\[shortcake\_[a-zA-Z0-9\_\"\'\-\s\:\/\/\=\.\?\&]*\s(multiple_image|background|video_poster_img)[=][\"|\']([\d\s\,]*)[\"|\']#', $text, $matches, PREG_SET_ORDER );
+		preg_match_all( '#wp\:planet4\-blocks\/[a-zA-Z0-9\_\"\'\-\s\:\/\/\=\.\?\&\,\_\{\%]*(multiple_image|background|id|video_poster_img)[\"|\'][\:][\"|\']?([\d\s\,]*)[\"|\']?#', $text, $matches, PREG_SET_ORDER );
 		foreach ( $matches as $match ) {
 			if ( 'multiple_image' === $match[1] ) {
 				$multiple_images = explode( ',', $match[2] );
@@ -91,13 +96,13 @@ function get_campaign_attachments( $post_ids ) {
 		}
 
 		// Filter attachment ids from shortcake code(shortcake_carousel_header, shortcake_split_two_columns, shortcake_columns).
-		preg_match_all( '#\s(image_[0-9]*|attachment_[0-9]*|issue_image|tag_image)[=][\"|\']([\d\s\,]*)[\"|\']#', $text, $matches, PREG_SET_ORDER );
+		preg_match_all( '#[\"|\'](image|attachment|issue_image|tag_image)[\"|\'][\:][\"|\']?([\d]*)[\'|\"]?#', $text, $matches, PREG_SET_ORDER );
 		foreach ( $matches as $match ) {
 			$attachment_ids[] = $match[2];
 		}
 
 		// Filter attachment ids from [gallery] shortcode.
-		preg_match_all( '#\[gallery\s+[ids=\"\']+([\d\s,]*)[\"\'].#', $text, $matches, PREG_SET_ORDER );
+		preg_match_all( '#wp\:gallery\s\{[\"|\'](ids)[\"|\'][\:][\[]([\d\,]*)[\]]#', $text, $matches, PREG_SET_ORDER );
 		foreach ( $matches as $match ) {
 			foreach ( explode( ',', $match[1] ) as $id ) {
 				$attachment_ids[] = (int) $id;
