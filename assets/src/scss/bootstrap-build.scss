@@ -1,0 +1,69 @@
+@charset "utf-8";
+/*!
+Theme Name: Greenpeace Planet 4 Master Theme
+Theme URI: https://github.com/greenpeace/planet4-master-theme
+Description: Master theme for the Planet 4 Wordpress project
+Author: Greenpeace International
+Author URI: https://github.com/greenpeace
+Version: 1.58
+License: MIT
+License URI: https://opensource.org/licenses/MIT
+Tags: light, accessibility-ready
+Text Domain: planet4-master-theme
+*/
+
+// Full bootstrap:
+// @import "~bootstrap/scss/bootstrap";
+
+// @import "~bootstrap/scss/bootstrap-grid.scss";
+// @import "~bootstrap/scss/bootstrap-reboot.scss";
+
+// Required
+// See: https://getbootstrap.com/docs/4.3/getting-started/theming/#importing
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+// TODO: Add variable overrides for the 16px grid here.
+
+// Optional
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/code";
+@import "~bootstrap/scss/grid";
+
+// @import "~bootstrap/scss/_alert.scss";
+// @import "~bootstrap/scss/_badge.scss";
+@import "~bootstrap/scss/_breadcrumb.scss";
+// @import "~bootstrap/scss/_button-group.scss";
+// @import "~bootstrap/scss/_buttons.scss";
+// @import "~bootstrap/scss/_card.scss";
+@import "~bootstrap/scss/_carousel.scss";
+// @import "~bootstrap/scss/_close.scss";
+// @import "~bootstrap/scss/_code.scss";
+// @import "~bootstrap/scss/_custom-forms.scss";
+@import "~bootstrap/scss/_dropdown.scss";
+@import "~bootstrap/scss/_forms.scss";
+@import "~bootstrap/scss/_functions.scss";
+// @import "~bootstrap/scss/_grid.scss";
+@import "~bootstrap/scss/_images.scss";
+@import "~bootstrap/scss/_input-group.scss";
+// @import "~bootstrap/scss/_jumbotron.scss";
+@import "~bootstrap/scss/_list-group.scss";
+@import "~bootstrap/scss/_media.scss";
+@import "~bootstrap/scss/_mixins.scss";
+@import "~bootstrap/scss/_modal.scss";
+@import "~bootstrap/scss/_nav.scss";
+@import "~bootstrap/scss/_navbar.scss";
+@import "~bootstrap/scss/_pagination.scss";
+@import "~bootstrap/scss/_popover.scss";
+@import "~bootstrap/scss/_print.scss";
+// @import "~bootstrap/scss/_progress.scss";
+// @import "~bootstrap/scss/_reboot.scss";
+@import "~bootstrap/scss/_root.scss";
+@import "~bootstrap/scss/_tables.scss";
+@import "~bootstrap/scss/_tooltip.scss";
+@import "~bootstrap/scss/_transitions.scss";
+@import "~bootstrap/scss/_type.scss";
+@import "~bootstrap/scss/_utilities.scss";

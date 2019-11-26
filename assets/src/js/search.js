@@ -1,9 +1,7 @@
 /* global localizations */
 
-$ = jQuery; // eslint-disable-line no-global-assign
-
 // Search page.
-jQuery(function($) {
+export const setupSearch = function($) {
   const $search_form      = $( '#search_form' );
   const $load_more_button = $( '.btn-load-more-click-scroll' );
   let load_more_count   = 0;
@@ -64,7 +62,8 @@ jQuery(function($) {
   $('.search-result-item-image').hover(
     function() {
       $('.search-result-item-headline', $(this).parent()).addClass('search-hover');
-    }, function() {
+    },
+    function() {
       $('.search-result-item-headline', $(this).parent()).removeClass('search-hover');
     }
   );
@@ -153,4 +152,4 @@ jQuery(function($) {
       return false;
     }
   });
-});
+};

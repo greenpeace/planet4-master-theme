@@ -23,7 +23,7 @@
 		<meta property="og:type" content="article" />
 		<meta property="og:url" content="{{ current_url }}" />
 		{% if (og_description) %}
-			<meta property="og:description" content="{{ og_description|e('html_attr')|raw }}" />
+			<meta property="og:description" content="{{ og_description|striptags }}" />
 		{% endif %}
 		{% if (og_image_data) %}
 			<meta property="og:image" content="{{ og_image_data[0] }}" />
@@ -118,6 +118,7 @@
 
 	<link rel="pingback" href="{{ site.pingback_url }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 	<link rel="shortcut icon" type="image/ico" href="{{ theme.uri }}/favicon.ico"/>
 	<link rel="dns-prefetch" href="//act.greenpeace.org">
 	{{ wp_head }}

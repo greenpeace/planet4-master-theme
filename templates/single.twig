@@ -66,7 +66,7 @@
 		<div class="container">
 			<div class="post-content">
 				{% if ( post.take_action_boxout ) %}
-					{{ post.take_action_boxout|shortcodes|raw }}
+					{{ fn('do_blocks', post.take_action_boxout )|raw }}
 				{% endif %}
 				<div class="post-content-lead">
 					<article class="post-details clearfix">
@@ -83,7 +83,7 @@
 
 		<section class="article-listing">
 			{% if ( post.articles ) %}
-				{{ post.articles|shortcodes|raw }}
+				{{ fn('do_blocks', post.articles )|raw }}
 			{% endif %}
 		</section>
 		{% if ( 'closed' != post.comment_status ) %}

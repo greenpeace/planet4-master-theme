@@ -48,19 +48,19 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 				}
 
 				// Filter attachment ids from shortcake code(shortcake_gallery, shortcake_happy_point, shortcake_media_video).
-				preg_match_all( '#\[shortcake\_[a-zA-Z0-9\_\"\'\-\s\:\/\/\=\.\?\&]*\s((multiple_image|background|video_poster_img)[=][\"|\']([\d\s\,]*)[\"|\'])#', $post_content, $matches, PREG_SET_ORDER );
+				preg_match_all( '#wp\:planet4\-blocks\/[a-zA-Z0-9\_\"\'\-\s\:\/\/\=\.\?\&\,\_\{\%]*((multiple_image|background|id|video_poster_img)[\"|\'][\:][\"|\']?([\d\s\,]*)[\"|\']?)#', $post_content, $matches, PREG_SET_ORDER );
 				foreach ( $matches as $match ) {
 					$filter_data[] = $match[1];
 				}
 
 				// Filter attachment ids from shortcake code(shortcake_carousel_header, shortcake_split_two_columns, shortcake_columns).
-				preg_match_all( '#\s((image_[0-9]*|attachment_[0-9]*|issue_image|tag_image)[=][\"|\']([\d\s\,]*)[\"|\'])#', $post_content, $matches, PREG_SET_ORDER );
+				preg_match_all( '#([\"|\'](image|attachment|issue_image|tag_image)[\"|\'][\:][\"|\']?([\d]*)[\'|\"]?)#', $post_content, $matches, PREG_SET_ORDER );
 				foreach ( $matches as $match ) {
 					$filter_data[] = $match[1];
 				}
 
 				// Filter attachment ids from [gallery] shortcode.
-				preg_match_all( '#\[gallery\s+([ids=\"\']+([\d\s,]*)[\"\']).#', $post_content, $matches, PREG_SET_ORDER );
+				preg_match_all( '#wp\:gallery\s\{[\"|\']((ids)[\"|\'][\:][\[]([\d\,]*))[\]]#', $post_content, $matches, PREG_SET_ORDER );
 				foreach ( $matches as $match ) {
 					$filter_data[] = $match[1];
 				}
