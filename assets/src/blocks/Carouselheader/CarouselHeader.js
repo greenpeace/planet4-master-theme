@@ -13,20 +13,24 @@ export class CarouselHeader extends Component {
   constructor(props) {
     super(props);
     this.refs = [];
-    this.ssrRef = React.createRef();
     this.firstRender = true;
+  }
+
+  setDOMListener() {
+    const carouselInterval = window.setInterval(
+      () => {
+        if (document.getElementById('carousel-wrapper-header')) {
+          window.clearInterval(carouselInterval);
+          initializeCarouselHeader();
+        }
+      },
+      500
+    );
   }
 
   componentDidMount() {
     this.collapseSlides();
-    if (this.ssrRef.current && this.ssrRef.current.currentFetchRequest) {
-      // Get ServerSideRender component fetch request and attach resolve function.
-      this.ssrRef.current.currentFetchRequest.then(function () {
-        setTimeout(function () {
-          initializeCarouselHeader();
-        }, 1000);
-      });
-    }
+    this.setDOMListener();
   }
 
   componentDidUpdate() {
@@ -34,16 +38,11 @@ export class CarouselHeader extends Component {
       this.collapseSlides();
       this.firstRender = false;
     }
+    this.setDOMListener();
   }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
-    if (this.ssrRef.current && this.ssrRef.current.currentFetchRequest) {
-      this.ssrRef.current.currentFetchRequest.then(function() {
-        setTimeout(function () {
-          initializeCarouselHeader();
-        }, 1000);
-      });
-    }
+    this.setDOMListener();
   }
 
   /**
@@ -172,7 +171,6 @@ export class CarouselHeader extends Component {
                   carousel_autoplay: this.props.carousel_autoplay,
                   slides: this.props.slides,
                 }}
-                ref={this.ssrRef}
               >
               </ServerSideRender>
             : <div>Not enough data available to render the block yet.</div>

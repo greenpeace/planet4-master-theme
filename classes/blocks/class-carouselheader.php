@@ -83,6 +83,15 @@ class CarouselHeader extends Base_Block {
 				],
 			]
 		);
+
+		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_editor_scripts' ] );
+	}
+
+	/**
+	 * Enqueue required scripts for the editor.
+	 */
+	public function enqueue_editor_scripts() {
+		wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );
 	}
 
 	/**
@@ -125,17 +134,19 @@ class CarouselHeader extends Base_Block {
 		$fields['total_images'] = $total_images;
 
 		// Enqueue js for the frontend.
-		wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );
-		wp_enqueue_script(
-			'carousel-header',
-			P4GBKS_PLUGIN_URL . 'assets/build/carouselHeaderFrontIndex.js',
-			[
-				'jquery',
-				'hammer',
-			],
-			'0.2',
-			true
-		);
+		if ( ! $this->is_rest_request() ) {
+			wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );
+			wp_enqueue_script(
+				'carousel-header',
+				P4GBKS_PLUGIN_URL . 'assets/build/carouselHeaderFrontIndex.js',
+				[
+					'jquery',
+					'hammer',
+				],
+				'0.3',
+				true
+			);
+		}
 
 		$block_data = [
 			'fields' => $fields,

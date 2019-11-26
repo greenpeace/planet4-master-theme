@@ -318,7 +318,7 @@ final class Loader {
 			'p4gbks_admin_script',
 			P4GBKS_PLUGIN_URL . 'admin/js/editor.js',
 			[],
-			'0.1',
+			'0.2',
 			true
 		);
 

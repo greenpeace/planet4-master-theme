@@ -1,1 +1,575 @@
-!function(e){var a={};function t(r){if(a[r])return a[r].exports;var i=a[r]={i:r,l:!1,exports:{}};return e[r].call(i.exports,i,i.exports,t),i.l=!0,i.exports}t.m=e,t.c=a,t.d=function(e,a,r){t.o(e,a)||Object.defineProperty(e,a,{configurable:!1,enumerable:!0,get:r})},t.r=function(e){Object.defineProperty(e,"__esModule",{value:!0})},t.n=function(e){var a=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(a,"a",a),a},t.o=function(e,a){return Object.prototype.hasOwnProperty.call(e,a)},t.p="",t(t.s=34)}({13:function(e,a,t){"use strict";t.d(a,"a",(function(){return n}));var r={SLIDE_TRANSITION_SPEED:500,activeTransition:null,nextSlide:function(e){var a=$(e),t=a.next(".carousel-item");return t.length?t:a.prevAll(".carousel-item").last()},previousSlide:function(e){var a=$(e),t=a.prev(".carousel-item");return t.length?t:a.nextAll(".carousel-item").last()},switchIndicator:function(e){this.$CarouselIndicators.children().each((function(a,t){$(t).toggleClass("active",a===e)}))},setup:function(){var e=this;e.$CarouselHeaderWrapper=$("#carousel-wrapper-header"),e.$CarouselIndicators=e.$CarouselHeaderWrapper.find(".carousel-indicators"),e.$Slides=e.$CarouselHeaderWrapper.find(".carousel-item"),e.$CarouselHeaderWrapper.find("img").on("load",(function(){$(this).get(0).currentSrc!==$(this).parent().css("background-image").replace(/.*\s?url\(['"]?/,"").replace(/['"]?\).*/,"")&&$(this).parent().css("background-image","url("+$(this).get(0).currentSrc+")")})),e.$CarouselIndicators.find("li").remove(),e.$Slides.each((function(a,t){var r=$(t);$("<li>").attr("data-target","#carousel-wrapper-header").attr("data-slide-to",a).toggleClass("active",0===a).appendTo(e.$CarouselIndicators);var i=r.find("img"),n=i.get(0).currentSrc||i.attr("src");r.css("background-image","url("+n+")").css("background-position",i.data("background-position")),r.attr("data-slide",a)}));var a=".carousel-control-next";if("rtl"==$("html").attr("dir")&&(a+=", .carousel-control-prev"),e.$CarouselHeaderWrapper.on("click",a,(function(a){a.preventDefault(),e.advanceCarousel()})),e.$CarouselHeaderWrapper.on("click",".carousel-indicators li",(function(a){a.preventDefault(),e.activate($(a.target).data("slide-to"))})),$(".carousel-header").length>0&&e.$Slides.length>1){var t=$(".carousel-header")[0],r=new Hammer(t,{recognizers:[]}),i=new Hammer.Manager(r.element),n=new Hammer.Swipe;i.add(n),i.on("swipeleft",(function(){e.advanceCarousel()})),i.on("swiperight",(function(){e.backwardsCarousel()})),i.on("swipeup",(function(e){var a=$(window).scrollTop();e.preventDefault(),$("html, body").animate({scrollTop:a+200})})),i.on("swipedown",(function(e){var a=$(window).scrollTop();e.preventDefault(),$("html, body").animate({scrollTop:a-200})}))}e.$Slides.each((function(a,t){var r=$(t),i=e.nextSlide(r).find("img");if(i.length>0){var n=$("<div>").addClass("carousel-preview-wrap").prependTo(r),s=i.get(0).currentSrc||i.attr("src");$("<div>").addClass("carousel-preview").css("background-image","url("+s+")").css("background-position",i.data("background-position")).appendTo(n)}}))},backwardsCarousel:function(){var e=this.$Slides.filter(".active"),a=this.previousSlide(e);this.activate(a.data("slide"))},activate:function(e){var a=this,t=a.$Slides.eq(e);t.hasClass("active")&&!t.hasClass("slide-over")||("full-width-classic"!=a.$CarouselHeaderWrapper.data("block-style")&&t.hasClass("next")?a.advanceCarousel():(a.activeTransition&&clearTimeout(a.activeTransition),a.switchIndicator(e),a.$Slides.removeClass("active next slide-over fade-out"),t.addClass("active"),a.nextSlide(t).addClass("next")))},advanceCarousel:function(){var e=this,a=e.$Slides.filter(".active");e.$Slides.removeClass("next");var t=e.nextSlide(a).addClass("next");if(e.activeTransition)return clearTimeout(e.activeTransition),e.activeTransition=null,e.$Slides.removeClass("fade-out slide-over active"),t.addClass("active"),e.nextSlide(t).addClass("next"),void e.advanceCarousel();a.addClass("slide-over"),e.switchIndicator(e.$Slides.index(t)),e.activeTransition=setTimeout((function(){a.addClass("fade-out"),e.activeTransition=setTimeout((function(){a.removeClass("active"),e.$Slides.removeClass("slide-over fade-out"),t.removeClass("next").addClass("active"),e.nextSlide(t).addClass("next"),e.activeTransition=null}),e.SLIDE_TRANSITION_SPEED/2)}),e.SLIDE_TRANSITION_SPEED)}},i={nextSlide:function(e){var a=$(e),t=a.next(".carousel-item");return t.length?t:a.prevAll(".carousel-item").last()},previousSlide:function(e){var a=$(e),t=a.prev(".carousel-item");return t.length?t:a.nextAll(".carousel-item").last()},switchIndicator:function(e){this.$CarouselIndicators.children().each((function(a,t){$(t).toggleClass("active",a===e)}))},getCurrentSlideIndex:function(){return this.$CarouselHeaderWrapper.find(".carousel-item.active").index()},setup:function(){var e=this;e.$CarouselHeaderWrapper=$("#carousel-wrapper-header"),e.$Slides=e.$CarouselHeaderWrapper.find(".carousel-item"),e.$CarouselHeaderWrapper.find("img").on("load",(function(){$(this).get(0).currentSrc!==$(this).parent().css("background-image").replace(/.*\s?url\(['"]?/,"").replace(/['"]?\).*/,"")&&$(this).parent().css("background-image","url("+$(this).get(0).currentSrc+")")})),e.$CarouselIndicators=e.$CarouselHeaderWrapper.find(".carousel-indicators"),e.$CarouselIndicators.find("li").remove(),e.$Slides.each((function(a,t){var r=$(t);$("<li>").attr("data-target","#carousel-wrapper-header").attr("data-slide-to",a).toggleClass("active",0===a).appendTo(e.$CarouselIndicators);var i=r.find("img"),n=i.get(0).currentSrc||i.attr("src");r.find(".background-holder").css("background-image","url("+n+")").css("background-position",i.data("background-position")),r.attr("data-slide",a)}));var a=[".carousel-control-next",".carousel-control-prev"];if("rtl"==$("html").attr("dir")&&a.reverse(),e.$CarouselHeaderWrapper.on("click",a[0],(function(a){a.preventDefault(),e.cancelAutoplayInterval(),e.advanceCarousel()})),e.$CarouselHeaderWrapper.on("click",a[1],(function(a){a.preventDefault(),e.cancelAutoplayInterval(),e.backwardsCarousel()})),e.$CarouselHeaderWrapper.on("click",".carousel-indicators li",(function(a){a.preventDefault(),e.cancelAutoplayInterval(),e.activate($(a.target).data("slide-to"))})),$(".carousel-header_full-width-classic").length>0&&e.$Slides.length>1){var t=$(".carousel-header_full-width-classic")[0],r=new Hammer(t,{recognizers:[]}),i=new Hammer.Manager(r.element),n=new Hammer.Swipe;i.add(n),i.on("swipeleft",(function(){e.cancelAutoplayInterval(),e.advanceCarousel()})),i.on("swiperight",(function(){e.cancelAutoplayInterval(),e.backwardsCarousel()})),i.on("swipeup",(function(e){var a=$(window).scrollTop();e.preventDefault(),$("html, body").animate({scrollTop:a+200})})),i.on("swipedown",(function(e){var a=$(window).scrollTop();e.preventDefault(),$("html, body").animate({scrollTop:a-200})}))}e.positionIndicators(),e.setCarouselHeight(e.$Slides.first()),e.$CarouselHeaderWrapper.find(".initial").on("transitionend",(function(){$(this).removeClass("initial")})),$(window).on("resize",(function(){var a=$(".carousel-item.active");e.setCarouselHeight(a),e.positionIndicators()})),e.autoplayPaused=!1,e.autoplayEnabled=1==e.$CarouselHeaderWrapper.data("carousel-autoplay"),e.$Slides.length>1&&e.autoplayEnabled&&(e.startAutoplayInterval(),e.$CarouselHeaderWrapper.on("mouseenter",(function(){e.autoplayPaused=!0})),e.$CarouselHeaderWrapper.on("mouseleave",(function(){e.autoplayPaused=!1}))),$(window).on("scroll",(function(){e.cancelAutoplayInterval(),$(window).off("scroll")}))},startAutoplayInterval:function(){var e=this;e.autoplayInterval=window.setInterval((function(){e.autoplayPaused||e.advanceCarousel()}),6e3)},cancelAutoplayInterval:function(){window.clearInterval(this.autoplayInterval)},activate:function(e){var a=this.$Slides.eq(e),t=this.getCurrentSlideIndex();e!=t&&(e>t?this.advanceCarousel(a):this.backwardsCarousel(a))},positionIndicators:function(){var e=this.$CarouselHeaderWrapper.find(".carousel-indicators"),a=this.$CarouselHeaderWrapper.find(".carousel-item.active .action-button"),t="rtl"==$("html").attr("dir"),r=window.matchMedia("(min-width: 992px)").matches&&t||window.matchMedia("(min-width: 768px) and (max-width: 992px)").matches&&!t;if(window.matchMedia("(min-width: 768px)").matches&&a.length){var i=a.offset().left;if(r){var n=i+(t?a.width():a.parent().width()),s=$(window).width()-n;e.css("right",s+"px").css("left","").css("margin-left","0").css("margin-right","3px")}else i=t?a.parent().offset().left:a.offset().left,e.css("left",i+"px").css("right","").css("margin-right","0").css("margin-left","3px")}else e.css("right",""),e.css("left","")},getSlideHeight:function(e){return e.find(".carousel-item-mask .background-holder").outerHeight()+e.find(".carousel-caption").outerHeight()+"px"},setCarouselHeight:function(e){window.matchMedia("(max-width: 992px)").matches?this.$CarouselHeaderWrapper.find(".carousel-inner, .carousel-item-mask").css("height",this.getSlideHeight(e)):this.$CarouselHeaderWrapper.find(".carousel-inner, .carousel-item-mask").css("height","")},backwardsCarousel:function(e){var a=this,t=a.$Slides.filter(".active"),r=null;r=e||a.previousSlide(t),t.addClass("slide-right"),r.addClass("prev"),a.setCarouselHeight(r),t.on("transitionend",(function(){t.removeClass("slide-right active"),r.addClass("active").removeClass("prev"),t.off("transitionend")})),a.switchIndicator(a.$Slides.index(r))},advanceCarousel:function(e){var a=this,t=a.$Slides.filter(".active"),r=null;r=e||a.nextSlide(t),t.addClass("slide-left"),r.addClass("next"),t.on("transitionend",(function(){t.removeClass("slide-left active"),r.addClass("active").removeClass("next"),t.off("transitionend")})),t.find(".btn").fadeIn(),a.setCarouselHeight(r),a.switchIndicator(a.$Slides.index(r))}},n=function(){var e=$("#carousel-wrapper-header");if(e.length>0)switch(e.data("block-style")){case"full-width-classic":i.setup();break;default:r.setup()}}},34:function(e,a,t){"use strict";t.r(a);var r=t(13);jQuery((function(){Object(r.a)()}))}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./assets/src/carouselHeaderFrontIndex.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./assets/src/blocks/Carouselheader/CarouselHeaderFront.js":
+/*!*****************************************************************!*\
+  !*** ./assets/src/blocks/Carouselheader/CarouselHeaderFront.js ***!
+  \*****************************************************************/
+/*! exports provided: initializeCarouselHeader */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initializeCarouselHeader", function() { return initializeCarouselHeader; });
+/* global Hammer */
+var ZoomAndSlideToGrayCarouselHeader = {
+  /**
+   * This module provides a custom slideshow mechanism for use with the header carousel.
+   * The transition behavior in this block is too complex to be easily layered upon the
+   * default bootstrap carousel.
+   */
+  // SLIDE_TRANSITION_SPEED should match $slide-transition-speed in _carousel_header.scss.
+  SLIDE_TRANSITION_SPEED: 500,
+  activeTransition: null,
+
+  /**
+   * Given an active slide return the next slide, wrapping around the end of the carousel.
+   *
+   * @param {HTMLElement|jQuery} slide A slide in the carousel.
+   * @returns {jQuery} A jQuery selection of the next slide.
+   */
+  nextSlide: function nextSlide(el) {
+    var $el = $(el);
+    var $nextSlide = $el.next('.carousel-item'); // prevAll returns items in reverse DOM order: the first slide is the last element.
+
+    return $nextSlide.length ? $nextSlide : $el.prevAll('.carousel-item').last();
+  },
+  previousSlide: function previousSlide(el) {
+    var $el = $(el);
+    var $previousSlide = $el.prev('.carousel-item');
+    return $previousSlide.length ? $previousSlide : $el.nextAll('.carousel-item').last();
+  },
+  // Update active slide indicators
+  switchIndicator: function switchIndicator(index) {
+    this.$CarouselIndicators.children().each(function (i, el) {
+      $(el).toggleClass('active', i === index);
+    });
+  },
+  setup: function setup() {
+    var me = this;
+    me.$CarouselHeaderWrapper = $('#carousel-wrapper-header');
+    me.$CarouselIndicators = me.$CarouselHeaderWrapper.find('.carousel-indicators');
+    me.$Slides = me.$CarouselHeaderWrapper.find('.carousel-item');
+    me.$CarouselHeaderWrapper.find('img').on('load', function () {
+      var current_img_src = $(this).get(0).currentSrc;
+      var current_bg_img = $(this).parent().css('background-image').replace(/.*\s?url\(['"]?/, '').replace(/['"]?\).*/, '');
+
+      if (current_img_src !== current_bg_img) {
+        $(this).parent().css('background-image', 'url(' + $(this).get(0).currentSrc + ')');
+      }
+    });
+    me.$CarouselIndicators.find('li').remove(); // Empty the indicators list
+
+    me.$Slides.each(function (i, el) {
+      var $slide = $(el); // Populate carousel indicators list
+
+      $('<li>').attr('data-target', '#carousel-wrapper-header').attr('data-slide-to', i).toggleClass('active', i === 0).appendTo(me.$CarouselIndicators); // Convert the provided image tag into background image styles.
+
+      var $img = $slide.find('img');
+      var img_src = $img.get(0).currentSrc || $img.attr('src');
+      $slide.css('background-image', 'url(' + img_src + ')').css('background-position', $img.data('background-position')); // Populate carousel slide index
+
+      $slide.attr('data-slide', i);
+    }); // Bind mouse interaction events
+
+    var clickTargets = '.carousel-control-next';
+
+    if ($('html').attr('dir') == 'rtl') {
+      clickTargets += ', .carousel-control-prev';
+    }
+
+    me.$CarouselHeaderWrapper.on('click', clickTargets, function (evt) {
+      evt.preventDefault();
+      me.advanceCarousel();
+    });
+    me.$CarouselHeaderWrapper.on('click', '.carousel-indicators li', function (evt) {
+      evt.preventDefault();
+      me.activate($(evt.target).data('slide-to'));
+    });
+    /* Carousel header swipe on mobile */
+
+    if ($('.carousel-header').length > 0 && me.$Slides.length > 1) {
+      var carousel_element = $('.carousel-header')[0];
+      var carousel_head_hammer = new Hammer(carousel_element, {
+        recognizers: []
+      });
+      var hammer = new Hammer.Manager(carousel_head_hammer.element);
+      var swipe = new Hammer.Swipe();
+      hammer.add(swipe);
+      hammer.on('swipeleft', function () {
+        me.advanceCarousel();
+      });
+      hammer.on('swiperight', function () {
+        me.backwardsCarousel();
+      }); // Vertical swiping on carousel should scroll the page
+
+      hammer.on('swipeup', function (event) {
+        var y = $(window).scrollTop();
+        event.preventDefault();
+        $('html, body').animate({
+          scrollTop: y + 200
+        });
+      });
+      hammer.on('swipedown', function (event) {
+        var y = $(window).scrollTop();
+        event.preventDefault();
+        $('html, body').animate({
+          scrollTop: y - 200
+        });
+      });
+    }
+
+    me.$Slides.each(function (i, el) {
+      var $slide = $(el);
+      var $nextImg = me.nextSlide($slide).find('img');
+
+      if ($nextImg.length > 0) {
+        // Add an element within the slide to hold the next slide preview.
+        var $preview = $('<div>').addClass('carousel-preview-wrap').prependTo($slide);
+        var next_img_src = $nextImg.get(0).currentSrc || $nextImg.attr('src');
+        $('<div>').addClass('carousel-preview').css('background-image', 'url(' + next_img_src + ')').css('background-position', $nextImg.data('background-position')).appendTo($preview);
+      }
+    });
+  },
+  backwardsCarousel: function backwardsCarousel() {
+    var $active = this.$Slides.filter('.active');
+    var $previous = this.previousSlide($active);
+    this.activate($previous.data('slide'));
+  },
+
+  /**
+   * Switch to a specific slide.
+   *
+   * @param {Number} slideIndex The index of a slide in the carousel.
+   */
+  activate: function activate(slideIndex) {
+    var me = this;
+    var $slide = me.$Slides.eq(slideIndex);
+
+    if ($slide.hasClass('active') && !$slide.hasClass('slide-over')) {
+      // If the requested slide is active and not transitioning, do nothing.
+      return;
+    }
+
+    if (me.$CarouselHeaderWrapper.data('block-style') != 'full-width-classic') {
+      if ($slide.hasClass('next')) {
+        // If the slide being requested is next, transition normally.
+        me.advanceCarousel();
+        return;
+      }
+    }
+
+    if (me.activeTransition) {
+      clearTimeout(me.activeTransition);
+    }
+
+    me.switchIndicator(slideIndex);
+    me.$Slides.removeClass('active next slide-over fade-out');
+    $slide.addClass('active');
+    me.nextSlide($slide).addClass('next');
+  },
+
+  /**
+   * Advance to the next slide in the carousel.
+   */
+  advanceCarousel: function advanceCarousel() {
+    var me = this;
+    var $active = me.$Slides.filter('.active');
+    me.$Slides.removeClass('next');
+    var $next = me.nextSlide($active).addClass('next');
+
+    if (me.activeTransition) {
+      // A transition is in progress, so proceed to the next pair of slides
+      clearTimeout(me.activeTransition);
+      me.activeTransition = null;
+      me.$Slides.removeClass('fade-out slide-over active');
+      $next.addClass('active');
+      me.nextSlide($next).addClass('next');
+      me.advanceCarousel();
+      return;
+    } // Transition out the active slide
+
+
+    $active.addClass('slide-over');
+    me.switchIndicator(me.$Slides.index($next)); // When transition is done, swap out the slides
+
+    me.activeTransition = setTimeout(function beginTransition() {
+      $active.addClass('fade-out');
+      me.activeTransition = setTimeout(function completeTransition() {
+        $active.removeClass('active');
+        me.$Slides.removeClass('slide-over fade-out');
+        $next.removeClass('next').addClass('active'); // Ensure the new upcoming slide has .next
+
+        me.nextSlide($next).addClass('next');
+        me.activeTransition = null;
+      }, me.SLIDE_TRANSITION_SPEED / 2);
+    }, me.SLIDE_TRANSITION_SPEED);
+  }
+};
+var FullWidthClassicCarouselHeader = {
+  /**
+   * Given an active slide return the next slide, wrapping around the end of the carousel.
+   *
+   * @param {HTMLElement|jQuery} slide A slide in the carousel.
+   * @returns {jQuery} A jQuery selection of the next slide.
+   */
+  nextSlide: function nextSlide(el) {
+    var $el = $(el);
+    var $nextSlide = $el.next('.carousel-item'); // prevAll returns items in reverse DOM order: the first slide is the last element.
+
+    return $nextSlide.length ? $nextSlide : $el.prevAll('.carousel-item').last();
+  },
+  previousSlide: function previousSlide(el) {
+    var $el = $(el);
+    var $previousSlide = $el.prev('.carousel-item');
+    return $previousSlide.length ? $previousSlide : $el.nextAll('.carousel-item').last();
+  },
+  // Update active slide indicators
+  switchIndicator: function switchIndicator(index) {
+    this.$CarouselIndicators.children().each(function (i, el) {
+      $(el).toggleClass('active', i === index);
+    });
+  },
+  getCurrentSlideIndex: function getCurrentSlideIndex() {
+    return this.$CarouselHeaderWrapper.find('.carousel-item.active').index();
+  },
+  setup: function setup() {
+    var me = this;
+    me.$CarouselHeaderWrapper = $('#carousel-wrapper-header');
+    me.$Slides = me.$CarouselHeaderWrapper.find('.carousel-item');
+    me.$CarouselHeaderWrapper.find('img').on('load', function () {
+      var current_img_src = $(this).get(0).currentSrc;
+      var current_bg_img = $(this).parent().css('background-image').replace(/.*\s?url\(['"]?/, '').replace(/['"]?\).*/, '');
+
+      if (current_img_src !== current_bg_img) {
+        $(this).parent().css('background-image', 'url(' + $(this).get(0).currentSrc + ')');
+      }
+    });
+    me.$CarouselIndicators = me.$CarouselHeaderWrapper.find('.carousel-indicators');
+    me.$CarouselIndicators.find('li').remove(); // Empty the indicators list
+
+    me.$Slides.each(function (i, el) {
+      var $slide = $(el); // Populate carousel indicators list
+
+      $('<li>').attr('data-target', '#carousel-wrapper-header').attr('data-slide-to', i).toggleClass('active', i === 0).appendTo(me.$CarouselIndicators); // Convert the provided image tag into background image styles.
+
+      var $img = $slide.find('img');
+      var img_src = $img.get(0).currentSrc || $img.attr('src');
+      $slide.find('.background-holder').css('background-image', 'url(' + img_src + ')').css('background-position', $img.data('background-position')); // Populate carousel slide index
+
+      $slide.attr('data-slide', i);
+    }); // Bind mouse interaction events
+
+    var clickTargets = ['.carousel-control-next', '.carousel-control-prev'];
+
+    if ($('html').attr('dir') == 'rtl') {
+      clickTargets.reverse();
+    }
+
+    me.$CarouselHeaderWrapper.on('click', clickTargets[0], function (evt) {
+      evt.preventDefault();
+      me.cancelAutoplayInterval();
+      me.advanceCarousel();
+    });
+    me.$CarouselHeaderWrapper.on('click', clickTargets[1], function (evt) {
+      evt.preventDefault();
+      me.cancelAutoplayInterval();
+      me.backwardsCarousel();
+    });
+    me.$CarouselHeaderWrapper.on('click', '.carousel-indicators li', function (evt) {
+      evt.preventDefault();
+      me.cancelAutoplayInterval();
+      me.activate($(evt.target).data('slide-to'));
+    });
+    /* Carousel header swipe on mobile */
+
+    if ($('.carousel-header_full-width-classic').length > 0 && me.$Slides.length > 1) {
+      var carousel_element = $('.carousel-header_full-width-classic')[0];
+      var carousel_head_hammer = new Hammer(carousel_element, {
+        recognizers: []
+      });
+      var hammer = new Hammer.Manager(carousel_head_hammer.element);
+      var swipe = new Hammer.Swipe();
+      hammer.add(swipe);
+      hammer.on('swipeleft', function () {
+        me.cancelAutoplayInterval();
+        me.advanceCarousel();
+      });
+      hammer.on('swiperight', function () {
+        me.cancelAutoplayInterval();
+        me.backwardsCarousel();
+      }); // Vertical swiping on carousel should scroll the page
+
+      hammer.on('swipeup', function (event) {
+        var y = $(window).scrollTop();
+        event.preventDefault();
+        $('html, body').animate({
+          scrollTop: y + 200
+        });
+      });
+      hammer.on('swipedown', function (event) {
+        var y = $(window).scrollTop();
+        event.preventDefault();
+        $('html, body').animate({
+          scrollTop: y - 200
+        });
+      });
+    }
+
+    me.positionIndicators();
+    me.setCarouselHeight(me.$Slides.first());
+    me.$CarouselHeaderWrapper.find('.initial').on('transitionend', function () {
+      $(this).removeClass('initial');
+    });
+    $(window).on('resize', function () {
+      var $currentSlide = $('.carousel-item.active');
+      me.setCarouselHeight($currentSlide);
+      me.positionIndicators();
+    });
+    me.autoplayPaused = false;
+    me.autoplayEnabled = me.$CarouselHeaderWrapper.data('carousel-autoplay') == true;
+
+    if (me.$Slides.length > 1 && me.autoplayEnabled) {
+      me.startAutoplayInterval();
+      me.$CarouselHeaderWrapper.on('mouseenter', function () {
+        me.autoplayPaused = true;
+      });
+      me.$CarouselHeaderWrapper.on('mouseleave', function () {
+        me.autoplayPaused = false;
+      });
+    }
+
+    $(window).on('scroll', function () {
+      me.cancelAutoplayInterval();
+      $(window).off('scroll');
+    });
+  },
+  startAutoplayInterval: function startAutoplayInterval() {
+    var me = this;
+    me.autoplayInterval = window.setInterval(function () {
+      if (!me.autoplayPaused) {
+        me.advanceCarousel();
+      }
+    }, 6000);
+  },
+  cancelAutoplayInterval: function cancelAutoplayInterval() {
+    window.clearInterval(this.autoplayInterval);
+  },
+
+  /**
+   * Switch to a specific slide.
+   *
+   * @param {Number} slideIndex The index of a slide in the carousel.
+   */
+  activate: function activate(slideIndex) {
+    var me = this;
+    var $slide = me.$Slides.eq(slideIndex);
+    var currentIndex = me.getCurrentSlideIndex();
+
+    if (slideIndex == currentIndex) {
+      return;
+    }
+
+    if (slideIndex > currentIndex) {
+      me.advanceCarousel($slide);
+    } else {
+      me.backwardsCarousel($slide);
+    }
+  },
+  positionIndicators: function positionIndicators() {
+    var $indicators = this.$CarouselHeaderWrapper.find('.carousel-indicators');
+    var $header = this.$CarouselHeaderWrapper.find('.carousel-item.active .action-button');
+    var isRTL = $('html').attr('dir') == 'rtl';
+    var rightSide = window.matchMedia('(min-width: 992px)').matches && isRTL || window.matchMedia('(min-width: 768px) and (max-width: 992px)').matches && !isRTL;
+
+    if (window.matchMedia('(min-width: 768px)').matches && $header.length) {
+      var leftOffset = $header.offset().left;
+
+      if (rightSide) {
+        var rightOffset = leftOffset + (isRTL ? $header.width() : $header.parent().width());
+        var indicatorsRight = $(window).width() - rightOffset;
+        $indicators.css('right', indicatorsRight + 'px').css('left', '').css('margin-left', '0').css('margin-right', '3px'); // same as indicators x margin
+      } else {
+        leftOffset = isRTL ? $header.parent().offset().left : $header.offset().left;
+        $indicators.css('left', leftOffset + 'px').css('right', '').css('margin-right', '0').css('margin-left', '3px');
+      }
+    } else {
+      $indicators.css('right', '');
+      $indicators.css('left', '');
+    }
+  },
+  getSlideHeight: function getSlideHeight($slide) {
+    return $slide.find('.carousel-item-mask .background-holder').outerHeight() + $slide.find('.carousel-caption').outerHeight() + 'px';
+  },
+  setCarouselHeight: function setCarouselHeight($currentSlide) {
+    var me = this;
+
+    if (window.matchMedia('(max-width: 992px)').matches) {
+      me.$CarouselHeaderWrapper.find('.carousel-inner, .carousel-item-mask').css('height', this.getSlideHeight($currentSlide));
+    } else {
+      me.$CarouselHeaderWrapper.find('.carousel-inner, .carousel-item-mask').css('height', '');
+    }
+  },
+  backwardsCarousel: function backwardsCarousel($slide) {
+    var me = this;
+    var $activeSlide = me.$Slides.filter('.active');
+    var $previousSlide = null;
+
+    if ($slide) {
+      $previousSlide = $slide;
+    } else {
+      $previousSlide = me.previousSlide($activeSlide);
+    }
+
+    $activeSlide.addClass('slide-right');
+    $previousSlide.addClass('prev');
+
+    function unsetTransitionClasses() {
+      $activeSlide.removeClass('slide-right active');
+      $previousSlide.addClass('active').removeClass('prev');
+      $activeSlide.off('transitionend');
+    }
+
+    me.setCarouselHeight($previousSlide);
+    $activeSlide.on('transitionend', unsetTransitionClasses);
+    me.switchIndicator(me.$Slides.index($previousSlide));
+  },
+
+  /**
+   * Advance to the next slide in the carousel.
+   */
+  advanceCarousel: function advanceCarousel($slide) {
+    var me = this;
+    var $activeSlide = me.$Slides.filter('.active');
+    var $nextSlide = null;
+
+    if ($slide) {
+      $nextSlide = $slide;
+    } else {
+      $nextSlide = me.nextSlide($activeSlide);
+    }
+
+    $activeSlide.addClass('slide-left');
+    $nextSlide.addClass('next');
+
+    function unsetTransitionClasses() {
+      $activeSlide.removeClass('slide-left active');
+      $nextSlide.addClass('active').removeClass('next');
+      $activeSlide.off('transitionend');
+    }
+
+    $activeSlide.on('transitionend', unsetTransitionClasses);
+    $activeSlide.find('.btn').fadeIn();
+    me.setCarouselHeight($nextSlide);
+    me.switchIndicator(me.$Slides.index($nextSlide));
+  }
+};
+var initializeCarouselHeader = function initializeCarouselHeader() {
+  var $CarouselHeaderWrapper = $('#carousel-wrapper-header');
+
+  if ($CarouselHeaderWrapper.length > 0) {
+    switch ($CarouselHeaderWrapper.data('block-style')) {
+      case 'full-width-classic':
+        FullWidthClassicCarouselHeader.setup();
+        break;
+
+      default:
+        ZoomAndSlideToGrayCarouselHeader.setup();
+        break;
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./assets/src/carouselHeaderFrontIndex.js":
+/*!************************************************!*\
+  !*** ./assets/src/carouselHeaderFrontIndex.js ***!
+  \************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _blocks_Carouselheader_CarouselHeaderFront__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./blocks/Carouselheader/CarouselHeaderFront */ "./assets/src/blocks/Carouselheader/CarouselHeaderFront.js");
+
+jQuery(function () {
+  'use strict';
+
+  Object(_blocks_Carouselheader_CarouselHeaderFront__WEBPACK_IMPORTED_MODULE_0__["initializeCarouselHeader"])();
+});
+
+/***/ })
+
+/******/ });
+//# sourceMappingURL=carouselHeaderFrontIndex.js.map
