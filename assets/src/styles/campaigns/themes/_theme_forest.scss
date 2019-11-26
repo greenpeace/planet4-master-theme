@@ -46,7 +46,7 @@ body.theme-forest {
     @include page-section-header($kanit, $forest-black, $extra-bold, 3.75rem);
   }
 
-  a {
+  .page-template a {
     color: $forest-dark-green;
     text-transform: uppercase;
 

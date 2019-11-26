@@ -63,7 +63,7 @@ body.theme-oil {
     @include page-section-header($anton);
   }
 
-  a {
+  .page-template a {
     color: $oil-blue;
     text-transform: uppercase;
 
