@@ -90,9 +90,9 @@ export class GalleryBlock {
             let image_id_array = multiple_image.split(',');
 
             $.each(image_id_array, function( index, img_id ) {
-              let img_url = select('core').getMedia(img_id);
-              if ( img_url ) {
-                image_urls_array[img_id] = img_url.media_details.sizes.medium.source_url;
+              let img_details = select('core').getMedia(img_id);
+              if ( img_details ) {
+                image_urls_array[img_id] = img_details.source_url;
               }
             });
           }

@@ -108,6 +108,7 @@ final class Loader {
 			new Blocks\SubMenu(),
 			new Blocks\TakeActionBoxout(),
 			new Blocks\Timeline(),
+			new Blocks\Socialshare(),
 		];
 	}
 
@@ -309,7 +310,7 @@ final class Loader {
 		// but not in the admin side.
 		wp_enqueue_style(
 			'p4gbks_admin_style',
-			P4GBKS_PLUGIN_URL . 'editorStyle.min.css', // - Bundled CSS for the blocks
+			P4GBKS_PLUGIN_URL . 'assets/build/editorStyle.min.css', // - Bundled CSS for the blocks
 			[],
 			'0.3'
 		);
@@ -318,7 +319,7 @@ final class Loader {
 			'p4gbks_admin_script',
 			P4GBKS_PLUGIN_URL . 'admin/js/editor.js',
 			[],
-			'0.1',
+			'0.2',
 			true
 		);
 
@@ -334,7 +335,7 @@ final class Loader {
 				'wp-i18n',        // - Exports the __() function
 				'wp-editor',
 			],
-			'0.1.9',
+			'0.1.10',
 			true
 		);
 
@@ -359,7 +360,7 @@ final class Loader {
 		// Add master theme's main css as dependency for blocks css.
 		wp_enqueue_style(
 			'plugin-blocks',
-			P4GBKS_PLUGIN_URL . 'style.min.css',
+			P4GBKS_PLUGIN_URL . 'assets/build/style.min.css',
 			[
 				'bootstrap',
 				'slick',
@@ -390,7 +391,7 @@ final class Loader {
 
 				wp_enqueue_style(
 					'theme_antarctic',
-					P4GBKS_PLUGIN_URL . "theme_$campaign_theme.min.css",
+					P4GBKS_PLUGIN_URL . "/assets/build/theme_$campaign_theme.min.css",
 					[
 						'plugin-blocks',
 					],

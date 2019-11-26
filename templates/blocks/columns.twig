@@ -17,44 +17,43 @@
 					{% endif %}
 
 					<div class="row">
-						{% for i in 1..4 %}
-							{% set title = fields['title_'~i] %}
-							{% set attachment = fields['attachment_'~i] %}
-							{% set description = fields['description_'~i] %}
-							{% set link = fields['link_'~i] %}
-							{% set cta_text = fields['cta_text_'~i] %}
+						{% for col in fields.columns %}
+							<div class="col-md-6 col-lg column-wrap {% if col.cta_text and col.cta_link %}has-cta{% endif %}">
+								{% if col.attachment and fields.columns_block_style != 'no_image' %}
+									<div class="attachment-container">
+										{% if col.cta_link %}
+											<a
+												href="{{ col.cta_link|e('esc_url') }}"
+												{{  col.link_new_tab and col.link_new_tab != "false" ? 'target="_blank"' }}
+											>
+										{% endif %}
+											<img src="{{ col.attachment }}" alt="{{ col.title }}">
+										{% if col.cta_link %}
+											</a>
+										{% endif %}
+									</div>
+								{% endif %}
 
-							{% if title or description %}
-								<div class="col-md-6 col-lg column-wrap {% if cta_text and link %}has-cta{% endif %}">
-									{% if attachment and fields.columns_block_style != 'no_image' %}
-										<div class="attachment-container">
-											{% if link %}<a href="{{ link|e('esc_url') }}">{% endif %}
-												<img src="{{ attachment }}" alt="{{ title }}">
-												{% if link %}</a>{% endif %}
-										</div>
-									{% endif %}
-
-									<h3>
-										{% if link and not is_campaign %}<a href="{{ link|e('esc_url') }}">{% endif %}
-											{{ title|e('wp_kses_post')|raw }}
-											{% if link and not is_campaign %}</a>{% endif %}
-									</h3>
-									{% if description %}
-										<p>{{ description|e('wp_kses_post')|raw|nl2br }}</p>
-									{% endif %}
-									{% if cta_text and link %}
-										<a href="{{ link|e('esc_url') }}"
-												{{  'true' == attribute( fields, 'link_new_tab_'~i) ? 'target="_blank"' }}
-												{% if fields.columns_block_style == 'no_image' %}
-													class="btn btn-secondary"
-												{% else %}
-													class="call-to-action-link"
-												{% endif %}>
-											{{ cta_text|e('wp_kses_post')|raw }}
-										</a>
-									{% endif %}
-								</div>
-							{% endif %}
+								<h3>
+									{% if col.cta_link and not is_campaign %}<a href="{{ col.cta_link|e('esc_url') }}">{% endif %}
+										{{ col.title|e('wp_kses_post')|raw }}
+										{% if col.cta_link and not is_campaign %}</a>{% endif %}
+								</h3>
+								{% if col.description %}
+									<p>{{ col.description|e('wp_kses_post')|raw|nl2br }}</p>
+								{% endif %}
+								{% if col.cta_text and col.cta_link %}
+									<a href="{{ col.cta_link|e('esc_url') }}"
+										{{ col.link_new_tab ? 'target="_blank"' }}
+										{% if fields.columns_block_style == 'no_image' %}
+											class="btn btn-secondary"
+										{% else %}
+											class="call-to-action-link"
+										{% endif %}>
+										{{ col.cta_text|e('wp_kses_post')|raw }}
+									</a>
+								{% endif %}
+							</div>
 						{% endfor %}
 					</div>
 				</div>

@@ -201,7 +201,7 @@ body.theme-oceans {
   } // end .article-listing
 
   .carousel-wrap {
-    @include campaign_carousel(false, $oceans-aqua, white, white, $oceans-blue, url("public/images/oceans/carousel-arrow.svg"), 50px, 10px);
+    @include campaign_carousel(false, $oceans-aqua, white, white, $oceans-blue, url("../../public/images/oceans/carousel-arrow.svg"), 50px, 10px);
 
     .carousel-indicators li {
       border-radius: 50%;
@@ -222,7 +222,7 @@ body.theme-oceans {
         left: 0;
         width: 100%;
         height: 200px;
-        background: url("public/images/oceans/happy-point-mobile.svg") no-repeat;
+        background: url("../../public/images/oceans/happy-point-mobile.svg") no-repeat;
       }
     }
 
@@ -248,7 +248,7 @@ body.theme-oceans {
           max-height: 500px;
         }
         width: 250px;
-        background: url("public/images/oceans/happy-point-desktop.svg") no-repeat;
+        background: url("../../public/images/oceans/happy-point-desktop.svg") no-repeat;
       }
     }
   } // end .happy-point-block-wrap
@@ -300,7 +300,7 @@ body.theme-oceans {
         margin-bottom: 20px;
 
         .step-number-inner {
-          background-image: url("public/images/oceans/take-action-crop.png");
+          background-image: url("../../public/images/oceans/take-action-crop.png");
           color: $oceans-blue;
           font-family: $montserrat;
           font-weight: $semi-bold;
@@ -324,7 +324,7 @@ body.theme-oceans {
         font-weight: $semi-bold;
 
         .step-number {
-          background-image: url("public/images/oceans/take-action-crop.png");
+          background-image: url("../../public/images/oceans/take-action-crop.png");
           border-radius: 50%;
           color: $oceans-blue;
           font-size: 0.6875rem;
@@ -337,7 +337,7 @@ body.theme-oceans {
           color: $oceans-blue;
 
           .step-number {
-            background-image: url("public/images/oceans/take-action-mob-dark.png");
+            background-image: url("../../public/images/oceans/take-action-mob-dark.png");
           }
         }
       }
@@ -349,7 +349,7 @@ body.theme-oceans {
       $oceans-aqua,
       brightness(0) invert(100%),
       $montserrat, $semi-bold,
-      $montserrat, $extra-bold, url("public/images/oceans/arrow.svg"), url("public/images/oceans/arrow-dark.svg")
+      $montserrat, $extra-bold, url("../../public/images/oceans/arrow.svg"), url("../../public/images/oceans/arrow-dark.svg")
     );
   } // end .columns-block.block-style-icons
 
@@ -358,7 +358,7 @@ body.theme-oceans {
       mix($oceans-peach, white, 50%),
       $montserrat, $oceans-blue, 3.125rem, 3.75rem, $extra-bold,
       $roboto, $oceans-blue,
-      url("public/images/oceans/arrow-dark.svg"), url("public/images/oceans/arrow.svg")
+      url("../../public/images/oceans/arrow-dark.svg"), url("../../public/images/oceans/arrow.svg")
     );
 
     h2 {

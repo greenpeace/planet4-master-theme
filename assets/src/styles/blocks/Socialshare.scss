@@ -1,0 +1,51 @@
+.social-share {
+  .grid-row {
+    text-align: center;
+    margin-top: -$space-md; // Compensate for items margin.
+
+    @include small-and-up {
+      text-align: left;
+    }
+
+    .grid-item:hover .share-strip {
+      opacity: 1;
+    }
+
+    .grid-item {
+      display: inline-block;
+      position: relative;
+      text-align: center;
+      width: 212px;
+      height: 212px;
+      margin: $space-md $space-md 0 0;
+
+      img {
+        object-fit: cover;
+        height: 100%;
+      }
+
+      .share-strip {
+        width: 100%;
+        display: flex;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 14px 10px;
+        background: $yellow;
+        opacity: 0;
+        transition: all 0.3s ease-in-out;
+
+        a {
+          height: 100%;
+          width: 12%;
+          margin: 0 11%;
+          color: $black;
+
+          img {
+            min-height: 22px;
+          }
+        }
+      }
+    }
+  }
+}

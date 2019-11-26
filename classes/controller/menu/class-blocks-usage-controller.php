@@ -16,6 +16,13 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 	 * Class Blocks_Usage_Controller
 	 */
 	class Blocks_Usage_Controller extends Controller {
+		/**
+		 * @var string[] Possible prefixes for planet4 blocks.
+		 */
+		private const PLANET4_PREFIXES = [
+			'planet4',
+			'p4',
+		];
 
 		/**
 		 * Create menu/submenu entry.
@@ -200,8 +207,6 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				echo '<td><a href="term.php?taxonomy=post_tag&tag_ID=' . $result->term_id . '" >' . $result->name . '</a></td></tr>';
 			}
 			echo '</table>';
-
-
 			// phpcs:enable
 		}
 
@@ -214,7 +219,14 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 			$p4_block_types = array_filter(
 				$registered_block_types,
 				static function ( \WP_Block_Type $block_type ) {
-					return strpos( $block_type->name, 'planet4-blocks/' ) === 0;
+					// even though the blocks in this repo all use namespace "planet4-blocks", NRO developed blocks
+					// can have a different namespace. They do all start with "planet4-".
+					foreach ( self::PLANET4_PREFIXES as $prefix ) {
+						if ( strpos( $block_type->name, $prefix ) === 0 ) {
+							return true;
+						}
+					}
+					return false;
 				}
 			);
 			// we only need the name.
@@ -235,31 +247,6 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 			];
 
 			return array_merge( $p4_block_types, $core_block_types );
-		}
-
-		/**
-		 * Validates the settings input.
-		 *
-		 * @param array $settings The associative array with the settings that are registered for the plugin.
-		 *
-		 * @return bool
-		 */
-		public function validate( $settings ) : bool {
-			$has_errors = false;
-			return ! $has_errors;
-		}
-
-		/**
-		 * Sanitizes the settings input.
-		 *
-		 * @param array $settings The associative array with the settings that are registered for the plugin.
-		 */
-		public function sanitize( &$settings ) {
-			if ( $settings ) {
-				foreach ( $settings as $name => $setting ) {
-					$settings[ $name ] = sanitize_text_field( $setting );
-				}
-			}
 		}
 	}
 }
