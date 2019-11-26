@@ -15,70 +15,60 @@
 
 				<div class="tasks-wrap can-do-steps d-none d-lg-block">
 					<div class="row">
-						{% for i in 1..4 %}
-							{% if ( fields['title_'~i] or fields['description_'~i] ) %}
-								<div class="col" data-id="{{ i }}">
-									<span class="step-number">
-										<span class="step-number-inner">{{ i }}</span>
-									</span>
-								</div>
-							{% endif %}
+						{% for col in fields.columns %}
+							<div class="col" data-id="{{ loop.index }}">
+								<span class="step-number">
+									<span class="step-number-inner">{{ loop.index }}</span>
+								</span>
+							</div>
 						{% endfor %}
 					</div>
 					<div class="step-info">
 						<div class="row">
-							{% for i in 1..4 %}
-								{% if ( fields['title_'~i]  or fields['description_'~i] ) %}
-									<div class="col" data-id="{{ i }}">
-										<h5>{{ fields['title_'~i] }}</h5>
-									</div>
-								{% endif %}
+							{% for col in fields.columns %}
+								<div class="col" data-id="{{ loop.index }}">
+									<h5>{{ col.title }}</h5>
+								</div>
 							{% endfor %}
 						</div>
 						<div class="row">
-							{% for i in 1..4 %}
-								{% if ( fields['title_'~i] or fields['description_'~i] ) %}
-									<div class="col" data-id="{{ i }}">
-										{% if ( fields['description_'~i] ) %}
-											<p {% if ( fields['cta_text_'~i] and fields['link_'~i] ) %}class="has-cta"{% endif %}>
-												{{ fields['description_'~i]|e('wp_kses_post')|raw }}
-											</p>
-										{% endif %}
-									</div>
-								{% endif %}
+							{% for col in fields.columns %}
+								<div class="col" data-id="{{ loop.index }}">
+									{% if ( col.description ) %}
+										<p {% if ( col.cta_text and col.cta_link ) %}class="has-cta"{% endif %}>
+											{{ col.description|e('wp_kses_post')|raw }}
+										</p>
+									{% endif %}
+								</div>
 							{% endfor %}
 						</div>
 						<div class="steps-action">
 							<div class="row">
-								{% for i in 1..4 %}
-									{% if ( fields['title_'~i] or fields['description_'~i] ) %}
-										<div class="col" data-id="{{ i }}">
-											{% if ( fields['attachment_'~i] ) %}
-													{% if ( fields['link_'~i] ) %}
-														<a href="{{ fields['link_'~i] }}">
-													{% endif %}
-															<img src="{{ fields['attachment_'~i] }}" alt=""/>
-													{% if ( fields['link_'~i] ) %}
-														</a>
-													{% endif %}
-											{% endif %}
-										</div>
-									{% endif %}
+								{% for col in fields.columns %}
+									<div class="col" data-id="{{ loop.index }}">
+										{% if ( col.attachment ) %}
+												{% if ( col.cta_link ) %}
+													<a href="{{ col.cta_link }}">
+												{% endif %}
+														<img src="{{ col.attachment }}" alt=""/>
+												{% if ( col.cta_link ) %}
+													</a>
+												{% endif %}
+										{% endif %}
+									</div>
 								{% endfor %}
 							</div>
 							<div class="row">
-								{% for i in 1..4 %}
-									{% if ( fields['title_'~i] or fields['description_'~i] ) %}
-										<div class="col" data-id="{{ i }}">
-											{% if ( fields['cta_text_'~i] and fields['link_'~i] ) %}
-												<a class="btn btn-small btn-medium btn-secondary"
-												   	href="{{ fields['link_'~i] }}"
-													{{  'true' == attribute( fields, 'link_new_tab_'~i) ? 'target="_blank"' }}>
-													{{ fields['cta_text_'~i] }}
-												</a>
-											{% endif %}
-										</div>
-									{% endif %}
+								{% for col in fields.columns %}
+									<div class="col" data-id="{{ loop.index }}">
+										{% if ( col.cta_text and col.cta_link ) %}
+											<a class="btn btn-small btn-medium btn-secondary"
+												href="{{ col.cta_link }}"
+												{{  col.link_new_tab  ? 'target="_blank"' }}>
+												{{ col.cta_text }}
+											</a>
+										{% endif %}
+									</div>
 								{% endfor %}
 							</div>
 						</div>
@@ -87,67 +77,66 @@
 
 				<div class="tasks-wrap can-do-steps-mobile d-lg-none">
 					<div id="accordion" class="card-accordion" role="tablist" aria-multiselectable="true">
-						{% for i in 1..4 %}
-							{% if ( fields['title_'~i] or fields['description_'~i] ) %}
-								{% if i == 1 %}
+						{% for col in fields.columns %}
+								{% if loop.index == 1 %}
 									{% set number_to_word = 'one' %}
-								{% elseif i == 2 %}
+								{% elseif loop.index == 2 %}
 									{% set number_to_word = 'two' %}
-								{% elseif i == 3 %}
+								{% elseif loop.index == 3 %}
 									{% set number_to_word = 'three' %}
-								{% elseif i == 4 %}
+								{% elseif loop.index == 4 %}
 									{% set number_to_word = 'four' %}
 								{% endif %}
 
 								<div class="card">
-									<a class="card-header {{ i>1 ? 'collapsed' : '' }}" role="tab" id="heading-{{ number_to_word }}"
+									<a class="card-header {{ loop.index>1 ? 'collapsed' : '' }}" role="tab" id="heading-{{ number_to_word }}"
 									   data-toggle="collapse" data-target=".card-header:hover + #collapse-{{ number_to_word }}"
 									   href="#collapse-{{ number_to_word }}"
 									   aria-expanded="true"
 									   aria-controls="collapse-{{ number_to_word }}">
-										<span class="step-number">{{ i }}</span>
-										{% if ( fields['title_'~i] ) %}
-											{{ fields['title_'~i] }}
+										<span class="step-number">{{ loop.index }}</span>
+										{% if ( col.title ) %}
+											{{ col.title }}
 										{% endif %}
 									</a>
 
 									{% if fields.no_of_columns <= 2 %}
 										{% set collapse_class = 'collapse show' %}
 									{% else %}
-										{% if i == 1 %}
+										{% if loop.index == 1 %}
 											{% set collapse_class = 'collapse show' %}
 										{% else %}
 											{% set collapse_class = 'collapse' %}
 										{% endif %}
 									{% endif %}
+
 									<div id="collapse-{{ number_to_word }}" class="{{ collapse_class }}"
 										 data-parent="#accordion" role="tabpanel"
 										 aria-labelledby="heading-{{ number_to_word }}">
 										<div class="card-block info-with-image-wrap clearfix">
 											<div class="mobile-accordion-info">
-												{% if ( fields['description_'~i] ) %}
-													<p {% if ( fields['cta_text_'~i] and fields['link_'~i] ) %}class="has-cta"{% endif %}>
-														{{ fields['description_'~i]|e('wp_kses_post')|raw }}
+												{% if ( col.description ) %}
+													<p {% if ( col.cta_text and col.cta_link ) %}class="has-cta"{% endif %}>
+														{{ col.description|e('wp_kses_post')|raw }}
 													</p>
 												{% endif %}
 											</div>
 
-											{% if ( fields['attachment_'~i] ) %}
+											{% if ( col.attachment ) %}
 												<div class="accordion-image-wrap">
-													<img src="{{ fields['attachment_'~i] }}" alt="">
+													<img src="{{ col.attachment }}" alt="">
 												</div>
 											{% endif %}
 
-											{% if ( fields['cta_text_'~i] and fields['link_'~i] ) %}
+											{% if ( col.cta_text and col.cta_link ) %}
 												<a class="btn btn-small btn-secondary"
-												   href="{{ fields['link_'~i] }}">{{ fields['cta_text_'~i] }}
+												   href="{{ col.cta_link }}">{{ col.cta_text }}
 												</a>
 											{% endif %}
 
 										</div>
 									</div>
 								</div>
-							{% endif %}
 						{% endfor %}
 					</div>
 				</div>

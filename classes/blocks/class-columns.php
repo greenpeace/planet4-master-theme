@@ -113,7 +113,7 @@ class Columns extends Base_Block {
 									'type' => 'string',
 								],
 								'link_new_tab' => [
-									'type' => 'string',
+									'type' => 'boolean',
 								],
 								'cta_text'     => [
 									'type' => 'string',
@@ -134,56 +134,46 @@ class Columns extends Base_Block {
 	 * @return array The data to be passed in the View.
 	 */
 	public function prepare_data( $attributes ): array {
+		// Fallback to avoid notices when block doesn't have this.
+		$columns_block_style = $attributes['columns_block_style'] ?? static::LAYOUT_NO_IMAGE;
 
-		$attributes_temp = [
-			'columns_block_style' => $attributes['columns_block_style'] ?? static::LAYOUT_NO_IMAGE,
+		$fields = [
+			'columns_block_style' => $columns_block_style,
 			'columns_title'       => $attributes['columns_title'] ?? '',
 			'columns_description' => $attributes['columns_description'] ?? '',
 		];
 
-		// Used to determine how many columns were set in the backend for this shortcode.
-		$columns_set = 0;
-		for ( $i = 1; $i <= static::MAX_COLUMNS; $i++ ) {
-			$column_atts = [
-				"title_$i"        => $attributes['columns'][ $i - 1 ]['title'] ?? '',
-				"description_$i"  => $attributes['columns'][ $i - 1 ]['description'] ?? '',
-				"attachment_$i"   => $attributes['columns'][ $i - 1 ]['attachment'] ?? '',
-				"cta_text_$i"     => $attributes['columns'][ $i - 1 ]['cta_text'] ?? '',
-				"link_$i"         => $attributes['columns'][ $i - 1 ]['cta_link'] ?? '',
-				"link_new_tab_$i" => $attributes['columns'][ $i - 1 ]['link_new_tab'] ?? '',
-			];
-
-			$attributes_temp = array_merge( $attributes_temp, $column_atts );
-
-			if ( ! empty( $attributes['columns'][ $i - 1 ]['title'] ) ) {
-				$columns_set++;
+		// Only show columns that have a title or a description.
+		$columns = array_filter(
+			$attributes['columns'],
+			static function ( array $column ) {
+				return ! empty( $column['title'] ) || ! empty( $column['description'] );
 			}
-		}
+		);
+
+		$columns = array_slice( $columns, 0, self::MAX_COLUMNS );
+
+		// Used to determine how many columns were set in the backend for this shortcode.
+		$number_columns = count( $columns );
 
 		// Store the block attributes as expected by the twig template, old block style.
-		$attributes_normalized                  = $attributes_temp;
-		$attributes_normalized['no_of_columns'] = $columns_set;
+		$fields['no_of_columns'] = $number_columns;
 
 		// Define the image size that will be used, based on layout chosen and number of columns.
-		$columns_block_style = $attributes['columns_block_style'] ?? static::LAYOUT_NO_IMAGE;
 		if ( static::LAYOUT_NO_IMAGE !== $columns_block_style ) {
+			$image_size = self::get_image_size( $columns_block_style, $number_columns );
 
-			if ( static::LAYOUT_TASKS === $columns_block_style || static::LAYOUT_IMAGES === $columns_block_style ) {
-				if ( $columns_set >= 2 ) {
-					$image_size = 'articles-medium-large';
-				} else {
-					$image_size = 'large';
+			foreach ( $columns as $key => $column ) {
+				if ( empty( $column['attachment'] ) ) {
+					continue;
 				}
-			} elseif ( static::LAYOUT_ICONS === $columns_block_style ) {
-				$image_size = 'thumbnail';
-			}
-			for ( $i = 1; $i <= static::MAX_COLUMNS; $i ++ ) {
-				list( $src ) = wp_get_attachment_image_src( $attributes_normalized[ "attachment_$i" ], $image_size );
-				if ( $src ) {
-					$attributes_normalized[ "attachment_$i" ] = $src;
-				}
+				[ $img_src ] = wp_get_attachment_image_src( $column['attachment'], $image_size );
+
+				$columns[ $key ]['attachment'] = $img_src;
 			}
 		}
+
+		$fields['columns'] = $columns;
 
 		// enqueue script that equalizes the heights of the titles of the blocks.
 		if ( ! $this->is_rest_request() ) {
@@ -191,9 +181,29 @@ class Columns extends Base_Block {
 		}
 
 		$block_data = [
-			'fields'              => $attributes_normalized,
+			'fields'              => $fields,
 			'available_languages' => P4GBKS_LANGUAGES,
 		];
+
 		return $block_data;
+	}
+
+	/**
+	 * Which image size should be used for a combination of layout style and number of columns?
+	 *
+	 * @param string $columns_block_style The columns style that was picked for the block.
+	 * @param int    $number_columns The total number of columns in the block.
+	 * @return string The image size.
+	 */
+	private static function get_image_size( string $columns_block_style, int $number_columns ): string {
+		if ( in_array( $columns_block_style, [ self::LAYOUT_TASKS, self::LAYOUT_IMAGES ], true ) ) {
+			if ( $number_columns >= 2 ) {
+				return 'articles-medium-large';
+			}
+
+			return 'large';
+		}
+
+		return 'thumbnail';
 	}
 }
