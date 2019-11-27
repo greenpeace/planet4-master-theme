@@ -267,6 +267,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'type'    => 'radio_inline',
 					'default' => 'light',
 					'options' => [
+						'green'  => __( 'Green', 'planet4-master-theme-backend' ),
 						'light' => __( 'Light', 'planet4-master-theme-backend' ),
 						'dark'  => __( 'Dark', 'planet4-master-theme-backend' ),
 					],
