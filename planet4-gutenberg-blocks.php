@@ -134,9 +134,9 @@ const CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/happypoint',
 	'planet4-blocks/media',
 	'planet4-blocks/social-media',
-	'planet4-blocks/social-media-cards',
-	'planet4-blocks/spreadsheet',
-	'planet4-blocks/sub-pages',
+	'planet4-blocks/socialshare',
+	'planet4-blocks/split-two-columns',
+	'planet4-blocks/submenu',
 	'planet4-blocks/timeline',
 ];
 
