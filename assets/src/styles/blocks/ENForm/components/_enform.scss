@@ -151,19 +151,9 @@
       margin-top: 19px;
       line-height: 1;
 
-      @include medium-and-up {
-        display: flex;
-        flex-direction: row-reverse;
-      }
-
       button {
-        min-width: 200px;
-        margin-bottom: 0;
+        width: 100% !important;
         margin-top: $space-lg;
-
-        @include  large-and-up {
-          min-width: 330px;
-        }
 
         html[dir="rtl"] & {
           line-height: 1;
@@ -193,19 +183,13 @@
         }
 
         & + .custom-control-description:before {
-          border: 1px solid #1a1a1a;
+          border: 1px solid $white;
           vertical-align: middle;
 
           .enform-full-width-bg & {
             border: 3px solid $med-blue;
           }
         }
-      }
-    }
-
-    .submit-container {
-      .enform-side-style & {
-        width: 100%;
       }
     }
 
@@ -221,7 +205,8 @@
       }
 
       p {
-        font-size: .625rem;
+        font-size: .75rem;
+        font-family: $roboto !important;
         line-height: 1rem;
         margin-bottom: 0;
         float: none;
