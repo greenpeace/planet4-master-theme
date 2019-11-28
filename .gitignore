@@ -10,3 +10,6 @@ yarn-error.log
 tests/backstop/
 
 \.DS_Store
+
+# Built css and js assets
+assets/build/*
