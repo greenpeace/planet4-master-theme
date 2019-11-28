@@ -490,14 +490,6 @@ body.theme-climate {
         margin-bottom: 30px;
       }
     }
-
-    .three-column-images {
-      @include campaign_content_three_column_images_divided($climate-gradient-standard);
-
-      img {
-        @include monochrome;
-      }
-    }
   }
 
   .columns-block.block-style-image {
