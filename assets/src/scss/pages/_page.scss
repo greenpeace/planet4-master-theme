@@ -74,4 +74,40 @@ div.page-template {
       margin-bottom: $space-xxl;
     }
   }
+  .ocean-declaration-table table {
+    tbody {
+      tr {
+        background-color: #407ea2;
+      }
+      tr:nth-child(odd) {
+        padding: 8px 20px;
+        background-color: #336582;
+      }
+      td {
+        padding: 5px 20px;
+        font-size: 13px;
+        color: #fff;
+        @include mobile-only {
+          min-width: initial;
+          padding: 5px;
+        }
+      }
+      tr:hover {
+        background-color: #074365;
+      }
+    }
+    thead {
+      th {
+        color: #fff;
+        padding: 5px 20px;
+        @include mobile-only {
+          padding: 5px;
+          font-size: 14px;
+        }
+      }
+      tr {
+        background-color: #074365;
+      }
+    }
+  }
 }
