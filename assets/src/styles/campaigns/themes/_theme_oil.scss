@@ -469,14 +469,6 @@ body.theme-oil {
         margin-bottom: 30px;
       }
     }
-
-    .three-column-images {
-      @include campaign_content_three_column_images_divided($oil-gradient-standard);
-
-      img {
-        @include monochrome;
-      }
-    }
   }
 
   .columns-block.block-style-image {

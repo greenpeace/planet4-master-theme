@@ -297,10 +297,6 @@ body.theme-arctic {
         margin-bottom: 30px;
       }
     }
-
-    .three-column-images {
-      @include campaign_content_three_column_images_divided($arctic-light-blue);
-    }
   }
 
   .columns-block.block-style-no_image {
