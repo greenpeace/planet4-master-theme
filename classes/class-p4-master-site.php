@@ -170,6 +170,8 @@ class P4_Master_Site extends TimberSite {
 		);
 
 		add_action( 'init', [ $this, 'login_redirect' ], 1 );
+		add_filter( 'attachment_fields_to_edit', [ $this, 'add_image_attachment_fields_to_edit' ], 10, 2 );
+		add_filter( 'attachment_fields_to_save', [ $this, 'add_image_attachment_fields_to_save' ], 10, 2 );
 	}
 
 	/**
@@ -868,4 +870,40 @@ class P4_Master_Site extends TimberSite {
 		return $cache;
 	}
 
+	/**
+	 * Add custom media metadata fields.
+	 *
+	 * @param array    $form_fields An array of fields included in the attachment form.
+	 * @param \WP_Post $post The attachment record in the database.
+	 *
+	 * @return array Final array of form fields to use.
+	 */
+	public function add_image_attachment_fields_to_edit( $form_fields, $post ) {
+
+		// Add a Credit field.
+		$form_fields['credit_text'] = [
+			'label' => __( 'Credit', 'planet4-master-theme-backend' ),
+			'input' => 'text', // this is default if "input" is omitted.
+			'value' => get_post_meta( $post->ID, '_credit_text', true ),
+			'helps' => __( 'The owner of the image.', 'planet4-master-theme-backend' ),
+		];
+
+		return $form_fields;
+	}
+
+	/**
+	 * Save custom media metadata fields
+	 *
+	 * @param \WP_Post $post        The $post data for the attachment.
+	 * @param array    $attachment  The $attachment part of the form $_POST ($_POST[attachments][postID]).
+	 *
+	 * @return \WP_Post $post
+	 */
+	public function add_image_attachment_fields_to_save( $post, $attachment ) {
+		if ( isset( $attachment['credit_text'] ) ) {
+			update_post_meta( $post['ID'], '_credit_text', $attachment['credit_text'] );
+		}
+
+		return $post;
+	}
 }
