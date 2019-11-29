@@ -223,10 +223,6 @@ body.theme-climate {
           transition: color $transition ease-in-out;
         }
 
-        .cover-card-image img {
-          @include monochrome;
-        }
-
         .cover-card-btn {
           transition: background $transition ease-in-out;
         }
@@ -240,10 +236,6 @@ body.theme-climate {
     @include campaign_thumbnail(url("../../public/images/climate/covers-block.svg") no-repeat, black, black, $jost, -10, #{$border + 16px}, #{$border + 16px});
 
     .thumbnail-large {
-      img:not(:hover) {
-        @include monochrome;
-      }
-
       &:after {
         opacity: 1;
         top: $border;
@@ -275,10 +267,6 @@ body.theme-climate {
   // end .four-column-content
   .article-listing {
     @include campaign_articles($jost, $jost, $climate-orange, $jost, $climate-blue);
-
-    .article-list-item-image:not(:hover) {
-      @include monochrome;
-    }
 
     .article-list-item-headline a {
       text-transform: none;
@@ -313,7 +301,6 @@ body.theme-climate {
 
       img {
         height: 100%;
-        @include monochrome;
       }
     }
 
@@ -398,10 +385,6 @@ body.theme-climate {
       &:hover {
         background: $bg-button-alt;
       }
-    }
-
-    .split-two-column-item-image img {
-      @include monochrome;
     }
   } // end .split-two-column
 

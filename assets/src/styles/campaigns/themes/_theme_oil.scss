@@ -200,10 +200,6 @@ body.theme-oil {
           transition: color $transition ease-in-out;
         }
 
-        .cover-card-image img {
-          @include monochrome;
-        }
-
         .cover-card-btn {
           transition: background $transition ease-in-out;
         }
@@ -217,10 +213,6 @@ body.theme-oil {
     @include campaign_thumbnail(url("../../public/images/oil/covers-block.svg") no-repeat, black, black, $anton, -10, #{$border + 16px}, #{$border + 16px});
 
     .thumbnail-large {
-      img:not(:hover) {
-        @include monochrome;
-      }
-
       &:after {
         opacity: 1;
         top: $border;
@@ -252,10 +244,6 @@ body.theme-oil {
   // end .four-column-content
   .article-listing {
     @include campaign_articles($amiko, $amiko, $oil-orange, $anton, $oil-blue);
-
-    .article-list-item-image:not(:hover) {
-      @include monochrome;
-    }
 
     .article-list-item-headline a {
       text-transform: none;
@@ -290,7 +278,6 @@ body.theme-oil {
 
       img {
         height: 100%;
-        @include monochrome;
       }
     }
 
@@ -375,10 +362,6 @@ body.theme-oil {
       &:hover {
         background: $bg-button-alt;
       }
-    }
-
-    .split-two-column-item-image img {
-      @include monochrome;
     }
   } // end .split-two-column
 
