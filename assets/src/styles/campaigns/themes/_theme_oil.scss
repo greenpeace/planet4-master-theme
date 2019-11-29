@@ -2,8 +2,6 @@ body.theme-oil {
   $anton: "Anton", sans-serif;
   $amiko: "Amiko", sans-serif;
 
-  $oil-green: #29e5b7;
-  $oil-green-2: #21d677;
   $oil-red: #ff513c;
   $oil-red-2: #e74656;
   $oil-purple: #b55eb8;
@@ -176,7 +174,7 @@ body.theme-oil {
       @include small-and-up {
         &:hover {
           .cover-card-content {
-            background: $oil-green;
+            background: $oil-gradient-standard;
           }
 
           .cover-card-tag {
@@ -243,7 +241,7 @@ body.theme-oil {
   }
   //end .campaign-thumbnail-block
   .four-column-content {
-    @include campaign_content_four_column(linear-gradient(to right, $oil-green, $oil-green-2), $amiko, $amiko, $oil-blue);
+    @include campaign_content_four_column($oil-gradient-standard, $amiko, $amiko, $oil-blue);
 
     .four-column-content-info {
       .four-column-content-information h4 {
@@ -269,7 +267,7 @@ body.theme-oil {
   }
   // end .article-listing
   .carousel-wrap {
-    @include campaign_carousel(true, $oil-gradient-standard, $oil-black, $oil-grey, $oil-green, url("../../public/images/oil/carousel-arrow.svg"), 39px);
+    @include campaign_carousel(true, $oil-gradient-standard, $oil-black, $oil-grey, $oil-red, url("../../public/images/oil/carousel-arrow.svg"), 39px);
 
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
@@ -386,7 +384,7 @@ body.theme-oil {
 
   .columns-block.block-style-icons {
     @include campaign_columns_style_icons(
-      $oil-green,
+      $oil-gradient-standard,
       brightness(0%),
       $amiko, $regular,
       $anton, $regular
