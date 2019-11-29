@@ -5,6 +5,8 @@
 	{% set is_document = true %}
 {% elseif ( 'campaign' == posts_data[post.ID].content_type ) %}
 	{% set is_campaign = true %}
+{% elseif ( 'archive' == post.post_type ) %}
+	{% set is_archive = true %}
 {% endif %}
 
 {% if ( current_page == 1 and loop.index0 == 0 ) %}
@@ -27,9 +29,13 @@
 		<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
 			<div class="search-result-item-flex-title">
 				<div>
-					{% if ( is_campaign ) %}
-						<div class="search-results-campaign-label search-results-campaign-label-mobile">
-							{{ __( 'Campaign', 'planet4-master-theme' ) }}
+					{% if ( is_archive or is_campaign ) %}
+						<div class="search-results-alternative-label search-results-alternative-label-mobile">
+							{% if ( is_campaign ) %}
+								{{ __( 'Campaign', 'planet4-master-theme' ) }}
+							{% elseif ( is_archive ) %}
+								{{ __( 'Archive', 'planet4-master-theme' ) }}
+							{% endif %}
 						</div>
 					{% endif %}
 
@@ -50,6 +56,8 @@
 					{% if ( is_document ) %}
 						{% set title = post.title|e('wp_kses_post') %}
 						<a href="{{ fn('wp_get_attachment_url', post.id) }}" class="search-result-item-headline">{{ title|raw|length > 30 ? ( title|striptags|slice(0, 30) ~ '...' )|raw  : title|raw }}</a>
+					{% elseif ( is_archive ) %}
+						<a href="{{ post.link }}" target="_blank" class="search-result-item-headline archive">{{ post.title|e('wp_kses_post')|raw }}</a>
 					{% else %}
 						<a href="{{ post.link() }}" class="search-result-item-headline">{{ post.title|e('wp_kses_post')|raw }}</a>
 					{% endif %}
@@ -68,15 +76,23 @@
 						<a href="{{ fn('wp_get_attachment_url', post.id) }}" download class="btn btn-small btn-secondary">
 							{{ __( 'Download', 'planet4-master-theme' ) }}
 						</a>
-					{% elseif ( is_campaign ) %}
-						<div class="search-results-campaign-label">
-							{{ __( 'Campaign', 'planet4-master-theme' ) }}
+					{% elseif ( is_campaign or is_archive ) %}
+						<div class="search-results-alternative-label">
+							{% if is_campaign %}
+								{{ __( 'Campaign', 'planet4-master-theme' ) }}
+							{% elseif is_archive %}
+								{{ __( 'Archive', 'planet4-master-theme' ) }}
+							{% endif %}
 						</div>
 					{% endif %}
 				</div>
 			</div>
 
-			<p class="search-result-item-content">{{ post.preview().read_more('')|excerpt( 25 )|raw }}</p>
+			{% if not is_archive %}
+				<p class="search-result-item-content">{{ post.preview().read_more('')|excerpt( 25 )|raw }}</p>
+			{%  else %}
+				<p class="search-result-item-content">{{ post.excerpt|raw }}</p>
+			{% endif %}
 		</div>
 	</li>
 {% if ( ( loop.index0 % 5 == 4 ) or loop.last ) %}
