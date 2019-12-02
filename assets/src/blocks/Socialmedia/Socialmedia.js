@@ -1,5 +1,4 @@
-import {React, Component, Fragment} from 'react';
-import {RawHTML} from '@wordpress/element';
+import {Component, RawHTML, Fragment} from '@wordpress/element';
 import {Preview} from '../../components/Preview';
 import {
   RadioControl,

@@ -1,5 +1,4 @@
-import {React, Component, Fragment} from 'react';
-import {RawHTML} from "@wordpress/element";
+import {RawHTML, Component, Fragment} from '@wordpress/element';
 import {
   CheckboxControl,
   TextControl,
