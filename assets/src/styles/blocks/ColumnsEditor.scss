@@ -6,23 +6,18 @@
 
 .img-wrap .close {
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 8px;
+  right: 10px;
   z-index: 100;
   background-color: #fff;
-  padding: 6px 3px 4px;
+  padding: 0 0 2px 2px;
   color: red;
   font-weight: bold;
   cursor: pointer;
-  opacity: .2;
+  opacity: 1;
   text-align: center;
   font-size: 22px;
-  line-height: 12px;
-  border-radius: 50%;
-}
-
-.img-wrap:hover .close {
-  opacity: 1;
+  line-height: 14px;
 }
 
 .column-img-label {
