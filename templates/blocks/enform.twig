@@ -60,11 +60,17 @@
 												<div class="three-quarters en-spinner" id="spinner" style="display:none;">...</div>
 											</button>
 											<div class="enform-notice"></div>
-										</div>
-
-										<div class="enform-legal {% if fields.en_form_style == 'full-width-bg' %}col-md-8{% endif %}">
+											{% if fields.en_form_style == 'full-width-bg' %}
+											<div class="enform-legal">
 												<p>{{ fields.text_below_button|e('wp_kses_post')|raw }}</p>
+											</div>
+											{% endif %}
 										</div>
+										{% if fields.en_form_style != 'full-width-bg' %}
+										<div class="enform-legal">
+											<p>{{ fields.text_below_button|e('wp_kses_post')|raw }}</p>
+										</div>
+										{% endif %}
 									</div>
 								</form>
 							</div>
