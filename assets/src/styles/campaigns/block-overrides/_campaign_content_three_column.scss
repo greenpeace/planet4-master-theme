@@ -56,24 +56,3 @@
     padding: $small-padding*3;
   }
 }
-
-@mixin campaign_content_three_column_images_divided($background, $small-padding: 10px) {
-  @include campaign_content_three_column_images_border($background, $small-padding/2);
-
-  .col {
-    margin: $small-padding/2;
-
-    @include medium-and-up {
-      margin: $small-padding;
-    }
-
-    @include large-and-up {
-      margin: $small-padding*1.5;
-    }
-
-    &:nth-of-type(2) {
-      margin-left: 0;
-      margin-right: 0;
-    }
-  }
-}

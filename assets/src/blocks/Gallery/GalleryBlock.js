@@ -190,6 +190,19 @@ export class GalleryBlock {
             setAttributes({image_data: []});
           }
 
+          function onDeleteImage(img_id) {
+            let image_ids  = attributes.multiple_image;
+            let image_data = attributes.image_data;
+            if (image_ids)
+              image_ids = image_ids.split(',');
+
+            image_ids  = image_ids.filter(function(value, index, arr){ return parseInt(value) !== parseInt(img_id); });
+            image_data = image_data.filter(function(value, index, arr){ return parseInt(value.id) !== parseInt(img_id); });
+
+            setAttributes({multiple_image: image_ids.join(',')});
+            setAttributes({image_data: image_data});
+          }
+
           return <Gallery
             {...attributes}
             isSelected={isSelected}
@@ -199,6 +212,7 @@ export class GalleryBlock {
             onDescriptionChange={onDescriptionChange}
             onFocalPointChange={onFocalPointChange}
             onRemoveImages={onRemoveImages}
+            onDeleteImage={onDeleteImage}
           />
         }),
         save() {

@@ -287,7 +287,7 @@ body.theme-plastic {
 
   .columns-block.block-style-icons {
     @include campaign_columns_style_icons(
-      $plastics-blue-mid url("../../public/images/plastic/four-column-header.svg") no-repeat,
+      $plastics-blue-mid,
       brightness(0) invert(100%),
       $montserrat, $semi-bold, $montserrat, $extra-bold,
       url("../../public/images/plastic/arrow.svg"), url("../../public/images/plastic/arrow-light.svg"), none

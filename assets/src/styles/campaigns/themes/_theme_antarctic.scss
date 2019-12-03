@@ -239,10 +239,6 @@ body.theme-antarctic {
         margin-bottom: 30px;
       }
     }
-
-    .three-column-images {
-      @include campaign_content_three_column_images_border($antarctic-gradient);
-    }
   }
 
   .columns-block.block-style-no_image {

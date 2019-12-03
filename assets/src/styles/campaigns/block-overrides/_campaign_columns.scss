@@ -187,7 +187,7 @@ $text-transform: uppercase) {
   }
 
   .can-do-steps {
-    text-align: center;
+    text-align: left;
 
     .step-number {
       background: none;
@@ -197,7 +197,11 @@ $text-transform: uppercase) {
       height: 120px;
       width: 120px;
       line-height: 120px;
-      margin: 0 auto 34px auto;
+      margin: 0 auto 34px 0;
+
+      html[dir="rtl"] & {
+        margin: 0 0 34px auto;
+      }
 
       .step-number-inner {
         background: none;
