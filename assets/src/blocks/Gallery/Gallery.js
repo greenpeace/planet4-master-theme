@@ -6,7 +6,7 @@ import {
   ServerSideRender,
   Toolbar,
   IconButton,
-  Button
+  Button, Tooltip
 } from '@wordpress/components';
 import {BlockControls,MediaUpload,MediaUploadCheck} from "@wordpress/editor";
 
@@ -26,15 +26,23 @@ export class Gallery extends Component {
 
             this.props.image_data.map((item, index) => {
               return (
-                <span>
-                  <img
-                    src={ item.url }
-                    onClick={ openEvent }
-                    className="gallery__imgs"
-                    key={index}
-                    width='150 px'
-                    style={{padding: '10px 10px'}}
-                  />
+                <span key={index}>
+                  <div className="img-wrap">
+                    <Tooltip text={__('Remove Gallery Image', 'p4ge')}>
+                      <span className="close" onClick={ev => {
+                        onDeleteImage(item.id);
+                        ev.stopPropagation()
+                      }}>&times;</span>
+                    </Tooltip>
+                    <img
+                      src={ item.url }
+                      onClick={ openEvent }
+                      className="gallery__imgs"
+                      key={index}
+                      width='150 px'
+                      style={{padding: '10px 10px'}}
+                    />
+                  </div>
                 </span>
               );
             })
@@ -58,7 +66,7 @@ export class Gallery extends Component {
 
       const {__} = wp.i18n;
 
-      const {gallery_block_style , gallery_block_title , gallery_block_description , multiple_image , image_data} = this.props;
+      const {gallery_block_style , gallery_block_title , gallery_block_description , multiple_image , image_data , onDeleteImage} = this.props;
 
       const dimensions = {width: 400, height: 100};
 

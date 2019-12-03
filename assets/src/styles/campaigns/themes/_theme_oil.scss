@@ -2,8 +2,6 @@ body.theme-oil {
   $anton: "Anton", sans-serif;
   $amiko: "Amiko", sans-serif;
 
-  $oil-green: #29e5b7;
-  $oil-green-2: #21d677;
   $oil-red: #ff513c;
   $oil-red-2: #e74656;
   $oil-purple: #b55eb8;
@@ -176,7 +174,7 @@ body.theme-oil {
       @include small-and-up {
         &:hover {
           .cover-card-content {
-            background: $oil-green;
+            background: $oil-gradient-standard;
           }
 
           .cover-card-tag {
@@ -202,10 +200,6 @@ body.theme-oil {
           transition: color $transition ease-in-out;
         }
 
-        .cover-card-image img {
-          @include monochrome;
-        }
-
         .cover-card-btn {
           transition: background $transition ease-in-out;
         }
@@ -219,10 +213,6 @@ body.theme-oil {
     @include campaign_thumbnail(url("../../public/images/oil/covers-block.svg") no-repeat, black, black, $anton, -10, #{$border + 16px}, #{$border + 16px});
 
     .thumbnail-large {
-      img:not(:hover) {
-        @include monochrome;
-      }
-
       &:after {
         opacity: 1;
         top: $border;
@@ -243,7 +233,7 @@ body.theme-oil {
   }
   //end .campaign-thumbnail-block
   .four-column-content {
-    @include campaign_content_four_column(linear-gradient(to right, $oil-green, $oil-green-2), $amiko, $amiko, $oil-blue);
+    @include campaign_content_four_column($oil-gradient-standard, $amiko, $amiko, $oil-blue);
 
     .four-column-content-info {
       .four-column-content-information h4 {
@@ -255,10 +245,6 @@ body.theme-oil {
   .article-listing {
     @include campaign_articles($amiko, $amiko, $oil-orange, $anton, $oil-blue);
 
-    .article-list-item-image:not(:hover) {
-      @include monochrome;
-    }
-
     .article-list-item-headline a {
       text-transform: none;
     }
@@ -269,7 +255,7 @@ body.theme-oil {
   }
   // end .article-listing
   .carousel-wrap {
-    @include campaign_carousel(true, $oil-gradient-standard, $oil-black, $oil-grey, $oil-green, url("../../public/images/oil/carousel-arrow.svg"), 39px);
+    @include campaign_carousel(true, $oil-gradient-standard, $oil-black, $oil-grey, $oil-red, url("../../public/images/oil/carousel-arrow.svg"), 39px);
 
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
@@ -292,7 +278,6 @@ body.theme-oil {
 
       img {
         height: 100%;
-        @include monochrome;
       }
     }
 
@@ -378,15 +363,11 @@ body.theme-oil {
         background: $bg-button-alt;
       }
     }
-
-    .split-two-column-item-image img {
-      @include monochrome;
-    }
   } // end .split-two-column
 
   .columns-block.block-style-icons {
     @include campaign_columns_style_icons(
-      $oil-green,
+      $oil-gradient-standard,
       brightness(0%),
       $amiko, $regular,
       $anton, $regular
@@ -467,14 +448,6 @@ body.theme-oil {
       p {
         font-size: 1.125rem;
         margin-bottom: 30px;
-      }
-    }
-
-    .three-column-images {
-      @include campaign_content_three_column_images_divided($oil-gradient-standard);
-
-      img {
-        @include monochrome;
       }
     }
   }
