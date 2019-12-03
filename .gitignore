@@ -29,6 +29,3 @@ react-blocks/build/editorStyle.deps.json
 react-blocks/build/style.js
 react-blocks/build/style.js.map
 react-blocks/build/style.deps.json
-
-# Built css and js assets
-assets/build/*
