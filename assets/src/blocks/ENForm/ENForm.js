@@ -245,10 +245,10 @@ export class ENForm extends Component {
               />
             </div> )
           }
-
+          <br></br>
           <div>
             <TextControl
-              label={ __( 'URL (Title and Subtitle will not be shown)', 'planet4-engagingnetworks-backend' ) }
+              label={ __( 'Thank you page URL (Title, Subtitle, Social media message / icons and DONATE will not be shown)', 'planet4-engagingnetworks-backend' ) }
               placeholder={ __( 'Enter "Thank you page" url', 'planet4-engagingnetworks-backend' ) }
               value={this.props.thankyou_url}
               onChange={this.props.onThankYouURLChange}

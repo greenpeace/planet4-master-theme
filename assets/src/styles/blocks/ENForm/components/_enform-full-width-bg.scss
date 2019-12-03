@@ -44,7 +44,7 @@
 
     form {
       .submit {
-        @include medium-and-up() {
+        @include medium-and-up {
           margin-top: 0;
         }
 
@@ -55,6 +55,16 @@
 
         @include medium-and-up {
           flex-direction: unset;
+        }
+
+        button {
+          min-width: 100%;
+          padding: 0;
+          margin-top: 0;
+        }
+
+        .enform-legal {
+          min-width: 100%;
         }
       }
 

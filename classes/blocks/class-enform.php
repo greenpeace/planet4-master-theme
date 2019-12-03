@@ -236,9 +236,9 @@ class ENForm extends Base_Block {
 			}
 		}
 		$social = array(
-			'title'       => $og_title,
-			'description' => $og_description,
-			'link'        => $link,
+			'title'       => esc_attr( $og_title ),
+			'description' => esc_attr( $og_description ),
+			'link'        => esc_url( $link ),
 		);
 
 		$data = [];
