@@ -20,6 +20,3 @@ Thumbs.db
 #######################
 .idea
 reports
-
-# Built css and js assets
-assets/build/*
