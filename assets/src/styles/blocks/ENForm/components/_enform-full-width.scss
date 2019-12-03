@@ -32,9 +32,18 @@
           margin-bottom: 0;
         }
 
-        .custom-control-description:before {
-          height: 16px;
-          width: 16px;
+        input[type="checkbox"] {
+          + .custom-control-description:before {
+            height: 16px;
+            width: 16px;
+          }
+
+          &:checked + .custom-control-description:after {
+            left: 3px;
+            top: 8px;
+            width: 3px;
+            height: 3px;
+          }
         }
       }
 
