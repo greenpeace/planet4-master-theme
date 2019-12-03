@@ -4,7 +4,7 @@ msgstr ""
 "2;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-11-12 13:02+0000\n"
+"PO-Revision-Date: 2019-11-30 21:51+0000\n"
 "Language-Team: Slovak\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.3.1; wp-5.2.4"
+"X-Loco-Version: 2.3.1; wp-5.3"
 
 #: single.php:33
 msgid "Post page"
@@ -109,23 +109,26 @@ msgstr "Pošta"
 msgid "Search page"
 msgstr "Stránka vyhľadávania"
 
+# for numbers 2, 3, 4 - few
 #. translators:
 #: classes/class-p4-search.php:412
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "výsledok pre"
+msgstr[1] "výsledky pre"
+msgstr[2] "výsledkov pre"
 
+# few - numbers 2, 3,4
+# other  - 5 + numbers
 #. translators:
 #: classes/class-p4-search.php:418
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "výsledok"
+msgstr[1] "výsledky"
+msgstr[2] "výsledkov"
 
 #: classes/class-p4-search.php:478
 msgid "Action"
