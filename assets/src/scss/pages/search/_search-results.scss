@@ -155,7 +155,7 @@
     }
   }
 
-  .search-results-campaign-label {
+  .search-results-alternative-label {
     display: none;
     width: auto;
     height: 40px;
@@ -164,13 +164,15 @@
     font-size: $font-size-sm;
     font-weight: bold;
     text-align: center;
-    background: linear-gradient(to right, #a7e021, #66cc00);
+    background: #97ed90;
+    border-radius: 8px;
     color: #1a1a1a;
 
-    &.search-results-campaign-label-mobile {
+    &.search-results-alternative-label-mobile {
       display: inline-block;
       height: $space-lg;
       line-height: $space-lg;
+      margin-bottom: 10px;
 
       @include medium-and-up {
         display: none;

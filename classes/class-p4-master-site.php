@@ -391,6 +391,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function set_custom_allowed_attributes_filter( $allowedposttags ) {
 		// Allow iframes and the following attributes.
+		$allowedposttags['style']  = [];
 		$allowedposttags['iframe'] = [
 			'align'           => true,
 			'width'           => true,
