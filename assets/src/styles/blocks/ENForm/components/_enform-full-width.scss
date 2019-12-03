@@ -4,12 +4,22 @@
     padding: $space-lg;
     padding-bottom: 42px;
 
-    .form-description {
-      margin-bottom: 16px;
+    .title-and-description {
+      h2 {
+        margin-bottom: 16px;
+      }
+
+      .form-description {
+        margin-bottom: 32px;
+      }
     }
 
     form {
       .en__field--check {
+        height: min-content;
+        line-height: 1;
+        margin-top: 16px;
+
         @include medium-and-up {
           width: 100%;
         }
@@ -19,8 +29,12 @@
         }
 
         .form-group {
-          margin-top: 16px;
           margin-bottom: 0;
+        }
+
+        .custom-control-description:before {
+          height: 16px;
+          width: 16px;
         }
       }
 
@@ -28,12 +42,39 @@
         padding: 0;
       }
 
-      .submit-container {
-        width: min-content;
+      .submit {
+        display: flex;
+        margin-top: 0;
+
+        @include medium-and-up {
+          justify-content: center;
+        }
+
+        @include large-and-up {
+          justify-content: left;
+        }
+
+        button {
+          padding: 0;
+          margin-bottom: 0;
+
+          @include medium-and-up {
+            width: 380px !important;
+          }
+
+          @include large-and-up {
+            width: 32% !important;
+          }
+        }
       }
 
       .enform-legal {
-        overflow: hidden;
+        margin-top: 24px;
+
+        @include large-and-up {
+          margin-top: 16px;
+          width: 66%;
+        }
       }
     }
   }
