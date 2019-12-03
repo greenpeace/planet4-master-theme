@@ -308,7 +308,7 @@ final class Loader {
 
 		wp_enqueue_style(
 			'P4GEN_style',
-			P4GEN_PLUGIN_URL . 'style.css', // - Bundled CSS for the blocks
+			P4GEN_PLUGIN_URL . '/assets/build/style.min.css', // - Bundled CSS for the blocks
 			[],
 			'0.1'
 		);
