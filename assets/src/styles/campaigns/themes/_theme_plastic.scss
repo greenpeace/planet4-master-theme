@@ -40,10 +40,14 @@ body.theme-plastic {
   }
 
   .page-section-header {
-    @include page-section-header($montserrat, $plastics-blue, $extra-bold, 3.75rem);
+    @include page-section-header($montserrat, $plastics-blue, $extra-bold, 2.2rem);
 
-    text-transform: none;
-    font-size: 2.2rem;
+    line-height: 2.75rem;
+    text-transform: uppercase;
+
+    @include medium-and-up {
+      font-size: 3.75rem
+    }
 
     .page-header-subtitle {
       font-weight: 500;
@@ -67,8 +71,13 @@ body.theme-plastic {
     }
 
     .page-header-title {
-      font-size: 3.125rem;
-      line-height: 4.375rem;
+      font-size: 2.5rem;
+      line-height: 3rem;
+
+      @include medium-and-up {
+        font-size: 3.125rem;
+        line-height: 4.375rem;
+      }
     }
 
     .page-header-subtitle {
@@ -425,6 +434,13 @@ body.theme-plastic {
     h2 {
       text-transform: none;
       font-size: 2.2rem;
+
+      margin-bottom: 40px;
+      margin-top: 40px;
+
+      @include medium-and-up {
+        margin-top: 0;
+      }
     }
 
     .column-wrap {
