@@ -295,15 +295,28 @@
 									{% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
 								{% endfor %}
 							</ul>
-							{% if ( load_more and posts|length > paged_posts|length ) %}
+							{% if ( load_more ) %}
 								<div class="col-lg-12 mb-5 load-more-button-div">
 									<button
 										class="btn btn-medium btn-small btn-secondary more-btn {{ load_more.async ? 'btn-load-more-async' : '' }} btn-load-more-click-scroll"
 										data-current_page="{{ current_page }}"
 										data-total_posts="{{ found_posts }}"
-										data-posts_per_load="{{ load_more.posts_per_load }}">
+										data-posts_per_load="{{ load_more.posts_per_load }}"
+										data-archives_per_load="{{ load_more.archives_per_load }}"
+										data-page_archive_available_after = "{{ load_more.page_archive_available_after }}">
 											{{ load_more.button_text }}
-										</button>
+									</button>
+
+									{% if settings.include_archive_content %}
+										<div class="toggle-wrapper">
+											<div class="toggle-button">
+												<input type="checkbox" id="show-archive-toggle" class="toggle show-archive-toggle"/>
+												<label class="toggle-label" for="show-archive-toggle"></label>
+											</div>
+											<span class="toggle-label-include">{{ __( 'INCLUDE ARCHIVE', 'planet4-master-theme' ) }}</span>
+											<span class="toggle-label-exclude">{{ __( 'EXCLUDE ARCHIVE', 'planet4-master-theme' ) }}</span>
+										</div>
+									{% endif %}
 								</div>
 							{% endif %}
 							{% if ( pagination ) %}

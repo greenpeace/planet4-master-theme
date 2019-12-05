@@ -74,3 +74,24 @@
     }
   }
 }
+
+.toggle-wrapper {
+  display: inline-block;
+  margin-left: 48px;
+
+  .toggle-button {
+    display: inline-block;
+
+    label {
+      margin-bottom: -0.6rem;
+    }
+  }
+
+  span {
+    font-family: $roboto;
+    font-size: 1.12rem;
+    font-weight: bold;
+    color: #074365;
+    margin-left: 10px;
+  }
+}
