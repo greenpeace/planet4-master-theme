@@ -25,6 +25,51 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 		];
 
 		/**
+		 * Blocks_Usage_Controller constructor.
+		 *
+		 * @param View $view The view object.
+		 */
+		public function __construct( $view ) {
+			parent::__construct( $view );
+			$this->hooks();
+		}
+
+		/**
+		 * Class hooks.
+		 */
+		private function hooks() {
+			add_action( 'rest_api_init', [ $this, 'plugin_blocks_report_register_rest_route' ] );
+		}
+
+		/**
+		 * Register API route for report of blocks usage in pages/posts.
+		 */
+		public function plugin_blocks_report_register_rest_route() {
+			register_rest_route(
+				'plugin_blocks/v2',
+				'/plugin_blocks_report/',
+				[
+					'methods'  => 'GET',
+					'callback' => [ $this, 'plugin_blocks_report_json' ],
+				]
+			);
+		}
+
+		/**
+		 * Finds blocks usage in pages/posts.
+		 */
+		public function plugin_blocks_report_json() {
+			$cache_key = 'plugin-blocks-report';
+			$report    = wp_cache_get( $cache_key );
+			if ( ! $report ) {
+				$report = $this->plugin_blocks_report( 'json' );
+				wp_cache_add( $cache_key, $report, '', 3600 );
+			}
+
+			return $report;
+		}
+
+		/**
 		 * Create menu/submenu entry.
 		 */
 		public function create_admin_menu() {
@@ -45,12 +90,19 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 
 		/**
 		 * Finds blocks usage in pages/posts.
+		 *
+		 * @param String $type The Block report type.
 		 */
-		public function plugin_blocks_report() {
+		public function plugin_blocks_report( $type = 'text' ) {
 			global $wpdb;
 			$wpdb_prefix = $wpdb->prefix;
 
 			$block_types = $this->get_block_types();
+			$report      = [];
+
+			if ( '' === $type ) {
+				$type = 'text';
+			}
 
 			// phpcs:disable
 			foreach ( $block_types as $block_type ) {
@@ -73,18 +125,23 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 					$block_type = 'Take Action Covers - Old block';
 				}
 
-				echo '<hr>';
-				echo '<h2>' . ucfirst( str_replace( '_', ' ', $block_type ) ) . '</h2>';
-				echo '<table>';
-				echo '<tr style="text-align: left"><th>ID</th><th>Title</th></tr>';
-				foreach ( $results as $result ) {
-					echo '<tr><td>'.$result->ID .'</td>';
-					echo  '<td><a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->post_title . '</a></td></tr>';
+				if ( 'text' === $type ) {
+					echo '<hr>';
+					echo '<h2>' . ucfirst( str_replace( '_', ' ', $block_type ) ) . '</h2>';
+					echo '<table>';
+					echo '<tr style="text-align: left">
+							<th>' . __( 'ID', 'planet4-blocks-backend' ) . '</th>
+							<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
+					</tr>';
+					foreach ( $results as $result ) {
+						echo '<tr><td>'.$result->ID .'</td>';
+						echo  '<td><a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->post_title . '</a></td></tr>';
+					}
+					echo '</table>';
+				} else {
+					$report[ ucfirst( str_replace( '_', ' ', $block_type ) ) ] = count($results);
 				}
-				echo '</table>';
 			}
-
-
 
 			// Add to the report a breakdown of different styles for carousel Header
 			$sql = 'SELECT ID, post_title
@@ -94,14 +151,21 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 
 			$prepared_sql = $wpdb->prepare( $sql, $wpdb->posts );
 			$results      = $wpdb->get_results( $prepared_sql );
-			echo '<hr>';
-			echo '<h2>Carousel Header Full Width Classic style</h2>';
-			echo '<table><tr style="text-align: left"><th>ID</th><th>Title</th></tr>';
-			foreach ( $results as $result ) {
-				echo '<tr><td>'.$result->ID .'</td>';
-				echo  '<td><a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->post_title . '</a></td></tr>';
+			if ( 'text' === $type ) {
+				echo '<hr>';
+				echo '<h2>Carousel Header Full Width Classic style</h2>';
+				echo '<table><tr style="text-align: left">
+						<th>' . __( 'ID', 'planet4-blocks-backend' ) . '</th>
+						<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
+				</tr>';
+				foreach ($results as $result) {
+					echo '<tr><td>' . $result->ID . '</td>';
+					echo '<td><a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->post_title . '</a></td></tr>';
+				}
+				echo '</table>';
+			} else {
+				$report[ ucfirst( 'planet4-blocks/carousel-header-Full-Width-Classic' ) ] = count($results);
 			}
-			echo '</table>';
 
 			// Add to the report a breakdown of different styles for carousel Header
 			// Given that the default (if no style is defined) is the Slide to Gray, include in the query
@@ -117,15 +181,21 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 
 			$prepared_sql = $wpdb->prepare( $sql, [ $wpdb->posts, $wpdb->posts ] );
 			$results      = $wpdb->get_results( $prepared_sql );
-			echo '<hr>';
-			echo '<h2>Carousel Header Zoom and Slide to Grey</h2>';
-			echo '<table><tr style="text-align: left"><th>ID</th><th>Title</th></tr>';
-			foreach ( $results as $result ) {
-				echo '<tr><td>'.$result->ID .'</td>';
-				echo  '<td><a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->post_title . '</a></td></tr>';
+			if ( 'text' === $type ) {
+				echo '<hr>';
+				echo '<h2>Carousel Header Zoom and Slide to Grey</h2>';
+				echo '<table><tr style="text-align: left">
+						<th>' . __( 'ID', 'planet4-blocks-backend' ) . '</th>
+						<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
+				</tr>';
+				foreach ( $results as $result ) {
+					echo '<tr><td>'.$result->ID .'</td>';
+					echo  '<td><a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->post_title . '</a></td></tr>';
+				}
+				echo '</table>';
+			} else {
+				$report[ ucfirst( 'planet4-blocks/carousel-header-Zoom-And-Slide' ) ] = count($results);
 			}
-			echo '</table>';
-
 
 			// Add to the report a breakdown of which tags are using a redirect page and which do not
 			// The first query shows the ones that do not use a redirect page
@@ -170,14 +240,21 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				]
 			);
 			$results = $wpdb->get_results( $prepared_sql );
-			echo '<hr>';
-			echo '<h2>Tags without redirection page</h2>';
-			echo '<table><tr style="text-align: left"><th>ID</th><th>Title</th></tr>';
-			foreach ( $results as $result ) {
-				echo '<tr><td>'.$result->term_id .'</td>';
-				echo '<td><a href="term.php?taxonomy=post_tag&tag_ID=' . $result->term_id . '" >' . $result->name . '</a></td></tr>';
+			if ( 'text' === $type ) {
+				echo '<hr>';
+				echo '<h2>Tags without redirection page</h2>';
+				echo '<table><tr style="text-align: left">
+					<th>' . __( 'ID', 'planet4-blocks-backend' ) . '</th>
+					<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
+				</tr>';
+				foreach ( $results as $result ) {
+					echo '<tr><td>'.$result->term_id .'</td>';
+					echo '<td><a href="term.php?taxonomy=post_tag&tag_ID=' . $result->term_id . '" >' . $result->name . '</a></td></tr>';
+				}
+				echo '</table>';
+			} else {
+				$report[ 'TagsNotUsingRedirectionPage' ] = count($results);
 			}
-			echo '</table>';
 
 			// Add to the report a breakdown of which tags are using a redirect page and which do not
 			// The second query shows the ones that do use a redirect page
@@ -199,18 +276,31 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				]
 			);
 			$results = $wpdb->get_results( $prepared_sql );
-			echo '<hr>';
-			echo '<h2>Tags that use a redirection page</h2>';
-			echo '<table><tr style="text-align: left"><th>ID</th><th>Title</th></tr>';
-			foreach ( $results as $result ) {
-				echo '<tr><td>'.$result->term_id .'</td>';
-				echo '<td><a href="term.php?taxonomy=post_tag&tag_ID=' . $result->term_id . '" >' . $result->name . '</a></td></tr>';
+			if ( 'text' === $type ) {
+				echo '<hr>';
+				echo '<h2>Tags that use a redirection page</h2>';
+				echo '<table><tr style="text-align: left">
+					<th>' . __( 'ID', 'planet4-blocks-backend' ) . '</th>
+					<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
+				</tr>';
+				foreach ( $results as $result ) {
+					echo '<tr><td>'.$result->term_id .'</td>';
+					echo '<td><a href="term.php?taxonomy=post_tag&tag_ID=' . $result->term_id . '" >' . $result->name . '</a></td></tr>';
+				}
+				echo '</table>';
+			} else {
+				$report[ 'TagsUsingRedirectionPage' ] = count($results);
 			}
-			echo '</table>';
 			// phpcs:enable
+
+			if ( 'json' === $type ) {
+				return $report;
+			}
 		}
 
 		/**
+		 * Return P4 and allowed core WP block types.
+		 *
 		 * @return string[]
 		 */
 		private function get_block_types(): array {
