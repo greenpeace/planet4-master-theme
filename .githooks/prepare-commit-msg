@@ -23,8 +23,9 @@ fi
 # prepending commit message.
 BRANCHES_TO_SKIP=(master develop)
 
-# Get current branch.
-BRANCH_NAME=$(git symbolic-ref --short HEAD)
+# Get current branch, exit if there is no branch
+# (for rebasing and other situations).
+BRANCH_NAME=$(git symbolic-ref --short HEAD) || exit 0
 
 # Get planet4 branch.
 PLANET_BRANCH_NAME=$(echo "$BRANCH_NAME" | awk 'match($0,/(PLANET|planet)-[0-9]*/) {print toupper(substr($0,RSTART,RLENGTH))}')
