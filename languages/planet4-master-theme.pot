@@ -184,6 +184,14 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+#: templates/search.twig:316
+msgid "INCLUDE ARCHIVE CONTENT"
+msgstr ""
+
+#: templates/search.twig:317
+msgid "EXCLUDE ARCHIVE CONTENT"
+msgstr ""
+
 #: templates/navigation-bar.twig:15
 msgid "Menu"
 msgstr ""

@@ -19,6 +19,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		const POSTS_PER_PAGE        = 10;
 		const POSTS_PER_LOAD        = 5;
 		const ARCHIVES_PER_LOAD     = 2;
+		const ARCHIVE_COLLECTION    = 9650;
 		const PAGES_BEFORE_ARCHIVE  = 5;
 		const SHOW_SCROLL_TIMES     = 2;
 		const DEFAULT_SORT          = '_score';
@@ -173,14 +174,13 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			// If this is an ajax call.
 			if ( wp_doing_ajax() ) {
 
-				$search_action              = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
-				$paged                      = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_STRING );
-				$total_posts                = filter_input(INPUT_GET, 'total_posts', FILTER_SANITIZE_STRING );
-				$only_archived_loads        = filter_input( INPUT_GET, 'only_archived_loads', FILTER_SANITIZE_STRING );
-				$archive_and_live_loads     = filter_input( INPUT_GET, 'archive_and_live_loads', FILTER_SANITIZE_STRING );
+				$search_action          = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
+				$paged                  = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_STRING );
+				$total_posts            = filter_input( INPUT_GET, 'total_posts', FILTER_SANITIZE_STRING );
+				$only_archived_loads    = filter_input( INPUT_GET, 'only_archived_loads', FILTER_SANITIZE_STRING );
+				$archive_and_live_loads = filter_input( INPUT_GET, 'archive_and_live_loads', FILTER_SANITIZE_STRING );
 
 				$search_async = new static();
-				$search_async->context['results_left'] = $paged;
 				$search_async->set_context( $search_async->context );
 				$search_async->search_query = urldecode( filter_input( INPUT_GET, 'search_query', FILTER_SANITIZE_STRING ) );
 
@@ -219,10 +219,10 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$cache_key_set = $search_async->prepare_keys_for_cache( urldecode( $query_string ), $group, $subgroup );
 				$search_async->check_cache( $cache_key_set->key, $cache_key_set->group );
 
-				// Set paged posts depending on call action
+				// Set paged posts depending on call action.
 				if ( 'get_paged_posts' === $search_action ) {
 					$search_async->set_paged_posts( $archive_and_live_loads );
-				} else if ( 'get_archived_posts' === $search_action ) {
+				} elseif ( 'get_archived_posts' === $search_action ) {
 					$search_async->set_archived_posts( $only_archived_loads, $archive_and_live_loads, $total_posts );
 				}
 
@@ -239,15 +239,13 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		/**
 		 * Set paged posts with next load of live posts.
 		 *
-		 * @param $archive_and_live_loads integer the number of loads with a combination or live and archived results.
+		 * @param integer $archive_and_live_loads the number of loads with a combination or live and archived results.
 		 */
 		protected function set_paged_posts( $archive_and_live_loads ) {
 			// Check if there are results already in the cache else fallback to the primary database.
 			if ( $this->posts ) {
 				$live_posts_offset = ( ( $this->current_page - ( $archive_and_live_loads + 1 ) ) * self::POSTS_PER_LOAD ) + ( $archive_and_live_loads * ( self::POSTS_PER_LOAD - self::ARCHIVES_PER_LOAD ) );
-
 				$this->paged_posts = array_slice( $this->posts, $live_posts_offset, self::POSTS_PER_LOAD );
-
 			} else {
 				$this->paged_posts = $this->get_timber_posts( $this->current_page );
 			}
@@ -256,37 +254,30 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		/**
 		 * Sets the paged posts as a combination of live posts and archived results.
 		 *
-		 * @param $only_archived_loads integer the number of loads containing only archived results.
-		 * @param $archive_and_live_loads integer the number of loads with a combination or live and archived results.
-		 * @param $total_posts integer the total number of live posts.
+		 * @param integer $only_archived_loads the number of loads containing only archived results.
+		 * @param integer $archive_and_live_loads the number of loads with a combination or live and archived results.
+		 * @param integer $total_posts the total number of live posts.
 		 */
 		protected function set_archived_posts( $only_archived_loads, $archive_and_live_loads, $total_posts ) {
 
-			$archived_results = $this->get_archived_results( $this->search_query );
-
+			$archived_results        = $this->get_archived_results( $this->search_query );
 			$archived_results_offset = ( $archive_and_live_loads * self::ARCHIVES_PER_LOAD ) + ( $only_archived_loads * self::POSTS_PER_LOAD );
-
-			$live_posts_offset = ( ( $this->current_page - ( $archive_and_live_loads + 1 ) ) * self::POSTS_PER_LOAD ) + ( $archive_and_live_loads * ( self::POSTS_PER_LOAD - self::ARCHIVES_PER_LOAD ) );
+			$live_posts_offset       = ( ( $this->current_page - ( $archive_and_live_loads + 1 ) ) * self::POSTS_PER_LOAD ) + ( $archive_and_live_loads * ( self::POSTS_PER_LOAD - self::ARCHIVES_PER_LOAD ) );
 
 			if ( $this->posts ) {
-
-				$live_posts_per_load = $archived_results_offset >= count( $archived_results ) ? self::POSTS_PER_LOAD : self::POSTS_PER_LOAD - self::ARCHIVES_PER_LOAD;
-
-				$archives_per_load = $live_posts_offset >= count( $this->posts ) ? self::POSTS_PER_LOAD : self::ARCHIVES_PER_LOAD;
-
-				$live_posts_to_load = array_slice( $this->posts, $live_posts_offset, $live_posts_per_load );
-
+				$live_posts_per_load      = $archived_results_offset >= count( $archived_results ) ? self::POSTS_PER_LOAD : self::POSTS_PER_LOAD - self::ARCHIVES_PER_LOAD;
+				$archives_per_load        = $live_posts_offset >= count( $this->posts ) ? self::POSTS_PER_LOAD : self::ARCHIVES_PER_LOAD;
+				$live_posts_to_load       = array_slice( $this->posts, $live_posts_offset, $live_posts_per_load );
 				$archived_results_to_load = array_slice( $archived_results, $archived_results_offset, $archives_per_load );
-
-				$this->paged_posts = array_merge( $live_posts_to_load, $archived_results_to_load );
+				$this->paged_posts        = array_merge( $live_posts_to_load, $archived_results_to_load );
 			} else {
-				//Posts not cached:
+				// Posts not cached.
 				if ( $live_posts_offset >= $total_posts ) {
 					$this->paged_posts = array_slice( $archived_results, $archived_results_offset );
 				} else {
-					$live_results_to_load = array_slice( $this->get_timber_posts( $this->current_page ), 0, self::POSTS_PER_LOAD - self::ARCHIVES_PER_LOAD );
+					$live_results_to_load     = array_slice( $this->get_timber_posts( $this->current_page ), 0, self::POSTS_PER_LOAD - self::ARCHIVES_PER_LOAD );
 					$archived_results_to_load = array_slice( $archived_results, $archived_results_offset, self::ARCHIVES_PER_LOAD );
-					$this->paged_posts = array_merge( $live_results_to_load, $archived_results_to_load );
+					$this->paged_posts        = array_merge( $live_results_to_load, $archived_results_to_load );
 				}
 			}
 		}
@@ -314,98 +305,98 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		/**
 		 * Fetches archived results from ArchiveIt.
 		 *
-		 * @param $search_query string search query entered by user.
+		 * @param string $search_query search query entered by user.
 		 *
 		 * @return array of archived results.
 		 */
 		protected function get_archived_results( $search_query ) {
 
-			$group = 'archive-search';
-			$subgroup = 'all';
-			$cache_key_set = $this->prepare_keys_for_cache( urldecode( $search_query.'-archived' ), $group, $subgroup );
+			$group           = 'archive-search';
+			$subgroup        = 'all';
+			$cache_key_set   = $this->prepare_keys_for_cache( urldecode( $search_query . '-archived' ), $group, $subgroup );
 			$archive_results = wp_cache_get( $cache_key_set->key, $cache_key_set->group );
 
-			if ( !$archive_results ) {
+			if ( true || ! $archive_results ) {
+
 				/**
+				 * Parameters
 				 * q = search query.
 				 * s = site.
 				 * h = hits per site (0 = all).
 				 * n = number of results. defaults to 10, so making it 100 should get enough.
 				 */
-				$archive_url = "https://archive-it.org/search-master/opensearch?q=$search_query&s=p3-raw.greenpeace.org&h=0&n=100";
-
-				$archive_response = wp_remote_get( $archive_url, array(
-					'timeout' => 100
-				) );
-
+				$archive_url               = "https://archive-it.org/search-master/opensearch?q=$search_query&s=p3-raw.greenpeace.org&h=0&n=100";
+				$archive_response          = wp_remote_get( $archive_url, [ 'timeout' => 100 ] );
 				$xml_archive_response_body = wp_remote_retrieve_body( $archive_response );
+				$response_body             = new SimpleXMLElement( $xml_archive_response_body );
+				$filtered_parsed_results   = $this->get_filtered_parsed_archived_results( $response_body );
 
-				$response_body = new SimpleXMLElement( $xml_archive_response_body );
-
-				$filtered_results = $this->get_filtered_archived_results( $response_body );
-
-				if ( 0 == count( $filtered_results ) ) {
+				if ( 0 === count( $filtered_parsed_results ) ) {
 					return [];
 				}
 
-				$parsed_items = [];
-
-				foreach ( $filtered_results as $item ) {
-
-					$parsed_item            = (object) array();
-					$parsed_item->title     = (string) $item->title;
-					$parsed_item->link      = (string) $item->link;
-					$parsed_item->excerpt   = (string) $item->description;
-					$parsed_item->post_type = 'archive';
-
-					array_push( $parsed_items, $parsed_item );
-				}
-
-				$archive_results = $parsed_items;
-
-				wp_cache_add( $cache_key_set->key, $parsed_items, $cache_key_set->group, self::DEFAULT_CACHE_TTL );
+				$archive_results = $filtered_parsed_results;
+				wp_cache_add( $cache_key_set->key, $filtered_parsed_results, $cache_key_set->group, self::DEFAULT_CACHE_TTL );
 			}
-
 			return $archive_results;
 		}
 
 		/**
 		 * Filter archived results by current domain.
 		 *
-		 * @param $results array of all results fetched from archive.
+		 * @param object $results of all results fetched from archive.
 		 *
 		 * @return array of archived results filtered by the current site.
 		 */
-		protected function get_filtered_archived_results( $results ) {
+		protected function get_filtered_parsed_archived_results( $results ) {
+			$domain = $this->get_domain();
 
-			$full_url = explode('/', strtok( get_page_link(), '?' ) );
+			$wayback_prefix = 'https://wayback.archive-it.org/' . self::ARCHIVE_COLLECTION . '/';
 
-			//["https:","","www.greenpeace.org","africa","en",""] - Language Specified
-			//["https:","","www.greenpeace.org","international",""] - No Language
-			//["https:","","www.greenpeace.ch","de",""] - Switzerland
-
-			if ( strcmp('nl', $full_url[3] ) == 0 ) {
-				$archive_ref = 'secured.greenpeace.nl';
-			} else if ( false != strpos( $full_url[2],'greenpeace.ch' ) ) {
-				$archive_ref = 'switzerland/'.$full_url[3];
-			} else if ( count( $full_url ) > 4 ) {
-				//Contains language in URL
-				$archive_ref = $full_url[3].'/'.$full_url[4];
-			} else if ( count( $full_url ) > 3 ) {
-				$archive_ref = $full_url[3];
-			} else {
-				$archive_ref = '/';
-			}
-
-			$filtered_items = [];
+			$filtered_parsed_items = [];
 
 			foreach ( $results->channel->item as $item ) {
-				if ( strpos( (string) $item->link, $archive_ref ) !== false) {
-					array_push($filtered_items, $item );
+				if ( strpos( (string) $item->link, $domain ) !== false ) {
+					$parsed_item            = new stdClass();
+					$parsed_item->title     = (string) $item->title;
+					$parsed_item->link      = $wayback_prefix . ( (string) $item->link );
+					$parsed_item->excerpt   = (string) $item->description;
+					$parsed_item->post_type = 'archive';
+
+					array_push( $filtered_parsed_items, $parsed_item );
 				}
 			}
 
-			return $filtered_items;
+			return $filtered_parsed_items;
+		}
+
+		/**
+		 * Gets the domain of the current site.
+		 */
+		protected function get_domain() {
+			$full_url = explode( '/', strtok( get_page_link(), '?' ) );
+
+			// ["https:","","www.greenpeace.org","africa","en",""] - Language Specified
+			// ["https:","","www.greenpeace.org","international",""] - No Language
+			// ["https:","","www.greenpeace.ch","de",""] - Switzerland
+			if ( strcmp( 'nl', $full_url[3] ) === 0 ) {
+				$domain = 'secured.greenpeace.nl';
+			} elseif ( false != strpos( $full_url[2], 'greenpeace.ch' ) ) {
+				$domain = 'switzerland/' . $full_url[3];
+			} elseif ( count( $full_url ) > 4 ) {
+				// Contains language in URL.
+				$domain = $full_url[3] . '/' . $full_url[4];
+			} elseif ( count( $full_url ) > 3 ) {
+				$domain = $full_url[3];
+			} else {
+				$domain = '/';
+			}
+
+			if ( empty( $domain ) ) {
+				$domain = '/';
+			}
+
+			return $domain;
 		}
 
 		/**
@@ -647,7 +638,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 			if ( $this->search_query ) {
 				$context['page_title'] = sprintf(
-				// translators: %1$d = Number of results.
+					// translators: %1$d = Number of results.
 					_n( '%1$d result for \'%2$s\'', '%1$d results for \'%2$s\'', $context['found_posts'], 'planet4-master-theme' ),
 					$context['found_posts'],
 					$this->search_query
@@ -904,7 +895,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
 
 			if ( ! is_admin() && is_search() ||
-			     wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
+				wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) {
 				$mime_types = implode( ',', self::DOCUMENT_TYPES );
 				$where     .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
 			}
@@ -946,15 +937,20 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		public function add_load_more( $args = null ) {
 			$this->context['load_more'] = $args ?? [
-					'posts_per_load' => self::POSTS_PER_LOAD,
-					'archives_per_load' => self::ARCHIVES_PER_LOAD,
-					'page_archive_available_after' => $this->get_page_to_add_load_archive_after(),
-					// Translators: %s = number of results per page.
-					'button_text'    => sprintf( __( 'SHOW %s MORE RESULTS', 'planet4-master-theme' ), self::POSTS_PER_LOAD ),
-					'async'          => true,
-				];
+				'posts_per_load'               => self::POSTS_PER_LOAD,
+				'archives_per_load'            => self::ARCHIVES_PER_LOAD,
+				'page_archive_available_after' => $this->get_page_to_add_load_archive_after(),
+				// Translators: %s = number of results per page.
+				'button_text'                  => sprintf( __( 'SHOW %s MORE RESULTS', 'planet4-master-theme' ), self::POSTS_PER_LOAD ),
+				'async'                        => true,
+			];
 		}
 
+		/**
+		 * Get the page to show the archive toggle after.
+		 *
+		 * @return integer page number to add archive toggle after
+		 */
 		protected function get_page_to_add_load_archive_after() {
 			$pages = ceil( count( $this->posts ) / self::POSTS_PER_LOAD );
 			return min( self::PAGES_BEFORE_ARCHIVE, $pages );

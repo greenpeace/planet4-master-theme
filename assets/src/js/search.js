@@ -2,16 +2,16 @@
 
 // Search page.
 export const setupSearch = function($) {
-  const $search_form            = $( '#search_form' );
-  const $load_more_button       = $( '.btn-load-more-click-scroll' );
-  let load_more_count           = 0;
-  let current_page              = 1;
-  let total_posts               = 0;
-  let loaded_more               = false;
-  let show_archive_button       = false;
-  let load_archive              = false;
-  let only_archived_loads       = 0;
-  let archive_and_live_loads    = 0;
+  const $search_form         = $( '#search_form' );
+  const $load_more_button    = $( '.btn-load-more-click-scroll' );
+  let load_more_count        = 0;
+  let current_page           = 1;
+  let total_posts            = 0;
+  let loaded_more            = false;
+  let show_archive_button    = false;
+  let load_archive           = false;
+  let only_archived_loads    = 0;
+  let archive_and_live_loads = 0;
 
   $( '#search-type button' ).click(function() {
     $( '#search-type button' ).removeClass( 'active' );
@@ -90,11 +90,11 @@ export const setupSearch = function($) {
   $load_more_button.off( 'click' ).on( 'click', function() {
     // If this button has this class then Lazy-loading is enabled.
     if ( $(this).hasClass( 'btn-load-more-async' ) ) {
-      total_posts    = $(this).data('total_posts');
-      const posts_per_load = $(this).data('posts_per_load');
+      total_posts             = $(this).data('total_posts');
+      const posts_per_load    = $(this).data('posts_per_load');
       const archives_per_load = $(this).data('archives_per_load');
-      const next_page      = current_page + 1;
-      current_page         = next_page;
+      const next_page         = current_page + 1;
+      current_page            = next_page;
       $(this).data( 'current_page', next_page );
 
       let action = load_archive ? 'get_archived_posts' : 'get_paged_posts';
@@ -103,27 +103,24 @@ export const setupSearch = function($) {
         url: localizations.ajaxurl,
         type: 'GET',
         data: {
-          action:                       'get_paged_posts',
-          'search-action':              action,
-          'search_query':               $( '#search_input' ).val().trim(),
-          'total_posts':                total_posts,
-          'archived_loads':             only_archived_loads,
-          'archive_and_live_loads':     archive_and_live_loads,
-          'paged':                      next_page,
-          'query-string':               decodeURIComponent( location.search ).substr( 1 ) // Ignore the ? in the search url (first char).
+          action:                   'get_paged_posts',
+          'search-action':          action,
+          'search_query':           $( '#search_input' ).val().trim(),
+          'total_posts':            total_posts,
+          'only_archived_loads':    only_archived_loads,
+          'archive_and_live_loads': archive_and_live_loads,
+          'paged':                  next_page,
+          'query-string':           decodeURIComponent( location.search ).substr( 1 ) // Ignore the ? in the search url (first char).
         },
         dataType: 'html'
       }).done(function ( response ) {
         // Append the response at the bottom of the results and then show it.
         $( '.multiple-search-result .list-unstyled' ).append( response );
         $( '.row-hidden:last' ).removeClass( 'row-hidden' ).show( 'fast' );
-        // if (posts_per_load * next_page > total_posts) {
-        //   $load_more_button.hide();
-        // }
 
-        let loads_with_only_live_posts = ( next_page - 1 ) - archive_and_live_loads;
-        let loaded_posts = ( archive_and_live_loads * posts_per_load - archives_per_load ) + ( loads_with_only_live_posts * posts_per_load );
-        let loaded_more_live_posts = total_posts > loaded_posts;
+        let loads_with_only_live_posts = ( next_page - 1 ) - archive_and_live_loads - only_archived_loads;
+        let loaded_posts               = ( archive_and_live_loads * ( posts_per_load - archives_per_load ) ) + ( loads_with_only_live_posts * posts_per_load );
+        let loaded_more_live_posts     = total_posts > loaded_posts;
 
         if ( load_archive && loaded_more_live_posts ) {
           archive_and_live_loads++;
@@ -175,9 +172,10 @@ export const setupSearch = function($) {
       show_archive_button = true;
     } else {
       $( '.toggle-wrapper' ).hide();
-      $( '.toggle-label-exclude' ).hide();
       load_archive = false;
     }
+
+    $( '.toggle-label-exclude' ).hide();
   };
 
   checkShowLoadArchive();

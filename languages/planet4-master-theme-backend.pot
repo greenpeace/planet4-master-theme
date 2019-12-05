@@ -352,6 +352,14 @@ msgid ""
 "blocked and will require user consent to be shown."
 msgstr ""
 
+#: classes/class-p4-settings.php:240
+msgid "Include archived content in search results"
+msgstr ""
+
+msgid ""
+"By enabling this option content from the archived P3 site will be included in P4 search results if users selects to include them."
+msgstr ""
+
 #: classes/class-p4-settings.php:260 classes/class-p4-settings.php:274
 msgid "Select Page"
 msgstr ""
