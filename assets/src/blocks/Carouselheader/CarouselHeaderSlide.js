@@ -1,4 +1,4 @@
-import {React, Component, Fragment} from 'react';
+import {Component, Fragment} from '@wordpress/element';
 import {
   Button,
   Dashicon,

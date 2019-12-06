@@ -1,4 +1,3 @@
-import { React } from 'react';
 import {Component,Fragment} from "@wordpress/element";
 import {
   TextControl,

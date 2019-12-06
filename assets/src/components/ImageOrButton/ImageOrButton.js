@@ -1,4 +1,4 @@
-import {React, Component} from 'react';
+import {Component} from '@wordpress/element';
 import {Button} from '@wordpress/components';
 import {MediaUpload,MediaUploadCheck} from '@wordpress/editor';
 
