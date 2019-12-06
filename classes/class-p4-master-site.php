@@ -328,6 +328,15 @@ class P4_Master_Site extends TimberSite {
 		$context['google_tag_value']       = $options['google_tag_manager_identifier'] ?? '';
 		$context['google_optimizer']       = isset( $options['google_optimizer'] ) ? true : false;
 		$context['facebook_page_id']       = $options['facebook_page_id'] ?? '';
+		$context['preconnect_domains']     = [];
+
+		if ( ! empty( $options['preconnect_domains'] ) ) {
+			$preconnect_domains = explode( "\n", $options['preconnect_domains'] );
+			$preconnect_domains = array_map( 'trim', $preconnect_domains );
+			$preconnect_domains = array_filter( $preconnect_domains );
+
+			$context['preconnect_domains'] = $preconnect_domains;
+		}
 
 		$context['donatelink']           = $options['donate_button'] ?? '#';
 		$context['donatetext']           = $options['donate_text'] ?? __( 'DONATE', 'planet4-master-theme' );
