@@ -195,6 +195,7 @@
 .gp-year {
   color: $white;
   font-size: $font-size-xxs;
+  text-transform: none;
 
   @include medium-and-up {
     font-size: $font-size-xxs;
