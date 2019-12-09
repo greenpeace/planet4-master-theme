@@ -21,24 +21,24 @@ document.addEventListener( 'DOMContentLoaded', () => {
     } );
   } );
 
-  function toDataURL( url ) {
-    return fetch( url )
-      .then( ( response ) => response.blob() )
-      .then( ( blob ) => URL.createObjectURL( blob ) );
-  }
-
-  // Force the download button to always download the file instead of showing it in browser, even cross origin.
-  document.querySelectorAll( 'a.link-should-download' ).forEach( ( link ) => {
-    link.addEventListener( 'click', ( event ) => {
-      event.preventDefault();
-      let a = document.createElement( 'a' );
-      toDataURL( link.href ).then( ( url ) => {
-        a.href = url;
-        a.download = '';
-        document.body.appendChild( a );
-        a.click();
-        document.body.removeChild( a );
-      } );
-    } );
-  } );
+  // function toDataURL( url ) {
+  //   return fetch( url )
+  //     .then( ( response ) => response.blob() )
+  //     .then( ( blob ) => URL.createObjectURL( blob ) );
+  // }
+  //
+  // // Force the download button to always download the file instead of showing it in browser, even cross origin.
+  // document.querySelectorAll( 'a.link-should-download' ).forEach( ( link ) => {
+  //   link.addEventListener( 'click', ( event ) => {
+  //     event.preventDefault();
+  //     let a = document.createElement( 'a' );
+  //     toDataURL( link.href ).then( ( url ) => {
+  //       a.href = url;
+  //       a.download = '';
+  //       document.body.appendChild( a );
+  //       a.click();
+  //       document.body.removeChild( a );
+  //     } );
+  //   } );
+  // } );
 } );
