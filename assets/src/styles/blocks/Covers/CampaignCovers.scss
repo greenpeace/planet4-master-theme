@@ -1,4 +1,4 @@
-@mixin campaign_thumbnail($overlay, $cta-colour, $cta-colour-hover, $cta-font, $cta-spacing: 10, $cta-left: 28px, $cta-bottom: 30px) {
+@mixin campaign_covers($overlay, $cta-colour, $cta-colour-hover, $cta-font, $cta-spacing: 10, $cta-left: 28px, $cta-bottom: 30px) {
   .campaign-card-column {
     padding-left: 8px;
     padding-right: 8px;
@@ -55,7 +55,7 @@
   }
 }
 
-.campaign-thumbnail-block {
+.campaign-covers-block {
   .thumbnail-largeview-container {
     @supports (display: grid) {
       display: grid;
@@ -73,7 +73,7 @@
       max-height: 70px;
       position: relative;
       overflow: hidden;
-      @include background-before-opacity(rgba(22,22,22,0.1));
+      @include background-before-opacity(rgba(22, 22, 22, 0.1));
 
       @include medium-and-up {
         margin-bottom: 0;
@@ -81,7 +81,7 @@
       }
 
       @include large-and-up {
-        @include background-before-opacity(rgba(22,22,22,0.65));
+        @include background-before-opacity(rgba(22, 22, 22, 0.65));
 
         &:hover {
           &:before {

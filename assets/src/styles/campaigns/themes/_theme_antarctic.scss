@@ -13,10 +13,11 @@ body.theme-antarctic {
   $antarctic-gradient: linear-gradient(to right, $antarctic-light-blue, $antarctic-pink);
 
   @mixin antarctic-button($background: $antarctic-purple, $foreground: white) {
-    @include button($background, $foreground, $sanctuary, 60);
+    @include button($background, $foreground, $montserrat, 60);
+    font-weight: $bold;
+    line-height: 50px;
   }
 
-  font-family: $roboto;
   background: white;
 
   .btn-primary {
@@ -30,11 +31,13 @@ body.theme-antarctic {
 
   .btn-secondary {
     &:not(#hidecookie) {
-      @include antarctic-button($antarctic-dark-blue);
+      @include antarctic-button($white, $antarctic-dark-blue);
+      box-sizing: border-box;
+      border: 1px solid $antarctic-dark-blue;
 
       &:hover {
         color: white;
-        background: $antarctic-light-blue;
+        background: $antarctic-dark-blue;
       }
     }
   }
@@ -108,21 +111,25 @@ body.theme-antarctic {
     }
   } // end .covers-block
 
-  .campaign-thumbnail-block {
-    @include campaign_thumbnail($antarctic-gradient, $antarctic-purple, white, $sanctuary);
-  } // end .campaign-thumbnail-block
+  .campaign-covers-block {
+    @include campaign_covers($antarctic-gradient, $antarctic-purple, white, $sanctuary);
+  } // end .campaign-covers-block
 
-  .four-column-content {
-    @include campaign_content_four_column($antarctic-gradient, $sanctuary, $montserrat, $antarctic-pink);
-  } // end .four-column-content
+  .content-covers-block {
+    @include campaign_content_covers($antarctic-gradient, $sanctuary, $montserrat, $antarctic-pink);
+  } // end .content-covers-block
 
-  .article-listing {
+  .articles-block {
     @include campaign_articles($montserrat, $montserrat, $antarctic-pink, $sanctuary, $antarctic-orange);
+
+    .btn-secondary {
+      @extend .btn-secondary;
+    }
 
     .article-list-item-tags .tag-item {
       line-height: 1.1875rem;
     }
-  } // end .article-listing
+  } // end .articles-block
 
   .carousel-wrap {
     @include campaign_carousel(true, $antarctic-pink, white, #B5C7CF, $antarctic-purple, url("../../public/images/antarctic/carousel-arrow.svg"), 39px);
@@ -157,12 +164,25 @@ body.theme-antarctic {
     }
   } // end .split-two-column
 
+  .columns-block.block-style-image {
+    @include campaign_columns_style_image($sanctuary, $black, $regular);
+
+    .column-wrap a.btn-primary {
+      @extend .btn-primary;
+    }
+  }
+
   .columns-block.block-style-icons {
     @include campaign_columns_style_icons(
       $antarctic-light-blue,
       grayscale(0) invert(53%) sepia(74%) saturate(2689%) hue-rotate(266deg) brightness(79%) contrast(93%),
-      $montserrat, $regular,
-      $sanctuary, $regular, url("../../public/images/antarctic/arrow.svg"), url("../../public/images/antarctic/arrow-light.svg"));
+      $sanctuary, $regular,
+      $montserrat, $bold, url("../../public/images/antarctic/arrow.svg"), url("../../public/images/antarctic/arrow-light.svg")
+    );
+
+    .btn-primary {
+      @extend .btn-primary;
+    }
   } // end .columns-block.block-style-icons
 
   .submenu-block {

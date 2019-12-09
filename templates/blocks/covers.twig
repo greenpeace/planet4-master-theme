@@ -9,9 +9,9 @@
         covers_view: covers_view,
         tags: covers
       } %}
-      {% include "./campaign_thumbnail.twig" with { fields: vars } %}
+      {% include "./campaign_covers.twig" with { fields: vars } %}
     {% elseif ( cover_type == '3' ) %}
-      {% include "./content_four_column.twig" with { description: fields.description, posts: covers, title: fields.title, posts_view: covers_view } %}
+      {% include "./content_covers.twig" with { description: fields.description, posts: covers, title: fields.title, posts_view: covers_view } %}
     {% endif %}
   {% endif %}
 

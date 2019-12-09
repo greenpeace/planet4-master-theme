@@ -12,7 +12,7 @@
 @import "campaigns/base/fonts";
 
 // Components
-@import "campaigns/components/campaign_thumbnail";
+@import "campaigns/components/campaign_covers";
 @import "campaigns/components/campaign_video";
 
 // Block Overrides
@@ -22,7 +22,7 @@
 @import "campaigns/block-overrides/campaign_columns";
 @import "campaigns/block-overrides/campaign_counter";
 @import "campaigns/block-overrides/campaign_content_three_column";
-@import "campaigns/block-overrides/campaign_content_four_column";
+@import "campaigns/block-overrides/campaign_content_covers";
 @import "campaigns/block-overrides/campaign_covers";
 @import "campaigns/block-overrides/campaign_happy_point";
 @import "campaigns/block-overrides/campaign_social_media_cards";

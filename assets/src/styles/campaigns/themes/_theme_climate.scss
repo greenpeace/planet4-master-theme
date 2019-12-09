@@ -5,6 +5,7 @@ body.theme-climate {
   $climate-green-2: #21d677;
   $climate-red: #ff513c;
   $climate-red-2: #e74656;
+  $climate-red-3: #dc442c;
   $climate-purple: #b55eb8;
   $climate-blue: #007eff;
   $climate-turquoise: #58a8de;
@@ -26,7 +27,7 @@ body.theme-climate {
   font-family: $jost;
   background: #f8f7f7 !important;
 
-  @mixin climate-button($background: $climate-green, $foreground: white) {
+  @mixin climate-button($background: $climate-gradient-standard, $foreground: white) {
     @include button($background, $foreground, $jost, -30);
 
     font-weight: $semi-bold;
@@ -48,23 +49,24 @@ body.theme-climate {
   }
 
   .btn-primary {
-    &:not(#hidecookie) {
-      @include climate-button;
+    @include climate-button;
+    background: $climate-gradient-standard;
 
-      &:hover {
-        color: black;
-        background: $climate-gradient-standard;
-      }
+    &:hover {
+      color: white;
+      background: $climate-red-3;
     }
   }
 
   .btn-secondary {
     &:not(#hidecookie) {
-      @include climate-button(black, white);
+      @include climate-button(white, black);
+      border: 1px solid black;
 
       &:hover {
-        color: black;
-        background: $climate-gradient-standard;
+        color: white;
+        background: black;
+        border: 1px solid white;
       }
     }
   }
@@ -187,7 +189,7 @@ body.theme-climate {
   }
 
   .covers-block {
-    @include campaign_covers(white, $jost, $jost, $climate-blue);
+    @include campaign_thumbnail(white, $jost, $jost, $climate-blue);
 
     .cover-card {
       .cover-card-btn {
@@ -230,7 +232,7 @@ body.theme-climate {
     }
   }
   // end .covers-block
-  .campaign-thumbnail-block {
+  .campaign-covers-block {
     $border: 20px;
 
     @include campaign_thumbnail(url("../../public/images/climate/covers-block.svg") no-repeat, black, black, $jost, -10, #{$border + 16px}, #{$border + 16px});
@@ -254,18 +256,18 @@ body.theme-climate {
       }
     }
   }
-  //end .campaign-thumbnail-block
-  .four-column-content {
-    @include campaign_content_four_column(linear-gradient(to right, $climate-green, $climate-green-2), $jost, $jost, $climate-blue);
+  //end .campaign-covers-block
+  .content-covers-block {
+    @include campaign_content_covers(linear-gradient(to right, $climate-green, $climate-green-2), $jost, $jost, $climate-blue);
 
-    .four-column-content-info {
-      .four-column-content-information h4 {
+    .content-covers-block-info {
+      .content-covers-block-information h4 {
         font-weight: $regular;
       }
     }
   }
-  // end .four-column-content
-  .article-listing {
+  // end .content-covers-block
+  .articles-block {
     @include campaign_articles($jost, $jost, $climate-orange, $jost, $climate-blue);
 
     .article-list-item-headline a {
@@ -276,7 +278,7 @@ body.theme-climate {
       @include letter-spacing(-10);
     }
   }
-  // end .article-listing
+  // end .articles-block
   .carousel-wrap {
     @include campaign_carousel(true, $climate-gradient-standard, $climate-black, $climate-grey, $climate-green, url("../../public/images/climate/carousel-arrow.svg"), 39px);
 
@@ -395,6 +397,12 @@ body.theme-climate {
       $jost, $regular,
       $jost, $regular
     );
+
+    .column-wrap {
+      .btn-primary {
+        @extend .btn-primary;
+      }
+    }
   } // end .columns-block.block-style-icons
 
   .submenu-block {
@@ -464,6 +472,12 @@ body.theme-climate {
         }
       }
     }
+
+    .column-wrap {
+      .btn-primary {
+        @extend .btn-primary;
+      }
+    }
   }
   // end take action task block
   .split-three-column {
@@ -477,10 +491,22 @@ body.theme-climate {
 
   .columns-block.block-style-image {
     @include campaign_columns_style_image($jost);
+
+    .column-wrap {
+      .btn-primary {
+        @extend .btn-primary;
+      }
+    }
   }
 
   .columns-block.block-style-no_image {
     @include campaign_columns_style_no_image($jost, black, bold, none);
+
+    .column-wrap {
+      .btn-primary {
+        @extend .btn-primary;
+      }
+    }
   }
 
   .video-block {

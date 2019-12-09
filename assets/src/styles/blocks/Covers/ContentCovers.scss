@@ -1,4 +1,4 @@
-.four-column-content {
+.content-covers-block {
   color: $black;
 
   .limit-visibility {
@@ -14,10 +14,10 @@
     margin-top: $space-lg;
   }
 
-  .four-column-content-wrap {
+  .content-covers-block-wrap {
     margin-top: $space-lg;
 
-    .four-column-content-symbol {
+    .content-covers-block-symbol {
       position: relative;
       margin: 0 0 24px 0;
       box-shadow: 0 5px 20px 0 rgba(114, 114, 114, 0.5);
@@ -57,7 +57,7 @@
       }
     }
 
-    .four-column-content-info {
+    .content-covers-block-info {
       .four-column-hover {
         text-decoration: underline;
       }
