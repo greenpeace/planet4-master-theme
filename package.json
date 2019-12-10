@@ -10,7 +10,8 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "wp-scripts start",
 		"build": "wp-scripts build --mode production",
-		"lint:css": "wp-scripts lint-style"
+		"lint:css": "wp-scripts lint-style",
+		"setupgithooks": "bin/copy-git-hooks.sh"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "3.3.0",
