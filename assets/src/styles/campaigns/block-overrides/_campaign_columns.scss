@@ -220,6 +220,10 @@ $text-transform: uppercase) {
 
       .btn {
         width: auto;
+
+        &.btn-primary {
+          color: white;
+        }
       }
     }
   }
@@ -300,6 +304,10 @@ $text-transform: uppercase) {
       .btn {
         margin-bottom: 30px;
         width: auto;
+
+        &.btn-primary {
+          color: white;
+        }
       }
     }
   }
