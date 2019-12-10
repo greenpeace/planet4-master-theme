@@ -7,6 +7,7 @@ body.theme-plastic {
   $plastics-blue: #044362;
   $plastics-blue-mid: #00748f;
   $plastics-blue-light: #1a9db8;
+  $plastics-aqua-light: #8fd9d0;
 
   font-family: $roboto;
   background: white;
@@ -30,11 +31,13 @@ body.theme-plastic {
 
   .btn-secondary {
     &:not(#hidecookie) {
-      @include plastics-button($plastics-peach-darker);
+      @include plastics-button($white, $plastics-blue);
+      border: 1px solid $plastics-blue;
 
       &:hover {
-        background: $plastics-peach;
-        color: white;
+        background: $plastics-aqua-light;
+        border: 1px solid $plastics-aqua-light;
+        color: $plastics-blue;
       }
     }
   }
@@ -103,8 +106,8 @@ body.theme-plastic {
     }
   } // end .covers-block
 
-  .campaign-thumbnail-block {
-    @include campaign_thumbnail($plastics-peach, white, white, $montserrat, 50);
+  .campaign-covers-block {
+    @include campaign_covers($plastics-peach, white, white, $montserrat, 50);
 
     .thumbnail-large {
       .yellow-cta {
@@ -121,13 +124,13 @@ body.theme-plastic {
         opacity: 0;
       }
     }
-  } // end .campaign-thumbnail-block
+  } // end .campaign-covers-block
 
-  .four-column-content {
-    @include campaign_content_four_column(none, $montserrat, $roboto, $plastics-peach);
+  .content-covers-block {
+    @include campaign_content_covers(none, $montserrat, $roboto, $plastics-peach);
 
-    .four-column-content-info {
-      .four-column-content-information .publication-date {
+    .content-covers-block-info {
+      .content-covers-block-information .publication-date {
         font-weight: $bold;
       }
     }
@@ -135,9 +138,9 @@ body.theme-plastic {
     .load-more-posts-button-div .btn-secondary {
       @extend .btn-primary;
     }
-  } // end .four-column-content
+  } // end .content-covers-block
 
-  .article-listing {
+  .articles-block {
     @include campaign_articles($montserrat, $montserrat, $plastics-peach, $roboto, $plastics-blue-mid, $semi-bold);
 
     .article-list-item-meta {
@@ -150,7 +153,7 @@ body.theme-plastic {
       @include letter-spacing(90);
       font-weight: $extra-bold;
     }
-  } // end .article-listing
+  } // end .articles-block
 
   .gallery-grid {
     h2 {
@@ -301,6 +304,10 @@ body.theme-plastic {
       background-size: cover;
       background-position: center center;
     }
+
+    .btn-primary {
+      @extend .btn-primary;
+    }
   } // end .columns-block.block-style-icons
 
   .submenu-block {
@@ -448,15 +455,8 @@ body.theme-plastic {
         font-size: 1.5rem;
       }
 
-      a.call-to-action-link {
-        @extend .btn-secondary;
-        display: inline-block;
-
-        &:hover {
-          background: $plastics-blue-mid;
-          color: white;
-          text-decoration: none;
-        }
+      .btn-primary {
+        @extend .btn-primary;
       }
     }
   }
@@ -465,7 +465,7 @@ body.theme-plastic {
     @include campaign_video($plastics-blue-light);
   }
 
-  .social-share {
-    @include campaign-social-share($plastics-peach-darker, $white);
+  .social-media-cards {
+    @include campaign-social-media-cards($plastics-peach-darker, $white);
   }
 }

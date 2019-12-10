@@ -10,9 +10,9 @@
 @import "blocks/Columns";
 @import "blocks/CarouselHeader";
 @import "blocks/CarouselHeader_full_width_classic";
-@import "blocks/Covers";
-@import "blocks/CoversCampaignThumbnail";
-@import "blocks/CoversContentFourColumn";
+@import "blocks/Covers/TakeActionCovers";
+@import "blocks/Covers/CampaignCovers";
+@import "blocks/Covers/ContentCovers";
 @import "blocks/Counter";
 @import "blocks/Gallery_carousel";
 @import "blocks/Gallery_content_three_column";
@@ -21,7 +21,7 @@
 @import "blocks/Happypoint";
 @import "blocks/Media";
 @import "blocks/Socialmedia";
-@import "blocks/Socialshare";
+@import "blocks/SocialMediaCards";
 @import "blocks/SplitTwoColumns";
 @import "blocks/Submenu";
 @import "blocks/Timeline";

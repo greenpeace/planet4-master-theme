@@ -46,7 +46,7 @@
 									<a href="{{ col.cta_link|e('esc_url') }}"
 										{{ col.link_new_tab ? 'target="_blank"' }}
 										{% if fields.columns_block_style == 'no_image' %}
-											class="btn btn-secondary"
+											class="btn {{ is_campaign ? 'btn-primary' : 'btn-secondary' }}"
 										{% else %}
 											class="call-to-action-link"
 										{% endif %}>

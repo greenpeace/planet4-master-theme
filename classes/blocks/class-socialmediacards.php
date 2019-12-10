@@ -1,6 +1,6 @@
 <?php
 /**
- * Socialshare block class
+ * SocialMediaCards block class
  *
  * @package P4GBKS
  * @since 0.1
@@ -9,57 +9,23 @@
 namespace P4GBKS\Blocks;
 
 /**
- * Class Socialshare_Controller
- *
- * @package P4BKS
  * @since 0.1
  */
-class Socialshare extends Base_Block {
+class SocialMediaCards extends Base_Block {
 
 	/**
 	 * Block name.
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'social_share';
+	public const BLOCK_NAME = 'social_media_cards';
 
 	/**
-	 * Register shortcake shortcode.
-	 *
-	 * @param array  $attributes Shortcode attributes.
-	 * @param string $content   Content.
-	 *
-	 * @return mixed
-	 */
-	public function add_block_shortcode( $attributes, $content ) {
-
-		$attributes['id'] = $attributes['background'];
-
-		$attributes = shortcode_atts(
-			[
-				'title'                      => '',
-				'description'                => '',
-				'id'                         => '',
-				'gallery_block_focus_points' => '',
-				'urls'                       => '',
-				'multiple_image'             => '',
-				'messages'                   => '',
-			],
-			$attributes,
-			'shortcake_social_share'
-		);
-
-		return $this->render( $attributes );
-	}
-
-	/**
-	 * Socialshare constructor.
+	 * SocialMediaCards constructor.
 	 */
 	public function __construct() {
-		add_shortcode( 'shortcake_social_share', [ $this, 'add_block_shortcode' ] );
-
 		register_block_type(
-			'planet4-blocks/socialshare',
+			'planet4-blocks/social-media-cards',
 			[
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],
@@ -100,6 +66,10 @@ class Socialshare extends Base_Block {
 	 * @return array The data to be passed in the View.
 	 */
 	public function prepare_data( $fields ): array {
+		// Enqueue js for the frontend.
+		if ( ! $this->is_rest_request() ) {
+			wp_enqueue_script( 'social-media-cards', P4GBKS_PLUGIN_URL . 'public/js/social_media_cards.js', [], '0.1', true );
+		}
 
 		$images = [];
 

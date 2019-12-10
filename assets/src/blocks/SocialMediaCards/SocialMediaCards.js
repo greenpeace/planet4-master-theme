@@ -23,7 +23,7 @@ import {
   IconButton
 } from '@wordpress/components';
 
-export class Socialshare extends Component {
+export class SocialMediaCards extends Component {
   constructor(props) {
     super(props);
   }
@@ -205,7 +205,7 @@ export class Socialshare extends Component {
         }
         <Preview showBar={this.props.isSelected}>
           <ServerSideRender
-            block={'planet4-blocks/socialshare'}
+            block={'planet4-blocks/social-media-cards'}
             attributes={{
               multiple_image: this.props.multiple_image,
               gallery_block_focus_points: this.props.gallery_block_focus_points,

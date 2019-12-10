@@ -1,13 +1,13 @@
-import { Socialshare } from './Socialshare';
+import { SocialMediaCards } from './SocialMediaCards';
 
-export class SocialshareBlock {
+export class SocialMediaCardsBlock {
   constructor() {
     const { registerBlockType } = wp.blocks;
     const { __ } = wp.i18n;
     const { withSelect } = wp.data;
 
-    registerBlockType('planet4-blocks/socialshare', {
-      title: __('Socialshare', 'p4ge'),
+    registerBlockType('planet4-blocks/social-media-cards', {
+      title: __('Social Media Cards', 'p4ge'),
       icon: 'format-image',
       category: 'planet4-blocks',
 
@@ -252,7 +252,7 @@ export class SocialshareBlock {
           setAttributes({ image_data: [] });
         }
 
-        return <Socialshare
+        return <SocialMediaCards
           {...attributes}
           isSelected={isSelected}
           onTitleChange={onTitleChange}

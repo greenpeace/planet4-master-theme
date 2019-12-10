@@ -1,4 +1,4 @@
-{% block campaign_thumbnail %}
+{% block campaign_covers %}
 	{% if ( fields.tags ) %}
 
 		{% if ( covers_view is defined ) %}
@@ -13,7 +13,7 @@
 			{% set covers_view_class = '' %}
 		{% endif %}
 
-		<section class="block campaign-thumbnail-block {{ covers_view_class }}">
+		<section class="block campaign-covers-block {{ covers_view_class }}">
 			<div class="container">
 				{% if ( fields.title ) %}
 					<header>
