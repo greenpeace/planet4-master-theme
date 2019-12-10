@@ -11,17 +11,15 @@ $text-transform: uppercase) {
     font-family: $header-font !important;
   }
 
-  > .container > .row {
-    margin: 0 -8px;
-
-    > [class^=col-] {
-      padding: 0 8px;
-    }
-  }
-
   .column-wrap {
     float: none;
     padding: 0 6px;
+
+    &.has-cta {
+      @include large-and-up {
+        padding-bottom: $space-md; // Leave enough room for the CTA link
+      }
+    }
 
     .attachment-container {
       background: $icon-background;
