@@ -24,6 +24,7 @@
   padding: 0 40px;
   display: inline-block;
   width: auto;
+  text-decoration: none !important;
 
   &:not(:disabled):not(.disabled) {
     &:active {

@@ -1,4 +1,4 @@
-{% block content_four_column %}
+{% block content_covers %}
 
 	{% if ( posts ) %}
 		{% if ( posts_view == '1') %}
@@ -9,7 +9,7 @@
 			{% set posts_view_class = 'show-all-rows' %}
 		{% endif %}
 
-		<section class="block four-column-content {{ posts_view_class }}">
+		<section class="block content-covers-block {{ posts_view_class }}">
 			<div class="container">
 
 				{% if (title) %}
@@ -23,9 +23,9 @@
 				<div class="row publications-slider limit-visibility">
 					{% for post in posts %}
 						<div class="col-md-4 col-lg-3 post-column">
-							<div class="four-column-content-wrap clearfix">
-								<div class="four-column-content-info">
-									<div class="four-column-content-symbol">
+							<div class="content-covers-block-wrap clearfix">
+								<div class="content-covers-block-info">
+									<div class="content-covers-block-symbol">
 										{% if ( post.thumbnail ) %}
 											<a href="{{ post.link }}">
 												<img src="{{ post.thumbnail }}"
@@ -34,7 +34,7 @@
 											</a>
 										{% endif %}
 									</div>
-									<div class="four-column-content-information">
+									<div class="content-covers-block-information">
 										{% if ( post.post_title ) %}
 											<a href="{{ post.link }}">
 												<h4>{{ post.post_title|e('wp_kses_post')|raw }}</h4>

@@ -5,6 +5,7 @@ body.theme-oceans {
   $oceans-grey: #7a777c;
   $oceans-peach: #f7aea9;
   $oceans-pink: #ff80e9;
+  $oceans-pink-2: #c44bc4;
   $oceans-blue: #044362;
   $oceans-aqua: #2cabb1;
   $oceans-aqua-light: #8fd9d0;
@@ -17,26 +18,13 @@ body.theme-oceans {
     //todo: check letter spacing
     //todo: sort out transition
     @include button($background, $foreground, $montserrat, 60);
-    font-weight: $extra-bold;
+    font-weight: $bold;
     border-radius: 25px;
     position: relative;
 
-    // use pseudo element and $transparent background on hover
-    // to make it possible to transition the gradient
     &:hover {
-      &::before {
-        content: " ";
-        background: $gradient;
-        border-radius: 25px;
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        z-index: -1;
-      }
-      background: $transparent;
-      color: $foreground;
+      background: $oceans-pink-2;
+      color: white;
     }
   }
 
@@ -49,7 +37,14 @@ body.theme-oceans {
 
   .btn-secondary {
     &:not(#hidecookie) {
-      @include oceans-button($oceans-aqua);
+      @include oceans-button($white, $oceans-blue);
+      border: 1px solid $oceans-blue;
+
+      &:hover {
+        background: $oceans-aqua-light;
+        border: 1px solid $oceans-aqua-light;
+        color: $oceans-blue;
+      }
     }
   }
 
@@ -151,8 +146,8 @@ body.theme-oceans {
     }
   } // end .covers-block
 
-  .campaign-thumbnail-block {
-    @include campaign_thumbnail($oceans-blue, $oceans-peach, white, $montserrat, 50);
+  .campaign-covers-block {
+    @include campaign_covers($oceans-blue, $oceans-peach, white, $montserrat, 50);
 
     .thumbnail-large {
       .yellow-cta {
@@ -169,13 +164,13 @@ body.theme-oceans {
         opacity: 0;
       }
     }
-  } // end .campaign-thumbnail-block
+  } // end .campaign-covers-block
 
-  .four-column-content {
-    @include campaign_content_four_column(none, $montserrat, $roboto, $oceans-peach);
+  .content-covers-block {
+    @include campaign_content_covers(none, $montserrat, $roboto, $oceans-peach);
 
-    .four-column-content-info {
-      .four-column-content-information .publication-date {
+    .content-covers-block-info {
+      .content-covers-block-information .publication-date {
         font-weight: $bold;
       }
     }
@@ -183,9 +178,9 @@ body.theme-oceans {
     .load-more-posts-button-div .btn-secondary {
       @extend .btn-primary;
     }
-  } // end .four-column-content
+  } // end .content-covers-block
 
-  .article-listing {
+  .articles-block {
     @include campaign_articles($montserrat, $montserrat, $oceans-peach, $roboto, $oceans-aqua, $semi-bold);
 
     .article-list-item-meta {
@@ -198,7 +193,7 @@ body.theme-oceans {
       @include letter-spacing(90);
       font-weight: $extra-bold;
     }
-  } // end .article-listing
+  } // end .articles-block
 
   .carousel-wrap {
     @include campaign_carousel(false, $oceans-aqua, white, white, $oceans-blue, url("../../public/images/oceans/carousel-arrow.svg"), 50px, 10px);
@@ -351,7 +346,29 @@ body.theme-oceans {
       $montserrat, $semi-bold,
       $montserrat, $extra-bold, url("../../public/images/oceans/arrow.svg"), url("../../public/images/oceans/arrow-dark.svg")
     );
+
+    .column-wrap {
+      .btn-primary {
+        @extend .btn-primary;
+      }
+    }
   } // end .columns-block.block-style-icons
+
+  .columns-block.block-style-image {
+    .column-wrap {
+      .btn-primary {
+        @extend .btn-primary;
+      }
+    }
+  }
+
+  .columns-block.block-style-no_image {
+    .column-wrap {
+      .btn-primary {
+        @extend .btn-primary;
+      }
+    }
+  }
 
   .submenu-block {
     @include campaign_submenu(

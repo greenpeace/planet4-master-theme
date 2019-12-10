@@ -1,23 +1,21 @@
 body.theme-forest {
   $kanit: "Kanit", sans-serif;
+  $open-sans: "Open Sans", sans-serif;
 
   $forest-black: #1d2120;
   $forest-green: #2caf4f;
   $forest-light-green: #8bcc49;
+  $forest-mid-green: #14945d;
   $forest-dark-green: #1b4a1b;
   $forest-cream: #f9f9ef;
   $forest-grey: #8b8d88;
 
-  @mixin forest-button($background: $forest-dark-green, $foreground: $forest-cream) {
-    @include button($background, $foreground, $kanit, 60);
-
-    border: 2px solid $background;
-    height: 46px;
-    line-height: 46px;
+  @mixin forest-button($background: $forest-green, $foreground: $white) {
+    @include button($background, $foreground, $open-sans, 60);
 
     &:hover {
-      color: $background;
-      background: $foreground;
+      color: white;
+      background: $forest-mid-green;
     }
   }
 
@@ -26,14 +24,22 @@ body.theme-forest {
 
   .btn-primary {
     @include forest-button;
+    font-weight: bold !important;
+    font-family: $open-sans !important;
   }
 
   .btn-secondary {
     &:not(#hidecookie) {
-      @include forest-button($forest-green);
+      @include forest-button($white, $forest-dark-green);
+      border: 1px solid $forest-dark-green;
+      box-sizing: border-box;
+      text-decoration: none;
+      font-weight: bold;
 
       &:hover {
-        background: white;
+        color: white;
+        border: 1px solid $forest-dark-green;
+        background: $forest-dark-green;
       }
     }
   }
@@ -107,7 +113,7 @@ body.theme-forest {
     }
   } // end .covers-block
 
-  .campaign-thumbnail-block {
+  .campaign-covers-block {
     @include campaign_thumbnail($transparent, white, white, $kanit, 50, 0, auto);
 
     .campaign-card-column a:hover {
@@ -168,12 +174,12 @@ body.theme-forest {
         }
       }
     }
-  } // end .campaign-thumbnail-block
+  } // end .campaign-covers-block
 
-  .four-column-content {
-    @include campaign_content_four_column($forest-dark-green, $kanit, $roboto, $forest-grey);
+  .content-covers-block {
+    @include campaign_content_covers($forest-dark-green, $kanit, $roboto, $forest-grey);
 
-    .four-column-content-info .four-column-content-information {
+    .content-covers-block-info .content-covers-block-information {
       .publication-date {
         font-style: italic;
       }
@@ -182,9 +188,9 @@ body.theme-forest {
     .load-more-posts-button-div .btn-secondary {
       @extend .btn-primary;
     }
-  } // end .four-column-content
+  } // end .content-covers-block
 
-  .article-listing {
+  .articles-block {
     @include campaign_articles($kanit, $kanit, $forest-grey, $roboto, $forest-green, $semi-bold);
 
     .article-list-item-meta {
@@ -196,7 +202,7 @@ body.theme-forest {
       font-size: $font-size-xxs;
       line-height: 1.625rem;
     }
-  } // end .article-listing
+  } // end .articles-block
 
   .carousel-wrap {
     @include campaign_carousel(true, $forest-dark-green, white, $forest-grey, $forest-dark-green, url("../../public/images/forest/carousel-arrow.svg"), 28px, 10px);
