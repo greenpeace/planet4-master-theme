@@ -262,6 +262,10 @@ $navbar-default-height: 60px;
   html[dir="rtl"] & {
     left: auto;
     right: 0;
+
+    .country-dropdown-toggle {
+      text-transform: none;
+    }
   }
 
   @include small-and-up {
@@ -630,10 +634,6 @@ $navbar-default-height: 60px;
   padding: 1.4em 0;
   overflow-y: hidden;
   top: $navbar-default-height;
-
-  html[dir="rtl"] & {
-    text-transform: lowercase;
-  }
 
   &.open {
     display: block;
