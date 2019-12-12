@@ -67,7 +67,7 @@ abstract class P4_UnitTestCase extends WP_UnitTestCase {
 	 *
 	 * @return mixed
 	 */
-	protected function invokeMethod( &$object, $method_name, array $parameters = array() ) {
+	protected function invokeMethod( &$object, $method_name, array $parameters = [] ) {
 		try {
 			$reflection = new \ReflectionClass( get_class( $object ) );
 			$method     = $reflection->getMethod( $method_name );
