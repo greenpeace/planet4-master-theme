@@ -196,6 +196,10 @@
   color: $white;
   font-size: $font-size-xxs;
 
+  .icon {
+    top: -.125em;
+  }
+
   @include medium-and-up {
     font-size: $font-size-xxs;
   }
