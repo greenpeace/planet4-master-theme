@@ -4,36 +4,34 @@ body {
 }
 
 body {
-  &:not(.wp-admin) {
-    color: $dark-shade-black;
-    font-family: $lora;
+  color: $dark-shade-black;
+  font-family: $lora;
+  position: relative;
+  overflow-y: hidden;
+
+  &.white-bg {
+    background-color: $white;
+  }
+
+  &.brown-bg {
+    background: $brown-bg;
+  }
+
+  &.home {
+    background-color: #ecf1f3;
+  }
+
+  &.search {
+    font-family: $roboto;
+  }
+
+  .mejs-container {
+    clear: initial;
+  }
+
+  .container > * {
     position: relative;
-    overflow-y: hidden;
-
-    &.white-bg {
-      background-color: $white;
-    }
-
-    &.brown-bg {
-      background: $brown-bg;
-    }
-
-    &.home {
-      background-color: #ecf1f3;
-    }
-
-    &.search {
-      font-family: $roboto;
-    }
-
-    .mejs-container {
-      clear: initial;
-    }
-
-    .container > * {
-      position: relative;
-      z-index: 2;
-    }
+    z-index: 2;
   }
 }
 
