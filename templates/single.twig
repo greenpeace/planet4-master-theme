@@ -81,7 +81,7 @@
 			{% include "blocks/author_profile.twig" with {post:post} %}
 		{% endif %}
 
-		<section class="article-listing">
+		<section class="articles-block">
 			{% if ( post.articles ) %}
 				{{ fn('do_blocks', post.articles )|raw }}
 			{% endif %}
