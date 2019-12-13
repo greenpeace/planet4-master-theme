@@ -197,6 +197,10 @@
   font-size: $font-size-xxs;
   text-transform: none;
 
+  .icon {
+    top: -.125em;
+  }
+
   @include medium-and-up {
     font-size: $font-size-xxs;
   }
