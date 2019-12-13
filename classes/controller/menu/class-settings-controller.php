@@ -35,17 +35,16 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 					__( 'Settings', 'planet4-engagingnetworks-backend' ),
 					'manage_options',
 					'settings',
-					array( $this, 'prepare_settings' )
+					[ $this, 'prepare_settings' ]
 				);
 			}
-			add_action( 'admin_init', array( $this, 'register_settings' ) );
+			add_action( 'admin_init', [ $this, 'register_settings' ] );
 		}
 
 		/**
 		 * Render the settings page of the plugin.
 		 */
 		public function prepare_settings() {
-			// var_dump("helllo");
 			$this->view->settings(
 				[
 					'settings'            => get_option( 'p4en_main_settings' ),
@@ -60,13 +59,13 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 		 * Register and store the settings and their data.
 		 */
 		public function register_settings() {
-			$args = array(
+			$args = [
 				'type'              => 'string',
 				'group'             => 'p4en_main_settings_group',
 				'description'       => 'Planet 4 - EngagingNetworks settings',
-				'sanitize_callback' => array( $this, 'valitize' ),
+				'sanitize_callback' => [ $this, 'valitize' ],
 				'show_in_rest'      => false,
-			);
+			];
 			register_setting( 'p4en_main_settings_group', 'p4en_main_settings', $args );
 		}
 
