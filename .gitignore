@@ -11,24 +11,5 @@ node_modules/
 ########
 *.log
 
-# OS generated files #
-######################
-.DS_Store
-Thumbs.db
-
-# IDE generated files #
-#######################
-.idea
-reports
-
-# Webpack leftovers from SASS entry points #
-############################################
-react-blocks/build/editorStyle.js
-react-blocks/build/editorStyle.js.map
-react-blocks/build/editorStyle.deps.json
-react-blocks/build/style.js
-react-blocks/build/style.js.map
-react-blocks/build/style.deps.json
-
 # Built css and js assets
 assets/build/*
