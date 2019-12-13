@@ -184,6 +184,7 @@ if ( ! class_exists( 'Ensapi_Controller' ) ) {
 				'Address 2'     => 'supporter.address2',
 				'City'          => 'supporter.city',
 				'Country'       => 'supporter.country',
+				'Position'      => 'supporter.position',
 				'Postcode'      => 'supporter.postcode',
 				'Email'         => 'supporter.emailAddress',
 				'Phone Number'  => 'supporter.phoneNumber',

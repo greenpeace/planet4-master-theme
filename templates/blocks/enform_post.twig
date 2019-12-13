@@ -165,6 +165,18 @@
 						{% endif %}
 					</div>
 				</div>
+			{% elseif 'position' == field.input_type %}
+				{% set errorMessage = __( 'Please select a position.', 'planet4-engagingnetworks' ) %}
+				<div class="en__field en__field--select en__field--{{ field.id }}">
+					<div class="en__field__element en__field__element--select form-group">
+						{% include 'blocks/position_select.twig' with { errorMessage: errorMessage } %}
+						{% if en_form_style == 'side-style' %}
+							<label class="en__field__top__label">
+								{{ field.label }}
+							</label>
+						{% endif %}
+					</div>
+				</div>
 			{% endif %}
 		{% endfor %}
 	</div>
