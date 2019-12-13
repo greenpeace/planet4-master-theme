@@ -233,6 +233,16 @@
           "url": "https://www.greenpeace.org/greece/"
         }
       ]
+    },
+    {
+      "name": "Greenland",
+      "codes": ["GL"],
+      "lang": [
+        {
+          "name": "Dansk",
+          "url": "https://www.greenpeace.org/greenland/da/"
+        }
+      ]
     }
   ],
   "H": [
