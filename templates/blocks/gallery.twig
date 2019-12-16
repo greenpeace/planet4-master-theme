@@ -35,10 +35,18 @@
 
 						{% for key,single_image in images %}
 							<div class="carousel-item {% if key == 0 %}active{% endif %}">
-								<img src="{{ single_image.image_src }}"
+								<img
+									{% if ( loop.first ) %}
+										src="{{ single_image.image_src }}"
+									 	srcset="{{ single_image.image_srcset }}"
+									 	sizes="{{ single_image.image_sizes }}"
+									{% else %}
+										data-src="{{ single_image.image_src }}"
+									 	data-srcset="{{ single_image.image_srcset }}"
+									 	data-sizes="{{ single_image.image_sizes }}"
+										class="preload"
+									{% endif %}
 									 style="object-position: {{ single_image.focus_image }}"
-									 srcset="{{ single_image.image_srcset }}"
-									 sizes="{{ single_image.image_sizes }}"
 									 alt="{{ single_image.alt_text }}">
 
 								{% if ( single_image.caption or single_image.credits ) %}
@@ -90,11 +98,19 @@
 							<div class="col">
 								<div class="{{ ordinals[key] }}-column split-image">
 									{% if ( single_image.image_src ) %}
-										<img src="{{ single_image.image_src }}"
-											 srcset="{{ single_image.image_srcset }}"
-											 sizes="{{ single_image.image_sizes }}"
-											 style="object-position:{{ single_image.focus_image }};"
-											 alt="{{ single_image.alt_text }}" class="img_{{ post_type }}">
+										<img
+											{% if ( loop.first ) %}
+												src="{{ single_image.image_src }}"
+												srcset="{{ single_image.image_srcset }}"
+												sizes="{{ single_image.image_sizes }}"
+											{% else %}
+												data-src="{{ single_image.image_src }}"
+												data-srcset="{{ single_image.image_srcset }}"
+												data-sizes="{{ single_image.image_sizes }}"
+												class="lazyload"
+											{% endif %}
+											style="object-position:{{ single_image.focus_image }};"
+											alt="{{ single_image.alt_text }}" class="img_{{ post_type }}">
 									{% endif %}
 								</div>
 							</div>
@@ -124,7 +140,15 @@
 					<div class="grid-row">
 						{% for single_image in images %}
 							<div class="grid-item">
-								<img src="{{ single_image.image_src }}" style="object-position: {{ single_image.focus_image }};" alt="{{ single_image.alt_text }}">
+								<img
+									{% if ( loop.first ) %}
+										src="{{ single_image.image_src }}"
+									{% else %}
+										data-src="{{ single_image.image_src }}"
+										class="lazyload"
+									{% endif %}
+									style="object-position: {{ single_image.focus_image }};"
+									alt="{{ single_image.alt_text }}">
 							</div>
 						{% endfor %}
 					</div>

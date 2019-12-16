@@ -1,4 +1,4 @@
-/* global Hammer */
+/* global Hammer, LazyLoad */
 
 export const FullWidthCarouselHeader = {
   /**
@@ -61,6 +61,18 @@ export const FullWidthCarouselHeader = {
 
       // Convert the provided image tag into background image styles.
       const $img = $slide.find('img');
+
+      // Images after the first slide are preloaded
+      // on initialization
+      if ($img.hasClass('preload')) {
+        if (!window.lazyLoad) {
+          window.lazyLoad = new LazyLoad({
+            elements_selector: '.lazyload'
+          });
+        }
+        window.lazyLoad.load($img[0]);
+      }
+
       const img_src = $img.get(0).currentSrc || $img.attr('src');
       $slide.find('.background-holder')
         .css('background-image', 'url(' + img_src + ')')
