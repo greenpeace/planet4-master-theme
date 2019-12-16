@@ -10,53 +10,6 @@ export class SocialMediaCardsBlock {
       title: __('Social Media Cards', 'p4ge'),
       icon: 'format-image',
       category: 'planet4-blocks',
-
-      /**
-       * Transforms old 'shortcake' shortcode to new gutenberg block.
-       */
-      transforms: {
-        from: [
-          {
-            type: 'shortcode',
-            // Shortcode tag can also be an array of shortcode aliases
-            tag: 'shortcake_socail_share',
-            attributes: {
-              title: {
-                type: 'string',
-                shortcode: function (attributes) {
-                  return attributes.named.title;
-                }
-              },
-              description: {
-                type: 'string',
-                shortcode: function (attributes) {
-                  return attributes.named.description;
-                }
-              },
-              id: {
-                type: 'integer',
-                shortcode: ({ named: { id = '' } }) => id,
-              },
-              multiple_image: {
-                type: 'string',
-                shortcode: ({ named: { multiple_image = '' } }) => multiple_image,
-              },
-              gallery_block_focus_points: {
-                type: 'string',
-                shortcode: ({ named: { gallery_block_focus_points = '' } }) => gallery_block_focus_points,
-              },
-              messages: {
-                type: 'string',
-                shortcode: ({ named: { messages = '' } }) => messages,
-              },
-              urls: {
-                type: 'string',
-                shortcode: ({ named: { urls = '' } }) => urls,
-              },
-            },
-          },
-        ]
-      },
       attributes: {
         title: {
           type: 'string',
@@ -80,9 +33,6 @@ export class SocialMediaCardsBlock {
         gallery_block_focus_points: {
           type: 'string',
         },
-        messages: {
-          type: 'string',
-        },
         urls: {
           type: 'string',
         },
@@ -98,9 +48,9 @@ export class SocialMediaCardsBlock {
           let image_id_array = multiple_image.split(',');
 
           $.each(image_id_array, function (index, img_id) {
-            let img_url = select('core').getMedia(img_id);
-            if (img_url) {
-              image_urls_array[img_id] = img_url.media_details.sizes.medium.source_url;
+            let img_details = select('core').getMedia(img_id);
+            if (img_details) {
+              image_urls_array[img_id] = img_details.source_url;
             }
           });
         }
@@ -122,7 +72,6 @@ export class SocialMediaCardsBlock {
           let new_image_data = [];
           let focal_points_json = gallery_block_focus_points ? JSON.parse(gallery_block_focus_points) : {};
           let messages_json = messages ? JSON.parse(messages) : {};
-          debugger;
           let urlss_json = urls ? JSON.parse(urls) : {};
           for (const img_id in image_urls_array) {
 
