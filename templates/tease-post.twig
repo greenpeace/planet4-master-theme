@@ -4,6 +4,6 @@
 	<h2 class="h2"><a href="{{ post.link }}">{{ post.title|raw }}</a></h2>
 		<p>{{ post.preview()|truncate( 25, true )|raw }}</p>
 		{% if ( post.thumbnail.src ) %}
-			<img src="{{ post.thumbnail.src }}" />
+			<img class="lazyload" data-src="{{ post.thumbnail.src }}" />
 		{% endif %}
 {% endblock %}

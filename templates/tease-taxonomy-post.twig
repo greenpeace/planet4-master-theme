@@ -1,5 +1,6 @@
 <li id="result-row-{{ post.ID }}" class="media search-result-list-item">
-	<img class="d-flex search-result-item-image" src="{{ post.thumbnail.src('thumbnail') ?? dummy_thumbnail }}"
+	<img class="d-flex search-result-item-image lazyload"
+		data-src="{{ post.thumbnail.src('thumbnail') ?? dummy_thumbnail }}"
 		alt="{{ fn('esc_attr', post.thumbnail.alt|default( post.title ) )|raw }}" />
 
 	<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
