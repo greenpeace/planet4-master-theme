@@ -1,20 +1,22 @@
-<div class="container clearfix">
-	<footer class="author-block" itemtype="http://schema.org/Person">
-		<div class="author-block-info">
-			<h2 class="author-block-info-title">{{ __( 'about the author', 'planet4-master-theme' ) }}</h2>
-			<h5 rel="author" class="author-block-info-name">
-				<a href="{{ post.author.link }}" itemprop="name">{{ post.author.name }}</a>
-			</h5>
-			<p class="author-block-info-bio" itemprop="description">
-				{{ fn('wpautop', fn('the_author_meta', 'description', author.id))|e('wp_kses_post')|raw }}
-			</p>
-		</div>
-		<figure class="author-block-image">
-			{% if ( post.author.avatar ) %}
-				<img itemprop="image" class="author-pic"
-				     src="{{ fn('get_avatar_url', post.author.id, {'size' : 294}) }}"
-				     alt="{{ post.author.name }}">
-			{% endif %}
-		</figure>
-	</footer>
+{% if ( post.author.name and post.author.description ) %}
+	<div class="container clearfix">
+		<footer class="author-block" itemtype="http://schema.org/Person">
+			<div class="author-block-info">
+				<h2 class="author-block-info-title">{{ __( 'about the author', 'planet4-master-theme' ) }}</h2>
+				<h5 rel="author" class="author-block-info-name">
+					<a href="{{ post.author.link }}" itemprop="name">{{ post.author.name }}</a>
+				</h5>
+				<p class="author-block-info-bio" itemprop="description">
+					{{ fn('wpautop', fn('the_author_meta', 'description', author.id))|e('wp_kses_post')|raw }}
+				</p>
+			</div>
+			<figure class="author-block-image">
+				{% if ( post.author.avatar ) %}
+					<img itemprop="image" class="author-pic"
+						 src="{{ fn('get_avatar_url', post.author.id, {'size' : 294}) }}"
+						 alt="{{ post.author.name }}">
+				{% endif %}
+			</figure>
+		</footer>
 </div>
+{% endif %}
