@@ -77,11 +77,10 @@
 		</div>
 		<!-- Post Page Block End -->
 
-		{% if ( post.author.name and post.author.description ) %}
-			{% include "blocks/author_profile.twig" with {post:post} %}
-		{% endif %}
+		{% include "blocks/author_profile.twig" with {post:post} %}
 
-		<section class="article-listing">
+
+		<section class="articles-block">
 			{% if ( post.articles ) %}
 				{{ fn('do_blocks', post.articles )|raw }}
 			{% endif %}

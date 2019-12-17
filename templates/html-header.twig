@@ -13,8 +13,8 @@
 			var dataLayer = window.dataLayer = window.dataLayer || [];
 			dataLayer.push({
 				'pageType' : '{{ page_category }}',
-				'signedIn' : 'false',
-				'visitorType' : '',
+				'signedIn' : '{{ p4_signedin_status }}',
+				'visitorType' : '{{ p4_visitor_type }}',
 				'userID' : '',
 				'post_tags': '{{ post_tags }}'
 			});
