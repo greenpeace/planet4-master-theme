@@ -337,7 +337,7 @@ class P4_Master_Site extends TimberSite {
 			$context['p4_visitor_type']    = $current_user->roles[0] ?? '';
 		} else {
 			$context['p4_signedin_status'] = 'false';
-			$context['p4_visitor_type']    = 'Guest';
+			$context['p4_visitor_type']    = 'guest';
 		}
 
 		$context['donatelink']           = $options['donate_button'] ?? '#';
