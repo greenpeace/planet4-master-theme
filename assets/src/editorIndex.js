@@ -19,24 +19,26 @@ import { addBlockFilters } from './BlockFilters';
 import { setupImageBlockExtension } from './ImageBlockExtension';
 import { replaceTaxonomyTermSelectors } from "./replaceTaxonomyTermSelectors"
 import { addSubAndSuperscript } from './RichTextEnhancements';
+import { SpreadsheetBlock } from "./blocks/Spreadsheet/SpreadsheetBlock"
 
-const articlesBlock = new ArticlesBlock();
-const carouselHeaderBlock = new CarouselHeaderBlock();
-const columnsBlock = new ColumnsBlock();
-const cookiesBlock = new CookiesBlock();
-const counterBlock = new CounterBlock();
-const coversBlock = new CoversBlock();
-const galleryBlock = new GalleryBlock();
-const happypointBlock = new HappypointBlock();
-const mediaBlock = new MediaBlock();
-const socialmediaBlock = new SocialmediaBlock();
-const socialMediaCardsBlock = new SocialMediaCardsBlock();
-const splittwocolumnsBlock = new SplittwocolumnsBlock();
-const submenuBlock = new SubmenuBlock();
-const takeActionBoxoutBlock = new TakeactionboxoutBlock();
-const timelineBlock = new TimelineBlock();
+new ArticlesBlock();
+new CarouselHeaderBlock();
+new ColumnsBlock();
+new CookiesBlock();
+new CounterBlock();
+new CoversBlock();
+new GalleryBlock();
+new HappypointBlock();
+new MediaBlock();
+new SocialmediaBlock();
+new SocialMediaCardsBlock();
+new SplittwocolumnsBlock();
+new SpreadsheetBlock()
+new SubmenuBlock();
+new TakeactionboxoutBlock();
+new TimelineBlock();
 
 addBlockFilters();
-addSubAndSuperscript(window.wp);
+addSubAndSuperscript( window.wp );
 setupImageBlockExtension();
 replaceTaxonomyTermSelectors()
