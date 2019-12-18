@@ -1,4 +1,4 @@
-import {React, Component } from 'react';
+import {Component} from '@wordpress/element';
 import {Preview} from '../../components/Preview';
 import {LayoutSelector} from '../../components/LayoutSelector/LayoutSelector';
 import {FormSectionTitle} from '../../components/FormSectionTitle/FormSectionTitle';

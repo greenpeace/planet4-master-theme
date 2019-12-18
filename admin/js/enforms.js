@@ -332,6 +332,11 @@ const p4_enform = (function ($) {
           $label.prop('disabled', false);
           break;
 
+        case 'position':
+          $required.prop('disabled', false);
+          $label.prop('disabled', false);
+          break;
+
         case 'email':
           $required.prop('disabled', false);
           $label.prop('disabled', false);

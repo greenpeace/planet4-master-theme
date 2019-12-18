@@ -1,0 +1,32 @@
+{% block position_options %}
+	<div class="en__field--{{ data.id }} en__field--{{ data.name }}">
+		<select id="en__field_supporter_{{ field.name }}"
+			name="supporter.{{ field.property }}"
+			class="en__field__input en__field__input--select en_select_position form-control"
+			data-errormessage="{{ errorMessage }}"
+			{{ 'true' == field.required ? 'required' : '' }}>
+			<option value="" selected="selected">- {{ __( 'Select Affiliation, Position or Profession', 'planet4-engagingnetworks-backend' ) }} -</option>
+			<option value="politician">Politician / Political figure</option>
+			<option value="scientist">Scientist / Academic</option>
+			<option value="business_leader">Business leader / Business</option>
+			<option value="indigenous_leader">Indigenous leader or organisation</option>
+			<option value="artists">Artists</option>
+			<option value="faith_leader">Faith leader / Faith community</option>
+			<option value="civil_society_leader">Civil society leader or organisation</option>
+			<option value="minister">Minister or former Minister</option>
+			<option value="cultural_leader">Cultural leader or organisation</option>
+			<option value="youth_leader">Youth leader or organisation</option>
+			<option value="unions">Unions</option>
+			<option value="sports">Sports / Athlete</option>
+			<option value="public_private_institution">Public and private institution</option>
+			<option value="other">Other public representative</option>
+		</select>
+	</div>
+{% endblock %}
+
+<script type="text/javascript">
+	$ = jQuery;
+	if ('{{ value }}') {
+		$('.en_select_position').val('{{ value }}')
+	}
+</script>

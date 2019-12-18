@@ -1,4 +1,4 @@
-import {React, Component} from 'react';
+import {Component} from '@wordpress/element';
 
 export class FormSectionTitle extends Component {
   render() {

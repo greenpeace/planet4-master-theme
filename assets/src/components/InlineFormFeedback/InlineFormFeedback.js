@@ -1,4 +1,4 @@
-import {React, Component} from 'react';
+import {Component} from '@wordpress/element';
 
 export class InlineFormFeedback extends Component {
   render() {
