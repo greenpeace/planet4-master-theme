@@ -76,7 +76,7 @@ export class SocialMediaCardsBlock {
           for (const img_id in image_urls_array) {
 
             let x, y;
-            if ($.isEmptyObject(focal_points_json)) {
+            if (typeof focal_points_json[img_id] === 'undefined') {
               [x, y] = [50, 50];
             } else {
               [x, y] = focal_points_json[img_id].replace(/\%/g, '').split(' ');
@@ -201,6 +201,19 @@ export class SocialMediaCardsBlock {
           setAttributes({ image_data: [] });
         }
 
+        function onDeleteImage(img_id) {
+          let image_ids  = attributes.multiple_image;
+          let image_data = attributes.image_data;
+          if (image_ids)
+            image_ids = image_ids.split(',');
+
+          image_ids  = image_ids.filter(function(value, index, arr){ return parseInt(value) !== parseInt(img_id); });
+          image_data = image_data.filter(function(value, index, arr){ return parseInt(value.id) !== parseInt(img_id); });
+
+          setAttributes({multiple_image: image_ids.join(',')});
+          setAttributes({image_data: image_data});
+        }
+
         return <SocialMediaCards
           {...attributes}
           isSelected={isSelected}
@@ -211,6 +224,7 @@ export class SocialMediaCardsBlock {
           onURLChange={onURLChange}
           onFocalPointChange={onFocalPointChange}
           onRemoveImages={onRemoveImages}
+          onDeleteImage={onDeleteImage}
         />
       }),
       save() {

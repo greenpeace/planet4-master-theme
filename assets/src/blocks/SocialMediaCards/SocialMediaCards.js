@@ -12,10 +12,9 @@ import {
   TextControl,
   TextareaControl,
   ServerSideRender,
-  FocalPointPicker,
   Button,
   Toolbar,
-  IconButton
+  IconButton, Tooltip
 } from '@wordpress/components';
 
 export class SocialMediaCards extends Component {
@@ -28,7 +27,7 @@ export class SocialMediaCards extends Component {
 
     const dimensions = { width: 212, height: 212 };
 
-    const { multiple_image, image_data } = this.props;
+    const { multiple_image, image_data, onDeleteImage } = this.props;
 
     const getImageOrButton = (openEvent) => {
       if (0 < this.props.image_data.length) {
@@ -37,7 +36,13 @@ export class SocialMediaCards extends Component {
 
           this.props.image_data.map((item, index) => {
             return (
-              <span>
+              <span className="img-wrap">
+                <Tooltip text={__('Remove Image', 'p4ge')}>
+                  <span className="close" onClick={ev => {
+                    onDeleteImage(item.id);
+                    ev.stopPropagation()
+                  }}>&times;</span>
+                </Tooltip>
                 <img
                   src={item.url}
                   onClick={openEvent}
@@ -58,7 +63,7 @@ export class SocialMediaCards extends Component {
             <Button
               onClick={openEvent}
               className="button">
-              + {__('Select Gallery Images', 'p4ge')}
+              + {__('Select Images', 'p4ge')}
             </Button>
 
             <div>{__('Select images in the order you want them to appear.', 'p4ge')}</div>
@@ -74,52 +79,25 @@ export class SocialMediaCards extends Component {
       <Fragment>
         <div>
           <TextControl
-            label={__('Title', 'planet4-blocks-backend')}
-            placeholder={__('Enter title', 'planet4-blocks-backend')}
-            help={__('Optional', 'planet4-blocks-backend')}
+            label={__('Title', 'p4ge')}
+            placeholder={__('Enter title', 'p4ge')}
+            help={__('Optional', 'p4ge')}
             value={this.props.title}
             onChange={this.props.onTitleChange}
           />
           <TextareaControl
-            label={__('Description', 'planet4-blocks-backend')}
-            placeholder={__('Enter description', 'planet4-blocks-backend')}
-            help={__('Optional', 'planet4-blocks-backend')}
+            label={__('Description', 'p4ge')}
+            placeholder={__('Enter description', 'p4ge')}
+            help={__('Optional', 'p4ge')}
             value={this.props.description}
             onChange={this.props.onDescriptionChange}
           />
         </div>
-        <BlockControls>
-          {this.props.id && (0 < this.props.id) && (
-            <Toolbar>
-
-              {__('Select Gallery Images', 'p4ge')}
-              <div>
-                <MediaUploadCheck>
-                  <MediaUpload
-                    title={__('Select Gallery Images', 'p4ge')}
-                    type="image"
-                    onSelect={this.props.onSelectImage}
-                    value={multiple_image_array}
-                    allowedTypes={["image"]}
-                    multiple="true"
-                    render={({ open }) => getImageOrButton(open)}
-                  />
-                </MediaUploadCheck>
-              </div>
-              <IconButton
-                className='components-icon-button components-toolbar__control'
-                label={__('Remove Image', 'p4ge')}
-                onClick={this.props.onRemoveImages}
-                icon='trash'
-              />
-            </Toolbar>
-          )}
-        </BlockControls>
-        {__('Select Gallery Images', 'p4ge')}
+        {__('Select Images', 'p4ge')}
         <div>
           <MediaUploadCheck>
             <MediaUpload
-              title={__('Select Gallery Images', 'p4ge')}
+              title={__('Select Images', 'p4ge')}
               type="image"
               onSelect={this.props.onSelectImage}
               value={multiple_image_array}
@@ -142,34 +120,35 @@ export class SocialMediaCards extends Component {
                   <li
                     key={index}
                   >
-                    {__('Select gallery image focal point', 'p4ge')}
-                    <FocalPointPicker
-                      url={item.url}
-                      dimensions={dimensions}
-                      value={item.focalPoint}
-                      onChange={this.props.onFocalPointChange.bind(this, item.id)}
-                      key={item.id}
-                    />
-                    {__('Enter message for social media', 'p4ge')}
-                    <TextControl
-                      label={__('Social message', 'planet4-blocks-backend')}
-                      placeholder={__('Enter message', 'planet4-blocks-backend')}
-                      help={__('Optional', 'planet4-blocks-backend')}
-                      value={item.message}
-                      onChange={this.props.onMessageChange.bind(this, item.id)}
-                      key={item.id + 't1'}
+                    <div className="row">
+                      <div className="col-md-6">
+                        <img
+                          src={item.url}
+                          width={212}
+                          height={212}
+                        />
+                      </div>
+                      <div className="col-md-6">
+                        <TextareaControl
+                          label={__('Social message', 'p4ge')}
+                          placeholder={__('Enter message', 'p4ge')}
+                          help={__('Optional. This message will be added as a quote on Facebook and Twitter shares.', 'p4ge')}
+                          value={item.message}
+                          onChange={this.props.onMessageChange.bind(this, item.id)}
+                          key={item.id + 't1'}
+                        />
 
-                    />
-
-                    {__('Enter URL to share', 'p4ge')}
-                    <TextControl
-                      label={__('Social URL', 'planet4-blocks-backend')}
-                      placeholder={__('Enter URL to share', 'planet4-blocks-backend')}
-                      help={__('Optional', 'planet4-blocks-backend')}
-                      value={item.social_url}
-                      onChange={this.props.onURLChange.bind(this, item.id)}
-                      key={item.id + 't2'}
-                    />
+                        <TextControl
+                          label={__('Social URL', 'p4ge')}
+                          placeholder={__('Enter URL to share', 'p4ge')}
+                          help={__('Optional. If not specified then the url of the current page will be used.', 'p4ge')}
+                          value={item.social_url}
+                          onChange={this.props.onURLChange.bind(this, item.id)}
+                          key={item.id + 't2'}
+                        />
+                      </div>
+                    </div>
+                    <hr/>
                   </li>
                 );
               })}
@@ -193,7 +172,8 @@ export class SocialMediaCards extends Component {
             block={'planet4-blocks/social-media-cards'}
             attributes={{
               multiple_image: this.props.multiple_image,
-              gallery_block_focus_points: this.props.gallery_block_focus_points,
+              title: this.props.title,
+              description: this.props.description,
             }}>
           </ServerSideRender>
         </Preview>
