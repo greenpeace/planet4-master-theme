@@ -108,7 +108,7 @@
     }
   }
 
-  .carousel-indicators {
+  ol.carousel-indicators {
     right: 25%;
     bottom: 80px;
     left: auto;
@@ -145,6 +145,7 @@
     }
 
     li {
+      padding-top: 0;
       width: 8px;
       height: 8px;
       margin: 0 8px;
