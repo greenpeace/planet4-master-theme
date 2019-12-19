@@ -1,6 +1,6 @@
 document.addEventListener( 'DOMContentLoaded', () => {
 
-  function openPopup(url) {
+  function openPopup( url ) {
     let popup = window.open(
       url,
       'popup',
@@ -24,12 +24,12 @@ document.addEventListener( 'DOMContentLoaded', () => {
   } );
 
   document.querySelectorAll( 'a.facebook-share' ).forEach( ( link ) => {
-    link.addEventListener('click', ( event ) => {
+    link.addEventListener( 'click', ( event ) => {
       event.preventDefault();
 
       openPopup( link.href );
 
       return false;
-    });
-  });
+    } );
+  } );
 } );
