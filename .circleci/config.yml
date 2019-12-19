@@ -1,12 +1,32 @@
 ---
 defaults: &defaults
   docker:
-    - image: gcr.io/planet-4-151612/circleci-base:latest
+    - image: greenpeaceinternational/circleci-base:latest
   working_directory: /home/circleci/app
 
 version: 2
 
+job-references:
+  setup_environment: &setup_environment
+    name: "Setup Environment Variables"
+    command: |
+      source /home/circleci/.bashrc
+
 jobs:
+  lint:
+    <<: *defaults
+    docker:
+      - image: greenpeaceinternational/p4-unit-tests:php7.3-develop
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - checkout
+      - run: *setup_environment
+      - run:
+          name: "stylelint"
+          when: always
+          command: stylelint "$HOME/app/src/scss/**/*.scss" "$HOME/app/theme/kss-assets/css/*.scss"
+
   deploy-dev:
     <<: *defaults
     environment:
@@ -39,6 +59,9 @@ jobs:
 
 workflows:
   version: 2
+  test:
+    jobs:
+      - lint
   dev:
     jobs:
       - deploy-dev:
