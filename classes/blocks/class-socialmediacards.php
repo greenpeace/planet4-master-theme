@@ -44,12 +44,6 @@ class SocialMediaCards extends Base_Block {
 					'gallery_block_focus_points' => [
 						'type' => 'string',
 					],
-					'urls'                       => [
-						'type' => 'string',
-					],
-					'messages'                   => [
-						'type' => 'string',
-					],
 					'multiple_image'             => [
 						'type' => 'string',
 					],
@@ -85,22 +79,6 @@ class SocialMediaCards extends Base_Block {
 			$img_focus_points = [];
 		}
 
-		if ( isset( $fields['messages'] ) ) {
-			$messages = json_decode( str_replace( "'", '"', $fields['messages'] ), true );
-		} else {
-			$messages = [];
-		}
-
-		if ( isset( $fields['urls'] ) ) {
-			$urls = json_decode( str_replace( "'", '"', $fields['urls'] ), true );
-		} else {
-			$urls = [];
-		}
-
-		$images_dimensions = [];
-
-		$fields['id'] = $fields['id'] ?? '';
-
 		$count = 0;
 		foreach ( $exploded_images as $image_id ) {
 			$image_size = 'retina-large';
@@ -124,21 +102,14 @@ class SocialMediaCards extends Base_Block {
 				}
 			}
 
-			if ( count( (array) $image_data_array ) >= 3 ) {
-				$images_dimensions[] = $image_data_array[1];
-				$images_dimensions[] = $image_data_array[2];
-			}
-
 			$images[] = $image_data;
 			$count++;
 		}
-		$fields['title']       = '' !== $fields['title'] ? $fields['title'] : '';
-		$fields['description'] = '' !== $fields['description'] ? $fields['description'] : '';
-		$data                  = [
-			'fields' => $fields,
-			'images' => $images,
-		];
 
-		return $data;
+		return [
+			'post_url' => get_permalink(),
+			'fields'   => $fields,
+			'images'   => $images,
+		];
 	}
 }

@@ -3,8 +3,6 @@ import { Preview } from '../../components/Preview';
 
 
 import {
-  MediaPlaceholder,
-  InspectorControls,
   BlockControls,
   MediaUpload,
   MediaUploadCheck
@@ -15,9 +13,6 @@ import {
   TextareaControl,
   ServerSideRender,
   FocalPointPicker,
-  ToggleControl,
-  RangeControl,
-  PanelBody,
   Button,
   Toolbar,
   IconButton
@@ -33,17 +28,7 @@ export class SocialMediaCards extends Component {
 
     const dimensions = { width: 212, height: 212 };
 
-    const { focus_image, id, multiple_image, image_data } = this.props;
-
-    let focal_point_params = { x: '', y: '' };
-
-    if (focus_image) {
-      let focus_image_str = focus_image.replace(/%/g, '');
-      let [x, y] = focus_image_str.split(' ');
-      focal_point_params = { x: x / 100, y: y / 100 };
-    } else {
-      focal_point_params = { x: 0.5, y: 0.5 };
-    }
+    const { multiple_image, image_data } = this.props;
 
     const getImageOrButton = (openEvent) => {
       if (0 < this.props.image_data.length) {

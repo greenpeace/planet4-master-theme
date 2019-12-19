@@ -23,24 +23,24 @@
 								alt="{{ single_image.alt_text }}">
 
 							<div class="share-strip">
-								<a href="https://www.facebook.com/sharer/sharer.php?u={{ single_image.social_url }}"
+								<a href="https://www.facebook.com/share.php?u={{ single_image.social_url|url_encode|default(post_url) }}&quote={{ single_image.message|url_encode }}"
 								   title="{{ __('Share on Facebook') }}"
-									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Facebook', 'eventLabel': '{{ single_image.social_url }}'});"
+									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Facebook', 'eventLabel': '{{ single_image.social_url|default(post_url) }}'});"
 									target="_blank" class="facebook-share">
 									{{ "facebook"|svgicon }}
 								</a>
-								<a href="https://twitter.com/intent/tweet?url={{ single_image.social_url }}&text={{ single_image.message|url_encode }}"
+								<a href="https://twitter.com/intent/tweet?url={{ single_image.social_url|url_encode|default(post_url) }}&text={{ single_image.message|url_encode }}"
 								   data-text="{{ single_image.message }}"
-								   data-social-url="{{ single_image.social_url }}"
+								   data-social-url="{{ single_image.social_url|default(post_url) }}"
 								   title="{{ __('Share on Twitter') }}"
-									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Twitter', 'eventLabel': '{{ single_image.social_url }}'});"
+									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Twitter', 'eventLabel': '{{ single_image.social_url|default(post_url) }}'});"
 									target="_blank" class="twitter-share">
 									{{ "twitter"|svgicon }}
 								</a>
 								<a href="{{ single_image.image_src }}" download
 								   target="_blank"
 								   title="{{ __('Download image') }}"
-									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Download', 'eventLabel': '{{ single_image.social_url }}'});"
+									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Download', 'eventLabel': '{{ single_image.social_url|default(post_url) }}'});"
 									class="download-share link-should-download">
 									{{ "download"|svgicon }}
 								</a>
