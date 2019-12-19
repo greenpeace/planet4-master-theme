@@ -33,7 +33,7 @@ class Rest_Controller {
 	 * Action for the wp rest api initialization.
 	 */
 	private function set_rest_hooks() {
-		add_action( 'rest_api_init', array( $this, 'setup_rest' ) );
+		add_action( 'rest_api_init', [ $this, 'setup_rest' ] );
 	}
 
 	/**

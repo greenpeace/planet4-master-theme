@@ -209,15 +209,15 @@ final class Loader {
 					deactivate_plugins( P4GEN_PLUGIN_BASENAME );
 					$count   = 0;
 					$message = '<div class="error fade">' .
-							'<u>' . esc_html( P4GEN_PLUGIN_NAME ) . ' > ' . esc_html__( 'Requirements Error(s)', 'planet4-blocks-backend' ) . '</u><br /><br />';
+							'<u>' . esc_html( P4GEN_PLUGIN_NAME ) . ' > ' . esc_html__( 'Requirements Error(s)', 'planet4-engagingnetworks-backend' ) . '</u><br /><br />';
 
 					foreach ( $plugins['not_found'] as $plugin ) {
-						$message .= '<br/><strong>' . ( ++ $count ) . '. ' . esc_html( $plugin['Name'] ) . '</strong> ' . esc_html__( 'plugin needs to be installed and activated.', 'planet4-blocks-backend' ) . '<br />';
+						$message .= '<br/><strong>' . ( ++ $count ) . '. ' . esc_html( $plugin['Name'] ) . '</strong> ' . esc_html__( 'plugin needs to be installed and activated.', 'planet4-engagingnetworks-backend' ) . '<br />';
 					}
 					foreach ( $plugins['not_updated'] as $plugin ) {
 						$message .= '<br/><strong>' . ( ++ $count ) . '. ' . esc_html( $plugin['Name'] ) . '</strong><br />' .
-									esc_html__( 'Minimum version ', 'planet4-blocks-backend' ) . '<strong>' . esc_html( $plugin['min_version'] ) . '</strong>' .
-									'<br/>' . esc_html__( 'Current version ', 'planet4-blocks-backend' ) . '<strong>' . esc_html( $plugin['Version'] ) . '</strong><br />';
+									esc_html__( 'Minimum version ', 'planet4-engagingnetworks-backend' ) . '<strong>' . esc_html( $plugin['min_version'] ) . '</strong>' .
+									'<br/>' . esc_html__( 'Current version ', 'planet4-engagingnetworks-backend' ) . '<strong>' . esc_html( $plugin['Version'] ) . '</strong><br />';
 					}
 
 					$message .= '</div><br />';
@@ -234,9 +234,9 @@ final class Loader {
 				deactivate_plugins( P4GEN_PLUGIN_BASENAME );
 				wp_die( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					'<div class="error fade">' .
-					'<strong>' . esc_html__( 'PHP Requirements Error', 'planet4-blocks-backend' ) . '</strong><br /><br />' . esc_html( P4GEN_PLUGIN_NAME . __( ' requires a newer version of PHP.', 'planet4-blocks-backend' ) ) . '<br />' .
-					'<br/>' . esc_html__( 'Minimum required version of PHP: ', 'planet4-blocks-backend' ) . '<strong>' . esc_html( $this->required_php ) . '</strong>' .
-					'<br/>' . esc_html__( 'Running version of PHP: ', 'planet4-blocks-backend' ) . '<strong>' . esc_html( phpversion() ) . '</strong>' .
+					'<strong>' . esc_html__( 'PHP Requirements Error', 'planet4-engagingnetworks-backend' ) . '</strong><br /><br />' . esc_html( P4GEN_PLUGIN_NAME . __( ' requires a newer version of PHP.', 'planet4-engagingnetworks-backend' ) ) . '<br />' .
+					'<br/>' . esc_html__( 'Minimum required version of PHP: ', 'planet4-engagingnetworks-backend' ) . '<strong>' . esc_html( $this->required_php ) . '</strong>' .
+					'<br/>' . esc_html__( 'Running version of PHP: ', 'planet4-engagingnetworks-backend' ) . '<strong>' . esc_html( phpversion() ) . '</strong>' .
 					'</div>',
 					'Plugin Requirements Error',
 					[
@@ -331,13 +331,16 @@ final class Loader {
 		// Variables exposed from PHP to JS,
 		// WP calls this "localizing a script"...
 		$reflection_vars = [
-			'home' => P4GEN_PLUGIN_URL . 'public/',
+			'home'  => P4GEN_PLUGIN_URL . 'public/',
 			'pages' => $this->get_pages(),
-			'forms' => $this->get_forms()
+			'forms' => $this->get_forms(),
 		];
 		wp_localize_script( 'planet4-gutenberg-engagingnetworks-script', 'p4en_vars', $reflection_vars );
 	}
 
+	/**
+	 * Get all available forms.
+	 */
 	public function get_forms() {
 		// Get EN Forms.
 		$query = new \WP_Query(
@@ -353,6 +356,9 @@ final class Loader {
 		return $query->posts;
 	}
 
+	/**
+	 * Get all available pages.
+	 */
 	public function get_pages() {
 		$pages = [];
 
@@ -361,7 +367,7 @@ final class Loader {
 			$main_settings = get_option( 'p4en_main_settings' );
 
 			if ( isset( $main_settings['p4en_private_api'] ) ) {
-				$pages[] = $main_settings['p4en_private_api'];
+				$pages[]           = $main_settings['p4en_private_api'];
 				$ens_private_token = $main_settings['p4en_private_api'];
 				$this->ens_api     = new Ensapi( $ens_private_token );
 				$pages             = $this->ens_api->get_pages_by_types_status( self::ENFORM_PAGE_TYPES, 'live' );
