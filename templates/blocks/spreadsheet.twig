@@ -1,0 +1,30 @@
+{% block spreadsheet %}
+
+	{% if ( fields.rows ) %}
+		<div class="block-spreadsheet">
+			<div class="form-inline">
+				<input class="spreadsheet-search form-control" type="text" placeholder="{{ __('Search data') }}"/>
+				<button class="spreadsheet-default-sort btn btn-small">{{ __('Default sorting') }}</button>
+			</div>
+			<table class="spreadsheet-table">
+				{% for rowNumber, row in fields.rows %}
+					<tr data-order="{{ rowNumber }}">
+						{% for cell in row %}
+							{% if rowNumber == 0 %}
+								<th title="{{ __('Sort by') }}">
+									{{ cell|escape }}
+								</th>
+							{% else %}
+								<td>
+									{{ cell|escape }}
+								</td>
+							{% endif %}
+						{% endfor %}
+					</tr>
+				{% endfor %}
+			</table>
+			<div class="spreadsheet-empty-message">{{ __('No data matching your search.') }}</div>
+		</div>
+	{% endif %}
+
+{% endblock %}
