@@ -30,22 +30,34 @@ class SocialMediaCards extends Base_Block {
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],
 				'attributes'      => [
-					'id'                         => [
-						'type' => 'integer',
-					],
-					'title'                      => [
+					'title'       => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'description'                => [
+					'description' => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'gallery_block_focus_points' => [
-						'type' => 'string',
-					],
-					'multiple_image'             => [
-						'type' => 'string',
+					'cards'       => [
+						'type'    => 'array',
+						'default' => [],
+						'items'   => [
+							'type'       => 'object',
+							'properties' => [
+								'image_id'     => [
+									'type' => 'int',
+								],
+								'message'      => [
+									'type' => 'string',
+								],
+								'social_url'   => [
+									'type' => 'string',
+								],
+								'focal_points' => [
+									'type' => 'string',
+								],
+							],
+						],
 					],
 				],
 			]
@@ -64,37 +76,31 @@ class SocialMediaCards extends Base_Block {
 		if ( ! $this->is_rest_request() ) {
 			wp_enqueue_script( 'social-media-cards', P4GBKS_PLUGIN_URL . 'public/js/social_media_cards.js', [], '0.1', true );
 		}
+		$image_size = 'retina-large';
 
 		$images = [];
 
-		if ( isset( $fields['multiple_image'] ) ) {
-			$exploded_images = explode( ',', $fields['multiple_image'] );
-		} else {
-			$exploded_images = [];
-		}
-
-		if ( isset( $fields['gallery_block_focus_points'] ) ) {
-			$img_focus_points = json_decode( str_replace( "'", '"', $fields['gallery_block_focus_points'] ), true );
-		} else {
-			$img_focus_points = [];
-		}
-
-		$count = 0;
-		foreach ( $exploded_images as $image_id ) {
-			$image_size = 'retina-large';
+		foreach ( $fields['cards'] as $card ) {
 			$image_data = [];
+
+			$image_id = $card['image_id'];
 
 			$image_data_array           = wp_get_attachment_image_src( $image_id, $image_size );
 			$image_data['image_src']    = $image_data_array ? $image_data_array[0] : '';
-			$image_data['image_srcset'] = wp_get_attachment_image_srcset( $image_id, $image_size, wp_get_attachment_metadata( $image_id ) );
+			$image_data['image_srcset'] = wp_get_attachment_image_srcset(
+				$image_id,
+				$image_size,
+				wp_get_attachment_metadata( $image_id )
+			);
 			$image_data['image_sizes']  = wp_calculate_image_sizes( $image_size, null, null, $image_id );
 			$image_data['alt_text']     = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
 			$image_data['caption']      = wp_get_attachment_caption( $image_id );
-			$image_data['focus_image']  = $img_focus_points[ $image_id ] ?? '';
-			$image_data['message']      = $fields['image_data'][ $count ]['message'] ?? '';
-			$image_data['social_url']   = $fields['image_data'][ $count ]['social_url'] ?? '';
+			$image_data['focus_image']  = $card['focal_points'] ?? '';
+			$image_data['message']      = $card['message'] ?? '';
+			$image_data['social_url']   = $card['social_url'] ?? '';
 			$attachment_fields          = get_post_custom( $image_id );
 			$image_data['credits']      = '';
+
 			if ( isset( $attachment_fields['_credit_text'][0] ) && ! empty( $attachment_fields['_credit_text'][0] ) ) {
 				$image_data['credits'] = $attachment_fields['_credit_text'][0];
 				if ( ! is_numeric( strpos( $attachment_fields['_credit_text'][0], '©' ) ) ) {
@@ -103,13 +109,12 @@ class SocialMediaCards extends Base_Block {
 			}
 
 			$images[] = $image_data;
-			$count++;
 		}
 
 		return [
 			'post_url' => get_permalink(),
 			'fields'   => $fields,
-			'images'   => $images,
+			'cards'    => $images,
 		];
 	}
 }
