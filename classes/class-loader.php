@@ -105,6 +105,7 @@ final class Loader {
 			new Blocks\Media(),
 			new Blocks\SocialMedia(),
 			new Blocks\SplitTwoColumns(),
+			new Blocks\Spreadsheet(),
 			new Blocks\SubMenu(),
 			new Blocks\TakeActionBoxout(),
 			new Blocks\Timeline(),

@@ -35,6 +35,14 @@
 		</properties>
 	</rule>
 
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax.Found">
+		<type>error</type>
+	</rule>
+
+	<rule ref="Generic.Arrays">
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+	</rule>
+
 	<!-- Check all PHP files in directory tree by default. -->
 	<arg name="extensions" value="php"/>
 	<file>.</file>

@@ -1,5 +1,5 @@
 {% block social_media_cards %}
-	{% if ( images ) %}
+	{% if ( cards ) %}
 		<section class="block social-media-cards">
 
 			{% if ( fields.title or fields.description ) %}
@@ -16,31 +16,31 @@
 
 			<div class="container">
 				<div class="grid-row">
-					{% for key, single_image in images %}
+					{% for key, card in cards %}
 						<div class="grid-item">
-							<img src="{{ single_image.image_src }}" data-background-position="{{ single_image.focus_image }}"
-								srcset="{{ single_image.image_srcset }}" sizes="{{ single_image.image_sizes }}"
-								alt="{{ single_image.alt_text }}">
+							<img src="{{ card.image_src }}"
+								srcset="{{ card.image_srcset }}" sizes="{{ card.image_sizes }}"
+								alt="{{ card.alt_text }}">
 
 							<div class="share-strip">
-								<a href="https://www.facebook.com/sharer/sharer.php?u={{ single_image.social_url }}"
-								   title="{{ __('Share on Facebook') }}"
-									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Facebook', 'eventLabel': '{{ single_image.social_url }}'});"
+								<a href="https://www.facebook.com/share.php?u={{ card.social_url|default(post_url)|url_encode }}&quote={{ card.message|url_encode }}"
+								   title="{{ __('Share on Facebook', 'planet4-blocks') }}"
+									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Facebook', 'eventLabel': '{{ card.social_url|default(post_url) }}'});"
 									target="_blank" class="facebook-share">
 									{{ "facebook"|svgicon }}
 								</a>
-								<a href="https://twitter.com/intent/tweet?url={{ single_image.social_url }}&text={{ single_image.message|url_encode }}"
-								   data-text="{{ single_image.message }}"
-								   data-social-url="{{ single_image.social_url }}"
-								   title="{{ __('Share on Twitter') }}"
-									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Twitter', 'eventLabel': '{{ single_image.social_url }}'});"
+								<a href="https://twitter.com/intent/tweet?url={{ card.social_url|default(post_url)|url_encode }}&text={{ card.message|url_encode }}"
+								   data-text="{{ card.message }}"
+								   data-social-url="{{ card.social_url|default(post_url) }}"
+								   title="{{ __('Share on Twitter', 'planet4-blocks') }}"
+									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Twitter', 'eventLabel': '{{ card.social_url|default(post_url) }}'});"
 									target="_blank" class="twitter-share">
 									{{ "twitter"|svgicon }}
 								</a>
-								<a href="{{ single_image.image_src }}" download
+								<a href="{{ card.image_src }}" download
 								   target="_blank"
-								   title="{{ __('Download image') }}"
-									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Download', 'eventLabel': '{{ single_image.social_url }}'});"
+								   title="{{ __('Download image', 'planet4-blocks') }}"
+									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Download', 'eventLabel': '{{ card.social_url|default(post_url) }}'});"
 									class="download-share link-should-download">
 									{{ "download"|svgicon }}
 								</a>
