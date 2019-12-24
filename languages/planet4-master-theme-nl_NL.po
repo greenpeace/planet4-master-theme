@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-06-19 15:39+0000\n"
+"PO-Revision-Date: 2019-12-24 10:57+0000\n"
 "Last-Translator: Oscar Keur <okeur@greenpeace.org>\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: \n"
 "Language: nl_NL\n"
-"X-Loco-Version: 2.3.0; wp-5.2.1"
+"X-Loco-Version: 2.3.1; wp-5.3.2"
 
 #: single.php:33
 msgid "Post page"
@@ -347,7 +347,7 @@ msgstr "Deel via"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
-msgstr "over de auteur"
+msgstr "Auteur"
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
