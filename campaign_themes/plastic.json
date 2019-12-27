@@ -1,0 +1,150 @@
+{
+	"id": "plastic",
+	"name": "Plastics",
+	"fields": [
+		{
+			"id": "campaign_logo",
+			"options": [
+				{
+					"value": "plastic",
+					"label": "Plastics"
+				},
+				{
+					"value": "greenpeace",
+					"label": "Greenpeace"
+				}
+			],
+			"default": "plastic"
+		},
+		{
+			"id": "campaign_logo_color",
+			"options": [
+				{
+					"value": "light",
+					"label": "Light"
+				},
+				{
+					"value": "dark",
+					"label": "Dark"
+				}
+			],
+			"default": "light"
+		},
+		{
+			"id": "campaign_nav_type",
+			"options": [
+				{
+					"value": "planet4",
+					"label": "Main website navigation"
+				},
+				{
+					"value": "minimal",
+					"label": "Minimal Navigation"
+				}
+			],
+			"default": "minimal"
+		},
+		{
+			"id": "campaign_nav_color",
+			"options": [
+				{ "color":  "#ffffff"},
+				{ "color":  "#000000"},
+				{ "color":  "#044362"},
+				{ "color":  "#2CABB1"},
+				{ "color": "#66CC00" }
+			],
+			"default": "#FFFFFF"
+		},
+		{
+			"id": "campaign_header_color",
+			"options": [
+			],
+			"default": "#000000"
+		},
+		{
+			"id": "campaign_primary_color",
+			"options": [
+			]
+		},
+		{
+			"id": "campaign_secondary_color",
+			"options": [
+			]
+		},
+		{
+			"id": "campaign_header_primary",
+			"options": [
+				{
+					"value": "",
+					"label": "Campaign default"
+				},
+				{
+					"value": "Anton",
+					"label": "Anton"
+				},
+				{
+					"value": "Jost",
+					"label": "Jost"
+				},
+				{
+					"value": "Montserrat",
+					"label": "Montserrat Bold"
+				},
+				{
+					"value": "Montserrat_Light",
+					"label": "Montserrat Light"
+				},
+				{
+					"value": "Sanctuary",
+					"label": "Sanctuary"
+				},
+				{
+					"value": "Kanit",
+					"label": "Kanit Extra Bold"
+				},
+				{
+					"value": "Save the Arctic",
+					"label": "Save the Arctic"
+				}
+			]
+		},
+		{
+			"id": "campaign_body_font",
+			"options": [
+				{
+					"value": "lora",
+					"label": "Serif"
+				},
+				{
+					"value": "roboto",
+					"label": "Sans Serif"
+				},
+				{
+					"value": "campaign",
+					"label": "Campaign default"
+				}
+			],
+			"default": "lora"
+		},
+		{
+			"id": "campaign_footer_theme",
+			"options": [
+				{
+					"value": "default",
+					"label": "Default"
+				},
+				{
+					"value": "white",
+					"label": "White"
+				}
+			],
+			"default": "default"
+		},
+		{
+			"id": "footer_links_color",
+			"options": [
+				{ "color": "#2077bf" }
+			]
+		}
+	]
+}

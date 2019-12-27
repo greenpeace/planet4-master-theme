@@ -1,0 +1,115 @@
+{
+	"id": "antarctic",
+	"name": "Antarctic",
+	"fields": [
+		{
+			"id": "campaign_logo",
+			"options": [
+				{
+					"value": "antarctic",
+					"label": "Antarctic"
+				},
+				{
+					"value": "greenpeace",
+					"label": "Greenpeace"
+				}
+			],
+			"default": "antarctic"
+		},
+		{
+			"id": "campaign_logo_color",
+			"options": [
+				{
+					"value": "light",
+					"label": "Light"
+				},
+				{
+					"value": "dark",
+					"label": "Dark"
+				}
+			],
+			"default": "light"
+		},
+		{
+			"id": "campaign_nav_type",
+			"options": [
+				{
+					"value": "planet4",
+					"label": "Main website navigation"
+				},
+				{
+					"value": "minimal",
+					"label": "Minimal Navigation"
+				}
+			],
+			"default": "minimal"
+		},
+		{
+			"id": "campaign_nav_color",
+			"options": [
+				{ "color":  "#ffffff"},
+				{ "color":  "#000000"},
+				{ "color": "#0A4461"},
+				{ "color": "#52C9F4"}
+			],
+			"default": "#FFFFFF"
+		},
+		{
+			"id": "campaign_header_color",
+			"options": [
+			]
+		},
+		{
+			"id": "campaign_secondary_color",
+			"options": [
+			]
+		},
+		{
+			"id": "campaign_primary_color",
+			"options": [
+			]
+		},
+		{
+			"id": "campaign_header_primary",
+			"options": [
+			]
+		},
+		{
+			"id": "campaign_body_font",
+			"options": [
+				{
+					"value": "lora",
+					"label": "Serif"
+				},
+				{
+					"value": "roboto",
+					"label": "Sans Serif"
+				},
+				{
+					"value": "campaign",
+					"label": "Campaign default"
+				}
+			],
+			"default": "lora"
+		},
+		{
+			"id": "campaign_footer_theme",
+			"options": [
+				{
+					"value": "default",
+					"label": "Default"
+				},
+				{
+					"value": "white",
+					"label": "White"
+				}
+			],
+			"default": "default"
+		},
+		{
+			"id": "footer_links_color",
+			"options": [
+			]
+		}
+	]
+}

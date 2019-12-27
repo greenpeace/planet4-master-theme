@@ -1,0 +1,92 @@
+{# As a first step use a twig template to set css variables instead of in PHP so that IDEs can have syntax color.
+Later we will use these variables in our source scss files (with a fallback to the default value)
+ to expose variables to theme configuration files, thereby removing the need of separate selectors.
+ #}
+<style>
+	{% if css_vars['nav-color'] %}
+		.navbar {
+			background-color: {{ css_vars['nav-color'] }} !important;
+		}
+	{% endif %}
+
+	{% if css_vars['footer-color'] %}
+		.site-footer {
+			background-color: {{ css_vars['footer-color'] }} !important;
+		}
+	{% endif %}
+
+	{# footer-links-color is always set. #}
+	.site-footer a,
+	.site-footer li,
+	.site-footer .gp-year,
+	.site-footer .copyright-text {
+		color: {{ css_vars['footer-links-color'] }} !important;
+	}
+
+	.site-footer .gp-year {
+		font-family: Roboto !important;
+	}
+
+	.site-footer_min .icon {
+		fill: {{ css_vars['footer-links-color'] }} !important;
+	}
+
+	{% if css_vars['header-color'] %}
+		h1, h2, h3, h4, h5 {
+			color: {{ css_vars['header-color'] }} !important;
+		}
+	{% endif %}
+
+	{% if css_vars['header-primary-font'] %}
+		h1, h2, h3, h4, h5 {
+			font-family: {{ css_vars['header-primary-font'] }} !important;
+		}
+	{% endif %}
+
+	{% if css_vars['header-font-weight'] %}
+		h1, h2, h3, h4, h5 {
+			font-weight: {{ css_vars['header-font-weight'] }} !important;
+		}
+	{% endif %}
+
+	{% if css_vars['body-font'] %}
+		body, p {
+			font-family: {{ css_vars['body-font'] }} !important;
+		}
+	{% endif %}
+
+	{% if css_vars['primary-color'] %}
+		.btn-primary {
+			background: {{ css_vars['passive-button-color'] }} !important;
+			border-color: {{ css_vars['passive-button-color'] }} !important;
+		}
+
+		.btn-primary:hover {
+			background: {{ css_vars['primary-color'] }} !important;
+			border-color: {{ css_vars['primary-color'] }} !important;
+		}
+
+		.cover-card:hover .cover-card-btn {
+			background: {{ css_vars['primary-color'] }} !important;
+			border-color: {{ css_vars['primary-color'] }} !important;
+		}
+	{% endif %}
+
+	{% if css_vars['secondary-color'] %}
+		a {
+			color: {{ css_vars['secondary-color'] }} !important;
+		}
+
+		.btn-secondary, .btn-action.cover-card-btn {
+			background: rgba(255, 255, 255, .75) !important;
+			border: 1px solid {{ css_vars['secondary-color'] }} !important;
+			color: {{ css_vars['secondary-color'] }} !important;
+		}
+
+		.btn-secondary:hover, .btn-action.cover-card-btn:hover {
+			background: {{ css_vars['secondary-color'] }} !important;
+			border: 1px solid {{ css_vars['secondary-color'] }} !important;
+			color: white !important;
+		}
+	{% endif %}
+</style>
