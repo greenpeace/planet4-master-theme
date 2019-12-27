@@ -1,5 +1,5 @@
 .editor-post-title__block textarea.editor-post-title__input {
-  font-family: $roboto;
+  font-family: var(--header-primary-font, $roboto);
   font-size: $font-size-xl;
   line-height: 1.225;
   margin-bottom: 30px;
@@ -142,4 +142,33 @@
   .wp-picker-input-wrap label {
     display: none !important;
   }
+}
+// By default the selected color is barely visible because of the white circle with check mark covering it.
+.components-color-palette__item.is-active {
+  box-shadow: inset 0 0 0 6px;
+}
+
+.edit-post-sidebar {
+
+  // By default all but the first .component-base-control have margin-bottom, causing weird spacing.
+  .components-base-control {
+    margin-bottom: 0;
+
+    .components-base-control__label {
+      font-weight: bold;
+    }
+  }
+}
+
+.edit-post-visual-editor .editor-block-list__block-edit,
+.edit-post-visual-editor {
+  font-family: var(--body-font, 'Noto Serif');
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--header-primary-font, $roboto);
+  }
+}
+
+.edit-post-sidebar-header > .components-icon-button.is-toggled {
+  display: none !important;
 }
