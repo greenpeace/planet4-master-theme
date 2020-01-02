@@ -223,11 +223,17 @@ class ENForm extends Base_Block {
 		}
 		$attributes['default_image'] = get_bloginfo( 'template_directory' ) . '/images/happy-point-block-bg.jpg';
 
-		$og_title       = get_post_meta( $post->ID, 'p4_og_title', true );
-		$og_description = get_post_meta( $post->ID, 'p4_og_description', true );
-		$link           = get_permalink( $post->ID );
+		if ( is_object( $post ) ) {
+			$og_title       = get_post_meta( $post->ID, 'p4_og_title', true );
+			$og_description = get_post_meta( $post->ID, 'p4_og_description', true );
+			$link           = get_permalink( $post->ID );
+		} else {
+			$og_title       = '';
+			$og_description = '';
+			$link           = '';
+		}
 
-		if ( '' === $og_title ) {
+		if ( '' === $og_title && is_object( $post ) ) {
 			$title = get_the_title( $post->ID );
 			if ( '' !== $title ) {
 				$og_title = $title;
@@ -282,7 +288,7 @@ class ENForm extends Base_Block {
 
 			$data = [
 				'form_fields'   => $fields,
-				'en_form_style' => $attributes['en_form_style'],
+				'en_form_style' => $attributes['en_form_style'] ?? 'full-width',
 			];
 
 			$rendered_form = $view->view_template( 'enform_post', $data, '/blocks/', true );
