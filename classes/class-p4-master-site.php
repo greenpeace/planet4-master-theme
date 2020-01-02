@@ -855,7 +855,7 @@ class P4_Master_Site extends TimberSite {
 	 * @return string HTML content of image element with credit field in caption.
 	 */
 	public function p4_core_image_block_render( $attributes, $content ) {
-		$image_id = trim( str_replace( 'attachment_', '', $attributes['id'] ) );
+		$image_id = isset( $attributes['id'] ) ? trim( str_replace( 'attachment_', '', $attributes['id'] ) ) : '';
 		$meta     = get_post_meta( $image_id );
 
 		if ( isset( $meta['_credit_text'] ) && ! empty( $meta['_credit_text'][0] ) ) {
