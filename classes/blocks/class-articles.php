@@ -382,7 +382,7 @@ class Articles extends Base_Block {
 
 		// Validate tag ids.
 		$tags = array_filter(
-			$tags,
+			(array) $tags,
 			function( $tag_id ) {
 				return get_tag( $tag_id ) instanceof \WP_Term;
 			}
