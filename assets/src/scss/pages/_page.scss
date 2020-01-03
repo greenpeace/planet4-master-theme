@@ -64,14 +64,18 @@ div.page-template {
     margin-right: auto;
     display: block;
   }
+}
 
-  .single-campaign & {
-    section:first-child {
-      margin-top: $n40;
-    }
-
+.single-campaign {
+  .page-template {
     > p:last-child {
       margin-bottom: $space-xxl;
+    }
+
+    &:not(.no-page-title) {
+      section:first-child {
+        margin-top: $n40;
+      }
     }
   }
 }

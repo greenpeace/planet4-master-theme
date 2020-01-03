@@ -1,7 +1,7 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	<div class="page-template">
+	<div class="page-template {% if hide_page_title_checkbox == 'on' %}no-page-title{% endif %}">
 		{{ post.content|raw }}
 	</div>
 {% endblock %}
