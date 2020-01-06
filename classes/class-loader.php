@@ -303,7 +303,7 @@ final class Loader {
 			'P4GEN_admin_style',
 			P4GEN_PLUGIN_URL . 'editorStyle.css', // - Bundled CSS for the blocks
 			[],
-			'0.2'
+			'0.3'
 		);
 
 		wp_enqueue_style(
@@ -324,7 +324,7 @@ final class Loader {
 				'wp-data',        // - WP data helpers
 				'wp-i18n',        // - Exports the __() function
 			],
-			'0.1.4',
+			'0.1.5',
 			true
 		);
 
