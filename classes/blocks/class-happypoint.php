@@ -33,7 +33,7 @@ class Happypoint extends Base_Block {
 	 */
 	public function add_block_shortcode( $attributes, $content ) {
 
-		$attributes['id'] = $attributes['background'];
+		$attributes['id'] = $attributes['background'] ?? '';
 
 		$attributes = shortcode_atts(
 			[
