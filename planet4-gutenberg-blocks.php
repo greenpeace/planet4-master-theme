@@ -133,6 +133,7 @@ const CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/media',
 	'planet4-blocks/social-media',
 	'planet4-blocks/social-media-cards',
+	'planet4-blocks/spreadsheet',
 	'planet4-blocks/submenu',
 	'planet4-blocks/timeline',
 ];
@@ -242,7 +243,7 @@ function empty_string_to_false_in_link_new_tab_in_columns_blocks( $block ): arra
 	// Yes, that's right, WordPress doesn't follow its own rules here so we have a camel among snakes.
 	if ( 'planet4-blocks/columns' === $block['blockName'] ?? null ) {
 		foreach ( $block['attrs']['columns'] ?? [] as $key => $column ) {
-			if ( true !== $column['link_new_tab'] ) {
+			if ( isset( $column['link_new_tab'] ) && true !== $column['link_new_tab'] ) {
 				$block['attrs']['columns'][ $key ]['link_new_tab'] = false;
 			}
 		}

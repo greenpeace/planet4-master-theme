@@ -406,4 +406,45 @@ body.theme-oceans {
   .video-block {
     @include campaign_video($oceans-aqua);
   }
+
+  .page-template table.spreadsheet-table {
+    color: #fff;
+
+    tr {
+      background-color: #407ea2;
+
+      &:nth-child(odd) {
+        background-color: #336582;
+      }
+
+      &:hover {
+        background-color: #074365;
+      }
+
+      &:first-child {
+        background-color: #113444;
+        border-bottom-color: #fff;
+      }
+    }
+
+    .spreadsheet-table-search {
+      border-color: #407ea2;
+    }
+  }
+
+  .spreadsheet-default-sort {
+    border-color: #044362;
+    color: #044362;
+    font-family: Montserrat;
+    letter-spacing: .06rem;
+    line-height: 38px;
+    height: 38px;
+    margin-left: 5px;
+
+    &:hover {
+      background-color: #8fd9d0;
+      border-color: #8fd9d0;
+      color: #044362;
+    }
+  }
 }
