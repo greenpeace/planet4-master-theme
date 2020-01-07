@@ -112,9 +112,7 @@ class P4_Master_Site extends TimberSite {
 			}
 		);
 		add_action( 'after_setup_theme', [ $this, 'add_image_sizes' ] );
-		add_filter( 'post_gallery', [ $this, 'carousel_post_gallery' ], 10, 2 );
 		add_action( 'save_post', [ $this, 'p4_auto_generate_excerpt' ], 10, 2 );
-		add_filter( 'img_caption_shortcode', [ $this, 'override_img_caption_shortcode' ], 10, 3 );
 
 		add_action( 'wp_ajax_get_paged_posts', [ 'P4_ElasticSearch', 'get_paged_posts' ] );
 		add_action( 'wp_ajax_nopriv_get_paged_posts', [ 'P4_ElasticSearch', 'get_paged_posts' ] );
@@ -170,12 +168,15 @@ class P4_Master_Site extends TimberSite {
 		);
 
 		add_action( 'init', [ $this, 'login_redirect' ], 1 );
+		add_filter( 'attachment_fields_to_edit', [ $this, 'add_image_attachment_fields_to_edit' ], 10, 2 );
+		add_filter( 'attachment_fields_to_save', [ $this, 'add_image_attachment_fields_to_save' ], 10, 2 );
+		add_action( 'init', [ $this, 'p4_register_core_image_block' ] );
 	}
 
 	/**
 	 * Detects and redirects login from non-canonical domain to preferred domain
 	 */
-	function login_redirect() {
+	public function login_redirect() {
 		if ( ! isset( $GLOBALS['pagenow'] ) || 'wp-login.php' !== $GLOBALS['pagenow'] ) {
 			// Not on the login page, as you were.
 			return;
@@ -196,14 +197,14 @@ class P4_Master_Site extends TimberSite {
 	/**
 	 * Sets the URL for the logo link in the login page.
 	 */
-	function add_login_logo_url() {
+	public function add_login_logo_url() {
 		return home_url();
 	}
 
 	/**
 	 * Sets the title for the logo link in the login page.
 	 */
-	function add_login_logo_url_title() {
+	public function add_login_logo_url_title() {
 		return get_bloginfo( 'name' );
 	}
 
@@ -329,6 +330,16 @@ class P4_Master_Site extends TimberSite {
 		$context['google_optimizer']       = isset( $options['google_optimizer'] ) ? true : false;
 		$context['facebook_page_id']       = $options['facebook_page_id'] ?? '';
 
+		// Datalayer feed.
+		$current_user = wp_get_current_user();
+		if ( $current_user->ID ) {
+			$context['p4_signedin_status'] = 'true';
+			$context['p4_visitor_type']    = $current_user->roles[0] ?? '';
+		} else {
+			$context['p4_signedin_status'] = 'false';
+			$context['p4_visitor_type']    = 'guest';
+		}
+
 		$context['donatelink']           = $options['donate_button'] ?? '#';
 		$context['donatetext']           = $options['donate_text'] ?? __( 'DONATE', 'planet4-master-theme' );
 		$context['website_navbar_title'] = $options['website_navigation_title'] ?? __( 'International (English)', 'planet4-master-theme' );
@@ -391,6 +402,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function set_custom_allowed_attributes_filter( $allowedposttags ) {
 		// Allow iframes and the following attributes.
+		$allowedposttags['style']  = [];
 		$allowedposttags['iframe'] = [
 			'align'           => true,
 			'width'           => true,
@@ -637,31 +649,6 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Output an "Add Page Element" button with the media buttons.
-	 *
-	 * @param int $editor_id Editor ID.
-	 */
-	public function action_page_media_buttons( $editor_id ) {
-		printf(
-			'<button type="button" class="button shortcake-add-post-element" data-editor="%s">' .
-				'<span class="wp-media-buttons-icon dashicons dashicons-migrate"></span> %s' .
-				'</button>',
-			esc_attr( $editor_id ),
-			__( 'Add Page Element', 'planet4-master-theme-backend' )
-		);
-	}
-
-	/**
-	 * Apply carousel style to wp image gallery.
-	 *
-	 * @param string $output Output.
-	 * @param mixed  $attr   Attributes.
-	 */
-	public function carousel_post_gallery( $output, $attr ) {
-		return do_shortcode( '[shortcake_carousel multiple_image="' . $attr['ids'] . '"]' );
-	}
-
-	/**
 	 * Auto generate excerpt for post.
 	 *
 	 * @param int     $post_id Id of the saved post.
@@ -768,51 +755,6 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Filter function for img_caption_shortcode. Append image credit to caption.
-	 *
-	 * @param string $output  The caption output. Passed empty by WordPress.
-	 * @param array  $attr    Attributes of the caption shortcode.
-	 * @param string $content The image element, possibly wrapped in a hyperlink.
-	 *
-	 * @return string HTML content to display the caption.
-	 */
-	public function override_img_caption_shortcode( $output, $attr, $content ) {
-
-		$atts = shortcode_atts(
-			[
-				'id'      => '',
-				'align'   => 'alignnone',
-				'width'   => '',
-				'caption' => '',
-				'class'   => '',
-			],
-			$attr,
-			'caption'
-		);
-
-		$image_id     = trim( str_replace( 'attachment_', '', $atts['id'] ) );
-		$meta         = get_post_meta( $image_id );
-		$image_credit = '';
-		if ( isset( $meta['_credit_text'] ) && ! empty( $meta['_credit_text'][0] ) ) {
-			$image_credit = ' ' . $meta['_credit_text'][0];
-			if ( ! is_numeric( strpos( $meta['_credit_text'][0], '©' ) ) ) {
-				$image_credit = ' ©' . $image_credit;
-			}
-		}
-
-		$class = trim( 'wp-caption ' . $atts['align'] . ' ' . $atts['class'] );
-
-		if ( $atts['id'] ) {
-			$atts['id'] = 'id="' . esc_attr( $atts['id'] ) . '" ';
-		}
-
-		$output = '<div ' . $atts['id'] . ' class="' . esc_attr( $class ) . '">'
-				. do_shortcode( $content ) . '<p class="wp-caption-text">' . $atts['caption'] . $image_credit . '</p></div>';
-
-		return $output;
-	}
-
-	/**
 	 * Add a help link to the Help sidebars.
 	 */
 	public function add_help_sidebar() {
@@ -867,4 +809,78 @@ class P4_Master_Site extends TimberSite {
 		return $cache;
 	}
 
+	/**
+	 * Add custom media metadata fields.
+	 *
+	 * @param array    $form_fields An array of fields included in the attachment form.
+	 * @param \WP_Post $post The attachment record in the database.
+	 *
+	 * @return array Final array of form fields to use.
+	 */
+	public function add_image_attachment_fields_to_edit( $form_fields, $post ) {
+
+		// Add a Credit field.
+		$form_fields['credit_text'] = [
+			'label' => __( 'Credit', 'planet4-master-theme-backend' ),
+			'input' => 'text', // this is default if "input" is omitted.
+			'value' => get_post_meta( $post->ID, '_credit_text', true ),
+			'helps' => __( 'The owner of the image.', 'planet4-master-theme-backend' ),
+		];
+
+		return $form_fields;
+	}
+
+	/**
+	 * Save custom media metadata fields
+	 *
+	 * @param \WP_Post $post        The $post data for the attachment.
+	 * @param array    $attachment  The $attachment part of the form $_POST ($_POST[attachments][postID]).
+	 *
+	 * @return \WP_Post $post
+	 */
+	public function add_image_attachment_fields_to_save( $post, $attachment ) {
+		if ( isset( $attachment['credit_text'] ) ) {
+			update_post_meta( $post['ID'], '_credit_text', $attachment['credit_text'] );
+		}
+
+		return $post;
+	}
+
+	/**
+	 * Override the Gutenberg core/image block render method output, To add credit field in it's caption text.
+	 *
+	 * @param array  $attributes    Attributes of the Gutenberg core/image block.
+	 * @param string $content The image element HTML.
+	 *
+	 * @return string HTML content of image element with credit field in caption.
+	 */
+	public function p4_core_image_block_render( $attributes, $content ) {
+		$image_id = isset( $attributes['id'] ) ? trim( str_replace( 'attachment_', '', $attributes['id'] ) ) : '';
+		$meta     = get_post_meta( $image_id );
+
+		if ( isset( $meta['_credit_text'] ) && ! empty( $meta['_credit_text'][0] ) ) {
+			$image_credit = ' ' . $meta['_credit_text'][0];
+			if ( false === strpos( $meta['_credit_text'][0], '©' ) ) {
+				$image_credit = ' ©' . $image_credit;
+			}
+
+			if ( strpos( $content, '<figcaption>' ) !== false ) {
+				$content = str_replace( '</figcaption>', esc_attr( $image_credit ) . '</figcaption>', $content );
+			} else {
+				$content = str_replace( '</figure>', '<figcaption>' . esc_attr( $image_credit ) . '</figcaption></figure>', $content );
+			}
+		}
+
+		return $content;
+	}
+
+	/**
+	 * Add callback function to Gutenberg core/image block.
+	 */
+	public function p4_register_core_image_block() {
+		register_block_type(
+			'core/image',
+			[ 'render_callback' => [ $this, 'p4_core_image_block_render' ] ]
+		);
+	}
 }

@@ -1,0 +1,57 @@
+{% if ((post and (1 != fn('post_password_required', post))) or author is defined) %}
+	{% if (author.description is defined and author.description) %}
+		{% set meta_description = author.description|striptags %}
+	{% elseif (post.post_excerpt is defined and post.post_excerpt) %}
+		{% set meta_description = post.post_excerpt|striptags %}
+	{% else %}
+		{% set meta_description = site.description %}
+	{% endif %}
+
+	{% if (author.name is defined and author.name is not null) %}
+		{% set meta_twitter_creator = author.name %}
+	{% elseif (post.author is defined and post.author is not null) %}
+		{% set meta_twitter_creator = post.author.name %}
+	{% endif %}
+
+	<meta name="description" content="{{ meta_description }}">
+
+	{% if not (og_title is defined) %}
+		{% if (wp_title) %}
+			{% set og_title = wp_title|raw~' - '~site.name %}
+		{% else %}
+			{% set og_title = site.name %}
+		{% endif %}
+	{% endif %}
+	<meta name="title" content="{{ og_title|e('html_attr')|raw }}"/>
+	<meta property="og:title" content="{{ og_title|e('html_attr')|raw }}" />
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="{{ current_url }}" />
+	{% if (og_description) %}
+		<meta property="og:description" content="{{ og_description|striptags }}" />
+	{% endif %}
+	{% if (og_image_data) %}
+		<meta property="og:image" content="{{ og_image_data['url'] }}" />
+		<meta property="og:image:width" content="{{ og_image_data['width'] }}" />
+		<meta property="og:image:height" content="{{ og_image_data['height'] }}" />
+	{% endif %}
+	<meta property="og:site_name" content="{{ site.name }}" />
+
+	{% if facebook_page_id %}
+		<meta property="fb:pages" content="{{ facebook_page_id }}" />
+	{% endif %}
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="{{ site.name }}" />
+	<meta name="twitter:title" content="{{ og_title|e('html_attr')|raw }}">
+	{% if (og_description) %}
+		<meta name="twitter:description" content="{{ og_description|e('html_attr')|raw }}">
+	{% endif %}
+
+	{% if (meta_twitter_creator is defined) %}
+		<meta name="twitter:creator" content="{{ meta_twitter_creator }}">
+	{% endif %}
+
+	{% if (og_image_data) %}
+		<meta name="twitter:image" content="{{ og_image_data['url'] }}" />
+	{% endif %}
+{% endif %}

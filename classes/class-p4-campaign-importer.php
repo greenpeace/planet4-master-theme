@@ -131,7 +131,7 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 					'post_content' => $post_content,
 					'postmeta'     => $campaign_postmeta,
 				];
-				wp_update_post( $updated_post );
+				wp_update_post( wp_slash( $updated_post ) );
 			}
 		}
 

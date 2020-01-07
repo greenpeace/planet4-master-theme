@@ -218,26 +218,7 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		 * @return array Associative array with the social media accounts.
 		 */
 		public function get_social_accounts( $social_menu ) : array {
-			$social_accounts = [];
-			if ( isset( $social_menu ) && is_iterable( $social_menu ) ) {
-
-				$brands = [
-					'facebook',
-					'twitter',
-					'youtube',
-					'instagram',
-				];
-				foreach ( $social_menu as $social_menu_item ) {
-					$url_parts = explode( '/', rtrim( $social_menu_item->url, '/' ) );
-					foreach ( $brands as $brand ) {
-						if ( false !== strpos( $social_menu_item->url, $brand ) ) {
-							$social_accounts[ $brand ] = count( $url_parts ) > 0 ? $url_parts[ count( $url_parts ) - 1 ] : '';
-						}
-					}
-				}
-			}
-
-			return $social_accounts;
+			return self::filter_social_accounts( $social_menu );
 		}
 
 		/**
@@ -353,8 +334,14 @@ if ( ! class_exists( 'P4_Post' ) ) {
 
 			if ( null !== $image_id ) {
 				$image_data = wp_get_attachment_image_src( $image_id, 'full' );
+				$og_image   = [];
+				if ( $image_data ) {
+					$og_image['url']    = $image_data[0];
+					$og_image['width']  = $image_data[1];
+					$og_image['height'] = $image_data[2];
+				}
 
-				return $image_data;
+				return $og_image;
 			}
 
 			return [];
@@ -417,6 +404,36 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		 */
 		public function get_author() {
 			return $this->author;
+		}
+
+		/**
+		 * Filter the accounts for each social media item found within the footer social menu.
+		 *
+		 * @param array $social_menu Array of a post objects for each menu item.
+		 *
+		 * @return array Associative array with the social media accounts.
+		 */
+		public static function filter_social_accounts( $social_menu ) : array {
+			$social_accounts = [];
+			if ( isset( $social_menu ) && is_iterable( $social_menu ) ) {
+
+				$brands = [
+					'facebook',
+					'twitter',
+					'youtube',
+					'instagram',
+				];
+				foreach ( $social_menu as $social_menu_item ) {
+					$url_parts = explode( '/', rtrim( $social_menu_item->url, '/' ) );
+					foreach ( $brands as $brand ) {
+						if ( false !== strpos( $social_menu_item->url, $brand ) ) {
+							$social_accounts[ $brand ] = count( $url_parts ) > 0 ? $url_parts[ count( $url_parts ) - 1 ] : '';
+						}
+					}
+				}
+			}
+
+			return $social_accounts;
 		}
 	}
 }
