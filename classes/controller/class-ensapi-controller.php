@@ -124,10 +124,10 @@ if ( ! class_exists( 'Ensapi_Controller' ) ) {
 		 *
 		 * @return array|string An associative array with the response (under key 'body') or a string with an error message in case of a failure.
 		 */
-		public function get_pages( $params = array(
+		public function get_pages( $params = [
 			'type'   => self::ENS_TYPES_DEFAULT,
 			'status' => self::ENS_STATUS_DEFAULT,
-		) ) {
+		] ) {
 
 			$response['body'] = get_transient( 'ens_pages_response_' . implode( '_', $params ) );
 			if ( ! $response['body'] ) {

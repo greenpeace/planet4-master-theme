@@ -8,7 +8,7 @@
 namespace P4GEN\Controllers;
 
 if ( ! class_exists( '\WP_List_Table' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
 use P4GEN\Controllers\Ensapi_Controller as Ensapi;

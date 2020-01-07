@@ -53,7 +53,7 @@ if ( ! class_exists( 'Controller' ) ) {
 		 * Hooks the method that Creates the menu item for the current controller.
 		 */
 		public function load() {
-			add_action( 'admin_menu', array( $this, 'create_admin_menu' ) );
+			add_action( 'admin_menu', [ $this, 'create_admin_menu' ] );
 		}
 
 		/**
@@ -179,7 +179,7 @@ if ( ! class_exists( 'Controller' ) ) {
 
 			$template = P4GEN_PLUGIN_DIR . '/admin/templates/' . $template . '.tpl.php';
 			if ( file_exists( $template ) ) {
-				$contents = file_get_contents( $template );
+				$contents = wp_remote_get( $template );
 
 				return false !== $contents ? $contents : '';
 			}
