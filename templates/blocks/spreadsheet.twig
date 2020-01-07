@@ -3,27 +3,23 @@
 	{% if ( fields.rows ) %}
 		<div class="block-spreadsheet">
 			<div class="form-inline">
-				<input class="spreadsheet-search form-control" type="text" placeholder="{{ __('Search data') }}"/>
-				<button class="spreadsheet-default-sort btn btn-small">{{ __('Default sorting') }}</button>
+				<input class="spreadsheet-search form-control" type="text" placeholder="{{ __('Search data', 'planet4-blocks') }}"/>
+				<button class="spreadsheet-default-sort btn btn-small">{{ __('Default sorting', 'planet4-blocks') }}</button>
 			</div>
 			<table class="spreadsheet-table">
 				{% for rowNumber, row in fields.rows %}
 					<tr data-order="{{ rowNumber }}">
 						{% for cell in row %}
 							{% if rowNumber == 0 %}
-								<th title="{{ __('Sort by') }}">
-									{{ cell|escape }}
-								</th>
+								<th title="{{ __('Sort by', 'planet4-blocks') }}">{{ cell|escape }}</th>
 							{% else %}
-								<td>
-									{{ cell|escape }}
-								</td>
+								<td>{{ cell|escape }}</td>
 							{% endif %}
 						{% endfor %}
 					</tr>
 				{% endfor %}
 			</table>
-			<div class="spreadsheet-empty-message">{{ __('No data matching your search.') }}</div>
+			<div class="spreadsheet-empty-message">{{ __('No data matching your search.', 'planet4-blocks') }}</div>
 		</div>
 	{% endif %}
 
