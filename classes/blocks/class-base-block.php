@@ -43,10 +43,10 @@ class Base_Block {
 		if ( current_user_can( 'edit_posts' ) ) {
 			\Timber::render(
 				P4GEN_PLUGIN_DIR . 'templates/block-error-message.twig',
-				array(
+				[
 					'category' => __( 'Error', 'planet4-engagingnetworks-backend' ),
 					'message'  => $message,
-				)
+				]
 			);
 		}
 	}

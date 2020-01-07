@@ -94,7 +94,7 @@ if ( ! class_exists( 'Enform_Post_Controller' ) ) {
 		 */
 		public function register_post_type() {
 
-			$labels = array(
+			$labels = [
 				'name'               => _x( 'Engaging Network Forms', 'en forms', 'planet4-engagingnetworks-backend' ),
 				'singular_name'      => _x( 'Engaging Network Form', 'en form', 'planet4-engagingnetworks-backend' ),
 				'menu_name'          => _x( 'En Forms Menu', 'admin menu', 'planet4-engagingnetworks-backend' ),
@@ -109,7 +109,7 @@ if ( ! class_exists( 'Enform_Post_Controller' ) ) {
 				'parent_item_colon'  => __( 'Parent EN Forms:', 'planet4-engagingnetworks-backend' ),
 				'not_found'          => __( 'No en forms found.', 'planet4-engagingnetworks-backend' ),
 				'not_found_in_trash' => __( 'No en forms found in Trash.', 'planet4-engagingnetworks-backend' ),
-			);
+			];
 
 			register_post_type(
 				self::POST_TYPE,

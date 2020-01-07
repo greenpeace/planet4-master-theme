@@ -18,7 +18,7 @@
 	<!-- Add rule for plugin's textdomains -->
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="planet4-blocks,planet4-blocks-backend"/>
+			<property name="text_domain" type="array" value="planet4-engagingnetworks,planet4-engagingnetworks-backend"/>
 		</properties>
 	</rule>
 
@@ -33,6 +33,14 @@
 		<properties>
 			<property name="posts_per_page" value="100"/>
 		</properties>
+	</rule>
+
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax.Found">
+		<type>error</type>
+	</rule>
+
+	<rule ref="Generic.Arrays">
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 	</rule>
 
 	<!-- Check all PHP files in directory tree by default. -->

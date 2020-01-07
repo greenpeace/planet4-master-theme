@@ -70,10 +70,11 @@ if ( ! class_exists( 'View' ) ) {
 		 * @param array|string $template_name The file name of the template to render.
 		 * @param array        $data The data to pass to the template.
 		 * @param string       $sub_dir The path to a subdirectory where the template is located (relative to $template_dir).
+		 * @param boolean      $compile A boolean to compile the template.
 		 */
 		public function view_template( $template_name, $data, $sub_dir = '', $compile = false ) {
 			Timber::$locations = $this->template_dir;
-			if (!$compile) {
+			if ( ! $compile ) {
 				Timber::render( [ $sub_dir . $template_name . '.twig' ], $data );
 			} else {
 				return Timber::compile( [ $sub_dir . $template_name . '.twig' ], $data );

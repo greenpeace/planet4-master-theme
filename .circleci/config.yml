@@ -4,6 +4,11 @@ workflows:
     jobs:
       - php72-build
       - php73-build
+      - build-and-test-codeception:
+          context: org-global
+          filters:
+            branches:
+              ignore: languages
 
 version: 2
 
@@ -60,13 +65,13 @@ jobs:
   php72-build:
     <<: *php_job
     docker:
-      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.2-develop
+      - image: greenpeaceinternational/p4-unit-tests:php7.2-develop
       - image: *mysql_image
 
   php73-build:
     <<: *php_job
     docker:
-      - image: gcr.io/planet-4-151612/p4-unit-tests:php7.3-develop
+      - image: greenpeaceinternational/p4-unit-tests:php7.3-develop
       - image: *mysql_image
 
   build-and-test-codeception:

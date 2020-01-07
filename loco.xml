@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <bundle>
-    <domain name="planet4-blocks">
-        <project name="Planet4 blocks plugin frontend">
+    <domain name="planet4-engagingnetworks">
+        <project name="Planet4 Engaging Networks plugin frontend">
             <source>
             </source>
             <target>
                 <directory>languages</directory>
             </target>
             <template>
-                <file>languages/planet4-blocks.pot</file>
+                <file>languages/planet4-engagingnetworks.pot</file>
             </template>
         </project>
     </domain>
-    <domain name="planet4-blocks-backend">
-        <project name="Planet4 blocks plugin backend">
+    <domain name="planet4-engagingnetworks-backend">
+        <project name="Planet4 Engaging Networks plugin backend">
             <source>
             </source>
             <target>
                 <directory>languages</directory>
             </target>
             <template>
-                <file>languages/planet4-blocks-backend.pot</file>
+                <file>languages/planet4-engagingnetworks-backend.pot</file>
             </template>
         </project>
     </domain>
