@@ -85,7 +85,7 @@ function get_campaign_attachments( $post_ids ) {
 		}
 
 		// Filter attachment ids from shortcake code(shortcake_gallery, shortcake_happy_point, shortcake_media_video).
-		preg_match_all( '#wp\:planet4\-blocks\/[a-zA-Z0-9\_\"\'\-\s\:\/\/\=\.\?\&\,\_\{\%]*(multiple_image|background|id|video_poster_img)[\"|\'][\:][\"|\']?([\d\s\,]*)[\"|\']?#', $text, $matches, PREG_SET_ORDER );
+		preg_match_all( '#wp\:planet4\-blocks\/[a-zA-Z0-9\_\"\'\-\s\:\/\/\=\.\?\&\,\_\{\%]*[\"|\'](multiple_image|background|id|video_poster_img)[\"|\'][\:][\"|\']?([\d\s\,]*)[\"|\']?#', $text, $matches, PREG_SET_ORDER );
 		foreach ( $matches as $match ) {
 			if ( 'multiple_image' === $match[1] ) {
 				$multiple_images = explode( ',', $match[2] );
