@@ -134,7 +134,6 @@ const CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/social-media',
 	'planet4-blocks/social-media-cards',
 	'planet4-blocks/spreadsheet',
-	'planet4-blocks/submenu',
 	'planet4-blocks/timeline',
 ];
 
