@@ -279,10 +279,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * @return array The posts of the search.
 		 */
 		public function get_posts( $paged = 1 ) : array {
-			$args = [];
-
 			// Set General Query arguments.
-			$this->set_general_args( $args, $paged );
+			$args = $this->get_general_args( $paged );
 
 			// Set Filters Query arguments.
 			try {
@@ -302,10 +300,10 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		/**
 		 * Sets arguments for the WP_Query that are related to the application.
 		 *
-		 * @param array $args The search query args.
-		 * @param int   $paged The number of the page of the results to be shown when using pagination/load_more.
+		 * @param int $paged The number of the page of the results to be shown when using pagination/load_more.
+		 * @return array
 		 */
-		protected function set_general_args( &$args, $paged ) {
+		protected function get_general_args( $paged ): array {
 			$args = [
 				'posts_per_page' => self::POSTS_LIMIT,          // Set a high maximum because -1 will get ALL posts and this can be very intensive in production.
 				'no_found_rows'  => true,                       // This means that the result counters of each filter might not be 100% precise.
@@ -361,6 +359,15 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$args['orderby'] = 'date';
 				$args['order']   = 'desc';
 			}
+
+			$args['search_fields'] = [
+				'post_title',
+				'post_content',
+				'post_excerpt',
+				'post_author.display_name',
+			];
+
+			return $args;
 		}
 
 		/**
