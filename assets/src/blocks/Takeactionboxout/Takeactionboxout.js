@@ -4,8 +4,8 @@ import {Preview} from '../../components/Preview';
 import {ImageOrButton} from '../../components/ImageOrButton/ImageOrButton';
 import {
 	FormTokenField,
-	TextControl,
-	TextareaControl,
+  TextControl as BaseTextControl,
+  TextareaControl as BaseTextareaControl,
 	ServerSideRender,
 	ToggleControl,
 	SelectControl,
@@ -13,9 +13,13 @@ import {
 	Toolbar,
 	IconButton, Button
 } from '@wordpress/components';
+import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
 
 const {apiFetch} = wp;
 const {addQueryArgs} = wp.url;
+
+const TextControl = withCharacterCounter( BaseTextControl );
+const TextareaControl = withCharacterCounter( BaseTextareaControl );
 
 export class Takeactionboxout extends Component {
 	constructor(props) {
@@ -102,14 +106,16 @@ export class Takeactionboxout extends Component {
 						value={this.props.custom_title}
 						onChange={this.props.onCustomTitleChange}
 						disabled={this.takeActionPageSelected()}
-					/>
+            characterLimit={60}
+          />
 					<TextareaControl
 						label={__('Custom Excerpt', 'p4ge')}
 						placeholder={__('Enter Custom Excerpt', 'p4ge')}
 						value={this.props.custom_excerpt}
 						onChange={this.props.onCustomExcerptChange}
 						disabled={this.takeActionPageSelected()}
-					/>
+            characterLimit={200}
+          />
 					<TextControl
 						label={__('Custom Link', 'p4ge')}
 						placeholder={__('Enter Custom Link', 'p4ge')}
