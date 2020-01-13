@@ -936,6 +936,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * @param array|null $args The array with the data for the pagination.
 		 */
 		public function add_load_more( $args = null ) {
+			$options = get_option( 'planet4_options' );
+
 			$this->context['load_more'] = $args ?? [
 				'posts_per_load'               => self::POSTS_PER_LOAD,
 				'archives_per_load'            => self::ARCHIVES_PER_LOAD,
@@ -943,6 +945,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				// Translators: %s = number of results per page.
 				'button_text'                  => sprintf( __( 'SHOW %s MORE RESULTS', 'planet4-master-theme' ), self::POSTS_PER_LOAD ),
 				'async'                        => true,
+				'include_archive_content_text' => $options['include_archive_content_text'] ?? __( 'INCLUDE ARCHIVE CONTENT', 'planet4-master-theme' ),
+				'exclude_archive_content_text' => $options['exclude_archive_content_text'] ?? __( 'EXCLUDE ARCHIVE CONTENT', 'planet4-master-theme' ),
 			];
 		}
 
