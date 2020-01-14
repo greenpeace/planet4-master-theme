@@ -39,5 +39,11 @@ class P4_Activator {
 
 		$campaigner = new P4_Campaigner();
 		$campaigner->register_role_and_add_capabilities();
+
+		// Needed to allow the editor rule to change the author of a post in the document sidebar. The users data for that
+		// control is fetched using the REST API, where WordPress by default doesn't perform a permissions check, however
+		// the Wordfence plugin adds this check in `\wordfence::jsonAPIAuthorFilter`.
+		$roles = wp_roles();
+		$roles->add_cap( 'editor', 'list_users' );
 	}
 }
