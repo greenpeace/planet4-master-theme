@@ -15,10 +15,15 @@
 	<div class="search-results-load row-hidden" style="display: none;">
 {% endif %}
 	{% if ( is_action ) %}
-		<li id="result-row-{{ post.ID }}" class="media search-result-list-item search-result-list-item-bg" style="background-image:linear-gradient(180deg, rgba(213, 239, 242, 1), rgba(255, 255, 255, 0.3)), url('{{ post.thumbnail.src }}');">
+		<li id="result-row-{{ post.ID }}" class="media search-result-list-item search-result-list-item-bg {% if ( post.last_post ) %} last-post {% endif %}" style="background-image:linear-gradient(180deg, rgba(213, 239, 242, 1), rgba(255, 255, 255, 0.3)), url('{{ post.thumbnail.src }}');">
 			<div class="blank-block"></div>
 	{% else %}
-		<li id="result-row-{{ post.ID }}" class="media search-result-list-item">
+		<li id="result-row-{{ post.ID }}" class="media search-result-list-item
+		{% if ( post.last_post and is_archive ) %}
+				last-archive-post
+		{% elseif ( post.last_post ) %}
+				last-post
+		{% endif %}">
 	{% endif %}
 
 		{% if ( not is_action ) %}
@@ -55,11 +60,11 @@
 
 					{% if ( is_document ) %}
 						{% set title = post.title|e('wp_kses_post') %}
-						<a href="{{ fn('wp_get_attachment_url', post.id) }}" class="search-result-item-headline">{{ title|raw|length > 30 ? ( title|striptags|slice(0, 30) ~ '...' )|raw  : title|raw }}</a>
+						<a href="{{ fn('wp_get_attachment_url', post.id) }}" class="search-result-item-headline live">{{ title|raw|length > 30 ? ( title|striptags|slice(0, 30) ~ '...' )|raw  : title|raw }}</a>
 					{% elseif ( is_archive ) %}
 						<a href="{{ post.link }}" target="_blank" class="search-result-item-headline archive">{{ post.title|e('wp_kses_post')|raw }}</a>
 					{% else %}
-						<a href="{{ post.link() }}" class="search-result-item-headline">{{ post.title|e('wp_kses_post')|raw }}</a>
+						<a href="{{ post.link() }}" class="search-result-item-headline live">{{ post.title|e('wp_kses_post')|raw }}</a>
 					{% endif %}
 
 					{% if ( 'page' != post.post_type ) %}

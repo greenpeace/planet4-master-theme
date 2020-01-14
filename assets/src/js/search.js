@@ -10,8 +10,6 @@ export const setupSearch = function($) {
   let loaded_more            = false;
   let show_archive_button    = false;
   let load_archive           = false;
-  let only_archived_loads    = 0;
-  let archive_and_live_loads = 0;
   let numberLastResults;
 
   $( '#search-type button' ).click(function() {
@@ -92,10 +90,9 @@ export const setupSearch = function($) {
     // If this button has this class then Lazy-loading is enabled.
     if ( $(this).hasClass( 'btn-load-more-async' ) ) {
       total_posts             = $(this).data('total_posts');
-      const posts_per_load    = $(this).data('posts_per_load');
-      const archives_per_load = $(this).data('archives_per_load');
       const next_page         = current_page + 1;
       const lastArchiveResult = $( '.search-result-item-headline.archive' ).last();
+      const lastLiveResult    = $( '.search-result-item-headline.live' ).last();
       current_page            = next_page;
       $(this).data( 'current_page', next_page );
 
@@ -109,10 +106,10 @@ export const setupSearch = function($) {
           'search-action':          action,
           'search_query':           $( '#search_input' ).val().trim(),
           'total_posts':            total_posts,
-          'archive_and_live_loads': archive_and_live_loads,
           'paged':                  next_page,
           'query-string':           decodeURIComponent( location.search ).substr( 1 ), // Ignore the ? in the search url (first char).
           'last_archive_seen':      lastArchiveResult ? lastArchiveResult.attr( 'href' ) : '',
+          'last_live_seen':         lastLiveResult ? lastLiveResult.attr( 'href' ) : '',
         },
         dataType: 'html'
       }).done(function ( response ) {
@@ -124,19 +121,7 @@ export const setupSearch = function($) {
 
         lastResultsWrapper.removeClass( 'row-hidden' ).show( 'fast' );
 
-        if ( numberLastResults < posts_per_load ) {
-          hideLoadMore();
-        }
-
-        let loads_with_only_live_posts = ( next_page - 1 ) - archive_and_live_loads - only_archived_loads;
-        let loaded_posts               = ( archive_and_live_loads * ( posts_per_load - archives_per_load ) ) + ( loads_with_only_live_posts * posts_per_load );
-        let loaded_more_live_posts     = total_posts > loaded_posts;
-
-        if ( load_archive && loaded_more_live_posts ) {
-          archive_and_live_loads++;
-        } else if ( load_archive ) {
-          only_archived_loads++;
-        }
+        checkShowLoadMore();
 
         checkShowLoadArchive( next_page );
 
@@ -145,10 +130,6 @@ export const setupSearch = function($) {
       });
     } else {
       const $row = $( '.row-hidden', $load_more_button.closest( '.container' ) );
-
-      if ( 1 === $row.length ) {
-        hideLoadMore();
-      }
       $row.first().show( 'fast' ).removeClass( 'row-hidden' );
     }
   });
@@ -159,11 +140,33 @@ export const setupSearch = function($) {
     load_archive = !shouldIncludeArchive;
     $( '.toggle-label-include' ).toggle(shouldIncludeArchive);
     $( '.toggle-label-exclude' ).toggle(!shouldIncludeArchive);
+
+    checkShowLoadMore();
   });
 
   const hideLoadMore = () => {
     $( '.load-more-button-div' ).hide( 'fast' );
   };
+
+  const checkShowLoadMore = () => {
+    let last_post         = $('.last-post')[0];
+    let last_archive_post = $('.last-archive-post')[0];
+
+    if ( last_post && last_archive_post ) {
+      hideLoadMore();
+    } else if ( !load_archive ) {
+      if ( last_post ) {
+        $( '.more-btn' ).attr( "disabled", "disabled" );
+      } else {
+        $( '.more-btn' ).removeAttr( "disabled", "disabled" );
+      }
+    } else {
+      //Don't disable the button if show archive is toggled. Even if archive results have run out.
+      $( '.more-btn' ).removeAttr( "disabled", "disabled" );
+    }
+  };
+
+  checkShowLoadMore();
 
   const checkShowLoadArchive = ( current_page = 1 ) => {
 
@@ -173,11 +176,13 @@ export const setupSearch = function($) {
 
     const page_archive_available_after = $load_more_button.data('page_archive_available_after');
 
+    const $toggle_wrapper = $( '.toggle-wrapper' );
+
     if ( current_page >= page_archive_available_after ) {
-      $( '.toggle-wrapper' ).show();
+      $toggle_wrapper.show();
       show_archive_button = true;
     } else {
-      $( '.toggle-wrapper' ).hide();
+      $toggle_wrapper.hide();
       load_archive = false;
     }
 

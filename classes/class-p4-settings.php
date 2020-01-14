@@ -242,6 +242,24 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'id'   => 'include_archive_content',
 					'type' => 'checkbox',
 				],
+				[
+					'name'       => __( 'Include Archive content command text', 'planet4-master-theme-backend' ),
+					'id'         => 'include_archive_content_text',
+					'type'       => 'text',
+					'attributes' => [
+						'type' => 'text',
+					],
+					'desc'       => __( 'Defualt text of the command is "INCLUDE ARCHIVE CONTENT"', 'planet4-master-theme-backend' ),
+				],
+				[
+					'name'       => __( 'Exclude Archive content command text', 'planet4-master-theme-backend' ),
+					'id'         => 'exclude_archive_content_text',
+					'type'       => 'text',
+					'attributes' => [
+						'type' => 'text',
+					],
+					'desc'       => __( 'Defualt text of the command is "EXCLUDE ARCHIVE CONTENT"', 'planet4-master-theme-backend' ),
+				],
 			];
 			$this->hooks();
 		}

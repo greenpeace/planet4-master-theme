@@ -5,6 +5,13 @@
     width: auto;
     margin-bottom: $space-xxl;
   }
+
+  .more-btn[disabled]:hover {
+    background-color: transparentize($white, .7);
+    border-color: $dark-blue;
+    color: $dark-blue;
+    cursor: unset;
+  }
 }
 
 .search-block {
