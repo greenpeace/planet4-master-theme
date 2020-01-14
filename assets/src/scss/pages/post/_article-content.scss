@@ -162,6 +162,10 @@
     margin-left: auto;
     margin-right: auto;
     display: block;
+
+    figcaption {
+      display: block;
+    }
   }
 
   cite {
