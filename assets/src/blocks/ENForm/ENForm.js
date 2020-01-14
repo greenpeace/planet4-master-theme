@@ -229,11 +229,14 @@ export class ENForm extends Component {
             />
           </div>
 
+          <br/>
+
           <ToggleControl
-            label={__( 'Hide "Thank You" donate button', 'planet4-engagingnetworks-backend' )}
+            label={__( 'Hide "DONATE" button in Thank You message', 'planet4-engagingnetworks-backend' )}
             value={this.props.donate_button_checkbox}
             checked={this.props.donate_button_checkbox}
             onChange={this.props.onDonateButtonCheckboxChange}
+            className="hide-donate-toggle-field"
           />
           { true !== this.props.donate_button_checkbox && (
             <div>
@@ -242,6 +245,12 @@ export class ENForm extends Component {
                 placeholder={ __( 'e.g. "or make a donation"', 'planet4-engagingnetworks-backend' ) }
                 value={this.props.thankyou_donate_message}
                 onChange={this.props.onThankYouDonateMessageChange}
+              />
+              <TextControl
+                label={ __( 'Custom DONATE url', 'planet4-engagingnetworks-backend' ) }
+                placeholder={ __( 'If empty, the default "DONATE" P4 Button link will be used', 'planet4-engagingnetworks-backend' ) }
+                value={this.props.custom_donate_url}
+                onChange={this.props.onCustomDonateUrlChange}
               />
             </div> )
           }
