@@ -117,7 +117,7 @@ export class GalleryBlock {
             for (const img_id in image_urls_array) {
 
               let x,y;
-              if ($.isEmptyObject(focal_points_json)) {
+              if ($.isEmptyObject(focal_points_json) || !focal_points_json[img_id]) {
                 [x,y] = [50,50];
               } else {
                 [x,y] = focal_points_json[img_id].replace(/\%/g, '').split(' ');
