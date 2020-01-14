@@ -78,34 +78,67 @@ function get_campaign_attachments( $post_ids ) {
 	foreach ( (array) $results as $text ) {
 		$text = $text->post_content;
 
-		// Filter attachment ids from caption.
-		preg_match_all( '#(wp-image-|wp-att-|attachment\_)(\d+)#', $text, $matches, PREG_SET_ORDER );
-		foreach ( $matches as $match ) {
-			$attachment_ids[] = $match[2];
-		}
+		$blocks = parse_blocks( $text );
+		foreach ( $blocks as $block ) {
 
-		// Filter attachment ids from shortcake code(shortcake_gallery, shortcake_happy_point, shortcake_media_video).
-		preg_match_all( '#wp\:planet4\-blocks\/[a-zA-Z0-9\_\"\'\-\s\:\/\/\=\.\?\&\,\_\{\%]*[\"|\'](multiple_image|background|id|video_poster_img)[\"|\'][\:][\"|\']?([\d\s\,]*)[\"|\']?#', $text, $matches, PREG_SET_ORDER );
-		foreach ( $matches as $match ) {
-			if ( 'multiple_image' === $match[1] ) {
-				$multiple_images = explode( ',', $match[2] );
-				$attachment_ids  = array_merge( $attachment_ids, $multiple_images );
-			} else {
-				$attachment_ids[] = $match[2];
-			}
-		}
+			// Fetch the attachement id/s from block fields.
+			switch ( $block['blockName'] ) {
 
-		// Filter attachment ids from shortcake code(shortcake_carousel_header, shortcake_split_two_columns, shortcake_columns).
-		preg_match_all( '#[\"|\'](image|attachment|issue_image|tag_image)[\"|\'][\:][\"|\']?([\d]*)[\'|\"]?#', $text, $matches, PREG_SET_ORDER );
-		foreach ( $matches as $match ) {
-			$attachment_ids[] = $match[2];
-		}
+				case 'planet4-blocks/enform':
+					$attachment_ids[] = $block['attrs']['background'] ?? '';
+					break;
 
-		// Filter attachment ids from [gallery] shortcode.
-		preg_match_all( '#wp\:gallery\s\{[\"|\'](ids)[\"|\'][\:][\[]([\d\,]*)[\]]#', $text, $matches, PREG_SET_ORDER );
-		foreach ( $matches as $match ) {
-			foreach ( explode( ',', $match[1] ) as $id ) {
-				$attachment_ids[] = (int) $id;
+				case 'planet4-blocks/happypoint':
+					$attachment_ids[] = $block['attrs']['id'] ?? '';
+					break;
+
+				case 'planet4-blocks/media-video':
+					$attachment_ids[] = $block['attrs']['video_poster_img'] ?? '';
+					break;
+
+				case 'planet4-blocks/gallery':
+					if ( isset( $block['attrs']['multiple_image'] ) ) {
+						$multiple_images = explode( ',', $block['attrs']['multiple_image'] );
+						$attachment_ids  = array_merge( $attachment_ids, $multiple_images );
+					}
+					break;
+
+				case 'planet4-blocks/carousel-header':
+					if ( isset( $block['attrs']['slides'] ) ) {
+						foreach ( $block['attrs']['slides'] as $slide ) {
+							$attachment_ids[] = $slide['image'];
+						}
+					}
+					break;
+
+				case 'planet4-blocks/split-two-columns':
+					$attachment_ids[] = $block['attrs']['issue_image'] ?? '';
+					$attachment_ids[] = $block['attrs']['tag_image'] ?? '';
+					break;
+
+				case 'planet4-blocks/columns':
+					if ( isset( $block['attrs']['columns'] ) ) {
+						foreach ( $block['attrs']['columns'] as $column ) {
+							$attachment_ids[] = $column['attachment'];
+						}
+					}
+					break;
+
+				case 'planet4-blocks/social-media-cards':
+					if ( isset( $block['attrs']['cards'] ) ) {
+						foreach ( $block['attrs']['cards'] as $card ) {
+							$attachment_ids[] = $card['image_id'];
+						}
+					}
+					break;
+
+				case 'planet4-blocks/take-action-boxout':
+					$attachment_ids[] = $block['attrs']['background_image'] ?? '';
+					break;
+
+				case 'core/image':
+					$attachment_ids[] = $block['attrs']['id'] ?? '';
+					break;
 			}
 		}
 	}
