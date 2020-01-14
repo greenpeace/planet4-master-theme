@@ -16,7 +16,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 	abstract class P4_Search {
 
 		const POSTS_LIMIT           = 300;
-		const POSTS_PER_PAGE        = 10;
 		const POSTS_PER_LOAD        = 5;
 		const ARCHIVES_PER_LOAD     = 2;
 		const ARCHIVE_COLLECTION    = 9650;
@@ -171,14 +170,13 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * Gets the paged posts that belong to the next page/load and are to be used with the twig template.
 		 */
 		public function get_paged_posts() {
-			// If this is an ajax call.
 			if ( wp_doing_ajax() ) {
 
 				$search_action          = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
 				$paged                  = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_STRING );
 				$total_posts            = filter_input( INPUT_GET, 'total_posts', FILTER_SANITIZE_STRING );
-				$only_archived_loads    = filter_input( INPUT_GET, 'only_archived_loads', FILTER_SANITIZE_STRING );
 				$archive_and_live_loads = filter_input( INPUT_GET, 'archive_and_live_loads', FILTER_SANITIZE_STRING );
+				$last_archive_seen      = filter_input( INPUT_GET, 'last_archive_seen', FILTER_SANITIZE_STRING );
 
 				$search_async = new static();
 				$search_async->set_context( $search_async->context );
@@ -189,7 +187,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$query_string      = str_replace( '&query-string=', '', strstr( $query_string_full, '&query-string=' ) );
 
 				$group                      = 'search';
-				$subgroup                   = $search_async->search_query ? $search_async->search_query : 'all';
+				$subgroup                   = $search_async->search_query ?: 'all';
 				$search_async->current_page = $paged;
 
 				parse_str( $query_string, $filters_array );
@@ -198,7 +196,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$filters          = [];
 
 				// Handle submitted filter options.
-				if ( $selected_filters && is_array( $selected_filters ) ) {
+				if ( is_array( $selected_filters ) ) {
 					foreach ( $selected_filters as $type => $filter_type ) {
 						foreach ( $filter_type as $name => $id ) {
 							$filters[ $type ][] = [
@@ -223,7 +221,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				if ( 'get_paged_posts' === $search_action ) {
 					$search_async->set_paged_posts( $archive_and_live_loads );
 				} elseif ( 'get_archived_posts' === $search_action ) {
-					$search_async->set_archived_posts( $only_archived_loads, $archive_and_live_loads, $total_posts );
+					$search_async->set_archived_posts( $archive_and_live_loads, $total_posts, $last_archive_seen );
 				}
 
 				// If there are paged results then set their context and send them back to client.
@@ -254,19 +252,32 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		/**
 		 * Sets the paged posts as a combination of live posts and archived results.
 		 *
-		 * @param integer $only_archived_loads the number of loads containing only archived results.
 		 * @param integer $archive_and_live_loads the number of loads with a combination or live and archived results.
 		 * @param integer $total_posts the total number of live posts.
+		 * @param string $last_archive_url The url of the last archive result that was seen by the frontend.
 		 */
-		protected function set_archived_posts( $only_archived_loads, $archive_and_live_loads, $total_posts ) {
+		protected function set_archived_posts(
+			$archive_and_live_loads,
+			$total_posts,
+			?string $last_archive_url
+		): void {
 
 			$archived_results        = $this->get_archived_results( $this->search_query );
-			$archived_results_offset = ( $archive_and_live_loads * self::ARCHIVES_PER_LOAD ) + ( $only_archived_loads * self::POSTS_PER_LOAD );
-			$live_posts_offset       = ( ( $this->current_page - ( $archive_and_live_loads + 1 ) ) * self::POSTS_PER_LOAD ) + ( $archive_and_live_loads * ( self::POSTS_PER_LOAD - self::ARCHIVES_PER_LOAD ) );
+			$archived_results_offset = $this->get_archive_results_offset($last_archive_url, $archived_results);
+			$live_posts_offset       =
+				( ( $this->current_page - ( $archive_and_live_loads + 1 ) )
+					* self::POSTS_PER_LOAD )
+				+ ( $archive_and_live_loads * ( self::POSTS_PER_LOAD - self::ARCHIVES_PER_LOAD ) );
 
 			if ( $this->posts ) {
-				$live_posts_per_load      = $archived_results_offset >= count( $archived_results ) ? self::POSTS_PER_LOAD : self::POSTS_PER_LOAD - self::ARCHIVES_PER_LOAD;
-				$archives_per_load        = $live_posts_offset >= count( $this->posts ) ? self::POSTS_PER_LOAD : self::ARCHIVES_PER_LOAD;
+				$live_posts_per_load = $archived_results_offset >= count( $archived_results )
+					? self::POSTS_PER_LOAD
+					: self::POSTS_PER_LOAD - self::ARCHIVES_PER_LOAD;
+
+				$archives_per_load        = $live_posts_offset >= count( $this->posts )
+					? self::POSTS_PER_LOAD
+					: self::ARCHIVES_PER_LOAD;
+
 				$live_posts_to_load       = array_slice( $this->posts, $live_posts_offset, $live_posts_per_load );
 				$archived_results_to_load = array_slice( $archived_results, $archived_results_offset, $archives_per_load );
 				$this->paged_posts        = array_merge( $live_posts_to_load, $archived_results_to_load );
@@ -280,6 +291,36 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					$this->paged_posts        = array_merge( $live_results_to_load, $archived_results_to_load );
 				}
 			}
+		}
+
+		/**
+		 * Look for the last post seen and return the offset for the next post.
+		 *
+		 * @param string $last_post_seen_url
+		 * @param array $posts The posts to filter.
+		 * @return int The index of the post after the last seen post.
+		 */
+		private function get_archive_results_offset( ?string $last_post_seen_url, array $posts ): ?int {
+			if ( !$last_post_seen_url || empty($posts) ) {
+				return 0;
+			}
+
+			$saw_pivot_post = false;
+
+			foreach ( $posts as $index => $post ) {
+				if ( $saw_pivot_post ) {
+					return $index;
+				}
+
+				$saw_pivot_post = $post->link === $last_post_seen_url;
+			}
+			$last_post = end( $posts );
+
+			if ( $last_post->link !== $last_post_seen_url ) {
+				throw new InvalidArgumentException('There is no post with this url in the archived posts.');
+			}
+
+			return count( $posts );
 		}
 
 		/**
@@ -316,7 +357,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$cache_key_set   = $this->prepare_keys_for_cache( urldecode( $search_query . '-archived' ), $group, $subgroup );
 			$archive_results = wp_cache_get( $cache_key_set->key, $cache_key_set->group );
 
-			if ( true || ! $archive_results ) {
+			if ( ! $archive_results ) {
 
 				/**
 				 * Parameters
@@ -361,6 +402,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					$parsed_item->title     = (string) $item->title;
 					$parsed_item->link      = $wayback_prefix . ( (string) $item->link );
 					$parsed_item->excerpt   = (string) $item->description;
+					$parsed_item->post_date = (string) $item->date;
 					$parsed_item->post_type = 'archive';
 
 					array_push( $filtered_parsed_items, $parsed_item );
