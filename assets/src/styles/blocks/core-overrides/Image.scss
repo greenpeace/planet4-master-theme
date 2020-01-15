@@ -1,12 +1,7 @@
 .wp-block-image.caption-style-blue-overlay {
-	position: relative;
-  display: table;
-  margin-left: 0;
-  margin-right: 0;
-  overflow: hidden;
+  position: relative;
 
-  .alignleft,
-  .alignright {
+  figure {
     position: relative;
   }
 
@@ -83,16 +78,5 @@ figcaption {
 
   .caption-alignment-right & {
     text-align: right;
-  }
-}
-
-.wp-block-image.caption-style-medium {
-  display: table;
-  margin-left: 0;
-  margin-right: 0;
-
-  figcaption {
-    display: table-caption;
-    caption-side: bottom;
   }
 }

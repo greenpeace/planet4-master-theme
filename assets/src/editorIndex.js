@@ -20,6 +20,7 @@ import { setupImageBlockExtension } from './ImageBlockExtension';
 import { replaceTaxonomyTermSelectors } from "./replaceTaxonomyTermSelectors"
 import { addSubAndSuperscript } from './RichTextEnhancements';
 import { SpreadsheetBlock } from "./blocks/Spreadsheet/SpreadsheetBlock"
+import { addButtonLinkPasteWarning } from './addButtonLinkPasteWarning';
 
 new ArticlesBlock();
 new CarouselHeaderBlock();
@@ -42,3 +43,4 @@ addBlockFilters();
 addSubAndSuperscript( window.wp );
 setupImageBlockExtension();
 replaceTaxonomyTermSelectors()
+addButtonLinkPasteWarning();
