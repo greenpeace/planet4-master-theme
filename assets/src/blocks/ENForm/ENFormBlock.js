@@ -115,6 +115,12 @@ export class ENFormBlock {
                   return boolean(attributes.named.donate_button_checkbox);
                 }
               },
+              custom_donate_url: {
+                type: 'string',
+                shortcode: function (attributes) {
+                  return attributes.named.custom_donate_url;
+                }
+              },
               thankyou_url: {
                 type: 'string',
                 shortcode: function (attributes) {
@@ -185,6 +191,9 @@ export class ENFormBlock {
         },
         donate_button_checkbox: {
           type: 'boolean',
+        },
+        custom_donate_url: {
+          type: 'string',
         },
         thankyou_url: {
           type: 'string',
@@ -269,6 +278,10 @@ export class ENFormBlock {
           setAttributes({thankyou_donate_message: value});
         }
 
+        function onCustomDonateUrlChange(value) {
+          setAttributes({custom_donate_url: value});
+        }
+
         function onThankYouURLChange(value) {
           setAttributes({thankyou_url: value});
         }
@@ -303,6 +316,7 @@ export class ENFormBlock {
           onDonateButtonCheckboxChange={onDonateButtonCheckboxChange}
           onThankYouURLChange={onThankYouURLChange}
           onThankYouDonateMessageChange={onThankYouDonateMessageChange}
+          onCustomDonateUrlChange={onCustomDonateUrlChange}
           onFormChange={onFormChange}
           onUploadError={onUploadError}
         />

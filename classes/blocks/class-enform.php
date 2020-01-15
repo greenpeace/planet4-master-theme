@@ -131,6 +131,10 @@ class ENForm extends Base_Block {
 						'type'    => 'string',
 						'default' => '',
 					],
+					'custom_donate_url'             => [
+						'type'    => 'string',
+						'default' => '',
+					],
 					'background'                    => [
 						'type'    => 'integer',
 						'default' => 0,
@@ -251,8 +255,13 @@ class ENForm extends Base_Block {
 			$attributes['thankyou_url'] = 'http://' . $attributes['thankyou_url'];
 		} else {
 			$options                   = get_option( 'planet4_options' );
-			$attributes['donatelink']  = $options['donate_button'] ?? '#';
 			$attributes['donate_text'] = $options['donate_text'] ?? __( 'Donate', 'planet4-engagingnetworks' );
+			if ( isset( $attributes['custom_donate_url'] ) && $attributes['custom_donate_url'] ) {
+				// Check if url start with http/https or not.
+				$attributes['donatelink'] = ( 0 !== strpos( $attributes['custom_donate_url'], 'http' ) ) ? 'https://' . $attributes['custom_donate_url'] : $attributes['custom_donate_url'];
+			} else {
+				$attributes['donatelink'] = $options['donate_button'] ?? '#';
+			}
 
 			$donate_button_checkbox = 'false';
 			if ( isset( $attributes['donate_button_checkbox'] ) && $attributes['donate_button_checkbox'] ) {
