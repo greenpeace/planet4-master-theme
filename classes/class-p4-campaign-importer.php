@@ -41,28 +41,65 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 				$post_content = $post['post_content'];
 				$filter_data  = [];
 
-				// Filter attachment ids from caption.
-				preg_match_all( '#((wp-image-|wp-att-|attachment\_)(\d+))#', $post_content, $matches, PREG_SET_ORDER );
-				foreach ( $matches as $match ) {
-					$filter_data[] = $match[1];
-				}
+				$blocks = parse_blocks( $post_content );
+				foreach ( $blocks as $block ) {
+					// Fetch background image id from EN form block.
+					if ( 'planet4-blocks/enform' === $block['blockName'] && isset( $block['attrs']['background'] ) ) {
+						$filter_data[] = 'background":' . $block['attrs']['background'];
+					}
 
-				// Filter attachment ids from shortcake code(shortcake_gallery, shortcake_happy_point, shortcake_media_video).
-				preg_match_all( '#wp\:planet4\-blocks\/[a-zA-Z0-9\_\"\'\-\s\:\/\/\=\.\?\&\,\_\{\%]*((multiple_image|background|id|video_poster_img)[\"|\'][\:][\"|\']?([\d\s\,]*)[\"|\']?)#', $post_content, $matches, PREG_SET_ORDER );
-				foreach ( $matches as $match ) {
-					$filter_data[] = $match[1];
-				}
+					// Fetch HP background image id from HP block.
+					if ( 'planet4-blocks/happypoint' === $block['blockName'] && isset( $block['attrs']['id'] ) ) {
+						$filter_data[] = 'id":' . $block['attrs']['id'];
+					}
 
-				// Filter attachment ids from shortcake code(shortcake_carousel_header, shortcake_split_two_columns, shortcake_columns).
-				preg_match_all( '#([\"|\'](image|attachment|issue_image|tag_image)[\"|\'][\:][\"|\']?([\d]*)[\'|\"]?)#', $post_content, $matches, PREG_SET_ORDER );
-				foreach ( $matches as $match ) {
-					$filter_data[] = $match[1];
-				}
+					// Fetch video poster image id from Media block.
+					if ( 'planet4-blocks/media-video' === $block['blockName'] && isset( $block['attrs']['video_poster_img'] ) ) {
+						$filter_data[] = 'video_poster_img":' . $block['attrs']['video_poster_img'];
+					}
 
-				// Filter attachment ids from [gallery] shortcode.
-				preg_match_all( '#wp\:gallery\s\{[\"|\']((ids)[\"|\'][\:][\[]([\d\,]*))[\]]#', $post_content, $matches, PREG_SET_ORDER );
-				foreach ( $matches as $match ) {
-					$filter_data[] = $match[1];
+					// Fetch image ids from Gallery block.
+					if ( 'planet4-blocks/gallery' === $block['blockName'] && isset( $block['attrs']['multiple_image'] ) ) {
+						$filter_data[] = 'multiple_image":"' . $block['attrs']['multiple_image'];
+					}
+
+					// Fetch image id from Carousel Header block.
+					if ( 'planet4-blocks/carousel-header' === $block['blockName'] && isset( $block['attrs']['slides'] ) ) {
+						foreach ( $block['attrs']['slides'] as $slide ) {
+							$filter_data[] = 'image":' . $slide['image'];
+						}
+					}
+
+					// Fetch issue/tag image id from Split Two Columns block.
+					if ( 'planet4-blocks/split-two-columns' === $block['blockName'] && ( isset( $block['attrs']['issue_image'] ) || isset( $block['attrs']['tag_image'] ) ) ) {
+						$filter_data[] = 'issue_image":' . $block['attrs']['issue_image'];
+						$filter_data[] = 'tag_image":' . $block['attrs']['tag_image'];
+					}
+
+					// Fetch attachment ids from Columns block.
+					if ( 'planet4-blocks/columns' === $block['blockName'] && isset( $block['attrs']['columns'] ) ) {
+						foreach ( $block['attrs']['columns'] as $column ) {
+							$filter_data[] = 'attachment":' . $column['attachment'];
+						}
+					}
+
+					// Fetch image ids from Social media cards block.
+					if ( 'planet4-blocks/social-media-cards' === $block['blockName'] && isset( $block['attrs']['cards'] ) ) {
+						foreach ( $block['attrs']['cards'] as $card ) {
+							$filter_data[] = 'image_id":' . $card['image_id'];
+						}
+					}
+
+					// Fetch background_image from Take-action-boxout block.
+					if ( 'planet4-blocks/take-action-boxout' === $block['blockName'] && isset( $block['attrs']['background_image'] ) ) {
+						$filter_data[] = 'background_image":' . $block['attrs']['background_image'];
+					}
+
+					// Fetch native image block id.
+					if ( 'core/image' === $block['blockName'] && isset( $block['attrs']['id'] ) ) {
+						$filter_data[] = 'id":' . $block['attrs']['id'];
+						$filter_data[] = 'wp-image-' . $block['attrs']['id'];
+					}
 				}
 
 				// Check if attachement mapping var is empty and update it.
