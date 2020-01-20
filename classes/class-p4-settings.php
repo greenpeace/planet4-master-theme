@@ -230,11 +230,22 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					],
 					'desc'       => __( 'Minimum image width should be 1920px', 'planet4-master-theme-backend' ),
 				],
+
 				[
 					'name' => __( 'Enforce Cookies Policy', 'planet4-master-theme-backend' ),
 					'desc' => __( 'GDPR related setting. By enabling this option specific content will be blocked and will require user consent to be shown.', 'planet4-master-theme-backend' ),
 					'id'   => 'enforce_cookies_policy',
 					'type' => 'checkbox',
+				],
+
+				[
+					'name'       => __( 'Preconnect Domains', 'planet4-master-theme-backend' ),
+					'desc'       => __( 'Add a list of third-party URLs to "preconnect" (e.g.: https://in.hotjar.com). Look for "preconnect" in the P4 Handbook for details.', 'planet4-master-theme-backend' ),
+					'id'         => 'preconnect_domains',
+					'type'       => 'textarea',
+					'attributes' => [
+						'type' => 'text',
+					],
 				],
 			];
 			$this->hooks();
