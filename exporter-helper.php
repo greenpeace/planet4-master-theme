@@ -31,11 +31,16 @@ function get_campaign_attachments( $post_ids ) {
 
 	$attachment_ids = [];
 
+	$placeholders = [];
+	for ( $i = 2; $i < count( $post_ids ) + 2; $i++ ) {
+		$placeholders[] = "%$i\$d";
+	}
+	$placeholders = implode( ',', $placeholders );
+
 	/**
 	 * Post thumbnails
 	 */
 	if ( $post_ids ) {
-		$placeholders   = implode( ',', array_fill( 0, count( $post_ids ), '%d' ) );
 		$sql            = 'SELECT meta_value FROM %1$s  WHERE ( meta_key = \'_thumbnail_id\' or meta_key = \'background_image_id\' ) AND post_id IN(' . $placeholders . ')';
 		$values         = [];
 		$values[0]      = $wpdb->postmeta;
@@ -56,13 +61,6 @@ function get_campaign_attachments( $post_ids ) {
 			$attachment_ids[] = $id;
 		}
 	}
-
-	$placeholders = [];
-	for ( $i = 2; $i < count( $post_ids ) + 2; $i++ ) {
-		$placeholders[] = "%$i\$d";
-	}
-
-	$placeholders = implode( ',', $placeholders );
 
 	$sql = 'SELECT post_content 
 			FROM %1$s 
