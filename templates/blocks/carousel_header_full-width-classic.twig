@@ -6,7 +6,7 @@
 <section class="block block-header block-wide carousel-header_{{ fields.block_style }}">
 	<div id="carousel-wrapper-header"
 		data-block-style="{{ fields.block_style }}"
-		data-carousel-autoplay="{{ fields.carousel_autoplay }}">
+		data-carousel-autoplay="{{ fields.carousel_autoplay == 1 ? 'true' : '' }}">
 
 		{% if fields.total_images > 1 %}
 			<ol class="carousel-indicators"></ol>
