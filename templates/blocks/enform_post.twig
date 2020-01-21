@@ -34,13 +34,8 @@
 					<div class="en__field__element en__field__element--text form-group" {{ field.en_type == 'GEN' ? "style=\"display: flex; flex-direction: row;\"" : 'style="display:block;"' }}>
 
 						{% if en_form_style == 'side-style' %}
-							<label class="en__field__top__label">
-								{{ field.label }}
-							</label>
-						{% elseif 'GEN' == field.en_type %}
-							<label for="en__field_supporter_questions_{{ field.id }}"
-								   class="en__field__label en__field__label--item form-check-label">
-								{{ field.label }}{{ 'true' == field.required ? '*' : '' }}
+							<label class="en__field__top__label" for="en__field_supporter_questions_{{ field.id }}">
+								{{ field.label }} {{ 'true' == field.required ? '*' : '' }}
 							</label>
 						{% endif %}
 						<input
@@ -65,9 +60,6 @@
 					{% set dependent_field = field.dependency %}
 				{% endif %}
 				{% if 'GEN' == field.en_type %}
-					<span class="custom-control-description">
-						{{ field.label|e('wp_kses_post')|raw }}
-					</span><br />
 					{% set i = 0 %}
 					{% for locale, question_options in field.question_options|object_to_array %}
 						{% if ( locale == field.selected_locale ) %}
