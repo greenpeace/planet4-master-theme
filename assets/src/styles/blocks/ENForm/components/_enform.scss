@@ -152,6 +152,7 @@
       line-height: 1;
 
       button {
+        box-sizing: border-box;
         width: 100% !important;
         margin-top: $space-lg;
 

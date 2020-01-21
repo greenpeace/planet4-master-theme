@@ -405,17 +405,6 @@ final class Loader {
 		// Add master theme's main js as dependency for blocks js.
 
 		wp_register_script(
-			'plugin-engagingnetworks-blocks-wide',
-			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/public/js/blocks_wide.js',
-			[
-				'jquery',
-				'main',
-			],
-			$js_blocks_creation,
-			true
-		);
-
-		wp_register_script(
 			'plugin-engagingnetworks',
 			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/public/js/climate.js',
 			[
@@ -475,7 +464,6 @@ final class Loader {
 			]
 		);
 
-		wp_enqueue_script( 'plugin-engagingnetworks-blocks-wide' );
 		wp_enqueue_script( 'plugin-engagingnetworks-submit' );
 		wp_enqueue_script( 'plugin-engagingnetworks-dependency' );
 		wp_enqueue_script( 'plugin-engagingnetworks' );
