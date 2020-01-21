@@ -30,7 +30,7 @@
     padding: 24px 36px;
   }
 
-  p {
+  > div {
     font-size: $font-size-xxs;
     margin-bottom: 10px;
     font-weight: 500;
@@ -45,6 +45,7 @@
     html[dir="rtl"] & {
       padding-right: 0;
       padding-left: $space-md;
+      text-align: right;
     }
 
     @include medium-and-up {
