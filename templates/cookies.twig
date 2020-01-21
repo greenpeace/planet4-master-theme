@@ -1,8 +1,8 @@
 {% if ( cookies.text ) %}
 	<div class="cookie-notice" id="set-cookie">
-		<p>
+		<div>
 			{{ cookies.text|e('wp_kses_post')|raw }}
-		</p>
+		</div>
 		<button class="btn btn-secondary p-0" id="hidecookie">{{ __( 'GOT IT!', 'planet4-master-theme' ) }}</button>
 	</div>
 {% endif %}

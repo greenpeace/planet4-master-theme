@@ -74,8 +74,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 	<link rel="shortcut icon" type="image/ico" href="{{ theme.uri }}/favicon.ico"/>
-	<link rel="dns-prefetch" href="//act.greenpeace.org">
 	{{ wp_head }}
+
+	{% if preconnect_domains %}
+		{% for domain in preconnect_domains %}
+			<link rel="preconnect" href="{{ domain }}">
+		{% endfor %}
+	{% endif %}
+
 	{% if custom_styles %}
 		<style type="text/css">
 			{% for style in custom_styles.css %}{{ style|raw }}{% endfor %}
