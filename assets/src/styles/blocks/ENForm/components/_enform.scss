@@ -152,6 +152,7 @@
       line-height: 1;
 
       button {
+        box-sizing: border-box;
         width: 100% !important;
         margin-top: $space-lg;
 
@@ -289,7 +290,27 @@ body.wp-admin {
 
   &.full-width {
     max-width: 444px;
-    left: 33%;
+
+    @include large-and-up {
+      left: 33%;
+    }
+
+    .sub-section {
+      margin-bottom: 2em;
+      width: 100%;
+
+      .form-group {
+        margin-bottom: 2em;
+      }
+
+      .share-btn {
+          width: 31% !important;
+
+         @include small-and-up {
+           width: 32.5% !important;
+         }
+      }
+    }
   }
 
   .page-section-header {
