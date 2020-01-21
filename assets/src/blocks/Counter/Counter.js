@@ -1,10 +1,14 @@
 import {Component, Fragment} from '@wordpress/element';
 import {
-  TextControl,
-  TextareaControl,
+  TextControl as BaseTextControl,
+  TextareaControl as BaseTextareaControl,
   ServerSideRender } from '@wordpress/components';
 import { LayoutSelector } from '../../components/LayoutSelector/LayoutSelector';
 import { Preview } from '../../components/Preview';
+import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
+
+const TextControl = withCharacterCounter( BaseTextControl );
+const TextareaControl = withCharacterCounter( BaseTextareaControl );
 
 export class Counter extends Component {
   constructor(props) {
@@ -57,6 +61,7 @@ export class Counter extends Component {
             placeholder= { __('Enter title', 'p4ge') }
             value={ this.props.title }
             onChange={ this.props.onTitleChange }
+            characterLimit={60}
           />
         </div>
 
@@ -66,6 +71,7 @@ export class Counter extends Component {
             placeholder= { __('Enter description', 'p4ge') }
             value={ this.props.description }
             onChange={ this.props.onDescriptionChange }
+            characterLimit={400}
           />
         </div>
 

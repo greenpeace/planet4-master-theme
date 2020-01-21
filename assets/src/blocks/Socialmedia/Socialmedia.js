@@ -2,15 +2,18 @@ import {Component, RawHTML, Fragment} from '@wordpress/element';
 import {Preview} from '../../components/Preview';
 import {
   RadioControl,
-  TextControl,
-  TextareaControl,
+  TextControl as BaseTextControl,
+  TextareaControl as BaseTextareaControl,
   SelectControl,
   ServerSideRender
 } from '@wordpress/components';
-
+import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
 
 const {apiFetch} = wp;
 const {addQueryArgs} = wp.url;
+
+const TextControl = withCharacterCounter( BaseTextControl );
+const TextareaControl = withCharacterCounter( BaseTextareaControl );
 
 export class Socialmedia extends Component {
   constructor(props) {
@@ -112,6 +115,7 @@ export class Socialmedia extends Component {
             help={__('Optional', 'planet4-blocks-backend')}
             value={this.props.title}
             onChange={this.props.onTitleChange}
+            characterLimit={40}
           />
         </div>
 
@@ -122,6 +126,7 @@ export class Socialmedia extends Component {
             help={__('Optional', 'planet4-blocks-backend')}
             value={this.props.description}
             onChange={this.props.onDescriptionChange}
+            characterLimit={400}
           />
         </div>
 

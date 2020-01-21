@@ -3,14 +3,17 @@ import {Preview} from '../../components/Preview';
 import {
   FormTokenField,
   CheckboxControl,
-  TextControl,
-  TextareaControl,
+  TextControl as BaseTextControl,
+  TextareaControl as BaseTextareaControl,
   ServerSideRender
 } from '@wordpress/components';
+import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
 
 
 const {apiFetch} = wp;
 const {addQueryArgs} = wp.url;
+const TextControl = withCharacterCounter( BaseTextControl );
+const TextareaControl = withCharacterCounter( BaseTextareaControl );
 
 export class Articles extends Component {
   constructor(props) {
@@ -142,6 +145,7 @@ export class Articles extends Component {
             help={__('Your default is set to [ Latest Articles ]', 'p4ge')}
             value={this.props.article_heading}
             onChange={this.props.onTitleChange}
+            characterLimit={40}
           />
         </div>
 
@@ -152,6 +156,7 @@ export class Articles extends Component {
             placeholder={__('Enter description', 'p4ge')}
             value={this.props.articles_description}
             onChange={this.props.onDescriptionChange}
+            characterLimit={200}
           />
         </div>
 

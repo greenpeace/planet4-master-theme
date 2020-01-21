@@ -3,15 +3,19 @@ import {Component, Fragment} from '@wordpress/element';
 import {
   FormTokenField,
   SelectControl,
-  TextControl,
-  TextareaControl,
+  TextControl as BaseTextControl,
+  TextareaControl as BaseTextareaControl,
   ServerSideRender } from '@wordpress/components';
 
 import { LayoutSelector } from '../../components/LayoutSelector/LayoutSelector';
 import { Preview } from '../../components/Preview';
+import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
 
 const {apiFetch} = wp;
 const {addQueryArgs} = wp.url;
+
+const TextControl = withCharacterCounter( BaseTextControl );
+const TextareaControl = withCharacterCounter( BaseTextareaControl );
 
 export class Covers extends Component {
     constructor(props) {
@@ -237,6 +241,7 @@ export class Covers extends Component {
               placeholder="Enter title"
               value={ this.props.title }
               onChange={ this.props.onTitleChange }
+              characterLimit={40}
             />
           </div>
 
@@ -246,6 +251,7 @@ export class Covers extends Component {
               placeholder="Enter description"
               value={ this.props.description }
               onChange={ this.props.onDescriptionChange }
+              characterLimit={200}
             />
           </div>
 
