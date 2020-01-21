@@ -1,7 +1,7 @@
 import {Component,Fragment} from "@wordpress/element";
 import {
-  TextControl,
-  TextareaControl,
+  TextareaControl as BaseTextareaControl,
+  TextControl as BaseTextControl,
   ServerSideRender,
   Dashicon,
   Tooltip,
@@ -11,6 +11,10 @@ import {MediaPlaceholder, MediaUpload, MediaUploadCheck} from "@wordpress/editor
 
 import {LayoutSelector} from '../../components/LayoutSelector/LayoutSelector';
 import {Preview} from '../../components/Preview';
+import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
+
+const TextControl = withCharacterCounter(BaseTextControl);
+const TextareaControl = withCharacterCounter(BaseTextareaControl);
 
 export class Columns extends Component {
     constructor(props) {
@@ -105,12 +109,14 @@ export class Columns extends Component {
               placeholder={__('Enter block title', 'p4ge')}
               value={columns_title}
               onChange={this.props.onTitleChange}
+              characterLimit={40}
             />
             <TextareaControl
               label={__('Description', 'p4ge')}
               placeholder={__('Enter block description', 'p4ge')}
               value={columns_description}
               onChange={this.props.onDescriptionChange}
+              characterLimit={200}
             />
           </div>
           <div>
@@ -128,12 +134,14 @@ export class Columns extends Component {
                     placeholder={__('Enter header of %s column', 'p4ge').replace('%s', index+1)}
                     value={item.title}
                     onChange={this.props.onColumnHeaderChange.bind(this,index)}
+                    characterLimit={40}
                   />
                   <TextareaControl
                     label={__('Column %s: Body', 'p4ge').replace('%s', index+1)}
                     placeholder={__('Enter body of %s column', 'p4ge').replace('%s', index+1)}
                     value={item.description}
                     onChange={this.props.onColumnDescriptionChange.bind(this,index)}
+                    characterLimit={400}
                   />
 
                   { 'no_image' != columns_block_style &&

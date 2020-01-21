@@ -1,7 +1,7 @@
 import {Component,Fragment} from "@wordpress/element";
 import {
-  TextControl,
-  TextareaControl,
+  TextControl as BaseTextControl,
+  TextareaControl as BaseTextareaControl,
   FocalPointPicker,
   ServerSideRender,
   Toolbar,
@@ -12,6 +12,10 @@ import {BlockControls,MediaUpload,MediaUploadCheck} from "@wordpress/editor";
 
 import {LayoutSelector} from '../../components/LayoutSelector/LayoutSelector';
 import {Preview} from '../../components/Preview';
+import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
+
+const TextControl = withCharacterCounter( BaseTextControl );
+const TextareaControl = withCharacterCounter( BaseTextareaControl );
 
 export class Gallery extends Component {
     constructor(props) {
@@ -144,12 +148,14 @@ export class Gallery extends Component {
               placeholder={__('Enter Title', 'p4ge')}
               value={gallery_block_title}
               onChange={this.props.onTitleChange}
+              characterLimit={40}
             />
             <TextareaControl
               label={__('Description', 'p4ge')}
               help={__('Please Enter Description', 'p4ge')}
               value={gallery_block_description}
               onChange={this.props.onDescriptionChange}
+              characterLimit={400}
             />
 
             {__('Select Gallery Images', 'p4ge')}

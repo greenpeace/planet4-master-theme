@@ -105,7 +105,7 @@ export class CarouselHeader extends Component {
             label={__('Carousel Autoplay', 'p4ge')}
             help={__('Select to trigger images autoslide', 'p4ge')}
             value={this.props.carousel_autoplay}
-            checked={this.props.carousel_autoplay}
+            checked={this.props.carousel_autoplay === true}
             onChange={(e) => this.props.onCarouselAutoplayChange(e)}
           />
         </div>

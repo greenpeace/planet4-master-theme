@@ -46,7 +46,7 @@ export class CarouselHeaderBlock {
                 }
               },
               carousel_autoplay: {
-                type: 'string',
+                type: 'boolean',
                 shortcode: function (attributes) {
                   return attributes.named.carousel_autoplay;
                 }

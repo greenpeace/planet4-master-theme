@@ -40,8 +40,8 @@ class CarouselHeader extends Base_Block {
 						'default' => 'zoom-and-slide-to-gray',
 					],
 					'carousel_autoplay' => [
-						'type'    => 'string',
-						'default' => '',
+						'type'    => 'boolean',
+						'default' => false,
 					],
 					'slides'            => [
 						'type'    => 'array',

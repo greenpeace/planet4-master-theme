@@ -1,12 +1,16 @@
 import {RawHTML, Component, Fragment} from '@wordpress/element';
 import {
   CheckboxControl,
-  TextControl,
-  TextareaControl,
+  TextControl as BaseTextControl,
+  TextareaControl as BaseTextareaControl,
   SelectControl,
   ServerSideRender
 } from '@wordpress/components';
 import {Preview} from '../../components/Preview';
+import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
+
+const TextControl = withCharacterCounter( BaseTextControl );
+const TextareaControl = withCharacterCounter( BaseTextareaControl );
 
 export class Timeline extends Component {
   constructor(props) {
@@ -156,6 +160,7 @@ export class Timeline extends Component {
               placeholder={__('Enter title', 'p4ge')}
               value={this.props.timeline_title}
               onChange={this.props.onTimelineTitleChange}
+              characterLimit={60}
             />
           </div>
 
@@ -165,6 +170,7 @@ export class Timeline extends Component {
               placeholder={__('Enter description', 'p4ge')}
               value={this.props.description}
               onChange={this.props.onDescriptionChange}
+              characterLimit={400}
             />
           </div>
 

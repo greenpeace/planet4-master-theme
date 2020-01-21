@@ -3,14 +3,17 @@ import {
   Button,
   Dashicon,
   SelectControl,
-  TextareaControl,
-  TextControl,
+  TextareaControl as BaseTextareaControl,
+  TextControl as BaseTextControl,
   ToggleControl
 } from '@wordpress/components';
 import {URLInput} from '@wordpress/block-editor'
 import {CarouselHeaderImage} from "./CarouselHeaderImage";
+import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
 
 const {apiFetch} = wp;
+const TextControl = withCharacterCounter(BaseTextControl);
+const TextareaControl = withCharacterCounter(BaseTextareaControl);
 
 export class CarouselHeaderSlide extends Component {
   constructor(props) {
@@ -108,6 +111,7 @@ export class CarouselHeaderSlide extends Component {
                   placeholder={__('Enter header', 'p4ge')}
                   value={this.props.header}
                   onChange={(e) => this.props.onHeaderChange(this.props.index, e)}
+                  characterLimit={40}
                 />
                 <SelectControl
                   label={__('Header text size', 'p4ge')}
@@ -126,6 +130,7 @@ export class CarouselHeaderSlide extends Component {
                 placeholder={__('Enter subheader', 'p4ge')}
                 value={this.props.subheader}
                 onChange={(e) => this.props.onSubheaderChange(this.props.index, e)}
+                characterLimit={80}
               />
               }
               <TextareaControl
@@ -133,6 +138,7 @@ export class CarouselHeaderSlide extends Component {
                 placeholder={__('Enter description of image', 'p4ge')}
                 value={this.props.description}
                 onChange={(e) => this.props.onDescriptionChange(this.props.index, e)}
+                characterLimit={200}
               />
               <div className="ch-url-input-control__wrapper">
 
