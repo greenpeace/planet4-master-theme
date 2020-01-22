@@ -3,7 +3,11 @@
 
   .multiple-search-result .more-btn {
     width: auto;
-    margin-bottom: $space-xxl;
+    margin-bottom: $space-md;
+
+    @include large-and-up {
+      margin-bottom: $space-xxl;
+    }
   }
 
   .more-btn[disabled]:hover {
@@ -84,7 +88,7 @@
 
 .toggle-wrapper {
   display: inline-block;
-  margin-left: 48px;
+  margin-bottom: $space-xl;
 
   .toggle-button {
     display: inline-block;
@@ -92,6 +96,11 @@
     label {
       margin-bottom: -0.6rem;
     }
+  }
+
+  @include large-and-up {
+    margin-left: 48px;
+    margin-top: 42px;
   }
 
   span {
