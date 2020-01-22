@@ -130,3 +130,16 @@
   border: none;
   color: $dark-shade-black !important;
 }
+
+// The color picker cannot be configured to show a clear button without giving the ability to enter any color with its
+// hex code.
+// So as a workaround undo the hiding of the wrapper and hide only the text input.
+.palette-only {
+  span.wp-picker-input-wrap {
+    display: inline-block !important;
+  }
+
+  .wp-picker-input-wrap label {
+    display: none !important;
+  }
+}
