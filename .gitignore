@@ -1,15 +1,8 @@
 vendor
-wp-content/
 node_modules/
-/main.css
-/main.css.map
-.idea
-yarn-error.log
 /languages/*.po~
 /languages/*.pot~
 tests/backstop/
-
-\.DS_Store
 
 # Built css and js assets
 assets/build/*
