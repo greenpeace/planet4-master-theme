@@ -150,3 +150,8 @@ function get_campaign_attachments( $post_ids ) {
 
 	return $post_ids;
 }
+
+// Remove taxonomies from CPP export file.
+$cats  = [];
+$tags  = [];
+$terms = [];
