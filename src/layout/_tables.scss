@@ -37,12 +37,15 @@
       }
     }
 
-    tr:nth-child(odd) {
-      background-color: $table-odd;
-    }
+    // Table having `.has-background` class means that a background color was explicitly set on the block.
+    &:not(.has-background) {
+      tr:nth-child(odd) {
+        background-color: $table-odd;
+      }
 
-    tr:nth-child(even) {
-      background-color: $table-even;
+      tr:nth-child(even) {
+        background-color: $table-even;
+      }
     }
   }
 }
