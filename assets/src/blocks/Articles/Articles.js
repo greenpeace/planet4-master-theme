@@ -25,8 +25,14 @@ export class Articles extends Component {
       tagTokens: tagTokens,
       postTypeTokens: postTypeTokens,
       selectedPosts: [],
+      postsSuggestions: null,
+      overrideWasFocused: false,
     };
+    this.getSuggestionsOnFirstFocus = this.getSuggestionsOnFirstFocus.bind( this );
 
+  }
+
+  componentDidMount() {
     this.populatePostsToken();
   }
 
@@ -39,20 +45,24 @@ export class Articles extends Component {
 
       apiFetch(
         {
-          path: addQueryArgs('/wp/v2/posts', {
+          path: addQueryArgs( '/wp/v2/posts', {
             per_page: 50,
             page: 1,
             include: this.props.posts
-          })
+          } )
         }
-      ).then(posts => {
-        const postsTokens = posts.map(post => post.title.rendered);
-        const postsSuggestions = posts.map(post => post.title.rendered);
+      ).then( posts => {
+        const postsTokens = posts.map( post => post.title.rendered );
+        const postsList = posts.map( post => ({
+          id: post.id,
+          title: post.title.rendered,
+        }) );
+
         this.setState({
             postsTokens: postsTokens,
-            postsList: posts,
-            postsSuggestions: postsSuggestions,
-            selectedPosts: posts,
+            postsList: postsList,
+            postsSuggestions: [],
+            selectedPosts: postsList,
           }
         );
       });
@@ -71,24 +81,34 @@ export class Articles extends Component {
   /**
    * Search posts using wp api.
    *
-   * @param tokens
+   * @param event
    */
-  onPostsSearch(tokens) {
+  getSuggestionsOnFirstFocus(event) {
+    // Fetch the suggestions the first time input changes
+    if ( this.state.overrideWasFocused ) {
+      return;
+    }
+    this.setState( { overrideWasFocused: true } );
+
+    let args;
+    // If WPML is active then this variable contains the post language.
+    if ( icl_this_lang !== undefined ) {
+      args = { post_language: icl_this_lang};
+    } else {
+      args = {};
+    }
 
     apiFetch(
       {
-        path: addQueryArgs('/wp/v2/posts', {
-          per_page: 50,
-          page: 1,
-          search: tokens,
-          orderby: 'title',
-          post_status: 'publish',
-
-        })
+        path: addQueryArgs('/planet4/v1/all-posts', args)
       }
     ).then(posts => {
-      let postsSuggestions = posts.map(post => post.title.rendered);
-      this.setState({postsSuggestions: postsSuggestions, postsList: posts})
+      let postsSuggestions = posts.map(post => post.post_title);
+      const postsList = posts.map( post => ({
+        id: post.id,
+        title: post.post_title,
+      }) );
+      this.setState({postsSuggestions: postsSuggestions, postsList: postsList})
     });
   }
 
@@ -109,22 +129,11 @@ export class Articles extends Component {
   }
 
   onSelectedPostsChange(tokens) {
-    // Array to hold references to selected posts objects.
-    let currentSelectedPosts = [];
-    tokens.forEach(token => {
-      let f = this.state.postsList.filter(post => post.title.rendered === token);
-      if (f.length > 0) {
-        currentSelectedPosts.push(f[0]);
-      }
-      f = this.state.selectedPosts.filter(post => post.title.rendered === token);
-      if (f.length > 0) {
-        currentSelectedPosts.push(f[0]);
-      }
-    });
+    const selectedPosts = this.state.postsList.filter( post => tokens.includes( post.title ) );
 
-    const postIds = currentSelectedPosts.map(post => post.id);
-    this.props.onSelectedPostsChange(postIds);
-    this.setState({postsTokens: tokens, selectedPosts: currentSelectedPosts});
+    this.props.onSelectedPostsChange( selectedPosts.map( post => post.id ) );
+
+    this.setState({postsTokens: tokens, selectedPosts: selectedPosts});
   }
 
   renderEdit() {
@@ -229,22 +238,21 @@ export class Articles extends Component {
         }
 
         {
-          (this.props.tags.length === 0 && this.props.post_types.length === 0)
-            ? <div>
-              <hr/>
-              <label>{__('Manual override', 'p4ge')}</label>
-              <FormTokenField
-                value={this.state.postsTokens}
-                suggestions={this.state.postsSuggestions}
-                label={__('CAUTION: Adding articles individually will override the automatic functionality of this block. For good user experience, please include at least three articles so that spacing and alignment of the design remains in tact.', 'p4ge')}
-                onChange={tokens => this.onSelectedPostsChange(tokens)}
-                onInputChange={tokens => this.onPostsSearch(tokens)}
-                placeholder="Select Posts"
-                maxLength="10"
-                maxSuggestions="20"
-              />
-            </div>
-            : null
+          (this.props.tags.length === 0 && this.props.post_types.length === 0) &&
+          <div>
+            <hr/>
+            <label>{ __( 'Manual override', 'p4ge' ) }</label>
+            <FormTokenField
+              value={ this.state.postsTokens }
+              suggestions={ this.state.postsSuggestions }
+              label={ __( 'CAUTION: Adding articles individually will override the automatic functionality of this block. For good user experience, please include at least three articles so that spacing and alignment of the design remains in tact.', 'p4ge' ) }
+              onFocus={ this.getSuggestionsOnFirstFocus }
+              onChange={ tokens => this.onSelectedPostsChange( tokens ) }
+              placeholder="Select Posts"
+              maxLength="10"
+              maxSuggestions="20"
+            />
+          </div>
         }
 
       </Fragment>
@@ -255,9 +263,7 @@ export class Articles extends Component {
     return (
       <div>
         {
-          this.props.isSelected
-            ? this.renderEdit()
-            : null
+          !!this.props.isSelected && this.renderEdit()
         }
         <Preview showBar={this.props.isSelected}>
           <ServerSideRender
