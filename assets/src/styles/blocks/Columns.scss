@@ -541,6 +541,9 @@
 
   &.block-style-image {
     .column-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       margin-bottom: $space-lg;
 
       @include large-and-up {
@@ -585,6 +588,7 @@
       }
 
       p {
+        flex-grow: 1;
         font-size: $font-size-sm;
         line-height: 1.6;
         color: $dark-shade-black;
