@@ -103,7 +103,7 @@ export class Articles extends Component {
 
     apiFetch(
       {
-        path: addQueryArgs('/planet4/v1/all-posts', args)
+        path: addQueryArgs('/planet4/v1/all-published-posts', args)
       }
     ).then(posts => {
       let postsSuggestions = posts.map(post => post.post_title);
