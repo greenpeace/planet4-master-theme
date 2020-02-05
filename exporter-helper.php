@@ -62,9 +62,9 @@ function get_campaign_attachments( $post_ids ) {
 		}
 	}
 
-	$sql = 'SELECT post_content 
-			FROM %1$s 
-			WHERE ID IN(' . $placeholders . ') 
+	$sql = 'SELECT post_content
+			FROM %1$s
+			WHERE ID IN(' . $placeholders . ')
 				AND post_content REGEXP \'((wp-image-|wp-att-)[0-9][0-9]*)|gallery_block_style|wp\:planet4\-blocks|href=|src=\'';
 
 	$values       = [];
