@@ -269,3 +269,4 @@ P4GBKS\Loader::get_instance(
 	],
 	\P4GBKS\Views\View::class
 );
+\P4GBKS\Rest\Rest_Api::add_endpoints();

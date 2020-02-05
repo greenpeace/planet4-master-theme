@@ -292,9 +292,14 @@ class Covers extends Base_Block {
 		// Get user defined tags from backend.
 		$tag_ids = $fields['tags'] ?? [];
 
-		// If tags is empty or is not a comma separated integers string then define tags as empty.
-		if ( ! empty( $tag_ids ) ) {
-			$tags = get_tags( [ 'include' => $tag_ids ] );
+		if ( empty( $tag_ids ) ) {
+			return [];
+		}
+
+		$tags = get_tags( [ 'include' => $tag_ids ] );
+
+		if ( ! is_array( $tags ) ) {
+			return [];
 		}
 
 		$covers = [];

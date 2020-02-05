@@ -169,7 +169,7 @@ export class ArticlesBlock {
         }
 
         // TO-DO: Check for posts types and posts too...
-        if ((tagsList && tagsList.length === 0) || (postTypesList && postTypesList.length === 0)) {
+        if ((tagsList && tagsList.length === 0) && (postTypesList && postTypesList.length === 0)) {
           return "Populating block's fields...";
         }
 
