@@ -95,7 +95,7 @@ export class Articles extends Component {
 
     let args;
     // If WPML is active then this variable contains the post language.
-    if ( icl_this_lang !== undefined ) {
+    if ( typeof icl_this_lang !== 'undefined' ) {
       args = { post_language: icl_this_lang};
     } else {
       args = {};
