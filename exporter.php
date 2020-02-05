@@ -75,33 +75,6 @@ $post_ids = apply_filters( 'export_post_ids', $wpdb->get_col( $sql ), $args );  
 $cats  = [];
 $tags  = [];
 $terms = [];
-if ( isset( $term ) && $term ) {
-	$cat  = get_term( $term['term_id'], 'category' );
-	$cats = array( $cat->term_id => $cat );
-	unset( $term, $cat );
-} elseif ( 'all' == $args['content'] ) {
-	$categories = (array) get_categories( array( 'get' => 'all' ) );
-	$tags       = (array) get_tags( array( 'get' => 'all' ) );
-
-	$custom_taxonomies = get_taxonomies( array( '_builtin' => false ) );
-	$custom_terms      = (array) get_terms( $custom_taxonomies, array( 'get' => 'all' ) );
-	while ( $cat = array_shift( $categories ) ) {
-		if ( 0 == $cat->parent || isset( $cats[ $cat->parent ] ) ) {
-			$cats[ $cat->term_id ] = $cat;
-		} else {
-			$categories[] = $cat;
-		}
-	}
-	while ( $t = array_shift( $custom_terms ) ) {
-		if ( 0 == $t->parent || isset( $terms[ $t->parent ] ) ) {
-			$terms[ $t->term_id ] = $t;
-		} else {
-			$custom_terms[] = $t;
-		}
-	}
-
-	unset( $categories, $custom_taxonomies, $custom_terms );
-}
 
 /**
  * Wrap strings in nested CDATA tags.
@@ -221,8 +194,8 @@ function p4_px_single_post_authors_list( $post_ids ) {
 
 	$placeholders = implode( ',', array_fill( 0, count( $post_ids ), '%d' ) );
 
-	$sql = 'SELECT DISTINCT post_author 
-			FROM %1$s  
+	$sql = 'SELECT DISTINCT post_author
+			FROM %1$s
 			WHERE ID IN(' . $placeholders . ') AND post_status != \'auto-draft\'';
 
 	$values       = [];
