@@ -6,6 +6,10 @@
 			"id": "campaign_logo",
 			"options": [
 				{
+					"value": "greenpeace",
+					"label": "Greenpeace"
+				},
+				{
 					"value": "antarctic",
 					"label": "Antarctic"
 				},
