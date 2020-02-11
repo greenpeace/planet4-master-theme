@@ -28,9 +28,18 @@ export function withPostMeta( WrappedComponent ) {
     render() {
       const { metaKey, postMeta, writeMeta, onChange, ...ownProps } = this.props;
 
+      const metaValue = postMeta[ metaKey ];
+
+      let value;
+      if ( !metaValue && this.props.defaultValue ) {
+        value = this.props.defaultValue;
+      } else {
+        value = metaValue;
+      }
+
       return <WrappedComponent
         { ...{
-          [ this.valuePropName ]: postMeta[ metaKey ],
+          [ this.valuePropName ]: value,
           onChange: ( value ) => {
             this.handleChange( metaKey, value || '' );
             if ( onChange ) {
