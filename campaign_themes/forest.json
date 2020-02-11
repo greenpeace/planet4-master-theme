@@ -14,7 +14,7 @@
 					"label": "Greenpeace"
 				}
 			],
-			"default": "forest"
+			"default": "greenpeace"
 		},
 		{
 			"id": "campaign_logo_color",
@@ -49,16 +49,14 @@
 			"options": [
 				{ "color":  "#ffffff"},
 				{ "color":  "#000000"},
-				{ "color":  "#2CAF4E"},
-				{ "color":  "#A0D654"}
-			],
-			"default": "#FFFFFF"
+				{ "color":  "#2caf4e"},
+				{ "color":  "#a0d654"}
+			]
 		},
 		{
 			"id": "campaign_header_color",
 			"options": [
-			],
-			"default": "#000000"
+			]
 		},
 		{
 			"id": "campaign_primary_color",

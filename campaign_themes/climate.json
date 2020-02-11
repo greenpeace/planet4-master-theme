@@ -14,7 +14,7 @@
 					"label": "Greenpeace"
 				}
 			],
-			"default": "climate"
+			"default": "greenpeace"
 		},
 		{
 			"id": "campaign_logo_color",
@@ -49,19 +49,20 @@
 			"options": [
 				{ "color":  "#ffffff"},
 				{ "color":  "#000000"},
-				{ "color":  "#FF513C"},
-				{ "color":  "#007EFF"}
+				{ "color":  "#ff513c"},
+				{ "color":  "#007eff"},
+				{ "color":  "#66cc00"}
 			]
 		},
 		{
 			"id": "campaign_header_color",
 			"options": [
-			],
-			"default": "#000000"
+			]
 		},
 		{
 			"id": "campaign_primary_color",
 			"options": [
+				{ "color": "#66cc00" }
 			]
 		},
 		{
@@ -143,7 +144,7 @@
 					"label": "Campaign default"
 				}
 			],
-			"default": "lora"
+			"default": "campaign"
 		},
 		{
 			"id": "campaign_footer_theme",

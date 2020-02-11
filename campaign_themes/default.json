@@ -165,7 +165,7 @@
 					"label": "Campaign default"
 				}
 			],
-			"default": "lora"
+			"default": "campaign"
 		},
 		{
 			"id": "campaign_footer_theme",

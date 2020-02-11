@@ -93,7 +93,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			);
 			self::campaign_field(
 				'campaign_logo',
-				[ 'default' => 'campaign' ]
+				[ 'default' => 'greenpeace' ]
 			);
 			self::campaign_field(
 				'campaign_logo_color',
@@ -105,7 +105,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			);
 			self::campaign_field(
 				'campaign_nav_color',
-				[ 'default' => '#FFFFFF' ]
+				[ 'default' => '#ffffff' ]
 			);
 			self::campaign_field(
 				'campaign_nav_border',
@@ -126,7 +126,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			);
 			self::campaign_field(
 				'campaign_body_font',
-				[ 'default' => 'lora' ]
+				[ 'default' => 'campaign' ]
 			);
 			self::campaign_field(
 				'campaign_footer_theme',
