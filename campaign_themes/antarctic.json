@@ -14,7 +14,7 @@
 					"label": "Greenpeace"
 				}
 			],
-			"default": "antarctic"
+			"default": "greenpeace"
 		},
 		{
 			"id": "campaign_logo_color",
@@ -49,10 +49,9 @@
 			"options": [
 				{ "color":  "#ffffff"},
 				{ "color":  "#000000"},
-				{ "color": "#0A4461"},
-				{ "color": "#52C9F4"}
-			],
-			"default": "#FFFFFF"
+				{ "color": "#0a4461"},
+				{ "color": "#52c9f4"}
+			]
 		},
 		{
 			"id": "campaign_header_color",
@@ -90,7 +89,7 @@
 					"label": "Campaign default"
 				}
 			],
-			"default": "lora"
+			"default": "campaign"
 		},
 		{
 			"id": "campaign_footer_theme",

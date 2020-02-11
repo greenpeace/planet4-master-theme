@@ -50,10 +50,10 @@
 				{ "color":  "#ffffff"},
 				{ "color":  "#000000"},
 				{ "color":  "#044362"},
-				{ "color":  "#2CABB1"},
-				{ "color": "#66CC00" }
+				{ "color":  "#2cabb1"},
+				{ "color": "#66cc00" }
 			],
-			"default": "#FFFFFF"
+			"default": "#ffffff"
 		},
 		{
 			"id": "campaign_header_color",

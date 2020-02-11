@@ -14,7 +14,7 @@
 					"label": "Greenpeace"
 				}
 			],
-			"default": "oceans"
+			"default": "greenpeace"
 		},
 		{
 			"id": "campaign_logo_color",
@@ -50,24 +50,26 @@
 				{ "color":  "#ffffff"},
 				{ "color":  "#000000"},
 				{ "color":  "#044362"},
-				{ "color":  "#2CABB1"}
-			],
-			"default": "#FFFFFF"
+				{ "color":  "#2cabb1"},
+				{ "color":  "#1bb6d6"}
+			]
 		},
 		{
 			"id": "campaign_header_color",
 			"options": [
-			],
-			"default": "#000000"
+				{ "color":  "#093944"}
+			]
 		},
 		{
 			"id": "campaign_primary_color",
 			"options": [
+				{ "color":  "#ee562d"}
 			]
 		},
 		{
 			"id": "campaign_secondary_color",
 			"options": [
+				{ "color":  "#093944"}
 			]
 		},
 		{
@@ -123,7 +125,7 @@
 					"label": "Campaign default"
 				}
 			],
-			"default": "lora"
+			"default": "campaign"
 		},
 		{
 			"id": "campaign_footer_theme",

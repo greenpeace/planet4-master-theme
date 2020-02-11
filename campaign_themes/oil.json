@@ -49,10 +49,10 @@
 			"options": [
 				{ "color":  "#ffffff"},
 				{ "color":  "#000000"},
-				{ "color":  "#FF513C"},
-				{ "color":  "#007EFF"}
+				{ "color":  "#ff513c"},
+				{ "color":  "#007eff"}
 			],
-			"default": "#FFFFFF"
+			"default": "#ffffff"
 		},
 		{
 			"id": "campaign_header_color",
