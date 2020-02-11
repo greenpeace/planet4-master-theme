@@ -22,7 +22,8 @@
 	{% endif %}
 
 		{% if ( not is_action ) %}
-			<img class="d-flex search-result-item-image" src="{{ post.thumbnail.src('thumbnail') ?? posts_data.dummy_thumbnail }}"
+			<img class="d-flex search-result-item-image lazyload"
+				data-src="{{ post.thumbnail.src('thumbnail') ?? posts_data.dummy_thumbnail }}"
 				 alt="{{ fn('esc_attr', post.thumbnail.alt|default( post.title ) )|raw }}" />
 		{% endif %}
 

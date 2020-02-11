@@ -30,26 +30,9 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		private function hooks() {
 			add_action( 'init', [ $this, 'register_campaigns_cpt' ] );
 			add_action( 'cmb2_admin_init', [ $this, 'register_campaigns_metaboxes' ] );
-			add_action( 'add_meta_boxes', [ $this, 'campaign_page_templates_meta_box' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
-			add_action( 'save_post_campaign', [ $this, 'save_campaign_page_templates_meta_box_data' ] );
+			add_action( 'cmb2_render_sidebar_link', [ $this, 'cmb2_render_sidebar_link_field_callback' ], 10, 5 );
 			add_action( 'cmb2_render_footer_icon_link', [ $this, 'cmb2_render_footer_icon_link_field_callback' ], 10, 5 );
-		}
-
-		/**
-		 * Return a list of the available campaign themes
-		 */
-		public function campaign_themes() {
-			$campaign_theme = [
-				'antarctic' => __( 'Antarctic', 'planet4-master-theme-backend' ),
-				'arctic'    => __( 'Arctic', 'planet4-master-theme-backend' ),
-				'climate'   => __( 'Climate Emergency', 'planet4-master-theme-backend' ),
-				'forest'    => __( 'Forest', 'planet4-master-theme-backend' ),
-				'oceans'    => __( 'Oceans', 'planet4-master-theme-backend' ),
-				'oil'       => __( 'Oil', 'planet4-master-theme-backend' ),
-				'plastic'   => __( 'Plastics', 'planet4-master-theme-backend' ),
-			];
-			return $campaign_theme;
 		}
 
 		/**
@@ -90,151 +73,39 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'menu_position'      => null,
 				'menu_icon'          => 'dashicons-megaphone',
 				'show_in_rest'       => true,
-				'supports'           => [ 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'revisions' ],
+				'supports'           => [
+					'title',
+					'editor',
+					'author',
+					'thumbnail',
+					'excerpt',
+					'revisions',
+					// Required to expose meta fields in the REST API.
+					'custom-fields',
+				],
 			);
 
 			register_post_type( self::POST_TYPE, $args );
-		}
 
-		/**
-		 * Add metabox for campaign page template selection on campaigns cpt
-		 */
-		public function campaign_page_templates_meta_box() {
-			add_meta_box(
-				'campaigns-page-templates',
-				__( 'Campaign Templates', 'planet4-master-theme-backend' ),
-				array( $this, 'campaign_page_templates_meta_box_callback' ),
-				'campaign',
-				'side'
-			);
-		}
-
-		/**
-		 * Callback function for campaign page template selection
-		 *
-		 * @param object $post The post object.
-		 */
-		public function campaign_page_templates_meta_box_callback( $post ) {
-
-			// Add a nonce field so we can check for it later.
-			wp_nonce_field( 'campaign_page_template_nonce_' . $post->ID, 'campaign_page_template_nonce' );
-
-			$value = get_post_meta( $post->ID, '_campaign_page_template', true );
-
-			$campaign_templates = $this->campaign_themes();
-			?>
-			<select id="campaign_page_template" name="campaign_page_template">
-				<option value=""><?php _e( 'Default Template', 'planet4-master-theme-backend' ); ?>
-				</option>
-				<?php
-				foreach ( $campaign_templates as $campaign => $campaign_template ) {
-					?>
-					<option value="<?php echo $campaign; ?>" <?php selected( $value, $campaign ); ?>>
-					<?php echo $campaign_template; ?>
-					</option>
-					<?php
-				}
-				?>
-			</select>
-			<?php
-		}
-
-		/**
-		 * Save campaigns page template data
-		 *
-		 * @param number $post_id The post id.
-		 */
-		public function save_campaign_page_templates_meta_box_data( $post_id ) {
-
-			// Check if our nonce is set.
-			if ( ! isset( $_POST['campaign_page_template_nonce'] ) ) {
-				return;
-			}
-
-			// Verify that the nonce is valid.
-			if ( ! wp_verify_nonce( $_POST['campaign_page_template_nonce'], 'campaign_page_template_nonce_' . $post_id ) ) {
-				return;
-			}
-
-			// If this is an autosave, our form has not been submitted, so we don't want to do anything.
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return;
-			}
-
-			// Check the user's permissions.
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return;
-			}
-
-			/* OK, it's safe for us to save the data now. */
-
-			// Make sure that it is set.
-			if ( ! isset( $_POST['campaign_page_template'] ) ) {
-				return;
-			}
-
-			// Validate user input.
-			if ( in_array( $_POST['campaign_page_template'], array_keys( $this->campaign_themes() ) ) ) {
-				$campaign_page_template = $_POST['campaign_page_template'];
-			}
-
-			// Update the meta field in the database.
-			update_post_meta( $post_id, '_campaign_page_template', $campaign_page_template );
+			self::campaign_field( 'theme' );
+			self::campaign_field( 'campaign_logo' );
+			self::campaign_field( 'campaign_logo_color' );
+			self::campaign_field( 'campaign_nav_type' );
+			self::campaign_field( 'campaign_nav_color' );
+			self::campaign_field( 'campaign_nav_border' );
+			self::campaign_field( 'campaign_header_color' );
+			self::campaign_field( 'campaign_primary_color' );
+			self::campaign_field( 'campaign_secondary_color' );
+			self::campaign_field( 'campaign_header_primary' );
+			self::campaign_field( 'campaign_body_font' );
+			self::campaign_field( 'campaign_footer_theme' );
+			self::campaign_field( 'footer_links_color' );
 		}
 
 		/**
 		 * Register Color Picker Metabox for navigation
 		 */
 		public function register_campaigns_metaboxes() {
-			$prefix = 'sc_ch_';
-			$themes = $this->campaign_themes();
-			// Add default Greenpeace logo to array.
-			$themes['greenpeace'] = __( 'Greenpeace', 'planet4-master-theme-backend' );
-
-			$header_palette = [
-				'#E5E5E5',
-				'#32CA89',
-				'#1BB6D6',
-				'#22938D',
-				'#186A70',
-				'#043029',
-				'#093944',
-				'#042233',
-				'#1A1A1A',
-			];
-
-			$nav_palette = [
-				'#FFFFFF',
-				'#E5E5E5',
-				'#66CC00',
-				'#32CA89',
-				'#1BB6D6',
-				'#22938D',
-				'#186A70',
-				'#043029',
-				'#093944',
-				'#042233',
-				'#1A1A1A',
-				'#1B4A1B',
-			];
-
-			$primary_palette = [
-				'#ffd204',
-				'#66cc00',
-				'#6ed961',
-				'#21cbca',
-				'#ee562d',
-				'#7a1805',
-				'#2077bf',
-				'#1B4A1B',
-			];
-
-			$secondary_palette = [
-				'#042233',
-				'#093944',
-				'#074365',
-			];
-
 			$cmb = new_cmb2_box(
 				[
 					'id'           => 'campaign_nav_settings_mb',
@@ -250,194 +121,8 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$cmb->add_field(
 				[
-					'name'    => 'Logo',
-					'desc'    => 'Change the campaign logo',
-					'id'      => 'campaign_logo',
-					'type'    => 'select',
-					'default' => 'greenpeace',
-					'options' => $themes,
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'    => 'Logo Color',
-					'desc'    => 'Change the campaign logo color (if not default)',
-					'id'      => 'campaign_logo_color',
-					'type'    => 'radio_inline',
-					'default' => 'light',
-					'options' => [
-						'light' => __( 'Light', 'planet4-master-theme-backend' ),
-						'dark'  => __( 'Dark', 'planet4-master-theme-backend' ),
-					],
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'    => __( 'Navigation', 'planet4-master-theme-backend' ),
-					'id'      => 'campaign_nav_type',
-					'type'    => 'radio_inline',
-					'options' => [
-						'planet4' => __( 'Planet 4 Navigation', 'planet4-master-theme-backend' ),
-						'minimal' => __( 'Minimal Navigation', 'planet4-master-theme-backend' ),
-					],
-					'default' => 'planet4',
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'       => __( 'Navigation Background Color', 'planet4-master-theme-backend' ),
-					'id'         => 'campaign_nav_color',
-					'type'       => 'colorpicker',
-					'classes'    => 'palette-only',
-					'attributes' => [
-						'data-colorpicker' => wp_json_encode(
-							[
-								'palettes' => $nav_palette,
-							]
-						),
-					],
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'    => __( 'Navigation bottom border', 'planet4-master-theme-backend' ),
-					'id'      => 'campaign_nav_border',
-					'type'    => 'radio_inline',
-					'options' => [
-						'none'   => __( 'No border', 'planet4-master-theme-backend' ),
-						'border' => __( 'White bottom border', 'planet4-master-theme-backend' ),
-					],
-					'default' => 'none',
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'       => __( 'Header Text Color', 'planet4-master-theme-backend' ),
-					'id'         => 'campaign_header_color',
-					'type'       => 'colorpicker',
-					'classes'    => 'palette-only',
-					'attributes' => [
-						'data-colorpicker' => wp_json_encode(
-							[
-								'palettes' => $header_palette,
-							]
-						),
-					],
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'       => __( 'Primary Button Color', 'planet4-master-theme-backend' ),
-					'id'         => 'campaign_primary_color',
-					'type'       => 'colorpicker',
-					'classes'    => 'palette-only',
-					'attributes' => [
-						'data-colorpicker' => json_encode(
-							[
-								'palettes' => $primary_palette,
-							]
-						),
-					],
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'       => __( 'Secondary Button Color and Link Text Color', 'planet4-master-theme-backend' ),
-					'id'         => 'campaign_secondary_color',
-					'type'       => 'colorpicker',
-					'classes'    => 'palette-only',
-					'attributes' => [
-						'data-colorpicker' => json_encode(
-							[
-								'palettes' => $secondary_palette,
-							]
-						),
-					],
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'             => 'Header Primary Font',
-					'desc'             => 'Select an option',
-					'id'               => 'campaign_header_primary',
-					'type'             => 'select',
-					'show_option_none' => '-----',
-					'options'          => [
-						'Anton'            => __( 'Anton', 'planet4-master-theme-backend' ),
-						'Jost'             => __( 'Jost', 'planet4-master-theme-backend' ),
-						'Montserrat'       => __( 'Montserrat Bold', 'planet4-master-theme-backend' ),
-						'Montserrat_Light' => __( 'Montserrat Light', 'planet4-master-theme-backend' ),
-						'Sanctuary'        => __( 'Sanctuary', 'planet4-master-theme-backend' ),
-						'Kanit'            => __( 'Kanit Extra Bold', 'planet4-master-theme-backend' ),
-						'Save the Arctic'  => __( 'Save the Arctic', 'planet4-master-theme-backend' ),
-					],
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'             => 'Header Secondary Font',
-					'desc'             => 'Select an option',
-					'id'               => 'campaign_header_secondary',
-					'type'             => 'select',
-					'show_option_none' => '-----',
-					'options'          => [
-						'monsterrat_semi'   => __( 'Montserrat Semi Bold', 'planet4-master-theme-backend' ),
-						'kanit_semi'        => __( 'Kanit Semi Bold', 'planet4-master-theme-backend' ),
-						'open_sans'         => __( 'Open Sans', 'planet4-master-theme-backend' ),
-						'open_sans_shadows' => __( 'Open Sans Shadows', 'planet4-master-theme-backend' ),
-					],
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'    => __( 'Body Font', 'planet4-master-theme-backend' ),
-					'id'      => 'campaign_body_font',
-					'type'    => 'radio_inline',
-					'options' => [
-						'lora'     => __( 'Serif', 'planet4-master-theme-backend' ),
-						'roboto'   => __( 'Sans Serif', 'planet4-master-theme-backend' ),
-						'campaign' => __( 'Campaign default', 'planet4-master-theme-backend' ),
-					],
-					'default' => 'lora',
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'    => __( 'Footer Theme', 'planet4-master-theme-backend' ),
-					'id'      => 'campaign_footer_theme',
-					'type'    => 'radio_inline',
-					'options' => [
-						'default' => __( 'Default', 'planet4-master-theme-backend' ),
-						'white'   => __( 'White', 'planet4-master-theme-backend' ),
-					],
-					'default' => 'default',
-				]
-			);
-
-			$cmb->add_field(
-				[
-					'name'       => __( 'Footer links color', 'planet4-master-theme-backend' ),
-					'id'         => 'footer_links_color',
-					'type'       => 'colorpicker',
-					'classes'    => 'palette-only',
-					'attributes' => [
-						'data-colorpicker' => json_encode(
-							[
-								'palettes' => $primary_palette,
-							]
-						),
-					],
+					'id'   => 'new_sidebar_link',
+					'type' => 'sidebar_link',
 				]
 			);
 
@@ -488,6 +173,41 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		public function enqueue_admin_assets() {
 			wp_register_style( 'cmb-style', get_template_directory_uri() . '/admin/css/campaign.css' );
 			wp_enqueue_style( 'cmb-style' );
+		}
+
+		/**
+		 * CMB2 custom field(sidebar_link) callback function.
+		 *
+		 * @param array $field The CMB2 field array.
+		 * @param array $value The CMB2 field Value.
+		 * @param array $object_id The id of the object.
+		 * @param array $object_type The type of object.
+		 * @param array $field_type Instance of the `cmb2_Meta_Box_types` object.
+		 */
+		public function cmb2_render_sidebar_link_field_callback(
+			$field,
+			$value,
+			$object_id,
+			$object_type,
+			$field_type
+		) {
+			?>
+			<a
+				href="#" onclick="openSidebar()"
+				id="new_sidebar_link">
+				<?php
+					echo __( 'Design settings moved to a new sidebar.', 'planet4-master-theme-backend' )
+				?>
+			</a>
+			<script>
+				function openSidebar() {
+					let sidebarButton = document.querySelector( '.edit-post-pinned-plugins button[aria-expanded=false]' );
+					if ( sidebarButton ) {
+						sidebarButton.click();
+					}
+				}
+			</script>
+			<?php
 		}
 
 		/**
@@ -562,8 +282,107 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				);
 			?>
 			</div>
-			<div class="alignleft"> <?php esc_html_e( 'In the “Footer icon name” field add the name of the icon you want from the', 'planet4-master-theme-backend' ); ?> <a target="_blank" href="https://github.com/greenpeace/planet4-styleguide/tree/master/src/icons"><?php esc_html_e( 'list of icons in the CSS styleguide', 'planet4-master-theme-backend' ); ?></a>. e.g. twitter-square</div>
+			<div class="alignleft"> <?php esc_html_e( 'In the “Footer icon name” field add the name of the icon you want from the', 'planet4-master-theme-backend' ); ?> <a target="_blank" href="https://github.com/greenpeace/planet4-styleguide/tree/master/src/icons"><?php esc_html_e( 'list of icons in the CSS styleguide', 'planet4-master-theme-backend' ); ?></a>. e.g. twitter-square</div>
 			<?php
+		}
+
+		/**
+		 * Register a key as a post_meta with the argument `show_in_rest` that is needed on all fields so they can be
+		 * used through the REST api. Also set `type` and `single` as both are the same for all attributes.
+		 *
+		 * @param string $meta_key Identifier the post_meta field will be registered with.
+		 * @param array  $args Arguments which are passed on to register_post_meta.
+		 *
+		 * @return void A description of the field.
+		 */
+		private static function campaign_field(
+			string $meta_key,
+			array $args = []
+		): void {
+			$args = array_merge(
+				[
+					'show_in_rest' => true,
+					'type'         => 'string',
+					'single'       => true,
+				],
+				$args
+			);
+			register_post_meta( self::POST_TYPE, $meta_key, $args );
+		}
+
+		/**
+		 * Determine the css variables for a certain post.
+		 *
+		 * @param array $meta The meta containing the variable values.
+		 * @return array The values that will be used for the css variables.
+		 */
+		public static function css_vars( array $meta ): array {
+			// Set specific CSS for Montserrat.
+			$special_weight_fonts = [
+				'Montserrat'       => '900',
+				'Montserrat_Light' => '500',
+			];
+
+			$header_primary_font = 'Montserrat_Light' === ( $meta['campaign_header_primary'] ?? null )
+					? 'Montserrat'
+					: $meta['campaign_header_primary'] ?? null;
+
+			if ( ! isset( $meta['campaign_body_font'] ) || empty( $meta['campaign_body_font'] )
+			) {
+				$body_font = null;
+			} elseif ( 'campaign' === $meta['campaign_body_font'] ) {
+				$campaigns_font_map = [
+					'default'   => 'lora',
+					'antarctic' => 'sanctuary',
+					'arctic'    => 'Save the Arctic',
+					'climate'   => 'Jost',
+					'forest'    => 'Kanit',
+					'oceans'    => 'Montserrat',
+					'oil'       => 'Anton',
+					'plastic'   => 'Montserrat',
+				];
+				$theme              = isset( $meta['theme'] ) && ! empty( $meta['theme'] ) ? $meta['theme'] : 'default';
+				$body_font          = $campaigns_font_map[ $theme ];
+			} else {
+				$body_font = $meta['campaign_body_font'];
+			}
+
+			$footer_theme = $meta['campaign_footer_theme'] ?? null;
+
+			if ( 'white' === $footer_theme ) {
+				$default_footer_links_color = $meta['campaign_nav_color'] ?: '#1A1A1A';
+				$footer_links_color         = $meta['footer_links_color'] ?: $default_footer_links_color;
+				$footer_color               = '#FFFFFF';
+			} else {
+				$footer_links_color = 'dark' === ( $meta['campaign_logo_color'] ?? null ) ? '#1A1A1A' : '#FFFFFF';
+				$footer_color       = $meta['campaign_nav_color'] ?? null;
+			}
+
+			$passive_button_colors_map = [
+				'#ffd204' => '#ffe467',
+				'#66cc00' => '#66cc00',
+				'#6ed961' => '#a7e021',
+				'#21cbca' => '#77ebe0',
+				'#ee562d' => '#f36d3a',
+				'#7a1805' => '#a01604',
+				'#2077bf' => '#2077bf',
+				'#1b4a1b' => '#1b4a1b',
+			];
+
+			return [
+				'nav-color'            => $meta['campaign_nav_color'] ?? null,
+				'footer-color'         => $footer_color,
+				'footer-links-color'   => $footer_links_color,
+				'header-color'         => $meta['campaign_header_color'] ?? null,
+				'header-primary-font'  => $header_primary_font,
+				'header-font-weight'   => $special_weight_fonts[ $meta['campaign_header_primary'] ?? null ] ?? null,
+				'body-font'            => $body_font,
+				'passive-button-color' => isset( $meta['campaign_primary_color'] ) && $meta['campaign_primary_color']
+					? $passive_button_colors_map[ strtolower( $meta['campaign_primary_color'] ) ]
+					: null,
+				'primary-color'        => $meta['campaign_primary_color'] ?? null,
+				'secondary-color'      => $meta['campaign_secondary_color'] ?? null,
+			];
 		}
 	}
 }

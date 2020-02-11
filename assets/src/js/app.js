@@ -10,6 +10,7 @@ import { setupPDFIcon } from './pdf_icon';
 import { setupSearch } from './search';
 import { setupImageZoomer } from './single';
 import { setupExternalLinks } from './external_links';
+import { setupLazyLoad } from './lazyload';
 
 import 'bootstrap';
 
@@ -18,6 +19,8 @@ function requireAll(r) {
 }
 
 requireAll(require.context('../scss/styleguide/src/icons/', true, /\.svg$/));
+
+setupLazyLoad();
 
 window.$ = $ || jQuery;
 

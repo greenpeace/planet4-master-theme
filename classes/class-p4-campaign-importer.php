@@ -24,6 +24,7 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 		public function __construct() {
 			add_action( 'wp_import_insert_post', [ $this, 'update_campaign_attachements' ], 10, 4 );
 			add_filter( 'wp_import_post_terms', [ $this, 'filter_wp_import_post_terms' ], 10, 3 );
+			add_filter( 'wp_import_post_meta', [ $this, 'read_old_campaign_template_attribute' ] );
 			add_filter( 'wp_import_post_data_processed', [ $this, 'set_imported_campaigns_as_drafts' ], 10, 2 );
 			add_action( 'import_end', [ $this, 'action_import_end' ], 10, 0 );
 		}
@@ -235,6 +236,28 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 			}
 
 			return $postdata;
+		}
+
+		/**
+		 * Needed to remove the underscore to expose the field in the API.
+		 * Use the value with underscore for old exports if the new field isn't present.
+		 *
+		 * @param array $post_meta The to be imported post meta fields.
+		 *
+		 * @return array The normalized post meta fields.
+		 */
+		public function read_old_campaign_template_attribute( $post_meta ) {
+			foreach ( $post_meta as $index => $meta ) {
+				if ( '_campaign_page_template' === $meta['key'] ) {
+					$post_meta[] = [
+						'key'   => 'theme',
+						'value' => $meta['value'],
+					];
+					unset( $post_meta[ $index ] );
+				}
+			}
+
+			return $post_meta;
 		}
 	}
 }
