@@ -1,4 +1,4 @@
-/* global Hammer */
+/* global Hammer, LazyLoad */
 
 export const FullWidthCarouselHeader = {
   /**
@@ -34,6 +34,8 @@ export const FullWidthCarouselHeader = {
   setup: function () {
     const me = this;
 
+    me.isRTL = $('html').attr('dir') == 'rtl';
+
     me.$CarouselHeaderWrapper = $('#carousel-wrapper-header');
     me.$Slides = me.$CarouselHeaderWrapper.find('.carousel-item');
 
@@ -61,6 +63,18 @@ export const FullWidthCarouselHeader = {
 
       // Convert the provided image tag into background image styles.
       const $img = $slide.find('img');
+
+      // Images after the first slide are preloaded
+      // on initialization
+      if ($img.hasClass('preload')) {
+        if (!window.lazyLoad) {
+          window.lazyLoad = new LazyLoad({
+            elements_selector: '.lazyload'
+          });
+        }
+        window.lazyLoad.load($img[0]);
+      }
+
       const img_src = $img.get(0).currentSrc || $img.attr('src');
       $slide.find('.background-holder')
         .css('background-image', 'url(' + img_src + ')')
@@ -72,19 +86,19 @@ export const FullWidthCarouselHeader = {
 
     // Bind mouse interaction events
     const clickTargets = ['.carousel-control-next', '.carousel-control-prev'];
-    if ($('html').attr('dir') == 'rtl') {
+    if (me.isRTL) {
       clickTargets.reverse();
     }
     me.$CarouselHeaderWrapper.on('click', clickTargets[0], function (evt) {
       evt.preventDefault();
       me.cancelAutoplayInterval();
-      me.slideToLeft();
+      me.slideToNext();
     });
 
     me.$CarouselHeaderWrapper.on('click', clickTargets[1], function (evt) {
       evt.preventDefault();
       me.cancelAutoplayInterval();
-      me.slideToRight();
+      me.slideToPrevious();
     });
 
     me.$CarouselHeaderWrapper.on('click', '.carousel-indicators li', function (evt) {
@@ -101,15 +115,23 @@ export const FullWidthCarouselHeader = {
       const swipe = new Hammer.Swipe();
       hammer.add(swipe);
 
-      hammer.on('swipeleft', function () {
-        me.cancelAutoplayInterval();
-        me.slideToLeft();
-      });
+      const swipeListeners = [
+        function () {
+          me.slideToNext();
+          me.cancelAutoplayInterval();
+        },
+        function () {
+          me.cancelAutoplayInterval();
+          me.slideToPrevious();
+        }
+      ];
 
-      hammer.on('swiperight', function () {
-        me.cancelAutoplayInterval();
-        me.slideToRight();
-      });
+      if (me.isRTL) {
+        swipeListeners.reverse();
+      }
+
+      hammer.on('swipeleft', swipeListeners[0]);
+      hammer.on('swiperight', swipeListeners[1]);
 
       // Vertical swiping on carousel should scroll the page
       hammer.on('swipeup', function (event) {
@@ -162,7 +184,7 @@ export const FullWidthCarouselHeader = {
     const me = this;
     me.autoplayInterval = window.setInterval(function () {
       if (!me.autoplayPaused) {
-        me.slideToLeft();
+        me.slideToNext();
       }
     }, 6000);
   },
@@ -186,33 +208,33 @@ export const FullWidthCarouselHeader = {
     }
 
     if (slideIndex > currentIndex) {
-      me.slideToLeft($slide);
+      me.slideToNext($slide);
     } else {
-      me.slideToRight($slide);
+      me.slideToPrevious($slide);
     }
   },
 
   positionIndicators: function () {
+    const me = this;
     const $indicators = this.$CarouselHeaderWrapper.find('.carousel-indicators');
     const $header = this.$CarouselHeaderWrapper.find('.carousel-item.active .action-button');
-    const isRTL = $('html').attr('dir') == 'rtl';
     const isLargeAndUp = window.matchMedia('(min-width: 992px)').matches;
     const isMedium = window.matchMedia('(min-width: 768px) and (max-width: 992px)').matches;
     const isMediumAndUp = window.matchMedia('(min-width: 768px)').matches;
-    const rightSide = (isLargeAndUp && isRTL) || (isMedium && !isRTL);
+    const rightSide = (isLargeAndUp && me.isRTL) || (isMedium && !me.isRTL);
 
     if (isMediumAndUp && $header.length) {
       let leftOffset = $header.offset().left;
 
       if (rightSide) {
-        const rightOffset = leftOffset + (isRTL ? $header.width() : $header.parent().width());
+        const rightOffset = leftOffset + (me.isRTL ? $header.width() : $header.parent().width());
         const indicatorsRight = $(window).width() - rightOffset;
         $indicators.css('right', indicatorsRight + 'px')
           .css('left', '')
           .css('margin-left', '0')
           .css('margin-right', '3px'); // same as indicators x margin
       } else {
-        leftOffset = isRTL ? $header.parent().offset().left : $header.offset().left;
+        leftOffset = me.isRTL ? $header.parent().offset().left : $header.offset().left;
         $indicators.css('left', leftOffset + 'px')
           .css('right', '')
           .css('margin-right', '0')
@@ -237,9 +259,11 @@ export const FullWidthCarouselHeader = {
     }
   },
 
-  slideToRight: function ($slide) {
+  slideToPrevious: function ($slide) {
     const me = this;
     const $activeSlide = me.$Slides.filter('.active');
+    const shrinkClass = me.isRTL ? 'shrink-to-left' : 'shrink-to-right';
+
     let $previousSlide = null;
     if ($slide) {
       $previousSlide = $slide;
@@ -247,11 +271,11 @@ export const FullWidthCarouselHeader = {
       $previousSlide = me.previousSlide($activeSlide);
     }
 
-    $activeSlide.addClass('shrink-to-right');
+    $activeSlide.addClass(shrinkClass);
     $previousSlide.addClass('prev');
 
     function unsetTransitionClasses() {
-      $activeSlide.removeClass('shrink-to-right active');
+      $activeSlide.removeClass(`${shrinkClass} active`);
       $previousSlide.addClass('active').removeClass('prev');
       $activeSlide.off('transitionend');
     }
@@ -268,19 +292,20 @@ export const FullWidthCarouselHeader = {
   /**
    * Advance to the next slide in the carousel.
    */
-  slideToLeft: function ($nextSlide = null) {
+  slideToNext: function ($nextSlide = null) {
     const me = this;
     const $activeSlide = me.getActiveSlide();
+    const shrinkClass = me.isRTL ? 'shrink-to-right' : 'shrink-to-left';
 
     if (!$nextSlide) {
       $nextSlide = me.nextSlide($activeSlide);
     }
 
-    $activeSlide.addClass('shrink-to-left');
+    $activeSlide.addClass(shrinkClass);
     $nextSlide.addClass('next');
 
     function unsetTransitionClasses() {
-      $activeSlide.removeClass('shrink-to-left active');
+      $activeSlide.removeClass(`${shrinkClass} active`);
       $nextSlide.addClass('active').removeClass('next');
       $activeSlide.off('transitionend');
     }

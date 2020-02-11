@@ -25,10 +25,19 @@
 						<div class="carousel-item-mask">
 							<div class="background-holder">
 								{% if slide.image %}
-									<img src="{{ slide.image }}"
-										data-background-position="{{ slide.focus_image }}"
+									<img
+										{% if ( loop.first ) %}
+										src="{{ slide.image }}"
 										srcset="{{ slide.image_srcset }}"
 										sizes="{{ slide.image_sizes }}"
+										{% else %}
+										data-src="{{ slide.image }}"
+										data-srcset="{{ slide.image_srcset }}"
+										data-sizes="{{ slide.image_sizes }}"
+										class="preload"
+										{% endif %}
+										data-background-position="{{ slide.focus_image }}"
+
 										alt="{{ slide.image_alt  }}">
 
 									<div class="carousel-caption">

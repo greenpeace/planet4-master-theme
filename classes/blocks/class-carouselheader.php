@@ -136,12 +136,14 @@ class CarouselHeader extends Base_Block {
 		// Enqueue js for the frontend.
 		if ( ! $this->is_rest_request() ) {
 			wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );
+			wp_register_script( 'lazyload', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/12.3.0/lazyload.min.js', [], '12.3.0', true );
 			wp_enqueue_script(
 				'carousel-header',
 				P4GBKS_PLUGIN_URL . 'assets/build/carouselHeaderFrontIndex.js',
 				[
 					'jquery',
 					'hammer',
+					'lazyload',
 				],
 				'0.3',
 				true
