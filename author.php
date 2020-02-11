@@ -46,12 +46,12 @@ if ( isset( $wp_query->query_vars['author'] ) ) {
 
 if ( get_query_var( 'page' ) ) {
 	$templates          = [ 'tease-author.twig' ];
-	$page               = get_query_var( 'page' );
-	$post_args['paged'] = $page;
+	$page_num           = get_query_var( 'page' );
+	$post_args['paged'] = $page_num;
 
-	$posts = new PostQuery( $post_args, 'P4_Post' );
-	foreach ( $posts as $post ) {
-		$context['post'] = $post;
+	$author_posts = new PostQuery( $post_args, 'P4_Post' );
+	foreach ( $author_posts as $author_post ) {
+		$context['post'] = $author_post;
 		Timber::render( $templates, $context );
 	}
 } else {

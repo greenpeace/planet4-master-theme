@@ -15,24 +15,24 @@
 if ( is_main_query() && is_search() ) {
 	if ( 'GET' === filter_input( INPUT_SERVER, 'REQUEST_METHOD' ) ) {
 		$selected_sort    = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
-		$selected_filters = $_GET['f'] ?? '';
+		$selected_filters = $_GET['f'] ?? ''; // phpcs:ignore
 		$filters          = [];
 
 		// Handle submitted filter options.
 		if ( $selected_filters && is_array( $selected_filters ) ) {
-			foreach ( $selected_filters as $type => $filter_type ) {
-				foreach ( $filter_type as $name => $id ) {
-					$filters[ $type ][] = [
-						'id'   => $id,
+			foreach ( $selected_filters as $type_name => $filter_type ) {
+				foreach ( $filter_type as $name => $filter_id ) {
+					$filters[ $type_name ][] = [
+						'id'   => $filter_id,
 						'name' => $name,
 					];
 				}
 			}
 		}
 
-		$search = new P4_ElasticSearch();
-		$search->load( trim( get_search_query() ), $selected_sort, $filters );
-		$search->add_load_more();
-		$search->view();
+		$p4_search = new P4_ElasticSearch();
+		$p4_search->load( trim( get_search_query() ), $selected_sort, $filters );
+		$p4_search->add_load_more();
+		$p4_search->view();
 	}
 }
