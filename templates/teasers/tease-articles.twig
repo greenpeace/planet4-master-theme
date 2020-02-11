@@ -3,14 +3,18 @@
 		<div class="article-list-item-image">
 			<div class="article-image-holder">
 				<a href="{{ recent_post.link }}">
-					<img class="d-flex topicwise-article-image" src="{{ fn('get_the_post_thumbnail_url', recent_post.ID, 'articles-medium-large' ) }}" alt="{{ recent_post.alt_text }}">
+					<img class="d-flex topicwise-article-image lazyload"
+						data-src="{{ fn('get_the_post_thumbnail_url', recent_post.ID, 'articles-medium-large' ) }}"
+						alt="{{ recent_post.alt_text }}">
 				</a>
 			</div>
 		</div>
 	{% else %}
 		<div class="article-list-item-image article-list-item-image-max-width">
 			<a href="{{ recent_post.link }}">
-				<img class="d-flex topicwise-article-image" src="{{ fn('get_the_post_thumbnail_url', recent_post.ID, 'articles-medium-large' )  }}" alt="{{ recent_post.alt_text }}">
+				<img class="d-flex topicwise-article-image lazyload"
+					data-src="{{ fn('get_the_post_thumbnail_url', recent_post.ID, 'articles-medium-large' )  }}"
+					alt="{{ recent_post.alt_text }}">
 			</a>
 		</div>
 	{% endif %}

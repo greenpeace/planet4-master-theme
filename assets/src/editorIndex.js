@@ -13,14 +13,14 @@ import { SplittwocolumnsBlock } from './blocks/Splittwocolumns/SplittwocolumnsBl
 import { SubmenuBlock } from './blocks/Submenu/SubmenuBlock';
 import { TakeactionboxoutBlock } from './blocks/Takeactionboxout/TakeactionboxoutBlock';
 import { TimelineBlock } from './blocks/Timeline/TimelineBlock';
-
-//Filters
 import { addBlockFilters } from './BlockFilters';
 import { setupImageBlockExtension } from './ImageBlockExtension';
-import { replaceTaxonomyTermSelectors } from "./replaceTaxonomyTermSelectors"
+import { replaceTaxonomyTermSelectors } from "./replaceTaxonomyTermSelectors";
 import { addSubAndSuperscript } from './RichTextEnhancements';
 import { SpreadsheetBlock } from "./blocks/Spreadsheet/SpreadsheetBlock"
 import { addButtonLinkPasteWarning } from './addButtonLinkPasteWarning';
+import { setupCustomSidebar } from "./setupCustomSidebar";
+import { setUpCssVariables } from './connectCssVariables';
 
 new ArticlesBlock();
 new CarouselHeaderBlock();
@@ -42,5 +42,7 @@ new TimelineBlock();
 addBlockFilters();
 addSubAndSuperscript( window.wp );
 setupImageBlockExtension();
-replaceTaxonomyTermSelectors()
 addButtonLinkPasteWarning();
+replaceTaxonomyTermSelectors();
+setupCustomSidebar();
+setUpCssVariables();

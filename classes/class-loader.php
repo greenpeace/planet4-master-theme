@@ -384,9 +384,9 @@ final class Loader {
 
 			$post = get_post();
 
-			$campaign_theme = $post->custom['_campaign_page_template'];
+			$campaign_theme = $post->theme ?? $post->custom['_campaign_page_template'];
 
-			if ( is_string( $campaign_theme ) ) {
+			if ( is_string( $campaign_theme ) && ! empty( $campaign_theme ) ) {
 
 				$css_theme_creation = filectime( P4GBKS_PLUGIN_DIR . "/assets/build/theme_$campaign_theme.min.css" );
 
