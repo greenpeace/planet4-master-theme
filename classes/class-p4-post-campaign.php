@@ -327,15 +327,26 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					? 'Montserrat'
 					: $meta['campaign_header_primary'] ?? null;
 
-			if (
-				! isset( $meta['campaign_body_font'] )
-				|| empty( $meta['campaign_body_font'] )
-				|| 'campaign' === $meta['campaign_body_font']
+			if ( ! isset( $meta['campaign_body_font'] ) || empty( $meta['campaign_body_font'] )
 			) {
 				$body_font = null;
+			} elseif ( 'campaign' === $meta['campaign_body_font'] ) {
+				$campaigns_font_map = [
+					'default'   => 'lora',
+					'antarctic' => 'sanctuary',
+					'arctic'    => 'Save the Arctic',
+					'climate'   => 'Jost',
+					'forest'    => 'Kanit',
+					'oceans'    => 'Montserrat',
+					'oil'       => 'Anton',
+					'plastic'   => 'Montserrat',
+				];
+				$theme              = isset( $meta['theme'] ) && ! empty( $meta['theme'] ) ? $meta['theme'] : 'default';
+				$body_font          = $campaigns_font_map[ $theme ];
 			} else {
 				$body_font = $meta['campaign_body_font'];
 			}
+
 			$footer_theme = $meta['campaign_footer_theme'] ?? null;
 
 			if ( 'white' === $footer_theme ) {
@@ -343,7 +354,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				$footer_links_color         = $meta['footer_links_color'] ?: $default_footer_links_color;
 				$footer_color               = '#FFFFFF';
 			} else {
-				$footer_links_color = 'light' === $meta['campaign_logo_color'] ? '#FFFFFF' : '#1A1A1A';
+				$footer_links_color = 'dark' === ( $meta['campaign_logo_color'] ?? null ) ? '#1A1A1A' : '#FFFFFF';
 				$footer_color       = $meta['campaign_nav_color'] ?? null;
 			}
 
