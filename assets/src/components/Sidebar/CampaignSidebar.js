@@ -122,7 +122,7 @@ export class CampaignSidebar extends Component {
           <div className="components-panel__body is-opened">
             <ThemeSelect
               metaKey='theme'
-              label={ __( 'Campaign template', 'planet4-blocks-backend' ) }
+              label={ __( 'Theme', 'planet4-blocks-backend' ) }
               onChange={ this.handleThemeChange }
               options={ themeOptions }
             />
