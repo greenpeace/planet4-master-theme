@@ -87,54 +87,19 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			register_post_type( self::POST_TYPE, $args );
 
-			self::campaign_field(
-				'theme',
-				[ 'default' => '' ]
-			);
-			self::campaign_field(
-				'campaign_logo',
-				[ 'default' => 'greenpeace' ]
-			);
-			self::campaign_field(
-				'campaign_logo_color',
-				[ 'default' => 'light' ]
-			);
-			self::campaign_field(
-				'campaign_nav_type',
-				[ 'default' => 'planet4' ]
-			);
-			self::campaign_field(
-				'campaign_nav_color',
-				[ 'default' => '#ffffff' ]
-			);
-			self::campaign_field(
-				'campaign_nav_border',
-				[ 'default' => 'none' ]
-			);
-			self::campaign_field(
-				'campaign_header_color',
-				[ 'default' => '#000000' ]
-			);
-			self::campaign_field(
-				'campaign_primary_color'
-			);
-			self::campaign_field(
-				'campaign_secondary_color'
-			);
-			self::campaign_field(
-				'campaign_header_primary'
-			);
-			self::campaign_field(
-				'campaign_body_font',
-				[ 'default' => 'campaign' ]
-			);
-			self::campaign_field(
-				'campaign_footer_theme',
-				[ 'default' => 'default' ]
-			);
-			self::campaign_field(
-				'footer_links_color'
-			);
+			self::campaign_field( 'theme' );
+			self::campaign_field( 'campaign_logo' );
+			self::campaign_field( 'campaign_logo_color' );
+			self::campaign_field( 'campaign_nav_type' );
+			self::campaign_field( 'campaign_nav_color' );
+			self::campaign_field( 'campaign_nav_border' );
+			self::campaign_field( 'campaign_header_color' );
+			self::campaign_field( 'campaign_primary_color' );
+			self::campaign_field( 'campaign_secondary_color' );
+			self::campaign_field( 'campaign_header_primary' );
+			self::campaign_field( 'campaign_body_font' );
+			self::campaign_field( 'campaign_footer_theme' );
+			self::campaign_field( 'footer_links_color' );
 		}
 
 		/**
@@ -352,34 +317,22 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		 * @return array The values that will be used for the css variables.
 		 */
 		public static function css_vars( array $meta ): array {
-			$theme = $meta['theme'] ?? $meta['_campaign_page_template'];
-
 			// Set specific CSS for Montserrat.
 			$special_weight_fonts = [
 				'Montserrat'       => '900',
 				'Montserrat_Light' => '500',
 			];
 
-			$header_primary_font =
-				'Montserrat_Light' === $meta['campaign_header_primary'] ?? null
+			$header_primary_font = 'Montserrat_Light' === ( $meta['campaign_header_primary'] ?? null )
 					? 'Montserrat'
 					: $meta['campaign_header_primary'] ?? null;
 
-			$campaigns_font_map = [
-				'default'   => 'lora',
-				'antarctic' => 'sanctuary',
-				'arctic'    => 'Save the Arctic',
-				'climate'   => 'Jost',
-				'forest'    => 'Kanit',
-				'oceans'    => 'Montserrat',
-				'oil'       => 'Anton',
-				'plastic'   => 'Montserrat',
-			];
-
-			$campaign_font = $campaigns_font_map[ $theme ?: 'default' ];
-
-			if ( 'campaign' === $meta['campaign_body_font'] ) {
-				$body_font = $campaign_font;
+			if (
+				! isset( $meta['campaign_body_font'] )
+				|| empty( $meta['campaign_body_font'] )
+				|| 'campaign' === $meta['campaign_body_font']
+			) {
+				$body_font = null;
 			} else {
 				$body_font = $meta['campaign_body_font'];
 			}
@@ -411,7 +364,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'footer-links-color'   => $footer_links_color,
 				'header-color'         => $meta['campaign_header_color'] ?? null,
 				'header-primary-font'  => $header_primary_font,
-				'header-font-weight'   => $special_weight_fonts[ $meta['campaign_header_primary'] ] ?? null,
+				'header-font-weight'   => $special_weight_fonts[ $meta['campaign_header_primary'] ?? null ] ?? null,
 				'body-font'            => $body_font,
 				'passive-button-color' => isset( $meta['campaign_primary_color'] ) && $meta['campaign_primary_color']
 					? $passive_button_colors_map[ strtolower( $meta['campaign_primary_color'] ) ]

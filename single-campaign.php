@@ -32,10 +32,10 @@ if ( $theme ) {
 // Save custom style settings.
 $custom_styles = [];
 
-$custom_styles['nav_type']            = $campaign_meta['campaign_nav_type'];
-$custom_styles['nav_border']          = $campaign_meta['campaign_nav_border'];
-$custom_styles['campaign_logo_color'] = $campaign_meta['campaign_logo_color'] ?? 'light';
-$custom_styles['campaign_logo']       = $campaign_meta['campaign_logo'] ?? null;
+$custom_styles['nav_type']            = $campaign_meta['campaign_nav_type'] ?? null;
+$custom_styles['nav_border']          = $campaign_meta['campaign_nav_border'] ?? null;
+$custom_styles['campaign_logo_color'] = isset( $campaign_meta['campaign_logo_color'] ) && ! empty( $campaign_meta['campaign_logo_color'] ) ? $campaign_meta['campaign_logo_color'] : 'light';
+$custom_styles['campaign_logo']       = isset( $campaign_meta['campaign_logo'] ) && ! empty( $campaign_meta['campaign_logo'] ) ? $campaign_meta['campaign_logo'] : 'greenpeace';
 
 // Set GTM Data Layer values.
 $post->set_data_layer();
