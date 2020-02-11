@@ -276,7 +276,10 @@ class ENForm extends Base_Block {
 
 		if ( 'campaign' === get_post_type() ) {
 			$page_meta_data    = get_post_meta( $post->ID );
-			$campaign_template = ! empty( $page_meta_data['_campaign_page_template'][0] ) ? $page_meta_data['_campaign_page_template'][0] : false;
+			$campaign_template = $page_meta_data['theme']
+				?? ! empty( $page_meta_data['_campaign_page_template'][0] )
+					? $page_meta_data['_campaign_page_template'][0]
+					: false;
 			$campaign_data     = [
 				'template' => $campaign_template,
 			];
