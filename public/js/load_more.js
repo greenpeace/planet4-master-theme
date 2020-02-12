@@ -1,5 +1,11 @@
-/* global more_url */
+/* global more_url, LazyLoad */
 jQuery(function ($) {
+  if (!window.lazyLoad) {
+    window.lazyLoad = new LazyLoad({
+      elements_selector: '.lazyload'
+    });
+  }
+
   // Block: Content Four Column functionality.
   // Find out how many posts per row are being displayed.
   $('.four-column-content').each( function() {
@@ -61,17 +67,9 @@ jQuery(function ($) {
     const articles_per_click = 3;
 
     if ($articles.length > 0) {
-
-      // Lazy-load images of hidden articles.
-      const $images = $('.article-list-item.d-none img');
-      $images.slice(0, articles_per_click).each(function () {
-        const image = this;
-        image.setAttribute('src', image.getAttribute('data-src'));
-        image.onload = function () {
-          image.removeAttribute('data-src');
-        };
-      });
       $articles.slice(0, articles_per_click).removeClass('d-none').fadeOut(0).slideDown('slow');
+
+      window.lazyLoad.update();
     }
     $articles = $('.article-list-item.d-none', $(this).closest('.container'));
     if ($articles.length === 0) {
@@ -107,6 +105,9 @@ jQuery(function ($) {
     }).done(function ( response ) {
       // Append the response at the bottom of the results and then show it.
       $content.append( response );
+
+      window.lazyLoad.update();
+
       if (next_page === total_pages) {
         el.fadeOut();
       }
@@ -124,6 +125,8 @@ jQuery(function ($) {
 
     if ($row.length > 0) {
       $row.slice( 0, covers_per_row ).show('slow');
+
+      window.lazyLoad.update();
     }
     if ($row.length <= covers_per_row) {
       $(this).closest('.load-more-campaigns-button-div').hide('fast');
