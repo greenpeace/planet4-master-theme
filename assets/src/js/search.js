@@ -1,4 +1,10 @@
-/* global localizations */
+/* global localizations, LazyLoad */
+
+if (!window.lazyLoad) {
+  window.lazyLoad = new LazyLoad({
+    elements_selector: '.lazyload'
+  });
+}
 
 // Search page.
 export const setupSearch = function($) {
@@ -104,6 +110,9 @@ export const setupSearch = function($) {
         // Append the response at the bottom of the results and then show it.
         $( '.multiple-search-result .list-unstyled' ).append( response );
         $( '.row-hidden:last' ).removeClass( 'row-hidden' ).show( 'fast' );
+
+        window.lazyLoad.update();
+
         if (posts_per_load * next_page > total_posts) {
           $load_more_button.hide();
         }
@@ -117,6 +126,8 @@ export const setupSearch = function($) {
         $load_more_button.closest( '.load-more-button-div' ).hide( 'fast' );
       }
       $row.first().show( 'fast' ).removeClass( 'row-hidden' );
+
+      window.lazyLoad.update();
     }
   });
 
@@ -147,6 +158,8 @@ export const setupSearch = function($) {
         }
         if (window_scroll > (element_top + element_height - window_height)) {
           $('.row-hidden').removeClass('row-hidden').show('fast');
+
+          window.lazyLoad.update();
         }
       }
       return false;
