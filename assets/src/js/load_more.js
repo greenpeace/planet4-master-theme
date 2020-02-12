@@ -1,5 +1,13 @@
+/* global LazyLoad */
+
 export const setupLoadMore = function($) {
   const load_more = $('button.load-more-mt');
+
+  if (!window.lazyLoad) {
+    window.lazyLoad = new LazyLoad({
+      elements_selector: '.lazyload'
+    });
+  }
 
   load_more.off('mousedown touchstart').on('mousedown touchstart', function (e) {
     e.preventDefault();
@@ -17,6 +25,9 @@ export const setupLoadMore = function($) {
     }).done(function ( response ) {
       // Append the response at the bottom of the results and then show it.
       $content.append( response );
+
+      window.lazyLoad.update();
+
       if (next_page === total_pages) {
         load_more.fadeOut();
       }
