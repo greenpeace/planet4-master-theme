@@ -16,6 +16,21 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		 */
 		const POST_TYPE = 'campaign';
 
+		public const META_FIELDS = [
+			'theme',
+			'campaign_logo',
+			'campaign_logo_color',
+			'campaign_nav_type',
+			'campaign_nav_color',
+			'campaign_nav_border',
+			'campaign_header_color',
+			'campaign_primary_color',
+			'campaign_secondary_color',
+			'campaign_header_primary',
+			'campaign_body_font',
+			'campaign_footer_theme',
+			'footer_links_color',
+		];
 
 		/**
 		 * Taxonomy_Image constructor.
@@ -87,19 +102,9 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			register_post_type( self::POST_TYPE, $args );
 
-			self::campaign_field( 'theme' );
-			self::campaign_field( 'campaign_logo' );
-			self::campaign_field( 'campaign_logo_color' );
-			self::campaign_field( 'campaign_nav_type' );
-			self::campaign_field( 'campaign_nav_color' );
-			self::campaign_field( 'campaign_nav_border' );
-			self::campaign_field( 'campaign_header_color' );
-			self::campaign_field( 'campaign_primary_color' );
-			self::campaign_field( 'campaign_secondary_color' );
-			self::campaign_field( 'campaign_header_primary' );
-			self::campaign_field( 'campaign_body_font' );
-			self::campaign_field( 'campaign_footer_theme' );
-			self::campaign_field( 'footer_links_color' );
+			foreach ( self::META_FIELDS as $field ) {
+				self::campaign_field( $field );
+			}
 		}
 
 		/**

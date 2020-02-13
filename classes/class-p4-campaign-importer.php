@@ -24,7 +24,7 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 		public function __construct() {
 			add_action( 'wp_import_insert_post', [ $this, 'update_campaign_attachements' ], 10, 4 );
 			add_filter( 'wp_import_post_terms', [ $this, 'filter_wp_import_post_terms' ], 10, 3 );
-			add_filter( 'wp_import_post_meta', [ $this, 'read_old_campaign_template_attribute' ] );
+			add_filter( 'wp_import_post_meta', [ $this, 'process_campaign_metas' ] );
 			add_filter( 'wp_import_post_data_processed', [ $this, 'set_imported_campaigns_as_drafts' ], 10, 2 );
 			add_action( 'import_end', [ $this, 'action_import_end' ], 10, 0 );
 		}
@@ -239,21 +239,43 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 		}
 
 		/**
-		 * Needed to remove the underscore to expose the field in the API.
-		 * Use the value with underscore for old exports if the new field isn't present.
+		 * 1. Exclude campaign style meta fields if the NRO has this setting enabled.
+		 *
+		 * 2. Populate the "theme" meta field with the contents of its previous name if the new field doesn't exist yet.
 		 *
 		 * @param array $post_meta The to be imported post meta fields.
 		 *
 		 * @return array The normalized post meta fields.
 		 */
-		public function read_old_campaign_template_attribute( $post_meta ) {
-			foreach ( $post_meta as $index => $meta ) {
-				if ( '_campaign_page_template' === $meta['key'] ) {
+		public function process_campaign_metas( $post_meta ) {
+			$p4_options = get_option( 'planet4_options' );
+			// 1. Exclude style fields the option for that is set or if it's passed in the form data.
+			if (
+				! empty( $p4_options['campaigns_import_exclude_style'] )
+				|| ! empty( $_POST['campaigns_import_exclude_style'] )
+			) {
+				// Also exclude the old attribute as the code still falls back to it.
+				$excluded_keys = array_merge( P4_Post_Campaign::META_FIELDS, [ '_campaign_page_template' ] );
+				foreach ( $post_meta as $index => $meta ) {
+					if ( in_array( $meta['key'], $excluded_keys, true ) ) {
+						unset( $post_meta[ $index ] );
+					}
+				}
+			} else {
+				// 2. Populate the new `theme` field and unset the old `_campaign_page_template if the new doesn't exist.
+				foreach ( $post_meta as $index => $meta ) {
+					if ( '_campaign_page_template' === $meta['key'] ) {
+						$old_theme = $meta['value'];
+						unset( $post_meta[ $index ] );
+					} elseif ( 'theme' === $meta['key'] ) {
+						$new_theme = $meta['value'];
+					}
+				}
+				if ( isset( $old_theme ) && ! isset( $new_theme ) ) {
 					$post_meta[] = [
 						'key'   => 'theme',
-						'value' => $meta['value'],
+						'value' => $old_theme,
 					];
-					unset( $post_meta[ $index ] );
 				}
 			}
 
