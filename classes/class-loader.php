@@ -446,6 +446,11 @@ final class Loader {
 			'title' => __( 'Planet 4 Blocks', 'planet4-blocks' ),
 		];
 
+		$categories[1] = [
+			'slug'  => 'planet4-blocks-beta',
+			'title' => __( 'Planet 4 Blocks - BETA', 'planet4-blocks' ),
+		];
+
 		return array_merge(
 			$common,
 			$categories
