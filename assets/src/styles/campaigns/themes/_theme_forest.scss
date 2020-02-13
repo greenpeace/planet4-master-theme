@@ -29,18 +29,16 @@ body.theme-forest {
   }
 
   .btn-secondary {
-    &:not(#hidecookie) {
-      @include forest-button($white, $forest-dark-green);
-      border: 1px solid $forest-dark-green;
-      box-sizing: border-box;
-      text-decoration: none;
-      font-weight: bold;
+    @include forest-button($white, $forest-dark-green);
+    border: 1px solid $forest-dark-green;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-weight: bold;
 
-      &:hover {
-        color: white;
-        border: 1px solid $forest-dark-green;
-        background: $forest-dark-green;
-      }
+    &:hover {
+      color: white;
+      border: 1px solid $forest-dark-green;
+      background: $forest-dark-green;
     }
   }
 
