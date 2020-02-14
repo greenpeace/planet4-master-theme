@@ -87,6 +87,24 @@ class Gallery extends Base_Block {
 					'gallery_block_focus_points' => [
 						'type' => 'string',
 					],
+					'image_data'                 => [
+						'type'    => 'array',
+						'default' => [],
+						'items'   => [
+							'type'       => 'object',
+							'properties' => [
+								'id'         => [
+									'type' => 'integer',
+								],
+								'url'        => [
+									'type' => 'string',
+								],
+								'focalPoint' => [
+									'type' => 'object',
+								],
+							],
+						],
+					],
 				],
 			]
 		);
