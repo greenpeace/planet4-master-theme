@@ -46,14 +46,18 @@
 		},
 		{
 			"id": "campaign_nav_color",
-			"options": [
-				{ "color":  "#ffffff"},
-				{ "color":  "#000000"},
-				{ "color":  "#044362"},
-				{ "color":  "#2cabb1"},
-				{ "color": "#66cc00" }
-			],
-			"default": "#ffffff"
+			"dependsOn": "campaign_nav_type",
+			"configurations": {
+				"minimal": {
+					"options": [
+						{ "color": "#ffffff"},
+						{ "color": "#000000"},
+						{ "color": "#044362"},
+						{ "color": "#2cabb1"},
+						{ "color": "#66cc00" }
+					]
+				}
+			}
 		},
 		{
 			"id": "campaign_header_color",
@@ -120,11 +124,15 @@
 					"label": "Sans Serif"
 				},
 				{
-					"value": "campaign",
-					"label": "Campaign default"
+					"value": "Montserrat",
+					"label": "Montserrat"
+				},
+				{
+					"value": "",
+					"label": "Default"
 				}
 			],
-			"default": "lora"
+			"default": ""
 		},
 		{
 			"id": "campaign_footer_theme",

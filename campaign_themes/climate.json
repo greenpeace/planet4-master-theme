@@ -42,17 +42,22 @@
 					"label": "Minimal Navigation"
 				}
 			],
-			"default": "planet4"
+			"default": "minimal"
 		},
 		{
 			"id": "campaign_nav_color",
-			"options": [
-				{ "color":  "#ffffff"},
-				{ "color":  "#000000"},
-				{ "color":  "#ff513c"},
-				{ "color":  "#007eff"},
-				{ "color":  "#66cc00"}
-			]
+			"dependsOn": "campaign_nav_type",
+			"configurations": {
+				"minimal": {
+					"options": [
+						{ "color":  "#ffffff"},
+						{ "color":  "#000000"},
+						{ "color":  "#ff513c"},
+						{ "color":  "#007eff"},
+						{ "color":  "#66cc00"}
+					]
+				}
+			}
 		},
 		{
 			"id": "campaign_header_color",
@@ -140,11 +145,15 @@
 					"label": "Sans Serif"
 				},
 				{
-					"value": "campaign",
-					"label": "Campaign default"
+					"value": "Jost",
+					"label": "Jost"
+				},
+				{
+					"value": "",
+					"label": "Default"
 				}
 			],
-			"default": "campaign"
+			"default": ""
 		},
 		{
 			"id": "campaign_footer_theme",

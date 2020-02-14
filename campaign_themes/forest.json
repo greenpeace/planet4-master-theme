@@ -46,12 +46,17 @@
 		},
 		{
 			"id": "campaign_nav_color",
-			"options": [
-				{ "color":  "#ffffff"},
-				{ "color":  "#000000"},
-				{ "color":  "#2caf4e"},
-				{ "color":  "#a0d654"}
-			]
+			"dependsOn": "campaign_nav_type",
+			"configurations": {
+				"minimal": {
+					"options": [
+						{ "color":  "#ffffff"},
+						{ "color":  "#000000"},
+						{ "color":  "#2caf4e"},
+						{ "color":  "#a0d654"}
+					]
+				}
+			}
 		},
 		{
 			"id": "campaign_header_color",
@@ -117,11 +122,15 @@
 					"label": "Sans Serif"
 				},
 				{
-					"value": "campaign",
-					"label": "Campaign default"
+					"value": "Kanit",
+					"label": "Kanit"
+				},
+				{
+					"value": "",
+					"label": "Default"
 				}
 			],
-			"default": "lora"
+			"default": ""
 		},
 		{
 			"id": "campaign_footer_theme",

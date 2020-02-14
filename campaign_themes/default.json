@@ -70,11 +70,16 @@
 		},
 		{
 			"id": "campaign_nav_color",
-			"options": [
-				{ "color":  "#ffffff"},
-				{ "color":  "#000000"},
-				{ "color": "#035880"}
-			]
+			"dependsOn": "campaign_nav_type",
+			"configurations": {
+				"minimal": {
+					"options": [
+						{ "color":  "#ffffff"},
+						{ "color":  "#000000"},
+						{ "color": "#035880"}
+					]
+				}
+			}
 		},
 		{
 			"id": "campaign_header_color",
@@ -161,11 +166,11 @@
 					"label": "Sans Serif"
 				},
 				{
-					"value": "campaign",
-					"label": "Campaign default"
+					"value": "",
+					"label": "Default"
 				}
 			],
-			"default": "campaign"
+			"default": ""
 		},
 		{
 			"id": "campaign_footer_theme",
