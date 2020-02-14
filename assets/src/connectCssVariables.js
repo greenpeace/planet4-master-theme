@@ -14,24 +14,6 @@ const metaToVariableMapping = [
   {
     metaKey: 'campaign_body_font',
     cssVariable: '--body-font',
-    transform( value ) {
-      if ( value !== 'campaign' ) {
-        return value;
-      }
-
-      const campaignFonts = {
-        default: 'lora',
-        antarctic: 'sanctuary',
-        arctic: 'Save the Arctic',
-        climate: 'Jost',
-        forest: 'Kanit',
-        oceans: 'Montserrat',
-        oil: 'Anton',
-        plastic: 'Montserrat',
-      };
-
-      return campaignFonts[ getMeta()[ 'theme' ] || 'default' ];
-    }
   },
   {
     metaKey: 'campaign_header_primary',
