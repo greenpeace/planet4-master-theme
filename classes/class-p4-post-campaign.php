@@ -323,29 +323,32 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'Montserrat_Light' => '500',
 			];
 
-			$header_primary_font = 'Montserrat_Light' === ( $meta['campaign_header_primary'] ?? null )
-					? 'Montserrat'
-					: $meta['campaign_header_primary'] ?? null;
+			$campaigns_font_map = [
+				'default'   => 'lora',
+				'antarctic' => 'sanctuary',
+				'arctic'    => 'Save the Arctic',
+				'climate'   => 'Jost',
+				'forest'    => 'Kanit',
+				'oceans'    => 'Montserrat',
+				'oil'       => 'Anton',
+				'plastic'   => 'Montserrat',
+			];
 
-			if ( ! isset( $meta['campaign_body_font'] ) || empty( $meta['campaign_body_font'] )
-			) {
-				$body_font = null;
-			} elseif ( 'campaign' === $meta['campaign_body_font'] ) {
-				$campaigns_font_map = [
-					'default'   => 'lora',
-					'antarctic' => 'sanctuary',
-					'arctic'    => 'Save the Arctic',
-					'climate'   => 'Jost',
-					'forest'    => 'Kanit',
-					'oceans'    => 'Montserrat',
-					'oil'       => 'Anton',
-					'plastic'   => 'Montserrat',
-				];
-				$theme              = isset( $meta['theme'] ) && ! empty( $meta['theme'] ) ? $meta['theme'] : 'default';
-				$body_font          = $campaigns_font_map[ $theme ];
-			} else {
-				$body_font = $meta['campaign_body_font'];
-			}
+			$theme = empty( $meta['theme'] )
+								? 'default'
+								: $meta['theme'];
+
+			$header_primary_font = empty( $meta['campaign_header_primary'] )
+															? $campaigns_font_map[ $theme ]
+															: $meta['campaign_header_primary'];
+
+			$body_font = empty( $meta['campaign_body_font'] )
+										? $campaigns_font_map[ $theme ]
+										: $meta['campaign_body_font'];
+
+			// TODO: Remove this special case.
+			$header_primary_font = str_replace( 'Montserrat_Light', 'Montserrat', $header_primary_font );
+			$body_font           = str_replace( 'Montserrat_Light', 'Montserrat', $body_font );
 
 			$footer_theme = $meta['campaign_footer_theme'] ?? null;
 

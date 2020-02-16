@@ -3,6 +3,12 @@ Later we will use these variables in our source scss files (with a fallback to t
  to expose variables to theme configuration files, thereby removing the need of separate selectors.
  #}
 <style>
+	:root {
+		{% if css_vars['header-primary-font'] %}
+			--campaigns-header-primary-font: {{ css_vars['header-primary-font'] }};
+		{% endif %}
+	}
+
 	{% if css_vars['nav-color'] %}
 		.navbar {
 			background-color: {{ css_vars['nav-color'] }} !important;
