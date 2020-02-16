@@ -1,10 +1,9 @@
 body.theme-climate {
-  $jost: "Jost", sans-serif;
   $gradient-color: red;
   $form-caption-transform: uppercase;
 
   .enform-wrap {
-    @include campaign-en-block($jost, $jost, $form-caption-transform);
+    @include campaign-en-block($form-caption-transform);
 
     &.enform-side-style {
       &::after {
@@ -32,7 +31,7 @@ body.theme-climate {
         }
 
         .form-description {
-          font-family: $jost;
+          font-family: var(--campaigns-header-primary-font);
           margin-bottom: $space-md;
 
           @include large-and-up {
@@ -43,7 +42,7 @@ body.theme-climate {
             font-weight: bold;
             font-size: 1.2rem;
             text-transform: uppercase;
-            font-family: $jost;
+            font-family: var(--campaigns-header-primary-font);
             margin-bottom: 4px;
             display: inline-block;
           }

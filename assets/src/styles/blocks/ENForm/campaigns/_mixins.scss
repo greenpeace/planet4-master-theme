@@ -1,14 +1,23 @@
-@mixin campaign-en-block($form-caption-heading-font, $en-form-content-heading-font, $form-caption-transform: false) {
+@mixin campaign-en-block($form-caption-transform: false) {
   .form-caption {
+    padding-bottom: $space-xxl;
+
     h1, h2, h3 {
-      font-family: $form-caption-heading-font !important;
+      font-family: var(--campaigns-header-primary-font) !important;
 
       @if $form-caption-transform {
         text-transform: $form-caption-transform;
       }
     }
 
+    p {
+      font-size: $font-size-sm;
+      line-height: 1.875rem;
+    }
+
     h1 {
+      font-size: 3.62rem;
+      color: white !important;
       margin-bottom: 16px;
       line-height: 1.225;
     }
@@ -31,10 +40,23 @@
   }
 
   .enform {
+    padding-bottom: 0;
+
+    h2 {
+      font-family: $roboto !important;
+    }
+
+    .submit button {
+      font-family: $roboto !important;
+      margin-bottom: 0;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
     #enform-content {
       .title-and-description {
         h2 {
-          font-family: $en-form-content-heading-font !important;
+          font-family: var(--campaigns-header-primary-font) !important;
         }
       }
     }
