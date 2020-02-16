@@ -43,7 +43,8 @@
 					],
 					"default": "greenpeace"
 				}
-			}
+			},
+			"default": "minimal"
 		},
 		{
 			"id": "campaign_logo_color",
@@ -157,7 +158,8 @@
 					],
 					"default": "light"
 				}
-			}
+			},
+			"default": "greenpeace"
 		},
 		{
 			"id": "campaign_nav_type",
@@ -184,22 +186,26 @@
 						{ "color": "#035880"}
 					]
 				}
-			}
+			},
+			"default": "auto"
 		},
 		{
 			"id": "campaign_header_color",
 			"options": [
-			]
+			],
+			"default": "auto"
 		},
 		{
 			"id": "campaign_primary_color",
 			"options": [
-			]
+			],
+			"default": "#ee562d"
 		},
 		{
 			"id": "campaign_secondary_color",
 			"options": [
-			]
+			],
+			"default": "auto"
 		},
 		{
 			"id": "campaign_header_primary",
@@ -236,7 +242,8 @@
 					"value": "Save the Arctic",
 					"label": "Save the Arctic"
 				}
-			]
+			],
+			"default": "Roboto"
 		},
 		{
 			"id": "campaign_header_secondary",
@@ -257,7 +264,8 @@
 					"value": "open_sans_shadows",
 					"label": "Open Sans Shadows"
 				}
-			]
+			],
+			"default": "Roboto"
 		},
 		{
 			"id": "campaign_body_font",
@@ -301,7 +309,8 @@
 						{ "color": "#035880"}
 					]
 				}
-			}
+			},
+			"default": "default"
 		}
 	]
 }
