@@ -85,6 +85,7 @@
 	{% if css_vars %}
 		{% include 'css-variables.twig' %}
 	{% endif %}
+
 	{% if custom_styles %}
 		<style type="text/css">
 			{% for style in custom_styles.css %}{{ style|raw }}{% endfor %}

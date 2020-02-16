@@ -1,3 +1,18 @@
+.site-footer {
+  background-color: --campaigns-footer-color !important;
+
+	a,
+	li,
+	.gp-year,
+	.copyright-text {
+		color: --campaigns-footer-links-color !important;
+  }
+
+  .gp-year {
+		font-family: $roboto !important;
+  }
+}
+
 .site-footer_min {
   padding-top: 32px;
 
@@ -20,4 +35,8 @@
   .container {
     padding-top: 0;
   }
+
+	.icon {
+		fill: --campaigns-footer-links-color !important;
+	}
 }

@@ -1,0 +1,40 @@
+body, p {
+	font-family: var(--campaigns-body-font) !important;
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: var(--campaigns-header-primary-font) !important;
+	color: var(--campaigns-header-color) !important;
+	// TODO: We have a lot of weight overrides, maybe this should be removed.
+	// font-weight: var(--campaigns-header-font-weight) !important;
+}
+
+a {
+	color: var(--campaigns-secondary-color) !important;
+}
+
+.btn-primary {
+	color: var(--campaigns-primary-button-color-idle) !important;
+
+	&:hover {
+		background: var(--campaigns-primary-button-color-hover) !important;
+		color: white !important;
+	}
+}
+
+.btn-secondary {
+	background: rgba(255, 255, 255, .75) !important;
+	border: 1px solid var(--campaigns-secondary-color) !important;
+	color: var(--campaigns-secondary-color) !important;
+
+	&:hover {
+		background: var(--campaigns-secondary-color) !important;
+		border: 1px solid var(--campaigns-secondary-color) !important;
+		color: white !important;
+	}
+}
+
+
+
+
+

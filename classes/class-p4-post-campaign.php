@@ -317,10 +317,21 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		 * @return array The values that will be used for the css variables.
 		 */
 		public static function css_vars( array $meta ): array {
-			// Set specific CSS for Montserrat.
-			$special_weight_fonts = [
-				'Montserrat'       => '900',
-				'Montserrat_Light' => '500',
+			$theme = empty( $meta['theme'] ) ? 'default' : $meta['theme'];
+
+			// TODO: Remove, this default should be in the default theme's JSON.
+			$default_p4_hover_color = '#ee562d';
+
+			// TODO: Remove all these hardcoded maps (passive_button_colors, campaigns_font, special_weight).
+			$passive_button_colors_map = [
+				$default_p4_hover_color => '#f36d3a',
+				'#ffd204'               => '#ffe467',
+				'#66cc00'               => '#66cc00',
+				'#6ed961'               => '#a7e021',
+				'#21cbca'               => '#77ebe0',
+				'#7a1805'               => '#a01604',
+				'#2077bf'               => '#2077bf',
+				'#1b4a1b'               => '#1b4a1b',
 			];
 
 			$campaigns_font_map = [
@@ -334,58 +345,61 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'plastic'   => 'Montserrat',
 			];
 
-			$theme = empty( $meta['theme'] )
-								? 'default'
-								: $meta['theme'];
+			$special_weight_fonts = [
+				'Montserrat'       => '900',
+				'Montserrat_Light' => '500',
+			];
 
-			$header_primary_font = empty( $meta['campaign_header_primary'] )
-															? $campaigns_font_map[ $theme ]
-															: $meta['campaign_header_primary'];
-
-			$body_font = empty( $meta['campaign_body_font'] )
-										? $campaigns_font_map[ $theme ]
-										: $meta['campaign_body_font'];
-
-			// TODO: Remove this special case.
-			$header_primary_font = str_replace( 'Montserrat_Light', 'Montserrat', $header_primary_font );
-			$body_font           = str_replace( 'Montserrat_Light', 'Montserrat', $body_font );
-
-			$footer_theme = $meta['campaign_footer_theme'] ?? null;
-
-			if ( 'white' === $footer_theme ) {
-				$default_footer_links_color = $meta['campaign_nav_color'] ?: '#1A1A1A';
-				$footer_links_color         = $meta['footer_links_color'] ?: $default_footer_links_color;
-				$footer_color               = '#FFFFFF';
-			} else {
-				$footer_links_color = 'dark' === ( $meta['campaign_logo_color'] ?? null ) ? '#1A1A1A' : '#FFFFFF';
-				$footer_color       = $meta['campaign_nav_color'] ?? null;
+			$default_body_font = 'auto';
+			if ( ! empty( $meta[ 'campaign_body_font' ] )) {
+				$default_body_font = $meta[ 'campaign_body_font' ];
+				if ( $meta['campaign_body_font'] === 'campaign' ) {
+					$default_body_font = $campaigns_font_map[ $theme ];
+				}
 			}
 
-			$passive_button_colors_map = [
-				'#ffd204' => '#ffe467',
-				'#66cc00' => '#66cc00',
-				'#6ed961' => '#a7e021',
-				'#21cbca' => '#77ebe0',
-				'#ee562d' => '#f36d3a',
-				'#7a1805' => '#a01604',
-				'#2077bf' => '#2077bf',
-				'#1b4a1b' => '#1b4a1b',
+			// TODO: Read this from the JSON file (default theme)
+			$defaults = [
+				'campaign_nav_color'       => '#1A1A1A',
+				'campaign_body_font'       => $default_body_font,
+				'campaign_header_primary'  => $campaigns_font_map[ $theme ],
+				'campaign_header_weight'   => 'auto',
+				'campaign_primary_color'   => $default_p4_hover_color,
+				'campaign_secondary_color' => 'auto',
+				'campaign_footer_theme'    => 'white',
+				'footer_links_color'       => '#1A1A1A',
+				'footer_color'             => '#FFFFFF',
+				'passive_button_color'     => 'auto',
 			];
 
-			return [
-				'nav-color'            => $meta['campaign_nav_color'] ?? null,
-				'footer-color'         => $footer_color,
-				'footer-links-color'   => $footer_links_color,
-				'header-color'         => $meta['campaign_header_color'] ?? null,
-				'header-primary-font'  => $header_primary_font,
-				'header-font-weight'   => $special_weight_fonts[ $meta['campaign_header_primary'] ?? null ] ?? null,
-				'body-font'            => $body_font,
-				'passive-button-color' => isset( $meta['campaign_primary_color'] ) && $meta['campaign_primary_color']
-					? $passive_button_colors_map[ strtolower( $meta['campaign_primary_color'] ) ]
-					: null,
-				'primary-color'        => $meta['campaign_primary_color'] ?? null,
-				'secondary-color'      => $meta['campaign_secondary_color'] ?? null,
-			];
+			// 'array_intersect_key' removes the keys from meta that are not present in the defaults.
+			// 'array_filter' removes falsey values from the resulting array.
+			$campaign_options = array_filter( array_intersect_key($meta, $defaults) );
+			$css_vars = array_merge(
+				$defaults,
+				$campaign_options
+			);
+
+			// TODO: Remove this special case.
+			$css_vars['campaign_header_primary'] = str_replace( 'Montserrat_Light', 'Montserrat', $css_vars['campaign_header_primary'] );
+			$css_vars['campaign_body_font']      = str_replace( 'Montserrat_Light', 'Montserrat', $css_vars['campaign_body_font']);
+
+			// TODO: Find a better solution for the footer logic?
+			if ( 'white' === $css_vars['campaign_footer_theme'] ) {
+				$default_footer_links_color     = $meta['campaign_nav_color'] ?: $defaults['footer_links_color'];
+				$css_vars['footer_links_color'] = $meta['footer_links_color'] ?: $default_footer_links_color;
+				$css_vars['footer_color']       = '#FFFFFF';
+			} else {
+				$css_vars['footer_links_color'] = 'dark' === ( $meta['campaign_logo_color'] ?? null ) ? $defaults['footer_links_color'] : '#FFFFFF';
+				$css_vars['footer_color']       = $meta['campaign_nav_color'] ?? null;
+			}
+
+			// TODO: Remove this "Passive" color map based on hovers
+			$css_vars['passive_button_color'] = isset( $meta['campaign_primary_color'] ) && $meta['campaign_primary_color']
+			? $passive_button_colors_map[ strtolower( $meta['campaign_primary_color'] ) ]
+			: $defaults['passive_button_color'];
+
+			return $css_vars;
 		}
 	}
 }
