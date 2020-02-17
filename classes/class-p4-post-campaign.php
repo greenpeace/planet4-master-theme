@@ -328,6 +328,22 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					: $meta['campaign_header_primary'] ?? null;
 
 			$body_font = $meta['campaign_body_font'] ?? null;
+			// Temporary fix for old campaigns having "campaign_body_font" as a "campaign".
+			if ( isset( $meta['campaign_body_font'] ) && 'campaign' === $meta['campaign_body_font'] ) {
+				$campaigns_font_map = [
+					'default'   => 'lora',
+					'antarctic' => 'sanctuary',
+					'arctic'    => 'Save the Arctic',
+					'climate'   => 'Jost',
+					'forest'    => 'Kanit',
+					'oceans'    => 'Montserrat',
+					'oil'       => 'Anton',
+					'plastic'   => 'Montserrat',
+				];
+				$theme              = $meta['theme'] ?? $meta['_campaign_page_template'] ?? null;
+				$theme              = $theme ?: 'default';
+				$body_font          = $campaigns_font_map[ $theme ];
+			}
 
 			$footer_theme = $meta['campaign_footer_theme'] ?? null;
 
@@ -384,9 +400,12 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			if ( ! $logo ) {
 				return 'greenpeace';
 			}
-			$theme = $meta['theme'] ?: $meta['_campaign_page_template'] ?: 'default';
-			if ( $theme !== 'default' ) {
-				return $logo === 'greenpeace' ? 'greenpeace' : $theme;
+
+			$theme = $meta['theme'] ?? $meta['_campaign_page_template'] ?? null;
+			$theme = $theme ?: 'default';
+
+			if ( 'default' !== $theme ) {
+				return 'greenpeace' === $logo ? 'greenpeace' : $theme;
 			}
 
 			return $logo ?: 'greenpeace';

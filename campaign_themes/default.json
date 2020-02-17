@@ -4,55 +4,160 @@
 	"fields": [
 		{
 			"id": "campaign_logo",
-			"options": [
-				{
-					"value": "greenpeace",
-					"label": "Greenpeace"
-				},
-				{
-					"value": "antarctic",
-					"label": "Antarctic"
-				},
-				{
-					"value": "arctic",
-					"label": "Arctic"
-				},
-				{
-					"value": "climate",
-					"label": "Climate Emergency"
-				},
-				{
-					"value": "forest",
-					"label": "Forest"
-				},
-				{
-					"value": "oceans",
-					"label": "Oceans"
-				},
-				{
-					"value": "oil",
-					"label": "Oil"
-				},
-				{
-					"value": "plastic",
-					"label": "Plastics"
+			"dependsOn": "campaign_nav_type",
+			"configurations": {
+				"minimal": {
+					"options": [
+						{
+							"value": "greenpeace",
+							"label": "Greenpeace"
+						},
+						{
+							"value": "antarctic",
+							"label": "Antarctic"
+						},
+						{
+							"value": "arctic",
+							"label": "Arctic"
+						},
+						{
+							"value": "climate",
+							"label": "Climate Emergency"
+						},
+						{
+							"value": "forest",
+							"label": "Forest"
+						},
+						{
+							"value": "oceans",
+							"label": "Oceans"
+						},
+						{
+							"value": "oil",
+							"label": "Oil"
+						},
+						{
+							"value": "plastic",
+							"label": "Plastics"
+						}
+					],
+					"default": "greenpeace"
 				}
-			],
-			"default": "greenpeace"
+			}
 		},
 		{
 			"id": "campaign_logo_color",
-			"options": [
-				{
-					"value": "light",
-					"label": "Light"
+			"dependsOn": "campaign_logo",
+			"configurations": {
+				"antarctic": {
+					"options": [
+						{
+							"value": "light",
+							"label": "Light"
+						},
+						{
+							"value": "dark",
+							"label": "Dark"
+						}
+					],
+					"default": "light"
 				},
-				{
-					"value": "dark",
-					"label": "Dark"
+				"arctic": {
+					"options": [
+						{
+							"value": "light",
+							"label": "Light"
+						},
+						{
+							"value": "dark",
+							"label": "Dark"
+						}
+					],
+					"default": "light"
+				},
+				"climate": {
+					"options": [
+						{
+							"value": "light",
+							"label": "Light"
+						},
+						{
+							"value": "dark",
+							"label": "Dark"
+						}
+					],
+					"default": "light"
+				},
+				"forest": {
+					"options": [
+						{
+							"value": "light",
+							"label": "Light"
+						},
+						{
+							"value": "dark",
+							"label": "Dark"
+						}
+					],
+					"default": "light"
+				},
+				"oceans": {
+					"options": [
+						{
+							"value": "light",
+							"label": "Light"
+						},
+						{
+							"value": "dark",
+							"label": "Dark"
+						}
+					],
+					"default": "light"
+				},
+				"oil": {
+					"options": [
+						{
+							"value": "light",
+							"label": "Light"
+						},
+						{
+							"value": "dark",
+							"label": "Dark"
+						}
+					],
+					"default": "light"
+				},
+				"plastic": {
+					"options": [
+						{
+							"value": "light",
+							"label": "Light"
+						},
+						{
+							"value": "dark",
+							"label": "Dark"
+						}
+					],
+					"default": "light"
+				},
+				"greenpeace": {
+					"options": [
+						{
+							"value": "light",
+							"label": "Light"
+						},
+						{
+							"value": "dark",
+							"label": "Dark"
+						},
+						{
+							"value": "green",
+							"label": "Green"
+						}
+					],
+					"default": "light"
 				}
-			],
-			"default": "light"
+			}
 		},
 		{
 			"id": "campaign_nav_type",
@@ -188,8 +293,15 @@
 		},
 		{
 			"id": "footer_links_color",
-			"options": [
-			]
+			"dependsOn": "campaign_footer_theme",
+			"configurations": {
+				"white": {
+					"options": [
+						{ "color":  "#000000"},
+						{ "color": "#035880"}
+					]
+				}
+			}
 		}
 	]
 }
