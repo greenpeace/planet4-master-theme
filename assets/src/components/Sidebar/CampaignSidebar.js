@@ -6,6 +6,7 @@ import ColorPaletteControl from '../ColorPaletteControl/ColorPaletteControl';
 import { withPostMeta } from '../PostMeta/withPostMeta';
 import { __ } from '@wordpress/i18n';
 import { fromThemeOptions } from '../fromThemeOptions/fromThemeOptions';
+import isShallowEqual from '@wordpress/is-shallow-equal';
 
 const themeOptions = [
   {
@@ -74,16 +75,34 @@ export class CampaignSidebar extends Component {
     super( props );
     this.state = {
       theme: null,
+      meta: null,
     };
     this.handleThemeChange = this.handleThemeChange.bind( this );
   }
 
   componentDidMount() {
-    const meta = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'meta' );
-    if (meta) {
-      const theme = meta[ 'theme' ];
-      this.loadTheme( theme );
-    }
+    wp.data.subscribe( () => {
+      const meta = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'meta' );
+      if (meta) {
+        let theme = meta[ 'theme' ];
+        if ( theme === '' ) {
+          theme = 'default';
+        }
+        if (!isShallowEqual(this.state.meta, meta)) {
+          this.setState( prevState => {
+            return {
+              meta: meta,
+              theme: prevState.theme,
+            };
+          } );
+          if (
+            this.state.theme === null || theme !== this.state.theme.id
+          ) {
+            this.loadTheme( theme );
+          }
+        }
+      }
+    });
   }
 
   handleThemeChange( value ) {
@@ -96,12 +115,14 @@ export class CampaignSidebar extends Component {
     }
     const baseUrl = window.location.href.split( '/wp-admin' )[ 0 ];
     const themeJsonUrl = `${ baseUrl }/wp-content/themes/planet4-master-theme/campaign_themes/${ value }.json`;
+    console.log( `fetching theme ${ value }` );
     fetch( themeJsonUrl )
       .then( response => response.json() )
       .then( json => {
         this.setState( prevState => {
           return {
             theme: json,
+            meta: prevState.meta,
           };
         } );
       } );
@@ -195,7 +216,7 @@ export class CampaignSidebar extends Component {
               label={ __( 'Header Primary Font', 'planet4-blocks-backend' ) }
               theme={ this.state.theme }
             />
-            <Radio
+            <Select
               metaKey='campaign_body_font'
               label={ __( 'Body Font', 'planet4-blocks-backend' ) }
               theme={ this.state.theme }

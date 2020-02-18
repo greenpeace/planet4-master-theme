@@ -384,7 +384,7 @@ final class Loader {
 
 			$post = get_post();
 
-			$campaign_theme = $post->theme ?? $post->custom['_campaign_page_template'];
+			$campaign_theme = $post->theme ?? $post->custom['_campaign_page_template'] ?? null;
 
 			if ( is_string( $campaign_theme ) && ! empty( $campaign_theme ) ) {
 
