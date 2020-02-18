@@ -228,7 +228,7 @@ export class CampaignSidebar extends Component {
           >
             <Radio
               metaKey='campaign_footer_theme'
-              label={ __( 'Footer Theme', 'planet4-blocks-backend' ) }
+              label={ __( 'Footer background color', 'planet4-blocks-backend' ) }
               theme={ this.state.theme }
             />
             <ColorPalette
