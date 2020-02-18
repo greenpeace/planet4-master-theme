@@ -8,7 +8,7 @@ export class SpreadsheetBlock {
     registerBlockType( 'planet4-blocks/spreadsheet', {
       title: __( 'Spreadsheet', 'planet4-blocks-backend' ),
       icon: 'editor-table',
-      category: 'planet4-blocks',
+      category: 'planet4-blocks-beta',
       attributes: {
         url: {
           type: 'string',

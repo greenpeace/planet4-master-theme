@@ -384,7 +384,7 @@ final class Loader {
 
 			$post = get_post();
 
-			$campaign_theme = $post->theme ?? $post->custom['_campaign_page_template'];
+			$campaign_theme = $post->theme ?? $post->custom['_campaign_page_template'] ?? null;
 
 			if ( is_string( $campaign_theme ) && ! empty( $campaign_theme ) ) {
 
@@ -428,28 +428,27 @@ final class Loader {
 	}
 
 	/**
-	 * Registers a new category for our blocks
+	 * Registers new categories for our blocks.
 	 *
-	 * @param array $categories Blocks categories.
+	 * @param array $core_categories Default blocks categories.
 	 *
 	 * @return array
 	 */
-	public function register_block_category( $categories ) {
-		// get_block_categories method at wp-admin/includes/post.php has some hardcoded (!!!) default categories
-		// index 0 holds common blocks menu entry data, so it seems safe to do the bellow array operations.
-		$common = [
-			$categories[0],
+	public function register_block_category( $core_categories ) {
+
+		$our_categories = [
+			[
+				'slug'  => 'planet4-blocks',
+				'title' => __( 'Planet 4 Blocks', 'planet4-blocks' ),
+			],
+
+			[
+				'slug'  => 'planet4-blocks-beta',
+				'title' => __( 'Planet 4 Blocks - BETA', 'planet4-blocks' ),
+			],
 		];
 
-		$categories[0] = [
-			'slug'  => 'planet4-blocks',
-			'title' => __( 'Planet 4 Blocks', 'planet4-blocks' ),
-		];
-
-		return array_merge(
-			$common,
-			$categories
-		);
+		return array_merge( $our_categories, $core_categories );
 	}
 
 
