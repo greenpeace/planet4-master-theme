@@ -438,7 +438,7 @@ final class Loader {
 		);
 
 		wp_register_script(
-			'plugin-engagingnetworks',
+			'plugin-engagingnetworks-side-style',
 			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/public/js/enform_side_style.js',
 			[
 				'jquery',
@@ -466,6 +466,7 @@ final class Loader {
 
 		wp_enqueue_script( 'plugin-engagingnetworks-submit' );
 		wp_enqueue_script( 'plugin-engagingnetworks-dependency' );
+		wp_enqueue_script( 'plugin-engagingnetworks-side-style' );
 		wp_enqueue_script( 'plugin-engagingnetworks' );
 	}
 
