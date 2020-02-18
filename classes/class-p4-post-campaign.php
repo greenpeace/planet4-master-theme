@@ -327,10 +327,9 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					? 'Montserrat'
 					: $meta['campaign_header_primary'] ?? null;
 
-			if ( ! isset( $meta['campaign_body_font'] ) || empty( $meta['campaign_body_font'] )
-			) {
-				$body_font = null;
-			} elseif ( 'campaign' === $meta['campaign_body_font'] ) {
+			$body_font = $meta['campaign_body_font'] ?? null;
+			// Temporary fix for old campaigns having "campaign_body_font" as a "campaign".
+			if ( isset( $meta['campaign_body_font'] ) && 'campaign' === $meta['campaign_body_font'] ) {
 				$campaigns_font_map = [
 					'default'   => 'lora',
 					'antarctic' => 'sanctuary',
@@ -341,10 +340,9 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'oil'       => 'Anton',
 					'plastic'   => 'Montserrat',
 				];
-				$theme              = isset( $meta['theme'] ) && ! empty( $meta['theme'] ) ? $meta['theme'] : 'default';
+				$theme              = $meta['theme'] ?? $meta['_campaign_page_template'] ?? null;
+				$theme              = $theme ?: 'default';
 				$body_font          = $campaigns_font_map[ $theme ];
-			} else {
-				$body_font = $meta['campaign_body_font'];
 			}
 
 			$footer_theme = $meta['campaign_footer_theme'] ?? null;
@@ -369,8 +367,14 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'#1b4a1b' => '#1b4a1b',
 			];
 
+			if ( 'minimal' === $meta['campaign_nav_type'] && isset( $meta['campaign_nav_color'] ) ) {
+				$nav_color = $meta['campaign_nav_color'];
+			} else {
+				$nav_color = null;
+			}
+
 			return [
-				'nav-color'            => $meta['campaign_nav_color'] ?? null,
+				'nav-color'            => $nav_color,
 				'footer-color'         => $footer_color,
 				'footer-links-color'   => $footer_links_color,
 				'header-color'         => $meta['campaign_header_color'] ?? null,
@@ -383,6 +387,28 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'primary-color'        => $meta['campaign_primary_color'] ?? null,
 				'secondary-color'      => $meta['campaign_secondary_color'] ?? null,
 			];
+		}
+
+		/**
+		 * Get the logo based on the meta settings. Ensures that no other campaign logo will be used even if that's the value stored.
+		 *
+		 * @param array $meta The meta containing the style settings.
+		 * @return string The identifier of the logo.
+		 */
+		public static function get_logo( array $meta ): string {
+			$logo = $meta['campaign_logo'] ?? null;
+			if ( ! $logo ) {
+				return 'greenpeace';
+			}
+
+			$theme = $meta['theme'] ?? $meta['_campaign_page_template'] ?? null;
+			$theme = $theme ?: 'default';
+
+			if ( 'default' !== $theme ) {
+				return 'greenpeace' === $logo ? 'greenpeace' : $theme;
+			}
+
+			return $logo ?: 'greenpeace';
 		}
 	}
 }
