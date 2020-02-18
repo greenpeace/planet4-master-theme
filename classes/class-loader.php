@@ -336,7 +336,7 @@ final class Loader {
 				'wp-i18n',        // - Exports the __() function
 				'wp-editor',
 			],
-			'0.1.11',
+			'0.1.12',
 			true
 		);
 
