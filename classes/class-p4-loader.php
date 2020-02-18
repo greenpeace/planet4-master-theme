@@ -82,7 +82,7 @@ final class P4_Loader {
 
 		$this->default_services = [
 			'P4_Custom_Taxonomy',
-			'P4_Post_Campaign',
+			'P4_Post_Campaign_Page',
 			'P4_Settings',
 			'P4_Post_Report_Controller',
 			'P4_Cookies',
@@ -107,7 +107,7 @@ final class P4_Loader {
 			}
 
 			// Load `P4_Campaign_Exporter` class on admin campaign listing page and campaign export only.
-			if ( 'campaign' === filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING ) || 'export_data' === filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING ) ) {
+			if ( P4_Post_Campaign_Page::POST_TYPE === filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING ) || 'export_data' === filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING ) ) {
 				$this->default_services[] = 'P4_Campaign_Exporter';
 			}
 

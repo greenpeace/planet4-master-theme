@@ -5,16 +5,16 @@
  * @package P4MT
  */
 
-if ( ! class_exists( 'P4_Post_Campaign' ) ) {
+if ( ! class_exists( 'P4_Post_Campaign_Page' ) ) {
 	/**
-	 * Class P4_Post_Campaign
+	 * A collection of functions relating the the Campaign Page post type.
 	 */
-	class P4_Post_Campaign {
+	class P4_Post_Campaign_Page {
 
 		/**
 		 * Post Type
 		 */
-		const POST_TYPE = 'campaign';
+		public const POST_TYPE = 'campaign';
 
 		public const META_FIELDS = [
 			'theme',
@@ -56,20 +56,20 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		public function register_campaigns_cpt() {
 
 			$labels = array(
-				'name'               => _x( 'Campaigns', 'post type general name', 'planet4-master-theme-backend' ),
-				'singular_name'      => _x( 'Campaign', 'post type singular name', 'planet4-master-theme-backend' ),
-				'menu_name'          => _x( 'Campaigns', 'admin menu', 'planet4-master-theme-backend' ),
-				'name_admin_bar'     => _x( 'Campaign', 'add new on admin bar', 'planet4-master-theme-backend' ),
+				'name'               => _x( 'Campaign Pages', 'post type general name', 'planet4-master-theme-backend' ),
+				'singular_name'      => _x( 'Campaign Page', 'post type singular name', 'planet4-master-theme-backend' ),
+				'menu_name'          => _x( 'Campaign Pages', 'admin menu', 'planet4-master-theme-backend' ),
+				'name_admin_bar'     => _x( 'Campaign Page', 'add new on admin bar', 'planet4-master-theme-backend' ),
 				'add_new'            => _x( 'Add New', 'campaign', 'planet4-master-theme-backend' ),
-				'add_new_item'       => __( 'Add New Campaign', 'planet4-master-theme-backend' ),
-				'new_item'           => __( 'New Campaign', 'planet4-master-theme-backend' ),
-				'edit_item'          => __( 'Edit Campaign', 'planet4-master-theme-backend' ),
-				'view_item'          => __( 'View Campaign', 'planet4-master-theme-backend' ),
-				'all_items'          => __( 'All Campaigns', 'planet4-master-theme-backend' ),
-				'search_items'       => __( 'Search Campaigns', 'planet4-master-theme-backend' ),
-				'parent_item_colon'  => __( 'Parent Campaigns:', 'planet4-master-theme-backend' ),
-				'not_found'          => __( 'No campaigns found.', 'planet4-master-theme-backend' ),
-				'not_found_in_trash' => __( 'No campaigns found in Trash.', 'planet4-master-theme-backend' ),
+				'add_new_item'       => __( 'Add New Campaign Page', 'planet4-master-theme-backend' ),
+				'new_item'           => __( 'New Campaign Page', 'planet4-master-theme-backend' ),
+				'edit_item'          => __( 'Edit Campaign Page', 'planet4-master-theme-backend' ),
+				'view_item'          => __( 'View Campaign Page', 'planet4-master-theme-backend' ),
+				'all_items'          => __( 'All Campaign Pages', 'planet4-master-theme-backend' ),
+				'search_items'       => __( 'Search Campaign Pages', 'planet4-master-theme-backend' ),
+				'parent_item_colon'  => __( 'Parent Campaign Pages:', 'planet4-master-theme-backend' ),
+				'not_found'          => __( 'No Campaign Pages found.', 'planet4-master-theme-backend' ),
+				'not_found_in_trash' => __( 'No Campaign Pages found in Trash.', 'planet4-master-theme-backend' ),
 			);
 
 			$args = array(
@@ -116,7 +116,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'id'           => 'campaign_nav_settings_mb',
 					'title'        => __( 'Page Design', 'planet4-master-theme-backend' ),
 					'object_types' => [
-						'campaign',
+						self::POST_TYPE,
 					],
 					'context'      => 'normal',
 					'priority'     => 'high',

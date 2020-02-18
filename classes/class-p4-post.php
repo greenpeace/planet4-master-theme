@@ -166,7 +166,7 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		 * @return bool
 		 */
 		public function is_campaign_page() : bool {
-			return P4_Post_Campaign::POST_TYPE === $this->post_type;
+			return P4_Post_Campaign_Page::POST_TYPE === $this->post_type;
 		}
 
 		/**

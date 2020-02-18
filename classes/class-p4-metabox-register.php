@@ -58,7 +58,7 @@ class P4_Metabox_Register {
 			[
 				'id'           => $this->prefix . 'metabox',
 				'title'        => __( 'Page Header Fields', 'planet4-master-theme-backend' ),
-				'object_types' => [ 'page', 'campaign' ], // Post type.
+				'object_types' => [ 'page', P4_Post_Campaign_Page::POST_TYPE ], // Post type.
 			]
 		);
 
@@ -224,7 +224,7 @@ class P4_Metabox_Register {
 			[
 				'id'           => $this->prefix . 'metabox_og',
 				'title'        => __( 'Open Graph/Social Fields', 'planet4-master-theme-backend' ),
-				'object_types' => [ 'page', 'post', 'campaign' ],
+				'object_types' => [ 'page', 'post', P4_Post_Campaign_Page::POST_TYPE ],
 				'closed'       => true,  // Keep the metabox closed by default.
 			]
 		);
@@ -281,7 +281,7 @@ class P4_Metabox_Register {
 			[
 				'id'           => $this->prefix . 'campaign_fields',
 				'title'        => __( 'Campaign information (dataLayer)', 'planet4-master-theme-backend' ),
-				'object_types' => [ 'page', 'campaign', 'post' ], // Post type.
+				'object_types' => [ 'page', P4_Post_Campaign_Page::POST_TYPE, 'post' ], // Post type.
 				'closed'       => true,  // Keep the metabox closed by default.
 				'context'      => 'side', // show cmb2box in right sidebar.
 				'priority'     => 'low',
@@ -439,6 +439,6 @@ class P4_Metabox_Register {
 	 * @return bool
 	 */
 	public function is_not_campaign_post() {
-		return P4_Post_Campaign::POST_TYPE !== get_post_type();
+		return P4_Post_Campaign_Page::POST_TYPE !== get_post_type();
 	}
 }

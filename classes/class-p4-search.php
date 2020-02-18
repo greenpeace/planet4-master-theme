@@ -29,7 +29,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		const EXCLUDE_FROM_SEARCH   = 'p4_do_not_index';
 		const POST_TYPES            = [
 			'page',
-			'campaign',
+			P4_Post_Campaign_Page::POST_TYPE,
 			'post',
 			'attachment',
 		];
@@ -436,7 +436,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 										$args['post_status'] = 'publish';
 										break;
 									case 4:
-										$args['post_type']   = 'campaign';
+										$args['post_type']   = P4_Post_Campaign_Page::POST_TYPE;
 										$args['post_status'] = 'publish';
 										break;
 									default:
@@ -672,7 +672,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 							$context['content_types']['2']['results']++;
 						}
 						break;
-					case 'campaign':
+					case P4_Post_Campaign_Page::POST_TYPE:
 						$content_type_text = __( 'CAMPAIGN', 'planet4-master-theme' );
 						$content_type      = 'campaign';
 						$context['content_types']['4']['results']++;

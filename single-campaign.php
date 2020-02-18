@@ -15,8 +15,9 @@ $context = Timber::get_context();
  *
  * @var P4_Post $post
  * */
-$post            = Timber::query_post( false, 'P4_Post' );
-$context['post'] = $post;
+$post                   = Timber::query_post( false, 'P4_Post' );
+$context['post']        = $post;
+$context['is_campaign'] = true;
 
 // Get the cmb2 custom fields data.
 $meta = $post->custom;
@@ -35,7 +36,7 @@ $custom_styles = [];
 $custom_styles['nav_type']            = $campaign_meta['campaign_nav_type'] ?? null;
 $custom_styles['nav_border']          = $campaign_meta['campaign_nav_border'] ?? null;
 $custom_styles['campaign_logo_color'] = isset( $campaign_meta['campaign_logo_color'] ) && ! empty( $campaign_meta['campaign_logo_color'] ) ? $campaign_meta['campaign_logo_color'] : 'light';
-$custom_styles['campaign_logo']       = P4_Post_Campaign::get_logo( $campaign_meta );
+$custom_styles['campaign_logo']       = P4_Post_Campaign_Page::get_logo( $campaign_meta );
 
 // Set GTM Data Layer values.
 $post->set_data_layer();
@@ -60,7 +61,7 @@ $context['og_title']                = $post->get_og_title();
 $context['og_description']          = $post->get_og_description();
 $context['og_image_data']           = $post->get_og_image();
 $context['custom_styles']           = $custom_styles;
-$context['css_vars']                = P4_Post_Campaign::css_vars( $campaign_meta );
+$context['css_vars']                = P4_Post_Campaign_Page::css_vars( $campaign_meta );
 
 // P4 Campaign/dataLayer fields.
 $context['cf_campaign_name'] = $campaign_meta['p4_campaign_name'] ?? '';
