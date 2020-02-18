@@ -357,8 +357,18 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				$footer_links_color         = $meta['footer_links_color'] ?: $default_footer_links_color;
 				$footer_color               = '#FFFFFF';
 			} else {
-				$footer_links_color = 'dark' === ( $meta['campaign_logo_color'] ?? null ) ? '#1A1A1A' : '#FFFFFF';
-				$footer_color       = $meta['campaign_nav_color'] ?? null;
+				switch ( ( $meta['campaign_logo_color'] ?? null ) ) {
+					case 'dark':
+						$footer_links_color = '#1A1A1A';
+						break;
+					case 'green':
+						$footer_links_color = '#2caf4e';
+						break;
+					default:
+						$footer_links_color = '#FFFFFF';
+				}
+
+				$footer_color = $meta['campaign_nav_color'] ?? null;
 			}
 
 			$passive_button_colors_map = [
