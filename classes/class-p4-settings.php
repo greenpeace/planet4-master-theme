@@ -247,6 +247,15 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 						'type' => 'text',
 					],
 				],
+				[
+					'name' => __( 'Exclude campaign styles when importing', 'planet4-master-theme-backend' ),
+					'desc' => __(
+						'Whether to exclude campaign theme and style settings when importing a campaign.',
+						'planet4-master-theme-backend'
+					),
+					'id'   => 'campaigns_import_exclude_style',
+					'type' => 'checkbox',
+				],
 			];
 			$this->hooks();
 		}
