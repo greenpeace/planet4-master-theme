@@ -87,7 +87,7 @@
 			"id": "campaign_primary_color",
 			"options": [
 			],
-			"default": "auto"
+			"default": "#ee562d"
 		},
 		{
 			"id": "campaign_secondary_color",
@@ -130,7 +130,8 @@
 					"value": "Save the Arctic",
 					"label": "Save the Arctic"
 				}
-			]
+			],
+			"default": "Roboto"
 		},
 		{
 			"id": "campaign_header_secondary",
@@ -151,7 +152,8 @@
 					"value": "open_sans_shadows",
 					"label": "Open Sans Shadows"
 				}
-			]
+			],
+			"default": "Roboto"
 		},
 		{
 			"id": "campaign_body_font",
@@ -188,7 +190,12 @@
 		{
 			"id": "footer_links_color",
 			"options": [
-			]
+				{
+					"value": "default",
+					"label": "Default"
+				}
+			],
+			"default": "#1A1A1A"
 		}
 	]
 }

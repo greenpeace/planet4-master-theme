@@ -310,6 +310,23 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			register_post_meta( self::POST_TYPE, $meta_key, $args );
 		}
 
+		private static function get_theme_defaults( $theme_json ) {
+			$defaults = [];
+			foreach ( $theme_json->fields as $field ) {
+				$defaults[ $field->id ] = $field->default;
+			}
+
+			return $defaults;
+		}
+
+		private static function get_theme_value( $theme_json, $field_id, $property = 'default' ) {
+			foreach ( $theme_json->fields as $field ) {
+				if ( $field->id === $field_id ) {
+					return $field->$property;
+				}
+			}
+		}
+
 		/**
 		 * Determine the css variables for a certain post.
 		 *
@@ -319,19 +336,26 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		public static function css_vars( array $meta ): array {
 			$theme = empty( $meta['theme'] ) ? 'default' : $meta['theme'];
 
+			$default_theme_json = json_decode(
+				file_get_contents( __DIR__ . '/../campaign_themes/default.json' ),
+				false
+			);
+
 			// TODO: Remove, this default should be in the default theme's JSON.
-			$default_p4_hover_color = '#ee562d';
+			$default_hover_color = self::get_theme_value( $default_theme_json, 'campaign_primary_color' );
+
+			$theme_defaults = self::get_theme_defaults( $default_theme_json );
 
 			// TODO: Remove all these hardcoded maps (passive_button_colors, campaigns_font, special_weight).
 			$passive_button_colors_map = [
-				$default_p4_hover_color => '#f36d3a',
-				'#ffd204'               => '#ffe467',
-				'#66cc00'               => '#66cc00',
-				'#6ed961'               => '#a7e021',
-				'#21cbca'               => '#77ebe0',
-				'#7a1805'               => '#a01604',
-				'#2077bf'               => '#2077bf',
-				'#1b4a1b'               => '#1b4a1b',
+				$default_hover_color => '#f36d3a',
+				'#ffd204'            => '#ffe467',
+				'#66cc00'            => '#66cc00',
+				'#6ed961'            => '#a7e021',
+				'#21cbca'            => '#77ebe0',
+				'#7a1805'            => '#a01604',
+				'#2077bf'            => '#2077bf',
+				'#1b4a1b'            => '#1b4a1b',
 			];
 
 			$campaigns_font_map = [
@@ -350,39 +374,42 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'Montserrat_Light' => '500',
 			];
 
-			$default_body_font = 'auto';
-			if ( ! empty( $meta[ 'campaign_body_font' ] )) {
-				$default_body_font = $meta[ 'campaign_body_font' ];
-				if ( $meta['campaign_body_font'] === 'campaign' ) {
+			$default_body_font = $theme_defaults['campaign_body_font'];
+			if ( ! empty( $meta['campaign_body_font'] ) ) {
+				$default_body_font = $meta['campaign_body_font'];
+				if ( 'campaign' === $meta['campaign_body_font'] ) {
 					$default_body_font = $campaigns_font_map[ $theme ];
 				}
 			}
 
-			// TODO: Read this from the JSON file (default theme)
 			$defaults = [
-				'campaign_nav_color'       => '#1A1A1A',
+				'campaign_nav_color'       => $theme_defaults['campaign_nav_color'],
+				'campaign_primary_color'   => $theme_defaults['campaign_primary_color'],
+				'campaign_secondary_color' => $theme_defaults['campaign_secondary_color'],
+				'campaign_footer_theme'    => $theme_defaults['campaign_footer_theme'],
+				'footer_links_color'       => $theme_defaults['footer_links_color'],
+
+				// Other resolved defaults.
 				'campaign_body_font'       => $default_body_font,
 				'campaign_header_primary'  => $campaigns_font_map[ $theme ],
+
+				// Not present in the themes.
 				'campaign_header_weight'   => 'auto',
-				'campaign_primary_color'   => $default_p4_hover_color,
-				'campaign_secondary_color' => 'auto',
-				'campaign_footer_theme'    => 'white',
-				'footer_links_color'       => '#1A1A1A',
-				'footer_color'             => '#FFFFFF',
 				'passive_button_color'     => 'auto',
 			];
 
-			// 'array_intersect_key' removes the keys from meta that are not present in the defaults.
-			// 'array_filter' removes falsey values from the resulting array.
-			$campaign_options = array_filter( array_intersect_key($meta, $defaults) );
-			$css_vars = array_merge(
+			// Replace the defaults with the campaign options where applicable
+			// 'array_intersect_key' removes the keys from $meta that are not present in the $defaults.
+			// 'array_filter' removes empty (falsey?) values from the resulting array.
+			$campaign_options = array_filter( array_intersect_key( $meta, $defaults ) );
+			$css_vars         = array_merge(
 				$defaults,
 				$campaign_options
 			);
 
-			// TODO: Remove this special case.
+			// TODO: Remove these special cases.
 			$css_vars['campaign_header_primary'] = str_replace( 'Montserrat_Light', 'Montserrat', $css_vars['campaign_header_primary'] );
-			$css_vars['campaign_body_font']      = str_replace( 'Montserrat_Light', 'Montserrat', $css_vars['campaign_body_font']);
+			$css_vars['campaign_body_font']      = str_replace( 'Montserrat_Light', 'Montserrat', $css_vars['campaign_body_font'] );
 
 			// TODO: Find a better solution for the footer logic?
 			if ( 'white' === $css_vars['campaign_footer_theme'] ) {
@@ -394,7 +421,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				$css_vars['footer_color']       = $meta['campaign_nav_color'] ?? null;
 			}
 
-			// TODO: Remove this "Passive" color map based on hovers
+			// TODO: Remove this "Passive" color map based on hovers.
 			$css_vars['passive_button_color'] = isset( $meta['campaign_primary_color'] ) && $meta['campaign_primary_color']
 			? $passive_button_colors_map[ strtolower( $meta['campaign_primary_color'] ) ]
 			: $defaults['passive_button_color'];
