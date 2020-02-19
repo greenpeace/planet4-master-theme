@@ -31,7 +31,14 @@ export function withPostMeta( WrappedComponent ) {
       const metaValue = postMeta[ metaKey ];
 
       let value;
-      if ( !metaValue && this.props.defaultValue ) {
+      // Use the default value if what is stored in the post meta is empty, or if it isn't one of the listed options.
+      if (
+        this.props.defaultValue
+        && (
+          !metaValue
+          || !this.props.options.some( option => option.value === metaValue )
+        )
+      ) {
         value = this.props.defaultValue;
       } else {
         value = metaValue;

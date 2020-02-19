@@ -75,8 +75,14 @@ export class GalleryBlock {
             type: 'string',
           },
           image_data: {
-            type: 'object',
-            default: []
+            type: 'array',
+            default: [
+              {
+                id: null,
+                url: null,
+                focalPoint: {},
+              }
+            ]
           },
         },
         edit: withSelect( ( select, props ) => {

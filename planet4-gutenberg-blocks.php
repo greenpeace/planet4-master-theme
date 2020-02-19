@@ -98,6 +98,7 @@ const POST_BLOCK_TYPES = [
 	'planet4-blocks/counter',
 	'planet4-blocks/gallery',
 	'planet4-blocks/take-action-boxout',
+	'planet4-blocks/spreadsheet',
 	'planet4-blocks/timeline',
 ];
 
@@ -114,6 +115,7 @@ const PAGE_BLOCK_TYPES = [
 	'planet4-blocks/media-video',
 	'planet4-blocks/social-media',
 	'planet4-blocks/split-two-columns',
+	'planet4-blocks/spreadsheet',
 	'planet4-blocks/submenu',
 	'planet4-blocks/take-action-boxout',
 	'planet4-blocks/timeline',
