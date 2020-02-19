@@ -239,22 +239,6 @@ function p4_px_single_post_taxonomy() {
 	}
 }
 
-/**
- * Filter out Edit lock meta key.
- *
- * @param boolean $return_me Edit lock status.
- * @param string  $meta_key Current post meta key.
- */
-function p4_px_single_post_filter_postmeta( $return_me, $meta_key ) {
-	if ( '_edit_lock' == $meta_key ) {
-		$return_me = true;
-	}
-
-	return $return_me;
-}
-
-add_filter( 'p4_px_single_post_export_skip_postmeta', 'p4_px_single_post_filter_postmeta', 10, 2 );
-
 $post_id = explode( ',', $_GET['post'] );
 
 // Add campaign attachements in XML file.
@@ -374,15 +358,15 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . "\" ?>\n";
 						<?php endif; ?>
 						<?php p4_px_single_post_taxonomy(); ?>
 						<?php
-						$postmeta = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->postmeta WHERE post_id = %d", $post->ID ) );
-						foreach ( $postmeta as $meta ) :
-							if ( apply_filters( 'p4_px_single_post_export_skip_postmeta', false, $meta->meta_key, $meta ) ) {
+						$postmeta = get_post_meta( $post->ID );
+						foreach ( $postmeta as $meta_key => $meta_value ) :
+							if ( '_edit_lock' === $meta_key ) {
 								continue;
 							}
 							?>
 							<wp:postmeta>
-								<wp:meta_key><?php echo $meta->meta_key; ?></wp:meta_key>
-								<wp:meta_value><?php echo p4_px_single_post_cdata( $meta->meta_value ); ?></wp:meta_value>
+								<wp:meta_key><?php echo $meta_key; ?></wp:meta_key>
+								<wp:meta_value><?php echo p4_px_single_post_cdata( maybe_serialize($meta_value[0]) ); ?></wp:meta_value>
 							</wp:postmeta>
 						<?php endforeach; ?>
 						<?php

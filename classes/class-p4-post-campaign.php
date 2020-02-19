@@ -346,7 +346,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'plastic'   => 'Montserrat',
 				];
 				$theme              = $meta['theme'] ?? $meta['_campaign_page_template'] ?? null;
-				$theme              = $theme ?: 'default';
+				$theme              = $theme ? $theme : 'default';
 				$body_font          = $campaigns_font_map[ $theme ];
 			}
 
@@ -417,13 +417,13 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			}
 
 			$theme = $meta['theme'] ?? $meta['_campaign_page_template'] ?? null;
-			$theme = $theme ?: 'default';
+			$theme = $theme ? $theme : 'default';
 
 			if ( 'default' !== $theme ) {
 				return 'greenpeace' === $logo ? 'greenpeace' : $theme;
 			}
 
-			return $logo ?: 'greenpeace';
+			return $logo ? $logo : 'greenpeace';
 		}
 	}
 }
