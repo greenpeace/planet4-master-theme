@@ -61,7 +61,7 @@ if ( ! class_exists( 'P4_Campaign_Exporter' ) ) {
 			}
 
 			$validated_posts = array_filter(
-				$_REQUEST['post'],
+				$_REQUEST['post'], // phpcs:ignore
 				function ( $element ) {
 					return filter_var( $element, FILTER_VALIDATE_INT );
 				}

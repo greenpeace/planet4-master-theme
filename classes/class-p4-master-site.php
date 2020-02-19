@@ -188,7 +188,7 @@ class P4_Master_Site extends TimberSite {
 		}
 
 		if ( $_SERVER['HTTP_HOST'] !== $_SERVER['SERVER_NAME'] ) {
-			if ( wp_redirect( str_replace( $_SERVER['HTTP_HOST'], $_SERVER['SERVER_NAME'], get_admin_url() ) ) ) {
+			if ( wp_safe_redirect( str_replace( sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ), sanitize_text_field( wp_unslash( $_SERVER['SERVER_NAME'] ) ), get_admin_url() ) ) ) {
 				exit;
 			}
 		}
@@ -212,7 +212,7 @@ class P4_Master_Site extends TimberSite {
 	 * Sets a custom stylesheet for the login page.
 	 */
 	public function add_login_stylesheet() {
-		wp_enqueue_style( 'custom-login', $this->theme_dir . '/style-login.css' );
+		wp_enqueue_style( 'custom-login', $this->theme_dir . '/style-login.css', [], '0.1' );
 	}
 
 	/**
@@ -279,7 +279,7 @@ class P4_Master_Site extends TimberSite {
 	/**
 	 * Load translations for master theme
 	 */
-	function p4_master_theme_setup() {
+	public function p4_master_theme_setup() {
 		$domains = [
 			'planet4-master-theme',
 			'planet4-master-theme-backend',
@@ -555,7 +555,7 @@ class P4_Master_Site extends TimberSite {
 		$weight  = get_post_meta( $post->ID, 'weight', true );
 		$options = get_option( 'planet4_options' );
 
-		echo '<label for="my_meta_box_text">' . esc_html__( 'Weight', 'planet4-master-theme-backend' ) . ' (1-' . P4_Search::DEFAULT_MAX_WEIGHT . ')</label>
+		echo '<label for="my_meta_box_text">' . esc_html__( 'Weight', 'planet4-master-theme-backend' ) . ' (1-' . esc_attr( P4_Search::DEFAULT_MAX_WEIGHT ) . ')</label>
 				<input id="weight" type="text" name="weight" value="' . esc_attr( $weight ) . '" />';
 		?><script>
 			$ = jQuery;
@@ -762,7 +762,7 @@ class P4_Master_Site extends TimberSite {
 		if ( ! empty( $args ) ) {
 			extract( $args ); // phpcs:ignore
 		}
-		include( locate_template( $path . '.php' ) );
+		include locate_template( $path . '.php' );
 	}
 
 	/**

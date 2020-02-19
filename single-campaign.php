@@ -15,7 +15,7 @@ $context = Timber::get_context();
  *
  * @var P4_Post $post
  * */
-$post            = Timber::query_post( false, 'P4_Post' );
+$post            = Timber::query_post( false, 'P4_Post' ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $context['post'] = $post;
 
 // Get the cmb2 custom fields data.
@@ -88,5 +88,5 @@ if ( post_password_required( $post->ID ) ) {
 
 	Timber::render( 'single-password.twig', $context );
 } else {
-	Timber::render( array( 'single-' . $post->ID . '.twig', 'single-' . $post->post_type . '.twig', 'single.twig' ), $context );
+	Timber::render( [ 'single-' . $post->ID . '.twig', 'single-' . $post->post_type . '.twig', 'single.twig' ], $context );
 }

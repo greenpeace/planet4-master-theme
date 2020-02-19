@@ -18,7 +18,7 @@ $context = Timber::get_context();
  *
  * @var P4_Post $post
  */
-$post            = Timber::query_post( false, 'P4_Post' );
+$post            = Timber::query_post( false, 'P4_Post' ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $context['post'] = $post;
 
 // Strip Take Action Boxout block from the post content to add outside the normal block container.

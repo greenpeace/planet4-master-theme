@@ -363,11 +363,11 @@ if ( ! class_exists( 'P4_Post' ) ) {
 				}
 			}
 
-			$social_meta = array(
+			$social_meta = [
 				'title'       => $og_title,
 				'description' => $og_description,
 				'link'        => $link,
-			);
+			];
 
 			return $social_meta;
 		}

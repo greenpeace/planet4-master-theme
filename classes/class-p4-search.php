@@ -855,8 +855,8 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 */
 		private function prepare_keys_for_cache( $query_string, $group, $subgroup ) {
 			$cache_key_set        = new stdClass();
-			$cache_key_set->key   = urlencode( $query_string );
-			$cache_key_set->group = urlencode( $group ) . ':' . urlencode( $subgroup );
+			$cache_key_set->key   = rawurlencode( $query_string );
+			$cache_key_set->group = rawurlencode( $group ) . ':' . rawurlencode( $subgroup );
 
 			return $cache_key_set;
 		}

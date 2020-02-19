@@ -378,10 +378,12 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 
 			// Allow p4-page-type to be set from edit post and quick edit pages.
 			// Make sure there's input.
+			// phpcs:disable WordPress.Security.NonceVerification.Missing
 			if ( isset( $_POST[ self::TAXONOMY ] ) && 'post' === $post->post_type &&
-				filter_var( $_POST[ self::TAXONOMY ], FILTER_VALIDATE_INT ) ) {
+				filter_var( wp_unslash( $_POST[ self::TAXONOMY ] ), FILTER_VALIDATE_INT ) ) {
 
-				$selected = get_term_by( 'id', intval( $_POST[ self::TAXONOMY ] ), self::TAXONOMY ); // Input var okay.
+				$selected = get_term_by( 'id', intval( $_POST[ self::TAXONOMY ] ), self::TAXONOMY );
+				// phpcs:enable
 				if ( false !== $selected && ! is_wp_error( $selected ) ) {
 					// Save post type.
 					wp_set_post_terms( $post_id, [ $selected->term_id ], self::TAXONOMY );
@@ -428,16 +430,16 @@ if ( ! class_exists( 'P4_Custom_Taxonomy' ) ) {
 
 			// Display filter HTML.
 			?>
-			<select name="<?php echo self::TAXONOMY; ?>" id="<?php echo self::TAXONOMY; ?>" class="postform">
-				<option value=""><?php echo __( 'All Post Types', 'planet4-master-theme-backend' ); ?></option>
+			<select name="<?php echo esc_attr( self::TAXONOMY ); ?>" id="<?php echo esc_attr( self::TAXONOMY ); ?>" class="postform">
+				<option value=""><?php echo esc_html__( 'All Post Types', 'planet4-master-theme-backend' ); ?></option>
 
 				<?php
 				foreach ( $terms as $term ) {
 					printf(
 						'<option value="%1$s" %2$s>%3$s</option>',
-						$term->slug,
-						( ( isset( $_GET[ self::TAXONOMY ] ) && ( $_GET[ self::TAXONOMY ] == $term->slug ) ) ? ' selected="selected"' : '' ),
-						$term->name
+						esc_html( $term->slug ),
+						( ( isset( $_GET[ self::TAXONOMY ] ) && ( $_GET[ self::TAXONOMY ] === $term->slug ) ) ? ' selected="selected"' : '' ),  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+						esc_html( $term->name )
 					);
 				}
 				?>

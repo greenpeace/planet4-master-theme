@@ -94,17 +94,15 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 					'selected'         => $redirect_page,
 					'name'             => 'redirect_page',
 				];
-				$redirect_edit = '<a href="post.php?post=' . $redirect_page . '&action=edit" target="_blank">Edit</a>';
-
 				?>
 
 				<tr class="form-field edit-wrap">
 					<th>
-						<label><?php echo __( 'Redirect Page', 'planet4-master-theme-backend' ); ?></label>
+						<label><?php esc_html_e( 'Redirect Page', 'planet4-master-theme-backend' ); ?></label>
 					</th>
 					<td>
-						<?php wp_dropdown_pages( $dropdown_args ); ?> <?php echo $redirect_edit; ?>
-						<p class="description"><?php echo __( 'Leave this empty if you want to use the automated Tag page. Otherwise pick a page to redirect this Tag to.', 'planet4-master-theme-backend' ); ?></p>
+						<?php wp_dropdown_pages( array_map( 'esc_attr', $dropdown_args ) ); ?> <a href="post.php?post=<?php echo esc_attr( $redirect_page ); ?>&action=edit" target="_blank"><?php esc_html_e( 'Edit', 'planet4-master-theme-backend' ); ?></a>
+						<p class="description"><?php esc_html_e( 'Leave this empty if you want to use the automated Tag page. Otherwise pick a page to redirect this Tag to.', 'planet4-master-theme-backend' ); ?></p>
 					</td>
 				</tr>
 				<tr>
@@ -158,11 +156,11 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				</tr>
 				<tr class="form-field edit-wrap term-happypoint-opacity-wrap">
 					<th>
-						<label><?php echo __( 'Happy Point Opacity', 'planet4-master-theme-backend' ); ?></label>
+						<label><?php esc_html_e( 'Happy Point Opacity', 'planet4-master-theme-backend' ); ?></label>
 					</th>
 					<td>
 						<input type="number" name="happypoint_bg_opacity" id="happypoint_bg_opacity" class="happypoint-opacity-id field-id" value="<?php echo esc_attr( $happypoint_bg_opacity ); ?>" min="1" max="100"/>
-						<p class="description"><?php echo __( 'We use an overlay to fade the image back. Use a number between 1 and 100, the higher the number, the more faded the image will look. If you leave this empty, the default of 30 will be used.', 'planet4-master-theme-backend' ); ?></p>
+						<p class="description"><?php esc_html_e( 'We use an overlay to fade the image back. Use a number between 1 and 100, the higher the number, the more faded the image will look. If you leave this empty, the default of 30 will be used.', 'planet4-master-theme-backend' ); ?></p>
 					</td>
 				</tr>
 				<?php
@@ -175,9 +173,9 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 				];
 				?>
 				<div class="form-field add-wrap">
-					<label><?php echo __( 'Redirect Page', 'planet4-master-theme-backend' ); ?></label>
-					<?php wp_dropdown_pages( $dropdown_args ); ?>
-					<p class="description"><?php echo __( 'Leave this empty if you want to use the automated Tag page. Otherwise pick a page to redirect this Tag to.', 'planet4-master-theme-backend' ); ?></p>
+					<label><?php esc_html_e( 'Redirect Page', 'planet4-master-theme-backend' ); ?></label>
+					<?php wp_dropdown_pages( $dropdown_args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<p class="description"><?php esc_html_e( 'Leave this empty if you want to use the automated Tag page. Otherwise pick a page to redirect this Tag to.', 'planet4-master-theme-backend' ); ?></p>
 				</div>
 				<div class="form-field add-wrap term-image-wrap">
 					<label><?php esc_html_e( 'Image', 'planet4-master-theme-backend' ); ?></label>
@@ -201,7 +199,8 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 		 */
 		public function save_taxonomy_meta( $term_id ) {
 			// Save the selected page types for this campaign.
-			$selected_page_types = $_POST['p4_page_type'] ?? [];
+			$selected_page_types = $_POST['p4_page_type'] ?? []; // phpcs:ignore
+
 			if ( $this->validate_page_types( $selected_page_types ) ) {
 				update_term_meta( $term_id, 'selected_page_types', $selected_page_types );
 			}
@@ -267,7 +266,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 					];
 
 					$covers_block2_attributes = [
-						'title'       => __( 'Publications', 'planet4-blocks' ),
+						'title'       => __( 'Publications', 'planet4-master-theme-backend' ),
 						'tags'        => [ $term_id ],
 						'posts'       => [],
 						'post_types'  => [ 62 ],
@@ -289,12 +288,12 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 
 ' . $this->make_gutenberg_comment( 'planet4-blocks/happypoint', $happypoint_block_attributes );
 
-					$my_post = array(
+					$my_post = [
 						'post_title'   => '#' . $tag_data->name,
 						'post_content' => $post_content,
 						'post_status'  => 'publish',
 						'post_type'    => 'page',
-					);
+					];
 
 					// Insert the post into the database.
 					$tag_page_id = wp_insert_post( $my_post );
@@ -421,7 +420,7 @@ if ( ! class_exists( 'P4_Campaigns' ) ) {
 			if ( ! is_admin() || strpos( get_current_screen()->taxonomy, $this->taxonomy ) === false ) {
 				return;
 			}
-			wp_register_script( $this->taxonomy, get_template_directory_uri() . "/admin/js/$this->taxonomy.js", [ 'jquery' ], null, true );
+			wp_register_script( $this->taxonomy, get_template_directory_uri() . "/admin/js/$this->taxonomy.js", [ 'jquery' ], '0.1', true );
 			wp_localize_script( $this->taxonomy, 'localizations', $this->localizations );
 			wp_enqueue_script( $this->taxonomy );
 			wp_enqueue_media();
