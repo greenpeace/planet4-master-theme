@@ -23,10 +23,10 @@ $meta = $post->custom;
 // This will later become something else than the meta of the post, but using this already so we only have to change
 // this line later.
 $campaign_meta = $meta;
-$theme         = $campaign_meta['theme'] ?? $campaign_meta['_campaign_page_template'] ?? null;
+$theme_name    = $campaign_meta['theme'] ?? $campaign_meta['_campaign_page_template'] ?? null;
 
-if ( $theme ) {
-	$context['custom_body_classes'] = 'brown-bg theme-' . $theme;
+if ( $theme_name ) {
+	$context['custom_body_classes'] = 'brown-bg theme-' . $theme_name;
 }
 
 // Save custom style settings.
@@ -35,13 +35,12 @@ $custom_styles = [];
 $custom_styles['nav_type']            = $campaign_meta['campaign_nav_type'] ?? null;
 $custom_styles['nav_border']          = $campaign_meta['campaign_nav_border'] ?? null;
 $custom_styles['campaign_logo_color'] = isset( $campaign_meta['campaign_logo_color'] ) && ! empty( $campaign_meta['campaign_logo_color'] ) ? $campaign_meta['campaign_logo_color'] : 'light';
-$custom_styles['campaign_logo']       = isset( $campaign_meta['campaign_logo'] ) && ! empty( $campaign_meta['campaign_logo'] ) ? $campaign_meta['campaign_logo'] : 'greenpeace';
+$custom_styles['campaign_logo']       = P4_Post_Campaign::get_logo( $campaign_meta );
 
 // Set GTM Data Layer values.
 $post->set_data_layer();
 $data_layer = $post->get_data_layer();
 
-$context['theme']                       = $theme;
 $context['post']                        = $post;
 $context['header_title']                = is_front_page() ? ( $meta['p4_title'] ?? '' ) : ( $meta['p4_title'] ?? $post->title );
 $context['header_subtitle']             = $meta['p4_subtitle'] ?? '';

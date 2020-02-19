@@ -4,31 +4,58 @@
 	"fields": [
 		{
 			"id": "campaign_logo",
-			"options": [
-				{
-					"value": "oceans",
-					"label": "Oceans"
-				},
-				{
-					"value": "greenpeace",
-					"label": "Greenpeace"
+			"dependsOn": "campaign_nav_type",
+			"configurations": {
+				"minimal": {
+					"options": [
+						{
+							"value": "oceans",
+							"label": "Oceans"
+						},
+						{
+							"value": "greenpeace",
+							"label": "Greenpeace"
+						}
+					],
+					"default": "greenpeace"
 				}
-			],
-			"default": "greenpeace"
+			}
 		},
 		{
 			"id": "campaign_logo_color",
-			"options": [
-				{
-					"value": "light",
-					"label": "Light"
+			"dependsOn": "campaign_logo",
+			"configurations": {
+				"oceans": {
+					"options": [
+						{
+							"value": "light",
+							"label": "Light"
+						},
+						{
+							"value": "dark",
+							"label": "Dark"
+						}
+					],
+					"default": "light"
 				},
-				{
-					"value": "dark",
-					"label": "Dark"
+				"greenpeace": {
+					"options": [
+						{
+							"value": "light",
+							"label": "Light"
+						},
+						{
+							"value": "dark",
+							"label": "Dark"
+						},
+						{
+							"value": "green",
+							"label": "Green"
+						}
+					],
+					"default": "light"
 				}
-			],
-			"default": "light"
+			}
 		},
 		{
 			"id": "campaign_nav_type",
@@ -46,13 +73,17 @@
 		},
 		{
 			"id": "campaign_nav_color",
-			"options": [
-				{ "color":  "#ffffff"},
-				{ "color":  "#000000"},
-				{ "color":  "#044362"},
-				{ "color":  "#2cabb1"},
-				{ "color":  "#1bb6d6"}
-			]
+			"dependsOn": "campaign_nav_type",
+			"configurations": {
+				"minimal": {
+					"options": [
+						{ "color":  "#ffffff"},
+						{ "color":  "#000000"},
+						{ "color":  "#044362"},
+						{ "color":  "#2cabb1"}
+					]
+				}
+			}
 		},
 		{
 			"id": "campaign_header_color",
@@ -121,11 +152,15 @@
 					"label": "Sans Serif"
 				},
 				{
-					"value": "campaign",
-					"label": "Campaign default"
+					"value": "Montserrat",
+					"label": "Montserrat"
+				},
+				{
+					"value": "",
+					"label": "Default"
 				}
 			],
-			"default": "campaign"
+			"default": ""
 		},
 		{
 			"id": "campaign_footer_theme",
@@ -143,8 +178,16 @@
 		},
 		{
 			"id": "footer_links_color",
-			"options": [
-			]
+			"dependsOn": "campaign_footer_theme",
+			"configurations": {
+				"white": {
+					"options": [
+						{ "color":  "#000000"},
+						{ "color":  "#044362"},
+						{ "color":  "#2cabb1"}
+					]
+				}
+			}
 		}
 	]
 }
