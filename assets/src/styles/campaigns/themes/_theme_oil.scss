@@ -46,15 +46,13 @@ body.theme-oil {
   }
 
   .btn-secondary {
-    &:not(#hidecookie) {
-      @include oil-button(white, black);
-      border: 1px solid black;
+    @include oil-button(white, black);
+    border: 1px solid black;
 
-      &:hover {
-        color: white;
-        background: black;
-        border: 1px solid white;
-      }
+    &:hover {
+      color: white;
+      background: black;
+      border: 1px solid white;
     }
   }
 

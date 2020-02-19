@@ -36,15 +36,13 @@ body.theme-oceans {
   }
 
   .btn-secondary {
-    &:not(#hidecookie) {
-      @include oceans-button($white, $oceans-blue);
-      border: 1px solid $oceans-blue;
+    @include oceans-button($white, $oceans-blue);
+    border: 1px solid $oceans-blue;
 
-      &:hover {
-        background: $oceans-aqua-light;
-        border: 1px solid $oceans-aqua-light;
-        color: $oceans-blue;
-      }
+    &:hover {
+      background: $oceans-aqua-light;
+      border: 1px solid $oceans-aqua-light;
+      color: $oceans-blue;
     }
   }
 

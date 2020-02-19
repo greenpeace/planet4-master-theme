@@ -30,18 +30,16 @@ body.theme-arctic {
   }
 
   .btn-secondary {
-    &:not(#hidecookie) {
-      @include arctic-button(white, $arctic-blue);
-      border: 1px solid $arctic-blue;
-      box-sizing: border-box;
-      height: 50px;
-      line-height: 50px;
+    @include arctic-button(white, $arctic-blue);
+    border: 1px solid $arctic-blue;
+    box-sizing: border-box;
+    height: 50px;
+    line-height: 50px;
 
-      &:hover {
-        background: $arctic-light-blue;
-        border-color: $arctic-light-blue;
-        color: $arctic-blue;
-      }
+    &:hover {
+      background: $arctic-light-blue;
+      border-color: $arctic-light-blue;
+      color: $arctic-blue;
     }
   }
 
