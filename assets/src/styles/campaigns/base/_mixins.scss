@@ -9,14 +9,14 @@
 
 @mixin button($background, $foreground, $font, $letter-spacing) {
   background: $background;
-  border-width: 1111px;
-  box-sizing: content-box;
   color: $foreground;
+  @include letter-spacing($letter-spacing);
+  border: 0;
+  text-decoration: none !important;
+  box-sizing: content-box;
   text-transform: uppercase;
   box-shadow: none;
-  border: 0;
   font-family: $font;
-  @include letter-spacing($letter-spacing);
   height: 50px;
   line-height: 50px;
   font-size: $font-size-sm;
@@ -24,7 +24,6 @@
   padding: 0 40px;
   display: inline-block;
   width: auto;
-  text-decoration: none !important;
 
   &:not(:disabled):not(.disabled) {
     &:active {
