@@ -470,6 +470,13 @@ class P4_Master_Site extends TimberSite {
 		$allowedposttags['a']['data-slide']     = true;
 		$allowedposttags['span']['aria-hidden'] = true;
 
+		// Allow below tags for spreadsheet block.
+		$allowedposttags['input'] = [
+			'class'       => true,
+			'type'        => true,
+			'placeholder' => true,
+		];
+
 		return $allowedposttags;
 	}
 
