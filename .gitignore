@@ -11,12 +11,5 @@ node_modules/
 ########
 *.log
 
-# OS generated files #
-######################
-.DS_Store
-Thumbs.db
-
-# IDE generated files #
-#######################
-.idea
-reports
+# Built css and js assets
+assets/build/*
