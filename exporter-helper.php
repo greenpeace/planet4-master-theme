@@ -4,6 +4,96 @@
  *
  * @package P4MT
  */
+/**
+ * Generate a bunch of placeholders for use in an IN query.
+ * Such a shame WordPress doesn't offer a decent way to do bind IN statement params and we have to do this ourselves.
+ *
+ * @param array $items The items to generate placeholders for.
+ * @param int $start_index The start index to use for creating the placeholders.
+ * @return string The generated placeholders string.
+ */
+function generate_list_placeholders(array $items, int $start_index): string {
+	$placeholders   = [];
+	foreach ( range( $start_index, count( $items ) + $start_index - 1 ) as $i ) {
+		$placeholders[] = "%$i\$d";
+	}
+	return implode( ',', $placeholders );
+}
+
+/**
+ * Parse the post content and return all attachment ids used in blocks.
+ *
+ * @param string $content The content to parse.
+ * @return array All attachments used in the blocks.
+ */
+function get_attachments_used_in_content( string $content ): array {
+	$blocks = parse_blocks( $content );
+
+	$attachment_ids = [];
+
+	foreach ( $blocks as $block ) {
+
+		// Fetch the attachement id/s from block fields.
+		switch ( $block['blockName'] ) {
+
+			case 'planet4-blocks/enform':
+				$attachment_ids[] = $block['attrs']['background'] ?? '';
+				break;
+
+			case 'core/image':
+			case 'planet4-blocks/happypoint':
+				$attachment_ids[] = $block['attrs']['id'] ?? '';
+				break;
+
+			case 'planet4-blocks/media-video':
+				$attachment_ids[] = $block['attrs']['video_poster_img'] ?? '';
+				break;
+
+			case 'planet4-blocks/gallery':
+				if ( isset( $block['attrs']['multiple_image'] ) ) {
+					$multiple_images = explode( ',', $block['attrs']['multiple_image'] );
+					$attachment_ids  = array_merge( $attachment_ids, $multiple_images );
+				}
+				break;
+
+			case 'planet4-blocks/carousel-header':
+				if ( isset( $block['attrs']['slides'] ) ) {
+					foreach ( $block['attrs']['slides'] as $slide ) {
+						$attachment_ids[] = $slide['image'];
+					}
+				}
+				break;
+
+			case 'planet4-blocks/split-two-columns':
+				$attachment_ids[] = $block['attrs']['issue_image'] ?? '';
+				$attachment_ids[] = $block['attrs']['tag_image'] ?? '';
+				break;
+
+			case 'planet4-blocks/columns':
+				if ( isset( $block['attrs']['columns'] ) ) {
+					foreach ( $block['attrs']['columns'] as $column ) {
+						$attachment_ids[] = $column['attachment'];
+					}
+				}
+				break;
+
+			case 'planet4-blocks/social-media-cards':
+				if ( isset( $block['attrs']['cards'] ) ) {
+					foreach ( $block['attrs']['cards'] as $card ) {
+						$attachment_ids[] = $card['image_id'];
+					}
+				}
+				break;
+
+			case 'planet4-blocks/take-action-boxout':
+				$attachment_ids[] = $block['attrs']['background_image'] ?? '';
+				break;
+
+		}
+	}
+
+	return $attachment_ids;
+}
 
 /**
  * Returns all attachment ids from campaign post content.
@@ -15,131 +105,58 @@ function get_campaign_attachments( $post_ids ) {
 
 	global $wpdb;
 
+	if ( empty($post_ids) ) {
+		return [];
+	}
+
 	// phpcs:disable
-	$sql = 'SELECT ID, guid, post_parent FROM %1$s WHERE post_type = \'attachment\'';
-	$prepared_sql = $wpdb->prepare(
-		$sql,
-		[
-			$wpdb->posts,
-		] );
-	$attachments = $wpdb->get_results( $prepared_sql, OBJECT_K );
+	$sql            = '
+SELECT id
+FROM wp_posts
+WHERE post_type = \'attachment\'
+AND parent_post_id post_parent IN (' . generate_list_placeholders( $post_ids, 1 ) . ')';
+
+	$prepared_sql   = $wpdb->prepare( $sql, $post_ids );
+	$attachment_ids = $wpdb->get_results( $prepared_sql, OBJECT_K );
 	// phpcs:enable
-
-	if ( empty( $attachments ) ) {
-		return $post_ids;
-	}
-
-	$attachment_ids = [];
-
-	$placeholders   = [];
-	$post_ids_count = count( $post_ids );
-	for ( $i = 2; $i < $post_ids_count + 2; $i++ ) {
-		$placeholders[] = "%$i\$d";
-	}
-	$placeholders = implode( ',', $placeholders );
 
 	/**
 	 * Post thumbnails
 	 */
-	if ( $post_ids ) {
-		$sql            = 'SELECT meta_value FROM %1$s  WHERE ( meta_key = \'_thumbnail_id\' or meta_key = \'background_image_id\' ) AND post_id IN(' . $placeholders . ')';
-		$values         = [];
-		$values[0]      = $wpdb->postmeta;
-		$values         = array_merge( $values, $post_ids );
-		$prepared_sql   = $wpdb->prepare( $sql, $values ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-		$results        = $wpdb->get_results( $prepared_sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-		$attachment_ids = [];
-		foreach ( (array) $results as $result ) {
-			$attachment_ids[] = $result->meta_value;
-		}
-	}
+	$sql          = '
+SELECT meta_value
+FROM wp_postmeta
+WHERE ( meta_key = \'_thumbnail_id\' OR meta_key = \'background_image_id\' )
+AND post_id IN(' . generate_list_placeholders( $post_ids, 1 ) . ')';
 
-	/**
-	 * Uploaded to (post_parent)
-	 */
-	foreach ( $attachments as $id => $att ) {
-		if ( in_array( $att->post_parent, $post_ids, true ) ) {
-			$attachment_ids[] = $id;
-		}
-	}
+	$prepared_sql = $wpdb->prepare(
+		$sql,
+		$post_ids
+	); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$results      = $wpdb->get_results( $prepared_sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
-	$sql = 'SELECT post_content
-			FROM %1$s
-			WHERE ID IN(' . $placeholders . ')
-				AND post_content REGEXP \'((wp-image-|wp-att-)[0-9][0-9]*)|gallery_block_style|wp\:planet4\-blocks|href=|src=\'';
+	$attachment_ids = array_merge(
+		$attachment_ids,
+		array_map(
+			function ( $result ) {
+				return $result->meta_value;
+			},
+			$results
+		)
+	);
 
-	$values       = [];
-	$values[0]    = $wpdb->posts;
-	$values       = array_merge( $values, $post_ids );
-	$prepared_sql = $wpdb->prepare( $sql, $values ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$sql = '
+SELECT post_content
+FROM wp_posts
+WHERE ID IN(' . generate_list_placeholders($post_ids, 1) . ')
+AND post_content REGEXP \'((wp-image-|wp-att-)[0-9][0-9]*)|gallery_block_style|wp\:planet4\-blocks|href=|src=\'';
+
+	$prepared_sql = $wpdb->prepare( $sql, $post_ids ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	$results      = $wpdb->get_results( $prepared_sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 	foreach ( (array) $results as $text ) {
 		$text = $text->post_content;
-
-		$blocks = parse_blocks( $text );
-		foreach ( $blocks as $block ) {
-
-			// Fetch the attachement id/s from block fields.
-			switch ( $block['blockName'] ) {
-
-				case 'planet4-blocks/enform':
-					$attachment_ids[] = $block['attrs']['background'] ?? '';
-					break;
-
-				case 'planet4-blocks/happypoint':
-					$attachment_ids[] = $block['attrs']['id'] ?? '';
-					break;
-
-				case 'planet4-blocks/media-video':
-					$attachment_ids[] = $block['attrs']['video_poster_img'] ?? '';
-					break;
-
-				case 'planet4-blocks/gallery':
-					if ( isset( $block['attrs']['multiple_image'] ) ) {
-						$multiple_images = explode( ',', $block['attrs']['multiple_image'] );
-						$attachment_ids  = array_merge( $attachment_ids, $multiple_images );
-					}
-					break;
-
-				case 'planet4-blocks/carousel-header':
-					if ( isset( $block['attrs']['slides'] ) ) {
-						foreach ( $block['attrs']['slides'] as $slide ) {
-							$attachment_ids[] = $slide['image'];
-						}
-					}
-					break;
-
-				case 'planet4-blocks/split-two-columns':
-					$attachment_ids[] = $block['attrs']['issue_image'] ?? '';
-					$attachment_ids[] = $block['attrs']['tag_image'] ?? '';
-					break;
-
-				case 'planet4-blocks/columns':
-					if ( isset( $block['attrs']['columns'] ) ) {
-						foreach ( $block['attrs']['columns'] as $column ) {
-							$attachment_ids[] = $column['attachment'];
-						}
-					}
-					break;
-
-				case 'planet4-blocks/social-media-cards':
-					if ( isset( $block['attrs']['cards'] ) ) {
-						foreach ( $block['attrs']['cards'] as $card ) {
-							$attachment_ids[] = $card['image_id'];
-						}
-					}
-					break;
-
-				case 'planet4-blocks/take-action-boxout':
-					$attachment_ids[] = $block['attrs']['background_image'] ?? '';
-					break;
-
-				case 'core/image':
-					$attachment_ids[] = $block['attrs']['id'] ?? '';
-					break;
-			}
-		}
+		$attachment_ids = array_merge( $attachment_ids, get_attachments_used_in_content( $text ) );
 	}
 
 	$attachment_ids = array_unique( $attachment_ids );
