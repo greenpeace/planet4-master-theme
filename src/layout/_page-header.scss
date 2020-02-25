@@ -39,6 +39,24 @@
 // </header>
 //
 // Styleguide Layout.page-header
+.breadcrumbs {
+  padding-top: 40px;
+  li {
+    display: inline-block;
+    list-style-type: none;
+    position: relative;
+
+    &:not(:first-child) {
+      margin-left: 1.5em;
+      a:before {
+        content: ">";
+        position: absolute;
+        left: -1em;
+      }
+    }
+  }
+}
+
 .header-wrapper {
   height: 0;
 }
