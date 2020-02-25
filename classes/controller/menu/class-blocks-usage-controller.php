@@ -291,6 +291,49 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 			} else {
 				$report[ 'TagsUsingRedirectionPage' ] = count($results);
 			}
+
+			// Add to the report a breakdown of Campaigns, pages & Posts count.
+			$p4_page_types = [
+				'campaign',
+				'post',
+				'page',
+			];
+
+			// SQL Query placeholders.
+			$placeholders   = [];
+			$pagetype_count = count( $p4_page_types );
+			for ( $i = 2; $i < $pagetype_count + 2; $i++ ) {
+				$placeholders[] = "'%$i\$s'";
+			}
+			$placeholders = implode( ',', $placeholders );
+
+			$sql = 'SELECT post_type, count(ID) AS post_count
+					FROM %1$s
+					WHERE post_status = \'publish\'
+						GROUP BY `post_type` HAVING `post_type` IN (' . $placeholders . ')';
+
+			$values       = [];
+			$values[0]    = $wpdb->posts;
+			$values       = array_merge( $values, $p4_page_types );
+			$prepared_sql = $wpdb->prepare( $sql, $values );
+			$results      = $wpdb->get_results( $prepared_sql );
+
+			if ( 'text' === $type ) {
+				echo '<hr>';
+				echo '<table><tr style="text-align: left">
+					<th>' . __( 'Page type', 'planet4-blocks-backend' ) . '</th>
+					<th>' . __( 'Count', 'planet4-blocks-backend' ) . '</th>
+			</tr>';
+				foreach ( $results as $result ) {
+					echo '<tr><td>N of ' . ucfirst( $result->post_type ) . ' content type</td>';
+					echo '<td><a href="edit.php?post_status=publish&post_type=' . $result->post_type . '" >' . $result->post_count . '</a></td></tr>';
+				}
+				echo '</table>';
+			} else {
+				foreach ( $results as $result ) {
+					$report[ 'N-of-' . $result->post_type . '-content-type' ] = (int) $result->post_count;
+				}
+			}
 			// phpcs:enable
 
 			if ( 'json' === $type ) {

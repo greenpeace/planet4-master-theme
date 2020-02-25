@@ -155,10 +155,6 @@
     width: auto;
   }
 
-  img[data-src] {
-    opacity: 0;
-  }
-
   @include small-and-up {
     img {
       max-height: 340px;

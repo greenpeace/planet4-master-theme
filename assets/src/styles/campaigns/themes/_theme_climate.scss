@@ -59,15 +59,13 @@ body.theme-climate {
   }
 
   .btn-secondary {
-    &:not(#hidecookie) {
-      @include climate-button(white, black);
-      border: 1px solid black;
+    @include climate-button(white, black);
+    border: 1px solid black;
 
-      &:hover {
-        color: white;
-        background: black;
-        border: 1px solid white;
-      }
+    &:hover {
+      color: white;
+      background: black;
+      border: 1px solid white;
     }
   }
 
