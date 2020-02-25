@@ -30,15 +30,13 @@ body.theme-plastic {
   }
 
   .btn-secondary {
-    &:not(#hidecookie) {
-      @include plastics-button($white, $plastics-blue);
-      border: 1px solid $plastics-blue;
+    @include plastics-button($white, $plastics-blue);
+    border: 1px solid $plastics-blue;
 
-      &:hover {
-        background: $plastics-aqua-light;
-        border: 1px solid $plastics-aqua-light;
-        color: $plastics-blue;
-      }
+    &:hover {
+      background: $plastics-aqua-light;
+      border: 1px solid $plastics-aqua-light;
+      color: $plastics-blue;
     }
   }
 

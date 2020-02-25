@@ -22,14 +22,31 @@ body.theme-forest {
   font-family: $roboto;
   background: white;
 
-  .btn-primary {
-    @include forest-button;
-    font-weight: bold !important;
-    font-family: $open-sans !important;
+  .skewed-overlay {
+    display: none;
   }
 
-  .btn-secondary {
-    &:not(#hidecookie) {
+  .page-section-header {
+    @include page-section-header($kanit, $forest-black, $extra-bold, 3.75rem);
+  }
+
+  .page-template {
+    a {
+      color: $forest-dark-green;
+      text-transform: uppercase;
+
+      &:hover {
+        color: $forest-green;
+      }
+    }
+
+    .btn-primary {
+      @include forest-button;
+      font-weight: bold !important;
+      font-family: $open-sans !important;
+    }
+
+    .btn-secondary {
       @include forest-button($white, $forest-dark-green);
       border: 1px solid $forest-dark-green;
       box-sizing: border-box;
@@ -41,23 +58,6 @@ body.theme-forest {
         border: 1px solid $forest-dark-green;
         background: $forest-dark-green;
       }
-    }
-  }
-
-  .skewed-overlay {
-    display: none;
-  }
-
-  .page-section-header {
-    @include page-section-header($kanit, $forest-black, $extra-bold, 3.75rem);
-  }
-
-  .page-template a {
-    color: $forest-dark-green;
-    text-transform: uppercase;
-
-    &:hover {
-      color: $forest-green;
     }
   }
 
