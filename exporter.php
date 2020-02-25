@@ -1,4 +1,5 @@
 <?php
+// phpcs:ignoreFile
 /**
  * Post Exporter Functionality
  *
@@ -6,27 +7,27 @@
  */
 
 global $wpdb, $post;
-$defaults = array(
+$defaults = [
 	'content'    => 'all',
 	'author'     => false,
 	'category'   => false,
 	'start_date' => false,
 	'end_date'   => false,
 	'status'     => false,
-);
+];
 $args     = wp_parse_args( $post, $defaults );
 define( 'CMX_VERSION', '1.0' );
 $sitename = sanitize_key( get_bloginfo( 'name' ) );
 if ( ! empty( $sitename ) ) {
 	$sitename .= '.';
 }
-$filename = $sitename . date( 'Ymdhis' ) . '.xml';
+$filename = $sitename . gmdate( 'Ymdhis' ) . '.xml';
 
 header( 'Content-Description: File Transfer' );
 header( 'Content-Disposition: attachment; filename=' . $filename );
 header( 'Content-Type: text/xml; charset=' . get_option( 'blog_charset' ), true );
 
-if ( 'all' != $args['content'] && post_type_exists( $args['content'] ) ) {
+if ( 'all' !== $args['content'] && post_type_exists( $args['content'] ) ) {
 	$ptype = get_post_type_object( $args['content'] );
 
 	if ( ! $ptype->can_export ) {
@@ -35,19 +36,19 @@ if ( 'all' != $args['content'] && post_type_exists( $args['content'] ) ) {
 
 	$where = $wpdb->prepare( "{$wpdb->posts}.post_type = %s", $args['content'] );
 } else {
-	$post_types = get_post_types( array( 'can_export' => true ) );
+	$post_types = get_post_types( [ 'can_export' => true ] );
 	$esses      = implode( ',', array_fill( 0, count( $post_types ), '%s' ) );
 	$where      = $wpdb->prepare( "{$wpdb->posts}.post_type IN ( %s )", $esses );
 }
 
-if ( $args['status'] && ( 'post' == $args['content'] || 'page' == $args['content'] ) ) {
+if ( $args['status'] && ( 'post' === $args['content'] || 'page' === $args['content'] ) ) {
 	$where .= $wpdb->prepare( " AND {$wpdb->posts}.post_status = %s", $args['status'] );
 } else {
 	$where .= " AND {$wpdb->posts}.post_status != 'auto-draft'";
 }
 
 $join = '';
-if ( $args['category'] && 'post' == $args['content'] ) {
+if ( $args['category'] && 'post' === $args['content'] ) {
 	$term = term_exists( $args['category'], 'category' );
 	if ( $term ) {
 		$join   = "INNER JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id)";
@@ -55,7 +56,7 @@ if ( $args['category'] && 'post' == $args['content'] ) {
 	}
 }
 
-if ( 'post' == $args['content'] || 'page' == $args['content'] ) {
+if ( 'post' === $args['content'] || 'page' === $args['content'] ) {
 	if ( $args['author'] ) {
 		$where .= $wpdb->prepare( " AND {$wpdb->posts}.post_author = %d", $args['author'] );
 	}
@@ -82,7 +83,7 @@ $terms = [];
  * @param string $str String to replace.
  */
 function p4_px_single_post_cdata( $str ) {
-	if ( seems_utf8( $str ) == false ) {
+	if ( seems_utf8( $str ) === false ) {
 		$str = utf8_encode( $str );
 	}
 	$str = '<![CDATA[' . str_replace( ']]>', ']]]]><![CDATA[>', $str ) . ']]>';
@@ -190,7 +191,7 @@ function p4_px_single_post_authors_list( $post_ids ) {
 	$post_ids = array_map( 'intval', $post_ids );  // santize the post_ids manually.
 	$post_ids = array_filter( $post_ids ); // strip ones that didn't validate.
 
-	$authors = array();
+	$authors = [];
 
 	$placeholders = implode( ',', array_fill( 0, count( $post_ids ), '%d' ) );
 
@@ -315,7 +316,7 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . "\" ?>\n";
 			global $wp_query;
 			$wp_query->in_the_loop = true;
 			for ( $i = 0; $i < count( $post_id ); $i ++ ) {
-				$next_posts  = array( $post_id[ $i ] );
+				$next_posts  = [ $post_id[ $i ] ];
 				$attachments = get_attached_media( '', $post_id[ $i ] );
 				if ( ! empty( $attachments ) ) {
 					foreach ( $attachments as $attachment ) {
@@ -353,7 +354,7 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . "\" ?>\n";
 						<wp:post_type><?php echo $post->post_type; ?></wp:post_type>
 						<wp:post_password><?php echo $post->post_password; ?></wp:post_password>
 						<wp:is_sticky><?php echo $is_sticky; ?></wp:is_sticky>
-						<?php if ( 'attachment' == $post->post_type ) : ?>
+						<?php if ( 'attachment' === $post->post_type ) : ?>
 							<wp:attachment_url><?php echo wp_get_attachment_url( $post->ID ); ?></wp:attachment_url>
 						<?php endif; ?>
 						<?php p4_px_single_post_taxonomy(); ?>

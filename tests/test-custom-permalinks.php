@@ -16,7 +16,7 @@ class CustomPermalinksTest extends P4_TestCase {
 	public function test_p4_page_type_permalink_exists() {
 		$available_tags = [
 			// translators: %s = year of the post in four digits.
-			'year' => __( '%s (The year of the post, four digits, for example 2004.)' ),
+			'year' => __( '%s (The year of the post, four digits, for example 2004.)', 'planet4-master-theme-backend' ),
 		];
 		$available_tags = apply_filters( 'available_permalink_structure_tags', $available_tags );
 		$this->assertArrayHasKey( 'p4_page_type', $available_tags );
