@@ -350,7 +350,7 @@ final class Loader {
 				'orderby'          => 'post_title',
 				'order'            => 'asc',
 				'suppress_filters' => false,
-				'numberposts'      => 100,
+				'posts_per_page'   => -1,
 			]
 		);
 		return $query->posts;
