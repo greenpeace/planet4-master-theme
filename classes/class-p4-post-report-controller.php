@@ -46,7 +46,7 @@ if ( ! class_exists( 'P4_Post_Report_Controller' ) ) {
 		 *
 		 * @return mixed
 		 */
-		function add_posts_param_to_endpoint( $args, $request ) {
+		public function add_posts_param_to_endpoint( $args, $request ) {
 			if ( ! isset( $request['before'] ) && ! isset( $request['after'] ) ) {
 				return $args;
 			}
@@ -61,7 +61,7 @@ if ( ! class_exists( 'P4_Post_Report_Controller' ) ) {
 		/**
 		 * Add post report submenu item.
 		 */
-		function add_posts_report_admin_menu_item() {
+		public function add_posts_report_admin_menu_item() {
 			add_posts_page(
 				__( 'Posts Report', 'planet4-master-theme-backend' ),
 				__( 'Posts Report', 'planet4-master-theme-backend' ),
@@ -78,7 +78,7 @@ if ( ! class_exists( 'P4_Post_Report_Controller' ) ) {
 		 *
 		 * @return mixed
 		 */
-		function filter_post_params_endpoint( $query_params ) {
+		public function filter_post_params_endpoint( $query_params ) {
 			$query_params['date_query_column'] = [
 				'description' => __( 'The date query column.', 'planet4-master-theme-backend' ),
 				'type'        => 'string',
@@ -116,7 +116,9 @@ if ( ! class_exists( 'P4_Post_Report_Controller' ) ) {
 			wp_enqueue_script( 'posts-report' );
 			wp_register_style(
 				'jquery-ui-datepicker',
-				'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/overcast/jquery-ui.min.css'
+				'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/overcast/jquery-ui.min.css',
+				[],
+				'0.1'
 			);
 			wp_enqueue_style( 'jquery-ui-datepicker' );
 			include dirname( __FILE__ ) . '/../posts-report.php';

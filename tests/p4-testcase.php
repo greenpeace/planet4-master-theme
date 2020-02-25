@@ -13,17 +13,17 @@ class P4_TestCase extends WP_UnitTestCase {
 	/**
 	 * Setup test
 	 */
-	function setUp() {
+	public function setUp() {
 		parent::setUp();
 		$this->initialize_planet4_data();
-		require_once( get_template_directory() . '/functions.php' );
+		require_once get_template_directory() . '/functions.php';
 	}
 
 
 	/**
 	 * Use wp unit testcase factories to create data in database for the tests.
 	 */
-	function initialize_planet4_data() {
+	private function initialize_planet4_data() {
 
 		// Create a user with editor role.
 		$this->factory->user->create(

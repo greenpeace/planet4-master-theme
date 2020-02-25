@@ -55,7 +55,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		 */
 		public function register_campaigns_cpt() {
 
-			$labels = array(
+			$labels = [
 				'name'               => _x( 'Campaigns', 'post type general name', 'planet4-master-theme-backend' ),
 				'singular_name'      => _x( 'Campaign', 'post type singular name', 'planet4-master-theme-backend' ),
 				'menu_name'          => _x( 'Campaigns', 'admin menu', 'planet4-master-theme-backend' ),
@@ -70,9 +70,9 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'parent_item_colon'  => __( 'Parent Campaigns:', 'planet4-master-theme-backend' ),
 				'not_found'          => __( 'No campaigns found.', 'planet4-master-theme-backend' ),
 				'not_found_in_trash' => __( 'No campaigns found in Trash.', 'planet4-master-theme-backend' ),
-			);
+			];
 
-			$args = array(
+			$args = [
 				'labels'             => $labels,
 				'description'        => __( 'Campaigns', 'planet4-master-theme-backend' ),
 				'public'             => true,
@@ -98,7 +98,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					// Required to expose meta fields in the REST API.
 					'custom-fields',
 				],
-			);
+			];
 
 			register_post_type( self::POST_TYPE, $args );
 
@@ -176,7 +176,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		 * Load assets.
 		 */
 		public function enqueue_admin_assets() {
-			wp_register_style( 'cmb-style', get_template_directory_uri() . '/admin/css/campaign.css' );
+			wp_register_style( 'cmb-style', get_template_directory_uri() . '/admin/css/campaign.css', [], '0.1' );
 			wp_enqueue_style( 'cmb-style' );
 		}
 
@@ -201,7 +201,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				href="#" onclick="openSidebar()"
 				id="new_sidebar_link">
 				<?php
-					echo __( 'Design settings moved to a new sidebar.', 'planet4-master-theme-backend' )
+					esc_html_e( 'Design settings moved to a new sidebar.', 'planet4-master-theme-backend' )
 				?>
 			</a>
 			<script>
@@ -237,14 +237,14 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			<?php
 				echo wp_kses(
 					$field_type->input(
-						array(
+						[
 							'class'       => 'cmb-type-text-medium',
 							'name'        => esc_attr( $field_type->_name( '[url]' ) ),
 							'id'          => esc_attr( $field_type->_id( '_url' ) ),
 							'type'        => 'text',
 							'value'       => esc_url( $value['url'] ),
 							'placeholder' => __( 'Footer item link', 'planet4-master-theme-backend' ),
-						)
+						]
 					),
 					[
 						'input' => [
@@ -264,14 +264,14 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			<?php
 				echo wp_kses(
 					$field_type->input(
-						array(
+						[
 							'class'       => 'cmb-type-text-medium',
 							'name'        => esc_attr( $field_type->_name( '[icon]' ) ),
 							'id'          => esc_attr( $field_type->_id( '_icon' ) ),
 							'type'        => 'text',
 							'value'       => $value['icon'],
 							'placeholder' => __( 'Footer icon name', 'planet4-master-theme-backend' ),
-						)
+						]
 					),
 					[
 						'input' => [
@@ -346,15 +346,15 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'plastic'   => 'Montserrat',
 				];
 				$theme              = $meta['theme'] ?? $meta['_campaign_page_template'] ?? null;
-				$theme              = $theme ?: 'default';
+				$theme              = $theme ? $theme : 'default';
 				$body_font          = $campaigns_font_map[ $theme ];
 			}
 
 			$footer_theme = $meta['campaign_footer_theme'] ?? null;
 
 			if ( 'white' === $footer_theme ) {
-				$default_footer_links_color = $meta['campaign_nav_color'] ?: '#1A1A1A';
-				$footer_links_color         = $meta['footer_links_color'] ?: $default_footer_links_color;
+				$default_footer_links_color = $meta['campaign_nav_color'] ? $meta['campaign_nav_color'] : '#1A1A1A';
+				$footer_links_color         = $meta['footer_links_color'] ? $meta['footer_links_color'] : $default_footer_links_color;
 				$footer_color               = '#FFFFFF';
 			} else {
 				switch ( ( $meta['campaign_logo_color'] ?? null ) ) {
@@ -417,13 +417,13 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			}
 
 			$theme = $meta['theme'] ?? $meta['_campaign_page_template'] ?? null;
-			$theme = $theme ?: 'default';
+			$theme = $theme ? $theme : 'default';
 
 			if ( 'default' !== $theme ) {
 				return 'greenpeace' === $logo ? 'greenpeace' : $theme;
 			}
 
-			return $logo ?: 'greenpeace';
+			return $logo ? $logo : 'greenpeace';
 		}
 	}
 }

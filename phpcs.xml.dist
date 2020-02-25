@@ -3,13 +3,37 @@
 	<description>Generally-applicable sniffs for WordPress plugins</description>
 
 	<rule ref="WordPress-Core" />
-	<rule ref="WordPress-Docs" />
+	<rule ref="WordPress-Docs">
+		<exclude name="Generic.Commenting.DocComment.MissingShort"/>
+	</rule>
+	<rule ref="WordPress-Extra"/>
+
+	<rule ref="WordPress.NamingConventions.ValidVariableName">
+		<properties>
+			<property name="customPropertiesWhitelist" type="array" value="nextSibling,nodeName,nodeValue"/>
+		</properties>
+	</rule>
+
+	<!-- Add rule for theme's textdomains -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array" value="planet4-master-theme,planet4-master-theme-backend"/>
+		</properties>
+	</rule>
 
 	<!-- Whitelist p4 test classes for filename sniffs. -->
 	<rule ref="WordPress.Files.FileName">
 		<properties>
 			<property name="custom_test_class_whitelist" type="array" value="P4_TestCase"/>
 		</properties>
+	</rule>
+
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax.Found">
+		<type>error</type>
+	</rule>
+
+	<rule ref="Generic.Arrays">
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 	</rule>
 
 	<!-- Check all PHP files in directory tree by default. -->

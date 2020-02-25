@@ -11,7 +11,7 @@ if ( ! $_tests_dir ) {
 }
 
 if ( ! file_exists( $_tests_dir . '/includes/functions.php' ) ) {
-	die( "Could not find $_tests_dir/includes/functions.php, have you run bin/install-wp-tests.sh ?\n" );
+	die( "Could not find $_tests_dir/includes/functions.php, have you run bin/install-wp-tests.sh ?\n" ); // phpcs:ignore
 }
 
 // Give access to tests_add_filter() function.

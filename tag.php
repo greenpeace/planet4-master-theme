@@ -33,6 +33,7 @@ if ( is_tag() ) {
 
 		$templates = [ 'tag.twig', 'archive.twig', 'index.twig' ];
 
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$posts = get_posts(
 			[
 				'posts_per_page'   => 1,

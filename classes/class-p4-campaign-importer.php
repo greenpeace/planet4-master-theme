@@ -252,7 +252,7 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 			// 1. Exclude style fields the option for that is set or if it's passed in the form data.
 			if (
 				! empty( $p4_options['campaigns_import_exclude_style'] )
-				|| ! empty( $_POST['campaigns_import_exclude_style'] )
+				|| ! empty( $_POST['campaigns_import_exclude_style'] ) //phpcs:ignore WordPress.Security.NonceVerification.Missing
 			) {
 				// Also exclude the old attribute as the code still falls back to it.
 				$excluded_keys = array_merge( P4_Post_Campaign::META_FIELDS, [ '_campaign_page_template' ] );

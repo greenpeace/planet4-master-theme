@@ -99,7 +99,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 
 				[
 					'name' => __( 'Google Optimize anti-flicker snippet', 'planet4-master-theme-backend' ),
-					'desc' => __( 'It will include the relevant snippet for A/B testing.' ),
+					'desc' => __( 'It will include the relevant snippet for A/B testing.', 'planet4-master-theme-backend' ),
 					'id'   => 'google_optimizer',
 					'type' => 'checkbox',
 				],
@@ -300,10 +300,10 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		public function p4_render_act_page_dropdown( $field_args, $value ) {
 			wp_dropdown_pages(
 				[
-					'show_option_none' => __( 'Select Page', 'planet4-master-theme-backend' ),
+					'show_option_none' => esc_html__( 'Select Page', 'planet4-master-theme-backend' ),
 					'hide_empty'       => 0,
 					'hierarchical'     => true,
-					'selected'         => $value,
+					'selected'         => esc_attr( $value ),
 					'name'             => 'act_page',
 				]
 			);
@@ -318,10 +318,10 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		public function p4_render_explore_page_dropdown( $field_args, $value ) {
 			wp_dropdown_pages(
 				[
-					'show_option_none' => __( 'Select Page', 'planet4-master-theme-backend' ),
+					'show_option_none' => esc_html__( 'Select Page', 'planet4-master-theme-backend' ),
 					'hide_empty'       => 0,
 					'hierarchical'     => true,
-					'selected'         => $value,
+					'selected'         => esc_attr( $value ),
 					'name'             => 'explore_page',
 				]
 			);
@@ -372,7 +372,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		 */
 		public function admin_page_display() {
 			?>
-			<div class="wrap <?php echo $this->key; ?>">
+			<div class="wrap <?php echo esc_attr( $this->key ); ?>">
 				<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 				<?php cmb2_metabox_form( $this->option_metabox(), $this->key ); ?>
 			</div>

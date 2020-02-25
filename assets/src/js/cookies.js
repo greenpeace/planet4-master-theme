@@ -27,15 +27,11 @@ export const setupCookies = function($) {
 
   if (cookie == null) {
     $('.cookie-notice').css('display', 'flex');
-    const height = $('.cookie-notice').height();
-    $('footer').css('margin-bottom', height + 'px');
   } else {
     window.createCookie('gp_nro', nro, 365);
   }
 
   $('#hidecookie').click(function () {
-    $('.cookie-notice').slideUp('slow');
-    $('footer').css('margin-bottom', '0');
     window.createCookie('greenpeace', '2', 365);
 
     // Remove the 'no_track' cookie, if user accept the cookies consent.
@@ -49,5 +45,7 @@ export const setupCookies = function($) {
     dataLayer.push({
       'event' : 'cookiesConsent'
     });
+
+    $('.cookie-notice').fadeOut('slow');
   });
 };

@@ -31,8 +31,9 @@ function get_campaign_attachments( $post_ids ) {
 
 	$attachment_ids = [];
 
-	$placeholders = [];
-	for ( $i = 2; $i < count( $post_ids ) + 2; $i++ ) {
+	$placeholders   = [];
+	$post_ids_count = count( $post_ids );
+	for ( $i = 2; $i < $post_ids_count + 2; $i++ ) {
 		$placeholders[] = "%$i\$d";
 	}
 	$placeholders = implode( ',', $placeholders );
@@ -45,8 +46,8 @@ function get_campaign_attachments( $post_ids ) {
 		$values         = [];
 		$values[0]      = $wpdb->postmeta;
 		$values         = array_merge( $values, $post_ids );
-		$prepared_sql   = $wpdb->prepare( $sql, $values );     // WPCS: unprepared SQL OK.
-		$results        = $wpdb->get_results( $prepared_sql ); // WPCS: unprepared SQL OK.
+		$prepared_sql   = $wpdb->prepare( $sql, $values ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$results        = $wpdb->get_results( $prepared_sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		$attachment_ids = [];
 		foreach ( (array) $results as $result ) {
 			$attachment_ids[] = $result->meta_value;
@@ -70,8 +71,8 @@ function get_campaign_attachments( $post_ids ) {
 	$values       = [];
 	$values[0]    = $wpdb->posts;
 	$values       = array_merge( $values, $post_ids );
-	$prepared_sql = $wpdb->prepare( $sql, $values );     // WPCS: unprepared SQL OK.
-	$results      = $wpdb->get_results( $prepared_sql ); // WPCS: unprepared SQL OK.
+	$prepared_sql = $wpdb->prepare( $sql, $values ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$results      = $wpdb->get_results( $prepared_sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 	foreach ( (array) $results as $text ) {
 		$text = $text->post_content;
