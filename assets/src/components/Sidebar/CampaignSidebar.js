@@ -76,6 +76,7 @@ export class CampaignSidebar extends Component {
     this.state = {
       theme: null,
       meta: null,
+      parent: null,
     };
     this.handleThemeChange = this.handleThemeChange.bind( this );
   }
@@ -83,18 +84,13 @@ export class CampaignSidebar extends Component {
   componentDidMount() {
     wp.data.subscribe( () => {
       const meta = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'meta' );
-      if (meta) {
+      if ( meta ) {
         let theme = meta[ 'theme' ];
         if ( theme === '' ) {
           theme = 'default';
         }
-        if (!isShallowEqual(this.state.meta, meta)) {
-          this.setState( prevState => {
-            return {
-              meta: meta,
-              theme: prevState.theme,
-            };
-          } );
+        if ( !isShallowEqual( this.state.meta, meta ) ) {
+          this.setState( { meta: meta } );
           if (
             this.state.theme === null || theme !== this.state.theme.id
           ) {
@@ -102,7 +98,17 @@ export class CampaignSidebar extends Component {
           }
         }
       }
-    });
+    } );
+    wp.data.subscribe( () => {
+      const parentId = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'parent' ) || null;
+      if (
+        !this.state.parent && parentId !== null
+        || (this.state.parent && parentId !== this.state.parent.id)
+      ) {
+        const parentPage = parentId ? wp.data.select( 'core' ).getEntityRecord( 'postType', 'campaign', parentId ) : null;
+        this.setState( { parent: parentPage } );
+      }
+    } );
   }
 
   handleThemeChange( value ) {
@@ -119,12 +125,7 @@ export class CampaignSidebar extends Component {
     fetch( themeJsonUrl )
       .then( response => response.json() )
       .then( json => {
-        this.setState( prevState => {
-          return {
-            theme: json,
-            meta: prevState.meta,
-          };
-        } );
+        this.setState( { theme: json } );
       } );
   }
 
@@ -133,112 +134,126 @@ export class CampaignSidebar extends Component {
       <>
         <PluginSidebarMoreMenuItem
           target={ CampaignSidebar.getId() }
-          icon={ CampaignSidebar.getIcon()}>
+          icon={ CampaignSidebar.getIcon() }>
           Campaign Options
         </PluginSidebarMoreMenuItem>
         <PluginSidebar
           name={ CampaignSidebar.getId() }
           title={ __( 'Campaign Options', 'planet4-blocks-backend' ) }
         >
-          <div className="components-panel__body is-opened">
-            <ThemeSelect
-              metaKey='theme'
-              label={ __( 'Theme', 'planet4-blocks-backend' ) }
-              onChange={ this.handleThemeChange }
-              options={ themeOptions }
-            />
-          </div>
-          <PanelBody
-            title={ __( "Navigation", 'planet4-blocks-backend' ) }
-            initialOpen={ true }
-          >
-            <Radio
-              metaKey='campaign_nav_type'
-              theme={ this.state.theme }
-            />
-            <ColorPalette
-              metaKey='campaign_nav_color'
-              label={ __( 'Navigation Background Color', 'planet4-blocks-backend' ) }
-              disableCustomColors
-              clearable={ false }
-              theme={ this.state.theme }
-            />
-            <Radio
-              metaKey='campaign_nav_border'
-              label={ __( 'Navigation bottom border', 'planet4-blocks-backend' ) }
-              theme={ this.state.theme }
-            />
-            {
-              <Select
-                metaKey='campaign_logo'
-                label={ __( 'Logo', 'planet4-blocks-backend' ) }
-                theme={ this.state.theme }
-              />
-            }
-            <Radio
-              metaKey='campaign_logo_color'
-              label={ __( 'Logo Color', 'planet4-blocks-backend' ) }
-              help={ __( 'Change the campaign logo color (if not default)', 'planet4-blocks-backend' ) }
-              theme={ this.state.theme }
-            />
-          </PanelBody>
-          {/*<PanelBody*/}
-          {/*  title={ __( "Colors", 'planet4-blocks-backend' ) }*/}
-          {/*  initialOpen={ true }*/}
-          {/*>*/}
-          {/*  <ColorPalette*/}
-          {/*    metaKey='campaign_header_color'*/}
-          {/*    label={ __( 'Header Text Color', 'planet4-blocks-backend' ) }*/}
-          {/*    disableCustomColors*/}
-          {/*    clearable={ false }*/}
-          {/*    theme={ this.state.theme }*/}
-          {/*  />*/}
-          {/*  <ColorPalette*/}
-          {/*    metaKey='campaign_primary_color'*/}
-          {/*    label={ __( 'Primary Button Color', 'planet4-blocks-backend' ) }*/}
-          {/*    disableCustomColors*/}
-          {/*    clearable={ false }*/}
-          {/*    theme={ this.state.theme }*/}
-          {/*  />*/}
-          {/*  <ColorPalette*/}
-          {/*    metaKey='campaign_secondary_color'*/}
-          {/*    label={ __( 'Secondary Button Color and Link Text Color', 'planet4-blocks-backend' ) }*/}
-          {/*    disableCustomColors*/}
-          {/*    theme={ this.state.theme }*/}
-          {/*  />*/}
-          {/*</PanelBody>*/}
-          <PanelBody
-            title={ __( "Fonts", 'planet4-blocks-backend' ) }
-            initialOpen={ true }
-          >
-            <Select
-              metaKey='campaign_header_primary'
-              label={ __( 'Header Primary Font', 'planet4-blocks-backend' ) }
-              theme={ this.state.theme }
-            />
-            <Select
-              metaKey='campaign_body_font'
-              label={ __( 'Body Font', 'planet4-blocks-backend' ) }
-              theme={ this.state.theme }
-            />
-          </PanelBody>
-          <PanelBody
-            title={ __( "Footer", 'planet4-blocks-backend' ) }
-            initialOpen={ true }
-          >
-            <Radio
-              metaKey='campaign_footer_theme'
-              label={ __( 'Footer background color', 'planet4-blocks-backend' ) }
-              theme={ this.state.theme }
-            />
-            <ColorPalette
-              metaKey='footer_links_color'
-              label={ __( 'Footer links color', 'planet4-blocks-backend' ) }
-              disableCustomColors
-              clearable={ false }
-              theme={ this.state.theme }
-            />
-          </PanelBody>
+          { this.state.parent
+            ?
+            <div className="components-panel__body is-opened">
+              <p>{ __( 'This is a sub-page of', 'planet4-blocks-backend' ) }</p>
+              <a
+                href={ window.location.href.replace( /\?post=\d+/, `?post=${ this.state.parent.id }` ) }>
+                { this.state.parent.title.raw }
+              </a>
+              <p>{ __( 'Style and analytics settings from the parent page will be used.', 'planet4-blocks-backend' ) }</p>
+            </div>
+            :
+            <>
+              <div className="components-panel__body is-opened">
+                <ThemeSelect
+                  metaKey='theme'
+                  label={ __( 'Theme', 'planet4-blocks-backend' ) }
+                  onChange={ this.handleThemeChange }
+                  options={ themeOptions }
+                />
+              </div>
+              <PanelBody
+                title={ __( "Navigation", 'planet4-blocks-backend' ) }
+                initialOpen={ true }
+              >
+                <Radio
+                  metaKey='campaign_nav_type'
+                  theme={ this.state.theme }
+                />
+                <ColorPalette
+                  metaKey='campaign_nav_color'
+                  label={ __( 'Navigation Background Color', 'planet4-blocks-backend' ) }
+                  disableCustomColors
+                  clearable={ false }
+                  theme={ this.state.theme }
+                />
+                <Radio
+                  metaKey='campaign_nav_border'
+                  label={ __( 'Navigation bottom border', 'planet4-blocks-backend' ) }
+                  theme={ this.state.theme }
+                />
+                {
+                  <Select
+                    metaKey='campaign_logo'
+                    label={ __( 'Logo', 'planet4-blocks-backend' ) }
+                    theme={ this.state.theme }
+                  />
+                }
+                <Radio
+                  metaKey='campaign_logo_color'
+                  label={ __( 'Logo Color', 'planet4-blocks-backend' ) }
+                  help={ __( 'Change the campaign logo color (if not default)', 'planet4-blocks-backend' ) }
+                  theme={ this.state.theme }
+                />
+              </PanelBody>
+              {/*<PanelBody*/ }
+              {/*  title={ __( "Colors", 'planet4-blocks-backend' ) }*/ }
+              {/*  initialOpen={ true }*/ }
+              {/*>*/ }
+              {/*  <ColorPalette*/ }
+              {/*    metaKey='campaign_header_color'*/ }
+              {/*    label={ __( 'Header Text Color', 'planet4-blocks-backend' ) }*/ }
+              {/*    disableCustomColors*/ }
+              {/*    clearable={ false }*/ }
+              {/*    theme={ this.state.theme }*/ }
+              {/*  />*/ }
+              {/*  <ColorPalette*/ }
+              {/*    metaKey='campaign_primary_color'*/ }
+              {/*    label={ __( 'Primary Button Color', 'planet4-blocks-backend' ) }*/ }
+              {/*    disableCustomColors*/ }
+              {/*    clearable={ false }*/ }
+              {/*    theme={ this.state.theme }*/ }
+              {/*  />*/ }
+              {/*  <ColorPalette*/ }
+              {/*    metaKey='campaign_secondary_color'*/ }
+              {/*    label={ __( 'Secondary Button Color and Link Text Color', 'planet4-blocks-backend' ) }*/ }
+              {/*    disableCustomColors*/ }
+              {/*    theme={ this.state.theme }*/ }
+              {/*  />*/ }
+              {/*</PanelBody>*/ }
+              <PanelBody
+                title={ __( "Fonts", 'planet4-blocks-backend' ) }
+                initialOpen={ true }
+              >
+                <Select
+                  metaKey='campaign_header_primary'
+                  label={ __( 'Header Primary Font', 'planet4-blocks-backend' ) }
+                  theme={ this.state.theme }
+                />
+                <Select
+                  metaKey='campaign_body_font'
+                  label={ __( 'Body Font', 'planet4-blocks-backend' ) }
+                  theme={ this.state.theme }
+                />
+              </PanelBody>
+              <PanelBody
+                title={ __( "Footer", 'planet4-blocks-backend' ) }
+                initialOpen={ true }
+              >
+                <Radio
+                  metaKey='campaign_footer_theme'
+                  label={ __( 'Footer background color', 'planet4-blocks-backend' ) }
+                  theme={ this.state.theme }
+                />
+                <ColorPalette
+                  metaKey='footer_links_color'
+                  label={ __( 'Footer links color', 'planet4-blocks-backend' ) }
+                  disableCustomColors
+                  clearable={ false }
+                  theme={ this.state.theme }
+                />
+              </PanelBody>
+            </>
+          }
         </PluginSidebar>
       </>
     );
