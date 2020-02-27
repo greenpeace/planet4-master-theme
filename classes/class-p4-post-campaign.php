@@ -385,7 +385,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 						$footer_links_color = '#1A1A1A';
 						break;
 					case 'green':
-						$footer_links_color = '#2caf4e';
+						$footer_links_color = '#62CE00';
 						break;
 					default:
 						$footer_links_color = '#FFFFFF';
