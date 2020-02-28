@@ -52,6 +52,7 @@ final class P4_Loader {
 	private function __construct( $services ) {
 		$this->load_files();
 		$this->load_services( $services );
+		$this->add_filters();
 	}
 
 	/**
@@ -139,5 +140,42 @@ final class P4_Loader {
 	 */
 	public function get_services() : array {
 		return $this->services;
+	}
+
+	/**
+	 * Add some filters.
+	 *
+	 * @return void
+	 */
+	private function add_filters(): void {
+		add_filter( 'pre_delete_post', [ $this, 'do_not_delete_autosave' ], 1, 3 );
+	}
+
+	/**
+	 * Due to a bug in WordPress core the "autosave revision" of a post is created and deleted all of the time.
+	 * This is pretty pointless and makes it impractical to add any post meta to that revision.
+	 * The logic was probably that some space could be saved it is can be determined that the autosave doesn't differ
+	 * from the current post content. However that advantage doesn't weigh up to the overhead of deleting the record and
+	 * inserting it again, each time burning through another id of the posts table.
+	 *
+	 * @see https://core.trac.wordpress.org/ticket/49532
+	 *
+	 * @param null $delete Whether to go forward with the delete (sic, see original filter where it is null initally, not used here).
+	 * @param null $post Post object.
+	 * @param null $force_delete Is true when post is not trashed but deleted permanently (always false for revisions but they are deleted anyway).
+	 *
+	 * @return bool|null If the filter returns anything else than null the post is not deleted.
+	 */
+	public function do_not_delete_autosave( $delete = null, $post = null, $force_delete = null ): ?bool {
+		if (
+			$force_delete
+			|| ( isset( $_GET['action'] ) && 'delete' === $_GET['action'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			|| ( isset( $_GET['delete_all'] ) ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			|| ! preg_match( '/autosave-v\d+$/', $post->post_name ) ) {
+
+			return null;
+		}
+
+		return false;
 	}
 }
