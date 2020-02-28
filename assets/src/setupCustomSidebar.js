@@ -11,24 +11,25 @@ const sidebarForPostType = ( postType ) => {
 };
 
 export const setupCustomSidebar = () => {
-  // `wp.data.select( 'core/editor' ).getCurrentPostType()` will return null a few times
-  // before it actually starts working.
   let currentPostType = null;
-  wp.data.subscribe( () => {
-    const newPostType = wp.data.select( 'core/editor' ).getCurrentPostType();
+  // Only subscribing after DOMContentLoaded avoids the troubles originating from wp.data emitting null values before that point.
+  document.addEventListener( 'DOMContentLoaded', event => {
+    wp.data.subscribe( () => {
+      const newPostType = wp.data.select( 'core/editor' ).getCurrentPostType();
 
-    if ( newPostType === currentPostType ) {
-      return;
-    }
-    currentPostType = newPostType;
+      if ( newPostType === currentPostType ) {
+        return;
+      }
+      currentPostType = newPostType;
 
-    const sidebarComponent = sidebarForPostType( newPostType );
+      const sidebarComponent = sidebarForPostType( newPostType );
 
-    if ( sidebarComponent ) {
-      registerPlugin( sidebarComponent.getId(), {
-        icon: sidebarComponent.getIcon(),
-        render: sidebarComponent
-      } );
-    }
+      if ( sidebarComponent ) {
+        registerPlugin( sidebarComponent.getId(), {
+          icon: sidebarComponent.getIcon(),
+          render: sidebarComponent
+        } );
+      }
+    } );
   } );
 };
