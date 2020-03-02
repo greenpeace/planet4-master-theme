@@ -19,7 +19,7 @@ body.theme-climate {
         }
 
         .form-description {
-          font-family: var(--campaigns-header-primary-font);
+          font-family: var(--header-primary-font);
           margin-bottom: $space-md;
 
           @include large-and-up {
@@ -30,7 +30,7 @@ body.theme-climate {
             font-weight: bold;
             font-size: 1.2rem;
             text-transform: uppercase;
-            font-family: var(--campaigns-header-primary-font);
+            font-family: var(--header-primary-font);
             margin-bottom: 4px;
             display: inline-block;
           }

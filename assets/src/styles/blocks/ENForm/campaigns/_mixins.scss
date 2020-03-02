@@ -3,8 +3,6 @@
     padding-bottom: $space-xxl;
 
     h1, h2, h3 {
-      font-family: var(--campaigns-header-primary-font) !important;
-
       @if $form-caption-transform {
         text-transform: $form-caption-transform;
       }
@@ -56,7 +54,7 @@
     #enform-content {
       .title-and-description {
         h2 {
-          font-family: var(--campaigns-header-primary-font) !important;
+          font-family: var(--header-primary-font) !important;
         }
       }
     }
