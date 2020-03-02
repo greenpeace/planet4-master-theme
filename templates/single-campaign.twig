@@ -1,15 +1,5 @@
 {% extends "base.twig" %}
 
-{% block breadcrumbs %}
-	{% if ancestors %}
-		<ul class="breadcrumbs">
-			{% for ancestor in ancestors %}
-			<li><a href="{{ ancestor.link }}">{{ ancestor.title }}</a></li>
-			{% endfor %}
-		</ul>
-	{% endif %}
-{% endblock %}
-
 {% block content %}
 	<div class="page-template {% if hide_page_title_checkbox == 'on' %}no-page-title{% endif %}">
 		{{ post.content|raw }}

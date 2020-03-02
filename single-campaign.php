@@ -21,21 +21,11 @@ $context['post'] = $post;
 // Get the cmb2 custom fields data.
 $meta                      = $post->custom;
 $current_level_campaign_id = $post->ID;
-$ancestors                 = [];
 
 do {
-	if ( $current_level_campaign_id !== $post->ID ) {
-		// Gather ancestors for the breadcrumbs.
-		$ancestors[] = [
-			'link'  => get_permalink( $current_level_campaign_id ),
-			'title' => get_the_title( $current_level_campaign_id ),
-		];
-	}
 	$top_level_campaign_id     = $current_level_campaign_id;
 	$current_level_campaign_id = wp_get_post_parent_id( $current_level_campaign_id );
 } while ( $current_level_campaign_id );
-
-$context['ancestors'] = array_reverse( $ancestors );
 
 if ( $top_level_campaign_id === $post->ID ) {
 	$campaign_meta = $meta;
