@@ -35,27 +35,6 @@ body.theme-oil {
   font-family: $roboto;
   background: white;
 
-  .btn-primary {
-    @include oil-button;
-    background: $oil-gradient-standard;
-
-    &:hover {
-      color: white;
-      background: $oil-red-3;
-    }
-  }
-
-  .btn-secondary {
-    @include oil-button(white, black);
-    border: 1px solid black;
-
-    &:hover {
-      color: white;
-      background: black;
-      border: 1px solid white;
-    }
-  }
-
   .skewed-overlay {
     display: none;
   }
@@ -64,12 +43,35 @@ body.theme-oil {
     @include page-section-header($anton);
   }
 
-  .page-template a {
-    color: $oil-blue;
-    text-transform: uppercase;
+  .page-template {
+    a {
+      color: $oil-blue;
+      text-transform: uppercase;
 
-    &:hover {
-      color: $oil-purple-2;
+      &:hover {
+        color: $oil-purple-2;
+      }
+    }
+
+    .btn-primary {
+      @include oil-button;
+      background: $oil-gradient-standard;
+
+      &:hover {
+        color: white !important;
+        background: $oil-red-3;
+      }
+    }
+
+    .btn-secondary {
+      @include oil-button(white, black);
+      border: 1px solid black;
+
+      &:hover {
+        color: white;
+        background: black;
+        border: 1px solid white;
+      }
     }
   }
 

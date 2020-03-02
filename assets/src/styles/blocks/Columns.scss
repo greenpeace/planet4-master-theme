@@ -3,6 +3,14 @@
     text-decoration: none;
     font-weight: inherit;
     color: $dark-blue;
+
+    &.btn-primary {
+      color: $white;
+    }
+
+    &.btn-primary, &.btn-secondary {
+      text-decoration: none !important;
+    }
   }
 
   // Specific rules when 1 or 2 columns only.

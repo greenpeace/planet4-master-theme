@@ -21,6 +21,7 @@ import { SpreadsheetBlock } from "./blocks/Spreadsheet/SpreadsheetBlock"
 import { addButtonLinkPasteWarning } from './addButtonLinkPasteWarning';
 import { setupCustomSidebar } from "./setupCustomSidebar";
 import { setUpCssVariables } from './connectCssVariables';
+import { SubPagesBlock } from './blocks/SubPages/SubPagesBlock';
 
 new ArticlesBlock();
 new CarouselHeaderBlock();
@@ -36,6 +37,7 @@ new SocialMediaCardsBlock();
 new SplittwocolumnsBlock();
 new SpreadsheetBlock()
 new SubmenuBlock();
+new SubPagesBlock();
 new TakeactionboxoutBlock();
 new TimelineBlock();
 

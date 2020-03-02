@@ -1,0 +1,7 @@
+{% block sub_pages %}
+	<ul class="sub-pages">
+		{% for page in sub_pages %}
+			<li><a href="{{ page.link }}">{{ page.title }}</a></li>
+		{% endfor %}
+	</ul>
+{% endblock %}
