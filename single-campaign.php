@@ -19,11 +19,52 @@ $post            = Timber::query_post( false, 'P4_Post' ); // phpcs:ignore WordP
 $context['post'] = $post;
 
 // Get the cmb2 custom fields data.
-$meta = $post->custom;
-// This will later become something else than the meta of the post, but using this already so we only have to change
-// this line later.
-$campaign_meta = $meta;
-$theme_name    = $campaign_meta['theme'] ?? $campaign_meta['_campaign_page_template'] ?? null;
+$meta                      = $post->custom;
+$current_level_campaign_id = $post->ID;
+$ancestors                 = [];
+
+do {
+	if ( $current_level_campaign_id !== $post->ID ) {
+		// Gather ancestors for the breadcrumbs.
+		$ancestors[] = [
+			'link'  => get_permalink( $current_level_campaign_id ),
+			'title' => get_the_title( $current_level_campaign_id ),
+		];
+	}
+	$top_level_campaign_id     = $current_level_campaign_id;
+	$current_level_campaign_id = wp_get_post_parent_id( $current_level_campaign_id );
+} while ( $current_level_campaign_id );
+
+$context['ancestors'] = array_reverse( $ancestors );
+
+if ( $top_level_campaign_id === $post->ID ) {
+	$campaign_meta = $meta;
+} else {
+	$parent_meta = get_post_meta( $top_level_campaign_id );
+	// Get rid of all metas being in an array.
+	$campaign_meta = array_map( 'reset', $parent_meta );
+}
+
+// This is just an example of how to get children pages, this will probably be done in some kind of menu block.
+$sub_pages = get_children(
+	[
+		'post_parent' => $post->ID,
+		'post_type'   => 'campaign',
+	]
+);
+
+$context['$sub_pages'] = array_map(
+	static function ( $page ) {
+		return [
+			'link'  => get_permalink( $page->ID ),
+			'title' => $page->post_title,
+		];
+	},
+	$sub_pages
+);
+
+
+$theme_name = $campaign_meta['theme'] ?? $campaign_meta['_campaign_page_template'] ?? null;
 
 if ( $theme_name ) {
 	$context['custom_body_classes'] = 'brown-bg theme-' . $theme_name;
