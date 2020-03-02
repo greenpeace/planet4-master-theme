@@ -1,22 +1,10 @@
 body.theme-climate {
-  $gradient-color: red;
   $form-caption-transform: uppercase;
 
   .enform-wrap {
     @include campaign-en-block($form-caption-transform);
 
     &.enform-side-style {
-      &::after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        z-index: 1;
-        background: $gradient-color;
-        background: linear-gradient(135deg, rgba($gradient-color, 1) 0%, rgba($gradient-color, 0) 100%);
-      }
-
       .form-caption {
         padding-top: 33px;
 
