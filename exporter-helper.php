@@ -1,19 +1,20 @@
 <?php
 /**
- * Post Exporter Helper Function
+ * Campaign Exporter Helper Functions
  *
  * @package P4MT
  */
+
 /**
  * Generate a bunch of placeholders for use in an IN query.
  * Such a shame WordPress doesn't offer a decent way to do bind IN statement params and we have to do this ourselves.
  *
  * @param array $items The items to generate placeholders for.
- * @param int $start_index The start index to use for creating the placeholders.
+ * @param int   $start_index The start index to use for creating the placeholders.
  * @return string The generated placeholders string.
  */
-function generate_list_placeholders(array $items, int $start_index): string {
-	$placeholders   = [];
+function generate_list_placeholders( array $items, int $start_index ): string {
+	$placeholders = [];
 	foreach ( range( $start_index, count( $items ) + $start_index - 1 ) as $i ) {
 		$placeholders[] = "%$i\$d";
 	}
@@ -32,10 +33,8 @@ function get_attachments_used_in_content( string $content ): array {
 	$attachment_ids = [];
 
 	foreach ( $blocks as $block ) {
-
 		// Fetch the attachement id/s from block fields.
 		switch ( $block['blockName'] ) {
-
 			case 'planet4-blocks/enform':
 				$attachment_ids[] = $block['attrs']['background'] ?? '';
 				break;
@@ -105,34 +104,35 @@ function get_campaign_attachments( $post_ids ) {
 
 	global $wpdb;
 
-	if ( empty($post_ids) ) {
+	if ( empty( $post_ids ) ) {
 		return [];
 	}
 
-	// phpcs:disable
-	$sql            = '
-SELECT id
-FROM wp_posts
-WHERE post_type = \'attachment\'
-AND parent_post_id post_parent IN (' . generate_list_placeholders( $post_ids, 1 ) . ')';
+	$sql = '
+		SELECT id
+		FROM %1$s
+		WHERE post_type = \'attachment\'
+		AND post_parent IN (' . generate_list_placeholders( $post_ids, 2 ) . ')';
 
-	$prepared_sql   = $wpdb->prepare( $sql, $post_ids );
-	$attachment_ids = $wpdb->get_results( $prepared_sql, OBJECT_K );
-	// phpcs:enable
+	$prepared_sql   = $wpdb->prepare(
+		$sql, // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		array_merge( [ $wpdb->posts ], $post_ids )
+	);
+	$attachment_ids = $wpdb->get_results( $prepared_sql, OBJECT_K ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 	/**
 	 * Post thumbnails
 	 */
-	$sql          = '
-SELECT meta_value
-FROM wp_postmeta
-WHERE ( meta_key = \'_thumbnail_id\' OR meta_key = \'background_image_id\' )
-AND post_id IN(' . generate_list_placeholders( $post_ids, 1 ) . ')';
+	$sql = '
+		SELECT meta_value
+		FROM %1$s
+		WHERE ( meta_key = \'_thumbnail_id\' OR meta_key = \'background_image_id\' )
+		AND post_id IN(' . generate_list_placeholders( $post_ids, 2 ) . ')';
 
 	$prepared_sql = $wpdb->prepare(
-		$sql,
-		$post_ids
-	); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$sql, // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		array_merge( [ $wpdb->postmeta ], $post_ids )
+	);
 	$results      = $wpdb->get_results( $prepared_sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 	$attachment_ids = array_merge(
@@ -146,25 +146,89 @@ AND post_id IN(' . generate_list_placeholders( $post_ids, 1 ) . ')';
 	);
 
 	$sql = '
-SELECT post_content
-FROM wp_posts
-WHERE ID IN(' . generate_list_placeholders($post_ids, 1) . ')
-AND post_content REGEXP \'((wp-image-|wp-att-)[0-9][0-9]*)|gallery_block_style|wp\:planet4\-blocks|href=|src=\'';
+			SELECT post_content
+			FROM %1$s
+			WHERE ID IN(' . generate_list_placeholders( $post_ids, 2 ) . ')
+			AND post_content REGEXP \'((wp-image-|wp-att-)[0-9][0-9]*)|gallery_block_style|wp\:planet4\-blocks|href=|src=\'';
 
-	$prepared_sql = $wpdb->prepare( $sql, $post_ids ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared_sql = $wpdb->prepare( $sql, array_merge( [ $wpdb->posts ], $post_ids ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	$results      = $wpdb->get_results( $prepared_sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 	foreach ( (array) $results as $text ) {
-		$text = $text->post_content;
+		$text           = $text->post_content;
 		$attachment_ids = array_merge( $attachment_ids, get_attachments_used_in_content( $text ) );
 	}
 
 	$attachment_ids = array_unique( $attachment_ids );
 	sort( $attachment_ids );
 
-	// The post ids are reorderd as sort all attachment ids first and then append the post id to array.(Added for simplification of import process).
+	// The post ids are reordered as sort all attachment ids first and then append the post id to array.(Added for simplification of import process).
 	$attachment_ids = array_diff( $attachment_ids, $post_ids );
 	$post_ids       = array_merge( $attachment_ids, $post_ids );
 
 	return $post_ids;
+}
+
+/**
+ * Wrap strings in nested CDATA tags.
+ *
+ * @param string $str String to replace.
+ */
+function p4_px_single_post_cdata( $str ) {
+	if ( seems_utf8( $str ) === false ) {
+		$str = utf8_encode( $str );
+	}
+	$str = '<![CDATA[' . str_replace( ']]>', ']]]]><![CDATA[>', $str ) . ']]>';
+
+	return $str;
+}
+
+/**
+ * Get the site url.
+ */
+function p4_px_single_post_site_url() {
+	if ( is_multisite() ) {
+		return network_home_url();
+	} else {
+		return get_bloginfo_rss( 'url' );
+	}
+}
+
+/**
+ * Get the Campaign authors.
+ *
+ * @param array $post_ids Tag object.
+ */
+function p4_px_single_post_authors_list( $post_ids ) {
+	global $wpdb;
+
+	$post_ids = array_map( 'intval', $post_ids );  // santize the post_ids manually.
+	$post_ids = array_filter( $post_ids ); // strip ones that didn't validate.
+
+	$authors = [];
+
+	$sql = 'SELECT DISTINCT post_author
+			FROM %1$s
+			WHERE ID IN(' . generate_list_placeholders( $post_ids, 2 ) . ') AND post_status != \'auto-draft\'';
+
+	$prepared_sql = $wpdb->prepare( $sql, array_merge( [ $wpdb->posts ], $post_ids ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$results      = $wpdb->get_results( $prepared_sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+
+	foreach ( (array) $results as $result ) {
+		$authors[] = get_userdata( $result->post_author );
+	}
+
+	$authors = array_filter( $authors );
+
+	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+	foreach ( $authors as $author ) {
+		echo "\t<wp:author>";
+		echo '<wp:author_id>' . $author->ID . '</wp:author_id>';
+		echo '<wp:author_login>' . $author->user_login . '</wp:author_login>';
+		echo '<wp:author_email>' . $author->user_email . '</wp:author_email>';
+		echo '<wp:author_display_name>' . p4_px_single_post_cdata( $author->display_name ) . '</wp:author_display_name>';
+		echo '<wp:author_first_name>' . p4_px_single_post_cdata( $author->user_firstname ) . '</wp:author_first_name>';
+		echo '<wp:author_last_name>' . p4_px_single_post_cdata( $author->user_lastname ) . '</wp:author_last_name>';
+		echo "</wp:author>\n";
+	}
 }
