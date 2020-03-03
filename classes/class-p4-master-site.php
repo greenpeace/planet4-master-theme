@@ -800,6 +800,8 @@ class P4_Master_Site extends TimberSite {
 		$replacement[0] = '$1 class="custom-control-description"';
 		$pattern[1]     = '/(id=["\']gdpr-comments-checkbox["\'])/';
 		$replacement[1] = '$1 style="width:auto;"';
+		$pattern[2]     = '/id="gdpr-comments-compliance"/';
+		$replacement[2] = 'id="gdpr-comments-compliance" class="custom-control"';
 
 		$submit_field = preg_replace( $pattern, $replacement, $submit_field );
 
