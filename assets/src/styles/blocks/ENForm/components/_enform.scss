@@ -293,6 +293,10 @@ body.wp-admin {
 
     @include large-and-up {
       left: 33%;
+
+      html[dir="rtl"] & {
+        right: 33%;
+      }
     }
 
     .sub-section {
@@ -304,11 +308,11 @@ body.wp-admin {
       }
 
       .share-btn {
-          width: 31% !important;
+        width: 31% !important;
 
-         @include small-and-up {
-           width: 32.5% !important;
-         }
+        @include small-and-up {
+          width: 32.5% !important;
+        }
       }
     }
   }
