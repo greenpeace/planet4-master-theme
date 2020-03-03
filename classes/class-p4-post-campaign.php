@@ -48,6 +48,24 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 			add_action( 'cmb2_render_sidebar_link', [ $this, 'cmb2_render_sidebar_link_field_callback' ], 10, 5 );
 			add_action( 'cmb2_render_footer_icon_link', [ $this, 'cmb2_render_footer_icon_link_field_callback' ], 10, 5 );
+
+			add_filter( 'get_user_option_edit_campaign_per_page', [ $this, 'set_default_items_per_page' ], 10, 3 );
+
+		}
+
+		/**
+		 * Increase the maximum number of items displayed so that there are enough items to collapse any child pages.
+		 *
+		 * @param int|null $result Possibly value chosen by the current user.
+		 * @param string   $option The name of the option.
+		 * @param object   $user The current user.
+		 * @return int The amount of pages that will be used.
+		 */
+		public function set_default_items_per_page( $result, $option, $user ) {
+			if ( (int) $result < 1 ) {
+				return 200;
+			}
+			return $result;
 		}
 
 		/**
@@ -67,7 +85,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'view_item'          => __( 'View Campaign', 'planet4-master-theme-backend' ),
 				'all_items'          => __( 'All Campaigns', 'planet4-master-theme-backend' ),
 				'search_items'       => __( 'Search Campaigns', 'planet4-master-theme-backend' ),
-				'parent_item_colon'  => __( 'Parent Campaigns:', 'planet4-master-theme-backend' ),
+				'parent_item_colon'  => __( 'Parent Campaign:', 'planet4-master-theme-backend' ),
 				'not_found'          => __( 'No campaigns found.', 'planet4-master-theme-backend' ),
 				'not_found_in_trash' => __( 'No campaigns found in Trash.', 'planet4-master-theme-backend' ),
 			];
@@ -80,15 +98,20 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'show_ui'            => true,
 				'show_in_menu'       => true,
 				'query_var'          => true,
-				'rewrite'            => [ 'slug' => 'campaign' ],
+				'rewrite'            => [
+					'slug'       => 'campaign',
+					'with_front' => false,
+				],
 				'capability_type'    => [ 'campaign', 'campaigns' ],
 				'map_meta_cap'       => true,
 				'has_archive'        => true,
-				'hierarchical'       => false,
+				'hierarchical'       => true,
+				'show_in_nav_menus'  => true,
 				'menu_position'      => null,
 				'menu_icon'          => 'dashicons-megaphone',
 				'show_in_rest'       => true,
 				'supports'           => [
+					'page-attributes',
 					'title',
 					'editor',
 					'author',
@@ -362,7 +385,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 						$footer_links_color = '#1A1A1A';
 						break;
 					case 'green':
-						$footer_links_color = '#2caf4e';
+						$footer_links_color = '#62CE00';
 						break;
 					default:
 						$footer_links_color = '#FFFFFF';
