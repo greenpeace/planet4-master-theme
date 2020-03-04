@@ -103,7 +103,40 @@
 		{
 			"id": "campaign_header_primary",
 			"options": [
-			]
+				{
+					"value": "Anton",
+					"label": "Anton"
+				},
+				{
+					"value": "Jost",
+					"label": "Jost"
+				},
+				{
+					"value": "Montserrat",
+					"label": "Montserrat Bold"
+				},
+				{
+					"value": "Montserrat_Light",
+					"label": "Montserrat Light"
+				},
+				{
+					"value": "Roboto",
+					"label": "Roboto"
+				},
+				{
+					"value": "Sanctuary",
+					"label": "Sanctuary"
+				},
+				{
+					"value": "Kanit",
+					"label": "Kanit Extra Bold"
+				},
+				{
+					"value": "Save the Arctic",
+					"label": "Save the Arctic"
+				}
+			],
+			"default": "Sanctuary"
 		},
 		{
 			"id": "campaign_body_font",
