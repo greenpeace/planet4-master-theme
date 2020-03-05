@@ -59,16 +59,13 @@
     }
 
     .column-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       margin-top: $space-xl;
 
       @include large-and-up {
         margin-top: 0;
-      }
-
-      &.has-cta {
-        @include medium-and-up {
-          padding-bottom: $space-xl; // Leave enough room for the CTA button
-        }
       }
 
       h3 {
@@ -90,9 +87,9 @@
       }
 
       p {
+        flex-grow: 1;
         font-size: $font-size-sm;
         line-height: 1.6;
-        margin-bottom: $space-lg;
         color: $dark-shade-black;
 
         @include medium-and-up {
@@ -100,7 +97,6 @@
         }
 
         @include large-and-up {
-          margin-bottom: $space-xxl;
           font-size: $font-size-xxs;
           width: 82%;
         }
@@ -109,20 +105,11 @@
           font-size: $font-size-xs;
           width: 76%;
         }
-
-        &:last-child {
-          margin-bottom: 0;
-        }
       }
 
       .btn {
         position: relative;
         margin-bottom: 0;
-
-        @include medium-and-up {
-          position: absolute;
-          bottom: 0;
-        }
       }
     }
   }
@@ -138,16 +125,13 @@
     }
 
     .column-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       margin-bottom: $space-xl;
 
       @include large-and-up {
         margin-bottom: 0;
-      }
-
-      &.has-cta {
-        @include large-and-up {
-          padding-bottom: $space-md; // Leave enough room for the CTA link
-        }
       }
 
       h3,
@@ -182,6 +166,7 @@
       }
 
       p {
+        flex-grow: 1;
         font-size: $font-size-sm;
         line-height: 1.6;
         color: $dark-shade-black;
@@ -550,12 +535,6 @@
         margin-bottom: 0;
       }
 
-      &.has-cta {
-        @include large-and-up {
-          padding-bottom: $space-md; // Leave enough room for the CTA link
-        }
-      }
-
       h3,
       .icon-container {
         text-align: center;
@@ -632,11 +611,6 @@
 
         &.call-to-action-link {
           position: relative;
-
-          @include medium-and-up {
-            position: absolute;
-            bottom: 0;
-          }
         }
       }
 
@@ -708,12 +682,6 @@
         img {
           @include x-large-and-up {
             margin-bottom: 0;
-          }
-        }
-
-        &.has-cta {
-          @include large-and-up {
-            padding-bottom: 0; // Leave enough room for the CTA link
           }
         }
       }
