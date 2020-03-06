@@ -11,6 +11,7 @@ import { setupSearch } from './search';
 import { setupImageZoomer } from './single';
 import { setupExternalLinks } from './external_links';
 import { setupLazyLoad } from './lazyload';
+import { setupCSSVarsPonyfill } from './cssvarsponyfill';
 
 import 'bootstrap';
 
@@ -37,4 +38,5 @@ jQuery(function($) {
   setupSearch($);
   setupImageZoomer($);
   setupExternalLinks($);
+  setupCSSVarsPonyfill();
 });
