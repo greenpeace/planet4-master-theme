@@ -1,9 +1,8 @@
 body.theme-climate {
-  $jost: "Jost", sans-serif;
   $form-caption-transform: uppercase;
 
   .enform-wrap {
-    @include campaign-en-block($jost, $jost, $form-caption-transform);
+    @include campaign-en-block($form-caption-transform);
 
     &.enform-side-style {
       .form-caption {
@@ -20,18 +19,14 @@ body.theme-climate {
         }
 
         .form-description {
-          font-family: $jost;
+          font-family: var(--header-primary-font);
           margin-bottom: $space-md;
 
-          @include large-and-up {
-            margin-bottom: $space-lg;
-          }
-
-          .first-line {
+          p:first-child {
             font-weight: bold;
             font-size: 1.2rem;
             text-transform: uppercase;
-            font-family: $jost;
+            font-family: var(--header-primary-font);
             margin-bottom: 4px;
             display: inline-block;
           }
