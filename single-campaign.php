@@ -18,8 +18,14 @@ $context = Timber::get_context();
 $post            = Timber::query_post( false, 'P4_Post' ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $context['post'] = $post;
 
-// Get the cmb2 custom fields data.
-$meta                      = $post->custom;
+$meta = get_post_meta( $post->ID );
+// No need to check the user here as that already happens in wp_get_post_autosave.
+if ( isset( $_GET['preview'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$post_preview = wp_get_post_autosave( $post->ID );
+	if ( $post_preview ) {
+		$meta = array_merge( $meta, get_post_meta( $post_preview->ID ) );
+	}
+}
 $current_level_campaign_id = $post->ID;
 
 do {
@@ -30,10 +36,10 @@ do {
 if ( $top_level_campaign_id === $post->ID ) {
 	$campaign_meta = $meta;
 } else {
-	$parent_meta = get_post_meta( $top_level_campaign_id );
-	// Get rid of all metas being in an array.
-	$campaign_meta = array_map( 'reset', $parent_meta );
+	$campaign_meta = get_post_meta( $top_level_campaign_id );
 }
+// Get rid of all metas being in an array.
+$campaign_meta = array_map( 'reset', $campaign_meta );
 
 // This is just an example of how to get children pages, this will probably be done in some kind of menu block.
 $sub_pages = get_children(
