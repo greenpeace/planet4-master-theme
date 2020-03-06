@@ -22,11 +22,7 @@ body.theme-climate {
           font-family: var(--header-primary-font);
           margin-bottom: $space-md;
 
-          @include large-and-up {
-            margin-bottom: $space-lg;
-          }
-
-          .first-line {
+          p:first-child {
             font-weight: bold;
             font-size: 1.2rem;
             text-transform: uppercase;
