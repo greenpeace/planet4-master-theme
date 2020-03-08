@@ -58,6 +58,14 @@ body.theme-arctic {
     &:hover {
       color: $arctic-red;
     }
+
+    &.btn-primary {
+      color: white;
+
+      &:hover {
+        color: white;
+      }
+    }
   }
 
   /*  BLOCKS START */
