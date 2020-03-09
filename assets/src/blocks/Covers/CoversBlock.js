@@ -99,40 +99,29 @@ export class CoversBlock {
         // a Decorator, it will provide some basic API functionality
         // through `select`.
         edit: withSelect( ( select ) => {
-          const tagsTaxonomy = 'post_tag';
           const postTypesTaxonomy = 'p4-page-type';
-          const args = {
-            hide_empty: false,
-            per_page: -1,
-          };
-
           const { getEntityRecords } = select( 'core' );
 
           // We should probably wrap all these in a single call,
           // or maybe use our own way of retrieving data from the
           // API, I don't know how this scales.
-          const tagsList = getEntityRecords( 'taxonomy', tagsTaxonomy, args );
           const postTypesList = getEntityRecords( 'taxonomy', postTypesTaxonomy );
+          const currentPostType = select('core/editor').getCurrentPostType();
 
           return {
             postTypesList,
-            tagsList,
+            currentPostType,
           };
         } )( ( {
           postTypesList,
-          tagsList,
+          currentPostType,
           isSelected,
           attributes,
           setAttributes
         } ) => {
 
-            if ( !tagsList || !postTypesList ) {
+            if (  !postTypesList ) {
                 return "Populating block's fields...";
-            }
-
-            // TO-DO: Check for posts types and posts too...
-            if ( !tagsList && !tagsList.length === 0 ) {
-                return "No tags...";
             }
 
             // We pass down all the attributes to Covers as props using
@@ -143,8 +132,8 @@ export class CoversBlock {
               attributes={ attributes}
               setAttributes={ setAttributes}
               isSelected={ isSelected }
-              tagsList={ tagsList }
               postTypesList={ postTypesList }
+              currentPostType={ currentPostType }
             />
         } ),
         save() {

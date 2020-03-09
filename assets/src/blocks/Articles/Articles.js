@@ -8,6 +8,7 @@ import {
   ServerSideRender
 } from '@wordpress/components';
 import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
+import TagSelector from '../../components/TagSelector/TagSelector';
 
 
 const {apiFetch} = wp;
@@ -18,20 +19,15 @@ const TextareaControl = withCharacterCounter( BaseTextareaControl );
 export class Articles extends Component {
   constructor(props) {
     super(props);
-
-    // Populate tag tokens for saved tags.
-    let tagTokens = props.tagsList.filter( tag => props.attributes.tags.includes( tag.id ) ).map( tag => tag.name );
     // Populate post types tokens for saved post types.
     let postTypeTokens = props.postTypesList.filter( post_type => props.attributes.post_types.includes( post_type.id ) ).map( post_type => post_type.name );
 
     this.state = {
-      tagTokens: tagTokens,
       postTypeTokens: postTypeTokens,
       selectedPosts: [],
       postsSuggestions: null,
       overrideWasFocused: false,
     };
-    this.onSelectedTagsChange = this.onSelectedTagsChange.bind( this );
     this.onSelectedPostTypesChange = this.onSelectedPostTypesChange.bind( this );
     this.getSuggestionsOnFirstFocus = this.getSuggestionsOnFirstFocus.bind( this );
     this.onSelectedPostsChange = this.onSelectedPostsChange.bind( this );
@@ -117,14 +113,6 @@ export class Articles extends Component {
     });
   }
 
-  onSelectedTagsChange(tokens) {
-    const tagIds = tokens.map(token => {
-      return this.props.tagsList.filter(tag => tag.name === token)[0].id;
-    });
-    this.props.setAttributes({tags: tagIds});
-    this.setState({tagTokens: tokens})
-  }
-
   onSelectedPostTypesChange(tokens) {
     const postTypeIds = tokens.map(token => {
       return this.props.postTypesList.filter(postType => postType.name === token)[0].id;
@@ -145,7 +133,6 @@ export class Articles extends Component {
   renderEdit() {
     const {__} = wp.i18n;
 
-    const tagSuggestions = this.props.tagsList.map(tag => tag.name);
     const postTypeSuggestions = this.props.postTypesList.map(postType => postType.name);
 
     const toAttribute = attributeName => value => {
@@ -220,11 +207,9 @@ export class Articles extends Component {
                 />
               </div>
               <div>
-                <FormTokenField
-                  suggestions={tagSuggestions}
-                  label={__('Select Tags', 'p4ge')}
-                  value={this.state.tagTokens}
-                  onChange={this.onSelectedTagsChange}
+                <TagSelector
+                  value={ this.props.attributes.tags }
+                  onChange={ toAttribute('tags')}
                 />
                 <p className='FieldHelp'>Associate this block with Actions that have specific Tags</p>
               </div>

@@ -10,6 +10,7 @@ import {
 import { LayoutSelector } from '../../components/LayoutSelector/LayoutSelector';
 import { Preview } from '../../components/Preview';
 import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
+import TagSelector from '../../components/TagSelector/TagSelector';
 
 const {apiFetch} = wp;
 const {addQueryArgs} = wp.url;
@@ -25,10 +26,8 @@ export class Covers extends Component {
     constructor(props) {
       super(props);
 
-      // Populate tag tokens for saved tags.
-      let tagTokens = props.tagsList.filter(tag => props.tags.includes(tag.id)).map(tag => tag.name);
       // Populate post types tokens for saved post types.
-      let postTypeTokens = props.postTypesList.filter(post_type => props.post_types.includes(post_type.id)).map(post_type => post_type.name);
+      const postTypeTokens = props.post_types.map( postTypeId => props.postTypesList.find( postType => postType.id === postTypeId ) );
 
       const { __ } = wp.i18n;
 
@@ -39,10 +38,7 @@ export class Covers extends Component {
           help: __('Content covers pull the image from the post.')
         }];
 
-      // Get current post type to filter LayoutSelector options in the case of "campaigns" post type.
-      let currentPostType = wp.data.select('core/editor').getCurrentPostType();
-
-      if ('campaign' !== currentPostType) {
+      if ('campaign' !== props.currentPostType) {
         this.options.push({
           label: __('Take Action Covers', 'p4ge'),
           image: window.p4ge_vars.home + 'images/take_action_covers.png',
@@ -57,15 +53,18 @@ export class Covers extends Component {
         });
       }
 
-      // Populate component state with block's saved tags tokens and post type tokens
+      // Populate component state with block's saved post type tokens
       this.state = {
-        tagTokens: tagTokens,
         postTypeTokens: postTypeTokens,
         selectedPosts: [],
       };
 
       this.populatePostsToken();
       this.searchTimeout = null;
+      this.onPostsSearch = this.onPostsSearch.bind( this );
+      this.onLayoutChange = this.onLayoutChange.bind( this );
+      this.onPostTypesChange = this.onPostTypesChange.bind(this);
+      this.onPostsChange = this.onPostsChange.bind( this );
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -110,7 +109,7 @@ export class Covers extends Component {
 
           this.setState({
               postsTokens: postsTokens,
-              postsList: posts,
+              postsList: postsList,
               postsSuggestions: postsSuggestions,
               selectedPosts: posts,
             }
@@ -126,49 +125,6 @@ export class Covers extends Component {
           }
         );
       }
-    }
-
-    /**
-     * Search posts using wp api.
-     *
-     * @param tokens
-     */
-    searchPosts(tokens) {
-
-      let queryArgs;
-      if (TYPE_TAKE_ACTION === this.props.cover_type) {
-
-        queryArgs = {
-          path: addQueryArgs('/wp/v2/pages', {
-            per_page: -1,
-            post_type: 'page',
-            post_parent: window.p4ge_vars.planet4_options.act_page,
-            search: tokens,
-            orderby: 'title',
-            post_status: 'publish',
-
-          })
-        };
-      } else {
-
-        queryArgs = {
-          path: addQueryArgs('/wp/v2/posts', {
-            per_page: 50,
-            page: 1,
-            search: tokens,
-            orderby: 'title',
-            post_status: 'publish',
-
-          })
-        };
-      }
-
-
-      apiFetch(queryArgs)
-        .then(posts => {
-          let postsSuggestions = posts.map(post => post.title.rendered);
-          this.setState({postsSuggestions: postsSuggestions, postsList: posts})
-        });
     }
 
     onPostsSearch(token) {
@@ -187,14 +143,6 @@ export class Covers extends Component {
       }
       // Reset posts attribute when changing layout also.
       setAttributes({cover_type: value, posts: []});
-    }
-
-    onTagsChange(tokens) {
-      const tagIds = tokens.map( token => {
-        return this.props.tagsList.filter( tag => tag.name === token )[0].id;
-      });
-      this.props.setAttributes( { tags: tagIds } );
-      this.setState({ tagTokens: tokens })
     }
 
     onPostTypesChange(tokens) {
@@ -227,7 +175,6 @@ export class Covers extends Component {
     renderEdit() {
       const { __ } = wp.i18n;
 
-      const tagSuggestions = this.props.tagsList.map( tag => tag.name );
       const postTypeSuggestions = this.props.postTypesList.map( postType => postType.name );
 
       const toAttribute = attributeName => value => {
@@ -283,13 +230,9 @@ export class Covers extends Component {
             this.props.posts !== 'undefined' && this.props.posts.length === 0
               ?
               <div>
-
-                <FormTokenField
-                  value={this.state.tagTokens}
-                  suggestions={tagSuggestions}
-                  label='Select Tags'
-                  onChange={this.onTagsChange}
-                  placeholder="Select Tags"
+                <TagSelector
+                  value={ this.props.tags }
+                  onChange={toAttribute('tags')}
                 />
                 <p class='FieldHelp'>Associate this block with Actions that have specific Tags</p>
               </div>
@@ -303,7 +246,7 @@ export class Covers extends Component {
                 suggestions={postTypeSuggestions}
                 label='Post Types'
                 onChange={this.onPostTypesChange}
-                placeholder="Select Tags"
+                placeholder="Select Post Types"
               />
               : null
           }
@@ -319,7 +262,7 @@ export class Covers extends Component {
                   label='CAUTION: Adding covers manually will override the automatic functionality.'
                   onChange={this.onPostsChange}
                   onInputChange={this.onPostsSearch}
-                  placeholder="Select Tags"
+                  placeholder="Select Articles"
                 />
               </div>
               : null
