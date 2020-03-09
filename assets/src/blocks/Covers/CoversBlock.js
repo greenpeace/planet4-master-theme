@@ -135,61 +135,17 @@ export class CoversBlock {
                 return "No tags...";
             }
 
-            // These methods are passed down to the
-            // Covers component, they update the corresponding attribute.
-
-            function onRowsChange( value ) {
-              setAttributes( { covers_view: value } );
-            }
-
-            function onTitleChange( value ) {
-              setAttributes( { title: value } );
-            }
-
-            function onDescriptionChange( value ) {
-              setAttributes( { description: value } );
-            }
-
-            function onSelectedTagsChange( tagIds ) {
-              setAttributes( { tags: tagIds } );
-            }
-
-            function onSelectedPostsChange(value) {
-              setAttributes({posts: value});
-            }
-
-            function onSelectedPostTypesChange( postTypeIds ) {
-              setAttributes( { post_types: postTypeIds } );
-            }
-
-            function onSelectedLayoutChange( value ) {
-
-              // Post types are available only on cover_type 3, so we reset the post_types attribute in the other 2 cases.
-              if ( '1' === value) {
-                setAttributes( { post_types: [] } );
-              }
-              if ( '2' === value) {
-                setAttributes( { post_types: []} );
-              }
-              // Reset posts attribute when changing layout also.
-              setAttributes({cover_type: value, posts: []});
-            }
-
             // We pass down all the attributes to Covers as props using
             // the spread operator. Then we selectively add more
             // props.
             return <Covers
               { ...attributes }
+              attributes={ attributes}
+              setAttributes={ setAttributes}
               isSelected={ isSelected }
               tagsList={ tagsList }
               postTypesList={ postTypesList }
-              onSelectedTagsChange={ onSelectedTagsChange }
-              onSelectedLayoutChange={ onSelectedLayoutChange }
-              onTitleChange={ onTitleChange }
-              onDescriptionChange={ onDescriptionChange }
-              onSelectedPostsChange={ onSelectedPostsChange }
-              onSelectedPostTypesChange={ onSelectedPostTypesChange }
-              onRowsChange={ onRowsChange } />
+            />
         } ),
         save() {
           return null;

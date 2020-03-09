@@ -145,9 +145,12 @@ export class Articles extends Component {
   renderEdit() {
     const {__} = wp.i18n;
 
-    const { setAttributes } = this.props;
     const tagSuggestions = this.props.tagsList.map(tag => tag.name);
     const postTypeSuggestions = this.props.postTypesList.map(postType => postType.name);
+
+    const toAttribute = attributeName => value => {
+      this.props.setAttributes( { [ attributeName ]: value } );
+    };
 
     return (
       <Fragment>
@@ -157,9 +160,7 @@ export class Articles extends Component {
             placeholder={__('Enter title', 'p4ge')}
             help={__('Your default is set to [ Latest Articles ]', 'p4ge')}
             value={this.props.attributes.article_heading}
-            onChange={ value => {
-              setAttributes( { article_heading: value } );
-            } }
+            onChange={ toAttribute('article_heading')}
             characterLimit={40}
           />
         </div>
@@ -170,9 +171,7 @@ export class Articles extends Component {
             label={__('Description', 'p4ge')}
             placeholder={__('Enter description', 'p4ge')}
             value={this.props.attributes.articles_description}
-            onChange={ value => {
-              setAttributes( { articles_description: value } );
-            } }
+            onChange={ toAttribute('articles_description')}
             characterLimit={200}
           />
         </div>
@@ -183,9 +182,7 @@ export class Articles extends Component {
             placeholder={__('Override button text', 'p4ge')}
             help={__('Your default is set to [ Load More ]', 'p4ge')}
             value={this.props.attributes.read_more_text}
-            onChange={ value => {
-              setAttributes( { read_more_text: value } );
-            } }
+            onChange={ toAttribute('read_more_text')}
           />
         </div>
 
@@ -195,9 +192,7 @@ export class Articles extends Component {
             label={__('Button Link', 'p4ge')}
             placeholder={__('Add read more button link', 'p4ge')}
             value={this.props.attributes.read_more_link}
-            onChange={ value => {
-              setAttributes( { read_more_link: value } );
-            } }
+            onChange={ toAttribute('read_more_link')}
           />
         </div>
 
@@ -207,9 +202,7 @@ export class Articles extends Component {
             help={__('Open button link in new tab', 'p4ge')}
             value={this.props.button_link_new_tab}
             checked={this.props.button_link_new_tab}
-            onChange={ value => {
-              setAttributes( { button_link_new_tab: value } );
-            } }
+            onChange={ toAttribute('button_link_new_tab')}
           />
         </div>
 
@@ -223,9 +216,7 @@ export class Articles extends Component {
                   help={__('Number of articles', 'p4ge')}
                   type="number"
                   value={this.props.attributes.article_count}
-                  onChange={ value => {
-                    setAttributes( { article_count: value } );
-                  } }
+                  onChange={toAttribute('article_count')}
                 />
               </div>
               <div>
@@ -251,9 +242,7 @@ export class Articles extends Component {
                   help={__('Ignore categories when filtering posts to populate the content of this block', 'p4ge')}
                   value={this.props.attributes.ignore_categories}
                   checked={this.props.attributes.ignore_categories}
-                  onChange={ value => {
-                    setAttributes( { ignore_categories: value } );
-                  } }
+                  onChange={ toAttribute('ignore_categories')}
                 />
               </div>
             </Fragment>
