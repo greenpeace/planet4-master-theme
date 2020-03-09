@@ -338,18 +338,35 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			register_post_meta( self::POST_TYPE, $meta_key, $args );
 		}
 
+		/**
+		 * Gets the default for a field.
+		 *
+		 * @param array $field A field from the JSON theme file.
+		 * @return string Default value
+		 */
+		private static function get_field_default( $field ) {
+			$default = null;
+			if ( isset( $field['configurations'] ) && isset( $field['configurations']['default'] ) ) {
+				$default_configuration = $field['configurations']['default'];
+				if ( isset( $field['configurations'][ $default_configuration ]['default'] ) ) {
+					$default = $field['configurations'][ $default_configuration ]['default'];
+				}
+			} elseif ( isset( $field['default'] ) ) {
+				$default = $field['default'];
+			}
+
+			return $default;
+		}
+
+		/**
+		 * Get the theme defaults
+		 *
+		 * @param mixed $theme_json The JSON theme file.
+		 */
 		private static function get_theme_defaults( $theme_json ) {
 			$defaults = [];
-
 			foreach ( $theme_json['fields'] as $field ) {
-				if ( isset( $field['configurations'] ) && isset( $field['configurations']['default'] )) {
-					$defaultConfiguration = $field['configurations']['default'];
-					if ( isset( $field['configurations'][$defaultConfiguration]['default'] ) ) {
-						$defaults[ $field['id'] ] = $field['configurations'][$defaultConfiguration]['default'];
-					}
-				} else if ( isset( $field['default'] )) {
-					$defaults[ $field['id'] ] = $field['default'];
-				}
+				$defaults[ $field['id'] ] = self::get_field_default( $field );
 			}
 
 			return $defaults;
@@ -365,28 +382,31 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			$theme = self::get_theme( $meta );
 
 			// TODO: Use wp_safe_remote_get?
-			// TODO: Handle errors
+			// TODO: Handle errors.
 			$theme_json = json_decode(
-				file_get_contents( __DIR__ . '/../campaign_themes/' . $theme . '.json' ),
+				// Ignoring the PHPCS error in the next line because it's a local file, not a remote request.
+				wp_safe_remote_get( __DIR__ . '/../campaign_themes/' . $theme . '.json' ), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 				true
 			);
 
 			$defaults = self::get_theme_defaults( $theme_json );
 
-			// Replace the defaults with the campaign options where applicable
-			// 'array_intersect_key' removes the keys from $meta that are not present in the $defaults.
-			// 'array_filter' removes empty (falsey?) values from the resulting array.
-			$css_vars = array_filter( array_intersect_key( $meta, $defaults ) );
+			// Replace the defaults with the campaign options where applicable.
+			$intersect = array_intersect_key( $defaults, $meta );
+			$css_vars  = array_merge( $defaults, $intersect );
 
 			$css_vars = array_merge( $css_vars, self::get_footer_theme( $meta ) );
 			$css_vars = array_merge( $css_vars, self::get_passive_button_color( $meta, $defaults ) );
+			$css_vars = array_merge( $css_vars, self::get_body_font( $meta, $defaults ) );
 			$css_vars = self::replace_font_aliases( $css_vars );
+
+			$css_vars = array_filter( $css_vars );
 
 			return $css_vars;
 		}
 
 		/**
-		 * DEPRECATE: This function replaces a font names in the CSS variables.
+		 * @deprecated This function replaces some arbitrary font names in the CSS variables.
 		 *
 		 * @param array $css_vars The array containing the CSS variables.
 		 * @return array The variables for the footer theme.
@@ -410,7 +430,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		 * @param array $meta The meta containing the style settings.
 		 * @return array The variables for the passive button.
 		 */
-		public static function get_passive_button_color( array $meta, array $defaults ): array {
+		public static function get_passive_button_color( array $meta ): array {
 			// TODO: Remove this "Passive" color map based on hovers.
 			$passive_button_colors_map = [
 				'#ffd204' => '#f36d3a',
@@ -441,11 +461,11 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		 */
 		public static function transform_legacy_mapping( array $css_vars ): array {
 			$css_vars['campaigns-header-primary-font'] = $css_vars['campaign_header_primary'];
-			$css_vars['campaigns-header-font-weight'] = $css_vars['campaign_header_weight'];
+			$css_vars['campaigns-header-font-weight']  = $css_vars['campaign_header_weight'];
 
-			$css_vars['campaigns-primary-button-color-idle'] = $css_vars['passive_button_color'];
-			$css_vars['campaigns-primary-button-color-hover'] = $css_vars['campaign_primary_color'];
-			$css_vars['campaigns-secondary-button-color-idle'] = $css_vars['campaign_secondary_color'];
+			$css_vars['campaigns-primary-button-color-idle']    = $css_vars['passive_button_color'];
+			$css_vars['campaigns-primary-button-color-hover']   = $css_vars['campaign_primary_color'];
+			$css_vars['campaigns-secondary-button-color-idle']  = $css_vars['campaign_secondary_color'];
 			$css_vars['campaigns-secondary-button-color-hover'] = $css_vars['campaign_secondary_color'];
 
 			return $css_vars;
@@ -492,7 +512,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		 */
 		public static function get_theme( array $meta ): string {
 			$theme = $meta['theme'] ?? $meta['_campaign_page_template'] ?? null;
-			$theme = $theme ?: 'default';
+			$theme = $theme ? $theme : 'default';
 
 			return $theme;
 		}

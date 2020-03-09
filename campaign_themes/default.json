@@ -305,25 +305,22 @@
 			"configurations": {
 				"white": {
 					"options": [
-						{ "color":  "#000000"},
+						{ "color": "#000000"},
 						{ "color": "#035880"}
 					]
-				}
+				},
+				"default": "white"
 			},
-			"default": "default"
-		}
-		{
-			"id": "spreadsheet",
-			"children": [
-				{ "id": "row-background", "default": "#0A4461" },
-				{ "id": "row-color", "default": "#FFFFFF" },
-				{ "id": "odd-rows-background", "default": "#52C9F4" },
-				{ "id": "odd-rows-", "default": "lor,#0A4461" },
-				{ "id": "rows-hover-color", "default": "#074365" },
-				{ "id": "first-row-background", "default": "#06293a" },
-				{ "id": "first-row-color", "default": "#FFFFFF" },
-				{ "id": "header-border-color", "default": "#FFFFFF" }
-			]
-		}
+		},
+		{ "id": "spreadsheet-row-background", "default": "#0A4461" },
+		{ "id": "spreadsheet-row-color", "default": "#FFFFFF" },
+		{ "id": "spreadsheet-odd-rows-background", "default": "#52C9F4" },
+		{ "id": "spreadsheet-odd-rows-color", "default": "#0A4461" },
+		{ "id": "spreadsheet-rows-hover-color", "default": "#FFFFFF" },
+		{ "id": "spreadsheet-rows-hover-background", "default": "#074365" },
+		{ "id": "spreadsheet-first-row-background", "default": "#06293a" },
+		{ "id": "spreadsheet-first-row-color", "default": "#FFFFFF" },
+		{ "id": "spreadsheet-first-row-border-color", "default": "#FFFFFF" },
+		{ "id": "spreadsheet-search-border-color", "default": "#407ea2" }
 	]
 }
