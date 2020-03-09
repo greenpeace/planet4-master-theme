@@ -1,4 +1,3 @@
-import { CoversIcon } from './CoversIcon.js';
 import { Covers } from './Covers.js';
 
 export class CoversBlock {
@@ -99,40 +98,26 @@ export class CoversBlock {
         // a Decorator, it will provide some basic API functionality
         // through `select`.
         edit: withSelect( ( select ) => {
-          const postTypesTaxonomy = 'p4-page-type';
-          const { getEntityRecords } = select( 'core' );
-
-          // We should probably wrap all these in a single call,
-          // or maybe use our own way of retrieving data from the
-          // API, I don't know how this scales.
-          const postTypesList = getEntityRecords( 'taxonomy', postTypesTaxonomy );
           const currentPostType = select('core/editor').getCurrentPostType();
 
           return {
-            postTypesList,
             currentPostType,
           };
         } )( ( {
-          postTypesList,
           currentPostType,
           isSelected,
           attributes,
           setAttributes
         } ) => {
 
-            if (  !postTypesList ) {
+            if ( !currentPostType ) {
                 return "Populating block's fields...";
             }
 
-            // We pass down all the attributes to Covers as props using
-            // the spread operator. Then we selectively add more
-            // props.
             return <Covers
-              { ...attributes }
               attributes={ attributes}
               setAttributes={ setAttributes}
               isSelected={ isSelected }
-              postTypesList={ postTypesList }
               currentPostType={ currentPostType }
             />
         } ),

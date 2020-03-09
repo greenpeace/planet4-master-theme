@@ -1,7 +1,6 @@
-import {Component, Fragment} from '@wordpress/element';
+import { Component } from '@wordpress/element';
 
 import {
-  FormTokenField,
   SelectControl,
   TextControl as BaseTextControl,
   TextareaControl as BaseTextareaControl,
@@ -11,9 +10,8 @@ import { LayoutSelector } from '../../components/LayoutSelector/LayoutSelector';
 import { Preview } from '../../components/Preview';
 import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
 import TagSelector from '../../components/TagSelector/TagSelector';
-
-const {apiFetch} = wp;
-const {addQueryArgs} = wp.url;
+import PostSelector from '../../components/PostSelector/PostSelector';
+import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector';
 
 const TextControl = withCharacterCounter( BaseTextControl );
 const TextareaControl = withCharacterCounter( BaseTextareaControl );
@@ -25,9 +23,6 @@ const TYPE_CONTENT = '3';
 export class Covers extends Component {
     constructor(props) {
       super(props);
-
-      // Populate post types tokens for saved post types.
-      const postTypeTokens = props.post_types.map( postTypeId => props.postTypesList.find( postType => postType.id === postTypeId ) );
 
       const { __ } = wp.i18n;
 
@@ -53,85 +48,7 @@ export class Covers extends Component {
         });
       }
 
-      // Populate component state with block's saved post type tokens
-      this.state = {
-        postTypeTokens: postTypeTokens,
-        selectedPosts: [],
-      };
-
-      this.populatePostsToken();
-      this.searchTimeout = null;
-      this.onPostsSearch = this.onPostsSearch.bind( this );
       this.onLayoutChange = this.onLayoutChange.bind( this );
-      this.onPostTypesChange = this.onPostTypesChange.bind(this);
-      this.onPostsChange = this.onPostsChange.bind( this );
-    }
-
-    static getDerivedStateFromProps(props, state) {
-
-      // Post types should be available for cover_type 3
-      // If cover_type is not 3, reset post types tokens.
-      if ( [TYPE_TAKE_ACTION, TYPE_CAMPAIGN].includes( props.cover_type ) ) {
-        state.postTypeTokens= [];
-      }
-
-      // If posts attribute was reset, reset also the posts tokens.
-      if (0 === props.posts.length) {
-        state.postsTokens= [];
-      }
-      return state;
-    }
-
-
-    /**
-     * Set component's state for existing blocks.
-     */
-    populatePostsToken() {
-
-      if (this.props.posts.length > 0) {
-
-        let post_type = this.props.cover_type === TYPE_TAKE_ACTION ? 'pages' : 'posts';
-        apiFetch(
-          {
-            path: addQueryArgs('/wp/v2/'+ post_type, {
-              per_page: 50,
-              page: 1,
-              include: this.props.posts
-            })
-          }
-        ).then(posts => {
-          const postsTokens = posts.map(post => post.title.rendered);
-          const postsSuggestions = posts.map(post => post.title.rendered);
-          const postsList = posts.map( post => ({
-            id: post.id,
-            title: post.title.rendered,
-          }) );
-
-          this.setState({
-              postsTokens: postsTokens,
-              postsList: postsList,
-              postsSuggestions: postsSuggestions,
-              selectedPosts: posts,
-            }
-          );
-        });
-      } else {
-        this.setState(
-          {
-            postsTokens: [],
-            postsList: [],
-            postsSuggestions: [],
-            selectedPosts: [],
-          }
-        );
-      }
-    }
-
-    onPostsSearch(token) {
-      clearTimeout(this.searchTimeout);
-      this.searchTimeout = setTimeout(function () {
-        this.searchPosts(token);
-      }.bind(this), 500);
     }
 
     onLayoutChange( value ) {
@@ -145,40 +62,13 @@ export class Covers extends Component {
       setAttributes({cover_type: value, posts: []});
     }
 
-    onPostTypesChange(tokens) {
-      const postTypeIds = tokens.map( token => {
-        return this.props.postTypesList.filter( postType => postType.name === token )[0].id;
-      });
-      this.props.setAttributes( { post_types: postTypeIds } );
-      this.setState({ postTypeTokens: tokens })
-    }
-
-    onPostsChange(tokens) {
-      // Array to hold references to selected posts objects.
-      let currentSelectedPosts = [];
-      tokens.forEach(token => {
-        let f = this.state.postsList.filter(post => post.title.rendered === token);
-        if (f.length > 0) {
-          currentSelectedPosts.push(f[0]);
-        }
-        f = this.state.selectedPosts.filter(post => post.title.rendered === token);
-        if (f.length > 0) {
-          currentSelectedPosts.push(f[0]);
-        }
-      });
-
-      const postIds = currentSelectedPosts.map(post => post.id);
-      this.props.setAttributes({posts: postIds});
-      this.setState({postsTokens: tokens, selectedPosts: currentSelectedPosts});
-    }
-
     renderEdit() {
       const { __ } = wp.i18n;
 
-      const postTypeSuggestions = this.props.postTypesList.map( postType => postType.name );
+      const { attributes, setAttributes } = this.props;
 
       const toAttribute = attributeName => value => {
-        this.props.setAttributes( { [ attributeName ]: value } );
+        setAttributes( { [ attributeName ]: value } );
       };
 
       return (
@@ -187,7 +77,7 @@ export class Covers extends Component {
 
           <div>
             <LayoutSelector
-              selectedOption={ this.props.cover_type }
+              selectedOption={ attributes.cover_type }
               onSelectedLayoutChange={ this.onLayoutChange }
               options={this.options}
             />
@@ -196,7 +86,7 @@ export class Covers extends Component {
           <div>
             <SelectControl
               label="Rows to display"
-              value={ this.props.covers_view }
+              value={ attributes.covers_view }
               options={ [
                 { label: '1 Row', value: '1' },
                 { label: '2 Rows', value: '2' },
@@ -210,7 +100,7 @@ export class Covers extends Component {
             <TextControl
               label="Title"
               placeholder="Enter title"
-              value={ this.props.title }
+              value={ attributes.title }
               onChange={ toAttribute('title')}
               characterLimit={40}
             />
@@ -220,49 +110,64 @@ export class Covers extends Component {
             <TextareaControl
               label="Description"
               placeholder="Enter description"
-              value={ this.props.description }
+              value={ attributes.description }
               onChange={ toAttribute('description')}
               characterLimit={200}
             />
           </div>
 
           {
-            this.props.posts !== 'undefined' && this.props.posts.length === 0
+            attributes.posts !== 'undefined' && attributes.posts.length === 0
               ?
               <div>
                 <TagSelector
-                  value={ this.props.tags }
+                  value={ attributes.tags }
                   onChange={toAttribute('tags')}
                 />
-                <p class='FieldHelp'>Associate this block with Actions that have specific Tags</p>
+                <p
+                  className='FieldHelp'>Associate this block with Actions that have specific Tags
+                </p>
               </div>
               : null
           }
 
           {
-            this.props.cover_type === TYPE_CONTENT && this.props.posts.length === 0
-              ? <FormTokenField
-                value={this.state.postTypeTokens}
-                suggestions={postTypeSuggestions}
-                label='Post Types'
-                onChange={this.onPostTypesChange}
-                placeholder="Select Post Types"
-              />
+            attributes.cover_type === TYPE_CONTENT && attributes.posts.length === 0
+              ?
+              <div>
+                <PostTypeSelector
+                  value={ attributes.post_types}
+                  onChange={ toAttribute('post_types')}
+                />
+              </div>
               : null
           }
 
           {
-            ([TYPE_TAKE_ACTION, TYPE_CONTENT].includes(this.props.cover_type)) &&
-            (this.props.tags.length === 0 && this.props.post_types.length === 0)
+            (attributes.cover_type === TYPE_CONTENT) &&
+            (attributes.tags.length === 0 && attributes.post_types.length === 0)
               ? <div>
                 <label>Manual override</label>
-                <FormTokenField
-                  value={this.state.postsTokens}
-                  suggestions={this.state.postsSuggestions}
-                  label='CAUTION: Adding covers manually will override the automatic functionality.'
-                  onChange={this.onPostsChange}
-                  onInputChange={this.onPostsSearch}
+                <PostSelector
+                  value={attributes.posts}
+                  onChange={toAttribute('posts')}
                   placeholder="Select Articles"
+                  postType={'post'}
+                />
+              </div>
+              : null
+          }
+
+          {
+            (attributes.cover_type === TYPE_TAKE_ACTION) &&
+            (attributes.tags.length === 0 && attributes.post_types.length === 0)
+              ? <div>
+                <label>Manual override</label>
+                <PostSelector
+                  value={attributes.posts}
+                  onChange={toAttribute('posts')}
+                  placeholder="Select Articles"
+                  postType={'act_page'}
                 />
               </div>
               : null
