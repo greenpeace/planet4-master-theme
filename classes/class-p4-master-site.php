@@ -439,18 +439,23 @@ class P4_Master_Site extends TimberSite {
 
 		// Allow img and the following attributes.
 		$allowedposttags['img'] = [
-			'alt'    => true,
-			'class'  => true,
-			'id'     => true,
-			'height' => true,
-			'hspace' => true,
-			'name'   => true,
-			'src'    => true,
-			'srcset' => true,
-			'sizes'  => true,
-			'width'  => true,
-			'style'  => true,
-			'vspace' => true,
+			'alt'         => true,
+			'class'       => true,
+			'id'          => true,
+			'height'      => true,
+			'hspace'      => true,
+			'name'        => true,
+			'src'         => true,
+			'srcset'      => true,
+			'sizes'       => true,
+			'width'       => true,
+			'style'       => true,
+			'vspace'      => true,
+
+			// Required for lazy loading.
+			'data-src'    => true,
+			'data-srcset' => true,
+			'data-sizes'  => true,
 		];
 
 		$allowedposttags['script'] = [
