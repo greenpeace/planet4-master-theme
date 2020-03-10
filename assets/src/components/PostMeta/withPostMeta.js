@@ -12,6 +12,8 @@ const getValuePropName = ( Component ) => {
   return 'value';
 };
 
+const { apiFetch } = wp;
+
 export function withPostMeta( WrappedComponent ) {
 
   class WrappingComponent extends Component {
@@ -22,7 +24,22 @@ export function withPostMeta( WrappedComponent ) {
     }
 
     handleChange( metaKey, value ) {
+      const { getEditedPostAttribute, getCurrentPostId } = wp.data.select( 'core/editor' );
       this.props.writeMeta( metaKey, value );
+
+      if ( !['draft', 'auto-draft'].includes( getEditedPostAttribute( 'status' ) ) ) {
+        apiFetch( {
+          path: `/planet4/v1/save-preview-meta`,
+          method: 'POST',
+          data: {
+            post_id: getCurrentPostId(),
+            meta: {
+              ...this.props.postMeta,
+              [metaKey]: value,
+            }
+          },
+        } );
+      }
     }
 
     render() {
