@@ -1,5 +1,9 @@
-.spreadsheet-table {
-  margin: 20px 0;
+table.spreadsheet-table {
+  margin: 16px 0;
+
+  @include medium-and-up {
+    margin: 24px 0;
+  }
 
   tr {
     th {
@@ -52,4 +56,13 @@
 
 .spreadsheet-empty-message {
   display: none;
+  margin: 0 0 16px 0;
+  font-size: 1.12rem;
+  line-height: 1.375rem;
+
+  @include medium-and-up {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    margin: 0 0 24px 0;
+  }
 }

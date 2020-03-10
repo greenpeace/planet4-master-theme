@@ -131,12 +131,8 @@ export class ArticlesBlock {
         },
         exclude_post_id: {
           type: 'integer',
-          default: ''
         },
       },
-      // withSelect is a "Higher Order Component", it works as
-      // a Decorator, it will provide some basic API functionality
-      // through `select`.
       edit: withSelect((select) => {
         const tagsTaxonomy = 'post_tag';
         const postTypesTaxonomy = 'p4-page-type';
@@ -173,67 +169,13 @@ export class ArticlesBlock {
           return "Populating block's fields...";
         }
 
-        // These methods are passed down to the
-        // Articles component, they update the corresponding attribute.
-
-        function onTitleChange(value) {
-          setAttributes({article_heading: value});
-        }
-
-        function onDescriptionChange(value) {
-          setAttributes({articles_description: value});
-        }
-
-        function onReadmoretextChange(value) {
-          setAttributes({read_more_text: value});
-        }
-
-        function onCountChange(value) {
-          setAttributes({article_count: Number(value)});
-        }
-
-        function onReadmorelinkChange(value) {
-          setAttributes({read_more_link: value});
-        }
-
-        function onButtonLinkTabChange(value) {
-          setAttributes({button_link_new_tab: value});
-        }
-
-        function onSelectedTagsChange(tagIds) {
-          setAttributes({tags: tagIds});
-        }
-
-        function onSelectedPostsChange(value) {
-          setAttributes({posts: value});
-        }
-
-        function onSelectedPostTypesChange(postTypeIds) {
-          setAttributes({post_types: postTypeIds});
-        }
-
-        function onIgnoreCategoriesChange(value) {
-          setAttributes({ignore_categories: value});
-        }
-
-        // We pass down all the attributes to Covers as props using
-        // the spread operator. Then we selectively add more
-        // props.
         return <Articles
-          {...attributes}
+          attributes={attributes}
+          setAttributes={setAttributes}
           isSelected={isSelected}
           tagsList={tagsList}
           postTypesList={postTypesList}
-          onSelectedTagsChange={onSelectedTagsChange}
-          onTitleChange={onTitleChange}
-          onDescriptionChange={onDescriptionChange}
-          onCountChange={onCountChange}
-          onSelectedPostsChange={onSelectedPostsChange}
-          onSelectedPostTypesChange={onSelectedPostTypesChange}
-          onReadmoretextChange={onReadmoretextChange}
-          onReadmorelinkChange={onReadmorelinkChange}
-          onButtonLinkTabChange={onButtonLinkTabChange}
-          onIgnoreCategoriesChange={onIgnoreCategoriesChange}/>
+        />
       }),
       save() {
         return null;

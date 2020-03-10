@@ -20,9 +20,9 @@ export class Articles extends Component {
     super(props);
 
     // Populate tag tokens for saved tags.
-    let tagTokens = props.tagsList.filter(tag => props.tags.includes(tag.id)).map(tag => tag.name);
+    let tagTokens = props.tagsList.filter( tag => props.attributes.tags.includes( tag.id ) ).map( tag => tag.name );
     // Populate post types tokens for saved post types.
-    let postTypeTokens = props.postTypesList.filter(post_type => props.post_types.includes(post_type.id)).map(post_type => post_type.name);
+    let postTypeTokens = props.postTypesList.filter( post_type => props.attributes.post_types.includes( post_type.id ) ).map( post_type => post_type.name );
 
     this.state = {
       tagTokens: tagTokens,
@@ -31,8 +31,10 @@ export class Articles extends Component {
       postsSuggestions: null,
       overrideWasFocused: false,
     };
+    this.onSelectedTagsChange = this.onSelectedTagsChange.bind( this );
+    this.onSelectedPostTypesChange = this.onSelectedPostTypesChange.bind( this );
     this.getSuggestionsOnFirstFocus = this.getSuggestionsOnFirstFocus.bind( this );
-
+    this.onSelectedPostsChange = this.onSelectedPostsChange.bind( this );
   }
 
   componentDidMount() {
@@ -44,14 +46,14 @@ export class Articles extends Component {
    */
   populatePostsToken() {
 
-    if (this.props.posts.length > 0) {
+    if (this.props.attributes.posts.length > 0) {
 
       apiFetch(
         {
           path: addQueryArgs( '/wp/v2/posts', {
             per_page: 50,
             page: 1,
-            include: this.props.posts
+            include: this.props.attributes.posts
           } )
         }
       ).then( posts => {
@@ -119,7 +121,7 @@ export class Articles extends Component {
     const tagIds = tokens.map(token => {
       return this.props.tagsList.filter(tag => tag.name === token)[0].id;
     });
-    this.props.onSelectedTagsChange(tagIds);
+    this.props.setAttributes({tags: tagIds});
     this.setState({tagTokens: tokens})
   }
 
@@ -127,14 +129,15 @@ export class Articles extends Component {
     const postTypeIds = tokens.map(token => {
       return this.props.postTypesList.filter(postType => postType.name === token)[0].id;
     });
-    this.props.onSelectedPostTypesChange(postTypeIds);
+    this.props.setAttributes({post_types: postTypeIds});
+
     this.setState({postTypeTokens: tokens})
   }
 
   onSelectedPostsChange(tokens) {
-    const selectedPosts = this.state.postsList.filter( post => tokens.includes( post.title ) );
+    const selectedPosts = tokens.map( token => this.state.postsList.find( post => post.title === token ) );
 
-    this.props.onSelectedPostsChange( selectedPosts.map( post => post.id ) );
+    this.props.setAttributes({posts: selectedPosts.map( post => post.id )});
 
     this.setState({postsTokens: tokens, selectedPosts: selectedPosts});
   }
@@ -142,6 +145,7 @@ export class Articles extends Component {
   renderEdit() {
     const {__} = wp.i18n;
 
+    const { setAttributes } = this.props;
     const tagSuggestions = this.props.tagsList.map(tag => tag.name);
     const postTypeSuggestions = this.props.postTypesList.map(postType => postType.name);
 
@@ -152,8 +156,10 @@ export class Articles extends Component {
             label={__('Title', 'p4ge')}
             placeholder={__('Enter title', 'p4ge')}
             help={__('Your default is set to [ Latest Articles ]', 'p4ge')}
-            value={this.props.article_heading}
-            onChange={this.props.onTitleChange}
+            value={this.props.attributes.article_heading}
+            onChange={ value => {
+              setAttributes( { article_heading: value } );
+            } }
             characterLimit={40}
           />
         </div>
@@ -163,8 +169,10 @@ export class Articles extends Component {
           <TextareaControl
             label={__('Description', 'p4ge')}
             placeholder={__('Enter description', 'p4ge')}
-            value={this.props.articles_description}
-            onChange={this.props.onDescriptionChange}
+            value={this.props.attributes.articles_description}
+            onChange={ value => {
+              setAttributes( { articles_description: value } );
+            } }
             characterLimit={200}
           />
         </div>
@@ -174,8 +182,10 @@ export class Articles extends Component {
             label={__('Button Text', 'p4ge')}
             placeholder={__('Override button text', 'p4ge')}
             help={__('Your default is set to [ Load More ]', 'p4ge')}
-            value={this.props.read_more_text}
-            onChange={this.props.onReadmoretextChange}
+            value={this.props.attributes.read_more_text}
+            onChange={ value => {
+              setAttributes( { read_more_text: value } );
+            } }
           />
         </div>
 
@@ -184,8 +194,10 @@ export class Articles extends Component {
           <TextControl
             label={__('Button Link', 'p4ge')}
             placeholder={__('Add read more button link', 'p4ge')}
-            value={this.props.read_more_link}
-            onChange={this.props.onReadmorelinkChange}
+            value={this.props.attributes.read_more_link}
+            onChange={ value => {
+              setAttributes( { read_more_link: value } );
+            } }
           />
         </div>
 
@@ -195,12 +207,14 @@ export class Articles extends Component {
             help={__('Open button link in new tab', 'p4ge')}
             value={this.props.button_link_new_tab}
             checked={this.props.button_link_new_tab}
-            onChange={(e) => this.props.onButtonLinkTabChange(e)}
+            onChange={ value => {
+              setAttributes( { button_link_new_tab: value } );
+            } }
           />
         </div>
 
         {
-          this.props.posts !== 'undefined' && this.props.posts.length === 0
+          this.props.attributes.posts !== 'undefined' && this.props.attributes.posts.length === 0
             ?
             <Fragment>
               <div>
@@ -208,34 +222,38 @@ export class Articles extends Component {
                   label={__('Articles count', 'p4ge')}
                   help={__('Number of articles', 'p4ge')}
                   type="number"
-                  value={this.props.article_count}
-                  onChange={this.props.onCountChange}
+                  value={this.props.attributes.article_count}
+                  onChange={ value => {
+                    setAttributes( { article_count: value } );
+                  } }
                 />
               </div>
               <div>
                 <FormTokenField
-                  value={this.state.tagTokens}
                   suggestions={tagSuggestions}
                   label={__('Select Tags', 'p4ge')}
-                  onChange={tokens => this.onSelectedTagsChange(tokens)}
+                  value={this.state.tagTokens}
+                  onChange={this.onSelectedTagsChange}
                 />
                 <p className='FieldHelp'>Associate this block with Actions that have specific Tags</p>
               </div>
               <div>
                 <FormTokenField
-                  value={this.state.postTypeTokens}
                   suggestions={postTypeSuggestions}
                   label={__('Post Types', 'p4ge')}
-                  onChange={tokens => this.onSelectedPostTypesChange(tokens)}
+                  value={this.state.postTypeTokens}
+                  onChange={this.onSelectedPostTypesChange}
                 />
               </div>
               <div className="ignore-categories-wrapper">
                 <CheckboxControl
                   label={__('Ignore categories', 'p4ge')}
                   help={__('Ignore categories when filtering posts to populate the content of this block', 'p4ge')}
-                  value={this.props.ignore_categories}
-                  checked={this.props.ignore_categories}
-                  onChange={(e) => this.props.onIgnoreCategoriesChange(e)}
+                  value={this.props.attributes.ignore_categories}
+                  checked={this.props.attributes.ignore_categories}
+                  onChange={ value => {
+                    setAttributes( { ignore_categories: value } );
+                  } }
                 />
               </div>
             </Fragment>
@@ -243,7 +261,7 @@ export class Articles extends Component {
         }
 
         {
-          (this.props.tags.length === 0 && this.props.post_types.length === 0) &&
+          (this.props.attributes.tags.length === 0 && this.props.attributes.post_types.length === 0) &&
           <div>
             <hr/>
             <label>{ __( 'Manual override', 'p4ge' ) }</label>
@@ -252,7 +270,7 @@ export class Articles extends Component {
               suggestions={ this.state.postsSuggestions }
               label={ __( 'CAUTION: Adding articles individually will override the automatic functionality of this block. For good user experience, please include at least three articles so that spacing and alignment of the design remains in tact.', 'p4ge' ) }
               onFocus={ this.getSuggestionsOnFirstFocus }
-              onChange={ tokens => this.onSelectedPostsChange( tokens ) }
+              onChange={ this.onSelectedPostsChange }
               placeholder="Select Posts"
               maxLength="10"
               maxSuggestions="20"
@@ -270,20 +288,10 @@ export class Articles extends Component {
         {
           !!this.props.isSelected && this.renderEdit()
         }
-        <Preview showBar={this.props.isSelected}>
+        <Preview showBar={ this.props.isSelected }>
           <ServerSideRender
-            block={'planet4-blocks/articles'}
-            attributes={{
-              read_more_text: this.props.read_more_text,
-              read_more_link: this.props.read_more_link,
-              tags: this.props.tags,
-              post_types: this.props.post_types,
-              posts: this.props.posts,
-              article_heading: this.props.article_heading,
-              articles_description: this.props.articles_description,
-              article_count: this.props.article_count,
-              ignore_categories: this.props.ignore_categories,
-            }}>
+            block={ 'planet4-blocks/articles' }
+            attributes={ this.props.attributes }>
           </ServerSideRender>
         </Preview>
       </div>

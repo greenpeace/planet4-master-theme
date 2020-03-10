@@ -58,10 +58,18 @@
   }
 }
 
-
-
 .components-panel__body label {
   font-size: 13px;
+}
+
+.components-radio-control__option {
+  input.components-radio-control__input {
+    margin-right: 5px;
+  }
+
+  label {
+    margin-bottom: 0;
+  }
 }
 
 .wp-block-button .wp-block-button__link[role="textbox"] {
