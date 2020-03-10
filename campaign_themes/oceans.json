@@ -107,10 +107,6 @@
 			"id": "campaign_header_primary",
 			"options": [
 				{
-					"value": "",
-					"label": "Campaign default"
-				},
-				{
 					"value": "Anton",
 					"label": "Anton"
 				},
@@ -127,6 +123,10 @@
 					"label": "Montserrat Light"
 				},
 				{
+					"value": "Roboto",
+					"label": "Roboto"
+				},
+				{
 					"value": "Sanctuary",
 					"label": "Sanctuary"
 				},
@@ -138,7 +138,8 @@
 					"value": "Save the Arctic",
 					"label": "Save the Arctic"
 				}
-			]
+			],
+			"default": "Montserrat"
 		},
 		{
 			"id": "campaign_body_font",
