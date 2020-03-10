@@ -405,17 +405,6 @@ final class Loader {
 		// Add master theme's main js as dependency for blocks js.
 
 		wp_register_script(
-			'plugin-engagingnetworks',
-			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/public/js/climate.js',
-			[
-				'jquery',
-				'main',
-			],
-			$js_blocks_creation,
-			true
-		);
-
-		wp_register_script(
 			'plugin-engagingnetworks-submit',
 			plugins_url( P4GEN_PLUGIN_DIRNAME ) . '/public/js/enform_submit.js',
 			[

@@ -3,6 +3,7 @@
 @import "styleguide/src/base/colors";
 @import "styleguide/src/base/functions";
 @import "styleguide/src/base/mixins";
+@import "styleguide/src/base/fonts";
 
 // Blocks
 @import "blocks/ENForm/components/enform";
@@ -14,7 +15,7 @@
 @import "blocks/ENForm/campaigns/mixins";
 
 // Campaigns - themes
-@import "blocks/ENForm/campaigns/themes/theme_oil";
+@import "blocks/ENForm/campaigns/campaign_enform";
 @import "blocks/ENForm/campaigns/themes/theme_climate";
 
 // Support for viewport-wide blocks
