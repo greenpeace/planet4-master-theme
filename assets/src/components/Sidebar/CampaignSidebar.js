@@ -4,6 +4,7 @@ import { PanelBody, RadioControl, SelectControl } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import ColorPaletteControl from '../ColorPaletteControl/ColorPaletteControl';
 import { withPostMeta } from '../PostMeta/withPostMeta';
+import { withDefaultLabel } from '../withDefaultLabel/withDefaultLabel';
 import { __ } from '@wordpress/i18n';
 import { fromThemeOptions } from '../fromThemeOptions/fromThemeOptions';
 import isShallowEqual from '@wordpress/is-shallow-equal';
@@ -45,6 +46,12 @@ const themeOptions = [
 ];
 
 const ThemeSelect = withPostMeta( SelectControl );
+
+const SelectWithDefaultLabel = compose(
+  fromThemeOptions,
+  withPostMeta,
+  withDefaultLabel,
+)( SelectControl );
 
 const Select = compose(
   fromThemeOptions,
@@ -224,7 +231,7 @@ export class CampaignSidebar extends Component {
                 title={ __( "Fonts", 'planet4-blocks-backend' ) }
                 initialOpen={ true }
               >
-                <Select
+                <SelectWithDefaultLabel
                   metaKey='campaign_header_primary'
                   label={ __( 'Header Primary Font', 'planet4-blocks-backend' ) }
                   theme={ this.state.theme }
