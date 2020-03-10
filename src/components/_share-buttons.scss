@@ -55,10 +55,14 @@
     font-size: $font-size-md;
     opacity: 0.9;
     outline: none;
-    padding: $n5 0;
     width: 4rem;
     text-align: center;
-    line-height: 1.2;
+    line-height: 2.7rem;
+    height: 2.7rem;
+
+    .icon {
+      top: 0;
+    }
 
     &:hover {
       color: $grey-10;
