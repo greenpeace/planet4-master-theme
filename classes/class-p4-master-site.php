@@ -439,18 +439,23 @@ class P4_Master_Site extends TimberSite {
 
 		// Allow img and the following attributes.
 		$allowedposttags['img'] = [
-			'alt'    => true,
-			'class'  => true,
-			'id'     => true,
-			'height' => true,
-			'hspace' => true,
-			'name'   => true,
-			'src'    => true,
-			'srcset' => true,
-			'sizes'  => true,
-			'width'  => true,
-			'style'  => true,
-			'vspace' => true,
+			'alt'         => true,
+			'class'       => true,
+			'id'          => true,
+			'height'      => true,
+			'hspace'      => true,
+			'name'        => true,
+			'src'         => true,
+			'srcset'      => true,
+			'sizes'       => true,
+			'width'       => true,
+			'style'       => true,
+			'vspace'      => true,
+
+			// Required for lazy loading.
+			'data-src'    => true,
+			'data-srcset' => true,
+			'data-sizes'  => true,
 		];
 
 		$allowedposttags['script'] = [
@@ -537,8 +542,9 @@ class P4_Master_Site extends TimberSite {
 		// JS files.
 		wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', [], '3.3.1', true );
 		wp_register_script( 'lazyload', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/12.3.0/lazyload.min.js', [], '12.3.0', true );
+		wp_register_script( 'cssvarsponyfill', 'https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2', [], '2', false );
 
-		wp_enqueue_script( 'main', $this->theme_dir . '/assets/build/index.js', [ 'jquery', 'lazyload' ], $js_creation, true );
+		wp_enqueue_script( 'main', $this->theme_dir . '/assets/build/index.js', [ 'jquery', 'lazyload', 'cssvarsponyfill' ], $js_creation, true );
 		wp_enqueue_script( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js', [], '1.9.0', true );
 		wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );
 	}

@@ -104,10 +104,6 @@
 			"id": "campaign_header_primary",
 			"options": [
 				{
-					"value": "",
-					"label": "Campaign default"
-				},
-				{
 					"value": "Anton",
 					"label": "Anton"
 				},
@@ -128,6 +124,10 @@
 					"label": "Sanctuary"
 				},
 				{
+					"value": "Roboto",
+					"label": "Roboto"
+				},
+				{
 					"value": "Kanit",
 					"label": "Kanit Extra Bold"
 				},
@@ -135,7 +135,8 @@
 					"value": "Save the Arctic",
 					"label": "Save the Arctic"
 				}
-			]
+			],
+			"default": "Save the Arctic"
 		},
 		{
 			"id": "campaign_body_font",
