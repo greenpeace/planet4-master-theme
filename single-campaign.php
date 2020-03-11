@@ -26,6 +26,8 @@ if ( isset( $_GET['preview'] ) ) { // phpcs:ignore WordPress.Security.NonceVerif
 		$meta = array_merge( $meta, get_post_meta( $post_preview->ID ) );
 	}
 }
+$meta = array_map( 'reset', $meta );
+
 $current_level_campaign_id = $post->ID;
 
 do {
@@ -37,9 +39,9 @@ if ( $top_level_campaign_id === $post->ID ) {
 	$campaign_meta = $meta;
 } else {
 	$campaign_meta = get_post_meta( $top_level_campaign_id );
+	$campaign_meta = array_map( 'reset', $campaign_meta );
 }
 // Get rid of all metas being in an array.
-$campaign_meta = array_map( 'reset', $campaign_meta );
 
 // This is just an example of how to get children pages, this will probably be done in some kind of menu block.
 $sub_pages = get_children(
