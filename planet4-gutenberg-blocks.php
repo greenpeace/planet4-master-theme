@@ -271,7 +271,9 @@ P4GBKS\Loader::get_instance(
 		\P4GBKS\Controllers\Menu\Settings_Controller::class,
 		\P4GBKS\Controllers\Menu\Blocks_Usage_Controller::class,
 		\P4GBKS\Controllers\Menu\Reusable_Blocks_Controller::class,
+		\P4GBKS\Controllers\Menu\Archive_Import::class,
 	],
 	\P4GBKS\Views\View::class
 );
+
 \P4GBKS\Rest\Rest_Api::add_endpoints();
