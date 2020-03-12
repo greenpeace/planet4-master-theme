@@ -1,0 +1,16 @@
+.wp-block-image,
+.wp-block-quote,
+.wp-block-file,
+.wp-block-table,
+.wp-block-button,
+.page-template > p,
+.page-template > h2,
+.page-template > ul {
+  margin-top: $space-md;
+  margin-bottom: $space-xl;
+
+  @include large-and-up {
+    margin-top: $space-lg;
+    margin-bottom: $space-xxl;
+  }
+}
