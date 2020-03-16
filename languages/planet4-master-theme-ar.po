@@ -355,7 +355,7 @@ msgstr "نقاش"
 
 #: templates/taxonomy.twig:18
 msgid "Results"
-msgstr ""
+msgstr "النتائج"
 
 #: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
 msgid "Share on"
