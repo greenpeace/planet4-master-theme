@@ -336,11 +336,11 @@ msgstr "تخطى إلى التنقل"
 
 #: templates/base.twig:11
 msgid "Skip to Content"
-msgstr ""
+msgstr "تخطى الى المحتوى"
 
 #: templates/base.twig:12
 msgid "Skip to Footer"
-msgstr ""
+msgstr "انتقل إلى تذييل الصفحة"
 
 #: templates/single.twig:41 templates/tease-taxonomy-post.twig:26
 msgid "by"
