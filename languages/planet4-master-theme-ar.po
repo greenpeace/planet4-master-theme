@@ -375,7 +375,7 @@ msgstr "البريد الإلكتروني"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
-msgstr ""
+msgstr "بريدك الالكتروني"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
@@ -391,7 +391,7 @@ msgstr "اسم"
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
-msgstr ""
+msgstr "اسمك"
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post Comment"
