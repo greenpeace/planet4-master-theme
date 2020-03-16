@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2020-03-16 16:14+0000\n"
+"PO-Revision-Date: 2020-03-16 16:20+0000\n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -359,11 +359,11 @@ msgstr "النتائج"
 
 #: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
 msgid "Share on"
-msgstr ""
+msgstr "شارك على"
 
 #: templates/blocks/share_buttons.twig:21
 msgid "Share via"
-msgstr ""
+msgstr "شارك عبر"
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
@@ -383,7 +383,7 @@ msgstr "تعليق"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr ""
+msgstr "تعليقك"
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
