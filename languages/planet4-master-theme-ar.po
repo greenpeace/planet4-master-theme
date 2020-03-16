@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2020-03-16 16:05+0000\n"
+"PO-Revision-Date: 2020-03-16 16:14+0000\n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -185,7 +185,7 @@ msgstr "مقالات"
 
 #: templates/author.twig:36
 msgid "Posts by "
-msgstr ""
+msgstr "نشر بواسطة"
 
 #: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
@@ -387,7 +387,7 @@ msgstr ""
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr ""
+msgstr "اسم"
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
@@ -396,6 +396,7 @@ msgstr ""
 #: templates/comment_form/submit_button.twig:1
 msgid "Post Comment"
 msgstr ""
+"أضف تعليقا\n"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
