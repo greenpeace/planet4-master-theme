@@ -82,7 +82,7 @@ msgstr "تبديل قائمة اختيار الموقع إلى جميع أنحا
 
 #: functions.php:248
 msgid "Toggle search box"
-msgstr ""
+msgstr "تبديل مربع البحث"
 
 #: functions.php:270
 msgid "DONATE"
