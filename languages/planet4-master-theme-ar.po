@@ -194,6 +194,7 @@ msgstr "تحميل المزيد"
 #: templates/navigation-bar.twig:6
 msgid "Toggle navigation menu"
 msgstr ""
+"تبديل قائمة التنقل\n"
 
 #: templates/navigation-bar.twig:7 templates/search.twig:8
 #: templates/search.twig:45 templates/404.twig:17
