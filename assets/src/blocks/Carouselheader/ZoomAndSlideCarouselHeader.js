@@ -112,12 +112,12 @@ export const ZoomAndSlideCarouselHeader = {
       hammer.on('swipeup', function (event) {
         const y = $(window).scrollTop();
         event.preventDefault();
-        $('html, body').animate({scrollTop: y + 200});
+        $('html, body').animate({scrollTop: y + 500});
       });
       hammer.on('swipedown', function (event) {
         const y = $(window).scrollTop();
         event.preventDefault();
-        $('html, body').animate({scrollTop: y - 200});
+        $('html, body').animate({scrollTop: y - 500});
       });
     }
 
