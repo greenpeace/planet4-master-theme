@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-05-29 10:22+0000\n"
+"PO-Revision-Date: 2020-03-16 09:42+0000\n"
 "Language-Team: Bulgarian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,12 +16,12 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: Luca Tiralongo <ltiralon@greenpeace.org>\n"
+"Last-Translator: Bojidar Nikolov <bnikolov@greenpeace.org>\n"
 "Language: bg_BG\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.2.2; wp-5.2.1"
+"X-Loco-Version: 2.3.1; wp-5.3.2"
 
 #: single.php:33
 msgid "Post page"
@@ -154,7 +154,7 @@ msgstr "Страница с карта на сайта"
 
 #: page-templates/sitemap.php:18
 msgid "Act"
-msgstr "Направи нещо"
+msgstr "Включи се"
 
 #: page-templates/sitemap.php:19
 msgid "Explore"

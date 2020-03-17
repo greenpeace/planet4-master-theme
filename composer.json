@@ -1,47 +1,47 @@
 {
-	"name": "greenpeace/planet4-master-theme",
-	"description": "Master theme for the Planet 4 Wordpress project",
-	"type":"wordpress-theme",
-	"minimum-stability" : "stable",
-	"authors": [
-		{
-			"name": "Greenpeace International",
-			"email": "planet4-group@greenpeace.org"
-		}
-	],
-	"license": "MIT",
-	"repositories": [
-		{
-			"type": "composer",
-			"url": "https://wpackagist.org"
-		},
-		{
-			"type": "composer",
-			"url": "https://packagist.org"
-		}
-	],
-	"support": {
-		"issues": "https://github.com/greenpeace/planet4-master-theme/issues",
-		"wiki": "https://github.com/greenpeace/planet4-master-theme/wiki",
-		"source": "https://github.com/greenpeace/planet4-master-theme"
-	},
-	"extra": {
-		"installer-paths": {
-			"vendor/plugins/{$name}/": ["type:wordpress-plugin"]
-		}
-	},
-	"require": {
-		"wpackagist-plugin/timber-library": "1.*"
-	},
-	"require-dev": {
-		"squizlabs/php_codesniffer": "^3.5.3",
-		"wp-coding-standards/wpcs": "^2.2.0",
-		"dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
-		"stevegrunwell/phpunit-markup-assertions": "^1.2",
-		"phpunit/phpunit": "^6.2"
-	},
-	"scripts": {
-		"fixes": "vendor/bin/phpcbf",
-		"sniffs": "vendor/bin/phpcs"
-	}
+  "name": "greenpeace/planet4-master-theme",
+  "description": "Master theme for the Planet 4 Wordpress project",
+  "type":"wordpress-theme",
+  "minimum-stability" : "stable",
+  "authors": [
+    {
+      "name": "Greenpeace International",
+      "email": "planet4-group@greenpeace.org"
+    }
+  ],
+  "license": "MIT",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    },
+    {
+      "type": "composer",
+      "url": "https://packagist.org"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/greenpeace/planet4-master-theme/issues",
+    "wiki": "https://github.com/greenpeace/planet4-master-theme/wiki",
+    "source": "https://github.com/greenpeace/planet4-master-theme"
+  },
+  "extra": {
+    "installer-paths": {
+      "vendor/plugins/{$name}/": ["type:wordpress-plugin"]
+    }
+  },
+  "require": {
+    "wpackagist-plugin/timber-library": "1.*"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.5.3",
+    "wp-coding-standards/wpcs": "^2.2.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+    "stevegrunwell/phpunit-markup-assertions": "^1.2",
+    "phpunit/phpunit": "^6.2"
+  },
+  "scripts": {
+    "fixes": "vendor/bin/phpcbf",
+    "sniffs": "vendor/bin/phpcs"
+  }
 }
