@@ -71,7 +71,7 @@ function get_attachments_used_in_content( string $content ): array {
 			case 'planet4-blocks/columns':
 				if ( isset( $block['attrs']['columns'] ) ) {
 					foreach ( $block['attrs']['columns'] as $column ) {
-						$attachment_ids[] = $column['attachment'];
+						$attachment_ids[] = $column['attachment'] ?? '';
 					}
 				}
 				break;
@@ -118,7 +118,13 @@ function get_campaign_attachments( $post_ids ) {
 		$sql, // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		array_merge( [ $wpdb->posts ], $post_ids )
 	);
-	$attachment_ids = $wpdb->get_results( $prepared_sql, OBJECT_K ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$results        = $wpdb->get_results( $prepared_sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$attachment_ids = array_map(
+		function ( $result ) {
+			return $result->id;
+		},
+		$results
+	);
 
 	/**
 	 * Post thumbnails
