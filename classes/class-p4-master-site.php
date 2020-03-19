@@ -212,7 +212,7 @@ class P4_Master_Site extends TimberSite {
 	 * Sets a custom stylesheet for the login page.
 	 */
 	public function add_login_stylesheet() {
-		wp_enqueue_style( 'custom-login', $this->theme_dir . '/style-login.css', [], '0.1' );
+		wp_enqueue_style( 'custom-login', $this->theme_dir . '/admin/css/login.css', [], '0.2' );
 	}
 
 	/**
