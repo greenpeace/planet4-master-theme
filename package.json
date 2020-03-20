@@ -13,10 +13,10 @@
     "gulp-plumber": "^1.2.1",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
-    "gulp-stylelint": "^9.0.0",
+    "gulp-stylelint": "^13.0.0",
     "gulp-svg-sprite": "^1.5.0",
     "kss": "^3.0.0-beta.25",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "stylelint": "^10.0.1"
   }
 }

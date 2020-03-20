@@ -41,6 +41,7 @@
 // Styleguide Layout.page-header
 .breadcrumbs {
   padding-top: 40px;
+
   li {
     display: inline-block;
     list-style-type: none;
@@ -48,6 +49,7 @@
 
     &:not(:first-child) {
       margin-left: 1.5em;
+
       a:before {
         content: ">";
         position: absolute;
