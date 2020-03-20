@@ -1,9 +1,9 @@
 
-{% if ( 'action' == posts_data[post.ID].content_type ) %}
+{% if ( 'action' == post.content_type ) %}
 	{% set is_action = true %}
-{% elseif ( 'document' == posts_data[post.ID].content_type ) %}
+{% elseif ( 'document' == post.content_type ) %}
 	{% set is_document = true %}
-{% elseif ( 'campaign' == posts_data[post.ID].content_type ) %}
+{% elseif ( 'campaign' == post.content_type ) %}
 	{% set is_campaign = true %}
 {% elseif ( 'archive' == post.post_type ) %}
 	{% set is_archive = true %}
@@ -15,7 +15,7 @@
 	<div class="search-results-load row-hidden" style="display: none;">
 {% endif %}
 	{% if ( is_action ) %}
-		<li id="result-row-{{ post.ID }}" class="media search-result-list-item search-result-list-item-bg" style="background-image:linear-gradient(180deg, rgba(213, 239, 242, 1), rgba(255, 255, 255, 0.3)), url('{{ post.thumbnail.src }}');">
+		<li id="result-row-{{ post.ID }}" class="media search-result-list-item search-result-list-item-bg" style="background-image:linear-gradient(180deg, rgba(213, 239, 242, 1), rgba(255, 255, 255, 0.3)), url('{{ post.thumbnail }}');">
 			<div class="blank-block"></div>
 	{% else %}
 		<li id="result-row-{{ post.ID }}" class="media search-result-list-item">
@@ -23,8 +23,8 @@
 
 		{% if ( not is_action ) %}
 			<img class="d-flex search-result-item-image lazyload"
-				data-src="{{ post.thumbnail.src('thumbnail') ?? posts_data.dummy_thumbnail }}"
-				 alt="{{ fn('esc_attr', post.thumbnail.alt|default( post.title ) )|raw }}" />
+				data-src="{{ post.thumbnail ?: dummy_thumbnail }}"
+				 alt="{{ fn('esc_attr', post.thumbnail_alt|default( post.post_title ) )|raw }}" />
 		{% endif %}
 
 		<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
@@ -41,13 +41,13 @@
 					{% endif %}
 
 					<div class="search-result-tags top-page-tags">
-						{% for page_type in posts_data[post.ID].page_types %}
+						{% for page_type in post.p4_page_types %}
 							<button class="search-result-item-head no-btn tag-item tag-item--main page-type" data-href="{{ fn('get_term_link', page_type.term_id) }}">{{ page_type.name|e('wp_kses_post')|raw }}</button>
 						{% endfor %}
 
-						{% if (posts_data[post.ID].tags) %}
+						{% if (post.tags) %}
 							<div class="tag-wrap tags">
-								{% for tag in posts_data[post.ID].tags %}
+								{% for tag in post.tags %}
 									<a href="{{ tag.link }}" class="search-result-item-tag tag-item tag">#{{ tag.name|e('wp_kses_post')|raw }}</a>
 								{% endfor %}
 							</div>
@@ -55,12 +55,12 @@
 					</div>
 
 					{% if ( is_document ) %}
-						{% set title = post.title|e('wp_kses_post') %}
+						{% set title = post.post_title|e('wp_kses_post') %}
 						<a href="{{ fn('wp_get_attachment_url', post.id) }}" class="search-result-item-headline">{{ title|raw|length > 30 ? ( title|striptags|slice(0, 30) ~ '...' )|raw  : title|raw }}</a>
 					{% elseif ( is_archive ) %}
-						<a href="{{ post.link }}" target="_blank" class="search-result-item-headline archive">{{ post.title|e('wp_kses_post')|raw }}</a>
+						<a href="{{ post.link }}" target="_blank" class="search-result-item-headline archive">{{ post.post_title|e('wp_kses_post')|raw }}</a>
 					{% else %}
-						<a href="{{ post.link() }}" class="search-result-item-headline">{{ post.title|e('wp_kses_post')|raw }}</a>
+						<a href="{{ post.link }}" class="search-result-item-headline">{{ post.post_title|e('wp_kses_post')|raw }}</a>
 					{% endif %}
 
 					{% if ( 'page' != post.post_type ) %}
@@ -89,11 +89,7 @@
 				</div>
 			</div>
 
-			{% if not is_archive %}
-				<p class="search-result-item-content">{{ post.preview().read_more('')|excerpt( 25 )|raw }}</p>
-			{%  else %}
-				<p class="search-result-item-content">{{ post.excerpt|raw }}</p>
-			{% endif %}
+			<p class="search-result-item-content">{{ post.post_excerpt|default(post.post_content)|excerpt( 25 )|raw }}</p>
 		</div>
 	</li>
 {% if ( ( loop.index0 % 5 == 4 ) or loop.last ) %}

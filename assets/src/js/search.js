@@ -103,6 +103,7 @@ export const setupSearch = function($) {
           'search-action': 'get_paged_posts',
           'search_query':  $( '#search_input' ).val().trim(),
           'paged':         next_page,
+          'orderby': $( '#orderby', $search_form ).val(),
           'query-string':  decodeURIComponent( location.search ).substr( 1 ) // Ignore the ? in the search url (first char).
         },
         dataType: 'html'

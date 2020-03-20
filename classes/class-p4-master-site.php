@@ -85,7 +85,6 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'get_twig', [ $this, 'add_to_twig' ] );
 		add_action( 'init', [ $this, 'register_taxonomies' ], 2 );
 		add_action( 'init', [ $this, 'register_oembed_provider' ] );
-		add_action( 'pre_get_posts', [ $this, 'add_search_options' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
 		add_filter( 'safe_style_css', [ $this, 'set_custom_allowed_css_properties' ] );
@@ -114,6 +113,9 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'after_setup_theme', [ $this, 'add_image_sizes' ] );
 		add_action( 'save_post', [ $this, 'p4_auto_generate_excerpt' ], 10, 2 );
 
+		if ( wp_doing_ajax() ) {
+			P4_Search::add_general_filters();
+		}
 		add_action( 'wp_ajax_get_paged_posts', [ 'P4_ElasticSearch', 'get_paged_posts' ] );
 		add_action( 'wp_ajax_nopriv_get_paged_posts', [ 'P4_ElasticSearch', 'get_paged_posts' ] );
 
@@ -639,20 +641,6 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function register_oembed_provider() {
 		wp_oembed_add_provider( '#https?://(?:www\.)?[^/^\.]+\.carto(db)?\.com/\S+#i', 'https://services.carto.com/oembed', true );
-	}
-
-	/**
-	 * Add custom options to the main WP_Query.
-	 *
-	 * @param WP_Query $wp The WP Query to customize.
-	 */
-	public function add_search_options( WP_Query $wp ) {
-		if ( ! $wp->is_main_query() || ! $wp->is_search() ) {
-			return;
-		}
-
-		$wp->set( 'posts_per_page', P4_Search::POSTS_LIMIT );
-		$wp->set( 'no_found_rows', true );
 	}
 
 	/**
