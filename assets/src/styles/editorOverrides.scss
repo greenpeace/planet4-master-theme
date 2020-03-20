@@ -184,3 +184,7 @@
 #icl_div_config {
   display: none !important;
 }
+
+input.describe[type=text][data-setting=caption] {
+  pointer-events: none;
+}

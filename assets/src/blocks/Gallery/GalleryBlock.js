@@ -76,13 +76,7 @@ export class GalleryBlock {
           },
           image_data: {
             type: 'array',
-            default: [
-              {
-                id: null,
-                url: null,
-                focalPoint: {},
-              }
-            ]
+            default: []
           },
         },
         edit: withSelect( ( select, props ) => {
@@ -150,6 +144,10 @@ export class GalleryBlock {
             setAttributes({gallery_block_description: value });
           }
 
+          function onUploadError({message}) {
+            console.log(message);
+          }
+
           function onSelectImage(value) {
             let image_ids = [];
             let image_data = [];
@@ -190,35 +188,15 @@ export class GalleryBlock {
             setAttributes({image_data: updated_image_data});
           }
 
-          function onRemoveImages() {
-            setAttributes({multiple_image: ''});
-            setAttributes({gallery_block_focus_points: ''});
-            setAttributes({image_data: []});
-          }
-
-          function onDeleteImage(img_id) {
-            let image_ids  = attributes.multiple_image;
-            let image_data = attributes.image_data;
-            if (image_ids)
-              image_ids = image_ids.split(',');
-
-            image_ids  = image_ids.filter(function(value, index, arr){ return parseInt(value) !== parseInt(img_id); });
-            image_data = image_data.filter(function(value, index, arr){ return parseInt(value.id) !== parseInt(img_id); });
-
-            setAttributes({multiple_image: image_ids.join(',')});
-            setAttributes({image_data: image_data});
-          }
-
           return <Gallery
             {...attributes}
             isSelected={isSelected}
             onSelectedLayoutChange={onSelectedLayoutChange}
             onSelectImage={onSelectImage}
+            onUploadError={onUploadError}
             onTitleChange={onTitleChange}
             onDescriptionChange={onDescriptionChange}
             onFocalPointChange={onFocalPointChange}
-            onRemoveImages={onRemoveImages}
-            onDeleteImage={onDeleteImage}
           />
         }),
         save() {
