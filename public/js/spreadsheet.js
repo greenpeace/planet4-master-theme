@@ -33,7 +33,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
     headerCells.forEach( ( headerCell, index ) => {
       headerCell.addEventListener( 'click', () => {
-
         defaultSortButton.style.display = 'inline-block';
         let prevDir = headerCell.dataset.sortDir;
         removeSortingAttributes();

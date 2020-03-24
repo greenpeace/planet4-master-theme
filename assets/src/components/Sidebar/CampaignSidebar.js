@@ -236,7 +236,7 @@ export class CampaignSidebar extends Component {
                   label={ __( 'Header Primary Font', 'planet4-blocks-backend' ) }
                   theme={ this.state.theme }
                 />
-                <Select
+                <SelectWithDefaultLabel
                   metaKey='campaign_body_font'
                   label={ __( 'Body Font', 'planet4-blocks-backend' ) }
                   theme={ this.state.theme }
