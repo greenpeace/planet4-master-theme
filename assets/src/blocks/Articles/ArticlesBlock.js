@@ -134,47 +134,17 @@ export class ArticlesBlock {
         },
       },
       edit: withSelect((select) => {
-        const tagsTaxonomy = 'post_tag';
-        const postTypesTaxonomy = 'p4-page-type';
-        const args = {
-          hide_empty: false,
-          per_page: 50,
-        };
-        const {getEntityRecords} = select('core');
-
-        // We should probably wrap all these in a single call,
-        // or maybe use our own way of retrieving data from the
-        // API, I don't know how this scales.
-        const tagsList = getEntityRecords('taxonomy', tagsTaxonomy, args);
-        const postTypesList = getEntityRecords('taxonomy', postTypesTaxonomy, args);
-
-        return {
-          postTypesList,
-          tagsList,
-        };
+        return {};
       })(({
-            postTypesList,
-            tagsList,
             isSelected,
             attributes,
             setAttributes
           }) => {
 
-        if (!tagsList || !postTypesList) {
-          return "Populating block's fields...";
-        }
-
-        // TO-DO: Check for posts types and posts too...
-        if ((tagsList && tagsList.length === 0) && (postTypesList && postTypesList.length === 0)) {
-          return "Populating block's fields...";
-        }
-
         return <Articles
           attributes={attributes}
           setAttributes={setAttributes}
           isSelected={isSelected}
-          tagsList={tagsList}
-          postTypesList={postTypesList}
         />
       }),
       save() {
