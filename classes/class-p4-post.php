@@ -324,7 +324,7 @@ if ( ! class_exists( 'P4_Post' ) ) {
 		public function get_og_image() {
 			$meta        = get_post_meta( $this->id );
 			$image_id    = null;
-			$image_metas = [ 'p4_og_image_id', 'background_image_id', '_thumbnail_id' ];
+			$image_metas = [ 'p4_og_image_id', '_thumbnail_id', 'background_image_id' ];
 			foreach ( $image_metas as $image_meta ) {
 				if ( isset( $meta[ $image_meta ][0] ) ) {
 					$image_id = $meta[ $image_meta ][0];
