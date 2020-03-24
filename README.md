@@ -1,6 +1,6 @@
 # Greenpeace Planet4 Master Theme
 
-![Planet4](./planet4.png)
+![Planet4](./images/planet4.png)
 
 ## Introduction
 

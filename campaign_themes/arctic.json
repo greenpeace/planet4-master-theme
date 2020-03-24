@@ -18,7 +18,8 @@
 						}
 					],
 					"default": "greenpeace"
-				}
+				},
+				"default": "minimal"
 			}
 		},
 		{
@@ -54,7 +55,8 @@
 						}
 					],
 					"default": "light"
-				}
+				},
+				"default": "arctic"
 			}
 		},
 		{
@@ -82,7 +84,8 @@
 						{ "color": "#035880"},
 						{ "color": "#00b6c2"}
 					]
-				}
+				},
+				"default": "minimal"
 			}
 		},
 		{
@@ -152,13 +155,9 @@
 				{
 					"value": "Save the Arctic",
 					"label": "Save the Arctic"
-				},
-				{
-					"value": "",
-					"label": "Default"
 				}
 			],
-			"default": ""
+			"default": "Save the Arctic"
 		},
 		{
 			"id": "campaign_footer_theme",
@@ -186,6 +185,16 @@
 					]
 				}
 			}
-		}
+		},
+		{ "id": "spreadsheet-row-background", "default": "#8D9C9E" },
+		{ "id": "spreadsheet-row-color", "default": "#FFFFFF" },
+		{ "id": "spreadsheet-odd-rows-background", "default": "#D2DDE4" },
+		{ "id": "spreadsheet-odd-rows-color", "default": "#1A1A1A" },
+		{ "id": "spreadsheet-rows-hover-color", "default": "#FFFFFF" },
+		{ "id": "spreadsheet-rows-hover-background", "default": "#074365" },
+		{ "id": "spreadsheet-first-row-background", "default": "#035880" },
+		{ "id": "spreadsheet-first-row-color", "default": "#FFFFFF" },
+		{ "id": "spreadsheet-first-row-border-color", "default": "#FFFFFF" },
+		{ "id": "spreadsheet-search-border-color", "default": "#407ea2" }
 	]
 }
