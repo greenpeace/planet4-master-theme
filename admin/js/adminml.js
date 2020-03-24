@@ -91,17 +91,17 @@ jQuery(document).ready(function () {
                     }
                     //TODO handle promises results/errors better.
                     Promise.all(promises).then(function (values) {
-                        parent.send_to_editor(values.join(' '));
+                        // Close the thickbox (closes the GPI Media Library UI),
+                        // goes back to selecting uploaded media.
+                        if ( parent.tb_remove ) {
+                            parent.tb_remove();
+                        }
                     });
                 }
             } catch (e) {
             }
-            $( '#ml_spinner' ).removeClass('is-active');
-            // If this is not a page with a wp editor, then move to the Media Library page.
-            if ( "function" !== typeof parent.send_to_editor ) {
-                parent.window.location.replace('./upload.php');
-            }
 
+            $( '#ml_spinner' ).removeClass('is-active');
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(errorThrown); //eslint-disable-line no-console
             $( '#ml_spinner' ).removeClass('is-active');
