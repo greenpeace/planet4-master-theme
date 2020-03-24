@@ -18,7 +18,7 @@
 
 					<div class="row">
 						{% for col in fields.columns %}
-							<div class="col-md-6 col-lg column-wrap {% if col.cta_text and col.cta_link %}has-cta{% endif %}">
+							<div class="col-md-6 col-lg column-wrap">
 								{% if col.attachment and fields.columns_block_style != 'no_image' %}
 									<div class="attachment-container">
 										{% if col.cta_link %}
