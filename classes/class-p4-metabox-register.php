@@ -125,7 +125,7 @@ class P4_Metabox_Register {
 
 		$p4_header->add_field(
 			[
-				'name'         => __( 'Background overide', 'planet4-master-theme-backend' ),
+				'name'         => __( 'Background override', 'planet4-master-theme-backend' ),
 				'desc'         => __( 'Upload an image', 'planet4-master-theme-backend' ),
 				'id'           => 'background_image',
 				'type'         => 'file',
