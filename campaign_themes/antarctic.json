@@ -19,7 +19,8 @@
 					],
 					"default": "greenpeace"
 				}
-			}
+			},
+			"default": "minimal"
 		},
 		{
 			"id": "campaign_logo_color",
@@ -152,13 +153,9 @@
 				{
 					"value": "sanctuary",
 					"label": "Sanctuary"
-				},
-				{
-					"value": "",
-					"label": "Default"
 				}
 			],
-			"default": ""
+			"default": "sanctuary"
 		},
 		{
 			"id": "campaign_footer_theme",
@@ -185,7 +182,18 @@
 						{ "color": "#52c9f4" }
 					]
 				}
-			}
-		}
+			},
+			"default": "white"
+		},
+		{ "id": "spreadsheet-row-background", "default": "#0A4461" },
+		{ "id": "spreadsheet-row-color", "default": "#FFFFFF" },
+		{ "id": "spreadsheet-odd-rows-background", "default": "#52C9F4" },
+		{ "id": "spreadsheet-odd-rows-color", "default": "#0A4461" },
+		{ "id": "spreadsheet-rows-hover-color", "default": "#FFFFFF" },
+		{ "id": "spreadsheet-rows-hover-background", "default": "#074365" },
+		{ "id": "spreadsheet-first-row-background", "default": "#06293a" },
+		{ "id": "spreadsheet-first-row-color", "default": "#FFFFFF" },
+		{ "id": "spreadsheet-first-row-border-color", "default": "#FFFFFF" },
+		{ "id": "spreadsheet-search-border-color", "default": "#407ea2" }
 	]
 }

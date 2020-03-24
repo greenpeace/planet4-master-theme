@@ -339,99 +339,182 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		}
 
 		/**
+		 * Gets the default for a field.
+		 *
+		 * @param array $field A field from the JSON theme file.
+		 * @return string Default value
+		 */
+		private static function get_field_default( $field ) {
+			$default = null;
+			if ( isset( $field['configurations'] ) && isset( $field['configurations']['default'] ) ) {
+				$default_configuration = $field['configurations']['default'];
+				if ( isset( $field['configurations'][ $default_configuration ]['default'] ) ) {
+					$default = $field['configurations'][ $default_configuration ]['default'];
+				}
+			} elseif ( isset( $field['default'] ) ) {
+				$default = $field['default'];
+			}
+
+			return $default;
+		}
+
+		/**
+		 * Get the theme defaults
+		 *
+		 * @param mixed $theme_json The JSON theme file.
+		 */
+		private static function get_theme_defaults( $theme_json ) {
+			$defaults = [];
+			foreach ( $theme_json['fields'] as $field ) {
+				$defaults[ $field['id'] ] = self::get_field_default( $field );
+			}
+
+			return $defaults;
+		}
+
+		/**
 		 * Determine the css variables for a certain post.
 		 *
 		 * @param array $meta The meta containing the variable values.
 		 * @return array The values that will be used for the css variables.
 		 */
 		public static function css_vars( array $meta ): array {
-			// Set specific CSS for Montserrat.
-			$special_weight_fonts = [
-				'Montserrat'       => '900',
-				'Montserrat_Light' => '500',
-			];
+			$theme = self::get_theme( $meta );
 
-			$campaigns_font_map = [
-				'default'   => 'lora',
-				'antarctic' => 'sanctuary',
-				'arctic'    => 'Save the Arctic',
-				'climate'   => 'Jost',
-				'forest'    => 'Kanit',
-				'oceans'    => 'Montserrat',
-				'oil'       => 'Anton',
-				'plastic'   => 'Montserrat',
-			];
+			// TODO: Use wp_safe_remote_get?
+			// TODO: Handle errors.
+			$theme_json = json_decode(
+				// Ignoring the PHPCS error in the next line because it's a local file, not a remote request.
+				wp_safe_remote_get( __DIR__ . '/../campaign_themes/' . $theme . '.json' ), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+				true
+			);
 
-			$theme = $meta['theme'] ?? $meta['_campaign_page_template'] ?? null;
-			$theme = $theme ? $theme : 'default';
+			$defaults = self::get_theme_defaults( $theme_json );
 
-			$header_primary_font = empty( $meta['campaign_header_primary'] )
-															? $campaigns_font_map[ $theme ]
-															: $meta['campaign_header_primary'];
+			// Replace the defaults with the campaign options where applicable.
+			$intersect = array_intersect_key( $defaults, $meta );
+			$css_vars  = array_merge( $defaults, $intersect );
 
-			$body_font = $meta['campaign_body_font'] ?? null;
+			$css_vars = array_merge( $css_vars, self::get_footer_theme( $meta ) );
+			$css_vars = array_merge( $css_vars, self::get_passive_button_color( $meta, $defaults ) );
+			$css_vars = array_merge( $css_vars, self::get_body_font( $meta, $defaults ) );
+			$css_vars = self::replace_font_aliases( $css_vars );
 
-			// Temporary fix for old campaigns having "campaign_body_font" as a "campaign".
-			if ( isset( $meta['campaign_body_font'] ) && 'campaign' === $meta['campaign_body_font'] ) {
-				$body_font = $campaigns_font_map[ $theme ];
+			$css_vars = array_filter( $css_vars );
+
+			return $css_vars;
+		}
+
+		/**
+		 * @deprecated This function replaces some arbitrary font names in the CSS variables.
+		 *
+		 * @param array $css_vars The array containing the CSS variables.
+		 * @return array The variables for the footer theme.
+		 */
+		public static function replace_font_aliases( array $css_vars ): array {
+			// TODO: Remove these special cases.
+			if ( isset( $css_vars['campaign_header_primary'] ) ) {
+				$css_vars['campaign_header_primary'] = str_replace( 'Montserrat_Light', 'Montserrat', $css_vars['campaign_header_primary'] );
 			}
 
-			// TODO: Remove this special case.
-			$header_primary_font = str_replace( 'Montserrat_Light', 'Montserrat', $header_primary_font );
-			$body_font           = str_replace( 'Montserrat_Light', 'Montserrat', $body_font );
-
-			$footer_theme = $meta['campaign_footer_theme'] ?? null;
-
-			if ( 'white' === $footer_theme ) {
-				$default_footer_links_color = $meta['campaign_nav_color'] ? $meta['campaign_nav_color'] : '#1A1A1A';
-				$footer_links_color         = $meta['footer_links_color'] ? $meta['footer_links_color'] : $default_footer_links_color;
-				$footer_color               = '#FFFFFF';
-			} else {
-				switch ( ( $meta['campaign_logo_color'] ?? null ) ) {
-					case 'dark':
-						$footer_links_color = '#1A1A1A';
-						break;
-					case 'green':
-						$footer_links_color = '#62CE00';
-						break;
-					default:
-						$footer_links_color = '#FFFFFF';
-				}
-
-				$footer_color = $meta['campaign_nav_color'] ?? null;
+			if ( isset( $css_vars['campaign_body_font'] ) ) {
+				$css_vars['campaign_body_font'] = str_replace( 'Montserrat_Light', 'Montserrat', $css_vars['campaign_body_font'] );
 			}
 
+			return $css_vars;
+		}
+
+		/**
+		 * DEPRECATE: Get the passive button color based on the meta settings.
+		 *
+		 * @param array $meta The meta containing the style settings.
+		 * @return array The variables for the passive button.
+		 */
+		public static function get_passive_button_color( array $meta ): array {
+			// TODO: Remove this "Passive" color map based on hovers.
 			$passive_button_colors_map = [
+				'#ffd204' => '#f36d3a',
 				'#ffd204' => '#ffe467',
 				'#66cc00' => '#66cc00',
 				'#6ed961' => '#a7e021',
 				'#21cbca' => '#77ebe0',
-				'#ee562d' => '#f36d3a',
 				'#7a1805' => '#a01604',
 				'#2077bf' => '#2077bf',
 				'#1b4a1b' => '#1b4a1b',
 			];
 
-			if ( 'minimal' === $meta['campaign_nav_type'] && isset( $meta['campaign_nav_color'] ) ) {
-				$nav_color = $meta['campaign_nav_color'];
+			$css_vars = [];
+
+			$css_vars['passive_button_color'] = isset( $meta['campaign_primary_color'] ) && $meta['campaign_primary_color']
+			? $passive_button_colors_map[ strtolower( $meta['campaign_primary_color'] ) ]
+			: '#f36d3a';
+
+			return $css_vars;
+		}
+
+		/**
+		 * DEPRECATE: Replaces the legacy mapping to add missing or composed variables,
+		 * returns an iterable flat set of variables.
+		 *
+		 * @param array $css_vars The array containing the CSS variables.
+		 * @return array The variables for the footer theme.
+		 */
+		public static function transform_legacy_mapping( array $css_vars ): array {
+			$css_vars['campaigns-header-primary-font'] = $css_vars['campaign_header_primary'];
+			$css_vars['campaigns-header-font-weight']  = $css_vars['campaign_header_weight'];
+
+			$css_vars['campaigns-primary-button-color-idle']    = $css_vars['passive_button_color'];
+			$css_vars['campaigns-primary-button-color-hover']   = $css_vars['campaign_primary_color'];
+			$css_vars['campaigns-secondary-button-color-idle']  = $css_vars['campaign_secondary_color'];
+			$css_vars['campaigns-secondary-button-color-hover'] = $css_vars['campaign_secondary_color'];
+
+			return $css_vars;
+		}
+
+		/**
+		 * Get the footer variables based on the meta settings.
+		 *
+		 * @param array $meta The meta containing the style settings.
+		 * @return array The variables for the footer theme.
+		 */
+		public static function get_footer_theme( array $meta ): array {
+			$footer_theme = ! empty( $meta['footer_theme'] )
+												? $meta['footer_theme']
+												: null;
+
+			$css_vars = [];
+
+			if ( 'white' === $footer_theme ) {
+				$default_footer_links_color     = $meta['campaign_nav_color'] ? $meta['campaign_nav_color'] : '#1A1A1A';
+				$css_vars['footer_links_color'] = $meta['footer_links_color'] ? $meta['footer_links_color'] : $default_footer_links_color;
+				$css_vars['footer_color']       = '#FFFFFF';
 			} else {
-				$nav_color = null;
+				switch ( ( $meta['campaign_logo_color'] ?? null ) ) {
+					case 'dark':
+						$css_vars['footer_links_color'] = '#1A1A1A';
+						break;
+					case 'green':
+						$css_vars['footer_links_color'] = '#2caf4e';
+						break;
+					default:
+						$css_vars['footer_links_color'] = '#FFFFFF';
+				}
 			}
 
-			return [
-				'nav-color'            => $nav_color,
-				'footer-color'         => $footer_color,
-				'footer-links-color'   => $footer_links_color,
-				'header-color'         => $meta['campaign_header_color'] ?? null,
-				'header-primary-font'  => $header_primary_font,
-				'header-font-weight'   => $special_weight_fonts[ $meta['campaign_header_primary'] ?? null ] ?? null,
-				'body-font'            => $body_font,
-				'passive-button-color' => isset( $meta['campaign_primary_color'] ) && $meta['campaign_primary_color']
-					? $passive_button_colors_map[ strtolower( $meta['campaign_primary_color'] ) ]
-					: null,
-				'primary-color'        => $meta['campaign_primary_color'] ?? null,
-				'secondary-color'      => $meta['campaign_secondary_color'] ?? null,
-			];
+			return $css_vars;
+		}
+
+		/**
+		 * Get the theme based on the meta settings.
+		 *
+		 * @param array $meta The meta containing the style settings.
+		 * @return string The identifier of the theme.
+		 */
+		public static function get_theme( array $meta ): string {
+			$theme = $meta['theme'] ?? $meta['_campaign_page_template'] ?? null;
+			$theme = $theme ? $theme : 'default';
+
+			return $theme;
 		}
 
 		/**
@@ -446,8 +529,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				return 'greenpeace';
 			}
 
-			$theme = $meta['theme'] ?? $meta['_campaign_page_template'] ?? null;
-			$theme = $theme ? $theme : 'default';
+			$theme = self::get_theme( $meta );
 
 			if ( 'default' !== $theme ) {
 				return 'greenpeace' === $logo ? 'greenpeace' : $theme;
