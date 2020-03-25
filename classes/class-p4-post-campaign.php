@@ -385,7 +385,7 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 			// TODO: Handle errors.
 			$theme_json = json_decode(
 				// Ignoring the PHPCS error in the next line because it's a local file, not a remote request.
-				wp_safe_remote_get( __DIR__ . '/../campaign_themes/' . $theme . '.json' ), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+				file_get_contents( __DIR__ . '/../campaign_themes/' . $theme . '.json' ), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 				true
 			);
 
@@ -397,12 +397,40 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$css_vars = array_merge( $css_vars, self::get_footer_theme( $meta ) );
 			$css_vars = array_merge( $css_vars, self::get_passive_button_color( $meta, $defaults ) );
-			$css_vars = array_merge( $css_vars, self::get_body_font( $meta, $defaults ) );
+			$css_vars = array_merge( $css_vars, self::get_body_font( $meta ) );
 			$css_vars = self::replace_font_aliases( $css_vars );
 
 			$css_vars = array_filter( $css_vars );
 
 			return $css_vars;
+		}
+
+		/**
+		 * @deprecated This can probably be removed along with the font map.
+		 *
+		 * @param array $meta The meta containing the style settings.
+		 * @return string The body font.
+		 */
+		public static function get_body_font( $meta ): array {
+			$body_font = $meta['campaign_body_font'] ?? null;
+
+			// Temporary fix for old campaigns having "campaign_body_font" as a "campaign".
+			if ( isset( $meta['campaign_body_font'] ) && 'campaign' === $meta['campaign_body_font'] ) {
+				$campaigns_font_map = [
+					'default'   => 'lora',
+					'antarctic' => 'sanctuary',
+					'arctic'    => 'Save the Arctic',
+					'climate'   => 'Jost',
+					'forest'    => 'Kanit',
+					'oceans'    => 'Montserrat',
+					'oil'       => 'Anton',
+					'plastic'   => 'Montserrat',
+				];
+				$theme              = self::get_theme( $meta );
+				$body_font          = $campaigns_font_map[ $theme ];
+			}
+
+			return [ 'campaign_body_font' => $body_font ];
 		}
 
 		/**
