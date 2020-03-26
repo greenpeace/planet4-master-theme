@@ -301,6 +301,7 @@ class P4_Metabox_Register {
 			'Climate Justice Liability'          => 'Climate Justice Liability',
 			'Congo Basin Forests'                => 'Congo Basin Forests',
 			'Corporate ICE/ Clean Air Now'       => 'Corporate ICE/ Clean Air Now',
+			'Covid-19 Response'                  => 'Covid-19 Response',
 			'Cross-commodities markets campaign' => 'Cross-commodities markets campaign',
 			'Ends of the Earth'                  => 'Ends of the Earth',
 			'European Energy Transition'         => 'European Energy Transition',
