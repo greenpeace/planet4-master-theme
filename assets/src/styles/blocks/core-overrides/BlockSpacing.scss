@@ -3,7 +3,6 @@
 .wp-block-file,
 .wp-block-table,
 .wp-block-button,
-.page-template > p,
 .page-template > h2,
 .page-template > ul {
   margin-top: $space-md;
@@ -13,4 +12,9 @@
     margin-top: $space-lg;
     margin-bottom: $space-xxl;
   }
+}
+
+.page-template > p {
+  margin-top: $space-md;
+  margin-bottom: $space-lg;
 }
