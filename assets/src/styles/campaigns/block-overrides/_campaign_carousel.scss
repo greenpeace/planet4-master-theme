@@ -4,13 +4,10 @@
     margin-bottom: 40px;
   }
 
-  @if ($bordered) {
-    padding-bottom: 52px;
-  }
-
   $spacing: 0;
   @if ($bordered) {
-    $spacing: 20px;
+    $spacing: $space-md;
+    padding-bottom: $space-xxl;
   }
 
   .carousel-inner {
@@ -31,31 +28,38 @@
     background: $background;
     position: absolute;
     text-align: left;
-    padding: 30px 10px;
+    padding: $space-sm;
     @include letter-spacing(20);
+
+    @include mobile-only {
+      position: relative;
+      z-index: 10;
+      padding: $n20 $n15 $n60 $n15;
+      color: $white;
+    }
 
     @if ($bordered == false) {
       padding-bottom: 60px;
 
       @include mobile-only {
-        padding-left: 34px;
-        padding-right: 34px;
+        padding-left: $space-lg;
+        padding-right: $space-lg;
       }
     }
 
     @include small-and-up {
-      padding-left: 100px;
-      padding-right: 100px;
+      padding-left: $space-sm;
+      padding-right: $space-sm;
     }
 
     @include medium-and-up {
       @if ($bordered) {
-        padding-left: 124px;
-        padding-right: 124px;
+        padding-left: $space-xxl;
+        padding-right: $space-xxl;
       }
       @else {
-        padding-left: 172px;
-        padding-right: 172px;
+        padding-left: $space-xxl * 2;
+        padding-right: $space-xxl * 2;
       }
     }
 
@@ -121,6 +125,7 @@
     height: 100px;
     text-align: center;
     display: flex;
+    z-index: 2000;
 
     @include medium-and-up {
       @if ($bordered) {
