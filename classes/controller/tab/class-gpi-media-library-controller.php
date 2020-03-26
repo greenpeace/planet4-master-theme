@@ -44,7 +44,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 		 */
 		public function media_library_post_upload_ui() {
 			$this->load_ml_assets();
-			print '<button id="db-upload-btn" class="button media-button button-primary button-large insert-media add_media switchtoml">' . esc_html__( 'Upload From GPI Media Library', 'planet4-medialibrary' ) . '</button>';
+			print '<button id="db-upload-btn" class="button media-button button-primary button-large add_media switchtoml">' . esc_html__( 'Upload From GPI Media Library', 'planet4-medialibrary' ) . '</button>';
 		}
 
 		/**
@@ -201,7 +201,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 			];
 
 			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin.css', [ 'media-views', 'media' ], '0.9' );
-			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', [], '0.14', true );
+			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/adminml.js', [], '0.15', true );
 			wp_localize_script( 'p4ml_admin_script', 'media_library_params', $params );
 			wp_enqueue_script( 'jquery-ui-core' );
 			wp_enqueue_script( 'jquery-ui-selectable' );
@@ -221,7 +221,7 @@ if ( ! class_exists( 'GPI_Media_Library_Controller' ) ) {
 			];
 
 			wp_enqueue_style( 'p4ml_admin_style', P4ML_ADMIN_DIR . 'css/admin_search_ml.css', [], '0.5' );
-			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/admin_search_ml.js', [], '0.4.3', true );
+			wp_register_script( 'p4ml_admin_script', P4ML_ADMIN_DIR . 'js/admin_search_ml.js', [], '0.4.4', true );
 			wp_localize_script( 'p4ml_admin_script', 'media_library_params', $params );
 			wp_enqueue_script( 'p4ml_admin_script' );
 			wp_enqueue_media();
