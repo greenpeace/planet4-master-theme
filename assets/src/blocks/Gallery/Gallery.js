@@ -4,11 +4,9 @@ import {
   TextareaControl as BaseTextareaControl,
   FocalPointPicker,
   ServerSideRender,
-  Toolbar,
-  IconButton,
-  Button, Tooltip
 } from '@wordpress/components';
-import {BlockControls,MediaUpload,MediaUploadCheck} from "@wordpress/editor";
+
+import {MediaPlaceholder, MediaUploadCheck} from "@wordpress/blockEditor";
 
 import {LayoutSelector} from '../../components/LayoutSelector/LayoutSelector';
 import {Preview} from '../../components/Preview';
@@ -23,97 +21,16 @@ export class Gallery extends Component {
     }
 
     renderEdit() {
-      const getImageOrButton = (openEvent) => {
-        if ( 0 < this.props.image_data.length ) {
-
-          return (
-
-            this.props.image_data.map((item, index) => {
-              return (
-                <span key={index}>
-                  <div className="img-wrap">
-                    <Tooltip text={__('Remove Gallery Image', 'p4ge')}>
-                      <span className="close" onClick={ev => {
-                        onDeleteImage(item.id);
-                        ev.stopPropagation()
-                      }}>&times;</span>
-                    </Tooltip>
-                    <img
-                      src={ item.url }
-                      onClick={ openEvent }
-                      className="gallery__imgs"
-                      key={index}
-                      width='150 px'
-                      style={{padding: '10px 10px'}}
-                    />
-                  </div>
-                </span>
-              );
-            })
-
-          );
-        }
-        else {
-          return (
-            <div className="button-container">
-              <Button
-                onClick={ openEvent }
-                className="button">
-                + {__('Select Gallery Images', 'p4ge')}
-              </Button>
-
-              <div>{__('Select images in the order you want them to appear.', 'p4ge')}</div>
-            </div>
-          );
-        }
-      };
-
       const {__} = wp.i18n;
 
-      const {gallery_block_style , gallery_block_title , gallery_block_description , multiple_image , image_data , onDeleteImage} = this.props;
+      const {gallery_block_style , gallery_block_title , gallery_block_description , image_data } = this.props;
 
       const dimensions = {width: 400, height: 100};
 
-      let multiple_image_array = multiple_image ? multiple_image.split(',') : [];
+      const hasImages = !! image_data.length;
 
       return (
         <Fragment>
-          <BlockControls>
-            { 0 < image_data.length && (
-              <Toolbar>
-                { 0 < multiple_image_array.length && (
-                  <MediaUploadCheck>
-                    <MediaUpload
-                      onSelect={this.props.onSelectImage}
-                      allowedTypes={["image"]}
-                      value={multiple_image_array}
-                      type="image"
-                      multiple="true"
-                      render={({ open }) => {
-                        return (
-                          <IconButton
-                            className="components-icon-button components-toolbar__control"
-                            label={__(
-                              "Edit Images",
-                              "mytheme-blocks"
-                            )}
-                            onClick={open}
-                            icon="edit"
-                          />
-                        );
-                      }}
-                    />
-                  </MediaUploadCheck>
-                )}
-                <IconButton
-                  className="components-icon-button components-toolbar__control"
-                  label={__("Remove Images", "mytheme-blocks")}
-                  onClick={this.props.onRemoveImages}
-                  icon="trash"
-                />
-              </Toolbar>
-            )}
-          </BlockControls>
           <h3>{__('What style of gallery do you need?', 'p4ge')}</h3>
 
           <div>
@@ -161,14 +78,20 @@ export class Gallery extends Component {
             {__('Select Gallery Images', 'p4ge')}
             <div>
               <MediaUploadCheck>
-                <MediaUpload
-                  title={__('Select Gallery Images', 'p4ge')}
-                  type="image"
+                <MediaPlaceholder
+                  addToGallery={ hasImages }
+                  disableMediaButtons={ hasImages  }
+                  labels={ {
+                    title: __( 'Select Gallery Images' ),
+                    instructions: __('Upload an image or select from the media library.', 'p4ge'),
+                  } }
                   onSelect={this.props.onSelectImage}
-                  value={multiple_image_array}
+                  accept="image/*"
                   allowedTypes={["image"]}
-                  multiple="true"
-                  render={ ({ open }) => getImageOrButton(open) }
+                  multiple
+                  value={ hasImages ? image_data : undefined }
+                  onError={ this.onUploadError }
+                  onFocus={ this.props.onFocus }
                 />
               </MediaUploadCheck>
             </div>
@@ -179,13 +102,13 @@ export class Gallery extends Component {
                 "wp-block-master-theme-gallery__FocalPointPicker"
               }
             >
+              {__('Select gallery image focal point', 'p4ge')}
               <ul>
                 {image_data.map((item, index) => {
                   return (
                     <li
                       key={index}
                     >
-                      {__('Select gallery image focal point', 'p4ge')}
                       <FocalPointPicker
                         url={item.url}
                         dimensions={dimensions}

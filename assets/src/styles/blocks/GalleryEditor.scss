@@ -1,3 +1,40 @@
-.wp-block-master-theme-gallery__FocalPointPicker ul {
-  list-style-type: none !important;
+.wp-block-master-theme-gallery__FocalPointPicker {
+  ul {
+    list-style-type: none !important;
+  }
+
+  .components-base-control__field {
+    display: flex;
+
+    .components-focal-point-picker-wrapper {
+      width: auto;
+      margin-right: $space-md;
+      display: block;
+    }
+
+    .components-focal-point-picker_position-display-container {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+
+      .components-base-control {
+        margin-bottom: $space-md;
+
+        label {
+          min-width: 110px;
+          line-height: 2rem;
+        }
+
+        input {
+          line-height: 2rem;
+          padding: 0 $space-xs;
+          width: 5rem;
+        }
+
+        span {
+          line-height: 2rem;
+        }
+      }
+    }
+  }
 }
