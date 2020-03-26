@@ -310,7 +310,7 @@
 					]
 				},
 				"default": "white"
-			},
+			}
 		},
 		{ "id": "spreadsheet-row-background", "default": "#0A4461" },
 		{ "id": "spreadsheet-row-color", "default": "#FFFFFF" },
