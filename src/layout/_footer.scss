@@ -44,7 +44,7 @@
 .site-footer {
   font-family: $roboto;
   padding: 45px 0 $n25;
-  background: $dark-blue;
+  background: var(--footer_color, $dark-blue);
   position: relative;
   z-index: 2;
   text-align: center;
@@ -65,7 +65,7 @@
   }
 
   a {
-    color: inherit;
+    color: var(--footer_links_color, inherit);
   }
 
   li {
@@ -74,7 +74,7 @@
 }
 
 .footer-social-media {
-  color: $grey-20;
+  color: var(--footer_links_color, $grey-20) !important;
   font-size: $font-size-xl;
   margin: auto;
   text-align: center;
@@ -132,7 +132,7 @@
 }
 
 .footer-links {
-  color: $white;
+  color: var(--footer_links_color, $white) !important;
   font-weight: bold;
   font-size: $font-size-md;
   text-transform: uppercase;
@@ -163,7 +163,7 @@
 }
 
 .copyright-text {
-  color: $grey-10;
+  color: var(--footer_links_color, $grey-10) !important;
   font: $font-size-xxs;
   line-height: 1.3;
   margin-left: auto;
@@ -188,12 +188,16 @@
   }
 
   a {
-    color: $white;
+    color: var(--footer_links_color, $white) !important;
+
+    &:hover {
+      color: var(--footer_links_color, initial) !important;
+    }
   }
 }
 
 .gp-year {
-  color: $white;
+  color: var(--footer_links_color, $white);
   font-size: $font-size-xxs;
   text-transform: none;
 
@@ -215,9 +219,9 @@
   line-height: 1;
 
   .footer-social-media {
-    color: $grey-20;
+    color: var(--footer_links_color, $grey-20);
     font-size: $font-size-xl;
-    margin: auto;
+    margin: 0 auto $space-md auto;
     text-align: center;
     width: max-content;
 
@@ -247,13 +251,13 @@
   }
 
   .gp-year {
-    color: $white;
+    color: var(--footer_links_color, $white);
     font-size: $font-size-xxs;
     font-family: $lora;
     margin: 40px 0 30px 0;
   }
 
   .icon {
-    fill: $white;
+    fill: var(--footer_links_color, $white);
   }
 }
