@@ -28,7 +28,7 @@ body.theme-oceans {
     }
   }
 
-  font-family: $roboto;
+  font-family: var(--campaign_body_font, $roboto);
   background: white;
 
   .btn-primary {

@@ -24,7 +24,7 @@ body.theme-climate {
   $page-header-medium-width: 720px;
   $page-header-small-width: 540px;
 
-  font-family: $jost;
+  font-family: var(--campaign_body_font, $jost);
   background: #f8f7f7 !important;
 
   @mixin climate-button($background: $climate-gradient-standard, $foreground: white) {
