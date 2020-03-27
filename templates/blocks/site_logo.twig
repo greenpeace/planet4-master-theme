@@ -4,7 +4,8 @@
 	{% if logo == 'greenpeace' %}
 		<img src="{{ data_nav_bar.images }}gp-logo-{{ logo_color }}.svg" alt="Greenpeace">
 	{% else %}
-		<img src="{{ data_nav_bar.images }}{{ logo }}/logo-{{ logo_color }}.png" alt="Greenpeace">
+		{% set color = logo_color == 'green' ? 'light' : logo_color %}
+		<img src="{{ data_nav_bar.images }}{{ logo }}/logo-{{ color }}.png" alt="Greenpeace">
 	{% endif %}
 {% else %}
 	<img src="{{ data_nav_bar.images }}gp-logo.svg" alt="Greenpeace">

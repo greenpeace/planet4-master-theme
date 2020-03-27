@@ -16,6 +16,8 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		 */
 		const POST_TYPE = 'campaign';
 
+		const DEFAULT_NAVBAR_THEME = 'planet4';
+
 		public const META_FIELDS = [
 			'theme',
 			'campaign_logo',
@@ -391,14 +393,17 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 
 			$defaults = self::get_theme_defaults( $theme_json );
 
-			// Replace the defaults with the campaign options where applicable.
-			$intersect = array_intersect_key( $defaults, $meta );
-			$css_vars  = array_merge( $defaults, $intersect );
+			// Use only meta keys that exist in the defaults.
+			$intersect = array_intersect_key( array_filter( $meta ), $defaults );
 
-			$css_vars = array_merge( $css_vars, self::get_footer_theme( $meta ) );
-			$css_vars = array_merge( $css_vars, self::get_passive_button_color( $meta, $defaults ) );
-			$css_vars = array_merge( $css_vars, self::get_body_font( $meta ) );
+			// Replace the defaults with the campaign options where applicable.
+			$css_vars = array_merge( $defaults, $intersect );
+
+			$css_vars = self::get_navbar_theme( $css_vars );
+			$css_vars = self::get_footer_theme( $css_vars );
+			$css_vars = self::get_passive_button_color( $css_vars, $meta );
 			$css_vars = self::replace_font_aliases( $css_vars );
+			$css_vars = self::get_body_font( $css_vars, $meta );
 
 			$css_vars = array_filter( $css_vars );
 
@@ -408,14 +413,13 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		/**
 		 * @deprecated This can probably be removed along with the font map.
 		 *
+		 * @param array $css_vars The array containing the CSS variables.
 		 * @param array $meta The meta containing the style settings.
 		 * @return string The body font.
 		 */
-		public static function get_body_font( $meta ): array {
-			$body_font = $meta['campaign_body_font'] ?? null;
-
+		public static function get_body_font( $css_vars, $meta ): array {
 			// Temporary fix for old campaigns having "campaign_body_font" as a "campaign".
-			if ( isset( $meta['campaign_body_font'] ) && 'campaign' === $meta['campaign_body_font'] ) {
+			if ( isset( $css_vars['campaign_body_font'] ) && 'campaign' === $css_vars['campaign_body_font'] ) {
 				$campaigns_font_map = [
 					'default'   => 'lora',
 					'antarctic' => 'sanctuary',
@@ -427,10 +431,11 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 					'plastic'   => 'Montserrat',
 				];
 				$theme              = self::get_theme( $meta );
-				$body_font          = $campaigns_font_map[ $theme ];
+
+				$css_vars['campaign_body_font'] = $campaigns_font_map[ $theme ];
 			}
 
-			return [ 'campaign_body_font' => $body_font ];
+			return $css_vars;
 		}
 
 		/**
@@ -455,10 +460,11 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		/**
 		 * DEPRECATE: Get the passive button color based on the meta settings.
 		 *
+		 * @param array $css_vars The array containing the CSS variables.
 		 * @param array $meta The meta containing the style settings.
 		 * @return array The variables for the passive button.
 		 */
-		public static function get_passive_button_color( array $meta ): array {
+		public static function get_passive_button_color( array $css_vars, array $meta ): array {
 			// TODO: Remove this "Passive" color map based on hovers.
 			$passive_button_colors_map = [
 				'#ffd204' => '#f36d3a',
@@ -471,8 +477,6 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 				'#1b4a1b' => '#1b4a1b',
 			];
 
-			$css_vars = [];
-
 			$css_vars['passive_button_color'] = isset( $meta['campaign_primary_color'] ) && $meta['campaign_primary_color']
 			? $passive_button_colors_map[ strtolower( $meta['campaign_primary_color'] ) ]
 			: '#f36d3a';
@@ -481,20 +485,17 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		}
 
 		/**
-		 * DEPRECATE: Replaces the legacy mapping to add missing or composed variables,
-		 * returns an iterable flat set of variables.
+		 * Get the navigation bar variables based on the meta settings.
 		 *
-		 * @param array $css_vars The array containing the CSS variables.
-		 * @return array The variables for the footer theme.
+		 * @param array $css_vars The mix of meta fields and defaults.
+		 * @return array The variables for the navigation bar.
 		 */
-		public static function transform_legacy_mapping( array $css_vars ): array {
-			$css_vars['campaigns-header-primary-font'] = $css_vars['campaign_header_primary'];
-			$css_vars['campaigns-header-font-weight']  = $css_vars['campaign_header_weight'];
-
-			$css_vars['campaigns-primary-button-color-idle']    = $css_vars['passive_button_color'];
-			$css_vars['campaigns-primary-button-color-hover']   = $css_vars['campaign_primary_color'];
-			$css_vars['campaigns-secondary-button-color-idle']  = $css_vars['campaign_secondary_color'];
-			$css_vars['campaigns-secondary-button-color-hover'] = $css_vars['campaign_secondary_color'];
+		public static function get_navbar_theme( array $css_vars ): array {
+			if ( self::DEFAULT_NAVBAR_THEME === $css_vars['campaign_nav_type'] ) {
+				$css_vars['campaign_logo_color'] = null;
+				$css_vars['campaign_nav_color']  = null;
+				$css_vars['campaign_logo']       = null;
+			}
 
 			return $css_vars;
 		}
@@ -502,31 +503,34 @@ if ( ! class_exists( 'P4_Post_Campaign' ) ) {
 		/**
 		 * Get the footer variables based on the meta settings.
 		 *
-		 * @param array $meta The meta containing the style settings.
+		 * @param array $css_vars The array containing the CSS variables.
 		 * @return array The variables for the footer theme.
 		 */
-		public static function get_footer_theme( array $meta ): array {
-			$footer_theme = ! empty( $meta['footer_theme'] )
-												? $meta['footer_theme']
+		public static function get_footer_theme( array $css_vars ): array {
+			$footer_theme = ! empty( $css_vars['campaign_footer_theme'] )
+												? $css_vars['campaign_footer_theme']
 												: null;
 
-			$css_vars = [];
+			$default_footer_links_color = $css_vars['campaign_nav_color'] ? $css_vars['campaign_nav_color'] : '#1A1A1A';
 
 			if ( 'white' === $footer_theme ) {
-				$default_footer_links_color     = $meta['campaign_nav_color'] ? $meta['campaign_nav_color'] : '#1A1A1A';
-				$css_vars['footer_links_color'] = $meta['footer_links_color'] ? $meta['footer_links_color'] : $default_footer_links_color;
+				$css_vars['footer_links_color'] = $css_vars['footer_links_color'] ? $css_vars['footer_links_color'] : $default_footer_links_color;
 				$css_vars['footer_color']       = '#FFFFFF';
+			} elseif ( self::DEFAULT_NAVBAR_THEME === $css_vars['campaign_nav_type'] ) {
+				$css_vars['footer_links_color'] = null;
+				$css_vars['footer_color']       = null;
 			} else {
-				switch ( ( $meta['campaign_logo_color'] ?? null ) ) {
+				switch ( ( $css_vars['campaign_logo_color'] ?? null ) ) {
 					case 'dark':
 						$css_vars['footer_links_color'] = '#1A1A1A';
 						break;
 					case 'green':
-						$css_vars['footer_links_color'] = '#2caf4e';
+						$css_vars['footer_links_color'] = '#62CE00';
 						break;
 					default:
 						$css_vars['footer_links_color'] = '#FFFFFF';
 				}
+				$css_vars['footer_color'] = $css_vars['campaign_nav_color'];
 			}
 
 			return $css_vars;

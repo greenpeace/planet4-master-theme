@@ -41,7 +41,6 @@ if ( $top_level_campaign_id === $post->ID ) {
 	$campaign_meta = get_post_meta( $top_level_campaign_id );
 	$campaign_meta = array_map( 'reset', $campaign_meta );
 }
-// Get rid of all metas being in an array.
 
 // This is just an example of how to get children pages, this will probably be done in some kind of menu block.
 $sub_pages = get_children(
@@ -73,8 +72,14 @@ $custom_styles = [];
 
 $custom_styles['nav_type']            = $campaign_meta['campaign_nav_type'] ?? null;
 $custom_styles['nav_border']          = $campaign_meta['campaign_nav_border'] ?? null;
-$custom_styles['campaign_logo_color'] = isset( $campaign_meta['campaign_logo_color'] ) && ! empty( $campaign_meta['campaign_logo_color'] ) ? $campaign_meta['campaign_logo_color'] : 'light';
+$custom_styles['campaign_logo_color'] = 'green';
 $custom_styles['campaign_logo']       = P4_Post_Campaign::get_logo( $campaign_meta );
+
+if ( P4_Post_Campaign::DEFAULT_NAVBAR_THEME !== $custom_styles['nav_type'] ) {
+	$custom_styles['campaign_logo_color'] = isset( $campaign_meta['campaign_logo_color'] ) && ! empty( $campaign_meta['campaign_logo_color'] )
+		? $campaign_meta['campaign_logo_color']
+		: 'light';
+}
 
 // Set GTM Data Layer values.
 $post->set_data_layer();
