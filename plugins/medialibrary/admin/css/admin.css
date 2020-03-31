@@ -1,0 +1,114 @@
+#selectable-images li.ui-selecting {
+    background: #feca40;
+}
+
+#selectable-images li.ui-selected {
+    background: #0073aa;
+    border: solid 4px #0073aa;
+}
+
+#selectable-images {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#selectable-images li {
+    margin: 3px;
+    padding: 1px;
+    float: left;
+    font-size: 4em;
+    text-align: center;
+    border: solid 2px #f1f1f1;
+    width: 150px;
+    height: 150px;
+}
+
+#ml_loader {
+    position: fixed;
+    left: 50%;
+    top: 15px;
+}
+
+.ml-media-toolbar {
+    padding: 10px;
+}
+
+.ml-media-frame-content {
+    margin: 10px;
+}
+
+.ml-search-form {
+    padding: 5px;
+    height: 63px;
+}
+
+.ml-error {
+    text-align:center;
+    color: #FF0000;
+}
+
+.ml-media-toolbar {
+    float: right;
+}
+
+#ml_spinner {
+    position: fixed;
+    left: 25%;
+    margin-top: 5px !important;
+}
+
+.ml-media-sidebar {
+    display: none;
+}
+
+body, html {
+    overflow: hidden;
+}
+
+.ml-org-lang-label, .ml-restrictions-label {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.ml-additional-fields {
+    display: none;
+}
+
+.ml-restrictions {
+    color: #ff8c00;
+}
+
+.ml-radio-gr {
+    padding: 0 16px 16px;
+    display: none;
+}
+
+.ml-radio {
+    text-align: inherit;
+    min-height: 16px;
+    margin: 0;
+    padding: 8px 2px 0;
+}
+
+#ml-radio-1, #ml-radio-2 {
+    margin-top: 1px;
+}
+
+.ml-media-frame-content {
+    top: 0;
+    bottom: 61px;
+    width: auto;
+    margin: 0;
+    overflow: auto;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: auto;
+}
+
+.attachments-browser .attachments {
+    overflow: auto;
+}

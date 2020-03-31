@@ -1,0 +1,55 @@
+{% block pages_content %}
+
+    <div id="ml_pages_div" class="wrap">
+        <h2>{{ __( 'Media Library Page', 'planet4-medialibrary' ) }}</h2>
+    </div>
+
+    <div class="clear"></div>
+
+    <!--<p>Search <input type="text" id="search_gpi_image" name="search_gpi_image"/>
+        <button id="search_gpi_img_btn">Search</button></p>
+    <div class="row">
+        <div id="gpi_images_results">
+
+        </div>
+    </div>-->
+
+    <table class="form-table">
+        {% if ( data.is_file_exist ) %}
+        <tr valign="top">
+            <th colspan="2">File already exist in WP Media. (ID: {{ data.is_file_exist }})</th>
+        </tr>
+        {% endif %}
+        <tr valign="top">
+            <th>{{ __( 'GPI ML Image ID', 'planet4-medialibrary' ) }}</th>
+            <td>
+                {{ data.gpml_image_id }}
+            </td>
+        </tr>
+        <tr valign="top">
+            <th>{{ __( 'WP Image ID', 'planet4-medialibrary' ) }}</th>
+            <td>
+                {{ data.wp_image_id }}
+            </td>
+        </tr>
+        <tr valign="top">
+            <th>{{ __( 'Image Title', 'planet4-medialibrary' ) }}</th>
+            <td>
+                {{ data.image_title }}
+            </td>
+        </tr>
+        <tr valign="top">
+            <th>{{ __( 'Image URL', 'planet4-medialibrary' ) }}</th>
+            <td>
+                {{ data.image_url }}
+            </td>
+        </tr>
+        <tr valign="top">
+            <th>{{ __( 'Image', 'planet4-medialibrary' ) }}</th>
+            <td>
+                <img src="{{ data.image_url }}">
+            </td>
+        </tr>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{
+	"name": "planet4-plugin-medialibrary",
+	"description": "Wordpress plugin that connects Planet4 with GPI Media Library",
+	"repository": "git@github.com:greenpeace/planet4-plugin-medialibrary.git",
+	"author": "Greenpeace International",
+	"license": "GPL-3.0",
+	"devDependencies": {
+		"eslint": "^5.16.0",
+		"gulp": "^4.0.2",
+		"gulp-clean-css": "^4.2.0",
+		"gulp-eslint": "^5.0.0",
+		"gulp-livereload": "^4.0.1",
+		"gulp-notify": "^3.2.0",
+		"gulp-plumber": "^1.2.0",
+		"gulp-stylelint": "^9.0.0",
+		"stylelint": "^10.0.1"
+	}
+}

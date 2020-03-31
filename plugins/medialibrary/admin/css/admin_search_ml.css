@@ -1,0 +1,85 @@
+.ml-button-insert {
+    margin-top: 10px;
+}
+
+.ml-media-list {
+    z-index: 10000;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 300px;
+    bottom: 0;
+    overflow: auto;
+    outline: 0;
+}
+
+.ml-details {
+    z-index: 10000;
+}
+
+#ml_loader {
+    position: fixed;
+    left: 48%;
+}
+
+.ml_spinner {
+    position: fixed;
+    left: 53% !important;
+    margin-top: 20px !important;
+}
+
+.ml-error {
+    text-align:center;
+    color: #FF0000;
+}
+
+.switchtoml {
+    margin-bottom:10px;
+}
+
+.ml-org-lang-label, .ml-restrictions-label {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.ml-additional-fields {
+    display: none;
+}
+
+.ml-restrictions {
+    color: #ff8c00;
+}
+
+.ml-radio-gr {
+    padding: 0 16px 16px;
+    display: none;
+}
+
+.ml-radio {
+    text-align: inherit;
+    min-height: 16px;
+    margin: 0;
+    padding: 8px 2px 0;
+}
+
+#ml-radio-1, #ml-radio-2 {
+    margin-top: 1px;
+}
+
+.ml-media-frame-content {
+    top: 0;
+    bottom: 61px;
+    width: auto;
+    margin: 0;
+    overflow: auto;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: auto;
+}
+
+.uploader-inline-content {
+    z-index: 99;
+}

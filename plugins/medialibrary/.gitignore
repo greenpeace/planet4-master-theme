@@ -1,0 +1,18 @@
+
+vendor/*
+!vendor/composer
+!vendor/autoload.php
+node_modules
+
+# Logs #
+########
+*.log
+
+# OS generated files #
+######################
+.DS_Store
+Thumbs.db
+
+# IDE generated files #
+#######################
+.idea
