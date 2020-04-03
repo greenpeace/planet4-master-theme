@@ -61,7 +61,7 @@
     height: 2.7rem;
 
     .icon {
-      top: 0;
+      top: -2px;
     }
 
     &:hover {
@@ -87,5 +87,13 @@
 
   .email {
     background: $email none repeat scroll 0 0;
+  }
+
+  .whatsapp {
+    background: $whatsapp none repeat scroll 0 0;
+
+    .icon {
+      font-size: 1.5rem;
+    }
   }
 }
