@@ -9,7 +9,7 @@ body.theme-plastic {
   $plastics-blue-light: #1a9db8;
   $plastics-aqua-light: #8fd9d0;
 
-  font-family: $roboto;
+  font-family: var(--campaign_body_font, $roboto);
   background: white;
 
   @mixin plastics-button($background: $plastics-peach-darker, $foreground: white) {

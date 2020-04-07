@@ -18,6 +18,7 @@ body.theme-antarctic {
     line-height: 50px;
   }
 
+  font-family: var(--campaign_body_font, $lora);
   background: white;
 
   .btn-primary {
