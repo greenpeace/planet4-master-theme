@@ -17,8 +17,11 @@
 					{% set author_bio_char_limit = 300 %}
 				{% endif %}
 
-				{% set author_bio = fn('substr', post.author.description, 0, fn('strpos', post.author.description ,' ', author_bio_char_limit)) %}
-				{% set author_bio = post.author.description|length > author_bio_char_limit ? author_bio ~ author_bio_readmore : author_bio %}
+				{% if ( post.author.description|length > author_bio_char_limit ) %}
+					{% set author_bio = fn('substr', post.author.description, 0, fn('strpos', post.author.description ,' ', author_bio_char_limit)) ~ author_bio_readmore %}
+				{% else %}
+					{% set author_bio = post.author.description %}
+				{% endif %}
 
 				<p class="author-block-info-bio" itemprop="description">
 					{{ fn('wpautop', author_bio)|e('wp_kses_post')|raw }}
