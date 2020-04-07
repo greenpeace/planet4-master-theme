@@ -1,4 +1,11 @@
 <div class="share-buttons">
+	<!-- Whatsapp -->
+	<a href="https://wa.me/?text={{ social.link }}"
+		 onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Whatsapp', 'eventLabel': '{{ social.link }}'});"
+		 target="_blank" class="share-btn whatsapp">
+		{{ 'whatsapp'|svgicon }}
+		<span class="sr-only">{{ __( 'Share on', 'planet4-master-theme' ) }} Whatsapp</span>
+	</a>
 	<!-- Facebook -->
 	<a href="https://www.facebook.com/sharer/sharer.php?u={{ social.link }}"
 		 onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Facebook', 'eventLabel': '{{ social.link }}'});"
