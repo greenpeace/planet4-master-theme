@@ -57,6 +57,7 @@ export function withPostMeta( WrappedComponent ) {
         )
       ) {
         value = this.props.defaultValue;
+        this.handleChange( metaKey, value );
       } else {
         value = metaValue;
       }
