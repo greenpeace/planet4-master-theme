@@ -181,10 +181,11 @@
 			"configurations": {
 				"minimal": {
 					"options": [
-						{ "color":  "#ffffff"},
-						{ "color":  "#000000"},
-						{ "color": "#035880"}
-					]
+						{ "value": "#ffffff", "label": "White" },
+						{ "value": "#000000", "label": "Black" },
+						{ "value": "#035880", "label": "Dark Blue" }
+					],
+					"default": "#000000"
 				}
 			},
 			"default": "auto"
@@ -305,11 +306,11 @@
 			"configurations": {
 				"white": {
 					"options": [
-						{ "color": "#000000"},
-						{ "color": "#035880"}
-					]
-				},
-				"default": "white"
+						{ "value": "#000000", "label": "Black" },
+						{ "value": "#035880", "label": "Dark Blue" }
+					],
+					"default": "#035880"
+				}
 			}
 		},
 		{ "id": "spreadsheet-row-background", "default": "#0A4461" },
