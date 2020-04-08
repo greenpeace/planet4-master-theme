@@ -281,6 +281,24 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'id'   => 'epwr_offset',
 					'type' => 'text',
 				],
+				[
+					'name' => __( 'SmartSheet API key', 'planet4-master-theme-backend' ),
+					'desc' => __(
+						'The API key to talk to the SmartSheet API.',
+						'planet4-master-theme-backend'
+					),
+					'id'   => 'smartsheet_api_key',
+					'type' => 'text',
+				],
+				[
+					'name' => __( 'Analytics Global smartsheet id', 'planet4-master-theme-backend' ),
+					'desc' => __(
+						'The smartsheet that is used to get analytics values.',
+						'planet4-master-theme-backend'
+					),
+					'id'   => 'analytics_global_smartsheet_id',
+					'type' => 'text',
+				],
 			];
 			$this->hooks();
 		}
@@ -436,15 +454,12 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 /**
  * Wrapper function around cmb2_get_option.
  *
- * @param string     $key Options array key.
- * @param mixed|null $default Optional default value.
+ * @param string $key Options array key.
+ * @param bool   $default The default value to use if the options is not set.
  * @return mixed Option value.
  */
 function planet4_get_option( $key = '', $default = null ) {
-	if ( function_exists( 'cmb2_get_option' ) ) {
-		return cmb2_get_option( 'planet4_options', $key, $default );
-	}
-
 	$options = get_option( 'planet4_options' );
-	return $options[ $key ] ?? false;
+
+	return $options[ $key ] ?? $default;
 }

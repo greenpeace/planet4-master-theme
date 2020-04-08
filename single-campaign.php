@@ -108,6 +108,7 @@ $context['css_vars']                = P4_Post_Campaign::css_vars( $campaign_meta
 
 // P4 Campaign/dataLayer fields.
 $context['cf_campaign_name'] = $campaign_meta['p4_campaign_name'] ?? '';
+$context['cf_project_id']    = $campaign_meta['p4_global_project_tracking_id'] ?? '';
 $context['cf_basket_name']   = $campaign_meta['p4_basket_name'] ?? '';
 $context['cf_scope']         = $campaign_meta['p4_scope'] ?? '';
 $context['cf_department']    = $campaign_meta['p4_department'] ?? '';
