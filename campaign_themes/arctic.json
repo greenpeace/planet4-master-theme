@@ -79,11 +79,12 @@
 			"configurations": {
 				"minimal": {
 					"options": [
-						{ "color":  "#ffffff"},
-						{ "color":  "#000000"},
-						{ "color": "#035880"},
-						{ "color": "#00b6c2"}
-					]
+						{ "value": "#ffffff", "label": "White" },
+						{ "value": "#000000", "label": "Black" },
+						{ "value": "#035880", "label": "Blue" },
+						{ "value": "#00b6c2", "label": "Cyan" }
+					],
+					"default": "#035880"
 				},
 				"default": "minimal"
 			}
@@ -179,10 +180,11 @@
 			"configurations": {
 				"white": {
 					"options": [
-						{ "color":  "#000000"},
-						{ "color": "#035880"},
-						{ "color": "#00b6c2"}
-					]
+						{ "value": "#000000", "label": "Black" },
+						{ "value": "#035880", "label": "Dark Blue" },
+						{ "value": "#00b6c2", "label": "Cyan" }
+					],
+					"default": "#035880"
 				}
 			}
 		},

@@ -77,30 +77,31 @@
 			"configurations": {
 				"minimal": {
 					"options": [
-						{ "color":  "#ffffff"},
-						{ "color":  "#000000"},
-						{ "color":  "#044362"},
-						{ "color":  "#2cabb1"}
-					]
+						{ "value": "#ffffff", "label": "White" },
+						{ "value": "#000000", "label": "Black" },
+						{ "value": "#044362", "label": "Dark Blue" },
+						{ "value": "#2cabb1", "label": "Cyan" }
+					],
+					"default": "#044362"
 				}
 			}
 		},
 		{
 			"id": "campaign_header_color",
 			"options": [
-				{ "color":  "#093944"}
+				{ "value":  "#093944"}
 			]
 		},
 		{
 			"id": "campaign_primary_color",
 			"options": [
-				{ "color":  "#ee562d"}
+				{ "value":  "#ee562d"}
 			]
 		},
 		{
 			"id": "campaign_secondary_color",
 			"options": [
-				{ "color":  "#093944"}
+				{ "value":  "#093944"}
 			]
 		},
 		{
@@ -179,10 +180,11 @@
 			"configurations": {
 				"white": {
 					"options": [
-						{ "color":  "#000000"},
-						{ "color":  "#044362"},
-						{ "color":  "#2cabb1"}
-					]
+						{ "value": "#000000", "label": "Black" },
+						{ "value": "#044362", "label": "Dark Blue" },
+						{ "value": "#2cabb1", "label": "Cyan" }
+					],
+					"default": "#044362"
 				}
 			}
 		},
