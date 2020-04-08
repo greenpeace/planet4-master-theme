@@ -32,7 +32,7 @@ body.theme-oil {
     line-height: 54px;
   }
 
-  font-family: $roboto;
+  font-family: var(--campaign_body_font, $roboto);
   background: white;
 
   .skewed-overlay {
