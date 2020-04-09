@@ -22,6 +22,7 @@ use Timber\Timber;
 $context        = Timber::get_context();
 $post           = new P4_Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $page_meta_data = get_post_meta( $post->ID );
+$page_meta_data = array_map( 'reset', $page_meta_data );
 
 // Set Navigation Issues links.
 $post->set_issues_links();
@@ -40,17 +41,13 @@ if ( is_array( $page_tags ) && $page_tags ) {
 	$context['campaigns'] = $tags;
 }
 
-$context['post']                        = $post;
-$context['header_title']                = is_front_page() ? '' : ( $page_meta_data['p4_title'][0] ?? $post->title );
-$context['header_subtitle']             = $page_meta_data['p4_subtitle'][0] ?? '';
-$context['header_description']          = wpautop( $page_meta_data['p4_description'][0] ?? '' );
-$context['header_button_title']         = $page_meta_data['p4_button_title'][0] ?? '';
-$context['header_button_link']          = $page_meta_data['p4_button_link'][0] ?? '';
-$context['header_button_link_checkbox'] = $page_meta_data['p4_button_link_checkbox'] ?? '';
-$context['hide_page_title_checkbox']    = $page_meta_data['p4_hide_page_title_checkbox'][0] ?? '';
-$context['background_image']            = wp_get_attachment_url( get_post_meta( get_the_ID(), 'background_image_id', 1 ) );
-$context['custom_body_classes']         = 'white-bg';
-$context['page_category']               = 'Evergreen Page';
+$context['post']                = $post;
+$context['custom_body_classes'] = 'white-bg';
+$context['page_category']       = 'Evergreen Page';
+
+P4_Context::set_header( $context, $page_meta_data, $post->title );
+P4_Context::set_background_image( $context );
+P4_Context::set_og_meta_fields( $context, $post );
 
 if ( post_password_required( $post->ID ) ) {
 	$context['login_url'] = wp_login_url();
