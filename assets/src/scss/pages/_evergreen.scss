@@ -25,11 +25,15 @@
     -webkit-mask-image: linear-gradient(170deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, .2), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
     mask-size: 100%;
     mask-repeat: no-repeat;
-    mask-position: left top;
 
     html[dir="rtl"] & {
       mask-image: linear-gradient(-170deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, .2), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
       -webkit-mask-image: linear-gradient(-170deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, .2), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+    }
+
+    top: $menu-height-small;
+    @include medium-and-up {
+      top: $menu-height-large;
     }
   }
 
