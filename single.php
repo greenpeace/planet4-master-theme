@@ -45,19 +45,13 @@ $context['background_image']    = $page_meta_data['p4_background_image_override'
 $take_action_page               = $page_meta_data['p4_take_action_page'][0] ?? '';
 $context['page_type']           = $page_terms_data[0]->name ?? '';
 $context['page_term_id']        = $page_terms_data[0]->term_id ?? '';
-$context['page_category']       = 'Post Page';
-$context['page_type_slug']      = $page_terms_data[0]->slug ?? '';
 $context['social_accounts']     = $post->get_social_accounts( $context['footer_social_menu'] );
-$context['og_title']            = $post->get_og_title();
-$context['og_description']      = $post->get_og_description();
-$context['og_image_data']       = $post->get_og_image();
+$context['page_category']       = 'Post Page';
 $context['custom_body_classes'] = 'white-bg';
+$context['page_type_slug']      = $page_terms_data[0]->slug ?? '';
 
-// P4 Campaign/dataLayer fields.
-$context['cf_campaign_name'] = $page_meta_data['p4_campaign_name'][0] ?? '';
-$context['cf_basket_name']   = $page_meta_data['p4_basket_name'][0] ?? '';
-$context['cf_scope']         = $page_meta_data['p4_scope'][0] ?? '';
-$context['cf_department']    = $page_meta_data['p4_department'][0] ?? '';
+P4_Context_Controller::set_og_meta_fields( $context, $post );
+P4_Context_Controller::set_campaign_datalayer_context( $context, $page_meta_data );
 
 $context['filter_url'] = add_query_arg(
 	[
