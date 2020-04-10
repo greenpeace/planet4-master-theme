@@ -1,4 +1,11 @@
 /**
+ * This file is copy of core button block edit.js (https://github.com/WordPress/gutenberg/blob/7dd6c58c3c6e17c85423fff7a666eab29d749689/packages/block-library/src/button/edit.js), with customize changes.
+ * Customize changes(PLANET-4924) :
+ *  - Added `p4_button_text_colors` and `p4_button_bg_colors` custom P4 button colors.
+ *  - Remove the BorderPanel control(button borderRadius).
+ */
+
+/**
  * External dependencies
  */
 import classnames from 'classnames';
@@ -34,6 +41,17 @@ import { rawShortcut, displayShortcut } from '@wordpress/keycodes';
 import { link } from '@wordpress/icons';
 
 const { getComputedStyle } = window;
+
+const p4_button_text_colors = [
+  { name: 'dark-shade-black', color: '#1a1a1a' },
+  { name: 'white', color: '#ffffff' },
+];
+
+const p4_button_bg_colors = [
+  { name: 'orange', color: '#f36d3a' },
+  { name: 'aquamarine', color: '#68dfde' },
+  { name: 'white', color: '#ffffff' },
+];
 
 const applyFallbackStyles = withFallbackStyles( ( node, ownProps ) => {
 	const { textColor, backgroundColor } = ownProps;
@@ -121,7 +139,7 @@ function URLPicker( {
 				<ToolbarGroup>
 					<ToolbarButton
 						name="link"
-						icon={ link }
+						icon="admin-links"
 						title={ __( 'Link' ) }
 						shortcut={ displayShortcut.primary( 'k' ) }
 						onClick={ openLinkControl }
@@ -230,11 +248,13 @@ function ButtonEdit( {
 					title={ __( 'Background & Text Color' ) }
 					settings={ [
 						{
+							colors: p4_button_text_colors,
 							colorValue: textColor.color,
 							onColorChange: setTextColor,
 							label: __( 'Text color' ),
 						},
 						{
+							colors: p4_button_bg_colors,
 							colorValue: backgroundColor.color,
 							onColorChange: setBackgroundColor,
 							gradientValue,
@@ -255,10 +275,6 @@ function ButtonEdit( {
 						} }
 					/>
 				</PanelColorGradientSettings>
-				<BorderPanel
-					borderRadius={ borderRadius }
-					setAttributes={ setAttributes }
-				/>
 				<PanelBody title={ __( 'Link settings' ) }>
 					<ToggleControl
 						label={ __( 'Open in new tab' ) }
