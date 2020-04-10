@@ -199,11 +199,11 @@
 			"configurations": {
 				"white": {
 					"options": [
-						{ "value": "#000000", "label": "Black" },
+						{ "value": "#1a1a1a", "label": "Black" },
 						{ "value": "#ff513c", "label": "Red" },
 						{ "value": "#007eff", "label": "Light Blue" }
 					],
-					"default": "#000000"
+					"default": "#1a1a1a"
 				}
 			}
 		},

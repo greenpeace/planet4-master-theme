@@ -178,11 +178,11 @@
 			"configurations": {
 				"white": {
 					"options": [
-						{ "value": "#000000", "label": "Black" },
+						{ "value": "#1a1a1a", "label": "Black" },
 						{ "value": "#0a4461", "label": "Blue" },
 						{ "value": "#52c9f4", "label": "Cyan" }
 					],
-					"default": "#000000"
+					"default": "#1a1a1a"
 				}
 			}
 		},

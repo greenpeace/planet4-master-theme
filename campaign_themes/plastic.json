@@ -178,7 +178,7 @@
 			"configurations": {
 				"white": {
 					"options": [
-						{ "value": "#000000", "label": "Black" },
+						{ "value": "#1a1a1a", "label": "Black" },
 						{ "value": "#044362", "label": "Dark Blue" },
 						{ "value": "#2cabb1", "label": "Dark Cyan" }
 					],

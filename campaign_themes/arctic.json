@@ -180,11 +180,11 @@
 			"configurations": {
 				"white": {
 					"options": [
-						{ "value": "#000000", "label": "Black" },
+						{ "value": "#1a1a1a", "label": "Black" },
 						{ "value": "#035880", "label": "Dark Blue" },
 						{ "value": "#00b6c2", "label": "Cyan" }
 					],
-					"default": "#035880"
+					"default": "#1a1a1a"
 				}
 			}
 		},
