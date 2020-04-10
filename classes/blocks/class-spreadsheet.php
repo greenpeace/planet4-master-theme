@@ -17,7 +17,9 @@ class Spreadsheet extends Base_Block {
 	 */
 	public const BLOCK_NAME = 'spreadsheet';
 
-	private const MAX_ROWS = 1000;
+	private const MAX_ROWS = 10000;
+
+	private const CACHE_LIFETIME = 30;
 
 	/**
 	 * SpreadsheetTable constructor.
@@ -51,34 +53,13 @@ class Spreadsheet extends Base_Block {
 
 		try {
 			$id = self::extract_sheet_id( $fields['url'] );
+
+			$sheet = $this->get_sheet( $id, false );
 		} catch ( \InvalidArgumentException $exception ) {
-			$fields['error'] = true;
+			$sheet = null;
 		}
 
-		if ( isset( $id ) ) {
-
-			$url = "https://docs.google.com/spreadsheets/d/e/${id}/pub?output=csv";
-
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fopen
-			$handle = fopen( $url, 'rb' );
-
-			if ( false !== $handle ) {
-				$rows = [];
-				while (
-					// phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition
-					( $data = fgetcsv( $handle, 1000, ',' ) ) !== false
-					// phpcs:ignore Squiz.PHP.DisallowSizeFunctionsInLoops
-					&& count( $rows ) <= self::MAX_ROWS
-				) {
-					$rows[] = $data;
-				}
-				// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fclose
-				fclose( $handle );
-				$fields['rows'] = $rows;
-			}
-		}
-
-		return [ 'fields' => $fields ];
+		return [ 'sheet' => $sheet ];
 	}
 
 	/**
@@ -100,5 +81,63 @@ class Spreadsheet extends Base_Block {
 		}
 
 		return $id;
+	}
+
+	/**
+	 * Fetch a Google sheet by its ID.
+	 *
+	 * @param string|null $sheet_id The ID of the Google sheet.
+	 * @param bool        $skip_cache Should the sheet be fetched from cache.
+	 * @return array|null The sheet or null if nothing was found.
+	 */
+	private function get_sheet( ?string $sheet_id, bool $skip_cache ): ?array {
+		if ( ! $sheet_id ) {
+			return null;
+		}
+
+		$cache_key = "spreadsheet_${sheet_id}";
+
+		if ( ! $skip_cache ) {
+			$from_cache = wp_cache_get( $cache_key );
+
+			if ( false !== $from_cache ) {
+				return $from_cache;
+			}
+		}
+
+		$url = "https://docs.google.com/spreadsheets/d/e/${sheet_id}/pub?output=csv";
+
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fopen
+		$handle = fopen( $url, 'rb' );
+
+		if ( false === $handle ) {
+			return null;
+		}
+
+		$rows = [];
+		while (
+			( $data = fgetcsv( $handle, 1000, ',' ) ) !== false // phpcs:ignore Squiz.PHP.DisallowSizeFunctionsInLoops,WordPress.CodeAnalysis.AssignmentInCondition
+		) {
+			if ( count( $rows ) > self::MAX_ROWS ) {
+				break;
+			}
+
+			$rows[] = $data;
+		}
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fclose
+		fclose( $handle );
+
+		if ( 0 === count( $rows ) ) {
+			$sheet = null;
+		} else {
+			$sheet = [
+				'header' => $rows[0],
+				'rows'   => array_slice( $rows, 1 ),
+			];
+		}
+
+		wp_cache_add( $cache_key, $sheet, null, self::CACHE_LIFETIME );
+
+		return $sheet;
 	}
 }
