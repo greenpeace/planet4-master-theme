@@ -177,11 +177,11 @@
 			"configurations": {
 				"white": {
 					"options": [
-						{ "value": "#000000", "label": "Black" },
+						{ "value": "#1a1a1a", "label": "Black" },
 						{ "value": "#2caf4e", "label": "Green" },
 						{ "value": "#a0d654", "label": "Light Green" }
 					],
-					"default": "#000000"
+					"default": "#1a1a1a"
 				}
 			}
 		},
