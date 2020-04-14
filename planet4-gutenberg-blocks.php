@@ -146,7 +146,7 @@ const CAMPAIGN_BLOCK_TYPES = [
  * @param array  $allowed_block_types array of allowed block types.
  * @param object $post current post.
  *
- * @return true if all blocks allowed, false if none or an array of allowed blocks
+ * @return array of all blocks allowed.
  */
 function set_allowed_block_types( $allowed_block_types, $post ) {
 	// phpcs:disable Squiz.PHP.CommentedOutCode.Found -- allow these comments
@@ -216,13 +216,19 @@ function set_allowed_block_types( $allowed_block_types, $post ) {
 	];
 	// phpcs:enable
 
-	$allowed_p4_block_types = [
+	$all_allowed_p4_block_types = [
 		'post'     => POST_BLOCK_TYPES,
 		'page'     => PAGE_BLOCK_TYPES,
 		'campaign' => CAMPAIGN_BLOCK_TYPES,
 	];
 
-	$allowed_block_types = array_merge( $wordpress_blocks, $allowed_p4_block_types[ $post->post_type ] );
+	$allowed_p4_block_types = $all_allowed_p4_block_types[ $post->post_type ];
+
+	if ( empty( $allowed_p4_block_types ) ) {
+		return $wordpress_blocks;
+	}
+
+	$allowed_block_types = array_merge( $wordpress_blocks, $allowed_p4_block_types );
 
 	return $allowed_block_types;
 }
