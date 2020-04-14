@@ -64,7 +64,7 @@ $context['$sub_pages'] = array_map(
 $theme_name = $campaign_meta['theme'] ?? $campaign_meta['_campaign_page_template'] ?? null;
 
 if ( $theme_name ) {
-	$context['custom_body_classes'] = 'brown-bg theme-' . $theme_name;
+	$context['custom_body_classes'] = 'white-bg theme-' . $theme_name;
 }
 
 // Save custom style settings.
