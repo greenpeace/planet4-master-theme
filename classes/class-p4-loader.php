@@ -82,13 +82,14 @@ final class P4_Loader {
 	private function load_services( $services ) {
 
 		$this->default_services = [
-			'P4_Custom_Taxonomy',
-			'P4_Post_Campaign',
-			'P4_Settings',
-			'P4_Post_Report_Controller',
-			'P4_Cookies',
-			'P4_Dev_Report',
-			'P4_Master_Site',
+			P4_Custom_Taxonomy::class,
+			P4_Post_Campaign::class,
+			P4_Post_Archive::class,
+			P4_Settings::class,
+			P4_Post_Report_Controller::class,
+			P4_Cookies::class,
+			P4_Dev_Report::class,
+			P4_Master_Site::class,
 		];
 
 		if ( is_admin() ) {

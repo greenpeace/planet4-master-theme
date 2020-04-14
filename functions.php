@@ -5,6 +5,26 @@
  * @package P4MT
  */
 
+/**
+ * A simpler way to add a filter that only returns a static value regardless of the input.
+ *
+ * @param string   $filter_name The WordPress filter.
+ * @param mixed    $value The value to be returned by the filter.
+ * @param int|null $priority The priority for the fitler.
+ *
+ * @return void
+ */
+function simple_value_filter( string $filter_name, $value, $priority = null ): void {
+	add_filter(
+		$filter_name,
+		static function () use ( $value ) {
+			return $value;
+		},
+		$priority,
+		0
+	);
+}
+
 use Timber\Timber;
 
 if ( ! class_exists( 'Timber' ) ) {

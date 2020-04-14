@@ -19,13 +19,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		private $key = 'planet4_options';
 
 		/**
-		 * Array of metaboxes/fields
-		 *
-		 * @var array
-		 */
-		protected $option_metabox = [];
-
-		/**
 		 * Options Page title
 		 *
 		 * @var string
@@ -256,6 +249,38 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'id'   => 'campaigns_import_exclude_style',
 					'type' => 'checkbox',
 				],
+				[
+					'name'    => __( 'Include archived content in search for', 'planet4-master-theme-backend' ),
+					'id'      => 'include_archive_content_for',
+					'type'    => 'select',
+					'default' => 'nobody',
+					'options' => [
+						'nobody'    => __( 'Nobody', 'planet4-master-theme-backend' ),
+						'logged_in' => __( 'Logged in users', 'planet4-master-theme-backend' ),
+						'all'       => __( 'All users', 'planet4-master-theme-backend' ),
+					],
+				],
+				[
+					'name' => __( 'Search content decay', 'planet4-master-theme-backend' ),
+					'desc' => __(
+						'Amount of lowering of the relevancy score for older results. Between 0 and 1. The lower this number is, the lower older content will be ranked. See image. <br>We use the exponential function (exp, green curve).<br/> <img style="max-width:350px" alt="ElasticSearch decay function graph" src="https://www.elastic.co/guide/en/elasticsearch/reference/current/images/decay_2d.png">',
+						'planet4-master-theme-backend'
+					),
+					'id'   => 'epwr_decay',
+					'type' => 'text',
+				],
+				[
+					'name' => __( 'Search content decay scale', 'planet4-master-theme-backend' ),
+					'desc' => __( 'Timescale for lowering the relevance of older results. See image above.', 'planet4-master-theme-backend' ),
+					'id'   => 'epwr_scale',
+					'type' => 'text',
+				],
+				[
+					'name' => __( 'Search content decay offset', 'planet4-master-theme-backend' ),
+					'desc' => __( 'How old should a post be before relevance is lowered. See image above.', 'planet4-master-theme-backend' ),
+					'id'   => 'epwr_offset',
+					'type' => 'text',
+				],
 			];
 			$this->hooks();
 		}
@@ -411,14 +436,15 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 /**
  * Wrapper function around cmb2_get_option.
  *
- * @param  string $key Options array key.
+ * @param string     $key Options array key.
+ * @param mixed|null $default Optional default value.
  * @return mixed Option value.
  */
-function planet4_get_option( $key = '' ) {
+function planet4_get_option( $key = '', $default = null ) {
 	if ( function_exists( 'cmb2_get_option' ) ) {
-		return cmb2_get_option( 'planet4_options', $key );
-	} else {
-		$options = get_option( 'planet4_options' );
-		return isset( $options[ $key ] ) ? $options[ $key ] : false;
+		return cmb2_get_option( 'planet4_options', $key, $default );
 	}
+
+	$options = get_option( 'planet4_options' );
+	return $options[ $key ] ?? false;
 }

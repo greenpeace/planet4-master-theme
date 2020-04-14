@@ -95,6 +95,8 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 											1
 										);
 										break;
+									case 5:
+										break;
 									default:
 										throw new UnexpectedValueException( 'Unexpected content type!' );
 								}
@@ -113,25 +115,17 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 		 * @param array $args The array with the arguments that will be passed to WP_Query.
 		 */
 		public function set_engines_args( &$args ) {
-
 			$args['ep_integrate'] = true;
-
-			// Get only DOCUMENT_TYPES from the attachments.
-			if ( ! $this->search_query && ! $this->filters ) {
-				add_filter(
-					'ep_formatted_args',
-					function ( $formatted_args ) use ( $args ) {
-						// TODO - Fix parsing exception in EP API call to Elasticsearch.
-						$formatted_args['post_mime_type'] = self::DOCUMENT_TYPES;
-						return $formatted_args;
-					},
-					10,
-					1
-				);
-			}
+			simple_value_filter( 'epwr_scale', planet4_get_option( 'epwr_scale', '28d' ) );
+			simple_value_filter( 'epwr_decay', planet4_get_option( 'epwr_decay', 0.5 ) );
+			simple_value_filter( 'epwr_offset', planet4_get_option( 'epwr_offset', '365d' ) );
 
 			add_filter( 'ep_formatted_args', [ $this, 'set_full_text_search' ], 19, 1 );
 			add_filter( 'ep_formatted_args', [ $this, 'set_results_weight' ], 20, 1 );
+
+			if ( ! wp_doing_ajax() ) {
+				add_filter( 'ep_formatted_args', [ $this, 'add_aggregations' ], 999, 1 );
+			}
 
 			// Remove from results any Documents that should not be there.
 			// TODO - This is a temp fix until we manage to query ES for only the desired documents.
@@ -191,7 +185,7 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 			 * Use any combination of filters here, any matched filter will adjust
 			 * the weighted results according to the scoring settings set below.
 			 */
-			$formatted_args['query']['function_score']['functions'] = [
+			$formatted_args['query']['function_score']['functions'] = $existing_query['function_score']['functions'] ?? [] + [
 				[
 					'filter' => [
 						'match' => [
@@ -212,6 +206,55 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 
 			// Specify how the computed scores are combined.
 			$formatted_args['query']['function_score']['score_mode'] = 'sum';
+
+			return $formatted_args;
+		}
+
+		/**
+		 * Add some ES aggregations so we can get terms numbers for the complete result set.
+		 *
+		 * We need to add the `with_post_filter` to this otherwise it will show numbers for the result set without that
+		 * filter. Actually we should not be using `with_post_filter` in the first place, as the only point of that is
+		 * that it allows you to perform aggregations on the unfiltered set, which we don't want.
+		 * However due to the complexity of the current setup (we use ElasticPress which creates the ES query based on
+		 * the WP query, and we apply modifications to both queries) this is not easy to change.
+		 *
+		 * @param  array $formatted_args The query that is going to ES.
+		 * @return array The same query, but with added aggregations.
+		 */
+		public function add_aggregations( $formatted_args ) {
+			$formatted_args['aggs'] = [
+				'with_post_filter' => [
+					'filter' => $formatted_args['post_filter'],
+					'aggs'   => [
+						'post_type'    => [
+							'terms' => [
+								'field' => 'post_type.raw',
+							],
+						],
+						'post_parent'  => [
+							'terms' => [
+								'field' => 'post_parent',
+							],
+						],
+						'categories'   => [
+							'terms' => [
+								'field' => 'terms.category.term_id',
+							],
+						],
+						'tags'         => [
+							'terms' => [
+								'field' => 'terms.post_tag.term_id',
+							],
+						],
+						'p4-page-type' => [
+							'terms' => [
+								'field' => 'terms.p4-page-type.term_id',
+							],
+						],
+					],
+				],
+			];
 
 			return $formatted_args;
 		}
