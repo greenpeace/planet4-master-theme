@@ -76,7 +76,8 @@ $context['custom_body_classes']     = 'brown-bg';
 
 // P4 Campaign/dataLayer fields.
 $context['cf_campaign_name'] = $page_meta_data['p4_campaign_name'][0] ?? '';
-$context['cf_project_id']    = $page_meta_data['p4_global_project_tracking_id'][0] ?? '';
+$context['cf_project_id']    = $page_meta_data['p4_global_project_tracking_id'][0] ?? 'not set';
+$context['cf_local_project'] = $page_meta_data['p4_local_project'][0] ?? 'not set';
 $context['cf_basket_name']   = $page_meta_data['p4_basket_name'][0] ?? '';
 $context['cf_scope']         = $page_meta_data['p4_scope'][0] ?? '';
 $context['cf_department']    = $page_meta_data['p4_department'][0] ?? '';

@@ -284,7 +284,7 @@ class P4_Metabox_Register {
 			]
 		);
 
-		$global_project_options = self::maybe_add_current_post_value( $analytics_values->global_projects_options() );
+		$global_project_options = self::maybe_add_current_post_value( $analytics_values->global_projects_options(), 'p4_campaign_name' );
 
 		$p4_campaign_fields->add_field(
 			[
@@ -295,6 +295,16 @@ class P4_Metabox_Register {
 				'attributes' => [
 					'data-validation' => 'required',
 				],
+			]
+		);
+
+		$local_projects_options = self::maybe_add_current_post_value( $analytics_values->local_projects_options(), 'p4_local_project' );
+		$p4_campaign_fields->add_field(
+			[
+				'name'    => __( 'Local Projects', 'planet4-master-theme-backend' ),
+				'id'      => 'p4_local_project',
+				'type'    => 'select',
+				'options' => $local_projects_options,
 			]
 		);
 
@@ -433,29 +443,30 @@ class P4_Metabox_Register {
 	 * If the post has a value that is not in the sheet, keep it in the dropdown so that metaboxes save doesn't set
 	 * it to another value, but mark it with `[DEPRECATED]` prefix.
 	 *
-	 * @param array $global_project_options The list of supported global projects.
+	 * @param array  $options_array The list of supported global/local projects.
+	 * @param string $field_name The meta field name.
 	 * @return array The list with maybe the current post value.
 	 */
-	private static function maybe_add_current_post_value( array $global_project_options ): array {
+	private static function maybe_add_current_post_value( array $options_array, $field_name ): array {
 		// Not pretty but will work for now.
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		$post_id = $_GET['post'] ?? null;
 		if ( ! $post_id ) {
-			return $global_project_options;
+			return $options_array;
 		}
 
-		$current_post_global_project = get_post_meta( $post_id, 'p4_campaign_name' );
+		$current_post_meta_value = get_post_meta( $post_id, $field_name );
 
 		if (
-			isset( $current_post_global_project[0] )
+			isset( $current_post_meta_value[0] )
 			&& ! ( array_key_exists(
-				$current_post_global_project[0],
-				$global_project_options
+				$current_post_meta_value[0],
+				$options_array
 			) )
 		) {
-			$global_project_options = [ $current_post_global_project[0] => __( '[DEPRECATED] ', 'planet4-master-theme-backend' ) . $current_post_global_project[0] ] + $global_project_options;
+			$options_array = [ $current_post_meta_value[0] => __( '[DEPRECATED] ', 'planet4-master-theme-backend' ) . $current_post_meta_value[0] ] + $options_array;
 		}
 
-		return $global_project_options;
+		return $options_array;
 	}
 }
