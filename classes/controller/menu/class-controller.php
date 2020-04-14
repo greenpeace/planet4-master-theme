@@ -42,5 +42,12 @@ if ( ! class_exists( 'Controller' ) ) {
 		public function load() {
 			add_action( 'admin_menu', [ $this, 'create_admin_menu' ] );
 		}
+
+		/**
+		 * Add the admin menu item.
+		 *
+		 * @return void
+		 */
+		abstract public function create_admin_menu();
 	}
 }
