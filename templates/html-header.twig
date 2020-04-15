@@ -32,6 +32,7 @@
 
 			var cf_campaign_name = '{% if cf_campaign_name is defined and cf_campaign_name is not null %}{{ cf_campaign_name|raw }}{% endif %}';
 			var cf_project_id    = '{% if cf_project_id is defined and cf_project_id is not null %}{{ cf_project_id|raw }}{% endif %}';
+			var cf_local_project = '{% if cf_local_project is defined and cf_local_project is not null %}{{ cf_local_project|raw }}{% endif %}';
 			var cf_basket_name   = '{% if cf_basket_name is defined and cf_basket_name is not null %}{{ cf_basket_name|raw }}{% endif %}';
 			var cf_scope         = '{% if cf_scope is defined and cf_scope is not null %}{{ cf_scope|raw }}{% endif %}';
 			var cf_department    = '{% if cf_department is defined and cf_department is not null %}{{ cf_department|raw }}{% endif %}';
@@ -39,6 +40,7 @@
 			if ( cf_campaign_name || cf_basket_name || cf_scope || cf_department ) {
 				dataLayer.push({
 					'gCampaign' : cf_campaign_name,
+					'gLocalProject' : cf_local_project,
 					'projectID' : cf_project_id,
 					'gBasket' : cf_basket_name,
 					'gScope': cf_scope,

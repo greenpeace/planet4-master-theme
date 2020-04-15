@@ -299,6 +299,15 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'id'   => 'analytics_global_smartsheet_id',
 					'type' => 'text',
 				],
+				[
+					'name' => __( 'Analytics Local smartsheet id', 'planet4-master-theme-backend' ),
+					'desc' => __(
+						'The smartsheet that is used to get analytics values from local(NRO) smartsheet.',
+						'planet4-master-theme-backend'
+					),
+					'id'   => 'analytics_local_smartsheet_id',
+					'type' => 'text',
+				],
 			];
 			$this->hooks();
 		}

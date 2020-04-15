@@ -41,7 +41,7 @@ final class P4_Analytics_Values {
 	 */
 	public static function from_smartsheets(
 		P4_Smartsheet $global_smartsheet,
-		?P4_Smartsheet $local_smartsheet = null
+		P4_Smartsheet $local_smartsheet = null
 	): self {
 		$project_name_column = $global_smartsheet->get_column_index( 'Global Project Standard' );
 		$approved_column     = $global_smartsheet->get_column_index( 'Standard Approved' );
@@ -55,8 +55,19 @@ final class P4_Analytics_Values {
 				$tracking_id_column  => 'tracking_id',
 			]
 		);
-		// @todo Implement getting the data from the local sheet.
+
 		$local_projects = null;
+		if ( null !== $local_smartsheet ) {
+			// Fetch local (NRO) smartsheet data.
+			$project_name_column = $local_smartsheet->get_column_index( 'Local Project Standard' );
+			$approved_column     = $local_smartsheet->get_column_index( 'Local Sync' );
+
+			$local_projects = $local_smartsheet->filter_by_column( $approved_column, true )->sort_on_column( $project_name_column )->export_columns(
+				[
+					$project_name_column => 'local_project_name',
+				]
+			);
+		}
 
 		return new self( $global_projects, $local_projects );
 	}
@@ -114,9 +125,12 @@ final class P4_Analytics_Values {
 			return self::from_hardcoded_values();
 		}
 
-		$local_sheet_id = planet4_get_option( 'analytics_local_smartsheet_id' ) ?? getenv( 'ANALYTICS_LOCAL_SMARTSHEET_ID' );
+		$local_sheet    = null;
+		$local_sheet_id = planet4_get_option( 'analytics_local_smartsheet_id' ) ?? $_ENV['ANALYTICS_LOCAL_SMARTSHEET_ID'] ?? null;
 
-		$local_sheet = $local_sheet_id ? $smartsheet_client->get_sheet( $local_sheet_id ) : null;
+		if ( $local_sheet_id ) {
+			$local_sheet = $local_sheet_id ? $smartsheet_client->get_sheet( $local_sheet_id ) : null;
+		}
 
 		$instance = self::from_smartsheets( $global_sheet, $local_sheet );
 
@@ -263,6 +277,27 @@ final class P4_Analytics_Values {
 		);
 
 		return [ 'not set' => __( '- Select Global Project -', 'planet4-master-theme-backend' ) ] + array_combine( $names, $names );
+	}
+
+	/**
+	 * Returns local(NRO) project smartsheet options.
+	 *
+	 * @return array
+	 */
+	public function local_projects_options(): array {
+		$local_projects_options = [];
+		if ( $this->local_projects ) {
+			$names = array_map(
+				function ( $project ) {
+					return $project['local_project_name'];
+				},
+				$this->local_projects
+			);
+
+			$local_projects_options = array_combine( $names, $names );
+		}
+
+		return [ 'not set' => __( '- Select Local Project -', 'planet4-master-theme-backend' ) ] + $local_projects_options;
 	}
 
 	/**
