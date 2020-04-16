@@ -6,12 +6,32 @@
   }
 
   .col-md-4 {
-    width: 157px;
     outline: none;
+    width: 180px;
+
+    @include medium-and-up {
+      width: 157px;
+    }
   }
 
   .load-more-posts-button-div {
     margin-top: $space-lg;
+  }
+
+  .row {
+    @include mobile-only {
+      display: -webkit-box;
+      overflow-x: scroll;
+      flex-wrap: nowrap;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  }
+
+  .row::-webkit-scrollbar {
+    @include mobile-only {
+      display: none;
+    }
   }
 
   .content-covers-block-wrap {
@@ -21,7 +41,6 @@
       position: relative;
       margin: 0 0 24px 0;
       box-shadow: 0 5px 20px 0 rgba(114, 114, 114, 0.5);
-      max-width: 130px;
       height: 180px;
 
       @include small-and-up {
@@ -127,8 +146,9 @@
   .btn {
     display: none;
 
-    @include medium-and-up {
+    @include small-and-up {
       display: block;
+      width: 50%;
     }
   }
 }
@@ -141,7 +161,7 @@
 // L & XL with show-all-covers class should show all covers
 // remove limit visibility class on load more button click
 .show-1-row .limit-visibility {
-  @include medium-and-up {
+  @include small-and-up {
     .post-column:nth-child(-n+4) {
       display: block;
     }
@@ -163,7 +183,7 @@
 }
 
 .show-2-rows .limit-visibility {
-  @include medium-and-up {
+  @include small-and-up {
     .post-column:nth-child(-n+7) {
       display: block;
     }
