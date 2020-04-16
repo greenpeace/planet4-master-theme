@@ -33,23 +33,7 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 							case 'ctype':
 								switch ( $filter['id'] ) {
 									case 0:
-										break;
 									case 1:
-										add_filter(
-											'ep_formatted_args',
-											function ( $formatted_args ) use ( $args ) {
-												if ( ! empty( $args['post_mime_type'] ) ) {
-													$formatted_args['post_filter']['bool']['must'] = [
-														'terms' => [
-															'post_mime_type' => $args['post_mime_type'],
-														],
-													];
-												}
-												return $formatted_args;
-											},
-											10,
-											1
-										);
 										break;
 									case 2:
 										// Workaround for making 'post_parent__not_in' to work with ES.
@@ -123,25 +107,11 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 			add_filter( 'ep_formatted_args', [ $this, 'set_full_text_search' ], 19, 1 );
 			add_filter( 'ep_formatted_args', [ $this, 'set_results_weight' ], 20, 1 );
 
+			add_filter( 'ep_formatted_args', [ $this, 'add_mime_type_filter' ], 21, 1 );
+
 			if ( ! wp_doing_ajax() ) {
 				add_filter( 'ep_formatted_args', [ $this, 'add_aggregations' ], 999, 1 );
 			}
-
-			// Remove from results any Documents that should not be there.
-			// TODO - This is a temp fix until we manage to query ES for only the desired documents.
-			add_filter(
-				'ep_search_results_array',
-				function ( $results, $response, $args, $scope ) {
-					foreach ( $results['posts'] as $key => $post ) {
-						if ( $post['post_mime_type'] && ! in_array( $post['post_mime_type'], self::DOCUMENT_TYPES, true ) ) {
-							unset( $results['posts'][ $key ] );
-						}
-					}
-					return $results;
-				},
-				10,
-				4
-			);
 		}
 
 		/**
@@ -250,6 +220,38 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 						'p4-page-type' => [
 							'terms' => [
 								'field' => 'terms.p4-page-type.term_id',
+							],
+						],
+					],
+				],
+			];
+
+			return $formatted_args;
+		}
+
+		/**
+		 * Remove items that are an attachment and have a different mime type.
+		 *
+		 * @param array $formatted_args The args that are going to ES.
+		 * @return array Same args with added filter.
+		 */
+		public function add_mime_type_filter( $formatted_args ) {
+
+			$formatted_args['post_filter']['bool']['must'][] = [
+				'bool' => [
+					'should' => [
+						[
+							'bool' => [
+								'must_not' => [
+									'terms' => [
+										'post_type.raw' => [ 'attachment' ],
+									],
+								],
+							],
+						],
+						[
+							'terms' => [
+								'post_mime_type' => self::DOCUMENT_TYPES,
 							],
 						],
 					],

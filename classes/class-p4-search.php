@@ -366,12 +366,18 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				foreach ( $posts as $post ) {
 					if ( P4_Post_Archive::POST_TYPE === $post->post_type ) {
 						$archive_post               = new stdClass();
+						$archive_post->id           = $post->ID;
 						$archive_post->post_title   = $post->post_title;
 						$archive_post->link         = $post->guid;
 						$archive_post->post_type    = P4_Post_Archive::POST_TYPE;
 						$archive_post->post_date    = $post->post_date_gmt;
 						$archive_post->post_excerpt = $post->post_excerpt;
-						$template_posts[]           = $archive_post;
+
+						if ( current_user_can( 'edit_posts' ) ) {
+							$archive_post->edit_link = get_edit_post_link( $post->ID );
+						}
+
+						$template_posts[] = $archive_post;
 					} else {
 						$template_post                = $post;
 						$template_post->id            = $post->ID;
@@ -866,7 +872,11 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				foreach ( $aggs['post_type']['buckets'] as $post_type_agg ) {
 					if ( 'page' === $post_type_agg['key'] ) {
 						// We show act pages as a separate item, so subtract there count from the other pages.
-						$context['content_types']['2']['results'] = $post_type_agg['doc_count'] - $act_page_count;
+						// But counts can be off in ES so don't use lower than 0.
+						$context['content_types']['2']['results'] = max(
+							0,
+							$post_type_agg['doc_count'] - $act_page_count
+						);
 					}
 					if ( 'attachment' === $post_type_agg['key'] ) {
 						$context['content_types']['1']['results'] = $post_type_agg['doc_count'];
