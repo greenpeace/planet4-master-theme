@@ -1,5 +1,9 @@
 import { Component } from '@wordpress/element';
 
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
+
 export const getFieldFromTheme = ( theme, fieldName, meta ) => {
   if ( !theme ) {
     return null;
@@ -84,7 +88,7 @@ const getDependencyUpdates = ( theme, fieldName, value, meta ) => {
 
 export function fromThemeOptions( WrappedComponent ) {
 
-  return class extends Component {
+  class FromThemeOptionsHOC extends Component {
     render() {
       const { theme, ...ownProps } = this.props;
 
@@ -108,4 +112,8 @@ export function fromThemeOptions( WrappedComponent ) {
       return <WrappedComponent getNewMeta={ provideNewMeta } defaultValue={ field.default } options={ field.options } { ...ownProps } />;
     }
   };
+
+  FromThemeOptionsHOC.displayName = `FromThemeOptionsHOC(${getDisplayName(WrappedComponent)})`;
+
+  return FromThemeOptionsHOC;
 }

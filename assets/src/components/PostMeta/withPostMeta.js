@@ -26,6 +26,10 @@ const getValueFromProps = ( props ) => {
 
 }
 
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
+
 export function withPostMeta( WrappedComponent ) {
 
   class WrappingComponent extends Component {
@@ -63,7 +67,7 @@ export function withPostMeta( WrappedComponent ) {
     }
   }
 
-  return compose(
+  const WithPostMetaHOC = compose(
     withSelect(
       ( select ) => {
         return {
@@ -81,4 +85,8 @@ export function withPostMeta( WrappedComponent ) {
       }
     )
   )( WrappingComponent );
+
+  WithPostMetaHOC.displayName = `WithPostMetaHOC(${getDisplayName(WrappedComponent)})`;
+
+  return WithPostMetaHOC;
 }
