@@ -866,7 +866,11 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				foreach ( $aggs['post_type']['buckets'] as $post_type_agg ) {
 					if ( 'page' === $post_type_agg['key'] ) {
 						// We show act pages as a separate item, so subtract there count from the other pages.
-						$context['content_types']['2']['results'] = $post_type_agg['doc_count'] - $act_page_count;
+						// But counts can be off in ES so don't use lower than 0.
+						$context['content_types']['2']['results'] = max(
+							0,
+							$post_type_agg['doc_count'] - $act_page_count
+						);
 					}
 					if ( 'attachment' === $post_type_agg['key'] ) {
 						$context['content_types']['1']['results'] = $post_type_agg['doc_count'];
