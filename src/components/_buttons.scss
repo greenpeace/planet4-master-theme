@@ -135,6 +135,14 @@
   }
 }
 
+// The new core buttons block wrap in "wp-block-buttons" class which apply
+// extra css properties which break old button block UI.
+.wp-block-buttons .wp-block-button {
+  display: block !important;
+  margin-left: unset;
+  margin-right: unset;
+}
+
 .btn-action {
   background-color: transparentize($white, .8);
   border-color: $white;
