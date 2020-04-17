@@ -8,6 +8,7 @@ import { withDefaultLabel } from '../withDefaultLabel/withDefaultLabel';
 import { __ } from '@wordpress/i18n';
 import { fromThemeOptions } from '../fromThemeOptions/fromThemeOptions';
 import isShallowEqual from '@wordpress/is-shallow-equal';
+import { savePreviewMeta } from '../../saveMetaToPreview';
 
 const themeOptions = [
   {
@@ -85,12 +86,12 @@ export class CampaignSidebar extends Component {
       meta: null,
       parent: null,
     };
-    this.handleThemeChange = this.handleThemeChange.bind( this );
   }
 
   componentDidMount() {
     wp.data.subscribe( () => {
       const meta = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'meta' );
+
       if ( meta ) {
         let theme = meta[ 'theme' ];
         if ( theme === '' ) {
@@ -98,6 +99,7 @@ export class CampaignSidebar extends Component {
         }
         if ( !isShallowEqual( this.state.meta, meta ) ) {
           this.setState( { meta: meta } );
+          savePreviewMeta();
           if (
             this.state.theme === null || theme !== this.state.theme.id
           ) {
@@ -116,10 +118,6 @@ export class CampaignSidebar extends Component {
         this.setState( { parent: parentPage } );
       }
     } );
-  }
-
-  handleThemeChange( value ) {
-    this.loadTheme( value );
   }
 
   loadTheme( value ) {
@@ -164,7 +162,6 @@ export class CampaignSidebar extends Component {
                 <ThemeSelect
                   metaKey='theme'
                   label={ __( 'Theme', 'planet4-blocks-backend' ) }
-                  onChange={ this.handleThemeChange }
                   options={ themeOptions }
                 />
               </div>

@@ -64,37 +64,6 @@ export function fromThemeOptions( WrappedComponent ) {
       };
     }
 
-    componentDidMount() {
-      const field = getFieldFromTheme( this.props.theme, this.props.metaKey );
-      if ( !field ) {
-        return;
-      }
-      if ( field.dependsOn ) {
-        const dependencyField = theme.fields.find( field2 => field2.id === field.dependsOn );
-
-        if ( !dependencyField ) {
-          return;
-        }
-
-        wp.data.subscribe( () => {
-          const meta = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'meta' );
-          if ( !meta ) {
-            return;
-          }
-          const dependencyValue = meta[ field.dependsOn ] || dependencyField.default;
-
-          if ( dependencyValue !== this.state.dependencyValue ) {
-            this.setState( prevState => {
-              return {
-                dependencyValue: dependencyValue,
-                ...prevState
-              };
-            } );
-          }
-        } );
-      }
-    }
-
     render() {
       const { theme, ...ownProps } = this.props;
 
