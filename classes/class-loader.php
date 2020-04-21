@@ -337,7 +337,7 @@ final class Loader {
 				'wp-i18n',        // - Exports the __() function
 				'wp-editor',
 			],
-			'0.1.13',
+			'0.1.14',
 			true
 		);
 
@@ -570,6 +570,10 @@ final class Loader {
 
 		// Disable custom color option.
 		add_theme_support( 'disable-custom-colors' );
+
+		// Disable gradient presets & custom gradients.
+		add_theme_support( 'editor-gradient-presets', [] );
+		add_theme_support( 'disable-custom-gradients' );
 	}
 
 	/**

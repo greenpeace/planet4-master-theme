@@ -168,7 +168,7 @@ function set_allowed_block_types( $allowed_block_types, $post ) {
 		'core/table', // TODO: Styling.
 		// 'core/pullquote', // removed, normal quote element is available.
 		// 'core/verse', // removed, not needed, not styled.
-		'core/button', // TODO: Styling.
+		'core/buttons', // TODO: Styling.
 		// 'core/media-text' // removed, not needed.
 		// 'core/more', // removed, not needed.
 		// 'core/nextpage', // removed, not needed.
