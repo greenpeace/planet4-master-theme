@@ -1,6 +1,7 @@
 import {Component, Fragment} from '@wordpress/element';
 import {
   Dashicon,
+  Button,
   FocalPointPicker
 } from '@wordpress/components';
 import {MediaUpload} from "@wordpress/editor";
@@ -13,7 +14,6 @@ export class CarouselHeaderImage extends Component {
 
   render() {
     const {onChange, onRemove, image_id, image_url, onFocalPointsChange, focal_points} = this.props;
-    let   hasRemove = true;
 
     let imageClass = [];
     if (!image_url) {
@@ -38,11 +38,14 @@ export class CarouselHeaderImage extends Component {
                   className={imageClass}
                   tabIndex={0}
                 >
-                  {image_url && onRemove && hasRemove && (
-                    <button className="ch-image-upload-remove" onClick={ev => {
+                  {image_url && onRemove && (
+                    <Button className="ch-image-upload-remove" onClick={ev => {
                       onRemove();
                       ev.stopPropagation()
-                    }}><Dashicon icon="no"/></button>
+                    }}>
+                      <Dashicon icon="no"/>
+                      Remove this image
+                    </Button>
                   )}
                   <FocalPointPicker
                     url={image_url}
@@ -65,7 +68,7 @@ export class CarouselHeaderImage extends Component {
                 role="button"
                 tabIndex={0}
                 >
-                {image_url && onRemove && hasRemove && (
+                {image_url && onRemove && (
                   <button className="ch-image-upload-remove" onClick={ev => {
                     onRemove();
                     ev.stopPropagation()

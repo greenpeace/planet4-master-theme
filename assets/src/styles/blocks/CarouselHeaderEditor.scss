@@ -52,21 +52,11 @@
 }
 
 .ch-image-upload-remove {
-  background: none !important;
-  color: #ddd;
-  border: none;
-  position: absolute;
-  top: 10px;
-  right: 4px;
-  cursor: pointer;
-  display: none;
-  z-index: 9 !important;
+  display: block;
+  margin: auto;
 
   svg {
-    stroke: rgba(0, 0, 0, 0.3);
-    stroke-width: 1px;
-    fill: #ccc;
-    max-width: none;
+    margin-top: -4px;
   }
 }
 
@@ -117,8 +107,6 @@
 }
 
 .ch-url-input-control__input {
-  width: 80%;
-
   input {
     padding: 6px 8px !important;
     box-shadow: 0 0 0 transparent;
@@ -158,22 +146,18 @@
   }
 }
 
-.carouselh-header-input {
-  width: 75%;
-  margin-right: 15px;
-}
-
-.carousel-header-link-text-input {
-  margin-right: 10px;
-  width: 30%;
-}
-
 .slide-hr {
   margin: 0;
 }
 
 .carousel-header-image-container {
   position: relative;
+
+  .components-focal-point-picker_position-display-container {
+    .components-base-control__field {
+      min-width: 200px;
+    }
+  }
 }
 
 .carousel-header-slide-options-wrapper {

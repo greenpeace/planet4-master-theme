@@ -12,7 +12,7 @@ import {initializeCarouselHeader} from "./CarouselHeaderFront";
 export class CarouselHeader extends Component {
   constructor(props) {
     super(props);
-    this.refs = [];
+    this.references = [];
     this.firstRender = true;
   }
 
@@ -43,14 +43,16 @@ export class CarouselHeader extends Component {
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
     this.setDOMListener();
+
+    return null;
   }
 
   /**
    * Collapse all active slides.
    */
   collapseSlides() {
-    let refs = this.refs;
-    Object.keys(this.refs).forEach(function (index) {
+    let refs = this.references;
+    Object.keys(this.references).forEach(function (index) {
       if (null !== refs[index]) {
         refs[index].collapseSlide();
       }
@@ -112,7 +114,7 @@ export class CarouselHeader extends Component {
 
         {this.props.slides.map((slide, i) => {
           return (
-            <Fragment>
+            <Fragment key={i}>
               <CarouselHeaderSlide
                 {...slide}
                 onImageChange={this.props.onImageChange}
@@ -129,7 +131,7 @@ export class CarouselHeader extends Component {
                 index={i}
                 key={i}
                 ref={(instance) => {
-                  this.refs[i] = instance
+                  this.references[i] = instance
                 }}
               />
             </Fragment>
