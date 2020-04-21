@@ -77,10 +77,10 @@
 			"configurations": {
 				"minimal": {
 					"options": [
-						{ "value": "#ffffff", "label": "White" },
-						{ "value": "#000000", "label": "Black" },
-						{ "value": "#044362", "label": "Dark Blue" },
-						{ "value": "#2cabb1", "label": "Cyan" }
+						{ "value": "#ffffff" },
+						{ "value": "#000000" },
+						{ "value": "#044362" },
+						{ "value": "#2cabb1" }
 					],
 					"default": "#044362"
 				}
@@ -178,9 +178,9 @@
 			"configurations": {
 				"white": {
 					"options": [
-						{ "value": "#1a1a1a", "label": "Black" },
-						{ "value": "#044362", "label": "Dark Blue" },
-						{ "value": "#2cabb1", "label": "Dark Cyan" }
+						{ "value": "#1a1a1a" },
+						{ "value": "#044362" },
+						{ "value": "#2cabb1" }
 					],
 					"default": "#044362"
 				}

@@ -181,9 +181,9 @@
 			"configurations": {
 				"minimal": {
 					"options": [
-						{ "value": "#ffffff", "label": "White" },
-						{ "value": "#000000", "label": "Black" },
-						{ "value": "#035880", "label": "Dark Blue" }
+						{ "value": "#ffffff" },
+						{ "value": "#000000" },
+						{ "value": "#035880" }
 					],
 					"default": "#000000"
 				}
@@ -306,8 +306,8 @@
 			"configurations": {
 				"white": {
 					"options": [
-						{ "value": "#000000", "label": "Black" },
-						{ "value": "#035880", "label": "Dark Blue" }
+						{ "value": "#000000" },
+						{ "value": "#035880" }
 					],
 					"default": "#035880"
 				}
