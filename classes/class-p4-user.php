@@ -69,7 +69,7 @@ if ( ! class_exists( 'P4_User' ) ) {
 		 *
 		 * @return string
 		 */
-		public function name() : string {
+		public function name() : ?string {
 			if ( $this->is_fake ) {
 				return (string) $this->display_name;
 			} else {
