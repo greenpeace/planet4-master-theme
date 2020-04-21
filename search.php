@@ -21,6 +21,9 @@ if ( is_main_query() && is_search() ) {
 		// Handle submitted filter options.
 		if ( $selected_filters && is_array( $selected_filters ) ) {
 			foreach ( $selected_filters as $type_name => $filter_type ) {
+				if ( ! is_array( $filter_type ) ) {
+					continue;
+				}
 				foreach ( $filter_type as $name => $filter_id ) {
 					$filters[ $type_name ][] = [
 						'id'   => $filter_id,

@@ -322,6 +322,9 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					// Handle submitted filter options.
 					if ( $selected_filters && is_array( $selected_filters ) ) {
 						foreach ( $selected_filters as $type => $filter_type ) {
+							if ( ! is_array( $filter_type ) ) {
+								continue;
+							}
 							foreach ( $filter_type as $name => $id ) {
 								$filters[ $type ][] = [
 									'id'   => $id,
