@@ -147,7 +147,7 @@ final class P4_Analytics_Values {
 	public static function from_hardcoded_values(): self {
 		$global_projects = [
 			[
-				'global_project_name' => 'All Eyes on the Amazonia',
+				'global_project_name' => 'All Eyes on the Amazon',
 				'tracking_id'         => 'GP85',
 			],
 			[
