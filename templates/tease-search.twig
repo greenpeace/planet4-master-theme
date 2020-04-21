@@ -90,6 +90,9 @@
 			</div>
 
 			<p class="search-result-item-content">{{ post.post_excerpt|default(post.post_content)|excerpt( 25 )|raw }}</p>
+			{% if post.edit_link %}
+				<a href="{{ post.edit_link|raw }}">{{ __('Manage', 'planet4-master-theme') }}</a>
+			{% endif %}
 		</div>
 	</li>
 {% if ( ( loop.index0 % 5 == 4 ) or loop.last ) %}
