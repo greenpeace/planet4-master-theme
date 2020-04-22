@@ -29,7 +29,6 @@ class P4_Metabox_Register {
 	 */
 	private function hooks() {
 		add_action( 'cmb2_admin_init', [ $this, 'register_p4_meta_box' ] );
-		add_action( 'cmb2_after_form', [ $this, 'cmb2_after_form_do_js_validation' ], 10, 2 );
 	}
 
 	/**
@@ -288,7 +287,7 @@ class P4_Metabox_Register {
 
 		$p4_campaign_fields->add_field(
 			[
-				'name'       => __( 'Campaign Name', 'planet4-master-theme-backend' ),
+				'name'       => __( 'Global Project', 'planet4-master-theme-backend' ),
 				'id'         => 'p4_campaign_name',
 				'type'       => 'select',
 				'options'    => $global_project_options,
@@ -322,13 +321,10 @@ class P4_Metabox_Register {
 
 		$p4_campaign_fields->add_field(
 			[
-				'name'       => __( 'Basket Name', 'planet4-master-theme-backend' ),
-				'id'         => 'p4_basket_name',
-				'type'       => 'select',
-				'options'    => $basket_options,
-				'attributes' => [
-					'data-validation' => 'required',
-				],
+				'name'    => __( 'Basket Name', 'planet4-master-theme-backend' ),
+				'id'      => 'p4_basket_name',
+				'type'    => 'select',
+				'options' => $basket_options,
 			]
 		);
 
@@ -371,24 +367,6 @@ class P4_Metabox_Register {
 		}
 
 		return $options;
-	}
-
-	/**
-	 * Validate CMB2 fields that have the 'data-validation' attribute set to 'required'.
-	 *
-	 * @param int  $post_id The ID of the current Post.
-	 * @param CMB2 $cmb The CMB2 object.
-	 */
-	public function cmb2_after_form_do_js_validation( $post_id, $cmb ) {
-		static $added = false;
-
-		// Only add this to the page once (not for every metabox).
-		if ( $added ) {
-			return;
-		}
-
-		$added = true;
-		wp_enqueue_script( 'cmb2_form_validation', get_template_directory_uri() . '/admin/js/cmb2_form_validation.js', [], '0.1', true );
 	}
 
 	/**
