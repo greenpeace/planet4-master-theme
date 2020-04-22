@@ -202,3 +202,11 @@ input.describe[type=text][data-setting=caption] {
     }
   }
 }
+
+.p4-plugin-pre-publish-panel-error {
+  background-color: #f9e2e2 !important;
+}
+
+.cmb2_required_field_error {
+  border-color: $red !important;
+}
