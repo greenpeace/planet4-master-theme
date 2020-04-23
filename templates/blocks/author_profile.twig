@@ -11,11 +11,7 @@
 					...  &nbsp;<a href="{{ post.author.link }}">{{ __( 'Read More', 'planet4-master-theme' ) }}</a>
 				{% endset %}
 
-				{% if ( fn('wp_is_mobile') ) %}
-					{% set author_bio_char_limit = 180 %}
-				{% else %}
-					{% set author_bio_char_limit = 300 %}
-				{% endif %}
+				{% set author_bio_char_limit = 180 %}
 
 				{% if ( post.author.description|length > author_bio_char_limit ) %}
 					{% set author_bio = fn('substr', post.author.description, 0, fn('strpos', post.author.description ,' ', author_bio_char_limit)) ~ author_bio_readmore %}
