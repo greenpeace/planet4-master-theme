@@ -42,7 +42,7 @@
 
 					<div class="search-result-tags top-page-tags">
 						{% for page_type in post.p4_page_types %}
-							<button class="search-result-item-head no-btn tag-item tag-item--main page-type" data-href="{{ fn('get_term_link', page_type.term_id) }}">{{ page_type.name|e('wp_kses_post')|raw }}</button>
+							<a class="search-result-item-head no-btn tag-item tag-item--main page-type" href="{{ fn('get_term_link', page_type.term_id) }}">{{ page_type.name|e('wp_kses_post')|raw }}</a>
 						{% endfor %}
 
 						{% if (post.tags) %}
