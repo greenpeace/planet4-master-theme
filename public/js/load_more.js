@@ -6,20 +6,8 @@ jQuery(function ($) {
     });
   }
 
-  // Block: Content Four Column functionality.
-  // Find out how many posts per row are being displayed.
-  $('.four-column-content').each( function() {
-    const visible_posts = $('.post-column:visible', $(this)).length;
-
-    if (0 === visible_posts % 4) {
-      $(this).attr('data-posts_per_row', 4);
-    } else if (0 === visible_posts % 3) {
-      $(this).attr('data-posts_per_row', 3);
-    }
-  });
-
   // Add click event for load more button in Covers blocks.
-  $('.btn-load-more-posts-click').off('mousedown touchstart').on('mousedown touchstart', function (e) {
+  $('.btn-load-more-posts-click').on('mouseup touchend', function (e) {
     e.preventDefault();
 
     const $row = $('.post-column:hidden', $(this).closest('.container'));
@@ -45,7 +33,7 @@ jQuery(function ($) {
   });
 
   // Add click event for load more button in Covers blocks.
-  $('.btn-load-more-covers-click').off('mousedown touchstart').on('mousedown touchstart', function (e) {
+  $('.btn-load-more-covers-click').on('mouseup touchend', function (e) {
     e.preventDefault();
 
     const $row = $('.cover-card-column:hidden', $(this).closest('.container'));
@@ -59,25 +47,7 @@ jQuery(function ($) {
     }
   });
 
-  // Add click event for load more button in Articles blocks.
-  $('.btn-load-more-articles-click').off('mousedown touchstart').on('mousedown touchstart', function (e) {
-    e.preventDefault();
-
-    let $articles = $('.article-list-item.d-none', $(this).closest('.container'));
-    const articles_per_click = 3;
-
-    if ($articles.length > 0) {
-      $articles.slice(0, articles_per_click).removeClass('d-none').fadeOut(0).slideDown('slow');
-
-      window.lazyLoad.update();
-    }
-    $articles = $('.article-list-item.d-none', $(this).closest('.container'));
-    if ($articles.length === 0) {
-      $(this).closest('.load-more-articles-button-div').hide('fast');
-    }
-  });
-
-  $('.load-more').off('mousedown touchstart').on('mousedown touchstart', function(e) {
+  $('.load-more').on('mouseup touchend', function(e) {
     e.preventDefault();
 
     // Save element to variable to use inside ajax call.
@@ -89,17 +59,12 @@ jQuery(function ($) {
     const url = more_url[0] + `?page=${ next_page }`;
     this.dataset.page = next_page;
 
-    const wpnonceValue = this.dataset['nonce_element_id']
-      ? $('#' + this.dataset['nonce_element_id']).val()
-      : $('#_wpnonce').val();
-
     $.ajax({
       url: url,
       type: 'GET',
       data: {
         action:     'load_more',
         args:       this.dataset,
-        '_wpnonce': wpnonceValue,
       },
       dataType: 'html'
     }).done(function ( response ) {
@@ -117,7 +82,7 @@ jQuery(function ($) {
   });
 
   // Add click event handler for load more button in Campaign thumbnail blocks.
-  $('.btn-load-more-campaigns-click').off('mousedown touchstart').on('mousedown touchstart', function (e) {
+  $('.btn-load-more-campaigns-click').on('mouseup touchend', function (e) {
     e.preventDefault();
 
     const $row = $('.campaign-card-column:hidden', $(this).closest('.container'));

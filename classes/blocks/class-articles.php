@@ -216,55 +216,54 @@ class Articles extends Base_Block {
 	public function load_more() {
 
 		// If this is an ajax call.
-		if ( wp_doing_ajax() ) {
-			$nonce   = filter_input( INPUT_GET, '_wpnonce', FILTER_SANITIZE_STRING );
-			$page    = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT );
-			$dataset = filter_input_array( INPUT_GET );
-			/** @var \P4_Post[] $recent_posts */
-			$recent_posts = [];
+		if ( ! wp_doing_ajax() ) {
+			return;
+		}
 
-			// CSRF check.
-			if ( wp_verify_nonce( $nonce, 'load_more' ) ) {
-				Timber::$locations = P4GBKS_INCLUDES_DIR;
+		$page    = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT );
+		$dataset = filter_input_array( INPUT_GET );
 
-				if ( isset( $dataset['args'] ) ) {
-					foreach ( $dataset['args'] as $key => $value ) {
-						if ( false !== strpos( $key, '[', true ) ) {
-							$new_key                       = strstr( $key, '[', true );
-							$dataset['args'][ $new_key ][] = $value;
-							unset( $dataset['args'][ $key ] );
-						}
-					}
-					unset( $dataset['args']['page'] );
-					unset( $dataset['args']['total'] );
+		Timber::$locations = P4GBKS_INCLUDES_DIR;
 
-					$dataset['args']['numberposts'] = $dataset['args']['article_count'];
-					if ( $page ) {
-						$dataset['args']['paged'] = $page;
-					}
-				}
-				$recent_posts = Timber::get_posts( $dataset['args'], 'P4_Post', true );
-
-				if ( $recent_posts ) {
-					foreach ( $recent_posts as $key => $recent_post ) {
-						if ( ! is_null( $recent_post->thumbnail ) && $recent_post->thumbnail instanceof \Timber\Image ) {
-							$img_id                       = $recent_post->thumbnail->id;
-							$dimensions                   = wp_get_attachment_metadata( $img_id );
-							$recent_post->thumbnail_ratio = ( isset( $dimensions['height'] ) && $dimensions['height'] > 0 ) ? $dimensions['width'] / $dimensions['height'] : 1;
-							$recent_post->alt_text        = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
-						}
-						Timber::render(
-							[ 'teasers/tease-articles.twig' ],
-							[
-								'key'         => $key,
-								'recent_post' => $recent_post,
-							]
-						);
-					}
+		if ( isset( $dataset['args'] ) ) {
+			foreach ( $dataset['args'] as $key => $value ) {
+				if ( false !== strpos( $key, '[', true ) ) {
+					$new_key                       = strstr( $key, '[', true );
+					$dataset['args'][ $new_key ][] = $value;
+					unset( $dataset['args'][ $key ] );
 				}
 			}
-			wp_die();
+			unset( $dataset['args']['page'] );
+			unset( $dataset['args']['total'] );
+
+			$dataset['args']['numberposts'] = $dataset['args']['article_count'];
+			if ( $page ) {
+				$dataset['args']['paged'] = $page;
+			}
 		}
+
+		$recent_posts = Timber::get_posts( $dataset['args'], 'P4_Post', true );
+
+		foreach ( $recent_posts as $key => $recent_post ) {
+			if (
+				null !== $recent_post->thumbnail
+				&& $recent_post->thumbnail instanceof \Timber\Image
+			) {
+				$img_id                       = $recent_post->thumbnail->id;
+				$dimensions                   = wp_get_attachment_metadata( $img_id );
+				$recent_post->thumbnail_ratio = ( isset( $dimensions['height'] ) && $dimensions['height'] > 0 )
+					? $dimensions['width'] / $dimensions['height'] : 1;
+				$recent_post->alt_text        = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+			}
+			Timber::render(
+				[ 'teasers/tease-articles.twig' ],
+				[
+					'key'         => $key,
+					'recent_post' => $recent_post,
+				]
+			);
+		}
+		wp_die();
 	}
 
 	/**

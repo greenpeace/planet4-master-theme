@@ -1,7 +1,6 @@
 {% block articles %}
 	{% if ( recent_posts ) %}
 		<section class="block articles-block">
-			{{ fn( 'wp_nonce_field', nonce_action, '_articles_wpnonce', true, false )|raw }}
 			<div class="container">
 				{% if ( fields.article_heading ) %}
 					<header>
@@ -33,7 +32,6 @@
 								data-page="1"
 								data-total_pages="{{ total_pages }}"
 								data-article_count="{{ fields.article_count }}"
-								data-nonce_element_id="_articles_wpnonce"
 										{% for key,value in dataset %}
 											data-{{ value }}
 										{% endfor %}
