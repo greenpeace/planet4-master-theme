@@ -83,6 +83,11 @@
 
     &.page-type {
       text-transform: uppercase;
+      color: $blue;
+
+      &:hover {
+        color: $blue;
+      }
 
       html[dir="rtl"] & {
         text-transform: lowercase;
