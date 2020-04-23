@@ -85,34 +85,17 @@ if ( P4_Post_Campaign::DEFAULT_NAVBAR_THEME !== $custom_styles['nav_type'] ) {
 $post->set_data_layer();
 $data_layer = $post->get_data_layer();
 
-$context['post']                        = $post;
-$context['header_title']                = is_front_page() ? ( $meta['p4_title'] ?? '' ) : ( $meta['p4_title'] ?? $post->title );
-$context['header_subtitle']             = $meta['p4_subtitle'] ?? '';
-$context['header_description']          = wpautop( $meta['p4_description'] ?? '' );
-$context['header_button_title']         = $meta['p4_button_title'] ?? '';
-$context['header_button_link']          = $meta['p4_button_link'] ?? '';
-$context['header_button_link_checkbox'] = $meta['p4_button_link_checkbox'] ?? '';
-$context['hide_page_title_checkbox']    = $meta['p4_hide_page_title_checkbox'] ?? '';
-$context['social_accounts']             = $post->get_social_accounts( $context['footer_social_menu'] );
-$context['page_category']               = $data_layer['page_category'];
-$context['post_tags']                   = implode( ', ', $post->tags() );
+P4_Context::set_header( $context, $meta, $post->title );
+P4_Context::set_background_image( $context );
+P4_Context::set_og_meta_fields( $context, $post );
+P4_Context::set_campaign_datalayer( $context, $campaign_meta );
 
-$background_image_id                = get_post_meta( get_the_ID(), 'background_image_id', 1 );
-$context['background_image']        = wp_get_attachment_url( $background_image_id );
-$context['background_image_srcset'] = wp_get_attachment_image_srcset( $background_image_id, 'full' );
-$context['og_title']                = $post->get_og_title();
-$context['og_description']          = $post->get_og_description();
-$context['og_image_data']           = $post->get_og_image();
-$context['custom_styles']           = $custom_styles;
-$context['css_vars']                = P4_Post_Campaign::css_vars( $campaign_meta );
-
-// P4 Campaign/dataLayer fields.
-$context['cf_campaign_name'] = $campaign_meta['p4_campaign_name'] ?? '';
-$context['cf_project_id']    = $campaign_meta['p4_global_project_tracking_id'] ?? 'not set';
-$context['cf_local_project'] = $campaign_meta['p4_local_project'] ?? 'not set';
-$context['cf_basket_name']   = $campaign_meta['p4_basket_name'] ?? '';
-$context['cf_scope']         = $campaign_meta['p4_scope'] ?? '';
-$context['cf_department']    = $campaign_meta['p4_department'] ?? '';
+$context['post']            = $post;
+$context['social_accounts'] = $post->get_social_accounts( $context['footer_social_menu'] );
+$context['page_category']   = $data_layer['page_category'];
+$context['post_tags']       = implode( ', ', $post->tags() );
+$context['custom_styles']   = $custom_styles;
+$context['css_vars']        = P4_Post_Campaign::css_vars( $campaign_meta );
 
 // Social footer link overrides.
 $context['social_overrides'] = [];

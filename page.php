@@ -32,6 +32,7 @@ use Timber\Timber;
 $context        = Timber::get_context();
 $post           = new P4_Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $page_meta_data = get_post_meta( $post->ID );
+$page_meta_data = array_map( 'reset', $page_meta_data );
 
 // Set Navigation Issues links.
 $post->set_issues_links();
@@ -54,33 +55,16 @@ if ( is_array( $page_tags ) && $page_tags ) {
 $post->set_data_layer();
 $data_layer = $post->get_data_layer();
 
-$context['post']                        = $post;
-$context['header_title']                = is_front_page() ? ( $page_meta_data['p4_title'][0] ?? '' ) : ( $page_meta_data['p4_title'][0] ?? $post->title );
-$context['header_subtitle']             = $page_meta_data['p4_subtitle'][0] ?? '';
-$context['header_description']          = wpautop( $page_meta_data['p4_description'][0] ?? '' );
-$context['header_button_title']         = $page_meta_data['p4_button_title'][0] ?? '';
-$context['header_button_link']          = $page_meta_data['p4_button_link'][0] ?? '';
-$context['header_button_link_checkbox'] = $page_meta_data['p4_button_link_checkbox'][0] ?? '';
-$context['hide_page_title_checkbox']    = $page_meta_data['p4_hide_page_title_checkbox'][0] ?? '';
-$context['social_accounts']             = $post->get_social_accounts( $context['footer_social_menu'] );
-$context['page_category']               = $data_layer['page_category'];
-$context['post_tags']                   = implode( ', ', $post->tags() );
+P4_Context::set_header( $context, $page_meta_data, $post->title );
+P4_Context::set_background_image( $context );
+P4_Context::set_og_meta_fields( $context, $post );
+P4_Context::set_campaign_datalayer( $context, $page_meta_data );
 
-$background_image_id                = get_post_meta( get_the_ID(), 'background_image_id', 1 );
-$context['background_image']        = wp_get_attachment_url( $background_image_id );
-$context['background_image_srcset'] = wp_get_attachment_image_srcset( $background_image_id, 'full' );
-$context['og_title']                = $post->get_og_title();
-$context['og_description']          = $post->get_og_description();
-$context['og_image_data']           = $post->get_og_image();
-$context['custom_body_classes']     = 'brown-bg';
-
-// P4 Campaign/dataLayer fields.
-$context['cf_campaign_name'] = $page_meta_data['p4_campaign_name'][0] ?? '';
-$context['cf_project_id']    = $page_meta_data['p4_global_project_tracking_id'][0] ?? 'not set';
-$context['cf_local_project'] = $page_meta_data['p4_local_project'][0] ?? 'not set';
-$context['cf_basket_name']   = $page_meta_data['p4_basket_name'][0] ?? '';
-$context['cf_scope']         = $page_meta_data['p4_scope'][0] ?? '';
-$context['cf_department']    = $page_meta_data['p4_department'][0] ?? '';
+$context['post']                = $post;
+$context['social_accounts']     = $post->get_social_accounts( $context['footer_social_menu'] );
+$context['page_category']       = $data_layer['page_category'];
+$context['post_tags']           = implode( ', ', $post->tags() );
+$context['custom_body_classes'] = 'brown-bg ';
 
 if ( post_password_required( $post->ID ) ) {
 	$context['login_url'] = wp_login_url();

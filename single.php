@@ -40,26 +40,21 @@ $post->set_issues_links();
 // p4_take_action_page parameter to populate the take action boxout block
 // Author override parameter. If this is set then the author profile section will not be displayed.
 $page_meta_data                 = get_post_meta( $post->ID );
+$page_meta_data                 = array_map( 'reset', $page_meta_data );
 $page_terms_data                = get_the_terms( $post, 'p4-page-type' );
-$context['background_image']    = $page_meta_data['p4_background_image_override'][0] ?? '';
-$take_action_page               = $page_meta_data['p4_take_action_page'][0] ?? '';
-$context['page_type']           = $page_terms_data[0]->name ?? '';
-$context['page_term_id']        = $page_terms_data[0]->term_id ?? '';
-$context['page_category']       = 'Post Page';
-$context['page_type_slug']      = $page_terms_data[0]->slug ?? '';
-$context['social_accounts']     = $post->get_social_accounts( $context['footer_social_menu'] );
-$context['og_title']            = $post->get_og_title();
-$context['og_description']      = $post->get_og_description();
-$context['og_image_data']       = $post->get_og_image();
+$page_terms_data                = array_map( 'reset', $page_terms_data );
+$context['background_image']    = $page_meta_data['p4_background_image_override'] ?? '';
+$take_action_page               = $page_meta_data['p4_take_action_page'] ?? '';
+$context['page_type']           = $page_terms_data->name ?? '';
+$context['page_term_id']        = $page_terms_data->term_id ?? '';
 $context['custom_body_classes'] = 'white-bg';
+$context['page_type_slug']      = $page_terms_data->slug ?? '';
+$context['social_accounts']     = $post->get_social_accounts( $context['footer_social_menu'] );
+$context['page_category']       = 'Post Page';
+$context['post_tags']           = implode( ', ', $post->tags() );
 
-// P4 Campaign/dataLayer fields.
-$context['cf_campaign_name'] = $page_meta_data['p4_campaign_name'][0] ?? '';
-$context['cf_project_id']    = $page_meta_data['p4_global_project_tracking_id'][0] ?? 'not set';
-$context['cf_local_project'] = $page_meta_data['p4_local_project'][0] ?? 'not set';
-$context['cf_basket_name']   = $page_meta_data['p4_basket_name'][0] ?? '';
-$context['cf_scope']         = $page_meta_data['p4_scope'][0] ?? '';
-$context['cf_department']    = $page_meta_data['p4_department'][0] ?? '';
+P4_Context::set_og_meta_fields( $context, $post );
+P4_Context::set_campaign_datalayer( $context, $page_meta_data );
 
 $context['filter_url'] = add_query_arg(
 	[
@@ -120,8 +115,6 @@ $context['post_comments_count'] = get_comments(
 		'count'   => true,
 	]
 );
-
-$context['post_tags'] = implode( ', ', $post->tags() );
 
 if ( post_password_required( $post->ID ) ) {
 	$context['login_url'] = wp_login_url();
