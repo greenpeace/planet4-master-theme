@@ -59,10 +59,30 @@ class P4_Context {
 	public static function set_campaign_datalayer( &$context, $meta ) {
 		$context['cf_campaign_name'] = $meta['p4_campaign_name'] ?? '';
 		$context['cf_basket_name']   = $meta['p4_basket_name'] ?? '';
-		$context['cf_scope']         = $meta['p4_scope'] ?? '';
 		$context['cf_department']    = $meta['p4_department'] ?? '';
 		$context['cf_project_id']    = $meta['p4_global_project_tracking_id'] ?? 'not set';
 		$context['cf_local_project'] = $meta['p4_local_project'] ?? 'not set';
+		$context['cf_scope']         = self::get_campaign_scope( $context['cf_campaign_name'] );
 	}
 
+	/**
+	 * Get campaign scope from value selected in the Global Projects dropdown.
+	 * Conditions:
+	 * - If Global Project equals "Local Campaign" then Scope is Local.
+	 * - If Global Project equals none then Scope is not set
+	 * - If Global Project matches any other value (apart from "Local Campaign") then Scope is Global
+	 *
+	 * @param string $global_project The Global Project value.
+	 * @return string The campaign scope.
+	 */
+	private static function get_campaign_scope( $global_project ) {
+		switch ( $global_project ) {
+			case 'Local Campaign':
+				return 'Local';
+			case 'not set':
+				return 'not set';
+			default:
+				return 'Global';
+		}
+	}
 }

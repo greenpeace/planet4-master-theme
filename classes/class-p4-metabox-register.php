@@ -332,24 +332,6 @@ class P4_Metabox_Register {
 			]
 		);
 
-		$scope_options = [
-			'not set'  => __( '- Select Scope -', 'planet4-master-theme-backend' ),
-			'Global'   => 'Global',
-			'National' => 'National',
-		];
-
-		$p4_campaign_fields->add_field(
-			[
-				'name'       => __( 'Scope', 'planet4-master-theme-backend' ),
-				'id'         => 'p4_scope',
-				'type'       => 'select',
-				'options'    => $scope_options,
-				'attributes' => [
-					'data-validation' => 'required',
-				],
-			]
-		);
-
 		$p4_campaign_fields->add_field(
 			[
 				'name'       => __( 'Department', 'planet4-master-theme-backend' ),
