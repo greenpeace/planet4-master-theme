@@ -54,6 +54,32 @@ const resolveDependency = ( theme, field ) => {
   return field.configurations[ dependencyValue ];
 };
 
+const getDependencyUpdates = ( theme, fieldName, value, meta ) => {
+  const allChildren = theme.fields.filter( field => field.dependsOn === fieldName );
+  const needUpdate = allChildren.filter(
+    field => {
+      const configuration = field.configurations[ value ];
+
+      if ( !configuration ) {
+        return typeof meta[ field.id  ] !== 'undefined'
+      }
+
+      return !(configuration.options.includes( meta[ field.id ] ));
+    }
+  );
+
+  // Return object with meta keys to be updated. Unset if there is no configuration for the new value or no default for
+  // that configuration.
+  return needUpdate.reduce( ( updates, field ) => {
+    const configuration = field.configurations[ value ];
+
+    return {
+      ...updates,
+      [ field.id ]: configuration && configuration.default ? configuration.default : null,
+    };
+  }, {} );
+};
+
 export function fromThemeOptions( WrappedComponent ) {
 
   return class extends Component {
@@ -77,7 +103,12 @@ export function fromThemeOptions( WrappedComponent ) {
         return null;
       }
 
-      return <WrappedComponent defaultValue={ field.default } options={ field.options } { ...ownProps } />;
+      const provideNewMeta = ( metaKey, value, meta ) => Object.assign(
+        { [ metaKey ]: value },
+        getDependencyUpdates( theme, metaKey, value, meta )
+      );
+
+      return <WrappedComponent getNewMeta={ provideNewMeta } defaultValue={ field.default } options={ field.options } { ...ownProps } />;
     }
   };
 }

@@ -12,28 +12,18 @@ const getValuePropName = ( Component ) => {
   return 'value';
 };
 
-const { apiFetch } = wp;
-
 const getValueFromProps = ( props ) => {
-  const { metaKey, postMeta } = props;
+  const { metaKey, postMeta, defaultValue } = props;
 
   const metaValue = postMeta[ metaKey ];
 
-  let value;
-  // Use the default value if what is stored in the post meta is empty, or if it isn't one of the listed options.
-  if (
-    props.defaultValue
+  const shouldUseDefault = defaultValue
     && (
       !metaValue
       || !props.options.some( option => option.value === metaValue )
-    )
-  ) {
-    value = props.defaultValue;
-  } else {
-    value = metaValue;
-  }
+    );
+  return shouldUseDefault ? defaultValue : metaValue;
 
-  return value;
 }
 
 export function withPostMeta( WrappedComponent ) {
@@ -49,7 +39,9 @@ export function withPostMeta( WrappedComponent ) {
     }
 
     handleChange( metaKey, value ) {
-      this.props.writeMeta( metaKey, value );
+      const getNewMeta = this.props.getNewMeta || (( metaKey, value, meta ) => ({ [ metaKey ]: value }));
+      const meta = getNewMeta(metaKey, value, this.props.postMeta );
+      this.props.writeMeta( meta );
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -59,17 +51,8 @@ export function withPostMeta( WrappedComponent ) {
       }
     }
 
-    componentDidUpdate() {
-      const { metaKey, postMeta } = this.props;
-      const metaValue = postMeta[ metaKey ];
-
-      if (metaValue !== this.state.value) {
-        this.handleChange( metaKey, this.state.value );
-      }
-    }
-
     render() {
-      const { metaKey, postMeta, writeMeta, onChange, ...ownProps } = this.props;
+      const { metaKey, postMeta, writeMeta, getNewMeta, onChange, defaultValue, ...ownProps } = this.props;
 
       return <WrappedComponent
         { ...{
@@ -97,8 +80,8 @@ export function withPostMeta( WrappedComponent ) {
     withDispatch(
       ( dispatch ) => {
         return {
-          writeMeta: ( metaKey, value ) => {
-            dispatch( 'core/editor' ).editPost( { meta: { [ metaKey ]: value } } );
+          writeMeta: ( meta ) => {
+            dispatch( 'core/editor' ).editPost( { meta } );
           }
         };
       }
