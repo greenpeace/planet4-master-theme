@@ -38,9 +38,11 @@ export function withPostMeta( WrappedComponent ) {
       };
     }
 
-    handleChange( metaKey, value ) {
-      const getNewMeta = this.props.getNewMeta || (( metaKey, value, meta ) => ({ [ metaKey ]: value }));
-      const meta = getNewMeta(metaKey, value, this.props.postMeta );
+    async handleChange( metaKey, value ) {
+      const getNewMeta = this.props.getNewMeta || (( metaKey, value, meta ) => {
+        return { [ metaKey ]: value };
+      });
+      const meta = await getNewMeta( metaKey, value, this.props.postMeta );
       this.props.writeMeta( meta );
     }
 
@@ -59,6 +61,7 @@ export function withPostMeta( WrappedComponent ) {
           [ this.valuePropName ]: this.state.value,
           onChange: ( value ) => {
             this.handleChange( metaKey, value || '' );
+            // Fire any onchange event if passed by wrapped component.
             if ( onChange ) {
               onChange( value );
             }

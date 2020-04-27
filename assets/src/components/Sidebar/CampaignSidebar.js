@@ -6,7 +6,7 @@ import ColorPaletteControl from '../ColorPaletteControl/ColorPaletteControl';
 import { withPostMeta } from '../PostMeta/withPostMeta';
 import { withDefaultLabel } from '../withDefaultLabel/withDefaultLabel';
 import { __ } from '@wordpress/i18n';
-import { fromThemeOptions } from '../fromThemeOptions/fromThemeOptions';
+import { fromThemeOptions, getFieldFromTheme } from '../fromThemeOptions/fromThemeOptions';
 import isShallowEqual from '@wordpress/is-shallow-equal';
 import { savePreviewMeta } from '../../saveMetaToPreview';
 
@@ -86,6 +86,35 @@ export class CampaignSidebar extends Component {
       meta: null,
       parent: null,
     };
+    this.handleThemeSwitch = this.handleThemeSwitch.bind( this );
+    this.loadTheme = this.loadTheme.bind( this );
+  }
+
+  async handleThemeSwitch( metaKey, value, meta ) {
+    await this.loadTheme( value )
+
+    const invalidatedFields = this.state.theme.fields.filter( field => {
+
+      const resolvedField = getFieldFromTheme(this.state.theme, field.id, meta);
+
+      const currentValue = meta[ field.id ];
+
+      if ( !resolvedField || !resolvedField.options ) {
+        return !!currentValue;
+      }
+
+      return !(resolvedField.options.some( option => option.value === currentValue) );
+
+    } ).map( field => getFieldFromTheme( this.state.theme, field.id, meta ) )
+
+    return invalidatedFields.reduce( ( result, field ) => {
+      return {
+        ...result,
+        [ field.id ]: field.default || null,
+      };
+    }, {
+      [ metaKey ]: value,
+    } );
   }
 
   componentDidMount() {
@@ -101,7 +130,7 @@ export class CampaignSidebar extends Component {
           this.setState( { meta: meta } );
           savePreviewMeta();
           if (
-            this.state.theme === null || theme !== this.state.theme.id
+            this.state.theme === null
           ) {
             this.loadTheme( theme );
           }
@@ -127,7 +156,7 @@ export class CampaignSidebar extends Component {
     const baseUrl = window.location.href.split( '/wp-admin' )[ 0 ];
     const themeJsonUrl = `${ baseUrl }/wp-content/themes/planet4-master-theme/campaign_themes/${ value }.json`;
     console.log( `fetching theme ${ value }` );
-    fetch( themeJsonUrl )
+    return fetch( themeJsonUrl )
       .then( response => response.json() )
       .then( json => {
         this.setState( { theme: json } );
@@ -163,6 +192,7 @@ export class CampaignSidebar extends Component {
                   metaKey='theme'
                   label={ __( 'Theme', 'planet4-blocks-backend' ) }
                   options={ themeOptions }
+                  getNewMeta={ this.handleThemeSwitch }
                 />
               </div>
               <PanelBody
