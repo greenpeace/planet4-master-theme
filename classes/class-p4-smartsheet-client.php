@@ -49,7 +49,11 @@ final class P4_Smartsheet_Client {
 			return null;
 		}
 
-		return P4_Smartsheet::from_api_response( json_decode( $response['body'], true ) );
+		try {
+			return P4_Smartsheet::from_api_response( json_decode( $response['body'], true ) );
+		} catch ( InvalidArgumentException $exception ) {
+			return null;
+		}
 	}
 
 	/**
