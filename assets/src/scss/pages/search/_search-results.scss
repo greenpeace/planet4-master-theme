@@ -246,17 +246,12 @@
 }
 
 .search-result-item-content {
-  display: none;
   color: $dark-shade-black;
   font-size: $font-size-sm;
   font-family: $lora;
   line-height: 1.6;
   margin: $n10 0 0;
   width: 80%;
-
-  @include small-and-up {
-    display: block;
-  }
 
   @include large-and-up {
     font-size: 1.125rem;
