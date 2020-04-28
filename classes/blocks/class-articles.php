@@ -241,6 +241,7 @@ class Articles extends Base_Block {
 				$dataset['args']['paged'] = $page;
 			}
 		}
+		$dataset['args']['post_status'] = 'publish';
 
 		$recent_posts = Timber::get_posts( $dataset['args'], 'P4_Post', true );
 
