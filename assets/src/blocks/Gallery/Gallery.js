@@ -80,7 +80,6 @@ export class Gallery extends Component {
               <MediaUploadCheck>
                 <MediaPlaceholder
                   addToGallery={ hasImages }
-                  disableMediaButtons={ hasImages  }
                   labels={ {
                     title: __( 'Select Gallery Images' ),
                     instructions: __('Upload an image or select from the media library.', 'p4ge'),
