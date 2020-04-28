@@ -33,9 +33,6 @@ export function withPostMeta( WrappedComponent ) {
       super( props );
       this.handleChange = this.handleChange.bind( this );
       this.valuePropName = getValuePropName( WrappedComponent );
-      this.state = {
-        value: null
-      };
     }
 
     async handleChange( metaKey, value ) {
@@ -46,19 +43,13 @@ export function withPostMeta( WrappedComponent ) {
       this.props.writeMeta( meta );
     }
 
-    static getDerivedStateFromProps(props, state) {
-      const value = getValueFromProps( props );
-      return {
-        value
-      }
-    }
-
     render() {
       const { metaKey, postMeta, writeMeta, getNewMeta, onChange, defaultValue, ...ownProps } = this.props;
+      const value = getValueFromProps( this.props );
 
       return <WrappedComponent
         { ...{
-          [ this.valuePropName ]: this.state.value,
+          [ this.valuePropName ]: value,
           onChange: ( value ) => {
             this.handleChange( metaKey, value || '' );
             // Fire any onchange event if passed by wrapped component.
