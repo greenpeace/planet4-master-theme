@@ -22,7 +22,6 @@ import { addButtonLinkPasteWarning } from './addButtonLinkPasteWarning';
 import { setupCustomSidebar } from "./setupCustomSidebar";
 import { setUpCssVariables } from './connectCssVariables';
 import { SubPagesBlock } from './blocks/SubPages/SubPagesBlock';
-import { saveMetaToPreview } from './saveMetaToPreview';
 
 new ArticlesBlock();
 new CarouselHeaderBlock();
@@ -49,4 +48,3 @@ addButtonLinkPasteWarning();
 replaceTaxonomyTermSelectors();
 setupCustomSidebar();
 setUpCssVariables();
-saveMetaToPreview();

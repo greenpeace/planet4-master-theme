@@ -402,7 +402,7 @@ $medium-image-height: 600px;
         h1, h2, h3 {
           width: 100%;
           font-weight: bold;
-          color: $black;
+          color: $dark-shade-black;
           padding-left: 0;
           transition: unset;
           transform: translateX($text-slide-offset);
@@ -503,7 +503,7 @@ $medium-image-height: 600px;
 
         p {
           display: block;
-          color: $black;
+          color: $dark-shade-black;
           font-family: $roboto;
           font-size: .875rem;
           font-weight: 500;

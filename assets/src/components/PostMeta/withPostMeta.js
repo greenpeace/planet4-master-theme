@@ -12,7 +12,19 @@ const getValuePropName = ( Component ) => {
   return 'value';
 };
 
-const { apiFetch } = wp;
+const getValueFromProps = ( props ) => {
+  const { metaKey, postMeta, defaultValue } = props;
+
+  const metaValue = postMeta[ metaKey ];
+
+  const shouldUseDefault = defaultValue
+    && (
+      !metaValue
+      || !props.options.some( option => option.value === metaValue )
+    );
+  return shouldUseDefault ? defaultValue : metaValue;
+
+}
 
 export function withPostMeta( WrappedComponent ) {
 
@@ -23,49 +35,24 @@ export function withPostMeta( WrappedComponent ) {
       this.valuePropName = getValuePropName( WrappedComponent );
     }
 
-    handleChange( metaKey, value ) {
-      const { getEditedPostAttribute, getCurrentPostId } = wp.data.select( 'core/editor' );
-      this.props.writeMeta( metaKey, value );
-
-      if ( !['draft', 'auto-draft'].includes( getEditedPostAttribute( 'status' ) ) ) {
-        apiFetch( {
-          path: `/planet4/v1/save-preview-meta`,
-          method: 'POST',
-          data: {
-            post_id: getCurrentPostId(),
-            meta: {
-              ...this.props.postMeta,
-              [metaKey]: value,
-            }
-          },
-        } );
-      }
+    async handleChange( metaKey, value ) {
+      const getNewMeta = this.props.getNewMeta || (( metaKey, value, meta ) => {
+        return { [ metaKey ]: value };
+      });
+      const meta = await getNewMeta( metaKey, value, this.props.postMeta );
+      this.props.writeMeta( meta );
     }
 
     render() {
-      const { metaKey, postMeta, writeMeta, onChange, ...ownProps } = this.props;
-
-      const metaValue = postMeta[ metaKey ];
-
-      let value;
-      // Use the default value if what is stored in the post meta is empty, or if it isn't one of the listed options.
-      if (
-        this.props.defaultValue
-        && (
-          !metaValue
-          || !this.props.options.some( option => option.value === metaValue )
-        )
-      ) {
-        value = this.props.defaultValue;
-      } else {
-        value = metaValue;
-      }
+      const { metaKey, postMeta, writeMeta, getNewMeta, onChange, defaultValue, ...ownProps } = this.props;
+      const value = getValueFromProps( this.props );
 
       return <WrappedComponent
         { ...{
           [ this.valuePropName ]: value,
           onChange: ( value ) => {
             this.handleChange( metaKey, value || '' );
+            // Fire any onchange event if passed by wrapped component.
             if ( onChange ) {
               onChange( value );
             }
@@ -87,8 +74,8 @@ export function withPostMeta( WrappedComponent ) {
     withDispatch(
       ( dispatch ) => {
         return {
-          writeMeta: ( metaKey, value ) => {
-            dispatch( 'core/editor' ).editPost( { meta: { [ metaKey ]: value } } );
+          writeMeta: ( meta ) => {
+            dispatch( 'core/editor' ).editPost( { meta } );
           }
         };
       }

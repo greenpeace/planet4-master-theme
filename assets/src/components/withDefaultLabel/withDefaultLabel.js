@@ -13,7 +13,7 @@ export function withDefaultLabel( WrappedComponent ) {
     render() {
       const { options, ...ownProps } = this.props;
 
-      const enhancedOptions = options.map( option => {
+      const enhancedOptions = !options ? [] : options.map( option => {
         const label = option.value === this.props.defaultValue ? option.label + ' ' + this.defaultLabel : option.label
         return {
             ...option,
