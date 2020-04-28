@@ -78,11 +78,12 @@
 			"configurations": {
 				"minimal": {
 					"options": [
-						{ "color": "#ffffff" },
-						{ "color": "#000000" },
-						{ "color": "#0a4461" },
-						{ "color": "#52c9f4" }
-					]
+						{ "value": "#ffffff" },
+						{ "value": "#000000" },
+						{ "value": "#0a4461" },
+						{ "value": "#52c9f4" }
+					],
+					"default": "#0a4461"
 				}
 			}
 		},
@@ -177,13 +178,13 @@
 			"configurations": {
 				"white": {
 					"options": [
-						{ "color": "#000000" },
-						{ "color": "#0a4461" },
-						{ "color": "#52c9f4" }
-					]
+						{ "value": "#1a1a1a" },
+						{ "value": "#0a4461" },
+						{ "value": "#52c9f4" }
+					],
+					"default": "#1a1a1a"
 				}
-			},
-			"default": "white"
+			}
 		},
 		{ "id": "spreadsheet-row-background", "default": "#0A4461" },
 		{ "id": "spreadsheet-row-color", "default": "#FFFFFF" },
