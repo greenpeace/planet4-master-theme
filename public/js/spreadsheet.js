@@ -1,26 +1,45 @@
 document.addEventListener( 'DOMContentLoaded', () => {
+  const debounce = ( func, wait = 100 ) => {
+    let timeout;
+    return function ( ...args ) {
+      clearTimeout( timeout );
+      timeout = setTimeout( () => {
+        func.apply( this, args );
+      }, wait );
+    };
+  };
+
   let spreadsheetBlocks = document.querySelectorAll( '.block-spreadsheet' );
 
   [...spreadsheetBlocks].forEach( block => {
 
     // Filter Spreadsheet table by entered value in search field
-    let searchInput = block.querySelector( '.spreadsheet-search' );
-    let table = block.querySelector( '.spreadsheet-table' );
-    let rows = [...table.querySelectorAll( 'tr:not(:first-child)' )];
-    let headerCells = [...table.querySelectorAll( 'tr:first-child th' )];
-    let defaultSortButton = block.querySelector( '.spreadsheet-default-sort' );
-    let emptyMessage = block.querySelector( '.spreadsheet-empty-message' );
+    const searchInput = block.querySelector( '.spreadsheet-search' );
+    const table = block.querySelector( '.spreadsheet-table' );
+    let tableBody = table.querySelector( 'tbody' );
+    let rows = [...tableBody.querySelectorAll( 'tr' )];
+    const headerCells = [...table.querySelectorAll( 'thead th' )];
+    const emptyMessage = block.querySelector( '.spreadsheet-empty-message' );
 
-    searchInput.addEventListener( 'input', () => {
-      let searchTerm = searchInput.value;
+    const filterRows = ( event ) => {
       let hasMatches = false;
+
+      const searchTerm = event.target.value.toLowerCase().trim();
+
       rows.forEach( row => {
-        const hasTerm = row.textContent.includes( searchTerm );
+        const hasTerm = searchTerm === '' || row.textContent.toLowerCase().includes( searchTerm );
         hasMatches = hasMatches || hasTerm;
-        row.style.display = hasTerm ? '' : 'none';
+        if ( !hasTerm && row.parentNode === tableBody ) {
+          tableBody.removeChild( row );
+        }
+        if ( hasTerm ) {
+          tableBody.appendChild( row );
+        }
       } );
       emptyMessage.style.display = hasMatches ? 'none' : 'block';
-    } );
+    };
+
+    searchInput.addEventListener( 'input', debounce( filterRows, 100 ) );
 
     const removeSortingAttributes = () => {
       headerCells.forEach( cell => {
@@ -29,37 +48,32 @@ document.addEventListener( 'DOMContentLoaded', () => {
       } );
     };
 
-    const getTextAtCell = ( row, index ) => row.children[ index ].textContent;
+    const getTextAtCell = ( index, row ) => row.children[ index ].textContent;
 
-    headerCells.forEach( ( headerCell, index ) => {
-      headerCell.addEventListener( 'click', () => {
-        defaultSortButton.style.display = 'inline-block';
-        let prevDir = headerCell.dataset.sortDir;
-        removeSortingAttributes();
-        headerCell.classList.add( 'spreadsheet-sorted-by' );
-
-        let sortedRows = rows.sort(
-          ( a, b ) => getTextAtCell( a, index ).localeCompare( getTextAtCell( b, index ) )
-        );
-        let newDir;
-        if ( prevDir ) {
-          newDir = prevDir === 'asc' ? 'desc' : 'asc';
-        } else {
-          newDir = 'asc';
-        }
-        headerCell.dataset.sortDir = newDir;
-        if ( newDir === 'desc' ) {
-          sortedRows = sortedRows.reverse();
-        }
-        table.append( ...sortedRows );
-      } );
-    } );
-
-    defaultSortButton.addEventListener( 'click', () => {
+    const sortRows = ( headerCell, index ) => () => {
+      let prevDir = headerCell.dataset.sortDir;
       removeSortingAttributes();
-      let sortedRows = rows.sort( ( a, b ) => a.dataset.order - b.dataset.order );
-      table.append( ...sortedRows );
-      defaultSortButton.style.display = 'none';
+      headerCell.classList.add( 'spreadsheet-sorted-by' );
+
+      rows = rows.sort( ( rowA, rowB ) => {
+        const textCompare = getTextAtCell( index, rowA ).localeCompare( getTextAtCell( index, rowB ) );
+        if ( textCompare !== 0 ) {
+          return textCompare;
+        }
+        // If text is the same preserve the original sort order.
+        return rowA.dataset.order - rowB.dataset.order;
+      } );
+      const newDir = prevDir !== 'asc' ? 'asc' : 'desc';
+      headerCell.dataset.sortDir = newDir;
+      if ( newDir === 'desc' ) {
+        rows = rows.reverse();
+      }
+
+      tableBody.append( ...rows.filter( row => row.parentNode === tableBody ) );
+    };
+    headerCells.forEach( ( headerCell, index ) => {
+
+      headerCell.addEventListener( 'click', sortRows( headerCell, index ) );
     } );
   } );
 

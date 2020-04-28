@@ -1,8 +1,36 @@
-table.spreadsheet-table {
-  margin: 16px 0;
+.table-wrapper {
+  overflow: auto;
+
+  max-height: 320px;
+  margin: 1.5rem 0;
 
   @include medium-and-up {
-    margin: 24px 0;
+    max-height: 520px;
+    margin: 2rem 0;
+  }
+
+  @include large-and-up {
+    max-height: 575px;
+  }
+}
+
+table.spreadsheet-table {
+  min-width: 100%;
+
+  margin-bottom: 0;
+
+  @include mobile-only {
+    overflow: visible;
+  }
+
+  th {
+    background: var(--spreadsheet-first-row-background, #06293a);
+    color: var(--spreadsheet-first-row-color, #ffffff);
+    border-bottom: 1px solid var(--spreadsheet-first-row-border-color, #ffffff);
+    cursor: pointer;
+    font-size: $font-size-sm;
+    position: sticky;
+    top: 0;
   }
 
   tr {
@@ -12,6 +40,7 @@ table.spreadsheet-table {
       background: var(--spreadsheet-row-background, #0a4461);
       color: var(--spreadsheet-row-color, #ffffff);
       font-size: $font-size-xs;
+
       @include x-large-and-up {
         font-size: $font-size-xs;
       }
@@ -23,54 +52,17 @@ table.spreadsheet-table {
         color: var(--spreadsheet-odd-rows-color, #0a4461);
       }
     }
-
-    &:hover {
-      td {
-        color: var(--spreadsheet-rows-hover-color, #ffffff);
-        background-color: var(--spreadsheet-rows-hover-background, #074365);
-      }
-    }
-
-    &:first-child {
-      td {
-        background: var(--spreadsheet-first-row-background, #06293a);
-        color: var(--spreadsheet-first-row-color, #ffffff);
-      }
-    }
-
-    th {
-      padding: 10px 20px;
-      border-bottom: 1px solid var(--spreadsheet-header-border-color, #ffffff);
-      cursor: pointer;
-      font-size: $font-size-sm;
-    }
-  }
-
-  @include mobile-only {
-    margin-left: -15px;
-    margin-right: -15px;
   }
 }
 
 .spreadsheet-search {
   width: 350px;
   max-width: 100%;
-  margin: 10px 10px 10px 0;
+  height: 2rem;
+  margin: 10px 0;
   padding: 0 8px;
-  height: 40px;
-  border: 1px solid;
-}
-
-.spreadsheet-table-search {
   border-color: var(--spreadsheet-search-border-color, #407ea2);
-}
-
-.spreadsheet-default-sort {
-  height: 40px !important;
-  box-sizing: border-box;
-  line-height: 1rem !important;
-  width: auto;
-  margin-bottom: 0;
+  border: 1px solid;
 }
 
 .spreadsheet-sorted-by {
