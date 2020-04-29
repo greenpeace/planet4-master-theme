@@ -314,7 +314,7 @@ final class Loader {
 			'p4gbks_admin_style',
 			P4GBKS_PLUGIN_URL . 'assets/build/editorStyle.min.css', // - Bundled CSS for the blocks
 			[],
-			'0.3'
+			'0.4'
 		);
 
 		wp_enqueue_script(
@@ -336,8 +336,9 @@ final class Loader {
 				'wp-data',        // - WP data helpers
 				'wp-i18n',        // - Exports the __() function
 				'wp-editor',
+				'wp-edit-post',
 			],
-			'0.1.14',
+			'0.1.15',
 			true
 		);
 
