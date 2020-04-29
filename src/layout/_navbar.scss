@@ -98,6 +98,10 @@ $navbar-default-height: 60px;
 
   a {
     color: $white;
+
+    &:hover {
+      color: $spray;
+    }
   }
 
   .donate-nav-item {
