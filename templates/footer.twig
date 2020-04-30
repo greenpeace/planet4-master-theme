@@ -4,7 +4,10 @@
 			{% if social_overrides is defined and social_overrides|length %}
 				{% for social in social_overrides %}
 					<li>
-						<a href="{{ social.url }}">
+						<a href="{{ social.url }}"
+						   data-ga-category="Footer Navigation"
+						   data-ga-action="Social Icons"
+						   data-ga-label="{{ social.icon }}">
 							{{ social.icon|svgicon }}
 							<span class="sr-only">{{ social.icon }}</span>
 						</a>
@@ -22,7 +25,10 @@
 					{% endfor %}
 					<li>
 						{% set social_url = social.url %}
-						<a href="{{ social_url }}">
+						<a href="{{ social_url }}"
+						   data-ga-category="Footer Navigation"
+						   data-ga-action="Social Icons"
+						   data-ga-label="{{ social.title }}">
 							{{ name|svgicon }}
 							<span class="sr-only">{{ social.title }}</span>
 						</a>
@@ -33,13 +39,27 @@
 
 		<ul class="list-unstyled footer-links">
 			{% for primary in footer_primary_menu %}
-				<li><a href="{{ primary.url }}">{{ primary.title }}</a></li>
+				<li>
+					<a href="{{ primary.url }}"
+					   data-ga-category="Footer Navigation"
+					   data-ga-action="Primary Links"
+					   data-ga-label="{{ primary.title }}">
+						{{ primary.title }}
+					</a>
+				</li>
 			{% endfor %}
 		</ul>
 
 		<ul class="list-unstyled footer-links-secondary">
 			{% for secondary in footer_secondary_menu %}
-				<li><a href="{{ secondary.url }}">{{ secondary.title }}</a></li>
+				<li>
+					<a href="{{ secondary.url }}"
+					   data-ga-category="Footer Navigation"
+					   data-ga-action="Secondary Links"
+					   data-ga-label="{{ secondary.title }}">
+						{{ secondary.title }}
+					</a>
+				</li>
 			{% endfor %}
 		</ul>
 
