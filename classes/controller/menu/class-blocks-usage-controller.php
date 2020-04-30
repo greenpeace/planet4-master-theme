@@ -106,6 +106,9 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 
 			// phpcs:disable
 			foreach ( $block_types as $block_type ) {
+				if ( 'planet4-blocks/carousel-header' === $block_type ) {
+					continue;
+				}
 				$block_comment = '%<!-- wp:' . $wpdb->esc_like( $block_type ) . ' %';
 
 				$sql = $wpdb->prepare(
@@ -147,8 +150,7 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 			$sql = 'SELECT ID, post_title
                     FROM %1$s
                     WHERE post_status = \'publish\'
-                        AND `post_content` REGEXP \'<!-- wp:planet4-blocks/carousel-header\'';
-
+                        AND `post_content` REGEXP \'<!-- wp:planet4-blocks/carousel-header.*full-width-classic\'';
 			$prepared_sql = $wpdb->prepare( $sql, $wpdb->posts );
 			$results      = $wpdb->get_results( $prepared_sql );
 			if ( 'text' === $type ) {
@@ -177,7 +179,7 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
                         AND ID NOT IN (SELECT ID
                             FROM %2$s
                             WHERE post_status = \'publish\'
-                            AND `post_content` REGEXP \'<!-- wp:planet4-blocks/carousel-header\')';
+                            AND `post_content` REGEXP \'<!-- wp:planet4-blocks/carousel-header.*full-width-classic\')';
 
 			$prepared_sql = $wpdb->prepare( $sql, [ $wpdb->posts, $wpdb->posts ] );
 			$results      = $wpdb->get_results( $prepared_sql );
