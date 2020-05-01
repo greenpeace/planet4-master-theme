@@ -85,6 +85,11 @@
     flex-basis: 32%;
     min-height: 364px;
     max-height: 364px;
+
+    &.action-card {
+      position: absolute;
+      right: 0;
+    }
   }
 
   @include x-large-and-up {
