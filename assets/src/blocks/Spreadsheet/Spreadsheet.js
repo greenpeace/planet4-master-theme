@@ -1,9 +1,11 @@
 import { Component, Fragment } from '@wordpress/element';
 import { Preview } from '../../components/Preview';
+import { InspectorControls } from '@wordpress/editor';
+import ColorPaletteControl from '../../components/ColorPaletteControl/ColorPaletteControl';
 
 import {
   TextControl,
-  ServerSideRender,
+  ServerSideRender, PanelBody, RangeControl, ToggleControl,
 } from '@wordpress/components';
 
 export class Spreadsheet extends Component {
@@ -14,8 +16,28 @@ export class Spreadsheet extends Component {
   renderEdit() {
     const { __ } = wp.i18n;
 
+    const { color } = this.props;
+
+    const colors = [
+      { name: 'blue', color: '#C9E7FA' },
+      { name: 'green', color: '#D0FAC9' },
+      { name: 'grey', color: '#DCDCDC' },
+    ];
+
     return (
       <Fragment>
+        <InspectorControls>
+          <PanelBody title={__('Setting', 'p4ge')}>
+            <ColorPaletteControl
+              label={__('Table Color', 'p4ge')}
+              value={ color }
+              onChange={ this.props.onTableColorChange }
+              disableCustomColors
+              clearable={ false }
+              options= { colors }
+            />
+          </PanelBody>
+        </InspectorControls>
         <div>
           <TextControl
             label={__('Spreadsheet URL', 'planet4-blocks-backend')}

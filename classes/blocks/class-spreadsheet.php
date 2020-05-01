@@ -31,7 +31,15 @@ class Spreadsheet extends Base_Block {
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],
 				'attributes'      => [
-					'url' => [
+					'url' 		 => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'color' 	 => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'color_name' => [
 						'type'    => 'string',
 						'default' => '',
 					],
