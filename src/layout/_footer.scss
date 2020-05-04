@@ -189,6 +189,10 @@
 
   a {
     color: var(--footer_links_color, $white);
+    
+    &:hover {	
+      color: var(--footer_links_color, inherit);	
+    }
   }
 }
 
