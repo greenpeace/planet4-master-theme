@@ -547,7 +547,18 @@ class P4_Master_Site extends TimberSite {
 		wp_register_script( 'lazyload', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/12.3.0/lazyload.min.js', [], '12.3.0', true );
 		wp_register_script( 'cssvarsponyfill', 'https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2', [], '2', false );
 
-		wp_enqueue_script( 'main', $this->theme_dir . '/assets/build/index.js', [ 'jquery', 'lazyload', 'cssvarsponyfill' ], $js_creation, true );
+		// Variables reflected from PHP to the JS side.
+		$localized_variables = [
+			// The ajaxurl variable is a global js variable defined by WP itself but only for the WP admin
+			// For the frontend we need to define it ourselves and pass it to js.
+			'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+			'show_scroll_times' => P4_Search::SHOW_SCROLL_TIMES,
+		];
+
+		wp_register_script( 'main', $this->theme_dir . '/assets/build/index.js', [ 'jquery', 'lazyload', 'cssvarsponyfill' ], $js_creation, true );
+		wp_localize_script( 'main', 'localizations', $localized_variables );
+		wp_enqueue_script( 'main' );
+
 		wp_enqueue_script( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js', [], '1.9.0', true );
 		wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );
 	}

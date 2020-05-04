@@ -8,6 +8,11 @@ if (!window.lazyLoad) {
 
 // Search page.
 export const setupSearch = function($) {
+  const isSearch = !!$('body.search').length;
+  if (!isSearch) {
+    return;
+  }
+
   const $search_form      = $( '#search_form' );
   const $load_more_button = $( '.btn-load-more-click-scroll' );
   let load_more_count   = 0;
@@ -52,11 +57,6 @@ export const setupSearch = function($) {
   });
 
   let $search_results = $( '.multiple-search-result' );
-  // Add filter by clicking on the page type label inside a result item.
-  // Delegate event handler to the dynamically created descendant elements.
-  $search_results.off( 'click', '.search-result-item-head' ).on( 'click', '.search-result-item-head', function() {
-    window.location.href = $( this ).data( 'href' );
-  });
 
   // Navigate to the page of the search result item when clicking on it's thumbnail image.
   // Delegate event handler to the dynamically created descendant elements.

@@ -65,13 +65,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		protected $filters;
 
 		/**
-		 * Localizations
-		 *
-		 * @var array $localizations
-		 */
-		protected $localizations;
-
-		/**
 		 * @var int|null The total number of matches.
 		 */
 		protected $total_matches;
@@ -116,13 +109,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * Initialize the class. Hook necessary actions and filters.
 		 */
 		protected function initialize() {
-			$this->localizations = [
-				// The ajaxurl variable is a global js variable defined by WP itself but only for the WP admin
-				// For the frontend we need to define it ourselves and pass it to js.
-				'ajaxurl'           => admin_url( 'admin-ajax.php' ),
-				'show_scroll_times' => self::SHOW_SCROLL_TIMES,
-			];
-			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
 			self::add_general_filters();
 		}
 
@@ -1086,17 +1072,6 @@ if ( ! class_exists( 'P4_Search' ) ) {
 					}
 					Timber::render( [ 'tease-search.twig' ], $paged_context, self::DEFAULT_CACHE_TTL, \Timber\Loader::CACHE_OBJECT );
 				}
-			}
-		}
-
-		/**
-		 * Load assets only on the search page.
-		 */
-		public function enqueue_public_assets() {
-			if ( is_search() ) {
-				wp_register_script( 'search', get_template_directory_uri() . '/assets/js/search.js', [ 'jquery' ], '0.2.8', true );
-				wp_localize_script( 'main', 'localizations', $this->localizations );
-				wp_enqueue_script( 'search' );
 			}
 		}
 	}
