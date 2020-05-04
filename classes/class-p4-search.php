@@ -372,7 +372,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 						$template_post->id            = $post->ID;
 						$template_post->link          = $post->permalink;
 						$template_post->preview       = $post->excerpt;
-						$thumbnail                    = get_the_post_thumbnail_url( $post->ID );
+						$thumbnail                    = get_the_post_thumbnail_url( $post->ID, 'thumbnail' );
 						$template_post->thumbnail_alt = get_the_post_thumbnail_caption( $post->ID );
 						$template_post->thumbnail     = $thumbnail;
 						$template_post->tags          = $post->terms['post_tag'] ?? [];
