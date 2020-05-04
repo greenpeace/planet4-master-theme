@@ -1,8 +1,10 @@
-
+{% set ga_page_type = post.post_type|capitalize %}
 {% if ( 'action' == post.content_type ) %}
 	{% set is_action = true %}
+	{% set ga_page_type = 'Take Action' %}
 {% elseif ( 'document' == post.content_type ) %}
 	{% set is_document = true %}
+	{% set ga_page_type = 'Document' %}
 {% elseif ( 'campaign' == post.content_type ) %}
 	{% set is_campaign = true %}
 {% elseif ( 'archive' == post.post_type ) %}
@@ -22,9 +24,13 @@
 	{% endif %}
 
 		{% if ( not is_action ) %}
-			<img class="d-flex search-result-item-image lazyload"
+			<img
+				class="d-flex search-result-item-image lazyload"
 				data-src="{{ post.thumbnail ?: dummy_thumbnail }}"
-				 alt="{{ fn('esc_attr', post.thumbnail_alt|default( post.post_title ) )|raw }}" />
+				alt="{{ fn('esc_attr', post.thumbnail_alt|default( post.post_title ) )|raw }}"
+				data-ga-category="Search Results"
+				data-ga-action="Image"
+				data-ga-label="{{ ga_page_type }}" />
 		{% endif %}
 
 		<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
@@ -42,13 +48,27 @@
 
 					<div class="search-result-tags top-page-tags">
 						{% for page_type in post.p4_page_types %}
-							<a class="search-result-item-head no-btn tag-item tag-item--main page-type" href="{{ fn('get_term_link', page_type.term_id) }}">{{ page_type.name|e('wp_kses_post')|raw }}</a>
+							<a
+								class="search-result-item-head no-btn tag-item tag-item--main page-type"
+								href="{{ fn('get_term_link', page_type.term_id) }}"
+								data-ga-category="Search Results"
+								data-ga-action="Category Tag"
+								data-ga-label="{{ ga_page_type }}">
+									{{ page_type.name|e('wp_kses_post')|raw }}
+							</a>
 						{% endfor %}
 
 						{% if (post.tags) %}
 							<div class="tag-wrap tags">
 								{% for tag in post.tags %}
-									<a href="{{ tag.link }}" class="search-result-item-tag tag-item tag">#{{ tag.name|e('wp_kses_post')|raw }}</a>
+									<a
+										href="{{ tag.link }}"
+										class="search-result-item-tag tag-item tag"
+										data-ga-category="Search Results"
+										data-ga-action="Navigation Tag"
+										data-ga-label="{{ ga_page_type }}">
+											#{{ tag.name|e('wp_kses_post')|raw }}
+									</a>
 								{% endfor %}
 							</div>
 						{% endif %}
@@ -56,11 +76,33 @@
 
 					{% if ( is_document ) %}
 						{% set title = post.post_title|e('wp_kses_post') %}
-						<a href="{{ fn('wp_get_attachment_url', post.id) }}" class="search-result-item-headline">{{ title|raw|length > 30 ? ( title|striptags|slice(0, 30) ~ '...' )|raw  : title|raw }}</a>
+						<a
+							href="{{ fn('wp_get_attachment_url', post.id) }}"
+							class="search-result-item-headline"
+							data-ga-category="Search Results"
+							data-ga-action="Title"
+							data-ga-label="{{ ga_page_type }}">
+								{{ title|raw|length > 30 ? ( title|striptags|slice(0, 30) ~ '...' )|raw  : title|raw }}
+						</a>
 					{% elseif ( is_archive ) %}
-						<a href="{{ post.link }}" target="_blank" class="search-result-item-headline archive">{{ post.post_title|e('wp_kses_post')|raw }}</a>
+						<a
+							href="{{ post.link }}"
+							target="_blank"
+							class="search-result-item-headline archive"
+							data-ga-category="Search Results"
+							data-ga-action="Title"
+							data-ga-label="{{ ga_page_type }}">
+								{{ post.post_title|e('wp_kses_post')|raw }}
+						</a>
 					{% else %}
-						<a href="{{ post.link }}" class="search-result-item-headline">{{ post.post_title|e('wp_kses_post')|raw }}</a>
+						<a
+							href="{{ post.link }}"
+							class="search-result-item-headline"
+							data-ga-category="Search Results"
+							data-ga-action="Title"
+							data-ga-label="{{ ga_page_type }}">
+								{{ post.post_title|e('wp_kses_post')|raw }}
+						</a>
 					{% endif %}
 
 					{% if ( 'page' != post.post_type ) %}
@@ -72,7 +114,14 @@
 				<div>
 					{% if ( is_action ) %}
 						{%  set link_text = settings['take_action_covers_button_text'] %}
-						<a href="{{ post.link }}" class="btn btn-primary btn-medium btn-small">{{ link_text ?: __( 'take action', 'planet4-master-theme' ) }}</a>
+						<a
+							href="{{ post.link }}"
+							class="btn btn-primary btn-medium btn-small"
+							data-ga-category="Search Results"
+							data-ga-action="Call to Action"
+							data-ga-label="{{ ga_page_type }}">
+								{{ link_text ?: __( 'take action', 'planet4-master-theme' ) }}
+						</a>
 					{% elseif ( is_document ) %}
 						<a href="{{ fn('wp_get_attachment_url', post.id) }}" download class="btn btn-small btn-secondary">
 							{{ __( 'Download', 'planet4-master-theme' ) }}
