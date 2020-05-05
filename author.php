@@ -28,6 +28,8 @@ if ( isset( $wp_query->query_vars['author'] ) ) {
 	$context['title']    = 'Author Archives: ' . $author->name();
 	$post_args['author'] = $wp_query->query_vars['author'];
 
+	$context['page_category'] = 'Author Page';
+
 	$context['social_accounts'] = P4_Post::filter_social_accounts( $context['footer_social_menu'] );
 	$context['og_title']        = $author->name . ' - ' . get_bloginfo( 'name' );
 	$context['og_description']  = $author->description;

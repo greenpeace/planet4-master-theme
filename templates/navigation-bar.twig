@@ -6,28 +6,43 @@
 		{% set toggle_label = __( 'Toggle navigation menu', 'planet4-master-theme' ) %}
 		{% set search_label = __( 'Search', 'planet4-master-theme' ) %}
 		<button
-				class="btn btn-navbar-toggle navbar-dropdown-toggle"
-				data-toggle="open"
-				data-target="#navbar-dropdown"
-				aria-expanded="false"
-				aria-label="{{ toggle_label }}"
-		>
-			<span>{{ __( 'Menu', 'planet4-master-theme' ) }}</span>
+			class="btn btn-navbar-toggle navbar-dropdown-toggle"
+			data-toggle="open"
+			data-target="#navbar-dropdown"
+			aria-expanded="false"
+			aria-label="{{ toggle_label }}">
+			<span
+				data-ga-category="Menu Navigation"
+				data-ga-action="Open Menu"
+				data-ga-label="{{ page_category }}">
+					{{ __( 'Menu', 'planet4-master-theme' ) }}
+			</span>
 		</button>
 		<ul id="navbar-dropdown" class="navbar-dropdown list-unstyled">
 			<li class="nav-item" id="country-select">
-				<button class="close-navbar-dropdown">
-					<span class="screen-reader-text">{{ __( 'Close Menu', 'planet4-master-theme' ) }}</span>
+				<button class="close-navbar-dropdown"
+					data-ga-category="Menu Navigation"
+					data-ga-action="Close Menu"
+					data-ga-label="{{ page_category }}">
+						<span
+							class="screen-reader-text"
+							data-ga-category="Menu Navigation"
+							data-ga-action="Close Menu"
+							data-ga-label="{{ page_category }}">
+								{{ __( 'Close Menu', 'planet4-master-theme' ) }}
+						</span>
 				</button>
 				<button
-						class="country-dropdown-toggle"
-						data-toggle="open"
-						data-target="#country-list"
-						aria-expanded="false"
-						aria-label="{{ data_nav_bar.country_dropdown_toggle }}"
-				>
-					<span class="screen-reader-text">{{ __( 'Selected', 'planet4-master-theme' ) }}:</span> {{ website_navbar_title }}
-					<span class="screen-reader-text">{{ __( 'Change Country', 'planet4-master-theme' ) }}</span>
+					class="country-dropdown-toggle"
+					data-toggle="open"
+					data-target="#country-list"
+					aria-expanded="false"
+					aria-label="{{ data_nav_bar.country_dropdown_toggle }}"
+					data-ga-category="Menu Navigation"
+					data-ga-action="Open Country Selector"
+					data-ga-label="{{ page_category }}">
+						<span class="screen-reader-text">{{ __( 'Selected', 'planet4-master-theme' ) }}:</span> {{ website_navbar_title }}
+						<span class="screen-reader-text">{{ __( 'Change Country', 'planet4-master-theme' ) }}</span>
 				</button>
 			</li>
 			{% for key,item in navbar_menu.get_items %}
@@ -41,30 +56,66 @@
 					{% endif %}
 				{% else %}
 					<li class="nav-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
-						<a class="nav-link" href="{{ item.get_link }}">{{ item.title }}</a>
+						{% if fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == act_page_id %}
+							{% set link_ga_action = 'Act' %}
+						{% elseif fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == explore_page_id %}
+							{% set link_ga_action = 'Explore' %}
+						{% else %}
+							{% set link_ga_action = item.title %}
+						{% endif %}
+						<a
+							class="nav-link"
+							href="{{ item.get_link }}"
+							data-ga-category="Menu Navigation"
+							data-ga-action="{{ link_ga_action }}"
+							data-ga-label="{{ page_category }}">
+								{{ item.title }}
+						</a>
 					</li>
 				{% endif %}
 			{% endfor %}
 			<li class="nav-item donate-nav-item">
-				<a class="btn btn-donate" href="{{ donatelink }}">{{ donatetext }}</a>
+				<a
+					class="btn btn-donate"
+					href="{{ donatelink }}"
+					data-ga-category="Menu Navigation"
+					data-ga-action="Donate"
+					data-ga-label="{{ page_category }}">
+						{{ donatetext }}
+				</a>
 			</li>
 		</ul>
 		<button
-				class="navbar-search-toggle"
-				data-toggle="open"
-				data-target="#search_form"
-				aria-expanded="false"
-				aria-label="{{ data_nav_bar.navbar_search_toggle }}"
-		>
-			<span class="screen-reader-text">{{ __( 'Toggle search form', 'planet4-master-theme' ) }}</span>
+			class="navbar-search-toggle"
+			data-toggle="open"
+			data-target="#search_form"
+			aria-expanded="false"
+			aria-label="{{ data_nav_bar.navbar_search_toggle }}"
+			data-ga-category="Menu Navigation"
+			data-ga-action="Open Search"
+			data-ga-label="{{ page_category }}">
+				<span class="screen-reader-text">{{ __( 'Toggle search form', 'planet4-master-theme' ) }}</span>
 		</button>
 		<form id="search_form" action="{{ data_nav_bar.home_url }}" class="form nav-item nav-search-wrap">
 			<input id="search_input" type="search" class="form-control" placeholder="{{ search_label }}"
 				   value="{{ data_nav_bar.search_query|e('wp_kses_post')|raw }}" name="s" aria-label="Search">
 			<input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}"/>
-			<button class="top-nav-search-btn" type="submit">
-				{{ 'search'|svgicon }}
-				<span class="screen-reader-text">{{ search_label }}</span>
+			<button
+				class="top-nav-search-btn"
+				type="submit"
+				data-ga-category="Menu Navigation"
+				data-ga-action="Search"
+				data-ga-label="{{ page_category }}">
+					{% set search_icon = 'search'|svgicon %}
+					{% set data_ga_attrs = 'data-ga-category="Menu Navigation" data-ga-action="Search" data-ga-label="' ~ page_category ~ '"' %}
+					{{ search_icon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
+				<span
+					class="screen-reader-text"
+					data-ga-category="Menu Navigation"
+					data-ga-action="Search"
+					data-ga-label="{{ page_category }}">
+						{{ search_label }}
+				</span>
 			</button>
 		</form>
 	</nav>
