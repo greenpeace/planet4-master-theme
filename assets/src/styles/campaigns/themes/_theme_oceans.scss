@@ -54,7 +54,7 @@ body.theme-oceans {
     @include page-section-header($montserrat, $oceans-blue, $extra-bold, 3.75rem);
   }
 
-  a {
+  .page-template a {
     color: $oceans-aqua;
 
     &:hover {

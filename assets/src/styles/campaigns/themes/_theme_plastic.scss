@@ -40,6 +40,14 @@ body.theme-plastic {
     }
   }
 
+  .page-template a {
+    color: $plastics-blue-mid;
+
+    &:hover {
+      color: $plastics-blue-light;
+    }
+  }
+
   .page-section-header {
     @include page-section-header($montserrat, $plastics-blue, $extra-bold, 2.2rem);
 
@@ -48,14 +56,6 @@ body.theme-plastic {
 
     .page-header-subtitle {
       font-weight: 500;
-    }
-  }
-
-  a {
-    color: $plastics-blue-mid;
-
-    &:hover {
-      color: $plastics-blue-light;
     }
   }
 
