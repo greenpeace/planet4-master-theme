@@ -31,18 +31,11 @@ class Spreadsheet extends Base_Block {
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],
 				'attributes'      => [
-					'url' 		 => [
+					'url'           => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'color' 	 => [
-						'type'    => 'string',
-						'default' => '',
-					],
-					'color_name' => [
-						'type'    => 'string',
-						'default' => '',
-					],
+					'css_variables' => self::CSS_VARIABLES_ATTRIBUTE,
 				],
 			]
 		);
@@ -67,7 +60,10 @@ class Spreadsheet extends Base_Block {
 			$sheet = null;
 		}
 
-		return [ 'sheet' => $sheet ];
+		return [
+			'sheet'         => $sheet,
+			'css_variables' => $fields['css_variables'] ?? null,
+		];
 	}
 
 	/**
