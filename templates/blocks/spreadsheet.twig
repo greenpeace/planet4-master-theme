@@ -1,7 +1,7 @@
 {% block spreadsheet %}
 
 	{% if ( sheet ) %}
-		<div class="block-spreadsheet" {% include "css_variables.twig" %}>
+		<div class="block-spreadsheet" {% include "css_variables.twig" with css_variables %}>
 			<div class="form-inline">
 				<input class="spreadsheet-search form-control" type="text" placeholder="{{ __('Search data', 'planet4-blocks') }}"/>
 			</div>

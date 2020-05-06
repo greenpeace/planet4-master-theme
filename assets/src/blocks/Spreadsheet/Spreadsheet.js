@@ -16,7 +16,11 @@ export class Spreadsheet extends Component {
   renderEdit() {
     const { __ } = wp.i18n;
 
-    const { color } = this.props;
+    const { attributes, setAttributes } = this.props;
+
+    const toAttribute = attributeName => value => {
+      setAttributes( { [ attributeName ]: value } );
+    };
 
     const colors = [
       { name: 'blue', color: '#C9E7FA' },
@@ -24,14 +28,23 @@ export class Spreadsheet extends Component {
       { name: 'grey', color: '#DCDCDC' },
     ];
 
+    const toCssVariable = ( variableName ) => ( value ) => {
+      setAttributes( {
+        css_variables: {
+          ...attributes.css_variables,
+          [variableName]: value,
+        }
+      } );
+    };
+
     return (
       <Fragment>
         <InspectorControls>
           <PanelBody title={__('Setting', 'p4ge')}>
             <ColorPaletteControl
               label={__('Table Color', 'p4ge')}
-              value={ color }
-              onChange={ this.props.onTableColorChange }
+              value={ attributes.css_variables['spreadsheet-row-background'] }
+              onChange={ toCssVariable('spreadsheet-row-background') }
               disableCustomColors
               clearable={ false }
               options= { colors }
@@ -49,8 +62,8 @@ export class Spreadsheet extends Component {
             even when "Automatically republish when changes are made" is checked. You can force an update by unpublishing
             and republishing the sheet. This will not change the sheet's public url.
             `, 'planet4-blocks-backend')}
-            value={this.props.url}
-            onChange={this.props.onUrlChange}
+            value={ attributes.url }
+            onChange={ toAttribute( 'url' ) }
           />
         </div>
       </Fragment>
@@ -68,9 +81,7 @@ export class Spreadsheet extends Component {
         <Preview showBar={this.props.isSelected}>
           <ServerSideRender
             block={ 'planet4-blocks/spreadsheet' }
-            attributes={{
-              url: this.props.url,
-            }}>
+            attributes={ this.props.attributes }>
           </ServerSideRender>
         </Preview>
       </div>
