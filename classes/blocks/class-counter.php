@@ -101,15 +101,18 @@ class Counter extends Base_Block {
 
 		$completed = 0;
 		if ( array_key_exists( 'completed', $fields ) ) {
-			$completed = floatval( $fields['completed'] );
+			$completed = (float) $fields['completed'];
 		}
-		$target = floatval( $fields['target'] );
+		$target = (float) $fields['target'];
 
 		if ( ! empty( $fields['completed_api'] ) ) {
 			$response_api  = wp_safe_remote_get( $fields['completed_api'] );
-			$response_body = json_decode( $response_api['body'], true );
-			if ( is_array( $response_body ) && array_key_exists( 'unique_count', $response_body ) && is_int( $response_body['unique_count'] ) ) {
-				$completed = floatval( $response_body['unique_count'] );
+			$response_body = [];
+			if ( ! is_wp_error( $response_api ) ) {
+				$response_body = json_decode( $response_api['body'], true );
+			}
+			if ( array_key_exists( 'unique_count', $response_body ) && is_int( $response_body['unique_count'] ) ) {
+				$completed = (float) $response_body['unique_count'];
 			}
 		}
 
