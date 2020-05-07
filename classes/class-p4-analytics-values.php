@@ -106,7 +106,7 @@ final class P4_Analytics_Values {
 			return self::from_cache_array( $cache );
 		}
 
-		$api_key = planet4_get_option( 'smartsheet_api_key' ) ?? getenv( 'SMARTSHEET_API_KEY' );
+		$api_key = defined( 'SMARTSHEET_API_KEY' ) ? SMARTSHEET_API_KEY : null;
 
 		if ( ! $api_key ) {
 			return self::from_hardcoded_values();
@@ -114,7 +114,7 @@ final class P4_Analytics_Values {
 
 		$smartsheet_client = P4_Smartsheet_Client::from_api_key( $api_key );
 
-		$global_sheet_id = planet4_get_option( 'analytics_global_smartsheet_id' ) ?? $_ENV['ANALYTICS_GLOBAL_SMARTSHEET_ID'] ?? '4212503304529796';
+		$global_sheet_id = $_ENV['ANALYTICS_GLOBAL_SMARTSHEET_ID'] ?? '4212503304529796';
 
 		if ( ! $global_sheet_id ) {
 			return self::from_hardcoded_values();
