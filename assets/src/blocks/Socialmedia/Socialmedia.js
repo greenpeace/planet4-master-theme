@@ -8,6 +8,7 @@ import {
   ServerSideRender
 } from '@wordpress/components';
 import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
+import {URLInput} from "../../components/URLInput/URLInput";
 
 const {apiFetch} = wp;
 const {addQueryArgs} = wp.url;
@@ -164,7 +165,7 @@ export class Socialmedia extends Component {
         }
 
         <div>
-          <TextControl
+          <URLInput
             label={__('URL', 'planet4-blocks-backend')}
             placeholder={__('Enter URL', 'planet4-blocks-backend')}
             value={this.props.social_media_url}

@@ -8,6 +8,7 @@ import {MediaPlaceholder} from "@wordpress/editor";
 
 import {Preview} from '../../components/Preview';
 import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
+import {URLInput} from "../../components/URLInput/URLInput";
 
 const TextControl = withCharacterCounter( BaseTextControl );
 const TextareaControl = withCharacterCounter( BaseTextareaControl );
@@ -39,7 +40,7 @@ export class Media extends Component {
               onChange={this.props.onDescriptionChange}
               characterLimit={400}
             />
-            <TextControl
+            <URLInput
               label={__('Media URL/ID', 'p4ge')}
               placeholder={__('Enter URL', 'p4ge')}
               value={youtube_id}

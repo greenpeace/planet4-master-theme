@@ -11,6 +11,7 @@ import {BlockControls,MediaUpload,MediaUploadCheck} from "@wordpress/editor";
 import {Preview} from '../../components/Preview';
 import {ImageOrButton} from '../../components/ImageOrButton/ImageOrButton';
 import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
+import {URLInput} from "../../components/URLInput/URLInput";
 
 const TextControl = withCharacterCounter( BaseTextControl );
 const TextareaControl = withCharacterCounter( BaseTextareaControl );
@@ -155,7 +156,7 @@ export class Splittwocolumns extends Component {
               onChange={this.props.onButtonTextChange}
               help={__('(Optional)', 'p4ge')}
             />
-            <TextControl
+            <URLInput
               label={__('Campaign button link', 'p4ge')}
               placeholder={__('Enter button link', 'p4ge')}
               value={button_link}

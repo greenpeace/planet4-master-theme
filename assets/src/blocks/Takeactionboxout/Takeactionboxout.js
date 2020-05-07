@@ -1,13 +1,12 @@
 import {Component,Fragment} from "@wordpress/element";
 import {BlockControls,MediaUpload,MediaUploadCheck} from "@wordpress/editor";
 import {Preview} from '../../components/Preview';
-import {ImageOrButton} from '../../components/ImageOrButton/ImageOrButton';
+import {URLInput} from '../../components/URLInput/URLInput';
 import {
 	FormTokenField,
   TextControl as BaseTextControl,
   TextareaControl as BaseTextareaControl,
 	ServerSideRender,
-	ToggleControl,
 	SelectControl,
 	CheckboxControl,
 	Toolbar,
@@ -116,14 +115,14 @@ export class Takeactionboxout extends Component {
 						disabled={this.takeActionPageSelected()}
             characterLimit={200}
           />
-					<TextControl
-						label={__('Custom Link', 'p4ge')}
-						placeholder={__('Enter Custom Link', 'p4ge')}
-						value={this.props.custom_link}
-						onChange={this.props.onCustomLinkChange}
-						disabled={this.takeActionPageSelected()}
-					/>
-					<TextControl
+          <URLInput
+            label={__('Custom Link', 'p4ge')}
+            placeholder={__('Enter Custom Link', 'p4ge')}
+            value={this.props.custom_link}
+            onChange={this.props.onCustomLinkChange}
+            disabled={this.takeActionPageSelected()}
+          />
+          <TextControl
 						label={__('Custom Link Text', 'p4ge')}
 						placeholder={__('Enter Custom Link Text', 'p4ge')}
 						value={this.props.custom_link_text}

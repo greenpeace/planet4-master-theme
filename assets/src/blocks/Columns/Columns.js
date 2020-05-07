@@ -12,6 +12,7 @@ import {MediaPlaceholder, MediaUpload, MediaUploadCheck} from "@wordpress/editor
 import {LayoutSelector} from '../../components/LayoutSelector/LayoutSelector';
 import {Preview} from '../../components/Preview';
 import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
+import {URLInput} from "../../components/URLInput/URLInput";
 
 const TextControl = withCharacterCounter(BaseTextControl);
 const TextareaControl = withCharacterCounter(BaseTextareaControl);
@@ -161,7 +162,7 @@ export class Columns extends Component {
                     </div>
                   }
 
-                  <TextControl
+                  <URLInput
                     label={__('Column %s: Button/CtA Link', 'p4ge').replace('%s', index+1)}
                     placeholder={__('Enter link for column %s', 'p4ge').replace('%s', index+1)}
                     value={item.cta_link}

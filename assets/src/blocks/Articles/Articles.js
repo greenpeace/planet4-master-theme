@@ -10,6 +10,7 @@ import withCharacterCounter from '../../components/withCharacterCounter/withChar
 import TagSelector from '../../components/TagSelector/TagSelector';
 import PostSelector from '../../components/PostSelector/PostSelector';
 import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector';
+import {URLInput} from "../../components/URLInput/URLInput";
 
 
 const TextControl = withCharacterCounter( BaseTextControl );
@@ -61,11 +62,10 @@ export class Articles extends Component {
 
 
         <div>
-          <TextControl
+          <URLInput
             label={__('Button Link', 'p4ge')}
-            placeholder={__('Add read more button link', 'p4ge')}
-            value={attributes.read_more_link}
-            onChange={ toAttribute('read_more_link')}
+            value={ attributes.read_more_link }
+            onChange={ toAttribute('read_more_link') }
           />
         </div>
 
