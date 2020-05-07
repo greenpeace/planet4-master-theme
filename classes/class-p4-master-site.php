@@ -685,7 +685,11 @@ class P4_Master_Site extends TimberSite {
 			remove_action( 'save_post', [ $this, 'p4_auto_generate_excerpt' ], 10 );
 
 			// Generate excerpt text.
-			$post_excerpt   = strip_shortcodes( $post->post_content );
+			$post_excerpt = strip_shortcodes( $post->post_content );
+
+			preg_match( '<p>(.*?)</p>', $post_excerpt, $match_paragraph );
+
+			$post_excerpt   = count( $match_paragraph ) > 0 ? $match_paragraph[1] : $post_excerpt;
 			$post_excerpt   = apply_filters( 'the_content', $post_excerpt );
 			$post_excerpt   = str_replace( ']]>', ']]&gt;', $post_excerpt );
 			$excerpt_length = apply_filters( 'excerpt_length', 30 );
