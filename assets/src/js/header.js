@@ -27,6 +27,10 @@ export const setupHeader = function($) {
     $button.attr('aria-expanded', function(i, attr) {
       return attr === 'false' ? 'true' : 'false';
     });
+
+    // Toggle data-ga-action attribute used in GTM tracking.
+    $('.country-dropdown-toggle').attr( 'data-ga-action', $('.country-dropdown-toggle').attr('aria-expanded') === 'false' ? 'Open Country Selector' : 'Close Country Selector' );
+    $('.navbar-search-toggle').attr( 'data-ga-action', $('.navbar-search-toggle').attr('aria-expanded') === 'false' ? 'Open Search' : 'Close Search' );
   });
 
   // Close all menus when clicking somewhere else

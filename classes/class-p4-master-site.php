@@ -355,6 +355,9 @@ class P4_Master_Site extends TimberSite {
 		$context['donatetext']           = $options['donate_text'] ?? __( 'DONATE', 'planet4-master-theme' );
 		$context['website_navbar_title'] = $options['website_navigation_title'] ?? __( 'International (English)', 'planet4-master-theme' );
 
+		$context['act_page_id']     = $options['act_page'] ?? '';
+		$context['explore_page_id'] = $options['explore_page'] ?? '';
+
 		// Footer context.
 		$context['copyright_text_line1']  = $options['copyright_line1'] ?? '';
 		$context['copyright_text_line2']  = $options['copyright_line2'] ?? '';
