@@ -1,0 +1,217 @@
+import { Component, Fragment } from '@wordpress/element';
+import { ArrowIcon } from './ArrowIcon';
+import { toDeclarations } from '../toDeclarations';
+import { HighlightMatches } from '../HighlightMatches';
+
+const { apiFetch } = wp;
+const { addQueryArgs } = wp.url;
+const { __ } = wp.i18n;
+
+const placeholderData = {
+  header: [ 'Lorem', 'Ipsum', 'Dolor' ],
+  rows: [
+    [ 'Lorem', 'Ipsum', 'Dolor' ],
+    [ 'Sit', 'Amet', 'Lorem' ],
+    [ 'Amet', 'Ipsum', 'Sit' ],
+  ]
+};
+
+export class SpreadsheetFrontend extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: null,
+      spreadSheetData: null,
+      searchText: '',
+      sortDirection: 'asc',
+      sortColumnIndex: null,
+    };
+
+    this.onHeaderClick = this.onHeaderClick.bind(this);
+  }
+
+  onHeaderClick( index ) {
+    if ( index == this.state.sortColumnIndex ) {
+      const newDirection = this.state.sortDirection == 'asc' ? 'desc' : 'asc';
+      this.setState({
+        sortDirection: newDirection
+      });
+    } else {
+      this.setState({
+        sortColumnIndex: index,
+        sortDirection: 'asc',
+      });
+    }
+  }
+
+  fetchSheetData( url ) {
+    const sheetID = this.extractSheetID( url );
+
+    if (sheetID !== false) {
+      if ( this.props.handleErrors ) {
+        this.props.handleErrors({ invalidSheetId: false })
+      }
+      this.setState({ loading: true });
+
+      const queryArgs = {
+        path: addQueryArgs('/planet4/v1/get-spreadsheet-data', {
+          sheet_id: sheetID,
+        })
+      };
+
+      apiFetch( queryArgs )
+        .then( spreadSheetData => {
+          this.setState( {
+            loading: false,
+            spreadSheetData
+          } );
+      } );
+    } else {
+      if ( this.props.handleErrors ) {
+        this.props.handleErrors( { invalidSheetId: true } );
+      }
+      this.setState({ loading: false, spreadSheetData: null });
+    }
+  }
+
+  componentDidMount() {
+    if ( this.props.url != '' ) {
+      this.fetchSheetData(this.props.url);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.url !== this.props.url) {
+      this.fetchSheetData(nextProps.url);
+    }
+  }
+
+  extractSheetID( url ) {
+    const googleSheetsPattern = /https:\/\/docs\.google\.com\/spreadsheets\/d\/e\/([\w-]+)/;
+    const matches = url.match(googleSheetsPattern);
+    if (matches !== null) {
+      return matches[1];
+    } else {
+      return false;
+    }
+  }
+
+  sortRows( rows, columnIndex ) {
+    if (columnIndex === null) {
+      return rows;
+    }
+
+    const sortedRows = rows.sort( ( rowA, rowB ) => {
+      const textCompare = rowA[columnIndex].localeCompare( rowB[columnIndex] );
+      if ( textCompare !== 0 ) {
+        return textCompare;
+      }
+    } );
+    if (this.state.sortDirection === 'desc') {
+      return sortedRows.reverse();
+    } else {
+      return sortedRows;
+    }
+  };
+
+  filterMatchingRows( rows ) {
+    const filteredRows = rows.filter( row => {
+      return row.some( cell => cell.toLowerCase().includes( this.state.searchText.toLowerCase() ) );
+    })
+    return filteredRows;
+  }
+
+  getRows() {
+    if ( this.state.spreadSheetData === null ) {
+      return placeholderData.rows;
+    } else if ( this.state.loading === true || this.state.loading === null ) {
+      return [];
+    } else {
+      return this.state.spreadSheetData.rows;
+    }
+  }
+
+  renderRows() {
+    const rows = this.sortRows( this.filterMatchingRows( this.getRows() ), this.state.sortColumnIndex );
+
+    return this.state.searchText.length > 1 && rows.length === 0
+      ? <tr>
+          <td colSpan="99999">
+            <div className='spreadsheet-empty-message'>
+              { __('No data matching your search.', 'planet4-blocks') }
+            </div>
+          </td>
+        </tr>
+      : rows.map((row, rowNumber) => (
+          <tr key={ rowNumber } data-order={ rowNumber }>
+            {
+              row.map((cell, cellIndex) => (
+                <td key={ cellIndex }>
+                  {
+                    this.state.searchText.length > 0
+                    ? HighlightMatches( cell, this.state.searchText )
+                    : cell
+                  }
+                </td>
+              ))
+            }
+          </tr>
+        ));
+  }
+
+  render() {
+    const headers = this.state.spreadSheetData
+      ? this.state.spreadSheetData.header
+      : placeholderData.header;
+
+    return (
+      <Fragment>
+        <section className="block block-spreadsheet" style={{ cssText: toDeclarations( this.props.css_variables ) }}>
+          <div className="form-inline">
+            <input className="spreadsheet-search form-control"
+              type="text"
+              value={ this.state.searchText }
+              onChange={ event => this.setState({ searchText: event.target.value.trim() }) }
+              placeholder={ __('Search data', 'planet4-blocks') } />
+          </div>
+          <div className="table-wrapper">
+            <table className="spreadsheet-table">
+              <thead>
+                <tr>
+                  {
+                    headers.map( (cell, index) => (
+                      <th
+                        className={
+                          (
+                            index == this.state.sortColumnIndex
+                              ? `spreadsheet-sorted-by sort-${this.state.sortDirection}`
+                              : ''
+                          )
+                        }
+                        onClick={ () => { this.onHeaderClick( index ) } }
+                        key={ index } title={ __('Sort by', 'planet4-blocks') }>
+                        { cell }
+                        <ArrowIcon />
+                      </th>
+                    ))
+                  }
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  this.state.loading === true
+                  ? <tr>
+                      <td colSpan="99999">
+                        <div className="spreadsheet-loading">{ __('Loading spreadsheet data...', 'planet4-blocks') }</div>
+                      </td>
+                    </tr>
+                  : this.renderRows()
+                }
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </Fragment>
+    )
+  }
+}
