@@ -402,6 +402,10 @@ class P4_Master_Site extends TimberSite {
 	 */
 	public function set_custom_allowed_css_properties( $allowedproperties ) {
 		$allowedproperties[] = 'object-position';
+		$allowedproperties[] = '--spreadsheet-header-background';
+		$allowedproperties[] = '--spreadsheet-even-row-background';
+		$allowedproperties[] = '--spreadsheet-odd-row-background';
+
 		return $allowedproperties;
 	}
 
