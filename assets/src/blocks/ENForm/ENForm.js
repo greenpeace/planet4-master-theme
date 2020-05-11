@@ -21,6 +21,10 @@ export class ENForm extends Component {
     super(props);
   }
 
+  isURLValid( url ) {
+    return !!url ? url.substr(0, 8).toLowerCase() === 'https://' : true;
+  }
+
   renderEdit() {
     const {getCurrentPostType} = wp.data.select("core/editor");
     const currentPostType      = getCurrentPostType();
@@ -252,6 +256,8 @@ export class ENForm extends Component {
                 value={this.props.custom_donate_url}
                 onChange={this.props.onCustomDonateUrlChange}
               />
+              {!this.isURLValid( this.props.custom_donate_url ) &&
+              <span className='input_error'>{ __('The URL must start with "HTTPS://"', 'planet4-engagingnetworks-backend') }</span>}
             </div> )
           }
           <br></br>
@@ -262,6 +268,8 @@ export class ENForm extends Component {
               value={this.props.thankyou_url}
               onChange={this.props.onThankYouURLChange}
             />
+            {!this.isURLValid( this.props.thankyou_url ) &&
+            <span className='input_error'>{ __('The URL must start with "HTTPS://"', 'planet4-engagingnetworks-backend') }</span>}
           </div>
 
           { "full-width" !== this.props.en_form_style &&
