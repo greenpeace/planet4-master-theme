@@ -15,7 +15,6 @@
 
     ul.submenu-item {
       flex-basis: 100%;
-      padding: 0;
 
       @include large-and-up {
         flex-basis: 50%;
@@ -34,8 +33,6 @@
     }
 
     li {
-      padding-left: 16px;
-
       &.list-style-bullet::before {
         content: "";
         background-image: url("../../public/images/icons/angle-right.svg");
