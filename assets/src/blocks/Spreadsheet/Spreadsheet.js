@@ -5,8 +5,36 @@ import ColorPaletteControl from '../../components/ColorPaletteControl/ColorPalet
 
 import {
   TextControl,
-  ServerSideRender, PanelBody, RangeControl, ToggleControl,
+  ServerSideRender,
+  PanelBody
 } from '@wordpress/components';
+
+const colors = [
+  { name: 'blue', color: '#c9e7fa' },
+  { name: 'green', color: '#d0fac9' },
+  { name: 'grey', color: '#dcdcdc' },
+];
+
+const colors_variables_map = {
+  // Grey variables (default)
+  '#dcdcdc': {
+    'spreadsheet-header-background': '#666666',
+    'spreadsheet-even-row-background': '#f7f7f7',
+    'spreadsheet-odd-row-background': '#dcdcdc'
+  },
+  // Green variables
+  '#d0fac9': {
+    'spreadsheet-header-background': '#073d14',
+    'spreadsheet-even-row-background': '#eafee7',
+    'spreadsheet-odd-row-background': '#d0fac9'
+  },
+  // Blue variables
+  '#c9e7fa': {
+    'spreadsheet-header-background': '#074365',
+    'spreadsheet-even-row-background': '#e7f5fe',
+    'spreadsheet-odd-row-background': '#c9e7fa'
+  }
+}
 
 export class Spreadsheet extends Component {
   constructor(props) {
@@ -22,18 +50,9 @@ export class Spreadsheet extends Component {
       setAttributes( { [ attributeName ]: value } );
     };
 
-    const colors = [
-      { name: 'blue', color: '#C9E7FA' },
-      { name: 'green', color: '#D0FAC9' },
-      { name: 'grey', color: '#DCDCDC' },
-    ];
-
-    const toCssVariable = ( variableName ) => ( value ) => {
+    const toCssVariables = ( value ) => {
       setAttributes( {
-        css_variables: {
-          ...attributes.css_variables,
-          [variableName]: value,
-        }
+        css_variables: colors_variables_map[value]
       } );
     };
 
@@ -43,8 +62,8 @@ export class Spreadsheet extends Component {
           <PanelBody title={__('Setting', 'p4ge')}>
             <ColorPaletteControl
               label={__('Table Color', 'p4ge')}
-              value={ attributes.css_variables['spreadsheet-row-background'] }
-              onChange={ toCssVariable('spreadsheet-row-background') }
+              value={ attributes.css_variables['spreadsheet-odd-row-background'] }
+              onChange={ toCssVariables }
               disableCustomColors
               clearable={ false }
               options= { colors }
