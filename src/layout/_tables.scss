@@ -14,7 +14,6 @@
     }
 
     th {
-      background-color: $dark-blue;
       color: $white;
       height: 36px;
       font-size: $font-size-xs;
@@ -37,8 +36,14 @@
       }
     }
 
+    // If it's a spreadsheet, the background colors are already set
+    &:not(.spreadsheet-table) th {
+      background-color: $dark-blue;
+    }
+
     // Table having `.has-background` class means that a background color was explicitly set on the block.
-    &:not(.has-background) {
+    // If it's a spreadsheet, the background colors are already set
+    &:not(.has-background), &:not(.spreadsheet-table) {
       tr:nth-child(odd) {
         background-color: $table-odd;
       }
