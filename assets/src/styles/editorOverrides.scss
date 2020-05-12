@@ -13,12 +13,8 @@
   }
 }
 
-.edit-post-visual-editor {
-  @include table;
-
-  .wp-block {
-    max-width: 90%;
-  }
+.edit-post-visual-editor .wp-block {
+  max-width: 90%;
 }
 
 .wp-block-image {
