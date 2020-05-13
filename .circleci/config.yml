@@ -116,7 +116,7 @@ jobs:
       - run:
           name: Test - Clone planet4-docker-compose
           command: |
-            git clone https://github.com/greenpeace/planet4-docker-compose
+            git clone --single-branch --branch planet-4998 https://github.com/greenpeace/planet4-docker-compose
       - run:
           name: Test - Run tests
           command: |
