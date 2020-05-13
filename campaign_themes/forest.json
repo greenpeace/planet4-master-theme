@@ -184,16 +184,6 @@
 					"default": "#1a1a1a"
 				}
 			}
-		},
-		{ "id": "spreadsheet-row-background", "default": "#A0D654" },
-		{ "id": "spreadsheet-row-color", "default": "#1A1A1A" },
-		{ "id": "spreadsheet-odd-rows-background", "default": "#B6ED5F" },
-		{ "id": "spreadsheet-odd-rows-color", "default": "#1A1A1A" },
-		{ "id": "spreadsheet-rows-hover-color", "default": "#FFFFFF" },
-		{ "id": "spreadsheet-rows-hover-background", "default": "#074365" },
-		{ "id": "spreadsheet-first-row-background", "default": "#2CAF4E" },
-		{ "id": "spreadsheet-first-row-color", "default": "#FFFFFF" },
-		{ "id": "spreadsheet-first-row-border-color", "default": "#FFFFFF" },
-		{ "id": "spreadsheet-search-border-color", "default": "#407ea2" }
+		}
 	]
 }
