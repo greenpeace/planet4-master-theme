@@ -27,6 +27,7 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 			add_filter( 'wp_import_post_meta', [ $this, 'process_campaign_metas' ] );
 			add_filter( 'wp_import_post_data_processed', [ $this, 'set_imported_campaigns_as_drafts' ], 10, 2 );
 			add_action( 'import_end', [ $this, 'action_import_end' ], 10, 0 );
+			add_filter( 'wp_import_post_meta', [ $this, 'skip_duplicate_postmeta_import' ], 10, 2 );
 		}
 
 		/**
@@ -280,6 +281,25 @@ if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 			}
 
 			return $post_meta;
+		}
+
+		/**
+		 * Skip already existing postmeta data from import.
+		 *
+		 * @param array   $postmeta The to be imported post meta fields.
+		 * @param integer $post_id Post ID.
+		 *
+		 * @return array The cleaned post meta fields.
+		 */
+		public function skip_duplicate_postmeta_import( $postmeta, $post_id ) {
+			$existing_postmeta = get_post_meta( $post_id );
+
+			return array_filter(
+				$postmeta,
+				function( $meta ) use ( $existing_postmeta ) {
+					return ! array_key_exists( $meta['key'], $existing_postmeta );
+				}
+			);
 		}
 	}
 }
