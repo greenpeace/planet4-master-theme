@@ -1,0 +1,54 @@
+{% block duplicate_postmeta_report %}
+
+	<div id="duplicate_postmeta_div" class="wrap">
+		<h2>{{ __( 'Duplicate Postmeta', 'planet4-blocks-backend' ) }}</h2>
+		</div>
+		<p>{{ __( 'Check duplicate postmeta records for below meta_key\'s', 'planet4-blocks-backend' ) }} - </p>
+		{% for postmeta_key in postmeta_keys %}
+			<p> - {{ postmeta_key }}</p>
+		{% endfor %}
+
+		<form id="p4bks_duplicate_postmeta_form" name="p4bks_duplicate_postmeta_form" method="post">
+		<p class="submit">
+			<input type="hidden" name="delete_duplicate_postmeta" value="1">
+			<input type="submit" name="remove_duplicate_postmenta" id="p4bks_remove_duplicate_button" class="button button-primary" value="{{ __( 'Remove Duplicate Postmeta', 'planet4-blocks-backend' ) }}">
+			<BR><BR>
+			<span class="convert-blocks-response cp-success">{{ message }}</span>
+			</p>
+		</form>
+		<div class="clear"></div>
+
+		<hr>
+		<h2>{{ __( 'Duplicate postmeta report', 'planet4-blocks-backend' ) }}</h2>
+		<table>
+		<tr>
+			<th style="padding: 0px 50px 0px 0px;">{{ __( 'Post ID', 'planet4-blocks-backend' ) }}</th>
+			<th>{{ __( 'Postmeta count', 'planet4-blocks-backend' ) }}</th>
+			<th>{{ __( 'Unique postmeta count', 'planet4-blocks-backend' ) }}</th>
+		</tr>
+		{% set all_count_total = 0 %}
+		{% set unique_count_total = 0 %}
+		{% for result in duplicate_postmeta %}
+			<tr>
+				<td>{{ result.post_id }}</td>
+				<td>{{ result.all_count }}</td>
+				<td>{{ result.unique_count }}</td>
+			</tr>
+			{% set all_count_total = all_count_total + result.all_count %}
+			{% set unique_count_total = unique_count_total + result.unique_count %}
+		{% endfor %}
+		{% if not duplicate_postmeta %}
+			<tr><td colspan="3"></td></tr>
+			<tr>
+				<td colspan="3">{{ __( 'No duplicate postmeta record/s found.', 'planet4-blocks-backend' ) }}</td>
+			</tr>
+		{% else %}
+			<tr>
+				<td><strong>{{ __( 'Total', 'planet4-blocks-backend' ) }}</strong></td>
+				<td><strong>{{ all_count_total }}</strong></td>
+				<td><strong>{{ unique_count_total }}</strong></td>
+			</tr>
+		{% endif %}
+		</table>
+
+{% endblock %}

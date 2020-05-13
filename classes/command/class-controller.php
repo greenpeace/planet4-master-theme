@@ -56,7 +56,36 @@ class Controller {
 		WP_CLI::log( 'Conversion duration: ' . round( $seconds_elapsed ) . ' seconds' );
 	}
 
-	// Add here new sub-commands e.g. wp p4-blocks new_sub_command.
+	/**
+	 * Sub command that removes duplicate postmeta records
+	 *
+	 * @throws WP_CLI\ExitException The thrown exception.
+	 */
+	public function remove_duplicate_postmeta() {
+
+		$start = microtime( true );
+
+		try {
+			WP_CLI::log( 'Removing duplicate postmeta records...' );
+
+			$deleted_rows = Duplicated_Postmeta::remove();
+
+			if ( $deleted_rows ) {
+				WP_CLI::success( "Removed $deleted_rows duplicate postmeta record/s" );
+			} else {
+				WP_CLI::log( 'No duplicate postmeta record found.' );
+			}
+		} catch ( \Error $e ) {
+			WP_CLI::error( $e->getMessage() );
+		} catch ( \Exception $e ) {
+			WP_CLI::log( 'Exception: ' . $e->getMessage() );
+		}
+
+		$seconds_elapsed = microtime( true ) - $start;
+		WP_CLI::log( 'Execution duration: ' . round( $seconds_elapsed ) . ' seconds' );
+	}
+
+	// Add here new sub-commands e.g. wp p4-gblocks new_sub_command.
 	// public function new_sub_command() {}.
 }
 
