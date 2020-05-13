@@ -12,15 +12,15 @@ import {
 const colors = [
   { name: 'blue', color: '#c9e7fa' },
   { name: 'green', color: '#d0fac9' },
-  { name: 'grey', color: '#dcdcdc' },
+  { name: 'grey', color: '#ececec' },
 ];
 
 const colors_variables_map = {
   // Grey variables (default)
-  '#dcdcdc': {
-    'spreadsheet-header-background': '#666666',
-    'spreadsheet-even-row-background': '#f7f7f7',
-    'spreadsheet-odd-row-background': '#dcdcdc'
+  '#ececec': {
+    'spreadsheet-header-background': '#45494c',
+    'spreadsheet-even-row-background': '#f5f7f8',
+    'spreadsheet-odd-row-background': '#ececec'
   },
   // Green variables
   '#d0fac9': {
