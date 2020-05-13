@@ -232,6 +232,20 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				[ Features::factory()->get_registered_feature( 'documents' ), 'setup_document_search' ],
 				10
 			);
+
+			add_filter(
+				'ep_intercept_remote_request',
+				function() {
+					return true;
+				},
+				10
+			);
+			add_filter(
+				'ep_do_intercept_request',
+				[ self::class, 'intercept_ep_request' ],
+				10,
+				4
+			);
 		}
 
 
@@ -1018,6 +1032,59 @@ if ( ! class_exists( 'P4_Search' ) ) {
 				$where     .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
 			}
 			return $where;
+		}
+
+		/**
+		 * Intercept ElasticPress request filter.
+		 * All these parameters are passed from EP.
+		 *
+		 * @param object $request Request object from ElasticPress.
+		 * @param array  $query Query from ElasticPress.
+		 * @param array  $args Arguments for the request.
+		 * @param array  $failures Errors array.
+		 */
+		public static function intercept_ep_request( $request, $query = null, $args = null, $failures = null ) {
+			$total_docs_count    = 0;
+			$indexed_docs_count  = 0;
+			$filtered_body_lines = [];
+
+			// Is this a bulk index task on the attachment pipeline?
+			if ( $query && ! ! preg_match( '/_bulk\?pipeline.*attachment/', $query['url'] ) ) {
+				$body_lines      = explode( "\n", $args['body'] );
+				$body_line_count = count( $body_lines );
+
+				for ( $i = 0; $i < $body_line_count; $i += 3 ) {
+
+					$total_docs_count++;
+
+					// e.g.: { index; ... }.
+					$index_header  = $body_lines[ $i ];
+					$index_content = $body_lines[ $i + 1 ];
+
+					$index_content_data = json_decode( $index_content, true );
+
+					// Not an attachment (no MIME type).
+					if ( 'attachment' !== $index_content_data['post_type'] ) {
+						$filtered_body_lines[] = $index_header;
+						$filtered_body_lines[] = $index_content;
+						$filtered_body_lines[] = '';
+						$indexed_docs_count++;
+					} elseif (
+							! empty( $index_content_data['post_mime_type'] ) &&
+							in_array( $index_content_data['post_mime_type'], self::DOCUMENT_TYPES, true )
+						) {
+						$filtered_body_lines[] = $index_header;
+						$filtered_body_lines[] = $index_content;
+						$filtered_body_lines[] = ''; // The third element ($body_lines[$i + 2]) is just an empty string.
+						$indexed_docs_count++;
+					}
+				}
+
+				$args['body'] = implode( "\n", $filtered_body_lines );
+			}
+
+			$request = wp_remote_request( $query['url'], $args );
+			return $request;
 		}
 
 		/**
