@@ -8,18 +8,7 @@ body {
   font-family: $lora;
   position: relative;
   overflow-y: hidden;
-
-  &.white-bg {
-    background-color: $white;
-  }
-
-  &.brown-bg {
-    background: $brown-bg;
-  }
-
-  &.home {
-    background-color: #ecf1f3;
-  }
+  background-color: $white;
 
   &.search {
     font-family: $roboto;
@@ -33,4 +22,28 @@ body {
 .container > * {
   position: relative;
   z-index: 2;
+}
+
+a {
+  color: $blue;
+
+  &.external-link {
+    .external-icon {
+      height: .55rem;
+      width: .55rem;
+      margin-left: .3rem;
+      margin-right: .4rem;
+
+      html[dir="rtl"] & {
+        margin-left: .4rem;
+        margin-right: .3rem;
+        transform: scaleX(-1);
+      }
+    }
+  }
+
+  &:hover {
+    color: $blue;
+    text-decoration: underline;
+  }
 }
