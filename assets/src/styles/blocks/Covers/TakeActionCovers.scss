@@ -89,6 +89,11 @@
     &.action-card {
       position: absolute;
       right: 0;
+
+      html[dir="rtl"] & {
+        right: auto;
+        left: 0;
+      }
     }
   }
 
