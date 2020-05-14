@@ -65,26 +65,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name'    => __( 'Copyright Text Line 1', 'planet4-master-theme-backend' ),
-					'id'      => 'copyright_line1',
-					'type'    => 'wysiwyg',
-					'options' => [
-						'textarea_rows' => 3,
-						'media_buttons' => false,
-					],
-				],
-
-				[
-					'name'    => __( 'Copyright Text Line 2', 'planet4-master-theme-backend' ),
-					'id'      => 'copyright_line2',
-					'type'    => 'wysiwyg',
-					'options' => [
-						'textarea_rows' => 2,
-						'media_buttons' => false,
-					],
-				],
-
-				[
 					'name' => __( 'Google Tag Manager Container', 'planet4-master-theme-backend' ),
 					'id'   => 'google_tag_manager_identifier',
 					'type' => 'text',
@@ -98,25 +78,15 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name' => __( 'Engaging Networks Subscribe Form URL', 'planet4-master-theme-backend' ),
-					'id'   => 'engaging_network_form_id',
-					'type' => 'text',
-				],
-
-				[
 					'name' => __( 'Facebook Page ID', 'planet4-master-theme-backend' ),
 					'id'   => 'facebook_page_id',
 					'type' => 'text',
 				],
 
 				[
-					'name'    => __( 'Cookies Text', 'planet4-master-theme-backend' ),
-					'id'      => 'cookies_field',
-					'type'    => 'wysiwyg',
-					'options' => [
-						'textarea_rows' => 5,
-						'media_buttons' => false,
-					],
+					'name' => __( 'Default P4 Post Type', 'planet4-master-theme-backend' ),
+					'id'   => 'default_p4_pagetype',
+					'type' => 'pagetype_select_taxonomy',
 				],
 
 				[
@@ -203,9 +173,9 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 				],
 
 				[
-					'name' => __( 'Default P4 Post Type', 'planet4-master-theme-backend' ),
-					'id'   => 'default_p4_pagetype',
-					'type' => 'pagetype_select_taxonomy',
+					'name' => __( 'Happy point Subscribe Form URL', 'planet4-master-theme-backend' ),
+					'id'   => 'engaging_network_form_id',
+					'type' => 'text',
 				],
 
 				[
@@ -222,13 +192,6 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 						'type' => 'image',
 					],
 					'desc'       => __( 'Minimum image width should be 1920px', 'planet4-master-theme-backend' ),
-				],
-
-				[
-					'name' => __( 'Enforce Cookies Policy', 'planet4-master-theme-backend' ),
-					'desc' => __( 'GDPR related setting. By enabling this option specific content will be blocked and will require user consent to be shown.', 'planet4-master-theme-backend' ),
-					'id'   => 'enforce_cookies_policy',
-					'type' => 'checkbox',
 				],
 
 				[
@@ -289,6 +252,43 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					),
 					'id'   => 'analytics_local_smartsheet_id',
 					'type' => 'text',
+				],
+
+				[
+					'name'    => __( 'Cookies Text', 'planet4-master-theme-backend' ),
+					'id'      => 'cookies_field',
+					'type'    => 'wysiwyg',
+					'options' => [
+						'textarea_rows' => 5,
+						'media_buttons' => false,
+					],
+				],
+
+				[
+					'name' => __( 'Enforce Cookies Policy', 'planet4-master-theme-backend' ),
+					'desc' => __( 'GDPR related setting. By enabling this option specific content will be blocked and will require user consent to be shown.', 'planet4-master-theme-backend' ),
+					'id'   => 'enforce_cookies_policy',
+					'type' => 'checkbox',
+				],
+
+				[
+					'name'    => __( 'Copyright Text Line 1', 'planet4-master-theme-backend' ),
+					'id'      => 'copyright_line1',
+					'type'    => 'wysiwyg',
+					'options' => [
+						'textarea_rows' => 3,
+						'media_buttons' => false,
+					],
+				],
+
+				[
+					'name'    => __( 'Copyright Text Line 2', 'planet4-master-theme-backend' ),
+					'id'      => 'copyright_line2',
+					'type'    => 'wysiwyg',
+					'options' => [
+						'textarea_rows' => 2,
+						'media_buttons' => false,
+					],
 				],
 			];
 			$this->hooks();
