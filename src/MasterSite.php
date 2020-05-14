@@ -672,11 +672,13 @@ class MasterSite extends TimberSite {
 		wp_enqueue_style( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css', [], '1.9.0' );
 
 		// This loads a linked style file since the relative images paths are outside the build directory.
-		wp_enqueue_style( 'parent-style', $this->theme_dir . '/assets/build/style.min.css', [], $css_creation );
+		wp_enqueue_style( 'parent-style', $this->theme_dir . '/assets/build/style.min.css?' . time(), [], $css_creation );
 
 		// JS files.
 		wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', [], '3.3.1', true );
 		wp_register_script( 'cssvarsponyfill', 'https://cdnjs.cloudflare.com/ajax/libs/css-vars-ponyfill/2.3.1/css-vars-ponyfill.min.js', [], '2', false );
+		wp_register_script( 'photoswipe', 'https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js', [], '4.1.3', false );
+		wp_register_script( 'photoswipeui', 'https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js', [], '4.1.3', false );
 
 		// Variables reflected from PHP to the JS side.
 		$localized_variables = [
@@ -686,7 +688,16 @@ class MasterSite extends TimberSite {
 			'show_scroll_times' => Search::SHOW_SCROLL_TIMES,
 		];
 
-		wp_register_script( 'main', $this->theme_dir . '/assets/build/index.js', [ 'jquery', 'cssvarsponyfill' ], $js_creation, true );
+		wp_register_script(
+			'main', $this->theme_dir . '/assets/build/index.js',
+			[
+				'jquery',
+				'cssvarsponyfill',
+				'photoswipe',
+				'photoswipeui'
+			],
+			$js_creation, true
+		);
 		wp_localize_script( 'main', 'localizations', $localized_variables );
 		wp_enqueue_script( 'main' );
 
