@@ -19,6 +19,11 @@ Text Domain: planet4-master-theme
 @import "styleguide/src/base/fonts";
 @import "styleguide/src/base/typography";
 @import "styleguide/src/base/icons";
+@import "styleguide/src/base/rtl";
+@import "styleguide/src/base/body";
+
+// To be taken care of later
+@import "styleguide/src/base/shame";
 
 // Components
 @import "styleguide/src/components/blockquote";
@@ -66,12 +71,6 @@ Text Domain: planet4-master-theme
 @import "pages/search/sort-filter";
 @import "pages/search/suggested-terms";
 
-// Body
-@import "base/body";
-
-// Right-To-Left
-@import "base/rtl";
-
 // Vendor overrides
 @import "vendors/fontawesome";
 @import "vendors/usabilla";
@@ -79,6 +78,3 @@ Text Domain: planet4-master-theme
 
 // Campaign overrides
 @import "campaigns/campaign_cookies";
-
-// To be taken care of later
-@import "base/shame";
