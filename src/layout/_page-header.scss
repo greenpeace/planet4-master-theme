@@ -133,15 +133,7 @@
     bottom: -.5%;
     left: 0;
     right: 0;
-    @include linear-gradient(360deg, $body-bg 0%, transparent 100%);
-
-    .brown-bg & {
-      @include linear-gradient(360deg, $brown-bg 0%, transparent 100%);
-    }
-
-    .white-bg & {
-      @include linear-gradient(360deg, $white 0%, transparent 100%);
-    }
+    @include linear-gradient(360deg, $white 0%, transparent 100%);
   }
 
   img {
