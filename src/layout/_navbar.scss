@@ -96,7 +96,7 @@ $navbar-default-height: 60px;
     align-items: center;
   }
 
-  a {
+  a.nav-link {
     color: $white;
 
     &:hover {
@@ -112,7 +112,6 @@ $navbar-default-height: 60px;
   .btn-donate {
     margin-top: 10px;
     height: 40px;
-    color: $grey;
   }
 
   // Move header down when WordPress Admin Bar is present
