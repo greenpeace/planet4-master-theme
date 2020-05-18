@@ -187,8 +187,6 @@ $heading:               #004d53;
 $step-number:           #a7a7a7;
 $brown-header:          #5c1f10;
 $single-bg:             #f6f4e7;
-$table-odd:             #f2f2f2;
-$table-even:            #eaeaea;
 
 // Colors to be fixed/addressed:
 $article-heading-color:	#152431;
@@ -201,6 +199,28 @@ $shadow-color:          $grey-60;
 $hover-nav:             #052a30;
 $cookie-bkg:            #c0dbe2;
 $cookie-blue:           #094464;
+
+// Table/spreadsheet colors
+$table-font-color: #020202;
+
+// Background colors
+// Grey variant (default)
+$table-header-grey: #45494c;
+$table-odd-row-grey: #ececec;
+$table-even-row-grey: #f5f7f8;
+$table-footer-grey: #e0e4e7;
+
+// Green variant
+$table-header-green: #073d14;
+$table-odd-row-green: #d0fac9;
+$table-even-row-green: #eafee7;
+$table-footer-green: #d1e8cd;
+
+// Blue variant
+$table-header-blue: #074365;
+$table-odd-row-blue: #c9e7fa;
+$table-even-row-blue: #e7f5fe;
+$table-footer-blue: #c3d7e2;
 
 // Allower colors for blocks palette
 $palette: (

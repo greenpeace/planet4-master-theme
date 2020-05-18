@@ -16,7 +16,6 @@
     }
 
     th {
-      background-color: $dark-blue;
       color: $white;
       height: 36px;
       font-size: $font-size-xs;
@@ -29,6 +28,7 @@
       font-size: $font-size-xs;
       padding: $n20;
       vertical-align: top;
+      color: $table-font-color;
 
       @include mobile-only {
         min-width: 300px;
@@ -39,14 +39,59 @@
       }
     }
 
-    // Table having `.has-background` class means that a background color was explicitly set on the block.
-    &:not(.has-background) {
+    // Background colors
+    // Grey background (defaut)
+    th {
+      background-color: $table-header-grey;
+    }
+
+    tr:nth-child(odd) {
+      background-color: $table-odd-row-grey;
+    }
+
+    tr:nth-child(even) {
+      background-color: $table-even-row-grey;
+    }
+
+    tfoot td {
+      background-color: $table-footer-grey;
+    }
+
+    // Green background
+    &.has-green-background-color {
+      th {
+        background-color: $table-header-green;
+      }
+
       tr:nth-child(odd) {
-        background-color: $table-odd;
+        background-color: $table-odd-row-green;
       }
 
       tr:nth-child(even) {
-        background-color: $table-even;
+        background-color: $table-even-row-green;
+      }
+
+      tfoot td {
+        background-color: $table-footer-green;
+      }
+    }
+
+    // Blue background
+    &.has-blue-background-color {
+      th {
+        background-color: $table-header-blue;
+      }
+
+      tr:nth-child(odd) {
+        background-color: $table-odd-row-blue;
+      }
+
+      tr:nth-child(even) {
+        background-color: $table-even-row-blue;
+      }
+
+      tfoot td {
+        background-color: $table-footer-blue;
       }
     }
   }
