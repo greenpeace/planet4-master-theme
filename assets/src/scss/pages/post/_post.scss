@@ -1,9 +1,5 @@
 .single-post {
   .skewed-overlay {
-    &:before {
-      background: $grey-light;
-    }
-
     mask-image: none;
     -webkit-mask-image: none;
   }
