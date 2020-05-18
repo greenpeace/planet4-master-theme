@@ -24,9 +24,9 @@ table.spreadsheet-table {
   }
 
   th {
-    background: var(--spreadsheet-header-background, #45494c);
-    color: #ffffff;
-    border-bottom: 1px solid var(--spreadsheet-header-background, #45494c);
+    background: var(--spreadsheet-header-background, $table-header-grey);
+    color: $white;
+    border-bottom: 1px solid var(--spreadsheet-header-background, $table-header-grey);
     cursor: pointer;
     font-size: $font-size-sm;
     position: sticky;
@@ -34,11 +34,11 @@ table.spreadsheet-table {
   }
 
   tr {
+    color: $table-font-color;
+
     td {
       padding: 5px 20px;
-
-      background: var(--spreadsheet-even-row-background, #f5f7f8);
-      color: #020202;
+      background: var(--spreadsheet-even-row-background, $table-even-row-grey);
       font-size: $font-size-xs;
 
       @include x-large-and-up {
@@ -48,8 +48,7 @@ table.spreadsheet-table {
 
     &:nth-child(odd) {
       td {
-        background: var(--spreadsheet-odd-row-background, #ececec);
-        color: #020202;
+        background: var(--spreadsheet-odd-row-background, $table-odd-row-grey);
       }
     }
   }
@@ -61,7 +60,7 @@ table.spreadsheet-table {
   height: 2rem;
   margin: 10px 0;
   padding: 0 8px;
-  border-color: var(--spreadsheet-header-background, #45494c);
+  border-color: var(--spreadsheet-header-background, $table-header-grey);
   border: 1px solid;
 }
 
