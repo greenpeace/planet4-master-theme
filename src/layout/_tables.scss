@@ -2,6 +2,7 @@
   table {
     margin-bottom: 15px;
     font-family: $roboto;
+    width: 100%;
 
     @include mobile-only {
       display: block;
@@ -21,6 +22,9 @@
       font-size: $font-size-xs;
       padding: 6px $n20;
       box-sizing: border-box;
+      @include x-large-and-up {
+        font-size: $font-size-md;
+      }
     }
 
     td {
@@ -36,62 +40,6 @@
 
       @include x-large-and-up {
         font-size: $font-size-md;
-      }
-    }
-
-    // Background colors
-    // Grey background (defaut)
-    th {
-      background-color: $table-header-grey;
-    }
-
-    tr:nth-child(odd) {
-      background-color: $table-odd-row-grey;
-    }
-
-    tr:nth-child(even) {
-      background-color: $table-even-row-grey;
-    }
-
-    tfoot td {
-      background-color: $table-footer-grey;
-    }
-
-    // Green background
-    &.has-green-background-color {
-      th {
-        background-color: $table-header-green;
-      }
-
-      tr:nth-child(odd) {
-        background-color: $table-odd-row-green;
-      }
-
-      tr:nth-child(even) {
-        background-color: $table-even-row-green;
-      }
-
-      tfoot td {
-        background-color: $table-footer-green;
-      }
-    }
-
-    // Blue background
-    &.has-blue-background-color {
-      th {
-        background-color: $table-header-blue;
-      }
-
-      tr:nth-child(odd) {
-        background-color: $table-odd-row-blue;
-      }
-
-      tr:nth-child(even) {
-        background-color: $table-even-row-blue;
-      }
-
-      tfoot td {
-        background-color: $table-footer-blue;
       }
     }
   }
