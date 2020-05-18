@@ -155,7 +155,7 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 			 * Use any combination of filters here, any matched filter will adjust
 			 * the weighted results according to the scoring settings set below.
 			 */
-			$formatted_args['query']['function_score']['functions'] = $existing_query['function_score']['functions'] ?? [] + [
+			$formatted_args['query']['function_score']['functions'] = ( $existing_query['function_score']['functions'] ?? [] ) + [
 				[
 					'filter' => [
 						'match' => [
