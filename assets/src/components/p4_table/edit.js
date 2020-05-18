@@ -599,7 +599,7 @@ export class TableEdit extends Component {
 			);
 		}
 
-		const tableClasses = classnames( backgroundColor.class, {
+		const tableClasses = classnames( backgroundColor.class, className, {
       'has-fixed-layout': hasFixedLayout
     } );
 
@@ -659,7 +659,7 @@ export class TableEdit extends Component {
 						] }
 					/>
 				</InspectorControls>
-				<figure className={ className }>
+				<figure>
 					<table className={ tableClasses }>
 						<Section name="head" rows={ head } />
 						<Section name="body" rows={ body } />
