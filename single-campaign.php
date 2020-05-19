@@ -6,6 +6,7 @@
  */
 
 use Timber\Timber;
+use P4MT\P4_Post_Campaign;
 
 // Initializing variables.
 $context = Timber::get_context();
@@ -15,7 +16,7 @@ $context = Timber::get_context();
  *
  * @var P4_Post $post
  * */
-$post            = Timber::query_post( false, 'P4_Post' ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+$post            = Timber::query_post( false, 'P4MT\P4_Post' ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $context['post'] = $post;
 
 $meta = get_post_meta( $post->ID );

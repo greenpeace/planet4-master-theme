@@ -5,8 +5,11 @@
  * @package P4MT
  */
 
+namespace P4MT;
+
 use Timber\Post as TimberPost;
 use Timber\Term as TimberTerm;
+use WP_Query;
 
 if ( ! class_exists( 'P4_Post' ) ) {
 

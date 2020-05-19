@@ -11,6 +11,8 @@
 
 use Timber\Timber;
 use Timber\PostQuery;
+use P4MT\P4_User;
+use P4MT\P4_Post;
 
 $context = Timber::get_context();
 

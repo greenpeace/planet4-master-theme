@@ -5,8 +5,11 @@
  * @package P4MT
  */
 
+namespace P4MT;
+
 use Timber\Timber;
 use Timber\Post as TimberPost;
+use WP_Query;
 
 if ( ! class_exists( 'P4_Search' ) ) {
 
@@ -854,7 +857,7 @@ if ( ! class_exists( 'P4_Search' ) ) {
 		 * @return stdClass
 		 */
 		private function prepare_keys_for_cache( $query_string, $group, $subgroup ) {
-			$cache_key_set        = new stdClass();
+			$cache_key_set        = new \stdClass();
 			$cache_key_set->key   = rawurlencode( $query_string );
 			$cache_key_set->group = rawurlencode( $group ) . ':' . rawurlencode( $subgroup );
 

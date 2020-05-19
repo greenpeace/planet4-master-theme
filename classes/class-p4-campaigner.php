@@ -5,6 +5,8 @@
  * @package P4MT
  */
 
+namespace P4MT;
+
 /**
  * Class P4_Campaigner.
  * Register custom 'campaigner' role and adds custom capabilities.

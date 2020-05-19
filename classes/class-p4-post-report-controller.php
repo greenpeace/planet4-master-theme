@@ -5,6 +5,8 @@
  * @package P4MT
  */
 
+namespace P4MT;
+
 if ( ! class_exists( 'P4_Post_Report_Controller' ) ) {
 
 	/**

@@ -5,6 +5,8 @@
  * @package P4MT
  */
 
+namespace P4MT;
+
 /**
  * Class P4_Metabox_Register
  */

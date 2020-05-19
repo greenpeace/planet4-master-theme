@@ -5,6 +5,8 @@
  * @package P4MT
  */
 
+namespace P4MT;
+
 /**
  * Class P4_Activator.
  * The main class that has activation/deactivation hooks for planet4 master-theme.

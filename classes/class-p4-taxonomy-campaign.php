@@ -5,6 +5,8 @@
  * @package P4MT
  */
 
+namespace P4MT;
+
 use Timber\Timber;
 
 if ( ! class_exists( 'P4_Taxonomy_Campaign' ) ) {

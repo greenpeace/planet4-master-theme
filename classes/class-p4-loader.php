@@ -5,6 +5,8 @@
  * @package P4MT
  */
 
+namespace P4MT;
+
 /**
  * Class P4_Loader.
  * Loads all necessary classes for Planet4 Master Theme.
@@ -50,28 +52,8 @@ final class P4_Loader {
 	 * @param array $services The dependencies to inject.
 	 */
 	private function __construct( $services ) {
-		$this->load_files();
 		$this->load_services( $services );
 		$this->add_filters();
-	}
-
-	/**
-	 * Load required files.
-	 */
-	private function load_files() {
-		try {
-			// Class names need to be prefixed with P4 and should use capitalized words separated by underscores. Any acronyms should be all upper case.
-			spl_autoload_register(
-				function ( $class_name ) {
-					if ( strpos( $class_name, 'P4_' ) !== false ) {
-						$file_name = 'class-' . str_ireplace( [ 'P4\\', '_' ], [ '', '-' ], strtolower( $class_name ) );
-						require_once __DIR__ . '/' . $file_name . '.php';
-					}
-				}
-			);
-		} catch ( \Exception $e ) {
-			echo esc_html( $e->getMessage() );
-		}
 	}
 
 	/**
@@ -82,47 +64,47 @@ final class P4_Loader {
 	private function load_services( $services ) {
 
 		$this->default_services = [
-			'P4_Custom_Taxonomy',
-			'P4_Post_Campaign',
-			'P4_Settings',
-			'P4_Post_Report_Controller',
-			'P4_Cookies',
-			'P4_Dev_Report',
-			'P4_Master_Site',
+			'P4MT\P4_Custom_Taxonomy',
+			'P4MT\P4_Post_Campaign',
+			'P4MT\P4_Settings',
+			'P4MT\P4_Post_Report_Controller',
+			'P4MT\P4_Cookies',
+			'P4MT\P4_Dev_Report',
+			'P4MT\P4_Master_Site',
 		];
 
 		if ( is_admin() ) {
 			global $pagenow;
 
 			// Load P4 Control Panel only on Dashboard page.
-			$this->default_services[] = 'P4_Control_Panel';
+			$this->default_services[] = 'P4MT\P4_Control_Panel';
 
 			// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
 			if ( 'post-new.php' === $pagenow || 'post.php' === $pagenow ) {
-				$this->default_services[] = 'P4_Metabox_Register';
+				$this->default_services[] = 'P4MT\P4_Metabox_Register';
 			}
 
 			// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
 			if ( 'edit-tags.php' === $pagenow || 'term.php' === $pagenow ) {
-				$this->default_services[] = 'P4_Campaigns';
+				$this->default_services[] = 'P4MT\P4_Campaigns';
 			}
 
 			// Load `P4_Campaign_Exporter` class on admin campaign listing page and campaign export only.
 			if ( 'campaign' === filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING ) || 'export_data' === filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING ) ) {
-				$this->default_services[] = 'P4_Campaign_Exporter';
+				$this->default_services[] = 'P4MT\P4_Campaign_Exporter';
 			}
 
 			// Load `P4_Campaign_Importer` class on admin campaign import only.
 			// phpcs:disable
 			if ( 'wordpress' === filter_input( INPUT_GET, 'import', FILTER_SANITIZE_STRING ) ) {
 				// phpcs:enable
-				$this->default_services[] = 'P4_Campaign_Importer';
+				$this->default_services[] = 'P4MT\P4_Campaign_Importer';
 			}
 		}
 
 		// Run P4_Activator after theme switched to planet4-master-theme or a planet4 child theme.
 		if ( get_option( 'theme_switched' ) ) {
-			$this->default_services[] = 'P4_Activator';
+			$this->default_services[] = 'P4MT\P4_Activator';
 		}
 
 		$services = array_merge( $services, $this->default_services );

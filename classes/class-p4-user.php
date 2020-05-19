@@ -5,6 +5,8 @@
  * @package P4MT
  */
 
+namespace P4MT;
+
 use Timber\User as TimberUser;
 
 if ( ! class_exists( 'P4_User' ) ) {

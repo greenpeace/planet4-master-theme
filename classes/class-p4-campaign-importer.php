@@ -5,6 +5,8 @@
  * @package P4MT
  */
 
+namespace P4MT;
+
 if ( ! class_exists( 'P4_Campaign_Importer' ) ) {
 	/**
 	 * Class P4_Campaign_Importer.

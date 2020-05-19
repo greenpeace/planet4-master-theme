@@ -7,6 +7,8 @@
  */
 
 use Timber\Timber;
+use P4MT\P4_Sitemap;
+use P4MT\P4_Post;
 
 $context        = Timber::get_context();
 $post           = new P4_Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited

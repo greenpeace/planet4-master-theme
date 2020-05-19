@@ -1,8 +1,28 @@
-vendor
+vendor/*
+!vendor/composer
+!vendor/autoload.php
 node_modules/
-/languages/*.po~
-/languages/*.pot~
 tests/backstop/
 
-# Built css and js assets
+# Translation backups #
+################
+/languages/*.po~
+/languages/*.pot~
+
+# Built css and js assets #
+###########################
 assets/build/*
+
+# Logs #
+########
+*.log
+
+# OS generated files #
+######################
+.DS_Store
+Thumbs.db
+
+# IDE generated files #
+#######################
+.idea
+reports

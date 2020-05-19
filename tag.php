@@ -13,12 +13,13 @@ use Timber\Timber;
 use P4GBKS\Blocks\Covers;
 use P4GBKS\Blocks\Articles;
 use P4GBKS\Blocks\HappyPoint;
+use P4MT\P4_Taxonomy_Campaign;
 
 $context = Timber::get_context();
 
 if ( is_tag() ) {
 	$context['tag']  = get_queried_object();
-	$explore_page_id = planet4_get_option( 'explore_page' );
+	$explore_page_id = P4MT\planet4_get_option( 'explore_page' );
 
 	$redirect_id = get_term_meta( $context['tag']->term_id, 'redirect_page', true );
 	if ( $redirect_id ) {

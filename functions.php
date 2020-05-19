@@ -35,5 +35,5 @@ if ( ! class_exists( 'Timber' ) ) {
 	}
 }
 
-require_once __DIR__ . '/classes/class-p4-loader.php';
-P4_Loader::get_instance();
+require_once __DIR__ . '/vendor/autoload.php';
+P4MT\P4_Loader::get_instance();

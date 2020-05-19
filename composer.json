@@ -43,5 +43,10 @@
   "scripts": {
     "fixes": "vendor/bin/phpcbf",
     "sniffs": "vendor/bin/phpcs"
+  },
+  "autoload": {
+    "psr-4": {
+      "P4MT\\":"classes/"
+    }
   }
 }

@@ -5,6 +5,8 @@
  * @package P4MT
  */
 
+namespace P4MT;
+
 use P4GEN\Controllers\Ensapi_Controller as ENS_API;
 use ElasticPress\Elasticsearch as ES;
 

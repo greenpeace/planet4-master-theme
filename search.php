@@ -9,6 +9,8 @@
  * @since   Timber 0.1
  */
 
+use P4MT\P4_ElasticSearch;
+
 /**
  * Planet4 - Search functionality.
  */

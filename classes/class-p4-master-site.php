@@ -5,9 +5,12 @@
  * @package P4MT
  */
 
+namespace P4MT;
+
 use Timber\Timber;
 use Timber\Site as TimberSite;
 use Timber\Menu as TimberMenu;
+use WP_Query;
 
 /**
  * Class P4_Master_Site.
@@ -114,8 +117,8 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'after_setup_theme', [ $this, 'add_image_sizes' ] );
 		add_action( 'save_post', [ $this, 'p4_auto_generate_excerpt' ], 10, 2 );
 
-		add_action( 'wp_ajax_get_paged_posts', [ 'P4_ElasticSearch', 'get_paged_posts' ] );
-		add_action( 'wp_ajax_nopriv_get_paged_posts', [ 'P4_ElasticSearch', 'get_paged_posts' ] );
+		add_action( 'wp_ajax_get_paged_posts', [ 'P4MT\P4_ElasticSearch', 'get_paged_posts' ] );
+		add_action( 'wp_ajax_nopriv_get_paged_posts', [ 'P4MT\P4_ElasticSearch', 'get_paged_posts' ] );
 
 		add_action( 'admin_head', [ $this, 'add_help_sidebar' ] );
 
@@ -371,8 +374,8 @@ class P4_Master_Site extends TimberSite {
 	 * @return mixed
 	 */
 	public function add_to_twig( $twig ) {
-		$twig->addExtension( new Twig_Extension_StringLoader() );
-		$twig->addFilter( new Twig_SimpleFilter( 'svgicon', [ $this, 'svgicon' ] ) );
+		$twig->addExtension( new \Twig_Extension_StringLoader() );
+		$twig->addFilter( new \Twig_SimpleFilter( 'svgicon', [ $this, 'svgicon' ] ) );
 
 		return $twig;
 	}
