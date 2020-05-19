@@ -48,30 +48,6 @@ import {
 	isEmptyTableSection,
 } from './state';
 
-const COLORS_VARIABLES_MAP = {
-  // Grey variables (default)
-  '#f5f7f8': {
-    'table-header-background': '#45494c',
-    'table-even-row-background': '#f5f7f8',
-    'table-odd-row-background': '#ececec',
-    'table-footer-background': '#e0e4e7'
-  },
-  // Green variables
-  '#eafee7': {
-    'table-header-background': '#073d14',
-    'table-even-row-background': '#eafee7',
-    'table-odd-row-background': '#d0fac9',
-    'table-footer-background': '#d1e8cd'
-  },
-  // Blue variables
-  '#e7f5fe': {
-    'table-header-background': '#074365',
-    'table-even-row-background': '#e7f5fe',
-    'table-odd-row-background': '#c9e7fa',
-    'table-footer-background': '#c3d7e2'
-  }
-}
-
 const BACKGROUND_COLORS = [
 	{
 		color: '#f5f7f8',
