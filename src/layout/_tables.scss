@@ -21,6 +21,9 @@
       font-size: $font-size-xs;
       padding: 6px $n20;
       box-sizing: border-box;
+      @include x-large-and-up {
+        font-size: $font-size-md;
+      }
     }
 
     td {
