@@ -62,4 +62,8 @@
       background-color: $table-odd-row-blue;
     }
   }
+
+  &:not(.is-style-stripes) table tbody tr:not(:last-child) {
+    border-bottom: 1px solid $white;
+  }
 }
