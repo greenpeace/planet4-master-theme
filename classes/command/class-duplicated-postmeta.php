@@ -59,19 +59,15 @@ class Duplicated_Postmeta {
 		global $wpdb;
 
 		// phpcs:disable
-		$sql = "SELECT `post_id`, COUNT(meta_id) AS all_count , COUNT(DISTINCT meta_key) AS unique_count
+		$sql = "SELECT `meta_key`, COUNT(post_id) AS all_count , COUNT(DISTINCT post_id) AS unique_count
 				FROM `wp_postmeta`
-				WHERE meta_key IN (" . self::generate_placeholders( self::META_KEY_LIST, 1 ) . ")
-				GROUP by `post_id`
-				HAVING all_count <> unique_count 
-				ORDER BY `all_count` DESC ";
+				GROUP by `meta_key`
+				HAVING all_count <> unique_count
+				ORDER BY `all_count` DESC";
 
-		$prepared_sql = $wpdb->prepare( $sql, self::META_KEY_LIST );
-
-		return $wpdb->get_results( $prepared_sql );
+		return $wpdb->get_results( $sql );
 		// phpcs:enable
 	}
-
 
 	/**
 	 * Generate a bunch of placeholders for use in an IN query.

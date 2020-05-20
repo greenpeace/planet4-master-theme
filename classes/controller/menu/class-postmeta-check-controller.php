@@ -50,7 +50,7 @@ class Postmeta_Check_Controller extends Controller {
 				// translators: %d = The duplicate postmeta count.
 				$data['message'] = sprintf( __( 'Remove %d duplicate postmeta records successfully.', 'planet4-blocks-backend' ), $deleted_rows );
 			} else {
-				$data['message'] = __( 'No duplicate postmeta record found.', 'planet4-blocks-backend' );
+				$data['message'] = __( 'No whitelisted duplicate postmeta records found.', 'planet4-blocks-backend' );
 			}
 		}
 	}
