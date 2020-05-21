@@ -306,14 +306,6 @@ body.wp-admin {
       .form-group {
         margin-bottom: 2em;
       }
-
-      .share-btn {
-        width: 31% !important;
-
-        @include small-and-up {
-          width: 32.5% !important;
-        }
-      }
     }
   }
 
@@ -341,11 +333,16 @@ body.wp-admin {
     .social-media {
       .share-buttons {
         float: none;
+        display: flex;
       }
 
       .share-btn {
-        width: 32.5%;
+        flex-grow: 1;
         box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+
+        &:not(:last-child) {
+          margin-right: 5px;
+        }
       }
 
       .twitter {
