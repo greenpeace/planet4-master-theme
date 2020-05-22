@@ -2,7 +2,8 @@
     "env": {
         "browser": true,
         "es6": true,
-        "jquery": true
+        "jquery": true,
+        "jest": true
     },
     "extends": "eslint:recommended",
     "rules": {
@@ -34,11 +35,15 @@
         "no-var": 1
     },
     "parserOptions": {
-      "ecmaVersion": 6,
-      "ecmaFeatures": {
-        "jsx": true,
-        "modules": true
-      },
-      "sourceType": "module"
+        "ecmaVersion": 8,
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true
+        },
+        "sourceType": "module"
+    },
+    "globals": {
+        "page": true,
+        "browser": true
     }
 }

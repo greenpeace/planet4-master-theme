@@ -60,7 +60,7 @@ job-references:
       - run:
           name: "eslint"
           when: always
-          command: eslint public/js/**/*.js
+          command: eslint public/js/**/*.js tests/js
       - store_test_results:
           path: /tmp/test-results
 
@@ -119,6 +119,7 @@ jobs:
             export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
             export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
             make -C planet4-docker-compose ci test
+
       - run:
           name: Test - Extract test artifacts
           when: always

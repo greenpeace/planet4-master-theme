@@ -2,6 +2,8 @@ import { Component, Fragment } from '@wordpress/element';
 import { InspectorControls } from '@wordpress/block-editor';
 import ColorPaletteControl from '../../components/ColorPaletteControl/ColorPaletteControl';
 
+import { debounce } from 'lodash';
+
 import {
   TextControl,
   PanelBody
@@ -43,7 +45,14 @@ export class SpreadsheetEditor extends Component {
     this.state = {
       invalidSheetId: false,
       errorFetchingSpreadsheet: false,
+      url: '',
     };
+
+    this.debounceSearch = debounce(url => {
+      this.props.setAttributes( { url } );
+    }, 300);
+
+    this.debounceSearch = this.debounceSearch.bind(this)
   }
 
   handleErrors( errors ) {
@@ -54,10 +63,6 @@ export class SpreadsheetEditor extends Component {
     const {__} = wp.i18n;
 
     const { attributes, setAttributes } = this.props;
-
-    const toAttribute = attributeName => value => {
-      setAttributes( { [ attributeName ]: value } );
-    };
 
     const toCssVariables = ( value ) => {
       setAttributes( {
@@ -80,8 +85,13 @@ export class SpreadsheetEditor extends Component {
             <TextControl
               label={__('Spreadsheet URL', 'planet4-blocks-backend')}
               placeholder={__('Enter Google Spreadsheet URL', 'planet4-blocks-backend')}
-              value={ attributes.url }
-              onChange={ toAttribute( 'url' ) }
+              value={ this.state.url }
+              onChange={
+                url => {
+                  this.setState({ url });
+                  this.debounceSearch( url );
+                }
+              }
             />
             <div className="sidebar-blocks-help">
               <ul>

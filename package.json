@@ -7,18 +7,21 @@
   "license": "GPL-3.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "wp-scripts start",
     "build": "wp-scripts build --mode production",
     "lint:css": "wp-scripts lint-style",
-    "setupgithooks": "bin/copy-git-hooks.sh"
+    "setupgithooks": "bin/copy-git-hooks.sh",
+    "test": "env JEST_TIMEOUT=15000 WP_USERNAME=admin WP_PASSWORD=admin WP_BASE_URL=https://www.planet4.test wp-scripts test-e2e",
+    "test:watch": "env JEST_TIMEOUT=30000 PUPPETEER_HEADLESS=false PUPPETEER_SLOWMO=100 WP_USERNAME=admin WP_PASSWORD=admin WP_BASE_URL=https://www.planet4.test wp-scripts test-e2e"
   },
   "devDependencies": {
     "@wordpress/components": "^8.3.2",
     "@wordpress/data": "^4.9.2",
+    "@wordpress/e2e-test-utils": "^4.5.0",
     "@wordpress/scripts": "3.3.0",
     "autoprefixer": "^9.7.0",
     "bootstrap": "^4.4.1",
+    "core-js": "^3.6.5",
     "css-loader": "^3.2.0",
     "lodash": "^4.17.15",
     "lodash.assign": "^4.2.0",
@@ -32,6 +35,7 @@
     "webpack-fix-style-only-entries": "^0.3.1"
   },
   "dependencies": {
-    "classnames": "^2.2.6"
+    "classnames": "^2.2.6",
+    "jest-environment-node": "^26.0.1"
   }
 }
