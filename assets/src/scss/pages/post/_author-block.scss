@@ -68,7 +68,7 @@
     width: 100%;
   }
 
-  @include medium-and-up {
+  @include large-and-up {
     img {
       width: auto;
     }
