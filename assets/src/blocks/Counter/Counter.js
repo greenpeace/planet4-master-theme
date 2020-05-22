@@ -6,6 +6,7 @@ import {
 import { LayoutSelector } from '../../components/LayoutSelector/LayoutSelector';
 import { Preview } from '../../components/Preview';
 import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
+import {URLInput} from "../../components/URLInput/URLInput";
 
 const TextControl = withCharacterCounter( BaseTextControl );
 const TextareaControl = withCharacterCounter( BaseTextareaControl );
@@ -86,9 +87,9 @@ export class Counter extends Component {
         </div>
 
         <div>
-          <TextControl
-            label= { __('Completed API URL', 'p4ge') }
-            placeholder= { __('API URL of completed number. If filled in will overide the \'Completed\' field', 'p4ge') }
+          <URLInput
+            label={ __('Completed API URL', 'p4ge') }
+            placeholder={ __('API URL of completed number. If filled in will overide the \'Completed\' field', 'p4ge') }
             value={ this.props.completed_api }
             onChange={ this.props.onCompletedAPIChange }
           />

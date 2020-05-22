@@ -8,6 +8,7 @@ import {
 } from '@wordpress/components';
 import {Preview} from '../../components/Preview';
 import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
+import {URLInput} from "../../components/URLInput/URLInput";
 
 const TextControl = withCharacterCounter( BaseTextControl );
 const TextareaControl = withCharacterCounter( BaseTextareaControl );
@@ -175,7 +176,7 @@ export class Timeline extends Component {
           </div>
 
           <div>
-            <TextControl
+            <URLInput
               label={__('Google Sheets URL', 'p4ge')}
               placeholder={__('Enter URL', 'p4ge')}
               help=<RawHTML>{url_desc}</RawHTML>

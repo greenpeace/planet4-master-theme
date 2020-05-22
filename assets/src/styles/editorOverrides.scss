@@ -206,3 +206,9 @@ input.describe[type=text][data-setting=caption] {
 .cmb2_required_field_error {
   border-color: $red !important;
 }
+
+.input_error {
+  font-family: $roboto;
+  font-size: 13px;
+  color: red;
+}
