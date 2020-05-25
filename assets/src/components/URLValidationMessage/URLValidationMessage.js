@@ -5,38 +5,29 @@ export class URLValidationMessage extends Component {
     super(props);
   }
 
+  isValid( url ) {
+    if ( !url ) {
+      return true;
+    }
+
+    if ( ! url.toLowerCase().startsWith('https://') ) {
+      return false;
+    }
+
+    return true;
+  }
+
   render() {
 
     const {__} = wp.i18n;
     const { url } = this.props
 
-    let errorMessage = "";
-
-
-    const isURLValid = () => {
-      if ( !url ) {
-        return true;
-      }
-
-      try {
-        const urlObject = new URL(url);
-        if ( urlObject.protocol !== 'https:') {
-          errorMessage = 'The URL must start with "HTTPS://"';
-          return false;
-        }
-        return true;
-      } catch(e) {
-        errorMessage = 'The URL is invalid';
-        return false;
-      }
-    }
-
-    if (isURLValid()) {
+    if ( this.isValid( url ) ) {
         return null;
     }
 
     return (
-        <span className='input_error'>{ __(errorMessage, 'p4ge') }</span>
+        <span className='input_error'>{ __('The URL must start with "https://"', 'p4ge') }</span>
     )
   }
 }
