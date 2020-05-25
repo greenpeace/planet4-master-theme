@@ -264,6 +264,41 @@ function empty_string_to_false_in_link_new_tab_in_columns_blocks( $block ): arra
 
 add_filter( 'render_block_data', 'empty_string_to_false_in_link_new_tab_in_columns_blocks' );
 
+// Add a filter to prevent the main query from being run on the DB or ES. This is needed because we actually executed a
+// separate query for our results and never use the result of the main query. Returning an empty array in
+// posts_pre_query for the main query on a search page short circuits the main query. However we also need to remove the
+// filter that is set up by ElasticPress. Then we call it manually in our filter when we're not performing the main
+// query of search.
+
+// Even though all instances have ElasticPress plugin, this is run during unit tests where the ElasticPress plugin is
+// not (yet?) loaded, causing a fatal error.
+if ( class_exists( Elasticpress\Indexables::class ) ) {
+
+	remove_filter(
+		'posts_pre_query',
+		[
+			\ElasticPress\Indexables::factory()->get( 'post' )->query_integration,
+			'get_es_posts',
+			10,
+		]
+	);
+
+	add_filter(
+		'posts_pre_query',
+		function ( $posts, $query ) {
+			if ( is_search() && $query->is_main_query() ) {
+				return [];
+			}
+			return \ElasticPress\Indexables::factory()->get( 'post' )->query_integration->get_es_posts(
+				$posts,
+				$query
+			);
+		},
+		10,
+		2
+	);
+}
+
 /*
 ==========================
 	L O A D  P L U G I N
