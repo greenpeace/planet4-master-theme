@@ -28,13 +28,17 @@
 				<div class="thumbnail-largeview-container limit-visibility">
 					{% for tag in fields.tags %}
 						<div class="campaign-card-column">
-							<a href="{{ tag.href }}">
-								<div class="thumbnail-large">
-									{% if ( tag.image[0] ) %}
-										<img src="{{ tag.image[0] }}" alt="{{ tag.alt_text }}">
-									{% endif %}
-									<span class="yellow-cta">#{{ tag.name }}</span>
-								</div>
+							<a
+								href="{{ tag.href }}"
+								data-ga-category="Campaign Covers"
+								data-ga-action="Image"
+								data-ga-label="n/a">
+									<div class="thumbnail-large">
+										{% if ( tag.image[0] ) %}
+											<img src="{{ tag.image[0] }}" alt="{{ tag.alt_text }}">
+										{% endif %}
+										<span class="yellow-cta">#{{ tag.name }}</span>
+									</div>
 							</a>
 						</div>
 					{% endfor %}
