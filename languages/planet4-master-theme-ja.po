@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2018-11-29 13:31+0000\n"
-"PO-Revision-Date: 2018-12-12 10:01+0000\n"
+"POT-Creation-Date: 2018-12-13 11:03+0000\n"
+"PO-Revision-Date: 2020-05-25 14:49+0000\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,12 +16,20 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: Akiko Tsuchiy <atsuchiy@greenpeace.org>\n"
+"Last-Translator: Maud Leray - P4 Team\n"
 "Language: ja\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.2.0; wp-4.9.8"
+"X-Loco-Version: 2.3.4; wp-5.4.1"
+
+#: single.php:33
+msgid "Post page"
+msgstr "投稿ページ"
+
+#: single.php:67
+msgid "Leave Your Reply"
+msgstr "あなたの返答を残す"
 
 #: 404.php:16
 msgid "Sorry, we can't find that page!"
@@ -34,6 +42,26 @@ msgstr "検索キーワードを下に入れる"
 #: 404.php:18
 msgid "404 Page"
 msgstr "国際環境NGOグリーンピース | 国際環境NGOグリーンピース"
+
+#: tag.php:48
+msgid "Unknown Campaign page"
+msgstr "該当するキャンペーンページはありません"
+
+#: tag.php:54
+msgid "Things you can do"
+msgstr "あなたにできること"
+
+#: tag.php:55
+msgid "We want you to take action because together we're strong."
+msgstr "ぜひグリーンピースと一緒に、行動してください。"
+
+#: tag.php:83
+msgid "Related Campaigns"
+msgstr "関連するキャンペーン"
+
+#: tag.php:84
+msgid "This Campaign is not assigned to an Issue"
+msgstr "このキャンペーンは特定の分野がありません"
 
 #: functions.php:85
 msgid "Most relevant"
@@ -58,34 +86,6 @@ msgstr "寄付する"
 #: functions.php:271
 msgid "International (English)"
 msgstr "インターナショナル（英語）"
-
-#: single.php:33
-msgid "Post page"
-msgstr "投稿ページ"
-
-#: single.php:67
-msgid "Leave Your Reply"
-msgstr "あなたの返答を残す"
-
-#: tag.php:48
-msgid "Unknown Campaign page"
-msgstr "該当するキャンペーンページはありません"
-
-#: tag.php:54
-msgid "Things you can do"
-msgstr "あなたにできること"
-
-#: tag.php:55
-msgid "We want you to take action because together we're strong."
-msgstr "ぜひグリーンピースと一緒に、行動してください。"
-
-#: tag.php:83
-msgid "Related Campaigns"
-msgstr "関連するキャンペーン"
-
-#: tag.php:84
-msgid "This Campaign is not assigned to an Issue"
-msgstr "このキャンペーンは特定の分野がありません"
 
 #: classes/class-p4-post.php:190 classes/class-p4-search.php:570
 msgid "ACTION"
@@ -168,13 +168,147 @@ msgstr "グリーンピースについて"
 msgid "Articles"
 msgstr "記事"
 
-#: templates/author.twig:33
+#: templates/author.twig:36
 msgid "Posts by "
 msgstr "投稿者"
 
-#: templates/author.twig:53 templates/page_type.twig:38
+#: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
 msgstr "もっとみる"
+
+#: templates/navigation-bar.twig:6
+msgid "Toggle navigation menu"
+msgstr ""
+
+#: templates/navigation-bar.twig:7 templates/search.twig:8
+#: templates/search.twig:45 templates/404.twig:17
+msgid "Search"
+msgstr "検索する"
+
+#: templates/navigation-bar.twig:15
+msgid "Menu"
+msgstr "メニュー"
+
+#: templates/navigation-bar.twig:20
+msgid "Close Menu"
+msgstr "メニューをとじる"
+
+#: templates/navigation-bar.twig:29
+msgid "Selected"
+msgstr ""
+"選択済み\n"
+
+#: templates/navigation-bar.twig:30
+msgid "Change Country"
+msgstr "国を変更する"
+
+#: templates/navigation-bar.twig:60
+msgid "Toggle search form"
+msgstr "Toggle search form"
+
+#: templates/cookies.twig:8
+msgid "GOT IT!"
+msgstr "許可する"
+
+#: templates/search.twig:16
+msgid "We're sorry we couldn't find any matches for your search term."
+msgstr "申し訳ありませんが、検索条件に合うコンテンツが見つかりませんでした。"
+
+#: templates/search.twig:18
+msgid "Check for typos, and try your search again"
+msgstr "キーワードを変更し、検索し直してください"
+
+#: templates/search.twig:19
+msgid "Try searching for somthing else"
+msgstr "他のキーワードを検索する"
+
+#: templates/search.twig:20
+msgid "Search our archive. You'll be redirected to the archive site."
+msgstr "アーカイブを検索する。アーカイブサイトにリダイレクトします。"
+
+#: templates/search.twig:24
+msgid "We also included results for "
+msgstr "次の結果を含む"
+
+#: templates/search.twig:38
+msgid "This Site"
+msgstr "こちらのウェブサイト"
+
+#: templates/search.twig:39
+msgid "Archive"
+msgstr "保存"
+
+#: templates/search.twig:57
+msgid "Filters"
+msgstr "フィルター"
+
+#: templates/search.twig:63 templates/search.twig:164
+msgid "Refine your search"
+msgstr "検索し直す"
+
+#: templates/search.twig:71
+msgid "ISSUE"
+msgstr "分野"
+
+#: templates/search.twig:92
+msgid "CATEGORY"
+msgstr "カテゴリー"
+
+#: templates/search.twig:113
+msgid "CONTENT TYPES"
+msgstr "コンテンツタイプ"
+
+#: templates/search.twig:137
+msgid "CAMPAIGN"
+msgstr "活動"
+
+#: templates/search.twig:156
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: templates/search.twig:157
+msgid "Apply Filters"
+msgstr "フィルターを設定する"
+
+#: templates/search.twig:167
+msgid "ACTIVE FILTERS"
+msgstr "設定中のフィルター"
+
+#: templates/search.twig:176
+msgid "Clear All"
+msgstr "すベてクリア"
+
+#: templates/search.twig:183
+msgid "Issue"
+msgstr "分野"
+
+#: templates/search.twig:202
+msgid "Campaign"
+msgstr "活動"
+
+#: templates/search.twig:221
+msgid "Category"
+msgstr "カテゴリー"
+
+#: templates/search.twig:240
+msgid "Content type"
+msgstr "コンテンツタイプ"
+
+#: templates/search.twig:263
+msgid "Sort by"
+msgstr "並べ替える"
+
+#: templates/search.twig:300
+msgid "Suggested search terms"
+msgstr "おすすめ検索キーワード"
+
+#: templates/tease-search.twig:67
+msgid "take action"
+msgstr "アクションに参加する"
+
+#: templates/tease-search.twig:70
+msgid "Download"
+msgstr "ダウンロードする"
 
 #: templates/base.twig:10
 msgid "Skip to Navigation"
@@ -188,146 +322,61 @@ msgstr "コンテンツに飛ぶ"
 msgid "Skip to Footer"
 msgstr "フッターに飛ぶ"
 
-#: templates/cookies.twig:8
-msgid "GOT IT!"
-msgstr "許可する"
-
-#: templates/navigation-bar.twig:13
-msgid "Menu"
-msgstr "メニュー"
-
-#: templates/navigation-bar.twig:18
-msgid "Close Menu"
-msgstr "メニューをとじる"
-
-#: templates/navigation-bar.twig:27
-msgid "Selected"
-msgstr ""
-"選択済み\n"
-
-#: templates/navigation-bar.twig:28
-msgid "Change Country"
-msgstr "国を変更する"
-
-#: templates/navigation-bar.twig:58
-msgid "Toggle search form"
-msgstr "Toggle search form"
-
-#: templates/navigation-bar.twig:66 templates/search.twig:44
-msgid "Search"
-msgstr "検索する"
-
-#: templates/page_type.twig:18
-msgid "Results"
-msgstr "結果"
-
-#: templates/search.twig:15
-msgid "We're sorry we couldn't find any matches for your search term."
-msgstr "申し訳ありませんが、検索条件に合うコンテンツが見つかりませんでした。"
-
-#: templates/search.twig:17
-msgid "Check for typos, and try your search again"
-msgstr "キーワードを変更し、検索し直してください"
-
-#: templates/search.twig:18
-msgid "Try searching for somthing else"
-msgstr "他のキーワードを検索する"
-
-#: templates/search.twig:19
-msgid "Search our archive. You'll be redirected to the archive site."
-msgstr "アーカイブを検索する。アーカイブサイトにリダイレクトします。"
-
-#: templates/search.twig:23
-msgid "We also included results for "
-msgstr "次の結果を含む"
-
-#: templates/search.twig:37
-msgid "This Site"
-msgstr "こちらのウェブサイト"
-
-#: templates/search.twig:38
-msgid "Archive"
-msgstr "アーカイブする"
-
-#: templates/search.twig:56
-msgid "Filters"
-msgstr "フィルター"
-
-#: templates/search.twig:62 templates/search.twig:163
-msgid "Refine your search"
-msgstr "検索し直す"
-
-#: templates/search.twig:70
-msgid "ISSUE"
-msgstr "分野"
-
-#: templates/search.twig:91
-msgid "CATEGORY"
-msgstr "カテゴリー"
-
-#: templates/search.twig:112
-msgid "CONTENT TYPES"
-msgstr "コンテンツタイプ"
-
-#: templates/search.twig:136
-msgid "CAMPAIGN"
-msgstr "キャンペーン"
-
-#: templates/search.twig:155
-msgid "Cancel"
-msgstr "キャンセル"
-
-#: templates/search.twig:156
-msgid "Apply Filters"
-msgstr "フィルターを設定する"
-
-#: templates/search.twig:166
-msgid "ACTIVE FILTERS"
-msgstr "設定中のフィルター"
-
-#: templates/search.twig:175
-msgid "Clear All"
-msgstr "すベてクリア"
-
-#: templates/search.twig:182
-msgid "Issue"
-msgstr "分野"
-
-#: templates/search.twig:201
-msgid "Campaign"
-msgstr "キャンペーン"
-
-#: templates/search.twig:220
-msgid "Category"
-msgstr "カテゴリー"
-
-#: templates/search.twig:239
-msgid "Content type"
-msgstr "コンテンツタイプ"
-
-#: templates/search.twig:262
-msgid "Sort by"
-msgstr "並べ替える"
-
-#: templates/search.twig:299
-msgid "Suggested search terms"
-msgstr "おすすめ検索キーワード"
-
-#: templates/single.twig:41
+#: templates/single.twig:41 templates/tease-taxonomy-post.twig:26
 msgid "by"
 msgstr "ライター"
 
-#: templates/tease-search.twig:67
-msgid "take action"
-msgstr "アクションに参加する"
+#: templates/single.twig:53 templates/comments_section.twig:2
+msgid "Comments"
+msgstr ""
 
-#: templates/tease-search.twig:70
-msgid "Download"
-msgstr "ダウンロードする"
+#: templates/comments_section.twig:8
+msgid "Discussion"
+msgstr ""
+
+#: templates/taxonomy.twig:18
+msgid "Results"
+msgstr "結果"
+
+#: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
+msgid "Share on"
+msgstr ""
+
+#: templates/blocks/share_buttons.twig:21
+msgid "Share via"
+msgstr ""
 
 #: templates/blocks/author_profile.twig:4
 msgid "about the author"
 msgstr "ライターについて"
+
+#: templates/comment_form/email_field.twig:2
+msgid "Email"
+msgstr ""
+
+#: templates/comment_form/email_field.twig:3
+msgid "Your Email"
+msgstr ""
+
+#: templates/comment_form/comment_field.twig:2
+msgid "Comment"
+msgstr ""
+
+#: templates/comment_form/comment_field.twig:3
+msgid "Your Comment"
+msgstr ""
+
+#: templates/comment_form/author_field.twig:2
+msgid "Name"
+msgstr ""
+
+#: templates/comment_form/author_field.twig:3
+msgid "Your Name"
+msgstr ""
+
+#: templates/comment_form/submit_button.twig:1
+msgid "Post Comment"
+msgstr ""
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"
