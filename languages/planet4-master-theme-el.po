@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2020-05-26 15:18+0000\n"
+"PO-Revision-Date: 2020-05-26 15:46+0000\n"
 "Last-Translator: Nikos Roussos\n"
 "Language-Team: Greek\n"
 "Language: el\n"
@@ -319,11 +319,11 @@ msgstr "από"
 
 #: templates/single.twig:53 templates/comments_section.twig:2
 msgid "Comments"
-msgstr "Σχόλια"
+msgstr ""
 
 #: templates/comments_section.twig:8
 msgid "Discussion"
-msgstr ""
+msgstr "Συζήτηση"
 
 #: templates/taxonomy.twig:18
 msgid "Results"
@@ -351,11 +351,11 @@ msgstr ""
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
-msgstr "Σχόλιο"
+msgstr ""
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr ""
+msgstr "Το Σχόλιο σου"
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
