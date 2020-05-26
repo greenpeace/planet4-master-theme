@@ -58,6 +58,19 @@
           max-width: 65%;
         }
       }
+
+      hr.is-style-wide, hr.is-style-dots {
+        @include large-and-up {
+          max-width: 65%;
+          margin-left: 0;
+        }
+      }
+
+      hr:not(.is-style-wide):not(.is-style-dots) {
+        @include large-and-up {
+          margin-left: calc((65% - 100px) / 2);
+        }
+      }
     }
   }
 }
