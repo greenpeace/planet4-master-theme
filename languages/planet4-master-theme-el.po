@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2020-05-25 20:53+0000\n"
+"PO-Revision-Date: 2020-05-26 15:18+0000\n"
 "Last-Translator: Nikos Roussos\n"
 "Language-Team: Greek\n"
 "Language: el\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.3.4; wp-5.4.1"
+"X-Loco-Version: 2.4.0; wp-5.4.1"
 
 #: single.php:33
 msgid "Post page"
@@ -319,7 +319,7 @@ msgstr "από"
 
 #: templates/single.twig:53 templates/comments_section.twig:2
 msgid "Comments"
-msgstr ""
+msgstr "Σχόλια"
 
 #: templates/comments_section.twig:8
 msgid "Discussion"
@@ -343,7 +343,7 @@ msgstr "βιογραφικό"
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
@@ -351,7 +351,7 @@ msgstr ""
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
-msgstr ""
+msgstr "Σχόλιο"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
@@ -359,7 +359,7 @@ msgstr ""
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr "Όνομα"
+msgstr ""
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
