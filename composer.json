@@ -30,9 +30,6 @@
       "vendor/plugins/{$name}/": ["type:wordpress-plugin"]
     }
   },
-  "require": {
-    "wpackagist-plugin/timber-library": "1.*"
-  },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.5.3",
     "wp-coding-standards/wpcs": "^2.2.0",
