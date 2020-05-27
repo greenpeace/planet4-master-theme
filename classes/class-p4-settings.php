@@ -245,7 +245,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 					'type' => 'text',
 				],
 				[
-					'name' => __( 'Analytics Local smartsheet id', 'planet4-master-theme-backend' ),
+					'name' => __( 'Local Projects Smartsheet ID', 'planet4-master-theme-backend' ),
 					'desc' => __(
 						'The smartsheet that is used to get analytics values from local(NRO) smartsheet.',
 						'planet4-master-theme-backend'
