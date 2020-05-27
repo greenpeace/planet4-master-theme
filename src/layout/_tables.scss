@@ -2,24 +2,29 @@
   table {
     margin-bottom: 15px;
     font-family: $roboto;
+    width: 100%;
 
     @include mobile-only {
       display: block;
       overflow: auto;
     }
 
+    thead,
+    tfoot,
     th,
     td {
       border: none;
     }
 
     th {
-      background-color: $dark-blue;
       color: $white;
       height: 36px;
       font-size: $font-size-xs;
       padding: 6px $n20;
       box-sizing: border-box;
+      @include x-large-and-up {
+        font-size: $font-size-md;
+      }
     }
 
     td {
@@ -27,6 +32,7 @@
       font-size: $font-size-xs;
       padding: $n20;
       vertical-align: top;
+      color: $table-font-color;
 
       @include mobile-only {
         min-width: 300px;
@@ -34,17 +40,6 @@
 
       @include x-large-and-up {
         font-size: $font-size-md;
-      }
-    }
-
-    // Table having `.has-background` class means that a background color was explicitly set on the block.
-    &:not(.has-background) {
-      tr:nth-child(odd) {
-        background-color: $table-odd;
-      }
-
-      tr:nth-child(even) {
-        background-color: $table-even;
       }
     }
   }
