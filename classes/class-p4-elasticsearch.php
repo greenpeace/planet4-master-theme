@@ -48,12 +48,6 @@ if ( ! class_exists( 'P4_ElasticSearch' ) ) {
 														],
 													];
 												}
-												// Make sure it is a Page.
-												$formatted_args['post_filter']['bool']['must'][] = [
-													'terms' => [
-														'post_type' => array_values( (array) $args['post_type'] ),
-													],
-												];
 												return $formatted_args;
 											},
 											10,
