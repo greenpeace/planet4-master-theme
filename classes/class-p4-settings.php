@@ -12,6 +12,11 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 	class P4_Settings {
 
 		/**
+		 * ID of the Metabox
+		 */
+		private const METABOX_ID = 'option_metabox';
+
+		/**
 		 * Option key, and option page slug
 		 *
 		 * @var string
@@ -300,6 +305,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		public function hooks() {
 			add_action( 'admin_init', [ $this, 'init' ] );
 			add_action( 'admin_menu', [ $this, 'add_options_page' ] );
+			add_action( 'cmb2_save_options-page_fields_' . self::METABOX_ID, [ $this, 'add_notifications' ] );
 			add_filter( 'cmb2_render_act_page_dropdown', [ $this, 'p4_render_act_page_dropdown' ], 10, 2 );
 			add_filter( 'cmb2_render_explore_page_dropdown', [ $this, 'p4_render_explore_page_dropdown' ], 10, 2 );
 			add_filter( 'cmb2_render_category_select_taxonomy', [ $this, 'p4_render_category_dropdown' ], 10, 2 );
@@ -323,6 +329,20 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		 */
 		public function add_options_page() {
 			$this->options_page = add_options_page( $this->title, $this->title, 'manage_options', $this->key, [ $this, 'admin_page_display' ] );
+		}
+
+		/**
+		 * Display notifications of success and error
+		 * This is the method used by WordPress to add a success notification
+		 *
+		 * @see https://github.com/WordPress/WordPress/blob/57fb3c6cf016678ab38d7a636b8df41fa2d955f1/wp-admin/options.php#L313
+		 */
+		public function add_notifications(): void {
+			if ( ! count( get_settings_errors() ) ) {
+				add_settings_error( 'general', 'settings_updated', __( 'Settings saved.', 'planet4-master-theme-backend' ), 'success' );
+			}
+
+			settings_errors();
 		}
 
 		/**
@@ -420,7 +440,7 @@ if ( ! class_exists( 'P4_Settings' ) ) {
 		 */
 		public function option_metabox() {
 			return [
-				'id'         => 'option_metabox',
+				'id'         => self::METABOX_ID,
 				'show_on'    => [
 					'key'   => 'options-page',
 					'value' => [
