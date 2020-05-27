@@ -1,10 +1,12 @@
 const { addFilter } = wp.hooks;
 
 import P4ButtonEdit from './components/p4_button/edit';
+import P4TableEdit from './components/p4_table/edit';
 
 export const addBlockFilters = () => {
   addFileBlockFilter();
   addButtonBlockFilter();
+  addTableBlockFilter();
 };
 
 const addFileBlockFilter = () => {
@@ -40,4 +42,24 @@ const addButtonBlockFilter = () => {
   };
 
   addFilter('blocks.registerBlockType', 'planet4-blocks/filters/button', updateButtonBlockEditMethod);
+};
+
+const addTableBlockFilter = () => {
+
+  const updateTableBlockEditMethod = (settings, name) => {
+
+    if ('core/table' !== name) {
+      return settings;
+    }
+
+    if ( settings.name === 'core/table' ) {
+      lodash.assign( settings, {
+        edit: P4TableEdit,
+      } );
+    }
+
+    return settings;
+  };
+
+  addFilter('blocks.registerBlockType', 'planet4-blocks/filters/table', updateTableBlockEditMethod);
 };

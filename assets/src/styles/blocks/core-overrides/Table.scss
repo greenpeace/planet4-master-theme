@@ -1,0 +1,69 @@
+
+// Table background colors (header, footer, odd/even rows)
+.wp-block-table {
+  table {
+    // Grey background (defaut)
+    th {
+      background-color: $table-header-grey;
+    }
+
+    tr {
+      background-color: $table-even-row-grey;
+    }
+
+    tfoot td {
+      background-color: $table-footer-grey;
+    }
+
+    // Green background
+    &.has-green-background-color {
+      th {
+        background-color: $table-header-green;
+      }
+
+      tr {
+        background-color: $table-even-row-green;
+      }
+
+      tfoot td {
+        background-color: $table-footer-green;
+      }
+    }
+
+    // Blue background
+    &.has-blue-background-color {
+      th {
+        background-color: $table-header-blue;
+      }
+
+      tr {
+        background-color: $table-even-row-blue;
+      }
+
+      tfoot td {
+        background-color: $table-footer-blue;
+      }
+    }
+  }
+
+  &.is-style-stripes table {
+    // Grey background (defaut)
+    tr:nth-child(odd) {
+      background-color: $table-odd-row-grey;
+    }
+
+    // Green background
+    &.has-green-background-color tr:nth-child(odd) {
+      background-color: $table-odd-row-green;
+    }
+
+    // Blue background
+    &.has-blue-background-color tr:nth-child(odd) {
+      background-color: $table-odd-row-blue;
+    }
+  }
+
+  &:not(.is-style-stripes) table tbody tr:not(:last-child) {
+    border-bottom: 1px solid $white;
+  }
+}
