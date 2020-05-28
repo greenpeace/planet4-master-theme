@@ -166,7 +166,7 @@ export class TakeactionboxoutBlock {
 				// These methods are passed down to the
 				// Articles component, they update the corresponding attribute.
 				function onSelectTakeActoinPage( value ) {
-					setAttributes({ take_action_page: value });
+					setAttributes({ take_action_page: parseInt(value) });
 				}
 
 				function onCustomTitleChange(value) {
