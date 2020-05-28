@@ -23,8 +23,8 @@ $(document).ready(function () {
 
       for (let j = 0; j < $headings.length; j++) {
         let $heading = $($headings[j]);
-        const headingText = $heading.text().replace(/\u2010|\u2011|\u2013/, '').trim();
-        if (headingText === menu.text.replace('-', '')) {
+        const headingText = $heading.text().replace(/\u2010|\u2011|\u2013|-/g, '').trim();
+        if (headingText === menu.text.replace(/-/g, '')) {
           $heading.prepend('<a id="' + menu.id + '" data-hash-target="' + menu.hash + '"></a>');
         }
       }
