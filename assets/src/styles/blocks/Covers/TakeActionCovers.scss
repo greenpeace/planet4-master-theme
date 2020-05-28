@@ -65,6 +65,7 @@
 }
 
 .cover-card {
+  cursor: pointer;
   flex-basis: 100%;
   padding: 32px $n15 $n60;
   margin-top: $space-md;
@@ -130,6 +131,7 @@
     }
 
     .btn {
+      display: block;
       background-color: $orange-hover;
       border-color: $orange-hover;
     }
@@ -176,6 +178,10 @@
       font-size: 1.5rem;
       margin-top: 8px;
       max-width: 100%;
+    }
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 
@@ -226,7 +232,7 @@
   right: 0;
   margin: $n15 auto;
   width: 92%;
-  cursor: pointer;
+  display: none;
 }
 
 .load-more-covers-button-div {
