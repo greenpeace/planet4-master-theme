@@ -132,8 +132,13 @@
 
     .btn {
       display: block;
-      background-color: $orange-hover;
-      border-color: $orange-hover;
+      background-color: $orange;
+      border-color: $orange;
+
+      &:hover {
+        background-color: $orange-hover;
+        border-color: $orange-hover;
+      }
     }
   }
 
