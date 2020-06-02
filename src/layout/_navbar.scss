@@ -543,14 +543,14 @@ $navbar-default-height: 60px;
   }
 
   .top-nav-search-btn {
-    background: none;
+    background-color: $white;
     border: none;
     position: absolute;
-    top: 9px;
     right: 12px;
     font-size: $font-size-md;
     line-height: 26px;
     color: $dark-blue;
+    top: 11px;
 
     html[dir="rtl"] & {
       left: 12px;
@@ -564,8 +564,8 @@ $navbar-default-height: 60px;
     }
 
     @include large-and-up {
-      top: 8px;
       right: 16px;
+      top: 9px;
 
       html[dir="rtl"] & {
         left: 16px;
@@ -582,6 +582,10 @@ $navbar-default-height: 60px;
 
     @include large-and-up {
       margin-top: 9px;
+    }
+
+    &:not(:placeholder-shown):focus ~ .top-nav-search-btn {
+      display: none;
     }
   }
 }
