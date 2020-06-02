@@ -6,45 +6,55 @@
 		{% else %}
 			{% set bg_image = '' %}
 		{% endif %}
-		<section
-			id="action-card"
-			class="cover-card single-cover dark-card-bg action-card"
-			data-ga-category="Take Action Boxout"
-			data-ga-action="Image"
-			data-ga-label="n/a"
-			{{ bg_image|raw }}>
-			{% if ( boxout.campaigns ) %}
-				{% for campaign in boxout.campaigns %}
-					<a
-						href="{{ campaign.link|default('#') }}"
-						class="cover-card-tag"
-						data-ga-category="Take Action Boxout"
-						data-ga-action="Navigation Tag"
-						data-ga-label="n/a">
-							#{{ campaign.name|e('wp_kses_post')|raw }}
-					</a>
-				{% endfor %}
-			{% endif %}
-			{% if ( boxout.title ) %}
-				<h2
-					class="cover-card-heading"
-					data-ga-category="Take Action Boxout"
-					data-ga-action="Title"
-					data-ga-label="n/a">
-						{{ boxout.title|e('wp_kses_post')|raw }}
-				</h2>
-			{% endif %}
+		<section id="action-card" class="cover-card single-cover dark-card-bg action-card" {{ bg_image|raw }}>
+            <a
+                data-ga-category="Take Action Boxout"
+                data-ga-action="Image"
+                data-ga-label="n/a"
+                class="cover-card-overlay"
+                href="{{ boxout.link|default('#') }}"
+                {{ boxout.new_tab and boxout.link ? 'target="_blank"' }}
+            />
+            <div class="cover-card-content">
+                {% if ( boxout.campaigns ) %}
+                    {% for campaign in boxout.campaigns %}
+                        <a
+                            class="cover-card-tag"
+                            data-ga-category="Take Action Boxout"
+                            data-ga-action="Navigation Tag"
+                            data-ga-label="n/a"
+                            href="{{ campaign.link|e('esc_url') }}"
+                        >
+                            #{{ campaign.name|e('wp_kses_post')|raw }}
+                        </a>
+                    {% endfor %}
+                {% endif %}
+                {% if ( boxout.title ) %}
+                    <a
+                        class="cover-card-heading"
+                        data-ga-category="Take Action Boxout"
+                        data-ga-action="Title"
+                        data-ga-label="n/a"
+                        href="{{ boxout.link|default('#') }}"
+                        {{ boxout.new_tab and boxout.link ? 'target="_blank"' }}
+                    >
+                        {{ boxout.title|e('wp_kses_post')|raw }}
+                    </a>
+                {% endif %}
+            </div>
 			{% if ( boxout.excerpt ) %}
 				<p>{{ boxout.excerpt|e('wp_kses_post')|excerpt(25)|raw }}</p>
 			{% endif %}
-			{% if ( boxout.link ) %}
-				<a
-					class="btn btn-action btn-block cover-card-btn" {{  'true' == boxout.new_tab ? 'target="_blank"' }}
-					href="{{ boxout.link }}"
+			{% if ( boxout.link and boxout.link_text ) %}
+                <a
+					class="btn btn-action btn-block cover-card-btn"
 					data-ga-category="Take Action Boxout"
 					data-ga-action="Call to Action"
-					data-ga-label="n/a">
-						{{ boxout.link_text }}
+                    data-ga-label="n/a"
+                    href="{{ boxout.link|default('#') }}"
+                    {{ boxout.new_tab and boxout.link ? 'target="_blank"' }}
+                >
+					{{ boxout.link_text }}
 				</a>
 			{% endif %}
 		</section>
