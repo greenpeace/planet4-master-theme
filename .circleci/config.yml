@@ -1,14 +1,13 @@
+---
+version: 2.1
+
 workflows:
-  version: 2
   main:
     jobs:
-      - php72-build
-      - php73-build
-      - build-and-test-codeception:
+      - php72-tests
+      - php73-tests
+      - acceptance-tests:
           context: org-global
-          filters:
-            branches:
-              ignore: languages
       - rips-test:
           context: rips-scans
           filters:
@@ -16,8 +15,6 @@ workflows:
               ignore: /.*/
             tags:
               only: /^v\p{Digit}+\.\p{Digit}+.*/
-
-version: 2
 
 job-references:
   mysql_image: &mysql_image
@@ -69,21 +66,20 @@ job-references:
       - store_artifacts:
           path: /tmp/coverage-report
 
-
 jobs:
-  php72-build:
+  php72-tests:
     <<: *php_job
     docker:
       - image: greenpeaceinternational/p4-unit-tests:php7.2-develop
       - image: *mysql_image
 
-  php73-build:
+  php73-tests:
     <<: *php_job
     docker:
       - image: greenpeaceinternational/p4-unit-tests:php7.3-develop
       - image: *mysql_image
 
-  build-and-test-codeception:
+  acceptance-tests:
     docker:
       - image: greenpeaceinternational/p4-builder:latest
     working_directory:  /home/circleci/
