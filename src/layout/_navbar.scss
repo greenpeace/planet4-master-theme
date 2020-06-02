@@ -854,3 +854,33 @@ $navbar-default-height: 60px;
     }
   }
 }
+
+// Enhanced mobile Donate button
+.btn-donate {
+  &.btn-donate-top {
+    position: fixed;
+    left: 0;
+    z-index: 4;
+    width: 100%;
+    height: 3.3rem;
+    line-height: 3.3rem;
+    top: 3.3rem;
+    transition: top .2s;
+
+    .admin-bar & {
+      top: 6.2rem;
+    }
+  }
+
+  &.btn-donate-top-hide {
+    top: -3.3rem;
+
+    .admin-bar & {
+      top: -6.2rem;
+    }
+  }
+}
+
+body.with-donate-on-top {
+  padding-top: 3.3rem;
+}
