@@ -10,7 +10,7 @@ export const setupExternalLinks = function($) {
       </g>
   </svg>`;
 
-  $('div.page-template a:not(.btn), article a:not(.btn)').each(function () {
+  $('div.page-template a:not(.btn):not(.cover-card-heading), article a:not(.btn)').each(function () {
     let href = undefined === $(this).attr('href') ? '' : $(this).attr('href');
     if (href != '' && href.indexOf(siteURL) <= -1 && href.length > 0) {
       if ($(this).text().trim().length == 0) {
