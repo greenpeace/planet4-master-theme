@@ -97,10 +97,11 @@ $navbar-default-height: 60px;
   }
 
   a.nav-link {
-    color: $white;
+    color: var(--nav-link_color, $white);
 
     &:hover {
-      color: $spray;
+      background-color: var(--nav-link_hover_background_color, transparent);
+      color: var(--nav-link_hover_color, $spray);
     }
   }
 
@@ -433,7 +434,7 @@ $navbar-default-height: 60px;
     .nav-link:hover {
       position: relative;
       z-index: 2;
-      color: $spray;
+      color: var(--nav-link_hover_color, $spray);
     }
 
     .active .nav-link::before {
@@ -469,18 +470,18 @@ $navbar-default-height: 60px;
       padding: 0;
       min-width: 20%;
       text-align: center;
-      border-bottom: 2px solid transparent;
+      border-bottom: var(--nav-link_border_width, 2px) solid transparent;
 
       &:hover,
       &:focus,
       &:active {
-        border-bottom: 2px solid $white;
+        border-bottom: var(--nav-link_border_width, 2px) solid var(--nav-link_hover_border_color, $white);
       }
     }
 
     .active .nav-link {
-      color: $spray;
-      border-bottom: 2px solid $spray;
+      color: var(--nav-link_hover_color, $spray);
+      border-bottom: var(--nav-link_border_width, 2px) solid var(--nav-link_active_border_color, $spray);
     }
   }
 

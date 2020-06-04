@@ -68,7 +68,7 @@
     color: var(--footer_links_color, inherit);
 
     &:hover {
-      color: var(--footer_links_color, $spray);
+      color: var(--footer_links_hover_color, $spray);
     }
   }
 
