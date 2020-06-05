@@ -351,45 +351,41 @@ if ( ! class_exists( 'P4_Search' ) ) {
 
 			$posts = $this->query_posts( $paged );
 
-			if ( $posts ) {
-				foreach ( $posts as $post ) {
-					if ( P4_Post_Archive::POST_TYPE === $post->post_type ) {
-						$archive_post               = new stdClass();
-						$archive_post->id           = $post->ID;
-						$archive_post->post_title   = $post->post_title;
-						$archive_post->link         = $post->guid;
-						$archive_post->post_type    = P4_Post_Archive::POST_TYPE;
-						$archive_post->post_date    = $post->post_date_gmt;
-						$archive_post->post_excerpt = $post->post_excerpt;
+			if ( empty( $posts ) ) {
+				return [];
+			}
 
-						if ( current_user_can( 'edit_posts' ) ) {
-							$archive_post->edit_link = get_edit_post_link( $post->ID );
-						}
+			foreach ( $posts as $post ) {
+				if ( P4_Post_Archive::POST_TYPE === $post->post_type ) {
+					$archive_post               = new stdClass();
+					$archive_post->id           = $post->ID;
+					$archive_post->post_title   = $post->post_title;
+					$archive_post->link         = $post->guid;
+					$archive_post->post_type    = P4_Post_Archive::POST_TYPE;
+					$archive_post->post_date    = $post->post_date_gmt;
+					$archive_post->post_excerpt = $post->post_excerpt;
 
-						$template_posts[] = $archive_post;
-					} else {
-						$template_post                = $post;
-						$template_post->id            = $post->ID;
-						$template_post->link          = $post->permalink;
-						$template_post->preview       = $post->excerpt;
-						$thumbnail                    = get_the_post_thumbnail_url( $post->ID, 'thumbnail' );
-						$template_post->thumbnail_alt = get_the_post_thumbnail_caption( $post->ID );
-						$template_post->thumbnail     = $thumbnail;
-						$template_post->tags          = $post->terms['post_tag'] ?? [];
-						$template_post->p4_page_types = $post->terms['p4-page-type'] ?? [];
-
-						// @todo Ensure the term link is synced to ElasticSearch so we don't have to fetch it here.
-						$template_post->tags = array_map(
-							function ( $tag ) {
-								$tag['link'] = get_term_link( $tag['term_id'] );
-								return $tag;
-							},
-							$template_post->tags
-						);
-
-						$template_post->categories = $post->terms['category'] ?? [];
-						$template_posts[]          = $template_post;
+					if ( current_user_can( 'edit_posts' ) ) {
+						$archive_post->edit_link = get_edit_post_link( $post->ID );
 					}
+
+					$template_posts[] = $archive_post;
+				} else {
+					$template_post                = $post;
+					$template_post->id            = $post->ID;
+					$template_post->link          = $post->permalink;
+					$template_post->preview       = $post->excerpt;
+					$thumbnail                    = get_the_post_thumbnail_url( $post->ID, 'thumbnail' );
+					$template_post->thumbnail_alt = get_the_post_thumbnail_caption( $post->ID );
+					$template_post->thumbnail     = $thumbnail;
+
+					$tags          = $post->terms['post_tag'] ?? [];
+					$p4_page_types = $post->terms['p4-page-type'] ?? [];
+					// @todo Ensure the term link is synced to ElasticSearch so we don't have to fetch it here.
+					$template_post->tags          = self::filter_existing_terms( $tags );
+					$template_post->p4_page_types = self::filter_existing_terms( $p4_page_types );
+
+					$template_posts[] = $template_post;
 				}
 			}
 
@@ -546,6 +542,30 @@ if ( ! class_exists( 'P4_Search' ) ) {
 			$setting = planet4_get_option( 'include_archive_content_for' );
 
 			return 'all' === $setting || ( 'logged_in' === $setting && is_user_logged_in() );
+		}
+
+		/**
+		 * Return only existing terms with their link.
+		 * We need to do this as the term might have been removed but ES could still have it.
+		 *
+		 * @param array $terms The terms to filter.
+		 * @return mixed|null All existing terms, with link.
+		 */
+		private static function filter_existing_terms( array $terms ) {
+			return array_reduce(
+				$terms,
+				static function ( $carry, $term ) {
+					$link = get_term_link( $term['term_id'] );
+
+					if ( ! is_wp_error( $link ) ) {
+						$term['link'] = $link;
+						$carry[]      = $term;
+					}
+
+					return $carry;
+				},
+				[]
+			);
 		}
 
 		/**
