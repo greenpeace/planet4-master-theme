@@ -25,42 +25,48 @@
 				<div class="row limit-visibility">
 					{% for cover in covers %}
 						<div class="col-lg-4 col-md-6 cover-card-column">
-							<div
-								class="cover-card card-one"
-								style="background-image: url({{ cover.image }});"
-								data-ga-category="Take Action Covers"
-								data-ga-action="Image"
-								data-ga-label="n/a">
-									<div class="cover-card-content">
-										{% if ( cover.tags ) %}
-											{% for tag in cover.tags %}
-												<a
-													class="cover-card-tag"
-													href="{{ tag.href|e('esc_url') }}"
-													data-ga-category="Take Action Covers"
-													data-ga-action="Navigation Tag"
-													data-ga-label="n/a">
-														#{{ tag.name|e('wp_kses_post')|raw }}
-												</a>
-											{% endfor %}
-										{% endif %}
-										<h2
-											class="cover-card-heading"
-											data-ga-category="Take Action Covers"
-											data-ga-action="Title"
-											data-ga-label="n/a">
-												{{ cover.title|e('wp_kses_post')|raw }}
-										</h2>
-										<p>{{ cover.excerpt|truncate(20)|e('wp_kses_post')|raw }}</p>
-									</div>
+							<div class="cover-card card-one" style="background-image: url({{ cover.image }});">
+								<a
+									class="cover-card-overlay"
+									data-ga-category="Take Action Covers"
+									data-ga-action="Image"
+									data-ga-label="n/a"
+									href="{{ cover.button_link|default('#') }}"
+								/>
+								<div class="cover-card-content">
+									{% if ( cover.tags ) %}
+										{% for tag in cover.tags %}
+											<a
+												class="cover-card-tag"
+												data-ga-category="Take Action Covers"
+												data-ga-action="Navigation Tag"
+												data-ga-label="n/a"
+												href="{{ tag.href|e('esc_url') }}"
+											>
+												#{{ tag.name|e('wp_kses_post')|raw }}
+											</a>
+										{% endfor %}
+									{% endif %}
 									<a
-										class="btn btn-action btn-block cover-card-btn"
-										href="{{ cover.button_link|e('esc_url') }}"
+										class="cover-card-heading"
 										data-ga-category="Take Action Covers"
-										data-ga-action="Call to Action"
-										data-ga-label="n/a">
-											{{ cover.button_text }}
+										data-ga-action="Title"
+										data-ga-label="n/a"
+										href="{{ cover.button_link|default('#') }}"
+									>
+										{{ cover.title|e('wp_kses_post')|raw }}
 									</a>
+									<p>{{ cover.excerpt|truncate(20)|e('wp_kses_post')|raw }}</p>
+								</div>
+								<a
+									class="btn btn-action btn-block cover-card-btn"
+									data-ga-category="Take Action Covers"
+									data-ga-action="Call to Action"
+									data-ga-label="n/a"
+									href="{{ cover.button_link|default('#') }}"
+								>
+									{{ cover.button_text }}
+								</a>
 							</div>
 						</div>
 					{% endfor %}

@@ -65,6 +65,7 @@
 }
 
 .cover-card {
+  cursor: pointer;
   flex-basis: 100%;
   padding: 32px $n15 $n60;
   margin-top: $space-md;
@@ -73,6 +74,20 @@
   background-size: cover;
   background-position: top;
   color: $grey-80;
+
+  .cover-card-content {
+    position: relative;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .cover-card-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+  }
 
   @include medium-and-up {
     flex-basis: 48%;
@@ -130,8 +145,14 @@
     }
 
     .btn {
-      background-color: $orange-hover;
-      border-color: $orange-hover;
+      display: block;
+      background-color: $orange;
+      border-color: $orange;
+
+      &:hover {
+        background-color: $orange-hover;
+        border-color: $orange-hover;
+      }
     }
   }
 
@@ -171,6 +192,10 @@
     transition: color 100ms linear;
     color: $white;
     text-shadow: 1px 1px 3px $black;
+    display: table;
+    z-index: 1;
+    pointer-events: all;
+    font-family: $roboto;
 
     @include large-and-up {
       font-size: 1.5rem;
@@ -207,8 +232,11 @@
   text-shadow: 1.5px 1.5px 1.5px $black;
   font-weight: 800;
   font-family: $roboto;
+  pointer-events: all;
+  position: relative;
 
   &:hover {
+    text-decoration: underline;
     color: $yellow;
   }
 
@@ -226,7 +254,9 @@
   right: 0;
   margin: $n15 auto;
   width: 92%;
-  cursor: pointer;
+  display: none;
+  z-index: 1;
+  pointer-events: all;
 }
 
 .load-more-covers-button-div {
