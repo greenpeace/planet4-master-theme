@@ -1,25 +1,29 @@
 .block {
   display: inline-block;
   width: 100%;
-  margin-top: $space-md;
-  margin-bottom: $space-xl;
+  margin-top: $space-xs;
+  margin-bottom: $space-md;
 
   @include large-and-up {
-    margin-top: $space-lg;
-    margin-bottom: $space-xxl;
+    margin-top: $space-md;
+    margin-bottom: $space-lg;
   }
 }
 
 .block-header {
   margin-top: 0;
-  margin-bottom: $space-lg;
+  margin-bottom: $space-md;
 
   @include large-and-up {
-    margin-bottom: $space-xxl;
+    margin-bottom: $space-lg;
   }
 }
 
 .block-footer {
-  margin-top: $space-lg;
+  margin-top: $space-xs;
   margin-bottom: 0;
+
+  @include large-and-up {
+    margin-top: $space-md;
+  }
 }
