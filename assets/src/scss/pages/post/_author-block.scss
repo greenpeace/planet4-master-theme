@@ -1,6 +1,12 @@
 .author-block {
-  margin-bottom: 55px;
   overflow: hidden;
+  margin-top: $space-xs;
+  margin-bottom: $space-md;
+
+  @include large-and-up {
+    margin-top: $space-md;
+    margin-bottom: $space-lg;
+  }
 
   @include medium-and-up {
     display: flex;
