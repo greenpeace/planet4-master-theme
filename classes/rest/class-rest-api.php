@@ -7,6 +7,7 @@ namespace P4GBKS\Rest;
 
 use WP_REST_Request;
 use WP_REST_Server;
+use P4GBKS\Blocks\Spreadsheet;
 
 /**
  * This class is just a place for add_endpoints to live.
@@ -19,7 +20,6 @@ class Rest_Api {
 	 */
 	public static function add_endpoints(): void {
 		add_action( 'rest_api_init', [ __CLASS__, 'endpoints' ] );
-
 	}
 
 	/**
@@ -109,6 +109,34 @@ class Rest_Api {
 						}
 
 						return rest_ensure_response( 'Saved all meta to the autosave revision.' );
+					},
+				],
+			]
+		);
+		/**
+		 * Endpoint to retrieve a Spreadsheet data and cache it.
+		 */
+		register_rest_route(
+			self::REST_NAMESPACE,
+			'/get-spreadsheet-data',
+			[
+				[
+					'methods'  => WP_REST_Server::READABLE,
+					'callback' => static function () {
+						$sheet_id = filter_input(
+							INPUT_GET,
+							'sheet_id',
+							FILTER_VALIDATE_REGEXP,
+							[
+								'options' => [
+									'regexp' => '/[\w\d\-]+/',
+								],
+							]
+						);
+
+						$sheet_data = Spreadsheet::get_sheet( $sheet_id, false );
+
+						return rest_ensure_response( $sheet_data );
 					},
 				],
 			]

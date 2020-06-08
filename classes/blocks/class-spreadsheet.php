@@ -28,9 +28,8 @@ class Spreadsheet extends Base_Block {
 		register_block_type(
 			'planet4-blocks/spreadsheet',
 			[
-				'editor_script'   => 'planet4-blocks',
-				'render_callback' => [ $this, 'render' ],
-				'attributes'      => [
+				'editor_script' => 'planet4-blocks',
+				'attributes'    => [
 					'url'           => [
 						'type'    => 'string',
 						'default' => '',
@@ -42,49 +41,12 @@ class Spreadsheet extends Base_Block {
 	}
 
 	/**
-	 * Get all the data that will be needed to render the block correctly.
+	 * Required by the `Base_Block` class.
 	 *
-	 * @param array $fields This is the array of fields of this block.
-	 *
-	 * @return array The data to be passed in the View.
+	 * @param array $fields Unused, required by the abstract function.
 	 */
 	public function prepare_data( $fields ): array {
-		// Enqueue script for table filter.
-		wp_enqueue_script( 'spreadsheet-table', P4GBKS_PLUGIN_URL . 'public/js/spreadsheet.js', [ 'jquery' ], '0.2', true );
-
-		try {
-			$id = self::extract_sheet_id( $fields['url'] );
-
-			$sheet = $this->get_sheet( $id, false );
-		} catch ( \InvalidArgumentException $exception ) {
-			$sheet = null;
-		}
-
-		return [
-			'sheet'         => $sheet,
-			'css_variables' => $fields['css_variables'] ?? null,
-		];
-	}
-
-	/**
-	 * Get the ID from a google sheets publication url.
-	 *
-	 * @param string $url The url of the sheet's publication.
-	 * @return string the ID found in the sheet's publication url.
-	 * @throws \InvalidArgumentException The url is not a valid google sheets url.
-	 */
-	private static function extract_sheet_id( string $url ): string {
-		$google_sheets_pattern = '/docs\.google\.com\/spreadsheets\/d\/e\/([\w-]+)/';
-
-		$matches = [];
-		preg_match( $google_sheets_pattern, $url, $matches );
-
-		$id = $matches[1] ?? null;
-		if ( ! $id ) {
-			throw new \InvalidArgumentException( 'The url provided is not a valid public google sheets url.' );
-		}
-
-		return $id;
+		return [];
 	}
 
 	/**
@@ -94,7 +56,7 @@ class Spreadsheet extends Base_Block {
 	 * @param bool        $skip_cache Should the sheet be fetched from cache.
 	 * @return array|null The sheet or null if nothing was found.
 	 */
-	private function get_sheet( ?string $sheet_id, bool $skip_cache ): ?array {
+	public static function get_sheet( ?string $sheet_id, bool $skip_cache ): ?array {
 		if ( ! $sheet_id ) {
 			return null;
 		}
