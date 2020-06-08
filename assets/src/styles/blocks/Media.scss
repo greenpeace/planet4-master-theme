@@ -33,6 +33,9 @@
 }
 
 .video-embed, .wp-block-embed-youtube, .wp-block-embed-vimeo, .wp-block-embed-dailymotion, .wp-block-embed-kickstarter {
+  margin-top: $space-xs;
+  margin-bottom: $space-md;
+
   @include  small-and-up {
     max-width: 360px;
     max-height: 202px;
@@ -44,6 +47,8 @@
   }
 
   @include large-and-up {
+    margin-top: $space-md;
+    margin-bottom: $space-lg;
     max-width: 930px;
     max-height: 523px;
   }
@@ -56,6 +61,8 @@
 
 .wp-block-embed-twitter, .wp-block-embed-instagram, .wp-block-embed-soundcloud, .wp-block-embed-reddit, .wp-block-embed-flickr {
   width: 330px;
+  margin-top: $space-xs;
+  margin-bottom: $space-md;
 
   @include  small-and-up {
     width: 330px;
@@ -66,6 +73,8 @@
   }
 
   @include large-and-up {
+    margin-top: $space-md;
+    margin-bottom: $space-lg;
     width: 610px;
   }
 

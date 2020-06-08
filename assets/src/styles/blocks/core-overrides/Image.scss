@@ -3,6 +3,16 @@
   width: auto;
   max-width: 100%;
 
+  figure:not(.alignleft):not(.alignright) {
+    margin-top: $space-xs;
+    margin-bottom: $space-md;
+
+    @include large-and-up {
+      margin-top: $space-md;
+      margin-bottom: $space-lg;
+    }
+  }
+
   @include medium-and-up {
     .image-credit {
       position: absolute;
@@ -28,6 +38,7 @@
     font-size: $font-size-xxs;
     font-family: $roboto;
     line-height: 1.4;
+    margin-bottom: 0;
   }
 
   &.caption-style-blue-overlay {

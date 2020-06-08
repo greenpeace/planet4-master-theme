@@ -1,20 +1,28 @@
-.wp-block-image figure:not(.alignleft):not(.alignright),
 .wp-block-quote,
 .wp-block-file,
-.wp-block-table,
 .wp-block-button,
 .page-template > h2,
-.page-template > ul {
-  margin-top: $space-md;
-  margin-bottom: $space-xl;
+.page-template > ul,
+.page-template > p,
+.post-details > p,
+.post-details > p:first-of-type,
+.post-details > h2,
+.post-details > ul {
+  display: inline-block;
+  margin-top: $space-xs;
+  margin-bottom: $space-md;
 
   @include large-and-up {
-    margin-top: $space-lg;
-    margin-bottom: $space-xxl;
+    margin-top: $space-md;
+    margin-bottom: $space-lg;
   }
 }
 
-.page-template > p {
-  margin-top: $space-md;
-  margin-bottom: $space-lg;
+.page-template > ul,
+.post-details > ul {
+  width: 100%;
+}
+
+.post-details > h2 {
+  padding-top: 0;
 }
