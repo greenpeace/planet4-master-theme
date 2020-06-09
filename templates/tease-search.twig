@@ -50,7 +50,7 @@
 						{% for page_type in post.p4_page_types %}
 							<a
 								class="search-result-item-head no-btn tag-item tag-item--main page-type"
-								href="{{ fn('get_term_link', page_type.term_id) }}"
+								href="{{ page_type.link }}"
 								data-ga-category="Search Results"
 								data-ga-action="Category Tag"
 								data-ga-label="{{ ga_page_type }}">
