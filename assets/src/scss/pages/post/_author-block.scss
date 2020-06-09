@@ -1,5 +1,6 @@
 .author-block {
   overflow: hidden;
+  display: inline-block;
   margin-top: $space-xs;
   margin-bottom: $space-md;
 
@@ -9,7 +10,7 @@
   }
 
   @include medium-and-up {
-    display: flex;
+    display: inline-flex;
     align-items: stretch;
   }
 }
