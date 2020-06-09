@@ -12,6 +12,7 @@ import { setupImageZoomer } from './single';
 import { setupExternalLinks } from './external_links';
 import { setupLazyLoad } from './lazyload';
 import { setupCSSVarsPonyfill } from './cssvarsponyfill';
+import { setupEnhancedDonateButton } from './enhancedDonateButton';
 
 import 'bootstrap';
 
@@ -39,4 +40,5 @@ jQuery(function($) {
   setupImageZoomer($);
   setupExternalLinks($);
   setupCSSVarsPonyfill();
+  setupEnhancedDonateButton();
 });
