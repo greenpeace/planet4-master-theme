@@ -285,7 +285,7 @@ if ( class_exists( Elasticpress\Indexables::class ) ) {
 	add_filter(
 		'posts_pre_query',
 		function ( $posts, $query ) {
-			if ( is_search() && $query->is_main_query() ) {
+			if ( is_search() && ! is_admin() && $query->is_main_query() ) {
 				return [];
 			}
 			return \ElasticPress\Indexables::factory()->get( 'post' )->query_integration->get_es_posts(
