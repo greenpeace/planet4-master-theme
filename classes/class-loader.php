@@ -404,6 +404,7 @@ final class Loader {
 			[
 				// WP React wrapper.
 				'wp-element',
+				'wp-components',  // Wordpress components.
 				// Exports the __() function.
 				'wp-i18n',
 			],
