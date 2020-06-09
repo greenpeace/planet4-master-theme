@@ -23,7 +23,7 @@
     "lodash": "^4.17.15",
     "lodash.assign": "^4.2.0",
     "mini-css-extract-plugin": "^0.7.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
     "remove-files-webpack-plugin": "^1.1.3",
