@@ -171,7 +171,7 @@ export class SpreadsheetFrontend extends Component {
             <input className="spreadsheet-search form-control"
               type="text"
               value={ this.state.searchText }
-              onChange={ event => this.setState({ searchText: event.target.value.trim() }) }
+              onChange={ event => this.setState({ searchText: event.target.value }) }
               placeholder={ __('Search data', 'planet4-blocks') } />
           </div>
           <div className="table-wrapper">
