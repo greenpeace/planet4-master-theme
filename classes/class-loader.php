@@ -314,21 +314,15 @@ final class Loader {
 			'p4gbks_admin_style',
 			P4GBKS_PLUGIN_URL . 'assets/build/editorStyle.min.css', // - Bundled CSS for the blocks
 			[],
-			'0.4'
+			self::file_ver( P4GBKS_PLUGIN_DIR . '/assets/build/editorStyle.min.css' )
 		);
 
-		wp_enqueue_script(
-			'p4gbks_admin_script',
-			P4GBKS_PLUGIN_URL . 'admin/js/editor.js',
-			[],
-			'0.2',
-			true
-		);
+		self::enqueue_local_script( 'p4gbks_admin_script', 'admin/js/editor.js' );
 
 		// Enqueue editor script for all Blocks in this Plugin.
-		wp_enqueue_script(
+		self::enqueue_local_script(
 			'planet4-blocks-script',
-			P4GBKS_PLUGIN_URL . 'assets/build/editorIndex.js',
+			'assets/build/editorIndex.js',
 			[
 				'wp-blocks',      // Helpers for registering blocks.
 				'wp-components',  // Wordpress components.
@@ -337,9 +331,7 @@ final class Loader {
 				'wp-i18n',        // Exports the __() function.
 				'wp-editor',
 				'wp-edit-post',
-			],
-			'0.1.15',
-			true
+			]
 		);
 
 		// Variables reflected from PHP to JS.
@@ -356,9 +348,6 @@ final class Loader {
 	 * Load assets for the frontend.
 	 */
 	public function enqueue_public_assets() {
-		// plugin-blocks assets.
-		$css_blocks_creation = filectime( P4GBKS_PLUGIN_DIR . '/assets/build/style.min.css' );
-
 		// Add master theme's main css as dependency for blocks css.
 		wp_enqueue_style(
 			'plugin-blocks',
@@ -368,13 +357,13 @@ final class Loader {
 				'slick',
 				'parent-style',
 			],
-			$css_blocks_creation
+			self::file_ver( P4GBKS_PLUGIN_DIR . '/assets/build/style.min.css' )
 		);
 
 		// Include React in the Frontend.
-		wp_enqueue_script(
+		self::enqueue_local_script(
 			'planet4-blocks-frontend',
-			P4GBKS_PLUGIN_URL . 'assets/build/frontendIndex.js',
+			'assets/build/frontendIndex.js',
 			[
 				// WP React wrapper.
 				'wp-element',
@@ -384,12 +373,10 @@ final class Loader {
 				'wp-api-fetch',
 				// URL helpers (as addQueryArgs).
 				'wp-url',
-			],
-			'0.1.7',
-			true
+			]
 		);
 
-		wp_enqueue_script( 'post_action', P4GBKS_PLUGIN_URL . 'public/js/post_action.js', [ 'jquery' ], '0.1', true );
+		self::enqueue_local_script( 'post_action', 'public/js/post_action.js', [ 'jquery' ] );
 	}
 
 	/**
@@ -407,15 +394,13 @@ final class Loader {
 
 			if ( is_string( $campaign_theme ) && ! empty( $campaign_theme ) ) {
 
-				$css_theme_creation = filectime( P4GBKS_PLUGIN_DIR . "/assets/build/theme_$campaign_theme.min.css" );
-
 				wp_enqueue_style(
 					'theme_antarctic',
 					P4GBKS_PLUGIN_URL . "/assets/build/theme_$campaign_theme.min.css",
 					[
 						'plugin-blocks',
 					],
-					$css_theme_creation
+					self::file_ver( P4GBKS_PLUGIN_DIR . "/assets/build/theme_$campaign_theme.min.css" )
 				);
 			}
 		}
@@ -592,6 +577,45 @@ final class Loader {
 		// Disable gradient presets & custom gradients.
 		add_theme_support( 'editor-gradient-presets', [] );
 		add_theme_support( 'disable-custom-gradients' );
+	}
+
+	/**
+	 * @param string $filepath Absolute path to the file.
+	 * @return int timestamp of file creation
+	 */
+	public static function file_ver( string $filepath ): int {
+		$ctime = filectime( $filepath );
+		if ( $ctime ) {
+			return $ctime;
+		}
+
+		return time();
+	}
+
+	/**
+	 * Enqueue a local, publicly accessible script.
+	 *
+	 * @see wp_enqueue_script()
+	 *
+	 * @param string   $handle    Name of the script. Should be unique.
+	 * @param string   $rel_path  Path to the script, relative to P4GBKS_PLUGIN_DIR.
+	 * @param string[] $deps      Optional. An array of registered script handles this script depends on. Default empty array.
+	 * @param bool     $in_footer Optional. Whether to enqueue the script before </body> instead of in the <head>.
+	 *                                Default 'false'.
+	 */
+	public static function enqueue_local_script(
+		string $handle,
+		string $rel_path,
+		array $deps = [],
+		bool $in_footer = true
+	): void {
+		wp_enqueue_script(
+			$handle,
+			trailingslashit( P4GBKS_PLUGIN_URL ) . $rel_path,
+			$deps,
+			self::file_ver( trailingslashit( P4GBKS_PLUGIN_DIR ) . $rel_path ),
+			$in_footer
+		);
 	}
 
 	/**

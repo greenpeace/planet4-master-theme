@@ -191,7 +191,7 @@ class Articles extends Base_Block {
 
 		// Enqueue js for the frontend.
 		if ( ! $this->is_rest_request() ) {
-			wp_enqueue_script( 'load-more', P4GBKS_PLUGIN_URL . 'public/js/load_more.js', [ 'jquery' ], '0.3', true );
+			\P4GBKS\Loader::enqueue_local_script( 'load-more', 'public/js/load_more.js', [ 'jquery' ] );
 			wp_localize_script( 'load-more', 'more_url', [ admin_url( 'admin-ajax.php' ) ] );
 		}
 

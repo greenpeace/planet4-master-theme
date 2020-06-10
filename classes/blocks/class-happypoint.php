@@ -134,7 +134,7 @@ class Happypoint extends Base_Block {
 
 		// Enqueue js for the frontend.
 		if ( ! $this->is_rest_request() ) {
-			wp_enqueue_script( 'happy-point', P4GBKS_PLUGIN_URL . 'public/js/happy_point.js', [ 'jquery' ], '0.2', true );
+			\P4GBKS\Loader::enqueue_local_script( 'happy-point', 'public/js/happy_point.js', [ 'jquery' ] );
 		}
 
 		return $data;
