@@ -137,7 +137,7 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 							<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
 					</tr>';
 					foreach ( $results as $result ) {
-						echo '<tr><td>'.$result->ID .'</td>';
+						echo  '<tr><td><a href="' . get_permalink( $result->ID ) . '" >' . $result->ID . '</a></td>';
 						echo  '<td><a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->post_title . '</a></td></tr>';
 					}
 					echo '</table>';
@@ -161,7 +161,7 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 						<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
 				</tr>';
 				foreach ($results as $result) {
-					echo '<tr><td>' . $result->ID . '</td>';
+					echo  '<tr><td><a href="' . get_permalink( $result->ID ) . '" >' . $result->ID . '</a></td>';
 					echo '<td><a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->post_title . '</a></td></tr>';
 				}
 				echo '</table>';
@@ -191,7 +191,7 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 						<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
 				</tr>';
 				foreach ( $results as $result ) {
-					echo '<tr><td>'.$result->ID .'</td>';
+					echo  '<tr><td><a href="' . get_permalink( $result->ID ) . '" >' . $result->ID . '</a></td>';
 					echo  '<td><a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->post_title . '</a></td></tr>';
 				}
 				echo '</table>';
@@ -250,7 +250,7 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 					<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
 				</tr>';
 				foreach ( $results as $result ) {
-					echo '<tr><td>'.$result->term_id .'</td>';
+					echo  '<tr><td><a href="' . get_term_link( (int) $result->term_id ) . '" >' . $result->term_id . '</a></td>';
 					echo '<td><a href="term.php?taxonomy=post_tag&tag_ID=' . $result->term_id . '" >' . $result->name . '</a></td></tr>';
 				}
 				echo '</table>';
@@ -286,7 +286,7 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 					<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
 				</tr>';
 				foreach ( $results as $result ) {
-					echo '<tr><td>'.$result->term_id .'</td>';
+					echo  '<tr><td><a href="' . get_term_link( (int) $result->term_id ) . '" >' . $result->term_id . '</a></td>';
 					echo '<td><a href="term.php?taxonomy=post_tag&tag_ID=' . $result->term_id . '" >' . $result->name . '</a></td></tr>';
 				}
 				echo '</table>';
