@@ -15,8 +15,15 @@ html {
 // <p>The quick brown fox jumps over the lazy dog</p>
 //
 // Styleguide Style.typography.paragraphs
-p {
+p,
+ul li {
   hyphens: none;
+  font-size: $font-size-sm;
+  line-height: 1.6rem;
+
+  @include x-large-and-up {
+    font-size: $font-size-md;
+  }
 }
 
 // Headings
@@ -39,31 +46,27 @@ h4,
 h5,
 h6 {
   font-family: $roboto;
-}
-
-h1,
-h2 {
   font-weight: bold;
 }
 
 h1 {
-  font-size: $font-size-xxl;
   line-height: 1.225;
   margin-bottom: 30px;
+  font-size: $font-size-xxxl;
+
+  @include medium-and-up {
+    font-size: $font-size-xxxxl;
+  }
 
   @include large-and-up {
-    font-size: $font-size-xxxl;
     margin-bottom: 48px;
-  }
-  @include x-large-and-up {
-    font-size: $font-size-xxxxl;
   }
 }
 
 h2 {
-  font-size: $font-size-xl;
   line-height: 1.38;
   margin-bottom: 5px;
+  font-size: $font-size-xl;
 
   @include medium-and-up {
     font-size: $font-size-xxl;
@@ -72,6 +75,26 @@ h2 {
   @include x-large-and-up {
     margin-bottom: 24px;
   }
+}
+
+h3 {
+  font-size: $font-size-lg;
+
+  @include medium-and-up {
+    font-size: $font-size-xl;
+  }
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: $font-size-md;
+}
+
+h6 {
+  font-size: $font-size-sm;
 }
 
 .white-text {

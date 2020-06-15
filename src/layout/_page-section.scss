@@ -10,22 +10,10 @@
 //
 // Styleguide Layout.page-section
 .page-section-header {
-  font-family: $roboto;
-  font-size: $font-size-lg;
-  line-height: 1.2;
-  font-weight: 700;
-  color: $dark-shade-black;
   margin-bottom: $space-md;
-
-  @include large-and-up {
-    font-size: $font-size-xl;
-    margin-bottom: $space-lg;
-  }
 }
 
 .page-section-description {
-  font-size: $font-size-sm;
-  line-height: 1.6;
   margin-bottom: $space-xl;
 
   @include medium-and-up {
@@ -33,8 +21,6 @@
   }
 
   @include x-large-and-up {
-    font-size: $font-size-md;
-
     .row & {
       margin-top: 0;
     }

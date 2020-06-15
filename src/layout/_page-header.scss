@@ -95,13 +95,9 @@
   }
 
   h3 {
-    font-size: $font-size-md;
-    font-weight: 300;
-    line-height: 1.3;
     margin-bottom: 20px;
 
     @include medium-and-up {
-      font-size: $font-size-lg;
       line-height: 1.2;
     }
 
@@ -110,7 +106,6 @@
     }
 
     @include x-large-and-up {
-      font-size: $font-size-xxl;
       margin-bottom: 30px;
       line-height: 1.1;
     }
@@ -149,13 +144,10 @@
 }
 
 .page-header-title {
-  font-size: $font-size-xl;
-  line-height: 1.2;
   max-width: 80%;
   margin-bottom: 10px;
 
   @include medium-and-up {
-    font-size: $font-size-xxl;
     margin-bottom: 12px;
   }
 
@@ -164,30 +156,18 @@
   }
 
   @include x-large-and-up {
-    font-size: $font-size-xxxl;
     line-height: 1.1;
     margin-bottom: 20px;
   }
 }
 
 .page-header-subtitle {
-  font-size: $font-size-md;
   line-height: 1.3;
-  font-weight: 300;
   max-width: 80%;
   margin: 0;
 
   @include medium-and-up {
-    font-size: $font-size-lg;
     margin: 0 0 22px 0;
-  }
-
-  @include large-and-up {
-    font-size: $font-size-xl;
-  }
-
-  @include x-large-and-up {
-    font-size: $font-size-xxl;
   }
 }
 
@@ -216,18 +196,10 @@
 
 .page-header-content {
   display: none;
-  hyphens: none;
-  font-family: $lora;
   margin-top: 0;
 
   @include medium-and-up {
     display: block;
-    font-size: $font-size-sm;
-    line-height: 1.6;
     margin-bottom: 0;
-  }
-
-  @include x-large-and-up {
-    font-size: $font-size-md;
   }
 }
