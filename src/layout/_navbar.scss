@@ -97,11 +97,10 @@ $navbar-default-height: 60px;
   }
 
   a.nav-link {
-    color: var(--nav-link_color, $white);
+    color: var(--nav-link-color, $white);
 
     &:hover {
-      background-color: var(--nav-link_hover_background_color, transparent);
-      color: var(--nav-link_hover_color, $spray);
+      color: var(--nav-link-hover-color, $spray);
     }
   }
 
@@ -434,7 +433,7 @@ $navbar-default-height: 60px;
     .nav-link:hover {
       position: relative;
       z-index: 2;
-      color: var(--nav-link_hover_color, $spray);
+      color: var(--nav-link-hover-color, $spray);
     }
 
     .active .nav-link::before {
@@ -470,18 +469,18 @@ $navbar-default-height: 60px;
       padding: 0;
       min-width: 20%;
       text-align: center;
-      border-bottom: var(--nav-link_border_width, 2px) solid transparent;
+      border-bottom: var(--nav-link-border-width, 2px) solid transparent;
 
       &:hover,
       &:focus,
       &:active {
-        border-bottom: var(--nav-link_border_width, 2px) solid var(--nav-link_hover_border_color, $white);
+        border-bottom: var(--nav-link-border-width, 2px) solid var(--nav-link-hover-border-color, $white);
       }
     }
 
     .active .nav-link {
-      color: var(--nav-link_hover_color, $spray);
-      border-bottom: var(--nav-link_border_width, 2px) solid var(--nav-link_active_border_color, $spray);
+      color: var(--nav-link-hover-color, $spray);
+      border-bottom: var(--nav-link-border-width, 2px) solid var(--nav-link-active-border-color, $spray);
     }
   }
 
