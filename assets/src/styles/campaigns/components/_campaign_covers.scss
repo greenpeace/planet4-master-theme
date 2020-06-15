@@ -105,7 +105,6 @@
         text-align: center;
         font-size: $font-size-md;
         font-family: $roboto;
-        background-color: transparent;
         color: $yellow;
         font-weight: 500;
         position: absolute;
@@ -128,8 +127,6 @@
 
         &:hover {
           text-decoration: none;
-          background-color: transparent;
-          color: $yellow;
         }
       }
     }

@@ -144,14 +144,14 @@
       }
     }
 
-    .cover-card-btn {
+    .btn {
       display: block;
-      background-color: var(--cover-card-btn_background_color, $orange);
-      border-color: var(--cover-card-btn_border_color, $orange);
+      background-color: var(--cover-card-btn-background-color, $orange);
+      border-color: var(--cover-card-btn-border-color, $orange);
 
       &:hover {
-        background-color: var(--cover-card-btn_hover_background_color, $orange-hover);
-        border-color: var(--cover-card-btn_hover_border_color, $orange-hover);
+        background-color: var(--cover-card-btn-hover-background-color, $orange-hover);
+        border-color: var(--cover-card-btn-hover-border-color, $orange-hover);
       }
     }
   }
@@ -190,7 +190,7 @@
     padding-top: 0;
     max-width: 80%;
     transition: color 100ms linear;
-    color: var(--cover-card-heading_color, $white);
+    color: var(--cover-card-heading-color, $white);
     text-shadow: 1px 1px 3px $black;
     display: table;
     z-index: 1;
@@ -201,10 +201,6 @@
       font-size: 1.5rem;
       margin-top: 8px;
       max-width: 100%;
-    }
-
-    &:hover {
-      color: var(--cover-card-heading_hover_color, $white);
     }
   }
 
@@ -229,8 +225,7 @@
 }
 
 .cover-card-tag {
-  color: var(--cover-card-tag_color, $yellow);
-  background-color: var(--cover-card-tag_background_color, transparent);
+  color: var(--cover-card-tag-color, $yellow);
   display: inline-block;
   margin-bottom: 8px;
   text-decoration: none;
@@ -242,7 +237,7 @@
 
   &:hover {
     text-decoration: underline;
-    color: var(--cover-card-tag_hover_color, $yellow);
+    color: var(--cover-card-tag-hover-color, $yellow);
   }
 
   @include large-and-up {

@@ -94,9 +94,8 @@
   font-size: 1.25rem;
   line-height: 1.3;
   font-weight: 500;
-  color: var(--article-list-item-headline_color, $dark-shade-black);
+  color: var(--article-list-item-headline-color, $dark-shade-black);
   margin: $space-xxs 0;
-  display: table;
 
   @include large-and-up {
     font-size: 1.375rem;
@@ -105,14 +104,10 @@
   @include x-large-and-up {
     font-size: 1.5rem;
   }
-
-  &:hover {
-    color: var(--article-list-item-headline_hover_color, $dark-shade-black);
-  }
 }
 
 .article-list-item-meta {
-  color: var(--article-list-item-meta_color, $grey-60);
+  color: var(--article-list-item-meta-color, $grey-60);
   font-family: $roboto;
   font-style: italic;
   font-size: 0.875rem;
