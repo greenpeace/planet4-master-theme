@@ -44,6 +44,13 @@ class P4_Master_Site extends TimberSite {
 	protected $child_css = [];
 
 	/**
+	 * Variable that lets us know if the user has or hasn't used google to log in
+	 *
+	 * @var boolean $google_login_error
+	 */
+	protected $google_login_error = false;
+
+	/**
 	 * P4_Master_Site constructor.
 	 */
 	public function __construct() {
@@ -131,6 +138,8 @@ class P4_Master_Site extends TimberSite {
 			]
 		);
 
+		add_filter( 'authenticate', [ $this, 'enforce_google_signon' ], 4, 3 );
+		add_filter( 'authenticate', [ $this, 'check_google_login_error' ], 30, 3 );
 		add_filter( 'login_headerurl', [ $this, 'add_login_logo_url' ] );
 		add_filter( 'login_headertext', [ $this, 'add_login_logo_url_title' ] );
 		add_action( 'login_enqueue_scripts', [ $this, 'add_login_stylesheet' ] );
@@ -609,6 +618,58 @@ class P4_Master_Site extends TimberSite {
 			});
 		</script>
 		<?php
+	}
+
+	/**
+	 * Forces a user to login using Google Auth if they have a greenpeace.org email
+	 *
+	 * @param null|WP_User|WP_Error $user The current user logging in.
+	 * @param null|String           $username The username of the user.
+	 * @param null|String           $password The password of the user.
+	 * @return null|WP_User|WP_Error
+	 */
+	public function enforce_google_signon( $user, $username = null, $password = null ) {
+
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
+			return $user;
+		}
+
+		if ( empty( $username ) || empty( $password ) ) {
+			return $user;
+		} elseif ( strpos( $username, '@' ) ) {
+			$user_data = get_user_by( 'email', trim( wp_unslash( $username ) ) );
+		} else {
+			$login     = trim( $username );
+			$user_data = get_user_by( 'login', $login );
+		}
+
+		if ( empty( $user_data ) || is_wp_error( $user ) ) {
+			return $user;
+		}
+
+		$domain = '@greenpeace.org';
+		if ( mb_substr( $user_data->data->user_email, -strlen( $domain ) ) === $domain ) {
+			$this->google_login_error = true;
+		}
+
+		return $user;
+	}
+
+	/**
+	 * Checks if we have set a google login error earlier on so we can prevent login if google login wasn't used
+	 *
+	 * @param null|WP_User|WP_Error $user The current user logging in.
+	 * @param null|String           $username The username of the user.
+	 * @param null|String           $password The password of the user.
+	 * @return null|WP_User|WP_Error
+	 */
+	public function check_google_login_error( $user, $username = null, $password = null ) {
+		if ( $this->google_login_error ) {
+			$this->google_login_error = false;
+			return new WP_Error( 'google_login', __( 'You are trying to login with a Greenpeace email. Please use the Google login button instead.', 'planet4-master-theme-backend' ) );
+		}
+
+		return $user;
 	}
 
 	/**
