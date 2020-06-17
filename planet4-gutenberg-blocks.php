@@ -85,6 +85,14 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	define( 'WP_UNINSTALL_PLUGIN', P4GBKS_PLUGIN_BASENAME );
 }
 
+if ( ! defined( 'P4GBKS_EN_SLUG_NAME' ) ) {
+	define( 'P4GBKS_EN_SLUG_NAME', 'engagingnetworks' );
+}
+
+if ( ! defined( 'P4_REST_SLUG' ) ) {
+	define( 'P4_REST_SLUG', 'planet4-engaging-networks' );
+}
+
 require_once __DIR__ . '/classes/class-loader.php';
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
@@ -119,6 +127,7 @@ const PAGE_BLOCK_TYPES = [
 	'planet4-blocks/submenu',
 	'planet4-blocks/take-action-boxout',
 	'planet4-blocks/timeline',
+	'planet4-blocks/enform',
 ];
 
 // campaigns allow all block types.
@@ -137,6 +146,7 @@ const CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/spreadsheet',
 	'planet4-blocks/sub-pages',
 	'planet4-blocks/timeline',
+	'planet4-blocks/enform',
 ];
 
 /**
@@ -298,6 +308,32 @@ if ( class_exists( Elasticpress\Indexables::class ) ) {
 	);
 }
 
+add_filter( 'timber/twig', 'p4_blocks_en_forms_twig_filters' );
+
+/**
+ * Adds functionality to Twig.
+ *
+ * @param \Twig\Environment $twig The Twig environment.
+ * @return \Twig\Environment
+ */
+function p4_blocks_en_forms_twig_filters( $twig ) {
+	// Adding functions as filters.
+	$twig->addFilter(
+		new Twig_SimpleFilter(
+			'object_to_array',
+			function ( $std_class_object ) {
+				$response = [];
+				foreach ( $std_class_object as $key => $value ) {
+					$response[ $key ] = $value;
+				}
+				return $response;
+			}
+		)
+	);
+
+	return $twig;
+}
+
 /*
 ==========================
 	L O A D  P L U G I N
@@ -313,6 +349,10 @@ P4GBKS\Loader::get_instance(
 		\P4GBKS\Controllers\Menu\Reusable_Blocks_Controller::class,
 		\P4GBKS\Controllers\Menu\Archive_Import::class,
 		\P4GBKS\Controllers\Menu\Postmeta_Check_Controller::class,
+
+		\P4GBKS\Controllers\Menu\Enform_Post_Controller::class,
+		\P4GBKS\Controllers\Menu\En_Settings_Controller::class,
+		\P4GBKS\Controllers\Api\Rest_Controller::class,
 	],
 	\P4GBKS\Views\View::class
 );

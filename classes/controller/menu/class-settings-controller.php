@@ -33,5 +33,24 @@ if ( ! class_exists( 'Settings_Controller' ) ) {
 				);
 			}
 		}
+
+		/**
+		 * Validates the user input.
+		 *
+		 * @param array $settings The associative array with the input that the user submitted.
+		 *
+		 * @return bool
+		 */
+		public function validate( $settings ) : bool {
+			return true;
+		}
+
+		/**
+		 * Sanitizes the user input.
+		 *
+		 * @param array $input The associative array with the input that the user submitted.
+		 */
+		public function sanitize( &$input ) {
+		}
 	}
 }

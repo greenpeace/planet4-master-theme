@@ -243,4 +243,23 @@ class Archive_Import extends Controller {
 	private static function create_excerpt( string $text ): string {
 		return wp_trim_words( $text, 55 );
 	}
+
+	/**
+	 * Validates the user input.
+	 *
+	 * @param array $settings The associative array with the input that the user submitted.
+	 *
+	 * @return bool
+	 */
+	public function validate( $settings ) : bool {
+		return true;
+	}
+
+	/**
+	 * Sanitizes the user input.
+	 *
+	 * @param array $input The associative array with the input that the user submitted.
+	 */
+	public function sanitize( &$input ) {
+	}
 }

@@ -8,8 +8,11 @@
 
 namespace P4GBKS;
 
+use P4GBKS\Blocks\ENForm;
 use WP_CLI;
 use P4GBKS\Command\Controller;
+use P4GBKS\Controllers\Ensapi_Controller as Ensapi;
+use P4GBKS\Controllers\Menu\Enform_Post_Controller;
 
 /**
  * Class Loader
@@ -112,6 +115,7 @@ final class Loader {
 			new Blocks\TakeActionBoxout(),
 			new Blocks\Timeline(),
 			new Blocks\SocialMediaCards(),
+			new Blocks\ENForm( $this ),
 		];
 	}
 
@@ -343,6 +347,13 @@ final class Loader {
 			'planet4_options' => $option_values,
 		];
 		wp_localize_script( 'planet4-blocks-script', 'p4ge_vars', $reflection_vars );
+
+		$reflection_vars = [
+			'home'  => P4GBKS_PLUGIN_URL . '/public/',
+			'pages' => $this->get_pages(),
+			'forms' => $this->get_forms(),
+		];
+		wp_localize_script( 'planet4-blocks-script', 'p4en_vars', $reflection_vars );
 	}
 
 	/**
@@ -430,6 +441,10 @@ final class Loader {
 	public function load_i18n() {
 		load_plugin_textdomain( 'planet4-blocks', false, P4GBKS_PLUGIN_DIRNAME . '/languages/' );
 		load_plugin_textdomain( 'planet4-blocks-backend', false, P4GBKS_PLUGIN_DIRNAME . '/languages/' );
+
+		// Load EN translations.
+		load_plugin_textdomain( 'planet4-engagingnetworks', false, P4GBKS_PLUGIN_DIRNAME . '/languages/enform/' );
+		load_plugin_textdomain( 'planet4-engagingnetworks-backend', false, P4GBKS_PLUGIN_DIRNAME . '/languages/enform/' );
 	}
 
 	/**
@@ -609,14 +624,61 @@ final class Loader {
 		string $rel_path,
 		array $deps = [],
 		bool $in_footer = true
-	): void {
+	): void
+	{
 		wp_enqueue_script(
 			$handle,
-			trailingslashit( P4GBKS_PLUGIN_URL ) . $rel_path,
+			trailingslashit(P4GBKS_PLUGIN_URL) . $rel_path,
 			$deps,
-			self::file_ver( trailingslashit( P4GBKS_PLUGIN_DIR ) . $rel_path ),
+			self::file_ver(trailingslashit(P4GBKS_PLUGIN_DIR) . $rel_path),
 			$in_footer
 		);
+	}
+
+	/**
+	 * Get all available EN pages.
+	 */
+	public function get_pages() {
+		// Get EN pages only on admin panel.
+		if ( ! is_admin() ) {
+			return [];
+		}
+
+		$pages         = [];
+		$main_settings = get_option( 'p4en_main_settings' );
+
+		if ( isset( $main_settings['p4en_private_api'] ) ) {
+			$pages[]           = $main_settings['p4en_private_api'];
+			$ens_private_token = $main_settings['p4en_private_api'];
+			$this->ens_api     = new Ensapi( $ens_private_token );
+			$pages             = $this->ens_api->get_pages_by_types_status( Blocks\ENForm::ENFORM_PAGE_TYPES, 'live' );
+			uasort(
+				$pages,
+				function ( $a, $b ) {
+					return ( $a['name'] ?? '' ) <=> ( $b['name'] ?? '' );
+				}
+			);
+		}
+
+		return $pages;
+	}
+
+	/**
+	 * Get all available EN forms.
+	 */
+	public function get_forms() {
+		// Get EN Forms.
+		$query = new \WP_Query(
+			[
+				'post_status'      => 'publish',
+				'post_type'        => Enform_Post_Controller::POST_TYPE,
+				'orderby'          => 'post_title',
+				'order'            => 'asc',
+				'suppress_filters' => false,
+				'posts_per_page'   => -1,
+			]
+		);
+		return $query->posts;
 	}
 
 	/**

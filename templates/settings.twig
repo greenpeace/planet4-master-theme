@@ -1,19 +1,67 @@
 {% block settings_content %}
 
-    <div id="settings_div" class="wrap">
-        <h2>{{ __( 'Settings', 'planet4-blocks-backend' ) }}</h2>
-    </div>
+    {% embed "message.twig" with messages %}{% endembed %}
 
-    <form id="p4bks_main_settings_form" name="p4bks_main_settings_form" method="post">
-        {{ fn( 'wp_nonce_field', nonce_action, '_wpnonce', true, false )|raw }}
-        <p class="submit">
-            <input type="text" name="p4bks_page_id" id="p4bks_page_id" value="" placeholder="{{ __( 'Page ID', 'planet4-blocks-backend' ) }}">
-            <input type="submit" name="p4bks_convert_blocks_button" id="p4bks_convert_blocks_button" class="button button-primary" value="{{ __( 'Convert block(s)', 'planet4-blocks-backend' ) }}">&nbsp;
-            <span class="convert-blocks-response cp-success">{{ message }}</span>
-            <br />{{ __( '1) The blocks "Static four column", "Two columns" and "Take action tasks" will be replaced by block "Columns"', 'planet4-blocks-backend' ) }}
-            <br />{{ __( '2) The blocks "Three columns" and "Carousel" will be replaced by block "Gallery"', 'planet4-blocks-backend' ) }}
-        </p>
-    </form>
-    <div class="clear"></div>
+    <div id="settings_div" class="wrap">
+		<h2>{{ __( 'Settings', domain ) }}</h2>
+	</div>
+
+	{{ fn( 'settings_errors' ) }}
+
+	<form id="p4en_main_settings_form" name="p4en_main_settings_form" method="post" action="options.php">{# ../../../../wp-admin/options.php #}
+
+		{{ fn( 'settings_fields', 'p4en_main_settings_group' ) }}
+		{{ fn( 'do_settings_sections', 'p4en_main_settings_group' ) }}
+
+		<table class="form-table">
+			<tr valign="top">
+				<th>{{ __( 'Full Admin Public API Key', domain ) }}:</th>
+				<td>
+					<input id="p4en_public_api"
+						name="p4en_main_settings[p4en_public_api]"
+						value="{{ settings.p4en_public_api|e('html_attr') }}"
+						size="50"
+						placeholder="{{ __( 'Enter your Engaging Networks account full admin public token', 'planet4-engagingnetworks-backend' ) }}" />
+				</td>
+			</tr>
+			<tr valign="top">
+				<th>{{ __( 'Full Admin Private/Secret API Key', domain ) }}:</th>
+				<td>
+					<input type="password"
+						id="p4en_private_api"
+						name="p4en_main_settings[p4en_private_api]"
+						value="{{ settings.p4en_private_api|e('html_attr') }}"
+						size="50"
+						placeholder="{{ __( 'Enter your Engaging Networks account full admin private token', 'planet4-engagingnetworks-backend' ) }}" />
+				</td>
+			</tr>
+		</table>
+		<hr>
+		<table class="form-table">
+			<tr valign="top">
+				<th>{{ __( 'Frontend Public API Key', domain ) }}:</th>
+				<td>
+					<input id="p4en_frontend_public_api"
+						   name="p4en_main_settings[p4en_frontend_public_api]"
+						   value="{{ settings.p4en_frontend_public_api|e('html_attr') }}"
+						   size="50"
+						   placeholder="{{ __( 'Enter your Engaging Networks account frontend public token', 'planet4-engagingnetworks-backend' ) }}" />
+				</td>
+			</tr>
+			<tr valign="top">
+				<th>{{ __( 'Frontend Private/Secret API Key', domain ) }}:</th>
+				<td>
+					<input type="password"
+						   id="p4en_frontend_private_api"
+						   name="p4en_main_settings[p4en_frontend_private_api]"
+						   value="{{ settings.p4en_frontend_private_api|e('html_attr') }}"
+						   size="50"
+						   placeholder="{{ __( 'Enter your Engaging Networks account frontend private token', 'planet4-engagingnetworks-backend' ) }}" />
+				</td>
+			</tr>
+		</table>
+		{{ fn( 'submit_button', __( 'Save Changes', domain ), 'primary', 'p4en_main_settings_save_button' ) }}
+	</form>
+	<div class="clear"></div>
 
 {% endblock %}
