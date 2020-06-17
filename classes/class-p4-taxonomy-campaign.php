@@ -51,9 +51,9 @@ class P4_Taxonomy_Campaign {
 			}
 
 			$this->context['blocks'][] = '<!-- wp:planet4-blocks/' . $block_name . ' ' . wp_json_encode(
-					$block_attributes,
-					JSON_UNESCAPED_SLASHES
-				) . ' /-->';
+				$block_attributes,
+				JSON_UNESCAPED_SLASHES
+			) . ' /-->';
 		}
 	}
 

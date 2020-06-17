@@ -26,7 +26,6 @@ class P4_Image_Compression extends WP_Image_Editor_Imagick {
 	 * @param bool   $strip_meta Optional. Strip all profiles, excluding color profiles, from the image. Default true.
 	 * @return bool|WP_Error
 	 * @since 1.9
-	 *
 	 */
 	protected function thumbnail_image( $dst_w, $dst_h, $filter_name = 'FILTER_TRIANGLE', $strip_meta = true ) {
 		if ( $this->filter ) {

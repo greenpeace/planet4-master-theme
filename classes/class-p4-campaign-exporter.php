@@ -26,16 +26,16 @@ class P4_Campaign_Exporter {
 	 */
 	public function single_post_export_data() {
 		$post_id = filter_input( INPUT_GET, 'post', FILTER_SANITIZE_NUMBER_INT ) ?? filter_input(
-						INPUT_POST,
-						'post',
-						FILTER_SANITIZE_NUMBER_INT
-				);
+			INPUT_POST,
+			'post',
+			FILTER_SANITIZE_NUMBER_INT
+		);
 		if (
 				! empty( $post_id )
 				&& 'export_data' === filter_input(
-						INPUT_GET,
-						'action',
-						FILTER_SANITIZE_STRING
+					INPUT_GET,
+					'action',
+					FILTER_SANITIZE_STRING
 				)
 		) {
 			include get_template_directory() . '/exporter.php';
@@ -50,18 +50,22 @@ class P4_Campaign_Exporter {
 	public function single_post_export_bulk() {
 		if (
 				P4_Post_Campaign::POST_TYPE === filter_input(
-						INPUT_GET,
-						'post_type',
-						FILTER_SANITIZE_STRING
+					INPUT_GET,
+					'post_type',
+					FILTER_SANITIZE_STRING
 				)
 				&& current_user_can( 'edit_posts' )
 		) { ?>
 			<script type="text/javascript">
 				jQuery( function ( $ ) {
-					jQuery( '<option>' ).val( 'export' ).text( '<?php esc_html_e(
-							'Export',
-							'planet4-master-theme-backend'
-					); ?>' ).appendTo( "select[name='action']" );
+					jQuery( '<option>' ).val( 'export' ).text( '
+					<?php
+					esc_html_e(
+						'Export',
+						'planet4-master-theme-backend'
+					);
+					?>
+					' ).appendTo( "select[name='action']" );
 				} );
 			</script>
 			<?php
@@ -81,9 +85,9 @@ class P4_Campaign_Exporter {
 
 		$validated_posts = array_filter(
 				$_REQUEST['post'], // phpcs:ignore
-				function ( $element ) {
-					return filter_var( $element, FILTER_VALIDATE_INT );
-				}
+			function ( $element ) {
+				return filter_var( $element, FILTER_VALIDATE_INT );
+			}
 		);
 
 		switch ( $action ) {
@@ -108,17 +112,17 @@ class P4_Campaign_Exporter {
 	public function single_post_export( $actions, $post ): array {
 		if (
 				P4_Post_Campaign::POST_TYPE === filter_input(
-						INPUT_GET,
-						'post_type',
-						FILTER_SANITIZE_STRING
+					INPUT_GET,
+					'post_type',
+					FILTER_SANITIZE_STRING
 				)
 				&& current_user_can( 'edit_posts' )
 		) {
 			$export_url        = esc_url( admin_url( 'admin.php?action=export_data&amp;post=' . $post->ID ) );
 			$actions['export'] = '<a href="' . $export_url . '" title="' . __(
-							'Export',
-							'planet4-master-theme-backend'
-					) . '" rel="permalink">' . __( 'Export', 'planet4-master-theme-backend' ) . '</a>';
+				'Export',
+				'planet4-master-theme-backend'
+			) . '" rel="permalink">' . __( 'Export', 'planet4-master-theme-backend' ) . '</a>';
 
 		}
 
@@ -133,10 +137,14 @@ class P4_Campaign_Exporter {
 		?>
 		<script>
 			jQuery( function () {
-				jQuery( "body.post-type-campaign .wrap .page-title-action" ).after( '<a href="admin.php?import=wordpress" class="page-title-action"><?php esc_html_e(
-						'Import',
-						'planet4-master-theme-backend'
-				); ?></a>' );
+				jQuery( "body.post-type-campaign .wrap .page-title-action" ).after( '<a href="admin.php?import=wordpress" class="page-title-action">
+				<?php
+				esc_html_e(
+					'Import',
+					'planet4-master-theme-backend'
+				);
+				?>
+				</a>' );
 			} );
 		</script>
 		<?php

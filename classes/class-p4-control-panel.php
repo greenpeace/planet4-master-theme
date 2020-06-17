@@ -128,10 +128,10 @@ class P4_Control_Panel {
 		foreach ( $data['subitems'] as $subitem ) {
 			echo '<div>
 					<a href="' . esc_url( $subitem['url'] ?? '#' ) . '" class="btn btn-cp-action ' . esc_attr(
-					$subitem['action'] ?? ''
-				) . '" data-action="' . esc_attr( $subitem['action'] ?? '' ) . '" data-confirm="' . esc_attr(
-					$subitem['confirm'] ?? ''
-				) . '">' . esc_html( $subitem['title'] ) . '</a>
+				$subitem['action'] ?? ''
+			) . '" data-action="' . esc_attr( $subitem['action'] ?? '' ) . '" data-confirm="' . esc_attr(
+				$subitem['confirm'] ?? ''
+			) . '">' . esc_html( $subitem['title'] ) . '</a>
 					<span class="cp-subitem-response"></span>
 				</div>';
 		}

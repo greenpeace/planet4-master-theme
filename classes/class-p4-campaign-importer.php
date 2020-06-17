@@ -202,7 +202,7 @@ class P4_Campaign_Importer {
 	 */
 	public function filter_wp_import_post_terms( $post_terms, $post_id, $post ) {
 		if ( 'attachment' === $post['post_type'] ) {
-			$attachment_metadata                                         = wp_get_attachment_metadata( $post_id );
+			$attachment_metadata = wp_get_attachment_metadata( $post_id );
 			$attachment_metadata['image_meta']['imported_attachment_id'] = $post['post_id'];
 			wp_update_attachment_metadata( $post_id, $attachment_metadata );
 

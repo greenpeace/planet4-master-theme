@@ -13,17 +13,17 @@ use Timber\Timber;
  */
 abstract class P4_Search {
 
-	const POSTS_PER_LOAD = 5;
-	const SHOW_SCROLL_TIMES = 2;
-	const DEFAULT_SORT = '_score';
-	const DEFAULT_MIN_WEIGHT = 1;
-	const DEFAULT_PAGE_WEIGHT = 100;
+	const POSTS_PER_LOAD        = 5;
+	const SHOW_SCROLL_TIMES     = 2;
+	const DEFAULT_SORT          = '_score';
+	const DEFAULT_MIN_WEIGHT    = 1;
+	const DEFAULT_PAGE_WEIGHT   = 100;
 	const DEFAULT_ACTION_WEIGHT = 2000;
-	const DEFAULT_MAX_WEIGHT = 3000;
-	const DEFAULT_CACHE_TTL = 600;
-	const DUMMY_THUMBNAIL = '/images/dummy-thumbnail.png';
-	const EXCLUDE_FROM_SEARCH = 'p4_do_not_index';
-	const DOCUMENT_TYPES = [
+	const DEFAULT_MAX_WEIGHT    = 3000;
+	const DEFAULT_CACHE_TTL     = 600;
+	const DUMMY_THUMBNAIL       = '/images/dummy-thumbnail.png';
+	const EXCLUDE_FROM_SEARCH   = 'p4_do_not_index';
+	const DOCUMENT_TYPES        = [
 		'application/pdf',
 	];
 
@@ -1005,7 +1005,6 @@ abstract class P4_Search {
 	 * @param string|int $id The ID of the p4 page type.
 	 * @return mixed|null The p4 page type.
 	 * @todo Get this from ES.
-	 *
 	 */
 	private static function get_p4_post_type( $id ) {
 		$p4_post_types = get_terms( 'p4-page-type' );
@@ -1033,7 +1032,7 @@ abstract class P4_Search {
 
 		if ( ( ! is_admin() && is_search() ) || ( wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) ) {
 			$mime_types = implode( ',', self::DOCUMENT_TYPES );
-			$where      .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
+			$where     .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
 		}
 		return $where;
 	}
@@ -1077,14 +1076,14 @@ abstract class P4_Search {
 	 */
 	public function add_load_more( $args = null ) {
 		$this->context['load_more'] = $args ?? [
-				'posts_per_load' => self::POSTS_PER_LOAD,
-				// Translators: %s = number of results per page.
-				'button_text'    => sprintf(
-					__( 'SHOW %s MORE RESULTS', 'planet4-master-theme' ),
-					self::POSTS_PER_LOAD
-				),
-				'async'          => true,
-			];
+			'posts_per_load' => self::POSTS_PER_LOAD,
+			// Translators: %s = number of results per page.
+			'button_text'    => sprintf(
+				__( 'SHOW %s MORE RESULTS', 'planet4-master-theme' ),
+				self::POSTS_PER_LOAD
+			),
+			'async'          => true,
+		];
 	}
 
 	/**

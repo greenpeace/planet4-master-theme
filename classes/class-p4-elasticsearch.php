@@ -150,23 +150,23 @@ class P4_ElasticSearch extends P4_Search {
 		 * the weighted results according to the scoring settings set below.
 		 */
 		$formatted_args['query']['function_score']['functions'] = ( $existing_query['function_score']['functions'] ?? [] ) + [
-				[
-					'filter' => [
-						'match' => [
-							'post_type' => 'page',
-						],
+			[
+				'filter' => [
+					'match' => [
+						'post_type' => 'page',
 					],
-					'weight' => self::DEFAULT_PAGE_WEIGHT,
 				],
-				[
-					'filter' => [
-						'term' => [
-							'post_parent' => esc_sql( $options['act_page'] ),
-						],
+				'weight' => self::DEFAULT_PAGE_WEIGHT,
+			],
+			[
+				'filter' => [
+					'term' => [
+						'post_parent' => esc_sql( $options['act_page'] ),
 					],
-					'weight' => self::DEFAULT_ACTION_WEIGHT,
 				],
-			];
+				'weight' => self::DEFAULT_ACTION_WEIGHT,
+			],
+		];
 
 		// Specify how the computed scores are combined.
 		$formatted_args['query']['function_score']['score_mode'] = 'sum';

@@ -46,7 +46,6 @@ class P4_Cookies {
 	 *
 	 * @return bool
 	 * @since 1.9
-	 *
 	 */
 	public function filter_google_login_set_login_cookie( $dosetcookie ) {
 		global $pagenow;
@@ -62,7 +61,6 @@ class P4_Cookies {
 	 *
 	 * @return bool Return false if entry does not exist, otherwise return cookie value.
 	 * @since 1.9
-	 *
 	 */
 	public function read_cookie( $name = '' ) {
 		if ( isset( $_COOKIE[ $name ] ) ) {
