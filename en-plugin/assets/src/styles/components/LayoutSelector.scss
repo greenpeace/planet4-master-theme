@@ -1,0 +1,22 @@
+.LayoutSelector {
+  display: flex;
+  width: 100%;
+  margin-bottom: 30px;
+  cursor: pointer;
+
+  .LayoutOption {
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    width: 100%;
+  }
+
+  .LayoutOption:last-child {
+    border-right: 0;
+  }
+
+  .help {
+    font-family: $roboto;
+    font-size: 10pt;
+    margin-top: 10px;
+  }
+}

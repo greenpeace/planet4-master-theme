@@ -1,0 +1,116 @@
+{% block pages_datatable_content %}
+
+    {% embed "message.twig" with messages %}{% endembed %}
+
+    <div id="p4en_pages_datatable" class="wrap">
+        <h2>{{ __( 'EN Pages', domain ) }}</h2>
+        <br />
+
+        <form id="p4en_pages_datatable_form" name="p4en_pages_datatable_form" method="post">    {# fn( 'admin_url', 'admin-post.php' )|e('url') #}
+            {{ fn( 'wp_nonce_field', nonce_action, 'pages_datatable_nonce', true, false )|raw }}
+            <input type="hidden" name="form_submit" value="{{ form_submit }}">
+
+            <div id="p4en_pages_datatable_filters">
+                <select id="p4en_pages_subtype" name="p4en_pages_datatable_settings[p4en_pages_subtype]">
+                    <option selected disabled>- {{ __( 'Select Subtype', domain ) }} -</option>
+                    {% for key, subtype in subtypes %}
+                        {% if key == pages_settings.p4en_pages_subtype %}
+                            <option value="{{ key|e('html_attr') }}" selected>{{ subtype['subType']|e('html') }}</option>
+                        {% else %}
+                            <option value="{{ key|e('html_attr') }}">{{ subtype['subType']|e('html') }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+
+                <select id="p4en_pages_status" name="p4en_pages_datatable_settings[p4en_pages_status]">
+                    <option selected disabled>- {{ __( 'Select Status', domain ) }} -</option>
+                    {% for key, status in statuses %}
+                        {% if key == pages_settings.p4en_pages_status %}
+                            <option value="{{ key|e('html_attr') }}" selected>{{ status|e('html') }}</option>
+                        {% else %}
+                            <option value="{{ key|e('html_attr') }}">{{ status|e('html') }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                {{ fn( 'submit_button', __( 'Save Changes', domain ), 'primary', 'p4en_pages_datatable_settings_save_button' ) }}
+            </div>
+        </form>
+
+        <table id="en_pages_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+            <tr valign="top">
+                <th>{{ __( 'ID', domain ) }}</th>
+                <th>{{ __( 'Type', domain ) }}</th>
+                <th>{{ __( 'Name', domain ) }}</th>
+                <th>{{ __( 'Created', domain ) }}</th>
+                <th>{{ __( 'Modified', domain ) }}</th>
+                <th>{{ __( 'Status', domain ) }}</th>
+                <th>{{ __( 'Title', domain ) }}</th>
+                <th>{{ __( 'Subtype', domain ) }}</th>
+                <th>{{ __( 'Actions', domain ) }}</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr valign="top">
+                <th>{{ __( 'ID', domain ) }}</th>
+                <th>{{ __( 'Type', domain ) }}</th>
+                <th>{{ __( 'Name', domain ) }}</th>
+                <th>{{ __( 'Created', domain ) }}</th>
+                <th>{{ __( 'Modified', domain ) }}</th>
+                <th>{{ __( 'Status', domain ) }}</th>
+                <th>{{ __( 'Title', domain ) }}</th>
+                <th>{{ __( 'Subtype', domain ) }}</th>
+                <th>{{ __( 'Actions', domain ) }}</th>
+            </tr>
+            </tfoot>
+            {% for page in pages %}
+                <tr valign="top">
+                    <td>
+                        {{ page['id']|e('html') }}
+                    </td>
+                    <td>
+                        {{ (subtypes[ page['subType'] ]['type'])|e('html') }}
+                    </td>
+                    <td>
+                        <a class="p4en_link p4en_page_name" href="{{ page.url|e('html_attr') }}" title="" data-title="Open page in new tab" target="_blank">{{ page['name']|e('html') }}</a>
+                    </td>
+                    <td>
+                        {% if ( page['createdOn'] ) %}
+                            {{ (page['createdOn'] / 1000)|date('M d, Y')|e('html') }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if ( page['modifiedOn'] ) %}
+                            {{ (page['modifiedOn'] / 1000)|date('M d, Y')|e('html') }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ page['campaignStatus']|e('html') }}
+                    </td>
+                    <td>
+                        {{ page['title']|e('html') }}
+                    </td>
+                    <td>
+                        {{ (subtypes[ page['subType'] ]['subType'])|e('html') }}
+                    </td>
+                    <td>
+                        <a class="p4en_link do_copy" href="" data-href="{{ page.url|e('html_attr') }}" title=""  data-title="Copy link">
+                            <i class="dashicons dashicons-admin-links"></i>
+                        </a>
+                        <a class="p4en_link do_edit" href="https://e-activist.com/index.html#pages/{{ page['id'] }}/edit" title=""  data-title="Edit in EN" target="_blank">
+                            <i class="dashicons dashicons-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="clear"></div>
+
+{% endblock %}
+
+<script type="application/javascript">
+    jQuery(document).ready(function() {
+        $('#en_pages_table').DataTable();
+    } );
+</script>

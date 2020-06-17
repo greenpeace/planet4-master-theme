@@ -1,0 +1,90 @@
+.enform-full-width {
+  .enform {
+    color: white;
+    padding: $space-lg;
+    padding-bottom: 42px;
+
+    .title-and-description {
+      h2 {
+        margin-bottom: 16px;
+      }
+
+      .form-description {
+        margin-bottom: 32px;
+      }
+    }
+
+    form {
+      .en__field--check {
+        height: min-content;
+        line-height: 1;
+        margin-top: 16px;
+
+        @include medium-and-up {
+          width: 100%;
+        }
+
+        label {
+          margin-bottom: 0;
+        }
+
+        .form-group {
+          margin-bottom: 0;
+        }
+
+        input[type="checkbox"] {
+          + .custom-control-description:before {
+            height: 16px;
+            width: 16px;
+          }
+
+          &:checked + .custom-control-description:after {
+            left: 3px;
+            top: 8px;
+            width: 3px;
+            height: 3px;
+          }
+        }
+      }
+
+      .form-check-label-block {
+        padding: 0;
+      }
+
+      .submit {
+        display: flex;
+        margin-top: 0;
+
+        @include medium-and-up {
+          justify-content: center;
+        }
+
+        @include large-and-up {
+          justify-content: left;
+        }
+
+        button {
+          padding: 0;
+          margin-bottom: 0;
+
+          @include medium-and-up {
+            width: 380px !important;
+          }
+
+          @include large-and-up {
+            width: 32% !important;
+          }
+        }
+      }
+
+      .enform-legal {
+        margin-top: 24px;
+
+        @include large-and-up {
+          margin-top: 16px;
+          width: 66%;
+        }
+      }
+    }
+  }
+}
