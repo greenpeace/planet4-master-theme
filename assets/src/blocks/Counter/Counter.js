@@ -18,44 +18,8 @@ export class Counter extends Component {
 
   renderEdit() {
     const { __ } = wp.i18n;
-
     return (
       <div>
-        <h3>{ __('What style of counter do you need?', 'p4ge') }</h3>
-
-        <div>
-          <LayoutSelector
-            selectedOption={ this.props.style }
-            onSelectedLayoutChange={ this.props.onSelectedLayoutChange }
-            options={[
-              {
-                label: __('Text Only', 'p4ge'),
-                image: window.p4ge_vars.home + 'images/counter_th_text.png',
-                value: 'plain',
-                help: __('Text to describe your progress', 'p4ge')
-              },
-              {
-                label: __('Progress Bar', 'p4ge'),
-                image: window.p4ge_vars.home + 'images/counter_th_bar.png',
-                value: 'bar',
-                help: __('A bar to visualise the progress.', 'p4ge'),
-              },
-              {
-                label: __('Progress Dial', 'p4ge'),
-                image: window.p4ge_vars.home + 'images/counter_th_arc.png',
-                value: 'arc',
-                help: __('A dial to visualise the progress.', 'p4ge')
-              },
-              {
-                label: __('Progress bar inside EN Form', 'p4ge'),
-                image: window.p4ge_vars.home + 'images/counter_th_bar.png',
-                value: 'en-forms-bar',
-                help: __('A bar inside an En Form. Select this only if you are adding an EN Form to the same page.', 'p4ge')
-              },
-            ]}
-          />
-        </div>
-
         <div>
           <TextControl
             label= { __('Title', 'p4ge') }
@@ -120,6 +84,10 @@ export class Counter extends Component {
   }
 
   render() {
+    let style = 'plain';
+    if (this.props.className) {
+      style = this.props.className.split('is-style-')[1];
+    }
     return (
       <div>
         {
@@ -133,11 +101,11 @@ export class Counter extends Component {
             attributes={{
               title: this.props.title,
               description: this.props.description,
-              style: this.props.style,
               completed: this.props.completed,
               completed_api: this.props.completed_api,
               target: this.props.target,
               text: this.props.text,
+              style
             }}>
           </ServerSideRender>
         </Preview>
