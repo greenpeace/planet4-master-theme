@@ -27,6 +27,10 @@ if ( is_tag() ) {
 		$redirect_page               = get_post( $redirect_id );
 		$wp_query->queried_object    = $redirect_page;
 		$wp_query->queried_object_id = $redirect_page->ID;
+
+		// Allow modification of redirect page behavior.
+		do_action( 'p4_action_tag_page_redirect', $redirect_page );
+
 		include 'page.php';
 
 	} else {
