@@ -22,20 +22,20 @@ class P4_Activator {
 	 * Hooks the activator functions.
 	 */
 	protected function hooks() {
-		add_action( 'after_switch_theme', [ $this, 'run' ] );
+		add_action( 'after_switch_theme', [ self::class, 'run' ] );
 	}
 
 	/**
 	 * Run activation functions.
 	 */
-	public function run() {
-		$this->add_custom_roles_and_capabilities();
+	public static function run(): void {
+		self::add_custom_roles_and_capabilities();
 	}
 
 	/**
 	 * Add campaigner role and its capabilities.
 	 */
-	public function add_custom_roles_and_capabilities() {
+	private static function add_custom_roles_and_capabilities(): void {
 
 		$campaigner = new P4_Campaigner();
 		$campaigner->register_role_and_add_capabilities();
