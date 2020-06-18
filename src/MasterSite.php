@@ -5,15 +5,26 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
+use P4_ElasticSearch;
+use P4_Image_Compression;
+use P4_Search;
 use Timber\Timber;
 use Timber\Site as TimberSite;
 use Timber\Menu as TimberMenu;
+use Twig_Extension_StringLoader;
+use Twig_ExtensionInterface;
+use Twig_SimpleFilter;
+use WP_Error;
+use WP_Post;
+use WP_User;
 
 /**
  * Class P4_Master_Site.
  * The main class that handles Planet4 Master Theme.
  */
-class P4_Master_Site extends TimberSite {
+class MasterSite extends TimberSite {
 
 	/**
 	 * Key of notice seen by user
@@ -877,7 +888,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	private function render_partial( $path, $args = [] ) {
 		if ( ! empty( $args ) ) {
-			extract( $args ); // phpcs:ignore
+			extract( $args, EXTR_OVERWRITE ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		}
 		include locate_template( $path . '.php' );
 	}

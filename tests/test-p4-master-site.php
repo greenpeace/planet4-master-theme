@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use P4\MasterTheme\MasterSite;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -44,8 +45,8 @@ class P4MasterSite extends TestCase {
 	 * @param ?string $expected Html content expected.
 	 */
 	public function testMakeContentImageLazyLoad( string $content, ?string $expected ): void {
-		/** @var P4_Master_Site $p4 */
-		$p4 = $this->getMockBuilder( P4_Master_Site::class )
+		/** @var MasterSite $p4 */
+		$p4 = $this->getMockBuilder( MasterSite::class )
 			->disableOriginalConstructor()
 			->setMethodsExcept( [ 'make_content_images_lazyload' ] )
 			->getMock();

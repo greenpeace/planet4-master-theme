@@ -5,6 +5,9 @@
  * @package P4MT
  */
 
+use P4\MasterTheme\MasterSite;
+use P4\MasterTheme\MetaboxRegister;
+
 /**
  * Class P4_Loader.
  * Loads all necessary classes for Planet4 Master Theme.
@@ -60,6 +63,13 @@ final class P4_Loader {
 	 * Load required files.
 	 */
 	private function load_files() {
+		// Composer install might have happened inside the master-theme directory, instead of the app root.
+		// Probably there's a better way to handle this, but for now let's try load both.
+		if ( file_exists( __DIR__ . '/../vendor/autoload.php' ) ) {
+			require_once __DIR__ . '/../vendor/autoload.php';
+		} else {
+			require_once __DIR__ . '/../../../../../vendor/autoload.php';
+		}
 		try {
 			// Class names need to be prefixed with P4 and should use capitalized words separated by underscores. Any acronyms should be all upper case.
 			spl_autoload_register(
@@ -90,7 +100,7 @@ final class P4_Loader {
 			P4_Post_Report_Controller::class,
 			P4_Cookies::class,
 			P4_Dev_Report::class,
-			P4_Master_Site::class,
+			MasterSite::class,
 		];
 
 		if ( is_admin() ) {
@@ -101,10 +111,10 @@ final class P4_Loader {
 
 			// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
 			if ( 'post-new.php' === $pagenow || 'post.php' === $pagenow ) {
-				$this->default_services[] = P4_Metabox_Register::class;
+				$this->default_services[] = MetaboxRegister::class;
 				add_action(
 					'cmb2_save_field_p4_campaign_name',
-					[ P4_Metabox_Register::class, 'save_global_project_id' ],
+					[ MetaboxRegister::class, 'save_global_project_id' ],
 					10,
 					3
 				);

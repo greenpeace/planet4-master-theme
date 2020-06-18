@@ -5,6 +5,8 @@
  * @package P4MT
  */
 
+use P4\MasterTheme\MasterSite;
+
 /**
  * Class P4MasterThemeTest
  */
@@ -29,7 +31,7 @@ class P4MasterThemeTest extends P4_TestCase {
 	 */
 	public function testFunctionsPHP() {
 		$context = Timber::get_context();
-		$this->assertEquals( P4_Master_Site::class, get_class( $context['site'] ) );
+		$this->assertEquals( MasterSite::class, get_class( $context['site'] ) );
 		$this->assertTrue( current_theme_supports( 'post-thumbnails' ) );
 		$this->assertEquals( 'bar', $context['foo'] );
 	}
