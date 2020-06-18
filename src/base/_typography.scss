@@ -102,11 +102,11 @@ h2 {
 //
 // Styleguide Style.typography.links
 a {
-  color: $blue;
+  color: $link-color;
   text-decoration: none;
 
   &:hover {
-    color: $blue;
+    color: $link-hover-color;
     text-decoration: underline;
   }
 }

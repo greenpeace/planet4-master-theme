@@ -31,7 +31,11 @@
   .tag-wrap {
     display: inline;
     position: relative;
-    color: $blue;
+    color: $link-color;
+
+    &:hover {
+      color: $link-hover-color;
+    }
   }
 
   .tag-item--main + .tag-wrap,
@@ -51,9 +55,13 @@
   }
 
   .tag-item {
-    color: $blue;
+    color: $link-color;
     font-weight: 400;
     display: inline-block;
+
+    &:hover {
+      color: $link-hover-color;
+    }
 
     @include x-large-and-up {
       font-size: $font-size-sm;
@@ -83,11 +91,6 @@
 
     &.page-type {
       text-transform: uppercase;
-      color: $blue;
-
-      &:hover {
-        color: $blue;
-      }
 
       html[dir="rtl"] & {
         text-transform: lowercase;

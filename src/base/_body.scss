@@ -25,7 +25,7 @@ body {
 }
 
 a {
-  color: $blue;
+  color: $link-color;
 
   &.external-link {
     .external-icon {
@@ -43,7 +43,7 @@ a {
   }
 
   &:hover {
-    color: $blue;
+    color: $link-hover-color;
     text-decoration: underline;
   }
 }
