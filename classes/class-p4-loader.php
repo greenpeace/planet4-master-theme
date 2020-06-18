@@ -96,11 +96,11 @@ final class P4_Loader {
 			global $pagenow;
 
 			// Load P4 Control Panel only on Dashboard page.
-			$this->default_services[] = 'P4_Control_Panel';
+			$this->default_services[] = P4_Control_Panel::class;
 
 			// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
 			if ( 'post-new.php' === $pagenow || 'post.php' === $pagenow ) {
-				$this->default_services[] = 'P4_Metabox_Register';
+				$this->default_services[] = P4_Metabox_Register::class;
 				add_action(
 					'cmb2_save_field_p4_campaign_name',
 					[ P4_Metabox_Register::class, 'save_global_project_id' ],
@@ -111,25 +111,25 @@ final class P4_Loader {
 
 			// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
 			if ( 'edit-tags.php' === $pagenow || 'term.php' === $pagenow ) {
-				$this->default_services[] = 'P4_Campaigns';
+				$this->default_services[] = P4_Campaigns::class;
 			}
 
 			// Load `P4_Campaign_Exporter` class on admin campaign listing page and campaign export only.
 			if ( 'campaign' === filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING ) || 'export_data' === filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING ) ) {
-				$this->default_services[] = 'P4_Campaign_Exporter';
+				$this->default_services[] = P4_Campaign_Exporter::class;
 			}
 
 			// Load `P4_Campaign_Importer` class on admin campaign import only.
 			// phpcs:disable
 			if ( 'wordpress' === filter_input( INPUT_GET, 'import', FILTER_SANITIZE_STRING ) ) {
 				// phpcs:enable
-				$this->default_services[] = 'P4_Campaign_Importer';
+				$this->default_services[] = P4_Campaign_Importer::class;
 			}
 		}
 
 		// Run P4_Activator after theme switched to planet4-master-theme or a planet4 child theme.
 		if ( get_option( 'theme_switched' ) ) {
-			$this->default_services[] = 'P4_Activator';
+			$this->default_services[] = P4_Activator::class;
 		}
 
 		$services = array_merge( $services, $this->default_services );
