@@ -1,11 +1,33 @@
 const { registerPlugin } = wp.plugins;
 const { PluginPrePublishPanel } = wp.editPost;
-const { dispatch } = wp.data;
+const { select, dispatch } = wp.data;
 const {__} = wp.i18n;
+
+const blockValidations = {};
 
 export const blockEditorValidation = () => {
   registerPlugin( 'pre-publish-checklist', { render: PrePublishCheckList } );
+  wp.hooks.addFilter(
+    'blocks.registerBlockType',
+    'planet4-plugin-gutenberg-blocks',
+    registerAttributeValidations
+  );
 };
+
+const registerAttributeValidations = ( settings, blockName ) => {
+  const { attributes } = settings;
+
+  Object.keys(settings.attributes).forEach( attrName => {
+    const attr = attributes[ attrName ];
+
+    if ( typeof attr.validation === 'function' ) {
+      blockValidations[ blockName ] = blockValidations[ blockName ] || {};
+      blockValidations[ blockName ][ attrName ] = attr.validation;
+    }
+  });
+
+  return settings;
+}
 
 const isValid = element => {
   const isCampaign = 'campaign' === document.getElementById('post_type').value;
@@ -49,10 +71,29 @@ const PrePublishCheckList = () => {
     checkListMsg.push(...messages);
   }
 
+  const blocks = select( 'core/block-editor' ).getBlocks();
+  const blockResults = blocks.map( ( block ) => {
+    const validations = blockValidations[ block.name ];
+    if ( !validations ) {
+      return {block, invalids: []};
+    }
+    const results = Object.keys( validations ).map( attrName => {
+      const validate = validations[ attrName ];
+
+      return { attr: attrName, ...validate( block.attributes[ attrName ] ) };
+    } );
+    const invalids = results.filter( result => !result.isValid );
+
+    return { block, invalids };
+  } );
+
+  const invalidBlocks = blockResults.filter( block => block.invalids.length > 0 );
+
   let classname = '';
-  if ( hasInvalidMetas ) {
+  if ( hasInvalidMetas || invalidBlocks.length > 0) {
     dispatch( 'core/editor' ).lockPostSaving();
     classname = 'p4-plugin-pre-publish-panel-error';
+    invalidBlocks.forEach( block => block.invalids.forEach( invalid => checkListMsg.push( ...invalid.messages ) ) );
   } else {
     dispatch( 'core/editor' ).unlockPostSaving();
     checkListMsg.push( __( 'All good.', 'planet4-master-theme-backend' ) );
