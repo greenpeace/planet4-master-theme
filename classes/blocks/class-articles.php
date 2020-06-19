@@ -7,6 +7,7 @@
 
 namespace P4GBKS\Blocks;
 
+use P4_Post;
 use Timber\Timber;
 
 /**
@@ -243,7 +244,7 @@ class Articles extends Base_Block {
 		}
 		$dataset['args']['post_status'] = 'publish';
 
-		$recent_posts = Timber::get_posts( $dataset['args'], 'P4_Post', true );
+		$recent_posts = Timber::get_posts( $dataset['args'], P4_Post::class, true );
 
 		foreach ( $recent_posts as $key => $recent_post ) {
 			if (

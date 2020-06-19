@@ -9,6 +9,7 @@
 namespace P4GBKS;
 
 use WP_CLI;
+use P4GBKS\Command\Controller;
 
 /**
  * Class Loader
@@ -169,7 +170,7 @@ final class Loader {
 			try {
 				WP_CLI::add_command(
 					'p4-gblocks',
-					'P4GBKS\Command\Controller'
+					Controller::class
 				);
 			} catch ( \Exception $e ) {
 				WP_CLI::log( 'Exception: ' . $e->getMessage() );
