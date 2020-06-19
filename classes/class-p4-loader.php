@@ -53,6 +53,7 @@ final class P4_Loader {
 		$this->load_files();
 		$this->load_services( $services );
 		$this->add_filters();
+		$this->load_commands();
 	}
 
 	/**
@@ -156,6 +157,21 @@ final class P4_Loader {
 	 */
 	private function add_filters(): void {
 		add_filter( 'pre_delete_post', [ $this, 'do_not_delete_autosave' ], 1, 3 );
+	}
+
+	/**
+	 * Registers WP_CLI commands.
+	 */
+	public function load_commands() {
+		if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
+			return;
+		}
+
+		$command = static function ( $args, $assoc_args ) {
+			P4_Activator::run();
+		};
+
+		WP_CLI::add_command( 'p4-run-activator', $command );
 	}
 
 	/**

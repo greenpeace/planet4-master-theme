@@ -12,93 +12,62 @@
 class P4_Campaigner {
 
 	/**
-	 * P4_Campaigner constructor.
+	 * @var [[string]] List of capabilities for each standard WordPress role.
 	 */
-	public function __construct() {
-	}
+	private const CAPABILITIES_MAP = [
+		'administrator' => [
+			'edit_campaign',
+			'read_campaign',
+			'delete_campaign',
+			'edit_campaigns',
+			'edit_others_campaigns',
+			'publish_campaigns',
+			'read_private_campaigns',
+			'delete_campaigns',
+			'delete_private_campaigns',
+			'delete_published_campaigns',
+			'delete_others_campaigns',
+			'edit_private_campaigns',
+			'edit_published_campaigns',
+		],
+		'editor'        => [
+			'edit_campaign',
+			'read_campaign',
+			'delete_campaign',
+			'edit_campaigns',
+			'edit_others_campaigns',
+			'publish_campaigns',
+			'delete_campaigns',
+			'delete_published_campaigns',
+			'delete_others_campaigns',
+			'edit_published_campaigns',
 
-	/**
-	 * Register campaigner role and add custom capabilities.
-	 */
-	public function register_role_and_add_capabilities() {
-		$this->add_campaigner_role();
-		$this->add_campaign_caps_admin();
-		$this->add_campaign_caps_editor();
-		$this->add_campaign_caps_author();
-		$this->add_campaign_caps_contributor();
-		$this->add_campaigner_caps_import();
-	}
-
-	/**
-	 * Add Campaign capabilities to Administrator User.
-	 */
-	public function add_campaign_caps_admin() {
-		$role = get_role( 'administrator' );
-
-		$role->add_cap( 'edit_campaign' );
-		$role->add_cap( 'read_campaign' );
-		$role->add_cap( 'delete_campaign' );
-		$role->add_cap( 'edit_campaigns' );
-		$role->add_cap( 'edit_others_campaigns' );
-		$role->add_cap( 'publish_campaigns' );
-		$role->add_cap( 'read_private_campaigns' );
-		$role->add_cap( 'delete_campaigns' );
-		$role->add_cap( 'delete_private_campaigns' );
-		$role->add_cap( 'delete_published_campaigns' );
-		$role->add_cap( 'delete_others_campaigns' );
-		$role->add_cap( 'edit_private_campaigns' );
-		$role->add_cap( 'edit_published_campaigns' );
-	}
-
-	/**
-	 * Add Campaign capabilities to Editor User.
-	 */
-	public function add_campaign_caps_editor() {
-		$role = get_role( 'editor' );
-
-		$role->add_cap( 'edit_campaign' );
-		$role->add_cap( 'read_campaign' );
-		$role->add_cap( 'delete_campaign' );
-		$role->add_cap( 'edit_campaigns' );
-		$role->add_cap( 'edit_others_campaigns' );
-		$role->add_cap( 'publish_campaigns' );
-		$role->add_cap( 'delete_campaigns' );
-		$role->add_cap( 'delete_published_campaigns' );
-		$role->add_cap( 'delete_others_campaigns' );
-		$role->add_cap( 'edit_published_campaigns' );
-	}
-
-	/**
-	 * Add Campaign capabilities to Author User.
-	 */
-	public function add_campaign_caps_author() {
-		$role = get_role( 'author' );
-
-		$role->add_cap( 'edit_campaign' );
-		$role->add_cap( 'read_campaign' );
-		$role->add_cap( 'delete_campaign' );
-		$role->add_cap( 'edit_campaigns' );
-		$role->add_cap( 'publish_campaigns' );
-		$role->add_cap( 'delete_published_campaigns' );
-		$role->add_cap( 'edit_published_campaigns' );
-	}
-
-	/**
-	 * Add Campaign capabilities to Author User.
-	 */
-	public function add_campaign_caps_contributor() {
-		$role = get_role( 'contributor' );
-
-		$role->add_cap( 'edit_campaign' );
-		$role->add_cap( 'read_campaign' );
-		$role->add_cap( 'edit_campaigns' );
-		$role->add_cap( 'edit_published_campaigns' );
-	}
+			// Needed to allow the editor rule to change the author of a post in the document sidebar. The users data for that
+			// control is fetched using the REST API, where WordPress by default doesn't perform a permissions check, however
+			// the Wordfence plugin adds this check in `\wordfence::jsonAPIAuthorFilter`.
+			'list_users',
+		],
+		'author'        => [
+			'edit_campaign',
+			'read_campaign',
+			'delete_campaign',
+			'edit_campaigns',
+			'publish_campaigns',
+			'delete_published_campaigns',
+			'edit_published_campaigns',
+		],
+		'contributor'   => [
+			'edit_campaign',
+			'read_campaign',
+			'edit_campaigns',
+			'edit_published_campaigns',
+		],
+	];
 
 	/**
 	 * Add Campaigner role.
 	 */
-	public function add_campaigner_role() {
+	private static function add_campaigner_role() {
 		add_role(
 			'campaigner',
 			__( 'Campaigner', 'planet4-master-theme-backend' ),
@@ -129,16 +98,21 @@ class P4_Campaigner {
 				'delete_others_campaigns'    => true,
 				'edit_private_campaigns'     => true,
 				'edit_published_campaigns'   => true,
+				'import'                     => true,
 			]
 		);
 	}
 
 	/**
-	 * Add Campaign import capabilities to Campaigner User.
+	 * Register campaigner role and add custom capabilities.
 	 */
-	public function add_campaigner_caps_import() {
-		$role = get_role( 'campaigner' );
-
-		$role->add_cap( 'import' );
+	public static function register_role_and_add_capabilities() {
+		foreach ( self::CAPABILITIES_MAP as $role_name => $capabilities ) {
+			$role = get_role( $role_name );
+			foreach ( $capabilities as $capability ) {
+				$role->add_cap( $capability );
+			}
+		}
+		self::add_campaigner_role();
 	}
 }
