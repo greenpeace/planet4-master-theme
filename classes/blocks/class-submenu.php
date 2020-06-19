@@ -148,7 +148,7 @@ class Submenu extends Base_Block {
 
 		// Enqueue js for the frontend.
 		if ( ! $this->is_rest_request() ) {
-			wp_enqueue_script( 'submenu', P4GBKS_PLUGIN_URL . 'public/js/submenu.js', [ 'jquery' ], '0.2', true );
+			\P4GBKS\Loader::enqueue_local_script( 'submenu', 'public/js/submenu.js', [ 'jquery' ] );
 			wp_localize_script( 'submenu', 'submenu', $menu );
 		}
 

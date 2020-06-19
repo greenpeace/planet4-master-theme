@@ -105,7 +105,7 @@ class Cookies extends Base_Block {
 
 		// Enqueue js for the frontend.
 		if ( ! $this->is_rest_request() ) {
-			wp_enqueue_script( 'cookies', P4GBKS_PLUGIN_URL . 'public/js/cookies.js', [ 'jquery' ], '0.1', true );
+			\P4GBKS\Loader::enqueue_local_script( 'cookies', 'public/js/cookies.js', [ 'jquery' ] );
 		}
 
 		$data = [

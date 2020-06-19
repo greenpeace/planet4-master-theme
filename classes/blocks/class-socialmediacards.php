@@ -74,7 +74,7 @@ class SocialMediaCards extends Base_Block {
 	public function prepare_data( $fields ): array {
 		// Enqueue js for the frontend.
 		if ( ! $this->is_rest_request() ) {
-			wp_enqueue_script( 'social-media-cards', P4GBKS_PLUGIN_URL . 'public/js/social_media_cards.js', [], '0.1', true );
+			\P4GBKS\Loader::enqueue_local_script( 'social-media-cards', 'public/js/social_media_cards.js' );
 		}
 		$image_size = 'retina-large';
 
