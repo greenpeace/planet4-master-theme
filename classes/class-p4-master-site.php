@@ -37,13 +37,6 @@ class P4_Master_Site extends TimberSite {
 	protected $sort_options;
 
 	/**
-	 * Child CSS
-	 *
-	 * @var array $child_css
-	 */
-	protected $child_css = [];
-
-	/**
 	 * Variable that lets us know if the user has or hasn't used google to log in
 	 *
 	 * @var boolean $google_login_error
@@ -123,8 +116,8 @@ class P4_Master_Site extends TimberSite {
 		if ( wp_doing_ajax() ) {
 			P4_Search::add_general_filters();
 		}
-		add_action( 'wp_ajax_get_paged_posts', [ 'P4_ElasticSearch', 'get_paged_posts' ] );
-		add_action( 'wp_ajax_nopriv_get_paged_posts', [ 'P4_ElasticSearch', 'get_paged_posts' ] );
+		add_action( 'wp_ajax_get_paged_posts', [ P4_ElasticSearch::class, 'get_paged_posts' ] );
+		add_action( 'wp_ajax_nopriv_get_paged_posts', [ P4_ElasticSearch::class, 'get_paged_posts' ] );
 
 		add_action( 'admin_head', [ $this, 'add_help_sidebar' ] );
 
@@ -285,7 +278,7 @@ class P4_Master_Site extends TimberSite {
 	 * Force WordPress to use P4_Image_Compression as image manipulation editor.
 	 */
 	public function allowedEditors() {
-		return [ 'P4_Image_Compression' ];
+		return [ P4_Image_Compression::class ];
 	}
 
 	/**
