@@ -284,8 +284,20 @@ class P4_Control_Panel {
 		if ( ! is_admin() || 'dashboard' !== get_current_screen()->base ) {
 			return;
 		}
-		$theme_dir = get_template_directory_uri();
-		wp_enqueue_style( 'dashboard-style', "$theme_dir/admin/css/dashboard.css", [], '0.1.0' );
-		wp_enqueue_script( 'dashboard-script', "$theme_dir/admin/js/dashboard.js", [ 'jquery' ], '0.2.0', true );
+
+		$theme_uri = get_template_directory_uri();
+		wp_enqueue_style(
+			'dashboard-style',
+			"$theme_uri/admin/css/dashboard.css",
+			[],
+			P4_Loader::theme_file_ver( 'admin/css/dashboard.css' )
+		);
+		wp_enqueue_script(
+			'dashboard-script',
+			"$theme_uri/admin/js/dashboard.js",
+			[ 'jquery' ],
+			P4_Loader::theme_file_ver( 'admin/js/dashboard.js' ),
+			true
+		);
 	}
 }
