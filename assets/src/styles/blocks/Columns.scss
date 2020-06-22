@@ -13,39 +13,23 @@
     }
   }
 
-  // Specific rules when 1 or 2 columns only.
-  .column-wrap:nth-last-child(2):first-child,
-  .column-wrap:nth-last-child(1):nth-child(2),
-  .column-wrap:nth-last-child(1):first-child {
-    h3, h3 > a {
-      line-height: 1.2;
-      font-size: $font-size-lg;
-      font-family: $roboto;
-      font-weight: 700;
+  h3, h3 > a {
+    line-height: 1.6rem;
+    font-size: $font-size-lg;
+    font-family: $roboto;
+    font-weight: 700;
 
-      @include medium-and-up {
-        font-size: 1.5rem;
-      }
-
-      @include large-and-up {
-        font-size: $font-size-xl;
-      }
-
-      @include x-large-and-up {
-        font-size: 1.875rem;
-        line-height: 1.2;
-      }
+    @include medium-and-up {
+      font-size: 1.5rem;
     }
 
-    p {
-      font-size: $font-size-sm;
-      color: $dark-shade-black;
-
-      @include x-large-and-up {
-        font-size: 1.125rem;
-        line-height: 1.6;
-      }
+    @include large-and-up {
+      font-size: 1.5rem;
     }
+  }
+
+  h3 > a:hover {
+    text-decoration: underline;
   }
 
   // Columns block, layout no-image.
@@ -69,40 +53,29 @@
       }
 
       h3 {
-        font-size: $font-size-lg;
-        font-weight: bold;
-        line-height: 1.2;
         margin-bottom: $space-md;
-        color: $dark-shade-black;
 
         @include medium-and-up {
-          font-size: 1.5rem;
           width: 80%;
         }
 
         @include large-and-up {
-          font-size: $font-size-md;
           width: 75%;
         }
       }
 
       p {
         flex-grow: 1;
-        font-size: $font-size-sm;
-        line-height: 1.6;
-        color: $dark-shade-black;
 
         @include medium-and-up {
           width: auto;
         }
 
         @include large-and-up {
-          font-size: $font-size-xxs;
           width: 82%;
         }
 
         @include x-large-and-up {
-          font-size: $font-size-xs;
           width: 76%;
         }
       }
@@ -143,41 +116,11 @@
         }
       }
 
-      h3 {
-        line-height: 1.2;
-        margin-bottom: $space-md;
-        font-size: $font-size-md;
-
-        @include large-and-up {
-          font-weight: 500;
-        }
-
-        a {
-          font-weight: 700;
-
-          @include medium-and-up {
-            font-size: 1.125rem;
-          }
-
-          @include x-large-and-up {
-            font-size: $font-size-md;
-          }
-        }
-      }
-
       p {
         flex-grow: 1;
-        font-size: $font-size-sm;
-        line-height: 1.6;
-        color: $dark-shade-black;
 
         @include medium-and-up {
-          font-size: $font-size-xxs;
           margin-bottom: $space-lg;
-        }
-
-        @include x-large-and-up {
-          font-size: $font-size-xs;
         }
 
         &:last-child {
@@ -191,22 +134,6 @@
 
       a {
         font-family: $roboto;
-
-        @include medium-and-up {
-          font-size: $font-size-xs;
-        }
-
-        @include large-and-up {
-          font-size: $font-size-xxs;
-        }
-
-        @include x-large-and-up {
-          font-size: $font-size-xs;
-        }
-
-        &:hover {
-          text-decoration: underline;
-        }
 
         &.call-to-action-link {
           position: relative;
@@ -492,33 +419,14 @@
     .row .col:nth-last-child(2):first-child,
     .row .col:nth-last-child(1):nth-child(2),
     .row .col:nth-last-child(1):first-child {
-      h5, h3 {
-        line-height: 1.2;
+      h5 {
+        line-height: 1.6rem;
         font-size: $font-size-lg;
         font-family: $roboto;
         font-weight: 700;
 
-        @include medium-and-up {
-          font-size: 1.5rem;
-        }
-
         @include large-and-up {
-          font-size: $font-size-xl;
-        }
-
-        @include x-large-and-up {
-          font-size: 1.875rem;
-          line-height: 1.2;
-        }
-      }
-
-      p {
-        font-size: $font-size-sm;
-        color: $dark-shade-black;
-
-        @include x-large-and-up {
-          font-size: 1.125rem;
-          line-height: 1.6;
+          font-size: 1.5rem;
         }
       }
     }
@@ -544,41 +452,11 @@
         }
       }
 
-      h3 {
-        line-height: 1.2;
-        margin-bottom: $space-md;
-        font-size: $font-size-md;
-
-        @include large-and-up {
-          font-weight: 500;
-        }
-
-        a {
-          font-weight: 700;
-
-          @include medium-and-up {
-            font-size: 1.125rem;
-          }
-
-          @include x-large-and-up {
-            font-size: $font-size-md;
-          }
-        }
-      }
-
       p {
         flex-grow: 1;
-        font-size: $font-size-sm;
-        line-height: 1.6;
-        color: $dark-shade-black;
 
         @include medium-and-up {
-          font-size: $font-size-xxs;
           margin-bottom: $space-lg;
-        }
-
-        @include x-large-and-up {
-          font-size: $font-size-xs;
         }
 
         &:last-child {
@@ -592,22 +470,6 @@
 
       a {
         font-family: $roboto;
-
-        @include medium-and-up {
-          font-size: $font-size-xs;
-        }
-
-        @include large-and-up {
-          font-size: $font-size-xxs;
-        }
-
-        @include x-large-and-up {
-          font-size: $font-size-xs;
-        }
-
-        &:hover {
-          text-decoration: underline;
-        }
 
         &.call-to-action-link {
           position: relative;
@@ -648,7 +510,6 @@
       .column-wrap {
         h3 {
           @include large-and-up {
-            font-size: 1.5rem;
             width: 80%;
           }
         }

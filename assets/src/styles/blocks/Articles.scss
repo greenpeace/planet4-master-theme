@@ -91,19 +91,9 @@
 }
 
 .article-list-item-headline {
-  font-size: 1.25rem;
-  line-height: 1.3;
   font-weight: 500;
   color: var(--article-list-item-headline-color, $dark-shade-black);
   margin: $space-xxs 0;
-
-  @include large-and-up {
-    font-size: 1.375rem;
-  }
-
-  @include x-large-and-up {
-    font-size: 1.5rem;
-  }
 }
 
 .article-list-item-meta {
@@ -130,18 +120,11 @@
 
 .article-list-item-content {
   display: none;
-  font-weight: 300;
-  font-size: 1rem;
-  line-height: 1.6;
   margin: $space-xs 0 0;
   width: 80%;
 
   @include large-and-up {
     display: block;
-  }
-
-  @include x-large-and-up {
-    font-size: 1.125rem;
   }
 }
 
