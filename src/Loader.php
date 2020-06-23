@@ -7,7 +7,6 @@
 
 namespace P4\MasterTheme;
 
-use P4_Campaign_Importer;
 use P4_Campaigns;
 use P4_Control_Panel;
 use P4_Cookies;
@@ -145,7 +144,7 @@ final class Loader {
 			// phpcs:disable
 			if ( 'wordpress' === filter_input( INPUT_GET, 'import', FILTER_SANITIZE_STRING ) ) {
 				// phpcs:enable
-				$this->default_services[] = P4_Campaign_Importer::class;
+				$this->default_services[] = CampaignImporter::class;
 			}
 		}
 

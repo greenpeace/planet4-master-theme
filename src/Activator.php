@@ -7,8 +7,6 @@
 
 namespace P4\MasterTheme;
 
-use P4_Campaigner;
-
 /**
  * Class P4_Activator.
  * The main class that has activation/deactivation hooks for planet4 master-theme.
@@ -33,7 +31,7 @@ class Activator {
 	 * Run activation functions.
 	 */
 	public static function run(): void {
-		P4_Campaigner::register_role_and_add_capabilities();
+		Campaigner::register_role_and_add_capabilities();
 	}
 }
 

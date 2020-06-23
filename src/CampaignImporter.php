@@ -5,10 +5,12 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 /**
  * Class P4_Campaign_Importer.
  */
-class P4_Campaign_Importer {
+class CampaignImporter {
 
 	/**
 	 * Old and new attachment ids mapping var
@@ -301,3 +303,5 @@ class P4_Campaign_Importer {
 		);
 	}
 }
+
+class_alias( CampaignImporter::class, 'P4_Campaign_Importer' );
