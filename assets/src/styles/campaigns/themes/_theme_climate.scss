@@ -74,7 +74,7 @@ body.theme-climate {
   }
 
   .page-section-header {
-    @include page-section-header($jost, $dark-shade-black, 800, 2rem);
+    @include page-section-header($jost, $grey-80, 800, 2rem);
     margin-bottom: $space-md;
     font-size: $font-size-xl;
     text-transform: capitalize;
