@@ -5,6 +5,7 @@
  * @package P4MT
  */
 
+use P4\MasterTheme\Context;
 use Timber\Timber;
 
 // Initializing variables.
@@ -85,10 +86,10 @@ if ( P4_Post_Campaign::DEFAULT_NAVBAR_THEME !== $custom_styles['nav_type'] ) {
 $post->set_data_layer();
 $data_layer = $post->get_data_layer();
 
-P4_Context::set_header( $context, $meta, $post->title );
-P4_Context::set_background_image( $context );
-P4_Context::set_og_meta_fields( $context, $post );
-P4_Context::set_campaign_datalayer( $context, $campaign_meta );
+Context::set_header( $context, $meta, $post->title );
+Context::set_background_image( $context );
+Context::set_og_meta_fields( $context, $post );
+Context::set_campaign_datalayer( $context, $campaign_meta );
 
 $context['post']            = $post;
 $context['social_accounts'] = $post->get_social_accounts( $context['footer_social_menu'] );

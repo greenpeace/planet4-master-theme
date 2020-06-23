@@ -9,6 +9,7 @@
  * @since    Timber 0.1
  */
 
+use P4\MasterTheme\Context;
 use Timber\Timber;
 
 // Initializing variables.
@@ -53,8 +54,8 @@ $context['social_accounts']     = $post->get_social_accounts( $context['footer_s
 $context['page_category']       = 'Post Page';
 $context['post_tags']           = implode( ', ', $post->tags() );
 
-P4_Context::set_og_meta_fields( $context, $post );
-P4_Context::set_campaign_datalayer( $context, $page_meta_data );
+Context::set_og_meta_fields( $context, $post );
+Context::set_campaign_datalayer( $context, $page_meta_data );
 
 $context['filter_url'] = add_query_arg(
 	[

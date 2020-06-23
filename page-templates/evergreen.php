@@ -17,6 +17,7 @@
  * @since    Timber 0.1
  */
 
+use P4\MasterTheme\Context;
 use Timber\Timber;
 
 $context        = Timber::get_context();
@@ -45,9 +46,9 @@ $context['post']                = $post;
 $context['custom_body_classes'] = 'white-bg';
 $context['page_category']       = 'Evergreen Page';
 
-P4_Context::set_header( $context, $page_meta_data, $post->title );
-P4_Context::set_background_image( $context );
-P4_Context::set_og_meta_fields( $context, $post );
+Context::set_header( $context, $page_meta_data, $post->title );
+Context::set_background_image( $context );
+Context::set_og_meta_fields( $context, $post );
 
 if ( post_password_required( $post->ID ) ) {
 	$context['login_url'] = wp_login_url();
