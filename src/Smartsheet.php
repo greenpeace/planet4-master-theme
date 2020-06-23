@@ -5,10 +5,13 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+use InvalidArgumentException;
+
 /**
  * A data object for SmartSheet API responses.
  */
-final class P4_Smartsheet {
+final class Smartsheet {
 	/**
 	 * @var array The columns of the sheet.
 	 */
@@ -20,7 +23,7 @@ final class P4_Smartsheet {
 	private $rows;
 
 	/**
-	 * P4_Smartsheet constructor.
+	 * P4\MasterTheme\P4_Smartsheet constructor.
 	 *
 	 * @param array $columns The columns of the sheet.
 	 * @param array $rows The rows of the sheet.
@@ -34,6 +37,7 @@ final class P4_Smartsheet {
 	 * Create an instance from data from the SmartSheet API.
 	 *
 	 * @param array $data The data from the SmartSheet API.
+	 *
 	 * @return static The instance.
 	 * @throws InvalidArgumentException If the data doesn't have the correct keys.
 	 */
@@ -41,6 +45,7 @@ final class P4_Smartsheet {
 		if ( ! isset( $data['columns'], $data['rows'] ) ) {
 			throw new InvalidArgumentException( 'Cannot create from API data as it does not have rows.' );
 		}
+
 		return new self( $data['columns'], $data['rows'] );
 	}
 
@@ -49,7 +54,8 @@ final class P4_Smartsheet {
 	 *
 	 * @param int   $column_index Index of the column to use for filtering.
 	 * @param mixed $column_value The column value to use for filtering.
-	 * @return P4_Smartsheet
+	 *
+	 * @return Smartsheet
 	 */
 	public function filter_by_column( int $column_index, $column_value ): self {
 		$rows = array_filter(
@@ -67,7 +73,8 @@ final class P4_Smartsheet {
 	 * Sort the rows by a column.
 	 *
 	 * @param int $column_index The column to sort on.
-	 * @return P4_Smartsheet
+	 *
+	 * @return Smartsheet
 	 */
 	public function sort_on_column( int $column_index ): self {
 		$rows = $this->rows;
@@ -84,6 +91,7 @@ final class P4_Smartsheet {
 	 * Get an array of all the values for a certain column.
 	 *
 	 * @param int $column_index The index of the column to get values from.
+	 *
 	 * @return mixed[] The values in that column.
 	 */
 	public function get_column_values( int $column_index ): array {
@@ -99,6 +107,7 @@ final class P4_Smartsheet {
 	 * Export a subset of the columns defined in $columns.
 	 *
 	 * @param array $columns The columns to be exported where the key is the column name and the value is the exported name.
+	 *
 	 * @return array The exported columns with the indexes provided in $columns.
 	 */
 	public function export_columns( array $columns ): array {
@@ -129,6 +138,7 @@ final class P4_Smartsheet {
 	 * Find the index of a column by its title.
 	 *
 	 * @param string $column_title The title to look up.
+	 *
 	 * @return int|null The id of the column, or null if no column was found.
 	 */
 	public function get_column_index( string $column_title ): ?int {
@@ -137,6 +147,9 @@ final class P4_Smartsheet {
 				return $column['index'];
 			}
 		}
+
 		return null;
 	}
 }
+
+class_alias( Smartsheet::class, 'P4_Smartsheet' );

@@ -5,6 +5,8 @@
  * @package P4MT
  */
 
+use P4\MasterTheme\Smartsheet;
+
 /**
  * Handles calling the SmartSheet API.
  */
@@ -38,9 +40,10 @@ final class P4_Smartsheet_Client {
 	 * Fetch a sheet from the API by its id.
 	 *
 	 * @param string $sheet_id The id of the sheet to fetch.
-	 * @return P4_Smartsheet|null The sheet if found, otherwise null.
+	 *
+	 * @return Smartsheet|null The sheet if found, otherwise null.
 	 */
-	public function get_sheet( string $sheet_id ): ?P4_Smartsheet {
+	public function get_sheet( string $sheet_id ): ?Smartsheet {
 		$url = "https://api.smartsheet.com/2.0/sheets/$sheet_id";
 
 		$response = $this->request( 'GET', $url );
@@ -50,7 +53,7 @@ final class P4_Smartsheet_Client {
 		}
 
 		try {
-			return P4_Smartsheet::from_api_response( json_decode( $response['body'], true ) );
+			return Smartsheet::from_api_response( json_decode( $response['body'], true ) );
 		} catch ( InvalidArgumentException $exception ) {
 			return null;
 		}

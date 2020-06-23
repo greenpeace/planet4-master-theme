@@ -7,7 +7,7 @@
 
 namespace P4\MasterTheme;
 
-use P4_Smartsheet;
+use P4\MasterTheme\Smartsheet;
 use P4_Smartsheet_Client;
 
 /**
@@ -40,13 +40,14 @@ final class AnalyticsValues {
 	/**
 	 * Extract values from smartsheets.
 	 *
-	 * @param P4_Smartsheet      $global_smartsheet Smartsheet containing global projects data.
-	 * @param P4_Smartsheet|null $local_smartsheet Smartsheet containing local projects data.
+	 * @param Smartsheet      $global_smartsheet Smartsheet containing global projects data.
+	 * @param Smartsheet|null $local_smartsheet Smartsheet containing local projects data.
+	 *
 	 * @return static
 	 */
 	public static function from_smartsheets(
-		P4_Smartsheet $global_smartsheet,
-		P4_Smartsheet $local_smartsheet = null
+		Smartsheet $global_smartsheet,
+		Smartsheet $local_smartsheet = null
 	): self {
 		$project_name_column = $global_smartsheet->get_column_index( 'Global Project Standard' );
 		$approved_column     = $global_smartsheet->get_column_index( 'Standard Approved' );
