@@ -8,7 +8,7 @@
 namespace P4\MasterTheme;
 
 use P4\MasterTheme\ControlPanel;
-use P4_Cookies;
+use P4\MasterTheme\Cookies;
 use P4_Custom_Taxonomy;
 use P4_Dev_Report;
 use P4_Post_Archive;
@@ -107,7 +107,7 @@ final class Loader {
 			P4_Post_Archive::class,
 			P4_Settings::class,
 			P4_Post_Report_Controller::class,
-			P4_Cookies::class,
+			Cookies::class,
 			P4_Dev_Report::class,
 			MasterSite::class,
 		];
