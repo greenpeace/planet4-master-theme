@@ -5,8 +5,10 @@
  * @package P4MT
  */
 
+use P4\MasterTheme\Activator;
 use P4\MasterTheme\MasterSite;
 use P4\MasterTheme\MetaboxRegister;
+use WP_CLI;
 
 /**
  * Class P4_Loader.
@@ -140,7 +142,7 @@ final class P4_Loader {
 
 		// Run P4_Activator after theme switched to planet4-master-theme or a planet4 child theme.
 		if ( get_option( 'theme_switched' ) ) {
-			$this->default_services[] = P4_Activator::class;
+			$this->default_services[] = Activator::class;
 		}
 
 		$services = array_merge( $services, $this->default_services );
@@ -178,7 +180,7 @@ final class P4_Loader {
 		}
 
 		$command = static function ( $args, $assoc_args ) {
-			P4_Activator::run();
+			Activator::run();
 		};
 
 		WP_CLI::add_command( 'p4-run-activator', $command );
