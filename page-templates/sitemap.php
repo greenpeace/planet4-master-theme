@@ -6,10 +6,11 @@
  * @package P4MT
  */
 
+use P4\MasterTheme\Post;
 use Timber\Timber;
 
 $context        = Timber::get_context();
-$post           = new P4_Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+$post           = new Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $sitemap        = new P4_Sitemap();
 $page_meta_data = get_post_meta( $post->ID );
 

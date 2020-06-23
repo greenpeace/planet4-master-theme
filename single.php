@@ -10,6 +10,7 @@
  */
 
 use P4\MasterTheme\Context;
+use P4\MasterTheme\Post;
 use Timber\Timber;
 
 // Initializing variables.
@@ -17,9 +18,9 @@ $context = Timber::get_context();
 /**
  * P4 Post Object
  *
- * @var P4_Post $post
+ * @var Post $post
  */
-$post            = Timber::query_post( false, P4_Post::class ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+$post            = Timber::query_post( false, Post::class ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $context['post'] = $post;
 
 // Strip Take Action Boxout block from the post content to add outside the normal block container.

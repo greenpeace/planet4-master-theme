@@ -9,6 +9,7 @@
  * @since    Timber 0.1
  */
 
+use P4\MasterTheme\Post;
 use Timber\Timber;
 use Timber\PostQuery;
 
@@ -30,7 +31,7 @@ if ( isset( $wp_query->query_vars['author'] ) ) {
 
 	$context['page_category'] = 'Author Page';
 
-	$context['social_accounts'] = P4_Post::filter_social_accounts( $context['footer_social_menu'] );
+	$context['social_accounts'] = Post::filter_social_accounts( $context['footer_social_menu'] );
 	$context['og_title']        = $author->name . ' - ' . get_bloginfo( 'name' );
 	$context['og_description']  = $author->description;
 	$context['og_image_data']   = [
@@ -51,14 +52,14 @@ if ( get_query_var( 'page' ) ) {
 	$page_num           = get_query_var( 'page' );
 	$post_args['paged'] = $page_num;
 
-	$author_posts = new PostQuery( $post_args, P4_Post::class );
+	$author_posts = new PostQuery( $post_args, Post::class );
 	foreach ( $author_posts as $author_post ) {
 		$context['post'] = $author_post;
 		Timber::render( $templates, $context );
 	}
 } else {
 	$templates        = [ 'author.twig', 'archive.twig' ];
-	$context['posts'] = new PostQuery( $post_args, P4_Post::class );
+	$context['posts'] = new PostQuery( $post_args, Post::class );
 
 	Timber::render( $templates, $context );
 }

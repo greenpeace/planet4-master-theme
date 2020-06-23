@@ -6,6 +6,7 @@
  */
 
 use P4\MasterTheme\Context;
+use P4\MasterTheme\Post;
 use Timber\Timber;
 
 // Initializing variables.
@@ -14,9 +15,9 @@ $context = Timber::get_context();
 /**
  * Post object.
  *
- * @var P4_Post $post
+ * @var Post $post
  * */
-$post            = Timber::query_post( false, P4_Post::class ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+$post            = Timber::query_post( false, Post::class ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $context['post'] = $post;
 
 $meta = get_post_meta( $post->ID );

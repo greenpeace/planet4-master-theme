@@ -28,10 +28,11 @@
  */
 
 use P4\MasterTheme\Context;
+use P4\MasterTheme\Post;
 use Timber\Timber;
 
 $context        = Timber::get_context();
-$post           = new P4_Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+$post           = new Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $page_meta_data = get_post_meta( $post->ID );
 $page_meta_data = array_map( 'reset', $page_meta_data );
 
