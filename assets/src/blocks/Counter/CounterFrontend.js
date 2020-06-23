@@ -2,33 +2,44 @@ import { Component, Fragment } from '@wordpress/element';
 
 export class CounterFrontend extends Component {
   render() {
+    const {
+      className,
+      title,
+      description,
+      completed,
+      target,
+      remaining,
+      percent,
+      text
+    } = this.props;
+
     let style = 'plain';
-    if (this.props.className) style = this.props.className.split('is-style-')[1];
+    if (className) style = className.split('is-style-')[1];
     let arcLength = '31.5%';
 
     const COUNTER_TEXT = {
-      '%completed%': '<span className="counter-target">' + this.props.completed + '</span>',
-      '%target%': '<span className="counter-target">' + this.props.target + '</span>',
-      '%remaining%': '<span className="counter-target">' + this.props.remaining + '</span>'
+      '%completed%': `<span className="counter-target">${completed || 0}</span>`,
+      '%target%': `<span className="counter-target">${target || 0}</span>`,
+      '%remaining%': `<span className="counter-target">${remaining || 0}</span>`
     };
 
     return (
       <Fragment>
         <section className={`block container counter-block counter-style-${style}`}>
           <div className="container">
-            {this.props.title &&
+            {title &&
               <header>
-                <h2 className="page-section-header">{this.props.title}</h2>
+                <h2 className="page-section-header">{title}</h2>
               </header>
             }
-            {this.props.description &&
-              <p className="page-section-description" dangerouslySetInnerHTML={{ __html: this.props.description }} />
+            {description &&
+              <p className="page-section-description" dangerouslySetInnerHTML={{ __html: description }} />
             }
           </div>
           <div className="content-counter">
-            {style === 'bar' || style === 'en-forms-bar' &&
+            {(style === 'bar' || style === 'en-forms-bar') &&
               <div className="progress-container">
-                <div className={`progress-bar ${style === 'en-forms-bar' ? 'enform-progress-bar' : ''}`} style={`width: calc(${this.props.percent}% + 20px);`}></div>
+                <div className={`progress-bar ${style === 'en-forms-bar' ? 'enform-progress-bar' : ''}`} style={{ width: `calc(${percent || 0}% + 20px)` }} />
               </div>
             }
             {style === 'arc' &&
@@ -36,13 +47,13 @@ export class CounterFrontend extends Component {
                 <path className="background" d="M 2 12 A 1 1 0 1 1 22 12" />
                 <path className="foreground" d="M 2 12 A 1 1 0 1 1 22 12"
                   strokeDasharray={arcLength}
-                  strokeDashoffset={`${(1 - this.props.percent / 100) * arcLength}`} />
+                  strokeDashoffset={`${(1 - percent / 100) * arcLength}`} />
               </svg>
             }
-            {this.props.text &&
+            {text &&
               <div
-                className={`counter-text ${100 <= this.props.percent ? 'counter-text-goal_reached' : ''}`}
-                dangerouslySetInnerHTML={{ __html: this.props.text.replace(/%completed%|%target%|%remaining%/gi, match => COUNTER_TEXT[match]) }}
+                className={`counter-text ${100 <= percent ? 'counter-text-goal_reached' : ''}`}
+                dangerouslySetInnerHTML={{ __html: text.replace(/%completed%|%target%|%remaining%/gi, match => COUNTER_TEXT[match]) }}
               />
             }
           </div>
