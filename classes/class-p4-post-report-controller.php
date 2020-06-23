@@ -18,7 +18,7 @@ class P4_Post_Report_Controller {
 	protected $theme_dir;
 
 	/**
-	 * P4_Custom_Taxonomy constructor.
+	 * P4\MasterTheme\P4_Custom_Taxonomy constructor.
 	 */
 	public function __construct() {
 		$this->hooks();

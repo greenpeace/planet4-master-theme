@@ -5,17 +5,23 @@
  * @package P4MT
  */
 
-/**
- * Class P4_Custom_Taxonomy
- */
-class P4_Custom_Taxonomy {
+namespace P4\MasterTheme;
 
-	const TAXONOMY           = 'p4-page-type';
+use WP_Error;
+use WP_Post;
+use WP_Term;
+
+/**
+ * Class P4\MasterTheme\P4_Custom_Taxonomy
+ */
+class CustomTaxonomy {
+
+	const TAXONOMY = 'p4-page-type';
 	const TAXONOMY_PARAMETER = 'p4_page_type';
-	const TAXONOMY_SLUG      = 'page-type';
+	const TAXONOMY_SLUG = 'page-type';
 
 	/**
-	 * P4_Custom_Taxonomy constructor.
+	 * P4\MasterTheme\P4_Custom_Taxonomy constructor.
 	 */
 	public function __construct() {
 		$this->hooks();
@@ -78,7 +84,7 @@ class P4_Custom_Taxonomy {
 		<select name="<?php echo esc_attr( self::TAXONOMY ); ?>">
 			<?php foreach ( $all_types as $term ) : ?>
 				<option <?php selected( $current_type, $term->term_id ); ?>
-					value="<?php echo esc_attr( $term->term_id ); ?>">
+						value="<?php echo esc_attr( $term->term_id ); ?>">
 					<?php echo esc_html( $term->name ); ?>
 				</option>
 			<?php endforeach; ?>
@@ -127,11 +133,11 @@ class P4_Custom_Taxonomy {
 	public function get_terms() {
 		// Get planet4 page type taxonomy terms.
 		return get_terms(
-			[
-				'fields'     => 'all',
-				'hide_empty' => false,
-				'taxonomy'   => self::TAXONOMY,
-			]
+				[
+						'fields'     => 'all',
+						'hide_empty' => false,
+						'taxonomy'   => self::TAXONOMY,
+				]
 		);
 	}
 
@@ -162,11 +168,11 @@ class P4_Custom_Taxonomy {
 		foreach ( $available_languages as $lang ) {
 			do_action( 'wpml_switch_language', $lang['language_code'] );
 			$terms = get_terms(
-				[
-					'fields'     => 'all',
-					'hide_empty' => false,
-					'taxonomy'   => self::TAXONOMY,
-				]
+					[
+							'fields'     => 'all',
+							'hide_empty' => false,
+							'taxonomy'   => self::TAXONOMY,
+					]
 			);
 			if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
 				$all_terms = array_merge( $all_terms, $terms );
@@ -204,32 +210,32 @@ class P4_Custom_Taxonomy {
 	public function register_taxonomy() {
 
 		$p4_page_type = [
-			'name'              => _x( 'Post Types', 'taxonomy general name', 'planet4-master-theme-backend' ),
-			'singular_name'     => _x( 'Post Type', 'taxonomy singular name', 'planet4-master-theme-backend' ),
-			'search_items'      => __( 'Search in Post Type', 'planet4-master-theme-backend' ),
-			'all_items'         => __( 'All Post Types', 'planet4-master-theme-backend' ),
-			'most_used_items'   => null,
-			'parent_item'       => null,
-			'parent_item_colon' => null,
-			'edit_item'         => __( 'Edit Post Type', 'planet4-master-theme-backend' ),
-			'update_item'       => __( 'Update Post Type', 'planet4-master-theme-backend' ),
-			'add_new_item'      => __( 'Add new Post Type', 'planet4-master-theme-backend' ),
-			'new_item_name'     => __( 'New Post Type', 'planet4-master-theme-backend' ),
-			'menu_name'         => __( 'Post Types', 'planet4-master-theme-backend' ),
+				'name'              => _x( 'Post Types', 'taxonomy general name', 'planet4-master-theme-backend' ),
+				'singular_name'     => _x( 'Post Type', 'taxonomy singular name', 'planet4-master-theme-backend' ),
+				'search_items'      => __( 'Search in Post Type', 'planet4-master-theme-backend' ),
+				'all_items'         => __( 'All Post Types', 'planet4-master-theme-backend' ),
+				'most_used_items'   => null,
+				'parent_item'       => null,
+				'parent_item_colon' => null,
+				'edit_item'         => __( 'Edit Post Type', 'planet4-master-theme-backend' ),
+				'update_item'       => __( 'Update Post Type', 'planet4-master-theme-backend' ),
+				'add_new_item'      => __( 'Add new Post Type', 'planet4-master-theme-backend' ),
+				'new_item_name'     => __( 'New Post Type', 'planet4-master-theme-backend' ),
+				'menu_name'         => __( 'Post Types', 'planet4-master-theme-backend' ),
 		];
 
 		$args = [
-			'hierarchical'      => false,
-			'labels'            => $p4_page_type,
-			'rewrite'           => [
-				'slug' => self::TAXONOMY_SLUG,
-			],
-			'show_in_rest'      => true,
-			'show_ui'           => true,
-			'show_admin_column' => true,
-			'query_var'         => true,
-			'meta_box_cb'       => [ $this, 'create_taxonomy_metabox_markup' ],
-			'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'labels'            => $p4_page_type,
+				'rewrite'           => [
+						'slug' => self::TAXONOMY_SLUG,
+				],
+				'show_in_rest'      => true,
+				'show_ui'           => true,
+				'show_admin_column' => true,
+				'query_var'         => true,
+				'meta_box_cb'       => [ $this, 'create_taxonomy_metabox_markup' ],
+				'show_in_rest'      => true,
 		];
 
 		register_taxonomy( self::TAXONOMY, [ self::TAXONOMY_PARAMETER, 'post' ], $args );
@@ -378,7 +384,7 @@ class P4_Custom_Taxonomy {
 		// Make sure there's input.
 		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		if ( isset( $_POST[ self::TAXONOMY ] ) && 'post' === $post->post_type &&
-			filter_var( wp_unslash( $_POST[ self::TAXONOMY ] ), FILTER_VALIDATE_INT ) ) {
+			 filter_var( wp_unslash( $_POST[ self::TAXONOMY ] ), FILTER_VALIDATE_INT ) ) {
 
 			$selected = get_term_by( 'id', intval( $_POST[ self::TAXONOMY ] ), self::TAXONOMY );
 			// phpcs:enable
@@ -434,10 +440,10 @@ class P4_Custom_Taxonomy {
 			<?php
 			foreach ( $terms as $term ) {
 				printf(
-					'<option value="%1$s" %2$s>%3$s</option>',
-					esc_html( $term->slug ),
-					( ( isset( $_GET[ self::TAXONOMY ] ) && ( $_GET[ self::TAXONOMY ] === $term->slug ) ) ? ' selected="selected"' : '' ),  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-					esc_html( $term->name )
+						'<option value="%1$s" %2$s>%3$s</option>',
+						esc_html( $term->slug ),
+						( ( isset( $_GET[ self::TAXONOMY ] ) && ( $_GET[ self::TAXONOMY ] === $term->slug ) ) ? ' selected="selected"' : '' ),  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+						esc_html( $term->name )
 				);
 			}
 			?>
@@ -445,3 +451,4 @@ class P4_Custom_Taxonomy {
 		<?php
 	}
 }
+class_alias( CustomTaxonomy::class, 'P4_Custom_Taxonomy' );

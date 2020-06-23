@@ -5,6 +5,7 @@
  * @package P4MT
  */
 
+use P4\MasterTheme\CustomTaxonomy;
 use Timber\Post as TimberPost;
 use Timber\Term as TimberTerm;
 
@@ -226,7 +227,7 @@ class P4_Post extends TimberPost {
 	 * @return WP_Term[]
 	 */
 	public function get_custom_terms() {
-		$terms = get_the_terms( $this->id, P4_Custom_Taxonomy::TAXONOMY );
+		$terms = get_the_terms( $this->id, CustomTaxonomy::TAXONOMY );
 		if ( false !== $terms && ! $terms instanceof WP_Error ) {
 			return $terms;
 		}
@@ -238,7 +239,7 @@ class P4_Post extends TimberPost {
 	 * Sets the page types for this P4_Post.
 	 */
 	public function set_page_types() {
-		$taxonomies = $this->get_terms( P4_Custom_Taxonomy::TAXONOMY );
+		$taxonomies = $this->get_terms( CustomTaxonomy::TAXONOMY );
 
 		if ( $taxonomies && ! is_wp_error( $taxonomies ) ) {
 			$this->page_types = $taxonomies;

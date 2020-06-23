@@ -9,7 +9,7 @@ namespace P4\MasterTheme;
 
 use P4\MasterTheme\ControlPanel;
 use P4\MasterTheme\Cookies;
-use P4_Custom_Taxonomy;
+use P4\MasterTheme\CustomTaxonomy;
 use P4_Dev_Report;
 use P4_Post_Archive;
 use P4_Post_Campaign;
@@ -102,7 +102,7 @@ final class Loader {
 	private function load_services( $services ) {
 
 		$this->default_services = [
-			P4_Custom_Taxonomy::class,
+			CustomTaxonomy::class,
 			P4_Post_Campaign::class,
 			P4_Post_Archive::class,
 			P4_Settings::class,
