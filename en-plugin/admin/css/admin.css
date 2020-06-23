@@ -1,0 +1,116 @@
+#p4en_main_settings_save_button { margin-top: 30vh; }
+
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+
+:-moz-placeholder {
+  font-style: italic;
+}
+
+::-moz-placeholder {
+  font-style: italic;
+}
+
+:-ms-input-placeholder {
+  font-style: italic;
+}
+
+.engagingnetworks_page_en-pages, .engagingnetworks_page_settings {
+  background-color: #f1f1f1 !important;
+}
+
+.engagingnetworks_page_en-pages .submit {
+  display: inline;
+}
+
+#adminmenu .wp-menu-name, #adminmenu .current {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+#p4en_pages_datatable {
+  font-size: 11px;
+}
+
+#p4en_pages_datatable_filters {
+  text-align: center;
+}
+
+#p4en_pages_subtype, #p4en_pages_status, #p4en_pages_datatable_settings_save_button {
+  display: inline;
+  margin: auto;
+}
+
+.notice.is-dismissible {
+  opacity: 0.1;
+  color: white;
+  background-color: #32373c;
+  display: inline-block;
+  position: absolute;
+}
+
+.p4en_link:hover {
+  position: relative;
+}
+
+.p4en_link[title]:hover:after {
+  content: attr(data-title);
+  padding: 4px 8px;
+  color: #32373c;
+  position: absolute;
+  left: 0;
+  top: 25px;
+  white-space: nowrap;
+  z-index: 20;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0 0 4px #222;
+  -webkit-box-shadow: 0 0 4px #222;
+  box-shadow: 0 0 4px #222;
+  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eeeeee), color-stop(1, #cccccc));
+  background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+}
+
+#p4en_message_container {
+  width: 100%;
+  position: absolute;
+}
+
+.p4en_message {
+  width: 100%;
+  position: relative;
+  text-align: center;
+  opacity: 0.1;
+  color: white;
+  z-index: 10;
+  display: inline-block;
+}
+
+.p4en_error_message {
+  background-color: #e0352d;
+}
+
+.p4en_warning_message {
+  background-color: #ffbb00;
+}
+
+.p4en_notice_message {
+  background-color: #019ed3;
+}
+
+.p4en_success_message {
+  background-color: #3cb54c;
+}
+
+.question-list-item {
+  margin-left: 25px;
+  width: 20%;
+}
+
+.field-dashicon {
+  color: #0275d8;
+  cursor: pointer;
+  padding-top: 4px;
+}
