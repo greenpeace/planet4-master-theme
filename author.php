@@ -9,6 +9,7 @@
  * @since    Timber 0.1
  */
 
+use P4\MasterTheme\User;
 use P4\MasterTheme\Post;
 use Timber\Timber;
 use Timber\PostQuery;
@@ -24,7 +25,7 @@ $post_args = [
 ];
 
 if ( isset( $wp_query->query_vars['author'] ) ) {
-	$author              = new P4_User( $wp_query->query_vars['author'] );
+	$author              = new User( $wp_query->query_vars['author'] );
 	$context['author']   = $author;
 	$context['title']    = 'Author Archives: ' . $author->name();
 	$post_args['author'] = $wp_query->query_vars['author'];

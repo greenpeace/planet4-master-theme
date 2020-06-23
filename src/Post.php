@@ -9,7 +9,7 @@ namespace P4\MasterTheme;
 
 use P4\MasterTheme\CustomTaxonomy;
 use P4\MasterTheme\PostCampaign;
-use P4_User;
+use P4\MasterTheme\User;
 use Timber\Post as TimberPost;
 use Timber\Term as TimberTerm;
 use WP_Error;
@@ -46,7 +46,7 @@ class Post extends TimberPost {
 	/**
 	 * Author
 	 *
-	 * @var P4_User $author
+	 * @var User $author
 	 */
 	protected $author;
 
@@ -391,21 +391,21 @@ class Post extends TimberPost {
 	}
 
 	/**
-	 * Sets the P4_User author of this P4\MasterTheme\P4_Post.
+	 * Sets the P4\MasterTheme\P4_User author of this P4\MasterTheme\P4_Post.
 	 */
 	public function set_author() {
 		$author_override = get_post_meta( $this->id, 'p4_author_override', true );
 		if ( '' !== $author_override ) {
-			$this->author = new P4_User( false, $author_override );     // Create fake P4_User.
+			$this->author = new User( false, $author_override );     // Create fake P4\MasterTheme\P4_User.
 		} else {
-			$this->author = new P4_User( (int) $this->post_author );
+			$this->author = new User( (int) $this->post_author );
 		}
 	}
 
 	/**
-	 * Gets the P4_User author of this P4\MasterTheme\P4_Post.
+	 * Gets the P4\MasterTheme\P4_User author of this P4\MasterTheme\P4_Post.
 	 *
-	 * @return P4_User
+	 * @return User
 	 */
 	public function get_author() {
 		return $this->author;
