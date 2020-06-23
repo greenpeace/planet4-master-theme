@@ -9,6 +9,8 @@
  * @since   Timber 0.1
  */
 
+use P4\MasterTheme\ElasticSearch;
+
 /**
  * Planet4 - Search functionality.
  */
@@ -33,7 +35,7 @@ if ( is_main_query() && is_search() ) {
 			}
 		}
 
-		$p4_search = new P4_ElasticSearch();
+		$p4_search = new ElasticSearch();
 		$p4_search->load( trim( get_search_query() ), $selected_sort, $filters );
 		$p4_search->add_load_more();
 		$p4_search->view();

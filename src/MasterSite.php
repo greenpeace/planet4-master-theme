@@ -7,7 +7,7 @@
 
 namespace P4\MasterTheme;
 
-use P4_ElasticSearch;
+use P4\MasterTheme\ElasticSearch;
 use P4_Image_Compression;
 use P4_Search;
 use Timber\Timber;
@@ -141,8 +141,8 @@ class MasterSite extends TimberSite {
 		if ( wp_doing_ajax() ) {
 			P4_Search::add_general_filters();
 		}
-		add_action( 'wp_ajax_get_paged_posts', [ P4_ElasticSearch::class, 'get_paged_posts' ] );
-		add_action( 'wp_ajax_nopriv_get_paged_posts', [ P4_ElasticSearch::class, 'get_paged_posts' ] );
+		add_action( 'wp_ajax_get_paged_posts', [ ElasticSearch::class, 'get_paged_posts' ] );
+		add_action( 'wp_ajax_nopriv_get_paged_posts', [ ElasticSearch::class, 'get_paged_posts' ] );
 
 		add_action( 'admin_head', [ $this, 'add_help_sidebar' ] );
 
