@@ -5,10 +5,16 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+use Exception;
+use Imagick;
+use WP_Error;
+use WP_Image_Editor_Imagick;
+
 /**
- * Class P4_Image_Compression
+ * Class P4\MasterTheme\P4_Image_Compression
  */
-class P4_Image_Compression extends WP_Image_Editor_Imagick {
+class ImageCompression extends WP_Image_Editor_Imagick {
 
 	/**
 	 * Image compression filter.
@@ -20,13 +26,14 @@ class P4_Image_Compression extends WP_Image_Editor_Imagick {
 	/**
 	 * Override default imagick compression and use progressive compression instead.
 	 *
+	 * @param int    $dst_w The destination width.
+	 * @param int    $dst_h The destination height.
+	 * @param string $filter_name Optional. The Imagick filter to use when resizing. Default 'FILTER_TRIANGLE'.
+	 * @param bool   $strip_meta Optional. Strip all profiles, excluding color profiles, from the image. Default true.
+	 *
+	 * @return bool|WP_Error
 	 * @since 1.9
 	 *
-	 * @param int    $dst_w       The destination width.
-	 * @param int    $dst_h       The destination height.
-	 * @param string $filter_name Optional. The Imagick filter to use when resizing. Default 'FILTER_TRIANGLE'.
-	 * @param bool   $strip_meta  Optional. Strip all profiles, excluding color profiles, from the image. Default true.
-	 * @return bool|WP_Error
 	 */
 	protected function thumbnail_image( $dst_w, $dst_h, $filter_name = 'FILTER_TRIANGLE', $strip_meta = true ) {
 		if ( $this->filter ) {
@@ -56,3 +63,5 @@ class P4_Image_Compression extends WP_Image_Editor_Imagick {
 		}
 	}
 }
+
+class_alias( ImageCompression::class, 'P4_Image_Compression' );

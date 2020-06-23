@@ -8,7 +8,7 @@
 namespace P4\MasterTheme;
 
 use P4\MasterTheme\ElasticSearch;
-use P4_Image_Compression;
+use P4\MasterTheme\ImageCompression;
 use P4_Search;
 use Timber\Timber;
 use Timber\Site as TimberSite;
@@ -307,10 +307,10 @@ class MasterSite extends TimberSite {
 	}
 
 	/**
-	 * Force WordPress to use P4_Image_Compression as image manipulation editor.
+	 * Force WordPress to use P4\MasterTheme\P4_Image_Compression as image manipulation editor.
 	 */
 	public function allowedEditors() {
-		return [ P4_Image_Compression::class ];
+		return [ ImageCompression::class ];
 	}
 
 	/**
