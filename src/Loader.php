@@ -11,7 +11,7 @@ use P4\MasterTheme\ControlPanel;
 use P4\MasterTheme\Cookies;
 use P4\MasterTheme\CustomTaxonomy;
 use P4\MasterTheme\DevReport;
-use P4_Post_Archive;
+use P4\MasterTheme\PostArchive;
 use P4_Post_Campaign;
 use P4_Post_Report_Controller;
 use P4_Settings;
@@ -104,7 +104,7 @@ final class Loader {
 		$this->default_services = [
 			CustomTaxonomy::class,
 			P4_Post_Campaign::class,
-			P4_Post_Archive::class,
+			PostArchive::class,
 			P4_Settings::class,
 			P4_Post_Report_Controller::class,
 			Cookies::class,

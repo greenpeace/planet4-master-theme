@@ -6,6 +6,7 @@
  */
 
 use ElasticPress\Features;
+use P4\MasterTheme\PostArchive;
 use Timber\Timber;
 
 
@@ -355,12 +356,12 @@ abstract class P4_Search {
 		}
 
 		foreach ( $posts as $post ) {
-			if ( P4_Post_Archive::POST_TYPE === $post->post_type ) {
+			if ( PostArchive::POST_TYPE === $post->post_type ) {
 				$archive_post               = new stdClass();
 				$archive_post->id           = $post->ID;
 				$archive_post->post_title   = $post->post_title;
 				$archive_post->link         = $post->guid;
-				$archive_post->post_type    = P4_Post_Archive::POST_TYPE;
+				$archive_post->post_type    = PostArchive::POST_TYPE;
 				$archive_post->post_date    = $post->post_date_gmt;
 				$archive_post->post_excerpt = $post->post_excerpt;
 
@@ -526,7 +527,7 @@ abstract class P4_Search {
 		];
 
 		if ( self::should_include_archive() ) {
-			$types[] = P4_Post_Archive::POST_TYPE;
+			$types[] = PostArchive::POST_TYPE;
 		}
 
 		return $types;
@@ -955,7 +956,7 @@ abstract class P4_Search {
 					$content_type_text = __( 'POST', 'planet4-master-theme' );
 					$content_type      = 'post';
 					break;
-				case P4_Post_Archive::POST_TYPE:
+				case PostArchive::POST_TYPE:
 					$content_type_text = __( 'Archive', 'planet4-master-theme' );
 					$content_type      = 'archive';
 					break;
