@@ -6,21 +6,28 @@ export class CounterFrontend extends Component {
       className,
       title,
       description,
-      completed,
-      target,
-      remaining,
-      percent,
       text
     } = this.props;
+
+    // Calculate percent and remaining values depending on completed and target props
+    let { target, completed } = this.props;
+    let remaining = 0;
+    let percent = 0;
+    if (target === undefined) target = 0;
+    if (completed === undefined) completed = 0;
+    if (target > 0 || completed > 0) {
+      remaining = target - completed;
+      percent = (completed / target) * 100;
+    }
 
     let style = 'plain';
     if (className) style = className.split('is-style-')[1];
     let arcLength = '31.5%';
 
     const COUNTER_TEXT = {
-      '%completed%': `<span className="counter-target">${completed || 0}</span>`,
-      '%target%': `<span className="counter-target">${target || 0}</span>`,
-      '%remaining%': `<span className="counter-target">${remaining || 0}</span>`
+      '%completed%': `<span className="counter-target">${completed}</span>`,
+      '%target%': `<span className="counter-target">${target}</span>`,
+      '%remaining%': `<span className="counter-target">${remaining}</span>`
     };
 
     return (
@@ -39,7 +46,7 @@ export class CounterFrontend extends Component {
           <div className="content-counter">
             {(style === 'bar' || style === 'en-forms-bar') &&
               <div className="progress-container">
-                <div className={`progress-bar ${style === 'en-forms-bar' ? 'enform-progress-bar' : ''}`} style={{ width: `calc(${percent || 0}% + 20px)` }} />
+                <div className={`progress-bar ${style === 'en-forms-bar' ? 'enform-progress-bar' : ''}`} style={{ width: `calc(${percent}% + 20px)` }} />
               </div>
             }
             {style === 'arc' &&
