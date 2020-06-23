@@ -22,7 +22,7 @@ export class CounterFrontend extends Component {
 
     let style = 'plain';
     if (className) style = className.split('is-style-')[1];
-    let arcLength = '31.5%';
+    let arcLength = 31.5;
 
     const COUNTER_TEXT = {
       '%completed%': `<span className="counter-target">${completed}</span>`,
