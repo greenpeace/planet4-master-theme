@@ -6,6 +6,7 @@
  */
 
 use P4\MasterTheme\Activator;
+use P4\MasterTheme\CampaignExporter;
 use P4\MasterTheme\MasterSite;
 use P4\MasterTheme\MetaboxRegister;
 use WP_CLI;
@@ -129,7 +130,7 @@ final class P4_Loader {
 
 			// Load `P4_Campaign_Exporter` class on admin campaign listing page and campaign export only.
 			if ( 'campaign' === filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING ) || 'export_data' === filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING ) ) {
-				$this->default_services[] = P4_Campaign_Exporter::class;
+				$this->default_services[] = CampaignExporter::class;
 			}
 
 			// Load `P4_Campaign_Importer` class on admin campaign import only.

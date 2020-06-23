@@ -5,10 +5,14 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
+use WP_Post;
+
 /**
  * Class P4_Campaign_Exporter.
  */
-class P4_Campaign_Exporter {
+class CampaignExporter {
 	/**
 	 * AutoLoad Hooks
 	 * */
@@ -112,3 +116,5 @@ class P4_Campaign_Exporter {
 	}
 
 }
+
+class_alias( CampaignExporter::class, 'P4_Campaign_Exporter' );
