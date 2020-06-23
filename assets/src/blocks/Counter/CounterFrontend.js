@@ -25,9 +25,9 @@ export class CounterFrontend extends Component {
     let arcLength = 31.5;
 
     const COUNTER_TEXT = {
-      '%completed%': `<span className="counter-target">${completed}</span>`,
-      '%target%': `<span className="counter-target">${target}</span>`,
-      '%remaining%': `<span className="counter-target">${remaining}</span>`
+      '%completed%': `<span class="counter-target">${completed}</span>`,
+      '%target%': `<span class="counter-target">${target}</span>`,
+      '%remaining%': `<span class="counter-target">${remaining}</span>`
     };
 
     return (
