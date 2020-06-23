@@ -26,6 +26,7 @@ export class CounterEditor extends Component {
     } = this.props;
 
     const toAttribute = attributeName => value => {
+      console.log('HEHEHE', attributeName, value)
       setAttributes({ [attributeName]: value });
     };
 
@@ -63,7 +64,7 @@ export class CounterEditor extends Component {
                 placeholder={__('e.g. number of signatures', 'p4ge')}
                 type="number"
                 value={attributes.completed}
-                onChange={toAttribute('completed')}
+                onChange={value => toAttribute('completed')(Number(value))}
               />
             </div>
 
@@ -82,7 +83,7 @@ export class CounterEditor extends Component {
                 placeholder={__('e.g. target no. of signatures', 'p4ge')}
                 type="number"
                 value={attributes.target}
-                onChange={toAttribute('target')}
+                onChange={value => toAttribute('target')(Number(value))}
               />
             </div>
 
