@@ -5,10 +5,11 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
 /**
- * Class P4_Dev_Report
+ * Class P4\MasterTheme\P4_Dev_Report
  */
-class P4_Dev_Report {
+class DevReport {
 	/**
 	 * Option key, and option page slug
 	 *
@@ -78,3 +79,5 @@ class P4_Dev_Report {
 		}
 	}
 }
+
+class_alias( DevReport::class, 'P4_Dev_Report' );
