@@ -1,14 +1,13 @@
 <?php
-/**
- * Settings Class
- *
- * @package P4MT
- */
+
+namespace P4\MasterTheme;
+
+use CMB2_Field;
 
 /**
- * Class P4_Settings
+ * Class P4\MasterTheme\Settings
  */
-class P4_Settings {
+class Settings {
 
 	/**
 	 * ID of the Metabox
@@ -466,6 +465,8 @@ class P4_Settings {
 		do_action( 'wpml_multilingual_options', 'planet4_options' );
 	}
 }
+
+class_alias( Settings::class, 'P4_Settings' );
 
 /**
  * Wrapper function around cmb2_get_option.
