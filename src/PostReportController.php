@@ -5,10 +5,11 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
 /**
- * Class P4_Post_Report_Controller
+ * Class P4\MasterTheme\P4_Post_Report_Controller
  */
-class P4_Post_Report_Controller {
+class PostReportController {
 
 	/**
 	 * Theme directory
@@ -60,13 +61,11 @@ class P4_Post_Report_Controller {
 	 * Add post report submenu item.
 	 */
 	public function add_posts_report_admin_menu_item() {
-		add_posts_page(
-			__( 'Posts Report', 'planet4-master-theme-backend' ),
+		add_posts_page( __( 'Posts Report', 'planet4-master-theme-backend' ),
 			__( 'Posts Report', 'planet4-master-theme-backend' ),
 			'read',
 			'posts-report',
-			[ $this, 'render_posts_report_page' ]
-		);
+			[ $this, 'render_posts_report_page' ] );
 	}
 
 	/**
@@ -92,8 +91,7 @@ class P4_Post_Report_Controller {
 	public function render_posts_report_page() {
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
-		wp_register_script(
-			'posts-report',
+		wp_register_script( 'posts-report',
 			$this->theme_dir . '/admin/js/posts_report.js',
 			[
 				'jquery',
@@ -101,24 +99,21 @@ class P4_Post_Report_Controller {
 				'wp-backbone',
 			],
 			Loader::theme_file_ver( 'admin/js/posts_report.js' ),
-			true
-		);
-		wp_localize_script(
-			'posts-report',
+			true );
+		wp_localize_script( 'posts-report',
 			'p4_data',
 			[
 				'api_url' => get_site_url() . '/wp-json/wp/v2',
 				'nonce'   => wp_create_nonce( 'wp_rest' ),
-			]
-		);
+			] );
 		wp_enqueue_script( 'posts-report' );
-		wp_register_style(
-			'jquery-ui-datepicker',
+		wp_register_style( 'jquery-ui-datepicker',
 			'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/overcast/jquery-ui.min.css',
 			[],
-			'1.12.1'
-		);
+			'1.12.1' );
 		wp_enqueue_style( 'jquery-ui-datepicker' );
 		include dirname( __FILE__ ) . '/../posts-report.php';
 	}
 }
+
+class_alias( PostReportController::class, 'P4_Post_Report_Controller' );

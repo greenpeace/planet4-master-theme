@@ -13,7 +13,7 @@ use P4\MasterTheme\CustomTaxonomy;
 use P4\MasterTheme\DevReport;
 use P4\MasterTheme\PostArchive;
 use P4_Post_Campaign;
-use P4_Post_Report_Controller;
+use P4\MasterTheme\PostReportController;
 use P4_Settings;
 use WP_CLI;
 
@@ -106,7 +106,7 @@ final class Loader {
 			P4_Post_Campaign::class,
 			PostArchive::class,
 			P4_Settings::class,
-			P4_Post_Report_Controller::class,
+			PostReportController::class,
 			Cookies::class,
 			DevReport::class,
 			MasterSite::class,
