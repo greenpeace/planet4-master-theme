@@ -5,12 +5,16 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
+use InvalidArgumentException;
 use P4\MasterTheme\Smartsheet;
+use WP_Error;
 
 /**
  * Handles calling the SmartSheet API.
  */
-final class P4_Smartsheet_Client {
+final class SmartsheetClient {
 
 	/**
 	 * @var string The API key to use for the requests.
@@ -18,7 +22,7 @@ final class P4_Smartsheet_Client {
 	private $api_key;
 
 	/**
-	 * P4_Smartsheet_Client constructor.
+	 * P4\MasterTheme\P4_Smartsheet_Client constructor.
 	 *
 	 * @param string $api_key For authenticating to the SmartSheet API.
 	 */
@@ -30,6 +34,7 @@ final class P4_Smartsheet_Client {
 	 * Create an instance from an API key.
 	 *
 	 * @param string $api_key The API key to use for authentication.
+	 *
 	 * @return static The instance.
 	 */
 	public static function from_api_key( string $api_key ): self {
@@ -64,6 +69,7 @@ final class P4_Smartsheet_Client {
 	 *
 	 * @param string $method The HTTP method.
 	 * @param string $url The URL to call.
+	 *
 	 * @return array|WP_Error The response or an error.
 	 */
 	private function request( string $method, string $url ) {
@@ -75,7 +81,8 @@ final class P4_Smartsheet_Client {
 				'headers'  => [
 					'Authorization' => "Bearer {$this->api_key}",
 				],
-			]
-		);
+			] );
 	}
 }
+
+class_alias( SmartsheetClient::class, 'P4_Smartsheet_Client' );

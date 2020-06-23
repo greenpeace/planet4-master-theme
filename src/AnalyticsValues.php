@@ -8,7 +8,7 @@
 namespace P4\MasterTheme;
 
 use P4\MasterTheme\Smartsheet;
-use P4_Smartsheet_Client;
+use P4\MasterTheme\SmartsheetClient;
 
 /**
  * Data class for post editor analytics values.
@@ -118,7 +118,7 @@ final class AnalyticsValues {
 			return self::from_hardcoded_values();
 		}
 
-		$smartsheet_client = P4_Smartsheet_Client::from_api_key( $api_key );
+		$smartsheet_client = SmartsheetClient::from_api_key( $api_key );
 
 		$global_sheet_id = $_ENV['ANALYTICS_GLOBAL_SMARTSHEET_ID'] ?? '4212503304529796';
 
