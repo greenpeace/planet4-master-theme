@@ -5,8 +5,10 @@ export const setupEnhancedDonateButton = function() {
 
   function setupDonateButton() {
     if ( isMobile() ) {
-      $('.btn-enhanced-donate').clone().appendTo('body').addClass('btn-donate-top');
-      $('.btn-donate-top').parent('body').addClass('with-donate-on-top');
+      if (!$('.btn-enhanced-donate.btn-donate-top').length) {
+        $('.btn-enhanced-donate').clone().appendTo('body').addClass('btn-donate-top');
+        $('.btn-donate-top').parent('body').addClass('with-donate-on-top');
+      }
     } else {
       $('.btn-donate-top').remove();
       $('body').removeClass('with-donate-on-top');
