@@ -14,10 +14,6 @@ export class CounterBlock {
       description: {
         type: 'string',
       },
-      className: {
-        type: 'string',
-        default: 'is-style-plain'
-      },
       completed: {
         type: 'integer',
       },

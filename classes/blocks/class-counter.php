@@ -39,10 +39,6 @@ class Counter extends Base_Block {
 						'type'    => 'string',
 						'default' => '',
 					],
-					'style'         => [
-						'type'    => 'string',
-						'default' => 'plain',
-					],
 					'completed'     => [
 						'type'    => 'integer',
 						'default' => 0,
