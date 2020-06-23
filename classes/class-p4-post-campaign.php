@@ -204,7 +204,7 @@ class P4_Post_Campaign {
 			'cmb-style',
 			get_template_directory_uri() . '/admin/css/campaign.css',
 			[],
-			P4_Loader::theme_file_ver( 'admin/css/campaign.css' )
+			Loader::theme_file_ver( 'admin/css/campaign.css' )
 		);
 		wp_enqueue_style( 'cmb-style' );
 	}

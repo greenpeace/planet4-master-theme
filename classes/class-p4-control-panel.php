@@ -290,13 +290,13 @@ class P4_Control_Panel {
 			'dashboard-style',
 			"$theme_uri/admin/css/dashboard.css",
 			[],
-			P4_Loader::theme_file_ver( 'admin/css/dashboard.css' )
+			Loader::theme_file_ver( 'admin/css/dashboard.css' )
 		);
 		wp_enqueue_script(
 			'dashboard-script',
 			"$theme_uri/admin/js/dashboard.js",
 			[ 'jquery' ],
-			P4_Loader::theme_file_ver( 'admin/js/dashboard.js' ),
+			Loader::theme_file_ver( 'admin/js/dashboard.js' ),
 			true
 		);
 	}

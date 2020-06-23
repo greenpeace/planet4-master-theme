@@ -248,7 +248,7 @@ class MasterSite extends TimberSite {
 			'custom-login',
 			$this->theme_dir . '/admin/css/login.css',
 			[],
-			P4_Loader::theme_file_ver( 'admin/css/login.css' )
+			Loader::theme_file_ver( 'admin/css/login.css' )
 		);
 	}
 
@@ -587,7 +587,7 @@ class MasterSite extends TimberSite {
 			'bootstrap',
 			$this->theme_dir . '/assets/build/bootstrap.min.css',
 			[],
-			P4_Loader::theme_file_ver( 'assets/build/bootstrap.min.css' )
+			Loader::theme_file_ver( 'assets/build/bootstrap.min.css' )
 		);
 		wp_enqueue_style( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css', [], '1.9.0' );
 

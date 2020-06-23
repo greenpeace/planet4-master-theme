@@ -100,7 +100,7 @@ class P4_Post_Report_Controller {
 				'wp-api',
 				'wp-backbone',
 			],
-			P4_Loader::theme_file_ver( 'admin/js/posts_report.js' ),
+			Loader::theme_file_ver( 'admin/js/posts_report.js' ),
 			true
 		);
 		wp_localize_script(

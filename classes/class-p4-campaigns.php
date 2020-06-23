@@ -423,7 +423,7 @@ class P4_Campaigns {
 			$this->taxonomy,
 			get_template_directory_uri() . "/admin/js/$this->taxonomy.js",
 			[ 'jquery' ],
-			P4_Loader::theme_file_ver( "admin/js/$this->taxonomy.js" ),
+			Loader::theme_file_ver( "admin/js/$this->taxonomy.js" ),
 			true
 		);
 		wp_localize_script( $this->taxonomy, 'localizations', $this->localizations );

@@ -25,6 +25,7 @@ function simple_value_filter( string $filter_name, $value, $priority = null ): v
 	);
 }
 
+use P4\MasterTheme\Loader;
 use Timber\Timber;
 
 if ( ! class_exists( 'Timber' ) ) {
@@ -55,5 +56,5 @@ if ( ! class_exists( 'Timber' ) ) {
 	}
 }
 
-require_once __DIR__ . '/classes/class-p4-loader.php';
-P4_Loader::get_instance();
+require_once __DIR__ . '/src/Loader.php';
+Loader::get_instance();
