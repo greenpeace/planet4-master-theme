@@ -8,7 +8,7 @@
 namespace P4\MasterTheme;
 
 use P4\MasterTheme\CustomTaxonomy;
-use P4_Post_Campaign;
+use P4\MasterTheme\PostCampaign;
 use P4_User;
 use Timber\Post as TimberPost;
 use Timber\Term as TimberTerm;
@@ -174,7 +174,7 @@ class Post extends TimberPost {
 	 * @return bool
 	 */
 	public function is_campaign_page(): bool {
-		return P4_Post_Campaign::POST_TYPE === $this->post_type;
+		return PostCampaign::POST_TYPE === $this->post_type;
 	}
 
 	/**

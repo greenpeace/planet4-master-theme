@@ -9,7 +9,7 @@ namespace P4\MasterTheme;
 
 use CMB2_Field;
 use P4\MasterTheme\AnalyticsValues;
-use P4_Post_Campaign;
+use P4\MasterTheme\PostCampaign;
 
 /**
  * Class P4_Metabox_Register
@@ -381,7 +381,7 @@ class MetaboxRegister {
 	 * @return bool
 	 */
 	public function is_not_campaign_post() {
-		return P4_Post_Campaign::POST_TYPE !== get_post_type();
+		return PostCampaign::POST_TYPE !== get_post_type();
 	}
 
 	/**

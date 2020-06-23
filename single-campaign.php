@@ -6,6 +6,7 @@
  */
 
 use P4\MasterTheme\Context;
+use P4\MasterTheme\PostCampaign;
 use P4\MasterTheme\Post;
 use Timber\Timber;
 
@@ -75,9 +76,9 @@ $custom_styles = [];
 $custom_styles['nav_type']            = $campaign_meta['campaign_nav_type'] ?? null;
 $custom_styles['nav_border']          = $campaign_meta['campaign_nav_border'] ?? null;
 $custom_styles['campaign_logo_color'] = 'green';
-$custom_styles['campaign_logo']       = P4_Post_Campaign::get_logo( $campaign_meta );
+$custom_styles['campaign_logo']       = PostCampaign::get_logo( $campaign_meta );
 
-if ( P4_Post_Campaign::DEFAULT_NAVBAR_THEME !== $custom_styles['nav_type'] ) {
+if ( PostCampaign::DEFAULT_NAVBAR_THEME !== $custom_styles['nav_type'] ) {
 	$custom_styles['campaign_logo_color'] = isset( $campaign_meta['campaign_logo_color'] ) && ! empty( $campaign_meta['campaign_logo_color'] )
 		? $campaign_meta['campaign_logo_color']
 		: 'light';
@@ -97,7 +98,7 @@ $context['social_accounts'] = $post->get_social_accounts( $context['footer_socia
 $context['page_category']   = $data_layer['page_category'];
 $context['post_tags']       = implode( ', ', $post->tags() );
 $context['custom_styles']   = $custom_styles;
-$context['css_vars']        = P4_Post_Campaign::css_vars( $campaign_meta );
+$context['css_vars']        = PostCampaign::css_vars( $campaign_meta );
 
 // Social footer link overrides.
 $context['social_overrides'] = [];
