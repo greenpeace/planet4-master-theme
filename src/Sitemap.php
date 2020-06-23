@@ -5,10 +5,11 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
 /**
- * Class P4_Sitemap
+ * Class P4\MasterTheme\P4_Sitemap
  */
-class P4_Sitemap {
+class Sitemap {
 
 	/**
 	 * Limit the number of evergreen pages
@@ -162,3 +163,5 @@ class P4_Sitemap {
 		return $article_types_data;
 	}
 }
+
+class_alias( Sitemap::class, 'P4_Sitemap' );
