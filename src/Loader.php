@@ -7,7 +7,6 @@
 
 namespace P4\MasterTheme;
 
-use P4_Campaigns;
 use P4_Control_Panel;
 use P4_Cookies;
 use P4_Custom_Taxonomy;
@@ -132,7 +131,7 @@ final class Loader {
 
 			// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
 			if ( 'edit-tags.php' === $pagenow || 'term.php' === $pagenow ) {
-				$this->default_services[] = P4_Campaigns::class;
+				$this->default_services[] = Campaigns::class;
 			}
 
 			// Load `P4_Campaign_Exporter` class on admin campaign listing page and campaign export only.

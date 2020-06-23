@@ -5,10 +5,14 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
+use WP_Term;
+
 /**
  * Class P4_Campaigns
  */
-class P4_Campaigns {
+class Campaigns {
 
 	/**
 	 * Taxonomy
@@ -247,7 +251,7 @@ class P4_Campaigns {
 
 			$tag_data = get_term( $term_id );
 
-			if ( $tag_data instanceof \WP_Term ) {
+			if ( $tag_data instanceof WP_Term ) {
 
 				$covers_block1_attributes = [
 					'title'       => __( 'Things you can do', 'planet4-master-theme' ),
@@ -431,3 +435,5 @@ class P4_Campaigns {
 		wp_enqueue_media();
 	}
 }
+
+class_alias( Campaigns::class, 'P4_Campaigns' );
