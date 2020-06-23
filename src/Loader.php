@@ -7,7 +7,7 @@
 
 namespace P4\MasterTheme;
 
-use P4_Control_Panel;
+use P4\MasterTheme\ControlPanel;
 use P4_Cookies;
 use P4_Custom_Taxonomy;
 use P4_Dev_Report;
@@ -116,7 +116,7 @@ final class Loader {
 			global $pagenow;
 
 			// Load P4 Control Panel only on Dashboard page.
-			$this->default_services[] = P4_Control_Panel::class;
+			$this->default_services[] = ControlPanel::class;
 
 			// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
 			if ( 'post-new.php' === $pagenow || 'post.php' === $pagenow ) {

@@ -5,14 +5,17 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 use P4GEN\Controllers\Ensapi_Controller as ENS_API;
 use ElasticPress\Elasticsearch as ES;
+use WP_Error;
 
 
 /**
  * Class P4_Control_Panel
  */
-class P4_Control_Panel {
+class ControlPanel {
 
 	/**
 	 * P4_Control_Panel constructor.
@@ -301,3 +304,5 @@ class P4_Control_Panel {
 		);
 	}
 }
+
+class_alias( ControlPanel::class, 'P4_Control_Panel' );
