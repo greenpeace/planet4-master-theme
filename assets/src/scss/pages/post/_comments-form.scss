@@ -32,15 +32,15 @@
     }
 
     &::placeholder {
-      color: $dark-shade-black;
+      color: $grey-80;
     }
 
     &::-webkit-input-placeholder {
-      color: $dark-shade-black;
+      color: $grey-80;
     }
 
     &::-ms-input-placeholder {
-      color: $dark-shade-black;
+      color: $grey-80;
     }
   }
 
