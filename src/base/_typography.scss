@@ -23,6 +23,7 @@ ul li {
 
   @include x-large-and-up {
     font-size: $font-size-md;
+    line-height: 1.75rem;
   }
 }
 
