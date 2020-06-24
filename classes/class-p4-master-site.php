@@ -16,6 +16,20 @@ use Timber\Menu as TimberMenu;
 class P4_Master_Site extends TimberSite {
 
 	/**
+	 * Key of notice seen by user
+	 *
+	 * @var string
+	 */
+	private const DASHBOARD_MESSAGE_KEY = 'last_p4_notice';
+
+	/**
+	 * Version of notice
+	 *
+	 * @var string
+	 */
+	private const DASHBOARD_MESSAGE_VERSION = '0.1';
+
+	/**
 	 * Theme directory
 	 *
 	 * @var string $theme_dir
@@ -176,6 +190,8 @@ class P4_Master_Site extends TimberSite {
 		add_filter( 'attachment_fields_to_edit', [ $this, 'add_image_attachment_fields_to_edit' ], 10, 2 );
 		add_filter( 'attachment_fields_to_save', [ $this, 'add_image_attachment_fields_to_save' ], 10, 2 );
 		add_action( 'init', [ $this, 'p4_register_core_image_block' ] );
+		add_action( 'admin_notices', [ $this, 'show_dashboard_notice' ] );
+		add_action( 'wp_ajax_dismiss_dashboard_notice', [ $this, 'dismiss_dashboard_notice' ] );
 	}
 
 	/**
@@ -1028,5 +1044,98 @@ class P4_Master_Site extends TimberSite {
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Show P4 team message on dashboard.
+	 */
+	public function show_dashboard_notice(): void {
+		// Show only on dashboard.
+		$screen = get_current_screen();
+		if ( null === $screen || 'dashboard' !== $screen->id ) {
+			return;
+		}
+
+		// Don't show a dismissed version.
+		$last_notice = get_user_meta( get_current_user_id(), self::DASHBOARD_MESSAGE_KEY, true );
+		if ( version_compare( self::DASHBOARD_MESSAGE_VERSION, $last_notice, '<=' ) ) {
+			return;
+		}
+
+		// Don't show an empty message.
+		$message = trim( $this->p4_message() );
+		if ( empty( $message ) ) {
+			return;
+		}
+
+		echo '<div id="p4-notice" class="notice notice-info is-dismissible">'
+			. wp_kses_post( $message )
+			. '</div>'
+			. "<script>(function() {
+				jQuery('#p4-notice').on('click', '.notice-dismiss', () => {
+					jQuery.post(ajaxurl, {'action': 'dismiss_dashboard_notice'}, function(response) {
+						jQuery('#p4-notice').hide();
+					});
+				});
+			})();</script>
+			";
+	}
+
+	/**
+	 * A message from Planet4 team.
+	 *
+	 * Message title should be a <h2> tag.
+	 * Message text should be written into <p> tags.
+	 * Return an empty string if no message for this version.
+	 *
+	 * Version number DASHBOARD_MESSAGE_VERSION has to be incremented
+	 * each time we add a new message.
+	 *
+	 * @return string
+	 */
+	private function p4_message(): string {
+		return '<h2>Welcome to the new P4 message board!</h2>
+		<p>Did you already join the community on Slack? Here\'s the Planet 4 channels waiting for you in the Global Workspace 👇
+			<ul>
+				<li><span style="margin-right: 3px;">
+					<a href="https://greenpeace.slack.com/archives/C014UMRC4AJ">#p4-general</a> 🌏</span>
+					the equivalent of the great Planet 4 Skype group</li>
+				<li><span style="margin-right: 3px;">
+					<a href="https://greenpeace.slack.com/archives/C0151L0KKNX">#p4-dev</a> 🚀</span>
+					for all coders, engineers and techies</li>
+				<li><span style="margin-right: 3px;">
+					<a href="https://greenpeace.slack.com/archives/C015E2TGLCR">#p4-design</a> 🎨</span>
+					for all artists, creatives and visual wonders</li>
+				<li><span style="margin-right: 3px;">
+					<a href="https://greenpeace.slack.com/archives/C01672QUA0Z">#web-analytics</a> 📊</span>
+					for all data ninjas</li>
+				<li><span style="margin-right: 3px;">
+					<a href="https://greenpeace.slack.com/archives/C014UMRD3T8">#p4-infra</a> ⚙️</span>
+					for all Matrix architects</li>
+			</ul>
+		</p>';
+	}
+
+	/**
+	 * Dismiss P4 notice of dashboard, by saving the last version read in user meta field.
+	 *
+	 * @uses wp_die()
+	 */
+	public function dismiss_dashboard_notice(): void {
+		$user_id = get_current_user_id();
+		if ( 0 === $user_id ) {
+			wp_die( 'User not logged in.', 401 );
+		}
+
+		$res = update_user_meta(
+			$user_id,
+			self::DASHBOARD_MESSAGE_KEY,
+			self::DASHBOARD_MESSAGE_VERSION
+		);
+		if ( false === $res ) {
+			wp_die( 'User meta update failed.', 500 );
+		}
+
+		wp_die( 'Notice dismissed.', 200 );
 	}
 }
