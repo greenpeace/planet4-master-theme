@@ -1157,3 +1157,6 @@ class MasterSite extends TimberSite {
 		wp_die( 'Notice dismissed.', 200 );
 	}
 }
+
+class_alias( MasterSite::class, 'P4_Master_Site' );
+

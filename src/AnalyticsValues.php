@@ -5,10 +5,15 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
+use P4_Smartsheet;
+use P4_Smartsheet_Client;
+
 /**
  * Data class for post editor analytics values.
  */
-final class P4_Analytics_Values {
+final class AnalyticsValues {
 	private const CACHE_KEY = 'analytics_global_projects';
 
 	/**
@@ -320,3 +325,6 @@ final class P4_Analytics_Values {
 		return $matching_project['tracking_id'];
 	}
 }
+
+class_alias( AnalyticsValues::class, 'P4_Analytics_Values' );
+

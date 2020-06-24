@@ -36,3 +36,5 @@ class Activator {
 		P4_Campaigner::register_role_and_add_capabilities();
 	}
 }
+
+class_alias( Activator::class, 'P4_Activator' );
