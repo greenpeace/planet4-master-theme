@@ -146,12 +146,12 @@
 
     .btn {
       display: block;
-      background-color: $orange;
-      border-color: $orange;
+      background-color: var(--cover-card-btn-background-color, $orange);
+      border-color: var(--cover-card-btn-border-color, $orange);
 
       &:hover {
-        background-color: $orange-hover;
-        border-color: $orange-hover;
+        background-color: var(--cover-card-btn-hover-background-color, $orange-hover);
+        border-color: var(--cover-card-btn-hover-border-color, $orange-hover);
       }
     }
   }
@@ -190,7 +190,7 @@
     padding-top: 0;
     max-width: 80%;
     transition: color 100ms linear;
-    color: $white;
+    color: var(--cover-card-heading-color, $white);
     text-shadow: 1px 1px 3px $black;
     display: table;
     z-index: 1;
@@ -225,7 +225,7 @@
 }
 
 .cover-card-tag {
-  color: $yellow;
+  color: var(--cover-card-tag-color, $yellow);
   display: inline-block;
   margin-bottom: 8px;
   text-decoration: none;
@@ -237,7 +237,7 @@
 
   &:hover {
     text-decoration: underline;
-    color: $yellow;
+    color: var(--cover-card-tag-hover-color, $yellow);
   }
 
   @include large-and-up {

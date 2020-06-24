@@ -94,7 +94,7 @@
   font-size: 1.25rem;
   line-height: 1.3;
   font-weight: 500;
-  color: $dark-shade-black;
+  color: var(--article-list-item-headline-color, $dark-shade-black);
   margin: $space-xxs 0;
 
   @include large-and-up {
@@ -107,7 +107,7 @@
 }
 
 .article-list-item-meta {
-  color: $grey-60;
+  color: var(--article-list-item-meta-color, $grey-60);
   font-family: $roboto;
   font-style: italic;
   font-size: 0.875rem;

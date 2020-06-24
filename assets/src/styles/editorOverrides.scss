@@ -89,9 +89,9 @@
 
 .wp-block-button.is-style-secondary .wp-block-button__link[role="textbox"],
 [class="wp-block-button"] .wp-block-button__link[role="textbox"] {
-  background-color: transparentize($white, .7);
-  border-color: $dark-blue;
-  color: $dark-blue;
+  background-color: var(--btn-secondary-background-color, transparentize($white, .7));
+  border-color: var(--btn-secondary-border-color, $dark-blue);
+  color: var(--btn-secondary-color, $dark-blue);
   box-shadow: none;
   font-size: $font-size-xxs;
   white-space: nowrap;
@@ -107,13 +107,14 @@
 }
 
 .wp-block-button.is-style-cta .wp-block-button__link[role="textbox"] {
-  background-color: $orange;
+  background-color: var(--btn-primary-background-color, $orange);
+  color: var(--btn-primary-color, $white);
   box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 }
 
 .wp-block-button.is-style-donate .wp-block-button__link[role="textbox"] {
-  background-color: $aquamarine;
-  color: $grey;
+  background-color: var(--btn-donate-background-color, $aquamarine);
+  color: var(--btn-donate-color, $grey);
   font-size: $font-size-sm;
   line-height: 1.65;
   min-width: 180px;
