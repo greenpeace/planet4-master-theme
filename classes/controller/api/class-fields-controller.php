@@ -42,7 +42,7 @@ class Fields_Controller {
 	 *
 	 * @param array $field The field attributes to be validated.
 	 *
-	 * @return array|bool
+	 * @return string[]|bool
 	 */
 	private function validate_field( $field ) {
 		if ( ! is_array( $field ) || empty( $field ) ) {
@@ -130,7 +130,7 @@ class Fields_Controller {
 	 *
 	 * @return \WP_Error| \WP_REST_Response
 	 */
-	public function get_field( \WP_REST_Request $request ): \WP_REST_Response {
+	public function get_field( \WP_REST_Request $request ) {
 
 		// Get field id.
 		$id            = $request['id'];
@@ -149,7 +149,7 @@ class Fields_Controller {
 	 *
 	 * @return \WP_Error| \WP_REST_Response
 	 */
-	public function get_fields( \WP_REST_Request $request ): \WP_REST_Response {
+	public function get_fields( \WP_REST_Request $request ) {
 		$fields        = $this->model->get_fields();
 		$response_data = $fields;
 		$response      = new \WP_REST_Response( $response_data );

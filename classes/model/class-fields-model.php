@@ -10,7 +10,7 @@ namespace P4GBKS\Model;
 /**
  * Class Fields_Model
  */
-class Fields_Model extends Model {
+class Fields_Model {
 
 	/**
 	 * Fields option

@@ -10,7 +10,7 @@ namespace P4GBKS\Model;
 /**
  * Class Questions_Model
  */
-class Questions_Model extends Model {
+class Questions_Model {
 
 	/**
 	 * Questions option

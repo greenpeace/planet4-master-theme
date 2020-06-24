@@ -9,6 +9,7 @@ namespace P4GBKS\Blocks;
 
 use P4GBKS\Views\View;
 use P4GBKS\Controllers\Ensapi_Controller as Ensapi;
+use WP_Block_Type_Registry;
 
 /**
  * Class ENForm
@@ -33,22 +34,14 @@ class ENForm extends Base_Block {
 	private const FIELDS_META = 'p4enform_fields';
 
 	/**
-	 * Class Loader reference
-	 *
-	 * @var \P4GBKS\Loader $loader;
-	 */
-	private $loader;
-
-	/**
 	 * ENForm constructor.
-	 *
-	 * @param array $loader Loader instance.
 	 */
-	public function __construct( $loader ) {
-		$this->loader = $loader;
+	public function __construct() {
+		if ( WP_Block_Type_Registry::get_instance()->is_registered( 'planet4-blocks/enform' ) ) {
+			return;
+		}
 
 		add_shortcode( 'shortcake_enblock', [ $this, 'add_block_shortcode' ] );
-
 		register_block_type(
 			'planet4-blocks/enform',
 			[
@@ -191,11 +184,6 @@ class ENForm extends Base_Block {
 	public function prepare_data( $attributes ): array {
 
 		global $post;
-
-		// Enqueue js for the frontend.
-		if ( ! $this->is_rest_request() ) {
-			$this->loader->enqueue_public_assets();
-		}
 
 		// Extract twitter account from footer.
 		$social_menu = wp_get_nav_menu_items( 'Footer Social' );
@@ -344,39 +332,31 @@ class ENForm extends Base_Block {
 	 */
 	public function enqueue_public_assets() {
 		// EN-blocks assets.
-		$js_blocks_creation = filectime( P4GBKS_PLUGIN_DIR . '/public/js/enform_side_style.js' );
-
-		wp_register_script(
+		\P4GBKS\Loader::enqueue_local_script(
 			'engagingnetworks-submit',
-			plugins_url( P4GBKS_PLUGIN_DIRNAME ) . '/public/js/enform_submit.js',
+			'/public/js/enform_submit.js',
 			[
 				'jquery',
 				'main',
-			],
-			$js_blocks_creation,
-			true
+			]
 		);
 
-		wp_register_script(
+		\P4GBKS\Loader::enqueue_local_script(
 			'engagingnetworks-dependency',
-			plugins_url( P4GBKS_PLUGIN_DIRNAME ) . '/public/js/enform_dependency.js',
+			'/public/js/enform_dependency.js',
 			[
 				'jquery',
 				'main',
-			],
-			$js_blocks_creation,
-			true
+			]
 		);
 
-		wp_register_script(
+		\P4GBKS\Loader::enqueue_local_script(
 			'engagingnetworks-side-style',
-			plugins_url( P4GBKS_PLUGIN_DIRNAME ) . '/public/js/enform_side_style.js',
+			'/public/js/enform_side_style.js',
 			[
 				'jquery',
 				'main',
-			],
-			$js_blocks_creation,
-			true
+			]
 		);
 
 		wp_localize_script(
@@ -394,10 +374,5 @@ class ENForm extends Base_Block {
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
 			]
 		);
-
-		wp_enqueue_script( 'engagingnetworks-submit' );
-		wp_enqueue_script( 'engagingnetworks-dependency' );
-		wp_enqueue_script( 'engagingnetworks-side-style' );
-		wp_enqueue_script( 'engagingnetworks' );
 	}
 }

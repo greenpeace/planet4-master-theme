@@ -7,8 +7,6 @@
 
 namespace P4GBKS\Controllers\Api;
 
-use phpDocumentor\Reflection\Types\Boolean;
-
 /**
  * WP REST API interface.
  */

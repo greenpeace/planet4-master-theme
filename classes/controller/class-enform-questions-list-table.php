@@ -128,6 +128,7 @@ class Enform_Questions_List_Table extends \WP_List_Table {
 			case 'type':
 				return $item[ $column_name ];
 		}
+		return '';
 	}
 
 	/**

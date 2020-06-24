@@ -37,11 +37,7 @@ abstract class Base_Block {
 
 		$data = $this->prepare_data( $attributes );
 
-		$template_path = '/templates/blocks';
-		if ( 'enform' === static::BLOCK_NAME ) {
-			$template_path = '/templates/blocks/enform';
-		}
-		\Timber::$locations = P4GBKS_PLUGIN_DIR . $template_path;
+		\Timber::$locations = P4GBKS_PLUGIN_DIR . '/templates/blocks';
 
 		$block_output = \Timber::compile( static::BLOCK_NAME . '.twig', $data );
 

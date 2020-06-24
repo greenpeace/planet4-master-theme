@@ -1,6 +1,8 @@
 <?php
 /**
  * EN Settings Controller
+ * Note: During migration of EN plugin to blocks plugin, This file was rename(git mv) with wrong filename, the git history of this file is found at.-
+ * https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/453d2428c12d6309da2e3b21f021f8129625d75c/en-plugin/classes/controller/menu/class-fields-settings-controller.php
  *
  * @package P4GBKS\Controllers
  */
@@ -47,7 +49,6 @@ class En_Settings_Controller extends Controller {
 			[
 				'settings'            => get_option( 'p4en_main_settings' ),
 				'available_languages' => P4GBKS_LANGUAGES,
-				'messages'            => $this->messages,
 				'domain'              => 'planet4-engagingnetworks-backend',
 			]
 		);

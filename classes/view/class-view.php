@@ -114,46 +114,6 @@ class View {
 	}
 
 	/**
-	 * Render the main page of the EN module.
-	 *
-	 * @param array $data All the data needed to render the template.
-	 *
-	 * @return bool|string The returned output
-	 */
-	public function get_pages( $data ) : string {
-		return $this->get_template( __FUNCTION__, $data );
-	}
-
-	/**
-	 * Render the settings page of the EN module.
-	 *
-	 * @param array $data All the data needed to render the template.
-	 *
-	 * @return bool|string The returned output
-	 */
-	public function get_settings( $data ) {
-		return $this->get_template( __FUNCTION__, $data );
-	}
-
-	/**
-	 * Render the main page of the EN module.
-	 *
-	 * @param array $data All the data needed to render the template.
-	 */
-	public function pages( $data ) {
-		$this->view_template( __FUNCTION__, $data );
-	}
-
-	/**
-	 * Render the main page of the EN module.
-	 *
-	 * @param array $data All the data needed to render the template.
-	 */
-	public function pages_datatable( $data ) {
-		$this->view_template( __FUNCTION__, $data );
-	}
-
-	/**
 	 * Render EN Form Post.
 	 *
 	 * @param array $data All the data needed to render the template.
@@ -167,16 +127,7 @@ class View {
 	 *
 	 * @param array $data All the data needed to render the template.
 	 */
-	public function selected_meta_box( $data ) {
-		$this->view_template( __FUNCTION__, $data );
-	}
-
-	/**
-	 * Displays a message.
-	 *
-	 * @param array $data All the data needed to render the template.
-	 */
-	public function message( $data ) {
+	public function en_selected_meta_box( $data ) {
 		$this->view_template( __FUNCTION__, $data );
 	}
 }

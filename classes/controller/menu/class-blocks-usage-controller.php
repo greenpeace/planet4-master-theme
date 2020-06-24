@@ -113,8 +113,8 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 
 				$sql = $wpdb->prepare(
 					"SELECT ID, post_title
-					FROM `wp_posts`
-					WHERE post_status = 'publish'
+					FROM `wp_posts` 
+					WHERE post_status = 'publish' 
 					AND `post_content` LIKE %s
 					ORDER BY post_title",
 					$block_comment );
@@ -382,25 +382,6 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 			];
 
 			return array_merge( $p4_block_types, $core_block_types );
-		}
-
-		/**
-		 * Validates the user input.
-		 *
-		 * @param array $settings The associative array with the input that the user submitted.
-		 *
-		 * @return bool
-		 */
-		public function validate( $settings ) : bool {
-			return true;
-		}
-
-		/**
-		 * Sanitizes the user input.
-		 *
-		 * @param array $input The associative array with the input that the user submitted.
-		 */
-		public function sanitize( &$input ) {
 		}
 	}
 }

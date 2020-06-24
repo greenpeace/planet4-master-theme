@@ -250,7 +250,7 @@ class Enform_Post_Controller extends Controller {
 	 */
 	public function view_selected_meta_box( $post ) {
 		$form_fields = get_post_meta( $post->ID, self::FIELDS_META, true );
-		$this->view->selected_meta_box(
+		$this->view->en_selected_meta_box(
 			[
 				'fields' => wp_json_encode( $form_fields ),
 			]
@@ -376,16 +376,14 @@ class Enform_Post_Controller extends Controller {
 		wp_enqueue_script( 'jquery-ui-dialog' );
 		wp_enqueue_script( 'jquery-ui-tooltip' );
 		wp_enqueue_style( 'wp-jquery-ui-dialog' );
-		wp_enqueue_style( 'p4en_admin_style_blocks', P4GBKS_ADMIN_DIR . 'css/admin_en.css', [], '0.1' );
-		wp_enqueue_script(
+		wp_enqueue_style( 'p4en_admin_style_blocks', P4GBKS_ADMIN_DIR . 'css/admin_en.css', [], \P4GBKS\Loader::file_ver( P4GBKS_PLUGIN_DIR . '/admin/css/admin_en.css' ) );
+		\P4GBKS\Loader::enqueue_local_script(
 			'enforms',
-			P4GBKS_ADMIN_DIR . 'js/enforms.js',
+			'admin/js/enforms.js',
 			[
 				'jquery',
 				'wp-backbone',
-			],
-			'0.8.5',
-			true
+			]
 		);
 	}
 
@@ -422,22 +420,4 @@ class Enform_Post_Controller extends Controller {
 			update_post_meta( $post_id, self::FIELDS_META, $form_fields );
 		}
 	}
-
-	/**
-	 * Validates the user input.
-	 *
-	 * @param array $settings The associative array with the input that the user submitted.
-	 *
-	 * @return bool
-	 */
-	public function validate( $settings ) : bool {
-		return true;
-	}
-
-	/**
-	 * Sanitizes the user input.
-	 *
-	 * @param array $input The associative array with the input that the user submitted.
-	 */
-	public function sanitize( &$input ) {}
 }

@@ -100,7 +100,7 @@ class Enform_Fields_List_Table extends \WP_List_Table {
 	 *
 	 * @return string Content for column.
 	 */
-	protected function column_default( $item, $column_name ): string {
+	protected function column_default( $item, $column_name ): ?string {
 		switch ( $column_name ) {
 			case 'id':
 			case 'name':
@@ -108,6 +108,7 @@ class Enform_Fields_List_Table extends \WP_List_Table {
 			case 'tag':
 				return $item[ $column_name ];
 		}
+		return null;
 	}
 
 	/**

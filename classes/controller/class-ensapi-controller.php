@@ -127,9 +127,9 @@ class Ensapi_Controller {
 		'status' => self::ENS_STATUS_DEFAULT,
 	] ) {
 
-		$response['body'] = get_transient( 'ens_pages_response_' . implode( '_', $params ) );
-		if ( $response['body'] ) {
-			return json_decode( $response['body'], true );
+		$from_cache = get_transient( 'ens_pages_response_' . implode( '_', $params ) );
+		if ( $from_cache ) {
+			return json_decode( $from_cache, true );
 		}
 
 		$url = add_query_arg(
@@ -233,9 +233,9 @@ class Ensapi_Controller {
 	 * @return array|string Array with the fields or a message if something goes wrong.
 	 */
 	public function get_supporter_fields() {
-		$response['body'] = get_transient( 'ens_supporter_fields_response' );
-		if ( $response['body'] ) {
-			return json_decode( $response['body'], true );
+		$from_cache = get_transient( 'ens_supporter_fields_response' );
+		if ( $from_cache ) {
+			return json_decode( $from_cache, true );
 		}
 
 		$url = self::ENS_SUPPORTER_URL . '/fields';
@@ -309,9 +309,9 @@ class Ensapi_Controller {
 	 * @return array|string Array with the fields or a message if something goes wrong.
 	 */
 	public function get_supporter_question_by_id( $question_id ) {
-		$response['body'] = get_transient( 'ens_supporter_question_by_id_response_' . $question_id );
-		if ( $response['body'] ) {
-			return json_decode( $response['body'], true );
+		$from_cache = get_transient( 'ens_supporter_question_by_id_response_' . $question_id );
+		if ( $from_cache ) {
+			return json_decode( $from_cache, true );
 		}
 
 		$url = self::ENS_SUPPORTER_URL . '/questions/' . $question_id;

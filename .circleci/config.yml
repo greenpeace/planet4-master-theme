@@ -107,7 +107,7 @@ jobs:
           command: |
             echo "Plugin gutenberg blocks branch is ${CIRCLE_BRANCH}"
             sleep 10
-            PLUGIN_GUTENBERG_BLOCKS_BRANCH=dev-${CIRCLE_BRANCH} PLUGIN_GUTENBERG_ENGAGINGNETWORKS_BRANCH=dev-master MERGE_SOURCE=git@github.com:greenpeace/planet4-base-fork.git MERGE_REF=develop make
+            PLUGIN_GUTENBERG_BLOCKS_BRANCH=dev-${CIRCLE_BRANCH} MERGE_SOURCE=git@github.com:greenpeace/planet4-base-fork.git MERGE_REF=develop make
       - run:
           name: Test - Clone planet4-docker-compose
           command: |

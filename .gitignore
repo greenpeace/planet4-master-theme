@@ -13,3 +13,12 @@ node_modules/
 
 # Built css and js assets
 assets/build/*
+
+# OS generated files #
+######################
+.DS_Store
+Thumbs.db
+
+# IDE generated files #
+#######################
+.idea

@@ -35,7 +35,7 @@ class Questions_Controller {
 	 *
 	 * @param array $question The question attributes to be validated.
 	 *
-	 * @return array|bool
+	 * @return string[]|bool
 	 */
 	private function validate_question( $question ) {
 		if ( ! is_array( $question ) || empty( $question ) ) {

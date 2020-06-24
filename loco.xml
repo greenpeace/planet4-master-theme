@@ -24,4 +24,28 @@
             </template>
         </project>
     </domain>
+    <domain name="planet4-engagingnetworks">
+        <project name="Planet4 Engaging Networks plugin frontend">
+            <source>
+            </source>
+            <target>
+                <directory>languages/enform</directory>
+            </target>
+            <template>
+                <file>languages/enform/planet4-engagingnetworks.pot</file>
+            </template>
+        </project>
+    </domain>
+    <domain name="planet4-engagingnetworks-backend">
+        <project name="Planet4 Engaging Networks plugin backend">
+            <source>
+            </source>
+            <target>
+                <directory>languages/enform</directory>
+            </target>
+            <template>
+                <file>languages/enform/planet4-engagingnetworks-backend.pot</file>
+            </template>
+        </project>
+    </domain>
 </bundle>
