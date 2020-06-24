@@ -82,9 +82,10 @@ final class Loader {
 		try {
 			// Class names need to be prefixed with P4 and should use capitalized words separated by underscores. Any acronyms should be all upper case.
 			spl_autoload_register(
-				function ( $class_name ) {
-					if ( strpos( $class_name, 'P4_' ) !== false ) {
-						$file_name = 'class-' . str_ireplace( [ 'P4\\', '_' ], [ '', '-' ], strtolower( $class_name ) );
+				static function ( $class_name ) {
+					if ( 0 === strpos( $class_name, 'P4_' ) ) {
+						// Resolve any of the old class names to the PSR-4 file, which includes class alias at the end.
+						$file_name = str_replace( [ 'P4', '_' ], '', $class_name );
 						require_once __DIR__ . '/' . $file_name . '.php';
 					}
 				}
