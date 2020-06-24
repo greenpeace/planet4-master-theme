@@ -103,6 +103,12 @@
       label {
         margin-bottom: 0;
       }
+
+      p {
+        html[dir="rtl"] & {
+          display: inline;
+        }
+      }
     }
   }
 
