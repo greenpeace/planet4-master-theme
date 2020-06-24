@@ -67,8 +67,13 @@
       p {
         flex-grow: 1;
 
+        &:last-child {
+          margin-bottom: 0;
+        }
+
         @include medium-and-up {
           width: auto;
+          margin-bottom: $space-lg;
         }
 
         @include large-and-up {
@@ -137,11 +142,6 @@
 
         &.call-to-action-link {
           position: relative;
-
-          @include medium-and-up {
-            position: absolute;
-            bottom: 0;
-          }
         }
       }
 
