@@ -7,13 +7,13 @@
 
 namespace P4\MasterTheme;
 
-use P4_Search;
+use P4\MasterTheme\Search;
 use UnexpectedValueException;
 
 /**
  * Class P4\MasterTheme\P4_ElasticSearch
  */
-class ElasticSearch extends P4_Search {
+class ElasticSearch extends Search {
 
 	/**
 	 * Applies user selected filters to the search if there are any and gets the filtered posts.

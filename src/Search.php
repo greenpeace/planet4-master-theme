@@ -5,15 +5,22 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 use ElasticPress\Features;
 use P4\MasterTheme\PostArchive;
+use SitePress;
+use stdClass;
 use Timber\Timber;
+use UnexpectedValueException;
+use WP_Query;
+use WPML_Post_Element;
 
 
 /**
- * Abstract Class P4_Search
+ * Abstract Class P4\MasterTheme\P4_Search
  */
-abstract class P4_Search {
+abstract class Search {
 
 	const POSTS_PER_LOAD        = 5;
 	const SHOW_SCROLL_TIMES     = 2;
@@ -145,6 +152,7 @@ abstract class P4_Search {
 				if ( ! empty( $meta['_wp_attachment_image_alt'] ) ) {
 					$meta['_wp_attachment_image_alt'] = [ $meta['_wp_attachment_image_alt'][0] ];
 				}
+
 				return $meta;
 			},
 			20,
@@ -201,6 +209,7 @@ abstract class P4_Search {
 					'guid',
 					'post_lang',
 				];
+
 				return $formatted_args;
 			},
 			10,
@@ -408,6 +417,7 @@ abstract class P4_Search {
 			$this->set_filters_args( $args );
 		} catch ( UnexpectedValueException $e ) {
 			$this->context['exception'] = $e->getMessage();
+
 			return [];
 		}
 
@@ -433,6 +443,7 @@ abstract class P4_Search {
 	 * Sets arguments for the WP_Query that are related to the application.
 	 *
 	 * @param int $paged The number of the page of the results to be shown when using pagination/load_more.
+	 *
 	 * @return array
 	 */
 	protected function get_general_args( $paged ): array {
@@ -549,6 +560,7 @@ abstract class P4_Search {
 	 * We need to do this as the term might have been removed but ES could still have it.
 	 *
 	 * @param array $terms The terms to filter.
+	 *
 	 * @return mixed|null All existing terms, with link.
 	 */
 	private static function filter_existing_terms( array $terms ) {
@@ -984,10 +996,10 @@ abstract class P4_Search {
 	/**
 	 * Load the p4 page type.
 	 *
-	 * @todo Get this from ES.
-	 *
 	 * @param string|int $id The ID of the p4 page type.
 	 * @return mixed|null The p4 page type.
+	 * @todo Get this from ES.
+	 *
 	 */
 	private static function get_p4_post_type( $id ) {
 		$p4_post_types = get_terms( 'p4-page-type' );
@@ -1017,6 +1029,7 @@ abstract class P4_Search {
 			$mime_types = implode( ',', self::DOCUMENT_TYPES );
 			$where     .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
 		}
+
 		return $where;
 	}
 
@@ -1049,6 +1062,7 @@ abstract class P4_Search {
 				}
 			}
 		}
+
 		return true;
 	}
 
@@ -1095,3 +1109,5 @@ abstract class P4_Search {
 		}
 	}
 }
+
+class_alias( Search::class, 'P4_Search' );

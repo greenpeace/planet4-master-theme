@@ -302,7 +302,7 @@ class Campaigns {
 				$tag_page_id = wp_insert_post( $my_post );
 				if ( is_int( $tag_page_id ) ) {
 					update_post_meta( $tag_page_id, 'p4_description', $tag_data->description );
-					update_post_meta( $tag_page_id, P4_Search::EXCLUDE_FROM_SEARCH, true );
+					update_post_meta( $tag_page_id, Search::EXCLUDE_FROM_SEARCH, true );
 				}
 
 				if ( $tag_attachment_id ) {
