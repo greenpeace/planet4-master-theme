@@ -201,4 +201,18 @@ final class P4_Loader {
 
 		return false;
 	}
+
+	/**
+	 * @param string $rel_path Relative path to the file.
+	 * @return int timestamp of file creation
+	 */
+	public static function theme_file_ver( string $rel_path ): int {
+		$filepath = trailingslashit( get_template_directory() ) . $rel_path;
+		$ctime    = filectime( $filepath );
+		if ( $ctime ) {
+			return $ctime;
+		}
+
+		return time();
+	}
 }

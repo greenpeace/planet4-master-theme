@@ -217,7 +217,12 @@ class P4_Master_Site extends TimberSite {
 	 * Sets a custom stylesheet for the login page.
 	 */
 	public function add_login_stylesheet() {
-		wp_enqueue_style( 'custom-login', $this->theme_dir . '/admin/css/login.css', [], '0.2' );
+		wp_enqueue_style(
+			'custom-login',
+			$this->theme_dir . '/admin/css/login.css',
+			[],
+			P4_Loader::theme_file_ver( 'admin/css/login.css' )
+		);
 	}
 
 	/**
@@ -551,7 +556,12 @@ class P4_Master_Site extends TimberSite {
 		$js_creation  = filectime( get_template_directory() . '/assets/build/index.js' );
 
 		// CSS files.
-		wp_enqueue_style( 'bootstrap', $this->theme_dir . '/assets/build/bootstrap.min.css', [], '4.1.1' );
+		wp_enqueue_style(
+			'bootstrap',
+			$this->theme_dir . '/assets/build/bootstrap.min.css',
+			[],
+			P4_Loader::theme_file_ver( 'assets/build/bootstrap.min.css' )
+		);
 		wp_enqueue_style( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css', [], '1.9.0' );
 
 		// This loads a linked style file since the relative images paths are outside the build directory.

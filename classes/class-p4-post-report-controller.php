@@ -100,7 +100,7 @@ class P4_Post_Report_Controller {
 				'wp-api',
 				'wp-backbone',
 			],
-			'0.2',
+			P4_Loader::theme_file_ver( 'admin/js/posts_report.js' ),
 			true
 		);
 		wp_localize_script(
@@ -116,7 +116,7 @@ class P4_Post_Report_Controller {
 			'jquery-ui-datepicker',
 			'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/overcast/jquery-ui.min.css',
 			[],
-			'0.1'
+			'1.12.1'
 		);
 		wp_enqueue_style( 'jquery-ui-datepicker' );
 		include dirname( __FILE__ ) . '/../posts-report.php';
