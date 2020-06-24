@@ -54,7 +54,7 @@ export class CounterFrontend extends Component {
 
     const COUNTER_TEXT = {
       '%completed%': `<span class="counter-target">${completed}</span>`,
-      '%target%': `<span class="counter-target">${target}</span>`,
+      '%target%': `<span class="counter-target">${target || 0}</span>`,
       '%remaining%': `<span class="counter-target">${remaining}</span>`
     };
 
@@ -75,7 +75,7 @@ export class CounterFrontend extends Component {
     let style = 'plain';
     if (className) style = className.split('is-style-')[1];
     let arcLength = 31.5;
-    
+
     const percent = target > 0 ? Math.round(completed / target * 100) : 0;
 
     return (

@@ -26,7 +26,6 @@ export class CounterEditor extends Component {
     } = this.props;
 
     const toAttribute = attributeName => value => {
-      console.log('HEHEHE', attributeName, value)
       setAttributes({ [attributeName]: value });
     };
 

@@ -36,7 +36,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 	 * @dataProvider columns_shortcodes_provider
 	 * @dataProvider covers_shortcodes_provider
 	 * @dataProvider cookies_shortcodes_provider
-	 * @dataProvider counter_shortcodes_provider
 	 * @dataProvider gallery_shortcodes_provider
 	 * @dataProvider happy_point_shortcodes_provider
 	 * @dataProvider media_shortcodes_provider
@@ -315,55 +314,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 
 				'<!-- wp:planet4-blocks/cookies {"title":"Change your cookies preferences","description":"Please select which cookies you are willing to store.","necessary_cookies_name":"User-experience cookies","necessary_cookies_description":"These cookies will provide you a better experience of our website. You will be able to hide the cookies acceptance banner and use the website features better. The non-acceptance of these cookies will give you a cookie-free experience.","all_cookies_name":"Performance Cookies","all_cookies_description":"These cookies help improving the performance of Greenpeace.org/africa. They are set to collect data such as how long users stay on a page or which links are clicked. This helps us make better content based on your experience navigating the website.  Most web browsers allow some control over cookies through browser settings (e.g. notifications of new cookies, disabling cookies and deleting cookies).  Click your browser type below to go directly to the browser user guide to learn how to disable or erase cookies. "} /-->',
 			],
-
-		];
-	}
-
-	/**
-	 * Planet4 blocks shortocodes provider.
-	 *
-	 * @return array
-	 */
-	public function counter_shortcodes_provider(): array {
-		return [
-
-			// 1-5
-			[
-				'[shortcake_counter style = "arc" completed = "3000" target = "5000" text = "Signatures collected of 5000" /]',
-				'<!-- wp:planet4-blocks/counter {"style":"arc","completed":3000,"target":5000,"text":"Signatures collected of 5000"} /-->',
-			],
-			[
-				'[shortcake_counter style = "bar" completed = "3000" target = "5000" text = "Signatures collected of 5000" /]',
-				'<!-- wp:planet4-blocks/counter {"style":"bar","completed":3000,"target":5000,"text":"Signatures collected of 5000"} /-->',
-			],
-			[
-				'[shortcake_counter style = "plain" completed = "3000" target = "5000" text = "Signatures collected of 5000" /]',
-				'<!-- wp:planet4-blocks/counter {"style":"plain","completed":3000,"target":5000,"text":"Signatures collected of 5000"} /-->',
-			],
-			[
-				'[shortcake_counter style = "arc" completed = "500" target = "1000" text = "%completed% signatures of %target%, only %remaining% to go!" /]',
-				'<!-- wp:planet4-blocks/counter {"style":"arc","completed":500,"target":1000,"text":"%completed% signatures of %target%, only %remaining% to go!"} /-->',
-			],
-			[
-				'[shortcake_counter style = "plain" completed = "500" target = "1000" text = "%completed% signatures of %target%, only %remaining% to go!" /]',
-				'<!-- wp:planet4-blocks/counter {"style":"plain","completed":500,"target":1000,"text":"%completed% signatures of %target%, only %remaining% to go!"} /-->',
-			],
-			[
-				'[shortcake_counter style = "bar" completed = "500" target = "1000" text = "%completed% signatures of %target%, only %remaining% to go!" /]',
-				'<!-- wp:planet4-blocks/counter {"style":"bar","completed":500,"target":1000,"text":"%completed% signatures of %target%, only %remaining% to go!"} /-->',
-			],
-			[
-				'[shortcake_counter title="A global movement" description="People across the world are acting in the face of a Climate Emergency. The current number of global signers is..." style="plain" completed_api="https://counter.greenpeace.io/api/campaign/climate-emergency-letter" text="%completed%" /]',
-				'<!-- wp:planet4-blocks/counter {"title":"A global movement","description":"People across the world are acting in the face of a Climate Emergency. The current number of global signers is...","style":"plain","completed_api":"https://counter.greenpeace.io/api/campaign/climate-emergency-letter","text":"%completed%"} /-->',
-			],
-			[
-				'[shortcake_counter style="arc" completed="91170" target="91170" text="actieve leden" /]',
-				'<!-- wp:planet4-blocks/counter {"style":"arc","completed":91170,"target":91170,"text":"actieve leden"} /-->',
-			],
-
-			// 5-10
-
-			// 10-15
 
 		];
 	}
