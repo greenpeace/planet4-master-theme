@@ -1,4 +1,9 @@
 <?php
+/**
+ * Settings.
+ *
+ * @package P4MT
+ */
 
 namespace P4\MasterTheme;
 

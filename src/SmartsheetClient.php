@@ -81,7 +81,8 @@ final class SmartsheetClient {
 				'headers'  => [
 					'Authorization' => "Bearer {$this->api_key}",
 				],
-			] );
+			]
+		);
 	}
 }
 

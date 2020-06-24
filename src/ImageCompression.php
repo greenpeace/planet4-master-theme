@@ -6,6 +6,7 @@
  */
 
 namespace P4\MasterTheme;
+
 use Exception;
 use Imagick;
 use WP_Error;
@@ -33,7 +34,6 @@ class ImageCompression extends WP_Image_Editor_Imagick {
 	 *
 	 * @return bool|WP_Error
 	 * @since 1.9
-	 *
 	 */
 	protected function thumbnail_image( $dst_w, $dst_h, $filter_name = 'FILTER_TRIANGLE', $strip_meta = true ) {
 		if ( $this->filter ) {

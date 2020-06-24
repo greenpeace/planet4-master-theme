@@ -6,6 +6,7 @@
  */
 
 namespace P4\MasterTheme;
+
 use InvalidArgumentException;
 
 /**

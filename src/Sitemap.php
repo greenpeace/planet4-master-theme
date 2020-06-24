@@ -6,6 +6,7 @@
  */
 
 namespace P4\MasterTheme;
+
 /**
  * Class P4\MasterTheme\P4_Sitemap
  */

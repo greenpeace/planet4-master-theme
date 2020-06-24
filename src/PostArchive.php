@@ -6,6 +6,7 @@
  */
 
 namespace P4\MasterTheme;
+
 /**
  * A custom post type for P3 posts that were archived.
  */
@@ -76,14 +77,16 @@ class PostArchive {
 	 * Add a link to the internet archive page.
 	 */
 	public function add_archive_link() {
-		add_meta_box( 'archive-url',
+		add_meta_box(
+			'archive-url',
 			__( 'Archive URL', 'planet4-master-theme' ),
 			function ( $post ) {
 				echo "<a target=\"_blank\" href=\"{$post->guid}\">{$post->guid}</a>"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			},
 			null,
 			'side',
-			'high' );
+			'high'
+		);
 
 	}
 }

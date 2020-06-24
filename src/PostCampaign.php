@@ -6,6 +6,7 @@
  */
 
 namespace P4\MasterTheme;
+
 /**
  * Class P4\MasterTheme\PostCampaign
  */
@@ -143,7 +144,7 @@ class PostCampaign {
 				'id'           => 'campaign_nav_settings_mb',
 				'title'        => __( 'Page Design', 'planet4-master-theme-backend' ),
 				'object_types' => [
-						'campaign',
+					'campaign',
 				],
 				'context'      => 'normal',
 				'priority'     => 'high',

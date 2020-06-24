@@ -999,7 +999,6 @@ abstract class Search {
 	 * @param string|int $id The ID of the p4 page type.
 	 * @return mixed|null The p4 page type.
 	 * @todo Get this from ES.
-	 *
 	 */
 	private static function get_p4_post_type( $id ) {
 		$p4_post_types = get_terms( 'p4-page-type' );
