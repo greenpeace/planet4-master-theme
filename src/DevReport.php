@@ -80,5 +80,3 @@ class DevReport {
 		}
 	}
 }
-
-class_alias( DevReport::class, 'P4_Dev_Report' );

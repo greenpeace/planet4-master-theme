@@ -435,5 +435,3 @@ class Campaigns {
 		wp_enqueue_media();
 	}
 }
-
-class_alias( Campaigns::class, 'P4_Campaigns' );

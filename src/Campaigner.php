@@ -118,5 +118,3 @@ class Campaigner {
 		self::add_campaigner_role();
 	}
 }
-
-class_alias( Campaigner::class, 'P4_Campaigner' );

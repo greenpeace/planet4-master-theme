@@ -438,5 +438,3 @@ class Post extends TimberPost {
 		return $social_accounts;
 	}
 }
-
-class_alias( Post::class, 'P4_Post' );

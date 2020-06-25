@@ -91,5 +91,3 @@ class User extends TimberUser {
 		}
 	}
 }
-
-class_alias( User::class, 'P4_User' );

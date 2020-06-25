@@ -324,5 +324,3 @@ final class AnalyticsValues {
 	}
 }
 
-class_alias( AnalyticsValues::class, 'P4_Analytics_Values' );
-

@@ -471,8 +471,6 @@ class Settings {
 	}
 }
 
-class_alias( Settings::class, 'P4_Settings' );
-
 /**
  * Wrapper function around cmb2_get_option.
  *

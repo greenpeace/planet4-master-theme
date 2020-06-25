@@ -1102,5 +1102,3 @@ abstract class Search {
 		}
 	}
 }
-
-class_alias( Search::class, 'P4_Search' );

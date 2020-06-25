@@ -164,5 +164,3 @@ class Sitemap {
 		return $article_types_data;
 	}
 }
-
-class_alias( Sitemap::class, 'P4_Sitemap' );

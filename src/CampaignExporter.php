@@ -116,5 +116,3 @@ class CampaignExporter {
 	}
 
 }
-
-class_alias( CampaignExporter::class, 'P4_Campaign_Exporter' );

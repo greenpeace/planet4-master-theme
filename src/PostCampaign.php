@@ -579,5 +579,3 @@ class PostCampaign {
 		return $logo ? $logo : 'greenpeace';
 	}
 }
-
-class_alias( PostCampaign::class, 'P4_Post_Campaign' );

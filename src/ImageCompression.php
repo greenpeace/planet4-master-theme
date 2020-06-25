@@ -12,6 +12,10 @@ use Imagick;
 use WP_Error;
 use WP_Image_Editor_Imagick;
 
+require_once ABSPATH . WPINC . '/class-wp-image-editor.php';
+require_once ABSPATH . WPINC . '/class-wp-image-editor-gd.php';
+require_once ABSPATH . WPINC . '/class-wp-image-editor-imagick.php';
+
 /**
  * Class ImageCompression
  */
@@ -63,5 +67,3 @@ class ImageCompression extends WP_Image_Editor_Imagick {
 		}
 	}
 }
-
-class_alias( ImageCompression::class, 'P4_Image_Compression' );

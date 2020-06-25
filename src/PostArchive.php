@@ -90,5 +90,3 @@ class PostArchive {
 
 	}
 }
-
-class_alias( PostArchive::class, 'P4_Post_Archive' );

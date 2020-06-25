@@ -303,5 +303,3 @@ class CampaignImporter {
 		);
 	}
 }
-
-class_alias( CampaignImporter::class, 'P4_Campaign_Importer' );

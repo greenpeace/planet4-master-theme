@@ -152,5 +152,3 @@ final class Smartsheet {
 		return null;
 	}
 }
-
-class_alias( Smartsheet::class, 'P4_Smartsheet' );

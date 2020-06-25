@@ -88,5 +88,3 @@ class Context {
 		}
 	}
 }
-
-class_alias( Context::class, 'P4_Context' );

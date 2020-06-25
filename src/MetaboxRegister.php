@@ -434,5 +434,3 @@ class MetaboxRegister {
 		return $options_array;
 	}
 }
-
-class_alias( MetaboxRegister::class, 'P4_Metabox_Register' );

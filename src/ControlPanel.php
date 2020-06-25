@@ -304,5 +304,3 @@ class ControlPanel {
 		);
 	}
 }
-
-class_alias( ControlPanel::class, 'P4_Control_Panel' );

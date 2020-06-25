@@ -124,5 +124,3 @@ class PostReportController {
 		include dirname( __FILE__ ) . '/../posts-report.php';
 	}
 }
-
-class_alias( PostReportController::class, 'P4_Post_Report_Controller' );

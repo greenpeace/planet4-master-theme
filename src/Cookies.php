@@ -74,5 +74,3 @@ class Cookies {
 		}
 	}
 }
-
-class_alias( Cookies::class, 'P4_Cookies' );

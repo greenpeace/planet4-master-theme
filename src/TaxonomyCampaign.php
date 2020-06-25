@@ -64,5 +64,3 @@ class TaxonomyCampaign {
 		Timber::render( $this->templates, $this->context );
 	}
 }
-
-class_alias( TaxonomyCampaign::class, 'P4_Taxonomy_Campaign' );

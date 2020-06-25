@@ -451,4 +451,3 @@ class CustomTaxonomy {
 		<?php
 	}
 }
-class_alias( CustomTaxonomy::class, 'P4_Custom_Taxonomy' );

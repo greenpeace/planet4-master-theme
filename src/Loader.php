@@ -54,37 +54,9 @@ final class Loader {
 	 * @param array $services The dependencies to inject.
 	 */
 	private function __construct( $services ) {
-		$this->load_files();
 		$this->load_services( $services );
 		$this->add_filters();
 		$this->load_commands();
-	}
-
-	/**
-	 * Load required files.
-	 */
-	private function load_files() {
-		// Composer install might have happened inside the master-theme directory, instead of the app root.
-		// Probably there's a better way to handle this, but for now let's try load both.
-		if ( file_exists( __DIR__ . '/../vendor/autoload.php' ) ) {
-			require_once __DIR__ . '/../vendor/autoload.php';
-		} else {
-			require_once __DIR__ . '/../../../../../vendor/autoload.php';
-		}
-		try {
-			// Class names need to be prefixed with P4 and should use capitalized words separated by underscores. Any acronyms should be all upper case.
-			spl_autoload_register(
-				static function ( $class_name ) {
-					if ( 0 === strpos( $class_name, 'P4_' ) ) {
-						// Resolve any of the old class names to the PSR-4 file, which includes class alias at the end.
-						$file_name = str_replace( [ 'P4', '_' ], '', $class_name );
-						require_once __DIR__ . '/' . $file_name . '.php';
-					}
-				}
-			);
-		} catch ( \Exception $e ) {
-			echo esc_html( $e->getMessage() );
-		}
 	}
 
 	/**
@@ -228,5 +200,3 @@ final class Loader {
 		return time();
 	}
 }
-
-class_alias( Loader::class, 'P4_Loader' );

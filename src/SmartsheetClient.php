@@ -84,5 +84,3 @@ final class SmartsheetClient {
 		);
 	}
 }
-
-class_alias( SmartsheetClient::class, 'P4_Smartsheet_Client' );

@@ -258,5 +258,3 @@ class ElasticSearch extends Search {
 		return $formatted_args;
 	}
 }
-
-class_alias( ElasticSearch::class, 'P4_ElasticSearch' );
