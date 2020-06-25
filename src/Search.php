@@ -18,7 +18,7 @@ use WPML_Post_Element;
 
 
 /**
- * Abstract Class P4\MasterTheme\P4_Search
+ * Abstract Class Search
  */
 abstract class Search {
 
@@ -106,11 +106,6 @@ abstract class Search {
 	 * @var int The time it took ElasticSearch to execute the query.
 	 */
 	protected $query_time;
-
-	/**
-	 * P4_Search constructor.
-	 */
-	public function __construct() {}
 
 	/**
 	 * Initialize the class. Hook necessary actions and filters.

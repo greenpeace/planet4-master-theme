@@ -8,7 +8,7 @@
 namespace P4\MasterTheme;
 
 /**
- * Class P4\MasterTheme\P4_Cookies
+ * Class Cookies
  *
  * @since 1.9
  */
@@ -17,7 +17,7 @@ class Cookies {
 	const COOKIE_NAME = 'greenpeace';
 
 	/**
-	 * P4\MasterTheme\P4_Cookies constructor.
+	 * Cookies constructor.
 	 */
 	public function __construct() {
 		$this->hooks();

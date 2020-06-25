@@ -18,7 +18,7 @@ use WP_Term;
 
 
 /**
- * Class P4\MasterTheme\P4_Post extends TimberPost to add planet4 specific functionality.
+ * Add planet4 specific functionality.
  */
 class Post extends TimberPost {
 
@@ -58,7 +58,7 @@ class Post extends TimberPost {
 	protected $data_layer;
 
 	/**
-	 * P4\MasterTheme\P4_Post constructor.
+	 * Post constructor.
 	 *
 	 * @param mixed $pid The post id. If left null it will try to figure out the current post id based on being inside The_Loop.
 	 */
@@ -244,7 +244,7 @@ class Post extends TimberPost {
 	}
 
 	/**
-	 * Sets the page types for this P4\MasterTheme\P4_Post.
+	 * Sets the page types for this Post.
 	 */
 	public function set_page_types() {
 		$taxonomies = $this->get_terms( CustomTaxonomy::TAXONOMY );
@@ -255,7 +255,7 @@ class Post extends TimberPost {
 	}
 
 	/**
-	 * Gets the page types of this P4\MasterTheme\P4_Post.
+	 * Gets the page types of this Post.
 	 */
 	public function get_page_types() {
 		return $this->page_types;
@@ -391,19 +391,19 @@ class Post extends TimberPost {
 	}
 
 	/**
-	 * Sets the P4\MasterTheme\P4_User author of this P4\MasterTheme\P4_Post.
+	 * Sets the User author of this Post.
 	 */
 	public function set_author() {
 		$author_override = get_post_meta( $this->id, 'p4_author_override', true );
 		if ( '' !== $author_override ) {
-			$this->author = new User( false, $author_override );     // Create fake P4\MasterTheme\P4_User.
+			$this->author = new User( false, $author_override );     // Create fake User.
 		} else {
 			$this->author = new User( (int) $this->post_author );
 		}
 	}
 
 	/**
-	 * Gets the P4\MasterTheme\P4_User author of this P4\MasterTheme\P4_Post.
+	 * Gets the User author of this Post.
 	 *
 	 * @return User
 	 */

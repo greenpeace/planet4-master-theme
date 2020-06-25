@@ -8,7 +8,7 @@
 namespace P4\MasterTheme;
 
 /**
- * Class P4_Campaigner.
+ * Class Campaigner.
  * Register custom 'campaigner' role and adds custom capabilities.
  */
 class Campaigner {

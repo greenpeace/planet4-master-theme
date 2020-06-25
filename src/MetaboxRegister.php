@@ -12,7 +12,7 @@ use P4\MasterTheme\AnalyticsValues;
 use P4\MasterTheme\PostCampaign;
 
 /**
- * Class P4_Metabox_Register
+ * Class MetaboxRegister
  */
 class MetaboxRegister {
 
@@ -24,7 +24,7 @@ class MetaboxRegister {
 	const MAX_TAKE_ACTION_PAGES = 100;
 
 	/**
-	 * P4_Metabox_Register constructor.
+	 * MetaboxRegister constructor.
 	 */
 	public function __construct() {
 		$this->hooks();

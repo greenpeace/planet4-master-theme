@@ -13,7 +13,7 @@ use WP_Error;
 use WP_Image_Editor_Imagick;
 
 /**
- * Class P4\MasterTheme\P4_Image_Compression
+ * Class ImageCompression
  */
 class ImageCompression extends WP_Image_Editor_Imagick {
 

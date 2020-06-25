@@ -22,7 +22,7 @@ final class SmartsheetClient {
 	private $api_key;
 
 	/**
-	 * P4\MasterTheme\P4_Smartsheet_Client constructor.
+	 * SmartsheetClient constructor.
 	 *
 	 * @param string $api_key For authenticating to the SmartSheet API.
 	 */

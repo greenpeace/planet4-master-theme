@@ -10,7 +10,7 @@ namespace P4\MasterTheme;
 use WP_Term;
 
 /**
- * Class P4_Campaigns
+ * Class Campaigns
  */
 class Campaigns {
 

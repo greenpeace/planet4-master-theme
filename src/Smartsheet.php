@@ -24,7 +24,7 @@ final class Smartsheet {
 	private $rows;
 
 	/**
-	 * P4\MasterTheme\P4_Smartsheet constructor.
+	 * Smartsheet constructor.
 	 *
 	 * @param array $columns The columns of the sheet.
 	 * @param array $rows The rows of the sheet.

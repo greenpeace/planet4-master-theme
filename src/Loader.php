@@ -135,12 +135,12 @@ final class Loader {
 				$this->default_services[] = Campaigns::class;
 			}
 
-			// Load `P4_Campaign_Exporter` class on admin campaign listing page and campaign export only.
+			// Load `CampaignExporter` class on admin campaign listing page and campaign export only.
 			if ( 'campaign' === filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING ) || 'export_data' === filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING ) ) {
 				$this->default_services[] = CampaignExporter::class;
 			}
 
-			// Load `P4_Campaign_Importer` class on admin campaign import only.
+			// Load `CampaignImporter` class on admin campaign import only.
 			// phpcs:disable
 			if ( 'wordpress' === filter_input( INPUT_GET, 'import', FILTER_SANITIZE_STRING ) ) {
 				// phpcs:enable
@@ -148,7 +148,7 @@ final class Loader {
 			}
 		}
 
-		// Run P4_Activator after theme switched to planet4-master-theme or a planet4 child theme.
+		// Run Activator after theme switched to planet4-master-theme or a planet4 child theme.
 		if ( get_option( 'theme_switched' ) ) {
 			$this->default_services[] = Activator::class;
 		}

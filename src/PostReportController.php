@@ -8,7 +8,7 @@
 namespace P4\MasterTheme;
 
 /**
- * Class P4\MasterTheme\P4_Post_Report_Controller
+ * Class PostReportController
  */
 class PostReportController {
 
@@ -20,7 +20,7 @@ class PostReportController {
 	protected $theme_dir;
 
 	/**
-	 * P4\MasterTheme\P4_Custom_Taxonomy constructor.
+	 * PostReportController constructor.
 	 */
 	public function __construct() {
 		$this->hooks();

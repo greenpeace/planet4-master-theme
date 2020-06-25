@@ -10,7 +10,7 @@ namespace P4\MasterTheme;
 use WP_Post;
 
 /**
- * Class P4_Campaign_Exporter.
+ * Class CampaignExporter.
  */
 class CampaignExporter {
 	/**

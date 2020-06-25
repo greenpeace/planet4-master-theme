@@ -12,7 +12,7 @@ use WP_Post;
 use WP_Term;
 
 /**
- * Class P4\MasterTheme\P4_Custom_Taxonomy
+ * Class CustomTaxonomy
  */
 class CustomTaxonomy {
 
@@ -21,7 +21,7 @@ class CustomTaxonomy {
 	const TAXONOMY_SLUG      = 'page-type';
 
 	/**
-	 * P4\MasterTheme\P4_Custom_Taxonomy constructor.
+	 * CustomTaxonomy constructor.
 	 */
 	public function __construct() {
 		$this->hooks();

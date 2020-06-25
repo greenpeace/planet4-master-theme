@@ -27,7 +27,7 @@ final class AnalyticsValues {
 	private $local_projects;
 
 	/**
-	 * P4_Analytics_Values constructor.
+	 * AnalyticsValues constructor.
 	 *
 	 * @param string[]      $global_projects A list of the global projects.
 	 * @param string[]|null $local_projects A list of the local projects.

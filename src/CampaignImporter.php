@@ -8,7 +8,7 @@
 namespace P4\MasterTheme;
 
 /**
- * Class P4_Campaign_Importer.
+ * Class CampaignImporter.
  */
 class CampaignImporter {
 

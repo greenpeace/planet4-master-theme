@@ -11,7 +11,7 @@ use P4\MasterTheme\Search;
 use UnexpectedValueException;
 
 /**
- * Class P4\MasterTheme\P4_ElasticSearch
+ * Class P4\MasterTheme\ElasticSearch
  */
 class ElasticSearch extends Search {
 

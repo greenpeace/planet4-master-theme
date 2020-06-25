@@ -13,12 +13,12 @@ use WP_Error;
 
 
 /**
- * Class P4_Control_Panel
+ * Class ControlPanel
  */
 class ControlPanel {
 
 	/**
-	 * P4_Control_Panel constructor.
+	 * ControlPanel constructor.
 	 */
 	public function __construct() {
 		$this->hooks();

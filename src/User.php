@@ -11,7 +11,7 @@ use Timber\User as TimberUser;
 
 
 /**
- * Class P4\MasterTheme\P4_User extends Timber\User.
+ * Class User extends Timber\User.
  *
  * Ref: https://timber.github.io/docs/reference/timber-user/
  */
@@ -25,9 +25,9 @@ class User extends TimberUser {
 	public $is_fake = false;
 
 	/**
-	 * P4\MasterTheme\P4_User constructor.
+	 * User constructor.
 	 *
-	 * @param object|int|bool $uid The P4\MasterTheme\P4_User id.
+	 * @param object|int|bool $uid The User id.
 	 * @param string          $author_override The author override display name.
 	 */
 	public function __construct( $uid = false, $author_override = '' ) {
@@ -40,7 +40,7 @@ class User extends TimberUser {
 	}
 
 	/**
-	 * The P4\MasterTheme\P4_User profile page url.
+	 * The User profile page url.
 	 *
 	 * @return string
 	 */
@@ -53,7 +53,7 @@ class User extends TimberUser {
 	}
 
 	/**
-	 * The relative path of the P4\MasterTheme\P4_User profile page.
+	 * The relative path of the User profile page.
 	 *
 	 * @return string
 	 */
@@ -79,7 +79,7 @@ class User extends TimberUser {
 	}
 
 	/**
-	 * Stringifies the P4\MasterTheme\P4_User object.
+	 * Stringifies the User object.
 	 *
 	 * @return null|string
 	 */

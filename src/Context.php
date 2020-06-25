@@ -8,7 +8,7 @@
 namespace P4\MasterTheme;
 
 /**
- * Class P4_Context Sets common context fields.
+ * Class Context Sets common context fields.
  */
 class Context {
 

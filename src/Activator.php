@@ -8,13 +8,13 @@
 namespace P4\MasterTheme;
 
 /**
- * Class P4_Activator.
+ * Class Activator.
  * The main class that has activation/deactivation hooks for planet4 master-theme.
  */
 class Activator {
 
 	/**
-	 * P4_Activator constructor.
+	 * Activator constructor.
 	 */
 	public function __construct() {
 		$this->hooks();

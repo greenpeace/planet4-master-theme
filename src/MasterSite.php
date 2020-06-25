@@ -21,7 +21,7 @@ use WP_Post;
 use WP_User;
 
 /**
- * Class P4_Master_Site.
+ * Class MasterSite.
  * The main class that handles Planet4 Master Theme.
  */
 class MasterSite extends TimberSite {
@@ -69,7 +69,7 @@ class MasterSite extends TimberSite {
 	protected $google_login_error = false;
 
 	/**
-	 * P4_Master_Site constructor.
+	 * MasterSite constructor.
 	 */
 	public function __construct() {
 		$this->settings();
@@ -307,7 +307,7 @@ class MasterSite extends TimberSite {
 	}
 
 	/**
-	 * Force WordPress to use P4\MasterTheme\P4_Image_Compression as image manipulation editor.
+	 * Force WordPress to use ImageCompression as image manipulation editor.
 	 */
 	public function allowedEditors() {
 		return [ ImageCompression::class ];
