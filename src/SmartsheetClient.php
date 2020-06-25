@@ -8,7 +8,6 @@
 namespace P4\MasterTheme;
 
 use InvalidArgumentException;
-use P4\MasterTheme\Smartsheet;
 use WP_Error;
 
 /**

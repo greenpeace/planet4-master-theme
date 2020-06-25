@@ -7,14 +7,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\ControlPanel;
-use P4\MasterTheme\Cookies;
-use P4\MasterTheme\CustomTaxonomy;
-use P4\MasterTheme\DevReport;
-use P4\MasterTheme\PostArchive;
-use P4\MasterTheme\PostCampaign;
-use P4\MasterTheme\PostReportController;
-use P4\MasterTheme\Settings;
 use WP_CLI;
 
 /**

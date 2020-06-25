@@ -7,9 +7,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\Smartsheet;
-use P4\MasterTheme\SmartsheetClient;
-
 /**
  * Data class for post editor analytics values.
  */

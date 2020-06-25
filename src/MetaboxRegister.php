@@ -8,8 +8,6 @@
 namespace P4\MasterTheme;
 
 use CMB2_Field;
-use P4\MasterTheme\AnalyticsValues;
-use P4\MasterTheme\PostCampaign;
 
 /**
  * Class MetaboxRegister

@@ -7,9 +7,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\CustomTaxonomy;
-use P4\MasterTheme\PostCampaign;
-use P4\MasterTheme\User;
 use Timber\Post as TimberPost;
 use Timber\Term as TimberTerm;
 use WP_Error;

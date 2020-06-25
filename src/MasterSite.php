@@ -7,9 +7,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\ElasticSearch;
-use P4\MasterTheme\ImageCompression;
-use P4\MasterTheme\Search;
 use Timber\Timber;
 use Timber\Site as TimberSite;
 use Timber\Menu as TimberMenu;

@@ -7,7 +7,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\Search;
 use UnexpectedValueException;
 
 /**
