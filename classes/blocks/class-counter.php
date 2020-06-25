@@ -57,38 +57,6 @@ class Counter extends Base_Block {
 				],
 			]
 		);
-
-		register_block_style(
-			'planet4-blocks/counter',
-			[
-				'name'  => 'plain',
-				'label' => __( 'Text Only', 'planet4-blocks' ),
-			]
-		);
-
-		register_block_style(
-			'planet4-blocks/counter',
-			[
-				'name'  => 'bar',
-				'label' => __( 'Progress Bar', 'planet4-blocks' ),
-			]
-		);
-
-		register_block_style(
-			'planet4-blocks/counter',
-			[
-				'name'  => 'arc',
-				'label' => __( 'Progress Dial', 'planet4-blocks' ),
-			]
-		);
-
-		register_block_style(
-			'planet4-blocks/counter',
-			[
-				'name'  => 'en-forms-bar',
-				'label' => __( 'Progress bar inside EN Form', 'planet4-blocks' ),
-			]
-		);
 	}
 
 	/**

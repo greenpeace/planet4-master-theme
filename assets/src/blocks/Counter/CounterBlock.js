@@ -5,7 +5,7 @@ const BLOCK_NAME = 'planet4-blocks/counter';
 
 export class CounterBlock {
   constructor() {
-    const { registerBlockType } = wp.blocks;
+    const { registerBlockType, unregisterBlockStyle, registerBlockStyle } = wp.blocks;
     const { __ } = wp.i18n;
     const attributes = {
       title: {
@@ -55,6 +55,33 @@ export class CounterBlock {
         />
       },
       save: frontendRendered( BLOCK_NAME )
-    } );
+    });
+
+    // Remove the default style since it's the same as "text only"
+    unregisterBlockStyle(BLOCK_NAME, 'default');
+
+    // Add our custom styles
+    registerBlockStyle(
+      BLOCK_NAME,
+      [
+        {
+          name: 'plain',
+          label: __( 'Text Only', 'planet4-blocks' ),
+          isDefault: true
+        },
+        {
+          name: 'bar',
+          label: __( 'Progress Bar', 'planet4-blocks' )
+        },
+        {
+          name: 'arc',
+          label: __( 'Progress Dial', 'planet4-blocks' )
+        },
+        {
+          name: 'en-forms-bar',
+          label: __( 'Progress bar inside EN Form', 'planet4-blocks' )
+        }
+      ]
+    );
   };
 }
