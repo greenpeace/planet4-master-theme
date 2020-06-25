@@ -10,21 +10,27 @@ export class CounterBlock {
     const attributes = {
       title: {
         type: 'string',
+        default: ''
       },
       description: {
         type: 'string',
+        default: ''
       },
       completed: {
         type: 'integer',
+        default: 0
       },
       completed_api: {
         type: 'string',
+        default: ''
       },
       target: {
         type: 'integer',
+        default: 0
       },
       text: {
         type: 'string',
+        default: ''
       }
     };
 
