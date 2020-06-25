@@ -11,50 +11,27 @@ import { URLInput } from "../../components/URLInput/URLInput";
 import { CounterFrontend } from './CounterFrontend';
 
 const { RichText } = wp.editor;
+const { __ } = wp.i18n;
 
 export class CounterEditor extends Component {
   constructor(props) {
     super(props);
+
+    this.toAttribute = this.toAttribute.bind(this);
+  }
+
+  toAttribute(attributeName) {
+    const { setAttributes } = this.props;
+    return value => {
+      setAttributes({ [attributeName]: value });
+    }
   }
 
   renderEdit() {
-    const { __ } = wp.i18n;
-
-    const {
-      attributes,
-      setAttributes
-    } = this.props;
-
-    const toAttribute = attributeName => value => {
-      setAttributes({ [attributeName]: value });
-    };
+    const { attributes } = this.props;
 
     return (
       <Fragment>
-        <div>
-          <header>
-            <RichText
-              tagName="h2"
-              className="page-section-header"
-              placeholder={__('Enter title', 'p4ge')}
-              value={attributes.title}
-              onChange={toAttribute('title')}
-              keepPlaceholderOnFocus={true}
-              withoutInteractiveFormatting
-              characterLimit={60}
-            />
-          </header>
-          <RichText
-            tagName="p"
-            className="page-section-description"
-            placeholder={__('Enter description', 'p4ge')}
-            value={attributes.description}
-            onChange={toAttribute('description')}
-            keepPlaceholderOnFocus={true}
-            withoutInteractiveFormatting
-            characterLimit={400}
-          />
-        </div>
         <InspectorControls>
           <PanelBody title={__('Setting', 'p4ge')}>
             <div>
@@ -63,7 +40,7 @@ export class CounterEditor extends Component {
                 placeholder={__('e.g. number of signatures', 'p4ge')}
                 type="number"
                 value={attributes.completed}
-                onChange={value => toAttribute('completed')(Number(value))}
+                onChange={value => this.toAttribute('completed')(Number(value))}
               />
             </div>
 
@@ -72,7 +49,7 @@ export class CounterEditor extends Component {
                 label={__('Completed API URL', 'p4ge')}
                 placeholder={__('API URL of completed number. If filled in will overide the \'Completed\' field', 'p4ge')}
                 value={attributes.completed_api}
-                onChange={toAttribute('completed_api')}
+                onChange={this.toAttribute('completed_api')}
               />
             </div>
 
@@ -82,7 +59,7 @@ export class CounterEditor extends Component {
                 placeholder={__('e.g. target no. of signatures', 'p4ge')}
                 type="number"
                 value={attributes.target}
-                onChange={value => toAttribute('target')(Number(value))}
+                onChange={value => this.toAttribute('target')(Number(value))}
               />
             </div>
 
@@ -91,7 +68,7 @@ export class CounterEditor extends Component {
                 label={__('Text', 'p4ge')}
                 placeholder={__('e.g. "signatures collected of %target%"', 'p4ge')}
                 value={attributes.text}
-                onChange={toAttribute('text')}
+                onChange={this.toAttribute('text')}
               />
             </div>
             <div className="sidebar-blocks-help">
@@ -107,7 +84,31 @@ export class CounterEditor extends Component {
     const { attributes } = this.props;
 
     return <Fragment>
-      <CounterFrontend {...attributes} />
+      <div className="counter-block">
+        <header>
+          <RichText
+            tagName="h2"
+            className="page-section-header"
+            placeholder={__('Enter title', 'p4ge')}
+            value={attributes.title}
+            onChange={this.toAttribute('title')}
+            keepPlaceholderOnFocus={true}
+            withoutInteractiveFormatting
+            characterLimit={60}
+          />
+        </header>
+        <RichText
+          tagName="p"
+          className="page-section-description"
+          placeholder={__('Enter description', 'p4ge')}
+          value={attributes.description}
+          onChange={this.toAttribute('description')}
+          keepPlaceholderOnFocus={true}
+          withoutInteractiveFormatting
+          characterLimit={400}
+        />
+      </div>
+      <CounterFrontend isEditing {...attributes} />
     </Fragment>;
   }
 

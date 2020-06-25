@@ -67,7 +67,8 @@ export class CounterFrontend extends Component {
       title,
       description,
       text,
-      target
+      target,
+      isEditing
     } = this.props;
 
     const { completed } = this.state;
@@ -82,12 +83,12 @@ export class CounterFrontend extends Component {
       <Fragment>
         <section className={`block container counter-block counter-style-${style}`}>
           <div className="container">
-            {title &&
+            {title && !isEditing &&
               <header>
                 <h2 className="page-section-header">{title}</h2>
               </header>
             }
-            {description &&
+            {description && !isEditing &&
               <p className="page-section-description" dangerouslySetInnerHTML={{ __html: description }} />
             }
           </div>
