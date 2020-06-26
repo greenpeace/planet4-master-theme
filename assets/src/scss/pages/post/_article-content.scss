@@ -32,17 +32,9 @@
   }
 
   ul, ol {
-    @include small-and-up {
-      font-size: 1.1875rem;
-    }
 
     @include medium-and-up {
-      font-size: $font-size-sm;
       margin-bottom: 20px;
-    }
-
-    @include x-large-and-up {
-      font-size: 1.125rem;
     }
 
     li:not(:first-child) {
@@ -51,26 +43,20 @@
   }
 
   h2 {
-    font-size: $font-size-lg;
-    line-height: 1.2;
     margin-bottom: 15px;
     padding-top: 8px;
 
     @include medium-and-up {
-      font-size: 1.5rem;
       padding-top: 10px;
     }
 
     @include large-and-up {
-      font-size: $font-size-xl;
       margin-bottom: 20px;
     }
 
     @include x-large-and-up {
-      font-size: 1.875rem;
       padding-top: 20px;
       margin-bottom: 20px;
-      line-height: 1.2;
     }
   }
 
@@ -80,23 +66,12 @@
   }
 
   p {
-    line-height: 1.6;
     margin: 0 0 18px 0;
     overflow-wrap: break-word;
     word-wrap: break-word;
 
-    @include small-and-up {
-      font-size: 1.1875rem;
-    }
-
     @include medium-and-up {
-      font-size: $font-size-sm;
       margin: 0 0 $n20 0;
-      line-height: 1.6;
-    }
-
-    @include x-large-and-up {
-      font-size: 1.125rem;
     }
 
     iframe {
@@ -292,20 +267,6 @@
 }
 
 .post-details {
-  line-height: 1.6;
-
-  @include small-and-up {
-    font-size: 1.1875rem;
-  }
-
-  @include medium-and-up {
-    font-size: $font-size-sm;
-  }
-
-  @include x-large-and-up {
-    font-size: 1.125rem;
-  }
-
   img {
     max-width: 100%;
     height: auto;
