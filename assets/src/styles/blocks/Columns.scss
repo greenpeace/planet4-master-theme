@@ -265,12 +265,12 @@
           }
 
           @include large-and-up {
-            color: $dark-shade-black;
+            color: $grey-80;
           }
         }
 
         p {
-          color: $dark-shade-black;
+          color: $grey-80;
           font-size: $font-size-xxs;
           opacity: 0.75;
           margin-bottom: 0;
@@ -388,7 +388,7 @@
           border-bottom: none;
 
           p {
-            color: $dark-shade-black;
+            color: $grey-80;
             font-size: $font-size-xxs;
             line-height: 22px;
             margin-left: 0;

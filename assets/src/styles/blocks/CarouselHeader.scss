@@ -194,7 +194,7 @@ $slide-transition-speed: 1s;
       width: 70%;
       line-height: 1.2;
       font-weight: bold;
-      color: $dark-shade-black;
+      color: $grey-80;
       padding-left: 15px;
 
       html[dir="rtl"] & {
@@ -224,7 +224,7 @@ $slide-transition-speed: 1s;
       line-height: 1.3;
       font-weight: 400;
       width: 55%;
-      color: $dark-shade-black;
+      color: $grey-80;
       margin-bottom: 0;
       padding-left: 15px;
 
@@ -262,7 +262,7 @@ $slide-transition-speed: 1s;
       @include medium-and-up {
         padding-left: 15px;
         line-height: 1.6;
-        color: $dark-shade-black;
+        color: $grey-80;
         margin-bottom: 24px;
         width: 60%;
         display: block;

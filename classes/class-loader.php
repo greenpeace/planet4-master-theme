@@ -465,9 +465,9 @@ final class Loader {
 			'editor-color-palette',
 			[
 				[
-					'name'  => __( 'Dark Shade Black', 'planet4-blocks-backend' ),
-					'slug'  => 'dark-shade-black',
-					'color' => '#1a1a1a',
+					'name'  => __( 'Grey 80%', 'planet4-blocks-backend' ),
+					'slug'  => 'grey-80',
+					'color' => '#020202',
 				],
 				[
 					'name'  => __( 'Grey 60%', 'planet4-blocks-backend' ),

@@ -43,7 +43,7 @@ import { link } from '@wordpress/icons';
 const { getComputedStyle } = window;
 
 const p4_button_text_colors = [
-  { name: 'dark-shade-black', color: '#1a1a1a' },
+  { name: 'grey-80', color: '#020202' },
   { name: 'white', color: '#ffffff' },
 ];
 
