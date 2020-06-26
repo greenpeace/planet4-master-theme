@@ -20,7 +20,13 @@
 						{% for col in fields.columns %}
 							<div class="col" data-id="{{ loop.index }}">
 								<span class="step-number">
-									<span class="step-number-inner">{{ loop.index }}</span>
+									<span
+										class="step-number-inner"
+										data-ga-category="Columns Block"
+										data-ga-action="Task Number"
+										data-ga-label="n/a">
+											{{ loop.index }}
+									</span>
 								</span>
 							</div>
 						{% endfor %}
@@ -29,7 +35,12 @@
 						<div class="row">
 							{% for col in fields.columns %}
 								<div class="col" data-id="{{ loop.index }}">
-									<h5>{{ col.title }}</h5>
+									<h5
+										data-ga-category="Columns Block"
+										data-ga-action="Title"
+										data-ga-label="n/a">
+											{{ col.title }}
+									</h5>
 								</div>
 							{% endfor %}
 						</div>
@@ -50,7 +61,11 @@
 									<div class="col" data-id="{{ loop.index }}">
 										{% if ( col.attachment ) %}
 												{% if ( col.cta_link ) %}
-													<a href="{{ col.cta_link }}">
+													<a
+														href="{{ col.cta_link|e('esc_url') }}"
+														data-ga-category="Columns Block"
+														data-ga-action="Image"
+														data-ga-label="{{ col.cta_link|e('esc_url') }}">
 												{% endif %}
 														<img src="{{ col.attachment }}" alt=""/>
 												{% if ( col.cta_link ) %}
@@ -64,10 +79,14 @@
 								{% for col in fields.columns %}
 									<div class="col" data-id="{{ loop.index }}">
 										{% if ( col.cta_text and col.cta_link ) %}
-											<a class="btn btn-small btn-medium {{ is_campaign ? 'btn-primary' : 'btn-secondary' }}"
-												href="{{ col.cta_link }}"
-												{{  col.link_new_tab  ? 'target="_blank"' }}>
-												{{ col.cta_text }}
+											<a
+												class="btn btn-small btn-medium {{ is_campaign ? 'btn-primary' : 'btn-secondary' }}"
+												href="{{ col.cta_link|e('esc_url') }}"
+												{{  col.link_new_tab  ? 'target="_blank"' }}
+												data-ga-category="Columns Block"
+												data-ga-action="Call to Action"
+												data-ga-label="{{ col.cta_link|e('esc_url') }}">
+													{{ col.cta_text }}
 											</a>
 										{% endif %}
 									</div>
@@ -95,8 +114,17 @@
 									   data-toggle="collapse" data-target=".card-header:hover + #collapse-{{ number_to_word }}"
 									   href="#collapse-{{ number_to_word }}"
 									   aria-expanded="true"
-									   aria-controls="collapse-{{ number_to_word }}">
-										<span class="step-number">{{ loop.index }}</span>
+									   aria-controls="collapse-{{ number_to_word }}"
+									   data-ga-category="Columns Block"
+									   data-ga-action="Title"
+									   data-ga-label="n/a">
+										<span
+											class="step-number"
+											data-ga-category="Columns Block"
+											data-ga-action="Task Number"
+											data-ga-label="n/a">
+												{{ loop.index }}
+										</span>
 										{% if ( col.title ) %}
 											{{ col.title }}
 										{% endif %}
@@ -131,8 +159,13 @@
 											{% endif %}
 
 											{% if ( col.cta_text and col.cta_link ) %}
-												<a class="btn btn-small {{ is_campaign ? 'btn-primary' : 'btn-secondary' }}"
-												   href="{{ col.cta_link }}">{{ col.cta_text }}
+												<a
+													class="btn btn-small {{ is_campaign ? 'btn-primary' : 'btn-secondary' }}"
+													href="{{ col.cta_link|e('esc_url') }}"
+													data-ga-category="Columns Block"
+													data-ga-action="Call to Action"
+													data-ga-label="{{ col.cta_link|e('esc_url') }}">
+														{{ col.cta_text }}
 												</a>
 											{% endif %}
 
