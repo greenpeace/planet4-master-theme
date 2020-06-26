@@ -666,6 +666,13 @@ class P4_Master_Site extends TimberSite {
 			return $user;
 		}
 
+		$email_user_name = mb_substr( $user_data->data->user_email, 0, strpos( $user_data->data->user_email, '@' ) );
+
+		// Dont enforce google login on aliases.
+		if ( strpos( $email_user_name, '+' ) ) {
+			return $user;
+		}
+
 		$domain = '@greenpeace.org';
 		if ( mb_substr( $user_data->data->user_email, -strlen( $domain ) ) === $domain ) {
 			$this->google_login_error = true;
