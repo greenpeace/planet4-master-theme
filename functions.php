@@ -69,7 +69,6 @@ if ( ! class_exists( 'Timber' ) ) {
 	}
 }
 
-require_once __DIR__ . '/src/Loader.php';
 Loader::get_instance();
 
 require_once 'load-class-aliases.php';
