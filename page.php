@@ -27,10 +27,12 @@
  * Post     : Action
  */
 
+use P4\MasterTheme\Context;
+use P4\MasterTheme\Post;
 use Timber\Timber;
 
 $context        = Timber::get_context();
-$post           = new P4_Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+$post           = new Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $page_meta_data = get_post_meta( $post->ID );
 $page_meta_data = array_map( 'reset', $page_meta_data );
 
@@ -55,10 +57,10 @@ if ( is_array( $page_tags ) && $page_tags ) {
 $post->set_data_layer();
 $data_layer = $post->get_data_layer();
 
-P4_Context::set_header( $context, $page_meta_data, $post->title );
-P4_Context::set_background_image( $context );
-P4_Context::set_og_meta_fields( $context, $post );
-P4_Context::set_campaign_datalayer( $context, $page_meta_data );
+Context::set_header( $context, $page_meta_data, $post->title );
+Context::set_background_image( $context );
+Context::set_og_meta_fields( $context, $post );
+Context::set_campaign_datalayer( $context, $page_meta_data );
 
 $context['post']                = $post;
 $context['social_accounts']     = $post->get_social_accounts( $context['footer_social_menu'] );

@@ -5,14 +5,19 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 use Timber\Post as TimberPost;
 use Timber\Term as TimberTerm;
+use WP_Error;
+use WP_Query;
+use WP_Term;
 
 
 /**
- * Class P4_Post extends TimberPost to add planet4 specific functionality.
+ * Add planet4 specific functionality.
  */
-class P4_Post extends TimberPost {
+class Post extends TimberPost {
 
 	/**
 	 * Issues navigation
@@ -38,7 +43,7 @@ class P4_Post extends TimberPost {
 	/**
 	 * Author
 	 *
-	 * @var P4_User $author
+	 * @var User $author
 	 */
 	protected $author;
 
@@ -50,7 +55,7 @@ class P4_Post extends TimberPost {
 	protected $data_layer;
 
 	/**
-	 * P4_Post constructor.
+	 * Post constructor.
 	 *
 	 * @param mixed $pid The post id. If left null it will try to figure out the current post id based on being inside The_Loop.
 	 */
@@ -89,12 +94,13 @@ class P4_Post extends TimberPost {
 	public function get_data_layer() {
 		return $this->data_layer;
 	}
+
 	/**
 	 * Checks if post is the Act page.
 	 *
 	 * @return bool
 	 */
-	public function is_act_page() : bool {
+	public function is_act_page(): bool {
 		$act_page_id = planet4_get_option( 'act_page' );
 
 		return absint( $act_page_id ) === $this->id;
@@ -105,7 +111,7 @@ class P4_Post extends TimberPost {
 	 *
 	 * @return bool
 	 */
-	public function is_explore_page() : bool {
+	public function is_explore_page(): bool {
 		$explore_page_id = planet4_get_option( 'explore_page' );
 
 		return absint( $explore_page_id ) === $this->id;
@@ -116,7 +122,7 @@ class P4_Post extends TimberPost {
 	 *
 	 * @return bool
 	 */
-	public function is_take_action_page() : bool {
+	public function is_take_action_page(): bool {
 		$act_page_id = planet4_get_option( 'act_page' );
 		$pages       = [];
 
@@ -140,7 +146,7 @@ class P4_Post extends TimberPost {
 	 *
 	 * @return bool
 	 */
-	public function is_issue_page() : bool {
+	public function is_issue_page(): bool {
 		$explore_page_id = planet4_get_option( 'explore_page' );
 		$pages           = [];
 
@@ -164,8 +170,8 @@ class P4_Post extends TimberPost {
 	 *
 	 * @return bool
 	 */
-	public function is_campaign_page() : bool {
-		return P4_Post_Campaign::POST_TYPE === $this->post_type;
+	public function is_campaign_page(): bool {
+		return PostCampaign::POST_TYPE === $this->post_type;
 	}
 
 	/**
@@ -216,7 +222,7 @@ class P4_Post extends TimberPost {
 	 *
 	 * @return array Associative array with the social media accounts.
 	 */
-	public function get_social_accounts( $social_menu ) : array {
+	public function get_social_accounts( $social_menu ): array {
 		return self::filter_social_accounts( $social_menu );
 	}
 
@@ -226,7 +232,7 @@ class P4_Post extends TimberPost {
 	 * @return WP_Term[]
 	 */
 	public function get_custom_terms() {
-		$terms = get_the_terms( $this->id, P4_Custom_Taxonomy::TAXONOMY );
+		$terms = get_the_terms( $this->id, CustomTaxonomy::TAXONOMY );
 		if ( false !== $terms && ! $terms instanceof WP_Error ) {
 			return $terms;
 		}
@@ -235,10 +241,10 @@ class P4_Post extends TimberPost {
 	}
 
 	/**
-	 * Sets the page types for this P4_Post.
+	 * Sets the page types for this Post.
 	 */
 	public function set_page_types() {
-		$taxonomies = $this->get_terms( P4_Custom_Taxonomy::TAXONOMY );
+		$taxonomies = $this->get_terms( CustomTaxonomy::TAXONOMY );
 
 		if ( $taxonomies && ! is_wp_error( $taxonomies ) ) {
 			$this->page_types = $taxonomies;
@@ -246,7 +252,7 @@ class P4_Post extends TimberPost {
 	}
 
 	/**
-	 * Gets the page types of this P4_Post.
+	 * Gets the page types of this Post.
 	 */
 	public function get_page_types() {
 		return $this->page_types;
@@ -349,26 +355,22 @@ class P4_Post extends TimberPost {
 	/**
 	 * Get values for share buttons content.
 	 *
-	 * @return string
+	 * @return string[]
 	 */
 	public function share_meta() {
 		$og_title       = get_post_meta( $this->id, 'p4_og_title', true );
 		$og_description = get_post_meta( $this->id, 'p4_og_description', true );
 		$link           = get_permalink( $this->id );
 
-		if ( '' === $og_title ) {
-			if ( '' !== $this->post_title ) {
-				$og_title = $this->post_title;
-			}
+		if ( ( '' === $og_title ) && '' !== $this->post_title ) {
+			$og_title = $this->post_title;
 		}
 
-		$social_meta = [
+		return [
 			'title'       => $og_title,
 			'description' => $og_description,
 			'link'        => $link,
 		];
-
-		return $social_meta;
 	}
 
 	/**
@@ -381,25 +383,26 @@ class P4_Post extends TimberPost {
 		if ( $author_override ) {
 			return true;
 		}
+
 		return false;
 	}
 
 	/**
-	 * Sets the P4_User author of this P4_Post.
+	 * Sets the User author of this Post.
 	 */
 	public function set_author() {
 		$author_override = get_post_meta( $this->id, 'p4_author_override', true );
 		if ( '' !== $author_override ) {
-			$this->author = new P4_User( false, $author_override );     // Create fake P4_User.
+			$this->author = new User( false, $author_override );     // Create fake User.
 		} else {
-			$this->author = new P4_User( (int) $this->post_author );
+			$this->author = new User( (int) $this->post_author );
 		}
 	}
 
 	/**
-	 * Gets the P4_User author of this P4_Post.
+	 * Gets the User author of this Post.
 	 *
-	 * @return P4_User
+	 * @return User
 	 */
 	public function get_author() {
 		return $this->author;
@@ -412,7 +415,7 @@ class P4_Post extends TimberPost {
 	 *
 	 * @return array Associative array with the social media accounts.
 	 */
-	public static function filter_social_accounts( $social_menu ) : array {
+	public static function filter_social_accounts( $social_menu ): array {
 		$social_accounts = [];
 		if ( isset( $social_menu ) && is_iterable( $social_menu ) ) {
 

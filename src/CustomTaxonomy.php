@@ -5,17 +5,23 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
+use WP_Error;
+use WP_Post;
+use WP_Term;
+
 /**
- * Class P4_Custom_Taxonomy
+ * Class CustomTaxonomy
  */
-class P4_Custom_Taxonomy {
+class CustomTaxonomy {
 
 	const TAXONOMY           = 'p4-page-type';
 	const TAXONOMY_PARAMETER = 'p4_page_type';
 	const TAXONOMY_SLUG      = 'page-type';
 
 	/**
-	 * P4_Custom_Taxonomy constructor.
+	 * CustomTaxonomy constructor.
 	 */
 	public function __construct() {
 		$this->hooks();
@@ -78,7 +84,7 @@ class P4_Custom_Taxonomy {
 		<select name="<?php echo esc_attr( self::TAXONOMY ); ?>">
 			<?php foreach ( $all_types as $term ) : ?>
 				<option <?php selected( $current_type, $term->term_id ); ?>
-					value="<?php echo esc_attr( $term->term_id ); ?>">
+						value="<?php echo esc_attr( $term->term_id ); ?>">
 					<?php echo esc_html( $term->name ); ?>
 				</option>
 			<?php endforeach; ?>

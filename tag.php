@@ -9,6 +9,7 @@
  * @package P4MT
  */
 
+use P4\MasterTheme\TaxonomyCampaign;
 use Timber\Timber;
 use P4GBKS\Blocks\Covers;
 use P4GBKS\Blocks\Articles;
@@ -64,7 +65,7 @@ if ( is_tag() ) {
 		}
 		$context['page_category'] = 'Tag Page';
 
-		$campaign = new P4_Taxonomy_Campaign( $templates, $context );
+		$campaign = new TaxonomyCampaign( $templates, $context );
 
 		$campaign->add_block(
 			Covers::BLOCK_NAME,

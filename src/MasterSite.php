@@ -5,15 +5,23 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 use Timber\Timber;
 use Timber\Site as TimberSite;
 use Timber\Menu as TimberMenu;
+use Twig_Extension_StringLoader;
+use Twig_ExtensionInterface;
+use Twig_SimpleFilter;
+use WP_Error;
+use WP_Post;
+use WP_User;
 
 /**
- * Class P4_Master_Site.
+ * Class MasterSite.
  * The main class that handles Planet4 Master Theme.
  */
-class P4_Master_Site extends TimberSite {
+class MasterSite extends TimberSite {
 
 	/**
 	 * Key of notice seen by user
@@ -58,7 +66,7 @@ class P4_Master_Site extends TimberSite {
 	protected $google_login_error = false;
 
 	/**
-	 * P4_Master_Site constructor.
+	 * MasterSite constructor.
 	 */
 	public function __construct() {
 		$this->settings();
@@ -128,10 +136,10 @@ class P4_Master_Site extends TimberSite {
 		add_action( 'save_post', [ $this, 'p4_auto_generate_excerpt' ], 10, 2 );
 
 		if ( wp_doing_ajax() ) {
-			P4_Search::add_general_filters();
+			Search::add_general_filters();
 		}
-		add_action( 'wp_ajax_get_paged_posts', [ P4_ElasticSearch::class, 'get_paged_posts' ] );
-		add_action( 'wp_ajax_nopriv_get_paged_posts', [ P4_ElasticSearch::class, 'get_paged_posts' ] );
+		add_action( 'wp_ajax_get_paged_posts', [ ElasticSearch::class, 'get_paged_posts' ] );
+		add_action( 'wp_ajax_nopriv_get_paged_posts', [ ElasticSearch::class, 'get_paged_posts' ] );
 
 		add_action( 'admin_head', [ $this, 'add_help_sidebar' ] );
 
@@ -237,7 +245,7 @@ class P4_Master_Site extends TimberSite {
 			'custom-login',
 			$this->theme_dir . '/admin/css/login.css',
 			[],
-			P4_Loader::theme_file_ver( 'admin/css/login.css' )
+			Loader::theme_file_ver( 'admin/css/login.css' )
 		);
 	}
 
@@ -296,10 +304,10 @@ class P4_Master_Site extends TimberSite {
 	}
 
 	/**
-	 * Force WordPress to use P4_Image_Compression as image manipulation editor.
+	 * Force WordPress to use ImageCompression as image manipulation editor.
 	 */
 	public function allowedEditors() {
-		return [ P4_Image_Compression::class ];
+		return [ ImageCompression::class ];
 	}
 
 	/**
@@ -346,7 +354,7 @@ class P4_Master_Site extends TimberSite {
 		$context['site']         = $this;
 		$context['current_url']  = home_url( $wp->request );
 		$context['sort_options'] = $this->sort_options;
-		$context['default_sort'] = P4_Search::DEFAULT_SORT;
+		$context['default_sort'] = Search::DEFAULT_SORT;
 
 		$options = get_option( 'planet4_options' );
 
@@ -576,7 +584,7 @@ class P4_Master_Site extends TimberSite {
 			'bootstrap',
 			$this->theme_dir . '/assets/build/bootstrap.min.css',
 			[],
-			P4_Loader::theme_file_ver( 'assets/build/bootstrap.min.css' )
+			Loader::theme_file_ver( 'assets/build/bootstrap.min.css' )
 		);
 		wp_enqueue_style( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css', [], '1.9.0' );
 
@@ -593,7 +601,7 @@ class P4_Master_Site extends TimberSite {
 			// The ajaxurl variable is a global js variable defined by WP itself but only for the WP admin
 			// For the frontend we need to define it ourselves and pass it to js.
 			'ajaxurl'           => admin_url( 'admin-ajax.php' ),
-			'show_scroll_times' => P4_Search::SHOW_SCROLL_TIMES,
+			'show_scroll_times' => Search::SHOW_SCROLL_TIMES,
 		];
 
 		wp_register_script( 'main', $this->theme_dir . '/assets/build/index.js', [ 'jquery', 'lazyload', 'cssvarsponyfill' ], $js_creation, true );
@@ -623,16 +631,16 @@ class P4_Master_Site extends TimberSite {
 		$weight  = get_post_meta( $post->ID, 'weight', true );
 		$options = get_option( 'planet4_options' );
 
-		echo '<label for="my_meta_box_text">' . esc_html__( 'Weight', 'planet4-master-theme-backend' ) . ' (1-' . esc_attr( P4_Search::DEFAULT_MAX_WEIGHT ) . ')</label>
+		echo '<label for="my_meta_box_text">' . esc_html__( 'Weight', 'planet4-master-theme-backend' ) . ' (1-' . esc_attr( Search::DEFAULT_MAX_WEIGHT ) . ')</label>
 				<input id="weight" type="text" name="weight" value="' . esc_attr( $weight ) . '" />';
 		?><script>
 			$ = jQuery;
 			$( '#parent_id' ).off('change').on( 'change', function () {
 				// Check selected Parent page and give bigger weight if it will be an Action page
 				if ( '<?php echo esc_js( $options['act_page'] ); ?>' === $(this).val() ) {
-					$( '#weight' ).val( <?php echo esc_js( P4_Search::DEFAULT_ACTION_WEIGHT ); ?> );
+					$( '#weight' ).val( <?php echo esc_js( Search::DEFAULT_ACTION_WEIGHT ); ?> );
 				} else {
-					$( '#weight' ).val( <?php echo esc_js( P4_Search::DEFAULT_PAGE_WEIGHT ); ?> );
+					$( '#weight' ).val( <?php echo esc_js( Search::DEFAULT_PAGE_WEIGHT ); ?> );
 				}
 			});
 		</script>
@@ -722,8 +730,8 @@ class P4_Master_Site extends TimberSite {
 			FILTER_VALIDATE_INT,
 			[
 				'options' => [
-					'min_range' => P4_Search::DEFAULT_MIN_WEIGHT,
-					'max_range' => P4_Search::DEFAULT_MAX_WEIGHT,
+					'min_range' => Search::DEFAULT_MIN_WEIGHT,
+					'max_range' => Search::DEFAULT_MAX_WEIGHT,
 				],
 			]
 		);
@@ -731,7 +739,7 @@ class P4_Master_Site extends TimberSite {
 		// If this is a new Page then set default weight for it.
 		if ( ! $weight && 'post-new.php' === $pagenow ) {
 			if ( 'page' === $post->post_type ) {
-				$weight = P4_Search::DEFAULT_PAGE_WEIGHT;
+				$weight = Search::DEFAULT_PAGE_WEIGHT;
 			}
 		}
 
@@ -877,7 +885,7 @@ class P4_Master_Site extends TimberSite {
 	 */
 	private function render_partial( $path, $args = [] ) {
 		if ( ! empty( $args ) ) {
-			extract( $args ); // phpcs:ignore
+			extract( $args, EXTR_OVERWRITE ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		}
 		include locate_template( $path . '.php' );
 	}

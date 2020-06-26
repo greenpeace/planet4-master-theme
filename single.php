@@ -9,6 +9,8 @@
  * @since    Timber 0.1
  */
 
+use P4\MasterTheme\Context;
+use P4\MasterTheme\Post;
 use Timber\Timber;
 
 // Initializing variables.
@@ -16,9 +18,9 @@ $context = Timber::get_context();
 /**
  * P4 Post Object
  *
- * @var P4_Post $post
+ * @var Post $post
  */
-$post            = Timber::query_post( false, P4_Post::class ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+$post            = Timber::query_post( false, Post::class ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $context['post'] = $post;
 
 // Strip Take Action Boxout block from the post content to add outside the normal block container.
@@ -53,8 +55,8 @@ $context['social_accounts']     = $post->get_social_accounts( $context['footer_s
 $context['page_category']       = 'Post Page';
 $context['post_tags']           = implode( ', ', $post->tags() );
 
-P4_Context::set_og_meta_fields( $context, $post );
-P4_Context::set_campaign_datalayer( $context, $page_meta_data );
+Context::set_og_meta_fields( $context, $post );
+Context::set_campaign_datalayer( $context, $page_meta_data );
 
 $context['filter_url'] = add_query_arg(
 	[

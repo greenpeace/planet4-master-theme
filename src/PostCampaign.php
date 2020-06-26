@@ -5,10 +5,12 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 /**
- * Class P4_Post_Campaign
+ * Class P4\MasterTheme\PostCampaign
  */
-class P4_Post_Campaign {
+class PostCampaign {
 
 	/**
 	 * Post Type
@@ -60,12 +62,14 @@ class P4_Post_Campaign {
 	 * @param int|null $result Possibly value chosen by the current user.
 	 * @param string   $option The name of the option.
 	 * @param object   $user The current user.
+	 *
 	 * @return int The amount of pages that will be used.
 	 */
 	public function set_default_items_per_page( $result, $option, $user ) {
 		if ( (int) $result < 1 ) {
 			return 200;
 		}
+
 		return $result;
 	}
 
@@ -204,7 +208,7 @@ class P4_Post_Campaign {
 			'cmb-style',
 			get_template_directory_uri() . '/admin/css/campaign.css',
 			[],
-			P4_Loader::theme_file_ver( 'admin/css/campaign.css' )
+			Loader::theme_file_ver( 'admin/css/campaign.css' )
 		);
 		wp_enqueue_style( 'cmb-style' );
 	}
@@ -415,8 +419,6 @@ class P4_Post_Campaign {
 	}
 
 	/**
-	 * @deprecated This can probably be removed along with the font map.
-	 *
 	 * @param array $css_vars The array containing the CSS variables.
 	 * @param array $meta The meta containing the style settings.
 	 * @return string The body font.
@@ -443,8 +445,6 @@ class P4_Post_Campaign {
 	}
 
 	/**
-	 * @deprecated This function replaces some arbitrary font names in the CSS variables.
-	 *
 	 * @param array $css_vars The array containing the CSS variables.
 	 * @return array The variables for the footer theme.
 	 */
@@ -466,6 +466,7 @@ class P4_Post_Campaign {
 	 *
 	 * @param array $css_vars The array containing the CSS variables.
 	 * @param array $meta The meta containing the style settings.
+	 *
 	 * @return array The variables for the passive button.
 	 */
 	public static function get_passive_button_color( array $css_vars, array $meta ): array {
@@ -492,6 +493,7 @@ class P4_Post_Campaign {
 	 * Get the navigation bar variables based on the meta settings.
 	 *
 	 * @param array $css_vars The mix of meta fields and defaults.
+	 *
 	 * @return array The variables for the navigation bar.
 	 */
 	public static function get_navbar_theme( array $css_vars ): array {
@@ -508,6 +510,7 @@ class P4_Post_Campaign {
 	 * Get the footer variables based on the meta settings.
 	 *
 	 * @param array $css_vars The array containing the CSS variables.
+	 *
 	 * @return array The variables for the footer theme.
 	 */
 	public static function get_footer_theme( array $css_vars ): array {
@@ -544,6 +547,7 @@ class P4_Post_Campaign {
 	 * Get the theme based on the meta settings.
 	 *
 	 * @param array $meta The meta containing the style settings.
+	 *
 	 * @return string The identifier of the theme.
 	 */
 	public static function get_theme( array $meta ): string {
@@ -557,6 +561,7 @@ class P4_Post_Campaign {
 	 * Get the logo based on the meta settings. Ensures that no other campaign logo will be used even if that's the value stored.
 	 *
 	 * @param array $meta The meta containing the style settings.
+	 *
 	 * @return string The identifier of the logo.
 	 */
 	public static function get_logo( array $meta ): string {

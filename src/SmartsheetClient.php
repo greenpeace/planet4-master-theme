@@ -5,10 +5,15 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
+use InvalidArgumentException;
+use WP_Error;
+
 /**
  * Handles calling the SmartSheet API.
  */
-final class P4_Smartsheet_Client {
+final class SmartsheetClient {
 
 	/**
 	 * @var string The API key to use for the requests.
@@ -16,7 +21,7 @@ final class P4_Smartsheet_Client {
 	private $api_key;
 
 	/**
-	 * P4_Smartsheet_Client constructor.
+	 * SmartsheetClient constructor.
 	 *
 	 * @param string $api_key For authenticating to the SmartSheet API.
 	 */
@@ -28,6 +33,7 @@ final class P4_Smartsheet_Client {
 	 * Create an instance from an API key.
 	 *
 	 * @param string $api_key The API key to use for authentication.
+	 *
 	 * @return static The instance.
 	 */
 	public static function from_api_key( string $api_key ): self {
@@ -38,9 +44,10 @@ final class P4_Smartsheet_Client {
 	 * Fetch a sheet from the API by its id.
 	 *
 	 * @param string $sheet_id The id of the sheet to fetch.
-	 * @return P4_Smartsheet|null The sheet if found, otherwise null.
+	 *
+	 * @return Smartsheet|null The sheet if found, otherwise null.
 	 */
-	public function get_sheet( string $sheet_id ): ?P4_Smartsheet {
+	public function get_sheet( string $sheet_id ): ?Smartsheet {
 		$url = "https://api.smartsheet.com/2.0/sheets/$sheet_id";
 
 		$response = $this->request( 'GET', $url );
@@ -50,7 +57,7 @@ final class P4_Smartsheet_Client {
 		}
 
 		try {
-			return P4_Smartsheet::from_api_response( json_decode( $response['body'], true ) );
+			return Smartsheet::from_api_response( json_decode( $response['body'], true ) );
 		} catch ( InvalidArgumentException $exception ) {
 			return null;
 		}
@@ -61,6 +68,7 @@ final class P4_Smartsheet_Client {
 	 *
 	 * @param string $method The HTTP method.
 	 * @param string $url The URL to call.
+	 *
 	 * @return array|WP_Error The response or an error.
 	 */
 	private function request( string $method, string $url ) {

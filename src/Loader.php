@@ -5,15 +5,19 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
+use WP_CLI;
+
 /**
- * Class P4_Loader.
+ * Class Loader.
  * Loads all necessary classes for Planet4 Master Theme.
  */
-final class P4_Loader {
+final class Loader {
 	/**
 	 * A static instance of Loader.
 	 *
-	 * @var P4_Loader $instance
+	 * @var Loader $instance
 	 */
 	private static $instance;
 	/**
@@ -35,9 +39,9 @@ final class P4_Loader {
 	 *
 	 * @param array $services The Controller services to inject.
 	 *
-	 * @return P4_Loader
+	 * @return Loader
 	 */
-	public static function get_instance( $services = [] ) : P4_Loader {
+	public static function get_instance( $services = [] ) : Loader {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self( $services );
 		}
@@ -45,34 +49,14 @@ final class P4_Loader {
 	}
 
 	/**
-	 * P4_Loader constructor.
+	 * Loader constructor.
 	 *
 	 * @param array $services The dependencies to inject.
 	 */
 	private function __construct( $services ) {
-		$this->load_files();
 		$this->load_services( $services );
 		$this->add_filters();
 		$this->load_commands();
-	}
-
-	/**
-	 * Load required files.
-	 */
-	private function load_files() {
-		try {
-			// Class names need to be prefixed with P4 and should use capitalized words separated by underscores. Any acronyms should be all upper case.
-			spl_autoload_register(
-				function ( $class_name ) {
-					if ( strpos( $class_name, 'P4_' ) !== false ) {
-						$file_name = 'class-' . str_ireplace( [ 'P4\\', '_' ], [ '', '-' ], strtolower( $class_name ) );
-						require_once __DIR__ . '/' . $file_name . '.php';
-					}
-				}
-			);
-		} catch ( \Exception $e ) {
-			echo esc_html( $e->getMessage() );
-		}
 	}
 
 	/**
@@ -83,28 +67,28 @@ final class P4_Loader {
 	private function load_services( $services ) {
 
 		$this->default_services = [
-			P4_Custom_Taxonomy::class,
-			P4_Post_Campaign::class,
-			P4_Post_Archive::class,
-			P4_Settings::class,
-			P4_Post_Report_Controller::class,
-			P4_Cookies::class,
-			P4_Dev_Report::class,
-			P4_Master_Site::class,
+			CustomTaxonomy::class,
+			PostCampaign::class,
+			PostArchive::class,
+			Settings::class,
+			PostReportController::class,
+			Cookies::class,
+			DevReport::class,
+			MasterSite::class,
 		];
 
 		if ( is_admin() ) {
 			global $pagenow;
 
 			// Load P4 Control Panel only on Dashboard page.
-			$this->default_services[] = P4_Control_Panel::class;
+			$this->default_services[] = ControlPanel::class;
 
 			// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
 			if ( 'post-new.php' === $pagenow || 'post.php' === $pagenow ) {
-				$this->default_services[] = P4_Metabox_Register::class;
+				$this->default_services[] = MetaboxRegister::class;
 				add_action(
 					'cmb2_save_field_p4_campaign_name',
-					[ P4_Metabox_Register::class, 'save_global_project_id' ],
+					[ MetaboxRegister::class, 'save_global_project_id' ],
 					10,
 					3
 				);
@@ -112,25 +96,25 @@ final class P4_Loader {
 
 			// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
 			if ( 'edit-tags.php' === $pagenow || 'term.php' === $pagenow ) {
-				$this->default_services[] = P4_Campaigns::class;
+				$this->default_services[] = Campaigns::class;
 			}
 
-			// Load `P4_Campaign_Exporter` class on admin campaign listing page and campaign export only.
+			// Load `CampaignExporter` class on admin campaign listing page and campaign export only.
 			if ( 'campaign' === filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING ) || 'export_data' === filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING ) ) {
-				$this->default_services[] = P4_Campaign_Exporter::class;
+				$this->default_services[] = CampaignExporter::class;
 			}
 
-			// Load `P4_Campaign_Importer` class on admin campaign import only.
+			// Load `CampaignImporter` class on admin campaign import only.
 			// phpcs:disable
 			if ( 'wordpress' === filter_input( INPUT_GET, 'import', FILTER_SANITIZE_STRING ) ) {
 				// phpcs:enable
-				$this->default_services[] = P4_Campaign_Importer::class;
+				$this->default_services[] = CampaignImporter::class;
 			}
 		}
 
-		// Run P4_Activator after theme switched to planet4-master-theme or a planet4 child theme.
+		// Run Activator after theme switched to planet4-master-theme or a planet4 child theme.
 		if ( get_option( 'theme_switched' ) ) {
-			$this->default_services[] = P4_Activator::class;
+			$this->default_services[] = Activator::class;
 		}
 
 		$services = array_merge( $services, $this->default_services );
@@ -168,7 +152,7 @@ final class P4_Loader {
 		}
 
 		$command = static function ( $args, $assoc_args ) {
-			P4_Activator::run();
+			Activator::run();
 		};
 
 		WP_CLI::add_command( 'p4-run-activator', $command );

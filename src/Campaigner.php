@@ -5,11 +5,13 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 /**
- * Class P4_Campaigner.
+ * Class Campaigner.
  * Register custom 'campaigner' role and adds custom capabilities.
  */
-class P4_Campaigner {
+class Campaigner {
 
 	/**
 	 * @var [[string]] List of capabilities for each standard WordPress role.

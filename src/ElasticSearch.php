@@ -5,10 +5,14 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
+use UnexpectedValueException;
+
 /**
- * Class P4_ElasticSearch
+ * Class P4\MasterTheme\ElasticSearch
  */
-class P4_ElasticSearch extends P4_Search {
+class ElasticSearch extends Search {
 
 	/**
 	 * Applies user selected filters to the search if there are any and gets the filtered posts.
@@ -124,6 +128,7 @@ class P4_ElasticSearch extends P4_Search {
 			// Erase the phrase matching (to make sure we get results that include both 'courageous' AND 'act' instead of only those with 'courageous act'.
 			unset( $formatted_args['query']['function_score']['query']['bool']['must'][0]['multi_match']['type'] );
 		}
+
 		return $formatted_args;
 	}
 

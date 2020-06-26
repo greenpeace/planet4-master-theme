@@ -10,6 +10,7 @@
  * @subpackage  Timber
  */
 
+use P4\MasterTheme\Post;
 use Timber\Timber;
 
 $templates = [ 'taxonomy.twig', 'index.twig' ];
@@ -31,13 +32,13 @@ $context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thum
 if ( get_query_var( 'page' ) ) {
 	$templates          = [ 'tease-taxonomy-post.twig' ];
 	$post_args['paged'] = get_query_var( 'page' );
-	$pagetype_posts     = new \Timber\PostQuery( $post_args, P4_Post::class );
+	$pagetype_posts     = new \Timber\PostQuery( $post_args, Post::class );
 	foreach ( $pagetype_posts as $pagetype_post ) {
 		$context['post'] = $pagetype_post;
 		Timber::render( $templates, $context );
 	}
 } else {
-	$pagetype_posts   = new \Timber\PostQuery( $post_args, P4_Post::class );
+	$pagetype_posts   = new \Timber\PostQuery( $post_args, Post::class );
 	$context['posts'] = $pagetype_posts;
 	Timber::render( $templates, $context );
 }

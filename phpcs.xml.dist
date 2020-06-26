@@ -23,7 +23,9 @@
 
     <!-- Whitelist p4 test classes for filename sniffs. -->
     <rule ref="WordPress.Files.FileName">
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
         <properties>
+			<property name="strict_class_file_names" value="false"/>
             <property name="custom_test_class_whitelist" type="array" value="P4_TestCase"/>
         </properties>
     </rule>

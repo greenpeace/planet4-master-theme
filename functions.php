@@ -5,6 +5,19 @@
  * @package P4MT
  */
 
+// Composer install might have happened inside the master-theme directory, instead of the app root. Specifically for
+// php lint and unit test job this is the case.
+// Also this helps with local development environments that pulled in changes for master-theme but did not rerun
+// base-fork's composer installation, which is currently tricky to do as it puts the fetched versions of master theme
+// and the plugins into the theme and plugin folders, which might be messy if you have changes there.
+// With this fallback for tests in place, you can just run composer dump autoload in master-theme.
+// Probably there's a better way to handle this, but for now let's try load both.
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	require_once __DIR__ . '/vendor/autoload.php';
+} else {
+	require_once __DIR__ . '/../../../../vendor/autoload.php';
+}
+
 /**
  * A simpler way to add a filter that only returns a static value regardless of the input.
  *
@@ -25,6 +38,7 @@ function simple_value_filter( string $filter_name, $value, $priority = null ): v
 	);
 }
 
+use P4\MasterTheme\Loader;
 use Timber\Timber;
 
 if ( ! class_exists( 'Timber' ) ) {
@@ -55,5 +69,6 @@ if ( ! class_exists( 'Timber' ) ) {
 	}
 }
 
-require_once __DIR__ . '/classes/class-p4-loader.php';
-P4_Loader::get_instance();
+Loader::get_instance();
+
+require_once 'load-class-aliases.php';

@@ -25,6 +25,11 @@
     "wiki": "https://github.com/greenpeace/planet4-master-theme/wiki",
     "source": "https://github.com/greenpeace/planet4-master-theme"
   },
+  "autoload": {
+    "psr-4": {
+      "P4\\MasterTheme\\": "src/"
+    }
+  },
   "extra": {
     "installer-paths": {
       "vendor/plugins/{$name}/": ["type:wordpress-plugin"]

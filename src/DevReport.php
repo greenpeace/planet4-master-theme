@@ -5,10 +5,12 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 /**
- * Class P4_Dev_Report
+ * Class DevReport
  */
-class P4_Dev_Report {
+class DevReport {
 	/**
 	 * Option key, and option page slug
 	 *

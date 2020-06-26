@@ -5,13 +5,15 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 use Timber\Timber;
 
 
 /**
- * Class P4_Taxonomy_Campaign
+ * Class TaxonomyCampaign
  */
-class P4_Taxonomy_Campaign {
+class TaxonomyCampaign {
 
 	/**
 	 * Context
@@ -28,7 +30,7 @@ class P4_Taxonomy_Campaign {
 	protected $templates = [];
 
 	/**
-	 * P4_Taxonomy_Campaign constructor.
+	 * TaxonomyCampaign constructor.
 	 *
 	 * @param array $templates An indexed array with template file names. The first to be found will be used.
 	 * @param array $context An associative array with all the context needed to render the template found first.

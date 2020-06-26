@@ -5,17 +5,19 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 /**
- * Class P4_Cookies
+ * Class Cookies
  *
  * @since 1.9
  */
-class P4_Cookies {
+class Cookies {
 
 	const COOKIE_NAME = 'greenpeace';
 
 	/**
-	 * P4_Cookies constructor.
+	 * Cookies constructor.
 	 */
 	public function __construct() {
 		$this->hooks();

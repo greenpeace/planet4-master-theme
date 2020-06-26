@@ -5,10 +5,12 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 /**
  * Data class for post editor analytics values.
  */
-final class P4_Analytics_Values {
+final class AnalyticsValues {
 	private const CACHE_KEY = 'analytics_global_projects';
 
 	/**
@@ -22,7 +24,7 @@ final class P4_Analytics_Values {
 	private $local_projects;
 
 	/**
-	 * P4_Analytics_Values constructor.
+	 * AnalyticsValues constructor.
 	 *
 	 * @param string[]      $global_projects A list of the global projects.
 	 * @param string[]|null $local_projects A list of the local projects.
@@ -35,13 +37,14 @@ final class P4_Analytics_Values {
 	/**
 	 * Extract values from smartsheets.
 	 *
-	 * @param P4_Smartsheet      $global_smartsheet Smartsheet containing global projects data.
-	 * @param P4_Smartsheet|null $local_smartsheet Smartsheet containing local projects data.
+	 * @param Smartsheet      $global_smartsheet Smartsheet containing global projects data.
+	 * @param Smartsheet|null $local_smartsheet Smartsheet containing local projects data.
+	 *
 	 * @return static
 	 */
 	public static function from_smartsheets(
-		P4_Smartsheet $global_smartsheet,
-		P4_Smartsheet $local_smartsheet = null
+		Smartsheet $global_smartsheet,
+		Smartsheet $local_smartsheet = null
 	): self {
 		$project_name_column = $global_smartsheet->get_column_index( 'Global Project Standard' );
 		$approved_column     = $global_smartsheet->get_column_index( 'Standard Approved' );
@@ -112,7 +115,7 @@ final class P4_Analytics_Values {
 			return self::from_hardcoded_values();
 		}
 
-		$smartsheet_client = P4_Smartsheet_Client::from_api_key( $api_key );
+		$smartsheet_client = SmartsheetClient::from_api_key( $api_key );
 
 		$global_sheet_id = $_ENV['ANALYTICS_GLOBAL_SMARTSHEET_ID'] ?? '4212503304529796';
 
@@ -320,3 +323,4 @@ final class P4_Analytics_Values {
 		return $matching_project['tracking_id'];
 	}
 }
+

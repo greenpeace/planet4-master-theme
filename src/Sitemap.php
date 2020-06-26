@@ -5,10 +5,12 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 /**
- * Class P4_Sitemap
+ * Class Sitemap
  */
-class P4_Sitemap {
+class Sitemap {
 
 	/**
 	 * Limit the number of evergreen pages

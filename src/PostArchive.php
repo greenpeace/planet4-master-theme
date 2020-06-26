@@ -5,10 +5,12 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 /**
  * A custom post type for P3 posts that were archived.
  */
-class P4_Post_Archive {
+class PostArchive {
 
 	public const POST_TYPE = 'archive';
 

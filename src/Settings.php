@@ -1,14 +1,18 @@
 <?php
 /**
- * Settings Class
+ * Settings.
  *
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
+use CMB2_Field;
+
 /**
- * Class P4_Settings
+ * Class P4\MasterTheme\Settings
  */
-class P4_Settings {
+class Settings {
 
 	/**
 	 * ID of the Metabox

@@ -5,10 +5,14 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
+use WP_Term;
+
 /**
- * Class P4_Campaigns
+ * Class Campaigns
  */
-class P4_Campaigns {
+class Campaigns {
 
 	/**
 	 * Taxonomy
@@ -247,7 +251,7 @@ class P4_Campaigns {
 
 			$tag_data = get_term( $term_id );
 
-			if ( $tag_data instanceof \WP_Term ) {
+			if ( $tag_data instanceof WP_Term ) {
 
 				$covers_block1_attributes = [
 					'title'       => __( 'Things you can do', 'planet4-master-theme' ),
@@ -298,7 +302,7 @@ class P4_Campaigns {
 				$tag_page_id = wp_insert_post( $my_post );
 				if ( is_int( $tag_page_id ) ) {
 					update_post_meta( $tag_page_id, 'p4_description', $tag_data->description );
-					update_post_meta( $tag_page_id, P4_Search::EXCLUDE_FROM_SEARCH, true );
+					update_post_meta( $tag_page_id, Search::EXCLUDE_FROM_SEARCH, true );
 				}
 
 				if ( $tag_attachment_id ) {
@@ -423,7 +427,7 @@ class P4_Campaigns {
 			$this->taxonomy,
 			get_template_directory_uri() . "/admin/js/$this->taxonomy.js",
 			[ 'jquery' ],
-			P4_Loader::theme_file_ver( "admin/js/$this->taxonomy.js" ),
+			Loader::theme_file_ver( "admin/js/$this->taxonomy.js" ),
 			true
 		);
 		wp_localize_script( $this->taxonomy, 'localizations', $this->localizations );

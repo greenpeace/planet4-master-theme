@@ -5,10 +5,12 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 /**
- * Class P4_Post_Report_Controller
+ * Class PostReportController
  */
-class P4_Post_Report_Controller {
+class PostReportController {
 
 	/**
 	 * Theme directory
@@ -18,7 +20,7 @@ class P4_Post_Report_Controller {
 	protected $theme_dir;
 
 	/**
-	 * P4_Custom_Taxonomy constructor.
+	 * PostReportController constructor.
 	 */
 	public function __construct() {
 		$this->hooks();
@@ -100,7 +102,7 @@ class P4_Post_Report_Controller {
 				'wp-api',
 				'wp-backbone',
 			],
-			P4_Loader::theme_file_ver( 'admin/js/posts_report.js' ),
+			Loader::theme_file_ver( 'admin/js/posts_report.js' ),
 			true
 		);
 		wp_localize_script(

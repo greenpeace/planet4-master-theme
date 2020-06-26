@@ -5,10 +5,14 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
+use CMB2_Field;
+
 /**
- * Class P4_Metabox_Register
+ * Class MetaboxRegister
  */
-class P4_Metabox_Register {
+class MetaboxRegister {
 
 	/**
 	 * The maximum number of take action pages to show in dropdown.
@@ -18,7 +22,7 @@ class P4_Metabox_Register {
 	const MAX_TAKE_ACTION_PAGES = 100;
 
 	/**
-	 * P4_Metabox_Register constructor.
+	 * MetaboxRegister constructor.
 	 */
 	public function __construct() {
 		$this->hooks();
@@ -268,7 +272,7 @@ class P4_Metabox_Register {
 	 */
 	public function register_meta_box_campaign() {
 		$post_types       = [ 'page', 'campaign', 'post' ];
-		$analytics_values = P4_Analytics_Values::from_cache_or_api_or_hardcoded();
+		$analytics_values = AnalyticsValues::from_cache_or_api_or_hardcoded();
 
 		// P4 Datalayer/Campaign fields.
 		$p4_campaign_fields = new_cmb2_box(
@@ -375,7 +379,7 @@ class P4_Metabox_Register {
 	 * @return bool
 	 */
 	public function is_not_campaign_post() {
-		return P4_Post_Campaign::POST_TYPE !== get_post_type();
+		return PostCampaign::POST_TYPE !== get_post_type();
 	}
 
 	/**
@@ -395,7 +399,7 @@ class P4_Metabox_Register {
 			return;
 		}
 
-		$project_id = P4_Analytics_Values::from_cache_or_api_or_hardcoded()->get_id_for_global_project( $field->value() );
+		$project_id = AnalyticsValues::from_cache_or_api_or_hardcoded()->get_id_for_global_project( $field->value() );
 		update_post_meta( $field->object_id, 'p4_global_project_tracking_id', $project_id );
 	}
 

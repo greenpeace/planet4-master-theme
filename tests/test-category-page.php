@@ -5,6 +5,7 @@
  * @package P4MT
  */
 
+use P4\MasterTheme\Post;
 use SteveGrunwell\PHPUnit_Markup_Assertions\MarkupAssertionsTrait;
 
 /**
@@ -29,8 +30,8 @@ class CategoryPageTest extends P4_TestCase {
 		$attachment_id = $this->factory->attachment->create_upload_object( dirname( __DIR__ ) . '/tests/data/images/pressmedia.jpg', 0 );
 		set_post_thumbnail( $post, $attachment_id );
 
-		// Wrap WP_Post around P4_Post.
-		$post   = new P4_Post( $post->ID );
+		// Wrap WP_Post around Post.
+		$post   = new Post( $post->ID );
 		$output = TimberHelper::ob_function(
 			function () use ( $post ) {
 					Timber::render( 'tease-taxonomy-post.twig', [ 'post' => $post ] );
@@ -76,8 +77,8 @@ class CategoryPageTest extends P4_TestCase {
 		$post_data = $this->get_posts()['post_with_category_tag'];
 		$post      = $this->factory->post->create_and_get( $post_data );
 
-		// Wrap WP_Post around P4_Post.
-		$post   = new P4_Post( $post->ID );
+		// Wrap WP_Post around Post.
+		$post   = new Post( $post->ID );
 		$output = TimberHelper::ob_function(
 			function () use ( $post ) {
 					Timber::render( 'tease-taxonomy-post.twig', [ 'post' => $post ] );

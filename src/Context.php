@@ -5,10 +5,12 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 /**
- * Class P4_Context Sets common context fields.
+ * Class Context Sets common context fields.
  */
-class P4_Context {
+class Context {
 
 	/**
 	 * Set context relating to the header

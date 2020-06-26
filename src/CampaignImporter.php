@@ -5,10 +5,12 @@
  * @package P4MT
  */
 
+namespace P4\MasterTheme;
+
 /**
- * Class P4_Campaign_Importer.
+ * Class CampaignImporter.
  */
-class P4_Campaign_Importer {
+class CampaignImporter {
 
 	/**
 	 * Old and new attachment ids mapping var
@@ -255,7 +257,7 @@ class P4_Campaign_Importer {
 			|| ! empty( $_POST['campaigns_import_exclude_style'] ) //phpcs:ignore WordPress.Security.NonceVerification.Missing
 		) {
 			// Also exclude the old attribute as the code still falls back to it.
-			$excluded_keys = array_merge( P4_Post_Campaign::META_FIELDS, [ '_campaign_page_template' ] );
+			$excluded_keys = array_merge( PostCampaign::META_FIELDS, [ '_campaign_page_template' ] );
 			foreach ( $post_meta as $index => $meta ) {
 				if ( in_array( $meta['key'], $excluded_keys, true ) ) {
 					unset( $post_meta[ $index ] );
