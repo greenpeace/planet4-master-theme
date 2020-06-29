@@ -102,7 +102,7 @@
 																						value="{{ category.term_id }}"
 																						class="p4-custom-control-input modal-checkbox"
 																						data-ga-category="Search Page"
-																						data-ga-action="Issue Filter"
+																						data-ga-action="Category Filter"
 																						data-ga-label="{{ category.name|e('wp_kses_post')|raw }}"
 																						{{ category.checked }} {{ category.results > 0 ? '' : 'disabled' }} />
 																					<span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} ({{ category.results }})</span>
@@ -131,7 +131,7 @@
 																						value="{{ page_type.term_id }}"
 																						class="p4-custom-control-input modal-checkbox"
 																						data-ga-category="Search Page"
-																						data-ga-action="Category Filter"
+																						data-ga-action="Post Type Filter"
 																						data-ga-label="{{ page_type.name|e('wp_kses_post')|raw }}"
 																						{{ page_type.checked }} {{ page_type.results > 0 ? '' : 'disabled' }} />
 																					<span class="custom-control-description">{{ page_type.name }} ({{ page_type.results }})</span>
@@ -245,7 +245,7 @@
 																value="{{ category.term_id }}"
 																class="p4-custom-control-input"
 																data-ga-category="Search Page"
-																data-ga-action="Issue Filter"
+																data-ga-action="Category Filter"
 																data-ga-label="{{ category.name|e('wp_kses_post')|raw }}"
 																{{ category.checked }} {{ category.results > 0 ? '' : 'disabled' }} />
 														<span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} ({{ category.results }})</span>
@@ -298,7 +298,7 @@
 															value="{{ page_type.term_id }}"
 															class="p4-custom-control-input"
 															data-ga-category="Search Page"
-															data-ga-action="Category Filter"
+															data-ga-action="Post Type Filter"
 															data-ga-label="{{ page_type.name|e('wp_kses_post')|raw }}"
 															{{ page_type.checked }} {{ page_type.results > 0 ? '' : 'disabled' }} />
 														<span class="custom-control-description">{{ page_type.name|e('wp_kses_post')|raw }} ({{ page_type.results }})</span>
