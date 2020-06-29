@@ -1,15 +1,63 @@
-import {Articles} from './Articles.js';
+import { ArticlesEditor } from './ArticlesEditor';
+import { frontendRendered } from '../frontendRendered';
+
+const BLOCK_NAME = 'planet4-blocks/articles';
 
 export class ArticlesBlock {
   constructor() {
-    const {registerBlockType} = wp.blocks;
-    const {withSelect} = wp.data;
+    const { registerBlockType } = wp.blocks;
+    const { __ } = wp.i18n;
 
-    registerBlockType('planet4-blocks/articles', {
-      title: 'Articles',
+    // This attributes definition mimics the one in the PHP side.
+    const attributes = {
+      article_heading: {
+        type: 'string',
+        default: __('Latest Articles', 'p4ge')
+      },
+      articles_description: {
+        type: 'string',
+      },
+      article_count: {
+        type: 'integer',
+        default: 3
+      },
+      tags: {
+        type: 'array',
+        default: []
+      },
+      posts: {
+        type: 'array',
+        default: []
+      },
+      post_types: {
+        type: 'array',
+        default: []
+      },
+      read_more_text: {
+        type: 'string',
+        default: __('Load More', 'p4ge')
+      },
+      read_more_link: {
+        type: 'string',
+        default: ''
+      },
+      button_link_new_tab: {
+        type: 'boolean',
+        default: false
+      },
+      ignore_categories: {
+        type: 'boolean',
+        default: false
+      },
+      exclude_post_id: {
+        type: 'integer',
+      },
+    };
+
+    registerBlockType(BLOCK_NAME, {
+      title: __('Articles', 'planet4-blocks-backend'),
       icon: 'excerpt-view',
       category: 'planet4-blocks',
-
       // Transform the shortcode into a Gutenberg block
       // this is used when a user clicks "Convert to blocks"
       // on the "Classic Editor" block
@@ -90,66 +138,23 @@ export class ArticlesBlock {
           },
         ]
       },
-      // This attributes definition mimics the one in the PHP side.
-      attributes: {
-        article_heading: {
-          type: 'string',
-        },
-        articles_description: {
-          type: 'string',
-        },
-        article_count: {
-          type: 'integer',
-          default: 3
-        },
-        tags: {
-          type: 'array',
-          default: []
-        },
-        posts: {
-          type: 'array',
-          default: []
-        },
-        post_types: {
-          type: 'array',
-          default: []
-        },
-        read_more_text: {
-          type: 'string'
-        },
-        read_more_link: {
-          type: 'string',
-          default: ''
-        },
-        button_link_new_tab: {
-          type: 'boolean',
-          default: false
-        },
-        ignore_categories: {
-          type: 'boolean',
-          default: false
-        },
-        exclude_post_id: {
-          type: 'integer',
-        },
-      },
-      edit: withSelect((select) => {
-        return {};
-      })(({
-            isSelected,
-            attributes,
-            setAttributes
-          }) => {
-
-        return <Articles
+      attributes,
+      deprecated: [
+        {
+          attributes,
+          save() {
+            return null;
+          },
+        }
+      ],
+      edit: ({ isSelected, attributes, setAttributes }) => {
+        return <ArticlesEditor
           attributes={attributes}
           setAttributes={setAttributes}
           isSelected={isSelected}
         />
-      }),
-      save() {
-        return null;
-      }
+      },
+      save: frontendRendered(BLOCK_NAME)
     });
   };
 }
