@@ -66,6 +66,7 @@ final class Loader {
 			PostCampaign::class,
 			PostArchive::class,
 			Settings::class,
+			Features::class,
 			PostReportController::class,
 			Cookies::class,
 			DevReport::class,
@@ -77,6 +78,8 @@ final class Loader {
 
 			// Load P4 Control Panel only on Dashboard page.
 			$this->default_services[] = ControlPanel::class;
+			$this->default_services[] = ImageArchive\UiIntegration::class;
+			$this->default_services[] = ImageArchive\Rest::class;
 
 			// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
 			if ( 'post-new.php' === $pagenow || 'post.php' === $pagenow ) {

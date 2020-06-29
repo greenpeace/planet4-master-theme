@@ -1,0 +1,161 @@
+<?php
+
+namespace P4\MasterTheme\ImageArchive;
+
+use WP_Http;
+
+class ApiClient {
+	private const BASE_URL = 'https://media.greenpeace.org';
+	private const AUTH_URL = self::BASE_URL . '/API/Authentication/v1.0/Login';
+	private const SEARCH_URL = self::BASE_URL . '/API/search/v3.0/search';
+	private const TOKEN_CACHE_KEY = 'ml_auth_token';
+	private const RESPONSE_TIMEOUT = 10;
+	private const MEDIAS_PER_PAGE = 30;
+	private const DEFAULT_PARAMS = [
+		'query'        => '(Mediatype:Image)',
+		'fields'       => 'Title,Caption,copyright,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier,original-language-title,original-language-description,original-language,restrictions,copyright,MediaDate,CreatedDate,EditDate',
+		'countperpage' => self::MEDIAS_PER_PAGE,
+		'format'       => 'json',
+		'pagenumber'   => 1,
+	];
+
+	private $token;
+
+	private function __construct( string $token ) {
+		$this->token = $token;
+	}
+
+	public static function from_cache_or_credentials(): self {
+		$cached_token = get_transient( self::TOKEN_CACHE_KEY );
+
+		if ( false !== $cached_token ) {
+			return new self( $cached_token );
+		}
+
+		return self::from_settings();
+	}
+
+	public static function from_settings(): self {
+		$p4ml_settings = get_option( 'p4ml_main_settings' );
+
+		return self::from_credentials( $p4ml_settings['p4ml_api_username'], $p4ml_settings['p4ml_api_password'] );
+	}
+
+	public static function from_credentials( string $username, string $password ): self {
+		$token = self::fetch_token( $username, $password );
+
+		return new self( $token );
+	}
+
+	private static function fetch_token( string $username, string $password ): string {
+		$response = wp_safe_remote_post( self::AUTH_URL,
+			[
+				'body'    => [
+					'Login'    => $username,
+					'Password' => $password,
+					'format'   => 'json',
+				],
+				'timeout' => self::RESPONSE_TIMEOUT,
+			] );
+		// Authentication failure.
+		if ( is_wp_error( $response ) ) {
+			$response = $response->get_error_message() . ' ' . $response->get_error_code();
+
+		} elseif ( \WP_Http::ACCEPTED !== $response['response']['code'] ) {
+			$response = $response['response']['message'] . ' ' . $response['response']['code'];
+		}
+
+		if ( ! is_array( $response ) || empty( $response['body'] ) ) {
+			throw new \InvalidArgumentException( "Unable to authenticate user {$username}" );
+		}
+		// Communication with ML API is authenticated.
+		$body  = json_decode( $response['body'], true );
+		$token = $body['APIResponse']['Token'];
+
+		// Time period in seconds to keep the ml_auth_token before refreshing. Typically 1 hour.
+		$expiration_seconds = ( $body['APIResponse']['TimeoutPeriodMinutes'] ?? 60 ) * 60;
+
+		set_transient( self::TOKEN_CACHE_KEY, $token, $expiration_seconds );
+
+		return $token;
+	}
+
+	public function get_selection( array $ids ): ?array {
+		$params = [
+			'query' => 'SystemIdentifier: ' . implode( ' OR ', $ids ),
+		];
+
+		return $this->fetch_images( $params );
+	}
+
+	/**
+	 * @param array $additional_params
+	 *
+	 * @return Image[]|null
+	 */
+	public function fetch_images( array $additional_params = [] ): ?array {
+		$params = array_merge( self::DEFAULT_PARAMS, $additional_params, $this->token_param() );
+
+		$url = add_query_arg( $params, self::SEARCH_URL );
+
+		$response = wp_remote_get(
+			$url,
+			[
+				'timeout'   => self::RESPONSE_TIMEOUT,
+			]
+		);
+
+		if ( is_wp_error( $response  ) ||  WP_Http::OK !== $response['response']['code'] ) {
+			// Maybe will throw exception here.
+			return null;
+		}
+		$response = json_decode( $response['body'], true );
+
+		$images_in_wordpress = self::get_images_in_wordpress($response);
+
+		// todo: Get all images that are in WP already so we can pass it to Image::from_api_response to know if the
+		// image is already in WP without having to execute the query n times.
+
+		return Image::all_from_api_response( $response, $images_in_wordpress );
+	}
+
+	/**
+	 * Get the ids from the api response so we can know which ones are already in WP before creating the Image
+	 * representation. That way we don't need to execute a query for each image.
+	 *
+	 * @param array $api_data
+	 *
+	 * @return array
+	 */
+	private static function get_images_in_wordpress( array $api_data ): array {
+		global $wpdb;
+		$images = $api_data['APIResponse']['Items'] ?? [];
+
+		$ids = array_map( static function ( $image ) {
+			return $image['SystemIdentifier'];
+		},
+			$images );
+
+		$sql = '
+SELECT p.id, m.meta_value
+FROM %1$s p JOIN %2$s m ON m.post_id = p.id
+WHERE m.meta_key = "' . Image::ARCHIVE_ID_META_KEY . '" AND m.meta_value IN ('
+		       . generate_list_placeholders($ids, 3, 's' )
+		       .')';
+
+		$prepared = $wpdb->prepare( $sql, array_merge( [ $wpdb->posts, $wpdb->postmeta ], $ids ) );
+
+		$results = $wpdb->get_results( $prepared, ARRAY_A );
+
+		$indexed = [];
+		foreach ( $results as $result ) {
+			$indexed[ $result['meta_value'] ] = (int) $result['id'];
+		}
+
+		return $indexed;
+	}
+
+	private function token_param() {
+		return [ 'token' => $this->token ];
+	}
+}
