@@ -10,7 +10,7 @@ namespace P4GEN\Controllers\Menu;
 /**
  * Class Settings_Controller
  */
-class Settings_Controller extends Controller {
+class En_Settings_Controller extends Controller {
 
 	/**
 	 * Create menu/submenu entry.
