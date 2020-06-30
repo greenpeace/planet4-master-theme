@@ -31,6 +31,10 @@ export class CounterBlock {
       text: {
         type: 'string',
         default: ''
+      },
+      className: {
+        type: 'string',
+        default: 'is-style-plain'
       }
     };
 
