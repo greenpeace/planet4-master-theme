@@ -38,6 +38,19 @@ function simple_value_filter( string $filter_name, $value, $priority = null ): v
 	);
 }
 
+/**
+ * Wrapper function around cmb2_get_option.
+ *
+ * @param string $key Options array key.
+ * @param bool   $default The default value to use if the options is not set.
+ * @return mixed Option value.
+ */
+function planet4_get_option( $key = '', $default = null ) {
+	$options = get_option( 'planet4_options' );
+
+	return $options[ $key ] ?? $default;
+}
+
 use P4\MasterTheme\Loader;
 use Timber\Timber;
 

@@ -470,16 +470,3 @@ class Settings {
 		do_action( 'wpml_multilingual_options', 'planet4_options' );
 	}
 }
-
-/**
- * Wrapper function around cmb2_get_option.
- *
- * @param string $key Options array key.
- * @param bool   $default The default value to use if the options is not set.
- * @return mixed Option value.
- */
-function planet4_get_option( $key = '', $default = null ) {
-	$options = get_option( 'planet4_options' );
-
-	return $options[ $key ] ?? $default;
-}
