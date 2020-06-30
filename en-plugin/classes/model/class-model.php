@@ -7,16 +7,13 @@
 
 namespace P4GEN\Model;
 
-if ( ! class_exists( 'Model' ) ) {
+/**
+ * Class Model
+ */
+class Model {
 
 	/**
-	 * Class Model
+	 * Creates the plugin's Model object.
 	 */
-	class Model {
-
-		/**
-		 * Creates the plugin's Model object.
-		 */
-		public function __construct() {}
-	}
+	public function __construct() {}
 }
