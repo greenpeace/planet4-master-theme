@@ -32,37 +32,6 @@ div.page-template {
   img {
     max-width: 100%;
     height: auto;
-
-    &.alignnone {
-      margin-top: $space-md;
-      margin-bottom: $space-xl;
-
-      @include large-and-up {
-        margin-top: $space-lg;
-        margin-bottom: $space-xxl;
-      }
-    }
-  }
-
-  .alignleft {
-    @include small-and-up {
-      float: left;
-      margin: 0 $n10 $n10 0;
-      padding-top: 6px;
-    }
-  }
-
-  .alignright {
-    @include small-and-up {
-      float: right;
-      margin: 0 0 $n10 $n10;
-      padding-top: 6px;
-    }
-  }
-
-  .aligncenter {
-    margin-left: auto;
-    margin-right: auto;
   }
 }
 
