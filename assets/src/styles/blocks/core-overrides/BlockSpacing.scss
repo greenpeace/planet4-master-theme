@@ -8,6 +8,22 @@
 .post-details > p:first-of-type,
 .post-details > h2,
 .post-details > ul {
+  margin-top: $space-xs;
+  margin-bottom: $space-md;
+
+  @include large-and-up {
+    margin-top: $space-md;
+    margin-bottom: $space-lg;
+  }
+}
+
+.wp-block-quote,
+.wp-block-file,
+.wp-block-button,
+.page-template > h2,
+.page-template > ul,
+.post-details > h2,
+.post-details > ul {
   display: inline-block;
   margin-top: $space-xs;
   margin-bottom: $space-md;
