@@ -6,22 +6,6 @@
  */
 
 /**
- * Generate a bunch of placeholders for use in an IN query.
- * Such a shame WordPress doesn't offer a decent way to do bind IN statement params and we have to do this ourselves.
- *
- * @param array $items The items to generate placeholders for.
- * @param int   $start_index The start index to use for creating the placeholders.
- * @return string The generated placeholders string.
- */
-function generate_list_placeholders( array $items, int $start_index ): string {
-	$placeholders = [];
-	foreach ( range( $start_index, count( $items ) + $start_index - 1 ) as $i ) {
-		$placeholders[] = "%$i\$d";
-	}
-	return implode( ',', $placeholders );
-}
-
-/**
  * Parse the post content and return all attachment ids used in blocks.
  *
  * @param string $content The content to parse.

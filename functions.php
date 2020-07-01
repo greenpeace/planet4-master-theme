@@ -39,6 +39,31 @@ function simple_value_filter( string $filter_name, $value, $priority = null ): v
 }
 
 /**
+ * Generate a bunch of placeholders for use in an IN query.
+ * Unfortunately WordPress doesn't offer a way to do bind IN statement params, it would be a lot easier if we could pass
+ * the array to wpdb->prepare as a whole.
+ *
+ * @param array  $items The items to generate placeholders for.
+ * @param int    $start_index The start index to use for creating the placeholders.
+ * @param string $type The type of value.
+ *
+ * @return string The generated placeholders string.
+ */
+function generate_list_placeholders( array $items, int $start_index, $type = 'd' ): string {
+	$placeholders = [];
+	foreach ( range( $start_index, count( $items ) + $start_index - 1 ) as $i ) {
+		$placeholder = "%{$i}\${$type}";
+		// Quote it if it's a string.
+		if ( 's' === $type ) {
+			$placeholder = "'{$placeholder}'";
+		}
+		$placeholders[] = $placeholder;
+	}
+
+	return implode( ',', $placeholders );
+}
+
+/**
  * Wrapper function around cmb2_get_option.
  *
  * @param string $key Options array key.

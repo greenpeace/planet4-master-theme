@@ -235,6 +235,12 @@ abstract class Search {
 			[ Features::factory()->get_registered_feature( 'documents' ), 'setup_document_search' ],
 			10
 		);
+		add_filter(
+			'ep_post_query_db_args',
+			[ self::class, 'exclude_unwanted_attachments' ],
+			10,
+			1
+		);
 	}
 
 
@@ -1100,5 +1106,29 @@ abstract class Search {
 				Timber::render( [ 'tease-search.twig' ], $paged_context, self::DEFAULT_CACHE_TTL, \Timber\Loader::CACHE_OBJECT );
 			}
 		}
+	}
+
+	/**
+	 * Fetch all attachments that we don't want to include in search,
+	 * so that we can exclude them from ElasticPress sync.
+	 *
+	 * @param mixed[] $args The args ElasticPress will use to fetch the ids of posts that will be synced.
+	 *
+	 * @return mixed The args with exclusion of unwanted ids.
+	 */
+	public static function exclude_unwanted_attachments( $args ) {
+		global $wpdb;
+
+		$in_placeholders = generate_list_placeholders( self::DOCUMENT_TYPES, 2, 's' );
+
+		$sql = 'SELECT id FROM %1$s WHERE post_type = "attachment" AND post_mime_type NOT IN (' . $in_placeholders . ')';
+
+		$unwanted_attachment_ids = $wpdb->get_col(
+			$wpdb->prepare( $sql, array_merge( [ $wpdb->posts ], self::DOCUMENT_TYPES ) ) // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		);
+
+		$args['post__not_in'] = $unwanted_attachment_ids;
+
+		return $args;
 	}
 }
