@@ -65,19 +65,21 @@
 
 .page-header {
   color: $dark-shade-black;
-  padding: $n90 0 $n40 0;
+  padding-top: $n90;
+  margin-bottom: $space-md;
   position: relative;
 
   @include medium-and-up {
-    padding: 104px 0 $n40;
+    padding-top: 104px;
   }
 
   @include large-and-up {
-    padding: 144px 0 $n60;
+    padding-top: 144px;
+    margin-bottom: $space-lg;
   }
 
   @include x-large-and-up {
-    padding: 144px 0 $n80;
+    padding-top: 144px;
   }
 
   &.page-header-hidden {

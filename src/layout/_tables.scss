@@ -1,4 +1,14 @@
 @mixin table {
+  .wp-block-table {
+    margin-top: $space-xs;
+    margin-bottom: $space-md;
+
+    @include large-and-up {
+      margin-top: $space-md;
+      margin-bottom: $space-lg;
+    }
+  }
+
   table {
     margin-bottom: 15px;
     font-family: $roboto;
