@@ -1,4 +1,5 @@
 import { Component, Fragment } from '@wordpress/element';
+import { ArticlePreview } from './ArticlePreview';
 
 export class ArticlesFrontend extends Component {
   constructor(props) {
@@ -31,9 +32,7 @@ export class ArticlesFrontend extends Component {
               <div className="page-section-description">{articles_description}</div>
             }
             <div className="article-list-section clearfix">
-              {recent_posts && recent_posts.map(post => {
-                <p>TODO</p>
-              })}
+              {recent_posts && recent_posts.length > 0 && recent_posts.map(post => <ArticlePreview recent_post={post} />)}
             </div>
             {total_pages > 1 && !isEditing &&
               <div className="row">
@@ -53,19 +52,19 @@ export class ArticlesFrontend extends Component {
                       data-content=".article-list-section"
                       data-page="1"
                       data-total_pages={total_pages}
-                      data-article_count={article_count }
+                      data-article_count={article_count}
                     // TODO:   {% for key,value in dataset %}
                     //       data-{{ value }}
                     // {% endfor %}
                     >
                       {read_more_text}
                     </button>
-                </div>
-              }
+                  </div>
+                }
               </div>
             }
           </div>
-		    </section>
+        </section>
       </Fragment >
     )
   }

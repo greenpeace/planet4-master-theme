@@ -33,46 +33,14 @@ class Articles extends Base_Block {
 	];
 
 	/**
-	 * Register shortcake shortcode.
-	 *
-	 * @param array  $attributes Shortcode attributes.
-	 * @param string $content Content.
-	 *
-	 * @return mixed
-	 */
-	public function add_block_shortcode( $attributes, $content ) {
-		$attributes = shortcode_atts(
-			[
-				'article_count'        => '',
-				'article_heading'      => '',
-				'read_more_text'       => '',
-				'read_more_link'       => '',
-				'ignore_categories'    => false,
-				'title'                => '',
-				'articles_description' => '',
-				'post_types'           => [],
-				'posts'                => [],
-				'tags'                 => [],
-			],
-			$attributes,
-			'shortcake_articles'
-		);
-
-		return $this->render( $attributes );
-	}
-
-	/**
 	 * Articles constructor.
 	 */
 	public function __construct() {
-		add_shortcode( 'shortcake_articles', [ $this, 'add_block_shortcode' ] );
-
 		register_block_type(
 			'planet4-blocks/articles',
 			[
-				'editor_script'   => 'planet4-blocks',
-				'render_callback' => [ $this, 'render' ],
-				'attributes'      => [
+				'editor_script' => 'planet4-blocks',
+				'attributes'    => [
 					'article_heading'      => [
 						'type' => 'string',
 					],

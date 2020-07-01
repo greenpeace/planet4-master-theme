@@ -100,7 +100,7 @@ export class ArticlesEditor extends Component {
 
   renderView() {
     const { attributes } = this.props;
-    console.log(attributes)
+
     return (
       <Fragment>
         <header>
