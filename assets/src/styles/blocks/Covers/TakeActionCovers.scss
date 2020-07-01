@@ -68,7 +68,7 @@
   cursor: pointer;
   flex-basis: 100%;
   padding: 32px $n15 $n60;
-  margin-top: $space-md;
+  margin-top: $space-xs;
   position: relative;
   box-shadow: 0 0 10px rgba(0, 0, 0, .35);
   background-size: cover;
@@ -93,10 +93,10 @@
     flex-basis: 48%;
     min-height: 414px;
     padding: 18px $n15 $n60;
-    margin-top: $space-lg;
   }
 
   @include large-and-up {
+    margin-top: $space-md;
     flex-basis: 32%;
     min-height: 364px;
     max-height: 364px;

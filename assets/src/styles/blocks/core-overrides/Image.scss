@@ -2,6 +2,27 @@
   position: relative;
   width: auto;
   max-width: 100%;
+  margin-top: $space-xs;
+  margin-bottom: $space-md;
+
+  @include large-and-up {
+    margin-top: $space-md;
+    margin-bottom: $space-lg;
+  }
+
+  figure {
+    position: relative;
+  }
+
+  .alignleft {
+    margin: 0 $n10 $n10 0;
+    padding-top: 6px;
+  }
+
+  .alignright {
+    margin: 0 0 $n10 $n10;
+    padding-top: 6px;
+  }
 
   @include medium-and-up {
     .image-credit {
@@ -14,10 +35,6 @@
     }
   }
 
-  figure {
-    position: relative;
-  }
-
   img {
     width: 100%;
     max-width: 100%;
@@ -28,19 +45,10 @@
     font-size: $font-size-xxs;
     font-family: $roboto;
     line-height: 1.4;
+    margin-bottom: 0;
   }
 
   &.caption-style-blue-overlay {
-    .alignnone {
-      margin-bottom: $space-xl;
-      margin-top: $space-md;
-
-      @include large-and-up {
-        margin-bottom: $space-xxl;
-        margin-top: $space-lg;
-      }
-    }
-
     .image-desc {
       display: block;
     }
@@ -89,4 +97,8 @@ figcaption {
   .caption-alignment-right & {
     text-align: right;
   }
+}
+
+figure.wp-block-image {
+  display: inline-block;
 }
