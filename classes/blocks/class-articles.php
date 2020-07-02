@@ -104,78 +104,7 @@ class Articles extends Base_Block {
 	 * @return array The data to be passed in the View.
 	 */
 	public function prepare_data( $fields ): array {
-		// Read more button links to search results if no link is specified.
-
-		// Article block default text setting.
-		$options              = get_option( 'planet4_options' );
-		$article_title        = $options['articles_block_title'] ?? __( 'Related Articles', 'planet4-blocks' );
-		$article_button_title = $options['articles_block_button_title'] ?? __( 'READ ALL THE NEWS', 'planet4-blocks' );
-		$post_type            = get_post_type();
-
-		if ( 'post' === $post_type ) {
-			$exclude_post_id           = get_the_ID();
-			$fields['exclude_post_id'] = $exclude_post_id;
-		}
-
-		$fields['article_heading']      = ! empty( $fields['article_heading'] ) ? $fields['article_heading'] : $article_title;
-		$fields['read_more_text']       = ! empty( $fields['read_more_text'] ) ? $fields['read_more_text'] : $article_button_title;
-		$fields['article_count']        = ( empty( $fields['article_count'] ) || $fields['article_count'] < 0 ) ? 3 : $fields['article_count'];
-		$fields['articles_description'] = $fields['articles_description'] ?? '';
-
-		// Four scenarios for filtering posts.
-		// 1) inside tag page - Get posts that have the specific tag assigned.
-		// Add extra check for post_types and posts attributes to ensure that the block is rendered from a tag page.
-		// 2) post types or tags -
-		// a. Get posts by post types or tags defined from select boxes - new behavior.
-		// b. inside post - Get results excluding specific post.
-		// 3) specific posts - Get posts by ids specified in backend - new behavior / manual override.
-		// 4) issue page - Get posts based on page's tags.
-		$fiedls_diff = count( array_diff( [ 'post_types', 'posts' ], array_keys( $fields ) ) );
-		if ( is_tag() && ! empty( $fields['tags'] ) && 2 === $fiedls_diff ) {
-			$args = $this->filter_posts_for_tag_page( $fields );
-		} elseif ( ! empty( $fields['post_types'] ) ||
-				! empty( $fields['tags'] ) ||
-				! empty( $exclude_post_id ) ) {
-			$args = $this->filter_posts_by_page_types_or_tags( $fields );
-		} elseif ( ! empty( $fields['posts'] ) ) {
-			$args = $this->filter_posts_by_ids( $fields );
-		} else {
-			$args = $this->filter_posts_by_pages_tags( $fields );
-		}
-
-		// Get max posts.
-		$args['numberposts'] = self::MAX_ARTICLES;
-
-		// Ignore rule, arguments contain suppress_filters.
-		// phpcs:ignore$fields['article_count']
-		$all_posts    = wp_get_recent_posts( $args );
-		$total_pages  = 0 !== $fields['article_count'] ? ceil( count( (array) $all_posts ) / $fields['article_count'] ) : 0;
-		$sliced_posts = array_slice( $all_posts, 0, $fields['article_count'] );
-		$recent_posts = [];
-
-		// Populate posts array for frontend template if results have been returned.
-		if ( false !== $sliced_posts ) {
-			$recent_posts = $this->populate_post_items( $sliced_posts );
-		}
-
-		// Enqueue js for the frontend.
-		if ( ! $this->is_rest_request() ) {
-			\P4GBKS\Loader::enqueue_local_script( 'load-more', 'public/js/load_more.js', [ 'jquery' ] );
-			wp_localize_script( 'load-more', 'more_url', [ admin_url( 'admin-ajax.php' ) ] );
-		}
-
-		$dataset = urldecode( http_build_query( $args, '', ' ' ) );
-		$dataset = explode( ' ', $dataset );
-
-		$data = [
-			'fields'       => $fields,
-			'recent_posts' => $recent_posts,
-			'total_pages'  => $total_pages,
-			'nonce_action' => 'load_more',
-			'dataset'      => $dataset,
-		];
-
-		return $data;
+		return [];
 	}
 
 	/**
@@ -243,7 +172,7 @@ class Articles extends Base_Block {
 	 *
 	 * @return array
 	 */
-	private function populate_post_items( $posts ) {
+	public function populate_post_items( $posts ) {
 		$recent_posts = [];
 
 		if ( $posts ) {
@@ -304,7 +233,7 @@ class Articles extends Base_Block {
 	 *
 	 * @return array|false
 	 */
-	private function filter_posts_by_ids( &$fields ) {
+	public function filter_posts_by_ids( &$fields ) {
 
 		$post_ids = $fields['posts'] ?? [];
 
@@ -331,7 +260,7 @@ class Articles extends Base_Block {
 	 *
 	 * @return array
 	 */
-	private function filter_posts_by_page_types_or_tags( &$fields ) {
+	public function filter_posts_by_page_types_or_tags( &$fields ) {
 
 		$exclude_post_id   = (int) ( $fields['exclude_post_id'] ?? '' );
 		$ignore_categories = $fields['ignore_categories'];
@@ -417,7 +346,7 @@ class Articles extends Base_Block {
 	 *
 	 * @return array|false
 	 */
-	private function filter_posts_for_tag_page( &$fields ) {
+	public function filter_posts_for_tag_page( &$fields ) {
 
 		$tag_id = $fields['tags'] ?? '';
 		$tag    = get_tag( $tag_id[0] );
@@ -438,7 +367,7 @@ class Articles extends Base_Block {
 	 *
 	 * @return array
 	 */
-	private function filter_posts_by_pages_tags() {
+	public function filter_posts_by_pages_tags() {
 
 		// Get all posts with arguments.
 		$args = self::DEFAULT_POST_ARGS;

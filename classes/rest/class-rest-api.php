@@ -8,6 +8,7 @@ namespace P4GBKS\Rest;
 use WP_REST_Request;
 use WP_REST_Server;
 use P4GBKS\Blocks\Spreadsheet;
+use P4GBKS\Blocks\Articles;
 
 /**
  * This class is just a place for add_endpoints to live.
@@ -137,6 +138,63 @@ class Rest_Api {
 						$sheet_data = Spreadsheet::get_sheet( $sheet_id, false );
 
 						return rest_ensure_response( $sheet_data );
+					},
+				],
+			]
+		);
+		/**
+		 * Endpoint retrieve the latest posts for the Articles block
+		 */
+		register_rest_route(
+			self::REST_NAMESPACE,
+			'/get-articles',
+			[
+				[
+					'methods'  => WP_REST_Server::READABLE,
+					'callback' => static function ( $request ) {
+						$post_type = get_post_type();
+						$fields    = $request;
+						if ( 'post' === $post_type ) {
+							$exclude_post_id           = get_the_ID();
+							$fields['exclude_post_id'] = $exclude_post_id;
+						}
+
+						// Four scenarios for filtering posts.
+						// 1) inside tag page - Get posts that have the specific tag assigned.
+						// Add extra check for post_types and posts attributes to ensure that the block is rendered from a tag page.
+						// 2) post types or tags -
+						// a. Get posts by post types or tags defined from select boxes - new behavior.
+						// b. inside post - Get results excluding specific post.
+						// 3) specific posts - Get posts by ids specified in backend - new behavior / manual override.
+						// 4) issue page - Get posts based on page's tags.
+						$fields_diff = count( array_diff( [ 'post_types', 'posts' ], array_keys( $fields ) ) );
+						if ( is_tag() && ! empty( $fields['tags'] ) && 2 === $fields_diff ) {
+							$args = Articles::filter_posts_for_tag_page( $fields );
+						} elseif ( ! empty( $fields['post_types'] ) ||
+								! empty( $fields['tags'] ) ||
+								! empty( $exclude_post_id ) ) {
+							$args = Articles::filter_posts_by_page_types_or_tags( $fields );
+						} elseif ( ! empty( $fields['posts'] ) ) {
+							$args = Articles::filter_posts_by_ids( $fields );
+						} else {
+							$args = Articles::filter_posts_by_pages_tags( $fields );
+						}
+
+						$args['numberposts'] = Articles::MAX_ARTICLES;
+
+						// Ignore rule, arguments contain suppress_filters.
+						// phpcs:ignore$fields['article_count']
+						$all_posts    = wp_get_recent_posts( $args );
+						$total_pages  = 0 !== $fields['article_count'] ? ceil( count( (array) $all_posts ) / $fields['article_count'] ) : 0;
+						$sliced_posts = array_slice( $all_posts, 0, $fields['article_count'] );
+						$recent_posts = [];
+
+						// Populate posts array for frontend template if results have been returned.
+						if ( false !== $sliced_posts ) {
+							$recent_posts = Articles::populate_post_items( $sliced_posts );
+						}
+
+						return rest_ensure_response( $recent_posts );
 					},
 				],
 			]

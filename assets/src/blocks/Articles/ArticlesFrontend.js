@@ -1,16 +1,38 @@
 import { Component, Fragment } from '@wordpress/element';
 import { ArticlePreview } from './ArticlePreview';
 
+const { apiFetch } = wp;
+const { addQueryArgs } = wp.url;
+
 export class ArticlesFrontend extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      posts: []
+    };
+  }
+
+  componentDidMount() {
+    this.loadArticles();
+  }
+
+  loadArticles() {
+    const queryArgs = {
+      path: addQueryArgs('/planet4/v1/get-articles', {
+        ...this.props
+      })
+    };
+    apiFetch(queryArgs)
+      .then(posts => {
+        console.log(posts);
+        this.setState({ posts })
+      });
   }
 
   render() {
     const {
       article_heading,
       articles_description,
-      recent_posts,
       total_pages,
       read_more_text,
       read_more_link,
@@ -19,6 +41,8 @@ export class ArticlesFrontend extends Component {
       isEditing,
       postType
     } = this.props;
+    // TODO exclude post id
+    const { posts } = this.state;
 
     const isCampaign = postType === 'campaign';
 
@@ -35,7 +59,7 @@ export class ArticlesFrontend extends Component {
               <div className="page-section-description">{articles_description}</div>
             }
             <div className="article-list-section clearfix">
-              {recent_posts && recent_posts.length > 0 && recent_posts.map(post => <ArticlePreview isCampaign={isCampaign} recent_post={post} />)}
+              {posts && posts.length > 0 && posts.map(post => <ArticlePreview isCampaign={isCampaign} post={post} />)}
             </div>
             {total_pages > 1 && !isEditing &&
               <div className="row">
