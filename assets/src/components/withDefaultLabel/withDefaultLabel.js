@@ -1,9 +1,13 @@
 import { Component } from '@wordpress/element';
 
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
+
 export function withDefaultLabel( WrappedComponent ) {
   const {__} = wp.i18n;
 
-  class LabeledComponent extends Component {
+  class WithDefaultLabelHOC extends Component {
     constructor( props ) {
       super( props );
 
@@ -28,5 +32,7 @@ export function withDefaultLabel( WrappedComponent ) {
     }
   }
 
-  return LabeledComponent;
+  WithDefaultLabelHOC.displayName = `WithDefaultLabelHOC(${getDisplayName(WrappedComponent)})`;
+
+  return WithDefaultLabelHOC;
 }
