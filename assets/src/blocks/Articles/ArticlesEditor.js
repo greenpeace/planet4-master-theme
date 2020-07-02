@@ -99,7 +99,7 @@ export class ArticlesEditor extends Component {
   }
 
   renderView() {
-    const { attributes } = this.props;
+    const { attributes, postType } = this.props;
 
     return (
       <Fragment>
@@ -125,7 +125,7 @@ export class ArticlesEditor extends Component {
           withoutInteractiveFormatting
           characterLimit={200}
         />
-        <ArticlesFrontend isEditing {...attributes} />
+        <ArticlesFrontend isEditing postType={postType} {...attributes} />
         <RichText
           tagName="div"
           className="btn btn-secondary btn-block article-load-more load-more"

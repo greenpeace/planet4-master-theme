@@ -16,8 +16,11 @@ export class ArticlesFrontend extends Component {
       read_more_link,
       button_link_new_tab,
       article_count,
-      isEditing
+      isEditing,
+      postType
     } = this.props;
+
+    const isCampaign = postType === 'campaign';
 
     return (
       <Fragment>
@@ -32,7 +35,7 @@ export class ArticlesFrontend extends Component {
               <div className="page-section-description">{articles_description}</div>
             }
             <div className="article-list-section clearfix">
-              {recent_posts && recent_posts.length > 0 && recent_posts.map(post => <ArticlePreview recent_post={post} />)}
+              {recent_posts && recent_posts.length > 0 && recent_posts.map(post => <ArticlePreview isCampaign={isCampaign} recent_post={post} />)}
             </div>
             {total_pages > 1 && !isEditing &&
               <div className="row">

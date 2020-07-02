@@ -8,7 +8,7 @@ export class ArticlePreview extends Component {
   }
 
   getPageTypesTags(pageType, id, link) {
-    const isCampaign = fn('get_post_type') === 'campaign';
+    const { isCampaign } = this.props;
     if (isCampaign) {
       return <span className={`tag-item tag-item--main page-type page-type-${pageType.replace(' ', '_')}`}>{pageType}</span>;
     }
@@ -16,8 +16,7 @@ export class ArticlePreview extends Component {
   }
 
   getAuthorLink() {
-    const { recent_post } = this.props;
-    const isCampaign = fn('get_post_type') === 'campaign';
+    const { recent_post, isCampaign } = this.props;
 
     if (recent_post.author_name) {
       return (
@@ -49,8 +48,6 @@ export class ArticlePreview extends Component {
     if (recent_post.tags && recent_post.tags.length > 0) {
       recent_post.tags.forEach(tag => articleClassName += ` ${tag.slug}`);
     }
-
-    const isCampaign = fn('get_post_type') === 'campaign';
 
     return (
       <article className={articleClassName} >
