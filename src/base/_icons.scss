@@ -23,12 +23,18 @@ a.pdf-link::before {
   @supports (mask-repeat: no-repeat) or (-webkit-mask-repeat: no-repeat) {
     & {
       background-image: none;
-      background-color: $blue;
+      background-color: var(--link--color, $link-color);
       -webkit-mask-image: url("../../images/file-pdf.svg");
       mask-image: url("../../images/file-pdf.svg");
       mask-repeat: no-repeat;
       -webkit-mask-repeat: no-repeat;
       margin-right: 0;
     }
+  }
+}
+
+a {
+  &:hover.pdf-link::before {
+    background-color: var(--link-hover--color, $link-hover-color);
   }
 }
