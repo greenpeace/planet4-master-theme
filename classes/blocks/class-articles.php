@@ -45,7 +45,8 @@ class Articles extends Base_Block {
 						'type' => 'string',
 					],
 					'article_count'        => [
-						'type' => 'integer',
+						'type'    => 'integer',
+						'default' => 3,
 					],
 					'read_more_text'       => [
 						'type' => 'string',

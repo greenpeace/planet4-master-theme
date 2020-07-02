@@ -13,6 +13,7 @@ export class ArticlesFrontend extends Component {
   }
 
   componentDidMount() {
+    // TODO posts prop
     this.loadArticles();
   }
 
@@ -24,8 +25,14 @@ export class ArticlesFrontend extends Component {
   }
 
   loadArticles() {
+    const { article_count, posts, tags, post_types } = this.props;
     const queryArgs = {
-      path: addQueryArgs('/planet4/v1/get-articles', this.props)
+      path: addQueryArgs('/planet4/v1/get-articles', {
+        article_count,
+        post_types,
+        posts,
+        tags
+      })
     };
     apiFetch(queryArgs).then(posts => this.setState({ posts }));
   }
@@ -60,7 +67,9 @@ export class ArticlesFrontend extends Component {
               <div className="page-section-description">{articles_description}</div>
             }
             <div className="article-list-section clearfix">
-              {posts && posts.length > 0 && posts.map(post => <ArticlePreview key={post.post_title} isCampaign={isCampaign} post={post} />)}
+              {posts && posts.length > 0 && posts.map(post =>
+                <ArticlePreview key={post.post_title} isCampaign={isCampaign} post={post} />
+              )}
             </div>
             {total_pages > 1 && !isEditing &&
               <div className="row">

@@ -86,9 +86,9 @@ export class ArticlesEditor extends Component {
                   value={attributes.posts}
                   onChange={this.toAttribute('posts')}
                   label={__('CAUTION: Adding articles individually will override the automatic functionality of this block. For good user experience, please include at least three articles so that spacing and alignment of the design remains in tact.', 'p4ge')}
-                  maxLength="10"
-                  maxSuggestions="20"
-                  postType={'post'}
+                  maxLength={10}
+                  maxSuggestions={20}
+                  postType='post'
                 />
               </div>
             }
