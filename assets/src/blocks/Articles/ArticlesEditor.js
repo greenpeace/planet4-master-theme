@@ -12,7 +12,7 @@ import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector
 import { URLInput } from "../../components/URLInput/URLInput";
 import { ArticlesFrontend } from "./ArticlesFrontend";
 
-const { RichText } = wp.editor;
+const { RichText } = wp.blockEditor;
 const { __ } = wp.i18n;
 
 const TextControl = withCharacterCounter(BaseTextControl);

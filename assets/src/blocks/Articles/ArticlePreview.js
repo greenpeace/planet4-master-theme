@@ -57,7 +57,7 @@ export class ArticlePreview extends Component {
               <a href={post.link}>
                 <img
                   className="d-flex topicwise-article-image lazyload"
-                  // data-src={fn('get_the_post_thumbnail_url', post.ID, 'articles-medium-large')} // TODO
+                  src={post.thumbnail_url}
                   alt={post.alt_text}
                 />
               </a>
@@ -68,7 +68,7 @@ export class ArticlePreview extends Component {
             <a href={post.link}>
               <img
                 className="d-flex topicwise-article-image lazyload"
-                // data-src={fn('get_the_post_thumbnail_url', post.ID, 'articles-medium-large')} // TODO
+                src={post.thumbnail_url}
                 alt={post.alt_text}
               />
             </a>
@@ -87,7 +87,7 @@ export class ArticlePreview extends Component {
               {post.tags &&
                 <div className="tag-wrap tags">
                   {post.tags.map(tag =>
-                    <a className="tag-item tag" href={tag.link}>{`#${tag.name}`}</a>
+                    <a key={tag.name} className="tag-item tag" href={tag.link}>{`#${tag.name}`}</a>
                   )}
                 </div>
               }
@@ -103,7 +103,7 @@ export class ArticlePreview extends Component {
             <p className="article-list-item-meta">
               {this.getAuthorLink()}
               {post.post_date &&
-                <time className="article-list-item-date" datetime="">{post.post_date}</time>
+                <time className="article-list-item-date" dateTime="">{post.post_date}</time> // TODO format date properly
               }
             </p>
           </header>

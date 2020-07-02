@@ -97,11 +97,9 @@ class Articles extends Base_Block {
 	}
 
 	/**
-	 * Get all the data that will be needed to render the block correctly.
+	 * Required by the `Base_Block` class.
 	 *
-	 * @param array $fields This is the array of fields of this block.
-	 *
-	 * @return array The data to be passed in the View.
+	 * @param array $fields Unused, required by the abstract function.
 	 */
 	public function prepare_data( $fields ): array {
 		return [];
@@ -189,6 +187,7 @@ class Articles extends Base_Block {
 					$dimensions                = wp_get_attachment_metadata( $img_id );
 					$recent['thumbnail_ratio'] = ( isset( $dimensions['height'] ) && $dimensions['height'] > 0 ) ? $dimensions['width'] / $dimensions['height'] : 1;
 					$recent['alt_text']        = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+					$recent['thumbnail_url']   = get_the_post_thumbnail_url( $recent['ID'], 'medium-large' );
 				}
 
 				// TODO - Update this method to use P4_Post functionality to get Tags/Terms.

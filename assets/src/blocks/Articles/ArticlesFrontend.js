@@ -16,17 +16,18 @@ export class ArticlesFrontend extends Component {
     this.loadArticles();
   }
 
+  componentDidUpdate(prevProps) {
+    const { article_count } = this.props;
+    if (article_count !== prevProps.article_count) {
+      this.loadArticles();
+    }
+  }
+
   loadArticles() {
     const queryArgs = {
-      path: addQueryArgs('/planet4/v1/get-articles', {
-        ...this.props
-      })
+      path: addQueryArgs('/planet4/v1/get-articles', this.props)
     };
-    apiFetch(queryArgs)
-      .then(posts => {
-        console.log(posts);
-        this.setState({ posts })
-      });
+    apiFetch(queryArgs).then(posts => this.setState({ posts }));
   }
 
   render() {
@@ -41,7 +42,7 @@ export class ArticlesFrontend extends Component {
       isEditing,
       postType
     } = this.props;
-    // TODO exclude post id
+
     const { posts } = this.state;
 
     const isCampaign = postType === 'campaign';
@@ -59,7 +60,7 @@ export class ArticlesFrontend extends Component {
               <div className="page-section-description">{articles_description}</div>
             }
             <div className="article-list-section clearfix">
-              {posts && posts.length > 0 && posts.map(post => <ArticlePreview isCampaign={isCampaign} post={post} />)}
+              {posts && posts.length > 0 && posts.map(post => <ArticlePreview key={post.post_title} isCampaign={isCampaign} post={post} />)}
             </div>
             {total_pages > 1 && !isEditing &&
               <div className="row">
