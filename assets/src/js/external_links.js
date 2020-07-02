@@ -17,7 +17,7 @@ export const setupExternalLinks = function($) {
         return;
       }
 
-      if (href.charAt(0) != '/' && href.charAt(0) != '#') {
+      if (href.charAt(0) != '/' && href.charAt(0) != '#' && !href.endsWith('.pdf')) {
         $(this).append(inlinedSVG);
         $(this).attr('target', '_blank');
         $(this).addClass('external-link');
