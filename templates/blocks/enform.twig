@@ -46,7 +46,7 @@
 									<input type="hidden" name="en_page_id" value="{{ fields.en_page_id }}">
 									<input type="hidden" name="thankyou_title" value="{{ fields.thankyou_title }}">
 									<input type="hidden" name="thankyou_subtitle" value="{{ fields.thankyou_subtitle }}">
-									<input type="hidden" name="enform_goal" id="enform_goal" value="{{ fields.enform_goal }}">
+									<input type="hidden" name="enform_goal" id="enform_goal" value="{{ fields.enform_goal|default('not set') }}">
 
 
 									{{ error_msg }}
