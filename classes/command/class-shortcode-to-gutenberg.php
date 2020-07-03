@@ -29,7 +29,6 @@ class Shortcode_To_Gutenberg {
 
 			// Blocks to convert.
 			$blocks = [
-				'shortcake_articles',
 				'shortcake_columns',
 				'shortcake_carousel_header',
 				'shortcake_cookies',

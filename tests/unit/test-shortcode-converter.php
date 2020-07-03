@@ -31,7 +31,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 	 * @param string $shortcode  Shortcake shortcode.
 	 * @param string $expected   Expected converted to gutenberg block.
 	 *
-	 * @dataProvider articles_shortcodes_provider
 	 * @dataProvider carousel_header_shortcodes_provider
 	 * @dataProvider columns_shortcodes_provider
 	 * @dataProvider covers_shortcodes_provider
@@ -52,109 +51,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 		$blocks = parse_blocks( $converted );
 		$this->assertEquals( $expected, $converted );
 		$this->assertCount( 1, $blocks );
-	}
-
-	// phpcs:disable
-	/**
-	 * Planet4 blocks shortocodes provider.
-	 *
-	 * @return array
-	 */
-	public function articles_shortcodes_provider(): array {
-		return [
-
-			// 1-5
-			'articles_ignore_categories_false'   =>
-				[
-					'[shortcake_articles ignore_categories="false" /]',
-					'<!-- wp:planet4-blocks/articles {"ignore_categories":false} /-->',
-				],
-			'articles_ignore_categories_true'    =>
-				[
-					'[shortcake_articles ignore_categories="true" /]',
-					'<!-- wp:planet4-blocks/articles {"ignore_categories":true} /-->',
-				],
-			'articles_ignore_categories_invalid' =>
-				[
-					'[shortcake_articles ignore_categories="invalid" /]',
-					'<!-- wp:planet4-blocks/articles {"ignore_categories":false} /-->',
-				],
-			'articles_invalid_count'             =>
-				[
-					'[shortcake_articles article_count="invalid" /]',
-					'<!-- wp:planet4-blocks/articles {"article_count":0} /-->',
-				],
-			'articles_invalid_tags'              =>
-				[
-					'[shortcake_articles tags="inva,lid" /]',
-					'<!-- wp:planet4-blocks/articles {"tags":[]} /-->',
-				],
-			'articles_button_link_new_tab'       =>
-				[
-					'[shortcake_articles button_link_new_tab="true" /]',
-					'<!-- wp:planet4-blocks/articles {"button_link_new_tab":true} /-->',
-				],
-			[
-				'[shortcake_articles article_heading="Aliquam nisl magna" article_count="4" read_more_text="Duis sollicitudin" /]',
-				'<!-- wp:planet4-blocks/articles {"article_heading":"Aliquam nisl magna","article_count":4,"read_more_text":"Duis sollicitudin"} /-->',
-			],
-			[
-				'[shortcake_articles article_heading="Articles Block Title" read_more_text="Learn more" articles_description="Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard." post_types="14,16,15" article_count="5" ignore_categories="false" /]',
-				'<!-- wp:planet4-blocks/articles {"article_heading":"Articles Block Title","read_more_text":"Learn more","articles_description":"Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.","post_types":[14,16,15],"article_count":5,"ignore_categories":false} /-->',
-			],
-			[
-				'[shortcake_articles posts="256,260" read_more_text="load more" /]',
-				'<!-- wp:planet4-blocks/articles {"posts":[256,260],"read_more_text":"load more"} /-->',
-			],
-			[
-				'[shortcake_articles article_heading="Articles block " read_more_text="Read More" article_count="4" ignore_categories="false" /]',
-				'<!-- wp:planet4-blocks/articles {"article_heading":"Articles block ","read_more_text":"Read More","article_count":4,"ignore_categories":false} /-->',
-			],
-
-			// 5-10
-			[
-				'[shortcake_articles article_heading="In the news" article_count="4" read_more_text="Read More " ignore_categories="false" /]',
-				'<!-- wp:planet4-blocks/articles {"article_heading":"In the news","article_count":4,"read_more_text":"Read More ","ignore_categories":false} /-->',
-			],
-			[
-				'[shortcake_articles article_heading="In the news" article_count="4" read_more_text="Read More " ignore_categories="false" p4_page_type_press="true" p4_page_type_publication="true" p4_page_type_story="true" /]',
-				'<!-- wp:planet4-blocks/articles {"article_heading":"In the news","article_count":4,"read_more_text":"Read More ","ignore_categories":false} /-->',
-			],
-			[
-				'[shortcake_articles article_heading="In the news" post_types="59" article_count="3" ignore_categories="false" /]',
-				'<!-- wp:planet4-blocks/articles {"article_heading":"In the news","post_types":[59],"article_count":3,"ignore_categories":false} /-->',
-			],
-			[
-				'[shortcake_articles article_heading="Latest Articles" article_count="3" /]',
-				'<!-- wp:planet4-blocks/articles {"article_heading":"Latest Articles","article_count":3} /-->',
-			],
-			[
-				'[shortcake_articles article_heading="Latest Press Releases" article_count="10" read_more_text="All Press Releases" ignore_categories="true" /]',
-				'<!-- wp:planet4-blocks/articles {"article_heading":"Latest Press Releases","article_count":10,"read_more_text":"All Press Releases","ignore_categories":true} /-->',
-			],
-
-			// 10-15
-			[
-				'[shortcake_articles article_heading="Latest Press Releases" article_count="10" read_more_text="All Press Releases" ignore_categories="true" p4_page_type_press="true" p4_page_type_press_release="false" p4_page_type_publication="false" p4_page_type_story="false" /]',
-				'<!-- wp:planet4-blocks/articles {"article_heading":"Latest Press Releases","article_count":10,"read_more_text":"All Press Releases","ignore_categories":true} /-->',
-			],
-			[
-				'[shortcake_articles article_heading="Latest Press Releases" post_types="98" article_count="8" ignore_categories="false" /]',
-				'<!-- wp:planet4-blocks/articles {"article_heading":"Latest Press Releases","post_types":[98],"article_count":8,"ignore_categories":false} /-->',
-			],
-			[
-				'[shortcake_articles article_heading="Latest news about forests" post_types="98,59" tags="84" article_count="3" ignore_categories="false" /]',
-				'<!-- wp:planet4-blocks/articles {"article_heading":"Latest news about forests","post_types":[98,59],"tags":[84],"article_count":3,"ignore_categories":false} /-->',
-			],
-			[
-				'[shortcake_articles article_heading="Related Articles" post_types="98,59" tags="91" article_count="3" ignore_categories="false" /]',
-				'<!-- wp:planet4-blocks/articles {"article_heading":"Related Articles","post_types":[98,59],"tags":[91],"article_count":3,"ignore_categories":false} /-->',
-			],
-			[
-				'[shortcake_articles article_heading="Latest updates" article_count="3" read_more_link="https://release.k8s.p4.greenpeace.org/international/?s=&orderby=post_date&f%5Bcat%5D%5BPeople%5D=73" /]',
-				'<!-- wp:planet4-blocks/articles {"article_heading":"Latest updates","article_count":3,"read_more_link":"https://release.k8s.p4.greenpeace.org/international/?s=&orderby=post_date&f%5Bcat%5D%5BPeople%5D=73"} /-->',
-			],
-		];
 	}
 
 	/**
