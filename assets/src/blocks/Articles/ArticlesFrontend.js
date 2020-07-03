@@ -8,12 +8,12 @@ export class ArticlesFrontend extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      posts: [],
+      total_pages: 0
     };
   }
 
   componentDidMount() {
-    // TODO posts prop
     this.loadArticles();
   }
 
@@ -46,14 +46,15 @@ export class ArticlesFrontend extends Component {
     const queryArgs = {
       path: addQueryArgs('/planet4/v1/get-articles', args)
     };
-    apiFetch(queryArgs).then(posts => this.setState({ posts }));
+    apiFetch(queryArgs).then(result => {
+      this.setState({ posts: result.posts, total_pages: result.pages })
+    });
   }
 
   render() {
     const {
       article_heading,
       articles_description,
-      total_pages,
       read_more_text,
       read_more_link,
       button_link_new_tab,
@@ -62,7 +63,7 @@ export class ArticlesFrontend extends Component {
       postType
     } = this.props;
 
-    const { posts } = this.state;
+    const { posts, total_pages } = this.state;
 
     return (
       <Fragment>

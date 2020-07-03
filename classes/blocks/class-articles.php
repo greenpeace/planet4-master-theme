@@ -84,7 +84,7 @@ class Articles extends Base_Block {
 						'items' => [
 							'type' => 'integer',
 						],
-					]
+					],
 				],
 			]
 		);

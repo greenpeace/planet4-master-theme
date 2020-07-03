@@ -187,7 +187,12 @@ class Rest_Api {
 							$recent_posts = Articles::populate_post_items( $sliced_posts );
 						}
 
-						return rest_ensure_response( $recent_posts );
+						// Return the posts and the amount of pages.
+						$to_return          = [];
+						$to_return['posts'] = $recent_posts;
+						$to_return['pages'] = $total_pages;
+
+						return rest_ensure_response( $to_return );
 					},
 				],
 			]
