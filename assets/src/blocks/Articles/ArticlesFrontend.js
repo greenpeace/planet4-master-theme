@@ -18,21 +18,33 @@ export class ArticlesFrontend extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { article_count } = this.props;
-    if (article_count !== prevProps.article_count) {
+    const { article_count, tags, posts, post_types, ignore_categories } = this.props;
+    if (
+      article_count !== prevProps.article_count ||
+      tags.length !== prevProps.tags.length ||
+      posts.length !== prevProps.posts.length ||
+      post_types.length !== prevProps.post_types.length ||
+      ignore_categories !== prevProps.ignore_categories
+    ) {
       this.loadArticles();
     }
   }
 
   loadArticles() {
-    const { article_count, posts, tags, post_types } = this.props;
+    const { article_count, posts, tags, post_types, ignore_categories, postType, postId } = this.props;
+
+    const args = {
+      article_count,
+      post_types,
+      posts,
+      tags,
+      ignore_categories
+    };
+
+    if (postType === 'post') args.exclude_post_id = postId;
+
     const queryArgs = {
-      path: addQueryArgs('/planet4/v1/get-articles', {
-        article_count,
-        post_types,
-        posts,
-        tags
-      })
+      path: addQueryArgs('/planet4/v1/get-articles', args)
     };
     apiFetch(queryArgs).then(posts => this.setState({ posts }));
   }
@@ -52,8 +64,6 @@ export class ArticlesFrontend extends Component {
 
     const { posts } = this.state;
 
-    const isCampaign = postType === 'campaign';
-
     return (
       <Fragment>
         <section className="block articles-block">
@@ -68,7 +78,7 @@ export class ArticlesFrontend extends Component {
             }
             <div className="article-list-section clearfix">
               {posts && posts.length > 0 && posts.map(post =>
-                <ArticlePreview key={post.post_title} isCampaign={isCampaign} post={post} />
+                <ArticlePreview key={post.post_title} isCampaign={postType === 'campaign'} post={post} />
               )}
             </div>
             {total_pages > 1 && !isEditing &&

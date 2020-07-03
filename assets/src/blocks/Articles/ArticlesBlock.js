@@ -49,10 +49,7 @@ export class ArticlesBlock {
       ignore_categories: {
         type: 'boolean',
         default: false
-      },
-      exclude_post_id: {
-        type: 'integer',
-      },
+      }
     };
 
     registerBlockType(BLOCK_NAME, {
@@ -128,13 +125,7 @@ export class ArticlesBlock {
                 shortcode: function (attributes) {
                   return attributes.named.tags ? attributes.named.posts.split(',') : [];
                 }
-              },
-              exclude_post_id: {
-                type: 'integer',
-                shortcode: function (attributes) {
-                  return Number(attributes.named.exclude_post_id);
-                }
-              },
+              }
             },
           },
         ]
@@ -150,13 +141,15 @@ export class ArticlesBlock {
       ],
       edit: withSelect(select => {
         const postType = select('core/editor').getCurrentPostType();
-        return { postType };
-      })(({ isSelected, attributes, setAttributes, postType }) => {
+        const postId = select('core/editor').getCurrentPostId();
+        return { postType, postId };
+      })(({ isSelected, attributes, setAttributes, postType, postId }) => {
         return <ArticlesEditor
           attributes={attributes}
           postType={postType}
           setAttributes={setAttributes}
           isSelected={isSelected}
+          postId={postId}
         />
       }),
       save: frontendRendered(BLOCK_NAME)

@@ -151,14 +151,7 @@ class Rest_Api {
 			[
 				[
 					'methods'  => WP_REST_Server::READABLE,
-					'callback' => static function ( $request ) {
-						$post_type = get_post_type();
-						$fields    = $request;
-						if ( 'post' === $post_type ) {
-							$exclude_post_id           = get_the_ID();
-							$fields['exclude_post_id'] = $exclude_post_id;
-						}
-
+					'callback' => static function ( $fields ) {
 						// Four scenarios for filtering posts.
 						// 1) inside tag page - Get posts that have the specific tag assigned.
 						// Add extra check for post_types and posts attributes to ensure that the block is rendered from a tag page.
@@ -172,7 +165,7 @@ class Rest_Api {
 							$args = Articles::filter_posts_for_tag_page( $fields );
 						} elseif ( ! empty( $fields['post_types'] ) ||
 								! empty( $fields['tags'] ) ||
-								! empty( $exclude_post_id ) ) {
+								! empty( $fields['exclude_post_id'] ) ) {
 							$args = Articles::filter_posts_by_page_types_or_tags( $fields );
 						} elseif ( ! empty( $fields['posts'] ) ) {
 							$args = Articles::filter_posts_by_ids( $fields );
