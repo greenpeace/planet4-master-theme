@@ -50,6 +50,8 @@ class UiIntegration {
 			get_template_directory_uri() . '/assets/build/archive_picker.js',
 			[
 				'wp-element',
+				'wp-compose',
+				'wp-components',
 				'wp-url',
 				'wp-api-fetch',
 			] );

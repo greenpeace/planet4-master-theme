@@ -3,7 +3,7 @@ import { toSrcSet } from '../ImagePicker';
 
 const __ = ( str ) => wp.i18n.__( str, 'planet4-master-theme-backend' );
 const wpImageLink = ( id ) => `${ window.location.href.split( '/wp-admin' )[ 0 ] }/wp-admin/post.php?post=${ id }&action=edit`;
-const largestSize = ( image ) => image.original;
+const largestSize = ( image ) => !image ? null : image.original;
 const renderDefinition = ( key, value ) => ( <div>
   <dt>{ key }</dt>
   <dd>{ value }</dd>
@@ -12,24 +12,17 @@ const renderDefinition = ( key, value ) => ( <div>
 export class SingleSidebar extends Component {
   constructor( props ) {
     super( props );
-    this.state = {
-      processingImages: false,
-      processingError: null,
-    };
   }
 
   render() {
     const {
       parent,
       includeInWp = async () => null,
+      processingError,
+      processingImages,
     } = this.props;
 
     const image = parent.getSelectedImages()[ 0 ];
-
-    const {
-      processingError,
-      processingImages
-    } = this.state;
 
     const original = largestSize( image );
 
@@ -48,14 +41,7 @@ export class SingleSidebar extends Component {
       ) : (
         <button
           onClick={ async () => {
-            this.setState( { processingImages: true } );
-            try {
-              await includeInWp( [ image.id ] );
-            } catch ( e ) {
-              this.setState( { processingError: e } );
-            } finally {
-              this.setState( { processingImages: false } );
-            }
+            await includeInWp( [ image.id ] );
           } }
         >
           { __( 'Include in WP' ) }

@@ -9,9 +9,17 @@ class Rest {
 		$fetch_archive_images = static function ( \WP_REST_Request $request ) {
 			$api_client = ApiClient::from_cache_or_credentials();
 
-			$images = $api_client->fetch_images( [
+			$params = [
 				'pagenumber' => $request->get_param( 'page' ) ?? 0,
-			] );
+			];
+
+			$search_text = $request->get_param( 'search_text' );
+			if ( $search_text ) {
+				// todo: avoid repetition of default Mediatype:Image param (maybe value object for query?).
+				$params['query'] = '(text:' . $search_text . ') and (Mediatype:Image)';
+			}
+
+			$images = $api_client->fetch_images( $params );
 
 			return rest_ensure_response( $images );
 

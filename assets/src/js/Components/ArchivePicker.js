@@ -1,8 +1,11 @@
 import { Component, Fragment } from '@wordpress/element';
+import { TextControl, QueryControls } from '@wordpress/components';
 import { ImagePicker, toSrcSet } from './ImagePicker';
 import { SingleSidebar } from './archivePicker/SingleSidebar';
 import { MultiSidebar } from './archivePicker/MultiSidebar';
 import classNames from 'classnames';
+import debounce from 'debounce';
+// import debounce from 'debounce-promise';
 
 const { apiFetch } = wp;
 const { addQueryArgs } = wp.url;
@@ -15,26 +18,19 @@ class ArchivePicker extends Component {
       loading: true,
       error: false,
       images: [],
-      currentPage: 1,
+      currentPage: 0,
       filters: {},
       searchText: null,
     };
     this.loadNextPage = this.loadNextPage.bind( this );
     this.updateFromUploadedResponse = this.updateFromUploadedResponse.bind( this );
     this.renderSidebar = this.renderSidebar.bind( this );
+    this.search = this.search.bind( this );
+    this.includeInWp = this.includeInWp.bind( this );
   }
 
   async componentDidMount() {
-    try {
-      const images = await this.fetchImages( {} );
-      this.setState( {
-        loading: false,
-        images: images,
-      } );
-    } catch ( error ) {
-      console.log( error );
-      this.setState( { error } );
-    }
+    await this.loadNextPage( {} );
   }
 
   async fetchImages( args ) {
@@ -44,16 +40,18 @@ class ArchivePicker extends Component {
   }
 
   async loadNextPage() {
-    const nextPage = this.state.currentPage + 1;
+    const pageIndex = this.state.currentPage + 1;
 
     try {
       this.setState( { loading: true } );
       const nextImages = await this.fetchImages( {
-        page: nextPage
+        page: pageIndex,
+        search_text: this.state.searchText,
       } );
+      const withPageLabel = nextImages.map(image => ({...image, title: `${pageIndex} -- ${image.title}`}));
       this.setState( {
-        currentPage: nextPage,
-        images: [ ...this.state.images, ...nextImages ]
+        currentPage: pageIndex,
+        images: [ ...this.state.images, ...withPageLabel ]
       } );
     } catch ( e ) {
       this.setState( { error: true } );
@@ -95,6 +93,11 @@ class ArchivePicker extends Component {
     } );
   }
 
+  async search( text ) {
+    this.setState( { images: [], searchText: text, currentPage: 0 } );
+    await this.loadNextPage();
+  }
+
   renderList( parent ) {
     const { props, isSelected, toggleMultiSelection, toggleSingleSelection } = parent;
 
@@ -115,11 +118,11 @@ class ArchivePicker extends Component {
         data-wordpress-id={ wordpress_id }
         className={ classNames( { 'picker-selected': isSelected( image ) } ) }>
         <img
-          srcSet={ toSrcSet( sizes ) }
-          title={ title }
+          srcSet={ toSrcSet( sizes, { maxWidth: 900 } ) }
+          title={ `${title}` }
           alt={ alt }
-          width={ 200 }
-          height={ 200 * ( original.height / original.width ) }
+          width={ 200 * ( original.width / original.height ) }
+          height={ 200  }
           onClick={ ( event ) =>
             event.ctrlKey
               ? toggleMultiSelection( image )
@@ -137,6 +140,8 @@ class ArchivePicker extends Component {
       return <SingleSidebar
         parent={ parent }
         includeInWp={ this.includeInWp }
+        processingError={ this.state.processingError }
+        processingImages={ this.state.processingImages }
       />;
     }
 
@@ -156,13 +161,17 @@ class ArchivePicker extends Component {
     } = this.state;
 
     return <Fragment>
+      <TextControl
+        onChange={ debounce( this.search, 500 ) }
+        disabled={ this.state.loading }
+      />
       { loading && (
         <div className={ 'archive-picker-loading' }> loading...</div>
       ) }
       { !!error && (
         <div>
           <h3>API error:</h3>
-          <p> error.message </p>
+          <p> { error.message } </p>
         </div>
       ) }
       <ImagePicker
