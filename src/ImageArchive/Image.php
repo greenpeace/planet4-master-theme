@@ -87,7 +87,12 @@ class Image implements \JsonSerializable {
 		$image->original_language_title       = $data['original-language-title'] ?? null;
 		$image->original_language_description = $data['original-language-description'] ?? null;
 
+		$smallest_size = 9999999;
 		foreach ( $image->sizes as $size ) {
+//			if ( $size->get_width() < $smallest_size ) {
+//				$smallest_size = $size->get_width();
+//				$image->original = $size;
+//			}
 			if ( $size->is_original() ) {
 				$image->original = $size;
 				break;
@@ -116,6 +121,7 @@ class Image implements \JsonSerializable {
 			'restrictions' => $this->restrictions,
 			'sizes'        => $this->sizes,
 			'wordpress_id' => $this->wordpress_id,
+			'original'     => $this->original,
 
 			'original_language_title'       => $this->original_language_title,
 			'original_language_description' => $this->original_language_description,

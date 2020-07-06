@@ -1,17 +1,15 @@
 .picker-list {
   max-width: 60%;
-  max-height: 80vh;
-  /*position: fixed;*/
-  /*top: 0;*/
-  /*bottom: 0;*/
-  /*left: 0;*/
+  max-height: 75vh;
   overflow-y: scroll;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .image-picker li {
   display: inline-block !important;
-  box-sizing: border-box;
   position: relative;
+  border: 2px solid transparent;
 }
 
 .image-picker li[data-wordpress-id]:after {
@@ -23,10 +21,20 @@
   right: 0
 }
 
+.image-picker li img {
+  margin: 2px 4px 0 0;
+}
+
+li.picker-selected {
+  border-color: yellow;
+  box-sizing: border-box;
+}
+
 .picker-sidebar-fields {
   display: flex;
   flex-direction: column;
   max-height: 100%;
+  overflow: auto;
 }
 
 .picker-sidebar-fields dd {
@@ -34,6 +42,7 @@
 }
 
 .picker-sidebar {
+  max-height: 90vh;
   width: 30%;
   position: fixed;
   top: 0;
@@ -48,10 +57,6 @@
 
 .picker-sidebar-single img {
   max-height: 30vh;
-}
-
-.picker-selected {
-  border: 2px solid yellow;
 }
 
 .archive-picker-loading {

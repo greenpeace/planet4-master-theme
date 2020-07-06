@@ -1,14 +1,14 @@
 import { Component, Fragment } from '@wordpress/element';
-import { largestSize, toSrcSet } from '../ImagePicker';
+import { toSrcSet } from '../ImagePicker';
 
 const __ = ( str ) => wp.i18n.__( str, 'planet4-master-theme-backend' );
 const { apiFetch } = wp;
 const wpImageLink = ( id ) => `${ window.location.href.split( '/wp-admin' )[ 0 ] }/wp-admin/post.php?post=${ id }&action=edit`;
-
-const renderDefinition = ( key, value ) => (<div>
+const largestSize = ( image ) => image.original;
+const renderDefinition = ( key, value ) => ( <div>
   <dt>{ key }</dt>
   <dd>{ value }</dd>
-</div>);
+</div> );
 
 export class SingleSidebar extends Component {
   constructor( props ) {
@@ -30,7 +30,7 @@ export class SingleSidebar extends Component {
           use_original_language: false,
         }
       } );
-    } catch (e) {
+    } catch ( e ) {
       console.log( e );
       this.setState( { processingError: e } );
     } finally {
@@ -40,9 +40,11 @@ export class SingleSidebar extends Component {
 
   render() {
     const {
-      image,
+      parent,
       onIncludeInWP = () => null,
     } = this.props;
+
+    const image = parent.getSelectedImages()[ 0 ];
 
     const {
       processingError,
@@ -66,7 +68,7 @@ export class SingleSidebar extends Component {
       ) : (
         <button
           onClick={ async () => {
-            const images = await this.includeInWp( [image.id] );
+            const images = await this.includeInWp( [ image.id ] );
             onIncludeInWP( images );
           } }
         >

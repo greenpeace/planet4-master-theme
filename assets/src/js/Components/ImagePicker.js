@@ -1,11 +1,14 @@
-import { Component, Fragment } from '@wordpress/element';
+import { Component } from '@wordpress/element';
+import classNames from 'classnames';
 
 export const toSrcSet = sizes => sizes.map( size => `${ size.url } ${ size.width }w` ).join();
 
-export const largestSize = ( image ) => image.sizes.reduce(
-  ( max, current ) => ( max === null || current.width > max.width ) ? current : max,
-  null,
-);
+const isNearScrollEnd = ( event ) => {
+  const { scrollHeight, scrollTop, clientHeight } = event.target;
+  const tillEnd = ( scrollHeight - scrollTop - clientHeight ) / scrollHeight;
+
+  return tillEnd < 0.1;
+};
 
 export class ImagePicker extends Component {
 
@@ -48,39 +51,9 @@ export class ImagePicker extends Component {
     return this.state.selectedIds.map( selected => this.props.images.find( image => image.id === selected ) );
   }
 
-  renderImageList( images ) {
-    return !images ? '' : images.map( image => {
-      const {
-        id,
-        sizes,
-        title,
-        alt,
-        wordpress_id,
-      } = image;
-
-      return <li
-        key={ id }
-        data-wordpress-id={ wordpress_id }
-        className={ this.isSelected( image ) ? 'picker-selected' : '' }>
-        <img
-          srcSet={ toSrcSet( sizes ) }
-          title={ title }
-          alt={ alt }
-          // width={ Math.min( 200, largestSize( image ).width / 12 ) }
-          width={ 200 }
-          onClick={ ( event ) =>
-            event.ctrlKey
-              ? this.toggleMultiSelection( image )
-              : this.toggleSingleSelection( image )
-          }
-        />
-      </li>;
-    } );
-  }
-
   render() {
     const {
-      images,
+      renderList = () => '',
       renderSidebar = () => '',
       onNearListBottom = async () => null,
     } = this.props;
@@ -91,41 +64,16 @@ export class ImagePicker extends Component {
       <ul
         className={ 'picker-list' }
         onScroll={ async ( event ) => {
-          const target = event.target;
-          const n = target.scrollHeight - target.scrollTop - target.clientHeight;
-          const reachedThreshold = n < target.scrollHeight * 0.1;
-          if ( reachedThreshold ) {
+          if ( isNearScrollEnd( event ) ) {
             await onNearListBottom();
           }
         } }
       >
-        { this.renderImageList( images ) }
+        { renderList( this ) }
       </ul>
       { selectedImages.length > 0 && (
-        <div className={ 'picker-sidebar picker-sidebar-single' }>
-          { renderSidebar( { selectedImages } ) }
-          {/* todo: extract multi sidebar */}
-          { selectedImages.length > 1 && (
-            <Fragment>
-              <p>{ selectedImages.length } images selected</p>
-              <ul
-              >
-                { selectedImages.map( selected => (
-                  <li
-                    key={ selected.id }
-                  >
-                    <img
-                      srcSet={ toSrcSet( selected.sizes ) }
-                      title={ selected.title }
-                      alt={ selected.title }
-                      width={ 80 }
-                      onClick={ () => this.toggleMultiSelection( selected ) }
-                    />
-                  </li>
-                ) ) }
-              </ul>
-            </Fragment>
-          ) }
+        <div className={ classNames( 'picker-sidebar', { 'picker-sidebar-single': selectedImages.length === 1 } ) }>
+          { renderSidebar( this ) }
         </div>
       ) }
     </div>;

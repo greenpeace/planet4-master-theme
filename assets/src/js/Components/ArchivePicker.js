@@ -1,6 +1,7 @@
 import { Component, Fragment } from '@wordpress/element';
-import { ImagePicker } from './ImagePicker';
+import { ImagePicker, toSrcSet } from './ImagePicker';
 import { SingleSidebar } from './archivePicker/SingleSidebar';
+import { MultiSidebar } from './archivePicker/MultiSidebar';
 
 const { apiFetch } = wp;
 const { addQueryArgs } = wp.url;
@@ -13,7 +14,6 @@ class ArchivePicker extends Component {
       loading: true,
       error: false,
       images: [],
-      selectedImage: null,
       currentPage: 1,
       filters: {},
       searchText: null,
@@ -30,7 +30,7 @@ class ArchivePicker extends Component {
         loading: false,
         images: images,
       } );
-    } catch (error) {
+    } catch ( error ) {
       console.log( error );
       this.setState( { error } );
     }
@@ -52,16 +52,12 @@ class ArchivePicker extends Component {
       } );
       this.setState( {
         currentPage: nextPage,
-        images: [...this.state.images, ...nextImages]
+        images: [ ...this.state.images, ...nextImages ]
       } );
-    } catch (e) {
-      this.setState( {
-        error: true,
-      } );
+    } catch ( e ) {
+      this.setState( { error: true } );
     } finally {
-      this.setState( {
-        loading: false,
-      })
+      this.setState( { loading: false } );
     }
   }
 
@@ -78,39 +74,86 @@ class ArchivePicker extends Component {
     } );
   }
 
-  renderSidebar( { selectedImages } ) {
+  renderList( parent ) {
+    const { props, isSelected, toggleMultiSelection, toggleSingleSelection } = parent;
+
+    const { images } = props;
+
+    return !images ? '' : images.map( image => {
+      const {
+        id,
+        sizes,
+        title,
+        alt,
+        wordpress_id,
+        original,
+      } = image;
+
+      return <li
+        key={ id }
+        data-wordpress-id={ wordpress_id }
+        className={ isSelected( image ) ? 'picker-selected' : '' }>
+        <img
+          srcSet={ toSrcSet( sizes ) }
+          title={ title }
+          alt={ alt }
+          width={ 200 }
+          height={ 200 * ( original.height / original.width ) }
+          onClick={ ( event ) =>
+            event.ctrlKey
+              ? toggleMultiSelection( image )
+              : toggleSingleSelection( image )
+          }
+        />
+      </li>;
+    } );
+  }
+
+  renderSidebar( parent ) {
+    const selectedImages = parent.getSelectedImages();
+
     if ( selectedImages.length === 1 ) {
       return <SingleSidebar
-        image={ selectedImages[ 0 ] }
-        // todo: clean up state management.
+        parent={ parent }
+        onIncludeInWP={ this.updateFromUploadedResponse }
+      />;
+    }
+
+    if ( selectedImages.length > 1 ) {
+      return <MultiSidebar
+        parent={ parent }
         onIncludeInWP={ this.updateFromUploadedResponse }
       />;
     }
   }
 
   render() {
+    const {
+      loading,
+      error,
+      images,
+    } = this.state;
 
     return <Fragment>
-      { this.state.loading && (
+      { loading && (
         <div className={ 'archive-picker-loading' }> loading...</div>
       ) }
-      { !!this.state.error && (
-        <Fragment>
+      { !!error && (
+        <div>
           <h3>API error:</h3>
           <p> error.message </p>
-        </Fragment>
+        </div>
       ) }
-      { this.state.images.length > 0 && (
-        <ImagePicker
-          images={ this.state.images }
-          renderSidebar={ this.renderSidebar }
-          onNearListBottom={ async () => {
-            if ( !this.state.loading ) {
-              await this.loadNextPage();
-            }
-          } }
-        />
-      ) }
+      <ImagePicker
+        images={ images }
+        renderList={ this.renderList }
+        renderSidebar={ this.renderSidebar }
+        onNearListBottom={ async () => {
+          if ( !this.state.loading ) {
+            await this.loadNextPage();
+          }
+        } }
+      />
     </Fragment>;
   }
 }

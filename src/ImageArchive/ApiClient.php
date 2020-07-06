@@ -13,7 +13,7 @@ class ApiClient {
 	private const MEDIAS_PER_PAGE = 30;
 	private const DEFAULT_PARAMS = [
 		'query'        => '(Mediatype:Image)',
-		'fields'       => 'Title,Caption,copyright,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier,original-language-title,original-language-description,original-language,restrictions,copyright,MediaDate,CreatedDate,EditDate',
+		'fields'       => 'MediaEncryptedIdentifier,Title,Caption,copyright,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier,original-language-title,original-language-description,original-language,restrictions,copyright,MediaDate,CreatedDate,EditDate',
 		'countperpage' => self::MEDIAS_PER_PAGE,
 		'format'       => 'json',
 		'pagenumber'   => 1,
@@ -116,7 +116,9 @@ class ApiClient {
 		// todo: Get all images that are in WP already so we can pass it to Image::from_api_response to know if the
 		// image is already in WP without having to execute the query n times.
 
-		return Image::all_from_api_response( $response, $images_in_wordpress );
+		$images = Image::all_from_api_response( $response, $images_in_wordpress );
+
+		return $images;
 	}
 
 	/**
@@ -147,6 +149,7 @@ WHERE m.meta_key = "' . Image::ARCHIVE_ID_META_KEY . '" AND m.meta_value IN ('
 
 		$results = $wpdb->get_results( $prepared, ARRAY_A );
 
+		// Return as indexed array to make lookups easier.
 		$indexed = [];
 		foreach ( $results as $result ) {
 			$indexed[ $result['meta_value'] ] = (int) $result['id'];
