@@ -2,7 +2,6 @@ import { Component, Fragment } from '@wordpress/element';
 import { toSrcSet } from '../ImagePicker';
 
 const __ = ( str ) => wp.i18n.__( str, 'planet4-master-theme-backend' );
-const { apiFetch } = wp;
 const wpImageLink = ( id ) => `${ window.location.href.split( '/wp-admin' )[ 0 ] }/wp-admin/post.php?post=${ id }&action=edit`;
 const largestSize = ( image ) => image.original;
 const renderDefinition = ( key, value ) => ( <div>
@@ -19,29 +18,10 @@ export class SingleSidebar extends Component {
     };
   }
 
-  async includeInWp( ids ) {
-    try {
-      this.setState( { processingImages: true } );
-      return await apiFetch( {
-        method: 'POST',
-        path: '/planet4/v1/image-archive/transfer',
-        data: {
-          ids: ids,
-          use_original_language: false,
-        }
-      } );
-    } catch ( e ) {
-      console.log( e );
-      this.setState( { processingError: e } );
-    } finally {
-      this.setState( { processingImages: false } );
-    }
-  }
-
   render() {
     const {
       parent,
-      onIncludeInWP = () => null,
+      includeInWp = async () => null,
     } = this.props;
 
     const image = parent.getSelectedImages()[ 0 ];
@@ -68,8 +48,14 @@ export class SingleSidebar extends Component {
       ) : (
         <button
           onClick={ async () => {
-            const images = await this.includeInWp( [ image.id ] );
-            onIncludeInWP( images );
+            this.setState( { processingImages: true } );
+            try {
+              await includeInWp( [ image.id ] );
+            } catch ( e ) {
+              this.setState( { processingError: e } );
+            } finally {
+              this.setState( { processingImages: false } );
+            }
           } }
         >
           { __( 'Include in WP' ) }

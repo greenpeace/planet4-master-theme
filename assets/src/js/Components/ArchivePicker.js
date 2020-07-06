@@ -2,6 +2,7 @@ import { Component, Fragment } from '@wordpress/element';
 import { ImagePicker, toSrcSet } from './ImagePicker';
 import { SingleSidebar } from './archivePicker/SingleSidebar';
 import { MultiSidebar } from './archivePicker/MultiSidebar';
+import classNames from 'classnames';
 
 const { apiFetch } = wp;
 const { addQueryArgs } = wp.url;
@@ -61,6 +62,26 @@ class ArchivePicker extends Component {
     }
   }
 
+  async includeInWp( ids ) {
+    try {
+      this.setState( { processingImages: true } );
+      const updatedImages = await apiFetch( {
+        method: 'POST',
+        path: '/planet4/v1/image-archive/transfer',
+        data: {
+          ids: ids,
+          use_original_language: false,
+        }
+      } );
+      this.updateFromUploadedResponse( updatedImages );
+    } catch ( e ) {
+      console.log( e );
+      this.setState( { processingError: e } );
+    } finally {
+      this.setState( { processingImages: false } );
+    }
+  }
+
   updateFromUploadedResponse( updatedImages ) {
     const newImages = this.state.images.map( stateImage => {
       const updated = updatedImages.find( updatedImage => updatedImage.id === stateImage.id );
@@ -92,7 +113,7 @@ class ArchivePicker extends Component {
       return <li
         key={ id }
         data-wordpress-id={ wordpress_id }
-        className={ isSelected( image ) ? 'picker-selected' : '' }>
+        className={ classNames( { 'picker-selected': isSelected( image ) } ) }>
         <img
           srcSet={ toSrcSet( sizes ) }
           title={ title }
@@ -115,14 +136,14 @@ class ArchivePicker extends Component {
     if ( selectedImages.length === 1 ) {
       return <SingleSidebar
         parent={ parent }
-        onIncludeInWP={ this.updateFromUploadedResponse }
+        includeInWp={ this.includeInWp }
       />;
     }
 
     if ( selectedImages.length > 1 ) {
       return <MultiSidebar
         parent={ parent }
-        onIncludeInWP={ this.updateFromUploadedResponse }
+        includeInWp={ this.includeInWp }
       />;
     }
   }
