@@ -18,7 +18,6 @@ if ( ! class_exists( 'Controller' ) ) {
 	 * This class will control all the main functions of the plugin.
 	 */
 	abstract class Controller {
-
 		/**
 		 * View object
 		 *

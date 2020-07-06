@@ -18,7 +18,7 @@
     <!-- Add rule for plugin's textdomains -->
     <rule ref="WordPress.WP.I18n">
         <properties>
-            <property name="text_domain" type="array" value="planet4-blocks,planet4-blocks-backend,,planet4-engagingnetworks,planet4-engagingnetworks-backend"/>
+            <property name="text_domain" type="array" value="planet4-blocks,planet4-blocks-backend,planet4-engagingnetworks,planet4-engagingnetworks-backend"/>
         </properties>
     </rule>
 

@@ -50,10 +50,16 @@ class View {
 	 * @param array|string $template_name The file name of the template to render.
 	 * @param array        $data The data to pass to the template.
 	 * @param string       $relevant_dir The path to a subdirectory where the template is located (relative to $template_dir).
+	 * @param boolean      $compile A boolean to compile the template.
 	 */
-	private function view_template( $template_name, $data, $relevant_dir = '' ) {
+	public function view_template( $template_name, $data, $relevant_dir = '', $compile = false ) {
 		Timber::$locations = $this->get_template_dir( $template_name, $relevant_dir );
-		Timber::render( [ $relevant_dir . $template_name . '.twig' ], $data );
+
+		if ( ! $compile ) {
+			Timber::render( [ $relevant_dir . $template_name . '.twig' ], $data );
+		} else {
+			return Timber::compile( [ $relevant_dir . $template_name . '.twig' ], $data );
+		}
 	}
 
 	/**
@@ -105,5 +111,23 @@ class View {
 		} else {
 			include_once $template_dir . $relevant_dir . $template_name . '.' . $template_ext;
 		}
+	}
+
+	/**
+	 * Render EN Form Post.
+	 *
+	 * @param array $data All the data needed to render the template.
+	 */
+	public function enform_post( $data ) {
+		$this->view_template( __FUNCTION__, $data, '/blocks/enform/' );
+	}
+
+	/**
+	 * Render the Selected Components meta box for EN Forms.
+	 *
+	 * @param array $data All the data needed to render the template.
+	 */
+	public function en_selected_meta_box( $data ) {
+		$this->view_template( __FUNCTION__, $data );
 	}
 }

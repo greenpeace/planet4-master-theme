@@ -23,6 +23,7 @@ import { setupCustomSidebar } from "./setupCustomSidebar";
 import { setUpCssVariables } from './connectCssVariables';
 import { SubPagesBlock } from './blocks/SubPages/SubPagesBlock';
 import { blockEditorValidation } from './BlockEditorValidation';
+import { ENFormBlock } from './blocks/ENForm/ENFormBlock';
 
 new ArticlesBlock();
 new CarouselHeaderBlock();
@@ -41,6 +42,7 @@ new SubmenuBlock();
 new SubPagesBlock();
 new TakeactionboxoutBlock();
 new TimelineBlock();
+new ENFormBlock()
 
 addBlockFilters();
 addSubAndSuperscript( window.wp );
