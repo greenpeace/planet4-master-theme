@@ -9,8 +9,12 @@ export class ArticlesFrontend extends Component {
     super(props);
     this.state = {
       posts: [],
-      total_pages: 0
+      total_pages: 0,
+      dataset: {},
+      page: 0
     };
+
+    this.loadArticles = this.loadArticles.bind(this);
   }
 
   componentDidMount() {
@@ -30,7 +34,7 @@ export class ArticlesFrontend extends Component {
     }
   }
 
-  loadArticles() {
+  loadArticles(page) {
     const { article_count, posts, tags, post_types, ignore_categories, postType, postId } = this.props;
 
     const args = {
@@ -41,13 +45,25 @@ export class ArticlesFrontend extends Component {
       ignore_categories
     };
 
+    if (page) args.start_index = page * article_count;
+
     if (postType === 'post') args.exclude_post_id = postId;
 
     const queryArgs = {
       path: addQueryArgs('/planet4/v1/get-articles', args)
     };
-    apiFetch(queryArgs).then(result => {
-      this.setState({ posts: result.posts, total_pages: result.pages })
+    apiFetch(queryArgs).then(({ recent_posts, total_pages }) => {
+      if (page) {
+        this.setState({
+          posts: [...this.state.posts, ...recent_posts],
+          page
+        })
+      } else {
+        this.setState({
+          posts: recent_posts,
+          total_pages
+        })
+      }
     });
   }
 
@@ -58,12 +74,11 @@ export class ArticlesFrontend extends Component {
       read_more_text,
       read_more_link,
       button_link_new_tab,
-      article_count,
       isEditing,
       postType
     } = this.props;
 
-    const { posts, total_pages } = this.state;
+    const { posts, total_pages, page } = this.state;
 
     return (
       <Fragment>
@@ -82,7 +97,7 @@ export class ArticlesFrontend extends Component {
                 <ArticlePreview key={post.post_title} isCampaign={postType === 'campaign'} post={post} />
               )}
             </div>
-            {total_pages > 1 && !isEditing &&
+            {total_pages > 1 && page < (total_pages - 1) && !isEditing &&
               <div className="row">
                 {read_more_link ?
                   <div className="col-md-12 col-lg-5 col-xl-5 mr-auto">
@@ -96,14 +111,8 @@ export class ArticlesFrontend extends Component {
                   </div> :
                   <div className="col-md-12 col-lg-5 col-xl-5">
                     <button
-                      className="btn btn-secondary btn-block article-load-more load-more"
-                      data-content=".article-list-section"
-                      data-page="1"
-                      data-total_pages={total_pages}
-                      data-article_count={article_count}
-                    // TODO:   {% for key,value in dataset %}
-                    //       data-{{ value }}
-                    // {% endfor %}
+                      className="btn btn-secondary btn-block article-load-more"
+                      onClick={() => this.loadArticles(page + 1)}
                     >
                       {read_more_text}
                     </button>

@@ -88,9 +88,6 @@ class Articles extends Base_Block {
 				],
 			]
 		);
-
-		add_action( 'wp_ajax_load_more', [ $this, 'load_more' ] );
-		add_action( 'wp_ajax_nopriv_load_more', [ $this, 'load_more' ] );
 	}
 
 	/**

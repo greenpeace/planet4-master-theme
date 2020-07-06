@@ -143,7 +143,7 @@ class Rest_Api {
 			]
 		);
 		/**
-		 * Endpoint retrieve the latest posts for the Articles block
+		 * Endpoint to retrieve the latest posts for the Articles block
 		 */
 		register_rest_route(
 			self::REST_NAMESPACE,
@@ -178,8 +178,8 @@ class Rest_Api {
 						// Ignore rule, arguments contain suppress_filters.
 						// phpcs:ignore$fields['article_count']
 						$all_posts    = wp_get_recent_posts( $args );
-						$total_pages  = 0 !== $fields['article_count'] ? ceil( count( (array) $all_posts ) / $fields['article_count'] ) : 0;
-						$sliced_posts = array_slice( $all_posts, 0, $fields['article_count'] );
+						$start_index  = $fields['start_index'] || 0;
+						$sliced_posts = array_slice( $all_posts, $start_index, $fields['article_count'] );
 						$recent_posts = [];
 
 						// Populate posts array for frontend template if results have been returned.
@@ -188,9 +188,14 @@ class Rest_Api {
 						}
 
 						// Return the posts and the amount of pages.
-						$to_return          = [];
-						$to_return['posts'] = $recent_posts;
-						$to_return['pages'] = $total_pages;
+						$to_return = [
+							'recent_posts' => $recent_posts,
+						];
+
+						if ( ! $start_index ) {
+							$total_pages              = 0 !== $fields['article_count'] ? ceil( count( (array) $all_posts ) / $fields['article_count'] ) : 0;
+							$to_return['total_pages'] = $total_pages;
+						}
 
 						return rest_ensure_response( $to_return );
 					},
