@@ -126,15 +126,17 @@ export class ArticlesEditor extends Component {
           characterLimit={200}
         />
         <ArticlesFrontend isEditing postType={postType} postId={postId} {...attributes} />
-        <RichText
-          tagName="div"
-          className="btn btn-secondary btn-block article-load-more load-more"
-          placeholder={__('Override button text', 'p4ge')}
-          value={attributes.read_more_text}
-          onChange={this.toAttribute('read_more_text')}
-          keepPlaceholderOnFocus={true}
-          withoutInteractiveFormatting
-        />
+        {attributes.posts.length === 0 && (
+          <RichText
+            tagName="div"
+            className="btn btn-secondary btn-block article-load-more load-more"
+            placeholder={__('Override button text', 'p4ge')}
+            value={attributes.read_more_text}
+            onChange={this.toAttribute('read_more_text')}
+            keepPlaceholderOnFocus={true}
+            withoutInteractiveFormatting
+          />
+        )}
       </Fragment>
     );
   }
