@@ -16,25 +16,33 @@ export class ArticlePreview extends Component {
   }
 
   getAuthorLink() {
-    const { post, isCampaign } = this.props;
+    const {
+      post: {
+        author_name,
+        author,
+        author_override,
+        author_url
+      },
+      isCampaign
+    } = this.props;
 
-    if (post.author_name) {
+    if (author_name) {
       return (
         <span className="article-list-item-author">{__('by', 'planet4-blocks')}{' '}
-          {(post.author_override || isCampaign) ?
-            post.author_name
+          {(author_override || isCampaign) ?
+            author_name
             :
-            <a href={post.author_url}>{post.author_name}</a>
+            <a href={author_url}>{author_name}</a>
           }
         </span>
       )
-    } else if (post.author) {
+    } else if (author) {
       return (
         <span className="article-list-item-author">{__('by', 'planet4-blocks')}{' '}
-          {post.author.is_fake || isCampaign ?
-            post.author.name
+          {author.is_fake || isCampaign ?
+            author.name
             :
-            <a href={post.author.link}>{post.author.name}</a>
+            <a href={author.link}>{author.name}</a>
           }
         </span>
       )
@@ -42,51 +50,67 @@ export class ArticlePreview extends Component {
   }
 
   render() {
-    const { post } = this.props;
+    const {
+      post: {
+        tags,
+        thumbnail_ratio,
+        thumbnail_url,
+        link,
+        alt_text,
+        page_type,
+        page_types,
+        page_type_id,
+        post_title,
+        post_date,
+        post_excerpt
+      }
+    } = this.props;
+
+    const date = new Date(post_date);
 
     let articleClassName = "article-list-item";
-    if (post.tags && post.tags.length > 0) {
-      post.tags.forEach(tag => articleClassName += ` ${tag.slug}`);
+    if (tags && tags.length > 0) {
+      tags.forEach(tag => articleClassName += ` ${tag.slug}`);
     }
 
     return (
       <article className={articleClassName} >
-        {post.thumbnail_ratio < 1 ?
+        {thumbnail_ratio < 1 ?
           <div className="article-list-item-image">
             <div className="article-image-holder">
-              <a href={post.link}>
+              <a href={link}>
                 <img
                   className="d-flex topicwise-article-image lazyload"
-                  src={post.thumbnail_url}
-                  alt={post.alt_text}
+                  src={thumbnail_url}
+                  alt={alt_text}
                 />
               </a>
             </div>
           </div>
           :
           <div className="article-list-item-image article-list-item-image-max-width">
-            <a href={post.link}>
+            <a href={link}>
               <img
                 className="d-flex topicwise-article-image lazyload"
-                src={post.thumbnail_url}
-                alt={post.alt_text}
+                src={thumbnail_url}
+                alt={alt_text}
               />
             </a>
           </div>
         }
 
         <div className="article-list-item-body">
-          {(post.tags || post.page_type || post.page_types) &&
+          {(tags || page_type || page_types) &&
             <div className="article-list-item-tags top-page-tags">
-              {post.page_type ?
-                this.getPageTypesTags(post.page_type, post.page_type_id)
+              {page_type ?
+                this.getPageTypesTags(page_type, page_type_id)
                 :
-                post.page_types.map(({ name, link }) => this.getPageTypesTags(name, null, link))
+                page_types.map(({ name, link }) => this.getPageTypesTags(name, null, link))
               }
 
-              {post.tags &&
+              {tags &&
                 <div className="tag-wrap tags">
-                  {post.tags.map(tag =>
+                  {tags.map(tag =>
                     <a key={tag.name} className="tag-item tag" href={tag.link}>{`#${tag.name}`}</a>
                   )}
                 </div>
@@ -95,22 +119,24 @@ export class ArticlePreview extends Component {
           }
 
           <header>
-            {post.post_title &&
+            {post_title &&
               <h4 className="article-list-item-headline">
-                <a href={post.link}>{post.post_title}</a>
+                <a href={link}>{post_title}</a>
               </h4>
             }
             <p className="article-list-item-meta">
               {this.getAuthorLink()}
-              {post.post_date &&
-                <time className="article-list-item-date" dateTime="">{post.post_date}</time> // TODO format date properly
+              {post_date &&
+                <time className="article-list-item-date" dateTime="">
+                  {date.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}
+                </time>
               }
             </p>
           </header>
 
-          {post.post_excerpt &&
+          {post_excerpt &&
             <p className="article-list-item-content">
-              {post.post_excerpt}
+              {post_excerpt}
             </p>
           }
         </div>
