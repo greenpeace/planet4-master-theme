@@ -133,7 +133,7 @@ export class ArticlePreview extends Component {
 
           {post_excerpt &&
             <p className="article-list-item-content">
-              {post_excerpt}
+              {post_excerpt.replace('&hellip;', '...')}
             </p>
           }
         </div>
