@@ -14,7 +14,7 @@ class ArchivePicker extends Component {
     super( props );
     this.state = {
       loading: true,
-      error: false,
+      error: null,
       images: [],
       currentPage: 0,
       filters: {},
@@ -51,8 +51,8 @@ class ArchivePicker extends Component {
         currentPage: pageIndex,
         images: [ ...this.state.images, ...withPageLabel ]
       } );
-    } catch ( e ) {
-      this.setState( { error: true } );
+    } catch ( error ) {
+      this.setState( { error } );
     } finally {
       this.setState( { loading: false } );
     }
@@ -169,7 +169,7 @@ class ArchivePicker extends Component {
       { !!error && (
         <div>
           <h3>API error:</h3>
-          <p> { error.message } </p>
+          <p> { error } </p>
         </div>
       ) }
       <ImagePicker

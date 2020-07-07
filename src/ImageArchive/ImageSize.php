@@ -6,7 +6,6 @@ class ImageSize implements \JsonSerializable {
 	private $url;
 	private $width;
 	private $height;
-	private $is_original;
 
 	/**
 	 * @param $data
@@ -33,7 +32,6 @@ class ImageSize implements \JsonSerializable {
 					$size->url    = $data[ $key ]['URI'];
 					$size->width  = (int) $data[ $key ]['Width'];
 					$size->height = (int) $data[ $key ]['Height'];
-					$size->is_original = $key === 'Path_TR1';
 
 					$carry[] = $size;
 				}
@@ -48,7 +46,6 @@ class ImageSize implements \JsonSerializable {
 			'url'    => $this->url,
 			'width'  => $this->width,
 			'height' => $this->height,
-			'is_original'=> $this->is_original,
 		];
 	}
 

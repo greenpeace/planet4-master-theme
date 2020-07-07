@@ -1,9 +1,18 @@
 <?php
+/**
+ * Class ApiClient.
+ *
+ * @package P4\MasterTheme\ImageArchive
+ */
 
 namespace P4\MasterTheme\ImageArchive;
 
+use P4\MasterTheme\RemoteCallFailed;
 use WP_Http;
 
+/**
+ * Authenticate to the greenpeace media API and query image data.
+ */
 class ApiClient {
 	private const BASE_URL = 'https://media.greenpeace.org';
 	private const AUTH_URL = self::BASE_URL . '/API/Authentication/v1.0/Login';
@@ -19,12 +28,27 @@ class ApiClient {
 		'pagenumber'   => 1,
 	];
 
+	/**
+	 * @var string The temporary authentication token.
+	 */
 	private $token;
 
+	/**
+	 * ApiClient constructor.
+	 *
+	 * @param string $token The temporary authentication token.
+	 */
 	private function __construct( string $token ) {
 		$this->token = $token;
 	}
 
+	/**
+	 * Use token from the cache to authenticate, or if none is present fetch a new one with the credentials
+	 * from the settings.
+	 *
+	 * @return static Authenticated instance.
+	 * @throws RemoteCallFailed
+	 */
 	public static function from_cache_or_credentials(): self {
 		$cached_token = get_transient( self::TOKEN_CACHE_KEY );
 
@@ -35,18 +59,42 @@ class ApiClient {
 		return self::from_settings();
 	}
 
+	/**
+	 * Authenticate with the credentials from the settings.
+	 *
+	 * @return static Authenticated instance.
+	 * @throws RemoteCallFailed
+	 */
 	public static function from_settings(): self {
 		$p4ml_settings = get_option( 'p4ml_main_settings' );
 
 		return self::from_credentials( $p4ml_settings['p4ml_api_username'], $p4ml_settings['p4ml_api_password'] );
 	}
 
+	/**
+	 * Fetch a token with provided credentials and use it.
+	 *
+	 * @param string $username The username of the API account.
+	 * @param string $password The password of the API account.
+	 *
+	 * @return static Authenticated instance.
+	 * @throws RemoteCallFailed
+	 */
 	public static function from_credentials( string $username, string $password ): self {
 		$token = self::fetch_token( $username, $password );
 
 		return new self( $token );
 	}
 
+	/**
+	 * Call the authentication endpoint with credentials to fetch a token.
+	 *
+	 * @param string $username The username of the API account.
+	 * @param string $password The password of the API account.
+	 *
+	 * @return string
+	 * @throws RemoteCallFailed
+	 */
 	private static function fetch_token( string $username, string $password ): string {
 		$response = wp_safe_remote_post( self::AUTH_URL,
 			[
@@ -66,7 +114,7 @@ class ApiClient {
 		}
 
 		if ( ! is_array( $response ) || empty( $response['body'] ) ) {
-			throw new \InvalidArgumentException( "Unable to authenticate user {$username}" );
+			throw new RemoteCallFailed( "Unable to authenticate user {$username}" );
 		}
 		// Communication with ML API is authenticated.
 		$body  = json_decode( $response['body'], true );
@@ -113,12 +161,8 @@ class ApiClient {
 
 		$images_in_wordpress = self::get_images_in_wordpress($response);
 
-		// todo: Get all images that are in WP already so we can pass it to Image::from_api_response to know if the
-		// image is already in WP without having to execute the query n times.
 
-		$images = Image::all_from_api_response( $response, $images_in_wordpress );
-
-		return $images;
+		return Image::all_from_api_response( $response, $images_in_wordpress );
 	}
 
 	/**
