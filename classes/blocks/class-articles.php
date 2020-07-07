@@ -208,9 +208,9 @@ class Articles extends Base_Block {
 					$page_type_id = $page_type_data[0]->term_id;
 				}
 
-				$recent['page_type']    = $page_type;
-				$recent['page_type_id'] = $page_type_id;
-				$recent['link']         = get_permalink( $recent['ID'] );
+				$recent['page_type']      = $page_type;
+				$recent['page_type_link'] = get_term_link( $page_type_id );
+				$recent['link']           = get_permalink( $recent['ID'] );
 
 				$recent_posts[] = $recent;
 			}

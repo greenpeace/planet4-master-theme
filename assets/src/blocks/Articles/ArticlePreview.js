@@ -6,13 +6,13 @@ export class ArticlePreview extends Component {
     super(props);
   }
 
-  getPageTypesTags(pageType, id, link) {
+  getPageTypesTags(pageType, link) {
     const { isCampaign } = this.props;
-    // TODO get link from id
+    const className = `tag-item tag-item--main page-type page-type-${pageType.toLowerCase().replace(' ', '_')}`;
     if (isCampaign) {
-      return <span className={`tag-item tag-item--main page-type page-type-${pageType.replace(' ', '_')}`}>{pageType}</span>;
+      return <span className={className}>{pageType}</span>;
     }
-    return <a className={`tag-item tag-item--main page-type page-type-${pageType.replace(' ', '_')}`} href={link}>{pageType}</a>
+    return <a className={className} href={link}>{pageType}</a>
   }
 
   getAuthorLink() {
@@ -58,8 +58,7 @@ export class ArticlePreview extends Component {
         link,
         alt_text,
         page_type,
-        page_types,
-        page_type_id,
+        page_type_link,
         post_title,
         post_date,
         post_excerpt
@@ -80,7 +79,7 @@ export class ArticlePreview extends Component {
             <div className="article-image-holder">
               <a href={link}>
                 <img
-                  className="d-flex topicwise-article-image lazyload"
+                  className="d-flex topicwise-article-image"
                   src={thumbnail_url}
                   alt={alt_text}
                 />
@@ -91,7 +90,7 @@ export class ArticlePreview extends Component {
           <div className="article-list-item-image article-list-item-image-max-width">
             <a href={link}>
               <img
-                className="d-flex topicwise-article-image lazyload"
+                className="d-flex topicwise-article-image"
                 src={thumbnail_url}
                 alt={alt_text}
               />
@@ -100,15 +99,13 @@ export class ArticlePreview extends Component {
         }
 
         <div className="article-list-item-body">
-          {(tags || page_type || page_types) &&
+          {(tags || page_type) &&
             <div className="article-list-item-tags top-page-tags">
-              {page_type ?
-                this.getPageTypesTags(page_type, page_type_id)
-                :
-                page_types.map(({ name, link }) => this.getPageTypesTags(name, null, link))
+              {page_type &&
+                this.getPageTypesTags(page_type, page_type_link)
               }
 
-              {tags &&
+              {tags && tags.length > 0 &&
                 <div className="tag-wrap tags">
                   {tags.map(tag =>
                     <a key={tag.name} className="tag-item tag" href={tag.link}>{`#${tag.name}`}</a>
