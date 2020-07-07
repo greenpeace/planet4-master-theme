@@ -78,11 +78,12 @@ export class ENForm extends Component {
                 { __( 'Check your EngagingNetworks settings!', 'planet4-engagingnetworks-backend' ) }
               </InlineFormFeedback>
           }
-
+          <br />
           <SelectControl
             label={__( '- Select Goal -', 'planet4-engagingnetworks-backend' )}
             value={this.props.enform_goal}
             options={[
+              { label: __( '--- Select Goal ---', 'planet4-engagingnetworks-backend' ), value: 'not set' },
               { label: 'Petition Signup', value: 'Petition Signup' },
               { label: 'Action Alert', value: 'Action Alert' },
               { label: 'Contact Form', value: 'Contact Form' },
@@ -311,6 +312,9 @@ export class ENForm extends Component {
     if ( false === this.props.isSelected ) {
       if ( undefined === this.props.en_page_id || 0 === this.props.en_page_id ) {
         validationMessage.push( __( '"Engaging Network Live Pages" field is required!', 'planet4-engagingnetworks-backend' ));
+      }
+      if ( undefined === this.props.enform_goal || 'not set' === this.props.enform_goal || '' === this.props.enform_goal ) {
+        validationMessage.push( __( '"Select Goal" field is required!', 'planet4-engagingnetworks-backend' ));
       }
       if ( undefined === this.props.button_text || '' === this.props.button_text ) {
         validationMessage.push( __( '"Call to Action button" field is required!', 'planet4-engagingnetworks-backend' ));
