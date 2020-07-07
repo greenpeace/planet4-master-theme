@@ -25,6 +25,7 @@ class Campaigner {
 			'delete_others_campaigns',
 			'edit_private_campaigns',
 			'edit_published_campaigns',
+			Capability::USE_IMAGE_ARCHIVE_PICKER,
 		],
 		'editor'        => [
 			'edit_campaign',
@@ -42,6 +43,7 @@ class Campaigner {
 			// control is fetched using the REST API, where WordPress by default doesn't perform a permissions check, however
 			// the Wordfence plugin adds this check in `\wordfence::jsonAPIAuthorFilter`.
 			'list_users',
+			Capability::USE_IMAGE_ARCHIVE_PICKER,
 		],
 		'author'        => [
 			'edit_campaign',

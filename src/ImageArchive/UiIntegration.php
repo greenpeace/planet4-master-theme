@@ -7,7 +7,9 @@
 
 namespace P4\MasterTheme\ImageArchive;
 
+use P4\MasterTheme\Capability;
 use P4\MasterTheme\Features;
+use P4\MasterTheme\Loader;
 
 /**
  * Add some WordPress UI elements if the feature is active.
@@ -46,7 +48,10 @@ class UiIntegration {
 		if ( ( 'post.php' !== $pagenow ) && ( ! in_array( get_post_type(), [ 'post', 'page', 'campaign' ], true ) ) ) {
 			$classes .= ' insert-media';
 		}
-		print '<button id="db-upload-btn" class="' . $classes . '">' . esc_html__( 'Upload From GPI Media Library', 'planet4-medialibrary' ) . '</button>';
+		echo '<button id="db-upload-btn" class="' . $classes . '">' . esc_html__( //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			'Upload From GPI Media Library',
+			'planet4-master-theme-backend'
+		) . '</button>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -71,18 +76,17 @@ class UiIntegration {
 	 * Register js and output picker root element.
 	 */
 	public static function output_picker(): void {
-		wp_enqueue_style( 'picker',
-			get_template_directory_uri() . '/admin/css/picker.css',
-			[] );
-		wp_enqueue_script( 'pickerui',
-			get_template_directory_uri() . '/assets/build/archive_picker.js',
+		Loader::enqueue_versioned_style( '/admin/css/picker.css' );
+		Loader::enqueue_versioned_script(
+			'/assets/build/archive_picker.js',
 			[
 				'wp-element',
 				'wp-compose',
 				'wp-components',
 				'wp-url',
 				'wp-api-fetch',
-			] );
+			]
+		);
 		echo '<div id="archive-picker-root"></div>';
 	}
 
@@ -90,23 +94,18 @@ class UiIntegration {
 	 * Create a page with only the picker.
 	 */
 	public static function create_admin_menu(): void {
-		$current_user = wp_get_current_user();
-
-		if ( ! in_array( 'administrator', $current_user->roles, true )
-		     && ! in_array( 'editor',
-				$current_user->roles,
-				true )
-		) {
+		if ( ! current_user_can( Capability::USE_IMAGE_ARCHIVE_PICKER ) ) {
 			return;
 		}
 
-		add_menu_page( __( 'GPI Media Library', 'planet4-medialibrary' ),
-			__( 'GPI Image Picker', 'planet4-medialibrary' ),
+		add_menu_page(
+			__( 'GPI Media Library', 'planet4-master-theme-backend' ),
+			__( 'GPI Image Picker', 'planet4-master-theme-backend' ),
 			'manage_options',
 			'gpi-image-picker',
 			[ self::class, 'output_picker' ],
 			P4ML_ADMIN_DIR . 'images/logo_menu_page_16x16.png',
-		3
+			3
 		);
 	}
 }

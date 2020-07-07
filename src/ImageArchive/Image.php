@@ -8,6 +8,8 @@
 namespace P4\MasterTheme\ImageArchive;
 
 use JsonSerializable;
+use P4\MasterTheme\Exception\UploadFailed;
+use RuntimeException;
 
 /**
  * Entity for images returned by the media API.
@@ -107,7 +109,7 @@ class Image implements JsonSerializable {
 		$largest_size = 0;
 		foreach ( $image->sizes as $size ) {
 			if ( $size->get_width() > $largest_size ) {
-				$largest_size = $size->get_width();
+				$largest_size    = $size->get_width();
 				$image->original = $size;
 			}
 		}
@@ -127,10 +129,12 @@ class Image implements JsonSerializable {
 	 */
 	public static function all_from_api_response( array $response, array $images_in_wordpress ): array {
 
-		return array_map( static function ( $item ) use ( $images_in_wordpress ) {
-			return Image::from_api_response( $item, $images_in_wordpress );
-		},
-			$response['APIResponse']['Items'] ?? [] );
+		return array_map(
+			static function ( $item ) use ( $images_in_wordpress ) {
+				return Image::from_api_response( $item, $images_in_wordpress );
+			},
+			$response['APIResponse']['Items'] ?? []
+		);
 	}
 
 	/**
@@ -140,15 +144,14 @@ class Image implements JsonSerializable {
 	 */
 	public function jsonSerialize(): array {
 		return [
-			'id'           => $this->archive_id,
-			'title'        => $this->title,
-			'caption'      => $this->caption,
-			'credit'       => $this->credit,
-			'restrictions' => $this->restrictions,
-			'sizes'        => $this->sizes,
-			'wordpress_id' => $this->wordpress_id,
-			'original'     => $this->original,
-
+			'id'                            => $this->archive_id,
+			'title'                         => $this->title,
+			'caption'                       => $this->caption,
+			'credit'                        => $this->credit,
+			'restrictions'                  => $this->restrictions,
+			'sizes'                         => $this->sizes,
+			'wordpress_id'                  => $this->wordpress_id,
+			'original'                      => $this->original,
 			'original_language_title'       => $this->original_language_title,
 			'original_language_description' => $this->original_language_description,
 		];
@@ -167,6 +170,9 @@ class Image implements JsonSerializable {
 	 * Get the largest available size of this image and put it into WordPress (unless it's already in there).
 	 *
 	 * @param bool $use_original_language If true import with original language title and description, else in English.
+	 *
+	 * @throws UploadFailed When wp_upload_bits returns an error.
+	 * @throws RuntimeException When inserting attachment fails.
 	 */
 	public function put_in_wordpress( bool $use_original_language ): void {
 		if ( null !== $this->wordpress_id ) {
@@ -180,10 +186,10 @@ class Image implements JsonSerializable {
 		$context = stream_context_create();
 
 		// Upload file into WP upload dir.
-		$upload_file = wp_upload_bits( $filename, null, file_get_contents( $url, false, $context ) );
+		$upload_file = wp_upload_bits( $filename, null, file_get_contents( $url, false, $context ) ); //phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 
 		if ( ! empty( $upload_file['error'] ) ) {
-			throw new \RuntimeException( 'File upload failed: ' . $upload_file['error'] );
+			throw new UploadFailed( 'File upload failed: ' . $upload_file['error'] );
 		}
 
 		$wp_filetype = wp_check_filetype( $filename, null );
@@ -206,7 +212,12 @@ class Image implements JsonSerializable {
 		$attachment_id = wp_insert_attachment( $attachment, $upload_file['file'], 0, true );
 
 		if ( is_wp_error( $attachment_id ) ) {
-			throw new \RuntimeException( __( 'Error while inserting attachment...!', 'planet4-medialibrary' ) );
+			throw new RuntimeException(
+				__(
+					'Error while inserting attachment. Message: ',
+					'planet4-master-theme-backend'
+				) . $attachment_id->get_error_message()
+			);
 		}
 
 		require_once ABSPATH . 'wp-admin/includes/image.php';
@@ -217,7 +228,7 @@ class Image implements JsonSerializable {
 		wp_update_attachment_metadata( $attachment_id, $attachment_data );
 
 		// Add credit to alt field.
-		if ( '' !== $this->credit ) {
+		if ( ! empty( trim( $this->credit ) ) ) {
 			$alt_text .= ' ' . $this->credit;
 		}
 		// Set the image Alt-Text & image Credit.

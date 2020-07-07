@@ -44,7 +44,8 @@ class ImageSize implements \JsonSerializable {
 			'Path_TR3',
 		];
 
-		return array_reduce( $keys,
+		return array_reduce(
+			$keys,
 			static function ( $carry, $key ) use ( $data ) {
 				if ( ! empty( $data[ $key ]['URI'] ) ) {
 
@@ -59,7 +60,8 @@ class ImageSize implements \JsonSerializable {
 
 				return $carry;
 			},
-			[] );
+			[]
+		);
 	}
 
 	/**

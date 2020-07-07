@@ -55,12 +55,13 @@ class Features {
 	 * Add the feature settings page to the backend.
 	 */
 	public static function add_settings_page(): void {
-		add_options_page( self::PAGE_TITLE,
-				self::PAGE_TITLE,
-				'manage_options',
-				self::PAGE_SLUG,
-				[ self::class, 'admin_page_display' ] );
-
+		add_options_page(
+			self::PAGE_TITLE,
+			self::PAGE_TITLE,
+			'manage_options',
+			self::PAGE_SLUG,
+			[ self::class, 'admin_page_display' ]
+		);
 	}
 
 	/**
@@ -70,24 +71,23 @@ class Features {
 	 */
 	private static function get_metabox_settings(): array {
 		$fields = [
-				[
-						'name' => __( 'New image archive', 'planet4-master-theme-backend' ),
-						'id'   => self::IMAGE_ARCHIVE,
-						'type' => 'checkbox',
-				],
-
+			[
+				'name' => __( 'New image archive', 'planet4-master-theme-backend' ),
+				'id'   => self::IMAGE_ARCHIVE,
+				'type' => 'checkbox',
+			],
 		];
 
 		return [
-				'id'         => self::METABOX_ID,
-				'show_on'    => [
-						'key'   => 'options-page',
-						'value' => [
-								self::PAGE_SLUG,
-						],
+			'id'         => self::METABOX_ID,
+			'show_on'    => [
+				'key'   => 'options-page',
+				'value' => [
+					self::PAGE_SLUG,
 				],
-				'show_names' => true,
-				'fields'     => $fields,
+			],
+			'show_names' => true,
+			'fields'     => $fields,
 		];
 
 	}

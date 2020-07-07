@@ -7,7 +7,7 @@
 
 namespace P4\MasterTheme\ImageArchive;
 
-use P4\MasterTheme\RemoteCallFailed;
+use P4\MasterTheme\Exception\RemoteCallFailed;
 use WP_Http;
 
 /**
@@ -15,11 +15,17 @@ use WP_Http;
  */
 class ApiClient {
 	private const BASE_URL = 'https://media.greenpeace.org';
+
 	private const AUTH_URL = self::BASE_URL . '/API/Authentication/v1.0/Login';
+
 	private const SEARCH_URL = self::BASE_URL . '/API/search/v3.0/search';
+
 	private const TOKEN_CACHE_KEY = 'ml_auth_token';
+
 	private const RESPONSE_TIMEOUT = 10;
-	private const MEDIAS_PER_PAGE = 30;
+
+	private const MEDIAS_PER_PAGE = 50;
+
 	private const DEFAULT_PARAMS = [
 		'query'        => '(Mediatype:Image)',
 		'fields'       => 'MediaEncryptedIdentifier,Title,Caption,copyright,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier,original-language-title,original-language-description,original-language,restrictions,copyright,MediaDate,CreatedDate,EditDate',
@@ -96,7 +102,8 @@ class ApiClient {
 	 * @throws RemoteCallFailed Authentication failed.
 	 */
 	private static function fetch_token( string $username, string $password ): string {
-		$response = wp_safe_remote_post( self::AUTH_URL,
+		$response = wp_safe_remote_post(
+			self::AUTH_URL,
 			[
 				'body'    => [
 					'Login'    => $username,
@@ -104,12 +111,13 @@ class ApiClient {
 					'format'   => 'json',
 				],
 				'timeout' => self::RESPONSE_TIMEOUT,
-			] );
+			]
+		);
 		// Authentication failure.
 		if ( is_wp_error( $response ) ) {
 			$response = $response->get_error_message() . ' ' . $response->get_error_code();
 
-		} elseif ( \WP_Http::ACCEPTED !== $response['response']['code'] ) {
+		} elseif ( WP_Http::ACCEPTED !== $response['response']['code'] ) {
 			$response = $response['response']['message'] . ' ' . $response['response']['code'];
 		}
 
@@ -134,6 +142,7 @@ class ApiClient {
 	 * @param array $ids The ids of the desired images.
 	 *
 	 * @return Image[]|null Data for these images.
+	 * @throws RemoteCallFailed Failed to fetch images.
 	 */
 	public function get_selection( array $ids ): ?array {
 		$params = [
@@ -149,6 +158,7 @@ class ApiClient {
 	 * @param array $additional_params Supplement or override default parameters.
 	 *
 	 * @return Image[]|null The matching images.
+	 * @throws RemoteCallFailed Failed to fetch images.
 	 */
 	public function fetch_images( array $additional_params = [] ): ?array {
 		$params = array_merge( self::DEFAULT_PARAMS, $additional_params, $this->token_param() );
@@ -158,18 +168,21 @@ class ApiClient {
 		$response = wp_remote_get(
 			$url,
 			[
-				'timeout'   => self::RESPONSE_TIMEOUT,
+				'timeout' => self::RESPONSE_TIMEOUT,
 			]
 		);
 
-		if ( is_wp_error( $response  ) ||  WP_Http::OK !== $response['response']['code'] ) {
+		if ( is_wp_error( $response ) || WP_Http::OK !== $response['response']['code'] ) {
 			// Maybe will throw exception here.
-			return null;
+			throw new RemoteCallFailed(
+				is_wp_error( $response )
+					? $response->get_error_message()
+					: ( $response['body'] ?? 'Unknown error.' )
+			);
 		}
 		$response = json_decode( $response['body'], true );
 
-		$images_in_wordpress = self::get_images_in_wordpress($response);
-
+		$images_in_wordpress = self::get_images_in_wordpress( $response );
 
 		return Image::all_from_api_response( $response, $images_in_wordpress );
 	}
@@ -186,21 +199,21 @@ class ApiClient {
 		global $wpdb;
 		$images = $api_data['APIResponse']['Items'] ?? [];
 
-		$ids = array_map( static function ( $image ) {
-			return $image['SystemIdentifier'];
-		},
-			$images );
+		$ids = array_map(
+			static function ( $image ) {
+				return $image['SystemIdentifier'];
+			},
+			$images
+		);
 
 		$sql = '
 SELECT p.id, m.meta_value
 FROM %1$s p JOIN %2$s m ON m.post_id = p.id
-WHERE m.meta_key = "' . Image::ARCHIVE_ID_META_KEY . '" AND m.meta_value IN ('
-		       . generate_list_placeholders($ids, 3, 's' )
-		       .')';
+WHERE m.meta_key = "' . Image::ARCHIVE_ID_META_KEY . '" AND m.meta_value IN (' . generate_list_placeholders( $ids, 3, 's' ) . ')';
 
-		$prepared = $wpdb->prepare( $sql, array_merge( [ $wpdb->posts, $wpdb->postmeta ], $ids ) );
+		$prepared = $wpdb->prepare( $sql, array_merge( [ $wpdb->posts, $wpdb->postmeta ], $ids ) ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
-		$results = $wpdb->get_results( $prepared, ARRAY_A );
+		$results = $wpdb->get_results( $prepared, ARRAY_A );//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 		// Return as indexed array to make lookups easier.
 		$indexed = [];

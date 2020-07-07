@@ -7,14 +7,17 @@
 
 namespace P4\MasterTheme\ImageArchive;
 
+use Exception;
 use P4\MasterTheme\Features;
-use P4\MasterTheme\RemoteCallFailed;
+use P4\MasterTheme\Exception\RemoteCallFailed;
 use WP_Http;
 use WP_REST_Request;
 use WP_REST_Response;
+use WP_REST_Server;
 
 /**
  * Wrapper class to add some endpoints.
+ *
  * @todo: authorization.
  */
 class Rest {
@@ -34,7 +37,7 @@ class Rest {
 			try {
 				$api_client = ApiClient::from_cache_or_credentials();
 			} catch ( RemoteCallFailed $exception ) {
-				return rest_ensure_response( new WP_REST_Response( $exception->getMessage(), WP_Http::INTERNAL_SERVER_ERROR ) );
+				return self::handle_authentication_failed( $exception );
 			}
 
 			$params = [
@@ -52,9 +55,14 @@ class Rest {
 			return rest_ensure_response( $images );
 
 		};
-		register_rest_route( self::REST_NAMESPACE,
+		register_rest_route(
+			self::REST_NAMESPACE,
 			'image-archive/fetch',
-			[ 'methods' => \WP_REST_Server::READABLE, 'callback' => $fetch_archive_images ] );
+			[
+				'methods'  => WP_REST_Server::READABLE,
+				'callback' => $fetch_archive_images,
+			]
+		);
 
 		$transfer_to_wordpress = static function ( WP_REST_Request $request ) {
 			$json = $request->get_json_params();
@@ -65,18 +73,37 @@ class Rest {
 			try {
 				$api_client = ApiClient::from_cache_or_credentials();
 			} catch ( RemoteCallFailed $exception ) {
-				return rest_ensure_response( new WP_REST_Response( $exception->getMessage(), WP_Http::INTERNAL_SERVER_ERROR ) );
+				return self::handle_authentication_failed( $exception );
 			}
-			$images     = $api_client->get_selection( $ids );
+			$images = $api_client->get_selection( $ids );
 
 			foreach ( $images as $image ) {
 				$image->put_in_wordpress( $use_original_language );
 			}
 
-			return rest_ensure_response( new \WP_REST_Response( $images, WP_Http::OK ) );
+			return new WP_REST_Response( $images, WP_Http::OK );
 		};
-		register_rest_route( self::REST_NAMESPACE,
+		register_rest_route(
+			self::REST_NAMESPACE,
 			'image-archive/transfer',
-			[ 'methods' => \WP_REST_Server::CREATABLE, 'callback' => $transfer_to_wordpress ] );
+			[
+				'methods'  => WP_REST_Server::CREATABLE,
+				'callback' => $transfer_to_wordpress,
+			]
+		);
+	}
+
+	/**
+	 * Return an error response if authentication to media API failed.
+	 *
+	 * @param Exception $exception Thrown while performing authentication.
+	 *
+	 * @return WP_REST_Response HTTP error response.
+	 */
+	private static function handle_authentication_failed( Exception $exception ): WP_REST_Response {
+		return new WP_REST_Response(
+			'Failed to authenticate. Error: ' . $exception->getMessage(),
+			WP_Http::INTERNAL_SERVER_ERROR
+		);
 	}
 }

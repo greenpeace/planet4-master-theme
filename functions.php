@@ -107,9 +107,12 @@ if ( ! class_exists( 'Timber' ) ) {
 		Timber::$cache = true;
 	}
 }
-add_action( 'rest_api_init', function () {
-	Rest::register_endpoints();
-} );
+add_action(
+	'rest_api_init',
+	function () {
+		Rest::register_endpoints();
+	}
+);
 
 
 Loader::get_instance();
