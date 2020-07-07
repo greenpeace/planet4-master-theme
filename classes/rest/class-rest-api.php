@@ -173,13 +173,21 @@ class Rest_Api {
 							$args = Articles::filter_posts_by_pages_tags( $fields );
 						}
 
-						$args['numberposts'] = Articles::MAX_ARTICLES;
+						// If there is an offset, it means that it's not a first load, but a load more action.
+						// In this case we want to get only the needed amount of articles,
+						// since we already got the total amount in the first load.
+						$offset = $fields['offset'] ? (int) $fields['offset'] : 0;
+						if ( $offset > 0 ) {
+							$args['numberposts'] = $fields['article_count'];
+							$args['offset']      = $offset;
+						} else {
+							$args['numberposts'] = Articles::MAX_ARTICLES;
+						}
 
 						// Ignore rule, arguments contain suppress_filters.
 						// phpcs:ignore$fields['article_count']
 						$all_posts    = wp_get_recent_posts( $args );
-						$start_index  = $fields['start_index'] || 0;
-						$sliced_posts = array_slice( $all_posts, $start_index, $fields['article_count'] );
+						$sliced_posts = $offset ? $all_posts : array_slice( $all_posts, 0, $fields['article_count'] );
 						$recent_posts = [];
 
 						// Populate posts array for frontend template if results have been returned.
@@ -192,7 +200,7 @@ class Rest_Api {
 							'recent_posts' => $recent_posts,
 						];
 
-						if ( ! $start_index ) {
+						if ( ! $offset ) {
 							$total_pages              = 0 !== $fields['article_count'] ? ceil( count( (array) $all_posts ) / $fields['article_count'] ) : 0;
 							$to_return['total_pages'] = $total_pages;
 						}

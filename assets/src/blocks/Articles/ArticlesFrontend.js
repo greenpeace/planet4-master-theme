@@ -45,7 +45,7 @@ export class ArticlesFrontend extends Component {
       ignore_categories
     };
 
-    if (page) args.start_index = page * article_count;
+    if (page) args.offset = page * article_count;
 
     if (postType === 'post') args.exclude_post_id = postId;
 
