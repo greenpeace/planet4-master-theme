@@ -1,8 +1,18 @@
 <?php
+/**
+ * Class Image.
+ *
+ * @package P4\MasterTheme\ImageArchive
+ */
 
 namespace P4\MasterTheme\ImageArchive;
 
-class Image implements \JsonSerializable {
+use JsonSerializable;
+
+/**
+ * Entity for images returned by the media API.
+ */
+class Image implements JsonSerializable {
 	public const ARCHIVE_ID_META_KEY = 'gp_archive_id';
 
 	/**
@@ -55,17 +65,24 @@ class Image implements \JsonSerializable {
 	private $original_language_title;
 
 	/**
-	 * @var array|mixed
+	 * @var string|null The original language description.
 	 */
 	private $original_language_description;
 
 	/**
-	 * @var ImageSize[]
+	 * @var ImageSize[] Different available sizes for this image.
 	 */
 	private $sizes = [];
 
+	/**
+	 * @var ImageSize The image size which is the original (i.e. largest).
+	 */
 	private $original;
 
+	/**
+	 * Image constructor. Private to force use of meaningfully named static creation functions. That's also were the
+	 * properties are set, to avoid having to declare the same parameters in both functions.
+	 */
 	private function __construct() {
 	}
 
@@ -100,6 +117,14 @@ class Image implements \JsonSerializable {
 		return $image;
 	}
 
+	/**
+	 * Extract all images from the API response.
+	 *
+	 * @param array $response API response with multiple images.
+	 * @param array $images_in_wordpress An array which contains all WordPress IDs corresponding to images in the data.
+	 *
+	 * @return Image[] Representation of images extracted from the data.
+	 */
 	public static function all_from_api_response( array $response, array $images_in_wordpress ): array {
 
 		return array_map( static function ( $item ) use ( $images_in_wordpress ) {
@@ -108,6 +133,11 @@ class Image implements \JsonSerializable {
 			$response['APIResponse']['Items'] ?? [] );
 	}
 
+	/**
+	 * @inheritDoc
+	 *
+	 * @return array
+	 */
 	public function jsonSerialize(): array {
 		return [
 			'id'           => $this->archive_id,
@@ -125,12 +155,19 @@ class Image implements \JsonSerializable {
 	}
 
 	/**
-	 * @return mixed
+	 * Accessor for title.
+	 *
+	 * @return mixed The title.
 	 */
 	public function get_title() {
 		return $this->title;
 	}
 
+	/**
+	 * Get the largest available size of this image and put it into WordPress (unless it's already in there).
+	 *
+	 * @param bool $use_original_language If true import with original language title and description, else in English.
+	 */
 	public function put_in_wordpress( bool $use_original_language ): void {
 		if ( null !== $this->wordpress_id ) {
 			return;

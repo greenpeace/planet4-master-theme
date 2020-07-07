@@ -47,7 +47,7 @@ class ApiClient {
 	 * from the settings.
 	 *
 	 * @return static Authenticated instance.
-	 * @throws RemoteCallFailed
+	 * @throws RemoteCallFailed Authentication failed.
 	 */
 	public static function from_cache_or_credentials(): self {
 		$cached_token = get_transient( self::TOKEN_CACHE_KEY );
@@ -63,7 +63,7 @@ class ApiClient {
 	 * Authenticate with the credentials from the settings.
 	 *
 	 * @return static Authenticated instance.
-	 * @throws RemoteCallFailed
+	 * @throws RemoteCallFailed Authentication failed.
 	 */
 	public static function from_settings(): self {
 		$p4ml_settings = get_option( 'p4ml_main_settings' );
@@ -78,7 +78,7 @@ class ApiClient {
 	 * @param string $password The password of the API account.
 	 *
 	 * @return static Authenticated instance.
-	 * @throws RemoteCallFailed
+	 * @throws RemoteCallFailed Authentication failed.
 	 */
 	public static function from_credentials( string $username, string $password ): self {
 		$token = self::fetch_token( $username, $password );
@@ -92,8 +92,8 @@ class ApiClient {
 	 * @param string $username The username of the API account.
 	 * @param string $password The password of the API account.
 	 *
-	 * @return string
-	 * @throws RemoteCallFailed
+	 * @return string The authentication token.
+	 * @throws RemoteCallFailed Authentication failed.
 	 */
 	private static function fetch_token( string $username, string $password ): string {
 		$response = wp_safe_remote_post( self::AUTH_URL,
@@ -128,6 +128,13 @@ class ApiClient {
 		return $token;
 	}
 
+	/**
+	 * Call the API to get specific images.
+	 *
+	 * @param array $ids The ids of the desired images.
+	 *
+	 * @return Image[]|null Data for these images.
+	 */
 	public function get_selection( array $ids ): ?array {
 		$params = [
 			'query' => 'SystemIdentifier: ' . implode( ' OR ', $ids ),
@@ -137,9 +144,11 @@ class ApiClient {
 	}
 
 	/**
-	 * @param array $additional_params
+	 * Search for images that satisfy provided params.
 	 *
-	 * @return Image[]|null
+	 * @param array $additional_params Supplement or override default parameters.
+	 *
+	 * @return Image[]|null The matching images.
 	 */
 	public function fetch_images( array $additional_params = [] ): ?array {
 		$params = array_merge( self::DEFAULT_PARAMS, $additional_params, $this->token_param() );
@@ -169,9 +178,9 @@ class ApiClient {
 	 * Get the ids from the api response so we can know which ones are already in WP before creating the Image
 	 * representation. That way we don't need to execute a query for each image.
 	 *
-	 * @param array $api_data
+	 * @param array $api_data The API data from which we extract the identifiers.
 	 *
-	 * @return array
+	 * @return string[] Indexed array with the WordPress ID of all images that are in WordPress
 	 */
 	private static function get_images_in_wordpress( array $api_data ): array {
 		global $wpdb;
@@ -202,7 +211,12 @@ WHERE m.meta_key = "' . Image::ARCHIVE_ID_META_KEY . '" AND m.meta_value IN ('
 		return $indexed;
 	}
 
-	private function token_param() {
+	/**
+	 * Get the token with the right array key.
+	 *
+	 * @return string[] Array with the token key and value.
+	 */
+	private function token_param(): array {
 		return [ 'token' => $this->token ];
 	}
 }

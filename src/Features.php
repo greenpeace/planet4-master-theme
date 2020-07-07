@@ -1,24 +1,59 @@
 <?php
+/**
+ * Class Features.
+ *
+ * @package P4\MasterTheme
+ */
 
 namespace P4\MasterTheme;
 
+/**
+ * Wrapper class for accessing feature settings and setting up the settings page.
+ */
 class Features {
+	/**
+	 * @var string The settings page slug.
+	 */
 	private const PAGE_SLUG = 'planet4_features';
+
+	/**
+	 * @var string The settings title.
+	 */
 	private const PAGE_TITLE = 'Features';
+
+	/**
+	 * @var string The metabox ID.
+	 */
 	private const METABOX_ID = 'planet4_features';
 
+	/**
+	 * @var string The metabox ID.
+	 */
 	public const IMAGE_ARCHIVE = 'feature_image_archive';
 
+	/**
+	 * Features constructor.
+	 */
 	public function __construct() {
 		add_action( 'admin_menu', [ $this, 'add_settings_page' ] );
 	}
 
+	/**
+	 * Check whether a feature is active.
+	 *
+	 * @param string $name The name of the feature we're checking.
+	 *
+	 * @return bool Whether the feature is active.
+	 */
 	public static function is_active( string $name ): bool {
 		$features = get_option( self::METABOX_ID );
 
 		return isset( $features[ $name ] ) && $features[ $name ];
 	}
 
+	/**
+	 * Add the feature settings page to the backend.
+	 */
 	public static function add_settings_page(): void {
 		add_options_page( self::PAGE_TITLE,
 				self::PAGE_TITLE,
@@ -28,6 +63,11 @@ class Features {
 
 	}
 
+	/**
+	 * Get the configuration for the settings page metabox.
+	 *
+	 * @return array Configuration for the settings page metabox.
+	 */
 	private static function get_metabox_settings(): array {
 		$fields = [
 				[

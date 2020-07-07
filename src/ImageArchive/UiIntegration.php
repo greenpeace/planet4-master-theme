@@ -1,14 +1,28 @@
 <?php
+/**
+ * Class UIIntegration.
+ *
+ * @package P4\MasterTheme\ImageArchive
+ */
 
 namespace P4\MasterTheme\ImageArchive;
 
 use P4\MasterTheme\Features;
 
+/**
+ * Add some WordPress UI elements if the feature is active.
+ */
 class UiIntegration {
+	/**
+	 * UiIntegration constructor.
+	 */
 	public function __construct() {
 		self::hooks();
 	}
 
+	/**
+	 * Hook up to WordPress.
+	 */
 	private static function hooks() {
 		if ( ! Features::is_active( Features::IMAGE_ARCHIVE ) ) {
 			return;
@@ -18,8 +32,11 @@ class UiIntegration {
 		add_action( 'media_upload_image_archive', [ self::class, 'output_image_picker' ] );
 		add_action( 'post-upload-ui', [ self::class, 'media_library_post_upload_ui' ] );
 	}
+
 	/**
 	 * Add GPI Media Library upload button in WP media popup upload UI.
+	 *
+	 * @todo: This is preserved from the original plugin, but can probably be done in a better way.
 	 */
 	public static function media_library_post_upload_ui() {
 		global $pagenow;
@@ -32,16 +49,27 @@ class UiIntegration {
 		print '<button id="db-upload-btn" class="' . $classes . '">' . esc_html__( 'Upload From GPI Media Library', 'planet4-medialibrary' ) . '</button>';
 	}
 
+	/**
+	 * @param string[] $tabs Existing tabs passed by the filter.
+	 *
+	 * @return string[] Same tabs with image archive tab added to them.
+	 */
 	public static function image_archive_tab( $tabs ): array {
 		$tabs['image_archive'] = __('GPI Image Archive', 'planet4-master-theme-backend');
 
 		return $tabs;
 	}
 
+	/**
+	 * Output the iframe for the media library tab.
+	 */
 	public static function output_image_picker(): void {
 		wp_iframe( [ self::class, 'output_picker' ] );
 	}
 
+	/**
+	 * Register js and output picker root element.
+	 */
 	public static function output_picker(): void {
 		wp_enqueue_style( 'picker',
 			get_template_directory_uri() . '/admin/css/picker.css',
@@ -58,6 +86,9 @@ class UiIntegration {
 		echo '<div id="archive-picker-root"></div>';
 	}
 
+	/**
+	 * Create a page with only the picker.
+	 */
 	public static function create_admin_menu(): void {
 		$current_user = wp_get_current_user();
 

@@ -1,16 +1,37 @@
 <?php
+/**
+ * Class ImageSize.
+ *
+ * @package P4\MasterTheme\ImageArchive
+ */
 
 namespace P4\MasterTheme\ImageArchive;
 
+/**
+ * Entity for sizes of an image.
+ */
 class ImageSize implements \JsonSerializable {
+	/**
+	 * @var string The media url.
+	 */
 	private $url;
+
+	/**
+	 * @var int The width in pixels.
+	 */
 	private $width;
+
+	/**
+	 * @var int The heigth in pixels.
+	 */
 	private $height;
 
 	/**
-	 * @param $data
+	 * Extract all available sizes from the media API data for an image.
 	 *
-	 * @return self[]
+	 * @param array $data The data of an image.
+	 *
+	 * @return self[] All available sizes from the data.
 	 */
 	public static function all_from_api_response( $data ): array {
 		$keys = [
@@ -41,6 +62,11 @@ class ImageSize implements \JsonSerializable {
 			[] );
 	}
 
+	/**
+	 * @inheritDoc
+	 *
+	 * @return array
+	 */
 	public function jsonSerialize(): array {
 		return [
 			'url'    => $this->url,
@@ -50,14 +76,18 @@ class ImageSize implements \JsonSerializable {
 	}
 
 	/**
-	 * @return mixed
+	 * Accessor for url.
+	 *
+	 * @return string The url.
 	 */
 	public function getUrl(): string {
 		return $this->url;
 	}
 
 	/**
-	 * @return mixed
+	 * Accessor for width.
+	 *
+	 * @return int The width.
 	 */
 	public function get_width() {
 		return $this->width;

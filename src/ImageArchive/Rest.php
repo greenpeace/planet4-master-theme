@@ -1,16 +1,35 @@
 <?php
+/**
+ * Class Rest.
+ *
+ * @package P4\MasterTheme\ImageArchive
+ */
 
 namespace P4\MasterTheme\ImageArchive;
 
+use P4\MasterTheme\Features;
 use P4\MasterTheme\RemoteCallFailed;
 use WP_Http;
 use WP_REST_Request;
 use WP_REST_Response;
 
+/**
+ * Wrapper class to add some endpoints.
+ * @todo: authorization.
+ */
 class Rest {
+	/**
+	 * @var string The API path.
+	 */
 	private const REST_NAMESPACE = 'planet4/v1';
 
+	/**
+	 * Add some REST API endpoints if feature is active.
+	 */
 	public static function register_endpoints(): void {
+		if ( ! Features::is_active( Features::IMAGE_ARCHIVE ) ) {
+			return;
+		}
 		$fetch_archive_images = static function ( WP_REST_Request $request ) {
 			try {
 				$api_client = ApiClient::from_cache_or_credentials();
@@ -35,7 +54,7 @@ class Rest {
 		};
 		register_rest_route( self::REST_NAMESPACE,
 			'image-archive/fetch',
-			[ 'methods' => \WP_REST_Server::READABLE, 'callback' => $fetch_archive_images, ] );
+			[ 'methods' => \WP_REST_Server::READABLE, 'callback' => $fetch_archive_images ] );
 
 		$transfer_to_wordpress = static function ( WP_REST_Request $request ) {
 			$json = $request->get_json_params();
@@ -58,6 +77,6 @@ class Rest {
 		};
 		register_rest_route( self::REST_NAMESPACE,
 			'image-archive/transfer',
-			[ 'methods' => \WP_REST_Server::CREATABLE, 'callback' => $transfer_to_wordpress, ] );
+			[ 'methods' => \WP_REST_Server::CREATABLE, 'callback' => $transfer_to_wordpress ] );
 	}
 }
