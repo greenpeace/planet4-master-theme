@@ -35,7 +35,7 @@ export class ArticlesFrontend extends Component {
   }
 
   loadArticles(page) {
-    const { article_count, posts, tags, post_types, ignore_categories, postType, postId } = this.props;
+    const { article_count, posts, tags, post_types, ignore_categories, postType, postId, setTotalPages } = this.props;
 
     const args = {
       article_count,
@@ -62,7 +62,8 @@ export class ArticlesFrontend extends Component {
         this.setState({
           posts: recent_posts,
           total_pages
-        })
+        });
+        if (setTotalPages) setTotalPages(total_pages);
       }
     });
   }

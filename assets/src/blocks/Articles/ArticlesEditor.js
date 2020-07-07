@@ -20,7 +20,9 @@ const TextControl = withCharacterCounter(BaseTextControl);
 export class ArticlesEditor extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      total_pages: 0
+    };
     this.toAttribute = this.toAttribute.bind(this);
   }
 
@@ -100,6 +102,7 @@ export class ArticlesEditor extends Component {
 
   renderView() {
     const { attributes, postType, postId } = this.props;
+    const { total_pages } = this.state;
 
     return (
       <Fragment>
@@ -125,8 +128,14 @@ export class ArticlesEditor extends Component {
           withoutInteractiveFormatting
           characterLimit={200}
         />
-        <ArticlesFrontend isEditing postType={postType} postId={postId} {...attributes} />
-        {attributes.posts.length === 0 && (
+        <ArticlesFrontend
+          isEditing
+          postType={postType}
+          postId={postId}
+          setTotalPages={total_pages => this.setState({ total_pages })}
+          {...attributes}
+        />
+        {attributes.posts.length === 0 && total_pages > 1 && (
           <RichText
             tagName="div"
             className="btn btn-secondary btn-block article-load-more load-more"

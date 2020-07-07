@@ -53,6 +53,7 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 		$this->assertCount( 1, $blocks );
 	}
 
+	// phpcs:disable
 	/**
 	 * Planet4 blocks shortocodes provider.
 	 *
