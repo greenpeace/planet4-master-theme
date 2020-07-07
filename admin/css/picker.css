@@ -1,3 +1,5 @@
+/* Todo: Change to scss, separate styles that are essential to the ImagePicker component to work (if there are any)
+     from ArchivePicker styles*/
 .picker-list {
   max-width: 60%;
   max-height: 75vh;
@@ -57,6 +59,8 @@ li.picker-selected {
 
 .picker-sidebar-single img {
   max-height: 30vh;
+  object-fit: cover;
+  width: 100%;
 }
 
 .archive-picker-loading {

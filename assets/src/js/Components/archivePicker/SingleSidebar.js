@@ -48,7 +48,7 @@ export class SingleSidebar extends Component {
         </button>
       ) }
       <img
-        srcSet={ toSrcSet( image.sizes ) }
+        srcSet={ toSrcSet( image.sizes, {maxWidth: 1300} ) }
         title={ image.title }
         alt={ image.title }
       />

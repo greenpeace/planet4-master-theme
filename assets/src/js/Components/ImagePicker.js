@@ -2,12 +2,12 @@ import { Component } from '@wordpress/element';
 import classNames from 'classnames';
 
 export const toSrcSet = ( sizes, config ) => {
-  const sizesToUse = sizes.filter(size=> {
+  const sizesToUse = sizes.filter( size => {
     if ( config && config.maxWidth ) {
       return size.width < config.maxWidth;
     }
     return true;
-  })
+  } );
 
   return sizesToUse.map( size => `${ size.url } ${ size.width }w` ).join();
 };
@@ -16,7 +16,7 @@ const isNearScrollEnd = ( event ) => {
   const { scrollHeight, scrollTop, clientHeight } = event.target;
   const tillEnd = ( scrollHeight - scrollTop - clientHeight ) / scrollHeight;
 
-  return tillEnd < 0.1;
+  return tillEnd < 0.2;
 };
 
 export class ImagePicker extends Component {
@@ -57,7 +57,9 @@ export class ImagePicker extends Component {
   }
 
   getSelectedImages() {
-    return this.state.selectedIds.map( selected => this.props.images.find( image => image.id === selected ) ).filter( image => !!image );
+    return this.state.selectedIds
+      .map( selected => this.props.images.find( image => image.id === selected ) )
+      .filter( image => !!image );
   }
 
   render() {

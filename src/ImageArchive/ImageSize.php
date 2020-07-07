@@ -55,13 +55,6 @@ class ImageSize implements \JsonSerializable {
 	/**
 	 * @return mixed
 	 */
-	public function is_original() {
-		return $this->is_original;
-	}
-
-	/**
-	 * @return mixed
-	 */
 	public function getUrl(): string {
 		return $this->url;
 	}

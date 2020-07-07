@@ -87,15 +87,11 @@ class Image implements \JsonSerializable {
 		$image->original_language_title       = $data['original-language-title'] ?? null;
 		$image->original_language_description = $data['original-language-description'] ?? null;
 
-		$smallest_size = 9999999;
+		$largest_size = 0;
 		foreach ( $image->sizes as $size ) {
-//			if ( $size->get_width() < $smallest_size ) {
-//				$smallest_size = $size->get_width();
-//				$image->original = $size;
-//			}
-			if ( $size->is_original() ) {
+			if ( $size->get_width() > $largest_size ) {
+				$largest_size = $size->get_width();
 				$image->original = $size;
-				break;
 			}
 		}
 
@@ -144,12 +140,7 @@ class Image implements \JsonSerializable {
 		$filename = basename( $url );
 		$filename = preg_replace( '/\?.*$/', '', $filename );
 
-		$context = stream_context_create( [
-			'ssl' => [
-//					'verify_peer'      => false,
-//					'verify_peer_name' => false,
-			],
-		] );
+		$context = stream_context_create();
 
 		// Upload file into WP upload dir.
 		$upload_file = wp_upload_bits( $filename, null, file_get_contents( $url, false, $context ) );

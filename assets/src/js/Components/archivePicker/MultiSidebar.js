@@ -27,7 +27,7 @@ export class MultiSidebar extends Component {
             key={ selected.id }
           >
             <img
-              srcSet={ toSrcSet( selected.sizes ) }
+              srcSet={ toSrcSet( selected.sizes, { maxWidth: 700 } ) }
               title={ selected.title }
               alt={ selected.title }
               width={ 80 }

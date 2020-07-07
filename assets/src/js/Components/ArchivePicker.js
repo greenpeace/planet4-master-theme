@@ -1,15 +1,13 @@
 import { Component, Fragment } from '@wordpress/element';
-import { TextControl, QueryControls } from '@wordpress/components';
+import { TextControl } from '@wordpress/components';
 import { ImagePicker, toSrcSet } from './ImagePicker';
 import { SingleSidebar } from './archivePicker/SingleSidebar';
 import { MultiSidebar } from './archivePicker/MultiSidebar';
 import classNames from 'classnames';
 import debounce from 'debounce';
-// import debounce from 'debounce-promise';
 
 const { apiFetch } = wp;
 const { addQueryArgs } = wp.url;
-
 class ArchivePicker extends Component {
 
   constructor( props ) {
