@@ -92,6 +92,9 @@ class ArchivePicker extends Component {
   }
 
   async search( text ) {
+    if ( text.length < 2 ) {
+      return;
+    }
     this.setState( { images: [], searchText: text, currentPage: 0 } );
     await this.loadNextPage();
   }
@@ -111,23 +114,32 @@ class ArchivePicker extends Component {
         original,
       } = image;
 
-      return <li
-        key={ id }
-        data-wordpress-id={ wordpress_id }
-        className={ classNames( { 'picker-selected': isSelected( image ) } ) }>
-        <img
-          srcSet={ toSrcSet( sizes, { maxWidth: 900 } ) }
-          title={ `${title}` }
-          alt={ alt }
-          width={ 200 * ( original.width / original.height ) }
-          height={ 200  }
-          onClick={ ( event ) =>
-            event.ctrlKey
-              ? toggleMultiSelection( image )
-              : toggleSingleSelection( image )
-          }
-        />
-      </li>;
+      try {
+
+        return <li
+          key={ id }
+          data-wordpress-id={ wordpress_id }
+          className={ classNames( { 'picker-selected': isSelected( image ) } ) }>
+          <img
+            srcSet={ toSrcSet( sizes, { maxWidth: 900 } ) }
+            title={ `${title}` }
+            alt={ alt }
+            width={ 200 * ( original.width / original.height ) }
+            height={ 200  }
+            onClick={ ( event ) =>
+              event.ctrlKey
+                ? toggleMultiSelection( image )
+                : toggleSingleSelection( image )
+            }
+          />
+        </li>;
+      } catch ( exception ) {
+        return <li>
+          key={id}
+          <span>{image.title}</span>
+          <span>No image available.</span>
+        </li>;
+      }
     } );
   }
 
