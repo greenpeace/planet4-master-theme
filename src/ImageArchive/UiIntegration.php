@@ -8,6 +8,7 @@
 namespace P4\MasterTheme\ImageArchive;
 
 use P4\MasterTheme\Capability;
+use P4\MasterTheme\Exception\RemoteCallFailed;
 use P4\MasterTheme\Features;
 use P4\MasterTheme\Loader;
 
@@ -29,47 +30,8 @@ class UiIntegration {
 		if ( ! Features::is_active( Features::IMAGE_ARCHIVE ) ) {
 			return;
 		}
-		add_action( 'admin_menu', [ self::class, 'create_admin_menu' ] );
-		add_filter( 'media_upload_tabs', [ self::class, 'image_archive_tab' ] );
-		add_action( 'media_upload_image_archive', [ self::class, 'output_image_picker' ] );
-		add_action( 'post-upload-ui', [ self::class, 'media_library_post_upload_ui' ] );
-	}
-
-	/**
-	 * Add GPI Media Library upload button in WP media popup upload UI.
-	 *
-	 * @todo: This is preserved from the original plugin, but can probably be done in a better way.
-	 */
-	public static function media_library_post_upload_ui() {
-		global $pagenow;
-		$classes = 'button media-button button-primary button-large add_media switchtoml';
-
-		// Add the insert media class only when not in the editor, i.e. when on the "Media > Add New" page.
-		if ( ( 'post.php' !== $pagenow ) && ( ! in_array( get_post_type(), [ 'post', 'page', 'campaign' ], true ) ) ) {
-			$classes .= ' insert-media';
-		}
-		echo '<button id="db-upload-btn" class="' . $classes . '">' . esc_html__( //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			'Upload From GPI Media Library',
-			'planet4-master-theme-backend'
-		) . '</button>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-	}
-
-	/**
-	 * @param string[] $tabs Existing tabs passed by the filter.
-	 *
-	 * @return string[] Same tabs with image archive tab added to them.
-	 */
-	public static function image_archive_tab( $tabs ): array {
-		$tabs['image_archive'] = __('GPI Image Archive', 'planet4-master-theme-backend');
-
-		return $tabs;
-	}
-
-	/**
-	 * Output the iframe for the media library tab.
-	 */
-	public static function output_image_picker(): void {
-		wp_iframe( [ self::class, 'output_picker' ] );
+		add_action( 'admin_menu', [ self::class, 'picker_page' ], 10 );
+		add_action( 'admin_menu', [ self::class, 'media_api_info_page' ], 20 );
 	}
 
 	/**
@@ -93,7 +55,7 @@ class UiIntegration {
 	/**
 	 * Create a page with only the picker.
 	 */
-	public static function create_admin_menu(): void {
+	public static function picker_page(): void {
 		if ( ! current_user_can( Capability::USE_IMAGE_ARCHIVE_PICKER ) ) {
 			return;
 		}
@@ -101,11 +63,73 @@ class UiIntegration {
 		add_menu_page(
 			__( 'GPI Media Library', 'planet4-master-theme-backend' ),
 			__( 'GPI Image Picker', 'planet4-master-theme-backend' ),
-			'manage_options',
+			Capability::USE_IMAGE_ARCHIVE_PICKER,
 			'gpi-image-picker',
 			[ self::class, 'output_picker' ],
 			P4ML_ADMIN_DIR . 'images/logo_menu_page_16x16.png',
 			3
 		);
+	}
+
+	/**
+	 * Create a page that displays the media api info.
+	 */
+	public static function media_api_info_page(): void {
+		add_submenu_page(
+			'gpi-image-picker',
+			__( 'Media API info', 'planet4-master-theme-backend' ),
+			__( 'Media API info', 'planet4-master-theme-backend' ),
+			Capability::USE_IMAGE_ARCHIVE_PICKER,
+			'media-api-info',
+			[ self::class, 'api_info' ],
+			3
+		);
+	}
+
+	/**
+	 * Display information about the media API.
+	 */
+	public static function api_info(): void {
+		Loader::enqueue_versioned_style( '/admin/css/media-api-info.css' );
+
+		//phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+		try {
+			$client   = ApiClient::from_cache_or_credentials();
+			$fields   = $client->show_fields();
+			$criteria = $client->show_criteria();
+		} catch ( RemoteCallFailed $exception ) {
+			echo 'Failed calling API. Error: ' . $exception;
+
+			return;
+		}
+
+		echo '<h1>FIELDS</h1>';
+		echo '<p>The fields that can be requested from the API.</p>';
+		echo '<dl>';
+		foreach ( $fields as $id => $description ) {
+			echo "<dt><h3>{$id}</h3></dt>";
+			echo "<dd>{$description}</dd>";
+		}
+		echo '</dl>';
+
+		echo '<br><hr style="height: 5px;"><br>';
+
+		echo '<h1>CRITERIA</h1>';
+		echo '<p>The criteria which can be used when querying the API.</p>';
+		echo '<dl>';
+		foreach ( $criteria as $criterium ) {
+			$description = nl2br( $criterium['Description'] ?? '' );
+			$examples    = preg_replace( '/\s*<\s*/', ' < ', $criterium['Examples'] ?? '' );
+			$examples    = preg_replace( '/\s*>\s*/', ' > ', $examples );
+			echo "<dt><h3>{$criterium['Name']}</h3></dt>";
+			echo '<dd>';
+			echo $description;
+			if ( $examples ) {
+				echo "<pre>{$examples}</pre>";
+			}
+			echo '</dd>';
+		}
+		echo '</dl>';
+		//phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }

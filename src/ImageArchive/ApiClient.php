@@ -20,6 +20,10 @@ class ApiClient {
 
 	private const SEARCH_URL = self::BASE_URL . '/API/search/v3.0/search';
 
+	private const LIST_FIELDS_URL = self::BASE_URL . '/API/search/v3.0/ListFields';
+
+	private const LIST_CRITERIA_URL = self::BASE_URL . '/API/search/v3.0/ListCriteria';
+
 	private const TOKEN_CACHE_KEY = 'ml_auth_token';
 
 	private const RESPONSE_TIMEOUT = 10;
@@ -187,6 +191,46 @@ class ApiClient {
 		return Image::all_from_api_response( $response, $images_in_wordpress );
 	}
 
+	/**
+	 * Fetch all fields that can be requested from the API + description and examples.
+	 *
+	 * @return array All fields that can be requested from the API + description and examples.
+	 */
+	public function show_fields(): array {
+		$url = add_query_arg( array_merge( $this->token_param(), [ 'format' => 'json' ] ), self::LIST_FIELDS_URL );
+
+		$response = wp_remote_get(
+			$url,
+			[
+				'timeout' => self::RESPONSE_TIMEOUT,
+			]
+		);
+
+		$response = json_decode( $response['body'], true );
+
+		return $response['APIResponse']['Metadata'];
+	}
+
+
+	/**
+	 * List criteria that can be used in API queries.
+	 *
+	 * @return array List of criteria that can be used in API queries.
+	 */
+	public function show_criteria(): array {
+		$url = add_query_arg( array_merge( $this->token_param(), [ 'format' => 'json' ] ), self::LIST_CRITERIA_URL );
+
+		$response = wp_remote_get(
+			$url,
+			[
+				'timeout' => self::RESPONSE_TIMEOUT,
+			]
+		);
+
+		$response = json_decode( $response['body'], true );
+
+		return $response['APIResponse'];
+	}
 	/**
 	 * Get the ids from the api response so we can know which ones are already in WP before creating the Image
 	 * representation. That way we don't need to execute a query for each image.
