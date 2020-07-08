@@ -1,9 +1,4 @@
 <?php
-/**
- * Campaign Settings Exporter
- *
- * @package P4MT
- */
 
 namespace P4\MasterTheme;
 

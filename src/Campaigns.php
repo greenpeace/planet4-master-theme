@@ -1,9 +1,4 @@
 <?php
-/**
- * P4 Campaigns
- *
- * @package P4MT
- */
 
 namespace P4\MasterTheme;
 

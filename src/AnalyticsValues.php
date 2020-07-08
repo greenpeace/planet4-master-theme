@@ -1,9 +1,4 @@
 <?php
-/**
- * Data class for post editor analytics values.
- *
- * @package P4MT
- */
 
 namespace P4\MasterTheme;
 

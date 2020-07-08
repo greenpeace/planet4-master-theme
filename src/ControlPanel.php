@@ -1,16 +1,10 @@
 <?php
-/**
- * P4 Control Panel
- *
- * @package P4MT
- */
 
 namespace P4\MasterTheme;
 
 use P4GEN\Controllers\Ensapi_Controller as ENS_API;
 use ElasticPress\Elasticsearch as ES;
 use WP_Error;
-
 
 /**
  * Class ControlPanel

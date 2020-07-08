@@ -1,9 +1,4 @@
 <?php
-/**
- * A custom post type for P3 posts that were archived.
- *
- * @package P4MT
- */
 
 namespace P4\MasterTheme;
 
