@@ -28,10 +28,10 @@ export class SingleSidebar extends Component {
 
     return <Fragment>
       { !!processingError && (
-        <div className={ "error" }>Error: { processingError.message }</div>
+        <div className={ 'error' }>Error: { processingError.message }</div>
       ) }
       { !!processingImages && (
-        <div className={ "info" }>Processing...</div>
+        <div className={ 'info' }>Processing...</div>
       ) }
       { image.wordpress_id ? (
         <a

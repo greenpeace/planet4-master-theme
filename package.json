@@ -11,9 +11,11 @@
     "lint:css": "wp-scripts lint-style"
   },
   "devDependencies": {
+    "@wordpress/components": "^10.0.0",
     "@wordpress/scripts": "5.0.0",
     "autoprefixer": "^9.6.1",
     "css-loader": "^3.2.0",
+    "eslint-plugin-react": "^7.20.3",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.14.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",

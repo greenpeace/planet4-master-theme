@@ -6,6 +6,9 @@
         "amd":true
     },
     "extends": "eslint:recommended",
+    "globals": {
+        "wp": "readonly"
+    },
     "rules": {
         "indent": [
             "error",
@@ -32,9 +35,19 @@
             "always"
         ],
         "new-cap": "error",
-        "no-var": 1
+        "no-var": 1,
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error"
     },
     "parserOptions": {
+      "ecmaVersion": 9,
+      "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
+      },
       "sourceType": "module"
-    }
+    },
+    "plugins": [
+      "react"
+    ]
 }

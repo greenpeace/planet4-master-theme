@@ -1,5 +1,6 @@
 /* Todo: Change to scss, separate styles that are essential to the ImagePicker component to work (if there are any)
      from ArchivePicker styles*/
+
 .picker-list {
   max-width: 60%;
   max-height: 75vh;
@@ -20,7 +21,7 @@
   background: white;
   position: absolute;
   top: 0;
-  right: 0
+  right: 0;
 }
 
 .image-picker li img {
