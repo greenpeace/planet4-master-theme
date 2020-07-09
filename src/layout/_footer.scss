@@ -84,6 +84,7 @@
   text-align: center;
   width: max-content;
   margin-bottom: 32px;
+  padding: 0;
 
   @include small-and-up {
     font-size: $font-size-xxxl;
@@ -99,6 +100,11 @@
   li {
     display: inline-block;
     margin: 0 16px 0 0;
+    font-size: $font-size-xl;
+
+    &:last-child {
+      margin: 0;
+    }
   }
 
   a {
@@ -138,9 +144,12 @@
 .footer-links {
   color: var(--footer_links_color, $white);
   font-weight: bold;
-  font-size: $font-size-md;
   text-transform: uppercase;
   margin-bottom: 16px;
+
+  li {
+    font-size: $font-size-md;
+  }
 
   @include medium-and-up {
     font-size: $font-size-sm;
