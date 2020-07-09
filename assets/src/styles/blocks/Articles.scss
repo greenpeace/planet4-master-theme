@@ -15,15 +15,26 @@
     box-shadow: none;
   }
 
-  .article-hover {
-    text-decoration: underline;
-  }
-
   &:first-of-type {
     margin-top: 0;
 
     @include medium-and-up {
       margin-top: 0;
+    }
+  }
+
+  &.editing {
+    a,
+    .article-list-item-image,
+    .top-page-tags .tag-item {
+      pointer-events: none;
+      cursor: default;
+    }
+
+    .article-list-item-date,
+    .article-list-item-author,
+    .article-list-item-content {
+      cursor: default;
     }
   }
 
@@ -163,4 +174,9 @@
 
 .article-load-more {
   margin-top: $space-lg;
+}
+
+// In the editor
+div.article-load-more {
+  cursor: text;
 }

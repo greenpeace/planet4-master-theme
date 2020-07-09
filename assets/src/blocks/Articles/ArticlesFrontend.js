@@ -95,7 +95,12 @@ export class ArticlesFrontend extends Component {
             }
             <div className="article-list-section clearfix">
               {posts && posts.length > 0 && posts.map(post =>
-                <ArticlePreview key={post.post_title} isCampaign={postType === 'campaign'} post={post} />
+                <ArticlePreview
+                  key={post.post_title}
+                  isEditing={isEditing}
+                  isCampaign={postType === 'campaign'}
+                  post={post}
+                />
               )}
             </div>
             {total_pages > 1 && page < (total_pages - 1) && !isEditing &&

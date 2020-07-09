@@ -62,7 +62,8 @@ export class ArticlePreview extends Component {
         post_title,
         post_date,
         post_excerpt
-      }
+      },
+      isEditing
     } = this.props;
 
     const date = new Date(post_date);
@@ -71,6 +72,7 @@ export class ArticlePreview extends Component {
     if (tags && tags.length > 0) {
       tags.forEach(tag => articleClassName += ` ${tag.slug}`);
     }
+    if (isEditing) articleClassName += ' editing';
 
     return (
       <article className={articleClassName} >
