@@ -4,6 +4,10 @@
   margin-top: $space-xl;
   margin-bottom: $space-xl;
 
+  &.editing .counter-text {
+    cursor: default;
+  }
+
   .page-section-description {
     white-space: pre-wrap;
   }

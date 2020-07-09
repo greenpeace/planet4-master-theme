@@ -79,9 +79,12 @@ export class CounterFrontend extends Component {
 
     const percent = target > 0 ? Math.round(completed / target * 100) : 0;
 
+    let counterClassName = `block container counter-block counter-style-${style}`;
+    if (isEditing) counterClassName += ` editing`;
+
     return (
       <Fragment>
-        <section className={`block container counter-block counter-style-${style}`}>
+        <section className={counterClassName}>
           <div className="container">
             {title && !isEditing &&
               <header>
