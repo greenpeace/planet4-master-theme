@@ -1,7 +1,7 @@
 import { Component, Fragment } from '@wordpress/element';
 import { toSrcSet } from '../ImagePicker';
 
-const __ = ( str ) => wp.i18n.__( str, 'planet4-master-theme-backend' );
+const { __ } = wp.i18n;
 const wpImageLink = ( id ) => `${ window.location.href.split( '/wp-admin' )[ 0 ] }/wp-admin/post.php?post=${ id }&action=edit`;
 const largestSize = ( image ) => !image ? null : image.original;
 const renderDefinition = ( key, value ) => ( <div>
@@ -44,7 +44,7 @@ export class SingleSidebar extends Component {
             await includeInWp( [ image.id ] );
           } }
         >
-          { __( 'Include in WP' ) }
+          { __( 'Include in WP', 'planet4-master-theme-backend' ) }
         </button>
       ) }
       <img
@@ -54,31 +54,31 @@ export class SingleSidebar extends Component {
       />
       <dl className={ 'picker-sidebar-fields' }>
         { renderDefinition(
-          __( 'URL' ),
+          __( 'URL', 'planet4-master-theme-backend' ),
           <a href={ original.url }>{ original.url } </a>
         ) }
         { renderDefinition(
-          __( 'Dimensions' ),
+          __( 'Dimensions', 'planet4-master-theme-backend' ),
           `${ original.width } x ${ original.height }`
         ) }
         { renderDefinition(
-          __( 'Title' ),
+          __( 'Title', 'planet4-master-theme-backend' ),
           image.title
         ) }
         { renderDefinition(
-          __( 'Caption' ),
+          __( 'Caption', 'planet4-master-theme-backend' ),
           image.caption
         ) }
         { renderDefinition(
-          __( 'Credit' ),
+          __( 'Credit', 'planet4-master-theme-backend' ),
           image.credit
         ) }
         { renderDefinition(
-          __( 'Original language title' ),
+          __( 'Original language title', 'planet4-master-theme-backend' ),
           image.original_language_title,
         ) }
         { renderDefinition(
-          __( 'Original language description' ),
+          __( 'Original language description', 'planet4-master-theme-backend' ),
           image.original_language_description,
         ) }
       </dl>

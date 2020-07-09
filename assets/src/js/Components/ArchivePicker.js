@@ -1,7 +1,6 @@
+const {__} = wp.i18n;
 import { Component, Fragment } from '@wordpress/element';
-import { TextControl } from '@wordpress/components';
 import { ImagePicker } from './ImagePicker';
-import debounce from 'debounce';
 import { archivePickerSidebar } from './archivePicker/archivePickerSidebar';
 import { archivePickerList } from './archivePicker/archivePickerList';
 
@@ -27,7 +26,7 @@ class ArchivePicker extends Component {
   }
 
   async componentDidMount() {
-    await this.loadNextPage( {} );
+    await this.loadNextPage();
   }
 
   async fetchImages( args ) {
@@ -36,14 +35,16 @@ class ArchivePicker extends Component {
     } );
   }
 
-  async loadNextPage() {
-    const pageIndex = this.state.currentPage + 1;
+  async loadNextPage( newSearch = false ) {
+    this.setState( { loading: true } );
+
+    const pageIndex = newSearch ? 1 : this.state.currentPage + 1;
+    const searchedText = newSearch ? this.state.enteredSearch : this.state.searchText;
 
     try {
-      this.setState( { loading: true } );
       const nextImages = await this.fetchImages( {
         page: pageIndex,
-        search_text: this.state.searchText,
+        search_text: searchedText,
       } );
       const withPageLabel = nextImages.map( image => ( {
         ...image,
@@ -51,7 +52,11 @@ class ArchivePicker extends Component {
       } ) );
       this.setState( {
         currentPage: pageIndex,
-        images: [ ...this.state.images, ...withPageLabel ]
+        images: [
+          ...( newSearch ? [] : this.state.images ),
+          ...withPageLabel
+        ],
+        searchText: searchedText,
       } );
     } catch ( error ) {
       this.setState( { error } );
@@ -93,12 +98,8 @@ class ArchivePicker extends Component {
     } );
   }
 
-  async search( text ) {
-    if ( text.length < 2 ) {
-      return;
-    }
-    this.setState( { images: [], searchText: text, currentPage: 0 } );
-    await this.loadNextPage();
+  async search() {
+    await this.loadNextPage( true );
   }
 
   render() {
@@ -109,17 +110,27 @@ class ArchivePicker extends Component {
     } = this.state;
 
     return <Fragment>
-      <TextControl
-        onChange={ debounce( this.search, 500 ) }
-        disabled={ this.state.loading }
-      />
+      <form
+        className={ 'archive-picker-search' }
+        onSubmit={ event => {
+          event.preventDefault();
+          this.search();
+        } }
+        onChange={ event => this.setState( { enteredSearch: event.target.value } ) }
+      >
+        <input
+          type={ 'text' }
+          disabled={ this.state.loading }
+        />
+        <input type={ 'submit' } value={ __( 'Search', 'planet4-master-theme-backend' ) }/>
+      </form>
       { loading && (
         <div className={ 'archive-picker-loading' }> loading...</div>
       ) }
       { !!error && (
         <div>
           <h3>API error:</h3>
-          <p> { error } </p>
+          <p> { error.message } </p>
         </div>
       ) }
       <ImagePicker

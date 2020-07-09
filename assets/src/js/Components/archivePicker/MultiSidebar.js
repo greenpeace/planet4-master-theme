@@ -1,7 +1,7 @@
 import { Component, Fragment } from '@wordpress/element';
 import { toSrcSet } from '../ImagePicker';
 
-const __ = ( str ) => wp.i18n.__( str, 'planet4-master-theme-backend' );
+const { __ } = wp.i18n;
 
 export class MultiSidebar extends Component {
   constructor( props ) {
@@ -19,7 +19,7 @@ export class MultiSidebar extends Component {
     const selectedImages = getSelectedImages();
 
     return <Fragment>
-      <p>{ selectedImages.length }{ __( 'images selected' ) }</p>
+      <p>{ selectedImages.length }{ __( 'images selected', 'planet4-master-theme-backend' ) }</p>
       <ul
       >
         { selectedImages.map( selected => (
