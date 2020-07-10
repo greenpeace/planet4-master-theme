@@ -176,7 +176,14 @@
   margin-top: $space-lg;
 }
 
-// In the editor
-div.article-load-more {
-  cursor: text;
+// Button in the editor
+div.btn-secondary.article-load-more.btn.btn-block {
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: transparentize($white, .7);
+    border-color: $dark-blue;
+    color: $dark-blue;
+    box-shadow: none;
+  }
 }

@@ -138,7 +138,7 @@ export class ArticlesEditor extends Component {
         {attributes.posts.length === 0 && total_pages > 1 && (
           <RichText
             tagName="div"
-            className="btn btn-secondary btn-block article-load-more load-more"
+            className="btn btn-secondary btn-block article-load-more"
             placeholder={__('Override button text', 'p4ge')}
             value={attributes.read_more_text}
             onChange={this.toAttribute('read_more_text')}
