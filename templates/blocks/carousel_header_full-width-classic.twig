@@ -3,9 +3,9 @@
     {{ text|length > maxLength ? text|slice(0, maxLength) ~ '…' : text }}
 {% endmacro %}
 
-<section class="block block-header block-wide carousel-header_{{ fields.block_style }}">
+<section class="block block-header block-wide carousel-header_full-width-classic">
 	<div id="carousel-wrapper-header"
-		data-block-style="{{ fields.block_style }}"
+		data-block-style="full-width-classic"
 		data-carousel-autoplay="{{ fields.carousel_autoplay == 1 ? 'true' : '' }}">
 
 		{% if fields.total_images > 1 %}

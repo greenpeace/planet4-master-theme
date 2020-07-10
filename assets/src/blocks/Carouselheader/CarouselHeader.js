@@ -80,26 +80,15 @@ export class CarouselHeader extends Component {
     return (
 
       <div>
-        <h3>{__('What style of carousel do you need?', 'p4ge')}</h3>
+        <h3>{__('Configure your carousel', 'p4ge')}</h3>
 
         <div>
-          <LayoutSelector
-            selectedOption={this.props.block_style}
-            onSelectedLayoutChange={this.props.onBlockStyleChange}
-            options={[
-              {
-                label: __('Zoom and slide to gray', 'p4ge'),
-                image: window.p4ge_vars.home + 'images/carousel-with-preview.png',
-                value: 'zoom-and-slide-to-gray',
-                help: __('This carousel provides a fancy transition, and a preview for the next slide in an oblique shape.')
-              }, {
-                label: __('Full width classic', 'p4ge'),
-                image: window.p4ge_vars.home + 'images/carousel-classic.png',
-                value: 'full-width-classic',
-                help: __('This is a full width slider with a classic look: big slides, fade transition, and no subheaders.'),
-              },
-            ]}
-          />
+          <div className='LayoutSelector'>
+          <label>
+            <img src={`${window.p4ge_vars.home}images/carousel-classic.png`}/>
+            <p className="help">{__('This is a full width slider with a classic look: big slides and fade transition.')}</p>
+          </label>
+          </div>
         </div>
 
         <div>
@@ -120,14 +109,11 @@ export class CarouselHeader extends Component {
                 onImageChange={this.props.onImageChange}
                 onHeaderChange={this.props.onHeaderChange}
                 onHeaderSizeChange={this.props.onHeaderSizeChange}
-                onSubheaderChange={this.props.onSubheaderChange}
                 onDescriptionChange={this.props.onDescriptionChange}
                 onLinkTextChange={this.props.onLinkTextChange}
                 onLinkUrlChange={this.props.onLinkUrlChange}
                 onLinkNewTabChange={this.props.onLinkNewTabChange}
-                onStyleChange={this.props.onStyleChange}
                 onFocalPointsChange={this.props.onFocalPointsChange}
-                hasSubheader={this.props.block_style !== 'full-width-classic'}
                 index={i}
                 key={i}
                 ref={(instance) => {
@@ -145,7 +131,7 @@ export class CarouselHeader extends Component {
           >
             Add Slide
           </Button>
-          <Button isDefault
+          <Button isSecondary
                   onClick={this.removeSlide.bind(this)} disabled={this.props.slides.length <= 1}
           >
             Remove Slide
@@ -169,7 +155,6 @@ export class CarouselHeader extends Component {
             ? <ServerSideRender
                 block={'planet4-blocks/carousel-header'}
                 attributes={{
-                  block_style: this.props.block_style,
                   carousel_autoplay: this.props.carousel_autoplay,
                   slides: this.props.slides,
                 }}
