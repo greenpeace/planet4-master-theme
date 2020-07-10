@@ -44,7 +44,7 @@ $post->set_issues_links();
 $page_meta_data                 = get_post_meta( $post->ID );
 $page_meta_data                 = array_map( 'reset', $page_meta_data );
 $page_terms_data                = get_the_terms( $post, 'p4-page-type' );
-$page_terms_data                = array_map( 'reset', $page_terms_data );
+$page_terms_data                = is_array( $page_terms_data ) ? reset( $page_terms_data ) : null;
 $context['background_image']    = $page_meta_data['p4_background_image_override'] ?? '';
 $take_action_page               = $page_meta_data['p4_take_action_page'] ?? '';
 $context['page_type']           = $page_terms_data->name ?? '';
