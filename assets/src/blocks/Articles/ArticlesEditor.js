@@ -2,7 +2,8 @@ import { Component, Fragment } from '@wordpress/element';
 import {
   CheckboxControl,
   TextControl as BaseTextControl,
-  PanelBody
+  PanelBody,
+  Tooltip
 } from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
 import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
@@ -106,18 +107,21 @@ export class ArticlesEditor extends Component {
 
     return (
       <Fragment>
-        <header>
-          <RichText
-            tagName="h2"
-            className="page-section-header"
-            placeholder={__('Enter title', 'p4ge')}
-            value={attributes.article_heading}
-            onChange={this.toAttribute('article_heading')}
-            keepPlaceholderOnFocus={true}
-            withoutInteractiveFormatting
-            characterLimit={40}
-          />
-        </header>
+        <Tooltip text={__('Edit text', 'p4ge')}>
+          <header className="articles-title-container">
+            <RichText
+              tagName="h2"
+              className="page-section-header"
+              placeholder={__('Enter title', 'p4ge')}
+              value={attributes.article_heading}
+              onChange={this.toAttribute('article_heading')}
+              keepPlaceholderOnFocus={true}
+              withoutInteractiveFormatting
+              characterLimit={40}
+              multiline="false"
+            />
+          </header>
+        </Tooltip>
         <RichText
           tagName="p"
           className="page-section-description"
@@ -136,16 +140,21 @@ export class ArticlesEditor extends Component {
           {...attributes}
         />
         {attributes.posts.length === 0 && total_pages > 1 && (
-          <RichText
-            tagName="div"
-            className="btn btn-secondary btn-block article-load-more"
-            placeholder={__('Override button text', 'p4ge')}
-            value={attributes.read_more_text}
-            onChange={this.toAttribute('read_more_text')}
-            keepPlaceholderOnFocus={true}
-            withoutInteractiveFormatting
-          />
-        )}
+          <Tooltip text={__('Edit text', 'p4ge')}>
+            <div className="btn btn-secondary btn-block article-load-more">
+              <RichText
+                tagName="div"
+                placeholder={__('Override button text', 'p4ge')}
+                value={attributes.read_more_text}
+                onChange={this.toAttribute('read_more_text')}
+                keepPlaceholderOnFocus={true}
+                withoutInteractiveFormatting
+                multiline="false"
+              />
+            </div>
+          </Tooltip>
+        )
+        }
       </Fragment>
     );
   }
