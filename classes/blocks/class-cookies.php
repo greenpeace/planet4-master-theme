@@ -52,9 +52,8 @@ class Cookies extends Base_Block {
 		register_block_type(
 			'planet4-blocks/cookies',
 			[
-				'editor_script'   => 'planet4-blocks/cookies',
-				'render_callback' => [ $this, 'render' ],
-				'attributes'      => [
+				'editor_script' => 'planet4-blocks/cookies',
+				'attributes'    => [
 					'title'                         => [
 						'type'    => 'string',
 						'default' => '',
@@ -85,38 +84,12 @@ class Cookies extends Base_Block {
 	}
 
 	/**
-	 * Get all the data that will be needed to render the block correctly.
+	 * Required by the parent abstract class.
 	 *
 	 * @param array $attributes This is the array of fields of this block.
-	 *
 	 * @return array The data to be passed in the View.
 	 */
 	public function prepare_data( $attributes ): array {
-
-		// If request is coming from backend rendering.
-		if ( $this->is_rest_request() ) {
-			$post_id = filter_input( INPUT_GET, 'post_id', FILTER_VALIDATE_INT );
-			if ( $post_id > 0 ) {
-				$post = get_post( $post_id );
-			}
-		} else {
-			$post = get_queried_object();
-		}
-
-		// Enqueue js for the frontend.
-		if ( ! $this->is_rest_request() ) {
-			\P4GBKS\Loader::enqueue_local_script( 'cookies', 'public/js/cookies.js', [ 'jquery' ] );
-		}
-
-		$data = [
-			'title'                         => $attributes['title'] ?? '',
-			'description'                   => $attributes['description'] ?? '',
-			'necessary_cookies_name'        => $attributes['necessary_cookies_name'] ?? '',
-			'necessary_cookies_description' => $attributes['necessary_cookies_description'] ?? '',
-			'all_cookies_name'              => $attributes['all_cookies_name'] ?? '',
-			'all_cookies_description'       => $attributes['all_cookies_description'] ?? '',
-		];
-
-		return $data;
+		return [];
 	}
 }

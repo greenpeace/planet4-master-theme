@@ -384,7 +384,9 @@ final class Loader {
 				'wp-api-fetch',
 				// URL helpers (as addQueryArgs).
 				'wp-url',
-			]
+				'main',
+			],
+			true
 		);
 
 		self::enqueue_local_script( 'post_action', 'public/js/post_action.js', [ 'jquery' ] );
