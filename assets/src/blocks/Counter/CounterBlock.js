@@ -31,10 +31,6 @@ export class CounterBlock {
       text: {
         type: 'string',
         default: ''
-      },
-      className: {
-        type: 'string',
-        default: 'is-style-plain'
       }
     };
 
@@ -83,7 +79,7 @@ export class CounterBlock {
         },
         {
           name: 'en-forms-bar',
-          label: __( 'Progress bar inside EN Form', 'planet4-blocks' )
+          label: __( 'Progress Bar inside EN Form', 'planet4-blocks' )
         }
       ]
     );

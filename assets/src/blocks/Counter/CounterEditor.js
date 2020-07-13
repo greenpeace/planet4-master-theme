@@ -47,7 +47,7 @@ export class CounterEditor extends Component {
             <div>
               <URLInput
                 label={__('Completed API URL', 'p4ge')}
-                placeholder={__('API URL of completed number. If filled in will overide the \'Completed\' field', 'p4ge')}
+                placeholder={__('API URL of completed number. If filled in will override the \'Completed\' field', 'p4ge')}
                 value={attributes.completed_api}
                 onChange={this.toAttribute('completed_api')}
               />
