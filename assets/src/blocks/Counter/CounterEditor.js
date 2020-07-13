@@ -95,6 +95,7 @@ export class CounterEditor extends Component {
             keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
             characterLimit={60}
+            multiline="false"
           />
         </header>
         <RichText
