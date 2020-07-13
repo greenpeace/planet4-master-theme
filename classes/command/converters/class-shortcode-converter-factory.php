@@ -32,8 +32,6 @@ class Shortcode_Converter_Factory {
 				return new Covers_Converter( $shortcode_name, $attributes );
 			case 'shortcake_social_media':
 				return new SocialMedia_Converter( $shortcode_name, $attributes );
-			case 'shortcake_submenu':
-				return new Submenu_Converter( $shortcode_name, $attributes );
 			case 'shortcake_take_action_boxout':
 				return new TakeActionBoxout_Converter( $shortcode_name, $attributes );
 		}

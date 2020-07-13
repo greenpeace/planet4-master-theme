@@ -36,7 +36,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 	 * @dataProvider covers_shortcodes_provider
 	 * @dataProvider media_shortcodes_provider
 	 * @dataProvider social_media_shortcodes_provider
-	 * @dataProvider submenu_shortcodes_provider
 	 * @dataProvider timeline_shortcodes_provider
 	 * @dataProvider take_action_boxout_shortcodes_provider
 	 */
@@ -419,66 +418,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 				],
 
 
-		];
-	}
-
-	/**
-	 * Planet4 blocks shortocodes provider.
-	 *
-	 * @return array
-	 */
-	public function submenu_shortcodes_provider(): array {
-		return [
-			// 1-5
-
-			'submenu with title and language' =>
-				[
-					'[shortcake_submenu submenu_style="1" title="On this page" heading1="2" link1="true" heading2="3" link2="true" /]',
-
-					'<!-- wp:planet4-blocks/submenu {"submenu_style":1,"title":"On this page","levels":[{"heading":2,"link":true},{"heading":3,"link":true}]} /-->',
-				],
-
-			'submenu 1 level with invalid 2nd and 3rd link attribute' =>
-				[
-					'[shortcake_submenu submenu_style="1" title="Submenu - Full-width style" heading1="2" link1="true" link2="false" link3="false" /]',
-
-					'<!-- wp:planet4-blocks/submenu {"submenu_style":1,"title":"Submenu - Full-width style","levels":[{"heading":2,"link":true}]} /-->',
-				],
-
-			'submenu 3 levels' =>
-				[
-					'[shortcake_submenu submenu_style="1" title="This is the Submenu\'s title" heading1="1" link1="true" heading2="2" link2="true" heading3="3" link3="true" /]',
-
-					'<!-- wp:planet4-blocks/submenu {"submenu_style":1,"title":"This is the Submenu\'s title","levels":[{"heading":1,"link":true},{"heading":2,"link":true},{"heading":3,"link":true}]} /-->',
-				],
-
-			'submenu 2 levels' =>
-				[
-					'[shortcake_submenu submenu_style="3" heading1="3" link1="true" heading2="4" link2="true" /]',
-
-					'<!-- wp:planet4-blocks/submenu {"submenu_style":3,"levels":[{"heading":3,"link":true},{"heading":4,"link":true}]} /-->',
-				],
-
-			'submenu 1 level with style' =>
-				[
-					'[shortcake_submenu submenu_style="2" heading1="4" link1="true" style1="bullet" link2="false" link3="false" /]',
-
-					'<!-- wp:planet4-blocks/submenu {"submenu_style":2,"levels":[{"heading":4,"link":true,"style":"bullet"}]} /-->',
-				],
-
-			'submenu invalid 2nd level' =>
-				[
-					'[shortcake_submenu submenu_style="3" title="Submenu - sidebar style" heading1="2" link1="true" heading2="0" link2="false" link3="false" /]',
-
-					'<!-- wp:planet4-blocks/submenu {"submenu_style":3,"title":"Submenu - sidebar style","levels":[{"heading":2,"link":true}]} /-->',
-				],
-
-			'submenu invalid 2nd level invalid heading' =>
-				[
-					'[shortcake_submenu submenu_style="3" heading1="2" link1="true" heading2="0" /]',
-
-					'<!-- wp:planet4-blocks/submenu {"submenu_style":3,"levels":[{"heading":2,"link":true}]} /-->',
-				],
 		];
 	}
 

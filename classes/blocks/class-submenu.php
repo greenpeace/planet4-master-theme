@@ -22,72 +22,27 @@ class Submenu extends Base_Block {
 	/** @const string BLOCK_NAME */
 	const BLOCK_NAME = 'submenu';
 
-	/** @const string EMPTY_MESSAGE */
-	const EMPTY_MESSAGE = 'The submenu block produces no output on the editor.';
-
-	/**
-	 * Register shortcake shortcode.
-	 *
-	 * @param array  $attributes Shortcode attributes.
-	 * @param string $content   Content.
-	 *
-	 * @return mixed
-	 */
-	public function add_block_shortcode( $attributes, $content ) {
-
-		$levels = [];
-		for ( $i = 1; $i <= 3; $i++ ) {
-			if ( ! empty( $attributes[ 'heading' . $i ] ) ) {
-				$level = [
-					'heading' => $attributes[ 'heading' . $i ] ?? '',
-					'link'    => $attributes[ 'link' . $i ] ?? '',
-					'style'   => $attributes[ 'style' . $i ] ?? '',
-				];
-
-				array_push( $levels, $level );
-			}
-		}
-
-		$attributes['levels'] = $levels;
-
-		$attributes = shortcode_atts(
-			[
-				'submenu_style' => '',
-				'title'         => '',
-				'levels'        => [
-					[
-						'heading' => '',
-						'link'    => '',
-						'style'   => '',
-					],
-				],
-			],
-			$attributes,
-			'shortcake_submenu'
-		);
-
-		return $this->render( $attributes );
-	}
-
 	/**
 	 * Submenu constructor.
 	 */
 	public function __construct() {
-		add_shortcode( 'shortcake_submenu', [ $this, 'add_block_shortcode' ] );
-
 		register_block_type(
 			'planet4-blocks/submenu',
 			[
 				'editor_script'   => 'planet4-blocks',
-				'render_callback' => [ $this, 'render' ],
+				// todo: Remove when all content is migrated.
+				'render_callback' => static function ( $attributes ) {
+					$json = wp_json_encode( [ 'attributes' => $attributes ] );
+					return '<div data-render="planet4-blocks/submenu" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+				},
 				'attributes'      => [
-					'submenu_style' => [
-						'type'    => 'integer',
-						'default' => 1,
-					],
 					'title'         => [
 						'type'    => 'string',
 						'default' => '',
+					],
+					'submenu_style' => [ // Needed for old blocks conversion.
+						'type'    => 'integer',
+						'default' => 0,
 					],
 					/**
 					 * Levels is an array of objects.
@@ -122,43 +77,34 @@ class Submenu extends Base_Block {
 	}
 
 	/**
-	 * Get all the data that will be needed to render the block correctly.
+	 * Required by the `Base_Block` class.
 	 *
-	 * @param array $attributes This is the array of fields of this block.
-	 *
-	 * @return array The data to be passed in the View.
+	 * @param array $fields Unused, required by the abstract function.
 	 */
-	public function prepare_data( $attributes ): array {
+	public function prepare_data( $fields ): array {
+		return [];
+	}
 
-		// If request is coming from backend rendering.
-		if ( $this->is_rest_request() ) {
-			$post_id = filter_input( INPUT_GET, 'post_id', FILTER_VALIDATE_INT );
-			if ( $post_id > 0 ) {
-				$post = get_post( $post_id );
-			}
-		} else {
-			$post = get_queried_object();
+	/**
+	 * Get the menu items from the post data.
+	 *
+	 * @param array $fields The fields entered in the editor.
+	 *
+	 * @return array The menu items to be passed in the View.
+	 */
+	public static function get_menu_items( $fields ): array {
+
+		if ( isset( $fields['post_id'] ) ) {
+			$post = get_post( $fields['post_id'] );
 		}
 
 		$menu = [];
-		if ( ! is_null( $post ) && isset( $attributes['levels'] ) ) {
+		if ( ! is_null( $post ) && isset( $fields['levels'] ) ) {
 			$content = $post->post_content;
-			$menu    = $this->parse_post_content( $content, $attributes['levels'] );
+			$menu    = self::parse_post_content( $content, $fields['levels'] );
 		}
 
-		// Enqueue js for the frontend.
-		if ( ! $this->is_rest_request() ) {
-			\P4GBKS\Loader::enqueue_local_script( 'submenu', 'public/js/submenu.js', [ 'jquery' ] );
-			wp_localize_script( 'submenu', 'submenu', $menu );
-		}
-
-		$block_data = [
-			'title' => $attributes['title'] ?? '',
-			'menu'  => $menu,
-			'style' => $attributes['submenu_style'] ?? '1',
-		];
-
-		return $block_data;
+		return $menu;
 	}
 
 	/**
@@ -180,7 +126,7 @@ class Submenu extends Base_Block {
 		$heading_meta = [];
 		$index        = 1;
 		foreach ( $levels as $level ) {
-			$heading = $this->heading_attributes( $level );
+			$heading = self::heading_attributes( $level );
 			if ( ! $heading ) {
 				break;
 			}
@@ -200,7 +146,7 @@ class Submenu extends Base_Block {
 		$nodes            = iterator_to_array( $node_list );
 
 		// process nodes array recursively to build menu.
-		return $this->build_menu( 1, $nodes, $heading_meta );
+		return self::build_menu( 1, $nodes, $heading_meta );
 	}
 
 	/**
@@ -244,11 +190,11 @@ class Submenu extends Base_Block {
 					// we're skipping over a heading level so create an empty node.
 					$menu[] = new \stdClass();
 				}
-				$menu[ count( $menu ) - 1 ]->children = $this->build_menu( $current_level + 1, $nodes, $heading_meta );
+				$menu[ count( $menu ) - 1 ]->children = self::build_menu( $current_level + 1, $nodes, $heading_meta );
 			} elseif ( $heading['level'] < $current_level ) {
 				return $menu;
 			} else {
-				$menu[] = $this->create_menu_item( $node->nodeValue, $heading['tag'], $heading['link'], $heading['style'] );
+				$menu[] = self::create_menu_item( $node->nodeValue, $heading['tag'], $heading['link'], $heading['style'] );
 
 				// remove node from list only once it has been added to the menu.
 				array_shift( $nodes );
