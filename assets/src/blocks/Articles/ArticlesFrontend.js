@@ -11,7 +11,6 @@ export class ArticlesFrontend extends Component {
     this.state = {
       posts: [],
       total_pages: 0,
-      dataset: {},
       page: 0
     };
 
