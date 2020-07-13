@@ -54,33 +54,36 @@ export class ArticlesFrontend extends Component {
       ignore_categories
     };
 
-    if (page) args.offset = page * article_count;
+    if (page) {
+      args.offset = page * article_count;
+    }
 
-    if (postType === 'post') args.exclude_post_id = postId;
+    if (postType === 'post') {
+      args.exclude_post_id = postId;
+    }
 
     const queryArgs = {
       path: addQueryArgs('/planet4/v1/get-articles', args)
     };
     apiFetch(queryArgs).then(result => {
+      let posts = [];
+      let total_pages = 0;
       if (result) {
         if (page) {
-          this.setState({
-            posts: [...this.state.posts, ...result.recent_posts],
-            page
-          })
+          posts = [...this.state.posts, ...result.recent_posts];
+          total_pages = this.state.total_pages;
+          this.setState({ page });
         } else {
-          this.setState({
-            posts: result.recent_posts,
-            total_pages: result.total_pages
-          });
-          if (setTotalPages) setTotalPages(result.total_pages);
+          posts = result.recent_posts;
+          total_pages = result.total_pages;
         }
-      } else {
-        this.setState({
-          posts: [],
-          total_pages: 0
-        });
-        if (setTotalPages) setTotalPages(0);
+      }
+      this.setState({
+        posts,
+        total_pages
+      });
+      if (setTotalPages) {
+        setTotalPages(total_pages);
       }
     });
   }
