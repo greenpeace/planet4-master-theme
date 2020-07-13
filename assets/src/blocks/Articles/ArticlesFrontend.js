@@ -3,6 +3,7 @@ import { ArticlePreview } from './ArticlePreview';
 
 const { apiFetch } = wp;
 const { addQueryArgs } = wp.url;
+const { __ } = wp.i18n;
 
 export class ArticlesFrontend extends Component {
   constructor(props) {
@@ -102,9 +103,9 @@ export class ArticlesFrontend extends Component {
       <Fragment>
         <section className="block articles-block">
           <div className="container">
-            {article_heading && !isEditing &&
+            {!isEditing &&
               <header>
-                <h2 className="page-section-header">{article_heading}</h2>
+                <h2 className="page-section-header">{article_heading || __('Latest Articles', 'p4ge')}</h2>
               </header>
             }
             {articles_description && !isEditing &&
@@ -129,7 +130,7 @@ export class ArticlesFrontend extends Component {
                       href={read_more_link}
                       target={button_link_new_tab ? '_blank' : ''}
                     >
-                      {read_more_text}
+                      {read_more_text || __('Load More', 'p4ge')}
                     </a>
                   </div> :
                   <div className="col-md-12 col-lg-5 col-xl-5">
@@ -137,7 +138,7 @@ export class ArticlesFrontend extends Component {
                       className="btn btn-secondary btn-block article-load-more"
                       onClick={() => this.loadArticles(page + 1)}
                     >
-                      {read_more_text}
+                      {read_more_text || __('Load More', 'p4ge')}
                     </button>
                   </div>
                 }

@@ -151,7 +151,7 @@ export class ArticlesEditor extends Component {
             <div className="btn btn-secondary btn-block article-load-more">
               <RichText
                 tagName="div"
-                placeholder={__('Override button text', 'p4ge')}
+                placeholder={__('Enter text', 'p4ge')}
                 value={attributes.read_more_text}
                 onChange={this.toAttribute('read_more_text')}
                 keepPlaceholderOnFocus={true}
