@@ -35,10 +35,19 @@ export class ArticlesFrontend extends Component {
   }
 
   loadArticles(page) {
-    const { article_count, posts, tags, post_types, ignore_categories, postType, postId, setTotalPages } = this.props;
+    const {
+      article_count,
+      posts,
+      tags,
+      post_types,
+      ignore_categories,
+      postType,
+      postId,
+      setTotalPages
+    } = this.props;
 
     const args = {
-      article_count,
+      article_count: article_count && article_count > 0 ? article_count : 0,
       post_types,
       posts,
       tags,
@@ -52,18 +61,26 @@ export class ArticlesFrontend extends Component {
     const queryArgs = {
       path: addQueryArgs('/planet4/v1/get-articles', args)
     };
-    apiFetch(queryArgs).then(({ recent_posts, total_pages }) => {
-      if (page) {
-        this.setState({
-          posts: [...this.state.posts, ...recent_posts],
-          page
-        })
+    apiFetch(queryArgs).then(result => {
+      if (result) {
+        if (page) {
+          this.setState({
+            posts: [...this.state.posts, ...result.recent_posts],
+            page
+          })
+        } else {
+          this.setState({
+            posts: result.recent_posts,
+            total_pages: result.total_pages
+          });
+          if (setTotalPages) setTotalPages(result.total_pages);
+        }
       } else {
         this.setState({
-          posts: recent_posts,
-          total_pages
+          posts: [],
+          total_pages: 0
         });
-        if (setTotalPages) setTotalPages(total_pages);
+        if (setTotalPages) setTotalPages(0);
       }
     });
   }
