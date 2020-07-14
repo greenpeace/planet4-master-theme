@@ -276,6 +276,43 @@ class MasterSite extends TimberSite {
 	}
 
 	/**
+	 * Generates hreflang metadata from countries.json template.
+	 */
+	public static function generate_hreflang_meta(): ?array {
+
+		$countries = wp_cache_get( 'countries' );
+
+		if ( false === $countries ) {
+			$body      = file_get_contents( get_template_directory() . '/templates/countries.json' );
+			$countries = json_decode( $body, true );
+			if ( empty( $countries ) ) {
+				return null;
+			}
+			wp_cache_set( 'countries', $countries );
+		}
+
+		$metadata = [];
+
+		foreach ( $countries as $key => $letter ) {
+			if ( 0 === $key ) {
+				continue;
+			}
+			foreach ( $letter as $country ) {
+				$lang = $country['lang'];
+				foreach ( $lang as $item ) {
+					if ( isset( $item['locale'] ) ) {
+						foreach ( $item['locale'] as $code ) {
+							$metadata[ $code ] = $item['url'];
+						}
+					}
+				}
+			}
+		}
+
+		return $metadata;
+	}
+
+	/**
 	 * Sets as featured image of the post the first image found attached in the post's content (if any).
 	 *
 	 * @param int     $post_id The ID of the current Post.
@@ -367,6 +404,11 @@ class MasterSite extends TimberSite {
 			$preconnect_domains = array_filter( $preconnect_domains );
 
 			$context['preconnect_domains'] = $preconnect_domains;
+		}
+
+		// hreflang metadata.
+		if ( is_front_page() ) {
+			$context['hreflang'] = self::generate_hreflang_meta();
 		}
 
 		// Datalayer feed.
