@@ -142,69 +142,18 @@ class Rest_Api {
 				],
 			]
 		);
+
 		/**
-		 * Endpoint to retrieve the latest posts for the Articles block
+		 * Endpoint to retrieve the posts for the Articles block
 		 */
 		register_rest_route(
 			self::REST_NAMESPACE,
-			'/get-articles',
+			'/get-posts',
 			[
 				[
 					'methods'  => WP_REST_Server::READABLE,
 					'callback' => static function ( $fields ) {
-						// Four scenarios for filtering posts.
-						// 1) inside tag page - Get posts that have the specific tag assigned.
-						// Add extra check for post_types and posts attributes to ensure that the block is rendered from a tag page.
-						// 2) post types or tags -
-						// a. Get posts by post types or tags defined from select boxes - new behavior.
-						// b. inside post - Get results excluding specific post.
-						// 3) specific posts - Get posts by ids specified in backend - new behavior / manual override.
-						// 4) issue page - Get posts based on page's tags.
-						$fields_diff = count( array_diff( [ 'post_types', 'posts' ], array_keys( $fields ) ) );
-						if ( is_tag() && ! empty( $fields['tags'] ) && 2 === $fields_diff ) {
-							$args = Articles::filter_posts_for_tag_page( $fields );
-						} elseif ( ! empty( $fields['post_types'] ) ||
-								! empty( $fields['tags'] ) ||
-								! empty( $fields['exclude_post_id'] ) ) {
-							$args = Articles::filter_posts_by_page_types_or_tags( $fields );
-						} elseif ( ! empty( $fields['posts'] ) ) {
-							$args = Articles::filter_posts_by_ids( $fields );
-						} else {
-							$args = Articles::filter_posts_by_pages_tags( $fields );
-						}
-
-						// If there is an offset, it means that it's not a first load, but a load more action.
-						// In this case we want to get only the needed amount of articles,
-						// since we already got the total amount in the first load.
-						$offset = $fields['offset'] ? (int) $fields['offset'] : 0;
-						if ( $offset > 0 ) {
-							$args['numberposts'] = $fields['article_count'];
-							$args['offset']      = $offset;
-						} else {
-							$args['numberposts'] = Articles::MAX_ARTICLES;
-						}
-
-						// Ignore rule, arguments contain suppress_filters.
-						// phpcs:ignore$fields['article_count']
-						$all_posts    = wp_get_recent_posts( $args );
-						$sliced_posts = $offset ? $all_posts : array_slice( $all_posts, 0, $fields['article_count'] );
-						$recent_posts = [];
-
-						// Populate posts array for frontend template if results have been returned.
-						if ( false !== $sliced_posts ) {
-							$recent_posts = Articles::populate_post_items( $sliced_posts );
-						}
-
-						// Return the posts and the amount of pages.
-						$to_return = [
-							'recent_posts' => $recent_posts,
-						];
-
-						if ( ! $offset ) {
-							$total_pages              = 0 !== $fields['article_count'] ? ceil( count( (array) $all_posts ) / $fields['article_count'] ) : 0;
-							$to_return['total_pages'] = $total_pages;
-						}
-
+						$to_return = Articles::get_posts( $fields );
 						return rest_ensure_response( $to_return );
 					},
 				],

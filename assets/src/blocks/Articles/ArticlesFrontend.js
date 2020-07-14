@@ -63,29 +63,33 @@ export class ArticlesFrontend extends Component {
     }
 
     const queryArgs = {
-      path: addQueryArgs('/planet4/v1/get-articles', args)
+      path: addQueryArgs('/planet4/v1/get-posts', args)
     };
 
-    const result = await apiFetch(queryArgs);
+    try {
+      const result = await apiFetch(queryArgs);
 
-    let newPosts = [];
-    let total_pages = 0;
-    if (result) {
-      if (page) {
-        newPosts = [...this.state.posts, ...result.recent_posts];
-        total_pages = this.state.total_pages;
-        this.setState({ page });
-      } else {
-        newPosts = result.recent_posts;
-        total_pages = result.total_pages;
+      let newPosts = [];
+      let total_pages = 0;
+      if (result) {
+        if (page) {
+          newPosts = [...this.state.posts, ...result.recent_posts];
+          total_pages = this.state.total_pages;
+          this.setState({ page });
+        } else {
+          newPosts = result.recent_posts;
+          total_pages = result.total_pages;
+        }
       }
-    }
-    this.setState({
-      posts: newPosts,
-      total_pages
-    });
-    if (setTotalPages) {
-      setTotalPages(total_pages);
+      this.setState({
+        posts: newPosts,
+        total_pages
+      });
+      if (setTotalPages) {
+        setTotalPages(total_pages);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 

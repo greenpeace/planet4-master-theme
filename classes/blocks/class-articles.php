@@ -100,13 +100,77 @@ class Articles extends Base_Block {
 	}
 
 	/**
+	 * Get the initial posts, or load more of them.
+	 *
+	 * @param array $fields This is the array of fields of this block.
+	 *
+	 * @return array The data to be passed in the View.
+	 */
+	public static function get_posts( $fields ): array {
+		// Four scenarios for filtering posts.
+		// 1) inside tag page - Get posts that have the specific tag assigned.
+		// Add extra check for post_types and posts attributes to ensure that the block is rendered from a tag page.
+		// 2) post types or tags -
+		// a. Get posts by post types or tags defined from select boxes - new behavior.
+		// b. inside post - Get results excluding specific post.
+		// 3) specific posts - Get posts by ids specified in backend - new behavior / manual override.
+		// 4) issue page - Get posts based on page's tags.
+		$fields_diff = count( array_diff( [ 'post_types', 'posts' ], array_keys( $fields ) ) );
+		if ( is_tag() && ! empty( $fields['tags'] ) && 2 === $fields_diff ) {
+			$args = self::filter_posts_for_tag_page( $fields );
+		} elseif ( ! empty( $fields['post_types'] ) ||
+				! empty( $fields['tags'] ) ||
+				! empty( $fields['exclude_post_id'] ) ) {
+			$args = self::filter_posts_by_page_types_or_tags( $fields );
+		} elseif ( ! empty( $fields['posts'] ) ) {
+			$args = self::filter_posts_by_ids( $fields );
+		} else {
+			$args = self::filter_posts_by_pages_tags( $fields );
+		}
+
+		// If there is an offset, it means that it's not a first load, but a load more action.
+		// In this case we want to get only the needed amount of posts,
+		// since we already got the total amount in the first load.
+		$offset = $fields['offset'] ? (int) $fields['offset'] : 0;
+		if ( $offset > 0 ) {
+			$args['numberposts'] = $fields['article_count'];
+			$args['offset']      = $offset;
+		} else {
+			$args['numberposts'] = self::MAX_ARTICLES;
+		}
+
+		// Ignore rule, arguments contain suppress_filters.
+		// phpcs:ignore$fields['article_count']
+		$all_posts    = wp_get_recent_posts( $args );
+		$sliced_posts = $offset ? $all_posts : array_slice( $all_posts, 0, $fields['article_count'] );
+		$recent_posts = [];
+
+		// Populate posts array for frontend template if results have been returned.
+		if ( false !== $sliced_posts ) {
+			$recent_posts = self::populate_post_items( $sliced_posts );
+		}
+
+		// Return the posts and the amount of pages.
+		$to_return = [
+			'recent_posts' => $recent_posts,
+		];
+
+		if ( ! $offset ) {
+			$total_pages              = 0 !== $fields['article_count'] ? ceil( count( (array) $all_posts ) / $fields['article_count'] ) : 0;
+			$to_return['total_pages'] = $total_pages;
+		}
+
+		return $to_return;
+	}
+
+	/**
 	 * Populate selected posts for frontend template.
 	 *
 	 * @param array $posts Selected posts.
 	 *
 	 * @return array
 	 */
-	public function populate_post_items( $posts ) {
+	private function populate_post_items( $posts ) {
 		$recent_posts = [];
 
 		if ( $posts ) {
@@ -168,7 +232,7 @@ class Articles extends Base_Block {
 	 *
 	 * @return array|false
 	 */
-	public function filter_posts_by_ids( &$fields ) {
+	private function filter_posts_by_ids( &$fields ) {
 
 		$post_ids = $fields['posts'] ?? [];
 
@@ -195,7 +259,7 @@ class Articles extends Base_Block {
 	 *
 	 * @return array
 	 */
-	public function filter_posts_by_page_types_or_tags( &$fields ) {
+	private function filter_posts_by_page_types_or_tags( &$fields ) {
 
 		$exclude_post_id   = (int) ( $fields['exclude_post_id'] ?? '' );
 		$ignore_categories = $fields['ignore_categories'];
@@ -281,7 +345,7 @@ class Articles extends Base_Block {
 	 *
 	 * @return array|false
 	 */
-	public function filter_posts_for_tag_page( &$fields ) {
+	private function filter_posts_for_tag_page( &$fields ) {
 
 		$tag_id = $fields['tags'] ?? '';
 		$tag    = get_tag( $tag_id[0] );
@@ -302,7 +366,7 @@ class Articles extends Base_Block {
 	 *
 	 * @return array
 	 */
-	public function filter_posts_by_pages_tags() {
+	private function filter_posts_by_pages_tags() {
 
 		// Get all posts with arguments.
 		$args = self::DEFAULT_POST_ARGS;
