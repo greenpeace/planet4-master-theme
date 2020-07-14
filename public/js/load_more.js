@@ -47,40 +47,6 @@ jQuery(function ($) {
     }
   });
 
-  $('.load-more').on('mouseup touchend', function(e) {
-    e.preventDefault();
-
-    // Save element to variable to use inside ajax call.
-    const el = $(this);
-    // Append response only to current block.
-    const $content = $(this.dataset.content, el.closest('section'));
-    const next_page = parseInt(this.dataset.page) + 1;
-    const total_pages = parseInt( this.dataset.total_pages );
-    const url = more_url[0] + `?page=${ next_page }`;
-    this.dataset.page = next_page;
-
-    $.ajax({
-      url: url,
-      type: 'GET',
-      data: {
-        action:     'load_more',
-        args:       this.dataset,
-      },
-      dataType: 'html'
-    }).done(function ( response ) {
-      // Append the response at the bottom of the results and then show it.
-      $content.append( response );
-
-      window.lazyLoad.update();
-
-      if (next_page === total_pages) {
-        el.fadeOut();
-      }
-    }).fail(function ( jqXHR, textStatus, errorThrown ) {
-      console.log(errorThrown); //eslint-disable-line no-console
-    });
-  });
-
   // Add click event handler for load more button in Campaign thumbnail blocks.
   $('.btn-load-more-campaigns-click').on('mouseup touchend', function (e) {
     e.preventDefault();

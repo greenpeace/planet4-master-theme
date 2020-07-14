@@ -100,64 +100,6 @@ class Articles extends Base_Block {
 	}
 
 	/**
-	 * Callback for Lazy-loading the next results.
-	 * Gets the paged posts that belong to the next page/load and are to be used with the twig template.
-	 */
-	public function load_more() {
-
-		// If this is an ajax call.
-		if ( ! wp_doing_ajax() ) {
-			return;
-		}
-
-		$page    = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT );
-		$dataset = filter_input_array( INPUT_GET );
-
-		Timber::$locations = P4GBKS_INCLUDES_DIR;
-
-		if ( isset( $dataset['args'] ) ) {
-			foreach ( $dataset['args'] as $key => $value ) {
-				if ( false !== strpos( $key, '[', true ) ) {
-					$new_key                       = strstr( $key, '[', true );
-					$dataset['args'][ $new_key ][] = $value;
-					unset( $dataset['args'][ $key ] );
-				}
-			}
-			unset( $dataset['args']['page'] );
-			unset( $dataset['args']['total'] );
-
-			$dataset['args']['numberposts'] = $dataset['args']['article_count'];
-			if ( $page ) {
-				$dataset['args']['paged'] = $page;
-			}
-		}
-		$dataset['args']['post_status'] = 'publish';
-
-		$recent_posts = Timber::get_posts( $dataset['args'], P4_Post::class, true );
-
-		foreach ( $recent_posts as $key => $recent_post ) {
-			if (
-				null !== $recent_post->thumbnail
-				&& $recent_post->thumbnail instanceof \Timber\Image
-			) {
-				$img_id                       = $recent_post->thumbnail->id;
-				$dimensions                   = wp_get_attachment_metadata( $img_id );
-				$recent_post->thumbnail_ratio = ( isset( $dimensions['height'] ) && $dimensions['height'] > 0 )
-					? $dimensions['width'] / $dimensions['height'] : 1;
-				$recent_post->alt_text        = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
-			}
-			Timber::render(
-				[ 'teasers/tease-articles.twig' ],
-				[
-					'key'         => $key,
-					'recent_post' => $recent_post,
-				]
-			);
-		}
-		wp_die();
-	}
-
-	/**
 	 * Populate selected posts for frontend template.
 	 *
 	 * @param array $posts Selected posts.
