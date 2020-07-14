@@ -48,6 +48,8 @@
 											data-ga-category="Columns Block"
 											data-ga-action="Title"
 											data-ga-label="{{ col.cta_link|e('esc_url') }}">
+								{% else %}
+									<h3>
 								{% endif %}
 											{{ col.title|e('wp_kses_post')|raw }}
 								{% if col.cta_link and not is_campaign %}</a>{% endif %}
