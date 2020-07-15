@@ -13,22 +13,23 @@ $white: #fff;
 
 // Grey
 //
-// $grey-80 - #191919;
-// $grey - #333;
-// $grey-60 - #666;
-// $grey-40 - #999;
-// $grey-20 - #ccc;
-// $grey-10 - #e5e5e5;
-// $grey-light - #f9f9f9;
+// $grey-80: #020202;
+// $grey: #23292d;
+// $grey-60: #45494c;
+// $grey-40: #6f7376;
+// $grey-20: #a3a5a7;
+// $grey-10: #ececec;
+// $grey-05: #f5f7f8;
 //
 // Styleguide Style.colors.grey
-$grey-80: #191919;
-$grey: #333;
-$grey-60: #666;
-$grey-40: #999;
-$grey-20: #ccc;
-$grey-10: #e5e5e5;
-$grey-light: #f9f9f9;
+$grey-80: #020202;
+$grey: #23292d;
+$grey-60: #45494c;
+$grey-40: #6f7376;
+$grey-20: #a3a5a7;
+$grey-10: #ececec;
+$grey-05: #f5f7f8;
+
 
 // Green
 //
@@ -138,7 +139,7 @@ $single-bg:             #f6f4e7;
 // Colors to be fixed/addressed:
 $article-heading-color:	#152431;
 $search-text-colour:    #115247;
-$dark-shade-black:      #1a1a1a;
+$blue-top-nav:          $dark-blue;
 $carousel-indi-color:   #8bcc49;
 $shadow-color:          $grey-60;
 $cookie-bkg:            #c0dbe2;
@@ -168,7 +169,7 @@ $table-footer-blue: #c3d7e2;
 
 // Allower colors for blocks palette
 $palette: (
-  "dark-shade-black": $dark-shade-black,
+  "grey-80": $grey-80,
   "grey-60": $grey-60,
   "grey-40": $grey-40,
   "grey-20": $grey-20,

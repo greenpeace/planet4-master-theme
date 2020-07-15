@@ -176,7 +176,7 @@
   &:hover,
   &:focus {
     background-color: var(--btn-donate-hover-background-color, $spray);
-    color: var(--btn-donate-hover-color, $dark-shade-black);
+    color: var(--btn-donate-hover-color, $grey-80);
   }
 
   &:active {
