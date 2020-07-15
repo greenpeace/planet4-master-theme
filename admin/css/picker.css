@@ -61,7 +61,6 @@ li.picker-selected {
 }
 
 .picker-sidebar-single img {
-  max-height: 30vh;
   object-fit: cover;
   width: 100%;
 }

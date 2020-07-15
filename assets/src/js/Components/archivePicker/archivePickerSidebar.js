@@ -6,7 +6,7 @@ export const archivePickerSidebar = ( archivePicker ) => ( imagePicker ) => {
 
   if ( selectedImages.length === 1 ) {
     return <SingleSidebar
-      parent={ imagePicker }
+      image={ selectedImages[ 0 ] }
       includeInWp={ archivePicker.includeInWp }
       processingError={ archivePicker.state.processingError }
       processingImages={ archivePicker.state.processingImages }
