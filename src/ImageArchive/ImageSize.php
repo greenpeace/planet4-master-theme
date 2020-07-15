@@ -1,9 +1,4 @@
 <?php
-/**
- * Class ImageSize.
- *
- * @package P4\MasterTheme\ImageArchive
- */
 
 namespace P4\MasterTheme\ImageArchive;
 

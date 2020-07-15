@@ -1,9 +1,4 @@
 <?php
-/**
- * Class UIIntegration.
- *
- * @package P4\MasterTheme\ImageArchive
- */
 
 namespace P4\MasterTheme\ImageArchive;
 

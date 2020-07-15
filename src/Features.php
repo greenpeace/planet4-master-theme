@@ -1,9 +1,4 @@
 <?php
-/**
- * Class Features.
- *
- * @package P4\MasterTheme
- */
 
 namespace P4\MasterTheme;
 

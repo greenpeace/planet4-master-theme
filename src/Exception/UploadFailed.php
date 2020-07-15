@@ -1,9 +1,4 @@
 <?php
-/**
- * Class UploadFailed.
- *
- * @package P4\MasterTheme\Exception
- */
 
 namespace P4\MasterTheme\Exception;
 
