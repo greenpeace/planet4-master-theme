@@ -168,7 +168,7 @@ export class ArticlesEditor extends Component {
 
   render() {
     return (
-      <div>
+      <div className='articles-editor'>
         {
           this.props.isSelected && this.renderEdit()
         }

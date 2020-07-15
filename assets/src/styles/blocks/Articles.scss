@@ -23,21 +23,6 @@
     }
   }
 
-  &.editing {
-    a,
-    .article-list-item-image,
-    .top-page-tags .tag-item {
-      pointer-events: none;
-      cursor: default;
-    }
-
-    .article-list-item-date,
-    .article-list-item-author,
-    .article-list-item-content {
-      cursor: default;
-    }
-  }
-
   a {
     color: inherit;
   }
@@ -174,20 +159,4 @@
 
 .article-load-more {
   margin-top: $space-lg;
-}
-
-// Button in the editor
-div.btn-secondary.article-load-more.btn.btn-block {
-  &:hover,
-  &:focus,
-  &:active {
-    background-color: transparentize($white, .7);
-    border-color: $dark-blue;
-    color: $dark-blue;
-    box-shadow: none;
-  }
-}
-
-.articles-title-container {
-  width: fit-content;
 }

@@ -1,4 +1,4 @@
-/* global more_url, LazyLoad */
+/* global LazyLoad */
 jQuery(function ($) {
   if (!window.lazyLoad) {
     window.lazyLoad = new LazyLoad({

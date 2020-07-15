@@ -122,7 +122,6 @@ export class ArticlesFrontend extends Component {
               {posts && posts.length > 0 && posts.map(post =>
                 <ArticlePreview
                   key={post.post_title}
-                  isEditing={isEditing}
                   isCampaign={postType === 'campaign'}
                   post={post}
                 />

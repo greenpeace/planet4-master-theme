@@ -26,80 +26,77 @@ export class ArticlePreview extends Component {
       isCampaign
     } = this.props;
 
-    if (author_name) {
+    const authorName = author_name || (author && author.name) || '';
+    const authorLink = author_url || (author && author.link) || '';
+
+    const isLink = !isCampaign && !author_override && (!author || !author.is_fake) && authorLink;
+
+    if (authorName) {
       return (
         <span className="article-list-item-author">{__('by', 'planet4-blocks')}{' '}
-          {(author_override || isCampaign) ?
-            author_name
+          {!isLink ?
+            authorName
             :
-            <a href={author_url}>{author_name}</a>
+            <a href={authorLink}>{authorName}</a>
           }
         </span>
-      )
-    } else if (author) {
-      return (
-        <span className="article-list-item-author">{__('by', 'planet4-blocks')}{' '}
-          {author.is_fake || isCampaign ?
-            author.name
-            :
-            <a href={author.link}>{author.name}</a>
-          }
-        </span>
-      )
+      );
     }
+  }
+
+  getImage() {
+    const {
+      post: {
+        thumbnail_ratio,
+        thumbnail_url,
+        link,
+        alt_text
+      }
+    } = this.props;
+
+    const image = (
+      <a href={link}>
+        <img
+          className="d-flex topicwise-article-image"
+          src={thumbnail_url}
+          alt={alt_text}
+        />
+      </a>
+    );
+
+    return (
+      <div className={`article-list-item-image ${thumbnail_ratio < 1 ? '' : 'article-list-item-image-max-width'}`}>
+        {thumbnail_ratio < 1 ?
+          <div className="article-image-holder">
+            {image}
+          </div>
+          :
+          image
+        }
+      </div>
+    );
   }
 
   render() {
     const {
       post: {
         tags,
-        thumbnail_ratio,
-        thumbnail_url,
         link,
-        alt_text,
         page_type,
         page_type_link,
         post_title,
         post_date,
         post_excerpt
-      },
-      isEditing
+      }
     } = this.props;
 
     const date = new Date(post_date);
 
-    let articleClassName = "article-list-item";
-    if (tags && tags.length > 0) {
-      tags.forEach(tag => articleClassName += ` ${tag.slug}`);
-    }
-    if (isEditing) articleClassName += ' editing';
+    const articleClassName = tags.reduce((classname, tag) => classname + ` tag-${tag.slug}`, 'article-list-item');
 
     return (
       <article className={articleClassName} >
-        {thumbnail_ratio < 1 ?
-          <div className="article-list-item-image">
-            <div className="article-image-holder">
-              <a href={link}>
-                <img
-                  className="d-flex topicwise-article-image"
-                  src={thumbnail_url}
-                  alt={alt_text}
-                />
-              </a>
-            </div>
-          </div>
-          :
-          <div className="article-list-item-image article-list-item-image-max-width">
-            <a href={link}>
-              <img
-                className="d-flex topicwise-article-image"
-                src={thumbnail_url}
-                alt={alt_text}
-              />
-            </a>
-          </div>
-        }
-
+        {this.getImage()}
         <div className="article-list-item-body">
           {(tags || page_type) &&
             <div className="article-list-item-tags top-page-tags">
@@ -107,7 +104,7 @@ export class ArticlePreview extends Component {
                 this.getPageTypesTags(page_type, page_type_link)
               }
 
-              {tags && tags.length > 0 &&
+              {tags.length > 0 &&
                 <div className="tag-wrap tags">
                   {tags.map(tag =>
                     <a key={tag.name} className="tag-item tag" href={tag.link}>{`#${tag.name}`}</a>
