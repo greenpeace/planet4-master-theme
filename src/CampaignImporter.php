@@ -1,9 +1,4 @@
 <?php
-/**
- * Campaign Data(Attachment) Importer
- *
- * @package P4MT
- */
 
 namespace P4\MasterTheme;
 

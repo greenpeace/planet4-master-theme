@@ -1,9 +1,4 @@
 <?php
-/**
- * A data object for SmartSheet API responses.
- *
- * @package P4MT
- */
 
 namespace P4\MasterTheme;
 

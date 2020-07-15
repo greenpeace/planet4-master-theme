@@ -1,16 +1,9 @@
 <?php
-/**
- * P4 Cookies Class
- *
- * @package P4MT
- */
 
 namespace P4\MasterTheme;
 
 /**
  * Class Cookies
- *
- * @since 1.9
  */
 class Cookies {
 

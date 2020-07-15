@@ -1,14 +1,8 @@
 <?php
-/**
- * P4 Campaigner Role
- *
- * @package P4MT
- */
 
 namespace P4\MasterTheme;
 
 /**
- * Class Campaigner.
  * Register custom 'campaigner' role and adds custom capabilities.
  */
 class Campaigner {

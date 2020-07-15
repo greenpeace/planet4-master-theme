@@ -1,9 +1,4 @@
 <?php
-/**
- * P4 Search Class
- *
- * @package P4MT
- */
 
 namespace P4\MasterTheme;
 

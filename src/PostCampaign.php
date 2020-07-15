@@ -1,9 +1,4 @@
 <?php
-/**
- * P4 Post Campaign Template Settings
- *
- * @package P4MT
- */
 
 namespace P4\MasterTheme;
 

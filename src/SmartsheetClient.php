@@ -1,9 +1,4 @@
 <?php
-/**
- * Handles calling the SmartSheet API.
- *
- * @package P4MT
- */
 
 namespace P4\MasterTheme;
 

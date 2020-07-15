@@ -1,13 +1,8 @@
 <?php
-/**
- * P4 User
- *
- * @package P4MT
- */
 
 namespace P4\MasterTheme;
 
-use Timber\User as TimberUser;
+use Timber;
 
 
 /**
@@ -15,7 +10,7 @@ use Timber\User as TimberUser;
  *
  * Ref: https://timber.github.io/docs/reference/timber-user/
  */
-class User extends TimberUser {
+class User extends Timber\User {
 
 	/**
 	 * Is a fake user flag
