@@ -1,10 +1,10 @@
 ---
+version: 2.1
+
 defaults: &defaults
   docker:
     - image: greenpeaceinternational/circleci-base:latest
   working_directory: /home/circleci/app
-
-version: 2
 
 job-references:
   setup_environment: &setup_environment
@@ -42,6 +42,35 @@ jobs:
       - run: make -C deploy docker-push
       - run: make -C deploy dev
 
+  promote:
+    <<: *defaults
+    steps:
+      - run:
+          name: Configure git
+          command: |
+            mkdir -p ~/.ssh
+            echo 'github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==
+            ' >> ~/.ssh/known_hosts
+      - run:
+          name: Release
+          command: |
+            mkdir -p /tmp/workspace
+            cd /tmp/workspace
+            trigger-build.sh git@github.com:${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} master
+
+  repositories:
+    <<: *defaults
+    steps:
+      - run:
+          name: Configure git
+          command: |
+            mkdir -p ~/.ssh
+            echo 'github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==
+            ' >> ~/.ssh/known_hosts
+      - run:
+          name: Bump styleguide
+          command: bump-styleguide.sh
+
   deploy-tag:
     <<: *defaults
     environment:
@@ -58,17 +87,38 @@ jobs:
       - run: make -C deploy prod
 
 workflows:
-  version: 2
-  test:
-    jobs:
-      - lint
   dev:
     jobs:
+      - lint
       - deploy-dev:
           context: org-global
+          requires:
+            - lint
           filters:
             branches:
               only: master
+      - hold:
+          type: approval
+          requires:
+            - deploy-dev
+          filters:
+            branches:
+              only: master
+      - promote:
+          context: org-global
+          requires:
+            - hold
+          filters:
+            branches:
+              only: master
+      - repositories:
+          context: org-global
+          requires:
+            - promote
+          filters:
+            branches:
+              only: master
+
   tag:
     jobs:
       - deploy-tag:
