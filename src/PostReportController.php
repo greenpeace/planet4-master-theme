@@ -88,7 +88,6 @@ class PostReportController {
 	 */
 	public function render_posts_report_page() {
 		wp_enqueue_script( 'jquery-ui-core' );
-		wp_enqueue_script( 'jquery-ui-datepicker' );
 		wp_register_script(
 			'posts-report',
 			$this->theme_dir . '/admin/js/posts_report.js',
@@ -109,13 +108,6 @@ class PostReportController {
 			]
 		);
 		wp_enqueue_script( 'posts-report' );
-		wp_register_style(
-			'jquery-ui-datepicker',
-			'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/overcast/jquery-ui.min.css',
-			[],
-			'1.12.1'
-		);
-		wp_enqueue_style( 'jquery-ui-datepicker' );
 		include dirname( __FILE__ ) . '/../posts-report.php';
 	}
 }

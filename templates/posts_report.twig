@@ -1,13 +1,13 @@
 {% block content %}
 
-    <h1>Posts Report</h1>
+    <h1>{{ __( 'Posts Report', 'planet4-master-theme-backend' ) }}</h1>
     <div class="tablenav top">
         <div class="alignleft actions">
-            <label>Filters: </label>
-            <label for="from">Date From</label>
-            <input type="text" id="from" name="from">
-            <label for="to">to</label>
-            <input type="text" id="to" name="to">
+            <label>{{ __( 'Filters:', 'planet4-master-theme-backend' ) }} </label>
+            <label for="from">{{ __( 'Date From', 'planet4-master-theme-backend' ) }}</label>
+            <input type="date" id="from" name="from">
+            <label for="to">{{ __( 'to', 'planet4-master-theme-backend' ) }}</label>
+            <input type="date" id="to" name="to">
             <input type="submit" name="filter_action" id="posts-filter" class="button" value="Filter">
         </div>
         <br class="clear">
@@ -15,7 +15,7 @@
 
     <br>
     <div class="wrap">
-        <h1>Posts List</h1>
+        <h1>{{ __( 'Posts List', 'planet4-master-theme-backend' ) }}</h1>
         <div class="hidden" id="posts_loader">
             <img src="/wp-admin/images/wpspin_light-2x.gif"/>
         </div>
@@ -23,11 +23,19 @@
     </div>
     <br>
     <div class="wrap">
-        <h1>Pages List</h1>
+        <h1>{{ __( 'Pages List', 'planet4-master-theme-backend' ) }}</h1>
         <div class="hidden" id="pages_loader">
             <img src="/wp-admin/images/wpspin_light-2x.gif"/>
         </div>
         <div id="pages-table"></div>
+    </div>
+    <br>
+    <div class="wrap">
+        <h1>{{ __( 'Campaigns List', 'planet4-master-theme-backend' ) }}</h1>
+        <div class="hidden" id="campaigns_loader">
+            <img src="/wp-admin/images/wpspin_light-2x.gif"/>
+        </div>
+        <div id="campaigns-table"></div>
     </div>
 
 {% endblock %}
