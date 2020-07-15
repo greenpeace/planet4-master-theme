@@ -25,7 +25,7 @@ jobs:
       - run:
           name: "stylelint"
           when: always
-          command: stylelint "$HOME/app/src/scss/**/*.scss" "$HOME/app/theme/kss-assets/css/*.scss"
+          command: stylelint "$HOME/app/src/**/*.scss" "$HOME/app/theme/kss-assets/css/*.scss"
 
   deploy-dev:
     <<: *defaults
