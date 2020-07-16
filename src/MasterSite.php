@@ -1166,10 +1166,12 @@ class MasterSite extends TimberSite {
 			new Twig_SimpleFilter(
 				'cf_img_url',
 				$cf_img_optimization
-					? function ( string $source, string $src_set = '' ) use ( $cf_options_txt ) {
-						return $this->img_to_cloudflare( $source, $src_set, $cf_options_txt );
+					? function ( ?string $source, ?string $src_set = '' ) use ( $cf_options_txt ) {
+						return empty( $source )
+							? $source
+							: $this->img_to_cloudflare( $source, $src_set ?? '', $cf_options_txt );
 					}
-					: function ( string $source ) {
+					: function ( ?string $source ) {
 						return $source;
 					}
 			)
