@@ -81,7 +81,7 @@ jobs:
 
   acceptance-tests:
     docker:
-      - image: greenpeaceinternational/p4-builder:latest
+      - image: greenpeaceinternational/p4-builder:planet-5221
     working_directory:  /home/circleci/
     environment:
       APP_HOSTNAME: www.planet4.test
@@ -107,7 +107,17 @@ jobs:
           working_directory: /home/circleci
           command: |
             echo "Master theme branch is ${CIRCLE_BRANCH}"
-            MASTER_THEME_BRANCH=dev-${CIRCLE_BRANCH} MERGE_SOURCE=git@github.com:greenpeace/planet4-base-fork.git MERGE_REF=develop make ci
+            if [ -n "$CIRCLE_PR_NUMBER" ]; then
+              MASTER_THEME_BRANCH="$(./get-fork-pr-branch.sh)"
+            else
+              MASTER_THEME_BRANCH="${CIRCLE_BRANCH}"
+            fi
+            MASTER_THEME_BRANCH=dev-${MASTER_THEME_BRANCH} \
+            MERGE_SOURCE=git@github.com:greenpeace/planet4-base-fork.git \
+            MERGE_REF=develop \
+            FORK_USER=$CIRCLE_PR_USERNAME \
+            FORK_REPO=$CIRCLE_PR_REPONAME \
+            make ci
       - run:
           name: Test - Clone planet4-docker-compose
           command: |
