@@ -96,6 +96,8 @@ jobs:
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
+      - checkout:
+          path: /home/circleci/theme-src
       - run:
           name: Build - Configure
           command: |
