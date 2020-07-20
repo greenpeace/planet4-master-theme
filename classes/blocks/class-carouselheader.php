@@ -28,17 +28,12 @@ class CarouselHeader extends Base_Block {
 	 * Gallery constructor.
 	 */
 	public function __construct() {
-
 		register_block_type(
 			'planet4-blocks/carousel-header',
 			[
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],
 				'attributes'      => [
-					'block_style'       => [
-						'type'    => 'string',
-						'default' => 'zoom-and-slide-to-gray',
-					],
 					'carousel_autoplay' => [
 						'type'    => 'boolean',
 						'default' => false,
@@ -102,10 +97,6 @@ class CarouselHeader extends Base_Block {
 	 * @return array The data to be passed in the View.
 	 */
 	public function prepare_data( $fields ): array {
-		if ( ! isset( $fields['block_style'] ) || empty( $fields['block_style'] ) ) {
-			$fields['block_style'] = 'zoom-and-slide-to-gray';
-		}
-
 		$total_images = 0;
 		if ( ! empty( $fields['slides'] ) ) {
 			foreach ( $fields['slides'] as &$slide ) {

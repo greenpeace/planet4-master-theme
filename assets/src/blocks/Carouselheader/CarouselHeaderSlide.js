@@ -22,10 +22,13 @@ export class CarouselHeaderSlide extends Component {
     this.state = {
       image_id: null,
       image_url: null,
-      focal_points: props.focal_points,
+      focal_points: Object.keys(props.focal_points).length === 0
+        ? { "x": 0.5, "y": 0.5 } : props.focal_points,
       isHidden: false,
     };
     this.getMedia();
+
+
   }
 
   /**
@@ -127,15 +130,6 @@ export class CarouselHeaderSlide extends Component {
                   />
                 </div>
               </div>
-              {this.props.hasSubheader &&
-              <TextControl
-                label={__('Subheader', 'p4ge')}
-                placeholder={__('Enter subheader', 'p4ge')}
-                value={this.props.subheader}
-                onChange={(e) => this.props.onSubheaderChange(this.props.index, e)}
-                characterLimit={80}
-              />
-              }
               <TextareaControl
                 label={__('Description', 'p4ge')}
                 placeholder={__('Enter description of image', 'p4ge')}

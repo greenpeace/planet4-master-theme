@@ -113,8 +113,8 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 
 				$sql = $wpdb->prepare(
 					"SELECT ID, post_title
-					FROM `wp_posts` 
-					WHERE post_status = 'publish' 
+					FROM `wp_posts`
+					WHERE post_status = 'publish'
 					AND `post_content` LIKE %s
 					ORDER BY post_title",
 					$block_comment );
@@ -167,36 +167,6 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				echo '</table>';
 			} else {
 				$report[ ucfirst( 'planet4-blocks/carousel-header-Full-Width-Classic' ) ] = count($results);
-			}
-
-			// Add to the report a breakdown of different styles for carousel Header
-			// Given that the default (if no style is defined) is the Slide to Gray, include in the query
-			// everything that is not Full Width Classic.
-			$sql = 'SELECT ID, post_title
-                    FROM %1$s
-                    WHERE post_status = \'publish\'
-                        AND `post_content` REGEXP \'<!-- wp:planet4-blocks/carousel-header\'
-                        AND ID NOT IN (SELECT ID
-                            FROM %2$s
-                            WHERE post_status = \'publish\'
-                            AND `post_content` REGEXP \'<!-- wp:planet4-blocks/carousel-header.*full-width-classic\')';
-
-			$prepared_sql = $wpdb->prepare( $sql, [ $wpdb->posts, $wpdb->posts ] );
-			$results      = $wpdb->get_results( $prepared_sql );
-			if ( 'text' === $type ) {
-				echo '<hr>';
-				echo '<h2>Carousel Header Zoom and Slide to Grey</h2>';
-				echo '<table><tr style="text-align: left">
-						<th>' . __( 'ID', 'planet4-blocks-backend' ) . '</th>
-						<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
-				</tr>';
-				foreach ( $results as $result ) {
-					echo  '<tr><td><a href="' . get_permalink( $result->ID ) . '" >' . $result->ID . '</a></td>';
-					echo  '<td><a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->post_title . '</a></td></tr>';
-				}
-				echo '</table>';
-			} else {
-				$report[ ucfirst( 'planet4-blocks/carousel-header-Zoom-And-Slide' ) ] = count($results);
 			}
 
 			// Add to the report a breakdown of which tags are using a redirect page and which do not

@@ -39,12 +39,6 @@ export class CarouselHeaderBlock {
             // See: https://simonsmith.io/destructuring-objects-as-function-parameters-in-es6
             tag: 'shortcake_carousel_header',
             attributes: {
-              block_style: {
-                type: 'string',
-                shortcode: function (attributes) {
-                  return Number(attributes.named.block_style);
-                }
-              },
               carousel_autoplay: {
                 type: 'boolean',
                 shortcode: function (attributes) {
@@ -85,7 +79,6 @@ export class CarouselHeaderBlock {
                       image: Number(attributes.named.image_1),
                       header: attributes.named.header_1,
                       header_size: attributes.named.header_size_1,
-                      subheader: attributes.named.subheader_1,
                       description: attributes.named.description_1,
                       link_text: attributes.named.link_text_1,
                       link_url: attributes.named.link_url_1,
@@ -98,7 +91,6 @@ export class CarouselHeaderBlock {
                         image: Number(attributes.named.image_2),
                         header: attributes.named.header_2,
                         header_size: attributes.named.header_size_2,
-                        subheader: attributes.named.subheader_2,
                         description: attributes.named.description_2,
                         link_text: attributes.named.link_text_2,
                         link_url: attributes.named.link_url_2,
@@ -111,7 +103,6 @@ export class CarouselHeaderBlock {
                           image: Number(attributes.named.image_3),
                           header: attributes.named.header_3,
                           header_size: attributes.named.header_size_3,
-                          subheader: attributes.named.subheader_3,
                           description: attributes.named.description_3,
                           link_text: attributes.named.link_text_3,
                           link_url: attributes.named.link_url_3,
@@ -124,7 +115,6 @@ export class CarouselHeaderBlock {
                             image: Number(attributes.named.image_4),
                             header: attributes.named.header_4,
                             header_size: attributes.named.header_size_4,
-                            subheader: attributes.named.subheader_4,
                             description: attributes.named.description_4,
                             link_text: attributes.named.link_text_4,
                             link_url: attributes.named.link_url_4,
@@ -144,9 +134,6 @@ export class CarouselHeaderBlock {
         ]
       },
       attributes: {
-        block_style: {
-          type: 'string',
-        },
         carousel_autoplay: {
           type: 'boolean',
         },
@@ -158,7 +145,6 @@ export class CarouselHeaderBlock {
               focal_points: {},
               header: '',
               header_size: 'h1',
-              subheader: '',
               description: '',
               link_text: '',
               link_url: '',
@@ -176,7 +162,6 @@ export class CarouselHeaderBlock {
               focal_points: {},
               header: '',
               header_size: 'h1',
-              subheader: '',
               description: '',
               link_text: '',
               link_url: '',
@@ -226,12 +211,6 @@ export class CarouselHeaderBlock {
           setAttributes({slides: slides});
         }
 
-        function onSubheaderChange(index, value) {
-          let slides = JSON.parse(JSON.stringify(attributes.slides));
-          slides[index].subheader = value;
-          setAttributes({slides: slides});
-        }
-
         function onDescriptionChange(index, value) {
           let slides = JSON.parse(JSON.stringify(attributes.slides));
           slides[index].description = value;
@@ -256,10 +235,6 @@ export class CarouselHeaderBlock {
           setAttributes({slides: slides});
         }
 
-        function onBlockStyleChange(value) {
-          setAttributes({block_style: value});
-        }
-
         function removeSlide() {
           setAttributes({slides: attributes.slides.slice(0, -1)});
         }
@@ -267,12 +242,10 @@ export class CarouselHeaderBlock {
         return <CarouselHeader
           {...attributes}
           isSelected={isSelected}
-          onBlockStyleChange={onBlockStyleChange}
           onCarouselAutoplayChange={onCarouselAutoplayChange}
           onTitleChange={onTitleChange}
           onImageChange={onImageChange}
           onHeaderChange={onHeaderChange}
-          onSubheaderChange={onSubheaderChange}
           onHeaderSizeChange={onHeaderSizeChange}
           onDescriptionChange={onDescriptionChange}
           onLinkTextChange={onLinkTextChange}
