@@ -21,9 +21,6 @@ const TextControl = withCharacterCounter(BaseTextControl);
 export class ArticlesEditor extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      totalPages: 0
-    };
     this.toAttribute = this.toAttribute.bind(this);
   }
 
@@ -109,8 +106,9 @@ export class ArticlesEditor extends Component {
   }
 
   renderView() {
-    const { attributes, postType, postId } = this.props;
-    const { totalPages } = this.state;
+    const { attributes, postType, posts, totalPosts } = this.props;
+
+    const hasMultiplePages = totalPosts > attributes.article_count;
 
     return (
       <Fragment>
@@ -139,13 +137,8 @@ export class ArticlesEditor extends Component {
           withoutInteractiveFormatting
           characterLimit={200}
         />
-        <ArticlesList
-          postType={postType}
-          postId={postId}
-          setTotalPages={totalPages => this.setState({ totalPages })}
-          {...attributes}
-        />
-        {attributes.posts.length === 0 && totalPages > 1 && (
+        <ArticlesList posts={ posts } postType={ postType }/>
+        { attributes.posts.length === 0 && hasMultiplePages && (
           <Tooltip text={__('Edit text', 'planet4-blocks-backend')}>
             <div className="btn btn-secondary btn-block article-load-more">
               <RichText

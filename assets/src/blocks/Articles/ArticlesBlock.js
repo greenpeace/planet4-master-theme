@@ -1,6 +1,7 @@
 import { ArticlesEditor } from './ArticlesEditor';
 import { frontendRendered } from '../frontendRendered';
 import { withSelect } from '@wordpress/data';
+import { useArticlesFetch } from './useArticlesFetch';
 
 const BLOCK_NAME = 'planet4-blocks/articles';
 
@@ -66,16 +67,22 @@ export class ArticlesBlock {
         }
       ],
       edit: withSelect(select => {
-        const postType = select('core/editor').getCurrentPostType();
-        const postId = select('core/editor').getCurrentPostId();
-        return { postType, postId };
+        return ({
+          postType: select('core/editor').getCurrentPostType(),
+          postId: select('core/editor').getCurrentPostId()
+        });
       })(({ isSelected, attributes, setAttributes, postType, postId }) => {
+
+        const { posts, totalPosts } = useArticlesFetch(attributes, postType, postId);
+
         return <ArticlesEditor
           attributes={attributes}
           postType={postType}
           setAttributes={setAttributes}
           isSelected={isSelected}
           postId={postId}
+          posts={posts}
+          totalPosts={totalPosts}
         />
       }),
       save: frontendRendered(BLOCK_NAME)

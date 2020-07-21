@@ -156,8 +156,8 @@ class Articles extends Base_Block {
 		];
 
 		if ( ! $offset ) {
-			$total_pages              = 0 !== $fields['article_count'] ? ceil( count( (array) $all_posts ) / $fields['article_count'] ) : 0;
-			$to_return['total_pages'] = $total_pages;
+			$total_posts              = count( $all_posts );
+			$to_return['total_posts'] = $total_posts;
 		}
 
 		return $to_return;
