@@ -84,6 +84,12 @@
   text-align: center;
   width: max-content;
   margin-bottom: 32px;
+  padding: 0;
+
+  .icon {
+    width: 2rem;
+    height: 2rem;
+  }
 
   @include small-and-up {
     font-size: $font-size-xxxl;
@@ -99,6 +105,11 @@
   li {
     display: inline-block;
     margin: 0 16px 0 0;
+    font-size: $font-size-xl;
+
+    &:last-child {
+      margin: 0;
+    }
   }
 
   a {
@@ -113,6 +124,7 @@
 .footer-links,
 .footer-links-secondary {
   li {
+    line-height: 2rem;
     @include medium-and-up {
       display: inline-block;
 
@@ -138,9 +150,12 @@
 .footer-links {
   color: var(--footer_links_color, $white);
   font-weight: bold;
-  font-size: $font-size-md;
   text-transform: uppercase;
   margin-bottom: 16px;
+
+  li {
+    font-size: $font-size-md;
+  }
 
   @include medium-and-up {
     font-size: $font-size-sm;
@@ -173,6 +188,8 @@
   margin-left: auto;
   margin-right: auto;
   word-break: keep-all;
+  width: 80%;
+  padding: 0;
 
   @include medium-and-up {
     line-height: 1;
