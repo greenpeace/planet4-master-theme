@@ -27,23 +27,23 @@ export class CounterFrontend extends Component {
 
   calculateRemaining() {
     const { completed_api } = this.props;
-    const target = this.props.target || 0;
-    let completed = this.props.completed || 0;
+    const target = Math.max(this.props.target, 0);
+    let completed = Math.max(this.props.completed, 0);
     let remaining = 0;
-    if (completed_api) {
+    if (completed_api && completed_api.startsWith('https://')) {
       fetch(completed_api)
         .then(response => response.json())
         .then(({ unique_count }) => {
           if (unique_count) {
-            completed = unique_count;
+            completed = Math.max(unique_count, 0);
             this.setState({
               completed,
-              remaining: target - completed
+              remaining: Math.max(target - completed, 0)
             });
           }
         });
-    } else if (target > 0 || completed > 0) {
-      remaining = target - completed;
+    } else {
+      remaining = Math.max(target - completed, 0);
       this.setState({ remaining, completed });
     }
   }
@@ -77,7 +77,7 @@ export class CounterFrontend extends Component {
     if (className) style = className.split('is-style-')[1];
     let arcLength = 31.5;
 
-    const percent = target > 0 ? Math.round(completed / target * 100) : 0;
+    const percent = Math.min(target > 0 ? Math.round(completed / target * 100) : 0, 100);
 
     let counterClassName = `block container counter-block counter-style-${style}`;
     if (isEditing) counterClassName += ` editing`;

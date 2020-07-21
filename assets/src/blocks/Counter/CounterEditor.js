@@ -33,21 +33,22 @@ export class CounterEditor extends Component {
     return (
       <Fragment>
         <InspectorControls>
-          <PanelBody title={__('Setting', 'p4ge')}>
+          <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
             <div>
               <TextControl
-                label={__('Completed', 'p4ge')}
-                placeholder={__('e.g. number of signatures', 'p4ge')}
+                label={__('Completed', 'planet4-blocks-backend')}
+                placeholder={__('e.g. number of signatures', 'planet4-blocks-backend')}
                 type="number"
                 value={attributes.completed}
                 onChange={value => this.toAttribute('completed')(Number(value))}
+                min={0}
               />
             </div>
 
             <div>
               <URLInput
-                label={__('Completed API URL', 'p4ge')}
-                placeholder={__('API URL of completed number. If filled in will override the \'Completed\' field', 'p4ge')}
+                label={__('Completed API URL', 'planet4-blocks-backend')}
+                placeholder={__('API URL of completed number. If filled in will override the \'Completed\' field', 'planet4-blocks-backend')}
                 value={attributes.completed_api}
                 onChange={this.toAttribute('completed_api')}
               />
@@ -55,24 +56,25 @@ export class CounterEditor extends Component {
 
             <div>
               <TextControl
-                label={__('Target', 'p4ge')}
-                placeholder={__('e.g. target no. of signatures', 'p4ge')}
+                label={__('Target', 'planet4-blocks-backend')}
+                placeholder={__('e.g. target no. of signatures', 'planet4-blocks-backend')}
                 type="number"
                 value={attributes.target}
                 onChange={value => this.toAttribute('target')(Number(value))}
+                min={0}
               />
             </div>
 
             <div>
               <TextareaControl
-                label={__('Text', 'p4ge')}
-                placeholder={__('e.g. "signatures collected of %target%"', 'p4ge')}
+                label={__('Text', 'planet4-blocks-backend')}
+                placeholder={__('e.g. "signatures collected of %target%"', 'planet4-blocks-backend')}
                 value={attributes.text}
                 onChange={this.toAttribute('text')}
               />
             </div>
             <div className="sidebar-blocks-help">
-              These placeholders can be used: <code>%completed%</code>, <code>%target%</code>, <code>%remaining%</code>
+              {__('These placeholders can be used:', 'planet4-blocks-backend')}{' '}<code>%completed%</code>, <code>%target%</code>, <code>%remaining%</code>
             </div>
           </PanelBody>
         </InspectorControls>
@@ -89,7 +91,7 @@ export class CounterEditor extends Component {
           <RichText
             tagName="h2"
             className="page-section-header"
-            placeholder={__('Enter title', 'p4ge')}
+            placeholder={__('Enter title', 'planet4-blocks-backend')}
             value={attributes.title}
             onChange={this.toAttribute('title')}
             keepPlaceholderOnFocus={true}
@@ -101,7 +103,7 @@ export class CounterEditor extends Component {
         <RichText
           tagName="p"
           className="page-section-description"
-          placeholder={__('Enter description', 'p4ge')}
+          placeholder={__('Enter description', 'planet4-blocks-backend')}
           value={attributes.description}
           onChange={this.toAttribute('description')}
           keepPlaceholderOnFocus={true}

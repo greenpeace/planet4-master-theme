@@ -41,14 +41,14 @@ class Counter extends Base_Block {
 					],
 					'completed'     => [
 						'type'    => 'integer',
-						'default' => 0,
+						'default' => '',
 					],
 					'completed_api' => [
 						'type' => 'string',
 					],
 					'target'        => [
 						'type'    => 'integer',
-						'default' => 0,
+						'default' => '',
 					],
 					'text'          => [
 						'type'    => 'text',

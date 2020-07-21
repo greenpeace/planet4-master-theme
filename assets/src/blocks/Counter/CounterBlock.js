@@ -18,7 +18,7 @@ export class CounterBlock {
       },
       completed: {
         type: 'integer',
-        default: 0
+        default: ''
       },
       completed_api: {
         type: 'string',
@@ -26,7 +26,7 @@ export class CounterBlock {
       },
       target: {
         type: 'integer',
-        default: 0
+        default: ''
       },
       text: {
         type: 'string',
