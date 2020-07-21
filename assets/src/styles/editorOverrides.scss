@@ -213,18 +213,3 @@ input.describe[type=text][data-setting=caption] {
   font-size: 13px;
   color: red;
 }
-
-// Articles block overrides
-.editor-styles-wrapper {
-  .article-list-item-meta {
-    margin: 0;
-  }
-
-  .article-list-item-headline {
-    margin: 4px 0;
-  }
-
-  .article-list-item-content {
-    margin: 8px 0;
-  }
-}

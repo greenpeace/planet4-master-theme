@@ -13,7 +13,7 @@ export class ArticlesBlock {
     const attributes = {
       article_heading: {
         type: 'string',
-        default: __('Latest Articles', 'p4ge')
+        default: __('Latest Articles', 'planet4-blocks')
       },
       articles_description: {
         type: 'string',
@@ -36,7 +36,7 @@ export class ArticlesBlock {
       },
       read_more_text: {
         type: 'string',
-        default: __('Load More', 'p4ge')
+        default: __('Load More', 'planet4-blocks')
       },
       read_more_link: {
         type: 'string',

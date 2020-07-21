@@ -11,7 +11,7 @@ import TagSelector from '../../components/TagSelector/TagSelector';
 import PostSelector from '../../components/PostSelector/PostSelector';
 import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector';
 import { URLInput } from "../../components/URLInput/URLInput";
-import { ArticlesFrontend } from "./ArticlesFrontend";
+import { ArticlesList } from "./ArticlesList";
 
 const { RichText } = wp.blockEditor;
 const { __ } = wp.i18n;
@@ -22,7 +22,7 @@ export class ArticlesEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      total_pages: 0
+      totalPages: 0
     };
     this.toAttribute = this.toAttribute.bind(this);
   }
@@ -38,15 +38,15 @@ export class ArticlesEditor extends Component {
     return (
       <Fragment>
         <InspectorControls>
-          <PanelBody title={__('Setting', 'p4ge')}>
+          <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
             <URLInput
-              label={__('Button Link', 'p4ge')}
+              label={__('Button Link', 'planet4-blocks-backend')}
               value={attributes.read_more_link}
               onChange={this.toAttribute('read_more_link')}
             />
             <CheckboxControl
-              label={__('Open in a new Tab', 'p4ge')}
-              help={__('Open button link in new tab', 'p4ge')}
+              label={__('Open in a new Tab', 'planet4-blocks-backend')}
+              help={__('Open button link in new tab', 'planet4-blocks-backend')}
               value={attributes.button_link_new_tab}
               checked={attributes.button_link_new_tab}
               onChange={this.toAttribute('button_link_new_tab')}
@@ -54,8 +54,8 @@ export class ArticlesEditor extends Component {
             {attributes.posts !== 'undefined' && attributes.posts.length === 0 &&
               <Fragment>
                 <TextControl
-                  label={__('Articles count', 'p4ge')}
-                  help={__('Number of articles', 'p4ge')}
+                  label={__('Articles count', 'planet4-blocks-backend')}
+                  help={__('Number of articles', 'planet4-blocks-backend')}
                   type="number"
                   min={0}
                   value={attributes.article_count}
@@ -73,14 +73,14 @@ export class ArticlesEditor extends Component {
                 />
                 <p className='FieldHelp'>Associate this block with Actions that have specific Tags</p>
                 <PostTypeSelector
-                  label={__('Post Types', 'p4ge')}
+                  label={__('Post Types', 'planet4-blocks-backend')}
                   value={attributes.post_types}
                   onChange={this.toAttribute('post_types')}
                 />
                 <div className="ignore-categories-wrapper">
                   <CheckboxControl
-                    label={__('Ignore categories', 'p4ge')}
-                    help={__('Ignore categories when filtering posts to populate the content of this block', 'p4ge')}
+                    label={__('Ignore categories', 'planet4-blocks-backend')}
+                    help={__('Ignore categories when filtering posts to populate the content of this block', 'planet4-blocks-backend')}
                     value={attributes.ignore_categories}
                     checked={attributes.ignore_categories}
                     onChange={this.toAttribute('ignore_categories')}
@@ -91,11 +91,11 @@ export class ArticlesEditor extends Component {
             {attributes.tags.length === 0 && attributes.post_types.length === 0 &&
               <div>
                 <hr />
-                <label>{__('Manual override', 'p4ge')}</label>
+                <label>{__('Manual override', 'planet4-blocks-backend')}</label>
                 <PostSelector
                   value={attributes.posts}
                   onChange={this.toAttribute('posts')}
-                  label={__('CAUTION: Adding articles individually will override the automatic functionality of this block. For good user experience, please include at least three articles so that spacing and alignment of the design remains in tact.', 'p4ge')}
+                  label={__('CAUTION: Adding articles individually will override the automatic functionality of this block. For good user experience, please include at least three articles so that spacing and alignment of the design remains in tact.', 'planet4-blocks-backend')}
                   maxLength={10}
                   maxSuggestions={20}
                   postType='post'
@@ -110,16 +110,16 @@ export class ArticlesEditor extends Component {
 
   renderView() {
     const { attributes, postType, postId } = this.props;
-    const { total_pages } = this.state;
+    const { totalPages } = this.state;
 
     return (
       <Fragment>
-        <Tooltip text={__('Edit text', 'p4ge')}>
+        <Tooltip text={__('Edit text', 'planet4-blocks-backend')}>
           <header className="articles-title-container">
             <RichText
               tagName="h2"
               className="page-section-header"
-              placeholder={__('Enter title', 'p4ge')}
+              placeholder={__('Enter title', 'planet4-blocks-backend')}
               value={attributes.article_heading}
               onChange={this.toAttribute('article_heading')}
               keepPlaceholderOnFocus={true}
@@ -132,26 +132,25 @@ export class ArticlesEditor extends Component {
         <RichText
           tagName="p"
           className="page-section-description"
-          placeholder={__('Enter description', 'p4ge')}
+          placeholder={__('Enter description', 'planet4-blocks-backend')}
           value={attributes.articles_description}
           onChange={this.toAttribute('articles_description')}
           keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
           characterLimit={200}
         />
-        <ArticlesFrontend
-          isEditing
+        <ArticlesList
           postType={postType}
           postId={postId}
-          setTotalPages={total_pages => this.setState({ total_pages })}
+          setTotalPages={totalPages => this.setState({ totalPages })}
           {...attributes}
         />
-        {attributes.posts.length === 0 && total_pages > 1 && (
-          <Tooltip text={__('Edit text', 'p4ge')}>
+        {attributes.posts.length === 0 && totalPages > 1 && (
+          <Tooltip text={__('Edit text', 'planet4-blocks-backend')}>
             <div className="btn btn-secondary btn-block article-load-more">
               <RichText
                 tagName="div"
-                placeholder={__('Enter text', 'p4ge')}
+                placeholder={__('Enter text', 'planet4-blocks-backend')}
                 value={attributes.read_more_text}
                 onChange={this.toAttribute('read_more_text')}
                 keepPlaceholderOnFocus={true}
@@ -168,7 +167,7 @@ export class ArticlesEditor extends Component {
 
   render() {
     return (
-      <div className='articles-editor'>
+      <div>
         {
           this.props.isSelected && this.renderEdit()
         }

@@ -170,7 +170,7 @@ class Articles extends Base_Block {
 	 *
 	 * @return array
 	 */
-	public function populate_post_items( $posts ) {
+	private static function populate_post_items( $posts ) {
 		$recent_posts = [];
 
 		if ( $posts ) {
@@ -232,7 +232,7 @@ class Articles extends Base_Block {
 	 *
 	 * @return array|false
 	 */
-	public function filter_posts_by_ids( &$fields ) {
+	private static function filter_posts_by_ids( &$fields ) {
 
 		$post_ids = $fields['posts'] ?? [];
 
@@ -259,7 +259,7 @@ class Articles extends Base_Block {
 	 *
 	 * @return array
 	 */
-	public function filter_posts_by_page_types_or_tags( &$fields ) {
+	private static function filter_posts_by_page_types_or_tags( &$fields ) {
 
 		$exclude_post_id   = (int) ( $fields['exclude_post_id'] ?? '' );
 		$ignore_categories = $fields['ignore_categories'];
@@ -345,7 +345,7 @@ class Articles extends Base_Block {
 	 *
 	 * @return array|false
 	 */
-	public function filter_posts_for_tag_page( &$fields ) {
+	private static function filter_posts_for_tag_page( &$fields ) {
 
 		$tag_id = $fields['tags'] ?? '';
 		$tag    = get_tag( $tag_id[0] );
@@ -366,7 +366,7 @@ class Articles extends Base_Block {
 	 *
 	 * @return array
 	 */
-	public function filter_posts_by_pages_tags() {
+	private static function filter_posts_by_pages_tags() {
 
 		// Get all posts with arguments.
 		$args = self::DEFAULT_POST_ARGS;
