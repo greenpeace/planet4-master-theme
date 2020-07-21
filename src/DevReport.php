@@ -19,7 +19,7 @@ class DevReport {
 	public function __construct() {
 
 		// Set our title.
-		$this->title = 'Development';
+		$this->title = 'Planet4 Dev Report';
 		$this->hooks();
 	}
 

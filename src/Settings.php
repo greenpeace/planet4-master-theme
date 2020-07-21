@@ -49,7 +49,7 @@ class Settings {
 	public function __construct() {
 
 		// Set our title.
-		$this->title = __( 'Planet 4', 'planet4-master-theme-backend' );
+		$this->title = __( 'Planet4', 'planet4-master-theme-backend' );
 
 		// Set our subpages.
 		// Each subpage has a title and a path and the fields.
@@ -401,9 +401,7 @@ class Settings {
 				$subpage['title'],
 				'manage_options',
 				$path,
-				function () use ( $path ) {
-					$this->admin_page_display( $path );
-				}
+				[ $this, 'admin_page_display' ]
 			);
 		}
 	}
@@ -501,10 +499,9 @@ class Settings {
 
 	/**
 	 * Admin page markup. Mostly handled by CMB2.
-	 *
-	 * @param string $plugin_page The key for the current page.
 	 */
-	public function admin_page_display( string $plugin_page ) {
+	public function admin_page_display() {
+		global $plugin_page;
 		$fields = $this->subpages[ $plugin_page ]['fields'];
 		?>
 		<div class="wrap <?php echo esc_attr( $this->key ); ?>">
