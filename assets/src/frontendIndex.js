@@ -1,7 +1,9 @@
 import { SpreadsheetFrontend } from './blocks/Spreadsheet/SpreadsheetFrontend';
+import { CounterFrontend } from './blocks/Counter/CounterFrontend';
 
 const COMPONENTS = {
-  'planet4-blocks/spreadsheet': SpreadsheetFrontend
+  'planet4-blocks/spreadsheet': SpreadsheetFrontend,
+  'planet4-blocks/counter': CounterFrontend
 };
 
 document.querySelectorAll( `[data-render]` ).forEach(

@@ -23,41 +23,14 @@ class Counter extends Base_Block {
 	const BLOCK_NAME = 'counter';
 
 	/**
-	 * @param array  $attributes Block attributes.
-	 * @param string $content    Block content.
-	 *
-	 * @return mixed
-	 */
-	public function add_block_shortcode( $attributes, $content ) {
-		$attributes = shortcode_atts(
-			[
-				'title'         => 1,
-				'description'   => '',
-				'style'         => 'plain',
-				'completed'     => 0,
-				'completed_api' => '',
-				'target'        => 0,
-				'text'          => '',
-			],
-			$attributes,
-			'shortcake_counter'
-		);
-
-		return $this->render( $attributes );
-	}
-
-	/**
 	 * Counter constructor.
 	 */
 	public function __construct() {
-		add_shortcode( 'shortcake_counter', [ $this, 'add_block_shortcode' ] );
-
 		register_block_type(
 			'planet4-blocks/counter',
 			[  // - Register the block for the editor
-				'editor_script'   => 'planet4-blocks',  // in the PHP side.
-				'render_callback' => [ $this, 'render' ],
-				'attributes'      => [
+				'editor_script' => 'planet4-blocks',  // in the PHP side.
+				'attributes'    => [
 					'title'         => [
 						'type'    => 'string',
 						'default' => '',
@@ -66,23 +39,23 @@ class Counter extends Base_Block {
 						'type'    => 'string',
 						'default' => '',
 					],
-					'style'         => [
-						'type'    => 'string',
-						'default' => 'plain',
-					],
 					'completed'     => [
 						'type'    => 'integer',
-						'default' => 0,
+						'default' => '',
 					],
 					'completed_api' => [
 						'type' => 'string',
 					],
 					'target'        => [
 						'type'    => 'integer',
-						'default' => 0,
+						'default' => '',
 					],
 					'text'          => [
 						'type'    => 'text',
+						'default' => '',
+					],
+					'style'         => [ // Needed to convert existing blocks.
+						'type'    => 'string',
 						'default' => '',
 					],
 				],
@@ -91,44 +64,11 @@ class Counter extends Base_Block {
 	}
 
 	/**
-	 * Get all the data that will be needed to render the block correctly.
+	 * Required by the `Base_Block` class.
 	 *
-	 * @param array $fields This is the array of fields of the block.
-	 *
-	 * @return array The data to be passed in the View.
+	 * @param array $fields Unused, required by the abstract function.
 	 */
-	public function prepare_data( $fields ) : array {
-
-		$completed = 0;
-		if ( array_key_exists( 'completed', $fields ) ) {
-			$completed = (float) $fields['completed'];
-		}
-		$target = (float) $fields['target'];
-
-		if ( ! empty( $fields['completed_api'] ) ) {
-			$response_api  = wp_safe_remote_get( $fields['completed_api'] );
-			$response_body = [];
-			if ( ! is_wp_error( $response_api ) ) {
-				$response_body = json_decode( $response_api['body'], true );
-			}
-			if ( array_key_exists( 'unique_count', $response_body ) && is_int( $response_body['unique_count'] ) ) {
-				$completed = (float) $response_body['unique_count'];
-			}
-		}
-
-		$fields['completed'] = $completed;
-		$fields['percent']   = $target > 0 ? round( $completed / $target * 100 ) : 0;
-
-		$remaining           = $target > $completed ? $target - $completed : 0;
-		$fields['remaining'] = floatval( $remaining );
-
-		// Enqueue js for the frontend.
-		if ( ! $this->is_rest_request() ) {
-			\P4GBKS\Loader::enqueue_local_script( 'counter', 'public/js/counter.js', [ 'jquery' ] );
-		}
-
-		return [
-			'fields' => $fields,
-		];
+	public function prepare_data( $fields ): array {
+		return [];
 	}
 }
