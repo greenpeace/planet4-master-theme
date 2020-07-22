@@ -1,6 +1,6 @@
 import { ArticlesEditor } from './ArticlesEditor';
 import { frontendRendered } from '../frontendRendered';
-import { withSelect } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 import { useArticlesFetch } from './useArticlesFetch';
 
 const BLOCK_NAME = 'planet4-blocks/articles';
@@ -66,25 +66,26 @@ export class ArticlesBlock {
           },
         }
       ],
-      edit: withSelect(select => {
-        return ({
-          postType: select('core/editor').getCurrentPostType(),
-          postId: select('core/editor').getCurrentPostId()
-        });
-      })(({ isSelected, attributes, setAttributes, postType, postId }) => {
+      edit: ({isSelected, attributes, setAttributes}) => {
 
-        const { posts, totalPosts } = useArticlesFetch(attributes, postType, postId);
+        const {postType, postId} = useSelect((select) => ({
+            postType: select('core/editor').getCurrentPostType(),
+            postId: select('core/editor').getCurrentPostId()
+          })
+          , []);
+
+        const {posts, totalPosts} = useArticlesFetch(attributes, postType, postId);
 
         return <ArticlesEditor
-          attributes={attributes}
-          postType={postType}
-          setAttributes={setAttributes}
-          isSelected={isSelected}
-          postId={postId}
-          posts={posts}
-          totalPosts={totalPosts}
-        />
-      }),
+          attributes={ attributes }
+          setAttributes={ setAttributes }
+          isSelected={ isSelected }
+          postType={ postType }
+          postId={ postId }
+          posts={ posts }
+          totalPosts={ totalPosts }
+        />;
+      },
       save: frontendRendered(BLOCK_NAME)
     });
   };
