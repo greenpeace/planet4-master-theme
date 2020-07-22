@@ -15,11 +15,18 @@ class Settings {
 	private const METABOX_ID = 'option_metabox';
 
 	/**
-	 * Option key, and option page slug
+	 * Option key
 	 *
 	 * @var string
 	 */
-	private $key = 'planet4_settings_navigation';
+	private $key = 'planet4_options';
+
+	/**
+	 * Option page slug
+	 *
+	 * @var string
+	 */
+	private $slug = 'planet4_settings_navigation';
 
 	/**
 	 * Options Page title
@@ -393,10 +400,10 @@ class Settings {
 	 * Add menu options page.
 	 */
 	public function add_options_pages() {
-		$this->options_page = add_menu_page( $this->title, $this->title, 'manage_options', $this->key, function () {}, 'dashicons-admin-site-alt' );
+		$this->options_page = add_menu_page( $this->title, $this->title, 'manage_options', $this->slug, function () {}, 'dashicons-admin-site-alt' );
 		foreach ( $this->subpages as $path => $subpage ) {
 			add_submenu_page(
-				$this->key,
+				$this->slug,
 				$subpage['title'],
 				$subpage['title'],
 				'manage_options',
