@@ -391,6 +391,10 @@ body.theme-plastic {
         }
       }
     }
+
+    .btn-primary {
+      @extend .btn-primary;
+    }
   } // end take action task block
 
   .split-three-column {
@@ -426,6 +430,10 @@ body.theme-plastic {
       @include large-and-up {
         padding-bottom: 0;
       }
+    }
+
+    .btn-primary {
+      @extend .btn-primary;
     }
   }
 
@@ -464,10 +472,10 @@ body.theme-plastic {
         line-height: 2.1rem;
         font-size: 1.5rem;
       }
+    }
 
-      .btn-primary {
-        @extend .btn-primary;
-      }
+    .btn-primary {
+      @extend .btn-primary;
     }
   }
 
