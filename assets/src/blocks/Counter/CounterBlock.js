@@ -31,6 +31,10 @@ export class CounterBlock {
       text: {
         type: 'string',
         default: ''
+      },
+      style: { // Needed to convert existing blocks
+        type: 'string',
+        default: ''
       }
     };
 

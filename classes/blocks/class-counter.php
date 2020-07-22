@@ -54,6 +54,10 @@ class Counter extends Base_Block {
 						'type'    => 'text',
 						'default' => '',
 					],
+					'style'         => [ // Needed to convert existing blocks.
+						'type'    => 'string',
+						'default' => '',
+					],
 				],
 			]
 		);

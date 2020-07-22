@@ -51,7 +51,6 @@ export class CounterFrontend extends Component {
   getCounterText() {
     const { text, target } = this.props;
     const { remaining, completed } = this.state;
-
     const COUNTER_TEXT = {
       '%completed%': `<span class="counter-target">${completed}</span>`,
       '%target%': `<span class="counter-target">${target || 0}</span>`,
@@ -73,9 +72,11 @@ export class CounterFrontend extends Component {
 
     const { completed } = this.state;
 
-    let style = 'plain';
-    if (className) style = className.split('is-style-')[1];
-    let arcLength = 31.5;
+    let style = this.props.style || 'plain'; // Needed to convert existing blocks
+    if (className) {
+      style = className.split('is-style-')[1];
+    }
+    const arcLength = 31.5;
 
     const percent = Math.min(target > 0 ? Math.round(completed / target * 100) : 0, 100);
 
