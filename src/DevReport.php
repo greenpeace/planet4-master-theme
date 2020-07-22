@@ -19,7 +19,7 @@ class DevReport {
 	public function __construct() {
 
 		// Set our title.
-		$this->title = 'Planet4 Dev Report';
+		$this->title = 'Development';
 		$this->hooks();
 	}
 
@@ -35,14 +35,21 @@ class DevReport {
 	 */
 	public function hooks() {
 		add_action( 'admin_init', [ $this, 'init' ] );
-		add_action( 'admin_menu', [ $this, 'add_options_page' ] );
+		add_action( 'admin_menu', [ $this, 'add_options_page' ], 99 );
 	}
 
 	/**
 	 * Add menu options page.
 	 */
 	public function add_options_page() {
-		$this->options_page = add_options_page( $this->title, $this->title, 'manage_options', $this->key, [ $this, 'admin_page_display' ] );
+		add_submenu_page(
+			'planet4_settings_navigation',
+			$this->title,
+			$this->title,
+			'manage_options',
+			$this->key,
+			[ $this, 'admin_page_display' ]
+		);
 	}
 
 	/**
