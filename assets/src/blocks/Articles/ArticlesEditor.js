@@ -54,14 +54,10 @@ export class ArticlesEditor extends Component {
                   label={__('Articles count', 'planet4-blocks-backend')}
                   help={__('Number of articles', 'planet4-blocks-backend')}
                   type="number"
-                  min={0}
+                  min={1}
                   value={attributes.article_count}
                   onChange={value => {
-                    if (value) {
-                      this.toAttribute('article_count')(Number(value));
-                    } else {
-                      this.toAttribute('article_count')('');
-                    }
+                    this.toAttribute('article_count')(Number(value));
                   }}
                 />
                 <TagSelector
