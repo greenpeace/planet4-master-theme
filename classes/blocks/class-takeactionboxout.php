@@ -144,8 +144,9 @@ class TakeActionBoxout extends Base_Block {
 		}
 
 		$args = [
-			'p'         => intval( $page_id ), // ID of a page, post.
-			'post_type' => 'any',
+			'p'           => (int) $page_id, // ID of a page, post.
+			'post_type'   => 'any',
+			'post_status' => 'publish',
 		];
 
 		// Try to find the page that the user selected.
@@ -153,20 +154,22 @@ class TakeActionBoxout extends Base_Block {
 		$page  = null;
 		$tag   = null;
 
-		// If page is found populate the necessary fields for the block.
-		if ( $query->have_posts() ) {
-			$posts   = $query->get_posts();
-			$page    = $posts[0];
-			$wp_tags = wp_get_post_tags( $page->ID );
-			$tags    = [];
+		if ( ! $query->have_posts() ) {
+			return [];
+		}
 
-			if ( is_array( $wp_tags ) && $wp_tags ) {
-				foreach ( $wp_tags as $wp_tag ) {
-					$tags[] = [
-						'name' => $wp_tag->name,
-						'link' => get_tag_link( $wp_tag ),
-					];
-				}
+		// Populate the necessary fields for the block.
+		$posts   = $query->get_posts();
+		$page    = $posts[0];
+		$wp_tags = wp_get_post_tags( $page->ID );
+		$tags    = [];
+
+		if ( is_array( $wp_tags ) && $wp_tags ) {
+			foreach ( $wp_tags as $wp_tag ) {
+				$tags[] = [
+					'name' => $wp_tag->name,
+					'link' => get_tag_link( $wp_tag ),
+				];
 			}
 		}
 
@@ -174,7 +177,7 @@ class TakeActionBoxout extends Base_Block {
 
 		// Populate variables.
 		$block = [
-			'campaigns' => $tags,
+			'campaigns' => $tags ?? [],
 			'title'     => null === $page ? '' : $page->post_title,
 			'excerpt'   => null === $page ? '' : $page->post_excerpt,
 			'link'      => null === $page ? '' : get_permalink( $page ),
@@ -186,6 +189,7 @@ class TakeActionBoxout extends Base_Block {
 		$data = [
 			'boxout' => $block,
 		];
+
 		return $data;
 	}
 
