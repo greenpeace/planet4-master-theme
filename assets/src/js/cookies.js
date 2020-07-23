@@ -28,7 +28,7 @@ export const setupCookies = function($) {
   if (cookie == null) {
     $('.cookie-notice').css('display', 'flex');
   } else {
-    window.createCookie('gp_nro', nro, 365);
+    window.createCookie('gp_nro', nro, 30);
   }
 
   $('#hidecookie').click(function () {
@@ -38,7 +38,7 @@ export const setupCookies = function($) {
     window.createCookie('no_track', '0', -1);
 
     // Create cookie to store last visited nro.
-    window.createCookie('gp_nro', nro, 365);
+    window.createCookie('gp_nro', nro, 30);
 
     // DataLayer push event on cookies consent.
     window.dataLayer = window.dataLayer || [];
