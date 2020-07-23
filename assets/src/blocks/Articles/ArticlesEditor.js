@@ -26,6 +26,13 @@ const renderEdit = (attributes, toAttribute) => {
     <Fragment>
       <InspectorControls>
         <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+          <TextControl
+            label={__('Button Text', 'planet4-blocks-backend')}
+            placeholder={__('Override button text', 'planet4-blocks-backend')}
+            help={__('Your default is set to [ Load More ]', 'planet4-blocks-backend')}
+            value={attributes.read_more_text}
+            onChange={toAttribute('read_more_text')}
+          />
           <URLInput
             label={__('Button Link', 'planet4-blocks-backend')}
             value={attributes.read_more_link}
@@ -39,51 +46,51 @@ const renderEdit = (attributes, toAttribute) => {
             onChange={toAttribute('button_link_new_tab')}
           />
           {attributes.posts !== 'undefined' && attributes.posts.length === 0 &&
-          <Fragment>
-            <TextControl
-              label={__('Articles count', 'planet4-blocks-backend')}
-              help={__('Number of articles', 'planet4-blocks-backend')}
-              type="number"
-              min={1}
-              value={attributes.article_count}
-              onChange={value => {
-                toAttribute('article_count')(Number(value));
-              }}
-            />
-            <TagSelector
-              value={attributes.tags}
-              onChange={toAttribute('tags')}
-            />
-            <p className='FieldHelp'>Associate this block with Actions that have specific Tags</p>
-            <PostTypeSelector
-              label={__('Post Types', 'planet4-blocks-backend')}
-              value={attributes.post_types}
-              onChange={toAttribute('post_types')}
-            />
-            <div className="ignore-categories-wrapper">
-              <CheckboxControl
-                label={__('Ignore categories', 'planet4-blocks-backend')}
-                help={__('Ignore categories when filtering posts to populate the content of this block', 'planet4-blocks-backend')}
-                value={attributes.ignore_categories}
-                checked={attributes.ignore_categories}
-                onChange={toAttribute('ignore_categories')}
+            <Fragment>
+              <TextControl
+                label={__('Articles count', 'planet4-blocks-backend')}
+                help={__('Number of articles', 'planet4-blocks-backend')}
+                type="number"
+                min={1}
+                value={attributes.article_count}
+                onChange={value =>
+                  toAttribute('article_count')(Number(value))
+                }
               />
-            </div>
-          </Fragment>
+              <TagSelector
+                value={attributes.tags}
+                onChange={toAttribute('tags')}
+              />
+              <p className='FieldHelp'>Associate this block with Actions that have specific Tags</p>
+              <PostTypeSelector
+                label={__('Post Types', 'planet4-blocks-backend')}
+                value={attributes.post_types}
+                onChange={toAttribute('post_types')}
+              />
+              <div className="ignore-categories-wrapper">
+                <CheckboxControl
+                  label={__('Ignore categories', 'planet4-blocks-backend')}
+                  help={__('Ignore categories when filtering posts to populate the content of this block', 'planet4-blocks-backend')}
+                  value={attributes.ignore_categories}
+                  checked={attributes.ignore_categories}
+                  onChange={toAttribute('ignore_categories')}
+                />
+              </div>
+            </Fragment>
           }
           {attributes.tags.length === 0 && attributes.post_types.length === 0 &&
-          <div>
-            <hr />
-            <label>{__('Manual override', 'planet4-blocks-backend')}</label>
-            <PostSelector
-              value={attributes.posts}
-              onChange={toAttribute('posts')}
-              label={__('CAUTION: Adding articles individually will override the automatic functionality of this block. For good user experience, please include at least three articles so that spacing and alignment of the design remains in tact.', 'planet4-blocks-backend')}
-              maxLength={10}
-              maxSuggestions={20}
-              postType='post'
-            />
-          </div>
+            <div>
+              <hr />
+              <label>{__('Manual override', 'planet4-blocks-backend')}</label>
+              <PostSelector
+                value={attributes.posts}
+                onChange={toAttribute('posts')}
+                label={__('CAUTION: Adding articles individually will override the automatic functionality of this block. For good user experience, please include at least three articles so that spacing and alignment of the design remains in tact.', 'planet4-blocks-backend')}
+                maxLength={10}
+                maxSuggestions={20}
+                postType='post'
+              />
+            </div>
           }
         </PanelBody>
       </InspectorControls>
@@ -122,8 +129,8 @@ const renderView = ({ attributes, postType, posts, totalPosts }, toAttribute) =>
         withoutInteractiveFormatting
         characterLimit={200}
       />
-      <ArticlesList posts={ posts } postType={ postType }/>
-      { attributes.posts.length === 0 && hasMultiplePages && (
+      <ArticlesList posts={posts} postType={postType} />
+      {attributes.posts.length === 0 && hasMultiplePages && (
         <Tooltip text={__('Edit text', 'planet4-blocks-backend')}>
           <div className="btn btn-secondary btn-block article-load-more">
             <RichText
@@ -147,9 +154,9 @@ export const ArticlesEditor = (props) => {
   const { isSelected, attributes, setAttributes } = props;
 
   const { postType, postId } = useSelect((select) => ({
-      postType: select('core/editor').getCurrentPostType(),
-      postId: select('core/editor').getCurrentPostId()
-    })
+    postType: select('core/editor').getCurrentPostType(),
+    postId: select('core/editor').getCurrentPostId()
+  })
     , []);
 
   const { posts, totalPosts } = useArticlesFetch(attributes, postType, postId);
@@ -161,7 +168,7 @@ export const ArticlesEditor = (props) => {
       {
         isSelected && renderEdit(attributes, toAttribute)
       }
-      {renderView({attributes, postType, posts, totalPosts}, toAttribute)}
+      {renderView({ attributes, postType, posts, totalPosts }, toAttribute)}
     </div>
   );
 }
