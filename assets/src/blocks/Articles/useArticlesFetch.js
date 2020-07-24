@@ -39,7 +39,7 @@ export const useArticlesFetch = (attributes, postType, postId) => {
 
       setDisplayedPosts(newPosts);
 
-      if (null === totalPosts) {
+      if (response.total_posts !== totalPosts) {
         setTotalPosts(response.total_posts);
       }
 
