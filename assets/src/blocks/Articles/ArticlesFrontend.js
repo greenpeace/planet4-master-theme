@@ -12,7 +12,7 @@ export const ArticlesFrontend = (props) => {
     button_link_new_tab,
   } = props;
 
-  const postType = 'post';
+  const postType = document.body.getAttribute('data-post-type');
 
   const { posts, loadNextPage, hasMorePages, loading } = useArticlesFetch(props, postType, null);
 

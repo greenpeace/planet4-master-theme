@@ -4,7 +4,7 @@ const { apiFetch } = wp;
 const { addQueryArgs } = wp.url;
 
 export const useArticlesFetch = (attributes, postType, postId) => {
-  const { article_count, post_types, posts, tags, ignore_categories } = attributes
+  const { article_count, post_types, posts, tags, ignore_categories } = attributes;
 
   const [totalPosts, setTotalPosts] = useState(null);
   const [displayedPosts, setDisplayedPosts] = useState([]);
