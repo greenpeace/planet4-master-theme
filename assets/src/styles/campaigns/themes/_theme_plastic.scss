@@ -411,7 +411,7 @@ body.theme-plastic {
   }
 
   .columns-block.block-style-no_image {
-    @include campaign_columns_style_no_image($montserrat, $plastics-blue, 400, none);
+    @include campaign_columns_style_no_image($montserrat, $plastics-blue, $extra-bold, none);
 
     font-size: 1.875rem;
     line-height: 2.25rem;
@@ -438,7 +438,7 @@ body.theme-plastic {
   }
 
   .columns-block.block-style-image {
-    @include campaign_columns_style_no_image($montserrat, $plastics-blue, 400, none);
+    @include campaign_columns_style_no_image($montserrat, $plastics-blue, $extra-bold, none);
 
     h2 {
       text-transform: none;
