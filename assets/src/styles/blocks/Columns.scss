@@ -432,7 +432,8 @@
     }
   }
 
-  &.block-style-image {
+  &.block-style-image,
+  &.block-style-tasks {
     .column-wrap {
       display: flex;
       flex-direction: column;
