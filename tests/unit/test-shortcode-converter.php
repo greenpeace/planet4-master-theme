@@ -34,7 +34,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 	 * @dataProvider carousel_header_shortcodes_provider
 	 * @dataProvider columns_shortcodes_provider
 	 * @dataProvider covers_shortcodes_provider
-	 * @dataProvider cookies_shortcodes_provider
 	 * @dataProvider gallery_shortcodes_provider
 	 * @dataProvider happy_point_shortcodes_provider
 	 * @dataProvider media_shortcodes_provider
@@ -183,34 +182,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 
 					'<!-- wp:planet4-blocks/columns {"columns_block_style":"tasks","columns":[{"title":"Ik heb 3 minuten tijd voor de oceanen","description":"Onderteken onze petitie en overtuig onze regeringen om 30% van onze oceanen te beschermen tegen 2030.","cta_link":"https://act.greenpeace.org/page/41085/petition/1?locale=nl-BE","cta_text":"Ik teken"},{"title":"Ik heb 10 minuten tijd voor de oceanen","description":"Help ons een internationale beweging op gang te brengen ter bescherming van onze oceanen door de petitie te delen met zoveel mogelijk contacten. Tweet en/of deel deze petitie op Facebook.","cta_link":"https://act.greenpeace.org/page/41085/petition/1?locale=nl-BE","cta_text":"Ik deel de petitie"},{"title":"Ik doe elke dag iets voor de oceanen","description":"Greenpeace voert momenteel een mariene expeditie van de Noordpool naar de Zuidpool om de vervuiling en bedreigingen aan te kaarten waarmee onze oceanen te kampen hebben en om op te roepen tot het cre\u00ebren van zeereservaten. Draag jouw steentje bij tot het succes van deze expeditie (een van de meest ambitieuze in de geschiedenis van Greenpeace) door je financi\u00eble steun.","cta_link":"https://act.greenpeace.org/page/35835/donate/1?_ga=2.216136790.1373388684.1554969680-131600878.1551171313","cta_text":"Ik doe een gift"}]} /-->',
 				],
-
-		];
-	}
-
-	/**
-	 * Planet4 blocks shortocodes provider.
-	 *
-	 * @return array
-	 */
-	public function cookies_shortcodes_provider(): array {
-		return [
-
-			// 1-5
-			[
-				'[shortcake_cookies title="Which cookies would you like to accept?" description="Please select which cookies you are willing to store." necessary_cookies_name="Necessary cookies" necessary_cookies_description="These cookies will provide you a better experience of our website and help us to improve the performance of Greenpeace.org. You will be able to hide the cookies acceptance banner and use the website features better. We will also use these cookies to collect statistical and anonymised data such as how long users stay on a page or which links are clicked. " all_cookies_name="Other Cookies" all_cookies_description="In addition to the cookies and technologies described above, we also use other services that will help us to enhance your experience on this website. We also may permit certain third party companies (e.g. Facebook, Google) cookies to help us understand more about our users specific behavior, demographic, and interest data. Those cookies help us to understand how visitors interact with our website (e.g. pages visited) in order to improve visitors experience, operation effectiveness of this platform and our communication strategies." /]',
-
-				'<!-- wp:planet4-blocks/cookies {"title":"Which cookies would you like to accept?","description":"Please select which cookies you are willing to store.","necessary_cookies_name":"Necessary cookies","necessary_cookies_description":"These cookies will provide you a better experience of our website and help us to improve the performance of Greenpeace.org. You will be able to hide the cookies acceptance banner and use the website features better. We will also use these cookies to collect statistical and anonymised data such as how long users stay on a page or which links are clicked. ","all_cookies_name":"Other Cookies","all_cookies_description":"In addition to the cookies and technologies described above, we also use other services that will help us to enhance your experience on this website. We also may permit certain third party companies (e.g. Facebook, Google) cookies to help us understand more about our users specific behavior, demographic, and interest data. Those cookies help us to understand how visitors interact with our website (e.g. pages visited) in order to improve visitors experience, operation effectiveness of this platform and our communication strategies."} /-->',
-			],
-			[
-				'[shortcake_cookies title="Cookies Block Title" description="Cookies Block Description" necessary_cookies_name="Necessary Cookies Name" necessary_cookies_description="Necessary Cookies Description" all_cookies_name="All Cookies Name" all_cookies_description="All Cookies Description" /]',
-
-				'<!-- wp:planet4-blocks/cookies {"title":"Cookies Block Title","description":"Cookies Block Description","necessary_cookies_name":"Necessary Cookies Name","necessary_cookies_description":"Necessary Cookies Description","all_cookies_name":"All Cookies Name","all_cookies_description":"All Cookies Description"} /-->',
-			],
-			[
-				'[shortcake_cookies title="Change your cookies preferences" description="Please select which cookies you are willing to store." necessary_cookies_name="User-experience cookies" necessary_cookies_description="These cookies will provide you a better experience of our website. You will be able to hide the cookies acceptance banner and use the website features better. The non-acceptance of these cookies will give you a cookie-free experience." all_cookies_name="Performance Cookies" all_cookies_description="These cookies help improving the performance of Greenpeace.org/africa. They are set to collect data such as how long users stay on a page or which links are clicked. This helps us make better content based on your experience navigating the website.  Most web browsers allow some control over cookies through browser settings (e.g. notifications of new cookies, disabling cookies and deleting cookies).  Click your browser type below to go directly to the browser user guide to learn how to disable or erase cookies. " /]',
-
-				'<!-- wp:planet4-blocks/cookies {"title":"Change your cookies preferences","description":"Please select which cookies you are willing to store.","necessary_cookies_name":"User-experience cookies","necessary_cookies_description":"These cookies will provide you a better experience of our website. You will be able to hide the cookies acceptance banner and use the website features better. The non-acceptance of these cookies will give you a cookie-free experience.","all_cookies_name":"Performance Cookies","all_cookies_description":"These cookies help improving the performance of Greenpeace.org/africa. They are set to collect data such as how long users stay on a page or which links are clicked. This helps us make better content based on your experience navigating the website.  Most web browsers allow some control over cookies through browser settings (e.g. notifications of new cookies, disabling cookies and deleting cookies).  Click your browser type below to go directly to the browser user guide to learn how to disable or erase cookies. "} /-->',
-			],
 
 		];
 	}

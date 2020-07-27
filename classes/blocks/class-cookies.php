@@ -18,35 +18,9 @@ class Cookies extends Base_Block {
 	const BLOCK_NAME = 'cookies';
 
 	/**
-	 * Register old shortcode for backwarsd compatibility.
-	 *
-	 * @param array $attributes This is the array of fields of this block.
-	 *
-	 * @param array $content The content of the post.
-	 */
-	public function add_block_shortcode( $attributes, $content ) {
-		$attributes = shortcode_atts(
-			[
-				'title'                         => '',
-				'description'                   => '',
-				'necessary_cookies_name'        => '',
-				'necessary_cookies_description' => '',
-				'all_cookies_name'              => '',
-				'all_cookies_description'       => '',
-			],
-			$attributes,
-			'shortcake_cookies'
-		);
-
-		return $this->render( $attributes );
-	}
-
-	/**
 	 * Cookies constructor.
 	 */
 	public function __construct() {
-		add_shortcode( 'shortcake_cookies', [ $this, 'add_block_shortcode' ] );
-
 		// - Register the block for the editor
 		// in the PHP side.
 		register_block_type(

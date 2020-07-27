@@ -34,57 +34,6 @@ export class CookiesBlock {
       supports: {
         multiple: false, // Use the block just once per post.
       },
-
-      // Transform the shortcode into a Gutenberg block
-      // this is used when a user clicks "Convert to blocks"
-      // on the "Classic Editor" block
-      transforms: {
-        from: [
-          {
-            type: 'shortcode',
-            // Shortcode tag can also be an array of shortcode aliases
-            tag: 'shortcake_cookies',
-            attributes: {
-              title: {
-                type: 'string',
-                shortcode: function (attributes) {
-                  return attributes.named.title;
-                }
-              },
-              description: {
-                type: 'string',
-                shortcode: function (attributes) {
-                  return attributes.named.description;
-                }
-              },
-              necessary_cookies_name: {
-                type: 'string',
-                shortcode: function (attributes) {
-                  return attributes.named.necessary_cookies_name;
-                }
-              },
-              necessary_cookies_description: {
-                type: 'string',
-                shortcode: function (attributes) {
-                  return attributes.named.necessary_cookies_description;
-                }
-              },
-              all_cookies_name: {
-                type: 'string',
-                shortcode: function (attributes) {
-                  return attributes.named.all_cookies_name;
-                }
-              },
-              all_cookies_description: {
-                type: 'string',
-                shortcode: function (attributes) {
-                  return attributes.named.all_cookies_description;
-                }
-              }
-            },
-          },
-        ]
-      },
       attributes,
       deprecated: [
         {
