@@ -15,7 +15,8 @@ export class CookiesFrontend extends Component {
 
 		this.onNecessaryCookiesClick = this.onNecessaryCookiesClick.bind(this);
 		this.onAllCookiesClick = this.onAllCookiesClick.bind(this);
-		this.setNoTrackCookie = this.setNoTrackCookie.bind(this);
+    this.setNoTrackCookie = this.setNoTrackCookie.bind(this);
+    this.toAttribute = this.toAttribute.bind(this);
 	}
 
 	showCookieNotice() {
@@ -108,6 +109,13 @@ export class CookiesFrontend extends Component {
     }
   }
 
+  toAttribute(attributeName) {
+    const { isSelected, toAttribute } = this.props;
+    if (isSelected && toAttribute) {
+      return toAttribute(attributeName);
+    }
+  }
+
   render() {
 		const {
 			isSelected,
@@ -118,124 +126,123 @@ export class CookiesFrontend extends Component {
 			necessary_cookies_description,
 			all_cookies_name,
 			all_cookies_description
-		} = this.props;
+    } = this.props;
 
-    return <Fragment>
-      <section className="block cookies-block">
-        {
-          isSelected || title
-          ? <header>
-							<FrontendRichText
-								tagName="h2"
-								className="page-section-header"
-								placeholder={ __('Enter title', 'p4ge') }
-								value={ title }
-								onChange={ toAttribute && toAttribute('title') }
-								keepPlaceholderOnFocus={ true }
-								withoutInteractiveFormatting
-								characterLimit={ 40 }
-								multiline="false"
-								editable={ isSelected }
-							/>
+    const { necessaryCookiesChecked, allCookiesChecked } = this.state;
+
+    return (
+      <Fragment>
+        <section className="block cookies-block">
+          {(isSelected || title) &&
+            <header>
+              <FrontendRichText
+                tagName="h2"
+                className="page-section-header"
+                placeholder={ __('Enter title', 'planet4-blocks-backend') }
+                value={ title }
+                onChange={ () => this.toAttribute('title') }
+                keepPlaceholderOnFocus={ true }
+                withoutInteractiveFormatting
+                characterLimit={ 40 }
+                multiline="false"
+                editable={ isSelected }
+              />
             </header>
-          : null
-        }
-        {
-          isSelected || description
-          ? <FrontendRichText
-							tagName="p"
-							className="page-section-description"
-							placeholder={ __('Enter description', 'p4ge') }
-							value={ description }
-							onChange={ toAttribute && toAttribute('description') }
-							keepPlaceholderOnFocus={ true }
-							withoutInteractiveFormatting
-							characterLimit={ 300 }
-							multiline="true"
-							editable={ isSelected }
-						/>
-          : null
-        }
-        {
-          isSelected || (necessary_cookies_name && necessary_cookies_description)
-          ? <Fragment>
-              <label className="custom-control custom-checkbox"
-                style={ isSelected ? { pointerEvents: 'none' } : null }>
-                <input type="checkbox"
-                  tabIndex={ isSelected ? '-1' : null }
-									name="necessary_cookies"
-									onChange={ this.onNecessaryCookiesClick }
-									checked={ this.state.necessaryCookiesChecked }
-                  className="p4-custom-control-input" />
-									<FrontendRichText
-										tagName="span"
-										className="custom-control-description"
-										placeholder={ __('Enter necessary cookies name', 'p4ge') }
-										value={ necessary_cookies_name }
-										onChange={ toAttribute && toAttribute('necessary_cookies_name') }
-										keepPlaceholderOnFocus={ true }
-										withoutInteractiveFormatting
-										characterLimit={ 40 }
-										multiline="false"
-										editable={ isSelected }
-									/>
-              </label>
-							<FrontendRichText
-								tagName="p"
-								className="cookies-checkbox-description"
-								placeholder={ __('Enter necessary cookies description', 'p4ge') }
-								value={ necessary_cookies_description }
-								onChange={ toAttribute && toAttribute('necessary_cookies_description') }
-								keepPlaceholderOnFocus={ true }
-								withoutInteractiveFormatting
-								characterLimit={ 300 }
-								multiline="true"
-								editable={ isSelected }
-							/>
-            </Fragment>
-          : null
-        }
-        {
-          isSelected || (all_cookies_name && all_cookies_description)
-          ? <Fragment>
+          }
+          {(isSelected || description) &&
+            <FrontendRichText
+              tagName="p"
+              className="page-section-description"
+              placeholder={ __('Enter description', 'planet4-blocks-backend') }
+              value={ description }
+              onChange={ () => this.toAttribute('description') }
+              keepPlaceholderOnFocus={ true }
+              withoutInteractiveFormatting
+              characterLimit={ 300 }
+              multiline="true"
+              editable={ isSelected }
+            />
+          }
+          {(isSelected || (necessary_cookies_name && necessary_cookies_description)) &&
+            <Fragment>
               <label className="custom-control custom-checkbox"
                 style={ isSelected ? { pointerEvents: 'none' } : null }>
                 <input
                   type="checkbox"
-									tabIndex={ isSelected ? '-1' : null }
-									onChange={ this.onAllCookiesClick }
-                  name="all_cookies"
-									checked={ this.state.allCookiesChecked }
-                  className="p4-custom-control-input" />
-								<FrontendRichText
-									tagName="span"
-									className="custom-control-description"
-									placeholder={ __('Enter all cookies name', 'p4ge') }
-									value={ all_cookies_name }
-									onChange={ toAttribute && toAttribute('all_cookies_name') }
-									keepPlaceholderOnFocus={ true }
-									withoutInteractiveFormatting
-									characterLimit={ 40 }
-									multiline="false"
-									editable={ isSelected }
-								/>
+                  tabIndex={ isSelected ? '-1' : null }
+                  name="necessary_cookies"
+                  onChange={ this.onNecessaryCookiesClick }
+                  checked={ necessaryCookiesChecked }
+                  className="p4-custom-control-input"
+                />
+                <FrontendRichText
+                  tagName="span"
+                  className="custom-control-description"
+                  placeholder={ __('Enter necessary cookies name', 'planet4-blocks-backend') }
+                  value={ necessary_cookies_name }
+                  onChange={ () => this.toAttribute('necessary_cookies_name') }
+                  keepPlaceholderOnFocus={ true }
+                  withoutInteractiveFormatting
+                  characterLimit={ 40 }
+                  multiline="false"
+                  editable={ isSelected }
+                />
               </label>
-							<FrontendRichText
-								tagName="p"
-								className="cookies-checkbox-description"
-								placeholder={ __('Enter all cookies description', 'p4ge') }
-								value={ all_cookies_description }
-								onChange={ toAttribute && toAttribute('all_cookies_description') }
-								keepPlaceholderOnFocus={ true }
-								withoutInteractiveFormatting
-								characterLimit={ 300 }
-								multiline="true"
-								editable={ isSelected }
-							/>
+              <FrontendRichText
+                tagName="p"
+                className="cookies-checkbox-description"
+                placeholder={ __('Enter necessary cookies description', 'planet4-blocks-backend') }
+                value={ necessary_cookies_description }
+                onChange={ () => this.toAttribute('necessary_cookies_description') }
+                keepPlaceholderOnFocus={ true }
+                withoutInteractiveFormatting
+                characterLimit={ 300 }
+                multiline="true"
+                editable={ isSelected }
+              />
             </Fragment>
-          : null
-        }
-				</section>
-    </Fragment>
+          }
+          {(isSelected || (all_cookies_name && all_cookies_description)) &&
+            <Fragment>
+              <label className="custom-control custom-checkbox"
+                style={ isSelected ? { pointerEvents: 'none' } : null }>
+                <input
+                  type="checkbox"
+                  tabIndex={ isSelected ? '-1' : null }
+                  onChange={ this.onAllCookiesClick }
+                  name="all_cookies"
+                  checked={ allCookiesChecked }
+                  className="p4-custom-control-input"
+                />
+                <FrontendRichText
+                  tagName="span"
+                  className="custom-control-description"
+                  placeholder={ __('Enter all cookies name', 'planet4-blocks-backend') }
+                  value={ all_cookies_name }
+                  onChange={ () => this.toAttribute('all_cookies_name') }
+                  keepPlaceholderOnFocus={ true }
+                  withoutInteractiveFormatting
+                  characterLimit={ 40 }
+                  multiline="false"
+                  editable={ isSelected }
+                />
+              </label>
+              <FrontendRichText
+                tagName="p"
+                className="cookies-checkbox-description"
+                placeholder={ __('Enter all cookies description', 'planet4-blocks-backend') }
+                value={ all_cookies_description }
+                onChange={ () => this.toAttribute('all_cookies_description') }
+                keepPlaceholderOnFocus={ true }
+                withoutInteractiveFormatting
+                characterLimit={ 300 }
+                multiline="true"
+                editable={ isSelected }
+              />
+            </Fragment>
+          }
+          </section>
+      </Fragment>
+    );
   }
 }
