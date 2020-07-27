@@ -20,12 +20,12 @@ export class CookiesFrontend extends Component {
 
 	showCookieNotice() {
 		// the .cookie-notice element belongs to the P4 Master Theme
-		$('.cookie-notice').show();
+		$('.cookie-notice').css('display', 'flex');
 	}
 
 	hideCookieNotice() {
 		// the .cookie-notice element belongs to the P4 Master Theme
-		$('.cookie-notice').slideUp('slow');
+		$('.cookie-notice').fadeOut('slow');
 	}
 
 	onNecessaryCookiesClick() {
