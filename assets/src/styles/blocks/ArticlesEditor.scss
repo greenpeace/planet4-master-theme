@@ -1,3 +1,45 @@
 .ignore-categories-wrapper {
   margin-top: 10px;
 }
+
+.editor-styles-wrapper {
+  .article-list-item-meta {
+    margin: 0;
+  }
+
+  .article-list-item-headline {
+    margin: 4px 0;
+  }
+
+  .article-list-item-content {
+    margin: 8px 0;
+  }
+
+  .article-load-more {
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: transparentize($white, .7);
+      border-color: $dark-blue;
+      color: $dark-blue;
+      box-shadow: none;
+    }
+  }
+
+  .articles-title-container {
+    width: fit-content;
+  }
+
+  a,
+  .article-list-item-image,
+  .top-page-tags .tag-item {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .article-list-item-date,
+  .article-list-item-author,
+  .article-list-item-content {
+    cursor: default;
+  }
+}
