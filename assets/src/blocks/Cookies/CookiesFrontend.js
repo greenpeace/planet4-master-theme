@@ -119,7 +119,6 @@ export class CookiesFrontend extends Component {
   render() {
 		const {
 			isSelected,
-			toAttribute,
 			title,
 			description,
 			necessary_cookies_name,
