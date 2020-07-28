@@ -39,8 +39,14 @@ class Articles extends Base_Block {
 		register_block_type(
 			'planet4-blocks/articles',
 			[
-				'editor_script' => 'planet4-blocks',
-				'attributes'    => [
+				'editor_script'   => 'planet4-blocks',
+				// todo: Remove when all content is migrated.
+				'render_callback' => static function ( $attributes ) {
+					$json = wp_json_encode( [ 'attributes' => $attributes ] );
+
+					return '<div data-render="planet4-blocks/articles" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+				},
+				'attributes'      => [
 					'article_heading'      => [
 						'type' => 'string',
 					],
