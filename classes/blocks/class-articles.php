@@ -121,8 +121,7 @@ class Articles extends Base_Block {
 		// b. inside post - Get results excluding specific post.
 		// 3) specific posts - Get posts by ids specified in backend - new behavior / manual override.
 		// 4) issue page - Get posts based on page's tags.
-		$fields_diff = count( array_diff( [ 'post_types', 'posts' ], array_keys( $fields ) ) );
-		if ( is_tag() && ! empty( $fields['tags'] ) && 2 === $fields_diff ) {
+		if ( empty( $fields['posts'] ) && empty( $fields['post_types'] ) && ! empty( $fields['tags'] ) && is_tag() ) {
 			$args = self::filter_posts_for_tag_page( $fields );
 		} elseif ( ! empty( $fields['post_types'] ) ||
 				! empty( $fields['tags'] ) ||
