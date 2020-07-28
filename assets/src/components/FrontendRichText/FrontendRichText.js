@@ -8,10 +8,11 @@ export const FrontendRichText = ({ editable, ...richTextProps }) => {
 
   return <Fragment>
     {renderAsRichText ?
-      <RichText { ...richTextProps } /> :
-      <TagName className={ richTextProps.className }>
-        { richTextProps.value }
-      </TagName>
+      <RichText {...richTextProps} /> :
+      <TagName
+        className={richTextProps.className}
+        dangerouslySetInnerHTML={{ __html: richTextProps.value }}
+      />
     }
   </Fragment>
 }

@@ -152,7 +152,6 @@ export class CookiesFrontend extends Component {
               keepPlaceholderOnFocus={ true }
               withoutInteractiveFormatting
               characterLimit={ 300 }
-              multiline="true"
               editable={ isEditing }
             />
           }
@@ -190,7 +189,6 @@ export class CookiesFrontend extends Component {
                 keepPlaceholderOnFocus={ true }
                 withoutInteractiveFormatting
                 characterLimit={ 300 }
-                multiline="true"
                 editable={ isEditing }
               />
             </Fragment>
@@ -229,7 +227,6 @@ export class CookiesFrontend extends Component {
                 keepPlaceholderOnFocus={ true }
                 withoutInteractiveFormatting
                 characterLimit={ 300 }
-                multiline="true"
                 editable={ isEditing }
               />
             </Fragment>
