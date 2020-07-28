@@ -1,4 +1,4 @@
-import {CookiesEditor} from './CookiesEditor.js';
+import { CookiesEditor } from './CookiesEditor.js';
 import { frontendRendered } from '../frontendRendered';
 
 const BLOCK_NAME = 'planet4-blocks/cookies';
@@ -17,21 +17,27 @@ export class CookiesBlock {
       attributes: {
         title: {
           type: 'string',
+          default: ''
         },
         description: {
           type: 'string',
+          default: ''
         },
         necessary_cookies_name: {
           type: 'string',
+          default: ''
         },
         necessary_cookies_description: {
           type: 'string',
+          default: ''
         },
         all_cookies_name: {
           type: 'string',
+          default: ''
         },
         all_cookies_description: {
           type: 'string',
+          default: ''
         },
       },
       edit: CookiesEditor,
@@ -41,21 +47,27 @@ export class CookiesBlock {
           attributes: {
             title: {
               type: 'string',
+              default: ''
             },
             description: {
               type: 'string',
+              default: ''
             },
             necessary_cookies_name: {
               type: 'string',
+              default: ''
             },
             necessary_cookies_description: {
               type: 'string',
+              default: ''
             },
             all_cookies_name: {
               type: 'string',
+              default: ''
             },
             all_cookies_description: {
               type: 'string',
+              default: ''
             },
           },
           save() {

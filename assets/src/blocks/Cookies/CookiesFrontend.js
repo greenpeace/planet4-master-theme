@@ -16,7 +16,6 @@ export class CookiesFrontend extends Component {
 		this.onNecessaryCookiesClick = this.onNecessaryCookiesClick.bind(this);
 		this.onAllCookiesClick = this.onAllCookiesClick.bind(this);
     this.setNoTrackCookie = this.setNoTrackCookie.bind(this);
-    this.toAttribute = this.toAttribute.bind(this);
 	}
 
 	showCookieNotice() {
@@ -109,13 +108,6 @@ export class CookiesFrontend extends Component {
     }
   }
 
-  toAttribute(attributeName) {
-    const { isSelected, toAttribute } = this.props;
-    if (isSelected && toAttribute) {
-      return toAttribute(attributeName);
-    }
-  }
-
   render() {
 		const {
 			isSelected,
@@ -125,7 +117,8 @@ export class CookiesFrontend extends Component {
 			necessary_cookies_description,
 			all_cookies_name,
       all_cookies_description,
-      isEditing
+      isEditing,
+      toAttribute
     } = this.props;
 
     const { necessaryCookiesChecked, allCookiesChecked } = this.state;
@@ -140,7 +133,7 @@ export class CookiesFrontend extends Component {
                 className="page-section-header"
                 placeholder={ __('Enter title', 'planet4-blocks-backend') }
                 value={ title }
-                onChange={ () => this.toAttribute('title') }
+                onChange={ toAttribute && toAttribute('title') }
                 keepPlaceholderOnFocus={ true }
                 withoutInteractiveFormatting
                 characterLimit={ 40 }
@@ -155,7 +148,7 @@ export class CookiesFrontend extends Component {
               className="page-section-description"
               placeholder={ __('Enter description', 'planet4-blocks-backend') }
               value={ description }
-              onChange={ () => this.toAttribute('description') }
+              onChange={ toAttribute && toAttribute('description') }
               keepPlaceholderOnFocus={ true }
               withoutInteractiveFormatting
               characterLimit={ 300 }
@@ -180,7 +173,7 @@ export class CookiesFrontend extends Component {
                   className="custom-control-description"
                   placeholder={ __('Enter necessary cookies name', 'planet4-blocks-backend') }
                   value={ necessary_cookies_name }
-                  onChange={ () => this.toAttribute('necessary_cookies_name') }
+                  onChange={ toAttribute && toAttribute('necessary_cookies_name') }
                   keepPlaceholderOnFocus={ true }
                   withoutInteractiveFormatting
                   characterLimit={ 40 }
@@ -193,7 +186,7 @@ export class CookiesFrontend extends Component {
                 className="cookies-checkbox-description"
                 placeholder={ __('Enter necessary cookies description', 'planet4-blocks-backend') }
                 value={ necessary_cookies_description }
-                onChange={ () => this.toAttribute('necessary_cookies_description') }
+                onChange={ toAttribute && toAttribute('necessary_cookies_description') }
                 keepPlaceholderOnFocus={ true }
                 withoutInteractiveFormatting
                 characterLimit={ 300 }
@@ -219,7 +212,7 @@ export class CookiesFrontend extends Component {
                   className="custom-control-description"
                   placeholder={ __('Enter all cookies name', 'planet4-blocks-backend') }
                   value={ all_cookies_name }
-                  onChange={ () => this.toAttribute('all_cookies_name') }
+                  onChange={ toAttribute && toAttribute('all_cookies_name') }
                   keepPlaceholderOnFocus={ true }
                   withoutInteractiveFormatting
                   characterLimit={ 40 }
@@ -232,7 +225,7 @@ export class CookiesFrontend extends Component {
                 className="cookies-checkbox-description"
                 placeholder={ __('Enter all cookies description', 'planet4-blocks-backend') }
                 value={ all_cookies_description }
-                onChange={ () => this.toAttribute('all_cookies_description') }
+                onChange={ toAttribute && toAttribute('all_cookies_description') }
                 keepPlaceholderOnFocus={ true }
                 withoutInteractiveFormatting
                 characterLimit={ 300 }
