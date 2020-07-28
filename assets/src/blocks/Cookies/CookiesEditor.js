@@ -17,6 +17,7 @@ export class CookiesEditor extends Component {
     return (
       <CookiesFrontend
         { ...attributes }
+        isEditing
         toAttribute={ this.toAttribute }
         isSelected={ isSelected }
         />

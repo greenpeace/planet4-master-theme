@@ -124,7 +124,8 @@ export class CookiesFrontend extends Component {
 			necessary_cookies_name,
 			necessary_cookies_description,
 			all_cookies_name,
-			all_cookies_description
+      all_cookies_description,
+      isEditing
     } = this.props;
 
     const { necessaryCookiesChecked, allCookiesChecked } = this.state;
@@ -132,7 +133,7 @@ export class CookiesFrontend extends Component {
     return (
       <Fragment>
         <section className="block cookies-block">
-          {(isSelected || title) &&
+          {(isEditing || title) &&
             <header>
               <FrontendRichText
                 tagName="h2"
@@ -144,11 +145,11 @@ export class CookiesFrontend extends Component {
                 withoutInteractiveFormatting
                 characterLimit={ 40 }
                 multiline="false"
-                editable={ isSelected }
+                editable={ isEditing }
               />
             </header>
           }
-          {(isSelected || description) &&
+          {(isEditing || description) &&
             <FrontendRichText
               tagName="p"
               className="page-section-description"
@@ -159,10 +160,10 @@ export class CookiesFrontend extends Component {
               withoutInteractiveFormatting
               characterLimit={ 300 }
               multiline="true"
-              editable={ isSelected }
+              editable={ isEditing }
             />
           }
-          {(isSelected || (necessary_cookies_name && necessary_cookies_description)) &&
+          {(isEditing || (necessary_cookies_name && necessary_cookies_description)) &&
             <Fragment>
               <label className="custom-control custom-checkbox"
                 style={ isSelected ? { pointerEvents: 'none' } : null }>
@@ -184,7 +185,7 @@ export class CookiesFrontend extends Component {
                   withoutInteractiveFormatting
                   characterLimit={ 40 }
                   multiline="false"
-                  editable={ isSelected }
+                  editable={ isEditing }
                 />
               </label>
               <FrontendRichText
@@ -197,11 +198,11 @@ export class CookiesFrontend extends Component {
                 withoutInteractiveFormatting
                 characterLimit={ 300 }
                 multiline="true"
-                editable={ isSelected }
+                editable={ isEditing }
               />
             </Fragment>
           }
-          {(isSelected || (all_cookies_name && all_cookies_description)) &&
+          {(isEditing || (all_cookies_name && all_cookies_description)) &&
             <Fragment>
               <label className="custom-control custom-checkbox"
                 style={ isSelected ? { pointerEvents: 'none' } : null }>
@@ -223,7 +224,7 @@ export class CookiesFrontend extends Component {
                   withoutInteractiveFormatting
                   characterLimit={ 40 }
                   multiline="false"
-                  editable={ isSelected }
+                  editable={ isEditing }
                 />
               </label>
               <FrontendRichText
@@ -236,7 +237,7 @@ export class CookiesFrontend extends Component {
                 withoutInteractiveFormatting
                 characterLimit={ 300 }
                 multiline="true"
-                editable={ isSelected }
+                editable={ isEditing }
               />
             </Fragment>
           }
