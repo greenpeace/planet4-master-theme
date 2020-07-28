@@ -106,16 +106,6 @@ body.theme-climate {
       font-weight: $bold;
     }
 
-    .page-header-title {
-      font-size: 3.125rem;
-      line-height: 4.375rem;
-    }
-
-    .page-header-subtitle {
-      font-size: $font-size-xl;
-      line-height: 2.5rem;
-    }
-
     .page-header-content {
       font-family: $roboto;
       font-size: 1.125rem;
@@ -130,11 +120,6 @@ body.theme-climate {
 
     @include small-and-up {
       background-image: linear-gradient(116deg, $bg-gradient-start, $bg-gradient-end);
-
-      .page-header-title {
-        font-size: 5.625rem;
-        line-height: 1;
-      }
     }
 
     @include large-and-up {

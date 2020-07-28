@@ -62,14 +62,10 @@ body.theme-antarctic {
     @include page-header-block($sanctuary);
 
     .page-header-title {
-      font-size: 3.125rem;
-      line-height: 4.375rem;
       color: $antarctic-blue;
     }
 
     .page-header-subtitle {
-      font-size: $font-size-xl;
-      line-height: 2.5rem;
       color: $antarctic-dark-blue;
     }
 

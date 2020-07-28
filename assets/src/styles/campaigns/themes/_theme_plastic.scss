@@ -62,21 +62,6 @@ body.theme-plastic {
       font-family: $montserrat;
       text-transform: uppercase;
     }
-
-    .page-header-title {
-      font-size: 2.5rem;
-      line-height: 3rem;
-
-      @include medium-and-up {
-        font-size: 3.125rem;
-        line-height: 4.375rem;
-      }
-    }
-
-    .page-header-subtitle {
-      font-size: $font-size-xl;
-      line-height: 2.5rem;
-    }
   }
 
   .covers-block {
