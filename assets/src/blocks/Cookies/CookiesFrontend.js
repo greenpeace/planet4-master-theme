@@ -71,7 +71,7 @@ export class CookiesFrontend extends Component {
 		const cookie = this.readCookie('greenpeace');
 
 		this.setState({
-			necessaryCookiesChecked: cookie === '2',
+			necessaryCookiesChecked: ['1', '2'].includes( cookie ),
 			allCookiesChecked: isChecked,
 		});
 	}
