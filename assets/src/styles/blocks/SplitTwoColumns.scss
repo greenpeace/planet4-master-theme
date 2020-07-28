@@ -241,6 +241,8 @@
 }
 
 .split-two-column-item-button {
+  white-space: nowrap;
+
   @include large-and-up {
     width: 70%;
   }

@@ -9,6 +9,7 @@ use WP_REST_Request;
 use WP_REST_Server;
 use P4GBKS\Blocks\Spreadsheet;
 use P4GBKS\Blocks\Articles;
+use P4GBKS\Blocks\SplitTwoColumns;
 
 /**
  * This class is just a place for add_endpoints to live.
@@ -155,6 +156,32 @@ class Rest_Api {
 					'callback' => static function ( $fields ) {
 						$to_return = Articles::get_posts( $fields );
 						return rest_ensure_response( $to_return );
+					},
+				],
+			]
+		);
+
+		register_rest_route(
+			self::REST_NAMESPACE,
+			'/update_block/(?P<blockname>[a-z0-9-/]*)',
+			[
+				[
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => static function ( WP_REST_Request $request ) {
+						$blocks      = [
+							SplitTwoColumns::BLOCK_NAME => SplitTwoColumns::class,
+						];
+						$block_name  = $request->get_param( 'blockname' );
+						$block_class = $blocks[ $block_name ] ?? null;
+
+						return rest_ensure_response(
+							$block_class && method_exists( $block_class, 'update_data' )
+								? $block_class::update_data( $request->get_params() )
+								: new WP_Error( 'error', 'Unknown block ' . ( $block_name ?? 'unspecified' ) )
+						);
+					},
+					'permission_callback' => static function () {
+						return current_user_can( 'edit_pages' );
 					},
 				],
 			]

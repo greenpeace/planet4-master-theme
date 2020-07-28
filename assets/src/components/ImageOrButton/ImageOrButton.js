@@ -1,6 +1,6 @@
 import {Component} from '@wordpress/element';
 import {Button} from '@wordpress/components';
-import {MediaUpload,MediaUploadCheck} from '@wordpress/editor';
+import {MediaUpload,MediaUploadCheck} from '@wordpress/block-editor';
 
 export class ImageOrButton extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ export class ImageOrButton extends Component {
     const {__} = wp.i18n;
 
     if ( typeof this.props.disabled == 'undefined' ) {
-      this.props.disabled = false;
+      // this.props.disabled = false;
     }
 
     const getImageOrButton = (openEvent) => {
