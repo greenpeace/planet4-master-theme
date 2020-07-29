@@ -24,38 +24,9 @@ class Happypoint extends Base_Block {
 	const BLOCK_NAME = 'happy_point';
 
 	/**
-	 * Register shortcake shortcode.
-	 *
-	 * @param array  $attributes Shortcode attributes.
-	 * @param string $content   Content.
-	 *
-	 * @return mixed
-	 */
-	public function add_block_shortcode( $attributes, $content ) {
-
-		$attributes['id'] = $attributes['background'] ?? '';
-
-		$attributes = shortcode_atts(
-			[
-				'id'                  => '',
-				'focus_image'         => '',
-				'opacity'             => '',
-				'mailing_list_iframe' => '',
-				'iframe_url'          => '',
-			],
-			$attributes,
-			'shortcake_happy_point'
-		);
-
-		return $this->render( $attributes );
-	}
-
-	/**
 	 * Happypoint constructor.
 	 */
 	public function __construct() {
-		add_shortcode( 'shortcake_happy_point', [ $this, 'add_block_shortcode' ] );
-
 		register_block_type(
 			'planet4-blocks/happypoint',
 			[

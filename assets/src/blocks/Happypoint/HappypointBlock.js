@@ -10,47 +10,6 @@ export class HappypointBlock {
         title: __('Happypoint', 'p4ge'),
         icon: 'format-image',
         category: 'planet4-blocks',
-
-        /**
-         * Transforms old 'shortcake' shortcode to new gutenberg block.
-         *
-         * old block-shortcode:
-         * [shortcake_happy_point background="4968" focus_image="center center" opacity="60" mailing_list_iframe="true" iframe_url="https%3A%2F%2Fact.greenpeace.org%2Fpage%2F34215%2Fsubscribe%2F1" /]
-         *
-         * new block-gutenberg:
-         * <!-- wp:planet4-blocks/happypoint {"focus_image":"50% 50%","opacity":60,"mailing_list_iframe":true,"iframe_url":"https://act.greenpeace.org/page/34215/subscribe/1","id":4968} /-->
-         */
-        transforms: {
-          from: [
-            {
-              type: 'shortcode',
-              // Shortcode tag can also be an array of shortcode aliases
-              tag: 'shortcake_happy_point',
-              attributes: {
-                opacity: {
-                  type: 'integer',
-                  shortcode: ({named: {opacity = ''}}) => opacity,
-                },
-                id: {
-                  type: 'integer',
-                  shortcode: ({named: {background}}) => Number(background),
-                },
-                focus_image: {
-                  type: 'string',
-                  shortcode: ({named: {focus_image = ''}}) => focus_image,
-                },
-                mailing_list_iframe: {
-                  type: 'boolean',
-                  shortcode: ({named: {mailing_list_iframe}}) => mailing_list_iframe == 'true',
-                },
-                iframe_url: {
-                  type: 'string',
-                  shortcode: ({named: {iframe_url = ''}}) => iframe_url,
-                },
-              },
-            },
-          ]
-        },
         attributes: {
           focus_image: {
             type: 'string',
