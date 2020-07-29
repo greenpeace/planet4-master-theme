@@ -14,7 +14,7 @@ export const ArticlesFrontend = (props) => {
 
   const postType = document.body.getAttribute('data-post-type');
 
-  const { posts, loadNextPage, hasMorePages, loading } = useArticlesFetch(props, postType, null);
+  const { posts, loadNextPage, hasMorePages, loading } = useArticlesFetch(props, postType, null, document.body.dataset.nro);
 
   return (
     <section className="block articles-block">

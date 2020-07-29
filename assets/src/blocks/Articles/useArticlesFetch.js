@@ -3,7 +3,12 @@ import { useState, useEffect } from '@wordpress/element';
 const { apiFetch } = wp;
 const { addQueryArgs } = wp.url;
 
-export const useArticlesFetch = (attributes, postType, postId) => {
+const fetchJson = async(url) => {
+  const response = await fetch(url);
+  return response.json();
+};
+
+export const useArticlesFetch = (attributes, postType, postId, baseUrl = null) => {
   const { article_count, post_types, posts, tags, ignore_categories } = attributes;
 
   const [totalPosts, setTotalPosts] = useState(null);
@@ -32,8 +37,11 @@ export const useArticlesFetch = (attributes, postType, postId) => {
       args.exclude_post_id = postId;
     }
 
+
     try {
-      const response = await apiFetch({ path: addQueryArgs('planet4/v1/get-posts', args) });
+      const response = baseUrl
+        ? await fetchJson(`${ baseUrl }/wp-json/${ addQueryArgs('planet4/v1/get-posts', args) }`)
+        : await apiFetch({ path: addQueryArgs('planet4/v1/get-posts', args) });
 
       const newPosts = [...prevPosts, ...response.recent_posts];
 
