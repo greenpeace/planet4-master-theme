@@ -2,7 +2,7 @@ import { setupCookies } from './cookies';
 import { setupAuthor } from './author';
 import { setupCommentsAnchor } from './comments_anchor';
 import { setupCountrySelect } from './country_select';
-import { setImageTitlesFromAltText } from './global';
+import { setImageTitlesFromAltText, setBlueLinkStyles } from './global';
 import { setupHeader } from './header';
 import { setupImageAlign } from './img_align';
 import { setupLoadMore } from './load_more';
@@ -27,6 +27,7 @@ setupLazyLoad();
 window.$ = $ || jQuery;
 
 jQuery(function($) {
+  setBlueLinkStyles($);
   setupCookies($);
   setupAuthor($);
   setupCommentsAnchor($);
