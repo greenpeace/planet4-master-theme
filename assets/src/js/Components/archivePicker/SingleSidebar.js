@@ -19,7 +19,7 @@ export class SingleSidebar extends Component {
     super( props );
     this.state = {
       imageLoaded: false,
-    }
+    };
     this.renderImage = this.renderImage.bind(this);
     this.preloadImage = this.preloadImage.bind(this);
   }

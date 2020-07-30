@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { toSrcSet } from '../ImagePicker';
 
-export const archivePickerList = ( archivePicker ) => ( imagePicker ) => {
+export const archivePickerList = () => ( imagePicker ) => {
 
   const { props, isSelected, toggleMultiSelection, toggleSingleSelection } = imagePicker;
 

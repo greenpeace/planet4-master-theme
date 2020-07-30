@@ -1,8 +1,10 @@
 /* Todo: Change to scss, separate styles that are essential to the ImagePicker component to work (if there are any)
      from ArchivePicker styles*/
+
 .archive-picker-search input[type=submit] {
   display: inline-block;
 }
+
 .picker-list {
   max-width: 60%;
   max-height: 75vh;
