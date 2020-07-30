@@ -42,6 +42,14 @@ class Articles extends Base_Block {
 				'editor_script'   => 'planet4-blocks',
 				// todo: Remove when all content is migrated.
 				'render_callback' => static function ( $attributes ) {
+					if ( empty( $attributes['read_more_text'] ) ) {
+						$attributes['read_more_text'] = __( 'Load More', 'planet4-blocks' );
+					}
+
+					if ( empty( $attributes['article_heading'] ) ) {
+						$attributes['article_heading'] = __( 'Related Articles', 'planet4-blocks' );
+					}
+
 					$json = wp_json_encode( [ 'attributes' => $attributes ] );
 
 					return '<div data-render="planet4-blocks/articles" data-attributes="' . htmlspecialchars( $json ) . '"></div>';

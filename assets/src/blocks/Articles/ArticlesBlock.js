@@ -15,7 +15,7 @@ export class ArticlesBlock {
       attributes: {
         article_heading: {
           type: 'string',
-          default: __('Latest Articles', 'planet4-blocks')
+          default: __('Related Articles', 'planet4-blocks')
         },
         articles_description: {
           type: 'string',
@@ -60,7 +60,6 @@ export class ArticlesBlock {
           attributes: {
             article_heading: {
               type: 'string',
-              default: __('Latest Articles', 'planet4-blocks')
             },
             articles_description: {
               type: 'string',
@@ -83,7 +82,6 @@ export class ArticlesBlock {
             },
             read_more_text: {
               type: 'string',
-              default: __('Load More', 'planet4-blocks')
             },
             read_more_link: {
               type: 'string',

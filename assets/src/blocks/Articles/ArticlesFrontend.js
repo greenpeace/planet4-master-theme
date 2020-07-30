@@ -20,7 +20,7 @@ export const ArticlesFrontend = (props) => {
     <section className="block articles-block">
       <div className="container">
         <header>
-          <h2 className="page-section-header">{ article_heading || __('Latest Articles', 'planet4-blocks') }</h2>
+          <h2 className="page-section-header">{ article_heading }</h2>
         </header>
         { articles_description &&
           <div className="page-section-description" dangerouslySetInnerHTML={{ __html: articles_description }} />
@@ -35,7 +35,7 @@ export const ArticlesFrontend = (props) => {
                 href={ read_more_link }
                 target={ button_link_new_tab ? '_blank' : '' }
               >
-                { read_more_text || __('Load More', 'planet4-blocks') }
+                { read_more_text }
               </a>
             </div> :
             <div className="col-md-12 col-lg-5 col-xl-5">
@@ -44,7 +44,7 @@ export const ArticlesFrontend = (props) => {
                 onClick={ loadNextPage }
                 disabled={ loading }
               >
-                { read_more_text || __('Load More', 'planet4-blocks') }
+                { read_more_text }
               </button>
             </div>
           }
