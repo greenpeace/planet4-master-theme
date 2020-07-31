@@ -14,7 +14,11 @@ export const ArticlesFrontend = (props) => {
 
   const postType = document.body.getAttribute('data-post-type');
 
-  const { posts, loadNextPage, hasMorePages, loading } = useArticlesFetch(props, postType, null, document.body.dataset.nro);
+  const postIdClass = [...document.body.classList].find(className => /^postid-\d+$/.test(className));
+
+  const postId = !postIdClass ? null : postIdClass.split('-')[1];
+
+  const { posts, loadNextPage, hasMorePages, loading } = useArticlesFetch(props, postType, postId, document.body.dataset.nro);
 
   return (
     <section className="block articles-block">
