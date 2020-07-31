@@ -4,6 +4,7 @@
   height: 444px;
   overflow: hidden;
   display: block;
+  position: relative;
 
   body.wp-admin & {
     width: 100%;
@@ -20,7 +21,6 @@
   @include x-large-and-up {
     height: 620px;
     width: 100vw;
-    position: relative;
     @include background-before-opacity($light-blue-bg);
   }
 
@@ -40,6 +40,7 @@
   .happy-point {
     height: inherit;
     padding-top: 50px;
+    overflow-y: auto;
 
     @include medium-and-up {
       text-align: center;
@@ -50,6 +51,7 @@
 
     @include x-large-and-up {
       padding-top: 220px;
+      height: 500px;
     }
 
     iframe {

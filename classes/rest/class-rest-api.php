@@ -10,6 +10,7 @@ use WP_REST_Server;
 use P4GBKS\Blocks\Spreadsheet;
 use P4GBKS\Blocks\Articles;
 use P4GBKS\Blocks\SplitTwoColumns;
+use P4GBKS\Blocks\Happypoint;
 
 /**
  * This class is just a place for add_endpoints to live.
@@ -182,6 +183,23 @@ class Rest_Api {
 					},
 					'permission_callback' => static function () {
 						return current_user_can( 'edit_pages' );
+					},
+				],
+			]
+		);
+
+		/**
+		 * Endpoint to retrieve the data for the Happypoint block
+		 */
+		register_rest_route(
+			self::REST_NAMESPACE,
+			'/get-happypoint-data',
+			[
+				[
+					'methods'  => WP_REST_Server::READABLE,
+					'callback' => static function ( $fields ) {
+						$to_return = Happypoint::get_data( $fields['id'] );
+						return rest_ensure_response( $to_return );
 					},
 				],
 			]

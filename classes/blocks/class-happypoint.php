@@ -31,18 +31,21 @@ class Happypoint extends Base_Block {
 			'planet4-blocks/happypoint',
 			[
 				'editor_script'   => 'planet4-blocks',
-				'render_callback' => [ $this, 'render' ],
+				// todo: Remove when all content is migrated.
+				'render_callback' => static function ( $attributes ) {
+					$json = wp_json_encode( [ 'attributes' => $attributes ] );
+					return '<div data-render="planet4-blocks/happypoint" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+				},
 				'attributes'      => [
 					'id'                  => [
 						'type' => 'integer',
 					],
 					'focus_image'         => [
-						'type'    => 'string',
-						'default' => '',
+						'type' => 'string',
 					],
 					'opacity'             => [
 						'type'    => 'integer',
-						'default' => '',
+						'default' => 30,
 					],
 					'mailing_list_iframe' => [
 						'type' => 'boolean',
@@ -61,52 +64,32 @@ class Happypoint extends Base_Block {
 	}
 
 	/**
-	 * Get all the data that will be needed to render the block correctly.
+	 * Required by the `Base_Block` class.
 	 *
-	 * @param array $fields This is the array of fields of this block.
-	 *
-	 * @return array The data to be passed in the View.
+	 * @param array $fields Unused, required by the abstract function.
 	 */
 	public function prepare_data( $fields ): array {
+		return [];
+	}
 
-		if ( ! is_numeric( $fields['opacity'] ) ) {
-			$fields['opacity'] = 30;
-		}
-
-		$fields['load_iframe']         = $fields['load_iframe'] ?? 'false';
-		$fields['focus_image']         = $fields['focus_image'] ?? 'center center';
-		$fields['iframe_url']          = $fields['iframe_url'] ?? '';
-		$fields['mailing_list_iframe'] = $fields['mailing_list_iframe'] ?? '';
-		$fields['id']                  = $fields['id'] ?? '';
-
-		// Handle delete Happy point image case.
-		if ( -1 === $fields['id'] ) {
-			$fields['id'] = '';
-		}
-
-		$opacity = number_format( ( $fields['opacity'] / 100 ), 1 );
-
-		$options                       = get_option( 'planet4_options' );
-		$p4_happy_point_bg_image       = $options['happy_point_bg_image_id'] ?? '';
-		$image_id                      = '' !== $fields['id'] ? $fields['id'] : $p4_happy_point_bg_image;
-		$img_meta                      = wp_get_attachment_metadata( $image_id );
-		$image_alt                     = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
-		$fields['background_src']      = wp_get_attachment_image_src( $image_id, 'retina-large' );
-		$fields['background_srcset']   = wp_get_attachment_image_srcset( $image_id, 'retina-large', $img_meta );
-		$fields['background_sizes']    = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
-		$fields['engaging_network_id'] = $options['engaging_network_form_id'] ?? '';
-		$fields['opacity']             = $opacity;
-		$fields['default_image']       = get_bloginfo( 'template_directory' ) . '/images/happy-point-block-bg.jpg';
-		$fields['background_alt']      = empty( $image_alt ) ? __( 'Background image', 'planet4-blocks' ) : $image_alt;
-
-		$data = [
-			'fields' => $fields,
-		];
-
-		// Enqueue js for the frontend.
-		if ( ! $this->is_rest_request() ) {
-			\P4GBKS\Loader::enqueue_local_script( 'happy-point', 'public/js/happy_point.js', [ 'jquery' ] );
-		}
+	/**
+	 * Get the required data for the frontend.
+	 *
+	 * @param integer $id Image id.
+	 */
+	public static function get_data( $id ) {
+		$data                        = [];
+		$options                     = get_option( 'planet4_options' );
+		$p4_happy_point_bg_image     = $options['happy_point_bg_image_id'] ?? '';
+		$image_id                    = $id ? $id : $p4_happy_point_bg_image;
+		$img_meta                    = wp_get_attachment_metadata( $image_id );
+		$image_alt                   = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+		$data['background_src']      = wp_get_attachment_image_src( $image_id, 'retina-large' );
+		$data['background_srcset']   = wp_get_attachment_image_srcset( $image_id, 'retina-large', $img_meta );
+		$data['background_sizes']    = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
+		$data['engaging_network_id'] = $options['engaging_network_form_id'] ?? '';
+		$data['default_image']       = get_bloginfo( 'template_directory' ) . '/images/happy-point-block-bg.jpg';
+		$data['background_alt']      = empty( $image_alt ) ? __( 'Background image', 'planet4-blocks' ) : $image_alt;
 
 		return $data;
 	}
