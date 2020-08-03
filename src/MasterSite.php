@@ -1196,28 +1196,25 @@ class MasterSite extends TimberSite {
 	 * Adds functionality to Twig.
 	 *
 	 * @param \Twig\Environment $twig The Twig environment.
+	 *
 	 * @return \Twig\Environment
 	 */
 	public function p4_optimize_img_url( $twig ) {
-		$options             = get_option( 'planet4_options' );
-		$cf_img_optimization = $options['cloudflare_img_opt'] ?? false;
-		$cf_options_txt      = $options['cloudflare_options_txt'] ?? '';
+		$options        = get_option( 'planet4_options' );
+		$cf_options_txt = $options['cloudflare_options_txt'] ?? '';
+
+		$filter_function = Features::is_active( Features::CLOUDFLARE_IMAGE_OPTIMIZATION )
+				? function ( ?string $source, ?string $src_set = '' ) use ( $cf_options_txt ) {
+					return empty( $source )
+						? $source
+						: $this->img_to_cloudflare( $source, $src_set ?? '', $cf_options_txt );
+				}
+				: function ( ?string $source ) {
+					return $source;
+				};
 
 		// Add Twig filter(cf_img_url) which convert image url/s into cloudflare optimized image url/s.
-		$twig->addFilter(
-			new Twig_SimpleFilter(
-				'cf_img_url',
-				$cf_img_optimization
-					? function ( ?string $source, ?string $src_set = '' ) use ( $cf_options_txt ) {
-						return empty( $source )
-							? $source
-							: $this->img_to_cloudflare( $source, $src_set ?? '', $cf_options_txt );
-					}
-					: function ( ?string $source ) {
-						return $source;
-					}
-			)
-		);
+		$twig->addFilter( new Twig_SimpleFilter( 'cf_img_url', $filter_function ) );
 
 		return $twig;
 	}
