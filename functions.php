@@ -107,6 +107,6 @@ if ( ! class_exists( 'Timber' ) ) {
 	}
 }
 
-Loader::get_instance();
-
 require_once 'load-class-aliases.php';
+
+Loader::get_instance();
