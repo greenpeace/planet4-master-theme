@@ -9,7 +9,7 @@ const setupPhotoSwipe = function(items, clickedIndex) {
     shareEl: false,
     fullscreenEl: false,
     zoomEl: false,
-    index: clickedIndex
+    index: clickedIndex,
   };
 
   var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);

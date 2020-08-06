@@ -14,11 +14,7 @@
 */
 
 // PhotoSwipe uses Autoprefixer, so vendor prefixed are added automatically when needed.
-
-
-
-@import "../main-settings";
-
+@import "./main-settings";
 
 /*
 
@@ -40,7 +36,7 @@
 	padding: 0;
 	margin: 0;
 	float: right;
-	opacity: 0.75;
+	opacity: $p4-pswp-button-opacity;
 	transition: opacity 0.2s;
 	box-shadow: none;
 
@@ -51,7 +47,7 @@
 
 	&:active {
 		outline: none;
-		opacity: 0.9;
+		opacity: $p4-pswp-button-opacity;
 	}
 
 	&::-moz-focus-inner {
@@ -68,10 +64,11 @@
 .pswp__button,
 .pswp__button--arrow--left:before,
 .pswp__button--arrow--right:before {
-	background: url(#{$pswp__assets-path}default-skin.png) 0 0 no-repeat;
+	background: url(#{$pswp__assets-path}default-skin.svg) 0 0 no-repeat;
 	background-size: 264px 88px;
 	width: 44px;
 	height: 44px;
+	border-radius: 44px;
 }
 
 @media (-webkit-min-device-pixel-ratio: 1.1),  (min-resolution: 105dpi), (min-resolution: 1.1dppx) {
@@ -156,10 +153,11 @@
 .pswp__button--arrow--right:before {
 	content: '';
 	top: 35px;
-	background-color: rgba(0,0,0,0.3);
-	height: 30px;
+	background-color: $p4-pswp-arrows-background;
+	height: 32px;
 	width: 32px;
 	position: absolute;
+	border-radius: 32px;
 }
 
 .pswp__button--arrow--left:before {
@@ -319,7 +317,7 @@ a.pswp__share--download {
 	height: 44px;
 	font-size: 13px;
 	line-height: 44px;
-	color: #FFF;
+	color: $p4-pswp-counter-text-color;
 	opacity: 0.75;
 	padding: 0 10px;
 }
@@ -340,18 +338,18 @@ a.pswp__share--download {
 
 	small {
 		font-size: 11px;
-		color: #BBB;
+		color: $p4-pswp-caption-text-color;
 	}
 }
 
 .pswp__caption__center {
-	text-align: left;
+	text-align: center;
 	max-width: 80%;
 	margin: 0 auto;
 	font-size: 13px;
 	padding: 32px;
 	line-height: 20px;
-	color: #CCC;
+	color: $p4-pswp-caption-text-color;
 }
 
 .pswp__caption--empty {
@@ -514,18 +512,22 @@ a.pswp__share--download {
 	}
 }
 
-.pswp__top-bar,
-.pswp__caption {
-	// background-color: rgba(0,0,0,0.5);
+.pswp__top-bar {
+	background-color: $p4-pswp-top-bar-background;
+}
 
-	background: linear-gradient(210deg, rgba(10, 51, 81, 0.2) 0%, #0a3351 100%)
+.pswp__caption {
+	background-color: $p4-pswp-caption-background;
 }
 
 /* pswp__ui--fit class is added when main image "fits" between top bar and bottom bar (caption) */
 .pswp__ui--fit {
-	.pswp__top-bar,
+	.pswp__top-bar {
+		background-color: $p4-pswp-top-bar-background;
+	}
+
 	.pswp__caption {
-		background-color: rgba(0,0,0,0.3);
+		background-color: $p4-pswp-caption-background;
 	}
 }
 
