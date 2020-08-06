@@ -16,7 +16,7 @@ export class CookiesFrontend extends Component {
 		this.onNecessaryCookiesClick = this.onNecessaryCookiesClick.bind(this);
 		this.onAllCookiesClick = this.onAllCookiesClick.bind(this);
     this.setNoTrackCookie = this.setNoTrackCookie.bind(this);
-	}
+  }
 
 	showCookieNotice() {
 		// the .cookie-notice element belongs to the P4 Master Theme
@@ -41,14 +41,12 @@ export class CookiesFrontend extends Component {
       this.showCookieNotice();
 		}
 
-		this.setNoTrackCookie();
-
 		this.setState({
 			necessaryCookiesChecked: isChecked,
 			 // if Necessary Cookies is not checked,
 			 // All Cookies should be unchecked too
 			allCookiesChecked,
-		});
+		}, this.setNoTrackCookie);
 	}
 
 	onAllCookiesClick() {
@@ -66,14 +64,12 @@ export class CookiesFrontend extends Component {
 			}
 		}
 
-		this.setNoTrackCookie();
-
 		const cookie = this.readCookie('greenpeace');
 
 		this.setState({
 			necessaryCookiesChecked: ['1', '2'].includes( cookie ),
 			allCookiesChecked: isChecked,
-		});
+		}, this.setNoTrackCookie);
 	}
 
   createCookie(name, value, days) {
@@ -99,12 +95,13 @@ export class CookiesFrontend extends Component {
 	}
 
   setNoTrackCookie() {
-    if (this.state.necessaryCookiesChecked || this.state.allCookiesChecked) {
-      // Remove the 'no_track' cookie, if user accept the cookies consent.
-      createCookie('no_track', 'true', -1);
-    } else {
+    const { necessaryCookiesChecked, allCookiesChecked } = this.state;
+    if (!necessaryCookiesChecked && !allCookiesChecked) {
       // If user manually disables all trackings, set a 'no_track' cookie.
       createCookie('no_track', 'true', 20 * 365);
+    } else {
+      // Remove the 'no_track' cookie, if user accept the cookies consent.
+      createCookie('no_track', 'true', -1);
     }
   }
 
