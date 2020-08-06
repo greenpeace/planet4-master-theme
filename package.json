@@ -11,8 +11,8 @@
     "lint:css": "wp-scripts lint-style"
   },
   "devDependencies": {
-    "@wordpress/components": "^10.0.0",
-    "@wordpress/scripts": "5.0.0",
+    "@wordpress/components": "^8.3.2",
+    "@wordpress/scripts": "3.3.0",
     "autoprefixer": "^9.6.1",
     "css-loader": "^3.2.0",
     "eslint-plugin-react": "^7.20.3",
@@ -35,7 +35,6 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
-    "debounce": "^1.2.0",
     "jquery": "^3.5.1",
     "popper.js": "^1.15.0"
   }
