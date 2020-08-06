@@ -12,7 +12,6 @@ use P4GBKS\Blocks\Articles;
 use P4GBKS\Blocks\SplitTwoColumns;
 use P4GBKS\Blocks\Happypoint;
 use P4GBKS\Blocks\Gallery;
-use P4GBKS\Blocks\Submenu;
 
 /**
  * This class is just a place for add_endpoints to live.
@@ -219,23 +218,6 @@ class Rest_Api {
 					'callback' => static function ( $fields ) {
 						$images = Gallery::get_images( $fields );
 						return rest_ensure_response( $images );
-					},
-				],
-			]
-		);
-
-		/**
-		 * Endpoint to get Submenu block items from a post data
-		 */
-		register_rest_route(
-			self::REST_NAMESPACE,
-			'/get-submenu-items',
-			[
-				[
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => static function ( $fields ) {
-						$menu_items = Submenu::get_menu_items( $fields );
-						return rest_ensure_response( $menu_items );
 					},
 				],
 			]

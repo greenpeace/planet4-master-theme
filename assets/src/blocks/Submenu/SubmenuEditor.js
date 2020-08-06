@@ -1,6 +1,5 @@
 import { Fragment } from '@wordpress/element';
 import { Button, PanelBody } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
 import { SubmenuLevel } from './SubmenuLevel';
 import { SubmenuFrontend } from './SubmenuFrontend';
 import { InspectorControls } from '@wordpress/block-editor';
@@ -73,10 +72,6 @@ const renderEdit = (attributes, setAttributes) => {
 
 const renderView = (attributes, setAttributes) => {
 
-  const { postId } = useSelect(select => ({
-    postId: select('core/editor').getCurrentPostId()
-  }), []);
-
   const style = getSubmenuStyle(attributes.className, attributes.submenu_style);
 
   return (
@@ -92,7 +87,7 @@ const renderView = (attributes, setAttributes) => {
           characterLimit={60}
           multiline="false"
         />
-        <SubmenuFrontend isEditing postId={postId} {...attributes} />
+        <SubmenuFrontend isEditing {...attributes} />
       </section>
     </Fragment>
   );
