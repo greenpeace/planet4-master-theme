@@ -114,7 +114,7 @@ export class CarouselHeaderSlide extends Component {
                     placeholder={__('Enter header', 'p4ge')}
                     value={this.props.header}
                     onChange={(e) => this.props.onHeaderChange(this.props.index, e)}
-                    characterLimit={40}
+                    characterLimit={32}
                   />
                 </div>
                 <div className="col">
