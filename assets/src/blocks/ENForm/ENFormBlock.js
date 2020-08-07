@@ -2,6 +2,9 @@ import {ENForm} from './ENForm.js';
 
 export class ENFormBlock {
   constructor() {
+    if (!window.p4ge_vars.planet4_options.feature_engaging_networks) {
+      return;
+    }
     const {registerBlockType} = wp.blocks;
 
     registerBlockType('planet4-blocks/enform', {

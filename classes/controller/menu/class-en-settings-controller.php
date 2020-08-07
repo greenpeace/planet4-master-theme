@@ -9,6 +9,8 @@
 
 namespace P4GBKS\Controllers\Menu;
 
+use P4\MasterTheme\Features;
+
 /**
  * Class Settings_Controller
  */
@@ -19,7 +21,7 @@ class En_Settings_Controller extends Controller {
 	 */
 	public function create_admin_menu() {
 
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( Features::is_active(Features::ENGAGING_NETWORKS) && current_user_can( 'manage_options' ) ) {
 			add_menu_page(
 				'EngagingNetworks',
 				'EngagingNetworks',
