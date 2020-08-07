@@ -1,9 +1,10 @@
 import { Fragment } from '@wordpress/element';
 import { Button, PanelBody } from '@wordpress/components';
 import { SubmenuLevel } from './SubmenuLevel';
-import { SubmenuFrontend } from './SubmenuFrontend';
+import { SubmenuItems } from './SubmenuItems';
 import { InspectorControls } from '@wordpress/block-editor';
 import { getSubmenuStyle } from './submenuFunctions';
+import { useSubmenuItemsLoad } from './useSubmenuItemsLoad';
 
 const { __ } = wp.i18n;
 const { RichText } = wp.blockEditor;
@@ -36,60 +37,63 @@ const renderEdit = (attributes, setAttributes) => {
   }
 
   return (
-    <Fragment>
-      <InspectorControls>
-        <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
-          {attributes.levels.map((level, i) => (
-            <SubmenuLevel
-              {...level}
-              onHeadingChange={onHeadingChange}
-              onLinkChange={onLinkChange}
-              onStyleChange={onStyleChange}
-              index={i}
-              key={i}
-            />
-          ))}
-          <Button
-            isPrimary
-            onClick={addLevel}
-            disabled={attributes.levels.length >= 3 || attributes.levels.slice(-1)[0].heading === 0}
-            style={{ marginRight: 5 }}
-          >
-            {__('Add level', 'planet4-blocks-backend')}
+    <InspectorControls>
+      <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+        {attributes.levels.map((level, i) => (
+          <SubmenuLevel
+            {...level}
+            onHeadingChange={onHeadingChange}
+            onLinkChange={onLinkChange}
+            onStyleChange={onStyleChange}
+            index={i}
+            key={i}
+          />
+        ))}
+        <Button
+          isPrimary
+          onClick={addLevel}
+          disabled={attributes.levels.length >= 3 || attributes.levels.slice(-1)[0].heading === 0}
+          style={{ marginRight: 5 }}
+        >
+          {__('Add level', 'planet4-blocks-backend')}
         </Button>
-          <Button
-            isSecondary
-            onClick={removeLevel}
-            disabled={attributes.levels.length <= 1}
-          >
-            {__('Remove level', 'planet4-blocks-backend')}
+        <Button
+          isSecondary
+          onClick={removeLevel}
+          disabled={attributes.levels.length <= 1}
+        >
+          {__('Remove level', 'planet4-blocks-backend')}
         </Button>
-        </PanelBody>
-      </InspectorControls>
-    </Fragment>
+      </PanelBody>
+    </InspectorControls>
   );
 }
 
 const renderView = (attributes, setAttributes) => {
 
+  const { menuItems } = useSubmenuItemsLoad(attributes.levels, true);
+
   const style = getSubmenuStyle(attributes.className, attributes.submenu_style);
 
   return (
-    <Fragment>
-      <section className={`block submenu-block submenu-${style}`}>
-        <RichText
-          tagName="h2"
-          placeholder={__('Enter title', 'planet4-blocks-backend')}
-          value={attributes.title}
-          onChange={title => setAttributes({ title })}
-          keepPlaceholderOnFocus={true}
-          withoutInteractiveFormatting
-          characterLimit={60}
-          multiline="false"
-        />
-        <SubmenuFrontend isEditing {...attributes} />
-      </section>
-    </Fragment>
+    <section className={`block submenu-block submenu-${style}`}>
+      <RichText
+        tagName="h2"
+        placeholder={__('Enter title', 'planet4-blocks-backend')}
+        value={attributes.title}
+        onChange={title => setAttributes({ title })}
+        keepPlaceholderOnFocus={true}
+        withoutInteractiveFormatting
+        characterLimit={60}
+        multiline="false"
+      />
+      {menuItems.length > 0 ?
+        <SubmenuItems menuItems={menuItems} /> :
+        <div className='EmptyMessage'>
+          {__('The submenu block produces no output on the editor.', 'planet4-blocks-backend')}
+        </div>
+      }
+    </section>
   );
 }
 
