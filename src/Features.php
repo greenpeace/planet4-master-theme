@@ -17,6 +17,8 @@ class Features {
 	 */
 	public const IMAGE_ARCHIVE = 'feature_image_archive';
 
+	public const ENGAGING_NETWORKS = 'feature_engaging_networks';
+
 	/**
 	 * Get the features options page settings.
 	 *
@@ -68,6 +70,15 @@ class Features {
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::IMAGE_ARCHIVE,
+				'type' => 'checkbox',
+			],
+			[
+				'name' => __( 'Engaging Networks integration', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'Enable the Enaging Networks integration. If turned on you will be able to use the EN Form block, as well as the "Progress Bar inside EN Form" Counter block style.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::ENGAGING_NETWORKS,
 				'type' => 'checkbox',
 			],
 		];
