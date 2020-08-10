@@ -93,7 +93,7 @@ final class Loader {
 				);
 			}
 
-			// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
+			// Load `Campaigns` class only when adding/editing a new tag.
 			if ( 'edit-tags.php' === $pagenow || 'term.php' === $pagenow ) {
 				$this->default_services[] = Campaigns::class;
 			}
@@ -114,6 +114,10 @@ final class Loader {
 		// Run Activator after theme switched to planet4-master-theme or a planet4 child theme.
 		if ( get_option( 'theme_switched' ) ) {
 			$this->default_services[] = Activator::class;
+		}
+
+		if ( wp_is_json_request() ) {
+			$this->default_services[] = MetaboxRegister::class;
 		}
 
 		$services = array_merge( $services, $this->default_services );
