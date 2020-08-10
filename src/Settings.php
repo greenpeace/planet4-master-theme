@@ -496,6 +496,11 @@ class Settings {
 	 */
 	public function admin_page_display( string $plugin_page ) {
 		$fields = $this->subpages[ $plugin_page ]['fields'];
+
+		$add_scripts = $this->subpages[ $plugin_page ]['add_scripts'] ?? null;
+		if ( $add_scripts ) {
+			$add_scripts();
+		}
 		?>
 		<div class="wrap <?php echo esc_attr( self::KEY ); ?>">
 			<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>

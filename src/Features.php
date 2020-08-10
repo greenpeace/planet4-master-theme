@@ -18,20 +18,18 @@ class Features {
 	public const IMAGE_ARCHIVE = 'feature_image_archive';
 
 	/**
-	 * Features constructor.
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Get the features options page settings.
 	 *
 	 * @return array Settings for the options page.
 	 */
 	public static function get_options_page(): array {
+
 		return [
-			'title'  => 'Features',
-			'fields' => self::get_fields(),
+			'title'       => 'Features',
+			'fields'      => self::get_fields(),
+			'add_scripts' => static function () {
+				Loader::enqueue_versioned_script( '/admin/js/features_save_redirect.js' );
+			},
 		];
 	}
 
