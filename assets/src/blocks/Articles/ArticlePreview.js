@@ -12,7 +12,14 @@ export class ArticlePreview extends Component {
     if (isCampaign) {
       return <span className={className}>{pageType}</span>;
     }
-    return <a className={className} href={link}>{pageType}</a>
+    return <a
+              className={className}
+              href={link}
+              data-ga-category="Articles Block"
+              data-ga-action="Post Type Tag"
+              data-ga-label="n/a">
+                {pageType}
+           </a>
   }
 
   getAuthorLink() {
@@ -55,12 +62,16 @@ export class ArticlePreview extends Component {
     } = this.props;
 
     const image = (
-      <a href={link}>
-        <img
-          className="d-flex topicwise-article-image"
-          src={thumbnail_url}
-          alt={alt_text}
-        />
+      <a
+        href={link}
+        data-ga-category="Articles Block"
+        data-ga-action="Image"
+        data-ga-label="n/a">
+          <img
+            className="d-flex topicwise-article-image"
+            src={thumbnail_url}
+            alt={alt_text}
+          />
       </a>
     );
 
@@ -125,7 +136,15 @@ export class ArticlePreview extends Component {
               {tags.length > 0 &&
                 <div className="tag-wrap tags">
                   {tags.map(tag =>
-                    <a key={tag.name} className="tag-item tag" href={tag.link}>{`#${tag.name}`}</a>
+                    <a
+                      key={tag.name}
+                      className="tag-item tag"
+                      href={tag.link}
+                      data-ga-category="Articles Block"
+                      data-ga-action="Navigation Tag"
+                      data-ga-label="n/a">
+                        {`#${tag.name}`}
+                    </a>
                   )}
                 </div>
               }
@@ -135,7 +154,13 @@ export class ArticlePreview extends Component {
           <header>
             {post_title &&
               <h4 className="article-list-item-headline">
-                <a href={link}>{post_title}</a>
+                <a
+                  href={link}
+                  data-ga-category="Articles Block"
+                  data-ga-action="Title"
+                  data-ga-label="n/a">
+                    {post_title}
+                </a>
               </h4>
             }
             <p className="article-list-item-meta">

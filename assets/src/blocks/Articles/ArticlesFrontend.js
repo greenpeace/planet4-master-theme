@@ -47,6 +47,9 @@ export const ArticlesFrontend = (props) => {
                 className="btn btn-secondary btn-block article-load-more"
                 onClick={ loadNextPage }
                 disabled={ loading }
+                data-ga-category="Articles Block"
+                data-ga-action="Load More Button"
+                data-ga-label="n/a"
               >
                 { read_more_text }
               </button>
