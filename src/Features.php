@@ -62,9 +62,9 @@ class Features {
 				'type' => 'text',
 			],
 			[
-				'name' => __( 'Image Archive (beta, name subject to change)', 'planet4-master-theme-backend' ),
+				'name' => __( 'Greenpeace Image Archive (beta, name subject to change)', 'planet4-master-theme-backend' ),
 				'desc' => __(
-					'Try out the new Image Archive (formerly known as "GPI Media Library").',
+					'Beta test the new Image Archive. This will replace the GPI Media Library plugin. We are renaming it to avoid confusion with the WordPress Media Library.',
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::IMAGE_ARCHIVE,
