@@ -1,4 +1,4 @@
-/* global wp, localizations */
+/* global localizations */
 
 jQuery(function($) {
 

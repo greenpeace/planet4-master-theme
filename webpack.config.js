@@ -29,6 +29,7 @@ module.exports = {
     index: './assets/src/js/app.js',
     style: './assets/src/scss/style.scss',
     bootstrap: './assets/src/scss/bootstrap-build.scss',
+    archive_picker: './assets/src/js/archive_picker.js',
   },
   output: {
     filename: '[name].js',

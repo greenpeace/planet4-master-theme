@@ -19,7 +19,7 @@ class Settings {
 	 *
 	 * @var string
 	 */
-	private $key = 'planet4_options';
+	public const KEY = 'planet4_options';
 
 	/**
 	 * Option page slug
@@ -349,24 +349,7 @@ class Settings {
 					],
 				],
 			],
-			'planet4_settings_features'         => [
-				'title'  => 'Features',
-				'fields' => [
-					[
-						'name' => __( 'Enable Cloudflare Image Optimization', 'planet4-master-theme-backend' ),
-						'desc' => __( 'Enable Cloudflare Image Optimization option for images which uses a "cf_img_url" twig filter. for more info', 'planet4-master-theme-backend' ) . ' <a href="https://developers.cloudflare.com/images/about">' . __( 'click here', 'planet4-master-theme-backend' ) . '</a>.',
-						'id'   => 'cloudflare_img_opt',
-						'type' => 'checkbox',
-					],
-
-					[
-						'name' => __( 'Cloudflare Image Optimization Options', 'planet4-master-theme-backend' ),
-						'desc' => __( 'Add Cloudflare image optimization url "options" value', 'planet4-master-theme-backend' ) . '[Comma-separated text].(https://zone/cdn-cgi/image/options/source-image)<br />e.g. width=80,quality=75,fit=cover',
-						'id'   => 'cloudflare_options_txt',
-						'type' => 'text',
-					],
-				],
-			],
+			'planet4_settings_features'         => Features::get_options_page(),
 		];
 		$this->hooks();
 	}
@@ -393,7 +376,7 @@ class Settings {
 	 * Register our setting to WP.
 	 */
 	public function init() {
-		register_setting( $this->key, $this->key );
+		register_setting( self::KEY, self::KEY );
 	}
 
 	/**
@@ -513,10 +496,15 @@ class Settings {
 	 */
 	public function admin_page_display( string $plugin_page ) {
 		$fields = $this->subpages[ $plugin_page ]['fields'];
+
+		$add_scripts = $this->subpages[ $plugin_page ]['add_scripts'] ?? null;
+		if ( $add_scripts ) {
+			$add_scripts();
+		}
 		?>
-		<div class="wrap <?php echo esc_attr( $this->key ); ?>">
+		<div class="wrap <?php echo esc_attr( self::KEY ); ?>">
 			<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
-			<?php cmb2_metabox_form( $this->option_metabox( $fields ), $this->key ); ?>
+			<?php cmb2_metabox_form( $this->option_metabox( $fields ), self::KEY ); ?>
 		</div>
 		<?php
 	}
@@ -534,7 +522,7 @@ class Settings {
 			'show_on'    => [
 				'key'   => 'options-page',
 				'value' => [
-					$this->key,
+					self::KEY,
 				],
 			],
 			'show_names' => true,

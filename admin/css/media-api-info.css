@@ -1,0 +1,13 @@
+pre {
+  background-color: white;
+  border: 2px solid gray;
+  display: table;
+  padding: 5px 20px;
+  font-family: monospace;
+  line-height: 2rem;
+  letter-spacing: .05rem;
+}
+
+dd {
+  margin-bottom: 2rem;
+}
