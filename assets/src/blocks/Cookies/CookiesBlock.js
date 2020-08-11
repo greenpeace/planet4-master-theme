@@ -1,5 +1,4 @@
 import { CookiesEditor } from './CookiesEditor.js';
-import { frontendRendered } from '../frontendRendered';
 
 const BLOCK_NAME = 'planet4-blocks/cookies';
 
@@ -41,40 +40,9 @@ export class CookiesBlock {
         },
       },
       edit: CookiesEditor,
-      save: frontendRendered( BLOCK_NAME ),
-      deprecated: [
-        {
-          attributes: {
-            title: {
-              type: 'string',
-              default: ''
-            },
-            description: {
-              type: 'string',
-              default: ''
-            },
-            necessary_cookies_name: {
-              type: 'string',
-              default: ''
-            },
-            necessary_cookies_description: {
-              type: 'string',
-              default: ''
-            },
-            all_cookies_name: {
-              type: 'string',
-              default: ''
-            },
-            all_cookies_description: {
-              type: 'string',
-              default: ''
-            },
-          },
-          save() {
-            return null;
-          },
-        }
-      ]
+      save() {
+        return null;
+      },
     });
   }
 }
