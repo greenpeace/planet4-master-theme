@@ -31,7 +31,6 @@ class Shortcode_To_Gutenberg {
 			$blocks = [
 				'shortcake_columns',
 				'shortcake_carousel_header',
-				'shortcake_cookies',
 				'shortcake_counter',
 				'shortcake_enblock',
 				'shortcake_gallery',
