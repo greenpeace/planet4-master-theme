@@ -75,6 +75,12 @@
   background-position: top;
   color: $grey-80;
 
+  img,
+  .cover-card-more
+  .not-now {
+    display: none;
+  }
+
   .cover-card-content {
     position: relative;
     pointer-events: none;
