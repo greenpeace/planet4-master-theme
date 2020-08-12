@@ -10,6 +10,8 @@
 namespace P4GBKS\Controllers\Menu;
 
 use P4\MasterTheme\Features;
+use P4\MasterTheme\MigrationLog;
+use P4\MasterTheme\Migrations\M001EnableEnFormFeature;
 
 /**
  * Class Settings_Controller
@@ -20,8 +22,12 @@ class En_Settings_Controller extends Controller {
 	 * Create menu/submenu entry.
 	 */
 	public function create_admin_menu() {
+		// We need to check if the migration already ran, as the EN block is on by default, but we cannot give an option
+		// that was added using CMB2 a default value of 'on', because then it can't be turned off.
+		$migration_ran     = MigrationLog::from_wp_options()->already_ran( M001EnableEnFormFeature::get_id() );
+		$feature_is_active = ! $migration_ran || Features::is_active( Features::ENGAGING_NETWORKS );
 
-		if ( Features::is_active(Features::ENGAGING_NETWORKS) && current_user_can( 'manage_options' ) ) {
+		if ( $feature_is_active && current_user_can( 'manage_options' ) ) {
 			add_menu_page(
 				'EngagingNetworks',
 				'EngagingNetworks',
