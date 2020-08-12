@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use CMB2_Field;
+use WP_REST_Server;
 
 /**
  * Class MetaboxRegister
@@ -27,7 +28,7 @@ class MetaboxRegister {
 	 * Class hooks.
 	 */
 	private function hooks() {
-		add_action( 'cmb2_admin_init', [ $this, 'register_p4_meta_box' ] );
+		add_action( 'cmb2_init', [ $this, 'register_p4_meta_box' ] );
 	}
 
 	/**
@@ -50,37 +51,41 @@ class MetaboxRegister {
 				'id'           => 'p4_metabox',
 				'title'        => __( 'Page Header Fields', 'planet4-master-theme-backend' ),
 				'object_types' => [ 'page', 'campaign' ], // Post type.
+				'show_in_rest' => WP_REST_Server::READABLE,
 			]
 		);
 
 		$p4_header->add_field(
 			[
-				'name' => __( 'Header Title', 'planet4-master-theme-backend' ),
-				'desc' => __( 'Header title comes here', 'planet4-master-theme-backend' ),
-				'id'   => 'p4_title',
-				'type' => 'text_medium',
+				'name'         => __( 'Header Title', 'planet4-master-theme-backend' ),
+				'desc'         => __( 'Header title comes here', 'planet4-master-theme-backend' ),
+				'id'           => 'p4_title',
+				'type'         => 'text_medium',
+				'show_in_rest' => WP_REST_Server::READABLE,
 			]
 		);
 
 		$p4_header->add_field(
 			[
-				'name' => __( 'Header Subtitle', 'planet4-master-theme-backend' ),
-				'desc' => __( 'Header subtitle comes here', 'planet4-master-theme-backend' ),
-				'id'   => 'p4_subtitle',
-				'type' => 'text_medium',
+				'name'         => __( 'Header Subtitle', 'planet4-master-theme-backend' ),
+				'desc'         => __( 'Header subtitle comes here', 'planet4-master-theme-backend' ),
+				'id'           => 'p4_subtitle',
+				'type'         => 'text_medium',
+				'show_in_rest' => WP_REST_Server::READABLE,
 			]
 		);
 
 		$p4_header->add_field(
 			[
-				'name'    => __( 'Header Description', 'planet4-master-theme-backend' ),
-				'desc'    => __( 'Header description comes here', 'planet4-master-theme-backend' ),
-				'id'      => 'p4_description',
-				'type'    => 'wysiwyg',
-				'options' => [
+				'name'         => __( 'Header Description', 'planet4-master-theme-backend' ),
+				'desc'         => __( 'Header description comes here', 'planet4-master-theme-backend' ),
+				'id'           => 'p4_description',
+				'type'         => 'wysiwyg',
+				'options'      => [
 					'textarea_rows' => 5,
 					'media_buttons' => false,
 				],
+				'show_in_rest' => WP_REST_Server::READABLE,
 			]
 		);
 
