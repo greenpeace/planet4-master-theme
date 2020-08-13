@@ -140,7 +140,7 @@ const CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/covers',
 	'planet4-blocks/gallery',
 	'planet4-blocks/happypoint',
-	'planet4-blocks/media',
+	'planet4-blocks/media-video',
 	'planet4-blocks/social-media',
 	'planet4-blocks/social-media-cards',
 	'planet4-blocks/spreadsheet',

@@ -213,3 +213,9 @@ input.describe[type=text][data-setting=caption] {
   font-size: 13px;
   color: red;
 }
+
+.wp-embed-responsive .block-editor {
+   .wp-block-embed.wp-has-aspect-ratio .wp-block-embed__wrapper::before {
+    content: none;
+  }
+}
