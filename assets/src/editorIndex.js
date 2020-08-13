@@ -12,7 +12,7 @@ import { SocialMediaCardsBlock } from './blocks/SocialMediaCards/SocialMediaCard
 import { SplittwocolumnsBlock } from './blocks/Splittwocolumns/SplittwocolumnsBlock';
 import { SubmenuBlock } from './blocks/Submenu/SubmenuBlock';
 import { TakeactionboxoutBlock } from './blocks/Takeactionboxout/TakeactionboxoutBlock';
-import { TimelineBlock } from './blocks/Timeline/TimelineBlock';
+import { registerTimelineBlock } from './blocks/Timeline/TimelineBlock';
 import { addBlockFilters } from './BlockFilters';
 import { setupImageBlockExtension } from './ImageBlockExtension';
 import { replaceTaxonomyTermSelectors } from "./replaceTaxonomyTermSelectors";
@@ -42,8 +42,9 @@ new SpreadsheetBlock()
 new SubmenuBlock();
 new SubPagesBlock();
 new TakeactionboxoutBlock();
-new TimelineBlock();
 new ENFormBlock()
+
+registerTimelineBlock();
 
 addBlockFilters();
 addSubAndSuperscript( window.wp );
