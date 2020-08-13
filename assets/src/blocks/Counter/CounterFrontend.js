@@ -41,6 +41,8 @@ export class CounterFrontend extends Component {
               remaining: Math.max(target - completed, 0)
             });
           }
+        }).catch(function() {
+          console.log('Error: Fetching api response...');
         });
     } else {
       remaining = Math.max(target - completed, 0);
