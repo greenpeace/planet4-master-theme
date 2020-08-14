@@ -6,7 +6,7 @@
 {% else %}
 {% set bg_image = '' %}
 {% endif %}
-<section id="action-card" class="cover-card single-cover dark-card-bg action-card scroll" {{ bg_image|raw }}>
+<section id="action-card" class="cover-card single-cover dark-card-bg action-card bottom" {{ bg_image|raw }}>
 	<a data-ga-category="Take Action Boxout" data-ga-action="Image" data-ga-label="n/a" class="cover-card-overlay"
 		href="{{ boxout.link|default('#') }}" {{ boxout.new_tab and boxout.link ? 'target="_blank"' }}></a>
 	<img src={{ boxout.image }} />
