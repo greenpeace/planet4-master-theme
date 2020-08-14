@@ -1,4 +1,4 @@
-.cover-card.scroll {
+#action-card-scroll {
   background: white !important;
   position: fixed;
   bottom: 0;
@@ -6,10 +6,14 @@
   left: 0;
   padding: 8px;
   width: 100vw;
-  display: flex;
   height: 80px;
   box-shadow: none;
   border-top: 1px solid $grey-10;
+  display: none;
+
+  &.hidden {
+    display: none !important;
+  }
 
   .not-now {
     display: block;
@@ -37,9 +41,12 @@
   }
 
   img {
+    float: left;
     display: block;
     height: 64px;
     width: 64px;
+    margin-right: 16px;
+    pointer-events: none;
   }
 
   .cover-card-content {
@@ -68,6 +75,7 @@
     margin-bottom: 5px;
     font-size: 0.75rem;
     margin-top: 0;
+    font-weight: 700;
   }
 
   .cover-card-btn {
@@ -98,21 +106,19 @@
     &:hover {
       background: none;
       text-decoration: underline;
+      color: $link-hover-color;
     }
   }
 
-  @include large-and-up {
+  @include medium-and-up {
     padding: 0;
-    display: block;
-    height: 365px;
     width: 290px;
+    float: right;
     position: relative;
     border-top: none;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
-
-    &:hover .cover-card-btn {
-      display: block;
-    }
+    margin: 46px 0 16px 32px !important;
+    display: block;
 
     .not-now {
       display: none;
@@ -130,6 +136,8 @@
     img {
       height: 165px;
       width: 100%;
+      float: none;
+      margin-right: 0;
     }
 
     p {
@@ -148,11 +156,33 @@
     }
 
     .cover-card-btn {
-      display: none;
       font-size: $font-size-xxs;
-      right: 20px;
+      right: 32px;
       left: auto;
       margin: 32px 0;
+
+      &:after {
+        height: 8px;
+        width: 8px;
+      }
+    }
+  }
+
+  @include large-and-up {
+    float: none;
+    display: none;
+    position: fixed;
+    margin: 0;
+    right: auto;
+    left: 65%;
+    bottom: 56px;
+
+    &:hover .cover-card-btn {
+      display: block;
+    }
+
+    .cover-card-btn {
+      display: none;
     }
   }
 

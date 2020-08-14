@@ -144,7 +144,7 @@
     box-shadow: 0 0 10px transparentize($black, .5);
 
     @include medium-and-up {
-      p {
+      p:not(.cover-card-more) {
         color: $grey-80;
         display: block;
       }

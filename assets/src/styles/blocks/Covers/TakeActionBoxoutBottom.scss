@@ -1,4 +1,4 @@
-.cover-card.bottom {
+#action-card-bottom {
   background: white !important;
   padding: 0;
   width: 100%;
@@ -6,11 +6,13 @@
   height: 80px;
   box-shadow: none;
   position: relative;
+  margin-top: 0 !important;
 
   img {
     display: block;
     width: 80px;
     height: 80px;
+    pointer-events: none;
   }
 
   .cover-card-content {
@@ -37,8 +39,9 @@
     color: #020202;
     text-shadow: none;
     margin-bottom: 5px;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     margin-top: 0;
+    font-weight: 700;
   }
 
   .cover-card-btn {
@@ -53,12 +56,13 @@
     left: auto;
     right: 16px;
     line-height: 1;
-    font-size: 0.625rem;
+    font-size: 0.75rem;
     margin: 4px 0;
 
     &:hover {
       background: none;
       text-decoration: underline;
+      color: $link-hover-color;
     }
 
     &:after {
@@ -72,24 +76,20 @@
     }
   }
 
-  @include large-and-up {
-    max-width: 65%;
+  @include medium-and-up {
     min-height: 210px;
-    margin-top: 50px;
+    margin-top: 80px !important;
     float: none;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
-
-    &:hover .cover-card-btn {
-      display: block;
-    }
+    margin-left: 0;
 
     .cover-card-heading {
-      margin-bottom: 5px;
+      margin-bottom: 32px;
       font-size: $font-size-md;
     }
 
     .cover-card-content {
-      padding: 16px 32px;
+      padding: 32px;
       width: 55%;
       position: unset;
     }
@@ -100,10 +100,9 @@
     }
 
     .cover-card-btn {
-      display: none;
       right: 32px;
       font-size: $font-size-xxs;
-      margin: 16px 0;
+      margin: 32px 0;
 
       &:after {
         height: 8px;
@@ -114,6 +113,7 @@
     p {
       display: block;
       color: #020202;
+      margin-top: 0;
       line-height: $font-size-md;
       font-size: $font-size-xxs;
     }
@@ -121,8 +121,20 @@
     .cover-card-more {
       font-size: $font-size-lg;
       position: absolute;
-      margin-top: -50px;
+      margin-top: -80px;
       left: 0;
+    }
+  }
+
+  @include large-and-up {
+    max-width: 65%;
+
+    &:hover .cover-card-btn {
+      display: block;
+    }
+
+    .cover-card-btn {
+      display: none;
     }
   }
 }

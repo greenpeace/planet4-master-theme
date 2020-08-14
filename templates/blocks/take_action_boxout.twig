@@ -1,46 +1,67 @@
 {% block take_action_boxout %}
 
 {% if ( boxout ) %}
-{% if ( boxout.image ) %}
-{% set bg_image = 'style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)), url(\''~boxout.image~'\');"' %}
-{% else %}
-{% set bg_image = '' %}
-{% endif %}
-<section id="action-card" class="cover-card single-cover dark-card-bg action-card bottom" {{ bg_image|raw }}>
-	<a data-ga-category="Take Action Boxout" data-ga-action="Image" data-ga-label="n/a" class="cover-card-overlay"
-		href="{{ boxout.link|default('#') }}" {{ boxout.new_tab and boxout.link ? 'target="_blank"' }}></a>
-	<img src={{ boxout.image }} />
-	<div class="cover-card-content">
-		<p class="cover-card-more">{{ __( 'Want to do more?', 'planet4-blocks' ) }}</p>
-		{% if ( boxout.campaigns ) %}
-		{% for campaign in boxout.campaigns %}
-		<a class="cover-card-tag" data-ga-category="Take Action Boxout" data-ga-action="Navigation Tag"
-			data-ga-label="n/a" href="{{ campaign.link|e('esc_url') }}">
-			#{{ campaign.name|e('wp_kses_post')|raw }}
-		</a>
-		{% endfor %}
+  {% if ( boxout.image ) %}
+    {% set bg_image = 'style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)), url(\''~boxout.image~'\');"' %}
+  {% else %}
+    {% set bg_image = '' %}
+  {% endif %}
+	<section id="action-card" class="cover-card single-cover dark-card-bg action-card" {{ bg_image|raw }}>
+		<a
+			data-ga-category="Take Action Boxout"
+			data-ga-action="Image"
+			data-ga-label="n/a"
+			class="cover-card-overlay"
+			href="{{ boxout.link|default('#') }}" {{ boxout.new_tab and boxout.link ? 'target="_blank"' }}
+		/>
+		<img src={{ boxout.image }} />
+		<div class="cover-card-content">
+			<p class="cover-card-more">{{ __( 'Want to do more?', 'planet4-blocks' ) }}</p>
+			{% if ( boxout.campaigns ) %}
+				{% for campaign in boxout.campaigns %}
+					<a
+						class="cover-card-tag"
+						data-ga-category="Take Action Boxout"
+						data-ga-action="Navigation Tag"
+						data-ga-label="n/a"
+						href="{{ campaign.link|e('esc_url') }}"
+					>
+						<span aria-label="hashtag">#<span>{{ campaign.name|e('wp_kses_post')|raw }}
+					</a>
+				{% endfor %}
+			{% endif %}
+			{% if ( boxout.title ) %}
+				<a
+					class="cover-card-heading"
+					data-ga-category="Take Action Boxout"
+					data-ga-action="Title"
+					data-ga-label="n/a"
+					href="{{ boxout.link|default('#') }}"
+					{{ boxout.new_tab and boxout.link ? 'target="_blank"' }}
+				>
+					{{ boxout.title|e('wp_kses_post')|raw }}
+				</a>
+			{% endif %}
+			{% if ( boxout.excerpt ) %}
+				<p>{{ boxout.excerpt|e('wp_kses_post')|excerpt(25)|raw }}</p>
+			{% endif %}
+		</div>
+		{% if ( boxout.link and boxout.link_text ) %}
+			<a
+				class="btn btn-action btn-block cover-card-btn"
+				data-ga-category="Take Action Boxout"
+				data-ga-action="Call to Action"
+				data-ga-label="n/a"
+				href="{{ boxout.link|default('#') }}"
+				{{ boxout.new_tab and boxout.link ? 'target="_blank"' }}
+			>
+				{{ boxout.link_text }}
+			</a>
+			<a class="not-now" data-ga-category="Take Action Boxout">
+				{{ __( 'Not now', 'planet4-blocks' ) }}
+			</a>
 		{% endif %}
-		{% if ( boxout.title ) %}
-		<a class="cover-card-heading" data-ga-category="Take Action Boxout" data-ga-action="Title" data-ga-label="n/a"
-			href="{{ boxout.link|default('#') }}" {{ boxout.new_tab and boxout.link ? 'target="_blank"' }}>
-			{{ boxout.title|e('wp_kses_post')|raw }}
-		</a>
-		{% endif %}
-		{% if ( boxout.excerpt ) %}
-		<p>{{ boxout.excerpt|e('wp_kses_post')|excerpt(25)|raw }}</p>
-		{% endif %}
-	</div>
-	{% if ( boxout.link and boxout.link_text ) %}
-	<a class="btn btn-action btn-block cover-card-btn" data-ga-category="Take Action Boxout"
-		data-ga-action="Call to Action" data-ga-label="n/a" href="{{ boxout.link|default('#') }}"
-		{{ boxout.new_tab and boxout.link ? 'target="_blank"' }}>
-		{{ boxout.link_text }}
-	</a>
-	<a class="not-now" data-ga-category="Take Action Boxout">
-		{{ __( 'Not now', 'planet4-blocks' ) }}
-	</a>
-	{% endif %}
-</section>
+	</section>
 {% endif %}
 
 {% endblock %}
