@@ -1,20 +1,30 @@
-import { Fragment, useEffect } from '@wordpress/element';
-import { getSubmenuStyle, addSubmenuActions } from './submenuFunctions';
+import { useEffect } from '@wordpress/element';
+import { getSubmenuStyle } from './getSubmenuStyle';
 import { SubmenuItems } from './SubmenuItems';
-import { useSubmenuItemsLoad } from './useSubmenuItemsLoad';
+import { makeHierarchical } from './makeHierarchical';
+import { getHeadingsFromDom } from './getHeadingsFromDom';
 
 export const SubmenuFrontend = ({ title, className, levels, submenu_style }) => {
 
-  const { menuItems } = useSubmenuItemsLoad(levels, false);
+  const enableBackTop = () => {
+    const backTop = document.querySelector('.back-top');
+    if (!backTop) {
+      return;
+    }
+    backTop.style.display = 'block';
+  };
 
-  useEffect(() => addSubmenuActions(menuItems), [menuItems]);
+  // Enable back top on initial render.
+  useEffect(enableBackTop, []);
 
+  const headings = getHeadingsFromDom(levels);
+  const menuItems = makeHierarchical(headings);
   const style = getSubmenuStyle(className, submenu_style);
 
   return (
-    <section className={`block submenu-block submenu-${style}`}>
-      <h2>{title}</h2>
-      <SubmenuItems menuItems={menuItems} />
+    <section className={ `block submenu-block submenu-${ style }` }>
+      <h2>{ title }</h2>
+      <SubmenuItems menuItems={ menuItems }/>
     </section>
   );
-}
+};

@@ -1,29 +1,12 @@
 export const SubmenuItems = ({ menuItems }) => {
 
-  const onSubmenuLinkClick = id => {
-    const target = document.getElementById(id);
-    if (target) {
-      $('html, body').animate({
-        scrollTop: target.offsetTop - 100
-      }, 2000, () => {
-        const position = window.pageYOffset;
-        window.location.hash = id;
-        window.scrollTo(0, position);
-      });
-    }
-  }
-
   const renderMenuItems = (items) => {
-    return items.map(({ text, style, link, id, children }) => (
-      <li key={text} className={`list-style-${style || 'none'} ${link ? "list-link" : "list-heading"}`}>
-        {link ?
+    return items.map(({ anchor, text, style, shouldLink, children }) => (
+      <li key={anchor} className={`list-style-${style || 'none'} ${shouldLink ? "list-link" : "list-heading"}`}>
+        {shouldLink ?
           <a
-            href={`#${id}`}
             className="icon-link submenu-link"
-            onClick={event => {
-              event.preventDefault();
-              onSubmenuLinkClick(id);
-            }}
+            href={`#${anchor}`}
           >
             {text}
           </a>
