@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 - EngagingNetworks Plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-17 10:02+0000\n"
-"PO-Revision-Date: 2020-08-17 10:10+0000\n"
+"PO-Revision-Date: 2020-08-17 10:07+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "Language: ar\n"
@@ -25,19 +25,19 @@ msgstr "وقع/ي"
 
 #: templates/blocks/enform/country_select.twig:11
 msgid "Select Country or Region"
-msgstr "الرجاء تحديد البلد أو المنطقة"
+msgstr ""
 
 #: templates/blocks/enform/position_select.twig:8
 msgid "Select Affiliation, Position or Profession"
-msgstr "الرجاء تحديد المنصب أو المهنة"
+msgstr ""
 
 #: templates/blocks/enform/enform_post.twig:20
 msgid "This field is required"
-msgstr "هذه الخانة مطلوبه"
+msgstr ""
 
 #: templates/blocks/enform/enform_post.twig:31
 msgid "Please enter a valid e-mail address."
-msgstr "الرجاء أدخال بريد أليكترونى صحيح."
+msgstr "من فضلك أدخل بريد أليكترونى صحيح."
 
 #: templates/blocks/enform/enform_post.twig:149
 msgid "Please select a country."
@@ -45,4 +45,4 @@ msgstr "إختر/ي الدولة"
 
 #: templates/blocks/enform/enform_post.twig:161
 msgid "Please select a position."
-msgstr "الرجاء تحديد الوظيفة."
+msgstr ""
