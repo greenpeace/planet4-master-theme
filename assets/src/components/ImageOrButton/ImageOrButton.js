@@ -11,7 +11,7 @@ export class ImageOrButton extends Component {
     const {__} = wp.i18n;
 
     if ( typeof this.props.disabled == 'undefined' ) {
-      // this.props.disabled = false;
+      this.props.disabled = false;
     }
 
     const getImageOrButton = (openEvent) => {

@@ -2,26 +2,25 @@ import { Component, Fragment } from '@wordpress/element';
 
 const { apiFetch } = wp.apiFetch;
 
-export const SplittwocolumnsFrontend = (props) => {
-  const {
-    title,
-    issue_description,
-    issue_link_text,
-    issue_link_path,
-    issue_image_src,
-    issue_image_srcset,
-    issue_image_title,
-    focus_issue_image,
-    tag_name,
-    tag_description,
-    tag_link,
-    button_text,
-    button_link,
-    tag_image_src,
-    tag_image_srcset,
-    tag_image_title,
-    focus_tag_image
-  } = props;
+export const SplittwocolumnsFrontend = ({
+  title,
+  issue_description,
+  issue_link_text,
+  issue_link_path,
+  issue_image_src,
+  issue_image_srcset,
+  issue_image_title,
+  focus_issue_image,
+  tag_name,
+  tag_description,
+  tag_link,
+  button_text,
+  button_link,
+  tag_image_src,
+  tag_image_srcset,
+  tag_image_title,
+  focus_tag_image
+}) => {
 
   const analytics = (action) => {
     return {
@@ -32,7 +31,6 @@ export const SplittwocolumnsFrontend = (props) => {
   }
 
   return (
-    <Fragment>
     <section className="block-wide split-two-column">
       <div className="split-two-column-item item--left">
         {issue_image_src &&
@@ -89,7 +87,7 @@ export const SplittwocolumnsFrontend = (props) => {
                dangerouslySetInnerHTML={{__html: tag_description}}
             />
           }
-          {button_text &&
+          {button_text && button_link &&
             <a className="btn btn-small btn-primary btn-block split-two-column-item-button"
                 href={button_link}
                 {...analytics('Call to Action')}>
@@ -99,6 +97,5 @@ export const SplittwocolumnsFrontend = (props) => {
         </div>
       </div>
     </section>
-    </Fragment>
   )
 }

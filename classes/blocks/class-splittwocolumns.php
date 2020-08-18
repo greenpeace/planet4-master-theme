@@ -86,11 +86,9 @@ class SplitTwoColumns extends Base_Block {
 	}
 
 	/**
-	 * Get all the data that will be needed to render the block correctly.
+	 * Required by the `Base_Block` class.
 	 *
-	 * @param array $fields This is the array of fields of this block.
-	 *
-	 * @return array The data to be passed in the View.
+	 * @param array $fields Unused, required by the abstract function.
 	 */
 	public function prepare_data( $fields ): array {
 		return [];

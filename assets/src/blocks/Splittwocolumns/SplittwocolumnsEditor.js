@@ -10,13 +10,9 @@ const { addQueryArgs } = wp.url;
 export const SplittwocolumnsEditor = ({ attributes, setAttributes, isSelected }) => {
   updateDeprecatedData(attributes, setAttributes, BLOCK_NAME, VERSION);
   return (
-    <Fragment>
-      {
-        isSelected
-          ? renderEdit({attributes}, setAttributes) 
-          : renderView({attributes})
-      }
-    </Fragment>
+    isSelected
+      ? renderEdit({attributes}, setAttributes) 
+      : renderView({attributes})
   );
 }
 const renderView = ({attributes}) => <Frontend {...attributes} />

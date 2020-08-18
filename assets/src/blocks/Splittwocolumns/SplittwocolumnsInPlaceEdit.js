@@ -8,6 +8,23 @@ const { __ } = wp.i18n;
  * WYSIWYG in-place editor 
  */
 export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes}) => {
+  const {
+    title,
+    issue_description,
+    issue_link_path,
+    issue_link_text,
+    issue_image_src,
+    issue_image_title,
+    focus_issue_image,
+    tag_description,
+    button_text,
+    tag_name,
+    tag_link,
+    tag_image_src,
+    tag_image_title,
+    focus_tag_image
+  } = attributes;
+
   const toAttribute = attributeName => value => setAttributes({
     [attributeName]: value
   });
@@ -16,15 +33,14 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
   );
 
   return (
-    <Fragment>
     <section className="block-wide split-two-column">
       <div className="split-two-column-item item--left">
-        {attributes.issue_image_src &&
+        {issue_image_src &&
           <div className="split-two-column-item-image">
             <img
-              src={attributes.issue_image_src}
-              alt={attributes.issue_image_title || ''}
-              style={{objectPosition: attributes.focus_issue_image}}
+              src={issue_image_src}
+              alt={issue_image_title || ''}
+              style={{objectPosition: focus_issue_image}}
             />
           </div>
         }
@@ -33,10 +49,10 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             tagName="h2"
             className="split-two-column-item-title"
             placeholder={__('Enter Title', 'planet4-blocks-backend')}
-            value={attributes.title}
+            value={title}
             onChange={debounceToAttribute('title')}
             characterLimit={charLimit.title}
-            multiline={false}
+            multiline="false"
             withoutInteractiveFormatting
             allowedFormats={[]}
             />
@@ -44,21 +60,21 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             tagName="p"
             className="split-two-column-item-subtitle"
             placeholder={__('Enter Description', 'planet4-blocks-backend')}
-            value={attributes.issue_description}
+            value={issue_description}
             onChange={debounceToAttribute('issue_description')}
             characterLimit={charLimit.description}
-            multiline={false}
+            multiline="false"
             allowedFormats={['core/bold', 'core/italic']}
             />  
-          {attributes.issue_link_path &&
+          {issue_link_path &&
             <RichText
               tagName="a"
               className="split-two-column-item-link"
               placeholder={__('Enter Link Text', 'planet4-blocks-backend')}
-              value={attributes.issue_link_text}
+              value={issue_link_text}
               onChange={debounceToAttribute('issue_link_text')}
               characterLimit={100}
-              multiline={false}
+              multiline="false"
               withoutInteractiveFormatting
               allowedFormats={[]}
               />
@@ -66,46 +82,45 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
         </div>
       </div>
       <div className="split-two-column-item item--right">
-        {attributes.tag_image_src &&
+        {tag_image_src &&
           <div className="split-two-column-item-image">
             <img
-              src={attributes.tag_image_src}
-              alt={attributes.tag_image_title || ''}
-              style={{objectPosition: attributes.focus_tag_image}}
+              src={tag_image_src}
+              alt={tag_image_title || ''}
+              style={{objectPosition: focus_tag_image}}
             />
           </div>
         }
         <div className="split-two-column-item-content">
-          {attributes.tag_name &&
-            <a className="split-two-column-item-tag" href={attributes.tag_link}>
-              #{attributes.tag_name}
+          {tag_name &&
+            <a className="split-two-column-item-tag" href={tag_link}>
+              #{tag_name}
             </a>
           }
           <RichText
             tagName="p"
             className="split-two-column-item-subtitle"
             placeholder={__('Enter Description', 'planet4-blocks-backend')}
-            value={attributes.tag_description}
+            value={tag_description}
             onChange={debounceToAttribute('tag_description')}
             characterLimit={charLimit.description}
-            multiline={false}
+            multiline="false"
             allowedFormats={['core/bold', 'core/italic']}
             />
           <RichText
             tagName="a"
             className="btn btn-small btn-primary btn-block split-two-column-item-button"
             placeholder={__('Enter button text', 'planet4-blocks-backend')}
-            value={attributes.button_text}
+            value={button_text}
             onChange={debounceToAttribute('button_text')}
             characterLimit={charLimit.title}
-            multiline={false}
+            multiline="false"
             withoutInteractiveFormatting
             allowedFormats={[]}
             />
         </div>
       </div>
     </section>
-    </Fragment>
   )
 }
  
