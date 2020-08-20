@@ -107,6 +107,7 @@ require_once ABSPATH . 'wp-admin/includes/plugin.php';
 */
 
 const POST_BLOCK_TYPES = [
+	'planet4-blocks/accordion',
 	'planet4-blocks/counter',
 	'planet4-blocks/gallery',
 	'planet4-blocks/take-action-boxout',
@@ -116,6 +117,7 @@ const POST_BLOCK_TYPES = [
 
 // pages allow all block types.
 const PAGE_BLOCK_TYPES = [
+	'planet4-blocks/accordion',
 	'planet4-blocks/articles',
 	'planet4-blocks/carousel-header',
 	'planet4-blocks/columns',
@@ -136,6 +138,7 @@ const PAGE_BLOCK_TYPES = [
 
 // campaigns allow all block types.
 const CAMPAIGN_BLOCK_TYPES = [
+	'planet4-blocks/accordion',
 	'planet4-blocks/articles',
 	'planet4-blocks/carousel-header',
 	'planet4-blocks/columns',

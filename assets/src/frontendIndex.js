@@ -9,6 +9,7 @@ import { TimelineFrontend } from './blocks/Timeline/TimelineFrontend';
 import { SubmenuFrontend } from './blocks/Submenu/SubmenuFrontend';
 import { MediaFrontend } from './blocks/Media/MediaFrontend';
 import { setupMediaElementJS } from './blocks/Media/setupMediaElementJS';
+import { AccordionFrontend } from './blocks/Accordion/AccordionFrontend';
 
 // Render React components
 const COMPONENTS = {
@@ -22,6 +23,7 @@ const COMPONENTS = {
   'planet4-blocks/timeline': TimelineFrontend,
   'planet4-blocks/submenu': SubmenuFrontend,
   'planet4-blocks/media-video': MediaFrontend,
+  'planet4-blocks/accordion': AccordionFrontend
 };
 
 document.querySelectorAll( `[data-render]` ).forEach(

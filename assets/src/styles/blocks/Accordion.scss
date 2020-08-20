@@ -1,0 +1,105 @@
+.accordion-block {
+  text-align: left;
+  font-family: $roboto;
+  margin-top: $space-xl;
+  margin-bottom: $space-lg;
+  font-size: inherit;
+  padding-bottom: 40px;
+
+  .accordion-content {
+    display: flex;
+    flex-direction: column;
+
+    &:hover + .panel {
+      display: block;
+      transition-timing-function: ease-out;
+    }
+
+    .accordion {
+      cursor: pointer;
+      height: auto;
+      position: relative;
+      transition: all 2s linear;
+
+      @include mobile-only {
+        font-size: 1rem;
+      }
+
+      .accordion-headline {
+        background-color: $dark-blue;
+        display: block;
+        color: $white;
+        margin: 1rem 0 0;
+        padding: .7rem 1rem .8rem 1.5rem;
+        line-height: 1.3;
+        min-height: 4rem;
+
+        &:before {
+          position: sticky;
+          content: "";
+          width: 16px;
+          height: 16px;
+          border: solid white;
+          border-width: 0 4px 4px 0;
+          padding: 0;
+          font-weight: 900;
+          float: right;
+          margin: 15px 20px 15px 11px;
+          transition: transform 0.8s ease;
+          transform: rotate(-45deg);
+          -webkit-transform: rotate(-45deg);
+          -moz-transform: rotate(-45deg);
+          -ms-transform: rotate(-45deg);
+        }
+
+        &:hover:before,
+        &:active:before,
+        &:focus:before {
+          transform: rotate(45deg);
+          -webkit-transform: rotate(45deg);
+          -moz-transform: rotate(45deg);
+          -ms-transform: rotate(45deg);
+        }
+      }
+    }
+
+    .visibility {
+      visibility: hidden;
+      opacity: 0;
+      overflow: hidden;
+      height: 0;
+    }
+
+    .panel {
+      padding: .7rem 1.2rem;
+      background-color: white;
+      color: $black;
+      overflow: hidden;
+      transition: display 1s, opacity 1s, height 1s ease-in-out;
+      -webkit-transition: display 1s, opacity 1s, height 1s ease-in-out;
+      -moz-transition: display 1s, opacity 1s, height 1s ease-in-out;
+      -ms-transition: display 1s, opacity 1s, height 1s ease-in-out;
+    }
+
+    .accordion-text {
+      padding: .5rem 2rem 0 0;
+    }
+
+    .btn-accordion {
+      line-height: 2;
+      margin: .8rem 0;
+      padding: .5rem 2rem;
+
+      @include medium-and-up {
+        max-width: 30%;
+      }
+    }
+  }
+
+  .rotate {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+  }
+}

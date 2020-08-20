@@ -1,3 +1,4 @@
+import { AccordionBlock } from './blocks/Accordion/AccordionBlock';
 import { ArticlesBlock } from './blocks/Articles/ArticlesBlock';
 import { CarouselHeaderBlock } from './blocks/Carouselheader/CarouselHeaderBlock';
 import { ColumnsBlock } from './blocks/Columns/ColumnsBlock';
@@ -15,17 +16,18 @@ import { TakeactionboxoutBlock } from './blocks/Takeactionboxout/Takeactionboxou
 import { registerTimelineBlock } from './blocks/Timeline/TimelineBlock';
 import { addBlockFilters } from './BlockFilters';
 import { setupImageBlockExtension } from './ImageBlockExtension';
-import { replaceTaxonomyTermSelectors } from "./replaceTaxonomyTermSelectors";
+import { replaceTaxonomyTermSelectors } from './replaceTaxonomyTermSelectors';
 import { addSubAndSuperscript } from './RichTextEnhancements';
-import { SpreadsheetBlock } from "./blocks/Spreadsheet/SpreadsheetBlock"
+import { SpreadsheetBlock } from './blocks/Spreadsheet/SpreadsheetBlock';
 import { addButtonLinkPasteWarning } from './addButtonLinkPasteWarning';
-import { setupCustomSidebar } from "./setupCustomSidebar";
+import { setupCustomSidebar } from './setupCustomSidebar';
 import { setUpCssVariables } from './connectCssVariables';
 import { SubPagesBlock } from './blocks/SubPages/SubPagesBlock';
 import { blockEditorValidation } from './BlockEditorValidation';
 import { ENFormBlock } from './blocks/ENForm/ENFormBlock';
 
 blockEditorValidation();
+new AccordionBlock();
 new ArticlesBlock();
 new CarouselHeaderBlock();
 new ColumnsBlock();
@@ -38,11 +40,11 @@ registerMediaBlock();
 new SocialmediaBlock();
 new SocialMediaCardsBlock();
 registerSplittwocolumnsBlock();
-new SpreadsheetBlock()
+new SpreadsheetBlock();
 registerSubmenuBlock();
 new SubPagesBlock();
 new TakeactionboxoutBlock();
-new ENFormBlock()
+new ENFormBlock();
 registerTimelineBlock();
 
 addBlockFilters();
