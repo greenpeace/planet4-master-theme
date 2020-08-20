@@ -56,7 +56,13 @@
 												{% if slide.link_text %}
 													<a href="{{ slide.link_url }}"
 															{{  'true' == slide.link_url_new_tab ? 'target="_blank"' }}
-														class="btn btn-small btn-medium btn-primary btn-block">{{ slide.link_text }}</a>
+														class="btn btn-small btn-medium btn-primary btn-block"
+														data-ga-category="Carousel Header"
+														data-ga-action="Call to Action"
+														data-ga-label="Slide {{ loop.index }}">
+														>
+														{{ slide.link_text }}
+													</a>
 												{% endif %}
 											</div>
 										</div>
