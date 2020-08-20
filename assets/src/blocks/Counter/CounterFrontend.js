@@ -113,6 +113,7 @@ export class CounterFrontend extends Component {
             {text &&
               <div
                 className={`counter-text ${100 <= percent ? 'counter-text-goal_reached' : ''}`}
+                role="text"
                 dangerouslySetInnerHTML={{ __html: this.getCounterText() }}
               />
             }
