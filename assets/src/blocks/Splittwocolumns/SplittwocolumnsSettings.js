@@ -15,6 +15,7 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
     select_issue,
     issue_description,
     issue_link_path,
+    issue_link_text,
     issue_image_id,
     issue_image_src,
     focus_issue_image,
@@ -24,7 +25,8 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
     button_link,
     tag_image_id,
     tag_image_src,
-    focus_tag_image
+    focus_tag_image,
+    edited
   } = attributes;
   
   const issuesList = useSelect((select) => {
@@ -47,43 +49,50 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
   const onIssueChange = (issue_id) => {
     issue_id = parseInt(issue_id);
     const issue = issuesList.find(issue => issue.id === issue_id) || null;
+
     setAttributes({
       select_issue: issue_id,
-      title: cleanString(
-        issue?.cmb2?.p4_metabox.p4_title || issue?.title.raw || title,
-        charLimit.title
-      ),
-      issue_description: cleanString(
-        issue?.cmb2?.p4_metabox.p4_description || issue_description,
-        charLimit.description
-      ),
-      issue_link_text: __('Learn more about this issue', 'planet4-blocks'),
-      issue_link_path: issue?.link || ''
+      title: edited.title ? title : cleanString(
+          issue?.cmb2?.p4_metabox.p4_title || issue?.title.raw || title,
+          charLimit.title
+        ),
+      issue_description: edited.issue_description ? issue_description : cleanString(
+          issue?.cmb2?.p4_metabox.p4_description ?? issue_description,
+          charLimit.description
+        ),
+      issue_link_text: edited.issue_link_text ? issue_link_text
+        : issue_link_text || __('Learn more about this issue', 'planet4-blocks'),
+      issue_link_path: issue?.link || '',
+      issue_image_id: edited.issue_image_id ? issue_image_id : (issue?.featured_media ?? 0)
     });
   }
 
   const onTagChange = (tag_id) => {
     tag_id = parseInt(tag_id);
     const tag = tagsList.find(tag => tag.id === tag_id) || null;
+
     setAttributes({
       select_tag: tag_id,
       tag_name: cleanString(tag?.name || '', charLimit.title),
-      tag_description: cleanString(
-        tag?.description || tag_description,
-        charLimit.description
-      ),
+      tag_description: edited.tag_description ? tag_description : cleanString(
+          tag?.description || tag_description,
+          charLimit.description
+        ),
+      button_text: edited.button_text ? button_text
+        : button_text || __( 'Get Involved', 'planet4-blocks' ),
       tag_link: tag?.link || '',
-      button_text: button_text || __( 'Get Involved', 'planet4-blocks' ),
-      button_link: button_link || tag?.link || ''
+      button_link: button_link || tag?.link || '',
+      tag_image_id: edited.tag_image_id ? tag_image_id : (tag?.meta?.tag_attachment_id ?? 0)
     });
   }
 
   const onImageChange = (image_type, image) => {
     setAttributes({
-      [`${image_type}_id`]: parseInt(image.id),
-      [`${image_type}_src`]: image.url,
+      [`${image_type}_id`]: parseInt(image?.id) ?? 0,
+      [`${image_type}_src`]: image?.url ?? image?.source_url ?? '',
       [`${image_type}_srcset`]: '',
-      [`${image_type}_title`]: image.title
+      [`${image_type}_title`]: image?.title?.raw ?? image?.title ?? '',
+      edited: {...edited, ...{[`${image_type}_id`]: true}}
     });
   }
 

@@ -166,7 +166,7 @@ class Rest_Api {
 			'/update_block/(?P<blockname>[a-z0-9-/]*)',
 			[
 				[
-					'methods'             => WP_REST_Server::READABLE,
+					'methods'             => WP_REST_Server::CREATABLE,
 					'callback'            => static function ( WP_REST_Request $request ) {
 						$blocks      = [
 							SplitTwoColumns::BLOCK_NAME => SplitTwoColumns::class,

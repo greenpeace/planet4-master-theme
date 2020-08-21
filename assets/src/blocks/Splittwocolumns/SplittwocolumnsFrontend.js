@@ -43,9 +43,8 @@ export const SplittwocolumnsFrontend = ({
         }
         <div className="split-two-column-item-content">
           {title && issue_link_path &&
-            <h2 className="split-two-column-item-title"
-                {...analytics('Category Title')}>
-              <a href={issue_link_path}>{title}</a>
+            <h2 className="split-two-column-item-title">
+              <a href={issue_link_path} {...analytics('Category Title')}>{title}</a>
             </h2>
           }
           {title && !issue_link_path &&

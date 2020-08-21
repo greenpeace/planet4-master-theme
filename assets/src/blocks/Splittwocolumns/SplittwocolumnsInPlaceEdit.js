@@ -1,4 +1,3 @@
-import { Fragment } from '@wordpress/element';
 import { RichText } from '@wordpress/block-editor';
 import { debounce } from 'lodash';
 
@@ -22,15 +21,16 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
     tag_link,
     tag_image_src,
     tag_image_title,
-    focus_tag_image
+    focus_tag_image,
+    edited
   } = attributes;
 
-  const toAttribute = attributeName => value => setAttributes({
-    [attributeName]: value
-  });
-  const debounceToAttribute = attributeName => debounce(
-    toAttribute(attributeName), 400
-  );
+  const onTextChange = (field_name) => debounce(content => {
+    setAttributes({
+      [field_name]: content,
+      edited: {...edited, ...{[field_name]: content.length > 0}}
+    });
+  }, 400);
 
   return (
     <section className="block-wide split-two-column">
@@ -49,8 +49,9 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             tagName="h2"
             className="split-two-column-item-title"
             placeholder={__('Enter Title', 'planet4-blocks-backend')}
+            keepPlaceholderOnFocus={true}
             value={title}
-            onChange={debounceToAttribute('title')}
+            onChange={onTextChange('title')}
             characterLimit={charLimit.title}
             multiline="false"
             withoutInteractiveFormatting
@@ -60,8 +61,9 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             tagName="p"
             className="split-two-column-item-subtitle"
             placeholder={__('Enter Description', 'planet4-blocks-backend')}
+            keepPlaceholderOnFocus={true}
             value={issue_description}
-            onChange={debounceToAttribute('issue_description')}
+            onChange={onTextChange('issue_description')}
             characterLimit={charLimit.description}
             multiline="false"
             allowedFormats={['core/bold', 'core/italic']}
@@ -71,8 +73,9 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
               tagName="a"
               className="split-two-column-item-link"
               placeholder={__('Enter Link Text', 'planet4-blocks-backend')}
+              keepPlaceholderOnFocus={true}
               value={issue_link_text}
-              onChange={debounceToAttribute('issue_link_text')}
+              onChange={onTextChange('issue_link_text')}
               characterLimit={100}
               multiline="false"
               withoutInteractiveFormatting
@@ -101,8 +104,9 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             tagName="p"
             className="split-two-column-item-subtitle"
             placeholder={__('Enter Description', 'planet4-blocks-backend')}
+            keepPlaceholderOnFocus={true}
             value={tag_description}
-            onChange={debounceToAttribute('tag_description')}
+            onChange={onTextChange('tag_description')}
             characterLimit={charLimit.description}
             multiline="false"
             allowedFormats={['core/bold', 'core/italic']}
@@ -111,8 +115,9 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             tagName="a"
             className="btn btn-small btn-primary btn-block split-two-column-item-button"
             placeholder={__('Enter button text', 'planet4-blocks-backend')}
+            keepPlaceholderOnFocus={true}
             value={button_text}
-            onChange={debounceToAttribute('button_text')}
+            onChange={onTextChange('button_text')}
             characterLimit={charLimit.title}
             multiline="false"
             withoutInteractiveFormatting

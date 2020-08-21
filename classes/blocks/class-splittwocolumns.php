@@ -56,12 +56,24 @@ class SplitTwoColumns extends Base_Block {
 		'tag_image_srcset'   => [ 'type' => 'integer' ],
 		'tag_image_title'    => [ 'type' => 'integer' ],
 		'focus_tag_image'    => [ 'type' => 'string' ],
+		'edited'             => [ 'type' => 'object' ],
 	];
 
 	/**
 	 * SplitTwoColumns constructor.
 	 */
 	public function __construct() {
+		// Registering meta field to make it appear in REST API.
+		\register_meta(
+			'term',
+			'tag_attachment_id',
+			[
+				'show_in_rest' => true,
+				'type'         => 'integer',
+				'single'       => true,
+			]
+		);
+
 		\register_block_type(
 			self::BLOCK_NAME,
 			[
@@ -109,8 +121,19 @@ class SplitTwoColumns extends Base_Block {
 
 		$issue_id       = (int) ( $fields['select_issue'] ?? 0 );
 		$tag_id         = (int) ( $fields['select_tag'] ?? 0 );
-		$issue_image_id = (int) ( $fields['issue_image'] ?? $fields['issue_image_id'] ?? 0 );
-		$tag_image_id   = (int) ( $fields['tag_image'] ?? $fields['tag_image_id'] ?? 0 );
+		$issue_image_id = (int) ( $fields['issue_image'] ?? $fields['issue_image_id'] ?? get_post_thumbnail_id( $issue_id ) ?? 0 );
+		$tag_image_id   = (int) ( $fields['tag_image'] ?? $fields['tag_image_id'] ?? get_term_meta( $tag_id, 'tag_attachment_id', true ) ?? 0 );
+
+		// Registering fields edition status.
+		$edited = [
+			'title'             => ! empty( $fields['title'] ),
+			'issue_description' => ! empty( $fields['issue_description'] ),
+			'issue_link_text'   => ! empty( $fields['issue_link_text'] ),
+			'tag_description'   => ! empty( $fields['tag_description'] ),
+			'button_text'       => ! empty( $fields['button_text'] ),
+			'issue_image_id'    => $issue_image_id > 0,
+			'tag_image_id'      => $tag_image_id > 0,
+		];
 
 		$fields                      = array_filter( $fields );
 		$fields['issue_image_src']   = $issue_image_id ? wp_get_attachment_url( $issue_image_id ) : '';
@@ -121,10 +144,11 @@ class SplitTwoColumns extends Base_Block {
 		$fields['tag_image_title']   = $tag_image_id ? get_post_meta( $tag_image_id, '_wp_attachment_image_alt', true ) : '';
 
 		if ( $issue_id ) {
-			$issue_meta_data           = get_post_meta( (int) $issue_id );
-			$fields['title']           = $fields['title'] ?? $issue_meta_data['p4_title'][0] ?? get_the_title( $issue_id );
-			$fields['issue_link_path'] = $fields['issue_link_path'] ?? get_permalink( $issue_id );
-			$fields['issue_link_text'] = $fields['issue_link_text'] ?? __( 'Learn more about this issue', 'planet4-blocks' );
+			$issue_meta_data             = get_post_meta( (int) $issue_id );
+			$fields['title']             = $fields['title'] ?? $issue_meta_data['p4_title'][0] ?? get_the_title( $issue_id );
+			$fields['issue_description'] = wp_trim_words( $fields['issue_description'] ?? $issue_meta_data['p4_description'][0] ?? '', 25 );
+			$fields['issue_link_path']   = $fields['issue_link_path'] ?? get_permalink( $issue_id );
+			$fields['issue_link_text']   = $fields['issue_link_text'] ?? __( 'Learn more about this issue', 'planet4-blocks' );
 		}
 
 		if ( $tag_id ) {
@@ -132,7 +156,7 @@ class SplitTwoColumns extends Base_Block {
 			if ( $tag instanceof \WP_Term ) {
 				$fields['tag_name']        = $fields['tag_name'] ?? $tag->name ?? '';
 				$fields['tag_link']        = get_tag_link( $tag );
-				$fields['tag_description'] = $fields['tag_description'] ?? $tag->description ?? '';
+				$fields['tag_description'] = wp_trim_words( $fields['tag_description'] ?? $tag->description ?? '', 25 );
 			}
 		}
 
@@ -153,6 +177,8 @@ class SplitTwoColumns extends Base_Block {
 		$updated['select_tag']     = $tag_id;
 		$updated['issue_image_id'] = $issue_image_id;
 		$updated['tag_image_id']   = $tag_image_id;
+		// Edition status.
+		$updated['edited'] = $edited;
 
 		return $updated;
 	}
