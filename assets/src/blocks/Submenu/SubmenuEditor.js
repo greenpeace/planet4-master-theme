@@ -145,7 +145,7 @@ const renderView = (attributes, setAttributes, className) => {
         characterLimit={60}
         multiline="false"
       />
-      {flatHeaders.length > 0 ?
+      {menuItems.length > 0 ?
         <SubmenuItems menuItems={menuItems} /> :
         <div className='EmptyMessage'>
           {__('The submenu block produces no output on the editor.', 'planet4-blocks-backend')}

@@ -23,7 +23,9 @@ export const SubmenuFrontend = ({ title, className, levels, submenu_style }) => 
 
   return (
     <section className={ `block submenu-block submenu-${ style }` }>
-      <h2>{ title }</h2>
+      { !!title && (
+        <h2>{ title }</h2>
+      ) }
       <SubmenuItems menuItems={ menuItems }/>
     </section>
   );

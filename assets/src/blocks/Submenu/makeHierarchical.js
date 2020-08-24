@@ -17,9 +17,9 @@ export const makeHierarchical = headings => {
 
     const menuItem = {
       text: content,
-      style: style,
+      style,
       children: [],
-      parent: parent,
+      parent,
       level,
       shouldLink,
       anchor,
