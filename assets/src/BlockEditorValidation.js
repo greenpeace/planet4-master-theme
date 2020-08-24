@@ -8,9 +8,16 @@ export const blockEditorValidation = () => {
 };
 
 const isValid = element => {
-  // Apply validation only for campaign post types.
-  if ('campaign' === $('#post_type').val() && 'required' === $(element).data('validation')) {
-    if (!$(element).val() || 'not set' === $(element).val()) {
+  const isCampaign = 'campaign' === document.getElementById('post_type').value;
+
+  // No validation for non-campaign posts yet.
+  if (!isCampaign) {
+    return true;
+  }
+
+  if ('required' === element.dataset.validation) {
+    const value = element.value;
+    if (!value || 'not set' === value) {
       return false;
     }
   }
@@ -30,9 +37,14 @@ const PrePublishCheckList = () => {
 
   if ( postIsValid ) {
     // Open "Analytics & Tracking" fields metabox, if closed.
-    $('#p4_campaign_fields').removeClass('closed');
+    document.getElementById('p4_campaign_fields').classList.remove('closed');
     checkListMsg.push( __( 'Please check "Analytics & Tracking" section for required fields.', 'planet4-master-theme-backend' ) );
-    invalidElements.forEach( element => { checkListMsg.push( ' - ' + $(element).parent().find('label').text() + ' is a required field' ) } );
+
+    invalidElements.forEach(element => {
+      const fieldName = element.parentNode.querySelector('label').textContent;
+      const message = ` - ${ fieldName } is a required field`;
+      checkListMsg.push(message);
+    });
   }
 
   let classname = '';
