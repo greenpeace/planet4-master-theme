@@ -34,7 +34,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 	 * @dataProvider carousel_header_shortcodes_provider
 	 * @dataProvider columns_shortcodes_provider
 	 * @dataProvider covers_shortcodes_provider
-	 * @dataProvider media_shortcodes_provider
 	 * @dataProvider social_media_shortcodes_provider
 	 * @dataProvider timeline_shortcodes_provider
 	 * @dataProvider take_action_boxout_shortcodes_provider
@@ -287,69 +286,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 
 				'<!-- wp:planet4-blocks/enform {"en_page_id":44940,"enform_goal":"Petition Signup","en_form_style":"side-style","background":2797,"title":"\u963b\u6b62\u7834\u58de\u5317\u6975","description":"\u4eca\u5929\u7acb\u5373\u52a0\u5165\u5168\u7403\u884c\u52d5\uff01","content_title":"\u963b\u6b62\u7834\u58de\u5317\u6975 \u4eca\u5929\u7acb\u5373\u52a0\u5165\u5168\u7403\u884c\u52d5\uff01\t","content_description":"\u5168\u8cf4\u6709\u60a8\uff0c\u5b88\u8b77\u5317\u6975\u7684\u529b\u91cf\u65e5\u76ca\u5f37\u5927\u3002\u6211\u5011\u5718\u7d50\u4e00\u8d77\uff0c\u8b93\u5b88\u8b77\u5317\u6975\u7684\u547c\u8072\uff0c\u63da\u5f97\u66f4\u9060\uff01","button_text":"\u7acb\u5373\u806f\u7f72","thankyou_title":"\u591a\u8b1d\u60a8\u7684\u806f\u7f72","en_form_id":2783} /-->',
 			],
-		];
-	}
-
-	/**
-	 * Planet4 blocks shortocodes provider.
-	 *
-	 * @return array
-	 */
-	public function media_shortcodes_provider(): array {
-		return [
-			// 1-5
-			'media_video with title and youtube url' =>
-				[
-					'[shortcake_media_video video_title="Ocean Memories" description="Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jícama green bean celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver beet watercress potato tigernut corn groundnut. " youtube_id="https://www.youtube.com/watch?v=YvXiSGbfxUI" /]',
-
-					'<!-- wp:planet4-blocks/media-video {"video_title":"Ocean Memories","description":"Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut j\u00edcama green bean celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver beet watercress potato tigernut corn groundnut. ","youtube_id":"https://www.youtube.com/watch?v=YvXiSGbfxUI"} /-->',
-				],
-
-			'media_video with title and youtube id' =>
-				[
-
-					'[shortcake_media_video video_title="Reasons for Hope " youtube_id="Ua18GdDq4mE" /]',
-
-					'<!-- wp:planet4-blocks/media-video {"video_title":"Reasons for Hope ","youtube_id":"Ua18GdDq4mE"} /-->',
-				],
-
-			'media_video with youtube id' =>
-				[
-
-					'[shortcake_media_video youtube_id="0f3yKDAP8VA" /]',
-
-					'<!-- wp:planet4-blocks/media-video {"youtube_id":"0f3yKDAP8VA"} /-->',
-				],
-
-			'media_video with youtube url with parameters' =>
-				[
-					'[shortcake_media_video youtube_id="https://www.youtube.com/watch?v=k1Mk_fkpK84&amp;t=32s" /]',
-
-					'<!-- wp:planet4-blocks/media-video {"youtube_id":"https://www.youtube.com/watch?v=k1Mk_fkpK84&amp;t=32s"} /-->',
-				],
-			[
-				'[shortcake_media_video youtube_id="https://youtu.be/tbkHBmxqUac" /]',
-
-				'<!-- wp:planet4-blocks/media-video {"youtube_id":"https://youtu.be/tbkHBmxqUac"} /-->',
-			],
-
-			[
-				'[shortcake_media_video video_title="Together We Win - Join the Movement" youtube_id="https://media.greenpeace.org/GPIDoc/GPI/Media/Video/WebHigh/0/8/a/f/GP0STQ2KJ.mp4" /]',
-				'<!-- wp:planet4-blocks/media-video {"video_title":"Together We Win - Join the Movement","youtube_id":"https://media.greenpeace.org/GPIDoc/GPI/Media/Video/WebHigh/0/8/a/f/GP0STQ2KJ.mp4"} /-->',
-			],
-			[
-				'[shortcake_media_video description="Video: de circulaire economie als voorbeeld bij een van de werkvormen." youtube_id="https://youtu.be/CU3JFIiDO5Q" /]',
-				'<!-- wp:planet4-blocks/media-video {"description":"Video: de circulaire economie als voorbeeld bij een van de werkvormen.","youtube_id":"https://youtu.be/CU3JFIiDO5Q"} /-->',
-			],
-			[
-				'[shortcake_media_video video_title="Maak je eigen Plastic Monster" youtube_id="5bWp5AO91E4" video_poster_img="13650" /]',
-				'<!-- wp:planet4-blocks/media-video {"video_title":"Maak je eigen Plastic Monster","youtube_id":"5bWp5AO91E4","video_poster_img":13650} /-->',
-			],
-
-			// 5-10
-
-			// 10-15
-
 		];
 	}
 

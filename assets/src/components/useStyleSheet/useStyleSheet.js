@@ -1,7 +1,8 @@
 // useScript implementation from: https://usehooks.com/useScript/
 import { useEffect, useState } from 'react';
+import { addLinkTag } from './addLinkTag';
 
-export const useStyleSheet = (href, media = 'all') => {
+export const useStyleSheet = (href) => {
 
   // Keeping track of script loaded and error state
   const [state, setState] = useState({
@@ -20,12 +21,6 @@ export const useStyleSheet = (href, media = 'all') => {
         return;
       }
 
-      // Create stylesheet link
-      const linkElement = document.createElement('link');
-      linkElement.rel = 'stylesheet';
-      linkElement.href = href;
-      linkElement.media = media;
-
       // Stylesheet event listener callbacks for load and error
       const onStyleSheetLoad = () => {
         setState({
@@ -43,11 +38,12 @@ export const useStyleSheet = (href, media = 'all') => {
         });
       };
 
-      linkElement.addEventListener('load', onStyleSheetLoad);
-      linkElement.addEventListener('error', onStyleSheetError);
-
-      // Add stylesheet to document body
-      document.body.appendChild(linkElement);
+      // Create stylesheet link
+      const linkElement = addLinkTag({
+        href,
+        onLoad: onStyleSheetLoad,
+        onError: onStyleSheetError
+      });
 
       // Remove event listeners on cleanup
       return () => {

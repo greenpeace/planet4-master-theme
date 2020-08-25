@@ -1,5 +1,6 @@
 // useScript implementation from: https://usehooks.com/useScript/
 import { useEffect, useState } from 'react';
+import { addScriptTag } from './addScriptTag';
 
 export const useScript = (src) => {
   // Keeping track of script loaded and error state
@@ -20,11 +21,6 @@ export const useScript = (src) => {
         return;
       }
 
-      // Create script
-      const script = document.createElement('script');
-      script.src = src;
-      script.async = true;
-
       // Script event listener callbacks for load and error
       const onScriptLoad = () => {
         setState({
@@ -34,19 +30,18 @@ export const useScript = (src) => {
       };
 
       const onScriptError = () => {
-        script.remove();
-
         setState({
           loaded: true,
           error: true
         });
       };
 
-      script.addEventListener('load', onScriptLoad);
-      script.addEventListener('error', onScriptError);
-
-      // Add script to document body
-      document.body.appendChild(script);
+      const script = addScriptTag({
+        src,
+        async: true,
+        onLoad: onScriptLoad,
+        onError: onScriptError
+      });
 
       // Remove event listeners on cleanup
       return () => {
