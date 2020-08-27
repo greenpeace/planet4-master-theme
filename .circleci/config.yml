@@ -81,7 +81,7 @@ jobs:
 
   acceptance-tests:
     docker:
-      - image: greenpeaceinternational/p4-builder:planet-5221
+      - image: greenpeaceinternational/p4-builder:latest
     working_directory:  /home/circleci/
     environment:
       APP_HOSTNAME: www.planet4.test
