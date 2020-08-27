@@ -1,9 +1,9 @@
 .wp-block-quote,
 .wp-block-file,
 .wp-block-button,
-.page-template > h2,
-.page-template > ul,
-.page-template > p,
+div.page-template > h2,
+div.page-template > ul,
+div.page-template > p,
 .post-details > p,
 .post-details > p:first-of-type,
 .post-details > h2,
@@ -20,8 +20,8 @@
 .wp-block-quote,
 .wp-block-file,
 .wp-block-button,
-.page-template > h2,
-.page-template > ul,
+div.page-template > h2,
+div.page-template > ul,
 .post-details > h2,
 .post-details > ul {
   display: inline-block;
@@ -34,7 +34,7 @@
   }
 }
 
-.page-template > ul,
+div.page-template > ul,
 .post-details > ul {
   width: 100%;
 }
