@@ -97,10 +97,11 @@ jobs:
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
+      - checkout:
+          path: /home/circleci/checkout/planet4-master-theme
       - run:
           name: Build - Configure
           command: |
-            activate-gcloud-account.sh
             mkdir -p /tmp/workspace/var
             mkdir -p /tmp/workspace/src
             echo "${CIRCLE_BUILD_NUM}" > /tmp/workspace/var/circle-build-num
@@ -109,7 +110,15 @@ jobs:
           working_directory: /home/circleci
           command: |
             echo "Master theme branch is ${CIRCLE_BRANCH}"
-            MASTER_THEME_BRANCH=dev-${CIRCLE_BRANCH} MERGE_SOURCE=git@github.com:greenpeace/planet4-base-fork.git MERGE_REF=develop make
+            if [ -n "$CIRCLE_PR_NUMBER" ]; then
+              BRANCH="$(./get-fork-pr-branch.sh)"
+            else
+              BRANCH="${CIRCLE_BRANCH}"
+            fi
+            MASTER_THEME_BRANCH=dev-${BRANCH}#${CIRCLE_SHA1} \
+            MERGE_SOURCE=git@github.com:greenpeace/planet4-base-fork.git \
+            MERGE_REF=develop \
+            make ci
       - run:
           name: Test - Clone planet4-docker-compose
           command: |
