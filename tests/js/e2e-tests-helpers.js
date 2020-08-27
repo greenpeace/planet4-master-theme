@@ -112,3 +112,14 @@ export const typeInTextareaWithLabel = async ( label, value ) => {
   await page.type( `#${ inputId }`, value);
 };
 
+/**
+ * Types in an inline checkbox input element(richtext) based on its name.
+ *
+ * @param {string} name Name of checkbox input.
+ * @param {string} value Value to be applied to the input.
+ */
+export const typeInInputWithCheckbox = async ( name, value ) => {
+  const [ element ] = await page.$x( `//*[contains(@class,"p4-custom-control-input")][contains(@name,"${ name }")]` );
+  await element.click();
+  await page.keyboard.type( value );
+};
