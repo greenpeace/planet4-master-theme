@@ -30,6 +30,7 @@ job-references:
     name: "Install Dependencies"
     command: |
       composer install --dev
+      npm i
 
   php_job: &php_job
     environment:

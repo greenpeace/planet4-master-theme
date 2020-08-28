@@ -3,7 +3,10 @@ export const setupCookies = function($) {
   window.createCookie = function(name, value, days) {
     let date = new Date();
     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    document.cookie = encodeURI(name) + '=' + encodeURI(value) + ';domain=.' + document.domain + ';path=/;' + '; expires=' + date.toGMTString();
+    let secureMode = document.location.protocol === 'http:'
+      ? ';SameSite=Lax'
+      : ';SameSite=None;Secure';
+    document.cookie = encodeURI(name) + '=' + encodeURI(value) + ';domain=.' + document.domain + ';path=/;' + '; expires=' + date.toGMTString() + secureMode;
   };
 
   window.readCookie = function(name) {
@@ -28,7 +31,7 @@ export const setupCookies = function($) {
   if (cookie == null) {
     $('.cookie-notice').css('display', 'flex');
   } else {
-    window.createCookie('gp_nro', nro, 365);
+    window.createCookie('gp_nro', nro, 30);
   }
 
   $('#hidecookie').click(function () {
@@ -38,7 +41,7 @@ export const setupCookies = function($) {
     window.createCookie('no_track', '0', -1);
 
     // Create cookie to store last visited nro.
-    window.createCookie('gp_nro', nro, 365);
+    window.createCookie('gp_nro', nro, 30);
 
     // DataLayer push event on cookies consent.
     window.dataLayer = window.dataLayer || [];

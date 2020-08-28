@@ -33,6 +33,9 @@ export const setupCountrySelect = function($) {
       if ('0' === index) {
         $('.international', countries_html)
           .attr('href', element[0].url)
+          .attr('data-ga-category', 'Country Selector')
+          .attr('data-ga-action', 'Greenpeace International')
+          .attr('data-ga-label', 'n/a')
           .text(element[0].name);
 
       } else {
@@ -48,7 +51,13 @@ export const setupCountrySelect = function($) {
           $.each(country.lang, function (index, lang) {
             $('.countries_sublist', countries_sublist).append(
               '<li>' +
-              '<a href="' + lang.url + '">' + country.name + ' | ' + lang.name + '</a>' +
+                '<a ' +
+                  'href="' + lang.url + '" ' +
+                  'data-ga-category="Country Selector" ' +
+                  'data-ga-action="' + country.name + ' | ' + lang.name + '" ' +
+                  'data-ga-label="n/a">' +
+                    country.name + ' | ' + lang.name +
+                '</a>' +
               '</li>');
           });
         });

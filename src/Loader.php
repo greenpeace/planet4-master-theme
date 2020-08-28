@@ -2,6 +2,7 @@
 
 namespace P4\MasterTheme;
 
+use RuntimeException;
 use WP_CLI;
 
 /**
@@ -66,6 +67,7 @@ final class Loader {
 			PostCampaign::class,
 			PostArchive::class,
 			Settings::class,
+			Features::class,
 			PostReportController::class,
 			Cookies::class,
 			DevReport::class,
@@ -77,6 +79,8 @@ final class Loader {
 
 			// Load P4 Control Panel only on Dashboard page.
 			$this->default_services[] = ControlPanel::class;
+			$this->default_services[] = ImageArchive\UiIntegration::class;
+			$this->default_services[] = ImageArchive\Rest::class;
 
 			// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
 			if ( 'post-new.php' === $pagenow || 'post.php' === $pagenow ) {
@@ -89,7 +93,7 @@ final class Loader {
 				);
 			}
 
-			// Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
+			// Load `Campaigns` class only when adding/editing a new tag.
 			if ( 'edit-tags.php' === $pagenow || 'term.php' === $pagenow ) {
 				$this->default_services[] = Campaigns::class;
 			}
@@ -110,6 +114,10 @@ final class Loader {
 		// Run Activator after theme switched to planet4-master-theme or a planet4 child theme.
 		if ( get_option( 'theme_switched' ) ) {
 			$this->default_services[] = Activator::class;
+		}
+
+		if ( wp_is_json_request() ) {
+			$this->default_services[] = MetaboxRegister::class;
 		}
 
 		$services = array_merge( $services, $this->default_services );
@@ -187,11 +195,70 @@ final class Loader {
 	 */
 	public static function theme_file_ver( string $rel_path ): int {
 		$filepath = trailingslashit( get_template_directory() ) . $rel_path;
-		$ctime    = filectime( $filepath );
-		if ( $ctime ) {
-			return $ctime;
+
+		return self::get_timestamp( $filepath );
+	}
+
+	/**
+	 * Get timestamp of a file.
+	 *
+	 * @param string $path The path of the file.
+	 *
+	 * @throws RuntimeException If the file doesn't exist, or filectime fails in some other way.
+	 * @return int Timestamp of last file change.
+	 */
+	private static function get_timestamp( string $path ): int {
+		$ctime = filectime( $path );
+
+		if ( ! $ctime ) {
+			throw new RuntimeException( "Tried to get file change time of {$path} but failed to." );
 		}
 
-		return time();
+		return $ctime;
+	}
+
+	/**
+	 * Enqueue a style with a version based on the file change time.
+	 *
+	 * @param string $relative_path An existing css file.
+	 */
+	public static function enqueue_versioned_style( string $relative_path ): void {
+		// Create a supposedly unique handle based on the path.
+		$handle = str_replace( '/[^\w]/', '', $relative_path );
+
+		$relative_path = '/' . ltrim( $relative_path, '/' );
+
+		$version = self::get_timestamp( get_template_directory() . $relative_path );
+
+		wp_enqueue_style(
+			$handle,
+			get_template_directory_uri() . $relative_path,
+			[],
+			$version
+		);
+	}
+
+	/**
+	 * Enqueue a script with a version based on the file change time.
+	 *
+	 * @param string $relative_path An existing js file.
+	 * @param array  $deps Dependencies of the script.
+	 * @param bool   $in_footer Whether the script should be loaded in the footer.
+	 */
+	public static function enqueue_versioned_script( string $relative_path, array $deps = [], $in_footer = false ): void {
+		// Create a supposedly unique handle based on the path.
+		$handle = str_replace( '/[^\w]/', '', $relative_path );
+
+		$relative_path = '/' . ltrim( $relative_path, '/' );
+
+		$version = self::get_timestamp( get_template_directory() . $relative_path );
+
+		wp_enqueue_script(
+			$handle,
+			get_template_directory_uri() . $relative_path,
+			$deps,
+			$version,
+			$in_footer
+		);
 	}
 }

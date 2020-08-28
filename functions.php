@@ -76,6 +76,7 @@ function planet4_get_option( $key = '', $default = null ) {
 	return $options[ $key ] ?? $default;
 }
 
+use P4\MasterTheme\ImageArchive\Rest;
 use P4\MasterTheme\Loader;
 use Timber\Timber;
 
@@ -106,7 +107,14 @@ if ( ! class_exists( 'Timber' ) ) {
 		Timber::$cache = true;
 	}
 }
+add_action(
+	'rest_api_init',
+	function () {
+		Rest::register_endpoints();
+	}
+);
 
-Loader::get_instance();
 
 require_once 'load-class-aliases.php';
+
+Loader::get_instance();

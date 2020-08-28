@@ -276,6 +276,43 @@ class MasterSite extends TimberSite {
 	}
 
 	/**
+	 * Generates hreflang metadata from countries.json template.
+	 */
+	public static function generate_hreflang_meta(): ?array {
+
+		$countries = wp_cache_get( 'countries' );
+
+		if ( false === $countries ) {
+			$body      = file_get_contents( get_template_directory() . '/templates/countries.json' );
+			$countries = json_decode( $body, true );
+			if ( empty( $countries ) ) {
+				return null;
+			}
+			wp_cache_set( 'countries', $countries );
+		}
+
+		$metadata = [];
+
+		foreach ( $countries as $key => $letter ) {
+			if ( 0 === $key ) {
+				continue;
+			}
+			foreach ( $letter as $country ) {
+				$lang = $country['lang'];
+				foreach ( $lang as $item ) {
+					if ( isset( $item['locale'] ) ) {
+						foreach ( $item['locale'] as $code ) {
+							$metadata[ $code ] = $item['url'];
+						}
+					}
+				}
+			}
+		}
+
+		return $metadata;
+	}
+
+	/**
 	 * Sets as featured image of the post the first image found attached in the post's content (if any).
 	 *
 	 * @param int     $post_id The ID of the current Post.
@@ -288,7 +325,59 @@ class MasterSite extends TimberSite {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
+
+		$this->clean_boxout_posts_cache( $post_id, $post_after, $post_before );
+
 		clean_post_cache( $post_id );
+	}
+
+	/**
+	 * Flush Take Action Boxout(TAB) posts cache, if the TAB act page status changes.
+	 *
+	 * @param int     $post_id The ID of the current Post.
+	 * @param WP_Post $post_after The current Post.
+	 * @param WP_Post $post_before Whether this is an existing post being updated or not.
+	 */
+	private function clean_boxout_posts_cache( $post_id, $post_after, $post_before ): void {
+		$parent_act_id = (int) planet4_get_option( 'act_page' );
+		if ( 'page' !== $post_after->post_type || $parent_act_id !== $post_after->post_parent ) {
+			return;
+		}
+
+		// Flush cache only when a page status changes from publish to any non-public status & vice versa.
+		if (
+			( $post_before->post_status === $post_after->post_status ) ||
+			( 'publish' !== $post_before->post_status && 'publish' !== $post_after->post_status )
+		) {
+			return;
+		}
+
+		global $wpdb, $nginx_purger;
+
+		// Search for those posts, who use TAB($post_id) from "Take Action Page Selector" dropdown.
+		// phpcs:disable
+		$sql          = 'SELECT post_id FROM %1$s WHERE meta_key = \'p4_take_action_page\' AND meta_value = %2$d';
+		$prepared_sql = $wpdb->prepare( $sql, $wpdb->postmeta, $post_id );
+		$boxout_posts = $wpdb->get_col( $prepared_sql );
+		// phpcs:enable
+
+		// Search for those posts, who use TAB($post_id) as a block inside block editor.
+		$take_action_boxout_block = '%<!-- wp:planet4-blocks/take-action-boxout {"take_action_page":' . $post_id . '} /-->%';
+		// phpcs:disable
+		$sql          = 'SELECT ID FROM %1$s WHERE post_type = \'post\' AND post_status = \'publish\' AND post_content LIKE \'%2$s\'';
+		$prepared_sql = $wpdb->prepare( $sql, $wpdb->posts, $take_action_boxout_block );
+		$result       = $wpdb->get_col( $prepared_sql );
+		// phpcs:enable
+
+		$boxout_posts = array_merge( $boxout_posts, $result );
+
+		// Flush TAB posts cache.
+		$boxout_posts = array_unique( $boxout_posts );
+		foreach ( $boxout_posts as $tab_post_id ) {
+			clean_post_cache( $tab_post_id );
+			$tab_post_url = get_permalink( $tab_post_id );
+			$nginx_purger->purge_url( user_trailingslashit( $tab_post_url ) );
+		}
 	}
 
 	/**
@@ -367,6 +456,11 @@ class MasterSite extends TimberSite {
 			$preconnect_domains = array_filter( $preconnect_domains );
 
 			$context['preconnect_domains'] = $preconnect_domains;
+		}
+
+		// hreflang metadata.
+		if ( is_front_page() ) {
+			$context['hreflang'] = self::generate_hreflang_meta();
 		}
 
 		// Datalayer feed.
@@ -1154,28 +1248,25 @@ class MasterSite extends TimberSite {
 	 * Adds functionality to Twig.
 	 *
 	 * @param \Twig\Environment $twig The Twig environment.
+	 *
 	 * @return \Twig\Environment
 	 */
 	public function p4_optimize_img_url( $twig ) {
-		$options             = get_option( 'planet4_options' );
-		$cf_img_optimization = $options['cloudflare_img_opt'] ?? false;
-		$cf_options_txt      = $options['cloudflare_options_txt'] ?? '';
+		$options        = get_option( 'planet4_options' );
+		$cf_options_txt = $options['cloudflare_options_txt'] ?? '';
+
+		$filter_function = Features::is_active( Features::CLOUDFLARE_IMAGE_OPTIMIZATION )
+				? function ( ?string $source, ?string $src_set = '' ) use ( $cf_options_txt ) {
+					return empty( $source )
+						? $source
+						: $this->img_to_cloudflare( $source, $src_set ?? '', $cf_options_txt );
+				}
+				: function ( ?string $source ) {
+					return $source;
+				};
 
 		// Add Twig filter(cf_img_url) which convert image url/s into cloudflare optimized image url/s.
-		$twig->addFilter(
-			new Twig_SimpleFilter(
-				'cf_img_url',
-				$cf_img_optimization
-					? function ( ?string $source, ?string $src_set = '' ) use ( $cf_options_txt ) {
-						return empty( $source )
-							? $source
-							: $this->img_to_cloudflare( $source, $src_set ?? '', $cf_options_txt );
-					}
-					: function ( ?string $source ) {
-						return $source;
-					}
-			)
-		);
+		$twig->addFilter( new Twig_SimpleFilter( 'cf_img_url', $filter_function ) );
 
 		return $twig;
 	}
