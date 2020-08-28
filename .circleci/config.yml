@@ -110,12 +110,7 @@ jobs:
           working_directory: /home/circleci
           command: |
             echo "Master theme branch is ${CIRCLE_BRANCH}"
-            if [ -n "$CIRCLE_PR_NUMBER" ]; then
-              BRANCH="$(./get-fork-pr-branch.sh)"
-              git --git-dir=/home/circleci/checkout/planet4-master-theme/.git checkout -b "${BRANCH}"
-            else
-              BRANCH="${CIRCLE_BRANCH}"
-            fi
+            BRANCH="${CIRCLE_BRANCH}"
             MASTER_THEME_BRANCH=dev-${BRANCH}#${CIRCLE_SHA1} \
             MERGE_SOURCE=git@github.com:greenpeace/planet4-base-fork.git \
             MERGE_REF=develop \
