@@ -3,7 +3,10 @@ export const setupCookies = function($) {
   window.createCookie = function(name, value, days) {
     let date = new Date();
     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    document.cookie = encodeURI(name) + '=' + encodeURI(value) + ';domain=.' + document.domain + ';path=/;' + '; expires=' + date.toGMTString();
+    let secureMode = document.location.protocol === 'http:'
+      ? ';SameSite=Lax'
+      : ';SameSite=None;Secure';
+    document.cookie = encodeURI(name) + '=' + encodeURI(value) + ';domain=.' + document.domain + ';path=/;' + '; expires=' + date.toGMTString() + secureMode;
   };
 
   window.readCookie = function(name) {
