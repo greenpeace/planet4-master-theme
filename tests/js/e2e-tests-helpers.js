@@ -73,3 +73,42 @@ export const openSidebarPanelWithTitle = async ( title ) => {
     await panel.click();
   }
 };
+
+/**
+ * This helper is specific to the select block style.
+ * It selects a block style by name, using the aria-label property.
+ *
+ * @param {string} name Style name.
+ */
+export const selectStyleByName = async ( name ) => {
+  const [ element ] = await page.$x( `//div[contains(@class,"edit-post-sidebar")]//div[contains(@aria-label,"${ name }")]` );
+  await element.click();
+};
+
+/**
+ * Types in an inline input element(richtext) based on its placeholder label.
+ *
+ * @param {string} label Placeholder text of the rich text input.
+ * @param {string} value Value to be applied to the input.
+ */
+export const typeInInputWithPlaceholderLabel = async ( label, value ) => {
+  const [ element ] = await page.$x( `//*[contains(@class,"block-editor-rich-text__editable")][contains(@aria-label,"${ label }")]` );
+  await element.click();
+  await page.waitForSelector( ':focus.rich-text' );
+  await page.keyboard.type( value );
+};
+
+/**
+ * Types in an textarea element based on its label.
+ *
+ * @param {string} label Text of the label before the text input.
+ * @param {string} value Value to be applied to the input.
+ */
+export const typeInTextareaWithLabel = async ( label, value ) => {
+  const [ inputEl ] = await page.$x( `//label[@class="components-base-control__label"][contains(text(),"${ label }")]/following-sibling::textarea[@class="components-textarea-control__input"]` );
+  const propertyHandle = await inputEl.getProperty('id');
+  const inputId = await propertyHandle.jsonValue();
+
+  await page.type( `#${ inputId }`, value);
+};
+
