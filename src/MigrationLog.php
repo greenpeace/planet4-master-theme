@@ -2,6 +2,8 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\Migrations\MigrationRecord;
+
 /**
  * A log of all migrations that have run, saved as a WP option.
  */
@@ -40,7 +42,7 @@ class MigrationLog {
 	 */
 	public function already_ran( string $migration_id ): bool {
 		foreach ( $this->done_migrations as $migration ) {
-			if ( $migration['id'] === $migration_id ) {
+			if ( $migration['id'] === $migration_id && $migration['success'] ) {
 				return true;
 			}
 		}
@@ -49,14 +51,17 @@ class MigrationLog {
 	}
 
 	/**
-	 * Record a migration in the log.
+	 * Record a migration run in the log.
 	 *
-	 * @param string $migration_id Id of the migration to log.
+	 * @param MigrationRecord $record
 	 */
-	public function add( string $migration_id ): void {
+	public function add( MigrationRecord $record ): void {
 		$entry = [
-			'id'   => $migration_id,
-			'date' => time(),
+			'id'         => $record->get_migration_id(),
+			'start_time' => $record->get_start_time(),
+			'end_time'   => $record->get_end_time(),
+			'success'    => $record->was_success(),
+			'logs'       => $record->get_logs(),
 		];
 
 		$this->done_migrations[] = $entry;

@@ -29,33 +29,7 @@ class Activator {
 	 */
 	public static function run(): void {
 		Campaigner::register_role_and_add_capabilities();
-		self::do_migrations();
+		Migrator::migrate();
 	}
 
-	/**
-	 * Run any new migrations and record them in the log.
-	 */
-	private static function do_migrations(): void {
-		// Fetch migration ids that have run from WP option.
-		$log = MigrationLog::from_wp_options();
-
-		/**
-		 * @var Migration[] $migrations
-		 */
-		$migrations = [
-			M001EnableEnFormFeature::class,
-		];
-
-		// Loop migrations and run those that haven't run yet.
-		foreach ( $migrations as $migration ) {
-			if ( $log->already_ran( $migration::get_id() ) ) {
-				continue;
-			}
-
-			$migration::run();
-			$log->add( $migration::get_id() );
-		}
-
-		$log->persist();
-	}
 }
