@@ -1,7 +1,8 @@
 <li id="result-row-{{ post.ID }}" class="media search-result-list-item">
 	<img
-		class="d-flex search-result-item-image lazyload"
-		data-src="{{ post.thumbnail.src('thumbnail') ?? dummy_thumbnail }}"
+		class="d-flex search-result-item-image"
+		src="{{ post.thumbnail.src('thumbnail') ?? dummy_thumbnail }}"
+		loading="lazy"
 		alt="{{ fn('esc_attr', post.thumbnail.alt|default( post.title ) )|raw }}"
 		data-ga-category="Articles List"
 		data-ga-action="Image"

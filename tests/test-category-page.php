@@ -41,8 +41,8 @@ class CategoryPageTest extends P4_TestCase {
 		// Test image markup.
 		$this->assertHasElementWithAttributes(
 			[
-				'data-src' => get_the_post_thumbnail_url( $post->ID, 'thumbnail' ),
-				'alt'      => $post->post_title,
+				'src' => get_the_post_thumbnail_url( $post->ID, 'thumbnail' ),
+				'alt' => $post->post_title,
 			],
 			$output,
 			'Did not find post thumbnail.'
