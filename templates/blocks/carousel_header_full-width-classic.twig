@@ -26,18 +26,11 @@
 							<div class="background-holder">
 								{% if slide.image %}
 									<img
-										{% if ( loop.first ) %}
 										src="{{ slide.image|cf_img_url(slide.image_srcset) }}"
 										srcset="{{ slide.image_srcset|cf_img_url }}"
 										sizes="{{ slide.image_sizes }}"
-										{% else %}
-										data-src="{{ slide.image|cf_img_url(slide.image_srcset) }}"
-										data-srcset="{{ slide.image_srcset|cf_img_url }}"
-										data-sizes="{{ slide.image_sizes }}"
-										class="preload"
-										{% endif %}
 										data-background-position="{{ slide.focus_image }}"
-
+										loading="lazy"
 										alt="{{ slide.image_alt  }}">
 
 									<div class="carousel-caption">
