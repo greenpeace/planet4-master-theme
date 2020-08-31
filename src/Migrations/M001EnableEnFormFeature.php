@@ -12,12 +12,24 @@ use P4\MasterTheme\Settings;
 class M001EnableEnFormFeature extends Migration {
 
 	/**
-	 * @inheritDoc
+	 * Perform the actual migration.
+	 *
+	 * @param MigrationRecord $record Information on the execution, can be used to add logs.
+	 *
+	 * @return void
 	 */
-	public static function run(): void {
+	public static function execute( MigrationRecord $record ): void {
 		$settings = get_option( Settings::KEY, [] );
 
 		$settings[ Features::ENGAGING_NETWORKS ] = 'on';
 		update_option( Settings::KEY, $settings );
+		$record->add_log( 'This is a message from your upgrade script.' );
+		$record->add_log( 'This is a second message from your upgrade script.' );
+
+		if ( $settings['Something terribly wrong in the db'] ) {
+			$record->fail();
+		} else {
+			$record->success();
+		}
 	}
 }

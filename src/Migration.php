@@ -2,8 +2,15 @@
 
 namespace P4\MasterTheme;
 
+use Exception;
+use P4\MasterTheme\Exception\MigrationFailed;
+use P4\MasterTheme\Migrations\MigrationRecord;
+
 /**
- * A migration that can be recorded.
+ * Abstract class to enforce the signature of a migration function.
+ * The "execute" function is abstract to keep implementations as simple as possible. These functions will be using
+ * WordPress's global functions to interact with the database (either through the high level API or using raw SQL,
+ * whatever fits the specific case best).
  */
 abstract class Migration {
 	/**
@@ -17,6 +24,34 @@ abstract class Migration {
 
 	/**
 	 * Perform the actual migration.
+	 *
+	 * @param MigrationRecord $record Information on the execution, can be used to add logs.
+	 *
+	 * @return void
 	 */
-	abstract public static function run(): void;
+	abstract public static function execute( MigrationRecord $record ): void;
+
+	/**
+	 * Log the time and run the migration.
+	 *
+	 * @return MigrationRecord Data on the migration run.
+	 * @throws MigrationFailed If the migration encounters an error.
+	 */
+	public static function run(): MigrationRecord {
+		$record = MigrationRecord::start( static::class );
+
+		try {
+			static::execute( $record );
+		} catch ( Exception $exception ) {
+			throw new MigrationFailed(
+				'Migration ' . $record->get_migration_id() . ' failed. Message: ' . $exception->getMessage(),
+				null,
+				$exception
+			);
+		}
+
+		$record->done();
+
+		return $record;
+	}
 }
