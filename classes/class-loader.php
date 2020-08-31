@@ -393,6 +393,7 @@ final class Loader {
 				'wp-element',
 				// Exports the __() function.
 				'wp-i18n',
+				'main',
 			],
 			true
 		);
