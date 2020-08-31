@@ -38,7 +38,6 @@ class Shortcode_To_Gutenberg {
 				'shortcake_media_video',
 				'shortcake_newcovers',
 				'shortcake_social_media',
-				'shortcake_split_two_columns',
 				'shortcake_submenu',
 				'shortcake_timeline',
 				'shortcake_take_action_boxout',

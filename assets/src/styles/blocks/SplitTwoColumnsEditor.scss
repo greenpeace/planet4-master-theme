@@ -2,3 +2,17 @@
   width: 250px;
   padding: 10px 10px;
 }
+
+.block-editor a:not([href]).split-two-column-item-link {
+  text-decoration: none;
+  color: $yellow;
+
+  &:hover {
+    color: $yellow;
+    text-decoration: underline;
+  }
+}
+
+.block-editor .split-two-column a {
+  pointer-events: auto;
+}

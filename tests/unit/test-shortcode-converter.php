@@ -38,7 +38,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 	 * @dataProvider happy_point_shortcodes_provider
 	 * @dataProvider media_shortcodes_provider
 	 * @dataProvider social_media_shortcodes_provider
-	 * @dataProvider split_two_columns_shortcodes_provider
 	 * @dataProvider submenu_shortcodes_provider
 	 * @dataProvider timeline_shortcodes_provider
 	 * @dataProvider take_action_boxout_shortcodes_provider
@@ -515,60 +514,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 					'<!-- wp:planet4-blocks/social-media {"title":"Social media Block (Twitter profile embed) ","description":"This is Social media block used to embed a TW profile ","social_media_url":"https://twitter.com/greenpeace"} /-->',
 				],
 
-
-		];
-	}
-
-	/**
-	 * Planet4 blocks shortocodes provider.
-	 *
-	 * @return array
-	 */
-	public function split_two_columns_shortcodes_provider(): array {
-		return [
-			// 1-5
-
-			'split two columns with title and language' =>
-				[
-					'[shortcake_split_two_columns select_issue="54" focus_issue_image="left top" select_tag="6" focus_tag_image="left top" /]',
-
-					'<!-- wp:planet4-blocks/split-two-columns {"select_issue":54,"focus_issue_image":"left top","select_tag":6,"focus_tag_image":"left top"} /-->',
-				],
-
-			'split two columns custom descriptions images' =>
-				[
-					'[shortcake_split_two_columns select_issue="60" title="Overridden issue title" issue_description="Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage lotus root sea lettuce brussels sprout cabbage." issue_link_text="Overridden link" issue_link_path="https://www.greenpeace.org" issue_image="460" focus_issue_image="right top" select_tag="6" tag_description="Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jícama green bean celtuce collard greens avocado quandong." button_text="Overriden button text" button_link="https://www.greenpeace.org" tag_image="354" focus_tag_image="right top" /]',
-
-					'<!-- wp:planet4-blocks/split-two-columns {"select_issue":60,"title":"Overridden issue title","issue_description":"Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage lotus root sea lettuce brussels sprout cabbage.","issue_link_text":"Overridden link","issue_link_path":"https://www.greenpeace.org","issue_image":460,"focus_issue_image":"right top","select_tag":6,"tag_description":"Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut j\u00edcama green bean celtuce collard greens avocado quandong.","button_text":"Overriden button text","button_link":"https://www.greenpeace.org","tag_image":354,"focus_tag_image":"right top"} /-->',
-				],
-
-			'split two columns custom titles images' =>
-				[
-					'[shortcake_split_two_columns select_issue="2119" issue_description="For nearly 50 years, Greenpeace has been sailing the world\'s oceans protecting our planet and fighting for environmental justice." issue_link_text="Learn more about our ships" issue_image="14679" focus_issue_image="center bottom" select_tag="21" tag_description="Synonymous with breaking boundaries and fearless campaigning, Greenpeace has sailed with the name Rainbow Warrior since 1978." button_text="Come aboard" tag_image="17720" focus_tag_image="center bottom" /]',
-
-					'<!-- wp:planet4-blocks/split-two-columns {"select_issue":2119,"issue_description":"For nearly 50 years, Greenpeace has been sailing the world\'s oceans protecting our planet and fighting for environmental justice.","issue_link_text":"Learn more about our ships","issue_image":14679,"focus_issue_image":"center bottom","select_tag":21,"tag_description":"Synonymous with breaking boundaries and fearless campaigning, Greenpeace has sailed with the name Rainbow Warrior since 1978.","button_text":"Come aboard","tag_image":17720,"focus_tag_image":"center bottom"} /-->',
-				],
-
-			'split two columns custom button link' =>
-				[
-					'[shortcake_split_two_columns select_issue="69" focus_issue_image="left top" select_tag="29" button_link="https://www.greenpeace.org/denmark/vaer-med/stoet-os/" focus_tag_image="left top" /]',
-
-					'<!-- wp:planet4-blocks/split-two-columns {"select_issue":69,"focus_issue_image":"left top","select_tag":29,"button_link":"https://www.greenpeace.org/denmark/vaer-med/stoet-os/","focus_tag_image":"left top"} /-->',
-				],
-
-			'split two columns utf chars' =>
-				[
-					'[shortcake_split_two_columns select_issue="60" issue_link_text="Se mere" focus_issue_image="left top" select_tag="25" button_text="Vær med" focus_tag_image="left top" /]',
-
-					'<!-- wp:planet4-blocks/split-two-columns {"select_issue":60,"issue_link_text":"Se mere","focus_issue_image":"left top","select_tag":25,"button_text":"V\u00e6r med","focus_tag_image":"left top"} /-->',
-				],
-
-			'split two columns custom urls' =>
-				[
-					'[shortcake_split_two_columns select_issue="69" title="La révolution énergétique" issue_description="Il est temps d\'évoluer au-delà des énergies sales et dangereuses telles que le pétrole, le charbon et le nucléaire et d\'adopter des énergies renouvelables propres, à bas prix et éternelles." issue_link_text="En savoir plus sur ce problème" issue_link_path="https://www.greenpeace.org/mena/fr/explorer/la-revolution-energetique/" issue_image="2912" focus_issue_image="center center" select_tag="78" tag_description="L\'énergie renouvelable n’est pas chère, elle est durable et fait déjà en sorte que notre planète soit plus verte et plus sûre. Nous connaissons l\'avenir que nous souhaitons et les énergies renouvelables sont la façon dont nous…" button_text="Agissez Maintenant!" button_link="https://www.greenpeace.org/mena/en/tag/%D8%A7%D9%84%D8%B7%D8%A7%D9%82%D8%A9_%D8%A7%D9%84%D9%85%D8%AA%D8%AC%D8%AF%D8%AF%D8%A9-en/" tag_image="2914" focus_tag_image="left top" /]',
-
-					'<!-- wp:planet4-blocks/split-two-columns {"select_issue":69,"title":"La r\u00e9volution \u00e9nerg\u00e9tique","issue_description":"Il est temps d\'\u00e9voluer au-del\u00e0 des \u00e9nergies sales et dangereuses telles que le p\u00e9trole, le charbon et le nucl\u00e9aire et d\'adopter des \u00e9nergies renouvelables propres, \u00e0 bas prix et \u00e9ternelles.","issue_link_text":"En savoir plus sur ce probl\u00e8me","issue_link_path":"https://www.greenpeace.org/mena/fr/explorer/la-revolution-energetique/","issue_image":2912,"focus_issue_image":"center center","select_tag":78,"tag_description":"L\'\u00e9nergie renouvelable n\u2019est pas ch\u00e8re, elle est durable et fait d\u00e9j\u00e0 en sorte que notre plan\u00e8te soit plus verte et plus s\u00fbre. Nous connaissons l\'avenir que nous souhaitons et les \u00e9nergies renouvelables sont la fa\u00e7on dont nous\u2026","button_text":"Agissez Maintenant!","button_link":"https://www.greenpeace.org/mena/en/tag/%D8%A7%D9%84%D8%B7%D8%A7%D9%82%D8%A9_%D8%A7%D9%84%D9%85%D8%AA%D8%AC%D8%AF%D8%AF%D8%A9-en/","tag_image":2914,"focus_tag_image":"left top"} /-->',
-				],
 
 		];
 	}

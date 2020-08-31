@@ -32,7 +32,7 @@ export const addSubAndSuperscript = function (wp){
 	 */
 	var SubscriptButton = function( props ) {
 		return wp.element.createElement(
-		  wp.editor.RichTextToolbarButton, {
+		  wp.blockEditor.RichTextToolbarButton, {
 			  icon: subscriptIcon,
 			  title: 'Subscript',
 			  isActive: props.isActive,
@@ -61,7 +61,7 @@ export const addSubAndSuperscript = function (wp){
 	 */
 	var SuperscriptButton = function( props ) {
 		return wp.element.createElement(
-		  wp.editor.RichTextToolbarButton, {
+		  wp.blockEditor.RichTextToolbarButton, {
 			  icon: superscriptIcon,
 			  title: 'Superscript',
 			  isActive: props.isActive,

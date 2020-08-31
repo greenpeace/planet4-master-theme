@@ -241,12 +241,18 @@
 }
 
 .split-two-column-item-button {
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   @include large-and-up {
-    width: 70%;
+    white-space: nowrap;
+    min-width: 70%;
+    max-width: 85%;
   }
 
   @include x-large-and-up {
-    width: 60%;
+    min-width: 60%;
+    max-width: 70%;
   }
 }
 
