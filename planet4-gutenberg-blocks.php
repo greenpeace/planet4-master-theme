@@ -346,6 +346,7 @@ P4GBKS\Loader::get_instance(
 		// 'P4GBKS\Controllers\Blocks\NewCovers_Controller'
 		\P4GBKS\Controllers\Menu\Settings_Controller::class,
 		\P4GBKS\Controllers\Menu\Blocks_Usage_Controller::class,
+		\P4GBKS\Controllers\Menu\Classic_Blocks_Usage::class,
 		\P4GBKS\Controllers\Menu\Reusable_Blocks_Controller::class,
 		\P4GBKS\Controllers\Menu\Archive_Import::class,
 		\P4GBKS\Controllers\Menu\Postmeta_Check_Controller::class,
