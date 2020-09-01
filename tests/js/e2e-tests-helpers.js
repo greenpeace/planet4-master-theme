@@ -1,6 +1,7 @@
 import {
   getAllBlocks,
   selectBlockByClientId,
+  pressKeyWithModifier,
 } from '@wordpress/e2e-test-utils';
 
 /**
@@ -81,7 +82,12 @@ export const openSidebarPanelWithTitle = async ( title ) => {
  * @param {string} name Style name.
  */
 export const selectStyleByName = async ( name ) => {
-  const [ element ] = await page.$x( `//div[contains(@class,"edit-post-sidebar")]//div[contains(@aria-label,"${ name }")]` );
+  let [ element ] = await page.$x( `//div[contains(@class,"edit-post-sidebar")]//div[contains(@aria-label,"${ name }")]` );
+
+  if ( ! element ) {
+    [ element ] = await page.$x( `//div[@class="block-editor-block-styles"]//span[contains(text(),"${ name }")]` );
+  }
+
   await element.click();
 };
 
@@ -122,4 +128,22 @@ export const typeInInputWithCheckbox = async ( name, value ) => {
   const [ element ] = await page.$x( `//*[contains(@class,"p4-custom-control-input")][contains(@name,"${ name }")]` );
   await element.click();
   await page.keyboard.type( value );
+};
+
+/**
+ * Remove the existing text of richtext field, if exists.
+ *
+ * @param {string} placeholder Text of the richtext input.
+ */
+export const clearPreviousTextWithPlaceholder = async ( placeholder ) => {
+  const [ inputEl ] = await page.$x( `//*[contains(@class,"block-editor-rich-text__editable")][contains(@aria-label,"${ placeholder }")]` );
+  await inputEl.click();
+  let inputValue = await page.evaluate(
+    () => document.activeElement.textContent
+  );
+
+  if ( inputValue ) {
+    await pressKeyWithModifier( 'primary', 'a' );
+    await page.keyboard.press( 'Backspace' );
+  }
 };
