@@ -45,7 +45,7 @@ export class SpreadsheetEditor extends Component {
     this.state = {
       invalidSheetId: false,
       errorFetchingSpreadsheet: false,
-      url: '',
+      url: props.attributes.url,
     };
 
     this.debounceSearch = debounce(url => {
