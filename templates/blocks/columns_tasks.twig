@@ -18,7 +18,7 @@
 				<div class="tasks-wrap can-do-steps d-none d-lg-block">
 					<div class="row">
 						{% for col in fields.columns %}
-							<div class="col" data-id="{{ loop.index }}">
+							<div class="col-md-6 col-lg column-wrap step-info">
 								<span class="step-number">
 									<span
 										class="step-number-inner"
@@ -28,71 +28,42 @@
 											{{ loop.index }}
 									</span>
 								</span>
+								<h5 data-ga-category="Columns Block"
+									data-ga-action="Title"
+									data-ga-label="n/a">
+										{{ col.title }}
+								</h5>
+								{% if ( col.description ) %}
+									<p {% if ( col.cta_text and col.cta_link ) %}class="has-cta"{% endif %}>
+										{{ col.description|e('wp_kses_post')|raw }}
+									</p>
+								{% endif %}
+								{% if ( col.attachment ) %}
+									{% if ( col.cta_link ) %}
+										<a
+											href="{{ col.cta_link|e('esc_url') }}"
+											data-ga-category="Columns Block"
+											data-ga-action="Image"
+											data-ga-label="{{ col.cta_link|e('esc_url') }}">
+									{% endif %}
+										<img src="{{ col.attachment }}" alt=""/>
+									{% if ( col.cta_link ) %}
+										</a>
+									{% endif %}
+								{% endif %}
+								{% if ( col.cta_text and col.cta_link ) %}
+									<a
+										class="btn btn-small btn-medium {{ is_campaign ? 'btn-primary' : 'btn-secondary' }}"
+										href="{{ col.cta_link|e('esc_url') }}"
+										{{  col.link_new_tab  ? 'target="_blank"' }}
+										data-ga-category="Columns Block"
+										data-ga-action="Call to Action"
+										data-ga-label="{{ col.cta_link|e('esc_url') }}">
+											{{ col.cta_text }}
+									</a>
+								{% endif %}
 							</div>
 						{% endfor %}
-					</div>
-					<div class="step-info">
-						<div class="row">
-							{% for col in fields.columns %}
-								<div class="col" data-id="{{ loop.index }}">
-									<h5
-										data-ga-category="Columns Block"
-										data-ga-action="Title"
-										data-ga-label="n/a">
-											{{ col.title }}
-									</h5>
-								</div>
-							{% endfor %}
-						</div>
-						<div class="row">
-							{% for col in fields.columns %}
-								<div class="col" data-id="{{ loop.index }}">
-									{% if ( col.description ) %}
-										<p {% if ( col.cta_text and col.cta_link ) %}class="has-cta"{% endif %}>
-											{{ col.description|e('wp_kses_post')|raw }}
-										</p>
-									{% endif %}
-								</div>
-							{% endfor %}
-						</div>
-						<div class="steps-action">
-							<div class="row">
-								{% for col in fields.columns %}
-									<div class="col" data-id="{{ loop.index }}">
-										{% if ( col.attachment ) %}
-												{% if ( col.cta_link ) %}
-													<a
-														href="{{ col.cta_link|e('esc_url') }}"
-														data-ga-category="Columns Block"
-														data-ga-action="Image"
-														data-ga-label="{{ col.cta_link|e('esc_url') }}">
-												{% endif %}
-														<img src="{{ col.attachment }}" alt=""/>
-												{% if ( col.cta_link ) %}
-													</a>
-												{% endif %}
-										{% endif %}
-									</div>
-								{% endfor %}
-							</div>
-							<div class="row">
-								{% for col in fields.columns %}
-									<div class="col" data-id="{{ loop.index }}">
-										{% if ( col.cta_text and col.cta_link ) %}
-											<a
-												class="btn btn-small btn-medium {{ is_campaign ? 'btn-primary' : 'btn-secondary' }}"
-												href="{{ col.cta_link|e('esc_url') }}"
-												{{  col.link_new_tab  ? 'target="_blank"' }}
-												data-ga-category="Columns Block"
-												data-ga-action="Call to Action"
-												data-ga-label="{{ col.cta_link|e('esc_url') }}">
-													{{ col.cta_text }}
-											</a>
-										{% endif %}
-									</div>
-								{% endfor %}
-							</div>
-						</div>
 					</div>
 				</div>
 
