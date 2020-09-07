@@ -11,10 +11,6 @@ const targetBlocks = [
 
 const captionStyleOptions = [
   {
-  label: __( 'Blue Overlay (default)' ),
-  value: 'blue-overlay',
-  },
-  {
   label: __( 'Medium' ),
   value: 'medium',
   },
