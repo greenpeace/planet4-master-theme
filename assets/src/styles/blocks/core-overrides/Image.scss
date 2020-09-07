@@ -48,37 +48,7 @@
     margin-bottom: 0;
   }
 
-  &.caption-style-blue-overlay {
-    .image-desc {
-      display: block;
-    }
-
-    figcaption {
-      display: block;
-      caption-side: bottom;
-      color: $white;
-      width: 100%;
-      margin: 0;
-      max-width: 100%;
-      background: linear-gradient(210deg, transparentize($med-blue, .8) 0%, $med-blue 100%);
-      padding: $n10 $n20;
-
-      @include medium-and-up {
-        display: table-caption;
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        padding: $n20 $n30;
-        height: auto;
-      }
-
-      @include large-and-up {
-        padding: $n20 $n30;
-      }
-    }
-  }
-
-  &.caption-style-medium {
+  &.caption-style-medium, &.caption-style-blue-overlay {
     figcaption {
       color: $grey-60;
     }
