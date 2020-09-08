@@ -8,6 +8,8 @@
 
 namespace P4GBKS\Controllers\Menu;
 
+use P4\MasterTheme\Exception\SqlInIsEmpty;
+use P4\MasterTheme\SqlParameters;
 use WP_Block_Type_Registry;
 
 if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
@@ -92,6 +94,8 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 		 * Finds blocks usage in pages/posts.
 		 *
 		 * @param String $type The Block report type.
+		 *
+		 * @throws SqlInIsEmpty Should not happen in practice as everyone has types with blocks.
 		 */
 		public function plugin_blocks_report( $type = 'text' ) {
 			global $wpdb;
@@ -104,6 +108,8 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				$type = 'text';
 			}
 
+			$types_with_blocks = self::get_post_types_with_blocks();
+
 			// phpcs:disable
 			foreach ( $block_types as $block_type ) {
 				if ( 'planet4-blocks/carousel-header' === $block_type ) {
@@ -111,15 +117,18 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				}
 				$block_comment = '%<!-- wp:' . $wpdb->esc_like( $block_type ) . ' %';
 
-				$sql = $wpdb->prepare(
-					"SELECT ID, post_title
-					FROM `wp_posts`
-					WHERE post_status = 'publish'
-					AND `post_content` LIKE %s
-					ORDER BY post_title",
-					$block_comment );
+				$params = new SqlParameters();
 
-				$results = $wpdb->get_results( $sql );
+				$sql = "SELECT ID, post_title
+					FROM " . $params->identifier( $wpdb->posts ) . "
+					WHERE post_status = 'publish'
+					AND post_type IN " . $params->string_list( $types_with_blocks ) . "
+					AND `post_content` LIKE " . $params->string( $block_comment ) . "
+					ORDER BY post_title";
+
+				$results = $wpdb->get_results(
+					$wpdb->prepare( $sql, $params->get_values() )
+				);
 
 				if ( !$results ) { continue; }
 
@@ -311,6 +320,22 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 			if ( 'json' === $type ) {
 				return $report;
 			}
+		}
+
+		/**
+		 * Get all registered post types that "support blocks". This actually is not explicitly defined by itself, but
+		 * depends on 2 things: type is registered with `show_in_rest => true` and the type supports `editor`. If both
+		 * conditions are met the block editor is shown. If something weird and custom is done so that a post type does
+		 * have blocks without these conditions being true then the blocks will not be picked up by the report.
+		 *
+		 * @return array All posts types that support blocks.
+		 */
+		private static function get_post_types_with_blocks(): array {
+			$supports_editor = static function ( $type ) {
+				return post_type_supports( $type, 'editor' );
+			};
+
+			return array_filter( get_post_types( [ 'show_in_rest' => true ] ), $supports_editor );
 		}
 
 		/**
