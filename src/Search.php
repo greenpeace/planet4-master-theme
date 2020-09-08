@@ -1110,15 +1110,16 @@ abstract class Search {
 	 * @param mixed[] $args The args ElasticPress will use to fetch the ids of posts that will be synced.
 	 *
 	 * @return mixed The args with exclusion of unwanted ids.
+	 * @throws Exception\SqlInIsEmpty Well it really won't unless we make self::DOCUMENT_TYPES into an empty array.
 	 */
 	public static function exclude_unwanted_attachments( $args ) {
 		global $wpdb;
 
 		$params = new SqlParameters();
 
-		$sql = 'SELECT id FROM ' . $params->object( $wpdb->posts )
+		$sql = 'SELECT id FROM ' . $params->identifier( $wpdb->posts )
 			. ' WHERE post_type = "attachment"'
-			. ' AND post_mime_type NOT IN (' . $params->string_array( self::DOCUMENT_TYPES ) . ')';
+			. ' AND post_mime_type NOT IN ' . $params->string_list( self::DOCUMENT_TYPES );
 
 		$unwanted_attachment_ids = $wpdb->get_col(
 			$wpdb->prepare( $sql, $params->get_values() ) // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared

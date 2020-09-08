@@ -2,6 +2,8 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\Exception\SqlInIsEmpty;
+
 /**
  * Holds the parameter values and returns a placeholder string while constructing a SQL statement with input.
  * That way the order of the parameters will correspond to the order of the placeholders automatically, so we can just
@@ -20,18 +22,18 @@ class SqlParameters {
 	private $values = [];
 
 	/**
-	 * Add a parameter for a SQL object (mainly table but works for other things too).
+	 * Add a parameter for a SQL identifier (mainly table but works for other things too).
 	 *
 	 * @param string $name The name of the object.
 	 *
 	 * @return string Numbered placeholder.
 	 */
-	public function object( string $name ) {
+	public function identifier( string $name ): string {
 		$this->values[] = $name;
 
 		$n = count( $this->values );
 
-		return "%$n\$s";
+		return "`%$n\$s`";
 	}
 
 	/**
@@ -70,14 +72,20 @@ class SqlParameters {
 	 * @param int[] $values The values for the IN statement.
 	 *
 	 * @return string Concatenated numbered placeholders.
+	 * @throws SqlInIsEmpty If $values is an empty array.
 	 */
-	public function int_array( array $values ): string {
+	public function int_list( array $values ): string {
+		if ( empty( $values ) ) {
+			throw new SqlInIsEmpty(
+				'An IN query does not work if there are no values, please check before passing as an argument.'
+			);
+		}
 		$params = [];
 		foreach ( $values as $value ) {
 			$params[] = $this->int( $value );
 		}
 
-		return implode( ',', $params );
+		return ' (' . implode( ',', $params ) . ') ';
 	}
 
 	/**
@@ -86,14 +94,20 @@ class SqlParameters {
 	 * @param string[] $values The values for the IN statement.
 	 *
 	 * @return string Concatenated numbered placeholders.
+	 * @throws SqlInIsEmpty If $values is an empty array.
 	 */
-	public function string_array( array $values ): string {
+	public function string_list( array $values ): string {
+		if ( empty( $values ) ) {
+			throw new SqlInIsEmpty(
+				'An IN query does not work if there are no values, please check before passing as an argument.'
+			);
+		}
 		$params = [];
 		foreach ( $values as $value ) {
 			$params[] = $this->string( $value );
 		}
 
-		return implode( ',', $params );
+		return ' (' . implode( ',', $params ) . ') ';
 	}
 
 	/**
