@@ -117,9 +117,9 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				$params = new SqlParameters();
 
 				$sql = "SELECT ID, post_title
-					FROM `wp_posts`
+					FROM " . $params->identifier( $wpdb->posts ) . "
 					WHERE post_status = 'publish'
-					AND post_type IN (" . $params->string_array( $types_with_blocks ) . ")
+					AND post_type IN (" . $params->string_list( $types_with_blocks ) . ")
 					AND `post_content` LIKE " . $params->string( $block_comment ) . "
 					ORDER BY post_title";
 
