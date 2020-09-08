@@ -8,6 +8,7 @@
 
 namespace P4GBKS\Controllers\Menu;
 
+use P4\MasterTheme\Exception\SqlInIsEmpty;
 use P4\MasterTheme\SqlParameters;
 use WP_Block_Type_Registry;
 
@@ -93,6 +94,8 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 		 * Finds blocks usage in pages/posts.
 		 *
 		 * @param String $type The Block report type.
+		 *
+		 * @throws SqlInIsEmpty Should not happen in practice as everyone has types with blocks.
 		 */
 		public function plugin_blocks_report( $type = 'text' ) {
 			global $wpdb;
@@ -119,7 +122,7 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				$sql = "SELECT ID, post_title
 					FROM " . $params->identifier( $wpdb->posts ) . "
 					WHERE post_status = 'publish'
-					AND post_type IN (" . $params->string_list( $types_with_blocks ) . ")
+					AND post_type IN " . $params->string_list( $types_with_blocks ) . "
 					AND `post_content` LIKE " . $params->string( $block_comment ) . "
 					ORDER BY post_title";
 
