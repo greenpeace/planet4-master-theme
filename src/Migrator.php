@@ -2,35 +2,36 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\Exception\MigrationFailed;
 use P4\MasterTheme\Migrations\M001EnableEnFormFeature;
 
 /**
- * Run any new migrations and record them in the log.
+ * Run any new migration scripts and record results in the log.
  */
 class Migrator {
 
 	/**
-	 * Run any new migrations and record them in the log.
+	 * Run any new migration scripts and record results in the log.
 	 */
-	public static function migrate() {
+	public static function migrate(): void {
 
-		// Fetch migration ids that have run from WP option.
+		// Fetch migration script ids that have run from WP option.
 		$log = MigrationLog::from_wp_options();
 
 		/**
-		 * @var Migration[] $migrations
+		 * @var MigrationScript[] $scripts
 		 */
-		$migrations = [
+		$scripts = [
 			M001EnableEnFormFeature::class,
 		];
 
 		// Loop migrations and run those that haven't run yet.
-		foreach ( $migrations as $migration ) {
-			if ( $log->already_ran( $migration::get_id() ) ) {
+		foreach ( $scripts as $script ) {
+			if ( $log->already_ran( $script::get_id() ) ) {
 				continue;
 			}
 
-			$record = $migration::run();
+			$record = $script::run();
 			$log->add( $record );
 		}
 

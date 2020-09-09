@@ -51,20 +51,12 @@ class MigrationLog {
 	}
 
 	/**
-	 * Record a migration run in the log.
+	 * Add a migration record to the log.
 	 *
-	 * @param MigrationRecord $record The record to add to the log.
+	 * @param MigrationRecord $record The record to log.
 	 */
 	public function add( MigrationRecord $record ): void {
-		$entry = [
-			'id'         => $record->get_migration_id(),
-			'start_time' => $record->get_start_time(),
-			'end_time'   => $record->get_end_time(),
-			'success'    => $record->was_success(),
-			'logs'       => $record->get_logs(),
-		];
-
-		$this->done_migrations[] = $entry;
+		$this->done_migrations[] = $record->to_log_entry();
 	}
 
 	/**

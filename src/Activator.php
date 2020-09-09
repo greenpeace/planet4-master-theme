@@ -2,8 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\Migrations\M001EnableEnFormFeature;
-
 /**
  * Class Activator.
  * The main class that has activation/deactivation hooks for planet4 master-theme.
@@ -20,7 +18,7 @@ class Activator {
 	/**
 	 * Hooks the activator functions.
 	 */
-	protected function hooks() {
+	protected function hooks(): void {
 		add_action( 'after_switch_theme', [ self::class, 'run' ] );
 	}
 

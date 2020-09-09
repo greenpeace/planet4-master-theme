@@ -12,7 +12,7 @@ use P4\MasterTheme\Migrations\MigrationRecord;
  * WordPress's global functions to interact with the database (either through the high level API or using raw SQL,
  * whatever fits the specific case best).
  */
-abstract class Migration {
+abstract class MigrationScript {
 	/**
 	 * Get a unique identifier, achieved here by using the FQCN.
 	 *
@@ -35,19 +35,16 @@ abstract class Migration {
 	 * Log the time and run the migration.
 	 *
 	 * @return MigrationRecord Data on the migration run.
-	 * @throws MigrationFailed If the migration encounters an error.
 	 */
 	public static function run(): MigrationRecord {
 		$record = MigrationRecord::start( static::class );
 
 		try {
 			static::execute( $record );
+			$record->succeed();
 		} catch ( Exception $exception ) {
-			throw new MigrationFailed(
-				'Migration ' . $record->get_migration_id() . ' failed. Message: ' . $exception->getMessage(),
-				null,
-				$exception
-			);
+			$message = 'Migration ' . $record->get_migration_id() . ' failed. Message: ' . $exception->getMessage();
+			$record->fail( $message );
 		}
 
 		$record->done();

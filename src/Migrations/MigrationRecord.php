@@ -3,6 +3,7 @@
 namespace P4\MasterTheme\Migrations;
 
 use DateTime;
+use P4\MasterTheme\MigrationLog;
 
 /**
  * Information on a migration run.
@@ -26,7 +27,7 @@ final class MigrationRecord {
 	/**
 	 * @var bool Whether the script succeeded.
 	 */
-	private $successful;
+	private $success;
 
 	/**
 	 * @var string[] Log messages which can be added by the running script.
@@ -59,17 +60,20 @@ final class MigrationRecord {
 	}
 
 	/**
-	 * Mark script as failed.
+	 * Mark this migration as succeeded.
 	 */
-	public function fail(): void {
-		$this->successful = false;
+	public function succeed(): void {
+		$this->success = true;
 	}
 
 	/**
-	 * Mark script as success.
+	 * Mark script as failed.
+	 *
+	 * @param string $message Reason for failure.
 	 */
-	public function success(): void {
-		$this->successful = true;
+	public function fail( string $message ): void {
+		$this->success = false;
+		$this->add_log( $message );
 	}
 
 	/**
@@ -80,21 +84,18 @@ final class MigrationRecord {
 	}
 
 	/**
-	 * When the script started.
+	 * Record a migration run in the log.
 	 *
-	 * @return DateTime When the script started.
+	 * @return array Array with instance's data.
 	 */
-	public function get_start_time(): DateTime {
-		return $this->start_time;
-	}
-
-	/**
-	 * When the script completed.
-	 *
-	 * @return DateTime When the script completed.
-	 */
-	public function get_end_time(): ?DateTime {
-		return $this->end_time;
+	public function to_log_entry(): array {
+		return [
+			'id'         => $this->migration_id,
+			'start_time' => $this->start_time,
+			'end_time'   => $this->end_time,
+			'success'    => $this->success,
+			'logs'       => $this->logs,
+		];
 	}
 
 	/**
@@ -112,15 +113,6 @@ final class MigrationRecord {
 	 * @return bool Whether the run succeeded.
 	 */
 	public function was_success(): ?bool {
-		return $this->successful;
-	}
-
-	/**
-	 * Get the log messages.
-	 *
-	 * @return string[] The log messages.
-	 */
-	public function get_logs(): array {
-		return $this->logs;
+		return $this->success;
 	}
 }
