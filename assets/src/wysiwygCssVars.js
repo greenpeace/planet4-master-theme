@@ -9,7 +9,6 @@ const baseUrl = document.body.dataset.nro;
 
 // todo: load these conditionally when logged in + permission.
 style.href = `${baseUrl}/wp-includes/css/dist/components/style.css?ver=5.4.1`;
-style.attributes.href = `${baseUrl}/wp-includes/css/dist/components/style.css?ver=5.4.1`;
 style.rel = 'stylesheet';
 
 document.head.appendChild(style)
@@ -21,6 +20,40 @@ const getVars = async (url) => {
   const data = JSON.parse( raw );
   console.log( data );
   return data;
+}
+
+const toLabel = element => {
+  const idPart = !element.id ? '' : `#${ element.id }`;
+  const classPart = !element.className ? '' : `.${ element.className.trim().replace(/ /g, '.') }`;
+
+  return element.tagName.toLowerCase() + idPart + classPart;
+};
+
+const groupVars = async (vars, target) => {
+  const groups = [];
+  let current,
+    previous = target,
+    previousMatches = vars;
+
+  while (current = previous.parentNode) {
+    if (previousMatches.length === 0) {
+      break;
+    }
+    const currentMatches = await getMatchingVars({ cssVars: previousMatches, target: current });
+
+    if (currentMatches.length < previousMatches.length) {
+      groups.push({
+        element: previous,
+        label: toLabel(previous),
+        vars: previousMatches.filter(match=>!currentMatches.includes(match)),
+      });
+      previousMatches = currentMatches;
+    }
+
+    previous = current;
+  }
+
+  return groups;
 }
 
 const editorRoot = document.createElement( 'div' );
@@ -73,13 +106,15 @@ const setup = async () => {
       }
       event.preventDefault();
 
-      const matchedVars = await getMatchingVars( { cssVars, event } );
+      const matchedVars = await getMatchingVars( { cssVars, target: event.target } );
 
       if ( matchedVars.length === 0 ) {
         return;
       }
 
-      renderSelectedVars( editorRoot, matchedVars );
+      const groups = await groupVars(matchedVars, event.target);
+
+      renderSelectedVars( editorRoot, matchedVars, event.target, groups );
     } );
 
   } catch ( e ) {

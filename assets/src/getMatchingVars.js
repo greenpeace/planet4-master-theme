@@ -6,7 +6,8 @@ const matchVar = async ( cssVar, target ) => {
   const combinedSelector = cssVar.uniqueSelectors.map( selector => {
     const isBodySelector = !!selector.match( /^body(\.[\w-]*)?$/ );
 
-    const shouldIncludeStar = !isBodySelector || ['p', 'body'].includes(target.tagName.toLowerCase());
+    // const shouldIncludeStar = !isBodySelector || ['p', 'body'].includes(target.tagName.toLowerCase());
+    const shouldIncludeStar = true;
 
     // return selector;
     return `${ selector }` + (
@@ -14,6 +15,7 @@ const matchVar = async ( cssVar, target ) => {
         ? `, ${ selector } *`
         : ''
     );
+    // Remove any pseudo selectors that might not match the clicked element right now.
   } ).join().replace( stateSelectorsRegex, '' );
 
 
@@ -24,7 +26,7 @@ const matchVar = async ( cssVar, target ) => {
   return [];
 };
 
-export const getMatchingVars = async ( { cssVars, event } ) => {
+export const getMatchingVars = async ( { cssVars, target } ) => {
 
   const uniqueVars = cssVars.reduce( ( carry, cssVar ) => {
     if ( !carry.some( collected => collected.name === cssVar.name ) ) {
@@ -34,9 +36,8 @@ export const getMatchingVars = async ( { cssVars, event } ) => {
   }, [] );
 
   const promises = uniqueVars.map( cssVar => {
-    // Remove any pseudo selectors that might not match the clicked element right now.
 
-    return matchVar( cssVar, event.target );
+    return matchVar( cssVar, target );
   } );
 
   const results = await Promise.allSettled( promises );

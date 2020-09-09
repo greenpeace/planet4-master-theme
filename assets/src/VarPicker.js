@@ -13,9 +13,11 @@ export const readProperty = name => {
 
 const sortVars = ( a, b ) => a.name > b.name ? 1 : ( a.name === b.name ? 0 : -1 );
 
-const groupVars = cssVars => cssVars.reduce((grouped, cssVar) => {
+const highlightClass = 'theme-editor-highlight';
 
-}, {})
+const addHighlight = element => element.classList.add(highlightClass);
+
+const removeHighlight = element => element.classList.remove(highlightClass);
 
 export class VarPicker extends Component {
   constructor(props) {
@@ -24,10 +26,14 @@ export class VarPicker extends Component {
       changingPropertyTo: {},
       activeVars: this.props.selectedVars,
       collapsed: false,
+      openGroups: [],
+      shouldGroupVars: true,
     };
     this.deactivate = this.deactivate.bind(this);
     this.setProperty = this.setProperty.bind(this);
     this.toggleCollapsed = this.toggleCollapsed.bind(this);
+    this.toggleGroup = this.toggleGroup.bind(this);
+    this.isGroupOpen = this.isGroupOpen.bind(this);
   }
 
   componentWillReceiveProps( nextProps ) {
@@ -91,6 +97,17 @@ export class VarPicker extends Component {
         Close all.
     </span>;
   }
+  toggleGroup(id) {
+    const newGroups = this.state.openGroups.includes(id)
+      ? this.state.openGroups.filter(openId=> openId !== id)
+      : [...this.state.openGroups, id];
+
+    this.setState({ openGroups: newGroups})
+  }
+
+  isGroupOpen(label) {
+    return this.state.openGroups.includes(label);
+  }
 
   render() {
     return <div className={ 'var-picker' }>
@@ -98,13 +115,47 @@ export class VarPicker extends Component {
         showing { this.state.activeVars.length } var{ this.state.activeVars.length === 1 ? '' : 's' }
       </span>
       <span
-        style={ { fontSize: '9px', border: '1px solid grey', borderRadius: '3px' } }
+        style={ { fontSize: '10px', border: '1px solid grey', borderRadius: '3px', margin: '0 8px', padding: '2px 4px' } }
         onClick={ this.toggleCollapsed }
       >
         { this.state.collapsed ? 'show' : 'hide' }
       </span>
-      { this.state.activeVars.length > 0 && this.closeAllButton()}
-      { !this.state.collapsed && <ul>
+      <label
+        htmlFor=""
+        onClick={()=>this.setState({shouldGroupVars: !this.state.shouldGroupVars})}
+        style={{marginBottom: '2px'}}
+      >
+        <input type="checkbox" checked={this.state.shouldGroupVars}/>
+        { 'Only last clicked element' }
+      </label>
+      { !this.state.shouldGroupVars && this.state.activeVars.length > 0 && this.closeAllButton()}
+      { this.state.shouldGroupVars && !this.state.collapsed && <ul>
+        { this.props.groups.map(({element, label, vars})=> (
+          <li className={'var-group'} key={ label } style={ { marginBottom: '12px' } }>
+            <h4
+              onClick={ () => this.toggleGroup(label) }
+              onMouseEnter={ () => addHighlight(element) }
+              onMouseLeave={ () => removeHighlight(element) }
+            >
+              { label } ({ vars.length })
+            </h4>
+            { this.isGroupOpen(label) && <ul>
+              { vars.map(cssVar=>
+                <VariableControl
+                  cssVar={ cssVar }
+                  value={
+                    this.state.changingPropertyTo[ cssVar.name ]
+                    || readProperty( cssVar.name )
+                    || cssVar.usages.find( usage => !!usage.defaultValue ).defaultValue
+                  }
+                  onChange={ value => this.setProperty( cssVar.name, value ) }
+                />
+              )}
+            </ul> }
+          </li>
+        ))}
+      </ul> }
+      { !this.state.shouldGroupVars && !this.state.collapsed && <ul>
           { this.state.activeVars.sort( sortVars ).map( cssVar =>
             <VariableControl
               cssVar={ cssVar }

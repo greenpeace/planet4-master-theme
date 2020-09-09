@@ -64,7 +64,7 @@
     "selector-pseudo-class-case": "lower",
     "selector-pseudo-element-case": "lower",
     "selector-type-case": "lower",
-    "selector-type-no-unknown": [true, {
+	"selector-type-no-unknown": [true, {
 	  "ignoreTypes": ["/^--[a-z]\\w*(--?[a-z0-9]+)*--$/", "lite-youtube"]
 	}],
     "selector-max-empty-lines": 0,

@@ -1,7 +1,8 @@
 import { ColorPicker, TextControl, FontSizePicker, RangeControl } from '@wordpress/components';
 import { Fragment } from '@wordpress/element';
+import { createRef, useEffect } from 'react';
 import FontPicker from 'font-picker-react';
-import { readProperty, STORAGE_KEY } from './VarPicker';
+import { LOCAL_STORAGE_KEY } from './VarPicker';
 
 const googleApiKey = 'AIzaSyBt0d8TsNo0wJn8Pj2zICtBY614IsEqrHw';
 
@@ -16,14 +17,13 @@ const isPx = value => !!value && !!value.match( /[\d.]+px$/ );
 const isRem = value => !!value && !!value.match( /[\d.]+rem$/ );
 
 export const renderControl = ( { cssVar, value, onChange } ) => {
-
   if ( cssVar.usages.some( usage =>
     !! usage.property.match( COLOR_REGEXP )
     || [ 'background' ].includes( usage.property )
   ) ) {
     let currentTheme;
     try {
-      currentTheme = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
+      currentTheme = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
     } catch (e) {
       console.log(e);
     }
@@ -45,17 +45,46 @@ export const renderControl = ( { cssVar, value, onChange } ) => {
       return colorUsages;
     }, []);
 
-    const previewSize = '30px';
+    const PREVIEW_SIZE = '30px';
 
     const byCountUsagesDesc = ({ usages: usages1 }, { usages: usages2 }) => usages2.length - usages1.length;
+
+    const pickerRef = createRef();
+
+    useEffect(() => {
+      const current = pickerRef.current;
+      if (!current) {
+        return;
+      }
+      const textInput = current.querySelector('.components-text-control__input');
+
+      if (!textInput) {
+        return;
+      }
+      const pickerValue = textInput.value;
+
+      if (pickerValue === value) {
+        return;
+      }
+
+      const input = textInput;
+
+      const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+      nativeInputValueSetter.call(input, 'react 16 value');
+
+      const ev2 = new Event('input', { bubbles: true});
+
+      input.dispatchEvent(ev2);
+
+    }, [value]);
 
     return <Fragment>
       { colorUsages.sort(byCountUsagesDesc).map(({ color, usages }) => (<span
         onClick={ () => onChange(color) }
         title={ usages.join('\n') }
         style={ {
-          width: previewSize,
-          height: previewSize,
+          width: PREVIEW_SIZE,
+          height: PREVIEW_SIZE,
           border: color === value ? '3px solid yellow' :'1px solid black',
           borderRadius: '6px',
           backgroundColor: color,
@@ -67,7 +96,8 @@ export const renderControl = ( { cssVar, value, onChange } ) => {
         </span>)
       ) }
       <ColorPicker
-        color={ readProperty(cssVar.name) || value }
+        ref={pickerRef}
+        color={ value }
         onChangeComplete={ color => {
           const hasTransparency = color.rgb.a !== 1;
 

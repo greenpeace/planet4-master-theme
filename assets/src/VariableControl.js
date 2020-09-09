@@ -14,6 +14,8 @@ const uniqueUsages = cssVar => {
 
 const uniqueProperties = cssVar => [ ...new Set( cssVar.usages.map( usage => usage.property ) ) ];
 
+const removeVar = varName => document.documentElement.style.removeProperty(varName);
+
 export class VariableControl extends Component {
   constructor(props) {
     super( props );
@@ -78,13 +80,13 @@ export class VariableControl extends Component {
       </pre>;
 
     return <div
-      style={ { fontSize: '9px', position: 'relative', marginTop: '16px' } }
+      style={ { fontSize: '11px', position: 'relative', marginTop: '16px' } }
     >
       <span
         onClick={ this.toggleSelectors }
         style={ {
           userSelect: 'none',
-          fontSize: '8px',
+          fontSize: '10px',
           position: 'absolute',
           top: -12,
           left: 0
@@ -115,18 +117,20 @@ export class VariableControl extends Component {
 
     return <li
       key={ cssVar.name }
+      className={'var-control'}
       style={ {
         userSelect: 'none',
         position: 'relative',
         listStyleType: 'none',
         fontSize: '15px',
+        clear: 'both',
       } }
     >
-      <IconButton
+      { !!onCloseClick && <IconButton
         icon={ 'minus' }
         style={ { float: 'right', height: '29px' } }
         onClick={ () => onCloseClick( cssVar ) }
-      />
+      /> }
       { this.previewValue() }
       <h5
         style={ { fontSize: '16px', padding: '2px 4px 0', userSelect: 'text', fontWeight: '400' } }

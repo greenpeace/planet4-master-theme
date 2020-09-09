@@ -39,8 +39,31 @@
   }
 }
 
-.var-picker > ul > li {
+.theme-editor-highlight {
+  border: 2px solid yellow !important;
+  box-sizing: border-box !important;
+}
+
+.var-picker .var-group {
   //max-height: 400px;
+  background: white !important;
+  border: 1px solid black !important;
+  margin-bottom: 3px !important;
+  border-radius: 7px !important;
+  padding: 2px 7px 7px !important;
+
+  h5 {
+    margin-bottom: 2px;
+  }
+}
+
+.var-picker ul > li > ul {
+  padding-left: 8px;
+}
+
+.var-picker .var-control {
+  //max-height: 400px;
+  clear: both;
   background: white !important;
   border: 1px solid black !important;
   margin-bottom: 3px !important;
