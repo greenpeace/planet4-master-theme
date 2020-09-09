@@ -1,9 +1,8 @@
 <?php
 
-namespace P4\MasterTheme\Migrations;
+namespace P4\MasterTheme;
 
 use DateTime;
-use P4\MasterTheme\MigrationLog;
 
 /**
  * Information on a migration run.

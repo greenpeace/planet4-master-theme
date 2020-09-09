@@ -2,7 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\Exception\MigrationFailed;
 use P4\MasterTheme\Migrations\M001EnableEnFormFeature;
 
 /**

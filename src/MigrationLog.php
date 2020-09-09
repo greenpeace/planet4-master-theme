@@ -2,8 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\Migrations\MigrationRecord;
-
 /**
  * A log of all migrations that have run, saved as a WP option.
  */

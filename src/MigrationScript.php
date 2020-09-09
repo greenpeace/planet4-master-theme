@@ -3,8 +3,6 @@
 namespace P4\MasterTheme;
 
 use Exception;
-use P4\MasterTheme\Exception\MigrationFailed;
-use P4\MasterTheme\Migrations\MigrationRecord;
 
 /**
  * Abstract class to enforce the signature of a migration function.
