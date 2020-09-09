@@ -27,7 +27,7 @@ abstract class MigrationScript {
 	 *
 	 * @return void
 	 */
-	abstract public static function execute( MigrationRecord $record ): void;
+	abstract protected static function execute( MigrationRecord $record ): void;
 
 	/**
 	 * Log the time and run the migration.
