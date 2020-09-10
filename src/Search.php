@@ -283,7 +283,6 @@ abstract class Search {
 	}
 
 	/**
-	 * Callback for Lazy-loading the next results.
 	 * Gets the paged posts that belong to the next page/load and are to be used with the twig template.
 	 */
 	public function get_paged_posts() {

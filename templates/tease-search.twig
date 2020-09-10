@@ -25,8 +25,9 @@
 
 		{% if ( not is_action ) %}
 			<img
-				class="d-flex search-result-item-image lazyload"
-				data-src="{{ post.thumbnail ?: dummy_thumbnail }}"
+				class="d-flex search-result-item-image"
+				src="{{ post.thumbnail ?: dummy_thumbnail }}"
+				loading="lazy"
 				alt="{{ fn('esc_attr', post.thumbnail_alt|default( post.post_title ) )|raw }}"
 				data-ga-category="Search Results"
 				data-ga-action="Image"

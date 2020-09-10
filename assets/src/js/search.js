@@ -1,10 +1,4 @@
-/* global localizations, LazyLoad */
-
-if (!window.lazyLoad) {
-  window.lazyLoad = new LazyLoad({
-    elements_selector: '.lazyload'
-  });
-}
+/* global localizations */
 
 // Search page.
 export const setupSearch = function($) {
@@ -88,7 +82,6 @@ export const setupSearch = function($) {
 
   // Add click event for load more button in blocks.
   $load_more_button.off( 'click' ).on( 'click', function() {
-    // If this button has this class then Lazy-loading is enabled.
     if ( $(this).hasClass( 'btn-load-more-async' ) ) {
       const total_posts    = $(this).data('total_posts');
       const posts_per_load = $(this).data('posts_per_load');
@@ -112,8 +105,6 @@ export const setupSearch = function($) {
         $( '.multiple-search-result .list-unstyled' ).append( response );
         $( '.row-hidden:last' ).removeClass( 'row-hidden' ).show( 'fast' );
 
-        window.lazyLoad.update();
-
         if (posts_per_load * next_page > total_posts) {
           $load_more_button.hide();
         }
@@ -127,8 +118,6 @@ export const setupSearch = function($) {
         $load_more_button.closest( '.load-more-button-div' ).hide( 'fast' );
       }
       $row.first().show( 'fast' ).removeClass( 'row-hidden' );
-
-      window.lazyLoad.update();
     }
   });
 
@@ -159,8 +148,6 @@ export const setupSearch = function($) {
         }
         if (window_scroll > (element_top + element_height - window_height)) {
           $('.row-hidden').removeClass('row-hidden').show('fast');
-
-          window.lazyLoad.update();
         }
       }
       return false;

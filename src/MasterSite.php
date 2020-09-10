@@ -187,7 +187,6 @@ class MasterSite extends TimberSite {
 			10,
 			2
 		);
-		add_filter( 'the_content', [ $this, 'make_content_images_lazyload' ] );
 
 		add_action( 'init', [ $this, 'login_redirect' ], 1 );
 		add_filter( 'attachment_fields_to_edit', [ $this, 'add_image_attachment_fields_to_edit' ], 10, 2 );
@@ -575,23 +574,18 @@ class MasterSite extends TimberSite {
 
 		// Allow img and the following attributes.
 		$allowedposttags['img'] = [
-			'alt'         => true,
-			'class'       => true,
-			'id'          => true,
-			'height'      => true,
-			'hspace'      => true,
-			'name'        => true,
-			'src'         => true,
-			'srcset'      => true,
-			'sizes'       => true,
-			'width'       => true,
-			'style'       => true,
-			'vspace'      => true,
-
-			// Required for lazy loading.
-			'data-src'    => true,
-			'data-srcset' => true,
-			'data-sizes'  => true,
+			'alt'    => true,
+			'class'  => true,
+			'id'     => true,
+			'height' => true,
+			'hspace' => true,
+			'name'   => true,
+			'src'    => true,
+			'srcset' => true,
+			'sizes'  => true,
+			'width'  => true,
+			'style'  => true,
+			'vspace' => true,
 		];
 
 		$allowedposttags['script'] = [
@@ -658,7 +652,6 @@ class MasterSite extends TimberSite {
 	public function enqueue_admin_assets( $hook ) {
 		// Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
 		wp_register_script( 'jquery-3', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', [], '3.3.1', true );
-		wp_enqueue_script( 'lazyload', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/12.3.0/lazyload.min.js', [], '12.3.0', true );
 	}
 
 	/**
@@ -683,7 +676,6 @@ class MasterSite extends TimberSite {
 
 		// JS files.
 		wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', [], '3.3.1', true );
-		wp_register_script( 'lazyload', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/12.3.0/lazyload.min.js', [], '12.3.0', true );
 		wp_register_script( 'cssvarsponyfill', 'https://cdnjs.cloudflare.com/ajax/libs/css-vars-ponyfill/2.3.1/css-vars-ponyfill.min.js', [], '2', false );
 
 		// Variables reflected from PHP to the JS side.
@@ -694,7 +686,7 @@ class MasterSite extends TimberSite {
 			'show_scroll_times' => Search::SHOW_SCROLL_TIMES,
 		];
 
-		wp_register_script( 'main', $this->theme_dir . '/assets/build/index.js', [ 'jquery', 'lazyload', 'cssvarsponyfill' ], $js_creation, true );
+		wp_register_script( 'main', $this->theme_dir . '/assets/build/index.js', [ 'jquery', 'cssvarsponyfill' ], $js_creation, true );
 		wp_localize_script( 'main', 'localizations', $localized_variables );
 		wp_enqueue_script( 'main' );
 
@@ -1110,45 +1102,6 @@ class MasterSite extends TimberSite {
 			'core/image',
 			[ 'render_callback' => [ $this, 'p4_core_image_block_render' ] ]
 		);
-	}
-
-	/**
-	 * Filter 'img' elements in post content to replace 'src', 'srcset' and 'sizes' attributes
-	 * with their data-{} counterpart and add a 'lazyload' class.
-	 * Does not alter images already qualified as lazyload,
-	 * or images that look already altered by another function
-	 *
-	 * @see https://github.com/verlok/vanilla-lazyload#lazy-responsive-image-with-srcset-and-sizes
-	 * @see wp_make_content_images_responsive()
-	 *
-	 * @param string $content The raw post content to be filtered.
-	 * @return string Converted content.
-	 */
-	public function make_content_images_lazyload( string $content ): string {
-		if ( ! preg_match_all( '/<img [^>]+>/', $content, $matches ) ) {
-			return $content;
-		}
-
-		foreach ( $matches[0] as $image ) {
-			// If image is already qualified as lazyload, pass.
-			if ( 1 === preg_match( '/class=("|"[^"]*\s)(lazyload|preload)(\s|")/', $image ) ) {
-				continue;
-			}
-			// If image already has one of the needed attributes, don't modify it.
-			if ( 1 === preg_match( '/data-src=|data-srcset=|data-sizes=/', $image ) ) {
-				continue;
-			}
-
-			// Add or edit class list, replace attributes.
-			$lazyfied = strpos( $image, ' class=' ) === false
-				? str_replace( '<img ', '<img class="lazyload" ', $image )
-				: preg_replace( '/\sclass="([^"]*)"/', ' class="$1 lazyload"', $image );
-			$lazyfied = preg_replace( '/\s(src|srcset|sizes)="([^"]*)"/', ' data-$1="$2"', $lazyfied );
-
-			$content = str_replace( $image, $lazyfied, $content );
-		}
-
-		return $content;
 	}
 
 	/**
