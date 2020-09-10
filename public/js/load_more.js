@@ -1,11 +1,4 @@
-/* global LazyLoad */
 jQuery(function ($) {
-  if (!window.lazyLoad) {
-    window.lazyLoad = new LazyLoad({
-      elements_selector: '.lazyload'
-    });
-  }
-
   // Add click event for load more button in Covers blocks.
   $('.btn-load-more-posts-click').on('mouseup touchend', function (e) {
     e.preventDefault();
@@ -56,9 +49,8 @@ jQuery(function ($) {
 
     if ($row.length > 0) {
       $row.slice( 0, covers_per_row ).show('slow');
-
-      window.lazyLoad.update();
     }
+
     if ($row.length <= covers_per_row) {
       $(this).closest('.load-more-campaigns-button-div').hide('fast');
     }

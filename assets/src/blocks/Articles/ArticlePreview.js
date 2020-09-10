@@ -71,6 +71,7 @@ export class ArticlePreview extends Component {
             className="d-flex topicwise-article-image"
             src={thumbnail_url}
             alt={alt_text}
+            loading="lazy"
           />
       </a>
     );
