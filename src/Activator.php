@@ -18,7 +18,7 @@ class Activator {
 	/**
 	 * Hooks the activator functions.
 	 */
-	protected function hooks() {
+	protected function hooks(): void {
 		add_action( 'after_switch_theme', [ self::class, 'run' ] );
 	}
 
@@ -27,5 +27,7 @@ class Activator {
 	 */
 	public static function run(): void {
 		Campaigner::register_role_and_add_capabilities();
+		Migrator::migrate();
 	}
+
 }
