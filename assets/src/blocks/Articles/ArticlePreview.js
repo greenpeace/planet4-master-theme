@@ -143,7 +143,8 @@ export class ArticlePreview extends Component {
                       data-ga-category="Articles Block"
                       data-ga-action="Navigation Tag"
                       data-ga-label="n/a">
-                        {`#${tag.name}`}
+                        <span aria-label="hashtag">#</span>
+                        {tag.name}
                     </a>
                   )}
                 </div>

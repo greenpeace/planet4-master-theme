@@ -25,7 +25,7 @@
                             data-ga-label="n/a"
                             href="{{ campaign.link|e('esc_url') }}"
                         >
-                            #{{ campaign.name|e('wp_kses_post')|raw }}
+                            <span aria-label="hashtag">#<span>{{ campaign.name|e('wp_kses_post')|raw }}
                         </a>
                     {% endfor %}
                 {% endif %}

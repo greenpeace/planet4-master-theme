@@ -78,7 +78,7 @@ export const SplittwocolumnsFrontend = ({
             <a className="split-two-column-item-tag" 
                href={tag_link}
                {...analytics('Tag Title')}>
-              #{tag_name}
+              <span aria-label="hashtag">#</span>{tag_name}
             </a>
           }
           {tag_description &&
