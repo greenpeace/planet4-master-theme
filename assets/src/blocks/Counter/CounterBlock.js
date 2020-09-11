@@ -64,10 +64,7 @@ export class CounterBlock {
     // Remove the default style since it's the same as "text only"
     unregisterBlockStyle(BLOCK_NAME, 'default');
 
-    // Add our custom styles
-    registerBlockStyle(
-      BLOCK_NAME,
-      [
+    const styles = [
         {
           name: 'plain',
           label: __( 'Text Only', 'planet4-blocks' ),
@@ -81,11 +78,16 @@ export class CounterBlock {
           name: 'arc',
           label: __( 'Progress Dial', 'planet4-blocks' )
         },
-        {
-          name: 'en-forms-bar',
-          label: __( 'Progress Bar inside EN Form', 'planet4-blocks' )
-        }
+
       ]
-    );
+
+    if (window.p4ge_vars.features.feature_engaging_networks) {
+      styles.push({
+        name: 'en-forms-bar',
+        label: __('Progress Bar inside EN Form', 'planet4-blocks')
+      });
+    }
+    // Add our custom styles
+    registerBlockStyle( BLOCK_NAME, styles);
   };
 }

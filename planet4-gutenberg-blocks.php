@@ -16,6 +16,10 @@
  */
 
 // Exit if accessed directly.
+use P4\MasterTheme\Features;
+use P4\MasterTheme\MigrationLog;
+use P4\MasterTheme\Migrations\M001EnableEnFormFeature;
+
 defined( 'ABSPATH' ) || die( 'Direct access is forbidden !' );
 
 
@@ -225,10 +229,17 @@ function set_allowed_block_types( $allowed_block_types, $post ) {
 	];
 	// phpcs:enable
 
+	$migration_ran = MigrationLog::from_wp_options()->already_ran( M001EnableEnFormFeature::get_id() );
+
+	$enform_active = ! $migration_ran || Features::is_active( Features::ENGAGING_NETWORKS );
+
+	$page_block_types     = array_merge( PAGE_BLOCK_TYPES, ! $enform_active ? [] : [ 'planet4-blocks/enform' ] );
+	$campaign_block_types = array_merge( CAMPAIGN_BLOCK_TYPES, ! $enform_active ? [] : [ 'planet4-blocks/enform' ] );
+
 	$all_allowed_p4_block_types = [
 		'post'     => POST_BLOCK_TYPES,
-		'page'     => PAGE_BLOCK_TYPES,
-		'campaign' => CAMPAIGN_BLOCK_TYPES,
+		'page'     => $page_block_types,
+		'campaign' => $campaign_block_types,
 	];
 
 	$allowed_p4_block_types = $all_allowed_p4_block_types[ $post->post_type ];

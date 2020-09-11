@@ -8,6 +8,9 @@
 
 namespace P4GBKS;
 
+use P4\MasterTheme\Features;
+use P4\MasterTheme\MigrationLog;
+use P4\MasterTheme\Migrations\M001EnableEnFormFeature;
 use WP_CLI;
 use P4GBKS\Command\Controller;
 use P4GBKS\Controllers\Ensapi_Controller;
@@ -341,9 +344,15 @@ final class Loader {
 		// Variables reflected from PHP to JS.
 		$option_values = get_option( 'planet4_options' );
 
+		$en_active = ! MigrationLog::from_wp_options()->already_ran( M001EnableEnFormFeature::get_id() )
+					|| Features::is_active( Features::ENGAGING_NETWORKS );
+
 		$reflection_vars = [
 			'home'            => P4GBKS_PLUGIN_URL . '/public/',
 			'planet4_options' => $option_values,
+			'features'        => [
+				'feature_engaging_networks' => $en_active,
+			],
 		];
 		wp_localize_script( 'planet4-blocks-script', 'p4ge_vars', $reflection_vars );
 
