@@ -81,7 +81,7 @@ export class CounterBlock {
 
       ]
 
-    if (window.p4ge_vars.planet4_options.feature_engaging_networks) {
+    if (window.p4ge_vars.features.feature_engaging_networks) {
       styles.push({
         name: 'en-forms-bar',
         label: __('Progress Bar inside EN Form', 'planet4-blocks')
