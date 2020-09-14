@@ -113,6 +113,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .back-top,
 div.page-template > .back-top {
   background-image: url("../../public/images/arrow-up.svg");
