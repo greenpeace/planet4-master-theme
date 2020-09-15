@@ -2,14 +2,45 @@ const GRID_GALLERY_CLASS = 'gallery-grid';
 const SLIDER_GALLERY_CLASS = 'carousel-wrap';
 const THREE_COLUMN_GALLERY_CLASS = 'three-column-images';
 
+const renderIndicators = (gallery) => {
+  const indicatorSpans = document.querySelectorAll('.p4-photoswipe-indicators-wrapper span');
+  const indicatorsWrapper = document.querySelector('.p4-photoswipe-indicators-wrapper');
+
+  const topGap = gallery.currItem.bounds ? gallery.currItem.bounds.center.y : 0;
+  let currentItemBottomBorder = (gallery.currItem.h * gallery.currItem.fitRatio) + topGap;
+  indicatorsWrapper.style.top = currentItemBottomBorder + 'px';
+
+  if (indicatorSpans.length !== gallery.options.getNumItemsFn()) {
+    indicatorsWrapper.innerHTML = '';
+    for (let i = 0; i < gallery.options.getNumItemsFn(); i++) {
+      let indicatorClickArea = document.createElement('span');
+      indicatorClickArea.classList.add('p4-photoswipe-indicator-click-area')
+      let indicatorBar = document.createElement('span');
+      indicatorBar.classList.add('p4-photoswipe-indicator-bar')
+      indicatorClickArea.appendChild(indicatorBar);
+      indicatorClickArea.addEventListener('click', e => {
+        e.preventDefault();
+        gallery.goTo(i);
+      });
+      indicatorsWrapper.appendChild(indicatorClickArea);
+    }
+  }
+
+  indicatorSpans.forEach(item => item.classList.remove(['active']));
+
+  const currentIndicator = document.querySelector(`.p4-photoswipe-indicators-wrapper > span:nth-child(${gallery.getCurrentIndex() + 1})`);
+  currentIndicator.classList.add(['active']);
+}
+
 const setupPhotoSwipe = function(items, clickedIndex) {
-  var pswpElement = $('.pswp')[0];
+  var pswpElement = document.querySelector('.pswp');
 
   var options = {
     shareEl: false,
     fullscreenEl: false,
     zoomEl: false,
     index: clickedIndex,
+    closeOnScroll: false,
   };
 
   var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
@@ -24,6 +55,19 @@ const setupPhotoSwipe = function(items, clickedIndex) {
       imageSizeHandler.src = galleryItem.src;
     }
   });
+
+  gallery.listen('afterChange', () => {
+    renderIndicators(gallery);
+  });
+
+  gallery.listen('resize', () => {
+    renderIndicators(gallery);
+  });
+
+  window.addEventListener('resize', () => {
+    renderIndicators(gallery);
+  });
+
   gallery.init();
 }
 
@@ -51,9 +95,9 @@ export const buildItemsFromImageBlocks = function() {
 
 export const buildItemsFromGallery = function(galleryImages, galleryClass) {
   const items = [];
-  galleryImages.each(function() {
+  galleryImages.forEach(function(image) {
     const tempImage = {};
-    tempImage.src = $(this).attr('src') ? $(this).attr('src') : $(this).attr('data-src');
+    tempImage.src = image.src ? image.src : image.dataset.src;
     tempImage.w = 0;
     tempImage.h = 0;
 
@@ -62,10 +106,10 @@ export const buildItemsFromGallery = function(galleryImages, galleryClass) {
     switch (galleryClass) {
       case GRID_GALLERY_CLASS:
       case THREE_COLUMN_GALLERY_CLASS:
-        caption = $(this).attr('alt');
+        caption = image.getAttribute('alt');
       break;
       case SLIDER_GALLERY_CLASS:
-        caption = $(this).parent().find('.carousel-caption p').text();
+        caption = image.parentNode().querySelector('.carousel-caption p').innerHTML;
       break;
     }
 
@@ -79,31 +123,31 @@ export const buildItemsFromGallery = function(galleryImages, galleryClass) {
   return items;
 }
 
-
 export const setupLightBox = function($) {
   'use strict';
 
-  $('.post-content .wp-block-image img, .page-template .wp-block-image img').each(
-    function (clickedImageIndex) {
+  document.querySelectorAll('.post-content .wp-block-image img, .page-template .wp-block-image img').forEach(
+    (clickedImage, clickedImageIndex) => {
       const galleryItemsFromImageBlocks = buildItemsFromImageBlocks();
 
-      $(this).off('click').on('click', () => {
+      clickedImage.addEventListener('click', () => {
         setupPhotoSwipe(galleryItemsFromImageBlocks, clickedImageIndex);
       });
     }
   );
 
   [GRID_GALLERY_CLASS, SLIDER_GALLERY_CLASS, THREE_COLUMN_GALLERY_CLASS].forEach( galleryClass => {
-    $(`.${galleryClass} img`).each(
-      function (clickedImageIndex) {
-        const clickedImage = this;
-        const galleryImages = $(clickedImage).closest(`.${galleryClass}`).find('img');
+    document.querySelectorAll(`.${galleryClass} img`).forEach(
+      (clickedImage, clickedImageIndex) => {
+        const galleryImages = clickedImage.closest(`.${galleryClass}`).querySelectorAll('img');
         const galleryItems = buildItemsFromGallery(galleryImages, galleryClass);
 
-        $(this).off('click').on('click', () => {
+        clickedImage.addEventListener('click', () => {
           setupPhotoSwipe(galleryItems, clickedImageIndex);
         });
       }
     );
   });
 };
+
+window.setupLightBox = setupLightBox;

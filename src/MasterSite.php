@@ -689,14 +689,16 @@ class MasterSite extends TimberSite {
 		];
 
 		wp_register_script(
-			'main', $this->theme_dir . '/assets/build/index.js',
+			'main',
+			$this->theme_dir . '/assets/build/index.js',
 			[
 				'jquery',
 				'cssvarsponyfill',
 				'photoswipe',
-				'photoswipeui'
+				'photoswipeui',
 			],
-			$js_creation, true
+			$js_creation,
+			true
 		);
 		wp_localize_script( 'main', 'localizations', $localized_variables );
 		wp_enqueue_script( 'main' );

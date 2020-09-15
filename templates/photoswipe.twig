@@ -1,3 +1,35 @@
+<style type="text/css">
+    .p4-photoswipe-indicators-wrapper {
+        padding: 20px 0;
+        width: 100%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        position: absolute;
+        z-index: 9999;
+        /*bottom: 0;*/
+        line-height: 0;
+    }
+
+    .p4-photoswipe-indicators-wrapper span.p4-photoswipe-indicator-click-area {
+        width: 40px;
+        margin: -4px 8px 0 8px;
+        display: inline-block;
+        padding: 8px 0;
+    }
+
+    .p4-photoswipe-indicators-wrapper span.p4-photoswipe-indicator-bar {
+        height: 4px;
+        background: #999999;
+        display: block;
+    }
+
+    .p4-photoswipe-indicators-wrapper
+    span.p4-photoswipe-indicator-click-area.active
+    span.p4-photoswipe-indicator-bar {
+        background: #333333;
+    }
+</style>
 {# Root element of PhotoSwipe. Must have class pswp. #}
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
@@ -15,6 +47,9 @@
             <div class="pswp__item"></div>
             <div class="pswp__item"></div>
             <div class="pswp__item"></div>
+        </div>
+
+        <div class="p4-photoswipe-indicators-wrapper">
         </div>
 
         {# Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. #}

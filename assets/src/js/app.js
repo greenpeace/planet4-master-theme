@@ -34,8 +34,8 @@ jQuery(function($) {
   setupLoadMore($);
   setupPDFIcon($);
   setupSearch($);
-  setupLightBox($);
   setupExternalLinks($);
   setupCSSVarsPonyfill();
   setupEnhancedDonateButton();
+  setupLightBox();
 });
