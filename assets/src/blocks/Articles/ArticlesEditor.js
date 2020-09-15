@@ -85,7 +85,7 @@ const renderEdit = (attributes, toAttribute) => {
               <PostSelector
                 value={attributes.posts}
                 onChange={toAttribute('posts')}
-                label={__('CAUTION: Adding articles individually will override the automatic functionality of this block. For good user experience, please include at least three articles so that spacing and alignment of the design remains in tact.', 'planet4-blocks-backend')}
+                label={__('CAUTION: Adding articles individually will override the automatic functionality of this block. For good user experience, please include at least three articles so that spacing and alignment of the design remains intact.', 'planet4-blocks-backend')}
                 maxLength={10}
                 maxSuggestions={20}
                 postType='post'
