@@ -253,7 +253,7 @@ class Articles extends Base_Block {
 
 			// Get all posts with arguments.
 			$args = [
-				'orderby'          => 'post__in',
+				'orderby'          => 'date',
 				'post_status'      => 'publish',
 				'post__in'         => $post_ids,
 				'suppress_filters' => false,
