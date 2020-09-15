@@ -8,6 +8,8 @@ workflows:
       - php73-tests
       - acceptance-tests:
           context: org-global
+      - a11y-tests:
+          context: org-global
       - rips-test:
           context: rips-scans
           filters:
@@ -67,23 +69,10 @@ job-references:
       - store_artifacts:
           path: /tmp/coverage-report
 
-jobs:
-  php72-tests:
-    <<: *php_job
-    docker:
-      - image: greenpeaceinternational/p4-unit-tests:php7.2-develop
-      - image: *mysql_image
-
-  php73-tests:
-    <<: *php_job
-    docker:
-      - image: greenpeaceinternational/p4-unit-tests:php7.3-develop
-      - image: *mysql_image
-
-  acceptance-tests:
+  p4_instance_conf: &p4_instance_conf
     docker:
       - image: greenpeaceinternational/p4-builder:latest
-    working_directory:  /home/circleci/
+    working_directory: /home/circleci/
     environment:
       APP_HOSTNAME: www.planet4.test
       APP_HOSTPATH:
@@ -94,7 +83,10 @@ jobs:
       TYPE: "Build"
       WP_DB_NAME: planet4-base_wordpress
       WP_TITLE: Greenpeace Base Development
-    steps:
+
+commands:
+  install-instance:
+    steps:  
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
@@ -113,22 +105,24 @@ jobs:
       - run:
           name: Test - Clone planet4-docker-compose
           command: |
-            git clone https://github.com/greenpeace/planet4-docker-compose
-      - run:
-          name: Test - Run tests
-          command: |
-            export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
-            export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
-            export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
-            make -C planet4-docker-compose ci test
+            git clone --depth 1 https://github.com/greenpeace/planet4-docker-compose
+
+  run-tests:
+    parameters:
+      test-name:
+        type: string
+      test-command:
+        type: string
+      extract-command:
+        type: string
+    steps:
+      - run: 
+          name: << parameters.test-name >>
+          command: << parameters.test-command >>
       - run:
           name: Test - Extract test artifacts
           when: always
-          command: |
-            export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
-            export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
-            export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
-            make -C planet4-docker-compose ci-extract-artifacts
+          command: << parameters.extract-command >>
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
@@ -141,6 +135,55 @@ jobs:
           name: Build - Notify failure
           when: on_fail
           command: notify-job-failure.sh
+
+jobs:
+  php72-tests:
+    <<: *php_job
+    docker:
+      - image: greenpeaceinternational/p4-unit-tests:php7.2-develop
+      - image: *mysql_image
+
+  php73-tests:
+    <<: *php_job
+    docker:
+      - image: greenpeaceinternational/p4-unit-tests:php7.3-develop
+      - image: *mysql_image
+
+  acceptance-tests:
+    <<: *p4_instance_conf
+    steps:
+      - install-instance
+      - run-tests:
+          test-name: Test - Run acceptance tests
+          test-command: |
+            export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
+            export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
+            export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
+            make -C planet4-docker-compose ci test
+          extract-command: |
+            export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
+            export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
+            export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
+            make -C planet4-docker-compose ci-extract-artifacts
+
+  a11y-tests:
+    <<: *p4_instance_conf
+    steps:
+      - install-instance
+      - run-tests:
+          test-name: Test - Run accessibility tests
+          test-command: |
+            export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
+            export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
+            export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
+            make -C planet4-docker-compose ci test-pa11y-ci
+          extract-command: |
+            export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
+            export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
+            export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
+            make -C planet4-docker-compose ci-extract-a11y-artifacts
+            errors=$(jq '.["results"] | .[] | unique_by(.["type"]) | map(select(.["type"] == "error")) | .[]' planet4-docker-compose/artifacts/pa11y/pa11y-ci-results.json)
+            if [ ! -z "${errors}" ]; then echo "Errors found, see report in artifacts." && exit 1; else echo "No errors, report available in artifacts."; fi
 
   rips-test:
     docker:
