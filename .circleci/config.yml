@@ -6,8 +6,11 @@ workflows:
     jobs:
       - php72-tests
       - php73-tests
+      - build
       - acceptance-tests:
           context: org-global
+          requires:
+            - build
       - a11y-tests:
           context: org-global
       - rips-test:
@@ -86,7 +89,7 @@ job-references:
 
 commands:
   install-instance:
-    steps:  
+    steps:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
@@ -116,7 +119,7 @@ commands:
       extract-command:
         type: string
     steps:
-      - run: 
+      - run:
           name: << parameters.test-name >>
           command: << parameters.test-command >>
       - run:
@@ -148,6 +151,24 @@ jobs:
     docker:
       - image: greenpeaceinternational/p4-unit-tests:php7.3-develop
       - image: *mysql_image
+
+  build:
+    docker:
+      - image: mhart/alpine-node
+    steps:
+      - checkout
+      - run: pwd
+      - run:
+          name: "nmp install"
+          command: npm ci
+      - run:
+          name: "nmp build"
+          command: npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - assets/build
+
 
   acceptance-tests:
     <<: *p4_instance_conf
