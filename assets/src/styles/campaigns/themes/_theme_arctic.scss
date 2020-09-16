@@ -74,15 +74,23 @@ body.theme-arctic {
     @include page-header-block($save-the-arctic);
 
     .page-header-title {
-      font-size: 3.125rem;
-      line-height: 3.75rem;
       color: $arctic-blue;
+
+      @include mobile-only {
+        line-height: 1.38;
+        margin-bottom: 5px;
+        font-size: $font-size-xl;
+      }
     }
 
     .page-header-subtitle {
-      font-size: $font-size-xl;
-      line-height: 2.125rem;
       color: $arctic-blue;
+
+      @include mobile-only {
+        line-height: 1.38;
+        margin-bottom: 5px;
+        font-size: $font-size-lg;
+      }
     }
 
     .page-header-background:after {
