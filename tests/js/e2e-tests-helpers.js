@@ -52,7 +52,6 @@ export const typeInInputWithLabel = async ( label, value ) => {
   const [ inputEl ] = await page.$x( `//label[@class="components-base-control__label"][contains(text(),"${ label }")]/following-sibling::input[@class="components-text-control__input"]` );
   const propertyHandle = await inputEl.getProperty('id');
   const inputId = await propertyHandle.jsonValue();
-
   await page.type( `#${ inputId }`, value);
 };
 
@@ -128,6 +127,41 @@ export const typeInInputWithCheckbox = async ( name, value ) => {
   const [ element ] = await page.$x( `//*[contains(@class,"p4-custom-control-input")][contains(@name,"${ name }")]` );
   await element.click();
   await page.keyboard.type( value );
+};
+
+/**
+ * Types in an autocomplete input element based on its label.
+ *
+ * @param {string} label Label text of the text input.
+ * @param {string} value Value to be applied to the input.
+ */
+export const typeInDropdownWithLabel = async ( label, value ) => {
+  // Wait for 0.5 sec.
+  await new Promise((r) => setTimeout(r, 500));
+  const [ inputEl ] = await page.$x( `//label[contains(text(),"${ label }")]/following-sibling::div//input[@class="components-form-token-field__input"]` );
+  if ( inputEl ) {
+    const propertyHandle = await inputEl.getProperty('id');
+    const inputId = await propertyHandle.jsonValue();
+    await page.type( `#${ inputId }`, value.slice(0, 4));
+    await page.$eval('span[aria-label="'+value+'"]', (el) => el.click() );
+  }
+};
+
+/**
+ * Remove the existing text of input field, if exists.
+ *
+ * @param {string} label Text of the label before the text input.
+ */
+export const clearPreviousTextWithLabel = async ( label ) => {
+  const [ inputEl ] = await page.$x( `//label[@class="components-base-control__label"][contains(text(),"${ label }")]/following-sibling::input[@class="components-text-control__input"]` );
+
+  const valuePropertyHandle = await inputEl.getProperty('value');
+  const inputValue = await valuePropertyHandle.jsonValue();
+  if ( inputValue ) {
+    await inputEl.click();
+    await pressKeyWithModifier( 'primary', 'a' );
+    await page.keyboard.press( 'Backspace' );
+  }
 };
 
 /**
