@@ -35,7 +35,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 	 * @dataProvider columns_shortcodes_provider
 	 * @dataProvider covers_shortcodes_provider
 	 * @dataProvider gallery_shortcodes_provider
-	 * @dataProvider happy_point_shortcodes_provider
 	 * @dataProvider media_shortcodes_provider
 	 * @dataProvider social_media_shortcodes_provider
 	 * @dataProvider submenu_shortcodes_provider
@@ -343,47 +342,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 
 				'<!-- wp:planet4-blocks/gallery {"gallery_block_style":3,"gallery_block_title":"Our Ships in Action","gallery_block_description":"For nearly 50 years, Greenpeace has been sailing the world\'s oceans protecting our planet and fighting for environmental justice. <a href=\'/international/explore/ships/\'>Learn more about our fleet.</a>","multiple_image":"340,341,342,343,24165,24161,24160,24159,24164,24166,24163,24162","gallery_block_focus_points":"{\"340\":\"0% 0%\",\"341\":\"100% 100%\",\"342\":\"100% 0%\",\"343\":\"50% 50%\",\"24159\":\"50% 50%\",\"24160\":\"50% 0%\",\"24161\":\"50% 50%\",\"24162\":\"0% 50%\",\"24163\":\"50% 50%\",\"24164\":\"50% 50%\",\"24165\":\"50% 0%\",\"24166\":\"50% 50%\"}"} /-->',
 			],
-		];
-	}
-
-	/**
-	 * Planet4 blocks shortocodes provider.
-	 *
-	 * @return array
-	 */
-	public function happy_point_shortcodes_provider(): array {
-		return [
-			// 1-5
-			[
-				'[shortcake_happy_point focus_image="left top" /]',
-
-				'<!-- wp:planet4-blocks/happypoint {"focus_image":"0% 0%"} /-->',
-			],
-			[
-				'[shortcake_happy_point background="15" focus_image="left top" /]',
-
-				'<!-- wp:planet4-blocks/happypoint {"id":15,"focus_image":"0% 0%"} /-->',
-			],
-			[
-				'[shortcake_happy_point background="15" focus_image="center center" mailing_list_iframe="true" /]',
-
-				'<!-- wp:planet4-blocks/happypoint {"id":15,"focus_image":"50% 50%","mailing_list_iframe":true} /-->',
-			],
-			[
-				'[shortcake_happy_point background="343" focus_image="center center" opacity="40" mailing_list_iframe="true" /]',
-
-				'<!-- wp:planet4-blocks/happypoint {"id":343,"focus_image":"50% 50%","opacity":40,"mailing_list_iframe":true} /-->',
-			],
-			[
-				'[shortcake_happy_point background="343" focus_image="center center" opacity="60" mailing_list_iframe="true" iframe_url="https%3A%2F%2Fact.greenpeace.org%2Fpage%2F34215%2Fsubscribe%2F1" /]',
-
-				'<!-- wp:planet4-blocks/happypoint {"id":343,"focus_image":"50% 50%","opacity":60,"mailing_list_iframe":true,"iframe_url":"https%3A%2F%2Fact.greenpeace.org%2Fpage%2F34215%2Fsubscribe%2F1"} /-->',
-			],
-
-			// 5-10
-
-			// 10-15
-
 		];
 	}
 

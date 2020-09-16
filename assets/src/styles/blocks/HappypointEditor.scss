@@ -1,0 +1,13 @@
+.wp-block-master-theme-happypoint__FocalPointPicker .components-focal-point-picker_position-display-container {
+  display: none;
+}
+
+.wp-block-master-theme-happypoint__RangeControl .components-range-control__slider {
+  width: auto;
+}
+
+.happy-point-block-wrap .happy-point iframe {
+  @include medium-and-up {
+    width: 100%;
+  }
+}
