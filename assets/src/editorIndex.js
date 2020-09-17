@@ -25,6 +25,7 @@ import { SubPagesBlock } from './blocks/SubPages/SubPagesBlock';
 import { blockEditorValidation } from './BlockEditorValidation';
 import { ENFormBlock } from './blocks/ENForm/ENFormBlock';
 
+blockEditorValidation();
 new ArticlesBlock();
 new CarouselHeaderBlock();
 new ColumnsBlock();
