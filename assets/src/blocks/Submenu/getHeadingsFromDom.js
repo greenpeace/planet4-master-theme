@@ -7,12 +7,16 @@ export const getHeadingsFromDom = (selectedLevels) => {
   // Get all heading tags that we need to query
   const headingsSelector = selectedLevels.map(level => `:not(.submenu-block) h${level.heading}`);
 
+  const usedAnchors = [];
+
   return [...container.querySelectorAll(headingsSelector)].map(heading=> {
     const levelConfig = selectedLevels.find((selected) => selected.heading === getHeadingLevel(heading))
 
     if (!heading.id) {
-      heading.id = generateAnchor(heading.textContent);
+      heading.id = generateAnchor(heading.textContent, usedAnchors);
     }
+
+    usedAnchors.push(heading.id);
 
     return ({
       content: heading.textContent,

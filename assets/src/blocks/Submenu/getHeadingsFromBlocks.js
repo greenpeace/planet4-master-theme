@@ -2,7 +2,6 @@ import { generateAnchor } from './generateAnchor';
 
 // We can put the other blocks that can have a heading inside in here along with the attribute containing the heading text.
 // Then we can also filter those to include them in the menu.
-
 const blockTypesWithHeadings = [
   {name: 'planet4-blocks/articles', fieldName: 'article_heading', level: 2},
 ];
@@ -19,7 +18,7 @@ export const getHeadingsFromBlocks = (blocks, selectedLevels) => {
         return;
       }
 
-      const anchor = block.attributes.anchor || generateAnchor(block.attributes.content);
+      const anchor = block.attributes.anchor || generateAnchor(block.attributes.content, headings.map(h => h.anchor));
 
       headings.push({
         level: blockLevel,
@@ -43,10 +42,12 @@ export const getHeadingsFromBlocks = (blocks, selectedLevels) => {
         const blockLevel = parseInt(h.tagName.replace('H', ''));
         const levelConfig = selectedLevels.find(selected => selected.heading === blockLevel);
 
+        const anchor = h.id || generateAnchor(block.attributes.content, headings.map(h => h.anchor));
+
         return ({
           level: blockLevel,
           content: h.innerText,
-          anchor: generateAnchor(h.innerText),
+          anchor,
           style: levelConfig.style,
           shouldLink: levelConfig.link,
         });
