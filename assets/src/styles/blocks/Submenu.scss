@@ -1,3 +1,8 @@
+// On outer element as otherwise it will not be clickable when floating on the right.
+div[data-render="planet4-blocks/submenu"] {
+  z-index: 4;
+}
+
 .submenu-block {
   background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 5px 5px 5px 0 rgba(128, 128, 128, 0.5);
