@@ -154,6 +154,9 @@
 }
 
 .edit-post-sidebar {
+  .block-editor-block-styles + .components-base-control {
+    display: none;
+  }
 
   // By default all but the first .component-base-control have margin-bottom, causing weird spacing.
   .components-base-control {
