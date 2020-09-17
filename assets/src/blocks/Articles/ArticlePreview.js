@@ -1,4 +1,5 @@
 import { Component } from '@wordpress/element';
+import { dateI18n } from '@wordpress/date';
 const { __ } = wp.i18n;
 
 export class ArticlePreview extends Component {
@@ -89,25 +90,6 @@ export class ArticlePreview extends Component {
     );
   }
 
-  getParsedDate() {
-    const {
-      post: {
-        post_date
-      }
-    } = this.props;
-    let dateToReturn = null;
-    if (post_date) {
-      const date = post_date.split(' ')[0]; // date and time are separated by a space
-      const dateParts = date.split('-');
-      dateToReturn = new Date(
-        dateParts[0],
-        dateParts[1] - 1, // months are counted from 0 instead of 1
-        dateParts[2]
-      );
-    }
-    return dateToReturn;
-  }
-
   render() {
     const {
       post: {
@@ -116,11 +98,10 @@ export class ArticlePreview extends Component {
         page_type,
         page_type_link,
         post_title,
-        post_excerpt
+        post_excerpt,
+        post_date
       }
     } = this.props;
-
-    const date = this.getParsedDate();
 
     const articleClassName = tags.reduce((classname, tag) => classname + ` tag-${tag.slug}`, 'article-list-item');
 
@@ -166,9 +147,9 @@ export class ArticlePreview extends Component {
             }
             <p className="article-list-item-meta">
               {this.getAuthorLink()}
-              {date &&
+              {post_date &&
                 <time className="article-list-item-date" dateTime="">
-                  {date.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}
+                  {dateI18n(window.p4bk_vars.dateFormat, post_date)}
                 </time>
               }
             </p>

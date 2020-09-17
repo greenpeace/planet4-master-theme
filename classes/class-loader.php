@@ -393,12 +393,20 @@ final class Loader {
 				'wp-api-fetch',
 				// URL helpers (as addQueryArgs).
 				'wp-url',
+				// Use to translate date.
+				'wp-date',
 				'main',
 			],
 			true
 		);
 
 		self::enqueue_local_script( 'post_action', 'public/js/post_action.js', [ 'jquery' ] );
+
+		// Variables reflected from PHP to JS.
+		$reflection_vars = [
+			'dateFormat' => get_option( 'date_format' ),
+		];
+		wp_localize_script( 'planet4-blocks-frontend', 'p4bk_vars', $reflection_vars );
 	}
 
 	/**
