@@ -120,6 +120,7 @@ div[data-render="planet4-blocks/submenu"] {
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
 }
 
 .back-top,
@@ -134,7 +135,6 @@ div.page-template > .back-top {
   background-color: #074365;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-  display: none;
   z-index: 1000;
 
   @include x-large-and-up {

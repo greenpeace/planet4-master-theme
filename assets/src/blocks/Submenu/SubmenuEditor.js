@@ -74,7 +74,7 @@ const renderView = (attributes, setAttributes, className) => {
 
   const { blocks } = useSelect(select => {
     return ({ blocks: select('core/editor').getBlocks() });
-  });
+  }, null);
 
   const flatHeadings = getHeadingsFromBlocks(blocks, attributes.levels);
 

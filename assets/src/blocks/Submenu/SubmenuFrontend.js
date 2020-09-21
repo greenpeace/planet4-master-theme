@@ -11,7 +11,7 @@ export const SubmenuFrontend = ({ title, className, levels, submenu_style }) => 
     if (!backTop) {
       return;
     }
-    backTop.style.display = 'block';
+    backTop.classList.remove('d-none');
   };
 
   // Enable back top on initial render.
