@@ -29,7 +29,8 @@
 							data-ga-category="Articles List"
 							data-ga-action="Navigation Tag"
 							data-ga-label="n/a">
-								#{{ tag.name|e('wp_kses_post')|raw }}</a>
+							<span aria-label="hashtag">#</span>{{ tag.name|e('wp_kses_post')|raw }}
+						</a>
 					{% endfor %}
 				</div>
 			{% endif %}

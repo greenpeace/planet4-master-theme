@@ -49,8 +49,7 @@ class CategoryPageTest extends P4_TestCase {
 		);
 
 		// Test tag markup.
-		$this->assertElementContains(
-			'ArcticSunrise',
+		$this->assertContainsSelector(
 			'a.search-result-item-tag',
 			$output,
 			'The template does not contain tag markup'
@@ -86,8 +85,7 @@ class CategoryPageTest extends P4_TestCase {
 		);
 
 		// Test tag markup.
-		$this->assertElementContains(
-			'ArcticSunrise',
+		$this->assertContainsSelector(
 			'a.search-result-item-tag',
 			$output,
 			'The template does not contain tag markup'

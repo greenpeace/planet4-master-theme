@@ -38,7 +38,7 @@
 									data-ga-category="Header"
 									data-ga-action="Navigation Tag"
 									data-ga-label="n/a">
-										#{{ campaign.name|e('wp_kses_post')|raw }}
+										<span aria-label="hashtag">#</span>{{ campaign.name|e('wp_kses_post')|raw }}
 								</a>
 							{% endfor %}
 						</div>
