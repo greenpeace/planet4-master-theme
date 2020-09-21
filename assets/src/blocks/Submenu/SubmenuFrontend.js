@@ -11,7 +11,13 @@ export const SubmenuFrontend = ({ title, className, levels, submenu_style }) => 
     if (!backTop) {
       return;
     }
-    backTop.classList.remove('d-none');
+    document.addEventListener('scroll', () => {
+      if (document.documentElement.scrollTop > 400) {
+        backTop.classList.remove('d-none');
+      } else {
+        backTop.classList.add('d-none');
+      }
+    });
   };
 
   // Enable back top on initial render.
