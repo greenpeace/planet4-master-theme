@@ -10,6 +10,10 @@
     width: 100%;
   }
 
+  @include mobile-only {
+    height: 544px;
+  }
+
   @include medium-and-up {
     max-height: 480px;
   }
@@ -39,28 +43,25 @@
 
   .happy-point {
     height: inherit;
-    padding-top: 50px;
-    overflow-y: auto;
 
     @include medium-and-up {
       text-align: center;
-      padding-top: 150px;
       padding-left: 0;
       padding-right: 0;
     }
 
-    @include x-large-and-up {
-      padding-top: 220px;
-      height: 500px;
-    }
-
     iframe {
-      height: 390px;
+      --iframe-height: 390px;
+      height: var(--iframe-height);
+      position: relative;
+      margin-top: calc(var(--iframe-height) / 2 * -1);
+      top: 50%;
 
       @include mobile-only {
         position: absolute;
         width: 100vw;
         bottom: 0;
+        --iframe-height: 490px;
       }
 
       @include medium-and-up {
@@ -137,6 +138,10 @@
       @supports (object-fit: cover) {
         & {
           height: 500px;
+
+          @include mobile-only {
+            height: 544px;
+          }
         }
       }
     }
