@@ -362,6 +362,12 @@ final class Loader {
 			'forms' => $this->get_en_forms(),
 		];
 		wp_localize_script( 'planet4-blocks-script', 'p4en_vars', $reflection_vars );
+
+		// Variables reflected from PHP to JS.
+		$reflection_vars = [
+			'dateFormat' => get_option( 'date_format' ),
+		];
+		wp_localize_script( 'planet4-blocks-script', 'p4bk_vars', $reflection_vars );
 	}
 
 	/**
