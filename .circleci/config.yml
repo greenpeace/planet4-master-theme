@@ -4,6 +4,10 @@ version: 2.1
 workflows:
   main:
     jobs:
+      - build-frontend
+      - test-build-frontend:
+          requires:
+            - build-frontend
       - php72-tests
       - php73-tests
       - acceptance-tests:
@@ -32,7 +36,7 @@ job-references:
     name: "Install Dependencies"
     command: |
       composer install --dev
-      npm i
+      npm ci
 
   php_job: &php_job
     environment:
@@ -86,7 +90,7 @@ job-references:
 
 commands:
   install-instance:
-    steps:  
+    steps:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
@@ -116,7 +120,7 @@ commands:
       extract-command:
         type: string
     steps:
-      - run: 
+      - run:
           name: << parameters.test-name >>
           command: << parameters.test-command >>
       - run:
@@ -137,6 +141,25 @@ commands:
           command: notify-job-failure.sh
 
 jobs:
+  build-frontend:
+    docker:
+      - image: mhart/alpine-node
+    working_directory: /home/circleci/
+    steps:
+      - checkout
+      - run: git submodule init && git submodule update
+      - run: npm ci
+      - run: npm run build
+      - persist_to_workspace:
+          root: /home/circleci/
+          paths:
+            - assets/build
+
+  test-build-frontend:
+    docker:
+      - image: mhart/alpine-node
+    steps:
+      - run: ls -l /tmp/workspace/assets/build
   php72-tests:
     <<: *php_job
     docker:
