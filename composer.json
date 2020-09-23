@@ -16,7 +16,9 @@
     "stevegrunwell/phpunit-markup-assertions": "^1.2",
     "phpunit/phpunit": "^6.2"
   },
-  "require": {},
+  "require": {
+    "greenpeace/github-archive-installer": "^1.2"
+  },
   "scripts": {
     "fixes": "vendor/bin/phpcbf",
     "sniffs": "vendor/bin/phpcs"
