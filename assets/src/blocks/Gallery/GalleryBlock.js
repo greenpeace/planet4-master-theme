@@ -19,8 +19,7 @@ const getStyleLabel = (label, help) => {
 
 export class GalleryBlock {
   constructor() {
-    const { registerBlockType, registerBlockStyle } = wp.blocks;
-    const { withSelect } = wp.data;
+    const { registerBlockType } = wp.blocks;
 
     const attributes = {
       gallery_block_title: {
@@ -48,26 +47,8 @@ export class GalleryBlock {
       attributes,
       edit: GalleryEditor,
       save: frontendRendered(BLOCK_NAME),
-      deprecated: [
-        {
-          attributes: {
-            gallery_block_style: {
-              type: 'number',
-              default: 0
-            },
-            ...attributes
-          },
-          save() {
-            return null;
-          }
-        }
-      ],
-    });
-
-    // Add our custom styles
-    registerBlockStyle(
-      BLOCK_NAME,
-      [
+      // Add our custom styles
+      styles: [
         {
           name: 'slider',
           label: getStyleLabel(
@@ -90,7 +71,21 @@ export class GalleryBlock {
             'The grid shows thumbnails of lots of images. Good to use when showing lots of activity.'
           ),
         }
-      ]
-    );
+      ],
+      deprecated: [
+        {
+          attributes: {
+            gallery_block_style: {
+              type: 'number',
+              default: 0
+            },
+            ...attributes
+          },
+          save() {
+            return null;
+          }
+        }
+      ],
+    });
   };
 }
