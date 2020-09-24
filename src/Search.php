@@ -355,6 +355,7 @@ abstract class Search {
 		$posts = $this->query_posts( $paged );
 
 		if ( empty( $posts ) ) {
+			status_header( 204 );
 			return [];
 		}
 
