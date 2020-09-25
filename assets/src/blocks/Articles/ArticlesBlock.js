@@ -12,6 +12,9 @@ export class ArticlesBlock {
       title: __('Articles', 'planet4-blocks-backend'),
       icon: 'excerpt-view',
       category: 'planet4-blocks',
+      supports: {
+        html: false, // Disable "Edit as HTMl" block option.
+      },
       attributes: {
         article_heading: {
           type: 'string',
