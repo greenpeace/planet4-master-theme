@@ -40,6 +40,7 @@ export class SubmenuBlock {
       },
       supports: {
         multiple: false, // Use the block just once per post.
+        html: false,
       },
       styles: [
         {
