@@ -16,6 +16,7 @@
     font-size: $font-size-lg;
     font-family: $roboto;
     font-weight: 700;
+    color: var(--block-columns--column-heading--color, $grey-80);
 
     @include medium-and-up {
       font-size: 1.5rem;
