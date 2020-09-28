@@ -22,6 +22,10 @@ export class GalleryBlock {
     const { registerBlockType } = wp.blocks;
 
     const attributes = {
+      gallery_block_style: { // Needed for existing blocks conversion
+        type: 'integer',
+        default: 0
+      },
       gallery_block_title: {
         type: 'string',
       },
@@ -45,6 +49,9 @@ export class GalleryBlock {
       icon: 'format-gallery',
       category: 'planet4-blocks',
       attributes,
+      supports: {
+        html: false, // Disable "Edit as HTMl" block option.
+      },
       edit: GalleryEditor,
       save: frontendRendered(BLOCK_NAME),
       // Add our custom styles
@@ -74,13 +81,7 @@ export class GalleryBlock {
       ],
       deprecated: [
         {
-          attributes: {
-            gallery_block_style: {
-              type: 'number',
-              default: 0
-            },
-            ...attributes
-          },
+          attributes,
           save() {
             return null;
           }

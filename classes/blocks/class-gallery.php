@@ -48,7 +48,7 @@ class Gallery extends Base_Block {
 					return '<div data-render="planet4-blocks/gallery" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
 				},
 				'attributes'      => [
-					'gallery_block_style'        => [
+					'gallery_block_style'        => [ // Needed for existing blocks conversion.
 						'type'    => 'integer',
 						'default' => 0,
 					],
