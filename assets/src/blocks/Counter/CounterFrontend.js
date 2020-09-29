@@ -14,7 +14,10 @@ export class CounterFrontend extends Component {
 
   componentDidMount() {
     // Calculate completed and remaining values depending on props
-    this.calculateRemaining();
+    let counter = this;
+    counter.calculateRemaining();
+    // Add an eventListener to the window to enable instantly updating counters with supported APIs
+    window.addEventListener('updateCounter', function () { counter.calculateRemaining(); }, false);
   }
 
   componentDidUpdate({ target: prevTarget, completed: prevCompleted, completed_api: prevCompletedApi }) {
