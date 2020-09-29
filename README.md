@@ -22,6 +22,17 @@ Run the local webserver using [gulp](http://gulpjs.com/):
 
 Browse to [localhost:9000](http://localhost:9000).
 
+## Test
+
+To run accessibility test (local webserver has to be running):
+
+    gulp test
+
+
+Results are available in `pa11y/index.html` (open in your browser, e.g. `firefox pa11y/index.html`) and `pa11y/report.json` (open with `jq`).  
+Configuration is in `.pa11y`.
+
+
 ## Contribute
 
 ### Building the styleguide with kss

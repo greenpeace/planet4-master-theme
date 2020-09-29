@@ -1,0 +1,21 @@
+{
+    "defaults": {
+        "timeout": 30000,
+        "viewport": {
+            "width": 1200,
+            "height": 800
+        },
+        "chromeLaunchConfig": {
+            "ignoreHTTPSErrors": true,
+            "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+        },
+        "includeWarnings": true,
+        "includeNotices": true
+    },
+    "urls": [
+        "http://localhost:9000/index.html",
+        "http://localhost:9000/section-components.html",
+        "http://localhost:9000/section-layout.html",
+        "http://localhost:9000/section-style.html"
+    ]
+}

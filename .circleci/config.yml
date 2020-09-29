@@ -27,6 +27,26 @@ jobs:
           when: always
           command: stylelint "$HOME/app/src/**/*.scss" "$HOME/app/theme/kss-assets/css/*.scss"
 
+  test-a11y:
+    <<: *defaults
+    environment:
+      GOOGLE_PROJECT_ID: planet4-production
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - checkout
+      - run: *setup_environment
+      - run: make -C deploy checkout
+      - run: make -C deploy build
+      - run: make -C deploy test-a11y
+      - run:
+          name: Analyse test results
+          command: |
+            errors=$(jq '.errors' ~/app/deploy/docker/source/pa11y/report.json)
+            if [ "$errors" -gt 0 ]; then echo "Errors found, see report in artifacts." && exit 1; else echo "No errors, report available in artifacts."; fi
+      - store_artifacts:
+          path: ~/app/deploy/docker/source/pa11y
+
   deploy-dev:
     <<: *defaults
     environment:
@@ -38,7 +58,7 @@ jobs:
       - run: activate-gcloud-account.sh
       - run: docker-login.sh
       - run: make -C deploy checkout-master
-      - run: make -C deploy build
+      - run: make -C deploy docker-build
       - run: make -C deploy docker-push
       - run: make -C deploy dev
 
@@ -82,14 +102,18 @@ jobs:
       - run: activate-gcloud-account.sh
       - run: docker-login.sh
       - run: make -C deploy checkout-tag
-      - run: make -C deploy build
+      - run: make -C deploy docker-build
+      - run: make -C deploy test-a11y
       - run: make -C deploy docker-push
-      - run: make -C deploy prod
+      - run: make -C deploy prod      
+      - store_artifacts:
+          path: ~/app/deploy/docker/source/pa11y
 
 workflows:
   dev:
     jobs:
       - lint
+      - test-a11y
       - deploy-dev:
           context: org-global
           requires:
