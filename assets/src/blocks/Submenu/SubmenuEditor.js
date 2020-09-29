@@ -12,7 +12,9 @@ const { __ } = wp.i18n;
 const { RichText } = wp.blockEditor;
 const renderEdit = (attributes, setAttributes) => {
   function addLevel() {
-    setAttributes({ levels: attributes.levels.concat({ heading: 0, link: false, style: 'none' }) });
+    const [previousLastLevel] = attributes.levels.slice(-1);
+    const newLevel = previousLastLevel.heading + 1;
+    setAttributes({ levels: attributes.levels.concat({ heading: newLevel, link: false, style: 'none' }) });
   }
 
   function onHeadingChange(index, value) {
@@ -37,6 +39,14 @@ const renderEdit = (attributes, setAttributes) => {
     setAttributes({ levels: attributes.levels.slice(0, -1) });
   }
 
+  function getMinLevel(attributes, index) {
+    if (index === 0) {
+      return null;
+    }
+
+    return attributes.levels[index-1].heading;
+  }
+
   return (
     <InspectorControls>
       <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
@@ -48,6 +58,7 @@ const renderEdit = (attributes, setAttributes) => {
             onStyleChange={onStyleChange}
             index={i}
             key={i}
+            minLevel={getMinLevel(attributes, i)}
           />
         ))}
         <Button

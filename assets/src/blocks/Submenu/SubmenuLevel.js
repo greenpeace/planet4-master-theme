@@ -6,6 +6,17 @@ import {
 
 const { __ } = wp.i18n;
 
+const getHeadingOptions = (minLevel) => {
+  return [
+    { label: __('None', 'planet4-blocks'), value: 0 },
+    ...[2, 3, 4, 5, 6].map(n => ({
+      label: __('Heading %n', 'planet4-blocks').replace('%n', n),
+      value: n,
+      disabled: n <= minLevel,
+    }))
+  ];
+};
+
 export class SubmenuLevel extends Component {
   render() {
     const {
@@ -15,7 +26,8 @@ export class SubmenuLevel extends Component {
       link,
       onHeadingChange,
       style,
-      onStyleChange
+      onStyleChange,
+      minLevel,
     } = this.props;
 
     return (
@@ -24,15 +36,7 @@ export class SubmenuLevel extends Component {
         <SelectControl
           label={__('Submenu item', 'planet4-blocks')}
           value={heading}
-          options={[
-            { label: __('None', 'planet4-blocks'), value: 0 },
-            { label: __('Heading 1', 'planet4-blocks'), value: 1 },
-            { label: __('Heading 2', 'planet4-blocks'), value: 2 },
-            { label: __('Heading 3', 'planet4-blocks'), value: 3 },
-            { label: __('Heading 4', 'planet4-blocks'), value: 4 },
-            { label: __('Heading 5', 'planet4-blocks'), value: 5 },
-            { label: __('Heading 6', 'planet4-blocks'), value: 6 },
-          ]}
+          options={getHeadingOptions(minLevel)}
           onChange={e => onHeadingChange(index, e)}
         />
 
