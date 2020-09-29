@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, PanelBody, SelectControl } from '@wordpress/components';
+import { Button, ButtonGroup, PanelBody } from '@wordpress/components';
 import assign from 'lodash.assign';
 
 const { addFilter } = wp.hooks;
@@ -95,17 +95,6 @@ const addExtraControls = function() {
               title={ __( 'Planet4 Image Options' ) }
               initialOpen={ true }
             >
-              <SelectControl
-                label={ __( 'Caption Style' ) }
-                value={ captionStyle }
-                options={ captionStyleOptions }
-                onChange={ ( selectedCaptionStyle ) => {
-                  props.setAttributes( {
-                    captionStyle: selectedCaptionStyle,
-                  } );
-                } }
-              />
-
               <label>Caption alignment</label>
               <ButtonGroup>
               {
