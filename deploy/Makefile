@@ -43,7 +43,7 @@ endif
 REVISION_TAG = $(shell git rev-parse --short HEAD)
 
 
-test:
+lint:
 	# yamllint .circleci/config.yml
 	yamllint values.yaml
 	yamllint env/dev/values.yaml
@@ -52,14 +52,15 @@ test:
 pull:
 	docker pull gcr.io/planet-4-151612/openresty:latest
 
-checkout-master:
+checkout:
 	rsync -av /home/circleci/app/ $(APP_SOURCE)/ --exclude=deploy
+
+checkout-master: checkout
 	echo $${CIRCLE_SHA1:0:8} > $(APP_SOURCE)/version.txt
 	yq -r .hostname /home/circleci/app/deploy/env/dev/values.yaml | tr -d '\n' > $(APP_SOURCE)/hostname.txt
 	yq -r .hostpath /home/circleci/app/deploy/env/dev/values.yaml | tr -d '\n' > $(APP_SOURCE)/hostpath.txt
 
-checkout-tag:
-	rsync -av /home/circleci/app/ $(APP_SOURCE)/ --exclude=deploy
+checkout-tag: checkout
 	echo ${CIRCLE_TAG} > $(APP_SOURCE)/version.txt
 	yq -r .hostname /home/circleci/app/deploy/env/prod/values.yaml | tr -d '\n' > $(APP_SOURCE)/hostname.txt
 	yq -r .hostpath /home/circleci/app/deploy/env/prod/values.yaml | tr -d '\n' > $(APP_SOURCE)/hostpath.txt
@@ -68,9 +69,28 @@ docker/public:
 	cd docker/source ; npm install
 	sudo npm install -g gulp-cli
 	cd docker/source ; gulp build
-	mv docker/source/dist docker/public
+	cp -R docker/source/dist docker/public
 
-build: test pull docker/public echo-build
+build: docker/public
+
+.PHONY: test-a11y
+test-a11y: install-pa11y
+	cd docker/source ; gulp & sleep 3
+	cd docker/source ; gulp test
+
+.PHONY: install-pa11y
+install-pa11y: install-puppeteer-deps
+	npm install pa11y-ci pa11y-ci-reporter-html
+
+.PHONY: install-puppeteer-deps
+install-puppeteer-deps:
+	sudo apt-get update && sudo apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 \
+	libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 \
+	libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 \
+	libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 \
+	ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
+
+docker-build: lint pull docker/public echo-build
 	docker build --tag=greenpeaceinternational/p4-styleguide:$(BUILD_NUM) docker
 
 docker-push:
@@ -87,7 +107,7 @@ prod-config:
 echo-build:
 	$(info BUILD_NUM is [${BUILD_NUM}])
 
-dev: test dev-config
+dev: lint dev-config
 	helm init --client-only
 	helm repo add p4 https://planet4-helm-charts.storage.googleapis.com && \
 	helm repo update
@@ -97,7 +117,7 @@ dev: test dev-config
 		--values values.yaml \
 		--values env/dev/values.yaml
 
-prod: test prod-config
+prod: lint prod-config
 	helm init --client-only
 	helm repo add p4 https://planet4-helm-charts.storage.googleapis.com && \
 	helm repo update

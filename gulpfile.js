@@ -110,6 +110,30 @@ function render() {
   });
 }
 
+function a11y_test(done) {
+  const report_dest = './pa11y/';
+  const report_filename = 'report.json';
+
+  const pa11yCi = require('pa11y-ci');
+  const htmlReporter = require('pa11y-ci-reporter-html');
+  const a11yConf = JSON.parse(fs.readFileSync('.pa11y'));
+
+  Promise.resolve()
+    .then(() => {
+      return pa11yCi(a11yConf.urls, a11yConf.defaults);
+    })
+    .then(results => {
+      if(!fs.existsSync(report_dest)) {
+        fs.mkdirSync(report_dest);
+      }
+
+      fs.writeFileSync(report_dest + report_filename, JSON.stringify(results));
+      htmlReporter(report_dest + report_filename, report_dest, {includeZeroIssues: true});
+    });
+  
+  done();
+}
+
 function watch() {
   gulp.watch([kss_scss, style_scss], gulp.series(lint_css, kss_sass, style_sass, render));
 }
@@ -123,4 +147,5 @@ function serve() {
 }
 
 exports.build = gulp.series(lint_css, kss_sass, style_sass, icons, render);
+exports.test = a11y_test;
 exports.default = gulp.parallel(watch, serve);

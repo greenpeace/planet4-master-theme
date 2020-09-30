@@ -3,3 +3,4 @@ node_modules
 dist
 *.css.map
 *.css
+pa11y
