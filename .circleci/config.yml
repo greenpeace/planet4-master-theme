@@ -10,8 +10,8 @@ workflows:
           context: org-global
       - a11y-tests:
           context: org-global
-      - rips-test:
-          context: rips-scans
+      - create-release-zip:
+          context: org-global
           filters:
             branches:
               ignore: /.*/
@@ -83,7 +83,7 @@ job-references:
 
 commands:
   install-instance:
-    steps:  
+    steps:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
@@ -114,7 +114,7 @@ commands:
       extract-command:
         type: string
     steps:
-      - run: 
+      - run:
           name: << parameters.test-name >>
           command: << parameters.test-command >>
       - run:
@@ -183,11 +183,44 @@ jobs:
             errors=$(jq '.["results"] | .[] | unique_by(.["type"]) | map(select(.["type"] == "error")) | .[]' planet4-docker-compose/artifacts/pa11y/pa11y-ci-results.json)
             if [ ! -z "${errors}" ]; then echo "Errors found, see report in artifacts." && exit 1; else echo "No errors, report available in artifacts."; fi
 
-  rips-test:
+  create-release-zip:
     docker:
-      - image: rips/rips-cli:3
-    environment:
-      RIPS_APPLICATION_ID: 5
+      - image: mhart/alpine-node
     steps:
+      - run: apk add curl zip git openssh-client jq python make g++
       - checkout
-      - run: rips-cli -vvv rips:scan:start -a $RIPS_APPLICATION_ID -p ~/project/ -t 1
+      - run: git submodule init && git submodule update
+      - run: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
+      - run: npm run build
+      - run:
+          name: "Remove files we don't want in the zip file."
+          command: rm -rf .circleci .git .githooks assets/src bin tests
+      - run: mkdir -p /tmp/workspace/
+      # Exclude node_modules instead of removing, which takes a long time (lots of small files).
+      - run:
+          name: "Create zip file"
+          command: zip -r /tmp/workspace/planet4-plugin-gutenberg-blocks.zip . -x "node_modules/*"
+      - run:
+          name: "Zip file size sanity check"
+          command: |
+            ls -lh /tmp/workspace/planet4-plugin-gutenberg-blocks.zip
+            if [ $(wc -c </tmp/workspace/planet4-plugin-gutenberg-blocks.zip) -ge 5000000 ]; then
+              echo "Zip file size exceeds 5MB, probably something went wrong."
+              exit 1
+            fi
+      - run:
+          name: "Get upload url for this tag"
+          command: |
+            curl https://api.github.com/repos/greenpeace/planet4-plugin-gutenberg-blocks/releases/tags/${CIRCLE_TAG} |
+                jq -r .upload_url |
+                sed 's/{.*}/?name=planet4-plugin-gutenberg-blocks.zip/' > /tmp/workspace/upload_url
+            cat /tmp/workspace/upload_url
+      - run:
+          name: "Upload zip file"
+          command: |
+            curl \
+                --fail \
+                -H "Authorization: token ${GITHUB_RELEASES_TOKEN}" \
+                -H "Content-Type: application/zip" \
+                --data-binary @/tmp/workspace/planet4-plugin-gutenberg-blocks.zip \
+                "$(cat /tmp/workspace/upload_url)" | jq
