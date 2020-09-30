@@ -53,16 +53,20 @@ class Gallery extends Base_Block {
 						'default' => 0,
 					],
 					'gallery_block_title'        => [
-						'type' => 'string',
+						'type'    => 'string',
+						'default' => '',
 					],
 					'gallery_block_description'  => [
-						'type' => 'string',
+						'type'    => 'string',
+						'default' => '',
 					],
 					'multiple_image'             => [
-						'type' => 'string',
+						'type'    => 'string',
+						'default' => '',
 					],
 					'gallery_block_focus_points' => [
-						'type' => 'string',
+						'type'    => 'string',
+						'default' => '',
 					],
 					'image_data'                 => [
 						'type'    => 'array',
@@ -106,7 +110,7 @@ class Gallery extends Base_Block {
 	public static function get_images( $fields ): array {
 		$images = [];
 
-		if ( isset( $fields['multiple_image'] ) ) {
+		if ( isset( $fields['multiple_image'] ) && '' !== $fields['multiple_image'] ) {
 			$exploded_images = explode( ',', $fields['multiple_image'] );
 		} else {
 			$exploded_images = [];
