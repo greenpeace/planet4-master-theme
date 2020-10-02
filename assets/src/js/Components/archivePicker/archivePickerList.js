@@ -30,7 +30,7 @@ export const archivePickerList = () => ( imagePicker ) => {
           width={ 200 * ( original.width / original.height ) }
           height={ 200 }
           onClick={ ( event ) =>
-            event.ctrlKey
+            (event.ctrlKey || event.metaKey) // metaKey for Mac users
               ? toggleMultiSelection( image )
               : toggleSingleSelection( image )
           }
