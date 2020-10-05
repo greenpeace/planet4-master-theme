@@ -44,7 +44,9 @@ export const SplittwocolumnsFrontend = ({
         <div className="split-two-column-item-content">
           {title && issue_link_path &&
             <h2 className="split-two-column-item-title">
-              <a href={issue_link_path} {...analytics('Category Title')}>{title}</a>
+              <a href={issue_link_path} {...analytics('Category Title')}
+                dangerouslySetInnerHTML={{__html: title}} 
+              />
             </h2>
           }
           {title && !issue_link_path &&
@@ -58,9 +60,9 @@ export const SplittwocolumnsFrontend = ({
           {issue_link_text && issue_link_path &&
             <a className="split-two-column-item-link" 
                href={issue_link_path} 
-               {...analytics('Text Link')}>
-              {issue_link_text}
-            </a>
+               {...analytics('Text Link')}
+               dangerouslySetInnerHTML={{__html: issue_link_text}}
+            />
           }
         </div>
       </div>
@@ -77,9 +79,9 @@ export const SplittwocolumnsFrontend = ({
           {tag_name &&
             <a className="split-two-column-item-tag" 
                href={tag_link}
-               {...analytics('Tag Title')}>
-              <span aria-label="hashtag">#</span>{tag_name}
-            </a>
+               {...analytics('Tag Title')}
+               dangerouslySetInnerHTML={{__html: `<span aria-label="hashtag">#</span>${tag_name}`}} 
+            />
           }
           {tag_description &&
             <p className="split-two-column-item-subtitle"
@@ -89,9 +91,9 @@ export const SplittwocolumnsFrontend = ({
           {button_text && button_link &&
             <a className="btn btn-small btn-primary btn-block split-two-column-item-button"
                 href={button_link}
-                {...analytics('Call to Action')}>
-              {button_text}
-            </a>
+                {...analytics('Call to Action')}
+                dangerouslySetInnerHTML={{__html: button_text}}
+            />
           }
         </div>
       </div>
