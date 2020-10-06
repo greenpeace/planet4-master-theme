@@ -182,8 +182,8 @@ jobs:
             export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
             export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
             make -C planet4-docker-compose ci-extract-a11y-artifacts
-            errors=$(jq '.["results"] | .[] | unique_by(.["type"]) | map(select(.["type"] == "error")) | .[]' planet4-docker-compose/artifacts/pa11y/pa11y-ci-results.json)
-            if [ ! -z "${errors}" ]; then echo "Errors found, see report in artifacts."; else echo "No errors, report available in artifacts."; fi
+            errors=$(jq '.errors' planet4-docker-compose/artifacts/pa11y/pa11y-ci-results.json)
+            if [ "$errors" -gt 0 ]; then echo "$errors errors found, see report in artifacts."; else echo "No errors, report available in artifacts."; fi
 
   create-release-zip:
     docker:
