@@ -1,4 +1,6 @@
 /* global cssVars */
 export const setupCSSVarsPonyfill = () => {
-  cssVars();
+  if ('undefined' !== typeof cssVars) {
+    cssVars();
+  }
 };
