@@ -355,7 +355,7 @@ abstract class Search {
 		$posts = $this->query_posts( $paged );
 
 		if ( empty( $posts ) ) {
-			status_header( 204 );
+			add_action( 'wp_head', 'wp_no_robots' );
 			return [];
 		}
 
