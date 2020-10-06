@@ -34,7 +34,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 	 * @dataProvider carousel_header_shortcodes_provider
 	 * @dataProvider columns_shortcodes_provider
 	 * @dataProvider covers_shortcodes_provider
-	 * @dataProvider gallery_shortcodes_provider
 	 * @dataProvider media_shortcodes_provider
 	 * @dataProvider social_media_shortcodes_provider
 	 * @dataProvider submenu_shortcodes_provider
@@ -288,59 +287,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 				'[shortcake_enblock en_page_id="44940" enform_goal="Petition Signup" en_form_style="side-style" background="2797" title="阻止破壞北極" description="今天立即加入全球行動！" content_title="阻止破壞北極 今天立即加入全球行動！	" content_description="全賴有您，守護北極的力量日益強大。我們團結一起，讓守護北極的呼聲，揚得更遠！" button_text="立即聯署" thankyou_title="多謝您的聯署" en_form_id="2783" /]',
 
 				'<!-- wp:planet4-blocks/enform {"en_page_id":44940,"enform_goal":"Petition Signup","en_form_style":"side-style","background":2797,"title":"\u963b\u6b62\u7834\u58de\u5317\u6975","description":"\u4eca\u5929\u7acb\u5373\u52a0\u5165\u5168\u7403\u884c\u52d5\uff01","content_title":"\u963b\u6b62\u7834\u58de\u5317\u6975 \u4eca\u5929\u7acb\u5373\u52a0\u5165\u5168\u7403\u884c\u52d5\uff01\t","content_description":"\u5168\u8cf4\u6709\u60a8\uff0c\u5b88\u8b77\u5317\u6975\u7684\u529b\u91cf\u65e5\u76ca\u5f37\u5927\u3002\u6211\u5011\u5718\u7d50\u4e00\u8d77\uff0c\u8b93\u5b88\u8b77\u5317\u6975\u7684\u547c\u8072\uff0c\u63da\u5f97\u66f4\u9060\uff01","button_text":"\u7acb\u5373\u806f\u7f72","thankyou_title":"\u591a\u8b1d\u60a8\u7684\u806f\u7f72","en_form_id":2783} /-->',
-			],
-		];
-	}
-
-	/**
-	 * Planet4 blocks shortocodes provider.
-	 *
-	 * @return array
-	 */
-	public function gallery_shortcodes_provider(): array {
-		return [
-			// 1-5
-			[
-				'[shortcake_gallery gallery_block_style="1" multiple_image="340,341,342,343,344" /]',
-
-				'<!-- wp:planet4-blocks/gallery {"gallery_block_style":1,"multiple_image":"340,341,342,343,344"} /-->',
-			],
-
-			[
-				'[shortcake_gallery gallery_block_style="1" gallery_block_title="Defending forests around the world" multiple_image="20702,20751,20750" /]',
-
-				'<!-- wp:planet4-blocks/gallery {"gallery_block_style":1,"gallery_block_title":"Defending forests around the world","multiple_image":"20702,20751,20750"} /-->',
-			],
-			[
-
-				'[shortcake_gallery gallery_block_style="1" gallery_block_title="Gallery Block Title" gallery_block_description="Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard." multiple_image="344,343,342,341" gallery_block_focus_points="{\'344\':\'left top\',\'343\':\'left top\',\'342\':\'left top\',\'341\':\'left top\'}" /]',
-
-				'<!-- wp:planet4-blocks/gallery {"gallery_block_style":1,"gallery_block_title":"Gallery Block Title","gallery_block_description":"Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.","multiple_image":"344,343,342,341","gallery_block_focus_points":"{\"344\":\"0% 0%\",\"343\":\"0% 0%\",\"342\":\"0% 0%\",\"341\":\"0% 0%\"}"} /-->',
-			],
-			[
-
-				'[shortcake_gallery gallery_block_style="2" gallery_block_title="Gallery Block Title" gallery_block_description="Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard." multiple_image="344,343,342,341" gallery_block_focus_points="{\'344\':\'left top\',\'343\':\'left bottom\',\'342\':\'right center\',\'341\':\'right bottom\'}" /]',
-
-				'<!-- wp:planet4-blocks/gallery {"gallery_block_style":2,"gallery_block_title":"Gallery Block Title","gallery_block_description":"Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.","multiple_image":"344,343,342,341","gallery_block_focus_points":"{\"344\":\"0% 0%\",\"343\":\"0% 100%\",\"342\":\"100% 50%\",\"341\":\"100% 100%\"}"} /-->',
-			],
-
-			[
-
-				'[shortcake_gallery gallery_block_style="2" gallery_block_title="Our Vision" gallery_block_description="Fusce tempus tincidunt dui quis pharetra. Aliquam sed ornare lacus, et tincidunt velit. Aliquam eleifend ex gravida, vestibulum massa sit amet, semper libero. Proin eget nisl et lacus sagittis fringilla. Curabitur nec facilisis sem, lobortis convallis ipsum. Fusce quis purus purus. Sed ullamcorper ligula at eleifend ullamcorper." multiple_image="84,82,92" /]',
-
-				'<!-- wp:planet4-blocks/gallery {"gallery_block_style":2,"gallery_block_title":"Our Vision","gallery_block_description":"Fusce tempus tincidunt dui quis pharetra. Aliquam sed ornare lacus, et tincidunt velit. Aliquam eleifend ex gravida, vestibulum massa sit amet, semper libero. Proin eget nisl et lacus sagittis fringilla. Curabitur nec facilisis sem, lobortis convallis ipsum. Fusce quis purus purus. Sed ullamcorper ligula at eleifend ullamcorper.","multiple_image":"84,82,92"} /-->',
-			],
-
-			[
-				'[shortcake_gallery gallery_block_style="3" gallery_block_title="Gallery Block Title" gallery_block_description="Celery quandong swiss chard chicory earthnut pea potato." multiple_image="445,444,443,442" gallery_block_focus_points="{\'442\':\'left top\',\'443\':\'left top\',\'444\':\'left top\',\'445\':\'left top\'}" /]',
-
-				'<!-- wp:planet4-blocks/gallery {"gallery_block_style":3,"gallery_block_title":"Gallery Block Title","gallery_block_description":"Celery quandong swiss chard chicory earthnut pea potato.","multiple_image":"445,444,443,442","gallery_block_focus_points":"{\"442\":\"0% 0%\",\"443\":\"0% 0%\",\"444\":\"0% 0%\",\"445\":\"0% 0%\"}"} /-->',
-			],
-
-			[
-				'[shortcake_gallery gallery_block_style="3" gallery_block_title="Our Ships in Action" gallery_block_description="For nearly 50 years, Greenpeace has been sailing the world\'s oceans protecting our planet and fighting for environmental justice. <a href=\'/international/explore/ships/\'>Learn more about our fleet.</a>" multiple_image="340,341,342,343,24165,24161,24160,24159,24164,24166,24163,24162" gallery_block_focus_points="{\'340\':\'left top\',\'341\':\'right bottom\',\'342\':\'right top\',\'343\':\'center center\',\'24159\':\'center center\',\'24160\':\'center top\',\'24161\':\'center center\',\'24162\':\'left center\',\'24163\':\'center center\',\'24164\':\'center center\',\'24165\':\'center top\',\'24166\':\'center center\'}" /]',
-
-				'<!-- wp:planet4-blocks/gallery {"gallery_block_style":3,"gallery_block_title":"Our Ships in Action","gallery_block_description":"For nearly 50 years, Greenpeace has been sailing the world\'s oceans protecting our planet and fighting for environmental justice. <a href=\'/international/explore/ships/\'>Learn more about our fleet.</a>","multiple_image":"340,341,342,343,24165,24161,24160,24159,24164,24166,24163,24162","gallery_block_focus_points":"{\"340\":\"0% 0%\",\"341\":\"100% 100%\",\"342\":\"100% 0%\",\"343\":\"50% 50%\",\"24159\":\"50% 50%\",\"24160\":\"50% 0%\",\"24161\":\"50% 50%\",\"24162\":\"0% 50%\",\"24163\":\"50% 50%\",\"24164\":\"50% 50%\",\"24165\":\"50% 0%\",\"24166\":\"50% 50%\"}"} /-->',
 			],
 		];
 	}

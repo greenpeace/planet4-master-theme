@@ -12,51 +12,6 @@ export class GalleryBlock {
         title: __('Gallery', 'p4ge'),
         icon: 'format-gallery',
         category: 'planet4-blocks',
-        /**
-         * Transforms old 'shortcake' shortcode to new gutenberg block.
-         *
-         * old block-shortcode:
-         * [shortcake_gallery gallery_block_style="2" gallery_block_title="test title"
-         *                    gallery_block_description="test desc" multiple_image="23603,23602,23600,23596"
-         *                    gallery_block_focus_points="{'23596':'left top','23597':'left top','23599':'left top'}"
-         * /]
-         *
-         * new block-gutenberg:
-         * <!-- wp:planet4-blocks/gallery {"gallery_block_style":3,"gallery_block_title":"test title","gallery_block_description":"test desc",
-         *      "multiple_image":"23603,23602,23600,23596"} /-->
-         *
-         */
-        transforms: {
-          from: [
-            {
-              type: 'shortcode',
-              // Shortcode tag can also be an array of shortcode aliases
-              tag: 'shortcake_gallery',
-              attributes: {
-                gallery_block_style: {
-                  type: 'integer',
-                  shortcode: ({named: {gallery_block_style = ''}}) => Number(gallery_block_style),
-                },
-                gallery_block_title: {
-                  type: 'string',
-                  shortcode: ({named: {gallery_block_title = ''}}) => gallery_block_title,
-                },
-                gallery_block_description: {
-                  type: 'string',
-                  shortcode: ({named: {gallery_block_description = ''}}) => gallery_block_description,
-                },
-                multiple_image: {
-                  type: 'string',
-                  shortcode: ({named: {multiple_image = ''}}) => multiple_image,
-                },
-                gallery_block_focus_points: {
-                  type: 'string',
-                  shortcode: ({named: {gallery_block_focus_points = ''}}) => gallery_block_focus_points,
-                },
-              },
-            },
-          ]
-        },
         attributes: {
           gallery_block_style: {
             type: 'number',
