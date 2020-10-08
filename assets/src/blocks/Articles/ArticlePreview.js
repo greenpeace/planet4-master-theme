@@ -41,7 +41,7 @@ export class ArticlePreview extends Component {
 
     if (authorName) {
       return (
-        <span className="article-list-item-author">{__('by', 'planet4-blocks')}{' '}
+        <span className="article-list-item-author">
           {!isLink ?
             authorName
             :
