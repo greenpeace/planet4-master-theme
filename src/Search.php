@@ -356,6 +356,9 @@ abstract class Search {
 
 		if ( empty( $posts ) ) {
 			add_action( 'wp_head', 'wp_no_robots' );
+			if ( ! headers_sent() ) {
+				header( 'P4-Search: no-results' );
+			}
 			return [];
 		}
 
