@@ -22,6 +22,10 @@ job-references:
   mysql_image: &mysql_image
     circleci/mysql:5.7
 
+  docker_auth: &docker_auth
+    username: $DOCKERHUB_USERNAME
+    password: $DOCKERHUB_PASSWORD
+
   setup_environment: &setup_environment
     name: "Setup Environment Variables"
     command: |
@@ -69,6 +73,7 @@ job-references:
   p4_instance_conf: &p4_instance_conf
     docker:
       - image: greenpeaceinternational/p4-builder:latest
+        auth: &docker_auth
     working_directory: /home/circleci/
     environment:
       APP_HOSTNAME: www.planet4.test
@@ -139,13 +144,17 @@ jobs:
     <<: *php_job
     docker:
       - image: greenpeaceinternational/p4-unit-tests:php7.2-develop
+        auth: &docker_auth
       - image: *mysql_image
+        auth: &docker_auth
 
   php73-tests:
     <<: *php_job
     docker:
       - image: greenpeaceinternational/p4-unit-tests:php7.3-develop
+        auth: &docker_auth
       - image: *mysql_image
+        auth: &docker_auth
 
   acceptance-tests:
     <<: *p4_instance_conf
@@ -186,6 +195,7 @@ jobs:
   create-release-zip:
     docker:
       - image: mhart/alpine-node
+        auth: &docker_auth
     steps:
       - run: apk add curl zip git openssh-client jq python make g++
       - checkout
