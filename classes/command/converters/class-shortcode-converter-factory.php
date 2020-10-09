@@ -26,8 +26,6 @@ class Shortcode_Converter_Factory {
 				return new Columns_Converter( $shortcode_name, $attributes );
 			case 'shortcake_enblock':
 				return new ENBlock_Converter( $shortcode_name, $attributes );
-			case 'shortcake_gallery':
-				return new Gallery_Converter( $shortcode_name, $attributes );
 			case 'shortcake_happy_point':
 				return new HappyPoint_Converter( $shortcode_name, $attributes );
 			case 'shortcake_newcovers':

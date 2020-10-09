@@ -35,57 +35,38 @@ class Gallery extends Base_Block {
 	const LAYOUT_GRID          = 3;
 
 	/**
-	 * Register shortcake shortcode.
-	 *
-	 * @param array  $attributes Shortcode attributes.
-	 * @param string $content   Content.
-	 *
-	 * @return mixed
-	 */
-	public function add_block_shortcode( $attributes, $content ) {
-
-		$attributes = shortcode_atts(
-			[
-				'gallery_block_style'        => '',
-				'gallery_block_title'        => '',
-				'gallery_block_description'  => '',
-				'multiple_image'             => '',
-				'gallery_block_focus_points' => '',
-			],
-			$attributes,
-			'shortcake_gallery'
-		);
-
-		return $this->render( $attributes );
-	}
-
-	/**
 	 * Gallery constructor.
 	 */
 	public function __construct() {
-		add_shortcode( 'shortcake_gallery', [ $this, 'add_block_shortcode' ] );
-
 		register_block_type(
 			'planet4-blocks/gallery',
 			[
 				'editor_script'   => 'planet4-blocks',
-				'render_callback' => [ $this, 'render' ],
+				// todo: Remove when all content is migrated.
+				'render_callback' => static function ( $attributes ) {
+					$json = wp_json_encode( [ 'attributes' => $attributes ] );
+					return '<div data-render="planet4-blocks/gallery" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+				},
 				'attributes'      => [
-					'gallery_block_style'        => [
+					'gallery_block_style'        => [ // Needed for existing blocks conversion.
 						'type'    => 'integer',
-						'default' => 1,
+						'default' => 0,
 					],
 					'gallery_block_title'        => [
-						'type' => 'string',
+						'type'    => 'string',
+						'default' => '',
 					],
 					'gallery_block_description'  => [
-						'type' => 'string',
+						'type'    => 'string',
+						'default' => '',
 					],
 					'multiple_image'             => [
-						'type' => 'string',
+						'type'    => 'string',
+						'default' => '',
 					],
 					'gallery_block_focus_points' => [
-						'type' => 'string',
+						'type'    => 'string',
+						'default' => '',
 					],
 					'image_data'                 => [
 						'type'    => 'array',
@@ -111,20 +92,25 @@ class Gallery extends Base_Block {
 	}
 
 	/**
-	 * Get all the data that will be needed to render the block correctly.
+	 * Required by the `Base_Block` class.
+	 *
+	 * @param array $fields Unused, required by the abstract function.
+	 */
+	public function prepare_data( $fields ): array {
+		return [];
+	}
+
+	/**
+	 * Get the images data that will be needed to render the block correctly.
 	 *
 	 * @param array $fields This is the array of fields of this block.
 	 *
-	 * @return array The data to be passed in the View.
+	 * @return array The images to be passed in the View.
 	 */
-	public function prepare_data( $fields ): array {
+	public static function get_images( $fields ): array {
+		$images = [];
 
-		$gallery_style       = $fields['gallery_block_style'] ?? static::LAYOUT_SLIDER;
-		$gallery_title       = $fields['gallery_block_title'] ?? '';
-		$gallery_description = $fields['gallery_block_description'] ?? '';
-		$images              = [];
-
-		if ( isset( $fields['multiple_image'] ) ) {
+		if ( isset( $fields['multiple_image'] ) && '' !== $fields['multiple_image'] ) {
 			$exploded_images = explode( ',', $fields['multiple_image'] );
 		} else {
 			$exploded_images = [];
@@ -144,7 +130,7 @@ class Gallery extends Base_Block {
 		];
 
 		foreach ( $exploded_images as $image_id ) {
-			$image_size = $image_sizes[ $fields['gallery_block_style'] ];
+			$image_size = $fields['gallery_image_size'] ? $fields['gallery_image_size'] : $image_sizes[ $fields['gallery_block_style'] ];
 			$image_data = [];
 
 			$image_data_array           = wp_get_attachment_image_src( $image_id, $image_size );
@@ -171,19 +157,6 @@ class Gallery extends Base_Block {
 			$images[] = $image_data;
 		}
 
-		$gallery_id = 'gallery_' . uniqid();
-
-		$post_type = get_post_type();
-
-		$data = [
-			'id'          => $gallery_id,
-			'layout'      => $gallery_style,
-			'title'       => $gallery_title,
-			'description' => $gallery_description,
-			'images'      => $images,
-			'post_type'   => $post_type,
-		];
-
-		return $data;
+		return $images;
 	}
 }

@@ -4,6 +4,7 @@ import { ArticlesFrontend } from './blocks/Articles/ArticlesFrontend';
 import { CookiesFrontend } from './blocks/Cookies/CookiesFrontend';
 import { SplittwocolumnsFrontend } from "./blocks/Splittwocolumns/SplittwocolumnsFrontend";
 import { HappypointFrontend } from './blocks/Happypoint/HappypointFrontend';
+import { GalleryFrontend } from './blocks/Gallery/GalleryFrontend';
 
 const COMPONENTS = {
   'planet4-blocks/spreadsheet': SpreadsheetFrontend,
@@ -12,6 +13,7 @@ const COMPONENTS = {
   'planet4-blocks/cookies': CookiesFrontend,
   'planet4-blocks/split-two-columns': SplittwocolumnsFrontend,
   'planet4-blocks/happypoint': HappypointFrontend,
+  'planet4-blocks/gallery': GalleryFrontend,
 };
 
 document.querySelectorAll( `[data-render]` ).forEach(

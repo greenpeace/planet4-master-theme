@@ -153,6 +153,7 @@
       border: unset;
       background: $white;
       cursor: pointer;
+      list-style: none;
 
       @include small-and-up {
         width: 12px;
