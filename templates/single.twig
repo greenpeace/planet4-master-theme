@@ -60,7 +60,6 @@
 						<div class="single-post-meta">
 							{% if post.author.name %}
 								<address class="single-post-author">
-									{{ __( 'by', 'planet4-master-theme' ) }}
 									{% if not ( post.get_author_override ) %}
 										<a href="{{ post.author.path }}">{{ post.author.name }}</a>
 									{% else %}
