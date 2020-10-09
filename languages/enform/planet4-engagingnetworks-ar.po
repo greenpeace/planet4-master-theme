@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Planet4 - EngagingNetworks Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-17 10:02+0000\n"
-"PO-Revision-Date: 2020-08-17 10:10+0000\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2019-07-04 13:53+0000\n"
+"PO-Revision-Date: 2020-10-09 08:22+0000\n"
+"Last-Translator: Nikos Roussos\n"
 "Language-Team: Arabic\n"
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100 >= 3 "
@@ -13,36 +13,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.4.2; wp-5.4.2"
+"X-Loco-Version: 2.4.3; wp-5.4.2"
 
-#: classes/blocks/class-enform.php:239
+#: classes/blocks/class-enform.php:251
 msgid "Donate"
 msgstr "تبرع"
 
-#: templates/blocks/enform.twig:59 templates/blocks/enform/enblock.twig:59
+#: includes/enblock.twig:59 includes/enform.twig:59
 msgid "Sign"
 msgstr "وقع/ي"
-
-#: templates/blocks/enform/country_select.twig:11
-msgid "Select Country or Region"
-msgstr "الرجاء تحديد البلد أو المنطقة"
-
-#: templates/blocks/enform/position_select.twig:8
-msgid "Select Affiliation, Position or Profession"
-msgstr "الرجاء تحديد المنصب أو المهنة"
-
-#: templates/blocks/enform/enform_post.twig:20
-msgid "This field is required"
-msgstr "هذه الخانة مطلوبه"
-
-#: templates/blocks/enform/enform_post.twig:31
-msgid "Please enter a valid e-mail address."
-msgstr "الرجاء أدخال بريد أليكترونى صحيح."
-
-#: templates/blocks/enform/enform_post.twig:149
-msgid "Please select a country."
-msgstr "إختر/ي الدولة"
-
-#: templates/blocks/enform/enform_post.twig:161
-msgid "Please select a position."
-msgstr "الرجاء تحديد الوظيفة."
