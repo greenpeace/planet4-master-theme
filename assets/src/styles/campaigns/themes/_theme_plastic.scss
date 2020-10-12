@@ -146,7 +146,7 @@ body.theme-plastic {
   }
 
   .carousel-wrap {
-    @include campaign_carousel(false, $plastics-blue-light, white, white, $plastics-blue, url("../../public/images/plastic/carousel-arrow.svg"), 50px, 10px);
+    @include campaign_carousel(false, white, $plastics-blue, url("../../public/images/plastic/carousel-arrow.svg"), 50px, 10px);
 
     h2 {
       font-size: 2.2rem;
@@ -154,10 +154,6 @@ body.theme-plastic {
 
     .carousel-indicators li {
       border-radius: 50%;
-    }
-
-    .carousel-caption {
-      background: linear-gradient(210deg, rgba(10, 51, 81, .2), $plastics-blue-light);
     }
   } // end .carousel-block
 

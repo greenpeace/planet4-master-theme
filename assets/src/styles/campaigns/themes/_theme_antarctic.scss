@@ -127,7 +127,7 @@ body.theme-antarctic {
   } // end .articles-block
 
   .carousel-wrap {
-    @include campaign_carousel(true, $antarctic-pink, white, #B5C7CF, $antarctic-purple, url("../../public/images/antarctic/carousel-arrow.svg"), 39px);
+    @include campaign_carousel(true, #B5C7CF, $antarctic-purple, url("../../public/images/antarctic/carousel-arrow.svg"), 39px);
   } // end .carousel-block
 
   .happy-point-block-wrap {

@@ -201,7 +201,7 @@ body.theme-forest {
   } // end .articles-block
 
   .carousel-wrap {
-    @include campaign_carousel(true, $forest-dark-green, white, $forest-grey, $forest-dark-green, url("../../public/images/forest/carousel-arrow.svg"), 28px, 10px);
+    @include campaign_carousel(true, $forest-grey, $forest-dark-green, url("../../public/images/forest/carousel-arrow.svg"), 28px, 10px);
 
     .carousel-indicators li {
       border-radius: 50%;
