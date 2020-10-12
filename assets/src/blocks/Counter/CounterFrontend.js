@@ -20,6 +20,11 @@ export class CounterFrontend extends Component {
     window.addEventListener('updateCounter', function () { counter.calculateRemaining(); }, false);
   }
 
+  componentWillUnmount() {
+    let counter = this;
+    window.removeEventListener('updateCounter', function () { counter.calculateRemaining(); }, false);
+  }
+
   componentDidUpdate({ target: prevTarget, completed: prevCompleted, completed_api: prevCompletedApi }) {
     // Update completed and remaining values depending on props
     const { target, completed, completed_api } = this.props;
