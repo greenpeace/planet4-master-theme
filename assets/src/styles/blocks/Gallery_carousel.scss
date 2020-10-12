@@ -23,6 +23,27 @@
   }
 
   .carousel-item {
+
+    @include mobile-only {
+      height: 265px;
+    }
+
+    @include small-and-up {
+      height: 365px;
+    }
+
+    @include medium-and-up {
+      height: 465px;
+    }
+
+    @include large-and-up {
+      height: 565px;
+    }
+
+    @include x-large-and-up {
+      height: 665px;
+    }
+
     .carousal-item-credit {
       position: absolute;
       right: 0;
@@ -34,9 +55,16 @@
     }
 
     img {
-      height: auto;
       width: 100%;
       object-fit: cover;
+
+      @include mobile-only {
+        height: 200px;
+      }
+
+      @include small-and-up {
+        height: 300px;
+      }
 
       @include medium-and-up {
         height: 400px;
@@ -63,54 +91,29 @@
   }
 
   .carousel-caption {
-    text-align: left;
-    left: auto;
-    bottom: 0;
+    position: relative;
+    padding: 0;
+    margin-top: 0.5em;
     right: 0;
-    width: 100%;
-    font-family: $roboto;
-    padding: $n30 200px $n30 $n50;
-    background: linear-gradient(210deg, rgba(10, 51, 81, 0.2) 0%, rgba(10, 51, 81, 1) 100%);
-    filter: progid:dximagetransform.microsoft.gradient(startColorstr="#0a3351", endColorstr="#0a3351", GradientType=1);
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#0A3351', endColorstr='#0A3351' ,GradientType=0)";
-
-    html[dir="rtl"] & {
-      text-align: right;
-    }
-
-    @include mobile-only {
-      position: relative;
-      z-index: 10;
-      padding: $n20 $n15 $n20;
-      color: $white;
-    }
-
-    @include medium-and-up {
-      padding: $n30;
-    }
-
-    h3 {
-      font-size: $font-size-sm;
-
-      @include medium-and-up {
-        font-size: 1.0625rem;
-        width: 60%;
-      }
-    }
+    bottom: 0;
+    left: 0;
 
     p {
+      color: $grey-60;
+      font-size: $font-size-xxs;
       font-family: $roboto;
-      font-size: 0.8125rem;
-
-      @include large-and-up {
-        width: 100%;
-      }
+      line-height: 1.4;
+      margin-bottom: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   }
 
   ol.carousel-indicators {
     right: 25%;
-    bottom: 80px;
+    top: 180px;
     left: auto;
 
     html[dir="rtl"] & {
@@ -119,14 +122,14 @@
     }
 
     @include mobile-only {
-      bottom: 0;
       right: 0;
       left: 0;
+      top: 180px;
     }
 
     @include small-and-up {
-      bottom: 30px;
       right: 0;
+      top: 270px;
 
       html[dir="rtl"] & {
         left: 0;
@@ -135,13 +138,21 @@
     }
 
     @include medium-and-up {
-      bottom: 10px;
       margin-right: 2%;
+      top: 360px;
 
       html[dir="rtl"] & {
         margin-right: inherit;
         margin-left: 2%;
       }
+    }
+
+    @include large-and-up {
+      top: 460px;
+    }
+
+    @include x-large-and-up {
+      top: 560px;
     }
 
     li {
