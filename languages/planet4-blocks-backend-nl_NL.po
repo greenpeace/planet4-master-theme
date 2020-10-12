@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-07 10:10+0000\n"
-"PO-Revision-Date: 2020-04-20 14:07+0000\n"
+"PO-Revision-Date: 2020-10-12 11:37+0000\n"
 "Last-Translator: Oscar Keur\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.3.3; wp-5.4"
+"X-Loco-Version: 2.4.3; wp-5.4.2"
 
 #: classes/class-loader.php:90
 msgid "Requirements Error(s)"
@@ -343,55 +343,55 @@ msgstr ""
 #: classes/controller/blocks/class-carouselheader-controller.php:48
 #: classes/controller/blocks/class-happypoint-controller.php:38
 msgid "1 - Top Left"
-msgstr ""
+msgstr "1- Linksboven"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:25
 #: classes/controller/blocks/class-carouselheader-controller.php:49
 #: classes/controller/blocks/class-happypoint-controller.php:42
 msgid "2 - Top Center"
-msgstr ""
+msgstr "2 - Midden boven"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:26
 #: classes/controller/blocks/class-carouselheader-controller.php:50
 #: classes/controller/blocks/class-happypoint-controller.php:46
 msgid "3 - Top Right"
-msgstr ""
+msgstr "3- Rechtsboven"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:27
 #: classes/controller/blocks/class-carouselheader-controller.php:51
 #: classes/controller/blocks/class-happypoint-controller.php:50
 msgid "4 - Middle Left"
-msgstr ""
+msgstr "4 - Links midden"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:28
 #: classes/controller/blocks/class-carouselheader-controller.php:52
 #: classes/controller/blocks/class-happypoint-controller.php:54
 msgid "5 - Middle Center"
-msgstr ""
+msgstr "5 - Midden midden"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:29
 #: classes/controller/blocks/class-carouselheader-controller.php:53
 #: classes/controller/blocks/class-happypoint-controller.php:58
 msgid "6 - Middle Right"
-msgstr ""
+msgstr "6 - Midden rechts"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:30
 #: classes/controller/blocks/class-carouselheader-controller.php:54
 #: classes/controller/blocks/class-happypoint-controller.php:62
 msgid "7 - Bottom Left"
-msgstr ""
+msgstr "7 - Linksonder"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:31
 #: classes/controller/blocks/class-carouselheader-controller.php:55
 #: classes/controller/blocks/class-happypoint-controller.php:66
 msgid "8 - Bottom Center"
-msgstr ""
+msgstr "8 - Midden onder"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:32
 #: classes/controller/blocks/class-carouselheader-controller.php:56
 #: classes/controller/blocks/class-happypoint-controller.php:70
 msgid "9 - Bottom Right"
-msgstr ""
+msgstr "9 - Rechtsonder"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:68
 msgid "Issue fields (Column 1 - Left side)"
