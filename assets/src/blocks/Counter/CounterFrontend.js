@@ -13,16 +13,22 @@ export class CounterFrontend extends Component {
   }
 
   componentDidMount() {
+    const { completed_api } = this.props;
     // Calculate completed and remaining values depending on props
     let counter = this;
     counter.calculateRemaining();
     // Add an eventListener to the window to enable instantly updating counters with supported APIs
-    window.addEventListener('updateCounter', function () { counter.calculateRemaining(); }, false);
+    if (completed_api && completed_api.startsWith('https://')) {
+      window.addEventListener('updateCounter', function () { counter.calculateRemaining(); }, false);
+    }
   }
 
   componentWillUnmount() {
+    const { completed_api } = this.props;
     let counter = this;
-    window.removeEventListener('updateCounter', function () { counter.calculateRemaining(); }, false);
+    if (completed_api && completed_api.startsWith('https://')) {
+      window.removeEventListener('updateCounter', function () { counter.calculateRemaining(); }, false);
+    }
   }
 
   componentDidUpdate({ target: prevTarget, completed: prevCompleted, completed_api: prevCompletedApi }) {
