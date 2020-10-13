@@ -1,151 +1,115 @@
-const {__} = wp.i18n;
-import { Component, Fragment } from '@wordpress/element';
-import { ImagePicker } from './ImagePicker';
-import { archivePickerSidebar } from './archivePicker/archivePickerSidebar';
-import { archivePickerList } from './archivePicker/archivePickerList';
+const { __ } = wp.i18n;
+import classNames from 'classnames';
+import { useState, Fragment, useEffect } from '@wordpress/element';
+import { useImages } from './archivePicker/useImages';
+import { ArchivePickerList } from './archivePicker/ArchivePickerList';
+import { SingleSidebar } from './archivePicker/SingleSidebar';
+import { MultiSidebar } from './archivePicker/MultiSidebar';
 
-const { apiFetch } = wp;
-const { addQueryArgs } = wp.url;
+const isNearScrollEnd = (event) => {
+  const { scrollHeight, scrollTop, clientHeight } = event.target;
+  const tillEnd = (scrollHeight - scrollTop - clientHeight) / scrollHeight;
 
-class ArchivePicker extends Component {
+  return tillEnd < 0.2;
+};
 
-  constructor( props ) {
-    super( props );
-    this.state = {
-      loading: true,
-      error: null,
-      images: [],
-      currentPage: 0,
-      filters: {},
-      searchText: null,
-    };
-    this.loadNextPage = this.loadNextPage.bind( this );
-    this.updateFromUploadedResponse = this.updateFromUploadedResponse.bind( this );
-    this.search = this.search.bind( this );
-    this.includeInWp = this.includeInWp.bind( this );
-  }
+const ArchivePicker = () => {
+  const [searchText, setSearchText] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [enteredSearch, setEnteredSearch] = useState(null);
+  const [selectedIds, setSelectedIds] = useState([]);
 
-  async componentDidMount() {
-    await this.loadNextPage();
-  }
+  const {
+    loading,
+    error,
+    loadPage,
+    getSelectedImages,
+    images,
+    processingError,
+    processingImages,
+    includeInWp,
+  } = useImages();
 
-  async fetchImages( args ) {
-    return apiFetch( {
-      path: addQueryArgs( '/planet4/v1/image-archive/fetch', args ),
-    } );
-  }
+  const isSelected = image => selectedIds.includes(image.id);
 
-  async loadNextPage( newSearch = false ) {
-    this.setState( { loading: true } );
+  const isOnlySelected = image => selectedIds.length === 1 && selectedIds.includes(image.id);
 
-    const pageIndex = newSearch ? 1 : this.state.currentPage + 1;
-    const searchedText = newSearch ? this.state.enteredSearch : this.state.searchText;
+  const toggleSingleSelection = target => setSelectedIds(isOnlySelected(target) ? [] : [target.id]);
 
-    try {
-      const nextImages = await this.fetchImages( {
-        page: pageIndex,
-        search_text: searchedText,
-      } );
-      const withPageLabel = nextImages.map( image => ( {
-        ...image,
-        pagedTitle: `${ pageIndex } -- ${ image.title }`
-      } ) );
-      this.setState( {
-        currentPage: pageIndex,
-        images: [
-          ...( newSearch ? [] : this.state.images ),
-          ...withPageLabel
-        ],
-        searchText: searchedText,
-      } );
-    } catch ( error ) {
-      this.setState( { error } );
-    } finally {
-      this.setState( { loading: false } );
-    }
-  }
+  const toggleMultiSelection = target => setSelectedIds(
+    selectedIds.includes(target.id)
+      ? selectedIds.filter(id => id !== target.id)
+      : [...selectedIds, target.id]
+  );
 
-  async includeInWp( ids ) {
-    try {
-      this.setState( { processingImages: true } );
-      const updatedImages = await apiFetch( {
-        method: 'POST',
-        path: '/planet4/v1/image-archive/transfer',
-        data: {
-          ids: ids,
-          use_original_language: false,
+  useEffect(() => {
+    loadPage(currentPage, searchText);
+  }, [currentPage, searchText]);
+
+  const selectedImages = getSelectedImages(selectedIds);
+
+  return <Fragment>
+    <form
+      className={'archive-picker-search'}
+      onSubmit={event => {
+        event.preventDefault();
+        if (!loading) {
+          setSearchText(enteredSearch);
+          setCurrentPage(1);
         }
-      } );
-      this.updateFromUploadedResponse( updatedImages );
-    } catch ( e ) {
-      console.log( e );
-      this.setState( { processingError: e } );
-    } finally {
-      this.setState( { processingImages: false } );
-    }
-  }
-
-  updateFromUploadedResponse( updatedImages ) {
-    const newImages = this.state.images.map( stateImage => {
-      const updated = updatedImages.find( updatedImage => updatedImage.id === stateImage.id );
-      if ( updated ) {
-        return updated;
-      }
-      return stateImage;
-    } );
-    this.setState( {
-      images: newImages,
-    } );
-  }
-
-  async search() {
-    await this.loadNextPage( true );
-  }
-
-  render() {
-    const {
-      loading,
-      error,
-      images,
-    } = this.state;
-
-    return <Fragment>
-      <form
-        className={ 'archive-picker-search' }
-        onSubmit={ event => {
-          event.preventDefault();
-          this.search();
-        } }
-        onChange={ event => this.setState( { enteredSearch: event.target.value } ) }
-      >
-        <input
-          type={ 'text' }
-          disabled={ this.state.loading }
-        />
-        <input type={ 'submit' } value={ __( 'Search', 'planet4-master-theme-backend' ) }/>
-      </form>
-      { loading && (
-        <div className={ 'archive-picker-loading' }> loading...</div>
-      ) }
-      { !!error && (
-        <div>
-          <h3>API error:</h3>
-          <p> { error.message } </p>
-        </div>
-      ) }
-      <ImagePicker
-        images={ images }
-        renderList={ archivePickerList( this ) }
-        renderSidebar={ archivePickerSidebar( this ) }
-        onNearListBottom={ async () => {
-          if ( !this.state.loading ) {
-            await this.loadNextPage();
-          }
-        } }
+      }}
+      onChange={event => setEnteredSearch(event.target.value)}
+    >
+      <input
+        type='text'
+        disabled={loading}
       />
-    </Fragment>;
-  }
-}
+      <input type='submit' value={__('Search', 'planet4-master-theme-backend')} />
+    </form>
+    {loading && (
+      <div className={'archive-picker-loading'}> loading...</div>
+    )}
+    {!!error && (
+      <div>
+        <h3>API error:</h3>
+        <p> {error.message} </p>
+      </div>
+    )}
+    <div className={'image-picker'}>
+      <ul
+        className={'picker-list'}
+        onScroll={event => {
+          if (!loading && isNearScrollEnd(event)) {
+            setCurrentPage(currentPage + 1);
+          }
+        }}
+      >
+        <ArchivePickerList
+          isSelected={isSelected}
+          toggleMultiSelection={toggleMultiSelection}
+          toggleSingleSelection={toggleSingleSelection}
+          images={images}
+        />
+      </ul>
+      {selectedImages.length > 0 && (
+        <div className={classNames('picker-sidebar', { 'picker-sidebar-single': selectedImages.length === 1 })}>
+          {selectedImages.length === 1 ?
+            <SingleSidebar
+              image={selectedImages[0]}
+              processingError={processingError}
+              processingImages={processingImages}
+              includeInWp={includeInWp}
+            /> :
+            <MultiSidebar
+              selectedImages={selectedImages}
+              toggleMultiSelection={toggleMultiSelection}
+            />
+          }
+        </div>
+      )}
+    </div>
+  </Fragment>;
+};
 
 export default ArchivePicker;
 
