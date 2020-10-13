@@ -15,6 +15,7 @@
     "test:watch": "env JEST_TIMEOUT=30000 PUPPETEER_HEADLESS=false PUPPETEER_SLOWMO=100 WP_USERNAME=admin WP_PASSWORD=admin WP_BASE_URL=https://www.planet4.test wp-scripts test-e2e"
   },
   "devDependencies": {
+    "@greenpeace/dashdash": "^1.0.1",
     "@wordpress/components": "^8.3.2",
     "@wordpress/data": "^4.9.2",
     "@wordpress/e2e-test-utils": "^4.5.0",

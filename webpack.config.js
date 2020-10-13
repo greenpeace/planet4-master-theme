@@ -4,6 +4,7 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserJSPlugin = require('terser-webpack-plugin');
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const RemovePlugin = require('remove-files-webpack-plugin');
+const dashDash = require('@greenpeace/dashdash');
 
 module.exports = {
   ...defaultConfig,
@@ -44,9 +45,10 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               ident: 'postcss',
-              plugins: function() {
-                return require('autoprefixer');
-              },
+              plugins: () => [
+                dashDash(),
+                require('autoprefixer'),
+              ],
               sourceMap: true
             }
           },

@@ -145,7 +145,7 @@
 
 .edit-post-visual-editor .editor-block-list__block-edit,
 .edit-post-visual-editor {
-  font-family: var(--body-font, 'Noto Serif');
+  font-family: var(--body-font, "Noto Serif");
 
   h1, h2, h3, h4, h5 {
     font-family: var(--header-primary-font, $roboto);
@@ -193,7 +193,7 @@ input.describe[type=text][data-setting=caption] {
 }
 
 .wp-embed-responsive .block-editor {
-   .wp-block-embed.wp-has-aspect-ratio .wp-block-embed__wrapper::before {
+  .wp-block-embed.wp-has-aspect-ratio .wp-block-embed__wrapper::before {
     content: none;
   }
 }

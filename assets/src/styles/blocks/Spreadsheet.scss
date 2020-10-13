@@ -35,9 +35,12 @@ table.spreadsheet-table {
   }
 
   th {
-    background: var(--spreadsheet-header-background, $table-header-grey);
+    --block-spreadsheet--header-- {
+      background-color: $table-header-grey;
+      border-bottom-color: $table-header-grey;
+    }
     color: $white;
-    border-bottom: 1px solid var(--spreadsheet-header-background, $table-header-grey);
+    border-bottom: 1px solid;
     cursor: pointer;
     font-size: $font-size-sm;
     position: sticky;
@@ -70,8 +73,10 @@ table.spreadsheet-table {
     color: $table-font-color;
 
     td {
+      --block-spreadsheet--even-row-- {
+        background: $table-even-row-grey;
+      }
       padding: 5px 20px;
-      background: var(--spreadsheet-even-row-background, $table-even-row-grey);
       font-size: $font-size-xs;
 
       @include x-large-and-up {
@@ -85,7 +90,9 @@ table.spreadsheet-table {
 
     &:nth-child(odd) {
       td {
-        background: var(--spreadsheet-odd-row-background, $table-odd-row-grey);
+        --block-spreadsheet--odd-row-- {
+          background: $table-odd-row-grey;
+        }
       }
     }
   }
@@ -101,7 +108,10 @@ table.spreadsheet-table {
   max-width: 100%;
   height: 2rem;
   padding: 0 8px;
-  border-color: var(--spreadsheet-header-background, $table-header-grey);
+
+  --block-spreadsheet--header-- {
+    border-color: $table-header-grey;
+  }
   border: 1px solid;
   font-family: $roboto;
 }
