@@ -8,7 +8,7 @@ const fetchJson = async(url) => {
   return response.json();
 };
 
-export const useArticlesFetch = (attributes, postType, postId, baseUrl = null) => {
+export const useArticlesFetch = (attributes, postType, postId, baseUrl = null, postCategories = []) => {
   const { article_count, post_types, posts, tags, ignore_categories } = attributes;
 
   const [totalPosts, setTotalPosts] = useState(null);
@@ -35,6 +35,7 @@ export const useArticlesFetch = (attributes, postType, postId, baseUrl = null) =
 
     if (postType === 'post') {
       args.exclude_post_id = postId;
+      args.categories = postCategories;
     }
 
 

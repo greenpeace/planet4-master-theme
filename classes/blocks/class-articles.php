@@ -278,11 +278,7 @@ class Articles extends Base_Block {
 		$ignore_categories = $fields['ignore_categories'];
 
 		// Get page categories.
-		$post_categories   = get_the_category();
-		$category_id_array = [];
-		foreach ( $post_categories as $category ) {
-			$category_id_array[] = $category->term_id;
-		}
+		$category_id_array = $fields['categories'] ?? [];
 
 		// If any p4_page_type was selected extract the term's slug to be used in the wp query below.
 		// post_types attribute filtering.
