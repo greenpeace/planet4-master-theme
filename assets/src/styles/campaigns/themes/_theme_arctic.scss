@@ -160,7 +160,7 @@ body.theme-arctic {
   } // end .articles-block
 
   .carousel-wrap {
-    @include campaign_carousel(true, $arctic-light-blue, $arctic-black, $arctic-greyblue, $arctic-blue, url("../../public/images/arctic/carousel-arrow.svg"), 24px);
+    @include campaign_carousel(true, $arctic-greyblue, $arctic-blue, url("../../public/images/arctic/carousel-arrow.svg"), 24px);
 
     .carousel-indicators li {
       width: 32px;

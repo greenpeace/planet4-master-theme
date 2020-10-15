@@ -263,7 +263,7 @@ body.theme-climate {
   }
   // end .articles-block
   .carousel-wrap {
-    @include campaign_carousel(true, $climate-gradient-standard, $climate-black, $climate-grey, $climate-green, url("../../public/images/climate/carousel-arrow.svg"), 39px);
+    @include campaign_carousel(true, $climate-grey, $climate-green, url("../../public/images/climate/carousel-arrow.svg"), 39px);
 
     .carousel-control-prev-icon,
     .carousel-control-next-icon {

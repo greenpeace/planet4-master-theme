@@ -250,7 +250,7 @@ body.theme-oil {
   }
   // end .articles-block
   .carousel-wrap {
-    @include campaign_carousel(true, $oil-gradient-standard, $oil-black, $oil-grey, $oil-red, url("../../public/images/oil/carousel-arrow.svg"), 39px);
+    @include campaign_carousel(true, $oil-grey, $oil-red, url("../../public/images/oil/carousel-arrow.svg"), 39px);
 
     .carousel-control-prev-icon,
     .carousel-control-next-icon {

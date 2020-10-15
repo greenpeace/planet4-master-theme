@@ -1,4 +1,4 @@
-@mixin campaign_carousel($bordered, $background, $caption, $indicator, $indicator-current, $icon-svg, $icon-size, $indicator-size: 8px) {
+@mixin campaign_carousel($bordered, $indicator, $indicator-current, $icon-svg, $icon-size, $indicator-size: 8px) {
   h1 {
     @extend .page-section-header;
     margin-bottom: 40px;
@@ -10,73 +10,13 @@
     padding-bottom: $space-xxl;
   }
 
-  .carousel-inner {
-    background: $background;
-
-    .carousel-item {
-      padding: $spacing;
-    }
+  .carousel-inner .carousel-item {
+    padding: $spacing;
   }
 
   .carousel-item-container {
     position: relative;
     overflow: hidden;
-  }
-
-  .carousel-caption {
-    color: $caption;
-    background: $background;
-    position: absolute;
-    text-align: left;
-    padding: $space-sm;
-    @include letter-spacing(20);
-
-    @include mobile-only {
-      position: relative;
-      z-index: 10;
-      padding: $n20 $n15 $n60 $n15;
-      color: $white;
-    }
-
-    @if ($bordered == false) {
-      padding-bottom: 60px;
-
-      @include mobile-only {
-        padding-left: $space-lg;
-        padding-right: $space-lg;
-      }
-    }
-
-    @include small-and-up {
-      padding-left: $space-sm;
-      padding-right: $space-sm;
-    }
-
-    @include medium-and-up {
-      @if ($bordered) {
-        padding-left: $space-xxl;
-        padding-right: $space-xxl;
-      }
-      @else {
-        padding-left: $space-xxl * 2;
-        padding-right: $space-xxl * 2;
-      }
-    }
-
-    p {
-      font-size: $font-size-sm;
-      line-height: 1.5625rem;
-      margin: 0;
-
-      @include medium-and-up {
-        font-size: 1.125rem;
-        line-height: 1.875rem;
-      }
-
-      & + p {
-        margin-bottom: 1rem;
-      }
-    }
   }
 
   .carousel-indicators {
@@ -120,20 +60,32 @@
     width: 100px;
     margin: 0;
     position: absolute;
-    top: auto;
-    bottom: 0;
     height: 100px;
     text-align: center;
-    display: flex;
     z-index: 2000;
+    display: none;
+
+    @include small-and-up {
+      top: 200px;
+    }
 
     @include medium-and-up {
+      display: flex;
+      top: 300px;
       @if ($bordered) {
         width: 128px;
       }
       @else {
         width: 150px;
       }
+    }
+
+    @include large-and-up {
+      top: 400px;
+    }
+
+    @include x-large-and-up {
+      top: 500px;
     }
 
     &-icon {
