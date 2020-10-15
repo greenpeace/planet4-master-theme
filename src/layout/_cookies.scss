@@ -73,14 +73,32 @@
   }
 
   .btn {
+    background-color: transparentize($white, .7);
+    border-color: $dark-blue;
+    color: $dark-blue;
     height: 32px;
     line-height: 32px;
     font-size: $font-size-xs;
     width: 100%;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    background-color: transparentize($white, .2);
     margin-bottom: 0;
-    color: $dark-blue;
+
+    &:visited {
+      color: $dark-blue;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: $dark-blue;
+      border-color: $dark-blue;
+      color: $white;
+    }
+
+    &:active,
+    &:not(:disabled):not(.disabled):active {
+      background-color: $active-blue;
+      border-color: $active-blue;
+    }
 
     @include medium-and-up {
       width: 150px;
@@ -90,12 +108,6 @@
       font-size: $font-size-sm;
       line-height: 2.5;
       height: auto;
-    }
-
-    &:hover {
-      color: $white;
-      border-color: $dark-blue;
-      background-color: $dark-blue;
     }
   }
 }
