@@ -29,7 +29,7 @@
 
 		<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
 			<div class="search-result-item-flex-title">
-				<div>
+				<div class="search-result-item-body-content">
 					{% if ( is_archive or is_campaign ) %}
 						<div class="search-results-alternative-label search-results-alternative-label-mobile">
 							{% if ( is_campaign ) %}
@@ -106,6 +106,8 @@
 							<span class="search-result-item-date">{{ post.post_date|date('d/m/Y') }}</span>
 						</div>
 					{% endif %}
+
+					<p class="search-result-item-content">{{ post.post_excerpt|default(post.post_content)|excerpt( 30 )|raw }}</p>
 				</div>
 				<div>
 					{% if ( is_document ) %}

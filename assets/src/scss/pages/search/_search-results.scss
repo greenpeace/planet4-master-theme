@@ -29,6 +29,14 @@
       border-bottom: 1px solid $grey-20;
       position: relative;
 
+      @include small-and-up {
+        margin: 0 auto 0;
+      }
+
+      @include mobile-only {
+        margin: 0;
+      }
+
       .search-hover {
         text-decoration: underline;
       }
@@ -39,7 +47,7 @@
         margin-right: 0;
         visibility: hidden;
 
-        @include small-and-up {
+        @include medium-and-up {
           width: 25%;
           margin: 0 32px 0 0;
           visibility: visible;
@@ -54,11 +62,58 @@
         }
       }
 
-      .btn {
-        margin-top: 24px;
+      &.search-result-list-item-bg {
+        @include background("/images/search-list.jpg");
+        padding: 24px 24px $n30;
+        margin: $n15;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        border-bottom: 0;
 
         @include small-and-up {
-          width: max-content;
+          padding-bottom: 42px;
+          margin: $n15 0;
+        }
+
+        .search-result-item-headline {
+          font-size: 1.5rem;
+          margin-bottom: 40px;
+
+          @include small-and-up {
+            margin-bottom: 24px;
+          }
+
+          &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+          }
+        }
+
+        .search-result-item-body-content {
+          @include medium-and-up {
+            margin-right: 16px;
+          }
+        }
+
+        .search-result-item-content {
+          display: block;
+        }
+
+        .btn {
+          width: 100%;
+          margin-top: 24px;
+          cursor: pointer;
+          font-size: 0.85rem;
+          height: 40px;
+          padding: 0 20px;
+          overflow: hidden;
+
+          @include small-and-up {
+            width: max-content;
+          }
+
+          @include medium-and-up {
+            width: max-content;
+          }
         }
       }
     }
