@@ -31,7 +31,7 @@ body.theme-forest {
   }
 
   .page-template {
-    a {
+    a:not(.btn) {
       color: $forest-dark-green;
       text-transform: uppercase;
 
@@ -42,7 +42,6 @@ body.theme-forest {
 
     .btn-primary {
       @include forest-button;
-      font-weight: bold !important;
       font-family: $open-sans !important;
     }
 
@@ -51,7 +50,6 @@ body.theme-forest {
       border: 1px solid $forest-dark-green;
       box-sizing: border-box;
       text-decoration: none;
-      font-weight: bold;
 
       &:hover {
         color: white;

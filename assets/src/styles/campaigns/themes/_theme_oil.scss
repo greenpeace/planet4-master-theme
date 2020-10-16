@@ -26,8 +26,6 @@ body.theme-oil {
 
   @mixin oil-button($background: $oil-red, $foreground: black) {
     @include button($background, $foreground, $open-sans, -30);
-
-    font-weight: $semi-bold;
     transition: none;
     line-height: 54px;
   }
@@ -44,7 +42,7 @@ body.theme-oil {
   }
 
   .page-template {
-    a {
+    a:not(.btn) {
       color: $oil-blue;
       text-transform: uppercase;
 

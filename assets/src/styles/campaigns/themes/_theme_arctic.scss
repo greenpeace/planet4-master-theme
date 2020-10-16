@@ -14,7 +14,6 @@ body.theme-arctic {
   @mixin arctic-button($background: $arctic-faded-red, $foreground: white) {
     //todo: check letter spacing
     @include button($background, $foreground, $save-the-arctic, 60);
-    font-weight: $bold;
     line-height: 50px;
   }
 
@@ -53,11 +52,13 @@ body.theme-arctic {
   }
 
   .page-template a {
-    color: $arctic-faded-red;
-    text-transform: uppercase;
+    &:not(.btn) {
+      color: $arctic-faded-red;
+      text-transform: uppercase;
 
-    &:hover {
-      color: $arctic-red;
+      &:hover {
+        color: $arctic-red;
+      }
     }
 
     &.btn-primary {

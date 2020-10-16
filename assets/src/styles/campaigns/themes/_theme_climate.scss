@@ -29,8 +29,6 @@ body.theme-climate {
 
   @mixin climate-button($background: $climate-gradient-standard, $foreground: white) {
     @include button($background, $foreground, $jost, -30);
-
-    font-weight: $semi-bold;
     transition: none;
     line-height: 54px;
   }
@@ -85,11 +83,13 @@ body.theme-climate {
   }
 
   .page-template a {
-    color: $climate-blue;
-    text-transform: uppercase;
+    &:not(.btn) {
+      color: $climate-blue;
+      text-transform: uppercase;
 
-    &:hover {
-      color: $climate-purple-2;
+      &:hover {
+        color: $climate-purple-2;
+      }
     }
   }
 
