@@ -7,9 +7,11 @@ import { getSubmenuStyle } from './getSubmenuStyle';
 import { makeHierarchical } from './makeHierarchical';
 import { getHeadingsFromBlocks} from './getHeadingsFromBlocks';
 import { useSelect } from '@wordpress/data';
+import { deepClone } from '../../functions/deepClone';
 
 const { __ } = wp.i18n;
 const { RichText } = wp.blockEditor;
+
 const renderEdit = (attributes, setAttributes) => {
   function addLevel() {
     const [previousLastLevel] = attributes.levels.slice(-1);
@@ -18,19 +20,19 @@ const renderEdit = (attributes, setAttributes) => {
   }
 
   function onHeadingChange(index, value) {
-    let levels = JSON.parse(JSON.stringify(attributes.levels));
+    const levels = deepClone(attributes.levels);
     levels[index].heading = Number(value);
     setAttributes({ levels });
   }
 
   function onLinkChange(index, value) {
-    let levels = JSON.parse(JSON.stringify(attributes.levels));
+    const levels = deepClone(attributes.levels);
     levels[index].link = value;
     setAttributes({ levels });
   }
 
   function onStyleChange(index, value) {
-    let levels = JSON.parse(JSON.stringify(attributes.levels));
+    const levels = deepClone(attributes.levels);
     levels[index].style = value; // Possible values: "none", "bullet", "number"
     setAttributes({ levels });
   }
@@ -83,9 +85,7 @@ const renderEdit = (attributes, setAttributes) => {
 
 const renderView = (attributes, setAttributes, className) => {
 
-  const { blocks } = useSelect(select => {
-    return ({ blocks: select('core/editor').getBlocks() });
-  }, null);
+  const blocks = useSelect(select => select('core/block-editor').getBlocks(), null);
 
   const flatHeadings = getHeadingsFromBlocks(blocks, attributes.levels);
 
