@@ -57,6 +57,7 @@
     img {
       width: 100%;
       object-fit: cover;
+      cursor: pointer;
 
       @include mobile-only {
         height: 200px;
@@ -184,6 +185,7 @@
     top: 0;
     width: 30%;
     z-index: 3;
+    cursor: pointer;
 
     @include mobile-only {
       .carousel-control-prev-icon,

@@ -5,6 +5,10 @@
   margin-top: $space-xs;
   margin-bottom: $space-md;
 
+  &:not(.force-no-lightbox) {
+    cursor: pointer;
+  }
+
   @include large-and-up {
     margin-top: $space-md;
     margin-bottom: $space-lg;

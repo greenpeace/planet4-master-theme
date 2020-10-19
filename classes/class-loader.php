@@ -263,6 +263,7 @@ final class Loader {
 			}
 		} else {
 			add_action( 'plugins_loaded', [ $this, 'load_i18n' ] );
+			add_filter( 'style_loader_tag', [ $this, 'enqueue_deferred_assets' ], 10, 3 );
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_campaigns_assets' ] );
 		}
@@ -389,6 +390,13 @@ final class Loader {
 			self::file_ver( P4GBKS_PLUGIN_DIR . '/assets/build/style.min.css' )
 		);
 
+		wp_enqueue_style(
+			'photoswipe',
+			P4GBKS_PLUGIN_URL . 'assets/build/lightbox.min.css',
+			[],
+			self::file_ver( P4GBKS_PLUGIN_DIR . '/assets/build/lightbox.min.css' )
+		);
+
 		// Include React in the Frontend.
 		self::enqueue_local_script(
 			'planet4-blocks-frontend',
@@ -441,6 +449,28 @@ final class Loader {
 				);
 			}
 		}
+	}
+
+	/**
+	 * Load non-blocking CSS resources
+	 *
+	 * @param string $html The tag's HTML.
+	 * @param string $handle The tag's handle/name.
+	 * @param string $href The source URL.
+	 *
+	 * @return array
+	 */
+	public function enqueue_deferred_assets( $html, $handle, $href ) {
+		$deferred_style_handles = [ 'photoswipe' ];
+
+		if ( in_array( $handle, $deferred_style_handles, true ) ) {
+			// phpcs:disable WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet
+			// An explanation of this technique can be found here: https://www.filamentgroup.com/lab/load-css-simpler/.
+			$html = <<<DEFERREDCSS
+			<link rel="stylesheet" href="$href" media="print" onload="this.media='all'">
+DEFERREDCSS;
+		}
+		return $html;
 	}
 
 	/**

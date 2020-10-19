@@ -14,6 +14,7 @@ module.exports = {
     carouselHeaderFrontIndex: './assets/src/carouselHeaderFrontIndex.js',
     style: './assets/src/styles/style.scss',
     editorStyle: './assets/src/styles/editorStyle.scss',
+    lightbox: './assets/src/styles/lightbox.scss',
     theme_antarctic: './assets/src/styles/theme_antarctic.scss',
     theme_arctic: './assets/src/styles/theme_arctic.scss',
     theme_climate: './assets/src/styles/theme_climate.scss',

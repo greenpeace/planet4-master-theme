@@ -1,6 +1,6 @@
 const ordinals = ['first', 'second', 'third'];
 
-export const GalleryThreeColumns = ({ images, postType }) => (
+export const GalleryThreeColumns = ({ images, postType, onImageClick }) => (
   <div className="three-column-images row">
     {images.slice(0, 3).map((image, index) => (
       <div className="col" key={image.image_src}>
@@ -13,6 +13,9 @@ export const GalleryThreeColumns = ({ images, postType }) => (
               style={{ objectPosition: image.focus_image }}
               alt={image.alt_text}
               className={`img_${postType}`}
+              onClick={() => {
+                onImageClick(index);
+              }}
             />
           }
         </div>
