@@ -1,4 +1,5 @@
 import { generateAnchor } from './generateAnchor';
+import { unescape } from '../../functions/unescape';
 
 // We can put the other blocks that can have a heading inside in here along with the attribute containing the heading text.
 // Then we can also filter those to include them in the menu.
@@ -22,7 +23,9 @@ export const getHeadingsFromBlocks = (blocks, selectedLevels) => {
 
       headings.push({
         level: blockLevel,
-        content: block.attributes.content,
+        // The content of RichText elements will always come out escaped. This is problematic as those will be displayed
+        // literally when we render them. It seems safe to unescape here as the value will not be used without escaping.
+        content: unescape(block.attributes.content),
         anchor,
         style: levelConfig.style,
         shouldLink: levelConfig.link,
