@@ -35,7 +35,7 @@ export class SubmenuBlock {
         },
         levels: {
           type: 'array',
-          default: [{ heading: 0, link: false, style: 'none' }]
+          default: [{ heading: 2, link: false, style: 'none' }]
         },
       },
       supports: {
