@@ -43,6 +43,9 @@ export class CounterBlock {
       icon: 'dashboard',
       category: 'planet4-blocks',
       attributes,
+      supports: {
+        html: false, // Disable "Edit as HTMl" block option.
+      },
       deprecated: [
         {
           attributes,

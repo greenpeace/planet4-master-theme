@@ -50,6 +50,9 @@ export class SplittwocolumnsBlock {
       attributes,
       edit: SplittwocolumnsEditor,
       save: frontendRendered( BLOCK_NAME ),
+      supports: {
+        html: false, // Disable "Edit as HTMl" block option.
+      },
       deprecated: [
         {
           attributes: {

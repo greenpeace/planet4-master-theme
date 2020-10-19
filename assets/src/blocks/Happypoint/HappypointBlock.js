@@ -11,6 +11,7 @@ export class HappypointBlock {
       category: 'planet4-blocks',
       supports: {
         multiple: false, // Use the block just once per post.
+        html: false, // Disable "Edit as HTMl" block option.
       },
       attributes: {
         focus_image: {
