@@ -6,10 +6,8 @@ workflows:
     jobs:
       - php72-tests
       - php73-tests
-      - acceptance-tests:
-          context: org-global
-      - a11y-tests:
-          context: org-global
+      - acceptance-tests
+      - a11y-tests
       - create-release-zip:
           context: org-global
           filters:
@@ -94,10 +92,11 @@ commands:
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
+      - checkout:
+          path: /home/circleci/checkout/planet4-master-theme
       - run:
           name: Build - Configure
           command: |
-            activate-gcloud-account.sh
             mkdir -p /tmp/workspace/var
             mkdir -p /tmp/workspace/src
             echo "${CIRCLE_BUILD_NUM}" > /tmp/workspace/var/circle-build-num
@@ -105,12 +104,19 @@ commands:
           name: Build - Build containers
           working_directory: /home/circleci
           command: |
-            echo "Master theme branch is ${CIRCLE_BRANCH}"
-            MASTER_THEME_BRANCH=dev-${CIRCLE_BRANCH} \
+            if [ -n "$CIRCLE_PR_NUMBER" ]; then
+              BRANCH=contrib
+              git --git-dir=/home/circleci/checkout/planet4-master-theme/.git checkout -b contrib
+              echo "Using tmp branch `contrib` for fork PR $CIRCLE_PR_NUMBER"
+            else
+              BRANCH="${CIRCLE_BRANCH}"
+              echo "Master theme branch is ${CIRCLE_BRANCH}"
+            fi
+            MASTER_THEME_BRANCH=dev-${BRANCH}#${CIRCLE_SHA1} \
             PLUGIN_GUTENBERG_BLOCKS_BRANCH=dev-master \
             MERGE_SOURCE=git@github.com:greenpeace/planet4-base-fork.git \
             MERGE_REF=develop \
-            make
+            make ci
       - run:
           name: Test - Clone planet4-docker-compose
           command: |
