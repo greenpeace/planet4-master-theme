@@ -693,7 +693,6 @@ abstract class Search {
 		$context['default_sort']     = self::DEFAULT_SORT;
 		$context['filters']          = $this->filters;
 		$context['found_posts']      = $this->total_matches;
-		$context['source_selection'] = false;
 		$context['page_category']    = 'Search Page';
 		$context['sort_options']     = [
 			'_score'    => [
