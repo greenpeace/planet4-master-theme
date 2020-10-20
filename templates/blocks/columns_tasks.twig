@@ -53,7 +53,7 @@
 								{% endif %}
 								{% if ( col.cta_text and col.cta_link ) %}
 									<a
-										class="btn btn-small btn-medium {{ is_campaign ? 'btn-primary' : 'btn-secondary' }}"
+										class="btn btn-small {{ is_campaign ? 'btn-primary' : 'btn-secondary' }}"
 										href="{{ col.cta_link|e('esc_url') }}"
 										{{  col.link_new_tab  ? 'target="_blank"' }}
 										data-ga-category="Columns Block"
