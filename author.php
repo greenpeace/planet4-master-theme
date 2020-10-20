@@ -34,7 +34,7 @@ if ( isset( $wp_query->query_vars['author'] ) ) {
 
 	$context['social_accounts'] = Post::filter_social_accounts( $context['footer_social_menu'] );
 	$context['og_title']        = $author->name . ' - ' . get_bloginfo( 'name' );
-	$context['og_description']  = $author->description;
+	$context['og_description']  = get_the_author_meta( 'description', $author->ID );
 	$context['og_image_data']   = [
 		'url'    => get_avatar_url( $author->ID, [ 'size' => 300 ] ),
 		'width'  => '300',
@@ -43,7 +43,7 @@ if ( isset( $wp_query->query_vars['author'] ) ) {
 
 	$author_share_buttons              = new stdClass();
 	$author_share_buttons->title       = $author->name;
-	$author_share_buttons->description = $author->description;
+	$author_share_buttons->description = get_the_author_meta( 'description', $author->ID );
 	$author_share_buttons->link        = $author->link;
 	$context['author_share_buttons']   = $author_share_buttons;
 }
