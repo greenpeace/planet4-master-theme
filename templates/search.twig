@@ -38,15 +38,15 @@
 								{% if ( source_selection ) %}
 									<div class="col-md-4">
 										<div class="btn-group btn-block" role="group" aria-label="" id="search-type">
-											<button type="button" class="btn btn-secondary btn-medium active">{{ __('This Site', 'planet4-master-theme' ) }}</button>
-											<button type="button" class="btn btn-secondary btn-medium">{{ __( 'Archive', 'planet4-master-theme' ) }}</button>
+											<button type="button" class="btn btn-secondary active">{{ __('This Site', 'planet4-master-theme' ) }}</button>
+											<button type="button" class="btn btn-secondary">{{ __( 'Archive', 'planet4-master-theme' ) }}</button>
 										</div>
 									</div>
 								{% endif %}
 								<div class="col-md-3">
 									<button
 										type="submit"
-										class="btn btn-primary btn-medium search-btn btn-block"
+										class="btn btn-primary search-btn btn-block"
 										data-ga-category="Search Page"
 										data-ga-action="Search Button"
 										data-ga-label="n/a" >
@@ -205,8 +205,8 @@
 											</div>
 										</div>
 										<div class="btnact">
-											<button type="button" class="btn btn-action btn-medium btn-small cancelbtn" data-dismiss="modal">{{ __( 'Cancel', 'planet4-master-theme' ) }}</button>
-											<button type="button" class="btn btn-primary btn-medium btn-small applybtn">{{ __( 'Apply Filters', 'planet4-master-theme' ) }}</button>
+											<button type="button" class="btn btn-action btn-small cancelbtn" data-dismiss="modal">{{ __( 'Cancel', 'planet4-master-theme' ) }}</button>
+											<button type="button" class="btn btn-primary btn-small applybtn">{{ __( 'Apply Filters', 'planet4-master-theme' ) }}</button>
 										</div>
 									</div>
 								</div>
@@ -374,7 +374,7 @@
 							{% if ( load_more and found_posts > paged_posts|length ) %}
 								<div class="col-lg-12 mb-5 load-more-button-div">
 									<button
-										class="btn btn-medium btn-small btn-secondary more-btn {{ load_more.async ? 'btn-load-more-async' : '' }} btn-load-more-click-scroll"
+										class="btn btn-small btn-secondary more-btn {{ load_more.async ? 'btn-load-more-async' : '' }} btn-load-more-click-scroll"
 										data-current_page="{{ current_page }}"
 										data-total_posts="{{ found_posts }}"
 										data-posts_per_load="{{ load_more.posts_per_load }}"
