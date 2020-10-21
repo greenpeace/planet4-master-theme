@@ -67,11 +67,21 @@ $context['filter_url'] = add_query_arg(
 	get_home_url()
 );
 
-
 // Build the shortcode for articles block.
 if ( 'yes' === $post->include_articles ) {
+	$tag_id_array = [];
+	foreach ( $post->tags() as $post_tag ) {
+		$tag_id_array[] = $post_tag->id;
+	}
+	$category_id_array = [];
+	foreach ( $post->terms( 'category' ) as $category ) {
+		$category_id_array[] = $category->id;
+	}
+
 	$block_attributes = [
 		'exclude_post_id' => $post->ID,
+		'tags'            => $tag_id_array,
+		'post_categories' => $category_id_array,
 	];
 
 	$post->articles = '<!-- wp:planet4-blocks/articles ' . wp_json_encode( $block_attributes, JSON_UNESCAPED_SLASHES ) . ' /-->';
