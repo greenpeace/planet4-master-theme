@@ -1,4 +1,5 @@
 import { useState, useEffect } from '@wordpress/element';
+import { fetchJson } from '../../functions/fetchJson';
 
 const { apiFetch } = wp;
 const { addQueryArgs } = wp.url;
@@ -9,13 +10,15 @@ export const useHappypointImageData = imageId => {
   useEffect(() => {
     const loadImageData = async () => {
       try {
-        const queryArgs = {
-          path: addQueryArgs('/planet4/v1/get-happypoint-data', {
-            id: imageId
-          })
+        const args = {
+          id: imageId
         };
 
-        const data = await apiFetch(queryArgs);
+        const baseUrl = document.body.dataset.nro;
+
+        const data =  baseUrl
+          ? await fetchJson(`${ baseUrl }/wp-json/${ addQueryArgs('planet4/v1/get-happypoint-data', args) }`)
+          : await apiFetch({ path: addQueryArgs('planet4/v1/get-happypoint-data', args) });
         setImageData(data);
       } catch (e) {
         console.log(e);

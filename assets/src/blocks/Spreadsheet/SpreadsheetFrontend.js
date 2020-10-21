@@ -2,6 +2,7 @@ import { Component, Fragment } from '@wordpress/element';
 import { ArrowIcon } from './ArrowIcon';
 import { toDeclarations } from '../toDeclarations';
 import { HighlightMatches } from '../HighlightMatches';
+import { fetchJson } from '../../functions/fetchJson';
 
 const { apiFetch } = wp;
 const { addQueryArgs } = wp.url;
@@ -44,7 +45,7 @@ export class SpreadsheetFrontend extends Component {
     }
   }
 
-  fetchSheetData( url ) {
+  async fetchSheetData( url ) {
     const sheetID = this.extractSheetID( url );
 
     if (sheetID !== false) {
@@ -53,19 +54,17 @@ export class SpreadsheetFrontend extends Component {
       }
       this.setState({ loading: true });
 
-      const queryArgs = {
-        path: addQueryArgs('/planet4/v1/get-spreadsheet-data', {
-          sheet_id: sheetID,
-        })
+      const args = {
+        sheet_id: sheetID,
       };
 
-      apiFetch( queryArgs )
-        .then( spreadSheetData => {
-          this.setState( {
-            loading: false,
-            spreadSheetData
-          } );
-      } );
+      const baseUrl = document.body.dataset.nro;
+
+      const spreadSheetData = baseUrl
+        ? await fetchJson(`${ baseUrl }/wp-json/${ addQueryArgs('planet4/v1/get-spreadsheet-data', args) }`)
+        : await apiFetch({ path: addQueryArgs('planet4/v1/get-spreadsheet-data', args) });
+
+      this.setState({loading:false, spreadSheetData})
     } else {
       if ( this.props.handleErrors ) {
         this.props.handleErrors( { invalidSheetId: true } );
@@ -74,15 +73,15 @@ export class SpreadsheetFrontend extends Component {
     }
   }
 
-  componentDidMount() {
-    if ( this.props.url != '' ) {
-      this.fetchSheetData(this.props.url);
+  async componentDidMount() {
+    if (this.props.url !== '') {
+      await this.fetchSheetData(this.props.url);
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  async componentWillReceiveProps(nextProps) {
     if (nextProps.url !== this.props.url) {
-      this.fetchSheetData(nextProps.url);
+      await this.fetchSheetData(nextProps.url);
     }
   }
 
