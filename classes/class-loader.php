@@ -398,8 +398,6 @@ final class Loader {
 				'wp-element',
 				// Exports the __() function.
 				'wp-i18n',
-				// Tools to get data from the REST API.
-				'wp-api-fetch',
 				// URL helpers (as addQueryArgs).
 				'wp-url',
 				// Use to translate date.
