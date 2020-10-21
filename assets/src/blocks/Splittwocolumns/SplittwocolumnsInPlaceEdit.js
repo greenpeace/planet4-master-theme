@@ -4,7 +4,7 @@ import { debounce } from 'lodash';
 const { __ } = wp.i18n;
 
 /**
- * WYSIWYG in-place editor 
+ * WYSIWYG in-place editor
  */
 export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes}) => {
   const {
@@ -67,7 +67,7 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             characterLimit={charLimit.description}
             multiline="false"
             allowedFormats={['core/bold', 'core/italic']}
-            />  
+            />
           {issue_link_path &&
             <RichText
               tagName="a"
@@ -113,7 +113,7 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             />
           <RichText
             tagName="a"
-            className="btn btn-small btn-primary btn-block split-two-column-item-button"
+            className="btn btn-primary btn-block split-two-column-item-button"
             placeholder={__('Enter button text', 'planet4-blocks-backend')}
             keepPlaceholderOnFocus={true}
             value={button_text}
@@ -128,4 +128,3 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
     </section>
   )
 }
- 
