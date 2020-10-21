@@ -22,12 +22,11 @@
   }
 
   .search-btn {
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     font-size: $font-size-sm;
     line-height: 2.75;
 
     @include large-and-up {
-      font-size: 1.125rem;
+      margin-top: 2px;
       line-height: 3;
     }
 
