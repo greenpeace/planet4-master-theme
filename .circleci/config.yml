@@ -203,7 +203,7 @@ jobs:
       - image: mhart/alpine-node
         auth: &docker_auth
     steps:
-      - run: apk add curl zip git openssh-client jq python make g++
+      - run: apk add curl zip git openssh-client jq python3 make g++
       - checkout
       - run: git submodule init && git submodule update
       - run: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
