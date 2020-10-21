@@ -136,4 +136,62 @@ describe( 'Articles block frontend', () => {
 
     done();
   } );
+
+  it ( 'should load current post tags and categories articles on post page', async () => {
+    // Create new post.
+    await createNewPost({
+      title: 'Lorem Ipsum - tags:Oil and Forests, Categories:Nature',
+      content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+      showWelcomeGuide: false,
+    });
+
+    await openSidebarPanelWithTitle( 'Tags' );
+    await typeInDropdownWithLabel( 'Add New Tag', 'Oil' );
+    await typeInDropdownWithLabel( 'Add New Tag', 'Forests' );
+
+    await openSidebarPanelWithTitle( 'Categories' );
+    // Wait for panel details.
+    await new Promise((r) => setTimeout(r, 300));
+    await clickElementByText( 'label', 'Nature' );
+
+    // Publish the post.
+    await publishPost();
+    await page.waitForSelector( '.post-publish-panel__postpublish' );
+
+    //Create a new post and add same tags & categories in it.
+    await createNewPost({
+      title: 'Test Articles block on Post',
+      content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+      showWelcomeGuide: false,
+    });
+
+    await openSidebarPanelWithTitle( 'Tags' );
+    await typeInDropdownWithLabel( 'Add New Tag', 'Oil' );
+    await typeInDropdownWithLabel( 'Add New Tag', 'Forests' );
+
+    await openSidebarPanelWithTitle( 'Categories' );
+    // Wait for panel details.
+    await new Promise((r) => setTimeout(r, 300));
+    await clickElementByText( 'label', 'Nature' );
+
+    // Publish the post.
+    await publishPost();
+
+    await page.waitForSelector( '.components-snackbar__action' );
+
+    // Wait for post update.
+    await new Promise((r) => setTimeout(r, 300));
+
+    // Test articles block on frontend.
+    await clickElementByText( 'a', 'View Post' );
+
+    await page.waitForNavigation();
+
+    // The "Articles Block" should appear on post.
+    await expect( page ).toMatchElement( '.block.articles-block' );
+
+    await page.waitForSelector( '.article-list-item' );
+
+    await expect(page).toMatchElement('article:nth-child(1) h4 a', { text: 'Lorem Ipsum - tags:Oil and Forests, Categories:Nature' });
+  } , 90000 );
 } );

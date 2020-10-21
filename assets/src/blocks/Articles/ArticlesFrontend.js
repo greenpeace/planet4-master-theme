@@ -18,7 +18,9 @@ export const ArticlesFrontend = (props) => {
 
   const postId = !postIdClass ? null : postIdClass.split('-')[1];
 
-  const { posts, loadNextPage, hasMorePages, loading } = useArticlesFetch(props, postType, postId, document.body.dataset.nro);
+  const postCategories = props.post_categories || [];
+
+  const { posts, loadNextPage, hasMorePages, loading } = useArticlesFetch(props, postType, postId, document.body.dataset.nro, postCategories);
 
   return (
     <section className="block articles-block">
