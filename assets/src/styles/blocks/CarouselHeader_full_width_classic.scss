@@ -586,18 +586,8 @@ $medium-image-height: 600px;
             overflow: hidden;
             text-overflow: ellipsis;
 
-            html[dir="rtl"] & {
-              font-size: 1.175rem;
-              line-height: 2.5;
-            }
-
             @include medium-and-up {
               min-width: 280px;
-
-              html[dir="rtl"] & {
-                font-size: 1.3rem;
-                line-height: 2.5;
-              }
             }
           }
         }
