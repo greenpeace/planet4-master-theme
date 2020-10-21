@@ -103,11 +103,5 @@
     @include medium-and-up {
       width: 150px;
     }
-
-    html[dir="rtl"] & {
-      font-size: $font-size-sm;
-      line-height: 2.5;
-      height: auto;
-    }
   }
 }

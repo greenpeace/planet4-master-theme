@@ -92,17 +92,9 @@
   margin-bottom: 40px;
   width: 100%;
 
-  html[dir="rtl"] & {
-    line-height: 2.5;
-  }
-
   @include medium-and-up {
     margin-bottom: 40px;
     width: 50%;
-
-    html[dir="rtl"] & {
-      font-size: $font-size-md;
-    }
   }
 
   @include large-and-up {
