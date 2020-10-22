@@ -61,7 +61,7 @@ class UiIntegration {
 			Capability::USE_IMAGE_ARCHIVE_PICKER,
 			'gpi-image-picker',
 			[ self::class, 'output_picker' ],
-			P4ML_ADMIN_DIR . 'images/logo_menu_page_16x16.png',
+			'dashicons-format-image',
 			3
 		);
 	}
