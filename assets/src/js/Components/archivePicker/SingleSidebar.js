@@ -45,7 +45,6 @@ export const SingleSidebar = ({ image, processingError, processingImages, includ
       )}
       {image.wordpress_id ? (
         <a
-          target='_blank'
           href={wpImageLink(image.wordpress_id)}
         >Wordpress image #{ image.wordpress_id}</a>
       ) : (
