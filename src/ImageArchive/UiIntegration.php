@@ -64,6 +64,14 @@ class UiIntegration {
 			'dashicons-format-image',
 			11
 		);
+
+		add_submenu_page(
+			'gpi-image-picker',
+			__( 'Image Archive', 'planet4-master-theme-backend' ),
+			__( 'Library', 'planet4-master-theme-backend' ),
+			Capability::USE_IMAGE_ARCHIVE_PICKER,
+			'gpi-image-picker'
+		);
 	}
 
 	/**
@@ -76,8 +84,7 @@ class UiIntegration {
 			__( 'API info', 'planet4-master-theme-backend' ),
 			Capability::USE_IMAGE_ARCHIVE_PICKER,
 			'media-api-info',
-			[ self::class, 'api_info' ],
-			11
+			[ self::class, 'api_info' ]
 		);
 	}
 
