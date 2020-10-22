@@ -1,3 +1,5 @@
+const { __ } = wp.i18n;
+
 export const setupCountrySelect = function($) {
   'use strict';
 
@@ -25,7 +27,7 @@ export const setupCountrySelect = function($) {
     let countries_html = $(
       '<div id="country-list" class="country-list">' +
       '<a class="international" href=""></a>' +
-      '<ul class="countries_list"></ul>' +
+      '<ul class="countries_list" aria-label="' + __('Worldwide site list', 'planet4-master-theme') + '" role="list"></ul>' +
       '</div>'
     );
 
@@ -42,7 +44,7 @@ export const setupCountrySelect = function($) {
         let countries_sublist = $(
           '<li>' +
           '<h3 class="country-group-letter">' + index + '</h3>' +
-          '<ul class="countries_sublist"></ul>' +
+          '<ul class="countries_sublist" aria-label="' + __('Sites starting with the letter .' + index + '.', 'planet4-master-theme') + '" role="list"></ul>' +
           '</li>'
         );
         $('.countries_list', countries_html).append(countries_sublist);
