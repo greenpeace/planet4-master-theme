@@ -62,7 +62,7 @@ class UiIntegration {
 			'gpi-image-picker',
 			[ self::class, 'output_picker' ],
 			'dashicons-format-image',
-			3
+			11
 		);
 	}
 
@@ -77,7 +77,7 @@ class UiIntegration {
 			Capability::USE_IMAGE_ARCHIVE_PICKER,
 			'media-api-info',
 			[ self::class, 'api_info' ],
-			3
+			11
 		);
 	}
 
