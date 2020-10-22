@@ -56,8 +56,8 @@ class UiIntegration {
 		}
 
 		add_menu_page(
-			__( 'GPI Image Archive', 'planet4-master-theme-backend' ),
-			__( 'GPI Image Archive', 'planet4-master-theme-backend' ),
+			__( 'Image Archive', 'planet4-master-theme-backend' ),
+			__( 'Image Archive', 'planet4-master-theme-backend' ),
 			Capability::USE_IMAGE_ARCHIVE_PICKER,
 			'gpi-image-picker',
 			[ self::class, 'output_picker' ],
