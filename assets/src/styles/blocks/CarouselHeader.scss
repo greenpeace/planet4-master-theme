@@ -306,23 +306,8 @@ $slide-transition-speed: 1s;
       }
 
       .btn {
-        font-size: $font-size-xxs;
-        line-height: 2.8;
-
-        html[dir="rtl"] & {
-          font-size: 1.175rem;
-          line-height: 2.5;
-        }
-
         @include medium-and-up {
-          font-size: $font-size-sm;
-          line-height: 3;
           width: auto;
-
-          html[dir="rtl"] & {
-            font-size: 1.3rem;
-            line-height: 2.5;
-          }
         }
 
         @include large-and-up {

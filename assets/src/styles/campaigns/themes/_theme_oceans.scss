@@ -18,8 +18,6 @@ body.theme-oceans {
     //todo: check letter spacing
     //todo: sort out transition
     @include button($background, $foreground, $montserrat, 60);
-    font-weight: $bold;
-    border-radius: 25px;
     position: relative;
 
     &:hover {

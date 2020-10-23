@@ -1,6 +1,8 @@
 .columns-block {
   a {
-    font-weight: inherit;
+    &:not(.btn) {
+      font-weight: inherit;
+    }
 
     &.btn-primary {
       color: $white;

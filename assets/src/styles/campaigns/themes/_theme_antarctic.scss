@@ -14,7 +14,6 @@ body.theme-antarctic {
 
   @mixin antarctic-button($background: $antarctic-purple, $foreground: white) {
     @include button($background, $foreground, $montserrat, 60);
-    font-weight: $bold;
     line-height: 50px;
   }
 
@@ -49,7 +48,7 @@ body.theme-antarctic {
     @include page-section-header($sanctuary, $antarctic-blue);
   }
 
-  .page-template a {
+  .page-template a:not(.btn) {
     color: $antarctic-purple;
     text-transform: uppercase;
 

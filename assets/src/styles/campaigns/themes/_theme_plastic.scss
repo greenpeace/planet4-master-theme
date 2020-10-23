@@ -20,8 +20,6 @@ body.theme-plastic {
     //todo: check letter spacing
     //todo: sort out transition
     @include button($background, $foreground, $montserrat, 60);
-    font-weight: $extra-bold;
-    border-radius: 25px;
   }
 
   .btn-primary {

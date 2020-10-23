@@ -50,10 +50,9 @@
   font-family: $roboto;
   text-align: center;
   text-decoration: none;
-  text-transform: uppercase;
   color: $white;
-  font-weight: 500;
-  border-radius: 0;
+  font-weight: bold;
+  border-radius: 4px;
   border: 1px solid transparent;
   cursor: pointer;
   line-height: 3;
@@ -62,6 +61,12 @@
   transition-property: color, background-color, border-color;
   transition-duration: 150ms;
   transition-timing-function: linear;
+  text-transform: capitalize;
+  font-size: $font-size-sm;
+}
+
+.wp-block-button.text-transform-none .wp-block-button__link[role="textbox"] {
+  text-transform: none;
 }
 
 .wp-block-button.is-style-secondary .wp-block-button__link[role="textbox"],
@@ -70,7 +75,6 @@
   border-color: var(--btn-secondary-border-color, $dark-blue);
   color: var(--btn-secondary-color, $dark-blue);
   box-shadow: none;
-  font-size: $font-size-xxs;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -78,13 +82,13 @@
   padding: 2px $n30;
 
   html[dir="rtl"] & {
-    font-size: $font-size-sm;
     line-height: 2.5;
   }
 }
 
 .wp-block-button.is-style-cta .wp-block-button__link[role="textbox"] {
   background-color: var(--btn-primary-background-color, $orange);
+  border-color: var(--btn-secondary-border-color, $orange);
   color: var(--btn-primary-color, $white);
   box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 }
@@ -92,7 +96,6 @@
 .wp-block-button.is-style-donate .wp-block-button__link[role="textbox"] {
   background-color: var(--btn-donate-background-color, $aquamarine);
   color: var(--btn-donate-color, $grey);
-  font-size: $font-size-sm;
   line-height: 1.65;
   min-width: 180px;
   margin: 0;
