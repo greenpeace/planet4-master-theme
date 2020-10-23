@@ -78,24 +78,10 @@
     font-size: $font-size-xs;
     width: 100%;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    background-color: transparentize($white, .2);
     margin-bottom: 0;
-    color: $dark-blue;
 
     @include medium-and-up {
       width: 150px;
-    }
-
-    html[dir="rtl"] & {
-      font-size: $font-size-sm;
-      line-height: 2.5;
-      height: auto;
-    }
-
-    &:hover {
-      color: $white;
-      border-color: $dark-blue;
-      background-color: $dark-blue;
     }
   }
 }
