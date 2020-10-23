@@ -39,8 +39,11 @@
     outline: none;
   }
 
-  &:disabled {
+  &:disabled,
+  &.disabled,
+  &[disabled] {
     opacity: .5;
+    cursor: default;
   }
 }
 
@@ -71,10 +74,15 @@
     border-color: $orange-hover;
   }
 
-  &:active,
-  &:not(:disabled):not(.disabled):active {
+  &:active {
     background-color: $orange-active;
     border-color: $orange-active;
+  }
+
+  &:disabled,
+  &.disabled,
+  &[disabled] {
+    background-color: $orange;
   }
 }
 
@@ -118,10 +126,16 @@
     color: $white;
   }
 
-  &:active,
-  &:not(:disabled):not(.disabled):active {
+  &:active {
     background-color: $active-blue;
     border-color: $active-blue;
+  }
+
+  &:disabled,
+  &.disabled,
+  &[disabled] {
+    background-color: $white;
+    color: $dark-blue;
   }
 }
 
@@ -168,6 +182,12 @@
 
   &:active {
     background-color: var(--btn-donate-active-background-color, $java-dark);
+  }
+
+  &:disabled,
+  &.disabled,
+  &[disabled] {
+    background-color: var(--btn-donate-background-color, $aquamarine);
   }
 
   @include large-and-up {
