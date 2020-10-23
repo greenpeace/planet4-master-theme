@@ -22,9 +22,9 @@ export const ArchivePickerList = ({
 
       return <li
         key={id}
-        data-wordpress-id={wordpress_id}
-        className={classNames({ 'picker-selected': isSelected(image) })}>
+        data-wordpress-id={wordpress_id}>
         <img
+          className={classNames({ 'picker-selected': isSelected(image) })}
           srcSet={toSrcSet(sizes, { maxWidth: 900 })}
           title={`${title}`}
           alt={alt}

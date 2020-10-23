@@ -50,7 +50,7 @@ const ArchivePicker = () => {
 
   return <Fragment>
     <form
-      className={'archive-picker-search'}
+      className='archive-picker-search'
       onSubmit={event => {
         event.preventDefault();
         if (!loading) {
@@ -64,10 +64,14 @@ const ArchivePicker = () => {
         type='text'
         disabled={loading}
       />
-      <input type='submit' value={__('Search', 'planet4-master-theme-backend')} />
+      <button
+        disabled={loading}
+        type='submit'
+        className='button'
+      >{__('Search', 'planet4-master-theme-backend')}</button>
     </form>
     {loading && (
-      <div className={'archive-picker-loading'}> loading...</div>
+      <div className='archive-picker-loading'>{__('Loading...', 'planet4-master-theme-backend')}</div>
     )}
     {!!error && (
       <div>
@@ -75,9 +79,9 @@ const ArchivePicker = () => {
         <p> {error.message} </p>
       </div>
     )}
-    <div className={'image-picker'}>
+    <div className='image-picker'>
       <ul
-        className={'picker-list'}
+        className='picker-list'
         onScroll={event => {
           if (!loading && isNearScrollEnd(event)) {
             setCurrentPage(currentPage + 1);

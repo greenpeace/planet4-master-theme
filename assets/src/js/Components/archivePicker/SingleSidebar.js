@@ -16,23 +16,14 @@ const renderDefinition = (key, value) => (
 
 export const SingleSidebar = ({ image, processingError, processingImages, includeInWp }) => {
   const original = image ? image.original : {};
-  const aspectRatio = original.height / original.width;
 
   const renderImage = () => (
-    <div
-      style={{ maxHeight: '10vh', position: 'relative', width: '100%', paddingTop: `${aspectRatio * 100}%`, }}
-    >
-      <div
-        style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, }}
-      >
-        <img
-          key={original.url}
-          srcSet={toSrcSet(image.sizes, { maxWidth: PREVIEW_MAX_SIZE })}
-          title={image.title}
-          alt={image.title}
-        />
-      </div>
-    </div>
+    <img
+      key={original.url}
+      srcSet={toSrcSet(image.sizes, { maxWidth: PREVIEW_MAX_SIZE })}
+      title={image.title}
+      alt={image.title}
+    />
   );
 
   return (
@@ -45,10 +36,12 @@ export const SingleSidebar = ({ image, processingError, processingImages, includ
       )}
       {image.wordpress_id ? (
         <a
+          className="sidebar-action"
           href={wpImageLink(image.wordpress_id)}
         >Wordpress image #{ image.wordpress_id}</a>
       ) : (
         <button
+          className="button sidebar-action"
           onClick={async () => {
             await includeInWp([image.id]);
           }}
