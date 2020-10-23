@@ -685,16 +685,16 @@ abstract class Search {
 	protected function set_general_context( &$context ) {
 
 		// Search context.
-		$context['posts']            = $this->posts;
-		$context['paged_posts']      = $this->paged_posts;
-		$context['current_page']     = $this->current_page;
-		$context['search_query']     = $this->search_query;
-		$context['selected_sort']    = $this->selected_sort;
-		$context['default_sort']     = self::DEFAULT_SORT;
-		$context['filters']          = $this->filters;
-		$context['found_posts']      = $this->total_matches;
-		$context['page_category']    = 'Search Page';
-		$context['sort_options']     = [
+		$context['posts']         = $this->posts;
+		$context['paged_posts']   = $this->paged_posts;
+		$context['current_page']  = $this->current_page;
+		$context['search_query']  = $this->search_query;
+		$context['selected_sort'] = $this->selected_sort;
+		$context['default_sort']  = self::DEFAULT_SORT;
+		$context['filters']       = $this->filters;
+		$context['found_posts']   = $this->total_matches;
+		$context['page_category'] = 'Search Page';
+		$context['sort_options']  = [
 			'_score'    => [
 				'name'  => __( 'Most relevant', 'planet4-master-theme' ),
 				'order' => 'DESC',
