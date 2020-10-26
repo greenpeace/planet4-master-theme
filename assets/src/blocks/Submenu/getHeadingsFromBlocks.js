@@ -7,6 +7,10 @@ const blockTypesWithHeadings = [
   {name: 'planet4-blocks/articles', fieldName: 'article_heading', level: 2},
 ];
 
+// Naive regex to remove html tags. Don't use anywhere else as it's too limited, but for the expected HTML in heading
+// blocks this should be sufficient.
+const stripTags = str => str.replace(/(<([^>]+)>)/ig, '');
+
 export const getHeadingsFromBlocks = (blocks, selectedLevels) => {
   const headings = [];
   blocks.forEach(block => {
@@ -25,7 +29,7 @@ export const getHeadingsFromBlocks = (blocks, selectedLevels) => {
         level: blockLevel,
         // The content of RichText elements will always come out escaped. This is problematic as those will be displayed
         // literally when we render them. It seems safe to unescape here as the value will not be used without escaping.
-        content: unescape(block.attributes.content),
+        content: unescape(stripTags(block.attributes.content)),
         anchor,
         style: levelConfig.style,
         shouldLink: levelConfig.link,
