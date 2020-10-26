@@ -1,5 +1,6 @@
 import { SubmenuEditor } from './SubmenuEditor.js';
 import { Tooltip } from '@wordpress/components';
+import {example} from './example';
 
 const { __ } = wp.i18n;
 
@@ -15,62 +16,66 @@ const getStyleLabel = (label, help) => {
   }
   return label;
 }
+export const registerSubmenuBlock = () => {
+  const { registerBlockType } = wp.blocks;
 
-export class SubmenuBlock {
-  constructor() {
-    const { registerBlockType } = wp.blocks;
-
-    registerBlockType(BLOCK_NAME, {
-      title: 'Submenu',
-      icon: 'welcome-widgets-menus',
-      category: 'planet4-blocks',
-      attributes: {
-        title: {
-          type: 'string',
-          default: ''
-        },
-        submenu_style: { // Needed for old blocks conversion
-          type: 'integer',
-          default: 0
-        },
-        levels: {
-          type: 'array',
-          default: [{ heading: 2, link: false, style: 'none' }]
-        },
+  registerBlockType(BLOCK_NAME, {
+    title: 'Submenu',
+    icon: 'welcome-widgets-menus',
+    category: 'planet4-blocks',
+    attributes: {
+      title: {
+        type: 'string',
+        default: ''
       },
-      supports: {
-        multiple: false, // Use the block just once per post.
-        html: false,
+      submenu_style: { // Needed for old blocks conversion
+        type: 'integer',
+        default: 0
       },
-      styles: [
-        {
-          name: 'long',
-          label: getStyleLabel(
-            'Long full-width',
-            'Use: on long pages (more than 5 screens) when list items are long (+ 10 words). No max items recommended.'
-          ),
-          isDefault: true
-        },
-        {
-          name: 'short',
-          label: getStyleLabel(
-            'Short full-width',
-            'Use: on long pages (more than 5 screens) when list items are short (up to 5 words). No max items recommended.'
-          )
-        },
-        {
-          name: 'sidebar',
-          label: getStyleLabel(
-            'Short sidebar',
-            'Use: on long pages (more than 5 screens) when list items are short (up to 10 words). Max items recommended: 9'
-          )
-        }
-      ],
-      edit: SubmenuEditor,
-      save() {
-        return null;
+      levels: {
+        type: 'array',
+        default: [{ heading: 2, link: false, style: 'none' }]
+      },
+      isExample: {
+        type: 'boolean',
+        default: false,
+      },
+      exampleMenuItems: { // Used for the block's preview, which can't extract items from anything.
+        type: 'array',
       }
-    });
-  };
+    },
+    supports: {
+      multiple: false, // Use the block just once per post.
+      html: false,
+    },
+    styles: [
+      {
+        name: 'long',
+        label: getStyleLabel(
+          'Long full-width',
+          'Use: on long pages (more than 5 screens) when list items are long (+ 10 words). No max items recommended.'
+        ),
+        isDefault: true
+      },
+      {
+        name: 'short',
+        label: getStyleLabel(
+          'Short full-width',
+          'Use: on long pages (more than 5 screens) when list items are short (up to 5 words). No max items recommended.'
+        )
+      },
+      {
+        name: 'sidebar',
+        label: getStyleLabel(
+          'Short sidebar',
+          'Use: on long pages (more than 5 screens) when list items are short (up to 10 words). Max items recommended: 9'
+        )
+      }
+    ],
+    edit: SubmenuEditor,
+    save() {
+      return null;
+    },
+    example,
+  });
 }
-

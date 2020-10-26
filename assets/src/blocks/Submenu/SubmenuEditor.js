@@ -84,21 +84,28 @@ const renderEdit = (attributes, setAttributes) => {
 }
 
 const renderView = (attributes, setAttributes, className) => {
+  const {
+    title,
+    levels,
+    submenu_style,
+    isExample,
+    exampleMenuItems,
+  } = attributes;
 
   const blocks = useSelect(select => select('core/block-editor').getBlocks(), null);
 
-  const flatHeadings = getHeadingsFromBlocks(blocks, attributes.levels);
+  const flatHeadings = getHeadingsFromBlocks(blocks, levels);
 
-  const menuItems = makeHierarchical(flatHeadings);
+  const menuItems = isExample ? exampleMenuItems : makeHierarchical(flatHeadings);
 
-  const style = getSubmenuStyle(className, attributes.submenu_style);
+  const style = getSubmenuStyle(className, submenu_style);
 
   return (
     <section className={`block submenu-block submenu-${style}`}>
       <RichText
         tagName="h2"
         placeholder={__('Enter title', 'planet4-blocks-backend')}
-        value={attributes.title}
+        value={title}
         onChange={title => setAttributes({ title })}
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
