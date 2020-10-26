@@ -114,6 +114,28 @@ add_action(
 	}
 );
 
+add_filter( 'all_plugins', 'hide_cloudflare_plugin' );
+
+/**
+ * Hide Cloudflare plugin options.
+ *
+ * @param array $plugins plugins array.
+ * @return array plugins array.
+ */
+function hide_cloudflare_plugin( $plugins ) {
+	if ( is_plugin_active( 'cloudflare/cloudflare.php' ) ) {
+		unset( $plugins['cloudflare/cloudflare.php'] );
+	}
+	return $plugins;
+}
+
+// Hide Cloudflare from Settings menu.
+add_action(
+	'admin_init',
+	function () {
+		remove_submenu_page( 'options-general.php', 'cloudflare' );
+	}
+);
 
 require_once 'load-class-aliases.php';
 
