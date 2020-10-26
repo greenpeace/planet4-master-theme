@@ -9,8 +9,8 @@ const BLOCK_NAME = 'planet4-blocks/submenu';
 const getStyleLabel = (label, help) => {
   if (help) {
     return (
-      <Tooltip text={__(help, 'planet4-blocks-backend')}>
-        <span>{__(label, 'planet4-blocks-backend')}</span>
+      <Tooltip text={ help }>
+        <span>{label}</span>
       </Tooltip>
     );
   }
@@ -52,23 +52,23 @@ export const registerSubmenuBlock = () => {
       {
         name: 'long',
         label: getStyleLabel(
-          'Long full-width',
-          'Use: on long pages (more than 5 screens) when list items are long (+ 10 words). No max items recommended.'
+          __('Long full-width', 'planet4-blocks-backend'),
+          __('Use: on long pages (more than 5 screens) when list items are long (+ 10 words). No max items recommended.', 'planet4-blocks-backend'),
         ),
         isDefault: true
       },
       {
         name: 'short',
         label: getStyleLabel(
-          'Short full-width',
-          'Use: on long pages (more than 5 screens) when list items are short (up to 5 words). No max items recommended.'
+          __('Short full-width', 'planet4-blocks-backend'),
+          __('Use: on long pages (more than 5 screens) when list items are short (up to 5 words). No max items recommended.', 'planet4-blocks-backend'),
         )
       },
       {
         name: 'sidebar',
         label: getStyleLabel(
-          'Short sidebar',
-          'Use: on long pages (more than 5 screens) when list items are short (up to 10 words). Max items recommended: 9'
+          __('Short sidebar', 'planet4-blocks-backend'),
+          __('Use: on long pages (more than 5 screens) when list items are short (up to 10 words). Max items recommended: 9', 'planet4-blocks-backend'),
         )
       }
     ],

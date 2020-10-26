@@ -9,13 +9,13 @@ const BLOCK_NAME = 'planet4-blocks/gallery';
 const getStyleLabel = (label, help) => {
   if (help) {
     return (
-      <Tooltip text={__(help, 'planet4-blocks-backend')}>
-        <span>{__(label, 'planet4-blocks-backend')}</span>
+      <Tooltip text={ help }>
+        <span>{ label }</span>
       </Tooltip>
     );
   }
   return label;
-}
+};
 
 export class GalleryBlock {
   constructor() {
@@ -63,23 +63,23 @@ export class GalleryBlock {
         {
           name: 'slider',
           label: getStyleLabel(
-            'Slider',
-            'The slider is a carousel of images. For more than 5 images, consider using a grid.'
+            __('Slider', 'planet4-blocks-backend'),
+            __('The slider is a carousel of images. For more than 5 images, consider using a grid.', 'planet4-blocks-backend'),
           ),
           isDefault: true
         },
         {
           name: 'three-columns',
           label: getStyleLabel(
-            '3 Columns',
-            'The 3 columns image display is great for accentuating text, and telling a visual story.'
+            __('3 Columns', 'planet4-blocks-backend'),
+            __('The 3 columns image display is great for accentuating text, and telling a visual story.', 'planet4-blocks-backend'),
           ),
         },
         {
           name: 'grid',
           label: getStyleLabel(
-            'Grid',
-            'The grid shows thumbnails of lots of images. Good to use when showing lots of activity.'
+            __('Grid', 'planet4-blocks-backend'),
+            __('The grid shows thumbnails of lots of images. Good to use when showing lots of activity.', 'planet4-blocks-backend'),
           ),
         }
       ],
