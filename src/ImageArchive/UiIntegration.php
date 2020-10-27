@@ -56,13 +56,21 @@ class UiIntegration {
 		}
 
 		add_menu_page(
-			__( 'GPI Image Archive', 'planet4-master-theme-backend' ),
-			__( 'GPI Image Archive', 'planet4-master-theme-backend' ),
+			__( 'Image Archive', 'planet4-master-theme-backend' ),
+			__( 'Image Archive', 'planet4-master-theme-backend' ),
 			Capability::USE_IMAGE_ARCHIVE_PICKER,
 			'gpi-image-picker',
 			[ self::class, 'output_picker' ],
-			P4ML_ADMIN_DIR . 'images/logo_menu_page_16x16.png',
-			3
+			'dashicons-format-image',
+			11
+		);
+
+		add_submenu_page(
+			'gpi-image-picker',
+			__( 'Image Archive', 'planet4-master-theme-backend' ),
+			__( 'Library', 'planet4-master-theme-backend' ),
+			Capability::USE_IMAGE_ARCHIVE_PICKER,
+			'gpi-image-picker'
 		);
 	}
 
@@ -76,8 +84,7 @@ class UiIntegration {
 			__( 'API info', 'planet4-master-theme-backend' ),
 			Capability::USE_IMAGE_ARCHIVE_PICKER,
 			'media-api-info',
-			[ self::class, 'api_info' ],
-			3
+			[ self::class, 'api_info' ]
 		);
 	}
 
