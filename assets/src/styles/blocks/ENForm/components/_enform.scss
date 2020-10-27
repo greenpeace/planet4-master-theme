@@ -95,8 +95,6 @@
     .custom-select,
     select.form-control.en__field__input--select,
     button {
-      height: 44px;
-      border-radius: 0;
       border-color: transparent;
       margin-bottom: $space-md;
       min-width: 200px;
@@ -118,6 +116,13 @@
         color: white;
         padding: $n5;
       }
+    }
+
+    input,
+    .custom-select,
+    select.form-control.en__field__input--select {
+      height: 44px;
+      border-radius: 0;
     }
 
     .custom-checkbox input {
@@ -155,12 +160,6 @@
         box-sizing: border-box;
         width: 100% !important;
         margin-top: $space-lg;
-
-        html[dir="rtl"] & {
-          line-height: 1;
-          font-size: 1.375rem;
-          font-weight: bold;
-        }
       }
     }
 
