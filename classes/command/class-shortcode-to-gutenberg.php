@@ -31,13 +31,11 @@ class Shortcode_To_Gutenberg {
 			$blocks = [
 				'shortcake_columns',
 				'shortcake_carousel_header',
-				'shortcake_counter',
 				'shortcake_enblock',
 				'shortcake_happy_point',
 				'shortcake_media_video',
 				'shortcake_newcovers',
 				'shortcake_social_media',
-				'shortcake_submenu',
 				'shortcake_timeline',
 				'shortcake_take_action_boxout',
 			];

@@ -5,11 +5,6 @@
     padding: $space-sm;
   }
 
-  // Unset submenu sidebar float to make block editable in preview/edit.
-  .submenu-sidebar {
-    float: unset !important;
-  }
-
   // Unset social media embed float to make block render within the preview component.
   .social-media-embed {
     float: unset !important;
