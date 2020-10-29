@@ -230,6 +230,7 @@ class Articles extends Base_Block {
 				$recent['page_type']      = $page_type;
 				$recent['page_type_link'] = get_term_link( $page_type_id );
 				$recent['link']           = get_permalink( $recent['ID'] );
+				$recent['date_formatted'] = get_the_date( '', $recent['ID'] );
 
 				$recent_posts[] = $recent;
 			}

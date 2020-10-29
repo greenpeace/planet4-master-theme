@@ -1,7 +1,5 @@
 import { Component } from '@wordpress/element';
-import { dateI18n } from '@wordpress/date';
 import { unescape } from '../../functions/unescape';
-const { __ } = wp.i18n;
 
 export class ArticlePreview extends Component {
   constructor(props) {
@@ -100,7 +98,7 @@ export class ArticlePreview extends Component {
         page_type_link,
         post_title,
         post_excerpt,
-        post_date
+        date_formatted,
       }
     } = this.props;
 
@@ -149,10 +147,10 @@ export class ArticlePreview extends Component {
             }
             <p className="article-list-item-meta">
               {this.getAuthorLink()}
-              {post_date &&
-                <time className="article-list-item-date" dateTime="">
-                  {dateI18n(window.p4bk_vars.dateFormat, post_date)}
-                </time>
+              {date_formatted &&
+              <time className="article-list-item-date" dateTime="">
+                {date_formatted}
+              </time>
               }
             </p>
           </header>

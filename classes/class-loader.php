@@ -399,8 +399,6 @@ final class Loader {
 				'wp-i18n',
 				// URL helpers (as addQueryArgs).
 				'wp-url',
-				// Use to translate date.
-				'wp-date',
 				'main',
 			],
 			true
