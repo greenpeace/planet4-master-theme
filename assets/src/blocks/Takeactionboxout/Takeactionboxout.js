@@ -14,9 +14,6 @@ import {
 } from '@wordpress/components';
 import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
 
-const {apiFetch} = wp;
-const {addQueryArgs} = wp.url;
-
 const TextControl = withCharacterCounter( BaseTextControl );
 const TextareaControl = withCharacterCounter( BaseTextareaControl );
 

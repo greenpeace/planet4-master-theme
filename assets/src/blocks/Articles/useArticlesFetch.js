@@ -1,8 +1,8 @@
 import { useState, useEffect } from '@wordpress/element';
 import { fetchJson } from '../../functions/fetchJson';
+import { addQueryArgs } from '../../functions/addQueryArgs';
 
 const { apiFetch } = wp;
-const { addQueryArgs } = wp.url;
 
 export const useArticlesFetch = (attributes, postType, postId, baseUrl = null, postCategories = []) => {
   const { article_count, post_types, posts, tags, ignore_categories } = attributes;
@@ -34,11 +34,12 @@ export const useArticlesFetch = (attributes, postType, postId, baseUrl = null, p
       args.categories = postCategories;
     }
 
+    const path = addQueryArgs('planet4/v1/get-posts', args);
 
     try {
       const response = baseUrl
-        ? await fetchJson(`${ baseUrl }/wp-json/${ addQueryArgs('planet4/v1/get-posts', args) }`)
-        : await apiFetch({ path: addQueryArgs('planet4/v1/get-posts', args) });
+        ? await fetchJson(`${ baseUrl }/wp-json/${ path }`)
+        : await apiFetch({ path });
 
       const newPosts = [...prevPosts, ...response.recent_posts];
 

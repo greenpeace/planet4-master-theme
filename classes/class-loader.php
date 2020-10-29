@@ -397,8 +397,6 @@ final class Loader {
 				'wp-element',
 				// Exports the __() function.
 				'wp-i18n',
-				// URL helpers (as addQueryArgs).
-				'wp-url',
 				'main',
 			],
 			true

@@ -3,9 +3,9 @@ import { ArrowIcon } from './ArrowIcon';
 import { toDeclarations } from '../toDeclarations';
 import { HighlightMatches } from '../HighlightMatches';
 import { fetchJson } from '../../functions/fetchJson';
+import { addQueryArgs } from '../../functions/addQueryArgs';
 
 const { apiFetch } = wp;
-const { addQueryArgs } = wp.url;
 const { __ } = wp.i18n;
 
 const placeholderData = {
