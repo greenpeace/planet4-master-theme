@@ -202,3 +202,12 @@ input.describe[type=text][data-setting=caption] {
     content: none;
   }
 }
+
+// Sidebar help texts
+.components-base-control__help,
+.components-form-token-field__help,
+.sidebar-blocks-help ul li,
+.FieldHelp {
+  font-size: 13px;
+  line-height: 1.5;
+}
