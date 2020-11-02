@@ -17,7 +17,16 @@ const MediaInspectorOptions = ({ attributes, setAttributes }) => {
   // https://github.com/facebook/react/issues/14904
   // https://github.com/facebook/react/issues/955#issuecomment-469352730
   const [ media_url, setMediaURL ] = useState(attributes.media_url);
-  const debouncedMediaURLUpdate = useCallback(debounce(value => setAttributes({ media_url: value }), 300), []);
+  const debouncedMediaURLUpdate = useCallback(debounce(value => {
+    setAttributes({ embed_html: null });
+
+    const embedPreview = wp.data.select('core').getEmbedPreview(resolveURL(value));
+
+    const embed_html = embedPreview ? embedPreview.html : null;
+
+    setMediaURL(value);
+    setAttributes({ media_url: value, embed_html: embed_html });
+  }, 300), []);
 
   function onSelectImage({id}) {
     setAttributes({video_poster_img: id});
@@ -107,17 +116,9 @@ const resolveURL = url => {
 
 export const MediaEditor = (props) => {
   const { attributes, setAttributes, isSelected } = props;
-  const { media_url, video_poster_img } = attributes;
+  const { video_poster_img } = attributes;
 
   const toAttribute = attributeName => value => setAttributes({ [attributeName]: value });
-
-  const embed_html = useSelect(select => {
-    const result = resolveURL(media_url);
-    const embedPreview = select('core').getEmbedPreview(result);
-
-    return embedPreview ? embedPreview.html : null;
-  }, [media_url]);
-
   const poster_url = useSelect(select => {
     const media = select('core').getMedia(video_poster_img);
 
@@ -133,11 +134,10 @@ export const MediaEditor = (props) => {
   // for the block to render statically.
   useEffect(() => {
     setAttributes({
-      embed_html: embed_html || null,
       poster_url: poster_url || null
     })
   },
-  [ embed_html, poster_url ]);
+  [ poster_url ]);
 
   return (
     <div>
