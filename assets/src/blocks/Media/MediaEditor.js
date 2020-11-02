@@ -28,8 +28,13 @@ const MediaInspectorOptions = ({ attributes, setAttributes }) => {
     setAttributes({ media_url: value, embed_html: embed_html });
   }, 300), []);
 
-  function onSelectImage({id}) {
-    setAttributes({video_poster_img: id});
+  function onSelectImage(image) {
+    const poster_url = image ? image.sizes.large.url : null;
+
+    setAttributes({
+      video_poster_img: image.id,
+      poster_url,
+    });
   }
 
   return <InspectorControls>
@@ -115,29 +120,9 @@ const resolveURL = url => {
 }
 
 export const MediaEditor = (props) => {
-  const { attributes, setAttributes, isSelected } = props;
-  const { video_poster_img } = attributes;
+  const { setAttributes, isSelected } = props;
 
   const toAttribute = attributeName => value => setAttributes({ [attributeName]: value });
-  const poster_url = useSelect(select => {
-    const media = select('core').getMedia(video_poster_img);
-
-    return media ? media.media_details.sizes.large.source_url : null;
-  }, [video_poster_img]);
-
-  // In order to render the block statically with no endpoint calls
-  // we need to store the embed's HTML and the poster image URL.
-  // As that content is fetched when the Media URL or the image ID changes,
-  // the effect itself is more or less a change listener for `embed_html` and `poster_url`,
-  // which are retrieved in the previous useSelect call right before this effect.
-  // Once we know the content of `embed_html` and `poster_url`, we store them as attributes
-  // for the block to render statically.
-  useEffect(() => {
-    setAttributes({
-      poster_url: poster_url || null
-    })
-  },
-  [ poster_url ]);
 
   return (
     <div>
