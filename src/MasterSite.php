@@ -195,6 +195,9 @@ class MasterSite extends TimberSite {
 		add_action( 'admin_notices', [ $this, 'show_dashboard_notice' ] );
 		add_action( 'wp_ajax_dismiss_dashboard_notice', [ $this, 'dismiss_dashboard_notice' ] );
 		add_filter( 'timber/twig', [ $this, 'p4_optimize_img_url' ] );
+
+		// Disable WordPress(WP5.5) Block Directory.
+		$this->disable_block_directory();
 	}
 
 	/**
@@ -1278,5 +1281,25 @@ class MasterSite extends TimberSite {
 		}
 
 		return $source;
+	}
+
+	/**
+	 * Remove block directory assets and rest endpoint.
+	 */
+	public function disable_block_directory(): void {
+		remove_action( 'enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets' );
+		add_filter( 'rest_endpoints', [ $this, 'disable_block_directory_endpoint' ] );
+	}
+
+	/**
+	 * Remove block directory endpoint.
+	 *
+	 * @param array $endpoints The available endpoints.
+	 *
+	 * @return array
+	 */
+	public function disable_block_directory_endpoint( array $endpoints ): array {
+		unset( $endpoints['/wp/v2/block-directory/search'] );
+		return $endpoints;
 	}
 }
