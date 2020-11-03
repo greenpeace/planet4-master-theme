@@ -1,5 +1,6 @@
 import { MediaEditor } from './MediaEditor';
 import { MediaFrontend } from './MediaFrontend';
+import { mediaV1 } from './deprecated/mediaV1';
 
 const {__} = wp.i18n;
 
@@ -15,6 +16,17 @@ const attributes = {
   video_poster_img: {
     type: 'integer'
   },
+  embed_html: {
+    type: 'string',
+    default: ''
+  },
+  media_url: {
+    type: 'string'
+  },
+  poster_url: {
+    type: 'string',
+    default: ''
+  },
 };
 
 export const registerMediaBlock = () => {
@@ -24,41 +36,9 @@ export const registerMediaBlock = () => {
     title: __('Media block', 'planet4-blocks-backend'),
     icon: 'format-video',
     category: 'planet4-blocks',
-    attributes: {
-      ...attributes,
-      embed_html: {
-        type: 'string',
-        default: ''
-      },
-      media_url: {
-        type: 'string'
-      },
-      poster_url: {
-        type: 'string',
-        default: ''
-      },
-    },
-    save: ({ attributes }) => {
-      return <MediaFrontend { ...attributes } />
-    },
+    attributes,
+    save: MediaFrontend,
     edit: MediaEditor,
-    deprecated: [{
-      attributes: {
-        ...attributes,
-        youtube_id: {
-          type: 'string',
-          default: ''
-        },
-      },
-      migrate( { youtube_id, ...attributes } ) {
-        return {
-          ...attributes,
-          media_url: youtube_id
-        };
-      },
-      save: () => {
-        return null
-      }
-    }],
+    mediaV1,
   });
 };

@@ -19,14 +19,14 @@ const wrapEmbedHTML = embed_html => {
   return wrapperDiv.outerHTML;
 }
 
-export const MediaFrontend = (props) => {
+export const MediaFrontend = ({ attributes }) => {
   const {
     video_title,
     description,
     embed_html,
     poster_url,
     media_url,
-  } = props;
+  } = attributes;
 
   return (
     <section className="block media-block">

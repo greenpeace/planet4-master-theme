@@ -127,9 +127,9 @@ export const MediaEditor = (props) => {
   // In order to render the block statically with no endpoint calls
   // we need to store the embed's HTML and the poster image URL.
   // As that content is fetched when the Media URL or the image ID changes,
-  // the effect itself is more or less a change listener for embedHTML and poster_url,
+  // the effect itself is more or less a change listener for `embed_html` and `poster_url`,
   // which are retrieved in the previous useSelect call right before this effect.
-  // Once we know the content of embedHTML and poster_url, we store them as attributes
+  // Once we know the content of `embed_html` and `poster_url`, we store them as attributes
   // for the block to render statically.
   useEffect(() => {
     setAttributes({
