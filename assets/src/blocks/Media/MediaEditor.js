@@ -1,26 +1,46 @@
-import { Fragment, useEffect, useState, useCallback } from "@wordpress/element";
+import { Fragment, useCallback } from "@wordpress/element";
 import { PanelBody } from '@wordpress/components';
 import { MediaPlaceholder, InspectorControls } from '@wordpress/block-editor';
 import { TextControl } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
 import { debounce } from 'lodash';
 
 import { MediaEmbedPreview } from "./MediaEmbedPreview";
 import { MediaElementVideo } from './MediaElementVideo';
+import { useSelect } from '@wordpress/data';
+import { lacksAttributes } from './MediaBlock';
 
 const { __ } = wp.i18n;
+const {apiFetch} = wp;
+const {addQueryArgs} = wp.url;
 const { RichText } = wp.blockEditor;
 
-const MediaInspectorOptions = ({ attributes, setAttributes }) => {
-  // Using a state to prevent the input losing the cursor position,
-  // a React issue reported multiple times, see:
-  // https://github.com/facebook/react/issues/14904
-  // https://github.com/facebook/react/issues/955#issuecomment-469352730
-  const [ media_url, setMediaURL ] = useState(attributes.media_url);
-  const debouncedMediaURLUpdate = useCallback(debounce(value => setAttributes({ media_url: value }), 300), []);
 
-  function onSelectImage({id}) {
-    setAttributes({video_poster_img: id});
+const MediaInspectorOptions = ({ attributes, setAttributes }) => {
+  const { media_url } = attributes;
+
+  const updateEmbed = async media_url => {
+    let embed_html;
+    try {
+      const embedPreview = await apiFetch({
+        path: addQueryArgs('/oembed/1.0/proxy', { url: resolveURL(media_url) }),
+      });
+
+      embed_html = embedPreview ? embedPreview.html : null;
+    } catch (error) {
+      embed_html = null;
+    }
+    setAttributes({ media_url, embed_html });
+  };
+
+  const debouncedMediaURLUpdate = useCallback(debounce(updateEmbed, 300), []);
+
+  const onSelectImage = (image) => {
+    const poster_url = image ? image.sizes.large.url : null;
+
+    setAttributes({
+      video_poster_img: image.id,
+      poster_url,
+    });
   }
 
   return <InspectorControls>
@@ -28,13 +48,8 @@ const MediaInspectorOptions = ({ attributes, setAttributes }) => {
         <TextControl
           label={__('Media URL/ID', 'planet4-blocks-backend')}
           placeholder={__('Enter URL', 'planet4-blocks-backend')}
-          value={ media_url }
-          onChange={
-            value => {
-              setMediaURL(value)
-              debouncedMediaURLUpdate(value)
-            }
-          }
+          defaultValue={ media_url }
+          onChange={ debouncedMediaURLUpdate }
           help={__('Can be a YouTube, Vimeo or Soundcloud URL or an mp4, mp3 or wav file URL.', 'planet4-blocks-backend')}
         />
 
@@ -51,8 +66,7 @@ const MediaInspectorOptions = ({ attributes, setAttributes }) => {
   ;
 }
 
-const renderView = (props, toAttribute) => {
-  const { attributes } = props;
+const renderView = (attributes, toAttribute) => {
   const { video_title, description, embed_html, media_url, poster_url } = attributes;
 
   const VideoComponent = media_url?.endsWith('.mp4')
@@ -105,45 +119,37 @@ const resolveURL = url => {
     : url;
 }
 
+const patchLegacyAttributes = (attributes) => {
+  return useSelect(select=> {
+    if (!lacksAttributes(attributes)) {
+      return attributes
+    }
+    const url = resolveURL(attributes.media_url);
+    const embedPreview = select('core').getEmbedPreview(url);
+
+    const embed_html = embedPreview ? embedPreview.html : null;
+    const media = select('core').getMedia(attributes.video_poster_img);
+
+    const poster_url = media ? media.media_details.sizes.large.source_url : null;
+    return {
+      ...attributes,
+      embed_html,
+      poster_url,
+    }
+  })
+}
+
 export const MediaEditor = (props) => {
-  const { attributes, setAttributes, isSelected } = props;
-  const { media_url, video_poster_img } = attributes;
+  const attributes = patchLegacyAttributes(props.attributes);
+  const { setAttributes, isSelected } = props;
 
   const toAttribute = attributeName => value => setAttributes({ [attributeName]: value });
 
-  const embed_html = useSelect(select => {
-    const result = resolveURL(media_url);
-    const embedPreview = select('core').getEmbedPreview(result);
-
-    return embedPreview ? embedPreview.html : null;
-  }, [media_url]);
-
-  const poster_url = useSelect(select => {
-    const media = select('core').getMedia(video_poster_img);
-
-    return media ? media.media_details.sizes.large.source_url : null;
-  }, [video_poster_img]);
-
-  // In order to render the block statically with no endpoint calls
-  // we need to store the embed's HTML and the poster image URL.
-  // As that content is fetched when the Media URL or the image ID changes,
-  // the effect itself is more or less a change listener for `embed_html` and `poster_url`,
-  // which are retrieved in the previous useSelect call right before this effect.
-  // Once we know the content of `embed_html` and `poster_url`, we store them as attributes
-  // for the block to render statically.
-  useEffect(() => {
-    setAttributes({
-      embed_html: embed_html || null,
-      poster_url: poster_url || null
-    })
-  },
-  [ embed_html, poster_url ]);
-
   return (
     <div>
-      { isSelected && <MediaInspectorOptions { ...props } /> }
+      { isSelected && <MediaInspectorOptions attributes={attributes} setAttributes={setAttributes} /> }
       {
-        renderView(props, toAttribute)
+        renderView(attributes, toAttribute)
       }
     </div>
   );

@@ -1,4 +1,4 @@
-export const mediaV1 = [{
+export const mediaV1 = {
   attributes: {
     video_title: {
       type: 'string'
@@ -14,6 +14,9 @@ export const mediaV1 = [{
       default: ''
     },
   },
+  isEligible({youtube_id}) {
+    return !!youtube_id;
+  },
   migrate( { youtube_id, ...attributes } ) {
     return {
       ...attributes,
@@ -21,4 +24,4 @@ export const mediaV1 = [{
     };
   },
   save: () => null
-}];
+};
