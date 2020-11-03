@@ -1,32 +1,46 @@
-#action-card-bottom {
+.action-card-bottom.cover-card {
   background: white !important;
   padding: 0;
   width: 100%;
   display: none;
-  height: 80px;
-  box-shadow: none;
+  height: 120px;
   position: relative;
-  margin-top: 0 !important;
+  margin-top: 80px !important;
+  box-shadow: 0 4px 3px rgba(0, 0, 0, 0.16);
+  transition: box-shadow 0.2s;
+  border-radius: 4px;
+
+  &:hover {
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+  }
 
   img {
     display: block;
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     pointer-events: none;
+    float: left;
+    object-fit: cover;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    margin-right: 16px;
   }
 
   .cover-card-content {
-    padding: 8px 16px;
-    width: 100%;
+    position: unset;
+    padding: 16px;
   }
 
   .cover-card-more {
     display: block;
-    font-weight: 600;
+    font-weight: 700;
     font-family: $roboto;
-    color: #020202;
-    font-size: 0.75rem;
-    margin-bottom: 8px;
+    color: $grey-80;
+    font-size: 28px;
+    line-height: 1;
+    margin-top: -60px;
+    position: absolute;
+    left: 0;
   }
 
   .cover-card-tag,
@@ -36,62 +50,57 @@
   }
 
   .cover-card-heading {
-    color: #020202;
+    color: $grey-80;
     text-shadow: none;
-    margin-bottom: 5px;
-    font-size: 0.875rem;
-    margin-top: 0;
+    font-size: 16px;
     font-weight: 700;
+    max-width: 100%;
+    line-height: 1.25;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  .cover-card-btn {
-    display: block;
-    color: $link-color;
-    background: none;
-    text-transform: none;
-    border: none;
-    box-shadow: none;
-    padding: 0;
-    width: auto;
-    left: auto;
-    right: 16px;
+  .btn {
+    font-size: 12px;
     line-height: 1;
-    font-size: 0.75rem;
-    margin: 4px 0;
+    padding: 10px 16px;
+    right: 16px;
+    bottom: 16px;
+    left: auto;
+    position: absolute;
+    display: block;
+    width: auto;
+    margin: 0;
+    background-color: $orange;
+    color: $white;
+    border: none;
 
-    &:hover {
-      background: none;
-      text-decoration: underline;
-      color: $link-hover-color;
+    &:hover,
+    &:focus {
+      background-color: $orange-hover;
     }
 
-    &:after {
-      content: '';
-      border-style: solid;
-      border-width: 2px 2px 0 0;
-      display: inline-block;
-      height: 6px;
-      transform: rotate(45deg);
-      width: 6px;
+    &:active {
+      background-color: $orange-active;
     }
   }
 
   @include medium-and-up {
-    min-height: 210px;
-    margin-top: 80px !important;
+    min-height: 200px;
+    margin-top: 100px !important;
     float: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
-    margin-left: 0;
 
     .cover-card-heading {
-      margin-bottom: 32px;
-      font-size: $font-size-md;
+      margin-bottom: 10px;
+      font-size: 20px;
+      margin-top: 0;
     }
 
     .cover-card-content {
-      padding: 32px;
-      width: 55%;
-      position: unset;
+      padding: 20px;
     }
 
     img {
@@ -99,42 +108,31 @@
       width: 45%;
     }
 
-    .cover-card-btn {
-      right: 32px;
-      font-size: $font-size-xxs;
-      margin: 32px 0;
-
-      &:after {
-        height: 8px;
-        width: 8px;
-      }
+    .cover-card-excerpt {
+      color: #242424;
+      line-height: 1.5;
+      font-size: 14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin: 0;
     }
 
-    p {
-      display: block;
-      color: #020202;
-      margin-top: 0;
-      line-height: $font-size-md;
-      font-size: $font-size-xxs;
+    .btn {
+      bottom: 16px;
+      right: 16px;
+      font-size: 14px;
     }
 
     .cover-card-more {
-      font-size: $font-size-lg;
-      position: absolute;
+      font-size: 40px;
       margin-top: -80px;
-      left: 0;
     }
   }
 
   @include large-and-up {
+    min-height: 210px;
     max-width: 65%;
-
-    &:hover .cover-card-btn {
-      display: block;
-    }
-
-    .cover-card-btn {
-      display: none;
-    }
   }
 }

@@ -13,7 +13,7 @@
 			data-ga-label="n/a"
 			class="cover-card-overlay"
 			href="{{ boxout.link|default('#') }}" {{ boxout.new_tab and boxout.link ? 'target="_blank"' }}
-		/>
+		></a>
 		<img src={{ boxout.image }} />
 		<div class="cover-card-content">
 			<p class="cover-card-more">{{ __( 'Want to do more?', 'planet4-blocks' ) }}</p>
@@ -43,7 +43,7 @@
 				</a>
 			{% endif %}
 			{% if ( boxout.excerpt ) %}
-				<p>{{ boxout.excerpt|e('wp_kses_post')|excerpt(25)|raw }}</p>
+				<p class="cover-card-excerpt">{{ boxout.excerpt|e('wp_kses_post')|excerpt(25)|raw }}</p>
 			{% endif %}
 		</div>
 		{% if ( boxout.link and boxout.link_text ) %}
@@ -58,7 +58,7 @@
 				{{ boxout.link_text }}
 			</a>
 			<a class="not-now" data-ga-category="Take Action Boxout">
-				{{ __( 'Not now', 'planet4-blocks' ) }}
+				×
 			</a>
 		{% endif %}
 	</section>

@@ -110,7 +110,7 @@ export class Takeactionboxout extends Component {
 						value={this.props.custom_excerpt}
 						onChange={this.props.onCustomExcerptChange}
 						disabled={this.takeActionPageSelected()}
-            characterLimit={200}
+            characterLimit={110}
           />
           <URLInput
             label={__('Custom Link', 'p4ge')}
@@ -125,6 +125,7 @@ export class Takeactionboxout extends Component {
 						value={this.props.custom_link_text}
 						onChange={this.props.onCustomLinkTextChange}
 						disabled={this.takeActionPageSelected()}
+            characterLimit={20}
 					/>
 					<CheckboxControl
 						label={__('Open in a new Tab', 'p4ge')}
