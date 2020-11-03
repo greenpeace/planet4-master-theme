@@ -1,25 +1,36 @@
-import { Fragment, useEffect, useState, useCallback } from "@wordpress/element";
+import { Fragment, useCallback } from "@wordpress/element";
 import { PanelBody } from '@wordpress/components';
 import { MediaPlaceholder, InspectorControls } from '@wordpress/block-editor';
 import { TextControl } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
 import { debounce } from 'lodash';
 
 import { MediaEmbedPreview } from "./MediaEmbedPreview";
 import { MediaElementVideo } from './MediaElementVideo';
 
 const { __ } = wp.i18n;
+const {apiFetch} = wp;
+const {addQueryArgs} = wp.url;
 const { RichText } = wp.blockEditor;
+
 
 const MediaInspectorOptions = ({ attributes, setAttributes }) => {
   const { media_url } = attributes;
-  
-  const debouncedMediaURLUpdate = useCallback(debounce(value => {
-    const embedPreview = wp.data.select('core').getEmbedPreview(resolveURL(value));
-    const embed_html = embedPreview ? embedPreview.html : null;
 
-    setAttributes({ media_url: value, embed_html: embed_html });
-  }, 300), []);
+  const updateEmbed = async media_url => {
+    let embed_html;
+    try {
+      const embedPreview = await apiFetch({
+        path: addQueryArgs('/oembed/1.0/proxy', { url: resolveURL(media_url) }),
+      });
+
+      embed_html = embedPreview ? embedPreview.html : null;
+    } catch (error) {
+      embed_html = null;
+    }
+    setAttributes({ media_url, embed_html });
+  };
+
+  const debouncedMediaURLUpdate = useCallback(debounce(updateEmbed, 300), []);
 
   function onSelectImage(image) {
     const poster_url = image ? image.sizes.large.url : null;
@@ -36,11 +47,7 @@ const MediaInspectorOptions = ({ attributes, setAttributes }) => {
           label={__('Media URL/ID', 'planet4-blocks-backend')}
           placeholder={__('Enter URL', 'planet4-blocks-backend')}
           defaultValue={ media_url }
-          onChange={
-            value => {
-              debouncedMediaURLUpdate(value)
-            }
-          }
+          onChange={ debouncedMediaURLUpdate }
           help={__('Can be a YouTube, Vimeo or Soundcloud URL or an mp4, mp3 or wav file URL.', 'planet4-blocks-backend')}
         />
 
