@@ -12,19 +12,12 @@ const { __ } = wp.i18n;
 const { RichText } = wp.blockEditor;
 
 const MediaInspectorOptions = ({ attributes, setAttributes }) => {
-  // Using a state to prevent the input losing the cursor position,
-  // a React issue reported multiple times, see:
-  // https://github.com/facebook/react/issues/14904
-  // https://github.com/facebook/react/issues/955#issuecomment-469352730
-  const [ media_url, setMediaURL ] = useState(attributes.media_url);
+  const { media_url } = attributes;
+  
   const debouncedMediaURLUpdate = useCallback(debounce(value => {
-    setAttributes({ embed_html: null });
-
     const embedPreview = wp.data.select('core').getEmbedPreview(resolveURL(value));
-
     const embed_html = embedPreview ? embedPreview.html : null;
 
-    setMediaURL(value);
     setAttributes({ media_url: value, embed_html: embed_html });
   }, 300), []);
 
@@ -42,10 +35,9 @@ const MediaInspectorOptions = ({ attributes, setAttributes }) => {
         <TextControl
           label={__('Media URL/ID', 'planet4-blocks-backend')}
           placeholder={__('Enter URL', 'planet4-blocks-backend')}
-          value={ media_url }
+          defaultValue={ media_url }
           onChange={
             value => {
-              setMediaURL(value)
               debouncedMediaURLUpdate(value)
             }
           }
