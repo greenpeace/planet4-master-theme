@@ -17,7 +17,7 @@ const wrapEmbedHTML = embed_html => {
   return wrapperDiv.outerHTML;
 }
 
-export const MediaFrontend = ({ attributes }) => {
+export const MediaFrontend = ( attributes ) => {
   const {
     video_title,
     description,

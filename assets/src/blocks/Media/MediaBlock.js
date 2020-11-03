@@ -50,7 +50,7 @@ export const registerMediaBlock = () => {
         return null;
       }
 
-      return <MediaFrontend attributes={attributes} />;
+      return <MediaFrontend {...attributes} />;
     },
     edit: MediaEditor,
     deprecated: [
