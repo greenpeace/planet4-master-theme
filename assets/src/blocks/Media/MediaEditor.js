@@ -6,6 +6,8 @@ import { debounce } from 'lodash';
 
 import { MediaEmbedPreview } from "./MediaEmbedPreview";
 import { MediaElementVideo } from './MediaElementVideo';
+import { useSelect } from '@wordpress/data';
+import { lacksAttributes } from './MediaBlock';
 
 const { __ } = wp.i18n;
 const {apiFetch} = wp;
@@ -32,7 +34,7 @@ const MediaInspectorOptions = ({ attributes, setAttributes }) => {
 
   const debouncedMediaURLUpdate = useCallback(debounce(updateEmbed, 300), []);
 
-  function onSelectImage(image) {
+  const onSelectImage = (image) => {
     const poster_url = image ? image.sizes.large.url : null;
 
     setAttributes({
@@ -64,8 +66,7 @@ const MediaInspectorOptions = ({ attributes, setAttributes }) => {
   ;
 }
 
-const renderView = (props, toAttribute) => {
-  const { attributes } = props;
+const renderView = (attributes, toAttribute) => {
   const { video_title, description, embed_html, media_url, poster_url } = attributes;
 
   const VideoComponent = media_url?.endsWith('.mp4')
@@ -118,16 +119,37 @@ const resolveURL = url => {
     : url;
 }
 
+const patchLegacyAttributes = (attributes) => {
+  return useSelect(select=> {
+    if (!lacksAttributes(attributes)) {
+      return attributes
+    }
+    const url = resolveURL(attributes.media_url);
+    const embedPreview = select('core').getEmbedPreview(url);
+
+    const embed_html = embedPreview ? embedPreview.html : null;
+    const media = select('core').getMedia(attributes.video_poster_img);
+
+    const poster_url = media ? media.media_details.sizes.large.source_url : null;
+    return {
+      ...attributes,
+      embed_html,
+      poster_url,
+    }
+  })
+}
+
 export const MediaEditor = (props) => {
+  const attributes = patchLegacyAttributes(props.attributes);
   const { setAttributes, isSelected } = props;
 
   const toAttribute = attributeName => value => setAttributes({ [attributeName]: value });
 
   return (
     <div>
-      { isSelected && <MediaInspectorOptions { ...props } /> }
+      { isSelected && <MediaInspectorOptions attributes={attributes} setAttributes={setAttributes} /> }
       {
-        renderView(props, toAttribute)
+        renderView(attributes, toAttribute)
       }
     </div>
   );

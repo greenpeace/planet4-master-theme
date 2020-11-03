@@ -1,8 +1,6 @@
 import { MediaEmbedPreview } from './MediaEmbedPreview';
 import { MediaElementVideo } from './MediaElementVideo';
 
-const { __ } = wp.i18n;
-
 const wrapEmbedHTML = embed_html => {
   const wrapperDiv = document.createElement('div');
   wrapperDiv.innerHTML = embed_html;
