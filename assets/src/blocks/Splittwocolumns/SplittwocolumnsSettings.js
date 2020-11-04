@@ -7,7 +7,7 @@ const { useSelect } = wp.data;
 const { __ } = wp.i18n;
 
 /**
- * Sidebar settings 
+ * Sidebar settings
  */
 export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) => {
   const {
@@ -28,7 +28,7 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
     focus_tag_image,
     edited
   } = attributes;
-  
+
   const issuesList = useSelect((select) => {
     const parent_page = window.p4ge_vars.planet4_options.explore_page;
     const issue_page_args = {
@@ -79,7 +79,7 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
           charLimit.description
         ),
       button_text: edited.button_text ? button_text
-        : button_text || __( 'Get Involved', 'planet4-blocks' ),
+        : button_text || __( 'Get involved', 'planet4-blocks' ),
       tag_link: tag?.link || '',
       button_link: button_link || tag?.link || '',
       tag_image_id: edited.tag_image_id ? tag_image_id : (tag?.meta?.tag_attachment_id ?? 0)
@@ -208,7 +208,7 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
 
 /**
  * Convert focal point values from : 10% 80% => {x:0.1, y:0.8}
- * @param {string} focal_str 
+ * @param {string} focal_str
  */
 const convertFocalStringToObj = (focal_str) => {
   if (!focal_str || focal_str.length <= 0) {

@@ -343,7 +343,7 @@ class Covers extends Base_Block {
 		$covers = [];
 
 		if ( $actions ) {
-			$cover_button_text = $options['take_action_covers_button_text'] ?? __( 'Take Action', 'planet4-blocks' );
+			$cover_button_text = $options['take_action_covers_button_text'] ?? __( 'Take action', 'planet4-blocks' );
 
 			foreach ( $actions as $action ) {
 				$tags    = [];
@@ -366,7 +366,7 @@ class Covers extends Base_Block {
 					'button_link' => get_permalink( $action->ID ),
 				];
 			}
-			$fields['button_text'] = __( 'Load More', 'planet4-blocks' );
+			$fields['button_text'] = __( 'Load more', 'planet4-blocks' );
 		}
 
 		return $covers;

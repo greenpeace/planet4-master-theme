@@ -43,7 +43,7 @@ class Articles extends Base_Block {
 				// todo: Remove when all content is migrated.
 				'render_callback' => static function ( $attributes ) {
 					if ( empty( $attributes['read_more_text'] ) ) {
-						$attributes['read_more_text'] = __( 'Load More', 'planet4-blocks' );
+						$attributes['read_more_text'] = __( 'Load more', 'planet4-blocks' );
 					}
 
 					if ( empty( $attributes['article_heading'] ) ) {

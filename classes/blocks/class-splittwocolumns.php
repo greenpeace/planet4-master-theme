@@ -88,7 +88,7 @@ class SplitTwoColumns extends Base_Block {
 						$json = htmlspecialchars( $json ? $json : [] );
 					}
 
-					return '<div 
+					return '<div
 						data-render="' . self::BLOCK_NAME . '"
 						data-attributes="' . ( $json ?? [] ) . '">
 					</div>';
@@ -160,7 +160,7 @@ class SplitTwoColumns extends Base_Block {
 			}
 		}
 
-		$fields['button_text'] = $fields['button_text'] ?? __( 'Get Involved', 'planet4-blocks' );
+		$fields['button_text'] = $fields['button_text'] ?? __( 'Get involved', 'planet4-blocks' );
 		$fields['button_link'] = $fields['button_link'] ?? $fields['tag_link'] ?? '';
 
 		// Filter allowed properties.
