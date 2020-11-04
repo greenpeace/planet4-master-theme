@@ -55,6 +55,7 @@ $context['social_accounts']     = $post->get_social_accounts( $context['footer_s
 $context['page_category']       = 'Post Page';
 $context['post_tags']           = implode( ', ', $post->tags() );
 
+Context::add_global_style_settings( $context );
 Context::set_og_meta_fields( $context, $post );
 Context::set_campaign_datalayer( $context, $page_meta_data );
 

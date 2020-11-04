@@ -6,6 +6,7 @@
  * @package P4MT
  */
 
+use P4\MasterTheme\Context;
 use P4\MasterTheme\Sitemap;
 use P4\MasterTheme\Post;
 use Timber\Timber;
@@ -30,5 +31,7 @@ $context['issues']          = $sitemap->get_issues();
 $context['evergreen_pages'] = $sitemap->get_evergreen_pages();
 $context['page_types']      = $sitemap->get_page_types();
 $context['page_category']   = 'Sitemap Page';
+
+Context::add_global_style_settings( $context );
 
 Timber::render( [ 'sitemap.twig' ], $context );

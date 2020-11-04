@@ -88,6 +88,7 @@ if ( PostCampaign::DEFAULT_NAVBAR_THEME !== $custom_styles['nav_type'] ) {
 $post->set_data_layer();
 $data_layer = $post->get_data_layer();
 
+Context::add_global_style_settings( $context );
 Context::set_header( $context, $meta, $post->title );
 Context::set_background_image( $context );
 Context::set_og_meta_fields( $context, $post );
@@ -98,7 +99,8 @@ $context['social_accounts'] = $post->get_social_accounts( $context['footer_socia
 $context['page_category']   = $data_layer['page_category'];
 $context['post_tags']       = implode( ', ', $post->tags() );
 $context['custom_styles']   = $custom_styles;
-$context['css_vars']        = PostCampaign::css_vars( $campaign_meta );
+
+$context['css_vars'] += PostCampaign::css_vars( $campaign_meta );
 
 // Social footer link overrides.
 $context['social_overrides'] = [];

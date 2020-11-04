@@ -57,6 +57,7 @@ if ( is_array( $page_tags ) && $page_tags ) {
 $post->set_data_layer();
 $data_layer = $post->get_data_layer();
 
+Context::add_global_style_settings( $context );
 Context::set_header( $context, $page_meta_data, $post->title );
 Context::set_background_image( $context );
 Context::set_og_meta_fields( $context, $post );

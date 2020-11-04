@@ -81,6 +81,23 @@ class Features {
 				'id'   => self::ENGAGING_NETWORKS,
 				'type' => 'checkbox',
 			],
+			[
+				'name'    => __( 'Global button text transform (TEMPORARY)', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'<span style="background: red; color: white; font-size: 2rem">
+WARNING: only set this to another value than "none" if there is a lot of content that has incorrect casing that has not been fixed yet.
+We will remove this option and use no text transform soon.
+</span>',
+					'planet4-master-theme-backend'
+				),
+				'id'      => 'global_button_text_transform',
+				'type'    => 'select',
+				'options' => [
+					'none'       => 'None (use original text capitalization.',
+					'capitalize' => 'Capitalize each word',
+					'uppercase'  => 'Uppercase',
+				],
+			],
 		];
 	}
 

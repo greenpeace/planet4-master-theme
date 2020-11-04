@@ -47,6 +47,7 @@ $context['post']                = $post;
 $context['custom_body_classes'] = 'white-bg';
 $context['page_category']       = 'Evergreen Page';
 
+Context::add_global_style_settings( $context );
 Context::set_header( $context, $page_meta_data, $post->title );
 Context::set_background_image( $context );
 Context::set_og_meta_fields( $context, $post );

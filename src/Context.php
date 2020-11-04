@@ -63,6 +63,22 @@ class Context {
 	}
 
 	/**
+	 * Add css variables from settings.
+	 *
+	 * @param array $context The context to add them to.
+	 */
+	public static function add_global_style_settings( &$context ): void {
+		$vars = [];
+
+		$button_text_transform_setting = planet4_get_option( 'global_button_text_transform' );
+		if ( $button_text_transform_setting && 'none' !== $button_text_transform_setting ) {
+			$vars['global-button--text-transform'] = $button_text_transform_setting;
+		}
+
+		$context['css_vars'] = $vars;
+	}
+
+	/**
 	 * Get campaign scope from value selected in the Global Projects dropdown.
 	 * Conditions:
 	 * - If Global Project equals "Local Campaign" then Scope is Local.
