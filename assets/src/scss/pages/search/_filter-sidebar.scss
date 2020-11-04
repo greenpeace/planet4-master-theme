@@ -144,6 +144,11 @@
       padding: 0 $n10;
       color: $white;
 
+      svg {
+        margin-right: 4px;
+        vertical-align: baseline;
+      }
+
       &:hover {
         color: $grey-80;
         cursor: pointer;
