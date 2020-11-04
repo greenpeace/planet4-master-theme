@@ -29,7 +29,6 @@
   transition-property: color, background-color, border-color;
   transition-duration: 150ms;
   transition-timing-function: linear;
-  text-transform: capitalize;
 
   &:hover,
   &:focus,
@@ -45,11 +44,6 @@
     opacity: .5;
     cursor: default;
   }
-}
-
-.btn.text-transform-none,
-.wp-block-button.text-transform-none a {
-  text-transform: none;
 }
 
 .btn-small {
@@ -173,6 +167,7 @@
   margin: 0;
   padding: 2px $n30;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+  text-transform: none;
 
   &:hover,
   &:focus {
