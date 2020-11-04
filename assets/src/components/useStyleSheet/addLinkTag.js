@@ -11,7 +11,6 @@ export const addLinkTag = ({
 
 	link.addEventListener('load', onLoad);
 	link.addEventListener('error', event => {
-		link.remove();
 		onError(event);
 	});
 

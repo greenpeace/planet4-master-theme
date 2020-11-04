@@ -9,7 +9,6 @@ export const addScriptTag = ({
 	script.async = async;
 	script.addEventListener('load', onLoad);
 	script.addEventListener('error', event => {
-		script.remove();
 		onError(event);
 	});
 
