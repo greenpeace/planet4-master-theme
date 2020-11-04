@@ -3,7 +3,7 @@ import { useStyleSheet } from '../../components/useStyleSheet/useStyleSheet';
 import { useRef, useEffect } from 'react';
 import { uniqueId } from 'lodash';
 
-const TIMELINE_JS_VERSION = '3.6.6';
+const TIMELINE_JS_VERSION = '3.8.10';
 
 export const Timeline = (props) => {
 	const {
@@ -16,7 +16,7 @@ export const Timeline = (props) => {
 	const timelineNode = useRef(null);
 
 	const [stylesLoaded, stylesError] = useStyleSheet(
-    `https://cdnjs.cloudflare.com/ajax/libs/timelinejs/${TIMELINE_JS_VERSION}/css/timeline.css`
+    `https://cdn.knightlab.com/libs/timeline3/${TIMELINE_JS_VERSION}/css/timeline.css`
 	);
 
   const setupTimeline = function() {
@@ -30,7 +30,7 @@ export const Timeline = (props) => {
 	}
 
 	const [scriptLoaded, scriptError] = useScript(
-		`https://cdnjs.cloudflare.com/ajax/libs/timelinejs/${TIMELINE_JS_VERSION}/js/timeline-min.js`
+    `https://cdn.knightlab.com/libs/timeline3/${TIMELINE_JS_VERSION}/js/timeline-min.js`
 	);
 
 	useEffect(
