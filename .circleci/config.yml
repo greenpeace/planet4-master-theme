@@ -1,6 +1,9 @@
 ---
 version: 2.1
 
+orbs:
+  sonarcloud: sonarsource/sonarcloud@1.0.0
+
 workflows:
   main:
     jobs:
@@ -8,6 +11,7 @@ workflows:
       - php73-tests
       - acceptance-tests
       - a11y-tests
+      - sonarscan
       - create-release-zip:
           context: org-global
           filters:
@@ -153,6 +157,14 @@ commands:
           command: notify-job-failure.sh
 
 jobs:
+  sonarscan:
+    docker:
+      - image: 'node:latest'
+        auth: &docker_auth
+    steps:
+      - checkout
+      - sonarcloud/scan
+
   php72-tests:
     <<: *php_job
     docker:
