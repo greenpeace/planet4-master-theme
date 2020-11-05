@@ -117,3 +117,9 @@
   max-width: 100%;
   width: 100%;
 }
+
+.edit-post-visual-editor .wp-block {
+  .video-embed, .wp-block-embed-youtube, .wp-block-embed-vimeo, .wp-block-embed-dailymotion, .wp-block-embed-kickstarter {
+    max-height: 100%;
+  }
+}
