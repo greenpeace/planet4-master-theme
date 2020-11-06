@@ -107,7 +107,7 @@ $comments_args = [
 	'comment_notes_after'  => '',
 	'comment_field'        => Timber::compile( 'comment_form/comment_field.twig' ),
 	'submit_button'        => Timber::compile( 'comment_form/submit_button.twig' ),
-	'title_reply'          => __( 'Leave Your Reply', 'planet4-master-theme' ),
+	'title_reply'          => __( 'Leave your reply', 'planet4-master-theme' ),
 	'fields'               => apply_filters(
 		'comment_form_default_fields',
 		[

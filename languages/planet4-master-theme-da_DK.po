@@ -3,12 +3,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-05-31 07:26+0000\n"
+"PO-Revision-Date: 2020-11-06 11:46+0200\n"
 "Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: style.css\n"
@@ -18,17 +18,17 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Last-Translator: jfindale <jfindale@greenpeace.org>\n"
 "Language: da_DK\n"
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.2.2; wp-5.2.1\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
-"Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.2.2; wp-5.2.1"
 
 #: single.php:33
 msgid "Post page"
 msgstr "Postside"
 
 #: single.php:67
-msgid "Leave Your Reply"
+msgid "Leave your reply"
 msgstr "Skriv en kommentar"
 
 #: 404.php:16
@@ -170,7 +170,7 @@ msgstr "Artikler"
 
 #: templates/author.twig:36
 msgid "Posts by "
-msgstr "Indlæg af"
+msgstr "Indlæg af "
 
 #: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
@@ -227,7 +227,7 @@ msgstr "Søg på vores arkivside."
 
 #: templates/search.twig:24
 msgid "We also included results for "
-msgstr "Vi har også inkluderet søgeresultater fra"
+msgstr "Vi har også inkluderet søgeresultater fra "
 
 #: templates/search.twig:38
 msgid "This Site"
@@ -266,7 +266,7 @@ msgid "Cancel"
 msgstr "Fortryd"
 
 #: templates/search.twig:157
-msgid "Apply Filters"
+msgid "Apply filters"
 msgstr "Filtrér"
 
 #: templates/search.twig:167
@@ -274,7 +274,7 @@ msgid "ACTIVE FILTERS"
 msgstr "AKTIVE FILTRE"
 
 #: templates/search.twig:176
-msgid "Clear All"
+msgid "Clear all"
 msgstr "Slet alt"
 
 #: templates/search.twig:183
@@ -302,7 +302,7 @@ msgid "Suggested search terms"
 msgstr "Foreslåede søgeord"
 
 #: templates/tease-search.twig:67
-msgid "take action"
+msgid "Take action"
 msgstr "vær med"
 
 #: templates/tease-search.twig:70
@@ -374,7 +374,7 @@ msgid "Your Name"
 msgstr "Dit navn"
 
 #: templates/comment_form/submit_button.twig:1
-msgid "Post Comment"
+msgid "Post comment"
 msgstr "Del kommentar"
 
 #. Theme Name of the plugin/theme

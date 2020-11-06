@@ -3,12 +3,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-10-28 06:54+0000\n"
+"PO-Revision-Date: 2020-11-06 11:39+0200\n"
 "Language-Team: Korean\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: style.css\n"
@@ -18,17 +18,17 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Last-Translator: sheo <sheo@greenpeace.org>\n"
 "Language: ko_KR\n"
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.3.1; wp-5.2.4\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
-"Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.3.1; wp-5.2.4"
 
 #: single.php:33
 msgid "Post page"
 msgstr ""
 
 #: single.php:67
-msgid "Leave Your Reply"
+msgid "Leave your reply"
 msgstr ""
 
 #: 404.php:16
@@ -113,7 +113,6 @@ msgstr ""
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
 msgstr[0] ""
-msgstr[1] ""
 
 #. translators:
 #: classes/class-p4-search.php:418
@@ -121,7 +120,6 @@ msgstr[1] ""
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] ""
-msgstr[1] ""
 
 #: classes/class-p4-search.php:478
 msgid "Action"
@@ -266,7 +264,7 @@ msgid "Cancel"
 msgstr ""
 
 #: templates/search.twig:157
-msgid "Apply Filters"
+msgid "Apply filters"
 msgstr ""
 
 #: templates/search.twig:167
@@ -274,7 +272,7 @@ msgid "ACTIVE FILTERS"
 msgstr ""
 
 #: templates/search.twig:176
-msgid "Clear All"
+msgid "Clear all"
 msgstr ""
 
 #: templates/search.twig:183
@@ -302,7 +300,7 @@ msgid "Suggested search terms"
 msgstr ""
 
 #: templates/tease-search.twig:67
-msgid "take action"
+msgid "Take action"
 msgstr ""
 
 #: templates/tease-search.twig:70
@@ -374,7 +372,7 @@ msgid "Your Name"
 msgstr ""
 
 #: templates/comment_form/submit_button.twig:1
-msgid "Post Comment"
+msgid "Post comment"
 msgstr ""
 
 #. Theme Name of the plugin/theme
