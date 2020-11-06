@@ -1,39 +1,52 @@
 .comments-block {
-  margin-top: 0;
-  padding: $n40 15px;
-  border-top: 1px solid $blue;
-  background-color: $comment-block;
+  color: $grey-40;
+  font-family: $roboto;
+  width: 100%;
+  padding-top: 32px;
+  border-top: 1px solid $grey-20;
+
+  .form-section,
+  .comments-section {
+    width: 100%;
+  }
+
+  .comments-section {
+    padding-top: 32px;
+    border-top: 1px solid $grey-20;
+  }
 
   @include medium-and-up {
-    padding: $n50 $n30;
-    margin-top: 0;
+    padding-top: 40px;
   }
 
   @include large-and-up {
-    padding: 48px;
     max-width: 70%;
+    padding-left: 48px;
+    padding-right: 48px;
   }
 
-  h3 {
+  .comment-reply-title,
+  .comments-section-title {
     font-size: $font-size-sm;
-    margin-bottom: 16px;
-
-    @include medium-and-up {
-      margin-bottom: 22px;
-    }
+    font-family: $roboto;
+    color: $grey-40;
+    font-weight: bold;
 
     @include large-and-up {
-      margin-bottom: 18px;
+      font-size: $font-size-md;
     }
+  }
 
-    @include x-large-and-up {
-      margin-bottom: 16px;
-    }
+  .comment-reply-title {
+    margin-bottom: 24px;
 
-    &.comments-section-title {
-      margin-top: 16px;
-      margin-bottom: 0;
+    @include medium-and-up {
+      margin-bottom: 32px;
     }
+  }
+
+  .comments-section-title {
+    margin-bottom: 0;
   }
 }
 
@@ -41,48 +54,37 @@
 @include comment-level;
 
 .single-comment {
-  margin-top: 16px;
-  margin-bottom: 16px;
-  padding-bottom: 32px;
-  border-bottom: 1px solid $grey-20;
-  font-size: $font-size-xxs;
+  padding: 32px 0;
+  font-size: $font-size-sm;
   line-height: 1.5;
+  font-family: $lora;
 
-  &:last-of-type {
-    border-bottom: 0;
+  &:not(:last-of-type) {
+    border-bottom: 1px solid $grey-20;
+  }
+
+  .single-comment-text {
+    font-weight: normal;
+    margin: 0;
   }
 
   @include medium-and-up {
-    margin-top: 22px;
-    margin-bottom: 22px;
-    padding-bottom: 24px;
+    padding: 40px 0;
   }
-}
 
-.single-comment-text {
-  font-size: 1.125rem;
-  font-family: $roboto;
-  font-weight: 300;
-  margin: $n20 0;
-  color: $grey-60;
+  @include large-and-up {
+    padding: 40px 0 16px 0;
+  }
 }
 
 .single-comment-meta {
-  font-size: $font-size-xxs;
-  font-weight: 500;
-  color: $grey-80;
   text-decoration: none;
   display: block;
 
-  @include medium-and-up {
-    font-weight: 400;
-  }
+  .author-info {
+    font-weight: bold;
 
-  & > * {
-    display: inline-block;
-    margin-bottom: 0;
-
-    &:first-child:after {
+    &:after {
       content: "\2022";
       padding-left: 5px;
 
@@ -92,31 +94,33 @@
     }
   }
 
-  .comment-date {
-    font-weight: 400;
-    font-style: italic;
-    color: $grey-60;
+  & > * {
+    display: inline-block;
+    margin-bottom: 0;
+  }
 
-    @include medium-and-up {
-      font-style: italic;
-      color: $grey-60;
-    }
+  .comment-date {
+    font-weight: normal;
+    font-style: italic;
   }
 
   .comment-reply-btn {
     clear: both;
     display: block;
-    margin-top: 10px;
+    margin-top: 24px;
     width: 100%;
-    padding: 0 55px;
-    font-size: $font-size-xs;
 
     @include medium-and-up {
-      clear: none;
-      display: inline-block;
-      margin-top: -12px;
-      width: auto;
-      float: right;
+      margin-top: 40px;
+    }
+
+    @include large-and-up {
+      width: 180px;
+      height: 32px;
+      line-height: 32px;
+      margin-right: 0;
+      margin-left: auto;
+      margin-top: 8px;
     }
   }
 }
