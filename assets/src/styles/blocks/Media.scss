@@ -112,3 +112,14 @@
 .wp-block-embed-flickr img {
   width: 100%;
 }
+
+.video-embed-container {
+  max-width: 100%;
+  width: 100%;
+}
+
+.edit-post-visual-editor .wp-block {
+  .video-embed, .wp-block-embed-youtube, .wp-block-embed-vimeo, .wp-block-embed-dailymotion, .wp-block-embed-kickstarter {
+    max-height: 100%;
+  }
+}

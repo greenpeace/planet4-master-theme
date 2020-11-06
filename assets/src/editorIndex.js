@@ -6,7 +6,7 @@ import { CounterBlock } from './blocks/Counter/CounterBlock';
 import { CoversBlock } from './blocks/Covers/CoversBlock';
 import { GalleryBlock } from './blocks/Gallery/GalleryBlock';
 import { HappypointBlock } from './blocks/Happypoint/HappypointBlock';
-import { MediaBlock } from './blocks/Media/MediaBlock';
+import { registerMediaBlock } from './blocks/Media/MediaBlock';
 import { SocialmediaBlock } from './blocks/Socialmedia/SocialmediaBlock';
 import { SocialMediaCardsBlock } from './blocks/SocialMediaCards/SocialMediaCardsBlock';
 import { SplittwocolumnsBlock } from './blocks/Splittwocolumns/SplittwocolumnsBlock';
@@ -34,7 +34,7 @@ new CounterBlock();
 new CoversBlock();
 new GalleryBlock();
 new HappypointBlock();
-new MediaBlock();
+registerMediaBlock();
 new SocialmediaBlock();
 new SocialMediaCardsBlock();
 new SplittwocolumnsBlock();
@@ -43,7 +43,6 @@ registerSubmenuBlock();
 new SubPagesBlock();
 new TakeactionboxoutBlock();
 new ENFormBlock()
-
 registerTimelineBlock();
 
 addBlockFilters();

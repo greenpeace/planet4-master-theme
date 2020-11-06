@@ -7,7 +7,10 @@ import { HappypointFrontend } from './blocks/Happypoint/HappypointFrontend';
 import { GalleryFrontend } from './blocks/Gallery/GalleryFrontend';
 import { TimelineFrontend } from './blocks/Timeline/TimelineFrontend';
 import { SubmenuFrontend } from './blocks/Submenu/SubmenuFrontend';
+import { MediaFrontend } from './blocks/Media/MediaFrontend';
+import { setupMediaElementJS } from './blocks/Media/setupMediaElementJS';
 
+// Render React components
 const COMPONENTS = {
   'planet4-blocks/spreadsheet': SpreadsheetFrontend,
   'planet4-blocks/counter': CounterFrontend,
@@ -17,7 +20,8 @@ const COMPONENTS = {
   'planet4-blocks/happypoint': HappypointFrontend,
   'planet4-blocks/gallery': GalleryFrontend,
   'planet4-blocks/timeline': TimelineFrontend,
-  'planet4-blocks/submenu': SubmenuFrontend
+  'planet4-blocks/submenu': SubmenuFrontend,
+  'planet4-blocks/media-video': MediaFrontend,
 };
 
 document.querySelectorAll( `[data-render]` ).forEach(
@@ -28,3 +32,5 @@ document.querySelectorAll( `[data-render]` ).forEach(
     wp.element.render( <BlockFrontend { ...attributes.attributes } />, blockNode );
   }
 );
+
+setupMediaElementJS();
