@@ -1,5 +1,6 @@
 import { Component } from '@wordpress/element';
 import { dateI18n } from '@wordpress/date';
+import { unescape } from '../../functions/unescape';
 const { __ } = wp.i18n;
 
 export class ArticlePreview extends Component {
@@ -19,7 +20,7 @@ export class ArticlePreview extends Component {
               data-ga-category="Articles Block"
               data-ga-action="Post Type Tag"
               data-ga-label="n/a">
-                {pageType}
+                {unescape(pageType)}
            </a>
   }
 
@@ -126,7 +127,7 @@ export class ArticlePreview extends Component {
                       data-ga-action="Navigation Tag"
                       data-ga-label="n/a">
                         <span aria-label="hashtag">#</span>
-                        {tag.name}
+                        {unescape(tag.name)}
                     </a>
                   )}
                 </div>
