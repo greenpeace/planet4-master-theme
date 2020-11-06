@@ -130,7 +130,9 @@ class Gallery extends Base_Block {
 		];
 
 		foreach ( $exploded_images as $image_id ) {
-			$image_size = $fields['gallery_image_size'] ? $fields['gallery_image_size'] : $image_sizes[ $fields['gallery_block_style'] ];
+			$image_size = $fields['gallery_image_size'] ? $fields['gallery_image_size'] : (
+				$fields['gallery_block_style'] ? $image_sizes[ $fields['gallery_block_style'] ] : null
+			);
 			$image_data = [];
 
 			$image_data_array           = wp_get_attachment_image_src( $image_id, $image_size );
