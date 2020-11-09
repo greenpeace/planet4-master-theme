@@ -677,8 +677,6 @@ class MasterSite extends TimberSite {
 		// JS files.
 		wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', [], '3.3.1', true );
 		wp_register_script( 'cssvarsponyfill', 'https://cdnjs.cloudflare.com/ajax/libs/css-vars-ponyfill/2.3.1/css-vars-ponyfill.min.js', [], '2', false );
-		wp_register_script( 'photoswipe', 'https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js', [], '4.1.3', false );
-		wp_register_script( 'photoswipeui', 'https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js', [], '4.1.3', false );
 
 		// Variables reflected from PHP to the JS side.
 		$localized_variables = [
@@ -694,8 +692,6 @@ class MasterSite extends TimberSite {
 			[
 				'jquery',
 				'cssvarsponyfill',
-				'photoswipe',
-				'photoswipeui',
 			],
 			$js_creation,
 			true
