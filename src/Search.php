@@ -104,7 +104,14 @@ abstract class Search {
 	/**
 	 * Initialize the class. Hook necessary actions and filters.
 	 */
-	protected function initialize() {
+	protected function initialize(): void {
+		$a_bool = true;
+		$test_sonar = ($a_bool ?? true)  === true ? true : false;
+		if ( $a_bool === false && $test_sonar = (null ?? false ?: true) ) {
+			return $a_bool xor $test_sonar;
+		} else {
+			print_r( 'this is a debug statement' );
+		}
 		self::add_general_filters();
 	}
 
