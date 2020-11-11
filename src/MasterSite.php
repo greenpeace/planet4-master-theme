@@ -669,8 +669,6 @@ class MasterSite extends TimberSite {
 			[],
 			Loader::theme_file_ver( 'assets/build/bootstrap.min.css' )
 		);
-		wp_enqueue_style( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css', [], '1.9.0' );
-
 		// This loads a linked style file since the relative images paths are outside the build directory.
 		wp_enqueue_style( 'parent-style', $this->theme_dir . '/assets/build/style.min.css', [], $css_creation );
 
@@ -690,7 +688,6 @@ class MasterSite extends TimberSite {
 		wp_localize_script( 'main', 'localizations', $localized_variables );
 		wp_enqueue_script( 'main' );
 
-		wp_enqueue_script( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js', [], '1.9.0', true );
 		wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );
 	}
 
