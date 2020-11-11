@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
-"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && n"
+"%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-06-10 12:36+0000\n"
+"PO-Revision-Date: 2020-11-06 11:43+0200\n"
 "Language-Team: Croatian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: style.css\n"
@@ -19,17 +19,17 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Last-Translator: Lucija Jakus <ljakus@greenpeace.org>\n"
 "Language: hr\n"
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.3.0; wp-5.2.1\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
-"Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.3.0; wp-5.2.1"
 
 #: single.php:33
 msgid "Post page"
 msgstr "Stranica članaka"
 
 #: single.php:67
-msgid "Leave Your Reply"
+msgid "Leave your reply"
 msgstr "Ostavi svoj komentar"
 
 #: 404.php:16
@@ -146,7 +146,7 @@ msgstr "Članak"
 #: classes/class-p4-search.php:660
 #, php-format
 msgid "SHOW %s MORE RESULTS"
-msgstr "PRIKAŽI %s VIŠE "
+msgstr "PRIKAŽI %s VIŠE"
 
 #. Name of the template
 msgid "Evergreen Page"
@@ -174,7 +174,7 @@ msgstr "Članci"
 
 #: templates/author.twig:36
 msgid "Posts by "
-msgstr "-"
+msgstr "- "
 
 #: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
@@ -233,7 +233,7 @@ msgstr "Pretraži našu arhivu. Bit ćete preusmjeren/a na web-lokaciju arhive."
 
 #: templates/search.twig:24
 msgid "We also included results for "
-msgstr "Uključili smo i rezultate za"
+msgstr "Uključili smo i rezultate za "
 
 #: templates/search.twig:38
 msgid "This Site"
@@ -272,7 +272,7 @@ msgid "Cancel"
 msgstr "Odustani"
 
 #: templates/search.twig:157
-msgid "Apply Filters"
+msgid "Apply filters"
 msgstr "primjeni filtere"
 
 #: templates/search.twig:167
@@ -280,7 +280,7 @@ msgid "ACTIVE FILTERS"
 msgstr "UKLJUČENI FILTERI"
 
 #: templates/search.twig:176
-msgid "Clear All"
+msgid "Clear all"
 msgstr "Očisti sve"
 
 #: templates/search.twig:183
@@ -308,7 +308,7 @@ msgid "Suggested search terms"
 msgstr "Predloženi pojmovi za pretraživanje"
 
 #: templates/tease-search.twig:67
-msgid "take action"
+msgid "Take action"
 msgstr "aktiviraj se"
 
 #: templates/tease-search.twig:70
@@ -380,7 +380,7 @@ msgid "Your Name"
 msgstr "Tvoje ime"
 
 #: templates/comment_form/submit_button.twig:1
-msgid "Post Comment"
+msgid "Post comment"
 msgstr "Objavi komentar"
 
 #. Theme Name of the plugin/theme

@@ -4,12 +4,12 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2020-03-16 16:23+0000\n"
+"PO-Revision-Date: 2020-11-06 11:48+0200\n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: style.css\n"
@@ -19,17 +19,17 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Last-Translator: fgedeon <fgedeon@greenpeace.org>\n"
 "Language: ar\n"
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.3.1; wp-5.3.2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
-"Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.3.1; wp-5.3.2"
 
 #: single.php:33
 msgid "Post page"
 msgstr "انشر الصفحة"
 
 #: single.php:67
-msgid "Leave Your Reply"
+msgid "Leave your reply"
 msgstr "اكتب ردك"
 
 #: 404.php:16
@@ -47,8 +47,7 @@ msgstr ""
 
 #: tag.php:48
 msgid "Unknown Campaign page"
-msgstr ""
-"صفحة حملة غير معروفة\n"
+msgstr "صفحة حملة غير معروفة\n"
 
 #: tag.php:54
 msgid "Things you can do"
@@ -64,13 +63,11 @@ msgstr "الحملات ذات الصلة"
 
 #: tag.php:84
 msgid "This Campaign is not assigned to an Issue"
-msgstr ""
-"لم يتم تعيين هذه الحملة لمشكلة\n"
+msgstr "لم يتم تعيين هذه الحملة لمشكلة\n"
 
 #: functions.php:85
 msgid "Most relevant"
-msgstr ""
-"الأكثر صلة\n"
+msgstr "الأكثر صلة\n"
 
 #: functions.php:89
 msgid "Most recent"
@@ -110,8 +107,7 @@ msgstr "انشر"
 
 #: classes/class-p4-search.php:407
 msgid "Search page"
-msgstr ""
-"صفحة البحث\n"
+msgstr "صفحة البحث\n"
 
 #. translators:
 #: classes/class-p4-search.php:412
@@ -164,8 +160,7 @@ msgstr "صفحة خضراء"
 
 #. Name of the template
 msgid "Sitemap Page"
-msgstr ""
-"خريطة الموقع\n"
+msgstr "خريطة الموقع\n"
 
 #: page-templates/sitemap.php:18
 msgid "Act"
@@ -193,8 +188,7 @@ msgstr "تحميل المزيد"
 
 #: templates/navigation-bar.twig:6
 msgid "Toggle navigation menu"
-msgstr ""
-"تبديل قائمة التنقل\n"
+msgstr "تبديل قائمة التنقل\n"
 
 #: templates/navigation-bar.twig:7 templates/search.twig:8
 #: templates/search.twig:45 templates/404.twig:17
@@ -227,8 +221,7 @@ msgstr "واضح!"
 
 #: templates/search.twig:16
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr ""
-"نأسف لعدم العثور على أي مطابقات لعبارة البحث.\n"
+msgstr "نأسف لعدم العثور على أي مطابقات لعبارة البحث.\n"
 
 #: templates/search.twig:18
 msgid "Check for typos, and try your search again"
@@ -244,8 +237,7 @@ msgstr "ابحث في أرشيفنا. ستتم إعادة توجيهك إلى م
 
 #: templates/search.twig:24
 msgid "We also included results for "
-msgstr ""
-"لقد قمنا أيضًا بتضمين نتائج لـ\n"
+msgstr "لقد قمنا أيضًا بتضمين نتائج لـ\n"
 
 #: templates/search.twig:38
 msgid "This Site"
@@ -261,8 +253,7 @@ msgstr "فلاتر"
 
 #: templates/search.twig:63 templates/search.twig:164
 msgid "Refine your search"
-msgstr ""
-"حدد نطاق البحث\n"
+msgstr "حدد نطاق البحث\n"
 
 #: templates/search.twig:71
 msgid "ISSUE"
@@ -285,7 +276,7 @@ msgid "Cancel"
 msgstr "إلغاء"
 
 #: templates/search.twig:157
-msgid "Apply Filters"
+msgid "Apply filters"
 msgstr "طبق الفلاتر"
 
 #: templates/search.twig:167
@@ -293,7 +284,7 @@ msgid "ACTIVE FILTERS"
 msgstr "الفلاتر المفعّلة"
 
 #: templates/search.twig:176
-msgid "Clear All"
+msgid "Clear all"
 msgstr "امسح الكل"
 
 #: templates/search.twig:183
@@ -314,16 +305,14 @@ msgstr "نوع المحتوى"
 
 #: templates/search.twig:263
 msgid "Sort by"
-msgstr ""
-"ترتيب حسب\n"
+msgstr "ترتيب حسب\n"
 
 #: templates/search.twig:300
 msgid "Suggested search terms"
-msgstr ""
-"مصطلحات البحث المقترحة\n"
+msgstr "مصطلحات البحث المقترحة\n"
 
 #: templates/tease-search.twig:67
-msgid "take action"
+msgid "Take action"
 msgstr "تحرك الأن"
 
 #: templates/tease-search.twig:70
@@ -395,9 +384,8 @@ msgid "Your Name"
 msgstr "اسمك"
 
 #: templates/comment_form/submit_button.twig:1
-msgid "Post Comment"
-msgstr ""
-"أضف تعليقا\n"
+msgid "Post comment"
+msgstr "أضف تعليقا\n"
 
 #. Theme Name of the plugin/theme
 msgid "Greenpeace Planet 4 Master Theme"

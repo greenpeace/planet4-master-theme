@@ -3,12 +3,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-07-31 07:21+0000\n"
+"PO-Revision-Date: 2020-11-06 11:42+0200\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: style.css\n"
@@ -18,19 +18,18 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Last-Translator: Ayip Fahmi <afahmifa@greenpeace.org>\n"
 "Language: id_ID\n"
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.3.0; wp-5.2.2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
-"Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.3.0; wp-5.2.2"
 
 #: single.php:33
 msgid "Post page"
 msgstr "Unggah halaman"
 
 #: single.php:67
-msgid "Leave Your Reply"
-msgstr ""
-"Tinggalkan Balasan Kamu\n"
+msgid "Leave your reply"
+msgstr "Tinggalkan Balasan Kamu"
 
 #: 404.php:16
 msgid "Sorry, we can't find that page!"
@@ -46,8 +45,7 @@ msgstr "Halaman Tidak Ditemukan"
 
 #: tag.php:48
 msgid "Unknown Campaign page"
-msgstr ""
-"Halaman Kampanye Tidak Diketahui\n"
+msgstr "Halaman Kampanye Tidak Diketahui"
 
 #: tag.php:54
 msgid "Things you can do"
@@ -63,8 +61,7 @@ msgstr "Kampanye Yang Terkait"
 
 #: tag.php:84
 msgid "This Campaign is not assigned to an Issue"
-msgstr ""
-"Kampanye ini tidak berkaitan dengan sebuah isu\n"
+msgstr "Kampanye ini tidak berkaitan dengan sebuah isu"
 
 #: functions.php:85
 msgid "Most relevant"
@@ -116,7 +113,6 @@ msgstr "Cari halaman"
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
 msgstr[0] "%1$d hasil untuk '%2$s'"
-msgstr[1] ""
 
 #. translators:
 #: classes/class-p4-search.php:418
@@ -124,7 +120,6 @@ msgstr[1] ""
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "%d hasil"
-msgstr[1] ""
 
 #: classes/class-p4-search.php:478
 msgid "Action"
@@ -202,8 +197,7 @@ msgstr "Terpilih"
 
 #: templates/navigation-bar.twig:30
 msgid "Change Country"
-msgstr ""
-"Ubah Negara\n"
+msgstr "Ubah Negara"
 
 #: templates/navigation-bar.twig:60
 msgid "Toggle search form"
@@ -219,13 +213,11 @@ msgstr "Maaf, kami tidak dapat menemukan apa yang kamu cari."
 
 #: templates/search.twig:18
 msgid "Check for typos, and try your search again"
-msgstr ""
-"Cek kesalahan dalam penulisan, dan coba pencarian lagi\n"
+msgstr "Cek kesalahan dalam penulisan, dan coba pencarian lagi"
 
 #: templates/search.twig:19
 msgid "Try searching for somthing else"
-msgstr ""
-"Coba lakukan pencarian lain\n"
+msgstr "Coba lakukan pencarian lain"
 
 #: templates/search.twig:20
 msgid "Search our archive. You'll be redirected to the archive site."
@@ -233,8 +225,7 @@ msgstr "Cari arsip kami. Kamu akan diarahkan ke situs arsip."
 
 #: templates/search.twig:24
 msgid "We also included results for "
-msgstr ""
-"Kami juga menyertakan pencarian untuk\n"
+msgstr "Kami juga menyertakan pencarian untuk"
 
 #: templates/search.twig:38
 msgid "This Site"
@@ -273,7 +264,7 @@ msgid "Cancel"
 msgstr "Batalkan"
 
 #: templates/search.twig:157
-msgid "Apply Filters"
+msgid "Apply filters"
 msgstr "Pakai filter"
 
 #: templates/search.twig:167
@@ -281,7 +272,7 @@ msgid "ACTIVE FILTERS"
 msgstr "FILTER AKTIF"
 
 #: templates/search.twig:176
-msgid "Clear All"
+msgid "Clear all"
 msgstr "Hapus Semua"
 
 #: templates/search.twig:183
@@ -309,7 +300,7 @@ msgid "Suggested search terms"
 msgstr "Istilah pencarian yang disarankan"
 
 #: templates/tease-search.twig:67
-msgid "take action"
+msgid "Take action"
 msgstr "ikut beraksi"
 
 #: templates/tease-search.twig:70
@@ -381,7 +372,7 @@ msgid "Your Name"
 msgstr "Nama Anda"
 
 #: templates/comment_form/submit_button.twig:1
-msgid "Post Comment"
+msgid "Post comment"
 msgstr "Tampilkan Komentar"
 
 #. Theme Name of the plugin/theme

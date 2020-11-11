@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2020-05-26 15:46+0000\n"
+"PO-Revision-Date: 2020-11-06 11:45+0200\n"
 "Last-Translator: Nikos Roussos\n"
 "Language-Team: Greek\n"
 "Language: el\n"
@@ -11,15 +11,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.4.0; wp-5.4.1"
+"X-Generator: Poedit 2.4.1\n"
+"X-Loco-Version: 2.4.0; wp-5.4.1\n"
 
 #: single.php:33
 msgid "Post page"
 msgstr ""
 
 #: single.php:67
-msgid "Leave Your Reply"
+msgid "Leave your reply"
 msgstr "Πρόσθεσε σχόλιο"
 
 #: 404.php:16
@@ -44,8 +44,7 @@ msgstr "Τι μπορείς να κάνεις"
 
 #: tag.php:55
 msgid "We want you to take action because together we're strong."
-msgstr ""
-"Χρειαζόμαστε ανθρώπους σαν και εσένα για να προστατεύσουμε τον πλανήτη μας."
+msgstr "Χρειαζόμαστε ανθρώπους σαν και εσένα για να προστατεύσουμε τον πλανήτη μας."
 
 #: tag.php:83
 msgid "Related Campaigns"
@@ -258,7 +257,7 @@ msgid "Cancel"
 msgstr "Ακύρωση"
 
 #: templates/search.twig:157
-msgid "Apply Filters"
+msgid "Apply filters"
 msgstr "Ενεργοποίησε φίλτρα αναζήτησης"
 
 #: templates/search.twig:167
@@ -266,7 +265,7 @@ msgid "ACTIVE FILTERS"
 msgstr "ΕΝΕΡΓΑ ΦΙΛΤΡΑ"
 
 #: templates/search.twig:176
-msgid "Clear All"
+msgid "Clear all"
 msgstr "Εκκαθάριση"
 
 #: templates/search.twig:183
@@ -294,7 +293,7 @@ msgid "Suggested search terms"
 msgstr "Προτεινόμενοι όροι αναζήτησης"
 
 #: templates/tease-search.twig:67
-msgid "take action"
+msgid "Take action"
 msgstr "Πάτα εδώ"
 
 #: templates/tease-search.twig:70
@@ -366,7 +365,7 @@ msgid "Your Name"
 msgstr "Το όνομά σου"
 
 #: templates/comment_form/submit_button.twig:1
-msgid "Post Comment"
+msgid "Post comment"
 msgstr ""
 
 #. Theme Name of the plugin/theme

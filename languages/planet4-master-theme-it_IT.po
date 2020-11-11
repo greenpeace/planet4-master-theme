@@ -3,12 +3,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2019-05-29 10:25+0000\n"
+"PO-Revision-Date: 2020-11-06 11:42+0200\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: style.css\n"
@@ -18,17 +18,17 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Last-Translator: Luca Tiralongo <ltiralon@greenpeace.org>\n"
 "Language: it_IT\n"
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.2.2; wp-5.2.1\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
-"Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.2.2; wp-5.2.1"
 
 #: single.php:33
 msgid "Post page"
 msgstr ""
 
 #: single.php:67
-msgid "Leave Your Reply"
+msgid "Leave your reply"
 msgstr "Rispondi"
 
 #: 404.php:16
@@ -170,7 +170,7 @@ msgstr "Articoli"
 
 #: templates/author.twig:36
 msgid "Posts by "
-msgstr "Post di"
+msgstr "Post di "
 
 #: templates/author.twig:56 templates/taxonomy.twig:38
 msgid "Load More"
@@ -211,7 +211,7 @@ msgstr "Ho capito!"
 
 #: templates/search.twig:16
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr "Ci dispiace, ma non abbiamo trovato quello che cercavi"
+msgstr "Ci dispiace, ma non abbiamo trovato quello che cercavi."
 
 #: templates/search.twig:18
 msgid "Check for typos, and try your search again"
@@ -227,7 +227,7 @@ msgstr "Cerca nel nostro archivio. Sarai rediretto al nostro archivio."
 
 #: templates/search.twig:24
 msgid "We also included results for "
-msgstr "Abbiamo incluso anche i risultati per"
+msgstr "Abbiamo incluso anche i risultati per "
 
 #: templates/search.twig:38
 msgid "This Site"
@@ -266,7 +266,7 @@ msgid "Cancel"
 msgstr "Cancella"
 
 #: templates/search.twig:157
-msgid "Apply Filters"
+msgid "Apply filters"
 msgstr "Applica filtri"
 
 #: templates/search.twig:167
@@ -274,7 +274,7 @@ msgid "ACTIVE FILTERS"
 msgstr "FILTRI ATTIVI"
 
 #: templates/search.twig:176
-msgid "Clear All"
+msgid "Clear all"
 msgstr "Cancella tutto"
 
 #: templates/search.twig:183
@@ -302,7 +302,7 @@ msgid "Suggested search terms"
 msgstr "Suggerimenti di ricerca"
 
 #: templates/tease-search.twig:67
-msgid "take action"
+msgid "Take action"
 msgstr "Entra in azione"
 
 #: templates/tease-search.twig:70
@@ -374,7 +374,7 @@ msgid "Your Name"
 msgstr "Il tuo nome"
 
 #: templates/comment_form/submit_button.twig:1
-msgid "Post Comment"
+msgid "Post comment"
 msgstr ""
 
 #. Theme Name of the plugin/theme
