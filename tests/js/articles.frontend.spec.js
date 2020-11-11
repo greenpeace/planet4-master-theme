@@ -16,7 +16,7 @@ import 'expect-puppeteer';
 
 const ARTICLES_BLOCK = `
 <!-- wp:planet4-blocks/articles {"article_count":2} -->
-<div class="wp-block-planet4-blocks-articles" data-render="planet4-blocks/articles" data-attributes="{&quot;attributes&quot;:{&quot;article_heading&quot;:&quot;Related Articles&quot;,&quot;article_count&quot;:2,&quot;tags&quot;:[],&quot;posts&quot;:[],&quot;post_types&quot;:[],&quot;read_more_text&quot;:&quot;Load More&quot;,&quot;read_more_link&quot;:&quot;&quot;,&quot;button_link_new_tab&quot;:false,&quot;ignore_categories&quot;:false},&quot;innerBlocks&quot;:[]}"></div>
+<div class="wp-block-planet4-blocks-articles" data-render="planet4-blocks/articles" data-attributes="{&quot;attributes&quot;:{&quot;article_heading&quot;:&quot;Related Articles&quot;,&quot;article_count&quot;:2,&quot;tags&quot;:[],&quot;posts&quot;:[],&quot;post_types&quot;:[],&quot;read_more_text&quot;:&quot;Load more&quot;,&quot;read_more_link&quot;:&quot;&quot;,&quot;button_link_new_tab&quot;:false,&quot;ignore_categories&quot;:false},&quot;innerBlocks&quot;:[]}"></div>
 <!-- /wp:planet4-blocks/articles -->
 `;
 
@@ -119,7 +119,7 @@ describe( 'Articles block frontend', () => {
     );
     expect( articlesCount ).toEqual(2);
 
-    await clickElementByText( 'button', 'Load More' );
+    await clickElementByText( 'button', 'Load more' );
 
     // Wait for load more response.
     await new Promise((r) => setTimeout(r, 300));

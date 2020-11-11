@@ -29,7 +29,7 @@ const renderEdit = (attributes, toAttribute) => {
           <TextControl
             label={__('Button Text', 'planet4-blocks-backend')}
             placeholder={__('Override button text', 'planet4-blocks-backend')}
-            help={__('Your default is set to [ Load More ]', 'planet4-blocks-backend')}
+            help={__('Your default is set to [ Load more ]', 'planet4-blocks-backend')}
             value={attributes.read_more_text}
             onChange={toAttribute('read_more_text')}
           />

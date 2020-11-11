@@ -182,7 +182,7 @@ class TakeActionBoxout extends Base_Block {
 			'excerpt'   => null === $page ? '' : $page->post_excerpt,
 			'link'      => null === $page ? '' : get_permalink( $page ),
 			'new_tab'   => false,
-			'link_text' => $options['take_action_covers_button_text'] ?? __( 'take action', 'planet4-blocks' ),
+			'link_text' => $options['take_action_covers_button_text'] ?? __( 'Take action', 'planet4-blocks' ),
 			'image'     => null === $page ? '' : get_the_post_thumbnail_url( $page, 'large' ),
 		];
 

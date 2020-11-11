@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-07 10:10+0000\n"
-"PO-Revision-Date: 2020-10-12 11:37+0000\n"
+"PO-Revision-Date: 2020-11-11 15:27+0200\n"
 "Last-Translator: Oscar Keur\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -11,8 +11,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.4.3; wp-5.4.2"
+"X-Generator: Poedit 2.4.1\n"
+"X-Loco-Version: 2.4.3; wp-5.4.2\n"
 
 #: classes/class-loader.php:90
 msgid "Requirements Error(s)"
@@ -231,7 +231,7 @@ msgid ""
 "Show 1 Row: Displays 3 Covers on desktop and 2 Covers on mobile.<br> \n"
 "\t\t\t\t\t\t\t\t\t\tShow 2 Rows: Displays 6 Covers on desktop and 4 covers "
 "on mobile.<br>\n"
-"\t\t\t\t\t\t\t\t\t\t(Another Row will be revealed each time the Load More "
+"\t\t\t\t\t\t\t\t\t\t(Another Row will be revealed each time the Load more "
 "button is clicked)<br>\n"
 "\t\t\t\t\t\t\t\t\t\tShow All Covers: Displays all available Covers on "
 "desktop and 4 Covers on mobile."
@@ -254,7 +254,7 @@ msgid "Show All Covers"
 msgstr ""
 
 #: classes/controller/blocks/class-covers-controllers.php:85
-msgid "Take Action Covers"
+msgid "Take action Covers"
 msgstr ""
 
 #: classes/controller/blocks/class-campaignthumbnail-controller.php:36
@@ -511,15 +511,15 @@ msgid "Split Two Columns"
 msgstr ""
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:57
-msgid "Select a Take Action Page"
+msgid "Select a Take action Page"
 msgstr ""
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:58
-msgid "Associate this block with a Take Action page"
+msgid "Associate this block with a Take action page"
 msgstr ""
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:66
-msgid "Take Action Boxout"
+msgid "Take action Boxout"
 msgstr ""
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:52
@@ -551,7 +551,7 @@ msgid ""
 "Show 1 Row: Displays 4 Posts on desktop and 3 Posts on mobile.<br> \n"
 "\t\t\t\t\t\t\t\t\tShow 2 Rows: Displays 8 Posts on desktop and 6 Posts on "
 "mobile.<br>\n"
-"\t\t\t\t\t\t\t\t\t(Another Row will be revealed each time the Load More "
+"\t\t\t\t\t\t\t\t\t(Another Row will be revealed each time the Load more "
 "button is clicked)<br>\n"
 "\t\t\t\t\t\t\t\t\tShow All Rows: Displays all available Posts on desktop and "
 "4 Posts on mobile."

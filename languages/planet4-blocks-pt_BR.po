@@ -3,25 +3,25 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2020-10-09 08:22+0000\n"
+"PO-Revision-Date: 2020-11-11 15:26+0200\n"
 "Last-Translator: Nikos Roussos\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: planet4-blocks.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Language: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.4.3; wp-5.4.2"
+"X-Loco-Version: 2.4.3; wp-5.4.2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: classes/class-loader.php:463
 msgid "Planet 4 Blocks"
@@ -46,7 +46,7 @@ msgstr "Saiba mais sobre essa categoria"
 
 #: classes/blocks/class-splittwocolumns.php:163
 #: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:82
-msgid "Get Involved"
+msgid "Get involved"
 msgstr "Faça parte"
 
 #: classes/blocks/class-articles.php:46 classes/blocks/class-covers.php:369
@@ -54,7 +54,7 @@ msgstr "Faça parte"
 #: templates/blocks/content_covers.twig:70
 #: templates/blocks/content_covers.twig:78
 #: assets/src/blocks/Articles/ArticlesBlock.js:41
-msgid "Load More"
+msgid "Load more"
 msgstr "Mostrar mais"
 
 #: classes/blocks/class-articles.php:50
@@ -67,7 +67,7 @@ msgid "Error"
 msgstr ""
 
 #: classes/blocks/class-covers.php:346
-msgid "Take Action"
+msgid "Take action"
 msgstr "Participe"
 
 #: assets/src/blocks/Articles/ArticlePreview.js:43
