@@ -122,7 +122,7 @@
     .custom-select,
     select.form-control.en__field__input--select {
       height: 44px;
-      border-radius: 0;
+      border-radius: 4px;
     }
 
     .custom-checkbox input {
@@ -353,7 +353,7 @@ body.wp-admin {
 
 .en__field--select {
   border: 1px solid #1a1a1a;
-  border-radius: 0;
+  border-radius: 4px;
   width: 100%;
   margin-bottom: 1rem;
 
