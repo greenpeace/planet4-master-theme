@@ -551,6 +551,7 @@ $navbar-default-height: 60px;
     line-height: 26px;
     color: $dark-blue;
     top: 11px;
+    border-radius: 4px;
 
     html[dir="rtl"] & {
       left: 12px;
@@ -577,7 +578,6 @@ $navbar-default-height: 60px;
   input.form-control {
     height: 40px;
     border: none;
-    border-radius: 0;
     padding: $n5 $n10;
 
     @include large-and-up {

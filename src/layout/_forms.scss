@@ -35,6 +35,7 @@
       height: 26px;
       background: transparent;
       border: 3px solid $med-blue;
+      border-radius: 4px;
 
       html[dir="rtl"] & {
         margin-right: 0;
@@ -111,10 +112,6 @@
       border: 2.5px solid $dark-blue;
     }
   }
-
-  .form-control {
-    border-radius: unset;
-  }
 }
 
 .toggle {
@@ -154,4 +151,8 @@
 .toggle:checked + .toggle-label:after {
   left: calc(100% - 3px);
   transform: translateX(-100%);
+}
+
+.form-control {
+  border-radius: 4px;
 }
