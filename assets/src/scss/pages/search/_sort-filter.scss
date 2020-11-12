@@ -45,6 +45,7 @@ div.search-filter-results {
     padding: 0 $n10;
     border-color: $faded-jade;
     background: transparent;
+    border-radius: 4px;
 
     @include small-and-up {
       width: 210px;
