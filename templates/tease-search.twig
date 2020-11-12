@@ -16,23 +16,16 @@
 {% elseif ( first_of_the_page and loop.index0 is divisible by(5) ) %}
 	<div class="search-results-load row-hidden" style="display: none;">
 {% endif %}
-	{% if ( is_action ) %}
-		<li id="result-row-{{ post.ID }}" class="media search-result-list-item search-result-list-item-bg" style="background-image:linear-gradient(180deg, rgba(213, 239, 242, 1), rgba(255, 255, 255, 0.3)), url('{{ post.thumbnail }}');">
-			<div class="blank-block"></div>
-	{% else %}
 		<li id="result-row-{{ post.ID }}" class="media search-result-list-item">
-	{% endif %}
 
-		{% if ( not is_action ) %}
-			<img
-				class="d-flex search-result-item-image"
-				src="{{ post.thumbnail ?: dummy_thumbnail }}"
-				loading="lazy"
-				alt="{{ fn('esc_attr', post.thumbnail_alt|default( post.post_title ) )|raw }}"
-				data-ga-category="Search Results"
-				data-ga-action="Image"
-				data-ga-label="{{ ga_page_type }}" />
-		{% endif %}
+		<img
+			class="d-flex search-result-item-image"
+			src="{{ post.thumbnail ?: dummy_thumbnail }}"
+			loading="lazy"
+			alt="{{ fn('esc_attr', post.thumbnail_alt|default( post.post_title ) )|raw }}"
+			data-ga-category="Search Results"
+			data-ga-action="Image"
+			data-ga-label="{{ ga_page_type }}" />
 
 		<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
 			<div class="search-result-item-flex-title">
@@ -47,6 +40,7 @@
 						</div>
 					{% endif %}
 
+					{% if ( post.p4_page_types or post.tags ) %}
 					<div class="search-result-tags top-page-tags">
 						{% for page_type in post.p4_page_types %}
 							<a
@@ -74,6 +68,7 @@
 							</div>
 						{% endif %}
 					</div>
+					{% endif %}
 
 					{% if ( is_document ) %}
 						{% set title = post.post_title|e('wp_kses_post') %}
@@ -113,17 +108,7 @@
 					{% endif %}
 				</div>
 				<div>
-					{% if ( is_action ) %}
-						{%  set link_text = settings['take_action_covers_button_text'] %}
-						<a
-							href="{{ post.link }}"
-							class="btn btn-primary btn-small"
-							data-ga-category="Search Results"
-							data-ga-action="Call to Action"
-							data-ga-label="{{ ga_page_type }}">
-								{{ link_text ?: __( 'Take action', 'planet4-master-theme' ) }}
-						</a>
-					{% elseif ( is_document ) %}
+					{% if ( is_document ) %}
 						<a href="{{ fn('wp_get_attachment_url', post.id) }}" download class="btn btn-small btn-secondary">
 							{{ __( 'Download', 'planet4-master-theme' ) }}
 						</a>
@@ -139,7 +124,26 @@
 				</div>
 			</div>
 
-			<p class="search-result-item-content">{{ post.post_excerpt|default(post.post_content)|excerpt( 30 )|raw }}</p>
+			{% if ( post.post_excerpt|striptags|trim ) %}
+			<p class="search-result-item-content">
+				{{ post.post_excerpt|default(post.post_content)|excerpt( 30 )|raw }}
+			</p>
+			{% endif %}
+
+			{% if ( is_action ) %}
+			<div>
+				{%  set link_text = settings['take_action_covers_button_text'] %}
+				<a
+					href="{{ post.link }}"
+					class="btn btn-primary btn-small"
+					data-ga-category="Search Results"
+					data-ga-action="Call to Action"
+					data-ga-label="{{ ga_page_type }}">
+						{{ link_text ?: __( 'Take action', 'planet4-master-theme' ) }}
+				</a>
+			</div>
+			{% endif %}
+
 			{% if post.edit_link %}
 				<a href="{{ post.edit_link|raw }}">{{ __('Manage', 'planet4-master-theme') }}</a>
 			{% endif %}
