@@ -114,6 +114,23 @@ add_action(
 	}
 );
 
+// Ensure no actions trigger a purge everything.
+simple_value_filter( 'cloudflare_purge_everything_actions', [] );
+// Remove the menu item to the Cloudflare page.
+add_action(
+	'admin_menu',
+	function () {
+		remove_submenu_page( 'options-general.php', 'cloudflare' );
+	}
+);
+// remove_submenu_page does not prevent accessing the page. Add a higher prio action that dies instead.
+add_action(
+	'settings_page_cloudflare',
+	function () {
+		die( 'This page is blocked to prevent excessive cache purging.' );
+	},
+	1
+);
 
 require_once 'load-class-aliases.php';
 
