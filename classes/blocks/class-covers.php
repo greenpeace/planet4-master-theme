@@ -123,7 +123,6 @@ class Covers extends Base_Block {
 		// Enqueue js for the frontend.
 		if ( ! $this->is_rest_request() ) {
 			\P4GBKS\Loader::enqueue_local_script( 'covers', 'public/js/load_more.js', [ 'jquery' ] );
-			\P4GBKS\Loader::enqueue_local_script( 'pubslider', 'public/js/pubslider.js', [ 'jquery' ] );
 		}
 
 		$data = [

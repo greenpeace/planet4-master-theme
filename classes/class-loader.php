@@ -383,7 +383,6 @@ final class Loader {
 			P4GBKS_PLUGIN_URL . 'assets/build/style.min.css',
 			[
 				'bootstrap',
-				'slick',
 				'parent-style',
 			],
 			self::file_ver( P4GBKS_PLUGIN_DIR . '/assets/build/style.min.css' )
