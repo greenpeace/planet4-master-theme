@@ -1,7 +1,7 @@
 import { renderSelectedVars } from './renderSelectedVars';
 import { getMatchingVars } from './getMatchingVars';
 import { dragElement } from './dragElement';
-import { STORAGE_KEY } from './VarPicker';
+import { addHighlight, LOCAL_STORAGE_KEY, removeHighlight } from './VarPicker';
 
 const style = document.createElement('link')
 
@@ -61,7 +61,7 @@ editorRoot.id = 'theme-editor-root';
 document.body.appendChild( editorRoot );
 dragElement( editorRoot );
 
-const json = localStorage.getItem( STORAGE_KEY );
+const json = localStorage.getItem( LOCAL_STORAGE_KEY );
 try {
 const storedVars = JSON.parse( json );
   if ( storedVars ) {
@@ -75,7 +75,6 @@ const storedVars = JSON.parse( json );
 }
 
 const setup = async () => {
-  try {
     const blockVarsPromise = getVars(`${baseUrl}/wp-content/plugins/planet4-plugin-gutenberg-blocks/assets/build/css_vars_merged.json`)
     const themeVarsPromise = getVars(`${baseUrl}/wp-content/themes/planet4-master-theme/assets/build/css_vars_merged.json`)
 
@@ -115,11 +114,10 @@ const setup = async () => {
       const groups = await groupVars(matchedVars, event.target);
 
       renderSelectedVars( editorRoot, matchedVars, event.target, groups );
-    } );
 
-  } catch ( e ) {
-    console.log( e );
-  }
+      addHighlight(event.target);
+      setTimeout(() => removeHighlight(event.target), 1000)
+    } );
 };
 
 export const wysiwygCssVars = () => {

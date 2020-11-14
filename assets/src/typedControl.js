@@ -8,19 +8,18 @@ const googleApiKey = 'AIzaSyBt0d8TsNo0wJn8Pj2zICtBY614IsEqrHw';
 
 export const COLOR_VALUE_REGEX = /(#[\da-fA-F]{3}|rgba?\()/;
 
-const COLOR_REGEXP = /color$/;
+const convertRemToPixels = (rem) => rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+const convertPixelsToRem = (px) => px / parseFloat(getComputedStyle(document.documentElement).fontSize);
 
-const convertRemToPixels = ( rem ) => rem * parseFloat( getComputedStyle( document.documentElement ).fontSize );
-const convertPixelsToRem = ( px ) =>  px / parseFloat( getComputedStyle( document.documentElement ).fontSize ) ;
+const isPx = value => !!value && !!value.match(/[\d.]+px$/);
+const isRem = value => !!value && !!value.match(/[\d.]+rem$/);
 
-const isPx = value => !!value && !!value.match( /[\d.]+px$/ );
-const isRem = value => !!value && !!value.match( /[\d.]+rem$/ );
+export const TypedControl = ({ cssVar, value, onChange, compoRef }) => {
 
-export const renderControl = ( { cssVar, value, onChange } ) => {
-  if ( cssVar.usages.some( usage =>
-    !! usage.property.match( COLOR_REGEXP )
-    || [ 'background' ].includes( usage.property )
-  ) ) {
+  if (cssVar.usages.some(usage =>
+    !!usage.property.match(/color$/)
+    || ['background'].includes(usage.property)
+  )) {
     let currentTheme;
     try {
       currentTheme = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -32,7 +31,7 @@ export const renderControl = ( { cssVar, value, onChange } ) => {
       const color = currentTheme[name];
 
       if (COLOR_VALUE_REGEX.test(color)) {
-        const alreadyUsed = colorUsages.find(colorUsage=>colorUsage.color === color)
+        const alreadyUsed = colorUsages.find(colorUsage => colorUsage.color === color);
 
         if (!alreadyUsed) {
           colorUsages.push({ color, usages: [name] });
@@ -49,54 +48,25 @@ export const renderControl = ( { cssVar, value, onChange } ) => {
 
     const byCountUsagesDesc = ({ usages: usages1 }, { usages: usages2 }) => usages2.length - usages1.length;
 
-    const pickerRef = createRef();
-
-    useEffect(() => {
-      const current = pickerRef.current;
-      if (!current) {
-        return;
-      }
-      const textInput = current.querySelector('.components-text-control__input');
-
-      if (!textInput) {
-        return;
-      }
-      const pickerValue = textInput.value;
-
-      if (pickerValue === value) {
-        return;
-      }
-
-      const input = textInput;
-
-      const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
-      nativeInputValueSetter.call(input, 'react 16 value');
-
-      const ev2 = new Event('input', { bubbles: true});
-
-      input.dispatchEvent(ev2);
-
-    }, [value]);
-
     return <Fragment>
       { colorUsages.sort(byCountUsagesDesc).map(({ color, usages }) => (<span
-        onClick={ () => onChange(color) }
+        onClick={ () => onChange(color, true) }
         title={ usages.join('\n') }
         style={ {
           width: PREVIEW_SIZE,
           height: PREVIEW_SIZE,
-          border: color === value ? '3px solid yellow' :'1px solid black',
+          border: color === value ? '3px solid yellow' : '1px solid black',
           borderRadius: '6px',
           backgroundColor: color,
           float: 'left',
           marginTop: '2px',
           fontSize: '8px',
         } }>
-        <span style={{backgroundColor: 'white'}}>{ usages.length }</span>
+        <span style={ { backgroundColor: 'white' } }>{ usages.length }</span>
         </span>)
       ) }
       <ColorPicker
-        ref={pickerRef}
+        ref={ compoRef }
         color={ value }
         onChangeComplete={ color => {
           const hasTransparency = color.rgb.a !== 1;
@@ -105,66 +75,81 @@ export const renderControl = ( { cssVar, value, onChange } ) => {
 
           onChange(hasTransparency ? `rgba(${ r } , ${ g }, ${ b }, ${ a })` : color.hex);
         } }
-    />
+      />
       <TextControl
         value={ value }
-        onChange={ onChange }
+        onChange={ value=>onChange(value, true) }
       />
-    </Fragment>
+    </Fragment>;
   }
 
-  if ( cssVar.usages.some( usage => [ 'font-size', 'border', 'border-bottom', 'line-height' ].includes( usage.property ) ) ) {
+  const sizeLikeProperties = [
+    'font-size',
+    'border',
+    'border-bottom',
+    'line-height',
+    'border-radius',
+    'margin',
+    'margin-bottom',
+    'padding',
+    'padding-bottom',
+    'height',
+    'min-width',
+
+  ];
+
+  if (cssVar.usages.some(usage => sizeLikeProperties.includes(usage.property))) {
     return <div>
-        <div key={1}>
-          <span>px</span>
-          <FontSizePicker
-            value={ isPx( value ) ? value.replace('px', '') : convertRemToPixels( parseFloat( value.replace( 'rem', '' ) ) ) }
-            onChange={ value => {
-              onChange( `${ value }px` );
-            } }
-            style={{minWidth: '100px'}}
-          />
-        </div>
-        <div key={2}>
-          <span>rem</span>
-          <input
-            type={'number'}
-            value={ isRem( value ) ? value.replace('rem', '') : convertPixelsToRem( parseFloat( value.replace( 'px', '' ) ) ) }
-            onChange={ event => {
-              onChange(`${event.currentTarget.value}rem`);
-            } }
-            style={{minWidth: '100px'}}
-          />
-        </div>
+      <div key={ 1 }>
+        <span>px</span>
+        <FontSizePicker
+          value={ isPx(value) ? value.replace('px', '') : convertRemToPixels(parseFloat(value.replace('rem', ''))) }
+          onChange={ value => {
+            onChange(`${ value }px`);
+          } }
+          style={ { minWidth: '100px' } }
+        />
+      </div>
+      <div key={ 2 }>
+        <span>rem</span>
+        <input
+          type={ 'number' }
+          value={ isRem(value) ? value.replace('rem', '') : convertPixelsToRem(parseFloat(value.replace('px', ''))) }
+          onChange={ event => {
+            onChange(`${ event.currentTarget.value }rem`);
+          } }
+          style={ { minWidth: '100px' } }
+        />
+      </div>
       <TextControl
         value={ value }
         onChange={ onChange }
       />
-      </div>
+    </div>;
   }
 
-  if ( cssVar.usages.some( usage => usage.property === 'font-family' ) ) {
+  if (cssVar.usages.some(usage => usage.property === 'font-family')) {
     return <Fragment>
       <FontPicker
         apiKey={ googleApiKey }
         activeFontFamily={ value }
-        onChange={ value => onChange( value.family ) }
+        onChange={ value => onChange(value.family) }
       />
       <TextControl
         value={ value }
         onChange={ onChange }
       />
-    </Fragment>
+    </Fragment>;
   }
 
   // if ( cssVar.usages.some( usage => usage.property === 'font-weight' ) ) {
   // }
 
   return <Fragment>
-    { !isNaN( value ) && <input type={ 'number' } onChange={ onChange } value={ value }/> }
+    { !isNaN(value) && <input type={ 'number' } onChange={ onChange } value={ value }/> }
     <TextControl
       value={ value }
       onChange={ onChange }
     />
-  </Fragment>
+  </Fragment>;
 };
