@@ -1,0 +1,611 @@
+[
+  {
+    "name": "--link--color",
+    "usages": [
+      {
+        "selector": "a",
+        "property": "color",
+        "defaultValue": "#006dfd"
+      },
+      {
+        "selector": "a.pdf-link::before",
+        "property": "background-color",
+        "defaultValue": "#006dfd"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/base/_icons.scss",
+        "lineNumber": 27,
+        "property": "background-color",
+        "defaultValue": "$link-color"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/base/_typography.scss",
+        "lineNumber": 130,
+        "property": "color",
+        "defaultValue": "$link-color"
+      }
+    ]
+  },
+  {
+    "name": "--link-hover--color",
+    "usages": [
+      {
+        "selector": "a:hover",
+        "property": "color",
+        "defaultValue": "#0058cc"
+      },
+      {
+        "selector": "a:hover.pdf-link::before",
+        "property": "background-color",
+        "defaultValue": "#0058cc"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/base/_icons.scss",
+        "lineNumber": 39,
+        "property": "background-color",
+        "defaultValue": "$link-hover-color"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/base/_typography.scss",
+        "lineNumber": 149,
+        "property": "color",
+        "defaultValue": "$link-hover-color"
+      }
+    ]
+  },
+  {
+    "name": "--body-background-color",
+    "usages": [
+      {
+        "selector": "body",
+        "property": "background-color",
+        "defaultValue": "#fff"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/base/_body.scss",
+        "lineNumber": 12,
+        "property": "background-color",
+        "defaultValue": "$white"
+      }
+    ]
+  },
+  {
+    "name": "--btn-primary-color",
+    "usages": [
+      {
+        "selector": ".wp-block-button.is-style-cta a",
+        "property": "color",
+        "defaultValue": "#fff"
+      },
+      {
+        "selector": ".btn-primary",
+        "property": "color",
+        "defaultValue": "#fff"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/components/_buttons.scss",
+        "lineNumber": 63,
+        "property": "color",
+        "defaultValue": "$white"
+      }
+    ]
+  },
+  {
+    "name": "--btn-donate-background-color",
+    "usages": [
+      {
+        "selector": ".wp-block-button.is-style-donate a",
+        "property": "background-color",
+        "defaultValue": "#68dfde"
+      },
+      {
+        "selector": ".btn-donate",
+        "property": "background-color",
+        "defaultValue": "#68dfde"
+      },
+      {
+        "selector": ".wp-block-button.is-style-donate a[disabled]",
+        "property": "background-color",
+        "defaultValue": "#68dfde"
+      },
+      {
+        "selector": ".wp-block-button.is-style-donate a.disabled",
+        "property": "background-color",
+        "defaultValue": "#68dfde"
+      },
+      {
+        "selector": ".wp-block-button.is-style-donate a:disabled",
+        "property": "background-color",
+        "defaultValue": "#68dfde"
+      },
+      {
+        "selector": ".btn-donate[disabled]",
+        "property": "background-color",
+        "defaultValue": "#68dfde"
+      },
+      {
+        "selector": ".btn-donate.disabled",
+        "property": "background-color",
+        "defaultValue": "#68dfde"
+      },
+      {
+        "selector": ".btn-donate:disabled",
+        "property": "background-color",
+        "defaultValue": "#68dfde"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/components/_buttons.scss",
+        "lineNumber": 164,
+        "property": "background-color",
+        "defaultValue": "$aquamarine"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/components/_buttons.scss",
+        "lineNumber": 186,
+        "property": "background-color",
+        "defaultValue": "$aquamarine"
+      }
+    ]
+  },
+  {
+    "name": "--btn-donate-color",
+    "usages": [
+      {
+        "selector": ".wp-block-button.is-style-donate a",
+        "property": "color",
+        "defaultValue": "#23292d"
+      },
+      {
+        "selector": ".btn-donate",
+        "property": "color",
+        "defaultValue": "#23292d"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/components/_buttons.scss",
+        "lineNumber": 165,
+        "property": "color",
+        "defaultValue": "$grey"
+      }
+    ]
+  },
+  {
+    "name": "--btn-donate-hover-background-color",
+    "usages": [
+      {
+        "selector": ".wp-block-button.is-style-donate a:focus",
+        "property": "background-color",
+        "defaultValue": "#86eee7"
+      },
+      {
+        "selector": ".wp-block-button.is-style-donate a:hover",
+        "property": "background-color",
+        "defaultValue": "#86eee7"
+      },
+      {
+        "selector": ".btn-donate:focus",
+        "property": "background-color",
+        "defaultValue": "#86eee7"
+      },
+      {
+        "selector": ".btn-donate:hover",
+        "property": "background-color",
+        "defaultValue": "#86eee7"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/components/_buttons.scss",
+        "lineNumber": 175,
+        "property": "background-color",
+        "defaultValue": "$spray"
+      }
+    ]
+  },
+  {
+    "name": "--btn-donate-hover-color",
+    "usages": [
+      {
+        "selector": ".wp-block-button.is-style-donate a:focus",
+        "property": "color",
+        "defaultValue": "#020202"
+      },
+      {
+        "selector": ".wp-block-button.is-style-donate a:hover",
+        "property": "color",
+        "defaultValue": "#020202"
+      },
+      {
+        "selector": ".btn-donate:focus",
+        "property": "color",
+        "defaultValue": "#020202"
+      },
+      {
+        "selector": ".btn-donate:hover",
+        "property": "color",
+        "defaultValue": "#020202"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/components/_buttons.scss",
+        "lineNumber": 176,
+        "property": "color",
+        "defaultValue": "$grey-80"
+      }
+    ]
+  },
+  {
+    "name": "--btn-donate-active-background-color",
+    "usages": [
+      {
+        "selector": ".wp-block-button.is-style-donate a:active",
+        "property": "background-color",
+        "defaultValue": "#21cbca"
+      },
+      {
+        "selector": ".btn-donate:active",
+        "property": "background-color",
+        "defaultValue": "#21cbca"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/components/_buttons.scss",
+        "lineNumber": 180,
+        "property": "background-color",
+        "defaultValue": "$java-dark"
+      }
+    ]
+  },
+  {
+    "name": "--footer_color",
+    "usages": [
+      {
+        "selector": ".site-footer",
+        "property": "background",
+        "defaultValue": "#074365"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_footer.scss",
+        "lineNumber": 48,
+        "property": "background",
+        "defaultValue": "$dark-blue"
+      }
+    ]
+  },
+  {
+    "name": "--footer_links_color",
+    "usages": [
+      {
+        "selector": ".site-footer a",
+        "property": "color",
+        "defaultValue": "inherit"
+      },
+      {
+        "selector": ".site-footer a:hover",
+        "property": "color",
+        "defaultValue": "#86eee7"
+      },
+      {
+        "selector": ".footer-social-media",
+        "property": "color",
+        "defaultValue": "#a3a5a7"
+      },
+      {
+        "selector": ".footer-links",
+        "property": "color",
+        "defaultValue": "#fff"
+      },
+      {
+        "selector": ".footer-links-secondary",
+        "property": "color",
+        "defaultValue": "#ececec"
+      },
+      {
+        "selector": ".copyright-text",
+        "property": "color",
+        "defaultValue": "#ececec"
+      },
+      {
+        "selector": ".copyright-text a",
+        "property": "color",
+        "defaultValue": "#fff"
+      },
+      {
+        "selector": ".copyright-text a:hover",
+        "property": "color",
+        "defaultValue": "#86eee7"
+      },
+      {
+        "selector": ".gp-year",
+        "property": "color",
+        "defaultValue": "#fff"
+      },
+      {
+        "selector": ".site-footer_min .footer-social-media",
+        "property": "color",
+        "defaultValue": "#a3a5a7"
+      },
+      {
+        "selector": ".site-footer_min .gp-year",
+        "property": "color",
+        "defaultValue": "#fff"
+      },
+      {
+        "selector": ".site-footer_min .icon",
+        "property": "fill",
+        "defaultValue": "#fff"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_footer.scss",
+        "lineNumber": 69,
+        "property": "color",
+        "defaultValue": "inherit"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_footer.scss",
+        "lineNumber": 72,
+        "property": "color",
+        "defaultValue": "$spray"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_footer.scss",
+        "lineNumber": 82,
+        "property": "color",
+        "defaultValue": "$grey-20"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_footer.scss",
+        "lineNumber": 152,
+        "property": "color",
+        "defaultValue": "$white"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_footer.scss",
+        "lineNumber": 172,
+        "property": "color",
+        "defaultValue": "$grey-10"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_footer.scss",
+        "lineNumber": 186,
+        "property": "color",
+        "defaultValue": "$grey-10"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_footer.scss",
+        "lineNumber": 213,
+        "property": "color",
+        "defaultValue": "$white"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_footer.scss",
+        "lineNumber": 216,
+        "property": "color",
+        "defaultValue": "$spray"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_footer.scss",
+        "lineNumber": 222,
+        "property": "color",
+        "defaultValue": "$white"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_footer.scss",
+        "lineNumber": 244,
+        "property": "color",
+        "defaultValue": "$grey-20"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_footer.scss",
+        "lineNumber": 276,
+        "property": "color",
+        "defaultValue": "$white"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_footer.scss",
+        "lineNumber": 283,
+        "property": "fill",
+        "defaultValue": "$white"
+      }
+    ]
+  },
+  {
+    "name": "--campaign_nav_color",
+    "usages": [
+      {
+        "selector": ".top-navigation",
+        "property": "background",
+        "defaultValue": "rgba(7,67,101,0.8)"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_navbar.scss",
+        "lineNumber": 84,
+        "property": "background",
+        "defaultValue": "transparentize($dark-blue,0.2)"
+      }
+    ]
+  },
+  {
+    "name": "--nav-link-color",
+    "usages": [
+      {
+        "selector": ".top-navigation a.nav-link",
+        "property": "color",
+        "defaultValue": "#fff"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_navbar.scss",
+        "lineNumber": 101,
+        "property": "color",
+        "defaultValue": "$white"
+      }
+    ]
+  },
+  {
+    "name": "--nav-link-hover-color",
+    "usages": [
+      {
+        "selector": ".top-navigation a.nav-link:hover",
+        "property": "color",
+        "defaultValue": "#86eee7"
+      },
+      {
+        "selector": ".navbar-dropdown .nav-link:hover",
+        "property": "color",
+        "defaultValue": "#86eee7"
+      },
+      {
+        "selector": ".navbar-dropdown .nav-link:focus",
+        "property": "color",
+        "defaultValue": "#86eee7"
+      },
+      {
+        "selector": ".navbar-dropdown .active .nav-link",
+        "property": "color",
+        "defaultValue": "#86eee7"
+      },
+      {
+        "selector": ".navbar-dropdown .active .nav-link",
+        "property": "color",
+        "defaultValue": "#86eee7"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_navbar.scss",
+        "lineNumber": 104,
+        "property": "color",
+        "defaultValue": "$spray"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_navbar.scss",
+        "lineNumber": 437,
+        "property": "color",
+        "defaultValue": "$spray"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_navbar.scss",
+        "lineNumber": 483,
+        "property": "color",
+        "defaultValue": "$spray"
+      }
+    ]
+  },
+  {
+    "name": "--nav-link-border-width",
+    "usages": [
+      {
+        "selector": ".navbar-dropdown .nav-link",
+        "property": "border-bottom",
+        "defaultValue": "2px"
+      },
+      {
+        "selector": ".navbar-dropdown .nav-link:active",
+        "property": "border-bottom",
+        "defaultValue": "2px"
+      },
+      {
+        "selector": ".navbar-dropdown .nav-link:focus",
+        "property": "border-bottom",
+        "defaultValue": "2px"
+      },
+      {
+        "selector": ".navbar-dropdown .nav-link:hover",
+        "property": "border-bottom",
+        "defaultValue": "2px"
+      },
+      {
+        "selector": ".navbar-dropdown .active .nav-link",
+        "property": "border-bottom",
+        "defaultValue": "2px"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_navbar.scss",
+        "lineNumber": 473,
+        "property": "border-bottom",
+        "defaultValue": "2px"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_navbar.scss",
+        "lineNumber": 478,
+        "property": "border-bottom",
+        "defaultValue": "2px"
+      },
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_navbar.scss",
+        "lineNumber": 484,
+        "property": "border-bottom",
+        "defaultValue": "2px"
+      }
+    ]
+  },
+  {
+    "name": "--nav-link-hover-border-color",
+    "usages": [
+      {
+        "selector": ".navbar-dropdown .nav-link:active",
+        "property": "border-bottom",
+        "defaultValue": "#fff"
+      },
+      {
+        "selector": ".navbar-dropdown .nav-link:focus",
+        "property": "border-bottom",
+        "defaultValue": "#fff"
+      },
+      {
+        "selector": ".navbar-dropdown .nav-link:hover",
+        "property": "border-bottom",
+        "defaultValue": "#fff"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_navbar.scss",
+        "lineNumber": 478,
+        "property": "border-bottom",
+        "defaultValue": "$white"
+      }
+    ]
+  },
+  {
+    "name": "--nav-link-active-border-color",
+    "usages": [
+      {
+        "selector": ".navbar-dropdown .active .nav-link",
+        "property": "border-bottom",
+        "defaultValue": "#86eee7"
+      }
+    ],
+    "sourceUsages": [
+      {
+        "file": "./assets/src/scss/styleguide/src/layout/_navbar.scss",
+        "lineNumber": 484,
+        "property": "border-bottom",
+        "defaultValue": "$spray"
+      }
+    ]
+  }
+]

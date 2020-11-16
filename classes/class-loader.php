@@ -379,6 +379,8 @@ final class Loader {
 	 * Load assets for the frontend.
 	 */
 	public function enqueue_public_assets() {
+		wp_enqueue_style( 'wp-components' );
+
 		// Add master theme's main css as dependency for blocks css.
 		wp_enqueue_style(
 			'plugin-blocks',

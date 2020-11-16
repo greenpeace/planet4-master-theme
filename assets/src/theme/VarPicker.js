@@ -1,17 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { VariableControl } from './VariableControl';
 import { colorToState } from './colorToState';
 
 export const LOCAL_STORAGE_KEY = 'p4-theme';
 
-export const readProperty = name => {
-  const value = document.documentElement.style.getPropertyValue(name);
-
-  console.log('reading', value);
-
-  return value;
-};
-const removeProperty = varName => document.documentElement.style.removeProperty(varName);
+export const readProperty = name => document.documentElement.style.getPropertyValue(name);
+const removeProperty = name => document.documentElement.style.removeProperty(name);
 
 const byName = (a, b) => a.name > b.name ? 1 : (a.name === b.name ? 0 : -1);
 
@@ -19,9 +13,62 @@ const HIGHLIGHT_CLASS = 'theme-editor-highlight';
 export const addHighlight = element => element.classList.add(HIGHLIGHT_CLASS);
 export const removeHighlight = element => element.classList.remove(HIGHLIGHT_CLASS);
 
-export const VarPicker = (props) => {
+const exportJson = (fileName) => {
+  const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+  const json = JSON.stringify(JSON.parse(raw), null, 2);
+  const blob = new Blob([json], {type: "application/json"});
+  const url  = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.download    = `${fileName || 'theme'}.json`;
+  a.href        = url;
+  a.textContent = "Download backup.json";
+  a.click();
+}
+
+const formatCss = vars => {
+  const lines = Object.keys(vars).map(k => `${ k }: ${ vars[k] };`);
+
+  return lines.join('\n');
+};
+
+const exportCss = (fileName) => {
+  const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+  const vars = JSON.parse(raw);
+  const css = formatCss(vars);
+  const blob = new Blob([css], {type: "application/css"});
+  const url  = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.download    = `${fileName || 'theme'}.css`;
+  a.href        = url;
+  a.textContent = "Download backup.json";
+  a.click();
+}
+
+const updateColorPicker = (ref, value) => {
+
+  if (ref && ref.current && ref.current.setState) {
+    const colors = colorToState(value)
+    ref.current.setState(
+      {
+        ...colors,
+        draftHex: colors.hex.toLowerCase(),
+        draftHsl: colors.hsl,
+        draftRgb: colors.rgb,
+      },
+    );
+
+  }
+}
+
+const useRefresh = () => {
   const [refresh, setRefresh] = useState(false);
-  const doRefresh = () => setRefresh(!refresh);
+  return () => setRefresh(!refresh);
+}
+
+export const VarPicker = (props) => {
+  const refresh = useRefresh();
   const {
     groups,
     selectedVars,
@@ -46,7 +93,7 @@ export const VarPicker = (props) => {
     onClick={ closeAll }
   > Close all. </span>;
 
-  const [openGroups, setOpenGroups] = useState([]);
+  const [openGroups, setOpenGroups] = useState([groups[0]?.label]);
   const toggleGroup = id => {
     const newGroups = openGroups.includes(id)
       ? openGroups.filter(openId => openId !== id)
@@ -76,25 +123,17 @@ export const VarPicker = (props) => {
       ...oldTheme,
       [name]: value,
     };
+    // One liner copied from SO that sorts the keys in an object.
+    const sorted = Object.entries(newTheme).sort().reduce( (o,[k,v]) => (o[k]=v,o), {} )
 
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTheme));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(sorted));
 
     // Reset changing vars to the previous value. Not sure if needed?
     setChangingVars(changingVars);
-    doRefresh();
+    refresh();
 
-    if (compoRef && compoRef.current && compoRef.current.setState) {
-      const colors = colorToState(value)
-      compoRef.current.setState(
-        {
-          ...colors,
-          draftHex: colors.hex.toLowerCase(),
-          draftHsl: colors.hsl,
-          draftRgb: colors.rgb,
-        },
-      );
-
-    }
+    updateColorPicker(compoRef, value);
+    refresh();
   };
 
   const unsetProperty = (name, compoRef, defaultValue) => {
@@ -117,7 +156,7 @@ export const VarPicker = (props) => {
     setChangingVars(changingVars);
 
     setTimeout(() => {
-      doRefresh();
+      refresh();
     }, 200);
 
     if (compoRef.current && compoRef.current.setState) {
@@ -138,6 +177,8 @@ export const VarPicker = (props) => {
   const toggleCollapsed = () => setCollapsed(!collapsed);
 
   const [shouldGroup, setShouldGroup] = useState(true);
+
+  const [fileName, setFileName] = useState('');
 
   return <div className={ 'var-picker' }>
     <span id={ 'drag-me' }>
@@ -162,11 +203,23 @@ export const VarPicker = (props) => {
       <CloseAllButton/>
     ) }
 
+    <div>
+      <button
+        onClick={ () => exportJson(fileName) }
+      >JSON</button>
+      <button
+        onClick={ () => exportCss(fileName) }
+      >CSS</button>
+      <label>
+        <input style={{width: '130px'}} placeholder='theme' type="text" onChange={ event => setFileName(event.target.value) }/>
+        .css/json
+      </label>
+    </div>
     { shouldGroup && !collapsed && <ul>
       { groups.map(({ element, label, vars }) => (
         <li className={ 'var-group' } key={ label } style={ { marginBottom: '12px' } }>
           <h4
-            style={{fontWeight: 400}}
+            style={{fontWeight: 400, marginBottom: 0}}
             onClick={ () => toggleGroup(label) }
             onMouseEnter={ () => addHighlight(element) }
             onMouseLeave={ () => removeHighlight(element) }
@@ -184,7 +237,9 @@ export const VarPicker = (props) => {
                     defaultValue,
                   }}
                   key={ cssVar.name }
-                  onChange={ (value, compoRef = false) => setProperty(cssVar.name, value, compoRef) }
+                  onChange={ (value, compoRef = false) => {
+                    setProperty(cssVar.name, value, compoRef);
+                  } }
                   onUnset={ (compoRef) => unsetProperty(cssVar.name, compoRef, defaultValue) }
                 />;
               }

@@ -1,6 +1,6 @@
-import { ColorPicker, TextControl, FontSizePicker, RangeControl } from '@wordpress/components';
+import { ColorPicker, TextControl, FontSizePicker} from '@wordpress/components';
+import tinycolor from 'tinycolor2';
 import { Fragment } from '@wordpress/element';
-import { createRef, useEffect } from 'react';
 import FontPicker from 'font-picker-react';
 import { LOCAL_STORAGE_KEY } from './VarPicker';
 
@@ -14,7 +14,43 @@ const convertPixelsToRem = (px) => px / parseFloat(getComputedStyle(document.doc
 const isPx = value => !!value && !!value.match(/[\d.]+px$/);
 const isRem = value => !!value && !!value.match(/[\d.]+rem$/);
 
-export const TypedControl = ({ cssVar, value, onChange, compoRef }) => {
+const extraColorUsages = theme => {
+  if (null === theme) {
+    return [];
+  }
+  const keys = Object.keys(theme);
+
+  return keys.reduce((colors = [] , name) => {
+    const color = theme[name];
+
+    if (COLOR_VALUE_REGEX.test(color)) {
+      const alreadyUsed = colors.find(colorUsage => colorUsage.color === color);
+
+      if (!alreadyUsed) {
+        colors.push({ color, usages: [name] });
+      } else {
+        alreadyUsed.usages.push(name);
+      }
+    }
+
+    return colors;
+  }, []);
+}
+
+const byCountUsagesDesc = ({ usages: usages1 }, { usages: usages2 }) => usages2.length - usages1.length;
+
+const byHexValue = ({color1}, { color2}) => {
+  const hex1 = tinycolor(color1).toHex();
+  const hex2 = tinycolor(color2).toHex();
+
+  if (hex1 === hex2) {
+    return color1 < color2 ? 1 : -1;
+  }
+
+  return hex1 < hex2 ? 1 : -1;
+}
+
+export const TypedControl = ({ cssVar, value, onChange, compoRef, setPreviewColor, updatePreviewOriginal }) => {
 
   if (cssVar.usages.some(usage =>
     !!usage.property.match(/color$/)
@@ -24,45 +60,40 @@ export const TypedControl = ({ cssVar, value, onChange, compoRef }) => {
     try {
       currentTheme = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
     } catch (e) {
+      currentTheme = {};
       console.log(e);
     }
 
-    const colorUsages = !currentTheme ? [] : Object.keys(currentTheme).reduce((colorUsages, name) => {
-      const color = currentTheme[name];
-
-      if (COLOR_VALUE_REGEX.test(color)) {
-        const alreadyUsed = colorUsages.find(colorUsage => colorUsage.color === color);
-
-        if (!alreadyUsed) {
-          colorUsages.push({ color, usages: [name] });
-        } else {
-          alreadyUsed.usages.push(name);
-        }
-
-      }
-
-      return colorUsages;
-    }, []);
+    const colorUsages = extraColorUsages(currentTheme);
 
     const PREVIEW_SIZE = '30px';
 
-    const byCountUsagesDesc = ({ usages: usages1 }, { usages: usages2 }) => usages2.length - usages1.length;
-
     return <Fragment>
-      { colorUsages.sort(byCountUsagesDesc).map(({ color, usages }) => (<span
-        onClick={ () => onChange(color, true) }
-        title={ usages.join('\n') }
+      { colorUsages.sort(byHexValue).map(({ color, usages }) => (<span
+        key={color}
+        onClick={ () => {
+          onChange(color, true);
+          updatePreviewOriginal(color);
+        } }
+        onMouseEnter={ () => {
+          setPreviewColor(color);
+        }}
+        onMouseLeave={ () => {
+          setPreviewColor(value);
+        }}
+        title={ `${ color }\nUsed for:\n` + usages.join('\n') }
         style={ {
           width: PREVIEW_SIZE,
           height: PREVIEW_SIZE,
           border: color === value ? '3px solid yellow' : '1px solid black',
+          marginRight: '2px',
           borderRadius: '6px',
           backgroundColor: color,
           float: 'left',
           marginTop: '2px',
           fontSize: '8px',
         } }>
-        <span style={ { backgroundColor: 'white' } }>{ usages.length }</span>
+        <span key={`${color}---usages`} style={ { backgroundColor: 'white' } }>{ usages.length }</span>
         </span>)
       ) }
       <ColorPicker
@@ -93,9 +124,11 @@ export const TypedControl = ({ cssVar, value, onChange, compoRef }) => {
     'margin-bottom',
     'padding',
     'padding-bottom',
+    'padding-left',
+    'padding-top',
     'height',
     'min-width',
-
+    'letter-spacing',
   ];
 
   if (cssVar.usages.some(usage => sizeLikeProperties.includes(usage.property))) {
@@ -146,7 +179,7 @@ export const TypedControl = ({ cssVar, value, onChange, compoRef }) => {
   // }
 
   return <Fragment>
-    { !isNaN(value) && <input type={ 'number' } onChange={ onChange } value={ value }/> }
+    { !isNaN(value) && <input type={ 'number' } onChange={ e => onChange(e.target.value) } value={ value }/> }
     <TextControl
       value={ value }
       onChange={ onChange }
