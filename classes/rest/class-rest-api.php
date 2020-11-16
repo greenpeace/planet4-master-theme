@@ -41,8 +41,11 @@ class Rest_Api {
 			'/all-published-posts',
 			[
 				[
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => static function () {
+					'permission_callback' => static function () {
+						return current_user_can( 'edit_pages' ) || current_user_can( 'edit_campaigns' );
+					},
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => static function () {
 						global $wpdb;
 
 						if ( is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
@@ -77,8 +80,11 @@ class Rest_Api {
 			'/save-preview-meta',
 			[
 				[
-					'methods'  => WP_REST_Server::CREATABLE,
-					'callback' => static function ( $request ) {
+					'permission_callback' => static function () {
+						return current_user_can( 'edit_posts' );
+					},
+					'methods'             => WP_REST_Server::CREATABLE,
+					'callback'            => static function ( $request ) {
 						/**
 						 * @var WP_REST_Request $request
 						 */
@@ -128,8 +134,11 @@ class Rest_Api {
 			'/get-spreadsheet-data',
 			[
 				[
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => static function () {
+					'permission_callback' => static function () {
+						return true;
+					},
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => static function () {
 						$sheet_id = filter_input(
 							INPUT_GET,
 							'sheet_id',
@@ -157,8 +166,11 @@ class Rest_Api {
 			'/get-posts',
 			[
 				[
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => static function ( $fields ) {
+					'permission_callback' => static function () {
+						return true;
+					},
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => static function ( $fields ) {
 						$to_return = Articles::get_posts( $fields );
 						return rest_ensure_response( $to_return );
 					},
@@ -171,6 +183,9 @@ class Rest_Api {
 			'/update_block/(?P<blockname>[a-z0-9-/]*)',
 			[
 				[
+					'permission_callback' => static function () {
+						return current_user_can( 'edit_pages' );
+					},
 					'methods'             => WP_REST_Server::CREATABLE,
 					'callback'            => static function ( WP_REST_Request $request ) {
 						$blocks     = [
@@ -194,9 +209,6 @@ class Rest_Api {
 
 						return rest_ensure_response( $response );
 					},
-					'permission_callback' => static function () {
-						return current_user_can( 'edit_pages' );
-					},
 				],
 			]
 		);
@@ -209,8 +221,11 @@ class Rest_Api {
 			'/get-happypoint-data',
 			[
 				[
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => static function ( $fields ) {
+					'permission_callback' => static function () {
+						return true;
+					},
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => static function ( $fields ) {
 						$to_return = Happypoint::get_data( $fields['id'] );
 						return rest_ensure_response( $to_return );
 					},
@@ -226,8 +241,11 @@ class Rest_Api {
 			'/get-gallery-images',
 			[
 				[
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => static function ( $fields ) {
+					'permission_callback' => static function () {
+						return true;
+					},
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => static function ( $fields ) {
 						$images = Gallery::get_images( $fields );
 						return rest_ensure_response( $images );
 					},
