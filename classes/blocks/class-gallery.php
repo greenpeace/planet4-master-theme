@@ -44,7 +44,10 @@ class Gallery extends Base_Block {
 				'editor_script'   => 'planet4-blocks',
 				// todo: Remove when all content is migrated.
 				'render_callback' => static function ( $attributes ) {
+					$attributes['images'] = self::get_images( $attributes );
+
 					$json = wp_json_encode( [ 'attributes' => $attributes ] );
+
 					return '<div data-render="planet4-blocks/gallery" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
 				},
 				'attributes'      => [
@@ -130,9 +133,10 @@ class Gallery extends Base_Block {
 		];
 
 		foreach ( $exploded_images as $image_id ) {
-			$image_size = $fields['gallery_image_size'] ? $fields['gallery_image_size'] : (
+			$image_size = $fields['gallery_image_size'] ?? (
 				$fields['gallery_block_style'] ? $image_sizes[ $fields['gallery_block_style'] ] : null
 			);
+
 			$image_data = [];
 
 			$image_data_array           = wp_get_attachment_image_src( $image_id, $image_size );
