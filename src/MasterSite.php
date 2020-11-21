@@ -105,7 +105,6 @@ class MasterSite extends TimberSite {
 	 * Hooks the theme.
 	 */
 	protected function hooks() {
-		add_theme_support( 'post-formats' );
 		add_theme_support( 'post-thumbnails' );
 		add_theme_support( 'menus' );
 		add_post_type_support( 'page', 'excerpt' );  // Added excerpt option to pages.
@@ -634,6 +633,7 @@ class MasterSite extends TimberSite {
 			'width'  => true,
 			'style'  => true,
 			'vspace' => true,
+			'loading'=> true,
 		];
 
 		$allowedposttags['script'] = [
@@ -1271,6 +1271,7 @@ class MasterSite extends TimberSite {
 	 * Add callback function to Gutenberg core/image block.
 	 */
 	public function p4_register_core_image_block() {
+		unregister_block_type( 'core/image' );
 		register_block_type(
 			'core/image',
 			[ 'render_callback' => [ $this, 'p4_core_image_block_render' ] ]

@@ -3,6 +3,7 @@
 namespace P4\MasterTheme\ImageArchive;
 
 use Exception;
+use P4\MasterTheme\Capability;
 use P4\MasterTheme\Features;
 use P4\MasterTheme\Exception\RemoteCallFailed;
 use WP_Http;
@@ -54,8 +55,11 @@ class Rest {
 			self::REST_NAMESPACE,
 			'image-archive/fetch',
 			[
-				'methods'  => WP_REST_Server::READABLE,
-				'callback' => $fetch_archive_images,
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => $fetch_archive_images,
+				'permission_callback' => function () {
+					return current_user_can( Capability::USE_IMAGE_ARCHIVE_PICKER );
+				},
 			]
 		);
 
@@ -84,6 +88,9 @@ class Rest {
 			[
 				'methods'  => WP_REST_Server::CREATABLE,
 				'callback' => $transfer_to_wordpress,
+				'permission_callback' => function () {
+					return current_user_can( Capability::USE_IMAGE_ARCHIVE_PICKER );
+				},
 			]
 		);
 	}
