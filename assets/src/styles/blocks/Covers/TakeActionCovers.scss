@@ -146,12 +146,17 @@
 
     .btn {
       display: block;
-      background-color: var(--cover-card-btn-background-color, $orange);
-      border-color: var(--cover-card-btn-border-color, $orange);
+
+      --block-covers--card-btn-- {
+        background-color: $orange;
+        border-color: $orange;
+      }
 
       &:hover {
-        background-color: var(--cover-card-btn-hover-background-color, $orange-hover);
-        border-color: var(--cover-card-btn-hover-border-color, $orange-hover);
+        --block-covers--card-btn-hover-- {
+          background-color: $orange-hover;
+          border-color: $orange-hover;
+        }
       }
     }
   }
@@ -190,7 +195,11 @@
     padding-top: 0;
     max-width: 80%;
     transition: color 100ms linear;
-    color: var(--cover-card-heading-color, $white);
+
+    --block-covers--heading-- {
+      color: $white;
+    }
+
     text-shadow: 1px 1px 3px $black;
     display: table;
     z-index: 1;
@@ -225,7 +234,11 @@
 }
 
 .cover-card-tag {
-  color: var(--cover-card-tag-color, $yellow);
+
+  --block-covers--card-tag-- {
+    color: $yellow;
+  }
+
   display: inline-block;
   margin-bottom: 8px;
   text-decoration: none;
@@ -237,7 +250,10 @@
 
   &:hover {
     text-decoration: underline;
-    color: var(--cover-card-tag-hover-color, $yellow);
+
+    --block-covers--card-tag-hover-- {
+      color: $yellow;
+    }
   }
 
   @include large-and-up {
