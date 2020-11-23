@@ -5,23 +5,7 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const RemovePlugin = require('remove-files-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
-
-const icons_config = {
-  shape: {
-    dimension: {
-      maxWidth: 64,
-      maxHeight: 64
-    },
-    spacing: {
-      padding: 0,
-      box: 'content'
-    }
-  },
-  mode: {
-    inline: true,
-    symbol: true
-  }
-};
+const dashDash = require('@greenpeace/dashdash');
 
 module.exports = {
   ...defaultConfig,
@@ -54,9 +38,10 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               ident: 'postcss',
-              plugins: function() {
-                return require('autoprefixer');
-              },
+              plugins: () => [
+                dashDash(),
+                require('autoprefixer'),
+              ],
               sourceMap: true,
             }
           },
