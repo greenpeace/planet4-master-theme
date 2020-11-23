@@ -12,7 +12,7 @@ export class ArticlePreview extends Component {
     const { isCampaign } = this.props;
     const className = `tag-item tag-item--main page-type page-type-${pageType.toLowerCase().replace(' ', '_')}`;
     if (isCampaign) {
-      return <span className={className}>{pageType}</span>;
+      return <span className={className}>{unescape(pageType)}</span>;
     }
     return <a
               className={className}
@@ -159,7 +159,7 @@ export class ArticlePreview extends Component {
 
           {post_excerpt &&
             <p className="article-list-item-content">
-              {post_excerpt.replace('&hellip;', '...')}
+              {unescape(post_excerpt)}
             </p>
           }
         </div>
