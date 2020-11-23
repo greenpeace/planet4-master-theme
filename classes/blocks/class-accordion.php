@@ -31,42 +31,38 @@ class Accordion extends Base_Block {
 			[
 				'editor_script' => 'planet4-blocks-beta',
 				'attributes'    => [
-					'accordion_title'       => [
+					'title'       => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'accordion_description' => [
+					'description' => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'accordion_rows'        => [
-						'type'          => 'array',
-						'default'       => [],
-						'accordion_row' => [
+					'tabs'        => [
+						'type'    => 'array',
+						'default' => [],
+						'items'   => [
 							'type'       => 'object',
 							// In JSON Schema you can specify object properties in the properties attribute.
 							'properties' => [
-								'accordion_id'        => [
-									'type'    => 'integer',
-									'default' => '',
-								],
-								'accordion_headline'  => [
+								'headline'       => [
 									'type'    => 'string',
 									'default' => '',
 								],
-								'accordion_text'      => [
+								'text'           => [
 									'type'    => 'string',
 									'default' => '',
 								],
-								'accordion_btn_text'  => [
+								'button_text'    => [
 									'type'    => 'string',
 									'default' => '',
 								],
-								'accordion_btn_url'   => [
+								'button_url'     => [
 									'type'    => 'string',
 									'default' => '',
 								],
-								'button_link_new_tab' => [
+								'button_new_tab' => [
 									'type'    => 'boolean',
 									'default' => false,
 								],
@@ -81,30 +77,9 @@ class Accordion extends Base_Block {
 	/**
 	 * Required by the `Base_Block` class.
 	 *
-	 * @param array $attributes This is the array of fields of this block.
-	 *
-	 * @return array The data to be passed in the View.
+	 * @param array $fields Unused, required by the abstract function.
 	 */
-	public function prepare_data( $attributes ): array {
-		$fields = [
-			'accordion_title'       => $attributes['accordion_title'] ?? '',
-			'accordion_description' => $attributes['accordion_description'] ?? '',
-			'accordion_rows'        => $attributes['accordion_rows'] ?? '',
-			'accordion_id'          => $attributes['accordion_id'] ?? '',
-			'accordion_headline'    => $attributes['accordion_headline'] ?? '',
-			'accordion_text'        => $attributes['accordion_text'] ?? '',
-			'accordion_btn_text'    => $attributes['accordion_btn_text'] ?? '',
-			'accordion_btn_url'     => $attributes['accordion_btn_url'] ?? '',
-			'button_link_new_tab'   => $attributes['button_link_new_tab'] ?? '',
-
-		];
-
-		$block_data = [
-			'fields'              => $fields,
-			'available_languages' => P4GBKS_LANGUAGES,
-		];
-
-		return $block_data;
+	public function prepare_data( $fields ): array {
+		return [];
 	}
-
 }

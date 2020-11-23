@@ -1,170 +1,159 @@
-/* eslint-disable no-unused-vars */
-import { Component, Fragment } from '@wordpress/element';
+import { Fragment, useState } from '@wordpress/element';
 import { InspectorControls } from '@wordpress/block-editor';
-import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
 import { URLInput } from '../../components/URLInput/URLInput';
 import {
   PanelBody,
   CheckboxControl,
-  TextControl as BaseTextControl,
-  Tooltip,
   Button,
-  Dashicon
 } from '@wordpress/components';
+
+import { debounce } from 'lodash';
 
 const { RichText } = wp.blockEditor;
 const { __ } = wp.i18n;
-const TextControl = withCharacterCounter(BaseTextControl);
-export class AccordionEditor extends Component {
-  constructor () {
-    super();
-    this.state = { isToggleOn: false };
 
-    this.handleErrors = this.handleErrors.bind(this);
-    this.toAttribute = this.toAttribute.bind(this);
-    this.handleCollapseClick = this.handleCollapseClick.bind(this);
-  }
+// Renders the editor view
+const renderView = ({ title, description, tabs, className }, setAttributes, isSelected, updateTabAttribute) => {
 
-  handleCollapseClick () {
-    this.setState(state => ({
-      isToggleOn: !state.isToggleOn
-    }));
+  const toAttribute = attributeName => value => setAttributes({
+    [attributeName]: value
+  });
 
-    this.state.isToggleOn === true ? $('.panel').removeClass('visibility') : $('.panel').addClass('visibility');
-  }
-
-  toAttribute (attributeName) {
-    const { setAttributes } = this.props;
-    return value => {
-      setAttributes({ [attributeName]: value });
-    };
-  }
-
-  handleErrors (errors) {
-    this.setState(errors);
-  }
-
-  // renders the settings
-  renderEdit () {
-    const { attributes } = this.props;
-
-    return (
-      <Fragment>
-        <InspectorControls>
-          <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
-            <TextControl
-              label={__('Button Text', 'planet4-blocks-backend')}
-              placeholder={__('Override button text', 'planet4-blocks-backend')}
-              help={__('Leave the button text empty to hide the button on the front page.', 'planet4-blocks-backend')}
-              value={attributes.accordion_btn_text}
-              onChange={this.toAttribute('accordion_btn_text')}
-            />
-            <URLInput
-              label={__('Button Link', 'planet4-blocks-backend')}
-              value={attributes.accordion_btn_url}
-              onChange={this.toAttribute('accordion_btn_url')}
-            />
-            <CheckboxControl
-              label={__('Open in a new Tab', 'planet4-blocks-backend')}
-              help={__('Open button link in new tab', 'planet4-blocks-backend')}
-              value={attributes.button_link_new_tab}
-              checked={attributes.button_link_new_tab}
-              onChange={this.toAttribute('button_link_new_tab')}
-            />
-          </PanelBody>
-        </InspectorControls>
-      </Fragment>
-    );
-  }
-
-  // renders the editor view
-  renderView () {
-    const { attributes } = this.props;
-
-    return <Fragment>
-      <div className="block accordion-block my-3">
-        <Tooltip text={__('Leave empty the title and/or description of this block if you want to hide them on the front page.', 'planet4-blocks-backend')}>
-          <header>
-            <RichText
-              tagName="h2"
-              className="page-section-header mt-3"
-              placeholder={__('Enter title', 'planet4-blocks-backend')}
-              value={attributes.accordion_title}
-              onChange={this.toAttribute('accordion_title')}
-              keepPlaceholderOnFocus={true}
-              withoutInteractiveFormatting
-              characterLimit={60}
-              multiline="false"
-            />
-          </header>
-        </Tooltip>
+  return (
+    <div className='block accordion-block'>
+      <header>
         <RichText
-          tagName="p"
-          className="page-section-description"
-          placeholder={__('Enter description', 'planet4-blocks-backend')}
-          value={attributes.accordion_description}
-          onChange={this.toAttribute('accordion_description')}
+          tagName="h2"
+          className="page-section-header"
+          placeholder={__('Enter title', 'planet4-blocks-backend')}
+          value={title}
+          onChange={toAttribute('title')}
           keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
-          characterLimit={200}
-          multiline="true"
+          characterLimit={60}
+          multiline="false"
         />
-        <div className="accordion-content my-2">
-          <div className="accordion card-header"
-            onClick={this.handleCollapseClick}
-            // id={attributes.accordion_id, index+1}
-          >
-            <RichText
-              tagName="h4"
-              className="accordion-headline"
-              placeholder={__('Enter headline', 'planet4-blocks-backend')}
-              value={attributes.accordion_headline}
-              onChange={this.toAttribute('accordion_headline')}
-              keepPlaceholderOnFocus={true}
-              withoutInteractiveFormatting
-              // characterLimit={100}
-              multiline="false"
-            />
-          </div>
-          <div className="panel">
+      </header>
+      <RichText
+        tagName="p"
+        className="page-section-description"
+        placeholder={__('Enter description', 'planet4-blocks-backend')}
+        value={description}
+        onChange={toAttribute('description')}
+        keepPlaceholderOnFocus={true}
+        withoutInteractiveFormatting
+        characterLimit={200}
+      />
+      {tabs.map((tab, index) => (
+        <div key={`accordion-content-${index}`} className={`accordion-content ${className}`}>
+          <RichText
+            tagName="h4"
+            className={`accordion-headline ${isSelected ? 'open' : ''}`}
+            placeholder={__('Enter headline', 'planet4-blocks-backend')}
+            value={tab.headline}
+            onChange={updateTabAttribute('headline', index)}
+            keepPlaceholderOnFocus={true}
+            withoutInteractiveFormatting
+            multiline="false"
+          />
+          <div className={`panel ${isSelected ? '' : 'panel-hidden'}`}>
             <RichText
               tagName="p"
               className="accordion-text"
               placeholder={__('Enter text', 'planet4-blocks-backend')}
-              value={attributes.accordion_text}
-              onChange={this.toAttribute('accordion_text')}
+              value={tab.text}
+              onChange={updateTabAttribute('text', index)}
               keepPlaceholderOnFocus={true}
             />
-            <Tooltip text={__('Leave the button text empty to hide the button on the front page.', 'planet4-blocks-backend')}>
-              <div className="btn btn-secondary btn-accordion">
-                <RichText
-                  tagName="div"
-                  placeholder={__('Optional button', 'planet4-blocks-backend')}
-                  value={ attributes.accordion_btn_text }
-                  onChange={ this.toAttribute('accordion_btn_text') }
-                  keepPlaceholderOnFocus={true}
-                  withoutInteractiveFormatting
-                  multiline="false"
-                />
-              </div>
-            </Tooltip>
+            <div className="btn btn-secondary accordion-btn">
+              <RichText
+                tagName="div"
+                placeholder={__('Optional button', 'planet4-blocks-backend')}
+                value={tab.button_text}
+                onChange={updateTabAttribute('button_text', index)}
+                keepPlaceholderOnFocus={true}
+                withoutInteractiveFormatting
+                multiline="false"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      {/* <AccordionFrontend isEditing { ...attributes } handleErrors={ this.handleErrors } /> */}
-    </Fragment>;
-  }
-
-  render () {
-    return (
-      <Fragment>
-        {
-          this.props.isSelected
-            ? this.renderEdit()
-            : null
-        }
-        {this.renderView()}
-      </Fragment>
-    );
-  }
+      ))}
+    </div>
+  );
 }
+
+// Renders the sidebar settings
+const renderEdit = ({ tabs }, setAttributes, updateTabAttribute) => {
+  const [buttonUrl, setButtonUrl] = useState({});
+
+  const addTab = () => setAttributes({ tabs: [...tabs, {}] });
+
+  const removeTab = () => setAttributes({ tabs: tabs.slice(0, tabs.length - 1) });
+
+  const debounceButtonUrl = debounce((index, url) => {
+    updateTabAttribute('button_url', index)(url);
+  }, 300);
+
+  return (
+    <InspectorControls>
+      <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+        {tabs.map((tab, index) => (
+          <div key={`tab-${index}`}>
+            <p>{__('Item', 'planet4-blocks-backend')} {index + 1}</p>
+            <URLInput
+              label={__('Button link', 'planet4-blocks-backend')}
+              value={buttonUrl[index] ? buttonUrl[index].value : tab.button_url}
+              onChange={url => {
+                setButtonUrl({ [index]: url, ...buttonUrl });
+                debounceButtonUrl(index, url);
+              }}
+            />
+            <CheckboxControl
+              label={__('Open in a new tab', 'planet4-blocks-backend')}
+              value={tab.button_new_tab}
+              checked={tab.button_new_tab}
+              onChange={updateTabAttribute('button_new_tab', index)}
+            />
+          </div>
+        ))}
+        <Button
+          isPrimary
+          onClick={addTab}
+          style={{ marginRight: 10 }}
+        >
+          {__('Add item', 'planet4-blocks-backend')}
+        </Button>
+        <Button
+          isSecondary
+          disabled={tabs.length <= 1}
+          onClick={removeTab}
+        >
+          {__('Remove item', 'planet4-blocks-backend')}
+        </Button>
+      </PanelBody>
+    </InspectorControls>
+  );
+}
+
+export const AccordionEditor = ({ attributes, isSelected, setAttributes }) => {
+  // If there are no tabs yet, we add an empty one as placeholder
+  const { title, description, className } = attributes;
+  const tabs = attributes.tabs.length > 0 ? attributes.tabs : [{}];
+
+  const updateTabAttribute = (attributeName, index) => value => {
+    const newTabs = [...tabs];
+    newTabs[index][attributeName] = value;
+    setAttributes({
+      tabs: newTabs
+    });
+  };
+
+  return (
+    <Fragment>
+      {isSelected && renderEdit({ tabs }, setAttributes, updateTabAttribute)}
+      {renderView({ tabs, title, description, className }, setAttributes, isSelected, updateTabAttribute)}
+    </Fragment>
+  );
+};
+
