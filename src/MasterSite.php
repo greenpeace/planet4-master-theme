@@ -195,6 +195,9 @@ class MasterSite extends TimberSite {
 		add_action( 'admin_notices', [ $this, 'show_dashboard_notice' ] );
 		add_action( 'wp_ajax_dismiss_dashboard_notice', [ $this, 'dismiss_dashboard_notice' ] );
 		add_filter( 'timber/twig', [ $this, 'p4_optimize_img_url' ] );
+
+		// Pin the ElasticPress to v3.4 search algorithm.
+		simple_value_filter( 'ep_search_algorithm_version', '3.4' );
 	}
 
 	/**
