@@ -509,7 +509,8 @@ abstract class Search {
 
 		if ( $selected_sort && self::DEFAULT_SORT !== $selected_sort ) {
 			$args['orderby'] = 'date';
-			$args['order']   = 'desc';
+			// Order by post_date = Newest[desc]/Oldest[asc].
+			$args['order'] = 'post_date' === $selected_sort ? 'desc' : 'asc';
 		}
 
 		$args['search_fields'] = [
@@ -695,13 +696,17 @@ abstract class Search {
 		$context['found_posts']   = $this->total_matches;
 		$context['page_category'] = 'Search Page';
 		$context['sort_options']  = [
-			'_score'    => [
+			'_score'        => [
 				'name'  => __( 'Most relevant', 'planet4-master-theme' ),
 				'order' => 'DESC',
 			],
-			'post_date' => [
-				'name'  => __( 'Most recent', 'planet4-master-theme' ),
+			'post_date'     => [
+				'name'  => __( 'Newest', 'planet4-master-theme' ),
 				'order' => 'DESC',
+			],
+			'post_date_asc' => [
+				'name'  => __( 'Oldest', 'planet4-master-theme' ),
+				'order' => 'ASC',
 			],
 		];
 

@@ -78,13 +78,17 @@ class MasterSite extends TimberSite {
 		$this->theme_dir        = get_template_directory_uri();
 		$this->theme_images_dir = $this->theme_dir . '/images/';
 		$this->sort_options     = [
-			'_score'    => [
+			'_score'        => [
 				'name'  => __( 'Most relevant', 'planet4-master-theme' ),
 				'order' => 'DESC',
 			],
-			'post_date' => [
-				'name'  => __( 'Most recent', 'planet4-master-theme' ),
+			'post_date'     => [
+				'name'  => __( 'Newest', 'planet4-master-theme' ),
 				'order' => 'DESC',
+			],
+			'post_date_asc' => [
+				'name'  => __( 'Oldest', 'planet4-master-theme' ),
+				'order' => 'ASC',
 			],
 		];
 	}
