@@ -10,9 +10,6 @@ import {
 import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
 import {URLInput} from "../../components/URLInput/URLInput";
 
-const {apiFetch} = wp;
-const {addQueryArgs} = wp.url;
-
 const TextControl = withCharacterCounter( BaseTextControl );
 const TextareaControl = withCharacterCounter( BaseTextareaControl );
 
