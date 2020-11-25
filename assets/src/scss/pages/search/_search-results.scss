@@ -23,26 +23,11 @@
   }
 
   ul {
-    border-top: 1px solid $grey-20;
-
-    @include small-and-up {
-      border-top: 0;
-    }
-
     li {
-      padding: 15px 0;
-      margin: 0 $n15;
+      padding: 0 24px 32px 24px;
+      margin: 0 auto 24px;
       border-bottom: 1px solid $grey-20;
       position: relative;
-
-      @include small-and-up {
-        margin: 0 auto 32px;
-        padding-bottom: 32px;
-      }
-
-      @include mobile-only {
-        margin: 0;
-      }
 
       .search-hover {
         text-decoration: underline;
@@ -56,12 +41,11 @@
 
         @include small-and-up {
           width: 25%;
-          margin-right: 30px;
+          margin: 0 32px 0 0;
           visibility: visible;
 
           html[dir="rtl"] & {
-            margin-right: 0;
-            margin-left: 30px;
+            margin: 0 0 0 32px;
           }
         }
 
@@ -70,49 +54,11 @@
         }
       }
 
-      &.search-result-list-item-bg {
-        @include background("/images/search-list.jpg");
-        padding: 24px 15px $n30;
-        margin: $n15;
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-        border-bottom: 0;
+      .btn {
+        margin-top: 24px;
 
         @include small-and-up {
-          padding-top: 32px;
-          padding-bottom: 32px;
-          margin: $n15 0;
-        }
-
-        .search-result-item-headline {
-          font-size: 1.5rem;
-          margin-bottom: 40px;
-
-          @include small-and-up {
-            margin-bottom: 24px;
-          }
-
-          &:hover {
-            cursor: pointer;
-            text-decoration: underline;
-          }
-        }
-
-        .search-result-item-content {
-          display: block;
-        }
-
-        .btn {
-          width: auto;
-          margin-top: 32px;
-          cursor: pointer;
-          font-size: 0.85rem;
-          height: 40px;
-          padding: 0 20px;
-          overflow: hidden;
-
-          @include small-and-up {
-            width: max-content;
-          }
+          width: max-content;
         }
       }
     }
@@ -252,7 +198,6 @@
   font-family: $lora;
   line-height: 1.6;
   margin: $n10 0 0;
-  width: 80%;
 
   @include large-and-up {
     font-size: 1.125rem;
