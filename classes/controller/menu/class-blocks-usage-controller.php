@@ -360,6 +360,7 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				'separator',
 				'spacer',
 				'shortcode',
+				'group',
 			];
 
 			return array_merge( $p4_block_types, $core_block_types );
