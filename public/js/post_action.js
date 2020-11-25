@@ -36,7 +36,9 @@ jQuery(function ($) {
       if ($(window).scrollTop() > postStart && $(window).scrollTop() < (postHeight - postStart)) {
         // We want to align the boxout with the share buttons
         if ($(window).width() >= 992 && shareButtonsLeft && $boxoutScrollNotHidden.offset().left !== shareButtonsLeft) {
-          $boxoutScrollNotHidden.css('left', shareButtonsLeft + 'px');
+          $boxoutScrollNotHidden.css('left', `${shareButtonsLeft}px`);
+        } else if ($(window).width() < 992 && $boxoutScrollNotHidden.offset().left !== 0) {
+          $boxoutScrollNotHidden.css('left', 0);
         }
         $boxoutScrollNotHidden.fadeIn();
         // If mobile/tablet the user can close the boxout by clicking on the cross
