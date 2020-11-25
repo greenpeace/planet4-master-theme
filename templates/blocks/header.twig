@@ -48,33 +48,31 @@
 			{% if hide_page_title_checkbox != 'on' %}
 				<h1 class="page-header-title">{{ header_title|e('wp_kses_post')|raw }}</h1>
 			{% endif %}
-			{% if not post.password_required %}
-				{% if hide_page_title_checkbox != 'on' and ( post.is_take_action_page ) %}
-					{% include "blocks/share_buttons.twig" with {social:post.share_meta} %}
-				{% endif %}
-				{% if ( header_subtitle ) %}
-					<h3 class="page-header-subtitle">{{ header_subtitle }}</h3>
-				{% endif %}
-				{% if ( header_description ) %}
-					<div class="page-header-content">{{ header_description|e('wp_kses_post')|raw }}</div>
-				{% endif %}
-				{% if ( header_button_title and header_button_link ) %}
-					<div class="row">
-						<div class="col-md-12">
-							<a
-								href="{{ header_button_link }}"
-							{% if ( header_button_link_checkbox ) %}
-								target="_blank"
-							{% endif %}
-								class="btn btn-primary page-header-btn"
-								data-ga-category="Header"
-								data-ga-action="Call to Action"
-								data-ga-label="n/a">
-									{{ header_button_title }}
-							</a>
-						</div>
+			{% if hide_page_title_checkbox != 'on' and ( post.is_take_action_page ) %}
+				{% include "blocks/share_buttons.twig" with {social:post.share_meta} %}
+			{% endif %}
+			{% if ( header_subtitle ) %}
+				<h3 class="page-header-subtitle">{{ header_subtitle }}</h3>
+			{% endif %}
+			{% if ( header_description ) %}
+				<div class="page-header-content">{{ header_description|e('wp_kses_post')|raw }}</div>
+			{% endif %}
+			{% if ( header_button_title and header_button_link ) %}
+				<div class="row">
+					<div class="col-md-12">
+						<a
+							href="{{ header_button_link }}"
+						{% if ( header_button_link_checkbox ) %}
+							target="_blank"
+						{% endif %}
+							class="btn btn-primary page-header-btn"
+							data-ga-category="Header"
+							data-ga-action="Call to Action"
+							data-ga-label="n/a">
+								{{ header_button_title }}
+						</a>
 					</div>
-				{% endif %}
+				</div>
 			{% endif %}
 		</div>
 	</div>

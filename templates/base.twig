@@ -27,7 +27,10 @@
 		{% include 'navigation-bar.twig' with data_nav_bar %}
 	{% endif %}
 	{% include 'sidebar.twig' with data_nav_bar %}
-	{% include 'blocks/header.twig' %}
+
+	{% if not post.password_required %}
+		{% include 'blocks/header.twig' %}
+	{% endif %}
 
 	{% block content %}
 		Sorry, no content

@@ -116,6 +116,10 @@ foreach ( range( 1, 5 ) as $i ) {
 }
 
 if ( post_password_required( $post->ID ) ) {
+
+	// Hide the campaign title from links to the extra feeds.
+	remove_action( 'wp_head', 'feed_links_extra', 3 );
+
 	$context['login_url'] = wp_login_url();
 
 	Timber::render( 'single-password.twig', $context );
