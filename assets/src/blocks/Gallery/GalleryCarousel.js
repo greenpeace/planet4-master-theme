@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from '@wordpress/element';
-import _uniqueId from 'lodash/uniqueId';
 
 const { __ } = wp.i18n;
 
@@ -24,8 +23,8 @@ export const GalleryCarousel = ({ images }) => {
   }
 
   const goToSlide = newSlide => {
-    const nextElement = document.getElementById(`${idRef.current}-slide${newSlide}`);
-    const activeElement = document.getElementById(`${idRef.current}-slide${currentSlide}`);
+    const nextElement = slidesRef.current[newSlide];
+    const activeElement = slidesRef.current[currentSlide];
     if (newSlide !== currentSlide && nextElement && activeElement && !sliding) {
       setSliding(true);
       const order = getOrder(newSlide);
@@ -53,7 +52,7 @@ export const GalleryCarousel = ({ images }) => {
   const goToPrevSlide = () => goToSlide(currentSlide === 0 ? lastSlide : currentSlide - 1);
 
   const timerRef = useRef(null);
-  const idRef = useRef(null);
+  const slidesRef = useRef([]);
 
   // Set up the autoplay for the slides
   useEffect(() => {
@@ -65,13 +64,6 @@ export const GalleryCarousel = ({ images }) => {
       return () => clearTimeout(timerRef.current);
     }
   }, [currentSlide, images]);
-
-  // Set up the unique id for the carousel
-  useEffect(() => {
-    if (!idRef.current) {
-      idRef.current = `gallery-${_uniqueId()}`;
-    }
-  }, []);
 
   return (
     <div className="carousel slide">
@@ -97,7 +89,7 @@ export const GalleryCarousel = ({ images }) => {
           <div
             key={image.image_src}
             className={`carousel-item ${index === currentSlide ? 'active' : ''}`}
-            id={`${idRef.current}-slide${index}`}
+            ref={element => slidesRef.current[index] = element}
           >
             <img
               src={image.image_src}
