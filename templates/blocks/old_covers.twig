@@ -32,6 +32,7 @@
 									data-ga-action="Image"
 									data-ga-label="n/a"
 									href="{{ cover.button_link|default('#') }}"
+									aria-label="{{ __( 'Take action cover, link to ' ~ cover.title, 'planet4-blocks' ) }}"
 								/>
 								<div class="cover-card-content">
 									{% if ( cover.tags ) %}
