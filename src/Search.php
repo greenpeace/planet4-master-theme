@@ -450,6 +450,7 @@ abstract class Search {
 			'no_found_rows'  => true,
 			'post_type'      => self::get_post_types(),
 			'post_status'    => [ 'publish', 'inherit' ],
+			'has_password'   => false,  // Skip password protected content.
 		];
 
 		if ( $paged > 1 ) {

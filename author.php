@@ -22,6 +22,7 @@ $post_args = [
 	'paged'          => 1,
 	'meta_key'       => 'p4_author_override',
 	'meta_compare'   => 'NOT EXISTS',
+	'has_password'   => false,  // Skip password protected content.
 ];
 
 if ( isset( $wp_query->query_vars['author'] ) ) {
