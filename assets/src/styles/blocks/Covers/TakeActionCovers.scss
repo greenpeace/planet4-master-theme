@@ -133,7 +133,7 @@
     background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
   }
 
-  &:hover {
+  &:hover, &:focus, &:focus-within {
     @include background-before-opacity(linear-gradient(180deg, rgba(51, 51, 51, 0.6), rgba(250, 247, 236, 0.9), rgba(255, 255, 255, 0.8)), 1);
     box-shadow: 0 0 10px transparentize($black, .5);
 
@@ -152,7 +152,7 @@
         border-color: $orange;
       }
 
-      &:hover {
+      &:hover, &:focus, &:focus-within {
         --block-covers--card-btn-hover-- {
           background-color: $orange-hover;
           border-color: $orange-hover;

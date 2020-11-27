@@ -31,7 +31,8 @@
 												href="{{ post.link }}"
 												data-ga-category="Content Covers"
 												data-ga-action="Image"
-												data-ga-label="n/a">
+												data-ga-label="n/a"
+												aria-label="{{ __( 'Cover image, link to ' ~ post.post_title , 'planet4-blocks' ) }}">
 													<img src="{{ post.thumbnail }}" alt="{{ post.alt_text }}" srcset="{{ post.srcset }}">
 											</a>
 										{% endif %}

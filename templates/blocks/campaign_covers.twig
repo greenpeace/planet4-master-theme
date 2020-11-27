@@ -32,12 +32,13 @@
 								href="{{ tag.href }}"
 								data-ga-category="Campaign Covers"
 								data-ga-action="Image"
-								data-ga-label="n/a">
+								data-ga-label="n/a"
+								aria-label="{{ __( 'Check our campaign about ' ~ tag.name, 'planet4-blocks') }}">
 									<div class="thumbnail-large">
 										{% if ( tag.image[0] ) %}
 											<img src="{{ tag.image[0] }}" alt="{{ tag.alt_text }}">
 										{% endif %}
-										<span class="yellow-cta">#{{ tag.name }}</span>
+										<span class="yellow-cta"><span aria-label="hashtag">#</span>{{ tag.name }}</span>
 									</div>
 							</a>
 						</div>
