@@ -13,8 +13,14 @@
   }
 }
 
-.edit-post-visual-editor .wp-block {
-  max-width: 90%;
+.edit-post-visual-editor {
+  .wp-block {
+    max-width: 90%;
+  }
+
+  li {
+    font-size: unset;
+  }
 }
 
 .wp-block-image {
