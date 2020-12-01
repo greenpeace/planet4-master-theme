@@ -19,6 +19,22 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
     [attributeName]: value
   });
 
+  const addButton = index => {
+    const newTabs = [...tabs];
+    newTabs[index].button = {};
+    setAttributes({
+      tabs: newTabs
+    });
+  };
+
+  const removeButton = index => {
+    const newTabs = [...tabs];
+    delete newTabs[index].button;
+    setAttributes({
+      tabs: newTabs
+    });
+  };
+
   return (
     <div className='block accordion-block'>
       <header>
@@ -65,17 +81,29 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
               onChange={updateTabAttribute('text', index)}
               keepPlaceholderOnFocus={true}
             />
-            <div className="btn btn-secondary accordion-btn">
-              <RichText
-                tagName="div"
-                placeholder={__('Optional button', 'planet4-blocks-backend')}
-                value={tab.button_text}
-                onChange={updateTabAttribute('button_text', index)}
-                keepPlaceholderOnFocus={true}
-                withoutInteractiveFormatting
-                multiline="false"
-              />
-            </div>
+            {tab.button ?
+              <div className="button-container">
+                <RichText
+                  tagName="div"
+                  className="btn btn-secondary accordion-btn"
+                  placeholder={__('Button text', 'planet4-blocks-backend')}
+                  value={tab.button.button_text}
+                  onChange={updateTabAttribute('button_text', index)}
+                  keepPlaceholderOnFocus={true}
+                  withoutInteractiveFormatting
+                  multiline="false"
+                />
+                <Button
+                  className='remove-btn'
+                  onClick={() => removeButton(index)}
+                  icon='trash'
+                />
+              </div> :
+              <div onClick={() => addButton(index)} className="add-button">
+                <span className="plus">+</span>
+                {__('Add button', 'planet4-blocks-backend')}
+              </div>
+            }
           </div>
         </div>
       ))}
@@ -98,25 +126,32 @@ const renderEdit = ({ tabs }, setAttributes, updateTabAttribute) => {
   return (
     <InspectorControls>
       <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
-        {tabs.map((tab, index) => (
-          <div key={`tab-${index}`}>
-            <p>{__('Item', 'planet4-blocks-backend')} {index + 1}</p>
-            <URLInput
-              label={__('Button link', 'planet4-blocks-backend')}
-              value={buttonUrl[index] ? buttonUrl[index].value : tab.button_url}
-              onChange={url => {
-                setButtonUrl({ [index]: url, ...buttonUrl });
-                debounceButtonUrl(index, url);
-              }}
-            />
-            <CheckboxControl
-              label={__('Open in a new tab', 'planet4-blocks-backend')}
-              value={tab.button_new_tab}
-              checked={tab.button_new_tab}
-              onChange={updateTabAttribute('button_new_tab', index)}
-            />
-          </div>
-        ))}
+        {tabs.map((tab, index) => {
+          const { button } = tab;
+          if (!button) {
+            return;
+          }
+
+          return (
+            <div key={`tab-${index}`}>
+              <p>{__('Item', 'planet4-blocks-backend')} {index + 1}</p>
+              <URLInput
+                label={__('Button link', 'planet4-blocks-backend')}
+                value={buttonUrl[index] ? buttonUrl[index].value : button.button_url}
+                onChange={url => {
+                  setButtonUrl({ [index]: url, ...buttonUrl });
+                  debounceButtonUrl(index, url);
+                }}
+              />
+              <CheckboxControl
+                label={__('Open in a new tab', 'planet4-blocks-backend')}
+                value={button.button_new_tab}
+                checked={button.button_new_tab}
+                onChange={updateTabAttribute('button_new_tab', index)}
+              />
+            </div>
+          );
+        })}
         <Button
           isPrimary
           onClick={addTab}
@@ -143,7 +178,11 @@ export const AccordionEditor = ({ attributes, isSelected, setAttributes }) => {
 
   const updateTabAttribute = (attributeName, index) => value => {
     const newTabs = [...tabs];
-    newTabs[index][attributeName] = value;
+    if (attributeName.startsWith('button_')) {
+      newTabs[index].button[attributeName] = value;
+    } else {
+      newTabs[index][attributeName] = value;
+    }
     setAttributes({
       tabs: newTabs
     });

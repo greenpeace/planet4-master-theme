@@ -41,33 +41,36 @@ export const AccordionFrontend = attributes => {
       {description &&
         <p className="page-section-description" dangerouslySetInnerHTML={{ __html: description }} />
       }
-      {tabs.map(({ headline, text, button_text, button_url, button_new_tab }, index) => (
-        <div key={`accordion-content-${index}`} className={`accordion-content ${className}`}>
-          {headline &&
-            <div
-              className={`accordion-headline ${openTab === index ? 'open' : ''}`}
-              onClick={() => toggleTab(index, headline)}
-              name={headline}
-            >
-              {headline}
-            </div>
-          }
-          <div className={`panel ${openTab === index ? '' : 'panel-hidden'}`}>
-            {text &&
-              <p className="accordion-text" dangerouslySetInnerHTML={{ __html: text }} />
-            }
-            {button_text &&
-              <a className="btn btn-secondary accordion-btn"
-                onClick={() => handleReadMoreClick(headline)}
-                href={button_url}
-                target={button_new_tab ? '_blank' : ''}
+      {tabs.map(({ headline, text, button }, index) => {
+        const { button_text, button_url, button_new_tab } = button || {};
+        return (
+          <div key={`accordion-content-${index}`} className={`accordion-content ${className}`}>
+            {headline &&
+              <div
+                className={`accordion-headline ${openTab === index ? 'open' : ''}`}
+                onClick={() => toggleTab(index, headline)}
+                name={headline}
               >
-                {button_text}
-              </a>
+                {headline}
+              </div>
             }
+            <div className={`panel ${openTab === index ? '' : 'panel-hidden'}`}>
+              {text &&
+                <p className="accordion-text" dangerouslySetInnerHTML={{ __html: text }} />
+              }
+              {button_text &&
+                <a className="btn btn-secondary accordion-btn"
+                  onClick={() => handleReadMoreClick(headline)}
+                  href={button_url}
+                  target={button_new_tab ? '_blank' : ''}
+                >
+                  {button_text}
+                </a>
+              }
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </section>
   );
 }

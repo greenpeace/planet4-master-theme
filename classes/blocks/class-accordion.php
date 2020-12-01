@@ -46,25 +46,30 @@ class Accordion extends Base_Block {
 							'type'       => 'object',
 							// In JSON Schema you can specify object properties in the properties attribute.
 							'properties' => [
-								'headline'       => [
+								'headline' => [
 									'type'    => 'string',
 									'default' => '',
 								],
-								'text'           => [
+								'text'     => [
 									'type'    => 'string',
 									'default' => '',
 								],
-								'button_text'    => [
-									'type'    => 'string',
-									'default' => '',
-								],
-								'button_url'     => [
-									'type'    => 'string',
-									'default' => '',
-								],
-								'button_new_tab' => [
-									'type'    => 'boolean',
-									'default' => false,
+								'button'   => [
+									'type'       => 'object',
+									'properties' => [
+										'button_text'    => [
+											'type'    => 'string',
+											'default' => '',
+										],
+										'button_url'     => [
+											'type'    => 'string',
+											'default' => '',
+										],
+										'button_new_tab' => [
+											'type'    => 'boolean',
+											'default' => false,
+										],
+									],
 								],
 							],
 						],
