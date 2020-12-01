@@ -4,17 +4,39 @@ version: 2.1
 workflows:
   main:
     jobs:
-      - php73-tests
-      - frontend-tests
-      - acceptance-tests
-      - a11y-tests
-      - create-release-zip:
+      # Get new instance if none was used for the PR, else figure out which instance.
+      - unit-tests
+      - create-zip:
+          filters:
+            tags:
+              only: /^v\p{Digit}+\.\p{Digit}+/
+      - create-beta-tag:
           context: org-global
+          requires:
+            - create-zip
+      - request-instance:
+          context: org-global
+          requires:
+            - create-beta-tag
+      - instance-ready:
+          type: approval
+          requires:
+            - request-instance
+      - execute-tests-1:
+          requires:
+            - instance-ready
+      - execute-tests-2:
+          requires:
+            - instance-ready
+      - publish-zip:
+          context: org-global
+          requires:
+            - create-zip
           filters:
             branches:
               ignore: /.*/
             tags:
-              only: /^v\p{Digit}+\.\p{Digit}+.*/
+              only: /^v\p{Digit}+\.\p{Digit}+/
 
 job-references:
   mysql_image: &mysql_image
@@ -205,12 +227,92 @@ jobs:
             errors=$(jq '.errors' planet4-docker-compose/artifacts/pa11y/pa11y-ci-results.json)
             if [ "$errors" -gt 0 ]; then echo "$errors errors found, see report in artifacts."; else echo "No errors, report available in artifacts."; fi
 
-  create-release-zip:
+  unit-tests:
     docker:
-      - image: mhart/alpine-node
+      - image: mhart/alpine-node:14
         auth: &docker_auth
     steps:
-      - run: apk add curl zip git openssh-client jq python2 make g++
+      - run: echo "I'm a unit test, and I pass."
+
+  request-instance:
+    docker:
+      - image: mhart/alpine-node:14
+        auth: &docker_auth
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: apk add curl jq git openssh-client
+      - run:
+          name: "Check if this is for an open PR."
+          command: |
+            if [ -z "$CIRCLE_PULL_REQUEST" ];then
+              echo echo "No PR, skipping instance deploy"
+              exit 0
+            fi
+      - run:
+          name: "Call webhook to get free instance (mock for now). If an instance is already on the branch, use that one."
+          command: |
+            echo pandora > /tmp/workspace/test-instance
+      - run:
+          name: "Clone test instance repo"
+          command: |
+            repo=planet4-test-$(cat /tmp/workspace/test-instance)
+            git clone "https://github.com/greenpeace/$repo"
+      - run:
+          name: "Github auth"
+          command: |
+            git config --global user.email "circleci-bot@greenpeace.org"
+            git config --global user.name ":robot: CI Bot"
+            git config --global push.default simple
+            git config --global url."ssh://git@github.com".insteadOf "https://github.com" || true
+            mkdir -p ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+      - run:
+          name: "Commit to test instance repo"
+          command: |
+            repo=planet4-test-$(cat /tmp/workspace/test-instance)
+            f="$repo/composer-local.json"
+            tmp=$(mktemp)
+            jq --tab ".require.\"greenpeace/planet4-master-theme\" = \"$(cat /tmp/workspace/beta-tag)\"" "$f" >"$tmp"
+            mv "$tmp" "$f"
+            git -C $repo diff
+            git -C $repo add composer-local.json
+            git -C $repo commit --allow-empty \
+              -m "Test $CIRCLE_PROJECT_REPONAME at branch $CIRCLE_BRANCH, commiti $CIRCLE_SHA1" \
+              -m "/unhold $CIRCLE_WORKFLOW_ID"
+            git -C $repo push
+
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - test-instance
+
+  execute-tests-1:
+    docker:
+      - image: mhart/alpine-node:14
+        auth: &docker_auth
+    steps:
+      - run: apk add curl
+      - run:
+          name: "Test request"
+          command: |
+            curl -X HEAD -I https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/
+  execute-tests-2:
+    docker:
+      - image: mhart/alpine-node:14
+        auth: &docker_auth
+    steps:
+      - run: apk add curl
+      - run:
+          name: "Test request"
+          command: |
+            curl https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/
+
+  create-zip:
+    docker:
+      - image: mhart/alpine-node:14
+        auth: &docker_auth
+    steps:
+      - run: apk add zip git openssh-client python2 make g++
       - checkout
       - run: git submodule init && git submodule update
       - run: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
@@ -231,6 +333,19 @@ jobs:
               echo "Zip file size exceeds 5MB, probably something went wrong."
               exit 1
             fi
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - planet4-master-theme.zip
+
+  publish-zip:
+    docker:
+      - image: mhart/alpine-node:14
+        auth: &docker_auth
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: apk add curl jq
       - run:
           name: "Get upload url for this tag"
           command: |
@@ -247,3 +362,66 @@ jobs:
                 -H "Content-Type: application/zip" \
                 --data-binary @/tmp/workspace/planet4-master-theme.zip \
                 "$(cat /tmp/workspace/upload_url)" | jq
+
+  create-beta-tag:
+    docker:
+      - image: mhart/alpine-node:14
+        auth: &docker_auth
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: echo "v3-branch-$CIRCLE_BRANCH" > /tmp/workspace/beta-tag
+      - run: apk add curl jq git openssh-client
+      - run:
+          name: "Github auth"
+          command: |
+            git config user.email "circleci-bot@greenpeace.org"
+            git config user.name ":robot: CI Bot"
+            git config push.default simple
+            mkdir -p ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+      - run:
+          name: "Remove previous release"
+          command: |
+            old_release_url=$(curl \
+              -H "Accept: application/vnd.github.v3+json" \
+              https://api.github.com/repos/greenpeace/planet4-master-theme/releases/tags/$(cat /tmp/workspace/beta-tag) |
+            jq -r .url)
+            if [ $old_release_url != 'null' ]; then curl \
+              -X DELETE \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: token ${GITHUB_RELEASES_TOKEN}" \
+              $old_release_url
+            fi
+      - run:
+          name: "Remove previous tag"
+          command: |
+            git push origin :refs/tags/$(cat /tmp/workspace/beta-tag)
+      - run:
+          name: "Create beta release and get upload url"
+          command: |
+            data="{\"tag_name\": \"$(cat /tmp/workspace/beta-tag)\", \"target_commitish\": \"${CIRCLE_SHA1}\", \"prerelease\": true }"
+            echo $data
+            curl \
+                --fail \
+                -X POST \
+                -H "Authorization: token ${GITHUB_RELEASES_TOKEN}" \
+                -H "Content-Type: application/json" \
+                --data "$data" \
+            https://api.github.com/repos/greenpeace/planet4-master-theme/releases |
+                jq -r .upload_url |
+                sed 's/{.*}/?name=planet4-master-theme.zip/' > /tmp/workspace/upload_url
+            cat /tmp/workspace/upload_url
+      - run:
+          name: "Upload zip file to beta tag"
+          command: |
+            curl \
+                --fail \
+                -H "Authorization: token ${GITHUB_RELEASES_TOKEN}" \
+                -H "Content-Type: application/zip" \
+                --data-binary @/tmp/workspace/planet4-master-theme.zip \
+                "$(cat /tmp/workspace/upload_url)" | jq
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - beta-tag
