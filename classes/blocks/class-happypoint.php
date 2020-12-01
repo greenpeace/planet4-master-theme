@@ -84,7 +84,7 @@ class Happypoint extends Base_Block {
 		$image_id                    = $id ? $id : $p4_happy_point_bg_image;
 		$img_meta                    = wp_get_attachment_metadata( $image_id );
 		$image_alt                   = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
-		$data['background_src']      = wp_get_attachment_image_src( $image_id, 'retina-large' );
+		$data['background_src']      = wp_get_attachment_image_src( $image_id, 'retina-large' )[0] ?? false;
 		$data['background_srcset']   = wp_get_attachment_image_srcset( $image_id, 'retina-large', $img_meta );
 		$data['background_sizes']    = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
 		$data['engaging_network_id'] = $options['engaging_network_form_id'] ?? '';
