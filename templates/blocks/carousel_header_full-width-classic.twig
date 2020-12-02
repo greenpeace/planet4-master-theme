@@ -26,8 +26,8 @@
 							<div class="background-holder">
 								{% if slide.image %}
 									<img
-										src="{{ slide.image|cf_img_url(slide.image_srcset) }}"
-										srcset="{{ slide.image_srcset|cf_img_url }}"
+										src="{{ slide.image }}"
+										srcset="{{ slide.image_srcset }}"
 										sizes="{{ slide.image_sizes }}"
 										data-background-position="{{ slide.focus_image }}"
 										loading="lazy"
