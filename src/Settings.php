@@ -234,7 +234,7 @@ class Settings {
 						'name' => __( 'Enforce Cookies Policy', 'planet4-master-theme-backend' ),
 						'desc' => __(
 							'GDPR related setting. By enabling this option specific content will be blocked and will require user consent to be shown.<br>
-							<b>WARNING:</b> If the setting is checked this will prevent Google Tag Manager container from being fired unless the user has accepted the cookies policy (giving consent in the cookies bar).<br> 
+							<b>WARNING:</b> If the setting is checked this will prevent Google Tag Manager container from being fired unless the user has accepted the cookies policy (giving consent in the cookies bar).<br>
 							This might affect the data collected with Google Analytics. For more information please see the documentation in the  <a href="https://planet4.greenpeace.org/handbook/block-cookies/">Planet 4 Handbook</a>.',
 							'planet4-master-theme-backend'
 						),

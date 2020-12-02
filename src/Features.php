@@ -8,11 +8,6 @@ namespace P4\MasterTheme;
 class Features {
 
 	/**
-	 * @var string Cloudflare image optimization feature.
-	 */
-	public const CLOUDFLARE_IMAGE_OPTIMIZATION = 'cloudflare_img_opt';
-
-	/**
 	 * @var string Media library refactored feature.
 	 */
 	public const IMAGE_ARCHIVE = 'feature_image_archive';
@@ -42,27 +37,6 @@ class Features {
 	 */
 	private static function get_fields(): array {
 		return [
-			[
-				'name' => __( 'Enable Cloudflare Image Optimization', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Enable Cloudflare Image Optimization option for images which uses a "cf_img_url" twig filter. for more info',
-					'planet4-master-theme-backend'
-				) . ' <a href="https://developers.cloudflare.com/images/about">' . __(
-					'click here',
-					'planet4-master-theme-backend'
-				) . '</a>.',
-				'id'   => self::CLOUDFLARE_IMAGE_OPTIMIZATION,
-				'type' => 'checkbox',
-			],
-			[
-				'name' => __( 'Cloudflare Image Optimization Options', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Add Cloudflare image optimization url "options" value',
-					'planet4-master-theme-backend'
-				) . '[Comma-separated text].(https://zone/cdn-cgi/image/options/source-image)<br />e.g. width=80,quality=75,fit=cover',
-				'id'   => 'cloudflare_options_txt',
-				'type' => 'text',
-			],
 			[
 				'name' => __( 'Greenpeace Image Archive (beta, name subject to change)', 'planet4-master-theme-backend' ),
 				'desc' => __(
