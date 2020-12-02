@@ -39,27 +39,19 @@ div.search-filter-results {
   }
 
   select {
-    height: 40px;
     width: 151px;
-    font-size: $font-size-sm;
-    padding: 0 $n10;
-    border-color: $faded-jade;
-    background: transparent;
-    border-radius: 4px;
+    display: inline-block;
 
     @include small-and-up {
       width: 210px;
     }
 
     @include large-and-up {
-      height: 44px;
       width: 224px;
-      font-size: $font-size-md;
     }
 
     @include large-and-up {
       width: 270px;
-      font-size: $font-size-lg;
     }
   }
 
