@@ -194,7 +194,6 @@ class MasterSite extends TimberSite {
 		add_action( 'init', [ $this, 'p4_register_core_image_block' ] );
 		add_action( 'admin_notices', [ $this, 'show_dashboard_notice' ] );
 		add_action( 'wp_ajax_dismiss_dashboard_notice', [ $this, 'dismiss_dashboard_notice' ] );
-		add_filter( 'timber/twig', [ $this, 'p4_optimize_img_url' ] );
 
 		// Pin the ElasticPress to v3.4 search algorithm.
 		simple_value_filter( 'ep_search_algorithm_version', '3.4' );
@@ -1194,88 +1193,5 @@ class MasterSite extends TimberSite {
 		}
 
 		wp_die( 'Notice dismissed.', 200 );
-	}
-
-	/**
-	 * Adds functionality to Twig.
-	 *
-	 * @param \Twig\Environment $twig The Twig environment.
-	 *
-	 * @return \Twig\Environment
-	 */
-	public function p4_optimize_img_url( $twig ) {
-		$options        = get_option( 'planet4_options' );
-		$cf_options_txt = $options['cloudflare_options_txt'] ?? '';
-
-		$filter_function = Features::is_active( Features::CLOUDFLARE_IMAGE_OPTIMIZATION )
-				? function ( ?string $source, ?string $src_set = '' ) use ( $cf_options_txt ) {
-					return empty( $source )
-						? $source
-						: $this->img_to_cloudflare( $source, $src_set ?? '', $cf_options_txt );
-				}
-				: function ( ?string $source ) {
-					return $source;
-				};
-
-		// Add Twig filter(cf_img_url) which convert image url/s into cloudflare optimized image url/s.
-		$twig->addFilter( new Twig_SimpleFilter( 'cf_img_url', $filter_function ) );
-
-		return $twig;
-	}
-
-	/**
-	 * Converts Image urls in src/srcset content to cloudflare optimized image url.
-	 *
-	 * @see More info. https://developers.cloudflare.com/images/about
-	 * @see eg. <img src="/cdn-cgi/image/width=80,quality=75/uploads/avatar1.jpg">.
-	 *
-	 * @param string $source The raw img src/srcset to be filtered.
-	 * @param string $srcset The raw img srcset.
-	 * @param string $cf_options_txt The options value set from P4 settings.
-	 * @return string Converted img src/srcset content.
-	 */
-	public function img_to_cloudflare(
-		string $source,
-		string $srcset = '',
-		string $cf_options_txt = ''
-	): string {
-		$zone      = '';
-		$prefix    = '/cdn-cgi/image/';
-		$options[] = 'format=auto';
-
-		if ( $cf_options_txt ) {
-			$options[] = esc_attr( $cf_options_txt );
-		}
-
-		// Case 2: Prepare a srcset cloudflare images url.
-		if ( empty( $srcset ) ) {
-			$srcset_array = explode( ',', $source );
-			$cf_srcset    = $source;
-			$options[]    = 'fit=contain';
-
-			foreach ( $srcset_array as $img_data ) {
-				list( $img_url, $img_width ) = array_pad( explode( ' ', trim( $img_data ) ), 2, null );
-
-				if ( $img_width ) {
-					// Update image width in options array.
-					$srcset_options = array_merge( $options, [ 'width=' . (int) $img_width ] );
-				} else {
-					$srcset_options = $options;
-				}
-				$cf_img_url = $zone . $prefix . implode( ',', $srcset_options ) . '/' . $img_url;
-
-				$cf_srcset = str_replace( $img_url, $cf_img_url, $cf_srcset );
-			}
-			return $cf_srcset;
-		}
-
-		// Case 1: Prepare a src cloudflare image url.
-		preg_match( '/' . preg_quote( $source, '/' ) . '\s(\d+)/', $srcset, $img_width );
-		if ( isset( $img_width[1] ) && $img_width[1] ) {
-			$options[] = 'width=' . $img_width[1];
-			return $zone . $prefix . implode( ',', $options ) . '/' . $source;
-		}
-
-		return $source;
 	}
 }
