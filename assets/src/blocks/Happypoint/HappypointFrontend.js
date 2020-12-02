@@ -33,8 +33,8 @@ export const HappypointFrontend = ({
   };
 
   if (background_src) {
-    imgProps.srcSet = background_srcset || 'false';
-    imgProps.sizes = background_sizes || 'false';
+    imgProps.srcSet = background_srcset || null;
+    imgProps.sizes = background_sizes || null;
   }
 
   return (
