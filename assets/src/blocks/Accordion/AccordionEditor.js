@@ -36,7 +36,7 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
   };
 
   return (
-    <div className='block accordion-block'>
+    <div className={`block accordion-block ${className}`}>
       <header>
         <RichText
           tagName="h2"
@@ -48,6 +48,7 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
           withoutInteractiveFormatting
           characterLimit={60}
           multiline="false"
+          formattingControls={[]}
         />
       </header>
       <RichText
@@ -59,9 +60,10 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         characterLimit={200}
+        formattingControls={[]}
       />
       {tabs.map((tab, index) => (
-        <div key={`accordion-content-${index}`} className={`accordion-content ${className}`}>
+        <div key={`accordion-content-${index}`} className='accordion-content'>
           <RichText
             tagName="h4"
             className={`accordion-headline ${isSelected ? 'open' : ''}`}
@@ -71,6 +73,7 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
             keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
             multiline="false"
+            formattingControls={[]}
           />
           <div className={`panel ${isSelected ? '' : 'panel-hidden'}`}>
             <RichText
@@ -80,6 +83,7 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
               value={tab.text}
               onChange={updateTabAttribute('text', index)}
               keepPlaceholderOnFocus={true}
+              formattingControls={[]}
             />
             {tab.button ?
               <div className="button-container">
@@ -92,6 +96,7 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
                   keepPlaceholderOnFocus={true}
                   withoutInteractiveFormatting
                   multiline="false"
+                  formattingControls={[]}
                 />
                 <Button
                   className='remove-btn'
@@ -171,9 +176,10 @@ const renderEdit = ({ tabs }, setAttributes, updateTabAttribute) => {
   );
 }
 
-export const AccordionEditor = ({ attributes, isSelected, setAttributes }) => {
+export const AccordionEditor = ({ attributes, isSelected, setAttributes, className }) => {
+  const { title, description } = attributes;
+
   // If there are no tabs yet, we add an empty one as placeholder
-  const { title, description, className } = attributes;
   const tabs = attributes.tabs.length > 0 ? attributes.tabs : [{}];
 
   const updateTabAttribute = (attributeName, index) => value => {

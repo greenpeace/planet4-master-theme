@@ -1,25 +1,25 @@
 .accordion-block {
   font-family: $roboto;
 
+  &.is-style-light .accordion-content .accordion-headline {
+    border-color: $grey-20;
+    background-color: white;
+    color: $grey-80;
+
+    &:hover {
+      background-color: $grey-05;
+    }
+
+    &:after {
+      @supports (mask-repeat: no-repeat) or (-webkit-mask-repeat: no-repeat) {
+        background-color: $grey-80;
+      }
+    }
+  }
+
   .accordion-content {
     display: flex;
     flex-direction: column;
-
-    &.is-style-light .accordion-headline {
-      border-color: $grey-20;
-      background-color: white;
-      color: $grey-80;
-
-      &:hover {
-        background-color: $grey-05;
-      }
-
-      &:after {
-        @supports (mask-repeat: no-repeat) or (-webkit-mask-repeat: no-repeat) {
-          background-color: $grey-80;
-        }
-      }
-    }
 
     .accordion-headline {
       cursor: pointer;

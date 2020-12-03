@@ -404,6 +404,7 @@ final class Loader {
 		);
 
 		self::enqueue_local_script( 'post_action', 'public/js/post_action.js', [ 'jquery' ] );
+		self::enqueue_local_script( 'accordions', 'public/js/accordions.js' );
 
 		// Variables reflected from PHP to JS.
 		$reflection_vars = [

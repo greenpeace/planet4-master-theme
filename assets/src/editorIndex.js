@@ -1,4 +1,3 @@
-import { AccordionBlock } from './blocks/Accordion/AccordionBlock';
 import { ArticlesBlock } from './blocks/Articles/ArticlesBlock';
 import { CarouselHeaderBlock } from './blocks/Carouselheader/CarouselHeaderBlock';
 import { ColumnsBlock } from './blocks/Columns/ColumnsBlock';
@@ -12,6 +11,7 @@ import { SocialmediaBlock } from './blocks/Socialmedia/SocialmediaBlock';
 import { SocialMediaCardsBlock } from './blocks/SocialMediaCards/SocialMediaCardsBlock';
 import { registerSplittwocolumnsBlock } from './blocks/Splittwocolumns/register';
 import { registerSubmenuBlock } from './blocks/Submenu/SubmenuBlock';
+import { registerAccordionBlock } from './blocks/Accordion/AccordionBlock';
 import { TakeactionboxoutBlock } from './blocks/Takeactionboxout/TakeactionboxoutBlock';
 import { registerTimelineBlock } from './blocks/Timeline/TimelineBlock';
 import { addBlockFilters } from './BlockFilters';
@@ -27,7 +27,6 @@ import { blockEditorValidation } from './BlockEditorValidation';
 import { ENFormBlock } from './blocks/ENForm/ENFormBlock';
 
 blockEditorValidation();
-new AccordionBlock();
 new ArticlesBlock();
 new CarouselHeaderBlock();
 new ColumnsBlock();
@@ -46,6 +45,7 @@ new SubPagesBlock();
 new TakeactionboxoutBlock();
 new ENFormBlock();
 registerTimelineBlock();
+registerAccordionBlock();
 
 addBlockFilters();
 addSubAndSuperscript( window.wp );
