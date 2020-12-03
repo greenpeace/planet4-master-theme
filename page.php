@@ -69,6 +69,10 @@ $context['post_tags']           = implode( ', ', $post->tags() );
 $context['custom_body_classes'] = 'brown-bg ';
 
 if ( post_password_required( $post->ID ) ) {
+
+	// Hide the page title from links to the extra feeds.
+	remove_action( 'wp_head', 'feed_links_extra', 3 );
+
 	$context['login_url'] = wp_login_url();
 
 	Timber::render( 'single-page.twig', $context );
