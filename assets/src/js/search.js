@@ -58,16 +58,6 @@ export const setupSearch = function($) {
     window.location.href = $( '.search-result-item-headline', $( this ).parent() ).attr( 'href' );
   });
 
-  // Underline headline on thumbnail hover.
-  $('.search-result-item-image').hover(
-    function() {
-      $('.search-result-item-headline', $(this).parent()).addClass('search-hover');
-    },
-    function() {
-      $('.search-result-item-headline', $(this).parent()).removeClass('search-hover');
-    }
-  );
-
   // Clear single selected filter.
   $( '.activefilter-tag' ).off( 'click' ).on( 'click', function() {
     $( '.p4-custom-control-input[value=' + $( this ).data( 'id' ) + ']' ).prop('checked', false );

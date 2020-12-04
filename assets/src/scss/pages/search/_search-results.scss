@@ -29,10 +29,6 @@
       border-bottom: 1px solid $grey-20;
       position: relative;
 
-      .search-hover {
-        text-decoration: underline;
-      }
-
       .search-result-item-image,
       .blank-block {
         width: 0;
@@ -60,6 +56,10 @@
         @include small-and-up {
           width: max-content;
         }
+      }
+
+      .search-result-item-image:hover ~ * .search-result-item-headline {
+        text-decoration: underline;
       }
     }
   }
