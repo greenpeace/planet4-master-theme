@@ -219,10 +219,6 @@ msgstr ""
 msgid "Try searching for somthing else"
 msgstr ""
 
-#: templates/search.twig:20
-msgid "Search our archive. You'll be redirected to the archive site."
-msgstr ""
-
 #: templates/search.twig:24
 msgid "We also included results for "
 msgstr ""
