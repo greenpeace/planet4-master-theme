@@ -236,6 +236,12 @@ abstract class Search {
 			10,
 			1
 		);
+		add_filter(
+			'ep_post_query_db_args',
+			[ self::class, 'hide_password_protected_content' ],
+			10,
+			1
+		);
 	}
 
 
@@ -1134,6 +1140,19 @@ abstract class Search {
 		);
 
 		$args['post__not_in'] = $unwanted_attachment_ids;
+
+		return $args;
+	}
+
+	/**
+	 * Exclude password protected content from ElasticPress sync.
+	 *
+	 * @param mixed[] $args The args ElasticPress will use to fetch the ids of posts that will be synced.
+	 *
+	 * @return mixed The args with exclusion of password protected content.
+	 */
+	public static function hide_password_protected_content( $args ) {
+		$args['has_password'] = false;
 
 		return $args;
 	}
