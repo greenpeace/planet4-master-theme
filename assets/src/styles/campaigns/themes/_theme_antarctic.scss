@@ -48,7 +48,7 @@ body.theme-antarctic {
     @include page-section-header($sanctuary, $antarctic-blue);
   }
 
-  .page-template a:not(.btn) {
+  .page-template a:not(.btn):not(.share-btn) {
     color: $antarctic-purple;
     text-transform: uppercase;
 

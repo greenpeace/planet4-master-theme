@@ -31,7 +31,7 @@ body.theme-forest {
   }
 
   .page-template {
-    a:not(.btn) {
+    a:not(.btn):not(.share-btn) {
       color: $forest-dark-green;
       text-transform: uppercase;
 
