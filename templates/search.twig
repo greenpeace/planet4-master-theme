@@ -86,7 +86,7 @@
 																	{% for category in categories %}
 																		{% if ( category.results >= 0 ) %}
 																			<li>
-																				<label class="custom-control custom-checkbox">
+																				<label class="custom-control">
 																					<input
 																						type="checkbox"
 																						name="f[cat][{{ category.name }}]"
@@ -115,7 +115,7 @@
 																	{% for page_type in page_types %}
 																		{% if ( page_type.results >= 0 ) %}
 																			<li>
-																				<label class="custom-control custom-checkbox">
+																				<label class="custom-control">
 																					<input
 																						type="checkbox"
 																						name="f[ptype][{{ page_type.name }}]"
@@ -144,7 +144,7 @@
 																	{% for id, content_type in content_types %}
 																		{% if ( content_type.results >= 0 ) %}
 																			<li>
-																				<label class="custom-control custom-checkbox">
+																				<label class="custom-control">
 																					<input
 																						type="checkbox"
 																						name="f[ctype][{{ content_type.name }}]"
@@ -175,7 +175,7 @@
 															<ul class="list-unstyled">
 																{% for tag in tags %}
 																	<li>
-																		<label class="custom-control custom-checkbox">
+																		<label class="custom-control">
 																			<input
 																				type="checkbox"
 																				name="f[tag][{{ tag.name }}]"
@@ -229,7 +229,7 @@
 										<ul class="list-unstyled">
 											{% for category in categories %}
 												<li>
-													<label class="custom-control custom-checkbox">
+													<label class="custom-control">
 														<input
 																type="checkbox"
 																name="f[cat][{{ category.name }}]"
@@ -256,7 +256,7 @@
 										<ul class="list-unstyled">
 											{% for tag in tags %}
 												<li>
-													<label class="custom-control custom-checkbox">
+													<label class="custom-control">
 														<input
 															type="checkbox"
 															name="f[tag][{{ tag.name }}]"
@@ -282,7 +282,7 @@
 										<ul class="list-unstyled">
 											{% for page_type in page_types %}
 												<li>
-													<label class="custom-control custom-checkbox">
+													<label class="custom-control">
 														<input
 															type="checkbox"
 															name="f[ptype][{{ page_type.name }}]"
@@ -309,7 +309,7 @@
 										<ul class="list-unstyled">
 											{% for id, content_type in content_types %}
 												<li>
-													<label class="custom-control custom-checkbox">
+													<label class="custom-control">
 														<input
 															type="checkbox"
 															name="f[ctype][{{ content_type.name }}]"
