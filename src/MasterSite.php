@@ -595,7 +595,9 @@ class MasterSite extends TimberSite {
 		];
 
 		$allowedposttags['script'] = [
-			'src' => true,
+			'src'    => true,
+			'id'     => true,
+			'data-*' => true,
 		];
 
 		// Allow source tag for WordPress audio shortcode to function.
