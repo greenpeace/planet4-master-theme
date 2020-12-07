@@ -16,8 +16,6 @@
 
     form {
       .en__field--check {
-        height: min-content;
-        line-height: 1;
         margin-top: 16px;
 
         @include medium-and-up {
@@ -30,20 +28,6 @@
 
         .form-group {
           margin-bottom: 0;
-        }
-
-        input[type="checkbox"] {
-          + .custom-control-description:before {
-            height: 16px;
-            width: 16px;
-          }
-
-          &:checked + .custom-control-description:after {
-            left: 3px;
-            top: 8px;
-            width: 3px;
-            height: 3px;
-          }
         }
       }
 

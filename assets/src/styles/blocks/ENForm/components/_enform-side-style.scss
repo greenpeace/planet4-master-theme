@@ -70,12 +70,6 @@
     margin-top: 0;
     margin-bottom: 0;
 
-    input,
-    .custom-select,
-    select.form-control.en__field__input--select {
-      height: 40px;
-    }
-
     @include large-and-up {
       margin-top: 96px;
       margin-bottom: 60px;
@@ -176,10 +170,6 @@
       select,
       input[type=email],
       input[type=tel] {
-        border: 1px solid #1a1a1a;
-        margin-bottom: 20px;
-        padding: $n10;
-
         &.is-invalid {
           border: 1px solid #ff3333;
           margin-bottom: 6px;
@@ -193,21 +183,6 @@
       margin: 0;
       padding: 0;
       background: none;
-    }
-  }
-
-  .en__field__top__label {
-    position: absolute;
-    top: -.6rem;
-    background: white;
-    left: $n10;
-    padding: 0 8px;
-    font-weight: 600;
-    font-size: .75rem;
-
-    html[dir="rtl"] & {
-      left: auto;
-      right: $n10;
     }
   }
 }
