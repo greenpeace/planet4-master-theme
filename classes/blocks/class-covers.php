@@ -73,7 +73,7 @@ class Covers extends Base_Block {
 						'default' => '',
 					],
 					'description' => [
-						'type'    => 'description',
+						'type'    => 'string',
 						'default' => '',
 					],
 					'tags'        => [
