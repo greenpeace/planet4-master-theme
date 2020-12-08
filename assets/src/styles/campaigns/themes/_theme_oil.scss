@@ -42,7 +42,7 @@ body.theme-oil {
   }
 
   .page-template {
-    a:not(.btn) {
+    a:not(.btn):not(.share-btn) {
       color: $oil-blue;
       text-transform: uppercase;
 

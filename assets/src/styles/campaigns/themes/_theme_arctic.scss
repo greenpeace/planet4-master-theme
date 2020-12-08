@@ -52,7 +52,7 @@ body.theme-arctic {
   }
 
   .page-template a {
-    &:not(.btn) {
+    &:not(.btn):not(.share-btn) {
       color: $arctic-faded-red;
       text-transform: uppercase;
 

@@ -72,7 +72,7 @@ body.theme-climate {
   }
 
   .page-section-header {
-    @include page-section-header($jost, $grey-80, 800, 2rem);
+    @include page-section-header($jost, $grey-80, 800, 1.38);
     margin-bottom: $space-md;
     font-size: $font-size-xl;
     text-transform: capitalize;
@@ -83,7 +83,7 @@ body.theme-climate {
   }
 
   .page-template a {
-    &:not(.btn) {
+    &:not(.btn):not(.share-btn) {
       color: $climate-blue;
       text-transform: uppercase;
 
