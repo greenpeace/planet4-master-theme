@@ -53,6 +53,7 @@ export const HappypointFrontend = ({
                 frameBorder={0}
                 scrolling="no"
                 width="100%"
+                loading="lazy"
               />
             </div>
           }
