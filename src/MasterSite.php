@@ -30,7 +30,7 @@ class MasterSite extends TimberSite {
 	 *
 	 * @var string
 	 */
-	private const DASHBOARD_MESSAGE_VERSION = '0.1';
+	private const DASHBOARD_MESSAGE_VERSION = '0.2';
 
 	/**
 	 * Theme directory
@@ -1156,26 +1156,18 @@ class MasterSite extends TimberSite {
 	 * @return string
 	 */
 	private function p4_message(): string {
-		return '<h2>Welcome to the new P4 message board!</h2>
-		<p>Did you already join the community on Slack? Here\'s the Planet 4 channels waiting for you in the Global Workspace 👇
+		return '<style>#p4-notice li { list-style: disc; margin-left: 3em; }</style>
+		<h2>Time for the P4 Community to PAAARTTYYYY 🥳 🥳 🥳</h2>
+		<p>There’s already an invite in your calendars for <b>Friday, December 18th</b>
+		   at 3pm GMT / 4pm CET / 10pm Bangkok / 12am Tokyo / 9am Mexico DF / 10 am NY / 12pm Sao Paulo - B. Aires,
+		   but please shout in <a href="https://greenpeace.slack.com/archives/C014UMRC4AJ" target="_blank">#p4-general</a> if you did not get the invite!</p>
+		<p>Please join us (and invite others in your NRO/team) with your favourite drinks for games, dances and laughs (but <em>no work talks</em>)
 			<ul>
-				<li><span style="margin-right: 3px;">
-					<a href="https://greenpeace.slack.com/archives/C014UMRC4AJ">#p4-general</a> 🌏</span>
-					the equivalent of the great Planet 4 Skype group</li>
-				<li><span style="margin-right: 3px;">
-					<a href="https://greenpeace.slack.com/archives/C0151L0KKNX">#p4-dev</a> 🚀</span>
-					for all coders, engineers and techies</li>
-				<li><span style="margin-right: 3px;">
-					<a href="https://greenpeace.slack.com/archives/C015E2TGLCR">#p4-design</a> 🎨</span>
-					for all artists, creatives and visual wonders</li>
-				<li><span style="margin-right: 3px;">
-					<a href="https://greenpeace.slack.com/archives/C01672QUA0Z">#web-analytics</a> 📊</span>
-					for all data ninjas</li>
-				<li><span style="margin-right: 3px;">
-					<a href="https://greenpeace.slack.com/archives/C014UMRD3T8">#p4-infra</a> ⚙️</span>
-					for all Matrix architects</li>
+				<li>🧞‍♀️🧞‍♂️ Dressing up is encouraged! Most awesome costumes will get prizes</li>
+				<li>🎶 <a href="https://www.youtube.com/playlist?list=PLRWtdTW6NaMUAxoBmV1baj7CStIIhuXtc&jct=DoU-zKSovfpKY5InMOOQTOiYwM6p7g" target="_blank">Here\'s a YouTube playlist for everyone to add their favourite songs</a></li>
 			</ul>
-		</p>';
+		</p>
+		<p>☮️  🥂 💚</p>';
 	}
 
 	/**
