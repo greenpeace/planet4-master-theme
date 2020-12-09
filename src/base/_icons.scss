@@ -8,20 +8,24 @@
   transition: fill .3s;
 }
 
-a.pdf-link::before {
-  content: "";
-  background-image: url("../../images/file-pdf.svg");
-  background-position: 50% 50%;
-  background-size: 1rem 1rem;
-  background-repeat: no-repeat;
-  margin-right: 2px;
-  height: 1rem;
-  width: 1rem;
-  margin-bottom: -2px;
-  display: inline-block;
+a.pdf-link {
+  &::before {
+    content: "";
+    background-image: url("../../images/file-pdf.svg");
+    background-position: 50% 50%;
+    background-size: 1rem 1rem;
+    background-repeat: no-repeat;
+    margin-right: 2px;
+    height: 1rem;
+    width: 1rem;
+    margin-bottom: -2px;
+    display: inline-block;
+  }
+}
 
-  @supports (mask-repeat: no-repeat) or (-webkit-mask-repeat: no-repeat) {
-    & {
+@supports (mask-repeat: no-repeat) or (-webkit-mask-repeat: no-repeat) {
+  a.pdf-link {
+    &::before {
       background-image: none;
       background-color: var(--link--color, $link-color);
       -webkit-mask-image: url("../../images/file-pdf.svg");
@@ -30,11 +34,19 @@ a.pdf-link::before {
       -webkit-mask-repeat: no-repeat;
       margin-right: 0;
     }
-  }
-}
 
-a {
-  &:hover.pdf-link::before {
-    background-color: var(--link-hover--color, $link-hover-color);
+    &.btn-secondary::before {
+      background-color: var(--secondary--link--color, $active-blue);
+    }
+  }
+
+  a {
+    &:hover.pdf-link::before {
+      background-color: var(--link-hover--color, $link-hover-color);
+    }
+
+    &:hover.pdf-link.btn-secondary::before {
+      background-color: var(--secondary--link--hover--color, $white);
+    }
   }
 }
