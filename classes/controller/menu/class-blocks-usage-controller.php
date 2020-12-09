@@ -27,6 +27,12 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 		];
 
 		/**
+		 * String to use for Post with no title.
+		 */
+		private const NO_TITLE = '(no title)';
+
+
+		/**
 		 * Blocks_Usage_Controller constructor.
 		 *
 		 * @param View $view The view object.
@@ -146,8 +152,9 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 							<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
 					</tr>';
 					foreach ( $results as $result ) {
-						echo  '<tr><td><a href="' . get_permalink( $result->ID ) . '" >' . $result->ID . '</a></td>';
-						echo  '<td><a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->post_title . '</a></td></tr>';
+						$title = empty($result->post_title) ? self::NO_TITLE : $result->post_title;
+						echo  '<tr><td><a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->ID . '</a></td>';
+						echo  '<td><a href="' . get_permalink( $result->ID ) . '" target="_blank">' . $title . '</a></td></tr>';
 					}
 					echo '</table>';
 				} else {
@@ -229,8 +236,9 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 					<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
 				</tr>';
 				foreach ( $results as $result ) {
-					echo  '<tr><td><a href="' . get_term_link( (int) $result->term_id ) . '" >' . $result->term_id . '</a></td>';
-					echo '<td><a href="term.php?taxonomy=post_tag&tag_ID=' . $result->term_id . '" >' . $result->name . '</a></td></tr>';
+					$title = empty($result->name) ? self::NO_TITLE : $result->name;
+					echo  '<tr><td><a href="term.php?taxonomy=post_tag&tag_ID=' . $result->term_id . '" >' . $result->term_id . '</a></td>';
+					echo  '<td><a href="' . get_term_link( (int) $result->term_id ) . '" target="_blank">' . $title . '</a></td></tr>';
 				}
 				echo '</table>';
 			} else {
@@ -265,8 +273,9 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 					<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
 				</tr>';
 				foreach ( $results as $result ) {
-					echo  '<tr><td><a href="' . get_term_link( (int) $result->term_id ) . '" >' . $result->term_id . '</a></td>';
-					echo '<td><a href="term.php?taxonomy=post_tag&tag_ID=' . $result->term_id . '" >' . $result->name . '</a></td></tr>';
+					$title = empty($result->name) ? self::NO_TITLE : $result->name;
+					echo  '<tr><td><a href="term.php?taxonomy=post_tag&tag_ID=' . $result->term_id . '" >' . $result->term_id . '</a></td>';
+					echo  '<td><a href="' . get_term_link( (int) $result->term_id ) . '" target="_blank">' . $title . '</a></td></tr>';
 				}
 				echo '</table>';
 			} else {
