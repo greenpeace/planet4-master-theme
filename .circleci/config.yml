@@ -1,31 +1,29 @@
 ---
 version: 2.1
 
+orbs:
+  lighthouse-check: foo-software/lighthouse-check@0.0.8
+
 workflows:
   main:
     jobs:
-      # Get new instance if none was used for the PR, else figure out which instance.
-      - unit-tests
+      - php73-tests
+      - frontend-tests
+      - acceptance-tests
+      - a11y-tests
       - create-zip:
           filters:
             tags:
               only: /^v\p{Digit}+\.\p{Digit}+.*/
-      - create-beta-tag:
-          context: org-global
-          requires:
-            - create-zip
       - request-instance:
           context: org-global
           requires:
-            - create-beta-tag
+            - create-zip
       - instance-ready:
           type: approval
           requires:
             - request-instance
-      - execute-tests-1:
-          requires:
-            - instance-ready
-      - execute-tests-2:
+      - lighthouse:
           requires:
             - instance-ready
       - publish-zip:
@@ -227,27 +225,21 @@ jobs:
             errors=$(jq '.errors' planet4-docker-compose/artifacts/pa11y/pa11y-ci-results.json)
             if [ "$errors" -gt 0 ]; then echo "$errors errors found, see report in artifacts."; else echo "No errors, report available in artifacts."; fi
 
-  unit-tests:
-    docker:
-      - image: mhart/alpine-node:14
-        auth: &docker_auth
-    steps:
-      - run: echo "I'm a unit test, and I pass."
-
   request-instance:
+    environment:
+      GOOGLE_PROJECT_ID: planet-4-151612
     docker:
-      - image: mhart/alpine-node:14
+      - image: greenpeaceinternational/p4-builder:latest
         auth: &docker_auth
     steps:
       - attach_workspace:
           at: /tmp/workspace
-      - run: apk add curl jq git openssh-client
       - run:
           name: "Check if this is for an open PR."
           command: |
             if [ -z "$CIRCLE_PULL_REQUEST" ];then
               echo echo "No PR, skipping instance deploy"
-              exit 0
+              exit 1
             fi
       - run:
           name: "Call webhook to get free instance (mock for now). If an instance is already on the branch, use that one."
@@ -266,15 +258,32 @@ jobs:
             git config --global push.default simple
             git config --global url."ssh://git@github.com".insteadOf "https://github.com" || true
             mkdir -p ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+      - run: activate-gcloud-account.sh
+      - run:
+          name: "Put zip in cloud storage"
+          command: |
+            filename="planet4-master-theme.zip"
+            echo "planet4-packages/planet4-master-theme/${CIRCLE_SHA1}.zip" > /tmp/workspace/zip-path
+            gs_path="gs://$(cat /tmp/workspace/zip-path)"
+            gsutil -q stat "$gs_path" || gsutil cp "/tmp/workspace/$filename" "$gs_path"
       - run:
           name: "Commit to test instance repo"
           command: |
             repo=planet4-test-$(cat /tmp/workspace/test-instance)
             f="$repo/composer-local.json"
             tmp=$(mktemp)
-            jq --tab ".require.\"greenpeace/planet4-master-theme\" = \"$(cat /tmp/workspace/beta-tag)\"" "$f" >"$tmp"
+            jq ".require.\"greenpeace/planet4-master-theme\" = \"7\"" "$f" >"$tmp"
             mv "$tmp" "$f"
-            git -C $repo diff
+            zip_url="https://storage.googleapis.com/$(cat /tmp/workspace/zip-path)"
+            composer_json=$(cat /tmp/workspace/composer.json |
+              jq '{name,type,autoload,extra}' |
+              jq '.version = 7' |
+              jq ".dist = {type: \"zip\", url: \"$zip_url\"}")
+            echo $composer_json | jq
+            package_repo="{type: \"package\", package: $composer_json}"
+            jq --tab ".repositories = [$package_repo]" "$f" >"$tmp"
+            mv "$tmp" "$f"
+            git -C $repo --no-pager diff
             git -C $repo add composer-local.json
             git -C $repo commit --allow-empty \
               -m "Test $CIRCLE_PROJECT_REPONAME at branch $CIRCLE_BRANCH, commiti $CIRCLE_SHA1" \
@@ -286,26 +295,22 @@ jobs:
           paths:
             - test-instance
 
-  execute-tests-1:
-    docker:
-      - image: mhart/alpine-node:14
-        auth: &docker_auth
+  lighthouse:
+    executor: lighthouse-check/default
     steps:
-      - run: apk add curl
-      - run:
-          name: "Test request"
-          command: |
-            curl -X HEAD -I https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/
-  execute-tests-2:
-    docker:
-      - image: mhart/alpine-node:14
-        auth: &docker_auth
-    steps:
-      - run: apk add curl
-      - run:
-          name: "Test request"
-          command: |
-            curl https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/
+      - attach_workspace:
+          at: /tmp/workspace
+      - lighthouse-check/audit:
+          urls: |
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/act/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/act/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/act/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/explore/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/explore/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/explore/\
 
   create-zip:
     docker:
@@ -333,6 +338,10 @@ jobs:
               echo "Zip file size exceeds 5MB, probably something went wrong."
               exit 1
             fi
+      - persist_to_workspace:
+          root: .
+          paths:
+            - composer.json
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
@@ -362,66 +371,3 @@ jobs:
                 -H "Content-Type: application/zip" \
                 --data-binary @/tmp/workspace/planet4-master-theme.zip \
                 "$(cat /tmp/workspace/upload_url)" | jq
-
-  create-beta-tag:
-    docker:
-      - image: mhart/alpine-node:14
-        auth: &docker_auth
-    steps:
-      - checkout
-      - attach_workspace:
-          at: /tmp/workspace
-      - run: echo "v3-branch-$CIRCLE_BRANCH" > /tmp/workspace/beta-tag
-      - run: apk add curl jq git openssh-client
-      - run:
-          name: "Github auth"
-          command: |
-            git config user.email "circleci-bot@greenpeace.org"
-            git config user.name ":robot: CI Bot"
-            git config push.default simple
-            mkdir -p ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
-      - run:
-          name: "Remove previous release"
-          command: |
-            old_release_url=$(curl \
-              -H "Accept: application/vnd.github.v3+json" \
-              https://api.github.com/repos/greenpeace/planet4-master-theme/releases/tags/$(cat /tmp/workspace/beta-tag) |
-            jq -r .url)
-            if [ $old_release_url != 'null' ]; then curl \
-              -X DELETE \
-              -H "Accept: application/vnd.github.v3+json" \
-              -H "Authorization: token ${GITHUB_RELEASES_TOKEN}" \
-              $old_release_url
-            fi
-      - run:
-          name: "Remove previous tag"
-          command: |
-            git push origin :refs/tags/$(cat /tmp/workspace/beta-tag)
-      - run:
-          name: "Create beta release and get upload url"
-          command: |
-            data="{\"tag_name\": \"$(cat /tmp/workspace/beta-tag)\", \"target_commitish\": \"${CIRCLE_SHA1}\", \"prerelease\": true }"
-            echo $data
-            curl \
-                --fail \
-                -X POST \
-                -H "Authorization: token ${GITHUB_RELEASES_TOKEN}" \
-                -H "Content-Type: application/json" \
-                --data "$data" \
-            https://api.github.com/repos/greenpeace/planet4-master-theme/releases |
-                jq -r .upload_url |
-                sed 's/{.*}/?name=planet4-master-theme.zip/' > /tmp/workspace/upload_url
-            cat /tmp/workspace/upload_url
-      - run:
-          name: "Upload zip file to beta tag"
-          command: |
-            curl \
-                --fail \
-                -H "Authorization: token ${GITHUB_RELEASES_TOKEN}" \
-                -H "Content-Type: application/zip" \
-                --data-binary @/tmp/workspace/planet4-master-theme.zip \
-                "$(cat /tmp/workspace/upload_url)" | jq
-      - persist_to_workspace:
-          root: /tmp/workspace
-          paths:
-            - beta-tag
