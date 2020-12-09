@@ -1,5 +1,7 @@
-# Contribution Guidelines
+# Contributing
 
-Thank you for thinking of contributing to Planet4! :green_heart:
+Welcome! 👋👋🏿👋🏽👋🏻👋🏾👋🏼 
 
-Please read the [Contribution Guidelines](https://planet4.greenpeace.org/handbook/dev-contribute-to-planet4/) for Planet4.
+Thank you for wanting to contribute to Planet 4! 💚
+
+Please check the [Readme file](README.md) for more on how to get started.

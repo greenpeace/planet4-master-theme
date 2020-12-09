@@ -1,20 +1,35 @@
-# Greenpeace Planet4 Gutenberg Blocks Plugin
+# Greenpeace Planet 4 Gutenberg Blocks Plugin
 
-![Planet4](./planet4.png)
+![Planet 4](./planet4.png)
 
+## What is it?
 
-# Contents
-- [Introduction](#introduction)
-- [Build Setup](#build-setup)
-- [How to develop a new block you ask?](#how-to-develop-a-new-block-you-ask)
-- [Assets build](#assets-build)
-- [Composer](#composer)
-- [Code Standards](#code-standards)
-- [Contribute](#contribute)
+This the WordPress Gutenberg blocks plugin for Greenpeace Planet 4 project.
+You can learn more about this project on [the Planet 4 blog](https://medium.com/planet4).
 
-## Introduction
+## Contribute
 
-This WordPress plugin is an attempt to convert the old [shortcake shortcode blocks](https://github.com/greenpeace/planet4-plugin-blocks) to gutenberg blocks and implement new blocks in the future.
+The best place to start is from main [Planet 4 repo](https://github.com/greenpeace/planet4) that contains all the necessary information and tickets to get started.
+
+## How to use this plugin in Planet 4
+
+You can use the plugin in Wordpress directly, by including it at your `composer.json` file:
+```
+"require": {
+    ...
+    "greenpeace/planet4-plugingutenberg-plugin" : "X.X.X",
+    ...
+},
+```
+
+## Assets build
+
+You'll need npm to install the dependencies, just run  `npm install`  to install them.
+
+To develop:
+
+- run `npm start` to start a watcher that will rebuild everytime you make a change.
+- run `npm run build` to manually build the files.
 
 ## Build Setup
 
@@ -22,35 +37,6 @@ Wordpress provides a single dependency for the whole build setup including:
 
 * Babel: the transpiler for JSX & ES6 syntax to browser-compatible JS
 * Webpack: the bundler for all the JS modules and dependency resolution
-
-The default config expects a single entry point which produces a single output bundle and adds two directories to the root.
-
-We use a customized config to have this:
-
-```
-react-blocks
-  src                      - The JSX files
-    blocks                   - Block definitions for the editor (title, icon)
-    components               - Components used to render the blocks (reusable, shareable)
-  build                    - The compiled output
-  editorIndex.js          - The main JS for the editor
-  frontendIndex.js        - The main JS for the frontend
-```
-
-### PHP Side
-
-Everything is under `classes` folder, besided the plugin's entrypoint file (`planet4-gutenberg-blocks.php`)
-
-```
-classes
-  blocks                   - Blocks classes
-  controller               - Components used to render the blocks (reusable, shareable)
-  class-loader.php         - Loader. Defines plugin's hooks/filters and blocks.
-```
-
-
-### Twig templates
-Plugin depends on [timber-library](https://el.wordpress.org/plugins/timber-library/)  which is used for twig template engine. Twig templates are used to generate the blocks' output.
 
 ## How to develop a new block you ask?
 
@@ -72,53 +58,10 @@ you need to set the BLOCK_NAME constant as **'blockname'** It also works with ht
 	**Blockname.js** should be a class that defines a React component that implements `renderEdit()` and `renderView()`.
 `renderEdit()` should be used to render the block in the editor, to define editor-specific things as sidebar options, in-place edit components, and so on. `renderView()` will be used both in the editor and in the frontend site to render the block's contents, as we are rendering blocks using React in the frontend too.
 
-	To learn more details about the render logic, refer to the [blocks page in Planet4's Gitbook](https://app.gitbook.com/@greenpeace/s/planet4/tech/blocks/).
+	To learn more details about the render logic, refer to the [blocks page in Planet 4 Gitbook](https://support.greenpeace.org/planet4/tech/blocks).
 
 1. Create a new sccs file inside _react-blocks/src/blocks/styles_ named after your block **Blockname.scss** to use for block's frontend styling.
 
     Create a new file named **BlocknameEditor.scss** to use for block's editor styling if you need to style the block in the editor.
 
 1. Finally, before committing do **npm run build** to build the plugin's assets and **vendor/bin/phpcs** to check for any php styling errors in your code.
-
-
-## Assets build
-
-You'll need NPM to install the dependencies, just run  `npm install`  to install them.
-
-To develop:
-
--   run  `npm start`  to start a watcher on the  `react-blocks/src`  directory and rebuild everytime you make a change, output will be at  `react-blocks/build`.
-
--   run  `npm build`  to manually build the files.
-
-
-## Composer
-We use composer as dependency manager for the this plugin.
-To install dependencies run
-
-`$ composer install`
-
-## Code standards
-We follow the [WordPress Coding Standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/php/)
-
-We use a custom [php codesniffer](https://github.com/squizlabs/PHP_CodeSniffer) ruleset which adds some rules over WordPress-Core, WordPress-Docs and WordPress-Extra rulesets.
-
-[WordPress Coding Standards Rulesets](https://github.com/WordPress/WordPress-Coding-Standards)
-
-[WordPress Coding Standards Wiki](https://github.com/WordPress/WordPress-Coding-Standards/wiki)
-
-To run the [php codesniffer](https://github.com/squizlabs/PHP_CodeSniffer)
-
-`$ vendor/bin/phpcs`
- or
-`$ composer sniffs`
-
-To run the [php code beautifier and fixer](https://github.com/squizlabs/PHP_CodeSniffer/wiki/Fixing-Errors-Automatically)
-
-`$ vendor/bin/phpcbf`
- or
-`$ composer fixes`
-
-## Contribute
-
-Please read the [Contribution Guidelines](https://planet4.greenpeace.org/handbook/dev-contribute-to-planet4/) for Planet4.
