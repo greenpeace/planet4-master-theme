@@ -22,13 +22,16 @@
   transition: background $transition ease-in-out;
   padding: 0 40px;
   display: inline-block;
-  width: auto;
 
   &:not(:disabled):not(.disabled) {
     &:active {
       color: $foreground;
       background: $background;
     }
+  }
+
+  &.article-load-more, &.btn-load-more-posts-click {
+    width: auto;
   }
 }
 
