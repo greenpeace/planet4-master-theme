@@ -2,11 +2,13 @@ const { addFilter } = wp.hooks;
 
 import P4ButtonEdit from './components/p4_button/edit';
 import P4TableEdit from './components/p4_table/edit';
+import { ImageBlockEdit } from './components/Image/ImageBlockEdit';
 
 export const addBlockFilters = () => {
   addFileBlockFilter();
   addButtonBlockFilter();
   addTableBlockFilter();
+  addImageBlockFilter();
 };
 
 const addFileBlockFilter = () => {
@@ -63,3 +65,5 @@ const addTableBlockFilter = () => {
 
   addFilter('blocks.registerBlockType', 'planet4-blocks/filters/table', updateTableBlockEditMethod);
 };
+
+const addImageBlockFilter = () => addFilter('editor.BlockEdit', 'core/image/edit', ImageBlockEdit);
