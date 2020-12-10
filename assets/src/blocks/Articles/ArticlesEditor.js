@@ -45,18 +45,18 @@ const renderEdit = (attributes, toAttribute) => {
             checked={attributes.button_link_new_tab}
             onChange={toAttribute('button_link_new_tab')}
           />
+          <TextControl
+            label={__('Articles count', 'planet4-blocks-backend')}
+            help={__('Number of articles', 'planet4-blocks-backend')}
+            type="number"
+            min={1}
+            value={attributes.article_count}
+            onChange={value =>
+              toAttribute('article_count')(Number(value))
+            }
+          />
           {attributes.posts !== 'undefined' && attributes.posts.length === 0 &&
             <Fragment>
-              <TextControl
-                label={__('Articles count', 'planet4-blocks-backend')}
-                help={__('Number of articles', 'planet4-blocks-backend')}
-                type="number"
-                min={1}
-                value={attributes.article_count}
-                onChange={value =>
-                  toAttribute('article_count')(Number(value))
-                }
-              />
               <TagSelector
                 value={attributes.tags}
                 onChange={toAttribute('tags')}
