@@ -34,6 +34,13 @@ class MasterSite extends TimberSite {
 	private const DASHBOARD_MESSAGE_VERSION = '0.2';
 
 	/**
+	 * Credit meta field key
+	 *
+	 * @var string
+	 */
+	public const CREDIT_META_FIELD = '_credit_text';
+
+	/**
 	 * Theme directory
 	 *
 	 * @var string $theme_dir
@@ -223,6 +230,8 @@ class MasterSite extends TimberSite {
 
 		// Disable xmlrpc.
 		add_filter( 'xmlrpc_enabled', '__return_false' );
+
+		$this->register_meta_fields();
 	}
 
 	/**
@@ -902,6 +911,22 @@ class MasterSite extends TimberSite {
 	}
 
 	/**
+	 * Declare meta fields
+	 */
+	private function register_meta_fields(): void {
+		// Credit for images, used in image caption.
+		\register_meta(
+			'post',
+			self::CREDIT_META_FIELD,
+			[
+				'show_in_rest' => true,
+				'type'         => 'string',
+				'single'       => true,
+			]
+		);
+	}
+
+	/**
 	 * Registers oembed provider for Carto map.
 	 */
 	public function register_oembed_provider() {
@@ -1176,7 +1201,7 @@ class MasterSite extends TimberSite {
 		$form_fields['credit_text'] = [
 			'label' => __( 'Credit', 'planet4-master-theme-backend' ),
 			'input' => 'text', // this is default if "input" is omitted.
-			'value' => get_post_meta( $post->ID, '_credit_text', true ),
+			'value' => get_post_meta( $post->ID, self::CREDIT_META_FIELD, true ),
 			'helps' => __( 'The owner of the image.', 'planet4-master-theme-backend' ),
 		];
 
@@ -1193,7 +1218,7 @@ class MasterSite extends TimberSite {
 	 */
 	public function add_image_attachment_fields_to_save( $post, $attachment ) {
 		if ( isset( $attachment['credit_text'] ) ) {
-			update_post_meta( $post['ID'], '_credit_text', $attachment['credit_text'] );
+			update_post_meta( $post['ID'], self::CREDIT_META_FIELD, $attachment['credit_text'] );
 		}
 
 		return $post;
@@ -1209,19 +1234,31 @@ class MasterSite extends TimberSite {
 	 */
 	public function p4_core_image_block_render( $attributes, $content ) {
 		$image_id = isset( $attributes['id'] ) ? trim( str_replace( 'attachment_', '', $attributes['id'] ) ) : '';
-		$meta     = get_post_meta( $image_id );
+		$credit   = $image_id ? get_post_meta( $image_id, self::CREDIT_META_FIELD, true ) : '';
+		if ( empty( $image_id ) || empty( $credit ) ) {
+			return $content;
+		}
 
-		if ( isset( $meta['_credit_text'] ) && ! empty( $meta['_credit_text'][0] ) ) {
-			$image_credit = ' ' . $meta['_credit_text'][0];
-			if ( false === strpos( $meta['_credit_text'][0], '©' ) ) {
-				$image_credit = ' ©' . $image_credit;
-			}
+		$image_credit = ' ' . $credit;
+		if ( false === strpos( $credit, '©' ) ) {
+			$image_credit = ' ©' . $image_credit;
+		}
 
-			if ( strpos( $content, '<figcaption>' ) !== false ) {
-				$content = str_replace( '</figcaption>', esc_attr( $image_credit ) . '</figcaption>', $content );
-			} else {
-				$content = str_replace( '</figure>', '<figcaption>' . esc_attr( $image_credit ) . '</figcaption></figure>', $content );
-			}
+		$caption_open  = '<figcaption>';
+		$caption_close = '</figcaption>';
+		$caption       = explode( $caption_open, $content, 2 )[1] ?? '';
+		if ( strpos( $caption, $image_credit ) !== false ) {
+			return $content;
+		}
+
+		if ( strpos( $content, $caption_open ) !== false ) {
+			$content = str_replace( $caption_close, esc_attr( $image_credit ) . $caption_close, $content );
+		} else {
+			$content = str_replace(
+				'</figure>',
+				$caption_open . esc_attr( $image_credit ) . $caption_close . '</figure>',
+				$content
+			);
 		}
 
 		return $content;
