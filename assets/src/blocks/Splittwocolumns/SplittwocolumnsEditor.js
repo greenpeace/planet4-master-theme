@@ -1,8 +1,8 @@
 import { Fragment } from '@wordpress/element';
 import { BLOCK_NAME, VERSION } from './SplittwocolumnsBlock';
-import { SplittwocolumnsFrontend as Frontend } from './SplittwocolumnsFrontend';
-import { SplittwocolumnsSettings as SidebarSettings } from './SplittwocolumnsSettings';
-import { SplittwocolumnsInPlaceEdit as InPlaceEdit } from './SplittwocolumnsInPlaceEdit';
+import { SplittwocolumnsFrontend } from './SplittwocolumnsFrontend';
+import { SplittwocolumnsSettings } from './SplittwocolumnsSettings';
+import { SplittwocolumnsInPlaceEdit } from './SplittwocolumnsInPlaceEdit';
 
 const { apiFetch } = wp;
 const { useSelect } = wp.data;
@@ -30,20 +30,20 @@ export const SplittwocolumnsEditor = ({ attributes, setAttributes, isSelected })
 
   return (
     isSelected
-      ? renderEdit({attributes}, setAttributes) 
+      ? renderEdit({attributes}, setAttributes)
       : renderView({attributes})
   );
 }
 
-const renderView = ({attributes}) => <Frontend {...attributes} />
+const renderView = ({attributes}) => <SplittwocolumnsFrontend {...attributes} />
 const renderEdit = ({attributes}, setAttributes) => {
   const charLimit = { title: 40, description: 400 };
   const params = {attributes, charLimit, setAttributes};
 
   return (
     <Fragment>
-      <InPlaceEdit {...params} />
-      <SidebarSettings  {...params} />
+      <SplittwocolumnsInPlaceEdit {...params} />
+      <SplittwocolumnsSettings  {...params} />
     </Fragment>
   );
 }
