@@ -21,6 +21,12 @@ export class CounterFrontend extends Component {
     if (completed_api && completed_api.startsWith('https://')) {
       window.addEventListener('updateCounter', function () { counter.calculateRemaining(); }, false);
     }
+    // Append the counter inside the En-Form
+    var counterBar = document.querySelector('.counter-style-en-forms-bar');
+    var enFormHeader = document.querySelector('.enform-extra-header-placeholder');
+    if ( counterBar !== null && enFormHeader !== null ) {
+      enFormHeader.append(counterBar);
+    } 
   }
 
   componentWillUnmount() {
