@@ -39,13 +39,16 @@
 									</div>
 									<div class="content-covers-block-information">
 										{% if ( post.post_title ) %}
-											<a
-												href="{{ post.link }}"
-												data-ga-category="Content Covers"
-												data-ga-action="Title"
-												data-ga-label="n/a">
-													<h4>{{ post.post_title|e('wp_kses_post')|raw }}</h4>
-											</a>
+											<h5>
+												<a
+													href="{{ post.link }}"
+													data-ga-category="Content Covers"
+													data-ga-action="Title"
+													data-ga-label="n/a"
+												>
+													{{ post.post_title|e('wp_kses_post')|raw }}
+												</a>
+											</h5>
 										{% endif %}
 										{% if ( post.post_date ) %}
 											<p class="publication-date">{{ post.post_date|date('F Y') }}</p>

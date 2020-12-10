@@ -81,42 +81,20 @@
         text-decoration: underline;
       }
 
-      a {
-        color: $blue;
-      }
-
-      h4 {
-        font-size: $font-size-xxs;
-        line-height: 1.2;
-        font-weight: 500;
+      h5 {
         padding: 0;
         margin: 0;
 
-        @include medium-and-up {
-          font-size: 1.125rem;
-          font-weight: 500;
-        }
-
-        @include large-and-up {
-          font-size: $font-size-sm;
-        }
-
-        @include large-and-up {
-          font-size: 1.125rem;
+        > a {
+          color: $grey-80;
         }
       }
 
       p {
-        font-size: $font-size-sm;
         margin-bottom: 0;
 
-        @include large-and-up {
-          font-size: $font-size-xxs;
-          line-height: 1.6;
-        }
-
         @include x-large-and-up {
-          font-size: $font-size-xs;
+          font-size: $font-size-sm;
         }
 
         &.publication-date {
@@ -135,10 +113,6 @@
             font-size: $font-size-xs;
           }
         }
-      }
-
-      .blue-button {
-        width: 100%;
       }
     }
   }
