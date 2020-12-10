@@ -201,6 +201,21 @@ class MasterSite extends TimberSite {
 
 		// Pin the ElasticPress to v3.4 search algorithm.
 		simple_value_filter( 'ep_search_algorithm_version', '3.4' );
+
+		// Update P4 author override value in RSS feed.
+		add_filter(
+			'the_author',
+			function ( $post_author ) {
+				if ( is_feed() ) {
+					global $post;
+					$author_override = get_post_meta( $post->ID, 'p4_author_override', true );
+					if ( '' !== $author_override ) {
+						$post_author = $author_override;
+					}
+				}
+				return $post_author;
+			}
+		);
 	}
 
 	/**
