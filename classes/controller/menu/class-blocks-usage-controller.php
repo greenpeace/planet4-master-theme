@@ -27,6 +27,12 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 		];
 
 		/**
+		 * String to use for Post with no title.
+		 */
+		private const NO_TITLE = '(no title)';
+
+
+		/**
 		 * Blocks_Usage_Controller constructor.
 		 *
 		 * @param View $view The view object.
@@ -112,9 +118,6 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 
 			// phpcs:disable
 			foreach ( $block_types as $block_type ) {
-				if ( 'planet4-blocks/carousel-header' === $block_type ) {
-					continue;
-				}
 				$block_comment = '%<!-- wp:' . $wpdb->esc_like( $block_type ) . ' %';
 
 				$params = new SqlParameters();
@@ -146,36 +149,14 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 							<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
 					</tr>';
 					foreach ( $results as $result ) {
-						echo  '<tr><td><a href="' . get_permalink( $result->ID ) . '" >' . $result->ID . '</a></td>';
-						echo  '<td><a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->post_title . '</a></td></tr>';
+						$title = empty($result->post_title) ? self::NO_TITLE : $result->post_title;
+						echo  '<tr><td><a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->ID . '</a></td>';
+						echo  '<td><a href="' . get_permalink( $result->ID ) . '" target="_blank">' . $title . '</a></td></tr>';
 					}
 					echo '</table>';
 				} else {
 					$report[ ucfirst( str_replace( '_', ' ', $block_type ) ) ] = count($results);
 				}
-			}
-
-			// Add to the report a breakdown of different styles for carousel Header
-			$sql = 'SELECT ID, post_title
-                    FROM %1$s
-                    WHERE post_status = \'publish\'
-                        AND `post_content` REGEXP \'<!-- wp:planet4-blocks/carousel-header.*full-width-classic\'';
-			$prepared_sql = $wpdb->prepare( $sql, $wpdb->posts );
-			$results      = $wpdb->get_results( $prepared_sql );
-			if ( 'text' === $type ) {
-				echo '<hr>';
-				echo '<h2>Carousel Header Full Width Classic style</h2>';
-				echo '<table><tr style="text-align: left">
-						<th>' . __( 'ID', 'planet4-blocks-backend' ) . '</th>
-						<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
-				</tr>';
-				foreach ($results as $result) {
-					echo  '<tr><td><a href="' . get_permalink( $result->ID ) . '" >' . $result->ID . '</a></td>';
-					echo '<td><a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->post_title . '</a></td></tr>';
-				}
-				echo '</table>';
-			} else {
-				$report[ ucfirst( 'planet4-blocks/carousel-header-Full-Width-Classic' ) ] = count($results);
 			}
 
 			// Add to the report a breakdown of which tags are using a redirect page and which do not
@@ -229,8 +210,9 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 					<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
 				</tr>';
 				foreach ( $results as $result ) {
-					echo  '<tr><td><a href="' . get_term_link( (int) $result->term_id ) . '" >' . $result->term_id . '</a></td>';
-					echo '<td><a href="term.php?taxonomy=post_tag&tag_ID=' . $result->term_id . '" >' . $result->name . '</a></td></tr>';
+					$title = empty($result->name) ? self::NO_TITLE : $result->name;
+					echo  '<tr><td><a href="term.php?taxonomy=post_tag&tag_ID=' . $result->term_id . '" >' . $result->term_id . '</a></td>';
+					echo  '<td><a href="' . get_term_link( (int) $result->term_id ) . '" target="_blank">' . $title . '</a></td></tr>';
 				}
 				echo '</table>';
 			} else {
@@ -265,8 +247,9 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 					<th>' . __( 'Title', 'planet4-blocks-backend' ) . '</th>
 				</tr>';
 				foreach ( $results as $result ) {
-					echo  '<tr><td><a href="' . get_term_link( (int) $result->term_id ) . '" >' . $result->term_id . '</a></td>';
-					echo '<td><a href="term.php?taxonomy=post_tag&tag_ID=' . $result->term_id . '" >' . $result->name . '</a></td></tr>';
+					$title = empty($result->name) ? self::NO_TITLE : $result->name;
+					echo  '<tr><td><a href="term.php?taxonomy=post_tag&tag_ID=' . $result->term_id . '" >' . $result->term_id . '</a></td>';
+					echo  '<td><a href="' . get_term_link( (int) $result->term_id ) . '" target="_blank">' . $title . '</a></td></tr>';
 				}
 				echo '</table>';
 			} else {
