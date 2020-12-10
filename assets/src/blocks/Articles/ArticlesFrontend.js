@@ -22,6 +22,10 @@ export const ArticlesFrontend = (props) => {
 
   const { posts, loadNextPage, hasMorePages, loading } = useArticlesFetch(props, postType, postId, document.body.dataset.nro, postCategories);
 
+  if (!posts.length) {
+    return null;
+  }
+
   return (
     <section className="block articles-block">
       <div className="container">
