@@ -109,7 +109,7 @@ class MasterSite extends TimberSite {
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
 		add_filter( 'safe_style_css', [ $this, 'set_custom_allowed_css_properties' ] );
-		add_filter( 'wp_kses_allowed_html', [ $this, 'set_custom_allowed_attributes_filter' ] );
+		add_filter( 'wp_kses_allowed_html', [ $this, 'set_custom_allowed_attributes_filter' ], 10, 2 );
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_box_search' ] );
 		add_action( 'save_post', [ $this, 'save_meta_box_search' ], 10, 2 );
 		add_action( 'save_post', [ $this, 'set_featured_image' ], 10, 3 );
@@ -546,11 +546,18 @@ class MasterSite extends TimberSite {
 	 * Allow img srcset and sizes attributes.
 	 * Allow iframes in posts.
 	 *
-	 * @param array $allowedposttags Default allowed tags.
+	 * @see wp_kses_allowed_html()
+	 *
+	 * @param array  $allowedposttags Default allowed tags.
+	 * @param string $context         The context for which to retrieve tags.
 	 *
 	 * @return array
 	 */
-	public function set_custom_allowed_attributes_filter( $allowedposttags ) {
+	public function set_custom_allowed_attributes_filter( $allowedposttags, $context ) {
+		if ( 'post' !== $context ) {
+			return $allowedposttags;
+		}
+
 		// Allow iframes and the following attributes.
 		$allowedposttags['style']  = [];
 		$allowedposttags['iframe'] = [
