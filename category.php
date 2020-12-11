@@ -22,6 +22,7 @@ $post_args = [
 	'posts_per_page' => 10,
 	'post_type'      => 'post',
 	'paged'          => 1,
+	'has_password'   => false,  // Skip password protected content.
 ];
 
 $context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';

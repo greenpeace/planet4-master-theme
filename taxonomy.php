@@ -24,6 +24,7 @@ $post_args = [
 	'post_type'      => 'post',
 	'paged'          => 1,
 	'p4-page-type'   => $context['taxonomy']->slug,
+	'has_password'   => false,  // Skip password protected content.
 ];
 
 $context['page_category']   = 'Post Type Page';
