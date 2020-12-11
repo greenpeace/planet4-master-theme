@@ -13,9 +13,9 @@
 				class="cover-card-overlay"
 				href="{{ boxout.link|default('#') }}" {{ boxout.new_tab and boxout.link ? 'target="_blank"' }}
 			></a>
-			<img src={{ boxout.image }} />
+			<img src={{ boxout.image }} alt="{{ boxout.image_alt }}" />
+			<div class="cover-card-more">{{ __( 'Want to do more?', 'planet4-blocks' ) }}</div>
 			<div class="cover-card-content">
-				<div class="cover-card-more">{{ __( 'Want to do more?', 'planet4-blocks' ) }}</div>
 				{% if ( boxout.campaigns ) %}
 					{% for campaign in boxout.campaigns %}
 						<a

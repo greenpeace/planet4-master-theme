@@ -10,7 +10,7 @@
   display: none;
   padding: 12px;
   height: 136px;
-  z-index: 1;
+  z-index: 3;
 
   &.hidden {
     display: none !important;
@@ -186,7 +186,7 @@
     .cover-card-more {
       position: absolute;
       margin-bottom: 0;
-      top: -195px;
+      bottom: 320px;
       left: 0;
       font-size: 28px;
       color: $black;
