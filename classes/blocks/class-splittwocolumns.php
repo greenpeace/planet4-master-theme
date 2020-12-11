@@ -28,7 +28,7 @@ class SplitTwoColumns extends Base_Block {
 	 *
 	 * @var int VERSION.
 	 */
-	public const VERSION = 2;
+	private const VERSION = 2;
 
 	/**
 	 * @var array Block attributes.
@@ -84,13 +84,9 @@ class SplitTwoColumns extends Base_Block {
 						[ 'attributes' => $this->update_data( $attributes ) ]
 					);
 
-					if ( ! $this->is_rest_request() ) {
-						$json = htmlspecialchars( $json ? $json : [] );
-					}
-
 					return '<div
 						data-render="' . self::BLOCK_NAME . '"
-						data-attributes="' . ( $json ?? [] ) . '">
+						data-attributes="' . htmlspecialchars( $json ) . '">
 					</div>';
 				},
 			]
@@ -115,6 +111,7 @@ class SplitTwoColumns extends Base_Block {
 	 */
 	public static function update_data( array $fields ): array {
 		$version = empty( $fields['version'] ) ? 0 : (int) $fields['version'];
+
 		if ( version_compare( $version, self::VERSION, '>=' ) ) {
 			return $fields;
 		}

@@ -28,7 +28,10 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
   const onTextChange = (field_name) => debounce(content => {
     setAttributes({
       [field_name]: content,
-      edited: {...edited, ...{[field_name]: content.length > 0}}
+      edited: {
+        ...edited,
+        [field_name]: content.length > 0
+      }
     });
   }, 400);
 

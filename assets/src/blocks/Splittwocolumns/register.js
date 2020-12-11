@@ -1,5 +1,6 @@
-import { SplittwocolumnsEditor, migrateAttributes } from './SplittwocolumnsEditor';
+import { SplittwocolumnsEditor } from './SplittwocolumnsEditor';
 import { frontendRendered } from '../frontendRendered';
+import { splitTwoColumnsV1 } from './deprecated/SplittwocolumnsV1';
 
 const { registerBlockType } = wp.blocks;
 const { __ } = wp.i18n;
@@ -7,9 +8,12 @@ const { __ } = wp.i18n;
 export const BLOCK_NAME = 'planet4-blocks/split-two-columns';
 export const VERSION = 2;
 
-export class SplittwocolumnsBlock {
-  constructor() {
-    const attributes = {
+export const registerSplittwocolumnsBlock = () => {
+  registerBlockType( BLOCK_NAME, {
+    title: __('Split Two Columns', 'planet4-blocks-backend'),
+    icon: 'editor-table',
+    category: 'planet4-blocks',
+    attributes: {
       version: { type: 'number', default: VERSION },
       select_issue: { type: 'number', default: 0 },
       title: { type: 'string', default: '' },
@@ -33,40 +37,22 @@ export class SplittwocolumnsBlock {
       tag_image_title: { type: 'string', default: '' },
       focus_tag_image: { type: 'string', default: '50% 50%' },
       edited: { type: 'object', default: {
-        title: false,
-        issue_description: false,
-        issue_link_text: false,
-        tag_description: false,
-        button_text: false,
-        issue_image_id: false,
-        tag_image_id: false
-      } },
-    }
-
-    registerBlockType( BLOCK_NAME, {
-      title: __('Split Two Columns', 'planet4-blocks-backend'),
-      icon: 'editor-table',
-      category: 'planet4-blocks',
-      attributes,
-      edit: SplittwocolumnsEditor,
-      save: frontendRendered( BLOCK_NAME ),
-      supports: {
-        html: false, // Disable "Edit as HTMl" block option.
-      },
-      deprecated: [
-        {
-          attributes: {
-            issue_image: { type: 'number', default: 0 },
-            tag_image: { type: 'number', default: 0 },
-            ...attributes
-          },
-          isEligible(attributes) { 
-            return attributes.issue_image || attributes.tag_image
-          },
-          migrate: migrateAttributes,
-          save() { return null },
-        }
-      ]
-    });
-  }
+          title: false,
+          issue_description: false,
+          issue_link_text: false,
+          tag_description: false,
+          button_text: false,
+          issue_image_id: false,
+          tag_image_id: false
+        } },
+    },
+    edit: SplittwocolumnsEditor,
+    save: frontendRendered( BLOCK_NAME ),
+    supports: {
+      html: false, // Disable "Edit as HTMl" block option.
+    },
+    deprecated: [
+      splitTwoColumnsV1,
+    ]
+  });
 }
