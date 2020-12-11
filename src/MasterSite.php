@@ -118,6 +118,7 @@ class MasterSite extends TimberSite {
 		add_action( 'admin_menu', [ $this, 'add_restricted_tags_box' ] );
 		add_action( 'do_meta_boxes', [ $this, 'remove_default_tags_box' ] );
 		add_action( 'pre_insert_term', [ $this, 'disallow_insert_term' ], 1, 2 );
+		add_filter( 'wp_dropdown_users_args', [ $this, 'filter_authors' ], 10, 1 );
 		add_filter( 'wp_image_editors', [ $this, 'allowedEditors' ] );
 		add_filter(
 			'jpeg_quality',
@@ -753,6 +754,19 @@ class MasterSite extends TimberSite {
 			});
 		</script>
 		<?php
+	}
+
+	/**
+	 * Applies filters for list of users in dropdown
+	 *
+	 * @param null|Array $args The filter options and values.
+	 */
+	public function filter_authors( $args ) {
+		if ( isset( $args['who'] ) ) {
+			$args['role__in'] = [ 'administrator', 'author', 'campaigner', 'contributor', 'editor' ];
+			unset( $args['who'] );
+		}
+		return $args;
 	}
 
 	/**
