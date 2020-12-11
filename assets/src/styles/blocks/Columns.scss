@@ -254,67 +254,25 @@
       }
 
       .step-info {
-        h5 {
-          font-size: $font-size-xs;
-          line-height: 19px;
-          font-weight: 700;
-          color: $percentage-text;
-          margin-bottom: $space-md;
-
-          @include medium-and-up {
-            font-weight: 500;
-            color: $darkb-blue-text;
-            font-size: $font-size-md;
-            line-height: 30px;
-          }
-
-          @include large-and-up {
-            color: $grey-80;
-          }
+        h5 > a {
+          color: $grey-80;
         }
 
         p {
-          color: $grey-80;
-          font-size: $font-size-xxs;
-          opacity: 0.75;
-          margin-bottom: 0;
+          @include x-large-and-up {
+            font-size: $font-size-sm;
+          }
+        }
+
+        img {
+          width: 100%;
+          height: 210px;
+          object-fit: cover;
+          object-position: 10% 10%;
+          margin-bottom: $space-lg;
 
           @include x-large-and-up {
-            font-size: $font-size-xs;
-            line-height: 1.6;
-          }
-
-          &.has-cta {
-            margin-bottom: $space-lg;
-          }
-        }
-
-        .blue-button {
-          width: 100%;
-        }
-
-        .steps-action {
-          a.btn {
-            width: 210px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-
-            @include x-large-and-up {
-              width: 250px;
-            }
-          }
-
-          img {
-            width: 100%;
-            height: 210px;
-            object-fit: cover;
-            object-position: 10% 10%;
-            margin-bottom: $space-lg;
-
-            @include x-large-and-up {
-              height: 250px;
-            }
+            height: 250px;
           }
         }
       }
@@ -358,31 +316,29 @@
             font-size: $font-size-xxs;
           }
 
-          .accordion-image-wrap {
-            padding-bottom: $space-lg;
+          img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            object-position: 10% 10%;
+            margin-top: $space-lg;
 
-            img {
+            @include small-and-up {
               width: 100%;
-              height: 190px;
-              object-fit: cover;
-              object-position: 10% 10%;
+            }
 
-              @include small-and-up {
-                width: 100%;
-              }
+            @include medium-and-up {
+              height: 220px;
+            }
 
-              @include medium-and-up {
-                height: 220px;
-              }
-
-              @include large-and-up {
-                width: 50%;
-              }
+            @include large-and-up {
+              width: 50%;
             }
           }
 
           .btn-secondary {
             margin-bottom: 0;
+            margin-top: $space-lg;
             width: 100%;
           }
         }
@@ -398,10 +354,6 @@
             margin-left: 0;
             margin-bottom: 0;
             padding-right: 0;
-
-            &.has-cta {
-              margin-bottom: $space-lg;
-            }
           }
         }
 

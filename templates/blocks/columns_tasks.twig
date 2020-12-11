@@ -28,28 +28,28 @@
 											{{ loop.index }}
 									</span>
 								</span>
-								<h5 data-ga-category="Columns Block"
-									data-ga-action="Title"
-									data-ga-label="n/a">
+								<h5>
+									{% if ( col.cta_link ) %}
+										<a
+											href="{{ col.cta_link|e('esc_url') }}"
+											{{  col.link_new_tab  ? 'target="_blank"' }}
+											data-ga-category="Columns Block"
+											data-ga-action="Title"
+											data-ga-label="{{ col.cta_link|e('esc_url') }}"
+										>
+									{% endif %}
 										{{ col.title }}
+									{% if ( col.cta_link ) %}
+										</a>
+									{% endif %}
 								</h5>
 								{% if ( col.description ) %}
-									<p {% if ( col.cta_text and col.cta_link ) %}class="has-cta"{% endif %}>
+									<p>
 										{{ col.description|e('wp_kses_post')|raw }}
 									</p>
 								{% endif %}
 								{% if ( col.attachment ) %}
-									{% if ( col.cta_link ) %}
-										<a
-											href="{{ col.cta_link|e('esc_url') }}"
-											data-ga-category="Columns Block"
-											data-ga-action="Image"
-											data-ga-label="{{ col.cta_link|e('esc_url') }}">
-									{% endif %}
-										<img src="{{ col.attachment }}" alt=""/>
-									{% if ( col.cta_link ) %}
-										</a>
-									{% endif %}
+									<img src="{{ col.attachment }}" alt=""/>
 								{% endif %}
 								{% if ( col.cta_text and col.cta_link ) %}
 									<a
@@ -117,16 +117,14 @@
 										<div class="card-block info-with-image-wrap clearfix">
 											<div class="mobile-accordion-info">
 												{% if ( col.description ) %}
-													<p {% if ( col.cta_text and col.cta_link ) %}class="has-cta"{% endif %}>
+													<p>
 														{{ col.description|e('wp_kses_post')|raw }}
 													</p>
 												{% endif %}
 											</div>
 
 											{% if ( col.attachment ) %}
-												<div class="accordion-image-wrap">
-													<img src="{{ col.attachment }}" alt="">
-												</div>
+												<img src="{{ col.attachment }}" alt="">
 											{% endif %}
 
 											{% if ( col.cta_text and col.cta_link ) %}
@@ -135,7 +133,9 @@
 													href="{{ col.cta_link|e('esc_url') }}"
 													data-ga-category="Columns Block"
 													data-ga-action="Call to Action"
-													data-ga-label="{{ col.cta_link|e('esc_url') }}">
+													data-ga-label="{{ col.cta_link|e('esc_url') }}"
+													{{  col.link_new_tab  ? 'target="_blank"' }}
+												>
 														{{ col.cta_text }}
 												</a>
 											{% endif %}
