@@ -226,7 +226,7 @@ class ENForm extends Base_Block {
 		}
 		$social = [
 			'title'       => esc_attr( $og_title ),
-			'description' => esc_attr( $og_description ),
+			'description' => esc_attr( wp_strip_all_tags( $og_description ) ),
 			'link'        => esc_url( $link ),
 		];
 
