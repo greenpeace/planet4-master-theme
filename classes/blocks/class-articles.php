@@ -29,6 +29,7 @@ class Articles extends Base_Block {
 	const DEFAULT_POST_ARGS = [
 		'orderby'          => 'date',
 		'post_status'      => 'publish',
+		'has_password'     => false,
 		'suppress_filters' => false,
 	];
 
@@ -256,6 +257,7 @@ class Articles extends Base_Block {
 			$args = [
 				'orderby'          => 'date',
 				'post_status'      => 'publish',
+				'has_password'     => false,
 				'post__in'         => $post_ids,
 				'suppress_filters' => false,
 			];
