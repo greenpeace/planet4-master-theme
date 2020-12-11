@@ -236,14 +236,10 @@ class MetaboxRegister {
 
 		$p4_open_graph->add_field(
 			[
-				'name'    => __( 'Description', 'planet4-master-theme-backend' ),
-				'desc'    => __( 'Enter description if you want to override the open graph description', 'planet4-master-theme-backend' ),
-				'id'      => 'p4_og_description',
-				'type'    => 'wysiwyg',
-				'options' => [
-					'media_buttons' => false,
-					'textarea_rows' => 5,
-				],
+				'name' => __( 'Description', 'planet4-master-theme-backend' ),
+				'desc' => __( 'Enter description if you want to override the open graph description', 'planet4-master-theme-backend' ),
+				'id'   => 'p4_og_description',
+				'type' => 'textarea_small',
 			]
 		);
 
