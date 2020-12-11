@@ -53,7 +53,7 @@ class OpenGraphTest extends P4_TestCase {
 		$this->assertHasElementWithAttributes(
 			[
 				'property' => 'og:description',
-				'content'  => $post_data['meta_input']['p4_og_description'],
+				'content'  => wp_strip_all_tags( $post_data['meta_input']['p4_og_description'] ),
 			],
 			$output,
 			'Did not find og:description meta.'
@@ -158,7 +158,20 @@ class OpenGraphTest extends P4_TestCase {
 				],
 				'page.php',
 			],
-
+			// Test html tags in OG description.
+			[
+				[
+					'post_type'    => 'page',
+					'post_title'   => 'The name of the place is Babylon',
+					'post_name'    => 'test-social-url',
+					'post_content' => 'test content',
+					'meta_input'   => [
+						'p4_og_title'       => 'Custom open graph title',
+						'p4_og_description' => '<p>Custom open graph description</p>',
+					],
+				],
+				'page.php',
+			],
 		];
 	}
 

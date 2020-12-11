@@ -313,7 +313,7 @@ class Post extends TimberPost {
 			return $this->post_excerpt;
 		}
 
-		return $og_desc;
+		return wp_strip_all_tags( $og_desc );
 	}
 
 	/**
@@ -363,7 +363,7 @@ class Post extends TimberPost {
 
 		return [
 			'title'       => $og_title,
-			'description' => $og_description,
+			'description' => wp_strip_all_tags( $og_description ),
 			'link'        => $link,
 		];
 	}
