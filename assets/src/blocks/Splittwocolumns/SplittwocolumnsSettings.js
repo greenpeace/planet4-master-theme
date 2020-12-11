@@ -69,7 +69,7 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
 
   const onTagChange = (tag_id) => {
     tag_id = parseInt(tag_id);
-    const tag = tagsList.find(tag => tag.id === tag_id) || null;
+    const tag = tagsList.find(tag => tag.id === tag_id);
 
     setAttributes({
       select_tag: tag_id,
@@ -100,10 +100,14 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
     setAttributes({[focal_name]: `${parseInt(x*100)}% ${parseInt(y*100)}%`});
   }
 
-  let issue_page_list = issuesList.map((issue) => ({label: issue.title.raw, value: issue.id}));
-  issue_page_list.unshift({label: '--Select Issue--', value: 0});
-  let tag_list = tagsList.map((tag) => ({label: tag.name, value: tag.id}));
-  tag_list.unshift({label: '--Select Tag--', value: 0});
+  const issueOptions = [
+    { label: '--Select Issue--', value: 0 },
+    ...issuesList.map((issue) => ({ label: issue.title.raw, value: issue.id })),
+  ];
+  const tagOptions = [
+    { label: '--Select Tag--', value: 0 },
+    ...tagsList.map((tag) => ({ label: tag.name, value: tag.id })),
+  ];
 
   const focus_issue_image_obj = convertFocalStringToObj(focus_issue_image || null);
   const focus_tag_image_obj = convertFocalStringToObj(focus_tag_image || null);
@@ -113,11 +117,11 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
     <InspectorControls>
       <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
         <div>
-          {issue_page_list &&
+          {issueOptions &&
             <SelectControl
               label={__('Select an issue', 'planet4-blocks-backend')}
               value={select_issue}
-              options={issue_page_list}
+              options={issueOptions}
               onChange={onIssueChange}
             />
             }
@@ -158,11 +162,11 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
         }
         <hr/>
         <div>
-          {tag_list &&
+          {tagOptions &&
             <SelectControl
               label={__('Select a tag', 'planet4-blocks-backend')}
               value={select_tag}
-              options={tag_list}
+              options={tagOptions}
               onChange={onTagChange}
             />
           }
