@@ -1055,14 +1055,20 @@ class MasterSite extends TimberSite {
 	 * @see https://developer.wordpress.org/reference/hooks/embed_oembed_html/
 	 *
 	 * @param mixed  $cache The cached HTML result, stored in post meta.
-	 * @param string $url   The attempted embed URL.
+	 * @param string $url The attempted embed URL.
 	 *
 	 * @return mixed
 	 */
 	public function filter_youtube_oembed_nocookie( $cache, $url ) {
 		if ( ! empty( $url ) ) {
 			if ( strpos( $url, 'youtube.com' ) !== false || strpos( $url, 'youtu.be' ) !== false ) {
-				$cache = str_replace( 'youtube.com', 'youtube-nocookie.com', $cache );
+
+				$replacements = [
+					'youtube.com'    => 'youtube-nocookie.com',
+					'feature=oembed' => 'feature=oembed&rel=0',
+				];
+
+				$cache = str_replace( array_keys( $replacements ), array_values( $replacements ), $cache );
 			}
 		}
 
