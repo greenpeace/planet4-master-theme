@@ -125,6 +125,7 @@ class TakeActionBoxout extends Base_Block {
 
 			if ( ! empty( $fields['background_image'] ) ) {
 				list( $src ) = wp_get_attachment_image_src( $fields['background_image'], 'large' );
+				$alt_text    = get_post_meta( $fields['background_image'], '_wp_attachment_image_alt', true );
 			}
 
 			$block = [
@@ -135,6 +136,7 @@ class TakeActionBoxout extends Base_Block {
 				'new_tab'   => $fields['custom_link_new_tab'] ?? false,
 				'link_text' => $fields['custom_link_text'] ?? '',
 				'image'     => $src ?? '',
+				'image_alt' => $alt_text ?? '',
 			];
 
 			$data = [
@@ -175,6 +177,12 @@ class TakeActionBoxout extends Base_Block {
 
 		$options = get_option( 'planet4_options' );
 
+		if ( has_post_thumbnail( $page ) ) {
+			$image     = get_the_post_thumbnail_url( $page, 'large' );
+			$img_id    = get_post_thumbnail_id( $page );
+			$image_alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+		}
+
 		// Populate variables.
 		$block = [
 			'campaigns' => $tags ?? [],
@@ -183,7 +191,8 @@ class TakeActionBoxout extends Base_Block {
 			'link'      => null === $page ? '' : get_permalink( $page ),
 			'new_tab'   => false,
 			'link_text' => $options['take_action_covers_button_text'] ?? __( 'Take action', 'planet4-blocks' ),
-			'image'     => null === $page ? '' : get_the_post_thumbnail_url( $page, 'large' ),
+			'image'     => $image ?? '',
+			'image_alt' => $image_alt ?? '',
 		];
 
 		$data = [
