@@ -1,0 +1,154 @@
+.accordion-block {
+  font-family: $roboto;
+
+  &.is-style-light .accordion-content .accordion-headline {
+    border-color: $grey-20;
+    background-color: white;
+    color: $grey-80;
+
+    &:hover {
+      background-color: $grey-05;
+    }
+
+    &:after {
+      @supports (mask-repeat: no-repeat) or (-webkit-mask-repeat: no-repeat) {
+        background-color: $grey-80;
+      }
+    }
+  }
+
+  .accordion-content {
+    display: flex;
+    flex-direction: column;
+
+    .accordion-headline {
+      cursor: pointer;
+      position: relative;
+      background-color: $dark-blue;
+      display: block;
+      color: $white;
+      padding-top: 16px;
+      padding-bottom: 16px;
+      padding-inline-start: 16px;
+      padding-inline-end: 44px;
+      font-size: $font-size-sm;
+      border-radius: 4px;
+      font-weight: 500;
+      line-height: 1;
+      margin-top: 0;
+      margin-bottom: 16px;
+      border: 1px solid $dark-blue;
+
+      &:hover {
+        background-color: $active-blue;
+      }
+
+      &.open:after {
+        transform: rotate(-90deg);
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+      }
+
+      &:after {
+        content: "";
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        left: auto;
+        pointer-events: none;
+        background-image: url("../../public/images/icons/angle-right.svg");
+        height: 1rem;
+        width: 0.5rem;
+        display: inline-block;
+        transition: transform 0.8s ease;
+        transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+
+        @supports (mask-repeat: no-repeat) or (-webkit-mask-repeat: no-repeat) {
+          & {
+            background-image: none;
+            background-color: $white;
+            -webkit-mask-image: url("../../public/images/icons/angle-right.svg");
+            mask-image: url("../../public/images/icons/angle-right.svg");
+            mask-repeat: no-repeat;
+            -webkit-mask-repeat: no-repeat;
+            margin-right: 0;
+          }
+        }
+
+        html[dir="rtl"] & {
+          right: auto;
+          left: 16px;
+        }
+      }
+    }
+
+    .panel {
+      padding: 0 16px 24px 16px;
+      background-color: white;
+      color: $grey-80;
+      overflow: hidden;
+      transition: display 1s, opacity 1s, height 1s ease-in-out;
+      -webkit-transition: display 1s, opacity 1s, height 1s ease-in-out;
+      -moz-transition: display 1s, opacity 1s, height 1s ease-in-out;
+      -ms-transition: display 1s, opacity 1s, height 1s ease-in-out;
+
+      &.panel-hidden {
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        padding: 0;
+      }
+    }
+
+    .accordion-text {
+      margin: 0;
+      font-family: $lora;
+      font-weight: 400;
+    }
+
+    .accordion-btn {
+      margin: 24px 10% 0 10%;
+      line-height: 2.5;
+      width: 80%;
+    }
+  }
+
+  @include medium-and-up {
+    .accordion-content {
+      .accordion-headline {
+        padding-inline-start: 24px;
+        font-size: $font-size-md;
+        margin-bottom: 24px;
+
+        &:after {
+          height: 1.25rem;
+          width: 0.6rem;
+          right: 24px;
+
+          html[dir="rtl"] & {
+            left: 24px;
+          }
+        }
+      }
+
+      .panel {
+        padding: 0 24px 40px 24px;
+      }
+
+      .accordion-btn {
+        width: 40%;
+        margin: 24px 0 0 0;
+      }
+    }
+  }
+
+  @include large-and-up {
+    .accordion-content .accordion-btn {
+      width: 25%;
+    }
+  }
+}
