@@ -1,5 +1,4 @@
 import { setupCookies } from './cookies';
-import { setupCommentsAnchor } from './comments_anchor';
 import { setupCountrySelect } from './country_select';
 import { setImageTitlesFromAltText } from './global';
 import { setupHeader } from './header';
@@ -23,7 +22,6 @@ window.$ = $ || jQuery;
 
 jQuery(function($) {
   setupCookies($);
-  setupCommentsAnchor($);
   setupCountrySelect($);
   setImageTitlesFromAltText($);
   setupHeader($);
