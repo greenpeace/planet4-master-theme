@@ -54,8 +54,10 @@
         margin: 0 $n5;
       }
 
-      span.comment-link {
-        cursor: pointer;
+      .comment-link {
+        &:hover {
+          text-decoration: none;
+        }
 
         img {
           width: 14px;
@@ -64,6 +66,7 @@
 
         .quantity {
           text-decoration: underline;
+
           @include large-and-up {
             text-decoration: none;
           }
