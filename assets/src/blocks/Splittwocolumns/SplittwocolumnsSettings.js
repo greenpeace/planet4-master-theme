@@ -47,7 +47,6 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
   }, []);
 
   const onIssueChange = (issue_id) => {
-    issue_id = parseInt(issue_id);
     const issue = issuesList.find(issue => issue.id === issue_id) || null;
 
     setAttributes({
@@ -68,7 +67,6 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
   }
 
   const onTagChange = (tag_id) => {
-    tag_id = parseInt(tag_id);
     const tag = tagsList.find(tag => tag.id === tag_id);
 
     setAttributes({
@@ -90,14 +88,16 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
     setAttributes({
       [`${image_type}_id`]: parseInt(image?.id) ?? 0,
       [`${image_type}_src`]: image?.url ?? image?.source_url ?? '',
-      [`${image_type}_srcset`]: '',
       [`${image_type}_title`]: image?.title?.raw ?? image?.title ?? '',
-      edited: {...edited, ...{[`${image_type}_id`]: true}}
+      edited: {
+        ...edited,
+        [`${ image_type }_id`]: true,
+      },
     });
   }
 
   const onFocalChange = (focal_name, {x,y}) => {
-    setAttributes({[focal_name]: `${parseInt(x*100)}% ${parseInt(y*100)}%`});
+    setAttributes({ [focal_name]: `${ x * 100 }% ${ y * 100 }%` });
   }
 
   const issueOptions = [
@@ -109,8 +109,8 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
     ...tagsList.map((tag) => ({ label: tag.name, value: tag.id })),
   ];
 
-  const focus_issue_image_obj = convertFocalStringToObj(focus_issue_image || null);
-  const focus_tag_image_obj = convertFocalStringToObj(focus_tag_image || null);
+  const focus_issue_image_obj = convertFocalStringToObj(focus_issue_image);
+  const focus_tag_image_obj = convertFocalStringToObj(focus_tag_image);
   const focal_picker_dimensions = {width: 400, height: 100};
 
   return (
@@ -215,10 +215,11 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
  * @param {string} focal_str
  */
 const convertFocalStringToObj = (focal_str) => {
-  if (!focal_str || focal_str.length <= 0) {
+  if (!focal_str) {
     return {x: 0.5,y: 0.5};
   }
-  let [x, y] = focal_str.replace(/\%/g, '').split(' ');
+  const [x, y] = focal_str.replace(/%/g, '').split(' ');
+
   return {x: (parseInt(x)/100), y: (parseInt(y)/100)};
 }
 

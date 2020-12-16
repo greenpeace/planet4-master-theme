@@ -83,13 +83,15 @@ abstract class Base_Block {
 
 	/**
 	 * Update the attributes of a block to the latest version.
+	 * It returns an array with the new version of the block attributes.
+	 * PHPCS does not allow me to add the return type if there is no return statement, but here we always throw an
+	 * exception, so adding a return after triggers another CS rule. Disabling the violated rule,
+	 * Squiz.Commenting.FunctionComment.InvalidNoReturn, is not working in the doc comment.
 	 *
 	 * @param array $fields The old version of the block attributes.
-	 *
-	 * @return array|null The new version of the block attributes.
 	 * @throws NotImplemented If no implementation is given by the subclass.
 	 */
-	public static function update_data( array $fields ): ?array {
+	public static function update_data( array $fields ) {
 		throw new NotImplemented( 'Method update_data is not implemented for ' . static::class );
 	}
 }

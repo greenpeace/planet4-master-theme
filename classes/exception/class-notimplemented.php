@@ -1,4 +1,9 @@
 <?php
+/**
+ * Check class comment below.
+ *
+ * @package P4GBKS
+ */
 
 namespace P4GBKS\Blocks;
 

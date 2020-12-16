@@ -173,10 +173,10 @@ class Rest_Api {
 				[
 					'methods'             => WP_REST_Server::CREATABLE,
 					'callback'            => static function ( WP_REST_Request $request ) {
-						$blocks      = [
+						$blocks     = [
 							SplitTwoColumns::BLOCK_NAME => SplitTwoColumns::class,
 						];
-						$block_name  = $request->get_param( 'blockname' );
+						$block_name = $request->get_param( 'blockname' );
 						/**
 						 * @var Base_Block $block_class
 						 */
