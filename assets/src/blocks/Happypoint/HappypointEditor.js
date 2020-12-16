@@ -1,7 +1,7 @@
-import { Fragment } from '@wordpress/element';
-import { HappypointFrontend } from './HappypointFrontend';
+import { Fragment, useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+import { HappypointFrontend } from './HappypointFrontend';
+import { MailingListIframeHelp } from './MailingListIframeHelp';
 
 import { debounce } from 'lodash';
 
@@ -21,8 +21,8 @@ import {
   RangeControl,
   PanelBody,
   Button,
-  Toolbar,
-  IconButton
+  ToolbarGroup,
+  ToolbarButton,
 } from '@wordpress/components';
 
 export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
@@ -37,7 +37,7 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
       imageUrl = (imageDetails && imageDetails.source_url) || '';
     }
     return { imageUrl };
-  }, [ id ]);
+  }, [id]);
 
   let focal_point_params = { x: '', y: '' };
 
@@ -76,12 +76,12 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
     setAttributes({ focus_image: `${floatX * 100}% ${floatY * 100}%` });
   }
 
-  const onRemoveImages = () => setAttributes({ id: -1, focus_image: '' });
+  const onRemoveImages = () => setAttributes({ id: '', focus_image: '' });
 
   const selectImage = ({ id }) => setAttributes({ id });
 
   const debounceIframeUrl = debounce(url => {
-    setAttributes( { iframe_url: url } );
+    setAttributes({ iframe_url: url });
   }, 300);
 
   return (
@@ -103,21 +103,24 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
               </div>
               <ToggleControl
                 label={__('Use mailing list iframe', 'planet4-blocks-backend')}
-                help={__('Use mailing list iframe', 'planet4-blocks-backend')}
                 value={mailing_list_iframe}
                 checked={mailing_list_iframe}
                 onChange={toAttribute('mailing_list_iframe')}
               />
-              <TextControl
-                label={__('Iframe url', 'planet4-blocks-backend')}
-                placeholder={__('Enter Iframe url', 'planet4-blocks-backend')}
-                help={__('If a url is set in this field and the \'mailing list iframe\' option is enabled, it will override the planet4 engaging network setting.', 'planet4-blocks-backend')}
-                value={iframeUrl}
-                onChange={url => {
-                  setIframeUrl(url);
-                  debounceIframeUrl(url);
-                }}
-              />
+              {mailing_list_iframe && (
+                <div>
+                  <TextControl
+                    label={__('Iframe URL', 'planet4-blocks-backend')}
+                    placeholder={__('Enter iframe URL', 'planet4-blocks-backend')}
+                    value={iframeUrl}
+                    onChange={url => {
+                      setIframeUrl(url);
+                      debounceIframeUrl(url);
+                    }}
+                  />
+                  <MailingListIframeHelp />
+                </div>
+              )}
               {id && 0 < id &&
                 <div className="wp-block-master-theme-happypoint__FocalPointPicker">
                   <FocalPointPicker
@@ -133,32 +136,30 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
           </InspectorControls>
           <BlockControls>
             {id && 0 < id && (
-              <Toolbar>
+              <ToolbarGroup>
                 <MediaUploadCheck>
                   <MediaUpload
                     onSelect={selectImage}
                     allowedTypes={['image']}
                     value={id}
                     type='image'
-                    render={({ open }) => {
-                      return (
-                        <IconButton
-                          className='components-icon-button components-toolbar__control'
-                          label={__('Edit Image', 'planet4-blocks-backend')}
-                          onClick={open}
-                          icon='edit'
-                        />
-                      );
-                    }}
+                    render={({ open }) => (
+                      <ToolbarButton
+                        className='components-icon-button components-toolbar__control'
+                        label={__('Edit Image', 'planet4-blocks-backend')}
+                        onClick={open}
+                        icon='edit'
+                      />
+                    )}
                   />
                 </MediaUploadCheck>
-                <IconButton
+                <ToolbarButton
                   className='components-icon-button components-toolbar__control'
                   label={__('Remove Image', 'planet4-blocks-backend')}
                   onClick={onRemoveImages}
                   icon='trash'
                 />
-              </Toolbar>
+              </ToolbarGroup>
             )}
           </BlockControls>
         </div>
