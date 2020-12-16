@@ -81,7 +81,7 @@ class SplitTwoColumns extends Base_Block {
 				'attributes'      => static::$attributes,
 				'render_callback' => function ( $attributes ) {
 					$json = \wp_json_encode(
-						[ 'attributes' => $this->update_data( $attributes ) ]
+						[ 'attributes' => self::update_data( $attributes ) ]
 					);
 
 					return '<div

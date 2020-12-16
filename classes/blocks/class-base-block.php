@@ -80,4 +80,16 @@ abstract class Base_Block {
 		}
 		return false;
 	}
+
+	/**
+	 * Update the attributes of a block to the latest version.
+	 *
+	 * @param array $fields The old version of the block attributes.
+	 *
+	 * @return array|null The new version of the block attributes.
+	 * @throws NotImplemented If no implementation is given by the subclass.
+	 */
+	public static function update_data( array $fields ): ?array {
+		throw new NotImplemented( 'Method update_data is not implemented for ' . static::class );
+	}
 }

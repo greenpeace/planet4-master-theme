@@ -5,6 +5,9 @@
 
 namespace P4GBKS\Rest;
 
+use P4GBKS\Blocks\Base_Block;
+use P4GBKS\Blocks\NotImplemented;
+use WP_Error;
 use WP_REST_Request;
 use WP_REST_Server;
 use P4GBKS\Blocks\Spreadsheet;
@@ -174,13 +177,22 @@ class Rest_Api {
 							SplitTwoColumns::BLOCK_NAME => SplitTwoColumns::class,
 						];
 						$block_name  = $request->get_param( 'blockname' );
+						/**
+						 * @var Base_Block $block_class
+						 */
 						$block_class = $blocks[ $block_name ] ?? null;
 
-						return rest_ensure_response(
-							$block_class && method_exists( $block_class, 'update_data' )
-								? $block_class::update_data( $request->get_params() )
-								: new WP_Error( 'error', 'Unknown block ' . ( $block_name ?? 'unspecified' ) )
-						);
+						if ( null === $block_class ) {
+							return new WP_Error( 'error', 'Unknown block ' . ( $block_name ?? 'unspecified' ) );
+						}
+
+						try {
+							$response = $block_class::update_data( $request->get_params() );
+						} catch ( NotImplemented $exception ) {
+							return new WP_Error( 'error', $exception->getMessage() );
+						}
+
+						return rest_ensure_response( $response );
 					},
 					'permission_callback' => static function () {
 						return current_user_can( 'edit_pages' );
