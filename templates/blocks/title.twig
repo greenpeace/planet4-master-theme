@@ -1,0 +1,10 @@
+<title>
+	{% if post.password_required %}
+		{{ site.name }}
+		{% set post_tags = '' %}
+	{% elseif wp_title %}
+		{{ wp_title|e('esc_html')|raw }} - {{ site.name }}
+	{% else %}
+		{{ site.name }}
+	{% endif %}
+</title>
