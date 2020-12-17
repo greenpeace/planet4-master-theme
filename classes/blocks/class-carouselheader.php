@@ -110,9 +110,8 @@ class CarouselHeader extends Base_Block {
 				}
 
 				if ( isset( $slide['focal_points'] ) ) {
-
-					$x = isset( $slide['focal_points']['x'] ) ? round( $slide['focal_points']['x'] * 100, 0 ) . '% ' : '50%';
-					$y = isset( $slide['focal_points']['y'] ) ? round( $slide['focal_points']['y'] * 100, 0 ) . '% ' : '50%';
+					$x = isset( $slide['focal_points']['x'] ) && is_numeric( $slide['focal_points']['x'] ) ? round( $slide['focal_points']['x'] * 100, 0 ) . '% ' : '50%';
+					$y = isset( $slide['focal_points']['y'] ) && is_numeric( $slide['focal_points']['y'] ) ? round( $slide['focal_points']['y'] * 100, 0 ) . '% ' : '50%';
 
 					$focus_image          = "$x $y";
 					$slide['focus_image'] = $focus_image;
