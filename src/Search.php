@@ -285,7 +285,7 @@ abstract class Search {
 	/**
 	 * Gets the paged posts that belong to the next page/load and are to be used with the twig template.
 	 */
-	public function get_paged_posts() {
+	public static function get_paged_posts() {
 		// If this is an ajax call.
 		if ( wp_doing_ajax() ) {
 			$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
