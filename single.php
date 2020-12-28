@@ -130,6 +130,9 @@ $context['post_comments_count'] = get_comments(
 
 if ( post_password_required( $post->ID ) ) {
 
+	// Password protected form validation.
+	$context['is_password_valid'] = $post->is_password_valid();
+
 	// Hide the post title from links to the extra feeds.
 	remove_action( 'wp_head', 'feed_links_extra', 3 );
 

@@ -5,15 +5,19 @@
 		<div class="page-header-background"></div>
 	</div>
 
-	<div class="page-template {% if hide_page_title_checkbox == 'on' %}no-page-title{% endif %}">
+	<div class="page-template">
 
-		<form id="password-form" class="mb-5" action="{{login_url}}?action=postpass" method="post">
-			<div class="form-group">
-				<label for="pwbox-{{post.ID}}"><h6>{{ __( 'To see the content of this page, please enter your password  below', 'planet4-master-theme' ) }}</h6></label>
-				<input class="form-control" name="post_password" id="pwbox-{{post.ID}}" type="password" size="20" maxlength="20">
+		<form id="password-form" class="" action="{{login_url}}?action=postpass" method="post">
+			<div class="mb-3">
+				<label for="pwbox-{{post.ID}}" class="form-label"><h6>{{ __( 'To see the content of this page, please enter your password  below', 'planet4-master-theme' ) }}</h6></label>
+				<div class="col-sm-8">
+					<input class="form-control password-field" name="post_password" id="pwbox-{{post.ID}}" type="password">
+				</div>
+				{% if not is_password_valid %} <span class="error-message">{{ __( 'Sorry, Invalid password.', 'planet4-master-theme' ) }}</span> {% endif %}
 			</div>
-			<button class="btn btn-primary" type="submit">{{ __( 'Submit', 'planet4-master-theme' ) }}</button>
+			<div class="mb-3">
+				<button class="btn btn-primary" type="submit">{{ __( 'Submit', 'planet4-master-theme' ) }}</button>
+			</div>
 		</form>
-
 	</div>
 {% endblock %}
