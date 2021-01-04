@@ -1,3 +1,5 @@
+import IMAGE_SIZES from './imageSizes';
+
 export const SplittwocolumnsFrontend = ({
   title,
   issue_description,
@@ -34,7 +36,9 @@ export const SplittwocolumnsFrontend = ({
             <img src={issue_image_src}
                  srcSet={issue_image_srcset}
                  alt={issue_image_title || ''}
-                 style={{objectPosition: focus_issue_image}} />
+                 style={{objectPosition: focus_issue_image}}
+                 sizes={IMAGE_SIZES.columnLeft}
+            />
           </div>
         }
         <div className="split-two-column-item-content">
@@ -68,7 +72,9 @@ export const SplittwocolumnsFrontend = ({
             <img src={tag_image_src}
                  srcSet={tag_image_srcset}
                  alt={tag_image_title || ''}
-                 style={{objectPosition: focus_tag_image}} />
+                 style={{objectPosition: focus_tag_image}}
+                 sizes={IMAGE_SIZES.columnRight}
+            />
           </div>
         }
         <div className="split-two-column-item-content">
