@@ -85,7 +85,7 @@
   font-family: $roboto;
   height: inherit;
   padding: $n20;
-  background: #074365;
+  background: $dark-blue;
   width: 100%;
 
   form {
@@ -95,25 +95,50 @@
     .custom-select,
     select.form-control.en__field__input--select,
     button {
-      margin-bottom: $space-md;
       min-width: 200px;
-
-      @include medium-and-up {
-        margin-bottom: inherit;
-      }
 
       @include  large-and-up {
         width: 100% !important;
       }
 
       &.is-invalid {
-        border-color: #ff3333;
+        border-color: rgba(247, 88, 72, 0.5);
+        background: $white;
+
+        &:focus {
+          border-color: rgba(247, 88, 72, 0.5);
+        }
       }
 
       + .invalid-feedback {
-        background: #ff3333;
+        background: rgb(247, 88, 72);
         color: white;
-        padding: $n5;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 6px 12px;
+        width: fit-content;
+        position: relative;
+        pointer-events: none;
+        margin-top: 6px;
+
+        &:after {
+          bottom: 100%;
+          border: solid transparent;
+          content: "";
+          height: 0;
+          width: 0;
+          position: absolute;
+          border-bottom-color: rgb(247, 88, 72);
+          border-width: 5px;
+          right: auto;
+          left: 16px;
+
+          html[dir="rtl"] & {
+            left: auto;
+            right: 16px;
+          }
+        }
       }
     }
 

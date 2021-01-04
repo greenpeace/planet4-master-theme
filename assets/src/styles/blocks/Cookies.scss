@@ -1,0 +1,9 @@
+.cookies-block {
+  .custom-control input[type="checkbox"] + .custom-control-description {
+    font-size: $font-size-sm;
+
+    @include x-large-and-up {
+      font-size: $font-size-md;
+    }
+  }
+}
