@@ -1218,25 +1218,6 @@ class MasterSite extends TimberSite {
 	 * @return string
 	 */
 	private function p4_message(): string {
-		$now           = new \DateTimeImmutable();
-		$over_date     = new \DateTimeImmutable( '2020-12-19' );
-		$party_is_over = $now >= $over_date;
-
-		if ( ! $party_is_over ) {
-			return '<style>#p4-notice li { list-style: disc; margin-left: 3em; }</style>
-				<h2>Time for the P4 Community to PAAARTTYYYY 🥳 🥳 🥳</h2>
-				<p>There’s already an invite in your calendars for <b>Friday, December 18th</b>
-				at 3pm GMT / 4pm CET / 10pm Bangkok / 12am Tokyo / 9am Mexico DF / 10 am NY / 12pm Sao Paulo - B. Aires,
-				but please shout in <a href="https://greenpeace.slack.com/archives/C014UMRC4AJ" target="_blank">#p4-general</a> if you did not get the invite!</p>
-				<p>Please join us (and invite others in your NRO/team) with your favourite drinks for games, dances and laughs (but <em>no work talks</em>)
-					<ul>
-						<li>🧞‍♀️🧞‍♂️ Dressing up is encouraged! Most awesome costumes will get prizes</li>
-						<li>🎶 <a href="https://www.youtube.com/playlist?list=PLRWtdTW6NaMUAxoBmV1baj7CStIIhuXtc&jct=DoU-zKSovfpKY5InMOOQTOiYwM6p7g" target="_blank">Here\'s a YouTube playlist for everyone to add their favourite songs</a></li>
-					</ul>
-				</p>
-				<p>☮️  🥂 💚</p>';
-		}
-
 		return '<h2>Welcome to the new P4 message board!</h2>
 			<p>Did you already join the community on Slack? Here\'s the Planet 4 channels waiting for you in the Global Workspace 👇
 				<ul>
