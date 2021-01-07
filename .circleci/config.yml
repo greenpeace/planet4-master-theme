@@ -31,8 +31,7 @@ job-references:
 
   install_dependencies: &install_dependencies
     name: "Install Dependencies"
-    command: |
-      composer install --dev
+    command: composer install
 
   php_job: &php_job
     environment:
@@ -55,17 +54,11 @@ job-references:
             mkdir -p /tmp/test-results/phpunit
             rm -rf $WP_TESTS_DIR $WP_CORE_DIR
             bash bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 latest
-            vendor/bin/phpunit --log-junit /tmp/test-results/phpunit/$CIRCLE_STAGE.xml --coverage-html /tmp/coverage-report --coverage-text
-      - run:
-          name: "stylelint"
-          when: always
-          command: stylelint $HOME/project/assets/src/styles/**/*.scss
-      - run:
-          name: "eslint"
-          when: always
-          command: eslint public/js/**/*.js tests/js
+            XDEBUG_MODE=coverage vendor/bin/phpunit --log-junit /tmp/test-results/phpunit/$CIRCLE_STAGE.xml --coverage-html /tmp/coverage-report --coverage-text
       - store_test_results:
           path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/coverage-report
 
   p4_instance_conf: &p4_instance_conf
     docker:
@@ -152,7 +145,7 @@ jobs:
   php73-tests:
     <<: *php_job
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:php7.3-develop
+      - image: greenpeaceinternational/p4-unit-tests:php7.3
         auth: &docker_auth
       - image: *mysql_image
         auth: &docker_auth
