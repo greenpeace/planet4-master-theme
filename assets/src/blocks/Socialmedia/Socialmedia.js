@@ -21,11 +21,13 @@ export class Socialmedia extends Component {
   componentDidMount() {
     this.checkTwitterScript();
     this.checkInstagramScript();
+    this.checkFacebookScript();
   }
 
   componentDidUpdate() {
     this.checkTwitterScript();
     this.checkInstagramScript();
+    this.checkFacebookScript();
   }
 
   /**
@@ -65,6 +67,24 @@ export class Socialmedia extends Component {
   }
 
   /**
+   * Check if facebook embeds script is loaded and initiliaze it.
+   */
+  checkFacebookScript() {
+    if (this.props.social_media_url.includes('facebook')) {
+      let fbScript = document.querySelector('script[src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0"]');
+
+      if (null === fbScript) {
+        let scriptLoaded = this.loadScriptAsync('https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0');
+        scriptLoaded.then(function () {
+          this.initializeFacebookEmbeds();
+        }.bind(this));
+      } else {
+        this.initializeFacebookEmbeds();
+      }
+    }
+  }
+
+  /**
    * Initialize twitter embeds.
    */
   initializeTwitterEmbeds() {
@@ -82,6 +102,17 @@ export class Socialmedia extends Component {
     setTimeout(function () {
       if ('undefined' !== window.instgrm) {
         window.instgrm.Embeds.process();
+      }
+    }, 3000);
+  }
+
+  /**
+   * Initialize facebook embeds.
+   */
+  initializeFacebookEmbeds() {
+    setTimeout(function () {
+      if ('undefined' !== window.FB) {
+        window.FB.XFBML.parse();
       }
     }, 3000);
   }
