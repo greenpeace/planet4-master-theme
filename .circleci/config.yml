@@ -5,6 +5,7 @@ workflows:
   main:
     jobs:
       - php73-tests
+      - frontend-tests
       - acceptance-tests
       - a11y-tests
       - create-release-zip:
@@ -149,6 +150,23 @@ jobs:
         auth: &docker_auth
       - image: *mysql_image
         auth: &docker_auth
+
+  frontend-tests:
+    docker:
+      - image: greenpeaceinternational/p4-unit-tests:nodelts
+        auth: &docker_auth
+    steps:
+      - checkout
+      - run:
+          name: Lint CSS
+          when: always
+          command: stylelint assets/src/**/*.scss
+      - run:
+          name: Lint JS
+          when: always
+          command: eslint public/js/**/*.js tests/js
+      - store_test_results:
+          path: /tmp/test-results
 
   acceptance-tests:
     <<: *p4_instance_conf
