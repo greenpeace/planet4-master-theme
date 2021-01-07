@@ -4,7 +4,6 @@ version: 2.1
 workflows:
   main:
     jobs:
-      - php72-tests
       - php73-tests
       - acceptance-tests
       - a11y-tests
@@ -150,14 +149,6 @@ commands:
           command: notify-job-failure.sh
 
 jobs:
-  php72-tests:
-    <<: *php_job
-    docker:
-      - image: greenpeaceinternational/p4-unit-tests:php7.2-develop
-        auth: &docker_auth
-      - image: *mysql_image
-        auth: &docker_auth
-
   php73-tests:
     <<: *php_job
     docker:
