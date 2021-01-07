@@ -7,6 +7,13 @@
 	{% include 'blocks/meta_fields.twig' %}
 
 	{% if google_tag_value %}
+		{% if ab_hide_selector %}
+		<style>
+			.google-optimize-loading {{ ab_hide_selector }} {
+				opacity: 0 !important;
+			}
+		</style>
+		{% endif %}
 		<script>
 			var google_tag_value = '{{ google_tag_value }}';
 
@@ -20,15 +27,11 @@
 				'gPlatform': 'Planet 4'
 			});
 
-			// Needed anti-flicker snippet if Optimizer is enabled
-			var google_optimizer = '{{ google_optimizer }}';
-			if (google_optimizer) {
-				(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
-				h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
-				(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
-				})(window,document.documentElement,'async-hide','dataLayer',4000,
-				{'{{ google_tag_value }}':true});
-			}
+			(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+			h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+			(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+			})(window,document.documentElement,'google-optimize-loading','dataLayer',4000,
+			{'{{ google_tag_value }}':true});
 
 			{% if not post.password_required %}
 				var cf_campaign_name = '{% if cf_campaign_name is defined and cf_campaign_name is not null %}{{ cf_campaign_name|raw }}{% endif %}';
