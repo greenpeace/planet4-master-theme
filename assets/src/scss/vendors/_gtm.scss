@@ -1,3 +1,4 @@
-.async-hide {
+// Hide elements that will be AB-tested until the test is ready.
+.google-optimize-loading .ab-hide {
   opacity: 0 !important;
 }
