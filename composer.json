@@ -17,7 +17,7 @@
     "phpunit/phpunit": "^6.2"
   },
   "require": {
-    "greenpeace/github-archive-installer": "1.1"
+    "greenpeace/github-archive-installer": "1.2"
   },
   "scripts": {
     "fixes": "vendor/bin/phpcbf",
