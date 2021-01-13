@@ -67,8 +67,9 @@ class Rest_Controller {
 			P4_REST_SLUG . '/' . $version,
 			'/questions_available',
 			[
-				'methods'  => \WP_REST_Server::READABLE,
-				'callback' => [ $questions_controller, 'get_available_questions' ],
+				'methods'             => \WP_REST_Server::READABLE,
+				'callback'            => [ $questions_controller, 'get_available_questions' ],
+				'permission_callback' => [ $this, 'is_allowed' ],
 			]
 		);
 
@@ -86,8 +87,9 @@ class Rest_Controller {
 			P4_REST_SLUG . '/' . $version,
 			'/questions',
 			[
-				'methods'  => \WP_REST_Server::READABLE,
-				'callback' => [ $questions_controller, 'get_questions' ],
+				'methods'             => \WP_REST_Server::READABLE,
+				'callback'            => [ $questions_controller, 'get_questions' ],
+				'permission_callback' => [ $this, 'is_allowed' ],
 			]
 		);
 
@@ -180,7 +182,6 @@ class Rest_Controller {
 				'permission_callback' => [ $this, 'is_allowed' ],
 			]
 		);
-
 	}
 
 	/**

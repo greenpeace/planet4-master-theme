@@ -57,8 +57,11 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				'plugin_blocks/v2',
 				'/plugin_blocks_report/',
 				[
-					'methods'  => 'GET',
-					'callback' => [ $this, 'plugin_blocks_report_json' ],
+					'methods'             => 'GET',
+					'callback'            => [ $this, 'plugin_blocks_report_json' ],
+					'permission_callback' => function () {
+						return true;
+					},
 				]
 			);
 		}
