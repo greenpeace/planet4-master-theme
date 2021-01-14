@@ -339,13 +339,6 @@ class Settings {
 						'id'   => 'google_tag_manager_identifier',
 						'type' => 'text',
 					],
-
-					[
-						'name' => __( 'Google Optimize anti-flicker snippet', 'planet4-master-theme-backend' ),
-						'desc' => __( 'It will include the relevant snippet for A/B testing.', 'planet4-master-theme-backend' ),
-						'id'   => 'google_optimizer',
-						'type' => 'checkbox',
-					],
 					[
 						'name' => __( 'AB Hide Selector', 'planet4-master-theme-backend' ),
 						'desc' => __(
