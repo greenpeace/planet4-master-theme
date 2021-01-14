@@ -5,6 +5,13 @@
 {% endblock %}
 
 <body class="{{ body_class }} {{ custom_body_classes|default("") }}" data-nro="{{ site.link }}" data-post-type="{{ fn( 'get_post_type' ) }}">
+	{% if google_tag_value %}
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ google_tag_value }}"
+						  height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<!-- End Google Tag Manager (noscript) -->
+	{% endif %}
 
 	<ul class="skip-links" aria-hidden="true">
 		<li><a href="#header">{{ __( 'Skip to Navigation', 'planet4-master-theme' ) }}</a></li>
@@ -13,13 +20,6 @@
 	</ul>
 	<a class="back-top d-none" title="{{ __('Go to the top of the page.', 'planet4-master-theme') }}"
 	   onclick="window.scrollTo({top: 0})"></a>
-	{% if google_tag_value %}
-		<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ google_tag_value }}"
-						  height="0" width="0" style="display:none;visibility:hidden"></iframe>
-		</noscript>
-		<!-- End Google Tag Manager (noscript) -->
-	{% endif %}
 
 	{% if custom_styles.nav_type == 'minimal' %}
 		{% include 'navigation-bar_min.twig' with data_nav_bar %}
