@@ -242,9 +242,15 @@ jobs:
               exit 1
             fi
       - run:
-          name: "Call webhook to get free instance (mock for now). If an instance is already on the branch, use that one."
+          name: "Python script deps"
           command: |
-            echo oberon > /tmp/workspace/test-instance
+            pip install requests requests_oauthlib
+      - run:
+          name: "Book instance"
+          command: |
+            JIRA_USERNAME=planet4 python /home/circleci/book-test-instance.py \
+            --pr-url $CIRCLE_PULL_REQUEST \
+            --results /tmp/workspace/booking.json >/tmp/workspace/test-instance
       - run: activate-gcloud-account.sh
       - run:
           name: "Put zip in cloud storage"
@@ -260,6 +266,7 @@ jobs:
           root: /tmp/workspace
           paths:
             - test-instance
+            - booking.json
 
   lighthouse:
     executor: lighthouse-check/default
