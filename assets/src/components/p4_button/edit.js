@@ -168,7 +168,6 @@ function ButtonEdit( {
 	fallbackBackgroundColor,
 	fallbackTextColor,
 	setAttributes,
-	className,
 	isSelected,
 } ) {
 	const {
@@ -177,7 +176,8 @@ function ButtonEdit( {
 		placeholder,
 		rel,
 		text,
-		url,
+    url,
+    className,
 	} = attributes;
 	const onSetLinkRel = useCallback(
 		( value ) => {
@@ -211,7 +211,7 @@ function ButtonEdit( {
 	} = __experimentalUseGradient();
 
 	return (
-		<div className={ className }>
+		<div className={`wp-block-button ${className}`}>
 			<RichText
 				placeholder={ placeholder || __( 'Add text…' ) }
 				value={ text }
