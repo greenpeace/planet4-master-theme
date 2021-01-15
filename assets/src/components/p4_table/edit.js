@@ -522,12 +522,11 @@ export class TableEdit extends Component {
 	render() {
 		const {
 			attributes,
-			className,
 			backgroundColor,
 			setBackgroundColor,
-			setAttributes,
+      setAttributes,
         } = this.props;
-        
+
 		const { initialRowCount, initialColumnCount } = this.state;
 		const { hasFixedLayout, caption, head, body, foot } = attributes;
 		const isEmpty =
@@ -635,7 +634,7 @@ export class TableEdit extends Component {
 						] }
 					/>
 				</InspectorControls>
-				<figure className={ className }>
+				<figure className={`wp-block-table ${attributes.className}`}>
 					<table className={ tableClasses }>
 						<Section name="head" rows={ head } />
 						<Section name="body" rows={ body } />
