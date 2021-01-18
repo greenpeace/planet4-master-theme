@@ -3,15 +3,16 @@ msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-08 09:59+0000\n"
-"PO-Revision-Date: 2020-11-06 11:47+0200\n"
-"Last-Translator: Berit Soolsma <bsoolsma@greenpeace.org>\n"
+"PO-Revision-Date: 2021-01-18 08:03+0000\n"
+"Last-Translator: Oscar Keur\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.5.0; wp-5.4.2"
 
 #: functions.php:144
 msgid "Navigation Bar Menu"
@@ -266,7 +267,7 @@ msgstr "Donate button link"
 
 #: classes/class-p4-settings.php:152
 msgid "404 Background Image"
-msgstr "404 Background Image"
+msgstr ""
 
 #: classes/class-p4-settings.php:159
 msgid "Add 404 Page Background Image"
