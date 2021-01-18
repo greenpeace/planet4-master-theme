@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-08 09:59+0000\n"
-"PO-Revision-Date: 2021-01-18 08:03+0000\n"
+"PO-Revision-Date: 2021-01-18 08:55+0000\n"
 "Last-Translator: Oscar Keur\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -281,7 +281,7 @@ msgstr ""
 
 #: classes/class-p4-settings.php:168
 msgid "404 Page text"
-msgstr "404 Page text"
+msgstr ""
 
 #: classes/class-p4-settings.php:175
 msgid "Add 404 page text"
