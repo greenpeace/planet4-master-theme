@@ -16,7 +16,7 @@ jobs:
   lint:
     <<: *defaults
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:php7.3-develop
+      - image: greenpeaceinternational/p4-unit-tests:nodelts
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
@@ -105,7 +105,7 @@ jobs:
       - run: make -C deploy docker-build
       - run: make -C deploy test-a11y
       - run: make -C deploy docker-push
-      - run: make -C deploy prod      
+      - run: make -C deploy prod
       - store_artifacts:
           path: ~/app/deploy/docker/source/pa11y
 
