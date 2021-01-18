@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-07 10:10+0000\n"
-"PO-Revision-Date: 2021-01-18 10:18+0000\n"
+"PO-Revision-Date: 2021-01-18 10:38+0000\n"
 "Last-Translator: Oscar Keur\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -275,126 +275,126 @@ msgstr "Noodzakelijke cookies paragraaf"
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:76
 #, php-format
 msgid "Enter %s link text"
-msgstr ""
+msgstr "Voor %s link tekst in"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:86
 #, php-format
 msgid "Enter %s link url"
-msgstr ""
+msgstr "Voer %s link in"
 
 #: classes/controller/blocks/class-articles-controller.php:62
 msgid "Enter article heading"
-msgstr ""
+msgstr "Voer artikel kop in"
 
 #: classes/controller/blocks/class-articles-controller.php:70
 msgid "Enter articles count"
-msgstr ""
+msgstr "Voer aantal artikelen in"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:169
 msgid "Enter button link"
-msgstr ""
+msgstr "Voer knop link in"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:111
 #, php-format
 msgid "Enter button link of %s task/column"
-msgstr ""
+msgstr "Voer knop link in van %s taak/kolom"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:74
 msgid "Enter button link of first column"
-msgstr ""
+msgstr "Voer knop link in van eerste kolom"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:109
 msgid "Enter button link of second column"
-msgstr ""
+msgstr "Voor knop tekst in van tweede kolom"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:160
 msgid "Enter button text"
-msgstr ""
+msgstr "Voer knop tekst in"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:98
 #, php-format
 msgid "Enter button text of %s task/column"
-msgstr ""
+msgstr "Voer knop tekst in van %s taak/kolom"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:39
 #: classes/controller/blocks/class-covers-controllers.php:38
 #: classes/controller/blocks/class-splittwocolumns-controller.php:99
 #: classes/controller/blocks/class-splittwocolumns-controller.php:151
 msgid "Enter description"
-msgstr ""
+msgstr "Voer omschrijving in"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:66
 #, php-format
 msgid "Enter description of %s column"
-msgstr ""
+msgstr "Voer omschrijving in van %s kolom"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:86
 #, php-format
 msgid "Enter description of %s image"
-msgstr ""
+msgstr "Voer omschrijving in van %s afbeelding"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:74
 #, php-format
 msgid "Enter description of %s task/column"
-msgstr ""
+msgstr "Voer omschrijving van %s taak/kolom"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:57
 msgid "Enter description of first column"
-msgstr ""
+msgstr "Voer omschrijving in van eerste kolom"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:93
 msgid "Enter description of second column"
-msgstr ""
+msgstr "Voer omschrijving in van tweede kolom"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:65
 #, php-format
 msgid "Enter header of %s image"
-msgstr ""
+msgstr "Voer kop in van %s afbeelding"
 
 #: classes/controller/blocks/class-happypoint-controller.php:93
 msgid "Enter iframe url"
-msgstr ""
+msgstr "Voeg iframe link in"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:117
 msgid "Enter link path"
-msgstr ""
+msgstr "Voeg link in"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:108
 msgid "Enter link text"
-msgstr ""
+msgstr "Voeg link tekst in"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:96
 #, php-format
 msgid "Enter link text for %s image"
-msgstr ""
+msgstr "Voeg link tekst in voor %s afbeelding"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:106
 #, php-format
 msgid "Enter link url for %s image"
-msgstr ""
+msgstr "Voeg link in voor %s afbeelding"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:76
 #, php-format
 msgid "Enter subheader of %s image"
-msgstr ""
+msgstr "Voeg subkop in van %s afbeelding"
 
 #: classes/controller/blocks/class-tasks-controller.php:43
 msgid "Enter tasks description"
-msgstr ""
+msgstr "Voeg taak omschrijving toe "
 
 #: classes/controller/blocks/class-tasks-controller.php:34
 msgid "Enter tasks title"
-msgstr ""
+msgstr "Voeg taak titel toe"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:31
 #: classes/controller/blocks/class-covers-controllers.php:29
@@ -402,41 +402,41 @@ msgstr ""
 #: classes/controller/blocks/class-splittwocolumns-controller.php:89
 #: classes/controller/blocks/class-carousel-controller.php:75
 msgid "Enter title"
-msgstr ""
+msgstr "Voeg titel toe"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:57
 #: classes/controller/blocks/class-submenu-controller.php:132
 msgid "Enter title for this block"
-msgstr ""
+msgstr "Voeg titel toe voor dit blok"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:56
 #, php-format
 msgid "Enter title of %s column"
-msgstr ""
+msgstr "Voeg titel toe voor %s kolom"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:61
 #, php-format
 msgid "Enter title of %s task/column"
-msgstr ""
+msgstr "Voeg titel toe voor %s taak/kolom"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:48
 msgid "Enter title of first column"
-msgstr ""
+msgstr "Voeg titel toe voor eerste kolom"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:85
 msgid "Enter title of second column"
-msgstr ""
+msgstr "Voeg titel toe voor tweede kolom"
 
 #: classes/controller/blocks/class-mediavideo-controller.php:31
 msgid "Enter video title"
-msgstr ""
+msgstr "Voeg video titel toe"
 
 #: classes/controller/blocks/class-mediavideo-controller.php:39
 msgid "Enter youtube video id"
-msgstr ""
+msgstr "Voer Youtube video id in"
 
 #: classes/controller/blocks/class-happypoint-controller.php:100
 msgid "Happy Point"
@@ -444,31 +444,31 @@ msgstr ""
 
 #: classes/controller/blocks/class-carouselheader-controller.php:60
 msgid "Header"
-msgstr ""
+msgstr "Koptekst"
 
 #: classes/controller/blocks/class-submenu-controller.php:92
 msgid "Heading"
-msgstr ""
+msgstr "Kop"
 
 #: classes/controller/blocks/class-happypoint-controller.php:86
 msgid "Iframe url"
-msgstr ""
+msgstr "Iframe link"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:43
 msgid "Image 1"
-msgstr ""
+msgstr "Afbeelding 1"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:51
 msgid "Image 2"
-msgstr ""
+msgstr "Afbeelding 2"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:59
 msgid "Image 3"
-msgstr ""
+msgstr "Afbeelding 3"
 
 #: classes/controller/blocks/class-carouselsplit-controller.php:28
 msgid "Images"
-msgstr ""
+msgstr "Afbeeldingen"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:95
 msgid "Issue Description"
@@ -504,7 +504,7 @@ msgstr "Omschrijving naast 'noodzakelijke cookies' vinkje"
 
 #: classes/controller/blocks/class-submenu-controller.php:108
 msgid "Long full-width"
-msgstr ""
+msgstr "Lang volledige breedte"
 
 #: classes/controller/blocks/class-cookies-controller.php:39
 msgid "Main description for cookies block"
@@ -517,15 +517,15 @@ msgstr "Cookies titel"
 #. A block that displays an image that supports transparency and blends with the background.
 #: classes/controller/blocks/class-mediablock-controller.php:42
 msgid "Media block"
-msgstr ""
+msgstr "Media blok"
 
 #: classes/class-loader.php:114
 msgid "Minimum required version of PHP: "
-msgstr ""
+msgstr "Minimum vereiste PHP versie:"
 
 #: classes/class-loader.php:97
 msgid "Minimum version "
-msgstr ""
+msgstr "Minimum versie"
 
 #: classes/controller/blocks/class-cookies-controller.php:50
 msgid "Necessary Cookies Description"
@@ -537,7 +537,7 @@ msgstr "Noodzakelijke cookies naam"
 
 #: classes/controller/blocks/class-submenu-controller.php:86
 msgid "None"
-msgstr ""
+msgstr "Geen"
 
 #: classes/controller/blocks/class-covers-controllers.php:51
 msgid "Number of covers displayed"
