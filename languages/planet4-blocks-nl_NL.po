@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2021-01-18 10:20+0000\n"
+"PO-Revision-Date: 2021-01-18 11:02+0000\n"
 "Last-Translator: Oscar Keur\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
@@ -151,7 +151,7 @@ msgstr "Vorige"
 
 #: assets/src/blocks/Counter/CounterBlock.js:78
 msgid "Progress Bar"
-msgstr "Voortgangsbalk"
+msgstr "Rechte voortgangsbalk"
 
 #: assets/src/blocks/Counter/CounterBlock.js:90
 msgid "Progress Bar inside EN Form"
@@ -172,7 +172,7 @@ msgstr "Zoek data"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:191
 msgid "Sort by"
-msgstr "Sorterern op"
+msgstr "Sorteren op"
 
 #: assets/src/blocks/Submenu/SubmenuLevel.js:34
 msgid "Submenu item"
