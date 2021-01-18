@@ -1,6 +1,9 @@
 ---
 version: 2.1
 
+orbs:
+  lighthouse-check: foo-software/lighthouse-check@0.0.8
+
 workflows:
   main:
     jobs:
@@ -8,8 +11,25 @@ workflows:
       - frontend-tests
       - acceptance-tests
       - a11y-tests
-      - create-release-zip:
+      - create-zip:
+          filters:
+            tags:
+              only: /^v\p{Digit}+\.\p{Digit}+.*/
+      - request-instance:
           context: org-global
+          requires:
+            - create-zip
+      - instance-ready:
+          type: approval
+          requires:
+            - request-instance
+      - lighthouse:
+          requires:
+            - instance-ready
+      - publish-zip:
+          context: org-global
+          requires:
+            - create-zip
           filters:
             branches:
               ignore: /.*/
@@ -205,12 +225,72 @@ jobs:
             errors=$(jq '.errors' planet4-docker-compose/artifacts/pa11y/pa11y-ci-results.json)
             if [ "$errors" -gt 0 ]; then echo "$errors errors found, see report in artifacts."; else echo "No errors, report available in artifacts."; fi
 
-  create-release-zip:
+  request-instance:
+    environment:
+      GOOGLE_PROJECT_ID: planet-4-151612
     docker:
-      - image: mhart/alpine-node
+      - image: greenpeaceinternational/p4-builder:latest
         auth: &docker_auth
     steps:
-      - run: apk add curl zip git openssh-client jq python2 make g++
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: "Check if this is for an open PR."
+          command: |
+            if [ -z "$CIRCLE_PULL_REQUEST" ];then
+              echo echo "No PR, skipping instance deploy"
+              exit 1
+            fi
+      - run:
+          name: "Python script deps"
+          command: |
+            pip install requests requests_oauthlib
+      - run:
+          name: "Book instance"
+          command: |
+            JIRA_USERNAME=planet4 python /home/circleci/book-test-instance.py \
+            --pr-url $CIRCLE_PULL_REQUEST \
+            --results /tmp/workspace/booking.json >/tmp/workspace/test-instance
+      - run: activate-gcloud-account.sh
+      - run:
+          name: "Put zip in cloud storage"
+          command: |
+            filename="planet4-master-theme.zip"
+            echo "planet4-packages/planet4-master-theme/${CIRCLE_SHA1}.zip" > /tmp/workspace/zip-path
+            gs_path="gs://$(cat /tmp/workspace/zip-path)"
+            gsutil -q stat "$gs_path" || gsutil cp "/tmp/workspace/$filename" "$gs_path"
+      - run:
+          name: "Commit to test instance repo"
+          command: /home/circleci/trigger_test_instance.sh planet4-master-theme
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - test-instance
+            - booking.json
+
+  lighthouse:
+    executor: lighthouse-check/default
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - lighthouse-check/audit:
+          urls: |
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/act/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/act/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/act/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/explore/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/explore/,\
+            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/explore/\
+
+  create-zip:
+    docker:
+      - image: mhart/alpine-node:14
+        auth: &docker_auth
+    steps:
+      - run: apk add zip git openssh-client python2 make g++
       - checkout
       - run: git submodule init && git submodule update
       - run: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
@@ -231,6 +311,23 @@ jobs:
               echo "Zip file size exceeds 5MB, probably something went wrong."
               exit 1
             fi
+      - persist_to_workspace:
+          root: .
+          paths:
+            - composer.json
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - planet4-master-theme.zip
+
+  publish-zip:
+    docker:
+      - image: mhart/alpine-node:14
+        auth: &docker_auth
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: apk add curl jq
       - run:
           name: "Get upload url for this tag"
           command: |
