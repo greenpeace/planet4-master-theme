@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2021-01-18 08:54+0000\n"
+"PO-Revision-Date: 2021-01-18 10:20+0000\n"
 "Last-Translator: Oscar Keur\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
@@ -159,7 +159,7 @@ msgstr "Voortgangsbalk binnen een Engaging Networks formulier"
 
 #: assets/src/blocks/Counter/CounterBlock.js:82
 msgid "Progress Dial"
-msgstr ""
+msgstr "Ronde voortgangsbalk"
 
 #: classes/blocks/class-articles.php:50
 #: assets/src/blocks/Articles/ArticlesBlock.js:21
