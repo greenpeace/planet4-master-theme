@@ -5,7 +5,7 @@
 			class="en__field__input en__field__input--select en_select_position form-control"
 			data-errormessage="{{ errorMessage }}"
 			{{ 'true' == field.required ? 'required' : '' }}>
-			<option value="" selected="selected">- {{ __( 'Select Affiliation, Position or Profession', 'planet4-engagingnetworks' ) }} -</option>
+			<option value="" selected="selected" disabled={{ field.required == 'true' }}>{{ __( 'Select Affiliation, Position or Profession', 'planet4-engagingnetworks' ) }}{{ 'true' == field.required ? '*' : '' }}</option>
 			<option value="politician">Politician / Political figure</option>
 			<option value="scientist">Scientist / Academic</option>
 			<option value="business_leader">Business leader / Business</option>
