@@ -237,9 +237,17 @@ jobs:
       - run:
           name: "Check if this is for an open PR."
           command: |
-            if [ -z "$CIRCLE_PULL_REQUEST" ];then
-              echo echo "No PR, skipping instance deploy"
-              exit 1
+            if [[ $(cat /tmp/workspace/commit-message) =~ ^Merge[[:space:]]pull[[:space:]]request[[:space:]]\#([[:digit:]]+) ]]; then
+              echo BASH_REMATCH[1] > /tmp/workspace/pr
+              echo "MERGED PR ID: ${BASH_REMATCH[1]}"
+              echo true > /tmp/workspace/is_merge_commit
+            else
+              if [ -z "$CIRCLE_PULL_REQUEST" ];then
+                echo echo "No PR, skipping instance deploy"
+                exit 1
+              fi
+              echo false > /tmp/workspace/is_merge_commit
+              echo $CIRCLE_PULL_REQUEST > /tmp/workspace/pr
             fi
       - run:
           name: "Python script deps"
@@ -249,7 +257,7 @@ jobs:
           name: "Book instance"
           command: |
             JIRA_USERNAME=planet4 python /home/circleci/book-test-instance.py \
-            --pr-url $CIRCLE_PULL_REQUEST \
+            --pr-url $(cat /tmp/workspace/pr) \
             --results /tmp/workspace/booking.json >/tmp/workspace/test-instance
       - run: activate-gcloud-account.sh
       - run:
@@ -261,7 +269,7 @@ jobs:
             gsutil -q stat "$gs_path" || gsutil cp "/tmp/workspace/$filename" "$gs_path"
       - run:
           name: "Commit to test instance repo"
-          command: /home/circleci/trigger_test_instance.sh planet4-master-theme
+          command: /home/circleci/trigger_test_instance.sh planet4-master-theme $(cat /tmp/workspace/is_merge_commit)
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
@@ -293,12 +301,15 @@ jobs:
       - run: apk add zip git openssh-client python2 make g++
       - checkout
       - run: git submodule init && git submodule update
+      - run: mkdir -p /tmp/workspace/
+      - run:
+          name: "Extract commit message"
+          command: git log --format=%B -n 1 $CIRCLE_SHA1 > /tmp/workspace/commit-message
       - run: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
       - run: npm run build
       - run:
           name: "Remove files we don't want in the zip file."
           command: rm -rf .circleci .git .githooks assets/src bin tests
-      - run: mkdir -p /tmp/workspace/
       # Exclude node_modules instead of removing, which takes a long time (lots of small files).
       - run:
           name: "Create zip file"
@@ -319,6 +330,7 @@ jobs:
           root: /tmp/workspace
           paths:
             - planet4-master-theme.zip
+            - commit-message
 
   publish-zip:
     docker:
