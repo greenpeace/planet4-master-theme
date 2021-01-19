@@ -236,9 +236,17 @@ jobs:
       - run:
           name: "Check if this is for an open PR."
           command: |
-            if [ -z "$CIRCLE_PULL_REQUEST" ];then
-              echo echo "No PR, skipping instance deploy"
-              exit 1
+            if [[ $(cat /tmp/workspace/commit-message) =~ ^Merge[[:space:]]pull[[:space:]]request[[:space:]]\#([[:digit:]]+) ]]; then
+              echo "https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/pull/${BASH_REMATCH[1]}" > /tmp/workspace/pr
+              echo "MERGED PR ID: ${BASH_REMATCH[1]}"
+              echo true > /tmp/workspace/is_merge_commit
+            else
+              if [ -z "$CIRCLE_PULL_REQUEST" ];then
+                echo echo "No PR, skipping instance deploy"
+                exit 1
+              fi
+              echo false > /tmp/workspace/is_merge_commit
+              echo $CIRCLE_PULL_REQUEST > /tmp/workspace/pr
             fi
       - run:
           name: "Python script deps"
@@ -248,7 +256,7 @@ jobs:
           name: "Book instance"
           command: |
             JIRA_USERNAME=planet4 python /home/circleci/book-test-instance.py \
-            --pr-url $CIRCLE_PULL_REQUEST \
+            --pr-url $(cat /tmp/workspace/pr) \
             --results /tmp/workspace/booking.json >/tmp/workspace/test-instance
       - run: activate-gcloud-account.sh
       - run:
@@ -260,7 +268,7 @@ jobs:
             gsutil -q stat "$gs_path" || gsutil cp "/tmp/workspace/$filename" "$gs_path"
       - run:
           name: "Commit to test instance repo"
-          command: /home/circleci/trigger_test_instance.sh planet4-plugin-gutenberg-blocks
+          command: /home/circleci/trigger_test_instance.sh planet4-plugin-gutenberg-blocks $(cat /tmp/workspace/is_merge_commit)
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
