@@ -300,12 +300,15 @@ jobs:
       - run: apk add zip git openssh-client python2 make g++
       - checkout
       - run: git submodule init && git submodule update
+      - run: mkdir -p /tmp/workspace/
+      - run:
+          name: "Extract commit message"
+          command: git log --format=%B -n 1 $CIRCLE_SHA1 > /tmp/workspace/commit-message
       - run: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
       - run: npm run build
       - run:
           name: "Remove files we don't want in the zip file."
           command: rm -rf .circleci .git .githooks assets/src bin tests
-      - run: mkdir -p /tmp/workspace/
       # Exclude node_modules instead of removing, which takes a long time (lots of small files).
       - run:
           name: "Create zip file"
@@ -326,6 +329,7 @@ jobs:
           root: /tmp/workspace
           paths:
             - planet4-plugin-gutenberg-blocks.zip
+            - commit-message
 
   publish-zip:
     docker:
