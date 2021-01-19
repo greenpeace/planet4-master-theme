@@ -1,7 +1,6 @@
 .comment-form {
   display: block;
   padding-bottom: 60px;
-  border-bottom: 1px solid $grey-40;
 
   .form-group {
     margin-bottom: 32px;
@@ -15,46 +14,7 @@
     }
   }
 
-  input,
   textarea {
-    font-size: $font-size-xs;
-    font-weight: 300;
-    border: none;
-    transition: background-color 150ms linear;
-
-    @include large-and-up {
-      font-size: $font-size-sm;
-    }
-
-    &:focus {
-      background-color: transparentize($white, .6);
-    }
-
-    &::placeholder {
-      color: $grey-80;
-    }
-
-    &::-webkit-input-placeholder {
-      color: $grey-80;
-    }
-
-    &::-ms-input-placeholder {
-      color: $grey-80;
-    }
-  }
-
-  label {
-    font-size: $font-size-sm;
-    font-weight: 500;
-  }
-
-  label[for=comments-textarea] {
-    display: none;
-  }
-
-  textarea {
-    background-color: $comment-text;
-    padding: 13px;
     margin-bottom: 20px;
 
     @include small-and-up {
@@ -63,7 +23,6 @@
 
     @include medium-and-up {
       margin-bottom: 40px;
-      font-size: $font-size-sm;
     }
 
     @include large-and-up {
@@ -72,14 +31,7 @@
   }
 
   input {
-    border-bottom: 1px solid $black;
-    background-color: transparent;
-    padding: 7px $n5 $n5;
     width: 100%;
-
-    &:focus {
-      border-bottom-color: $grey-60;
-    }
 
     @include medium-and-up {
       width: 50%;
