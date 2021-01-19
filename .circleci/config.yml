@@ -238,7 +238,7 @@ jobs:
           name: "Check if this is for an open PR."
           command: |
             if [[ $(cat /tmp/workspace/commit-message) =~ ^Merge[[:space:]]pull[[:space:]]request[[:space:]]\#([[:digit:]]+) ]]; then
-              echo BASH_REMATCH[1] > /tmp/workspace/pr
+              echo "https://github.com/greenpeace/planet4-master-theme/pull/${BASH_REMATCH[1]}" > /tmp/workspace/pr
               echo "MERGED PR ID: ${BASH_REMATCH[1]}"
               echo true > /tmp/workspace/is_merge_commit
             else
