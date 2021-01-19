@@ -162,27 +162,5 @@
     .formblock-flex .en__field {
       width: 100%;
     }
-
-    .en__field__element {
-      position: relative;
-
-      input[type=text],
-      select,
-      input[type=email],
-      input[type=tel] {
-        &.is-invalid {
-          border: 1px solid #ff3333;
-          margin-bottom: 6px;
-        }
-      }
-    }
-
-    .invalid-feedback {
-      color: #ff3333;
-      font-weight: bold;
-      margin: 0;
-      padding: 0;
-      background: none;
-    }
   }
 }
