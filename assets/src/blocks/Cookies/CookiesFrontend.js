@@ -157,7 +157,7 @@ export class CookiesFrontend extends Component {
           }
           {(isEditing || (necessary_cookies_name && necessary_cookies_description)) &&
             <Fragment>
-              <label className="custom-control custom-checkbox"
+              <label className="custom-control"
                 style={isSelected ? { pointerEvents: 'none' } : null}>
                 <input
                   type="checkbox"
@@ -195,7 +195,7 @@ export class CookiesFrontend extends Component {
           }
           {(isEditing || (all_cookies_name && all_cookies_description)) &&
             <Fragment>
-              <label className="custom-control custom-checkbox"
+              <label className="custom-control"
                 style={isSelected ? { pointerEvents: 'none' } : null}>
                 <input
                   type="checkbox"

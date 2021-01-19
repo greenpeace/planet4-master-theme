@@ -106,14 +106,6 @@ table.spreadsheet-table {
 .spreadsheet-search {
   width: 350px;
   max-width: 100%;
-  height: 2rem;
-  padding: 0 8px;
-
-  --block-spreadsheet--header-- {
-    border-color: $table-header-grey;
-  }
-  border: 1px solid;
-  font-family: $roboto;
 }
 
 .spreadsheet-empty-message {

@@ -85,7 +85,7 @@
   font-family: $roboto;
   height: inherit;
   padding: $n20;
-  background: #074365;
+  background: $dark-blue;
   width: 100%;
 
   form {
@@ -95,38 +95,51 @@
     .custom-select,
     select.form-control.en__field__input--select,
     button {
-      border-color: transparent;
-      margin-bottom: $space-md;
       min-width: 200px;
-
-      @include medium-and-up {
-        margin-bottom: inherit;
-      }
 
       @include  large-and-up {
         width: 100% !important;
       }
 
       &.is-invalid {
-        border-color: #ff3333;
+        border-color: rgba(247, 88, 72, 0.5);
+        background: $white;
+
+        &:focus {
+          border-color: rgba(247, 88, 72, 0.5);
+        }
       }
 
       + .invalid-feedback {
-        background: #ff3333;
+        background: rgb(247, 88, 72);
         color: white;
-        padding: $n5;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 6px 12px;
+        width: fit-content;
+        position: relative;
+        pointer-events: none;
+        margin-top: 6px;
+
+        &:after {
+          bottom: 100%;
+          border: solid transparent;
+          content: "";
+          height: 0;
+          width: 0;
+          position: absolute;
+          border-bottom-color: rgb(247, 88, 72);
+          border-width: 5px;
+          right: auto;
+          left: 16px;
+
+          html[dir="rtl"] & {
+            left: auto;
+            right: 16px;
+          }
+        }
       }
-    }
-
-    input,
-    .custom-select,
-    select.form-control.en__field__input--select {
-      height: 44px;
-      border-radius: 4px;
-    }
-
-    .custom-checkbox input {
-      height: auto;
     }
 
     .disable-checkbox {
@@ -166,35 +179,6 @@
     input[type=submit] {
       margin-bottom: 0;
       line-height: 1;
-    }
-
-    .form-check-label-block {
-      display: inline-block;
-      padding: $n10 0 0 0;
-      margin-bottom: $n5;
-
-      .enform-full-width-bg & {
-        color: $black;
-      }
-
-      input[type=checkbox], input[type=radio] {
-        & + .custom-control-description {
-          font-size: 0.85rem;
-        }
-
-        & + .custom-control-description:before {
-          border: 1px solid $grey-80;
-          vertical-align: middle;
-
-          .enform-full-width-bg & {
-            border: 3px solid $med-blue;
-          }
-
-          .enform-full-width & {
-            border: 1px solid $white;
-          }
-        }
-      }
     }
 
     .enform-legal {
@@ -352,8 +336,6 @@ body.wp-admin {
 }
 
 .en__field--select {
-  border: 1px solid #1a1a1a;
-  border-radius: 4px;
   width: 100%;
   margin-bottom: 1rem;
 
@@ -364,10 +346,6 @@ body.wp-admin {
       width: 100%;
       display: block;
       margin-bottom: 0;
-
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
     }
   }
 }

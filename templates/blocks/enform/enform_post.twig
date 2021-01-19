@@ -31,13 +31,7 @@
 					{% set errorMessage = __( 'Please enter a valid e-mail address.', 'planet4-engagingnetworks' ) %}
 				{% endif %}
 				<div class="en__field en__field--{{ 'country' == field.input_type ? 'select' : 'text' }} en__field--{{ field.id }} en__field--{{ field.property }}">
-					<div class="en__field__element en__field__element--text form-group" {{ field.en_type == 'GEN' ? "style=\"display: flex; flex-direction: row;\"" : 'style="display:block;"' }}>
-
-						{% if en_form_style == 'side-style' %}
-							<label class="en__field__top__label" for="en__field_supporter_questions_{{ field.id }}">
-								{{ field.label }} {{ 'true' == field.required ? '*' : '' }}
-							</label>
-						{% endif %}
+					<div class="en__field__element en__field__element--text form-group animated-label" {{ field.en_type == 'GEN' ? "style=\"display: flex; flex-direction: row;\"" : 'style="display:block;"' }}>
 						<input
 							id="en__field_supporter_{{ field.property }}"
 							name="{{ en_input_name }}"
@@ -48,11 +42,13 @@
 							data-validate_regex="{{ field.js_validate_regex }}"
 							data-validate_regex_msg="{{ field.js_validate_regex_msg }}"
 							data-validate_callback="{{ field.js_validate_function }}"
-							{% if en_form_style != 'side-style' %}
-								placeholder="{{ field.label }}{{ 'Birth' in field.name ? ' (yyyy-mm-dd)' : '' }}{{ 'true' == field.required ? '*' : '' }}"
-							{% endif %}
+							placeholder="{{ field.label }}{{ 'Birth' in field.name ? ' (yyyy-mm-dd)' : '' }}{{ 'true' == field.required ? '*' : '' }}"
 							{{ 'true' == field.required or 'email' == field.input_type ? 'required' : '' }}
-							size="40"/>
+							size="40"
+						/>
+						<label for="en__field_supporter_{{ field.property }}">
+							{{ field.label }} {{ 'true' == field.required ? '*' : '' }}
+						</label>
 					</div>
 				</div>
 			{% elseif 'checkbox' == field.input_type %}
@@ -67,7 +63,7 @@
 								{% set question_option = question_option|object_to_array %}
 								<div class="en__field en__field--check en__field--{{ field.id }}">
 									<div class="en__field__element en__field__element--check form-group form-check-label-block custom-control p4-custom-control-input">
-										<label class="custom-checkbox">
+										<label class="custom-control">
 											<input
 												id="en__field_supporter_questions_{{ field.id }}{{ i }}"
 												name="{{ en_input_name }}"
@@ -93,7 +89,7 @@
 				{% elseif 'OPT' == field.en_type %}
 					<div class="en__field en__field--check en__field--{{ field.id }}">
 						<div class="en__field__element en__field__element--check form-group form-check-label-block custom-control p4-custom-control-input">
-							<label class="custom-checkbox {{ field.name == dependent_field ? 'disable-checkbox' : '' }}">
+							<label class="custom-control {{ field.name == dependent_field ? 'disable-checkbox' : '' }}">
 								<input
 									id="en__field_supporter_questions_{{ field.id }}"
 									name="{{ en_input_name }}"
@@ -124,7 +120,7 @@
 							{% set radio_option = radio_option|object_to_array %}
 							<div class="en__field en__field--check en__field--{{ field.id }}">
 								<div class="en__field__element en__field__element--check form-group form-check-label-block custom-control p4-custom-control-input">
-									<label class="custom-radio">
+									<label class="custom-control">
 										<input
 											id="en__field_supporter_questions_{{ field.id }}{{ i }}"
 											name="{{ en_input_name }}"
@@ -150,11 +146,6 @@
 				<div class="en__field en__field--select en__field--{{ field.id }}">
 					<div class="en__field__element en__field__element--select form-group">
 						{% include 'blocks/enform/country_select.twig' with { errorMessage: errorMessage } %}
-						{% if en_form_style == 'side-style' %}
-							<label class="en__field__top__label">
-								{{ field.label }}
-							</label>
-						{% endif %}
 					</div>
 				</div>
 			{% elseif 'position' == field.input_type %}
@@ -162,11 +153,6 @@
 				<div class="en__field en__field--select en__field--{{ field.id }}">
 					<div class="en__field__element en__field__element--select form-group">
 						{% include 'blocks/enform/position_select.twig' with { errorMessage: errorMessage } %}
-						{% if en_form_style == 'side-style' %}
-							<label class="en__field__top__label">
-								{{ field.label }}
-							</label>
-						{% endif %}
 					</div>
 				</div>
 			{% endif %}
