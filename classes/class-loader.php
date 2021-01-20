@@ -407,7 +407,7 @@ final class Loader {
 		// Sets translated strings for a JS script.
 		wp_set_script_translations( 'planet4-blocks-script', 'planet4-blocks', P4GBKS_PLUGIN_DIR . '/languages' );
 
-		if ( self::can_include_theme_editor() ) {
+		if ( false && self::can_include_theme_editor() ) {
 			wp_enqueue_style(
 				'theme-editor',
 				P4GBKS_PLUGIN_URL . 'assets/build/themeEditorStyle.min.css',

@@ -28,11 +28,17 @@ class CarouselHeader extends Base_Block {
 	 * Gallery constructor.
 	 */
 	public function __construct() {
+		add_action( 'init', [ $this, 'register_carouselheader_block' ] );
+	}
+
+	public function register_carouselheader_block() {
+		wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );
+
 		register_block_type(
 			self::get_full_block_name(),
 			[
-				'editor_script'   => 'planet4-blocks',
-				'render_callback' => [ $this, 'render' ],
+				'apiVersion' => 2,
+				'render_callback' => [ $this, 'render_hydratable' ],
 				'attributes'      => [
 					'carousel_autoplay' => [
 						'type'    => 'boolean',
@@ -46,6 +52,18 @@ class CarouselHeader extends Base_Block {
 							// In JSON Schema you can specify object properties in the properties attribute.
 							'properties' => [
 								'image'            => [
+									'type' => 'integer',
+								],
+								'image_src'        => [
+									'type' => 'integer',
+								],
+								'image_srcset'     => [
+									'type' => 'integer',
+								],
+								'image_sizes'      => [
+									'type' => 'integer',
+								],
+								'image_alt'        => [
 									'type' => 'integer',
 								],
 								'header'           => [
@@ -79,67 +97,55 @@ class CarouselHeader extends Base_Block {
 			]
 		);
 
-		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_editor_scripts' ] );
+		add_action( 'enqueue_block_editor_assets', [self::class, 'enqueue_editor_assets'] );
+		add_action( 'wp_enqueue_scripts', [self::class, 'enqueue_frontend_assets'] );
+	}
+
+	public function render_hydratable( $attributes, $content ) {
+		if ( ! empty( $attributes['slides'] ) && empty( $attributes['slides'][0]['image_url'] )  ) {
+			$attributes['slides'] = $this->prepare_data( $attributes['slides'] );
+		}
+
+		if ( is_string($content) && trim($content) === '' ) {
+			$content = self::convert_to_static_block( $attributes );
+		}
+
+		return self::as_hydratable_block( $attributes, $content );
+	}
+
+	public static function convert_to_static_block( $attributes ) {
+		$node_script = 'assets/build/CarouselHeaderMigrate-server.js';
+		$blocks_dir = P4GBKS_PLUGIN_DIR;
+		$attributes_json = json_encode( $attributes );
+
+		exec("cd ${blocks_dir} && node ${node_script} '${attributes_json}' 2>&1", $out, $err);
+
+		return $out[0];
 	}
 
 	/**
-	 * Enqueue required scripts for the editor.
-	 */
-	public function enqueue_editor_scripts() {
-		wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );
-	}
-
-	/**
-	 * Get all the data that will be needed to render the block correctly.
+	 * Get image data for block that have.
 	 *
 	 * @param array $fields This is the array of fields of this block.
 	 *
 	 * @return array The data to be passed in the View.
 	 */
-	public function prepare_data( $fields ): array {
-		$total_images = 0;
-		if ( ! empty( $fields['slides'] ) ) {
-			foreach ( $fields['slides'] as &$slide ) {
+	public function prepare_data( $slides ): array {
+		if ( ! empty( $slides ) ) {
+			foreach ( $slides as &$slide ) {
 				$image_id   = $slide['image'];
 				$temp_array = wp_get_attachment_image_src( $image_id, 'retina-large' );
 				if ( false !== $temp_array && ! empty( $temp_array ) ) {
-					$slide['image']        = $temp_array[0];
+					$slide['image_url']    = $temp_array[0];
 					$slide['image_srcset'] = wp_get_attachment_image_srcset( $image_id, 'retina-large', wp_get_attachment_metadata( $image_id ) );
 					$slide['image_sizes']  = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
-					$total_images ++;
 				}
 
-				if ( isset( $slide['focal_points'] ) ) {
-					$x = isset( $slide['focal_points']['x'] ) && is_numeric( $slide['focal_points']['x'] ) ? round( $slide['focal_points']['x'] * 100, 0 ) . '% ' : '50%';
-					$y = isset( $slide['focal_points']['y'] ) && is_numeric( $slide['focal_points']['y'] ) ? round( $slide['focal_points']['y'] * 100, 0 ) . '% ' : '50%';
-
-					$focus_image          = "$x $y";
-					$slide['focus_image'] = $focus_image;
-				}
 				$temp_image         = wp_prepare_attachment_for_js( $image_id );
 				$slide['image_alt'] = $temp_image['alt'] ?? '';
-
 			}
 		}
-		$fields['total_images'] = $total_images;
 
-		// Enqueue js for the frontend.
-		if ( ! $this->is_rest_request() ) {
-			wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );
-			\P4GBKS\Loader::enqueue_local_script(
-				'carousel-header',
-				'assets/build/carouselHeaderFrontIndex.js',
-				[
-					'jquery',
-					'hammer',
-				]
-			);
-		}
-
-		$block_data = [
-			'fields' => $fields,
-		];
-
-		return $block_data;
+		return $slides;
 	}
 }

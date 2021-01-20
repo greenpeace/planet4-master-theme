@@ -38,10 +38,15 @@ $slide-transition-speed: 1s;
     position: absolute;
     top: 0;
     background-size: 0;
-    opacity: 0;
     z-index: 1;
     transform: rotate(0);
     transition: opacity $slide-transition-speed;
+
+    // Note: these rules are for
+    // inactive slides
+    opacity: 0;
+    pointer-events: none;
+    border: 10px solid #ffaa99;
 
     img {
       display: none;
@@ -51,6 +56,7 @@ $slide-transition-speed: 1s;
       z-index: 2;
       opacity: 1;
       transition: unset;
+      pointer-events: all;
     }
 
     &.next {

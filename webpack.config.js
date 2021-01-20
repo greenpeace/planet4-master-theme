@@ -19,21 +19,11 @@ const entryPoints = blockName => {
   }
 };
 
-const entryPoints = blockName => {
-  return {
-    [`${blockName}EditorScript`]: `./assets/src/blocks/${blockName}/${blockName}EditorScript.js`,
-    [`${blockName}EditorStyle`]: `./assets/src/styles/blocks/${blockName}/${blockName}EditorStyle.scss`,
-    [`${blockName}Script`]: `./assets/src/blocks/${blockName}/${blockName}Script.js`,
-    [`${blockName}Style`]: `./assets/src/styles/blocks/${blockName}/${blockName}Style.scss`,
-  }
-};
-
 module.exports = {
   ...defaultConfig,
   entry: {
     editorIndex: './assets/src/editorIndex.js',
     frontendIndex: './assets/src/frontendIndex.js',
-    carouselHeaderFrontIndex: './assets/src/carouselHeaderFrontIndex.js',
     style: './assets/src/styles/style.scss',
     editorStyle: './assets/src/styles/editorStyle.scss',
     lightbox: './assets/src/styles/lightbox.scss',
@@ -48,6 +38,7 @@ module.exports = {
     theme_plastic: './assets/src/styles/theme_plastic.scss',
     ...entryPoints('Accordion'),
     ...entryPoints('Covers'),
+    ...entryPoints('CarouselHeader'),
   },
   output: {
     filename: '[name].js',
