@@ -107,8 +107,9 @@ const addExtraControls = function() {
 												captionAlignment: option.value,
 											});
 										}}
-										isPrimary={ captionAlignment == option.value }
-										isLarge isDefault>
+										isPrimary={ captionAlignment === option.value }
+										isSecondary={ captionAlignment !== option.value }
+										isLarge>
 											{ option.label }
 									</Button>;
                 })
