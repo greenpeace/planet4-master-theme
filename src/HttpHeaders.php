@@ -18,7 +18,7 @@ class HttpHeaders {
 	 * Send Content Security Policy (CSP) HTTP headers.
 	 */
 	public function send_content_security_policy_header() {
-		$allowed_frame_ancestors = array( '\'self\'' );
+		$allowed_frame_ancestors = [ '\'self\'' ];
 
 		// Filter hook to allow modification of trusted frame ancestors.
 		$modified_allowed_frame_ancestors = apply_filters( 'planet4_csp_allowed_frame_ancestors', $allowed_frame_ancestors );
@@ -27,12 +27,12 @@ class HttpHeaders {
 			$modified_allowed_frame_ancestors = $allowed_frame_ancestors;
 		}
 
-		$directives = array(
-			'frame-ancestors' => 'frame-ancestors ' . implode( ' ', $modified_allowed_frame_ancestors )
-		);
+		$directives = [
+			'frame-ancestors' => 'frame-ancestors ' . implode( ' ', $modified_allowed_frame_ancestors ),
+		];
 
 		$csp_header = 'Content-Security-Policy: ' . implode( '; ', $directives );
-		$csp_header = preg_replace( "/\r|\n/", "", $csp_header );
+		$csp_header = preg_replace( "/\r|\n/", '', $csp_header );
 
 		header( $csp_header );
 
