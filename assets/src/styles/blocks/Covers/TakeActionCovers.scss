@@ -250,6 +250,7 @@
   font-family: $roboto;
   pointer-events: all;
   position: relative;
+  margin-inline-end: 8px;
 
   &:hover {
     text-decoration: underline;

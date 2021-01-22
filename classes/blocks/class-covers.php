@@ -31,14 +31,17 @@ class Covers extends Base_Block {
 		register_block_type(
 			self::get_full_block_name(),
 			[  // - Register the block for the editor
-				'editor_script'   => 'planet4-blocks',           // in the PHP side.
-				'render_callback' => [ $this, 'render' ],                     // - This render callback will be exposed
-																			// to render the block.
-
+				'editor_script'   => 'planet4-blocks',
+				// todo: Remove when all content is migrated.
+				'render_callback' => static function ( $attributes ) {
+					$json = wp_json_encode( [ 'attributes' => $attributes ] );
+					return '<div data-render="planet4-blocks/covers" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+				},
 				// These attributes match the current fields.
 				'attributes'      => [
 					'cover_type'  => [
-						'type' => 'string',
+						'type'    => 'string',
+						'default' => '3',
 					],
 					'covers_view' => [
 						'type'    => 'string',
@@ -76,36 +79,35 @@ class Covers extends Base_Block {
 	}
 
 	/**
+	 * Required by the `Base_Block` class.
+	 *
+	 * @param array $fields Unused, required by the abstract function.
+	 */
+	public function prepare_data( $fields ): array {
+		return [];
+	}
+
+	/**
 	 * Get all the data that will be needed to render the block correctly.
 	 *
 	 * @param array $fields This is the array of fields of this block.
 	 *
 	 * @return array The data to be passed in the View.
 	 */
-	public function prepare_data( $fields ): array {
+	public static function get_covers( $fields ): array {
 		$cover_type = $fields['cover_type'] ?? '';
-		$covers     = false;
+		$covers     = [];
 
 		if ( '1' === $cover_type ) {
-			$covers = $this->populate_posts_for_act_pages( $fields );
+			$covers = self::populate_posts_for_act_pages( $fields );
 		} elseif ( '2' === $cover_type ) {
-			$covers = $this->populate_posts_for_campaigns( $fields );
+			$covers = self::populate_posts_for_campaigns( $fields );
 		} elseif ( '3' === $cover_type ) {
-			$covers = $this->populate_posts_for_cfc( $fields );
-		}
-
-		$covers_view = isset( $fields['covers_view'] ) ? intval( $fields['covers_view'] ) : 1;
-
-		// Enqueue js for the frontend.
-		if ( ! $this->is_rest_request() ) {
-			\P4GBKS\Loader::enqueue_local_script( 'covers', 'public/js/load_more.js', [ 'jquery' ] );
+			$covers = self::populate_posts_for_cfc( $fields );
 		}
 
 		$data = [
-			'fields'      => $fields,
-			'covers'      => $covers,
-			'cover_type'  => $cover_type,
-			'covers_view' => $covers_view,
+			'covers' => $covers,
 		];
 
 		return $data;
@@ -118,7 +120,7 @@ class Covers extends Base_Block {
 	 *
 	 * @return \WP_Post[]
 	 */
-	private function filter_posts_for_act_pages( $fields ) {
+	private static function filter_posts_for_act_pages( $fields ) {
 		$tag_ids       = $fields['tags'] ?? [];
 		$options       = get_option( 'planet4_options' );
 		$parent_act_id = $options['act_page'];
@@ -156,7 +158,7 @@ class Covers extends Base_Block {
 	 *
 	 * @return \WP_Post[]
 	 */
-	private function filter_posts_by_ids( $fields ) {
+	private static function filter_posts_by_ids( $fields ) {
 		$post_ids = $fields['posts'] ?? [];
 
 		if ( ! empty( $post_ids ) ) {
@@ -190,7 +192,7 @@ class Covers extends Base_Block {
 	 *
 	 * @return \WP_Post[]
 	 */
-	private function filter_posts_for_cfc( $fields ) {
+	private static function filter_posts_for_cfc( $fields ) {
 
 		$tag_ids    = $fields['tags'] ?? [];
 		$post_types = $fields['post_types'] ?? [];
@@ -262,7 +264,7 @@ class Covers extends Base_Block {
 	 *
 	 * @return array
 	 */
-	private function populate_posts_for_campaigns( &$fields ) {
+	private static function populate_posts_for_campaigns( &$fields ) {
 
 		// Get user defined tags from backend.
 		$tag_ids = $fields['tags'] ?? [];
@@ -305,14 +307,14 @@ class Covers extends Base_Block {
 	 *
 	 * @return array
 	 */
-	private function populate_posts_for_act_pages( &$fields ) {
+	private static function populate_posts_for_act_pages( &$fields ) {
 		$post_ids = $fields['posts'] ?? [];
 		$options  = get_option( 'planet4_options' );
 
 		if ( ! empty( $post_ids ) ) {
-			$actions = $this->filter_posts_by_ids( $fields );
+			$actions = self::filter_posts_by_ids( $fields );
 		} else {
-			$actions = $this->filter_posts_for_act_pages( $fields );
+			$actions = self::filter_posts_for_act_pages( $fields );
 		}
 
 		$covers = [];
@@ -333,7 +335,7 @@ class Covers extends Base_Block {
 					}
 				}
 				$covers[] = [
-					'tags'        => $tags,
+					'tags'        => $tags ?? [],
 					'title'       => get_the_title( $action ),
 					'excerpt'     => $action->post_excerpt,
 					'image'       => get_the_post_thumbnail_url( $action, 'large' ),
@@ -341,7 +343,6 @@ class Covers extends Base_Block {
 					'button_link' => get_permalink( $action->ID ),
 				];
 			}
-			$fields['button_text'] = __( 'Load more', 'planet4-blocks' );
 		}
 
 		return $covers;
@@ -354,14 +355,13 @@ class Covers extends Base_Block {
 	 *
 	 * @return array
 	 */
-	private function populate_posts_for_cfc( &$fields ) {
-
+	private static function populate_posts_for_cfc( &$fields ) {
 		$post_ids = $fields['posts'] ?? [];
 
 		if ( ! empty( $post_ids ) ) {
-			$posts = $this->filter_posts_by_ids( $fields );
+			$posts = self::filter_posts_by_ids( $fields );
 		} else {
-			$posts = $this->filter_posts_for_cfc( $fields );
+			$posts = self::filter_posts_for_cfc( $fields );
 		}
 
 		$posts_array = [];
@@ -381,9 +381,9 @@ class Covers extends Base_Block {
 					$post->alt_text  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
 				}
 
-				$post->permalink = get_permalink( $post );
-				$post->link      = get_permalink( $post );
-				$posts_array[]   = $post;
+				$post->link           = get_permalink( $post );
+				$post->date_formatted = get_the_date( '', $post->ID );
+				$posts_array[]        = $post;
 			}
 		}
 

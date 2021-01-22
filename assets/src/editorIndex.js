@@ -3,7 +3,7 @@ import { CarouselHeaderBlock } from './blocks/Carouselheader/CarouselHeaderBlock
 import { ColumnsBlock } from './blocks/Columns/ColumnsBlock';
 import { CookiesBlock } from './blocks/Cookies/CookiesBlock';
 import { CounterBlock } from './blocks/Counter/CounterBlock';
-import { CoversBlock } from './blocks/Covers/CoversBlock';
+import { registerCoversBlock } from './blocks/Covers/CoversBlock';
 import { GalleryBlock } from './blocks/Gallery/GalleryBlock';
 import { HappypointBlock } from './blocks/Happypoint/HappypointBlock';
 import { registerMediaBlock } from './blocks/Media/MediaBlock';
@@ -30,7 +30,7 @@ new CarouselHeaderBlock();
 new ColumnsBlock();
 new CookiesBlock();
 new CounterBlock();
-new CoversBlock();
+registerCoversBlock();
 new GalleryBlock();
 new HappypointBlock();
 registerMediaBlock();
