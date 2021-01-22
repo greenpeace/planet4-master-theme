@@ -7,6 +7,7 @@ export const GalleryThreeColumns = ({ images, postType }) => (
         <div className={`${ordinals[index]}-column split-image`}>
           {image.image_src &&
             <img
+              loading='lazy'
               src={image.image_src}
               srcSet={image.image_srcset}
               sizes={image.image_sizes || 'false'}

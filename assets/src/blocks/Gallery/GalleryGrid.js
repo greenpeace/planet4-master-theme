@@ -4,6 +4,7 @@ export const GalleryGrid = ({ images }) => (
       {images.map(image => (
         <div key={image.image_src} className="grid-item">
           <img
+            loading='lazy'
             src={image.image_src}
             srcSet={image.image_srcset}
             style={{ objectPosition: image.focus_image }}
