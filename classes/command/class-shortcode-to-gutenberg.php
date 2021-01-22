@@ -33,7 +33,6 @@ class Shortcode_To_Gutenberg {
 				'shortcake_carousel_header',
 				'shortcake_enblock',
 				'shortcake_happy_point',
-				'shortcake_newcovers',
 				'shortcake_social_media',
 				'shortcake_timeline',
 				'shortcake_take_action_boxout',

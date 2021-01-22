@@ -25,33 +25,9 @@ class Covers extends Base_Block {
 	const POSTS_LIMIT = 50;
 
 	/**
-	 * @param array  $attributes Block attributes.
-	 * @param string $content    Block content.
-	 *
-	 * @return mixed
-	 */
-	public function add_block_shortcode( $attributes, $content ) {
-		$attributes = shortcode_atts(
-			[
-				'cover_type'  => '1',
-				'covers_view' => '1',
-				'title'       => '',
-				'description' => '',
-				'tags'        => [],
-			],
-			$attributes,
-			'shortcake_newcovers'
-		);
-
-		return $this->render( $attributes );
-	}
-
-	/**
 	 * Covers constructor.
 	 */
 	public function __construct() {
-		add_shortcode( 'shortcake_newcovers', [ $this, 'add_block_shortcode' ] );
-
 		register_block_type(
 			self::get_full_block_name(),
 			[  // - Register the block for the editor
