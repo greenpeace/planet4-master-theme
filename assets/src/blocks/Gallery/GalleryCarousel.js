@@ -92,6 +92,7 @@ export const GalleryCarousel = ({ images }) => {
             ref={element => slidesRef.current[index] = element}
           >
             <img
+              loading='lazy'
               src={image.image_src}
               srcSet={image.image_srcset}
               sizes={image.image_sizes || 'false'}
