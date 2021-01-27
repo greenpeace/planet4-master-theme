@@ -18,14 +18,12 @@ class HttpHeaders {
 	 * Send Content Security Policy (CSP) HTTP headers.
 	 */
 	public function send_content_security_policy_header() {
-		$allowed_frame_ancestors = [ '\'self\'' ];
+		$default_allowed_frame_ancestors = [ '\'self\'' ];
 
-		// Filter hook to allow modification of trusted frame ancestors.
-		$modified_allowed_frame_ancestors = apply_filters( 'planet4_csp_allowed_frame_ancestors', $allowed_frame_ancestors );
+		// Filter hook to allow adding trusted frame ancestors.
+		$additional_allowed_frame_ancestors = apply_filters( 'planet4_csp_allowed_frame_ancestors', [] );
 
-		if ( ! is_array( $modified_allowed_frame_ancestors ) ) {
-			$modified_allowed_frame_ancestors = $allowed_frame_ancestors;
-		}
+		$allowed_frame_ancestors = array_merge($default_allowed_frame_ancestors, (array)$additional_allowed_frame_ancestors);
 
 		$directives = [
 			'default-src *',
@@ -38,7 +36,7 @@ class HttpHeaders {
 		header( $csp_header );
 
 		// In addition, send the "X-Frame-Options" header when no other trusted frame ancestors were added through the filter.
-		if ( $modified_allowed_frame_ancestors === $allowed_frame_ancestors ) {
+		if ( $allowed_frame_ancestors === $default_allowed_frame_ancestors ) {
 			header( 'X-Frame-Options: SAMEORIGIN' );
 		}
 	}
