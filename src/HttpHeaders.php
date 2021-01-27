@@ -28,7 +28,8 @@ class HttpHeaders {
 		}
 
 		$directives = [
-			'frame-ancestors' => 'frame-ancestors ' . implode( ' ', $modified_allowed_frame_ancestors ),
+			'default-src *',
+			'frame-ancestors ' . implode( ' ', $allowed_frame_ancestors ),
 		];
 
 		$csp_header = 'Content-Security-Policy: ' . implode( '; ', $directives );
