@@ -2,7 +2,7 @@ import { useState, useLayoutEffect } from '@wordpress/element';
 
 const { __ } = wp.i18n;
 
-export const TakeActionCovers = ({ covers_view, covers }) => {
+export const TakeActionCovers = ({ covers_view, covers, row, loadMoreCovers }) => {
   const [rowAmount, setRowAmount] = useState(3);
 
   const updateRowAmount = () => {
@@ -17,13 +17,12 @@ export const TakeActionCovers = ({ covers_view, covers }) => {
   }, []);
 
   const showLoadMore = (covers.length > rowAmount && covers_view === '1') ||
-    (covers.length > (rowAmount * 2) && covers_view === '2') ||
-    (covers_view === '3' && window.innerWidth < 992 && covers.length > 4);
+    (covers.length > (rowAmount * 2) && covers_view === '2');
 
   return (
     <div className='container'>
-      <div className='row limit-visibility'>
-        {covers.map(cover => {
+      <div className='row'>
+        {covers.map((cover, index) => {
           const {
             button_link,
             title,
@@ -32,8 +31,9 @@ export const TakeActionCovers = ({ covers_view, covers }) => {
             excerpt,
             button_text
           } = cover;
+          const hideCover = covers_view !== '3' && index >= row * rowAmount;
           return (
-            <div key={title} className='col-lg-4 col-md-6 cover-card-column'>
+            <div key={title} className={`col-lg-4 col-md-6 cover-card-column ${hideCover ? 'hidden' : ''}`}>
               <div className='cover-card card-one' style={{ backgroundImage: `url(${image})` }}>
                 <a
                   className='cover-card-overlay'
@@ -82,9 +82,9 @@ export const TakeActionCovers = ({ covers_view, covers }) => {
           )
         })}
       </div>
-      {showLoadMore &&
+      {showLoadMore && (row * rowAmount) < covers.length &&
         <div className='row'>
-          <div className='col-lg-5 col-md-12 load-more-covers-button-div'>
+          <div onClick={loadMoreCovers} className='col-lg-5 col-md-12 load-more-covers-button-div'>
             <button className='btn btn-block btn-secondary btn-load-more-covers-click'>
               {__( 'Load more', 'planet4-blocks' )}
             </button>

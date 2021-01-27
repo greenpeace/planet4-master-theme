@@ -33,7 +33,7 @@ const renderEdit = (attributes, toAttribute) => {
           onChange={toAttribute('covers_view')}
         />
 
-        {posts !== undefined && !posts.length &&
+        {!posts.length &&
           <div>
             <TagSelector
               value={tags}

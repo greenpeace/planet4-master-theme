@@ -1,16 +1,18 @@
 const { __ } = wp.i18n;
 
-export const CampaignCovers = ({ covers, covers_view }) => {
-  const showLoadMore = (covers.length > 3 && covers_view === '1') ||
-    (covers.length > 6 && covers_view === '2');
+export const CampaignCovers = ({ covers, covers_view, row, loadMoreCovers}) => {
+  const rowAmount = 3;
+  const showLoadMore = (covers.length > rowAmount && covers_view === '1') ||
+    (covers.length > (rowAmount * 2) && covers_view === '2');
 
   return (
     <div className='container'>
-      <div className='thumbnail-largeview-container limit-visibility'>
-        {covers.map(cover => {
+      <div className='thumbnail-largeview-container'>
+        {covers.map((cover, index) => {
           const { href, image, alt_text, name } = cover;
+          const hideCover = covers_view !== '3' && index >= row * rowAmount;
           return (
-            <div key={name} className='campaign-card-column'>
+            <div key={name} className={`campaign-card-column ${hideCover ? 'hidden' : ''}`}>
               <a
                 href={href}
                 data-ga-category='Campaign Covers'
@@ -20,7 +22,7 @@ export const CampaignCovers = ({ covers, covers_view }) => {
               >
                 <div className='thumbnail-large'>
                   {image && image[0] &&
-                    <img src={image[0]} alt={alt_text} />
+                    <img loading='lazy' src={image[0]} alt={alt_text} />
                   }
                   <span className='yellow-cta'><span aria-label='hashtag'>#</span>{name}</span>
                 </div>
@@ -29,10 +31,10 @@ export const CampaignCovers = ({ covers, covers_view }) => {
           );
         })}
       </div>
-      {showLoadMore &&
+      {showLoadMore && (row * rowAmount) < covers.length &&
         <div className='row'>
           <div className='col-md-12 col-lg-5 col-xl-5 mt-3 load-more-campaigns-button-div'>
-            <button className='btn btn-block btn-secondary btn-load-more-campaigns-click'>
+            <button onClick={loadMoreCovers} className='btn btn-block btn-secondary btn-load-more-campaigns-click'>
               {__('Load more', 'planet4-blocks')}
             </button>
           </div>

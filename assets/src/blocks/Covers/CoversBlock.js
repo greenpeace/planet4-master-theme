@@ -18,17 +18,23 @@ const getStyleLabel = (label, help) => {
 };
 
 const attributes = {
+  cover_type: {
+    type: 'string',
+    default: '3',
+  },
+  covers_view: {
+    type: 'string',
+    default: '1'
+  },
   title: {
     type: 'string',
+    default: '',
   },
   description: {
     type: 'string',
+    default: '',
   },
   tags: {
-    type: 'array',
-    default: []
-  },
-  posts: {
     type: 'array',
     default: []
   },
@@ -36,13 +42,9 @@ const attributes = {
     type: 'array',
     default: []
   },
-  covers_view: {
-    type: 'string',
-    default: '1'
-  },
-  cover_type: {
-    type: 'string',
-    default: '3',
+  posts: {
+    type: 'array',
+    default: []
   },
 };
 

@@ -56,20 +56,23 @@ class Covers extends Base_Block {
 						'default' => '',
 					],
 					'tags'        => [
-						'type'  => 'array',
-						'items' => [
+						'type'    => 'array',
+						'default' => [],
+						'items'   => [
 							'type' => 'integer', // Array definitions require an item type.
 						],
 					],
 					'post_types'  => [
-						'type'  => 'array',
-						'items' => [
+						'type'    => 'array',
+						'default' => [],
+						'items'   => [
 							'type' => 'integer',
 						],
 					],
 					'posts'       => [
-						'type'  => 'array',
-						'items' => [
+						'type'    => 'array',
+						'default' => [],
+						'items'   => [
 							'type' => 'integer',
 						],
 					],

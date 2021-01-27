@@ -2,12 +2,10 @@ import { useState, useLayoutEffect } from '@wordpress/element';
 
 const { __ } = wp.i18n;
 
-export const ContentCovers = ({ covers, covers_view }) => {
+export const ContentCovers = ({ covers, covers_view, row, loadMoreCovers }) => {
   const [rowAmount, setRowAmount] = useState(4);
 
-  const updateRowAmount = () => {
-    setRowAmount(window.innerWidth >= 576 && window.innerWidth < 992 ? 3 : 4);
-  }
+  const updateRowAmount = () => setRowAmount(window.innerWidth >= 576 && window.innerWidth < 992 ? 3 : 4);
 
   // The amount of covers per row depends on the window width
   useLayoutEffect(() => {
@@ -21,8 +19,8 @@ export const ContentCovers = ({ covers, covers_view }) => {
 
   return (
     <div className='container'>
-      <div className='row publications-slider limit-visibility'>
-        {covers.map(cover => {
+      <div className='row publications-slider'>
+        {covers.map((cover, index) => {
           const {
             thumbnail,
             link,
@@ -32,8 +30,9 @@ export const ContentCovers = ({ covers, covers_view }) => {
             date_formatted,
             post_excerpt,
           } = cover;
+          const hideCover = covers_view !== '3' && index >= row * rowAmount;
           return (
-            <div key={post_title} className='col-md-4 col-lg-3 post-column'>
+            <div key={post_title} className={`col-md-4 col-lg-3 post-column ${hideCover ? 'hidden' : ''}`}>
               <div className='content-covers-block-wrap clearfix'>
                 <div className='content-covers-block-info'>
                   <div className='content-covers-block-symbol'>
@@ -45,7 +44,7 @@ export const ContentCovers = ({ covers, covers_view }) => {
                         data-ga-label='n/a'
                         aria-label={__('Cover image, link to ' + post_title, 'planet4-blocks')}
                       >
-                        <img src={thumbnail} alt={alt_text} srcSet={srcset} />
+                        <img loading='lazy' src={thumbnail} alt={alt_text} srcSet={srcset} />
                       </a>
                     }
                   </div>
@@ -75,10 +74,10 @@ export const ContentCovers = ({ covers, covers_view }) => {
           );
         })}
       </div>
-      {showLoadMore &&
+      {showLoadMore && (row * rowAmount) < covers.length &&
         <div className='row load-more-posts-button-div'>
           <div className='col-md-12 col-lg-5 col-xl-5'>
-            <button className='btn btn-block btn-secondary btn-load-more-posts-click'>
+            <button onClick={loadMoreCovers} className='btn btn-block btn-secondary btn-load-more-posts-click'>
               {__('Load more', 'planet4-blocks')}
             </button>
           </div>

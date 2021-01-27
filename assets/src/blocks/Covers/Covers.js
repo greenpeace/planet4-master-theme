@@ -10,7 +10,7 @@ export const COVER_TYPES = {
 };
 
 export const Covers = attributes => {
-  const { covers, loading } = useCovers(attributes, document.body.dataset.nro);
+  const { covers, loading, loadMoreCovers, row } = useCovers(attributes, document.body.dataset.nro);
   const { covers_view, cover_type } = attributes;
 
   if (loading) {
@@ -20,6 +20,8 @@ export const Covers = attributes => {
   const coversProps = {
     covers,
     covers_view,
+    row,
+    loadMoreCovers,
   };
 
   if (cover_type === COVER_TYPES.content) {

@@ -8,10 +8,10 @@ export const CoversFrontend = (attributes) => {
   return (
     <section className={blockClassName}>
       {title &&
-        <h2 class="page-section-header" dangerouslySetInnerHTML={{ html: title }} />
+        <h2 class="page-section-header" dangerouslySetInnerHTML={{ __html: title }} />
       }
       {description &&
-        <div class="page-section-description" dangerouslySetInnerHTML={{ html: description }} />
+        <div class="page-section-description" dangerouslySetInnerHTML={{ __html: description }} />
       }
       <Covers {...attributes} />
     </section>
