@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2021-01-27 12:24+0000\n"
+"PO-Revision-Date: 2021-01-27 12:31+0000\n"
 "Last-Translator: Dirk Faber\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
@@ -127,11 +127,11 @@ msgstr "Close Menu"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
-msgstr "Opmerking"
+msgstr "Reactie"
 
 #: templates/single.twig:75 templates/comments_section.twig:2
 msgid "Comments"
-msgstr "Opmerkingen"
+msgstr "Reacties"
 
 #: templates/search.twig:306
 msgid "Content type"
@@ -217,7 +217,8 @@ msgstr "Thema"
 
 #: single.php:110
 msgid "Leave your reply"
-msgstr "Laat een reactie achter"
+msgstr ""
+"Laat een reactie achter (wordt na goedkeuring geplaatst)\n"
 
 #: templates/taxonomy.twig:42 templates/author.twig:56
 msgid "Load More"
@@ -269,7 +270,7 @@ msgstr "Post"
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post comment"
-msgstr "Verstuur opmerking"
+msgstr "Verstuur reactie"
 
 #: templates/author.twig:32
 msgid "Posts by "
@@ -406,7 +407,7 @@ msgstr "Lijst van andere kantoren"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr "Je opmerking"
+msgstr "Je reactie"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
