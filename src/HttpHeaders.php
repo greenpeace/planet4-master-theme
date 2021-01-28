@@ -23,7 +23,9 @@ class HttpHeaders {
 		// Filter hook to allow adding trusted frame ancestors.
 		$additional_allowed_frame_ancestors = apply_filters( 'planet4_csp_allowed_frame_ancestors', [] );
 
-		$allowed_frame_ancestors = array_merge( $default_allowed_frame_ancestors, (array) $additional_allowed_frame_ancestors );
+		if ( is_array( $additional_allowed_frame_ancestors ) ) {
+			$allowed_frame_ancestors = array_merge( $default_allowed_frame_ancestors, $additional_allowed_frame_ancestors );
+		}
 
 		$directives = [
 			'default-src * \'self\' data: \'unsafe-inline\' \'unsafe-eval\'',
