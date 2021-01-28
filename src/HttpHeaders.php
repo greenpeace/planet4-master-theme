@@ -26,7 +26,7 @@ class HttpHeaders {
 		$allowed_frame_ancestors = array_merge( $default_allowed_frame_ancestors, (array) $additional_allowed_frame_ancestors );
 
 		$directives = [
-			'default-src *',
+			'default-src * \'self\' data: \'unsafe-inline\' \'unsafe-eval\'',
 			'frame-ancestors ' . implode( ' ', $allowed_frame_ancestors ),
 		];
 
