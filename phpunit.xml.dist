@@ -15,11 +15,7 @@
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">classes</directory>
-
-            <exclude>
-                <file>classes/class-p4-image-compression.php</file>
-            </exclude>
+            <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
 </phpunit>
