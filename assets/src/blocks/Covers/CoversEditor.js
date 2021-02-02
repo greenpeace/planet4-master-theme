@@ -101,7 +101,7 @@ const renderView = (attributes, toAttribute) => {
         characterLimit={400}
         allowedFormats={[]}
       />
-      <Covers {...attributes} />
+      <Covers isEditing {...attributes} />
     </section>
   );
 }

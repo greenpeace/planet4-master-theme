@@ -11,10 +11,18 @@ export const COVER_TYPES = {
 
 export const Covers = attributes => {
   const { covers, loading, loadMoreCovers, row } = useCovers(attributes, document.body.dataset.nro);
-  const { covers_view, cover_type } = attributes;
+  const { covers_view, cover_type, isEditing } = attributes;
 
   if (loading) {
     return null;
+  }
+
+  if (!loading && !covers.length && isEditing) {
+    return (
+      <div className='EmptyMessage'>
+        {__(`Block content is empty. Check the block's settings or remove it.`, 'planet4-blocks-backend')}
+      </div>
+    )
   }
 
   const coversProps = {
