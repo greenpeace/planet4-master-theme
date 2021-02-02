@@ -15,7 +15,7 @@ class CustomTaxonomyTest extends P4_TestCase {
 	/**
 	 * Test that a post has always a p4-page-type term assigned to it.
 	 *
-	 * @covers CustomTaxonomy::save_taxonomy_page_type
+	 * @covers P4\MasterTheme\CustomTaxonomy::save_taxonomy_page_type
 	 */
 	public function test_post_has_a_taxonomy_term_assigned() {
 
@@ -44,7 +44,7 @@ class CustomTaxonomyTest extends P4_TestCase {
 	/**
 	 * Test that a post has always a single p4-page-type term assigned to it.
 	 *
-	 * @covers CustomTaxonomy::save_taxonomy_page_type
+	 * @covers P4\MasterTheme\CustomTaxonomy::save_taxonomy_page_type
 	 */
 	public function test_post_has_a_single_taxonomy_term_assigned() {
 
