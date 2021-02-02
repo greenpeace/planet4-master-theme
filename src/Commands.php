@@ -52,6 +52,12 @@ class Commands {
 		WP_CLI::add_command( 'p4-cf-key-in-db', $put_cf_key_in_db );
 
 		$purge_urls = static function ( $args, $assoc_args ) {
+			if ( ! Features::is_active( Features::CLOUDFLARE_DEPLOY_PURGE ) ) {
+				WP_CLI::warning( 'Purge on deploy is not enabled, not purging.' );
+
+				return;
+			}
+
 			if ( ! defined( 'CLOUDFLARE_PLUGIN_DIR' ) ) {
 				define( 'CLOUDFLARE_PLUGIN_DIR', WP_PLUGIN_DIR . '/cloudflare/' );
 			}
