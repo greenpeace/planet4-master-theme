@@ -171,8 +171,6 @@
     @include background-before-opacity($black, .25);
 
     &:hover {
-      @include background-before-opacity($green-80, .7);
-
       h2,
       p {
         color: $white;
