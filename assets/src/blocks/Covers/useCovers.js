@@ -55,7 +55,7 @@ export const useCovers = ({ post_types, tags, cover_type, covers_view, posts }, 
     covers,
     loading,
     error,
-    loadMoreCovers: () => setRow(row + 1),
+    loadMoreCovers: () => setRow(row + parseInt(covers_view)),
     row,
   };
 };
