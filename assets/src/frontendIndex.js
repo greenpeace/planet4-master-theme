@@ -9,6 +9,7 @@ import { TimelineFrontend } from './blocks/Timeline/TimelineFrontend';
 import { SubmenuFrontend } from './blocks/Submenu/SubmenuFrontend';
 import { MediaFrontend } from './blocks/Media/MediaFrontend';
 import { setupMediaElementJS } from './blocks/Media/setupMediaElementJS';
+import { setupLightboxForImages } from './components/Lightbox/setupLightboxForImages';
 
 // Render React components
 const COMPONENTS = {
@@ -34,3 +35,4 @@ document.querySelectorAll( `[data-render]` ).forEach(
 );
 
 setupMediaElementJS();
+setupLightboxForImages();

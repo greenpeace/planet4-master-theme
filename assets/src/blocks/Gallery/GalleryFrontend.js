@@ -2,6 +2,17 @@ import { GalleryCarousel } from './GalleryCarousel';
 import { GalleryThreeColumns } from './GalleryThreeColumns';
 import { GalleryGrid } from './GalleryGrid';
 import { getGalleryLayout, GALLERY_BLOCK_CLASSES } from './getGalleryLayout';
+import { Lightbox } from '../../components/Lightbox/Lightbox';
+import { useLightbox } from '../../components/Lightbox/useLightbox';
+
+const imagesToItems = images => images.map(
+  image => ({
+    src: image.image_src,
+    w: 0,
+    h: 0,
+    title: image.caption || image.credits || ''
+  })
+);
 
 export const GalleryFrontend = ({
   gallery_block_title,
@@ -12,6 +23,10 @@ export const GalleryFrontend = ({
 }) => {
   const layout = getGalleryLayout(className, gallery_block_style);
   const postType = document.body.getAttribute('data-post-type');
+
+  const { isOpen, index, openLightbox, closeLightbox } = useLightbox();
+
+  const items = imagesToItems(images);
 
   return (
     <section className={`block ${GALLERY_BLOCK_CLASSES[layout]}`}>
@@ -24,9 +39,11 @@ export const GalleryFrontend = ({
       {gallery_block_description &&
         <div className="page-section-description" dangerouslySetInnerHTML={{ __html: gallery_block_description }} />
       }
-      {layout === 'slider' && <GalleryCarousel images={images || []} />}
-      {layout === 'three-columns' && <GalleryThreeColumns images={images || []} postType={postType} />}
-      {layout === 'grid' && <GalleryGrid images={images || []} />}
+      {layout === 'slider' && <GalleryCarousel onImageClick={openLightbox} images={images || []} />}
+      {layout === 'three-columns' && <GalleryThreeColumns onImageClick={openLightbox} images={images || []} postType={postType} />}
+      {layout === 'grid' && <GalleryGrid onImageClick={openLightbox} images={images || []} />}
+
+      <Lightbox isOpen={isOpen} index={index} items={items} onClose={closeLightbox} />
     </section>
   );
 }
