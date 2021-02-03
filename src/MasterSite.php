@@ -220,6 +220,9 @@ class MasterSite extends TimberSite {
 				return $post_author;
 			}
 		);
+
+		// Disable xmlrpc.
+		add_filter( 'xmlrpc_enabled', '__return_false' );
 	}
 
 	/**
