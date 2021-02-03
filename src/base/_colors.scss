@@ -35,16 +35,12 @@ $grey-05: #f5f7f8;
 // $gp-green - #66cc00; used only on the GP wordmark
 // $gp-green-80 - #8bcc49;
 // $gp-green-20 - #e3f2d3;
-// $green - #003300;
-// $green-80 - #1b4a1b;
 // $green-20 - #d9e6d7;
 //
 // Styleguide Style.colors.grey
 $gp-green: #66cc00;
 $gp-green-80: #8bcc49;
 $gp-green-20: #e3f2d3;
-$green: #003300;
-$green-80: #1b4a1b;
 $green-20: #d9e6d7;
 
 // Blue
@@ -54,7 +50,6 @@ $green-20: #d9e6d7;
 //
 // Styleguide Style.colors.blue
 $blue: #2077bf;
-$blue-60: #63bbfd;
 $blue-80: #3290de;
 
 // Link colors
@@ -83,7 +78,6 @@ $orange-active: #dd4a22;
 // Various greens:
 $eden:              #0f6459;
 $dark-tiber:        #052a30;
-$inch-worm:         #a7e021;
 
 // Various blues:
 $x-dark-blue:  #042233;
@@ -91,12 +85,8 @@ $dark-blue:    #074365;
 $active-blue:  #05324c;
 $spray:        #86eee7;
 $aquamarine:   #68dfde;
-$java:         #1bb6d6;
 $java-dark:    #21cbca;
-$allports:     #007799;
-$blue-elm:     #22938d;
 $faded-jade:   #418482;
-$genoa:        #186a70;
 $blue-tiber:   #093944;
 $menu-blue:    #014c8c;
 $comment-block:#e7ecf0;
@@ -104,7 +94,6 @@ $comment-text: #d1dce2;
 
 // Various reds:
 $peach:       #eaccbb;
-$crimson:     #e51538;
 $red:         #a01604;
 
 // Need to be re-assigned colors.
@@ -120,27 +109,12 @@ $email:    #ea7179;
 $whatsapp: #25d366;
 
 // Used colors
-$active:                #aed4c7;
-$darkb-blue-text:       #264042;
 $header-footer-bg:      #030403;
 $light-blue-bg:         #d6e6f2;
-$light-blue:            #67b2af;
-$percentage-text:       #017e7a;
 $top-nav:               #1e5f65;
 
-// Used once.
-$body-bg:               #b0d4c8;
-$heading:               #004d53;
-$step-number:           #a7a7a7;
-$brown-header:          #5c1f10;
-$single-bg:             #f6f4e7;
-
 // Colors to be fixed/addressed:
-$article-heading-color:	#152431;
-$search-text-colour:    #115247;
-$blue-top-nav:          $dark-blue;
 $carousel-indi-color:   #8bcc49;
-$shadow-color:          $grey-60;
 $cookie-bkg:            #c0dbe2;
 $cookie-blue:           #094464;
 
@@ -174,19 +148,12 @@ $palette: (
   "grey-20": $grey-20,
   "grey-10": $grey-10,
   "grey": $grey,
-  "green": $green,
-  "green-80": $green-80,
   "gp-green": $gp-green,
   "dark-tiber": $dark-tiber,
-  "genoa": $genoa,
-  "inch-worm": $inch-worm,
   "x-dark-blue": $x-dark-blue,
-  "allports": $allports,
   "spray": $spray,
   "dark-blue": $dark-blue,
   "blue": $blue,
-  "blue-60": $blue-60,
-  "crimson": $crimson,
   "orange-hover": $orange-hover,
   "yellow": $yellow
 );

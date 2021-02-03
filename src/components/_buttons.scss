@@ -242,33 +242,6 @@
   }
 }
 
-.btn-filter-item-solid {
-  background-color: $blue-tiber;
-  border-color: $blue-tiber;
-  padding: 0 $n50 0 $n30;
-  position: relative;
-  text-transform: none;
-
-  &:hover,
-  &:focus {
-    background-color: $genoa;
-    border-color: $genoa;
-  }
-
-  &:active {
-    background-color: $dark-tiber;
-    border-color: $dark-tiber;
-  }
-
-  i {
-    position: absolute;
-    font-size: $font-size-xxs;
-    right: 10px;
-    top: 50%;
-    transform: translate(0, -40%);
-  }
-}
-
 .no-btn {
   background: transparent;
   border: transparent;
