@@ -56,6 +56,7 @@ export class ArticlePreview extends Component {
       post: {
         thumbnail_ratio,
         thumbnail_url,
+        thumbnail_srcset,
         link,
         alt_text
       }
@@ -70,6 +71,7 @@ export class ArticlePreview extends Component {
           <img
             className="d-flex topicwise-article-image"
             src={thumbnail_url}
+            srcSet={thumbnail_srcset}
             alt={alt_text}
             loading="lazy"
           />
