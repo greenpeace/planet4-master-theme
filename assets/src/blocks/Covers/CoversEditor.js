@@ -10,6 +10,7 @@ import PostSelector from '../../components/PostSelector/PostSelector';
 import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector';
 import { Covers, COVER_TYPES } from './Covers';
 import { getCoversClassName } from './getCoversClassName';
+import { useCovers } from './useCovers';
 
 const { RichText } = wp.blockEditor;
 const { __ } = wp.i18n;
@@ -74,6 +75,16 @@ const renderView = (attributes, toAttribute) => {
   const { covers_view, cover_type, title, description } = attributes;
   const blockClassName = getCoversClassName(cover_type, covers_view);
 
+  const { covers, loading, loadMoreCovers, row } = useCovers(attributes);
+
+  const coversProps = {
+    covers,
+    covers_view,
+    row,
+    loadMoreCovers,
+    cover_type,
+  };
+
   return (
     <section className={blockClassName}>
       <header>
@@ -101,7 +112,12 @@ const renderView = (attributes, toAttribute) => {
         characterLimit={400}
         allowedFormats={[]}
       />
-      <Covers isEditing {...attributes} />
+      {!loading && !covers.length ?
+        <div className='EmptyMessage'>
+          {__(`Block content is empty. Check the block's settings or remove it.`, 'planet4-blocks-backend')}
+        </div> :
+        <Covers {...coversProps} />
+      }
     </section>
   );
 }
