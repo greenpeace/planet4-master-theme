@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2021-01-27 12:31+0000\n"
+"PO-Revision-Date: 2021-02-04 10:32+0000\n"
 "Last-Translator: Dirk Faber\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
@@ -367,7 +367,7 @@ msgstr "This Campaign is not assigned to an Issue"
 
 #: templates/single-page.twig:12 templates/single-password.twig:17
 msgid "To see the content of this page, please enter your password  below"
-msgstr "Voor het wachtwoord in om deze pagina te bekijken"
+msgstr "Voer het wachtwoord in om deze pagina te bekijken"
 
 #: templates/navigation-bar.twig:6
 msgid "Toggle navigation menu"
