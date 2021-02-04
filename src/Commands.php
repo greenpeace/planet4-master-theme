@@ -33,7 +33,7 @@ class Commands {
 		 * Put the CF API key into the options table, where the CF plugin uses it from.
 		 */
 		$put_cf_key_in_db = static function ( $args ) {
-			$hostname = $args[0];
+			$hostname = $args[0] ?? null;
 			if ( empty( $hostname ) ) {
 				WP_CLI::error( 'Please specify the hostname.' );
 			}
@@ -65,7 +65,7 @@ class Commands {
 
 			if ( isset( $assoc_args['urls'] ) ) {
 				$urls = explode( ',', $assoc_args['urls'] );
-			} elseif ( $assoc_args['all'] ) {
+			} elseif ( isset( $assoc_args['all'] ) ) {
 				$post_types = isset( $assoc_args['post-types'] )
 					? explode( ',', $assoc_args['post-types'] )
 					: [
