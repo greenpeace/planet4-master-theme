@@ -1,6 +1,6 @@
 import { Component } from '@wordpress/element';
 import { unescape } from '../../functions/unescape';
-import IMAGE_SIZES from './imageSizes';
+import { IMAGE_SIZES } from './imageSizes';
 
 export class ArticlePreview extends Component {
   constructor(props) {
