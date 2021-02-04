@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from '@wordpress/element';
+import { IMAGE_SIZES } from './imageSizes';
 
 const { __ } = wp.i18n;
 
@@ -94,7 +95,7 @@ export const GalleryCarousel = ({ images, onImageClick }) => {
               loading='lazy'
               src={image.image_src}
               srcSet={image.image_srcset}
-              sizes={image.image_sizes || 'false'}
+              sizes={IMAGE_SIZES.carousel}
               style={{ objectPosition: image.focus_image }}
               alt={image.alt_text}
               onClick={() => {

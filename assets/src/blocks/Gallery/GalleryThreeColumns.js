@@ -1,4 +1,4 @@
-import IMAGE_SIZES from './imageSizes';
+import { IMAGE_SIZES } from './imageSizes';
 
 const ordinals = ['first', 'second', 'third'];
 
