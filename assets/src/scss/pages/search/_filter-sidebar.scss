@@ -88,23 +88,6 @@
       }
     }
 
-    .custom-control-indicator {
-      appearance: none;
-      border: 1px solid $black;
-      background-color: transparent;
-    }
-
-    .p4-custom-control-input:checked {
-      & + .custom-control-indicator {
-        background-color: $faded-jade;
-        border-color: $faded-jade;
-      }
-
-      & ~ .custom-control-description {
-        font-weight: bold;
-      }
-    }
-
     ul {
       li {
         height: 42px;

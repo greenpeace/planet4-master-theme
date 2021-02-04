@@ -8,10 +8,6 @@
       padding-top: 110px;
     }
 
-    .page-header-content {
-      color: #152340;
-    }
-
     .page-header-subtitle {
       margin-top: 150px;
 
@@ -26,11 +22,6 @@
       @include large-and-up {
         margin-top: -30px;
       }
-    }
-
-    .search-form-title {
-      font-weight: bold;
-      color: #152340;
     }
 
     .search-form {
