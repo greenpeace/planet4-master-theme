@@ -19,6 +19,15 @@ class RunActivator extends Command {
 	}
 
 	/**
+	 * The description shown in the argument's help.
+	 *
+	 * @return string The description text.
+	 */
+	protected static function get_short_description(): string {
+		return 'Update roles in DB and run migrations scripts';
+	}
+
+	/**
 	 * The logic of the command. Has WP_CLI command signature.
 	 *
 	 * @param array|null $args Positional arguments.

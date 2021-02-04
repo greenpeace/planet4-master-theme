@@ -14,7 +14,13 @@ abstract class Command {
 	 * @throws \Exception If WP_CLI doesn't like what we register.
 	 */
 	public static function register(): void {
-		WP_CLI::add_command( static::get_name(), [ static::class, 'execute' ] );
+		WP_CLI::add_command(
+			static::get_name(),
+			[ static::class, 'execute' ],
+			[
+				'shortdesc' => static::get_short_description(),
+			]
+		);
 	}
 
 	/**
@@ -23,6 +29,13 @@ abstract class Command {
 	 * @return string The command name.
 	 */
 	abstract protected static function get_name(): string;
+
+	/**
+	 * The description shown in the argument's help.
+	 *
+	 * @return string The description text.
+	 */
+	abstract protected static function get_short_description(): string;
 
 	/**
 	 * The logic of the command. Has WP_CLI command signature.
