@@ -1,10 +1,9 @@
 import { useState, useEffect } from '@wordpress/element';
-import { fetchJson } from '../../functions/fetchJson';
 import { addQueryArgs } from '../../functions/addQueryArgs';
 
 const { apiFetch } = wp;
 
-export const useCovers = ({ post_types, tags, cover_type, covers_view, posts }, baseUrl) => {
+export const useCovers = ({ post_types, tags, cover_type, covers_view, posts }, noLoading) => {
   const [covers, setCovers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [row, setRow] = useState(parseInt(covers_view));
@@ -22,7 +21,7 @@ export const useCovers = ({ post_types, tags, cover_type, covers_view, posts }, 
 
     const args = {
       post_types,
-      cover_type: cover_type || '3',
+      cover_type,
       tags,
       covers_view,
       posts,
@@ -31,12 +30,10 @@ export const useCovers = ({ post_types, tags, cover_type, covers_view, posts }, 
     const path = addQueryArgs('planet4/v1/get-covers', args);
 
     try {
-      const response = baseUrl
-        ? await fetchJson(`${ baseUrl }/wp-json/${ path }`)
-        : await apiFetch({ path });
+      const loadedCovers = await apiFetch({ path });
 
-      if (response.covers) {
-        setCovers(response.covers);
+      if (loadedCovers) {
+        setCovers(loadedCovers);
       }
 
     } catch (e) {
@@ -48,7 +45,9 @@ export const useCovers = ({ post_types, tags, cover_type, covers_view, posts }, 
   };
 
   useEffect(() => {
-    loadCovers();
+    if (!noLoading) {
+      loadCovers();
+    }
   }, [ cover_type, post_types, covers_view, tags, posts ]);
 
   return {

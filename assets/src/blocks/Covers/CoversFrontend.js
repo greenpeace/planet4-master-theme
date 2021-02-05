@@ -2,11 +2,11 @@ import { Covers } from './Covers';
 import { useCovers } from './useCovers';
 import { getCoversClassName } from './getCoversClassName';
 
-export const CoversFrontend = (attributes) => {
-  const { covers_view, cover_type, title, description } = attributes;
+export const CoversFrontend = attributes => {
+  const { covers_view, cover_type, title, description, covers } = attributes;
   const blockClassName = getCoversClassName(cover_type, covers_view);
 
-  const { covers, loading, loadMoreCovers, row } = useCovers(attributes, document.body.dataset.nro);
+  const { loadMoreCovers, row } = useCovers(attributes, true);
 
   const coversProps = {
     covers,
@@ -16,7 +16,7 @@ export const CoversFrontend = (attributes) => {
     cover_type,
   };
 
-  if (loading || !covers.length) {
+  if (!covers.length) {
     return null;
   }
 

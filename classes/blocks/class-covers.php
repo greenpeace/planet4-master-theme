@@ -34,7 +34,10 @@ class Covers extends Base_Block {
 				'editor_script'   => 'planet4-blocks',
 				// todo: Remove when all content is migrated.
 				'render_callback' => static function ( $attributes ) {
+					$attributes['covers'] = self::get_covers( $attributes );
+
 					$json = wp_json_encode( [ 'attributes' => $attributes ] );
+
 					return '<div data-render="planet4-blocks/covers" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
 				},
 				// These attributes match the current fields.
@@ -109,11 +112,7 @@ class Covers extends Base_Block {
 			$covers = self::populate_posts_for_cfc( $fields );
 		}
 
-		$data = [
-			'covers' => $covers,
-		];
-
-		return $data;
+		return $covers;
 	}
 
 	/**
