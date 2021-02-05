@@ -75,13 +75,13 @@ const renderView = (attributes, toAttribute) => {
   const { covers_view, cover_type, title, description } = attributes;
   const blockClassName = getCoversClassName(cover_type, covers_view);
 
-  const { covers, loading, loadMoreCovers, row } = useCovers(attributes);
+  const { covers, loading, row } = useCovers(attributes);
 
   const coversProps = {
     covers,
     covers_view,
     row,
-    loadMoreCovers,
+    loadMoreCovers: () => {},
     cover_type,
   };
 
