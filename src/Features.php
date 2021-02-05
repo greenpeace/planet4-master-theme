@@ -14,6 +14,8 @@ class Features {
 
 	public const ENGAGING_NETWORKS = 'feature_engaging_networks';
 
+	public const CLOUDFLARE_DEPLOY_PURGE = 'cloudflare_deploy_purge';
+
 	/**
 	 * Get the features options page settings.
 	 *
@@ -53,6 +55,15 @@ class Features {
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::ENGAGING_NETWORKS,
+				'type' => 'checkbox',
+			],
+			[
+				'name' => __( 'Purge HTML from Cloudflare on deploy.', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'WARNING: Do not change this setting without checking with Planet4 team. This will purge all URLs from Cloudflare after a deploy. We are still experimenting with the effects of that on Cloudflare performance.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::CLOUDFLARE_DEPLOY_PURGE,
 				'type' => 'checkbox',
 			],
 		];

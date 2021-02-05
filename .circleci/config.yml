@@ -259,6 +259,7 @@ jobs:
             JIRA_USERNAME=planet4 python /home/circleci/book-test-instance.py \
             --pr-url $(cat /tmp/workspace/pr) \
             --results /tmp/workspace/booking.json >/tmp/workspace/test-instance
+            echo "https://app.circleci.com/pipelines/github/greenpeace/planet4-test-$(cat /tmp/workspace/test-instance)/"
       - run: activate-gcloud-account.sh
       - run:
           name: "Put zip in cloud storage"
