@@ -1,6 +1,7 @@
 import { CoversEditor } from './CoversEditor.js';
 import { frontendRendered } from '../frontendRendered';
 import { Tooltip } from '@wordpress/components';
+import { coversV1 } from './deprecated/coversV1';
 
 const { __ } = wp.i18n;
 
@@ -17,37 +18,6 @@ const getStyleLabel = (label, help) => {
   return label;
 };
 
-const attributes = {
-  cover_type: {
-    type: 'string',
-    default: '3',
-  },
-  covers_view: {
-    type: 'string',
-    default: '1'
-  },
-  title: {
-    type: 'string',
-    default: '',
-  },
-  description: {
-    type: 'string',
-    default: '',
-  },
-  tags: {
-    type: 'array',
-    default: []
-  },
-  post_types: {
-    type: 'array',
-    default: []
-  },
-  posts: {
-    type: 'array',
-    default: []
-  },
-};
-
 export const registerCoversBlock = () => {
   const { registerBlockType } = wp.blocks;
 
@@ -58,7 +28,36 @@ export const registerCoversBlock = () => {
     supports: {
       html: false, // Disable "Edit as HTMl" block option.
     },
-    attributes,
+    attributes: {
+      cover_type: {
+        type: 'string',
+        default: '3',
+      },
+      covers_view: {
+        type: 'string',
+        default: '1'
+      },
+      title: {
+        type: 'string',
+        default: '',
+      },
+      description: {
+        type: 'string',
+        default: '',
+      },
+      tags: {
+        type: 'array',
+        default: []
+      },
+      post_types: {
+        type: 'array',
+        default: []
+      },
+      posts: {
+        type: 'array',
+        default: []
+      },
+    },
     edit: CoversEditor,
     save: frontendRendered(BLOCK_NAME),
     // Add our custom styles
@@ -87,12 +86,7 @@ export const registerCoversBlock = () => {
       }
     ],
     deprecated: [
-      {
-        attributes,
-        save() {
-          return null;
-        }
-      }
+      coversV1,
     ]
   });
 }

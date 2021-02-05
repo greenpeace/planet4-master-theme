@@ -1,6 +1,6 @@
 const { __ } = wp.i18n;
 
-export const CampaignCovers = ({ covers, covers_view, row, loadMoreCovers}) => {
+export const CampaignCovers = ({ covers, covers_view, row, loadMoreCovers }) => {
   const rowAmount = 3;
   const showLoadMore = (covers.length > rowAmount && covers_view === '1') ||
     (covers.length > (rowAmount * 2) && covers_view === '2');
