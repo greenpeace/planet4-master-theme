@@ -1,7 +1,8 @@
 import { renderSelectedVars } from './renderSelectedVars';
 import { getMatchingVars } from './getMatchingVars';
-import { dragElement } from './dragElement';
-import { addHighlight, LOCAL_STORAGE_KEY, removeHighlight } from './VarPicker';
+import { DRAG_KEY, dragElement } from './dragElement';
+import { LOCAL_STORAGE_KEY} from './VarPicker';
+import { addHighlight, removeHighlight } from './highlight';
 import { groupVars } from './groupVars';
 import { fetchJson } from '../functions/fetchJson';
 
@@ -9,16 +10,26 @@ const editorRoot = document.createElement( 'div' );
 editorRoot.id = 'theme-editor-root';
 document.body.appendChild( editorRoot );
 dragElement( editorRoot );
+const storedLocation = localStorage.getItem(DRAG_KEY);
+try {
+  const {x,y} = JSON.parse(storedLocation);
+  if (x) {
+    const maxX = window.outerWidth - 300;
+    editorRoot.style.left = `${ Math.min(x, maxX) }px`;
+  }
+  if (y) {
+    const maxY = window.outerHeight - 300;
+    editorRoot.style.top = `${ Math.min(y, maxY) }px`;
+  }
+} catch (e) {
+  console.log('No position found in local storage', e)
+}
 
 const json = localStorage.getItem( LOCAL_STORAGE_KEY );
 try {
   const storedVars = JSON.parse(json);
 
-  if (!storedVars) {
-    if (window.p4theme) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(window.p4theme));
-    }
-  } else {
+  if (storedVars) {
     Object.keys(storedVars).forEach(name => {
       const value = storedVars[name];
       document.documentElement.style.setProperty(name, value);
@@ -38,10 +49,11 @@ const setup = async () => {
   const blockVars = await blockVarsPromise;
   const themeVars = await themeVarsPromise;
 
-  const cssVars = [...blockVars, ...themeVars].reduce((cssVars, someVar) => [
+  const allVars = [...themeVars, ...blockVars];
+  const cssVars = allVars.reduce((cssVars, someVar) => [
     ...cssVars,
     ...(
-      cssVars.any(v => v.name === someVar.name) ? [] : [{
+      cssVars.some(v => v.name === someVar.name) ? [] : [{
         ...someVar,
         uniqueSelectors: [...new Set(someVar.usages.map(usage => usage.selector))],
       }]
@@ -56,13 +68,9 @@ const setup = async () => {
 
     const matchedVars = await getMatchingVars({ cssVars, target: event.target });
 
-    if (matchedVars.length === 0) {
-      return;
-    }
-
     const groups = await groupVars(matchedVars, event.target);
 
-    renderSelectedVars(editorRoot, matchedVars, event.target, groups);
+    renderSelectedVars(editorRoot, matchedVars, event.target, groups, cssVars);
 
     addHighlight(event.target);
     setTimeout(() => removeHighlight(event.target), 700);

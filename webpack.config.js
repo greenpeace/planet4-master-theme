@@ -53,8 +53,8 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: () => [
-                cssVariables( { preserve: true, exportVarUsagesTo: allCssVars } ),
                 dashDash(),
+                cssVariables( { preserve: true, exportVarUsagesTo: allCssVars } ),
                 require('autoprefixer'),
               ],
               sourceMap: true

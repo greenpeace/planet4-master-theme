@@ -7,12 +7,13 @@
   line-height: initial !important;
 }
 
-.var-picker > ul  {
+.var-picker > ul {
   padding: 0;
   max-height: 80vh;
   width: 300px;
   overflow-y: scroll;
   resize: 'horizontal';
+  margin-bottom: 0;
 
   &::-webkit-scrollbar {
     width: 9px;
@@ -76,7 +77,6 @@
 }
 
 .usages-collapsed {
-
   max-height: 32px;
   overflow-y: hidden;
   overflow-x: hidden;
@@ -91,26 +91,18 @@ div[id^=font-picker] ul {
 }
 
 #theme-editor-root {
-
-  //display: none;
   position: fixed;
   top: 64px;
   left: 50px;
   z-index: 99999999;
+  padding: 4px 1px 3px 4px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(1px);
 
-  #drag-me {
-    z-index: 99;
-    position: static;
-    top: -32px;
-    left: 0;
-    font-size: 8px;
-    padding: 2px 4px;
-    background: rgba(255,255,255,.7);
-    border-radius: 6px;
-    border: 2px dotted grey;
+  &.dragging {
+    cursor: grabbing;
   }
 }
-
 
 body.logged-in #theme-editor-root {
   top: 92px;

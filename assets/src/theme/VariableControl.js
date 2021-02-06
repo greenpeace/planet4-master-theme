@@ -2,8 +2,7 @@ import { useState, useRef} from 'react';
 import { Fragment} from '@wordpress/element';
 import { COLOR_VALUE_REGEX, TypedControl } from './typedControl';
 import { IconButton } from '@wordpress/components';
-import { readProperty } from './VarPicker';
-import { usePreview } from './usePreview';
+import { PSEUDO_REGEX, THEME_ACTIONS} from './useThemeEditor';
 
 const uniqueUsages = cssVar => {
   return [
@@ -15,25 +14,28 @@ const uniqueUsages = cssVar => {
   ];
 };
 
-const uniqueProperties = cssVar => [...new Set(cssVar.usages.map(usage => usage.property))];
-
 const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 const format = name => {
+  // todo: make this make more sense
   const raw = name.replace(/^--/, '').replace(/--/g, ': ').replace(/[-_]/g, ' ')
   const parts = raw.split(':');
 
-  return [parts.slice(0, parts.length - 1).join(':') + ':', parts[parts.length - 1]];
+  return [
+    parts.slice(0, parts.length - 1).join(':') + ':',
+    parts[parts.length - 1].trim().replace(/ /g, '-')
+  ];
 };
 const formatTitle = (cssVar, isRepeat) => {
   const [prefix, prop] = format(cssVar.name);
   return <Fragment>
     <span style={ { fontWeight: 'bold', color: isRepeat ? 'grey' : 'black' } }>{capitalize(prefix)}</span>
+    <br/>
     <span>{prop}</span>
   </Fragment>;
 };
 
 const previewValue = (value, cssVar, onClick, isDefault) => {
-  const size = '24px';
+  const size = '30px';
 
   const title = `${value}${ !isDefault ? '' : ' (default)' }`;
 
@@ -49,7 +51,7 @@ const previewValue = (value, cssVar, onClick, isDefault) => {
         borderRadius: '6px',
         backgroundColor: value,
         float: 'right',
-        marginTop: '2px'
+        marginTop: '7px',
       } }/>;
   }
 
@@ -59,7 +61,7 @@ const previewValue = (value, cssVar, onClick, isDefault) => {
     title={ title }
     style={ {
       // width: size,
-      fontSize: '9px',
+      fontSize: '14px',
       height: size,
       float: 'right',
       marginTop: '2px'
@@ -101,14 +103,14 @@ const showUsages = (cssVar, showSelectors, toggleSelectors) => {
 
 export const VariableControl = (props) => {
   const {
-    changingVars,
+    theme,
     cssVar,
     onCloseClick,
     onChange,
     onUnset,
     defaultValue,
     isRepeat = false,
-    refresh,
+    dispatch,
   } = props;
 
   const [
@@ -122,34 +124,22 @@ export const VariableControl = (props) => {
   ] = useState(false);
 
   const toggleSelectors = () => setShowSelectors(!showSelectors)
-
   const compoRef = useRef();
-
-  const varValue = changingVars[cssVar.name]
-    || readProperty(cssVar.name)
-    || defaultValue;
-
-  const {
-    setIsPreviewing: setPreviewing,
-    setValue: setPreviewValue,
-    isPreviewing,
-    origValue: actualValue,
-    setOrigValue: updatePreviewOriginal,
-  } = usePreview(cssVar.name, varValue);
-
-  const value = isPreviewing ? (actualValue || varValue) : varValue;
-
+  // The theme ensures that if the property is not returned, it can be safely read from the window.
+  const value = theme[cssVar.name] || defaultValue;
   const isDefault = value === defaultValue;
 
   return <li
     key={ cssVar.name }
     className={ 'var-control' }
+    onClick={ () => !isOpen && toggleOpen()}
     style={ {
-      userSelect: 'none',
+      // userSelect: 'none',
       position: 'relative',
       listStyleType: 'none',
       fontSize: '15px',
       clear: 'both',
+      cursor: isOpen ? 'auto' : 'pointer',
     } }
   >
     { !!onCloseClick && <IconButton
@@ -159,19 +149,23 @@ export const VariableControl = (props) => {
     /> }
     { previewValue(value, cssVar, toggleOpen, isDefault) }
     <h5
-      style={ {  fontSize: '16px', padding: '2px 4px 0', userSelect: 'text', fontWeight: '400' } }
-      onClick={ toggleOpen }
+      style={ {  fontSize: '16px', padding: '2px 4px 0', fontWeight: '400', userSelect: 'none', cursor: 'pointer' } }
+      onClick={ ()=> isOpen && toggleOpen() }
     >
       { formatTitle(cssVar, isRepeat) }
     </h5>
     { isOpen && (
       <div
-        // onMouseEnter={()=> {
-        //   setPreviewing(true);
-        // }}
-        // onMouseLeave={()=> {
-        //   setPreviewing(false);
-        // }}
+        onMouseEnter={()=> {
+          if (PSEUDO_REGEX.test(cssVar.name)) {
+            dispatch({type: THEME_ACTIONS.START_PREVIEW_PSEUDO_STATE, payload: {name: cssVar.name}});
+          }
+        }}
+        onMouseLeave={()=> {
+          if (PSEUDO_REGEX.test(cssVar.name)) {
+            dispatch({type: THEME_ACTIONS.END_PREVIEW_PSEUDO_STATE, payload: {name: cssVar.name}})
+          }
+        }}
       >
         <div>{cssVar.name}</div>
         { showUsages(cssVar, showSelectors,toggleSelectors) }
@@ -180,23 +174,14 @@ export const VariableControl = (props) => {
           style={ { float: 'right', marginBottom: '14.5px' } }
           title={`Reset to "${defaultValue}"`}
           onClick={ () => {
-            setPreviewValue(defaultValue);
             onUnset(compoRef);
-            updatePreviewOriginal(null)
           } }
         >unset</button>}
         <TypedControl { ...{
-          cssVar, value,compoRef,refresh, setPreviewColor: setPreviewValue,updatePreviewOriginal, onChange: (value, updateRef) => {
-            setPreviewValue(value);
-            updatePreviewOriginal(value);
+          cssVar, theme, value, compoRef,dispatch, onChange: (value, updateRef) => {
             onChange(value, !updateRef ? null : compoRef);
           },
         } }/>
-        <pre
-          style={ { float: 'right', fontSize: '11px', paddingLeft: '8px', backgroundColor: '#eae896' } }
-        >
-              { uniqueProperties(cssVar).join(', ') }
-          </pre>
       </div>
     ) }
   </li>;

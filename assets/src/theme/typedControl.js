@@ -2,7 +2,7 @@ import { ColorPicker, TextControl, FontSizePicker} from '@wordpress/components';
 import tinycolor from 'tinycolor2';
 import { Fragment } from '@wordpress/element';
 import FontPicker from 'font-picker-react';
-import { LOCAL_STORAGE_KEY } from './VarPicker';
+import { THEME_ACTIONS} from './useThemeEditor';
 
 const googleApiKey = 'AIzaSyBt0d8TsNo0wJn8Pj2zICtBY614IsEqrHw';
 
@@ -14,7 +14,7 @@ const convertPixelsToRem = (px) => px / parseFloat(getComputedStyle(document.doc
 const isPx = value => !!value && !!value.match(/[\d.]+px$/);
 const isRem = value => !!value && !!value.match(/[\d.]+rem$/);
 
-const extraColorUsages = theme => {
+const extractColorUsages = theme => {
   if (null === theme) {
     return [];
   }
@@ -50,52 +50,17 @@ const byHexValue = ({color1}, { color2}) => {
   return hex1 < hex2 ? 1 : -1;
 }
 
-export const TypedControl = ({ cssVar, value, onChange, compoRef, setPreviewColor, updatePreviewOriginal }) => {
+export const TypedControl = ({ cssVar, theme, value, onChange, compoRef, dispatch }) => {
 
   if (cssVar.usages.some(usage =>
     !!usage.property.match(/color$/)
     || ['background'].includes(usage.property)
   )) {
-    let currentTheme;
-    try {
-      currentTheme = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
-    } catch (e) {
-      currentTheme = {};
-      console.log(e);
-    }
-
-    const colorUsages = extraColorUsages(currentTheme);
+    const colorUsages = extractColorUsages(theme);
 
     const PREVIEW_SIZE = '30px';
 
     return <Fragment>
-      { colorUsages.sort(byHexValue).map(({ color, usages }) => (<span
-        key={color}
-        onClick={ () => {
-          onChange(color, true);
-          updatePreviewOriginal(color);
-        } }
-        onMouseEnter={ () => {
-          setPreviewColor(color);
-        }}
-        onMouseLeave={ () => {
-          setPreviewColor(value);
-        }}
-        title={ `${ color }\nUsed for:\n` + usages.join('\n') }
-        style={ {
-          width: PREVIEW_SIZE,
-          height: PREVIEW_SIZE,
-          border: color === value ? '3px solid yellow' : '1px solid black',
-          marginRight: '2px',
-          borderRadius: '6px',
-          backgroundColor: color,
-          float: 'left',
-          marginTop: '2px',
-          fontSize: '8px',
-        } }>
-        <span key={`${color}---usages`} style={ { backgroundColor: 'white' } }>{ usages.length }</span>
-        </span>)
-      ) }
       <ColorPicker
         ref={ compoRef }
         color={ value }
@@ -107,10 +72,42 @@ export const TypedControl = ({ cssVar, value, onChange, compoRef, setPreviewColo
           onChange(hasTransparency ? `rgba(${ r } , ${ g }, ${ b }, ${ a })` : color.hex);
         } }
       />
-      <TextControl
-        value={ value }
-        onChange={ value=>onChange(value, true) }
-      />
+      { colorUsages.sort(byHexValue).map(({ color, usages }) => (<span
+        key={color}
+        onClick={ () => {
+          onChange(color, true);
+        } }
+        onMouseEnter={ () => {
+          // console.log('enter preview span')
+          dispatch({ type: THEME_ACTIONS.START_PREVIEW, payload: { name: cssVar.name, value: color } });
+        }}
+        onMouseLeave={ () => {
+          // console.log('exit preview span')
+          dispatch({ type: THEME_ACTIONS.END_PREVIEW, payload: { name: cssVar.name } });
+        }}
+        title={ `${ color }\nUsed for:\n` + usages.join('\n') }
+        style={ {
+          width: PREVIEW_SIZE,
+          height: PREVIEW_SIZE,
+          border: color === value ? '3px solid yellow' : '1px solid black',
+          marginRight: '5px',
+          marginBottom: '2px',
+          borderRadius: '6px',
+          backgroundColor: color,
+          display: 'inline-block',
+          marginTop: '2px',
+          fontSize: '8px',
+          cursor: 'pointer',
+        } }>
+        <span key={`${color}---usages`} style={ { backgroundColor: 'white' } }>{ usages.length }</span>
+        </span>)
+      ) }
+      <div>
+        <TextControl style={{marginTop: '6px'}}
+          value={ value }
+          onChange={ value=>onChange(value, true) }
+        />
+      </div>
     </Fragment>;
   }
 
@@ -118,6 +115,7 @@ export const TypedControl = ({ cssVar, value, onChange, compoRef, setPreviewColo
     'font-size',
     'border',
     'border-bottom',
+    'border-bottom-width',
     'line-height',
     'border-radius',
     'margin',
@@ -163,11 +161,11 @@ export const TypedControl = ({ cssVar, value, onChange, compoRef, setPreviewColo
 
   if (cssVar.usages.some(usage => usage.property === 'font-family')) {
     return <Fragment>
-      <FontPicker
-        apiKey={ googleApiKey }
-        activeFontFamily={ value }
-        onChange={ value => onChange(value.family) }
-      />
+      {/*<FontPicker*/}
+      {/*  apiKey={ googleApiKey }*/}
+      {/*  activeFontFamily={ value }*/}
+      {/*  onChange={ value => onChange(value.family) }*/}
+      {/*/>*/}
       <TextControl
         value={ value }
         onChange={ onChange }

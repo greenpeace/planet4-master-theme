@@ -1,22 +1,18 @@
 const wasRejected = result => 'rejected' === result.status;
 const wasFulfilled = result => 'fulfilled' === result.status;
-const stateSelectorsRegex = /:(active|focus|visited|hover)/g;
+const allStateSelectorsRegexp = /:(active|focus|visited|hover)/g;
 
 const matchVar = async ( cssVar, target ) => {
   const combinedSelector = cssVar.uniqueSelectors.map( selector => {
     const isBodySelector = !!selector.match( /^body(\.[\w-]*)?$/ );
 
-    // const shouldIncludeStar = !isBodySelector || ['p', 'body'].includes(target.tagName.toLowerCase());
-    const shouldIncludeStar = true;
+    // Prevent body selector from always showing up, unless a body or paragraph was clicked.
+    const shouldIncludeStar = !isBodySelector || ['p', 'body'].includes(target.tagName.toLowerCase());
+    // const shouldIncludeStar = true;
 
-    // return selector;
-    return `${ selector }` + (
-      shouldIncludeStar
-        ? `, ${ selector } *`
-        : ''
-    );
+    return `${ selector }${ !shouldIncludeStar ? '' : `, ${ selector } *` }`;
     // Remove any pseudo selectors that might not match the clicked element right now.
-  } ).join().replace( stateSelectorsRegex, '' );
+  } ).join().replace( allStateSelectorsRegexp, '' );
 
 
   if ( target.matches( combinedSelector ) ) {

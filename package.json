@@ -15,6 +15,8 @@
     "test:watch": "env JEST_TIMEOUT=30000 PUPPETEER_HEADLESS=false PUPPETEER_SLOWMO=100 WP_USERNAME=admin WP_PASSWORD=admin WP_BASE_URL=https://www.planet4.test wp-scripts test-e2e"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-nullish-coalescing-operator": "*",
+    "@babel/plugin-proposal-optional-chaining": "*",
     "@greenpeace/dashdash": "^1.0.1",
     "@babel/plugin-proposal-nullish-coalescing-operator": "*",
     "@babel/plugin-proposal-optional-chaining": "*",
@@ -47,6 +49,7 @@
     "jest-environment-node": "^26.0.1",
     "npm": "^6.14.6",
     "postcss-css-variables-extract": "^0.1.2",
+    "react-hotkeys-hook": "^3.0.3",
     "tinycolor2": "^1.4.2"
   }
 }
