@@ -3,14 +3,14 @@ import { useCovers } from './useCovers';
 import { getCoversClassName } from './getCoversClassName';
 
 export const CoversFrontend = attributes => {
-  const { covers_view, cover_type, title, description, covers } = attributes;
-  const blockClassName = getCoversClassName(cover_type, covers_view);
+  const { initialRowsLimit, cover_type, title, description, covers } = attributes;
+  const blockClassName = getCoversClassName(cover_type, initialRowsLimit);
 
   const { loadMoreCovers, row } = useCovers(attributes, true);
 
   const coversProps = {
     covers,
-    covers_view,
+    initialRowsLimit,
     row,
     loadMoreCovers,
     cover_type,

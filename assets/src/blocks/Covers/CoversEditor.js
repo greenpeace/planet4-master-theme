@@ -16,12 +16,12 @@ const { RichText } = wp.blockEditor;
 const { __ } = wp.i18n;
 
 const renderEdit = (attributes, toAttribute) => {
-  const { covers_view, posts, tags, cover_type, post_types } = attributes;
+  const { initialRowsLimit, posts, tags, cover_type, post_types } = attributes;
 
-  const rowOptions = [
-    { label: __('1 Row', 'planet4-blocks-backend'), value: '1' },
-    { label: __('2 Rows', 'planet4-blocks-backend'), value: '2' },
-    { label: __('All rows', 'planet4-blocks-backend'), value: '3' },
+  const rowLimitOptions = [
+    { label: __('1 Row', 'planet4-blocks-backend'), value: 1 },
+    { label: __('2 Rows', 'planet4-blocks-backend'), value: 2 },
+    { label: __('All rows', 'planet4-blocks-backend'), value: 0 },
   ];
 
   return (
@@ -29,9 +29,9 @@ const renderEdit = (attributes, toAttribute) => {
       <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
         <SelectControl
           label='Rows to display'
-          value={covers_view}
-          options={rowOptions}
-          onChange={toAttribute('covers_view')}
+          value={initialRowsLimit}
+          options={rowLimitOptions}
+          onChange={value => toAttribute('initialRowsLimit')(Number(value))}
         />
 
         {!posts.length &&
@@ -47,12 +47,10 @@ const renderEdit = (attributes, toAttribute) => {
         }
 
         {cover_type === COVER_TYPES.content && !posts.length &&
-          <div>
-            <PostTypeSelector
-              value={post_types}
-              onChange={toAttribute('post_types')}
-            />
-          </div>
+          <PostTypeSelector
+            value={post_types}
+            onChange={toAttribute('post_types')}
+          />
         }
 
         {cover_type !== COVER_TYPES.campaign && !tags.length && !post_types.length &&
@@ -72,14 +70,14 @@ const renderEdit = (attributes, toAttribute) => {
 }
 
 const renderView = (attributes, toAttribute) => {
-  const { covers_view, cover_type, title, description } = attributes;
-  const blockClassName = getCoversClassName(cover_type, covers_view);
+  const { initialRowsLimit, cover_type, title, description } = attributes;
+  const blockClassName = getCoversClassName(cover_type, initialRowsLimit);
 
   const { covers, loading, row } = useCovers(attributes);
 
   const coversProps = {
     covers,
-    covers_view,
+    initialRowsLimit,
     row,
     loadMoreCovers: () => {},
     cover_type,
@@ -126,13 +124,8 @@ export const CoversEditor = ({ attributes, setAttributes, isSelected }) => {
   const { className, post_types } = attributes;
 
   useEffect(() => {
-    if (className) {
-      let newCoverType = COVER_TYPES.content;
-      if (className.includes('campaign')) {
-        newCoverType = COVER_TYPES.campaign;
-      } else if (className.includes('take-action')) {
-        newCoverType = COVER_TYPES.takeAction;
-      }
+    if (className && className.includes('is-style-')) {
+      const newCoverType = className.split('is-style-')[1];
       setAttributes({
         cover_type: newCoverType,
         posts: [],

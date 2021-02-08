@@ -20,7 +20,25 @@ class Covers extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'covers';
+	const BLOCK_NAME = 'planet4-blocks/covers';
+
+	/**
+	 * Block version, update when changing attributes
+	 *
+	 * @var int VERSION.
+	 */
+	private const VERSION = 2;
+
+	/**
+	 * Old cover types, needed to convert existing blocks to version 2.
+	 *
+	 * @var array OLD_COVER_TYPES.
+	 */
+	private const OLD_COVER_TYPES = [
+		'1' => 'take-action',
+		'2' => 'campaign',
+		'3' => 'content',
+	];
 
 	const POSTS_LIMIT = 50;
 
@@ -34,50 +52,68 @@ class Covers extends Base_Block {
 				'editor_script'   => 'planet4-blocks',
 				// todo: Remove when all content is migrated.
 				'render_callback' => static function ( $attributes ) {
+					if ( isset( $attributes['covers_view'] ) ) {
+						$attributes['initialRowsLimit'] = '3' === $attributes['covers_view'] ? 0 : intval( $attributes['covers_view'] );
+						unset( $attributes['covers_view'] );
+					}
+
+					if ( ! isset( $attributes['version'] ) ) {
+						$attributes['version'] = self::VERSION;
+					}
+
+					if ( is_numeric( $attributes['cover_type'] ) ) {
+						$old_cover_type           = $attributes['cover_type'];
+						$attributes['cover_type'] = self::OLD_COVER_TYPES[ $old_cover_type ];
+					}
+
 					$attributes['covers'] = self::get_covers( $attributes );
 
 					$json = wp_json_encode( [ 'attributes' => $attributes ] );
 
-					return '<div data-render="planet4-blocks/covers" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+					return '<div data-render="' . self::BLOCK_NAME . '" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
 				},
 				// These attributes match the current fields.
 				'attributes'      => [
-					'cover_type'  => [
+					'cover_type'       => [
 						'type'    => 'string',
-						'default' => '3',
+						'default' => 'content',
 					],
-					'covers_view' => [
-						'type'    => 'string',
-						'default' => '1',
+					'initialRowsLimit' => [
+						'type'    => 'integer',
+						'default' => 1,
 					],
-					'title'       => [
-						'type'    => 'string',
-						'default' => '',
-					],
-					'description' => [
+					'title'            => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'tags'        => [
+					'description'      => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'tags'             => [
 						'type'    => 'array',
 						'default' => [],
 						'items'   => [
 							'type' => 'integer', // Array definitions require an item type.
 						],
 					],
-					'post_types'  => [
+					'post_types'       => [
 						'type'    => 'array',
 						'default' => [],
 						'items'   => [
 							'type' => 'integer',
 						],
 					],
-					'posts'       => [
+					'posts'            => [
 						'type'    => 'array',
 						'default' => [],
 						'items'   => [
 							'type' => 'integer',
 						],
+					],
+					'version'          => [
+						'type'    => 'integer',
+						'default' => self::VERSION,
 					],
 				],
 			]
@@ -101,14 +137,14 @@ class Covers extends Base_Block {
 	 * @return array The data to be passed in the View.
 	 */
 	public static function get_covers( $fields ): array {
-		$cover_type = $fields['cover_type'] ?? '';
+		$cover_type = $fields['cover_type'] ?? 'content';
 		$covers     = [];
 
-		if ( '1' === $cover_type ) {
+		if ( 'take-action' === $cover_type ) {
 			$covers = self::populate_posts_for_act_pages( $fields );
-		} elseif ( '2' === $cover_type ) {
+		} elseif ( 'campaign' === $cover_type ) {
 			$covers = self::populate_posts_for_campaigns( $fields );
-		} elseif ( '3' === $cover_type ) {
+		} elseif ( 'content' === $cover_type ) {
 			$covers = self::populate_posts_for_cfc( $fields );
 		}
 
@@ -175,7 +211,7 @@ class Covers extends Base_Block {
 			];
 
 			// If cover type is take action pages set post_type to page.
-			if ( isset( $fields['cover_type'] ) && '1' === $fields['cover_type'] ) {
+			if ( isset( $fields['cover_type'] ) && 'take-action' === $fields['cover_type'] ) {
 				$args['post_type'] = 'page';
 			}
 
@@ -293,6 +329,8 @@ class Covers extends Base_Block {
 
 			if ( ! empty( $attachment_id ) ) {
 				$tag_remapped['image']    = wp_get_attachment_image_src( $attachment_id, 'medium_large' );
+				$tag_remapped['src_set']  = wp_get_attachment_image_srcset( $attachment_id, 'medium_large' );
+				$tag_remapped['sizes']    = wp_get_attachment_image_sizes( $attachment_id, 'medium_large' );
 				$tag_remapped['alt_text'] = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
 			}
 

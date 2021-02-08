@@ -3,10 +3,10 @@ import { addQueryArgs } from '../../functions/addQueryArgs';
 
 const { apiFetch } = wp;
 
-export const useCovers = ({ post_types, tags, cover_type, covers_view, posts }, noLoading) => {
+export const useCovers = ({ post_types, tags, cover_type, initialRowsLimit, posts }, noLoading) => {
   const [covers, setCovers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [row, setRow] = useState(parseInt(covers_view));
+  const [row, setRow] = useState(initialRowsLimit);
   const [error, setError] = useState(null);
 
   const loadCovers = async () => {
@@ -15,15 +15,10 @@ export const useCovers = ({ post_types, tags, cover_type, covers_view, posts }, 
     }
     setLoading(true);
 
-    if (parseInt(covers_view) !== row) {
-      setRow(parseInt(covers_view));
-    }
-
     const args = {
       post_types,
       cover_type,
       tags,
-      covers_view,
       posts,
     };
 
@@ -48,13 +43,19 @@ export const useCovers = ({ post_types, tags, cover_type, covers_view, posts }, 
     if (!noLoading) {
       loadCovers();
     }
-  }, [ cover_type, post_types, covers_view, tags, posts ]);
+  }, [ cover_type, post_types, tags, posts ]);
+
+  useEffect(() => {
+    if (initialRowsLimit !== row) {
+      setRow(initialRowsLimit);
+    }
+  }, [initialRowsLimit]);
 
   return {
     covers,
     loading,
     error,
-    loadMoreCovers: () => setRow(row + parseInt(covers_view)),
+    loadMoreCovers: () => setRow(row + initialRowsLimit),
     row,
   };
 };

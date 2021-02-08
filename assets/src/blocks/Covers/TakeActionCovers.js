@@ -1,23 +1,22 @@
-import { useState, useLayoutEffect } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
+import classnames from 'classnames';
 
 const { __ } = wp.i18n;
 
-export const TakeActionCovers = ({ covers_view, covers, row, loadMoreCovers }) => {
-  const [rowAmount, setRowAmount] = useState(3);
+const isSmallWindow = () => window.innerWidth < 992;
 
-  const updateRowAmount = () => {
-    setRowAmount(window.innerWidth < 992 ? 2 : 3);
-  }
+export const TakeActionCovers = ({ initialRowsLimit, covers, row, loadMoreCovers }) => {
+  const [amountPerRow, setAmountPerRow] = useState(isSmallWindow() ? 2 : 3);
+
+  const updateRowAmount = () => setAmountPerRow(isSmallWindow() ? 2 : 3);
 
   // The amount of covers per row depends on the window width
-  useLayoutEffect(() => {
+  useEffect(() => {
     window.addEventListener('resize', updateRowAmount);
-    updateRowAmount();
     return () => window.removeEventListener('resize', updateRowAmount);
   }, []);
 
-  const showLoadMore = (covers.length > rowAmount && covers_view === '1') ||
-    (covers.length > (rowAmount * 2) && covers_view === '2');
+  const showLoadMore = !!initialRowsLimit && covers.length > amountPerRow * row;
 
   return (
     <div className='container'>
@@ -31,9 +30,9 @@ export const TakeActionCovers = ({ covers_view, covers, row, loadMoreCovers }) =
             excerpt,
             button_text
           } = cover;
-          const hideCover = covers_view !== '3' && index >= row * rowAmount;
+          const hideCover = !!initialRowsLimit && index >= row * amountPerRow;
           return (
-            <div key={title} className={`col-lg-4 col-md-6 cover-card-column ${hideCover ? 'hidden' : ''}`}>
+            <div key={title} className={classnames('col-lg-4 col-md-6 cover-card-column', { hidden : hideCover })}>
               <div className='cover-card card-one' style={{ backgroundImage: `url(${image})` }}>
                 <a
                   className='cover-card-overlay'
@@ -82,7 +81,7 @@ export const TakeActionCovers = ({ covers_view, covers, row, loadMoreCovers }) =
           )
         })}
       </div>
-      {showLoadMore && (row * rowAmount) < covers.length &&
+      {showLoadMore &&
         <div className='row'>
           <div onClick={loadMoreCovers} className='col-lg-5 col-md-12 load-more-covers-button-div'>
             <button className='btn btn-block btn-secondary btn-load-more-covers-click'>

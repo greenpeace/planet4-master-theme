@@ -2,10 +2,12 @@ import { CoversEditor } from './CoversEditor.js';
 import { frontendRendered } from '../frontendRendered';
 import { Tooltip } from '@wordpress/components';
 import { coversV1 } from './deprecated/coversV1';
+import { COVER_TYPES } from './Covers';
 
 const { __ } = wp.i18n;
 
 const BLOCK_NAME = 'planet4-blocks/covers';
+const VERSION = 2;
 
 const getStyleLabel = (label, help) => {
   if (help) {
@@ -31,11 +33,11 @@ export const registerCoversBlock = () => {
     attributes: {
       cover_type: {
         type: 'string',
-        default: '3',
+        default: 'content',
       },
-      covers_view: {
-        type: 'string',
-        default: '1'
+      initialRowsLimit: {
+        type: 'integer',
+        default: 1,
       },
       title: {
         type: 'string',
@@ -57,13 +59,17 @@ export const registerCoversBlock = () => {
         type: 'array',
         default: []
       },
+      version: {
+        type: 'integer',
+        default: VERSION,
+      },
     },
     edit: CoversEditor,
     save: frontendRendered(BLOCK_NAME),
     // Add our custom styles
     styles: [
       {
-        name: 'content',
+        name: COVER_TYPES.content,
         label: getStyleLabel(
           __('Content covers', 'planet4-blocks-backend'),
           __('Content covers pull the image from the post', 'planet4-blocks-backend'),
@@ -71,14 +77,14 @@ export const registerCoversBlock = () => {
         isDefault: true
       },
       {
-        name: 'take-action',
+        name: COVER_TYPES.takeAction,
         label: getStyleLabel(
           __('Take Action covers', 'planet4-blocks-backend'),
           __('Take action covers pull the featured image, tags, have a 25 character excerpt and have a call to action button', 'planet4-blocks-backend'),
         ),
       },
       {
-        name: 'campaign',
+        name: COVER_TYPES.campaign,
         label: getStyleLabel(
           __('Campaign covers', 'planet4-blocks-backend'),
           __('Campaign covers pull the associated image and hashtag from the system tag definitions', 'planet4-blocks-backend'),

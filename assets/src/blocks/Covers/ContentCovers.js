@@ -1,21 +1,22 @@
-import { useState, useLayoutEffect } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
+import classnames from 'classnames';
 
 const { __ } = wp.i18n;
 
-export const ContentCovers = ({ covers, covers_view, row, loadMoreCovers }) => {
-  const [rowAmount, setRowAmount] = useState(4);
+const isMediumWindow = () => window.innerWidth >= 576 && window.innerWidth < 992;
 
-  const updateRowAmount = () => setRowAmount(window.innerWidth >= 576 && window.innerWidth < 992 ? 3 : 4);
+export const ContentCovers = ({ covers, initialRowsLimit, row, loadMoreCovers }) => {
+  const [amountPerRow, setAmountPerRow] = useState(isMediumWindow() ? 3 : 4);
+
+  const updateRowAmount = () => setAmountPerRow(isMediumWindow() ? 3 : 4);
 
   // The amount of covers per row depends on the window width
-  useLayoutEffect(() => {
+  useEffect(() => {
     window.addEventListener('resize', updateRowAmount);
-    updateRowAmount();
     return () => window.removeEventListener('resize', updateRowAmount);
   }, []);
 
-  const showLoadMore = (covers.length > rowAmount && covers_view === '1') ||
-    (covers.length > (rowAmount * 2) && covers_view === '2');
+  const showLoadMore = !!initialRowsLimit && covers.length > amountPerRow * row;
 
   return (
     <div className='container'>
@@ -30,9 +31,9 @@ export const ContentCovers = ({ covers, covers_view, row, loadMoreCovers }) => {
             date_formatted,
             post_excerpt,
           } = cover;
-          const hideCover = covers_view !== '3' && index >= row * rowAmount;
+          const hideCover = !!initialRowsLimit && index >= row * amountPerRow;
           return (
-            <div key={post_title} className={`col-md-4 col-lg-3 post-column ${hideCover ? 'hidden' : ''}`}>
+            <div key={post_title} className={classnames('col-md-4 col-lg-3 post-column', { hidden : hideCover })}>
               <div className='content-covers-block-wrap clearfix'>
                 <div className='content-covers-block-info'>
                   <div className='content-covers-block-symbol'>
@@ -74,7 +75,7 @@ export const ContentCovers = ({ covers, covers_view, row, loadMoreCovers }) => {
           );
         })}
       </div>
-      {showLoadMore && (row * rowAmount) < covers.length &&
+      {showLoadMore &&
         <div className='row load-more-posts-button-div'>
           <div className='col-md-12 col-lg-5 col-xl-5'>
             <button onClick={loadMoreCovers} className='btn btn-block btn-secondary btn-load-more-posts-click'>

@@ -1,18 +1,18 @@
+import classnames from 'classnames';
 const { __ } = wp.i18n;
 
-export const CampaignCovers = ({ covers, covers_view, row, loadMoreCovers }) => {
-  const rowAmount = 3;
-  const showLoadMore = (covers.length > rowAmount && covers_view === '1') ||
-    (covers.length > (rowAmount * 2) && covers_view === '2');
+export const CampaignCovers = ({ covers, initialRowsLimit, row, loadMoreCovers }) => {
+  const amountPerRow = 3;
+  const showLoadMore = !!initialRowsLimit && covers.length > amountPerRow * row;
 
   return (
     <div className='container'>
       <div className='thumbnail-largeview-container'>
         {covers.map((cover, index) => {
-          const { href, image, alt_text, name } = cover;
-          const hideCover = covers_view !== '3' && index >= row * rowAmount;
+          const { href, image, alt_text, name, src_set, sizes } = cover;
+          const hideCover = !!initialRowsLimit && index >= row * amountPerRow;
           return (
-            <div key={name} className={`campaign-card-column ${hideCover ? 'hidden' : ''}`}>
+            <div key={name} className={classnames('campaign-card-column', { hidden : hideCover })}>
               <a
                 href={href}
                 data-ga-category='Campaign Covers'
@@ -22,7 +22,13 @@ export const CampaignCovers = ({ covers, covers_view, row, loadMoreCovers }) => 
               >
                 <div className='thumbnail-large'>
                   {image && image[0] &&
-                    <img loading='lazy' src={image[0]} alt={alt_text} />
+                    <img
+                      loading='lazy'
+                      sizes={sizes}
+                      srcSet={src_set}
+                      src={image[0]}
+                      alt={alt_text}
+                    />
                   }
                   <span className='yellow-cta'><span aria-label='hashtag'>#</span>{name}</span>
                 </div>
@@ -31,7 +37,7 @@ export const CampaignCovers = ({ covers, covers_view, row, loadMoreCovers }) => 
           );
         })}
       </div>
-      {showLoadMore && (row * rowAmount) < covers.length &&
+      {showLoadMore &&
         <div className='row'>
           <div className='col-md-12 col-lg-5 col-xl-5 mt-3 load-more-campaigns-button-div'>
             <button onClick={loadMoreCovers} className='btn btn-block btn-secondary btn-load-more-campaigns-click'>

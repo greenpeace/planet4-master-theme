@@ -3,13 +3,13 @@ import { ContentCovers } from './ContentCovers';
 import { TakeActionCovers } from './TakeActionCovers';
 
 export const COVER_TYPES = {
-  takeAction: '1',
-  campaign: '2',
-  content: '3'
+  takeAction: 'take-action',
+  campaign: 'campaign',
+  content: 'content'
 };
 
-export const Covers = props => {
-  switch (props.cover_type) {
+export const Covers = ({ cover_type, ...props }) => {
+  switch (cover_type) {
     case COVER_TYPES.content:
       return <ContentCovers {...props} />;
     case COVER_TYPES.campaign:
