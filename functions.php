@@ -99,14 +99,49 @@ if ( ! class_exists( 'Timber' ) ) {
 	);
 
 	return;
-} else {
-	// Enable Timber template cache unless this is a debug environment.
-	if ( defined( 'WP_DEBUG' ) && is_bool( WP_DEBUG ) ) {
-		Timber::$cache = ! WP_DEBUG;
-	} else {
-		Timber::$cache = true;
-	}
 }
+
+// Enable Timber template cache unless this is a debug environment.
+Timber::$cache = defined( 'WP_DEBUG' ) && is_bool( WP_DEBUG ) ? ! WP_DEBUG : true;
+
+// Prevent posts from being saved if they have the "locked" meta key. There are plugins for this too, but usually they
+// still allow admins to make changes.
+if ( defined( 'LOCK_TEST_CONTENT' ) && LOCK_TEST_CONTENT ) {
+	add_filter(
+		'user_has_cap',
+		static function ( $allcaps, $cap, $args ) {
+			// Post IDs are always in the third argument, nothing to do if that is empty.
+			// Check if test content locking is enabled.
+			if ( ! isset( $args[2] ) ) {
+				return $allcaps;
+			}
+
+			[ $action, $user_id, $post_id ] = $args;
+
+			if (
+				empty( $allcaps['edit_posts'] )
+				|| ( ! in_array( $action, [ 'edit_post', 'delete_post' ], true ) )
+			) {
+				return $allcaps;
+			}
+
+			// We can create a separate export of all posts in defaultcontent that have this meta key.
+			// Then we can identify posts to be locked by this meta as well.
+			$is_locked = get_post_meta( $post_id, 'test-content', true );
+
+			if ( $is_locked ) {
+				// There could be more than one capability being checked inside $cap.
+				// The action requires all of them to be true, so we only need to take away the first to prevent the action.
+				$allcaps[ $cap[0] ] = false;
+			}
+
+			return $allcaps;
+		},
+		10,
+		3
+	);
+}
+
 add_action(
 	'rest_api_init',
 	function () {
