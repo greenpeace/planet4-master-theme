@@ -5,12 +5,19 @@ import { getGalleryLayout, GALLERY_BLOCK_CLASSES } from './getGalleryLayout';
 import { Lightbox } from '../../components/Lightbox/Lightbox';
 import { useLightbox } from '../../components/Lightbox/useLightbox';
 
+const getTitle = (image) => {
+  const caption = image.caption || '';
+  const credits = image.credits && !caption.includes(image.credits)
+    ? (image.credits.includes('©') ? image.credits : `© ${image.credits}`) : '';
+  return `${caption}  ${credits}`.trim();
+}
+
 const imagesToItems = images => images.map(
   image => ({
     src: image.image_src,
     w: 0,
     h: 0,
-    title: image.caption || image.credits || ''
+    title: getTitle(image)
   })
 );
 
