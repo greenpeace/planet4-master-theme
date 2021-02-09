@@ -33,6 +33,38 @@ div.page-template {
     max-width: 100%;
     height: auto;
   }
+
+  .page-header-hidden + &.no-page-title {
+    padding-top: $menu-height-small;
+
+    @include medium-and-up {
+      padding-top: $menu-height-large;
+    }
+
+    & > p:first-child {
+      padding-top: $space-xs;
+
+      @include small-and-up {
+        padding-top: $space-sm;
+      }
+
+      @include medium-and-up {
+        padding-top: $space-md;
+      }
+
+      @include large-and-up {
+        padding-top: $space-lg;
+      }
+
+      @include x-large-and-up {
+        padding-top: $space-xl;
+      }
+    }
+
+    .navigation-bar_min ~ & {
+      padding-top: $min-height;
+    }
+  }
 }
 
 .single-campaign {

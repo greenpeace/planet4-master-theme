@@ -5,7 +5,7 @@
 		<div class="page-header-background"></div>
 	</div>
 
-	<div class="page-template">
+	<div class="page-template {% if hide_page_title_checkbox == 'on' %}no-page-title{% endif %}">
 
 		<form id="password-form" class="mb-5" action="{{login_url}}?action=postpass" method="post">
 			<div class="form-group">
