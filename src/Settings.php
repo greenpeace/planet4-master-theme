@@ -276,6 +276,12 @@ class Settings {
 						'type' => 'text',
 					],
 					[
+						'name' => __( 'Facebook App Access Token', 'planet4-master-theme-backend' ),
+						'id'   => 'fb_app_access_token',
+						'type' => 'text',
+						'desc' => __( 'FB App Access Token is used to fetch FB & IG oembed in Social Media block.', 'planet4-master-theme-backend' ) . '<a href="">' . __( 'Read more', 'planet4-master-theme-backend' ) . '</a><Br>' . __( 'Alternatively you could also add FB App ID and App Secret in place of App Access Token.', 'planet4-master-theme-backend' ) . '<BR>eg. {your-app_id}|{your-app_secret}',
+					],
+					[
 						'name'       => __( 'Preconnect Domains', 'planet4-master-theme-backend' ),
 						'desc'       => __( 'Add a list of third-party URLs to "preconnect" (e.g.: https://in.hotjar.com). Look for "preconnect" in the P4 Handbook for details.', 'planet4-master-theme-backend' ),
 						'id'         => 'preconnect_domains',
