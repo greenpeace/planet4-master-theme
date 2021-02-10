@@ -20,21 +20,21 @@ const colors = [
 const colors_variables_map = {
   // Grey variables (default)
   '#ececec': {
-    'spreadsheet-header-background': '#45494c',
-    'spreadsheet-even-row-background': '#f5f7f8',
-    'spreadsheet-odd-row-background': '#ececec'
+    'block-spreadsheet--header--background-color': '#45494c',
+    'block-spreadsheet--even-row--background': '#f5f7f8',
+    'block-spreadsheet--odd-row--background': '#ececec'
   },
   // Green variables
   '#d0fac9': {
-    'spreadsheet-header-background': '#073d14',
-    'spreadsheet-even-row-background': '#eafee7',
-    'spreadsheet-odd-row-background': '#d0fac9'
+    'block-spreadsheet--header--background-color': '#073d14',
+    'block-spreadsheet--even-row--background': '#eafee7',
+    'block-spreadsheet--odd-row--background': '#d0fac9'
   },
   // Blue variables
   '#c9e7fa': {
-    'spreadsheet-header-background': '#074365',
-    'spreadsheet-even-row-background': '#e7f5fe',
-    'spreadsheet-odd-row-background': '#c9e7fa'
+    'block-spreadsheet--header--background-color': '#074365',
+    'block-spreadsheet--even-row--background': '#e7f5fe',
+    'block-spreadsheet--odd-row--background': '#c9e7fa'
   }
 };
 
@@ -73,10 +73,10 @@ export class SpreadsheetEditor extends Component {
     return (
       <Fragment>
         <InspectorControls>
-          <PanelBody title={__('Setting', 'p4ge')}>
+          <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
             <ColorPaletteControl
-              label={__('Table Color', 'p4ge')}
-              value={ attributes.css_variables['spreadsheet-odd-row-background'] }
+              label={__('Table Color', 'planet4-blocks-backend')}
+              value={ attributes.css_variables['block-spreadsheet--odd-row--background'] }
               onChange={ toCssVariables }
               disableCustomColors
               clearable={ false }
