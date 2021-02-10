@@ -23,6 +23,17 @@ a.pdf-link {
   }
 }
 
+a.external-link::after {
+  content: "";
+  display: inline-block;
+  background-image: url("../../images/external-link.svg");
+  height: .55rem;
+  width: .55rem;
+  margin-inline-start: .3rem;
+  margin-inline-end: .4rem;
+  background-size: contain;
+}
+
 @supports (mask-repeat: no-repeat) or (-webkit-mask-repeat: no-repeat) {
   a.pdf-link {
     &::before {
@@ -47,6 +58,23 @@ a.pdf-link {
 
     &:hover.pdf-link.btn-secondary::before {
       background-color: var(--secondary--link--hover--color, $white);
+    }
+  }
+
+  a.external-link {
+    &::after {
+      background-image: none;
+      background-color: var(--link--color, $link-color);
+      -webkit-mask-image: url("../../images/external-link.svg");
+      mask-image: url("../../images/external-link.svg");
+      mask-size: contain;
+      -webkit-mask-size: contain;
+      mask-repeat: no-repeat;
+      -webkit-mask-repeat: no-repeat;
+    }
+
+    &:hover::after {
+      background-color: var(--link-hover--color, $link-hover-color);
     }
   }
 }
