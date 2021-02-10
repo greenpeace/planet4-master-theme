@@ -9,54 +9,56 @@
 }
 
 a.pdf-link {
+  display: inline-block;
+
   &::before {
     content: "";
     background-image: url("../../images/file-pdf.svg");
-    background-position: 50% 50%;
-    background-size: 1rem 1rem;
+    background-position: center;
     background-repeat: no-repeat;
-    margin-right: 2px;
     height: 1rem;
     width: 1rem;
     margin-bottom: -2px;
+    margin-inline-end: 2px;
     display: inline-block;
   }
 }
 
-a.external-link::after {
-  content: "";
+a.external-link {
   display: inline-block;
-  background-image: url("../../images/external-link.svg");
-  height: .55rem;
-  width: .55rem;
-  margin-inline-start: .3rem;
-  margin-inline-end: .4rem;
-  background-size: contain;
+
+  &::after {
+    content: "";
+    display: inline-block;
+    background-image: url("../../images/external-link.svg");
+    height: .55rem;
+    width: .55rem;
+    margin-inline-start: .3rem;
+    margin-inline-end: .4rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
 }
 
-@supports (mask-repeat: no-repeat) or (-webkit-mask-repeat: no-repeat) {
+@supports (mask-repeat: no-repeat) {
   a.pdf-link {
     &::before {
       background-image: none;
       background-color: var(--link--color, $link-color);
-      -webkit-mask-image: url("../../images/file-pdf.svg");
       mask-image: url("../../images/file-pdf.svg");
       mask-repeat: no-repeat;
-      -webkit-mask-repeat: no-repeat;
-      margin-right: 0;
+      mask-position: center;
     }
 
     &.btn-secondary::before {
-      background-color: var(--secondary--link--color, $active-blue);
+      background-color: var(--secondary--link--color, $dark-blue);
     }
-  }
 
-  a {
-    &:hover.pdf-link::before {
+    &:hover::before {
       background-color: var(--link-hover--color, $link-color);
     }
 
-    &:hover.pdf-link.btn-secondary::before {
+    &.btn-secondary:hover::before {
       background-color: var(--secondary--link--hover--color, $white);
     }
   }
@@ -65,16 +67,14 @@ a.external-link::after {
     &::after {
       background-image: none;
       background-color: var(--link--color, $link-color);
-      -webkit-mask-image: url("../../images/external-link.svg");
       mask-image: url("../../images/external-link.svg");
-      mask-size: contain;
-      -webkit-mask-size: contain;
       mask-repeat: no-repeat;
-      -webkit-mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: contain;
     }
 
     &:hover::after {
-      background-color: var(--link-hover--color, $link-hover-color);
+      background-color: var(--link-hover--color, $link-color);
     }
   }
 }
