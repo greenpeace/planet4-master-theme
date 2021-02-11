@@ -1,34 +1,58 @@
-export const setupEnhancedDonateButton = function() {
-  function isMobile() {
-    return window.matchMedia('(max-width: 576px)').matches;
-  }
+export const setupEnhancedDonateButton = () => {
+  const isMobile = () => window.matchMedia('(max-width: 576px)').matches;
 
-  function setupDonateButton() {
+  const setupDonateButton = () => {
+    const donateButton = document.querySelector('.btn-donate-top');
     if ( isMobile() ) {
-      if (!$('.btn-enhanced-donate.btn-donate-top').length) {
-        $('.btn-enhanced-donate').clone().appendTo('body').addClass('btn-donate-top');
-        $('.btn-donate-top').parent('body').addClass('with-donate-on-top');
+      if ( ! donateButton ) {
+        const enhancedDonateBtn = document.querySelector('.btn-enhanced-donate').cloneNode(true);
+        enhancedDonateBtn.classList.add('btn-donate-top');
+
+        document.querySelector('body').appendChild(enhancedDonateBtn);
+        document.querySelector('body').classList.add('with-donate-on-top');
       }
     } else {
-      $('.btn-donate-top').remove();
-      $('body').removeClass('with-donate-on-top');
-    }
-  }
+      if ( donateButton ) {
+        donateButton.parentNode.removeChild(donateButton);
+      }
 
-  jQuery(function($) {
+      document.querySelector('body').classList.remove('with-donate-on-top');
+    }
+  };
+
+  const ready = (fn) => {
+    if ( document.readyState !== 'loading' ) {
+      fn();
+    } else {
+      document.addEventListener('DOMContentLoaded', fn);
+    }
+  };
+
+  ready(() => {
+
+    // Check Show enhanced donate button setting.
+    if (!document.querySelector('.btn-enhanced-donate')) {
+      return false;
+    }
+
     setupDonateButton();
 
-    $( window ).on('resize', function() {
+    window.addEventListener('resize', () => {
       setupDonateButton();
     });
 
     const windowHeight = window.innerHeight;
 
-    window.addEventListener('scroll', function() {
-      if ( isMobile() ) {
-        $('.btn-enhanced-donate.btn-donate-top').toggleClass('btn-donate-top-hide', window.scrollY > windowHeight);
-      } else {
-        $('.btn-enhanced-donate.btn-donate-top').removeClass('btn-donate-top-hide');
+    window.addEventListener('scroll', () => {
+
+      const enhancedDonateBtn = document.querySelector('.btn-enhanced-donate.btn-donate-top');
+
+      if ( enhancedDonateBtn ) {
+        if ( isMobile() ) {
+          enhancedDonateBtn.classList.toggle('btn-donate-top-hide', window.scrollY > windowHeight);
+        } else {
+          enhancedDonateBtn.classList.remove('btn-donate-top-hide');
+        }
       }
     });
   });
