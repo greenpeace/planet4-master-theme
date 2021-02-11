@@ -1,5 +1,4 @@
 import { useState, useEffect } from '@wordpress/element';
-import classnames from 'classnames';
 
 const { __ } = wp.i18n;
 
@@ -31,8 +30,13 @@ export const TakeActionCovers = ({ initialRowsLimit, covers, row, loadMoreCovers
             button_text
           } = cover;
           const hideCover = !!initialRowsLimit && index >= row * amountPerRow;
+
+          if (hideCover) {
+            return null;
+          }
+
           return (
-            <div key={title} className={classnames('col-lg-4 col-md-6 cover-card-column', { hidden : hideCover })}>
+            <div key={title} className='col-lg-4 col-md-6 cover-card-column'>
               <div className='cover-card card-one' style={{ backgroundImage: `url(${image})` }}>
                 <a
                   className='cover-card-overlay'

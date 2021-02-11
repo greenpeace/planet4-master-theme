@@ -8,8 +8,7 @@ import { InspectorControls } from '@wordpress/block-editor';
 import TagSelector from '../../components/TagSelector/TagSelector';
 import PostSelector from '../../components/PostSelector/PostSelector';
 import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector';
-import { Covers, COVER_TYPES } from './Covers';
-import { getCoversClassName } from './getCoversClassName';
+import { Covers, COVER_TYPES, getCoversClassName } from './Covers';
 import { useCovers } from './useCovers';
 
 const { RichText } = wp.blockEditor;
@@ -71,7 +70,7 @@ const renderEdit = (attributes, toAttribute) => {
 
 const renderView = (attributes, toAttribute) => {
   const { initialRowsLimit, cover_type, title, description } = attributes;
-  const blockClassName = getCoversClassName(cover_type, initialRowsLimit);
+  const blockClassName = getCoversClassName(cover_type);
 
   const { covers, loading, row } = useCovers(attributes);
 

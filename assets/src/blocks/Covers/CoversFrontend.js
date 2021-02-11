@@ -1,10 +1,9 @@
-import { Covers } from './Covers';
+import { Covers, getCoversClassName } from './Covers';
 import { useCovers } from './useCovers';
-import { getCoversClassName } from './getCoversClassName';
 
 export const CoversFrontend = attributes => {
   const { initialRowsLimit, cover_type, title, description, covers } = attributes;
-  const blockClassName = getCoversClassName(cover_type, initialRowsLimit);
+  const blockClassName = getCoversClassName(cover_type);
 
   const { loadMoreCovers, row } = useCovers(attributes, true);
 

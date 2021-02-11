@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import { IMAGE_SIZES } from './imageSizes';
 const { __ } = wp.i18n;
 
 export const CampaignCovers = ({ covers, initialRowsLimit, row, loadMoreCovers }) => {
@@ -9,10 +9,15 @@ export const CampaignCovers = ({ covers, initialRowsLimit, row, loadMoreCovers }
     <div className='container'>
       <div className='thumbnail-largeview-container'>
         {covers.map((cover, index) => {
-          const { href, image, alt_text, name, src_set, sizes } = cover;
+          const { href, image, alt_text, name, src_set } = cover;
           const hideCover = !!initialRowsLimit && index >= row * amountPerRow;
+
+          if (hideCover) {
+            return null;
+          }
+
           return (
-            <div key={name} className={classnames('campaign-card-column', { hidden : hideCover })}>
+            <div key={name} className='campaign-card-column'>
               <a
                 href={href}
                 data-ga-category='Campaign Covers'
@@ -24,7 +29,7 @@ export const CampaignCovers = ({ covers, initialRowsLimit, row, loadMoreCovers }
                   {image && image[0] &&
                     <img
                       loading='lazy'
-                      sizes={sizes}
+                      sizes={IMAGE_SIZES.campaign}
                       srcSet={src_set}
                       src={image[0]}
                       alt={alt_text}

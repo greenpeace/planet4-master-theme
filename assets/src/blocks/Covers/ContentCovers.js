@@ -1,9 +1,9 @@
 import { useState, useEffect } from '@wordpress/element';
-import classnames from 'classnames';
+import { IMAGE_SIZES } from './imageSizes';
 
 const { __ } = wp.i18n;
 
-const isMediumWindow = () => window.innerWidth >= 576 && window.innerWidth < 992;
+const isMediumWindow = () => window.innerWidth > 576 && window.innerWidth < 992;
 
 export const ContentCovers = ({ covers, initialRowsLimit, row, loadMoreCovers }) => {
   const [amountPerRow, setAmountPerRow] = useState(isMediumWindow() ? 3 : 4);
@@ -31,9 +31,17 @@ export const ContentCovers = ({ covers, initialRowsLimit, row, loadMoreCovers })
             date_formatted,
             post_excerpt,
           } = cover;
-          const hideCover = !!initialRowsLimit && index >= row * amountPerRow;
+
+          // On mobile because of the carousel layout we want to show all covers,
+          // no matter the initial rows limit
+          const hideCover = window.innerWidth >= 576 && !!initialRowsLimit && index >= row * amountPerRow;
+
+          if (hideCover) {
+            return null;
+          }
+
           return (
-            <div key={post_title} className={classnames('col-md-4 col-lg-3 post-column', { hidden : hideCover })}>
+            <div key={post_title} className='col-md-4 col-lg-3 post-column'>
               <div className='content-covers-block-wrap clearfix'>
                 <div className='content-covers-block-info'>
                   <div className='content-covers-block-symbol'>
@@ -45,7 +53,13 @@ export const ContentCovers = ({ covers, initialRowsLimit, row, loadMoreCovers })
                         data-ga-label='n/a'
                         aria-label={__('Cover image, link to ' + post_title, 'planet4-blocks')}
                       >
-                        <img loading='lazy' src={thumbnail} alt={alt_text} srcSet={srcset} />
+                        <img
+                          loading='lazy'
+                          src={thumbnail}
+                          alt={alt_text}
+                          srcSet={srcset}
+                          sizes={IMAGE_SIZES.content}
+                        />
                       </a>
                     }
                   </div>

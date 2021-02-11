@@ -40,6 +40,17 @@ class Covers extends Base_Block {
 		'3' => 'content',
 	];
 
+	/**
+	 * New cover types, used for version 2.
+	 *
+	 * @var string TAKE_ACTION_COVER_TYPE.
+	 * @var string CAMPAIGN_COVER_TYPE.
+	 * @var string CONTENT_COVER_TYPE.
+	 */
+	private const TAKE_ACTION_COVER_TYPE = 'take-action';
+	private const CAMPAIGN_COVER_TYPE    = 'campaign';
+	private const CONTENT_COVER_TYPE     = 'content';
+
 	const POSTS_LIMIT = 50;
 
 	/**
@@ -76,7 +87,7 @@ class Covers extends Base_Block {
 				'attributes'      => [
 					'cover_type'       => [
 						'type'    => 'string',
-						'default' => 'content',
+						'default' => self::CONTENT_COVER_TYPE,
 					],
 					'initialRowsLimit' => [
 						'type'    => 'integer',
@@ -137,14 +148,14 @@ class Covers extends Base_Block {
 	 * @return array The data to be passed in the View.
 	 */
 	public static function get_covers( $fields ): array {
-		$cover_type = $fields['cover_type'] ?? 'content';
+		$cover_type = $fields['cover_type'] ?? self::CONTENT_COVER_TYPE;
 		$covers     = [];
 
-		if ( 'take-action' === $cover_type ) {
+		if ( self::TAKE_ACTION_COVER_TYPE === $cover_type ) {
 			$covers = self::populate_posts_for_act_pages( $fields );
-		} elseif ( 'campaign' === $cover_type ) {
+		} elseif ( self::CAMPAIGN_COVER_TYPE === $cover_type ) {
 			$covers = self::populate_posts_for_campaigns( $fields );
-		} elseif ( 'content' === $cover_type ) {
+		} elseif ( self::CONTENT_COVER_TYPE === $cover_type ) {
 			$covers = self::populate_posts_for_cfc( $fields );
 		}
 
@@ -211,7 +222,7 @@ class Covers extends Base_Block {
 			];
 
 			// If cover type is take action pages set post_type to page.
-			if ( isset( $fields['cover_type'] ) && 'take-action' === $fields['cover_type'] ) {
+			if ( isset( $fields['cover_type'] ) && self::TAKE_ACTION_COVER_TYPE === $fields['cover_type'] ) {
 				$args['post_type'] = 'page';
 			}
 
@@ -330,7 +341,6 @@ class Covers extends Base_Block {
 			if ( ! empty( $attachment_id ) ) {
 				$tag_remapped['image']    = wp_get_attachment_image_src( $attachment_id, 'medium_large' );
 				$tag_remapped['src_set']  = wp_get_attachment_image_srcset( $attachment_id, 'medium_large' );
-				$tag_remapped['sizes']    = wp_get_attachment_image_sizes( $attachment_id, 'medium_large' );
 				$tag_remapped['alt_text'] = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
 			}
 
