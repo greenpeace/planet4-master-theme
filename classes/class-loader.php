@@ -565,16 +565,6 @@ DEFERREDCSS;
 					'color' => '#333333',
 				],
 				[
-					'name'  => __( 'Green', 'planet4-blocks-backend' ),
-					'slug'  => 'green',
-					'color' => '#003300',
-				],
-				[
-					'name'  => __( 'Green 80%', 'planet4-blocks-backend' ),
-					'slug'  => 'green-80',
-					'color' => '#1b4a1b',
-				],
-				[
 					'name'  => __( 'GP Green', 'planet4-blocks-backend' ),
 					'slug'  => 'gp-green',
 					'color' => '#66cc00',
@@ -585,24 +575,9 @@ DEFERREDCSS;
 					'color' => '#052a30',
 				],
 				[
-					'name'  => __( 'Genoa', 'planet4-blocks-backend' ),
-					'slug'  => 'genoa',
-					'color' => '#186a70',
-				],
-				[
-					'name'  => __( 'Inch Worm', 'planet4-blocks-backend' ),
-					'slug'  => 'inch-worm',
-					'color' => '#a7e021',
-				],
-				[
 					'name'  => __( 'X Dark Blue', 'planet4-blocks-backend' ),
 					'slug'  => 'x-dark-blue',
 					'color' => '#042233',
-				],
-				[
-					'name'  => __( 'All Ports', 'planet4-blocks-backend' ),
-					'slug'  => 'allports',
-					'color' => '#007799',
 				],
 				[
 					'name'  => __( 'Spray', 'planet4-blocks-backend' ),
@@ -618,16 +593,6 @@ DEFERREDCSS;
 					'name'  => __( 'Blue', 'planet4-blocks-backend' ),
 					'slug'  => 'blue',
 					'color' => '#2077bf',
-				],
-				[
-					'name'  => __( 'Blue 60%', 'planet4-blocks-backend' ),
-					'slug'  => 'blue-60',
-					'color' => '#63bbfd',
-				],
-				[
-					'name'  => __( 'Crimson', 'planet4-blocks-backend' ),
-					'slug'  => 'crimson',
-					'color' => '#e51538',
 				],
 				[
 					'name'  => __( 'Orange Hover', 'planet4-blocks-backend' ),
