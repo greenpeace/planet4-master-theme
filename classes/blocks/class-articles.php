@@ -202,6 +202,8 @@ class Articles extends Base_Block {
 					$recent['thumbnail_ratio'] = ( isset( $dimensions['height'] ) && $dimensions['height'] > 0 ) ? $dimensions['width'] / $dimensions['height'] : 1;
 					$recent['alt_text']        = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
 					$recent['thumbnail_url']   = get_the_post_thumbnail_url( $recent['ID'], 'articles-medium-large' );
+
+					$recent['thumbnail_srcset'] = wp_get_attachment_image_srcset( $img_id, 'articles-medium-large' );
 				}
 
 				// TODO - Update this method to use P4_Post functionality to get Tags/Terms.

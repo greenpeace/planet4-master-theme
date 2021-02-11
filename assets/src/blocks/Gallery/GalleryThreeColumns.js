@@ -1,3 +1,5 @@
+import { IMAGE_SIZES } from './imageSizes';
+
 const ordinals = ['first', 'second', 'third'];
 
 export const GalleryThreeColumns = ({ images, postType, onImageClick }) => (
@@ -10,7 +12,7 @@ export const GalleryThreeColumns = ({ images, postType, onImageClick }) => (
               loading='lazy'
               src={image.image_src}
               srcSet={image.image_srcset}
-              sizes={image.image_sizes || 'false'}
+              sizes={IMAGE_SIZES[`threeColumns${index}`]}
               style={{ objectPosition: image.focus_image }}
               alt={image.alt_text}
               className={`img_${postType}`}
