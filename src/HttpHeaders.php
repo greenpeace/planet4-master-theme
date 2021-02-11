@@ -20,7 +20,11 @@ class HttpHeaders {
 	public function send_content_security_policy_header() {
 		$default_allowed_frame_ancestors = [ '\'self\'' ];
 
-		// Filter hook to allow adding trusted frame ancestors.
+		/**
+		 * Filter hook to add trusted frame ancestors to the Content Security Policy.
+		 *
+		 * @param array $additional_allowed_frame_ancestors Array of domains to whitelist as frame ancestors.
+		 */
 		$additional_allowed_frame_ancestors = apply_filters( 'planet4_csp_allowed_frame_ancestors', [] );
 
 		if ( is_array( $additional_allowed_frame_ancestors ) ) {
