@@ -1,5 +1,5 @@
 .split-two-column {
-  background-color: $black;
+  background-color: $grey-80;
   color: $white;
   display: flex;
   position: relative;
@@ -63,7 +63,7 @@
 
   a {
     color: $white;
-    text-shadow: 1px 1px 3px $black;
+    text-shadow: 1px 1px 3px $grey-80;
   }
 
   @include small-and-up {
@@ -97,7 +97,7 @@
 
   &:hover {
     color: $yellow;
-    text-shadow: 1px 1px 3px $black;
+    text-shadow: 1px 1px 3px $grey-80;
   }
 
   @include medium-and-up {
@@ -127,7 +127,7 @@
   @include medium-and-up {
     font-size: $font-size-xs;
     font-weight: 400;
-    text-shadow: 1px 1px 1px $black;
+    text-shadow: 1px 1px 1px $grey-80;
     line-height: 1.6;
     margin-bottom: 18px;
   }

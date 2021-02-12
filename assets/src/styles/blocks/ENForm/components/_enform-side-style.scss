@@ -107,7 +107,7 @@
   }
 
   .title-and-description {
-    color: #1a1a1a;
+    color: $grey-80;
     padding: $n15;
 
     @include large-and-up {

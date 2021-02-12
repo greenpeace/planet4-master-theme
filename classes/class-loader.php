@@ -603,11 +603,6 @@ DEFERREDCSS;
 					'color' => '#66cc00',
 				],
 				[
-					'name'  => __( 'Dark Tiber', 'planet4-blocks-backend' ),
-					'slug'  => 'dark-tiber',
-					'color' => '#052a30',
-				],
-				[
 					'name'  => __( 'X Dark Blue', 'planet4-blocks-backend' ),
 					'slug'  => 'x-dark-blue',
 					'color' => '#042233',

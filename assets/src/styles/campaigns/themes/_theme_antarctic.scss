@@ -159,7 +159,7 @@ body.theme-antarctic {
   } // end .split-two-column
 
   .columns-block.block-style-image {
-    @include campaign_columns_style_image($sanctuary, $black, $regular);
+    @include campaign_columns_style_image($sanctuary, black, $regular);
 
     .column-wrap a.btn-primary {
       @extend .btn-primary;
