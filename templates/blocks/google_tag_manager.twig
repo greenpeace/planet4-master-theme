@@ -1,10 +1,10 @@
 {% if google_tag_value %}
   {% if ab_hide_selector %}
-  <style>
-    .google-optimize-loading {{ ab_hide_selector }} {
-      opacity: 0 !important;
-    }
-  </style>
+    <style>
+      .google-optimize-loading {{ ab_hide_selector }} {
+        opacity: 0 !important;
+      }
+    </style>
   {% endif %}
   <script>
     var google_tag_value = '{{ google_tag_value }}';
@@ -54,18 +54,11 @@
     }
 
     if ( google_tag_value && gtm_allow) {
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({
-          'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-        });
-        var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, 'script', 'dataLayer', google_tag_value);
+      var script = document.createElement('script');
+      script.src = `https://www.googleoptimize.com/optimize.js?id=${google_tag_value}`;
+      script.async = true;
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(script, firstScriptTag);
     }
   </script>
 {% endif %}
