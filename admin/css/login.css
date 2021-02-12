@@ -62,10 +62,7 @@ body.login div#login form#loginform p.submit input#wp-submit {
   border-radius: 4px;
 }
 
-body.login div#login form#loginform p.submit input#wp-submit:hover {
-  background: #ee562d;
-}
-
+body.login div#login form#loginform p.submit input#wp-submit:hover,
 body.login div#login form#loginform p.submit input#wp-submit:active {
-  background: #dd4a22;
+  background: #ee562d;
 }
