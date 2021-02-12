@@ -182,7 +182,7 @@
         font-size: 1.125rem;
         font-style: normal;
         color: $dark-blue;
-        border: 1px solid $blue-tiber;
+        border: 1px solid $dark-blue;
         padding: 0 $n40 0 $n20;
         display: inline-block;
         margin-right: 8px;
@@ -210,7 +210,7 @@
       .clearall {
         text-align: center;
         width: 100%;
-        background: $med-blue;
+        background: $dark-blue;
         color: $white;
         text-transform: uppercase;
         cursor: pointer;
