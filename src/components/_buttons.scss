@@ -63,14 +63,10 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:active {
     background-color: $orange-hover;
     border-color: $orange-hover;
-  }
-
-  &:active {
-    background-color: $orange-active;
-    border-color: $orange-active;
   }
 
   &:disabled,
