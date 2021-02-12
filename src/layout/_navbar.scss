@@ -170,7 +170,7 @@ $navbar-default-height: 60px;
   // When menu is open, turn the button into the background overlay
   &[aria-expanded="true"] {
     z-index: 2;
-    background: transparentize($black, 0.5);
+    background: transparentize($grey-80, 0.5);
     position: fixed;
     width: 100%;
     height: 100%;
@@ -368,7 +368,7 @@ $navbar-default-height: 60px;
       top: 0;
       bottom: 0;
       width: 8px;
-      background: transparentize($black, 0.9);
+      background: transparentize($grey-80, 0.9);
       z-index: 0;
     }
 
