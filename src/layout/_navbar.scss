@@ -98,10 +98,6 @@ $navbar-default-height: 60px;
 
   a.nav-link {
     color: var(--nav-link-color, $white);
-
-    &:hover {
-      color: var(--nav-link-hover-color, $spray);
-    }
   }
 
   .donate-nav-item {
@@ -433,7 +429,6 @@ $navbar-default-height: 60px;
     .nav-link:hover {
       position: relative;
       z-index: 2;
-      color: var(--nav-link-hover-color, $spray);
     }
 
     .active .nav-link::before {
@@ -441,7 +436,7 @@ $navbar-default-height: 60px;
       position: absolute;
       top: 0;
       bottom: 0;
-      background: $spray;
+      background: $white;
       width: 8px;
       margin-left: -50px;
       z-index: 2;
@@ -479,8 +474,7 @@ $navbar-default-height: 60px;
     }
 
     .active .nav-link {
-      color: var(--nav-link-hover-color, $spray);
-      border-bottom: var(--nav-link-border-width, 2px) solid var(--nav-link-active-border-color, $spray);
+      border-bottom: var(--nav-link-border-width, 2px) solid var(--nav-link-active-border-color, $white);
     }
   }
 
@@ -651,10 +645,8 @@ $navbar-default-height: 60px;
     color: $white;
   }
 
-  a:hover,
   .active a {
-    color: $spray;
-    text-decoration: none;
+    text-decoration: underline;
   }
 
   .country-group-letter {

@@ -41,10 +41,6 @@ a.pdf-link {
   }
 
   a {
-    &:hover.pdf-link::before {
-      background-color: var(--link-hover--color, $link-hover-color);
-    }
-
     &:hover.pdf-link.btn-secondary::before {
       background-color: var(--secondary--link--hover--color, $white);
     }

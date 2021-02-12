@@ -161,7 +161,7 @@
 .btn-donate,
 .wp-block-button.is-style-donate a {
   background-color: var(--btn-donate-background-color, $aquamarine);
-  color: var(--btn-donate-color, $grey);
+  color: var(--btn-donate-color, $grey-80);
   line-height: 1.65;
   min-width: 180px;
   margin: 0;
@@ -171,18 +171,7 @@
 
   &:hover,
   &:focus {
-    background-color: var(--btn-donate-hover-background-color, $spray);
-    color: var(--btn-donate-hover-color, $grey-80);
-  }
-
-  &:active {
-    background-color: var(--btn-donate-active-background-color, $java-dark);
-  }
-
-  &:disabled,
-  &.disabled,
-  &[disabled] {
-    background-color: var(--btn-donate-background-color, $aquamarine);
+    color: transparentize($grey-80, 0.2);
   }
 
   @include large-and-up {
@@ -216,16 +205,16 @@
 
 .btn-filter-item {
   background-color: transparent;
-  border-color: $blue-tiber;
-  color: $blue-tiber;
+  border-color: $dark-blue;
+  color: $dark-blue;
   padding: 0 $n50 0 $n30;
   position: relative;
   font-weight: 400;
 
   &:hover,
   &:focus {
-    background-color: $blue-tiber;
-    border-color: $blue-tiber;
+    background-color: $dark-blue;
+    border-color: $dark-blue;
   }
 
   &:active {

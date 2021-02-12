@@ -44,15 +44,12 @@ $green-20: #d9e6d7;
 // Blue
 //
 // $blue - #2077bf;
-// $blue-80 - #3290de;
 //
 // Styleguide Style.colors.blue
 $blue: #2077bf;
-$blue-80: #3290de;
 
-// Link colors
-$link-color: #006dfd; // hsl(214, 100%, 50%);
-$link-hover-color: #0058cc; // hsl(214, 100%, 40%);
+// Link color
+$link-color: #006dfd;
 
 // Yellow
 //
@@ -80,12 +77,8 @@ $eden:              #0f6459;
 $x-dark-blue:  #042233;
 $dark-blue:    #074365;
 $active-blue:  #05324c;
-$spray:        #86eee7;
 $aquamarine:   #68dfde;
-$java-dark:    #21cbca;
 $faded-jade:   #418482;
-$blue-tiber:   #093944;
-$menu-blue:    #014c8c;
 $comment-block:#e7ecf0;
 $comment-text: #d1dce2;
 
@@ -97,10 +90,9 @@ $red:         #a01604;
 $blue:      #2980b9;
 $brown-bg:  #faf7ec;
 $red:       #ad2330;
-$med-blue:  #0a3351;
 
 // Social buttons
-$facebook: #3b5998;
+$facebook: #4267b2;
 $twitter:  #55acee;
 $email:    #ea7179;
 $whatsapp: #25d366;
@@ -112,7 +104,6 @@ $top-nav:               #1e5f65;
 // Colors to be fixed/addressed:
 $carousel-indi-color:   #8bcc49;
 $cookie-bkg:            #c0dbe2;
-$cookie-blue:           #094464;
 
 // Table/spreadsheet colors
 $table-font-color: #020202;
@@ -131,7 +122,7 @@ $table-even-row-green: #eafee7;
 $table-footer-green: #d1e8cd;
 
 // Blue variant
-$table-header-blue: #074365;
+$table-header-blue: $dark-blue;
 $table-odd-row-blue: #c9e7fa;
 $table-even-row-blue: #e7f5fe;
 $table-footer-blue: #c3d7e2;
@@ -146,7 +137,6 @@ $palette: (
   "grey": $grey,
   "gp-green": $gp-green,
   "x-dark-blue": $x-dark-blue,
-  "spray": $spray,
   "dark-blue": $dark-blue,
   "blue": $blue,
   "orange-hover": $orange-hover,
