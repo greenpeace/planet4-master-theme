@@ -99,12 +99,9 @@
     }
 
     &:hover,
-    &:focus {
-      background-color: $orange-hover;
-    }
-
+    &:focus,
     &:active {
-      background-color: $orange-active;
+      background-color: $orange-hover;
     }
   }
 
