@@ -608,11 +608,6 @@ DEFERREDCSS;
 					'color' => '#042233',
 				],
 				[
-					'name'  => __( 'Spray', 'planet4-blocks-backend' ),
-					'slug'  => 'spray',
-					'color' => '#86eee7',
-				],
-				[
 					'name'  => __( 'Dark Blue', 'planet4-blocks-backend' ),
 					'slug'  => 'dark-blue',
 					'color' => '#074365',

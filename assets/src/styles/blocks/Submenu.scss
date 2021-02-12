@@ -27,7 +27,7 @@ div[data-render="planet4-blocks/submenu"] {
     }
 
     a {
-      color: $menu-blue;
+      color: $grey-80;
     }
 
     ul {
@@ -51,7 +51,7 @@ div[data-render="planet4-blocks/submenu"] {
         @supports (mask-repeat: no-repeat) or (-webkit-mask-repeat: no-repeat) {
           & {
             background-image: none;
-            background-color: $menu-blue;
+            background-color: $grey-80;
             -webkit-mask-image: url("../../public/images/icons/angle-right.svg");
             mask-image: url("../../public/images/icons/angle-right.svg");
             mask-repeat: no-repeat;
@@ -126,7 +126,7 @@ div.page-template > .back-top {
   width: 44px;
   left: calc(85% - 26px);
   bottom: 50px;
-  background-color: #074365;
+  background-color: $dark-blue;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
   z-index: 1000;
