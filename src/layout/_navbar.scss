@@ -603,7 +603,7 @@ $navbar-default-height: 60px;
     content: "";
     width: 8px;
     height: 8px;
-    background: url("../../images/down-arrow-blue.svg") no-repeat center center;
+    background: url("../../images/down-arrow-white.svg") no-repeat center center;
     background-size: contain;
     display: inline-block;
     margin-left: 10px;
@@ -613,10 +613,6 @@ $navbar-default-height: 60px;
   &:focus,
   &:hover {
     color: $white;
-
-    &::after {
-      background-image: url("../../images/down-arrow-white.svg");
-    }
   }
 
   &[aria-expanded="true"] {
