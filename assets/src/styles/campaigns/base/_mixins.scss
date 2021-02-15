@@ -83,6 +83,11 @@
   position: relative;
   padding-top: 78px;
 
+  &.page-header-hidden {
+    margin: 0;
+    padding: 0;
+  }
+
   .page-header-background {
     overflow: hidden;
 
