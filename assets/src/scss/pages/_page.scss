@@ -61,6 +61,10 @@ div.page-template {
       }
     }
 
+    & > .wp-block-image:first-child {
+      margin-top: 0;
+    }
+
     .navigation-bar_min ~ & {
       padding-top: $min-height;
     }
