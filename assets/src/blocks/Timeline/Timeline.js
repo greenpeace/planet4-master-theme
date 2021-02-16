@@ -49,5 +49,17 @@ export const Timeline = (props) => {
 		],
 	);
 
+	// Revert TimelineJS global usage of lodash,
+	// as it conflicts with Wordpress underscore lib
+	// see https://jira.greenpeace.org/browse/PLANET-5960
+	useEffect(
+		() => {
+			if (scriptLoaded) {
+				_.noConflict();
+			}
+		},
+		[scriptLoaded],
+	);
+
 	return <div ref={ timelineNode }></div>
 }
