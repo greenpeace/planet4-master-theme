@@ -425,12 +425,12 @@
       ]
     },
     {
-      "name": "New Zealand",
+      "name": "Aotearoa",
       "codes": ["NZ"],
       "lang": [
         {
           "name": "English",
-          "url": "https://www.greenpeace.org/new-zealand",
+          "url": "https://www.greenpeace.org/aotearoa/",
           "locale": ["en-NZ"]
         }
       ]
