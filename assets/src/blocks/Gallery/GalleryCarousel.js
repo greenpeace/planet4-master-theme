@@ -82,7 +82,7 @@ export const GalleryCarousel = ({ images, onImageClick }) => {
         {images.length > 1 &&
           <a className="carousel-control-prev" role="button" onClick={goToPrevSlide}>
             <span className="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
-            <span className="sr-only">{__('Previous', 'planet4-blocks')}</span>
+            <span className="visually-hidden">{__('Previous', 'planet4-blocks')}</span>
           </a>
         }
         {images.map((image, index) => (
@@ -115,7 +115,7 @@ export const GalleryCarousel = ({ images, onImageClick }) => {
         {images.length > 1 && (
           <a className="carousel-control-next" role="button" onClick={goToNextSlide}>
             <span className="carousel-control-next-icon" aria-hidden="true"><i></i></span>
-            <span className="sr-only">{__('Next', 'planet4-blocks')}</span>
+            <span className="visually-hidden">{__('Next', 'planet4-blocks')}</span>
           </a>
         )}
       </div>
