@@ -255,7 +255,7 @@ jobs:
       - run:
           name: "Book instance"
           command: |
-            JIRA_USERNAME=planet4 python /home/circleci/book-test-instance.py \
+            JIRA_USERNAME=planet4 /home/circleci/book-test-instance.py \
             --pr-url $(cat /tmp/workspace/pr) \
             --results /tmp/workspace/booking.json >/tmp/workspace/test-instance
       - run: activate-gcloud-account.sh
