@@ -99,6 +99,11 @@ body.theme-climate {
     min-height: 0;
     margin-bottom: 2rem;
 
+    &.page-header-hidden {
+      margin: 0;
+      padding: 0;
+    }
+
     .page-header-title,
     .page-header-subtitle {
       font-family: $jost;
