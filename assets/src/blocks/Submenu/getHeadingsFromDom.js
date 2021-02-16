@@ -4,6 +4,10 @@ const getHeadingLevel = heading => Number(heading.tagName.replace('H', ''));
 
 export const getHeadingsFromDom = (selectedLevels) => {
   const container = document.querySelector('div.page-template');
+  if (!container || !selectedLevels) {
+    return [];
+  }
+
   // Get all heading tags that we need to query
   const headingsSelector = selectedLevels.map(level => `:not(.submenu-block) h${level.heading}`);
 

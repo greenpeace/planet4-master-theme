@@ -54,8 +54,8 @@ class Submenu extends Base_Block {
 					 * }
 					 */
 					'levels'        => [
-						'type'  => 'array',
-						'items' => [
+						'type'    => 'array',
+						'items'   => [
 							'type'       => 'object',
 							// In JSON Schema you can specify object properties in the properties attribute.
 							'properties' => [
@@ -68,6 +68,13 @@ class Submenu extends Base_Block {
 								'style'   => [
 									'type' => 'string',
 								],
+							],
+						],
+						'default' => [
+							[
+								'heading' => 2,
+								'link'    => false,
+								'style'   => 'none',
 							],
 						],
 					],
