@@ -251,7 +251,7 @@ jobs:
       - run:
           name: "Python script deps"
           command: |
-            pip install requests requests_oauthlib
+            pip3 install requests requests_oauthlib
       - run:
           name: "Book instance"
           command: |
