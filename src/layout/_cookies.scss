@@ -15,7 +15,7 @@
 // Styleguide Layout.cookie-notice
 .cookie-notice {
   z-index: 100;
-  display: none;
+  display: flex;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -25,6 +25,14 @@
   flex-direction: column;
   padding: 36px;
   background-size: cover;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s linear;
+
+  &.shown {
+    opacity: 1;
+    visibility: visible;
+  }
 
   @include medium-and-up {
     flex-direction: row;
