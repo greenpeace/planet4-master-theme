@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { addScriptTag } from './addScriptTag';
 
-export const useScript = (src) => {
+export const useScript = (src, onScriptLoaded) => {
   // Keeping track of script loaded and error state
   const [state, setState] = useState({
     loaded: false,
@@ -27,6 +27,10 @@ export const useScript = (src) => {
           loaded: true,
           error: false
         });
+
+        if (typeof onScriptLoaded === 'function') {
+          onScriptLoaded();
+        }
       };
 
       const onScriptError = () => {
