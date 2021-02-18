@@ -20,7 +20,7 @@ class Covers extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'planet4-blocks/covers';
+	const BLOCK_NAME = 'covers';
 
 	/**
 	 * Block version, update when changing attributes
@@ -61,7 +61,6 @@ class Covers extends Base_Block {
 			self::get_full_block_name(),
 			[  // - Register the block for the editor
 				'editor_script'   => 'planet4-blocks',
-				// todo: Remove when all content is migrated.
 				'render_callback' => static function ( $attributes ) {
 					if ( isset( $attributes['covers_view'] ) ) {
 						$attributes['initialRowsLimit'] = '3' === $attributes['covers_view'] ? 0 : intval( $attributes['covers_view'] );
@@ -81,7 +80,7 @@ class Covers extends Base_Block {
 
 					$json = wp_json_encode( [ 'attributes' => $attributes ] );
 
-					return '<div data-render="' . self::BLOCK_NAME . '" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+					return '<div data-render="' . self::get_full_block_name() . '" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
 				},
 				// These attributes match the current fields.
 				'attributes'      => [

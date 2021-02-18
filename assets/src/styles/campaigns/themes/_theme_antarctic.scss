@@ -87,28 +87,6 @@ body.theme-antarctic {
     }
   }
 
-  .covers-block {
-    @include campaign_covers($antarctic-grey, $sanctuary, $montserrat, $antarctic-orange);
-
-    .cover-card-content {
-      .cover-card-tag {
-        line-height: 1.1875rem;
-      }
-
-      .cover-card-heading {
-        line-height: 1.5625rem;
-      }
-    }
-
-    .cover-card-btn {
-      @extend .btn-primary;
-    }
-  } // end .covers-block
-
-  .campaign-covers-block {
-    @include campaign_covers($antarctic-gradient, $antarctic-purple, white, $sanctuary);
-  } // end .campaign-covers-block
-
   .content-covers-block {
     @include campaign_content_covers($antarctic-gradient, $sanctuary, $montserrat, $antarctic-pink);
   } // end .content-covers-block

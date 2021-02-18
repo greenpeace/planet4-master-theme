@@ -8,16 +8,6 @@ export const COVER_TYPES = {
   content: 'content'
 };
 
-export const getCoversClassName = cover_type => {
-  const isTakeActionType = cover_type === COVER_TYPES.takeAction;
-
-  const blockClassName = isTakeActionType ?
-    'covers-block' :
-    `${cover_type}-covers-block`;
-
-  return `block ${blockClassName}`;
-};
-
 export const Covers = ({ cover_type, ...props }) => {
   switch (cover_type) {
     case COVER_TYPES.content:

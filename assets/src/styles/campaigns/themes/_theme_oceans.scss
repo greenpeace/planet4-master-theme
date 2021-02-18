@@ -99,62 +99,6 @@ body.theme-oceans {
     }
   }
 
-  .covers-block {
-    @include campaign_covers(rgba(red($oceans-blue), green($oceans-blue), blue($oceans-blue), 0.7), $montserrat, $montserrat, $oceans-peach, white);
-
-    .cover-card-content {
-      top: 0;
-      padding-top: 50%;
-      transition: padding-top $transition ease-in-out;
-      z-index: 0;
-
-      .cover-card-tag {
-        line-height: 1.1875rem;
-        text-transform: uppercase;
-        font-weight: $extra-bold;
-      }
-
-      .cover-card-heading {
-        line-height: 1.5625rem;
-        font-weight: $bold;
-      }
-    }
-
-    .cover-card-btn {
-      @extend .btn-primary;
-    }
-
-    .cover-card {
-      // @include oceans-button($oceans-pink, white);
-
-      padding-top: 0;
-
-      &:hover .cover-card-content {
-        padding-top: 18px;
-      }
-    }
-  } // end .covers-block
-
-  .campaign-covers-block {
-    @include campaign_covers($oceans-blue, $oceans-peach, white, $montserrat, 50);
-
-    .thumbnail-large {
-      .yellow-cta {
-        text-transform: uppercase;
-        font-weight: $bold;
-        @include letter-spacing(50);
-      }
-
-      &:after {
-        opacity: 0.7;
-      }
-
-      &:hover:after {
-        opacity: 0;
-      }
-    }
-  } // end .campaign-covers-block
-
   .content-covers-block {
     @include campaign_content_covers(none, $montserrat, $roboto, $oceans-peach);
 

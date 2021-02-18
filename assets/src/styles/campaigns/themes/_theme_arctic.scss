@@ -113,34 +113,6 @@ body.theme-arctic {
     }
   }
 
-  .covers-block {
-    @include campaign_covers($arctic-cream, $open-sans, $open-sans, $arctic-blue);
-
-    .cover-card-content {
-      .cover-card-tag {
-        line-height: 1.375rem;
-        font-weight: $bold;
-      }
-
-      .cover-card-heading {
-        line-height: 1.5625rem;
-        font-weight: $bold;
-      }
-    }
-
-    .cover-card-btn {
-      @extend .btn-primary;
-    }
-  } // end .covers-block
-
-  .campaign-covers-block {
-    @include campaign_covers($arctic-cream, white, $arctic-faded-red, $open-sans);
-
-    .thumbnail-large .yellow-cta {
-      font-weight: $bold;
-    }
-  } // end .campaign-covers-block
-
   .content-covers-block {
     @include campaign_content_covers($arctic-light-blue, $save-the-arctic, $open-sans, $arctic-turquoise);
 
