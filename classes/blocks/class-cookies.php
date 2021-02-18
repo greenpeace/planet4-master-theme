@@ -24,13 +24,12 @@ class Cookies extends Base_Block {
 		// - Register the block for the editor
 		// in the PHP side.
 		register_block_type(
-			'planet4-blocks/cookies',
+			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
 			[
-				'editor_script'   => 'planet4-blocks/cookies',
 				// todo: Remove when all content is migrated.
 				'render_callback' => static function ( $attributes ) {
 					$json = wp_json_encode( [ 'attributes' => $attributes ] );
-					return '<div data-render="planet4-blocks/cookies" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+					return '<div data-render="' . self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME . '" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
 				},
 				'attributes'      => [
 					'title'                         => [

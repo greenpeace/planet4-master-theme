@@ -39,7 +39,7 @@ class Gallery extends Base_Block {
 	 */
 	public function __construct() {
 		register_block_type(
-			'planet4-blocks/gallery',
+			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
 			[
 				'editor_script'   => 'planet4-blocks',
 				// todo: Remove when all content is migrated.
@@ -48,7 +48,7 @@ class Gallery extends Base_Block {
 
 					$json = wp_json_encode( [ 'attributes' => $attributes ] );
 
-					return '<div data-render="planet4-blocks/gallery" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+					return '<div data-render="' . self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME . '" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
 				},
 				'attributes'      => [
 					'gallery_block_style'        => [ // Needed for existing blocks conversion.

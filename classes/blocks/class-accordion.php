@@ -22,14 +22,15 @@ class Accordion extends Base_Block {
 	 */
 	const BLOCK_NAME = 'accordion';
 
+	const BLOCK_NAMESPACE_PREFIX = 'planet4-blocks-beta';
+
 	/**
 	 * Accordion constructor.
 	 */
-	public function __construct() {
+	public function __construct() {	
 		register_block_type(
-			'planet4-blocks-beta/accordion',
+			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
 			[
-				'editor_script' => 'planet4-blocks-beta',
 				'attributes'    => [
 					'title'       => [
 						'type'    => 'string',

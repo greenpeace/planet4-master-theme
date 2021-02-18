@@ -37,13 +37,13 @@ class ENForm extends Base_Block {
 	 * ENForm constructor.
 	 */
 	public function __construct() {
-		if ( WP_Block_Type_Registry::get_instance()->is_registered( 'planet4-blocks/enform' ) ) {
+		if ( WP_Block_Type_Registry::get_instance()->is_registered( self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME ) ) {
 			return;
 		}
 
 		add_shortcode( 'shortcake_enblock', [ $this, 'add_block_shortcode' ] );
 		register_block_type(
-			'planet4-blocks/enform',
+			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
 			[
 				'render_callback' => [ $this, 'render' ],
 				'attributes'      => [

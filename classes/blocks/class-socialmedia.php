@@ -15,7 +15,7 @@ namespace P4GBKS\Blocks;
 class SocialMedia extends Base_Block {
 
 	/** @const string BLOCK_NAME */
-	const BLOCK_NAME = 'social_media';
+	const BLOCK_NAME = 'social-media';
 
 	const ALLOWED_OEMBED_PROVIDERS = [
 		'twitter',
@@ -64,7 +64,7 @@ class SocialMedia extends Base_Block {
 
 		// - Register the block for the editor
 		register_block_type(
-			'planet4-blocks/social-media',
+			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
 			[
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],

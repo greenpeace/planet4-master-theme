@@ -19,6 +19,8 @@ abstract class Base_Block {
 		'default' => [],
 	];
 
+	const BLOCK_NAMESPACE_PREFIX = 'planet4-blocks';
+
 	/**
 	 * Get all the data that will be needed to render the block correctly.
 	 *

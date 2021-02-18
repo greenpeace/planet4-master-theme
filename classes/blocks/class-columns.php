@@ -79,7 +79,7 @@ class Columns extends Base_Block {
 		add_shortcode( 'shortcake_columns', [ $this, 'add_block_shortcode' ] );
 
 		register_block_type(
-			'planet4-blocks/columns',
+			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
 			[
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],

@@ -21,14 +21,14 @@ class Media extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'media_video';
+	const BLOCK_NAME = 'media-video';
 
 	/**
 	 * Media constructor.
 	 */
 	public function __construct() {
 		register_block_type(
-			'planet4-blocks/media-video',
+			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
 			[
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => static function ( $attributes, $content ) {
@@ -47,7 +47,7 @@ class Media extends Base_Block {
 						[ 'attributes' => $attributes ]
 					);
 
-					return '<div data-render="planet4-blocks/media-video" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+					return '<div data-render="' . self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME . '" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
 				},
 				'attributes'      => [
 					'video_title'      => [

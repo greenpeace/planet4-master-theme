@@ -18,14 +18,14 @@ class SocialMediaCards extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	public const BLOCK_NAME = 'social_media_cards';
+	public const BLOCK_NAME = 'social-media-cards';
 
 	/**
 	 * SocialMediaCards constructor.
 	 */
 	public function __construct() {
 		register_block_type(
-			'planet4-blocks/social-media-cards',
+			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
 			[
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],

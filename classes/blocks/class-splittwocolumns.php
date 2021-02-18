@@ -21,7 +21,7 @@ class SplitTwoColumns extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	public const BLOCK_NAME = 'planet4-blocks/split-two-columns';
+	public const BLOCK_NAME = 'split-two-columns';
 
 	/**
 	 * Block version, update when changing attributes
@@ -75,7 +75,7 @@ class SplitTwoColumns extends Base_Block {
 		);
 
 		\register_block_type(
-			self::BLOCK_NAME,
+			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
 			[
 				'editor_script'   => 'planet4-blocks',
 				'attributes'      => self::ATTRIBUTES,
