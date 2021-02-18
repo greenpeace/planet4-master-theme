@@ -1,15 +1,15 @@
 /* global dataLayer */
-export const setupCookies = function($) {
-  window.createCookie = function(name, value, days) {
+export const setupCookies = () => {
+  window.createCookie = (name, value, days) => {
     let date = new Date();
     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    let secureMode = document.location.protocol === 'http:'
+    const secureMode = document.location.protocol === 'http:'
       ? ';SameSite=Lax'
       : ';SameSite=None;Secure';
     document.cookie = encodeURI(name) + '=' + encodeURI(value) + ';domain=.' + document.domain + ';path=/;' + '; expires=' + date.toGMTString() + secureMode;
   };
 
-  window.readCookie = function(name) {
+  window.readCookie = name => {
     const nameEQ = name + '=';
     const ca = document.cookie.split(';');
     let c;
@@ -26,29 +26,33 @@ export const setupCookies = function($) {
   };
 
   const cookie = window.readCookie('greenpeace');
-  const nro = $('body').data('nro');
+  const cookieElement = document.querySelector('#set-cookie');
+  const nro = document.body.dataset.nro;
 
   if (cookie == null) {
-    $('.cookie-notice').css('display', 'flex');
+    cookieElement.classList.add('shown');
   } else {
     window.createCookie('gp_nro', nro, 30);
   }
 
-  $('#hidecookie').click(function () {
-    window.createCookie('greenpeace', '2', 365);
+  const hideCookieButton = document.querySelector('#hidecookie');
+  if (hideCookieButton) {
+    hideCookieButton.onclick = () => {
+      window.createCookie('greenpeace', '2', 365);
 
-    // Remove the 'no_track' cookie, if user accept the cookies consent.
-    window.createCookie('no_track', '0', -1);
+      // Remove the 'no_track' cookie, if user accept the cookies consent.
+      window.createCookie('no_track', '0', -1);
 
-    // Create cookie to store last visited nro.
-    window.createCookie('gp_nro', nro, 30);
+      // Create cookie to store last visited nro.
+      window.createCookie('gp_nro', nro, 30);
 
-    // DataLayer push event on cookies consent.
-    window.dataLayer = window.dataLayer || [];
-    dataLayer.push({
-      'event' : 'cookiesConsent'
-    });
+      // DataLayer push event on cookies consent.
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        'event' : 'cookiesConsent'
+      });
 
-    $('.cookie-notice').fadeOut('slow');
-  });
+      cookieElement.classList.remove('shown');
+    };
+  }
 };
