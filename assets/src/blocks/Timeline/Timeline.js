@@ -29,8 +29,16 @@ export const Timeline = (props) => {
 		});
 	}
 
+	// Revert TimelineJS global usage of lodash,
+	// as it conflicts with Wordpress underscore lib
+	// see https://jira.greenpeace.org/browse/PLANET-5960
+	const revertLodash = function () {
+		_.noConflict();
+	}
+
 	const [scriptLoaded, scriptError] = useScript(
-    `https://cdn.knightlab.com/libs/timeline3/${TIMELINE_JS_VERSION}/js/timeline-min.js`
+    `https://cdn.knightlab.com/libs/timeline3/${TIMELINE_JS_VERSION}/js/timeline-min.js`,
+    revertLodash
 	);
 
 	useEffect(
