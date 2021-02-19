@@ -53,7 +53,7 @@ class Covers extends Base_Block {
 		add_shortcode( 'shortcake_newcovers', [ $this, 'add_block_shortcode' ] );
 
 		register_block_type(
-			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
+			self::get_full_block_name(),
 			[  // - Register the block for the editor
 				'editor_script'   => 'planet4-blocks',           // in the PHP side.
 				'render_callback' => [ $this, 'render' ],                     // - This render callback will be exposed

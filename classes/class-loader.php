@@ -304,7 +304,7 @@ final class Loader {
 		// These styles from the master theme are enqueued on the frontend
 		// but not in the admin side.
 		wp_enqueue_style(
-			'p4gbks_admin_style',
+			'planet4-blocks-editor-style',
 			P4GBKS_PLUGIN_URL . 'assets/build/editorStyle.min.css', // - Bundled CSS for the blocks
 			[],
 			self::file_ver( P4GBKS_PLUGIN_DIR . '/assets/build/editorStyle.min.css' )
@@ -314,7 +314,7 @@ final class Loader {
 
 		// Enqueue editor script for all Blocks in this Plugin.
 		self::enqueue_local_script(
-			'planet4-blocks-script',
+			'planet4-blocks-editor-script',
 			'assets/build/editorIndex.js',
 			[
 				'wp-blocks',      // Helpers for registering blocks.
@@ -340,23 +340,23 @@ final class Loader {
 				'feature_engaging_networks' => $en_active,
 			],
 		];
-		wp_localize_script( 'planet4-blocks-script', 'p4ge_vars', $reflection_vars );
+		wp_localize_script( 'planet4-blocks-editor-script', 'p4ge_vars', $reflection_vars );
 
 		$reflection_vars = [
 			'home'  => P4GBKS_PLUGIN_URL . '/public/',
 			'pages' => $this->get_en_pages(),
 			'forms' => $this->get_en_forms(),
 		];
-		wp_localize_script( 'planet4-blocks-script', 'p4en_vars', $reflection_vars );
+		wp_localize_script( 'planet4-blocks-editor-script', 'p4en_vars', $reflection_vars );
 
 		// Variables reflected from PHP to JS.
 		$reflection_vars = [
 			'dateFormat' => get_option( 'date_format' ),
 		];
-		wp_localize_script( 'planet4-blocks-script', 'p4bk_vars', $reflection_vars );
+		wp_localize_script( 'planet4-blocks-editor-script', 'p4bk_vars', $reflection_vars );
 
 		// Sets translated strings for a JS script.
-		wp_set_script_translations( 'planet4-blocks-script', 'planet4-blocks-backend', P4GBKS_PLUGIN_DIR . '/languages' );
+		wp_set_script_translations( 'planet4-blocks-editor-script', 'planet4-blocks-backend', P4GBKS_PLUGIN_DIR . '/languages' );
 	}
 
 	/**
@@ -365,7 +365,7 @@ final class Loader {
 	public function enqueue_public_assets() {
 		// Add master theme's main css as dependency for blocks css.
 		wp_enqueue_style(
-			'plugin-blocks',
+			'planet4-blocks-style',
 			P4GBKS_PLUGIN_URL . 'assets/build/style.min.css',
 			[
 				'bootstrap',
@@ -383,7 +383,7 @@ final class Loader {
 
 		// Include React in the Frontend.
 		self::enqueue_local_script(
-			'planet4-blocks-frontend',
+			'planet4-blocks-script',
 			'assets/build/frontendIndex.js',
 			[
 				// WP React wrapper.
@@ -395,16 +395,15 @@ final class Loader {
 		);
 
 		self::enqueue_local_script( 'post_action', 'public/js/post_action.js', [ 'jquery' ] );
-		self::enqueue_local_script( 'accordions', 'public/js/accordions.js' );
 
 		// Variables reflected from PHP to JS.
 		$reflection_vars = [
 			'dateFormat' => get_option( 'date_format' ),
 		];
-		wp_localize_script( 'planet4-blocks-frontend', 'p4bk_vars', $reflection_vars );
+		wp_localize_script( 'planet4-blocks-script', 'p4bk_vars', $reflection_vars );
 
 		// Sets translated strings for a JS script.
-		wp_set_script_translations( 'planet4-blocks-frontend', 'planet4-blocks', P4GBKS_PLUGIN_DIR . '/languages' );
+		wp_set_script_translations( 'planet4-blocks-script', 'planet4-blocks', P4GBKS_PLUGIN_DIR . '/languages' );
 
 		if ( self::can_include_theme_editor() ) {
 			wp_enqueue_style(
@@ -457,6 +456,15 @@ final class Loader {
 		if ( ! is_string( $campaign_theme ) || empty( $campaign_theme ) ) {
 			return;
 		}
+
+		wp_enqueue_style(
+			'theme_antarctic',
+			P4GBKS_PLUGIN_URL . "/assets/build/theme_$campaign_theme.min.css",
+			[
+				'planet4-blocks-style',
+			],
+			self::file_ver( P4GBKS_PLUGIN_DIR . "/assets/build/theme_$campaign_theme.min.css" )
+		);
 
 		wp_enqueue_style(
 			'theme_antarctic',

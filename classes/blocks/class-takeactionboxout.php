@@ -42,7 +42,7 @@ class TakeActionBoxout extends Base_Block {
 				'background_image'    => 0,
 			],
 			$attributes,
-			'shortcake_' . self::BLOCK_NAME
+			'shortcake_take-action-boxout'
 		);
 
 		return $this->render( $attributes );
@@ -55,7 +55,7 @@ class TakeActionBoxout extends Base_Block {
 		add_shortcode( 'shortcake_take-action-boxout', [ $this, 'add_block_shortcode' ] );
 
 		register_block_type(
-			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
+			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],

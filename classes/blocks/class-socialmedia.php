@@ -64,7 +64,7 @@ class SocialMedia extends Base_Block {
 
 		// - Register the block for the editor
 		register_block_type(
-			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
+			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],

@@ -28,7 +28,7 @@ class Media extends Base_Block {
 	 */
 	public function __construct() {
 		register_block_type(
-			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
+			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => static function ( $attributes, $content ) {
@@ -43,11 +43,7 @@ class Media extends Base_Block {
 						unset( $attributes['youtube_id'] );
 					}
 
-					$json = wp_json_encode(
-						[ 'attributes' => $attributes ]
-					);
-
-					return '<div data-render="' . self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME . '" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+					return self::render_frontend( $attributes );
 				},
 				'attributes'      => [
 					'video_title'      => [

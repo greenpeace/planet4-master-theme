@@ -38,7 +38,7 @@ class Covers_Converter extends Shortcode_Converter {
 	public function __construct( $shortcode_name, $attributes ) {
 		parent::__construct( $shortcode_name, $attributes );
 
-		$this->block_name = \P4GBKS\Blocks\Base_Block::BLOCK_NAMESPACE_PREFIX . '/covers';
+		$this->block_name = \P4GBKS\Blocks\Base_Block::NAMESPACE . '/covers';
 		$block_types      = \WP_Block_Type_Registry::get_instance()->get_all_registered();
 		if ( array_key_exists( $this->block_name, $block_types ) ) {
 			$this->block_type = $block_types[ $this->block_name ];

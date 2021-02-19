@@ -27,7 +27,7 @@ class Counter extends Base_Block {
 	 */
 	public function __construct() {
 		register_block_type(
-			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
+			self::get_full_block_name(),
 			[  // - Register the block for the editor
 				'editor_script' => 'planet4-blocks',  // in the PHP side.
 				'attributes'    => [

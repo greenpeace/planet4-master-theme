@@ -22,16 +22,21 @@ class Accordion extends Base_Block {
 	 */
 	const BLOCK_NAME = 'accordion';
 
-	const BLOCK_NAMESPACE_PREFIX = 'planet4-blocks-beta';
-
 	/**
 	 * Accordion constructor.
 	 */
-	public function __construct() {	
+	public function __construct() {
+		add_action( 'init', [ $this, 'register_accordion_block' ] );
+	}
+
+	/**
+	 * Register Accordion block.
+	 */
+	public function register_accordion_block() {
 		register_block_type(
-			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
+			self::get_full_block_name(),
 			[
-				'attributes'    => [
+				'attributes' => [
 					'title'       => [
 						'type'    => 'string',
 						'default' => '',
@@ -78,6 +83,9 @@ class Accordion extends Base_Block {
 				],
 			]
 		);
+
+		add_action( 'enqueue_block_editor_assets', [ self::class, 'enqueue_editor_assets' ] );
+		add_action( 'wp_enqueue_scripts', [ self::class, 'enqueue_frontend_assets' ] );
 	}
 
 	/**

@@ -75,19 +75,12 @@ class SplitTwoColumns extends Base_Block {
 		);
 
 		\register_block_type(
-			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
+			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
 				'attributes'      => self::ATTRIBUTES,
 				'render_callback' => function ( $attributes ) {
-					$json = \wp_json_encode(
-						[ 'attributes' => self::update_data( $attributes ) ]
-					);
-
-					return '<div
-						data-render="' . self::BLOCK_NAME . '"
-						data-attributes="' . htmlspecialchars( $json ) . '">
-					</div>';
+					return self::render_frontend( self::update_data( $attributes ) );
 				},
 			]
 		);

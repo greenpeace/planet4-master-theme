@@ -28,14 +28,11 @@ class Happypoint extends Base_Block {
 	 */
 	public function __construct() {
 		register_block_type(
-			self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME,
+			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
 				// todo: Remove when all content is migrated.
-				'render_callback' => static function ( $attributes ) {
-					$json = wp_json_encode( [ 'attributes' => $attributes ] );
-					return '<div data-render="' . self::BLOCK_NAMESPACE_PREFIX . '/' . self::BLOCK_NAME .'" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
-				},
+				'render_callback' => [ self::class, 'render_frontend' ],
 				'attributes'      => [
 					'id'                  => [
 						'type' => 'integer',
