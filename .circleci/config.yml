@@ -255,7 +255,7 @@ jobs:
       - run:
           name: "Book instance"
           command: |
-            JIRA_USERNAME=planet4 /home/circleci/book-test-instance.py \
+            JIRA_USERNAME=planet4 book-test-instance.py \
             --pr-url $(cat /tmp/workspace/pr) \
             --results /tmp/workspace/booking.json >/tmp/workspace/test-instance
       - run: activate-gcloud-account.sh
@@ -268,7 +268,7 @@ jobs:
             gsutil -q stat "$gs_path" || gsutil cp "/tmp/workspace/$filename" "$gs_path"
       - run:
           name: "Commit to test instance repo"
-          command: /home/circleci/trigger_test_instance.sh planet4-plugin-gutenberg-blocks $(cat /tmp/workspace/is_merge_commit)
+          command: trigger_test_instance.sh planet4-plugin-gutenberg-blocks $(cat /tmp/workspace/is_merge_commit)
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
