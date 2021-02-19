@@ -86,8 +86,8 @@ class Rest {
 			self::REST_NAMESPACE,
 			'image-archive/transfer',
 			[
-				'methods'  => WP_REST_Server::CREATABLE,
-				'callback' => $transfer_to_wordpress,
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => $transfer_to_wordpress,
 				'permission_callback' => function () {
 					return current_user_can( Capability::USE_IMAGE_ARCHIVE_PICKER );
 				},

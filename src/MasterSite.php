@@ -621,19 +621,19 @@ class MasterSite extends TimberSite {
 
 		// Allow img and the following attributes.
 		$allowedposttags['img'] = [
-			'alt'    => true,
-			'class'  => true,
-			'id'     => true,
-			'height' => true,
-			'hspace' => true,
-			'name'   => true,
-			'src'    => true,
-			'srcset' => true,
-			'sizes'  => true,
-			'width'  => true,
-			'style'  => true,
-			'vspace' => true,
-			'loading'=> true,
+			'alt'     => true,
+			'class'   => true,
+			'id'      => true,
+			'height'  => true,
+			'hspace'  => true,
+			'name'    => true,
+			'src'     => true,
+			'srcset'  => true,
+			'sizes'   => true,
+			'width'   => true,
+			'style'   => true,
+			'vspace'  => true,
+			'loading' => true,
 		];
 
 		$allowedposttags['script'] = [
