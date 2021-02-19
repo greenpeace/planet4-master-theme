@@ -19,6 +19,15 @@ const entryPoints = blockName => {
   }
 };
 
+const entryPoints = blockName => {
+  return {
+    [`${blockName}EditorScript`]: `./assets/src/blocks/${blockName}/${blockName}EditorScript.js`,
+    [`${blockName}EditorStyle`]: `./assets/src/styles/blocks/${blockName}/${blockName}EditorStyle.scss`,
+    [`${blockName}Script`]: `./assets/src/blocks/${blockName}/${blockName}Script.js`,
+    [`${blockName}Style`]: `./assets/src/styles/blocks/${blockName}/${blockName}Style.scss`,
+  }
+};
+
 module.exports = {
   ...defaultConfig,
   entry: {
