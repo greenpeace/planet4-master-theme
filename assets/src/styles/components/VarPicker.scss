@@ -1,6 +1,3 @@
-.var-picker {
-}
-
 .var-picker * {
   font-family: Roboto, sans-serif !important;
   color: black !important;
@@ -12,7 +9,6 @@
   max-height: 80vh;
   width: 300px;
   overflow-y: scroll;
-  resize: 'horizontal';
   margin-bottom: 0;
 
   &::-webkit-scrollbar {
@@ -46,7 +42,6 @@
 }
 
 .var-picker .var-group {
-  //max-height: 400px;
   background: white !important;
   border: 1px solid black !important;
   margin-bottom: 3px !important;
@@ -63,7 +58,6 @@
 }
 
 .var-picker .var-control {
-  //max-height: 400px;
   clear: both;
   background: white !important;
   border: 1px solid black !important;

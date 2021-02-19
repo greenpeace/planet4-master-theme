@@ -27,15 +27,12 @@ export const dragElement = (draggedElement) => {
   const {maxHeight} = stored;
   let firstOne = true;
   // Div is rendered by react, hope it's ready in this timeout.
-  console.log(stored);
   maxHeight && firstOne && document.addEventListener('click', e=> {
-    console.log('clickadfoisdjf')
     if (e.altKey) {
       firstOne = false;
       setTimeout(()=> {
         const ul = draggedElement.querySelector('div > ul');
-        console.log(ul);
-        ul.style.maxHeight = `${ maxHeight  }px`;
+        ul.style.maxHeight = `${ maxHeight - 2  }px`;
       }, 300);
     }
   })
@@ -69,8 +66,7 @@ export const dragElement = (draggedElement) => {
     e = e || window.event;
     e.preventDefault();
     draggedElement.classList.add('dragging')
-    const maxHeight = window.outerHeight - draggedElement.offsetTop - 177;
-    console.log(posX1, posY1, posX2, posY2);
+    const maxHeight = window.outerHeight - draggedElement.offsetTop - 210;
     // calculate the new cursor position:
     posX1 = posX2 - e.clientX;
     posY1 = posY2 - e.clientY;
@@ -79,33 +75,26 @@ export const dragElement = (draggedElement) => {
     posY2 = e.clientY;
 
     if (posY1 < 0) {
-      // console.log('going down')
       // set the element's new position:
       if (maxHeight > 220 || lastYMax !== null && posY2 < lastYMax) {
         draggedElement.style.top = (draggedElement.offsetTop - posY1) + "px";
       } else {
         if (lastYMax === null) {
-          console.log('max Y', posY2);
-          console.log('window height', window.outerHeight);
           lastYMax = posY2;
         }
       }
     }
 
     if (posY1 > 0) {
-      // console.log('going up')
       // set the element's new position:
       if (draggedElement.offsetTop > 2 || lastYMax !== null && posY2 > lastYMin) {
         draggedElement.style.top = (draggedElement.offsetTop - posY1) + "px";
       } else {
-        console.log(draggedElement.offsetTop, lastYMin)
         if (lastYMin === null) {
           lastYMin = posY2;
         }
       }
     }
-
-    console.log(draggedElement.offsetLeft);
 
     if (draggedElement.offsetLeft > 4 || posX1 < 0 && posX2 > lastXMin) {
       draggedElement.style.left = (draggedElement.offsetLeft - posX1) + "px";
@@ -115,8 +104,6 @@ export const dragElement = (draggedElement) => {
       }
     }
     localStorage.setItem(DRAG_KEY, JSON.stringify({ x: draggedElement.offsetLeft, y: draggedElement.offsetTop, maxHeight }));
-
-    // console.log(maxH);
 
     const ul = draggedElement.querySelector('div > ul');
     ul.style.maxHeight = `${ maxHeight  }px`;
@@ -130,10 +117,8 @@ export const dragElement = (draggedElement) => {
     lastXMin = null;
     lastXMax = null;
     const duration = Date.now() - lastTStart;
-    console.log(duration);
     lastTStart = null;
     if (duration > 1000) {
-      console.log('prevent propagation');
       event.stopImmediatePropagation();
       event.preventDefault();
       event.stopPropagation();

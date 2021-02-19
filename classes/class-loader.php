@@ -379,8 +379,6 @@ final class Loader {
 	 * Load assets for the frontend.
 	 */
 	public function enqueue_public_assets() {
-		wp_enqueue_style( 'wp-components' );
-
 		// Add master theme's main css as dependency for blocks css.
 		wp_enqueue_style(
 			'plugin-blocks',
@@ -406,7 +404,6 @@ final class Loader {
 			[
 				// WP React wrapper.
 				'wp-element',
-				'wp-components',  // Wordpress components.
 				// Exports the __() function.
 				'wp-i18n',
 			],
@@ -424,6 +421,24 @@ final class Loader {
 
 		// Sets translated strings for a JS script.
 		wp_set_script_translations( 'planet4-blocks-frontend', 'planet4-blocks', P4GBKS_PLUGIN_DIR . '/languages' );
+
+		if (
+			Features::is_active( Features::THEME_EDITOR )
+			&& ( is_user_logged_in() || Features::is_active( Features::THEME_EDITOR_NON_LOGGED_IN ) )
+		) {
+			wp_enqueue_style(
+				'theme-editor',
+				P4GBKS_PLUGIN_URL . 'assets/build/themeEditorStyle.min.css',
+				[ 'wp-components' ],
+				self::file_ver( P4GBKS_PLUGIN_DIR . '/assets/build/themeEditorStyle.min.css' )
+			);
+			self::enqueue_local_script(
+				'theme-editor',
+				'assets/build/themeEditor.js',
+				[ 'wp-components' ],
+				false
+			);
+		}
 	}
 
 	/**

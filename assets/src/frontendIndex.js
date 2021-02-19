@@ -10,7 +10,6 @@ import { SubmenuFrontend } from './blocks/Submenu/SubmenuFrontend';
 import { MediaFrontend } from './blocks/Media/MediaFrontend';
 import { setupMediaElementJS } from './blocks/Media/setupMediaElementJS';
 import { setupLightboxForImages } from './components/Lightbox/setupLightboxForImages';
-import { initializeThemeEditor} from './theme/initializeThemeEditor';
 
 // Render React components
 const COMPONENTS = {
@@ -25,7 +24,6 @@ const COMPONENTS = {
   'planet4-blocks/submenu': SubmenuFrontend,
   'planet4-blocks/media-video': MediaFrontend,
 };
-initializeThemeEditor();
 
 document.querySelectorAll( `[data-render]` ).forEach(
   blockNode => {

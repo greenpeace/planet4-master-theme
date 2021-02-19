@@ -10,7 +10,7 @@ const fs = require( 'fs' );
 const collectVarUsages = require( 'postcss-css-variables-extract/lib/scss-var-usages' );
 const mergeVarUsages = require( 'postcss-css-variables-extract/lib/merge-var-usages' );
 
-const allCssVars = {};
+let allCssVars = {};
 
 module.exports = {
   ...defaultConfig,
@@ -21,6 +21,8 @@ module.exports = {
     style: './assets/src/styles/style.scss',
     editorStyle: './assets/src/styles/editorStyle.scss',
     lightbox: './assets/src/styles/lightbox.scss',
+    themeEditor: './assets/src/theme/initializeThemeEditor.js',
+    themeEditorStyle: './assets/src/styles/themeEditor.scss',
     theme_antarctic: './assets/src/styles/theme_antarctic.scss',
     theme_arctic: './assets/src/styles/theme_arctic.scss',
     theme_climate: './assets/src/styles/theme_climate.scss',
@@ -124,10 +126,11 @@ module.exports = {
           const scssUsages = collectVarUsages( './assets/src' );
           const mergedUsages = mergeVarUsages( allCssVars, scssUsages );
           fs.writeFile(
-            './assets/build/css_vars_merged.json',
+            './assets/build/css-variables.json',
             JSON.stringify( mergedUsages, null, 2 ),
             err => console.log( err )
           );
+          allCssVars = {}
         } );
       }
     }

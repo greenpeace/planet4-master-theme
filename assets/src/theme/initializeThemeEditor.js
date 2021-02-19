@@ -6,46 +6,44 @@ import { addHighlight, removeHighlight } from './highlight';
 import { groupVars } from './groupVars';
 import { fetchJson } from '../functions/fetchJson';
 
-const editorRoot = document.createElement( 'div' );
-editorRoot.id = 'theme-editor-root';
-document.body.appendChild( editorRoot );
-dragElement( editorRoot );
-const storedLocation = localStorage.getItem(DRAG_KEY);
-try {
-  const {x,y} = JSON.parse(storedLocation);
-  if (x) {
-    const maxX = window.outerWidth - 300;
-    editorRoot.style.left = `${ Math.min(x, maxX) }px`;
+const setup = async () => {
+  const baseUrl = document.body.dataset.nro;
+  const blockVarsPromise = fetchJson(`${ baseUrl }/wp-content/plugins/planet4-plugin-gutenberg-blocks/assets/build/css-variables.json`);
+  const themeVarsPromise = fetchJson(`${ baseUrl }/wp-content/themes/planet4-master-theme/assets/build/css-variables.json`);
+  const editorRoot = document.createElement( 'div' );
+  editorRoot.id = 'theme-editor-root';
+  document.body.appendChild( editorRoot );
+  dragElement( editorRoot );
+  const storedLocation = localStorage.getItem(DRAG_KEY);
+  try {
+    const {x,y} = JSON.parse(storedLocation);
+    if (x) {
+      const maxX = window.outerWidth - 300;
+      editorRoot.style.left = `${ Math.min(x, maxX) }px`;
+    }
+    if (y) {
+      const maxY = window.outerHeight - 300;
+      editorRoot.style.top = `${ Math.min(y, maxY) }px`;
+    }
+  } catch (e) {
+    console.log('No position found in local storage', e)
   }
-  if (y) {
-    const maxY = window.outerHeight - 300;
-    editorRoot.style.top = `${ Math.min(y, maxY) }px`;
-  }
-} catch (e) {
-  console.log('No position found in local storage', e)
-}
 
-const json = localStorage.getItem( LOCAL_STORAGE_KEY );
-try {
-  const storedVars = JSON.parse(json);
+  const json = localStorage.getItem( LOCAL_STORAGE_KEY );
+  try {
+    const storedVars = JSON.parse(json);
 
-  if (storedVars) {
-    Object.keys(storedVars).forEach(name => {
-      const value = storedVars[name];
-      document.documentElement.style.setProperty(name, value);
-    });
+    if (storedVars) {
+      Object.keys(storedVars).forEach(name => {
+        const value = storedVars[name];
+        document.documentElement.style.setProperty(name, value);
+      });
+    }
+  } catch (e) {
+    console.log(json);
   }
-} catch (e) {
-  console.log(json);
-}
 
 // Create both promises first so they run in parallel, then await both in sequence.
-const baseUrl = document.body.dataset.nro;
-const blockVarsPromise = fetchJson(`${ baseUrl }/wp-content/plugins/planet4-plugin-gutenberg-blocks/assets/build/css_vars_merged.json`);
-const themeVarsPromise = fetchJson(`${ baseUrl }/wp-content/themes/planet4-master-theme/assets/build/css_vars_merged.json`);
-
-const setup = async () => {
-
   const blockVars = await blockVarsPromise;
   const themeVars = await themeVarsPromise;
 
@@ -77,6 +75,4 @@ const setup = async () => {
   });
 };
 
-export const initializeThemeEditor = () => {
-  document.addEventListener( 'DOMContentLoaded', setup );
-};
+document.addEventListener( 'DOMContentLoaded', setup );
