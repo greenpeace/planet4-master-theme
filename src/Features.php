@@ -18,6 +18,10 @@ class Features {
 
 	public const LAZY_YOUTUBE_PLAYER = 'lazy_youtube_player';
 
+	public const THEME_EDITOR = 'theme_editor';
+
+	public const THEME_EDITOR_NON_LOGGED_IN = 'theme_editor_non_logged_in';
+
 	/**
 	 * Get the features options page settings.
 	 *
@@ -75,6 +79,24 @@ class Features {
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::LAZY_YOUTUBE_PLAYER,
+				'type' => 'checkbox',
+			],
+			[
+				'name' => __( 'Theme editor (experimental)', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'Enable CSS variables based theme editor for logged in users. Do not use in production yet.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::THEME_EDITOR,
+				'type' => 'checkbox',
+			],
+			[
+				'name' => __( 'Theme editor non-logged in(experimental)', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'Enable CSS variables based theme editor without log in. Definitely do not use in production.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::THEME_EDITOR_NON_LOGGED_IN,
 				'type' => 'checkbox',
 			],
 		];
