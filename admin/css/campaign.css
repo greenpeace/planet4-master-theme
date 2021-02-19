@@ -33,3 +33,7 @@
   bottom: 0 !important;
   padding: 8px 10px 4px;
 }
+
+.planet-4_page_planet4_settings_features .cmb-th + .cmb-td {
+  float: none;
+}
