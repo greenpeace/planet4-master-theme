@@ -355,6 +355,11 @@ body.theme-oceans {
   }
 
   .columns-block.block-style-no_image {
+    @include campaign_columns_style_no_image($montserrat, $oceans-blue, 400);
+
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+
     .column-wrap {
       .btn-primary {
         @extend .btn-primary;
@@ -386,13 +391,6 @@ body.theme-oceans {
         margin-bottom: 30px;
       }
     }
-  }
-
-  .columns-block.block-style-no_image {
-    @include campaign_columns_style_no_image($montserrat, $oceans-blue, 400);
-
-    font-size: 1.875rem;
-    line-height: 2.25rem;
   }
 
   .video-block {

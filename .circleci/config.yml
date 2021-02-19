@@ -180,7 +180,7 @@ jobs:
       - run:
           name: Lint CSS
           when: always
-          command: stylelint assets/src/**/*.scss
+          command: stylelint "assets/src/styles/**/*.scss"
       - run:
           name: Lint JS
           when: always
