@@ -35,19 +35,6 @@ import {
 	ToolbarGroup,
 	ToolbarItem,
 } from '@wordpress/components';
-import {
-	alignLeft,
-	alignRight,
-	alignCenter,
-	blockTable as icon,
-	tableColumnAfter,
-	tableColumnBefore,
-	tableColumnDelete,
-	tableRowAfter,
-	tableRowBefore,
-	tableRowDelete,
-	table,
-} from '@wordpress/icons';
 import { createBlock } from '@wordpress/blocks';
 
 /**
@@ -67,40 +54,35 @@ import {
 
 const BACKGROUND_COLORS = [
 	{
-		color: '#f3f4f5',
-		name: 'Subtle light gray',
-		slug: 'subtle-light-gray',
+		color: '#f5f7f8',
+    name: __('Grey'),
+    slug: 'grey'
 	},
 	{
-		color: '#e9fbe5',
-		name: 'Subtle pale green',
-		slug: 'subtle-pale-green',
+		color: '#eafee7',
+    name: __('Green'),
+    slug: 'green'
 	},
 	{
 		color: '#e7f5fe',
-		name: 'Subtle pale blue',
-		slug: 'subtle-pale-blue',
-	},
-	{
-		color: '#fcf0ef',
-		name: 'Subtle pale pink',
-		slug: 'subtle-pale-pink',
-	},
+    name: __('Blue'),
+    slug: 'blue'
+	}
 ];
 
 const ALIGNMENT_CONTROLS = [
 	{
-		icon: alignLeft,
+		icon: "editor-alignleft",
 		title: __( 'Align column left' ),
 		align: 'left',
 	},
 	{
-		icon: alignCenter,
+		icon: "editor-aligncenter",
 		title: __( 'Align column center' ),
 		align: 'center',
 	},
 	{
-		icon: alignRight,
+		icon: "editor-alignright",
 		title: __( 'Align column right' ),
 		align: 'right',
 	},
@@ -379,37 +361,37 @@ function TableEdit( {
 
 	const tableControls = [
 		{
-			icon: tableRowBefore,
+			icon: "table-row-before",
 			title: __( 'Insert row before' ),
 			isDisabled: ! selectedCell,
 			onClick: onInsertRowBefore,
 		},
 		{
-			icon: tableRowAfter,
+			icon: "table-row-after",
 			title: __( 'Insert row after' ),
 			isDisabled: ! selectedCell,
 			onClick: onInsertRowAfter,
 		},
 		{
-			icon: tableRowDelete,
+			icon: "table-row-delete",
 			title: __( 'Delete row' ),
 			isDisabled: ! selectedCell,
 			onClick: onDeleteRow,
 		},
 		{
-			icon: tableColumnBefore,
+			icon: "table-col-before",
 			title: __( 'Insert column before' ),
 			isDisabled: ! selectedCell,
 			onClick: onInsertColumnBefore,
 		},
 		{
-			icon: tableColumnAfter,
+			icon: "table-col-after",
 			title: __( 'Insert column after' ),
 			isDisabled: ! selectedCell,
 			onClick: onInsertColumnAfter,
 		},
 		{
-			icon: tableColumnDelete,
+			icon: "table-col-delete",
 			title: __( 'Delete column' ),
 			isDisabled: ! selectedCell,
 			onClick: onDeleteColumn,
@@ -466,7 +448,7 @@ function TableEdit( {
 							{ ( toggleProps ) => (
 								<DropdownMenu
 									hasArrowIndicator
-									icon={ table }
+									icon="editor-table"
 									toggleProps={ toggleProps }
 									label={ __( 'Edit table' ) }
 									controls={ tableControls }
@@ -550,7 +532,7 @@ function TableEdit( {
 			{ isEmpty && (
 				<Placeholder
 					label={ __( 'Table' ) }
-					icon={ <BlockIcon icon={ icon } showColors /> }
+					icon={ <BlockIcon icon="editor-table" showColors /> }
 					instructions={ __( 'Insert a table for sharing data.' ) }
 				>
 					<form
