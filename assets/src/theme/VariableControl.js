@@ -1,4 +1,4 @@
-import { useState, useRef} from 'react';
+import { useState} from 'react';
 import { Fragment} from '@wordpress/element';
 import { COLOR_VALUE_REGEX, TypedControl } from './typedControl';
 import { IconButton } from '@wordpress/components';
@@ -81,7 +81,7 @@ const showUsages = (cssVar, showSelectors, toggleSelectors) => {
       </pre>;
 
   return <div
-    style={ { fontSize: '11px', position: 'relative', marginTop: '16px' } }
+    style={ { display: 'inline-block', fontSize: '11px', position: 'relative', marginTop: '16px' } }
   >
       <span
         key={ 3 }
@@ -124,7 +124,6 @@ export const VariableControl = (props) => {
   ] = useState(false);
 
   const toggleSelectors = () => setShowSelectors(!showSelectors)
-  const compoRef = useRef();
   // The theme ensures that if the property is not returned, it can be safely read from the window.
   const value = theme[cssVar.name] || defaultValue;
   const isDefault = value === defaultValue;
@@ -174,13 +173,11 @@ export const VariableControl = (props) => {
           style={ { float: 'right', marginBottom: '14.5px' } }
           title={`Reset to "${defaultValue}"`}
           onClick={ () => {
-            onUnset(compoRef);
+            onUnset();
           } }
         >unset</button>}
         <TypedControl { ...{
-          cssVar, theme, value, compoRef,dispatch, onChange: (value, updateRef) => {
-            onChange(value, !updateRef ? null : compoRef);
-          },
+          cssVar, theme, value, dispatch, onChange,
         } }/>
       </div>
     ) }

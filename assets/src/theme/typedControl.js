@@ -1,4 +1,5 @@
-import { ColorPicker, TextControl, FontSizePicker} from '@wordpress/components';
+import {  TextControl, FontSizePicker} from '@wordpress/components';
+import { SketchPicker as ColorPicker} from 'react-color';
 import tinycolor from 'tinycolor2';
 import { Fragment } from '@wordpress/element';
 import FontPicker from 'font-picker-react';
@@ -37,7 +38,7 @@ const extractColorUsages = theme => {
   }, []);
 }
 
-const byCountUsagesDesc = ({ usages: usages1 }, { usages: usages2 }) => usages2.length - usages1.length;
+// const byCountUsagesDesc = ({ usages: usages1 }, { usages: usages2 }) => usages2.length - usages1.length;
 
 const byHexValue = ({color1}, { color2}) => {
   const hex1 = tinycolor(color1).toHex();
@@ -50,7 +51,7 @@ const byHexValue = ({color1}, { color2}) => {
   return hex1 < hex2 ? 1 : -1;
 }
 
-export const TypedControl = ({ cssVar, theme, value, onChange, compoRef, dispatch }) => {
+export const TypedControl = ({ cssVar, theme, value, onChange, dispatch }) => {
 
   if (cssVar.usages.some(usage =>
     !!usage.property.match(/color$/)
@@ -62,9 +63,13 @@ export const TypedControl = ({ cssVar, theme, value, onChange, compoRef, dispatc
 
     return <Fragment>
       <ColorPicker
-        ref={ compoRef }
+        styles={{
+          picker: {
+            width: 'calc(100%)',
+          }
+        }}
         color={ value }
-        onChangeComplete={ color => {
+        onChange={ color => {
           const hasTransparency = color.rgb.a !== 1;
 
           const { r, g, b, a } = color.rgb;
@@ -161,11 +166,11 @@ export const TypedControl = ({ cssVar, theme, value, onChange, compoRef, dispatc
 
   if (cssVar.usages.some(usage => usage.property === 'font-family')) {
     return <Fragment>
-      {/*<FontPicker*/}
-      {/*  apiKey={ googleApiKey }*/}
-      {/*  activeFontFamily={ value }*/}
-      {/*  onChange={ value => onChange(value.family) }*/}
-      {/*/>*/}
+      <FontPicker
+        apiKey={ googleApiKey }
+        activeFontFamily={ value }
+        onChange={ value => onChange(value.family) }
+      />
       <TextControl
         value={ value }
         onChange={ onChange }

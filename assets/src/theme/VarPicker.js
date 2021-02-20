@@ -9,23 +9,6 @@ export const LOCAL_STORAGE_KEY = 'p4-theme';
 
 const byName = (a, b) => a.name > b.name ? 1 : (a.name === b.name ? 0 : -1);
 
-const updateColorPicker = (ref, value) => {
-  if (!ref?.current?.setState) {
-    return;
-  }
-
-  const colors = colorToState(value);
-
-  ref.current.setState(
-    {
-      ...colors,
-      draftHex: colors.hex.toLowerCase(),
-      draftHsl: colors.hsl,
-      draftRgb: colors.rgb,
-    },
-  );
-};
-
 export const VarPicker = (props) => {
   const {
     groups,
@@ -87,28 +70,12 @@ export const VarPicker = (props) => {
     dispatch,
   ] = useThemeEditor(config);
 
-  const setProperty = (name, value, compoRef) => {
-
+  const setProperty = (name, value) => {
     dispatch({ type: THEME_ACTIONS.SET, payload: { name, value } });
-
-    // WordPress's ColorPicker component doesn't update on a prop change, we need to trigger that here (maybe there's another way).
-    updateColorPicker(compoRef, value);
   };
 
-  const unsetProperty = (name, compoRef) => {
+  const unsetProperty = (name) => {
     dispatch({ type: THEME_ACTIONS.UNSET, payload: { name } });
-
-    if (compoRef.current && compoRef.current.setState) {
-      const colors = colorToState(defaultValues[name]);
-      compoRef.current.setState(
-        {
-          ...colors,
-          draftHex: colors.hex.toLowerCase(),
-          draftHsl: colors.hsl,
-          draftRgb: colors.rgb,
-        },
-      );
-    }
   };
 
   const [collapsed, setCollapsed] = useState(false);
@@ -215,10 +182,10 @@ export const VarPicker = (props) => {
                     dispatch,
                   } }
                   key={ cssVar.name }
-                  onChange={ (value, compoRef = false) => {
-                    setProperty(cssVar.name, value, compoRef);
+                  onChange={ (value) => {
+                    setProperty(cssVar.name, value);
                   } }
-                  onUnset={ (compoRef) => unsetProperty(cssVar.name, compoRef) }
+                  onUnset={ () => unsetProperty(cssVar.name) }
                 />;
               }
             ) }
@@ -247,7 +214,7 @@ export const VarPicker = (props) => {
             }
             }
             key={ cssVar.name }
-            onUnset={ (compoRef) => unsetProperty(cssVar.name, compoRef) }
+            onUnset={ () => unsetProperty(cssVar.name) }
             onCloseClick={ deactivate }
             onChange={ value => setProperty(cssVar.name, value) }
           />;

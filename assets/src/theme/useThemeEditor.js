@@ -215,6 +215,7 @@ const ACTIONS = {
   }
 };
 
+// export const THEME_ACTIONS = Object.keys(ACTIONS).reduce((t, k) => ({ ...t, [k]: k }), {});
 export const THEME_ACTIONS = ACTIONS;
 
 function reducer(state, { type, payload }) {
@@ -223,7 +224,7 @@ function reducer(state, { type, payload }) {
   const action = typeof type === 'function' ? type.name : type;
 
   if (typeof ACTIONS[action] !== 'function') {
-    throw new Error('I do not know what ' + type + ' is, take back this stuff you gave me ' + payload);
+    throw new Error(`No handler for action ${ action }`);
   }
 
   return ACTIONS[action](state, payload);
@@ -354,11 +355,11 @@ export const useThemeEditor = (
   }, [JSON.stringify(withPseudoPreviews)]);
 
   useHotkeys('ctrl+z,cmd+z', () => {
-    dispatch({type: ACTIONS.HISTORY_BACKWARD});
+    dispatch({type: THEME_ACTIONS.HISTORY_BACKWARD});
   });
 
   useHotkeys('ctrl+shift+z,cmd+shift+z', () => {
-    dispatch({type: ACTIONS.HISTORY_FORWARD});
+    dispatch({type: THEME_ACTIONS.HISTORY_FORWARD});
   });
 
   const themeJson = JSON.stringify(theme);
