@@ -126,7 +126,6 @@ export const VarPicker = (props) => {
         <label style={{fontSize: '12px'}}>
           <input style={ { width: '130px' } } placeholder='theme' type="text"
                  onChange={ event => setFileName(event.target.value) }/>
-          .css/json
         </label>
       </div>
       <div>

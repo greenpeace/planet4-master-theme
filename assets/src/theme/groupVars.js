@@ -7,39 +7,27 @@ const toLabel = element => {
   return element.tagName.toLowerCase() + idPart + classPart;
 };
 
-const parseVarName = name => {
-  const parts = name.split('--');
+const byNameStateProp = ({name: nameA},{name: nameB}) => {
+  console.log('sorting')
+  const reg = /--(?<element>\w+(-?-\w+)*)(--(?<state>(active|focus|visited|hover|disabled)))?--(?<prop>\w+(-\w+)*)/;
+  try {
 
-  const reversed = parts.reverse();
+    const {element: elementA, state: stateA, prop: propA } = nameA.match(reg).groups;
+    const {element: elementB, state: stateB, prop: propB } = nameB.match(reg).groups;
 
-  return [reversed.slice(1).join('--'), reversed[0]];
-}
-
-const byVarName= ({name: nameA}, {name: nameB}) => {
-  const [prefixA, propA] = parseVarName(nameA);
-  const [prefixB, propB] = parseVarName(nameB);
-
-  if (prefixA === prefixB) {
-    return propA > propB ? 1 : -1;
+    if (elementA !== elementB) {
+      return elementA < elementB ? -1 : 1;
+    }
+    if (stateA !== stateB) {
+      return stateA < stateB ? -1 : 1;
+    }
+    return propA < propB ? -1 : 1;
+  } catch (e) {
+    console.log(e)
+    console.log('A', nameA, 'B', nameB);
+    return nameA > nameB;
   }
-
-  return prefixA > prefixB ? 1 : -1;
 }
-
-const byPropertyThenName = (a, b) => {
-  const { usages: usagesA, name: nameA } = a;
-  const { usages: usagesB, name: nameB } = b;
-
-  // Secondary sort if property is the same.
-  if (usagesA[0].property === usagesB[0].property) {
-    const [prefixA] = parseVarName(nameA);
-    const [prefixB] = parseVarName(nameB);
-
-    return prefixA > prefixB ? 1 : -1;
-  }
-
-  return usagesA[0].property > usagesB[0].property ? 1 : -1;
-};
 
 export const groupVars = async (vars, target) => {
   const groups = [];
@@ -60,7 +48,7 @@ export const groupVars = async (vars, target) => {
       groups.push({
         element: previous,
         label: toLabel(previous),
-        vars: previousMatches.filter(match => !currentMatches.includes(match)).sort(byPropertyThenName),
+        vars: previousMatches.filter(match => !currentMatches.includes(match)).sort(byNameStateProp),
       });
       previousMatches = currentMatches;
     }

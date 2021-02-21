@@ -70,15 +70,21 @@ const previewValue = (value, cssVar, onClick, isDefault) => {
       { value }
     </span>;
 }
+const renderCollapsed = ({cssVar, toggleSelectors}) => <pre
+  // style={ { maxWidth: '80%', overflowX: 'hidden' } }
+  onClick={ toggleSelectors }
+  className={ 'usages-collapsed' }
+>
+    { uniqueUsages(cssVar).join(', ') }
+  </pre>;
+
+const renderShow = ({cssVar, toggleSelectors}) => <pre
+  onClick={ toggleSelectors }
+>
+    { uniqueUsages(cssVar).join('\n').replace(',', ',\n') }
+  </pre>;
 
 const showUsages = (cssVar, showSelectors, toggleSelectors) => {
-  const renderCollapsed = () => <pre onClick={ toggleSelectors } className={ 'usages-collapsed' }>
-      { uniqueUsages(cssVar).join(', ') }
-    </pre>;
-
-  const renderShow = () => <pre onClick={ toggleSelectors }>
-        { uniqueUsages(cssVar).join('\n').replace(',', ',\n') }
-      </pre>;
 
   return <div
     style={ { display: 'inline-block', fontSize: '11px', position: 'relative', marginTop: '16px' } }
@@ -96,7 +102,9 @@ const showUsages = (cssVar, showSelectors, toggleSelectors) => {
       >
         { uniqueUsages(cssVar).length } selectors
       </span>
-    { showSelectors ? renderShow() : renderCollapsed() }
+    { showSelectors
+      ? renderShow({ cssVar, toggleSelectors })
+      : renderCollapsed({ cssVar, toggleSelectors }) }
 
   </div>;
 }

@@ -3,7 +3,7 @@ import { LOCAL_STORAGE_KEY } from './VarPicker';
 import { useHotkeys } from 'react-hotkeys-hook';
 
 const PROP_REGEX = /\w+(-\w+)*$/;
-export const PSEUDO_REGEX = /--?(hover|focus|visited|active)--?/;
+export const PSEUDO_REGEX = /--?(active|focus|visited|hover|disabled)--?/;
 
 const read = prop => {
   return document.documentElement.style.getPropertyValue(prop);
@@ -354,13 +354,17 @@ export const useThemeEditor = (
     writeNewValues(withPseudoPreviews);
   }, [JSON.stringify(withPseudoPreviews)]);
 
+  const hotkeysOptions = {
+    enableOnTags: ['INPUT'],
+  }
+
   useHotkeys('ctrl+z,cmd+z', () => {
     dispatch({type: THEME_ACTIONS.HISTORY_BACKWARD});
-  });
+  }, hotkeysOptions);
 
   useHotkeys('ctrl+shift+z,cmd+shift+z', () => {
     dispatch({type: THEME_ACTIONS.HISTORY_FORWARD});
-  });
+  }, hotkeysOptions);
 
   const themeJson = JSON.stringify(theme);
   useEffect(() => {
