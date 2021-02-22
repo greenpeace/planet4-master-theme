@@ -179,7 +179,7 @@ jobs:
       - checkout
       - run:
           name: Lint CSS
-          command: stylelint assets/**/*.scss
+          command: stylelint "assets/src/scss/**/*.scss"
       - run:
           name: Install eslint react plugin
           command: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install eslint-plugin-react
