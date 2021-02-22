@@ -23,6 +23,17 @@
       ]
     },
     {
+      "name": "Aotearoa",
+      "codes": ["NZ"],
+      "lang": [
+        {
+          "name": "English",
+          "url": "https://www.greenpeace.org/aotearoa/",
+          "locale": ["en-NZ"]
+        }
+      ]
+    },
+    {
       "name": "Argentina",
       "codes": ["AR"],
       "lang": [
@@ -421,17 +432,6 @@
           "name": "Nederlands",
           "url": "https://www.greenpeace.org/nl",
           "locale": ["nl-NL"]
-        }
-      ]
-    },
-    {
-      "name": "Aotearoa",
-      "codes": ["NZ"],
-      "lang": [
-        {
-          "name": "English",
-          "url": "https://www.greenpeace.org/aotearoa/",
-          "locale": ["en-NZ"]
         }
       ]
     },
