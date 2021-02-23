@@ -107,6 +107,9 @@ class MasterSite extends TimberSite {
 	protected function hooks() {
 		add_theme_support( 'post-thumbnails' );
 		add_theme_support( 'menus' );
+		// Disable wp5.5 Block Patterns.
+		remove_theme_support( 'core-block-patterns' );
+
 		add_post_type_support( 'page', 'excerpt' );  // Added excerpt option to pages.
 
 		add_filter( 'timber_context', [ $this, 'add_to_context' ] );
