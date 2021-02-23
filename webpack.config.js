@@ -14,6 +14,7 @@ module.exports = {
     style: './assets/src/scss/style.scss',
     bootstrap: './assets/src/scss/bootstrap-build.scss',
     archive_picker: './assets/src/js/archive_picker.js',
+    "lite-yt-embed": './node_modules/lite-youtube-embed/src/lite-yt-embed.js',
   },
   output: {
     filename: '[name].js',

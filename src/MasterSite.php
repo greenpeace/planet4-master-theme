@@ -589,6 +589,7 @@ class MasterSite extends TimberSite {
 			'frameborder'     => true,
 			'name'            => true,
 			'src'             => true,
+			'srcdoc'          => true,
 			'id'              => true,
 			'class'           => true,
 			'style'           => true,
@@ -647,6 +648,12 @@ class MasterSite extends TimberSite {
 			'class'       => true,
 			'type'        => true,
 			'placeholder' => true,
+		];
+
+		$allowedposttags['lite-youtube'] = [
+			'videoid' => true,
+			'params'  => true,
+			'style'   => true,
 		];
 
 		return $allowedposttags;
@@ -724,6 +731,7 @@ class MasterSite extends TimberSite {
 		wp_register_script( 'main', $this->theme_dir . '/assets/build/index.js', [ 'jquery' ], $js_creation, true );
 		wp_localize_script( 'main', 'localizations', $localized_variables );
 		wp_enqueue_script( 'main' );
+		wp_enqueue_script( 'youtube', $this->theme_dir . '/assets/build/lite-yt-embed.js', [], 1, true );
 	}
 
 	/**
@@ -1065,6 +1073,50 @@ class MasterSite extends TimberSite {
 	 * @return mixed
 	 */
 	public function filter_youtube_oembed_nocookie( $cache, $url ) {
+		if ( Features::is_active( Features::LAZY_YOUTUBE_PLAYER ) ) {
+			return $this->new_youtube_filter( $cache, $url );
+		}
+
+		return $this->old_youtube_filter( $cache, $url );
+	}
+
+	/**
+	 * Filter function for embed_oembed_html.
+	 * Transform youtube embeds to youtube-nocookie.
+	 *
+	 * @see https://developer.wordpress.org/reference/hooks/embed_oembed_html/
+	 *
+	 * @param mixed  $cache The cached HTML result, stored in post meta.
+	 * @param string $url The attempted embed URL.
+	 *
+	 * @return mixed
+	 */
+	private function new_youtube_filter( $cache, $url ) {
+		if ( ! empty( $url ) ) {
+			if ( strpos( $url, 'youtube.com' ) !== false || strpos( $url, 'youtu.be' ) !== false ) {
+				[ $youtube_id, $query_string ] = self::parse_youtube_url( $url );
+
+				$style = "background-image: url('https://i.ytimg.com/vi/$youtube_id/hqdefault.jpg');";
+
+				return '<lite-youtube style="' . $style . '" videoid="' . $youtube_id . '" params="' . $query_string . '"></lite-youtube>';
+			}
+		}
+
+		return $cache;
+	}
+
+	/**
+	 * Filter function for embed_oembed_html.
+	 * Transform youtube embeds to youtube-nocookie.
+	 *
+	 * @see https://developer.wordpress.org/reference/hooks/embed_oembed_html/
+	 *
+	 * @param mixed  $cache The cached HTML result, stored in post meta.
+	 * @param string $url The attempted embed URL.
+	 *
+	 * @return mixed
+	 */
+	private function old_youtube_filter( $cache, $url ) {
 		if ( ! empty( $url ) ) {
 			if ( strpos( $url, 'youtube.com' ) !== false || strpos( $url, 'youtu.be' ) !== false ) {
 
@@ -1078,6 +1130,25 @@ class MasterSite extends TimberSite {
 		}
 
 		return $cache;
+	}
+
+	/**
+	 * Parse info out of a Youtube URL.
+	 *
+	 * @param string $url The embedded url.
+	 *
+	 * @return string[] The youtube ID and the query string.
+	 */
+	private static function parse_youtube_url( string $url ): ?array {
+		// @see https://stackoverflow.com/questions/3392993/php-regex-to-get-youtube-video-id
+		$re = '/(?im)\b(?:https?:\/\/)?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)\/(?:(?:\??v=?i?=?\/?)|watch\?vi?=|watch\?.*?&v=|embed\/|)([A-Z0-9_-]{11})\S*(?=\s|$)/';
+		preg_match_all( $re, $url, $matches, PREG_SET_ORDER );
+		$youtube_id = $matches[0][1] ?? null;
+
+		// For now just rel, but we can extract more from the url.
+		$query_string = 'rel=0';
+
+		return [ $youtube_id, $query_string ];
 	}
 
 	/**

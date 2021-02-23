@@ -16,6 +16,8 @@ class Features {
 
 	public const CLOUDFLARE_DEPLOY_PURGE = 'cloudflare_deploy_purge';
 
+	public const LAZY_YOUTUBE_PLAYER = 'lazy_youtube_player';
+
 	/**
 	 * Get the features options page settings.
 	 *
@@ -64,6 +66,15 @@ class Features {
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::CLOUDFLARE_DEPLOY_PURGE,
+				'type' => 'checkbox',
+			],
+			[
+				'name' => __( 'Lazy YouTube player', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'Only load the YouTube player after clicking a video.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::LAZY_YOUTUBE_PLAYER,
 				'type' => 'checkbox',
 			],
 		];
