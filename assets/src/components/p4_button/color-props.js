@@ -3,6 +3,7 @@
  * Customize changes(PLANET-4924) :
  *  - Added `p4_button_text_colors` and `p4_button_bg_colors` custom P4 button colors.
  *  - Remove the BorderPanel control(button borderRadius).
+ *  - Remove the WidthPanel control(button width).
  */
 
 /**

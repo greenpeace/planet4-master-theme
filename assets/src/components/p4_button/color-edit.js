@@ -3,6 +3,7 @@
  * Customize changes(PLANET-4924) :
  *  - Added `p4_button_text_colors` and `p4_button_bg_colors` custom P4 button colors.
  *  - Remove the BorderPanel control(button borderRadius).
+ *  - Remove the WidthPanel control(button width).
  */
 
 /**
@@ -39,6 +40,17 @@ import {
 const EMPTY_ARRAY = [];
 
 const isWebPlatform = Platform.OS === 'web';
+
+const P4_BUTTON_TEXT_COLORS = [
+  { name: 'Grey 80%', slug: 'grey-80', color: '#020202' },
+  { name: 'White', slug: 'white', color: '#ffffff' },
+];
+
+const P4_BUTTON_BG_COLORS = [
+  { name: 'Orange', slug: 'orange', color: '#f36d3a' },
+  { name: 'Aquamarine', slug: 'aquamarine', color: '#68dfde' },
+  { name: 'White', slug: 'white', color: '#ffffff' },
+];
 
 function getComputedStyle( node ) {
 	return node.ownerDocument.defaultView.getComputedStyle( node );
@@ -135,6 +147,7 @@ function ColorPanel( { settings, clientId, enableContrastChecking = true } ) {
 function ColorEdit( props ) {
 	const { attributes } = props;
 	const colors = useEditorFeature( 'color.palette' ) || EMPTY_ARRAY;
+
 	const gradients = useEditorFeature( 'color.gradients' ) || EMPTY_ARRAY;
 
 	// Shouldn't be needed but right now the ColorGradientsPanel
@@ -219,21 +232,23 @@ function ColorEdit( props ) {
 				label: __( 'Text Color' ),
 				onColorChange: onChangeColor( 'text' ),
 				colorValue: getColorObjectByAttributeValues(
-					colors,
+					P4_BUTTON_TEXT_COLORS,
 					textColor,
 					style?.color?.text
 				).color,
+				colors: P4_BUTTON_TEXT_COLORS,
 			},
 			{
 				label: __( 'Background Color' ),
 				onColorChange: onChangeColor( 'background' ),
 				colorValue: getColorObjectByAttributeValues(
-					colors,
+					P4_BUTTON_BG_COLORS,
 					backgroundColor,
 					style?.color?.background
 				).color,
 				gradientValue,
 				onGradientChange: onChangeGradient,
+				colors: P4_BUTTON_BG_COLORS,
 			},
 		];
 	}, [

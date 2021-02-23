@@ -17,11 +17,8 @@ import classnames from 'classnames';
 import { __ } from '@wordpress/i18n';
 import { useCallback, useState } from '@wordpress/element';
 import {
-	Button,
-	ButtonGroup,
 	KeyboardShortcuts,
 	PanelBody,
-	RangeControl,
 	TextControl,
 	ToggleControl,
 	ToolbarButton,
@@ -37,7 +34,6 @@ import {
 	__experimentalUseEditorFeature as useEditorFeature,
 } from '@wordpress/block-editor';
 import { rawShortcut, displayShortcut } from '@wordpress/keycodes';
-import { link, linkOff } from '@wordpress/icons';
 import { createBlock } from '@wordpress/blocks';
 
 /**
@@ -47,9 +43,6 @@ import ColorEdit from './color-edit';
 import getColorAndStyleProps from './color-props';
 
 const NEW_TAB_REL = 'noreferrer noopener';
-const MIN_BORDER_RADIUS_VALUE = 0;
-const MAX_BORDER_RADIUS_VALUE = 50;
-const INITIAL_BORDER_RADIUS_POSITION = 5;
 
 const EMPTY_ARRAY = [];
 
