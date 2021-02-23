@@ -14,10 +14,7 @@ export const setupCookies = () => {
     const ca = document.cookie.split(';');
     let c;
     for (let i = 0; i < ca.length; i++) {
-      c = ca[i];
-      while (c.charAt(0) === ' ') {
-        c = c.substring(1, c.length);
-      }
+      c = ca[i].trimStart();
       if (c.indexOf(nameEQ) === 0) {
         return c.substring(nameEQ.length, c.length);
       }
@@ -29,8 +26,10 @@ export const setupCookies = () => {
   const cookieElement = document.querySelector('#set-cookie');
   const nro = document.body.dataset.nro;
 
-  if (cookie == null) {
-    cookieElement.classList.add('shown');
+  if (cookie === null) {
+    if (cookieElement) {
+      cookieElement.classList.add('shown');
+    }
   } else {
     window.createCookie('gp_nro', nro, 30);
   }
