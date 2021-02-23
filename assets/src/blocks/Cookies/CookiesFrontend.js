@@ -21,13 +21,17 @@ export class CookiesFrontend extends Component {
   showCookieNotice() {
     // the .cookie-notice element belongs to the P4 Master Theme
     const cookieElement = document.querySelector('#set-cookie');
-    cookieElement.classList.add('shown');
+    if (cookieElement) {
+      cookieElement.classList.add('shown');
+    }
   }
 
   hideCookieNotice() {
     // the .cookie-notice element belongs to the P4 Master Theme
     const cookieElement = document.querySelector('#set-cookie');
-    cookieElement.classList.remove('shown');
+    if (cookieElement) {
+      cookieElement.classList.remove('shown');
+    }
   }
 
   onNecessaryCookiesClick() {
