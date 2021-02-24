@@ -718,7 +718,14 @@ class MasterSite extends TimberSite {
 		wp_enqueue_style( 'parent-style', $this->theme_dir . '/assets/build/style.min.css', [], $css_creation );
 
 		// JS files.
-		wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', [], '3.3.1', true );
+		wp_deregister_script( 'jquery' );
+		wp_register_script(
+			'jquery',
+			'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js',
+			[ 'planet4-blocks-frontend' ],
+			'3.3.1',
+			true
+		);
 
 		// Variables reflected from PHP to the JS side.
 		$localized_variables = [
