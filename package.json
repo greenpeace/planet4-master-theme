@@ -11,7 +11,7 @@
     "lint:css": "wp-scripts lint-style"
   },
   "devDependencies": {
-    "@greenpeace/dashdash": "^1.0.1",
+    "@greenpeace/dashdash": "^1.0.2",
     "@wordpress/components": "^8.3.2",
     "@wordpress/scripts": "3.3.0",
     "autoprefixer": "^9.6.1",
@@ -26,7 +26,8 @@
     "svg-sprite-loader": "^4.1.6",
     "terser-webpack-plugin": "^2.2.1",
     "webpack": "^4.40.2",
-    "webpack-fix-style-only-entries": "^0.4.0"
+    "webpack-fix-style-only-entries": "^0.4.0",
+    "postcss-css-variables-extract": "^0.1.3"
   },
   "browserslist": [
     "last 2 version",

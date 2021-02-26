@@ -18,6 +18,10 @@ class Features {
 
 	public const LAZY_YOUTUBE_PLAYER = 'lazy_youtube_player';
 
+	public const THEME_EDITOR = 'theme_editor';
+
+	public const THEME_EDITOR_NON_LOGGED_IN = 'theme_editor_non_logged_in';
+
 	/**
 	 * Get the features options page settings.
 	 *
@@ -40,7 +44,7 @@ class Features {
 	 * @return array[] The fields for each feature.
 	 */
 	private static function get_fields(): array {
-		return [
+		$fields = [
 			[
 				'name' => __( 'Greenpeace Image Archive (beta, name subject to change)', 'planet4-master-theme-backend' ),
 				'desc' => __(
@@ -77,7 +81,30 @@ class Features {
 				'id'   => self::LAZY_YOUTUBE_PLAYER,
 				'type' => 'checkbox',
 			],
+			[
+				'name' => __( 'Theme editor (experimental)', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'Enable CSS variables based theme editor for logged in users. Do not use in production yet.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::THEME_EDITOR,
+				'type' => 'checkbox',
+			],
 		];
+
+		if ( defined( 'ALLOW_EXPERIMENTAL_FEATURES' ) && ALLOW_EXPERIMENTAL_FEATURES ) {
+			$fields[] = [
+				'name' => __( 'Theme editor non-logged in(experimental)', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'Enable CSS variables based theme editor without log in (only available for dev environments).',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::THEME_EDITOR_NON_LOGGED_IN,
+				'type' => 'checkbox',
+			];
+		}
+
+		return $fields;
 	}
 
 	/**
