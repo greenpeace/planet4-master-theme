@@ -44,7 +44,7 @@ class Features {
 	 * @return array[] The fields for each feature.
 	 */
 	private static function get_fields(): array {
-		return [
+		$fields = [
 			[
 				'name' => __( 'Greenpeace Image Archive (beta, name subject to change)', 'planet4-master-theme-backend' ),
 				'desc' => __(
@@ -90,16 +90,21 @@ class Features {
 				'id'   => self::THEME_EDITOR,
 				'type' => 'checkbox',
 			],
-			[
+		];
+
+		if ( defined( 'ALLOW_EXPERIMENTAL_FEATURES' ) && ALLOW_EXPERIMENTAL_FEATURES ) {
+			$fields[] = [
 				'name' => __( 'Theme editor non-logged in(experimental)', 'planet4-master-theme-backend' ),
 				'desc' => __(
-					'Enable CSS variables based theme editor without log in. Definitely do not use in production.',
+					'Enable CSS variables based theme editor without log in (only available for dev environments).',
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::THEME_EDITOR_NON_LOGGED_IN,
 				'type' => 'checkbox',
-			],
-		];
+			];
+		}
+
+		return $fields;
 	}
 
 	/**
