@@ -186,6 +186,8 @@
     width: 30%;
     z-index: 3;
     cursor: pointer;
+    background: transparent;
+    border: 0;
 
     @include mobile-only {
       .carousel-control-prev-icon,
