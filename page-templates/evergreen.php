@@ -46,6 +46,7 @@ if ( is_array( $page_tags ) && $page_tags ) {
 $context['post']                = $post;
 $context['custom_body_classes'] = 'white-bg';
 $context['page_category']       = 'Evergreen Page';
+$context['social_accounts']     = $post->get_social_accounts( $context['footer_social_menu'] );
 
 Context::set_header( $context, $page_meta_data, $post->title );
 Context::set_background_image( $context );
