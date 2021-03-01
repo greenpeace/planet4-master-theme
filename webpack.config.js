@@ -5,6 +5,12 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const RemovePlugin = require('remove-files-webpack-plugin');
 const dashDash = require('@greenpeace/dashdash');
+const cssVariables = require( 'postcss-css-variables-extract' );
+const fs = require( 'fs' );
+const collectVarUsages = require( 'postcss-css-variables-extract/lib/scss-var-usages' );
+const mergeVarUsages = require( 'postcss-css-variables-extract/lib/merge-var-usages' );
+
+let allCssVars = {};
 
 module.exports = {
   ...defaultConfig,
@@ -15,6 +21,8 @@ module.exports = {
     style: './assets/src/styles/style.scss',
     editorStyle: './assets/src/styles/editorStyle.scss',
     lightbox: './assets/src/styles/lightbox.scss',
+    themeEditor: './assets/src/theme/initializeThemeEditor.js',
+    themeEditorStyle: './assets/src/styles/themeEditor.scss',
     theme_antarctic: './assets/src/styles/theme_antarctic.scss',
     theme_arctic: './assets/src/styles/theme_arctic.scss',
     theme_climate: './assets/src/styles/theme_climate.scss',
@@ -48,6 +56,7 @@ module.exports = {
               ident: 'postcss',
               plugins: () => [
                 dashDash(),
+                cssVariables( { preserve: true, exportVarUsagesTo: allCssVars } ),
                 require('autoprefixer'),
               ],
               sourceMap: true
@@ -107,7 +116,26 @@ module.exports = {
           }
         ]
       }
-    })
+    }),
+    {
+      apply: ( compiler ) => {
+        compiler.hooks.done.tap( 'DoneWriteCssVars', ( ) => {
+          // We use postcss to get the selector and resolved default value. For the original file and line number
+          // we use a separate scripts which loops through all scss files. Only variables that are in the final css
+          // are included.
+          const scssUsages = collectVarUsages( './assets/src' );
+          const mergedUsages = mergeVarUsages( allCssVars, scssUsages );
+          fs.writeFile(
+            './assets/build/css-variables.json',
+            JSON.stringify( mergedUsages, null, 2 ),
+            err => console.log( err )
+          );
+          // todo: handle multiple files. The next line only works as intended if there is one style file.
+          // allCssVars = {}
+        } );
+      }
+    }
+
   ],
   optimization: {
     ...defaultConfig.optimization,

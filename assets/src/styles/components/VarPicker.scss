@@ -1,0 +1,119 @@
+.var-picker * {
+  font-family: Roboto, sans-serif !important;
+  color: black !important;
+  line-height: initial !important;
+}
+
+.var-picker > ul {
+  padding: 0;
+  max-height: 80vh;
+  width: 300px;
+  overflow-y: scroll;
+  margin-bottom: 0;
+
+  &::-webkit-scrollbar {
+    width: 9px;
+  }
+
+  &::-webkit-scrollbar-track {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: rgba(140, 140, 140, 0.2);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: rgba(140, 140, 140, 0.4);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(140, 140, 140, 0.5);
+  }
+
+  &::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(140, 140, 140, 0.05);
+  }
+}
+
+.theme-editor-highlight {
+  border: 2px solid yellow !important;
+  box-sizing: border-box !important;
+}
+
+.var-picker .var-group {
+  background: white !important;
+  border: 1px solid black !important;
+  margin-bottom: 3px !important;
+  border-radius: 7px !important;
+  padding: 2px 7px 7px !important;
+
+  h5 {
+    margin-bottom: 2px;
+  }
+}
+
+.var-picker ul > li > ul {
+  padding-left: 8px;
+}
+
+.var-control {
+  _-- {
+    background-color: #cecece;
+  }
+  clear: both;
+  border: 1px solid black !important;
+  margin-bottom: 3px !important;
+  border-radius: 7px !important;
+  padding: 2px 7px 7px !important;
+
+  h5 {
+    margin-bottom: 2px;
+  }
+
+  &.var-control-in-theme _-- {
+    background-color: #fcfafa;
+  }
+}
+
+.usages-collapsed {
+  max-height: 32px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.usages-open {
+  clear: both;
+}
+
+div[id^=font-picker] ul {
+  position: static !important;
+}
+
+#theme-editor-root {
+  position: fixed;
+  top: 64px;
+  left: 50px;
+  z-index: 99999999;
+  padding: 4px 1px 3px 4px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(1px);
+
+  &.dragging {
+    cursor: grabbing;
+  }
+}
+
+body.logged-in #theme-editor-root {
+  top: 92px;
+}
+
+.usages-wrapper {
+  position: relative;
+  max-height: 32px;
+  overflow: hidden;
+}
+
+.usages-wrapper:hover {
+  overflow: visible;
+}
