@@ -11,7 +11,7 @@
     "lint:css": "wp-scripts lint-style"
   },
   "devDependencies": {
-    "@greenpeace/dashdash": "^1.0.2",
+    "@greenpeace/dashdash": "^1.0.3",
     "@wordpress/components": "^8.3.2",
     "@wordpress/scripts": "3.3.0",
     "autoprefixer": "^9.6.1",
