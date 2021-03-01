@@ -44,6 +44,20 @@
     opacity: .5;
     cursor: default;
   }
+
+  &.has-background {
+    border-color: transparent !important;
+  }
+
+  &.has-grey-80-color {
+    color: $grey-80 !important;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: $grey-80 !important;
+    }
+  }
 }
 
 .btn-small {
