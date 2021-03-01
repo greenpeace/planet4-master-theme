@@ -57,9 +57,11 @@
   padding-left: 8px;
 }
 
-.var-picker .var-control {
+.var-control {
+  _-- {
+    background-color: #cecece;
+  }
   clear: both;
-  background: white !important;
   border: 1px solid black !important;
   margin-bottom: 3px !important;
   border-radius: 7px !important;
@@ -67,6 +69,10 @@
 
   h5 {
     margin-bottom: 2px;
+  }
+
+  &.var-control-in-theme _-- {
+    background-color: #fcfafa;
   }
 }
 

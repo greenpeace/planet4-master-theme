@@ -1,13 +1,11 @@
 import { useReducer, useEffect } from '@wordpress/element';
 import { LOCAL_STORAGE_KEY } from './VarPicker';
 import { useHotkeys } from 'react-hotkeys-hook';
+import { byNameStateProp } from './groupVars';
 
 const PROP_REGEX = /\w+(-\w+)*$/;
 export const PSEUDO_REGEX = /--?(active|focus|visited|hover|disabled)--?/;
 
-const read = prop => {
-  return document.documentElement.style.getPropertyValue(prop);
-};
 const write = (prop, value) => {
   document.documentElement.style.setProperty(prop, value);
 };
@@ -267,19 +265,6 @@ const getAllDefaultValues = allVars => {
       [cssVar.name]: supposedDefaultValue,
     };
   }, {});
-  //// Following is an attempt to consider property values set at start to be default values, not sure if still needed.
-  // const atRuntime = allVars.reduce((values, { name }) => {
-  //   const value = read(name);
-  //
-  //   if (!value) {
-  //     return values;
-  //   }
-  //
-  //   return {
-  //     ...values,
-  //     [name]: value,
-  //   };
-  // }, {});
 
   return {
     ...fromAvailableVars,
@@ -366,7 +351,11 @@ export const useThemeEditor = (
     dispatch({type: THEME_ACTIONS.HISTORY_FORWARD});
   }, hotkeysOptions);
 
-  const themeJson = JSON.stringify(theme);
+  const sorted = Object.keys(theme).sort(
+    (a, b) => byNameStateProp({ name: a }, { name: b })
+  ).reduce((t, k) => ({ ...t, [k]: theme[k] }), {});
+
+  const themeJson = JSON.stringify(sorted);
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, themeJson);
   }, [themeJson]);

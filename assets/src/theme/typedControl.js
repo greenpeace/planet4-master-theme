@@ -135,6 +135,7 @@ export const TypedControl = ({ cssVar, theme, value, onChange, dispatch }) => {
     'padding-top',
     'height',
     'min-width',
+    'max-width',
     'letter-spacing',
   ];
 

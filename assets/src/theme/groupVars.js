@@ -7,7 +7,7 @@ const toLabel = element => {
   return element.tagName.toLowerCase() + idPart + classPart;
 };
 
-const byNameStateProp = ({name: nameA},{name: nameB}) => {
+export const byNameStateProp = ({name: nameA},{name: nameB}) => {
   console.log('sorting')
   const reg = /--(?<element>\w+(-?-\w+)*)(--(?<state>(active|focus|visited|hover|disabled)))?--(?<prop>\w+(-\w+)*)/;
   try {

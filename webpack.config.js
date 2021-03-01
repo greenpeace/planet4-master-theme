@@ -130,7 +130,8 @@ module.exports = {
             JSON.stringify( mergedUsages, null, 2 ),
             err => console.log( err )
           );
-          allCssVars = {}
+          // todo: handle multiple files. The next line only works as intended if there is one style file.
+          // allCssVars = {}
         } );
       }
     }

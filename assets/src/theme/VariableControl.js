@@ -3,6 +3,7 @@ import { Fragment} from '@wordpress/element';
 import { COLOR_VALUE_REGEX, TypedControl } from './typedControl';
 import { IconButton } from '@wordpress/components';
 import { PSEUDO_REGEX, THEME_ACTIONS} from './useThemeEditor';
+import classnames from 'classnames';
 
 const uniqueUsages = cssVar => {
   return [
@@ -138,7 +139,7 @@ export const VariableControl = (props) => {
 
   return <li
     key={ cssVar.name }
-    className={ 'var-control' }
+    className={ classnames('var-control', {'var-control-in-theme': cssVar.name in theme }) }
     onClick={ () => !isOpen && toggleOpen()}
     style={ {
       // userSelect: 'none',
