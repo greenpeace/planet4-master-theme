@@ -4,11 +4,9 @@
 
 // Primary
 //
-// $black - #000;
 // $white - #fff;
 //
 // Styleguide Style.colors.primary
-$black: #000;
 $white: #fff;
 
 // Grey
@@ -35,26 +33,21 @@ $grey-05: #f5f7f8;
 // $gp-green - #66cc00; used only on the GP wordmark
 // $gp-green-80 - #8bcc49;
 // $gp-green-20 - #e3f2d3;
-// $green-20 - #d9e6d7;
 //
 // Styleguide Style.colors.grey
 $gp-green: #66cc00;
 $gp-green-80: #8bcc49;
 $gp-green-20: #e3f2d3;
-$green-20: #d9e6d7;
 
 // Blue
 //
 // $blue - #2077bf;
-// $blue-80 - #3290de;
 //
 // Styleguide Style.colors.blue
 $blue: #2077bf;
-$blue-80: #3290de;
 
-// Link colors
-$link-color: #006dfd; // hsl(214, 100%, 50%);
-$link-hover-color: #0058cc; // hsl(214, 100%, 40%);
+// Link color
+$link-color: #006dfd;
 
 // Yellow
 //
@@ -67,56 +60,37 @@ $yellow-20: #fff6cd;
 // Orange
 //
 // $orange - #f36d3a;
+// $dark-orange - #f75848;
 // $orange-hover - #ee562d;
-// $orange-active - #cd4525;
 //
 // Styleguide Style.colors.orange
 $orange: #f36b35;
+$dark-orange: #f75848;
 $orange-hover: #ee562d;
-$orange-active: #dd4a22;
-
-// Various greens:
-$eden:              #0f6459;
-$dark-tiber:        #052a30;
 
 // Various blues:
 $x-dark-blue:  #042233;
 $dark-blue:    #074365;
 $active-blue:  #05324c;
-$spray:        #86eee7;
 $aquamarine:   #68dfde;
-$java-dark:    #21cbca;
-$faded-jade:   #418482;
-$blue-tiber:   #093944;
-$menu-blue:    #014c8c;
 $comment-block:#e7ecf0;
 $comment-text: #d1dce2;
 
 // Various reds:
 $peach:       #eaccbb;
-$red:         #a01604;
-
-// Need to be re-assigned colors.
-$blue:      #2980b9;
-$brown-bg:  #faf7ec;
-$red:       #ad2330;
-$med-blue:  #0a3351;
 
 // Social buttons
-$facebook: #3b5998;
+$facebook: #4267b2;
 $twitter:  #55acee;
-$email:    #ea7179;
+$email:    #8a49de;
 $whatsapp: #25d366;
 
 // Used colors
-$header-footer-bg:      #030403;
 $light-blue-bg:         #d6e6f2;
-$top-nav:               #1e5f65;
 
 // Colors to be fixed/addressed:
 $carousel-indi-color:   #8bcc49;
 $cookie-bkg:            #c0dbe2;
-$cookie-blue:           #094464;
 
 // Table/spreadsheet colors
 $table-font-color: #020202;
@@ -135,7 +109,7 @@ $table-even-row-green: #eafee7;
 $table-footer-green: #d1e8cd;
 
 // Blue variant
-$table-header-blue: #074365;
+$table-header-blue: $dark-blue;
 $table-odd-row-blue: #c9e7fa;
 $table-even-row-blue: #e7f5fe;
 $table-footer-blue: #c3d7e2;
@@ -149,9 +123,7 @@ $palette: (
   "grey-10": $grey-10,
   "grey": $grey,
   "gp-green": $gp-green,
-  "dark-tiber": $dark-tiber,
   "x-dark-blue": $x-dark-blue,
-  "spray": $spray,
   "dark-blue": $dark-blue,
   "blue": $blue,
   "orange-hover": $orange-hover,

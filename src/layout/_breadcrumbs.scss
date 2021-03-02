@@ -32,10 +32,6 @@
     display: inline;
     position: relative;
     color: $link-color;
-
-    &:hover {
-      color: $link-hover-color;
-    }
   }
 
   .tag-item--main + .tag-wrap,
@@ -58,10 +54,6 @@
     color: $link-color;
     font-weight: 400;
     display: inline-block;
-
-    &:hover {
-      color: $link-hover-color;
-    }
 
     @include x-large-and-up {
       font-size: $font-size-sm;
