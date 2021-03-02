@@ -16,7 +16,7 @@
       padding: 11px $n30;
       text-transform: uppercase;
       text-decoration: none;
-      color: $header-footer-bg;
+      color: $grey-80;
       font-weight: bold;
       position: relative;
       font-size: $font-size-sm;
@@ -51,7 +51,7 @@
         &:after {
           content: "";
           position: absolute;
-          background-color: $black;
+          background-color: $grey-80;
           transition: transform 0.25s ease-out;
         }
 
@@ -182,7 +182,7 @@
         font-size: 1.125rem;
         font-style: normal;
         color: $dark-blue;
-        border: 1px solid $blue-tiber;
+        border: 1px solid $dark-blue;
         padding: 0 $n40 0 $n20;
         display: inline-block;
         margin-right: 8px;
@@ -210,7 +210,7 @@
       .clearall {
         text-align: center;
         width: 100%;
-        background: $med-blue;
+        background: $dark-blue;
         color: $white;
         text-transform: uppercase;
         cursor: pointer;
