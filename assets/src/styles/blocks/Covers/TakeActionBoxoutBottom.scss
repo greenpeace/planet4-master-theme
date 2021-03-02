@@ -99,12 +99,9 @@
     }
 
     &:hover,
-    &:focus {
-      background-color: $orange-hover;
-    }
-
+    &:focus,
     &:active {
-      background-color: $orange-active;
+      background-color: $orange-hover;
     }
   }
 
@@ -133,7 +130,7 @@
     }
 
     .cover-card-excerpt {
-      color: #242424;
+      color: $grey;
       line-height: 1.5;
       font-size: 14px;
       display: -webkit-box;

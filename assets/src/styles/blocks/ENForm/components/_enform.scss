@@ -102,16 +102,16 @@
       }
 
       &.is-invalid {
-        border-color: rgba(247, 88, 72, 0.5);
+        border-color: $dark-orange;
         background: $white;
 
         &:focus {
-          border-color: rgba(247, 88, 72, 0.5);
+          border-color: $dark-orange;
         }
       }
 
       + .invalid-feedback {
-        background: rgb(247, 88, 72);
+        background: $dark-orange;
         color: white;
         border-radius: 4px;
         font-size: 12px;
@@ -129,7 +129,7 @@
           height: 0;
           width: 0;
           position: absolute;
-          border-bottom-color: rgb(247, 88, 72);
+          border-bottom-color: $dark-orange;
           border-width: 5px;
           right: auto;
           left: 16px;

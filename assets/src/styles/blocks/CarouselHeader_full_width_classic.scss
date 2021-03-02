@@ -698,7 +698,7 @@ $medium-image-height: 600px;
     }
 
     li {
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: transparentize($grey-80, 0.4);
       width: 40px;
       height: 3px;
       border-radius: 0;
@@ -713,7 +713,7 @@ $medium-image-height: 600px;
       }
 
       &.active {
-        background: $black;
+        background: $grey-80;
         @include large-and-up {
           background: $white;
         }
