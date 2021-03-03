@@ -10,16 +10,16 @@ export const setupHeader = function($) {
     evt.stopPropagation();
 
     const $button = $(this);
-    const target = $button.data('target');
+    const target = $button.data('bs-target');
     if (!target) {
-      throw new Error('Missing `data-target` attribute: specify the container to be toggled');
+      throw new Error('Missing `data-bs-target` attribute: specify the container to be toggled');
     }
-    const toggleClass = $button.data('toggle');
+    const toggleClass = $button.data('bs-toggle');
     if (!toggleClass) {
-      throw new Error('Missing `data-toggle` attribute: specify the class to toggle');
+      throw new Error('Missing `data-bs-toggle` attribute: specify the class to toggle');
     }
 
-    // Toggle visibility of the target specified via data-target.
+    // Toggle visibility of the target specified via data-bs-target.
     $(target).toggleClass(toggleClass);
     $(this).toggleClass(toggleClass);
 
