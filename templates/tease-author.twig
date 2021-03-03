@@ -1,4 +1,4 @@
-<li id="result-row-{{ post.ID }}" class="media search-result-list-item">
+<li id="result-row-{{ post.ID }}" class="d-flex search-result-list-item">
 	<img
 		class="d-flex search-result-item-image"
 		src="{{ post.thumbnail.src('thumbnail') }}"
@@ -7,7 +7,7 @@
 		data-ga-action="Image"
 		data-ga-label="n/a" />
 
-	<div id="tease-{{ post.ID }}" class="media-body search-result-item-body tease tease-{{ post.post_type }}">
+	<div id="tease-{{ post.ID }}" class="search-result-item-body tease tease-{{ post.post_type }}">
 		<div class="search-result-tags top-page-tags">
 			{% for page_type in post.get_custom_terms %}
 				<a
