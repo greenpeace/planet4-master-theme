@@ -125,8 +125,8 @@ commands:
             fi
             PLUGIN_GUTENBERG_BLOCKS_BRANCH=dev-${BRANCH}#${CIRCLE_SHA1} \
             MASTER_THEME_BRANCH=dev-master \
-            MERGE_SOURCE=git@github.com:greenpeace/planet4-base-fork.git \
-            MERGE_REF=develop \
+            MERGE_SOURCE=git@github.com:greenpeace/planet4-base.git \
+            MERGE_REF=main \
             make ci
       - run:
           name: Test - Clone planet4-docker-compose
