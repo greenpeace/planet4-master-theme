@@ -351,17 +351,17 @@ class PostCampaign {
 	 * @return string Default value
 	 */
 	private static function get_field_default( $field ) {
-		$default = null;
 		if ( isset( $field['configurations'] ) && isset( $field['configurations']['default'] ) ) {
 			$default_configuration = $field['configurations']['default'];
+
 			if ( isset( $field['configurations'][ $default_configuration ]['default'] ) ) {
-				$default = $field['configurations'][ $default_configuration ]['default'];
+				return $field['configurations'][ $default_configuration ]['default'];
 			}
 		} elseif ( isset( $field['default'] ) ) {
-			$default = $field['default'];
+			return $field['default'];
 		}
 
-		return $default;
+		return null;
 	}
 
 	/**
@@ -405,9 +405,9 @@ class PostCampaign {
 
 		$css_vars = self::get_navbar_theme( $css_vars );
 		$css_vars = self::get_footer_theme( $css_vars );
-		$css_vars = self::get_passive_button_color( $css_vars, $meta );
 		$css_vars = self::replace_font_aliases( $css_vars );
 		$css_vars = self::get_body_font( $css_vars, $meta );
+		$css_vars = self::migrate_old_vars( $css_vars );
 
 		$css_vars = array_filter( $css_vars );
 
@@ -458,29 +458,35 @@ class PostCampaign {
 	}
 
 	/**
-	 * DEPRECATE: Get the passive button color based on the meta settings.
+	 * Migrate variables that were changed or split into multiple. Preserve original variables too so we can already
+	 * merge.
 	 *
-	 * @param array $css_vars The array containing the CSS variables.
-	 * @param array $meta The meta containing the style settings.
+	 * @param array $css_vars CSS variables lacking newer properties.
 	 *
-	 * @return array The variables for the passive button.
+	 * @return array Migrated CSS variables.
 	 */
-	public static function get_passive_button_color( array $css_vars, array $meta ): array {
-		// TODO: Remove this "Passive" color map based on hovers.
-		$passive_button_colors_map = [
-			'#ffd204' => '#f36d3a',
-			'#ffd204' => '#ffe467',
-			'#66cc00' => '#66cc00',
-			'#6ed961' => '#a7e021',
-			'#21cbca' => '#77ebe0',
-			'#7a1805' => '#a01604',
-			'#2077bf' => '#2077bf',
-			'#1b4a1b' => '#1b4a1b',
-		];
-
-		$css_vars['passive_button_color'] = isset( $meta['campaign_primary_color'] ) && $meta['campaign_primary_color']
-		? $passive_button_colors_map[ strtolower( $meta['campaign_primary_color'] ) ]
-		: '#f36d3a';
+	private static function migrate_old_vars( array $css_vars ): array {
+		if ( isset( $css_vars['footer_links_color'] ) ) {
+			$css_vars['footer--links--color'] = $css_vars['footer_links_color'];
+			// This one already existed separately, maybe we can just remove but keeping it for now.
+			$css_vars['footer-links--color']               = $css_vars['footer_links_color'];
+			$css_vars['footer--links--hover--color']       = $css_vars['footer_links_color'];
+			$css_vars['footer-social-media--color']        = $css_vars['footer_links_color'];
+			$css_vars['footer-social-media--hover--color'] = $css_vars['footer_links_color'];
+			$css_vars['footer-links-secondary--color']     = $css_vars['footer_links_color'];
+			$css_vars['footer--copyright--color']          = $css_vars['footer_links_color'];
+			$css_vars['footer--copyright--link--color']    = $css_vars['footer_links_color'];
+			$css_vars['footer--copyright--year--color']    = $css_vars['footer_links_color'];
+		}
+		if ( isset( $css_vars['body-background-color'] ) ) {
+			$css_vars['body--background-color'] = $css_vars['body-background-color'];
+		}
+		if ( isset( $css_vars['header-primary-font'] ) ) {
+			$css_vars['headers--font-family'] = $css_vars['header-primary-font'];
+		}
+		if ( isset( $css_vars['campaign_nav_color'] ) ) {
+			$css_vars['top-navigation--background'] = $css_vars['campaign_nav_color'];
+		}
 
 		return $css_vars;
 	}
