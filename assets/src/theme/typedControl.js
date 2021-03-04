@@ -171,11 +171,11 @@ export const TypedControl = ({ cssVar, theme, value, onChange, dispatch }) => {
 
   if (cssVar.usages.some(usage => usage.property === 'font-family')) {
     return <Fragment>
-      <FontPicker
-        apiKey={ googleApiKey }
-        activeFontFamily={ value }
-        onChange={ value => onChange(value.family) }
-      />
+      {/*<FontPicker*/}
+      {/*  apiKey={ googleApiKey }*/}
+      {/*  activeFontFamily={ value }*/}
+      {/*  onChange={ value => onChange(value.family) }*/}
+      {/*/>*/}
       <TextControl
         value={ value }
         onChange={ onChange }
