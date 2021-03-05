@@ -17,6 +17,12 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+
+    @media (max-width: 768px) {
+      .post-column {
+        max-width: 45%;
+      }
+    }
   }
 
   .row::-webkit-scrollbar {
