@@ -69,11 +69,11 @@ workflows:
           context: org-global
           filters:
             branches:
-              only: main
+              only: master
       - repositories:
           context: org-global
           requires:
             - promote
           filters:
             branches:
-              only: main
+              only: master
