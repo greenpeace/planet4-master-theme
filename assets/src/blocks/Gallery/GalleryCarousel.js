@@ -28,7 +28,7 @@ export const GalleryCarousel = ({ images, onImageClick }) => {
     if (newSlide !== currentSlide && nextElement && activeElement && !sliding) {
       setSliding(true);
       const order = getOrder(newSlide);
-      const direction = order === 'next' ? 'left' : 'right';
+      const direction = order === 'next' ? 'start' : 'end';
       const orderClassname = `carousel-item-${order}`;
       const directionClassname = `carousel-item-${direction}`;
 
