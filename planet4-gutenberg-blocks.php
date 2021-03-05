@@ -110,8 +110,9 @@ const POST_BLOCK_TYPES = [
 	'planet4-blocks/accordion',
 	'planet4-blocks/counter',
 	'planet4-blocks/gallery',
-	'planet4-blocks/take-action-boxout',
+	'planet4-blocks/social-media',
 	'planet4-blocks/spreadsheet',
+	'planet4-blocks/take-action-boxout',
 	'planet4-blocks/timeline',
 ];
 
