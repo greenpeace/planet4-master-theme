@@ -20,9 +20,9 @@ Text Domain: planet4-master-theme
 
 // Required
 // See: https://getbootstrap.com/docs/4.3/getting-started/theming/#importing
-// @import "~bootstrap/scss/functions";
-// @import "~bootstrap/scss/variables";
-// @import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
 
 // TODO: Add variable overrides for the 16px grid here.
 
@@ -50,7 +50,7 @@ Text Domain: planet4-master-theme
 // @import "~bootstrap/scss/_input-group.scss";
 // @import "~bootstrap/scss/_jumbotron.scss";
 // @import "~bootstrap/scss/_list-group.scss";
-// @import "~bootstrap/scss/_media.scss";
+@import "~bootstrap/scss/_media.scss";
 // @import "~bootstrap/scss/_mixins.scss";
 @import "~bootstrap/scss/_modal.scss";
 // @import "~bootstrap/scss/_nav.scss";
