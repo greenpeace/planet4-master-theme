@@ -12,50 +12,57 @@ Tags: light, accessibility-ready
 Text Domain: planet4-master-theme
 */
 
-// This file includes commented-out depedencies to make it easier
-// to track what we are excluding from the original file:
-// https://github.com/twbs/bootstrap/blob/main/scss/bootstrap.scss
+// Full bootstrap:
+// @import "~bootstrap/scss/bootstrap";
 
-// Configuration
+@import "~bootstrap/scss/bootstrap-grid.scss";
+@import "~bootstrap/scss/bootstrap-reboot.scss";
 
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
-@import "~bootstrap/scss/utilities";
+// Required
+// See: https://getbootstrap.com/docs/4.3/getting-started/theming/#importing
+// @import "~bootstrap/scss/functions";
+// @import "~bootstrap/scss/variables";
+// @import "~bootstrap/scss/mixins";
 
-// Layout & components
-@import "~bootstrap/scss/root";
-@import "~bootstrap/scss/reboot";
-@import "~bootstrap/scss/type";
-@import "~bootstrap/scss/images";
-@import "~bootstrap/scss/containers";
-@import "~bootstrap/scss/grid";
-// @import "~bootstrap/scss/tables";
-@import "~bootstrap/scss/forms";
-// @import "~bootstrap/scss/buttons";
-@import "~bootstrap/scss/transitions";
-// @import "~bootstrap/scss/dropdown";
-// @import "~bootstrap/scss/button-group";
-// @import "~bootstrap/scss/nav";
-// @import "~bootstrap/scss/navbar";
-@import "~bootstrap/scss/card";
-// @import "~bootstrap/scss/accordion";
-// @import "~bootstrap/scss/breadcrumb";
-// @import "~bootstrap/scss/pagination";
-// @import "~bootstrap/scss/badge";
-// @import "~bootstrap/scss/alert";
-// @import "~bootstrap/scss/progress";
-// @import "~bootstrap/scss/list-group";
-// @import "~bootstrap/scss/close";
-// @import "~bootstrap/scss/toasts";
-@import "~bootstrap/scss/modal";
-// @import "~bootstrap/scss/tooltip";
-// @import "~bootstrap/scss/popover";
-@import "~bootstrap/scss/carousel";
-// @import "~bootstrap/scss/spinners";
+// TODO: Add variable overrides for the 16px grid here.
 
-// Helpers
-@import "~bootstrap/scss/helpers";
-
-// Utilities
-@import "~bootstrap/scss/utilities/api";
+// Optional
+// @import "~bootstrap/scss/reboot";
+// @import "~bootstrap/scss/type";
+// @import "~bootstrap/scss/images";
+// @import "~bootstrap/scss/code";
+// @import "~bootstrap/scss/grid";
+// @import "~bootstrap/scss/_alert.scss";
+// @import "~bootstrap/scss/_badge.scss";
+// @import "~bootstrap/scss/_breadcrumb.scss";
+// @import "~bootstrap/scss/_button-group.scss";
+// @import "~bootstrap/scss/_buttons.scss";
+@import "~bootstrap/scss/_card.scss";
+@import "~bootstrap/scss/_carousel.scss";
+// @import "~bootstrap/scss/_close.scss";
+// @import "~bootstrap/scss/_code.scss";
+// @import "~bootstrap/scss/_custom-forms.scss";
+// @import "~bootstrap/scss/_dropdown.scss";
+@import "~bootstrap/scss/_forms.scss";
+// @import "~bootstrap/scss/_functions.scss";
+// @import "~bootstrap/scss/_grid.scss";
+// @import "~bootstrap/scss/_images.scss";
+// @import "~bootstrap/scss/_input-group.scss";
+// @import "~bootstrap/scss/_jumbotron.scss";
+// @import "~bootstrap/scss/_list-group.scss";
+// @import "~bootstrap/scss/_media.scss";
+// @import "~bootstrap/scss/_mixins.scss";
+@import "~bootstrap/scss/_modal.scss";
+// @import "~bootstrap/scss/_nav.scss";
+// @import "~bootstrap/scss/_navbar.scss";
+// @import "~bootstrap/scss/_pagination.scss";
+// @import "~bootstrap/scss/_popover.scss";
+// @import "~bootstrap/scss/_print.scss";
+// @import "~bootstrap/scss/_progress.scss";
+// @import "~bootstrap/scss/_reboot.scss";
+// @import "~bootstrap/scss/_root.scss";
+// @import "~bootstrap/scss/_tables.scss";
+// @import "~bootstrap/scss/_tooltip.scss";
+@import "~bootstrap/scss/_transitions.scss";
+@import "~bootstrap/scss/_type.scss";
+@import "~bootstrap/scss/_utilities.scss";

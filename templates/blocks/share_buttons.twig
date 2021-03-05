@@ -4,27 +4,27 @@
 		 onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Whatsapp', 'eventLabel': '{{ social.link }}'});"
 		 target="_blank" class="share-btn whatsapp">
 		{{ 'whatsapp'|svgicon }}
-		<span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Whatsapp</span>
+		<span class="sr-only">{{ __( 'Share on', 'planet4-master-theme' ) }} Whatsapp</span>
 	</a>
 	<!-- Facebook -->
 	<a href="https://www.facebook.com/sharer/sharer.php?u={{ social.link }}"
 		 onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Facebook', 'eventLabel': '{{ social.link }}'});"
 		 target="_blank" class="share-btn facebook">
 		{{ 'facebook-f'|svgicon }}
-		<span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Facebook</span>
+		<span class="sr-only">{{ __( 'Share on', 'planet4-master-theme' ) }} Facebook</span>
 	</a>
 	<!-- Twitter -->
 	<a href="https://twitter.com/share?url={{ social.link }}&text={{ social.title|url_encode }}{% if social.description %} - {{ social.description|striptags }}{% endif %} via @{{ social_accounts.twitter }}&related={{ social_accounts.twitter }}"
 		 onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Twitter', 'eventLabel': '{{ social.link }}'});"
 		 target="_blank" class="share-btn twitter">
 		{{ 'twitter'|svgicon }}
-		<span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Twitter</span>
+		<span class="sr-only">{{ __( 'Share on', 'planet4-master-theme' ) }} Twitter</span>
 	</a>
 	<!-- Email -->
 	<a href="mailto:?subject={{ social.title|url_encode }}&body={% if social.description %}{{ social.description|striptags }} {% endif %}{{ social.link }}"
 		 onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Email', 'eventLabel': '{{ social.link }}'});"
 		 target="_blank" class="share-btn email">
 		{{ 'envelope'|svgicon }}
-		<span class="visually-hidden">{{ __( 'Share via', 'planet4-master-theme' ) }} Email</span>
+		<span class="sr-only">{{ __( 'Share via', 'planet4-master-theme' ) }} Email</span>
 	</a>
 </div>
