@@ -748,7 +748,7 @@ class MasterSite extends TimberSite {
 
 		$jquery_should_wait = is_plugin_active( 'planet4-plugin-gutenberg-blocks/planet4-gutenberg-blocks.php' ) && ! is_user_logged_in();
 
-		$jquery_deps = $jquery_should_wait ? [ 'planet4-blocks-frontend' ] : [];
+		$jquery_deps = $jquery_should_wait ? [ 'planet4-blocks-script' ] : [];
 
 		// JS files.
 		wp_deregister_script( 'jquery' );
