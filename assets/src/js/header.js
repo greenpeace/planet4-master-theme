@@ -38,7 +38,7 @@ export const setupHeader = function($) {
     const clickedElement = evt.target;
     $('button[aria-expanded="true"]').each(function(i, button) {
       const $button = $(button);
-      const buttonTarget = $($button.data('target')).get( 0 );
+      const buttonTarget = $($button.data('bs-target')).get( 0 );
       if (buttonTarget && ! $.contains(buttonTarget, clickedElement)) {
         // Spoof a click on the open menu's toggle to close that menu.
         $button.trigger('click');
