@@ -74,16 +74,26 @@ const p4_enform_frontend = (function ($) {
     const $invalidDiv = $('<div>');
     $invalidDiv.addClass('invalid-feedback');
     $invalidDiv.html(msg);
-    $invalidDiv.insertAfter(element);
     $(element).addClass('is-invalid');
+    // For checkboxes we need to append the error message to the description
+    if ($(element).attr('type') === 'checkbox') {
+      const description = $(element).next();
+      $invalidDiv.insertAfter(description);
+    } else {
+      $invalidDiv.insertAfter(element);
+    }
   };
 
   enform.removeErrorMessage = function(element) {
     $(element).removeClass('is-invalid');
-    const errorDiv = $(element).next();
+    let errorDiv = $(element).next();
+    if ($(element).attr('type') === 'checkbox') {
+      errorDiv = errorDiv.next();
+    }
     if (errorDiv.length && errorDiv.hasClass('invalid-feedback')) {
       $(errorDiv).remove();
     }
+
   };
 
   enform.validateForm = function(form) {
@@ -94,7 +104,8 @@ const p4_enform_frontend = (function ($) {
       const formValue = $(this).val();
 
       if ( // We only need to validate once per set of radios so we can check only the first one
-        'radio' === $(this).attr('type') && $(this).attr('required') && $(this).attr('id').slice(-1) === '0' && !enform.validateRadio($(this)) ||
+        $(this).attr('required') && 'radio' === $(this).attr('type') && $(this).attr('id').slice(-1) === '0' && !enform.validateRadio($(this)) ||
+        $(this).attr('required') && 'checkbox' === $(this).attr('type') && !$(this)[0].checked ||
         $(this).attr('required') && !formValue && 'radio' !== $(this).attr('type') ||
         'email' === $(this).attr('type') && !enform.validateEmail(formValue)
       ) {

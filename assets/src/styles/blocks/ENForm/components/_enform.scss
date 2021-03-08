@@ -108,18 +108,18 @@
           border-color: $dark-orange;
         }
 
-        + .invalid-feedback {
+        ~ .invalid-feedback {
           display: block;
         }
 
         &[type="radio"] {
-          + .invalid-feedback {
+          ~ .invalid-feedback {
             margin-top: -12px;
           }
         }
       }
 
-      + .invalid-feedback {
+      ~ .invalid-feedback {
         background: $dark-orange;
         color: white;
         border-radius: 4px;
