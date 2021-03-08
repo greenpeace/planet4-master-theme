@@ -107,6 +107,16 @@
         &:focus {
           border-color: $dark-orange;
         }
+
+        + .invalid-feedback {
+          display: block;
+        }
+
+        &[type="radio"] {
+          + .invalid-feedback {
+            margin-top: -12px;
+          }
+        }
       }
 
       + .invalid-feedback {
