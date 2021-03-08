@@ -2,7 +2,7 @@ import { getMatchingVars } from './getMatchingVars';
 
 const toLabel = element => {
   const idPart = !element.id ? '' : `#${ element.id }`;
-  const classPart = !element.className ? '' : `.${ element.className.trim().replace(/ /g, '.') }`;
+  const classPart = typeof element.className !== 'string' ? '' : `.${ element.className.trim().replace(/ /g, '.') }`;
 
   return element.tagName.toLowerCase() + idPart + classPart;
 };
