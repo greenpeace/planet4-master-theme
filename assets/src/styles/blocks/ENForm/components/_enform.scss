@@ -1,22 +1,27 @@
 .form-caption {
   float: none;
   width: 100%;
-  padding-top: 53px;
-  padding-bottom: 53px;
-  padding-left: $n15;
-  padding-right: $n15;
 
-  @include medium-and-up {
-    padding-top: 106px;
-    padding-bottom: 106px;
+  --block-enform--caption-- {
+    padding-top: 53px;
+    padding-bottom: 53px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    @include medium-and-up {
+      padding-top: 106px;
+      padding-bottom: 106px;
+    }
+
+    @include large-and-up {
+      padding-top: 117px;
+      padding-left: 0;
+      padding-right: 0;
+      width: 50%;
+    }
   }
-
   @include large-and-up {
     float: left;
-    padding-top: 117px;
-    width: 50%;
-    padding-left: 0;
-    padding-right: 0;
 
     html[dir="rtl"] & {
       float: right;
@@ -28,7 +33,10 @@
   }
 
   h1, h2, h3 {
-    color: white;
+    --block-enform--caption-heading-- {
+      color: white;
+    }
+
     font-family: var(--headings--font-family, var(--header-primary-font)) !important;
   }
 
@@ -64,10 +72,12 @@
   }
 
   p {
-    color: white;
-    font-family: $roboto;
-    font-size: 1rem;
-    line-height: 1.37rem;
+    --block-enform--caption--paragraph-- {
+      color: white;
+      font-family: $roboto;
+      font-size: 1rem;
+      line-height: 1.37rem;
+    }
 
     html[dir="rtl"] & {
       font-size: 1rem;
@@ -78,6 +88,14 @@
     max-height: 17.5rem;
     margin-bottom: 2rem;
   }
+}
+
+.form-description p:first-child --block-enform--caption--paragraph--first-- {
+  font-weight: inherit;
+  font-size: 1rem;
+  text-transform: none;
+  font-family: $roboto;
+  margin-bottom: auto;
 }
 
 .enform {
