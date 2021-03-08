@@ -84,3 +84,13 @@ div.page-template {
     }
   }
 }
+
+.error-message {
+  color: $orange-hover;
+}
+
+.password-field {
+  padding-top: $space-xs;
+  padding-bottom: $space-xs;
+  margin-bottom: $space-xs;
+}

@@ -432,4 +432,37 @@ class Post extends TimberPost {
 
 		return $social_accounts;
 	}
+
+	/**
+	 * Validate password protected form.
+	 *
+	 * @return bool Return password protected form validation.
+	 */
+	public function is_password_valid(): bool {
+
+		$is_valid = true;
+
+		// Check if page url has a unique id(custom hash), appended with it, if not add one.
+		$custom_hash = filter_input( INPUT_GET, 'ch', FILTER_SANITIZE_STRING );
+		if ( ! $custom_hash ) {
+			wp_safe_redirect( add_query_arg( 'ch', password_hash( uniqid( '', true ), PASSWORD_DEFAULT ), get_permalink() ) );
+			exit();
+		}
+
+		/**
+		 * Password protected form validation:
+		 * The latest entered password is stored as a secure hash in a cookie named 'wp-postpass_' . COOKIEHASH.
+		 * When the password form is called, that cookie has been validated already by WordPress.
+		 */
+		if ( isset( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] ) ) {
+			$old_cookie     = get_transient( 'p4-postpass_' . $custom_hash );
+			$current_cookie = wp_unslash( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] );
+			set_transient( 'p4-postpass_' . $custom_hash, $current_cookie, $expiration = 60 * 5 ); // Transient cache expires in 5 mins.
+			if ( false !== $old_cookie && $current_cookie !== $old_cookie ) {
+				$is_valid = false;
+			}
+		}
+
+		return $is_valid;
+	}
 }
