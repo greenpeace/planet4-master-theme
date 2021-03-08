@@ -34,41 +34,45 @@ const DEFAULT_STATE = {
   lastSet: {},
 };
 
-const getDroppedProps = (fromState, toState) => {
-  return Object.keys(fromState).filter(k => !Object.keys(toState).includes(k));
+const dropProps = (fromState, toState, previewProps, previewPseudoVars) => {
+  return Object.keys(fromState).filter(k => {
+    if (Object.keys(previewProps).includes(k)) {
+      return false;
+    }
+
+    if (Object.keys(previewPseudoVars).some(pseudo => k.includes(pseudo))) {
+      return false;
+    }
+
+    return !Object.keys(toState).includes(k);
+  }).forEach(k => keysToRemove[k] = true);
 };
 
 const ACTIONS = {
   SET: (state, { name, value }) => {
-    const {
-      theme,
-      history,
-      lastSet,
-    } = state;
     // In case this action is dispatched but the value doesn't change,
-    const isActualSet = theme[name] !== value;
+    const isActualSet = state.theme[name] !== value;
 
-    const shouldAddEntry = isActualSet && !lastSet[name] || Date.now() - lastSet[name] > 700;
-    console.log( shouldAddEntry, lastSet);
+    const shouldAddEntry = isActualSet && !state.lastSet[name] || Date.now() - state.lastSet[name] > 700;
+    console.log( shouldAddEntry, state.lastSet);
 
     return {
       ...state,
-      theme: { ...theme, [name]: value },
-      history: !shouldAddEntry ? history : pushHistory(history, theme),
-      lastSet: !isActualSet ? lastSet : {
-        ...lastSet,
+      theme: { ...state.theme, [name]: value },
+      history: !shouldAddEntry ? state.history : pushHistory(state.history, state.theme),
+      lastSet: !isActualSet ? state.lastSet : {
+        ...state.lastSet,
         [name]: Date.now(),
       }
     };
   },
   UNSET: (state, { name }) => {
-    const {theme, history} = state;
     const {
       [name]: oldValue,
       ...others
-    } = theme;
+    } = state.theme;
 
-    const isActualUnset = theme.hasOwnProperty(name);
+    const isActualUnset = state.theme.hasOwnProperty(name);
 
     if (isActualUnset) {
       keysToRemove[name] = true;
@@ -77,7 +81,7 @@ const ACTIONS = {
     return {
       ...state,
       theme: others,
-      history: !isActualUnset ? history : pushHistory(history, theme),
+      history: !isActualUnset ? state.history : pushHistory(state.history, state.theme),
     };
   },
   START_PREVIEW: (state, { name, value }) => {
@@ -90,14 +94,13 @@ const ACTIONS = {
     };
   },
   END_PREVIEW: (state, { name }) => {
-    const {theme} = state;
     const {
       [name]: previewedValue,
       ...otherProps
     } = state.previewProps;
 
     if (
-      !theme.hasOwnProperty(name)
+      !state.theme.hasOwnProperty(name)
       && !Object.keys(state.previewPseudoVars).map(s => s.replace(PSEUDO_REGEX, '--')).includes(name)) {
       keysToRemove[name] = true;
     }
@@ -122,7 +125,6 @@ const ACTIONS = {
   END_PREVIEW_PSEUDO_STATE: (state, { name }) => {
     const elementToEnd = name.replace(PSEUDO_REGEX, '--').replace(PROP_REGEX, '');
 
-    const { theme } = state;
     const {
       [elementToEnd]: discard,
       ...otherPseudos
@@ -135,9 +137,7 @@ const ACTIONS = {
         return;
       }
 
-      if (
-        !theme.hasOwnProperty(k)
-      ) {
+      if (!state.theme.hasOwnProperty(k)) {
         keysToRemove[k] = true;
       }
       // Unset the regular property so that it gets set again.
@@ -156,14 +156,7 @@ const ACTIONS = {
       return state;
     }
     const [prevTheme, ...older] = history;
-
-    const droppedProps = getDroppedProps(theme, prevTheme);
-    droppedProps.forEach(k => {
-      if (Object.keys(previewProps).includes(k) || Object.keys(previewPseudoVars).some(pseudo => k.includes(pseudo))) {
-        return;
-      }
-      keysToRemove[k] = true;
-    });
+    dropProps(theme, prevTheme, previewProps, previewPseudoVars);
 
     return {
       ...state,
@@ -182,13 +175,7 @@ const ACTIONS = {
     }
 
     const [nextTheme, ...newer] = future;
-    const droppedProps = getDroppedProps(theme, nextTheme);
-    droppedProps.forEach(k => {
-      if (Object.keys(previewProps).includes(k) || Object.keys(previewPseudoVars).some(pseudo => k.includes(pseudo))) {
-        return;
-      }
-      keysToRemove[k] = true;
-    });
+    dropProps(theme, nextTheme, previewProps, previewPseudoVars);
 
     return {
       ...state,
