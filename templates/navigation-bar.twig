@@ -25,7 +25,7 @@
 					data-ga-action="Close Menu"
 					data-ga-label="{{ page_category }}">
 						<span
-							class="screen-reader-text"
+							class="visually-hidden"
 							data-ga-category="Menu Navigation"
 							data-ga-action="Close Menu"
 							data-ga-label="{{ page_category }}">
@@ -41,8 +41,8 @@
 					data-ga-category="Menu Navigation"
 					data-ga-action="Open Country Selector"
 					data-ga-label="{{ page_category }}">
-						<span class="screen-reader-text">{{ __( 'Selected', 'planet4-master-theme' ) }}:</span> {{ website_navbar_title }}
-						<span class="screen-reader-text">{{ __( 'Change Country', 'planet4-master-theme' ) }}</span>
+						<span class="visually-hidden">{{ __( 'Selected', 'planet4-master-theme' ) }}:</span> {{ website_navbar_title }}
+						<span class="visually-hidden">{{ __( 'Change Country', 'planet4-master-theme' ) }}</span>
 				</button>
 			</li>
 			{% for key,item in navbar_menu.get_items %}
@@ -94,7 +94,7 @@
 			data-ga-category="Menu Navigation"
 			data-ga-action="Open Search"
 			data-ga-label="{{ page_category }}">
-				<span class="screen-reader-text">{{ __( 'Toggle search form', 'planet4-master-theme' ) }}</span>
+				<span class="visually-hidden">{{ __( 'Toggle search form', 'planet4-master-theme' ) }}</span>
 		</button>
 		<form id="search_form" action="{{ data_nav_bar.home_url }}" class="form nav-item nav-search-wrap">
 			<input id="search_input" type="search" class="form-control" placeholder="{{ search_label }}"
@@ -111,7 +111,7 @@
 					{% set data_ga_attrs = 'data-ga-category="Menu Navigation" data-ga-action="Search" data-ga-label="' ~ page_category ~ '"' %}
 					{{ search_icon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
 				<span
-					class="screen-reader-text"
+					class="visually-hidden"
 					data-ga-category="Menu Navigation"
 					data-ga-action="Search"
 					data-ga-label="{{ page_category }}">
