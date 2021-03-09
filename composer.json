@@ -44,7 +44,7 @@
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
     "stevegrunwell/phpunit-markup-assertions": "^1.2",
     "phpunit/phpunit": "^6.2",
-    "wpackagist-plugin/timber-library": "1.16.0"
+    "wpackagist-plugin/timber-library": "1.18.*"
   },
   "scripts": {
     "fixes": "vendor/bin/phpcbf",
