@@ -177,20 +177,21 @@
       border-bottom: 1px solid $grey-20;
       padding-bottom: 10px;
 
-      .activefilter-tag,
-      .clearall {
+      .activefilter-tag {
         font-size: 1.125rem;
-        font-style: normal;
-        color: $dark-blue;
         border: 1px solid $dark-blue;
         padding: 0 $n40 0 $n20;
         display: inline-block;
-        margin-right: 8px;
         margin-bottom: 16px;
         line-height: 42px;
         text-decoration: none;
         position: relative;
+        cursor: pointer;
+        background-color: transparent;
+        color: $dark-blue;
+        margin-inline-end: 8px;
         min-width: 40%;
+        text-align: left;
       }
 
       .icon-cross {
@@ -201,19 +202,10 @@
         margin-right: $n15;
       }
 
-      .activefilter-tag {
-        background-color: transparent;
-        cursor: pointer;
-        text-align: left;
-      }
-
       .clearall {
-        text-align: center;
         width: 100%;
         background: $dark-blue;
         color: $white;
-        text-transform: uppercase;
-        cursor: pointer;
       }
     }
   }
