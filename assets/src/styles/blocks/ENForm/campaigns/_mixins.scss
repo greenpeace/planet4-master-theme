@@ -47,7 +47,7 @@
     #enform-content {
       .title-and-description {
         h2 {
-          font-family: var(--header-primary-font) !important;
+          font-family: var(--headings--font-family, var(--header-primary-font)) !important;
         }
       }
     }

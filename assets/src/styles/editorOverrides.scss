@@ -1,5 +1,5 @@
 .editor-post-title__block textarea.editor-post-title__input {
-  font-family: var(--header-primary-font, $roboto);
+  font-family: var(--headings--font-family, var(--header-primary-font, $roboto));
   font-size: $font-size-xl;
   line-height: 1.225;
   margin-bottom: 30px;
@@ -154,7 +154,7 @@
   font-family: var(--body-font, "Noto Serif");
 
   h1, h2, h3, h4, h5 {
-    font-family: var(--header-primary-font, $roboto);
+    font-family: var(--headings--font-family, var(--header-primary-font, $roboto));
   }
 }
 
