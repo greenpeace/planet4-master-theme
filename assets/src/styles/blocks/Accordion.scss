@@ -45,9 +45,6 @@
 
       &.open:after {
         transform: rotate(-90deg);
-        -webkit-transform: rotate(-90deg);
-        -moz-transform: rotate(-90deg);
-        -ms-transform: rotate(-90deg);
       }
 
       &:after {
@@ -63,18 +60,13 @@
         display: inline-block;
         transition: transform 0.8s ease;
         transform: rotate(90deg);
-        -webkit-transform: rotate(90deg);
-        -moz-transform: rotate(90deg);
-        -ms-transform: rotate(90deg);
 
         @supports (mask-repeat: no-repeat) or (-webkit-mask-repeat: no-repeat) {
           & {
             background-image: none;
             background-color: $white;
-            -webkit-mask-image: url("../../public/images/icons/angle-right.svg");
             mask-image: url("../../public/images/icons/angle-right.svg");
             mask-repeat: no-repeat;
-            -webkit-mask-repeat: no-repeat;
             margin-right: 0;
           }
         }
@@ -92,9 +84,6 @@
       color: $grey-80;
       overflow: hidden;
       transition: display 1s, opacity 1s, height 1s ease-in-out;
-      -webkit-transition: display 1s, opacity 1s, height 1s ease-in-out;
-      -moz-transition: display 1s, opacity 1s, height 1s ease-in-out;
-      -ms-transition: display 1s, opacity 1s, height 1s ease-in-out;
 
       &.panel-hidden {
         visibility: hidden;

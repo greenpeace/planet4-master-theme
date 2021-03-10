@@ -300,10 +300,8 @@
           & {
             background-image: none;
             background-color: $yellow;
-            -webkit-mask-image: url("../../public/images/icons/angle-right.svg");
             mask-image: url("../../public/images/icons/angle-right.svg");
             mask-repeat: no-repeat;
-            -webkit-mask-repeat: no-repeat;
             margin-right: 0;
           }
         }

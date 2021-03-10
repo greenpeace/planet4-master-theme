@@ -74,7 +74,11 @@
     margin-bottom: 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    /* stylelint-disable property-no-vendor-prefix */
+    /*! autoprefixer: off */
     -webkit-box-orient: vertical;
+    /*! autoprefixer: on */
+    /* stylelint-enable property-no-vendor-prefix */
     overflow: hidden;
   }
 
@@ -135,7 +139,11 @@
       font-size: 14px;
       display: -webkit-box;
       -webkit-line-clamp: 3;
+      /* stylelint-disable property-no-vendor-prefix */
+      /*! autoprefixer: off */
       -webkit-box-orient: vertical;
+      /*! autoprefixer: on */
+      /* stylelint-enable property-no-vendor-prefix */
       overflow: hidden;
       margin: 0;
     }

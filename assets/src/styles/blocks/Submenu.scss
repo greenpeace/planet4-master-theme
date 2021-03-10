@@ -52,10 +52,8 @@ div[data-render="planet4-blocks/submenu"] {
           & {
             background-image: none;
             background-color: $grey-80;
-            -webkit-mask-image: url("../../public/images/icons/angle-right.svg");
             mask-image: url("../../public/images/icons/angle-right.svg");
             mask-repeat: no-repeat;
-            -webkit-mask-repeat: no-repeat;
             margin-right: 0;
           }
         }
