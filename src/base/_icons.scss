@@ -119,18 +119,10 @@ a.external-link {
     &:hover::before {
       background-color: transparentize($grey-80, 0.2);
     }
-
-    &:hover.pdf-link.has-text-color.has-grey-80-color::before {
-      background-color: $grey-80;
-    }
-
-    &:hover.pdf-link.has-text-color::before {
-      background-color: $white;
-    }
   }
 
   // Button block, text color manually set
-  .wp-block-button.has-text-color {
+  .wp-block-button a.has-text-color.pdf-link {
     &::before,
     &:hover::before {
       background-color: $white;
