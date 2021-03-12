@@ -1,12 +1,17 @@
 // Add pdf icon to pdf links
-export const setupPDFIcon = function($) {
-  'use strict';
+export const setupPDFIcon = () => {
+  const links = [...document.querySelectorAll('a[href*=".pdf"]')];
 
-  $('a[href*=".pdf"]').each(function() {
-    const link = $(this);
-
-    if (!(link.parent('h1, h2, h3, h4, h5, h6').length || link.has('img').length)) {
-      link.addClass('icon-link pdf-link');
+  links.forEach(link => {
+    // We don't want to show the icon in headings/titles,
+    // or in links that are images
+    if (
+      ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(link.parentElement.nodeName)
+      || link.querySelectorAll('img').length > 0
+    ) {
+      return;
     }
+
+    link.classList.add('pdf-link');
   });
 };
