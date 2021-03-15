@@ -50,16 +50,74 @@ a.external-link {
       mask-position: center;
     }
 
-    &.btn-secondary::before {
-      background-color: var(--secondary--link--color, $dark-blue);
-    }
-
     &:hover::before {
       background-color: var(--link-hover--color, $link-color);
     }
 
-    &.btn-secondary:hover::before {
-      background-color: var(--secondary--link--hover--color, $white);
+    // Primary buttons
+    &.btn-primary {
+      &::before {
+        background-color: $white;
+      }
+
+      &:hover::before {
+        background-color: $white;
+      }
+    }
+
+    // Secondary buttons
+    &.btn-secondary {
+      &::before {
+        background-color: $dark-blue;
+      }
+
+      &:hover::before {
+        background-color: var(--secondary--link--hover--color, $white);
+      }
+    }
+
+    // Donate button
+    &.btn-donate {
+      &::before {
+        background-color: $grey-80;
+      }
+
+      &:hover::before {
+        background-color: transparentize($grey-80, 0.2);
+      }
+    }
+  }
+
+  // Button block, primary style
+  .wp-block-button.is-style-cta a.pdf-link {
+    &::before,
+    &:hover::before {
+      background-color: $white;
+    }
+  }
+
+  // Button block, secondary style
+  [class="wp-block-button"],
+  .wp-block-button.is-style-secondary {
+    a.pdf-link {
+      &::before {
+        background-color: $dark-blue;
+      }
+
+      &:hover::before {
+        background-color: var(--secondary--link--hover--color, $white);
+      }
+    }
+  }
+
+  // Button block, donate style
+  .wp-block-button.is-style-donate a.pdf-link {
+    &::before {
+      background-color: $grey-80;
+    }
+
+    &:hover::before {
+      background-color: transparentize($grey-80, 0.2);
     }
   }
 
