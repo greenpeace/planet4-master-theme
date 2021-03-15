@@ -915,8 +915,8 @@ class MasterSite extends TimberSite {
 	 */
 	private function register_meta_fields(): void {
 		// Credit for images, used in image caption.
-		\register_meta(
-			'post',
+		\register_post_meta(
+			'attachment',
 			self::CREDIT_META_FIELD,
 			[
 				'show_in_rest' => true,
