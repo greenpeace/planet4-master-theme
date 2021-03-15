@@ -1,3 +1,8 @@
+:root {
+  --link--color: #2cabb1;
+  --link-hover--color: #044362;
+}
+
 body.theme-oceans {
   $montserrat: "Montserrat", sans-serif;
 
@@ -50,14 +55,6 @@ body.theme-oceans {
 
   .page-section-header {
     @include page-section-header($montserrat, $oceans-blue, $extra-bold, 3.75rem);
-  }
-
-  .page-template a {
-    color: $oceans-aqua;
-
-    &:hover {
-      color: $oceans-blue;
-    }
   }
 
   .page-header {

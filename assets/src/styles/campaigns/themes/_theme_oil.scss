@@ -1,3 +1,8 @@
+:root {
+  --link--color: #007eff;
+  --link-hover--color: #837ac3;
+}
+
 body.theme-oil {
   $anton: "Anton", sans-serif;
   $amiko: "Amiko", sans-serif;
@@ -43,12 +48,7 @@ body.theme-oil {
 
   .page-template {
     a:not(.btn):not(.share-btn) {
-      color: $oil-blue;
       text-transform: uppercase;
-
-      &:hover {
-        color: $oil-purple-2;
-      }
     }
 
     .btn-primary {

@@ -1,3 +1,8 @@
+:root {
+  --link--color: #c44bc4;
+  --link-hover--color: #ff80e9;
+}
+
 body.theme-antarctic {
   $sanctuary: "Sanctuary", sans-serif;
   $montserrat: "Montserrat", sans-serif;
@@ -49,12 +54,7 @@ body.theme-antarctic {
   }
 
   .page-template a:not(.btn):not(.share-btn) {
-    color: $antarctic-purple;
     text-transform: uppercase;
-
-    &:hover {
-      color: $antarctic-pink;
-    }
   }
 
   .page-header {

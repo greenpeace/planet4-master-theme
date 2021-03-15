@@ -1,3 +1,8 @@
+:root {
+  --link--color: #f06e6e;
+  --link-hover--color: #ec4a4a;
+}
+
 body.theme-arctic {
   $open-sans: "Open Sans", sans-serif;
   $save-the-arctic: "Save the Arctic", sans-serif;
@@ -53,12 +58,7 @@ body.theme-arctic {
 
   .page-template a {
     &:not(.btn):not(.share-btn) {
-      color: $arctic-faded-red;
       text-transform: uppercase;
-
-      &:hover {
-        color: $arctic-red;
-      }
     }
 
     &.btn-primary {
