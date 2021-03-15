@@ -11,10 +11,10 @@ namespace P4GBKS;
 use P4\MasterTheme\Features;
 use P4\MasterTheme\MigrationLog;
 use P4\MasterTheme\Migrations\M001EnableEnFormFeature;
+use P4GBKS\Controllers;
+use P4GBKS\Views\View;
 use WP_CLI;
 use P4GBKS\Command\Controller;
-use P4GBKS\Controllers\Ensapi_Controller;
-use P4GBKS\Controllers\Menu\Enform_Post_Controller;
 
 /**
  * Class Loader
@@ -33,50 +33,15 @@ final class Loader {
 	 * @var Loader $instance
 	 */
 	private static $instance;
-	/**
-	 * Indexed array of all the classes/services that are needed.
-	 *
-	 * @var array $services
-	 */
-	private $services;
-	/**
-	 * An instance of the View class.
-	 *
-	 * @var Views\View $view
-	 */
-	private $view;
-	/**
-	 * Required version of php.
-	 *
-	 * @var string $required_php
-	 */
-	private $required_php = P4GBKS_REQUIRED_PHP;
-	/**
-	 * Array with all required plugins and their required versions.
-	 *
-	 * @var array $required_plugins
-	 */
-	private $required_plugins = P4GBKS_REQUIRED_PLUGINS;
 
 	/**
-	 * Block instances
-	 *
-	 * @var $blocks
-	 */
-	private $blocks;
-
-	/**
-	 * Singleton creational pattern.
-	 * Makes sure there is only one instance at all times.
-	 *
-	 * @param array  $services The Controller services to inject.
-	 * @param string $view_class The View class name.
+	 * Singleton pattern.
 	 *
 	 * @return Loader
 	 */
-	public static function get_instance( $services, $view_class ) : Loader {
+	public static function get_instance() : Loader {
 		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self( $services, $view_class );
+			self::$instance = new self();
 		}
 
 		return self::$instance;
@@ -87,39 +52,34 @@ final class Loader {
 	 * Checks requirements and if its ok it hooks the hook_plugin method on the 'init' action which fires
 	 * after WordPress has finished loading but before any headers are sent.
 	 * Most of WP is loaded at this stage (but not all) and the user is authenticated.
-	 *
-	 * @param array  $services The Controller services to inject.
-	 * @param string $view_class The View class name.
 	 */
-	private function __construct( $services, $view_class ) {
+	private function __construct() {
 
-		$this->load_files();
-		$this->load_services( $services, $view_class );
+		$this->setup_autoload();
+		$this->load_services();
 		$this->load_commands();
 		$this->check_requirements();
 
 		// Load Blocks.
-		$this->blocks = [
-			new Blocks\Accordion(),
-			new Blocks\Articles(),
-			new Blocks\CarouselHeader(),
-			new Blocks\Columns(),
-			new Blocks\Cookies(),
-			new Blocks\Counter(),
-			new Blocks\Covers(),
-			new Blocks\Gallery(),
-			new Blocks\Happypoint(),
-			new Blocks\Media(),
-			new Blocks\SocialMedia(),
-			new Blocks\SplitTwoColumns(),
-			new Blocks\Spreadsheet(),
-			new Blocks\SubMenu(),
-			new Blocks\SubPages(),
-			new Blocks\TakeActionBoxout(),
-			new Blocks\Timeline(),
-			new Blocks\SocialMediaCards(),
-			new Blocks\ENForm(),
-		];
+		new Blocks\Accordion();
+		new Blocks\Articles();
+		new Blocks\CarouselHeader();
+		new Blocks\Columns();
+		new Blocks\Cookies();
+		new Blocks\Counter();
+		new Blocks\Covers();
+		new Blocks\Gallery();
+		new Blocks\Happypoint();
+		new Blocks\Media();
+		new Blocks\SocialMedia();
+		new Blocks\SplitTwoColumns();
+		new Blocks\Spreadsheet();
+		new Blocks\SubMenu();
+		new Blocks\SubPages();
+		new Blocks\TakeActionBoxout();
+		new Blocks\Timeline();
+		new Blocks\SocialMediaCards();
+		new Blocks\ENForm();
 	}
 
 	/**
@@ -128,7 +88,7 @@ final class Loader {
 	 * b. follow the names of the sub-directories of the current __DIR__ (classes/)
 	 *    - if not, then proper replacements should be added like below
 	 */
-	private function load_files() {
+	private function setup_autoload() {
 		try {
 			spl_autoload_register(
 				function ( $class_name ) {
@@ -153,19 +113,24 @@ final class Loader {
 	}
 
 	/**
-	 * Loads all shortcake blocks registered from within this plugin.
-	 *
-	 * @param array  $services The Controller services to inject.
-	 * @param string $view_class The View class name.
+	 * Add some admin pages.
 	 */
-	public function load_services( $services, $view_class ) {
-		$this->services = $services;
-		$this->view     = new $view_class();
+	public function load_services(): void {
+		$services = [
+			Controllers\Menu\Settings_Controller::class,
+			Controllers\Menu\Blocks_Usage_Controller::class,
+			Controllers\Menu\Classic_Blocks_Usage::class,
+			Controllers\Menu\Reusable_Blocks_Controller::class,
+			Controllers\Menu\Archive_Import::class,
+			Controllers\Menu\Postmeta_Check_Controller::class,
+			Controllers\Menu\Enform_Post_Controller::class,
+			Controllers\Menu\En_Settings_Controller::class,
+			Controllers\Api\Rest_Controller::class,
+		];
 
-		if ( $this->services ) {
-			foreach ( $this->services as $service ) {
-				( new $service( $this->view ) )->load();
-			}
+		$view = new View();
+		foreach ( $services as $service ) {
+			( new $service( $view ) )->load();
 		}
 	}
 
@@ -209,103 +174,122 @@ final class Loader {
 	 * Checks plugin requirements.
 	 * If requirements are met then hook the plugin.
 	 */
-	private function check_requirements() {
+	private function check_requirements(): void {
 
-		if ( is_admin() ) {         // If we are on the admin panel.
-			// Run the version check. If it is successful, continue with hooking under 'init' the initialization of this plugin.
-			if ( $this->check_required_php() ) {
-				$plugins = [
-					'not_found'   => [],
-					'not_updated' => [],
-				];
-				if ( $this->check_required_plugins( $plugins ) ) {
-					$this->hook_plugin();
-				} elseif ( $plugins['not_found'] || $plugins['not_updated'] ) {
-
-					deactivate_plugins( P4GBKS_PLUGIN_BASENAME );
-					$count   = 0;
-					$message = '<div class="error fade">' .
-							'<u>' . esc_html( P4GBKS_PLUGIN_NAME ) . ' > ' . esc_html__( 'Requirements Error(s)', 'planet4-blocks-backend' ) . '</u><br /><br />';
-
-					foreach ( $plugins['not_found'] as $plugin ) {
-						$message .= '<br/><strong>' . ( ++ $count ) . '. ' . esc_html( $plugin['Name'] ) . '</strong> ' . esc_html__( 'plugin needs to be installed and activated.', 'planet4-blocks-backend' ) . '<br />';
-					}
-					foreach ( $plugins['not_updated'] as $plugin ) {
-						$message .= '<br/><strong>' . ( ++ $count ) . '. ' . esc_html( $plugin['Name'] ) . '</strong><br />' .
-									esc_html__( 'Minimum version ', 'planet4-blocks-backend' ) . '<strong>' . esc_html( $plugin['min_version'] ) . '</strong>' .
-									'<br/>' . esc_html__( 'Current version ', 'planet4-blocks-backend' ) . '<strong>' . esc_html( $plugin['Version'] ) . '</strong><br />';
-					}
-
-					$message .= '</div><br />';
-					wp_die(
-						$message, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-						'Plugin Requirements Error',
-						[
-							'response'  => \WP_Http::OK, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-							'back_link' => true,
-						]
-					);
-				}
-			} else {
-				deactivate_plugins( P4GBKS_PLUGIN_BASENAME );
-				wp_die( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					'<div class="error fade">' .
-					'<strong>' . esc_html__( 'PHP Requirements Error', 'planet4-blocks-backend' ) . '</strong><br /><br />' . esc_html( P4GBKS_PLUGIN_NAME . __( ' requires a newer version of PHP.', 'planet4-blocks-backend' ) ) . '<br />' .
-					'<br/>' . esc_html__( 'Minimum required version of PHP: ', 'planet4-blocks-backend' ) . '<strong>' . esc_html( $this->required_php ) . '</strong>' .
-					'<br/>' . esc_html__( 'Running version of PHP: ', 'planet4-blocks-backend' ) . '<strong>' . esc_html( phpversion() ) . '</strong>' .
-					'</div>',
-					'Plugin Requirements Error',
-					[
-						'response'  => \WP_Http::OK, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-						'back_link' => true,
-					]
-				);
-			}
-		} else {
+		// Preserving the way this works for now, though it makes little sense. We probably don't need to check this
+		// over and over at runtime on each request, but at build time instead.
+		if ( ! is_admin() ) {
 			add_action( 'plugins_loaded', [ $this, 'load_i18n' ] );
 			add_filter( 'style_loader_tag', [ $this, 'enqueue_deferred_assets' ], 10, 3 );
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_campaigns_assets' ] );
+
+			return;
 		}
+
+		// If we are on the admin panel.
+		// Run the version check. If it is successful, continue with hooking under 'init' the initialization of this plugin.
+		$this->check_required_php();
+		$this->check_required_plugins();
+		$this->hook_plugin();
 	}
 
 	/**
-	 * Check if the server's php version is less than the required php version.
-	 *
-	 * @return bool true if version check passed or false otherwise.
+	 * Check if the server's php version is less than the required php version. Die if not ok.
 	 */
-	private function check_required_php(): bool {
-		return version_compare( phpversion(), $this->required_php, '>=' );
+	private function check_required_php(): void {
+		if ( version_compare( PHP_VERSION, P4GBKS_REQUIRED_PHP, '>=' ) ) {
+			return;
+		}
+
+		deactivate_plugins( P4GBKS_PLUGIN_BASENAME );
+		// phpcs:disable Generic.Strings.UnnecessaryStringConcat
+		wp_die( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			'<div class="error fade">' . '<strong>' . esc_html__(
+				'PHP Requirements Error',
+				'planet4-blocks-backend'
+			) . '</strong><br /><br />' . esc_html(
+				P4GBKS_PLUGIN_NAME . __( ' requires a newer version of PHP.', 'planet4-blocks-backend' )
+			) . '<br />' . '<br/>' . esc_html__(
+				'Minimum required version of PHP: ',
+				'planet4-blocks-backend'
+			) . '<strong>' . esc_html( P4GBKS_REQUIRED_PHP ) . '</strong>' . '<br/>' . esc_html__(
+				'Running version of PHP: ',
+				'planet4-blocks-backend'
+			) . '<strong>' . esc_html( PHP_VERSION ) . '</strong>' . '</div>',
+			'Plugin Requirements Error',
+			[
+				'response'  => \WP_Http::OK, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				'back_link' => true,
+			]
+		);
+		// phpcs:enable Generic.Strings.UnnecessaryStringConcat
 	}
 
 	/**
 	 * Check if the version of a plugin is less than the required version.
-	 *
-	 * @param array $plugins Will contain information for those plugins whose requirements are not met.
-	 *
-	 * @return bool true if version check passed or false otherwise.
 	 */
-	private function check_required_plugins( &$plugins ): bool {
-		$required_plugins = $this->required_plugins;
+	private function check_required_plugins(): void {
+		$plugins = [
+			'not_found'   => [],
+			'not_updated' => [],
+		];
 
-		if ( is_array( $required_plugins ) && $required_plugins ) {
-			foreach ( $required_plugins as $required_plugin ) {
-				$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $required_plugin['rel_path'] );
-
-				if ( ! is_plugin_active( $required_plugin['rel_path'] ) ) {
-					array_push( $plugins['not_found'], array_merge( $plugin_data, $required_plugin ) );
-				} elseif ( ! version_compare( $plugin_data['Version'], $required_plugin['min_version'], '>=' ) ) {
-					array_push( $plugins['not_updated'], array_merge( $plugin_data, $required_plugin ) );
-				}
-			}
-			foreach ( $plugins as $plugin ) {
-				if ( is_array( $plugin ) && count( $plugin ) > 0 ) {
-					return false;
-				}
-			}
+		if ( ! is_array( P4GBKS_REQUIRED_PLUGINS ) ) {
+			return;
 		}
 
-		return true;
+		foreach ( P4GBKS_REQUIRED_PLUGINS as $required_plugin ) {
+			$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $required_plugin['rel_path'] );
+
+			if ( ! is_plugin_active( $required_plugin['rel_path'] ) ) {
+				$plugins['not_found'][] = array_merge( $plugin_data, $required_plugin );
+			} elseif ( ! version_compare( $plugin_data['Version'], $required_plugin['min_version'], '>=' ) ) {
+				$plugins['not_updated'][] = array_merge( $plugin_data, $required_plugin );
+			}
+		}
+		if ( ! ( $plugins['not_found'] ) && ! ( $plugins['not_updated'] ) ) {
+			return;
+		}
+
+		deactivate_plugins( P4GBKS_PLUGIN_BASENAME );
+		$count = 0;
+		// phpcs:ignore Generic.Strings.UnnecessaryStringConcat
+		$message = '<div class="error fade">' . '<u>' . esc_html( P4GBKS_PLUGIN_NAME ) . ' > ' . esc_html__(
+			'Requirements Error(s)',
+			'planet4-blocks-backend'
+		) . '</u><br /><br />';
+
+		foreach ( $plugins['not_found'] as $plugin ) {
+			$message .= '<br/><strong>' . ( ++ $count ) . '. ' . esc_html( $plugin['Name'] ) . '</strong> ' . esc_html__(
+				'plugin needs to be installed and activated.',
+				'planet4-blocks-backend'
+			) . '<br />';
+		}
+		foreach ( $plugins['not_updated'] as $plugin ) {
+			// phpcs:disable Generic.Strings.UnnecessaryStringConcat
+			$message .= '<br/><strong>' . ( ++ $count ) . '. ' . esc_html( $plugin['Name'] ) . '</strong><br />' . esc_html__(
+				'Minimum version ',
+				'planet4-blocks-backend'
+			) . '<strong>' . esc_html( $plugin['min_version'] ) . '</strong>' . '<br/>' . esc_html__(
+				'Current version ',
+				'planet4-blocks-backend'
+			) . '<strong>' . esc_html( $plugin['Version'] ) . '</strong><br />';
+			// phpcs:enable Generic.Strings.UnnecessaryStringConcat
+		}
+
+		$message .= '</div><br />';
+		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+		wp_die(
+			$message,
+			'Plugin Requirements Error',
+			[
+				'response'  => \WP_Http::OK,
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				'back_link' => true,
+			]
+		);
+		// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -462,26 +446,26 @@ final class Loader {
 	 */
 	public function enqueue_campaigns_assets() {
 		// campaign-theme assets.
-		$post_type = get_post_type();
-
-		if ( 'campaign' === $post_type ) {
-
-			$post = get_post();
-
-			$campaign_theme = $post->theme ?? $post->custom['_campaign_page_template'] ?? null;
-
-			if ( is_string( $campaign_theme ) && ! empty( $campaign_theme ) ) {
-
-				wp_enqueue_style(
-					'theme_antarctic',
-					P4GBKS_PLUGIN_URL . "/assets/build/theme_$campaign_theme.min.css",
-					[
-						'plugin-blocks',
-					],
-					self::file_ver( P4GBKS_PLUGIN_DIR . "/assets/build/theme_$campaign_theme.min.css" )
-				);
-			}
+		if ( 'campaign' !== get_post_type() ) {
+			return;
 		}
+
+		$post = get_post();
+
+		$campaign_theme = $post->theme ?? $post->custom['_campaign_page_template'] ?? null;
+
+		if ( ! is_string( $campaign_theme ) || empty( $campaign_theme ) ) {
+			return;
+		}
+
+		wp_enqueue_style(
+			'theme_antarctic',
+			P4GBKS_PLUGIN_URL . "/assets/build/theme_$campaign_theme.min.css",
+			[
+				'plugin-blocks',
+			],
+			self::file_ver( P4GBKS_PLUGIN_DIR . "/assets/build/theme_$campaign_theme.min.css" )
+		);
 	}
 
 	/**
@@ -692,7 +676,7 @@ DEFERREDCSS;
 		if ( isset( $main_settings['p4en_private_api'] ) ) {
 			$pages[]           = $main_settings['p4en_private_api'];
 			$ens_private_token = $main_settings['p4en_private_api'];
-			$ens_api           = new Ensapi_Controller( $ens_private_token );
+			$ens_api           = new Controllers\Ensapi_Controller( $ens_private_token );
 			$pages             = $ens_api->get_pages_by_types_status( Blocks\ENForm::ENFORM_PAGE_TYPES, 'live' );
 			uasort(
 				$pages,
@@ -713,7 +697,7 @@ DEFERREDCSS;
 		$query = new \WP_Query(
 			[
 				'post_status'      => 'publish',
-				'post_type'        => Enform_Post_Controller::POST_TYPE,
+				'post_type'        => Controllers\Menu\Enform_Post_Controller::POST_TYPE,
 				'orderby'          => 'post_title',
 				'order'            => 'asc',
 				'suppress_filters' => false,
@@ -721,18 +705,6 @@ DEFERREDCSS;
 			]
 		);
 		return $query->posts;
-	}
-
-	/**
-	 * Make clone magic method private, so nobody can clone instance.
-	 */
-	private function __clone() {
-	}
-
-	/**
-	 * Make wakeup magic method private, so nobody can unserialize instance.
-	 */
-	private function __wakeup() {
 	}
 }
 

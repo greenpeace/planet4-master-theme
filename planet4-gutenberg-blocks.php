@@ -354,22 +354,5 @@ function p4_blocks_en_forms_twig_filters( $twig ) {
 	L O A D  P L U G I N
 ==========================
 */
-P4GBKS\Loader::get_instance(
-	[
-		// --- Add here your own Block Controller ---
-		// DEPRECATED: Blocks could be registered inside Loader class
-		// 'P4GBKS\Controllers\Blocks\NewCovers_Controller'
-		\P4GBKS\Controllers\Menu\Settings_Controller::class,
-		\P4GBKS\Controllers\Menu\Blocks_Usage_Controller::class,
-		\P4GBKS\Controllers\Menu\Classic_Blocks_Usage::class,
-		\P4GBKS\Controllers\Menu\Reusable_Blocks_Controller::class,
-		\P4GBKS\Controllers\Menu\Archive_Import::class,
-		\P4GBKS\Controllers\Menu\Postmeta_Check_Controller::class,
-		\P4GBKS\Controllers\Menu\Enform_Post_Controller::class,
-		\P4GBKS\Controllers\Menu\En_Settings_Controller::class,
-		\P4GBKS\Controllers\Api\Rest_Controller::class,
-	],
-	\P4GBKS\Views\View::class
-);
-
+P4GBKS\Loader::get_instance();
 \P4GBKS\Rest\Rest_Api::add_endpoints();
