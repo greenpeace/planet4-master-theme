@@ -10,12 +10,12 @@
 @import "styleguide/src/base/mixins";
 @import "styleguide/src/base/fonts";
 
-@import "styleguide/src/base/icons";
-@import "styleguide/src/components/buttons";
-@import "styleguide/src/base/typography";
-@import "styleguide/src/layout/tables";
-@import "styleguide/src/layout/page-header";
-@import "styleguide/src/layout/breadcrumbs";
-@import "styleguide/src/layout/forms";
+@import "base/icons";
+@import "components/buttons";
+@import "base/typography";
+@import "layout/tables";
+@import "layout/page-header";
+@import "layout/breadcrumbs";
+@import "layout/forms";
 
 @import "editorOverrides";
