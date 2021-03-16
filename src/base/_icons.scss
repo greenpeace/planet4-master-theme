@@ -13,7 +13,7 @@ a.pdf-link {
 
   &::before {
     content: "";
-    background-image: url("../../images/file-pdf.svg");
+    background-image: url("../../images/file-pdf.svg"), url("../../public/images/file-pdf.svg");
     background-position: center;
     background-repeat: no-repeat;
     height: 1rem;
@@ -30,7 +30,7 @@ a.external-link {
   &::after {
     content: "";
     display: inline-block;
-    background-image: url("../../images/external-link.svg");
+    background-image: url("../../images/external-link.svg"), url("../../public/images/external-link.svg");
     height: .55rem;
     width: .55rem;
     margin-inline-start: .3rem;
@@ -45,7 +45,7 @@ a.external-link {
     &::before {
       background-image: none;
       background-color: var(--link--color, $link-color);
-      mask-image: url("../../images/file-pdf.svg");
+      mask-image: url("../../images/file-pdf.svg"), url("../../public/images/file-pdf.svg");
       mask-repeat: no-repeat;
       mask-position: center;
     }
@@ -125,7 +125,7 @@ a.external-link {
     &::after {
       background-image: none;
       background-color: var(--link--color, $link-color);
-      mask-image: url("../../images/external-link.svg");
+      mask-image: url("../../images/external-link.svg"), url("../../public/images/external-link.svg");
       mask-repeat: no-repeat;
       mask-position: center;
       mask-size: contain;
