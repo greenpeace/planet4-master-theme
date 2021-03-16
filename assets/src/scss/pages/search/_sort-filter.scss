@@ -14,19 +14,37 @@ div.search-filter-results {
 .sort-filter {
   width: 50%;
   float: right;
+  text-align: right;
+
+  html[dir="rtl"] & {
+    float: left;
+    text-align: left;
+  }
 
   @include small-and-up {
     width: 100%;
     float: none;
+
+    html[dir="rtl"] & {
+      float: none;
+    }
+  }
+
+  .select-container {
+    margin-top: -7px;
+
+    @include small-and-up {
+      margin-top: -14px;
+    }
   }
 
   label {
     font-size: 1.125rem;
-    margin-right: 90px;
+    margin-inline-end: 90px;
     font-weight: bold;
 
     @include small-and-up {
-      margin-right: 0;
+      margin-inline-end: 0.5rem;
     }
 
     @include large-and-up {
@@ -52,15 +70,6 @@ div.search-filter-results {
 
     @include large-and-up {
       width: 270px;
-    }
-  }
-
-  div {
-    text-align: right;
-    margin-top: -7px;
-
-    @include small-and-up {
-      text-align: inherit;
     }
   }
 }
