@@ -1,0 +1,80 @@
+.icon {
+  position: relative;
+  top: .125em;
+  flex-shrink: 0;
+  height: 1em;
+  width: 1em;
+  fill: currentColor;
+  transition: fill .3s;
+}
+
+a.pdf-link {
+  display: inline-block;
+
+  &::before {
+    content: "";
+    background-image: url("../../images/file-pdf.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 1rem;
+    width: 1rem;
+    margin-bottom: -2px;
+    margin-inline-end: 2px;
+    display: inline-block;
+  }
+}
+
+a.external-link {
+  display: inline-block;
+
+  &::after {
+    content: "";
+    display: inline-block;
+    background-image: url("../../images/external-link.svg");
+    height: .55rem;
+    width: .55rem;
+    margin-inline-start: .3rem;
+    margin-inline-end: .4rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+@supports (mask-repeat: no-repeat) {
+  a.pdf-link {
+    &::before {
+      background-image: none;
+      background-color: var(--link--color, $link-color);
+      mask-image: url("../../images/file-pdf.svg");
+      mask-repeat: no-repeat;
+      mask-position: center;
+    }
+
+    &.btn-secondary::before {
+      background-color: var(--secondary--link--color, $dark-blue);
+    }
+
+    &:hover::before {
+      background-color: var(--link-hover--color, $link-color);
+    }
+
+    &.btn-secondary:hover::before {
+      background-color: var(--secondary--link--hover--color, $white);
+    }
+  }
+
+  a.external-link {
+    &::after {
+      background-image: none;
+      background-color: var(--link--color, $link-color);
+      mask-image: url("../../images/external-link.svg");
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: contain;
+    }
+
+    &:hover::after {
+      background-color: var(--link-hover--color, $link-color);
+    }
+  }
+}
