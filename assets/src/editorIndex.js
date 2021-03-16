@@ -16,9 +16,8 @@ import { TakeactionboxoutBlock } from './blocks/Takeactionboxout/Takeactionboxou
 import { registerTimelineBlock } from './blocks/Timeline/TimelineBlock';
 import { addBlockFilters } from './BlockFilters';
 import { setupImageBlockExtension } from './ImageBlockExtension';
-import { replaceTaxonomyTermSelectors } from './replaceTaxonomyTermSelectors';
-import { addSubAndSuperscript } from './RichTextEnhancements';
-import { SpreadsheetBlock } from './blocks/Spreadsheet/SpreadsheetBlock';
+import { replaceTaxonomyTermSelectors } from "./replaceTaxonomyTermSelectors";
+import { SpreadsheetBlock } from "./blocks/Spreadsheet/SpreadsheetBlock"
 import { addButtonLinkPasteWarning } from './addButtonLinkPasteWarning';
 import { setupCustomSidebar } from './setupCustomSidebar';
 import { setUpCssVariables } from './connectCssVariables';
@@ -48,7 +47,6 @@ registerTimelineBlock();
 registerAccordionBlock();
 
 addBlockFilters();
-addSubAndSuperscript( window.wp );
 setupImageBlockExtension();
 addButtonLinkPasteWarning();
 replaceTaxonomyTermSelectors();

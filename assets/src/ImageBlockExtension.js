@@ -75,16 +75,13 @@ const addExtraControls = function() {
         );
       }
 
-      const { captionStyle, captionAlignment } = props.attributes;
+      const { captionAlignment } = props.attributes;
 
-			props.attributes.className = '';
-
-      if ( captionStyle ) {
-      	props.attributes.className += ` caption-style-${ captionStyle }`;
-      }
-
-      if ( captionAlignment ) {
-      	props.attributes.className += ` caption-alignment-${ captionAlignment }`;
+      const updateCaptionAlignment = value => {
+        const className = props.attributes.className || '';
+        const classNameBase = className.split('caption-alignment-')[0];
+        const newClassName = classNameBase + ` caption-alignment-${ value }`;
+        props.setAttributes({ className: newClassName });
       }
 
       return (
@@ -104,11 +101,12 @@ const addExtraControls = function() {
 										value={option.value}
 										onClick={() => {
 											props.setAttributes({
-												captionAlignment: option.value,
-											});
+                        captionAlignment: option.value
+                      });
+                      updateCaptionAlignment(option.value);
 										}}
-										isPrimary={ captionAlignment == option.value }
-										isLarge isDefault>
+										isPrimary={ captionAlignment === option.value }
+										isSecondary={ captionAlignment !== option.value }>
 											{ option.label }
 									</Button>;
                 })

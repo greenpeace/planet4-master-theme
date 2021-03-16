@@ -196,6 +196,7 @@ function set_allowed_block_types( $allowed_block_types, $post ) {
 		// 'core/categories', // removed, not needed.
 		// 'core/latest-comments', // removed, not needed.
 		// 'core/latest-posts', // removed, functionality replaced by P4 article list.
+		'core/group',
 		'core/embed',
 		'core-embed/twitter',
 		'core-embed/youtube',

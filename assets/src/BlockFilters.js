@@ -35,8 +35,31 @@ const addButtonBlockFilter = () => {
     }
 
     if ( settings.name === 'core/button' ) {
+      // Override the Native button block styles and use p4 button styles.
+      const p4ButtonStyle = [
+        {
+          name: 'secondary',
+          label: 'Secondary',
+          isDefault: true
+        },
+        {
+          name: 'cta',
+          label: 'CTA'
+        },
+        {
+          name: 'donate',
+          label: 'Donate'
+        }
+      ];
+
+      const newAttributes = settings.attributes;
+      // Set button block default style.
+      newAttributes.className = Object.assign({ default: "is-style-secondary" }, newAttributes.className);
+
       lodash.assign( settings, {
         edit: P4ButtonEdit,
+        attributes: newAttributes,
+        styles: p4ButtonStyle,
       } );
     }
 
