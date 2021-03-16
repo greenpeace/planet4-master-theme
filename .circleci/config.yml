@@ -87,7 +87,7 @@ job-references:
         auth: &docker_auth
     working_directory: /home/circleci/
     environment:
-      WP_VERSION: 5.4.2
+      WP_VERSION: 5.6.2
       APP_HOSTNAME: www.planet4.test
       APP_HOSTPATH:
       CLOUDSQL_INSTANCE: p4-develop-k8s

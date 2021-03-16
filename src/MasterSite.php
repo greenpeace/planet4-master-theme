@@ -105,9 +105,11 @@ class MasterSite extends TimberSite {
 	 * Hooks the theme.
 	 */
 	protected function hooks() {
-		add_theme_support( 'post-formats' );
 		add_theme_support( 'post-thumbnails' );
 		add_theme_support( 'menus' );
+		// Disable wp5.5 Block Patterns.
+		remove_theme_support( 'core-block-patterns' );
+
 		add_post_type_support( 'page', 'excerpt' );  // Added excerpt option to pages.
 
 		add_filter( 'timber_context', [ $this, 'add_to_context' ] );
@@ -209,6 +211,9 @@ class MasterSite extends TimberSite {
 			: add_filter( 'register_block_type_args', [ $this, 'register_core_blocks_callback' ] );
 		add_action( 'admin_notices', [ $this, 'show_dashboard_notice' ] );
 		add_action( 'wp_ajax_dismiss_dashboard_notice', [ $this, 'dismiss_dashboard_notice' ] );
+
+		// Disable WordPress(WP5.5) Block Directory.
+		$this->disable_block_directory();
 
 		// Pin the ElasticPress to v3.4 search algorithm.
 		simple_value_filter( 'ep_search_algorithm_version', '3.4' );
@@ -619,18 +624,19 @@ class MasterSite extends TimberSite {
 
 		// Allow img and the following attributes.
 		$allowedposttags['img'] = [
-			'alt'    => true,
-			'class'  => true,
-			'id'     => true,
-			'height' => true,
-			'hspace' => true,
-			'name'   => true,
-			'src'    => true,
-			'srcset' => true,
-			'sizes'  => true,
-			'width'  => true,
-			'style'  => true,
-			'vspace' => true,
+			'alt'     => true,
+			'class'   => true,
+			'id'      => true,
+			'height'  => true,
+			'hspace'  => true,
+			'name'    => true,
+			'src'     => true,
+			'srcset'  => true,
+			'sizes'   => true,
+			'width'   => true,
+			'style'   => true,
+			'vspace'  => true,
+			'loading' => true,
 		];
 
 		$allowedposttags['script'] = [
@@ -1268,6 +1274,7 @@ class MasterSite extends TimberSite {
 	 * Add callback function to Gutenberg core/image block.
 	 */
 	public function p4_register_core_image_block() {
+		unregister_block_type( 'core/image' );
 		register_block_type(
 			'core/image',
 			[ 'render_callback' => [ $this, 'p4_core_image_block_render' ] ]
@@ -1382,5 +1389,25 @@ class MasterSite extends TimberSite {
 		}
 
 		wp_die( 'Notice dismissed.', 200 );
+	}
+
+	/**
+	 * Remove block directory assets and rest endpoint.
+	 */
+	public function disable_block_directory(): void {
+		remove_action( 'enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets' );
+		add_filter( 'rest_endpoints', [ $this, 'disable_block_directory_endpoint' ] );
+	}
+
+	/**
+	 * Remove block directory endpoint.
+	 *
+	 * @param array $endpoints The available endpoints.
+	 *
+	 * @return array
+	 */
+	public function disable_block_directory_endpoint( array $endpoints ): array {
+		unset( $endpoints['/wp/v2/block-directory/search'] );
+		return $endpoints;
 	}
 }
