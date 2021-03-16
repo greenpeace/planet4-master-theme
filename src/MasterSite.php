@@ -115,6 +115,8 @@ class MasterSite extends TimberSite {
 		add_action( 'init', [ $this, 'register_taxonomies' ], 2 );
 		add_action( 'init', [ $this, 'register_oembed_provider' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
+		// Load the editor scripts only enqueuing editor scripts while in context of the editor.
+		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_editor_assets' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
 		add_filter( 'safe_style_css', [ $this, 'set_custom_allowed_css_properties' ] );
 		add_filter( 'wp_kses_allowed_html', [ $this, 'set_custom_allowed_attributes_filter' ], 10, 2 );
@@ -705,6 +707,13 @@ class MasterSite extends TimberSite {
 	public function enqueue_admin_assets( $hook ) {
 		// Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
 		wp_register_script( 'jquery-3', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', [], '3.3.1', true );
+	}
+
+	/**
+	 * Add resources for the Gutenberg editor.
+	 */
+	public function enqueue_editor_assets(): void {
+		Loader::enqueue_versioned_style( 'assets/build/editorStyle.min.css' );
 	}
 
 	/**
