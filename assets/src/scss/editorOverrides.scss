@@ -1,0 +1,215 @@
+// Moved from another repo, for history please see https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blame/f5c532ed5704738136224cde305e9a0ffe614ceb/assets/src/styles/editorOverrides.scss
+.editor-post-title__block textarea.editor-post-title__input {
+  font-family: var(--headings--font-family, var(--header-primary-font, $roboto));
+  font-size: $font-size-xl;
+  line-height: 1.225;
+  margin-bottom: 30px;
+
+  @include large-and-up {
+    font-size: $font-size-xxl;
+    margin-bottom: 48px;
+  }
+  @include x-large-and-up {
+    font-size: $font-size-xxxl;
+  }
+}
+
+.edit-post-visual-editor {
+  .wp-block {
+    max-width: 90%;
+  }
+
+  li {
+    font-size: unset;
+  }
+  @include table;
+}
+
+.wp-block-image {
+  display: table;
+
+  // Mimics the behavior of WP's native '.is-resized' CSS class
+  .editor-rich-text.block-editor-rich-text {
+    display: table-caption;
+    caption-side: bottom;
+
+    figcaption {
+      display: block;
+    }
+  }
+}
+
+.components-panel__body label {
+  font-size: 13px;
+}
+
+.components-radio-control__option {
+  input.components-radio-control__input {
+    margin-right: 5px;
+  }
+
+  label {
+    margin-bottom: 0;
+  }
+}
+
+.wp-block-button .wp-block-button__link[role="textbox"] {
+  display: inline-block;
+  font-family: $roboto;
+  text-align: center;
+  text-decoration: none;
+  color: $white;
+  font-weight: bold;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  line-height: 3;
+  padding: 0 $n30;
+  appearance: none;
+  transition-property: color, background-color, border-color;
+  transition-duration: 150ms;
+  transition-timing-function: linear;
+  font-size: $font-size-sm;
+}
+
+.wp-block-button.is-style-secondary .wp-block-button__link[role="textbox"],
+[class="wp-block-button"] .wp-block-button__link[role="textbox"] {
+  background-color: var(--btn-secondary-background-color, transparentize($white, .7));
+  border-color: var(--btn-secondary-border-color, $dark-blue);
+  color: var(--btn-secondary-color, $dark-blue);
+  box-shadow: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 2px $n30;
+
+  html[dir="rtl"] & {
+    line-height: 2.5;
+  }
+}
+
+.wp-block-button.is-style-cta .wp-block-button__link[role="textbox"] {
+  background-color: var(--btn-primary-background-color, $orange);
+  border-color: var(--btn-secondary-border-color, $orange);
+  color: var(--btn-primary-color, $white);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+}
+
+.wp-block-button.is-style-donate .wp-block-button__link[role="textbox"] {
+  background-color: var(--btn-donate-background-color, $aquamarine);
+  color: var(--btn-donate-color, $grey);
+  line-height: 1.65;
+  min-width: 180px;
+  margin: 0;
+  padding: 2px $n30;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+  transition: color background-color font-weight 100ms;
+
+  .editor-styles-wrapper & {
+    min-width: auto;
+    line-height: 3;
+  }
+}
+
+.editor-rich-text__editable.wp-block-button__link:not([role="textbox"]) {
+  background-color: $white;
+  border-radius: 0;
+  border: none;
+  color: $grey-80 !important;
+}
+
+// The color picker cannot be configured to show a clear button without giving the ability to enter any color with its
+// hex code.
+// So as a workaround undo the hiding of the wrapper and hide only the text input.
+.palette-only {
+  span.wp-picker-input-wrap {
+    display: inline-block !important;
+  }
+
+  .wp-picker-input-wrap label {
+    display: none !important;
+  }
+}
+// By default the selected color is barely visible because of the white circle with check mark covering it.
+.components-color-palette__item.is-active {
+  box-shadow: inset 0 0 0 6px;
+}
+
+.edit-post-sidebar {
+  .block-editor-block-styles + .components-base-control {
+    display: none;
+  }
+
+  // By default all but the first .component-base-control have margin-bottom, causing weird spacing.
+  .components-base-control {
+    margin-bottom: 0;
+
+    .components-base-control__label {
+      font-weight: bold;
+    }
+  }
+}
+
+.edit-post-visual-editor .editor-block-list__block-edit,
+.edit-post-visual-editor {
+  font-family: var(--body-font, "Noto Serif");
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--headings--font-family, var(--header-primary-font, $roboto));
+  }
+}
+
+.edit-post-sidebar-header > .components-icon-button.is-toggled {
+  display: none !important;
+}
+
+#icl_div_config {
+  display: none !important;
+}
+
+input.describe[type=text][data-setting=caption] {
+  pointer-events: none;
+}
+
+.InlineToggleControl {
+  .components-toggle-control {
+    display: flex;
+
+    .components-base-control__field {
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.p4-plugin-pre-publish-panel-error {
+  background-color: #f9e2e2 !important;
+}
+
+.cmb2_required_field_error {
+  border-color: $dark-orange !important;
+}
+
+.input_error {
+  font-family: $roboto;
+  font-size: 13px;
+  color: red;
+}
+
+.wp-embed-responsive .block-editor {
+  .wp-block-embed.wp-has-aspect-ratio .wp-block-embed__wrapper::before {
+    content: none;
+  }
+}
+
+// Sidebar help texts
+.components-base-control__help,
+.components-form-token-field__help,
+.sidebar-blocks-help ul li,
+.FieldHelp {
+  font-size: 13px;
+  line-height: 1.5;
+}
