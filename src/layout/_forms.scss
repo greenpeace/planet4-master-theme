@@ -179,6 +179,10 @@ input[type="email"].form-control {
 .form-select {
   height: 48px;
 
+  html[dir="rtl"] & {
+    background-position: left 0.75rem center;
+  }
+
   &:invalid {
     color: $grey-40;
   }
