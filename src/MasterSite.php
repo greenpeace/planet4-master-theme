@@ -654,11 +654,11 @@ class MasterSite extends TimberSite {
 		];
 
 		// Allow below tags for carousel slider.
-		$allowedposttags['div']['data-ride']    = true;
-		$allowedposttags['li']['data-target']   = true;
-		$allowedposttags['li']['data-slide-to'] = true;
-		$allowedposttags['a']['data-slide']     = true;
-		$allowedposttags['span']['aria-hidden'] = true;
+		$allowedposttags['div']['data-bs-ride']    = true;
+		$allowedposttags['li']['data-bs-target']   = true;
+		$allowedposttags['li']['data-bs-slide-to'] = true;
+		$allowedposttags['a']['data-bs-slide']     = true;
+		$allowedposttags['span']['aria-hidden']    = true;
 
 		// Allow below tags for spreadsheet block.
 		$allowedposttags['input'] = [

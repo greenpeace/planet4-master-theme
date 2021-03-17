@@ -6,7 +6,7 @@
 					<li>
 						<a href="{{ social.url }}">
 							{{ social.icon|svgicon }}
-							<span class="sr-only">{{ social.icon }}</span>
+							<span class="visually-hidden">{{ social.icon }}</span>
 						</a>
 					</li>
 				{% endfor %}
@@ -24,7 +24,7 @@
 						{% set social_url = social.url %}
 						<a href="{{ social_url }}">
 							{{ name|svgicon }}
-							<span class="sr-only">{{ social.title }}</span>
+							<span class="visually-hidden">{{ social.title }}</span>
 						</a>
 					</li>
 				{% endfor %}

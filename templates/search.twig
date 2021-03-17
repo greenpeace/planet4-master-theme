@@ -67,8 +67,8 @@
 											<div class="col-9">
 												<h4 class="modal-title">{{ __( 'Refine your search', 'planet4-master-theme' ) }}</h4>
 											</div>
-											<div class="col-3 text-right">
-												<button type="button" class="closebtn" data-dismiss="modal">
+											<div class="col-3 text-end">
+												<button type="button" class="closebtn" data-bs-dismiss="modal">
 													{{ 'times'|svgicon }}
 												</button>
 											</div>
@@ -78,7 +78,7 @@
 												<div id="filter-sidebar-options-modal">
 													{% if ( categories|length > 0 ) %}
 														<div class="filteritem">
-															<a data-toggle="collapse" href="#item-modal-issue" aria-expanded="true">
+															<a data-bs-toggle="collapse" href="#item-modal-issue" aria-expanded="true">
 																{{ __( 'ISSUE', 'planet4-master-theme' ) }} <span></span>
 															</a>
 															<div id="item-modal-issue" class="collapse show" role="tabpanel">
@@ -107,7 +107,7 @@
 													{% endif %}
 													{% if ( page_types|length > 0 ) %}
 														<div class="filteritem">
-															<a data-toggle="collapse" href="#item-modal-category" aria-expanded="true">
+															<a data-bs-toggle="collapse" href="#item-modal-category" aria-expanded="true">
 																{{ __( 'CATEGORY', 'planet4-master-theme' ) }} <span></span>
 															</a>
 															<div id="item-modal-category" class="collapse show" role="tabpanel">
@@ -136,7 +136,7 @@
 													{% endif %}
 													{% if ( content_types|length > 0 ) %}
 														<div class="filteritem">
-															<a data-toggle="collapse" href="#item-modal-content" aria-expanded="true">
+															<a data-bs-toggle="collapse" href="#item-modal-content" aria-expanded="true">
 																{{ __( 'CONTENT TYPES', 'planet4-master-theme' ) }} <span></span>
 															</a>
 															<div id="item-modal-content" class="collapse show" role="tabpanel">
@@ -168,7 +168,7 @@
 											<div class="col-md-6">
 												{% if ( tags|length > 0 ) %}
 													<div class="filteritem">
-														<a data-toggle="collapse" href="#item-modal-campaign" aria-expanded="true">
+														<a data-bs-toggle="collapse" href="#item-modal-campaign" aria-expanded="true">
 															{{ __( 'CAMPAIGN', 'planet4-master-theme' ) }} <span></span>
 														</a>
 														<div id="item-modal-campaign" class="collapse show" role="tabpanel">
@@ -196,7 +196,7 @@
 											</div>
 										</div>
 										<div class="btnact">
-											<button type="button" class="btn btn-action btn-small cancelbtn" data-dismiss="modal">{{ __( 'Cancel', 'planet4-master-theme' ) }}</button>
+											<button type="button" class="btn btn-action btn-small cancelbtn" data-bs-dismiss="modal">{{ __( 'Cancel', 'planet4-master-theme' ) }}</button>
 											<button type="button" class="btn btn-primary btn-small applybtn">{{ __( 'Apply filters', 'planet4-master-theme' ) }}</button>
 										</div>
 									</div>
@@ -222,7 +222,7 @@
 							{% endif %}
 							{% if ( categories|length > 0 ) %}
 								<div class="filteritem">
-									<a data-toggle="collapse" href="#item-issue" aria-expanded="true">
+									<a data-bs-toggle="collapse" href="#item-issue" aria-expanded="true">
 										{{ __( 'Issue', 'planet4-master-theme' ) }} <span></span>
 									</a>
 									<div id="item-issue" class="collapse show" role="tabpanel">
@@ -249,7 +249,7 @@
 							{% endif %}
 							{% if ( tags|length > 0 ) %}
 								<div class="filteritem">
-									<a data-toggle="collapse" href="#item-campaign" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
+									<a data-bs-toggle="collapse" href="#item-campaign" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
 										{{ __( 'Campaign', 'planet4-master-theme' ) }} <span></span>
 									</a>
 									<div id="item-campaign" class="collapse {{ show }}" role="tabpanel">
@@ -275,7 +275,7 @@
 							{% endif %}
 							{% if ( page_types|length > 0 ) %}
 								<div class="filteritem">
-									<a data-toggle="collapse" href="#item-category" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
+									<a data-bs-toggle="collapse" href="#item-category" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
 										{{ __( 'Category', 'planet4-master-theme' ) }} <span></span>
 									</a>
 									<div id="item-category" class="collapse {{ show }}" role="tabpanel">
@@ -302,7 +302,7 @@
 							{% endif %}
 							{% if ( content_types|length > 0 ) %}
 								<div class="filteritem">
-									<a data-toggle="collapse" href="#item-content" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
+									<a data-bs-toggle="collapse" href="#item-content" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
 										{{ __( 'Content type', 'planet4-master-theme' ) }} <span></span>
 									</a>
 									<div id="item-content" class="collapse {{ show }}" role="tabpanel">
@@ -333,11 +333,11 @@
 				<div class="col-lg-8">
 					<div class="result-area">
 						<div class="sort-filter clearfix">
-							<div class="float-right">
-								<label class="mr-sm-2" for="select_order">{{ __('Sort by', 'planet4-master-theme' ) }}</label>
+							<div class="select-container">
+								<label for="select_order">{{ __('Sort by', 'planet4-master-theme' ) }}</label>
 								<select
 										id="select_order"
-										class="form-control"
+										class="form-select"
 										name="select_order"
 										data-ga-category="Search Page"
 										data-ga-action="Sort By Filter"
