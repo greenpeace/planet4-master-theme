@@ -56,8 +56,8 @@ export const FullWidthCarouselHeader = {
 
       // Populate carousel indicators list
       $('<li>')
-        .attr('data-target', '#carousel-wrapper-header')
-        .attr('data-slide-to', i)
+        .attr('data-bs-target', '#carousel-wrapper-header')
+        .attr('data-bs-slide-to', i)
         .toggleClass('active', i === 0)
         .appendTo(me.$CarouselIndicators);
 
@@ -70,7 +70,7 @@ export const FullWidthCarouselHeader = {
         .css('background-position', $img.data('background-position'));
 
       // Populate carousel slide index
-      $slide.attr('data-slide', i);
+      $slide.attr('data-bs-slide', i);
     });
 
     // Bind mouse interaction events

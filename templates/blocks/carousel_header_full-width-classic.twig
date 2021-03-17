@@ -21,7 +21,7 @@
 					{% else %}
 						{% set css_class = 'carousel-item' %}
 					{% endif %}
-					<div class="{{ css_class }}" data-slide="{{ i }}">
+					<div class="{{ css_class }}" data-bs-slide="{{ i }}">
 						<div class="carousel-item-mask">
 							<div class="background-holder">
 								{% if slide.image %}
@@ -68,13 +68,13 @@
 
 		</div>
 		{% if fields.total_images > 1 %}
-			<a class="carousel-control-prev" href="#carousel-wrapper-header" role="button" data-slide="prev">
+			<a class="carousel-control-prev" href="#carousel-wrapper-header" role="button" data-bs-slide="prev">
 				<span class="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
-				<span class="sr-only">Prev</span>
+				<span class="visually-hidden">Prev</span>
 			</a>
-			<a class="carousel-control-next" href="#carousel-wrapper-header" role="button" data-slide="next">
+			<a class="carousel-control-next" href="#carousel-wrapper-header" role="button" data-bs-slide="next">
 				<span class="carousel-control-next-icon" aria-hidden="true"><i></i></span>
-				<span class="sr-only">Next</span>
+				<span class="visually-hidden">Next</span>
 			</a>
 		{% endif %}
 	</div>

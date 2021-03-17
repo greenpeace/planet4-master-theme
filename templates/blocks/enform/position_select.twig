@@ -2,7 +2,7 @@
 	<div class="en__field--{{ data.id }} en__field--{{ data.name }}">
 		<select id="en__field_supporter_{{ field.name }}"
 			name="supporter.{{ field.property }}"
-			class="en__field__input en__field__input--select en_select_position form-control"
+			class="en__field__input en__field__input--select en_select_position form-select"
 			data-errormessage="{{ errorMessage }}"
 			{{ 'true' == field.required ? 'required' : '' }}>
 			<option value="" selected="selected" disabled={{ field.required == 'true' }}>{{ __( 'Select Affiliation, Position or Profession', 'planet4-engagingnetworks' ) }}{{ 'true' == field.required ? '*' : '' }}</option>

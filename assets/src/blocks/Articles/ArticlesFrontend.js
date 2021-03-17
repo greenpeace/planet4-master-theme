@@ -39,7 +39,7 @@ export const ArticlesFrontend = (props) => {
         { hasMorePages &&
         <div className="row">
           { read_more_link ?
-            <div className="col-md-12 col-lg-5 col-xl-5 mr-auto">
+            <div className="col-md-12 col-lg-5 col-xl-5">
               <a
                 className="btn btn-secondary btn-block article-load-more"
                 href={ read_more_link }
