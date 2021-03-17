@@ -82,7 +82,7 @@
 
 								<div class="card">
 									<a class="card-header {{ loop.index>1 ? 'collapsed' : '' }}" role="tab" id="heading-{{ number_to_word }}"
-									   data-toggle="collapse" data-target=".card-header:hover + #collapse-{{ number_to_word }}"
+									   data-bs-toggle="collapse" data-bs-target=".card-header:hover + #collapse-{{ number_to_word }}"
 									   href="#collapse-{{ number_to_word }}"
 									   aria-expanded="true"
 									   aria-controls="collapse-{{ number_to_word }}"
@@ -112,7 +112,7 @@
 									{% endif %}
 
 									<div id="collapse-{{ number_to_word }}" class="{{ collapse_class }}"
-										 data-parent="#accordion" role="tabpanel"
+										 data-bs-parent="#accordion" role="tabpanel"
 										 aria-labelledby="heading-{{ number_to_word }}">
 										<div class="card-block info-with-image-wrap clearfix">
 											<div class="mobile-accordion-info">

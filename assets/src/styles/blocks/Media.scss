@@ -40,30 +40,13 @@
   height: 100%;
 }
 
-.video-embed, .wp-block-embed-youtube, .wp-block-embed-vimeo, .wp-block-embed-dailymotion, .wp-block-embed-kickstarter {
+.wp-block-embed-youtube, .wp-block-embed-vimeo, .wp-block-embed-dailymotion, .wp-block-embed-kickstarter {
   margin-top: $space-xs;
   margin-bottom: $space-md;
-
-  @include  small-and-up {
-    max-width: 360px;
-    max-height: 202px;
-  }
-
-  @include medium-and-up {
-    max-width: 690px;
-    max-height: 388px;
-  }
 
   @include large-and-up {
     margin-top: $space-md;
     margin-bottom: $space-lg;
-    max-width: 930px;
-    max-height: 523px;
-  }
-
-  @include x-large-and-up {
-    max-width: 100%;
-    max-height: 615px;
   }
 }
 

@@ -166,13 +166,12 @@ export class SpreadsheetFrontend extends Component {
     return (
       <Fragment>
         <section className="block block-spreadsheet" style={{ cssText: toDeclarations( this.props.css_variables ) }}>
-          <div className="form-inline">
-            <input className="spreadsheet-search form-control"
-              type="text"
-              value={ this.state.searchText }
-              onChange={ event => this.setState({ searchText: event.target.value }) }
-              placeholder={ __('Search data', 'planet4-blocks') } />
-          </div>
+          <input className="spreadsheet-search form-control"
+            type="text"
+            value={ this.state.searchText }
+            onChange={ event => this.setState({ searchText: event.target.value }) }
+            placeholder={ __('Search data', 'planet4-blocks') }
+          />
           <div className="table-wrapper">
             <table className="spreadsheet-table">
               <thead>
