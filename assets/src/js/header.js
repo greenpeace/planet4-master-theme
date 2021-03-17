@@ -10,16 +10,16 @@ export const setupHeader = function($) {
     evt.stopPropagation();
 
     const $button = $(this);
-    const target = $button.data('target');
+    const target = $button.data('bs-target');
     if (!target) {
-      throw new Error('Missing `data-target` attribute: specify the container to be toggled');
+      throw new Error('Missing `data-bs-target` attribute: specify the container to be toggled');
     }
-    const toggleClass = $button.data('toggle');
+    const toggleClass = $button.data('bs-toggle');
     if (!toggleClass) {
-      throw new Error('Missing `data-toggle` attribute: specify the class to toggle');
+      throw new Error('Missing `data-bs-toggle` attribute: specify the class to toggle');
     }
 
-    // Toggle visibility of the target specified via data-target.
+    // Toggle visibility of the target specified via data-bs-target.
     $(target).toggleClass(toggleClass);
     $(this).toggleClass(toggleClass);
 
@@ -38,7 +38,7 @@ export const setupHeader = function($) {
     const clickedElement = evt.target;
     $('button[aria-expanded="true"]').each(function(i, button) {
       const $button = $(button);
-      const buttonTarget = $($button.data('target')).get( 0 );
+      const buttonTarget = $($button.data('bs-target')).get( 0 );
       if (buttonTarget && ! $.contains(buttonTarget, clickedElement)) {
         // Spoof a click on the open menu's toggle to close that menu.
         $button.trigger('click');

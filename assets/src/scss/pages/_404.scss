@@ -26,14 +26,15 @@
 
     .search-form {
       padding-top: 10px;
+      position: relative;
 
       .search-form-btn {
         background: none;
         border: none;
         font-size: 20px;
         position: absolute;
-        right: 15px;
-        top: 38px;
+        right: 6px;
+        top: 13px;
       }
     }
 

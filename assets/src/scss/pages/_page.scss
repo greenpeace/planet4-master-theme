@@ -19,6 +19,10 @@ div.page-template {
     width: 1140px;
   }
 
+  @media (min-width: 1400px) {
+    width: 1320px;
+  }
+
   .container {
     padding-left: 0;
     padding-right: 0;

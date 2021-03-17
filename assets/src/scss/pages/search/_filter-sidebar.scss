@@ -115,6 +115,11 @@
     margin-top: 29px;
     z-index: 2;
 
+    html[dir="rtl"] & {
+      right: 0;
+      left: auto;
+    }
+
     @include small-and-up {
       margin-top: -14px;
     }
