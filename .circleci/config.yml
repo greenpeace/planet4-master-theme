@@ -37,9 +37,6 @@ workflows:
               only: /^v\p{Digit}+\.\p{Digit}+.*/
 
 job-references:
-  mysql_image: &mysql_image
-    circleci/mysql:5.7
-
   docker_auth: &docker_auth
     username: $DOCKERHUB_USERNAME
     password: $DOCKERHUB_PASSWORD
@@ -87,9 +84,9 @@ job-references:
         auth: &docker_auth
     working_directory: /home/circleci/
     environment:
-      WP_VERSION: 5.6.2
       APP_HOSTNAME: www.planet4.test
       APP_HOSTPATH:
+      APP_ENVIRONMENT: development
       CLOUDSQL_INSTANCE: p4-develop-k8s
       CONTAINER_PREFIX: planet4-base
       GOOGLE_PROJECT_ID: planet-4-151612
@@ -157,10 +154,6 @@ commands:
           path: planet4-docker-compose/artifacts
       - store_artifacts:
           path: planet4-docker-compose/artifacts
-      - run:
-          name: Build - Notify failure
-          when: on_fail
-          command: notify-job-failure.sh
 
 jobs:
   php73-tests:
@@ -168,7 +161,7 @@ jobs:
     docker:
       - image: greenpeaceinternational/p4-unit-tests:php7.3
         auth: &docker_auth
-      - image: *mysql_image
+      - image: circleci/mysql:5.7.26
         auth: &docker_auth
 
   frontend-tests:
