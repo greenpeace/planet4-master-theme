@@ -48,25 +48,15 @@
     font-family: $roboto;
     line-height: 1.4;
     margin-bottom: 0;
-  }
-
-  &.caption-style-medium, &.caption-style-blue-overlay {
-    figcaption {
-      color: $grey-60;
-    }
-  }
-}
-
-figcaption {
-  .caption-alignment-left & {
-    text-align: left;
-  }
-
-  .caption-alignment-center & {
+    color: $grey-60;
     text-align: center;
   }
 
-  .caption-alignment-right & {
+  &.caption-alignment-left figcaption {
+    text-align: left;
+  }
+
+  &.caption-alignment-right figcaption {
     text-align: right;
   }
 }
