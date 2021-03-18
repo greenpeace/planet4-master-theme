@@ -93,7 +93,7 @@ export const FullWidthCarouselHeader = {
     me.$CarouselHeaderWrapper.on('click', '.carousel-indicators li', function (evt) {
       evt.preventDefault();
       me.cancelAutoplayInterval();
-      me.activate($(evt.target).data('slide-to'));
+      me.activate($(evt.target).data('bs-slide-to'));
     });
 
     /* Carousel header swipe on mobile */
