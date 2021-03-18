@@ -44,6 +44,20 @@
     opacity: .5;
     cursor: default;
   }
+
+  &.has-background {
+    border-color: transparent !important;
+  }
+
+  &.has-grey-80-color {
+    color: $grey-80 !important;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: $grey-80 !important;
+    }
+  }
 }
 
 .btn-small {
@@ -87,23 +101,6 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 40px;
-  width: 100%;
-
-  @include medium-and-up {
-    margin-bottom: 40px;
-    width: 50%;
-  }
-
-  @include large-and-up {
-    margin-bottom: 0;
-    width: 80%;
-  }
-
-  @include x-large-and-up {
-    margin-bottom: 0;
-    width: 60%;
-  }
 
   &:visited {
     color: $dark-blue;

@@ -48,6 +48,12 @@ h5,
 h6 {
   font-family: $roboto;
   font-weight: bold;
+
+  &.has-text-align-center,
+  &.has-text-align-right,
+  &.has-text-align-left {
+    width: 100%;
+  }
 }
 
 h1 {

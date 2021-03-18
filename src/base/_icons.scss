@@ -121,6 +121,21 @@ a.external-link {
     }
   }
 
+  // Button block, text color manually set
+  .wp-block-button a.has-text-color.pdf-link {
+    &::before,
+    &:hover::before {
+      background-color: $white;
+    }
+
+    &.has-grey-80-color {
+      &::before,
+      &:hover::before {
+        background-color: $grey-80;
+      }
+    }
+  }
+
   a.external-link {
     &::after {
       background-image: none;
