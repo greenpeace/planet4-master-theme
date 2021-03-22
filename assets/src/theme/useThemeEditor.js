@@ -50,20 +50,21 @@ const dropProps = (fromState, toState, previewProps, previewPseudoVars) => {
 
 const ACTIONS = {
   SET: (state, { name, value }) => {
+    const { theme } = state;
     // In case this action is dispatched but the value doesn't change,
-    const isActualSet = state.theme[name] !== value;
+    const isActualSet = theme[name] !== value;
 
-    const shouldAddEntry = isActualSet && !state.lastSet[name] || Date.now() - state.lastSet[name] > 700;
-    console.log( shouldAddEntry, state.lastSet);
+    if (theme[name] === value) {
+      return state;
+    }
+
+    const shouldAddEntry = !state.lastSet[name] || Date.now() - state.lastSet[name] > 700;
 
     return {
       ...state,
       theme: { ...state.theme, [name]: value },
       history: !shouldAddEntry ? state.history : pushHistory(state.history, state.theme),
-      lastSet: !isActualSet ? state.lastSet : {
-        ...state.lastSet,
-        [name]: Date.now(),
-      }
+      lastSet: { ...state.lastSet, [name]: Date.now(), }
     };
   },
   UNSET: (state, { name }) => {
@@ -200,7 +201,11 @@ const ACTIONS = {
   }
 };
 
-// export const THEME_ACTIONS = Object.keys(ACTIONS).reduce((t, k) => ({ ...t, [k]: k }), {});
+// Experimenting with exporting the reducers themselves as ACTION keys. If you pass a function to the "main" reducer,
+// it will use the name of the function to locate the action. This has some benefits: no need to have a separate ACTIONS
+// constant each time you want to use a reducer, and need to update it each time you add a new action. It also makes it
+// easier to navigate from the dispatch directly to the function that handles it. This can be easily switched back to
+// strings if needed by changing the import only.
 export const THEME_ACTIONS = ACTIONS;
 
 function reducer(state, { type, payload }) {
@@ -259,6 +264,49 @@ const getAllDefaultValues = allVars => {
   };
 };
 
+const applyPseudoPreviews = (defaultValues, resolvedValues, previewPseudoVars) =>
+  Object.keys(defaultValues).reduce((values, k) => {
+
+    const withoutProperty = k.replace(PROP_REGEX, '').replace(/-+$/, '');
+    let elementState = previewPseudoVars[withoutProperty + '--'];
+
+    if (!elementState) {
+      return values;
+    }
+
+    elementState = elementState.replace(/-/g, '');
+    const propName = (k.match(PROP_REGEX) || [null])[0];
+
+    const varToPreview = Object.keys(defaultValues).find(k => {
+      const lastPart =
+        k
+          .replace(withoutProperty, '')
+          .replace(/^-+/, '');
+      
+      if (!lastPart.startsWith(elementState)) {
+        return false;
+      }
+      const defaultProperty =
+        lastPart
+          .replace(`${ elementState }--`, '')
+          .replace(/^-+/, '');
+
+      return defaultProperty === propName;
+    });
+
+    if (!varToPreview) {
+      return values;
+    }
+
+    const tmpValue = values[varToPreview] || defaultValues[varToPreview];
+
+    // Set the regular property to what the pseudo element's value is.
+    return {
+      ...values,
+      [k]: tmpValue,
+    };
+  }, resolvedValues)
+
 export const useThemeEditor = (
   {
     initialState = DEFAULT_STATE,
@@ -286,40 +334,7 @@ export const useThemeEditor = (
 
   const withPseudoPreviews = previewPseudoVars.length === 0
     ? resolvedValues
-    : Object.keys(defaultValues).reduce((values, k) => {
-
-      const withoutProperty = k.replace(PROP_REGEX, '').replace(/-+$/, '');
-
-      let elementState = previewPseudoVars[withoutProperty + '--'];
-
-      if (!elementState) {
-        return values;
-      }
-      elementState = elementState.replace(/-/g, '')
-      const propName = (k.match(PROP_REGEX) || [null])[0];
-
-      const varToPreview = Object.keys(defaultValues).find(k => {
-        const lastPart = k.replace(withoutProperty, '').replace(/^-+/, '');
-        if (!lastPart.startsWith(elementState)) {
-          return false;
-        }
-        const defaultProperty = lastPart.replace(`${ elementState }--`, '').replace(/^-+/, '');
-
-        return defaultProperty === propName;
-      });
-
-      if (!varToPreview) {
-        return values;
-      }
-
-      const tmpValue = values[varToPreview] || defaultValues[varToPreview];
-
-      // Set the regular property to what the pseudo element's value is.
-      return {
-        ...values,
-        [k]: tmpValue,
-      };
-    }, resolvedValues);
+    : applyPseudoPreviews(defaultValues, resolvedValues, previewPseudoVars);
 
   useEffect(() => {
     processRemovals(defaultValues);
