@@ -4,10 +4,51 @@ import { colorToState } from './colorToState';
 import { THEME_ACTIONS, useThemeEditor } from './useThemeEditor';
 import { whileHoverHighlight } from './highlight';
 import { exportCss, exportJson } from './export';
+import { fetchJson } from '../functions/fetchJson';
+import { addQueryArgs } from '../functions/addQueryArgs';
 
 export const LOCAL_STORAGE_KEY = 'p4-theme';
 
 const byName = (a, b) => a.name > b.name ? 1 : (a.name === b.name ? 0 : -1);
+
+const uploadTheme = async (name, theme) => {
+  return wp.apiFetch({
+    path: 'planet4/v1/add-theme/',
+    method: 'POST',
+    data: {
+      name,
+      theme,
+    }
+  });
+}
+
+const deleteTheme = async (name) => {
+  return wp.apiFetch({
+    path: 'planet4/v1/delete-theme/',
+    method: 'POST',
+    data: {
+      name,
+    }
+  });
+}
+
+const useServerThemes = (refresh) => {
+  const [serverThemes, setServerThemes] = useState([]);
+  useEffect(() => {
+    const doApiCall = async () => {
+      const themes = await wp.apiFetch({
+        path: 'planet4/v1/themes/',
+        method: 'GET',
+      });
+      setServerThemes(themes);
+    }
+    doApiCall();
+  }, [refresh]);
+
+  return [
+    serverThemes,
+  ];
+}
 
 export const VarPicker = (props) => {
   const {
@@ -87,6 +128,10 @@ export const VarPicker = (props) => {
 
   const [fileName, setFileName] = useState('');
 
+  const [themesDirty, setThemesDirty] = useState(false);
+
+  const [serverThemes] = useServerThemes(themesDirty);
+
   return <div
     className='var-picker'
   >
@@ -111,6 +156,30 @@ export const VarPicker = (props) => {
       <input type="checkbox" readOnly checked={ shouldGroup }/>
       { 'Group last clicked element' }
     </label> }
+    { !!serverThemes && <ul>
+      {Object.entries(serverThemes).map(([name, serverTheme]) => <li
+        style={{height: '32px', marginBottom: '4px', clear: 'both', background: fileName === name ? 'green' : 'white'}}
+      >
+        {name}
+        <button
+          style={{float: 'right'}}
+          onClick={ async () => {
+            if (!confirm('Delete theme from server?')) {
+              return;
+            }
+            await deleteTheme(name);
+            setThemesDirty(!themesDirty);
+          }}
+        >Delete</button>
+        <button
+          style={{float: 'right'}}
+          onClick={() => {
+            setFileName(name);
+            dispatch({ type: THEME_ACTIONS.LOAD_THEME, payload: { theme: serverTheme } });
+          }}
+        >Switch</button>
+      </li>)}
+    </ul>}
     { !collapsed && <div
       title='Click and hold to drag'
       className="themer-controls">
@@ -124,9 +193,19 @@ export const VarPicker = (props) => {
         >CSS
         </button>
         <label style={{fontSize: '12px'}}>
-          <input style={ { width: '130px' } } placeholder='theme' type="text"
+          <input value={fileName} style={ { width: '130px' } } placeholder='theme' type="text"
                  onChange={ event => setFileName(event.target.value) }/>
         </label>
+        <button
+          style={{clear: 'both'}}
+          disabled={!fileName || Object.keys(theme).length === 0}
+          onClick={ async () => {
+            await uploadTheme(fileName, theme);
+            setThemesDirty(!themesDirty);
+          }}
+        >
+          Upload to server
+        </button>
       </div>
       <div>
         <label

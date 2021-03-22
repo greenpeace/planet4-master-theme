@@ -252,6 +252,68 @@ class Rest_Api {
 				],
 			]
 		);
+
+		register_rest_route(
+			self::REST_NAMESPACE,
+			'add-theme',
+			[
+				[
+					'permission_callback' => static function () {
+						return is_user_logged_in();
+					},
+					'methods'             => WP_REST_Server::CREATABLE,
+					'callback'            => static function ( WP_REST_Request $request ) {
+						$payload = $request->get_json_params();
+
+						$current_themes = json_decode( get_option( 'planet4_themes' ), true ) ?? [];
+
+						$current_themes[ $payload['name'] ] = $payload['theme'];
+						update_option( 'planet4_themes', wp_json_encode( $current_themes ) );
+
+						return new \WP_REST_Response( 'Theme added', 200 );
+					},
+				],
+			]
+		);
+
+		register_rest_route(
+			self::REST_NAMESPACE,
+			'delete-theme',
+			[
+				[
+					'permission_callback' => static function () {
+						return is_user_logged_in();
+					},
+					'methods'             => WP_REST_Server::CREATABLE,
+					'callback'            => static function ( WP_REST_Request $request ) {
+						$payload = $request->get_json_params();
+
+						$current_themes = json_decode( get_option( 'planet4_themes' ), true ) ?? [];
+						unset( $current_themes[ $payload['name'] ] );
+						update_option( 'planet4_themes', wp_json_encode( $current_themes ) );
+
+						return new \WP_REST_Response( 'Theme deleted', 200 );
+					},
+				],
+			]
+		);
+
+		register_rest_route(
+			self::REST_NAMESPACE,
+			'themes',
+			[
+				[
+					'permission_callback' => static function () {
+						return true;
+					},
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => static function ( WP_REST_Request $request ) {
+						return new \WP_REST_Response( json_decode( get_option( 'planet4_themes', '[]' ) ), 200 );
+					},
+				],
+			]
+		);
+
 	}
 
 	/**

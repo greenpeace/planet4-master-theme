@@ -415,7 +415,11 @@ final class Loader {
 			self::enqueue_local_script(
 				'theme-editor',
 				'assets/build/themeEditor.js',
-				[ 'wp-components' ],
+				[
+					'wp-components',
+					'wp-url',
+					'wp-api-fetch',
+				],
 				false
 			);
 		}
