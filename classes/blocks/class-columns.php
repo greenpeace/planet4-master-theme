@@ -32,52 +32,9 @@ class Columns extends Base_Block {
 	const MAX_COLUMNS     = 4;
 
 	/**
-	 * Register shortcake shortcode.
-	 *
-	 * @param array  $attributes Shortcode attributes.
-	 * @param string $content   Content.
-	 *
-	 * @return mixed
-	 */
-	public function add_block_shortcode( $attributes, $content ) {
-		$columns = [];
-		for ( $i = 1; $i <= static::MAX_COLUMNS; $i++ ) {
-			if ( ! empty( $attributes[ 'title_' . $i ] ) ) {
-				$column = [
-					'title'        => $attributes[ 'title_' . $i ] ?? '',
-					'description'  => $attributes[ 'description_' . $i ] ?? '',
-					'attachment'   => $attributes[ 'attachment_' . $i ] ?? '',
-					'cta_text'     => $attributes[ 'cta_text_' . $i ] ?? '',
-					'cta_link'     => $attributes[ 'link_' . $i ] ?? '',
-					'link_new_tab' => $attributes[ 'link_new_tab_' . $i ] ?? '',
-				];
-
-				array_push( $columns, $column );
-			}
-		}
-
-		$attributes['columns'] = $columns;
-
-		$attributes = shortcode_atts(
-			[
-				'columns_block_style' => '',
-				'columns_title'       => '',
-				'columns_description' => '',
-				'columns'             => [],
-			],
-			$attributes,
-			'shortcake_columns'
-		);
-
-		return $this->render( $attributes );
-	}
-
-	/**
 	 * Columns constructor.
 	 */
 	public function __construct() {
-		add_shortcode( 'shortcake_columns', [ $this, 'add_block_shortcode' ] );
-
 		register_block_type(
 			self::get_full_block_name(),
 			[
@@ -127,83 +84,11 @@ class Columns extends Base_Block {
 	}
 
 	/**
-	 * Get all the data that will be needed to render the block correctly.
+	 * Required by the `Base_Block` class.
 	 *
-	 * @param array $attributes This is the array of fields of this block.
-	 *
-	 * @return array The data to be passed in the View.
+	 * @param array $fields Unused, required by the abstract function.
 	 */
-	public function prepare_data( $attributes ): array {
-		// Fallback to avoid notices when block doesn't have this.
-		$columns_block_style = $attributes['columns_block_style'] ?? static::LAYOUT_NO_IMAGE;
-
-		$fields = [
-			'columns_block_style' => $columns_block_style,
-			'columns_title'       => $attributes['columns_title'] ?? '',
-			'columns_description' => $attributes['columns_description'] ?? '',
-		];
-
-		// Only show columns that have a title or a description.
-		$columns = array_filter(
-			$attributes['columns'],
-			static function ( array $column ) {
-				return ! empty( $column['title'] ) || ! empty( $column['description'] );
-			}
-		);
-
-		$columns = array_slice( $columns, 0, self::MAX_COLUMNS );
-
-		// Used to determine how many columns were set in the backend for this shortcode.
-		$number_columns = count( $columns );
-
-		// Store the block attributes as expected by the twig template, old block style.
-		$fields['no_of_columns'] = $number_columns;
-
-		// Define the image size that will be used, based on layout chosen and number of columns.
-		if ( static::LAYOUT_NO_IMAGE !== $columns_block_style ) {
-			$image_size = self::get_image_size( $columns_block_style, $number_columns );
-
-			foreach ( $columns as $key => $column ) {
-				if ( empty( $column['attachment'] ) ) {
-					continue;
-				}
-				[ $img_src ] = wp_get_attachment_image_src( $column['attachment'], $image_size );
-
-				$columns[ $key ]['attachment'] = $img_src;
-			}
-		}
-
-		$fields['columns'] = $columns;
-
-		// enqueue script that equalizes the heights of the titles of the blocks.
-		if ( ! $this->is_rest_request() ) {
-			\P4GBKS\Loader::enqueue_local_script( 'column-headers', 'public/js/columns.js', [ 'jquery' ] );
-		}
-
-		$block_data = [
-			'fields'              => $fields,
-			'available_languages' => P4GBKS_LANGUAGES,
-		];
-
-		return $block_data;
-	}
-
-	/**
-	 * Which image size should be used for a combination of layout style and number of columns?
-	 *
-	 * @param string $columns_block_style The columns style that was picked for the block.
-	 * @param int    $number_columns The total number of columns in the block.
-	 * @return string The image size.
-	 */
-	private static function get_image_size( string $columns_block_style, int $number_columns ): string {
-		if ( in_array( $columns_block_style, [ self::LAYOUT_TASKS, self::LAYOUT_IMAGES ], true ) ) {
-			if ( $number_columns >= 2 ) {
-				return 'articles-medium-large';
-			}
-
-			return 'large';
-		}
-
-		return 'thumbnail';
+	public function prepare_data( $fields ): array {
+		return [];
 	}
 }
