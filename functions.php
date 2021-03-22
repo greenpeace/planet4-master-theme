@@ -132,6 +132,16 @@ add_action(
 	1
 );
 
+/**
+ * Hide core updates notification in the dashboard, to avoid confusion while an upgrade is already in progress.
+ */
+function hide_wp_update_nag() {
+	remove_action( 'admin_notices', 'update_nag', 3 );
+	remove_filter( 'update_footer', 'core_update_footer' );
+}
+
+add_action( 'admin_menu', 'hide_wp_update_nag' );
+
 require_once 'load-class-aliases.php';
 
 Loader::get_instance();
