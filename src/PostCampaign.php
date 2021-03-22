@@ -15,6 +15,7 @@ class PostCampaign {
 	const DEFAULT_NAVBAR_THEME = 'planet4';
 
 	public const META_FIELDS = [
+		'p4_campaign_name',
 		'theme',
 		'campaign_logo',
 		'campaign_logo_color',
