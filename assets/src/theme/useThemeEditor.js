@@ -189,6 +189,7 @@ const ACTIONS = {
     };
   },
   LOAD_THEME: ({ defaultValues, history, theme: oldTheme }, { theme }) => {
+    dropProps(oldTheme, theme, {}, {});
     Object.keys(lastWritten).forEach(k => lastWritten[k] = null);
     Object.keys(theme).forEach(k => keysToRemove[k] = true);
 
@@ -282,7 +283,7 @@ const applyPseudoPreviews = (defaultValues, resolvedValues, previewPseudoVars) =
         k
           .replace(withoutProperty, '')
           .replace(/^-+/, '');
-      
+
       if (!lastPart.startsWith(elementState)) {
         return false;
       }

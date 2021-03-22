@@ -158,7 +158,7 @@ export const VarPicker = (props) => {
     </label> }
     { !!serverThemes && <ul>
       {Object.entries(serverThemes).map(([name, serverTheme]) => <li
-        style={{height: '32px', marginBottom: '4px', clear: 'both', background: fileName === name ? 'green' : 'white'}}
+        style={{textAlign: 'center', fontSize: '14px',height: '21px', marginBottom: '4px', clear: 'both', background: fileName === name ? 'green' : 'white'}}
       >
         {name}
         <button
@@ -197,6 +197,7 @@ export const VarPicker = (props) => {
                  onChange={ event => setFileName(event.target.value) }/>
         </label>
         <button
+          title={'Share this theme on the server. For now you cannot update a theme, but you can delete and re-add it.'}
           style={{clear: 'both'}}
           disabled={!fileName || Object.keys(theme).length === 0}
           onClick={ async () => {
