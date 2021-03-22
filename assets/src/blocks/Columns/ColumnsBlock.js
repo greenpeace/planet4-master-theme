@@ -1,4 +1,4 @@
-import { Columns } from './Columns.js';
+import { Columns } from './ColumnsEditor.js';
 import { withSelect } from '@wordpress/data';
 
 const { __ } = wp.i18n;
