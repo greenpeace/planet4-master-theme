@@ -132,7 +132,6 @@ const PAGE_BLOCK_TYPES = [
 	'planet4-blocks/split-two-columns',
 	'planet4-blocks/spreadsheet',
 	'planet4-blocks/submenu',
-	'planet4-blocks/take-action-boxout',
 	'planet4-blocks/timeline',
 	'planet4-blocks/enform',
 ];
