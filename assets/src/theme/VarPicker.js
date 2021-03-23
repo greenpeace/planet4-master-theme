@@ -32,6 +32,21 @@ const deleteTheme = async (name) => {
   });
 }
 
+const diffSummary = (themeA, themeB) => {
+  const added = Object.keys(themeB).filter(k => !themeA[k]);
+  const removed = Object.keys(themeA).filter(k => !themeB[k]);
+  const changed = Object.keys(themeB).filter(k => !!themeA[k] && themeA[k] !== themeB[k]);
+
+  return `Differences of your current theme to this one:
+  added(${added.length}):
+  ${added.map(k => `${ k }: ${ themeB[k] }`).join('\n')}
+  removed(${removed.length}):
+  ${removed.join('\n')}
+  changed(${changed.length}):
+  ${changed.map(k =>`${k}: ${themeA[k]} => ${themeB[k]}`).join('\n')}
+  `;
+}
+
 const useServerThemes = (refresh) => {
   const [serverThemes, setServerThemes] = useState([]);
   useEffect(() => {
@@ -132,6 +147,8 @@ export const VarPicker = (props) => {
 
   const [serverThemes] = useServerThemes(themesDirty);
 
+  const existsOnServer = serverThemes && Object.keys(serverThemes).some(t => t === fileName);
+
   return <div
     className='var-picker'
   >
@@ -156,8 +173,9 @@ export const VarPicker = (props) => {
       <input type="checkbox" readOnly checked={ shouldGroup }/>
       { 'Group last clicked element' }
     </label> }
-    { !!serverThemes && <ul>
+    { !collapsed && !!serverThemes && <ul style={{maxHeight: '140px'}}>
       {Object.entries(serverThemes).map(([name, serverTheme]) => <li
+        title={diffSummary(serverTheme, theme)}
         style={{textAlign: 'center', fontSize: '14px',height: '21px', marginBottom: '4px', clear: 'both', background: fileName === name ? 'green' : 'white'}}
       >
         {name}
@@ -201,11 +219,14 @@ export const VarPicker = (props) => {
           style={{clear: 'both'}}
           disabled={!fileName || Object.keys(theme).length === 0}
           onClick={ async () => {
+            if (existsOnServer && !confirm('Overwrite theme on server?')) {
+              return;
+            }
             await uploadTheme(fileName, theme);
             setThemesDirty(!themesDirty);
           }}
         >
-          Upload to server
+          { existsOnServer ? 'Save' : 'Upload'}
         </button>
       </div>
       <div>
@@ -239,7 +260,7 @@ export const VarPicker = (props) => {
         </label>
       </div>
     </div> }
-    { shouldGroup && !collapsed && <ul>
+    { shouldGroup && !collapsed && <ul className={'group-list'}>
       { groups.map(({ element, label, vars }) => (
         <li className={ 'var-group' } key={ label } style={ { marginBottom: '12px' } }>
           <h4

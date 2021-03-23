@@ -31,7 +31,7 @@ export const dragElement = (draggedElement) => {
     if (e.altKey) {
       firstOne = false;
       setTimeout(()=> {
-        const ul = draggedElement.querySelector('div > ul');
+        const ul = draggedElement.querySelector('div > ul.group-list');
         ul.style.maxHeight = `${ maxHeight - 2  }px`;
       }, 300);
     }
@@ -66,7 +66,7 @@ export const dragElement = (draggedElement) => {
     e = e || window.event;
     e.preventDefault();
     draggedElement.classList.add('dragging')
-    const maxHeight = window.outerHeight - draggedElement.offsetTop - 210;
+    const maxHeight = window.outerHeight - draggedElement.offsetTop - 300;
     // calculate the new cursor position:
     posX1 = posX2 - e.clientX;
     posY1 = posY2 - e.clientY;
@@ -105,7 +105,7 @@ export const dragElement = (draggedElement) => {
     }
     localStorage.setItem(DRAG_KEY, JSON.stringify({ x: draggedElement.offsetLeft, y: draggedElement.offsetTop, maxHeight }));
 
-    const ul = draggedElement.querySelector('div > ul');
+    const ul = draggedElement.querySelector('div > ul.group-list');
     ul.style.maxHeight = `${ maxHeight  }px`;
   }
 
