@@ -176,7 +176,8 @@ export const VarPicker = (props) => {
     { !collapsed && !!serverThemes && <ul style={{maxHeight: '140px'}}>
       {Object.entries(serverThemes).map(([name, serverTheme]) => <li
         title={diffSummary(serverTheme, theme)}
-        style={{textAlign: 'center', fontSize: '14px',height: '21px', marginBottom: '4px', clear: 'both', background: fileName === name ? 'green' : 'white'}}
+        className={fileName === name ? 'server-theme-current' : ''}
+        style={{textAlign: 'center', fontSize: '14px', height: '21px', marginBottom: '4px', clear: 'both'}}
       >
         {name}
         <button
