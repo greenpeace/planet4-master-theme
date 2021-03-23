@@ -1,11 +1,64 @@
 const { registerPlugin } = wp.plugins;
 const { PluginPrePublishPanel } = wp.editPost;
-const { select, dispatch } = wp.data;
+const { select, dispatch, subscribe, useSelect } = wp.data;
 const {__} = wp.i18n;
 
 const blockValidations = {};
 
+let messages = [];
+let canPublish = true;
+
 export const blockEditorValidation = () => {
+  subscribe(() => {
+    const blocks = select( 'core/block-editor' ).getBlocks();
+
+    const currentMessages = [];
+    const invalidBlocks = blocks.reduce( (invalidBlocks, block ) => {
+      const validations = blockValidations[ block.name ] || {};
+
+      const results = Object.entries( validations ).reduce( (results, [attrName, validate]) => {
+        const value = block.attributes[attrName];
+        const result = validate(value);
+
+        if (!result.isValid) {
+          results.push(result);
+        }
+
+        return results;
+      }, [] );
+      if (results.length > 0) {
+        invalidBlocks.push(...results)
+      }
+
+      return invalidBlocks;
+    }, []);
+    invalidBlocks.forEach(block => currentMessages.push(...block.messages));
+
+    const postType = wp.data.select('core/editor').getCurrentPostType();
+    let currentlyValid = (0 === invalidBlocks.length);
+    if ('campaign' === postType) {
+      const meta = wp.data.select('core/editor').getEditedPostAttribute('meta');
+      const metaValid = !!meta['p4_campaign_name'] && 'not set' !== meta['p4_campaign_name'];
+      currentlyValid = currentlyValid && metaValid;
+      if (!metaValid) {
+        currentMessages.push(__('Please check "Analytics & Tracking" section for required fields.', 'planet4-master-theme-backend'));
+        currentMessages.push('Global Project is a required field');
+      }
+    }
+    messages = currentMessages;
+
+    if (canPublish === currentlyValid) {
+      return;
+    }
+    canPublish = currentlyValid;
+
+    if (!canPublish) {
+      dispatch( 'core/editor' ).lockPostSaving();
+    } else {
+      dispatch( 'core/editor' ).unlockPostSaving();
+    }
+  });
+
   registerPlugin( 'pre-publish-checklist', { render: PrePublishCheckList } );
   wp.hooks.addFilter(
     'blocks.registerBlockType',
@@ -13,6 +66,13 @@ export const blockEditorValidation = () => {
     registerAttributeValidations
   );
 };
+
+document.addEventListener('change', e=> {
+  if (!e.target.matches('select[name="p4_campaign_name"]')) {
+    return;
+  }
+  dispatch('core/editor').editPost({ meta: { p4_campaign_name: e.target.value } });
+})
 
 const registerAttributeValidations = ( settings, blockName ) => {
   const { attributes } = settings;
@@ -29,91 +89,24 @@ const registerAttributeValidations = ( settings, blockName ) => {
   return settings;
 }
 
-const isValid = element => {
-  const isCampaign = 'campaign' === document.getElementById('post_type').value;
-
-  // No validation for non-campaign posts yet.
-  if (!isCampaign) {
-    return true;
-  }
-
-  if ('required' === element.dataset.validation) {
-    const value = element.value;
-    if (!value || 'not set' === value) {
-      return false;
-    }
-  }
-
-  return true;
-};
 
 const PrePublishCheckList = () => {
-  let checkListMsg = [];
-
-  // Filter CMB2 fields that have the 'data-validation' attribute set to 'required'.
-  const elements = Array.from( document.querySelectorAll( '[data-validation]' ) );
-  const invalidElements = elements.filter( element => !isValid( element ) );
-  elements.forEach( element => { element.classList.remove( 'cmb2_required_field_error') } );
-  invalidElements.forEach( element => { element.classList.toggle( 'cmb2_required_field_error') } );
-  const hasInvalidMetas = invalidElements.length > 0
-
-  if ( hasInvalidMetas ) {
-    // Open "Analytics & Tracking" fields metabox, if closed.
-    document.getElementById('p4_campaign_fields').classList.remove('closed');
-    checkListMsg.push( __( 'Please check "Analytics & Tracking" section for required fields.', 'planet4-master-theme-backend' ) );
-
-    const messages = invalidElements.map(element => {
-      const fieldName = element.parentNode.querySelector('label').textContent;
-
-      return ` - ${ fieldName } is a required field`;
-    });
-
-    checkListMsg.push(...messages);
-  }
-
-  const blocks = select( 'core/block-editor' ).getBlocks();
-  const blockResults = blocks.map( ( block ) => {
-    const validations = blockValidations[ block.name ];
-    if ( !validations ) {
-      return {block, invalids: []};
-    }
-    const results = Object.keys( validations ).map( attrName => {
-      const validate = validations[ attrName ];
-
-      return { attr: attrName, ...validate( block.attributes[ attrName ] ) };
-    } );
-    const invalids = results.filter( result => !result.isValid );
-
-    return { block, invalids };
-  } );
-
-  const invalidBlocks = blockResults.filter( block => block.invalids.length > 0 );
-
-  let classname = '';
-  if ( hasInvalidMetas || invalidBlocks.length > 0) {
-    dispatch( 'core/editor' ).lockPostSaving();
-    classname = 'p4-plugin-pre-publish-panel-error';
-    invalidBlocks.forEach( block => block.invalids.forEach( invalid => checkListMsg.push( ...invalid.messages ) ) );
-  } else {
-    dispatch( 'core/editor' ).unlockPostSaving();
-    checkListMsg.push( __( 'All good.', 'planet4-master-theme-backend' ) );
-  }
-
+  // This doesn't assign anything from useSelect, which is intended. We want to update the component whenever anything
+  // that can affect validity changes. This could probably be done more properly by adding a store with `canPublish`.
+  useSelect(select=>[select('core/editor').getEditedPostAttribute('meta'), select('core/block-editor').getBlocks()]);
   return (
     <PluginPrePublishPanel
-      title={ __( 'Publish Checklist', 'planet4-master-theme-backend' ) }
+      title={ __('Publish Checklist', 'planet4-master-theme-backend') }
       initialOpen="true"
-      className={ classname }
+      className={ !canPublish ? 'p4-plugin-pre-publish-panel-error' : '' }
       icon="none">
-        <ul>
-          {checkListMsg.map((msg, index) => {
-            return (
-              <li key={index} >
-                <p>{msg}</p>
-              </li>
-            );
-          })}
-        </ul>
+      { !!canPublish && <p>{ __('All good.', 'planet4-master-theme-backend') }</p> }
+      { !canPublish && <ul>
+        { messages.map(msg =>
+          <li key={ msg }><p>{ msg }</p></li>
+        ) }
+      </ul> }
+
     </PluginPrePublishPanel>
   )
 };

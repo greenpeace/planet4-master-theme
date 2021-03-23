@@ -158,7 +158,7 @@ export class CarouselHeaderBlock {
             const messages = invalidSlides.map( invalidSlide => {
               return `Carousel Header Block: Slide ${ slides.findIndex( slide => slide === invalidSlide ) + 1 } has no image`
             });
-      
+
             return { isValid, messages };
           }
         },
