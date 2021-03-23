@@ -1,7 +1,19 @@
-import { Columns } from './ColumnsEditor.js';
-import { withSelect } from '@wordpress/data';
+import { ColumnsEditor } from './ColumnsEditor.js';
+import { Tooltip } from '@wordpress/components';
+import { LAYOUT_NO_IMAGE } from './ColumnConstants.js';
 
 const { __ } = wp.i18n;
+
+const getStyleLabel = (label, help) => {
+  if (help) {
+    return (
+      <Tooltip text={help}>
+        <span>{label}</span>
+      </Tooltip>
+    );
+  }
+  return label;
+};
 
 export class ColumnsBlock {
   constructor() {
@@ -14,6 +26,7 @@ export class ColumnsBlock {
       attributes: {
         columns_block_style: {
           type: 'string',
+          default: LAYOUT_NO_IMAGE,
         },
         columns_title: {
           type: 'string'
@@ -31,7 +44,8 @@ export class ColumnsBlock {
             type: 'string'
           },
           attachment: {
-            type: 'integer'
+            type: 'integer',
+            default: 0
           },
           cta_link: {
             type: 'string'
@@ -44,138 +58,41 @@ export class ColumnsBlock {
           },
         }
       },
-      edit: withSelect((select, props) => {
-
-        const { attributes } = props;
-        const { columns } = attributes;
-        let column_img = [];
-
-        if (columns && 0 < columns.length) {
-
-          for (let column of columns) {
-            if (column['attachment'] && (0 < column['attachment'])) {
-
-              let media_details = select('core').getMedia(column['attachment']);
-              if (media_details) {
-                column_img[column['attachment']] = select('core').getMedia(column['attachment']).source_url;
-              }
-            }
-          }
-        }
-
-        return { column_img };
-
-      })(({ isSelected, attributes, setAttributes, column_img }) => {
-
-        function onTitleChange(value) {
-          setAttributes({ columns_title: value });
-        }
-
-        function onDescriptionChange(value) {
-          setAttributes({ columns_description: value });
-        }
-
-        function onSelectImage(index, value) {
-          let { id } = value;
-          let columns = JSON.parse(JSON.stringify(attributes.columns));
-          columns[index].attachment = id;
-          setAttributes({ columns });
-        }
-
-        function onSelectedLayoutChange(value) {
-          setAttributes({ columns_block_style: value });
-
-          if ('no_image' === value) {
-            const { columns } = attributes;
-            if (0 < columns.length) {
-              let new_columns = [...columns];
-              let i;
-              for (i = 0; i < columns.length; i++) {
-                new_columns[i]['attachment'] = 0;
-              }
-              setAttributes({ columns: new_columns });
-            }
-          }
-        }
-
-        function addColumn() {
-          const { columns } = attributes;
-
-          if (columns.length < 4) {
-            setAttributes({
-              columns: [...columns, {
-                title: '',
-                description: '',
-                attachment: 0,
-                cta_link: '',
-                cta_text: '',
-                link_new_tab: '',
-              }]
-            });
-          }
-        }
-
-        function removeColumn() {
-          setAttributes({ columns: attributes.columns.slice(0, -1) });
-        }
-
-        function onColumnHeaderChange(index, value) {
-          let columns = JSON.parse(JSON.stringify(attributes.columns));
-          columns[index].title = value;
-          setAttributes({ columns });
-        }
-
-        function onColumnDescriptionChange(index, value) {
-          let columns = JSON.parse(JSON.stringify(attributes.columns));
-          columns[index].description = value;
-          setAttributes({ columns });
-        }
-
-        function onCTALinkChange(index, value) {
-          let columns = JSON.parse(JSON.stringify(attributes.columns));
-          columns[index].cta_link = value;
-          setAttributes({ columns });
-        }
-
-        function onLinkNewTabChange(index, value) {
-          let columns = JSON.parse(JSON.stringify(attributes.columns));
-          columns[index].link_new_tab = value;
-          setAttributes({ columns });
-        }
-
-        function onCTAButtonTextChange(index, value) {
-          let columns = JSON.parse(JSON.stringify(attributes.columns));
-          columns[index].cta_text = value;
-          setAttributes({ columns });
-        }
-
-        function onDeleteImage(index) {
-          let columns = JSON.parse(JSON.stringify(attributes.columns));
-          columns[index].attachment = 0;
-          setAttributes({ columns });
-        }
-
-        return <Columns
-          {...attributes}
-          isSelected={isSelected}
-          onSelectedLayoutChange={onSelectedLayoutChange}
-          onTitleChange={onTitleChange}
-          onDescriptionChange={onDescriptionChange}
-          onSelectImage={onSelectImage}
-          addColumn={addColumn}
-          removeColumn={removeColumn}
-          onColumnHeaderChange={onColumnHeaderChange}
-          onColumnDescriptionChange={onColumnDescriptionChange}
-          onCTALinkChange={onCTALinkChange}
-          onLinkNewTabChange={onLinkNewTabChange}
-          onCTAButtonTextChange={onCTAButtonTextChange}
-          column_img={column_img}
-          onDeleteImage={onDeleteImage}
-        />
-      }),
+      edit: ColumnsEditor,
       save() {
         return null;
-      }
+      },
+      styles: [
+        {
+          name: 'no_image',
+          label: getStyleLabel(
+            __('No Image', 'planet4-blocks-backend'),
+            __('Optional headers, description text and buttons in a column display.', 'planet4-blocks-backend')
+          ),
+          isDefault: true,
+        },
+        {
+          name: 'tasks',
+          label: getStyleLabel(
+            __('Tasks', 'planet4-blocks-backend'),
+            __('Used on Take Action pages, this display has ordered tasks, and call to action buttons.', 'planet4-blocks-backend')
+          ),
+        },
+        {
+          name: 'icons',
+          label: getStyleLabel(
+            __('Icons', 'planet4-blocks-backend'),
+            __('For more static content, this display has an icon, header, description and text link.', 'planet4-blocks-backend')
+          ),
+        },
+        {
+          name: 'image',
+          label: getStyleLabel(
+            __('Images', 'planet4-blocks-backend'),
+            __('For more static content, this display has an image, header, description and text link.', 'planet4-blocks-backend')
+          ),
+        },
+      ],
     });
-  };
+  }
 }

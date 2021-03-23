@@ -1,25 +1,102 @@
 .img-wrap {
   position: relative;
-  display: inline-block;
-  font-size: 0;
-}
 
-.img-wrap .close {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  z-index: 100;
-  background-color: #fff;
-  padding: 0 0 2px 2px;
-  color: red;
-  font-weight: bold;
-  cursor: pointer;
-  opacity: 1;
-  text-align: center;
-  font-size: 22px;
-  line-height: 14px;
+  .buttons-overlay {
+    position: absolute;
+    z-index: 2;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100% - 32px);
+
+    button {
+      background-color: $grey-20;
+      color: $white;
+      margin-bottom: 10px;
+
+      &:hover {
+        background-color: $grey-40;
+      }
+    }
+  }
+
+  &:hover {
+    .buttons-overlay {
+      display: flex;
+    }
+
+    img {
+      filter: blur(2px);
+    }
+  }
 }
 
 .column-img-label {
   margin-bottom: 4px;
+}
+
+.column-placeholder {
+  cursor: pointer;
+  color: $grey-80;
+  border: 1px dashed $grey-40;
+  border-radius: 4px;
+  text-align: center;
+  justify-content: center !important;
+
+  .add-column {
+    justify-self: center;
+
+    div {
+      font-size: 100px;
+      line-height: 1;
+    }
+  }
+
+  &:hover {
+    border-color: $grey-80;
+    background-color: $grey-10;
+  }
+}
+
+.column-img-btn-container {
+  margin-bottom: 10px;
+}
+
+.column-wrap {
+  position: relative;
+
+  h5, h3 {
+    margin: 0 !important;
+  }
+
+  .remove-column {
+    background-color: $grey-20;
+    border-radius: 50%;
+    position: absolute;
+    color: $white;
+    padding: 0 !important;
+    z-index: 3;
+    justify-content: center !important;
+    right: 10px;
+    top: -15px;
+
+    .dashicon {
+      margin: 0 !important;
+    }
+
+    &:hover {
+      background-color: $grey-40 !important;
+      box-shadow: none !important;
+      color: $white !important;
+    }
+  }
+}
+
+.column-image-error {
+  color: $dark-orange;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 10px;
 }

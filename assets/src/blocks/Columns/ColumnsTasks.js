@@ -12,7 +12,7 @@ export const ColumnsTasks = ({ isCampaign, columns, no_of_columns }) => (
             link_new_tab,
           } = column;
           return (
-            <div className='col-md-6 col-lg column-wrap step-info'>
+            <div key={`column-${index}`} className='col-md-6 col-lg column-wrap step-info'>
               <span className='step-number'>
                 <span
                   className='step-number-inner'
@@ -42,7 +42,7 @@ export const ColumnsTasks = ({ isCampaign, columns, no_of_columns }) => (
               {description &&
                 <p dangerouslySetInnerHTML={{ __html: description }} />
               }
-              {attachment &&
+              {attachment !== 0 &&
                 <img src={attachment} alt='' />
               }
               {cta_text && cta_link &&
@@ -82,7 +82,7 @@ export const ColumnsTasks = ({ isCampaign, columns, no_of_columns }) => (
             taskNumber = 'four';
           }
           return (
-            <div className='card'>
+            <div key={`column-${index}`} className='card'>
               <a
                 className={`card-header ${index > 0 ? ' collapsed' : ''}`}
                 role='tab'

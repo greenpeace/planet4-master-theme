@@ -1,9 +1,7 @@
 import { Columns } from './Columns';
 
-export const ColumnsFrontend = ({ columns_block_style, columns_title, columns_description }) => {
+export const ColumnsFrontend = ({ columns_block_style, columns_title, columns_description, columns }) => {
   const postType = document.body.getAttribute('data-post-type');
-
-  const columns = [];
 
   return (
     <section className={`block columns-block block-style-${columns_block_style}`}>

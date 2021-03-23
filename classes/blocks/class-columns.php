@@ -21,7 +21,7 @@ class Columns extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'columns';
+	const BLOCK_NAME = 'planet4-blocks/columns';
 
 	const TASK_TEMPLATE_NAME = 'tasks';
 
@@ -39,10 +39,21 @@ class Columns extends Base_Block {
 			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
-				'render_callback' => [ $this, 'render' ],
+				'render_callback' => static function ( $attributes ) {
+					if ( isset( $attributes['columns_block_style'] ) ) {
+						$attributes['initialRowsLimit'] = self::LAYOUT_NO_IMAGE;
+					}
+
+					$attributes['columns'] = self::get_columns_data( $attributes );
+
+					$json = wp_json_encode( [ 'attributes' => $attributes ] );
+
+					return '<div data-render="' . self::BLOCK_NAME . '" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+				},
 				'attributes'      => [
 					'columns_block_style' => [
-						'type' => 'string',
+						'type'    => 'string',
+						'default' => self::LAYOUT_NO_IMAGE,
 					],
 					'columns_title'       => [
 						'type' => 'string',
@@ -64,7 +75,8 @@ class Columns extends Base_Block {
 									'type' => 'string',
 								],
 								'attachment'   => [
-									'type' => 'integer',
+									'type'    => 'integer',
+									'default' => 0,
 								],
 								'cta_link'     => [
 									'type' => 'string',
@@ -90,5 +102,63 @@ class Columns extends Base_Block {
 	 */
 	public function prepare_data( $fields ): array {
 		return [];
+	}
+
+	/**
+	 * Get all the data that will be needed to render the block correctly.
+	 *
+	 * @param array $attributes This is the array of fields of this block.
+	 *
+	 * @return array The data to be passed in the View.
+	 */
+	private static function get_columns_data( $attributes ): array {
+		$columns_block_style = $attributes['columns_block_style'];
+
+		// Only show columns that have a title or a description.
+		$columns = array_filter(
+			$attributes['columns'],
+			static function ( array $column ) {
+				return ! empty( $column['title'] ) || ! empty( $column['description'] );
+			}
+		);
+
+		$columns = array_slice( $columns, 0, self::MAX_COLUMNS );
+
+		// Define the image size that will be used, based on layout chosen and number of columns.
+		$number_columns = count( $columns );
+		if ( self::LAYOUT_NO_IMAGE !== $columns_block_style ) {
+			$image_size = self::get_image_size( $columns_block_style, $number_columns );
+
+			foreach ( $columns as $key => $column ) {
+				$attachment = $column['attachment'] ?? 0;
+				if ( 0 === $attachment ) {
+					continue;
+				}
+				[ $img_src ] = wp_get_attachment_image_src( $attachment, $image_size );
+
+				$columns[ $key ]['attachment'] = $img_src;
+			}
+		}
+
+		return $columns;
+	}
+
+	/**
+	 * Which image size should be used for a combination of layout style and number of columns?
+	 *
+	 * @param string $columns_block_style The columns style that was picked for the block.
+	 * @param int    $number_columns The total number of columns in the block.
+	 * @return string The image size.
+	 */
+	private static function get_image_size( string $columns_block_style, int $number_columns ): string {
+		if ( in_array( $columns_block_style, [ self::LAYOUT_TASKS, self::LAYOUT_IMAGES ], true ) ) {
+			if ( $number_columns >= 2 ) {
+				return 'articles-medium-large';
+			}
+
+			return 'large';
+		}
+
+		return 'thumbnail';
 	}
 }
