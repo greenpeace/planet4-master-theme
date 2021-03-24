@@ -31,11 +31,17 @@ const deleteTheme = async (name) => {
     }
   });
 }
-
-const diffSummary = (themeA, themeB) => {
+const diffThemes = (themeA, themeB) => {
   const added = Object.keys(themeB).filter(k => !themeA[k]);
   const removed = Object.keys(themeA).filter(k => !themeB[k]);
   const changed = Object.keys(themeB).filter(k => !!themeA[k] && themeA[k] !== themeB[k]);
+  const hasChanges = added.length > 0 || removed.length > 0 || changed.length > 0;
+
+  return {added,removed,changed, hasChanges}
+}
+
+const diffSummary = (themeA, themeB) => {
+  const { added, removed, changed } = diffThemes(themeA, themeB);
 
   return `Differences of your current theme to this one:
   added(${added.length}):
@@ -153,6 +159,10 @@ export const VarPicker = (props) => {
 
   const existsOnServer = serverThemes && Object.keys(serverThemes).some(t => t === fileName);
 
+  const modifiedServerVersion = fileName
+    && serverThemes[fileName]
+    && diffThemes(serverThemes[fileName], theme).hasChanges
+
   return <div
     className='var-picker'
   >
@@ -183,7 +193,7 @@ export const VarPicker = (props) => {
         className={'server-theme ' + (fileName === name ? 'server-theme-current' : '')}
         style={{textAlign: 'center', fontSize: '14px', height: '21px', marginBottom: '4px', clear: 'both'}}
       >
-        {name}
+        {name} {modifiedServerVersion && name === fileName && '(*)'}
         {name !== 'default' && <button
           style={{float: 'right'}}
           onClick={ async () => {
@@ -198,6 +208,9 @@ export const VarPicker = (props) => {
         <button
           style={{float: 'right'}}
           onClick={() => {
+            if (modifiedServerVersion && !confirm('You have some local changes that are not on the server. Cancel if you want to save changes.')) {
+              return;
+            }
             setFileName(name);
             dispatch({ type: THEME_ACTIONS.LOAD_THEME, payload: { theme: serverTheme } });
           }}
