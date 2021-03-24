@@ -180,7 +180,7 @@ export const VarPicker = (props) => {
     { !collapsed && !!serverThemes && <ul style={{maxHeight: '140px'}}>
       {Object.entries(serverThemes).map(([name, serverTheme]) => <li
         title={diffSummary(serverTheme, theme)}
-        className={fileName === name ? 'server-theme-current' : ''}
+        className={'server-theme ' + (fileName === name ? 'server-theme-current' : '')}
         style={{textAlign: 'center', fontSize: '14px', height: '21px', marginBottom: '4px', clear: 'both'}}
       >
         {name}
@@ -221,7 +221,7 @@ export const VarPicker = (props) => {
                  onChange={ event => setFileName(event.target.value) }/>
         </label>
         <button
-          title={'Share this theme on the server. For now you cannot update a theme, but you can delete and re-add it.'}
+          title={existsOnServer ? 'Save on server' : 'Upload this theme to the server. You can upload as many as you want.'}
           style={{clear: 'both'}}
           disabled={!fileName || Object.keys(theme).length === 0}
           onClick={ async () => {
