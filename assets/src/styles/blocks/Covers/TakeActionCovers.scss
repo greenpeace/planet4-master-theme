@@ -154,12 +154,14 @@
       display: block;
 
       --block-covers--card-btn-- {
+        color: white;
         background-color: $orange;
         border-color: $orange;
       }
 
-      &:hover, &:focus, &:focus-within {
+      &:hover, &:focus {
         --block-covers--card-btn-hover-- {
+          color: white;
           background-color: $orange-hover;
           border-color: $orange-hover;
         }
@@ -268,13 +270,15 @@
 }
 
 .cover-card-btn {
+  --block-covers--card-button-- {
+    display: none;
+  }
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   margin: $n15 auto;
   width: 92%;
-  display: none;
   z-index: 1;
   pointer-events: all;
 }
