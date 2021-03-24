@@ -141,7 +141,11 @@ export const VarPicker = (props) => {
 
   const [shouldGroup, setShouldGroup] = useState(true);
 
-  const [fileName, setFileName] = useState('');
+  const [fileName, setFileName] = useState(() => localStorage.getItem('p4-theme-name'));
+
+  useEffect(() => {
+    localStorage.setItem('p4-theme-name', fileName);
+  }, [fileName]);
 
   const [themesDirty, setThemesDirty] = useState(false);
 
@@ -180,7 +184,7 @@ export const VarPicker = (props) => {
         style={{textAlign: 'center', fontSize: '14px', height: '21px', marginBottom: '4px', clear: 'both'}}
       >
         {name}
-        <button
+        {name !== 'default' && <button
           style={{float: 'right'}}
           onClick={ async () => {
             if (!confirm('Delete theme from server?')) {
@@ -189,7 +193,8 @@ export const VarPicker = (props) => {
             await deleteTheme(name);
             setThemesDirty(!themesDirty);
           }}
-        >Delete</button>
+        >Delete</button>}
+
         <button
           style={{float: 'right'}}
           onClick={() => {
