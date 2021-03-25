@@ -1,0 +1,153 @@
+.icon {
+  position: relative;
+  top: .125em;
+  flex-shrink: 0;
+  height: 1em;
+  width: 1em;
+  fill: currentColor;
+  transition: fill .3s;
+}
+
+a.pdf-link {
+  display: inline-block;
+
+  &::before {
+    content: "";
+    background-image: url("../../images/file-pdf.svg"), url("../../public/images/file-pdf.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 1rem;
+    width: 1rem;
+    margin-bottom: -2px;
+    margin-inline-end: 2px;
+    display: inline-block;
+  }
+}
+
+a.external-link {
+  display: inline-block;
+
+  &::after {
+    content: "";
+    display: inline-block;
+    background-image: url("../../images/external-link.svg"), url("../../public/images/external-link.svg");
+    height: .55rem;
+    width: .55rem;
+    margin-inline-start: .3rem;
+    margin-inline-end: .4rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+@supports (mask-repeat: no-repeat) {
+  a.pdf-link {
+    &::before {
+      background-image: none;
+      background-color: var(--link--color, $link-color);
+      mask-image: url("../../images/file-pdf.svg"), url("../../public/images/file-pdf.svg");
+      mask-repeat: no-repeat;
+      mask-position: center;
+    }
+
+    &:hover::before {
+      background-color: var(--link-hover--color, $link-color);
+    }
+
+    // Primary buttons
+    &.btn-primary {
+      &::before {
+        background-color: $white;
+      }
+
+      &:hover::before {
+        background-color: $white;
+      }
+    }
+
+    // Secondary buttons
+    &.btn-secondary {
+      &::before {
+        background-color: $dark-blue;
+      }
+
+      &:hover::before {
+        background-color: var(--secondary--link--hover--color, $white);
+      }
+    }
+
+    // Donate button
+    &.btn-donate {
+      &::before {
+        background-color: $grey-80;
+      }
+
+      &:hover::before {
+        background-color: transparentize($grey-80, 0.2);
+      }
+    }
+  }
+
+  // Button block, primary style
+  .wp-block-button.is-style-cta a.pdf-link {
+    &::before,
+    &:hover::before {
+      background-color: $white;
+    }
+  }
+
+  // Button block, secondary style
+  [class="wp-block-button"],
+  .wp-block-button.is-style-secondary {
+    a.pdf-link {
+      &::before {
+        background-color: $dark-blue;
+      }
+
+      &:hover::before {
+        background-color: var(--secondary--link--hover--color, $white);
+      }
+    }
+  }
+
+  // Button block, donate style
+  .wp-block-button.is-style-donate a.pdf-link {
+    &::before {
+      background-color: $grey-80;
+    }
+
+    &:hover::before {
+      background-color: transparentize($grey-80, 0.2);
+    }
+  }
+
+  // Button block, text color manually set
+  .wp-block-button a.has-text-color.pdf-link {
+    &::before,
+    &:hover::before {
+      background-color: $white;
+    }
+
+    &.has-grey-80-color {
+      &::before,
+      &:hover::before {
+        background-color: $grey-80;
+      }
+    }
+  }
+
+  a.external-link {
+    &::after {
+      background-image: none;
+      background-color: var(--link--color, $link-color);
+      mask-image: url("../../images/external-link.svg"), url("../../public/images/external-link.svg");
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: contain;
+    }
+
+    &:hover::after {
+      background-color: var(--link-hover--color, $link-color);
+    }
+  }
+}

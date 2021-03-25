@@ -1,0 +1,100 @@
+// Share buttons
+//
+// Markup:
+// <div class="share-buttons">
+//   <!-- Facebook -->
+//   <a href="#" class="share-btn facebook">
+//     <svg viewBox="0 0 32 32" class="icon"><use xlink:href="images/symbol/svg/sprite.symbol.svg#facebook-f"></use></svg>
+//     <span class="visually-hidden">Share on Facebook</span>
+//   </a>
+//   <!-- Twitter -->
+//   <a href="#" class="share-btn twitter">
+//     <svg viewBox="0 0 32 32" class="icon"><use xlink:href="images/symbol/svg/sprite.symbol.svg#twitter"></use></svg>
+//     <span class="visually-hidden">Share on Twitter</span>
+//   </a>
+//   <!-- Email -->
+//   <a href="#" class="share-btn email">
+//     <svg viewBox="0 0 32 32" class="icon"><use xlink:href="images/symbol/svg/sprite.symbol.svg#envelope"></use></svg>
+//     <span class="visually-hidden">Share via Email</span>
+//   </a>
+// </div>
+//
+// Styleguide Components.share_buttons
+.share-buttons {
+  margin: 0 0 $n10 0;
+
+  @include medium-and-up {
+    margin: 0;
+    float: right;
+
+    html[dir="rtl"] & {
+      float: left;
+    }
+  }
+
+  .single-post & {
+    @include medium-and-up {
+      margin: -10px 0 0 0;
+    }
+
+    @include large-and-up {
+      margin: -20px 0 0 0;
+    }
+
+    @include x-large-and-up {
+      margin: -10px 0 0 0;
+    }
+  }
+
+  .share-btn {
+    border: none;
+    box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
+    color: $white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: $font-size-md;
+    opacity: 0.9;
+    outline: none;
+    width: 4rem;
+    text-align: center;
+    line-height: 2.7rem;
+    height: 2.7rem;
+    border-radius: 4px;
+
+    .icon {
+      top: -2px;
+    }
+
+    &:hover {
+      color: $grey-10;
+    }
+
+    &:active {
+      position: relative;
+      top: 2px;
+      box-shadow: none;
+      color: $grey-10;
+      outline: none;
+    }
+  }
+
+  .twitter {
+    background: $twitter none repeat scroll 0 0;
+  }
+
+  .facebook {
+    background: $facebook none repeat scroll 0 0;
+  }
+
+  .email {
+    background: $email none repeat scroll 0 0;
+  }
+
+  .whatsapp {
+    background: $whatsapp none repeat scroll 0 0;
+
+    .icon {
+      font-size: 1.5rem;
+    }
+  }
+}

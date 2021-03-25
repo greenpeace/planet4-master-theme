@@ -1,0 +1,236 @@
+// Buttons
+//
+// Markup:
+// <div class="mb-2">
+//   <a href="/international/act/protect-the-oceans/" class="btn {{modifier_class}}">Protect our seas</a>
+// </div>
+//
+// .btn-primary - Primary button
+// .btn-secondary - Secondary button
+//
+// Styleguide Components.buttons
+.btn,
+.wp-block-button a,
+.wp-block-file .wp-block-file__button {
+  display: inline-block;
+  position: relative;
+  font-family: $roboto;
+  font-size: $font-size-sm;
+  text-align: center;
+  text-decoration: none;
+  color: $white;
+  font-weight: bold;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  line-height: 3;
+  padding: 0 $n30;
+  appearance: none;
+  transition-property: color, background-color, border-color;
+  transition-duration: 150ms;
+  transition-timing-function: linear;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $white;
+    text-decoration: none;
+    outline: none;
+  }
+
+  &:disabled,
+  &.disabled,
+  &[disabled] {
+    opacity: .5;
+    cursor: default;
+  }
+
+  &.has-background {
+    border-color: transparent !important;
+  }
+
+  &.has-grey-80-color {
+    color: $grey-80 !important;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: $grey-80 !important;
+    }
+  }
+}
+
+.btn-small {
+  font-size: $font-size-xxs;
+  line-height: 2.8;
+}
+
+.btn-large {
+  font-size: $font-size-md;
+  line-height: 3.1;
+}
+
+.btn-primary,
+.wp-block-button.is-style-cta a {
+  background-color: $orange;
+  color: var(--btn-primary-color, $white);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $orange-hover;
+    border-color: $orange-hover;
+  }
+
+  &:disabled,
+  &.disabled,
+  &[disabled] {
+    background-color: $orange;
+  }
+}
+
+.btn-secondary,
+.wp-block-button.is-style-secondary a,
+[class="wp-block-button"] a,
+.wp-block-file .wp-block-file__button {
+  background-color: transparentize($white, .7);
+  border-color: $dark-blue;
+  color: $dark-blue;
+  box-shadow: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:visited {
+    color: $dark-blue;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $dark-blue;
+    border-color: $dark-blue;
+    color: $white;
+  }
+
+  &:active {
+    background-color: $active-blue;
+    border-color: $active-blue;
+  }
+
+  &:disabled,
+  &.disabled,
+  &[disabled] {
+    background-color: $white;
+    color: $dark-blue;
+  }
+}
+
+// The new core buttons block wrap in "wp-block-buttons" class which apply
+// extra css properties which break old button block UI.
+.wp-block-buttons .wp-block-button {
+  display: block !important;
+  margin-left: unset;
+  margin-right: unset;
+}
+
+.btn-action {
+  background-color: transparentize($white, .8);
+  border-color: $white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+
+  &:hover,
+  &:focus {
+    background-color: $orange;
+    border-color: $orange;
+  }
+
+  &:active {
+    background-color: $orange-hover;
+    border-color: $orange-hover;
+  }
+}
+
+.btn-donate,
+.wp-block-button.is-style-donate a {
+  background-color: var(--btn-donate-background-color, $aquamarine);
+  color: var(--btn-donate-color, $grey-80);
+  line-height: 1.65;
+  min-width: 180px;
+  margin: 0;
+  padding: 2px $n30;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+  text-transform: none;
+
+  &:hover,
+  &:focus {
+    color: transparentize($grey-80, 0.2);
+  }
+
+  @include large-and-up {
+    font-size: $font-size-md;
+  }
+}
+
+.btn-navbar-toggle {
+  cursor: pointer;
+  color: $gp-green;
+  background-color: transparent;
+  transition: background-color color font-weight 100ms;
+  display: inline-block;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $white;
+    box-shadow: none;
+    background-color: $x-dark-blue;
+    border: 1px solid transparent;
+  }
+
+  @include small-and-up {
+    background-color: $dark-blue;
+    border-radius: 0;
+    border: 1px solid transparent;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+  }
+}
+
+.btn-filter-item {
+  background-color: transparent;
+  border-color: $dark-blue;
+  color: $dark-blue;
+  padding: 0 $n50 0 $n30;
+  position: relative;
+  font-weight: 400;
+
+  &:hover,
+  &:focus {
+    background-color: $dark-blue;
+    border-color: $dark-blue;
+  }
+
+  &:active {
+    background-color: $grey-80;
+    border-color: $grey-80;
+  }
+
+  i {
+    position: absolute;
+    font-size: $font-size-xxs;
+    right: 10px;
+    top: 50%;
+    transform: translate(0, -40%);
+  }
+}
+
+.no-btn {
+  background: transparent;
+  border: transparent;
+  padding: 0;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
