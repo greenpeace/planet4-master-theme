@@ -187,8 +187,6 @@
     display: block;
     width: $width;
     background: $bg;
-    -webkit-transform: skew($deg);
-    -ms-transform: skew($deg);
     transform: skew($deg);
   }
 }
