@@ -1,0 +1,28 @@
+// Page Section
+//
+// Describes **title** and **description** of each block.
+//
+// Markup:
+// <header>
+//   <h2 class="page-section-header">Block Title</h2>
+// </header>
+// <div class="page-section-description">Description Text</div>
+//
+// Styleguide Layout.page-section
+.page-section-header {
+  margin-bottom: $space-md;
+}
+
+.page-section-description {
+  margin-bottom: $space-xl;
+
+  @include medium-and-up {
+    width: 100%;
+  }
+
+  @include x-large-and-up {
+    .row & {
+      margin-top: 0;
+    }
+  }
+}

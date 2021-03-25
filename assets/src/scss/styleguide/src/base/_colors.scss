@@ -1,0 +1,141 @@
+// Colors
+//
+// Styleguide Style.colors
+
+// Primary
+//
+// $white - #fff;
+//
+// Styleguide Style.colors.primary
+$white: #fff;
+
+// Grey
+//
+// $grey-80: #020202;
+// $grey: #23292d;
+// $grey-60: #45494c;
+// $grey-40: #6f7376;
+// $grey-20: #a3a5a7;
+// $grey-10: #ececec;
+// $grey-05: #f5f7f8;
+//
+// Styleguide Style.colors.grey
+$grey-80: #020202;
+$grey: #23292d;
+$grey-60: #45494c;
+$grey-40: #6f7376;
+$grey-20: #a3a5a7;
+$grey-10: #ececec;
+$grey-05: #f5f7f8;
+
+// Green
+//
+// $gp-green - #66cc00; used only on the GP wordmark
+// $gp-green-80 - #8bcc49;
+// $gp-green-20 - #e3f2d3;
+//
+// Styleguide Style.colors.grey
+$gp-green: #66cc00;
+$gp-green-80: #8bcc49;
+$gp-green-20: #e3f2d3;
+
+// Blue
+//
+// $blue - #2077bf;
+//
+// Styleguide Style.colors.blue
+$blue: #2077bf;
+
+// Link color
+$link-color: #006dfd;
+
+// Yellow
+//
+// $yellow - #ffd204;
+//
+// Styleguide Style.colors.yellow
+$yellow: #ffd204;
+$yellow-20: #fff6cd;
+
+// Orange
+//
+// $orange - #f36d3a;
+// $dark-orange - #f75848;
+// $orange-hover - #ee562d;
+//
+// Styleguide Style.colors.orange
+$orange: #f36b35;
+$dark-orange: #f75848;
+$orange-hover: #ee562d;
+
+// Various blues:
+$x-dark-blue:  #042233;
+$dark-blue:    #074365;
+$active-blue:  #05324c;
+$aquamarine:   #68dfde;
+$comment-block:#e7ecf0;
+$comment-text: #d1dce2;
+
+// Various reds:
+$peach:       #eaccbb;
+
+// Social buttons
+$facebook: #4267b2;
+$twitter:  #55acee;
+$email:    #8a49de;
+$whatsapp: #25d366;
+
+// Used colors
+$light-blue-bg:         #d6e6f2;
+
+// Colors to be fixed/addressed:
+$carousel-indi-color:   #8bcc49;
+$cookie-bkg:            #c0dbe2;
+
+// Table/spreadsheet colors
+$table-font-color: #020202;
+
+// Background colors
+// Grey variant (default)
+$table-header-grey: #45494c;
+$table-odd-row-grey: #ececec;
+$table-even-row-grey: #f5f7f8;
+$table-footer-grey: #e0e4e7;
+
+// Green variant
+$table-header-green: #073d14;
+$table-odd-row-green: #d0fac9;
+$table-even-row-green: #eafee7;
+$table-footer-green: #d1e8cd;
+
+// Blue variant
+$table-header-blue: $dark-blue;
+$table-odd-row-blue: #c9e7fa;
+$table-even-row-blue: #e7f5fe;
+$table-footer-blue: #c3d7e2;
+
+// Allower colors for blocks palette
+$palette: (
+  "grey-80": $grey-80,
+  "grey-60": $grey-60,
+  "grey-40": $grey-40,
+  "grey-20": $grey-20,
+  "grey-10": $grey-10,
+  "grey": $grey,
+  "gp-green": $gp-green,
+  "x-dark-blue": $x-dark-blue,
+  "dark-blue": $dark-blue,
+  "blue": $blue,
+  "orange-hover": $orange-hover,
+  "yellow": $yellow
+);
+
+@each $name, $color in $palette {
+  .has-#{$name}-color {
+    color: $color;
+  }
+
+  .has-#{$name}-background-color {
+    background-color: $color;
+  }
+}

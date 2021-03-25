@@ -90,21 +90,21 @@ div.page-template {
 }
 
 .password-form {
-  .input-text{
-    font-size:16px;
-    line-height:1.6;
-    font-weight:400;
-    margin-bottom:16px;
-    position:relative;
+  .input-text {
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+    margin-bottom: 16px;
+    position: relative;
   }
 
-  .input-text input{
-    border:1px solid $grey-20;
-    border-radius:4px;
-    display:inline-block;
-    font-size:16px;
-    padding:15px 14px 8px;
-    min-width:400px;
+  .input-text input {
+    border: 1px solid $grey-20;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 16px;
+    padding: 15px 14px 8px;
+    min-width: 400px;
 
     &.is-invalid {
       border-color: $dark-orange;
@@ -116,13 +116,13 @@ div.page-template {
     }
   }
 
-  .input-text input:hover{
-    border:1px solid $grey-40;
+  .input-text input:hover {
+    border: 1px solid $grey-40;
   }
 
-  .input-text input:focus{
-    border-color:rgba(0,109,253,0.75);
-    outline:0 none;
+  .input-text input:focus {
+    border-color: rgba(0, 109, 253, 0.75);
+    outline: 0 none;
   }
 
   .invalid-pw-feedback {
@@ -157,4 +157,3 @@ div.page-template {
     }
   }
 }
-

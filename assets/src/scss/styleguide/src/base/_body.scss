@@ -1,0 +1,27 @@
+html,
+body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+}
+
+body {
+  color: $grey-80;
+  font-family: $lora;
+  position: relative;
+  overflow-y: hidden;
+  background-color: var(--body-background-color, $white);
+
+  &.search {
+    font-family: $roboto;
+  }
+
+  .mejs-container {
+    clear: initial;
+  }
+}
+
+.container > * {
+  position: relative;
+  z-index: 2;
+}
