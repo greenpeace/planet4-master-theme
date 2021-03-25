@@ -75,8 +75,8 @@ const p4_enform_frontend = (function ($) {
     $invalidDiv.addClass('invalid-feedback');
     $invalidDiv.html(msg);
     $(element).addClass('is-invalid');
-    // For checkboxes we need to append the error message to the description
-    if ($(element).attr('type') === 'checkbox') {
+    // For checkboxes and radios we need to append the error message to the description
+    if (['checkbox', 'radio'].includes($(element).attr('type'))) {
       const description = $(element).next();
       $invalidDiv.insertAfter(description);
     } else {
@@ -87,7 +87,7 @@ const p4_enform_frontend = (function ($) {
   enform.removeErrorMessage = function(element) {
     $(element).removeClass('is-invalid');
     let errorDiv = $(element).next();
-    if ($(element).attr('type') === 'checkbox') {
+    if (['checkbox', 'radio'].includes($(element).attr('type'))) {
       errorDiv = errorDiv.next();
     }
     if (errorDiv.length && errorDiv.hasClass('invalid-feedback')) {
