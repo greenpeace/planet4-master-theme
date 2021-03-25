@@ -13,8 +13,14 @@
   .carousel-header_full-width-classic {
     width: unset;
 
-    .carousel-item.active {
-      position: relative !important;
+    .carousel-item {
+      .background-holder {
+        width: unset;
+      }
+
+      &.active {
+        position: relative !important;
+      }
     }
   }
 
