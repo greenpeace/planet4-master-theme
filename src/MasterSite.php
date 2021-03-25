@@ -739,7 +739,12 @@ class MasterSite extends TimberSite {
 		);
 
 		// This loads a linked style file since the relative images paths are outside the build directory.
-		wp_enqueue_style( 'parent-style', $this->theme_dir . '/assets/build/style.min.css', [], $css_creation );
+		wp_enqueue_style(
+			'parent-style',
+			$this->theme_dir . '/assets/build/style.min.css',
+			[ 'bootstrap' ],
+			$css_creation
+		);
 
 		$jquery_should_wait = is_plugin_active( 'planet4-plugin-gutenberg-blocks/planet4-gutenberg-blocks.php' ) && ! is_user_logged_in();
 
