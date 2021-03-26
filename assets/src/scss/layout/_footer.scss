@@ -42,9 +42,11 @@
 //
 // Styleguide Layout.footer
 .site-footer {
-  font-family: $roboto;
+  --footer-- {
+    font-family: $roboto;
+    background: $dark-blue;
+  }
   padding: 45px 0 $n25;
-  background: var(--footer_color, $dark-blue);
   position: relative;
   z-index: 2;
   text-align: center;
@@ -60,15 +62,11 @@
     padding: 55px 0 $n25;
   }
 
-  p {
-    font-family: $roboto;
-  }
-
-  a {
-    color: var(--footer_links_color, inherit);
+  a --footer--links-- {
+    color: inherit;
 
     &:hover {
-      color: var(--footer_links_color, $white);
+      color: $white;
     }
   }
 
@@ -78,7 +76,9 @@
 }
 
 .footer-social-media {
-  color: var(--footer_links_color, $grey-20);
+  _-- {
+    color: $grey-20;
+  }
   font-size: $font-size-xl;
   margin: auto;
   text-align: center;
@@ -112,10 +112,12 @@
   }
 
   a {
-    transition: color 100ms linear;
+    --footer-social-media--link-- {
+      transition: color 100ms linear;
 
-    &:hover {
-      color: $white;
+      &:hover {
+        color: $white;
+      }
     }
   }
 }
@@ -147,10 +149,12 @@
 }
 
 .footer-links {
-  color: var(--footer_links_color, $white);
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 16px;
+  --footer-menu-- {
+    color: $white;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
 
   li {
     font-size: $font-size-md;
@@ -167,9 +171,11 @@
 }
 
 .footer-links-secondary {
-  color: var(--footer_links_color, $grey-10);
-  text-transform: uppercase;
-  margin-bottom: 30px;
+  --footer-menu-secondary-- {
+    color: $grey-10;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
 
   @include medium-and-up {
     font-size: $font-size-xxs;
@@ -181,7 +187,9 @@
 }
 
 .copyright-text {
-  color: var(--footer_links_color, $grey-10);
+  --footer--copyright-- {
+    color: $grey-10;
+  }
   font: $font-size-xxs;
   line-height: 1.3;
   margin-left: auto;
@@ -207,13 +215,15 @@
     }
   }
 
-  a {
-    color: var(--footer_links_color, $white);
+  a --footer--copyright--link-- {
+    color: $white;
   }
 }
 
 .gp-year {
-  color: var(--footer_links_color, $white);
+  --footer--copyright--year-- {
+    color: $white;
+  }
   font-size: $font-size-xxs;
   text-transform: none;
 
@@ -235,7 +245,6 @@
   line-height: 1;
 
   .footer-social-media {
-    color: var(--footer_links_color, $grey-20);
     font-size: $font-size-xl;
     margin: 0 auto $space-md auto;
     text-align: center;
@@ -255,10 +264,6 @@
 
     a {
       transition: color 100ms linear;
-
-      &:hover {
-        color: $grey-20;
-      }
     }
 
     .list-unstyled {
@@ -267,13 +272,12 @@
   }
 
   .gp-year {
-    color: var(--footer_links_color, $white);
     font-size: $font-size-xxs;
     font-family: $lora;
     margin: 40px 0 30px 0;
   }
 
-  .icon {
-    fill: var(--footer_links_color, $white);
+  .icon _-- {
+    fill: $white;
   }
 }
