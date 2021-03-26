@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d5d461848d19da5793dffa73d90cb52",
+    "content-hash": "9acb4d910396e6de3a8bd716486b8533",
     "packages": [
         {
             "name": "greenpeace/github-archive-installer",
-            "version": "1.2",
+            "version": "1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/greenpeace/github-archive-installer.git",
-                "reference": "e6c80759f34a191e2e2dfbd6782f1d72b4ba85e9"
+                "reference": "92356a00c045e7cd9b1fdf109fedb715daf2585c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/greenpeace/github-archive-installer/zipball/e6c80759f34a191e2e2dfbd6782f1d72b4ba85e9",
-                "reference": "e6c80759f34a191e2e2dfbd6782f1d72b4ba85e9",
+                "url": "https://api.github.com/repos/greenpeace/github-archive-installer/zipball/92356a00c045e7cd9b1fdf109fedb715daf2585c",
+                "reference": "92356a00c045e7cd9b1fdf109fedb715daf2585c",
                 "shasum": ""
             },
             "require": {
@@ -44,7 +44,7 @@
                 }
             ],
             "description": "Forked from https://github.com/wpscholar/github-archive-installer. A custom Composer installer that will install a dependency from a GitHub release archive .zip file when installing from distribution.",
-            "time": "2020-09-23T09:04:05+00:00"
+            "time": "2021-01-07T11:23:34+00:00"
         }
     ],
     "packages-dev": [
@@ -2017,9 +2017,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/timber-library.1.18.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://downloads.wordpress.org/plugin/timber-library.1.18.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
