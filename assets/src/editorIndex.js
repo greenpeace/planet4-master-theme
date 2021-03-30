@@ -1,6 +1,6 @@
 import { ArticlesBlock } from './blocks/Articles/ArticlesBlock';
 import { CarouselHeaderBlock } from './blocks/OldCarouselheader/CarouselHeaderBlock';
-import { ColumnsBlock } from './blocks/Columns/ColumnsBlock';
+import { registerColumnsBlock } from './blocks/Columns/ColumnsBlock';
 import { CookiesBlock } from './blocks/Cookies/CookiesBlock';
 import { CounterBlock } from './blocks/Counter/CounterBlock';
 import { CoversBlock } from './blocks/OldCovers/CoversBlock';
@@ -15,8 +15,8 @@ import { TakeactionboxoutBlock } from './blocks/Takeactionboxout/Takeactionboxou
 import { registerTimelineBlock } from './blocks/Timeline/TimelineBlock';
 import { addBlockFilters } from './BlockFilters';
 import { setupImageBlockExtension } from './ImageBlockExtension';
-import { replaceTaxonomyTermSelectors } from "./replaceTaxonomyTermSelectors";
-import { SpreadsheetBlock } from "./blocks/Spreadsheet/SpreadsheetBlock"
+import { replaceTaxonomyTermSelectors } from './replaceTaxonomyTermSelectors';
+import { SpreadsheetBlock } from './blocks/Spreadsheet/SpreadsheetBlock'
 import { addButtonLinkPasteWarning } from './addButtonLinkPasteWarning';
 import { setupCustomSidebar } from './setupCustomSidebar';
 import { setUpCssVariables } from './connectCssVariables';
@@ -27,7 +27,7 @@ import { ENFormBlock } from './blocks/ENForm/ENFormBlock';
 blockEditorValidation();
 new ArticlesBlock();
 new CarouselHeaderBlock();
-new ColumnsBlock();
+registerColumnsBlock();
 new CookiesBlock();
 new CounterBlock();
 new CoversBlock();

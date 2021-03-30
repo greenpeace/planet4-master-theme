@@ -374,7 +374,6 @@
     .column-wrap {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       margin-bottom: $space-lg;
 
       @include large-and-up {

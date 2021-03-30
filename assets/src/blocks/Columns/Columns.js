@@ -1,7 +1,8 @@
+import { ColumnsImagePlaceholder } from './ColumnsImagePlaceholder';
 import { LAYOUT_NO_IMAGE, LAYOUT_ICONS, LAYOUT_TASKS } from './ColumnConstants';
 import { ColumnsTasks } from './ColumnsTasks';
 
-export const Columns = ({ columns, columns_block_style, isCampaign }) => {
+export const Columns = ({ columns, columns_block_style, isCampaign, isExample = false }) => {
   if (!columns || !columns.length) {
     return null;
   }
@@ -27,11 +28,18 @@ export const Columns = ({ columns, columns_block_style, isCampaign }) => {
           'data-ga-label': 'n/a'
         };
 
+        const hasImage = attachment !== 0 && attachment !== undefined;
+
         return (
           <div key={`column-${index}`} className='col-md-6 col-lg column-wrap'>
-            {attachment !== 0 && columns_block_style !== LAYOUT_NO_IMAGE &&
+            {(hasImage || isExample) && columns_block_style !== LAYOUT_NO_IMAGE &&
               <div className='attachment-container'>
-                {cta_link ?
+                {isExample ?
+                  <ColumnsImagePlaceholder
+                    width={columns_block_style !== LAYOUT_ICONS ? '100%' : 100}
+                    height={columns_block_style !== LAYOUT_ICONS ? 150 : 100}
+                  />
+                : cta_link ?
                   <a
                     href={cta_link}
                     target={link_new_tab && link_new_tab !== 'false' ? '_blank' : ''}
@@ -39,9 +47,9 @@ export const Columns = ({ columns, columns_block_style, isCampaign }) => {
                     data-ga-action={columns_block_style === LAYOUT_ICONS ? 'Icon' : 'Image'}
                     data-ga-label={cta_link}
                   >
-                    <img src={attachment} alt={title} />
+                    <img src={attachment} alt={title} loading='lazy' />
                   </a> :
-                  <img src={attachment} alt={title} />
+                  <img src={attachment} alt={title} loading='lazy' />
                 }
               </div>
             }

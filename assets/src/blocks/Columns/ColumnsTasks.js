@@ -11,6 +11,9 @@ export const ColumnsTasks = ({ isCampaign, columns, no_of_columns }) => (
             description,
             link_new_tab,
           } = column;
+
+          const hasImage = attachment !== 0 && attachment !== undefined;
+
           return (
             <div key={`column-${index}`} className='col-md-6 col-lg column-wrap step-info'>
               <span className='step-number'>
@@ -42,8 +45,8 @@ export const ColumnsTasks = ({ isCampaign, columns, no_of_columns }) => (
               {description &&
                 <p dangerouslySetInnerHTML={{ __html: description }} />
               }
-              {attachment !== 0 &&
-                <img src={attachment} alt='' />
+              {hasImage &&
+                <img src={attachment} alt='' loading='lazy' />
               }
               {cta_text && cta_link &&
                 <a
@@ -73,14 +76,10 @@ export const ColumnsTasks = ({ isCampaign, columns, no_of_columns }) => (
             description,
             link_new_tab,
           } = column;
-          let taskNumber = 'one';
-          if (index === 1) {
-            taskNumber = 'two';
-          } else if (index === 2) {
-            taskNumber = 'three';
-          } else if (index === 3) {
-            taskNumber = 'four';
-          }
+
+          const taskNumber = ['one','two','three','four'][index] || 'one';
+          const hasImage = attachment !== 0 && attachment !== undefined;
+
           return (
             <div key={`column-${index}`} className='card'>
               <a
@@ -119,8 +118,8 @@ export const ColumnsTasks = ({ isCampaign, columns, no_of_columns }) => (
                       <p dangerouslySetInnerHTML={{ __html: description }} />
                     }
                   </div>
-                  {attachment !== 0 &&
-                    <img src={attachment} alt='' />
+                  {hasImage &&
+                    <img src={attachment} alt='' loading='lazy' />
                   }
                   {cta_text && cta_link &&
                     <a

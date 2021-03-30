@@ -43,7 +43,7 @@ $I->amOnPage( '/' . $slug );
 
 // Check the Tasks style
 $I->see( 'Images Columns', '.block-style-image > div > header > h2' );
-$I->see( 'Images Column Block description', '.block-style-image > div > div > p' );
+$I->see( 'Images Column Block description', '.block-style-image > div > div' );
 
 // Column 1.
 $I->see( 'Column 1', 'h3 > a' );

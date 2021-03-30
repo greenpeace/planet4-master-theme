@@ -9,7 +9,7 @@ export const ColumnsFrontend = ({ columns_block_style, columns_title, columns_de
   const alignColumnHeaders = () => {
     // On mobile, columns are not side by side so no need to adjust the headers' height
     // For Tasks style, we have an "accordion" for screens up to 992px
-    if (window.innerWidth < 768 || columns_block_style === LAYOUT_TASKS && window.innerWidth < 992) {
+    if (window.innerWidth < 768 || (columns_block_style === LAYOUT_TASKS && window.innerWidth < 992)) {
       const headings = [...document.querySelectorAll('.columns-block .column-wrap h3, .columns-block .column-wrap h5')];
       headings.forEach(heading => heading.style.minHeight = 'auto');
       return;

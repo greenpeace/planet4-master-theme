@@ -4,3 +4,4 @@ export const LAYOUT_ICONS    = 'icons';
 export const LAYOUT_IMAGES   = 'image';
 
 export const MAX_COLUMNS_AMOUNT = 4;
+export const MIN_COLUMNS_AMOUNT = 2;

@@ -21,7 +21,7 @@ class Columns extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'planet4-blocks/columns';
+	const BLOCK_NAME = 'columns';
 
 	const TASK_TEMPLATE_NAME = 'tasks';
 
@@ -40,15 +40,9 @@ class Columns extends Base_Block {
 			[
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => static function ( $attributes ) {
-					if ( isset( $attributes['columns_block_style'] ) ) {
-						$attributes['initialRowsLimit'] = self::LAYOUT_NO_IMAGE;
-					}
-
 					$attributes['columns'] = self::get_columns_data( $attributes );
 
-					$json = wp_json_encode( [ 'attributes' => $attributes ] );
-
-					return '<div data-render="' . self::BLOCK_NAME . '" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+					return self::render_frontend( $attributes );
 				},
 				'attributes'      => [
 					'columns_block_style' => [
