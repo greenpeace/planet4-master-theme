@@ -1,3 +1,8 @@
+:root {
+  --link--color: #007eff;
+  --link-hover--color: #837ac3;
+}
+
 body.theme-climate {
   $jost: "Jost", sans-serif;
 
@@ -84,12 +89,7 @@ body.theme-climate {
 
   .page-template a {
     &:not(.btn):not(.share-btn) {
-      color: $climate-blue;
       text-transform: uppercase;
-
-      &:hover {
-        color: $climate-purple-2;
-      }
     }
   }
 
