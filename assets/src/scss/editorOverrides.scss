@@ -199,12 +199,6 @@ input.describe[type=text][data-setting=caption] {
   color: red;
 }
 
-.wp-embed-responsive .block-editor {
-  .wp-block-embed.wp-has-aspect-ratio .wp-block-embed__wrapper::before {
-    content: none;
-  }
-}
-
 // Sidebar help texts
 .components-base-control__help,
 .components-form-token-field__help,
