@@ -89,7 +89,7 @@ export const ColumnsTasks = ({ isCampaign, columns, no_of_columns }) => (
                 id={`heading-${taskNumber}`}
                 data-bs-toggle='collapse'
                 data-bs-target={`.card-header:hover + #collapse-${taskNumber}`}
-                href={`collapse-${taskNumber}`}
+                href={`#collapse-${taskNumber}`}
                 aria-expanded='true'
                 aria-controls={`collapse-${taskNumber}`}
                 data-ga-category='Columns Block'
@@ -119,7 +119,7 @@ export const ColumnsTasks = ({ isCampaign, columns, no_of_columns }) => (
                       <p dangerouslySetInnerHTML={{ __html: description }} />
                     }
                   </div>
-                  {attachment &&
+                  {attachment !== 0 &&
                     <img src={attachment} alt='' />
                   }
                   {cta_text && cta_link &&
