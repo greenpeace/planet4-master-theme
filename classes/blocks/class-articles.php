@@ -38,7 +38,7 @@ class Articles extends Base_Block {
 	 */
 	public function __construct() {
 		register_block_type(
-			'planet4-blocks/articles',
+			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
 				// todo: Remove when all content is migrated.
@@ -51,9 +51,7 @@ class Articles extends Base_Block {
 						$attributes['article_heading'] = __( 'Related Articles', 'planet4-blocks' );
 					}
 
-					$json = wp_json_encode( [ 'attributes' => $attributes ] );
-
-					return '<div data-render="planet4-blocks/articles" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+					return self::render_frontend( $attributes );
 				},
 				'attributes'      => [
 					'article_heading'      => [

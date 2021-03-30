@@ -19,7 +19,7 @@ class TakeActionBoxout extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'take_action_boxout';
+	const BLOCK_NAME = 'take-action-boxout';
 
 	/**
 	 * Register shortcake shortcode.
@@ -55,7 +55,7 @@ class TakeActionBoxout extends Base_Block {
 		add_shortcode( 'shortcake_take-action-boxout', [ $this, 'add_block_shortcode' ] );
 
 		register_block_type(
-			'planet4-blocks/take-action-boxout',
+			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],

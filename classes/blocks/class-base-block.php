@@ -19,6 +19,8 @@ abstract class Base_Block {
 		'default' => [],
 	];
 
+	public const NAMESPACE = 'planet4-blocks';
+
 	/**
 	 * Get all the data that will be needed to render the block correctly.
 	 *
@@ -93,5 +95,94 @@ abstract class Base_Block {
 	 */
 	public static function update_data( array $fields ) {
 		throw new NotImplemented( 'Method update_data is not implemented for ' . static::class );
+	}
+
+	/**
+	 * Register scripts and styles for a block
+	 */
+	public static function enqueue_editor_assets() {
+		$camelized_block_name = static::get_camelized_block_name();
+		$url_path             = trailingslashit( P4GBKS_PLUGIN_URL ) . 'assets/build/' . $camelized_block_name;
+		$dir_path             = trailingslashit( P4GBKS_PLUGIN_DIR ) . 'assets/build/' . $camelized_block_name;
+		$block_name           = static::get_full_block_name();
+
+		// Editor Script.
+		wp_enqueue_script(
+			$block_name . '-editor-script',
+			$url_path . 'EditorScript.js',
+			'planet4-blocks-editor-script',
+			\P4GBKS\Loader::file_ver( $dir_path . 'EditorScript.js' ),
+			true
+		);
+
+		// Editor Style.
+		wp_enqueue_style(
+			$block_name . '-editor-style',
+			$url_path . 'EditorStyle.min.css',
+			[],
+			\P4GBKS\Loader::file_ver( $dir_path . 'EditorStyle.min.css' ),
+		);
+
+		// Frontend Style (aka: style).
+		wp_enqueue_style(
+			$block_name . '-style',
+			$url_path . 'Style.min.css',
+			[],
+			\P4GBKS\Loader::file_ver( $dir_path . 'Style.min.css' ),
+		);
+	}
+
+	/**
+	 * Enqueue assets for the frontend IF the blocks is present.
+	 */
+	public static function enqueue_frontend_assets() {
+		if ( has_block( static::get_full_block_name() ) ) {
+			$camelized_block_name = static::get_camelized_block_name();
+			$url_path             = trailingslashit( P4GBKS_PLUGIN_URL ) . 'assets/build/' . $camelized_block_name;
+			$dir_path             = trailingslashit( P4GBKS_PLUGIN_DIR ) . 'assets/build/' . $camelized_block_name;
+			$block_name           = static::get_full_block_name();
+
+			// Frontend Script (aka: script).
+			wp_enqueue_script(
+				$block_name . '-script',
+				$url_path . 'Script.js',
+				'planet4-blocks-script',
+				\P4GBKS\Loader::file_ver( $dir_path . 'Script.js' ),
+				true
+			);
+
+			// Frontend Style (aka: style).
+			wp_enqueue_style(
+				$block_name . '-style',
+				$url_path . 'Style.min.css',
+				[],
+				\P4GBKS\Loader::file_ver( $dir_path . 'Style.min.css' ),
+			);
+		}
+	}
+
+	/**
+	 * Converts the hy-phe-na-ted block name into CamelCase.
+	 */
+	public static function get_camelized_block_name() {
+		return str_replace( '-', '', ucwords( static::BLOCK_NAME, '-' ) );
+	}
+
+	/**
+	 * Returns the block name with its namespace prefix, e.g.: planet4-blocks/accordion.
+	 */
+	public static function get_full_block_name() {
+		return static::NAMESPACE . '/' . static::BLOCK_NAME;
+	}
+
+	/**
+	 * Renders a `div` with the block's attributes in a `data-` attribute to be handled in the frontend.
+	 *
+	 * @param array $attributes The block's attributes.
+	 */
+	public static function render_frontend( $attributes ) {
+		$json = wp_json_encode( [ 'attributes' => $attributes ] );
+
+		return '<div data-render="' . self::get_full_block_name() . '" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
 	}
 }

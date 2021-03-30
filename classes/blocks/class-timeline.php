@@ -26,15 +26,11 @@ class Timeline extends Base_Block {
 		// - Register the block for the editor
 		// in the PHP side.
 		register_block_type(
-			'planet4-blocks/timeline',
+			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
 				// todo: Remove when all content is migrated.
-				'render_callback' => static function ( $attributes ) {
-					$json = wp_json_encode( [ 'attributes' => $attributes ] );
-
-					return '<div data-render="planet4-blocks/timeline" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
-				},
+				'render_callback' => [ self::class, 'render_frontend' ],
 				'attributes'      => [
 					'timeline_title'    => [
 						'type'    => 'string',

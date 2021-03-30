@@ -21,21 +21,18 @@ class Happypoint extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'happy_point';
+	const BLOCK_NAME = 'happy-point';
 
 	/**
 	 * Happypoint constructor.
 	 */
 	public function __construct() {
 		register_block_type(
-			'planet4-blocks/happypoint',
+			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
 				// todo: Remove when all content is migrated.
-				'render_callback' => static function ( $attributes ) {
-					$json = wp_json_encode( [ 'attributes' => $attributes ] );
-					return '<div data-render="planet4-blocks/happypoint" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
-				},
+				'render_callback' => [ self::class, 'render_frontend' ],
 				'attributes'      => [
 					'id'                  => [
 						'type' => 'integer',

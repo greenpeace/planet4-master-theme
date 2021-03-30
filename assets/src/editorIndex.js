@@ -11,7 +11,6 @@ import { SocialmediaBlock } from './blocks/Socialmedia/SocialmediaBlock';
 import { SocialMediaCardsBlock } from './blocks/SocialMediaCards/SocialMediaCardsBlock';
 import { registerSplittwocolumnsBlock } from './blocks/Splittwocolumns/register';
 import { registerSubmenuBlock } from './blocks/Submenu/SubmenuBlock';
-import { registerAccordionBlock } from './blocks/Accordion/AccordionBlock';
 import { TakeactionboxoutBlock } from './blocks/Takeactionboxout/TakeactionboxoutBlock';
 import { registerTimelineBlock } from './blocks/Timeline/TimelineBlock';
 import { addBlockFilters } from './BlockFilters';
@@ -44,7 +43,6 @@ new SubPagesBlock();
 new TakeactionboxoutBlock();
 new ENFormBlock();
 registerTimelineBlock();
-registerAccordionBlock();
 
 addBlockFilters();
 setupImageBlockExtension();

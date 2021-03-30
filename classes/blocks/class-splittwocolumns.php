@@ -21,7 +21,7 @@ class SplitTwoColumns extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	public const BLOCK_NAME = 'planet4-blocks/split-two-columns';
+	public const BLOCK_NAME = 'split-two-columns';
 
 	/**
 	 * Block version, update when changing attributes
@@ -75,19 +75,12 @@ class SplitTwoColumns extends Base_Block {
 		);
 
 		\register_block_type(
-			self::BLOCK_NAME,
+			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
 				'attributes'      => self::ATTRIBUTES,
 				'render_callback' => function ( $attributes ) {
-					$json = \wp_json_encode(
-						[ 'attributes' => self::update_data( $attributes ) ]
-					);
-
-					return '<div
-						data-render="' . self::BLOCK_NAME . '"
-						data-attributes="' . htmlspecialchars( $json ) . '">
-					</div>';
+					return self::render_frontend( self::update_data( $attributes ) );
 				},
 			]
 		);

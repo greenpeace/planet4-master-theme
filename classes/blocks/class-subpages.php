@@ -23,7 +23,7 @@ class SubPages extends Base_Block {
 	 */
 	public function __construct() {
 		register_block_type(
-			'planet4-blocks/sub-pages',
+			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],

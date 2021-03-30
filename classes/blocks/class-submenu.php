@@ -27,14 +27,11 @@ class Submenu extends Base_Block {
 	 */
 	public function __construct() {
 		register_block_type(
-			'planet4-blocks/submenu',
+			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
 				// todo: Remove when all content is migrated.
-				'render_callback' => static function ( $attributes ) {
-					$json = wp_json_encode( [ 'attributes' => $attributes ] );
-					return '<div data-render="planet4-blocks/submenu" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
-				},
+				'render_callback' => [ self::class, 'render_frontend' ],
 				'attributes'      => [
 					'title'         => [
 						'type'    => 'string',

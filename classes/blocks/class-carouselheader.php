@@ -10,7 +10,7 @@ namespace P4GBKS\Blocks;
 
 /**
  * Class CarouselHeader
- * Registers planet4-blocks/carousel-header block.
+ * Registers the Carousel Header block.
  *
  * @package P4BKS
  * @since 0.1
@@ -22,14 +22,14 @@ class CarouselHeader extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'carousel_header';
+	const BLOCK_NAME = 'carousel-header';
 
 	/**
 	 * Gallery constructor.
 	 */
 	public function __construct() {
 		register_block_type(
-			'planet4-blocks/carousel-header',
+			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],

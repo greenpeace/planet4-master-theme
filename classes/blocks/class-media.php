@@ -21,14 +21,14 @@ class Media extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'media_video';
+	const BLOCK_NAME = 'media-video';
 
 	/**
 	 * Media constructor.
 	 */
 	public function __construct() {
 		register_block_type(
-			'planet4-blocks/media-video',
+			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => static function ( $attributes, $content ) {
@@ -43,11 +43,7 @@ class Media extends Base_Block {
 						unset( $attributes['youtube_id'] );
 					}
 
-					$json = wp_json_encode(
-						[ 'attributes' => $attributes ]
-					);
-
-					return '<div data-render="planet4-blocks/media-video" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+					return self::render_frontend( $attributes );
 				},
 				'attributes'      => [
 					'video_title'      => [

@@ -1,3 +1,8 @@
+@import "../../master-theme/assets/src/scss/styleguide/src/base/variables";
+@import "../../master-theme/assets/src/scss/styleguide/src/base/colors";
+@import "../../master-theme/assets/src/scss/styleguide/src/base/mixins";
+@import "../../master-theme/assets/src/scss/styleguide/src/base/fonts";
+
 .add-button {
   cursor: pointer;
   font-weight: 500;
