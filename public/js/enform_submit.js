@@ -57,6 +57,12 @@ const p4_enform_frontend = (function ($) {
     return re.test(String(email).toLowerCase());
   };
 
+  enform.validateRadio = radio => {
+    const name = radio.attr('name');
+    const siblingRadios = [...$(`input[type="radio"][name ="${name}"]`)];
+    return siblingRadios.find(radio => radio.checked === true);
+  };
+
   enform.validateUrl = function(url) {
     return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);  //eslint-disable-line no-useless-escape
   };
@@ -65,19 +71,29 @@ const p4_enform_frontend = (function ($) {
     if ('undefined' === typeof msg) {
       msg = $(element).data('errormessage');
     }
-    $(element).addClass('is-invalid');
     const $invalidDiv = $('<div>');
     $invalidDiv.addClass('invalid-feedback');
     $invalidDiv.html(msg);
-    $invalidDiv.insertAfter(element);
+    $(element).addClass('is-invalid');
+    // For checkboxes and radios we need to append the error message to the description
+    if (['checkbox', 'radio'].includes($(element).attr('type'))) {
+      const description = $(element).next();
+      $invalidDiv.insertAfter(description);
+    } else {
+      $invalidDiv.insertAfter(element);
+    }
   };
 
   enform.removeErrorMessage = function(element) {
     $(element).removeClass('is-invalid');
-    const errorDiv = $(element).next();
+    let errorDiv = $(element).next();
+    if (['checkbox', 'radio'].includes($(element).attr('type'))) {
+      errorDiv = errorDiv.next();
+    }
     if (errorDiv.length && errorDiv.hasClass('invalid-feedback')) {
       $(errorDiv).remove();
     }
+
   };
 
   enform.validateForm = function(form) {
@@ -87,8 +103,10 @@ const p4_enform_frontend = (function ($) {
       enform.removeErrorMessage(this);
       const formValue = $(this).val();
 
-      if (
-        $(this).attr('required') && !formValue ||
+      if ( // We only need to validate once per set of radios so we can check only the first one
+        $(this).attr('required') && 'radio' === $(this).attr('type') && $(this).attr('id').slice(-1) === '0' && !enform.validateRadio($(this)) ||
+        $(this).attr('required') && 'checkbox' === $(this).attr('type') && !$(this)[0].checked ||
+        $(this).attr('required') && !formValue && 'radio' !== $(this).attr('type') ||
         'email' === $(this).attr('type') && !enform.validateEmail(formValue)
       ) {
         enform.addErrorMessage(this);

@@ -99,46 +99,6 @@
       @include  large-and-up {
         width: 100% !important;
       }
-
-      &.is-invalid {
-        border-color: $dark-orange;
-        background: $white;
-
-        &:focus {
-          border-color: $dark-orange;
-        }
-      }
-
-      + .invalid-feedback {
-        background: $dark-orange;
-        color: white;
-        border-radius: 4px;
-        font-size: 12px;
-        font-weight: 500;
-        padding: 6px 12px;
-        width: fit-content;
-        position: relative;
-        pointer-events: none;
-        margin-top: 6px;
-
-        &:after {
-          bottom: 100%;
-          border: solid transparent;
-          content: "";
-          height: 0;
-          width: 0;
-          position: absolute;
-          border-bottom-color: $dark-orange;
-          border-width: 5px;
-          right: auto;
-          left: 16px;
-
-          html[dir="rtl"] & {
-            left: auto;
-            right: 16px;
-          }
-        }
-      }
     }
 
     .disable-checkbox {

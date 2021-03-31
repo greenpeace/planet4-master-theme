@@ -15,6 +15,14 @@
     }
 
     form {
+      .custom-control .custom-control-description {
+        color: $white;
+
+        a {
+          color: $white;
+        }
+      }
+
       .en__field--check {
         margin-top: 16px;
 
