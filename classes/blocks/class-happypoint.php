@@ -21,7 +21,7 @@ class Happypoint extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'happy-point';
+	const BLOCK_NAME = 'happypoint';
 
 	/**
 	 * Happypoint constructor.
