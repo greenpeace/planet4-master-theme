@@ -138,7 +138,7 @@ module.exports = {
           fs.writeFile(
             './assets/build/css-variables.json',
             JSON.stringify( mergedUsages, null, 2 ),
-            err => console.log( err )
+            err => !!err && console.log( err )
           );
           // todo: handle multiple files. The next line only works as intended if there is one style file.
           // allCssVars = {}
