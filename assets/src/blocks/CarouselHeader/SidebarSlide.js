@@ -1,29 +1,29 @@
-import {Fragment} from '@wordpress/element';
+import { Fragment } from '@wordpress/element';
 import {
   SelectControl,
   ToggleControl,
   FocalPointPicker,
 } from '@wordpress/components';
-import {URLInput} from '@wordpress/block-editor'
+import { URLInput } from '../../components/URLInput/URLInput';
 
 export const SidebarSlide = ({
-    header_size,
-    focal_points,
-    link_url,
-    link_url_new_tab,
-    index,
-    slides,
-    setAttributes,
-    image_url,
-    onFocalPointsChange,
-  }) => {
-  const {__} = wp.i18n;
+  header_size,
+  focal_points,
+  link_url,
+  link_url_new_tab,
+  index,
+  slides,
+  setAttributes,
+  image_url,
+  onFocalPointsChange,
+}) => {
+  const { __ } = wp.i18n;
   const dimensions = { width: 300, height: 100 };
 
-  const changeSlideAttribute = (slideAttributeName, index, value, slides) => {
+  const changeSlideAttribute = (slideAttributeName, index, value) => {
     let slidesCopy = JSON.parse(JSON.stringify(slides));
     slidesCopy[index][slideAttributeName] = value;
-    setAttributes({slides: slidesCopy});
+    setAttributes({ slides: slidesCopy });
   }
 
   return (
@@ -38,9 +38,9 @@ export const SidebarSlide = ({
                 label={__('Header text size', 'p4ge')}
                 value={header_size}
                 options={[
-                  {label: 'h1', value: 'h1'},
-                  {label: 'h2', value: 'h2'},
-                  {label: 'h3', value: 'h3'},
+                  { label: 'h1', value: 'h1' },
+                  { label: 'h2', value: 'h2' },
+                  { label: 'h3', value: 'h3' },
                 ]}
                 onChange={value => changeSlideAttribute('header_size', index, value, slides)}
               />
