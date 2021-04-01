@@ -1,4 +1,4 @@
-export const DRAG_KEY = 'dragThiny';
+export const DRAG_KEY = 'dragThingy';
 function detectLeftButton(event) {
   if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) {
     return false;
@@ -66,7 +66,7 @@ export const dragElement = (draggedElement) => {
     e = e || window.event;
     e.preventDefault();
     draggedElement.classList.add('dragging')
-    const maxHeight = window.outerHeight - draggedElement.offsetTop - 300;
+    const maxHeight = window.outerHeight - draggedElement.offsetTop - 318;
     // calculate the new cursor position:
     posX1 = posX2 - e.clientX;
     posY1 = posY2 - e.clientY;

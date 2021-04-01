@@ -89,7 +89,7 @@ const renderShow = ({cssVar, toggleSelectors}) => <pre
 const showUsages = (cssVar, showSelectors, toggleSelectors) => {
 
   return <div
-    style={ { display: 'inline-block', fontSize: '11px', position: 'relative', marginTop: '16px' } }
+    style={ { display: 'inline-block', fontSize: '11px', position: 'relative', marginTop: '16px', minWidth: '40%' } }
   >
       <span
         key={ 3 }
