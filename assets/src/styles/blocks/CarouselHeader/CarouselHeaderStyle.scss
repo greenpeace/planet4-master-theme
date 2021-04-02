@@ -658,7 +658,7 @@ $medium-image-height: 600px;
       height: 46px;
       cursor: pointer;
       background: url("../../public/images/carousel-arrow-next.png");
-      background-size: contain;
+      background-size: cover;
       display: none;
 
       @include large-and-up {
