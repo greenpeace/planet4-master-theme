@@ -133,9 +133,12 @@ export const TypedControl = ({ cssVar, theme, value, onChange, dispatch }) => {
     'padding-left',
     'padding-right',
     'padding-top',
+    'width',
     'height',
     'min-width',
     'max-width',
+    'min-height',
+    'max-height',
     'letter-spacing',
   ];
 
