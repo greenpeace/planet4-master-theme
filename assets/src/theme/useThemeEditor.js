@@ -34,41 +34,46 @@ const DEFAULT_STATE = {
   lastSet: {},
 };
 
-const getDroppedProps = (fromState, toState) => {
-  return Object.keys(fromState).filter(k => !Object.keys(toState).includes(k));
+const dropProps = (fromState, toState, previewProps, previewPseudoVars) => {
+  return Object.keys(fromState).filter(k => {
+    if (Object.keys(previewProps).includes(k)) {
+      return false;
+    }
+
+    if (Object.keys(previewPseudoVars).some(pseudo => k.includes(pseudo))) {
+      return false;
+    }
+
+    return !Object.keys(toState).includes(k);
+  }).forEach(k => keysToRemove[k] = true);
 };
 
 const ACTIONS = {
   SET: (state, { name, value }) => {
-    const {
-      theme,
-      history,
-      lastSet,
-    } = state;
+    const { theme } = state;
     // In case this action is dispatched but the value doesn't change,
     const isActualSet = theme[name] !== value;
 
-    const shouldAddEntry = isActualSet && !lastSet[name] || Date.now() - lastSet[name] > 700;
-    console.log( shouldAddEntry, lastSet);
+    if (theme[name] === value) {
+      return state;
+    }
+
+    const shouldAddEntry = !state.lastSet[name] || Date.now() - state.lastSet[name] > 700;
 
     return {
       ...state,
-      theme: { ...theme, [name]: value },
-      history: !shouldAddEntry ? history : pushHistory(history, theme),
-      lastSet: !isActualSet ? lastSet : {
-        ...lastSet,
-        [name]: Date.now(),
-      }
+      theme: { ...state.theme, [name]: value },
+      history: !shouldAddEntry ? state.history : pushHistory(state.history, state.theme),
+      lastSet: { ...state.lastSet, [name]: Date.now(), }
     };
   },
   UNSET: (state, { name }) => {
-    const {theme, history} = state;
     const {
       [name]: oldValue,
       ...others
-    } = theme;
+    } = state.theme;
 
-    const isActualUnset = theme.hasOwnProperty(name);
+    const isActualUnset = state.theme.hasOwnProperty(name);
 
     if (isActualUnset) {
       keysToRemove[name] = true;
@@ -77,7 +82,7 @@ const ACTIONS = {
     return {
       ...state,
       theme: others,
-      history: !isActualUnset ? history : pushHistory(history, theme),
+      history: !isActualUnset ? state.history : pushHistory(state.history, state.theme),
     };
   },
   START_PREVIEW: (state, { name, value }) => {
@@ -90,14 +95,13 @@ const ACTIONS = {
     };
   },
   END_PREVIEW: (state, { name }) => {
-    const {theme} = state;
     const {
       [name]: previewedValue,
       ...otherProps
     } = state.previewProps;
 
     if (
-      !theme.hasOwnProperty(name)
+      !state.theme.hasOwnProperty(name)
       && !Object.keys(state.previewPseudoVars).map(s => s.replace(PSEUDO_REGEX, '--')).includes(name)) {
       keysToRemove[name] = true;
     }
@@ -122,7 +126,6 @@ const ACTIONS = {
   END_PREVIEW_PSEUDO_STATE: (state, { name }) => {
     const elementToEnd = name.replace(PSEUDO_REGEX, '--').replace(PROP_REGEX, '');
 
-    const { theme } = state;
     const {
       [elementToEnd]: discard,
       ...otherPseudos
@@ -135,9 +138,7 @@ const ACTIONS = {
         return;
       }
 
-      if (
-        !theme.hasOwnProperty(k)
-      ) {
+      if (!state.theme.hasOwnProperty(k)) {
         keysToRemove[k] = true;
       }
       // Unset the regular property so that it gets set again.
@@ -156,14 +157,7 @@ const ACTIONS = {
       return state;
     }
     const [prevTheme, ...older] = history;
-
-    const droppedProps = getDroppedProps(theme, prevTheme);
-    droppedProps.forEach(k => {
-      if (Object.keys(previewProps).includes(k) || Object.keys(previewPseudoVars).some(pseudo => k.includes(pseudo))) {
-        return;
-      }
-      keysToRemove[k] = true;
-    });
+    dropProps(theme, prevTheme, previewProps, previewPseudoVars);
 
     return {
       ...state,
@@ -182,13 +176,7 @@ const ACTIONS = {
     }
 
     const [nextTheme, ...newer] = future;
-    const droppedProps = getDroppedProps(theme, nextTheme);
-    droppedProps.forEach(k => {
-      if (Object.keys(previewProps).includes(k) || Object.keys(previewPseudoVars).some(pseudo => k.includes(pseudo))) {
-        return;
-      }
-      keysToRemove[k] = true;
-    });
+    dropProps(theme, nextTheme, previewProps, previewPseudoVars);
 
     return {
       ...state,
@@ -201,6 +189,7 @@ const ACTIONS = {
     };
   },
   LOAD_THEME: ({ defaultValues, history, theme: oldTheme }, { theme }) => {
+    dropProps(oldTheme, theme, {}, {});
     Object.keys(lastWritten).forEach(k => lastWritten[k] = null);
     Object.keys(theme).forEach(k => keysToRemove[k] = true);
 
@@ -213,7 +202,11 @@ const ACTIONS = {
   }
 };
 
-// export const THEME_ACTIONS = Object.keys(ACTIONS).reduce((t, k) => ({ ...t, [k]: k }), {});
+// Experimenting with exporting the reducers themselves as ACTION keys. If you pass a function to the "main" reducer,
+// it will use the name of the function to locate the action. This has some benefits: no need to have a separate ACTIONS
+// constant each time you want to use a reducer, and need to update it each time you add a new action. It also makes it
+// easier to navigate from the dispatch directly to the function that handles it. This can be easily switched back to
+// strings if needed by changing the import only.
 export const THEME_ACTIONS = ACTIONS;
 
 function reducer(state, { type, payload }) {
@@ -272,6 +265,49 @@ const getAllDefaultValues = allVars => {
   };
 };
 
+const applyPseudoPreviews = (defaultValues, resolvedValues, previewPseudoVars) =>
+  Object.keys(defaultValues).reduce((values, k) => {
+
+    const withoutProperty = k.replace(PROP_REGEX, '').replace(/-+$/, '');
+    let elementState = previewPseudoVars[withoutProperty + '--'];
+
+    if (!elementState) {
+      return values;
+    }
+
+    elementState = elementState.replace(/-/g, '');
+    const propName = (k.match(PROP_REGEX) || [null])[0];
+
+    const varToPreview = Object.keys(defaultValues).find(k => {
+      const lastPart =
+        k
+          .replace(withoutProperty, '')
+          .replace(/^-+/, '');
+
+      if (!lastPart.startsWith(elementState)) {
+        return false;
+      }
+      const defaultProperty =
+        lastPart
+          .replace(`${ elementState }--`, '')
+          .replace(/^-+/, '');
+
+      return defaultProperty === propName;
+    });
+
+    if (!varToPreview) {
+      return values;
+    }
+
+    const tmpValue = values[varToPreview] || defaultValues[varToPreview];
+
+    // Set the regular property to what the pseudo element's value is.
+    return {
+      ...values,
+      [k]: tmpValue,
+    };
+  }, resolvedValues)
+
 export const useThemeEditor = (
   {
     initialState = DEFAULT_STATE,
@@ -299,40 +335,7 @@ export const useThemeEditor = (
 
   const withPseudoPreviews = previewPseudoVars.length === 0
     ? resolvedValues
-    : Object.keys(defaultValues).reduce((values, k) => {
-
-      const withoutProperty = k.replace(PROP_REGEX, '').replace(/-+$/, '');
-
-      let elementState = previewPseudoVars[withoutProperty + '--'];
-
-      if (!elementState) {
-        return values;
-      }
-      elementState = elementState.replace(/-/g, '')
-      const propName = (k.match(PROP_REGEX) || [null])[0];
-
-      const varToPreview = Object.keys(defaultValues).find(k => {
-        const lastPart = k.replace(withoutProperty, '').replace(/^-+/, '');
-        if (!lastPart.startsWith(elementState)) {
-          return false;
-        }
-        const defaultProperty = lastPart.replace(`${ elementState }--`, '').replace(/^-+/, '');
-
-        return defaultProperty === propName;
-      });
-
-      if (!varToPreview) {
-        return values;
-      }
-
-      const tmpValue = values[varToPreview] || defaultValues[varToPreview];
-
-      // Set the regular property to what the pseudo element's value is.
-      return {
-        ...values,
-        [k]: tmpValue,
-      };
-    }, resolvedValues);
+    : applyPseudoPreviews(defaultValues, resolvedValues, previewPseudoVars);
 
   useEffect(() => {
     processRemovals(defaultValues);

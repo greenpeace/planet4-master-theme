@@ -1,4 +1,4 @@
-import {  TextControl, FontSizePicker} from '@wordpress/components';
+import {  TextControl } from '@wordpress/components';
 import { SketchPicker as ColorPicker} from 'react-color';
 import tinycolor from 'tinycolor2';
 import { Fragment } from '@wordpress/element';
@@ -55,7 +55,7 @@ export const TypedControl = ({ cssVar, theme, value, onChange, dispatch }) => {
 
   if (cssVar.usages.some(usage =>
     !!usage.property.match(/color$/)
-    || ['background'].includes(usage.property)
+    || ['background', 'fill'].includes(usage.property)
   )) {
     const colorUsages = extractColorUsages(theme);
 
@@ -133,26 +133,29 @@ export const TypedControl = ({ cssVar, theme, value, onChange, dispatch }) => {
     'padding-left',
     'padding-right',
     'padding-top',
+    'width',
     'height',
     'min-width',
     'max-width',
+    'min-height',
+    'max-height',
     'letter-spacing',
   ];
 
   if (cssVar.usages.some(usage => sizeLikeProperties.includes(usage.property))) {
     return <div>
-      <div key={ 1 }>
-        <span>px</span>
-        <FontSizePicker
+      <div key={ 1 } style={{clear: 'both'}}>
+        <input
+          type={ 'number' }
           value={ isPx(value) ? value.replace('px', '') : convertRemToPixels(parseFloat(value.replace('rem', ''))) }
-          onChange={ value => {
-            onChange(`${ value }px`);
+          onChange={ event => {
+            onChange(`${ event.currentTarget.value }px`);
           } }
           style={ { minWidth: '100px' } }
         />
+        <span>px</span>
       </div>
       <div key={ 2 }>
-        <span>rem</span>
         <input
           type={ 'number' }
           value={ isRem(value) ? value.replace('rem', '') : convertPixelsToRem(parseFloat(value.replace('px', ''))) }
@@ -161,6 +164,7 @@ export const TypedControl = ({ cssVar, theme, value, onChange, dispatch }) => {
           } }
           style={ { minWidth: '100px' } }
         />
+        <span>rem</span>
       </div>
       <TextControl
         value={ value }
@@ -171,11 +175,11 @@ export const TypedControl = ({ cssVar, theme, value, onChange, dispatch }) => {
 
   if (cssVar.usages.some(usage => usage.property === 'font-family')) {
     return <Fragment>
-      <FontPicker
-        apiKey={ googleApiKey }
-        activeFontFamily={ value }
-        onChange={ value => onChange(value.family) }
-      />
+      {/*<FontPicker*/}
+      {/*  apiKey={ googleApiKey }*/}
+      {/*  activeFontFamily={ value }*/}
+      {/*  onChange={ value => onChange(value.family) }*/}
+      {/*/>*/}
       <TextControl
         value={ value }
         onChange={ onChange }

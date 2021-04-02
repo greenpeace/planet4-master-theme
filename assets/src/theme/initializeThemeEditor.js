@@ -62,6 +62,7 @@ const setup = async () => {
     if (!event.altKey) {
       return;
     }
+    document.documentElement.classList.add('hide-wp-admin-bar');
     event.preventDefault();
 
     const matchedVars = await getMatchingVars({ cssVars, target: event.target });

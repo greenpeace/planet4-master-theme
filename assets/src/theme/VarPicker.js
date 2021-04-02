@@ -1,13 +1,35 @@
 import { useEffect, useState } from 'react';
 import { VariableControl } from './VariableControl';
-import { colorToState } from './colorToState';
 import { THEME_ACTIONS, useThemeEditor } from './useThemeEditor';
 import { whileHoverHighlight } from './highlight';
 import { exportCss, exportJson } from './export';
+import { useServerThemes } from './useServerThemes';
 
 export const LOCAL_STORAGE_KEY = 'p4-theme';
 
 const byName = (a, b) => a.name > b.name ? 1 : (a.name === b.name ? 0 : -1);
+
+const diffThemes = (themeA, themeB) => {
+  const added = Object.keys(themeB).filter(k => !themeA[k]);
+  const removed = Object.keys(themeA).filter(k => !themeB[k]);
+  const changed = Object.keys(themeB).filter(k => !!themeA[k] && themeA[k] !== themeB[k]);
+  const hasChanges = added.length > 0 || removed.length > 0 || changed.length > 0;
+
+  return {added,removed,changed, hasChanges}
+}
+
+const diffSummary = (themeA, themeB) => {
+  const { added, removed, changed } = diffThemes(themeA, themeB);
+
+  return `Differences of your current theme to this one:
+  added(${added.length}):
+  ${added.map(k => `${ k }: ${ themeB[k] }`).join('\n')}
+  removed(${removed.length}):
+  ${removed.join('\n')}
+  changed(${changed.length}):
+  ${changed.map(k =>`${k}: ${themeA[k]} => ${themeB[k]}`).join('\n')}
+  `;
+}
 
 export const VarPicker = (props) => {
   const {
@@ -85,7 +107,23 @@ export const VarPicker = (props) => {
 
   const [shouldGroup, setShouldGroup] = useState(true);
 
-  const [fileName, setFileName] = useState('');
+  const [fileName, setFileName] = useState(() => localStorage.getItem('p4-theme-name'));
+
+  useEffect(() => {
+    localStorage.setItem('p4-theme-name', fileName);
+  }, [fileName]);
+
+  const {
+    serverThemes,
+    uploadTheme,
+    deleteTheme,
+  } = useServerThemes();
+
+  const existsOnServer = serverThemes && Object.keys(serverThemes).some(t => t === fileName);
+
+  const modifiedServerVersion = fileName
+    && serverThemes[fileName]
+    && diffThemes(serverThemes[fileName], theme).hasChanges
 
   return <div
     className='var-picker'
@@ -111,6 +149,35 @@ export const VarPicker = (props) => {
       <input type="checkbox" readOnly checked={ shouldGroup }/>
       { 'Group last clicked element' }
     </label> }
+    { !collapsed && !!serverThemes && <ul style={{maxHeight: '140px'}}>
+      {Object.entries(serverThemes).map(([name, serverTheme]) => <li
+        title={diffSummary(serverTheme, theme)}
+        className={'server-theme ' + (fileName === name ? 'server-theme-current' : '')}
+        style={{textAlign: 'center', fontSize: '14px', height: '21px', marginBottom: '4px', clear: 'both'}}
+      >
+        {name} {modifiedServerVersion && name === fileName && '(*)'}
+        {name !== 'default' && <button
+          style={{float: 'right'}}
+          onClick={ async () => {
+            if (!confirm('Delete theme from server?')) {
+              return;
+            }
+            deleteTheme(name);
+          }}
+        >Delete</button>}
+
+        <button
+          style={{float: 'right'}}
+          onClick={() => {
+            if (modifiedServerVersion && !confirm('You have some local changes that are not on the server. Cancel if you want to save changes.')) {
+              return;
+            }
+            setFileName(name);
+            dispatch({ type: THEME_ACTIONS.LOAD_THEME, payload: { theme: serverTheme } });
+          }}
+        >Switch</button>
+      </li>)}
+    </ul>}
     { !collapsed && <div
       title='Click and hold to drag'
       className="themer-controls">
@@ -124,9 +191,22 @@ export const VarPicker = (props) => {
         >CSS
         </button>
         <label style={{fontSize: '12px'}}>
-          <input style={ { width: '130px' } } placeholder='theme' type="text"
+          <input value={fileName} style={ { width: '130px' } } placeholder='theme' type="text"
                  onChange={ event => setFileName(event.target.value) }/>
         </label>
+        <button
+          title={existsOnServer ? 'Save on server' : 'Upload this theme to the server. You can upload as many as you want.'}
+          style={{clear: 'both'}}
+          disabled={!fileName || Object.keys(theme).length === 0}
+          onClick={ async () => {
+            if (existsOnServer && !confirm('Overwrite theme on server?')) {
+              return;
+            }
+            uploadTheme(fileName, theme);
+          }}
+        >
+          { existsOnServer ? 'Save' : 'Upload'}
+        </button>
       </div>
       <div>
         <label
@@ -159,7 +239,7 @@ export const VarPicker = (props) => {
         </label>
       </div>
     </div> }
-    { shouldGroup && !collapsed && <ul>
+    { shouldGroup && !collapsed && <ul className={'group-list'}>
       { groups.map(({ element, label, vars }) => (
         <li className={ 'var-group' } key={ label } style={ { marginBottom: '12px' } }>
           <h4

@@ -35,12 +35,13 @@ const formatTitle = (cssVar, isRepeat) => {
   </Fragment>;
 };
 
+const GRADIENT_REGEX = /linear-gradient\(.+\)/;
 const previewValue = (value, cssVar, onClick, isDefault) => {
   const size = '30px';
 
   const title = `${value}${ !isDefault ? '' : ' (default)' }`;
 
-  if (value && `${value}`.match(COLOR_VALUE_REGEX)) {
+  if (value && `${value}`.match(COLOR_VALUE_REGEX) || `${value}`.match(GRADIENT_REGEX)) {
     return <span
       key={ 1 }
       onClick={ onClick }
@@ -50,7 +51,7 @@ const previewValue = (value, cssVar, onClick, isDefault) => {
         height: size,
         border: '1px solid black',
         borderRadius: '6px',
-        backgroundColor: value,
+        background: value,
         float: 'right',
         marginTop: '7px',
       } }/>;
@@ -88,7 +89,7 @@ const renderShow = ({cssVar, toggleSelectors}) => <pre
 const showUsages = (cssVar, showSelectors, toggleSelectors) => {
 
   return <div
-    style={ { display: 'inline-block', fontSize: '11px', position: 'relative', marginTop: '16px' } }
+    style={ { display: 'inline-block', fontSize: '11px', position: 'relative', marginTop: '16px', minWidth: '40%' } }
   >
       <span
         key={ 3 }

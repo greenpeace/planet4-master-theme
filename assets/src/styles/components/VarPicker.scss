@@ -4,6 +4,26 @@
   line-height: initial !important;
 }
 
+html.hide-wp-admin-bar {
+  margin-top: 0 !important;
+
+  #wpadminbar {
+    display: none;
+  }
+
+  nav#header {
+    top: 0;
+  }
+}
+
+.server-theme {
+  background: white;
+}
+
+.server-theme-current _-- {
+  background: rgba(246, 246, 89, 0.63);
+}
+
 .var-picker > ul {
   padding: 0;
   max-height: 80vh;
