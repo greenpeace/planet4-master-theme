@@ -1,36 +1,14 @@
 import { useEffect, useState } from 'react';
 import { VariableControl } from './VariableControl';
-import { colorToState } from './colorToState';
 import { THEME_ACTIONS, useThemeEditor } from './useThemeEditor';
 import { whileHoverHighlight } from './highlight';
 import { exportCss, exportJson } from './export';
-import { fetchJson } from '../functions/fetchJson';
-import { addQueryArgs } from '../functions/addQueryArgs';
+import { useServerThemes } from './useServerThemes';
 
 export const LOCAL_STORAGE_KEY = 'p4-theme';
 
 const byName = (a, b) => a.name > b.name ? 1 : (a.name === b.name ? 0 : -1);
 
-const uploadTheme = async (name, theme) => {
-  return wp.apiFetch({
-    path: 'planet4/v1/add-theme/',
-    method: 'POST',
-    data: {
-      name,
-      theme,
-    }
-  });
-}
-
-const deleteTheme = async (name) => {
-  return wp.apiFetch({
-    path: 'planet4/v1/delete-theme/',
-    method: 'POST',
-    data: {
-      name,
-    }
-  });
-}
 const diffThemes = (themeA, themeB) => {
   const added = Object.keys(themeB).filter(k => !themeA[k]);
   const removed = Object.keys(themeA).filter(k => !themeB[k]);
@@ -51,24 +29,6 @@ const diffSummary = (themeA, themeB) => {
   changed(${changed.length}):
   ${changed.map(k =>`${k}: ${themeA[k]} => ${themeB[k]}`).join('\n')}
   `;
-}
-
-const useServerThemes = (refresh) => {
-  const [serverThemes, setServerThemes] = useState([]);
-  useEffect(() => {
-    const doApiCall = async () => {
-      const themes = await wp.apiFetch({
-        path: 'planet4/v1/themes/',
-        method: 'GET',
-      });
-      setServerThemes(themes);
-    }
-    doApiCall();
-  }, [refresh]);
-
-  return [
-    serverThemes,
-  ];
 }
 
 export const VarPicker = (props) => {
@@ -153,9 +113,11 @@ export const VarPicker = (props) => {
     localStorage.setItem('p4-theme-name', fileName);
   }, [fileName]);
 
-  const [themesDirty, setThemesDirty] = useState(false);
-
-  const [serverThemes] = useServerThemes(themesDirty);
+  const {
+    serverThemes,
+    uploadTheme,
+    deleteTheme,
+  } = useServerThemes();
 
   const existsOnServer = serverThemes && Object.keys(serverThemes).some(t => t === fileName);
 
@@ -200,8 +162,7 @@ export const VarPicker = (props) => {
             if (!confirm('Delete theme from server?')) {
               return;
             }
-            await deleteTheme(name);
-            setThemesDirty(!themesDirty);
+            deleteTheme(name);
           }}
         >Delete</button>}
 
@@ -241,8 +202,7 @@ export const VarPicker = (props) => {
             if (existsOnServer && !confirm('Overwrite theme on server?')) {
               return;
             }
-            await uploadTheme(fileName, theme);
-            setThemesDirty(!themesDirty);
+            uploadTheme(fileName, theme);
           }}
         >
           { existsOnServer ? 'Save' : 'Upload'}
