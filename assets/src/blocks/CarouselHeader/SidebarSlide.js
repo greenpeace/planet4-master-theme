@@ -1,10 +1,12 @@
-import { Fragment } from '@wordpress/element';
 import {
   SelectControl,
   ToggleControl,
   FocalPointPicker,
 } from '@wordpress/components';
+import { useState } from '@wordpress/element';
+import { debounce } from 'lodash';
 import { URLInput } from '../../components/URLInput/URLInput';
+const { __ } = wp.i18n;
 
 export const SidebarSlide = ({
   header_size,
@@ -12,75 +14,78 @@ export const SidebarSlide = ({
   link_url,
   link_url_new_tab,
   index,
-  slides,
-  setAttributes,
   image_url,
-  onFocalPointsChange,
+  changeSlideAttribute,
 }) => {
-  const { __ } = wp.i18n;
-  const dimensions = { width: 300, height: 100 };
+  const [buttonUrl, setButtonUrl] = useState({});
 
-  const changeSlideAttribute = (slideAttributeName, index, value) => {
-    let slidesCopy = JSON.parse(JSON.stringify(slides));
-    slidesCopy[index][slideAttributeName] = value;
-    setAttributes({ slides: slidesCopy });
+  const debounceButtonUrl = debounce((index, url) => {
+    changeSlideAttribute('link_url', index)(url);
+  }, 300);
+
+  const onFocalPointsChange = (index, value) => {
+    let focalPoints = null;
+    if (null !== value) {
+      focalPoints = JSON.parse(JSON.stringify(value));
+    }
+    changeSlideAttribute('focal_points', index)(focalPoints);
   }
 
   return (
-    <Fragment>
+    <>
       <div className='carousel-header-slide-container'>
         <div className='carousel-header-slide-options-wrapper'>
-          <div>{__('Select image and focal point', 'p4ge')}</div>
-
-          <div className="row">
-            <div className="col">
+          <div className='row'>
+            <div className='col'>
               <SelectControl
-                label={__('Header text size', 'p4ge')}
+                label={__('Header text size', 'planet4-blocks-backend')}
                 value={header_size}
                 options={[
                   { label: 'h1', value: 'h1' },
                   { label: 'h2', value: 'h2' },
                   { label: 'h3', value: 'h3' },
                 ]}
-                onChange={value => changeSlideAttribute('header_size', index, value, slides)}
+                onChange={changeSlideAttribute('header_size', index)}
               />
             </div>
           </div>
-          <div className="row">
-            <div className="col">
+          <div className='row'>
+            <div className='col'>
               <URLInput
-                label={__('Url for link', 'p4ge')}
-                value={link_url}
-                onChange={value => changeSlideAttribute('link_url', index, value, slides)}
-                autoFocus={false}
+                label={__('Url for link', 'planet4-blocks-backend')}
+                value={buttonUrl[index] ? buttonUrl[index].value : link_url}
+                onChange={url => {
+                  setButtonUrl({ [index]: url, ...buttonUrl });
+                  debounceButtonUrl(index, url);
+                }}
               />
             </div>
           </div>
-          <div className="row">
-            <div className="col">
-              <div className="InlineToggleControl">
-                <ToggleControl
-                  help={__('Open link in a new tab', 'p4ge')}
-                  checked={link_url_new_tab}
-                  onChange={value => changeSlideAttribute('link_url_new_tab', index, value, slides)}
+          <div className='row'>
+            <div className='col'>
+              <ToggleControl
+                label={__('Open link in a new tab', 'planet4-blocks-backend')}
+                checked={link_url_new_tab}
+                onChange={changeSlideAttribute('link_url_new_tab', index)}
+              />
+            </div>
+          </div>
+          {image_url && (
+            <div className='row'>
+              <div className='col'>
+                <FocalPointPicker
+                  label={__('Image focal point', 'planet4-blocks-backend')}
+                  url={image_url}
+                  dimensions={{ width: 300, height: 100 }}
+                  value={focal_points?.x && focal_points?.y ? focal_points : { x: .5, y: .5 }}
+                  onChange={value => onFocalPointsChange(index, value)}
+                  key={index}
                 />
               </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="col">
-              <FocalPointPicker
-                label={__('Select focal point', 'p4ge')}
-                url={image_url}
-                dimensions={dimensions}
-                value={focal_points?.x && focal_points?.y ? focal_points : { x: .5, y: .5 }}
-                onChange={value => onFocalPointsChange(index, value)}
-                key={index}
-              />
-            </div>
-          </div>
+          )}
         </div>
       </div>
-    </Fragment>
+    </>
   );
 }

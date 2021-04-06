@@ -1,20 +1,20 @@
-import { useState, useEffect } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 
 /**
  * Takes an array of refs to the slides
  * and performs the following transition:
- * 
+ *
  * - Adds an *enter* transition class for the `next` element
  * - Adds an *exit* transition class for the `active` element
  * - Adds a listener for `ontransitionend` to the `active` element
- * 
- * @param {Array} slidesRef 
- * @param {Object} options 
+ *
+ * @param {Array} slidesRef
+ * @param {Object} options
  */
 export const useSlides = (slidesRef, lastSlide, options = {
-  // Following Bootstrap's approach for RTL: 
+  // Following Bootstrap's approach for RTL:
   // https://getbootstrap.com/docs/5.0/getting-started/rtl/#approach
-  // Note: in non-directional transitions (e.g.: fade out), 
+  // Note: in non-directional transitions (e.g.: fade out),
   // these could have the same class for both directions.
   enterTransitionClasses: {
     next: 'enter-from-end',
@@ -39,8 +39,8 @@ export const useSlides = (slidesRef, lastSlide, options = {
       order = 'next';
     }
     return order;
-  }
-  
+  };
+
   const goToSlide = (newSlide, forceCurrentSlide = false) => {
     if (!slidesRef.current) {
       return;
@@ -60,13 +60,14 @@ export const useSlides = (slidesRef, lastSlide, options = {
       activeElement.classList.add(exitTransitionClass);
       nextElement.classList.add(enterTransitionClass);
 
-      function unsetTransitionClasses() {
+      const unsetTransitionClasses = () => {
         activeElement.classList.remove(exitTransitionClass);
         nextElement.classList.remove(enterTransitionClass);
         activeElement.removeEventListener('transitionend', unsetTransitionClasses);
         setSliding(false);
         setCurrentSlide(newSlide);
-      }
+      };
+
       activeElement.addEventListener('transitionend', unsetTransitionClasses);
 
       // This hack is used to force what happens
@@ -76,7 +77,7 @@ export const useSlides = (slidesRef, lastSlide, options = {
         unsetTransitionClasses();
       }
     }
-  }
+  };
 
   return {
     currentSlide,
@@ -85,4 +86,4 @@ export const useSlides = (slidesRef, lastSlide, options = {
     goToNextSlide,
     goToPrevSlide,
   };
-}
+};

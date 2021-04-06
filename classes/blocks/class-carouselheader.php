@@ -10,7 +10,7 @@ namespace P4GBKS\Blocks;
 
 /**
  * Class CarouselHeader
- * Registers the Carousel Header block.
+ * Registers the CarouselHeader block.
  *
  * @package P4BKS
  * @since 0.1
@@ -25,19 +25,22 @@ class CarouselHeader extends Base_Block {
 	const BLOCK_NAME = 'carousel-header-beta';
 
 	/**
-	 * Gallery constructor.
+	 * CarouselHeader constructor.
 	 */
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_carouselheader_block' ] );
 	}
 
+	/**
+	 * Register CarouselHeader block.
+	 */
 	public function register_carouselheader_block() {
 		wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );
 
 		register_block_type(
 			self::get_full_block_name(),
 			[
-				'apiVersion' => 2,
+				'apiVersion'      => 2,
 				'render_callback' => [ $this, 'render_hydratable' ],
 				'attributes'      => [
 					'carousel_autoplay' => [
@@ -97,38 +100,49 @@ class CarouselHeader extends Base_Block {
 			]
 		);
 
-		add_action( 'enqueue_block_editor_assets', [self::class, 'enqueue_editor_assets'] );
-		add_action( 'wp_enqueue_scripts', [self::class, 'enqueue_frontend_assets'] );
+		add_action( 'enqueue_block_editor_assets', [ self::class, 'enqueue_editor_assets' ] );
+		add_action( 'wp_enqueue_scripts', [ self::class, 'enqueue_frontend_assets' ] );
 	}
 
+	/**
+	 * Render CarouselHeader block as hydratable content.
+	 *
+	 * @param array $attributes This is the array of fields of this block.
+	 * @param array $content This is the content of this block.
+	 */
 	public function render_hydratable( $attributes, $content ) {
-		if ( ! empty( $attributes['slides'] ) && empty( $attributes['slides'][0]['image_url'] )  ) {
+		if ( ! empty( $attributes['slides'] ) && empty( $attributes['slides'][0]['image_url'] ) ) {
 			$attributes['slides'] = $this->prepare_data( $attributes['slides'] );
 		}
 
-		if ( is_string($content) && trim($content) === '' ) {
+		if ( is_string( $content ) && trim( $content ) === '' ) {
 			$content = self::convert_to_static_block( $attributes );
 		}
 
 		return self::as_hydratable_block( $attributes, $content );
 	}
 
+	/**
+	 * Convert CarouselHeader to static block.
+	 *
+	 * @param array $attributes This is the array of fields of this block.
+	 */
 	public static function convert_to_static_block( $attributes ) {
-		$node_script = 'assets/build/CarouselHeaderMigrate-server.js';
-		$blocks_dir = P4GBKS_PLUGIN_DIR;
-		$attributes_json = json_encode( $attributes );
+		$node_script     = 'assets/build/CarouselHeaderMigrate-server.js';
+		$blocks_dir      = P4GBKS_PLUGIN_DIR;
+		$attributes_json = wp_json_encode( $attributes );
 
-		exec("cd ${blocks_dir} && node ${node_script} '${attributes_json}' 2>&1", $out, $err);
+		exec( "cd ${blocks_dir} && node ${node_script} '${attributes_json}' 2>&1", $out, $err );
 
 		return $out[0];
 	}
 
 	/**
-	 * Get image data for block that have.
+	 * Get image data.
 	 *
-	 * @param array $fields This is the array of fields of this block.
+	 * @param array $slides Slides of this block.
 	 *
-	 * @return array The data to be passed in the View.
+	 * @return array The image data to be passed in the View.
 	 */
 	public function prepare_data( $slides ): array {
 		if ( ! empty( $slides ) ) {

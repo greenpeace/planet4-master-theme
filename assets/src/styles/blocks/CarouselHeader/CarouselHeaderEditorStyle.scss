@@ -1,13 +1,7 @@
 @import "../../master-theme/assets/src/scss/styleguide/src/base/colors";
 
-// Only display the X button when selected/hovered.
-.editor-block-list__block {
-  &.is-selected,
-  &.is-hovered {
-    .carousel-header-image-upload-remove {
-      display: block;
-    }
-  }
+.visually-hidden {
+  display: none;
 }
 
 .slide-number-row {
@@ -48,10 +42,6 @@
   margin: 0;
 }
 
-.carousel-header-add-remove-slide {
-  padding-top: 16px;
-}
-
 .components-panel__body.carousel-header-current-slide-panel {
   // Slightly tint the whole container
   background-color: rgba(0, 124, 186, 0.1);
@@ -73,6 +63,11 @@
   position: absolute;
   right: 20px;
   bottom: 40px;
+  padding-top: 16px;
+
+  button:first-child {
+    margin-inline-end: 10px;
+  }
 }
 
 .carousel-header-top-image-actions {
@@ -83,25 +78,13 @@
   right: 20px;
   z-index: 3000;
 
+  button:first-child {
+    margin-inline-end: 10px;
+  }
+
   .carousel-header-exit-to-start &,
   .carousel-header-exit-to-end & {
     display: none;
-  }
-
-  .carousel-header-image-upload-remove {
-    z-index: 2500;
-    display: block;
-    margin: auto;
-
-    svg {
-      margin-top: -4px;
-    }
-  }
-
-  .carousel-header-image-upload-change {
-    svg {
-      margin-top: -4px;
-    }
   }
 }
 
@@ -119,18 +102,4 @@
   p {
     margin: 0 !important;
   }
-}
-
-// Overrides for carousel header
-.wp-block[data-type="planet4-blocks/carousel-header"] {
-  max-width: none !important;
-  margin-left: -41px !important;
-  margin-right: -41px !important;
-
-  // .block-wide {
-  //   // Take the left border into account
-  //   left: -17px;
-  //   top: -14px;
-  //   width: calc(100% + 28px);
-  // }
 }

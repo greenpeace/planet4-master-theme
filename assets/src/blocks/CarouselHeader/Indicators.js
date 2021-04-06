@@ -1,18 +1,17 @@
-export const Indicators = ({slides, currentSlide, goToSlide}) => {
-  return (
+export const Indicators = ({ slides, currentSlide, goToSlide }) => (
   slides?.length > 1 &&
-  <div className="carousel-indicators-wrapper">
-    <div className="container">
-      <div className="row">
-        <div className="col">
-          <ol className="carousel-indicators">
+  <div className='carousel-indicators-wrapper'>
+    <div className='container'>
+      <div className='row'>
+        <div className='col'>
+          <ol className='carousel-indicators'>
             {
               slides.map((slide, index) =>
                 <li
-                  onClick={ () => goToSlide(index) }
+                  onClick={() => goToSlide(index)}
                   key={index}
                   className={index === currentSlide ? 'active' : ''}
-                  ></li>
+                ></li>
               )
             }
           </ol>
@@ -20,4 +19,4 @@ export const Indicators = ({slides, currentSlide, goToSlide}) => {
       </div>
     </div>
   </div>
-)};
+);

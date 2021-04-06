@@ -5,16 +5,16 @@ import { Slide } from './Slide';
 import { SlideBackground } from './SlideBackground';
 import { StaticCaption } from './StaticCaption';
 
-export function CarouselHeaderStaticContent({
-  slides,
+export const CarouselHeaderStaticContent = ({
+  slides = [],
   slidesRef,
   containerRef,
   goToPrevSlide = null,
   goToNextSlide = null,
   goToSlide = null,
   currentSlide = 0,
-}) {
-return <SlidesContainer
+}) => (
+  <SlidesContainer
     slides={slides}
     slidesRef={slidesRef}
     ref={containerRef}
@@ -23,18 +23,18 @@ return <SlidesContainer
     goToPrevSlide={goToPrevSlide}
     currentSlide={currentSlide}
   >
-  { slides.map((slide, index) => {
-    return <Slide
-      key={index}
-      slide={slide}
-      index={index}
-      active={currentSlide == index}
-      ref={element => slidesRef ? slidesRef.current[index] = element : null}
+    {slides.map((slide, index) => (
+      <Slide
+        key={index}
+        slide={slide}
+        index={index}
+        active={currentSlide == index}
+        ref={element => slidesRef ? slidesRef.current[index] = element : null}
       >
-      <SlideBackground slide={slide}>
-        <StaticCaption slide={slide} />
-      </SlideBackground>
-    </Slide>
-  })}
-</SlidesContainer>;
-}
+        <SlideBackground slide={slide}>
+          <StaticCaption slide={slide} />
+        </SlideBackground>
+      </Slide>
+    ))}
+  </SlidesContainer>
+);

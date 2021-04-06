@@ -1,21 +1,31 @@
 import {
-  Dashicon,
   Button,
 } from '@wordpress/components';
+const { __ } = wp.i18n;
 
 export const EditableBackgroundActions = ({ image_url, onRemove, onChange }) => (
-  <div className="carousel-header-top-image-actions">
+  <div className='carousel-header-top-image-actions'>
     {image_url && onRemove && (
-      <Button isSecondary className="carousel-header-image-upload-remove" onClick={ev => {
+      <Button
+        icon='trash'
+        isSecondary
+        onClick={ev => {
           onRemove();
           ev.stopPropagation()
-        }}>
-        Remove this image
+        }}
+      >
+        {__('Remove image', 'planet4-blocks-backend')}
       </Button>
     )}
-    <Button className="carousel-header-image-upload-change" isPrimary onClick={onChange}>
-      <Dashicon icon="dashicons-format-image"/>
-      Change image
+    <Button
+      icon={image_url ? 'edit' : 'plus-alt2'}
+      isPrimary
+      onClick={onChange}
+    >
+      {image_url ?
+        __('Change image', 'planet4-blocks-backend') :
+        __('Add image', 'planet4-blocks-backend')
+      }
     </Button>
   </div>
 );

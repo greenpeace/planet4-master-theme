@@ -5,14 +5,15 @@ import {
 export const SlideWithRef = ({
   children,
   active,
-}, ref) => {
-  return <div className={ `carousel-item ${active ? 'active' : ''}` }
-      ref={ref}
-    >
-    <div className="carousel-item-mask">
-      { children }
+}, ref) => (
+  <div
+    className={`carousel-item ${active ? 'active' : ''}`}
+    ref={ref}
+  >
+    <div className='carousel-item-mask'>
+      {children}
     </div>
-  </div>;
-}
+  </div>
+);
 
 export const Slide = forwardRef(SlideWithRef);

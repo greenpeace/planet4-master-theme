@@ -1,8 +1,8 @@
 import { FullWidthCarouselHeader } from './FullWidthCarouselHeader';
 
-export const initializeCarouselHeader = function() {
-  const $CarouselHeaderWrapper = $('#carousel-wrapper-header');
-  if ($CarouselHeaderWrapper.length > 0) {
+export const initializeCarouselHeader = () => {
+  const carouselHeaderWrapper = document.getElementById('carousel-wrapper-header');
+  if (carouselHeaderWrapper) {
     FullWidthCarouselHeader.setup();
   }
 };
