@@ -26,8 +26,7 @@
     "svg-sprite-loader": "^4.1.6",
     "terser-webpack-plugin": "^2.2.1",
     "webpack": "^4.40.2",
-    "webpack-fix-style-only-entries": "^0.4.0",
-    "postcss-css-variables-extract": "^0.1.3"
+    "webpack-fix-style-only-entries": "^0.4.0"
   },
   "browserslist": [
     "last 2 version",
@@ -35,6 +34,7 @@
     "not dead"
   ],
   "dependencies": {
+    "@greenpeace/planet4-postcss-css-variables": "^0.2.0",
     "bootstrap": "^5.0.0-beta2",
     "classnames": "^2.2.6",
     "jquery": "^3.5.1",
