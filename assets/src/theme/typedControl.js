@@ -98,7 +98,7 @@ export const TypedControl = ({ cssVar, theme, value, onChange, dispatch }) => {
           marginRight: '5px',
           marginBottom: '2px',
           borderRadius: '6px',
-          backgroundColor: color,
+          background: color,
           display: 'inline-block',
           marginTop: '2px',
           fontSize: '8px',

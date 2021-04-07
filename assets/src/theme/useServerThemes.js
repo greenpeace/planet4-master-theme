@@ -24,13 +24,17 @@ const deleteTheme = async (name) => {
 export const useServerThemes = () => {
   const [serverThemes, setServerThemes] = useState([]);
   const [dirty, setDirty] = useState(false);
+
   useEffect(() => {
     const doApiCall = async () => {
       const themes = await wp.apiFetch({
         path: 'planet4/v1/themes/',
         method: 'GET',
       });
-      setServerThemes(themes);
+      setServerThemes({
+        'default': {},
+        ...themes,
+      });
     }
     doApiCall();
   }, [dirty]);
