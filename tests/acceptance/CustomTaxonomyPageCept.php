@@ -6,11 +6,11 @@ $I->amOnPage('/story');
 
 $I->see('Story', 'h1');
 
-$I->click('Lilian Reyes');
+$I->click('Nikos');
 
-$I->amOnPage('/author/lreyes');
+$I->amOnPage('/author/nroussos');
 
-$I->see('Lilian Reyes', 'h1');
+$I->see('Nikos', 'h1');
 
 // Create a new post and override the author
 $slug = $I->generateRandomSlug();
