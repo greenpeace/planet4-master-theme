@@ -9,8 +9,6 @@
 }
 
 a.pdf-link {
-  display: inline-block;
-
   &::before {
     content: "";
     background-image: url("../../images/file-pdf.svg"), url("../../public/images/file-pdf.svg");
@@ -25,8 +23,6 @@ a.pdf-link {
 }
 
 a.external-link {
-  display: inline-block;
-
   &::after {
     content: "";
     display: inline-block;
