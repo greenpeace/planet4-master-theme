@@ -15,6 +15,7 @@ export const Sidebar = ({
   slides,
   currentSlide,
   changeSlideAttribute,
+  goToSlide,
 }) => (
   <InspectorControls>
     <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
@@ -30,8 +31,12 @@ export const Sidebar = ({
       <PanelBody
         key={index}
         title={`${__('Slide', 'planet4-blocks-backend')} ${index + 1}`}
-        className={currentSlide === index ? 'carousel-header-current-slide-panel' : ''}
-        initialOpen={currentSlide === index}
+        opened={currentSlide === index}
+        onToggle={() => {
+          if (currentSlide !== index) {
+            goToSlide(index);
+          }
+        }}
       >
         <PanelRow>
           <SidebarSlide

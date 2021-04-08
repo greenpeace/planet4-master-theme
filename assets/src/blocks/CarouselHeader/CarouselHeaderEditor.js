@@ -8,7 +8,6 @@ import { useSlides } from './useSlides';
 
 // Carousel Header Editor
 import { Sidebar } from './Sidebar';
-import { EditorControls } from './EditorControls';
 import { EditableBackground } from './EditableBackground';
 import { useCarouselHeaderImages } from './useCarouselHeaderImages';
 
@@ -25,6 +24,33 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
     setAttributes({ slides: newSlides });
   }
 
+  const addSlide = () => {
+    const newSlides = slides.concat({
+      image: null,
+      focal_points: {},
+      header: '',
+      header_size: 'h1',
+      description: '',
+      link_text: '',
+      link_url: '',
+      link_url_new_tab: false,
+    });
+    setAttributes({ slides: newSlides });
+    const lastSlide = newSlides.length - 1;
+    // There is no callback to setAttributes so we use timeout instead
+    setTimeout(() => goToSlide(lastSlide), 0);
+  }
+
+  const removeSlide = () => {
+    const newSlides = [
+      ...slides.slice(0, currentSlide),
+      ...slides.slice(currentSlide + 1)
+    ];
+    const lastSlide = newSlides.length - 1;
+    setAttributes({ slides: newSlides });
+    goToSlide(currentSlide > lastSlide ? 0 : currentSlide, true);
+  }
+
   return (
     <>
       <Sidebar
@@ -33,6 +59,7 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
         setAttributes={setAttributes}
         currentSlide={currentSlide}
         changeSlideAttribute={changeSlideAttribute}
+        goToSlide={goToSlide}
       />
 
       <SlidesContainer
@@ -40,13 +67,14 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
         goToSlide={goToSlide}
         goToNextSlide={goToNextSlide}
         goToPrevSlide={goToPrevSlide}
+        currentSlide={currentSlide}
       >
         {slidesWithImages?.map((slide, index) => (
           <Slide
             key={index}
             index={index}
             ref={element => slidesRef.current[index] = element}
-            active={currentSlide == index}
+            active={currentSlide === index}
           >
             <EditableBackground
               image_url={slide.image_url}
@@ -54,6 +82,9 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
               image_id={slide.image}
               index={index}
               changeSlideAttribute={changeSlideAttribute}
+              addSlide={addSlide}
+              removeSlide={removeSlide}
+              slides={slides}
             >
               <Caption
                 slide={slide}
@@ -63,13 +94,6 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
             </EditableBackground>
           </Slide>
         ))}
-
-        <EditorControls
-          slides={slides}
-          setAttributes={setAttributes}
-          currentSlide={currentSlide}
-          goToSlide={goToSlide}
-        />
       </SlidesContainer>
     </>
   );

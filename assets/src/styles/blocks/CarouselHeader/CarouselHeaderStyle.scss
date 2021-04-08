@@ -129,7 +129,7 @@ $medium-image-height: 600px;
     &.initial {
       display: block;
       left: 0;
-      z-index: 2000;
+      z-index: 1;
       opacity: 1;
       transition: unset;
 
@@ -198,7 +198,7 @@ $medium-image-height: 600px;
     &.active {
       display: block;
       left: 0;
-      z-index: 2000;
+      z-index: 1;
       opacity: 1;
       transition: unset;
       pointer-events: all;

@@ -1,50 +1,71 @@
-import {
-  Button,
-} from '@wordpress/components';
+import { Button, Dashicon } from '@wordpress/components';
+import { useState, useEffect, useRef } from '@wordpress/element';
 const { __ } = wp.i18n;
 
-export const EditorControls = ({ slides, setAttributes, currentSlide, goToSlide }) => {
+export const EditorControls = ({
+  image_url,
+  removeImage,
+  changeImage,
+  addSlide,
+  removeSlide,
+  slides,
+}) => {
+  const [openMenu, setOpenMenu] = useState(false);
+  const menuRef = useRef(null);
 
-  const addSlide = () => {
-    const newSlides = slides.concat({
-      image: null,
-      focal_points: {},
-      header: '',
-      header_size: 'h1',
-      description: '',
-      link_text: '',
-      link_url: '',
-      link_url_new_tab: false,
-    });
-    setAttributes({ slides: newSlides });
+  const handleOutsideClick = e => {
+    if (menuRef.current && !menuRef.current.contains(e.target)) {
+      setOpenMenu(false);
+    }
   };
 
-  const removeSlide = () => {
-    const newSlides = [
-      ...slides.slice(0, currentSlide),
-      ...slides.slice(currentSlide + 1)
-    ];
-    const lastSlide = newSlides.length - 1;
-    setAttributes({ slides: newSlides });
-    goToSlide(currentSlide > lastSlide ? 0 : currentSlide, true);
-  }
+  // Close menu on outside click
+  useEffect(() => {
+    document.addEventListener('click', handleOutsideClick);
+
+    return () => document.removeEventListener('click', handleOutsideClick);
+  });
 
   return (
-    <div className='carousel-header-add-remove-slide'>
-      <Button
-        isSecondary
-        onClick={removeSlide}
-        disabled={slides.length <= 1}
-      >
-        {__('Remove slide', 'planet4-blocks-backend')}
-      </Button>
-      <Button
-        isPrimary
-        onClick={addSlide}
-        disabled={slides.length >= 4}
-      >
-        {__('Add slide', 'planet4-blocks-backend')}
-      </Button>
+    <div className='carousel-header-editor-controls'>
+      <div ref={element => menuRef.current = element} className='carousel-header-editor-controls-menu'>
+        <Button
+          isPrimary
+          icon='edit'
+          onClick={() => setOpenMenu(!openMenu)}
+        >
+          {__('Edit', 'planet4-blocks-backend')}
+        </Button>
+        {openMenu &&
+          <ul>
+            <li onClick={changeImage}>
+              <Dashicon icon={image_url ? 'edit' : 'plus-alt2'} />
+              {image_url ?
+                __('Change image', 'planet4-blocks-backend') :
+                __('Add image', 'planet4-blocks-backend')
+              }
+            </li>
+            {image_url && (
+              <li onClick={removeImage}>
+                <Dashicon icon='trash' />
+                {__('Remove image', 'planet4-blocks-backend')}
+              </li>
+            )}
+            {slides.length < 4 &&
+              <li onClick={addSlide}>
+                <Dashicon icon='plus-alt2' />
+                {__('Add slide', 'planet4-blocks-backend')}
+              </li>
+            }
+            {slides.length > 1 &&
+              <li onClick={removeSlide}>
+                <Dashicon icon='trash' />
+                {__('Remove slide', 'planet4-blocks-backend')}
+              </li>
+            }
+          </ul>
+        }
+      </div>
     </div>
   );
 }

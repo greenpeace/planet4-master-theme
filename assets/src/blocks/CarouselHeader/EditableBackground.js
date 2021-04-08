@@ -1,6 +1,6 @@
 import { MediaUpload } from '@wordpress/block-editor';
 import { ImagePlaceholder } from './ImagePlaceholder';
-import { EditableBackgroundActions } from './EditableBackgroundActions';
+import { EditorControls } from './EditorControls';
 
 export const EditableBackground = ({
   image_url,
@@ -9,6 +9,9 @@ export const EditableBackground = ({
   focalPoints,
   children,
   changeSlideAttribute,
+  addSlide,
+  removeSlide,
+  slides,
 }) => (
   <MediaUpload
     onSelect={({ id }) => changeSlideAttribute('image', index)(id)}
@@ -27,10 +30,13 @@ export const EditableBackground = ({
           {children}
         </div>
 
-        <EditableBackgroundActions
+        <EditorControls
           image_url={image_url}
-          onRemove={() => changeSlideAttribute('image', index)(null)}
-          onChange={mediaUploadInstance.open}
+          removeImage={() => changeSlideAttribute('image', index)(null)}
+          changeImage={mediaUploadInstance.open}
+          addSlide={addSlide}
+          removeSlide={removeSlide}
+          slides={slides}
         />
       </>
     )}

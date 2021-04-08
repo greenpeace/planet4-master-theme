@@ -42,35 +42,7 @@
   margin: 0;
 }
 
-.components-panel__body.carousel-header-current-slide-panel {
-  // Slightly tint the whole container
-  background-color: rgba(0, 124, 186, 0.1);
-
-  .components-button.components-panel__body-toggle {
-    background-color: rgba(0, 124, 186, 0.2);
-
-    // A bit more of the same color to show a hover effect
-    // (WP default is white)
-    &:hover {
-      background-color: rgba(0, 124, 186, 0.3) !important;
-    }
-  }
-}
-
-.carousel-header-add-remove-slide {
-  display: flex;
-  z-index: 2500;
-  position: absolute;
-  right: 20px;
-  bottom: 40px;
-  padding-top: 16px;
-
-  button:first-child {
-    margin-inline-end: 10px;
-  }
-}
-
-.carousel-header-top-image-actions {
+.carousel-header-editor-controls {
   display: flex;
   margin: auto;
   position: absolute;
@@ -78,8 +50,33 @@
   right: 20px;
   z-index: 3000;
 
-  button:first-child {
-    margin-inline-end: 10px;
+  .carousel-header-editor-controls-menu {
+    position: relative;
+
+    ul {
+      position: absolute;
+      right: 0;
+
+      li {
+        color: $grey-80;
+        background-color: $white;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        font-weight: 700;
+        white-space: nowrap;
+        font-size: 14px;
+        cursor: pointer;
+
+        .dashicon {
+          margin-inline-end: 10px;
+        }
+
+        &:hover {
+          background-color: $grey-10;
+        }
+      }
+    }
   }
 
   .carousel-header-exit-to-start &,
