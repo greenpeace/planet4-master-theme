@@ -4,7 +4,6 @@ import {
   FocalPointPicker,
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
-import { debounce } from 'lodash';
 import { URLInput } from '../../components/URLInput/URLInput';
 const { __ } = wp.i18n;
 
@@ -17,11 +16,6 @@ export const SidebarSlide = ({
   image_url,
   changeSlideAttribute,
 }) => {
-  const [buttonUrl, setButtonUrl] = useState({});
-
-  const debounceButtonUrl = debounce((index, url) => {
-    changeSlideAttribute('link_url', index)(url);
-  }, 300);
 
   const onFocalPointsChange = (index, value) => {
     let focalPoints = null;
@@ -53,11 +47,8 @@ export const SidebarSlide = ({
             <div className='col'>
               <URLInput
                 label={__('Url for link', 'planet4-blocks-backend')}
-                value={buttonUrl[index] ? buttonUrl[index].value : link_url}
-                onChange={url => {
-                  setButtonUrl({ [index]: url, ...buttonUrl });
-                  debounceButtonUrl(index, url);
-                }}
+                value={link_url}
+                onChange={changeSlideAttribute('link_url', index)}
               />
             </div>
           </div>
