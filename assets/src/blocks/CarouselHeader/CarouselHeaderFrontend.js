@@ -8,7 +8,7 @@ export const CarouselHeaderFrontend = ({ attributes }) => {
   const { slides, carousel_autoplay } = attributes;
 
   const slidesRef = useRef([]);
-  const { currentSlide, goToSlide, goToNextSlide, goToPrevSlide } = useSlides(slidesRef, slides.length);
+  const { currentSlide, goToSlide, goToNextSlide, goToPrevSlide } = useSlides(slidesRef, slides.length - 1);
 
   const containerRef = useRef(null);
   useEffect(() => {
