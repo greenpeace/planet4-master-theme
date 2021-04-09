@@ -52,7 +52,7 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: () => [
-                dashDash({ mediaQueryAliases, mediaQueryAtStart: true }),
+                dashDash({ mediaQueryAliases, mediaQueryAtStart: false }),
                 cssVariables({ preserve: true, exportVarUsagesTo: allCssVars }),
                 require('autoprefixer'),
               ],
