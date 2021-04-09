@@ -5,7 +5,7 @@ import { CarouselHeaderStaticContent } from './CarouselHeaderStaticContent';
 const { __ } = wp.i18n;
 
 export const CarouselHeaderFrontend = ({ attributes }) => {
-  const { slides, carousel_autoplay } = attributes; // TODO autoplay?
+  const { slides, carousel_autoplay } = attributes;
 
   const slidesRef = useRef([]);
   const { currentSlide, goToSlide, goToNextSlide, goToPrevSlide } = useSlides(slidesRef, slides.length);
@@ -62,6 +62,20 @@ export const CarouselHeaderFrontend = ({ attributes }) => {
       setCarouselHeight(slidesRef.current[currentSlide]);
     }
   }, []);
+
+  // Set up the autoplay for the slides
+  const timerRef = useRef(null);
+  useEffect(() => {
+    if (carousel_autoplay && slides.length > 1) {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+      timerRef.current = setTimeout(goToNextSlide, 10000);
+      return () => clearTimeout(timerRef.current);
+    } else if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+  }, [currentSlide, slides, carousel_autoplay]);
 
   return (
     <CarouselHeaderStaticContent
