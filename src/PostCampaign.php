@@ -467,6 +467,7 @@ class PostCampaign {
 	 */
 	private static function migrate_old_vars( array $css_vars ): array {
 		if ( isset( $css_vars['footer_links_color'] ) ) {
+			$css_vars['footer--background']   = $css_vars['footer_color'];
 			$css_vars['footer--links--color'] = $css_vars['footer_links_color'];
 			// This one already existed separately, maybe we can just remove but keeping it for now.
 			$css_vars['footer-links--color']               = $css_vars['footer_links_color'];
@@ -482,7 +483,7 @@ class PostCampaign {
 			$css_vars['body--background-color'] = $css_vars['body-background-color'];
 		}
 		if ( isset( $css_vars['header-primary-font'] ) ) {
-			$css_vars['headers--font-family'] = $css_vars['header-primary-font'];
+			$css_vars['headings--font-family'] = $css_vars['header-primary-font'];
 		}
 		if ( isset( $css_vars['campaign_nav_color'] ) ) {
 			$css_vars['top-navigation--background'] = $css_vars['campaign_nav_color'];
