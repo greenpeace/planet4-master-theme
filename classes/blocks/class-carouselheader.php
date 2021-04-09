@@ -72,9 +72,6 @@ class CarouselHeader extends Base_Block {
 								'header'           => [
 									'type' => 'string',
 								],
-								'header_size'      => [
-									'type' => 'string',
-								],
 								'subheader'        => [
 									'type' => 'string',
 								],

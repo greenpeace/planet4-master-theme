@@ -1,14 +1,12 @@
 import {
   SelectControl,
-  ToggleControl,
   FocalPointPicker,
+  CheckboxControl,
 } from '@wordpress/components';
-import { useState } from '@wordpress/element';
 import { URLInput } from '../../components/URLInput/URLInput';
 const { __ } = wp.i18n;
 
 export const SidebarSlide = ({
-  header_size,
   focal_points,
   link_url,
   link_url_new_tab,
@@ -31,20 +29,6 @@ export const SidebarSlide = ({
         <div className='carousel-header-slide-options-wrapper'>
           <div className='row'>
             <div className='col'>
-              <SelectControl
-                label={__('Header text size', 'planet4-blocks-backend')}
-                value={header_size}
-                options={[
-                  { label: 'h1', value: 'h1' },
-                  { label: 'h2', value: 'h2' },
-                  { label: 'h3', value: 'h3' },
-                ]}
-                onChange={changeSlideAttribute('header_size', index)}
-              />
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col'>
               <URLInput
                 label={__('Url for link', 'planet4-blocks-backend')}
                 value={link_url}
@@ -54,8 +38,9 @@ export const SidebarSlide = ({
           </div>
           <div className='row'>
             <div className='col'>
-              <ToggleControl
-                label={__('Open link in a new tab', 'planet4-blocks-backend')}
+              <CheckboxControl
+                label={__('Open in a new tab', 'planet4-blocks-backend')}
+                value={link_url_new_tab}
                 checked={link_url_new_tab}
                 onChange={changeSlideAttribute('link_url_new_tab', index)}
               />

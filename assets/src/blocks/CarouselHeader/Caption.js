@@ -9,7 +9,7 @@ export const Caption = ({ slide, index, changeSlideAttribute }) => (
         <div className='col'>
           <div className='carousel-captions-wrapper'>
             <RichText
-              tagName={slide.header_size}
+              tagName='h1'
               placeholder={__('Enter title', 'planet4-blocks-backend')}
               value={slide.header}
               onChange={changeSlideAttribute('header', index)}

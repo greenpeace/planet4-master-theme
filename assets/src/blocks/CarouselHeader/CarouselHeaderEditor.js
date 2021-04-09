@@ -29,7 +29,6 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
       image: null,
       focal_points: {},
       header: '',
-      header_size: 'h1',
       description: '',
       link_text: '',
       link_url: '',
