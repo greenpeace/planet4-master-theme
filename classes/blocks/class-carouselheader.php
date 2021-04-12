@@ -45,7 +45,7 @@ class CarouselHeader extends Base_Block {
 				'attributes'      => [
 					'carousel_autoplay' => [
 						'type'    => 'boolean',
-						'default' => true,
+						'default' => false,
 					],
 					'slides'            => [
 						'type'    => 'array',
