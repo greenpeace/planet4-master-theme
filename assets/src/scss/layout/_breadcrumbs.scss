@@ -31,7 +31,6 @@
   .tag-wrap {
     display: inline;
     position: relative;
-    color: $link-color;
   }
 
   .tag-item--main + .tag-wrap,
@@ -51,8 +50,10 @@
   }
 
   .tag-item {
-    color: $link-color;
-    font-weight: 400;
+    _-- {
+      color: $link-color;
+      font-weight: 400;
+    }
     display: inline-block;
 
     @include x-large-and-up {
@@ -79,7 +80,9 @@
   }
 
   .tag-item--main {
-    font-weight: 500;
+    _-- {
+      font-weight: 500;
+    }
 
     &.page-type {
       text-transform: uppercase;

@@ -10,6 +10,14 @@ const cssVariables = require( '@greenpeace/planet4-postcss-css-variables' );
 const VariableCombinePlugin = require( '@greenpeace/planet4-postcss-css-variables/variableCombinePlugin' )
 
 const allCssVars = {};
+const mediaQueryAliases = {
+  '(max-width: 576px)': 'mobile-only',
+  '(min-width: 576px)': 'small-and-up',
+  '(min-width: 768px)': 'medium-and-up',
+  '(min-width: 992px)': 'large-and-up',
+  '(min-width: 1200px)': 'x-large-and-up',
+};
+
 module.exports = {
   ...defaultConfig,
   entry: {
@@ -44,9 +52,9 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: () => [
-                dashDash(),
-                 cssVariables( { preserve: true, exportVarUsagesTo: allCssVars } ),
-                 require('autoprefixer'),
+                dashDash({ mediaQueryAliases, mediaQueryAtStart: false }),
+                cssVariables({ preserve: true, exportVarUsagesTo: allCssVars }),
+                require('autoprefixer'),
               ],
               sourceMap: true,
             }

@@ -70,6 +70,14 @@ $min-height: 40px;
 $navbar-default-height: 60px;
 
 .top-navigation {
+  _-- {
+    background: transparentize($dark-blue, 0.2);
+    border-bottom-width: 0;
+    border-bottom-color: transparent;
+    box-shadow: none;
+  }
+
+  border-bottom-style: solid;
   position: fixed;
   width: 100%;
   top: 0;
@@ -80,7 +88,6 @@ $navbar-default-height: 60px;
   flex-direction: row;
   justify-content: space-between;
   align-items: normal;
-  background: var(--campaign_nav_color, transparentize($dark-blue, 0.2));
   height: $menu-height-small;
   font-family: $roboto;
 
@@ -96,8 +103,12 @@ $navbar-default-height: 60px;
     align-items: center;
   }
 
-  a.nav-link {
-    color: var(--nav-link-color, $white);
+  a.nav-link --nav-link-- {
+    color: $white;
+
+    &:hover {
+      color: $white;
+    }
   }
 
   .donate-nav-item {
@@ -455,19 +466,24 @@ $navbar-default-height: 60px;
 
     .nav-link {
       padding: 0;
-      min-width: 20%;
       text-align: center;
-      border-bottom: var(--nav-link-border-width, 2px) solid transparent;
+      border-bottom-style: solid;
 
-      &:hover,
-      &:focus,
-      &:active {
-        border-bottom: var(--nav-link-border-width, 2px) solid var(--nav-link-hover-border-color, $white);
+      --nav-link-- {
+        border-bottom-width: 2px;
+        border-bottom-color: transparent;
+        min-width: 20%;
+
+        &:hover,
+        &:focus,
+        &:active {
+          border-bottom-color: $white;
+        }
       }
     }
 
-    .active .nav-link {
-      border-bottom: var(--nav-link-border-width, 2px) solid var(--nav-link-active-border-color, $white);
+    .active .nav-link --nav-link-active-- {
+      border-bottom-color: $white;
     }
   }
 
@@ -616,10 +632,12 @@ $navbar-default-height: 60px;
 }
 
 .country-list {
+  _-- {
+    background: $x-dark-blue;
+    line-height: 1.5;
+  }
   display: none;
   text-transform: none;
-  background: $x-dark-blue;
-  line-height: 1.5;
   padding: 1.4em 0;
   overflow-y: hidden;
   top: $navbar-default-height;
@@ -631,7 +649,10 @@ $navbar-default-height: 60px;
 
   a {
     display: block;
-    color: $white;
+
+    _-- {
+      color: $white;
+    }
   }
 
   .active a {
@@ -639,11 +660,13 @@ $navbar-default-height: 60px;
   }
 
   .country-group-letter {
-    font-size: $font-size-sm;
+    _-- {
+      font-size: $font-size-sm;
+      font-weight: bold;
+      color: $grey-40;
+    }
     position: absolute;
     line-height: 1.5;
-    font-weight: bold;
-    color: $grey-40;
     @include margin($left: -$n25);
 
     html[dir="rtl"] & {
@@ -709,14 +732,15 @@ $navbar-default-height: 60px;
   }
 
   @include large-and-up {
+    --country-list-- {
+      height: 344px;
+      width: 80%;
+      left: 10%;
+    }
+    max-height: calc(100vh - #{$menu-height-large});
     position: absolute;
-    height: 344px;
-    width: 80%;
-    left: 10%;
     overflow-x: hidden;
     overflow-y: hidden !important;
-    max-height: 344px;
-    max-height: calc(100vh - #{$menu-height-large});
     padding: 2em 4em 4em;
 
     .admin-bar & {
@@ -771,7 +795,9 @@ $navbar-default-height: 60px;
 }
 
 .navigation-bar_min {
-  height: $min-height;
+  --top-navigation-min-- {
+    height: $min-height;
+  }
   align-items: baseline;
   justify-content: start;
 

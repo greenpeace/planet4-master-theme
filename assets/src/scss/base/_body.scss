@@ -6,11 +6,13 @@ body {
 }
 
 body {
-  color: $grey-80;
-  font-family: $lora;
+  _-- {
+    color: $grey-80;
+    font-family: $lora;
+    background-color: $white;
+  }
   position: relative;
   overflow-y: hidden;
-  background-color: var(--body-background-color, $white);
 
   &.search {
     font-family: $roboto;
