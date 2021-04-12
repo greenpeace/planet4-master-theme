@@ -122,10 +122,6 @@ $medium-image-height: 600px;
       height: 100%;
     }
 
-    img {
-      display: none;
-    }
-
     &.initial {
       display: block;
       left: 0;
@@ -173,7 +169,11 @@ $medium-image-height: 600px;
     .background-holder {
       width: 100vw;
       height: $mobile-image-height;
-      background-size: cover;
+      z-index: -1;
+
+      img {
+        object-fit: none;
+      }
 
       @include medium-and-up {
         height: $medium-image-height;
@@ -307,8 +307,6 @@ $medium-image-height: 600px;
 
     .carousel-caption {
       display: block;
-      position: relative;
-      z-index: 2500;
       text-align: left;
       left: 0;
       right: 0;
@@ -329,7 +327,6 @@ $medium-image-height: 600px;
 
       @include large-and-up {
         display: block;
-        position: relative;
         top: 0;
         left: 0;
         padding: 0 0 $n60 0;

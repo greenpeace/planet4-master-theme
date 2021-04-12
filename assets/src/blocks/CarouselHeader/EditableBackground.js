@@ -7,7 +7,6 @@ export const EditableBackground = ({
   image_id,
   index,
   focalPoints,
-  children,
   changeSlideAttribute,
   addSlide,
   removeSlide,
@@ -19,15 +18,14 @@ export const EditableBackground = ({
     value={image_id}
     render={mediaUploadInstance => (
       <>
-        <div
-          className='background-holder'
-          style={{
-            backgroundImage: `url(${image_url || ''})`,
-            backgroundPosition: `${focalPoints?.x * 100}% ${focalPoints?.y * 100}%`,
-          }}
-        >
-          {!image_url && <ImagePlaceholder />}
-          {children}
+        <div className='background-holder'>
+          {!image_url ?
+            <ImagePlaceholder /> :
+            <img
+              src={image_url}
+              style={{ objectPosition: `${focalPoints?.x * 100}% ${focalPoints?.y * 100}%` }}
+            />
+          }
         </div>
 
         <EditorControls

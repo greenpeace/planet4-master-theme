@@ -31,9 +31,8 @@ export const CarouselHeaderStaticContent = ({
         active={currentSlide == index}
         ref={element => slidesRef ? slidesRef.current[index] = element : null}
       >
-        <SlideBackground slide={slide}>
-          <StaticCaption slide={slide} />
-        </SlideBackground>
+        <SlideBackground slide={slide} />
+        <StaticCaption slide={slide} />
       </Slide>
     ))}
   </SlidesContainer>

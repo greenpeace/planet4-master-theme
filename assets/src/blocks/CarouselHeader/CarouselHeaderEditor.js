@@ -84,13 +84,12 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
               addSlide={addSlide}
               removeSlide={removeSlide}
               slides={slides}
-            >
-              <Caption
-                slide={slide}
-                index={index}
-                changeSlideAttribute={changeSlideAttribute}
-              />
-            </EditableBackground>
+            />
+            <Caption
+              slide={slide}
+              index={index}
+              changeSlideAttribute={changeSlideAttribute}
+            />
           </Slide>
         ))}
       </SlidesContainer>

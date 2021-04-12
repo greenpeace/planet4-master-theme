@@ -57,7 +57,7 @@ class CarouselHeader extends Base_Block {
 								'image'            => [
 									'type' => 'integer',
 								],
-								'image_src'        => [
+								'image_url'        => [
 									'type' => 'integer',
 								],
 								'image_srcset'     => [
