@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { VariableControl } from './VariableControl';
 import { THEME_ACTIONS, useThemeEditor } from './useThemeEditor';
 import { whileHoverHighlight } from './highlight';
 import { exportCss, exportJson } from './export';
 import { useServerThemes } from './useServerThemes';
+import { useLocalStorage } from './useLocalStorage';
 
 export const LOCAL_STORAGE_KEY = 'p4-theme';
 
@@ -107,17 +108,29 @@ export const VarPicker = (props) => {
 
   const [shouldGroup, setShouldGroup] = useState(true);
 
-  const [fileName, setFileName] = useState(() => localStorage.getItem('p4-theme-name'));
+  const [fileName, setFileName] = useLocalStorage('p4-theme-name', 'theme');
+
+  const [
+    serverThemesHeight,
+    setServerThemesHeight
+  ] = useLocalStorage('p4-theme-server-theme-height-list', '140px');
 
   useEffect(() => {
     localStorage.setItem('p4-theme-name', fileName);
   }, [fileName]);
 
+  const activeThemeRef = useRef();
+
   const {
     serverThemes,
+    loading: serverThemesLoading,
     uploadTheme,
     deleteTheme,
   } = useServerThemes();
+
+  useEffect(() => {
+    activeThemeRef?.current?.scrollIntoView();
+  }, [serverThemes])
 
   const existsOnServer = serverThemes && Object.keys(serverThemes).some(t => t === fileName);
 
@@ -149,8 +162,15 @@ export const VarPicker = (props) => {
       <input type="checkbox" readOnly checked={ shouldGroup }/>
       { 'Group last clicked element' }
     </label> }
-    { !collapsed && !!serverThemes && <ul style={{maxHeight: '140px'}}>
+    { !collapsed && serverThemesLoading && <span>Loading server themes...</span> }
+    { !collapsed && !!serverThemes && !serverThemesLoading && <ul
+      onMouseUp={ event => {
+        setServerThemesHeight(event.target.closest('ul').style.height);
+      } }
+      style={ { resize: 'vertical', height: serverThemesHeight } }
+    >
       {Object.entries(serverThemes).map(([name, serverTheme]) => <li
+        ref={ name === fileName ? activeThemeRef : null }
         title={diffSummary(serverTheme, theme)}
         className={'server-theme ' + (fileName === name ? 'server-theme-current' : '')}
         style={{textAlign: 'center', fontSize: '14px', height: '21px', marginBottom: '4px', clear: 'both'}}
@@ -300,6 +320,5 @@ export const VarPicker = (props) => {
         }
       ) }
     </ul> }
-
   </div>;
 };

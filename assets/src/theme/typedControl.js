@@ -83,11 +83,9 @@ export const TypedControl = ({ cssVar, theme, value, onChange, dispatch }) => {
           onChange(color, true);
         } }
         onMouseEnter={ () => {
-          // console.log('enter preview span')
           dispatch({ type: THEME_ACTIONS.START_PREVIEW, payload: { name: cssVar.name, value: color } });
         }}
         onMouseLeave={ () => {
-          // console.log('exit preview span')
           dispatch({ type: THEME_ACTIONS.END_PREVIEW, payload: { name: cssVar.name } });
         }}
         title={ `${ color }\nUsed for:\n` + usages.join('\n') }

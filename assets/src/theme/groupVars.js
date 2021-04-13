@@ -8,7 +8,6 @@ const toLabel = element => {
 };
 
 export const byNameStateProp = ({name: nameA},{name: nameB}) => {
-  console.log('sorting')
   const reg = /--(?<element>\w+(-?-\w+)*)(--(?<state>(active|focus|visited|hover|disabled)))?--(?<prop>\w+(-\w+)*)/;
   try {
 
