@@ -7,7 +7,9 @@ import { groupVars } from './groupVars';
 import { fetchJson } from '../functions/fetchJson';
 
 const setup = async () => {
-  const baseUrl = document.body.dataset.nro;
+  // Quick way to make it work with WPML. In case of NL, which doesn't have WPML, it doesn't match because without
+  // WPML there is no slash at the end...
+  const baseUrl = document.body.dataset.nro.replace(/(\/\w\w\/)$/, '');
   const blockVarsPromise = fetchJson(`${ baseUrl }/wp-content/plugins/planet4-plugin-gutenberg-blocks/assets/build/css-variables.json`);
   const themeVarsPromise = fetchJson(`${ baseUrl }/wp-content/themes/planet4-master-theme/assets/build/css-variables.json`);
   const editorRoot = document.createElement( 'div' );
