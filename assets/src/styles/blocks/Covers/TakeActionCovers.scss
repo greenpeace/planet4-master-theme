@@ -157,10 +157,8 @@
         color: white;
         background-color: $orange;
         border-color: $orange;
-      }
 
-      &:hover, &:focus {
-        --block-covers--card-btn-hover-- {
+        &:hover, &:focus {
           color: white;
           background-color: $orange-hover;
           border-color: $orange-hover;
@@ -242,6 +240,11 @@
 .cover-card-tag {
   --block-covers--card-tag-- {
     color: $yellow;
+
+    &:hover {
+      text-decoration: underline;
+      color: $yellow;
+    }
   }
 
   display: inline-block;
@@ -253,14 +256,6 @@
   pointer-events: all;
   position: relative;
   margin-inline-end: 8px;
-
-  &:hover {
-    text-decoration: underline;
-
-    --block-covers--card-tag-hover-- {
-      color: $yellow;
-    }
-  }
 
   @include large-and-up {
     margin-bottom: 0;
