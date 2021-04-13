@@ -120,6 +120,9 @@
 }
 
 .article-list-item-content {
+  --block-articles--article--content-- {
+    font-size: inherit;
+  }
   display: none;
   margin: $space-xs 0 0;
   width: 80%;
