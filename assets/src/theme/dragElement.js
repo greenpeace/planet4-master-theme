@@ -44,7 +44,7 @@ export const dragElement = (draggedElement) => {
     if (!detectLeftButton(e)) {
       return;
     }
-    if (e.target.matches('ul *, input')) {
+    if (e.target.matches('ul, ul *, input')) {
       return;
     }
     e = e || window.event;
