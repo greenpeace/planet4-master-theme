@@ -174,7 +174,7 @@ $navbar-default-height: 60px;
 .navbar-dropdown-toggle {
   order: -1;
 
-  // When menu is open, turn the button into the background overlay
+  // When menu is open, turn the button into the background overlay and hide the text
   &[aria-expanded="true"] {
     z-index: 2;
     background: transparentize($grey-80, 0.5);
@@ -188,6 +188,10 @@ $navbar-default-height: 60px;
     box-shadow: none;
     padding: 0;
     margin: 0;
+
+    span {
+      display: none;
+    }
   }
 
   @include large-and-up {
