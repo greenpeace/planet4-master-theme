@@ -47,7 +47,7 @@ a.external-link {
     }
 
     &:hover::before {
-      background-color: var(--link-hover--color, $link-color);
+      background-color: var(--link--hover--color, $link-color);
     }
 
     // Primary buttons
@@ -143,7 +143,7 @@ a.external-link {
     }
 
     &:hover::after {
-      background-color: var(--link-hover--color, $link-color);
+      background-color: var(--link--hover--color, $link-color);
     }
   }
 }
