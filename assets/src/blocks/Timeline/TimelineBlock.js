@@ -1,5 +1,5 @@
 import {frontendRendered} from '../frontendRendered';
-import {TimelineEditor} from './TimelineEditor';
+import {TimelineEditor} from './TimelineEditorScript';
 
 const {__} = wp.i18n;
 const BLOCK_NAME = 'planet4-blocks/timeline';

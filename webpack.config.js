@@ -44,6 +44,7 @@ module.exports = {
     ...entryPoints('Accordion'),
     ...entryPoints('Covers'),
     ...entryPoints('CarouselHeader'),
+    ...entryPoints('Timeline'),
   },
   output: {
     filename: '[name].js',

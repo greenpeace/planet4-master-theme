@@ -23,6 +23,10 @@ class Timeline extends Base_Block {
 	 * Timeline constructor.
 	 */
 	public function __construct() {
+		add_action( 'init', [ $this, 'register_timeline_block' ] );
+	}
+
+	public function register_timeline_block() {
 		// - Register the block for the editor
 		// in the PHP side.
 		register_block_type(
@@ -59,6 +63,9 @@ class Timeline extends Base_Block {
 				],
 			]
 		);
+
+		add_action( 'enqueue_block_editor_assets', [ self::class, 'enqueue_editor_assets' ] );
+		add_action( 'wp_enqueue_scripts', [ self::class, 'enqueue_frontend_assets' ] );
 	}
 
 	/**
