@@ -100,6 +100,16 @@ $context['post_tags']       = implode( ', ', $post->tags() );
 $context['custom_styles']   = $custom_styles;
 $context['css_vars']        = PostCampaign::css_vars( $campaign_meta );
 
+if ( $theme_name && 'default' !== $theme_name ) {
+	$context['custom_font_families'] = [
+		'Montserrat:300,400,500,600,700,800',
+		'Kanit:400,500,600,800',
+		'Open+Sans:400,500,600,800',
+		'Anton:400,500,600,800',
+		'Amiko:400,500,600,800',
+	];
+}
+
 // Social footer link overrides.
 $context['social_overrides'] = [];
 
