@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2021-04-16 09:12+0000\n"
+"PO-Revision-Date: 2021-04-16 12:21+0000\n"
 "Last-Translator: Nikos Roussos\n"
 "Language-Team: Greek\n"
 "Language: el\n"
@@ -145,10 +145,9 @@ msgid "Document"
 msgstr "Έγγραφο"
 
 #: src/MasterSite.php:482
-#, fuzzy
 #| msgid "DONATE"
 msgid "Donate"
-msgstr "ΥΠΟΣΤΗΡΙΞΕ ΜΑΣ"
+msgstr "Υποστήριξε μας"
 
 #: templates/tease-search.twig:113
 msgid "Download"
@@ -175,7 +174,6 @@ msgid "Filters"
 msgstr "Φίλτρα αναζήτησης"
 
 #: templates/cookies.twig:6
-#, fuzzy
 #| msgid "GOT IT!"
 msgid "Got it!"
 msgstr "ΟΚ!"
@@ -308,10 +306,10 @@ msgstr ""
 
 #. %s = number of results per page.
 #: src/Search.php:1079
-#, fuzzy, php-format
+#, php-format
 #| msgid "SHOW %s MORE RESULTS"
 msgid "Show %s more results"
-msgstr "ΔΕΙΞΕ %s ΠΕΡΙΣΣΟΤΕΡΑ ΑΠΟΤΕΛΕΣΜΑΤΑ"
+msgstr "Δείξε %s περισσότερα αποτελέσματα"
 
 #. Name of the template
 msgid "Sitemap Page"
