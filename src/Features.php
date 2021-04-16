@@ -22,6 +22,8 @@ class Features {
 
 	public const THEME_EDITOR_NON_LOGGED_IN = 'theme_editor_non_logged_in';
 
+	public const BETA_BLOCKS = 'beta_blocks';
+
 	/**
 	 * Get the features options page settings.
 	 *
@@ -88,6 +90,15 @@ class Features {
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::THEME_EDITOR,
+				'type' => 'checkbox',
+			],
+			[
+				'name' => __( 'Allow beta blocks in post editor.', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'If enabled, beta blocks defined in <a href="https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/master/planet4-gutenberg-blocks.php">this file</a>. Not for production use.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::BETA_BLOCKS,
 				'type' => 'checkbox',
 			],
 		];
