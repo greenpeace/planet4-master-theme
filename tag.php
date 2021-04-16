@@ -11,7 +11,6 @@
 
 use P4\MasterTheme\TaxonomyCampaign;
 use Timber\Timber;
-use P4GBKS\Blocks\Covers;
 use P4GBKS\Blocks\Articles;
 use P4GBKS\Blocks\HappyPoint;
 
@@ -68,7 +67,7 @@ if ( is_tag() ) {
 		$campaign = new TaxonomyCampaign( $templates, $context );
 
 		$campaign->add_block(
-			Covers::BLOCK_NAME,
+			'covers',
 			[
 				'title'       => __( 'Things you can do', 'planet4-master-theme' ),
 				'description' => __( 'We want you to take action because together we\'re strong.', 'planet4-master-theme' ),
@@ -109,11 +108,11 @@ if ( is_tag() ) {
 			}
 		}
 
-		$campaign->add_block( Covers::BLOCK_NAME, $cfc_args );
+		$campaign->add_block( 'covers', $cfc_args );
 
 		// Convert old CampaignThumbnail block to Covers block[Campaign covers].
 		$campaign->add_block(
-			Covers::BLOCK_NAME,
+			'covers',
 			[
 				'title'       => __( 'Related Campaigns', 'planet4-master-theme' ),
 				'category_id' => $category->term_id ?? __( 'This Campaign is not assigned to an Issue', 'planet4-master-theme' ),
