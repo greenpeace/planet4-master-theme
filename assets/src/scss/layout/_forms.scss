@@ -1,20 +1,3 @@
-// Forms
-//
-// Markup:
-// <label class="custom-control">
-//   <input type="checkbox" name="checkbox_name" />
-//   <span class="custom-control-description">Check me</span>
-// </label>
-// <label class="custom-control">
-//   <input type="radio" name="radio_name" value="1" />
-//   <span class="custom-control-description">Select me</span>
-// </label>
-// <label class="custom-control">
-//   <input type="radio" name="radio_name" value="2" />
-//   <span class="custom-control-description">Or me</span>
-// </label>
-//
-// Styleguide Layout.forms
 .custom-control {
   input[type="checkbox"] {
     position: absolute;

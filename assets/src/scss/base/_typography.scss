@@ -1,20 +1,9 @@
-// Typography
-//
-// Styleguide Style.typography
 html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-// Paragraphs
-//
-// All plain text elements use Lora font.
-//
-// Markup:
-// <p>The quick brown fox jumps over the lazy dog</p>
-//
-// Styleguide Style.typography.paragraphs
 p,
 li {
   hyphens: none;
@@ -30,19 +19,6 @@ li {
   }
 }
 
-// Headings
-//
-// Heading elements `<h1> <h6>`. All headings use Roboto font.
-//
-// Markup:
-// <h1>The quick brown fox jumps over the lazy dog</h1>
-// <h2>The quick brown fox jumps over the lazy dog</h2>
-// <h3>The quick brown fox jumps over the lazy dog</h3>
-// <h4>The quick brown fox jumps over the lazy dog</h4>
-// <h5>The quick brown fox jumps over the lazy dog</h5>
-// <h6>The quick brown fox jumps over the lazy dog</h6>
-//
-// Styleguide Style.typography.headings
 h1,
 h2,
 h3,
@@ -121,16 +97,6 @@ h6 {
   color: $white;
 }
 
-// Links
-//
-// Link elements `<a>`.
-//
-// Markup:
-// <a href="#">The quick brown fox jumps over the lazy dog</a>
-//
-// :hover     - hovered state
-//
-// Styleguide Style.typography.links
 a --link-- {
   color: $link-color;
   text-decoration: none;
