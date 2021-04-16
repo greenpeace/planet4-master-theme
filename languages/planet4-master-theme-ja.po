@@ -154,8 +154,6 @@ msgid "Document"
 msgstr "ドキュメント"
 
 #: src/MasterSite.php:482
-#, fuzzy
-#| msgid "DONATE"
 msgid "Donate"
 msgstr "寄付する"
 
@@ -184,8 +182,6 @@ msgid "Filters"
 msgstr "フィルター"
 
 #: templates/cookies.twig:6
-#, fuzzy
-#| msgid "GOT IT!"
 msgid "Got it!"
 msgstr "許可する"
 

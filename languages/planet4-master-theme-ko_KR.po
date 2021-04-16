@@ -182,8 +182,6 @@ msgid "Filters"
 msgstr ""
 
 #: templates/cookies.twig:6
-#, fuzzy
-#| msgid "GOT IT!"
 msgid "Got it!"
 msgstr "확인"
 

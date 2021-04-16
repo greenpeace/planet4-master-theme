@@ -3,12 +3,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2021-04-16 12:29+0000\n"
+"PO-Revision-Date: 2021-04-16 18:59+0300\n"
 "Language-Team: Turkish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: style.css\n"
@@ -183,7 +183,6 @@ msgid "Filters"
 msgstr "Filtreler"
 
 #: templates/cookies.twig:6
-#| msgid "GOT IT!"
 msgid "Got it!"
 msgstr "ANLADIM!"
 
@@ -338,7 +337,7 @@ msgstr "Navigasyona geç"
 
 #: 404.php:16
 msgid "Sorry, we can't find that page!"
-msgstr "Üzgünüz, bu sayfayı bulamıyoruz."
+msgstr "Üzgünüz, bu sayfayı bulamıyoruz!"
 
 #: templates/search.twig:337
 msgid "Sort by"

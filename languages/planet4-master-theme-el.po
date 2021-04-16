@@ -174,7 +174,6 @@ msgid "Filters"
 msgstr "Φίλτρα αναζήτησης"
 
 #: templates/cookies.twig:6
-#| msgid "GOT IT!"
 msgid "Got it!"
 msgstr "ΟΚ!"
 
@@ -264,7 +263,7 @@ msgstr ""
 
 #: templates/author.twig:32
 msgid "Posts by "
-msgstr "Άρθρα από:"
+msgstr "Άρθρα από"
 
 #: tag.php:91
 msgid "Publications"
@@ -385,8 +384,7 @@ msgstr "Συμπεριλάβαμε αποτελέσματα και για "
 
 #: tag.php:74 src/Campaigns.php:253
 msgid "We want you to take action because together we're strong."
-msgstr ""
-"Χρειαζόμαστε ανθρώπους σαν και εσένα για να προστατεύσουμε τον πλανήτη μας."
+msgstr "Χρειαζόμαστε ανθρώπους σαν και εσένα για να προστατεύσουμε τον πλανήτη μας."
 
 #: templates/search.twig:19
 msgid "We're sorry we couldn't find any matches for your search term."

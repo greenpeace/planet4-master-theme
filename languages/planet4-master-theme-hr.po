@@ -157,8 +157,6 @@ msgid "Document"
 msgstr "Dokument"
 
 #: src/MasterSite.php:482
-#, fuzzy
-#| msgid "DONATE"
 msgid "Donate"
 msgstr "DONIRAJ"
 
@@ -187,8 +185,6 @@ msgid "Filters"
 msgstr "Filteri"
 
 #: templates/cookies.twig:6
-#, fuzzy
-#| msgid "GOT IT!"
 msgid "Got it!"
 msgstr "RAZUMIJEM"
 
