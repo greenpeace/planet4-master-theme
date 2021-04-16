@@ -41,13 +41,16 @@ export class ArticlePreview extends Component {
 
     if (authorName) {
       return (
-        <span className="article-list-item-author">
-          {!isLink ?
-            authorName
-            :
-            <a href={authorLink}>{authorName}</a>
-          }
-        </span>
+        <>
+          <span className="article-list-item-author">
+            {!isLink ?
+              authorName
+              :
+              <a href={authorLink}>{authorName}</a>
+            }
+          </span>
+          <span className="article-list-item-bullet" aria-hidden="true">&#8226;</span>
+        </>
       );
     }
   }
@@ -117,6 +120,8 @@ export class ArticlePreview extends Component {
               {page_type &&
                 this.getPageTypesTags(page_type, page_type_link)
               }
+
+              <span className="tag-wrap-bullet" aria-hidden="true">&#8226;</span>
 
               {tags.length > 0 &&
                 <div className="tag-wrap tags">
