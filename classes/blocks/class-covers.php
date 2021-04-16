@@ -20,7 +20,7 @@ class Covers extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'covers';
+	const BLOCK_NAME = 'covers-beta';
 
 	/**
 	 * Block version, update when changing attributes

@@ -6,7 +6,7 @@ import { COVER_TYPES } from './Covers';
 
 const { __ } = wp.i18n;
 
-const BLOCK_NAME = 'planet4-blocks/covers';
+const BLOCK_NAME = 'planet4-blocks/covers-beta';
 const VERSION = 2;
 
 const getStyleLabel = (label, help) => {
@@ -24,9 +24,9 @@ export const registerCoversBlock = () => {
   const { registerBlockType } = wp.blocks;
 
   registerBlockType(BLOCK_NAME, {
-    title: 'Covers',
+    title: 'Covers (beta)',
     icon: 'slides',
-    category: 'planet4-blocks',
+    category: 'planet4-blocks-beta',
     supports: {
       html: false, // Disable "Edit as HTMl" block option.
     },

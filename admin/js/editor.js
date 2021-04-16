@@ -10,6 +10,8 @@ wp.domReady(() => {
   const postType = wp.data.select('core/editor').getCurrentPostType();
   if (postType === 'campaign') {
     unregisterBlockStyle('planet4-blocks/covers', 'take-action');
+    unregisterBlockStyle('planet4-blocks/covers-beta', 'take-action');
     unregisterBlockStyle('planet4-blocks/covers', 'campaign');
+    unregisterBlockStyle('planet4-blocks/covers-beta', 'campaign');
   }
 });
