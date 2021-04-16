@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-08 09:59+0000\n"
-"PO-Revision-Date: 2021-01-18 13:53+0000\n"
+"PO-Revision-Date: 2021-04-16 12:15+0000\n"
 "Last-Translator: Oscar Keur\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -14,244 +14,27 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.5.0; wp-5.4.2"
 
-#: functions.php:144
-msgid "Navigation Bar Menu"
-msgstr "Navigatie menu"
+#: classes/class-p4-settings.php:167
+msgid "404 Background Image"
+msgstr "404 pagina achtergrond afbeelding"
 
-#: functions.php:445
-msgid "Weight (1-30)"
-msgstr "Weight (1-30). 1: low search ranking in site. 30: high ranking."
+#: classes/class-p4-settings.php:183
+msgid "404 Page text"
+msgstr "404 pagina tekst"
 
-#: functions.php:641
-msgid "Page Header Fields"
-msgstr "Pagina koptekst velden"
+#: classes/class-p4-settings.php:174
+msgid "Add 404 Page Background Image"
+msgstr "Voeg een achtergrondafbeelding toe voor de 404 pagina"
 
-#: functions.php:646
-msgid "Header Title"
-msgstr "Koptekst titel"
+#: classes/class-p4-settings.php:190
+msgid "Add 404 page text"
+msgstr "Voeg tekst toe voor de 404 pagina"
 
-#: functions.php:647
-msgid "Header title comes here"
-msgstr "Vul hier de titel in de koptekst in."
-
-#: functions.php:654
-msgid "Header Subtitle"
-msgstr "Koptekst ondertitel"
-
-#: functions.php:655
-msgid "Header subtitle comes here"
-msgstr "Vul hier de tekst van de ondertitel in de koptekst in."
-
-#: functions.php:663
-msgid "Header Description"
-msgstr "Koptekst omschrijving"
-
-#: functions.php:664
-msgid "Header description comes here"
-msgstr "Vul hier de tekst van de koptekst in."
-
-#: functions.php:676
-msgid "Header Button Title"
-msgstr "Koptekst knop tekst"
-
-#: functions.php:677
-msgid "Header button title comes here"
-msgstr "Vul hier de tekst van de knop in de koptekst in."
-
-#: functions.php:685
-msgid "Header Button Link"
-msgstr "Koptekst knop link"
-
-#: functions.php:686
-msgid "Header button link comes here"
-msgstr "Vul hier de link in waar de knop in de koptekst naar moet verwijzen."
-
-#: functions.php:694
-msgid "Background overide"
-msgstr "Achtergrond overschrijven"
-
-#: functions.php:695
-msgid "Upload an image"
-msgstr "Upload an image"
-
-#: functions.php:703
+#: functions.php:698
 msgid "Add Background Image"
 msgstr "Voeg achtergrondafbeelding toe"
 
-#: functions.php:714
-#, fuzzy
-msgid "Post Articles Element Fields"
-msgstr "Post Articles Element Fields"
-
-#: functions.php:719
-msgid "Author Override"
-msgstr "Auteur overschrijven."
-
-#: functions.php:720
-msgid "Enter author name if you want to override the author"
-msgstr ""
-"Gebruik deze optie liever niet. Gebruik liever de optie rechts in de zijbalk "
-"om een andere auteur te selecteren."
-
-#: functions.php:726
-msgid "Take Action Page Selector"
-msgstr "Actiepagina kiezer"
-
-#: functions.php:727
-msgid "Select a Take Action Page to populate take action boxout block"
-msgstr "Selecteer een actiepagina voor het actieblok"
-
-#: functions.php:735
-msgid "Include Articles In Post"
-msgstr "Voeg Artikelen tot aan bericht"
-
-#: functions.php:745
-msgid "Background Image Override"
-msgstr "Achtergrondafbeelding overschrijven"
-
-#: functions.php:746
-msgid ""
-"Upload an image or select one from the media library to override the "
-"background image"
-msgstr ""
-"Upload an image or select one from the media library to override the "
-"background image"
-
-#: functions.php:753
-msgid "Add Image"
-msgstr "Voeg afbeelding toe"
-
-#: functions.php:798
-msgid "Add Page Element"
-msgstr "Voeg nieuw pagine element toe"
-
-#: classes/class-p4-post-report-controller.php:59
-#: classes/class-p4-post-report-controller.php:60
-msgid "Posts Report"
-msgstr "Berichten rapport"
-
-#: classes/class-p4-custom-taxonomy.php:42
-msgid "P4 page type (A p4 page type term.)"
-msgstr "P4 pagina type"
-
-#: classes/class-p4-custom-taxonomy.php:148
-msgctxt "taxonomy general name"
-msgid "Page Types"
-msgstr "Pagina types"
-
-#: classes/class-p4-custom-taxonomy.php:149
-msgctxt "taxonomy singular name"
-msgid "Page Type"
-msgstr "Pagina type"
-
-#: classes/class-p4-custom-taxonomy.php:150
-msgid "Search in Page Type"
-msgstr "Zoeken in pagina type"
-
-#: classes/class-p4-custom-taxonomy.php:151
-msgid "All Page Types"
-msgstr "Alle pagina types"
-
-#: classes/class-p4-custom-taxonomy.php:155
-msgid "Edit Page Type"
-msgstr "Bewerk pagina type"
-
-#: classes/class-p4-custom-taxonomy.php:156
-msgid "Update Page Type"
-msgstr "Update Page Type"
-
-#: classes/class-p4-custom-taxonomy.php:157
-msgid "Add new Page Type"
-msgstr "Voeg nieuw pagina type toe"
-
-#: classes/class-p4-custom-taxonomy.php:158
-msgid "New Page Type"
-msgstr "Nieuw pagina type"
-
-#: classes/class-p4-custom-taxonomy.php:159
-msgid "Page Types"
-msgstr "Pagina types"
-
-#: classes/class-p4-settings.php:39
-msgid "Planet4"
-msgstr "Planet4"
-
-#: classes/class-p4-settings.php:43
-msgid "Website Navigation Title"
-msgstr "Website Navigation Title"
-
-#: classes/class-p4-settings.php:48
-msgid "Select Act Page"
-msgstr "Selecteer een actiepagina"
-
-#: classes/class-p4-settings.php:54
-msgid "Select Explore Page"
-msgstr "Selecteer oplossingenpagina"
-
-#: classes/class-p4-settings.php:60
-msgid "Select Issues Parent Category"
-msgstr "Selecteer hoofdthema"
-
-#: classes/class-p4-settings.php:66
-msgid "Copyright Text Line 1"
-msgstr "Copyright Tekst regel 1"
-
-#: classes/class-p4-settings.php:76
-msgid "Copyright Text Line 2"
-msgstr "Copyright Tekst regel 2"
-
-#: classes/class-p4-settings.php:86
-msgid "Google Tag Manager Identifier"
-msgstr "Google Tag Manager ID"
-
-#: classes/class-p4-settings.php:92
-msgid "Engaging Network ID"
-msgstr "Engaging Network ID"
-
-#: classes/class-p4-settings.php:98
-msgid "Cookies Text"
-msgstr "Cookies Tekst"
-
-#: classes/class-p4-settings.php:108
-msgid "Default title for related articles block"
-msgstr "Standaard titel voor gerelateerde artikelen blok"
-
-#: classes/class-p4-settings.php:111
-msgid ""
-"If no title set for <b>Article Block</b>, the default title will appear."
-msgstr ""
-"Als geen titel is ingesteld in het <b>Artikelen Blok</b>, dan wordt deze "
-"tekst weergegeven."
-
-#: classes/class-p4-settings.php:115
-msgid "Default button title for related articles block"
-msgstr "Standaard knop tekst voor gerelateerde artikelen blok"
-
-#: classes/class-p4-settings.php:118
-msgid ""
-"If no button title set for <b>Article Block</b>, the default button title "
-"will appear."
-msgstr ""
-"Als geen knop tekst is ingesteld in het <b>Artikelen Blok</b>, dan wordt "
-"deze tekst weergegeven."
-
-#: classes/class-p4-settings.php:122
-msgid "Default Number Of Related Articles"
-msgstr "Standaard aantal gerelateerde artikelen"
-
-#: classes/class-p4-settings.php:128
-msgid ""
-"If no number of Related Articles set for <b>Article Block</b>, the default "
-"number of Related Articles will appear."
-msgstr ""
-"Als er geen aantal is ingesteld in het <b>Artikelen Blok</b>, dan wordt dit "
-"aantal artikelen weergegeven."
-
-#: classes/class-p4-settings.php:132
-msgid "Take Action Covers default button text"
-msgstr "Actiepagina kaarten standaard knoptekst"
-
-#: classes/class-p4-settings.php:138
+#: classes/class-p4-settings.php:144
 msgid ""
 "Add default button text which appears on <b>Take Action</b> card of <b>Take "
 "Action Covers</b> block. <br>\n"
@@ -263,47 +46,167 @@ msgstr ""
 "Deze tekst wordt ook gebruikt als er een Actiepagina wordt gelinkt in een "
 "bericht of bij zoekresultaten."
 
-#: classes/class-p4-settings.php:143
-msgid "Donate button link"
-msgstr "Doneer knop link"
-
-#: classes/class-p4-settings.php:152
-msgid "404 Background Image"
-msgstr "404 pagina achtergrond afbeelding"
-
-#: classes/class-p4-settings.php:159
-msgid "Add 404 Page Background Image"
-msgstr "Voeg een achtergrondafbeelding toe voor de 404 pagina"
-
-#: classes/class-p4-settings.php:164 classes/class-p4-settings.php:197
-msgid "Minimum image width should be 1920px"
-msgstr "Minimum afbeelding breedte is 1920px "
-
-#: classes/class-p4-settings.php:168
-msgid "404 Page text"
-msgstr "404 pagina tekst"
-
-#: classes/class-p4-settings.php:175
-msgid "Add 404 page text"
-msgstr "Voeg tekst toe voor de 404 pagina"
-
-#: classes/class-p4-settings.php:179
-msgid "Default p4-pagetype"
-msgstr "Standaard Planet4 pagina type"
-
-#: classes/class-p4-settings.php:185
-msgid "Default Happy Point Background Image"
-msgstr "Standaard Happy Point achtergrondafbeelding"
-
-#: classes/class-p4-settings.php:192
+#: classes/class-p4-settings.php:207
 msgid "Add Default Happy Point Background Image"
 msgstr "Voeg een standaard afbeelding toe voor het Happy Point blok"
 
+#: functions.php:748 functions.php:787
+msgid "Add Image"
+msgstr "Voeg afbeelding toe"
+
+#: classes/class-p4-custom-taxonomy.php:157
+#, fuzzy
+#| msgid "Add new Page Type"
+msgid "Add new Post Type"
+msgstr "Voeg nieuw pagina type toe"
+
+#: functions.php:835
+msgid "Add Page Element"
+msgstr "Voeg nieuw pagine element toe"
+
+#: classes/class-p4-custom-taxonomy.php:151
+#, fuzzy
+#| msgid "All Page Types"
+msgid "All Post Types"
+msgstr "Alle pagina types"
+
+#: classes/class-p4-control-panel.php:61
+msgid "Are you sure you want to delete all Object Cache keys?"
+msgstr "Weet je zeker dat je de volledige server cache wilt wissen?"
+
+#: classes/class-p4-campaigns.php:101 classes/class-p4-campaigns.php:138
+msgid "Associate this tag with an image."
+msgstr "Koppel deze tag aan een afbeelding"
+
+#: functions.php:714
+msgid "Author Override"
+msgstr "Auteur overschrijven."
+
+#: functions.php:740
+msgid "Background Image Override"
+msgstr "Achtergrondafbeelding overschrijven"
+
+#: functions.php:689
+msgid "Background overide"
+msgstr "Achtergrond overschrijven"
+
+#: classes/class-p4-control-panel.php:56
+msgid "Cache"
+msgstr "Cache"
+
+#: classes/class-p4-control-panel.php:76
+msgid "Check Engaging Networks"
+msgstr "Controleer Engaging Networks"
+
+#: classes/class-p4-control-panel.php:64
+msgid "Check Object Cache"
+msgstr "Controleer object cache"
+
+#: classes/class-p4-control-panel.php:86
+msgid "Check Search Indexer"
+msgstr "Controleer zoek index"
+
+#: classes/class-p4-campaigns.php:116
+msgid "Choose a background image for the Subscribe block."
+msgstr "Kies een achtergrond voor het Inschrijvingen blok"
+
+#: classes/class-p4-campaigns.php:74
+msgid ""
+"Column block: Choose which Page Types will populate the content of the "
+"Column block. If no box is checked Publications will appear by default."
+msgstr ""
+
+#: classes/class-p4-settings.php:104
+msgid "Cookies Text"
+msgstr "Cookies Tekst"
+
+#: classes/class-p4-settings.php:66
+msgid "Copyright Text Line 1"
+msgstr "Copyright Tekst regel 1"
+
+#: classes/class-p4-settings.php:76
+msgid "Copyright Text Line 2"
+msgstr "Copyright Tekst regel 2"
+
+#: classes/class-p4-settings.php:121
+msgid "Default button title for related articles block"
+msgstr "Standaard knop tekst voor gerelateerde artikelen blok"
+
 #: classes/class-p4-settings.php:200
+msgid "Default Happy Point Background Image"
+msgstr "Standaard Happy Point achtergrondafbeelding"
+
+#: classes/class-p4-settings.php:128
+msgid "Default Number Of Related Articles"
+msgstr "Standaard aantal gerelateerde artikelen"
+
+#: classes/class-p4-settings.php:194
+#, fuzzy
+#| msgid "Default p4-pagetype"
+msgid "Default P4 Post Type"
+msgstr "Standaard Planet4 pagina type"
+
+#: classes/class-p4-settings.php:114
+msgid "Default title for related articles block"
+msgstr "Standaard titel voor gerelateerde artikelen blok"
+
+#: functions.php:768
+msgid "Description"
+msgstr ""
+
+#: classes/class-p4-settings.php:149
+msgid "Donate button link"
+msgstr "Doneer knop link"
+
+#: classes/class-p4-settings.php:158
+msgid "Donate button text"
+msgstr ""
+
+#: classes/class-p4-custom-taxonomy.php:155
+#, fuzzy
+#| msgid "Edit Page Type"
+msgid "Edit Post Type"
+msgstr "Bewerk pagina type"
+
+#: classes/class-p4-settings.php:215
 msgid "Enforce Cookies Policy"
 msgstr "Dwing cookie beleid af"
 
-#: classes/class-p4-settings.php:201
+#: classes/class-p4-control-panel.php:73
+msgid "Engaging Networks"
+msgstr "Engaging Networks"
+
+#: classes/class-p4-settings.php:92
+msgid "Engaging Networks Subscribe Form URL"
+msgstr ""
+
+#: functions.php:715
+msgid "Enter author name if you want to override the author"
+msgstr ""
+"Gebruik deze optie liever niet. Gebruik liever de optie rechts in de zijbalk "
+"om een andere auteur te selecteren."
+
+#: functions.php:769
+msgid "Enter description if you want to override the open graph description"
+msgstr ""
+
+#: functions.php:762
+msgid "Enter title if you want to override the open graph title"
+msgstr ""
+
+#. Name of the template
+msgid "Evergreen Page"
+msgstr ""
+
+#: classes/class-p4-settings.php:98
+msgid "Facebook Page ID"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:59
+msgid "Flush Object Cache"
+msgstr "Leeg object cache"
+
+#: classes/class-p4-settings.php:216
 msgid ""
 "GDPR related setting. By enabling this option specific content will be "
 "blocked and will require user consent to be shown."
@@ -311,115 +214,293 @@ msgstr ""
 "AVG gerelateerde instelling. Door dit in te schakelen wordt specifieke "
 "content verborgen tot hier toestemming voor wordt gegeven."
 
-#: classes/class-p4-settings.php:245 classes/class-p4-settings.php:259
-msgid "Select Page"
-msgstr "Selecteer pagina"
-
-#: classes/class-p4-settings.php:274
-msgid "Select Category"
-msgstr "Selecteer categorie"
-
-#: classes/class-p4-settings.php:293
-msgid "Select Pagetype"
-msgstr "Selecteer paginatype"
-
-#: classes/class-p4-control-panel.php:41
-msgid "Planet 4 Control Panel"
-msgstr "Planet 4 Instellingen"
-
-#: classes/class-p4-control-panel.php:53
-msgid "Cache"
-msgstr "Cache"
-
-#: classes/class-p4-control-panel.php:56
-msgid "Flush Object Cache"
-msgstr "Leeg object cache"
-
-#: classes/class-p4-control-panel.php:58
-msgid "Are you sure you want to delete all Object Cache keys?"
-msgstr "Weet je zeker dat je de volledige server cache wilt wissen?"
-
-#: classes/class-p4-control-panel.php:61
-msgid "Check Object Cache"
-msgstr "Controleer object cache"
-
-#: classes/class-p4-control-panel.php:68
-msgid "Engaging Networks"
-msgstr "Engaging Networks"
-
-#: classes/class-p4-control-panel.php:71
-msgid "Check Engaging Networks"
-msgstr "Controleer Engaging Networks"
-
-#: classes/class-p4-control-panel.php:78
-msgid "Search"
-msgstr "Zoeken"
-
-#: classes/class-p4-control-panel.php:81
-msgid "Check Search Indexer"
-msgstr "Controleer zoek index"
-
-#: classes/class-p4-control-panel.php:126
-msgid "Object Cache flushed"
-msgstr "Object cache geleegd"
-
-#: classes/class-p4-control-panel.php:129
-msgid "Object Cache did not flush"
-msgstr "Object cache is niet geleegd"
-
-#: classes/class-p4-control-panel.php:165
-msgid "Planet 4 is connected to Redis."
-msgstr "Planet 4 is verbonden met Redis."
-
-#: classes/class-p4-control-panel.php:201
-msgid "Success"
-msgstr "Gelukt"
-
-#: classes/class-p4-control-panel.php:248
-msgid "Indexer has stalled"
-msgstr "Indexer is vastgelopen"
-
-#: classes/class-p4-control-panel.php:251
-msgid "Indexer is awake"
-msgstr "Indexer is actief"
-
-#: classes/class-p4-taxonomy-image.php:19
-msgid "Select Image"
-msgstr "Selecteer afbeelding"
-
-#: classes/class-p4-taxonomy-image.php:59
-#: classes/class-p4-taxonomy-image.php:98
-#: classes/class-p4-taxonomy-image.php:154
-msgid "Image"
-msgstr "Afbeelding"
-
-#: classes/class-p4-taxonomy-image.php:65
-#: classes/class-p4-taxonomy-image.php:80
-#: classes/class-p4-taxonomy-image.php:102
-msgid "Select/Upload Image"
-msgstr "Selecteer/upload afbeelding"
-
-#: classes/class-p4-taxonomy-image.php:67
-#: classes/class-p4-taxonomy-image.php:104
-msgid "Associate this tag with an image."
-msgstr "Koppel deze tag aan een afbeelding"
-
-#: classes/class-p4-taxonomy-image.php:74
+#: classes/class-p4-settings.php:86
 #, fuzzy
-msgid "Image Subscribe"
-msgstr "Image Subscribe"
+#| msgid "Google Tag Manager Identifier"
+msgid "Google Tag Manager Container"
+msgstr "Google Tag Manager ID"
 
-#: classes/class-p4-taxonomy-image.php:82
-msgid "Choose a background image for the Subscribe block."
-msgstr "Kies een achtergrond voor het Inschrijvingen blok"
-
-#: classes/class-p4-taxonomy-image.php:89
+#: classes/class-p4-campaigns.php:123
 msgid "Happy Point Opacity"
 msgstr ""
 "Transparantie van de afbeelding achter de Happy Point (het blok voor het "
 "aanmelden op de nieuwsbrief)"
 
-#: classes/class-p4-taxonomy-image.php:93
+#: functions.php:680
+msgid "Header Button Link"
+msgstr "Koptekst knop link"
+
+#: functions.php:681
+msgid "Header button link comes here"
+msgstr "Vul hier de link in waar de knop in de koptekst naar moet verwijzen."
+
+#: functions.php:671
+msgid "Header Button Title"
+msgstr "Koptekst knop tekst"
+
+#: functions.php:672
+msgid "Header button title comes here"
+msgstr "Vul hier de tekst van de knop in de koptekst in."
+
+#: functions.php:658
+msgid "Header Description"
+msgstr "Koptekst omschrijving"
+
+#: functions.php:659
+msgid "Header description comes here"
+msgstr "Vul hier de tekst van de koptekst in."
+
+#: functions.php:649
+msgid "Header Subtitle"
+msgstr "Koptekst ondertitel"
+
+#: functions.php:650
+msgid "Header subtitle comes here"
+msgstr "Vul hier de tekst van de ondertitel in de koptekst in."
+
+#: functions.php:641
+msgid "Header Title"
+msgstr "Koptekst titel"
+
+#: functions.php:642
+msgid "Header title comes here"
+msgstr "Vul hier de titel in de koptekst in."
+
+#: classes/class-p4-settings.php:124
+msgid ""
+"If no button title set for <b>Article Block</b>, the default button title "
+"will appear."
+msgstr ""
+"Als geen knop tekst is ingesteld in het <b>Artikelen Blok</b>, dan wordt "
+"deze tekst weergegeven."
+
+#: classes/class-p4-settings.php:134
+msgid ""
+"If no number of Related Articles set for <b>Article Block</b>, the default "
+"number of Related Articles will appear."
+msgstr ""
+"Als er geen aantal is ingesteld in het <b>Artikelen Blok</b>, dan wordt dit "
+"aantal artikelen weergegeven."
+
+#: classes/class-p4-settings.php:117
+msgid ""
+"If no title set for <b>Article Block</b>, the default title will appear."
+msgstr ""
+"Als geen titel is ingesteld in het <b>Artikelen Blok</b>, dan wordt deze "
+"tekst weergegeven."
+
+#: classes/class-p4-campaigns.php:93 classes/class-p4-campaigns.php:132
+#: classes/class-p4-campaigns.php:194
+msgid "Image"
+msgstr "Afbeelding"
+
+#: functions.php:779
+msgid "Image Override"
+msgstr ""
+
+#: classes/class-p4-campaigns.php:108
+#, fuzzy
+msgid "Image Subscribe"
+msgstr "Image Subscribe"
+
+#: functions.php:730
+msgid "Include Articles In Post"
+msgstr "Voeg Artikelen tot aan bericht"
+
+#: classes/class-p4-control-panel.php:251
+msgid "Indexer has stalled"
+msgstr "Indexer is vastgelopen"
+
+#: classes/class-p4-control-panel.php:254
+msgid "Indexer is awake"
+msgstr "Indexer is actief"
+
+#: classes/class-p4-settings.php:179 classes/class-p4-settings.php:212
+msgid "Minimum image width should be 1920px"
+msgstr "Minimum afbeelding breedte is 1920px "
+
+#: functions.php:144
+msgid "Navigation Bar Menu"
+msgstr "Navigatie menu"
+
+#: classes/class-p4-custom-taxonomy.php:158
+#, fuzzy
+#| msgid "New Page Type"
+msgid "New Post Type"
+msgstr "Nieuw pagina type"
+
+#: functions.php:682
+msgid "New Tab"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:133
+msgid "Object Cache did not flush"
+msgstr "Object cache is niet geleegd"
+
+#: classes/class-p4-control-panel.php:130
+msgid "Object Cache flushed"
+msgstr "Object cache geleegd"
+
+#: functions.php:755
+msgid "Open Graph/Social Fields"
+msgstr ""
+
+#: functions.php:683
+msgid "Open header button link in new tab"
+msgstr ""
+
+#: classes/class-p4-custom-taxonomy.php:42
+msgid "P4 page type (A p4 page type term.)"
+msgstr "P4 pagina type"
+
+#: functions.php:636
+msgid "Page Header Fields"
+msgstr "Pagina koptekst velden"
+
+#: classes/class-p4-control-panel.php:43
+msgid "Planet 4 Control Panel"
+msgstr "Planet 4 Instellingen"
+
+#: classes/class-p4-control-panel.php:168
+msgid "Planet 4 is connected to Redis."
+msgstr "Planet 4 is verbonden met Redis."
+
+#: classes/class-p4-settings.php:39
+msgid "Planet4"
+msgstr "Planet4"
+
+#: functions.php:709
+#, fuzzy
+msgid "Post Articles Element Fields"
+msgstr "Post Articles Element Fields"
+
+#: classes/class-p4-custom-taxonomy.php:159
+#, fuzzy
+#| msgid "Page Types"
+msgid "Post Types"
+msgstr "Pagina types"
+
+#: classes/class-p4-post-report-controller.php:59
+#: classes/class-p4-post-report-controller.php:60
+msgid "Posts Report"
+msgstr "Berichten rapport"
+
+#: classes/class-p4-control-panel.php:83
+msgid "Search"
+msgstr "Zoeken"
+
+#: classes/class-p4-custom-taxonomy.php:150
+#, fuzzy
+#| msgid "Search in Page Type"
+msgid "Search in Post Type"
+msgstr "Zoeken in pagina type"
+
+#: functions.php:722
+msgid "Select a Take Action Page to populate take action boxout block"
+msgstr "Selecteer een actiepagina voor het actieblok"
+
+#: classes/class-p4-settings.php:48
+msgid "Select Act Page"
+msgstr "Selecteer een actiepagina"
+
+#: classes/class-p4-settings.php:289
+msgid "Select Category"
+msgstr "Selecteer categorie"
+
+#: classes/class-p4-settings.php:54
+msgid "Select Explore Page"
+msgstr "Selecteer oplossingenpagina"
+
+#: classes/class-p4-campaigns.php:21
+msgid "Select Image"
+msgstr "Selecteer afbeelding"
+
+#: classes/class-p4-settings.php:60
+msgid "Select Issues Parent Category"
+msgstr "Selecteer hoofdthema"
+
+#: classes/class-p4-settings.php:260 classes/class-p4-settings.php:274
+msgid "Select Page"
+msgstr "Selecteer pagina"
+
+#: classes/class-p4-settings.php:308
+#, fuzzy
+#| msgid "Select Pagetype"
+msgid "Select Posttype"
+msgstr "Selecteer paginatype"
+
+#: classes/class-p4-campaigns.php:99 classes/class-p4-campaigns.php:114
+#: classes/class-p4-campaigns.php:136
+msgid "Select/Upload Image"
+msgstr "Selecteer/upload afbeelding"
+
+#. Name of the template
+msgid "Sitemap Page"
+msgstr ""
+
+#: classes/class-p4-control-panel.php:204
+msgid "Success"
+msgstr "Gelukt"
+
+#: functions.php:806
+msgid "Tags"
+msgstr ""
+
+#: classes/class-p4-settings.php:138
+msgid "Take Action Covers default button text"
+msgstr "Actiepagina kaarten standaard knoptekst"
+
+#: functions.php:721
+msgid "Take Action Page Selector"
+msgstr "Actiepagina kiezer"
+
+#: classes/class-p4-custom-taxonomy.php:148
+#, fuzzy
+#| msgid "Page Types"
+msgctxt "taxonomy general name"
+msgid "Post Types"
+msgstr "Pagina types"
+
+#: classes/class-p4-custom-taxonomy.php:149
+#, fuzzy
+#| msgid "Page Type"
+msgctxt "taxonomy singular name"
+msgid "Post Type"
+msgstr "Pagina type"
+
+#: classes/class-p4-post-report-controller.php:76
+msgid "The date query column."
+msgstr ""
+
+#: functions.php:761
+msgid "Title"
+msgstr ""
+
+#: classes/class-p4-custom-taxonomy.php:156
+#, fuzzy
+#| msgid "Update Page Type"
+msgid "Update Post Type"
+msgstr "Update Page Type"
+
+#: functions.php:690
+msgid "Upload an image"
+msgstr "Upload an image"
+
+#: functions.php:741
+msgid ""
+"Upload an image or select one from the media library to override the "
+"background image"
+msgstr ""
+"Upload an image or select one from the media library to override the "
+"background image"
+
+#: functions.php:780
+msgid ""
+"Upload an image or select one from the media library to override the open "
+"graph image"
+msgstr ""
+
+#: classes/class-p4-campaigns.php:127
 msgid ""
 "We use an overlay to fade the image back. Use a number between 1 and 100, "
 "the higher the number, the more faded the image will look. If you leave this "
@@ -427,3 +508,15 @@ msgid ""
 msgstr ""
 "Fade the image behind the newsletter signup form. Use a number between 1 and "
 "100, The lower the number, the more faded the image will look. Default is 30."
+
+#: classes/class-p4-settings.php:43
+msgid "Website Navigation Title"
+msgstr "Website Navigation Title"
+
+#: functions.php:439
+msgid "Weight (1-30)"
+msgstr "Weight (1-30). 1: low search ranking in site. 30: high ranking."
+
+#: functions.php:893
+msgid "Your role does not have permission to add terms to this taxonomy"
+msgstr ""
