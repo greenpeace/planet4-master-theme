@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin frontend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2021-04-16 13:11+0000\n"
+"PO-Revision-Date: 2021-04-16 13:12+0000\n"
 "Last-Translator: Gabriel Herrera\n"
 "Language-Team: Spanish (Mexico)\n"
 "Language: es_MX\n"
@@ -93,7 +93,7 @@ msgstr ""
 #: templates/blocks/content_covers.twig:79
 #: assets/src/blocks/Articles/ArticlesBlock.js:44
 msgid "Load more"
-msgstr ""
+msgstr "Cargar más"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:204
 msgid "Loading spreadsheet data..."
