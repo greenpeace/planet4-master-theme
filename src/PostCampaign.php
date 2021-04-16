@@ -466,27 +466,30 @@ class PostCampaign {
 	 * @return array Migrated CSS variables.
 	 */
 	private static function migrate_old_vars( array $css_vars ): array {
-		if ( isset( $css_vars['footer_links_color'] ) ) {
-			$css_vars['footer--background']   = $css_vars['footer_color'];
-			$css_vars['footer--links--color'] = $css_vars['footer_links_color'];
-			// This one already existed separately, maybe we can just remove but keeping it for now.
-			$css_vars['footer-links--color']               = $css_vars['footer_links_color'];
-			$css_vars['footer--links--hover--color']       = $css_vars['footer_links_color'];
-			$css_vars['footer-social-media--color']        = $css_vars['footer_links_color'];
-			$css_vars['footer-social-media--hover--color'] = $css_vars['footer_links_color'];
-			$css_vars['footer-links-secondary--color']     = $css_vars['footer_links_color'];
-			$css_vars['footer--copyright--color']          = $css_vars['footer_links_color'];
-			$css_vars['footer--copyright--link--color']    = $css_vars['footer_links_color'];
-			$css_vars['footer--copyright--year--color']    = $css_vars['footer_links_color'];
-		}
-		if ( isset( $css_vars['body-background-color'] ) ) {
-			$css_vars['body--background-color'] = $css_vars['body-background-color'];
-		}
-		if ( isset( $css_vars['header-primary-font'] ) ) {
-			$css_vars['headings--font-family'] = $css_vars['header-primary-font'];
-		}
-		if ( isset( $css_vars['campaign_nav_color'] ) ) {
-			$css_vars['top-navigation--background'] = $css_vars['campaign_nav_color'];
+		$mappings = [
+			'footer_color'            => [ 'footer--background' ],
+			'footer_links_color'      => [
+				'footer-menu--color',
+				'footer--links--hover--color',
+				'footer-social-media--color',
+				'footer-social-media--hover--color',
+				'footer-menu-secondary--color',
+				'footer--copyright--color',
+				'footer--copyright--link--color',
+				'footer--copyright--year--color',
+				'site-footer_min--icon--fill',
+			],
+			'campaign_header_primary' => [ 'headings--font-family' ],
+			'campaign_body_font'      => [ 'body--font-family' ],
+			'campaign_nav_color'      => [ 'top-navigation--background' ],
+		];
+		foreach ( $mappings as $from => $to ) {
+			if ( empty( $css_vars[ $from ] ) ) {
+				continue;
+			}
+			foreach ( $to as $new_name ) {
+				$css_vars[ $new_name ] = $css_vars[ $from ];
+			}
 		}
 
 		return $css_vars;
