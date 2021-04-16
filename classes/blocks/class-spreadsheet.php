@@ -73,6 +73,13 @@ class Spreadsheet extends Base_Block {
 
 		$url = "https://docs.google.com/spreadsheets/d/e/${sheet_id}/pub?output=csv";
 
+		$headers = get_headers( $url );
+
+		// Handle 500, 404 errors.
+		if ( ! $headers || strpos( $headers[0], '500' ) || strpos( $headers[0], '404' ) ) {
+			return null;
+		}
+
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fopen
 		$handle = fopen( $url, 'rb' );
 
