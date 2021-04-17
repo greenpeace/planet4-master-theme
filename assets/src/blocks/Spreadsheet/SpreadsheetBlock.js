@@ -19,7 +19,7 @@ export class SpreadsheetBlock {
     registerBlockType( BLOCK_NAME, {
       title: __( 'Spreadsheet', 'planet4-blocks-backend' ),
       icon: 'editor-table',
-      category: 'planet4-blocks-beta',
+      category: 'planet4-blocks',
       attributes,
       deprecated: [
         {
