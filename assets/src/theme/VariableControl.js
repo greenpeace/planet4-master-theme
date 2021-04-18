@@ -1,7 +1,7 @@
 import { useState} from 'react';
 import { Fragment} from '@wordpress/element';
 import { COLOR_VALUE_REGEX, TypedControl } from './typedControl';
-import { IconButton } from '@wordpress/components';
+import { Button } from '@wordpress/components';
 import { PSEUDO_REGEX, THEME_ACTIONS} from './useThemeEditor';
 import classnames from 'classnames';
 
@@ -134,7 +134,6 @@ export const VariableControl = (props) => {
   ] = useState(false);
 
   const toggleSelectors = () => setShowSelectors(!showSelectors)
-  // The theme ensures that if the property is not returned, it can be safely read from the window.
   const value = theme[cssVar.name] || defaultValue;
   const isDefault = value === defaultValue;
 
@@ -151,11 +150,19 @@ export const VariableControl = (props) => {
       cursor: isOpen ? 'auto' : 'pointer',
     } }
   >
-    { !!onCloseClick && <IconButton
-      icon={ 'minus' }
-      style={ { float: 'right', height: '29px' } }
-      onClick={ () => onCloseClick(cssVar) }
-    /> }
+    { !!onCloseClick && <Button
+      style={ {
+        float: 'right',
+        borderRadius: '7px',
+        marginTop: '9px',
+        marginLeft: '9px',
+        padding: '3px 10px',
+        height: '29px',
+        fontSize: '32px',
+        border: '1px solid black'
+      } }
+      title='Close'
+      onClick={ () => onCloseClick(cssVar) }>-</Button> }
     { previewValue(value, cssVar, toggleOpen, isDefault) }
     <h5
       style={ {  fontSize: '16px', padding: '2px 4px 0', fontWeight: '400', userSelect: 'none', cursor: 'pointer' } }
@@ -165,16 +172,18 @@ export const VariableControl = (props) => {
     </h5>
     { isOpen && (
       <div
-        onMouseEnter={()=> {
-          if (PSEUDO_REGEX.test(cssVar.name)) {
-            dispatch({type: THEME_ACTIONS.START_PREVIEW_PSEUDO_STATE, payload: {name: cssVar.name}});
-          }
-        }}
-        onMouseLeave={()=> {
-          if (PSEUDO_REGEX.test(cssVar.name)) {
-            dispatch({type: THEME_ACTIONS.END_PREVIEW_PSEUDO_STATE, payload: {name: cssVar.name}})
-          }
-        }}
+        onMouseEnter={ () => {
+          PSEUDO_REGEX.test(cssVar.name) && dispatch({
+            type: THEME_ACTIONS.START_PREVIEW_PSEUDO_STATE,
+            payload: { name: cssVar.name }
+          });
+        } }
+        onMouseLeave={ () => {
+          PSEUDO_REGEX.test(cssVar.name) && dispatch({
+            type: THEME_ACTIONS.END_PREVIEW_PSEUDO_STATE,
+            payload: { name: cssVar.name }
+          });
+        } }
       >
         <div>{cssVar.name}</div>
         { showUsages(cssVar, showSelectors,toggleSelectors) }

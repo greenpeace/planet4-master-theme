@@ -1,7 +1,50 @@
+html,
+body {
+  scroll-behavior: auto !important;
+}
+
 .var-picker * {
   font-family: Roboto, sans-serif !important;
   color: black !important;
   line-height: initial !important;
+}
+
+.simulating-touch-device body {
+  &::-webkit-scrollbar {
+    width: 9px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background: rgba(140, 140, 140, 0.2);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: rgba(140, 140, 140, 0.4);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(140, 140, 140, 0.5);
+  }
+
+  &::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(140, 140, 140, 0.05);
+  }
+}
+
+.responsive-frame-container {
+  transform-origin: 0 0;
+}
+
+.responsive-frame-container::-webkit-scrollbar {
+  color: transparent;
+  background-color: transparent;
+}
+
+.responsive-frame-container::-webkit-resizer {
+  color: green;
+  background-color: green;
 }
 
 html.hide-wp-admin-bar {

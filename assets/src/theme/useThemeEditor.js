@@ -340,6 +340,7 @@ export const useThemeEditor = (
   useEffect(() => {
     processRemovals(defaultValues);
     writeNewValues(withPseudoPreviews);
+    localStorage.setItem('theme-with-previews', JSON.stringify(withPseudoPreviews));
   }, [JSON.stringify(withPseudoPreviews)]);
 
   const hotkeysOptions = {

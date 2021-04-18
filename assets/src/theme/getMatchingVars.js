@@ -47,7 +47,7 @@ export const getMatchingVars = async ( { cssVars, target } ) => {
 
   const results = await Promise.allSettled( promises );
 
-  results.filter( wasRejected ).forEach( console.log );
+  // results.filter( wasRejected ).forEach( console.log );
 
   const arrays = results.filter( wasFulfilled ).map( result => result.value );
 

@@ -6,6 +6,9 @@ import { exportCss, exportJson } from './export';
 import { useServerThemes } from './useServerThemes';
 import { useLocalStorage } from './useLocalStorage';
 import { filterMostSpecific } from './getOnlyMostSpecific';
+import { useToggle } from './useToggle';
+import { ResizableFrame } from './ResizableFrame';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 export const LOCAL_STORAGE_KEY = 'p4-theme';
 
@@ -91,39 +94,28 @@ export const VarPicker = (props) => {
     {
       theme,
       defaultValues,
-      hasHistory,
-      hasFuture,
     },
     dispatch,
   ] = useThemeEditor(config);
 
-  const setProperty = (name, value) => {
-    dispatch({ type: THEME_ACTIONS.SET, payload: { name, value } });
-  };
-
-  const unsetProperty = (name) => {
-    dispatch({ type: THEME_ACTIONS.UNSET, payload: { name } });
-  };
-
-  const [collapsed, setCollapsed] = useState(false);
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed);
-  };
+  const [collapsed, toggleCollapsed] = useToggle(false);
 
   const [shouldGroup, setShouldGroup] = useState(true);
 
   const [fileName, setFileName] = useLocalStorage('p4-theme-name', 'theme');
 
+  const [storedIsResponsive, setResponsive] = useLocalStorage('p4-theme-responsive', false);
+
+  const isResponsive = !!storedIsResponsive && storedIsResponsive !== 'false';
+
+  useHotkeys('alt+v', () => {
+    setResponsive(!isResponsive);
+  }, [isResponsive]);
+
   const [
     serverThemesHeight,
     setServerThemesHeight
   ] = useLocalStorage('p4-theme-server-theme-height-list', '140px');
-
-  useEffect(() => {
-    localStorage.setItem('p4-theme-name', fileName);
-  }, [fileName]);
-
-  const activeThemeRef = useRef();
 
   const {
     serverThemes,
@@ -131,6 +123,8 @@ export const VarPicker = (props) => {
     uploadTheme,
     deleteTheme,
   } = useServerThemes();
+
+  const activeThemeRef = useRef();
 
   useEffect(() => {
     activeThemeRef?.current?.scrollIntoView();
@@ -145,7 +139,8 @@ export const VarPicker = (props) => {
   return <div
     className='var-picker'
   >
-      <span
+    {!!isResponsive && <ResizableFrame src={window.location.href} />}
+    <span
         style={ {
           fontSize: '10px',
           border: '1px solid grey',
@@ -167,13 +162,32 @@ export const VarPicker = (props) => {
       { 'Show only specific properties.' }
     </label> }
     <br/>
+    <input
+      type="checkbox"
+      readOnly
+      checked={ shouldGroup }
+      onClick={ () => { setShouldGroup(!shouldGroup); } }
+    />
     { !collapsed && <label
-      htmlFor=""
       onClick={ () => setShouldGroup(!shouldGroup) }
       style={ { marginBottom: '2px' } }
     >
-      <input type="checkbox" readOnly checked={ shouldGroup }/>
       { 'Group last clicked element' }
+    </label> }
+    <br/>
+    <input
+      type="checkbox"
+      readOnly
+      checked={ isResponsive }
+      onClick={ () => { setResponsive(!isResponsive); } }
+    />
+    { !collapsed && <label
+      onClick={ () => {
+        setResponsive(!isResponsive);
+      } }
+      style={ { marginBottom: '2px' } }
+    >
+      { 'Responsive view' }
     </label> }
     { !collapsed && serverThemesLoading && <span>Loading server themes...</span> }
     { !collapsed && !!serverThemes && !serverThemesLoading && <ul
@@ -211,6 +225,7 @@ export const VarPicker = (props) => {
         >Switch</button>
       </li>)}
     </ul>}
+
     { !collapsed && <div
       title='Click and hold to drag'
       className="themer-controls">
@@ -243,7 +258,6 @@ export const VarPicker = (props) => {
       </div>
       <div>
         <label
-          // Only tested on Chrome
           style={ {
             display: 'inline-block',
             maxWidth: '33%',
@@ -272,7 +286,8 @@ export const VarPicker = (props) => {
         </label>
       </div>
     </div> }
-    { shouldGroup && !collapsed && <ul className={'group-list'}>
+
+    { !collapsed && shouldGroup && <ul className={'group-list'}>
       { (onlySpecific ? groups : rawGroups).map(({ element, label, vars }) => (
         <li className={ 'var-group' } key={ label } style={ { marginBottom: '12px' } }>
           <h4
@@ -294,10 +309,12 @@ export const VarPicker = (props) => {
                     dispatch,
                   } }
                   key={ cssVar.name }
-                  onChange={ (value) => {
-                    setProperty(cssVar.name, value);
+                  onChange={ value => {
+                    dispatch({ type: THEME_ACTIONS.SET, payload: { name: cssVar.name, value } });
                   } }
-                  onUnset={ () => unsetProperty(cssVar.name) }
+                  onUnset={ () => {
+                    dispatch({ type: THEME_ACTIONS.UNSET, payload: { name: cssVar.name } });
+                  } }
                 />;
               }
             ) }
@@ -306,7 +323,7 @@ export const VarPicker = (props) => {
       )) }
     </ul> }
 
-    { !shouldGroup && !collapsed && <ul>
+    { !collapsed && !shouldGroup && <ul>
       <span>
         showing { activeVars.length } propert{ activeVars.length === 1 ? 'y' : 'ies' }
       </span>
@@ -326,9 +343,9 @@ export const VarPicker = (props) => {
             }
             }
             key={ cssVar.name }
-            onUnset={ () => unsetProperty(cssVar.name) }
+            onUnset={ () => dispatch({ type: THEME_ACTIONS.UNSET, payload: { name: cssVar.name } }) }
             onCloseClick={ deactivate }
-            onChange={ value => setProperty(cssVar.name, value) }
+            onChange={ value => dispatch({ type: THEME_ACTIONS.SET, payload: { name: cssVar.name, value } }) }
           />;
         }
       ) }
