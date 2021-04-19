@@ -33,7 +33,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 	 *
 	 * @dataProvider carousel_header_shortcodes_provider
 	 * @dataProvider columns_shortcodes_provider
-	 * @dataProvider covers_shortcodes_provider
 	 * @dataProvider social_media_shortcodes_provider
 	 * @dataProvider timeline_shortcodes_provider
 	 * @dataProvider take_action_boxout_shortcodes_provider
@@ -177,73 +176,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 
 					'<!-- wp:planet4-blocks/columns {"columns_block_style":"tasks","columns":[{"title":"Ik heb 3 minuten tijd voor de oceanen","description":"Onderteken onze petitie en overtuig onze regeringen om 30% van onze oceanen te beschermen tegen 2030.","cta_link":"https://act.greenpeace.org/page/41085/petition/1?locale=nl-BE","cta_text":"Ik teken"},{"title":"Ik heb 10 minuten tijd voor de oceanen","description":"Help ons een internationale beweging op gang te brengen ter bescherming van onze oceanen door de petitie te delen met zoveel mogelijk contacten. Tweet en/of deel deze petitie op Facebook.","cta_link":"https://act.greenpeace.org/page/41085/petition/1?locale=nl-BE","cta_text":"Ik deel de petitie"},{"title":"Ik doe elke dag iets voor de oceanen","description":"Greenpeace voert momenteel een mariene expeditie van de Noordpool naar de Zuidpool om de vervuiling en bedreigingen aan te kaarten waarmee onze oceanen te kampen hebben en om op te roepen tot het cre\u00ebren van zeereservaten. Draag jouw steentje bij tot het succes van deze expeditie (een van de meest ambitieuze in de geschiedenis van Greenpeace) door je financi\u00eble steun.","cta_link":"https://act.greenpeace.org/page/35835/donate/1?_ga=2.216136790.1373388684.1554969680-131600878.1551171313","cta_text":"Ik doe een gift"}]} /-->',
 				],
-
-		];
-	}
-
-	/**
-	 * Planet4 blocks shortocodes provider.
-	 *
-	 * @return array
-	 */
-	public function covers_shortcodes_provider(): array {
-		return [
-			// 1-5
-			[
-				'[shortcake_newcovers cover_type="1" covers_view="0" /]',
-				'<!-- wp:planet4-blocks/covers {"cover_type":"1","covers_view":"1"} /-->',
-			],
-			[
-
-				'[shortcake_newcovers cover_type="1" tags="6" covers_view="0" /]',
-				'<!-- wp:planet4-blocks/covers {"cover_type":"1","tags":[6],"covers_view":"1"} /-->',
-			],
-			[
-
-				'[shortcake_newcovers cover_type="1" tags="18,17,7" covers_view="0" /]',
-				'<!-- wp:planet4-blocks/covers {"cover_type":"1","tags":[18,17,7],"covers_view":"1"} /-->',
-			],
-			[
-				'[shortcake_newcovers cover_type="1" title="Agir" covers_view="3" /]',
-				'<!-- wp:planet4-blocks/covers {"cover_type":"1","title":"Agir","covers_view":"2"} /-->',
-			],
-			[
-				'[shortcake_newcovers cover_type="1" title="Get involved" tags="19" covers_view="0" /]',
-				'<!-- wp:planet4-blocks/covers {"cover_type":"1","title":"Get involved","tags":[19],"covers_view":"1"} /-->',
-			],
-			[
-				'[shortcake_newcovers cover_type="1" title="More opportunities" description="Learn about what it takes to sail aboard one of our ships or to become a volunteer in your local office." covers_view="0" posts="1320,11442" /]',
-				'<!-- wp:planet4-blocks/covers {"cover_type":"1","title":"More opportunities","description":"Learn about what it takes to sail aboard one of our ships or to become a volunteer in your local office.","covers_view":"1","posts":[1320,11442]} /-->',
-			],
-			[
-				'[shortcake_newcovers cover_type="1" title="More things you can do" tags="89,88,67,65,86,84,91,85,87,90" description="We act with hope and determination. We take on the impossible. We are everyday people connected around the world, embarking on a billion acts of courage. Join us today ." covers_view="1" /]',
-				'<!-- wp:planet4-blocks/covers {"cover_type":"1","title":"More things you can do","tags":[89,88,67,65,86,84,91,85,87,90],"description":"We act with hope and determination. We take on the impossible. We are everyday people connected around the world, embarking on a billion acts of courage. Join us today .","covers_view":"3"} /-->',
-			],
-
-			[
-				'[shortcake_newcovers cover_type="2" title="Onze campagnes" tags="18,17,7" covers_view="1" /]',
-				'<!-- wp:planet4-blocks/covers {"cover_type":"2","title":"Onze campagnes","tags":[18,17,7],"covers_view":"3"} /-->',
-			],
-			[
-				'[shortcake_newcovers cover_type="1" title="Neem actie" tags="96,97,98,99" covers_view="0" /]',
-				'<!-- wp:planet4-blocks/covers {"cover_type":"1","title":"Neem actie","tags":[96,97,98,99],"covers_view":"1"} /-->',
-			],
-			[
-				'[shortcake_newcovers cover_type="3" title="Publications" tags="71,70,73,75,72,78,77" post_types="119" covers_view="0" /]',
-				'<!-- wp:planet4-blocks/covers {"cover_type":"3","title":"Publications","tags":[71,70,73,75,72,78,77],"post_types":[119],"covers_view":"1"} /-->',
-			],
-			[
-				'[shortcake_newcovers cover_type="1" title="Pas de temps à perdre" covers_view="0" posts="6466,6308,4412,1805,1799,1807,1809,2878,1803" /]',
-				'<!-- wp:planet4-blocks/covers {"cover_type":"1","title":"Pas de temps \u00e0 perdre","covers_view":"1","posts":[6466,6308,4412,1805,1799,1807,1809,2878,1803]} /-->',
-			],
-			[
-				'[shortcake_newcovers cover_type="2" title="The rest of our fleet" tags="19,20" covers_view="0" /]',
-				'<!-- wp:planet4-blocks/covers {"cover_type":"2","title":"The rest of our fleet","tags":[19,20],"covers_view":"1"} /-->',
-			],
-
-			// 5-10
-
-			// 10-15
 
 		];
 	}

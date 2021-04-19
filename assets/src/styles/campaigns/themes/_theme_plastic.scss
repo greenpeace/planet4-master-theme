@@ -63,52 +63,6 @@ body.theme-plastic {
     }
   }
 
-  .covers-block {
-    @include campaign_covers($plastics-peach-darker, $montserrat, $montserrat, white, white);
-
-    .cover-card-content {
-      .cover-card-tag {
-        line-height: 1.1875rem;
-        text-transform: uppercase;
-        font-weight: $extra-bold;
-      }
-
-      .cover-card-heading {
-        line-height: 1.5625rem;
-        font-weight: $bold;
-      }
-    }
-
-    .cover-card-btn {
-      @include plastics-button(white, $plastics-peach-darker);
-
-      &:hover {
-        background: $plastics-peach;
-        color: white;
-      }
-    }
-  } // end .covers-block
-
-  .campaign-covers-block {
-    @include campaign_covers($plastics-peach, white, white, $montserrat, 50);
-
-    .thumbnail-large {
-      .yellow-cta {
-        text-transform: uppercase;
-        font-weight: $bold;
-        @include letter-spacing(50);
-      }
-
-      &:after {
-        opacity: 0.7;
-      }
-
-      &:hover:after {
-        opacity: 0;
-      }
-    }
-  } // end .campaign-covers-block
-
   .content-covers-block {
     @include campaign_content_covers(none, $montserrat, $roboto, $plastics-peach);
 

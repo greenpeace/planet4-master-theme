@@ -13,130 +13,90 @@ namespace P4GBKS\Blocks;
  *
  * @package P4GBKS\Blocks
  */
-class Covers extends Base_Block {
+class OldCovers extends Base_Block {
 
 	/**
 	 * Block name.
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'covers-beta';
-
-	/**
-	 * Block version, update when changing attributes
-	 *
-	 * @var int VERSION.
-	 */
-	private const VERSION = 2;
-
-	/**
-	 * Old cover types, needed to convert existing blocks to version 2.
-	 *
-	 * @var array OLD_COVER_TYPES.
-	 */
-	private const OLD_COVER_TYPES = [
-		'1' => 'take-action',
-		'2' => 'campaign',
-		'3' => 'content',
-	];
-
-	/**
-	 * New cover types, used for version 2.
-	 *
-	 * @var string TAKE_ACTION_COVER_TYPE.
-	 * @var string CAMPAIGN_COVER_TYPE.
-	 * @var string CONTENT_COVER_TYPE.
-	 */
-	private const TAKE_ACTION_COVER_TYPE = 'take-action';
-	private const CAMPAIGN_COVER_TYPE    = 'campaign';
-	private const CONTENT_COVER_TYPE     = 'content';
+	const BLOCK_NAME = 'covers';
 
 	const POSTS_LIMIT = 50;
+
+	/**
+	 * @param array  $attributes Block attributes.
+	 * @param string $content    Block content.
+	 *
+	 * @return mixed
+	 */
+	public function add_block_shortcode( $attributes, $content ) {
+		$attributes = shortcode_atts(
+			[
+				'cover_type'  => '1',
+				'covers_view' => '1',
+				'title'       => '',
+				'description' => '',
+				'tags'        => [],
+			],
+			$attributes,
+			'shortcake_newcovers'
+		);
+
+		return $this->render( $attributes );
+	}
 
 	/**
 	 * Covers constructor.
 	 */
 	public function __construct() {
+		add_shortcode( 'shortcake_newcovers', [ $this, 'add_block_shortcode' ] );
+
 		register_block_type(
 			self::get_full_block_name(),
 			[  // - Register the block for the editor
-				'editor_script'   => 'planet4-blocks',
-				'render_callback' => static function ( $attributes ) {
-					if ( isset( $attributes['covers_view'] ) ) {
-						$attributes['initialRowsLimit'] = '3' === $attributes['covers_view'] ? 0 : intval( $attributes['covers_view'] );
-						unset( $attributes['covers_view'] );
-					}
+				'editor_script'   => 'planet4-blocks',           // in the PHP side.
+				'render_callback' => [ $this, 'render' ],                     // - This render callback will be exposed
+																			// to render the block.
 
-					if ( ! isset( $attributes['version'] ) ) {
-						$attributes['version'] = self::VERSION;
-					}
-
-					if ( is_numeric( $attributes['cover_type'] ) ) {
-						$old_cover_type           = $attributes['cover_type'];
-						$attributes['cover_type'] = self::OLD_COVER_TYPES[ $old_cover_type ];
-					}
-
-					$attributes['covers'] = self::get_covers( $attributes );
-
-					$json = wp_json_encode( [ 'attributes' => $attributes ] );
-
-					return '<div data-render="' . self::get_full_block_name() . '" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
-				},
 				// These attributes match the current fields.
 				'attributes'      => [
-					'cover_type'       => [
+					'cover_type'  => [
+						'type' => 'string',
+					],
+					'covers_view' => [
 						'type'    => 'string',
-						'default' => self::CONTENT_COVER_TYPE,
+						'default' => '1',
 					],
-					'initialRowsLimit' => [
-						'type'    => 'integer',
-						'default' => 1,
-					],
-					'title'            => [
-						'type'    => 'string',
-						'default' => '',
-					],
-					'description'      => [
+					'title'       => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'tags'             => [
-						'type'    => 'array',
-						'default' => [],
-						'items'   => [
+					'description' => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'tags'        => [
+						'type'  => 'array',
+						'items' => [
 							'type' => 'integer', // Array definitions require an item type.
 						],
 					],
-					'post_types'       => [
-						'type'    => 'array',
-						'default' => [],
-						'items'   => [
+					'post_types'  => [
+						'type'  => 'array',
+						'items' => [
 							'type' => 'integer',
 						],
 					],
-					'posts'            => [
-						'type'    => 'array',
-						'default' => [],
-						'items'   => [
+					'posts'       => [
+						'type'  => 'array',
+						'items' => [
 							'type' => 'integer',
 						],
-					],
-					'version'          => [
-						'type'    => 'integer',
-						'default' => self::VERSION,
 					],
 				],
 			]
 		);
-	}
-
-	/**
-	 * Required by the `Base_Block` class.
-	 *
-	 * @param array $fields Unused, required by the abstract function.
-	 */
-	public function prepare_data( $fields ): array {
-		return [];
 	}
 
 	/**
@@ -146,19 +106,33 @@ class Covers extends Base_Block {
 	 *
 	 * @return array The data to be passed in the View.
 	 */
-	public static function get_covers( $fields ): array {
-		$cover_type = $fields['cover_type'] ?? self::CONTENT_COVER_TYPE;
-		$covers     = [];
+	public function prepare_data( $fields ): array {
+		$cover_type = $fields['cover_type'] ?? '';
+		$covers     = false;
 
-		if ( self::TAKE_ACTION_COVER_TYPE === $cover_type ) {
-			$covers = self::populate_posts_for_act_pages( $fields );
-		} elseif ( self::CAMPAIGN_COVER_TYPE === $cover_type ) {
-			$covers = self::populate_posts_for_campaigns( $fields );
-		} elseif ( self::CONTENT_COVER_TYPE === $cover_type ) {
-			$covers = self::populate_posts_for_cfc( $fields );
+		if ( '1' === $cover_type ) {
+			$covers = $this->populate_posts_for_act_pages( $fields );
+		} elseif ( '2' === $cover_type ) {
+			$covers = $this->populate_posts_for_campaigns( $fields );
+		} elseif ( '3' === $cover_type ) {
+			$covers = $this->populate_posts_for_cfc( $fields );
 		}
 
-		return $covers;
+		$covers_view = isset( $fields['covers_view'] ) ? intval( $fields['covers_view'] ) : 1;
+
+		// Enqueue js for the frontend.
+		if ( ! $this->is_rest_request() ) {
+			\P4GBKS\Loader::enqueue_local_script( 'covers', 'public/js/load_more.js', [ 'jquery' ] );
+		}
+
+		$data = [
+			'fields'      => $fields,
+			'covers'      => $covers,
+			'cover_type'  => $cover_type,
+			'covers_view' => $covers_view,
+		];
+
+		return $data;
 	}
 
 	/**
@@ -168,7 +142,7 @@ class Covers extends Base_Block {
 	 *
 	 * @return \WP_Post[]
 	 */
-	private static function filter_posts_for_act_pages( $fields ) {
+	private function filter_posts_for_act_pages( $fields ) {
 		$tag_ids       = $fields['tags'] ?? [];
 		$options       = get_option( 'planet4_options' );
 		$parent_act_id = $options['act_page'];
@@ -206,7 +180,7 @@ class Covers extends Base_Block {
 	 *
 	 * @return \WP_Post[]
 	 */
-	private static function filter_posts_by_ids( $fields ) {
+	private function filter_posts_by_ids( $fields ) {
 		$post_ids = $fields['posts'] ?? [];
 
 		if ( ! empty( $post_ids ) ) {
@@ -221,7 +195,7 @@ class Covers extends Base_Block {
 			];
 
 			// If cover type is take action pages set post_type to page.
-			if ( isset( $fields['cover_type'] ) && self::TAKE_ACTION_COVER_TYPE === $fields['cover_type'] ) {
+			if ( isset( $fields['cover_type'] ) && '1' === $fields['cover_type'] ) {
 				$args['post_type'] = 'page';
 			}
 
@@ -240,7 +214,7 @@ class Covers extends Base_Block {
 	 *
 	 * @return \WP_Post[]
 	 */
-	private static function filter_posts_for_cfc( $fields ) {
+	private function filter_posts_for_cfc( $fields ) {
 
 		$tag_ids    = $fields['tags'] ?? [];
 		$post_types = $fields['post_types'] ?? [];
@@ -312,7 +286,7 @@ class Covers extends Base_Block {
 	 *
 	 * @return array
 	 */
-	private static function populate_posts_for_campaigns( &$fields ) {
+	private function populate_posts_for_campaigns( &$fields ) {
 
 		// Get user defined tags from backend.
 		$tag_ids = $fields['tags'] ?? [];
@@ -339,7 +313,6 @@ class Covers extends Base_Block {
 
 			if ( ! empty( $attachment_id ) ) {
 				$tag_remapped['image']    = wp_get_attachment_image_src( $attachment_id, 'medium_large' );
-				$tag_remapped['src_set']  = wp_get_attachment_image_srcset( $attachment_id, 'medium_large' );
 				$tag_remapped['alt_text'] = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
 			}
 
@@ -356,14 +329,14 @@ class Covers extends Base_Block {
 	 *
 	 * @return array
 	 */
-	private static function populate_posts_for_act_pages( &$fields ) {
+	private function populate_posts_for_act_pages( &$fields ) {
 		$post_ids = $fields['posts'] ?? [];
 		$options  = get_option( 'planet4_options' );
 
 		if ( ! empty( $post_ids ) ) {
-			$actions = self::filter_posts_by_ids( $fields );
+			$actions = $this->filter_posts_by_ids( $fields );
 		} else {
-			$actions = self::filter_posts_for_act_pages( $fields );
+			$actions = $this->filter_posts_for_act_pages( $fields );
 		}
 
 		$covers = [];
@@ -384,7 +357,7 @@ class Covers extends Base_Block {
 					}
 				}
 				$covers[] = [
-					'tags'        => $tags ?? [],
+					'tags'        => $tags,
 					'title'       => get_the_title( $action ),
 					'excerpt'     => $action->post_excerpt,
 					'image'       => get_the_post_thumbnail_url( $action, 'large' ),
@@ -392,6 +365,7 @@ class Covers extends Base_Block {
 					'button_link' => get_permalink( $action->ID ),
 				];
 			}
+			$fields['button_text'] = __( 'Load more', 'planet4-blocks' );
 		}
 
 		return $covers;
@@ -404,13 +378,14 @@ class Covers extends Base_Block {
 	 *
 	 * @return array
 	 */
-	private static function populate_posts_for_cfc( &$fields ) {
+	private function populate_posts_for_cfc( &$fields ) {
+
 		$post_ids = $fields['posts'] ?? [];
 
 		if ( ! empty( $post_ids ) ) {
-			$posts = self::filter_posts_by_ids( $fields );
+			$posts = $this->filter_posts_by_ids( $fields );
 		} else {
-			$posts = self::filter_posts_for_cfc( $fields );
+			$posts = $this->filter_posts_for_cfc( $fields );
 		}
 
 		$posts_array = [];
@@ -430,9 +405,9 @@ class Covers extends Base_Block {
 					$post->alt_text  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
 				}
 
-				$post->link           = get_permalink( $post );
-				$post->date_formatted = get_the_date( '', $post->ID );
-				$posts_array[]        = $post;
+				$post->permalink = get_permalink( $post );
+				$post->link      = get_permalink( $post );
+				$posts_array[]   = $post;
 			}
 		}
 

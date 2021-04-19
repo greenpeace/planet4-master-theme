@@ -1,130 +1,99 @@
-import { Covers } from './Covers.js';
+import { CoversEditor } from './CoversEditor.js';
+import { frontendRendered } from '../frontendRendered';
+import { Tooltip } from '@wordpress/components';
+import { coversV1 } from './deprecated/coversV1';
+import { COVER_TYPES } from './Covers';
 
-export class CoversBlock {
-    constructor() {
-      const { registerBlockType } = wp.blocks;
-      const { withSelect } = wp.data;
+const { __ } = wp.i18n;
 
-      registerBlockType( 'planet4-blocks/covers', {
-        title: 'Covers',
-        icon: 'slides',
-        category: 'planet4-blocks',
+const BLOCK_NAME = 'planet4-blocks/covers-beta';
+const VERSION = 2;
 
-        // Transform the shortcode into a Gutenberg block
-        // this is used when a user clicks "Convert to blocks"
-        // on the "Classic Editor" block
-        transforms: {
-          from: [
-            {
-              type: 'shortcode',
-              // Shortcode tag can also be an array of shortcode aliases
-              tag: 'shortcake_newcovers',
-              attributes: {
-                cover_type: {
-                  type: 'string',
-                  // This `shortcode` definition will be used as a callback,
-                  // it is a function which expects an object with at least
-                  // a `named` key with `cover_type` property whose default value is 1.
-                  // See: https://simonsmith.io/destructuring-objects-as-function-parameters-in-es6
-                  shortcode: ({named: {cover_type = '1'}}) => cover_type,
-                },
-                title: {
-                  type: 'string',
-                  shortcode: ({named: {title = ''}}) => title,
-                },
-                description: {
-                  type: 'string',
-                  shortcode: ({named: {description = ''}}) => description,
-                },
-                covers_view: {
-                  type: 'string',
-                  shortcode: ({named: {covers_view}}) => {
-                    switch (covers_view) {
-                      case '0':
-                        return '1';
-                      case '3':
-                        return '2';
-                      case '1':
-                        return '3';
-                    }
-                    return '1';
-                  },
-                },
-                tags: {
-                  type: 'array',
-                  shortcode: ({named: {tags = ''}}) => tags.split(',').map(tag => Number(tag)).filter(tag => tag > 0),
-                },
-                post_types: {
-                  type: 'array',
-                  shortcode: ({named: {post_types = ''}}) => post_types.split(',').map(post_type => Number(post_type)).filter(post_type => post_type > 0),
-                },
-                posts: {
-                  type: 'array',
-                  shortcode: ({named: {posts = ''}}) => posts.split(',').map(post => Number(post)).filter(post => post > 0),
-                },
-              },
-            },
-          ]
-        },
-        // This attributes definition mimics the one in the PHP side.
-        attributes: {
-          title: {
-            type: 'string',
-          },
-          description: {
-            type: 'string',
-          },
-          tags: {
-            type: 'array',
-            default: []
-          },
-          posts: {
-            type: 'array',
-            default: []
-          },
-          post_types: {
-            type: 'array',
-            default: []
-          },
-          covers_view: {
-            type: 'string',
-            default: '1'
-          },
-          cover_type: {
-            type: 'string',
-          }
-        },
-        // withSelect is a "Higher Order Component", it works as
-        // a Decorator, it will provide some basic API functionality
-        // through `select`.
-        edit: withSelect( ( select ) => {
-          const currentPostType = select('core/editor').getCurrentPostType();
+const getStyleLabel = (label, help) => {
+  if (help) {
+    return (
+      <Tooltip text={help}>
+        <span>{label}</span>
+      </Tooltip>
+    );
+  }
+  return label;
+};
 
-          return {
-            currentPostType,
-          };
-        } )( ( {
-          currentPostType,
-          isSelected,
-          attributes,
-          setAttributes
-        } ) => {
+export const registerCoversBlock = () => {
+  const { registerBlockType } = wp.blocks;
 
-            if ( !currentPostType ) {
-                return "Populating block's fields...";
-            }
-
-            return <Covers
-              attributes={ attributes}
-              setAttributes={ setAttributes}
-              isSelected={ isSelected }
-              currentPostType={ currentPostType }
-            />
-        } ),
-        save() {
-          return null;
-        }
-      } );
-    };
+  registerBlockType(BLOCK_NAME, {
+    title: 'Covers (beta)',
+    icon: 'slides',
+    category: 'planet4-blocks-beta',
+    supports: {
+      html: false, // Disable "Edit as HTMl" block option.
+    },
+    attributes: {
+      cover_type: {
+        type: 'string',
+        default: 'content',
+      },
+      initialRowsLimit: {
+        type: 'integer',
+        default: 1,
+      },
+      title: {
+        type: 'string',
+        default: '',
+      },
+      description: {
+        type: 'string',
+        default: '',
+      },
+      tags: {
+        type: 'array',
+        default: []
+      },
+      post_types: {
+        type: 'array',
+        default: []
+      },
+      posts: {
+        type: 'array',
+        default: []
+      },
+      version: {
+        type: 'integer',
+        default: VERSION,
+      },
+    },
+    edit: CoversEditor,
+    save: frontendRendered(BLOCK_NAME),
+    // Add our custom styles
+    styles: [
+      {
+        name: COVER_TYPES.content,
+        label: getStyleLabel(
+          __('Content covers', 'planet4-blocks-backend'),
+          __('Content covers pull the image from the post', 'planet4-blocks-backend'),
+        ),
+        isDefault: true
+      },
+      {
+        name: COVER_TYPES.takeAction,
+        label: getStyleLabel(
+          __('Take Action covers', 'planet4-blocks-backend'),
+          __('Take action covers pull the featured image, tags, have a 25 character excerpt and have a call to action button', 'planet4-blocks-backend'),
+        ),
+      },
+      {
+        name: COVER_TYPES.campaign,
+        label: getStyleLabel(
+          __('Campaign covers', 'planet4-blocks-backend'),
+          __('Campaign covers pull the associated image and hashtag from the system tag definitions', 'planet4-blocks-backend'),
+        ),
+      }
+    ],
+    deprecated: [
+      coversV1,
+    ]
+  });
 }
 

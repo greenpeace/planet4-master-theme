@@ -136,22 +136,4 @@ trait Conversion_Functions {
 
 		return json_encode( $focus_points ); // phpcs:ignore
 	}
-
-	/**
-	 * @param string $view Old newcover's block covers_view attribute.
-	 *
-	 * @return string
-	 */
-	public function convert_covers_view( $view ) {
-		switch ( $view ) {
-			case '0':
-				return '1';
-			case '3':
-				return '2';
-			case '1':
-				return '3';
-		}
-
-		return $view;
-	}
 }

@@ -136,6 +136,10 @@ const PAGE_BLOCK_TYPES = [
 	'planet4-blocks/enform',
 ];
 
+const BETA_PAGE_BLOCK_TYPES = [
+	'planet4-blocks/covers-beta',
+];
+
 // campaigns allow all block types.
 const CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/accordion',
@@ -154,6 +158,10 @@ const CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/sub-pages',
 	'planet4-blocks/timeline',
 	'planet4-blocks/enform',
+];
+
+const BETA_CAMPAIGN_BLOCK_TYPES = [
+	'planet4-blocks/covers-beta',
 ];
 
 /**
@@ -237,8 +245,17 @@ function set_allowed_block_types( $allowed_block_types, $post ) {
 
 	$enform_active = ! $migration_ran || Features::is_active( Features::ENGAGING_NETWORKS );
 
-	$page_block_types     = array_merge( PAGE_BLOCK_TYPES, ! $enform_active ? [] : [ 'planet4-blocks/enform' ] );
-	$campaign_block_types = array_merge( CAMPAIGN_BLOCK_TYPES, ! $enform_active ? [] : [ 'planet4-blocks/enform' ] );
+	$page_block_types = array_merge(
+		PAGE_BLOCK_TYPES,
+		! Features::is_active( Features::BETA_BLOCKS ) ? [] : BETA_PAGE_BLOCK_TYPES,
+		! $enform_active ? [] : [ 'planet4-blocks/enform' ],
+	);
+
+	$campaign_block_types = array_merge(
+		CAMPAIGN_BLOCK_TYPES,
+		! Features::is_active( Features::BETA_BLOCKS ) ? [] : BETA_CAMPAIGN_BLOCK_TYPES,
+		! $enform_active ? [] : [ 'planet4-blocks/enform' ],
+	);
 
 	$all_allowed_p4_block_types = [
 		'post'     => POST_BLOCK_TYPES,
