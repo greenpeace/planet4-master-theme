@@ -136,29 +136,33 @@ abstract class Base_Block {
 	 * Enqueue assets for the frontend IF the blocks is present.
 	 */
 	public static function enqueue_frontend_assets() {
-		if ( has_block( static::get_full_block_name() ) ) {
-			$camelized_block_name = static::get_camelized_block_name();
-			$url_path             = trailingslashit( P4GBKS_PLUGIN_URL ) . 'assets/build/' . $camelized_block_name;
-			$dir_path             = trailingslashit( P4GBKS_PLUGIN_DIR ) . 'assets/build/' . $camelized_block_name;
-			$block_name           = static::get_full_block_name();
+		$full_name   = static::get_full_block_name();
+		$to_look_for = 'planet4-blocks/covers' === $full_name ? 'planet4-blocks/covers-beta' : $full_name;
 
-			// Frontend Script (aka: script).
-			wp_enqueue_script(
-				$block_name . '-script',
-				$url_path . 'Script.js',
-				'planet4-blocks-script',
-				\P4GBKS\Loader::file_ver( $dir_path . 'Script.js' ),
-				true
-			);
-
-			// Frontend Style (aka: style).
-			wp_enqueue_style(
-				$block_name . '-style',
-				$url_path . 'Style.min.css',
-				[],
-				\P4GBKS\Loader::file_ver( $dir_path . 'Style.min.css' ),
-			);
+		if ( ! has_block( $to_look_for ) ) {
+			return;
 		}
+		$camelized_block_name = static::get_camelized_block_name();
+		$url_path             = trailingslashit( P4GBKS_PLUGIN_URL ) . 'assets/build/' . $camelized_block_name;
+		$dir_path             = trailingslashit( P4GBKS_PLUGIN_DIR ) . 'assets/build/' . $camelized_block_name;
+		$block_name           = static::get_full_block_name();
+
+		// Frontend Script (aka: script).
+		wp_enqueue_script(
+			$block_name . '-script',
+			$url_path . 'Script.js',
+			'planet4-blocks-script',
+			\P4GBKS\Loader::file_ver( $dir_path . 'Script.js' ),
+			true
+		);
+
+		// Frontend Style (aka: style).
+		wp_enqueue_style(
+			$block_name . '-style',
+			$url_path . 'Style.min.css',
+			[],
+			\P4GBKS\Loader::file_ver( $dir_path . 'Style.min.css' ),
+		);
 	}
 
 	/**
