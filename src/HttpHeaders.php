@@ -16,6 +16,8 @@ class HttpHeaders {
 
 	/**
 	 * Send Content Security Policy (CSP) HTTP headers.
+	 *
+	 * @param string[] $headers Associative array of headers to be sent.
 	 */
 	public function send_content_security_policy_header( $headers ): array {
 		$default_allowed_frame_ancestors = [ '\'self\'' ];
@@ -39,11 +41,11 @@ class HttpHeaders {
 		$csp_header = implode( '; ', $directives );
 		$csp_header = preg_replace( "/\r|\n/", '', $csp_header );
 
-		$headers[ 'Content-Security-Policy' ] = $csp_header;
+		$headers['Content-Security-Policy'] = $csp_header;
 
 		// In addition, send the "X-Frame-Options" header when no other trusted frame ancestors were added through the filter.
 		if ( $allowed_frame_ancestors === $default_allowed_frame_ancestors ) {
-			$headers[ 'X-Frame-Options' ] = 'SAMEORIGIN';
+			$headers['X-Frame-Options'] = 'SAMEORIGIN';
 		}
 
 		return $headers;
