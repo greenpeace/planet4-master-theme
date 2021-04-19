@@ -8,7 +8,7 @@ export class SubPagesBlock {
     registerBlockType( 'planet4-blocks/sub-pages', {
       title: 'Sub Pages',
       icon: 'welcome-widgets-menus',
-      category: 'planet4-blocks-beta',
+      category: 'planet4-blocks',
       supports: {
         multiple: false, // Use the block just once per post.
       },

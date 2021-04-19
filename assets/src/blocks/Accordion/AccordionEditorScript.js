@@ -35,7 +35,7 @@ const styles = [
 registerBlockType(BLOCK_NAME, {
   title: __('Accordion', 'planet4-blocks-backend'),
   icon: 'menu',
-  category: 'planet4-blocks-beta',
+  category: 'planet4-blocks',
   keywords: [
     __('accordion'),
     __('faq'),
