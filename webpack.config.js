@@ -5,6 +5,7 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const RemovePlugin = require('remove-files-webpack-plugin');
 const dashDash = require('@greenpeace/dashdash');
+const fs = require('fs');
 
 const mediaQueryAliases = {
   '(max-width: 576px)': 'mobile-only',
@@ -15,12 +16,14 @@ const mediaQueryAliases = {
 };
 
 const entryPoints = blockName => {
-  return {
+  const tpl = {
     [`${blockName}EditorScript`]: `./assets/src/blocks/${blockName}/${blockName}EditorScript.js`,
     [`${blockName}EditorStyle`]: `./assets/src/styles/blocks/${blockName}/${blockName}EditorStyle.scss`,
     [`${blockName}Script`]: `./assets/src/blocks/${blockName}/${blockName}Script.js`,
     [`${blockName}Style`]: `./assets/src/styles/blocks/${blockName}/${blockName}Style.scss`,
-  }
+  };
+  const pathExists = ([,path]) => fs.existsSync(path);
+  return Object.fromEntries(Object.entries(tpl).filter(pathExists));
 };
 
 module.exports = {

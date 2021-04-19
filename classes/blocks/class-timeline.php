@@ -17,7 +17,10 @@ namespace P4GBKS\Blocks;
 class Timeline extends Base_Block {
 
 	/** @const string BLOCK_NAME */
-	const BLOCK_NAME = 'timeline';
+	public const BLOCK_NAME = 'timeline';
+
+	/** @const string TIMELINE_JS_VERSION */
+	public const TIMELINE_JS_VERSION = '3.8.10';
 
 	/**
 	 * Timeline constructor.
@@ -26,6 +29,9 @@ class Timeline extends Base_Block {
 		add_action( 'init', [ $this, 'register_timeline_block' ] );
 	}
 
+	/**
+	 * Register block
+	 */
 	public function register_timeline_block() {
 		// - Register the block for the editor
 		// in the PHP side.
@@ -64,8 +70,51 @@ class Timeline extends Base_Block {
 			]
 		);
 
+		wp_register_script(
+			'timeline-js',
+			'https://cdn.knightlab.com/libs/timeline3/' . self::TIMELINE_JS_VERSION . '/js/timeline-min.js',
+			[],
+			self::TIMELINE_JS_VERSION,
+			true
+		);
+
+		wp_register_style(
+			'timeline-css',
+			'https://cdn.knightlab.com/libs/timeline3/' . self::TIMELINE_JS_VERSION . '/css/timeline.css',
+			[],
+			self::TIMELINE_JS_VERSION
+		);
+
 		add_action( 'enqueue_block_editor_assets', [ self::class, 'enqueue_editor_assets' ] );
 		add_action( 'wp_enqueue_scripts', [ self::class, 'enqueue_frontend_assets' ] );
+	}
+
+	/**
+	 * Frontend script
+	 */
+	public static function enqueue_frontend_script(): void {
+		wp_enqueue_script(
+			static::get_full_block_name() . '-script',
+			static::get_url_path() . 'Script.js',
+			[
+				'planet4-blocks-script',
+				'timeline-js',
+			],
+			\P4GBKS\Loader::file_ver( static::get_dir_path() . 'Script.js' ),
+			true
+		);
+	}
+
+	/**
+	 * Frontend style
+	 */
+	public static function enqueue_frontend_style(): void {
+		wp_enqueue_style(
+			static::get_full_block_name() . '-style',
+			static::get_url_path() . 'Style.min.css',
+			[ 'timeline-css' ],
+			\P4GBKS\Loader::file_ver( static::get_dir_path() . 'Style.min.css' ),
+		);
 	}
 
 	/**

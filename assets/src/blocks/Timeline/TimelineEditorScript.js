@@ -1,13 +1,15 @@
 import {useCallback, useState} from '@wordpress/element';
 import {
-	PanelBody,
-	SelectControl,
-	CheckboxControl,
-	Tooltip
+  PanelBody,
+  SelectControl,
+  CheckboxControl,
+  Tooltip
 } from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
 
 import { URLInput } from '../../components/URLInput/URLInput';
+import { useScript } from '../../components/useScript/useScript';
+import { useStyleSheet } from '../../components/useStyleSheet/useStyleSheet';
 import { Timeline } from './Timeline';
 import { languages } from './TimelineLanguages'
 import { URLDescriptionHelp } from './URLDescriptionHelp'
@@ -15,17 +17,39 @@ import { debounce } from 'lodash';
 
 const { RichText } = wp.blockEditor;
 const { __ } = wp.i18n;
+const TIMELINE_JS_VERSION = '3.8.10';
 
 const positions = [
-	{label: 'Bottom', value: 'bottom'},
-	{label: 'Top', value: 'top'},
+  {label: 'Bottom', value: 'bottom'},
+  {label: 'Top', value: 'top'},
 ];
 
-const renderEdit = ({ google_sheets_url, language, timenav_position, start_at_end }, toAttribute) => {
-  // Using a state to prevent the input losing the cursor position, a React issue reported multiple times
-  const [ sheetURL, setSheetURL ] = useState(google_sheets_url);
-  const debounceSheetURLUpdate = useCallback(debounce(toAttribute('google_sheets_url'), 300), []);
+const loadAssets = () => {
+  // Revert TimelineJS global usage of lodash, as it conflicts with Wordpress underscore lib
+  // see https://jira.greenpeace.org/browse/PLANET-5960
+  const revertLodash = function () {
+    _.noConflict();
+  }
 
+  const [scriptLoaded, scriptError] = useScript(
+    `https://cdn.knightlab.com/libs/timeline3/${TIMELINE_JS_VERSION}/js/timeline-min.js`,
+    revertLodash
+  );
+
+  const [stylesLoaded, stylesError] = useStyleSheet(
+    `https://cdn.knightlab.com/libs/timeline3/${TIMELINE_JS_VERSION}/css/timeline.css`
+  );
+
+  return [scriptLoaded, stylesLoaded];
+}
+
+const renderEdit = (
+  { google_sheets_url, language, timenav_position, start_at_end },
+  toAttribute,
+  sheetURL,
+  setSheetURL,
+  debounceSheetURLUpdate
+) => {
   return (
     <InspectorControls>
       <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
@@ -67,10 +91,10 @@ const renderEdit = ({ google_sheets_url, language, timenav_position, start_at_en
 
       </PanelBody>
     </InspectorControls>
-	)
+  )
 }
 
-const renderView = (attributes, toAttribute) => {
+const renderView = (attributes, toAttribute, scriptLoaded, stylesLoaded) => {
   return (
     <section className="block timeline-block">
       <Tooltip text={__('Edit text', 'planet4-blocks-backend')}>
@@ -83,7 +107,7 @@ const renderView = (attributes, toAttribute) => {
             onChange={toAttribute('timeline_title')}
             keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
-            characterLimit={40}
+            maxLength={40}
             multiline="false"
           />
         </header>
@@ -96,30 +120,34 @@ const renderView = (attributes, toAttribute) => {
         onChange={toAttribute('description')}
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
-        characterLimit={200}
+        maxLength={200}
       />
-      {
-        ! attributes.google_sheets_url
-        ? <div className="block-edit-mode-warning components-notice is-warning">
-            { __( 'Please include a Sheet URL.', 'planet4-blocks' ) }
-          </div>
-        : <Timeline {...attributes} />
+      {!attributes.google_sheets_url &&
+        <div className="block-edit-mode-warning components-notice is-warning">
+          { __( 'Please include a Sheet URL.', 'planet4-blocks' ) }
+        </div>
       }
-		</section>
-	)
+      {attributes.google_sheets_url && scriptLoaded && stylesLoaded &&
+        <Timeline {...attributes} />
+      }
+    </section>
+  )
 }
 
 export const TimelineEditor = ({ isSelected, attributes, setAttributes }) => {
   const toAttribute = attributeName => value => setAttributes({ [attributeName]: value });
+  const [scriptLoaded, stylesLoaded] = loadAssets();
+  // Using a state to prevent the input losing the cursor position, a React issue reported multiple times
+  const [ sheetURL, setSheetURL ] = useState(attributes.google_sheets_url);
+  const debounceSheetURLUpdate = useCallback(debounce(toAttribute('google_sheets_url'), 300), []);
+
 
   return (
-    <div>
-      {
-        isSelected && renderEdit(attributes, toAttribute)
+    <>
+      {renderView(attributes, toAttribute, scriptLoaded, stylesLoaded)}
+      {isSelected &&
+        renderEdit(attributes, toAttribute, sheetURL, setSheetURL, debounceSheetURLUpdate)
       }
-      {
-        renderView(attributes, toAttribute)
-      }
-    </div>
+    </>
   );
 }

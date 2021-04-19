@@ -101,35 +101,9 @@ abstract class Base_Block {
 	 * Register scripts and styles for a block
 	 */
 	public static function enqueue_editor_assets() {
-		$camelized_block_name = static::get_camelized_block_name();
-		$url_path             = trailingslashit( P4GBKS_PLUGIN_URL ) . 'assets/build/' . $camelized_block_name;
-		$dir_path             = trailingslashit( P4GBKS_PLUGIN_DIR ) . 'assets/build/' . $camelized_block_name;
-		$block_name           = static::get_full_block_name();
-
-		// Editor Script.
-		wp_enqueue_script(
-			$block_name . '-editor-script',
-			$url_path . 'EditorScript.js',
-			'planet4-blocks-editor-script',
-			\P4GBKS\Loader::file_ver( $dir_path . 'EditorScript.js' ),
-			true
-		);
-
-		// Editor Style.
-		wp_enqueue_style(
-			$block_name . '-editor-style',
-			$url_path . 'EditorStyle.min.css',
-			[],
-			\P4GBKS\Loader::file_ver( $dir_path . 'EditorStyle.min.css' ),
-		);
-
-		// Frontend Style (aka: style).
-		wp_enqueue_style(
-			$block_name . '-style',
-			$url_path . 'Style.min.css',
-			[],
-			\P4GBKS\Loader::file_ver( $dir_path . 'Style.min.css' ),
-		);
+		static::enqueue_editor_script();
+		static::enqueue_editor_style();
+		static::enqueue_frontend_style();
 	}
 
 	/**
@@ -147,26 +121,58 @@ abstract class Base_Block {
 		if ( ! has_block( $to_look_for ) ) {
 			return;
 		}
-		$camelized_block_name = static::get_camelized_block_name();
-		$url_path             = trailingslashit( P4GBKS_PLUGIN_URL ) . 'assets/build/' . $camelized_block_name;
-		$dir_path             = trailingslashit( P4GBKS_PLUGIN_DIR ) . 'assets/build/' . $camelized_block_name;
-		$block_name           = static::get_full_block_name();
 
-		// Frontend Script (aka: script).
+		static::enqueue_frontend_script();
+		static::enqueue_frontend_style();
+	}
+
+	/**
+	 * Editor script
+	 */
+	public static function enqueue_editor_script(): void {
 		wp_enqueue_script(
-			$block_name . '-script',
-			$url_path . 'Script.js',
-			'planet4-blocks-script',
-			\P4GBKS\Loader::file_ver( $dir_path . 'Script.js' ),
+			static::get_full_block_name() . '-editor-script',
+			static::get_url_path() . 'EditorScript.js',
+			'planet4-blocks-editor-script',
+			\P4GBKS\Loader::file_ver( static::get_dir_path() . 'EditorScript.js' ),
 			true
 		);
+	}
 
-		// Frontend Style (aka: style).
+	/**
+	 * Editor style
+	 */
+	public static function enqueue_editor_style(): void {
 		wp_enqueue_style(
-			$block_name . '-style',
-			$url_path . 'Style.min.css',
+			static::get_full_block_name() . '-editor-style',
+			static::get_url_path() . 'EditorStyle.min.css',
 			[],
-			\P4GBKS\Loader::file_ver( $dir_path . 'Style.min.css' ),
+			\P4GBKS\Loader::file_ver( static::get_dir_path() . 'EditorStyle.min.css' ),
+		);
+	}
+
+	/**
+	 * Frontend script
+	 */
+	public static function enqueue_frontend_script(): void {
+		wp_enqueue_script(
+			static::get_full_block_name() . '-script',
+			static::get_url_path() . 'Script.js',
+			'planet4-blocks-script',
+			\P4GBKS\Loader::file_ver( static::get_dir_path() . 'Script.js' ),
+			true
+		);
+	}
+
+	/**
+	 * Frontend style
+	 */
+	public static function enqueue_frontend_style(): void {
+		wp_enqueue_style(
+			static::get_full_block_name() . '-style',
+			static::get_url_path() . 'Style.min.css',
+			[],
+			\P4GBKS\Loader::file_ver( static::get_dir_path() . 'Style.min.css' ),
 		);
 	}
 
@@ -182,6 +188,20 @@ abstract class Base_Block {
 	 */
 	public static function get_full_block_name() {
 		return static::NAMESPACE . '/' . static::BLOCK_NAME;
+	}
+
+	/**
+	 * Return URL path to plugin assets
+	 */
+	public static function get_url_path(): string {
+		return trailingslashit( P4GBKS_PLUGIN_URL ) . 'assets/build/' . static::get_camelized_block_name();
+	}
+
+	/**
+	 * Return directory path to plugin assets
+	 */
+	public static function get_dir_path(): string {
+		return trailingslashit( P4GBKS_PLUGIN_DIR ) . 'assets/build/' . static::get_camelized_block_name();
 	}
 
 	/**
