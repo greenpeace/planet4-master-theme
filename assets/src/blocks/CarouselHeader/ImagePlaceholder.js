@@ -2,7 +2,7 @@ const { __ } = wp.i18n;
 
 export const ImagePlaceholder = () => (
   <div className='carousel-header-image-placeholder'>
-    <svg width='80' height='80' xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 512 376'>
+    <svg width='80' height='80' xmlns='https://www.w3.org/2000/svg' version='1.1' viewBox='0 0 512 376'>
       <path d='M0,0v376h512V0H0z M480,344H32V32h448V344z' />
       <circle cx='409.1' cy='102.9' r='40.9' />
       <polygon
