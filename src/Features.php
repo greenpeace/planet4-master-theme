@@ -95,7 +95,7 @@ class Features {
 			[
 				'name' => __( 'Allow beta blocks in post editor.', 'planet4-master-theme-backend' ),
 				'desc' => __(
-					'If enabled, beta blocks defined in <a href="https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/master/planet4-gutenberg-blocks.php">this file</a>. Not for production use.',
+					'If enabled, you can use early or unstable versions of blocks in the post editor. These will be in the "Planet 4 Blocks - BETA" category.',
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::BETA_BLOCKS,
