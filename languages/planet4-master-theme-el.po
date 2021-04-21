@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2021-04-16 12:21+0000\n"
+"PO-Revision-Date: 2021-04-21 08:14+0000\n"
 "Last-Translator: Nikos Roussos\n"
 "Language-Team: Greek\n"
 "Language: el\n"
@@ -175,7 +175,7 @@ msgstr "Φίλτρα αναζήτησης"
 
 #: templates/cookies.twig:6
 msgid "Got it!"
-msgstr "ΟΚ!"
+msgstr "Οk!"
 
 #. Author of the theme
 msgid "Greenpeace International"
@@ -384,7 +384,8 @@ msgstr "Συμπεριλάβαμε αποτελέσματα και για "
 
 #: tag.php:74 src/Campaigns.php:253
 msgid "We want you to take action because together we're strong."
-msgstr "Χρειαζόμαστε ανθρώπους σαν και εσένα για να προστατεύσουμε τον πλανήτη μας."
+msgstr ""
+"Χρειαζόμαστε ανθρώπους σαν και εσένα για να προστατεύσουμε τον πλανήτη μας."
 
 #: templates/search.twig:19
 msgid "We're sorry we couldn't find any matches for your search term."
