@@ -22,10 +22,19 @@ const matchVar = async ( cssVar, target ) => {
   return [];
 };
 
+const excludedVars = [
+  '--bs-gutter-x',
+  '--bs-gutter-y',
+  '--bs-font-sans-serif',
+  '--bs-font-monospace',
+  '--bs-aspect-ratio',
+  '--bs-gradient',
+];
+
 export const getMatchingVars = async ( { cssVars, target } ) => {
 
   const uniqueVars = cssVars.reduce( ( carry, cssVar ) => {
-    if ( !carry.some( collected => collected.name === cssVar.name ) ) {
+    if (!excludedVars.includes(cssVar.name) && !carry.some(collected => collected.name === cssVar.name)) {
       carry.push( cssVar );
     }
     return carry;

@@ -14,13 +14,14 @@ export const byNameStateProp = ({name: nameA},{name: nameB}) => {
     const {element: elementA, state: stateA, prop: propA } = nameA.match(reg).groups;
     const {element: elementB, state: stateB, prop: propB } = nameB.match(reg).groups;
 
+    if (propA !== propB) {
+      return propA < propB ? -1 : 1;
+    }
     if (elementA !== elementB) {
       return elementA < elementB ? -1 : 1;
     }
-    if (stateA !== stateB) {
-      return stateA < stateB ? -1 : 1;
-    }
-    return propA < propB ? -1 : 1;
+
+    return stateA < stateB ? -1 : 1;
   } catch (e) {
     console.log(e)
     console.log('A', nameA, 'B', nameB);
