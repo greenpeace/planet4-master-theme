@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2021-04-16 10:56+0000\n"
+"PO-Revision-Date: 2021-04-21 11:47+0000\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,11 +16,12 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: Anaïs Hector <ahector@greenpeace.org>\n"
+"Last-Translator: Stefan Duerrenberger\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Loco-Version: 2.5.2; wp-5.6.3"
 
 #. %1$d = Number of results.
 #: src/Search.php:716
@@ -182,7 +183,7 @@ msgstr "Filter"
 
 #: templates/cookies.twig:6
 msgid "Got it!"
-msgstr "Ich habe es verstanden!"
+msgstr "OK"
 
 #. Author of the theme
 msgid "Greenpeace International"
