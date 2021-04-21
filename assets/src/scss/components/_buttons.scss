@@ -245,3 +245,10 @@ $donate-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
     outline: none;
   }
 }
+
+button.load-more-mt {
+  &.hide-load-more {
+    opacity: 0;
+    transition: opacity 400ms;
+  }
+}
