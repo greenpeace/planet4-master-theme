@@ -4,9 +4,7 @@ import { CarouselHeaderStaticContent } from './CarouselHeaderStaticContent';
 
 const { __ } = wp.i18n;
 
-export const CarouselHeaderFrontend = ({ attributes }) => {
-  const { slides, carousel_autoplay } = attributes;
-
+export const CarouselHeaderFrontend = ({ slides, carousel_autoplay }) => {
   const slidesRef = useRef([]);
   const { currentSlide, goToSlide, goToNextSlide, goToPrevSlide } = useSlides(slidesRef, slides.length - 1);
 

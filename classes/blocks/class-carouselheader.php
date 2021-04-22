@@ -40,8 +40,11 @@ class CarouselHeader extends Base_Block {
 		register_block_type(
 			self::get_full_block_name(),
 			[
-				'apiVersion'      => 2,
-				'render_callback' => [ $this, 'render_hydratable' ],
+				'render_callback' => static function ( $attributes ) {
+					$attributes['slides'] = self::get_slides_image_data( $attributes['slides'] );
+
+					return self::render_frontend( $attributes );
+				},
 				'attributes'      => [
 					'carousel_autoplay' => [
 						'type'    => 'boolean',
@@ -102,46 +105,22 @@ class CarouselHeader extends Base_Block {
 	}
 
 	/**
-	 * Render CarouselHeader block as hydratable content.
+	 * Required by the `Base_Block` class.
 	 *
-	 * @param array $attributes This is the array of fields of this block.
-	 * @param array $content This is the content of this block.
+	 * @param array $fields Unused, required by the abstract function.
 	 */
-	public function render_hydratable( $attributes, $content ) {
-		if ( ! empty( $attributes['slides'] ) && empty( $attributes['slides'][0]['image_url'] ) ) {
-			$attributes['slides'] = $this->prepare_data( $attributes['slides'] );
-		}
-
-		if ( is_string( $content ) && trim( $content ) === '' ) {
-			$content = self::convert_to_static_block( $attributes );
-		}
-
-		return self::as_hydratable_block( $attributes, $content );
+	public function prepare_data( $fields ): array {
+		return [];
 	}
 
 	/**
-	 * Convert CarouselHeader to static block.
-	 *
-	 * @param array $attributes This is the array of fields of this block.
-	 */
-	public static function convert_to_static_block( $attributes ) {
-		$node_script     = 'assets/build/CarouselHeaderMigrate-server.js';
-		$blocks_dir      = P4GBKS_PLUGIN_DIR;
-		$attributes_json = wp_json_encode( $attributes );
-
-		exec( "cd ${blocks_dir} && node ${node_script} '${attributes_json}' 2>&1", $out, $err );
-
-		return $out[0];
-	}
-
-	/**
-	 * Get image data.
+	 * Get image data for the slides.
 	 *
 	 * @param array $slides Slides of this block.
 	 *
 	 * @return array The image data to be passed in the View.
 	 */
-	public function prepare_data( $slides ): array {
+	private static function get_slides_image_data( $slides ): array {
 		if ( ! empty( $slides ) ) {
 			foreach ( $slides as &$slide ) {
 				$image_id   = $slide['image'];
