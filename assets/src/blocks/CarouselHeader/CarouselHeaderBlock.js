@@ -37,9 +37,9 @@ const attributes = {
 
 export const registerCarouselHeaderBlock = () =>
   registerBlockType(BLOCK_NAME, {
-    title: 'Carousel Header',
+    title: 'Carousel Header (beta)',
     icon: 'welcome-widgets-menus',
-    category: 'planet4-blocks',
+    category: 'planet4-blocks-beta',
     supports: {
       multiple: false, // Use the block just once per post.
       html: false, // Disable "Edit as HTMl" block option.

@@ -20,7 +20,7 @@ const StaticSlidesContainer = ({
 
   return (
     <section
-      className='block block-header block-wide carousel-header_full-width-classic'
+      className='block block-header block-wide carousel-header-beta'
       ref={ref}
     >
       <div className='carousel-wrapper-header'>

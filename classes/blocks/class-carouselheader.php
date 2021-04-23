@@ -22,7 +22,7 @@ class CarouselHeader extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'carousel-header-beta';
+	const BLOCK_NAME = 'carousel-header';
 
 	/**
 	 * CarouselHeader constructor.
@@ -38,7 +38,7 @@ class CarouselHeader extends Base_Block {
 		wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );
 
 		register_block_type(
-			self::get_full_block_name(),
+			'planet4-blocks/carousel-header-beta',
 			[
 				'render_callback' => static function ( $attributes ) {
 					$attributes['slides'] = self::get_slides_image_data( $attributes['slides'] );

@@ -24,6 +24,7 @@ module.exports = {
   entry: {
     editorIndex: './assets/src/editorIndex.js',
     frontendIndex: './assets/src/frontendIndex.js',
+    carouselHeaderFrontIndex: './assets/src/carouselHeaderFrontIndex.js',
     style: './assets/src/styles/style.scss',
     editorStyle: './assets/src/styles/editorStyle.scss',
     lightbox: './assets/src/styles/lightbox.scss',
