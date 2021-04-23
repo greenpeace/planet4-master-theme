@@ -4,7 +4,7 @@ export class CarouselHeaderBlock {
   constructor() {
     const {registerBlockType} = wp.blocks;
 
-    registerBlockType('planet4-blocks/carousel-header-beta', {
+    registerBlockType('planet4-blocks/carousel-header', {
       title: 'Carousel Header',
       icon: 'welcome-widgets-menus',
       category: 'planet4-blocks',

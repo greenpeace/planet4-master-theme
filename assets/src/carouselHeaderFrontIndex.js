@@ -1,4 +1,4 @@
-import { initializeCarouselHeader } from './blocks/Carouselheader/CarouselHeaderFront';
+import { initializeCarouselHeader } from './blocks/OldCarouselheader/CarouselHeaderFront';
 
 jQuery(function () {
   'use strict';

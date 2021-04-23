@@ -1,5 +1,5 @@
 import { ArticlesBlock } from './blocks/Articles/ArticlesBlock';
-import { CarouselHeaderBlock } from './blocks/Carouselheader/CarouselHeaderBlock';
+import { CarouselHeaderBlock } from './blocks/OldCarouselheader/CarouselHeaderBlock';
 import { ColumnsBlock } from './blocks/Columns/ColumnsBlock';
 import { CookiesBlock } from './blocks/Cookies/CookiesBlock';
 import { CounterBlock } from './blocks/Counter/CounterBlock';
