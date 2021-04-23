@@ -15,14 +15,14 @@ namespace P4GBKS\Blocks;
  * @package P4BKS
  * @since 0.1
  */
-class CarouselHeader extends Base_Block {
+class OldCarouselHeader extends Base_Block {
 
 	/**
 	 * Block name.
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'carousel-header-beta';
+	const BLOCK_NAME = 'carousel-header';
 
 	/**
 	 * Gallery constructor.

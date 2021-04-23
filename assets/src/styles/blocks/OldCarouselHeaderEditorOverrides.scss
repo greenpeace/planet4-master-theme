@@ -1,0 +1,30 @@
+/**
+  Overrides for carousel header
+ */
+
+.Preview {
+  // pointer-events: none;
+  position: relative;
+
+  .carousel-header {
+    width: unset;
+  }
+
+  .carousel-header_full-width-classic {
+    width: unset;
+
+    .carousel-item {
+      .background-holder {
+        width: unset;
+      }
+
+      &.active {
+        position: relative !important;
+      }
+    }
+  }
+
+  .carousel-header .carousel-item {
+    position: relative !important;
+  }
+}
