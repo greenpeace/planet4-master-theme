@@ -20,7 +20,7 @@ const getStyleLabel = (label, help) => {
   return label;
 };
 
-export const registerCoversBlock = () => {
+const registerCoversBlock = () => {
   const { registerBlockType } = wp.blocks;
 
   registerBlockType(BLOCK_NAME, {
@@ -97,3 +97,4 @@ export const registerCoversBlock = () => {
   });
 }
 
+registerCoversBlock();

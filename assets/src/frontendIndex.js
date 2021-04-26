@@ -8,7 +8,6 @@ import { GalleryFrontend } from './blocks/Gallery/GalleryFrontend';
 import { TimelineFrontend } from './blocks/Timeline/TimelineFrontend';
 import { SubmenuFrontend } from './blocks/Submenu/SubmenuFrontend';
 import { MediaFrontend } from './blocks/Media/MediaFrontend';
-import { CoversFrontend } from './blocks/Covers/CoversFrontend';
 import { setupMediaElementJS } from './blocks/Media/setupMediaElementJS';
 import { setupLightboxForImages } from './components/Lightbox/setupLightboxForImages';
 
@@ -24,13 +23,15 @@ const COMPONENTS = {
   'planet4-blocks/timeline': TimelineFrontend,
   'planet4-blocks/submenu': SubmenuFrontend,
   'planet4-blocks/media-video': MediaFrontend,
-  'planet4-blocks/covers': CoversFrontend,
 };
 
 document.querySelectorAll( `[data-render]` ).forEach(
   blockNode => {
     const blockName = blockNode.dataset.render;
     const BlockFrontend = COMPONENTS[ blockName ];
+    if (!BlockFrontend) {
+      return;
+    }
     const attributes = JSON.parse( blockNode.dataset.attributes );
     wp.element.render( <BlockFrontend { ...attributes.attributes } />, blockNode );
   }

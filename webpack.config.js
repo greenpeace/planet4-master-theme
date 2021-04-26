@@ -38,6 +38,7 @@ module.exports = {
     theme_oil: './assets/src/styles/theme_oil.scss',
     theme_plastic: './assets/src/styles/theme_plastic.scss',
     ...entryPoints('Accordion'),
+    ...entryPoints('Covers'),
   },
   output: {
     filename: '[name].js',
