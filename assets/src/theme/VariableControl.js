@@ -131,7 +131,7 @@ export const VariableControl = (props) => {
 
   const [
     showSelectors, setShowSelectors
-  ] = useState(false);
+  ] = useState(true);
 
   const toggleSelectors = () => setShowSelectors(!showSelectors)
   const value = theme[cssVar.name] || defaultValue;
