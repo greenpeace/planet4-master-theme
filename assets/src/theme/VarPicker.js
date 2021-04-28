@@ -10,6 +10,10 @@ import { useToggle } from './useToggle';
 import { ResizableFrame } from './ResizableFrame';
 import { useHotkeys } from 'react-hotkeys-hook';
 
+const hotkeysOptions = {
+  enableOnTags: ['INPUT'],
+}
+
 export const LOCAL_STORAGE_KEY = 'p4-theme';
 
 const byName = (a, b) => a.name > b.name ? 1 : (a.name === b.name ? 0 : -1);
@@ -131,10 +135,13 @@ export const VarPicker = (props) => {
   }, [serverThemes])
 
   const existsOnServer = serverThemes && Object.keys(serverThemes).some(t => t === fileName);
+  const modifiedServerVersion = existsOnServer && diffThemes(serverThemes[fileName], theme).hasChanges;
 
-  const modifiedServerVersion = fileName
-    && serverThemes[fileName]
-    && diffThemes(serverThemes[fileName], theme).hasChanges
+  useHotkeys('alt+s', () => {
+    if (fileName && fileName !== 'default' && modifiedServerVersion) {
+      uploadTheme(fileName, theme);
+    }
+  },hotkeysOptions, [fileName, modifiedServerVersion, theme]);
 
   return <div
     className='var-picker'
