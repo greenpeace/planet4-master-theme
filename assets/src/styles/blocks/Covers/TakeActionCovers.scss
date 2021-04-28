@@ -150,20 +150,8 @@
       }
     }
 
-    .btn {
+    .cover-card-btn {
       display: block;
-
-      --block-covers--card-btn-- {
-        background-color: $orange;
-        border-color: $orange;
-      }
-
-      &:hover, &:focus, &:focus-within {
-        --block-covers--card-btn-hover-- {
-          background-color: $orange-hover;
-          border-color: $orange-hover;
-        }
-      }
     }
   }
 
@@ -240,6 +228,11 @@
 .cover-card-tag {
   --block-covers--card-tag-- {
     color: $yellow;
+
+    &:hover {
+      text-decoration: underline;
+      color: $yellow;
+    }
   }
 
   display: inline-block;
@@ -252,14 +245,6 @@
   position: relative;
   margin-inline-end: 8px;
 
-  &:hover {
-    text-decoration: underline;
-
-    --block-covers--card-tag-hover-- {
-      color: $yellow;
-    }
-  }
-
   @include large-and-up {
     margin-bottom: 0;
     font-size: 0.875rem;
@@ -268,13 +253,24 @@
 }
 
 .cover-card-btn {
+  --block-covers--card-button-- {
+    display: none;
+    color: white;
+    background-color: $orange;
+    border-color: $orange;
+
+    &:hover, &:focus {
+      color: white;
+      background-color: $orange-hover;
+      border-color: $orange-hover;
+    }
+  }
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   margin: $n15 auto;
   width: 92%;
-  display: none;
   z-index: 1;
   pointer-events: all;
 }

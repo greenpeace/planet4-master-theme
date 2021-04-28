@@ -4,10 +4,6 @@
       font-weight: inherit;
     }
 
-    &.btn-primary {
-      color: $white;
-    }
-
     &.btn-secondary {
       width: 100%;
     }
@@ -15,20 +11,22 @@
 
   h3, h3 > a {
     line-height: 1.6rem;
-    font-size: $font-size-lg;
-    font-family: $roboto;
-    font-weight: 700;
 
     --block-columns--column-heading-- {
+      font-size: $font-size-lg;
+      font-family: $roboto;
+      font-weight: 700;
       color: $grey-80;
-    }
+      margin-bottom: .5rem;
+      text-transform: none;
 
-    @include medium-and-up {
-      font-size: 1.5rem;
-    }
+      @include medium-and-up {
+        font-size: 1.5rem;
+      }
 
-    @include large-and-up {
-      font-size: 1.5rem;
+      @include large-and-up {
+        font-size: 1.5rem;
+      }
     }
   }
 
