@@ -23,6 +23,10 @@ workflows:
           type: approval
           requires:
             - request-instance
+      - comment-pr:
+          context: org-global
+          requires:
+            - instance-ready
       - lighthouse:
           requires:
             - instance-ready
@@ -221,7 +225,7 @@ jobs:
     environment:
       GOOGLE_PROJECT_ID: planet-4-151612
     docker:
-      - image: greenpeaceinternational/p4-builder:latest
+      - image: greenpeaceinternational/circleci-base:latest
         auth: &docker_auth
     steps:
       - attach_workspace:
@@ -267,6 +271,21 @@ jobs:
           paths:
             - test-instance
             - booking.json
+            - pr
+
+  comment-pr:
+    docker:
+      - image: greenpeaceinternational/circleci-base:latest
+        auth: &docker_auth
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Post comment to PR
+          command: |
+            post-comment-to-pr.py \
+            --pr-url $(cat /tmp/workspace/pr) \
+            --test-instance $(cat /tmp/workspace/test-instance)
 
   lighthouse:
     executor: lighthouse-check/default
