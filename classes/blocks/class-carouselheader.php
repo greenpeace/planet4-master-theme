@@ -35,8 +35,6 @@ class CarouselHeader extends Base_Block {
 	 * Register CarouselHeader block.
 	 */
 	public function register_carouselheader_block() {
-		wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );
-
 		register_block_type(
 			'planet4-blocks/carousel-header-beta',
 			[
@@ -101,6 +99,20 @@ class CarouselHeader extends Base_Block {
 		);
 
 		add_action( 'enqueue_block_editor_assets', [ self::class, 'enqueue_editor_assets' ] );
+		add_action(
+			'wp_enqueue_scripts',
+			static function () {
+				if ( has_block( 'planet4-blocks/carousel-header-beta' ) ) {
+					wp_enqueue_script(
+						'hammer',
+						'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js',
+						[],
+						'2.0.8',
+						true
+					);
+				}
+			}
+		);
 		add_action( 'wp_enqueue_scripts', [ self::class, 'enqueue_frontend_assets' ] );
 	}
 
