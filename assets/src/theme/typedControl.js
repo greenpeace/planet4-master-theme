@@ -12,8 +12,11 @@ export const COLOR_VALUE_REGEX = /(#[\da-fA-F]{3}|rgba?\()/;
 const convertRemToPixels = (rem) => rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 const convertPixelsToRem = (px) => px / parseFloat(getComputedStyle(document.documentElement).fontSize);
 
-const isPx = value => !!value && !!value.match(/[\d.]+px$/);
-const isRem = value => !!value && !!value.match(/[\d.]+rem$/);
+const isPx = value => value && value.match(/[\d.]+px$/);
+const isRem = value => value && value.match(/[\d.]+rem$/);
+const isPercent = value => value && value.match(/\d%$/);
+const isVh = value => value && value.match(/vh$/);
+const isVw = value => value && value.match(/vw$/);
 
 const extractColorUsages = theme => {
   if (null === theme) {
@@ -138,14 +141,17 @@ export const TypedControl = ({ cssVar, theme, value, onChange, dispatch }) => {
     'min-height',
     'max-height',
     'letter-spacing',
+    'outline-offset',
   ];
 
   if (cssVar.usages.some(usage => sizeLikeProperties.includes(usage.property))) {
-    return <div>
+    const pxValue = isPx(value) ? value.replace('px', '') : isRem(value) ? convertRemToPixels(parseFloat(value.replace('rem', ''))) : '';
+    const remValue = isRem(value) ? value.replace('rem', '') : isPx(value) ? convertPixelsToRem(parseFloat(value.replace('px', ''))) : '';
+    return <div className='theme-length-controls'>
       <div key={ 1 } style={{clear: 'both'}}>
         <input
           type={ 'number' }
-          value={ isPx(value) ? value.replace('px', '') : convertRemToPixels(parseFloat(value.replace('rem', ''))) }
+          value={pxValue}
           onChange={ event => {
             onChange(`${ event.currentTarget.value }px`);
           } }
@@ -156,13 +162,46 @@ export const TypedControl = ({ cssVar, theme, value, onChange, dispatch }) => {
       <div key={ 2 }>
         <input
           type={ 'number' }
-          value={ isRem(value) ? value.replace('rem', '') : convertPixelsToRem(parseFloat(value.replace('px', ''))) }
+          value={remValue}
           onChange={ event => {
             onChange(`${ event.currentTarget.value }rem`);
           } }
           style={ { minWidth: '100px' } }
         />
         <span>rem</span>
+      </div>
+      <div key={ 3 }>
+        <input
+          type={ 'number' }
+          value={ isPercent(value) ? value.replace('%', '') : ''}
+          onChange={ event => {
+            onChange(`${ event.currentTarget.value }%`);
+          } }
+          style={ { minWidth: '100px' } }
+        />
+        <span>%</span>
+      </div>
+      <div key={ 4 }>
+        <input
+          type={ 'number' }
+          value={ isVh(value) ? value.replace('vh', '') : ''}
+          onChange={ event => {
+            onChange(`${ event.currentTarget.value }vh`);
+          } }
+          style={ { minWidth: '100px' } }
+        />
+        <span>vh</span>
+      </div>
+      <div key={ 5 }>
+        <input
+          type={ 'number' }
+          value={ isVw(value) ? value.replace('vw', '') : ''}
+          onChange={ event => {
+            onChange(`${ event.currentTarget.value }vw`);
+          } }
+          style={ { minWidth: '100px' } }
+        />
+        <span>vw</span>
       </div>
       <TextControl
         value={ value }

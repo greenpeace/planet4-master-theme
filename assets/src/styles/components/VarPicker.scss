@@ -3,6 +3,13 @@ body {
   scroll-behavior: auto !important;
 }
 
+.theme-length-controls {
+  input _-- {
+    margin-right: 5px;
+    text-align: right;
+  }
+}
+
 .var-picker * {
   font-family: Roboto, sans-serif !important;
   color: black !important;
