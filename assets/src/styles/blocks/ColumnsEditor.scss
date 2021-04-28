@@ -1,25 +1,111 @@
-.img-wrap {
+.columns-image-container {
   position: relative;
-  display: inline-block;
-  font-size: 0;
+
+  .buttons-overlay {
+    position: absolute;
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    button {
+      display: none;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+
+      button {
+        display: inline-flex;
+      }
+    }
+
+    .block-style-icons & {
+      justify-content: flex-start;
+      margin-left: 10px;
+
+      .edit-image .dashicon {
+        margin: 0;
+      }
+    }
+
+    .block-style-tasks & {
+      height: calc(100% - 32px);
+    }
+
+    .remove-image {
+      margin-inline-start: 10px;
+      background: $grey-80;
+      color: $white;
+
+      .dashicon {
+        margin: 0;
+      }
+
+      &:hover {
+        background: $grey-60;
+      }
+    }
+  }
 }
 
-.img-wrap .close {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  z-index: 100;
-  background-color: #fff;
-  padding: 0 0 2px 2px;
-  color: red;
-  font-weight: bold;
-  cursor: pointer;
-  opacity: 1;
-  text-align: center;
-  font-size: 22px;
-  line-height: 14px;
+.column-wrap {
+  position: relative;
+
+  h5, h3 {
+    margin: 0 !important;
+  }
 }
 
-.column-img-label {
-  margin-bottom: 4px;
+.column-image-error {
+  color: $dark-orange;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 10px;
+}
+
+.columns-image-placeholder {
+  background: $grey-20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tasks-image-button {
+  margin-left: 0;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+
+.image-placeholder-container {
+  position: relative;
+
+  .image-placeholder-button {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+
+    .block-style-icons & {
+      left: 32px;
+      right: auto;
+
+      span {
+        margin-right: 0;
+        margin-left: 0;
+      }
+    }
+  }
+
+  &:hover .image-placeholder-button {
+    display: inline-flex;
+  }
 }

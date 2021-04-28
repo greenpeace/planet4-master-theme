@@ -32,60 +32,22 @@ class Columns extends Base_Block {
 	const MAX_COLUMNS     = 4;
 
 	/**
-	 * Register shortcake shortcode.
-	 *
-	 * @param array  $attributes Shortcode attributes.
-	 * @param string $content   Content.
-	 *
-	 * @return mixed
-	 */
-	public function add_block_shortcode( $attributes, $content ) {
-		$columns = [];
-		for ( $i = 1; $i <= static::MAX_COLUMNS; $i++ ) {
-			if ( ! empty( $attributes[ 'title_' . $i ] ) ) {
-				$column = [
-					'title'        => $attributes[ 'title_' . $i ] ?? '',
-					'description'  => $attributes[ 'description_' . $i ] ?? '',
-					'attachment'   => $attributes[ 'attachment_' . $i ] ?? '',
-					'cta_text'     => $attributes[ 'cta_text_' . $i ] ?? '',
-					'cta_link'     => $attributes[ 'link_' . $i ] ?? '',
-					'link_new_tab' => $attributes[ 'link_new_tab_' . $i ] ?? '',
-				];
-
-				array_push( $columns, $column );
-			}
-		}
-
-		$attributes['columns'] = $columns;
-
-		$attributes = shortcode_atts(
-			[
-				'columns_block_style' => '',
-				'columns_title'       => '',
-				'columns_description' => '',
-				'columns'             => [],
-			],
-			$attributes,
-			'shortcake_columns'
-		);
-
-		return $this->render( $attributes );
-	}
-
-	/**
 	 * Columns constructor.
 	 */
 	public function __construct() {
-		add_shortcode( 'shortcake_columns', [ $this, 'add_block_shortcode' ] );
-
 		register_block_type(
 			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
-				'render_callback' => [ $this, 'render' ],
+				'render_callback' => static function ( $attributes ) {
+					$attributes['columns'] = self::get_columns_data( $attributes );
+
+					return self::render_frontend( $attributes );
+				},
 				'attributes'      => [
 					'columns_block_style' => [
-						'type' => 'string',
+						'type'    => 'string',
+						'default' => self::LAYOUT_NO_IMAGE,
 					],
 					'columns_title'       => [
 						'type' => 'string',
@@ -107,7 +69,8 @@ class Columns extends Base_Block {
 									'type' => 'string',
 								],
 								'attachment'   => [
-									'type' => 'integer',
+									'type'    => 'integer',
+									'default' => 0,
 								],
 								'cta_link'     => [
 									'type' => 'string',
@@ -127,21 +90,23 @@ class Columns extends Base_Block {
 	}
 
 	/**
+	 * Required by the `Base_Block` class.
+	 *
+	 * @param array $fields Unused, required by the abstract function.
+	 */
+	public function prepare_data( $fields ): array {
+		return [];
+	}
+
+	/**
 	 * Get all the data that will be needed to render the block correctly.
 	 *
 	 * @param array $attributes This is the array of fields of this block.
 	 *
 	 * @return array The data to be passed in the View.
 	 */
-	public function prepare_data( $attributes ): array {
-		// Fallback to avoid notices when block doesn't have this.
-		$columns_block_style = $attributes['columns_block_style'] ?? static::LAYOUT_NO_IMAGE;
-
-		$fields = [
-			'columns_block_style' => $columns_block_style,
-			'columns_title'       => $attributes['columns_title'] ?? '',
-			'columns_description' => $attributes['columns_description'] ?? '',
-		];
+	private static function get_columns_data( $attributes ): array {
+		$columns_block_style = $attributes['columns_block_style'];
 
 		// Only show columns that have a title or a description.
 		$columns = array_filter(
@@ -153,39 +118,23 @@ class Columns extends Base_Block {
 
 		$columns = array_slice( $columns, 0, self::MAX_COLUMNS );
 
-		// Used to determine how many columns were set in the backend for this shortcode.
-		$number_columns = count( $columns );
-
-		// Store the block attributes as expected by the twig template, old block style.
-		$fields['no_of_columns'] = $number_columns;
-
 		// Define the image size that will be used, based on layout chosen and number of columns.
-		if ( static::LAYOUT_NO_IMAGE !== $columns_block_style ) {
+		$number_columns = count( $columns );
+		if ( self::LAYOUT_NO_IMAGE !== $columns_block_style ) {
 			$image_size = self::get_image_size( $columns_block_style, $number_columns );
 
 			foreach ( $columns as $key => $column ) {
-				if ( empty( $column['attachment'] ) ) {
+				$attachment = $column['attachment'] ?? 0;
+				if ( 0 === $attachment ) {
 					continue;
 				}
-				[ $img_src ] = wp_get_attachment_image_src( $column['attachment'], $image_size );
+				[ $img_src ] = wp_get_attachment_image_src( $attachment, $image_size );
 
 				$columns[ $key ]['attachment'] = $img_src;
 			}
 		}
 
-		$fields['columns'] = $columns;
-
-		// enqueue script that equalizes the heights of the titles of the blocks.
-		if ( ! $this->is_rest_request() ) {
-			\P4GBKS\Loader::enqueue_local_script( 'column-headers', 'public/js/columns.js', [ 'jquery' ] );
-		}
-
-		$block_data = [
-			'fields'              => $fields,
-			'available_languages' => P4GBKS_LANGUAGES,
-		];
-
-		return $block_data;
+		return $columns;
 	}
 
 	/**
