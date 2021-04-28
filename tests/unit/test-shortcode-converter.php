@@ -31,7 +31,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 	 * @param string $shortcode  Shortcake shortcode.
 	 * @param string $expected   Expected converted to gutenberg block.
 	 *
-	 * @dataProvider carousel_header_shortcodes_provider
 	 * @dataProvider columns_shortcodes_provider
 	 * @dataProvider social_media_shortcodes_provider
 	 * @dataProvider timeline_shortcodes_provider
@@ -47,58 +46,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 	}
 
 	// phpcs:disable
-	/**
-	 * Planet4 blocks shortocodes provider.
-	 *
-	 * @return array
-	 */
-	public function carousel_header_shortcodes_provider(): array {
-
-		return [
-			'carousel header 3 slides' =>
-				[
-					'[shortcake_carousel_header carousel_autoplay = "true" image_1 = "16" focus_image_1 = "center center" header_1 = "Carousel header - full width  1" description_1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique orci odio, ac dignissim nibh consequat id. Cras at mauris nibh. Morbi rutrum sodales urna in porta. Nunc placerat pretium nisl ac rhoncus. Proin sit amet arcu a justo gravida vulputate." link_text_1 = "Curabitur rutrum viverra" image_2 = "348" focus_image_2 = "center center" header_2 = "Carousel header - full width  2" description_2 = "Pellentesque cursus condimentum dolor vitae bibendum. Vivamus aliquam eget enim sit amet tincidunt. Fusce sagittis sagittis lacinia. Praesent nisl magna, finibus eget ipsum ultrices, feugiat mattis quam." link_text_2 = "Pellentesque cursus" image_3 = "357" focus_image_3 = "left top" header_3 = "Carousel header - full width  3" description_3 = "Nam condimentum sapien ut nunc eleifend scelerisque nec eget odio. Curabitur interdum efficitur magna at blandit. Donec congue massa id sem porta, eu iaculis dui pretium." focus_image_4 = "left top" /]',
-
-					'<!-- wp:planet4-blocks/carousel-header {"carousel_autoplay":true,"slides":[{"image":16,"focal_points":{"x":0.5,"y":0.5},"header":"Carousel header - full width  1","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique orci odio, ac dignissim nibh consequat id. Cras at mauris nibh. Morbi rutrum sodales urna in porta. Nunc placerat pretium nisl ac rhoncus. Proin sit amet arcu a justo gravida vulputate.","link_text":"Curabitur rutrum viverra"},{"image":348,"focal_points":{"x":0.5,"y":0.5},"header":"Carousel header - full width  2","description":"Pellentesque cursus condimentum dolor vitae bibendum. Vivamus aliquam eget enim sit amet tincidunt. Fusce sagittis sagittis lacinia. Praesent nisl magna, finibus eget ipsum ultrices, feugiat mattis quam.","link_text":"Pellentesque cursus"},{"image":357,"focal_points":{"x":0,"y":0},"header":"Carousel header - full width  3","description":"Nam condimentum sapien ut nunc eleifend scelerisque nec eget odio. Curabitur interdum efficitur magna at blandit. Donec congue massa id sem porta, eu iaculis dui pretium."}]} /-->'
-				],
-
-			'carousel header 2 slides' =>
-				[
-					'[shortcake_carousel_header image_1="16" focus_image_1="center center" header_1="Lorem Ipsum" subheader_1="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit" description_1="Lorem ipsum dolor sit amet, consectetur adipiscing elit." link_text_1="Curabitur rutrum viverra" image_2="348" focus_image_2="center center" header_2="Cras faucibus ac erat ac auctor" subheader_2="Integer vehicula magna in ante bibendum auctor" description_2="Pellentesque cursus condimentum dolor vitae bibendum. Vivamus aliquam eget enim sit amet tincidunt. Fusce sagittis sagittis lacinia." link_text_2="Pellentesque cursus" focus_image_3="left top" focus_image_4="left top" /]',
-
-					'<!-- wp:planet4-blocks/carousel-header {"slides":[{"image":16,"focal_points":{"x":0.5,"y":0.5},"header":"Lorem Ipsum","subheader":"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.","link_text":"Curabitur rutrum viverra"},{"image":348,"focal_points":{"x":0.5,"y":0.5},"header":"Cras faucibus ac erat ac auctor","subheader":"Integer vehicula magna in ante bibendum auctor","description":"Pellentesque cursus condimentum dolor vitae bibendum. Vivamus aliquam eget enim sit amet tincidunt. Fusce sagittis sagittis lacinia.","link_text":"Pellentesque cursus"}]} /-->'
-				],
-
-			'carousel header 1 slide with invalid 2,3,4 attributes' =>
-				[
-					'[shortcake_carousel_header image_1="22156" focus_image_1="center bottom" header_1="Wat doet Greenpeace zelf?" header_size_1="h1" description_1="Wij werken al jaren intensief samen met de lokale bevolking in de Amazone. Ook hebben we nauwe banden met milieuorganisaties in de regio om onze slagkracht zo groot mogelijk te maken." link_url_new_tab_1="false" focus_image_2="left top" header_size_2="h1" link_url_new_tab_2="false" focus_image_3="left top" header_size_3="h1" link_url_new_tab_3="false" focus_image_4="left top" header_size_4="h1" link_url_new_tab_4="false" /]',
-
-					'<!-- wp:planet4-blocks/carousel-header {"slides":[{"image":22156,"focal_points":{"x":0.5,"y":1},"header":"Wat doet Greenpeace zelf?","header_size":"h1","description":"Wij werken al jaren intensief samen met de lokale bevolking in de Amazone. Ook hebben we nauwe banden met milieuorganisaties in de regio om onze slagkracht zo groot mogelijk te maken.","link_url_new_tab":false}]} /-->'
-				],
-
-			'carousel header 3 slides with invalid 4th attributes' =>
-				[
-					'[shortcake_carousel_header image_1="20122" focus_image_1="center center" header_1="Wist je dat..." header_size_1="h1" description_1="...wij de natuur opeten? 80% van de ontbossing wordt veroorzaakt door de industriële landbouw. Met name voor de productie van vlees, soja voor veevoer, palmolie en cacao." link_text_1="Ja, ik teken!" link_url_1="#petitie" link_url_new_tab_1="false" image_2="23797" focus_image_2="center top" header_2="Wist je dat..." header_size_2="h1" description_2="… de natuur ons gratis diensten levert? Schone lucht, drinkwater en bestuiving voor ons voedsel. En niet onbelangrijk, natuur draagt bij aan innerlijke rust." link_text_2="Ja. ik teken!" link_url_2="https://www.greenpeace.org/nl/acties/bossenwet/#petitie" link_url_new_tab_2="false" image_3="23798" focus_image_3="left bottom" header_3="Wist je dat..." header_size_3="h1" description_3="… 1 miljoen plant- en diersoorten dreigen uit te sterven. Dat is 1 op de 8 van alle soorten." link_text_3="Ja. ik teken!" link_url_3="https://www.greenpeace.org/nl/acties/bossenwet/#petitie" link_url_new_tab_3="false" focus_image_4="left top" header_size_4="h1" link_url_new_tab_4="false" /]',
-
-					'<!-- wp:planet4-blocks/carousel-header {"slides":[{"image":20122,"focal_points":{"x":0.5,"y":0.5},"header":"Wist je dat...","header_size":"h1","description":"...wij de natuur opeten? 80% van de ontbossing wordt veroorzaakt door de industri\u00eble landbouw. Met name voor de productie van vlees, soja voor veevoer, palmolie en cacao.","link_text":"Ja, ik teken!","link_url":"#petitie","link_url_new_tab":false},{"image":23797,"focal_points":{"x":0.5,"y":0},"header":"Wist je dat...","header_size":"h1","description":"\u2026 de natuur ons gratis diensten levert? Schone lucht, drinkwater en bestuiving voor ons voedsel. En niet onbelangrijk, natuur draagt bij aan innerlijke rust.","link_text":"Ja. ik teken!","link_url":"https://www.greenpeace.org/nl/acties/bossenwet/#petitie","link_url_new_tab":false},{"image":23798,"focal_points":{"x":0,"y":1},"header":"Wist je dat...","header_size":"h1","description":"\u2026 1 miljoen plant- en diersoorten dreigen uit te sterven. Dat is 1 op de 8 van alle soorten.","link_text":"Ja. ik teken!","link_url":"https://www.greenpeace.org/nl/acties/bossenwet/#petitie","link_url_new_tab":false}]} /-->'
-				],
-
-			'carousel header 4 slides' =>
-				[
-					'[shortcake_carousel_header carousel_autoplay="true" image_1="19059" focus_image_1="center top" header_1="Attentie, attentie" subheader_1="dit is een klimaatcrisis." description_1="Klimaatverandering is geen sciencefictionverhaal meer, het is aan de orde van de dag. Oogsten mislukken, complete eilanden dreigen te verdwijnen en extreem weer hangt steeds vaker in de lucht." link_text_1="Teken nu de petitie!" link_url_1="#petitie" image_2="19073" focus_image_2="left top" header_2="Attentie, attentie" description_2="Klimaatverandering is geen sciencefictionverhaal meer, het is aan de orde van de dag. Oogsten mislukken, complete eilanden dreigen te verdwijnen en extreem weer hangt steeds vaker in de lucht." link_text_2="Teken nu de petitie!" link_url_2="#petitie" image_3="19068" focus_image_3="left top" header_3="Attentie, attentie" description_3="Klimaatverandering is geen sciencefictionverhaal meer, het is aan de orde van de dag. Oogsten mislukken, complete eilanden dreigen te verdwijnen en extreem weer hangt steeds vaker in de lucht." link_text_3="Teken nu de petitie!" link_url_3="#petitie" image_4="19074" focus_image_4="left top" header_4="Attentie, attentie" description_4="Klimaatverandering is geen sciencefictionverhaal meer, het is aan de orde van de dag. Oogsten mislukken, complete eilanden dreigen te verdwijnen en extreem weer hangt steeds vaker in de lucht." link_text_4="Teken nu de petitie!" link_url_4="#petitie" /]',
-
-					'<!-- wp:planet4-blocks/carousel-header {"carousel_autoplay":true,"slides":[{"image":19059,"focal_points":{"x":0.5,"y":0},"header":"Attentie, attentie","subheader":"dit is een klimaatcrisis.","description":"Klimaatverandering is geen sciencefictionverhaal meer, het is aan de orde van de dag. Oogsten mislukken, complete eilanden dreigen te verdwijnen en extreem weer hangt steeds vaker in de lucht.","link_text":"Teken nu de petitie!","link_url":"#petitie"},{"image":19073,"focal_points":{"x":0,"y":0},"header":"Attentie, attentie","description":"Klimaatverandering is geen sciencefictionverhaal meer, het is aan de orde van de dag. Oogsten mislukken, complete eilanden dreigen te verdwijnen en extreem weer hangt steeds vaker in de lucht.","link_text":"Teken nu de petitie!","link_url":"#petitie"},{"image":19068,"focal_points":{"x":0,"y":0},"header":"Attentie, attentie","description":"Klimaatverandering is geen sciencefictionverhaal meer, het is aan de orde van de dag. Oogsten mislukken, complete eilanden dreigen te verdwijnen en extreem weer hangt steeds vaker in de lucht.","link_text":"Teken nu de petitie!","link_url":"#petitie"},{"image":19074,"focal_points":{"x":0,"y":0},"header":"Attentie, attentie","description":"Klimaatverandering is geen sciencefictionverhaal meer, het is aan de orde van de dag. Oogsten mislukken, complete eilanden dreigen te verdwijnen en extreem weer hangt steeds vaker in de lucht.","link_text":"Teken nu de petitie!","link_url":"#petitie"}]} /-->'
-				],
-
-			'carousel header 2 slides with custom urls' =>
-				[
-					'[shortcake_carousel_header image_1="2492" focus_image_1="center center" header_1="O que os olhos veem, a natureza sente" subheader_1="Ano: 2018 / Agência: Y&R" description_1="Formato: meia página" link_text_1="Baixe as peças aqui" link_url_1="https://drive.google.com/drive/folders/1wg6Ljzbx1WPHPpjnWAt3Xh4ub2wYVSiF?usp=sharing" image_2="2498" focus_image_2="center center" header_2="O que os olhos veem, a natureza sente" subheader_2="Ano: 2018 / Agência: Y&R" description_2="Formato: página inteira" link_text_2="Baixe aqui as peças" link_url_2="https://drive.google.com/drive/folders/16kGY9q56kCpu4WxKNo2eNb0_CDefKE8n?usp=sharing" focus_image_3="left top" focus_image_4="left top" /]',
-
-					'<!-- wp:planet4-blocks/carousel-header {"slides":[{"image":2492,"focal_points":{"x":0.5,"y":0.5},"header":"O que os olhos veem, a natureza sente","subheader":"Ano: 2018 / Ag\u00eancia: Y&R","description":"Formato: meia p\u00e1gina","link_text":"Baixe as pe\u00e7as aqui","link_url":"https://drive.google.com/drive/folders/1wg6Ljzbx1WPHPpjnWAt3Xh4ub2wYVSiF?usp=sharing"},{"image":2498,"focal_points":{"x":0.5,"y":0.5},"header":"O que os olhos veem, a natureza sente","subheader":"Ano: 2018 / Ag\u00eancia: Y&R","description":"Formato: p\u00e1gina inteira","link_text":"Baixe aqui as pe\u00e7as","link_url":"https://drive.google.com/drive/folders/16kGY9q56kCpu4WxKNo2eNb0_CDefKE8n?usp=sharing"}]} /-->'
-				],
-		];
-	}
-
 	/**
 	 * Planet4 blocks shortocodes provider.
 	 *

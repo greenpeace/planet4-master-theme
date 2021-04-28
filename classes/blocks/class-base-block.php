@@ -137,7 +137,12 @@ abstract class Base_Block {
 	 */
 	public static function enqueue_frontend_assets() {
 		$full_name   = static::get_full_block_name();
-		$to_look_for = 'planet4-blocks/covers' === $full_name ? 'planet4-blocks/covers-beta' : $full_name;
+		$to_look_for = $full_name;
+		if ( 'planet4-blocks/covers' === $full_name ) {
+			$to_look_for = 'planet4-blocks/covers-beta';
+		} elseif ( 'planet4-blocks/carousel-header' === $full_name ) {
+			$to_look_for = 'planet4-blocks/carousel-header-beta';
+		}
 
 		if ( ! has_block( $to_look_for ) ) {
 			return;
@@ -188,5 +193,21 @@ abstract class Base_Block {
 		$json = wp_json_encode( [ 'attributes' => $attributes ] );
 
 		return '<div data-render="' . self::get_full_block_name() . '" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+	}
+
+	/**
+	 * Renders a hydratable block attributes with `data-` attributes.
+	 *
+	 * @param array $attributes The block's attributes.
+	 * @param array $content The block's content.
+	 */
+	public static function as_hydratable_block( $attributes, $content ) {
+		$json = wp_json_encode(
+			[ 'attributes' => $attributes ]
+		);
+
+		return '<div data-hydrate="' . self::get_full_block_name() . '" data-attributes="' . htmlspecialchars( $json ) . '">'
+			. trim( $content )
+			. '</div>';
 	}
 }

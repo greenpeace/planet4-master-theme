@@ -39,6 +39,7 @@ module.exports = {
     theme_plastic: './assets/src/styles/theme_plastic.scss',
     ...entryPoints('Accordion'),
     ...entryPoints('Covers'),
+    ...entryPoints('CarouselHeader'),
   },
   output: {
     filename: '[name].js',

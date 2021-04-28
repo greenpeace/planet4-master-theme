@@ -1,3 +1,8 @@
+@import "../../master-theme/assets/src/scss/base/mixins";
+@import "../../master-theme/assets/src/scss/base/variables";
+@import "../../master-theme/assets/src/scss/base/colors";
+@import "../../master-theme/assets/src/scss/base/fonts";
+
 // $slide-transition-speed should match SLIDE_TRANSITION_SPEED in carousel-header.js
 $slide-transition-speed: .2s;
 $text-slide-offset: 50px;
@@ -50,7 +55,7 @@ $medium-image-height: 600px;
   }
 }
 
-@keyframes texts-from-right-animation {
+@keyframes texts-from-end-animation {
   from {
     transform: translateX($text-slide-offset);
   }
@@ -60,7 +65,7 @@ $medium-image-height: 600px;
   }
 }
 
-@keyframes texts-from-left-animation {
+@keyframes texts-from-start-animation {
   from {
     transform: translateX(-$text-slide-offset);
   }
@@ -70,7 +75,7 @@ $medium-image-height: 600px;
   }
 }
 
-.carousel-header_full-width-classic {
+.carousel-header-beta {
   position: relative;
   width: 100vw;
 
@@ -117,14 +122,10 @@ $medium-image-height: 600px;
       height: 100%;
     }
 
-    img {
-      display: none;
-    }
-
     &.initial {
       display: block;
       left: 0;
-      z-index: 2000;
+      z-index: 1;
       opacity: 1;
       transition: unset;
 
@@ -168,7 +169,11 @@ $medium-image-height: 600px;
     .background-holder {
       width: 100vw;
       height: $mobile-image-height;
-      background-size: cover;
+      z-index: -1;
+
+      img {
+        object-fit: none;
+      }
 
       @include medium-and-up {
         height: $medium-image-height;
@@ -193,7 +198,7 @@ $medium-image-height: 600px;
     &.active {
       display: block;
       left: 0;
-      z-index: 2000;
+      z-index: 1;
       opacity: 1;
       transition: unset;
       pointer-events: all;
@@ -214,7 +219,7 @@ $medium-image-height: 600px;
       }
     }
 
-    &.shrink-to-left {
+    &.exit-to-start {
       .carousel-item-mask {
         width: 0;
         transition: width $slide-transition-speed;
@@ -233,7 +238,7 @@ $medium-image-height: 600px;
       }
     }
 
-    &.shrink-to-right {
+    &.exit-to-end {
       .carousel-item-mask {
         width: 0;
         margin-left: auto;
@@ -260,7 +265,7 @@ $medium-image-height: 600px;
       }
     }
 
-    &.prev {
+    &.enter-from-start {
       z-index: 1000;
       display: block;
       opacity: 1;
@@ -268,19 +273,19 @@ $medium-image-height: 600px;
 
       .carousel-caption .main-header .carousel-captions-wrapper {
         h1, h2, h3, p {
-          animation-name: texts-from-left-animation;
+          animation-name: texts-from-start-animation;
           animation-duration: $slide-transition-speed;
           animation-timing-function: ease-in-out;
           animation-iteration-count: 1;
 
           html[dir="rtl"] & {
-            animation-name: texts-from-right-animation;
+            animation-name: texts-from-end-animation;
           }
         }
       }
     }
 
-    &.next {
+    &.enter-from-end {
       z-index: 1000;
       display: block;
       opacity: 1;
@@ -288,13 +293,13 @@ $medium-image-height: 600px;
 
       .carousel-caption .main-header .carousel-captions-wrapper {
         h1, h2, h3, p {
-          animation-name: texts-from-right-animation;
+          animation-name: texts-from-end-animation;
           animation-duration: $slide-transition-speed;
           animation-timing-function: ease-in-out;
           animation-iteration-count: 1;
 
           html[dir="rtl"] & {
-            animation-name: texts-from-left-animation;
+            animation-name: texts-from-start-animation;
           }
         }
       }
@@ -302,8 +307,6 @@ $medium-image-height: 600px;
 
     .carousel-caption {
       display: block;
-      position: relative;
-      z-index: 2500;
       text-align: left;
       left: 0;
       right: 0;
@@ -324,7 +327,6 @@ $medium-image-height: 600px;
 
       @include large-and-up {
         display: block;
-        position: relative;
         top: 0;
         left: 0;
         padding: 0 0 $n60 0;
@@ -565,7 +567,7 @@ $medium-image-height: 600px;
           @include medium-and-up {
             text-align: left;
             position: inherit;
-            bottom: 60px;
+            // bottom: 60px;
             margin-top: 0;
             margin-left: 0;
             width: auto;
@@ -663,59 +665,62 @@ $medium-image-height: 600px;
     }
   }
 
-  .carousel-indicators {
-    z-index: 4000;
-    display: block;
+  .carousel-indicators-wrapper {
     position: absolute;
     width: 100%;
-    text-align: center;
-    padding: 0 0 24px 0;
-    margin: 0;
     bottom: 0;
-    height: 44px;
+    z-index: 3000;
 
-    @include medium-and-up {
-      text-align: right;
-      width: auto;
-
-      html[dir="rtl"] & {
-        right: auto;
-      }
-    }
-
-    @include large-and-up {
-      position: absolute;
-      left: auto;
-      text-align: left;
-      padding-left: 0;
-      padding-right: 0;
-      width: auto;
+    .carousel-indicators {
       display: block;
-    }
+      position: relative;
+      width: 100%;
+      text-align: center;
+      margin: 0;
+      bottom: 0;
+      height: 44px;
 
-    @include x-large-and-up {
-      padding-left: 0;
-    }
+      @include medium-and-up {
+        text-align: right;
+        width: auto;
 
-    li {
-      background-color: transparentize($grey-80, 0.4);
-      width: 40px;
-      height: 3px;
-      border-radius: 0;
-      border: unset;
-      margin: 0 3px;
-      cursor: pointer;
-      display: inline-table;
-      right: 0;
+        html[dir="rtl"] & {
+          right: auto;
+        }
+      }
 
       @include large-and-up {
-        background-color: rgba(255, 255, 255, 0.4);
+        text-align: left;
+        padding-left: 0;
+        padding-right: 0;
+        width: auto;
+        display: block;
       }
 
-      &.active {
-        background: $grey-80;
+      @include x-large-and-up {
+        padding-left: 0;
+      }
+
+      li {
+        background-color: rgba(0, 0, 0, 0.4);
+        width: 40px;
+        height: 3px;
+        border-radius: 0;
+        border: unset;
+        margin: 0 3px;
+        cursor: pointer;
+        display: inline-table;
+        right: 0;
+
         @include large-and-up {
-          background: $white;
+          background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        &.active {
+          background: black;
+          @include large-and-up {
+            background: $white;
+          }
         }
       }
     }

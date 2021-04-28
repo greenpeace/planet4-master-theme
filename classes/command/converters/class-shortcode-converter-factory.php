@@ -20,8 +20,6 @@ class Shortcode_Converter_Factory {
 	 */
 	public static function get_converter( $shortcode_name, $attributes ) {
 		switch ( $shortcode_name ) {
-			case 'shortcake_carousel_header':
-				return new CarouselHeader_Converter( $shortcode_name, $attributes );
 			case 'shortcake_columns':
 				return new Columns_Converter( $shortcode_name, $attributes );
 			case 'shortcake_enblock':
