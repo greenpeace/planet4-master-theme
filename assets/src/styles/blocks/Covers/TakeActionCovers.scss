@@ -150,20 +150,8 @@
       }
     }
 
-    .btn {
+    .cover-card-btn {
       display: block;
-
-      --block-covers--card-btn-- {
-        color: white;
-        background-color: $orange;
-        border-color: $orange;
-
-        &:hover, &:focus {
-          color: white;
-          background-color: $orange-hover;
-          border-color: $orange-hover;
-        }
-      }
     }
   }
 
@@ -267,6 +255,15 @@
 .cover-card-btn {
   --block-covers--card-button-- {
     display: none;
+    color: white;
+    background-color: $orange;
+    border-color: $orange;
+
+    &:hover, &:focus {
+      color: white;
+      background-color: $orange-hover;
+      border-color: $orange-hover;
+    }
   }
   position: absolute;
   bottom: 0;
