@@ -145,7 +145,7 @@ export const ResizableFrame = props => {
     >
       <iframe
         className='responsive-frame'
-        { ...{ src, width: parseInt(width) + 12, height: parseInt(height + 12) } }
+        { ...{ src, width: parseInt(width) + 12, height: parseInt(height) + 12 } }
       />
     </div>
   </Fragment>, document.body);
