@@ -71,7 +71,6 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
         {slidesWithImages?.map((slide, index) => (
           <Slide
             key={index}
-            index={index}
             ref={element => slidesRef.current[index] = element}
             active={currentSlide === index}
           >
