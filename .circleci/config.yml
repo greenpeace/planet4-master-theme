@@ -277,7 +277,7 @@ jobs:
 
   comment-pr:
     docker:
-      - image: greenpeaceinternational/circleci-base:latest
+      - image: greenpeaceinternational/circleci-base:post-new-delete-old-pr-comment
         auth: &docker_auth
     steps:
       - attach_workspace:
