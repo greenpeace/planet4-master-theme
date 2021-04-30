@@ -7,9 +7,8 @@ orbs:
 workflows:
   main:
     jobs:
-      - php73-tests
-      - frontend-tests
-      - acceptance-tests
+      - comment-pr:
+          context: org-global
       #- a11y-tests
       - create-zip:
           filters:
@@ -23,10 +22,6 @@ workflows:
           type: approval
           requires:
             - request-instance
-      - comment-pr:
-          context: org-global
-          requires:
-            - instance-ready
       - lighthouse:
           requires:
             - instance-ready
@@ -286,8 +281,8 @@ jobs:
           name: Post comment to PR
           command: |
             post-comment-to-pr.py \
-            --pr-url $(cat /tmp/workspace/pr) \
-            --test-instance $(cat /tmp/workspace/test-instance)
+            --pr-url $CIRCLE_PULL_REQUEST \
+            --test-instance nix
 
   lighthouse:
     executor: lighthouse-check/default
