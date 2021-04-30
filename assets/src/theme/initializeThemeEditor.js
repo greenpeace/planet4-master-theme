@@ -4,14 +4,9 @@ import { DRAG_KEY, dragElement } from './dragElement';
 import { LOCAL_STORAGE_KEY} from './VarPicker';
 import { addHighlight, removeHighlight } from './highlight';
 import { groupVars } from './groupVars';
-import { fetchJson } from '../functions/fetchJson';
+import { extractPageVariables } from './extractPageVariables';
 
 const setup = async () => {
-  // Quick way to make it work with WPML. In case of NL, which doesn't have WPML, it doesn't match because without
-  // WPML there is no slash at the end...
-  const baseUrl = document.body.dataset.nro.replace(/(\/\w\w\/)$/, '');
-  const blockVarsPromise = fetchJson(`${ baseUrl }/wp-content/plugins/planet4-plugin-gutenberg-blocks/assets/build/css-variables.json`);
-  const themeVarsPromise = fetchJson(`${ baseUrl }/wp-content/themes/planet4-master-theme/assets/build/css-variables.json`);
   const editorRoot = document.createElement( 'div' );
   editorRoot.id = 'theme-editor-root';
   document.body.appendChild( editorRoot );
@@ -45,11 +40,7 @@ const setup = async () => {
     console.log(json);
   }
 
-// Create both promises first so they run in parallel, then await both in sequence.
-  const blockVars = await blockVarsPromise;
-  const themeVars = await themeVarsPromise;
-
-  const allVars = [...themeVars, ...blockVars];
+  const allVars = extractPageVariables();
   const cssVars = allVars.reduce((cssVars, someVar) => [
     ...cssVars,
     ...(

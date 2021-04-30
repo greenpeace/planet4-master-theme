@@ -5,10 +5,7 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const RemovePlugin = require('remove-files-webpack-plugin');
 const dashDash = require('@greenpeace/dashdash');
-const cssVariables = require( '@greenpeace/planet4-postcss-css-variables' );
-const VariableCombinePlugin = require( '@greenpeace/planet4-postcss-css-variables/variableCombinePlugin' )
 
-const allCssVars = {};
 const mediaQueryAliases = {
   '(max-width: 576px)': 'mobile-only',
   '(min-width: 576px)': 'small-and-up',
@@ -73,7 +70,6 @@ module.exports = {
               ident: 'postcss',
               plugins: () => [
                 dashDash({mediaQueryAliases, mediaQueryAtStart: false}),
-                cssVariables( { preserve: true, exportVarUsagesTo: allCssVars } ),
                 require('autoprefixer'),
               ],
               sourceMap: true
@@ -134,7 +130,6 @@ module.exports = {
         ]
       }
     }),
-    VariableCombinePlugin({filename: './assets/build/css-variables.json', allCssVars})
   ],
   optimization: {
     ...defaultConfig.optimization,
