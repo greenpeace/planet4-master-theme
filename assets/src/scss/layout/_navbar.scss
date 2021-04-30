@@ -110,8 +110,10 @@ $navbar-default-height: 60px;
 
   // When menu is open, turn the button into the background overlay and hide the text
   &[aria-expanded="true"] {
+    _-- {
+      background: transparentize($grey-80, 0.5);
+    }
     z-index: 2;
-    background: transparentize($grey-80, 0.5);
     position: fixed;
     width: 100%;
     height: 100%;
@@ -181,7 +183,10 @@ $navbar-default-height: 60px;
     box-shadow: none;
   }
 
-  img {
+  svg {
+    _-- {
+      fill: #66cc00;
+    }
     height: 1.25rem;
 
     @include small-and-up {
@@ -531,20 +536,17 @@ $navbar-default-height: 60px;
 }
 
 .country-dropdown-toggle {
+  _-- {
+    color: transparentize($white, 0.2);
+    background: $x-dark-blue;
+  }
   cursor: pointer;
   font-size: $font-size-sm;
   border: 0;
-  color: transparentize($white, 0.2);
-  background: transparent;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   transition: color 100ms;
-
-  background-color: $x-dark-blue;
-  @include large-and-up {
-    background-color: transparent;
-  }
 
   &::after {
     content: "";
@@ -797,7 +799,7 @@ $navbar-default-height: 60px;
       box-shadow: none;
     }
 
-    img {
+    svg {
       height: 1.1rem;
     }
   }
