@@ -1,10 +1,11 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import { VariableControl } from './VariableControl';
 import { THEME_ACTIONS, useThemeEditor } from './useThemeEditor';
 import { whileHoverHighlight } from './highlight';
 import { exportCss, exportJson } from './export';
 import { useServerThemes } from './useServerThemes';
 import { useLocalStorage } from './useLocalStorage';
+import { compare } from 'specificity';
 
 export const LOCAL_STORAGE_KEY = 'p4-theme';
 
@@ -32,12 +33,90 @@ const diffSummary = (themeA, themeB) => {
   `;
 }
 
+const getMaxMatchingSpecificity = (usages, element) => {
+  return usages.reduce((max, usage) => {
+    if (!usage) {
+      return max;
+    }
+    if (!element.matches(usage.selector)) {
+      return max;
+    }
+    if (max === null) {
+      return usage;
+    }
+    try {
+      if (compare(max.selector, usage.selector) === -1) {
+        return usage;
+      }
+    } catch (e) {
+      console.log(e);
+      return usage;
+    }
+    return max;
+  }, null);
+}
+
+const groupByMediaQueries = (all, usage) => {
+  const mediaKey = usage.media || 'all';
+  const prevUsages = all[mediaKey] || [];
+  const allUsages = [...prevUsages, usage]
+  return ({
+    ...all,
+    [mediaKey]: allUsages,
+  });
+};
+
+const pseudoRegex = /(:(hover|focus|active|disabled|visited))/g;
+const getOnlyMostSpecific = (vars, element) => {
+  // Reduce to an object, then back to array. Easier to work with for this purpose.
+  const asObject = vars.reduce((all, current)=> {
+    const byMediaQueries = current.usages.reduce(groupByMediaQueries, {});
+
+    Object.entries(byMediaQueries).forEach(([media,usages]) => {
+      const maxSpecific = getMaxMatchingSpecificity(usages, element) || usages[0];
+      // Won't have anything added if it doesn't match
+      const pseudoSuffix = (maxSpecific.selector.split(',')[0].match(pseudoRegex) || []).join('')
+      const propName = usages[0].property + pseudoSuffix + media;
+
+      if (!all[propName]) {
+        all[propName] = {...current, maxSpecific};
+      } else {
+        const comparedUsage = getMaxMatchingSpecificity([maxSpecific, all[propName].maxSpecific], element);
+        if (maxSpecific === comparedUsage) {
+          all[propName] = {...current, maxSpecific};
+        }
+      }
+
+    })
+    return all;
+  },{});
+  // Map back to array.
+  return Object.entries(asObject).map(([k, v]) => v);
+
+}
+
+const filterMostSpecific = (groups, element) => {
+  const filtered = groups.map(({ vars, ...other }) => ({
+    ...other,
+    vars: getOnlyMostSpecific(vars, element),
+  }));
+  return filtered;
+};
+
 export const VarPicker = (props) => {
   const {
-    groups,
+    groups: rawGroups,
     selectedVars,
     allVars,
+    lastTarget,
   } = props;
+
+  const [onlySpecific, setOnlySpecific] = useState(true);
+
+  const groups = useMemo(
+    () => filterMostSpecific(rawGroups, lastTarget),
+    [rawGroups]
+  );
 
   const [activeVars, setActiveVars] = useState([]);
 
@@ -156,6 +235,15 @@ export const VarPicker = (props) => {
     </span>
     { !collapsed && <label
       htmlFor=""
+      onClick={ () => setOnlySpecific(!onlySpecific) }
+      style={ { marginBottom: '2px' } }
+    >
+      <input type="checkbox" readOnly checked={ onlySpecific }/>
+      { 'Show only specific properties.' }
+    </label> }
+    <br/>
+    { !collapsed && <label
+      htmlFor=""
       onClick={ () => setShouldGroup(!shouldGroup) }
       style={ { marginBottom: '2px' } }
     >
@@ -260,7 +348,7 @@ export const VarPicker = (props) => {
       </div>
     </div> }
     { shouldGroup && !collapsed && <ul className={'group-list'}>
-      { groups.map(({ element, label, vars }) => (
+      { (onlySpecific ? groups : rawGroups).map(({ element, label, vars }) => (
         <li className={ 'var-group' } key={ label } style={ { marginBottom: '12px' } }>
           <h4
             style={ { fontWeight: 400, marginBottom: 0, cursor: 'pointer' } }

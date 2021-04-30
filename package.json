@@ -46,6 +46,7 @@
     "photoswipe": "^4.1.3",
     "react-color": "^2.19.3",
     "react-hotkeys-hook": "^3.0.3",
+    "specificity": "^0.4.1",
     "tinycolor2": "^1.4.2"
   }
 }
