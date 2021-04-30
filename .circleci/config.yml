@@ -9,31 +9,6 @@ workflows:
     jobs:
       - comment-pr:
           context: org-global
-      #- a11y-tests
-      - create-zip:
-          filters:
-            tags:
-              only: /^v\p{Digit}+\.\p{Digit}+.*/
-      - request-instance:
-          context: org-global
-          requires:
-            - create-zip
-      - instance-ready:
-          type: approval
-          requires:
-            - request-instance
-      - lighthouse:
-          requires:
-            - instance-ready
-      - publish-zip:
-          context: org-global
-          requires:
-            - create-zip
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v\p{Digit}+\.\p{Digit}+.*/
 
 job-references:
   docker_auth: &docker_auth
