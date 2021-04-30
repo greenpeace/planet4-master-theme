@@ -5,9 +5,14 @@ const isNotCoreFile = ({ href }) => !href || !href.includes('wp-includes')
 
 const collectRuleVars = (collected, rule, sheet, media = null, supports = null) => {
   if (rule.type === 1) {
-    [...rule.style].forEach(propertyRaw => {
+    // Parse CSS text to get original declarations.
+    const ruleBody = rule.cssText.trim().replace(/^.*{/, '').replace(/;?\s*}\s*$/, '');
+    const decls = ruleBody.split(';').map(decl => decl.split(':'));
+
+    decls.forEach(([propertyRaw, ...value]) => {
       const property = propertyRaw.trim();
-      let remainingValue = rule.style.getPropertyValue(property).trim();
+      // Rejoin in case there could be more ":" inside of the value.
+      let remainingValue = value.join(':');
       let match;
       while ( (match = balancedVar( remainingValue )) ) {
         // Split at the comma to find variable name and fallback value.
