@@ -1,5 +1,4 @@
-import { useState} from 'react';
-import { Fragment} from '@wordpress/element';
+import { useState, Fragment } from 'react';
 import { COLOR_VALUE_REGEX, TypedControl } from './typedControl';
 import { Button } from '@wordpress/components';
 import { PSEUDO_REGEX, THEME_ACTIONS} from './useThemeEditor';

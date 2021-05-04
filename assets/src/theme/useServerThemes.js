@@ -1,42 +1,24 @@
 import { useEffect, useState } from 'react';
 
-const uploadTheme = async (name, theme) => {
-  return wp.apiFetch({
-    path: 'planet4/v1/add-theme/',
-    method: 'POST',
-    data: {
-      name,
-      theme,
-    }
-  });
-}
+export const useServerThemes = (config) => {
+  const {
+    fetchThemes,
+    uploadTheme,
+    deleteTheme,
+  } = config;
 
-const deleteTheme = async (name) => {
-  return wp.apiFetch({
-    path: 'planet4/v1/delete-theme/',
-    method: 'POST',
-    data: {
-      name,
-    }
-  });
-}
-
-export const useServerThemes = () => {
   const [serverThemes, setServerThemes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [dirty, setDirty] = useState(false);
 
   useEffect(() => {
     const doApiCall = async () => {
-      const themes = await wp.apiFetch({
-        path: 'planet4/v1/themes/',
-        method: 'GET',
-      });
-      setLoading(false);
+      const themes = await fetchThemes();
       setServerThemes({
         'default': {},
         ...themes,
       });
+      setLoading(false);
     }
     doApiCall();
   }, [dirty]);

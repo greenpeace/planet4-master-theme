@@ -1,7 +1,7 @@
 import {  TextControl } from '@wordpress/components';
 import { SketchPicker as ColorPicker} from 'react-color';
 import tinycolor from 'tinycolor2';
-import { Fragment } from '@wordpress/element';
+import { Fragment } from 'react';
 import FontPicker from 'font-picker-react';
 import { THEME_ACTIONS} from './useThemeEditor';
 

@@ -1,11 +1,10 @@
-import { useEffect, useState, useRef, useMemo } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { VariableControl } from './VariableControl';
 import { THEME_ACTIONS, useThemeEditor } from './useThemeEditor';
 import { whileHoverHighlight } from './highlight';
 import { exportCss, exportJson } from './export';
 import { useServerThemes } from './useServerThemes';
 import { useLocalStorage } from './useLocalStorage';
-import { filterMostSpecific } from './getOnlyMostSpecific';
 import { useToggle } from './useToggle';
 import { ResizableFrame } from './ResizableFrame';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -42,6 +41,7 @@ const diffSummary = (themeA, themeB) => {
 
 export const VarPicker = (props) => {
   const {
+    config,
     groups,
     rawGroups,
     selectedVars,
@@ -90,17 +90,13 @@ export const VarPicker = (props) => {
     setOpenGroups([groups[0]?.label]);
   }, [groups]);
 
-  // Todo: save state somewhere.
-  const config = {
-    allVars,
-  };
   const [
     {
       theme,
       defaultValues,
     },
     dispatch,
-  ] = useThemeEditor(config);
+  ] = useThemeEditor({allVars});
 
   const [collapsed, toggleCollapsed] = useToggle(false);
 
@@ -126,7 +122,7 @@ export const VarPicker = (props) => {
     loading: serverThemesLoading,
     uploadTheme,
     deleteTheme,
-  } = useServerThemes();
+  } = useServerThemes(config.serverThemes);
 
   const activeThemeRef = useRef();
 

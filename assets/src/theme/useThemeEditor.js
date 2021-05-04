@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from '@wordpress/element';
+import { useReducer, useEffect } from 'react';
 import { LOCAL_STORAGE_KEY } from './VarPicker';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { byNameStateProp } from './groupVars';

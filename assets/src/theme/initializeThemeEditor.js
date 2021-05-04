@@ -46,7 +46,7 @@ const applyFromLocalStorage = (key) => {
   lastRead[key] = json;
 }
 
-const setup = async () => {
+export const setupThemeEditor = async (config) => {
   applyFromLocalStorage(LOCAL_STORAGE_KEY);
 
   if (isRunningAsFrame) {
@@ -99,7 +99,7 @@ const setup = async () => {
     if (type !== 'render-vars') {
       return;
     }
-    renderSelectedVars(editorRoot, payload.matchedVars, null, payload.groups, payload.rawGroups, cssVars);
+    renderSelectedVars(editorRoot, payload.matchedVars, null, payload.groups, payload.rawGroups, cssVars, config);
 
   }, false);
 
@@ -128,12 +128,10 @@ const setup = async () => {
         window.location.href,
       );
     } else {
-      renderSelectedVars(editorRoot, matchedVars, event.target, groups, rawGroups, cssVars);
+      renderSelectedVars(editorRoot, matchedVars, event.target, groups, rawGroups, cssVars, config);
     }
 
     addHighlight(event.target);
     setTimeout(() => removeHighlight(event.target), 700);
   });
 };
-
-document.addEventListener( 'DOMContentLoaded', setup );

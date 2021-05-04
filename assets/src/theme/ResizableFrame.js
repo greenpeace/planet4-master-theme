@@ -1,5 +1,5 @@
-import { Fragment, createPortal } from '@wordpress/element';
-import { useEffect } from 'react';
+import {  createPortal } from 'react-dom';
+import { Fragment, useEffect } from 'react';
 import { RadioControl, RangeControl } from '@wordpress/components';
 import { useLocalStorage } from './useLocalStorage';
 
