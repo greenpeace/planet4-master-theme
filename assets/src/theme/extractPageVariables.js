@@ -59,7 +59,7 @@ const collectSheetVars = (vars, sheet) => {
   return [...sheet.cssRules].reduce((sheetVars, rule) => collectRuleVars(sheetVars, rule, sheet), vars);
 };
 
-export const extractPageVariables = () => {
+export const extractPageVariables = async() => {
   const asObject = [...document.styleSheets].filter(isSameDomain).filter(isNotCoreFile).reduce(collectSheetVars, {});
 
   return Object.keys(asObject).sort().map((k) => {

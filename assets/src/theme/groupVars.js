@@ -35,13 +35,13 @@ export const groupVars = async (vars, target) => {
     previous = target,
     previousMatches = vars;
 
-  // Walk up the tree to the root to assign each variable to the highest element they apply to.
+  // Walk up the tree to the root to assign each variable to the deepest element they apply to. Each time we go up we
+  // test the remaining variables. If the current element doesn't match all anymore, the non matching are assigned to
+  // the previous (one level deeper) element.
   while (current = previous.parentNode) {
     if (previousMatches.length === 0) {
       break;
     }
-    // Get the matching vars and compare them to the previous matches. Any ones that don't occur for this element are
-    // therefore variables that apply because of the previous element.
     const currentMatches = await getMatchingVars({ cssVars: previousMatches, target: current });
 
     if (currentMatches.length < previousMatches.length) {

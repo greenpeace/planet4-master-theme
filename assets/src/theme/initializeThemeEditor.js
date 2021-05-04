@@ -5,6 +5,7 @@ import { LOCAL_STORAGE_KEY} from './VarPicker';
 import { addHighlight, removeHighlight } from './highlight';
 import { groupVars } from './groupVars';
 import { extractPageVariables } from './extractPageVariables';
+import { filterMostSpecific } from './getOnlyMostSpecific';
 
 const setup = async () => {
   const editorRoot = document.createElement( 'div' );
@@ -40,7 +41,7 @@ const setup = async () => {
     console.log(json);
   }
 
-  const allVars = extractPageVariables();
+  const allVars = await extractPageVariables();
   const cssVars = allVars.reduce((cssVars, someVar) => [
     ...cssVars,
     ...(
@@ -60,9 +61,11 @@ const setup = async () => {
 
     const matchedVars = await getMatchingVars({ cssVars, target: event.target });
 
-    const groups = await groupVars(matchedVars, event.target);
+    const rawGroups = await groupVars(matchedVars, event.target);
 
-    renderSelectedVars(editorRoot, matchedVars, event.target, groups, cssVars);
+    const groups = await filterMostSpecific(rawGroups, event.target)
+
+    renderSelectedVars(editorRoot, matchedVars, event.target, groups, rawGroups, cssVars);
 
     addHighlight(event.target);
     setTimeout(() => removeHighlight(event.target), 700);
