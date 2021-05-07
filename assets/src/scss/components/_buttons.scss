@@ -11,6 +11,13 @@
     transition-duration: 150ms;
     transition-timing-function: linear;
   }
+
+  *, &::before, &:after {
+    transition-property: inherit;
+    transition-duration: inherit;
+    transition-timing-function: inherit;
+  }
+
   display: inline-block;
   position: relative;
   font-size: $font-size-sm;
