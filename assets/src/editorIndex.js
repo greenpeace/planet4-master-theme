@@ -23,6 +23,7 @@ import { setUpCssVariables } from './connectCssVariables';
 import { SubPagesBlock } from './blocks/SubPages/SubPagesBlock';
 import { blockEditorValidation } from './BlockEditorValidation';
 import { ENFormBlock } from './blocks/ENForm/ENFormBlock';
+import { registerGuestBookBlock } from './blocks/GuestBook/GuestBookBlock';
 
 blockEditorValidation();
 new ArticlesBlock();
@@ -43,6 +44,7 @@ new SubPagesBlock();
 new TakeactionboxoutBlock();
 new ENFormBlock();
 registerTimelineBlock();
+registerGuestBookBlock();
 
 addBlockFilters();
 setupImageBlockExtension();
