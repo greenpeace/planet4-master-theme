@@ -27,7 +27,7 @@
     "core-js": "^3.6.5",
     "css-loader": "^3.2.0",
     "file-loader": "^6.2.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "lodash.assign": "^4.2.0",
     "mini-css-extract-plugin": "^0.7.0",
     "node-sass": "^4.14.1",
