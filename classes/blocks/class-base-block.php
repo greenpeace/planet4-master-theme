@@ -111,11 +111,15 @@ abstract class Base_Block {
 	 */
 	public static function enqueue_frontend_assets() {
 		$full_name   = static::get_full_block_name();
+		$beta_blocks = [
+			'planet4-blocks/covers',
+			'planet4-blocks/carousel-header',
+			'planet4-blocks/enform',
+		];
+
 		$to_look_for = $full_name;
-		if ( 'planet4-blocks/covers' === $full_name ) {
-			$to_look_for = 'planet4-blocks/covers-beta';
-		} elseif ( 'planet4-blocks/carousel-header' === $full_name ) {
-			$to_look_for = 'planet4-blocks/carousel-header-beta';
+		if ( in_array( $full_name, $beta_blocks, true ) ) {
+			$to_look_for .= '-beta';
 		}
 
 		if ( ! has_block( $to_look_for ) ) {

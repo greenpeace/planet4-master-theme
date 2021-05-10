@@ -118,9 +118,9 @@ export const ENFormFrontend = (attributes) => {
                       className="campaign-logo" />
                 }
                 <HeadingTag>
-                  {unescape(content_title)}
+                  {content_title ? unescape(content_title) : ''}
                 </HeadingTag>
-                <p>{unescape(content_description)}</p>
+                <p>{content_description ? unescape(content_description) : ''}</p>
               </div>
             }
 
@@ -161,13 +161,13 @@ const Signup = ({attributes, fields, onInputChange, onFormSubmit, error_msg}) =>
 
         <div className="title-and-description">
           {title &&
-            <h2>{unescape(title)}</h2>
+            <h2>{title ? unescape(title) : ''}</h2>
           }
           {is_side_style &&
             <div className="enform-extra-header-placeholder"></div>
           }
           <div className="form-description">
-            {unescape(description)}
+            {description ? unescape(description) : ''}
           </div>
         </div>
 
@@ -195,14 +195,14 @@ const Signup = ({attributes, fields, onInputChange, onFormSubmit, error_msg}) =>
                 <div className="enform-notice"></div>
                 {en_form_style == 'full-width-bg' &&
                   <div className="enform-legal">
-                    <p>{unescape(text_below_button)}</p>
+                    <p>{text_below_button ? unescape(text_below_button) : ''}</p>
                   </div>
                 }
               </div>
 
               {en_form_style !== 'full-width-bg' &&
                 <div className="enform-legal">
-                  <p>{unescape(text_below_button)}</p>
+                  <p>{text_below_button ? unescape(text_below_button) : ''}</p>
                 </div>
               }
             </div>
@@ -256,9 +256,9 @@ const submitENForm = (props) => {
   const token_endpoint = '/wp-json/planet4/v1/get-en-session-token';
   fetch(token_endpoint)
     .then(response => response.json())
-    .then(data => {
-      console.log('data', data);
-      const session_token = data.token || null;
+    .then(token_data => {
+      console.log('token_data', token_data);
+      const session_token = token_data.token || null;
       if (!session_token) {
         throw new Error('Token not found.');
       }
@@ -270,7 +270,7 @@ const submitENForm = (props) => {
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
-          'ens-auth-token': sessionToken
+          'ens-auth-token': session_token
         },
         body: JSON.stringify(data),
       });

@@ -12,6 +12,7 @@ use WP_REST_Request;
 use WP_REST_Server;
 use P4GBKS\Blocks\Spreadsheet;
 use P4GBKS\Blocks\Articles;
+use P4GBKS\Blocks\ENForm;
 use P4GBKS\Blocks\SplitTwoColumns;
 use P4GBKS\Blocks\Happypoint;
 use P4GBKS\Blocks\Gallery;
@@ -330,6 +331,23 @@ class Rest_Api {
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => static function ( WP_REST_Request $request ) {
 						return new \WP_REST_Response( json_decode( get_option( 'planet4_themes', '[]' ) ), 200 );
+					},
+				],
+			]
+		);
+
+		register_rest_route(
+			self::REST_NAMESPACE,
+			'/get-en-session-token',
+			[
+				[
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => static function () {
+						$token = ENForm::get_session_token();
+						return rest_ensure_response( [ 'token' => $token ] );
+					},
+					'permission_callback' => static function () {
+						return true;
 					},
 				],
 			]

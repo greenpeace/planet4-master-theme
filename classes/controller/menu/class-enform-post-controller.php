@@ -129,14 +129,30 @@ class Enform_Post_Controller extends Controller {
 				// hide it from menu, as we are using custom submenu pages.
 				'show_in_menu'        => false,
 				'supports'            => [ 'title' ],
+				'show_in_rest'        => true,
 			]
 		);
 
 		$custom_meta_args = [
-			'type'   => 'string',
-			'single' => true,
+			'type'         => 'string',
+			'single'       => true,
+			'show_in_rest' => true,
 		];
 		register_meta( self::POST_TYPE, self::FIELDS_META, $custom_meta_args );
+
+		\register_rest_field(
+			self::POST_TYPE,
+			self::FIELDS_META,
+			[
+				'get_callback' => function ( $obj ) {
+					return \get_post_meta(
+						(int) $obj['id'],
+						self::FIELDS_META,
+						true
+					);
+				},
+			]
+		);
 	}
 
 	/**

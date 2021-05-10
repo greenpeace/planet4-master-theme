@@ -8,7 +8,7 @@ import { useState } from '@wordpress/element';
 const { __ } = wp.i18n;
 
 export const ENFormInPlaceEdit = ({attributes, setAttributes}) => {
-  const { 
+  const {
     en_form_style,
   } = attributes;
 
@@ -62,7 +62,7 @@ export const ENFormInPlaceEdit = ({attributes, setAttributes}) => {
       />
     </BlockControls>
 
-    <section 
+    <section
       className={`block enform-wrap enform-${en_form_style} ${section_style}`}
     >
       {style_has_image &&
@@ -89,7 +89,7 @@ export const ENFormInPlaceEdit = ({attributes, setAttributes}) => {
 }
 
 const BackgroundImage = ({attributes}) => {
-  const { 
+  const {
     background,
     background_image_src,
     background_image_srcset,
@@ -115,7 +115,7 @@ const BackgroundImage = ({attributes}) => {
 }
 
 const SideContent = ({attributes, setAttributes}) => {
-  const { 
+  const {
     content_title,
     content_description,
     content_title_size,
@@ -165,7 +165,7 @@ const SideContent = ({attributes, setAttributes}) => {
         onChange={(desc) => { setAttributes({content_description: desc}) }}
         placeholder={__('Enter description', 'planet4-blocks-backend')}
         keepPlaceholderOnFocus={true}
-        allowedFormats={['core/bold', 'core/italic', 'core/link']}
+        allowedFormats={[]}
         characterLimit={400}
       />
     </div>
@@ -174,7 +174,7 @@ const SideContent = ({attributes, setAttributes}) => {
 };
 
 const Signup = ({attributes, setAttributes}) => {
-  const { 
+  const {
     en_form_style,
     title,
     description,
@@ -196,7 +196,7 @@ const Signup = ({attributes, setAttributes}) => {
       <div id="enform-content">
 
         <div className="title-and-description">
-          <RichText 
+          <RichText
             tagName="h2"
             value={title}
             onChange={(title) => { setAttributes({title}) }}
@@ -210,7 +210,7 @@ const Signup = ({attributes, setAttributes}) => {
           {en_form_style === 'side-style' &&
             <div className={'enform-extra-header-placeholder'}></div>
           }
- 
+
           <RichText
             tagName="div"
             value={description}
@@ -218,7 +218,7 @@ const Signup = ({attributes, setAttributes}) => {
             onChange={(description) => { setAttributes({description}) }}
             placeholder={__('Enter form description', 'planet4-blocks-backend')}
             keepPlaceholderOnFocus={true}
-            allowedFormats={['core/bold', 'core/italic', 'core/link']}
+            allowedFormats={[]}
             characterLimit={400}
           />
         </div>
@@ -233,7 +233,7 @@ const Signup = ({attributes, setAttributes}) => {
 }
 
 const ThankYou = ({attributes, setAttributes}) => {
-  const { 
+  const {
     en_form_style,
     thankyou_title,
     thankyou_subtitle,
@@ -245,7 +245,7 @@ const ThankYou = ({attributes, setAttributes}) => {
     social,
   } = attributes;
 
-  
+
   const toAttribute = (attributeName) => {
     return value => {
       setAttributes({ [attributeName]: value });
@@ -289,7 +289,7 @@ const ThankYou = ({attributes, setAttributes}) => {
           onChange={toAttribute('thankyou_subtitle')}
           placeholder={__('Enter description', 'planet4-blocks-backend')}
           keepPlaceholderOnFocus={true}
-          allowedFormats={['core/bold', 'core/italic', 'core/link']}
+          allowedFormats={[]}
           characterLimit={400}
           multiline="false"
         />
@@ -329,7 +329,7 @@ const ThankYou = ({attributes, setAttributes}) => {
                   multiline="false"
                 />
               </div>
-              
+
               <div className="form-group">
                 <RichText
                   tagName="a"
@@ -380,12 +380,12 @@ const FormContent = ({attributes, setAttributes, fields}) => {
           />
           {fwbg &&
             <div className="enform-legal">
-              <RichText 
+              <RichText
                 tagName="p"
                 value={text_below_button}
                 placeholder={__('Text below button', 'planet4-blocks-backend')}
                 keepPlaceholderOnFocus={true}
-                allowedFormats={['core/bold', 'core/italic', 'core/link']}
+                allowedFormats={[]}
                 onChange={(text) => {setAttributes({text_below_button: text})}}
               />
             </div>
@@ -393,12 +393,12 @@ const FormContent = ({attributes, setAttributes, fields}) => {
         </div>
         {! fwbg &&
           <div className="enform-legal">
-            <RichText 
+            <RichText
               tagName="p"
               value={text_below_button}
               placeholder={__('Text below button', 'planet4-blocks-backend')}
               keepPlaceholderOnFocus={true}
-              allowedFormats={['core/bold', 'core/italic', 'core/link']}
+              allowedFormats={[]}
               onChange={(text) => {setAttributes({text_below_button: text})}}
             />
           </div>

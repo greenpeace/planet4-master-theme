@@ -1,5 +1,3 @@
-import { SelectControl } from '@wordpress/components';
-
 export const CountrySelector = (attributes) => {
   const {
     name = 'country-selector',

@@ -2,11 +2,11 @@
 
 $pswp__show-hide-transition-duration: 333ms !default;
 $pswp__controls-transition-duration: 333ms !default;
-$pswp__background-color: rgba(0 ,0 ,0 ,.85) !default;
+$pswp__background-color: rgba(0, 0, 0, .85) !default;
 $pswp__placeholder-color: #111 !default;
 $pswp__box-sizing-border-box: true !default; // disable .pswp * { box-sizing:border-box } (in case you already have it in your site css)
-$pswp__root-z-index: 150000 !default; 
-$pswp__assets-path: '../../public/images/vendors/photoswipe/' !default; // path to skin assets folder (preloader, PNG and SVG sprite)
+$pswp__root-z-index: 150000 !default;
+$pswp__assets-path: "../../public/images/vendors/photoswipe/" !default; // path to skin assets folder (preloader, PNG and SVG sprite)
 $pswp__error-text-color: #111 !default; // "Image not loaded" text color
 $pswp__include-minimal-style: true !default;
 

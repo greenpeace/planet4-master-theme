@@ -1,6 +1,6 @@
-import {ENFormFrontend as Frontend} from './ENFormFrontend';
-import {ENFormInPlaceEdit as InPlaceEdit} from './ENFormInPlaceEdit';
-import {ENFormSettings as SidebarSettings} from './ENFormSettings';
+import {ENFormFrontend} from './ENFormFrontend';
+import {ENFormInPlaceEdit} from './ENFormInPlaceEdit';
+import {ENFormSettings} from './ENFormSettings';
 
 import { useSelect } from '@wordpress/data';
 
@@ -22,12 +22,12 @@ export const ENFormEditor = ({ attributes, setAttributes, isSelected }) => {
 
   return (
     isSelected
-      ? renderEdit({attributes}, setAttributes) 
+      ? renderEdit({attributes}, setAttributes)
       : renderView({attributes})
   );
 }
 
-const renderView = ({attributes}) => <Frontend {...attributes} />
+const renderView = ({attributes}) => <ENFormFrontend {...attributes} />
 
 const renderEdit = ({attributes}, setAttributes) => {
   const charLimit = { title: 40, description: 400 };
@@ -46,8 +46,8 @@ const renderEdit = ({attributes}, setAttributes) => {
 
   return (
     <>
-      <InPlaceEdit {...params} />
-      <SidebarSettings  {...params} />
+      <ENFormInPlaceEdit {...params} />
+      <ENFormSettings  {...params} />
     </>
   );
 }

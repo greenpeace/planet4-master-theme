@@ -222,24 +222,6 @@
   vertical-align: middle;
 }
 
-body.wp-admin {
-  .enform-side-style,
-  .enform-full-width-bg {
-    pointer-events: none;
-    width: 100%;
-
-    .container {
-      z-index: 1;
-    }
-  }
-
-  .enform .form-container {
-    input {
-      box-sizing: border-box;
-    }
-  }
-}
-
 .thankyou {
   position: relative;
   min-height: inherit;
