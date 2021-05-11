@@ -18,11 +18,6 @@ export const HappypointFrontend = ({
     engaging_network_id
   } = imageData;
 
-  let url = '';
-  if (mailing_list_iframe || iframe_url) {
-    url = iframe_url || engaging_network_id;
-  }
-
   const imgProps = {
     src: background_src || default_image,
     style: {
@@ -37,6 +32,8 @@ export const HappypointFrontend = ({
     imgProps.sizes = background_sizes || null;
   }
 
+  const url = iframe_url || engaging_network_id;
+
   return (
     <section className="block block-footer block-wide happy-point-block-wrap">
       <picture>
@@ -44,7 +41,7 @@ export const HappypointFrontend = ({
       </picture>
       <div className="container">
         <div className="row justify-content-md-center">
-          {(mailing_list_iframe || url) &&
+          {mailing_list_iframe && url && (
             <div className="col-md-10 happy-point" id="happy-point" data-src={url}>
               <iframe
                 src={url}
@@ -56,7 +53,7 @@ export const HappypointFrontend = ({
                 loading="lazy"
               />
             </div>
-          }
+          )}
         </div>
       </div>
     </section>
