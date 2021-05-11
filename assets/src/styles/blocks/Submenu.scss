@@ -114,27 +114,3 @@ div[data-render="planet4-blocks/submenu"] {
     }
   }
 }
-
-.back-top,
-div.page-template > .back-top {
-  background-image: url("../../public/images/arrow-up.svg");
-  background-repeat: no-repeat;
-  position: fixed;
-  height: 44px;
-  width: 44px;
-  left: calc(85% - 26px);
-  bottom: 50px;
-  background-color: $dark-blue;
-  text-align: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-  z-index: 1000;
-
-  @include x-large-and-up {
-    height: 60px;
-    width: 60px;
-  }
-
-  &:hover {
-    text-decoration: none;
-  }
-}
