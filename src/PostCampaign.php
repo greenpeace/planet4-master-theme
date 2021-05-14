@@ -50,6 +50,44 @@ class PostCampaign {
 
 		add_filter( 'get_user_option_edit_campaign_per_page', [ $this, 'set_default_items_per_page' ], 10, 3 );
 
+		add_filter(
+			'manage_campaign_posts_columns',
+			function ( $columns ) {
+				return array_merge( $columns, [ 'theme' => __( 'Theme', 'planet4-master-theme-backend' ) ] );
+			}
+		);
+
+		add_action(
+			'manage_campaign_posts_custom_column',
+			function ( $column_key, $post_id ) {
+				echo esc_html( get_post_meta( $post_id, 'theme', true ) );
+			},
+			10,
+			2
+		);
+		add_filter(
+			'manage_edit-campaign_sortable_columns',
+			function ( $columns ) {
+				$columns['theme'] = 'theme';
+
+				return $columns;
+			}
+		);
+		add_action(
+			'pre_get_posts',
+			function ( $query ) {
+				if ( ! is_admin() ) {
+					return;
+				}
+
+				$orderby = $query->get( 'orderby' );
+
+				if ( $orderby === 'theme' ) {
+					$query->set( 'meta_key', 'theme' );
+					$query->set( 'orderby', 'meta_value' );
+				}
+			}
+		);
 	}
 
 	/**
