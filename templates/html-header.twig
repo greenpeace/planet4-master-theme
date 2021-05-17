@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html {{ fn('language_attributes', 'html') }}>
+<html {{ fn('language_attributes', 'html') }} data-base="{% if constant('WP_HOME') is defined %}{{ constant('WP_HOME') }}{% endif %}">
 <head>
 	<meta charset="{{ site.charset }}">
 	{% include 'blocks/title.twig' %}
