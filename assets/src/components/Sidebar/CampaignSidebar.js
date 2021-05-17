@@ -7,7 +7,7 @@ import { savePreviewMeta } from '../../saveMetaToPreview';
 import { PostParentLink } from './PostParentLink';
 import { LegacyThemeSettings } from './LegacyThemeSettings';
 
-const loadTheme = async( value ) => {
+const loadTheme = async (value) => {
   if ( value === '' || !value ) {
     value = 'default';
   }
@@ -44,6 +44,8 @@ export class CampaignSidebar extends Component {
     const prevTheme = this.state.theme;
     this.setState({ theme });
 
+    // Loop through the new theme's fields, and check whether any of the already chosen options has a value that is not
+    // available anymore.
     const invalidatedFields = prevTheme.fields.filter( field => {
 
       const resolvedField = resolveField(theme, field.id, meta);
@@ -58,7 +60,13 @@ export class CampaignSidebar extends Component {
 
     } ).map( field => resolveField( theme, field.id, meta ) )
 
+    // Set each of the invalidated fields to their default value, or unset them.
     return invalidatedFields.reduce( ( result, field ) => {
+      // Adding this check to prevent a crash. Probably the previous code can be rewritten to not produce null, but
+      // that would probably cascade into many changes and this is code we'll probably remove soon.
+      if (!field) {
+        return result;
+      }
       return {
         ...result,
         [ field.id ]: field.default || null,
@@ -69,7 +77,7 @@ export class CampaignSidebar extends Component {
   }
 
   componentDidMount() {
-    wp.data.subscribe( async() => {
+    wp.data.subscribe(async () => {
       const meta = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'meta' );
 
       if (!meta) {
