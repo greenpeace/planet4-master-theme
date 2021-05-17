@@ -11,6 +11,7 @@ namespace P4GBKS;
 use P4\MasterTheme\Features;
 use P4\MasterTheme\MigrationLog;
 use P4\MasterTheme\Migrations\M001EnableEnFormFeature;
+use P4\MasterTheme\PostCampaign;
 use P4GBKS\Controllers;
 use P4GBKS\Views\View;
 use WP_CLI;
@@ -463,7 +464,9 @@ final class Loader {
 
 		$campaign_theme = $post->theme ?? $post->custom['_campaign_page_template'] ?? null;
 
-		if ( ! is_string( $campaign_theme ) || empty( $campaign_theme ) ) {
+		if ( ! is_string( $campaign_theme ) || empty( $campaign_theme )
+			|| ! in_array( $campaign_theme, PostCampaign::LEGACY_THEMES, true )
+		) {
 			return;
 		}
 

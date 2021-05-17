@@ -75,7 +75,7 @@ export const LegacyThemeSettings = props => {
     <div className="components-panel__body is-opened">
       <ThemeSelect
         metaKey='theme'
-        label={ __( 'Theme', 'planet4-blocks-backend' ) }
+        label={ __( 'Legacy Theme', 'planet4-blocks-backend' ) }
         options={ themeOptions }
         getNewMeta={ handleThemeSwitch }
       />
