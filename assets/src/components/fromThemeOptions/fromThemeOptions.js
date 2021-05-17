@@ -4,7 +4,11 @@ function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }
 
-export const getFieldFromTheme = ( theme, fieldName, meta ) => {
+// Find the variant of a field that should be used, based on the other selected theme options (stored as post "meta").
+// Certain fields can have multiple sets of options, depending on which value is chosen for another field. For example,
+// we have a "default" and a "light" footer theme. Each of these results in a separate set of footer link colors.
+// See https://github.com/greenpeace/planet4-master-theme/blob/1905eee9f94ef1ac64aaed1570ea4150671684c1/campaign_themes/plastic.json#L176-L187
+export const resolveField = (theme, fieldName, meta ) => {
   if ( !theme ) {
     return null;
   }
@@ -98,7 +102,7 @@ export function fromThemeOptions( WrappedComponent ) {
 
       const meta = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'meta' );
 
-      const field = getFieldFromTheme( theme, ownProps.metaKey, meta );
+      const field = resolveField( theme, ownProps.metaKey, meta );
 
       if ( !field || !field.options ) {
         return null;
