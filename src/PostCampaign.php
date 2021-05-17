@@ -17,6 +17,7 @@ class PostCampaign {
 	public const META_FIELDS = [
 		'p4_campaign_name',
 		'theme',
+		'new_theme',
 		'campaign_logo',
 		'campaign_logo_color',
 		'campaign_nav_type',
