@@ -423,6 +423,13 @@ class PostCampaign {
 	 * @return array The values that will be used for the css variables.
 	 */
 	public static function css_vars( array $meta ): array {
+		$new_theme = $meta['new_theme'] ?? null;
+		if ( !empty($new_theme) ) {
+			$themes = json_decode( get_option( 'planet4_themes', '[]' ), true );
+
+			return $themes[ $new_theme ] ?? [];
+		}
+
 		$theme = self::get_theme( $meta );
 
 		// TODO: Use wp_safe_remote_get?
