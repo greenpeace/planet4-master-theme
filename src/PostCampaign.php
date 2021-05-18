@@ -17,7 +17,6 @@ class PostCampaign {
 	public const META_FIELDS = [
 		'p4_campaign_name',
 		'theme',
-		'new_theme',
 		'campaign_logo',
 		'campaign_logo_color',
 		'campaign_nav_type',
@@ -417,18 +416,32 @@ class PostCampaign {
 		return $defaults;
 	}
 
+	public static function get_legacy_themes(): array {
+		return [
+			'default',
+			'antarctic',
+			'arctic',
+			'climate',
+			'oceans',
+			'oil',
+			'plastics',
+			'forest',
+		];
+	}
+
 	/**
 	 * Determine the css variables for a certain post.
 	 *
 	 * @param array $meta The meta containing the variable values.
+	 *
 	 * @return array The values that will be used for the css variables.
 	 */
 	public static function css_vars( array $meta ): array {
-		$new_theme = $meta['new_theme'] ?? null;
-		if ( !empty($new_theme) ) {
+		$is_new_theme = $meta['theme'] && ! in_array( $meta['theme'], self::get_legacy_themes(), true );
+		if ( $is_new_theme ) {
 			$themes = json_decode( get_option( 'planet4_themes', '[]' ), true );
 
-			return $themes[ $new_theme ] ?? [];
+			return $themes[ $meta['theme'] ] ?? [];
 		}
 
 		$theme = self::get_theme( $meta );
