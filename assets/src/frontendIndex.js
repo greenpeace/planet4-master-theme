@@ -5,7 +5,6 @@ import { CookiesFrontend } from './blocks/Cookies/CookiesFrontend';
 import { SplittwocolumnsFrontend } from "./blocks/Splittwocolumns/SplittwocolumnsFrontend";
 import { HappypointFrontend } from './blocks/Happypoint/HappypointFrontend';
 import { GalleryFrontend } from './blocks/Gallery/GalleryFrontend';
-import { TimelineFrontend } from './blocks/Timeline/TimelineFrontend';
 import { SubmenuFrontend } from './blocks/Submenu/SubmenuFrontend';
 import { MediaFrontend } from './blocks/Media/MediaFrontend';
 import { ColumnsFrontend } from './blocks/Columns/ColumnsFrontend';
@@ -22,7 +21,6 @@ const COMPONENTS = {
   'planet4-blocks/split-two-columns': SplittwocolumnsFrontend,
   'planet4-blocks/happypoint': HappypointFrontend,
   'planet4-blocks/gallery': GalleryFrontend,
-  'planet4-blocks/timeline': TimelineFrontend,
   'planet4-blocks/submenu': SubmenuFrontend,
   'planet4-blocks/media-video': MediaFrontend,
   'planet4-blocks/columns': ColumnsFrontend,
@@ -32,6 +30,10 @@ const COMPONENTS = {
 document.querySelectorAll( `[data-render]` ).forEach(
   blockNode => {
     const blockName = blockNode.dataset.render;
+    if (!COMPONENTS[ blockName ]) {
+      return;
+    }
+
     const BlockFrontend = COMPONENTS[ blockName ];
     if (!BlockFrontend) {
       return;
