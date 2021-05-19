@@ -1,4 +1,4 @@
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 
 /**
  * Takes an array of refs to the slides
@@ -11,7 +11,7 @@ import { useState } from '@wordpress/element';
  * @param {Array} slidesRef
  * @param {Object} options
  */
-export const useSlides = (slidesRef, lastSlide, options = {
+export const useSlides = (slidesRef, lastSlide, containerRef, options = {
   // Following Bootstrap's approach for RTL:
   // https://getbootstrap.com/docs/5.0/getting-started/rtl/#approach
   // Note: in non-directional transitions (e.g.: fade out),
@@ -26,10 +26,21 @@ export const useSlides = (slidesRef, lastSlide, options = {
   }
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [autoplayPaused, setAutoplayPaused] = useState(false);
+  const [autoplayCancelled, setAutoplayCancelled] = useState(false);
   const [sliding, setSliding] = useState(false);
 
-  const goToNextSlide = () => goToSlide(currentSlide === lastSlide ? 0 : currentSlide + 1);
-  const goToPrevSlide = () => goToSlide(currentSlide === 0 ? lastSlide : currentSlide - 1);
+  const goToNextSlide = (autoplay = false) => {
+    goToSlide(currentSlide === lastSlide ? 0 : currentSlide + 1);
+    if (!autoplay) {
+      setAutoplayCancelled(true);
+    }
+  };
+
+  const goToPrevSlide = () => {
+    goToSlide(currentSlide === 0 ? lastSlide : currentSlide - 1);
+    setAutoplayCancelled(true);
+  };
 
   const getOrder = (currentSlide, newSlide, lastSlide) => {
     let order = newSlide < currentSlide ? 'prev' : 'next';
@@ -39,6 +50,27 @@ export const useSlides = (slidesRef, lastSlide, options = {
       order = 'next';
     }
     return order;
+  };
+
+  const getSlideHeight = slideRef => {
+    return `${slideRef.querySelector('.carousel-item-mask .background-holder').offsetHeight + slideRef.querySelector('.carousel-caption').offsetHeight}px`;
+  };
+
+  const setCarouselHeight = slideRef => {
+    if (!containerRef || !containerRef.current) {
+      return;
+    }
+
+    const carouselElement = containerRef.current;
+    if (window.matchMedia('(max-width: 991px)').matches) {
+      carouselElement.querySelectorAll('.carousel-inner, .carousel-item-mask').forEach(container =>
+        container.style.height = getSlideHeight(slideRef)
+      );
+    } else {
+      carouselElement.querySelectorAll('.carousel-inner, .carousel-item-mask').forEach(container =>
+        container.style.height = null
+      );
+    }
   };
 
   const goToSlide = (newSlide, forceCurrentSlide = false) => {
@@ -56,6 +88,8 @@ export const useSlides = (slidesRef, lastSlide, options = {
       const order = getOrder(currentSlide, newSlide, lastSlide);
       const enterTransitionClass = options.enterTransitionClasses[order];
       const exitTransitionClass = options.exitTransitionClasses[order];
+
+      setCarouselHeight(nextElement);
 
       activeElement.classList.add(exitTransitionClass);
       nextElement.classList.add(enterTransitionClass);
@@ -79,11 +113,28 @@ export const useSlides = (slidesRef, lastSlide, options = {
     }
   };
 
+  useEffect(() => {
+    if (!containerRef || !containerRef.current) {
+      return;
+    }
+
+    containerRef.current.addEventListener('mouseenter', () => setAutoplayPaused(true));
+    containerRef.current.addEventListener('mouseleave', () => setAutoplayPaused(false));
+
+    return () => {
+      containerRef.current.removeEventListener('mouseenter', () => setAutoplayPaused(true));
+      containerRef.current.removeEventListener('mouseleave', () => setAutoplayPaused(false));
+    };
+  }, []);
+
   return {
     currentSlide,
     sliding,
     goToSlide,
     goToNextSlide,
     goToPrevSlide,
+    setCarouselHeight,
+    autoplayPaused,
+    autoplayCancelled,
   };
 };

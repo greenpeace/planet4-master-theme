@@ -110,7 +110,6 @@ $medium-image-height: 600px;
     height: $mobile-image-height;
     position: absolute;
     top: 0;
-    background-size: cover;
     opacity: 0;
     z-index: 3500;
 
@@ -134,7 +133,7 @@ $medium-image-height: 600px;
       }
 
       .carousel-caption .main-header {
-        h1, h2, h3 {
+        h1 {
           animation-name: initial-header-animation;
           animation-duration: 1s;
           animation-timing-function: ease-in-out;
@@ -172,7 +171,9 @@ $medium-image-height: 600px;
       z-index: -1;
 
       img {
-        object-fit: none;
+        height: 100%;
+        object-fit: cover;
+        width: 100vw;
       }
 
       @include medium-and-up {
@@ -208,7 +209,7 @@ $medium-image-height: 600px;
       }
 
       .carousel-caption .main-header {
-        h1, h2, h3, p {
+        h1, p {
           transform: translateX(0);
           transition: unset;
         }
@@ -272,7 +273,7 @@ $medium-image-height: 600px;
       position: relative;
 
       .carousel-caption .main-header .carousel-captions-wrapper {
-        h1, h2, h3, p {
+        h1, p {
           animation-name: texts-from-start-animation;
           animation-duration: $slide-transition-speed;
           animation-timing-function: ease-in-out;
@@ -292,7 +293,7 @@ $medium-image-height: 600px;
       position: relative;
 
       .carousel-caption .main-header .carousel-captions-wrapper {
-        h1, h2, h3, p {
+        h1, p {
           animation-name: texts-from-end-animation;
           animation-duration: $slide-transition-speed;
           animation-timing-function: ease-in-out;
@@ -308,9 +309,9 @@ $medium-image-height: 600px;
     .carousel-caption {
       display: block;
       text-align: left;
+      position: relative;
+      top: 0;
       left: 0;
-      right: 0;
-      top: $mobile-image-height;
       padding-top: 24px;
       padding-bottom: 24px;
       padding-left: 24px;
@@ -319,7 +320,6 @@ $medium-image-height: 600px;
       height: auto;
 
       @include medium-and-up {
-        top: $medium-image-height;
         padding-top: $n40;
         padding-left: $n40;
         padding-right: $n40;
@@ -327,12 +327,10 @@ $medium-image-height: 600px;
 
       @include large-and-up {
         display: block;
-        top: 0;
-        left: 0;
-        padding: 0 0 $n60 0;
-        padding-bottom: 0;
+        padding: 0;
         background: none;
         height: 100%;
+        position: absolute;
       }
 
       .carousel-captions-wrapper {
@@ -346,10 +344,6 @@ $medium-image-height: 600px;
           width: #{480 + ($text-slide-offset * 2)};
         }
         overflow: hidden;
-        margin-left: -$text-slide-offset;
-        padding-left: $text-slide-offset;
-        margin-right: -$text-slide-offset;
-        padding-right: $text-slide-offset;
       }
 
       .caption-overlay {
@@ -382,41 +376,28 @@ $medium-image-height: 600px;
         height: 100%;
 
         @include large-and-up {
-          padding-left: $n30;
-          padding-right: 0;
+          padding-inline-start: $n80;
+          padding-inline-end: 0;
           padding-top: 180px;
           padding-bottom: 32px;
-
-          html[dir="rtl"] & {
-            text-align: right;
-            padding-right: $n30;
-          }
         }
 
         @include x-large-and-up {
-          padding-left: 0;
-          padding-right: 0;
-          padding-top: 180px;
           padding-bottom: 54px;
-        }
-
-        h1, h2, h3 {
-          width: 100%;
-          font-weight: bold;
-          color: $grey-80;
-          padding-left: 0;
-          transition: unset;
-          transform: translateX($text-slide-offset);
+          padding-inline-start: 110px;
         }
 
         h1 {
+          width: 100%;
+          color: $grey-80;
+          transition: unset;
+          transform: translateX($text-slide-offset);
           font-size: 1.62rem;
           margin-bottom: 18px;
           line-height: 1.2;
 
           html[dir="rtl"] & {
             text-align: right;
-            padding-right: 0;
           }
 
           @include small-and-up {
@@ -445,63 +426,6 @@ $medium-image-height: 600px;
           }
         }
 
-        h2 {
-          font-size: $font-size-lg;
-          margin-bottom: 10px;
-          line-height: 1.2;
-          transform: translateX($text-slide-offset);
-
-          html[dir="rtl"] & {
-            text-align: right;
-            padding-right: 0;
-          }
-
-          @include medium-and-up {
-            font-size: $font-size-xl;
-            margin-bottom: 18px;
-          }
-
-          @include large-and-up {
-            line-height: 1.2;
-            color: $white;
-            max-width: 100%;
-            width: 100%;
-          }
-
-          @include x-large-and-up {
-            font-size: $font-size-xxl;
-            margin-bottom: 24px;
-          }
-        }
-
-        h3 {
-          font-size: $font-size-md;
-          margin-bottom: 8px;
-          line-height: 1.2;
-
-          html[dir="rtl"] & {
-            text-align: right;
-            padding-right: 0;
-          }
-
-          @include medium-and-up {
-            font-size: $font-size-lg;
-            margin-bottom: 12px;
-          }
-
-          @include large-and-up {
-            line-height: 1.2;
-            color: $white;
-            max-width: 100%;
-            width: 100%;
-          }
-
-          @include x-large-and-up {
-            font-size: $font-size-xl;
-            margin-bottom: 18px;
-          }
-        }
-
         p {
           display: block;
           color: $grey-80;
@@ -510,14 +434,12 @@ $medium-image-height: 600px;
           font-weight: 500;
           line-height: 22px;
           width: 100%;
-          text-align: left;
-          padding-left: 0;
+          padding-inline-start: 0;
           margin-bottom: 24px;
           max-width: 100%;
 
           html[dir="rtl"] & {
             text-align: right;
-            padding-right: 0;
           }
 
           transform: translateX($text-slide-offset);

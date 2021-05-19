@@ -26,8 +26,6 @@ export const CarouselHeaderStaticContent = ({
     {slides.map((slide, index) => (
       <Slide
         key={index}
-        slide={slide}
-        index={index}
         active={currentSlide == index}
         ref={element => slidesRef ? slidesRef.current[index] = element : null}
       >
