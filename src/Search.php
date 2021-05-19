@@ -112,10 +112,6 @@ abstract class Search {
 	 * Add filters that are needed by both the initial page load and subsequent ajax page loads.
 	 */
 	public static function add_general_filters(): void {
-		if ( ! is_plugin_active( 'elasticpress' ) ) {
-			return;
-		}
-
 		// Call apply filters to catch issue in WPML's ElasticPress integration, which uses the wrong filter name.
 		add_filter(
 			'ep_formatted_args',
@@ -390,7 +386,7 @@ abstract class Search {
 			} else {
 				$template_post                = $post;
 				$template_post->id            = $post->ID;
-				$template_post->link          = $post->permalink ?? get_permalink( $post->ID );
+				$template_post->link          = $post->permalink;
 				$template_post->preview       = $post->excerpt;
 				$thumbnail                    = get_the_post_thumbnail_url( $post->ID, 'thumbnail' );
 				$template_post->thumbnail_alt = get_the_post_thumbnail_caption( $post->ID );
