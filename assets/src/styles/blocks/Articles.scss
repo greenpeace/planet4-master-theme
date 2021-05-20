@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-top: $space-lg;
 
   --block-articles--article-- {
+    margin-top: $space-lg;
     background-color: transparentize($white, .2);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 
@@ -95,20 +95,22 @@
   margin: 4px 0;
 }
 
-.article-list-item-meta {
-  --block-articles--article--meta-- {
-    color: $grey-60;
-    font-family: $roboto;
-    font-style: italic;
-    font-size: 0.875rem;
-    font-weight: 300;
-
-    @include large-and-up {
-      font-size: 0.9375rem;
-      width: 80%;
-    }
-  }
+.article-list-item-meta --block-articles--article--meta-- {
+  color: $grey-60;
+  font-family: $roboto;
+  font-style: italic;
+  font-size: 0.875rem;
+  font-weight: 300;
   margin: 0;
+
+  &:hover {
+    color: $grey-60;
+  }
+
+  @include large-and-up {
+    font-size: 0.9375rem;
+    width: 80%;
+  }
 }
 
 .article-list-item-bullet {
@@ -119,10 +121,10 @@
 .article-list-item-content {
   --block-articles--article--content-- {
     font-size: inherit;
+    width: 80%;
   }
   display: none;
   margin: $space-xs 0 0;
-  width: 80%;
 
   @include large-and-up {
     display: block;
@@ -164,4 +166,8 @@
 
 .article-load-more {
   margin-top: $space-lg;
+}
+
+.article-list-item-tags .tag-wrap --block-articles--article--tags-- {
+  display: inline-block;
 }
