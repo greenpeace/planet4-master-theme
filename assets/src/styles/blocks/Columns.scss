@@ -134,13 +134,15 @@
           margin-bottom: 0;
         }
 
-        a {
+        a --block-columns--paragraph-- {
           font-family: $lora;
         }
       }
 
       a {
-        font-family: $roboto;
+        --block-columns--link-- {
+          font-family: $roboto;
+        }
 
         &.call-to-action-link {
           position: relative;
@@ -183,6 +185,10 @@
       }
 
       .step-number {
+        --block-columns--step-number-- {
+          background: $grey;
+          color: $white;
+        }
         float: left;
         display: block;
         margin-right: 20px;
@@ -192,9 +198,7 @@
         line-height: 74px;
         text-align: center;
         font-size: 2.75rem;
-        background: $grey;
         border-radius: 50%;
-        color: $white;
         opacity: 0.7;
         text-transform: uppercase;
         font-weight: 500;
@@ -204,6 +208,9 @@
         }
 
         @include large-and-up {
+          --block-columns--step-number-- {
+            background: $dark-blue;
+          }
           float: none;
           width: 126px;
           height: 126px;
@@ -211,7 +218,6 @@
           line-height: 114px;
           font-size: 4.375rem;
           position: relative;
-          background-color: $dark-blue;
           opacity: 1;
         }
 
@@ -219,11 +225,13 @@
           font-family: $roboto;
 
           @include large-and-up {
+            --block-columns--step-number--inner-- {
+              background: $dark-blue;
+              border-color: $white;
+              border-width: 2px;
+            }
             position: absolute;
-            background-color: $dark-blue;
-            border-color: $white;
             border-style: solid;
-            border-width: 2px;
             border-radius: 50%;
             right: 5px;
             left: 5px;
@@ -234,7 +242,7 @@
       }
 
       .step-info {
-        h5 > a {
+        h5 > a _-- {
           color: $grey-80;
         }
 
@@ -271,17 +279,19 @@
         box-shadow: none;
 
         .card-header {
+          --block-columns--card-header-- {
+            font-weight: 400;
+            font-size: $font-size-xs;
+            font-family: $roboto;
+            background: $dark-blue;
+            color: $white;
+          }
           display: block;
           cursor: pointer;
-          font-weight: 400;
-          font-size: $font-size-xs;
-          font-family: $roboto;
           text-decoration: none;
           padding: $n10 $n10 $n5 $n10;
           margin-bottom: $space-sm;
-          background: $dark-blue;
           border: none;
-          color: $white;
 
           &:hover {
             text-decoration: none;
