@@ -60,13 +60,14 @@ export class SpreadsheetEditor extends Component {
   }
 
   renderEdit() {
+
     const {__} = wp.i18n;
 
     const { attributes, setAttributes } = this.props;
 
     const toCssVariables = ( value ) => {
       setAttributes( {
-        css_variables: colors_variables_map[value]
+        css_variables: colors_variables_map[value] ?? {}
       } );
     };
 

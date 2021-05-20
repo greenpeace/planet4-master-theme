@@ -47,6 +47,7 @@ module.exports = {
     ...entryPoints('Accordion'),
     ...entryPoints('Covers'),
     ...entryPoints('CarouselHeader'),
+    ...entryPoints('Spreadsheet'),
     ...entryPoints('Timeline'),
   },
   output: {

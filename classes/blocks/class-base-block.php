@@ -130,11 +130,16 @@ abstract class Base_Block {
 	 * Editor script
 	 */
 	public static function enqueue_editor_script(): void {
+		$filepath = static::get_dir_path() . 'EditorScript.js';
+		if ( ! file_exists( $filepath ) ) {
+			return;
+		}
+
 		wp_enqueue_script(
 			static::get_full_block_name() . '-editor-script',
 			static::get_url_path() . 'EditorScript.js',
 			'planet4-blocks-editor-script',
-			\P4GBKS\Loader::file_ver( static::get_dir_path() . 'EditorScript.js' ),
+			\P4GBKS\Loader::file_ver( $filepath ),
 			true
 		);
 	}
@@ -143,11 +148,16 @@ abstract class Base_Block {
 	 * Editor style
 	 */
 	public static function enqueue_editor_style(): void {
+		$filepath = static::get_dir_path() . 'EditorStyle.min.css';
+		if ( ! file_exists( $filepath ) ) {
+			return;
+		}
+
 		wp_enqueue_style(
 			static::get_full_block_name() . '-editor-style',
 			static::get_url_path() . 'EditorStyle.min.css',
 			[],
-			\P4GBKS\Loader::file_ver( static::get_dir_path() . 'EditorStyle.min.css' ),
+			\P4GBKS\Loader::file_ver( $filepath ),
 		);
 	}
 
@@ -155,11 +165,16 @@ abstract class Base_Block {
 	 * Frontend script
 	 */
 	public static function enqueue_frontend_script(): void {
+		$filepath = static::get_dir_path() . 'Script.js';
+		if ( ! file_exists( $filepath ) ) {
+			return;
+		}
+
 		wp_enqueue_script(
 			static::get_full_block_name() . '-script',
 			static::get_url_path() . 'Script.js',
 			'planet4-blocks-script',
-			\P4GBKS\Loader::file_ver( static::get_dir_path() . 'Script.js' ),
+			\P4GBKS\Loader::file_ver( $filepath ),
 			true
 		);
 	}
@@ -168,11 +183,16 @@ abstract class Base_Block {
 	 * Frontend style
 	 */
 	public static function enqueue_frontend_style(): void {
+		$filepath = static::get_dir_path() . 'Style.min.css';
+		if ( ! file_exists( $filepath ) ) {
+			return;
+		}
+
 		wp_enqueue_style(
 			static::get_full_block_name() . '-style',
 			static::get_url_path() . 'Style.min.css',
 			[],
-			\P4GBKS\Loader::file_ver( static::get_dir_path() . 'Style.min.css' ),
+			\P4GBKS\Loader::file_ver( $filepath ),
 		);
 	}
 

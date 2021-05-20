@@ -133,7 +133,7 @@ export class SpreadsheetFrontend extends Component {
   renderRows() {
     const rows = this.sortRows( this.filterMatchingRows( this.getRows() ), this.state.sortColumnIndex );
 
-    return this.state.searchText.length > 1 && rows.length === 0
+    return this.state.searchText.length >= 1 && rows.length === 0
       ? <tr>
           <td colSpan="99999">
             <div className='spreadsheet-empty-message'>
