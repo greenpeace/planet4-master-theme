@@ -1,6 +1,10 @@
 // Moved from another repo, for history please see https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blame/f5c532ed5704738136224cde305e9a0ffe614ceb/assets/src/styles/editorOverrides.scss
 .editor-post-title__block textarea.editor-post-title__input {
-  font-family: var(--headings--font-family, var(--header-primary-font, $roboto));
+  --headings-- {
+    // Not sure if fallback still needed, preserving for now.
+    font-family: var(--header-primary-font, $roboto);
+  }
+
   font-size: $font-size-xl;
   line-height: 1.225;
   margin-bottom: 30px;
@@ -74,14 +78,17 @@
 
 .wp-block-button.is-style-secondary .wp-block-button__link[role="textbox"],
 [class="wp-block-button"] .wp-block-button__link[role="textbox"] {
-  background-color: var(--btn-secondary-background-color, transparentize($white, .7));
-  border-color: var(--btn-secondary-border-color, $dark-blue);
-  color: var(--btn-secondary-color, $dark-blue);
+  --button-secondary-- {
+    background: transparentize($white, .7);
+    border-color: $dark-blue;
+    color: $dark-blue;
+    padding: 2px $n30;
+  }
+
   box-shadow: none;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 2px $n30;
 
   html[dir="rtl"] & {
     line-height: 2.5;
@@ -89,20 +96,25 @@
 }
 
 .wp-block-button.is-style-cta .wp-block-button__link[role="textbox"] {
-  background-color: var(--btn-primary-background-color, $orange);
-  border-color: var(--btn-secondary-border-color, $orange);
-  color: var(--btn-primary-color, $white);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+  --button-primary-- {
+    background: $orange;
+    border-color: $orange;
+    color: $white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+  }
 }
 
 .wp-block-button.is-style-donate .wp-block-button__link[role="textbox"] {
-  background-color: var(--btn-donate-background-color, $aquamarine);
-  color: var(--btn-donate-color, $grey);
+  --button-donate-- {
+    background: $aquamarine;
+    color: $grey;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+  }
+
   line-height: 1.65;
   min-width: 180px;
   margin: 0;
   padding: 2px $n30;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
   transition: color background-color font-weight 100ms;
 
   .editor-styles-wrapper & {
@@ -112,7 +124,7 @@
 }
 
 .editor-rich-text__editable.wp-block-button__link:not([role="textbox"]) {
-  background-color: $white;
+  background: $white;
   border-radius: 0;
   border: none;
   color: $grey-80 !important;
@@ -152,10 +164,14 @@
 
 .edit-post-visual-editor .editor-block-list__block-edit,
 .edit-post-visual-editor {
-  font-family: var(--body-font, "Noto Serif");
+  --body-- {
+    font-family: "Noto Serif", serif;
+  }
 
   h1, h2, h3, h4, h5 {
-    font-family: var(--headings--font-family, var(--header-primary-font, $roboto));
+    --headings-- {
+      font-family: var(--header-primary-font, $roboto);
+    }
   }
 }
 
