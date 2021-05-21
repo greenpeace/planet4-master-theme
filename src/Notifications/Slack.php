@@ -7,7 +7,6 @@ namespace P4\MasterTheme\Notifications;
 
 use BracketSpace\Notification\Interfaces\Triggerable;
 use BracketSpace\Notification\Abstracts;
-use BracketSpace\Notification\Defaults\Field;
 use Maknz\Slack\Client;
 use P4\MasterTheme\Features;
 
@@ -31,14 +30,16 @@ class Slack extends Abstracts\Carrier {
 	 * @throws \Exception Not sure which ones.
 	 */
 	public function form_fields() {
-		$body_field = new Field\CodeEditorField(
+		$body_field = new MrkDwnField(
 			[
-				'label'      => __( 'Message', 'planet4-master-theme-backend' ),
-				'name'       => 'body',
-				'resolvable' => true,
-				'settings'   => [
-					'mode'        => 'text/html',
-					'lineNumbers' => true,
+				'label'       => __( 'Message', 'planet4-master-theme-backend' ),
+				'description' => '<a target="_blank" class="external-link" href="https://api.slack.com/reference/surfaces/formatting#basics">Learn about message formatting options</a>',
+				'name'        => 'body',
+				'resolvable'  => true,
+				'settings'    => [
+					'mode'                => 'markdown',
+					'highlightFormatting' => true,
+					'lineNumbers'         => true,
 				],
 			]
 		);
@@ -67,7 +68,6 @@ class Slack extends Abstracts\Carrier {
 	 * @return mixed The message, for now just the body that was entered.
 	 */
 	private function get_message( Triggerable $trigger ) {
-
 		return $this->data['body'];
 	}
 }
