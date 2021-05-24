@@ -25,7 +25,9 @@
 .page-header {
   _-- {
     color: $grey-80;
-    padding-top: $n90;
+    background: inherit;
+    padding-top: 90px;
+    padding-bottom: 0;
     margin-bottom: $space-md;
 
     @include medium-and-up {
@@ -107,7 +109,8 @@
   margin: auto;
 }
 
-.page-header-title {
+.page-header-title _-- {
+  text-transform: none;
   max-width: 80%;
   margin-bottom: 10px;
 
