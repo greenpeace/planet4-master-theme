@@ -82,7 +82,7 @@ class PostCampaign {
 
 				$orderby = $query->get( 'orderby' );
 
-				if ( $orderby === 'theme' ) {
+				if ( 'theme' === $orderby ) {
 					$query->set( 'meta_key', 'theme' );
 					$query->set( 'orderby', 'meta_value' );
 				}
@@ -416,6 +416,11 @@ class PostCampaign {
 		return $defaults;
 	}
 
+	/**
+	 * Get whether the theme of a campaign is one of the legacy themes.
+	 *
+	 * @return string[] Whether it's legacy.
+	 */
 	public static function get_legacy_themes(): array {
 		return [
 			'default',
@@ -445,14 +450,13 @@ class PostCampaign {
 
 			$new_theme = $themes[ $theme ] ?? [];
 
-			$potential_new_version = str_replace('-new', '', $theme);
+			$potential_new_version = str_replace( '-new', '', $theme );
 			if ( ! in_array( $potential_new_version, self::get_legacy_themes(), true ) ) {
 				return $new_theme;
 			}
-			$theme = $potential_new_version;
+			$theme         = $potential_new_version;
 			$meta['theme'] = $potential_new_version;
 		}
-
 
 		// TODO: Use wp_safe_remote_get?
 		// TODO: Handle errors.
@@ -478,7 +482,7 @@ class PostCampaign {
 
 		$css_vars = array_filter( $css_vars );
 
-		return array_merge($new_theme ?? [], $css_vars);
+		return array_merge( $new_theme ?? [], $css_vars );
 	}
 
 	/**
