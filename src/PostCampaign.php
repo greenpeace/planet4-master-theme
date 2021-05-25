@@ -31,6 +31,17 @@ class PostCampaign {
 		'footer_links_color',
 	];
 
+	public const LEGACY_THEMES = [
+		'default',
+		'antarctic',
+		'arctic',
+		'climate',
+		'oceans',
+		'oil',
+		'plastics',
+		'forest',
+	];
+
 	/**
 	 * Taxonomy_Image constructor.
 	 */
@@ -417,24 +428,6 @@ class PostCampaign {
 	}
 
 	/**
-	 * Get whether the theme of a campaign is one of the legacy themes.
-	 *
-	 * @return string[] Whether it's legacy.
-	 */
-	public static function get_legacy_themes(): array {
-		return [
-			'default',
-			'antarctic',
-			'arctic',
-			'climate',
-			'oceans',
-			'oil',
-			'plastics',
-			'forest',
-		];
-	}
-
-	/**
 	 * Determine the css variables for a certain post.
 	 *
 	 * @param array $meta The meta containing the variable values.
@@ -444,14 +437,14 @@ class PostCampaign {
 	public static function css_vars( array $meta ): array {
 		$theme = self::get_theme( $meta );
 
-		$is_new_theme = ! in_array( $theme, self::get_legacy_themes(), true );
+		$is_new_theme = ! in_array( $theme, self::LEGACY_THEMES, true );
 		if ( $is_new_theme ) {
 			$themes = json_decode( get_option( 'planet4_themes', '[]' ), true );
 
 			$new_theme = $themes[ $theme ] ?? [];
 
 			$potential_new_version = str_replace( '-new', '', $theme );
-			if ( ! in_array( $potential_new_version, self::get_legacy_themes(), true ) ) {
+			if ( ! in_array( $potential_new_version, self::LEGACY_THEMES, true ) ) {
 				return $new_theme;
 			}
 			$theme         = $potential_new_version;
