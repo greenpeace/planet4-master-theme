@@ -437,14 +437,22 @@ class PostCampaign {
 	 * @return array The values that will be used for the css variables.
 	 */
 	public static function css_vars( array $meta ): array {
-		$is_new_theme = $meta['theme'] && ! in_array( $meta['theme'], self::get_legacy_themes(), true );
+		$theme = self::get_theme( $meta );
+
+		$is_new_theme = ! in_array( $theme, self::get_legacy_themes(), true );
 		if ( $is_new_theme ) {
 			$themes = json_decode( get_option( 'planet4_themes', '[]' ), true );
 
-			return $themes[ $meta['theme'] ] ?? [];
+			$new_theme = $themes[ $theme ] ?? [];
+
+			$potential_new_version = str_replace('-new', '', $theme);
+			if ( ! in_array( $potential_new_version, self::get_legacy_themes(), true ) ) {
+				return $new_theme;
+			}
+			$theme = $potential_new_version;
+			$meta['theme'] = $potential_new_version;
 		}
 
-		$theme = self::get_theme( $meta );
 
 		// TODO: Use wp_safe_remote_get?
 		// TODO: Handle errors.
@@ -470,7 +478,7 @@ class PostCampaign {
 
 		$css_vars = array_filter( $css_vars );
 
-		return $css_vars;
+		return array_merge($new_theme ?? [], $css_vars);
 	}
 
 	/**
@@ -617,9 +625,8 @@ class PostCampaign {
 	 */
 	public static function get_theme( array $meta ): string {
 		$theme = $meta['theme'] ?? $meta['_campaign_page_template'] ?? null;
-		$theme = $theme ? $theme : 'default';
 
-		return $theme;
+		return $theme ? $theme : 'default';
 	}
 
 	/**
