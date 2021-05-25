@@ -31,6 +31,17 @@ class PostCampaign {
 		'footer_links_color',
 	];
 
+	public const LEGACY_THEMES = [
+		'default',
+		'antarctic',
+		'arctic',
+		'climate',
+		'oceans',
+		'oil',
+		'plastics',
+		'forest',
+	];
+
 	/**
 	 * Taxonomy_Image constructor.
 	 */
@@ -50,6 +61,44 @@ class PostCampaign {
 
 		add_filter( 'get_user_option_edit_campaign_per_page', [ $this, 'set_default_items_per_page' ], 10, 3 );
 
+		add_filter(
+			'manage_campaign_posts_columns',
+			function ( $columns ) {
+				return array_merge( $columns, [ 'theme' => __( 'Theme', 'planet4-master-theme-backend' ) ] );
+			}
+		);
+
+		add_action(
+			'manage_campaign_posts_custom_column',
+			function ( $column_key, $post_id ) {
+				echo esc_html( get_post_meta( $post_id, 'theme', true ) );
+			},
+			10,
+			2
+		);
+		add_filter(
+			'manage_edit-campaign_sortable_columns',
+			function ( $columns ) {
+				$columns['theme'] = 'theme';
+
+				return $columns;
+			}
+		);
+		add_action(
+			'pre_get_posts',
+			function ( $query ) {
+				if ( ! is_admin() ) {
+					return;
+				}
+
+				$orderby = $query->get( 'orderby' );
+
+				if ( 'theme' === $orderby ) {
+					$query->set( 'meta_key', 'theme' );
+					$query->set( 'orderby', 'meta_value' );
+				}
+			}
+		);
 	}
 
 	/**
@@ -382,10 +431,25 @@ class PostCampaign {
 	 * Determine the css variables for a certain post.
 	 *
 	 * @param array $meta The meta containing the variable values.
+	 *
 	 * @return array The values that will be used for the css variables.
 	 */
 	public static function css_vars( array $meta ): array {
 		$theme = self::get_theme( $meta );
+
+		$is_new_theme = ! in_array( $theme, self::LEGACY_THEMES, true );
+		if ( $is_new_theme ) {
+			$themes = json_decode( get_option( 'planet4_themes', '[]' ), true );
+
+			$new_theme = $themes[ $theme ] ?? [];
+
+			$potential_new_version = str_replace( '-new', '', $theme );
+			if ( ! in_array( $potential_new_version, self::LEGACY_THEMES, true ) ) {
+				return $new_theme;
+			}
+			$theme         = $potential_new_version;
+			$meta['theme'] = $potential_new_version;
+		}
 
 		// TODO: Use wp_safe_remote_get?
 		// TODO: Handle errors.
@@ -411,7 +475,7 @@ class PostCampaign {
 
 		$css_vars = array_filter( $css_vars );
 
-		return $css_vars;
+		return array_merge( $new_theme ?? [], $css_vars );
 	}
 
 	/**
@@ -558,9 +622,8 @@ class PostCampaign {
 	 */
 	public static function get_theme( array $meta ): string {
 		$theme = $meta['theme'] ?? $meta['_campaign_page_template'] ?? null;
-		$theme = $theme ? $theme : 'default';
 
-		return $theme;
+		return $theme ? $theme : 'default';
 	}
 
 	/**

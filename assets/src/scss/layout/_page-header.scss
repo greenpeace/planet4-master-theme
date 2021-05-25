@@ -23,23 +23,27 @@
 }
 
 .page-header {
-  color: $grey-80;
-  padding-top: $n90;
-  margin-bottom: $space-md;
+  _-- {
+    color: $grey-80;
+    background: inherit;
+    padding-top: 90px;
+    padding-bottom: 0;
+    margin-bottom: $space-md;
+
+    @include medium-and-up {
+      padding-top: 104px;
+    }
+
+    @include large-and-up {
+      padding-top: 144px;
+      margin-bottom: $space-lg;
+    }
+
+    @include x-large-and-up {
+      padding-top: 144px;
+    }
+  }
   position: relative;
-
-  @include medium-and-up {
-    padding-top: 104px;
-  }
-
-  @include large-and-up {
-    padding-top: 144px;
-    margin-bottom: $space-lg;
-  }
-
-  @include x-large-and-up {
-    padding-top: 144px;
-  }
 
   &.page-header-hidden {
     padding: 0 !important;
@@ -56,7 +60,7 @@
     }
   }
 
-  h3 {
+  h3 _-- {
     margin-bottom: 20px;
 
     @include medium-and-up {
@@ -105,7 +109,8 @@
   margin: auto;
 }
 
-.page-header-title {
+.page-header-title _-- {
+  text-transform: none;
   max-width: 80%;
   margin-bottom: 10px;
 
