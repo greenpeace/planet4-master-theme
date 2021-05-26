@@ -7,38 +7,8 @@ orbs:
 workflows:
   main:
     jobs:
-      - php73-tests
-      - frontend-tests
-      - acceptance-tests
-      #- a11y-tests
-      - create-zip:
-          filters:
-            tags:
-              only: /^v\p{Digit}+\.\p{Digit}+.*/
-      - request-instance:
-          context: org-global
-          requires:
-            - create-zip
-      - instance-ready:
-          type: approval
-          requires:
-            - request-instance
       - comment-pr:
           context: org-global
-          requires:
-            - instance-ready
-      - lighthouse:
-          requires:
-            - instance-ready
-      - publish-zip:
-          context: org-global
-          requires:
-            - create-zip
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v\p{Digit}+\.\p{Digit}+.*/
 
 job-references:
   docker_auth: &docker_auth
@@ -277,7 +247,7 @@ jobs:
 
   comment-pr:
     docker:
-      - image: greenpeaceinternational/circleci-base:latest
+      - image: greenpeaceinternational/circleci-base:post-new-delete-old-pr-comment
         auth: &docker_auth
     steps:
       - attach_workspace:
@@ -286,8 +256,8 @@ jobs:
           name: Post comment to PR
           command: |
             post-comment-to-pr.py \
-            --pr-url $(cat /tmp/workspace/pr) \
-            --test-instance $(cat /tmp/workspace/test-instance)
+            --pr-url $CIRCLE_PULL_REQUEST \
+            --test-instance nix
 
   lighthouse:
     executor: lighthouse-check/default
