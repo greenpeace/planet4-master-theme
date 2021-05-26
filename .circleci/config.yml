@@ -84,7 +84,7 @@ job-references:
 
   p4_instance_conf: &p4_instance_conf
     docker:
-      - image: greenpeaceinternational/p4-builder:planet-6020
+      - image: greenpeaceinternational/p4-builder:latest
         auth: &docker_auth
     working_directory: /home/circleci/
     environment:
@@ -125,9 +125,9 @@ commands:
               echo "Plugin gutenberg blocks branch is ${CIRCLE_BRANCH}"
             fi
             PLUGIN_GUTENBERG_BLOCKS_BRANCH=dev-${BRANCH}#${CIRCLE_SHA1} \
-            MASTER_THEME_BRANCH=dev-planet-6020 \
+            MASTER_THEME_BRANCH=dev-master \
             MERGE_SOURCE=git@github.com:greenpeace/planet4-base.git \
-            MERGE_REF=planet-6020 \
+            MERGE_REF=main \
             make ci
       - run:
           name: Test - Clone planet4-docker-compose
