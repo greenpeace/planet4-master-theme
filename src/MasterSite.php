@@ -466,6 +466,7 @@ class MasterSite extends TimberSite {
 		$context['cookies']      = [
 			'text' => planet4_get_option( 'cookies_field' ),
 		];
+		$context['theme_uri']    = $this->theme_dir;
 		$context['data_nav_bar'] = [
 			'images'                  => $this->theme_images_dir,
 			'home_url'                => home_url( '/' ),

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html {{ fn('language_attributes', 'html') }} data-base="{% if constant('WP_HOME') is defined %}{{ constant('WP_HOME') }}{% endif %}">
+<html {{ fn('language_attributes', 'html') }} data-base="{{ data_nav_bar.home_url }}">
 <head>
 	<meta charset="{{ site.charset }}">
 	{% include 'blocks/title.twig' %}
@@ -38,7 +38,7 @@
 	{% endif %}
 
 	{% if custom_styles %}
-		<style type="text/css">
+		<style>
 			{% for style in custom_styles.css %}{{ style|raw }}{% endfor %}
 		</style>
 	{% endif %}
