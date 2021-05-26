@@ -1,3 +1,8 @@
+@import "../../master-theme/assets/src/scss/base/variables";
+@import "../../master-theme/assets/src/scss/base/colors";
+@import "../../master-theme/assets/src/scss/base/mixins";
+@import "../../master-theme/assets/src/scss/base/fonts";
+
 .block-spreadsheet {
   display: inline-block;
   margin-top: $space-xs;
