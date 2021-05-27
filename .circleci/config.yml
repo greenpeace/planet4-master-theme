@@ -5,11 +5,12 @@ orbs:
   lighthouse-check: foo-software/lighthouse-check@0.0.8
 
 workflows:
-  main:
+  branch:
     jobs:
       - php73-tests
       - frontend-tests
       - acceptance-tests
+      - commitlint
       #- a11y-tests
       - create-zip:
           filters:
@@ -184,6 +185,16 @@ jobs:
           command: eslint public/js/**/*.js tests/js
       - store_test_results:
           path: /tmp/test-results
+
+  commitlint:
+    docker:
+      - image: greenpeaceinternational/p4-unit-tests:nodelts
+        auth: &docker_auth
+    steps:
+      - checkout
+      - run:
+          name: Lint commit messages
+          command: npx commitlint -V --from master --to ${CIRCLE_SHA1}
 
   acceptance-tests:
     <<: *p4_instance_conf
