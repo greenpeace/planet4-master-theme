@@ -216,20 +216,24 @@ abstract class Search {
 		);
 		// Because of how the search is currently set up (using admin-ajax) this ElasticPress filter was not being
 		// applied for subsequent page loads, only for the initial one.
-		if ( ( ! isset( $_GET['orderby'] ) || '_score' === $_GET['orderby'] ) && wp_doing_ajax() ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			add_filter(
-				'ep_formatted_args',
-				[ new \ElasticPress\Feature\Search\Search(), 'weight_recent' ],
-				10,
-				2
+		$ep_exists = class_exists( \ElasticPress\Feature\Search\Search::class )
+			&& class_exists( Features::class );
+		if ( $ep_exists ) {
+			if ( ( ! isset( $_GET['orderby'] ) || '_score' === $_GET['orderby'] ) && wp_doing_ajax() ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				add_filter(
+					'ep_formatted_args',
+					[ new \ElasticPress\Feature\Search\Search(), 'weight_recent' ],
+					10,
+					2
+				);
+			}
+			remove_filter(
+				'pre_get_posts',
+				[ Features::factory()->get_registered_feature( 'documents' ), 'setup_document_search' ],
+				10
 			);
 		}
 		add_filter( 'posts_where', [ self::class, 'edit_search_mime_types' ] );
-		remove_filter(
-			'pre_get_posts',
-			[ Features::factory()->get_registered_feature( 'documents' ), 'setup_document_search' ],
-			10
-		);
 		add_filter(
 			'ep_post_query_db_args',
 			[ self::class, 'exclude_unwanted_attachments' ],
@@ -386,7 +390,7 @@ abstract class Search {
 			} else {
 				$template_post                = $post;
 				$template_post->id            = $post->ID;
-				$template_post->link          = $post->permalink;
+				$template_post->link          = $post->permalink ?? get_permalink( $post->ID );
 				$template_post->preview       = $post->excerpt;
 				$thumbnail                    = get_the_post_thumbnail_url( $post->ID, 'thumbnail' );
 				$template_post->thumbnail_alt = get_the_post_thumbnail_caption( $post->ID );
