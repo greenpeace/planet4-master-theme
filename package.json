@@ -11,6 +11,7 @@
     "lint:css": "wp-scripts lint-style"
   },
   "devDependencies": {
+    "@commitlint/cli": "^12.1.1",
     "@greenpeace/dashdash": "^1.1.1",
     "@wordpress/components": "^8.3.2",
     "@wordpress/scripts": "3.3.0",
