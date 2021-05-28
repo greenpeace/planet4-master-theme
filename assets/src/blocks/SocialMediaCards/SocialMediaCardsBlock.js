@@ -9,7 +9,7 @@ export class SocialMediaCardsBlock {
     registerBlockType( 'planet4-blocks/social-media-cards', {
       title: __( 'Social Media Cards', 'planet4-blocks-backend' ),
       icon: 'format-image',
-      category: 'planet4-blocks',
+      category: 'planet4-blocks-beta',
       attributes: {
         title: {
           type: 'string',

@@ -155,7 +155,6 @@ const CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/happypoint',
 	'planet4-blocks/media-video',
 	'planet4-blocks/social-media',
-	'planet4-blocks/social-media-cards',
 	'planet4-blocks/spreadsheet',
 	'planet4-blocks/sub-pages',
 	'planet4-blocks/timeline',
@@ -166,6 +165,7 @@ const CAMPAIGN_BLOCK_TYPES = [
 const BETA_CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/covers-beta',
 	'planet4-blocks/carousel-header-beta',
+	'planet4-blocks/social-media-cards',
 ];
 
 /**
