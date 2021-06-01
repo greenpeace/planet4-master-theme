@@ -60,23 +60,24 @@ export class CookiesFrontend extends Component {
   }
 
   onNecessaryCookiesClick() {
-    const isChecked = !this.state.necessaryCookiesChecked;
-    let { allCookiesChecked } = this.state;
+    const {allCookiesChecked, necessaryCookiesChecked} = this.state;
 
-    if (isChecked) {
+    // Flip previous value.
+    const allowNecessary = !necessaryCookiesChecked;
+
+    if (allowNecessary) {
       createCookie('greenpeace', '1', 365);
       hideCookieNotice();
     } else {
-      allCookiesChecked = false;
       createCookie('greenpeace', '0', -1);
       showCookieNotice();
     }
 
     this.setState({
-      necessaryCookiesChecked: isChecked,
+      necessaryCookiesChecked: allowNecessary,
       // if Necessary Cookies is not checked,
       // All Cookies should be unchecked too
-      allCookiesChecked,
+      allCookiesChecked: allCookiesChecked && allowNecessary,
     }, this.setNoTrackCookie);
   }
 
