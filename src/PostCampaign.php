@@ -38,7 +38,7 @@ class PostCampaign {
 		'climate',
 		'oceans',
 		'oil',
-		'plastics',
+		'plastic',
 		'forest',
 	];
 
