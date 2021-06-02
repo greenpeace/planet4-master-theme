@@ -3,10 +3,47 @@ import { FrontendRichText } from '../../components/FrontendRichText/FrontendRich
 
 const { __ } = wp.i18n;
 
+const readCookie = (name) => {
+  const declarations = document.cookie.split(';');
+  let match = null;
+  declarations.forEach(part => {
+    const [key, value] = part.split('=');
+    if (key.trim() === name) {
+      match = value;
+    }
+  })
+  return match;
+};
+
+const showCookieNotice = () => {
+  // the .cookie-notice element belongs to the P4 Master Theme
+  const cookieElement = document.querySelector('#set-cookie');
+  if (cookieElement) {
+    cookieElement.classList.add('shown');
+  }
+}
+
+const createCookie = (name, value, days) => {
+  let date = new Date();
+  date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+  let secureMode = document.location.protocol === 'http:'
+    ? ';SameSite=Lax'
+    : ';SameSite=None;Secure';
+  document.cookie = encodeURI(name) + '=' + encodeURI(value) + ';domain=.' + document.domain + ';path=/;' + '; expires=' + date.toGMTString() + secureMode;
+}
+
+const hideCookieNotice = () => {
+  // the .cookie-notice element belongs to the P4 Master Theme
+  const cookieElement = document.querySelector('#set-cookie');
+  if (cookieElement) {
+    cookieElement.classList.remove('shown');
+  }
+}
+
 export class CookiesFrontend extends Component {
   constructor(props) {
     super(props);
-    const cookie = this.readCookie('greenpeace');
+    const cookie = readCookie('greenpeace');
 
     this.state = {
       necessaryCookiesChecked: ['1', '2'].includes(cookie),
@@ -18,40 +55,25 @@ export class CookiesFrontend extends Component {
     this.setNoTrackCookie = this.setNoTrackCookie.bind(this);
   }
 
-  showCookieNotice() {
-    // the .cookie-notice element belongs to the P4 Master Theme
-    const cookieElement = document.querySelector('#set-cookie');
-    if (cookieElement) {
-      cookieElement.classList.add('shown');
-    }
-  }
-
-  hideCookieNotice() {
-    // the .cookie-notice element belongs to the P4 Master Theme
-    const cookieElement = document.querySelector('#set-cookie');
-    if (cookieElement) {
-      cookieElement.classList.remove('shown');
-    }
-  }
-
   onNecessaryCookiesClick() {
-    const isChecked = !this.state.necessaryCookiesChecked;
-    let { allCookiesChecked } = this.state;
+    const {allCookiesChecked, necessaryCookiesChecked} = this.state;
 
-    if (isChecked) {
-      this.createCookie('greenpeace', '1', 365);
-      this.hideCookieNotice();
+    // Flip previous value.
+    const allowNecessary = !necessaryCookiesChecked;
+
+    if (allowNecessary) {
+      createCookie('greenpeace', '1', 365);
+      hideCookieNotice();
     } else {
-      allCookiesChecked = false;
-      this.createCookie('greenpeace', '0', -1);
-      this.showCookieNotice();
+      createCookie('greenpeace', '0', -1);
+      showCookieNotice();
     }
 
     this.setState({
-      necessaryCookiesChecked: isChecked,
+      necessaryCookiesChecked: allowNecessary,
       // if Necessary Cookies is not checked,
       // All Cookies should be unchecked too
-      allCookiesChecked,
+      allCookiesChecked: allCookiesChecked && allowNecessary,
     }, this.setNoTrackCookie);
   }
 
@@ -59,48 +81,23 @@ export class CookiesFrontend extends Component {
     const isChecked = !this.state.allCookiesChecked;
 
     if (isChecked) {
-      this.createCookie('greenpeace', '2', 365);
-      this.hideCookieNotice();
+      createCookie('greenpeace', '2', 365);
+      hideCookieNotice();
     } else {
       if (this.state.necessaryCookiesChecked) {
-        this.createCookie('greenpeace', '1', 365);
+        createCookie('greenpeace', '1', 365);
       } else {
-        this.createCookie('greenpeace', '0', -1);
-        this.showCookieNotice();
+        createCookie('greenpeace', '0', -1);
+        showCookieNotice();
       }
     }
 
-    const cookie = this.readCookie('greenpeace');
+    const cookie = readCookie('greenpeace');
 
     this.setState({
       necessaryCookiesChecked: ['1', '2'].includes(cookie),
       allCookiesChecked: isChecked,
     }, this.setNoTrackCookie);
-  }
-
-  createCookie(name, value, days) {
-    let date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    let secureMode = document.location.protocol === 'http:'
-      ? ';SameSite=Lax'
-      : ';SameSite=None;Secure';
-    document.cookie = encodeURI(name) + '=' + encodeURI(value) + ';domain=.' + document.domain + ';path=/;' + '; expires=' + date.toGMTString() + secureMode;
-  }
-
-  readCookie(name) {
-    const nameEQ = name + '=';
-    const ca = document.cookie.split(';');
-    let c;
-    for (let i = 0; i < ca.length; i++) {
-      c = ca[i];
-      while (c.charAt(0) === ' ') {
-        c = c.substring(1, c.length);
-      }
-      if (c.indexOf(nameEQ) === 0) {
-        return c.substring(nameEQ.length, c.length);
-      }
-    }
-    return null;
   }
 
   setNoTrackCookie() {
