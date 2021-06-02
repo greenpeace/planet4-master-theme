@@ -2,7 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use DateTimeImmutable;
 use Timber\Timber;
 use Timber\Site as TimberSite;
 use Timber\Menu as TimberMenu;
@@ -536,6 +535,9 @@ class MasterSite extends TimberSite {
 		$context['footer_primary_menu']   = wp_get_nav_menu_items( 'Footer Primary' );
 		$context['footer_secondary_menu'] = wp_get_nav_menu_items( 'Footer Secondary' );
 		$context['p4_comments_depth']     = get_option( 'thread_comments_depth' ) ?? 1; // Default depth level set to 1 if not selected from admin.
+
+		// HubSpot.
+		$context['hubspot_active'] = is_plugin_active( 'leadin/leadin.php' );
 		return $context;
 	}
 
