@@ -4,19 +4,15 @@ import { FrontendRichText } from '../../components/FrontendRichText/FrontendRich
 const { __ } = wp.i18n;
 
 const readCookie = (name) => {
-  const nameEQ = name + '=';
-  const ca = document.cookie.split(';');
-  let c;
-  for (let i = 0; i < ca.length; i++) {
-    c = ca[i];
-    while (c.charAt(0) === ' ') {
-      c = c.substring(1, c.length);
+  const declarations = document.cookie.split(';');
+  let match = null;
+  declarations.forEach(part => {
+    const [key, value] = part.split('=');
+    if (key.trim() === name) {
+      match = value;
     }
-    if (c.indexOf(nameEQ) === 0) {
-      return c.substring(nameEQ.length, c.length);
-    }
-  }
-  return null;
+  })
+  return match;
 };
 
 const showCookieNotice = () => {
