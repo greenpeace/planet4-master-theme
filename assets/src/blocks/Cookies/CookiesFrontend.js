@@ -23,7 +23,7 @@ const showCookieNotice = () => {
   }
 }
 
-const createCookie = (name, value, days) => {
+const setCookie = (name, value, days) => {
   let date = new Date();
   date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
   let secureMode = document.location.protocol === 'http:'
@@ -62,10 +62,10 @@ export class CookiesFrontend extends Component {
     const allowNecessary = !necessaryCookiesChecked;
 
     if (allowNecessary) {
-      createCookie('greenpeace', '1', 365);
+      setCookie('greenpeace', '1', 365);
       hideCookieNotice();
     } else {
-      createCookie('greenpeace', '0', -1);
+      setCookie('greenpeace', '0', -1);
       showCookieNotice();
     }
 
@@ -81,13 +81,13 @@ export class CookiesFrontend extends Component {
     const isChecked = !this.state.allCookiesChecked;
 
     if (isChecked) {
-      createCookie('greenpeace', '2', 365);
+      setCookie('greenpeace', '2', 365);
       hideCookieNotice();
     } else {
       if (this.state.necessaryCookiesChecked) {
-        createCookie('greenpeace', '1', 365);
+        setCookie('greenpeace', '1', 365);
       } else {
-        createCookie('greenpeace', '0', -1);
+        setCookie('greenpeace', '0', -1);
         showCookieNotice();
       }
     }
@@ -104,10 +104,10 @@ export class CookiesFrontend extends Component {
     const { necessaryCookiesChecked, allCookiesChecked } = this.state;
     if (!necessaryCookiesChecked && !allCookiesChecked) {
       // If user manually disables all trackings, set a 'no_track' cookie.
-      createCookie('no_track', 'true', 20 * 365);
+      setCookie('no_track', 'true', 20 * 365);
     } else {
       // Remove the 'no_track' cookie, if user accept the cookies consent.
-      createCookie('no_track', 'true', -1);
+      setCookie('no_track', 'true', -1);
     }
   }
 
