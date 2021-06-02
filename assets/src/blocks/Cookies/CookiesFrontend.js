@@ -38,7 +38,8 @@ export const CookiesFrontend = props => {
   } = props;
 
   // Whether consent was revoked by the user since current page load.
-  const [userRevokedConsent, setUserRevokedConsent] = useState(false);
+  const [userRevokedNecessary, setUserRevokedNecessary] = useState(false);
+  const [userRevokedAllCookies, setUserRevokedAllCookies] = useState(false);
   const [consentCookie, setConsentCookie, removeConsentCookie] = useCookie(CONSENT_COOKIE);
   const necessaryCookiesChecked = [ONLY_NECESSARY, ALL_COOKIES].includes(consentCookie);
   const allCookiesChecked = ALL_COOKIES === consentCookie;
@@ -47,11 +48,11 @@ export const CookiesFrontend = props => {
   const updateNoTrackCookie = () => {
     if (hasConsent) {
       removeCookie('no_track');
-    } else if (userRevokedConsent) {
+    } else if (userRevokedNecessary) {
       writeCookie('no_track', 'true');
     }
   };
-  useEffect(updateNoTrackCookie, [hasConsent, userRevokedConsent]);
+  useEffect(updateNoTrackCookie, [hasConsent, userRevokedNecessary]);
 
   const toggleCookieNotice = () => {
     if (hasConsent) {
@@ -61,6 +62,14 @@ export const CookiesFrontend = props => {
     }
   };
   useEffect(toggleCookieNotice, [hasConsent]);
+
+  const toggleHubSpotConsent = () => {
+    if (!allCookiesChecked && userRevokedAllCookies) {
+      const _hsp = window._hsp = window._hsp || [];
+      _hsp.push(['revokeCookieConsent']);
+    }
+  }
+  useEffect(toggleHubSpotConsent, [allCookiesChecked, userRevokedAllCookies])
 
   return <Fragment>
     <section className="block cookies-block">
@@ -103,7 +112,8 @@ export const CookiesFrontend = props => {
             name="necessary_cookies"
             onChange={ () => {
               if (necessaryCookiesChecked) {
-                setUserRevokedConsent(true);
+                setUserRevokedNecessary(true);
+                setUserRevokedAllCookies(true);
                 removeConsentCookie();
               } else {
                 setConsentCookie(ONLY_NECESSARY);
@@ -147,6 +157,7 @@ export const CookiesFrontend = props => {
             tabIndex={isSelected ? '-1' : null}
             onChange={ () => {
               if (allCookiesChecked) {
+                setUserRevokedAllCookies(true);
                 setConsentCookie(ONLY_NECESSARY);
               } else {
                 setConsentCookie(ALL_COOKIES);
