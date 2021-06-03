@@ -380,7 +380,7 @@ class Settings {
 		add_filter( 'cmb2_render_pagetype_select_taxonomy', [ $this, 'p4_render_pagetype_dropdown' ], 10, 2 );
 
 		// Make settings multilingual if wpml plugin is installed and activated.
-		if ( function_exists( 'icl_object_id' ) ) {
+		if ( function_exists( 'is_plugin_active' ) && is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
 			add_action( 'init', [ $this, 'make_settings_multilingual' ] );
 		}
 	}
