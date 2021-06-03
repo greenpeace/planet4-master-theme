@@ -343,7 +343,7 @@ jobs:
           command: |
             apk add jq
             cat composer.json | jq --arg version ${CIRCLE_TAG} '. + {version: $version}' > tmp.json
-            cp -f tmp.json composer.json
+            mv -f tmp.json composer.json
       - run:
           name: Create zip file
           command: zip -r /tmp/workspace/planet4-master-theme.zip . -x "node_modules/*"
