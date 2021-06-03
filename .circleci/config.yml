@@ -47,13 +47,13 @@ job-references:
     password: $DOCKERHUB_PASSWORD
 
   setup_environment: &setup_environment
-    name: "Setup Environment Variables"
+    name: Setup environment variables
     command: |
       echo "export PATH=$HOME/.composer/vendor/bin:$PATH" >> $BASH_ENV
       source /home/circleci/.bashrc
 
   install_dependencies: &install_dependencies
-    name: "Install Dependencies"
+    name: Install dependencies
     command: composer install
 
   php_job: &php_job
@@ -65,13 +65,13 @@ job-references:
       - run: *setup_environment
       - run: *install_dependencies
       - run:
-          name: "phpcs"
+          name: phpcs
           command: |
             mkdir -p /tmp/test-results/phpcs
             vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs
             vendor/bin/phpcs --report=junit --report-file=/tmp/test-results/phpcs/$CIRCLE_STAGE.xml
       - run:
-          name: "phpunit"
+          name: phpunit
           when: always
           command: |
             mkdir -p /tmp/test-results/phpunit
@@ -243,7 +243,7 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - run:
-          name: "Check if this is for an open PR."
+          name: Check if this is for an open PR
           command: |
             if [[ $(cat /tmp/workspace/commit-message) =~ ^Merge[[:space:]]pull[[:space:]]request[[:space:]]\#([[:digit:]]+) ]]; then
               echo "https://github.com/greenpeace/planet4-master-theme/pull/${BASH_REMATCH[1]}" > /tmp/workspace/pr
@@ -258,11 +258,11 @@ jobs:
               echo $CIRCLE_PULL_REQUEST > /tmp/workspace/pr
             fi
       - run:
-          name: "Python script deps"
+          name: Python script deps
           command: |
             pip3 install requests requests_oauthlib
       - run:
-          name: "Book instance"
+          name: Book instance
           command: |
             JIRA_USERNAME=planet4 book-test-instance.py \
             --pr-url $(cat /tmp/workspace/pr) \
@@ -270,14 +270,14 @@ jobs:
             echo "https://app.circleci.com/pipelines/github/greenpeace/planet4-test-$(cat /tmp/workspace/test-instance)/"
       - run: activate-gcloud-account.sh
       - run:
-          name: "Put zip in cloud storage"
+          name: Put zip in cloud storage
           command: |
             filename="planet4-master-theme.zip"
             echo "planet4-packages/planet4-master-theme/${CIRCLE_SHA1}.zip" > /tmp/workspace/zip-path
             gs_path="gs://$(cat /tmp/workspace/zip-path)"
             gsutil -q stat "$gs_path" || gsutil cp "/tmp/workspace/$filename" "$gs_path"
       - run:
-          name: "Commit to test instance repo"
+          name: Commit to test instance repo
           command: trigger_test_instance.sh planet4-master-theme $(cat /tmp/workspace/is_merge_commit)
       - persist_to_workspace:
           root: /tmp/workspace
@@ -327,19 +327,22 @@ jobs:
       - run: git submodule init && git submodule update
       - run: mkdir -p /tmp/workspace/
       - run:
-          name: "Extract commit message"
+          name: Extract commit message
           command: git log --format=%B -n 1 $CIRCLE_SHA1 > /tmp/workspace/commit-message
-      - run: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
-      - run: npm run build
       - run:
-          name: "Remove files we don't want in the zip file."
+          name: Install npm dependencies
+          command: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
+      - run:
+          name: Build assets
+          command: npm run build
+      - run:
+          name: Remove unnecessary files
           command: rm -rf .circleci .git .githooks assets/src bin tests
-      # Exclude node_modules instead of removing, which takes a long time (lots of small files).
       - run:
-          name: "Create zip file"
+          name: Create zip file
           command: zip -r /tmp/workspace/planet4-master-theme.zip . -x "node_modules/*"
       - run:
-          name: "Zip file size sanity check"
+          name: Zip file size sanity check
           command: |
             ls -lh /tmp/workspace/planet4-master-theme.zip
             if [ $(wc -c </tmp/workspace/planet4-master-theme.zip) -ge 5000000 ]; then
@@ -365,14 +368,14 @@ jobs:
           at: /tmp/workspace
       - run: apk add curl jq
       - run:
-          name: "Get upload url for this tag"
+          name: Get upload url for this tag
           command: |
             curl https://api.github.com/repos/greenpeace/planet4-master-theme/releases/tags/${CIRCLE_TAG} |
                 jq -r .upload_url |
                 sed 's/{.*}/?name=planet4-master-theme.zip/' > /tmp/workspace/upload_url
             cat /tmp/workspace/upload_url
       - run:
-          name: "Upload zip file"
+          name: Upload zip file
           command: |
             curl \
                 --fail \
