@@ -46,6 +46,15 @@
     }
   }
 
+  // Table caption
+  figcaption {
+    text-align: center;
+    font-size: $font-size-xxs;
+    font-family: $roboto;
+    color: $grey-60;
+    line-height: 1.4;
+  }
+
   &.is-style-stripes table {
     // Grey background (defaut)
     tr:nth-child(odd) {
