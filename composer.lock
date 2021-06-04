@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9acb4d910396e6de3a8bd716486b8533",
+    "content-hash": "cb92969c7724e7079ff5d7f9f3409710",
     "packages": [
         {
             "name": "greenpeace/github-archive-installer",
-            "version": "1.3",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/greenpeace/github-archive-installer.git",
-                "reference": "92356a00c045e7cd9b1fdf109fedb715daf2585c"
+                "reference": "6667f9eb605d380e085c7790ac0e7025b75771fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/greenpeace/github-archive-installer/zipball/92356a00c045e7cd9b1fdf109fedb715daf2585c",
-                "reference": "92356a00c045e7cd9b1fdf109fedb715daf2585c",
+                "url": "https://api.github.com/repos/greenpeace/github-archive-installer/zipball/6667f9eb605d380e085c7790ac0e7025b75771fa",
+                "reference": "6667f9eb605d380e085c7790ac0e7025b75771fa",
                 "shasum": ""
             },
             "require": {
@@ -44,7 +44,10 @@
                 }
             ],
             "description": "Forked from https://github.com/wpscholar/github-archive-installer. A custom Composer installer that will install a dependency from a GitHub release archive .zip file when installing from distribution.",
-            "time": "2021-01-07T11:23:34+00:00"
+            "support": {
+                "source": "https://github.com/greenpeace/github-archive-installer/tree/1.3.2"
+            },
+            "time": "2021-06-04T10:00:50+00:00"
         }
     ],
     "packages-dev": [
@@ -2032,5 +2035,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
