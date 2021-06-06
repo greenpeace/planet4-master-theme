@@ -1,6 +1,5 @@
 import { setupCookies } from './cookies';
 import { setupCountrySelect } from './country_select';
-import { setImageTitlesFromAltText } from './global';
 import { setupHeader } from './header';
 import { setupLoadMore } from './load_more';
 import { setupPDFIcon } from './pdf_icon';
@@ -21,7 +20,6 @@ window.$ = $ || jQuery;
 jQuery(function($) {
   setupCookies($);
   setupCountrySelect($);
-  setImageTitlesFromAltText($);
   setupHeader($);
   setupLoadMore($);
   setupPDFIcon($);

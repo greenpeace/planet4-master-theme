@@ -1,8 +1,10 @@
 <li id="result-row-{{ post.ID }}" class="d-flex search-result-list-item">
+	{% set img_title = fn('esc_attr', post.thumbnail.alt|default( post.title ) )|raw %}
 	<img
 		class="d-flex search-result-item-image"
 		src="{{ post.thumbnail.src('thumbnail') }}"
-		alt="{{ fn('esc_attr', post.thumbnail.alt|default( post.title ) )|raw }}"
+		alt="{{ img_title }}"
+		title="{{ img_title }}"
 		data-ga-category="Articles List"
 		data-ga-action="Image"
 		data-ga-label="n/a" />
