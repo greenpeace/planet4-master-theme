@@ -15,6 +15,7 @@ export const GalleryThreeColumns = ({ images, postType, onImageClick }) => (
               sizes={IMAGE_SIZES[`threeColumns${index}`]}
               style={{ objectPosition: image.focus_image }}
               alt={image.alt_text}
+              title={image.alt_text}
               className={`img_${postType}`}
               onClick={() => {
                 onImageClick(index);

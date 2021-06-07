@@ -98,6 +98,7 @@ export const GalleryCarousel = ({ images, onImageClick }) => {
               sizes={IMAGE_SIZES.carousel}
               style={{ objectPosition: image.focus_image }}
               alt={image.alt_text}
+              title={image.alt_text}
               onClick={() => {
                 onImageClick(index);
               }}
