@@ -27,8 +27,7 @@ $post_args = [
 	'has_password'   => false,  // Skip password protected content.
 ];
 
-$context['page_category']   = 'Post Type Page';
-$context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';
+$context['page_category'] = 'Post Type Page';
 
 if ( get_query_var( 'page' ) ) {
 	$templates          = [ 'tease-taxonomy-post.twig' ];

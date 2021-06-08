@@ -538,6 +538,9 @@ class MasterSite extends TimberSite {
 
 		// HubSpot.
 		$context['hubspot_active'] = is_plugin_active( 'leadin/leadin.php' );
+
+		// Dummy thumbnail.
+		$context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';
 		return $context;
 	}
 

@@ -1,0 +1,8 @@
+<img
+	class="d-flex search-result-item-image"
+	src="{{ post.thumbnail.src('thumbnail') ?? dummy_thumbnail }}"
+	loading="lazy"
+	alt="{{ fn('esc_attr', post.thumbnail.alt|default( post.title ) )|raw }}"
+	data-ga-category="Articles List"
+	data-ga-action="Image"
+	data-ga-label="n/a" />
