@@ -116,6 +116,7 @@ const renderView = ({ attributes, postType, posts, totalPosts }, toAttribute) =>
             withoutInteractiveFormatting
             characterLimit={40}
             multiline="false"
+            allowedFormats={[]}
           />
         </header>
       </Tooltip>
@@ -128,6 +129,7 @@ const renderView = ({ attributes, postType, posts, totalPosts }, toAttribute) =>
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         characterLimit={200}
+        allowedFormats={['core/bold', 'core/italic']}
       />
       <ArticlesList posts={posts} postType={postType} />
       {attributes.posts.length === 0 && hasMultiplePages && (
@@ -141,6 +143,7 @@ const renderView = ({ attributes, postType, posts, totalPosts }, toAttribute) =>
               keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
               multiline="false"
+              allowedFormats={[]}
             />
           </div>
         </Tooltip>

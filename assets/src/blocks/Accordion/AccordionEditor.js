@@ -48,7 +48,7 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
           withoutInteractiveFormatting
           characterLimit={60}
           multiline="false"
-          formattingControls={[]}
+          allowedFormats={[]}
         />
       </header>
       <RichText
@@ -60,7 +60,7 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         characterLimit={200}
-        formattingControls={[]}
+        allowedFormats={['core/bold', 'core/italic']}
       />
       {tabs.map((tab, index) => (
         <div key={`accordion-content-${index}`} className='accordion-content'>
@@ -73,7 +73,7 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
             keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
             multiline="false"
-            formattingControls={[]}
+            allowedFormats={[]}
           />
           <div className={`panel ${isSelected ? '' : 'panel-hidden'}`}>
             <RichText
@@ -83,7 +83,7 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
               value={tab.text}
               onChange={updateTabAttribute('text', index)}
               keepPlaceholderOnFocus={true}
-              formattingControls={[]}
+              allowedFormats={['core/bold', 'core/italic']}
             />
             {tab.button ?
               <div className="button-container">
@@ -96,7 +96,7 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
                   keepPlaceholderOnFocus={true}
                   withoutInteractiveFormatting
                   multiline="false"
-                  formattingControls={[]}
+                  allowedFormats={[]}
                 />
                 <Button
                   className='remove-btn'

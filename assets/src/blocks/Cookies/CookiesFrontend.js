@@ -86,6 +86,7 @@ export const CookiesFrontend = props => {
           characterLimit={40}
           multiline="false"
           editable={isEditing}
+          allowedFormats={[]}
         />
       </header>
       }
@@ -100,6 +101,7 @@ export const CookiesFrontend = props => {
         withoutInteractiveFormatting
         characterLimit={300}
         editable={isEditing}
+        allowedFormats={['core/bold', 'core/italic']}
       />
       }
       {(isEditing || (necessary_cookies_name && necessary_cookies_description)) &&
@@ -133,6 +135,7 @@ export const CookiesFrontend = props => {
             characterLimit={40}
             multiline="false"
             editable={isEditing}
+            allowedFormats={[]}
           />
         </label>
         <FrontendRichText
@@ -145,6 +148,7 @@ export const CookiesFrontend = props => {
           withoutInteractiveFormatting
           characterLimit={300}
           editable={isEditing}
+          allowedFormats={['core/bold', 'core/italic']}
         />
       </Fragment>
       }
@@ -178,6 +182,7 @@ export const CookiesFrontend = props => {
             characterLimit={40}
             multiline="false"
             editable={isEditing}
+            allowedFormats={[]}
           />
         </label>
         <FrontendRichText
@@ -190,6 +195,7 @@ export const CookiesFrontend = props => {
           withoutInteractiveFormatting
           characterLimit={300}
           editable={isEditing}
+          allowedFormats={['core/bold', 'core/italic']}
         />
       </Fragment>
       }

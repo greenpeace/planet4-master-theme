@@ -122,7 +122,7 @@ export const EditableColumns = ({
               keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
               characterLimit={400}
-              allowedFormats={[]}
+              allowedFormats={['core/bold', 'core/italic']}
             />
             {columns_block_style === LAYOUT_TASKS && (
               <MediaUploadCheck>
