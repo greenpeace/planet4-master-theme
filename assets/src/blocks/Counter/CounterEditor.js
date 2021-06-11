@@ -98,6 +98,7 @@ export class CounterEditor extends Component {
             withoutInteractiveFormatting
             characterLimit={60}
             multiline="false"
+            allowedFormats={[]}
           />
         </header>
         <RichText
@@ -109,6 +110,7 @@ export class CounterEditor extends Component {
           keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
           characterLimit={400}
+          allowedFormats={['core/bold', 'core/italic']}
         />
       </div>
       <CounterFrontend isEditing {...attributes} />

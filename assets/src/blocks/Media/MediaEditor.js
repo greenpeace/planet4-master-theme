@@ -90,6 +90,7 @@ const renderView = (attributes, toAttribute) => {
           withoutInteractiveFormatting
           characterLimit={40}
           multiline="false"
+          allowedFormats={[]}
         />
       </header>
       <RichText
@@ -101,6 +102,7 @@ const renderView = (attributes, toAttribute) => {
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         characterLimit={200}
+        allowedFormats={['core/bold', 'core/italic']}
       />
       {
         media_url && !media_url?.endsWith('.mp4') && !embed_html

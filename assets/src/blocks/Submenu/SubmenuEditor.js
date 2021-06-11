@@ -111,6 +111,7 @@ const renderView = (attributes, setAttributes, className) => {
         withoutInteractiveFormatting
         characterLimit={60}
         multiline="false"
+        allowedFormats={[]}
       />
       {menuItems.length > 0 ?
         <SubmenuItems menuItems={menuItems} /> :

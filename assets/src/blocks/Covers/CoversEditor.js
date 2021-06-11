@@ -106,7 +106,7 @@ const renderView = (attributes, toAttribute) => {
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         characterLimit={400}
-        allowedFormats={[]}
+        allowedFormats={['core/bold', 'core/italic']}
       />
       {!loading && !covers.length ?
         <div className='EmptyMessage'>

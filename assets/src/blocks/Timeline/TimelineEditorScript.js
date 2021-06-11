@@ -109,6 +109,7 @@ const renderView = (attributes, toAttribute, scriptLoaded, stylesLoaded) => {
             withoutInteractiveFormatting
             maxLength={40}
             multiline="false"
+            allowedFormats={[]}
           />
         </header>
       </Tooltip>
@@ -121,6 +122,7 @@ const renderView = (attributes, toAttribute, scriptLoaded, stylesLoaded) => {
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         maxLength={200}
+        allowedFormats={['core/bold', 'core/italic']}
       />
       {!attributes.google_sheets_url &&
         <div className="block-edit-mode-warning components-notice is-warning">

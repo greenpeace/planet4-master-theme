@@ -135,6 +135,7 @@ const renderView = (attributes, setAttributes) => {
           withoutInteractiveFormatting
           characterLimit={40}
           multiline="false"
+          allowedFormats={[]}
         />
       </header>
       <RichText
@@ -146,6 +147,7 @@ const renderView = (attributes, setAttributes) => {
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         characterLimit={400}
+        allowedFormats={['core/bold', 'core/italic']}
       />
       {layout === 'slider' && <GalleryCarousel images={images || []} />}
       {layout === 'three-columns' && <GalleryThreeColumns images={images || []} postType={postType} />}
