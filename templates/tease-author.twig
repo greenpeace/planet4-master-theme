@@ -20,6 +20,10 @@
 				</a>
 			{% endfor %}
 
+			{% if ( post.get_custom_terms and post.tags ) %}
+				<span class="tag-wrap-bullet" aria-hidden="true">&#8226;</span>
+			{% endif %}
+
 			{% if (post.tags) %}
 				<div class="tag-wrap tags">
 					{% for tag in post.tags %}

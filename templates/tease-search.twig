@@ -53,6 +53,10 @@
 							</a>
 						{% endfor %}
 
+						{% if ( post.p4_page_types and post.tags ) %}
+							<span class="tag-wrap-bullet" aria-hidden="true">&#8226;</span>
+						{% endif %}
+
 						{% if (post.tags) %}
 							<div class="tag-wrap tags">
 								{% for tag in post.tags %}

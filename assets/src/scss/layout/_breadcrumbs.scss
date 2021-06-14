@@ -20,19 +20,16 @@
     position: relative;
   }
 
-  .tag-item--main + .tag-wrap,
-  .tag-wrap + .tag-wrap {
-    &:before {
-      content: "\2022";
-      pointer-events: none;
-      display: inline-block;
-      margin-left: -12px;
-      margin-right: 8px;
+  .tag-wrap-bullet {
+    pointer-events: none;
+    display: inline-block;
+    font-weight: 400;
+    margin-left: -12px;
+    margin-right: 8px;
 
-      html[dir="rtl"] & {
-        margin-right: -12px;
-        margin-left: 8px;
-      }
+    html[dir="rtl"] & {
+      margin-right: -12px;
+      margin-left: 8px;
     }
   }
 

@@ -29,6 +29,10 @@
 						</div>
 					{% endif %}
 
+					{% if ( post.issues_nav_data and campaigns ) %}
+						<span class="tag-wrap-bullet" aria-hidden="true">&#8226;</span>
+					{% endif %}
+
 					{% if ( campaigns ) %}
 						<div class="tag-wrap issues">
 							{% for campaign in campaigns %}
