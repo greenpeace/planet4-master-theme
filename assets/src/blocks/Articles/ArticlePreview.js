@@ -107,6 +107,7 @@ export class ArticlePreview extends Component {
     } = this.props;
 
     const articleClassName = tags.reduce((classname, tag) => classname + ` tag-${tag.slug}`, 'article-list-item');
+    const authorLink = this.getAuthorLink()
 
     return (
       <article className={articleClassName} >
@@ -117,6 +118,10 @@ export class ArticlePreview extends Component {
               {page_type &&
                 this.getPageTypesTags(page_type, page_type_link)
               }
+
+              {(tags.length > 0 && page_type) && (
+                <span className="tag-wrap-bullet" aria-hidden="true">&#8226;</span>
+              )}
 
               {tags.length > 0 &&
                 <div className="tag-wrap tags">
@@ -150,7 +155,12 @@ export class ArticlePreview extends Component {
               </h4>
             }
             <p className="article-list-item-meta">
-              {this.getAuthorLink()}
+              {authorLink}
+
+              {(authorLink && date_formatted) && (
+                <span className="article-list-item-bullet" aria-hidden="true">&#8226;</span>
+              )}
+
               {date_formatted &&
               <time className="article-list-item-date" dateTime="">
                 {date_formatted}
