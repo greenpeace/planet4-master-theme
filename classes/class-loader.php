@@ -81,7 +81,7 @@ final class Loader {
 		new Blocks\TakeActionBoxout();
 		new Blocks\Timeline();
 		new Blocks\SocialMediaCards();
-		new Blocks\ENForm();
+		new Blocks\OldENForm();
 		new Blocks\GuestBook();
 	}
 
@@ -692,7 +692,7 @@ DEFERREDCSS;
 			$pages[]           = $main_settings['p4en_private_api'];
 			$ens_private_token = $main_settings['p4en_private_api'];
 			$ens_api           = new Controllers\Ensapi_Controller( $ens_private_token );
-			$pages             = $ens_api->get_pages_by_types_status( Blocks\ENForm::ENFORM_PAGE_TYPES, 'live' );
+			$pages             = $ens_api->get_pages_by_types_status( Blocks\OldENForm::ENFORM_PAGE_TYPES, 'live' );
 			uasort(
 				$pages,
 				function ( $a, $b ) {
