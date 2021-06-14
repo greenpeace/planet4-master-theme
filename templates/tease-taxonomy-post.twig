@@ -1,12 +1,5 @@
 <li id="result-row-{{ post.ID }}" class="d-flex search-result-list-item">
-	<img
-		class="d-flex search-result-item-image"
-		src="{{ post.thumbnail.src('thumbnail') ?? dummy_thumbnail }}"
-		loading="lazy"
-		alt="{{ fn('esc_attr', post.thumbnail.alt|default( post.title ) )|raw }}"
-		data-ga-category="Articles List"
-		data-ga-action="Image"
-		data-ga-label="n/a" />
+	{% include "blocks/image.twig" with {post:post, dummy_thumbnail:dummy_thumbnail} %}
 
 	<div id="tease-{{ post.ID }}" class="search-result-item-body tease tease-{{ post.post_type }}">
 		<div class="search-result-tags top-page-tags">

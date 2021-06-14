@@ -546,6 +546,9 @@ class MasterSite extends TimberSite {
 
 		// HubSpot.
 		$context['hubspot_active'] = is_plugin_active( 'leadin/leadin.php' );
+
+		// Dummy thumbnail.
+		$context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';
 		return $context;
 	}
 
@@ -1256,18 +1259,25 @@ class MasterSite extends TimberSite {
 	}
 
 	/**
-	 * Override the Gutenberg core/image block render method output, To add credit field in it's caption text.
+	 * Override the Gutenberg core/image block render method output, To add credit field in it's caption text & image alt text as title.
 	 *
 	 * @param array  $attributes    Attributes of the Gutenberg core/image block.
 	 * @param string $content The image element HTML.
 	 *
-	 * @return string HTML content of image element with credit field in caption.
+	 * @return string HTML content of image element with credit field in caption and alt text in image title.
 	 */
 	public function p4_core_image_block_render( $attributes, $content ) {
-		$image_id = isset( $attributes['id'] ) ? trim( str_replace( 'attachment_', '', $attributes['id'] ) ) : '';
-		$credit   = $image_id ? get_post_meta( $image_id, self::CREDIT_META_FIELD, true ) : '';
-		if ( empty( $image_id ) || empty( $credit ) ) {
+		$image_id      = isset( $attributes['id'] ) ? trim( str_replace( 'attachment_', '', $attributes['id'] ) ) : '';
+		$img_post_meta = $image_id ? get_post_meta( $image_id ) : [];
+		if ( ! $img_post_meta ) {
 			return $content;
+		}
+
+		$credit   = $img_post_meta[ self::CREDIT_META_FIELD ][0] ?? '';
+		$alt_text = $img_post_meta['_wp_attachment_image_alt'][0] ?? '';
+
+		if ( $alt_text ) {
+			$content = str_replace( ' alt=', ' title="' . esc_attr( $alt_text ) . '" alt=', $content );
 		}
 
 		$image_credit = ' ' . $credit;
@@ -1278,7 +1288,8 @@ class MasterSite extends TimberSite {
 		$caption_open  = '<figcaption>';
 		$caption_close = '</figcaption>';
 		$caption       = explode( $caption_open, $content, 2 )[1] ?? '';
-		if ( strpos( $caption, $image_credit ) !== false ) {
+
+		if ( empty( $credit ) || strpos( $caption, $image_credit ) !== false ) {
 			return $content;
 		}
 

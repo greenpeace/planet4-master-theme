@@ -25,8 +25,6 @@ $post_args = [
 	'has_password'   => false,  // Skip password protected content.
 ];
 
-$context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';
-
 if ( get_query_var( 'page' ) ) {
 	$templates          = [ 'tease-taxonomy-post.twig' ];
 	$post_args['paged'] = get_query_var( 'page' );
