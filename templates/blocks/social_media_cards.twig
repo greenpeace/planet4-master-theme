@@ -20,7 +20,8 @@
 						<div class="grid-item">
 							<img src="{{ card.image_src }}"
 								srcset="{{ card.image_srcset }}" sizes="{{ card.image_sizes }}"
-								alt="{{ card.alt_text }}">
+								alt="{{ card.alt_text }}"
+								title="{{ card.alt_text }}">
 
 							<div class="share-strip">
 								<a href="https://www.facebook.com/share.php?u={{ card.social_url|default(post_url)|url_encode }}&quote={{ card.message|url_encode }}"

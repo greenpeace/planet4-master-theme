@@ -57,6 +57,7 @@ export const ContentCovers = ({ covers, initialRowsLimit, row, loadMoreCovers })
                           loading='lazy'
                           src={thumbnail}
                           alt={alt_text}
+                          title={alt_text}
                           srcSet={srcset}
                           sizes={IMAGE_SIZES.content}
                         />

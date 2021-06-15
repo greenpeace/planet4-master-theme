@@ -47,9 +47,9 @@ export const Columns = ({ columns, columns_block_style, isCampaign, isExample = 
                     data-ga-action={columns_block_style === LAYOUT_ICONS ? 'Icon' : 'Image'}
                     data-ga-label={cta_link}
                   >
-                    <img src={attachment} alt={title} loading='lazy' />
+                    <img src={attachment} alt={title} title={title} loading='lazy' />
                   </a> :
-                  <img src={attachment} alt={title} loading='lazy' />
+                  <img src={attachment} alt={title} title={title} loading='lazy' />
                 }
               </div>
             }

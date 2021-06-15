@@ -33,7 +33,11 @@
 												data-ga-action="Image"
 												data-ga-label="n/a"
 												aria-label="{{ __( 'Cover image, link to ' ~ post.post_title , 'planet4-blocks' ) }}">
-													<img src="{{ post.thumbnail }}" alt="{{ post.alt_text }}" srcset="{{ post.srcset }}">
+													<img
+														src="{{ post.thumbnail }}"
+														alt="{{ post.alt_text }}"
+														title="{{ post.alt_text }}"
+														srcset="{{ post.srcset }}">
 											</a>
 										{% endif %}
 									</div>

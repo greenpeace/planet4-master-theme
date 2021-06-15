@@ -35,7 +35,8 @@ export const SplittwocolumnsFrontend = ({
           <div className="split-two-column-item-image">
             <img src={issue_image_src}
                  srcSet={issue_image_srcset}
-                 alt={issue_image_title || ''}
+                 alt={issue_image_title}
+                 title={issue_image_title}
                  style={{objectPosition: focus_issue_image}}
                  sizes={IMAGE_SIZES.columnLeft}
             />
@@ -71,7 +72,8 @@ export const SplittwocolumnsFrontend = ({
           <div className="split-two-column-item-image">
             <img src={tag_image_src}
                  srcSet={tag_image_srcset}
-                 alt={tag_image_title || ''}
+                 alt={tag_image_title}
+                 title={tag_image_title}
                  style={{objectPosition: focus_tag_image}}
                  sizes={IMAGE_SIZES.columnRight}
             />

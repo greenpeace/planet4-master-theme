@@ -33,6 +33,7 @@ export const CampaignCovers = ({ covers, initialRowsLimit, row, loadMoreCovers }
                       srcSet={src_set}
                       src={image[0]}
                       alt={alt_text}
+                      title={alt_text}
                     />
                   }
                   <span className='yellow-cta'><span aria-label='hashtag'>#</span>{name}</span>

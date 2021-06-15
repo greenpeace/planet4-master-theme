@@ -42,7 +42,8 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
           <div className="split-two-column-item-image">
             <img
               src={issue_image_src}
-              alt={issue_image_title || ''}
+              alt={issue_image_title}
+              title={issue_image_title}
               style={{objectPosition: focus_issue_image}}
             />
           </div>
@@ -92,7 +93,8 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
           <div className="split-two-column-item-image">
             <img
               src={tag_image_src}
-              alt={tag_image_title || ''}
+              alt={tag_image_title}
+              title={tag_image_title}
               style={{objectPosition: focus_tag_image}}
             />
           </div>
