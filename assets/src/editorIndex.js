@@ -22,7 +22,7 @@ import { setupCustomSidebar } from './setupCustomSidebar';
 import { setUpCssVariables } from './connectCssVariables';
 import { SubPagesBlock } from './blocks/SubPages/SubPagesBlock';
 import { blockEditorValidation } from './BlockEditorValidation';
-import { ENFormBlock } from './blocks/ENForm/ENFormBlock';
+import { ENFormBlock } from './blocks/OldENForm/ENFormBlock';
 import { registerGuestBookBlock } from './blocks/GuestBook/GuestBookBlock';
 
 blockEditorValidation();

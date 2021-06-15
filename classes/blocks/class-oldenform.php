@@ -12,11 +12,11 @@ use P4GBKS\Controllers\Ensapi_Controller as Ensapi;
 use WP_Block_Type_Registry;
 
 /**
- * Class ENForm
+ * Class OldENForm
  *
  * @package P4GBKS\Blocks
  */
-class ENForm extends Base_Block {
+class OldENForm extends Base_Block {
 
 	/** @const string BLOCK_NAME */
 	protected const BLOCK_NAME = 'enform';
@@ -34,7 +34,7 @@ class ENForm extends Base_Block {
 	private const FIELDS_META = 'p4enform_fields';
 
 	/**
-	 * ENForm constructor.
+	 * OldENForm constructor.
 	 */
 	public function __construct() {
 		if ( WP_Block_Type_Registry::get_instance()->is_registered( self::get_full_block_name() ) ) {

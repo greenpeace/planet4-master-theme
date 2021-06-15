@@ -24,15 +24,15 @@
 @import "blocks/Covers/TakeActionBoxoutBottom";
 
 // EN Blocks
-@import "blocks/ENForm/components/enform";
-@import "blocks/ENForm/components/enform-full-width-bg";
-@import "blocks/ENForm/components/enform-full-width";
-@import "blocks/ENForm/components/enform-side-style";
+@import "blocks/OldENForm/components/enform";
+@import "blocks/OldENForm/components/enform-full-width-bg";
+@import "blocks/OldENForm/components/enform-full-width";
+@import "blocks/OldENForm/components/enform-side-style";
 // Campaigns - mixins
-@import "blocks/ENForm/campaigns/mixins";
+@import "blocks/OldENForm/campaigns/mixins";
 // Campaigns - themes
-@import "blocks/ENForm/campaigns/campaign_enform";
-@import "blocks/ENForm/campaigns/themes/theme_climate";
+@import "blocks/OldENForm/campaigns/campaign_enform";
+@import "blocks/OldENForm/campaigns/themes/theme_climate";
 
 // Native Blocks
 @import "blocks/core-overrides/Image";
