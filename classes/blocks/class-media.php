@@ -85,7 +85,7 @@ class Media extends Base_Block {
 	 * @return array The data to be passed to the frontend block.
 	 */
 	public static function get_media_data( $fields ): array {
-		$media_url        = $fields['media_url'] ?? $fields['youtube_id'];
+		$media_url        = $fields['media_url'] ?? $fields['youtube_id'] ?? '';
 		$url_path_segment = wp_parse_url( $media_url, PHP_URL_PATH );
 		$poster_url       = '';
 
