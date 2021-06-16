@@ -1,8 +1,11 @@
 import { useRef, useEffect } from '@wordpress/element';
 import { useSlides } from './useSlides';
-import { CarouselHeaderStaticContent } from './CarouselHeaderStaticContent';
+import { Slide } from './Slide';
+import { CarouselControls } from './CarouselControls';
+import { SlideBackground } from './SlideBackground';
+import { StaticCaption } from './StaticCaption';
 
-const { __ } = wp.i18n;
+const isRTL = document.querySelector('html').dir === 'rtl';
 
 export const CarouselHeaderFrontend = ({ slides, carousel_autoplay }) => {
   const slidesRef = useRef([]);
@@ -30,21 +33,12 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay }) => {
     swipe.set({ direction: Hammer.DIRECTION_HORIZONTAL });
     hammer.add(swipe);
 
-    const swipeListeners = [
-      goToNextSlide,
-      goToPrevSlide
-    ];
-
-    // if (isRTL) {
-    //   swipeListeners.reverse();
-    // }
-
-    hammer.on('swipeleft', swipeListeners[0]);
-    hammer.on('swiperight', swipeListeners[1]);
+    hammer.on('swipeleft', isRTL ? goToPrevSlide : goToNextSlide);
+    hammer.on('swiperight', isRTL ? goToNextSlide : goToPrevSlide);
 
     return () => {
-      hammer.off('swipeleft', swipeListeners[0]);
-      hammer.off('swiperight', swipeListeners[1]);
+      hammer.off('swipeleft', isRTL ? goToPrevSlide : goToNextSlide);
+      hammer.off('swiperight', isRTL ? goToNextSlide : goToPrevSlide);
     }
   }, [currentSlide]);
 
@@ -78,14 +72,31 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay }) => {
   }, [currentSlide, slides, carousel_autoplay, autoplayPaused, autoplayCancelled]);
 
   return (
-    <CarouselHeaderStaticContent
-      slides={slides}
-      slidesRef={slidesRef}
-      containerRef={containerRef}
-      goToNextSlide={goToNextSlide}
-      goToPrevSlide={goToPrevSlide}
-      goToSlide={goToSlide}
-      currentSlide={currentSlide}
-    />
+    <section
+      className='block block-header block-wide carousel-header-beta'
+      ref={containerRef}
+    >
+      <div className='carousel-wrapper-header'>
+        <div className='carousel-inner' role='listbox'>
+          {slides.map((slide, index) => (
+            <Slide
+              key={index}
+              active={currentSlide == index}
+              ref={element => slidesRef ? slidesRef.current[index] = element : null}
+            >
+              <SlideBackground slide={slide} />
+              <StaticCaption slide={slide} />
+            </Slide>
+          ))}
+          <CarouselControls
+            goToPrevSlide={goToPrevSlide}
+            goToNextSlide={goToNextSlide}
+            goToSlide={goToSlide}
+            slides={slides}
+            currentSlide={currentSlide}
+          />
+        </div>
+      </div>
+    </section>
   );
 }

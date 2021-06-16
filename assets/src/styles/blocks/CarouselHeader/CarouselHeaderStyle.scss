@@ -318,6 +318,11 @@ $medium-image-height: 600px;
       padding-right: 24px;
       background: $white;
       height: auto;
+      width: 100%;
+
+      html[dir="rtl"] & {
+        right: 0;
+      }
 
       @include medium-and-up {
         padding-top: $n40;
@@ -374,17 +379,17 @@ $medium-image-height: 600px;
         padding-top: 0;
         padding-bottom: 0;
         height: 100%;
+        width: 100%;
 
         @include large-and-up {
-          padding-inline-start: $n80;
-          padding-inline-end: 0;
+          padding-inline-start: 80px;
           padding-top: 180px;
           padding-bottom: 32px;
         }
 
         @include x-large-and-up {
           padding-bottom: 54px;
-          padding-inline-start: 110px;
+          padding-inline-start: 0;
         }
 
         h1 {
@@ -521,7 +526,7 @@ $medium-image-height: 600px;
   .carousel-control-prev {
     display: none;
     z-index: 4000;
-    margin-left: 0;
+    margin-inline-start: 0;
 
     @include large-and-up {
       display: flex;
@@ -534,6 +539,11 @@ $medium-image-height: 600px;
       &:hover {
         background-color: rgba(0, 0, 0, .15);
         transform: translateX(-5px);
+      }
+
+      html[dir="rtl"] & {
+        right: 0;
+        left: auto;
       }
     }
 
@@ -549,12 +559,16 @@ $medium-image-height: 600px;
         display: block;
         margin: auto;
       }
+
+      html[dir="rtl"] & {
+        transform: scaleX(-1);
+      }
     }
   }
 
   .carousel-control-next {
     display: none;
-    margin-right: 0;
+    margin-inline-end: 0;
     z-index: 4000;
 
     @include large-and-up {
@@ -568,6 +582,11 @@ $medium-image-height: 600px;
       &:hover {
         background-color: rgba(0, 0, 0, .15);
         transform: translateX(5px);
+      }
+
+      html[dir="rtl"] & {
+        right: auto;
+        left: 0;
       }
     }
 
@@ -583,6 +602,10 @@ $medium-image-height: 600px;
       @include large-and-up {
         display: block;
         margin: auto;
+      }
+
+      html[dir="rtl"] & {
+        transform: scaleX(-1);
       }
     }
   }
@@ -607,7 +630,7 @@ $medium-image-height: 600px;
         width: auto;
 
         html[dir="rtl"] & {
-          right: auto;
+          text-align: left;
         }
       }
 
@@ -617,10 +640,15 @@ $medium-image-height: 600px;
         padding-right: 0;
         width: auto;
         display: block;
+        padding-inline-start: 80px;
+
+        html[dir="rtl"] & {
+          text-align: right;
+        }
       }
 
       @include x-large-and-up {
-        padding-left: 0;
+        padding-inline-start: 0;
       }
 
       li {
