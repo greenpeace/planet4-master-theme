@@ -26,6 +26,10 @@ export const MediaFrontend = ( attributes ) => {
     media_url,
   } = attributes;
 
+  if ( !media_url ) {
+    return '';
+  }
+
   return (
     <section className="block media-block">
       <div className="container">

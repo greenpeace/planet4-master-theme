@@ -38,7 +38,13 @@ export const registerMediaBlock = () => {
         default: ''
       },
       media_url: {
-        type: 'string'
+        type: 'string',
+        validation: media_url => {
+          const isValid  = media_url ? 1 : 0;
+          const messages = media_url ? [] : [ __('The Media Block video URL could not be empty.', 'planet4-blocks-backend') ];
+
+          return { isValid, messages };
+        }
       },
       poster_url: {
         type: 'string',
