@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from '@wordpress/element';
 import { IMAGE_SIZES } from './imageSizes';
+import { getImageTitle } from './getImageTitle.js';
 
 const { __ } = wp.i18n;
 
@@ -107,7 +108,7 @@ export const GalleryCarousel = ({ images, onImageClick }) => {
             {(image.caption || image.credits) && (
               <div className="carousel-caption">
                 <p>
-                  {image.caption || image.credits}
+                  {getImageTitle(image)}
                 </p>
               </div>
             )}
