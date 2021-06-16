@@ -2,7 +2,7 @@ import { GalleryCarousel } from './GalleryCarousel';
 import { GalleryThreeColumns } from './GalleryThreeColumns';
 import { GalleryGrid } from './GalleryGrid';
 import { getGalleryLayout, GALLERY_BLOCK_CLASSES } from './getGalleryLayout';
-import { getImageTitle } from './getImageTitle.js';
+import { getCaptionWithCredits } from './getCaptionWithCredits.js';
 import { Lightbox } from '../../components/Lightbox/Lightbox';
 import { useLightbox } from '../../components/Lightbox/useLightbox';
 
@@ -11,7 +11,7 @@ const imagesToItems = images => images.map(
     src: image.image_src,
     w: 0,
     h: 0,
-    title: getImageTitle(image)
+    title: getCaptionWithCredits(image)
   })
 );
 
