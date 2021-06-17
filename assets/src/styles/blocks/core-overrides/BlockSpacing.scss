@@ -2,12 +2,12 @@
 .wp-block-file,
 .wp-block-button,
 div.page-template > h2,
-div.page-template > ul,
+div.page-template > ul > li:last-of-type,
 div.page-template > p,
-.post-details > p,
-.post-details > p:first-of-type,
 .post-details > h2,
-.post-details > ul {
+.post-details > ul > li:last-of-type,
+.post-details > p,
+.post-details > p:first-of-type {
   margin-top: $space-xs;
   margin-bottom: $space-md;
 
@@ -17,21 +17,23 @@ div.page-template > p,
   }
 }
 
+div.page-template > ul > li,
+.post-details > ul > li {
+  margin-top: $space-xs;
+  margin-bottom: $space-xs;
+
+  @include large-and-up {
+    margin-top: $space-md;
+    margin-bottom: $space-md;
+  }
+}
+
 .wp-block-quote,
 .wp-block-file,
 .wp-block-button,
 div.page-template > h2,
-div.page-template > ul,
-.post-details > h2,
-.post-details > ul {
+.post-details > h2 {
   display: inline-block;
-  margin-top: $space-xs;
-  margin-bottom: $space-md;
-
-  @include large-and-up {
-    margin-top: $space-md;
-    margin-bottom: $space-lg;
-  }
 }
 
 div.page-template > ul,
