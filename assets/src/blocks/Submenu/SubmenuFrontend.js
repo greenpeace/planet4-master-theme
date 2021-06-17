@@ -10,7 +10,7 @@ export const SubmenuFrontend = ({ title, className, levels, submenu_style }) => 
   const style = getSubmenuStyle(className, submenu_style);
 
   return (
-    <section className={ `block submenu-block submenu-${ style }` }>
+    <section className={ `block submenu-block submenu-${style} ${className ?? ''}` }>
       { !!title && (
         <h2>{ title }</h2>
       ) }

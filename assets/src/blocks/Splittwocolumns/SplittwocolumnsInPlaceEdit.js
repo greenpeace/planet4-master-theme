@@ -22,7 +22,8 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
     tag_image_src,
     tag_image_title,
     focus_tag_image,
-    edited
+    edited,
+    className,
   } = attributes;
 
   const onTextChange = (field_name) => debounce(content => {
@@ -36,7 +37,7 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
   }, 400);
 
   return (
-    <section className="block-wide split-two-column">
+    <section className={`block-wide split-two-column ${className ?? ''}`}>
       <div className="split-two-column-item item--left">
         {issue_image_src &&
           <div className="split-two-column-item-image">

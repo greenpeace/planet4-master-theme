@@ -10,6 +10,7 @@ import PostSelector from '../../components/PostSelector/PostSelector';
 import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector';
 import { Covers, COVER_TYPES } from './Covers';
 import { useCovers } from './useCovers';
+import { getStyleFromClassName } from '../getStyleFromClassName';
 
 const { RichText } = wp.blockEditor;
 const { __ } = wp.i18n;
@@ -69,7 +70,7 @@ const renderEdit = (attributes, toAttribute) => {
 }
 
 const renderView = (attributes, toAttribute) => {
-  const { initialRowsLimit, cover_type, title, description } = attributes;
+  const { initialRowsLimit, cover_type, title, description, className } = attributes;
 
   const { covers, loading, row } = useCovers(attributes);
 
@@ -82,7 +83,7 @@ const renderView = (attributes, toAttribute) => {
   };
 
   return (
-    <section className={`block covers-block ${cover_type}-covers-block`}>
+    <section className={`block covers-block ${cover_type}-covers-block ${className ?? ''}`}>
       <header>
         <RichText
           tagName='h2'
@@ -122,10 +123,10 @@ export const CoversEditor = ({ attributes, setAttributes, isSelected }) => {
   const { className, post_types } = attributes;
 
   useEffect(() => {
-    if (className && className.includes('is-style-')) {
-      const newCoverType = className.split('is-style-')[1];
+    const styleClass = getStyleFromClassName(className);
+    if (styleClass) {
       setAttributes({
-        cover_type: newCoverType,
+        cover_type: styleClass,
         posts: [],
         post_types: className.includes('content') ? post_types : [],
       });

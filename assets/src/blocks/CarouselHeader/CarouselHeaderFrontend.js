@@ -7,7 +7,7 @@ import { StaticCaption } from './StaticCaption';
 
 const isRTL = document.querySelector('html').dir === 'rtl';
 
-export const CarouselHeaderFrontend = ({ slides, carousel_autoplay }) => {
+export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className }) => {
   const slidesRef = useRef([]);
   const containerRef = useRef(null);
   const {
@@ -73,7 +73,7 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay }) => {
 
   return (
     <section
-      className='block block-header block-wide carousel-header-beta'
+      className={`block block-header block-wide carousel-header-beta ${className ?? ''}`}
       ref={containerRef}
     >
       <div className='carousel-wrapper-header'>

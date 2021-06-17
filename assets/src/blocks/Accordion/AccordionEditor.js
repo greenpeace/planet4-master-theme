@@ -36,7 +36,7 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
   };
 
   return (
-    <div className={`block accordion-block ${className}`}>
+    <div className={`block accordion-block ${className ?? ''}`}>
       <header>
         <RichText
           tagName="h2"

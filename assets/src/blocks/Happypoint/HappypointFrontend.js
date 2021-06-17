@@ -5,7 +5,8 @@ export const HappypointFrontend = ({
   opacity,
   mailing_list_iframe,
   iframe_url,
-  id
+  id,
+  className,
 }) => {
   const { imageData } = useHappypointImageData(id);
 
@@ -35,7 +36,7 @@ export const HappypointFrontend = ({
   const url = iframe_url || engaging_network_id;
 
   return (
-    <section className="block block-footer block-wide happy-point-block-wrap">
+    <section className={`block block-footer block-wide happy-point-block-wrap ${className ?? ''}`}>
       <picture>
         <img {...imgProps} loading="lazy" />
       </picture>

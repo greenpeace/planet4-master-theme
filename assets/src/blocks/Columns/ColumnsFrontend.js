@@ -2,7 +2,7 @@ import { useEffect } from '@wordpress/element';
 import { LAYOUT_TASKS } from './ColumnConstants';
 import { Columns } from './Columns';
 
-export const ColumnsFrontend = ({ columns_block_style, columns_title, columns_description, columns }) => {
+export const ColumnsFrontend = ({ columns_block_style, columns_title, columns_description, columns, className }) => {
   const postType = document.body.getAttribute('data-post-type');
 
   // This function updates the headings' height so that they align
@@ -37,7 +37,7 @@ export const ColumnsFrontend = ({ columns_block_style, columns_title, columns_de
   }, []);
 
   return (
-    <section className={`block columns-block block-style-${columns_block_style}`}>
+    <section className={`block columns-block block-style-${columns_block_style} ${className ?? ''}`}>
       <div className='container'>
         {columns_title &&
           <header>

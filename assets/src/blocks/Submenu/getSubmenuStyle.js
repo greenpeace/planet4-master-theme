@@ -1,3 +1,5 @@
+import { getStyleFromClassName } from '../getStyleFromClassName';
+
 // Map for old attribute 'submenu_style'
 const SUBMENU_STYLES = {
   1: 'long',
@@ -6,8 +8,10 @@ const SUBMENU_STYLES = {
 };
 
 export const getSubmenuStyle = (className, submenu_style) => {
-  if (className && className.includes('is-style-')) {
-    return className.split('is-style-')[1];
+  const styleClass = getStyleFromClassName(className);
+  if (styleClass) {
+    return styleClass;
   }
+
   return submenu_style ? SUBMENU_STYLES[submenu_style] : 'long';
 };

@@ -30,7 +30,7 @@ export const GalleryFrontend = ({
   const items = imagesToItems(images);
 
   return (
-    <section className={`block ${GALLERY_BLOCK_CLASSES[layout]}`}>
+    <section className={`block ${GALLERY_BLOCK_CLASSES[layout]} ${className ?? ''}`}>
       {gallery_block_title &&
         <header>
           <h2 className="page-section-header" dangerouslySetInnerHTML={{ __html: gallery_block_title }} />

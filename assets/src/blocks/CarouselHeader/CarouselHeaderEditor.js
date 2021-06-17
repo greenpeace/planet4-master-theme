@@ -12,7 +12,7 @@ import { EditableBackground } from './EditableBackground';
 import { useCarouselHeaderImages } from './useCarouselHeaderImages';
 
 export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
-  const { carousel_autoplay, slides } = attributes;
+  const { carousel_autoplay, slides, className } = attributes;
   const slidesRef = useRef([]);
   const slidesWithImages = useCarouselHeaderImages(slides);
 
@@ -51,7 +51,7 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
   }
 
   return (
-    <section className='block block-header block-wide carousel-header-beta'>
+    <section className={`block block-header block-wide carousel-header-beta ${className ?? ''}`}>
       <Sidebar
         carouselAutoplay={carousel_autoplay}
         slides={slidesWithImages}
