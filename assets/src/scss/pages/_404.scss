@@ -35,6 +35,11 @@
         position: absolute;
         right: 6px;
         top: 13px;
+
+        html[dir="rtl"] & {
+          left: 6px;
+          right: auto;
+        }
       }
     }
 
