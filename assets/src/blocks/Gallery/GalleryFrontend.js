@@ -2,22 +2,16 @@ import { GalleryCarousel } from './GalleryCarousel';
 import { GalleryThreeColumns } from './GalleryThreeColumns';
 import { GalleryGrid } from './GalleryGrid';
 import { getGalleryLayout, GALLERY_BLOCK_CLASSES } from './getGalleryLayout';
+import { getCaptionWithCredits } from './getCaptionWithCredits.js';
 import { Lightbox } from '../../components/Lightbox/Lightbox';
 import { useLightbox } from '../../components/Lightbox/useLightbox';
-
-const getTitle = (image) => {
-  const caption = image.caption || '';
-  const credits = image.credits && !caption.includes(image.credits)
-    ? (image.credits.includes('©') ? image.credits : `© ${image.credits}`) : '';
-  return `${caption}  ${credits}`.trim();
-}
 
 const imagesToItems = images => images.map(
   image => ({
     src: image.image_src,
     w: 0,
     h: 0,
-    title: getTitle(image)
+    title: getCaptionWithCredits(image)
   })
 );
 
