@@ -55,7 +55,7 @@ class Slack extends Abstracts\Carrier {
 	 */
 	public function send( Triggerable $trigger ) {
 		$webhook = planet4_get_option( Features::SLACK_WEBHOOK );
-		$client  = new Client( $webhook );
+		$client  = new Client( $webhook, [ 'link_names' => true ] );
 		$message = $this->get_message( $trigger );
 		$client->to( '#experiment-p4-slack-notifications' )->send( $message );
 	}
