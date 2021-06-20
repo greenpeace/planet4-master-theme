@@ -119,6 +119,11 @@
         margin-left: 20px;
       }
 
+      .author-pic {
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
       &:after {
         content: "\2022";
         pointer-events: none;
