@@ -41,7 +41,7 @@ class MigrationLog {
 	 * @return bool Whether said migration already ran.
 	 */
 	public function already_ran( string $migration_id ): bool {
-		if ( ! $this->done_migrations )  {
+		if ( ! $this->done_migrations ) {
 			return false;
 		}
 
@@ -68,6 +68,6 @@ class MigrationLog {
 	 * Save the state of the log in the WP options.
 	 */
 	public function persist(): void {
-		update_option( self::OPTION_KEY, $this->done_migrations);
+		update_option( self::OPTION_KEY, $this->done_migrations );
 	}
 }
