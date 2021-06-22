@@ -51,13 +51,8 @@
 }
 
 .wp-block-embed-twitter, .wp-block-embed-instagram, .wp-block-embed-soundcloud, .wp-block-embed-reddit, .wp-block-embed-flickr {
-  width: 330px;
   margin-top: $space-xs;
   margin-bottom: $space-md;
-
-  @include  small-and-up {
-    width: 330px;
-  }
 
   @include medium-and-up {
     width: 510px;
