@@ -1,4 +1,6 @@
 @import "../../master-theme/assets/src/scss/base/colors";
+@import "../../master-theme/assets/src/scss/base/mixins";
+@import "../../master-theme/assets/src/scss/base/variables";
 
 .visually-hidden {
   display: none;
@@ -50,12 +52,24 @@
   right: 20px;
   z-index: 1;
 
+  html[dir="rtl"] & {
+    left: 20px;
+    right: auto;
+  }
+
   .carousel-header-editor-controls-menu {
     position: relative;
 
     ul {
       position: absolute;
       right: 0;
+      margin: 0;
+      padding: 0;
+
+      html[dir="rtl"] & {
+        left: 0;
+        right: auto;
+      }
 
       li {
         color: $grey-80;
@@ -97,5 +111,11 @@
 
   p {
     margin: 0 !important;
+  }
+}
+
+@include x-large-and-up {
+  .carousel-header-beta .carousel-item .carousel-caption .main-header .row {
+    padding-inline-start: 110px;
   }
 }
