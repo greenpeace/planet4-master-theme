@@ -534,11 +534,11 @@ $medium-image-height: 600px;
       margin-top: -46px;
       height: 92px;
       width: 78px;
-      transition: transform .2s, background-color .2s;
+      transition: padding .2s, background-color .2s;
 
       &:hover {
         background-color: rgba(0, 0, 0, .15);
-        transform: translateX(-5px);
+        padding-inline-end: 5px;
       }
 
       html[dir="rtl"] & {
@@ -577,11 +577,11 @@ $medium-image-height: 600px;
       margin-top: -46px;
       height: 92px;
       width: 78px;
-      transition: transform .2s, background-color .2s;
+      transition: padding .2s, background-color .2s;
 
       &:hover {
         background-color: rgba(0, 0, 0, .15);
-        transform: translateX(5px);
+        padding-inline-start: 5px;
       }
 
       html[dir="rtl"] & {
