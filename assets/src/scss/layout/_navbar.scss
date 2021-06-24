@@ -18,9 +18,9 @@ $navbar-default-height: 60px;
   z-index: 5;
   padding: 0;
   text-transform: uppercase;
-  display: flex;
-  flex-direction: row;
+  display: grid;
   justify-content: space-between;
+  grid-auto-flow: column;
   align-items: normal;
   height: $menu-height-small;
   font-family: $roboto;
@@ -34,6 +34,7 @@ $navbar-default-height: 60px;
   }
 
   @include large-and-up {
+    display: flex;
     align-items: center;
   }
 
@@ -138,7 +139,6 @@ $navbar-default-height: 60px;
   border: 0;
   background: url("../../images/search.svg") center center no-repeat;
   background-size: 28px;
-  margin-left: auto;
 
   &.open {
     outline: 0;
@@ -167,8 +167,7 @@ $navbar-default-height: 60px;
 // Styleguide Style.logo
 .site-logo {
   position: absolute;
-  width: 100%;
-  text-align: center;
+  justify-self: center;
 
   @include large-and-up {
     position: static;
