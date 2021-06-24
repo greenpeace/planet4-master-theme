@@ -14,7 +14,7 @@
 		<span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Facebook</span>
 	</a>
 	<!-- Twitter -->
-	<a href="https://twitter.com/share?url={{ social.link }}&text={{ social.title|url_encode }}{% if social.description %} - {{ social.description|striptags }}{% endif %} via @{{ social_accounts.twitter }}&related={{ social_accounts.twitter }}"
+	<a href="https://twitter.com/share?url={{ social.link }}&text={{ social.title|url_encode }}{% if social.description %} - {{ social.description|striptags }}{% endif %}, via @{{ social_accounts.twitter }}&related={{ social_accounts.twitter }}"
 		 onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Twitter', 'eventLabel': '{{ social.link }}'});"
 		 target="_blank" class="share-btn twitter">
 		{{ 'twitter'|svgicon }}
