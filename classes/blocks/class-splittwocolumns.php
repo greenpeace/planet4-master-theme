@@ -160,7 +160,7 @@ class SplitTwoColumns extends Base_Block {
 		$updated = array_filter(
 			$fields,
 			static function ( $key ) {
-				return isset( self::ATTRIBUTES[ $key ] );
+				return isset( self::ATTRIBUTES[ $key ] ) || 'className' === $key;
 			},
 			\ARRAY_FILTER_USE_KEY
 		);

@@ -34,6 +34,7 @@ export const CookiesFrontend = props => {
     all_cookies_name,
     all_cookies_description,
     isEditing,
+    className,
     toAttribute = () => {},
   } = props;
 
@@ -72,7 +73,7 @@ export const CookiesFrontend = props => {
   useEffect(toggleHubSpotConsent, [allCookiesChecked, userRevokedAllCookies])
 
   return <Fragment>
-    <section className="block cookies-block">
+    <section className={`block cookies-block ${className ?? ''}`}>
       {(isEditing || title) &&
       <header>
         <FrontendRichText

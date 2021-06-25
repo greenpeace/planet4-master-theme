@@ -5,11 +5,12 @@ export const TimelineFrontend = (props) => {
     timeline_title,
     description,
     isSelected,
+    className,
     ...nodeProps
   } = props;
 
   return (
-    <section className="block timeline-block">
+    <section className={`block timeline-block ${className ?? ''}`}>
       {!!timeline_title &&
         <header>
           <h2 className="page-section-header">{ timeline_title }</h2>

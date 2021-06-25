@@ -11,6 +11,8 @@ import { URLInput } from '../../components/URLInput/URLInput';
 import { EditableColumns } from './EditableColumns';
 import { Columns } from './Columns';
 import { MAX_COLUMNS_AMOUNT, MIN_COLUMNS_AMOUNT } from './ColumnConstants';
+import { getStyleFromClassName } from '../getStyleFromClassName';
+
 
 const { __ } = wp.i18n;
 const { RichText } = wp.blockEditor;
@@ -103,10 +105,10 @@ export const ColumnsEditor = ({ isSelected, attributes, setAttributes }) => {
 
   // Update column block style based on className attribute
   useEffect(() => {
-    if (className && className.includes('is-style-')) {
-      const newColumnsStyle = className.split('is-style-')[1];
+    const styleClass = getStyleFromClassName(className);
+    if (styleClass) {
       setAttributes({
-        columns_block_style: newColumnsStyle
+        columns_block_style: styleClass
       });
     }
   }, [className]);
@@ -141,7 +143,7 @@ export const ColumnsEditor = ({ isSelected, attributes, setAttributes }) => {
   }
 
   return (
-    <section className={`block columns-block block-style-${columns_block_style}`}>
+    <section className={`block columns-block block-style-${columns_block_style} ${className ?? ''}`}>
       <div className='container'>
         {renderEdit(attributes, toAttribute, setAttributes, isSelected)}
         {!isExample &&

@@ -10,6 +10,7 @@ export const ArticlesFrontend = (props) => {
     read_more_text,
     read_more_link,
     button_link_new_tab,
+    className,
   } = props;
 
   const postType = document.body.getAttribute('data-post-type');
@@ -27,7 +28,7 @@ export const ArticlesFrontend = (props) => {
   }
 
   return (
-    <section className="block articles-block">
+    <section className={`block articles-block ${className ?? ''}`}>
       <div className="container">
         <header>
           <h2 className="page-section-header">{ article_heading }</h2>

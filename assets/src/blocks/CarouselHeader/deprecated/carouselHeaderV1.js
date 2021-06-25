@@ -30,7 +30,7 @@ export const carouselHeaderV1 = {
     },
   },
   isEligible({ slides }) {
-    return !!slides.find(slide => slide.header_size !== 'undefined');
+    return !!slides?.find(slide => slide.header_size !== 'undefined');
   },
   migrate( { slides, ...attributes } ) {
     return {

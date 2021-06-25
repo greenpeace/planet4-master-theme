@@ -165,7 +165,7 @@ export class SpreadsheetFrontend extends Component {
 
     return (
       <Fragment>
-        <section className="block block-spreadsheet" style={{ cssText: toDeclarations( this.props.css_variables ) }}>
+        <section className={`block block-spreadsheet ${this.props.className ?? ''}`} style={{ cssText: toDeclarations( this.props.css_variables ) }}>
           <input className="spreadsheet-search form-control"
             type="text"
             value={ this.state.searchText }

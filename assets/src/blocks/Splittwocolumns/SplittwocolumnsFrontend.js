@@ -17,7 +17,8 @@ export const SplittwocolumnsFrontend = ({
   tag_image_src,
   tag_image_srcset,
   tag_image_title,
-  focus_tag_image
+  focus_tag_image,
+  className,
 }) => {
 
   const analytics = (action) => {
@@ -29,7 +30,7 @@ export const SplittwocolumnsFrontend = ({
   }
 
   return (
-    <section className="block-wide split-two-column">
+    <section className={`block-wide split-two-column ${className ?? ''}`}>
       <div className="split-two-column-item item--left">
         {issue_image_src &&
           <div className="split-two-column-item-image">

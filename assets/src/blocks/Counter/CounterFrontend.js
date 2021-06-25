@@ -1,4 +1,5 @@
 import { Component, Fragment } from '@wordpress/element';
+import { getStyleFromClassName } from '../getStyleFromClassName';
 
 export class CounterFrontend extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export class CounterFrontend extends Component {
     var enFormHeader = document.querySelector('.enform-extra-header-placeholder');
     if ( counterBar !== null && enFormHeader !== null ) {
       enFormHeader.append(counterBar);
-    } 
+    }
   }
 
   componentWillUnmount() {
@@ -95,14 +96,15 @@ export class CounterFrontend extends Component {
     const { completed } = this.state;
 
     let style = this.props.style || 'plain'; // Needed to convert existing blocks
-    if (className) {
-      style = className.split('is-style-')[1];
+    const styleClass = getStyleFromClassName(className);
+    if (styleClass) {
+      style = styleClass;
     }
     const arcLength = 31.5;
 
     const percent = Math.min(target > 0 ? Math.round(completed / target * 100) : 0, 100);
 
-    let counterClassName = `block container counter-block counter-style-${style}`;
+    let counterClassName = `block container counter-block counter-style-${style} ${className ?? ''}`;
     if (isEditing) counterClassName += ` editing`;
 
     return (

@@ -24,6 +24,7 @@ export const MediaFrontend = ( attributes ) => {
     embed_html,
     poster_url,
     media_url,
+    className,
   } = attributes;
 
   if ( !media_url ) {
@@ -31,7 +32,7 @@ export const MediaFrontend = ( attributes ) => {
   }
 
   return (
-    <section className="block media-block">
+    <section className={`block media-block ${className ?? ''}`}>
       <div className="container">
         {
           video_title &&

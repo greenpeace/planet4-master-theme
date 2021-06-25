@@ -123,7 +123,7 @@ const renderView = (attributes, setAttributes) => {
   const { images } = useGalleryImages({ multiple_image, gallery_block_focus_points }, layout);
 
   return (
-    <section className={`block ${GALLERY_BLOCK_CLASSES[layout]}`}>
+    <section className={`block ${GALLERY_BLOCK_CLASSES[layout]} ${className ?? ''}`}>
       <header className="articles-title-container">
         <RichText
           tagName="h2"

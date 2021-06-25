@@ -101,7 +101,7 @@ const renderView = (attributes, setAttributes, className) => {
   const style = getSubmenuStyle(className, submenu_style);
 
   return (
-    <section className={`block submenu-block submenu-${style}`}>
+    <section className={`block submenu-block submenu-${style} ${className ?? ''}`}>
       <RichText
         tagName="h2"
         placeholder={__('Enter title', 'planet4-blocks-backend')}
