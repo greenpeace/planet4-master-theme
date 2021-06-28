@@ -8,7 +8,7 @@
 namespace P4GBKS\Blocks;
 
 /**
- * Class Socialmedia
+ * Class SocialMedia
  *
  * @package P4GBKS\Blocks
  */
@@ -35,14 +35,25 @@ class SocialMedia extends Base_Block {
 	 * SocialMedia constructor.
 	 */
 	public function __construct() {
+		add_action( 'init', [ $this, 'register_socialmedia_block' ] );
+	}
+
+	/**
+	 * SocialMedia constructor.
+	 */
+	public function register_socialmedia_block() {
 		// - Register the block for the editor
 		register_block_type(
 			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
-				'render_callback' => [ $this, 'render' ],
+				'render_callback' => static function ( $attributes, $content ) {
+					if ( '' !== trim( $content ) ) {
+						return $content;
+					}
 
-				// These attributes match the current fields.
+					return ( new SocialMedia() )->render( $attributes );
+				},
 				'attributes'      => [
 					'title'             => [
 						'type'    => 'string',
@@ -68,13 +79,21 @@ class SocialMedia extends Base_Block {
 						'type'    => 'string',
 						'default' => '',
 					],
+					'embed_code'        => [
+						'type'    => 'string',
+						'default' => '',
+					],
 				],
 			]
 		);
+
+		add_action( 'enqueue_block_editor_assets', [ self::class, 'enqueue_editor_assets' ] );
+		add_action( 'wp_enqueue_scripts', [ self::class, 'enqueue_frontend_assets' ] );
 	}
 
 	/**
 	 * Get all the data that will be needed to render the block correctly.
+	 * We need to keep this for now, for existing blocks.
 	 *
 	 * @param array $fields This is the array of fields of this block.
 	 *
@@ -121,6 +140,45 @@ class SocialMedia extends Base_Block {
 	}
 
 	/**
+	 * Get all the data that will be needed to render the block correctly.
+	 *
+	 * @param array $fields This is the array of fields of this block.
+	 *
+	 * @return array The data to be passed in the View.
+	 */
+	private static function get_data( $fields ): array {
+		$title             = $fields['title'] ?? '';
+		$description       = $fields['description'] ?? '';
+		$url               = $fields['social_media_url'] ?? '';
+		$embed_type        = $fields['embed_type'];
+		$alignment_class   = $fields['alignment_class'];
+		$facebook_page_tab = $fields['facebook_page_tab'];
+
+		$data = [
+			'title'           => $title,
+			'description'     => $description,
+			'alignment_class' => $alignment_class,
+		];
+
+		if ( $url ) {
+			if ( 'oembed' === $embed_type ) {
+				// need to remove . so instagr.am becomes instagram.
+				$provider = preg_replace( '#(^www\.)|(\.com$)|(\.)#', '', strtolower( wp_parse_url( $url, PHP_URL_HOST ) ) );
+
+				if ( in_array( $provider, self::ALLOWED_OEMBED_PROVIDERS, true ) ) {
+					if ( 'twitter' === $provider ) {
+						$data['embed_code'] = wp_oembed_get( $url );
+					} else {
+						$data['embed_code'] = self::get_fb_oembed_html( rawurlencode( $url ), $provider );
+					}
+				}
+			}
+		}
+
+		return $data;
+	}
+
+	/**
 	 * Gets Facebook, Instagram oembed html.
 	 *
 	 * @param String $url The facebook/Instagram post/page/video url.
@@ -128,13 +186,13 @@ class SocialMedia extends Base_Block {
 	 *
 	 * @return String The oembed html or a message if something goes wrong.
 	 */
-	public function get_fb_oembed_html( $url, $provider ): string {
+	public static function get_fb_oembed_html( $url, $provider ): string {
 		$from_cache = get_transient( 'fb_oembed_response_' . $url );
 		if ( $from_cache ) {
 			return $from_cache;
 		}
 
-		$fb_oembed_url = $this->get_fb_oembed_url( $url, $provider );
+		$fb_oembed_url = self::get_fb_oembed_url( $url, $provider );
 
 		// With the safe version of wp_safe_remote_{VERB) functions, the URL is validated to avoid redirection and request forgery attacks.
 		$response = wp_safe_remote_get(
@@ -169,7 +227,7 @@ class SocialMedia extends Base_Block {
 	 *
 	 * @return string A facebook oembed API url.
 	 */
-	public function get_fb_oembed_url( $url, $provider ): string {
+	private static function get_fb_oembed_url( $url, $provider ): string {
 		$options             = get_option( 'planet4_options' );
 		$fb_app_access_token = $options['fb_app_access_token'] ?? '';
 

@@ -31,7 +31,6 @@ class P4_ShortcodeConverterTest extends P4_UnitTestCase {
 	 * @param string $shortcode  Shortcake shortcode.
 	 * @param string $expected   Expected converted to gutenberg block.
 	 *
-	 * @dataProvider social_media_shortcodes_provider
 	 * @dataProvider timeline_shortcodes_provider
 	 * @dataProvider take_action_boxout_shortcodes_provider
 	 */

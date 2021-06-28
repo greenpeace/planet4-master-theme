@@ -1,4 +1,3 @@
-import { MediaEmbedPreview } from './MediaEmbedPreview';
 import { MediaElementVideo } from './MediaElementVideo';
 
 const wrapEmbedHTML = embed_html => {
@@ -47,7 +46,7 @@ export const MediaFrontend = ( attributes ) => {
         {
           media_url && media_url.endsWith('.mp4')
           ? <MediaElementVideo videoURL={ media_url } videoPoster={ poster_url } />
-          : <MediaEmbedPreview html={ wrapEmbedHTML(embed_html) || null } />
+          : <div dangerouslySetInnerHTML={{ __html: wrapEmbedHTML(embed_html) || null }} />
         }
       </div>
     </section>
