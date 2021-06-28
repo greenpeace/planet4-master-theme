@@ -104,10 +104,10 @@ const p4_enform_frontend = (function ($) {
       const formValue = $(this).val();
 
       if ( // We only need to validate once per set of radios so we can check only the first one
-        $(this).attr('required') && 'radio' === $(this).attr('type') && $(this).attr('id').slice(-1) === '0' && !enform.validateRadio($(this)) ||
-        $(this).attr('required') && 'checkbox' === $(this).attr('type') && !$(this)[0].checked ||
-        $(this).attr('required') && !formValue && 'radio' !== $(this).attr('type') ||
-        'email' === $(this).attr('type') && !enform.validateEmail(formValue)
+        ($(this).attr('required') && 'radio' === $(this).attr('type') && $(this).attr('id').slice(-1) === '0' && !enform.validateRadio($(this)))||
+        ($(this).attr('required') && 'checkbox' === $(this).attr('type') && !$(this)[0].checked) ||
+        ($(this).attr('required') && !['checkbox', 'radio'].includes($(this).attr('type')) && !formValue) ||
+        ('email' === $(this).attr('type') && !enform.validateEmail(formValue))
       ) {
         enform.addErrorMessage(this);
         formIsValid = false;
