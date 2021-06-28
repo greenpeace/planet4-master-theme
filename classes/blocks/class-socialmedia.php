@@ -32,36 +32,9 @@ class SocialMedia extends Base_Block {
 	private const FB_CALL_TIMEOUT  = 10;              // Seconds after which the api call will timeout if not responded.
 
 	/**
-	 * Register shortcake shortcode.
-	 *
-	 * @param array  $attributes Shortcode attributes.
-	 * @param string $content   Content.
-	 *
-	 * @return mixed
-	 */
-	public function add_block_shortcode( $attributes, $content ) {
-		$attributes = shortcode_atts(
-			[
-				'title'             => '',
-				'description'       => '',
-				'embed_type'        => '',
-				'facebook_page_tab' => '',
-				'social_media_url'  => '',
-				'alignment_class'   => '',
-			],
-			$attributes,
-			'shortcake_social_media'
-		);
-
-		return $this->render( $attributes );
-	}
-
-	/**
 	 * SocialMedia constructor.
 	 */
 	public function __construct() {
-		add_shortcode( 'shortcake_social_media', [ $this, 'add_block_shortcode' ] );
-
 		// - Register the block for the editor
 		register_block_type(
 			self::get_full_block_name(),
