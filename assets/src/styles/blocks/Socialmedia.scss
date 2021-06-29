@@ -10,5 +10,29 @@
         margin-right: auto !important;
       }
     }
+
+    &-facebook {
+      border: none;
+      overflow: hidden;
+      height: 500px;
+
+      &--small {
+        width: 240px;
+        display: block;
+
+        @include medium-and-up {
+          display: none;
+        }
+      }
+
+      &--large {
+        width: 500px;
+        display: none;
+
+        @include medium-and-up {
+          display: block;
+        }
+      }
+    }
   }
 }
