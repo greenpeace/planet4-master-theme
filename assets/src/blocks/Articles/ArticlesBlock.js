@@ -22,6 +22,7 @@ export class ArticlesBlock {
         },
         articles_description: {
           type: 'string',
+          default: ''
         },
         article_count: {
           type: 'integer',
