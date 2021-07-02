@@ -4,7 +4,7 @@ import { inputName } from './inputName';
 
 const { __ } = wp.i18n;
 
-export const ENFormGenerator = ({fields, attributes, onInputChange}) => {
+export const FormGenerator = ({fields, attributes, onInputChange}) => {
   const { en_form_style } = attributes;
   const is_side_style = 'side-style' === en_form_style;
 
@@ -72,6 +72,10 @@ const TextInput = ({field, onInputChange, is_side_style}) => {
   const placeholder = is_side_style ? ''
     : `${field.label}${field.name.includes('Birth') ? ' (yyyy-mm-dd)' : ''}`;
 
+  const errorMessage = field.input_type === 'email'
+    ? __( 'Please enter a valid e-mail address.', 'planet4-engagingnetworks' )
+    : __( 'This field is required', 'planet4-engagingnetworks' )
+
   return (
     <div
       className={`en__field en__field--text en__field--${field.id} en__field--${field.property}`}
@@ -94,6 +98,7 @@ const TextInput = ({field, onInputChange, is_side_style}) => {
           type={ 'phoneNumber' == field.name ? 'tel' : field.input_type }
           className="en__field__input en__field__input--text form-control"
           defaultValue={ field.default_value }
+          data-errormessage={ errorMessage }
           data-validate_regex={ field.js_validate_regex }
           data-validate_regex_msg={ field.js_validate_regex_msg }
           data-validate_callback={ field.js_validate_function }

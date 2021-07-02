@@ -131,7 +131,7 @@ class ENForm extends Base_Block {
 	 * @return array
 	 */
 	public static function update_data( array $attributes ): array {
-		$post_id = (int) $attributes['en_form_id'];
+		$post_id = (int) ($attributes['en_form_id'] ?? 0);
 		$post    = get_post( $post_id );
 
 		if ( empty( $attributes['en_form_fields'] ) && $post_id ) {

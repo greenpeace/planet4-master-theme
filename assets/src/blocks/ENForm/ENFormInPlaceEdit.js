@@ -1,4 +1,4 @@
-import { ENFormGenerator } from './ENFormGenerator';
+import { FormGenerator } from './FormGenerator';
 import { ShareButtons } from './ShareButtons';
 import { RichText, BlockControls } from '@wordpress/block-editor';
 import { ToolbarGroup } from '@wordpress/components';
@@ -10,6 +10,7 @@ const { __ } = wp.i18n;
 export const ENFormInPlaceEdit = ({attributes, setAttributes}) => {
   const {
     en_form_style,
+    className,
   } = attributes;
 
   // Switch between signup form and thank you message
@@ -63,7 +64,7 @@ export const ENFormInPlaceEdit = ({attributes, setAttributes}) => {
     </BlockControls>
 
     <section
-      className={`block enform-wrap enform-${en_form_style} ${section_style}`}
+      className={`block enform-wrap enform-${en_form_style} ${section_style} ${className ?? ''}`}
     >
       {style_has_image &&
         <BackgroundImage {...{attributes}} />
@@ -366,7 +367,7 @@ const FormContent = ({attributes, setAttributes, fields}) => {
     <form id="p4en_form" name="p4en_form">
       <div className={fwbg ? 'row' : ''}>
         <div className={fwbg ? 'col-md-8' : ''}>
-          <ENFormGenerator {...{fields, attributes}} />
+          <FormGenerator {...{fields, attributes}} />
         </div>
 
         <div className={fwbg ? 'col-md-4 submit' : 'submit'}>

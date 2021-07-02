@@ -1,5 +1,5 @@
 import { ShareButtons } from './ShareButtons';
-import { ENFormGenerator } from './ENFormGenerator';
+import { FormGenerator } from './FormGenerator';
 import { useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import { unescape } from '../../functions/unescape';
@@ -15,25 +15,17 @@ export const ENFormFrontend = (attributes) => {
     en_form_style,
     en_form_fields,
     enform_goal,
-    title,
-    description,
     content_title,
     content_title_size,
     content_description,
-    donate_button_checkbox,
     thankyou_url,
-    thankyou_title,
-    thankyou_subtitle,
-    thankyou_donate_message,
-    thankyou_social_media_message,
     background,
     background_image_src,
     background_image_srcset,
     background_image_sizes,
     background_image_focus,
-    text_below_button,
-    button_text,
     campaign_logo,
+    className,
   } = attributes;
 
   const section_style = ((style) => {
@@ -69,7 +61,7 @@ export const ENFormFrontend = (attributes) => {
 
   const [activeTplId, setActiveTplId] = useState('signup');
   const [error_msg, setErrorMsg] = useState(null);
-  const [form, setFormData] = useState(
+  const [form_data, setFormData] = useState(
     fields.reduce((acc, f) => { return {...acc, [inputName(f)]: null} }, {})
   );
   const onInputChange = (e) => {
@@ -77,19 +69,19 @@ export const ENFormFrontend = (attributes) => {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
     console.log('form', name, value);
-    setFormData({...form, [name]: value});
-    console.log(form);
+    setFormData({...form_data, [name]: value});
+    console.log(form_data);
   }
 
   const onFormSubmit = (e) => {
     e.preventDefault();
     const url = `https://e-activist.com/ens/service/page/${en_page_id}/process`;
-    submitENForm({form, fields, url, enform_goal, thankyou_url, setErrorMsg, setActiveTplId});
+    submitENForm({form_data, fields, url, enform_goal, thankyou_url, setErrorMsg, setActiveTplId});
   }
 
   return (
     <section
-      className={`block enform-wrap enform-${en_form_style} ${section_style}`}
+      className={`block enform-wrap enform-${en_form_style} ${section_style} ${className ?? ''}`}
       style={{position: 'inherit'}}
     >
       {style_has_image && background_image_src &&
@@ -139,21 +131,16 @@ export const ENFormFrontend = (attributes) => {
 
 const Signup = ({attributes, fields, onInputChange, onFormSubmit, error_msg}) => {
   const {
-    en_page_id = 47512,
-    en_form_id,
     en_form_style,
-    en_form_fields,
-    enform_goal,
     title,
     description,
-    background,
-    background_image_src,
     text_below_button,
     button_text,
-    campaign_logo,
   } = attributes;
 
   const is_side_style = en_form_style === 'side-style';
+
+  console.log('error_msg', error_msg);
 
   return (
     <div className="enform" id="enform">
@@ -185,7 +172,7 @@ const Signup = ({attributes, fields, onInputChange, onFormSubmit, error_msg}) =>
 
             <div className={ en_form_style == 'full-width-bg' ? 'row' : '' }>
               <div className={ en_form_style == 'full-width-bg' ? 'col-md-8' : '' }>
-                  <ENFormGenerator {...{fields, attributes, onInputChange}} />
+                  <FormGenerator {...{fields, attributes, onInputChange}} />
               </div>
 
               <div className={ en_form_style == 'full-width-bg' ? 'col-md-4 submit' : 'submit' }>
@@ -306,7 +293,7 @@ const submitENForm = (props) => {
       if ( typeof hj === 'function' ) {
         hj('formSubmitFailed'); // eslint-disable-line no-undef
       }
-      setErrorMsg(error);
+      setErrorMsg(error.message);
     });
 }
 
