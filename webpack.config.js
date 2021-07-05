@@ -28,6 +28,13 @@ const jsConfig = {
 
 const publicJsConfig = {
   ...jsConfig,
+  resolve: {
+    alias: {
+      '@hooks': 'preact/hooks',
+      '@render': 'preact',
+      '@compat': 'preact/compat',
+    }
+  },
   entry: {
     frontendIndex: './assets/src/frontendIndex.js',
     carouselHeaderFrontIndex: './assets/src/carouselHeaderFrontIndex.js',
@@ -40,6 +47,13 @@ const publicJsConfig = {
 };
 const adminJsConfig = {
   ...jsConfig,
+  resolve: {
+    alias: {
+      '@hooks': '@wordpress/element',
+      '@render': '@wordpress/element',
+      '@compat': '@wordpress/element',
+    }
+  },
   entry: {
     editorIndex: './assets/src/editorIndex.js',
     themeEditor: './assets/src/themeEditorIndex.js',
