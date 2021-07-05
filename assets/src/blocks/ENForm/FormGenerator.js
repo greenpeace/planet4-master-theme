@@ -69,29 +69,20 @@ const HiddenInput = ({field}) => {
 
 const TextInput = ({field, onInputChange, is_side_style}) => {
   const input_name = inputName(field);
-  const placeholder = is_side_style ? ''
-    : `${field.label}${field.name.includes('Birth') ? ' (yyyy-mm-dd)' : ''}`;
-
   const errorMessage = field.input_type === 'email'
     ? __( 'Please enter a valid e-mail address.', 'planet4-engagingnetworks' )
     : __( 'This field is required', 'planet4-engagingnetworks' )
+
+  const label = `${field.label}${field.required ? ' *' : ''}`;
 
   return (
     <div
       className={`en__field en__field--text en__field--${field.id} en__field--${field.property}`}
     >
       <div
-        className="en__field__element en__field__element--text form-group"
+        className="en__field__element en__field__element--text form-group animated-label"
         style={field.en_type === 'GEN' ? {display: "flex", "flex-direction": "row"} : {display: "block"} }
       >
-        {is_side_style &&
-          <label
-            className="en__field__top__label"
-            htmlFor={`en__field_supporter_questions_${ field.id }`}
-          >
-            {field.label} {field.required ? '*' : ''}
-          </label>
-        }
         <input
           id={`en__field_supporter_${ field.property }`}
           name={ input_name }
@@ -102,11 +93,19 @@ const TextInput = ({field, onInputChange, is_side_style}) => {
           data-validate_regex={ field.js_validate_regex }
           data-validate_regex_msg={ field.js_validate_regex_msg }
           data-validate_callback={ field.js_validate_function }
-          placeholder={ placeholder }
+          placeholder={ label }
           required={field.required || field.input_type === 'email'}
           size="40"
           onChange={ onInputChange }
         />
+        {is_side_style &&
+          <label
+            className="en__field__top__label"
+            htmlFor={`en__field_supporter_questions_${ field.id }`}
+          >
+            {label}
+          </label>
+        }
       </div>
     </div>
   );
@@ -137,15 +136,16 @@ const CheckboxOpt = ({field, onInputChange, dependent_field}) => {
           defaultValue={ field.default_value }
           data-errormessage={ errorMessage }
           defaultChecked={ 1 == field.selected }
-          required={ 'true' == field.required }
+          required={ field.required }
           disabled={ field.name == dependent_field }
           data-dependency={ field.dependency }
           onClick={ toggleDependencies }
           onChange={ onInputChange }
         />
-        <span className="custom-control-description">
-          { field.label }{ 'true' == field.required ? '*' : '' }
-        </span>
+        <span
+          className="custom-control-description"
+          dangerouslySetInnerHTML={{__html: `${field.label}${field.required ? ' *' : ''}`}}
+        />
         </label>
       </div>
     </div>
@@ -170,15 +170,17 @@ const CheckboxGen = ({field, onInputChange, index, dependent_field}) => {
             defaultValue={ question_option.option_value }
             data-errormessage={ errorMessage }
             defaultChecked={ question_option.option_selected }
-            required={ 'true' == field.required }
+            required={ field.required }
             disabled={ field.name == dependent_field }
             data-dependency={ field.dependency }
             onClick={ toggleDependencies }
             onChange={ onInputChange }
           />
-          <span className="custom-control-description">
-            { question_option.option_label }
-          </span><br />
+          <span
+            className="custom-control-description"
+            dangerouslySetInnerHTML={{__html: `${question_option.option_label}${field.required ? ' *' : ''}`}}
+          />
+          <br />
         </label>
       </div>
     </div>
@@ -231,11 +233,13 @@ const RadioInput = ({field, onInputChange}) => {
 const CountryInput = ({field, onInputChange, is_side_style}) => {
   const input_name = inputName(field);
   const props = {
+    id: `en__field_supporter_${ field.property }`,
     name: input_name,
-    default_text: is_side_style ? '' : __( 'Select Country or Region', 'planet4-engagingnetworks' ),
-    class_name: `en__field__input en__field__input--select en_select_country form-control`,
+    class_name: `en__field__input en__field__input--select en_select_country form-select`,
+    default_text: `${__( 'Select Country or Region', 'planet4-engagingnetworks' )}${field.required ? ' *' : ''}`,
     error_message: __( 'Please select a country.', 'planet4-engagingnetworks' ),
     required: field?.required || false,
+    label: `${field.label}${field.required ? ' *' : ''}`,
     onInputChange
   };
 
@@ -243,12 +247,7 @@ const CountryInput = ({field, onInputChange, is_side_style}) => {
     <div
       className={`en__field en__field--${field.id} en__field--${field.property} en__field--select`}
     >
-      <div className="en__field__element en__field__element--select form-group">
-        {is_side_style &&
-          <label className="en__field__top__label" htmlFor={input_name}>
-            {field.label} {field.required ? '*' : ''}
-          </label>
-        }
+      <div className="en__field__element en__field__element--select form-group animated-label">
         <CountrySelector {...props} />
       </div>
     </div>
@@ -258,10 +257,10 @@ const CountryInput = ({field, onInputChange, is_side_style}) => {
 const PositionInput = ({field, onInputChange, is_side_style}) => {
   const input_name = inputName(field);
   const props = {
-    id: `en__field_supporter_${field.name}`,
+    id: `en__field_supporter_${field.property}`,
     name: input_name,
-    class_name: `en__field__input en__field__input--select en_select_position form-control`,
-    default_text: is_side_style ? '' : __( 'Select Affiliation, Position or Profession', 'planet4-engagingnetworks' ),
+    class_name: `en__field__input en__field__input--select en_select_position form-select`,
+    default_text: `${__( 'Select Affiliation, Position or Profession', 'planet4-engagingnetworks' )}${field.required ? ' *' : ''}`,
     error_message: __( 'Please select a position.', 'planet4-engagingnetworks' ),
     required: field?.required || false,
     onInputChange
@@ -271,10 +270,10 @@ const PositionInput = ({field, onInputChange, is_side_style}) => {
     <div
       className={`en__field en__field--${field.id} en__field--${field.property} en__field--select`}
     >
-      <div className="en__field__element en__field__element--select form-group">
+      <div className="en__field__element en__field__element--select form-group animated-label">
         {is_side_style &&
           <label className="en__field__top__label" htmlFor={input_name}>
-            {field.label} {field.required ? '*' : ''}
+            {field.label}{field.required ? ' *' : ''}
           </label>
         }
         <PositionSelector {...props} />

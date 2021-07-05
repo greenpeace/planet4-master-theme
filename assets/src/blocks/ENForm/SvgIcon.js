@@ -1,5 +1,5 @@
 export const SvgIcon = (props) => {
-  const theme_dir = '/wp-content/themes/planet4-master-theme';
+  const theme_dir = window.p4bk_vars.themeUrl;
   const {
     name,
     sprite = `${theme_dir}/images/symbol/svg/sprite.symbol.svg`,

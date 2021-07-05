@@ -11,7 +11,7 @@ export const ShareButtons = (social, accounts, sprite = '') => {
   const dataLayer = [];
   const share = (action, label) => {
     dataLayer.push({
-      event: 'uaevent', 
+      event: 'uaevent',
       eventCategory: 'Social Share',
       eventAction: action,
       eventLabel: label
@@ -21,39 +21,39 @@ export const ShareButtons = (social, accounts, sprite = '') => {
   return (
     <div className="share-buttons">
       <a href={ `https://wa.me/?text=${encodeURIComponent(link)}` }
-        onClick={share('Whatsapp', link)}
-        target="_blank" 
+        onClick={() => {share('Whatsapp', link)}}
+        target="_blank"
         className="share-btn whatsapp"
       >
         <SvgIcon {...{name: "whatsapp"}} />
-        <span className="sr-only">{__( 'Share on', 'planet4-master-theme' )} Whatsapp</span>
+        <span className="visually-hidden">{__( 'Share on', 'planet4-master-theme' )} Whatsapp</span>
       </a>
 
       <a href={ `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}` }
-        onClick={share('Facebook', link)}
+        onClick={() => {share('Facebook', link)}}
         target="_blank"
         className="share-btn facebook"
       >
         <SvgIcon {...{name: "facebook-f"}} />
-        <span className="sr-only">{__( 'Share on', 'planet4-master-theme' )} Facebook</span>
+        <span className="visually-hidden">{__( 'Share on', 'planet4-master-theme' )} Facebook</span>
       </a>
 
       <a href={ twitterUrl(link, title, description, accounts.twitter) }
-        onClick={share('Twitter', link)}
+        onClick={() => {share('Twitter', link)}}
         target="_blank"
         className="share-btn twitter"
       >
         <SvgIcon {...{name: "twitter"}} />
-        <span className="sr-only">{__( 'Share on', 'planet4-master-theme' )} Twitter</span>
+        <span className="visually-hidden">{__( 'Share on', 'planet4-master-theme' )} Twitter</span>
       </a>
 
       <a href={`mailto:?subject=${title}&body=${description ? encodeURIComponent(description) : ''}${link}`}
-        onClick={share('Email', link)}
+        onClick={() => {share('Email', link)}}
         target="_blank"
         className="share-btn email"
       >
         <SvgIcon {...{name: "envelope"}} />
-        <span className="sr-only">{__( 'Share via', 'planet4-master-theme' )} Email</span>
+        <span className="visually-hidden">{__( 'Share via', 'planet4-master-theme' )} Email</span>
       </a>
     </div>
   )

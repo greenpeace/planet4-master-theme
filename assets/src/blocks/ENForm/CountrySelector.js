@@ -6,11 +6,11 @@ export const CountrySelector = (attributes) => {
     class_name = '',
     error_message = '',
     required = false,
-    onChange = () => {}
+    onInputChange = () => {}
   } = attributes;
 
   const options = [
-    <option key="default" value="">{ default_text }</option>,
+    <option key="default" value="" disabled={true}>{ default_text }</option>,
     ...countries.map((c) => {
       return <option key={ c.code } value={ c.code }>{ c.name }</option>
     })
@@ -23,7 +23,8 @@ export const CountrySelector = (attributes) => {
       className={ class_name }
       data-errormessage={ error_message }
       required={ required }
-      onChange={ onChange }
+      defaultValue=""
+      onChange={ onInputChange }
     >
       { options }
     </select>

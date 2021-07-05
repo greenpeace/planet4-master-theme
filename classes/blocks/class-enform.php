@@ -41,8 +41,10 @@ class ENForm extends Base_Block {
 	private static $attributes = [
 		'en_page_id'                    => [ 'type' => 'integer' ],
 		'enform_goal'                   => [ 'type' => 'string' ],
-		'en_form_style'                 => [ 'type' => 'string' ],
-		'enform_style'                  => [ 'type' => 'string' ],
+		'en_form_style'                 => [
+			'type'    => 'string',
+			'default' => 'side-style',
+		],
 		'title'                         => [ 'type' => 'string' ],
 		'description'                   => [ 'type' => 'string' ],
 		'campaign_logo'                 => [ 'type' => 'boolean' ],
@@ -59,11 +61,15 @@ class ENForm extends Base_Block {
 		'thankyou_donate_message'       => [ 'type' => 'string' ],
 		'thankyou_social_media_message' => [ 'type' => 'string' ],
 		'donate_button_checkbox'        => [ 'type' => 'boolean' ],
+		'donate_text'                   => [ 'type' => 'string' ],
 		'thankyou_url'                  => [ 'type' => 'string' ],
 		'custom_donate_url'             => [ 'type' => 'string' ],
 		'background'                    => [ 'type' => 'integer' ],
 		'en_form_id'                    => [ 'type' => 'integer' ],
-		'en_form_fields'                => [ 'type' => 'array' ],
+		'en_form_fields'                => [
+			'type'    => 'array',
+			'default' => [],
+		],
 	];
 
 	/**
@@ -77,8 +83,8 @@ class ENForm extends Base_Block {
 	 * Register block.
 	 */
 	public function register_enform_block() {
-		$name = self::get_full_block_name() . '-beta';
-		if ( WP_Block_Type_Registry::get_instance()->is_registered( $name ) ) {
+		$block_name = self::get_full_block_name() . '-beta';
+		if ( WP_Block_Type_Registry::get_instance()->is_registered( $block_name ) ) {
 			return;
 		}
 
@@ -95,25 +101,13 @@ class ENForm extends Base_Block {
 		);
 
 		\register_block_type(
-			self::get_full_block_name() . '-beta',
+			$block_name,
 			[
 				'attributes'      => static::$attributes,
 				'render_callback' => function ( $attributes ) {
-					$json = \wp_json_encode(
-						[ 'attributes' => $this->update_data( $attributes ) ]
-					);
-					if ( empty( $json ) ) {
-						$json = [];
-					}
+					$attributes = static::update_data( $attributes );
 
-					if ( ! $this->is_rest_request() ) {
-						$json = htmlspecialchars( $json );
-					}
-
-					return '<div
-						data-render="' . self::get_full_block_name() . '"
-						data-attributes="' . $json . '">
-					</div>';
+					return self::render_frontend( $attributes );
 				},
 			]
 		);
@@ -131,7 +125,7 @@ class ENForm extends Base_Block {
 	 * @return array
 	 */
 	public static function update_data( array $attributes ): array {
-		$post_id = (int) ($attributes['en_form_id'] ?? 0);
+		$post_id = (int) ( $attributes['en_form_id'] ?? 0 );
 		$post    = get_post( $post_id );
 
 		if ( empty( $attributes['en_form_fields'] ) && $post_id ) {

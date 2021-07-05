@@ -44,8 +44,8 @@ export const ENFormSettings = ({attributes, setAttributes}) => {
   const onCampaignLogoChange = (use_logo) => {
     setAttributes({
       campaign_logo: use_logo,
-      campaign_logo_path: use_logo ? '' : '',
-      campaign_template: use_logo ? '' : '',
+      campaign_logo_path: '',
+      campaign_template: '',
     });
   }
 
@@ -171,7 +171,7 @@ const getPageListByType = () => {
 
   let flattenedPages = [];
   for (var i in pages) {
-    pagesByType = pages[i].map(page => {
+    let pagesByType = pages[i].map(page => {
       return { label: page.name, value: page.id };
     });
     flattenedPages = flattenedPages.concat(

@@ -1,6 +1,7 @@
-import {ENFormFrontend} from './ENFormFrontend';
-import {ENFormInPlaceEdit} from './ENFormInPlaceEdit';
-import {ENFormSettings} from './ENFormSettings';
+import { ENFormFrontend } from './ENFormFrontend';
+import { ENFormInPlaceEdit } from './ENFormInPlaceEdit';
+import { ENFormSettings } from './ENFormSettings';
+import { getStyleFromClassName } from '../getStyleFromClassName';
 
 import { useSelect } from '@wordpress/data';
 
@@ -9,16 +10,19 @@ export const ENFormEditor = ({ attributes, setAttributes, isSelected }) => {
 
   const { en_form_style, className } = attributes;
 
-  // todo: better legacy handling
+  console.log('1', en_form_style, className);
+
   if ( className && className.length > 0 ) {
     setAttributes({
-      en_form_style: className.replace('is-style-', '')
+      en_form_style: getStyleFromClassName(className)
     });
   }
 
   if (! en_form_style || en_form_style.length <= 0) {
     setAttributes({en_form_style: 'side-style'});
   }
+
+  console.log('2', en_form_style, className);
 
   return (
     isSelected

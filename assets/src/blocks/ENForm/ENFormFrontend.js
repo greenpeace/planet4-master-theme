@@ -10,7 +10,7 @@ const { __ } = wp.i18n;
 
 export const ENFormFrontend = (attributes) => {
   const {
-    en_page_id = 47512,
+    en_page_id,
     en_form_id,
     en_form_style,
     en_form_fields,
@@ -46,6 +46,7 @@ export const ENFormFrontend = (attributes) => {
   const style_has_image = en_form_style === 'full-width-bg' || en_form_style === 'side-style';
   const is_side_style = en_form_style === 'side-style';
 
+  console.log(attributes, en_form_fields);
   let fields = en_form_fields;
   if (fields.length <= 0) {
     const form_post = useSelect((select) => {
@@ -140,8 +141,6 @@ const Signup = ({attributes, fields, onInputChange, onFormSubmit, error_msg}) =>
 
   const is_side_style = en_form_style === 'side-style';
 
-  console.log('error_msg', error_msg);
-
   return (
     <div className="enform" id="enform">
       <div id="enform-content">
@@ -166,10 +165,6 @@ const Signup = ({attributes, fields, onInputChange, onFormSubmit, error_msg}) =>
             noValidate
             onSubmit={ onFormSubmit }
           >
-            {error_msg &&
-              <span className="enform-error">{ error_msg }</span>
-            }
-
             <div className={ en_form_style == 'full-width-bg' ? 'row' : '' }>
               <div className={ en_form_style == 'full-width-bg' ? 'col-md-8' : '' }>
                   <FormGenerator {...{fields, attributes, onInputChange}} />
@@ -193,6 +188,9 @@ const Signup = ({attributes, fields, onInputChange, onFormSubmit, error_msg}) =>
                 </div>
               }
             </div>
+            {error_msg &&
+              <span className="enform-error">{ error_msg }</span>
+            }
           </form>
         </div>
 
@@ -212,7 +210,7 @@ const submitENForm = (props) => {
     setActiveTplId,
   } = props;
 
-  console.log('data', form_data);
+  console.log('form_data', form_data, fields);
 
   // Normalize
   let supporter = {
@@ -232,15 +230,20 @@ const submitENForm = (props) => {
     }
   }
 
-  const data = {
+  const post_data = {
     standardFieldNames: true,
     supporter: supporter
   };
+  console.log('post data', post_data);
 
-  console.log('data', data);
+  const formIsValid = validateForm(form_data, fields);
+  if (!formIsValid) {
+    console.error('Validation error.');
+    return;
+  }
 
   // Fetch token
-  const token_endpoint = '/wp-json/planet4/v1/get-en-session-token';
+  const token_endpoint = `${p4bk_vars.siteUrl}/wp-json/planet4/v1/get-en-session-token`;
   fetch(token_endpoint)
     .then(response => response.json())
     .then(token_data => {
@@ -259,10 +262,9 @@ const submitENForm = (props) => {
           'Content-Type': 'application/json',
           'ens-auth-token': session_token
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(post_data),
       });
     }).then(() => {
-      console.log('next');
       // Submit Hotjar success
       if ( typeof hj === 'function' ) {
         hj('formSubmitSuccessful'); // eslint-disable-line no-undef
@@ -297,6 +299,72 @@ const submitENForm = (props) => {
     });
 }
 
+const validateForm = (form_data, fields) => {
+  let formIsValid = true;
+
+  fields.forEach((f) => {
+    let field_name, elId;
+    if (f.property && f.property.length > 0) {
+      field_name = `supporter.${f.property}`;
+      elId = `en__field_supporter_${f.property}`;
+    } else {
+      field_name = `supporter.questions.${f.id}`;
+      elId = `en__field_supporter_questions_${f.id}`;
+    }
+    const value = form_data[field_name];
+
+    const field_element = document.getElementById(elId);
+    if (!field_element) {
+      return;
+    }
+
+    removeErrorMessage(field_element);
+    if (f.required && [null, false, ''].includes(value)) {
+      formIsValid = false;
+      addErrorMessage(field_element);
+    }
+
+    const regexPattern = field_element.dataset['validate_regex'];
+    if (regexPattern) {
+      const regex = new RegExp(regexPattern);
+      const res = regex.test(formValue);
+      if (!res) {
+        addErrorMessage(field_element, field_element.dataset['data-validate_regex_msg']);
+        formIsValid = false;
+      }
+    }
+
+    const callbackFunction = field_element.dataset['data-validate_callback'];
+    if ('function' === typeof window[callbackFunction]) {
+      const validateField = window[callbackFunction]($(this).val());
+      if (true !== validateField) {
+        addErrorMessage(field_element, validateField);
+        formIsValid = false;
+      }
+    }
+  });
+
+  return formIsValid;
+}
+
+const addErrorMessage = (element, message = null) => {
+  const error = message ?? element.dataset.errormessage ?? 'Error';
+  const invalidDiv = document.createElement('div');
+  invalidDiv.classList.add('invalid-feedback');
+  invalidDiv.innerText = error;
+
+  element.classList.add('is-invalid');
+  element.parentNode.appendChild(invalidDiv);
+}
+
+const removeErrorMessage = (element) => {
+  element.classList.remove('is-invalid');
+  let errorDiv = element.parentNode.querySelector('.invalid-feedback');
+  if (errorDiv) {
+    errorDiv.parentNode.removeChild(errorDiv);
+  }
+}
+
 const ThankYou = ({attributes, error_msg}) => {
   const {
     en_form_style,
@@ -311,6 +379,7 @@ const ThankYou = ({attributes, error_msg}) => {
   } = attributes;
 
   return (
+    <div className="enform" id="enform">
     <div
       className={'thankyou ' + (en_form_style != 'side-style' ? 'full-width': '')}
     >
@@ -340,12 +409,13 @@ const ThankYou = ({attributes, error_msg}) => {
             </div>
 
             <div className="form-group">
-              <a href={donatelink} className="btn btn-primary btn-block">{donate_text}</a>
+              <a href={donatelink} className="btn btn-primary btn-block">{donate_text ?? __('Donate', 'planet4-engagingnetworks')}</a>
             </div>
           </>
         }
 
       </div>
+    </div>
     </div>
   )
 }

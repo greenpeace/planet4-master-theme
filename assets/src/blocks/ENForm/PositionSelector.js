@@ -12,7 +12,7 @@ export const PositionSelector = (attributes) => {
   } = attributes;
 
   const options = [
-    <option key="default" value="">{ default_text }</option>,
+    <option key="default" value="" disabled={true}>{ default_text }</option>,
     ...positions.map((p) => {
       return <option key={ p.code } value={ p.code }>{ p.name }</option>
     })
@@ -25,6 +25,7 @@ export const PositionSelector = (attributes) => {
       className={ class_name }
       data-errormessage={ error_message }
       required={ required }
+      defaultValue=""
       onChange={ onChange }
     >
       { options }
