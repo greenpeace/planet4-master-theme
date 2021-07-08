@@ -3,9 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserJSPlugin = require('terser-webpack-plugin');
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
-const RemovePlugin = require('remove-files-webpack-plugin');
 const dashDash = require('@greenpeace/dashdash');
-const fs = require('fs');
 
 const mediaQueryAliases = {
   '(max-width: 576px)': 'mobile-only',
@@ -15,27 +13,63 @@ const mediaQueryAliases = {
   '(min-width: 1200px)': 'x-large-and-up',
 };
 
-const entryPoints = blockName => {
-  const tpl = {
-    [`${blockName}EditorScript`]: `./assets/src/blocks/${blockName}/${blockName}EditorScript.js`,
-    [`${blockName}EditorStyle`]: `./assets/src/styles/blocks/${blockName}/${blockName}EditorStyle.scss`,
-    [`${blockName}Script`]: `./assets/src/blocks/${blockName}/${blockName}Script.js`,
-    [`${blockName}Style`]: `./assets/src/styles/blocks/${blockName}/${blockName}Style.scss`,
-  };
-  const pathExists = ([,path]) => fs.existsSync(path);
-  return Object.fromEntries(Object.entries(tpl).filter(pathExists));
+const jsConfig = {
+  ...defaultConfig,
+  output: {
+    filename: '[name].js',
+    path: __dirname + '/assets/build'
+  },
+  optimization: {
+    minimizer: [
+      new TerserJSPlugin({}),
+    ]
+  },
 };
 
-module.exports = {
-  ...defaultConfig,
+const publicJsConfig = {
+  ...jsConfig,
+  resolve: {
+    alias: {
+      '@hooks': 'preact/hooks',
+      '@render': 'preact',
+      '@compat': 'preact/compat',
+    }
+  },
   entry: {
-    editorIndex: './assets/src/editorIndex.js',
     frontendIndex: './assets/src/frontendIndex.js',
     carouselHeaderFrontIndex: './assets/src/carouselHeaderFrontIndex.js',
+    AccordionScript: './assets/src/blocks/Accordion/AccordionScript.js',
+    CoversScript: './assets/src/blocks/Covers/CoversScript.js',
+    CarouselHeaderScript: './assets/src/blocks/CarouselHeader/CarouselHeaderScript.js',
+    SpreadsheetScript: './assets/src/blocks/Spreadsheet/SpreadsheetScript.js',
+    TimelineScript: './assets/src/blocks/Timeline/TimelineScript.js',
+  },
+};
+const adminJsConfig = {
+  ...jsConfig,
+  resolve: {
+    alias: {
+      '@hooks': '@wordpress/element',
+      '@render': '@wordpress/element',
+      '@compat': '@wordpress/element',
+    }
+  },
+  entry: {
+    editorIndex: './assets/src/editorIndex.js',
+    themeEditor: './assets/src/themeEditorIndex.js',
+    AccordionEditorScript: './assets/src/blocks/Accordion/AccordionEditorScript.js',
+    CoversEditorScript: './assets/src/blocks/Covers/CoversEditorScript.js',
+    CarouselHeaderEditorScript: './assets/src/blocks/CarouselHeader/CarouselHeaderEditorScript.js',
+    SpreadsheetEditorScript: './assets/src/blocks/Spreadsheet/SpreadsheetEditorScript.js',
+    TimelineEditorScript: './assets/src/blocks/Timeline/TimelineEditorScript.js',
+  },
+};
+const cssConfig = {
+  ...defaultConfig,
+  entry: {
     style: './assets/src/styles/style.scss',
     editorStyle: './assets/src/styles/editorStyle.scss',
     lightbox: './assets/src/styles/lightbox.scss',
-    themeEditor: './assets/src/themeEditorIndex.js',
     themeEditorStyle: './assets/src/styles/themeEditor.scss',
     theme_antarctic: './assets/src/styles/theme_antarctic.scss',
     theme_arctic: './assets/src/styles/theme_arctic.scss',
@@ -44,20 +78,20 @@ module.exports = {
     theme_oceans: './assets/src/styles/theme_oceans.scss',
     theme_oil: './assets/src/styles/theme_oil.scss',
     theme_plastic: './assets/src/styles/theme_plastic.scss',
-    ...entryPoints('Accordion'),
-    ...entryPoints('Covers'),
-    ...entryPoints('CarouselHeader'),
-    ...entryPoints('Spreadsheet'),
-    ...entryPoints('Timeline'),
+    AccordionStyle: './assets/src/styles/blocks/Accordion/AccordionStyle.scss',
+    AccordionEditorStyle: './assets/src/styles/blocks/Accordion/AccordionEditorStyle.scss',
+    CarouselHeaderStyle: './assets/src/styles/blocks/CarouselHeader/CarouselHeaderStyle.scss',
+    CarouselHeaderEditorStyle: './assets/src/styles/blocks/CarouselHeader/CarouselHeaderEditorStyle.scss',
+    SpreadsheetStyle: './assets/src/styles/blocks/Spreadsheet/SpreadsheetStyle.scss',
+    TimelineStyle: './assets/src/styles/blocks/Timeline/TimelineStyle.scss',
+    TimelineEditorStyle: './assets/src/styles/blocks/Timeline/TimelineEditorStyle.scss',
   },
   output: {
     filename: '[name].js',
     path: __dirname + '/assets/build'
   },
   module: {
-    ...defaultConfig.module,
     rules: [
-      ...defaultConfig.module.rules,
       {
         test: /\.(sass|scss)$/,
         use: [
@@ -111,36 +145,10 @@ module.exports = {
       ignoreOrder: false, // Enable to remove warnings about conflicting order
       filename: './[name].min.css'
     }),
-    new RemovePlugin({
-      after: {
-        test: [
-          {
-            folder: 'assets/build/',
-            method: (filePath) => {
-              return [
-                'editorStyle.deps.json',
-                'style.deps.json',
-                'theme_antarctic.deps.json',
-                'theme_arctic.deps.json',
-                'theme_climate.deps.json',
-                'theme_forest.deps.json',
-                'theme_oceans.deps.json',
-                'theme_oil.deps.json',
-                'theme_plastic.deps.json'
-              ].filter(item => {
-                return new RegExp(item, 'm').test(filePath);
-              }).length > 0;
-            }
-          }
-        ]
-      }
-    }),
   ],
   optimization: {
-    ...defaultConfig.optimization,
     minimizer: [
       // enable the css minification plugin
-      new TerserJSPlugin({}),
       new OptimizeCSSAssetsPlugin({
         cssProcessorOptions: {
           sourceMap: true,
@@ -151,5 +159,6 @@ module.exports = {
         }
       })
     ]
-  }
+  },
 };
+module.exports = [publicJsConfig, adminJsConfig, cssConfig];
