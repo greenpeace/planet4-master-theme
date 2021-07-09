@@ -24,8 +24,6 @@ class Features {
 
 	public const BETA_BLOCKS = 'beta_blocks';
 
-	public const SLACK_WEBHOOK = 'slack_webhook';
-
 	/**
 	 * Get the features options page settings.
 	 *
@@ -102,15 +100,6 @@ class Features {
 				),
 				'id'   => self::BETA_BLOCKS,
 				'type' => 'checkbox',
-			],
-			[
-				'name' => __( 'Slack webhook URL', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'TMP',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::SLACK_WEBHOOK,
-				'type' => 'text',
 			],
 		];
 

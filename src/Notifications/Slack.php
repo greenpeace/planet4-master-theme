@@ -9,6 +9,7 @@ use BracketSpace\Notification\Interfaces\Triggerable;
 use BracketSpace\Notification\Abstracts;
 use Maknz\Slack\Client;
 use P4\MasterTheme\Features;
+use P4\MasterTheme\Settings;
 
 /**
  * Slack Carrier.
@@ -54,7 +55,7 @@ class Slack extends Abstracts\Carrier {
 	 * @return void
 	 */
 	public function send( Triggerable $trigger ) {
-		$webhook = planet4_get_option( Features::SLACK_WEBHOOK );
+		$webhook = planet4_get_option( Settings::SLACK_WEBHOOK );
 		$client  = new Client( $webhook, [ 'link_names' => true ] );
 		$message = $this->get_message( $trigger );
 		$client->send( $message );
