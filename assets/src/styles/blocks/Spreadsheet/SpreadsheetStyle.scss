@@ -44,6 +44,13 @@ table.spreadsheet-table {
       background-color: $table-header-grey;
       border-bottom-color: $table-header-grey;
     }
+
+    button {
+      background-color: inherit;
+      color: inherit;
+      border: none;
+    }
+
     color: $white;
     border-bottom: 1px solid;
     cursor: pointer;
