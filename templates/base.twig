@@ -41,11 +41,7 @@
 	{% endif %}
 
 	{% block footer %}
-		{% if custom_styles.nav_type == 'minimal' %}
-			{% include 'footer_min.twig' %}
-		{% else %}
-			{% include 'footer.twig' %}
-		{% endif %}
+		{% include 'footer.twig' with { 'nav_type' : custom_styles.nav_type } %}
 
 		{% block cookies %}
 			{% include 'cookies.twig' %}
