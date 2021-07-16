@@ -237,7 +237,7 @@ jobs:
     environment:
       GOOGLE_PROJECT_ID: planet-4-151612
     docker:
-      - image: greenpeaceinternational/circleci-base:latest
+      - image: greenpeaceinternational/circleci-base:python-libs
         auth: &docker_auth
     steps:
       - attach_workspace:
@@ -279,6 +279,8 @@ jobs:
       - run:
           name: Commit to test instance repo
           command: trigger_test_instance.sh planet4-master-theme $(cat /tmp/workspace/is_merge_commit)
+      - store_artifacts:
+          path: /tmp/workspace/booking.json
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
