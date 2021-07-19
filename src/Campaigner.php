@@ -38,6 +38,9 @@ class Campaigner {
 			'delete_published_campaigns',
 			'delete_others_campaigns',
 			'edit_published_campaigns',
+			'read_private_campaigns',
+			'edit_private_campaigns',
+			'delete_private_campaigns',
 
 			// Needed to allow the editor rule to change the author of a post in the document sidebar. The users data for that
 			// control is fetched using the REST API, where WordPress by default doesn't perform a permissions check, however
