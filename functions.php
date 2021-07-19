@@ -78,6 +78,7 @@ function planet4_get_option( $key = '', $default = null ) {
 
 use P4\MasterTheme\ImageArchive\Rest;
 use P4\MasterTheme\Loader;
+use P4\MasterTheme\Notifications\Slack;
 use Timber\Timber;
 
 if ( ! class_exists( 'Timber' ) ) {
@@ -145,3 +146,11 @@ add_action( 'admin_menu', 'hide_wp_update_nag' );
 require_once 'load-class-aliases.php';
 
 Loader::get_instance();
+
+add_action(
+	'notification/elements',
+	static function () {
+		notification_register_carrier( new Slack( 'slack', 'Slack' ) );
+	}
+);
+
