@@ -66,6 +66,11 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="single-post-meta">
+							{% if ( post.author.avatar ) %}
+								<img itemprop="image" class="author-pic"
+									src="{{ fn('get_avatar_url', post.author.id, {'size' : 50}) }}"
+									alt="{{ post.author.name }}">
+							{% endif %}
 							{% if post.author.name %}
 								<address class="single-post-author">
 									{% if not ( post.get_author_override ) %}
