@@ -30,7 +30,7 @@ const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
           attachment: 0,
           cta_link: '',
           cta_text: '',
-          link_new_tab: '',
+          link_new_tab: false,
         }
       ]
     });
