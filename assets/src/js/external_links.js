@@ -12,7 +12,7 @@ export const setupExternalLinks = () => {
       return;
     }
 
-    link.target = '_blank';
+    link.target = link.target ? link.target : '';
     link.classList.add('external-link');
   });
 };
