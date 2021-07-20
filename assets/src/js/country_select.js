@@ -1,4 +1,4 @@
-const { __ } = wp.i18n;
+const __ = s => s;
 
 export const setupCountrySelect = function($) {
   'use strict';
