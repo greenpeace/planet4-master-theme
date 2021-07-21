@@ -22,38 +22,9 @@ class TakeActionBoxout extends Base_Block {
 	const BLOCK_NAME = 'take-action-boxout';
 
 	/**
-	 * Register shortcake shortcode.
-	 *
-	 * @param array  $attributes Shortcode attributes.
-	 * @param string $content Content.
-	 *
-	 * @return mixed
-	 */
-	public function add_block_shortcode( $attributes, $content ) {
-		$attributes = shortcode_atts(
-			[
-				'take_action_page'    => 0,
-				'custom_title'        => '',
-				'custom_excerpt'      => '',
-				'custom_link'         => '',
-				'custom_link_text'    => '',
-				'custom_link_new_tab' => false,
-				'tag_ids'             => [],
-				'background_image'    => 0,
-			],
-			$attributes,
-			'shortcake_take-action-boxout'
-		);
-
-		return $this->render( $attributes );
-	}
-
-	/**
 	 * TakeActionBoxout constructor.
 	 */
 	public function __construct() {
-		add_shortcode( 'shortcake_take-action-boxout', [ $this, 'add_block_shortcode' ] );
-
 		register_block_type(
 			self::get_full_block_name(),
 			[

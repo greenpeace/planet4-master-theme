@@ -13,69 +13,6 @@ export class TakeactionboxoutBlock {
 			supports: {
 				multiple: false, // Use the block just once per post.
 			},
-
-			// Transform the shortcode into a Gutenberg block
-			// this is used when a user clicks "Convert to blocks"
-			// on the "Classic Editor" block
-			transforms: {
-				from: [
-					{
-						type: 'shortcode',
-						// Shortcode tag can also be an array of shortcode aliases
-						tag: 'shortcake_take_action_boxout',
-						attributes: {
-							take_action_page: {
-								type: 'integer',
-								shortcode: function (attributes) {
-									return Number(attributes.named.take_action_page);
-								}
-							},
-							custom_title: {
-								type: 'string',
-								shortcode: function (attributes) {
-									return attributes.named.custom_title;
-								}
-							},
-							custom_excerpt: {
-								type: 'string',
-								shortcode: function (attributes) {
-									return attributes.named.custom_excerpt;
-								}
-							},
-							custom_link: {
-								type: 'string',
-								shortcode: function (attributes) {
-									return attributes.named.custom_link;
-								}
-							},
-							custom_link_text: {
-								type: 'string',
-								shortcode: function (attributes) {
-									return attributes.named.custom_link_text;
-								}
-							},
-							custom_link_new_tab: {
-								type: 'boolean',
-								shortcode: function (attributes) {
-									return attributes.named.custom_link_new_tab;
-								}
-							},
-							tag_ids: {
-								type: 'array',
-								shortcode: function (attributes) {
-									return attributes.named.tag_ids ?
-                    attributes.named.tag_ids.split(',').map(tag => Number(tag)).filter(tag => tag > 0)
-                    : [];
-								}
-							},
-							background_image: {
-								type: 'integer',
-								shortcode: ({named: {background_image = ''}}) => Number(background_image) > 0 ? Number(background_image) : 0,
-							},
-						},
-					},
-				]
-			},
 			// This attributes definition mimics the one in the PHP side.
 			attributes: {
 				take_action_page: {

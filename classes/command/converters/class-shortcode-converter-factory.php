@@ -22,8 +22,6 @@ class Shortcode_Converter_Factory {
 		switch ( $shortcode_name ) {
 			case 'shortcake_enblock':
 				return new ENBlock_Converter( $shortcode_name, $attributes );
-			case 'shortcake_take_action_boxout':
-				return new TakeActionBoxout_Converter( $shortcode_name, $attributes );
 		}
 
 		return new Shortcode_Converter( $shortcode_name, $attributes );
