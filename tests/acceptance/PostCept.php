@@ -1,16 +1,8 @@
 <?php
+
 $I = new AcceptanceTester($scenario);
+
 $I->wantTo('check Custom Taxonomy page');
-
-$I->amOnPage('/story');
-
-$I->see('Story', 'h1');
-
-$I->click('Nikos');
-
-$I->amOnPage('/author/nroussos');
-
-$I->see('Nikos', 'h1');
 
 // Create a new post and override the author
 $slug = $I->generateRandomSlug();
@@ -18,6 +10,7 @@ $slug = $I->generateRandomSlug();
 $postID = $I->havePostInDatabase([
 	'post_name'    => $slug,
 	'post_status'  => 'publish',
+	'post_title'   => 'Test title',
 	'post_content' => 'This is a test post',
 	'post_type'    => 'post',
 	'tax_input'   => [
@@ -30,6 +23,9 @@ $postID = $I->havePostInDatabase([
 ]);
 
 // Navigate to the newly created post
-$I->amOnPage('/story/' . $postID);
+$I->amOnPage('/' . $slug);
 
+// Check content
 $I->see('FooBarAuthor', 'address');
+$I->see('Test title', 'h1.page-header-title');
+$I->see('people', 'a.tag-item');
