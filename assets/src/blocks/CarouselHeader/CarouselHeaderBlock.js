@@ -27,7 +27,7 @@ const attributes = {
 
       const isValid = invalidSlides.length === 0;
       const messages = invalidSlides.map( invalidSlide => {
-        return `Carousel Header Block: Slide ${ slides.findIndex( slide => slide === invalidSlide ) + 1 } has no image`
+        return `Carousel Header Block: Slide ${ slides.findIndex( slide => slide === invalidSlide ) + 1 } has no image`;
       });
 
       return { isValid, messages };
@@ -48,6 +48,6 @@ export const registerCarouselHeaderBlock = () =>
     edit: CarouselHeaderEditor,
     save: frontendRendered(BLOCK_NAME),
     deprecated: [
-      { ...attributes, ...carouselHeaderV1 }
+      carouselHeaderV1
     ]
   });

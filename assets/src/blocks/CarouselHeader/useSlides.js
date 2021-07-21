@@ -84,7 +84,6 @@ export const useSlides = (slidesRef, lastSlide, containerRef, options = {
     if (newSlide !== currentSlide && nextElement && activeElement && !sliding) {
       setSliding(true);
 
-      const isRTL = false;
       const order = getOrder(currentSlide, newSlide, lastSlide);
       const enterTransitionClass = options.enterTransitionClasses[order];
       const exitTransitionClass = options.exitTransitionClasses[order];
