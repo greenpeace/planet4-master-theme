@@ -37,7 +37,7 @@ h6 {
   }
 }
 
-h1 {
+h1 _-- {
   line-height: 1.225;
   margin-bottom: 30px;
   font-size: $font-size-xxl;
@@ -51,7 +51,7 @@ h1 {
   }
 }
 
-h2 {
+h2 _-- {
   line-height: 1.38;
   margin-bottom: 5px;
   font-size: $font-size-xl;
@@ -65,7 +65,7 @@ h2 {
   }
 }
 
-h3 {
+h3 _-- {
   font-size: $font-size-lg;
 
   @include medium-and-up {
@@ -73,7 +73,7 @@ h3 {
   }
 }
 
-h4 {
+h4 _-- {
   font-size: $font-size-md;
 
   @include medium-and-up {
@@ -81,7 +81,7 @@ h4 {
   }
 }
 
-h5 {
+h5 _-- {
   font-size: $font-size-sm;
 
   @include medium-and-up {
@@ -89,7 +89,7 @@ h5 {
   }
 }
 
-h6 {
+h6 _-- {
   font-size: $font-size-sm;
 }
 
