@@ -63,6 +63,29 @@ class Context {
 	}
 
 	/**
+	 * Set the context fields relating to UTM.
+	 *
+	 * @param array  $context Context to be set.
+	 * @param object $post That the context refers to.
+	 */
+	public static function set_utm_params( &$context, $post ) {
+		$context['utm_campaign_param'] = self::parse_utm_campaign_param( $context['cf_local_project'] );
+		$context['utm_content_param']  = '&utm_content=postid-' . $post->id;
+	}
+
+	/**
+	 * Parse the utm_campaign param. It's not needed to add if the value is equal to `not set`.
+	 *
+	 * @param array $cf_local_project It comes from meta p4_global_project_tracking_id value.
+	 */
+	public static function parse_utm_campaign_param( $cf_local_project ): string {
+		if ( 'not set' !== $cf_local_project ) {
+			return '&utm_campaign=' . $cf_local_project;
+		}
+		return '';
+	}
+
+	/**
 	 * Get campaign scope from value selected in the Global Projects dropdown.
 	 * Conditions:
 	 * - If Global Project equals "Local Campaign" then Scope is Local.
