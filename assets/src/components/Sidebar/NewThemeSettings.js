@@ -70,10 +70,14 @@ export const NewThemeSettings = ({ onChange, currentTheme }) => {
 
   useAppliedCssVariables(serverThemes, currentTheme);
 
+  if (Object.keys(serverThemes).length === 0) {
+    return null;
+  }
+
   return <div className="components-panel__body is-opened">
     <span>
-      NOTE: This checkbox is to make it easier to compare the old and new version and check if they're the same.
-      It will not be used on production.
+      This dropdown contains themes that were created on this instance. It will be empty on production, as these won't
+      have any themes created. Once we confirmed the created themes we add them to below dropdown.
     </span>
     <SelectControl
       label={ __('New Theme', 'planet4-blocks-backend') }
