@@ -1388,23 +1388,14 @@ class MasterSite extends TimberSite {
 	 */
 	private function p4_message(): string {
 		return '<h2>Welcome to the new P4 message board!</h2>
-			<p>Did you already join the community on Slack? Here\'s the Planet 4 channels waiting for you in the Global Workspace 👇
+			<p>New to the Planet 4 platform? Here are some self - paced courses that can help you get up to speed. 👇
 				<ul>
 					<li><span style="margin-right: 3px;">
-						<a href="https://greenpeace.slack.com/archives/C014UMRC4AJ">#p4-general</a> 🌏</span>
-						to learn, ask and share about P4, connect with the community and stay on top of all P4 news</li>
+						<a href="https://greenpeace.studytube.nl/courses/22122">Planet 4 Fundamentals</a> 🌏</span>
+						learn the very basic of Planet 4.</li>
 					<li><span style="margin-right: 3px;">
-						<a href="https://greenpeace.slack.com/archives/C0151L0KKNX">#p4-dev</a> 🚀</span>
-						for all coders, engineers and techies</li>
-					<li><span style="margin-right: 3px;">
-						<a href="https://greenpeace.slack.com/archives/C015E2TGLCR">#p4-design</a> 🎨</span>
-						for all artists, creatives and visual wonders</li>
-					<li><span style="margin-right: 3px;">
-						<a href="https://greenpeace.slack.com/archives/C01672QUA0Z">#web-analytics</a> 📊</span>
-						for all data ninjas</li>
-					<li><span style="margin-right: 3px;">
-						<a href="https://greenpeace.slack.com/archives/C014UMRD3T8">#p4-infra</a> ⚙️</span>
-						for all Matrix architects</li>
+						<a href="https://greenpeace.studytube.nl/courses/23208/planet-4">Planet 4 Power User</a> 🚀</span>
+						a more in-depth course to understand how to manage a P4 website and how to make best use of its engagement features.</li>
 				</ul>
 			</p>';
 	}
