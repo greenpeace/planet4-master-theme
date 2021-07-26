@@ -244,23 +244,7 @@ jobs:
           at: /tmp/workspace
       - run:
           name: Check if this is for an open PR
-          command: |
-            if [[ $(cat /tmp/workspace/commit-message) =~ ^Merge[[:space:]]pull[[:space:]]request[[:space:]]\#([[:digit:]]+) ]]; then
-              echo "https://github.com/greenpeace/planet4-master-theme/pull/${BASH_REMATCH[1]}" > /tmp/workspace/pr
-              echo "MERGED PR ID: ${BASH_REMATCH[1]}"
-              echo true > /tmp/workspace/is_merge_commit
-            else
-              if [ -z "$CIRCLE_PULL_REQUEST" ];then
-                echo echo "No PR, skipping instance deploy"
-                exit 1
-              fi
-              echo false > /tmp/workspace/is_merge_commit
-              echo $CIRCLE_PULL_REQUEST > /tmp/workspace/pr
-            fi
-      - run:
-          name: Python script deps
-          command: |
-            pip3 install requests requests_oauthlib
+          command: check-pr-exists.sh $(cat /tmp/workspace/commit-message)
       - run:
           name: Book instance
           command: |
