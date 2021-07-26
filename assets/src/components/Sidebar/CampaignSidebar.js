@@ -143,8 +143,7 @@ export class CampaignSidebar extends Component {
         >
           { !!parent && <PostParentLink parent={ parent }/> }
           { !parent && meta && <NewThemeSettings currentTheme={meta.theme} onChange={ async value => {
-            const theme = await loadTheme(value);
-            this.setState({ theme });
+            this.handleThemeSwitch('theme', value, meta);
           } }/> }
           { !parent && <LegacyThemeSettings
             theme={ theme }
