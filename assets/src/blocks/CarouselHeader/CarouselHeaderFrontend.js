@@ -1,4 +1,4 @@
-import { useRef, useEffect } from '@wordpress/element';
+import { useRef, useEffect, useState } from '@wordpress/element';
 import { useSlides } from './useSlides';
 import { Slide } from './Slide';
 import { CarouselControls } from './CarouselControls';
@@ -8,6 +8,7 @@ import { StaticCaption } from './StaticCaption';
 const isRTL = document.querySelector('html').dir === 'rtl';
 
 export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className }) => {
+  const [autoplayPaused, setAutoplayPaused] = useState(false);
   const slidesRef = useRef([]);
   const containerRef = useRef(null);
   const {
@@ -16,7 +17,6 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className })
     goToNextSlide,
     goToPrevSlide,
     setCarouselHeight,
-    autoplayPaused,
     autoplayCancelled
   } = useSlides(slidesRef, slides.length - 1, containerRef);
 
@@ -75,6 +75,8 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className })
     <section
       className={`block block-header block-wide carousel-header-beta ${className ?? ''}`}
       ref={containerRef}
+      onMouseEnter={() => setAutoplayPaused(true)}
+      onMouseLeave={() => setAutoplayPaused(false)}
     >
       <div className='carousel-wrapper-header'>
         <div className='carousel-inner' role='listbox'>
