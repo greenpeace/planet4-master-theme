@@ -237,7 +237,7 @@ jobs:
     environment:
       GOOGLE_PROJECT_ID: planet-4-151612
     docker:
-      - image: greenpeaceinternational/circleci-base:latest
+      - image: greenpeaceinternational/circleci-base:add-label-earlier
         auth: &docker_auth
     steps:
       - attach_workspace:
@@ -272,7 +272,7 @@ jobs:
 
   comment-pr:
     docker:
-      - image: greenpeaceinternational/circleci-base:latest
+      - image: greenpeaceinternational/circleci-base:add-label-earlier
         auth: &docker_auth
     steps:
       - attach_workspace:
