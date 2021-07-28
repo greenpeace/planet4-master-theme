@@ -143,14 +143,29 @@ commands:
         type: string
       extract-command:
         type: string
+      env:
+        type: string
+        default: |
+          export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
+          export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
+          export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
     steps:
       - run:
+          name: Setup for test
+          command: |
+            << parameters.env >>
+            make -C planet4-docker-compose ci
+      - run:
           name: << parameters.test-name >>
-          command: << parameters.test-command >>
+          command: |
+            << parameters.env >>
+            << parameters.test-command >>
       - run:
           name: Test - Extract test artifacts
           when: always
-          command: << parameters.extract-command >>
+          command: |
+            << parameters.env >>
+            << parameters.extract-command >>
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
@@ -203,16 +218,8 @@ jobs:
       - install-instance
       - run-tests:
           test-name: Test - Run acceptance tests
-          test-command: |
-            export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
-            export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
-            export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
-            make -C planet4-docker-compose ci test
-          extract-command: |
-            export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
-            export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
-            export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
-            make -C planet4-docker-compose ci-extract-artifacts
+          test-command: make -C planet4-docker-compose test
+          extract-command: make -C planet4-docker-compose ci-extract-artifacts
 
   a11y-tests:
     <<: *p4_instance_conf
@@ -220,15 +227,8 @@ jobs:
       - install-instance
       - run-tests:
           test-name: Test - Run accessibility tests
-          test-command: |
-            export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
-            export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
-            export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
-            make -C planet4-docker-compose ci test-pa11y-ci
+          test-command: make -C planet4-docker-compose test-pa11y-ci
           extract-command: |
-            export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
-            export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
-            export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
             make -C planet4-docker-compose ci-extract-a11y-artifacts
             errors=$(jq '.errors' planet4-docker-compose/artifacts/pa11y/pa11y-ci-results.json)
             if [ "$errors" -gt 0 ]; then echo "$errors errors found, see report in artifacts."; else echo "No errors, report available in artifacts."; fi
