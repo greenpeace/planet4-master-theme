@@ -15,7 +15,6 @@ export const Caption = ({ slide, index, changeSlideAttribute }) => (
               onChange={changeSlideAttribute('header', index)}
               keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
-              characterLimit={32}
               allowedFormats={[]}
               multiline='false'
             />
@@ -27,7 +26,6 @@ export const Caption = ({ slide, index, changeSlideAttribute }) => (
               keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
               allowedFormats={[]}
-              characterLimit={200}
             />
           </div>
 
@@ -50,7 +48,6 @@ export const Caption = ({ slide, index, changeSlideAttribute }) => (
                 keepPlaceholderOnFocus={true}
                 withoutInteractiveFormatting
                 allowedFormats={[]}
-                characterLimit={40}
               />
             </a>
           </div>
