@@ -9,18 +9,26 @@ import { CarouselControls } from './CarouselControls';
 // Carousel Header Editor
 import { Sidebar } from './Sidebar';
 import { EditableBackground } from './EditableBackground';
-import { useCarouselHeaderImages } from './useCarouselHeaderImages';
 
 export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
   const { carousel_autoplay, slides, className } = attributes;
   const slidesRef = useRef([]);
-  const slidesWithImages = useCarouselHeaderImages(slides);
 
   const { currentSlide, goToSlide, goToNextSlide, goToPrevSlide } = useSlides(slidesRef, slides.length - 1);
+
+  const getImageSourceUrl = imageId => wp.data.select('core').getMedia(imageId).source_url;
+
+  const getImageAltText = imageId => wp.data.select('core').getMedia(imageId).alt_text;
 
   const changeSlideAttribute = (slideAttributeName, index) => value => {
     const newSlides = JSON.parse(JSON.stringify(slides));
     newSlides[index][slideAttributeName] = value;
+
+    if (slideAttributeName === 'image') {
+      newSlides[index].image_url = getImageSourceUrl(value);
+      newSlides[index].image_alt = getImageAltText(value);
+    }
+
     setAttributes({ slides: newSlides });
   }
 
@@ -54,7 +62,7 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
     <section className={`block block-header block-wide carousel-header-beta ${className ?? ''}`}>
       <Sidebar
         carouselAutoplay={carousel_autoplay}
-        slides={slidesWithImages}
+        slides={slides}
         setAttributes={setAttributes}
         currentSlide={currentSlide}
         changeSlideAttribute={changeSlideAttribute}
@@ -62,7 +70,7 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
       />
       <div className='carousel-wrapper-header'>
         <div className='carousel-inner' role='listbox'>
-          {slidesWithImages?.map((slide, index) => (
+          {slides?.map((slide, index) => (
             <Slide
               key={index}
               ref={element => slidesRef.current[index] = element}
