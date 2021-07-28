@@ -162,5 +162,46 @@
     .formblock-flex .en__field {
       width: 100%;
     }
+
+    .en__field__element {
+      position: relative;
+
+      input[type=text],
+      select,
+      input[type=email],
+      input[type=tel] {
+        border: 1px solid #1a1a1a;
+        border-radius: 0;
+        margin-bottom: 20px;
+
+        &.is-invalid {
+          border: 1px solid #ff3333;
+          margin-bottom: 6px;
+        }
+      }
+    }
+
+    .invalid-feedback {
+      color: #ff3333;
+      font-weight: bold;
+      margin: 0;
+      padding: 0;
+      background: none;
+    }
+  }
+
+  .en__field__top__label {
+    position: absolute;
+    top: -.6rem;
+    background: white;
+    left: $n10;
+    padding: 0 8px;
+    font-weight: 600;
+    font-size: .75rem;
+
+    html[dir="rtl"] & {
+      left: auto;
+      right: $n10;
+    }
   }
 }

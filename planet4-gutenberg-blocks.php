@@ -140,6 +140,7 @@ const PAGE_BLOCK_TYPES = [
 const BETA_PAGE_BLOCK_TYPES = [
 	'planet4-blocks/covers-beta',
 	'planet4-blocks/carousel-header-beta',
+	'planet4-blocks/enform-beta',
 ];
 
 // campaigns allow all block types.
@@ -165,6 +166,7 @@ const CAMPAIGN_BLOCK_TYPES = [
 const BETA_CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/covers-beta',
 	'planet4-blocks/carousel-header-beta',
+	'planet4-blocks/enform-beta',
 	'planet4-blocks/social-media-cards',
 ];
 

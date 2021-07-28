@@ -146,7 +146,7 @@
       margin-top: 19px;
       line-height: 1;
 
-      button {
+      button, .btn {
         box-sizing: border-box;
         width: 100% !important;
         margin-top: $space-lg;
@@ -220,24 +220,6 @@
   border-right-color: transparent!important;
   display: none;
   vertical-align: middle;
-}
-
-body.wp-admin {
-  .enform-side-style,
-  .enform-full-width-bg {
-    pointer-events: none;
-    width: 100%;
-
-    .container {
-      z-index: 1;
-    }
-  }
-
-  .enform .form-container {
-    input {
-      box-sizing: border-box;
-    }
-  }
 }
 
 .thankyou {

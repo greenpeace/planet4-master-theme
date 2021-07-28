@@ -82,6 +82,7 @@ final class Loader {
 		new Blocks\Timeline();
 		new Blocks\SocialMediaCards();
 		new Blocks\OldENForm();
+		new Blocks\ENForm();
 		new Blocks\GuestBook();
 	}
 
@@ -402,6 +403,8 @@ final class Loader {
 		// Variables reflected from PHP to JS.
 		$reflection_vars = [
 			'dateFormat' => get_option( 'date_format' ),
+			'siteUrl'    => site_url(),
+			'themeUrl'   => get_template_directory_uri(),
 		];
 		wp_localize_script( 'planet4-blocks-script', 'p4bk_vars', $reflection_vars );
 

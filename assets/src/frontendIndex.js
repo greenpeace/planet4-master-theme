@@ -10,6 +10,7 @@ import { ColumnsFrontend } from './blocks/Columns/ColumnsFrontend';
 import { GuestBookFrontend } from './blocks/GuestBook/GuestBookFrontend';
 import { setupMediaElementJS } from './blocks/Media/setupMediaElementJS';
 import { setupLightboxForImages } from './components/Lightbox/setupLightboxForImages';
+import { ENFormFrontend } from './blocks/ENForm/ENFormFrontend';
 
 // Render React components
 const COMPONENTS = {
@@ -23,6 +24,7 @@ const COMPONENTS = {
   'planet4-blocks/media-video': MediaFrontend,
   'planet4-blocks/columns': ColumnsFrontend,
   'planet4-blocks/guestbook': GuestBookFrontend,
+  'planet4-blocks/enform': ENFormFrontend,
 };
 
 document.querySelectorAll( `[data-render]` ).forEach(
