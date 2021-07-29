@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 39">
+  <defs>
+    <style>
+      .cls-2 {
+        stroke-linecap: round;
+        stroke-width: 2px;
+        stroke-dasharray: 0 3;
+      }
+    </style>
+  </defs>
+  <g id="ui_right-arrow" transform="translate(-1146.021 -678.598)">
+    <path id="Path_78" fill="#ffffff" d="M10.4,0,8.971,1.405l5.057,5.076L0,6.453V8.461l14.029.029L8.971,13.566,10.371,15,17,8.346V6.654Z" transform="translate(1157.02 690.598)"/>
+    <g id="Ellipse_57" class="cls-2" fill="none" stroke="#ffffff" transform="translate(1146.021 678.598)">
+      <circle stroke="none" cx="19.5" cy="19.5" r="19.5"/>
+      <circle fill="none" cx="19.5" cy="19.5" r="18.5"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+body.campaign-template-default {
+  .carousel-header_full-width-classic,
+  .carousel-header,
+  .carousel-header-beta {
+    .action-button {
+      a {
+        display: none;
+      }
+    }
+  }
+}

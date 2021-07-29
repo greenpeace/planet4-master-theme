@@ -1,0 +1,22 @@
+.submenu-level-link label {
+  margin-bottom: 0;
+}
+
+[data-type="planet4-blocks/submenu"] {
+  clear: both;
+}
+
+.editor-styles-wrapper {
+  .submenu-block h2 {
+    padding-left: 16px;
+    color: $grey-60;
+    font-family: $roboto;
+  }
+
+  // Needed to make it easily selectable in the editor
+  .submenu-sidebar {
+    float: none;
+    margin-right: 0;
+    margin-left: auto;
+  }
+}

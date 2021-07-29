@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Articles block is inserted into the Editor 1`] = `
+"<!-- wp:planet4-blocks/articles -->
+<div class=\\"wp-block-planet4-blocks-articles\\" data-render=\\"planet4-blocks/articles\\" data-attributes=\\"{&quot;attributes&quot;:{&quot;article_heading&quot;:&quot;Related Articles&quot;,&quot;article_count&quot;:3,&quot;tags&quot;:[],&quot;posts&quot;:[],&quot;post_types&quot;:[],&quot;read_more_text&quot;:&quot;Load More&quot;,&quot;read_more_link&quot;:&quot;&quot;,&quot;button_link_new_tab&quot;:false,&quot;ignore_categories&quot;:false},&quot;innerBlocks&quot;:[]}\\"></div>
+<!-- /wp:planet4-blocks/articles -->"
+`;
+
+exports[`Articles block should work with all editor inputs 1`] = `
+"<!-- wp:planet4-blocks/articles {\\"article_heading\\":\\"News\\",\\"articles_description\\":\\"Latest news details\\",\\"article_count\\":4,\\"tags\\":[6],\\"post_types\\":[16],\\"read_more_text\\":\\"Read more\\",\\"read_more_link\\":\\"https://www.greenpeace.org\\",\\"button_link_new_tab\\":true,\\"ignore_categories\\":true} -->
+<div class=\\"wp-block-planet4-blocks-articles\\" data-render=\\"planet4-blocks/articles\\" data-attributes=\\"{&quot;attributes&quot;:{&quot;article_heading&quot;:&quot;News&quot;,&quot;article_count&quot;:4,&quot;tags&quot;:[6],&quot;posts&quot;:[],&quot;post_types&quot;:[16],&quot;read_more_text&quot;:&quot;Read more&quot;,&quot;read_more_link&quot;:&quot;https://www.greenpeace.org&quot;,&quot;button_link_new_tab&quot;:true,&quot;ignore_categories&quot;:true,&quot;articles_description&quot;:&quot;Latest news details&quot;},&quot;innerBlocks&quot;:[]}\\"></div>
+<!-- /wp:planet4-blocks/articles -->"
+`;

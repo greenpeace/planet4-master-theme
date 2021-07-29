@@ -1,0 +1,137 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Project-Id-Version: Planet4 - Blocks\n"
+"POT-Creation-Date: 2020-09-09 11:52+0000\n"
+"PO-Revision-Date: 2020-11-11 15:26+0200\n"
+"Last-Translator: Nikos Roussos\n"
+"Language-Team: Turkish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: planet4-blocks.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Language: tr_TR\n"
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.4.3; wp-5.4.2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: classes/class-loader.php:463
+msgid "Planet 4 Blocks"
+msgstr ""
+
+#: classes/class-loader.php:468
+msgid "Planet 4 Blocks - BETA"
+msgstr ""
+
+#: classes/blocks/class-takeactionboxout.php:185
+msgid "take action"
+msgstr "harekete geç"
+
+#: classes/blocks/class-happypoint.php:129
+msgid "Background image"
+msgstr "Arkaplan Görseli"
+
+#: classes/blocks/class-splittwocolumns.php:151
+#: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:64
+msgid "Learn more about this issue"
+msgstr "Konu hakkında daha fazla öğren"
+
+#: classes/blocks/class-splittwocolumns.php:163
+#: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:82
+msgid "Get involved"
+msgstr "Dahil Ol"
+
+#: classes/blocks/class-articles.php:46 classes/blocks/class-covers.php:369
+#: templates/blocks/campaign_covers.twig:53
+#: templates/blocks/content_covers.twig:70
+#: templates/blocks/content_covers.twig:78
+#: assets/src/blocks/Articles/ArticlesBlock.js:41
+msgid "Load more"
+msgstr "Daha Fazlası"
+
+#: classes/blocks/class-articles.php:50
+#: assets/src/blocks/Articles/ArticlesBlock.js:18
+msgid "Related Articles"
+msgstr "İlgili Yazılar"
+
+#: classes/blocks/class-base-block.php:65
+msgid "Error"
+msgstr ""
+
+#: classes/blocks/class-covers.php:346
+msgid "Take action"
+msgstr "HAREKETE GEÇ"
+
+#: assets/src/blocks/Articles/ArticlePreview.js:43
+msgid "by"
+msgstr "|"
+
+#: assets/src/blocks/Counter/CounterBlock.js:73
+msgid "Text Only"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterBlock.js:78
+msgid "Progress Bar"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterBlock.js:82
+msgid "Progress Dial"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterBlock.js:86
+msgid "Progress Bar inside EN Form"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:129
+msgid ""
+"No URL has been specified. Please edit the block and provide a Spreadsheet "
+"URL using the sidebar."
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:137
+msgid "The Spreadsheet URL appears to be invalid."
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:141
+msgid "No data matching your search."
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:175
+msgid "Search data"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:192
+msgid "Sort by"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:205
+msgid "Loading spreadsheet data..."
+msgstr ""
+
+#. Name of the plugin
+msgid "Planet4 - Gutenberg Blocks"
+msgstr ""
+
+#. Description of the plugin
+msgid "Contains the Gutenberg blocks that are used by Planet4 project."
+msgstr ""
+
+#. URI of the plugin
+msgid "http://github.com/greenpeace/planet4-plugin-gutenberg-blocks"
+msgstr ""
+
+#. Author of the plugin
+msgid "Greenpeace International"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://www.greenpeace.org/"
+msgstr ""

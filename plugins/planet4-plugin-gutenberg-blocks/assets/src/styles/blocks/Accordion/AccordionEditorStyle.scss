@@ -1,0 +1,62 @@
+@import "../../master-theme/assets/src/scss/base/variables";
+@import "../../master-theme/assets/src/scss/base/colors";
+@import "../../master-theme/assets/src/scss/base/mixins";
+@import "../../master-theme/assets/src/scss/base/fonts";
+
+.add-button {
+  cursor: pointer;
+  font-weight: 500;
+  color: #0075af;
+  width: fit-content;
+  margin-top: 24px;
+
+  .plus {
+    border: 1px solid #0075af;
+    color: #0075af;
+    padding: 3px 8px;
+    margin-inline-end: 10px;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    text-decoration: underline;
+
+    .plus {
+      color: white;
+      background-color: #0075af;
+      text-decoration: none;
+    }
+  }
+}
+
+.accordion-content .button-container {
+  position: relative;
+  width: 80%;
+
+  .accordion-btn {
+    width: 100%;
+  }
+
+  .remove-btn {
+    background-color: $grey-20;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    right: -15px;
+    color: $white;
+
+    &:hover {
+      background-color: $grey-40 !important;
+      box-shadow: none !important;
+      color: $white !important;
+    }
+  }
+
+  @include medium-and-up {
+    width: 40%;
+  }
+
+  @include large-and-up {
+    width: 25%;
+  }
+}

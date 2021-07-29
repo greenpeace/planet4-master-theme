@@ -1,0 +1,14 @@
+vendor
+node_modules/
+
+# Translation backups #
+################
+/languages/*.po~
+/languages/*.pot~
+
+# Logs #
+########
+*.log
+
+# Built css and js assets
+assets/build/*

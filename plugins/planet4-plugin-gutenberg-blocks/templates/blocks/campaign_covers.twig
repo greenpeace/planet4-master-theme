@@ -1,0 +1,63 @@
+{% block campaign_covers %}
+	{% if ( fields.tags ) %}
+
+		{% if ( covers_view is defined ) %}
+			{% if ( covers_view == '1' ) %}
+				{% set covers_view_class = 'show-3-covers' %}
+			{% elseif ( covers_view == '2' ) %}
+				{% set covers_view_class = 'show-6-covers' %}
+			{% else %}
+				{% set covers_view_class = 'show-all-covers' %}
+			{% endif %}
+		{% else %}
+			{% set covers_view_class = '' %}
+		{% endif %}
+
+		<section class="block campaign-covers-block {{ covers_view_class }}">
+			<div class="container">
+				{% if ( fields.title ) %}
+					<header>
+						<h2 class="page-section-header">{{ fields.title }}</h2>
+					</header>
+				{% endif %}
+
+				{% if ( fields.description ) %}
+					<div class="page-section-description">{{ fields.description|e('wp_kses_post')|wpautop|raw }}</div>
+				{% endif %}
+
+				<div class="thumbnail-largeview-container limit-visibility">
+					{% for tag in fields.tags %}
+						<div class="campaign-card-column">
+							<a
+								href="{{ tag.href }}"
+								data-ga-category="Campaign Covers"
+								data-ga-action="Image"
+								data-ga-label="n/a"
+								aria-label="{{ __( 'Check our campaign about ' ~ tag.name, 'planet4-blocks') }}">
+									<div class="thumbnail-large">
+										{% if ( tag.image[0] ) %}
+											<img src="{{ tag.image[0] }}" alt="{{ tag.alt_text }}" title="{{ tag.alt_text }}">
+										{% endif %}
+										<span class="yellow-cta"><span aria-label="hashtag">#</span>{{ tag.name }}</span>
+									</div>
+							</a>
+						</div>
+					{% endfor %}
+				</div>
+
+				{% if ( covers_view is defined ) %}
+					{% if ( ( fields.tags|length > 3 and covers_view == '1' ) or
+						( fields.tags|length > 6 and covers_view == '2' ) ) %}
+						<div class="row">
+							<div class="col-md-12 col-lg-5 col-xl-5 mt-3 load-more-campaigns-button-div">
+								<button class="btn btn-block btn-secondary btn-load-more-campaigns-click">
+									{{ __( 'Load more', 'planet4-blocks' ) }}
+								</button>
+							</div>
+						</div>
+					{% endif %}
+				{% endif %}
+			</div>
+		</section>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,1 @@
+planet4-blocks-fr_FR.mo

@@ -1,0 +1,434 @@
+.columns-block {
+  a {
+    &:not(.btn) {
+      font-weight: inherit;
+    }
+
+    &.btn-secondary {
+      width: 100%;
+    }
+  }
+
+  h3, h3 > a {
+    line-height: 1.6rem;
+
+    --block-columns--column-heading-- {
+      font-size: $font-size-lg;
+      font-family: $roboto;
+      font-weight: 700;
+      color: $grey-80;
+      margin-bottom: .5rem;
+      text-transform: none;
+
+      @include medium-and-up {
+        font-size: 1.5rem;
+      }
+
+      @include large-and-up {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  h3 > a:hover {
+    text-decoration: underline;
+  }
+
+  // Columns block, layout no-image.
+  &.block-style-no_image {
+    .row {
+      margin-top: -$space-xl;
+
+      @include large-and-up {
+        margin-top: 0;
+      }
+    }
+
+    .column-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-top: $space-xl;
+
+      @include large-and-up {
+        margin-top: 0;
+      }
+
+      h3 {
+        margin-bottom: $space-md;
+
+        @include medium-and-up {
+          width: 80%;
+        }
+
+        @include large-and-up {
+          width: 75%;
+        }
+      }
+
+      p {
+        flex-grow: 1;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        @include medium-and-up {
+          width: auto;
+          margin-bottom: $space-lg;
+        }
+
+        @include large-and-up {
+          width: 82%;
+        }
+
+        @include x-large-and-up {
+          width: 76%;
+        }
+      }
+
+      .btn {
+        position: relative;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // Columns block, layout icons.
+  &.block-style-icons {
+    .row {
+      margin-bottom: -$space-lg; // Compensate for last row margin
+
+      @include large-and-up {
+        margin-bottom: 0;
+      }
+    }
+
+    .column-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-bottom: $space-xl;
+
+      @include large-and-up {
+        margin-bottom: 0;
+      }
+
+      h3,
+      .icon-container {
+        text-align: center;
+
+        @include medium-and-up {
+          text-align: inherit;
+        }
+      }
+
+      p {
+        flex-grow: 1;
+
+        @include medium-and-up {
+          margin-bottom: $space-lg;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        a {
+          font-family: $lora;
+        }
+      }
+
+      a {
+        font-family: $roboto;
+
+        &.call-to-action-link {
+          position: relative;
+        }
+      }
+
+      .attachment-container {
+        text-align: center;
+        margin-bottom: $space-md;
+
+        @include medium-and-up {
+          text-align: inherit;
+        }
+      }
+
+      img {
+        display: inline-block;
+        width: 102px;
+        height: 102px;
+
+        @include medium-and-up {
+          text-align: inherit;
+        }
+
+        @include x-large-and-up {
+          margin-bottom: 24px;
+        }
+      }
+    }
+  }
+
+  // Columns block, layout tasks.
+  &.block-style-tasks {
+    .can-do-steps {
+      cursor: default;
+      position: relative;
+
+      @include x-large-and-up {
+        @include clearfix;
+      }
+
+      .step-number {
+        float: left;
+        display: block;
+        margin-right: 20px;
+        margin-bottom: $space-xl;
+        width: 74px;
+        height: 74px;
+        line-height: 74px;
+        text-align: center;
+        font-size: 2.75rem;
+        background: $grey;
+        border-radius: 50%;
+        color: $white;
+        opacity: 0.7;
+        text-transform: uppercase;
+        font-weight: 500;
+
+        html[dir="rtl"] & {
+          margin-right: 0;
+        }
+
+        @include large-and-up {
+          float: none;
+          width: 126px;
+          height: 126px;
+          vertical-align: middle;
+          line-height: 114px;
+          font-size: 4.375rem;
+          position: relative;
+          background-color: $dark-blue;
+          opacity: 1;
+        }
+
+        .step-number-inner {
+          font-family: $roboto;
+
+          @include large-and-up {
+            position: absolute;
+            background-color: $dark-blue;
+            border-color: $white;
+            border-style: solid;
+            border-width: 2px;
+            border-radius: 50%;
+            right: 5px;
+            left: 5px;
+            top: 5px;
+            bottom: 5px;
+          }
+        }
+      }
+
+      .step-info {
+        h5 > a {
+          color: $grey-80;
+        }
+
+        p {
+          @include x-large-and-up {
+            font-size: $font-size-sm;
+          }
+        }
+
+        img {
+          width: 100%;
+          height: 210px;
+          object-fit: cover;
+          object-position: 10% 10%;
+          margin-bottom: $space-lg;
+
+          @include x-large-and-up {
+            height: 250px;
+          }
+        }
+      }
+    }
+
+    .can-do-steps-mobile {
+      width: 100%;
+
+      .card-accordion {
+        margin-bottom: -$space-sm;
+      }
+
+      .card {
+        background: none;
+        border: none;
+        box-shadow: none;
+
+        .card-header {
+          display: block;
+          cursor: pointer;
+          font-weight: 400;
+          font-size: $font-size-xs;
+          font-family: $roboto;
+          text-decoration: none;
+          padding: $n10 $n10 $n5 $n10;
+          margin-bottom: $space-sm;
+          background: $dark-blue;
+          border: none;
+          color: $white;
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+
+        .info-with-image-wrap {
+          .mobile-accordion-info {
+            width: 100%;
+            margin: 0;
+            font-size: $font-size-xxs;
+          }
+
+          img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            object-position: 10% 10%;
+            margin-top: $space-lg;
+
+            @include small-and-up {
+              width: 100%;
+            }
+
+            @include medium-and-up {
+              height: 220px;
+            }
+
+            @include large-and-up {
+              width: 50%;
+            }
+          }
+
+          .btn-secondary {
+            margin-bottom: 0;
+            margin-top: $space-lg;
+            width: 100%;
+          }
+        }
+
+        .card-block {
+          padding: calc(#{$space-lg} - #{$space-md}) 28px $space-lg 28px;
+          border-bottom: none;
+
+          p {
+            color: $grey-80;
+            font-size: $font-size-xxs;
+            line-height: 22px;
+            margin-left: 0;
+            margin-bottom: 0;
+            padding-right: 0;
+          }
+        }
+
+        .step-number {
+          font-family: $roboto;
+          font-size: $font-size-sm;
+          font-weight: 900;
+          color: $white;
+          line-height: 1.5;
+          padding-right: 9px;
+          float: left;
+          vertical-align: bottom;
+          padding-bottom: 5px;
+        }
+      }
+    }
+
+    // Specific rules when 1 or 2 columns exist.
+    .row .col:nth-last-child(2):first-child,
+    .row .col:nth-last-child(1):nth-child(2),
+    .row .col:nth-last-child(1):first-child {
+      h5 {
+        line-height: 1.6rem;
+        font-size: $font-size-lg;
+        font-family: $roboto;
+        font-weight: 700;
+
+        @include large-and-up {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+
+  &.block-style-image,
+  &.block-style-tasks {
+    .column-wrap {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: $space-lg;
+
+      @include large-and-up {
+        margin-bottom: 0;
+      }
+
+      h3,
+      .icon-container {
+        text-align: center;
+
+        @include medium-and-up {
+          text-align: inherit;
+        }
+      }
+
+      p {
+        flex-grow: 1;
+
+        @include medium-and-up {
+          margin-bottom: $space-lg;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        a {
+          font-family: $lora;
+        }
+      }
+
+      a {
+        font-family: $roboto;
+
+        &.call-to-action-link {
+          position: relative;
+        }
+      }
+
+      .attachment-container {
+        text-align: center;
+        margin-bottom: $space-md;
+
+        @include medium-and-up {
+          text-align: inherit;
+        }
+      }
+
+      img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .column-wrap {
+    word-break: break-word;
+  }
+}

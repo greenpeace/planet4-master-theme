@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Submenu block is inserted into the Editor 1`] = `"<!-- wp:planet4-blocks/submenu /-->"`;
+
+exports[`Submenu block should work with "Long full-width" style 1`] = `"<!-- wp:planet4-blocks/submenu {\\"title\\":\\"Submenu title\\",\\"levels\\":[{\\"heading\\":2,\\"link\\":true,\\"style\\":\\"none\\"},{\\"heading\\":3,\\"link\\":true,\\"style\\":\\"bullet\\"},{\\"heading\\":4,\\"link\\":true,\\"style\\":\\"number\\"}],\\"className\\":\\"is-style-long\\"} /-->"`;
+
+exports[`Submenu block should work with "Short full-width" style 1`] = `"<!-- wp:planet4-blocks/submenu {\\"title\\":\\"Submenu title\\",\\"levels\\":[{\\"heading\\":2,\\"link\\":true,\\"style\\":\\"none\\"},{\\"heading\\":3,\\"link\\":true,\\"style\\":\\"bullet\\"},{\\"heading\\":4,\\"link\\":true,\\"style\\":\\"number\\"}],\\"className\\":\\"is-style-short\\"} /-->"`;
+
+exports[`Submenu block should work with "Short sidebar" style 1`] = `"<!-- wp:planet4-blocks/submenu {\\"title\\":\\"Submenu title\\",\\"levels\\":[{\\"heading\\":2,\\"link\\":true,\\"style\\":\\"none\\"},{\\"heading\\":3,\\"link\\":true,\\"style\\":\\"bullet\\"},{\\"heading\\":4,\\"link\\":true,\\"style\\":\\"number\\"}],\\"className\\":\\"is-style-sidebar\\"} /-->"`;

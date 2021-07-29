@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Spreadsheet block applies the background color correctly 1`] = `
+"<!-- wp:planet4-blocks/spreadsheet {\\"css_variables\\":{\\"spreadsheet-header-background\\":\\"#073d14\\",\\"spreadsheet-even-row-background\\":\\"#eafee7\\",\\"spreadsheet-odd-row-background\\":\\"#d0fac9\\"}} -->
+<div class=\\"wp-block-planet4-blocks-spreadsheet\\" data-render=\\"planet4-blocks/spreadsheet\\" data-attributes=\\"{&quot;attributes&quot;:{&quot;url&quot;:&quot;&quot;,&quot;css_variables&quot;:{&quot;spreadsheet-header-background&quot;:&quot;#073d14&quot;,&quot;spreadsheet-even-row-background&quot;:&quot;#eafee7&quot;,&quot;spreadsheet-odd-row-background&quot;:&quot;#d0fac9&quot;}},&quot;innerBlocks&quot;:[]}\\"></div>
+<!-- /wp:planet4-blocks/spreadsheet -->"
+`;
+
+exports[`Spreadsheet block is inserted into the Editor 1`] = `
+"<!-- wp:planet4-blocks/spreadsheet -->
+<div class=\\"wp-block-planet4-blocks-spreadsheet\\" data-render=\\"planet4-blocks/spreadsheet\\" data-attributes=\\"{&quot;attributes&quot;:{&quot;url&quot;:&quot;&quot;,&quot;css_variables&quot;:{}},&quot;innerBlocks&quot;:[]}\\"></div>
+<!-- /wp:planet4-blocks/spreadsheet -->"
+`;

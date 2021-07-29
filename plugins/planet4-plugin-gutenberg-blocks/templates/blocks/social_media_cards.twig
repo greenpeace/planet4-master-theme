@@ -1,0 +1,56 @@
+{% block social_media_cards %}
+	{% if ( cards ) %}
+		<section class="block social-media-cards">
+
+			{% if ( fields.title or fields.description ) %}
+				{% if ( fields.title ) %}
+					<header>
+						<h2 class="page-section-header">{{ fields.title }}</h2>
+					</header>
+				{% endif %}
+
+				{% if ( fields.description ) %}
+					<div class="page-section-description">{{ fields.description|e('wp_kses_post')|wpautop|raw }}</div>
+				{% endif %}
+			{% endif %}
+
+			<div class="container">
+				<div class="grid-row">
+					{% for key, card in cards %}
+						<div class="grid-item">
+							<img src="{{ card.image_src }}"
+								srcset="{{ card.image_srcset }}" sizes="{{ card.image_sizes }}"
+								alt="{{ card.alt_text }}"
+								title="{{ card.alt_text }}">
+
+							<div class="share-strip">
+								<a href="https://www.facebook.com/share.php?u={{ card.social_url|default(post_url)|url_encode }}&quote={{ card.message|url_encode }}"
+								   title="{{ __('Share on Facebook', 'planet4-blocks') }}"
+									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Facebook', 'eventLabel': '{{ card.social_url|default(post_url) }}'});"
+									target="_blank" class="facebook-share">
+									{{ "facebook"|svgicon }}
+								</a>
+								<a href="https://twitter.com/intent/tweet?url={{ card.social_url|default(post_url)|url_encode }}&text={{ card.message|url_encode }}"
+								   data-text="{{ card.message }}"
+								   data-social-url="{{ card.social_url|default(post_url) }}"
+								   title="{{ __('Share on Twitter', 'planet4-blocks') }}"
+									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Twitter', 'eventLabel': '{{ card.social_url|default(post_url) }}'});"
+									target="_blank" class="twitter-share">
+									{{ "twitter"|svgicon }}
+								</a>
+								<a href="{{ card.image_src }}" download
+								   target="_blank"
+								   title="{{ __('Download image', 'planet4-blocks') }}"
+									onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Download', 'eventLabel': '{{ card.social_url|default(post_url) }}'});"
+									class="download-share link-should-download">
+									{{ "download"|svgicon }}
+								</a>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+
+		</section>
+	{% endif %}
+{% endblock %}

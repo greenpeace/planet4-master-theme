@@ -1,0 +1,188 @@
+.happy-point-block-wrap {
+  @include background-before-opacity($light-blue-bg);
+  width: 100vw;
+  height: 444px;
+  overflow: hidden;
+  display: block;
+  position: relative;
+
+  body.wp-admin & {
+    width: 100%;
+  }
+
+  @include mobile-only {
+    height: 544px;
+  }
+
+  @include medium-and-up {
+    max-height: 480px;
+  }
+
+  @include large-and-up {
+    max-height: 500px;
+  }
+
+  @include x-large-and-up {
+    height: 620px;
+    width: 100vw;
+    @include background-before-opacity($light-blue-bg);
+  }
+
+  .container {
+    height: inherit;
+    width: 100%;
+
+    @include medium-and-up {
+      max-width: none;
+    }
+
+    .row {
+      height: inherit;
+    }
+  }
+
+  .happy-point {
+    height: inherit;
+
+    @include medium-and-up {
+      text-align: center;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    iframe {
+      --iframe-height: 390px;
+      height: var(--iframe-height);
+      position: relative;
+      margin-top: calc(var(--iframe-height) / 2 * -1);
+      top: 50%;
+
+      @include mobile-only {
+        position: absolute;
+        width: 100vw;
+        bottom: 0;
+        --iframe-height: 490px;
+      }
+
+      @include medium-and-up {
+        width: 80vw;
+      }
+
+      @include large-and-up {
+        width: 100%;
+      }
+    }
+  }
+
+  h2 {
+    width: 75%;
+    font-size: 1.625rem;
+    line-height: 32px;
+    margin-bottom: 24px;
+
+    @include medium-and-up {
+      font-size: $font-size-xl;
+      line-height: 34px;
+      margin-bottom: 20px;
+      color: $grey-80;
+    }
+
+    @include large-and-up {
+      font-size: 2.125rem;
+      margin-bottom: 30px;
+    }
+
+    @include x-large-and-up {
+      font-size: 2.25rem;
+      margin-bottom: 42px;
+    }
+  }
+
+  h5 {
+    font-size: $font-size-sm;
+    line-height: 24px;
+
+    @include medium-and-up {
+      font-size: 1.125rem;
+      line-height: 28px;
+    }
+
+    @include large-and-up {
+      line-height: 24px;
+    }
+  }
+
+  p {
+    font-family: $roboto;
+    font-size: 0.8125rem;
+    line-height: 18px;
+    color: $grey-60;
+    text-align: left;
+
+    @include medium-and-up {
+      text-align: center;
+    }
+
+    @include large-and-up {
+      text-align: left;
+    }
+  }
+
+  > picture {
+    img {
+      position: absolute;
+      height: auto;
+      width: 100%;
+      object-fit: cover;
+
+      @supports (object-fit: cover) {
+        & {
+          height: 500px;
+
+          @include mobile-only {
+            height: 544px;
+          }
+        }
+      }
+    }
+  }
+
+  form {
+    input {
+      height: 42px;
+      border-radius: 4px;
+      border-color: transparent;
+      margin-bottom: 16px;
+
+      @include medium-and-up {
+        margin-bottom: inherit;
+      }
+    }
+  }
+
+  .subscriber-btn {
+    margin-top: 0;
+    margin-bottom: 16px;
+    width: 100%;
+    padding: $n10;
+    border: 1px solid transparent;
+
+    &:hover {
+      background-color: $orange-hover;
+    }
+
+    @include medium-and-up {
+      margin-top: 16px;
+    }
+
+    @include large-and-up {
+      margin-top: 0;
+      height: 42px;
+      line-height: 42px;
+    }
+
+    @include x-large-and-up {
+      margin-bottom: 8px;
+    }
+  }
+}

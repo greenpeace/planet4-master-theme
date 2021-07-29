@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Planet4 - EngagingNetworks Plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-08-17 10:02+0000\n"
+"PO-Revision-Date: 2020-08-17 10:07+0000\n"
+"Last-Translator: \n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100 >= 3 "
+"&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.4.2; wp-5.4.2"
+
+#: classes/blocks/class-enform.php:239
+msgid "Donate"
+msgstr "تبرع"
+
+#: templates/blocks/enform.twig:59 templates/blocks/enform/enblock.twig:59
+msgid "Sign"
+msgstr "وقع/ي"
+
+#: templates/blocks/enform/country_select.twig:11
+msgid "Select Country or Region"
+msgstr ""
+
+#: templates/blocks/enform/position_select.twig:8
+msgid "Select Affiliation, Position or Profession"
+msgstr ""
+
+#: templates/blocks/enform/enform_post.twig:20
+msgid "This field is required"
+msgstr ""
+
+#: templates/blocks/enform/enform_post.twig:31
+msgid "Please enter a valid e-mail address."
+msgstr "من فضلك أدخل بريد أليكترونى صحيح."
+
+#: templates/blocks/enform/enform_post.twig:149
+msgid "Please select a country."
+msgstr "إختر/ي الدولة"
+
+#: templates/blocks/enform/enform_post.twig:161
+msgid "Please select a position."
+msgstr ""

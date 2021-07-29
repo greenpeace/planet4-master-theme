@@ -1,0 +1,3 @@
+[submodule "assets/src/styles/styleguide"]
+	path = assets/src/styles/master-theme
+	url = https://github.com/greenpeace/planet4-master-theme

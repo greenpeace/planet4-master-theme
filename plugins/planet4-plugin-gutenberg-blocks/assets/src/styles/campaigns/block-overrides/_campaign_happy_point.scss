@@ -1,0 +1,64 @@
+@mixin campaign_happy_point() {
+  // hide image overlay
+  &:before {
+    display: none;
+  }
+
+  picture img {
+    opacity: 1 !important; // override the inline style
+  }
+
+  .container {
+    position: relative;
+  }
+
+  display: flex;
+
+  @include mobile-only {
+    flex-direction: column-reverse;
+    height: auto;
+
+    img {
+      position: relative;
+    }
+
+    #happy-point {
+      padding-top: 30px;
+
+      iframe {
+        position: relative;
+      }
+    }
+  }
+
+  @include small-and-up {
+    flex-direction: row-reverse;
+
+    picture {
+      flex: 1;
+
+      img {
+        height: 100%;
+      }
+    }
+
+    .container {
+      flex: 2;
+      max-width: 67%;
+
+      > .row {
+        margin: 0;
+      }
+    }
+
+    #happy-point {
+      padding: 45px;
+      max-width: 100%;
+      flex: 1;
+
+      iframe {
+        width: 100%;
+      }
+    }
+  }
+}
