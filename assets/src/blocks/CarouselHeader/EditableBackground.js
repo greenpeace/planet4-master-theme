@@ -33,7 +33,12 @@ export const EditableBackground = ({
   return (
     <MediaUploadCheck>
       <MediaUpload
-        onSelect={({ id }) => changeSlideAttribute('image', index)(id)}
+        onSelect={image => {
+          const { id, alt, url } = image;
+          changeSlideAttribute('image', index)(id);
+          changeSlideAttribute('image_alt', index)(alt);
+          changeSlideAttribute('image_url', index)(url);
+        }}
         allowedTypes={['image']}
         value={image_id}
         render={mediaUploadInstance => (
