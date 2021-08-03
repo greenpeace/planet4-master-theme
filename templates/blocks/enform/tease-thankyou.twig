@@ -15,7 +15,7 @@
 			</div>
 
 			<div class="social-media form-group">
-				{% include "blocks/share_buttons.twig" with {social:social} %}
+				{% include "blocks/share_buttons.twig" with {social:social, utm_medium: 'thank-you'} %}
 			</div>
 
 			{% if 'false' == fields.donate_button_checkbox %}
