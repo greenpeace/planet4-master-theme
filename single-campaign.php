@@ -92,6 +92,7 @@ Context::set_header( $context, $meta, $post->title );
 Context::set_background_image( $context );
 Context::set_og_meta_fields( $context, $post );
 Context::set_campaign_datalayer( $context, $campaign_meta );
+Context::set_utm_params( $context, $post );
 
 $context['post']            = $post;
 $context['social_accounts'] = $post->get_social_accounts( $context['footer_social_menu'] );

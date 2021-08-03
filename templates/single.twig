@@ -86,7 +86,7 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						{% include "blocks/share_buttons.twig" with {social:post.share_meta} %}
+						{% include "blocks/share_buttons.twig" with {social:post.share_meta, utm_medium: 'share'} %}
 					</div>
 				</div>
 			</div>
