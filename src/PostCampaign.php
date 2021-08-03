@@ -443,8 +443,10 @@ class PostCampaign {
 
 			$new_theme = $themes[ $theme ] ?? [];
 
+			// As a way to make new themes use the same config file, check if removing "-new" gives a legacy theme name.
 			$potential_new_version = str_replace( '-new', '', $theme );
 			if ( ! in_array( $potential_new_version, self::LEGACY_THEMES, true ) ) {
+				// If it doesn't, stop here as all code below handles the config file.
 				return $new_theme;
 			}
 			$theme         = $potential_new_version;
@@ -531,7 +533,6 @@ class PostCampaign {
 	 */
 	private static function migrate_old_vars( array $css_vars ): array {
 		$mappings = [
-			'footer_color'            => [ 'footer--background' ],
 			'footer_links_color'      => [
 				'footer-menu--color',
 				'footer--links--hover--color',
@@ -552,7 +553,11 @@ class PostCampaign {
 				continue;
 			}
 			foreach ( $to as $new_name ) {
-				$css_vars[ $new_name ] = $css_vars[ $from ];
+				// Both with and without '--' works, but the version with dashes might exist in the new themes.
+				// If we wouldn't add them here, it would result in setting the same property twice. The last one "wins"
+				// however Chrome got really confused by this, pointing to the first one, instead of the last one which
+				// is used.
+				$css_vars[ '--' . $new_name ] = $css_vars[ $from ];
 			}
 		}
 
@@ -591,11 +596,11 @@ class PostCampaign {
 		$default_footer_links_color = $css_vars['campaign_nav_color'] ? $css_vars['campaign_nav_color'] : '#1A1A1A';
 
 		if ( 'white' === $footer_theme ) {
-			$css_vars['footer_links_color'] = $css_vars['footer_links_color'] ? $css_vars['footer_links_color'] : $default_footer_links_color;
-			$css_vars['footer_color']       = '#FFFFFF';
+			$css_vars['footer_links_color']   = $css_vars['footer_links_color'] ? $css_vars['footer_links_color'] : $default_footer_links_color;
+			$css_vars['--footer--background'] = '#FFFFFF';
 		} elseif ( self::DEFAULT_NAVBAR_THEME === $css_vars['campaign_nav_type'] ) {
-			$css_vars['footer_links_color'] = null;
-			$css_vars['footer_color']       = null;
+			$css_vars['footer_links_color']   = null;
+			$css_vars['--footer--background'] = null;
 		} else {
 			switch ( ( $css_vars['campaign_logo_color'] ?? null ) ) {
 				case 'dark':
@@ -607,7 +612,7 @@ class PostCampaign {
 				default:
 					$css_vars['footer_links_color'] = '#FFFFFF';
 			}
-			$css_vars['footer_color'] = $css_vars['campaign_nav_color'];
+			$css_vars['--footer--background'] = $css_vars['campaign_nav_color'];
 		}
 
 		return $css_vars;
