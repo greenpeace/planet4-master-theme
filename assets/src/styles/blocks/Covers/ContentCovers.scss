@@ -1,6 +1,4 @@
 .content-covers-block {
-  color: $grey-80;
-
   .limit-visibility {
     margin-top: -$space-lg;
   }
@@ -94,7 +92,7 @@
           font-size: $font-size-sm;
         }
 
-        &.publication-date {
+        &.publication-date --block-covers--publication-date-- {
           font-family: $roboto;
           font-size: $font-size-xxs;
           line-height: 1.6;
