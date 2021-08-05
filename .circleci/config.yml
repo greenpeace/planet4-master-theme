@@ -7,39 +7,39 @@ orbs:
 workflows:
   branch:
     jobs:
-      - php73-tests
-      - frontend-tests
+#      - php73-tests
+#      - frontend-tests
       - acceptance-tests
-      - commitlint
-      #- a11y-tests
-      - create-zip:
-          filters:
-            tags:
-              only: /^v\p{Digit}+\.\p{Digit}+.*/
-      - request-instance:
-          context: org-global
-          requires:
-            - create-zip
-      - instance-ready:
-          type: approval
-          requires:
-            - request-instance
-      - comment-pr:
-          context: org-global
-          requires:
-            - instance-ready
-      - lighthouse:
-          requires:
-            - instance-ready
-      - publish-zip:
-          context: org-global
-          requires:
-            - create-zip
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v\p{Digit}+\.\p{Digit}+.*/
+#      - commitlint
+#      #- a11y-tests
+#      - create-zip:
+#          filters:
+#            tags:
+#              only: /^v\p{Digit}+\.\p{Digit}+.*/
+#      - request-instance:
+#          context: org-global
+#          requires:
+#            - create-zip
+#      - instance-ready:
+#          type: approval
+#          requires:
+#            - request-instance
+#      - comment-pr:
+#          context: org-global
+#          requires:
+#            - instance-ready
+#      - lighthouse:
+#          requires:
+#            - instance-ready
+#      - publish-zip:
+#          context: org-global
+#          requires:
+#            - create-zip
+#          filters:
+#            branches:
+#              ignore: /.*/
+#            tags:
+#              only: /^v\p{Digit}+\.\p{Digit}+.*/
 
 job-references:
   docker_auth: &docker_auth
