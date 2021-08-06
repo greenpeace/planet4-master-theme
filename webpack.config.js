@@ -44,8 +44,10 @@ const publicJsConfig = {
     SpreadsheetScript: './assets/src/blocks/Spreadsheet/SpreadsheetScript.js',
     TimelineScript: './assets/src/blocks/Timeline/TimelineScript.js',
     GalleryScript: './assets/src/blocks/Gallery/GalleryScript.js',
+    HubspotFormScript: './assets/src/blocks/HubspotForm/HubspotFormScript.js',
   },
 };
+
 const adminJsConfig = {
   ...jsConfig,
   resolve: {
@@ -66,6 +68,7 @@ const adminJsConfig = {
     TimelineEditorScript: './assets/src/blocks/Timeline/TimelineEditorScript.js',
     SocialMediaEditorScript: './assets/src/blocks/SocialMedia/SocialMediaEditorScript.js',
     GalleryEditorScript: './assets/src/blocks/Gallery/GalleryEditorScript.js',
+    HubspotFormEditorScript: './assets/src/blocks/HubspotForm/HubspotFormEditorScript.js',
   },
 };
 const cssConfig = {
@@ -89,6 +92,8 @@ const cssConfig = {
     CoversStyle: './assets/src/styles/blocks/Covers/CoversStyle.scss',
     GalleryStyle: './assets/src/styles/blocks/Gallery/GalleryStyle.scss',
     GalleryEditorStyle: './assets/src/styles/blocks/Gallery/GalleryEditorStyle.scss',
+    HubspotFormStyle: './assets/src/styles/blocks/HubspotForm/HubspotFormStyles.scss',
+    HubspotFormEditorStyle: './assets/src/styles/blocks/HubspotForm/HubspotFormEditorStyles.scss',
   },
   output: {
     filename: '[name].js',
