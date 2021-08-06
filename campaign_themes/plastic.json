@@ -80,7 +80,8 @@
 						{ "value": "#ffffff" },
 						{ "value": "#000000" },
 						{ "value": "#044362" },
-						{ "value": "#2cabb1" }
+						{ "value": "#2cabb1" },
+            { "value": "#66cc00" }
 					],
 					"default": "#044362"
 				}
