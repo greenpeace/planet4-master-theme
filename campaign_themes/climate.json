@@ -80,7 +80,8 @@
 						{ "value": "#ffffff" },
 						{ "value": "#000000" },
 						{ "value": "#ff513c" },
-						{ "value": "#007eff" }
+						{ "value": "#007eff" },
+            { "value": "#66cc00" }
 					],
 					"default": "#ff513c"
 				}
