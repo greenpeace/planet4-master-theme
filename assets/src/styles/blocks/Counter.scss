@@ -1,6 +1,8 @@
 .counter-block {
+  _-- {
+    font-family: $roboto;
+  }
   text-align: center;
-  font-family: $roboto;
   margin-top: $space-xl;
   margin-bottom: $space-xl;
 
@@ -30,16 +32,18 @@
   }
 
   .counter-target {
+    _-- {
+      color: inherit;
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: $space-lg;
+    }
     display: inline-block;
-
     line-height: 1;
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: $space-lg;
   }
 
   &.counter-style-1 {
-    .counter-target {
+    .counter-target _-- {
       font-size: 3rem;
       font-weight: bold;
       margin-bottom: $space-lg;
@@ -47,42 +51,50 @@
   }
 
   .progress-container {
-    background-color: $grey-20;
-    height: 30px;
-    margin-bottom: $space-lg;
+    _-- {
+      background: $grey-20;
+      height: 30px;
+      margin-bottom: $space-lg;
+    }
     overflow: hidden;
   }
 
   .progress-bar {
-    background-color: $dark-blue;
+    _-- {
+      background: $dark-blue;
+      transform: skewX(-30deg);
+    }
     height: 100%;
-    transform: skew(-30deg, 0deg);
     margin-left: -10px;
   }
 
-  .enform-progress-bar {
-    background-color: $orange;
+  .enform-progress-bar _-- {
+    background: $orange;
   }
 
   .progress-arc {
-    max-width: 225px;
+    _-- {
+      max-width: 225px;
+      stroke-width: 3;
+    }
     margin-bottom: -20px;
 
     fill: none;
-    stroke-width: 3;
 
-    .background {
+    .background _-- {
       stroke: $grey-20;
     }
 
-    .foreground {
+    .foreground _-- {
       stroke: $dark-blue;
     }
   }
 
   .counter-text {
+    _-- {
+      font-size: 1rem;
+    }
     margin-bottom: 0;
-    font-size: 1rem;
   }
 
   .counter-text-goal_reached {
