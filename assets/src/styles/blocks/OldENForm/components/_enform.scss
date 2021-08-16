@@ -90,7 +90,7 @@
   }
 }
 
-.form-description p:first-child --block-enform--caption--paragraph--first-- {
+.form-description p:first-child _-- {
   font-weight: inherit;
   font-size: 1rem;
   text-transform: none;
@@ -99,11 +99,13 @@
 }
 
 .enform {
+  _-- {
+    font-family: $roboto;
+    background: $dark-blue;
+  }
   margin-top: 36px;
-  font-family: $roboto;
   height: inherit;
   padding: $n20;
-  background: $dark-blue;
   width: 100%;
 
   form {
@@ -171,7 +173,6 @@
 
       p {
         font-size: .75rem;
-        font-family: $roboto !important;
         line-height: 1rem;
         margin-bottom: 0;
         float: none;
@@ -180,8 +181,25 @@
   }
 
   h2 {
+    _-- {
+      @include medium-and-up {
+        font-size: 1.75rem;
+        line-height: 2.5rem;
+      }
+
+      @include large-and-up {
+        font-size: 2.125rem;
+      }
+
+      @include x-large-and-up {
+        font-size: 2.25rem;
+      }
+    }
+
     .enform-full-width & {
-      color: white;
+      _-- {
+        color: white;
+      }
 
       html[dir="rtl"] & {
         font-size: 2rem;
@@ -194,19 +212,6 @@
 
     &.thankyou {
       margin-bottom: 0;
-    }
-
-    @include medium-and-up {
-      font-size: 1.75rem;
-      line-height: 2.5rem;
-    }
-
-    @include large-and-up {
-      font-size: 2.125rem;
-    }
-
-    @include x-large-and-up {
-      font-size: 2.25rem;
     }
   }
 
