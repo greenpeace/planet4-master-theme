@@ -27,7 +27,7 @@ export const TakeActionCovers = ({ initialRowsLimit, covers, row, loadMoreCovers
             tags,
             image,
             excerpt,
-            button_text
+            button_text,
           } = cover;
           const hideCover = !!initialRowsLimit && index >= row * amountPerRow;
 
@@ -36,30 +36,28 @@ export const TakeActionCovers = ({ initialRowsLimit, covers, row, loadMoreCovers
           }
 
           return (
-            <div key={title} className='col-lg-4 col-md-6 cover-card-column'>
-              <div className='cover-card card-one' style={{ backgroundImage: `url(${image})` }}>
+            <div key={title} className='col-lg-4 col-md-6'>
+              <div className='cover-card-new'>
                 <a
                   className='cover-card-overlay'
+                  data-ga-category='Take Action Covers'
+                  data-ga-action='Card'
+                  data-ga-label='n/a'
+                  href={button_link}
+                  aria-label={__('Take action cover, link to ' + title, 'planet4-blocks')}
+                />
+                <a
                   data-ga-category='Take Action Covers'
                   data-ga-action='Image'
                   data-ga-label='n/a'
                   href={button_link}
                   aria-label={__('Take action cover, link to ' + title, 'planet4-blocks')}
-                />
+                >
+                  <img src={image} />
+                </a>
                 <div className='cover-card-content'>
-                  {tags && tags.map(tag => (
-                    <a
-                      key={tag.name}
-                      className='cover-card-tag'
-                      data-ga-category='Take Action Covers'
-                      data-ga-action='Navigation Tag'
-                      data-ga-label='n/a'
-                      href={tag.href}
-                    >
-                      <span aria-label='hashtag'>#</span>
-                      {tag.name}
-                    </a>
-                  ))}
+                  {/* Regardless of how many tags there are, we only show the first one */}
+                  {tags && tags.length > 0 && <span className='cover-card-tag'>{tags[0].name}</span>}
                   <a
                     className='cover-card-heading'
                     data-ga-category='Take Action Covers'
@@ -69,10 +67,10 @@ export const TakeActionCovers = ({ initialRowsLimit, covers, row, loadMoreCovers
                   >
                     {title}
                   </a>
-                  <p>{excerpt}</p>
+                  <p className="cover-card-excerpt">{excerpt}</p>
                 </div>
                 <a
-                  className='btn btn-action btn-block cover-card-btn'
+                  className='btn cover-card-btn btn-primary'
                   data-ga-category='Take Action Covers'
                   data-ga-action='Call to Action'
                   data-ga-label='n/a'
@@ -87,8 +85,8 @@ export const TakeActionCovers = ({ initialRowsLimit, covers, row, loadMoreCovers
       </div>
       {showLoadMore &&
         <div className='row'>
-          <div onClick={loadMoreCovers} className='col-lg-5 col-md-12 load-more-covers-button-div'>
-            <button className='btn btn-block btn-secondary btn-load-more-covers-click'>
+          <div className='load-more-covers-button-div-new'>
+            <button onClick={loadMoreCovers} className='btn btn-block btn-secondary'>
               {__( 'Load more', 'planet4-blocks' )}
             </button>
           </div>
