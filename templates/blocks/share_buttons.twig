@@ -14,14 +14,14 @@
 		<span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Facebook</span>
 	</a>
 	<!-- Twitter -->
-	<a href="https://twitter.com/share?url={{ social.link }}&text={{ social.title|url_encode }}{% if social.description %} - {{ social.description|striptags }}{% endif %}, via @{{ social_accounts.twitter }}&related={{ social_accounts.twitter }}&utm_source=twitter&utm_medium={{ utm_medium }}{{ utm_content_param }}{{ utm_campaign_param }}"
+	<a href="https://twitter.com/share?url={{ social.link }}&text={{ social.title|url_encode }}{% if social.description %} - {{ social.description|striptags|url_encode }}{% endif %}, via @{{ social_accounts.twitter }}&related={{ social_accounts.twitter }}&utm_source=twitter&utm_medium={{ utm_medium }}{{ utm_content_param }}{{ utm_campaign_param }}"
 		 onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Twitter', 'eventLabel': '{{ social.link }}'});"
 		 target="_blank" class="share-btn twitter">
 		{{ 'twitter'|svgicon }}
 		<span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Twitter</span>
 	</a>
 	<!-- Email -->
-	<a href="mailto:?subject={{ social.title|url_encode }}&body={% if social.description %}{{ social.description|striptags }} {% endif %}{{ social.link }}&utm_source=email&utm_medium={{ utm_medium }}{{ utm_content_param }}{{ utm_campaign_param }}"
+	<a href="mailto:?subject={{ social.title|url_encode }}&body={% if social.description %}{{ social.description|striptags|url_encode }} {% endif %}{{ social.link }}&utm_source=email&utm_medium={{ utm_medium }}{{ utm_content_param }}{{ utm_campaign_param }}"
 		 onclick="dataLayer.push({'event' : 'uaevent', 'eventCategory' : 'Social Share', 'eventAction': 'Email', 'eventLabel': '{{ social.link }}'});"
 		 target="_blank" class="share-btn email">
 		{{ 'envelope'|svgicon }}
