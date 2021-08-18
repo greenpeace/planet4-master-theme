@@ -91,6 +91,7 @@ const cssConfig = {
     TimelineStyle: './assets/src/styles/blocks/Timeline/TimelineStyle.scss',
     TimelineEditorStyle: './assets/src/styles/blocks/Timeline/TimelineEditorStyle.scss',
     SocialMediaStyle: './assets/src/styles/blocks/SocialMedia/SocialMediaStyle.scss',
+    CoversStyle: './assets/src/styles/blocks/Covers/CoversStyle.scss',
   },
   output: {
     filename: '[name].js',

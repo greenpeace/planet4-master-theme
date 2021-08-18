@@ -1,1 +1,13 @@
-// Empty for now.
+@import "../../master-theme/assets/src/scss/base/variables";
+@import "../../master-theme/assets/src/scss/base/colors";
+@import "../../master-theme/assets/src/scss/base/mixins";
+@import "../../master-theme/assets/src/scss/base/fonts";
+
+// P4 Blocks
+@import "layouts/TakeActionCovers";
+@import "layouts/CampaignCovers";
+@import "layouts/ContentCovers";
+
+// A/B test for Take Action Boxout
+@import "boxout/TakeActionBoxoutScroll";
+@import "boxout/TakeActionBoxoutBottom";

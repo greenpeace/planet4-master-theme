@@ -1,0 +1,165 @@
+.action-card-bottom.cover-card {
+  background: white !important;
+  padding: 0;
+  width: 100%;
+  display: none;
+  height: 120px;
+  position: relative;
+  margin-top: 80px !important;
+  box-shadow: 0 4px 3px rgba(0, 0, 0, 0.16);
+  transition: box-shadow 0.2s;
+  border-radius: 4px;
+  margin-right: 0;
+  margin-left: 0;
+
+  &:hover {
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  img {
+    display: block;
+    width: 120px;
+    height: 120px;
+    pointer-events: none;
+    float: left;
+    object-fit: cover;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    margin-inline-end: 16px;
+
+    html[dir="rtl"] & {
+      float: right;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  .cover-card-content {
+    position: unset;
+    padding: 16px;
+  }
+
+  .cover-card-more {
+    display: block;
+    font-weight: 700;
+    font-family: $roboto;
+    color: $grey-80;
+    font-size: 28px;
+    line-height: 1;
+    bottom: 140px;
+    position: absolute;
+    left: 0;
+
+    html[dir="rtl"] & {
+      right: 0;
+      left: auto;
+    }
+  }
+
+  .cover-card-tag,
+  &::before,
+  &::after {
+    display: none;
+  }
+
+  .cover-card-heading {
+    color: $grey-80;
+    text-shadow: none;
+    font-size: 16px;
+    font-weight: 700;
+    max-width: 100%;
+    line-height: 1.25;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* stylelint-disable property-no-vendor-prefix */
+    /*! autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /*! autoprefixer: on */
+    /* stylelint-enable property-no-vendor-prefix */
+    overflow: hidden;
+  }
+
+  .btn {
+    font-size: 12px;
+    line-height: 1;
+    padding: 10px 16px;
+    right: 16px;
+    bottom: 16px;
+    left: auto;
+    position: absolute;
+    display: block;
+    width: auto;
+    margin: 0;
+    background-color: $orange;
+    color: $white;
+    border: none;
+
+    html[dir="rtl"] & {
+      right: auto;
+      left: 16px;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $orange-hover;
+    }
+  }
+
+  @include medium-and-up {
+    min-height: 200px;
+    margin-top: 100px !important;
+    float: none;
+
+    html[dir="rtl"] & {
+      float: none;
+    }
+
+    .cover-card-heading {
+      margin-bottom: 10px;
+      font-size: 20px;
+      margin-top: 0;
+    }
+
+    .cover-card-content {
+      padding: 20px;
+    }
+
+    img {
+      height: 100%;
+      width: 45%;
+    }
+
+    .cover-card-excerpt {
+      color: $grey;
+      line-height: 1.5;
+      font-size: 14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      /* stylelint-disable property-no-vendor-prefix */
+      /*! autoprefixer: off */
+      -webkit-box-orient: vertical;
+      /*! autoprefixer: on */
+      /* stylelint-enable property-no-vendor-prefix */
+      overflow: hidden;
+      margin: 0;
+    }
+
+    .btn {
+      font-size: 14px;
+    }
+
+    .cover-card-more {
+      font-size: 40px;
+      bottom: 230px;
+    }
+  }
+
+  @include large-and-up {
+    min-height: 210px;
+    max-width: 65%;
+  }
+}
