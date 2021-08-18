@@ -64,6 +64,7 @@ const adminJsConfig = {
     ENFormEditorScript: './assets/src/blocks/ENForm/ENFormEditorScript.js',
     SpreadsheetEditorScript: './assets/src/blocks/Spreadsheet/SpreadsheetEditorScript.js',
     TimelineEditorScript: './assets/src/blocks/Timeline/TimelineEditorScript.js',
+    SocialMediaEditorScript: './assets/src/blocks/SocialMedia/SocialMediaEditorScript.js',
   },
 };
 const cssConfig = {
@@ -89,6 +90,7 @@ const cssConfig = {
     SpreadsheetStyle: './assets/src/styles/blocks/Spreadsheet/SpreadsheetStyle.scss',
     TimelineStyle: './assets/src/styles/blocks/Timeline/TimelineStyle.scss',
     TimelineEditorStyle: './assets/src/styles/blocks/Timeline/TimelineEditorStyle.scss',
+    SocialMediaStyle: './assets/src/styles/blocks/SocialMedia/SocialMediaStyle.scss',
   },
   output: {
     filename: '[name].js',

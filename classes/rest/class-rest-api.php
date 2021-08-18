@@ -17,6 +17,7 @@ use P4GBKS\Blocks\SplitTwoColumns;
 use P4GBKS\Blocks\Happypoint;
 use P4GBKS\Blocks\Gallery;
 use P4GBKS\Blocks\Covers;
+use P4GBKS\Blocks\SocialMedia;
 
 /**
  * This class is just a place for add_endpoints to live.
@@ -270,6 +271,27 @@ class Rest_Api {
 					'callback'            => static function ( $fields ) {
 						$covers = Covers::get_covers( $fields );
 						return rest_ensure_response( $covers );
+					},
+				],
+			]
+		);
+
+		/**
+		 * Endpoint to get the code for Instagram embeds in the Social Media block.
+		 */
+		register_rest_route(
+			self::REST_NAMESPACE,
+			'/get-instagram-embed',
+			[
+				[
+					'permission_callback' => static function () {
+						return true;
+					},
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => static function ( $fields ) {
+						$url        = $fields['url'] ?? '';
+						$embed_code = SocialMedia::get_fb_oembed_html( $url, 'instagram' );
+						return rest_ensure_response( $embed_code );
 					},
 				],
 			]

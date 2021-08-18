@@ -4,7 +4,6 @@ import { MediaPlaceholder, InspectorControls } from '@wordpress/block-editor';
 import { TextControl } from '@wordpress/components';
 import { debounce } from 'lodash';
 
-import { MediaEmbedPreview } from "./MediaEmbedPreview";
 import { MediaElementVideo } from './MediaElementVideo';
 import { useSelect } from '@wordpress/data';
 import { lacksAttributes } from './MediaBlock';
@@ -71,7 +70,7 @@ const renderView = (attributes, toAttribute) => {
 
   const VideoComponent = media_url?.endsWith('.mp4')
     ? <MediaElementVideo videoURL={ media_url } videoPoster={ poster_url } />
-    : <MediaEmbedPreview html={ embed_html || null } />;
+    : <div dangerouslySetInnerHTML={{ __html: embed_html || null }} />;
 
   const ErrorMessage = <div className="block-edit-mode-warning components-notice is-error">
     { __( 'The video URL could not be parsed.', 'planet4-blocks-backend' ) }

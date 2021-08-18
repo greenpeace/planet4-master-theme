@@ -1,3 +1,6 @@
+@import "../../master-theme/assets/src/scss/base/variables";
+@import "../../master-theme/assets/src/scss/base/mixins";
+
 .social-media-block {
   z-index: 3;
 
@@ -9,6 +12,10 @@
         margin-left: auto !important;
         margin-right: auto !important;
       }
+    }
+
+    &.alignright {
+      float: right;
     }
 
     &-facebook {
