@@ -24,12 +24,24 @@ const themeOptions = [
     label: 'Climate Emergency',
   },
   {
+    value: 'climate-new',
+    label: 'Climate Emergency (new)',
+  },
+  {
     value: 'forest',
     label: 'Forest',
   },
   {
+    value: 'forest-new',
+    label: 'Forest (new)',
+  },
+  {
     value: 'oceans',
     label: 'Oceans',
+  },
+  {
+    value: 'oceans-new',
+    label: 'Oceans (new)',
   },
   {
     value: 'oil',
@@ -38,6 +50,10 @@ const themeOptions = [
   {
     value: 'plastic',
     label: 'Plastics',
+  },
+  {
+    value: 'plastic-new',
+    label: 'Plastics (new)',
   },
 
 ];

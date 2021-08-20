@@ -6,6 +6,8 @@ import { useDispatch } from '@wordpress/data';
 
 const keysAsLabel = obj => Object.keys(obj).map(k => ({ label: k, value: k }));
 
+const refactoredThemes = ['climate-new', 'forest-new', 'oceans-new', 'plastic-new'];
+
 // Just a lightweight way to have a separate UI element in the sidebar so that it's clear which themes are legacy and
 // which are new. This is likely just for internal usage to facilitate reviewing the refactored version, eventually
 // editors will work with a single select.
@@ -25,13 +27,37 @@ const useServerThemes = () => {
 const getAllDefinedProps = () => Object.values(document.documentElement.style).filter(k => {
   return 'string' === typeof k && k.match(/^--/);
 });
+const baseUrl = window.location.href.split( '/wp-admin' )[ 0 ];
+const themeJsonUrl = `${ baseUrl }/wp-content/themes/planet4-master-theme/themes/`;
+
+const collectTheme = async (a, t) => {
+  const response = await fetch(`${ themeJsonUrl + t.replace('-new', '') }.json`);
+
+  return {
+    ...await a,
+    [t]: await response.json(),
+  };
+}
+
+const useJsonThemes = () => {
+  const [jsonThemes, setJsonThemes] = useState({});
+  useEffect(() => {
+    (async () => {
+      const themes = await refactoredThemes.reduce(collectTheme, {});
+      setJsonThemes(themes);
+    })();
+  }, []);
+
+  return jsonThemes;
+}
 
 const useAppliedCssVariables = (serverThemes, currentTheme) => {
   const [initialVars] = useState(() => getAllDefinedProps(), []);
+  const jsonThemes = useJsonThemes();
+  const allThemes = { ...serverThemes, ...jsonThemes };
 
   const applyChangesToDom = () => {
-    console.log('Applying ');
-    const theme = serverThemes[currentTheme] || {};
+    const theme = allThemes[currentTheme] || {};
     if (!theme) {
       return;
     }
@@ -45,7 +71,6 @@ const useAppliedCssVariables = (serverThemes, currentTheme) => {
 
     customProps.forEach(k => {
       if (!Object.keys(theme).includes(k) && !initialVars.includes(k)) {
-        console.log('removing', k);
         document.documentElement.style.removeProperty(k);
       }
     });
@@ -53,15 +78,21 @@ const useAppliedCssVariables = (serverThemes, currentTheme) => {
   useEffect(applyChangesToDom, [serverThemes, currentTheme]);
 };
 
+const excludeNewVersions = (themes, [name, theme]) => {
+  return refactoredThemes.includes(name) ? themes : ({ ...themes, [name]: theme });
+};
+
+const withoutNewVersionsOfThemes = themes => Object.entries(themes).reduce(excludeNewVersions, {});
+
 export const NewThemeSettings = ({ onChange, currentTheme }) => {
   const [selectedTheme, setSelectedTheme] = useState(currentTheme);
   const {editPost} = useDispatch('core/editor');
-  const serverThemes = useServerThemes();
+  const allServerThemes = useServerThemes();
+  const serverThemes = withoutNewVersionsOfThemes(allServerThemes);
 
   const emitOnChange = () => {
     if (selectedTheme !== null) {
       const meta = { theme: selectedTheme };
-      console.log(meta);
       onChange(selectedTheme);
       editPost({meta});
     }
