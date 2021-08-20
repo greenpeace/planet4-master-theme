@@ -21,7 +21,7 @@ const themeOptions = [
   },
   {
     value: 'climate',
-    label: 'Climate Emergency',
+    label: 'Climate Emergency (old)',
   },
   {
     value: 'climate-new',
@@ -29,7 +29,7 @@ const themeOptions = [
   },
   {
     value: 'forest',
-    label: 'Forest',
+    label: 'Forest (old)',
   },
   {
     value: 'forest-new',
@@ -37,7 +37,7 @@ const themeOptions = [
   },
   {
     value: 'oceans',
-    label: 'Oceans',
+    label: 'Oceans (old)',
   },
   {
     value: 'oceans-new',
@@ -49,7 +49,7 @@ const themeOptions = [
   },
   {
     value: 'plastic',
-    label: 'Plastics',
+    label: 'Plastics (old)',
   },
   {
     value: 'plastic-new',
