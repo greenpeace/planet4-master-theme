@@ -22,6 +22,14 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
     setAttributes({ slides: newSlides });
   }
 
+  const changeSlideImage = (index, imageId, imageUrl, imageAlt) => {
+    const newSlides = JSON.parse(JSON.stringify(slides));
+    newSlides[index].image = imageId;
+    newSlides[index].image_url = imageUrl;
+    newSlides[index].image_alt = imageAlt;
+    setAttributes({ slides: newSlides });
+  }
+
   const addSlide = () => {
     const newSlides = slides.concat({
       image: null,
@@ -71,7 +79,7 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
                 focalPoints={slide.focal_points}
                 image_id={slide.image}
                 index={index}
-                changeSlideAttribute={changeSlideAttribute}
+                changeSlideImage={changeSlideImage}
                 addSlide={addSlide}
                 removeSlide={removeSlide}
                 slides={slides}

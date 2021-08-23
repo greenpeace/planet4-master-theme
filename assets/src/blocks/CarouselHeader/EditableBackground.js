@@ -1,6 +1,6 @@
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { ImagePlaceholder } from './ImagePlaceholder';
-import { Button, Dashicon, Dropdown } from '@wordpress/components';
+import { Button, Dropdown } from '@wordpress/components';
 const { __ } = wp.i18n;
 
 export const EditableBackground = ({
@@ -8,7 +8,7 @@ export const EditableBackground = ({
   image_id,
   index,
   focalPoints,
-  changeSlideAttribute,
+  changeSlideImage,
   addSlide,
   removeSlide,
   slides,
@@ -17,9 +17,7 @@ export const EditableBackground = ({
     <MediaUpload
       onSelect={image => {
         const { id, alt, url } = image;
-        changeSlideAttribute('image', index)(id);
-        changeSlideAttribute('image_alt', index)(alt);
-        changeSlideAttribute('image_url', index)(url);
+        changeSlideImage(index, id, url, alt);
       }}
       allowedTypes={['image']}
       value={image_id}
@@ -64,7 +62,7 @@ export const EditableBackground = ({
                   <Button
                     icon='trash'
                     onClick={() => {
-                      changeSlideAttribute('image', index)(null);
+                      changeSlideImage(index, null, '', '');
                       onToggle();
                     }}
                   >
