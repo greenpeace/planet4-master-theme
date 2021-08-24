@@ -22,11 +22,12 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
     setAttributes({ slides: newSlides });
   }
 
-  const changeSlideImage = (index, imageId, imageUrl, imageAlt) => {
-    const newSlides = JSON.parse(JSON.stringify(slides));
+  const changeSlideImage = (index, imageId, imageUrl, imageAlt, srcSet) => {
+    const newSlides = [...slides];
     newSlides[index].image = imageId;
     newSlides[index].image_url = imageUrl;
     newSlides[index].image_alt = imageAlt;
+    newSlides[index].image_srcset = srcSet;
     setAttributes({ slides: newSlides });
   }
 
@@ -76,6 +77,7 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
             >
               <EditableBackground
                 image_url={slide.image_url}
+                image_srcset={slide.image_srcset}
                 focalPoints={slide.focal_points}
                 image_id={slide.image}
                 index={index}

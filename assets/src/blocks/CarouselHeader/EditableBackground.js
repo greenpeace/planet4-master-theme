@@ -1,11 +1,13 @@
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { ImagePlaceholder } from './ImagePlaceholder';
 import { Button, Dropdown } from '@wordpress/components';
+import { toSrcSet } from '../../../../../../themes/planet4-master-theme/assets/src/js/Components/archivePicker/sizeFunctions';
 const { __ } = wp.i18n;
 
 export const EditableBackground = ({
   image_url,
   image_id,
+  image_srcset,
   index,
   focalPoints,
   changeSlideImage,
@@ -16,8 +18,8 @@ export const EditableBackground = ({
   <MediaUploadCheck>
     <MediaUpload
       onSelect={image => {
-        const { id, alt, url } = image;
-        changeSlideImage(index, id, url, alt);
+        const { id, alt, url, sizes } = image;
+        changeSlideImage(index, id, url, alt, toSrcSet(Object.values(sizes)));
       }}
       allowedTypes={['image']}
       value={image_id}
@@ -28,6 +30,7 @@ export const EditableBackground = ({
               <ImagePlaceholder /> :
               <img
                 src={image_url}
+                srcSet={image_srcset}
                 style={{ objectPosition: `${focalPoints?.x * 100}% ${focalPoints?.y * 100}%` }}
               />
             }
