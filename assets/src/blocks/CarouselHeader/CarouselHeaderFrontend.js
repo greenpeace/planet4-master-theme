@@ -7,7 +7,20 @@ import { StaticCaption } from './StaticCaption';
 
 const isRTL = document.querySelector('html').dir === 'rtl';
 
+const usePageLoaded = () => {
+  const [pageLoaded, setPageLoaded] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('load', (event) => {
+      setPageLoaded(true);
+    });
+  }, []);
+
+  return pageLoaded;
+}
+
 export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className }) => {
+  const pageLoaded = usePageLoaded();
   const [autoplayPaused, setAutoplayPaused] = useState(false);
   const slidesRef = useRef([]);
   const containerRef = useRef(null);
@@ -60,6 +73,9 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className })
   // Set up the autoplay for the slides
   const timerRef = useRef(null);
   useEffect(() => {
+    if (!pageLoaded) {
+      return;
+    }
     if (carousel_autoplay && slides.length > 1 && !autoplayPaused && !autoplayCancelled) {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
@@ -69,7 +85,7 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className })
     } else if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
-  }, [currentSlide, slides, carousel_autoplay, autoplayPaused, autoplayCancelled]);
+  }, [currentSlide, slides, carousel_autoplay, autoplayPaused, autoplayCancelled, pageLoaded]);
 
   return (
     <section
@@ -86,7 +102,7 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className })
               active={currentSlide == index}
               ref={element => slidesRef ? slidesRef.current[index] = element : null}
             >
-              <SlideBackground slide={slide} />
+              <SlideBackground slide={pageLoaded ? slide : slides[0]} />
               <StaticCaption slide={slide} />
             </Slide>
           ))}
