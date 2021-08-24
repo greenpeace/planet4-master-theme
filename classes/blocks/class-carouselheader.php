@@ -55,21 +55,18 @@ class CarouselHeader extends Base_Block {
 									'type' => 'integer',
 								],
 								'image_url'        => [
-									'type' => 'integer',
-								],
-								'image_srcset'     => [
-									'type' => 'integer',
-								],
-								'image_sizes'      => [
-									'type' => 'integer',
-								],
-								'image_alt'        => [
-									'type' => 'integer',
-								],
-								'header'           => [
 									'type' => 'string',
 								],
-								'subheader'        => [
+								'image_srcset'     => [
+									'type' => 'string',
+								],
+								'image_sizes'      => [
+									'type' => 'string',
+								],
+								'image_alt'        => [
+									'type' => 'string',
+								],
+								'header'           => [
 									'type' => 'string',
 								],
 								'description'      => [
