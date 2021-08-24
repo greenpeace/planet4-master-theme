@@ -127,6 +127,9 @@ class CarouselHeader extends Base_Block {
 	 * @return string The block's content string.
 	 */
 	public function render_hydratable( $attributes, $content ) {
+		if ( ! empty( $content ) ) {
+			return $content;
+		}
 		if ( ! empty( $attributes['slides'] ) && empty( $attributes['slides'][0]['image_url'] ) ) {
 			$attributes['slides'] = self::get_slides_image_data( $attributes['slides'] );
 		}
@@ -134,8 +137,7 @@ class CarouselHeader extends Base_Block {
 		$json = wp_json_encode( [ 'attributes' => $attributes ] );
 
 		// When we remove "beta" from the block name, we'll be able to use as_hydratable_block from class-base-block.php.
-		return '<div data-hydrate="planet4-blocks/carousel-header-beta" data-attributes="' . htmlspecialchars( $json ) . '">'
-		. trim( $content )
+		return '<div data-render="planet4-blocks/carousel-header-beta" data-attributes="' . htmlspecialchars( $json ) . '">'
 		. '</div>';
 	}
 

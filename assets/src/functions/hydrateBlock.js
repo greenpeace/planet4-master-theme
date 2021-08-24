@@ -1,8 +1,9 @@
 export const hydrateBlock = (blockName, Component) => {
-  document.querySelectorAll( `[data-hydrate="${blockName}"]` ).forEach(
+  const blocks = document.querySelectorAll( `[data-hydrate="${blockName}"]` );
+  blocks.forEach(
     blockNode => {
       const attributes = JSON.parse( blockNode.dataset.attributes );
-      ReactDOM.hydrate( <Component { ...attributes.attributes } />, blockNode );
+      ReactDOM.hydrate( <Component { ...attributes } />, blockNode );
     }
   );
 }

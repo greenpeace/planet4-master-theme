@@ -1,6 +1,7 @@
 import { CarouselHeaderEditor } from './CarouselHeaderEditor.js';
-import { frontendRendered } from '../frontendRendered';
 import { carouselHeaderV1 } from './deprecated/carouselHeaderV1.js';
+import { CarouselHeaderFrontend } from './CarouselHeaderFrontend';
+import ReactDOMServer from 'react-dom/server';
 
 const { registerBlockType } = wp.blocks;
 
@@ -46,7 +47,15 @@ export const registerCarouselHeaderBlock = () =>
     },
     attributes,
     edit: CarouselHeaderEditor,
-    save: frontendRendered(BLOCK_NAME),
+    save: ({ attributes }) => {
+      const markup = ReactDOMServer.renderToString(<div
+        data-hydrate={'planet4-blocks/carousel-header-beta'}
+        data-attributes={JSON.stringify(attributes)}
+      >
+        <CarouselHeaderFrontend { ...attributes } />
+      </div>);
+      return <wp.element.RawHTML>{ markup }</wp.element.RawHTML>;
+    },
     deprecated: [
       carouselHeaderV1
     ]
