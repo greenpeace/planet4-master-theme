@@ -10,7 +10,11 @@ import { CarouselControls } from './CarouselControls';
 import { Sidebar } from './Sidebar';
 import { EditableBackground } from './EditableBackground';
 import { useSelect } from '@wordpress/data';
-import { toSrcSet } from '../../../../../../themes/planet4-master-theme/assets/src/js/Components/archivePicker/sizeFunctions';
+
+export const toSrcSet = sizes => {
+
+  return sizes.map( size => `${ size.url || size.source_url } ${ size.width }w` ).join();
+};
 
 export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
   const { carousel_autoplay, slides, className } = attributes;

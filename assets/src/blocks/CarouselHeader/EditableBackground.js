@@ -1,11 +1,12 @@
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { ImagePlaceholder } from './ImagePlaceholder';
 import { Button, Dropdown } from '@wordpress/components';
-import { toSrcSet } from '../../../../../../themes/planet4-master-theme/assets/src/js/Components/archivePicker/sizeFunctions';
+import { toSrcSet } from './CarouselHeaderEditor';
 const { __ } = wp.i18n;
 
 export const EditableBackground = ({
   image_url,
+  image_alt,
   image_id,
   image_srcset,
   index,
@@ -29,6 +30,7 @@ export const EditableBackground = ({
             {!image_url ?
               <ImagePlaceholder /> :
               <img
+                alt={image_alt}
                 src={image_url}
                 srcSet={image_srcset}
                 style={{ objectPosition: `${focalPoints?.x * 100}% ${focalPoints?.y * 100}%` }}
