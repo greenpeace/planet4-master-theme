@@ -9,6 +9,8 @@ import { CarouselControls } from './CarouselControls';
 // Carousel Header Editor
 import { Sidebar } from './Sidebar';
 import { EditableBackground } from './EditableBackground';
+import { useSelect } from '@wordpress/data';
+import { toSrcSet } from '../../../../../../themes/planet4-master-theme/assets/src/js/Components/archivePicker/sizeFunctions';
 
 export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
   const { carousel_autoplay, slides, className } = attributes;
@@ -57,6 +59,26 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
     goToSlide(currentSlide > lastSlide ? 0 : currentSlide, true);
   }
 
+  const needsMigration = slides.some(slide => !!slide.image && !slide.image_srcset)
+  const migratedSlides = useSelect(select=> slides && slides.map(slide => {
+    if (!needsMigration) {
+      return;
+    }
+    let attempt = 0;
+    let image;
+    // Run a loop as this could return undefined the first time.
+    while (!image && attempt++ < 100) {
+      image = select('core').getMedia(slide.image);
+    }
+    // Didn't see this case occur but catch it anyway.
+    if (!image) {
+      console.log('Failed fetching');
+      return slide;
+    }
+    const image_srcset = toSrcSet(Object.values(image.media_details.sizes))
+    return ({ ...slide, image_url: image.source_url, image_srcset, image_alt: image.alt_text });
+  }), [needsMigration]);
+
   return (
     <section className={`block block-header block-wide carousel-header-beta ${className ?? ''}`}>
       <Sidebar
@@ -67,6 +89,11 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
         changeSlideAttribute={changeSlideAttribute}
         goToSlide={goToSlide}
       />
+      { needsMigration && <button
+        onClick={ () => {
+          setAttributes({ slides: migratedSlides });
+        } }
+      >Migrate image data</button>}
       <div className='carousel-wrapper-header'>
         <div className='carousel-inner' role='listbox'>
           {slides?.map((slide, index) => (

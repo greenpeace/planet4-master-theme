@@ -18,8 +18,8 @@ export const EditableBackground = ({
   <MediaUploadCheck>
     <MediaUpload
       onSelect={image => {
-        const { id, alt, url, sizes } = image;
-        changeSlideImage(index, id, url, alt, toSrcSet(Object.values(sizes)));
+        const { id, alt_text, url, sizes } = image;
+        changeSlideImage(index, id, url, alt_text, toSrcSet(Object.values(sizes)));
       }}
       allowedTypes={['image']}
       value={image_id}

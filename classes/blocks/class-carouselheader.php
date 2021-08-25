@@ -60,9 +60,6 @@ class CarouselHeader extends Base_Block {
 								'image_srcset'     => [
 									'type' => 'string',
 								],
-								'image_sizes'      => [
-									'type' => 'string',
-								],
 								'image_alt'        => [
 									'type' => 'string',
 								],
@@ -130,6 +127,7 @@ class CarouselHeader extends Base_Block {
 		if ( ! empty( $content ) ) {
 			return $content;
 		}
+		// Catch blocks that weren't migrated yet by front end rendering them.
 		if ( ! empty( $attributes['slides'] ) && empty( $attributes['slides'][0]['image_url'] ) ) {
 			$attributes['slides'] = self::get_slides_image_data( $attributes['slides'] );
 		}
@@ -156,7 +154,6 @@ class CarouselHeader extends Base_Block {
 				if ( false !== $temp_array && ! empty( $temp_array ) ) {
 					$slide['image_url']    = $temp_array[0];
 					$slide['image_srcset'] = wp_get_attachment_image_srcset( $image_id, 'retina-large', wp_get_attachment_metadata( $image_id ) );
-					$slide['image_sizes']  = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
 				}
 
 				$temp_image         = wp_prepare_attachment_for_js( $image_id );
