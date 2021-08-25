@@ -26,7 +26,6 @@ export const useSlides = (slidesRef, lastSlide, containerRef, options = {
   }
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [autoplayPaused, setAutoplayPaused] = useState(false);
   const [autoplayCancelled, setAutoplayCancelled] = useState(false);
   const [sliding, setSliding] = useState(false);
 
@@ -84,7 +83,6 @@ export const useSlides = (slidesRef, lastSlide, containerRef, options = {
     if (newSlide !== currentSlide && nextElement && activeElement && !sliding) {
       setSliding(true);
 
-      const isRTL = false;
       const order = getOrder(currentSlide, newSlide, lastSlide);
       const enterTransitionClass = options.enterTransitionClasses[order];
       const exitTransitionClass = options.exitTransitionClasses[order];
@@ -113,28 +111,12 @@ export const useSlides = (slidesRef, lastSlide, containerRef, options = {
     }
   };
 
-  useEffect(() => {
-    if (!containerRef || !containerRef.current) {
-      return;
-    }
-
-    containerRef.current.addEventListener('mouseenter', () => setAutoplayPaused(true));
-    containerRef.current.addEventListener('mouseleave', () => setAutoplayPaused(false));
-
-    return () => {
-      containerRef.current.removeEventListener('mouseenter', () => setAutoplayPaused(true));
-      containerRef.current.removeEventListener('mouseleave', () => setAutoplayPaused(false));
-    };
-  }, []);
-
   return {
     currentSlide,
-    sliding,
     goToSlide,
     goToNextSlide,
     goToPrevSlide,
     setCarouselHeight,
-    autoplayPaused,
     autoplayCancelled,
   };
 };

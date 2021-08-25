@@ -1,4 +1,4 @@
-import { useRef, useEffect } from '@wordpress/element';
+import { useRef, useEffect, useState } from '@wordpress/element';
 import { useSlides } from './useSlides';
 import { Slide } from './Slide';
 import { CarouselControls } from './CarouselControls';
@@ -7,7 +7,21 @@ import { StaticCaption } from './StaticCaption';
 
 const isRTL = document.querySelector('html').dir === 'rtl';
 
+const usePageLoaded = () => {
+  const [pageLoaded, setPageLoaded] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('load', (event) => {
+      setPageLoaded(true);
+    });
+  }, []);
+
+  return pageLoaded;
+}
+
 export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className }) => {
+  const pageLoaded = usePageLoaded();
+  const [autoplayPaused, setAutoplayPaused] = useState(false);
   const slidesRef = useRef([]);
   const containerRef = useRef(null);
   const {
@@ -16,7 +30,6 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className })
     goToNextSlide,
     goToPrevSlide,
     setCarouselHeight,
-    autoplayPaused,
     autoplayCancelled
   } = useSlides(slidesRef, slides.length - 1, containerRef);
 
@@ -60,6 +73,9 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className })
   // Set up the autoplay for the slides
   const timerRef = useRef(null);
   useEffect(() => {
+    if (!pageLoaded) {
+      return;
+    }
     if (carousel_autoplay && slides.length > 1 && !autoplayPaused && !autoplayCancelled) {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
@@ -69,12 +85,14 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className })
     } else if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
-  }, [currentSlide, slides, carousel_autoplay, autoplayPaused, autoplayCancelled]);
+  }, [currentSlide, slides, carousel_autoplay, autoplayPaused, autoplayCancelled, pageLoaded]);
 
   return (
     <section
       className={`block block-header block-wide carousel-header-beta ${className ?? ''}`}
       ref={containerRef}
+      onMouseEnter={() => setAutoplayPaused(true)}
+      onMouseLeave={() => setAutoplayPaused(false)}
     >
       <div className='carousel-wrapper-header'>
         <div className='carousel-inner' role='listbox'>
@@ -84,7 +102,7 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className })
               active={currentSlide == index}
               ref={element => slidesRef ? slidesRef.current[index] = element : null}
             >
-              <SlideBackground slide={slide} />
+              <SlideBackground slide={pageLoaded ? slide : slides[0]} />
               <StaticCaption slide={slide} />
             </Slide>
           ))}

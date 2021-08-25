@@ -17,20 +17,10 @@ export const carouselHeaderV1 = {
           link_url_new_tab: false,
         }
       ],
-      validation: slides => {
-        const invalidSlides = slides.filter(slide => slide.image === null);
-
-        const isValid = invalidSlides.length === 0;
-        const messages = invalidSlides.map( invalidSlide => {
-          return `Carousel Header Block: Slide ${ slides.findIndex( slide => slide === invalidSlide ) + 1 } has no image`
-        });
-
-        return { isValid, messages };
-      }
     },
   },
   isEligible({ slides }) {
-    return !!slides?.find(slide => slide.header_size !== 'undefined');
+    return slides.some(slide => typeof slide.header_size !== 'undefined');
   },
   migrate( { slides, ...attributes } ) {
     return {

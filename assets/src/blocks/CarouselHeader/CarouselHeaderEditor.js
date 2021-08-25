@@ -9,18 +9,31 @@ import { CarouselControls } from './CarouselControls';
 // Carousel Header Editor
 import { Sidebar } from './Sidebar';
 import { EditableBackground } from './EditableBackground';
-import { useCarouselHeaderImages } from './useCarouselHeaderImages';
+import { useSelect } from '@wordpress/data';
+
+export const toSrcSet = sizes => {
+
+  return sizes.map( size => `${ size.url || size.source_url } ${ size.width }w` ).join();
+};
 
 export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
   const { carousel_autoplay, slides, className } = attributes;
   const slidesRef = useRef([]);
-  const slidesWithImages = useCarouselHeaderImages(slides);
 
   const { currentSlide, goToSlide, goToNextSlide, goToPrevSlide } = useSlides(slidesRef, slides.length - 1);
 
   const changeSlideAttribute = (slideAttributeName, index) => value => {
     const newSlides = JSON.parse(JSON.stringify(slides));
     newSlides[index][slideAttributeName] = value;
+    setAttributes({ slides: newSlides });
+  }
+
+  const changeSlideImage = (index, imageId, imageUrl, imageAlt, srcSet) => {
+    const newSlides = [...slides];
+    newSlides[index].image = imageId;
+    newSlides[index].image_url = imageUrl;
+    newSlides[index].image_alt = imageAlt;
+    newSlides[index].image_srcset = srcSet;
     setAttributes({ slides: newSlides });
   }
 
@@ -50,19 +63,45 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
     goToSlide(currentSlide > lastSlide ? 0 : currentSlide, true);
   }
 
+  const needsMigration = slides.some(slide => !!slide.image && !slide.image_srcset)
+  const migratedSlides = useSelect(select=> slides && slides.map(slide => {
+    if (!needsMigration) {
+      return;
+    }
+    let attempt = 0;
+    let image;
+    // Run a loop as this could return undefined the first time.
+    while (!image && attempt++ < 100) {
+      image = select('core').getMedia(slide.image);
+    }
+    // Didn't see this case occur but catch it anyway.
+    if (!image) {
+      console.log('Failed fetching');
+      return slide;
+    }
+    const image_srcset = toSrcSet(Object.values(image.media_details.sizes))
+    return ({ ...slide, image_url: image.source_url, image_srcset, image_alt: image.alt_text });
+  }), [needsMigration]);
+
   return (
     <section className={`block block-header block-wide carousel-header-beta ${className ?? ''}`}>
       <Sidebar
         carouselAutoplay={carousel_autoplay}
-        slides={slidesWithImages}
+        slides={slides}
         setAttributes={setAttributes}
         currentSlide={currentSlide}
         changeSlideAttribute={changeSlideAttribute}
         goToSlide={goToSlide}
       />
+      { needsMigration && <button
+        title={'This block was created before WYSIWYG, press this to fetch data the new version uses.'}
+        onClick={ () => {
+          setAttributes({ slides: migratedSlides });
+        } }
+      >Migrate image data</button>}
       <div className='carousel-wrapper-header'>
         <div className='carousel-inner' role='listbox'>
-          {slidesWithImages?.map((slide, index) => (
+          {slides?.map((slide, index) => (
             <Slide
               key={index}
               ref={element => slidesRef.current[index] = element}
@@ -70,10 +109,11 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
             >
               <EditableBackground
                 image_url={slide.image_url}
+                image_srcset={slide.image_srcset}
                 focalPoints={slide.focal_points}
                 image_id={slide.image}
                 index={index}
-                changeSlideAttribute={changeSlideAttribute}
+                changeSlideImage={changeSlideImage}
                 addSlide={addSlide}
                 removeSlide={removeSlide}
                 slides={slides}
