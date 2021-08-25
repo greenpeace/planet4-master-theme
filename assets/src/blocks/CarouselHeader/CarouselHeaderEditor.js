@@ -94,6 +94,7 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
         goToSlide={goToSlide}
       />
       { needsMigration && <button
+        title={'This block was created before WYSIWYG, press this to fetch data the new version uses.'}
         onClick={ () => {
           setAttributes({ slides: migratedSlides });
         } }
