@@ -43,7 +43,7 @@ class M004UpdateMissingMediaPath extends MigrationScript {
 			$attachment_id = $post->id;
 			$cloud_meta    = unserialize( $post->meta_value ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
 			$trid          = apply_filters( 'wpml_element_trid', null, $attachment_id, 'post_attachment' );
-			$translations  = apply_filters( 'wpml_get_element_translations', null, $trid, 'post_attachment' );
+			$translations  = apply_filters( 'wpml_get_element_translations', [], $trid, 'post_attachment' );
 
 			if ( $cloud_meta ) {
 				foreach ( $translations as $translation ) {
