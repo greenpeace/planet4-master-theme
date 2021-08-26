@@ -221,6 +221,10 @@ $medium-image-height: 600px;
     }
 
     &.exit-to-start {
+      .carousel-caption {
+        display: none;
+      }
+
       .carousel-item-mask {
         width: 0;
         transition: width $slide-transition-speed;
@@ -240,6 +244,10 @@ $medium-image-height: 600px;
     }
 
     &.exit-to-end {
+      .carousel-caption {
+        display: none;
+      }
+
       .carousel-item-mask {
         width: 0;
         margin-left: auto;
