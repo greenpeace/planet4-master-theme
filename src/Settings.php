@@ -220,7 +220,7 @@ class Settings {
 				],
 			],
 			'planet4_settings_cookies_text'     => [
-				'title'  => 'Cookies Text',
+				'title'  => 'Cookies',
 				'fields' => [
 					[
 						'name'    => __( 'Cookies Text', 'planet4-master-theme-backend' ),
@@ -241,6 +241,13 @@ class Settings {
 							'planet4-master-theme-backend'
 						),
 						'id'   => 'enforce_cookies_policy',
+						'type' => 'checkbox',
+					],
+
+					[
+						'name' => __( 'Enable Analytical Cookies', 'planet4-master-theme-backend' ),
+						'desc' => __( 'Enable the Analytical cookies option in Cookies block.', 'planet4-master-theme-backend' ),
+						'id'   => 'enable_analytical_cookies',
 						'type' => 'checkbox',
 					],
 				],
