@@ -199,7 +199,7 @@ $medium-image-height: 600px;
     &.active {
       display: block;
       left: 0;
-      z-index: 1;
+      z-index: 2000;
       opacity: 1;
       transition: unset;
       pointer-events: all;
@@ -221,6 +221,10 @@ $medium-image-height: 600px;
     }
 
     &.exit-to-start {
+      .carousel-caption {
+        display: none;
+      }
+
       .carousel-item-mask {
         width: 0;
         transition: width $slide-transition-speed;
@@ -240,6 +244,10 @@ $medium-image-height: 600px;
     }
 
     &.exit-to-end {
+      .carousel-caption {
+        display: none;
+      }
+
       .carousel-item-mask {
         width: 0;
         margin-left: auto;
@@ -270,7 +278,6 @@ $medium-image-height: 600px;
       z-index: 1000;
       display: block;
       opacity: 1;
-      position: relative;
 
       .carousel-caption .main-header .carousel-captions-wrapper {
         h1, p {
@@ -290,7 +297,6 @@ $medium-image-height: 600px;
       z-index: 1000;
       display: block;
       opacity: 1;
-      position: relative;
 
       .carousel-caption .main-header .carousel-captions-wrapper {
         h1, p {
