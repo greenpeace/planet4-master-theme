@@ -22,7 +22,7 @@ class OldCarouselHeader extends Base_Block {
 	 *
 	 * @const string BLOCK_NAME.
 	 */
-	const BLOCK_NAME = 'carousel-header';
+	const BLOCK_NAME = 'carousel-header-old';
 
 	/**
 	 * Gallery constructor.
@@ -127,7 +127,7 @@ class OldCarouselHeader extends Base_Block {
 		if ( ! $this->is_rest_request() ) {
 			wp_enqueue_script( 'hammer', 'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js', [], '2.0.8', true );
 			\P4GBKS\Loader::enqueue_local_script(
-				'carousel-header',
+				'carousel-header-old',
 				'assets/build/carouselHeaderFrontIndex.js',
 				[
 					'jquery',

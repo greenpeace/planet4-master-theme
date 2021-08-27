@@ -5,7 +5,7 @@ import ReactDOMServer from 'react-dom/server';
 
 const { registerBlockType } = wp.blocks;
 
-const BLOCK_NAME = 'planet4-blocks/carousel-header-beta';
+const BLOCK_NAME = 'planet4-blocks/carousel-header';
 
 const attributes = {
   carousel_autoplay: {
@@ -38,9 +38,9 @@ const attributes = {
 
 export const registerCarouselHeaderBlock = () =>
   registerBlockType(BLOCK_NAME, {
-    title: 'Carousel Header (beta)',
+    title: 'Carousel Header',
     icon: 'welcome-widgets-menus',
-    category: 'planet4-blocks-beta',
+    category: 'planet4-blocks',
     supports: {
       multiple: false, // Use the block just once per post.
       html: false, // Disable "Edit as HTMl" block option.
@@ -49,7 +49,7 @@ export const registerCarouselHeaderBlock = () =>
     edit: CarouselHeaderEditor,
     save: ({ attributes }) => {
       const markup = ReactDOMServer.renderToString(<div
-        data-hydrate={'planet4-blocks/carousel-header-beta'}
+        data-hydrate={'planet4-blocks/carousel-header'}
         data-attributes={JSON.stringify(attributes)}
       >
         <CarouselHeaderFrontend { ...attributes } />

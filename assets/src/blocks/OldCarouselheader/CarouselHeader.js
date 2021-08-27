@@ -153,7 +153,7 @@ export class CarouselHeader extends Component {
           {
             this.props.slides.length && this.props.slides[0].image > 0
             ? <ServerSideRender
-                block={'planet4-blocks/carousel-header'}
+                block={'planet4-blocks/carousel-header-old'}
                 attributes={{
                   carousel_autoplay: this.props.carousel_autoplay,
                   slides: this.props.slides,

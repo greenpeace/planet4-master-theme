@@ -36,9 +36,9 @@ class CarouselHeader extends Base_Block {
 	 */
 	public function register_carouselheader_block() {
 		register_block_type(
-			'planet4-blocks/carousel-header-beta',
+			'planet4-blocks/carousel-header',
 			[
-				'render_callback' => [ $this, 'render_hydratable' ],
+				'render_callback' => [ $this, 'front_end_rendered_fallback' ],
 				'attributes'      => [
 					'carousel_autoplay' => [
 						'type'    => 'boolean',
@@ -92,7 +92,7 @@ class CarouselHeader extends Base_Block {
 		add_action(
 			'wp_enqueue_scripts',
 			static function () {
-				if ( has_block( 'planet4-blocks/carousel-header-beta' ) ) {
+				if ( has_block( 'planet4-blocks/carousel-header' ) ) {
 					wp_enqueue_script(
 						'hammer',
 						'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js',
@@ -116,26 +116,28 @@ class CarouselHeader extends Base_Block {
 	}
 
 	/**
-	 * Render the block using hydration.
+	 * If the content is not empty, it's the new version and doesn't need any back end rendering.
+	 * Otherwise, it means the block was not migrated in the editor yet. Fall back to front end rendering from scratch.
 	 *
 	 * @param array  $attributes Attributes of the block.
 	 * @param string $content Content of the block.
 	 *
 	 * @return string The block's content string.
 	 */
-	public function render_hydratable( $attributes, $content ) {
+	public function front_end_rendered_fallback( $attributes, $content ) {
 		if ( ! empty( $content ) ) {
 			return $content;
 		}
-		// Catch blocks that weren't migrated yet by front end rendering them.
+
 		if ( ! empty( $attributes['slides'] ) && empty( $attributes['slides'][0]['image_url'] ) ) {
 			$attributes['slides'] = self::get_slides_image_data( $attributes['slides'] );
 		}
 
 		$json = wp_json_encode( [ 'attributes' => $attributes ] );
 
-		// When we remove "beta" from the block name, we'll be able to use as_hydratable_block from class-base-block.php.
-		return '<div data-render="planet4-blocks/carousel-header-beta" data-attributes="' . htmlspecialchars( $json ) . '">'
+		// Render the block using a regular front end rendered, until the block data was migrated in the editor. For
+		// production sites we will do this for all occurrences of the block, right after deploy.
+		return '<div data-render="planet4-blocks/carousel-header" data-attributes="' . htmlspecialchars( $json ) . '">'
 		. '</div>';
 	}
 

@@ -121,6 +121,7 @@ const PAGE_BLOCK_TYPES = [
 	'planet4-blocks/accordion',
 	'planet4-blocks/articles',
 	'planet4-blocks/carousel-header',
+	'planet4-blocks/carousel-header-old',
 	'planet4-blocks/columns',
 	'planet4-blocks/cookies',
 	'planet4-blocks/counter',
@@ -139,7 +140,6 @@ const PAGE_BLOCK_TYPES = [
 
 const BETA_PAGE_BLOCK_TYPES = [
 	'planet4-blocks/covers-beta',
-	'planet4-blocks/carousel-header-beta',
 	'planet4-blocks/enform-beta',
 ];
 
@@ -148,6 +148,7 @@ const CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/accordion',
 	'planet4-blocks/articles',
 	'planet4-blocks/carousel-header',
+	'planet4-blocks/carousel-header-old',
 	'planet4-blocks/columns',
 	'planet4-blocks/cookies',
 	'planet4-blocks/counter',
@@ -165,7 +166,6 @@ const CAMPAIGN_BLOCK_TYPES = [
 
 const BETA_CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/covers-beta',
-	'planet4-blocks/carousel-header-beta',
 	'planet4-blocks/enform-beta',
 	'planet4-blocks/social-media-cards',
 ];
