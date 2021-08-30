@@ -29,27 +29,35 @@ class Cookies extends Base_Block {
 				// todo: Remove when all content is migrated.
 				'render_callback' => [ self::class, 'render_frontend' ],
 				'attributes'      => [
-					'title'                         => [
+					'title'                          => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'description'                   => [
+					'description'                    => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'necessary_cookies_name'        => [
+					'necessary_cookies_name'         => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'necessary_cookies_description' => [
+					'necessary_cookies_description'  => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'all_cookies_name'              => [
+					'all_cookies_name'               => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'all_cookies_description'       => [
+					'all_cookies_description'        => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'analytical_cookies_name'        => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'analytical_cookies_description' => [
 						'type'    => 'string',
 						'default' => '',
 					],

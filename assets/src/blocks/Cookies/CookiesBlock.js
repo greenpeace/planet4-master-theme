@@ -38,6 +38,14 @@ export class CookiesBlock {
           type: 'string',
           default: ''
         },
+        analytical_cookies_name: {
+          type: 'string',
+          default: ''
+        },
+        analytical_cookies_description: {
+          type: 'string',
+          default: ''
+        },
       },
       edit: CookiesEditor,
       save() {
