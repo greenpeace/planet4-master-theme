@@ -113,7 +113,6 @@ abstract class Base_Block {
 		$full_name   = static::get_full_block_name();
 		$beta_blocks = [
 			'planet4-blocks/covers',
-			'planet4-blocks/carousel-header',
 			'planet4-blocks/enform',
 		];
 
@@ -237,21 +236,5 @@ abstract class Base_Block {
 		$json = wp_json_encode( [ 'attributes' => $attributes ] );
 
 		return '<div data-render="' . self::get_full_block_name() . '" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
-	}
-
-	/**
-	 * Renders a hydratable block attributes with `data-` attributes.
-	 *
-	 * @param array $attributes The block's attributes.
-	 * @param array $content The block's content.
-	 */
-	public static function as_hydratable_block( $attributes, $content ) {
-		$json = wp_json_encode(
-			[ 'attributes' => $attributes ]
-		);
-
-		return '<div data-hydrate="' . self::get_full_block_name() . '" data-attributes="' . htmlspecialchars( $json ) . '">'
-			. trim( $content )
-			. '</div>';
 	}
 }

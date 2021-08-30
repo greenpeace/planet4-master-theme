@@ -89,7 +89,7 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className })
 
   return (
     <section
-      className={`block block-header block-wide carousel-header-beta ${className ?? ''}`}
+      className={`block block-header block-wide carousel-header ${className ?? ''}`}
       ref={containerRef}
       onMouseEnter={() => setAutoplayPaused(true)}
       onMouseLeave={() => setAutoplayPaused(false)}

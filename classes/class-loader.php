@@ -64,7 +64,6 @@ final class Loader {
 		// Load Blocks.
 		new Blocks\Accordion();
 		new Blocks\Articles();
-		new Blocks\OldCarouselHeader();
 		new Blocks\CarouselHeader();
 		new Blocks\Columns();
 		new Blocks\Cookies();
