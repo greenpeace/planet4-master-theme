@@ -37,7 +37,6 @@ const publicJsConfig = {
   },
   entry: {
     frontendIndex: './assets/src/frontendIndex.js',
-    carouselHeaderFrontIndex: './assets/src/carouselHeaderFrontIndex.js',
     AccordionScript: './assets/src/blocks/Accordion/AccordionScript.js',
     CoversScript: './assets/src/blocks/Covers/CoversScript.js',
     CarouselHeaderScript: './assets/src/blocks/CarouselHeader/CarouselHeaderScript.js',

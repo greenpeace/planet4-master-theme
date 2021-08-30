@@ -1,5 +1,4 @@
 import { ArticlesBlock } from './blocks/Articles/ArticlesBlock';
-import { CarouselHeaderBlock } from './blocks/OldCarouselheader/CarouselHeaderBlock';
 import { registerColumnsBlock } from './blocks/Columns/ColumnsBlock';
 import { CookiesBlock } from './blocks/Cookies/CookiesBlock';
 import { CounterBlock } from './blocks/Counter/CounterBlock';
@@ -27,7 +26,6 @@ import { registerGuestBookBlock } from './blocks/GuestBook/GuestBookBlock';
 
 blockEditorValidation();
 new ArticlesBlock();
-new CarouselHeaderBlock();
 registerColumnsBlock();
 new CookiesBlock();
 new CounterBlock();
