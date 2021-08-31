@@ -4,6 +4,7 @@
   "--button-secondary--hover--background": "#8fd9d0",
   "--footer--background": "rgba(7 , 67, 101, 1)",
   "--page-header-background--after--background": "rgba(44 , 171, 177, 0.8)",
+  "--page-header-background--img--height": "auto",
   "--button-primary--hover--border-color": "#c44bc4",
   "--button-secondary--hover--border-color": "#8fd9d0",
   "--page-header-background--bottom": "0",
