@@ -85,21 +85,28 @@
   right: 0;
   left: 0;
 
+  _-- {
+    bottom: auto;
+  }
+
   &:after {
     content: "";
     display: block;
     position: absolute;
     z-index: 0;
-    height: 75%;
-    bottom: -.5%;
     left: 0;
     right: 0;
-    @include linear-gradient(360deg, $white 0%, transparent 100%);
+
+    _-- {
+      height: 75%;
+      bottom: -.5%;
+      background: linear-gradient(360deg, $white 0%, transparent 100%);
+    }
   }
 
   img {
     width: 100%;
-    height: auto;
+    height: 100%;
   }
 }
 
@@ -110,6 +117,8 @@
 }
 
 .page-header-title _-- {
+  font-family: $roboto;
+  font-weight: bold;
   text-transform: none;
   max-width: 80%;
   margin-bottom: 10px;
