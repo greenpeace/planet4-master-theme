@@ -111,7 +111,6 @@ export const EditableColumns = ({
               keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
               allowedFormats={[]}
-              characterLimit={40}
               multiline='false'
             />
             <RichText
@@ -121,7 +120,6 @@ export const EditableColumns = ({
               onChange={toAttribute('description', index)}
               keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
-              characterLimit={400}
               allowedFormats={['core/bold', 'core/italic']}
             />
             {columns_block_style === LAYOUT_TASKS && (

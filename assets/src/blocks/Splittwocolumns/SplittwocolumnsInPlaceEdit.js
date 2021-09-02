@@ -57,7 +57,6 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             keepPlaceholderOnFocus={true}
             value={title}
             onChange={onTextChange('title')}
-            characterLimit={charLimit.title}
             multiline="false"
             withoutInteractiveFormatting
             allowedFormats={[]}
@@ -69,7 +68,6 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             keepPlaceholderOnFocus={true}
             value={issue_description}
             onChange={onTextChange('issue_description')}
-            characterLimit={charLimit.description}
             multiline="false"
             allowedFormats={['core/bold', 'core/italic']}
             />
@@ -81,7 +79,6 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
               keepPlaceholderOnFocus={true}
               value={issue_link_text}
               onChange={onTextChange('issue_link_text')}
-              characterLimit={100}
               multiline="false"
               withoutInteractiveFormatting
               allowedFormats={[]}
@@ -113,7 +110,6 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             keepPlaceholderOnFocus={true}
             value={tag_description}
             onChange={onTextChange('tag_description')}
-            characterLimit={charLimit.description}
             multiline="false"
             allowedFormats={['core/bold', 'core/italic']}
             />
@@ -124,7 +120,6 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             keepPlaceholderOnFocus={true}
             value={button_text}
             onChange={onTextChange('button_text')}
-            characterLimit={charLimit.title}
             multiline="false"
             withoutInteractiveFormatting
             allowedFormats={[]}

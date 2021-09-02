@@ -133,7 +133,6 @@ const renderView = (attributes, setAttributes) => {
           onChange={toAttribute('gallery_block_title')}
           keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
-          characterLimit={40}
           multiline="false"
           allowedFormats={[]}
         />
@@ -146,7 +145,6 @@ const renderView = (attributes, setAttributes) => {
         onChange={toAttribute('gallery_block_description')}
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
-        characterLimit={400}
         allowedFormats={['core/bold', 'core/italic']}
       />
       {layout === 'slider' && <GalleryCarousel images={images || []} />}
