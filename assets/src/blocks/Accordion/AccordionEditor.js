@@ -46,7 +46,6 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
           onChange={toAttribute('title')}
           keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
-          characterLimit={60}
           multiline="false"
           allowedFormats={[]}
         />
@@ -59,7 +58,6 @@ const renderView = ({ title, description, tabs, className }, setAttributes, isSe
         onChange={toAttribute('description')}
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
-        characterLimit={200}
         allowedFormats={['core/bold', 'core/italic']}
       />
       {tabs.map((tab, index) => (

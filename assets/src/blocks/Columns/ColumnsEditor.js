@@ -156,7 +156,6 @@ export const ColumnsEditor = ({ isSelected, attributes, setAttributes }) => {
               onChange={toAttribute('columns_title')}
               keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
-              characterLimit={40}
               multiline='false'
               allowedFormats={[]}
             />
@@ -171,7 +170,6 @@ export const ColumnsEditor = ({ isSelected, attributes, setAttributes }) => {
             onChange={toAttribute('columns_description')}
             keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
-            characterLimit={200}
             allowedFormats={['core/bold', 'core/italic']}
           />
         }

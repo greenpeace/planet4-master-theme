@@ -109,7 +109,6 @@ const renderView = (attributes, setAttributes, className) => {
         onChange={title => setAttributes({ title })}
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
-        characterLimit={60}
         multiline="false"
         allowedFormats={[]}
       />

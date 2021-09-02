@@ -114,7 +114,6 @@ const renderView = ({ attributes, postType, posts, totalPosts }, toAttribute) =>
             onChange={toAttribute('article_heading')}
             keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
-            characterLimit={40}
             multiline="false"
             allowedFormats={[]}
           />
@@ -128,7 +127,6 @@ const renderView = ({ attributes, postType, posts, totalPosts }, toAttribute) =>
         onChange={toAttribute('articles_description')}
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
-        characterLimit={200}
         allowedFormats={['core/bold', 'core/italic']}
       />
       <ArticlesList posts={posts} postType={postType} />

@@ -84,7 +84,6 @@ export const CookiesFrontend = props => {
           onChange={toAttribute('title')}
           keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
-          characterLimit={40}
           multiline="false"
           editable={isEditing}
           allowedFormats={[]}
@@ -100,7 +99,6 @@ export const CookiesFrontend = props => {
         onChange={toAttribute('description')}
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
-        characterLimit={300}
         editable={isEditing}
         allowedFormats={['core/bold', 'core/italic']}
       />
@@ -133,7 +131,6 @@ export const CookiesFrontend = props => {
             onChange={toAttribute('necessary_cookies_name')}
             keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
-            characterLimit={40}
             multiline="false"
             editable={isEditing}
             allowedFormats={[]}
@@ -147,7 +144,6 @@ export const CookiesFrontend = props => {
           onChange={toAttribute('necessary_cookies_description')}
           keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
-          characterLimit={300}
           editable={isEditing}
           allowedFormats={['core/bold', 'core/italic']}
         />
@@ -180,7 +176,6 @@ export const CookiesFrontend = props => {
             onChange={toAttribute('all_cookies_name')}
             keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
-            characterLimit={40}
             multiline="false"
             editable={isEditing}
             allowedFormats={[]}
@@ -194,7 +189,6 @@ export const CookiesFrontend = props => {
           onChange={toAttribute('all_cookies_description')}
           keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
-          characterLimit={300}
           editable={isEditing}
           allowedFormats={['core/bold', 'core/italic']}
         />

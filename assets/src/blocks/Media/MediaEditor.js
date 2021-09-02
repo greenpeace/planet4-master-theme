@@ -87,7 +87,6 @@ const renderView = (attributes, toAttribute) => {
           onChange={toAttribute('video_title')}
           keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
-          characterLimit={40}
           multiline="false"
           allowedFormats={[]}
         />
@@ -100,7 +99,6 @@ const renderView = (attributes, toAttribute) => {
         onChange={toAttribute('description')}
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
-        characterLimit={200}
         allowedFormats={['core/bold', 'core/italic']}
       />
       {

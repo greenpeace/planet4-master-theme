@@ -93,7 +93,6 @@ const renderView = (attributes, toAttribute) => {
           onChange={toAttribute('title')}
           keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
-          characterLimit={60}
           multiline='false'
           allowedFormats={[]}
         />
@@ -106,7 +105,6 @@ const renderView = (attributes, toAttribute) => {
         onChange={toAttribute('description')}
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
-        characterLimit={400}
         allowedFormats={['core/bold', 'core/italic']}
       />
       {!loading && !covers.length ?

@@ -157,7 +157,6 @@ const SideContent = ({attributes, setAttributes}) => {
         keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         allowedFormats={[]}
-        characterLimit={60}
         multiline="false"
       />
       <RichText
@@ -167,7 +166,6 @@ const SideContent = ({attributes, setAttributes}) => {
         placeholder={__('Enter description', 'planet4-blocks-backend')}
         keepPlaceholderOnFocus={true}
         allowedFormats={[]}
-        characterLimit={400}
       />
     </div>
     </>
@@ -205,7 +203,6 @@ const Signup = ({attributes, setAttributes}) => {
             keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
             allowedFormats={[]}
-            characterLimit={60}
             multiline="false"
           />
           {en_form_style === 'side-style' &&
@@ -220,7 +217,6 @@ const Signup = ({attributes, setAttributes}) => {
             placeholder={__('Enter form description', 'planet4-blocks-backend')}
             keepPlaceholderOnFocus={true}
             allowedFormats={[]}
-            characterLimit={400}
           />
         </div>
 
@@ -279,7 +275,6 @@ const ThankYou = ({attributes, setAttributes}) => {
             keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
             allowedFormats={[]}
-            characterLimit={60}
             multiline="false"
           />
         </header>
@@ -291,7 +286,6 @@ const ThankYou = ({attributes, setAttributes}) => {
           placeholder={__('Enter description', 'planet4-blocks-backend')}
           keepPlaceholderOnFocus={true}
           allowedFormats={[]}
-          characterLimit={400}
           multiline="false"
         />
 
@@ -306,7 +300,6 @@ const ThankYou = ({attributes, setAttributes}) => {
               keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
               allowedFormats={[]}
-              characterLimit={400}
               multiline="false"
             />
           </div>
@@ -326,7 +319,6 @@ const ThankYou = ({attributes, setAttributes}) => {
                   placeholder={__('Enter donate message', 'planet4-blocks-backend')}
                   keepPlaceholderOnFocus={true}
                   allowedFormats={['core/bold', 'core/italic', 'core/link']}
-                  characterLimit={400}
                   multiline="false"
                 />
               </div>
@@ -342,7 +334,6 @@ const ThankYou = ({attributes, setAttributes}) => {
                   keepPlaceholderOnFocus={true}
                   withoutInteractiveFormatting
                   allowedFormats={[]}
-                  characterLimit={60}
                   multiline="false"
                 />
               </div>

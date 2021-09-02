@@ -96,7 +96,6 @@ export class CounterEditor extends Component {
             onChange={this.toAttribute('title')}
             keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
-            characterLimit={60}
             multiline="false"
             allowedFormats={[]}
           />
@@ -109,7 +108,6 @@ export class CounterEditor extends Component {
           onChange={this.toAttribute('description')}
           keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
-          characterLimit={400}
           allowedFormats={['core/bold', 'core/italic']}
         />
       </div>
