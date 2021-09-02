@@ -21,15 +21,27 @@ const themeOptions = [
   },
   {
     value: 'climate',
-    label: 'Climate Emergency',
+    label: 'Climate Emergency (old)',
+  },
+  {
+    value: 'climate-new',
+    label: 'Climate Emergency (new)',
   },
   {
     value: 'forest',
-    label: 'Forest',
+    label: 'Forest (old)',
+  },
+  {
+    value: 'forest-new',
+    label: 'Forest (new)',
   },
   {
     value: 'oceans',
-    label: 'Oceans',
+    label: 'Oceans (old)',
+  },
+  {
+    value: 'oceans-new',
+    label: 'Oceans (new)',
   },
   {
     value: 'oil',
@@ -37,7 +49,11 @@ const themeOptions = [
   },
   {
     value: 'plastic',
-    label: 'Plastics',
+    label: 'Plastics (old)',
+  },
+  {
+    value: 'plastic-new',
+    label: 'Plastics (new)',
   },
 
 ];
