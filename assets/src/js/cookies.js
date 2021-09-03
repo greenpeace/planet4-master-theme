@@ -1,5 +1,27 @@
 /* global dataLayer */
 export const setupCookies = () => {
+  window.dataLayer = window.dataLayer || [];
+  const ENABLE_ANALYTICAL_COOKIES = window.p4bk_vars.enable_analytical_cookies;
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+
+  const defaultCookieConsentNeeded = !document.cookie.includes('greenpeace=') && !document.cookie.includes('no_track');
+
+  // Set default ad storage and analytics storage to 'denied'.
+  if (defaultCookieConsentNeeded) {
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      ...ENABLE_ANALYTICAL_COOKIES && { 'analytics_storage': 'denied' },
+    });
+    dataLayer.push({
+      'event' : 'defaultConsent',
+      'ad_storage': 'denied',
+      ...ENABLE_ANALYTICAL_COOKIES && { 'analytics_storage': 'denied' },
+    });
+  }
+
   window.createCookie = (name, value, days) => {
     let date = new Date();
     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -37,7 +59,8 @@ export const setupCookies = () => {
   const hideCookieButton = document.querySelector('#hidecookie');
   if (hideCookieButton) {
     hideCookieButton.onclick = () => {
-      window.createCookie('greenpeace', '2', 365);
+      const newCookieValue = ENABLE_ANALYTICAL_COOKIES ? '4' : '2';
+      window.createCookie('greenpeace', newCookieValue, 365);
 
       // Remove the 'no_track' cookie, if user accept the cookies consent.
       window.createCookie('no_track', '0', -1);
@@ -45,8 +68,18 @@ export const setupCookies = () => {
       // Create cookie to store last visited nro.
       window.createCookie('gp_nro', nro, 30);
 
+      // Grant ad storage and analytics storage.
+      gtag('consent', 'update', {
+        'ad_storage': 'granted',
+        ...ENABLE_ANALYTICAL_COOKIES && { 'analytics_storage': 'granted' },
+      });
+      dataLayer.push({
+        'event' : 'updateConsent',
+        'ad_storage': 'granted',
+        ...ENABLE_ANALYTICAL_COOKIES && { 'analytics_storage': 'granted' },
+      });
+
       // DataLayer push event on cookies consent.
-      window.dataLayer = window.dataLayer || [];
       dataLayer.push({
         'event' : 'cookiesConsent'
       });
