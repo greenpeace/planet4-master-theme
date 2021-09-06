@@ -355,7 +355,8 @@ final class Loader {
 
 		// Variables reflected from PHP to JS.
 		$reflection_vars = [
-			'dateFormat' => get_option( 'date_format' ),
+			'dateFormat'                => get_option( 'date_format' ),
+			'enable_analytical_cookies' => $option_values['enable_analytical_cookies'] ?? '',
 		];
 		wp_localize_script( 'planet4-blocks-editor-script', 'p4bk_vars', $reflection_vars );
 
@@ -401,10 +402,12 @@ final class Loader {
 		self::enqueue_local_script( 'post_action', 'public/js/post_action.js', [ 'jquery' ] );
 
 		// Variables reflected from PHP to JS.
+		$option_values   = get_option( 'planet4_options' );
 		$reflection_vars = [
-			'dateFormat' => get_option( 'date_format' ),
-			'siteUrl'    => site_url(),
-			'themeUrl'   => get_template_directory_uri(),
+			'dateFormat'                => get_option( 'date_format' ),
+			'siteUrl'                   => site_url(),
+			'themeUrl'                  => get_template_directory_uri(),
+			'enable_analytical_cookies' => $option_values['enable_analytical_cookies'] ?? '',
 		];
 		wp_localize_script( 'planet4-blocks-script', 'p4bk_vars', $reflection_vars );
 
