@@ -81,12 +81,6 @@ export const CookiesFrontend = props => {
   }
   useEffect(toggleHubSpotConsent, [allCookiesChecked, userRevokedAllCookies])
 
-  // Make the necessary cookies checked by default on user's first visit.
-  // Here if the No cookies set(absence of 'greenpeace' & 'no_track' cookies) consider as first visit of user.
-  if (!consentCookie && !readCookie('no_track') && !userRevokedNecessary) {
-    setConsentCookie(ONLY_NECESSARY);
-  }
-
   return <Fragment>
     <section className={`block cookies-block ${className ?? ''}`}>
       {(isEditing || title) &&
