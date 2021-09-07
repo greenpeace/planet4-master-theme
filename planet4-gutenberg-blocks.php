@@ -114,6 +114,7 @@ const POST_BLOCK_TYPES = [
 	'planet4-blocks/spreadsheet',
 	'planet4-blocks/take-action-boxout',
 	'planet4-blocks/timeline',
+	'leadin/hubspot-form-block',
 ];
 
 // pages allow all block types.
@@ -135,6 +136,7 @@ const PAGE_BLOCK_TYPES = [
 	'planet4-blocks/timeline',
 	'planet4-blocks/enform',
 	'planet4-blocks/guestbook',
+	'leadin/hubspot-form-block',
 ];
 
 const BETA_PAGE_BLOCK_TYPES = [
@@ -160,6 +162,7 @@ const CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/timeline',
 	'planet4-blocks/enform',
 	'planet4-blocks/guestbook',
+	'leadin/hubspot-form-block',
 ];
 
 const BETA_CAMPAIGN_BLOCK_TYPES = [
