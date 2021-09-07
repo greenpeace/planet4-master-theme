@@ -109,13 +109,6 @@ $comments_args = [
 	'comment_field'        => Timber::compile( 'comment_form/comment_field.twig' ),
 	'submit_button'        => Timber::compile( 'comment_form/submit_button.twig' ),
 	'title_reply'          => __( 'Leave your reply', 'planet4-master-theme' ),
-	'fields'               => apply_filters(
-		'comment_form_default_fields',
-		[
-			'author' => Timber::compile( 'comment_form/author_field.twig' ),
-			'email'  => Timber::compile( 'comment_form/email_field.twig' ),
-		]
-	),
 ];
 
 $context['comments_args']       = $comments_args;
