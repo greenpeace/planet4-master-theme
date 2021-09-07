@@ -23,6 +23,9 @@
     }
 
     .progress-container {
+      _-- {
+        display: block;
+      }
       height: 20px;
     }
   }
