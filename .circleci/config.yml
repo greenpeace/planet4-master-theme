@@ -7,13 +7,19 @@ orbs:
 workflows:
   branch:
     jobs:
-      - php73-tests
-      - php74-tests
-      - frontend-tests
-      - acceptance-tests
-      - commitlint
+      - php73-tests:
+          context: org-global
+      - php74-tests:
+          context: org-global
+      - frontend-tests:
+          context: org-global
+      - acceptance-tests:
+          context: org-global
+      - commitlint:
+          context: org-global
       #- a11y-tests
       - create-zip:
+          context: org-global
           filters:
             tags:
               only: /^v\p{Digit}+\.\p{Digit}+.*/
@@ -87,7 +93,8 @@ job-references:
   p4_instance_conf: &p4_instance_conf
     docker:
       - image: greenpeaceinternational/p4-builder:latest
-        auth: &docker_auth
+        auth:
+          <<: *docker_auth
     working_directory: /home/circleci/
     environment:
       APP_HOSTNAME: www.planet4.test
@@ -181,22 +188,27 @@ jobs:
     <<: *php_job
     docker:
       - image: greenpeaceinternational/p4-unit-tests:php7.3
-        auth: &docker_auth
+        auth:
+          <<: *docker_auth
       - image: circleci/mysql:5.7.26
-        auth: &docker_auth
+        auth:
+          <<: *docker_auth
 
   php74-tests:
     <<: *php_job
     docker:
       - image: greenpeaceinternational/p4-unit-tests:php7.4
-        auth: &docker_auth
+        auth:
+          <<: *docker_auth
       - image: circleci/mysql:5.7.26
-        auth: &docker_auth
+        auth:
+          <<: *docker_auth
 
   frontend-tests:
     docker:
       - image: greenpeaceinternational/p4-unit-tests:nodelts
-        auth: &docker_auth
+        auth:
+          <<: *docker_auth
     steps:
       - checkout
       - run:
@@ -213,7 +225,8 @@ jobs:
   commitlint:
     docker:
       - image: greenpeaceinternational/p4-unit-tests:nodelts
-        auth: &docker_auth
+        auth:
+          <<: *docker_auth
     steps:
       - checkout
       - run:
@@ -246,7 +259,8 @@ jobs:
       GOOGLE_PROJECT_ID: planet-4-151612
     docker:
       - image: greenpeaceinternational/circleci-base:latest
-        auth: &docker_auth
+        auth:
+          <<: *docker_auth
     steps:
       - attach_workspace:
           at: /tmp/workspace
@@ -280,7 +294,8 @@ jobs:
   comment-pr:
     docker:
       - image: greenpeaceinternational/circleci-base:latest
-        auth: &docker_auth
+        auth:
+          <<: *docker_auth
     steps:
       - attach_workspace:
           at: /tmp/workspace
@@ -311,7 +326,8 @@ jobs:
   create-zip:
     docker:
       - image: mhart/alpine-node:14
-        auth: &docker_auth
+        auth:
+          <<: *docker_auth
     steps:
       - run: apk add zip git openssh-client python2 make g++
       - checkout
@@ -359,7 +375,8 @@ jobs:
   publish-zip:
     docker:
       - image: mhart/alpine-node:14
-        auth: &docker_auth
+        auth:
+          <<: *docker_auth
     steps:
       - attach_workspace:
           at: /tmp/workspace
