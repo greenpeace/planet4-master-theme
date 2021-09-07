@@ -76,7 +76,7 @@ class CloudflarePurge extends Command {
 			// It's unlikely that only some of the chunks will fail, as Cloudflare's API responds with success
 			// for any url, even if on non-existent domains. Giving a warning per chunk anyway, just in case.
 			if ( ! $ok ) {
-				$joined = implode( $chunk, "\n" );
+				$joined = implode( "\n", $chunk );
 				WP_CLI::warning( "Chunk $i failed, one or more of these didn't work out: \n$joined" );
 			}
 		}
