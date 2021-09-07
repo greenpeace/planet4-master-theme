@@ -173,6 +173,8 @@ class MasterSite extends TimberSite {
 		add_filter( 'login_headertext', [ $this, 'add_login_logo_url_title' ] );
 		add_action( 'login_enqueue_scripts', [ $this, 'add_login_stylesheet' ] );
 		add_filter( 'comment_form_submit_field', [ $this, 'gdpr_cc_comment_form_add_class' ], 150, 2 );
+		add_filter( 'comment_form_default_fields', [ $this, 'comment_form_cookie_checkbox_add_class' ] );
+		add_filter( 'comment_form_default_fields', [ $this, 'comment_form_replace_inputs' ] );
 		add_filter( 'embed_oembed_html', [ $this, 'filter_youtube_oembed_nocookie' ], 10, 2 );
 		add_filter(
 			'editable_roles',
@@ -1138,6 +1140,46 @@ class MasterSite extends TimberSite {
 		$submit_field = preg_replace( $pattern, $replacement, $submit_field );
 
 		return $submit_field;
+	}
+
+	/**
+	 * Add classes to the default comment form cookie checkbox.
+	 *
+	 * @param array $fields The default fields of the comment form.
+	 *
+	 * @return array the new fields.
+	 */
+	public function comment_form_cookie_checkbox_add_class( $fields ) {
+
+		if ( isset( $fields['cookies'] ) ) {
+			$pattern[0]     = '/(class=["\']comment-form-cookies-consent["\'])/';
+			$replacement[0] = 'class="comment-form-cookies-consent custom-control"';
+			$pattern[1]     = '/(for=["\']wp-comment-cookies-consent["\'])/';
+			$replacement[1] = '$1 class="custom-control-description"';
+
+			$fields['cookies'] = preg_replace( $pattern, $replacement, $fields['cookies'] );
+		}
+
+		return $fields;
+	}
+
+	/**
+	 * Use different templates for the comment form fields (name and email).
+	 * Also remove the website field since we don't want to use it.
+	 *
+	 * @param array $fields The default fields of the comment form.
+	 *
+	 * @return array the new fields.
+	 */
+	public function comment_form_replace_inputs( $fields ) {
+
+		$fields['author'] = Timber::compile( 'comment_form/author_field.twig' );
+		$fields['email']  = Timber::compile( 'comment_form/email_field.twig' );
+		if ( isset( $fields['url'] ) ) {
+			unset( $fields['url'] );
+		}
+
+		return $fields;
 	}
 
 	/**
