@@ -6,7 +6,7 @@ import isShallowEqual from '@wordpress/is-shallow-equal';
 import { savePreviewMeta } from '../../saveMetaToPreview';
 import { PostParentLink } from './PostParentLink';
 import { LegacyThemeSettings } from './LegacyThemeSettings';
-import { NewThemeSettings } from './NewThemeSettings';
+import { applyChangesToDom, NewThemeSettings, themeJsonUrl } from './NewThemeSettings';
 
 const isLegacy= theme => [
   'default',
@@ -111,6 +111,15 @@ export class CampaignSidebar extends Component {
       ) {
         const theme = await loadTheme(themeName);
         this.setState({ theme: theme });
+        if (themeName) {
+          try {
+            const response = await fetch(`${ themeJsonUrl + themeName.replace('-new', '') }.json`);
+            const theme = await response.json();
+            applyChangesToDom(theme, []);
+          } catch (e) {
+            console.log(`Failed loading config for ${ themeName }`);
+          }
+        }
       }
     } );
     wp.data.subscribe( () => {

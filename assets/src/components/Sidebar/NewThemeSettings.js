@@ -28,7 +28,7 @@ const getAllDefinedProps = () => Object.values(document.documentElement.style).f
   return 'string' === typeof k && k.match(/^--/);
 });
 const baseUrl = window.location.href.split( '/wp-admin' )[ 0 ];
-const themeJsonUrl = `${ baseUrl }/wp-content/themes/planet4-master-theme/themes/`;
+export const themeJsonUrl = `${ baseUrl }/wp-content/themes/planet4-master-theme/themes/`;
 
 const collectTheme = async (a, t) => {
   const response = await fetch(`${ themeJsonUrl + t.replace('-new', '') }.json`);
@@ -51,31 +51,37 @@ const useJsonThemes = () => {
   return jsonThemes;
 }
 
+export const applyChangesToDom = (theme, initialVars) => {
+  if (!theme) {
+    return;
+  }
+  Object.entries(theme).forEach(([name, value]) => {
+    // This will only work reliably if no other code is adding new custom properties to the root element after this
+    // component is first rendered. This should be the case in the post editor.
+    document.documentElement.style.setProperty(name, value);
+  });
+
+  if (initialVars.length === 0) {
+    return;
+  }
+
+  const customProps = getAllDefinedProps();
+
+  customProps.forEach(k => {
+    if (!Object.keys(theme).includes(k) && !initialVars.includes(k)) {
+      document.documentElement.style.removeProperty(k);
+    }
+  });
+};
+
 const useAppliedCssVariables = (serverThemes, currentTheme) => {
   const [initialVars] = useState(() => getAllDefinedProps(), []);
   const jsonThemes = useJsonThemes();
   const allThemes = { ...serverThemes, ...jsonThemes };
 
-  const applyChangesToDom = () => {
-    const theme = allThemes[currentTheme] || {};
-    if (!theme) {
-      return;
-    }
-    Object.entries(theme).forEach(([name, value]) => {
-      // This will only work reliably if no other code is adding new custom properties to the root element after this
-      // component is first rendered. This should be the case in the post editor.
-      document.documentElement.style.setProperty(name, value);
-    });
-
-    const customProps = getAllDefinedProps();
-
-    customProps.forEach(k => {
-      if (!Object.keys(theme).includes(k) && !initialVars.includes(k)) {
-        document.documentElement.style.removeProperty(k);
-      }
-    });
-  };
-  useEffect(applyChangesToDom, [serverThemes, currentTheme]);
+  useEffect(() => {
+    applyChangesToDom(allThemes[currentTheme] || {}, initialVars);
+  }, [serverThemes, currentTheme]);
 };
 
 const excludeNewVersions = (themes, [name, theme]) => {
