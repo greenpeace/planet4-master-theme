@@ -33,11 +33,8 @@ class PostCampaign {
 
 	public const LEGACY_THEMES = [
 		'default',
-		'antarctic',
-		'arctic',
 		'climate',
 		'oceans',
-		'oil',
 		'plastic',
 		'forest',
 	];
@@ -437,28 +434,25 @@ class PostCampaign {
 	public static function css_vars( array $meta ): array {
 		$theme = self::get_theme( $meta );
 
-		$is_new_theme = ! in_array( $theme, self::LEGACY_THEMES, true );
-		if ( $is_new_theme ) {
-			$potential_new_version = str_replace( '-new', '', $theme );
+		// As a way to make new themes use the same config file, check if removing "-new" gives a legacy theme name.
+		$potential_new_version = str_replace( '-new', '', $theme );
 
-			$new_theme_json_path = __DIR__ . '/../themes/' . $potential_new_version . '.json';
+		$new_theme_json_path = __DIR__ . '/../themes/' . $potential_new_version . '.json';
 
-			if ( file_exists( $new_theme_json_path ) ) {
-				$new_theme = json_decode( file_get_contents( $new_theme_json_path ), true, 512, JSON_THROW_ON_ERROR ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-			} else {
-				$themes = json_decode( get_option( 'planet4_themes', '[]' ), true );
+		if ( file_exists( $new_theme_json_path ) ) {
+			$new_theme = json_decode( file_get_contents( $new_theme_json_path ), true, 512, JSON_THROW_ON_ERROR ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		} else {
+			$themes = json_decode( get_option( 'planet4_themes', '[]' ), true );
 
-				$new_theme = $themes[ $theme ] ?? [];
-			}
-
-			// As a way to make new themes use the same config file, check if removing "-new" gives a legacy theme name.
-			if ( ! in_array( $potential_new_version, self::LEGACY_THEMES, true ) ) {
-				// If it doesn't, stop here as all code below handles the config file.
-				return $new_theme;
-			}
-			$theme         = $potential_new_version;
-			$meta['theme'] = $potential_new_version;
+			$new_theme = $themes[ $theme ] ?? [];
 		}
+
+		if ( ! in_array( $potential_new_version, self::LEGACY_THEMES, true ) ) {
+			// If it doesn't, stop here as all code below handles the config file.
+			return $new_theme;
+		}
+		$theme         = $potential_new_version;
+		$meta['theme'] = $potential_new_version;
 
 		// TODO: Use wp_safe_remote_get?
 		// TODO: Handle errors.
