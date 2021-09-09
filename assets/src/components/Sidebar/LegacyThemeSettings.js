@@ -12,48 +12,20 @@ const themeOptions = [
     label: 'Default',
   },
   {
-    value: 'antarctic',
-    label: 'Antarctic',
-  },
-  {
-    value: 'arctic',
-    label: 'Arctic',
-  },
-  {
-    value: 'climate',
-    label: 'Climate Emergency (old)',
-  },
-  {
     value: 'climate-new',
-    label: 'Climate Emergency (new)',
-  },
-  {
-    value: 'forest',
-    label: 'Forest (old)',
+    label: 'Climate Emergency',
   },
   {
     value: 'forest-new',
-    label: 'Forest (new)',
-  },
-  {
-    value: 'oceans',
-    label: 'Oceans (old)',
+    label: 'Forest',
   },
   {
     value: 'oceans-new',
-    label: 'Oceans (new)',
-  },
-  {
-    value: 'oil',
-    label: 'Oil',
-  },
-  {
-    value: 'plastic',
-    label: 'Plastics (old)',
+    label: 'Oceans',
   },
   {
     value: 'plastic-new',
-    label: 'Plastics (new)',
+    label: 'Plastics',
   },
 
 ];
