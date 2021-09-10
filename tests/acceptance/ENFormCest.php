@@ -127,7 +127,7 @@ class ENFormCest {
 
 		// Set dummy engaging networks api keys.
 		codecept_debug( 'Setting engaging networks api dummy keys' );
-		$I->cli( [ 'option', 'update', '--allow-root', 'p4en_main_settings', '{"p4en_private_api": "11119999"}', '--format=json' ] );
+		$I->cli( [ 'option', 'update', '--allow-root', 'p4en_main_settings', escapeshellarg('{"p4en_private_api": "11119999"}'), '--format=json' ] );
 	}
 
 	/**
@@ -159,27 +159,27 @@ class ENFormCest {
 
 		// Set fields transient.
 		$cache_key = 'ens_supporter_fields_response';
-		$supporter = json_encode( $fields_data['supporter'] );
+		$supporter = escapeshellarg( json_encode( $fields_data['supporter'] ) );
 		$I->cli( [ 'cache', 'set', '--allow-root', $cache_key, $supporter, 'transient', '600' ] );
 
 		// Set questions transient.
 		$cache_key = 'ens_supporter_questions_response';
-		$questions = json_encode( $questions_data['questions'] );
+		$questions = escapeshellarg( json_encode( $questions_data['questions'] ) );
 		$I->cli( [ 'cache', 'set', '--allow-root', $cache_key, $questions, 'transient', '600' ] );
 
 		// Set single question transient.
 		$cache_key = 'ens_supporter_question_by_id_response_236734';
-		$question  = json_encode( $question_data['question.236734'] );
+		$question  = escapeshellarg( json_encode( $question_data['question.236734'] ) );
 		$I->cli( [ 'cache', 'set', '--allow-root', $cache_key, $question, 'transient', '600' ] );
 
 		// Set single optin transient.
 		$cache_key = 'ens_supporter_question_by_id_response_3887';
-		$optin     = json_encode( $optin_data['question.3887'] );
+		$optin     = escapeshellarg( json_encode( $optin_data['question.3887'] ) );
 		$I->cli( [ 'cache', 'set', '--allow-root', $cache_key, $optin, 'transient', '600' ] );
 
 		// Set dependancy field optin transient.
 		$cache_key = 'ens_supporter_question_by_id_response_220954';
-		$optin     = json_encode( $dep_optin_data['question.220954'] );
+		$optin     = escapeshellarg( json_encode( $dep_optin_data['question.220954'] ) );
 		$I->cli( [ 'cache', 'set', '--allow-root', $cache_key, $optin, 'transient', '600' ] );
 
 		// Start testing.
