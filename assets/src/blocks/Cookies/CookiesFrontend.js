@@ -16,8 +16,11 @@ function gtag() {
   dataLayer.push(arguments);
 };
 
-// Planet4 settings(Planet4>>Cookies text>>Enable Analytical Cookies).
+// Planet4 settings(Planet 4 > Cookies > Enable Analytical Cookies).
 const ENABLE_ANALYTICAL_COOKIES = window.p4bk_vars.enable_analytical_cookies;
+
+// Planet4 settings (Planet 4 > Analytics > Enable Google Consent Mode).
+const ENABLE_GOOGLE_CONSENT_MODE = window.p4bk_vars.enable_google_consent_mode;
 
 const showCookieNotice = () => {
   // the .cookie-notice element belongs to the P4 Master Theme
@@ -71,6 +74,10 @@ export const CookiesFrontend = props => {
   useEffect(updateNoTrackCookie, [hasConsent, userRevokedNecessary, userRevokedAnalytical]);
 
   const updateConsent = (key, granted) => {
+    if (!ENABLE_GOOGLE_CONSENT_MODE) {
+      return;
+    }
+
     gtag('consent', 'update', {
       [key]: granted ? 'granted' : 'denied',
     });
