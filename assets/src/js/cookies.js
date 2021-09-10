@@ -2,24 +2,27 @@
 export const setupCookies = () => {
   window.dataLayer = window.dataLayer || [];
   const ENABLE_ANALYTICAL_COOKIES = window.p4bk_vars.enable_analytical_cookies;
+  const ENABLE_GOOGLE_CONSENT_MODE = window.p4bk_vars.enable_google_consent_mode;
 
   function gtag() {
     dataLayer.push(arguments);
   }
 
-  const defaultCookieConsentNeeded = !document.cookie.includes('greenpeace=') && !document.cookie.includes('no_track');
+  // If Google Consent Mode is enabled, set default ad storage and analytics storage to 'denied' if needed
+  if (ENABLE_GOOGLE_CONSENT_MODE) {
+    const defaultCookieConsentNeeded = !document.cookie.includes('greenpeace=') && !document.cookie.includes('no_track');
 
-  // Set default ad storage and analytics storage to 'denied'.
-  if (defaultCookieConsentNeeded) {
-    gtag('consent', 'default', {
-      'ad_storage': 'denied',
-      ...ENABLE_ANALYTICAL_COOKIES && { 'analytics_storage': 'denied' },
-    });
-    dataLayer.push({
-      'event' : 'defaultConsent',
-      'ad_storage': 'denied',
-      ...ENABLE_ANALYTICAL_COOKIES && { 'analytics_storage': 'denied' },
-    });
+    if (defaultCookieConsentNeeded) {
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        ...ENABLE_ANALYTICAL_COOKIES && { 'analytics_storage': 'denied' },
+      });
+      dataLayer.push({
+        'event' : 'defaultConsent',
+        'ad_storage': 'denied',
+        ...ENABLE_ANALYTICAL_COOKIES && { 'analytics_storage': 'denied' },
+      });
+    }
   }
 
   window.createCookie = (name, value, days) => {
@@ -68,16 +71,18 @@ export const setupCookies = () => {
       // Create cookie to store last visited nro.
       window.createCookie('gp_nro', nro, 30);
 
-      // Grant ad storage and analytics storage.
-      gtag('consent', 'update', {
-        'ad_storage': 'granted',
-        ...ENABLE_ANALYTICAL_COOKIES && { 'analytics_storage': 'granted' },
-      });
-      dataLayer.push({
-        'event' : 'updateConsent',
-        'ad_storage': 'granted',
-        ...ENABLE_ANALYTICAL_COOKIES && { 'analytics_storage': 'granted' },
-      });
+      // Grant ad storage and analytics storage if Google Consent Mode is enabled.
+      if (ENABLE_GOOGLE_CONSENT_MODE) {
+        gtag('consent', 'update', {
+          'ad_storage': 'granted',
+          ...ENABLE_ANALYTICAL_COOKIES && { 'analytics_storage': 'granted' },
+        });
+        dataLayer.push({
+          'event' : 'updateConsent',
+          'ad_storage': 'granted',
+          ...ENABLE_ANALYTICAL_COOKIES && { 'analytics_storage': 'granted' },
+        });
+      }
 
       // DataLayer push event on cookies consent.
       dataLayer.push({

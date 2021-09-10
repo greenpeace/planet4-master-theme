@@ -369,6 +369,12 @@ class Settings {
 						'id'   => 'analytics_local_smartsheet_id',
 						'type' => 'text',
 					],
+					[
+						'name' => __( 'Enable Google Consent Mode', 'planet4-master-theme-backend' ),
+						'desc' => __( "Enabling the Consent Mode will affect your setup in Google Tag Manager. The Consent Mode will prevent tags with built-in consent checks (eg. Google Analytics) from running before the user's consent is granted.", 'planet4-master-theme-backend' ),
+						'id'   => 'enable_google_consent_mode',
+						'type' => 'checkbox',
+					],
 				],
 			],
 			'planet4_settings_features'         => Features::get_options_page(),
