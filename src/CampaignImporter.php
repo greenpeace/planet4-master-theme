@@ -35,10 +35,6 @@ class CampaignImporter {
 	 * @param array   $post Post array.
 	 */
 	public function update_campaign_attachements( $post_id, $original_post_id, $postdata, $post ) {
-		if ( 'campaign' !== $post['post_type'] ) {
-			return;
-		}
-
 		$post_content = $post['post_content'];
 		$filter_data  = [];
 
@@ -228,9 +224,7 @@ class CampaignImporter {
 	 * @return array
 	 */
 	public function set_imported_campaigns_as_drafts( $postdata, $post ) {
-		if ( 'campaign' === $post['post_type'] ) {
-			$postdata['post_status'] = 'draft';
-		}
+		$postdata['post_status'] = 'draft';
 
 		return $postdata;
 	}
