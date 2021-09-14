@@ -1,5 +1,5 @@
 <footer id="footer" class="site-footer site-footer--{{ nav_type ?? 'default' }}">
-	<div class="site-footer__container">
+	<div class="container site-footer__container">
 		{% include 'footer_social_media.twig' %}
 		<ul class="site-footer__footer-links list-unstyled">
 			{% for primary in footer_primary_menu %}
@@ -28,12 +28,14 @@
 		</ul>
 	</div>
 	<div class="site-footer__copyright">
-		<span class="site-footer__copyright-text" role="text">
-			{{ 'creative-commons'|svgicon }}
-			{{ copyright_text_line2|e('wp_kses_post')|raw }} {{"now"|date('Y')}}
-		</span>
-		<span class="site-footer__copyright-text" role="text">
-			{{ copyright_text_line1|e('wp_kses_post')|raw }}
-		</span>
+		<div class="container site-footer__copyright-wrapper">
+			<span class="site-footer__copyright-text" role="text">
+				{{ 'creative-commons'|svgicon }}
+				{{ copyright_text_line2|e('wp_kses_post')|raw }} {{"now"|date('Y')}}
+			</span>
+			<span class="site-footer__copyright-text" role="text">
+				{{ copyright_text_line1|e('wp_kses_post')|raw }}
+			</span>
+		</div>
 	</div>
 </footer>
