@@ -26,7 +26,7 @@ const loadTheme = async (value) => {
   const withoutNew = value.replace(/-new$/, '');
   const name = isLegacy(withoutNew) ? withoutNew : 'default';
   const baseUrl = window.location.href.split( '/wp-admin' )[ 0 ];
-  const themeJsonUrl = `${ baseUrl }/wp-content/themes/planet4-master-theme/campaign_themes/${ name }.json`;
+  const themeJsonUrl = `${ baseUrl }/wp-content/themes/planet4-master-theme/theme_options/${ name }.json`;
 
   const json = await fetch(themeJsonUrl);
   return await json.json();
