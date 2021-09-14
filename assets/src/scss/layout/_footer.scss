@@ -1,7 +1,8 @@
 .site-footer {
-  --footer-- {
-    font-family: $roboto;
+  _-- {
     background: $dark-blue;
+    font-family: $roboto;
+    color: $white;
   }
 
   position: relative;
@@ -11,42 +12,16 @@
   padding-top: $n25;
   clear: both;
 
-  a --footer--links-- {
+  a _-- {
     color: $white;
-
-    // &:hover {
-    //   color: $white;
-    // }
   }
 
   li {
     line-height: 1;
   }
 
-  .site-footer__container,
-  .site-footer__copyright {
-    padding-right: 16px;
-    padding-left: 16px;
-
-    @include medium-and-up {
-      padding-right: 36px;
-      padding-left: 36px;
-    }
-
-    @include large-and-up {
-      padding-right: 44px;
-      padding-left: 44px;
-    }
-
-    @include x-large-and-up {
-      padding-right: 162px;
-      padding-left: 162px;
-    }
-  }
-
-  .site-footer__container {
+  &__container {
     padding-bottom: 0;
-    margin: 0;
     display: flex;
     flex-direction: column;
 
@@ -55,9 +30,8 @@
     }
   }
 
-  .site-footer__social-media {
+  &__social-media {
     text-align: left;
-    color: $white;
     margin-bottom: 24px;
 
     @include medium-and-up {
@@ -65,7 +39,7 @@
     }
   }
 
-  .site-footer__social-media-title {
+  &__social-media-title {
     display: none;
 
     @include medium-and-up {
@@ -75,7 +49,7 @@
     }
   }
 
-  .site-footer__social-media-list {
+  &__social-media-list {
     _-- {
       color: $white;
     }
@@ -135,14 +109,12 @@
     }
   }
 
-  .site-footer__footer-links {
-    --footer-menu-- {
-      margin-bottom: 24px;
-      width: 100%;
-      text-align: left;
-      color: $white;
-      column-count: 1;
-    }
+  &__footer-links {
+    margin-bottom: 24px;
+    width: 100%;
+    text-align: left;
+    color: $white;
+    column-count: 1;
 
     li {
       font-size: $font-size-sm;
@@ -157,78 +129,80 @@
     }
   }
 
-  .site-footer__copyright {
-    display: flex;
-    flex-direction: column;
-    padding-top: 17px;
+  &__copyright {
+    padding-top: 16px;
     padding-bottom: 16px;
-    width: 100%;
     background-color: $active-blue;
-    font: $font-size-xxs;
-    text-align: left;
+
+    &-wrapper {
+      font: $font-size-xxs;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+
+      @include large-and-up {
+        flex-direction: inherit;
+      }
+    }
+
+    &-text {
+      --footer--copyright-text-- {
+        color: $grey-10;
+      }
+      font-size: $font-size-xxs;
+      line-height: 1.4;
+      word-break: keep-all;
+      width: auto;
+      margin-bottom: 0;
+      margin-bottom: 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .icon {
+        top: 0;
+      }
+
+      a --footer--copyright-link-- {
+        color: $white;
+      }
+
+      @include large-and-up {
+        margin-bottom: 0;
+
+        &:after {
+          content: "\007C";
+          display: inline-block;
+          margin: 0 14px;
+        }
+
+        &:last-of-type:after {
+          display: none;
+        }
+      }
+    }
 
     @include medium-and-up {
       padding-top: 24px;
       padding-bottom: 24px;
     }
-
-    @include large-and-up {
-      flex-direction: inherit;
-    }
-  }
-
-  .site-footer__copyright-text {
-    --footer--copyright-text-- {
-      color: $grey-10;
-    }
-    font-size: $font-size-xxs;
-    line-height: 1.4;
-    word-break: keep-all;
-    width: auto;
-    margin-bottom: 0;
-    margin-bottom: 12px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    .icon {
-      top: 0;
-    }
-
-    a --footer--copyright-link-- {
-      color: $white;
-    }
-
-    @include large-and-up {
-      margin-bottom: 0;
-
-      &:after {
-        content: "\007C";
-        display: inline-block;
-        margin: 0 14px;
-      }
-
-      &:last-of-type:after {
-        display: none;
-      }
-    }
   }
 
   &--minimal {
-    .site-footer__container {
+    &__container {
       justify-content: center;
     }
 
-    .site-footer__social-media {
+    &__social-media {
       text-align: center;
     }
 
-    .site-footer__footer-links {
+    &__footer-links {
       display: none;
     }
 
-    .site-footer__copyright {
+    &__copyright {
       @supports (justify-content: center) {
         & {
           justify-content: center;
