@@ -43,13 +43,3 @@ $I->performOn('.site-footer', function ($I) {
 
 seeCopyrightElements($I);
 
-// Navigate to a Campaign page and check the Minimal Footer looks like
-$I->amOnPage('/campaign/oceans-template-demo');
-
-$I->performOn('.site-footer--minimal', function ($I) {
-	# Ensure to don't render footer links
-	$I->dontSeeElement('.site-footer__footer-links');
-	seeSharedElements($I);
-});
-
-seeCopyrightElements($I);
