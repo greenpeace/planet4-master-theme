@@ -458,7 +458,7 @@ class PostCampaign {
 		// TODO: Handle errors.
 		$theme_json = json_decode(
 			// Ignoring the PHPCS error in the next line because it's a local file, not a remote request.
-			file_get_contents( __DIR__ . '/../campaign_themes/' . $theme . '.json' ), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			file_get_contents( __DIR__ . '/../theme_options/' . $theme . '.json' ), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 			true
 		);
 
