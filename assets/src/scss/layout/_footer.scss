@@ -188,4 +188,26 @@
       padding-bottom: 24px;
     }
   }
+
+  &--minimal {
+    &__container {
+      justify-content: center;
+    }
+
+    &__social-media {
+      text-align: center;
+    }
+
+    &__footer-links {
+      display: none;
+    }
+
+    &__copyright {
+      @supports (justify-content: center) {
+        & {
+          justify-content: center;
+        }
+      }
+    }
+  }
 }
