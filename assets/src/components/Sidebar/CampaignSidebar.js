@@ -19,17 +19,17 @@ const isLegacy= theme => [
   'forest',
 ].includes(theme) || !theme;
 
-const loadTheme = async (value) => {
+const loadOptions = async (value) => {
   if ( value === '' || !value ) {
     value = 'default';
   }
   const withoutNew = value.replace(/-new$/, '');
   const name = isLegacy(withoutNew) ? withoutNew : 'default';
   const baseUrl = window.location.href.split( '/wp-admin' )[ 0 ];
-  const themeJsonUrl = `${ baseUrl }/wp-content/themes/planet4-master-theme/campaign_themes/${ name }.json`;
+  const optionsJsonUrl = `${ baseUrl }/wp-content/themes/planet4-master-theme/theme_options/${ name }.json`;
 
-  const json = await fetch(themeJsonUrl);
-  return await json.json();
+  const response = await fetch(optionsJsonUrl);
+  return await response.json();
 }
 
 export class CampaignSidebar extends Component {
@@ -44,7 +44,7 @@ export class CampaignSidebar extends Component {
   constructor( props ) {
     super( props );
     this.state = {
-      theme: null,
+      options: null,
       meta: null,
       parent: null,
     };
@@ -54,15 +54,15 @@ export class CampaignSidebar extends Component {
   // When theme switches, we need to check if any options were previously chosen that are not allowed in the new theme.
   // For each of these, we either set them to the default value
   async handleThemeSwitch( metaKey, value, meta ) {
-    const newTheme = await loadTheme( value )
-    const prevTheme = this.state.theme;
-    this.setState({ theme: newTheme });
+    const prevOptions = this.state.options;
+    const options = await loadOptions( value )
+    this.setState({ options });
 
     // Loop through the new theme's fields, and check whether any of the already chosen options has a value that is not
     // available anymore.
-    const invalidatedFields = prevTheme.fields.filter( field => {
+    const invalidatedFields = prevOptions.fields.filter( field => {
 
-      const resolvedField = resolveField(newTheme, field.id, meta);
+      const resolvedField = resolveField(options, field.id, meta);
 
       const currentValue = meta[ field.id ];
 
@@ -72,7 +72,7 @@ export class CampaignSidebar extends Component {
 
       return !(resolvedField.options.some( option => option.value === currentValue) );
 
-    } ).map( field => resolveField( newTheme, field.id, meta ) )
+    } ).map( field => resolveField( options, field.id, meta ) )
 
     // Set each of the invalidated fields to their default value, or unset them.
     return invalidatedFields.reduce( ( result, field ) => {
@@ -101,16 +101,18 @@ export class CampaignSidebar extends Component {
       if (themeName === '') {
         themeName = 'default';
       }
+      // This part currently also detects non-related changes to the meta. Not changing that for now, we should put
+      // these values in a single meta key, or even store them in a block in post_content.
       if (isShallowEqual(this.state.meta, meta)) {
         return;
       }
       this.setState({ meta });
       savePreviewMeta();
       if (
-        this.state.theme === null
+        this.state.options === null
       ) {
-        const theme = await loadTheme(themeName);
-        this.setState({ theme: theme });
+        const options = await loadOptions(themeName);
+        this.setState({ options });
         if (themeName) {
           try {
             const response = await fetch(`${ themeJsonUrl + themeName.replace('-new', '') }.json`);
@@ -135,9 +137,9 @@ export class CampaignSidebar extends Component {
   }
 
   render() {
-    const { parent, theme, meta } = this.state;
+    const { parent, options, meta } = this.state;
 
-    const isLegacyTheme = !theme || isLegacy(theme.id);
+    const isLegacyTheme = !options || isLegacy(options.id);
 
     return (
       <>
@@ -155,7 +157,7 @@ export class CampaignSidebar extends Component {
             this.handleThemeSwitch('theme', value, meta);
           } }/> }
           { !parent && <LegacyThemeSettings
-            theme={ theme }
+            theme={ options }
             handleThemeSwitch={ this.handleThemeSwitch }
             isLegacyTheme={isLegacyTheme}
           /> }
