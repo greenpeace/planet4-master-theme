@@ -190,22 +190,24 @@
   }
 
   &--minimal {
-    &__container {
-      justify-content: center;
-    }
+    .site-footer {
+      &__container {
+        justify-content: center;
+      }
 
-    &__social-media {
-      text-align: center;
-    }
+      &__social-media {
+        text-align: center;
+      }
 
-    &__footer-links {
-      display: none;
-    }
+      &__footer-links {
+        display: none;
+      }
 
-    &__copyright {
-      @supports (justify-content: center) {
-        & {
-          justify-content: center;
+      &__copyright {
+        @supports (justify-content: center) {
+          & {
+            justify-content: center;
+          }
         }
       }
     }
