@@ -8,12 +8,12 @@ function getDisplayName(WrappedComponent) {
 // Certain fields can have multiple sets of options, depending on which value is chosen for another field. For example,
 // we have a "default" and a "light" footer theme. Each of these results in a separate set of footer link colors.
 // See https://github.com/greenpeace/planet4-master-theme/blob/1905eee9f94ef1ac64aaed1570ea4150671684c1/campaign_themes/plastic.json#L176-L187
-export const resolveField = (theme, fieldName, meta ) => {
+export const resolveField = (theme, fieldId, meta ) => {
   if ( !theme ) {
     return null;
   }
 
-  const field = theme.fields.find( field => field.id === fieldName );
+  const field = theme.fields.find( field => field.id === fieldId );
 
   if ( !field ) {
     return null;
@@ -29,6 +29,7 @@ export const resolveField = (theme, fieldName, meta ) => {
 const resolveDependency = ( theme, field, meta ) => {
   const dependencyField = theme.fields.find( field2 => field2.id === field.dependsOn );
 
+  // Sanity check, the dependent field should be there if the config file is valid.
   if ( !dependencyField ) {
     return null;
   }
@@ -45,16 +46,15 @@ const resolveDependency = ( theme, field, meta ) => {
 
   let dependencyValue = meta[ field.dependsOn ];
 
-  // The field has a dependency and the current value of the post is not in the list of options, so use default value of the dependency.
-  if ( dependencyConfiguration ) {
-    const dependencyValueIsAllowed = dependencyConfiguration.options && dependencyConfiguration.options.find( option => option.value === dependencyValue );
-    if ( !dependencyValueIsAllowed ) {
-      dependencyValue = dependencyConfiguration.default;
-    }
+  const dependencyValueIsAllowed = dependencyConfiguration.options?.find( option => option.value === dependencyValue );
+
+  if ( !dependencyValueIsAllowed ) {
+    // The field has a dependency and the current value of the post is not in the list of options, so use default value of the dependency.
+    dependencyValue = dependencyConfiguration.default;
   }
 
 
-  if ( !dependencyValue ) {
+  if ( !dependencyValue || !field.configurations[dependencyValue]) {
     return null;
   }
 
