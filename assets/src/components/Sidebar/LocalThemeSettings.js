@@ -114,7 +114,7 @@ export const LocalThemeSettings = ({ onChange, currentTheme }) => {
     <SelectControl
       label={ __('Local theme', 'planet4-blocks-backend') }
       title={ __('Choose from one of the themes created on this site (BETA).', 'planet4-blocks-backend') }
-      options={ [{ label: 'Legacy', value: '' }, ...keysAsLabel(serverThemes)] }
+      options={ [{ label: 'None', value: '' }, ...keysAsLabel(serverThemes)] }
       onChange={ setSelectedTheme }
       value={ selectedTheme || '' }
     />

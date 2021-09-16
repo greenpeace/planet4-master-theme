@@ -149,11 +149,11 @@ export class CampaignSidebar extends Component {
         <PluginSidebarMoreMenuItem
           target={ CampaignSidebar.getId() }
           icon={ CampaignSidebar.getIcon() }>
-          Campaign Options
+          { __('Theme Options', 'planet4-blocks-backend') }
         </PluginSidebarMoreMenuItem>
         <PluginSidebar
           name={ CampaignSidebar.getId() }
-          title={ __('Campaign Options', 'planet4-blocks-backend') }
+          title={ __('Theme Options', 'planet4-blocks-backend') }
         >
           { !!parent && <PostParentLink parent={ parent }/> }
           { !parent && meta && <LocalThemeSettings currentTheme={meta.theme} onChange={ async value => {
