@@ -20,7 +20,7 @@ export const carouselHeaderV1 = {
     },
   },
   isEligible({ slides }) {
-    return slides.some(slide => typeof slide.header_size !== 'undefined');
+    return slides?.some(slide => typeof slide.header_size !== 'undefined');
   },
   migrate( { slides, ...attributes } ) {
     return {
