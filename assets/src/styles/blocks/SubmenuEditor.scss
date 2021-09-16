@@ -18,5 +18,11 @@
     float: none;
     margin-right: 0;
     margin-left: auto;
+
+    html[dir="rtl"] & {
+      float: none;
+      margin-right: auto;
+      margin-left: 0;
+    }
   }
 }

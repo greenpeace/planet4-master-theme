@@ -9,7 +9,7 @@ div[data-render="planet4-blocks/submenu"] {
 
   h1,
   h2 {
-    padding-left: 16px;
+    padding-inline-start: 16px;
     color: $grey-60;
     font-family: $roboto;
   }
@@ -100,7 +100,12 @@ div[data-render="planet4-blocks/submenu"] {
     @include medium-and-up {
       float: right;
       max-width: 350px;
-      margin: 0 0 15px 15px;
+      margin-bottom: 16px;
+      margin-inline-start: 16px;
+
+      html[dir="rtl"] & {
+        float: left;
+      }
     }
 
     .submenu-menu {
