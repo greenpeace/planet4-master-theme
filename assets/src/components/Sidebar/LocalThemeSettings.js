@@ -86,7 +86,7 @@ const excludeNewVersions = (themes, [name, theme]) => {
 
 const withoutNewVersionsOfThemes = themes => Object.entries(themes).reduce(excludeNewVersions, {});
 
-export const NewThemeSettings = ({ onChange, currentTheme }) => {
+export const LocalThemeSettings = ({ onChange, currentTheme }) => {
   const [selectedTheme, setSelectedTheme] = useState(currentTheme);
   const {editPost} = useDispatch('core/editor');
   const allServerThemes = useServerThemes();
@@ -109,12 +109,11 @@ export const NewThemeSettings = ({ onChange, currentTheme }) => {
 
   return <div className="components-panel__body is-opened">
     <span>
-      This dropdown contains themes that were created on this instance. It will be empty on production, as these won't
-      have any themes created. Once we confirmed the created themes we add them to below dropdown.
+      { __('Choose from one of the themes created on this site (BETA).', 'planet4-blocks-backend') }
     </span>
     <SelectControl
-      label={ __('New Theme', 'planet4-blocks-backend') }
-      title={ __('Only for reviewing themes, not intended to be 2 drop downs in the final version.', 'planet4-blocks-backend') }
+      label={ __('Local theme', 'planet4-blocks-backend') }
+      title={ __('Choose from one of the themes created on this site (BETA).', 'planet4-blocks-backend') }
       options={ [{ label: 'Legacy', value: '' }, ...keysAsLabel(serverThemes)] }
       onChange={ setSelectedTheme }
       value={ selectedTheme || '' }

@@ -6,7 +6,7 @@ import isShallowEqual from '@wordpress/is-shallow-equal';
 import { savePreviewMeta } from '../../saveMetaToPreview';
 import { PostParentLink } from './PostParentLink';
 import { LegacyThemeSettings } from './LegacyThemeSettings';
-import { applyChangesToDom, NewThemeSettings, themeJsonUrl } from './NewThemeSettings';
+import { applyChangesToDom, LocalThemeSettings, themeJsonUrl } from './LocalThemeSettings';
 
 const isLegacy= theme => [
   'default',
@@ -156,7 +156,7 @@ export class CampaignSidebar extends Component {
           title={ __('Campaign Options', 'planet4-blocks-backend') }
         >
           { !!parent && <PostParentLink parent={ parent }/> }
-          { !parent && meta && <NewThemeSettings currentTheme={meta.theme} onChange={ async value => {
+          { !parent && meta && <LocalThemeSettings currentTheme={meta.theme} onChange={ async value => {
             this.handleThemeSwitch('theme', value, meta);
           } }/> }
           { !parent && <LegacyThemeSettings
