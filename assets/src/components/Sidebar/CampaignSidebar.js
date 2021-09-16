@@ -5,7 +5,7 @@ import { resolveField } from '../fromThemeOptions/fromThemeOptions';
 import isShallowEqual from '@wordpress/is-shallow-equal';
 import { savePreviewMeta } from '../../saveMetaToPreview';
 import { PostParentLink } from './PostParentLink';
-import { LegacyThemeSettings } from './LegacyThemeSettings';
+import { ThemeSettings } from './ThemeSettings';
 import { applyChangesToDom, LocalThemeSettings, themeJsonUrl } from './LocalThemeSettings';
 
 const isLegacy= theme => [
@@ -159,7 +159,7 @@ export class CampaignSidebar extends Component {
           { !parent && meta && <LocalThemeSettings currentTheme={meta.theme} onChange={ async value => {
             this.handleThemeSwitch('theme', value, meta);
           } }/> }
-          { !parent && <LegacyThemeSettings
+          { !parent && <ThemeSettings
             theme={ options }
             handleThemeSwitch={ this.handleThemeSwitch }
             isLegacyTheme={isLegacyTheme}
