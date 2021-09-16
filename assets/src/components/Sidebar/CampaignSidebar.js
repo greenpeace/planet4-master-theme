@@ -31,6 +31,31 @@ const loadOptions = async (value) => {
   const response = await fetch(optionsJsonUrl);
   return await response.json();
 }
+const makeDefaultOrNull = ( result, field ) => {
+  // Adding this check to prevent a crash. Probably the previous code can be rewritten to not produce null, but
+  // that would probably cascade into many changes and this is code we'll probably remove soon.
+  if (!field) {
+    return result;
+  }
+  return {
+    ...result,
+    [ field.id ]: field.default || null,
+  };
+}
+
+// Check if the field has a value in the current post meta that is not allowed anymore by the new options.
+const gotInvalidated = (field, options, meta) => {
+  const resolvedField = resolveField(options, field.id, meta);
+
+  const currentValue = meta[ field.id ];
+
+  // Either the field does not exist on the new theme, or it has no options.
+  if ( !resolvedField || !resolvedField.options ) {
+    return !!currentValue;
+  }
+
+  return !(resolvedField.options.some( option => option.value === currentValue) );
+}
 
 export class CampaignSidebar extends Component {
   static getId() {
@@ -53,41 +78,19 @@ export class CampaignSidebar extends Component {
 
   // When theme switches, we need to check if any options were previously chosen that are not allowed in the new theme.
   // For each of these, we either set them to the default value
-  async handleThemeSwitch( metaKey, value, meta ) {
+  async handleThemeSwitch( metaKey, newThemeName, meta ) {
     const prevOptions = this.state.options;
-    const options = await loadOptions( value )
+    const options = await loadOptions( newThemeName )
     this.setState({ options });
 
     // Loop through the new theme's fields, and check whether any of the already chosen options has a value that is not
     // available anymore.
-    const invalidatedFields = prevOptions.fields.filter( field => {
-
-      const resolvedField = resolveField(options, field.id, meta);
-
-      const currentValue = meta[ field.id ];
-
-      if ( !resolvedField || !resolvedField.options ) {
-        return !!currentValue;
-      }
-
-      return !(resolvedField.options.some( option => option.value === currentValue) );
-
-    } ).map( field => resolveField( options, field.id, meta ) )
+    const invalidatedFields = prevOptions.fields.filter(field => gotInvalidated(field, options, meta));
 
     // Set each of the invalidated fields to their default value, or unset them.
-    return invalidatedFields.reduce( ( result, field ) => {
-      // Adding this check to prevent a crash. Probably the previous code can be rewritten to not produce null, but
-      // that would probably cascade into many changes and this is code we'll probably remove soon.
-      if (!field) {
-        return result;
-      }
-      return {
-        ...result,
-        [ field.id ]: field.default || null,
-      };
-    }, {
-      [ metaKey ]: value,
-    } );
+    return invalidatedFields
+      .map(field => resolveField(options, field.id, meta))
+      .reduce(makeDefaultOrNull, { [metaKey]: newThemeName });
   }
 
   componentDidMount() {
