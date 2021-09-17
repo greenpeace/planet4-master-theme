@@ -5,8 +5,8 @@ import { resolveField } from '../fromThemeOptions/fromThemeOptions';
 import isShallowEqual from '@wordpress/is-shallow-equal';
 import { savePreviewMeta } from '../../saveMetaToPreview';
 import { PostParentLink } from './PostParentLink';
-import { LegacyThemeSettings } from './LegacyThemeSettings';
-import { applyChangesToDom, NewThemeSettings, themeJsonUrl } from './NewThemeSettings';
+import { ThemeSettings } from './ThemeSettings';
+import { applyChangesToDom, LocalThemeSettings, themeJsonUrl } from './LocalThemeSettings';
 
 const isLegacy= theme => [
   'default',
@@ -149,17 +149,17 @@ export class CampaignSidebar extends Component {
         <PluginSidebarMoreMenuItem
           target={ CampaignSidebar.getId() }
           icon={ CampaignSidebar.getIcon() }>
-          Campaign Options
+          { __('Theme Options', 'planet4-blocks-backend') }
         </PluginSidebarMoreMenuItem>
         <PluginSidebar
           name={ CampaignSidebar.getId() }
-          title={ __('Campaign Options', 'planet4-blocks-backend') }
+          title={ __('Theme Options', 'planet4-blocks-backend') }
         >
           { !!parent && <PostParentLink parent={ parent }/> }
-          { !parent && meta && <NewThemeSettings currentTheme={meta.theme} onChange={ async value => {
+          { !parent && meta && <LocalThemeSettings currentTheme={meta.theme} onChange={ async value => {
             this.handleThemeSwitch('theme', value, meta);
           } }/> }
-          { !parent && <LegacyThemeSettings
+          { !parent && <ThemeSettings
             theme={ options }
             handleThemeSwitch={ this.handleThemeSwitch }
             isLegacyTheme={isLegacyTheme}

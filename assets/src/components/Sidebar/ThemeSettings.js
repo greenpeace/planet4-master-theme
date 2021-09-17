@@ -44,7 +44,7 @@ const themeOptions = [
 
 ];
 
-export const LegacyThemeSettings = props => {
+export const ThemeSettings = props => {
   const {
     handleThemeSwitch,
     theme,
