@@ -648,7 +648,7 @@ class PostCampaign {
 		$theme = self::get_theme( $meta );
 
 		if ( 'default' !== $theme ) {
-			return 'greenpeace' === $logo ? 'greenpeace' : $theme;
+			return 'greenpeace' === $logo ? 'greenpeace' : str_replace( '-new', '', $theme );
 		}
 
 		return $logo ? $logo : 'greenpeace';
