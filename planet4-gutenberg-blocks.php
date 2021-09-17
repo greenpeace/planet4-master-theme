@@ -281,7 +281,24 @@ function set_allowed_block_types( $allowed_block_types, $post ) {
 	return $allowed_block_types;
 }
 
-add_filter( 'allowed_block_types', 'set_allowed_block_types', 10, 2 );
+/**
+ * Allowed block types based on post type
+ *
+ * @param array  $allowed_block_types array of allowed block types.
+ * @param object $context The editor context.
+ *
+ * @return array of all blocks allowed.
+ */
+function set_allowed_block_types_new( $allowed_block_types, $context ) {
+	return set_allowed_block_types( $allowed_block_types, $context->post );
+}
+
+global $wp_version;
+if ( version_compare( $wp_version, '5.8', '>=' ) ) {
+	add_filter( 'allowed_block_types_all', 'set_allowed_block_types_new', 10, 2 );
+} else {
+	add_filter( 'allowed_block_types', 'set_allowed_block_types', 10, 2 );
+}
 
 /**
  * @param array $block the block being rendered.
