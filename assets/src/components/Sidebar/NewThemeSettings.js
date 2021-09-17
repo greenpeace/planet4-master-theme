@@ -61,10 +61,6 @@ export const applyChangesToDom = (theme, initialVars) => {
     document.documentElement.style.setProperty(name, value);
   });
 
-  if (initialVars.length === 0) {
-    return;
-  }
-
   const customProps = getAllDefinedProps();
 
   customProps.forEach(k => {

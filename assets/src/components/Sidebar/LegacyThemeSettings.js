@@ -1,10 +1,24 @@
-import { compose } from '@wordpress/compose';
+import { useEffect } from '@wordpress/element';
 import { PanelBody, RadioControl, SelectControl } from '@wordpress/components';
-import { withPostMeta } from '../PostMeta/withPostMeta';
-import { fromThemeOptions } from '../fromThemeOptions/fromThemeOptions';
-import { withDefaultLabel } from '../withDefaultLabel/withDefaultLabel';
+import { getDependencyUpdates, resolveField } from '../fromThemeOptions/fromThemeOptions';
 import ColorPaletteControl from '../ColorPaletteControl/ColorPaletteControl';
 import { __ } from '@wordpress/i18n';
+import { useDispatch, useSelect } from '@wordpress/data';
+
+// For existing content each style options is saved in a separate post meta key, and all the names are prefixed with
+// "campaign", because that used to be a thing. Hence the name "legacy fields", because eventually we want to store this
+// differently.
+const LEGACY_FIELDS = {
+  navigationType: 'campaign_nav_type',
+  navigationColor: 'campaign_nav_color',
+  navigationBorder: 'campaign_nav_border',
+  logo: 'campaign_logo',
+  logoColor: 'campaign_logo_color',
+  headingFont: 'campaign_header_primary',
+  bodyFont: 'campaign_body_font',
+  footerTheme: 'campaign_footer_theme',
+  footerLinksColor: 'footer_links_color',
+}
 
 const themeOptions = [
   {
@@ -30,108 +44,111 @@ const themeOptions = [
 
 ];
 
-const ThemeSelect = withPostMeta( SelectControl );
-
-const SelectWithDefaultLabel = compose(
-  fromThemeOptions,
-  withPostMeta,
-  withDefaultLabel,
-)( SelectControl );
-
-const Select = compose(
-  fromThemeOptions,
-  withPostMeta,
-)( SelectControl );
-
-const Radio = compose(
-  fromThemeOptions,
-  withPostMeta,
-)( RadioControl );
-
-const ColorPalette = compose(
-  fromThemeOptions,
-  withPostMeta,
-)( ColorPaletteControl );
-
 export const LegacyThemeSettings = props => {
   const {
     handleThemeSwitch,
     theme,
   } = props;
 
+  const meta = useSelect(select => select('core/editor').getEditedPostAttribute('meta'),[]);
+  const { editPost } = useDispatch('core/editor');
+
+  useEffect(() => {
+    handleThemeSwitch('theme', meta.theme, meta)
+  }, [meta.theme]);
+
+  // resolveField is a cheap function so it's not a problem to call it twice.
+  const getValue = fieldId => meta[fieldId] || resolveField(theme, fieldId, meta)?.default;
+  const getOptions = fieldId => resolveField(theme, fieldId, meta)?.options || [];
+
+  const updateValueAndDependencies = fieldId => value => {
+    const updatedDeps = getDependencyUpdates(theme, fieldId, value, meta);
+    editPost({ meta: {[fieldId]: value, ...updatedDeps} });
+  }
+
   return <>
     <div className="components-panel__body is-opened">
-      <ThemeSelect
-        metaKey='theme'
+      <SelectControl
+        options={themeOptions}
         label={ __( 'Theme', 'planet4-blocks-backend' ) }
-        options={ themeOptions }
-        getNewMeta={ handleThemeSwitch }
+        value={ meta.theme }
+        onChange={ value => {
+          editPost({ meta: { theme: value } });
+        } }
       />
     </div>
     <PanelBody
       title={ __( "Navigation", 'planet4-blocks-backend' ) }
       initialOpen={ true }
     >
-      <Radio
-        metaKey='campaign_nav_type'
-        theme={ theme }
+      <RadioControl
+        selected={getValue(LEGACY_FIELDS.navigationType)}
+        options={getOptions(LEGACY_FIELDS.navigationType)}
+        onChange={updateValueAndDependencies(LEGACY_FIELDS.navigationType)}
       />
-      <ColorPalette
-        metaKey='campaign_nav_color'
+      <ColorPaletteControl
+        value={getValue(LEGACY_FIELDS.navigationColor)}
+        options={getOptions(LEGACY_FIELDS.navigationColor)}
+        onChange={updateValueAndDependencies(LEGACY_FIELDS.navigationColor)}
         label={ __( 'Navigation Background Color', 'planet4-blocks-backend' ) }
         disableCustomColors
         clearable={ false }
-        theme={ theme }
       />
-      <Radio
-        metaKey='campaign_nav_border'
+      {/* This one is actually not used anymore. Might remove later.*/}
+      <RadioControl
+        selected={getValue(LEGACY_FIELDS.navigationBorder)}
+        options={getOptions(LEGACY_FIELDS.navigationBorder)}
+        onChange={updateValueAndDependencies(LEGACY_FIELDS.navigationBorder)}
         label={ __( 'Navigation bottom border', 'planet4-blocks-backend' ) }
-        theme={ theme }
       />
-      {
-        <Select
-          metaKey='campaign_logo'
-          label={ __( 'Logo', 'planet4-blocks-backend' ) }
-          theme={ theme }
-        />
-      }
-      <Radio
-        metaKey='campaign_logo_color'
+      <SelectControl
+        value={getValue(LEGACY_FIELDS.logo)}
+        options={getOptions(LEGACY_FIELDS.logo)}
+        onChange={updateValueAndDependencies(LEGACY_FIELDS.logo)}
+        label={ __( 'Logo', 'planet4-blocks-backend' ) }
+      />
+      <RadioControl
+        selected={getValue(LEGACY_FIELDS.logoColor)}
+        options={getOptions(LEGACY_FIELDS.logoColor)}
+        onChange={updateValueAndDependencies(LEGACY_FIELDS.logoColor)}
         label={ __( 'Logo Color', 'planet4-blocks-backend' ) }
         help={ __( 'Change the campaign logo color (if not default)', 'planet4-blocks-backend' ) }
-        theme={ theme }
       />
     </PanelBody>
     <PanelBody
       title={ __( "Fonts", 'planet4-blocks-backend' ) }
       initialOpen={ true }
     >
-      <SelectWithDefaultLabel
-        metaKey='campaign_header_primary'
+      <SelectControl
+        value={getValue(LEGACY_FIELDS.headingFont)}
+        options={getOptions(LEGACY_FIELDS.headingFont)}
+        onChange={updateValueAndDependencies(LEGACY_FIELDS.headingFont)}
         label={ __( 'Header Primary Font', 'planet4-blocks-backend' ) }
-        theme={ theme }
       />
-      <SelectWithDefaultLabel
-        metaKey='campaign_body_font'
+      <SelectControl
+        value={getValue(LEGACY_FIELDS.bodyFont)}
+        options={getOptions(LEGACY_FIELDS.bodyFont)}
+        onChange={updateValueAndDependencies(LEGACY_FIELDS.bodyFont)}
         label={ __( 'Body Font', 'planet4-blocks-backend' ) }
-        theme={ theme }
       />
     </PanelBody>
     <PanelBody
       title={ __( "Footer", 'planet4-blocks-backend' ) }
       initialOpen={ true }
     >
-      <Radio
-        metaKey='campaign_footer_theme'
+      <RadioControl
+        selected={getValue(LEGACY_FIELDS.footerTheme)}
+        options={getOptions(LEGACY_FIELDS.footerTheme)}
+        onChange={updateValueAndDependencies(LEGACY_FIELDS.footerTheme)}
         label={ __( 'Footer background color', 'planet4-blocks-backend' ) }
-        theme={ theme }
       />
-      <ColorPalette
-        metaKey='footer_links_color'
+      <ColorPaletteControl
+        value={getValue(LEGACY_FIELDS.footerLinksColor)}
+        options={getOptions(LEGACY_FIELDS.footerLinksColor)}
+        onChange={updateValueAndDependencies(LEGACY_FIELDS.footerLinksColor)}
         label={ __( 'Footer links color', 'planet4-blocks-backend' ) }
         disableCustomColors
         clearable={ false }
-        theme={ theme }
       />
     </PanelBody>
   </>

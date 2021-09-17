@@ -85,7 +85,7 @@ export class CampaignSidebar extends Component {
 
     // Loop through the new theme's fields, and check whether any of the already chosen options has a value that is not
     // available anymore.
-    const invalidatedFields = prevOptions.fields.filter(field => gotInvalidated(field, options, meta));
+    const invalidatedFields = prevOptions?.fields.filter(field => gotInvalidated(field, options, meta)) || [];
 
     // Set each of the invalidated fields to their default value, or unset them.
     return invalidatedFields
