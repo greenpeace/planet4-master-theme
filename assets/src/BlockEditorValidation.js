@@ -14,6 +14,12 @@ export const blockEditorValidation = () => {
 
     const currentMessages = [];
     const invalidBlocks = blocks.reduce( (invalidBlocks, block ) => {
+      // Normally `blocks` contains a valid list of blocks, however it can happen that one of them is `null` in rare
+      // cases. It happened to me once while running with WordPress 5.8.1 and undoing multiple edits. This made the
+      // editor crash while it's trying to access `block.name`.
+      if (!block) {
+        return;
+      }
       const validations = blockValidations[ block.name ] || {};
 
       const results = Object.entries( validations ).reduce( (results, [attrName, validate]) => {
