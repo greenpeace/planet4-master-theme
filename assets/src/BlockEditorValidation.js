@@ -32,9 +32,8 @@ export const blockEditorValidation = () => {
 
         return results;
       }, [] );
-      if (results.length > 0) {
-        invalidBlocks.push(...results)
-      }
+
+      invalidBlocks.push(...results);
 
       return invalidBlocks;
     }, []);
@@ -42,6 +41,7 @@ export const blockEditorValidation = () => {
 
     const postType = wp.data.select('core/editor').getCurrentPostType();
     let currentlyValid = (0 === invalidBlocks.length);
+
     if ('campaign' === postType) {
       const meta = wp.data.select('core/editor').getEditedPostAttribute('meta');
       const metaValid = !!meta['p4_campaign_name'] && 'not set' !== meta['p4_campaign_name'];
