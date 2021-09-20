@@ -125,19 +125,20 @@ class ENForm extends Base_Block {
 	 * @return array
 	 */
 	public static function update_data( array $attributes ): array {
-		$post_id = (int) ( $attributes['en_form_id'] ?? 0 );
-		$post    = get_post( $post_id );
+		$form_id = (int) ( $attributes['en_form_id'] ?? 0 );
+		$post    = get_post( $form_id );
 
-		if ( empty( $attributes['en_form_fields'] ) && $post_id ) {
-			$attributes['en_form_fields'] = get_post_meta( $post_id, self::FIELDS_META, true );
+		if ( empty( $attributes['en_form_fields'] ) && $form_id ) {
+			$attributes['en_form_fields'] = get_post_meta( $form_id, self::FIELDS_META, true );
 		}
 
 		if ( isset( $attributes['background'] ) && empty( $attributes['background_src'] ) ) {
 			$attributes = array_merge( $attributes, self::get_background_data( $attributes ) );
 		}
 
+		$post_id                       = get_the_ID();
 		$attributes['social_accounts'] = self::get_social_accounts();
-		$attributes['social']          = self::get_shareable_data( $post->ID );
+		$attributes['social']          = $post_id ? self::get_shareable_data( $post_id ) : [];
 
 		return $attributes;
 	}
@@ -219,7 +220,7 @@ class ENForm extends Base_Block {
 		return [
 			'title'        => esc_attr( $og_title ),
 			'description'  => esc_attr( wp_strip_all_tags( $og_description ) ),
-			'link'         => esc_url( $link ),
+			'link'         => $link ? esc_url( $link ) : '',
 			'utm_content'  => 'postid-' . $post_id,
 			'utm_campaign' => $page_meta_data['p4_local_project'] ?? null,
 		];

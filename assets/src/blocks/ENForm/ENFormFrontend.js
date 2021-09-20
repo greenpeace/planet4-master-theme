@@ -1,4 +1,4 @@
-import { ShareButtons } from './ShareButtons';
+import { ShareButtons } from '../../components/ShareButtons/ShareButtons';
 import { FormGenerator } from './FormGenerator';
 import { useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';

@@ -7,8 +7,8 @@ export const ShareButtons = ({social_params, social_accounts}) => {
     title = document.title,
     description = '',
     utm_medium = '',
-    utm_campaign = '',
     utm_content = '',
+    utm_campaign = '',
   } = social_params;
 
   const dataLayer = [];

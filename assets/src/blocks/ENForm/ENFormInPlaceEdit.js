@@ -1,5 +1,5 @@
 import { FormGenerator } from './FormGenerator';
-import { ShareButtons } from './ShareButtons';
+import { ShareButtons } from '../../components/ShareButtons/ShareButtons';
 import { RichText, BlockControls } from '@wordpress/block-editor';
 import { ToolbarGroup } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
