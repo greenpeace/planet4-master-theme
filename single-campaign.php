@@ -71,12 +71,12 @@ if ( $theme_name ) {
 }
 
 // Save custom style settings.
-$custom_styles = [];
-
-$custom_styles['nav_type']            = $campaign_meta['campaign_nav_type'] ?? null;
-$custom_styles['nav_border']          = $campaign_meta['campaign_nav_border'] ?? null;
-$custom_styles['campaign_logo_color'] = 'green';
-$custom_styles['campaign_logo']       = PostCampaign::get_logo( $campaign_meta );
+$custom_styles = [
+	'nav_type'            => $campaign_meta['campaign_nav_type'] ?? null,
+	'nav_border'          => $campaign_meta['campaign_nav_border'] ?? null,
+	'campaign_logo_color' => 'green',
+	'campaign_logo'       => PostCampaign::get_logo( $campaign_meta ),
+];
 
 if ( PostCampaign::DEFAULT_NAVIGATION_TYPE !== $custom_styles['nav_type'] ) {
 	$custom_styles['campaign_logo_color'] = isset( $campaign_meta['campaign_logo_color'] ) && ! empty( $campaign_meta['campaign_logo_color'] )
