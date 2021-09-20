@@ -197,7 +197,7 @@
   }
 }
 
-.site-footer_min {
+.site-footer--minimal {
   padding: 40px 0;
   line-height: 1;
 
@@ -226,6 +226,11 @@
     .list-unstyled {
       width: 200px;
     }
+  }
+
+  .footer-links,
+  .footer-links-secondary {
+    display: none;
   }
 
   .gp-year {

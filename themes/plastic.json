@@ -23,7 +23,7 @@
   "--page-header--color": "#044362",
   "--page-section-header--color": "#044362",
   "--top-page-tags--tag-item--color": "#00748f",
-  "--site-footer_min--icon--fill": "#2077bf",
+  "--site-footer--minimal--icon--fill": "#2077bf",
   "--block-articles--article--meta--font-family": "Montserrat,sans-serif",
   "--block-columns--column-heading--font-family": "\"Montserrat\",sans-serif",
   "--button--font-family": "\"Montserrat\",sans-serif",

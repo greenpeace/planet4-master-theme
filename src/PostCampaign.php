@@ -543,7 +543,7 @@ class PostCampaign {
 				'footer--copyright--color',
 				'footer--copyright--link--color',
 				'footer--copyright--year--color',
-				'site-footer_min--icon--fill',
+				'site-footer--minimal--icon--fill',
 			],
 			'campaign_header_primary' => [ 'headings--font-family' ],
 			'campaign_body_font'      => [ 'body--font-family' ],
