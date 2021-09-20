@@ -54,6 +54,11 @@
         margin: 0 $n5;
       }
 
+      .author-pic {
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
       .comment-link {
         &:hover {
           text-decoration: none;
