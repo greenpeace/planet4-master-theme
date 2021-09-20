@@ -60,24 +60,30 @@
 				</div>
 				<h1 class="page-header-title">{{ post.title|raw }}</h1>
 				<div class="single-post-meta">
-					{% if post.author.name %}
-						<address class="single-post-author">
-							{% if not ( post.get_author_override ) %}
-								<a href="{{ post.author.path }}">{{ post.author.name }}</a>
-							{% else %}
-								{{ post.author.name }}
-							{% endif %}
-						</address>
+					{% if post.author.avatar %}
+						<img itemprop="image" class="author-pic"
+							src="{{ fn('get_avatar_url', post.author.id, {'size' : 50, 'default': 'mm'}) }}"
+							alt="{{ post.author.avatar }}">
 					{% endif %}
-					<span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
-					<time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
-					{% if ( show_comments ) %}
-						<span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
-						<a href="#comments" class="comment-link">
+					<div class="d-inline-block">
+						{% if post.author.name %}
+							<address class="single-post-author">
+								{% if not ( post.get_author_override ) %}
+									<a href="{{ post.author.path }}">{{ post.author.name }}</a>
+								{% else %}
+									{{ post.author.name }}
+								{% endif %}
+							</address>
+						{% endif %}
+						<time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
+						{% if ( show_comments ) %}
+							<span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
+							<a href="#comments" class="comment-link">
 									{{ 'comments'|svgicon }}
 									<span class="quantity"> {{ post_comments_count }} <span class="display-text">{{ __( 'Comments', 'planet4-master-theme' ) }}</span>
-						</a>
-					{% endif %}
+							</a>
+						{% endif %}
+					</div>
 				</div>
 				{% include "blocks/share_buttons.twig" with {social:post.share_meta, utm_medium: 'share'} %}
 			</header>

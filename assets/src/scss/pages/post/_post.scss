@@ -40,6 +40,9 @@
       padding-bottom: 16px;
       line-height: 24px;
       margin-bottom: 16px;
+      display: flex;
+      gap: 8px;
+      align-items: end;
 
       a {
         color: inherit;
@@ -49,15 +52,22 @@
         margin: 0 8px;
       }
 
-      .single-post-author,
+      .author-pic {
+        border-radius: 50%;
+        object-fit: cover;
+        max-height: 50px;
+      }
+
+      .single-post-author {
+        display: block;
+        margin: 0;
+        font-weight: 500;
+      }
+
       .single-post-time,
       .comment-link {
         display: inline-block;
         margin: 0;
-      }
-
-      .single-post-author {
-        font-weight: 500;
       }
 
       .comment-link {
