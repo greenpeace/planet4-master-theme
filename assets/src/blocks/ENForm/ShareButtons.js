@@ -1,12 +1,15 @@
 import { SvgIcon } from './SvgIcon';
 const { __ } = wp.i18n;
 
-export const ShareButtons = (social, accounts, sprite = '') => {
+export const ShareButtons = ({social_params, social_accounts}) => {
   const {
     link = document.URL,
     title = document.title,
     description = '',
-  } = social;
+    utm_medium = '',
+    utm_campaign = '',
+    utm_content = '',
+  } = social_params;
 
   const dataLayer = [];
   const share = (action, label) => {
@@ -20,7 +23,7 @@ export const ShareButtons = (social, accounts, sprite = '') => {
 
   return (
     <div className="share-buttons">
-      <a href={ `https://wa.me/?text=${encodeURIComponent(link)}` }
+      <a href={ `https://wa.me/?text=${encodeURIComponent(link)}&${utm('whatsapp', utm_medium, utm_content, utm_campaign)}` }
         onClick={() => {share('Whatsapp', link)}}
         target="_blank"
         className="share-btn whatsapp"
@@ -29,7 +32,7 @@ export const ShareButtons = (social, accounts, sprite = '') => {
         <span className="visually-hidden">{__( 'Share on', 'planet4-master-theme' )} Whatsapp</span>
       </a>
 
-      <a href={ `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}` }
+      <a href={ `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}&${utm('facebook', utm_medium, utm_content, utm_campaign)}` }
         onClick={() => {share('Facebook', link)}}
         target="_blank"
         className="share-btn facebook"
@@ -38,7 +41,7 @@ export const ShareButtons = (social, accounts, sprite = '') => {
         <span className="visually-hidden">{__( 'Share on', 'planet4-master-theme' )} Facebook</span>
       </a>
 
-      <a href={ twitterUrl(link, title, description, accounts.twitter) }
+      <a href={ `${twitterUrl(link, title, description, social_accounts.twitter)}&${utm('twitter', utm_medium, utm_content, utm_campaign)}` }
         onClick={() => {share('Twitter', link)}}
         target="_blank"
         className="share-btn twitter"
@@ -47,7 +50,7 @@ export const ShareButtons = (social, accounts, sprite = '') => {
         <span className="visually-hidden">{__( 'Share on', 'planet4-master-theme' )} Twitter</span>
       </a>
 
-      <a href={`mailto:?subject=${title}&body=${description ? encodeURIComponent(description) : ''}${link}`}
+      <a href={ `mailto:?subject=${title}&body=${description ? encodeURIComponent(description) : ''}${link}&${utm('email', utm_medium, utm_content, utm_campaign)}` }
         onClick={() => {share('Email', link)}}
         target="_blank"
         className="share-btn email"
@@ -64,4 +67,13 @@ const twitterUrl = (link, title, description, account) => {
     + `&text=${encodeURIComponent(title)}`
     + (description ? ` - ${encodeURIComponent(description)}` : '')
     + (account ? ` via @${encodeURIComponent(account)}&related=${encodeURIComponent(account)}` : '');
+}
+
+const utm = (utm_source, utm_medium, utm_content, utm_campaign) => {
+  return [
+    utm_source ? `utm_source=${encodeURIComponent(utm_source)}` : null,
+    utm_medium ? `utm_medium=${encodeURIComponent(utm_medium)}` : null,
+    utm_content ? `utm_content=${encodeURIComponent(utm_content)}` : null,
+    utm_campaign ? `utm_campaign=${encodeURIComponent(utm_campaign)}` : null,
+  ].filter(x => x).join('&');
 }

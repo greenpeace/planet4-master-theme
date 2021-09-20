@@ -240,8 +240,10 @@ const ThankYou = ({attributes, setAttributes}) => {
     donate_text,
     donatelink,
     social,
+    social_accounts,
   } = attributes;
 
+  let social_params = {...social, utm_medium: 'thank-you'};
 
   const toAttribute = (attributeName) => {
     return value => {
@@ -305,7 +307,7 @@ const ThankYou = ({attributes, setAttributes}) => {
           </div>
 
           <div className="social-media form-group">
-            <ShareButtons {...{social, accounts: []}} />
+            <ShareButtons {...{social_params, social_accounts}} />
           </div>
 
           {! donate_button_checkbox &&

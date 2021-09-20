@@ -214,10 +214,14 @@ class ENForm extends Base_Block {
 			$link           = get_permalink( $post_id );
 		}
 
+		$page_meta_data = get_post_meta( $post_id );
+
 		return [
-			'title'       => esc_attr( $og_title ),
-			'description' => esc_attr( wp_strip_all_tags( $og_description ) ),
-			'link'        => esc_url( $link ),
+			'title'        => esc_attr( $og_title ),
+			'description'  => esc_attr( wp_strip_all_tags( $og_description ) ),
+			'link'         => esc_url( $link ),
+			'utm_content'  => 'postid-' . $post_id,
+			'utm_campaign' => $page_meta_data['p4_local_project'] ?? null,
 		];
 	}
 
@@ -234,10 +238,18 @@ class ENForm extends Base_Block {
 			return $social_accounts;
 		}
 
+		$brands = [
+			'facebook',
+			'twitter',
+			'youtube',
+			'instagram',
+		];
 		foreach ( $social_menu as $social_menu_item ) {
 			$url_parts = explode( '/', rtrim( $social_menu_item->url, '/' ) );
-			if ( false !== strpos( $social_menu_item->url, 'twitter' ) ) {
-				$social_accounts['twitter'] = count( $url_parts ) > 0 ? $url_parts[ count( $url_parts ) - 1 ] : '';
+			foreach ( $brands as $brand ) {
+				if ( false !== strpos( $social_menu_item->url, $brand ) ) {
+					$social_accounts[ $brand ] = count( $url_parts ) > 0 ? $url_parts[ count( $url_parts ) - 1 ] : '';
+				}
 			}
 		}
 
