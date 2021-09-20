@@ -78,7 +78,7 @@ $custom_styles['nav_border']          = $campaign_meta['campaign_nav_border'] ??
 $custom_styles['campaign_logo_color'] = 'green';
 $custom_styles['campaign_logo']       = PostCampaign::get_logo( $campaign_meta );
 
-if ( PostCampaign::DEFAULT_NAVBAR_THEME !== $custom_styles['nav_type'] ) {
+if ( PostCampaign::DEFAULT_NAVIGATION_TYPE !== $custom_styles['nav_type'] ) {
 	$custom_styles['campaign_logo_color'] = isset( $campaign_meta['campaign_logo_color'] ) && ! empty( $campaign_meta['campaign_logo_color'] )
 		? $campaign_meta['campaign_logo_color']
 		: 'light';

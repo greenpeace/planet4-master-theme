@@ -12,7 +12,7 @@ class PostCampaign {
 	 */
 	const POST_TYPE = 'campaign';
 
-	const DEFAULT_NAVBAR_THEME = 'planet4';
+	public const DEFAULT_NAVIGATION_TYPE = 'planet4';
 
 	public const META_FIELDS = [
 		'p4_campaign_name',
@@ -573,7 +573,7 @@ class PostCampaign {
 	 * @return array The variables for the navigation bar.
 	 */
 	public static function get_navbar_theme( array $css_vars ): array {
-		if ( self::DEFAULT_NAVBAR_THEME === $css_vars['campaign_nav_type'] ) {
+		if ( self::DEFAULT_NAVIGATION_TYPE === $css_vars['campaign_nav_type'] ) {
 			$css_vars['campaign_logo_color'] = null;
 			$css_vars['campaign_nav_color']  = null;
 			$css_vars['campaign_logo']       = null;
@@ -599,7 +599,7 @@ class PostCampaign {
 		if ( 'white' === $footer_theme ) {
 			$css_vars['footer_links_color']   = $css_vars['footer_links_color'] ? $css_vars['footer_links_color'] : $default_footer_links_color;
 			$css_vars['--footer--background'] = '#FFFFFF';
-		} elseif ( self::DEFAULT_NAVBAR_THEME === $css_vars['campaign_nav_type'] ) {
+		} elseif ( self::DEFAULT_NAVIGATION_TYPE === $css_vars['campaign_nav_type'] ) {
 			$css_vars['footer_links_color']   = null;
 			$css_vars['--footer--background'] = null;
 		} else {
