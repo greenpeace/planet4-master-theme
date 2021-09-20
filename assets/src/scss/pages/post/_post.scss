@@ -49,6 +49,11 @@
         margin: 0 8px;
       }
 
+      .author-pic {
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
       .single-post-author,
       .single-post-time,
       .comment-link {
