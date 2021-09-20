@@ -648,9 +648,12 @@ class PostCampaign {
 		$theme = self::get_theme( $meta );
 
 		if ( 'default' !== $theme ) {
+			// Unless it's the default theme, there's currently just 2 options: the Greenpeace logo, or the logo of the
+			// theme.
 			return 'greenpeace' === $logo ? 'greenpeace' : str_replace( '-new', '', $theme );
 		}
 
-		return $logo ? $logo : 'greenpeace';
+		// Only the default theme can use all logos.
+		return $logo;
 	}
 }
