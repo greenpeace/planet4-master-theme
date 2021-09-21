@@ -166,6 +166,7 @@ const SideContent = ({attributes, setAttributes}) => {
         placeholder={__('Enter description', 'planet4-blocks-backend')}
         keepPlaceholderOnFocus={true}
         allowedFormats={[]}
+        multiline="false"
       />
     </div>
     </>
@@ -217,6 +218,7 @@ const Signup = ({attributes, setAttributes}) => {
             placeholder={__('Enter form description', 'planet4-blocks-backend')}
             keepPlaceholderOnFocus={true}
             allowedFormats={[]}
+            multiline="false"
           />
         </div>
 
@@ -288,7 +290,7 @@ const ThankYou = ({attributes, setAttributes}) => {
           placeholder={__('Enter description', 'planet4-blocks-backend')}
           keepPlaceholderOnFocus={true}
           allowedFormats={[]}
-          multiline="false"
+          multiline="true"
         />
 
         <div className="sub-section formblock-flex">

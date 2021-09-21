@@ -42,9 +42,12 @@ export const registerENForm = () => {
     title: 'EN Form (beta)',
     icon: 'feedback',
     category: 'planet4-blocks-beta',
+    supports: {
+      multiple: false,
+    },
     styles: [
-      {name: 'full-width-bg', label: 'Full width with background'},
-      {name: 'full-width', label: 'Full width'},
+      {name: 'full-width-bg', label: 'Full page width with background'},
+      {name: 'full-width', label: 'Page body/text size width'},
       {name: 'side-style', label: 'Form on the side', isDefault: true},
     ],
     attributes,
