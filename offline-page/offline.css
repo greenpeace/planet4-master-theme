@@ -1,0 +1,95 @@
+body {
+  background-color: white;
+  margin: 0;
+}
+
+.top-navigation {
+  background: white;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.top-navigation .logo {
+  width: 160px;
+}
+
+.page-header-background {
+  position: relative;
+  height: auto;
+  margin-top: 20px;
+  width: 100vw;
+}
+
+.page-header-image {
+  height: 230px;
+  width: 100%;
+  object-fit: cover;
+}
+
+section {
+  padding: 24px;
+  color: #020202;
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+h1 {
+  margin: 0;
+  font-size: 4rem;
+  letter-spacing: 2px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+@media (min-width: 768px) {
+  .top-navigation {
+    text-align: left;
+    padding: 0 24px;
+  }
+
+  .page-header-image {
+    height: 385px;
+  }
+
+  section {
+    padding: 40px 60px;
+  }
+
+  h1 {
+    font-size: 90px;
+  }
+}
+
+@media (min-width: 1024px) {
+  header {
+    height: 100vh;
+  }
+
+  .page-header-background {
+    min-height: 730px;
+    height: 100%;
+  }
+
+  .page-header-image {
+    height: 100%;
+  }
+
+  section {
+    color: white;
+    position: absolute;
+    top: 25%;
+  }
+
+  h1 {
+    font-size: 110px;
+  }
+
+  h2 {
+    font-size: 40px;
+  }
+}

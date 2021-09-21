@@ -1,6 +1,6 @@
 <script>
 	if (navigator.serviceWorker) {
-		navigator.serviceWorker.register('/service-worker.js')
+		navigator.serviceWorker.register('/service-worker.js', { scope: './' })
 			.then(() => console.log('Success!'))
 			.catch(error => console.log('Failure: ' + error));
 	}
