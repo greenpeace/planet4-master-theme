@@ -1,37 +1,47 @@
 {% if ( post.author.name and post.author.description ) %}
 	<div class="container clearfix">
-		<footer class="author-block" itemtype="http://schema.org/Person">
+		<footer class="author-block" itemscope itemtype="http://schema.org/Person">
+			{% if ( post.author.avatar ) %}
+				<figure class="author-block-image">
+					<img
+						itemprop="image"
+						src="{{ fn('get_avatar_url', post.author.id, {'size' : 294 }) }}"
+						alt="{{ post.author.name }}"
+					/>
+				</figure>
+			{% endif %}
 			<div class="author-block-info">
-				<h2 class="author-block-info-title">{{ __( 'about the author', 'planet4-master-theme' ) }}</h2>
+				<h2 class="author-block-info-title">{{ __( 'About the author', 'planet4-master-theme' ) }}</h2>
+				{% if ( post.author.avatar ) %}
+					<figure class="author-block-image">
+						<img
+							itemprop="image"
+							src="{{ fn('get_avatar_url', post.author.id, {'size' : 294 }) }}"
+							alt="{{ post.author.name }}"
+						/>
+					</figure>
+				{% endif %}
 				<h5 rel="author" class="author-block-info-name">
 					<a href="{{ post.author.link }}" itemprop="name">{{ post.author.name }}</a>
 				</h5>
 
-				{% set author_bio_readmore %}
-					...  &nbsp;<a href="{{ post.author.link }}">{{ __( 'Read More', 'planet4-master-theme' ) }}</a>
-				{% endset %}
-
 				{% set author_bio_char_limit = 180 %}
 				{% set post_author_description = fn('get_the_author_meta', 'description', post.author.id) %}
 
-				{% if ( post_author_description|length > author_bio_char_limit ) %}
-					{% set author_bio = fn('substr', post_author_description, 0, fn('strpos', post_author_description ,' ', author_bio_char_limit)) ~ author_bio_readmore %}
-				{% else %}
-					{% set author_bio = post_author_description %}
-				{% endif %}
-
-				<p class="author-block-info-bio" itemprop="description">
-					{{ fn('wpautop', author_bio)|e('wp_kses_post')|raw }}
-				</p>
-
+				<div itemprop="description">
+					{# If needed, we first show a truncated version of the description, with an ellipsis and a "Show more" button #}
+					{% if ( post_author_description|length > author_bio_char_limit ) %}
+						{% set post_author_description_teaser = post_author_description|slice(0, author_bio_char_limit)|join(' ') ~ '<span class="post-author-description-ellipsis">&hellip;</span>' %}
+						{% set post_author_description_remainder = post_author_description|slice(author_bio_char_limit)|join(' ') %}
+						{{ post_author_description_teaser|raw }}
+						<span class="post-author-description-remainder hidden">{{ post_author_description_remainder|raw }}</span>
+						<button class="post-author-description-show-more">{{ __('Show more', 'planet4-master-theme') }}</button>
+						<button class="post-author-description-show-less hidden">{{ __('Show less', 'planet4-master-theme') }}</button>
+					{% else %}
+						{{ fn('wpautop', author_bio)|e('wp_kses_post')|raw }}
+					{% endif %}
+				</div>
 			</div>
-			<figure class="author-block-image">
-				{% if ( post.author.avatar ) %}
-					<img itemprop="image" class="author-pic"
-						 src="{{ fn('get_avatar_url', post.author.id, {'size' : 294}) }}"
-						 alt="{{ post.author.name }}">
-				{% endif %}
-			</figure>
 		</footer>
 </div>
 {% endif %}
