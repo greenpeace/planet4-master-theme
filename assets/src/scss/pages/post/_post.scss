@@ -1,24 +1,11 @@
 .single-post,
+.single-attachment,
 .single-idea {
   .skewed-overlay {
     mask-image: none;
   }
 
   .page-header {
-    padding: $n90 0 $n20;
-
-    @include medium-and-up {
-      padding: 104px 0 26px;
-    }
-
-    @include large-and-up {
-      padding: 144px 0 $n30;
-    }
-
-    @include x-large-and-up {
-      padding: 144px 0 $n40;
-    }
-
     .page-header-background {
       opacity: .3;
     }
@@ -29,87 +16,53 @@
     }
 
     .single-post-meta {
-      color: $grey-80;
-      margin: 0 0 16px 0;
-      font-size: 0.8125rem;
-      font-weight: 300;
+      color: $grey-40;
+      font-size: 14px;
       font-family: $roboto;
+      border-bottom: solid 1px $grey-20;
+      padding-bottom: 16px;
+      line-height: 24px;
+      margin-bottom: 16px;
 
       a {
         color: inherit;
       }
 
-      span.separator {
-        margin: 0 $n5;
+      .single-post-author,
+      .single-post-time,
+      .comment-link {
+        display: inline-block;
+        margin: 0;
+      }
+
+      .single-post-author {
+        font-weight: 500;
+
+        &:after {
+          content: "\2022";
+          pointer-events: none;
+          display: inline-block;
+          font-weight: normal;
+          margin: 0 8px;
+          top: 0;
+        }
       }
 
       .comment-link {
-        &:hover {
-          text-decoration: none;
+        font-weight: 500;
 
-          .quantity {
-            text-decoration: underline;
-          }
-        }
-
-        .icon {
+        &:before {
+          content: "\2022";
+          pointer-events: none;
+          display: inline-block;
+          font-weight: normal;
+          margin: 0 8px;
           top: 0;
         }
 
-        .display-text {
-          visibility: hidden;
-
-          @include medium-and-up {
-            visibility: visible;
-          }
-        }
-      }
-
-      @include medium-and-up {
-        font-size: $font-size-xxs;
-        font-weight: 300;
-        color: $grey-60;
-        margin: 0;
-      }
-
-      @include large-and-up {
-        font-size: $font-size-xs;
-        margin: -10px 0 0 0;
-      }
-
-      @include x-large-and-up {
-        margin: 0;
-        font-size: $font-size-sm;
-      }
-    }
-
-    .single-post-author,
-    .single-post-time {
-      font-style: italic;
-      display: inline-block;
-      margin: 0;
-    }
-
-    .single-post-author {
-      margin-right: 20px;
-      position: relative;
-
-      html[dir="rtl"] & {
-        margin-right: 0;
-        margin-left: 20px;
-      }
-
-      &:after {
-        content: "\2022";
-        pointer-events: none;
-        display: inline-block;
-        position: absolute;
-        right: -15px;
-        top: 0;
-
-        html[dir="rtl"] & {
-          right: auto;
-          left: -15px;
+        img {
+          width: 14px;
+          margin-right: 3px;
         }
       }
     }
