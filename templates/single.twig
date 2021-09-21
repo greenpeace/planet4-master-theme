@@ -63,32 +63,25 @@
 					{% endif %}
 				</div>
 				<h1 class="page-header-title">{{ post.title|raw }}</h1>
-				<div class="row">
-					<div class="col-md-6">
-						<div class="single-post-meta">
-							{% if post.author.name %}
-								<address class="single-post-author">
-									{% if not ( post.get_author_override ) %}
-										<a href="{{ post.author.path }}">{{ post.author.name }}</a>
-									{% else %}
-										{{ post.author.name }}
-									{% endif %}
-								</address>
+				<div class="single-post-meta">
+					{% if post.author.name %}
+						<address class="single-post-author">
+							{% if not ( post.get_author_override ) %}
+								<a href="{{ post.author.path }}">{{ post.author.name }}</a>
+							{% else %}
+								{{ post.author.name }}
 							{% endif %}
-							<time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
-							{% if ( show_comments ) %}
-								<span class="separator">|</span>
-								<a href="#comments" class="comment-link">
-									<img src="{{ data_nav_bar.images }}speech_bubble.svg">
-									<span class="quantity"> {{ post_comments_count }} <span class="display-text">{{ __( 'Comments', 'planet4-master-theme' ) }}</span>
-								</a>
-							{% endif %}
-						</div>
-					</div>
-					<div class="col-md-6">
-						{% include "blocks/share_buttons.twig" with {social:post.share_meta, utm_medium: 'share'} %}
-					</div>
+						</address>
+					{% endif %}
+					<time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
+					{% if ( show_comments ) %}
+						<a href="#comments" class="comment-link">
+							<img src="{{ data_nav_bar.images }}comment_bubble.svg">
+							<span>{{ post_comments_count }} {{ __( 'Comments', 'planet4-master-theme' ) }}</span>
+						</a>
+					{% endif %}
 				</div>
+				{% include "blocks/share_buttons.twig" with {social:post.share_meta, utm_medium: 'share'} %}
 			</div>
 		</header>
 
