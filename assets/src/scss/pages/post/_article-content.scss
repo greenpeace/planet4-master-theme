@@ -168,10 +168,6 @@
     word-wrap: break-word;
   }
 
-  .entry-summary {
-    @extend .post-content-lead;
-  }
-
   .gallery {
     margin: 0 auto 18px;
 
@@ -233,17 +229,6 @@
 
   q {
     font-style: italic;
-  }
-}
-
-.post-content-lead {
-
-  @include large-and-up {
-    max-width: 65%;
-  }
-
-  p:first-of-type {
-    margin-top: 0;
   }
 }
 

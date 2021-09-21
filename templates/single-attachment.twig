@@ -31,11 +31,9 @@
 		<!-- Attachment Post Block Start -->
 		<div class="container">
 			<div class="post-content">
-				<div class="post-content-lead">
-					<article class="post-details clearfix">
-						{{ post.content|e('wp_kses_post')|raw }}
-					</article>
-				</div>
+				<article class="post-details clearfix">
+					{{ post.content|e('wp_kses_post')|raw }}
+				</article>
 			</div>
 		</div>
 		<!-- Attachment Post Page Block End -->
