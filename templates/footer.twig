@@ -1,4 +1,4 @@
-<footer id="footer" class="site-footer site-footer--{{ nav_type ? 'minimal' : 'default'}}">
+<footer id="footer" class="site-footer site-footer--{{ nav_type }}">
 	<div class="container">
 		<ul class="footer-social-media list-unstyled col-md-8 col-lg-5">
 			{% if social_overrides is defined and social_overrides|length %}
@@ -37,31 +37,33 @@
 			{% endif %}
 		</ul>
 			
-		<ul class="list-unstyled footer-links">
-			{% for primary in footer_primary_menu %}
-				<li>
-					<a href="{{ primary.url }}"
-						data-ga-category="Footer Navigation"
-						data-ga-action="Primary Links"
-						data-ga-label="{{ primary.title }}">
-						{{ primary.title }}
-					</a>
-				</li>
-			{% endfor %}
-		</ul>
+		{% if nav_type == 'default' %}
+			<ul class="list-unstyled footer-links">
+				{% for primary in footer_primary_menu %}
+					<li>
+						<a href="{{ primary.url }}"
+							data-ga-category="Footer Navigation"
+							data-ga-action="Primary Links"
+							data-ga-label="{{ primary.title }}">
+							{{ primary.title }}
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
 
-		<ul class="list-unstyled footer-links-secondary">
-			{% for secondary in footer_secondary_menu %}
-				<li>
-					<a href="{{ secondary.url }}"
-						data-ga-category="Footer Navigation"
-						data-ga-action="Secondary Links"
-						data-ga-label="{{ secondary.title }}">
-						{{ secondary.title }}
-					</a>
-				</li>
-			{% endfor %}
-		</ul>
+			<ul class="list-unstyled footer-links-secondary">
+				{% for secondary in footer_secondary_menu %}
+					<li>
+						<a href="{{ secondary.url }}"
+							data-ga-category="Footer Navigation"
+							data-ga-action="Secondary Links"
+							data-ga-label="{{ secondary.title }}">
+							{{ secondary.title }}
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
 
 		<p class="copyright-text col-md-8" role="text">
 			{{ copyright_text_line1|e('wp_kses_post')|raw }}
