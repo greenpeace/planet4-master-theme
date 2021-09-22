@@ -1,4 +1,4 @@
-<footer id="footer" class="site-footer {{ nav_type == 'planet4' ? 'site-footer_min' : ''}}">
+<footer id="footer" class="site-footer site-footer--{{ nav_type }}">
 	<div class="container">
 		<ul class="footer-social-media list-unstyled col-md-8 col-lg-5">
 			{% if social_overrides is defined and social_overrides|length %}
@@ -36,8 +36,8 @@
 				{% endfor %}
 			{% endif %}
 		</ul>
-
-		{% if nav_type != 'planet4' %}
+			
+		{% if nav_type != 'minimal' %}
 			<ul class="list-unstyled footer-links">
 				{% for primary in footer_primary_menu %}
 					<li>

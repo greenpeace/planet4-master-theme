@@ -24,7 +24,7 @@
   "--article-list-item-tags--tag-wrap--display": "none",
   "--enform-extra-header-placeholder--counter-block--progress-container--display": "none",
   "--skewed-overlay--display": "none",
-  "--site-footer_min--icon--fill": "#66cc00",
+  "--site-footer--minimal--icon--fill": "#66cc00",
   "--block-articles--article--meta--font-family": "Jost,sans-serif",
   "--block-columns--column-heading--font-family": "Jost,sans-serif",
   "--body--font-family": "\"Jost\",serif",
