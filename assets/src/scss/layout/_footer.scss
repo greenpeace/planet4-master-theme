@@ -32,6 +32,16 @@
   }
 }
 
+.site-footer__container {
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+
+  @include medium-and-up {
+    flex-direction: row-reverse;
+  }
+}
+
 .footer-social-media {
   _-- {
     color: $grey-20;
