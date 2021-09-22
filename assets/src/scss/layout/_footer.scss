@@ -2,6 +2,7 @@
   --footer-- {
     font-family: $roboto;
     background: $dark-blue;
+    color: $white;
   }
   padding: 45px 0 $n25;
   position: relative;
@@ -89,67 +90,22 @@
   }
 }
 
-.footer-links,
-.footer-links-secondary {
-  li {
-    line-height: 2rem;
-    @include medium-and-up {
-      display: inline-block;
-
-      &:after {
-        content: "\002F";
-        display: inline-block;
-        margin: 0 16px;
-      }
-
-      &:last-of-type:after {
-        display: none;
-      }
-    }
-
-    @include large-and-up {
-      &:after {
-        margin: 0 24px 0;
-      }
-    }
-  }
-}
-
-.footer-links {
-  --footer-menu-- {
-    color: $white;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
+.site-footer__footer-links {
+  margin-bottom: 24px;
+  width: 100%;
+  text-align: left;
+  column-count: 1;
 
   li {
-    font-size: $font-size-md;
+    font-size: $font-size-sm;
+
+    &:not(:last-child) {
+      margin-bottom: 24px;
+    }
   }
 
   @include medium-and-up {
-    font-size: $font-size-sm;
-    margin-bottom: 16px;
-  }
-
-  @include large-and-up {
     font-size: $font-size-md;
-  }
-}
-
-.footer-links-secondary {
-  --footer-menu-secondary-- {
-    color: $grey-10;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-  }
-
-  @include medium-and-up {
-    font-size: $font-size-xxs;
-  }
-
-  @include large-and-up {
-    font-size: $font-size-sm;
   }
 }
 

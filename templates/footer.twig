@@ -2,7 +2,7 @@
 	<div class="container site-footer__container">
 		{% include 'footer_social_media.twig' %}
 		{% if nav_type != 'minimal' %}
-			<ul class="list-unstyled footer-links">
+			<ul class="list-unstyled site-footer__footer-links">
 				{% for primary in footer_primary_menu %}
 					<li>
 						<a href="{{ primary.url }}"
@@ -13,9 +13,7 @@
 						</a>
 					</li>
 				{% endfor %}
-			</ul>
-
-			<ul class="list-unstyled footer-links-secondary">
+				
 				{% for secondary in footer_secondary_menu %}
 					<li>
 						<a href="{{ secondary.url }}"
