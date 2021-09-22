@@ -41,7 +41,7 @@
 	{% endif %}
 
 	{% block footer %}
-		{% include 'footer.twig' with { 'nav_type' : custom_styles.nav_type ? 'minimal' : 'default' } %}
+		{% include 'footer.twig' with { 'nav_type' : custom_styles.nav_type == 'planet4' ? 'minimal' : 'default' } %}
 
 		{% block cookies %}
 			{% include 'cookies.twig' %}

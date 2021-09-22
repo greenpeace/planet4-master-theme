@@ -37,7 +37,7 @@
 			{% endif %}
 		</ul>
 			
-		{% if nav_type == 'default' %}
+		{% if nav_type != 'minimal' %}
 			<ul class="list-unstyled footer-links">
 				{% for primary in footer_primary_menu %}
 					<li>
