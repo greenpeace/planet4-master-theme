@@ -32,6 +32,7 @@ const attributes = {
   en_form_id: { type: 'integer', },
   en_form_fields: { type: 'array', default: [] },
   social: { type: 'object', default: {} },
+  social_accounts: { type: 'object', default: {} },
 };
 
 export const registerENForm = () => {
