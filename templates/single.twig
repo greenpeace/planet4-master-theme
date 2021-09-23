@@ -24,7 +24,7 @@
 						</a>
 					{% endif %}
 
-					{% if ( page_type and post.issues_nav_data ) %}
+					{% if ( page_type and (post.issues_nav_data or post.tags) ) %}
 						<span class="tag-wrap-bullet" aria-hidden="true">&#8226;</span>
 					{% endif %}
 
