@@ -106,101 +106,77 @@
 
   @include medium-and-up {
     font-size: $font-size-md;
+    column-count: 3;
+  }
+
+  @include large-and-up {
+    column-count: 2;
   }
 }
 
-.copyright-text {
+.site-footer__copyright {
   --footer--copyright-- {
-    color: $grey-10;
-  }
-  font-size: $font-size-xxs;
-  line-height: 1.3;
-  margin-left: auto;
-  margin-right: auto;
-  word-break: keep-all;
-  width: 80%;
-  padding: 0;
-
-  @include medium-and-up {
-    line-height: 1;
+    background-color: $active-blue;
   }
 
-  i {
-    display: block;
-    font-size: $font-size-xl;
-    margin-bottom: 10px;
+  padding-top: 16px;
+  padding-bottom: 16px;
 
-    @include medium-and-up {
-      display: inline-block;
-      position: relative;
-      bottom: -.15em;
-      margin-right: 5px;
+  .icon {
+    top: 0;
+
+    --footer--copyright--icon-- {
+      fill: $white;
     }
   }
 
-  a --footer--copyright--link-- {
-    color: $white;
-  }
-}
-
-.gp-year {
-  --footer--copyright--year-- {
-    color: $white;
-  }
-  font-size: $font-size-xxs;
-  text-transform: none;
-
-  .icon {
-    top: -.125em;
-  }
-
-  @include medium-and-up {
+  &-wrapper {
     font-size: $font-size-xxs;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    @include large-and-up {
+      flex-direction: inherit;
+    }
   }
 
-  @include medium-and-up {
-    margin-top: 15px;
-  }
-}
+  &-text {
+    --footer--copyright--text-- {
+      color: $grey-10;
+    }
 
-.site-footer--minimal {
-  padding: 40px 0;
-  line-height: 1;
+    a --footer--copyright--text--link-- {
+      color: $grey-10;
 
-  .footer-social-media {
-    font-size: $font-size-xl;
-    margin: 0 auto $space-md auto;
-    text-align: center;
-    width: max-content;
-
-    @supports (justify-content: space-between) {
-      & {
-        display: flex;
-        justify-content: space-between;
+      &:hover {
+        color: $grey-10;
       }
     }
 
-    li {
-      display: inline-block;
-      margin: 0 16px 0 0;
-    }
-
-    a {
-      transition: color 100ms linear;
-    }
-
-    .list-unstyled {
-      width: 200px;
-    }
-  }
-
-  .gp-year {
     font-size: $font-size-xxs;
-    font-family: $lora;
-    margin: 40px 0 30px 0;
-  }
+    line-height: 1.4;
+    word-break: keep-all;
+    width: auto;
+    margin-bottom: 0;
+    margin-bottom: 12px;
 
-  .icon _-- {
-    fill: $white;
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @include large-and-up {
+      margin-bottom: 0;
+
+      &:after {
+        content: "\007C";
+        display: inline-block;
+        margin: 0 14px;
+      }
+
+      &:last-of-type:after {
+        display: none;
+      }
+    }
   }
 }
