@@ -88,9 +88,9 @@
 		<!-- Post Block Start -->
 		<div class="container">
 			<div class="post-content">
-				{% if ( post.take_action_boxout ) %}
+				{# {% if ( post.take_action_boxout ) %}
 					{{ fn('do_blocks', post.take_action_boxout )|raw }}
-				{% endif %}
+				{% endif %} #}
 				<article class="post-details clearfix">
 					{{ post.content|e('wp_kses_post')|raw }}
 				</article>
