@@ -22,9 +22,11 @@ export class URLInput extends Component {
             disabled={disabled}
             help={help}
           />
-          <URLValidationMessage
-            url={value}
-          />
+          {!disabled &&
+            <URLValidationMessage
+              url={value}
+            />
+          }
       </div>
     )
   }

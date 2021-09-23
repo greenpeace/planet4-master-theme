@@ -10,7 +10,7 @@ import { registerSocialMediaBlock } from './blocks/SocialMedia/SocialMediaBlock'
 import { SocialMediaCardsBlock } from './blocks/SocialMediaCards/SocialMediaCardsBlock';
 import { registerSplittwocolumnsBlock } from './blocks/Splittwocolumns/register';
 import { registerSubmenuBlock } from './blocks/Submenu/SubmenuBlock';
-import { TakeactionboxoutBlock } from './blocks/Takeactionboxout/TakeactionboxoutBlock';
+import { registerTakeActionBoxoutBlock } from './blocks/TakeActionBoxout/TakeActionBoxoutBlock';
 import { registerTimelineBlock } from './blocks/Timeline/TimelineBlock';
 import { addBlockFilters } from './BlockFilters';
 import { setupImageBlockExtension } from './ImageBlockExtension';
@@ -39,7 +39,7 @@ registerSplittwocolumnsBlock();
 registerSpreadsheetBlock();
 registerSubmenuBlock();
 new SubPagesBlock();
-new TakeactionboxoutBlock();
+registerTakeActionBoxoutBlock();
 new ENFormBlock();
 registerTimelineBlock();
 registerGuestBookBlock();
