@@ -39,6 +39,7 @@ $navbar-default-height: 60px;
   }
 
   a.nav-link --nav-link-- {
+    font-weight: 400;
     color: $white;
 
     &:hover {
@@ -83,7 +84,7 @@ $navbar-default-height: 60px;
 .nav-item,
 .nav-link {
   @include padding(0, $n15, 0, $n15);
-  
+
   --navigation-items-- {
     line-height: $menu-height-small;
 
