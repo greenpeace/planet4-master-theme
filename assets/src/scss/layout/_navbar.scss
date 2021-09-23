@@ -735,6 +735,9 @@ $navbar-default-height: 60px;
   }
 
   .nav-link {
+    _-- {
+      font-weight: normal;
+    }
     display: inline;
     font-size: $font-size-xxs;
     padding: 0;
