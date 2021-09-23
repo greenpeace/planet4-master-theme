@@ -38,55 +38,8 @@
   display: flex;
   flex-direction: column;
 
-  @include medium-and-up {
+  @include large-and-up {
     flex-direction: row-reverse;
-  }
-}
-
-.footer-social-media {
-  _-- {
-    color: $grey-20;
-  }
-  font-size: $font-size-xl;
-  margin: auto;
-  text-align: center;
-  width: max-content;
-  margin-bottom: 32px;
-  padding: 0;
-
-  .icon {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  @include small-and-up {
-    font-size: $font-size-xxxl;
-  }
-
-  @supports (justify-content: space-between) {
-    & {
-      display: flex;
-      justify-content: space-between;
-    }
-  }
-
-  li {
-    display: inline-block;
-    font-size: $font-size-xl;
-
-    &:not(:last-child) {
-      margin-inline-end: 16px;
-    }
-  }
-
-  a {
-    --footer-social-media--link-- {
-      transition: color 100ms linear;
-
-      &:hover {
-        color: $white;
-      }
-    }
   }
 }
 
