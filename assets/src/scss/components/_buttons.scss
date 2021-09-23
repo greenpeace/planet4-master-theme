@@ -181,14 +181,14 @@ $donate-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
       box-shadow: $donate-button-box-shadow;
       border: 1px solid transparent;
     }
+
+    @include large-and-up {
+      font-size: $font-size-md;
+    }
   }
   line-height: 1.65;
   margin: 0;
   text-transform: none;
-
-  @include large-and-up {
-    font-size: $font-size-md;
-  }
 }
 
 .btn-navbar-toggle {

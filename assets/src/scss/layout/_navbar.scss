@@ -82,12 +82,15 @@ $navbar-default-height: 60px;
 .country-dropdown-toggle,
 .nav-item,
 .nav-link {
-  line-height: $menu-height-small;
   @include padding(0, $n15, 0, $n15);
+  
+  --navigation-items-- {
+    line-height: $menu-height-small;
 
-  @include medium-and-up {
-    line-height: $menu-height-large;
-    font-size: $font-size-md;
+    @include medium-and-up {
+      line-height: $menu-height-large;
+      font-size: $font-size-md;
+    }
   }
 }
 
