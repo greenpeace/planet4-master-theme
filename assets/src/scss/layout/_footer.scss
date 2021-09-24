@@ -32,53 +32,6 @@
   }
 }
 
-.footer-social-media {
-  _-- {
-    color: $grey-20;
-  }
-  font-size: $font-size-xl;
-  margin: auto;
-  text-align: center;
-  width: max-content;
-  margin-bottom: 32px;
-  padding: 0;
-
-  .icon {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  @include small-and-up {
-    font-size: $font-size-xxxl;
-  }
-
-  @supports (justify-content: space-between) {
-    & {
-      display: flex;
-      justify-content: space-between;
-    }
-  }
-
-  li {
-    display: inline-block;
-    font-size: $font-size-xl;
-
-    &:not(:last-child) {
-      margin-inline-end: 16px;
-    }
-  }
-
-  a {
-    --footer-social-media--link-- {
-      transition: color 100ms linear;
-
-      &:hover {
-        color: $white;
-      }
-    }
-  }
-}
-
 .footer-links,
 .footer-links-secondary {
   li {
@@ -200,33 +153,6 @@
 .site-footer--minimal {
   padding: 40px 0;
   line-height: 1;
-
-  .footer-social-media {
-    font-size: $font-size-xl;
-    margin: 0 auto $space-md auto;
-    text-align: center;
-    width: max-content;
-
-    @supports (justify-content: space-between) {
-      & {
-        display: flex;
-        justify-content: space-between;
-      }
-    }
-
-    li {
-      display: inline-block;
-      margin: 0 16px 0 0;
-    }
-
-    a {
-      transition: color 100ms linear;
-    }
-
-    .list-unstyled {
-      width: 200px;
-    }
-  }
 
   .gp-year {
     font-size: $font-size-xxs;
