@@ -42,6 +42,10 @@
         color: inherit;
       }
 
+      .single-post-meta-bullet {
+        margin: 0 8px;
+      }
+
       .single-post-author,
       .single-post-time,
       .comment-link {
@@ -51,32 +55,13 @@
 
       .single-post-author {
         font-weight: 500;
-
-        &:after {
-          content: "\2022";
-          pointer-events: none;
-          display: inline-block;
-          font-weight: normal;
-          margin: 0 8px;
-          top: 0;
-        }
       }
 
       .comment-link {
         font-weight: 500;
 
-        &:before {
-          content: "\2022";
-          pointer-events: none;
-          display: inline-block;
-          font-weight: normal;
-          margin: 0 8px;
-          top: 0;
-        }
-
         img {
-          width: 14px;
-          margin-right: 3px;
+          width: 17px;
         }
       }
     }

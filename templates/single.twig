@@ -69,8 +69,10 @@
 							{% endif %}
 						</address>
 					{% endif %}
+					<span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
 					<time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
 					{% if ( show_comments ) %}
+						<span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
 						<a href="#comments" class="comment-link">
 							<img src="{{ data_nav_bar.images }}comment_bubble.svg">
 							<span>{{ post_comments_count }} {{ __( 'Comments', 'planet4-master-theme' ) }}</span>
@@ -102,7 +104,7 @@
 				{{ fn('do_blocks', post.articles )|raw }}
 			{% endif %}
 		</section>
-		{% if ( 'closed' != post.comment_status ) %}
+		{% if ( show_comments ) %}
 			{% include "comments_section.twig" with {comments:post.get_comments()} %}
 		{% endif %}
 	</article>
