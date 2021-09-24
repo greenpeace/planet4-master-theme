@@ -4,23 +4,27 @@
     background: $dark-blue;
     color: $white;
   }
-  padding: 45px 0 $n25;
   position: relative;
   z-index: 2;
   text-align: center;
   transition: margin 1s;
+  padding-top: 24px;
   clear: both;
   line-height: 0;
 
-  @include medium-and-up {
-    padding: $n25 0 $n20;
+  a {
+    transition: color 100ms linear;
+
+    --footer--link-- {
+      color: inherit;
+
+      &:hover {
+        color: $white;
+      }
+    }
   }
 
-  @include large-and-up {
-    padding: 55px 0 $n25;
-  }
-
-  a --footer--links-- {
+  .icon --footer--icon-- {
     color: inherit;
 
     &:hover {
@@ -31,104 +35,115 @@
   li {
     line-height: 1;
   }
-}
 
-.site-footer__container {
-  padding-bottom: 0;
-  display: flex;
-  flex-direction: column;
-
-  @include large-and-up {
-    flex-direction: row-reverse;
-  }
-}
-
-.site-footer__footer-links {
-  margin-bottom: 24px;
-  width: 100%;
-  text-align: left;
-  column-count: 1;
-
-  li {
-    font-size: $font-size-sm;
-
-    &:not(:last-child) {
-      margin-bottom: 24px;
-    }
-  }
-
-  @include medium-and-up {
-    font-size: $font-size-md;
-    column-count: 3;
-  }
-
-  @include large-and-up {
-    column-count: 2;
-  }
-}
-
-.site-footer__copyright {
-  --footer--copyright-- {
-    background-color: $active-blue;
-  }
-
-  padding-top: 16px;
-  padding-bottom: 16px;
-
-  .icon {
-    top: 0;
-
-    --footer--copyright--icon-- {
-      fill: $white;
-    }
-  }
-
-  &-wrapper {
-    font-size: $font-size-xxs;
+  &__container {
+    padding-bottom: 0;
     display: flex;
     flex-direction: column;
-    text-align: left;
 
     @include large-and-up {
-      flex-direction: inherit;
+      flex-direction: row-reverse;
     }
   }
 
-  &-text {
-    --footer--copyright--text-- {
-      color: $grey-10;
-    }
+  &__footer-links {
+    margin-bottom: 24px;
+    width: 100%;
+    text-align: left;
+    column-count: 1;
 
-    a --footer--copyright--text--link-- {
-      color: $grey-10;
+    li {
+      font-size: $font-size-sm;
 
-      &:hover {
-        color: $grey-10;
+      &:not(:last-child) {
+        margin-bottom: 24px;
       }
     }
 
-    font-size: $font-size-xxs;
-    line-height: 1.4;
-    word-break: keep-all;
-    width: auto;
-    margin-bottom: 0;
-    margin-bottom: 12px;
-
-    &:last-child {
-      margin-bottom: 0;
+    @include medium-and-up {
+      font-size: $font-size-md;
+      column-count: 3;
     }
 
     @include large-and-up {
-      margin-bottom: 0;
+      column-count: 2;
+    }
+  }
 
-      &:after {
-        content: "\007C";
-        display: inline-block;
-        margin: 0 14px;
+  &__copyright {
+    --footer--copyright-- {
+      background: $active-blue;
+    }
+
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    .icon {
+      top: 0;
+
+      --footer--copyright--icon-- {
+        fill: $white;
+      }
+    }
+
+    &-wrapper {
+      font-size: $font-size-xxs;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+
+      @include large-and-up {
+        flex-direction: inherit;
+      }
+    }
+
+    &-text {
+      --footer--copyright--text-- {
+        color: $grey-10;
       }
 
-      &:last-of-type:after {
-        display: none;
+      a --footer--copyright--text--link-- {
+        color: $grey-10;
+
+        &:hover {
+          color: $grey-10;
+        }
+      }
+
+      font-size: $font-size-xxs;
+      line-height: 1.4;
+      word-break: keep-all;
+      width: auto;
+      margin-bottom: 0;
+      margin-bottom: 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      @include large-and-up {
+        margin-bottom: 0;
+
+        &:after {
+          content: "\007C";
+          display: inline-block;
+          margin: 0 14px;
+        }
+
+        &:last-of-type:after {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &--minimal {
+    .site-footer {
+      &__copyright-wrapper {
+        @include large-and-up {
+          display: flex;
+          justify-content: center;
+        }
       }
     }
   }
