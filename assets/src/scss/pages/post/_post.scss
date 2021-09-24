@@ -1,15 +1,29 @@
 .single-post,
 .single-attachment,
 .single-idea {
+  @include large-and-up {
+    .post-content,
+    .author-block,
+    .page-header {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 776px;
+    }
+  }
+
+  @include x-large-and-up {
+    .post-content,
+    .author-block,
+    .page-header {
+      max-width: 736px;
+    }
+  }
+
   .skewed-overlay {
     mask-image: none;
   }
 
   .page-header {
-    .page-header-background {
-      opacity: .3;
-    }
-
     h1 {
       color: $grey-80;
       hyphens: none;
@@ -19,7 +33,7 @@
       color: $grey-40;
       font-size: 14px;
       font-family: $roboto;
-      border-bottom: solid 1px $grey-20;
+      border-bottom: 1px solid transparentize($grey-20, 0.5);
       padding-bottom: 16px;
       line-height: 24px;
       margin-bottom: 16px;

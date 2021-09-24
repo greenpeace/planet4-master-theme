@@ -3,6 +3,14 @@
   margin: 24px 0;
   z-index: 3;
 
+  @include large-and-up {
+    max-width: 776px;
+  }
+
+  @include x-large-and-up {
+    max-width: 736px;
+  }
+
   .cover-card {
     width: auto;
     position: relative;
