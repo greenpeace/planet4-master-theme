@@ -3,15 +3,11 @@
 {% block content %}
 
 	<div class="clearfix"></div>
-	<div class="skewed-overlay"></div>
 
 	<article id="post-{{ post.ID }}">
 
-		<header class="page-header">
-			<div class="page-header-background">
-				{#<img src="{{ background_image }}" class="page-header-image" alt="Image alt data"/>#}
-			</div>
-			<div class="container">
+		<div class="container">
+			<header class="page-header">
 				<div class="top-page-tags">
 					{% if ( page_type ) %}
 						<a
@@ -82,8 +78,8 @@
 					{% endif %}
 				</div>
 				{% include "blocks/share_buttons.twig" with {social:post.share_meta, utm_medium: 'share'} %}
-			</div>
-		</header>
+			</header>
+		</div>
 
 		<!-- Post Block Start -->
 		<div class="container">

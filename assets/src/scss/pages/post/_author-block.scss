@@ -5,6 +5,14 @@
   border-radius: 4px;
   margin-bottom: 24px;
 
+  @include large-and-up {
+    max-width: 776px;
+  }
+
+  @include x-large-and-up {
+    max-width: 736px;
+  }
+
   > .author-block-image {
     display: none;
   }
