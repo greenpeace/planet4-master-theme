@@ -98,12 +98,11 @@
 
 		{% include "blocks/author_profile.twig" with {post:post} %}
 
-
-		<section class="articles-block">
-			{% if ( post.articles ) %}
+		{% if ( post.articles ) %}
+			<section class="container post-articles-block">
 				{{ fn('do_blocks', post.articles )|raw }}
-			{% endif %}
-		</section>
+			</section>
+		{% endif %}
 		{% if ( show_comments ) %}
 			{% include "comments_section.twig" with {comments:post.get_comments()} %}
 		{% endif %}
