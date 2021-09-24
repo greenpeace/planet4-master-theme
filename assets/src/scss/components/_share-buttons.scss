@@ -21,34 +21,46 @@
     .icon {
       top: -2px;
     }
-
-    &:hover {
-      color: $grey-10;
-    }
-
-    &:active {
-      position: relative;
-      top: 2px;
-      box-shadow: none;
-      color: $grey-10;
-      outline: none;
-    }
   }
 
   .twitter {
-    background: $twitter none repeat scroll 0 0;
+    background: $twitter;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: darken($twitter, 20%);
+    }
   }
 
   .facebook {
-    background: $facebook none repeat scroll 0 0;
+    background: $facebook;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: darken($facebook, 20%);
+    }
   }
 
   .email {
-    background: $email none repeat scroll 0 0;
+    background: $email;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: darken($email, 20%);
+    }
   }
 
   .whatsapp {
-    background: $whatsapp none repeat scroll 0 0;
+    background: $whatsapp;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: darken($whatsapp, 20%);
+    }
 
     .icon {
       font-size: 1.5rem;
