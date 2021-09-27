@@ -48,22 +48,24 @@
     line-height: 1.5;
     margin: 0;
 
-    p {
-      margin-bottom: 0;
+    .collapsing {
+      display: none;
     }
 
-    .hidden {
-      display: none !important;
-      visibility: hidden;
-    }
-
-    .post-author-description-show-more,
-    .post-author-description-show-less {
+    .post-author-description-button {
       outline: none;
       border: none;
       padding: 0;
       display: block;
       color: $link-color;
+
+      .show-less {
+        display: none;
+      }
+
+      .show-more {
+        display: inline-block;
+      }
 
       &:after {
         content: "";
@@ -75,14 +77,27 @@
         height: 6px;
       }
 
+      &[aria-expanded="true"] {
+        .show-less {
+          display: inline-block;
+        }
+
+        .show-more {
+          display: none;
+        }
+
+        &:after {
+          transform: rotate(180deg);
+        }
+      }
+
       &:hover {
         color: $link-color;
-        text-decoration: underline;
-      }
-    }
 
-    .post-author-description-show-less:after {
-      transform: rotate(180deg);
+        span {
+          text-decoration: underline;
+        }
+      }
     }
   }
 
