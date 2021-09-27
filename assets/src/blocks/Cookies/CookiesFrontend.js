@@ -67,8 +67,19 @@ export const CookiesFrontend = props => {
   const updateNoTrackCookie = () => {
     if (hasConsent) {
       removeCookie('no_track');
+      if (ENABLE_ANALYTICAL_COOKIES) {
+        if (parseInt(consentCookie) === 4) {
+          writeCookie('active_consent_choice', '1');
+          hideCookieNotice();
+        }
+      } else if (parseInt(consentCookie) === 2) {
+        writeCookie('active_consent_choice', '1');
+        hideCookieNotice();
+      }
     } else if (userRevokedNecessary) {
       writeCookie('no_track', 'true');
+      removeCookie('active_consent_choice');
+      showCookieNotice();
     }
   };
   useEffect(updateNoTrackCookie, [hasConsent, userRevokedNecessary, userRevokedAnalytical]);
@@ -87,15 +98,6 @@ export const CookiesFrontend = props => {
     });
   }
 
-  const toggleCookieNotice = () => {
-    if (hasConsent) {
-      hideCookieNotice();
-    } else {
-      showCookieNotice();
-    }
-  };
-  useEffect(toggleCookieNotice, [hasConsent]);
-
   const toggleHubSpotConsent = () => {
     if (!allCookiesChecked && userRevokedAllCookies) {
       const _hsp = window._hsp = window._hsp || [];
@@ -103,6 +105,14 @@ export const CookiesFrontend = props => {
     }
   }
   useEffect(toggleHubSpotConsent, [allCookiesChecked, userRevokedAllCookies])
+
+  const updateActiveConsentChoice = () => {
+    if (allCookiesChecked || analyticalCookiesChecked) {
+      writeCookie('active_consent_choice', '1');
+      hideCookieNotice();
+    }
+  }
+  useEffect(updateActiveConsentChoice, [allCookiesChecked, analyticalCookiesChecked])
 
   return <Fragment>
     <section className={`block cookies-block ${className ?? ''}`}>
