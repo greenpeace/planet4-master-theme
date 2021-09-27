@@ -30,12 +30,19 @@
 				<div itemprop="description">
 					{# If needed, we first show a truncated version of the description, with an ellipsis and a "Show more" button #}
 					{% if ( post.author.description|length > author_bio_char_limit ) %}
-						{% set post_author_description_teaser = post.author.description|slice(0, author_bio_char_limit)|join(' ') ~ '<span class="post-author-description-ellipsis">&hellip;</span>' %}
+						{% set post_author_description_teaser = post.author.description|slice(0, author_bio_char_limit)|join(' ') ~ '<span class="collapse show multi-collapse">&hellip;</span>' %}
 						{% set post_author_description_remainder = post.author.description|slice(author_bio_char_limit)|join(' ') %}
 						{{ post_author_description_teaser|raw }}
-						<span class="post-author-description-remainder hidden">{{ post_author_description_remainder|raw }}</span>
-						<button class="post-author-description-show-more">{{ __('Show more', 'planet4-master-theme') }}</button>
-						<button class="post-author-description-show-less hidden">{{ __('Show less', 'planet4-master-theme') }}</button>
+						<span class="collapse multi-collapse">{{ post_author_description_remainder|raw }}</span>
+						<button
+							class="post-author-description-button"
+							data-bs-toggle="collapse"
+							data-bs-target=".multi-collapse"
+							aria-expanded="false"
+						>
+							<span class="show-more">{{ __('Show more', 'planet4-master-theme') }}</span>
+							<span class="show-less">{{ __('Show less', 'planet4-master-theme') }}</span>
+						</button>
 					{% else %}
 						{{ post.author.description|raw }}
 					{% endif %}

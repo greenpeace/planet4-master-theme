@@ -6,7 +6,6 @@ import { setupPDFIcon } from './pdf_icon';
 import { setupSearch } from './search';
 import { setupExternalLinks } from './external_links';
 import { setupEnhancedDonateButton } from './enhancedDonateButton';
-import { setupPostAuthorDescription } from './postAuthorDescription';
 
 import 'bootstrap';
 
@@ -27,5 +26,4 @@ jQuery(($) => {
   setupSearch($);
   setupExternalLinks($);
   setupEnhancedDonateButton();
-  setupPostAuthorDescription();
 });
