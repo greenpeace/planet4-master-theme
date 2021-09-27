@@ -49,6 +49,8 @@
 
 		{{ function('wp_footer') }}
 	{% endblock %}
-	<script id="countries_script" type="application/json">{% include "countries.json" %}</script>
+	{% if not new_design_country_selector %}
+		<script id="countries_script" type="application/json">{% include "countries.json" %}</script>
+	{% endif %}
 </body>
 </html>

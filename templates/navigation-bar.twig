@@ -19,6 +19,7 @@
 			</span>
 		</button>
 		<ul id="navbar-dropdown" class="navbar-dropdown list-unstyled">
+			{% if not new_design_country_selector %}
 			<li class="nav-item" id="country-select">
 				<button class="close-navbar-dropdown"
 					data-ga-category="Menu Navigation"
@@ -45,6 +46,7 @@
 						<span class="visually-hidden">{{ __( 'Change Country', 'planet4-master-theme' ) }}</span>
 				</button>
 			</li>
+			{% endif %}
 			{% for key,item in navbar_menu.get_items %}
 				{% if 'wpml-ls-item' in item.class %}
 					{% if key == 0 %}

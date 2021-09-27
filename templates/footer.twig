@@ -1,4 +1,9 @@
 <footer id="footer" class="site-footer site-footer--{{ nav_type }}">
+	{% if new_design_country_selector and nav_type != 'minimal' %}
+	<div id="country-selector" class="site-footer__country-selector">
+		{% include 'footer_country_selector.twig' %}
+	</div>
+	{% endif %}
 	<div class="container d-flex flex-column flex-lg-row-reverse">
 		{% include 'footer_social_media.twig' %}
 		{% if nav_type != 'minimal' %}
