@@ -24,9 +24,12 @@
   }
 
   .page-header {
-    h1 {
+    .page-header-title {
       color: $grey-80;
       hyphens: none;
+      max-width: none;
+      margin-bottom: 8px;
+      line-height: 1.2;
     }
 
     .single-post-meta {
