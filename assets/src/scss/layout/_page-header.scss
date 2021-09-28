@@ -50,6 +50,16 @@
     margin: 0;
   }
 
+  .container > *:not(.row) {
+    @include medium-and-up {
+      max-width: 80%;
+    }
+
+    @include x-large-and-up {
+      max-width: 60%;
+    }
+  }
+
   h3 _-- {
     margin-bottom: 20px;
 
@@ -116,12 +126,26 @@
   font-family: $roboto;
   font-weight: bold;
   text-transform: none;
-  margin-bottom: 8px;
-  line-height: 1.2;
+  max-width: 80%;
+  margin-bottom: 10px;
+
+  @include medium-and-up {
+    margin-bottom: 12px;
+  }
+
+  @include large-and-up {
+    margin-bottom: 20px;
+  }
+
+  @include x-large-and-up {
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
 }
 
 .page-header-subtitle {
   line-height: 1.3;
+  max-width: 80%;
   margin: 0;
 
   @include medium-and-up {
