@@ -5,100 +5,8 @@
   border-radius: 4px;
   margin-bottom: 24px;
 
-  @include large-and-up {
-    max-width: 776px;
-  }
-
-  @include x-large-and-up {
-    max-width: 736px;
-  }
-
   > .author-block-image {
     display: none;
-  }
-
-  .author-block-info-title {
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 16px;
-  }
-
-  .author-block-image {
-    width: 200px;
-    height: 200px;
-    margin: auto;
-
-    img {
-      width: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-  }
-
-  .author-block-info-name {
-    font-size: 1.0625rem;
-    font-weight: bold;
-    margin: 16px 0;
-    text-align: center;
-  }
-
-  .author-block-info {
-    font-size: $font-size-sm;
-    line-height: 1.5;
-    margin: 0;
-
-    .collapsing {
-      display: none;
-    }
-
-    .post-author-description-button {
-      outline: none;
-      border: none;
-      padding: 0;
-      display: block;
-      color: $link-color;
-
-      .show-less {
-        display: none;
-      }
-
-      .show-more {
-        display: inline-block;
-      }
-
-      &:after {
-        content: "";
-        background-image: url("../../images/blue-chevron.svg");
-        display: inline-block;
-        vertical-align: middle;
-        margin-inline-start: 8px;
-        width: 10px;
-        height: 6px;
-      }
-
-      &[aria-expanded="true"] {
-        .show-less {
-          display: inline-block;
-        }
-
-        .show-more {
-          display: none;
-        }
-
-        &:after {
-          transform: rotate(180deg);
-        }
-      }
-
-      &:hover {
-        color: $link-color;
-
-        span {
-          text-decoration: underline;
-        }
-      }
-    }
   }
 
   @include medium-and-up {
@@ -111,17 +19,111 @@
       margin-inline-end: 32px;
       margin-top: 0;
     }
+  }
 
-    .author-block-info {
-      .author-block-info-title,
-      .author-block-info-name {
-        text-align: inherit;
-        margin: 8px 0;
-      }
+  @include large-and-up {
+    max-width: 776px;
+  }
 
-      .author-block-image {
-        display: none;
-      }
+  @include x-large-and-up {
+    max-width: 736px;
+  }
+}
+
+.author-block-info-title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.author-block-image {
+  width: 200px;
+  height: 200px;
+  margin: auto;
+
+  img {
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+.author-block-info-name {
+  font-size: 1.0625rem;
+  font-weight: bold;
+  margin: 16px 0;
+  text-align: center;
+}
+
+.author-block-info-name,
+.author-block-info-title {
+  @include medium-and-up {
+    text-align: inherit;
+    margin: 8px 0;
+  }
+}
+
+.author-block-info {
+  font-size: $font-size-sm;
+  line-height: 1.5;
+  margin: 0;
+
+  @include medium-and-up {
+    > .author-block-image {
+      display: none;
+    }
+  }
+
+  .collapsing {
+    display: none;
+  }
+}
+
+.author-block-description-button {
+  outline: none;
+  border: none;
+  padding: 0;
+  display: block;
+  color: $link-color;
+
+  .show-less {
+    display: none;
+  }
+
+  .show-more {
+    display: inline-block;
+  }
+
+  &:after {
+    content: "";
+    background-image: url("../../images/blue-chevron.svg");
+    display: inline-block;
+    vertical-align: middle;
+    margin-inline-start: 8px;
+    width: 10px;
+    height: 6px;
+  }
+
+  &[aria-expanded="true"] {
+    .show-less {
+      display: inline-block;
+    }
+
+    .show-more {
+      display: none;
+    }
+
+    &:after {
+      transform: rotate(180deg);
+    }
+  }
+
+  &:hover {
+    color: $link-color;
+
+    span {
+      text-decoration: underline;
     }
   }
 }
