@@ -18,7 +18,7 @@ requireAll(require.context('../images/icons/', true, /\.svg$/));
 window.$ = $ || jQuery;
 
 jQuery(function($) {
-  setupCookies($);
+  setupCookies();
   setupCountrySelect($);
   setupHeader($);
   setupLoadMore($);
