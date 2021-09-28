@@ -1,41 +1,44 @@
 <footer id="footer" class="site-footer site-footer--{{ nav_type }}">
-	<div class="container">
+	<div class="container d-flex flex-column flex-lg-row-reverse">
 		{% include 'footer_social_media.twig' %}
 		{% if nav_type != 'minimal' %}
-			<ul class="list-unstyled footer-links">
-				{% for primary in footer_primary_menu %}
-					<li>
-						<a href="{{ primary.url }}"
-							data-ga-category="Footer Navigation"
-							data-ga-action="Primary Links"
-							data-ga-label="{{ primary.title }}">
-							{{ primary.title }}
-						</a>
-					</li>
-				{% endfor %}
-			</ul>
+			<nav class="footer-menu">
+				<ul class="list-unstyled">
+					{% for primary in footer_primary_menu %}
+						<li>
+							<a href="{{ primary.url }}"
+								data-ga-category="Footer Navigation"
+								data-ga-action="Primary Links"
+								data-ga-label="{{ primary.title }}">
+								{{ primary.title }}
+							</a>
+						</li>
+					{% endfor %}
 
-			<ul class="list-unstyled footer-links-secondary">
-				{% for secondary in footer_secondary_menu %}
-					<li>
-						<a href="{{ secondary.url }}"
-							data-ga-category="Footer Navigation"
-							data-ga-action="Secondary Links"
-							data-ga-label="{{ secondary.title }}">
-							{{ secondary.title }}
-						</a>
-					</li>
-				{% endfor %}
-			</ul>
+					{% for secondary in footer_secondary_menu %}
+						<li>
+							<a href="{{ secondary.url }}"
+								data-ga-category="Footer Navigation"
+								data-ga-action="Secondary Links"
+								data-ga-label="{{ secondary.title }}">
+								{{ secondary.title }}
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</nav>
 		{% endif %}
+	</div>
 
-		<p class="copyright-text col-md-8" role="text">
-			{{ copyright_text_line1|e('wp_kses_post')|raw }}
-		</p>
-
-		<p class="gp-year" role="text">
-			{{ 'creative-commons'|svgicon }}
-			{{ copyright_text_line2|e('wp_kses_post')|raw }} {{"now"|date('Y')}}
-		</p>
+	<div class="copyright">
+		<div class="container d-flex flex-column flex-xl-row">
+			<span role="text">
+				{{ 'creative-commons'|svgicon }}
+				{{ copyright_text_line2|e('wp_kses_post')|raw }} {{"now"|date('Y')}}
+			</span>
+			<span role="text">
+				{{ copyright_text_line1|e('wp_kses_post')|raw }}
+			</span>
+		</div>
 	</div>
 </footer>

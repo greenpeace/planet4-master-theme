@@ -1,25 +1,26 @@
 .site-footer {
-  --footer-- {
+  _-- {
     font-family: $roboto;
     background: $dark-blue;
+    color: $white;
   }
-  padding: 45px 0 $n25;
   position: relative;
   z-index: 2;
   text-align: center;
   transition: margin 1s;
+  padding-top: 24px;
   clear: both;
   line-height: 0;
 
-  @include medium-and-up {
-    padding: $n25 0 $n20;
+  a _-- {
+    color: inherit;
+
+    &:hover {
+      color: $white;
+    }
   }
 
-  @include large-and-up {
-    padding: 55px 0 $n25;
-  }
-
-  a --footer--links-- {
+  .icon _-- {
     color: inherit;
 
     &:hover {
@@ -32,135 +33,89 @@
   }
 }
 
-.footer-links,
-.footer-links-secondary {
-  li {
-    line-height: 2rem;
+.footer-menu {
+  width: 100%;
+  margin-bottom: 24px;
+
+  ul {
+    width: 100%;
+    text-align: left;
+    column-count: 1;
+
     @include medium-and-up {
-      display: inline-block;
-
-      &:after {
-        content: "\002F";
-        display: inline-block;
-        margin: 0 16px;
-      }
-
-      &:last-of-type:after {
-        display: none;
-      }
+      font-size: $font-size-md;
+      column-count: 3;
     }
 
     @include large-and-up {
-      &:after {
-        margin: 0 24px 0;
-      }
+      column-count: 2;
     }
-  }
-}
-
-.footer-links {
-  --footer-menu-- {
-    color: $white;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 16px;
   }
 
   li {
-    font-size: $font-size-md;
-  }
-
-  @include medium-and-up {
     font-size: $font-size-sm;
-    margin-bottom: 16px;
-  }
 
-  @include large-and-up {
-    font-size: $font-size-md;
+    &:not(:last-child) {
+      margin-bottom: 24px;
+    }
   }
 }
 
-.footer-links-secondary {
-  --footer-menu-secondary-- {
-    color: $grey-10;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-  }
-
-  @include medium-and-up {
-    font-size: $font-size-xxs;
-  }
-
-  @include large-and-up {
-    font-size: $font-size-sm;
-  }
-}
-
-.copyright-text {
-  --footer--copyright-- {
+.site-footer .copyright {
+  _-- {
+    background: $active-blue;
     color: $grey-10;
   }
+
+  padding-top: 16px;
+  padding-bottom: 16px;
   font-size: $font-size-xxs;
-  line-height: 1.3;
-  margin-left: auto;
-  margin-right: auto;
-  word-break: keep-all;
-  width: 80%;
-  padding: 0;
+  text-align: left;
 
-  @include medium-and-up {
-    line-height: 1;
+  .icon {
+    _-- {
+      color: inherit;
+    }
+
+    margin-right: 4px;
+    vertical-align: initial;
   }
 
-  i {
-    display: block;
-    font-size: $font-size-xl;
-    margin-bottom: 10px;
+  a _-- {
+    color: $grey-10;
 
-    @include medium-and-up {
-      display: inline-block;
-      position: relative;
-      bottom: -.15em;
-      margin-right: 5px;
+    &:hover {
+      color: $grey-10;
     }
   }
 
-  a --footer--copyright--link-- {
-    color: $white;
-  }
-}
+  span {
+    font-size: $font-size-xxxs;
+    line-height: 1.4;
+    word-break: keep-all;
+    width: auto;
+    margin-bottom: 12px;
 
-.gp-year {
-  --footer--copyright--year-- {
-    color: $white;
-  }
-  font-size: $font-size-xxs;
-  text-transform: none;
+    &:last-child {
+      margin-bottom: 0;
+    }
 
-  .icon {
-    top: -.125em;
-  }
+    @include x-large-and-up {
+      margin-bottom: 0;
 
-  @include medium-and-up {
-    font-size: $font-size-xxs;
-  }
-
-  @include medium-and-up {
-    margin-top: 15px;
+      &:not(:last-of-type):after {
+        content: "\007C";
+        display: inline-block;
+        margin: 0 14px;
+      }
+    }
   }
 }
 
 .site-footer--minimal {
-  padding: 40px 0;
-  line-height: 1;
-
-  .gp-year {
-    font-size: $font-size-xxs;
-    font-family: $lora;
-    margin: 40px 0 30px 0;
-  }
-
-  .icon _-- {
-    fill: $white;
+  .copyright .container {
+    @include large-and-up {
+      justify-content: center;
+    }
   }
 }
