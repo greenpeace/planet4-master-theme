@@ -2,7 +2,7 @@
 	<div class="container clearfix">
 		<div class="author-block" itemscope itemtype="http://schema.org/Person">
 			{% if ( post.author.avatar ) %}
-				<figure class="author-block-image">
+				<figure class="author-block-image d-none d-sm-none d-md-block">
 					<img
 						itemprop="image"
 						src="{{ fn('get_avatar_url', post.author.id, {'size' : 294 }) }}"
@@ -13,7 +13,7 @@
 			<div class="author-block-info">
 				<h2 class="author-block-info-title">{{ __( 'About the author', 'planet4-master-theme' ) }}</h2>
 				{% if ( post.author.avatar ) %}
-					<figure class="author-block-image">
+					<figure class="author-block-image d-block d-sm-block d-md-none">
 						<img
 							itemprop="image"
 							src="{{ fn('get_avatar_url', post.author.id, {'size' : 294 }) }}"
