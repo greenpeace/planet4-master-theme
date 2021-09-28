@@ -5,16 +5,11 @@
   border-radius: 4px;
   margin-bottom: 24px;
 
-  > .author-block-image {
-    display: none;
-  }
-
   @include medium-and-up {
     display: flex;
     padding: 24px;
 
     > .author-block-image {
-      display: block;
       min-width: 200px;
       margin-inline-end: 32px;
       margin-top: 0;
@@ -68,12 +63,6 @@
   font-size: $font-size-sm;
   line-height: 1.5;
   margin: 0;
-
-  @include medium-and-up {
-    > .author-block-image {
-      display: none;
-    }
-  }
 
   .collapsing {
     display: none;
