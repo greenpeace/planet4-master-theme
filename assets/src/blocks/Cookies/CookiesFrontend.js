@@ -1,6 +1,6 @@
 import { Fragment } from '@wordpress/element';
 import { FrontendRichText } from '../../components/FrontendRichText/FrontendRichText';
-import { removeCookie, useCookie, writeCookie, readCookie } from './useCookie';
+import { removeCookie, useCookie, writeCookie } from './useCookie';
 import { useState, useEffect } from 'react';
 
 const { __ } = wp.i18n;
@@ -10,8 +10,17 @@ const ALL_COOKIES = '2';
 const NECESSARY_ANALYTICAL = '3';
 const NECESSARY_ANALYTICAL_MARKETING = '4';
 
-// Planet4 settings(Planet4>>Cookies text>>Enable Analytical Cookies).
+const dataLayer = window.dataLayer || [];
+
+function gtag() {
+  dataLayer.push(arguments);
+};
+
+// Planet4 settings(Planet 4 > Cookies > Enable Analytical Cookies).
 const ENABLE_ANALYTICAL_COOKIES = window.p4bk_vars.enable_analytical_cookies;
+
+// Planet4 settings (Planet 4 > Analytics > Enable Google Consent Mode).
+const ENABLE_GOOGLE_CONSENT_MODE = window.p4bk_vars.enable_google_consent_mode;
 
 const showCookieNotice = () => {
   // the .cookie-notice element belongs to the P4 Master Theme
@@ -63,6 +72,20 @@ export const CookiesFrontend = props => {
     }
   };
   useEffect(updateNoTrackCookie, [hasConsent, userRevokedNecessary, userRevokedAnalytical]);
+
+  const updateConsent = (key, granted) => {
+    if (!ENABLE_GOOGLE_CONSENT_MODE) {
+      return;
+    }
+
+    gtag('consent', 'update', {
+      [key]: granted ? 'granted' : 'denied',
+    });
+    dataLayer.push({
+      'event': 'updateConsent',
+      [key]: granted ? 'granted' : 'denied',
+    });
+  }
 
   const toggleCookieNotice = () => {
     if (hasConsent) {
@@ -122,6 +145,12 @@ export const CookiesFrontend = props => {
             name="necessary_cookies"
             onChange={ () => {
               if (necessaryCookiesChecked) {
+                if (allCookiesChecked) {
+                  updateConsent('ad_storage', false);
+                }
+                if (analyticalCookiesChecked) {
+                  updateConsent('analytics_storage', false);
+                }
                 setUserRevokedNecessary(true);
                 setUserRevokedAllCookies(true);
                 removeConsentCookie();
@@ -170,7 +199,8 @@ export const CookiesFrontend = props => {
             type="checkbox"
             tabIndex={isSelected ? '-1' : null}
             name="analytical_cookies"
-            onChange={ () => {
+            onChange={() => {
+              updateConsent('analytics_storage', !analyticalCookiesChecked);
               if (analyticalCookiesChecked) {
                 setUserRevokedAnalytical(true);
                 setUserRevokedAllCookies(true);
@@ -224,6 +254,7 @@ export const CookiesFrontend = props => {
             type="checkbox"
             tabIndex={isSelected ? '-1' : null}
             onChange={ () => {
+              updateConsent('ad_storage', !allCookiesChecked);
               if (allCookiesChecked) {
                 setUserRevokedAllCookies(true);
                 if (ENABLE_ANALYTICAL_COOKIES && analyticalCookiesChecked) {
