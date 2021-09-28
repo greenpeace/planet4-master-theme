@@ -29,7 +29,9 @@
 
 				<div itemprop="description">
 					{# If needed, we first show a truncated version of the description, with an ellipsis and a "Show more" button #}
-					{% if ( post.author.description|length > author_bio_char_limit ) %}
+					{% if ( post.author.description|length <= author_bio_char_limit ) %}
+						{{ post.author.description|raw }}
+					{% else %}
 						{% set post_author_description_teaser = post.author.description|slice(0, author_bio_char_limit)|join(' ') ~ '<span class="collapse show multi-collapse">&hellip;</span>' %}
 						{% set post_author_description_remainder = post.author.description|slice(author_bio_char_limit)|join(' ') %}
 						{{ post_author_description_teaser|raw }}
@@ -43,8 +45,6 @@
 							<span class="show-more">{{ __('Show more', 'planet4-master-theme') }}</span>
 							<span class="show-less">{{ __('Show less', 'planet4-master-theme') }}</span>
 						</button>
-					{% else %}
-						{{ post.author.description|raw }}
 					{% endif %}
 				</div>
 			</div>
