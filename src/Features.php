@@ -24,6 +24,8 @@ class Features {
 
 	public const BETA_BLOCKS = 'beta_blocks';
 
+	public const WP_TEMPLATE_EDITOR = 'wp_template_editor';
+
 	/**
 	 * Get the features options page settings.
 	 *
@@ -93,12 +95,21 @@ class Features {
 				'type' => 'checkbox',
 			],
 			[
-				'name' => __( 'Allow beta blocks in post editor.', 'planet4-master-theme-backend' ),
+				'name' => __( 'Allow beta blocks in post editor', 'planet4-master-theme-backend' ),
 				'desc' => __(
 					'If enabled, you can use early or unstable versions of blocks in the post editor. These will be in the "Planet 4 Blocks - BETA" category.',
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::BETA_BLOCKS,
+				'type' => 'checkbox',
+			],
+			[
+				'name' => __( 'Enable WordPress 5.8 template editor', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'UNSTABLE: Enable the WordPress "template editor" to allow changing the outer template of pages.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::WP_TEMPLATE_EDITOR,
 				'type' => 'checkbox',
 			],
 		];
