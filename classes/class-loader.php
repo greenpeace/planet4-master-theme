@@ -167,8 +167,10 @@ final class Loader {
 		// Set color palette.
 		add_action( 'admin_init', [ $this, 'set_color_palette' ] );
 
+		global $wp_version;
+		$category_filter = version_compare( $wp_version, '5.8', '>=' ) ? 'block_categories_all' : 'block_categories';
 		// Register a block category.
-		add_filter( 'block_categories', [ $this, 'register_block_category' ], 10, 2 );
+		add_filter( $category_filter, [ $this, 'register_block_category' ], 10, 2 );
 		// Provide hook for other plugins.
 		do_action( 'p4gbks_plugin_loaded' );
 	}
