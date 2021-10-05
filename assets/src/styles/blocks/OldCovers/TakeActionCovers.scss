@@ -168,10 +168,10 @@
 
   &.action-card {
     margin-bottom: $space-lg;
-  }
 
-  &.dark-card-bg {
-    color: $white;
+    .cover-card-heading {
+      color: $white;
+    }
   }
 
   & > * {
@@ -215,7 +215,7 @@
     transition: box-shadow 150ms linear;
     padding-bottom: 70px;
 
-    &:not(.single-cover) {
+    &:not(.action-card) {
       box-shadow: none;
 
       &:hover {

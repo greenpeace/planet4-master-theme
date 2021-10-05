@@ -22,71 +22,61 @@ class TakeActionBoxout extends Base_Block {
 	const BLOCK_NAME = 'take-action-boxout';
 
 	/**
-	 * Register shortcake shortcode.
-	 *
-	 * @param array  $attributes Shortcode attributes.
-	 * @param string $content Content.
-	 *
-	 * @return mixed
-	 */
-	public function add_block_shortcode( $attributes, $content ) {
-		$attributes = shortcode_atts(
-			[
-				'take_action_page'    => 0,
-				'custom_title'        => '',
-				'custom_excerpt'      => '',
-				'custom_link'         => '',
-				'custom_link_text'    => '',
-				'custom_link_new_tab' => false,
-				'tag_ids'             => [],
-				'background_image'    => 0,
-			],
-			$attributes,
-			'shortcake_take-action-boxout'
-		);
-
-		return $this->render( $attributes );
-	}
-
-	/**
 	 * TakeActionBoxout constructor.
 	 */
 	public function __construct() {
-		add_shortcode( 'shortcake_take-action-boxout', [ $this, 'add_block_shortcode' ] );
+		add_action( 'init', [ $this, 'register_takeactionboxout_block' ] );
+	}
 
+	/**
+	 * Register Take action boxout block.
+	 */
+	public function register_takeactionboxout_block() {
 		register_block_type(
 			self::get_full_block_name(),
 			[
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => [ $this, 'render' ],
 				'attributes'      => [
-					'take_action_page'    => [
+					'take_action_page' => [
 						'type' => 'integer',
 					],
-					'custom_title'        => [
+					'title'            => [
 						'type' => 'string',
 					],
-					'custom_excerpt'      => [
+					'excerpt'          => [
 						'type' => 'string',
 					],
-					'custom_link'         => [
+					'link'             => [
 						'type' => 'string',
 					],
-					'custom_link_text'    => [
+					'linkText'         => [
 						'type' => 'string',
 					],
-					'custom_link_new_tab' => [
+					'newTab'           => [
 						'type'    => 'boolean',
 						'default' => false,
 					],
-					'tag_ids'             => [
+					'tag_ids'          => [
 						'type'  => 'array',
 						'items' => [
 							'type' => 'integer', // Array definitions require an item type.
 						],
 					],
-					'background_image'    => [
+					'imageId'          => [
 						'type' => 'integer',
+					],
+					'imageUrl'         => [
+						'type' => 'string',
+					],
+					'imageAlt'         => [
+						'type' => 'string',
+					],
+					'tags'             => [
+						'type'  => 'array',
+						'items' => [
+							'type' => 'object',
+						],
 					],
 				],
 			]
@@ -107,7 +97,9 @@ class TakeActionBoxout extends Base_Block {
 		if ( empty( $page_id ) ) {
 			$tag_ids = $fields['tag_ids'] ?? '';
 
-			if ( empty( $tag_ids ) || 1 !== preg_match( '/^\d+(,\d+)*$/', implode( ' ', $tag_ids ) ) ) {
+			if ( isset( $fields['tags'] ) && ! empty( $fields['tags'] ) ) {
+				$tags = $fields['tags'];
+			} elseif ( empty( $tag_ids ) || 1 !== preg_match( '/^\d+(,\d+)*$/', implode( ' ', $tag_ids ) ) ) {
 				$tags = [];
 			} else {
 				// Explode comma separated list of tag ids and get an array of \WP_Terms objects.
@@ -123,18 +115,21 @@ class TakeActionBoxout extends Base_Block {
 				}
 			}
 
-			if ( ! empty( $fields['background_image'] ) ) {
+			if ( isset( $fields['imageUrl'] ) ) {
+				$src      = $fields['imageUrl'];
+				$alt_text = $fields['imageAlt'] ?? '';
+			} elseif ( ! empty( $fields['background_image'] ) ) {
 				list( $src ) = wp_get_attachment_image_src( $fields['background_image'], 'large' );
 				$alt_text    = get_post_meta( $fields['background_image'], '_wp_attachment_image_alt', true );
 			}
 
 			$block = [
 				'campaigns' => $tags,
-				'title'     => $fields['custom_title'] ?? '',
-				'excerpt'   => $fields['custom_excerpt'] ?? '',
-				'link'      => $fields['custom_link'] ?? '',
-				'new_tab'   => $fields['custom_link_new_tab'] ?? false,
-				'link_text' => $fields['custom_link_text'] ?? '',
+				'title'     => $fields['custom_title'] ?? $fields['title'] ?? '',
+				'excerpt'   => $fields['custom_excerpt'] ?? $fields['excerpt'] ?? '',
+				'link'      => $fields['custom_link'] ?? $fields['link'] ?? '',
+				'new_tab'   => $fields['custom_link_new_tab'] ?? $fields['newTab'] ?? false,
+				'link_text' => $fields['custom_link_text'] ?? $fields['linkText'] ?? '',
 				'image'     => $src ?? '',
 				'image_alt' => $alt_text ?? '',
 			];
@@ -201,5 +196,4 @@ class TakeActionBoxout extends Base_Block {
 
 		return $data;
 	}
-
 }

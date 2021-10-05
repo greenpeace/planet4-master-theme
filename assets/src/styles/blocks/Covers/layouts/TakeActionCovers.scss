@@ -24,10 +24,10 @@
 
   &.action-card {
     margin-bottom: $space-lg;
-  }
 
-  &.dark-card-bg {
-    color: $white;
+    .cover-card-heading {
+      color: $white;
+    }
   }
 
   &:hover {

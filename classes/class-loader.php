@@ -355,10 +355,11 @@ final class Loader {
 
 		// Variables reflected from PHP to JS.
 		$reflection_vars = [
-			'dateFormat'                => get_option( 'date_format' ),
-			'siteUrl'                   => site_url(),
-			'themeUrl'                  => get_template_directory_uri(),
-			'enable_analytical_cookies' => $option_values['enable_analytical_cookies'] ?? '',
+			'dateFormat'                     => get_option( 'date_format' ),
+			'siteUrl'                        => site_url(),
+			'themeUrl'                       => get_template_directory_uri(),
+			'enable_analytical_cookies'      => $option_values['enable_analytical_cookies'] ?? '',
+			'take_action_covers_button_text' => $option_values['take_action_covers_button_text'] ?? '',
 		];
 		wp_localize_script( 'planet4-blocks-editor-script', 'p4bk_vars', $reflection_vars );
 
