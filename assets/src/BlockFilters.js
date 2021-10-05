@@ -55,9 +55,13 @@ const addButtonBlockFilter = () => {
       const newAttributes = settings.attributes;
       // Set button block default style.
       newAttributes.className = Object.assign({ default: "is-style-secondary" }, newAttributes.className);
+      // Temporary fix for Gutenberg's bug
+      // https://github.com/WordPress/gutenberg/pull/33116
+      const newExample = settings.example;
+      newExample.attributes.backgroundColor = '';
 
       lodash.assign( settings, {
-        edit: P4ButtonEdit,
+        example: newExample,
         attributes: newAttributes,
         styles: p4ButtonStyle,
       } );
