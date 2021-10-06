@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "settings": {
+    "blocks": {
+      "core/button": {
+        "border": {
+          "customRadius": false
+        },
+        "color": {
+          "palette": [
+            {
+              "name": "Grey 80%",
+              "slug": "grey-80",
+              "color": "#020202"
+            },
+            {
+              "name": "White",
+              "slug": "white",
+              "color": "#ffffff"
+            },
+            {
+              "name": "Orange",
+              "slug": "orange",
+              "color": "#f36d3a"
+            },
+            {
+              "name": "Aquamarine",
+              "slug": "aquamarine",
+              "color": "#68dfde"
+            },
+            {
+              "name": "White",
+              "slug": "white",
+              "color": "#ffffff"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
