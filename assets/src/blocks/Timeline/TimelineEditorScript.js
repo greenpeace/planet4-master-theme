@@ -17,7 +17,7 @@ import { debounce } from 'lodash';
 
 const { RichText } = wp.blockEditor;
 const { __ } = wp.i18n;
-const TIMELINE_JS_VERSION = '3.8.10';
+const TIMELINE_JS_VERSION = '3.8.12';
 
 const positions = [
   {label: 'Bottom', value: 'bottom'},

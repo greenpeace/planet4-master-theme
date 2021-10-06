@@ -20,7 +20,7 @@ class Timeline extends Base_Block {
 	public const BLOCK_NAME = 'timeline';
 
 	/** @const string TIMELINE_JS_VERSION */
-	public const TIMELINE_JS_VERSION = '3.8.10';
+	public const TIMELINE_JS_VERSION = '3.8.12';
 
 	/**
 	 * Timeline constructor.
