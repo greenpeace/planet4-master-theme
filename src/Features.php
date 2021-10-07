@@ -26,6 +26,8 @@ class Features {
 
 	public const WP_TEMPLATE_EDITOR = 'wp_template_editor';
 
+	public const NEW_DESIGN_NAVBAR_CS = 'new_design_navbar_cs';
+
 	/**
 	 * Get the features options page settings.
 	 *
@@ -110,6 +112,15 @@ class Features {
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::WP_TEMPLATE_EDITOR,
+				'type' => 'checkbox',
+			],
+			[
+				'name' => __( 'Enable new Navigation bar and Country selector design', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'Enable the new Navigation bar and country selector designs as described in the <a href="https://p4-designsystem.greenpeace.org/05f6e9516/p/106cdb-navigation-bar" target="_blank">design system</a>.<br/>This might break your child theme, depending on how you extended the main templates and CSS.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::NEW_DESIGN_NAVBAR_CS,
 				'type' => 'checkbox',
 			],
 		];
