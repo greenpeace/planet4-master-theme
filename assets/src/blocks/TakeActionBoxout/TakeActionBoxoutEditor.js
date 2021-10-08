@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from '@wordpress/element';
+import { Fragment } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import { InspectorControls } from '@wordpress/block-editor';
 import {
@@ -40,7 +40,6 @@ export const TakeActionBoxoutEditor = ({
     imageUrl,
     imageId,
     imageAlt,
-    tags,
     className,
   } = attributes;
 
@@ -57,19 +56,13 @@ export const TakeActionBoxoutEditor = ({
   }, []);
 
   const tagsList = useSelect(select => {
-    const taxonomy_args = { hide_empty: false, per_page: 50 };
-    return select('core').getEntityRecords('taxonomy', 'post_tag', taxonomy_args) || [];
+    return select('core').getEntityRecords(
+      'taxonomy',
+      'post_tag',
+      { hide_empty: false, per_page: -1 },
+    ) || [];
   }, []);
-
-  const newImageUrl = useSelect(select => {
-    const imageData = select('core').getMedia(imageId);
-    return imageData?.source_url || '';
-  });
-
-  const newImageAlt = useSelect(select => {
-    const imageData = select('core').getMedia(imageId);
-    return imageData?.alt_text || '';
-  });
+  const tags = tag_ids.map(tagId => tagsList.find(({ id }) => id === tagId));
 
   const takeActionPageSelected = take_action_page && parseInt(take_action_page) > 0;
 
@@ -87,28 +80,6 @@ export const TakeActionBoxoutEditor = ({
     });
   }
 
-  useEffect(() => {
-    if (imageUrl === newImageUrl) {
-      return;
-    }
-
-    setAttributes({
-      imageUrl: newImageUrl,
-      imageAlt: newImageAlt,
-    });
-  }, [newImageUrl]);
-
-  useEffect(() => setAttributes({
-    tags: tagsList.filter(tag => tag_ids.includes(tag.id)),
-  }), [tag_ids, tagsList]);
-
-  useEffect(() => {
-    // This is to set necessary attributes for old blocks with selected Take Action page.
-    if (takeActionPageSelected && actPageList.length > 0 && !title) {
-      updateTakeActionPage(take_action_page);
-    }
-  }, [actPageList]);
-
   if (!actPageList.length || !tagsList.length) {
     return __("Populating block's fields...", 'planet4-blocks-backend');
   }
@@ -119,12 +90,16 @@ export const TakeActionBoxoutEditor = ({
 
   const removeImage = () => setAttributes({ imageId: null });
 
-  const selectImage = ({ id }) => setAttributes({ imageId: id });
+  const selectImage = ({ id, url, alt_text }) => setAttributes({
+    imageId: id,
+    imageUrl: url,
+    imageAlt: alt_text,
+  });
 
   const actPageOptions = actPageList.map(actPage => ({ label: actPage.title.raw, value: actPage.id }));
 
   const renderEditInPlace = () => (takeActionPageSelected ?
-    <TakeActionBoxoutFrontend {...attributes} /> :
+    <TakeActionBoxoutFrontend {...{tags}} {...attributes} /> :
     <section
       className={`cover-card action-card ${className || ''}`}
       style={{

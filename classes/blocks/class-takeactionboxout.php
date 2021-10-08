@@ -72,12 +72,6 @@ class TakeActionBoxout extends Base_Block {
 					'imageAlt'         => [
 						'type' => 'string',
 					],
-					'tags'             => [
-						'type'  => 'array',
-						'items' => [
-							'type' => 'object',
-						],
-					],
 				],
 			]
 		);
@@ -97,9 +91,7 @@ class TakeActionBoxout extends Base_Block {
 		if ( empty( $page_id ) ) {
 			$tag_ids = $fields['tag_ids'] ?? '';
 
-			if ( isset( $fields['tags'] ) && ! empty( $fields['tags'] ) ) {
-				$tags = $fields['tags'];
-			} elseif ( empty( $tag_ids ) || 1 !== preg_match( '/^\d+(,\d+)*$/', implode( ' ', $tag_ids ) ) ) {
+			if ( empty( $tag_ids ) ) {
 				$tags = [];
 			} else {
 				// Explode comma separated list of tag ids and get an array of \WP_Terms objects.

@@ -51,10 +51,6 @@ export const registerTakeActionBoxoutBlock = () => registerBlockType(BLOCK_NAME,
       type: 'string',
       default: ''
     },
-    tags: {
-      type: 'array',
-      default: [],
-    },
   },
   edit: TakeActionBoxoutEditor,
   save() {
