@@ -1,4 +1,4 @@
-import { FrontendBlockNode } from '../components/FrontendBlockNode/FrontendBlockNode';
+import { FrontendBlockNode } from '../components/FrontendBlockNode/FrontendBlockNode'; // eslint-disable-line no-unused-vars
 
 /**
  * @deprecated Save as static HTML and optionally use hydration instead. Rendering from an empty div on the front end

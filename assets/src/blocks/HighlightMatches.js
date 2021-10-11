@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment } from 'react'; // eslint-disable-line no-unused-vars
 
 export const HighlightMatches = (cellValue, searchText, className = 'highlighted-text') => {
   let reg = new RegExp('(' + searchText.trim() + ')', 'gi');
