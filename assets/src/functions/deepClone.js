@@ -29,12 +29,15 @@ const _deepClone = (value, ancestors = [], clones = []) => {
     const cloned = value.map(v => _deepClone(v, ancestors, clones));
     ancestors.push(value);
     clones.push(cloned);
+    // We actually do want to check the builtins here.
+    /* eslint-disable no-prototype-builtins */
     if (value.hasOwnProperty('index')) {
       cloned.index = value.index;
     }
     if (value.hasOwnProperty('input')) {
       cloned.input = value.input;
     }
+    /* eslint-enable no-prototype-builtins */
 
     return cloned;
   }
@@ -54,6 +57,6 @@ const _deepClone = (value, ancestors = [], clones = []) => {
   Object.keys(value).forEach(k => newObject[k] = _deepClone(value[k], ancestors, clones));
 
   return newObject;
-}
+};
 
 export const deepClone = value => _deepClone(value);

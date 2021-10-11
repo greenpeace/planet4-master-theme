@@ -37,6 +37,6 @@ export const frontendRendered = ( block ) => {
       className={ className }
       blockName={ block }
     />;
-  }
-}
+  };
+};
 

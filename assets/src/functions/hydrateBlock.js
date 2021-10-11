@@ -6,4 +6,4 @@ export const hydrateBlock = (blockName, Component) => {
       ReactDOM.hydrate( <Component { ...attributes } />, blockNode );
     }
   );
-}
+};

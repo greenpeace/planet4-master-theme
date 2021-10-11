@@ -6,9 +6,10 @@
  * @returns {string}
  */
 export const toDeclarations = CSSVariables => {
-	if ( ! CSSVariables ) return '';
-	return Object.entries( CSSVariables )
-		.map( ([ key, value ]) => `--${key}: ${value}` )
-		.join(';'); // Using join() because React triggers
-								// an error if it finds an ending semicolon
-}
+  if (!CSSVariables) {
+    return '';
+  }
+  return Object.entries(CSSVariables)
+    .map(([key, value]) => `--${ key }: ${ value }`)
+    .join(';'); // Using join() because React triggers an error if it finds an ending semicolon.
+};
