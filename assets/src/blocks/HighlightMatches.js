@@ -1,4 +1,4 @@
-import { Fragment } from '@wordpress/element';
+import { Fragment } from 'react';
 
 export const HighlightMatches = (cellValue, searchText, className = 'highlighted-text') => {
   let reg = new RegExp('(' + searchText.trim() + ')', 'gi');
