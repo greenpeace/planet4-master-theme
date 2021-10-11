@@ -218,7 +218,7 @@ jobs:
       - run:
           name: Lint JS
           when: always
-          command: eslint public/js/**/*.js tests/js
+          command: eslint public/js/**/*.js tests/js assets/src/**/*.js
       - store_test_results:
           path: /tmp/test-results
 
