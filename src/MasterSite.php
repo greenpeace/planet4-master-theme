@@ -234,14 +234,6 @@ class MasterSite extends TimberSite
             }
         );
 
-        // Set wp-editor in the 'Text' mode by default (Temporary fix for PLANET-6060).
-        add_filter(
-            'wp_default_editor',
-            function () {
-                return 'html';
-            }
-        );
-
         // Disable xmlrpc.
         add_filter('xmlrpc_enabled', '__return_false');
 
