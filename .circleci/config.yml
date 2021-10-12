@@ -218,7 +218,12 @@ jobs:
       - run:
           name: Lint JS
           when: always
-          command: eslint public/js/**/*.js tests/js
+          # For now lint only changed files to avoid bulk fixing.
+          command: |
+            changed_files=$(git diff --name-only master...HEAD public/js tests/js assets/src | grep "\.js$")
+            echo "Changed files:"
+            echo $changed_files | tr " " "\n"
+            eslint --ext .js $(echo "$changed_files" | xargs)
       - store_test_results:
           path: /tmp/test-results
 

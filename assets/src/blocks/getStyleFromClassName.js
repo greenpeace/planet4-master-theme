@@ -21,4 +21,4 @@ export const getStyleFromClassName = className => {
   }
 
   return styleClass.replace(/^is-style-/, '');
-}
+};
