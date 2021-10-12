@@ -47,7 +47,7 @@ export const setupCookies = () => {
     return null;
   };
 
-  const cookie = window.readCookie('greenpeace');
+  const cookie = window.readCookie('active_consent_choice');
   const cookieElement = document.querySelector('#set-cookie');
   const nro = document.body.dataset.nro;
 
@@ -62,6 +62,7 @@ export const setupCookies = () => {
   const hideCookieButton = document.querySelector('#hidecookie');
   if (hideCookieButton) {
     hideCookieButton.onclick = () => {
+      window.createCookie('active_consent_choice', '1', 365);
       const newCookieValue = ENABLE_ANALYTICAL_COOKIES ? '4' : '2';
       window.createCookie('greenpeace', newCookieValue, 365);
 
@@ -91,5 +92,13 @@ export const setupCookies = () => {
 
       cookieElement.classList.remove('shown');
     };
+  }
+
+  const greenpeace = window.readCookie('greenpeace');
+  const no_track = window.readCookie('no_track');
+  // Make the necessary cookies checked by default on user's first visit.
+  // Here if the No cookies set(absence of 'greenpeace' & 'no_track' cookies) consider as first visit of user.
+  if (ENABLE_ANALYTICAL_COOKIES && greenpeace === null && no_track === null) {
+    window.createCookie('greenpeace', '1', 365);
   }
 };
