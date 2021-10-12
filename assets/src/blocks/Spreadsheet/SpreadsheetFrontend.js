@@ -101,7 +101,7 @@ export class SpreadsheetFrontend extends Component {
     }
 
     const sortedRows = rows.sort( ( rowA, rowB ) => {
-      const textCompare = rowA[columnIndex].localeCompare( rowB[columnIndex] );
+      const textCompare = rowA[columnIndex].localeCompare( rowB[columnIndex], undefined, { numeric: true } );
       if ( textCompare !== 0 ) {
         return textCompare;
       }
