@@ -1,7 +1,7 @@
 import { IMAGE_SIZES } from './imageSizes';
 const { __ } = wp.i18n;
 
-export const CampaignCovers = ({ covers, initialRowsLimit, row, loadMoreCovers }) => {
+export const CampaignCovers = ({ covers, initialRowsLimit, row, loadMoreCovers, inEditor = false }) => {
   const amountPerRow = 3;
   const showLoadMore = !!initialRowsLimit && covers.length > amountPerRow * row;
 
@@ -16,10 +16,12 @@ export const CampaignCovers = ({ covers, initialRowsLimit, row, loadMoreCovers }
             return null;
           }
 
+          const campaignLink = inEditor ? null : href;
+
           return (
             <div key={name} className='campaign-card-column'>
               <a
-                href={href}
+                href={campaignLink}
                 data-ga-category='Campaign Covers'
                 data-ga-action='Image'
                 data-ga-label='n/a'

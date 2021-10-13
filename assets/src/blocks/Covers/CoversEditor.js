@@ -80,6 +80,7 @@ const renderView = (attributes, toAttribute) => {
     row,
     loadMoreCovers: () => {},
     cover_type,
+    inEditor: true,
   };
 
   return (
