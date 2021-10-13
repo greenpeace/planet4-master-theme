@@ -67,7 +67,7 @@ const renderEdit = (attributes, toAttribute) => {
       </PanelBody>
     </InspectorControls>
   );
-}
+};
 
 const renderView = (attributes, toAttribute) => {
   const { initialRowsLimit, cover_type, title, description, className } = attributes;
@@ -110,13 +110,13 @@ const renderView = (attributes, toAttribute) => {
       />
       {!loading && !covers.length ?
         <div className='EmptyMessage'>
-          {__(`Block content is empty. Check the block's settings or remove it.`, 'planet4-blocks-backend')}
+          {__('Block content is empty. Check the block\'s settings or remove it.', 'planet4-blocks-backend')}
         </div> :
         <Covers {...coversProps} />
       }
     </section>
   );
-}
+};
 
 export const CoversEditor = ({ attributes, setAttributes, isSelected }) => {
   const { className, post_types } = attributes;
@@ -140,5 +140,5 @@ export const CoversEditor = ({ attributes, setAttributes, isSelected }) => {
       {renderView(attributes, toAttribute)}
     </>
   );
-}
+};
 

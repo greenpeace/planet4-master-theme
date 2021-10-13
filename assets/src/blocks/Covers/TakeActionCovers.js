@@ -81,7 +81,7 @@ export const TakeActionCovers = ({ initialRowsLimit, covers, row, loadMoreCovers
                 </a>
               </div>
             </div>
-          )
+          );
         })}
       </div>
       {showLoadMore &&
@@ -96,4 +96,4 @@ export const TakeActionCovers = ({ initialRowsLimit, covers, row, loadMoreCovers
     </div>
 
   );
-}
+};

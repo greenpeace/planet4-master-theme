@@ -27,6 +27,7 @@
     "bootstrap": "^5.0.0-beta2",
     "core-js": "^3.6.5",
     "css-loader": "^3.2.0",
+    "eslint-plugin-react": "^7.20.3",
     "file-loader": "^6.2.0",
     "lodash": "^4.17.21",
     "lodash.assign": "^4.2.0",

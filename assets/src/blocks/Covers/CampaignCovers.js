@@ -56,4 +56,4 @@ export const CampaignCovers = ({ covers, initialRowsLimit, row, loadMoreCovers, 
       }
     </div>
   );
-}
+};

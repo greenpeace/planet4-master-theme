@@ -103,4 +103,4 @@ export const ContentCovers = ({ covers, initialRowsLimit, row, loadMoreCovers, i
       }
     </div>
   );
-}
+};
