@@ -6,5 +6,3 @@ tests/backstop/
 
 # Built css and js assets
 assets/build/*
-
-images/symbol/svg/sprite.symbol.svg
