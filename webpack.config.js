@@ -68,7 +68,7 @@ module.exports = {
         loader: 'svg-sprite-loader',
         options: {
           extract: true,
-          spriteFilename: '../../images/symbol/svg/sprite.symbol.svg',
+          spriteFilename: '../../assets/build/sprite.symbol.svg',
           runtimeCompat: true
         }
       },
