@@ -48,8 +48,9 @@
 
   .tl-slidenav-previous {
     .tl-slidenav-icon:before {
-      background-image: url("../../public/images/timeline-arrow-left.png");
+      background-image: url("../../public/images/icons/chevron.svg");
       content: "";
+      transform: rotate(180deg);
 
       @include medium-and-up {
         margin-left: 0;
@@ -66,7 +67,7 @@
 
   .tl-slidenav-next {
     .tl-slidenav-icon:before {
-      background-image: url("../../public/images/timeline-arrow-right.png");
+      background-image: url("../../public/images/icons/chevron.svg");
       content: "";
 
       @include medium-and-up {

@@ -556,10 +556,13 @@ $medium-image-height: 600px;
     .carousel-control-prev-icon {
       display: none;
       text-align: center;
-      width: 24px;
+      width: 28px;
       height: 46px;
-      background: url("../../public/images/carousel-arrow-prev.png");
-      background-size: cover;
+      background-image: none;
+      mask-image: url("../../public/images/icons/chevron.svg");
+      mask-size: cover;
+      background-color: $white;
+      transform: rotate(180deg);
 
       @include large-and-up {
         display: block;
@@ -598,11 +601,13 @@ $medium-image-height: 600px;
 
     .carousel-control-next-icon {
       text-align: center;
-      width: 24px;
+      width: 28px;
       height: 46px;
       cursor: pointer;
-      background: url("../../public/images/carousel-arrow-next.png");
-      background-size: cover;
+      background-image: none;
+      mask-image: url("../../public/images/icons/chevron.svg");
+      mask-size: cover;
+      background-color: $white;
       display: none;
 
       @include large-and-up {
