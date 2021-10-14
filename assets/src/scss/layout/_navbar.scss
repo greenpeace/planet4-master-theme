@@ -137,12 +137,18 @@ $navbar-default-height: 60px;
 .navbar-search-toggle {
   cursor: pointer;
   border: 0;
-  background: url("../../images/search.svg") center center no-repeat;
-  background-size: 28px;
+  mask-image: url("../../images/search.svg");
+  mask-size: 28px;
+  mask-repeat: no-repeat;
+  background-color: $white;
 
   &.open {
     outline: 0;
-    background: url("../../images/close-icon.svg") center center no-repeat;
+    mask-image: url("../../images/times.svg");
+    mask-size: 16px;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    background-color: $white;
   }
 
   html[dir="rtl"] & {
@@ -279,7 +285,11 @@ $navbar-default-height: 60px;
       right: 0;
       height: $menu-height-small;
       width: $menu-height-small;
-      background: url("../../images/close-icon.svg") center center no-repeat;
+      mask-image: url("../../images/times.svg");
+      mask-size: 16px;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      background-color: $white;
       z-index: 2;
       border: 0;
 
@@ -487,7 +497,7 @@ $navbar-default-height: 60px;
     position: absolute;
     right: 12px;
     font-size: $font-size-md;
-    line-height: 26px;
+    line-height: 22px;
     color: $dark-blue;
     top: 11px;
     border-radius: 4px;
