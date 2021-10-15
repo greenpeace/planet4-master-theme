@@ -220,7 +220,7 @@ jobs:
           when: always
           # For now lint only changed files to avoid bulk fixing.
           command: |
-            changed_files=$(git diff --name-only master...HEAD public/js tests/js assets/src | grep "\.js$")
+            changed_files=$(git diff --name-only master...HEAD -- {public/js,tests/js,assets/src}/**/*.js)
             echo "Changed files:"
             echo $changed_files | tr " " "\n"
             if [ -z "$changed_files" ]; then exit 0; fi
