@@ -6,6 +6,11 @@
         "jest": true
     },
     "extends": "eslint:recommended",
+    "globals": {
+        "page": true,
+        "browser": true,
+        "wp": "readonly"
+    },
     "rules": {
         "indent": [
             "error",
@@ -32,18 +37,19 @@
             "always"
         ],
         "new-cap": "error",
-        "no-var": 1
+        "no-var": 1,
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error"
     },
     "parserOptions": {
-        "ecmaVersion": 8,
+        "ecmaVersion": 2020,
         "ecmaFeatures": {
             "jsx": true,
             "modules": true
         },
         "sourceType": "module"
     },
-    "globals": {
-        "page": true,
-        "browser": true
-    }
+    "plugins": [
+      "react"
+    ]
 }

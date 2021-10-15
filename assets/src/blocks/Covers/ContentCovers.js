@@ -5,7 +5,7 @@ const { __ } = wp.i18n;
 
 const isMediumWindow = () => window.innerWidth > 576 && window.innerWidth < 992;
 
-export const ContentCovers = ({ covers, initialRowsLimit, row, loadMoreCovers }) => {
+export const ContentCovers = ({ covers, initialRowsLimit, row, loadMoreCovers, inEditor = false }) => {
   const [amountPerRow, setAmountPerRow] = useState(isMediumWindow() ? 3 : 4);
 
   const updateRowAmount = () => setAmountPerRow(isMediumWindow() ? 3 : 4);
@@ -40,6 +40,8 @@ export const ContentCovers = ({ covers, initialRowsLimit, row, loadMoreCovers })
             return null;
           }
 
+          const contentLink = inEditor ? null : link;
+
           return (
             <div key={post_title} className='col-md-4 col-lg-3 post-column'>
               <div className='content-covers-block-wrap clearfix'>
@@ -47,7 +49,7 @@ export const ContentCovers = ({ covers, initialRowsLimit, row, loadMoreCovers })
                   <div className='content-covers-block-symbol'>
                     {thumbnail &&
                       <a
-                        href={link}
+                        href={contentLink}
                         data-ga-category='Content Covers'
                         data-ga-action='Image'
                         data-ga-label='n/a'
@@ -68,7 +70,7 @@ export const ContentCovers = ({ covers, initialRowsLimit, row, loadMoreCovers })
                     {post_title &&
                       <h5>
                         <a
-                          href={link}
+                          href={contentLink}
                           data-ga-category='Content Covers'
                           data-ga-action='Title'
                           data-ga-label='n/a'
@@ -101,4 +103,4 @@ export const ContentCovers = ({ covers, initialRowsLimit, row, loadMoreCovers })
       }
     </div>
   );
-}
+};
