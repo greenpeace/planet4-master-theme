@@ -2,7 +2,6 @@
   "--button-primary--background": "#ff80e9",
   "--button-primary--hover--background": "#c44bc4",
   "--button-secondary--hover--background": "#8fd9d0",
-  "--footer--background": "rgba(7 , 67, 101, 1)",
   "--page-header-background--after--background": "rgba(44 , 171, 177, 0.8)",
   "--page-header-background--img--height": "auto",
   "--button-primary--hover--border-color": "#c44bc4",
@@ -44,5 +43,17 @@
   "--page-header--medium-and-up--padding-top": "84px",
   "--page-header--x-large-and-up--padding-top": "84px",
   "--page-header-title--text-transform": "uppercase",
-  "--page-section-header--text-transform": "uppercase"
+  "--page-section-header--text-transform": "uppercase",
+  "--site-footer--a--color": "#ffffff",
+  "--site-footer--a--hover--color": "#ffffff",
+  "--site-footer--background": "#074365",
+  "--site-footer--color": "#ffffff",
+  "--site-footer--font-family": "\"Roboto\",sans-serif",
+  "--site-footer--icon--color": "#ffffff",
+  "--site-footer--icon--hover--color": "#ffffff",
+  "--site-footer--copyright--background": "#042233",
+  "--site-footer--copyright--color": "#ffffff",
+  "--site-footer--copyright--a--color": "#ffffff",
+  "--site-footer--copyright--a--hover--color": "#ffffff",
+  "--site-footer--copyright--icon--color": "#ffffff"
 }
