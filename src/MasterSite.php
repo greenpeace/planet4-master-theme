@@ -497,7 +497,18 @@ class MasterSite extends TimberSite {
 		if ( function_exists( 'icl_get_languages' ) ) {
 			$context['languages'] = count( icl_get_languages() );
 		}
-		$context['navbar_menu']  = new TimberMenu( 'navigation-bar-menu' );
+
+		$menu                         = new TimberMenu( 'navigation-bar-menu' );
+		$menu_items                   = $menu->get_items();
+		$context['navbar_menu']       = $menu;
+		$context['navbar_languages']  = array_filter(
+			$menu_items,
+			function ( $item ) {
+				return in_array( 'wpml-ls-item', $item->classes ?? [], true );
+			}
+		);
+		$context['navbar_menu_items'] = array_diff( $menu_items, $context['navbar_languages'] );
+
 		$context['site']         = $this;
 		$context['current_url']  = home_url( $wp->request );
 		$context['sort_options'] = $this->sort_options;
@@ -565,8 +576,9 @@ class MasterSite extends TimberSite {
 		// Dummy thumbnail.
 		$context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';
 
-		// New design country selector.
+		// New design country selector, navigation bar.
 		$context['new_design_country_selector'] = Features::is_active( Features::NEW_DESIGN_COUNTRY_SELECTOR );
+		$context['new_design_navigation_bar']   = Features::is_active( Features::NEW_DESIGN_NAVIGATION_BAR );
 
 		return $context;
 	}

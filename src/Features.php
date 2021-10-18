@@ -28,7 +28,15 @@ class Features {
 
 	public const NEW_DESIGN_COUNTRY_SELECTOR = 'new_design_country_selector';
 
+	public const NEW_DESIGN_NAVIGATION_BAR = 'new_design_navigation_bar';
+
 	public const PURGE_ON_FEATURE_CHANGES = 'purge_on_feature_changes';
+
+
+	/**
+	 * @var bool Purge Cloudflare cache on save
+	 */
+	public static $purge_cloudflare = false;
 
 	/**
 	 * Register current options status before processing, to detect any change later.
@@ -134,10 +142,19 @@ class Features {
 			[
 				'name' => __( 'Enable new Country selector design', 'planet4-master-theme-backend' ),
 				'desc' => __(
-					'Enable the new Country selector design as described in the <a href="https://p4-designsystem.greenpeace.org/05f6e9516/p/106cdb-navigation-bar" target="_blank">design system</a>.<br/>This might break your child theme, depending on how you extended the main templates and CSS.<br/>Changing this option will take a bit of time, as it also attempts to clear the Cloudflare cache.',
+					'Enable the new Country selector design as described in the <a href="https://p4-designsystem.greenpeace.org/05f6e9516/v/0/p/16a899-footer" target="_blank">design system</a>.<br/>This might break your child theme, depending on how you extended the main templates and CSS.<br/>Changing this option will take a bit of time, as it also attempts to clear the Cloudflare cache.',
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::NEW_DESIGN_COUNTRY_SELECTOR,
+				'type' => 'checkbox',
+			],
+			[
+				'name' => __( 'Enable new Navigation bar design', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'Enable the new Navigation bar design as described in the <a href="https://p4-designsystem.greenpeace.org/05f6e9516/p/106cdb-navigation-bar" target="_blank">design system</a>.<br/>This might break your child theme, depending on how you extended the main templates and CSS.<br/>Changing this option will take a bit of time, as it also attempts to clear the Cloudflare cache.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::NEW_DESIGN_NAVIGATION_BAR,
 				'type' => 'checkbox',
 			],
 		];
@@ -174,6 +191,7 @@ class Features {
 	 * Add hooks related to Features activation
 	 */
 	public static function hooks() {
+		// On field save.
 		add_action(
 			'cmb2_options-page_process_fields_' . Settings::METABOX_ID,
 			[ self::class, 'on_pre_process' ],
@@ -184,6 +202,13 @@ class Features {
 		add_action(
 			'cmb2_save_field',
 			[ self::class, 'on_field_save' ],
+			10,
+			4
+		);
+		// After all fields are saved.
+		add_action(
+			'cmb2_save_options-page_fields_' . Settings::METABOX_ID,
+			__CLASS__ . '::on_features_saved',
 			10,
 			4
 		);
@@ -203,7 +228,8 @@ class Features {
 		self::$preprocess_fields = array_merge(
 			...array_map(
 				function ( $f ) use ( $cmb ) {
-					return [ $f['id'] => $cmb->get_field( $f['id'] )->value() ];
+					$field = $cmb->get_field( $f['id'] );
+					return [ $f['id'] => $field ? $field->value() : null ];
 				},
 				self::get_fields()
 			)
@@ -226,10 +252,24 @@ class Features {
 			return;
 		}
 
-		if ( self::NEW_DESIGN_COUNTRY_SELECTOR === $field_id ) {
+		if ( in_array( $field_id, [ self::NEW_DESIGN_COUNTRY_SELECTOR, self::NEW_DESIGN_NAVIGATION_BAR ], true ) ) {
 			if ( $field->value() !== self::$preprocess_fields[ $field_id ] ) {
-				is_plugin_active( 'cloudflare/cloudflare.php' ) && ( new CloudflarePurger() )->purge_all();
+				self::$purge_cloudflare = true;
 			}
+		}
+	}
+
+	/**
+	 * Hook running after all features are saved
+	 *
+	 * @param int    $object_id   The ID of the current object.
+	 * @param string $updated     Array of field ids that were updated.
+	 *                            Will only include field ids that had values change.
+	 * @param array  $cmb         This CMB2 object.
+	 */
+	public static function on_features_saved( $object_id, $updated, $cmb ) {
+		if ( self::$purge_cloudflare ) {
+			is_plugin_active( 'cloudflare/cloudflare.php' ) && ( new CloudflarePurger() )->purge_all();
 		}
 	}
 }

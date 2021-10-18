@@ -1,0 +1,734 @@
+@import "../base/mixins";
+@import "../base/variables";
+@import "../base/colors";
+@import "../base/fonts";
+
+$menu-height-small: 3.375rem;
+$menu-height-large: 3.75rem;
+$min-height: 40px;
+$navbar-default-height: 60px;
+
+.top-navigation {
+  _-- {
+    background: transparentize($dark-blue, 0.2);
+    border-bottom-width: 0;
+    border-bottom-color: transparent;
+    box-shadow: none;
+  }
+
+  border-bottom-style: solid;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 5;
+  padding: 0;
+  text-transform: uppercase;
+  display: grid;
+  justify-content: space-between;
+  grid-auto-flow: column;
+  align-items: normal;
+  height: $menu-height-small;
+  font-family: $roboto;
+
+  html[dir="rtl"] & {
+    text-transform: lowercase;
+  }
+
+  @include medium-and-up {
+    height: $menu-height-large;
+  }
+
+  @include large-and-up {
+    display: flex;
+    align-items: center;
+  }
+
+  a.nav-link --nav-link-- {
+    font-weight: 400;
+    color: $white;
+
+    &:hover {
+      color: $white;
+    }
+
+    &:focus {
+      border-radius: 4px;
+      text-decoration: none;
+    }
+
+    &:active {
+      border: none;
+    }
+  }
+
+  .donate-nav-item {
+    line-height: 1;
+    height: $navbar-default-height;
+  }
+
+  .btn-donate {
+    margin-top: 10px;
+    height: 40px;
+  }
+
+  // Move header down when WordPress Admin Bar is present
+  .admin-bar & {
+    top: 46px;
+
+    @media screen and (min-width: 783px) {
+      top: 32px;
+    }
+  }
+
+  a, .btn, input {
+    &:focus {
+      --top-navigation--ui-controls-- {
+        outline-color: rgba(255, 255, 255, 0.4);
+      }
+    }
+  }
+
+  // Override bootstrap's default form styles because it's not accessible in the navbar.
+  // Instead use the same outline style as buttons, with offset.
+  #search_input:focus {
+    outline-style: solid;
+    outline-width: 2px;
+    outline-offset: 2px;
+
+    &:not(:focus-visible) {
+      outline: 0;
+    }
+  }
+}
+
+.site-logo,
+.btn-navbar-toggle,
+.navbar-search-toggle,
+.country-dropdown-toggle,
+.nav-item,
+.nav-link {
+  @include padding(0, $n15, 0, $n15);
+
+  --navigation-items-- {
+    line-height: $menu-height-small;
+
+    @include medium-and-up {
+      line-height: $menu-height-large;
+      font-size: $font-size-md;
+    }
+  }
+}
+
+.btn-navbar-toggle,
+.country-dropdown-toggle,
+.nav-link {
+  &.active,
+  &:hover,
+  &:active {
+    text-decoration: none;
+    box-shadow: none;
+    outline: 0;
+  }
+}
+
+.btn-navbar-toggle _-- {
+  color: $white;
+  margin: 11px;
+}
+
+.navbar-search-toggle,
+.btn-navbar-toggle {
+  line-height: 2rem;
+  z-index: 1;
+
+  .icon {
+    font-size: $font-size-md;
+  }
+}
+
+.navbar-dropdown-toggle {
+  order: -1;
+
+  // When menu is open, turn the button into the background overlay and hide the text
+  &[aria-expanded="true"] {
+    _-- {
+      background: transparentize($grey-80, 0.5);
+    }
+    z-index: 2;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    outline: 0;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+
+    span {
+      display: none;
+    }
+  }
+
+  @include large-and-up {
+    display: none;
+  }
+}
+
+.navbar-search-toggle {
+  _-- {
+    color: $white;
+    margin: 11px;
+  }
+  cursor: pointer;
+  border: 0;
+  mask-image: url("../../images/search.svg");
+  mask-size: 28px;
+  mask-repeat: no-repeat;
+  background-color: $white;
+
+  &.open {
+    outline: 0;
+    mask-image: url("../../images/times.svg");
+    mask-size: 16px;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    background-color: $white;
+  }
+
+  html[dir="rtl"] & {
+    margin-left: 11px;
+    margin-right: auto;
+  }
+
+  @include large-and-up {
+    display: none;
+  }
+}
+
+// Logo
+.site-logo {
+  position: absolute;
+  justify-self: center;
+
+  @include large-and-up {
+    position: static;
+    width: auto;
+    text-align: left;
+    line-height: 1;
+  }
+
+  &:focus {
+    box-shadow: none;
+    border: none;
+  }
+
+  img {
+    height: 1.25rem;
+
+    @include small-and-up {
+      height: 1.5rem;
+    }
+
+    @include large-and-up {
+      height: 1.875rem;
+    }
+  }
+}
+
+.navbar-dropdown {
+  display: none;
+  margin: 0;
+  list-style-type: none;
+  height: 100vh;
+  width: 300px;
+  background-position: right $menu-height-small;
+
+  html[dir="rtl"] & {
+    left: auto;
+    right: 0;
+
+    .country-dropdown-toggle {
+      text-transform: none;
+    }
+  }
+
+  @include small-and-up {
+    height: 100vh;
+    width: 375px;
+  }
+
+  @include medium-and-up {
+    width: 400px;
+    background-position: right $menu-height-large;
+  }
+
+  @include large-and-up {
+    height: auto;
+    width: auto;
+    background-position: 0% 0%;
+  }
+
+  &.open {
+    display: flex;
+  }
+
+  li:first-child {
+    z-index: 10;
+
+    @include medium-and-up {
+      z-index: 0;
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 9px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  ::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  // All other dropdown styles - This special rule has a 1px offset as it uses max-width instead of min-width
+  @media (max-width: #{$large-width - 1}) {
+    _-- {
+      background: $dark-blue url("../../images/dropdown-gradient.svg") no-repeat;
+    }
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 2;
+
+    .close-navbar-dropdown {
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+      height: $menu-height-small;
+      width: $menu-height-small;
+      mask-image: url("../../images/times.svg");
+      mask-size: 16px;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      background-color: $white;
+      z-index: 2;
+      border: 0;
+
+      html[dir="rtl"] & {
+        right: auto;
+        left: 0;
+      }
+
+      @include medium-and-up {
+        height: $menu-height-large;
+      }
+    }
+
+    &::before {
+      _-- {
+        background: transparentize($grey-80, 0.9);
+      }
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 8px;
+      z-index: 0;
+    }
+
+    .country-dropdown-toggle {
+      box-sizing: border-box;
+      width: 100%;
+      text-align: left;
+      padding: 0 $n70 0 67px;
+
+      html[dir="rtl"] & {
+        text-align: right;
+        padding: 0 67px 0 $n70;
+      }
+
+      &:before {
+        _-- {
+          background: url("../../images/country-icon.svg") center center no-repeat;
+        }
+        content: "";
+        position: absolute;
+        top: 13px;
+        left: 0;
+        height: 1.75em;
+        width: 50px;
+        display: inline-block;
+        border-right: 1px solid transparentize($white, 0.9);
+        background-size: contain;
+
+        html[dir="rtl"] & {
+          left: auto;
+          right: 0;
+          border-right: none;
+          border-left: 1px solid rgba(255, 255, 255, .1);
+        }
+
+        @include medium-and-up {
+          top: 17px;
+        }
+      }
+    }
+
+    .nav-item {
+      z-index: 1;
+
+      &:last-child {
+        flex-basis: 100%;
+      }
+    }
+
+    .nav-link {
+      padding: 0 $n40 0 $n50;
+      display: block;
+      line-height: 2.8125rem;
+      font-size: $font-size-sm;
+      margin: 0.5em 0;
+
+      html[dir="rtl"] & {
+        padding: 0 $n50 0 $n40;
+      }
+    }
+
+    .active .nav-link,
+    .nav-link:focus,
+    .nav-link:hover {
+      position: relative;
+      z-index: 2;
+    }
+
+    .active .nav-link::before {
+      _-- {
+        background: $white;
+      }
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 8px;
+      margin-left: -50px;
+      z-index: 2;
+    }
+
+    .btn-donate {
+      display: block;
+      min-width: 200px;
+      margin: 1.5em auto;
+      padding: $n5 $n30;
+    }
+  }
+
+  @include large-and-up {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    padding: 0;
+
+    .close-navbar-dropdown {
+      display: none;
+    }
+
+    .nav-link {
+      padding: 0;
+      text-align: center;
+      border-bottom-style: solid;
+
+      --nav-link-- {
+        border-bottom-width: 2px;
+        border-bottom-color: transparent;
+        min-width: 20%;
+
+        &:hover,
+        &:active {
+          border-bottom-color: $white;
+        }
+      }
+
+      &:focus:not(:focus-visible) {
+        border-radius: 0;
+      }
+    }
+
+    .active .nav-link --nav-link-active-- {
+      border-bottom-color: $white;
+    }
+  }
+
+  @include x-large-and-up {
+    padding: 0 15px;
+  }
+
+  .nav-item {
+    margin: 0;
+    padding: 0;
+  }
+
+  .wpml-ls-current-language {
+    display: list-item;
+  }
+}
+
+.nav-search-wrap {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 300px;
+  padding: 11px;
+  max-width: 80%;
+
+  _-- {
+    background: transparentize($dark-blue, 0.2);
+  }
+
+  html[dir="rtl"] & {
+    right: auto;
+    left: 0;
+  }
+
+  &.open {
+    display: block;
+  }
+
+  @include large-and-up {
+    height: $navbar-default-height;
+    position: relative;
+    max-width: 20%;
+    width: 400px;
+    display: inline-block;
+    padding: 0 15px;
+    background: none;
+    top: auto;
+    right: auto;
+
+    html[dir="rtl"] & {
+      left: auto;
+    }
+  }
+
+  input::placeholder {
+    color: $grey-40;
+
+    html[dir="rtl"] & {
+      text-transform: lowercase;
+    }
+  }
+
+  .top-nav-search-btn {
+    _-- {
+      background-color: $white;
+      color: $dark-blue;
+      border-radius: 4px;
+    }
+    border: none;
+    position: absolute;
+    right: 12px;
+    font-size: $font-size-md;
+    line-height: 22px;
+    top: 11px;
+
+    html[dir="rtl"] & {
+      left: 12px;
+      right: auto;
+    }
+
+    .icon {
+      vertical-align: middle;
+      font-size: $font-size-lg;
+      top: 5px;
+    }
+
+    @include large-and-up {
+      right: 16px;
+      top: 9px;
+
+      html[dir="rtl"] & {
+        left: 16px;
+        right: auto;
+      }
+    }
+  }
+
+  input.form-control {
+    height: 40px;
+    border: none;
+    padding: $n5 $n10;
+
+    @include large-and-up {
+      margin-top: 9px;
+    }
+
+    &:not(:placeholder-shown):focus ~ .top-nav-search-btn {
+      display: none;
+    }
+  }
+}
+
+.nav-item.wpml-ls-item {
+  @include large-and-up {
+    margin-left: -20px;
+  }
+
+  @include x-large-and-up {
+    margin-left: -60px;
+  }
+
+  .nav-link {
+    _-- {
+      font-weight: normal;
+    }
+    display: inline;
+    font-size: $font-size-xxs;
+    padding: 0;
+
+    html[dir="rtl"] & {
+      padding: 0;
+    }
+
+    &:first-child {
+      padding-left: 50px;
+
+      html[dir="rtl"] & {
+        padding-left: 0;
+        padding-right: 50px;
+      }
+
+      @include large-and-up {
+        padding-left: 0;
+
+        html[dir="rtl"] & {
+          padding-right: 0;
+        }
+      }
+    }
+
+    &:not(:last-child)::after {
+      content: " | ";
+    }
+  }
+}
+
+.navigation-bar_min {
+  --top-navigation-min-- {
+    height: $min-height;
+  }
+  align-items: baseline;
+  justify-content: start;
+
+  .nav-item.wpml-ls-item {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0 $space-lg;
+    line-height: 1rem;
+
+    .nav-link {
+      margin: 0;
+    }
+  }
+
+  .language-selector-min {
+    position: absolute;
+    top: 0;
+    right: $space-lg;
+    @include medium-and-up {
+      position: relative;
+    }
+  }
+
+  .site-logo,
+  .btn-navbar-toggle,
+  .navbar-search-toggle,
+  .country-dropdown-toggle,
+  .nav-item,
+  .nav-link {
+    line-height: 2.25rem;
+    @include padding(0, 0, 0, 0);
+
+    @include medium-and-up {
+      line-height: 2.25rem;
+      font-size: $font-size-md;
+    }
+
+    @include large-and-up {
+      margin-left: 10px;
+    }
+
+    @include x-large-and-up {
+      margin-left: 36px;
+    }
+  }
+
+  .site-logo {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+
+    @include large-and-up {
+      position: static;
+      width: auto;
+      text-align: left;
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    img {
+      height: 1.1rem;
+    }
+  }
+}
+
+// Enhanced mobile Donate button
+.btn-donate {
+  &.btn-donate-top {
+    position: fixed;
+    left: 0;
+    z-index: 4;
+    width: 100%;
+    height: 3.3rem;
+    line-height: 3.3rem;
+    top: 3.3rem;
+    transition: top .2s;
+
+    .admin-bar & {
+      top: 6.2rem;
+    }
+  }
+
+  &.btn-donate-top-hide {
+    top: -3.3rem;
+
+    .admin-bar & {
+      top: -6.2rem;
+    }
+  }
+}
+
+body.with-donate-on-top {
+  padding-top: 3.3rem;
+}

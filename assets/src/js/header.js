@@ -3,9 +3,12 @@ export const setupHeader = function($) {
 
   $(document).on('click', [
     '.navbar-dropdown-toggle',
+    '.nav-menu-toggle',
     '.country-dropdown-toggle',
     '.country-selector-toggle',
     '.navbar-search-toggle',
+    '.nav-search-toggle',
+    '.nav-languages-toggle',
   ].join(), function toggleNavDropdown(evt) {
     evt.preventDefault();
     evt.stopPropagation();
@@ -33,6 +36,7 @@ export const setupHeader = function($) {
     $('.country-dropdown-toggle').attr( 'data-ga-action', $('.country-dropdown-toggle').attr('aria-expanded') === 'false' ? 'Open Country Selector' : 'Close Country Selector' );
     $('.country-selector-toggle').attr( 'data-ga-action', $('.country-selector-toggle').attr('aria-expanded') === 'false' ? 'Open Country Selector' : 'Close Country Selector' );
     $('.navbar-search-toggle').attr( 'data-ga-action', $('.navbar-search-toggle').attr('aria-expanded') === 'false' ? 'Open Search' : 'Close Search' );
+    $('.nav-search-toggle').attr( 'data-ga-action', $('.navbar-search-toggle').attr('aria-expanded') === 'false' ? 'Open Search' : 'Close Search' );
   });
 
   // Close all menus when clicking somewhere else
@@ -55,11 +59,25 @@ export const setupHeader = function($) {
     }
   });
 
+  $(document).on('click', '.nav-search-toggle', (evt) => {
+    evt.preventDefault();
+    if (evt.currentTarget.getAttribute('aria-expanded') === 'true') {
+      $('#search_input').focus();
+    }
+  });
+
   //Close the menu if the user clicks the dedicated dropdown close button.
   $(document).on('click', '.close-navbar-dropdown', (evt) => {
     evt.preventDefault();
     // Proxy to the main navbar close button
     $('.navbar-dropdown-toggle').trigger('click');
+  });
+
+  //Close the menu if the user clicks the dedicated dropdown close button.
+  $(document).on('click', '.nav-menu-close', (evt) => {
+    evt.preventDefault();
+    // Proxy to the main navbar close button
+    $('.nav-menu-toggle').trigger('click');
   });
 
   // Hide Header on on scroll down
