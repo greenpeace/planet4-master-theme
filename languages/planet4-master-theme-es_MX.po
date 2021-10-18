@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2021-04-16 11:14+0000\n"
+"PO-Revision-Date: 2021-10-18 21:19+0000\n"
 "Language-Team: Spanish (Mexico)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -279,7 +279,7 @@ msgstr ""
 
 #: templates/blocks/author_profile.twig:11
 msgid "Read More"
-msgstr ""
+msgstr "Leer más"
 
 #: templates/search.twig:68 templates/search.twig:207
 msgid "Refine your search"
@@ -344,7 +344,7 @@ msgstr "Ordenar por"
 
 #: templates/single-page.twig:15 templates/single-password.twig:20
 msgid "Submit"
-msgstr ""
+msgstr "Enviar"
 
 #: templates/search.twig:385
 msgid "Suggested search terms"
