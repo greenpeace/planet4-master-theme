@@ -31,32 +31,15 @@ div[data-render="planet4-blocks/submenu"] {
     }
 
     ul {
-      margin: 0.75em 0;
+      margin: .5em 0 .5em .5em;
       list-style: none;
       padding: 0 16px;
     }
 
     li {
-      &.list-style-bullet::before {
-        content: "";
-        background-image: url("../../public/images/icons/angle-right.svg");
-        background-position: 50% 50%;
-        background-size: 1rem 1rem;
-        background-repeat: no-repeat;
-        margin-right: 2px;
-        height: 1rem;
-        width: 1rem;
-        margin-bottom: -2px;
-        display: inline-block;
-        @supports (mask-repeat: no-repeat) or (-webkit-mask-repeat: no-repeat) {
-          & {
-            background-image: none;
-            background-color: $grey-80;
-            mask-image: url("../../public/images/icons/angle-right.svg");
-            mask-repeat: no-repeat;
-            margin-right: 0;
-          }
-        }
+      &.list-style-bullet {
+        list-style: disc;
+        margin-right: 20px;
       }
 
       &.list-style-number {
