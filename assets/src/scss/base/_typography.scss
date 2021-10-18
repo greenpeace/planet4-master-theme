@@ -101,8 +101,23 @@ a --link-- {
   color: $link-color;
   text-decoration: none;
 
-  &:hover {
+  &:focus {
+    border: 2px solid rgba(0, 106, 255, 0.4);
+    border-radius: 4px;
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+
+  &:hover,
+  &:active {
     color: $link-color;
     text-decoration: underline;
+    border: none;
+  }
+
+  &:visited {
+    color: $link-color-visited;
   }
 }

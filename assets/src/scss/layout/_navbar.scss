@@ -44,6 +44,16 @@ $navbar-default-height: 60px;
     &:hover {
       color: $white;
     }
+
+    &:focus {
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 4px;
+      text-decoration: none;
+    }
+
+    &:active {
+      border: none;
+    }
   }
 
   .donate-nav-item {
@@ -162,15 +172,6 @@ $navbar-default-height: 60px;
 }
 
 // Logo
-//
-// Greenpeace logo.
-//
-// Markup:
-// <a class="site-logo" href="#">
-//   <img src="https://www.greenpeace.org/international/wp-content/themes/planet4-master-theme/images/gp-logo.svg" alt="Greenpeace">
-// </a>
-//
-// Styleguide Style.logo
 .site-logo {
   position: absolute;
   justify-self: center;
@@ -184,6 +185,7 @@ $navbar-default-height: 60px;
 
   &:focus {
     box-shadow: none;
+    border: none;
   }
 
   img {

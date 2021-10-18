@@ -3,6 +3,15 @@
 
   a {
     color: $grey-80;
+    font-family: $roboto;
+
+    &:visited {
+      color: $link-color-visited;
+    }
+  }
+
+  .tag-item {
+    margin-left: 30px;
   }
 
   h5 {
