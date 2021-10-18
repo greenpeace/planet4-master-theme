@@ -28,7 +28,6 @@
   "--block-articles--article--content--font-size": "14px",
   "--block-articles--article--meta--large-and-up--font-size": "1rem",
   "--block-columns--column-heading--large-and-up--font-size": "24px",
-  "--page-section-header--font-size": "3rem",
   "--block-articles--article--meta--font-style": "normal",
   "--block-articles--article--headline--font-weight": "600",
   "--block-articles--article--meta--font-weight": "800",

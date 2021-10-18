@@ -22,7 +22,6 @@
   "--block-columns--link--font-family": "Open Sans,sans-serif",
   "--button--font-family": "Open Sans,sans-serif",
   "--headings--font-family": "Kanit,sans-serif",
-  "--page-section-header--font-size": "3rem",
   "--block-articles--article--headline--font-weight": "600",
   "--block-articles--article--meta--font-weight": "400",
   "--block-columns--column-heading--font-weight": "600",
