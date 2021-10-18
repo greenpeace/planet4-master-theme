@@ -1,0 +1,131 @@
+<section id="header" class="top-navigation navbar {% if custom_styles.nav_border == 'border' %}navigation-bar_border{% endif %}">
+	{% set data_ga_attrs = 'data-ga-category="Menu Navigation" data-ga-action="Open Menu" data-ga-label="' ~ page_category ~ '"' %}
+	<button class="nav-menu-toggle" type="button"
+		aria-label="{{ __( 'Toggle navigation menu', 'planet4-master-theme' ) }}"
+		aria-expanded="false"
+		data-bs-toggle="open"
+		data-bs-target="#nav-main">
+		{{ 'menu'|svgicon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
+		<span class="visually-hidden">
+			{{ __( 'Menu', 'planet4-master-theme' ) }}
+		</span>
+	</button>
+	<a class="site-logo" href="{{ data_nav_bar.home_url }}">
+		{% include 'blocks/site_logo.twig' %}
+	</a>
+	<div id="nav-main">
+		<nav id="nav-menu" class="nav-menu">
+			<ul>
+				{% for key,item in navbar_menu_items %}
+				<li class="nav-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
+					{% if fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == act_page_id %}
+						{% set link_ga_action = 'Act' %}
+					{% elseif fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == explore_page_id %}
+						{% set link_ga_action = 'Explore' %}
+					{% else %}
+						{% set link_ga_action = item.title %}
+					{% endif %}
+					<a
+						class="nav-link"
+						href="{{ item.get_link }}"
+						data-ga-category="Menu Navigation"
+						data-ga-action="{{ link_ga_action }}"
+						data-ga-label="{{ page_category }}">
+							{{ item.title }}
+					</a>
+				</li>
+				{% endfor %}
+				<li class="nav-item nav-donate">
+					<a
+						class="btn btn-donate {{ enhanced_donate_btn_class }}"
+						href="{{ donatelink }}"
+						data-ga-category="Menu Navigation"
+						data-ga-action="Donate"
+						data-ga-label="{{ page_category }}">
+							{{ donatetext }}
+					</a>
+				</li>
+			</ul>
+		</nav>
+		{% set search_icon = 'search'|svgicon %}
+		{% set search_input_id = 'search_input' %}
+		{% set data_ga_attrs = 'data-ga-category="Menu Navigation" data-ga-action="Search" data-ga-label="' ~ page_category ~ '"' %}
+		<div class="nav-search-toggle-container">
+			<button class="nav-search-toggle" type="button"
+				aria-label="{{ data_nav_bar.navbar_search_toggle }}"
+				aria-expanded="false"
+				data-bs-toggle="open"
+				data-bs-target="#search_form"
+				data-ga-category="Menu Navigation"
+				data-ga-action="Open Search"
+				data-ga-label="{{ page_category }}">
+				{{ search_icon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
+				<span class="visually-hidden">
+					{{ __( 'Toggle search form', 'planet4-master-theme' ) }}
+				</span>
+			</button>
+		</div>
+		<form id="search_form" class="form nav-search-form" action="{{ data_nav_bar.home_url }}">
+			{% set search_label = __( 'Search', 'planet4-master-theme' ) %}
+			<input id="{{ search_input_id }}"
+				type="search"
+				name="s"
+				class="form-control"
+				placeholder="{{ search_label }}"
+				value="{{ data_nav_bar.search_query|e('wp_kses_post')|raw }}"
+				aria-label="{{ __( 'Search input', 'planet4-master-theme' ) }}"/>
+			<input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}"/>
+			<button class="nav-search-btn"
+				aria-label="{{ __( 'Press return/enter or click to search', 'planet4-master-theme' ) }}"
+				type="submit"
+				data-ga-category="Menu Navigation"
+				data-ga-action="Search"
+				data-ga-label="{{ page_category }}"
+			>
+				{{ search_icon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
+				<span class="visually-hidden"
+					data-ga-category="Menu Navigation"
+					data-ga-action="Search"
+					data-ga-label="{{ page_category }}"
+				>
+						{{ search_label }}
+				</span>
+			</button>
+			<button class="nav-search-clear"
+				aria-label="{{ __( 'Clear search', 'planet4-master-theme' ) }}"
+				type="button"
+				onclick="document.getElementById('{{ search_input_id }}').value=null;"
+			>
+				<span class="visually-hidden">{{ __( 'Clear search', 'planet4-master-theme' ) }}</span>
+			</button>
+		</form>
+		{% if navbar_languages is not empty %}
+			{% set current_lang = navbar_languages|filter(i => 'wpml-ls-current-language' in i.classes)|first %}
+			<button class="nav-languages-toggle" type="button"
+				aria-label="{{ __( 'Choose language', 'planet4-master-theme' ) }}"
+				aria-expanded="false"
+				data-bs-toggle="open"
+				data-bs-target="#nav-languages"
+			>{{ current_lang.title|striptags|trim|slice(0,2) }}</button>
+			<nav id="nav-languages" class="nav-languages">
+				<ul>
+				{% for key,item in navbar_languages %}
+				<li class="nav-item {{ item.class }}">
+					<a class="nav-link" href="{{ item.get_link }}">{{ item.title|striptags|trim }}</a>
+					<span aria-hidden="true">&nbsp;|&nbsp;</span>
+				</li>
+				{% endfor %}
+				</ul>
+			</nav>
+		{% endif %}
+		<button class="nav-menu-close" type="button"
+			aria-label="{{ __( 'Close navigation menu', 'planet4-master-theme' ) }}"
+			aria-expanded="false"
+			data-bs-toggle="open"
+			data-bs-target="#nav-main">
+			<span class="visually-hidden">
+				{{ __( 'Close navigation menu', 'planet4-master-theme' ) }}
+			</span>
+		</button>
+	</div>
+</section>

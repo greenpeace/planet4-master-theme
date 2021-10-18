@@ -1,0 +1,21 @@
+<nav id="header" class="navigation-bar_min top-navigation navbar {% if custom_styles.nav_border == 'border' %}navigation-bar_border{% endif %}">
+	<a class="site-logo" href="{{ data_nav_bar.home_url }}">
+		{% include 'blocks/site_logo.twig' %}
+	</a>
+
+	{% if navbar_languages is not empty %}
+	<ul class="language-selector-min">
+		{% for key,item in navbar_languages %}
+			{% if 'wpml-ls-item' in item.class %}
+				{% if key == 0 %}
+					<li class="nav-item {{ item.class }}">
+				{% endif %}
+					<a class="nav-link" href="{{ item.get_link }}">{{ item.title|striptags|trim|slice(0, 2) }}</a>
+				{% if key == (languages - 1) %}
+					</li>
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+	</ul>
+	{% endif %}
+</nav>
