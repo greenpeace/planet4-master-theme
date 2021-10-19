@@ -57,22 +57,14 @@
       .comment-link {
         &:hover {
           text-decoration: none;
+
+          .quantity {
+            text-decoration: underline;
+          }
         }
 
         .icon {
           top: 0;
-        }
-
-        .quantity {
-          text-decoration: underline;
-
-          @include large-and-up {
-            text-decoration: none;
-          }
-        }
-
-        .quantity:hover {
-          text-decoration: underline;
         }
 
         .display-text {
