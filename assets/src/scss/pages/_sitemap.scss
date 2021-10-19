@@ -1,13 +1,20 @@
-.page-template-sitemap {
-  .page-sitemap {
-    margin-bottom: 100px;
+.page-sitemap {
+  margin-bottom: 100px;
 
-    a {
-      color: $grey-80;
-    }
+  a {
+    color: $grey-80;
+    font-family: $roboto;
 
-    h5 {
-      margin-bottom: 1rem;
+    &:visited {
+      color: $link-color-visited;
     }
+  }
+
+  .tag-item {
+    margin-left: 30px;
+  }
+
+  h5 {
+    margin-bottom: 1rem;
   }
 }
