@@ -65,11 +65,23 @@ class ENForm extends Base_Block {
 		'thankyou_url'                  => [ 'type' => 'string' ],
 		'custom_donate_url'             => [ 'type' => 'string' ],
 		'background'                    => [ 'type' => 'integer' ],
+		'background_image_src'          => [
+			'type'    => 'string',
+			'default' => '',
+		],
+		'background_image_srcset'       => [ 'type' => 'string' ],
+		'background_image_sizes'        => [ 'type' => 'string' ],
+		'background_image_focus'        => [
+			'type'    => 'string',
+			'default' => '50% 50%',
+		],
 		'en_form_id'                    => [ 'type' => 'integer' ],
 		'en_form_fields'                => [
 			'type'    => 'array',
 			'default' => [],
 		],
+		'social'                        => [ 'type' => 'object' ],
+		'social_accounts'               => [ 'type' => 'object' ],
 	];
 
 	/**

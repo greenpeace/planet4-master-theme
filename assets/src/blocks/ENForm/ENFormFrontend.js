@@ -61,14 +61,16 @@ export const ENFormFrontend = (attributes) => {
   const HeadingTag = content_title_size;
 
   const [activeTplId, setActiveTplId] = useState('signup');
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const [error_msg, setErrorMsg] = useState(null);
   const [form_data, setFormData] = useState(
     fields.reduce((acc, f) => { return {...acc, [inputId(f)['name']]: null} }, {})
   );
 
   const onInputChange = (field, e) => {
-    setErrors(errors => errors.filter(id => id !== field.id));
+    setErrors(errs => {
+      return {...errs, [field.id]: null}
+    });
 
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -87,7 +89,7 @@ export const ENFormFrontend = (attributes) => {
 
     setErrorMsg(null);
     if (!validateForm(form_data, fields, setErrors)) {
-      console.error('Validation error.');
+      console.error('Validation error.', errors);
       return;
     }
 
@@ -307,7 +309,7 @@ const submitENForm = (props) => {
 }
 
 const validateForm = (form_data, fields, setErrors) => {
-  setErrors([]);
+  setErrors({});
 
   let formIsValid = true;
   fields.forEach((field) => {
@@ -329,59 +331,85 @@ const validateField = (field, form_data, setErrors) => {
   }
 
   if (field.required && [null, false, ''].includes(value)) {
-    setErrors(errors => [...errors, field.id]);
+    setErrors(errors => {
+      return {...errors, [field.id]: element.dataset["errormessage"]}
+    });
     return false;
   }
 
   if (element.type === "email") {
-    // Reference: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
-    let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(String(value).toLowerCase())) {
-      setErrors(errors => [...errors, field.id]);
-      return false;
-    }
-    return true;
+    return validateEmail(field, element, setErrors, value);
   }
 
   if (element.type === "radio") {
-    let sibling_radios_checked = fields.find((f) => {
-      let {id: f_id, name: f_name} = inputId(f);
-      let f_element = document.getElementById(f_id);
-      return f_name === name && f_element && f_element.checked === true;
-    })
-    if (!sibling_radios_checked) {
-      setErrors(errors => [...errors, field.id]);
-      return false;
-    }
-    return true;
+    return validateRadio(field, element, setErrors, name, fields);
   }
 
   const regexPattern = element.dataset['validate_regex'];
   if (regexPattern?.length) {
-    const regex = new RegExp(regexPattern);
-    if (!regex.test(value)) {
-      setErrors(errors => [...errors, field.id]);
-      return false;
-    }
-    return true;
+    return validateRegex(field, element, setErrors, value, regexPattern);
   }
 
   const callbackFunction = element.dataset['validate_callback'];
   if ('function' === typeof window[callbackFunction]) {
-    const validateField = window[callbackFunction](element.value);
-    if (true !== validateField) {
-      setErrors(errors => [...errors, field.id]);
-      return false;
-    }
-    return true;
+    return validateCallback(field, element, setErrors, callbackFunction);
   }
 
   return true;
 }
 
+const validateEmail = (field, element, setErrors, value) => {
+  // Reference: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email#basic_validation
+  let re = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  if (!re.test(String(value).toLowerCase())) {
+    setErrors(errors => {
+      return {...errors, [field.id]: element.dataset["errormessage"]}
+    });
+    return false;
+  }
+  return true;
+}
+
+const validateRadio = (field, element, setErrors, name, fields) => {
+  let sibling_radios_checked = fields.find((f) => {
+    let {id: f_id, name: f_name} = inputId(f);
+    let f_element = document.getElementById(f_id);
+    return f_name === name && f_element && f_element.checked === true;
+  })
+  if (!sibling_radios_checked) {
+    setErrors(errors => {
+      return {...errors, [field.id]: element.dataset["errormessage"]}
+    });
+    return false;
+  }
+  return true;
+}
+
+const validateRegex = (field, element, setErrors, value, regexPattern) => {
+  const regex = new RegExp(regexPattern);
+  if (!regex.test(value)) {
+    setErrors(errors => {
+      return {...errors, [field.id]: element.dataset["validate_regex_msg"]}
+    });
+    return false;
+  }
+  return true;
+}
+
+const validateCallback = (field, element, setErrors, callbackFunction) => {
+  const validate = window[callbackFunction](element.value);
+  if (true !== validate) {
+    setErrors(errors => {
+      return {...errors, [field.id]: validate}
+    });
+    return false;
+  }
+  return true;
+}
+
 const urlIsValid = (url_str) => {
   try {
-    url = new URL(url_str);
+    let url = new URL(url_str);
     return ['http:', 'https:'].includes(url.protocol);
   } catch (e) {
     console.log(e);

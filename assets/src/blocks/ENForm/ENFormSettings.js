@@ -36,7 +36,6 @@ export const ENFormSettings = ({attributes, setAttributes}) => {
   }
 
   const onBackgroundChange = (image) => {
-    console.log(background, image);
     setAttributes({
       background: image.id,
       background_image_src: image.url,
@@ -75,7 +74,7 @@ export const ENFormSettings = ({attributes, setAttributes}) => {
               ...page_list
             ]}
             disabled={page_list.length <= 0}
-            onChange={toAttribute('en_page_id')}
+            onChange={(id) => {setAttributes({en_page_id: parseInt(id)})}}
             required={true}
           />
 

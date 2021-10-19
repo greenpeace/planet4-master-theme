@@ -29,8 +29,8 @@ const Input = (props) => {
   const {
     field,
     index,
-    onInputChange = () => {},
-    onBlur = () => {},
+    onInputChange = null,
+    onBlur = null,
     dependent_field,
     errors,
     is_side_style
@@ -71,7 +71,7 @@ const HiddenInput = ({field}) => {
 
 const TextInput = ({field, onInputChange, onBlur, errors, is_side_style}) => {
   const {id, name} = inputId(field);
-  const has_error = errors && errors.includes(field.id);
+  const has_error = errors && errors[field.id];
   const errorMessage = field.input_type === 'email'
     ? __( 'Please enter a valid e-mail address.', 'planet4-engagingnetworks' )
     : __( 'This field is required', 'planet4-engagingnetworks' )
@@ -111,7 +111,7 @@ const TextInput = ({field, onInputChange, onBlur, errors, is_side_style}) => {
           </label>
         }
         {has_error &&
-          <div className="invalid-feedback">{ errorMessage }</div>
+          <div className="invalid-feedback">{ errors[field.id] ?? errorMessage }</div>
         }
       </div>
     </div>
@@ -127,7 +127,7 @@ const CheckboxInput = ({field, onInputChange, onBlur, index, dependent_field, er
 const CheckboxOpt = ({field, onInputChange, onBlur, dependent_field, errors}) => {
   const {id, name} = inputId(field);
   const locale = field.selected_locale;
-  const has_error = errors && errors.includes(field.id);
+  const has_error = errors && errors[field.id];
   const errorMessage = __( 'This field is required', 'planet4-engagingnetworks' )
 
   return (
@@ -156,7 +156,7 @@ const CheckboxOpt = ({field, onInputChange, onBlur, dependent_field, errors}) =>
           dangerouslySetInnerHTML={{__html: `${field.label}${field.required ? ' *' : ''}`}}
         />
         {has_error &&
-          <div className="invalid-feedback">{ errorMessage }</div>
+          <div className="invalid-feedback">{ errors[field.id] ?? errorMessage }</div>
         }
         </label>
       </div>
@@ -168,7 +168,7 @@ const CheckboxGen = ({field, onInputChange, onBlur, index, dependent_field, erro
   const {id, name} = inputId(field);
   const locale = field.selected_locale;
   const question_option={};
-  const has_error = errors && errors.includes(field.id);
+  const has_error = errors && errors[field.id];
   const errorMessage = __( 'This field is required', 'planet4-engagingnetworks' );
 
   return (
@@ -195,7 +195,7 @@ const CheckboxGen = ({field, onInputChange, onBlur, index, dependent_field, erro
             dangerouslySetInnerHTML={{__html: `${question_option.option_label}${field.required ? ' *' : ''}`}}
           />
           {errors && errors.includes(field.id) &&
-            <div className="invalid-feedback">{ errorMessage }</div>
+            <div className="invalid-feedback">{ errors[field.id] ?? errorMessage }</div>
           }
           <br />
         </label>
@@ -207,7 +207,7 @@ const CheckboxGen = ({field, onInputChange, onBlur, index, dependent_field, erro
 const RadioInput = ({field, onInputChange, onBlur, errors}) => {
   const {id, name} = inputId(field);
   const options = field.radio_options[field.locale] || [];
-  const has_error = errors && errors.includes(field.id);
+  const has_error = errors && errors[field.id];
 
   const inputs = options.map((opt, index) => {
     return (
@@ -246,7 +246,7 @@ const RadioInput = ({field, onInputChange, onBlur, errors}) => {
       </span><br />
       { inputs }
       {has_error &&
-        <div className="invalid-feedback">{ errorMessage }</div>
+        <div className="invalid-feedback">{ errors[field.id] ?? errorMessage }</div>
       }
     </div>
   );
@@ -254,7 +254,7 @@ const RadioInput = ({field, onInputChange, onBlur, errors}) => {
 
 const CountryInput = ({field, onInputChange, onBlur, errors, is_side_style}) => {
   const {id, name} = inputId(field);
-  const has_error = errors && errors.includes(field.id);
+  const has_error = errors && errors[field.id];
   const error_message = __( 'Please select a country.', 'planet4-engagingnetworks' );
   const props = {
     id: id,
@@ -275,7 +275,7 @@ const CountryInput = ({field, onInputChange, onBlur, errors, is_side_style}) => 
       <div className="en__field__element en__field__element--select form-group animated-label">
         <CountrySelector {...props} />
         {has_error &&
-          <div className="invalid-feedback">{ error_message }</div>
+          <div className="invalid-feedback">{ errors[field.id] ?? error_message }</div>
         }
       </div>
     </div>
@@ -284,7 +284,7 @@ const CountryInput = ({field, onInputChange, onBlur, errors, is_side_style}) => 
 
 const PositionInput = ({field, onInputChange, onBlur, errors, is_side_style}) => {
   const {id, name} = inputId(field);
-  const has_error = errors && errors.includes(field.id);
+  const has_error = errors && errors[field.id];
   const error_message = __( 'Please select a position.', 'planet4-engagingnetworks' );
   const props = {
     id: id,
@@ -309,7 +309,7 @@ const PositionInput = ({field, onInputChange, onBlur, errors, is_side_style}) =>
         }
         <PositionSelector {...props} />
         {has_error &&
-          <div className="invalid-feedback">{ error_message }</div>
+          <div className="invalid-feedback">{ errors[field.id] ?? error_message }</div>
         }
       </div>
     </div>

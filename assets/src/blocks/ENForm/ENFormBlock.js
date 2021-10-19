@@ -22,8 +22,8 @@ const attributes = {
   thankyou_social_media_message: { type: 'string', },
   donate_button_checkbox: { type: 'boolean', },
   donate_text: { type: 'string', default: __('Donate', 'planet4-engagingnetworks')},
-  custom_donate_url: { type: 'string', },
   thankyou_url: { type: 'string', },
+  custom_donate_url: { type: 'string', },
   background: { type: 'integer', },
   background_image_src: { type: 'string', default: '' },
   background_image_srcset: { type: 'string', },
@@ -52,6 +52,11 @@ export const registerENForm = () => {
     ],
     attributes,
     edit: ENFormEditor,
-    save: frontendRendered(BLOCK_NAME),
+    save: (props) => {
+      // Sort attributes in a predictable order
+      let ordered_attrs = Object.fromEntries(Object.entries(props.attributes).sort());
+
+      return frontendRendered(BLOCK_NAME)(ordered_attrs, props?.className);
+    }
   });
 }

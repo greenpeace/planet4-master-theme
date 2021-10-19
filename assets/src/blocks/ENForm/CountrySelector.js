@@ -6,8 +6,8 @@ export const CountrySelector = (attributes) => {
     class_name = '',
     error_message = '',
     required = false,
-    onInputChange = () => {},
-    onBlur = () => {},
+    onInputChange = null,
+    onBlur = null,
   } = attributes;
 
   const options = [
