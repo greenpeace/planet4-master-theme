@@ -106,10 +106,6 @@ a --link-- {
     border-radius: 4px;
   }
 
-  &:focus-visible {
-    outline: 0;
-  }
-
   &:hover,
   &:active {
     color: $link-color;
@@ -120,4 +116,8 @@ a --link-- {
   &:visited {
     color: $link-color-visited;
   }
+}
+
+a:focus-visible {
+  outline: 0;
 }
