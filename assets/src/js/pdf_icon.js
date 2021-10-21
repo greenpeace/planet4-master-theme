@@ -1,6 +1,6 @@
 // Add pdf icon to pdf links
 export const setupPDFIcon = () => {
-  const links = [...document.querySelectorAll('a[href*=".pdf"]')];
+  const links = [...document.querySelectorAll('a[href*=".pdf"]:not(.search-result-item-headline)')];
 
   links.forEach(link => {
     // We don't want to show the icon in headings/titles,
