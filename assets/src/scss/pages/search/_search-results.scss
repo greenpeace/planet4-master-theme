@@ -180,6 +180,10 @@
   @include large-and-up {
     font-size: 1.625rem;
   }
+
+  &:visited {
+    color: $grey-80;
+  }
 }
 
 .search-result-item-info {
