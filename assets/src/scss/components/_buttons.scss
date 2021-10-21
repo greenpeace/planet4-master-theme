@@ -34,8 +34,6 @@
   &:visited {
     color: $white;
     text-decoration: none;
-    outline: none;
-    border: none;
   }
 
   &:disabled,
@@ -87,7 +85,7 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
     &:active {
       background: $orange-hover;
       color: $white;
-      border-color: $orange-hover;
+      border: 1px solid $orange-hover;
       box-shadow: $primary-button-box-shadow;
     }
 
@@ -181,6 +179,7 @@ $donate-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
       background: $aquamarine;
       color: transparentize($grey-80, 0.2);
       box-shadow: $donate-button-box-shadow;
+      border: 1px solid transparent;
     }
   }
   line-height: 1.65;
