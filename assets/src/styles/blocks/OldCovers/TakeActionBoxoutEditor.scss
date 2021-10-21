@@ -1,0 +1,17 @@
+.cover-card.action-card {
+  position: relative;
+
+  a {
+    pointer-events: none;
+  }
+
+  .cover-card-excerpt,
+  .cover-card-btn {
+    display: block;
+  }
+
+  // Prevent line clamp on editable stuff, because it's very buggy.
+  div[contenteditable] {
+    -webkit-line-clamp: unset !important;
+  }
+}

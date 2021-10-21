@@ -401,8 +401,6 @@ final class Loader {
 			true
 		);
 
-		self::enqueue_local_script( 'post_action', 'public/js/post_action.js', [ 'jquery' ] );
-
 		// Variables reflected from PHP to JS.
 		$option_values   = get_option( 'planet4_options' );
 		$reflection_vars = [
