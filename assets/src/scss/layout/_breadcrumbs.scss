@@ -26,12 +26,17 @@
     font-weight: 400;
     margin-inline-start: -12px;
     margin-inline-end: 8px;
+    color: $link-color;
   }
 
   .tag-item {
     _-- {
       color: $link-color;
       font-weight: 400;
+
+      &:visited {
+        color: $link-color-visited;
+      }
     }
     display: inline-block;
 
