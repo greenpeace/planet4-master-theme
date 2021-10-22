@@ -173,17 +173,6 @@ class MetaboxRegister {
 
 		$p4_post->add_field(
 			[
-				'name'             => __( 'Take Action Page Selector', 'planet4-master-theme-backend' ),
-				'desc'             => __( 'Select a Take Action Page to populate take action boxout block', 'planet4-master-theme-backend' ),
-				'id'               => 'p4_take_action_page',
-				'type'             => 'select',
-				'show_option_none' => true,
-				'options_cb'       => [ $this, 'populate_act_page_children_options' ],
-			]
-		);
-
-		$p4_post->add_field(
-			[
 				'name'    => __( 'Include Articles In Post', 'planet4-master-theme-backend' ),
 				'id'      => 'include_articles',
 				'type'    => 'select',
@@ -338,35 +327,6 @@ class MetaboxRegister {
 				],
 			]
 		);
-	}
-
-	/**
-	 * Populate an associative array with all the children of the ACT page
-	 *
-	 * @return array
-	 */
-	public function populate_act_page_children_options() {
-		$parent_act_id = planet4_get_option( 'act_page' );
-		$options       = [];
-
-		if ( 0 !== absint( $parent_act_id ) ) {
-			$take_action_pages_args = [
-				'post_type'        => 'page',
-				'post_parent'      => $parent_act_id,
-				'post_status'      => 'publish',
-				'orderby'          => 'post_title',
-				'order'            => 'ASC',
-				'suppress_filters' => false,
-				'numberposts'      => self::MAX_TAKE_ACTION_PAGES,
-			];
-
-			$posts = get_posts( $take_action_pages_args );
-			foreach ( $posts as $post ) {
-				$options[ $post->ID ] = $post->post_title;
-			}
-		}
-
-		return $options;
 	}
 
 	/**
