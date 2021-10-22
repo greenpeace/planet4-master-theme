@@ -24,19 +24,19 @@
     pointer-events: none;
     display: inline-block;
     font-weight: 400;
-    margin-left: -12px;
-    margin-right: 8px;
-
-    html[dir="rtl"] & {
-      margin-right: -12px;
-      margin-left: 8px;
-    }
+    margin-inline-start: -12px;
+    margin-inline-end: 8px;
+    color: $link-color;
   }
 
   .tag-item {
     _-- {
       color: $link-color;
       font-weight: 400;
+
+      &:visited {
+        color: $link-color-visited;
+      }
     }
     display: inline-block;
 
@@ -45,20 +45,10 @@
     }
 
     &:not(:only-child):not(:last-child) {
-      margin-right: 7px;
-
-      html[dir="rtl"] & {
-        margin-right: 0;
-        margin-left: 7px;
-      }
+      margin-inline-end: 7px;
 
       &.page-type {
-        margin-right: 20px;
-
-        html[dir="rtl"] & {
-          margin-right: 0;
-          margin-left: 20px;
-        }
+        margin-inline-end: 20px;
       }
     }
   }
@@ -67,23 +57,9 @@
     _-- {
       font-weight: 500;
     }
-
-    &.page-type {
-      text-transform: uppercase;
-
-      html[dir="rtl"] & {
-        text-transform: lowercase;
-        margin-right: 0;
-      }
-    }
   }
 
   .issues {
-    margin-right: 20px;
-
-    html[dir="rtl"] & {
-      margin-right: 0;
-      margin-left: 20px;
-    }
+    margin-inline-end: 20px;
   }
 }
