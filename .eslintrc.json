@@ -1,55 +1,60 @@
 {
-    "env": {
-        "browser": true,
-        "es6": true,
-        "jquery": true,
-        "jest": true
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jquery": true,
+    "jest": true
+  },
+  "extends": "eslint:recommended",
+  "globals": {
+    "page": true,
+    "browser": true,
+    "wp": "readonly"
+  },
+  "rules": {
+    "indent": [
+      "error",
+      2
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "curly": [
+      "error",
+      "all"
+    ],
+    "one-var-declaration-per-line": [
+      "error",
+      "always"
+    ],
+    "prefer-arrow-callback": [
+      "error", {
+        "allowNamedFunctions": true
+      }
+    ],
+    "new-cap": "error",
+    "no-var": 1,
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
+  },
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
     },
-    "extends": "eslint:recommended",
-    "globals": {
-        "page": true,
-        "browser": true,
-        "wp": "readonly"
-    },
-    "rules": {
-        "indent": [
-            "error",
-            2
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ],
-        "curly": [
-            "error",
-            "all"
-        ],
-        "one-var-declaration-per-line": [
-            "error",
-            "always"
-        ],
-        "new-cap": "error",
-        "no-var": 1,
-        "react/jsx-uses-react": "error",
-        "react/jsx-uses-vars": "error"
-    },
-    "parserOptions": {
-        "ecmaVersion": 2020,
-        "ecmaFeatures": {
-            "jsx": true,
-            "modules": true
-        },
-        "sourceType": "module"
-    },
-    "plugins": [
-      "react"
-    ]
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ]
 }

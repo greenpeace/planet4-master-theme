@@ -1,4 +1,4 @@
-jQuery(function ($) {
+jQuery(($) => {
   'use strict';
 
   $('.en__field__input--checkbox').change(function() {

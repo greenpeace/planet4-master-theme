@@ -1,6 +1,6 @@
 // Force the Cover card to follow scroll
 
-jQuery(function ($) {
+jQuery(($) => {
   'use strict';
 
   const $post = $('.post-content');
