@@ -1,5 +1,5 @@
 // Force wide blocks outside the container
-$(document).ready(function() {
+$(document).ready(() => {
   'use strict';
   let $container = $('div.page-template, div.container').eq(0);
 

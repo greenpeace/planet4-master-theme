@@ -24,7 +24,7 @@ const p4_enform_frontend = (function ($) {
       }
     });
 
-    $.each($('#p4en_form').serializeArray(), function (i, field) {
+    $.each($('#p4en_form').serializeArray(), (i, field) => {
       if (field.name.indexOf('supporter.questions.') >= 0) {
         let id = field.name.split('.')[2];
         if ( 'undefined' === typeof supporter.questions['question.' + id] ) {
@@ -45,7 +45,7 @@ const p4_enform_frontend = (function ($) {
 
   enform.addChangeListeners = function(form) {
     $(form.elements).each(function () {
-      $(this).off('change').on('change', function () {
+      $(this).off('change').on('change', () => {
         enform.validateForm(form);
       });
     });
@@ -151,7 +151,7 @@ const p4_enform_frontend = (function ($) {
         'ens-auth-token': sessionToken
       },
       data: JSON.stringify(formData),
-    }).done(function () {
+    }).done(() => {
 
       // Submit Hotjar success
       if ( typeof hj === 'function' ) {
@@ -184,7 +184,7 @@ const p4_enform_frontend = (function ($) {
         }, 'slow');
       }
       $('.enform-notice').html('');
-    }).fail(function (response) {
+    }).fail((response) => {
 
       // Submit Hotjar failure
       if ( typeof hj === 'function' ) {
@@ -193,7 +193,7 @@ const p4_enform_frontend = (function ($) {
 
       $('.enform-notice').html('<span class="enform-error">There was a problem with the submission</span>');
       console.log(response); //eslint-disable-line no-console
-    }).always(function () {
+    }).always(() => {
       enform.hideENSpinner();
     });
   };
@@ -216,7 +216,7 @@ const p4_enform_frontend = (function ($) {
 })(jQuery);
 
 
-$(document).ready(function () {
+$(document).ready(() => {
   'use strict';
 
   // Submit handler for enform
@@ -236,7 +236,7 @@ $(document).ready(function () {
         data: {
           action: 'get_en_session_token',
         },
-      }).done(function (response) {
+      }).done((response) => {
         const token = response.token;
 
         if ('' !== token) {
@@ -252,7 +252,7 @@ $(document).ready(function () {
           }
 
         }
-      }).fail(function (response) {
+      }).fail((response) => {
         p4_enform_frontend.hideENSpinner();
         $('.enform-notice').html('There was a problem with the submission');
         console.log(response); //eslint-disable-line no-console

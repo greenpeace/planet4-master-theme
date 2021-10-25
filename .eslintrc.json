@@ -47,7 +47,7 @@
     "react/jsx-uses-vars": "error"
   },
   "parserOptions": {
-    "ecmaVersion": 2020,
+    "ecmaVersion": 9,
     "ecmaFeatures": {
       "jsx": true,
       "modules": true

@@ -1,4 +1,4 @@
-jQuery(function ($) {
+jQuery(($) => {
   // Add click event for load more button in Covers blocks.
   $('.btn-load-more-posts-click').on('mouseup touchend', function (e) {
     e.preventDefault();
