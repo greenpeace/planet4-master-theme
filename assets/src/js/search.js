@@ -17,7 +17,7 @@ export const setupSearch = function($) {
     $( this ).addClass( 'active' );
   });
 
-  $( '.btn-filter:not( .disabled )' ).click(function() {
+  $( '.btn-filter:not( .disabled )' ).click(() => {
     $( '#filtermodal' ).modal( 'show' );
   });
 
@@ -28,12 +28,12 @@ export const setupSearch = function($) {
   });
 
   // Submit form on Filter click event or on Apply button click event.
-  $( 'input[name^="f["]:not(.modal-checkbox), .applybtn' ).off( 'click' ).on( 'click', function() {
+  $( 'input[name^="f["]:not(.modal-checkbox), .applybtn' ).off( 'click' ).on( 'click', () => {
     $search_form.submit();
   });
 
   // Add all selected filters to the form submit.
-  $search_form.on( 'submit', function() {
+  $search_form.on( 'submit', () => {
     let $checkbox;
     if ( 0 === $('.filter-modal.show').length ) {
       $( 'input[name^="f["]:not(.modal-checkbox):checked' ).each( function() {
@@ -65,7 +65,7 @@ export const setupSearch = function($) {
   });
 
   // Clear all selected filters.
-  $( '.clearall' ).off( 'click' ).on( 'click', function() {
+  $( '.clearall' ).off( 'click' ).on( 'click', () => {
     $( 'input[name^="f["]' ).prop( 'checked', false );
     $search_form.submit();
   });
@@ -90,7 +90,7 @@ export const setupSearch = function($) {
           'query-string':  decodeURIComponent( location.search ).substr( 1 ) // Ignore the ? in the search url (first char).
         },
         dataType: 'html'
-      }).done(function ( response ) {
+      }).done(( response ) => {
         // Append the response at the bottom of the results and then show it.
         $( '.multiple-search-result .list-unstyled' ).append( response );
         $( '.row-hidden:last' ).removeClass( 'row-hidden' ).show( 'fast' );
@@ -98,7 +98,7 @@ export const setupSearch = function($) {
         if (posts_per_load * next_page > total_posts) {
           $load_more_button.hide();
         }
-      }).fail(function ( jqXHR, textStatus, errorThrown ) {
+      }).fail(( jqXHR, textStatus, errorThrown ) => {
         console.log(errorThrown); //eslint-disable-line no-console
       });
     } else {
@@ -132,7 +132,7 @@ export const setupSearch = function($) {
           loaded_more = true;
 
           // Add a throttle to avoid multiple scroll events from firing together.
-          setTimeout(function () {
+          setTimeout(() => {
             loaded_more = false;
           }, 500);
         }
