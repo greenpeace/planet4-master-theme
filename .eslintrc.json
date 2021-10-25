@@ -34,6 +34,11 @@
       "error",
       "always"
     ],
+    "prefer-arrow-callback": [
+      "error", {
+        "allowNamedFunctions": true
+      }
+    ],
     "new-cap": "error",
     "no-var": 1,
     "react/jsx-uses-react": "error",

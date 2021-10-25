@@ -31,7 +31,7 @@ export const setupCountrySelect = function($) {
       '</div>'
     );
 
-    $.each(countries_json, function (index, element) {
+    $.each(countries_json, (index, element) => {
       if ('0' === index) {
         $('.international', countries_html)
           .attr('href', element[0].url)
@@ -49,8 +49,8 @@ export const setupCountrySelect = function($) {
         );
         $('.countries_list', countries_html).append(countries_sublist);
 
-        $.each(element, function (index, country) {
-          $.each(country.lang, function (index, lang) {
+        $.each(element, (index, country) => {
+          $.each(country.lang, (index, lang) => {
             $('.countries_sublist', countries_sublist).append(
               '<li>' +
                 '<a ' +

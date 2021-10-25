@@ -24,7 +24,7 @@ export const setupHeader = function($) {
     $(this).toggleClass(toggleClass);
 
     // Toggle aria-expanded attribute.
-    $button.attr('aria-expanded', function(i, attr) {
+    $button.attr('aria-expanded', (i, attr) => {
       return attr === 'false' ? 'true' : 'false';
     });
 
@@ -36,7 +36,7 @@ export const setupHeader = function($) {
   // Close all menus when clicking somewhere else
   $(document).on('click', function closeInactiveMenus(evt) {
     const clickedElement = evt.target;
-    $('button[aria-expanded="true"]').each(function(i, button) {
+    $('button[aria-expanded="true"]').each((i, button) => {
       const $button = $(button);
       const buttonTarget = $($button.data('bs-target')).get( 0 );
       if (buttonTarget && ! $.contains(buttonTarget, clickedElement)) {
@@ -47,14 +47,14 @@ export const setupHeader = function($) {
   });
 
   // Close all menus on escape pressed
-  $(document).bind('keyup', function(event){
+  $(document).bind('keyup', (event) => {
     if (event.which === 27) {
       $(document).trigger('click');
     }
   });
 
   //Close the menu if the user clicks the dedicated dropdown close button.
-  $(document).on('click', '.close-navbar-dropdown', function (evt) {
+  $(document).on('click', '.close-navbar-dropdown', (evt) => {
     evt.preventDefault();
     // Proxy to the main navbar close button
     $('.navbar-dropdown-toggle').trigger('click');
@@ -81,10 +81,10 @@ export const setupHeader = function($) {
     let lastScrollTop = 0;
     const delta = 5;
     const navbarHeight = $('.top-navigation').outerHeight();
-    $(window).scroll(function(){
+    $(window).scroll(() => {
       didScroll = true;
     });
-    setInterval(function() {
+    setInterval(() => {
       if (didScroll) {
         hasScrolled(lastScrollTop, delta, navbarHeight);
         didScroll = false;
@@ -92,7 +92,7 @@ export const setupHeader = function($) {
     }, 250);
 
     const $slider = $('.mobile-menus');
-    $(document).click(function() {
+    $(document).click(() => {
       if($('.menu').hasClass('active')){
         //Hide the menus if visible
         $slider.animate({
@@ -117,7 +117,7 @@ export const setupHeader = function($) {
     const $searchBox = $('#search .search-box');
     const $searchTrigger = $('#search-trigger');
 
-    $searchTrigger.on('click', function(event) {
+    $searchTrigger.on('click', (event) => {
       event.stopPropagation();
       $searchBox.slideToggle().toggleClass('active');
     });
