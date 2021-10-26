@@ -11,9 +11,9 @@ use CF\WordPress\WordPressClientAPI;
 use Generator;
 
 /**
- * Interactions with Cloudflare API.
+ * Purge of Cloudflare cache via its API.
  */
-class Cloudflare {
+class CloudflarePurger {
 
 	/**
 	 * @var WordPressClientAPI
@@ -77,17 +77,14 @@ class Cloudflare {
 	/**
 	 * Get all URLs from the instance.
 	 *
-	 * @param array $args Specify post types.
+	 * @param ?array $post_types Specify post types, all editable types are used if null.
 	 * @return array
 	 */
-	public static function get_all_urls( $args = [] ): array {
-		$post_types = isset( $args['post-types'] )
-			? explode( ',', $args['post-types'] )
-			: [ 'post', 'page', 'campaign' ];
+	public static function get_all_urls( ?array $post_types = null ): array {
 
 		$ids = get_posts(
 			[
-				'post_type'           => $post_types,
+				'post_type'           => $post_types ?? self::get_all_post_types(),
 				'posts_per_page'      => - 1,
 				'post_status'         => 'publish',
 				'ignore_sticky_posts' => 1,
@@ -96,5 +93,18 @@ class Cloudflare {
 		);
 
 		return array_map( 'get_permalink', $ids );
+	}
+
+	/**
+	 * Get all registered post types that "support blocks".
+	 *
+	 * @return string[] All posts types that support blocks.
+	 */
+	private static function get_all_post_types(): array {
+		$supports_editor = static function ( $type ) {
+			return post_type_supports( $type, 'editor' );
+		};
+
+		return array_filter( get_post_types( [ 'show_in_rest' => true ] ), $supports_editor );
 	}
 }

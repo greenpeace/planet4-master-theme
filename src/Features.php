@@ -26,7 +26,7 @@ class Features {
 
 	public const WP_TEMPLATE_EDITOR = 'wp_template_editor';
 
-	public const NEW_DESIGN_CS = 'new_design_country_selector';
+	public const NEW_DESIGN_COUNTRY_SELECTOR = 'new_design_country_selector';
 
 	/**
 	 * Get the features options page settings.
@@ -119,7 +119,7 @@ class Features {
 					'Enable the new Country selector design as described in the <a href="https://p4-designsystem.greenpeace.org/05f6e9516/p/106cdb-navigation-bar" target="_blank">design system</a>.<br/>This might break your child theme, depending on how you extended the main templates and CSS.<br/>Changing this option will take a bit of time, as it also attempts to clear the Cloudflare cache.',
 					'planet4-master-theme-backend'
 				),
-				'id'   => self::NEW_DESIGN_CS,
+				'id'   => self::NEW_DESIGN_COUNTRY_SELECTOR,
 				'type' => 'checkbox',
 			],
 		];
@@ -173,9 +173,9 @@ class Features {
 	 * @param CMB2_Field $field    This field object.
 	 */
 	public static function on_field_save( $field_id, $updated, $action, $field ) {
-		if ( self::NEW_DESIGN_CS === $field_id ) {
+		if ( self::NEW_DESIGN_COUNTRY_SELECTOR === $field_id ) {
 			if ( 'removed' === $action || 'updated' === $action ) {
-				( new Cloudflare() )->purge_all();
+				( new CloudflarePurger() )->purge_all();
 			}
 		}
 	}

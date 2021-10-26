@@ -2,7 +2,7 @@
 
 namespace P4\MasterTheme\Commands;
 
-use P4\MasterTheme\Cloudflare;
+use P4\MasterTheme\CloudflarePurger;
 use P4\MasterTheme\Features;
 use WP_CLI;
 
@@ -42,7 +42,7 @@ class CloudflarePurge extends Command {
 			return;
 		}
 
-		$cf   = new Cloudflare();
+		$cf   = new CloudflarePurger();
 		$urls = self::get_urls( $assoc_args );
 		WP_CLI::log( 'About to purge ' . count( $urls ) . ' urls.' );
 
@@ -70,7 +70,10 @@ class CloudflarePurge extends Command {
 		}
 
 		if ( isset( $assoc_args['all'] ) ) {
-			return Cloudflare::get_all_urls( $assoc_args );
+			$post_types = ! empty( $assoc_args['post-types'] )
+				? explode( ',', $assoc_args['post-types'] )
+				: null;
+			return CloudflarePurger::get_all_urls( $post_types );
 		}
 
 		throw new \RuntimeException( 'Please provide either --urls, or purge all urls with --all.' );
