@@ -102,7 +102,7 @@ a --link-- {
   text-decoration: none;
 
   &:focus {
-    border: 2px solid rgba(0, 106, 255, 0.4);
+    outline: 2px solid rgba(0, 106, 255, 0.4);
     border-radius: 4px;
   }
 
@@ -116,8 +116,4 @@ a --link-- {
   &:visited {
     color: $link-color-visited;
   }
-}
-
-a:focus-visible {
-  outline: 0;
 }
