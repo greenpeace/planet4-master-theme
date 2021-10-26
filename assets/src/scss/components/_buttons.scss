@@ -10,6 +10,10 @@
     transition-property: color, background-color, border-color;
     transition-duration: 150ms;
     transition-timing-function: linear;
+
+    &:focus {
+      outline: 2px solid rgba(0, 106, 255, 0.4);
+    }
   }
 
   *, &::before, &:after {
@@ -29,7 +33,6 @@
   appearance: none;
 
   &:hover,
-  &:focus,
   &:active,
   &:visited {
     color: $white;
@@ -51,7 +54,6 @@
     color: $grey-80 !important;
 
     &:hover,
-    &:focus,
     &:active {
       color: $grey-80 !important;
     }
@@ -81,7 +83,6 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
     box-shadow: $primary-button-box-shadow;
 
     &:hover,
-    &:focus,
     &:active {
       background: $orange-hover;
       color: $white;
@@ -111,8 +112,7 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
       color: $dark-blue;
     }
 
-    &:hover,
-    &:focus {
+    &:hover {
       background: $dark-blue;
       border-color: $dark-blue;
       color: $white;
@@ -149,8 +149,7 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
   border-color: $white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: $orange;
     border-color: $orange;
   }
@@ -174,8 +173,7 @@ $donate-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
     border-width: 1px;
     border-color: transparent;
 
-    &:hover,
-    &:focus {
+    &:hover {
       background: $aquamarine;
       color: transparentize($grey-80, 0.2);
       box-shadow: $donate-button-box-shadow;
@@ -199,7 +197,6 @@ $donate-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
     background-color: transparent;
 
     &:hover,
-    &:focus,
     &:active {
       color: $white;
       box-shadow: none;
@@ -227,8 +224,7 @@ $donate-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
   position: relative;
   font-weight: 400;
 
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: $dark-blue;
     border-color: $dark-blue;
   }
@@ -252,10 +248,6 @@ $donate-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
   border: transparent;
   padding: 0;
   cursor: pointer;
-
-  &:focus {
-    outline: none;
-  }
 }
 
 button.load-more-mt {
