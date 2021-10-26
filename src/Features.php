@@ -26,7 +26,7 @@ class Features {
 
 	public const WP_TEMPLATE_EDITOR = 'wp_template_editor';
 
-	public const NEW_DESIGN_NAVBAR_CS = 'new_design_navbar_cs';
+	public const NEW_DESIGN_CS = 'new_design_country_selector';
 
 	/**
 	 * Get the features options page settings.
@@ -34,7 +34,6 @@ class Features {
 	 * @return array Settings for the options page.
 	 */
 	public static function get_options_page(): array {
-
 		return [
 			'title'       => 'Features',
 			'fields'      => self::get_fields(),
@@ -115,12 +114,12 @@ class Features {
 				'type' => 'checkbox',
 			],
 			[
-				'name' => __( 'Enable new Navigation bar and Country selector design', 'planet4-master-theme-backend' ),
+				'name' => __( 'Enable new Country selector design', 'planet4-master-theme-backend' ),
 				'desc' => __(
-					'Enable the new Navigation bar and country selector designs as described in the <a href="https://p4-designsystem.greenpeace.org/05f6e9516/p/106cdb-navigation-bar" target="_blank">design system</a>.<br/>This might break your child theme, depending on how you extended the main templates and CSS.',
+					'Enable the new Country selector design as described in the <a href="https://p4-designsystem.greenpeace.org/05f6e9516/p/106cdb-navigation-bar" target="_blank">design system</a>.<br/>This might break your child theme, depending on how you extended the main templates and CSS.<br/>Changing this option will take a bit of time, as it also attempts to clear the Cloudflare cache.',
 					'planet4-master-theme-backend'
 				),
-				'id'   => self::NEW_DESIGN_NAVBAR_CS,
+				'id'   => self::NEW_DESIGN_CS,
 				'type' => 'checkbox',
 			],
 		];
@@ -151,5 +150,33 @@ class Features {
 		$features = get_option( Settings::KEY );
 
 		return isset( $features[ $name ] ) && $features[ $name ];
+	}
+
+	/**
+	 * Add hooks related to Features activation
+	 */
+	public static function hooks() {
+		add_action(
+			'cmb2_save_field',
+			__CLASS__ . '::on_field_save',
+			10,
+			4
+		);
+	}
+
+	/**
+	 * Hook running after field is saved
+	 *
+	 * @param string     $field_id The current field id paramater.
+	 * @param bool       $updated  Whether the metadata update action occurred.
+	 * @param string     $action   Action performed. Could be "repeatable", "updated", or "removed".
+	 * @param CMB2_Field $field    This field object.
+	 */
+	public static function on_field_save( $field_id, $updated, $action, $field ) {
+		if ( self::NEW_DESIGN_CS === $field_id ) {
+			if ( 'removed' === $action || 'updated' === $action ) {
+				( new Cloudflare() )->purge_all();
+			}
+		}
 	}
 }

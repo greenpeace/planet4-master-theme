@@ -2,12 +2,7 @@
 
 namespace P4\MasterTheme\Commands;
 
-use CF\Integration\DefaultConfig;
-use CF\Integration\DefaultIntegration;
-use CF\Integration\DefaultLogger;
-use CF\WordPress\DataStore;
-use CF\WordPress\WordPressAPI;
-use CF\WordPress\WordPressClientAPI;
+use P4\MasterTheme\Cloudflare;
 use P4\MasterTheme\Features;
 use WP_CLI;
 
@@ -47,35 +42,13 @@ class CloudflarePurge extends Command {
 			return;
 		}
 
-		if ( ! defined( 'CLOUDFLARE_PLUGIN_DIR' ) ) {
-			define( 'CLOUDFLARE_PLUGIN_DIR', WP_PLUGIN_DIR . '/cloudflare/' );
-		}
-		require_once CLOUDFLARE_PLUGIN_DIR . 'vendor/autoload.php';
-
-		// The following is just a copy of the plugin's dependency chain, can probably be improved.
-		$config          = new DefaultConfig( file_get_contents( CLOUDFLARE_PLUGIN_DIR . 'config.json', true ) );
-		$logger          = new DefaultLogger( $config->getValue( 'debug' ) );
-		$data_store      = new DataStore( $logger );
-		$integration_api = new WordPressAPI( $data_store );
-		$integration     = new DefaultIntegration( $config, $integration_api, $data_store, $logger );
-		$api             = new WordPressClientAPI( $integration );
-
-		$zone_id = $api->getZoneTag( get_option( 'cloudflare_cached_domain_name' ) );
-
+		$cf   = new Cloudflare();
 		$urls = self::get_urls( $assoc_args );
 		WP_CLI::log( 'About to purge ' . count( $urls ) . ' urls.' );
 
-		// 30 is Cloudflare's purge api limit.
-		$chunks = array_chunk( $urls, 30 );
-
-		foreach ( $chunks as $i => $chunk ) {
-			// We only use $i to be human readable, increment it immediately.
-			++ $i;
-
-			$ok = $api->zonePurgeFiles( $zone_id, $chunk );
-			// It's unlikely that only some of the chunks will fail, as Cloudflare's API responds with success
-			// for any url, even if on non-existent domains. Giving a warning per chunk anyway, just in case.
-			if ( ! $ok ) {
+		foreach ( $cf->purge( $urls ) as $i => [$result, $chunk] ) {
+			WP_CLI::log( 'Chunk ' . $i . ': ' . ( $result ? 'ok' : 'failed' ) );
+			if ( true !== $result ) {
 				$joined = implode( "\n", $chunk );
 				WP_CLI::warning( "Chunk $i failed, one or more of these didn't work out: \n$joined" );
 			}
@@ -97,24 +70,7 @@ class CloudflarePurge extends Command {
 		}
 
 		if ( isset( $assoc_args['all'] ) ) {
-			$post_types = isset( $assoc_args['post-types'] )
-				? explode( ',', $assoc_args['post-types'] )
-				: [
-					'post',
-					'page',
-					'campaign',
-				];
-			$query_args = [
-				'post_type'           => $post_types,
-				'posts_per_page'      => - 1,
-				'post_status'         => 'publish',
-				'ignore_sticky_posts' => 1,
-				'fields'              => 'ids',
-			];
-
-			$ids = get_posts( $query_args );
-
-			return array_map( 'get_permalink', $ids );
+			return Cloudflare::get_all_urls( $assoc_args );
 		}
 
 		throw new \RuntimeException( 'Please provide either --urls, or purge all urls with --all.' );
