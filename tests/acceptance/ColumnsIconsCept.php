@@ -43,4 +43,4 @@ $I->see('Columns Block description', 'div');
 $I->see('Column 1', 'h3 > a');
 $I->see('Column 1 description', '.column-wrap p');
 $I->seeElement('.attachment-container a img');
-$I->see('Explore', '.column-wrap a.call-to-action-link');
+$I->see('Explore', '.column-wrap a.standalone-link');
