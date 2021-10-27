@@ -8,6 +8,23 @@
   transition: fill .3s;
 }
 
+a.standalone-link {
+  &::after {
+    content: "";
+    pointer-events: none;
+    margin-inline-start: .2rem;
+    height: .7rem;
+    width: .7rem;
+    display: inline-block;
+    mask-image: url("../../images/chevron.svg");
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-position: center;
+    background-repeat: no-repeat;
+    background-color: currentColor;
+  }
+}
+
 a.pdf-link {
   &::after {
     content: "";
