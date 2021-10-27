@@ -58,7 +58,7 @@ class Covers extends Base_Block {
 	 */
 	public function __construct() {
 		register_block_type(
-			'planet4-blocks/covers-beta',
+			'planet4-blocks/covers',
 			[  // - Register the block for the editor
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => static function ( $attributes ) {
