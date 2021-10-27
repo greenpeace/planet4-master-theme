@@ -181,38 +181,42 @@ $donate-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
       box-shadow: $donate-button-box-shadow;
       border: 1px solid transparent;
     }
+
+    @include large-and-up {
+      font-size: $font-size-md;
+    }
   }
   line-height: 1.65;
   margin: 0;
   text-transform: none;
-
-  @include large-and-up {
-    font-size: $font-size-md;
-  }
 }
 
 .btn-navbar-toggle {
+  // Use label because auto-generate doesn't work yet with multiple selectors.
+  --btn-navbar-toggle-- {
+    font-size: $font-size-sm;
+    color: $gp-green;
+    background-color: transparent;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: $white;
+      box-shadow: none;
+      background-color: $x-dark-blue;
+      border: 1px solid transparent;
+    }
+
+    @include small-and-up {
+      background-color: $dark-blue;
+      border-radius: 0;
+      border: 1px solid transparent;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+    }
+  }
   cursor: pointer;
-  color: $gp-green;
-  background-color: transparent;
   transition: background-color color font-weight 100ms;
   display: inline-block;
-
-  &:hover,
-  &:focus,
-  &:active {
-    color: $white;
-    box-shadow: none;
-    background-color: $x-dark-blue;
-    border: 1px solid transparent;
-  }
-
-  @include small-and-up {
-    background-color: $dark-blue;
-    border-radius: 0;
-    border: 1px solid transparent;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-  }
 }
 
 .btn-filter-item {
