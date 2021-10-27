@@ -667,6 +667,7 @@ class MasterSite extends TimberSite {
 			'src'    => true,
 			'id'     => true,
 			'data-*' => true,
+			'onload' => true,
 		];
 
 		// Allow source tag for WordPress audio shortcode to function.
