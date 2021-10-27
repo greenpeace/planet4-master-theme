@@ -1,3 +1,5 @@
+const { __ } = wp.i18n;
+
 // Add pdf icon to pdf links
 export const setupPDFIcon = () => {
   const links = [...document.querySelectorAll('a[href*=".pdf"]:not(.search-result-item-headline):not(.cover-card-heading)')];
@@ -15,5 +17,6 @@ export const setupPDFIcon = () => {
     }
 
     link.classList.add('pdf-link');
+    link.title = __('This link will open a PDF file', 'planet4-master-theme');
   });
 };

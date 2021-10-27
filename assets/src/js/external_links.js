@@ -1,3 +1,5 @@
+const { __ } = wp.i18n;
+
 export const setupExternalLinks = () => {
   const siteURL = window.location.host;
 
@@ -14,5 +16,10 @@ export const setupExternalLinks = () => {
 
     link.target = link.target ? link.target : '';
     link.classList.add('external-link');
+
+    const url = new URL(link.href);
+    const domain = url.hostname.replace('www.','');
+
+    link.title = __('This link will lead you to ' + domain, 'planet4-master-theme');
   });
 };
