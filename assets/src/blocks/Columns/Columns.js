@@ -75,7 +75,7 @@ export const Columns = ({ columns, columns_block_style, isCampaign, isExample = 
                 href={cta_link}
                 className={isCampaign || columns_block_style === LAYOUT_NO_IMAGE ?
                   `btn btn-${isCampaign ? 'primary' : 'secondary'}` :
-                  'call-to-action-link'
+                  'standalone-link'
                 }
                 data-ga-category='Columns Block'
                 data-ga-action='Call to Action'
