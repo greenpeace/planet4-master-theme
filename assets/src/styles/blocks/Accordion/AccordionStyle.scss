@@ -16,9 +16,7 @@
     }
 
     &:after {
-      @supports (mask-repeat: no-repeat) or (-webkit-mask-repeat: no-repeat) {
-        background-color: $grey-80;
-      }
+      background-color: $grey-80;
     }
   }
 
@@ -59,22 +57,16 @@
         right: 16px;
         left: auto;
         pointer-events: none;
-        background-image: url("../../public/images/icons/angle-right.svg");
         height: 1rem;
         width: 0.5rem;
         display: inline-block;
         transition: transform 0.8s ease;
         transform: rotate(90deg);
-
-        @supports (mask-repeat: no-repeat) or (-webkit-mask-repeat: no-repeat) {
-          & {
-            background-image: none;
-            background-color: $white;
-            mask-image: url("../../public/images/icons/angle-right.svg");
-            mask-repeat: no-repeat;
-            margin-right: 0;
-          }
-        }
+        mask-image: url("../../public/images/icons/chevron.svg");
+        mask-repeat: no-repeat;
+        mask-size: contain;
+        background-repeat: no-repeat;
+        background-color: currentColor;
 
         html[dir="rtl"] & {
           right: auto;
