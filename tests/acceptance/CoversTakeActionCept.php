@@ -25,5 +25,5 @@ $I->amOnPage('/' . $slug);
 // Check the Covers block
 $I->see('Take Action', 'h2.page-section-header');
 $I->see('Description text', 'div.page-section-description');
-$I->seeNumberOfElements('.cover-card', 2);
-$I->see('#Climate', 'a.cover-card-tag');
+$I->seeNumberOfElements('.cover-card-new', 2);
+$I->see('Climate', 'span.cover-card-tag');
