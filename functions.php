@@ -154,3 +154,32 @@ add_action(
 	}
 );
 
+// WP core's escaping logic doesn't take the case into account where a gradient is followed by a URL.
+add_filter(
+	'safecss_filter_attr_allow_css',
+	function ( bool $allow_css, $css_test_string ) {
+		// Short circuit in case the CSS is already allowed.
+		// This filter only runs to catch the case where it's not allowed but should be.
+		if ( $allow_css ) {
+			return true;
+		}
+
+		$without_property = preg_replace( '/.*:/', '', $css_test_string );
+
+		// Same regex as in WordPress core, except it matches anywhere in the string.
+		// See https://github.com/WordPress/WordPress/blob/a5293aa581802197b0dd7c42813ba137708ad0e1/wp-includes/kses.php#L2438.
+		$gradient_regex = '/(repeating-)?(linear|radial|conic)-gradient\(([^()]|rgb[a]?\([^()]*\))*\)/';
+
+		// Check if a gradient is still present. The only case where $css_test_string can still have this present is if it
+		// was missed by the faulty WP regex.
+		if ( ! preg_match( $gradient_regex, $css_test_string ) ) {
+			return $allow_css;
+		}
+
+		$without_gradient = preg_replace( $gradient_regex, '', trim( $without_property ) );
+
+		return trim( $without_gradient, ', ' ) === '';
+	},
+	10,
+	2
+);
