@@ -8,7 +8,8 @@ export const PositionSelector = (attributes) => {
     class_name = '',
     error_message = '',
     required = false,
-    onChange = () => {},
+    onInputChange = null,
+    onBlur = null,
   } = attributes;
 
   const options = [
@@ -26,7 +27,8 @@ export const PositionSelector = (attributes) => {
       data-errormessage={ error_message }
       required={ required }
       defaultValue=""
-      onChange={ onChange }
+      onChange={ onInputChange }
+      onBlur={ onBlur }
     >
       { options }
     </select>

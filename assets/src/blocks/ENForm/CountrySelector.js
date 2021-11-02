@@ -6,7 +6,8 @@ export const CountrySelector = (attributes) => {
     class_name = '',
     error_message = '',
     required = false,
-    onInputChange = () => {}
+    onInputChange = null,
+    onBlur = null,
   } = attributes;
 
   const options = [
@@ -25,6 +26,7 @@ export const CountrySelector = (attributes) => {
       required={ required }
       defaultValue=""
       onChange={ onInputChange }
+      onBlur={ onBlur }
     >
       { options }
     </select>

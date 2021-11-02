@@ -4,7 +4,7 @@ import { useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import { unescape } from '../../functions/unescape';
 
-import { inputName } from './inputName';
+import { inputId } from './inputId';
 
 const { __ } = wp.i18n;
 
@@ -61,21 +61,38 @@ export const ENFormFrontend = (attributes) => {
   const HeadingTag = content_title_size;
 
   const [activeTplId, setActiveTplId] = useState('signup');
+  const [errors, setErrors] = useState({});
   const [error_msg, setErrorMsg] = useState(null);
   const [form_data, setFormData] = useState(
-    fields.reduce((acc, f) => { return {...acc, [inputName(f)]: null} }, {})
+    fields.reduce((acc, f) => { return {...acc, [inputId(f)['name']]: null} }, {})
   );
-  const onInputChange = (e) => {
+
+  const onInputChange = (field, e) => {
+    setErrors(errs => {
+      return {...errs, [field.id]: null}
+    });
+
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
+
     console.log('form', name, value);
     setFormData({...form_data, [name]: value});
-    console.log(form_data);
+  }
+
+  const onBlur = (field, e) => {
+    validateField(field, form_data, setErrors);
   }
 
   const onFormSubmit = (e) => {
     e.preventDefault();
+
+    setErrorMsg(null);
+    if (!validateForm(form_data, fields, setErrors)) {
+      console.error('Validation error.', errors);
+      return;
+    }
+
     const url = `https://e-activist.com/ens/service/page/${en_page_id}/process`;
     submitENForm({form_data, fields, url, enform_goal, thankyou_url, setErrorMsg, setActiveTplId});
   }
@@ -113,12 +130,12 @@ export const ENFormFrontend = (attributes) => {
                 <HeadingTag>
                   {content_title ? unescape(content_title) : ''}
                 </HeadingTag>
-                <p>{content_description ? unescape(content_description) : ''}</p>
+                <p dangerouslySetInnerHTML={{ __html: content_description }} />
               </div>
             }
 
             {activeTplId === 'signup' &&
-              <Signup {...{attributes, fields, onInputChange, onFormSubmit, error_msg}} />
+              <Signup {...{attributes, fields, onInputChange, onBlur, onFormSubmit, error_msg, errors}} />
             }
             {activeTplId === 'thankyou' &&
               <ThankYou {...{attributes, error_msg}} />
@@ -130,7 +147,7 @@ export const ENFormFrontend = (attributes) => {
   )
 }
 
-const Signup = ({attributes, fields, onInputChange, onFormSubmit, error_msg}) => {
+const Signup = ({attributes, fields, onInputChange, onBlur, onFormSubmit, error_msg, errors}) => {
   const {
     en_form_style,
     title,
@@ -147,14 +164,13 @@ const Signup = ({attributes, fields, onInputChange, onFormSubmit, error_msg}) =>
 
         <div className="title-and-description">
           {title &&
-            <h2>{title ? unescape(title) : ''}</h2>
+            <h2>{title ? title : ''}</h2>
           }
           {is_side_style &&
             <div className="enform-extra-header-placeholder"></div>
           }
-          <div className="form-description">
-            {description ? unescape(description) : ''}
-          </div>
+          <div className="form-description"
+            dangerouslySetInnerHTML={{ __html: description }} />
         </div>
 
         <div className="form-container">
@@ -167,7 +183,7 @@ const Signup = ({attributes, fields, onInputChange, onFormSubmit, error_msg}) =>
           >
             <div className={ en_form_style == 'full-width-bg' ? 'row' : '' }>
               <div className={ en_form_style == 'full-width-bg' ? 'col-md-8' : '' }>
-                  <FormGenerator {...{fields, attributes, onInputChange}} />
+                  <FormGenerator {...{fields, attributes, onInputChange, onBlur, errors}} />
               </div>
 
               <div className={ en_form_style == 'full-width-bg' ? 'col-md-4 submit' : 'submit' }>
@@ -218,7 +234,7 @@ const submitENForm = (props) => {
   };
 
   for (const key in form_data) {
-    let field = fields.find((f) => inputName(f) === key);
+    let field = fields.find((f) => inputId(f)['name'] === key);
     if (!field) {
       continue;
     }
@@ -235,12 +251,6 @@ const submitENForm = (props) => {
     supporter: supporter
   };
   console.log('post data', post_data);
-
-  const formIsValid = validateForm(form_data, fields);
-  if (!formIsValid) {
-    console.error('Validation error.');
-    return;
-  }
 
   // Fetch token
   const token_endpoint = `${p4bk_vars.siteUrl}/wp-json/planet4/v1/get-en-session-token`;
@@ -281,9 +291,8 @@ const submitENForm = (props) => {
         dataLayer.push(dataLayerPayload);
       }
 
-      // redirect
-      // todo: validate url
-      if (thankyou_url) {
+      // redirect or thanks
+      if (thankyou_url && urlIsValid(thankyou_url)) {
         window.location = thankyou_url;
       } else {
         setActiveTplId('thankyou');
@@ -299,70 +308,114 @@ const submitENForm = (props) => {
     });
 }
 
-const validateForm = (form_data, fields) => {
+const validateForm = (form_data, fields, setErrors) => {
+  setErrors({});
+
   let formIsValid = true;
-
-  fields.forEach((f) => {
-    let field_name, elId;
-    if (f.property && f.property.length > 0) {
-      field_name = `supporter.${f.property}`;
-      elId = `en__field_supporter_${f.property}`;
-    } else {
-      field_name = `supporter.questions.${f.id}`;
-      elId = `en__field_supporter_questions_${f.id}`;
-    }
-    const value = form_data[field_name];
-
-    const field_element = document.getElementById(elId);
-    if (!field_element) {
-      return;
-    }
-
-    removeErrorMessage(field_element);
-    if (f.required && [null, false, ''].includes(value)) {
+  fields.forEach((field) => {
+    if (!validateField(field, form_data, setErrors)) {
       formIsValid = false;
-      addErrorMessage(field_element);
-    }
-
-    const regexPattern = field_element.dataset['validate_regex'];
-    if (regexPattern) {
-      const regex = new RegExp(regexPattern);
-      const res = regex.test(formValue);
-      if (!res) {
-        addErrorMessage(field_element, field_element.dataset['data-validate_regex_msg']);
-        formIsValid = false;
-      }
-    }
-
-    const callbackFunction = field_element.dataset['data-validate_callback'];
-    if ('function' === typeof window[callbackFunction]) {
-      const validateField = window[callbackFunction]($(this).val());
-      if (true !== validateField) {
-        addErrorMessage(field_element, validateField);
-        formIsValid = false;
-      }
     }
   });
 
   return formIsValid;
 }
 
-const addErrorMessage = (element, message = null) => {
-  const error = message ?? element.dataset.errormessage ?? 'Error';
-  const invalidDiv = document.createElement('div');
-  invalidDiv.classList.add('invalid-feedback');
-  invalidDiv.innerText = error;
+const validateField = (field, form_data, setErrors) => {
+  const {id, name} = inputId(field);
+  const value = form_data[name];
+  const element = document.getElementById(id);
 
-  element.classList.add('is-invalid');
-  element.parentNode.appendChild(invalidDiv);
+  if (!element) {
+    return true;
+  }
+
+  if (field.required && [null, false, ''].includes(value)) {
+    setErrors(errors => {
+      return {...errors, [field.id]: element.dataset["errormessage"]}
+    });
+    return false;
+  }
+
+  if (element.type === "email") {
+    return validateEmail(field, element, setErrors, value);
+  }
+
+  if (element.type === "radio") {
+    return validateRadio(field, element, setErrors, name, fields);
+  }
+
+  const regexPattern = element.dataset['validate_regex'];
+  if (regexPattern?.length) {
+    return validateRegex(field, element, setErrors, value, regexPattern);
+  }
+
+  const callbackFunction = element.dataset['validate_callback'];
+  if ('function' === typeof window[callbackFunction]) {
+    return validateCallback(field, element, setErrors, callbackFunction);
+  }
+
+  return true;
 }
 
-const removeErrorMessage = (element) => {
-  element.classList.remove('is-invalid');
-  let errorDiv = element.parentNode.querySelector('.invalid-feedback');
-  if (errorDiv) {
-    errorDiv.parentNode.removeChild(errorDiv);
+const validateEmail = (field, element, setErrors, value) => {
+  // Reference: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email#basic_validation
+  let re = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  if (!re.test(String(value).toLowerCase())) {
+    setErrors(errors => {
+      return {...errors, [field.id]: element.dataset["errormessage"]}
+    });
+    return false;
   }
+  return true;
+}
+
+const validateRadio = (field, element, setErrors, name, fields) => {
+  let sibling_radios_checked = fields.find((f) => {
+    let {id: f_id, name: f_name} = inputId(f);
+    let f_element = document.getElementById(f_id);
+    return f_name === name && f_element && f_element.checked === true;
+  })
+  if (!sibling_radios_checked) {
+    setErrors(errors => {
+      return {...errors, [field.id]: element.dataset["errormessage"]}
+    });
+    return false;
+  }
+  return true;
+}
+
+const validateRegex = (field, element, setErrors, value, regexPattern) => {
+  const regex = new RegExp(regexPattern);
+  if (!regex.test(value)) {
+    setErrors(errors => {
+      return {...errors, [field.id]: element.dataset["validate_regex_msg"]}
+    });
+    return false;
+  }
+  return true;
+}
+
+const validateCallback = (field, element, setErrors, callbackFunction) => {
+  const validate = window[callbackFunction](element.value);
+  if (true !== validate) {
+    setErrors(errors => {
+      return {...errors, [field.id]: validate}
+    });
+    return false;
+  }
+  return true;
+}
+
+const urlIsValid = (url_str) => {
+  try {
+    let url = new URL(url_str);
+    return ['http:', 'https:'].includes(url.protocol);
+  } catch (e) {
+    console.log(e);
+  }
+
+  return false;
 }
 
 const ThankYou = ({attributes, error_msg}) => {
@@ -391,9 +444,10 @@ const ThankYou = ({attributes, error_msg}) => {
       }
 
       <header>
-        <h2 className="page-section-header">{ thankyou_title }</h2>
+        <h2 className="page-section-header">{ unescape(thankyou_title) }</h2>
       </header>
-      <p className="page-section-description">{ thankyou_subtitle }</p>
+      <p className="page-section-description"
+        dangerouslySetInnerHTML={{ __html: thankyou_subtitle }} />
 
       <div className="sub-section formblock-flex">
 
