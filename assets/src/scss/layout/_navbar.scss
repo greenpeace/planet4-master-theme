@@ -47,7 +47,6 @@ $navbar-default-height: 60px;
     }
 
     &:focus {
-      border: 2px solid rgba(255, 255, 255, 0.4);
       border-radius: 4px;
       text-decoration: none;
     }
@@ -75,6 +74,16 @@ $navbar-default-height: 60px;
       top: 32px;
     }
   }
+
+  a, .btn, input {
+    &:focus {
+      --top-navigation--ui-controls-- {
+        outline: 2px solid rgba(255, 255, 255, 0.4);
+      }
+      // Need to undo the bootstrap outline-offset to get a consistent result.
+      outline-offset: 0;
+    }
+  }
 }
 
 .site-logo,
@@ -100,7 +109,6 @@ $navbar-default-height: 60px;
 .nav-link {
   &.active,
   &:hover,
-  &:focus,
   &:active {
     text-decoration: none;
     box-shadow: none;
@@ -321,7 +329,7 @@ $navbar-default-height: 60px;
 
       &:focus,
       &:hover {
-        border: 1px dotted transparentize($white, 0.5);
+        outline: 1px dotted transparentize($white, 0.5);
       }
     }
 
@@ -445,7 +453,6 @@ $navbar-default-height: 60px;
         min-width: 20%;
 
         &:hover,
-        &:focus,
         &:active {
           border-bottom-color: $white;
         }
