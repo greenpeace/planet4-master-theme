@@ -4,7 +4,7 @@ jQuery(($) => {
   'use strict';
 
   const $post = $('.post-content');
-  const $boxout = $post.find('> #action-card').not('.action-card-bottom, .action-card-scroll');
+  const $boxout = $post.find('#action-card');
   const offset = $boxout.offset();
   const topPadding = 100;
 
