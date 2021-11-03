@@ -1,6 +1,6 @@
 jQuery(($) => {
   // Add click event for load more button in Covers blocks.
-  $('.btn-load-more-posts-click').on('mouseup touchend', function (e) {
+  $('.btn-load-more-posts-click').on('click', function (e) {
     e.preventDefault();
 
     const $row = $('.post-column:hidden', $(this).closest('.container'));
@@ -26,7 +26,7 @@ jQuery(($) => {
   });
 
   // Add click event for load more button in Covers blocks.
-  $('.btn-load-more-covers-click').on('mouseup touchend', function (e) {
+  $('.btn-load-more-covers-click').on('click', function (e) {
     e.preventDefault();
 
     const $row = $('.cover-card-column:hidden', $(this).closest('.container'));
