@@ -70,7 +70,7 @@ export class ArticlePreview extends Component {
         data-ga-action="Image"
         data-ga-label="n/a">
           <img
-            className="d-flex topicwise-article-image"
+            className="topicwise-article-image"
             src={thumbnail_url}
             srcSet={thumbnail_srcset || null}
             alt={alt_text}
