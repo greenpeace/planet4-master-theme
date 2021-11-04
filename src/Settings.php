@@ -412,6 +412,8 @@ class Settings {
 		if ( function_exists( 'is_plugin_active' ) && is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
 			add_action( 'init', [ $this, 'make_settings_multilingual' ] );
 		}
+
+		Features::hooks();
 	}
 
 	/**
