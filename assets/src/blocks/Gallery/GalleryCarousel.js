@@ -68,18 +68,18 @@ export const GalleryCarousel = ({ images, onImageClick }) => {
 
   return (
     <div className="carousel slide">
-      {images.length > 1 &&
-        <ol className="carousel-indicators">
-          {images.map((image, index) =>
-            <li
-              key={`indicator-${index}`}
-              onClick={() => goToSlide(index)}
-              className={index === currentSlide ? 'active' : ''}
-            />
-          )}
-        </ol>
-      }
       <div className="carousel-inner" role="listbox">
+        {images.length > 1 &&
+          <ol className="carousel-indicators">
+            {images.map((image, index) =>
+              <li
+                key={`indicator-${index}`}
+                onClick={() => goToSlide(index)}
+                className={index === currentSlide ? 'active' : ''}
+              />
+            )}
+          </ol>
+        }
         {images.length > 1 &&
           <button className="carousel-control-prev" role="button" onClick={goToPrevSlide}>
             <span className="carousel-control-prev-icon" aria-hidden="true"><i></i></span>

@@ -119,178 +119,77 @@ $carousel-indi-color: #8bcc49;
   }
 
   ol.carousel-indicators {
-    right: 25%;
     top: 180px;
-    left: auto;
-
-    html[dir="rtl"] & {
-      right: auto;
-      left: 25%;
-    }
-
-    @include mobile-only {
-      right: 0;
-      left: 0;
-      top: 180px;
-    }
-
-    @include small-and-up {
-      right: 0;
-      top: 270px;
-
-      html[dir="rtl"] & {
-        left: 0;
-        right: auto;
-      }
-    }
 
     @include medium-and-up {
-      margin-right: 2%;
-      top: 360px;
-
-      html[dir="rtl"] & {
-        margin-right: inherit;
-        margin-left: 2%;
-      }
+      top: 380px;
     }
 
     @include large-and-up {
-      top: 460px;
+      top: 480px;
     }
 
     @include x-large-and-up {
-      top: 560px;
+      top: 580px;
     }
 
     li {
-      padding-top: 0;
-      width: 8px;
-      height: 8px;
-      margin: 0 8px;
-      border-radius: 50%;
-      border: unset;
-      background: $white;
+      width: 40px;
+      height: 3px;
+      margin: 0 3px;
       cursor: pointer;
-      list-style: none;
-
-      @include small-and-up {
-        width: 12px;
-        height: 12px;
-        margin: 0 $n15;
-      }
+      background: $white;
+      opacity: 0.5;
 
       &.active {
-        background: $carousel-indi-color;
+        opacity: 1;
       }
     }
   }
 
   .carousel-control-prev,
   .carousel-control-next {
-    height: 100%;
-    top: 0;
-    width: 30%;
     cursor: pointer;
-    background: transparent;
-    border: 0;
+    display: none;
+    background: white;
+    width: 48px;
+    height: 48px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    opacity: 1;
 
-    @include mobile-only {
-      .carousel-control-prev-icon,
-      .carousel-control-next-icon {
-        margin-bottom: 15vw;
-        position: absolute;
-        top: 150px;
-      }
+    &:hover {
+      background: $grey-10;
     }
 
-    @include small-and-up {
-      width: 50%;
+    @include medium-and-up {
+      display: block;
+      top: 180px;
     }
-  }
 
-  .carousel-control-next {
-    @include small-and-up {
-      margin-right: -25%;
+    @include large-and-up {
+      top: 240px;
     }
-  }
 
-  .carousel-control-prev {
-    @include small-and-up {
-      margin-left: -25%;
+    @include x-large-and-up {
+      top: 290px;
     }
   }
 
   .carousel-control-prev-icon,
   .carousel-control-next-icon {
-    display: block;
-    text-align: center;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    margin-top: -50px;
-
-    @include small-and-up {
-      width: 45px;
-      height: 45px;
-    }
-
-    @include large-and-up {
-      width: 65px;
-      height: 65px;
-    }
+    background-image: url("../../public/images/icons/chevron.svg");
+    background-size: 11px 19px;
+    width: 48px;
+    height: 48px;
   }
 
-  .carousel-control-prev-icon {
-    background: url("../../public/images/carousel-marker-prev.png");
-    background-size: cover;
-
-    @include small-and-up {
-      margin-left: 113px;
-      background: url("../../public/images/carousel-marker-prev-S-M.png");
-    }
-
-    @include medium-and-up {
-      margin-left: 25%;
-    }
-
-    @include large-and-up {
-      margin-left: 133px;
-      background: url("../../public/images/carousel-marker-prev.png");
-
-      &:hover {
-        background-position-x: 66px;
-      }
-    }
-
-    @include x-large-and-up {
-      margin-left: 45%;
-    }
+  .carousel-control-next {
+    right: 24px;
   }
 
-  .carousel-control-next-icon {
-    background: url("../../public/images/carousel-marker-next.png");
-    background-size: cover;
-
-    @include small-and-up {
-      margin-right: 113px;
-      background: url("../../public/images/carousel-marker-next-S-M.png");
-    }
-
-    @include medium-and-up {
-      margin-right: 25%;
-    }
-
-    @include large-and-up {
-      margin-right: 133px;
-      background: url("../../public/images/carousel-marker-next.png");
-
-      &:hover {
-        background-position-x: 66px;
-      }
-    }
-
-    @include x-large-and-up {
-      margin-right: 45%;
-    }
+  .carousel-control-prev {
+    transform: rotate(180deg);
+    left: 24px;
   }
 }
