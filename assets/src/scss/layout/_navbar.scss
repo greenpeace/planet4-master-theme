@@ -326,11 +326,6 @@ $navbar-default-height: 60px;
       @include medium-and-up {
         height: $menu-height-large;
       }
-
-      &:focus,
-      &:hover {
-        outline: 1px dotted transparentize($white, 0.5);
-      }
     }
 
     &::before {
