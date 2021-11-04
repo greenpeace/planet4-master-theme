@@ -181,7 +181,9 @@
     font-size: 1.625rem;
   }
 
-  &:visited {
+  &:visited,
+  &:hover,
+  &:active {
     color: $grey-80;
   }
 }
