@@ -57,6 +57,10 @@
 .article-list-item-image {
   order: 2;
 
+  a {
+    display: block;
+  }
+
   img {
     width: 100% !important;
     object-fit: cover;
