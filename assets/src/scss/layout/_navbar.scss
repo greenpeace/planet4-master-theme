@@ -462,6 +462,10 @@ $navbar-default-height: 60px;
           border-bottom-color: $white;
         }
       }
+
+      &:focus:not(:focus-visible) {
+        border-radius: 0;
+      }
     }
 
     .active .nav-link --nav-link-active-- {
