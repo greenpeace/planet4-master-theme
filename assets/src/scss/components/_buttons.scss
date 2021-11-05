@@ -17,6 +17,10 @@
     }
   }
 
+  &:focus:not(:focus-visible) {
+    outline: 0;
+  }
+
   *, &::before, &:after {
     transition-property: inherit;
     transition-duration: inherit;

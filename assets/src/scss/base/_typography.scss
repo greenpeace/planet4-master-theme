@@ -117,3 +117,7 @@ a --link-- {
     color: $link-color-visited;
   }
 }
+
+a:focus:not(:focus-visible) {
+  outline: 0;
+}

@@ -78,10 +78,20 @@ $navbar-default-height: 60px;
   a, .btn, input {
     &:focus {
       --top-navigation--ui-controls-- {
-        outline: 2px solid rgba(255, 255, 255, 0.4);
+        outline-color: rgba(255, 255, 255, 0.4);
       }
-      // Need to undo the bootstrap outline-offset to get a consistent result.
-      outline-offset: 2px;
+    }
+  }
+
+  // Override bootstrap's default form styles because it's not accessible in the navbar.
+  // Instead use the same outline style as buttons, with offset.
+  #search_input:focus {
+    outline-style: solid;
+    outline-width: 2px;
+    outline-offset: 2px;
+
+    &:not(:focus-visible) {
+      outline: 0;
     }
   }
 }
