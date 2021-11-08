@@ -12,7 +12,7 @@ class Settings {
 	/**
 	 * ID of the Metabox
 	 */
-	private const METABOX_ID = 'option_metabox';
+	public const METABOX_ID = 'option_metabox';
 
 	/**
 	 * Option key

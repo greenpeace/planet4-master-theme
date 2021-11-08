@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="country-selector-toggle-container">
 		<button
-			class="country-selector-toggle control-toggle"
+			class="country-selector-toggle country-control-toggle"
 			data-bs-toggle="open"
 			data-bs-target="#country-selector"
 			aria-expanded="false"
@@ -14,20 +14,20 @@
 		</button>
 	</div>
 </div>
-<div id="countries-list" class="countries-list">
+<div class="countries-list">
 {% if countries_by_initials is not empty %}
 	{% set international = countries_by_initials|first|first %}
 	<div class="container">
-	<button class="country-selector-toggle control-close"
+	<button class="country-selector-toggle country-control-close"
 		data-bs-toggle="open"
 		data-bs-target="#country-selector"
 		aria-expanded="false"
 		aria-label="{{ __( 'Close country selector', 'planet4-master-theme' ) }}">
 	</button>
-	<ul class="countries" aria-label="{{ __('Worldwide site list', 'planet4-master-theme') }}" role="list">
+	<ul class="countries" aria-label="{{ __('Worldwide site list', 'planet4-master-theme') }}">
 		<li class="international"><a href="{{ international.url }}">{{ international.name }}</a></li>
 		{% for initial, countries in countries_by_initials[1:] %}
-		<li class="country-group-letter">
+		<li class="country-group">
 			<span class="initial">{{ initial }}</span>
 			<ul aria-label="{{ __('Sites starting with the letter .' ~ initial ~ '.', 'planet4-master-theme') }}" role="list">
 				{% for country in countries %}
