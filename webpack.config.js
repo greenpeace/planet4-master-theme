@@ -43,6 +43,7 @@ const publicJsConfig = {
     ENFormScript: './assets/src/blocks/ENForm/ENFormScript.js',
     SpreadsheetScript: './assets/src/blocks/Spreadsheet/SpreadsheetScript.js',
     TimelineScript: './assets/src/blocks/Timeline/TimelineScript.js',
+    GalleryScript: './assets/src/blocks/Gallery/GalleryScript.js',
   },
 };
 const adminJsConfig = {
@@ -64,6 +65,7 @@ const adminJsConfig = {
     SpreadsheetEditorScript: './assets/src/blocks/Spreadsheet/SpreadsheetEditorScript.js',
     TimelineEditorScript: './assets/src/blocks/Timeline/TimelineEditorScript.js',
     SocialMediaEditorScript: './assets/src/blocks/SocialMedia/SocialMediaEditorScript.js',
+    GalleryEditorScript: './assets/src/blocks/Gallery/GalleryEditorScript.js',
   },
 };
 const cssConfig = {
@@ -85,6 +87,8 @@ const cssConfig = {
     SocialMediaStyle: './assets/src/styles/blocks/SocialMedia/SocialMediaStyle.scss',
     SocialMediaEditorStyle: './assets/src/styles/blocks/SocialMedia/SocialMediaEditorStyle.scss',
     CoversStyle: './assets/src/styles/blocks/Covers/CoversStyle.scss',
+    GalleryStyle: './assets/src/styles/blocks/Gallery/GalleryStyle.scss',
+    GalleryEditorStyle: './assets/src/styles/blocks/Gallery/GalleryEditorStyle.scss',
   },
   output: {
     filename: '[name].js',
