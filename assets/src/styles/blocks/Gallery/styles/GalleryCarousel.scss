@@ -1,0 +1,193 @@
+.carousel-wrap {
+  overflow: hidden;
+
+  h1 {
+    font-size: $font-size-lg;
+    color: $grey-80;
+    margin-bottom: 22px;
+    margin-left: 0;
+
+    html[dir="rtl"] & {
+      text-align: right;
+    }
+
+    @include large-and-up {
+      font-size: $font-size-xl;
+      margin-bottom: 20px;
+    }
+
+    @include x-large-and-up {
+      font-size: 1.875rem;
+      margin-bottom: 22px;
+    }
+  }
+
+  .carousel-item {
+
+    @include mobile-only {
+      height: 265px;
+    }
+
+    @include small-and-up {
+      height: 365px;
+    }
+
+    @include medium-and-up {
+      height: 465px;
+    }
+
+    @include large-and-up {
+      height: 565px;
+    }
+
+    @include x-large-and-up {
+      height: 665px;
+    }
+
+    .carousal-item-credit {
+      position: absolute;
+      right: 0;
+      top: 0;
+      color: $white;
+      font-size: $font-size-xxs;
+      margin: $n15;
+      font-weight: normal;
+    }
+
+    img {
+      width: 100%;
+      object-fit: cover;
+      cursor: pointer;
+
+      @include mobile-only {
+        height: 200px;
+      }
+
+      @include small-and-up {
+        height: 300px;
+      }
+
+      @include medium-and-up {
+        height: 400px;
+      }
+
+      @include large-and-up {
+        height: 500px;
+      }
+
+      @include x-large-and-up {
+        height: 600px;
+      }
+    }
+  }
+
+  .carousel-item.active,
+  .carousel-item-next,
+  .carousel-item-prev {
+    display: block;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .carousel-caption {
+    position: relative;
+    padding: 0;
+    margin-top: 0.5em;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    p {
+      color: $grey-60;
+      font-size: $font-size-xxs;
+      font-family: $roboto;
+      line-height: 1.4;
+      margin-bottom: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      /* stylelint-disable property-no-vendor-prefix */
+      /*! autoprefixer: off */
+      -webkit-box-orient: vertical;
+      /*! autoprefixer: on */
+      /* stylelint-enable property-no-vendor-prefix */
+      overflow: hidden;
+    }
+  }
+
+  ol.carousel-indicators {
+    top: 180px;
+
+    @include medium-and-up {
+      top: 380px;
+    }
+
+    @include large-and-up {
+      top: 480px;
+    }
+
+    @include x-large-and-up {
+      top: 580px;
+    }
+
+    li {
+      width: 40px;
+      height: 3px;
+      margin: 0 3px;
+      cursor: pointer;
+      background: $white;
+      opacity: 0.5;
+
+      &.active {
+        opacity: 1;
+      }
+    }
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    cursor: pointer;
+    display: none;
+    background: white;
+    width: 48px;
+    height: 48px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    opacity: 1;
+
+    &:hover {
+      background: $grey-10;
+    }
+
+    @include medium-and-up {
+      display: block;
+      top: 180px;
+    }
+
+    @include large-and-up {
+      top: 240px;
+    }
+
+    @include x-large-and-up {
+      top: 290px;
+    }
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-image: url("../../public/images/icons/chevron.svg");
+    background-size: 11px 19px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .carousel-control-next {
+    right: 24px;
+  }
+
+  .carousel-control-prev {
+    transform: rotate(180deg);
+    left: 24px;
+  }
+}

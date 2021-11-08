@@ -4,6 +4,8 @@ import { getCaptionWithCredits } from './getCaptionWithCredits.js';
 
 const { __ } = wp.i18n;
 
+const isRTL = document.querySelector('html').dir === 'rtl';
+
 // This will trigger the browser to synchronously calculate the style and layout
 // You can find a list of examples here: https://gist.github.com/paulirish/5d52fb081b3570c81e3a
 const reflow = element => element.offsetHeight;
@@ -12,6 +14,9 @@ export const GalleryCarousel = ({ images, onImageClick }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliding, setSliding] = useState(false);
   const lastSlide = images.length - 1;
+  const timerRef = useRef(null);
+  const slidesRef = useRef([]);
+  const containerRef = useRef(null);
 
   const getOrder = newSlide => {
     let order = newSlide < currentSlide ? 'prev' : 'next';
@@ -52,9 +57,6 @@ export const GalleryCarousel = ({ images, onImageClick }) => {
   const goToNextSlide = () => goToSlide(currentSlide === lastSlide ? 0 : currentSlide + 1);
   const goToPrevSlide = () => goToSlide(currentSlide === 0 ? lastSlide : currentSlide - 1);
 
-  const timerRef = useRef(null);
-  const slidesRef = useRef([]);
-
   // Set up the autoplay for the slides
   useEffect(() => {
     if (images.length > 1) {
@@ -66,20 +68,43 @@ export const GalleryCarousel = ({ images, onImageClick }) => {
     }
   }, [currentSlide, images]);
 
+  // Set up swiping on mobile
+  useEffect(() => {
+    if (!containerRef.current) {
+      return;
+    }
+
+    const carouselElement = containerRef.current;
+    const carouselHammer = new Hammer(carouselElement, { recognizers: [] });
+    const hammer = new Hammer.Manager(carouselHammer.element);
+    const swipe = new Hammer.Swipe();
+    // Only allow horizontal swiping (not vertical swiping)
+    swipe.set({ direction: Hammer.DIRECTION_HORIZONTAL });
+    hammer.add(swipe);
+
+    hammer.on('swipeleft', isRTL ? goToPrevSlide : goToNextSlide);
+    hammer.on('swiperight', isRTL ? goToNextSlide : goToPrevSlide);
+
+    return () => {
+      hammer.off('swipeleft', isRTL ? goToPrevSlide : goToNextSlide);
+      hammer.off('swiperight', isRTL ? goToNextSlide : goToPrevSlide);
+    }
+  }, [currentSlide]);
+
   return (
-    <div className="carousel slide">
-      {images.length > 1 &&
-        <ol className="carousel-indicators">
-          {images.map((image, index) =>
-            <li
-              key={`indicator-${index}`}
-              onClick={() => goToSlide(index)}
-              className={index === currentSlide ? 'active' : ''}
-            />
-          )}
-        </ol>
-      }
+    <div className="carousel slide" ref={containerRef}>
       <div className="carousel-inner" role="listbox">
+        {images.length > 1 &&
+          <ol className="carousel-indicators">
+            {images.map((image, index) =>
+              <li
+                key={`indicator-${index}`}
+                onClick={() => goToSlide(index)}
+                className={index === currentSlide ? 'active' : ''}
+              />
+            )}
+          </ol>
+        }
         {images.length > 1 &&
           <button className="carousel-control-prev" role="button" onClick={goToPrevSlide}>
             <span className="carousel-control-prev-icon" aria-hidden="true"><i></i></span>

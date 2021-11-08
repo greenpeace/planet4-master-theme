@@ -38,6 +38,13 @@ class Gallery extends Base_Block {
 	 * Gallery constructor.
 	 */
 	public function __construct() {
+		add_action( 'init', [ $this, 'register_gallery_block' ] );
+	}
+
+	/**
+	 * Register Gallery block.
+	 */
+	public function register_gallery_block() {
 		register_block_type(
 			self::get_full_block_name(),
 			[
@@ -90,6 +97,23 @@ class Gallery extends Base_Block {
 				],
 			]
 		);
+
+		add_action( 'enqueue_block_editor_assets', [ self::class, 'enqueue_editor_assets' ] );
+		add_action(
+			'wp_enqueue_scripts',
+			static function () {
+				if ( has_block( 'planet4-blocks/gallery' ) ) {
+					wp_enqueue_script(
+						'hammer',
+						'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js',
+						[],
+						'2.0.8',
+						true
+					);
+				}
+			}
+		);
+		add_action( 'wp_enqueue_scripts', [ self::class, 'enqueue_frontend_assets' ] );
 	}
 
 	/**
