@@ -124,7 +124,6 @@ export const CookiesFrontend = props => {
           placeholder={__('Enter title', 'planet4-blocks-backend')}
           value={title}
           onChange={toAttribute('title')}
-          keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
           multiline="false"
           editable={isEditing}
@@ -139,7 +138,6 @@ export const CookiesFrontend = props => {
         placeholder={__('Enter description', 'planet4-blocks-backend')}
         value={description}
         onChange={toAttribute('description')}
-        keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         editable={isEditing}
         allowedFormats={['core/bold', 'core/italic']}
@@ -181,7 +179,6 @@ export const CookiesFrontend = props => {
             placeholder={__('Enter necessary cookies name', 'planet4-blocks-backend')}
             value={necessary_cookies_name}
             onChange={toAttribute('necessary_cookies_name')}
-            keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
             multiline="false"
             editable={isEditing}
@@ -194,7 +191,6 @@ export const CookiesFrontend = props => {
           placeholder={__('Enter necessary cookies description', 'planet4-blocks-backend')}
           value={necessary_cookies_description}
           onChange={toAttribute('necessary_cookies_description')}
-          keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
           editable={isEditing}
           allowedFormats={['core/bold', 'core/italic']}
@@ -236,7 +232,6 @@ export const CookiesFrontend = props => {
             placeholder={__('Enter analytical cookies name', 'planet4-blocks-backend')}
             value={analytical_cookies_name}
             onChange={toAttribute('analytical_cookies_name')}
-            keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
             multiline="false"
             editable={isEditing}
@@ -249,7 +244,6 @@ export const CookiesFrontend = props => {
           placeholder={__('Enter analytical cookies description', 'planet4-blocks-backend')}
           value={analytical_cookies_description}
           onChange={toAttribute('analytical_cookies_description')}
-          keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
           editable={isEditing}
           allowedFormats={['core/bold', 'core/italic']}
@@ -290,7 +284,6 @@ export const CookiesFrontend = props => {
             placeholder={__('Enter all cookies name', 'planet4-blocks-backend')}
             value={all_cookies_name}
             onChange={toAttribute('all_cookies_name')}
-            keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
             multiline="false"
             editable={isEditing}
@@ -303,7 +296,6 @@ export const CookiesFrontend = props => {
           placeholder={__('Enter all cookies description', 'planet4-blocks-backend')}
           value={all_cookies_description}
           onChange={toAttribute('all_cookies_description')}
-          keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
           editable={isEditing}
           allowedFormats={['core/bold', 'core/italic']}

@@ -13,7 +13,6 @@ export const Caption = ({ slide, index, changeSlideAttribute }) => (
               placeholder={__('Enter title', 'planet4-blocks-backend')}
               value={slide.header}
               onChange={changeSlideAttribute('header', index)}
-              keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
               allowedFormats={[]}
               multiline='false'
@@ -23,7 +22,6 @@ export const Caption = ({ slide, index, changeSlideAttribute }) => (
               placeholder={__('Enter description', 'planet4-blocks-backend')}
               value={slide.description}
               onChange={changeSlideAttribute('description', index)}
-              keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
               allowedFormats={[]}
             />
@@ -45,7 +43,6 @@ export const Caption = ({ slide, index, changeSlideAttribute }) => (
                 placeholder={__('Enter CTA text', 'planet4-blocks-backend')}
                 value={slide.link_text}
                 onChange={changeSlideAttribute('link_text', index)}
-                keepPlaceholderOnFocus={true}
                 withoutInteractiveFormatting
                 allowedFormats={[]}
               />

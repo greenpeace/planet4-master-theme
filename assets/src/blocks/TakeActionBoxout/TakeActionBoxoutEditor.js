@@ -123,7 +123,6 @@ export const TakeActionBoxoutEditor = ({
         value={title}
         onChange={toAttribute('title')}
         disabled={true}
-        keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         multiline='false'
         allowedFormats={[]}
@@ -135,7 +134,6 @@ export const TakeActionBoxoutEditor = ({
         value={excerpt}
         onChange={toAttribute('excerpt')}
         disabled={takeActionPageSelected}
-        keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         allowedFormats={['core/bold', 'core/italic']}
       />
@@ -146,7 +144,6 @@ export const TakeActionBoxoutEditor = ({
         value={linkText}
         onChange={toAttribute('linkText')}
         disabled={takeActionPageSelected}
-        keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         multiline="false"
         allowedFormats={[]}

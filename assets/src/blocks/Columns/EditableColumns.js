@@ -108,7 +108,6 @@ export const EditableColumns = ({
               placeholder={__('Enter column header', 'planet4-blocks-backend')}
               value={column.title}
               onChange={toAttribute('title', index)}
-              keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
               allowedFormats={[]}
               multiline='false'
@@ -118,7 +117,6 @@ export const EditableColumns = ({
               placeholder={__('Enter column description', 'planet4-blocks-backend')}
               value={column.description}
               onChange={toAttribute('description', index)}
-              keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
               allowedFormats={['core/bold', 'core/italic']}
             />
@@ -145,7 +143,6 @@ export const EditableColumns = ({
               }
               value={column.cta_text}
               onChange={toAttribute('cta_text', index)}
-              keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
               allowedFormats={[]}
             />

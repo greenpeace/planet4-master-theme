@@ -107,7 +107,6 @@ const renderView = (attributes, setAttributes, className) => {
         placeholder={__('Enter title', 'planet4-blocks-backend')}
         value={title}
         onChange={title => setAttributes({ title })}
-        keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         multiline="false"
         allowedFormats={[]}

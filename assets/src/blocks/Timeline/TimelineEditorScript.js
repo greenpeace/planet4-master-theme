@@ -105,7 +105,6 @@ const renderView = (attributes, toAttribute, scriptLoaded, stylesLoaded) => {
             placeholder={__('Enter title', 'planet4-blocks-backend')}
             value={attributes.timeline_title}
             onChange={toAttribute('timeline_title')}
-            keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
             maxLength={40}
             multiline="false"
@@ -119,7 +118,6 @@ const renderView = (attributes, toAttribute, scriptLoaded, stylesLoaded) => {
         placeholder={__('Enter description', 'planet4-blocks-backend')}
         value={attributes.description}
         onChange={toAttribute('description')}
-        keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         maxLength={200}
         allowedFormats={['core/bold', 'core/italic']}

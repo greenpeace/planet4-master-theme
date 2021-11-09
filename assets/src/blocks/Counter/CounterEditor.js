@@ -94,7 +94,6 @@ export class CounterEditor extends Component {
             placeholder={__('Enter title', 'planet4-blocks-backend')}
             value={attributes.title}
             onChange={this.toAttribute('title')}
-            keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
             multiline="false"
             allowedFormats={[]}
@@ -106,7 +105,6 @@ export class CounterEditor extends Component {
           placeholder={__('Enter description', 'planet4-blocks-backend')}
           value={attributes.description}
           onChange={this.toAttribute('description')}
-          keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
           allowedFormats={['core/bold', 'core/italic']}
         />
