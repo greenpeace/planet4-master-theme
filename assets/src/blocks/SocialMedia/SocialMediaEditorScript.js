@@ -163,7 +163,6 @@ export const SocialMediaEditor = ({
           placeholder={__('Enter title', 'planet4-blocks-backend')}
           value={title}
           onChange={toAttribute('title')}
-          keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
           multiline='false'
           allowedFormats={[]}
@@ -175,7 +174,6 @@ export const SocialMediaEditor = ({
         placeholder={__('Enter description', 'planet4-blocks-backend')}
         value={description}
         onChange={toAttribute('description')}
-        keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         allowedFormats={['core/bold', 'core/italic']}
       />

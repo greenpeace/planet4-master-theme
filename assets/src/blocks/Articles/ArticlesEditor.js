@@ -112,7 +112,6 @@ const renderView = ({ attributes, postType, posts, totalPosts }, toAttribute) =>
             placeholder={__('Enter title', 'planet4-blocks-backend')}
             value={attributes.article_heading}
             onChange={toAttribute('article_heading')}
-            keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
             multiline="false"
             allowedFormats={[]}
@@ -125,7 +124,6 @@ const renderView = ({ attributes, postType, posts, totalPosts }, toAttribute) =>
         placeholder={__('Enter description', 'planet4-blocks-backend')}
         value={attributes.articles_description}
         onChange={toAttribute('articles_description')}
-        keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         allowedFormats={['core/bold', 'core/italic']}
       />
@@ -138,7 +136,6 @@ const renderView = ({ attributes, postType, posts, totalPosts }, toAttribute) =>
               placeholder={__('Enter text', 'planet4-blocks-backend')}
               value={attributes.read_more_text}
               onChange={toAttribute('read_more_text')}
-              keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
               multiline="false"
               allowedFormats={[]}

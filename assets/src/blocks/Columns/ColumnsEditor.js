@@ -154,7 +154,6 @@ export const ColumnsEditor = ({ isSelected, attributes, setAttributes }) => {
               placeholder={__('Enter title', 'planet4-blocks-backend')}
               value={columns_title}
               onChange={toAttribute('columns_title')}
-              keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
               multiline='false'
               allowedFormats={[]}
@@ -168,7 +167,6 @@ export const ColumnsEditor = ({ isSelected, attributes, setAttributes }) => {
             placeholder={__('Enter description', 'planet4-blocks-backend')}
             value={columns_description}
             onChange={toAttribute('columns_description')}
-            keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
             allowedFormats={['core/bold', 'core/italic']}
           />

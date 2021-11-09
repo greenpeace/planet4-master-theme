@@ -85,7 +85,6 @@ const renderView = (attributes, toAttribute) => {
           placeholder={__('Enter title', 'planet4-blocks-backend')}
           value={video_title}
           onChange={toAttribute('video_title')}
-          keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
           multiline="false"
           allowedFormats={[]}
@@ -97,7 +96,6 @@ const renderView = (attributes, toAttribute) => {
         placeholder={__('Enter description', 'planet4-blocks-backend')}
         value={description}
         onChange={toAttribute('description')}
-        keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         allowedFormats={['core/bold', 'core/italic']}
       />

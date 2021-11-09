@@ -154,7 +154,6 @@ const SideContent = ({attributes, setAttributes}) => {
         value={content_title}
         onChange={(title) => { setAttributes({content_title: title}) }}
         placeholder={__('Enter title', 'planet4-blocks-backend')}
-        keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         allowedFormats={[]}
         multiline="false"
@@ -164,7 +163,6 @@ const SideContent = ({attributes, setAttributes}) => {
         value={content_description}
         onChange={(desc) => { setAttributes({content_description: desc}) }}
         placeholder={__('Enter description', 'planet4-blocks-backend')}
-        keepPlaceholderOnFocus={true}
         allowedFormats={['core/bold', 'core/italic']}
         multiline="false"
       />
@@ -201,7 +199,6 @@ const Signup = ({attributes, setAttributes}) => {
             value={title}
             onChange={(title) => { setAttributes({title}) }}
             placeholder={__('Enter form title', 'planet4-blocks-backend')}
-            keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
             allowedFormats={[]}
             multiline="false"
@@ -216,7 +213,6 @@ const Signup = ({attributes, setAttributes}) => {
             className="form-description"
             onChange={(description) => { setAttributes({description}) }}
             placeholder={__('Enter form description', 'planet4-blocks-backend')}
-            keepPlaceholderOnFocus={true}
             allowedFormats={['core/bold', 'core/italic']}
             multiline="false"
           />
@@ -276,7 +272,6 @@ const ThankYou = ({attributes, setAttributes}) => {
             value={ thankyou_title }
             onChange={toAttribute('thankyou_title')}
             placeholder={__('Enter title', 'planet4-blocks-backend')}
-            keepPlaceholderOnFocus={true}
             withoutInteractiveFormatting
             allowedFormats={[]}
             multiline="false"
@@ -288,7 +283,6 @@ const ThankYou = ({attributes, setAttributes}) => {
           value={ thankyou_subtitle }
           onChange={toAttribute('thankyou_subtitle')}
           placeholder={__('Enter description', 'planet4-blocks-backend')}
-          keepPlaceholderOnFocus={true}
           allowedFormats={[]}
           multiline="true"
         />
@@ -301,7 +295,6 @@ const ThankYou = ({attributes, setAttributes}) => {
               value={ thankyou_social_media_message }
               onChange={toAttribute('thankyou_social_media_message')}
               placeholder={__('Enter social media message', 'planet4-blocks-backend')}
-              keepPlaceholderOnFocus={true}
               withoutInteractiveFormatting
               allowedFormats={[]}
               multiline="false"
@@ -321,7 +314,6 @@ const ThankYou = ({attributes, setAttributes}) => {
                   value={ thankyou_donate_message }
                   onChange={toAttribute('thankyou_donate_message')}
                   placeholder={__('Enter donate message', 'planet4-blocks-backend')}
-                  keepPlaceholderOnFocus={true}
                   allowedFormats={['core/bold', 'core/italic', 'core/link']}
                   multiline="false"
                 />
@@ -335,7 +327,6 @@ const ThankYou = ({attributes, setAttributes}) => {
                   value={donate_text}
                   onChange={toAttribute('donate_text')}
                   placeholder={__('Donate', 'planet4-blocks-backend')}
-                  keepPlaceholderOnFocus={true}
                   withoutInteractiveFormatting
                   allowedFormats={[]}
                   multiline="false"
@@ -380,7 +371,6 @@ const FormContent = ({attributes, setAttributes, fields}) => {
                 tagName="p"
                 value={text_below_button}
                 placeholder={__('Text below button', 'planet4-blocks-backend')}
-                keepPlaceholderOnFocus={true}
                 allowedFormats={[]}
                 onChange={(text) => {setAttributes({text_below_button: text})}}
               />
@@ -393,7 +383,6 @@ const FormContent = ({attributes, setAttributes, fields}) => {
               tagName="p"
               value={text_below_button}
               placeholder={__('Text below button', 'planet4-blocks-backend')}
-              keepPlaceholderOnFocus={true}
               allowedFormats={[]}
               onChange={(text) => {setAttributes({text_below_button: text})}}
             />
