@@ -10,7 +10,7 @@ const isRTL = document.querySelector('html').dir === 'rtl';
 // You can find a list of examples here: https://gist.github.com/paulirish/5d52fb081b3570c81e3a
 const reflow = element => element.offsetHeight;
 
-export const GalleryCarousel = ({ images, onImageClick }) => {
+export const GalleryCarousel = ({ images, onImageClick, isEditing }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliding, setSliding] = useState(false);
   const lastSlide = images.length - 1;
@@ -70,7 +70,7 @@ export const GalleryCarousel = ({ images, onImageClick }) => {
 
   // Set up swiping on mobile
   useEffect(() => {
-    if (!containerRef.current) {
+    if (isEditing || !containerRef.current) {
       return;
     }
 

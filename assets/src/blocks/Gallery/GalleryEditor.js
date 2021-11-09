@@ -131,7 +131,6 @@ const renderView = (attributes, setAttributes) => {
           placeholder={__('Enter title', 'planet4-blocks-backend')}
           value={gallery_block_title}
           onChange={toAttribute('gallery_block_title')}
-          keepPlaceholderOnFocus={true}
           withoutInteractiveFormatting
           multiline="false"
           allowedFormats={[]}
@@ -143,11 +142,10 @@ const renderView = (attributes, setAttributes) => {
         placeholder={__('Enter description', 'planet4-blocks-backend')}
         value={gallery_block_description}
         onChange={toAttribute('gallery_block_description')}
-        keepPlaceholderOnFocus={true}
         withoutInteractiveFormatting
         allowedFormats={['core/bold', 'core/italic']}
       />
-      {layout === 'slider' && <GalleryCarousel images={images || []} />}
+      {layout === 'slider' && <GalleryCarousel images={images || []} isEditing />}
       {layout === 'three-columns' && <GalleryThreeColumns images={images || []} postType={postType} />}
       {layout === 'grid' && <GalleryGrid images={images || []} />}
     </section>
