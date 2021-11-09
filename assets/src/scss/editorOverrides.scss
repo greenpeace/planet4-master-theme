@@ -1,8 +1,9 @@
+@import "editor/postWidth";
+
 // Moved from another repo, for history please see https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blame/f5c532ed5704738136224cde305e9a0ffe614ceb/assets/src/styles/editorOverrides.scss
 .editor-post-title__block textarea.editor-post-title__input {
   --headings-- {
-    // Not sure if fallback still needed, preserving for now.
-    font-family: var(--header-primary-font, $roboto);
+    font-family: $roboto;
   }
 
   font-size: $font-size-xl;
@@ -125,6 +126,20 @@
   }
 }
 
+.editor-styles-wrapper p {
+  // Matches https://github.com/greenpeace/planet4-master-theme/blob/ab3ee3a5fd7975fcdb71f633d9ce8704003306e8/assets/src/scss/base/_typography.scss#L11-L19.
+  // We need to redeclare with a different selector here, because a core script sets a higher specificity.
+  --text-- {
+    font-size: $font-size-sm;
+    line-height: 1.6rem;
+
+    @include x-large-and-up {
+      font-size: $font-size-md;
+      line-height: 1.75rem;
+    }
+  }
+}
+
 .editor-rich-text__editable.wp-block-button__link:not([role="textbox"]) {
   background: $white;
   border-radius: 0;
@@ -165,14 +180,14 @@
 }
 
 .edit-post-visual-editor .editor-block-list__block-edit,
-.edit-post-visual-editor {
+.edit-post-visual-editor, .editor-styles-wrapper {
   --body-- {
     font-family: "Noto Serif", serif;
   }
 
   h1, h2, h3, h4, h5 {
     --headings-- {
-      font-family: var(--header-primary-font, $roboto);
+      font-family: $roboto;
     }
   }
 }
