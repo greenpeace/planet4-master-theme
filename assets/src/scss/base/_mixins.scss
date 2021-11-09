@@ -33,6 +33,13 @@
   }
 }
 
+// Very large Desktop & Up (greater than 1600px)
+@mixin xx-large-and-up {
+  @media (min-width: #{$extra-extra-large-width}) {
+    @content;
+  }
+}
+
 // Margins and padding. Use to consistently apply gutters
 // use like this: @include padding($left: $n15, $right: $n15); wich will be compiled as padding-left: 15px; padding-right: 15px;
 
