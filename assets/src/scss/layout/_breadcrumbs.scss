@@ -1,19 +1,7 @@
 .top-page-tags {
-  font-size: $font-size-xxs;
+  font-size: 16px;
   margin-bottom: $space-xs;
   font-family: $roboto;
-
-  @include medium-and-up {
-    font-size: $font-size-sm;
-  }
-
-  a {
-    font-size: $font-size-xxs;
-
-    @include medium-and-up {
-      font-size: $font-size-sm;
-    }
-  }
 
   .tag-wrap {
     display: inline;
@@ -22,44 +10,30 @@
 
   .tag-wrap-bullet {
     pointer-events: none;
-    display: inline-block;
     font-weight: 400;
-    margin-inline-start: -12px;
-    margin-inline-end: 8px;
+    margin: 0 8px;
     color: $link-color;
   }
 
   .tag-item {
     _-- {
       color: $link-color;
-      font-weight: 400;
+      font-weight: 500;
 
       &:visited {
         color: $link-color-visited;
       }
     }
     display: inline-block;
-
-    @include x-large-and-up {
-      font-size: $font-size-sm;
-    }
-
-    &:not(:only-child):not(:last-child) {
-      margin-inline-end: 7px;
-
-      &.page-type {
-        margin-inline-end: 20px;
-      }
-    }
   }
 
   .tag-item--main {
-    _-- {
-      font-weight: 500;
-    }
-  }
+    &.page-type {
+      text-transform: uppercase;
 
-  .issues {
-    margin-inline-end: 20px;
+      html[dir="rtl"] & {
+        text-transform: lowercase;
+      }
+    }
   }
 }

@@ -1,7 +1,15 @@
 .post-content {
   color: $grey-80;
-  margin-bottom: 0;
+  margin: 24px 0;
   z-index: 3;
+
+  @include large-and-up {
+    max-width: 776px;
+  }
+
+  @include x-large-and-up {
+    max-width: 736px;
+  }
 
   .cover-card {
     width: auto;
@@ -168,10 +176,6 @@
     word-wrap: break-word;
   }
 
-  .entry-summary {
-    @extend .post-content-lead;
-  }
-
   .gallery {
     margin: 0 auto 18px;
 
@@ -233,17 +237,6 @@
 
   q {
     font-style: italic;
-  }
-}
-
-.post-content-lead {
-
-  @include large-and-up {
-    max-width: 65%;
-  }
-
-  p:first-of-type {
-    margin-top: 0;
   }
 }
 
