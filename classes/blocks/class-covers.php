@@ -386,11 +386,16 @@ class Covers extends Base_Block {
 						];
 					}
 				}
+
+				$img_id = get_post_thumbnail_id( $action );
+
 				$covers[] = [
 					'tags'        => $tags ?? [],
 					'title'       => get_the_title( $action ),
 					'excerpt'     => $action->post_excerpt,
 					'image'       => get_the_post_thumbnail_url( $action, 'large' ),
+					'srcset'      => wp_get_attachment_image_srcset( $img_id, 'articles-medium-large' ),
+					'alt_text'    => get_the_post_thumbnail_url( $action, 'large' ),
 					'button_text' => $cover_button_text,
 					'button_link' => get_permalink( $action->ID ),
 				];

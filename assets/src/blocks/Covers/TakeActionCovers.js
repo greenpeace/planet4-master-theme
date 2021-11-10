@@ -1,4 +1,5 @@
 import { useState, useEffect } from '@wordpress/element';
+import { IMAGE_SIZES } from './imageSizes';
 
 const { __ } = wp.i18n;
 
@@ -25,6 +26,8 @@ export const TakeActionCovers = ({ initialRowsLimit, covers, row, loadMoreCovers
             title,
             tags,
             image,
+            srcset,
+            alt_text,
             excerpt,
             button_text,
           } = cover;
@@ -54,7 +57,12 @@ export const TakeActionCovers = ({ initialRowsLimit, covers, row, loadMoreCovers
                   href={buttonLink}
                   aria-label={__('Take action cover, link to ' + title, 'planet4-blocks')}
                 >
-                  <img src={image} />
+                  <img
+                    alt={alt_text}
+                    src={image}
+                    srcSet={srcset}
+                    sizes={IMAGE_SIZES.takeAction}
+                  />
                 </a>
                 <div className='cover-card-content'>
                   {/* Regardless of how many tags there are, we only show the first one */}
