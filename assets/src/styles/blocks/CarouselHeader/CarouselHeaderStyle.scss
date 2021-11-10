@@ -318,10 +318,7 @@ $medium-image-height: 600px;
       position: relative;
       top: 0;
       left: 0;
-      padding-top: 24px;
-      padding-bottom: 24px;
-      padding-left: 24px;
-      padding-right: 24px;
+      padding: 16px;
       background: $white;
       height: auto;
       width: 100%;
@@ -332,8 +329,6 @@ $medium-image-height: 600px;
 
       @include medium-and-up {
         padding-top: $n40;
-        padding-left: $n40;
-        padding-right: $n40;
       }
 
       @include large-and-up {
@@ -388,14 +383,13 @@ $medium-image-height: 600px;
         width: 100%;
 
         @include large-and-up {
-          padding-inline-start: 80px;
           padding-top: 180px;
           padding-bottom: 32px;
+          margin-inline-start: 80px;
         }
 
         @include x-large-and-up {
-          padding-bottom: 54px;
-          padding-inline-start: 0;
+          margin-inline-start: auto;
         }
 
         h1 {
@@ -627,6 +621,14 @@ $medium-image-height: 600px;
     bottom: 0;
     z-index: 3000;
 
+    @include large-and-up {
+      margin-inline-start: 80px;
+    }
+
+    @include x-large-and-up {
+      margin-inline-start: auto;
+    }
+
     .carousel-indicators {
       display: block;
       position: relative;
@@ -651,15 +653,10 @@ $medium-image-height: 600px;
         padding-right: 0;
         width: auto;
         display: block;
-        padding-inline-start: 80px;
 
         html[dir="rtl"] & {
           text-align: right;
         }
-      }
-
-      @include x-large-and-up {
-        padding-inline-start: 0;
       }
 
       li {
