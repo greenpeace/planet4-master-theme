@@ -41,7 +41,7 @@ export const TakeActionCovers = ({ initialRowsLimit, covers, row, loadMoreCovers
 
           return (
             <div key={title} className='col-lg-4 col-md-6'>
-              <div className='cover-card-new'>
+              <div className='cover-card'>
                 <a
                   className='cover-card-overlay'
                   data-ga-category='Take Action Covers'
