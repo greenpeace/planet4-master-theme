@@ -381,7 +381,7 @@ class Covers extends Base_Block {
 				if ( is_array( $wp_tags ) && $wp_tags ) {
 					foreach ( $wp_tags as $wp_tag ) {
 						$tags[] = [
-							'name' => $wp_tag->name,
+							'name' => html_entity_decode( $wp_tag->name ),
 							'href' => get_tag_link( $wp_tag ),
 						];
 					}
@@ -391,7 +391,7 @@ class Covers extends Base_Block {
 
 				$covers[] = [
 					'tags'        => $tags ?? [],
-					'title'       => get_the_title( $action ),
+					'title'       => html_entity_decode( get_the_title( $action ) ),
 					'excerpt'     => $action->post_excerpt,
 					'image'       => get_the_post_thumbnail_url( $action, 'large' ),
 					'srcset'      => wp_get_attachment_image_srcset( $img_id, 'articles-medium-large' ),
