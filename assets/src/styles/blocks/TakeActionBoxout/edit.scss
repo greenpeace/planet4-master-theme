@@ -1,0 +1,12 @@
+.boxout {
+  position: relative;
+
+  a {
+    pointer-events: none;
+  }
+
+  // Prevent line clamp on editable stuff, because it's very buggy.
+  [contenteditable] {
+    -webkit-line-clamp: unset !important;
+  }
+}

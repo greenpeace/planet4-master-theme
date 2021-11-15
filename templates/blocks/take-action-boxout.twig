@@ -1,11 +1,6 @@
 {% block take_action_boxout %}
 	{% if ( boxout ) %}
-		{% if ( boxout.image ) %}
-			{% set bg_image = 'style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)), url(\''~boxout.image~'\');"' %}
-		{% else %}
-			{% set bg_image = '' %}
-		{% endif %}
-		<section id="action-card" class="cover-card single-cover dark-card-bg action-card" {{ bg_image|raw }}>
+		<section id="action-card" class="boxout">
 			<a
 				data-ga-category="Take Action Boxout"
 				data-ga-action="Image"
@@ -13,25 +8,18 @@
 				class="cover-card-overlay"
 				href="{{ boxout.link|default('#') }}" {{ boxout.new_tab and boxout.link ? 'target="_blank"' }}
 			></a>
-			<img src={{ boxout.image }} alt="{{ boxout.image_alt }}" title="{{ boxout.image_alt }}" />
-			<div class="cover-card-more">{{ __( 'Want to do more?', 'planet4-blocks' ) }}</div>
-			<div class="cover-card-content">
-				{% if ( boxout.campaigns ) %}
-					{% for campaign in boxout.campaigns %}
-						<a
-							class="cover-card-tag"
-							data-ga-category="Take Action Boxout"
-							data-ga-action="Navigation Tag"
-							data-ga-label="n/a"
-							href="{{ campaign.link|e('esc_url') }}"
-						>
-							<span aria-label="hashtag">#<span>{{ campaign.name|e('wp_kses_post')|raw }}
-						</a>
-					{% endfor %}
-				{% endif %}
+			{% if boxout.image %}
+				<img
+						src="{{ boxout.image }}"
+						srcset="{{ boxout.image_srcset }}"
+						sizes="(min-width: 1000px) 358px, (min-width: 780px) 313px, 88px"
+						alt="{{ boxout.image_alt }}" title="{{ boxout.image_alt }}"
+				/>
+			{% endif %}
+			<div class="boxout-content">
 				{% if ( boxout.title ) %}
 					<a
-						class="cover-card-heading"
+						class="boxout-heading"
 						data-ga-category="Take Action Boxout"
 						data-ga-action="Title"
 						data-ga-label="n/a"
@@ -42,7 +30,7 @@
 					</a>
 				{% endif %}
 				{% if ( boxout.excerpt ) %}
-					<p class="cover-card-excerpt">{{ boxout.excerpt|e('wp_kses_post')|excerpt(25)|raw }}</p>
+					<p class="boxout-excerpt">{{ boxout.excerpt|e('wp_kses_post')|excerpt(25)|raw }}</p>
 				{% endif %}
 			</div>
 			{% if ( boxout.link and boxout.link_text ) %}

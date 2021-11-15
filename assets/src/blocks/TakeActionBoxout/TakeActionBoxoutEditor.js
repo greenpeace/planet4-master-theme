@@ -9,7 +9,6 @@ import {
   ToolbarButton,
   Button,
 } from '@wordpress/components';
-import TagSelector from '../../components/TagSelector/TagSelector';
 import { URLInput } from '../../components/URLInput/URLInput';
 import { TakeActionBoxoutFrontend } from './TakeActionBoxoutFrontend';
 
@@ -31,19 +30,26 @@ export const TakeActionBoxoutEditor = ({
 }) => {
   const {
     take_action_page,
+    title: customTitle,
+    excerpt: customExcerpt,
+    link: customLink,
+    linkText: customLinkText,
+    newTab,
+    imageId: customImageId,
+    className,
+  } = attributes;
+
+  const {
+    loading,
+    actPageList,
     title,
     excerpt,
     link,
     linkText,
-    newTab,
-    tag_ids,
-    imageUrl,
     imageId,
+    imageUrl,
     imageAlt,
-    className,
-  } = attributes;
-
-  const actPageList = useSelect(select => {
+  } = useSelect(select => {
     const args = {
       per_page: -1,
       sort_order: 'asc',
@@ -52,35 +58,43 @@ export const TakeActionBoxoutEditor = ({
       post_status: 'publish',
     };
 
-    return select('core').getEntityRecords('postType', 'page', args) || [];
-  }, []);
+    const actPageList = select('core').getEntityRecords('postType', 'page', args) || [];
+    const actPage = actPageList.find(actPage => take_action_page === actPage.id);
 
-  const tagsList = useSelect(select => {
-    return select('core').getEntityRecords(
-      'taxonomy',
-      'post_tag',
-      { hide_empty: false, per_page: -1 },
-    ) || [];
-  }, []);
-  const tags = tag_ids.map(tagId => tagsList.find(({ id }) => id === tagId));
+    // Because `useSelect` does an API call to fetch data, the actPageList will be empty the first time it's called.
+    // Or first few times.
+    if (take_action_page && !actPage) {
+      return { loading: true };
+    }
+    const actPageImageId = actPage?.featured_media;
+
+    const customImage = customImageId && select('core').getMedia(customImageId);
+    const customImageFromId = customImage?.source_url;
+
+    const title = !take_action_page ? customTitle : actPage.title.raw;
+    const excerpt = !take_action_page ? customExcerpt : actPage.excerpt.raw;
+    const link = !take_action_page ? customLink : actPage.link;
+    const linkText = !take_action_page ? customLinkText : DEFAULT_BUTTON_TEXT || __('Take action', 'planet4-blocks');
+
+    const imageId = !take_action_page ? customImageId : actPageImageId;
+    const imageUrl = !take_action_page ? customImageFromId : select('core').getMedia(actPageImageId)?.source_url;
+    const imageAlt = !take_action_page ? customImage?.alt_text : '';
+
+    return {
+      actPageList,
+      title,
+      excerpt,
+      link,
+      linkText,
+      imageId,
+      imageUrl,
+      imageAlt,
+    };
+  }, [take_action_page, customTitle, customExcerpt, customLink, customLinkText, customImageId]);
 
   const takeActionPageSelected = take_action_page && parseInt(take_action_page) > 0;
 
-  const updateTakeActionPage = page => {
-    const takeActionPageDetails = page > 0 ? actPageList.find(actPage => page === actPage.id) : null;
-    setAttributes({
-      take_action_page: page,
-      title: takeActionPageDetails?.title.raw || '',
-      excerpt: takeActionPageDetails?.excerpt.raw || '',
-      link: takeActionPageDetails?.link || '',
-      linkText: takeActionPageDetails ? (DEFAULT_BUTTON_TEXT || __('Take action', 'planet4-blocks')) : '',
-      tag_ids: takeActionPageDetails?.tags || [],
-      imageId: takeActionPageDetails?.featured_media || null,
-      newTab: false,
-    });
-  }
-
-  if (!actPageList.length || !tagsList.length) {
+  if (loading || !actPageList.length) {
     return __("Populating block's fields...", 'planet4-blocks-backend');
   }
 
@@ -90,53 +104,39 @@ export const TakeActionBoxoutEditor = ({
 
   const removeImage = () => setAttributes({ imageId: null });
 
-  const selectImage = ({ id, url, alt_text }) => setAttributes({
-    imageId: id,
-    imageUrl: url,
-    imageAlt: alt_text,
-  });
+  const selectImage = ({ id }) => setAttributes({ imageId: id });
 
   const actPageOptions = actPageList.map(actPage => ({ label: actPage.title.raw, value: actPage.id }));
 
   const renderEditInPlace = () => (takeActionPageSelected ?
-    <TakeActionBoxoutFrontend {...{tags}} {...attributes} /> :
+    <TakeActionBoxoutFrontend {...attributes} {...{title, excerpt, link, linkText, imageUrl, imageAlt}} /> :
     <section
-      className={`cover-card action-card ${className || ''}`}
-      style={{
-        backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)), url(${imageUrl})`
-      }}
+      className={`boxout ${className || ''}`}
     >
       {imageUrl && <img src={imageUrl} alt={imageAlt} />}
-      {tags && tags.map(tag => (
-        <a
-          key={tag.name}
-          className="cover-card-tag"
-          href={tag.link}
-        >
-          <span aria-label="hashtag">#</span>{tag.name}
-        </a>
-      ))}
-      <RichText
-        tagName='div'
-        className='cover-card-heading'
-        placeholder={__('Enter title', 'planet4-blocks-backend')}
-        value={title}
-        onChange={toAttribute('title')}
-        disabled={true}
-        withoutInteractiveFormatting
-        multiline='false'
-        allowedFormats={[]}
-      />
-      <RichText
-        tagName='p'
-        className='cover-card-excerpt'
-        placeholder={__('Enter description', 'planet4-blocks-backend')}
-        value={excerpt}
-        onChange={toAttribute('excerpt')}
-        disabled={takeActionPageSelected}
-        withoutInteractiveFormatting
-        allowedFormats={['core/bold', 'core/italic']}
-      />
+      <div className="boxout-content">
+        <RichText
+          tagName="div"
+          className="boxout-heading"
+          placeholder={ __('Enter title', 'planet4-blocks-backend') }
+          value={ title }
+          onChange={ toAttribute('title') }
+          disabled={ true }
+          withoutInteractiveFormatting
+          multiline="false"
+          allowedFormats={ [] }
+        />
+        <RichText
+          tagName="p"
+          className="boxout-excerpt"
+          placeholder={ __('Enter description', 'planet4-blocks-backend') }
+          value={ excerpt }
+          onChange={ toAttribute('excerpt') }
+          disabled={ takeActionPageSelected }
+          withoutInteractiveFormatting
+          allowedFormats={ ['core/bold', 'core/italic'] }
+        />
+      </div>
       <RichText
         tagName='div'
         className="btn btn-action btn-block cover-card-btn"
@@ -159,33 +159,29 @@ export const TakeActionBoxoutEditor = ({
             label={__('Select Take Action Page:', 'planet4-blocks-backend')}
             value={take_action_page}
             options={[
-              { label: __('None', 'planet4-blocks-backend'), value: 0 },
+              { label: __('None (custom)', 'planet4-blocks-backend'), value: 0 },
               ...actPageOptions,
             ]}
-            onChange={page => updateTakeActionPage(parseInt(page))}
+            onChange={ page => setAttributes({ take_action_page: parseInt(page) }) }
           />
-          <p className='help'>{__('Or customise your Take Action Boxout:', 'planet4-blocks-backend')}</p>
-
-          <URLInput
+          {!takeActionPageSelected && <URLInput
             label={__('Custom link', 'planet4-blocks-backend')}
             placeholder={__('Enter custom link', 'planet4-blocks-backend')}
             value={link}
-            onChange={toAttribute('link')}
-            disabled={takeActionPageSelected}
-          />
-          <CheckboxControl
+            onChange={ value => {
+              if (!take_action_page) {
+                setAttributes({ link: value });
+              }
+            } }
+          />}
+          {!takeActionPageSelected && <CheckboxControl
             label={__('Open in a new tab', 'planet4-blocks-backend')}
             value={newTab}
             checked={newTab}
             onChange={toAttribute('newTab')}
             disabled={takeActionPageSelected}
-          />
-          <TagSelector
-            value={tag_ids}
-            onChange={toAttribute('tag_ids')}
-            disabled={takeActionPageSelected}
-          />
-          {!imageId &&
+          />}
+          {!takeActionPageSelected &&
             <MediaUploadCheck>
               <MediaUpload
                 title={__('Select Background Image', 'planet4-blocks-backend')}
@@ -199,7 +195,7 @@ export const TakeActionBoxoutEditor = ({
                     className='button'
                     disabled={takeActionPageSelected}
                   >
-                    + {__('Select Background Image', 'planet4-blocks-backend')}
+                    + { imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend') }
                   </Button>
                 )}
               />

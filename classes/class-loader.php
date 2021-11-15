@@ -67,7 +67,6 @@ final class Loader {
 		new Blocks\Columns();
 		new Blocks\Cookies();
 		new Blocks\Counter();
-		new Blocks\OldCovers();
 		new Blocks\Covers();
 		new Blocks\Gallery();
 		new Blocks\Happypoint();
@@ -401,8 +400,6 @@ final class Loader {
 			],
 			true
 		);
-
-		self::enqueue_local_script( 'post_action', 'public/js/post_action.js', [ 'jquery' ] );
 
 		// Variables reflected from PHP to JS.
 		$option_values   = get_option( 'planet4_options' );

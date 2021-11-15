@@ -10,8 +10,8 @@
   }
 }
 
-.cover-card-new {
-  box-shadow: 0 4px 3px rgba(0, 0, 0, 0.16);
+.cover-card {
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16);
   transition: box-shadow 0.2s;
   min-height: 440px;
   border-radius: 4px;
@@ -27,7 +27,15 @@
   }
 
   &:hover {
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 14px rgba(0, 0, 0, 0.3);
+
+    .cover-card-heading {
+      text-decoration: underline;
+    }
+
+    .btn {
+      background: var(--button-primary--hover--background, #ee562d);
+    }
   }
 
   img {

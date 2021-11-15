@@ -58,7 +58,7 @@ class Covers extends Base_Block {
 	 */
 	public function __construct() {
 		register_block_type(
-			'planet4-blocks/covers-beta',
+			'planet4-blocks/covers',
 			[  // - Register the block for the editor
 				'editor_script'   => 'planet4-blocks',
 				'render_callback' => static function ( $attributes ) {
@@ -381,16 +381,21 @@ class Covers extends Base_Block {
 				if ( is_array( $wp_tags ) && $wp_tags ) {
 					foreach ( $wp_tags as $wp_tag ) {
 						$tags[] = [
-							'name' => $wp_tag->name,
+							'name' => html_entity_decode( $wp_tag->name ),
 							'href' => get_tag_link( $wp_tag ),
 						];
 					}
 				}
+
+				$img_id = get_post_thumbnail_id( $action );
+
 				$covers[] = [
 					'tags'        => $tags ?? [],
-					'title'       => get_the_title( $action ),
+					'title'       => html_entity_decode( get_the_title( $action ) ),
 					'excerpt'     => $action->post_excerpt,
 					'image'       => get_the_post_thumbnail_url( $action, 'large' ),
+					'srcset'      => wp_get_attachment_image_srcset( $img_id, 'articles-medium-large' ),
+					'alt_text'    => get_the_post_thumbnail_url( $action, 'large' ),
 					'button_text' => $cover_button_text,
 					'button_link' => get_permalink( $action->ID ),
 				];

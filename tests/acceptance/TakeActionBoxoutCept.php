@@ -17,6 +17,3 @@ $I->havePageInDatabase([
 
 // Navigate to the newly created page
 $I->amOnPage('/' . $slug);
-
-// Check the Take Action Boxout block
-$I->see('#Climate', '.cover-card .cover-card-tag');
