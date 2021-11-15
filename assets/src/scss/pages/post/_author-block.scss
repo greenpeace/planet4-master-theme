@@ -1,86 +1,119 @@
 .author-block {
   overflow: hidden;
-  display: inline-block;
-  margin-top: $space-xs;
-  margin-bottom: $space-md;
+  background: $grey-10;
+  padding: 24px 16px;
+  border-radius: 4px;
+  margin-bottom: 24px;
+
+  @include medium-and-up {
+    display: flex;
+    padding: 24px;
+
+    > .author-block-image {
+      min-width: 200px;
+      margin-inline-end: 32px;
+      margin-top: 0;
+    }
+  }
 
   @include large-and-up {
-    margin-top: $space-md;
-    margin-bottom: $space-lg;
+    max-width: 776px;
   }
 
-  @include medium-and-up {
-    display: inline-flex;
-    align-items: stretch;
-  }
-}
-
-.author-block-info {
-  background: $grey-20;
-  padding: $n35 $n20;
-
-  @include medium-and-up {
-    padding: $n25;
-    position: relative;
-    z-index: 1;
+  @include x-large-and-up {
+    max-width: 736px;
   }
 }
 
 .author-block-info-title {
-  font-size: $font-size-md;
+  font-size: 20px;
   font-weight: bold;
-  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 16px;
+}
 
-  @include medium-and-up {
-    font-size: 1.3125rem;
+.author-block-image {
+  width: 200px;
+  height: 200px;
+  margin: auto;
+
+  img {
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
   }
 }
 
 .author-block-info-name {
   font-size: 1.0625rem;
   font-weight: bold;
-  margin-bottom: 30px;
+  margin: 16px 0;
+  text-align: center;
 }
 
-.author-block-info-bio {
+.author-block-info-name,
+.author-block-info-title {
+  @include medium-and-up {
+    text-align: inherit;
+    margin: 8px 0;
+  }
+}
+
+.author-block-info {
   font-size: $font-size-sm;
   line-height: 1.5;
   margin: 0;
-  max-height: 7.5rem; // number of lines * line-height
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  overflow: hidden;
 
-  @supports (display: -webkit-box) {
-    display: -webkit-box;
-    /* stylelint-disable property-no-vendor-prefix */
-    /*! autoprefixer: off */
-    -webkit-box-orient: vertical;
-    /*! autoprefixer: on */
-    /* stylelint-enable property-no-vendor-prefix */
-    max-height: none;
+  .collapsing {
+    display: none;
+    transition: none;
   }
 }
 
-.author-block-image {
+.author-block-description-button {
+  outline: none;
+  border: none;
+  padding: 0;
   display: block;
-  margin: 0;
+  color: $link-color;
 
-  img {
-    width: 100%;
+  .show-less {
+    display: none;
   }
 
-  @include large-and-up {
-    img {
-      width: auto;
-      height: 100%;
+  .show-more {
+    display: inline-block;
+  }
+
+  &:after {
+    content: "";
+    background-image: url("../../images/blue-chevron.svg");
+    display: inline-block;
+    vertical-align: middle;
+    margin-inline-start: 8px;
+    width: 10px;
+    height: 6px;
+  }
+
+  &[aria-expanded="true"] {
+    .show-less {
+      display: inline-block;
+    }
+
+    .show-more {
+      display: none;
+    }
+
+    &:after {
+      transform: rotate(180deg);
     }
   }
-}
 
-.author-block-info,
-.author-block-image {
-  @include medium-and-up {
-    flex: 0 0 50%;
+  &:hover {
+    color: $link-color;
+
+    span {
+      text-decoration: underline;
+    }
   }
 }

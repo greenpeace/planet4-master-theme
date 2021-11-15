@@ -23,17 +23,6 @@ $context = Timber::get_context();
 $post            = Timber::query_post( false, Post::class ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $context['post'] = $post;
 
-// Strip Take Action Boxout block from the post content to add outside the normal block container.
-if ( false !== strpos( $post->post_content, '<!-- wp:planet4-blocks/take-action-boxout' ) ) {
-
-	$take_action_boxout_block_start  = strpos( $post->post_content, '<!-- wp:planet4-blocks/take-action-boxout' );
-	$take_action_boxout_block_end    = strpos( $post->post_content, '/-->', $take_action_boxout_block_start ) + 3;
-	$take_action_boxout_block_length = $take_action_boxout_block_end - $take_action_boxout_block_start + 1;
-	$take_action_boxout_block        = substr( $post->post_content, $take_action_boxout_block_start, $take_action_boxout_block_length );
-
-	$post->post_content = str_replace( $take_action_boxout_block, '', $post->post_content );
-}
-
 // Set Navigation Issues links.
 $post->set_issues_links();
 
@@ -88,11 +77,7 @@ if ( 'yes' === $post->include_articles ) {
 	$post->articles = '<!-- wp:planet4-blocks/articles ' . wp_json_encode( $block_attributes, JSON_UNESCAPED_SLASHES ) . ' /-->';
 }
 
-// Build the shortcode for take action boxout block
-// Break the content to retrieve first 2 paragraphs and split the content if the take action page has been defined.
-if ( isset( $take_action_boxout_block ) ) {
-	$post->take_action_boxout = $take_action_boxout_block;
-} elseif ( ! empty( $take_action_page ) ) {
+if ( ! empty( $take_action_page ) && ! has_block( 'planet4-blocks/take-action-boxout' ) ) {
 	$post->take_action_page = $take_action_page;
 
 	$block_attributes = [
@@ -109,13 +94,6 @@ $comments_args = [
 	'comment_field'        => Timber::compile( 'comment_form/comment_field.twig' ),
 	'submit_button'        => Timber::compile( 'comment_form/submit_button.twig' ),
 	'title_reply'          => __( 'Leave your reply', 'planet4-master-theme' ),
-	'fields'               => apply_filters(
-		'comment_form_default_fields',
-		[
-			'author' => Timber::compile( 'comment_form/author_field.twig' ),
-			'email'  => Timber::compile( 'comment_form/email_field.twig' ),
-		]
-	),
 ];
 
 $context['comments_args']       = $comments_args;

@@ -1,59 +1,119 @@
-.comment-form {
-  display: block;
-  padding-bottom: 60px;
+.comments-block {
+  .form-section .comment-respond {
+    background: $grey-05;
+    border-radius: 4px;
+    padding: 24px 16px;
+  }
 
-  .form-group {
+  .comment-respond {
+    font-size: 0;
     margin-bottom: 32px;
 
-    @include small-and-up {
-      margin-bottom: 32px;
+    input,
+    textarea {
+      width: 100%;
+    }
+
+    .form-submit {
+      margin-bottom: 0;
+    }
+
+    button {
+      margin-top: 8px;
+      margin-bottom: 0;
     }
 
     @include medium-and-up {
-      padding-bottom: 40px;
+      .comment-author,
+      .comment-email {
+        width: calc(50% - 8px);
+        display: inline-block;
+        vertical-align: bottom;
+      }
+
+      .comment-author {
+        margin-inline-end: 16px;
+      }
+    }
+  }
+}
+
+#gdpr-comments-compliance {
+  font-family: $roboto;
+
+  #gdpr-comments-compliance-text,
+  #gdpr-comments-label,
+  .custom-control-description {
+    font-size: 14px;
+  }
+
+  #gdpr-comments-label {
+    font-weight: bold;
+  }
+}
+
+.comment-form-cookies-consent input[type="checkbox"] ~ .custom-control-description {
+  font-size: 14px;
+}
+
+.logged-in-as {
+  font-size: 14px;
+  font-family: $roboto;
+}
+
+#cancel-comment-reply-link {
+  margin-inline-start: 8px;
+  color: $grey-40;
+
+  &:hover,
+  &:focus {
+    color: $grey-40;
+  }
+}
+
+@include medium-and-up {
+  .comment-form-cookies-consent {
+    margin-top: 8px;
+  }
+
+  .comments-block .form-section .comment-respond {
+    padding: 32px;
+
+    .logged-in-as {
+      position: absolute;
+      top: 32px;
+      right: 32px;
+
+      html[dir="rtl"] & {
+        left: 32px;
+        right: auto;
+      }
     }
   }
 
-  textarea {
-    margin-bottom: 20px;
+  .comments-block .comment-respond {
+    position: relative;
 
-    @include small-and-up {
-      margin-bottom: 56px;
-    }
+    .logged-in-as {
+      position: absolute;
+      top: 0;
+      right: 0;
 
-    @include medium-and-up {
-      margin-bottom: 40px;
-    }
-
-    @include large-and-up {
-      margin-bottom: 30px;
-    }
-  }
-
-  input {
-    width: 100%;
-
-    @include medium-and-up {
-      width: 50%;
-    }
-
-    @include medium-and-up {
-      width: 80%;
+      html[dir="rtl"] & {
+        left: 0;
+        right: auto;
+      }
     }
   }
 
-  button {
-    width: 100%;
-    margin-top: 60px;
+  .logged-in-as {
+    position: absolute;
+    top: 32px;
+    right: 32px;
 
-    @include medium-and-up {
-      width: 50%;
-      margin-top: 30px;
-    }
-
-    @include large-and-up {
-      width: 40%;
-      margin-top: 30px;
+    html[dir="rtl"] & {
+      left: 32px;
+      right: auto;
     }
   }
 }

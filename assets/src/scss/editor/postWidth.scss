@@ -1,0 +1,28 @@
+body.post-type-post {
+  // These styles are copied from the inline styles created by the Gutenberg editor if it's set through the options.
+  // Using their options doesn't work for us, because it changes CSS loading order, breaking our custom styles.
+  // Specifically it causes "reset.css" to be loaded after our styles...
+  .editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > *, .editor-styles-wrapper .block-editor-block-list__layout.is-root-container > * {
+    max-width: 736px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > [data-align="wide"], .editor-styles-wrapper .block-editor-block-list__layout.is-root-container > [data-align="wide"] {
+    max-width: 1000px;
+  }
+
+  .editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > [data-align="full"], .editor-styles-wrapper .block-editor-block-list__layout.is-root-container > [data-align="full"] {
+    max-width: none;
+  }
+
+  .editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > [data-align="left"], .editor-styles-wrapper .block-editor-block-list__layout.is-root-container > [data-align="left"] {
+    float: left;
+    margin-right: 2em;
+  }
+
+  .editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper > [data-align="right"], .editor-styles-wrapper .block-editor-block-list__layout.is-root-container > [data-align="right"] {
+    float: right;
+    margin-left: 2em;
+  }
+}

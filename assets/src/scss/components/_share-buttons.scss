@@ -1,35 +1,9 @@
 .share-buttons {
-  margin: 0 0 $n10 0;
-
-  @include medium-and-up {
-    margin: 0;
-    float: right;
-
-    html[dir="rtl"] & {
-      float: left;
-    }
-  }
-
-  .single-post & {
-    @include medium-and-up {
-      margin: -10px 0 0 0;
-    }
-
-    @include large-and-up {
-      margin: -20px 0 0 0;
-    }
-
-    @include x-large-and-up {
-      margin: -10px 0 0 0;
-    }
-  }
+  display: flex;
 
   .share-btn {
     border: none;
-    box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
     color: $white;
-    cursor: pointer;
-    display: inline-block;
     font-size: $font-size-md;
     opacity: 0.9;
     width: 4rem;
@@ -37,38 +11,55 @@
     line-height: 2.7rem;
     height: 2.7rem;
     border-radius: 4px;
+    margin-bottom: 0;
+
+    &:not(:last-child) {
+      margin-inline-end: 8px;
+    }
 
     .icon {
       top: -2px;
     }
-
-    &:hover {
-      color: $grey-10;
-    }
-
-    &:active {
-      position: relative;
-      top: 2px;
-      box-shadow: none;
-      color: $grey-10;
-      outline: none;
-    }
   }
 
   .twitter {
-    background: $twitter none repeat scroll 0 0;
+    background: $twitter;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: darken($twitter, 20%);
+    }
   }
 
   .facebook {
-    background: $facebook none repeat scroll 0 0;
+    background: $facebook;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: darken($facebook, 20%);
+    }
   }
 
   .email {
-    background: $email none repeat scroll 0 0;
+    background: $email;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: darken($email, 20%);
+    }
   }
 
   .whatsapp {
-    background: $whatsapp none repeat scroll 0 0;
+    background: $whatsapp;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: darken($whatsapp, 20%);
+    }
 
     .icon {
       font-size: 1.5rem;
