@@ -340,7 +340,7 @@ jobs:
           command: npm run build
       - run:
           name: Remove unnecessary files
-          command: rm -rf .circleci .git .githooks assets/src bin tests
+          command: rm -rf .circleci .git .githooks assets/src bin
       - run:
           name: Inject version to composer
           command: |
