@@ -25,6 +25,10 @@
       }
     }
     display: inline-block;
+
+    &:not(:only-child):not(:last-child):not(.page-type) {
+      margin-inline-end: 8px;
+    }
   }
 
   .tag-item--main {
