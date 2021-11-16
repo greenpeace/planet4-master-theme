@@ -8,6 +8,7 @@ import {
   ToolbarGroup,
   ToolbarButton,
   Button,
+  ToggleControl,
 } from '@wordpress/components';
 import { URLInput } from '../../components/URLInput/URLInput';
 import { TakeActionBoxoutFrontend } from './TakeActionBoxoutFrontend';
@@ -39,6 +40,7 @@ export const TakeActionBoxoutEditor = ({
     newTab,
     imageId: customImageId,
     className,
+    stickyOnMobile,
   } = attributes;
 
   const {
@@ -110,10 +112,13 @@ export const TakeActionBoxoutEditor = ({
 
   const actPageOptions = actPageList.map(actPage => ({ label: actPage.title.raw, value: actPage.id }));
 
+  const postHasStickyBoxoutAlready = document.querySelector('#action-card');
+
   const renderEditInPlace = () => (takeActionPageSelected ?
     <TakeActionBoxoutFrontend {...attributes} {...{title, excerpt, link, linkText, imageUrl, imageAlt}} /> :
     <section
       className={`boxout ${className || ''}`}
+      {...stickyOnMobile && { id: 'action-card' }}
     >
       <div className={'boxout-image-container'}>
         <MediaUploadCheck>
@@ -172,6 +177,18 @@ export const TakeActionBoxoutEditor = ({
   const renderSidebar = () => (
     <Fragment>
       <InspectorControls>
+        <PanelBody title={__('Styles', 'planet4-blocks-backend')}>
+          <div className='sticky-boxout-checkbox'>
+            <ToggleControl
+              label={__('Make block stick to the bottom of the page on mobile', 'planet4-blocks-backend')}
+              value={stickyOnMobile}
+              checked={stickyOnMobile}
+              onChange={toAttribute('stickyOnMobile')}
+              disabled={!stickyOnMobile && postHasStickyBoxoutAlready}
+              help={!stickyOnMobile && postHasStickyBoxoutAlready ? __('You can only have one sticky boxout per post', 'planet4-blocks-backend') : ''}
+            />
+          </div>
+        </PanelBody>
         <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
           <SelectControl
             label={__('Select Take Action Page:', 'planet4-blocks-backend')}

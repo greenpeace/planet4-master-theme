@@ -155,3 +155,52 @@
     min-height: 210px;
   }
 }
+
+@media screen and (max-width: $large-width) {
+  .sticky-bottom-mobile {
+    z-index: 9999;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 128px;
+    border-radius: 0;
+    transition: all 0.5s;
+
+    .boxout-heading {
+      margin-inline-end: 24px;
+    }
+
+    .cover-card-overlay,
+    .boxout-excerpt {
+      display: none;
+    }
+
+    .not-now {
+      display: block;
+      background: url("../../public/images/close-boxout.svg");
+      background-position: bottom right;
+      background-size: cover;
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 16px;
+      right: 16px;
+
+      html[dir="rtl"] & {
+        right: auto;
+        left: 16px;
+      }
+    }
+
+    @include medium-and-up {
+      .boxout-content {
+        padding-top: 16px;
+      }
+
+      .boxout-heading {
+        margin-inline-end: 0;
+      }
+    }
+  }
+}

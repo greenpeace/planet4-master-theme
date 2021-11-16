@@ -1,6 +1,9 @@
 {% block take_action_boxout %}
 	{% if ( boxout ) %}
-		<section class="boxout">
+		<section
+			class="boxout{% if boxout.stickyMobile %} sticky-bottom-mobile collapse show{% endif %}"
+			{{ boxout.stickyMobile ? 'id="action-card"' }}
+		>
 			<a
 				data-ga-category="Take Action Boxout"
 				data-ga-action="Image"
@@ -30,7 +33,7 @@
 					</a>
 				{% endif %}
 				{% if ( boxout.excerpt ) %}
-					<p class="boxout-excerpt">{{ boxout.excerpt|e('wp_kses_post')|excerpt(25)|raw }}</p>
+					<p class="boxout-excerpt">{{ boxout.excerpt|e('wp_kses_post')|raw }}</p>
 				{% endif %}
 			</div>
 			{% if ( boxout.link and boxout.link_text ) %}
@@ -44,9 +47,14 @@
 				>
 					{{ boxout.link_text }}
 				</a>
-				<a class="not-now" data-ga-category="Take Action Boxout">
-					×
-				</a>
+			{% endif %}
+			{% if boxout.stickyMobile %}
+				<a
+					class="not-now"
+					role="button"
+					data-bs-toggle="collapse"
+					href="#action-card"
+				></a>
 			{% endif %}
 		</section>
 	{% endif %}

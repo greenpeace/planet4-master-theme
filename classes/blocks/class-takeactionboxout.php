@@ -72,6 +72,10 @@ class TakeActionBoxout extends Base_Block {
 					'imageAlt'         => [
 						'type' => 'string',
 					],
+					'stickyOnMobile'   => [
+						'type'    => 'boolean',
+						'default' => false,
+					],
 				],
 			]
 		);
@@ -107,6 +111,7 @@ class TakeActionBoxout extends Base_Block {
 					'image'        => $src ?? '',
 					'image_alt'    => $alt_text ?? '',
 					'image_srcset' => $src_set ?? '',
+					'stickyMobile' => $fields['stickyOnMobile'] ?? false,
 				],
 			];
 		}
@@ -146,6 +151,7 @@ class TakeActionBoxout extends Base_Block {
 				'image'        => $image ?? '',
 				'image_alt'    => $image_alt ?? '',
 				'image_srcset' => $src_set ?? '',
+				'stickyMobile' => $fields['stickyOnMobile'] ?? false,
 			],
 		];
 	}
