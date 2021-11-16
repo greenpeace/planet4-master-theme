@@ -110,3 +110,8 @@
     padding-inline-start: 110px;
   }
 }
+
+// Fix Safari issue with forced min-width:1px in editor
+.carousel-header .carousel-item .carousel-caption .main-header .action-button div.btn {
+  overflow: initial;
+}

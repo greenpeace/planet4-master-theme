@@ -28,25 +28,15 @@ export const Caption = ({ slide, index, changeSlideAttribute }) => (
           </div>
 
           <div className='col-xs-12 col-sm-8 col-md-4 action-button'>
-            <a href={slide.link_url}
-              target={slide.link_url_new_tab ? '_blank' : '_self'}
+            <RichText
+              tagName='div'
               className='btn btn-primary btn-block'
-              data-ga-category='Carousel Header'
-              data-ga-action='Call to Action'
-              rel='noopener noreferrer'
-              data-ga-label={slide.index}
-              onClick={e => e.preventDefault()}
-            >
-              <RichText
-                tagName='span'
-                className=''
-                placeholder={__('Enter CTA text', 'planet4-blocks-backend')}
-                value={slide.link_text}
-                onChange={changeSlideAttribute('link_text', index)}
-                withoutInteractiveFormatting
-                allowedFormats={[]}
-              />
-            </a>
+              placeholder={__('Enter CTA text', 'planet4-blocks-backend')}
+              value={slide.link_text}
+              onChange={changeSlideAttribute('link_text', index)}
+              withoutInteractiveFormatting
+              allowedFormats={[]}
+            />
           </div>
         </div>
       </div>

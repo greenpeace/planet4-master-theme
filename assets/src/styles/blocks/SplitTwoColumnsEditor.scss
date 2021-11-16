@@ -16,3 +16,8 @@
 .block-editor .split-two-column a {
   pointer-events: auto;
 }
+
+// Fix Safari issue with forced min-width:1px in editor
+.split-two-column-item-button {
+  overflow: initial;
+}
