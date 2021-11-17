@@ -240,3 +240,8 @@ input.describe[type=text][data-setting=caption] {
   font-size: 13px;
   line-height: 1.5;
 }
+
+// Allow button edition via click on Safari
+.btn {
+  user-select: auto;
+}
