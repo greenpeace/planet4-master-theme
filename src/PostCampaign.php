@@ -29,6 +29,7 @@ class PostCampaign {
 		'campaign_body_font',
 		'campaign_footer_theme',
 		'footer_links_color',
+		'country-selector--countries-list--background',
 	];
 
 	public const LEGACY_THEMES = [

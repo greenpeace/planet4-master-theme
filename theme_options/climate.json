@@ -71,19 +71,40 @@
 			],
 			"default": "minimal"
 		},
-		{
-			"id": "campaign_nav_color",
-			"dependsOn": "campaign_nav_type",
-			"configurations": {
-				"minimal": {
-					"options": [
-						{ "value": "#ffffff" },
-						{ "value": "#000000" },
-						{ "value": "#ff513c" },
-						{ "value": "#007eff" },
+    {
+      "id": "campaign_nav_color",
+      "dependsOn": "campaign_nav_type",
+      "configurations": {
+        "minimal": {
+          "options": [
+            { "value": "#ffffff" },
+            { "value": "#000000" },
+            { "value": "#ff513c" },
+            { "value": "#007eff" },
             { "value": "#66cc00" }
-					],
-					"default": "#ff513c"
+          ],
+          "default": "#ff513c"
+        }
+      }
+    },
+		{
+			"id": "country-selector--countries-list--background",
+			"dependsOn": "campaign_nav_color",
+			"configurations": {
+        "#ffffff": {
+          "default": "#ffffff"
+        },
+        "#000000": {
+          "default": "#404040"
+        },
+        "#ff513c": {
+          "default": "#ce6c61"
+        },
+        "#007eff": {
+          "default": "#4197ef"
+        },
+				"#66cc00": {
+					"default": "#5e9f1e"
 				}
 			}
 		},
