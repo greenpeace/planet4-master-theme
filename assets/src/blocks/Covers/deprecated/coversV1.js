@@ -1,3 +1,5 @@
+import { COVER_LAYOUTS } from '../Covers';
+
 const OLD_COVER_TYPES = {
   '1': 'take-action',
   '2': 'campaign',
@@ -32,10 +34,10 @@ export const coversV1 = {
       type: 'string',
     },
   },
-  isEligible({ covers_view, cover_type }) {
-    return covers_view || !isNaN(cover_type);
+  isEligible({ covers_view, cover_type, layout }) {
+    return covers_view || !isNaN(cover_type) || !layout;
   },
-  migrate( { covers_view, cover_type, ...attributes } ) {
+  migrate( { covers_view, cover_type, layout, ...attributes } ) {
     attributes.version = 1;
     attributes.initialRowsLimit = covers_view === '3' ? 0 : Number(covers_view);
 
@@ -43,6 +45,10 @@ export const coversV1 = {
       attributes.cover_type = OLD_COVER_TYPES[cover_type];
     } else {
       attributes.cover_type = cover_type;
+    }
+
+    if (!layout) {
+      attributes.layout = COVER_LAYOUTS.carousel;
     }
 
     return attributes;

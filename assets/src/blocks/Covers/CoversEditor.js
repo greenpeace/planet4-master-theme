@@ -1,6 +1,7 @@
 import {
   SelectControl,
-  PanelBody
+  PanelBody,
+  RadioControl,
 } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
 
@@ -8,7 +9,12 @@ import { InspectorControls } from '@wordpress/block-editor';
 import TagSelector from '../../components/TagSelector/TagSelector';
 import PostSelector from '../../components/PostSelector/PostSelector';
 import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector';
-import { Covers, COVER_TYPES } from './Covers';
+import {
+  Covers,
+  COVER_TYPES,
+  COVER_LAYOUTS,
+  CAROUSEL_LAYOUT_COVERS_LIMIT
+} from './Covers';
 import { useCovers } from './useCovers';
 import { getStyleFromClassName } from '../getStyleFromClassName';
 
@@ -16,7 +22,7 @@ const { RichText } = wp.blockEditor;
 const { __ } = wp.i18n;
 
 const renderEdit = (attributes, toAttribute) => {
-  const { initialRowsLimit, posts, tags, cover_type, post_types } = attributes;
+  const { initialRowsLimit, posts, tags, cover_type, post_types, layout } = attributes;
 
   const rowLimitOptions = [
     { label: __('1 Row', 'planet4-blocks-backend'), value: 1 },
@@ -26,13 +32,25 @@ const renderEdit = (attributes, toAttribute) => {
 
   return (
     <InspectorControls>
-      <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
-        <SelectControl
-          label='Rows to display'
-          value={initialRowsLimit}
-          options={rowLimitOptions}
-          onChange={value => toAttribute('initialRowsLimit')(Number(value))}
+      <PanelBody title={__('Layout', 'planet4-blocks-backend')}>
+        <RadioControl
+          options={[
+            { label: __('Carousel', 'planet4-blocks-backend'), value: COVER_LAYOUTS.carousel },
+            { label: __('Grid', 'planet4-blocks-backend'), value: COVER_LAYOUTS.grid },
+          ]}
+          selected={layout}
+          onChange={toAttribute('layout')}
         />
+      </PanelBody>
+      <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+        {layout !== COVER_LAYOUTS.carousel &&
+          <SelectControl
+            label='Rows to display'
+            value={initialRowsLimit}
+            options={rowLimitOptions}
+            onChange={value => toAttribute('initialRowsLimit')(Number(value))}
+          />
+        }
 
         {!posts.length &&
           <div>
@@ -61,6 +79,7 @@ const renderEdit = (attributes, toAttribute) => {
               onChange={toAttribute('posts')}
               placeholder={__('Select articles', 'planet4-blocks-backend')}
               postType={cover_type === COVER_TYPES.content ? 'post' : 'act_page'}
+              maxLength={layout === COVER_LAYOUTS.carousel ? CAROUSEL_LAYOUT_COVERS_LIMIT : null}
             />
           </div>
         }

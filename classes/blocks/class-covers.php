@@ -51,7 +51,17 @@ class Covers extends Base_Block {
 	private const CAMPAIGN_COVER_TYPE    = 'campaign';
 	private const CONTENT_COVER_TYPE     = 'content';
 
-	const POSTS_LIMIT = 50;
+	/**
+	 * Layout options.
+	 *
+	 * @var string CAROUSEL_LAYOUT.
+	 * @var string GRID_LAYOUT.
+	 */
+	private const CAROUSEL_LAYOUT = 'carousel';
+	private const GRID_LAYOUT     = 'grid';
+
+	const POSTS_LIMIT                 = 50;
+	const POSTS_LIMIT_CAROUSEL_LAYOUT = 12; // When Carousel layout is selected we want no more than 21 covers.
 
 	/**
 	 * Covers constructor.
@@ -125,6 +135,10 @@ class Covers extends Base_Block {
 						'type'    => 'integer',
 						'default' => self::VERSION,
 					],
+					'layout'           => [
+						'type'    => 'string',
+						'default' => self::CAROUSEL_LAYOUT,
+					],
 				],
 			]
 		);
@@ -175,6 +189,7 @@ class Covers extends Base_Block {
 		$tag_ids       = $fields['tags'] ?? [];
 		$options       = get_option( 'planet4_options' );
 		$parent_act_id = $options['act_page'];
+		$layout        = $fields['layout'] ?? self::CAROUSEL_LAYOUT;
 
 		if ( 0 !== absint( $parent_act_id ) ) {
 			$args = [
@@ -187,7 +202,7 @@ class Covers extends Base_Block {
 					'title'      => 'ASC',
 				],
 				'suppress_filters' => false,
-				'numberposts'      => self::POSTS_LIMIT,
+				'numberposts'      => self::CAROUSEL_LAYOUT === $layout ? self::POSTS_LIMIT_CAROUSEL_LAYOUT : self::POSTS_LIMIT,
 			];
 			// If user selected a tag to associate with the Take Action page covers.
 			if ( ! empty( $tag_ids ) ) {
@@ -211,6 +226,7 @@ class Covers extends Base_Block {
 	 */
 	private static function filter_posts_by_ids( $fields ) {
 		$post_ids = $fields['posts'] ?? [];
+		$layout   = $fields['layout'] ?? self::CAROUSEL_LAYOUT;
 
 		if ( ! empty( $post_ids ) ) {
 
@@ -220,7 +236,7 @@ class Covers extends Base_Block {
 				'post_status'      => 'publish',
 				'post__in'         => $post_ids,
 				'suppress_filters' => false,
-				'numberposts'      => self::POSTS_LIMIT,
+				'numberposts'      => self::CAROUSEL_LAYOUT === $layout ? self::POSTS_LIMIT_CAROUSEL_LAYOUT : self::POSTS_LIMIT,
 			];
 
 			// If cover type is take action pages set post_type to page.
@@ -247,6 +263,7 @@ class Covers extends Base_Block {
 
 		$tag_ids    = $fields['tags'] ?? [];
 		$post_types = $fields['post_types'] ?? [];
+		$layout     = $fields['layout'] ?? self::CAROUSEL_LAYOUT;
 
 		$query_args = [
 			'post_type'      => 'post',
@@ -255,7 +272,7 @@ class Covers extends Base_Block {
 				'title' => 'ASC',
 			],
 			'no_found_rows'  => true,
-			'posts_per_page' => self::POSTS_LIMIT,
+			'posts_per_page' => self::CAROUSEL_LAYOUT === $layout ? self::POSTS_LIMIT_CAROUSEL_LAYOUT : self::POSTS_LIMIT,
 		];
 
 		// Get all posts with the specific tags.
@@ -319,9 +336,14 @@ class Covers extends Base_Block {
 
 		// Get user defined tags from backend.
 		$tag_ids = $fields['tags'] ?? [];
+		$layout  = $fields['layout'] ?? self::CAROUSEL_LAYOUT;
 
 		if ( empty( $tag_ids ) ) {
 			return [];
+		}
+
+		if ( self::CAROUSEL_LAYOUT === $layout && count( $tag_ids ) > self::POSTS_LIMIT_CAROUSEL_LAYOUT ) {
+			$tag_ids = array_slice( $tag_ids, 0, POSTS_LIMIT_CAROUSEL_LAYOUT );
 		}
 
 		$tags = get_tags( [ 'include' => $tag_ids ] );

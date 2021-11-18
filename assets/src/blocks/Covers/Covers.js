@@ -8,6 +8,13 @@ export const COVER_TYPES = {
   content: 'content'
 };
 
+export const COVER_LAYOUTS = {
+  carousel: 'carousel',
+  grid: 'grid',
+};
+
+export const CAROUSEL_LAYOUT_COVERS_LIMIT = 12;
+
 export const Covers = ({ cover_type, ...props }) => {
   switch (cover_type) {
     case COVER_TYPES.content:

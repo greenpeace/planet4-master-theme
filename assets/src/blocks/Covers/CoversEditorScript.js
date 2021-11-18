@@ -3,6 +3,7 @@ import { frontendRendered } from '../frontendRendered';
 import { Tooltip } from '@wordpress/components';
 import { coversV1 } from './deprecated/coversV1';
 import { COVER_TYPES } from './Covers';
+import { COVER_LAYOUTS } from './Covers';
 
 const { __ } = wp.i18n;
 
@@ -62,6 +63,10 @@ const registerCoversBlock = () => {
       version: {
         type: 'integer',
         default: VERSION,
+      },
+      layout: {
+        type: 'string',
+        default: COVER_LAYOUTS.carousel,
       },
     },
     edit: CoversEditor,
