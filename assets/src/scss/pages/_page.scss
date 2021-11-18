@@ -3,11 +3,11 @@ div.page-template {
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 0 16px;
 
   @include medium-and-up {
     width: 720px;
+    padding: 0;
   }
 
   @include large-and-up {
@@ -19,9 +19,8 @@ div.page-template {
     width: 1140px;
   }
 
-  .container {
-    padding-left: 0;
-    padding-right: 0;
+  @include xx-large-and-up {
+    width: 1320px;
   }
 
   > * {
