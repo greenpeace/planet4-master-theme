@@ -44,6 +44,10 @@
       height: 665px;
     }
 
+    @include xx-large-and-up {
+      height: 765px;
+    }
+
     .carousal-item-credit {
       position: absolute;
       right: 0;
@@ -77,6 +81,10 @@
 
       @include x-large-and-up {
         height: 600px;
+      }
+
+      @include xx-large-and-up {
+        height: 700px;
       }
     }
   }
@@ -131,6 +139,10 @@
       top: 580px;
     }
 
+    @include xx-large-and-up {
+      top: 680px;
+    }
+
     li {
       width: 40px;
       height: 3px;
@@ -171,6 +183,10 @@
 
     @include x-large-and-up {
       top: 290px;
+    }
+
+    @include xx-large-and-up {
+      top: 340px;
     }
   }
 

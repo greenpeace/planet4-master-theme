@@ -47,12 +47,12 @@ export const ColumnsFrontend = ({ columns_block_style, columns_title, columns_de
         {columns_description &&
           <div className='page-section-description' dangerouslySetInnerHTML={{ __html: columns_description }} />
         }
+        <Columns
+          columns_block_style={columns_block_style}
+          columns={columns}
+          isCampaign={postType === 'campaign'}
+        />
       </div>
-      <Columns
-        columns_block_style={columns_block_style}
-        columns={columns}
-        isCampaign={postType === 'campaign'}
-      />
     </section>
   );
 }
