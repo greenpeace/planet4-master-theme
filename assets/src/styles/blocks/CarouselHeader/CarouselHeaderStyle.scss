@@ -570,7 +570,7 @@ $medium-image-height: 600px;
       }
 
       html[dir="rtl"] & {
-        transform: scaleX(-1);
+        transform: none;
       }
     }
   }
