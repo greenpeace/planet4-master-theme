@@ -15,7 +15,7 @@ export const EditableColumns = ({
   columnImages,
 }) => {
   const getImageOrButton = (openMediaModal, index) => {
-    if (columns[index] && columns[index].attachment && (0 < columns[index].attachment)) {
+    if ((0 < columns[index].attachment)) {
 
       return <div className='columns-image-container'>
         <ImageHoverControls
@@ -23,41 +23,36 @@ export const EditableColumns = ({
           onRemove={() => toAttribute('attachment', index)(0)}
           isCompact={columns_block_style === LAYOUT_ICONS}
         />
-        <img src={columnImages[columns[index].attachment]}
-        />
+        <img src={columnImages[columns[index].attachment]} />
       </div>;
     }
 
     if (columns_block_style === LAYOUT_TASKS) {
-      return (
-        <Button
-            onClick={openMediaModal}
-            icon='plus-alt2'
-            isPrimary
-            className='tasks-image-button'
-          >
-          {__('Add image', 'planet4-blocks-backend')}
-        </Button>
-      );
+      return <Button
+        onClick={openMediaModal}
+        icon='plus-alt2'
+        isPrimary
+        className='tasks-image-button'
+      >
+        {__('Add image', 'planet4-blocks-backend')}
+      </Button>;
     }
 
-    return (
-      <div className='image-placeholder-container'>
-        <ColumnsImagePlaceholder
-          width={columns_block_style !== LAYOUT_ICONS ? '100%' : 100}
-          height={columns_block_style !== LAYOUT_ICONS ? 250 : 100}
-        />
-        <Button
-          onClick={openMediaModal}
-          icon='plus-alt2'
-          isPrimary
-          className='image-placeholder-button'
-        >
-          {/* For the Icons style we only show the button icon */}
-          {columns_block_style !== LAYOUT_ICONS ? __('Add image', 'planet4-blocks-backend') : ''}
-        </Button>
-      </div>
-    );
+    return <div className='image-placeholder-container'>
+      <ColumnsImagePlaceholder
+        width={columns_block_style !== LAYOUT_ICONS ? '100%' : 100}
+        height={columns_block_style !== LAYOUT_ICONS ? 250 : 100}
+      />
+      <Button
+        onClick={openMediaModal}
+        icon='plus-alt2'
+        isPrimary
+        className='image-placeholder-button'
+      >
+        {/* For the Icons style we only show the button icon */}
+        {columns_block_style !== LAYOUT_ICONS ? __('Add image', 'planet4-blocks-backend') : ''}
+      </Button>
+    </div>;
   };
 
   return (
