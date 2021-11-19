@@ -6,21 +6,31 @@ export const ImageHoverControls = props => {
     onEdit,
     onRemove,
     isCompact,
+    isAdd,
   } = props;
 
-  return <div className="buttons-overlay">
-    <Button
+  return <div className='buttons-overlay'>
+    { isAdd && <Button
       onClick={ onEdit }
-      icon="edit"
+      icon='plus-alt2'
       isPrimary
-      className="edit-image"
+      className='edit-image'
+    >
+      { __('Add image', 'planet4-blocks-backend') }
+    </Button> }
+
+    { !isAdd && <Button
+      onClick={ onEdit }
+      icon='edit'
+      isPrimary
+      className='edit-image'
     >
       { !isCompact && __('Edit', 'planet4-blocks-backend') }
-    </Button>
-    <Button
-      className="remove-image"
+    </Button> }
+    { !isAdd && <Button
+      className='remove-image'
       onClick={ onRemove }
-      icon="trash"
-    />
+      icon='trash'
+    /> }
   </div>;
 };

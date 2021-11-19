@@ -11,6 +11,8 @@ import {
 } from '@wordpress/components';
 import { URLInput } from '../../components/URLInput/URLInput';
 import { TakeActionBoxoutFrontend } from './TakeActionBoxoutFrontend';
+import { ImagePlaceholder } from './ImagePlaceholder';
+import { ImageHoverControls } from '../../components/ImageHoverControls';
 
 // Planet 4 settings (Planet 4 >> Defaults content >> Take Action Covers default button text).
 const DEFAULT_BUTTON_TEXT = window.p4bk_vars.take_action_covers_button_text;
@@ -113,7 +115,23 @@ export const TakeActionBoxoutEditor = ({
     <section
       className={`boxout ${className || ''}`}
     >
-      {imageUrl && <img src={imageUrl} alt={imageAlt} />}
+      <div className={'boxout-image-container'}>
+        <MediaUploadCheck>
+          <MediaUpload
+            type='image'
+            onSelect={ selectImage }
+            value={ imageId }
+            allowedTypes={ ['image'] }
+            render={ ({ open }) => <ImageHoverControls
+              onEdit={ open }
+              onRemove={ removeImage }
+              isAdd={ !imageUrl }
+            />
+            }
+          />
+        </MediaUploadCheck>
+        {!imageUrl ? <ImagePlaceholder/> : <img src={imageUrl} alt={imageAlt} />}
+      </div>
       <div className="boxout-content">
         <RichText
           tagName="div"

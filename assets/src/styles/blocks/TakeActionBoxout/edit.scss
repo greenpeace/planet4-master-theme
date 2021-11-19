@@ -10,3 +10,29 @@
     -webkit-line-clamp: unset !important;
   }
 }
+
+// I had to put these styles on the container to get the image controls to work, and remove some from the image itself.
+.boxout-image-container {
+  position: relative;
+  background: $grey-20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  float: left;
+  width: 120px;
+  height: 120px;
+
+  @include medium-and-up {
+    height: 100%;
+    width: 45%;
+    padding: 0;
+    margin-inline-end: 16px;
+  }
+
+  img {
+    width: 100%;
+    // Account for different markup in the editor, where it needs a wrapper to work.
+    margin-inline-end: 0;
+  }
+}
