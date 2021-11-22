@@ -9,12 +9,8 @@ import { InspectorControls } from '@wordpress/block-editor';
 import TagSelector from '../../components/TagSelector/TagSelector';
 import PostSelector from '../../components/PostSelector/PostSelector';
 import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector';
-import {
-  Covers,
-  COVER_TYPES,
-  COVER_LAYOUTS,
-  CAROUSEL_LAYOUT_COVERS_LIMIT
-} from './Covers';
+import { Covers } from './Covers';
+import { COVERS_TYPES, COVERS_LAYOUTS, CAROUSEL_LAYOUT_COVERS_LIMIT } from './CoversConstants';
 import { useCovers } from './useCovers';
 import { getStyleFromClassName } from '../getStyleFromClassName';
 
@@ -35,15 +31,15 @@ const renderEdit = (attributes, toAttribute) => {
       <PanelBody title={__('Layout', 'planet4-blocks-backend')}>
         <RadioControl
           options={[
-            { label: __('Carousel', 'planet4-blocks-backend'), value: COVER_LAYOUTS.carousel },
-            { label: __('Grid', 'planet4-blocks-backend'), value: COVER_LAYOUTS.grid },
+            { label: __('Carousel', 'planet4-blocks-backend'), value: COVERS_LAYOUTS.carousel },
+            { label: __('Grid', 'planet4-blocks-backend'), value: COVERS_LAYOUTS.grid },
           ]}
           selected={layout}
           onChange={toAttribute('layout')}
         />
       </PanelBody>
       <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
-        {layout !== COVER_LAYOUTS.carousel &&
+        {layout !== COVERS_LAYOUTS.carousel &&
           <SelectControl
             label='Rows to display'
             value={initialRowsLimit}
@@ -64,22 +60,22 @@ const renderEdit = (attributes, toAttribute) => {
           </div>
         }
 
-        {cover_type === COVER_TYPES.content && !posts.length &&
+        {cover_type === COVERS_TYPES.content && !posts.length &&
           <PostTypeSelector
             value={post_types}
             onChange={toAttribute('post_types')}
           />
         }
 
-        {cover_type !== COVER_TYPES.campaign && !tags.length && !post_types.length &&
+        {cover_type !== COVERS_TYPES.campaign && !tags.length && !post_types.length &&
           <div>
             <label>{__('Manual override', 'planet4-blocks-backend')}</label>
             <PostSelector
               value={posts}
               onChange={toAttribute('posts')}
               placeholder={__('Select articles', 'planet4-blocks-backend')}
-              postType={cover_type === COVER_TYPES.content ? 'post' : 'act_page'}
-              maxLength={layout === COVER_LAYOUTS.carousel ? CAROUSEL_LAYOUT_COVERS_LIMIT : null}
+              postType={cover_type === COVERS_TYPES.content ? 'post' : 'act_page'}
+              maxLength={layout === COVERS_LAYOUTS.carousel ? CAROUSEL_LAYOUT_COVERS_LIMIT : null}
             />
           </div>
         }

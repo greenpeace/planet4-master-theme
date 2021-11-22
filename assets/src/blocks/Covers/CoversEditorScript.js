@@ -2,8 +2,7 @@ import { CoversEditor } from './CoversEditor.js';
 import { frontendRendered } from '../frontendRendered';
 import { Tooltip } from '@wordpress/components';
 import { coversV1 } from './deprecated/coversV1';
-import { COVER_TYPES } from './Covers';
-import { COVER_LAYOUTS } from './Covers';
+import { COVERS_TYPES, COVERS_LAYOUTS } from './CoversConstants';
 
 const { __ } = wp.i18n;
 
@@ -66,7 +65,7 @@ const registerCoversBlock = () => {
       },
       layout: {
         type: 'string',
-        default: COVER_LAYOUTS.carousel,
+        default: COVERS_LAYOUTS.carousel,
       },
     },
     edit: CoversEditor,
@@ -74,7 +73,7 @@ const registerCoversBlock = () => {
     // Add our custom styles
     styles: [
       {
-        name: COVER_TYPES.content,
+        name: COVERS_TYPES.content,
         label: getStyleLabel(
           __('Content covers', 'planet4-blocks-backend'),
           __('Content covers pull the image from the post', 'planet4-blocks-backend'),
@@ -82,14 +81,14 @@ const registerCoversBlock = () => {
         isDefault: true
       },
       {
-        name: COVER_TYPES.takeAction,
+        name: COVERS_TYPES.takeAction,
         label: getStyleLabel(
           __('Take Action covers', 'planet4-blocks-backend'),
           __('Take action covers pull the featured image, tags, have a 25 character excerpt and have a call to action button', 'planet4-blocks-backend'),
         ),
       },
       {
-        name: COVER_TYPES.campaign,
+        name: COVERS_TYPES.campaign,
         label: getStyleLabel(
           __('Campaign covers', 'planet4-blocks-backend'),
           __('Campaign covers pull the associated image and hashtag from the system tag definitions', 'planet4-blocks-backend'),

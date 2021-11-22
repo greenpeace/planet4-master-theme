@@ -1,6 +1,6 @@
-import { COVER_LAYOUTS } from '../Covers';
+import { COVERS_LAYOUTS } from '../CoversConstants';
 
-const OLD_COVER_TYPES = {
+const OLD_COVERS_TYPES = {
   '1': 'take-action',
   '2': 'campaign',
   '3': 'content',
@@ -42,13 +42,13 @@ export const coversV1 = {
     attributes.initialRowsLimit = covers_view === '3' ? 0 : Number(covers_view);
 
     if (!isNaN(cover_type)) {
-      attributes.cover_type = OLD_COVER_TYPES[cover_type];
+      attributes.cover_type = OLD_COVERS_TYPES[cover_type];
     } else {
       attributes.cover_type = cover_type;
     }
 
     if (!layout) {
-      attributes.layout = COVER_LAYOUTS.carousel;
+      attributes.layout = COVERS_LAYOUTS.carousel;
     }
 
     return attributes;
