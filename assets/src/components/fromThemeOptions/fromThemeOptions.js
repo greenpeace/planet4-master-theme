@@ -68,6 +68,10 @@ export const getDependencyUpdates = ( theme, fieldName, value, meta ) => {
         return typeof meta[ field.id  ] !== 'undefined'
       }
 
+      if (!configuration.options) {
+        return true;
+      }
+
       return !(configuration.options.some(option => option.value === meta[ field.id ] ));
     }
   );
