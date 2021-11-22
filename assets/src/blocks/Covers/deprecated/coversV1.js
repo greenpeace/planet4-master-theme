@@ -48,7 +48,7 @@ export const coversV1 = {
     }
 
     if (!layout) {
-      attributes.layout = COVERS_LAYOUTS.carousel;
+      attributes.layout = COVERS_LAYOUTS.grid;
     }
 
     return attributes;

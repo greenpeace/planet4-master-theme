@@ -27,5 +27,5 @@ $I->see('Content', 'h2.page-section-header');
 $I->see('Description text', 'div.page-section-description');
 $I->see('Duis posuere', 'h5 > a');
 $I->seeElement('.publication-date');
-$I->seeElement('.content-covers-block-symbol img');
+$I->seeElement('.content-covers-block-image img');
 

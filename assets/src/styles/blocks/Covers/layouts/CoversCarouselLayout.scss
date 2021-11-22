@@ -1,0 +1,121 @@
+// Carousel layout
+.covers-block.carousel-layout {
+  .covers-container {
+    position: relative;
+  }
+
+  .covers {
+    display: flex;
+    overflow-x: scroll;
+    flex-wrap: nowrap;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @include large-and-up {
+      overflow-x: hidden;
+    }
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    display: none;
+    background: white;
+    width: 48px;
+    height: 48px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    opacity: 1;
+    z-index: 2;
+
+    &:disabled {
+      cursor: default;
+
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        opacity: 0.15;
+      }
+    }
+
+    &:not(:disabled):hover {
+      background: $grey-10;
+    }
+
+    @include large-and-up {
+      display: block;
+    }
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-image: url("../../public/images/icons/chevron.svg");
+    background-size: 11px 19px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .carousel-control-next {
+    right: -24px;
+    margin-inline-start: 2px;
+
+    html[dir="rtl"] & {
+      right: auto;
+      left: -24px;
+      transform: rotate(180deg);
+    }
+
+    @include x-large-and-up {
+      right: -64px;
+
+      html[dir="rtl"] & {
+        left: -64px;
+      }
+    }
+  }
+
+  .carousel-control-prev {
+    transform: rotate(180deg);
+    left: -24px;
+    margin-inline-end: 2px;
+
+    html[dir="rtl"] & {
+      right: -24px;
+      left: auto;
+      transform: none;
+    }
+
+    @include x-large-and-up {
+      left: -64px;
+
+      html[dir="rtl"] & {
+        right: -64px;
+      }
+    }
+  }
+
+  ol.carousel-indicators {
+    display: none;
+    position: relative;
+    list-style: none;
+
+    @include large-and-up {
+      display: flex;
+    }
+
+    li {
+      width: 24px;
+      height: 3px;
+      margin: 0 4px;
+      cursor: pointer;
+      background: rgba(136, 136, 136, 0.5);
+
+      &.active {
+        background: black;
+      }
+    }
+  }
+}

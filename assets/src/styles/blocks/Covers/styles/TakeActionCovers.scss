@@ -1,12 +1,44 @@
 .take-action-covers-block {
-  .row {
-    display: flex;
-    flex-wrap: wrap;
+  &.carousel-layout .covers-container {
+    .covers {
+      justify-content: flex-start;
+
+      .cover-card {
+        min-width: 250px;
+
+        &:not(:last-child) {
+          margin-inline-end: 16px;
+        }
+
+        @include medium-and-up {
+          min-width: 296px;
+
+          &:not(:last-child) {
+            margin-inline-end: 24px;
+          }
+        }
+
+        @include x-large-and-up {
+          min-width: 356px;
+        }
+      }
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+      top: 221px;
+    }
   }
 
-  .load-more-covers-button-div {
-    margin-top: $sp-1;
-    text-align: center;
+  .covers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .load-more-btn {
+    margin: $sp-3 auto 0 auto;
+    display: block;
   }
 }
 
@@ -19,7 +51,6 @@
   cursor: pointer;
   position: relative;
   font-family: $roboto;
-  margin: auto;
   margin-bottom: 24px;
 
   &:hover {
@@ -117,7 +148,7 @@
 
   @include medium-and-up {
     min-height: 490px;
-    width: auto;
+    width: 336px;
 
     img {
       height: 220px;
@@ -132,5 +163,13 @@
         font-size: 20px;
       }
     }
+  }
+
+  @include large-and-up {
+    width: 296px;
+  }
+
+  @include x-large-and-up {
+    width: 356px;
   }
 }

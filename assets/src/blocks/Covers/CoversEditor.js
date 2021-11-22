@@ -12,12 +12,14 @@ import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector
 import { Covers } from './Covers';
 import { COVERS_TYPES, COVERS_LAYOUTS, CAROUSEL_LAYOUT_COVERS_LIMIT } from './CoversConstants';
 import { useCovers } from './useCovers';
+import { CoversCarouselControls } from './CoversCarouselControls';
 import { getStyleFromClassName } from '../getStyleFromClassName';
+import { CoversGridLoadMoreButton } from './CoversGridLoadMoreButton';
 
 const { RichText } = wp.blockEditor;
 const { __ } = wp.i18n;
 
-const renderEdit = (attributes, toAttribute) => {
+const renderEdit = (attributes, toAttribute, setAttributes) => {
   const { initialRowsLimit, posts, tags, cover_type, post_types, layout } = attributes;
 
   const rowLimitOptions = [
@@ -35,7 +37,12 @@ const renderEdit = (attributes, toAttribute) => {
             { label: __('Grid', 'planet4-blocks-backend'), value: COVERS_LAYOUTS.grid },
           ]}
           selected={layout}
-          onChange={toAttribute('layout')}
+          onChange={value => {
+            setAttributes({
+              layout: value,
+              initialRowsLimit: value === COVERS_LAYOUTS.carousel ? 1 : initialRowsLimit,
+            });
+          }}
         />
       </PanelBody>
       <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
@@ -53,6 +60,10 @@ const renderEdit = (attributes, toAttribute) => {
             <TagSelector
               value={tags}
               onChange={toAttribute('tags')}
+              maxLength={layout === COVERS_LAYOUTS.carousel && cover_type === COVERS_TYPES.campaign ?
+                CAROUSEL_LAYOUT_COVERS_LIMIT :
+                null
+              }
             />
             <p className='FieldHelp'>
               {__('Associate this block with Actions that have specific Tags', 'planet4-blocks-backend')}
@@ -85,21 +96,27 @@ const renderEdit = (attributes, toAttribute) => {
 };
 
 const renderView = (attributes, toAttribute) => {
-  const { initialRowsLimit, cover_type, title, description, className } = attributes;
+  const { initialRowsLimit, cover_type, title, description, className, layout } = attributes;
 
-  const { covers, loading, row } = useCovers(attributes);
+  const { covers, loading, row, amountOfCoversPerRow } = useCovers(attributes);
+
+  const isCarouselLayout = layout === COVERS_LAYOUTS.carousel;
 
   const coversProps = {
     covers,
     initialRowsLimit,
     row,
-    loadMoreCovers: () => {},
+    showMoreCovers: () => {},
     cover_type,
     inEditor: true,
+    isCarouselLayout,
+    amountOfCoversPerRow
   };
 
+  const showLoadMoreButton = !isCarouselLayout && !!initialRowsLimit && covers.length > (amountOfCoversPerRow * row);
+
   return (
-    <section className={`block covers-block ${cover_type}-covers-block ${className ?? ''}`}>
+    <section className={`block covers-block ${cover_type}-covers-block ${className ?? ''} ${layout}-layout`}>
       <header>
         <RichText
           tagName='h2'
@@ -125,7 +142,18 @@ const renderView = (attributes, toAttribute) => {
         <div className='EmptyMessage'>
           {__('Block content is empty. Check the block\'s settings or remove it.', 'planet4-blocks-backend')}
         </div> :
-        <Covers {...coversProps} />
+        <div className='covers-container'>
+          <Covers {...coversProps} />
+          {isCarouselLayout &&
+            <CoversCarouselControls
+              currentRow={row}
+              slideCovers={() => {}}
+              amountOfCoversPerRow={amountOfCoversPerRow}
+              totalAmountOfCovers={covers.length}
+            />
+          }
+          {showLoadMoreButton && <CoversGridLoadMoreButton showMoreCovers={() => {}} />}
+        </div>
       }
     </section>
   );
@@ -149,7 +177,7 @@ export const CoversEditor = ({ attributes, setAttributes, isSelected }) => {
 
   return (
     <>
-      {isSelected && renderEdit(attributes, toAttribute)}
+      {isSelected && renderEdit(attributes, toAttribute, setAttributes)}
       {renderView(attributes, toAttribute)}
     </>
   );

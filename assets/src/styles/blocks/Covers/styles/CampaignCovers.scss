@@ -1,5 +1,5 @@
 @mixin campaign_covers($overlay, $cta-colour, $cta-colour-hover, $cta-font, $cta-spacing: 10, $cta-left: 28px, $cta-bottom: 30px) {
-  .campaign-card-column {
+  .cover {
     padding-left: 8px;
     padding-right: 8px;
   }
@@ -56,7 +56,48 @@
 }
 
 .campaign-covers-block {
-  .thumbnail-largeview-container {
+  &.carousel-layout .covers-container {
+    .covers {
+      .cover {
+        min-width: 260px;
+
+        &:not(:last-child) {
+          margin-inline-end: 16px;
+        }
+
+        .thumbnail-large {
+          max-height: 240px;
+        }
+
+        @include medium-and-up {
+          min-width: 276px;
+
+          &:not(:last-child) {
+            margin-inline-end: 24px;
+          }
+        }
+
+        @include large-and-up {
+          min-width: 296px;
+        }
+
+        @include x-large-and-up {
+          min-width: 356px;
+        }
+      }
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+      top: 96px;
+    }
+
+    .carousel-indicators {
+      margin-top: 24px;
+    }
+  }
+
+  &:not(.carousel-layout) .covers {
     @supports (display: grid) {
       display: grid;
       grid-template-columns: 1fr;
@@ -67,7 +108,9 @@
         grid-template-columns: repeat(3, 1fr);
       }
     }
+  }
 
+  .covers {
     .thumbnail-large {
       margin-bottom: 5px;
       max-height: 70px;
@@ -130,5 +173,10 @@
         }
       }
     }
+  }
+
+  .load-more-btn {
+    display: block;
+    margin: 24px auto 0 auto;
   }
 }

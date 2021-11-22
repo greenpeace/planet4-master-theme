@@ -343,7 +343,7 @@ class Covers extends Base_Block {
 		}
 
 		if ( self::CAROUSEL_LAYOUT === $layout && count( $tag_ids ) > self::POSTS_LIMIT_CAROUSEL_LAYOUT ) {
-			$tag_ids = array_slice( $tag_ids, 0, POSTS_LIMIT_CAROUSEL_LAYOUT );
+			$tag_ids = array_slice( $tag_ids, 0, self::POSTS_LIMIT_CAROUSEL_LAYOUT );
 		}
 
 		$tags = get_tags( [ 'include' => $tag_ids ] );
@@ -364,7 +364,7 @@ class Covers extends Base_Block {
 
 			if ( ! empty( $attachment_id ) ) {
 				$tag_remapped['image']    = wp_get_attachment_image_src( $attachment_id, 'medium_large' );
-				$tag_remapped['src_set']  = wp_get_attachment_image_srcset( $attachment_id, 'medium_large' );
+				$tag_remapped['src_set']  = wp_get_attachment_image_srcset( $attachment_id, 'medium_large' ) ?? 'false';
 				$tag_remapped['alt_text'] = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
 			}
 
@@ -416,7 +416,7 @@ class Covers extends Base_Block {
 					'title'       => html_entity_decode( get_the_title( $action ) ),
 					'excerpt'     => $action->post_excerpt,
 					'image'       => get_the_post_thumbnail_url( $action, 'large' ),
-					'srcset'      => wp_get_attachment_image_srcset( $img_id, 'articles-medium-large' ),
+					'srcset'      => wp_get_attachment_image_srcset( $img_id, 'articles-medium-large' ) ?? 'false',
 					'alt_text'    => get_the_post_thumbnail_url( $action, 'large' ),
 					'button_text' => $cover_button_text,
 					'button_link' => get_permalink( $action->ID ),
@@ -456,7 +456,7 @@ class Covers extends Base_Block {
 				if ( has_post_thumbnail( $post ) ) {
 					$post->thumbnail = get_the_post_thumbnail_url( $post, 'medium' );
 					$img_id          = get_post_thumbnail_id( $post );
-					$post->srcset    = wp_get_attachment_image_srcset( $img_id, 'full', wp_get_attachment_metadata( $img_id ) );
+					$post->srcset    = wp_get_attachment_image_srcset( $img_id, 'full', wp_get_attachment_metadata( $img_id ) ) ?? 'false';
 					$post->alt_text  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
 				}
 
