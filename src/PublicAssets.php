@@ -28,7 +28,7 @@ final class PublicAssets {
 		wp_enqueue_style(
 			'parent-style',
 			$theme_dir . '/assets/build/style.min.css',
-			[ 'bootstrap', 'country-selector' ],
+			[ 'bootstrap' ],
 			$css_creation
 		);
 
