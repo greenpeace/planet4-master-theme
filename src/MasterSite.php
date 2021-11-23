@@ -121,7 +121,7 @@ class MasterSite extends TimberSite {
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 		// Load the editor scripts only enqueuing editor scripts while in context of the editor.
 		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_editor_assets' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
+		add_action( 'wp_enqueue_scripts', [ PublicAssets::class, 'enqueue' ] );
 		add_filter( 'safe_style_css', [ $this, 'set_custom_allowed_css_properties' ] );
 		add_filter( 'wp_kses_allowed_html', [ $this, 'set_custom_allowed_attributes_filter' ], 10, 2 );
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_box_search' ] );
@@ -745,58 +745,6 @@ class MasterSite extends TimberSite {
 	 */
 	public function enqueue_editor_assets(): void {
 		Loader::enqueue_versioned_style( 'assets/build/editorStyle.min.css' );
-	}
-
-	/**
-	 * Load styling and behaviour on website pages.
-	 */
-	public function enqueue_public_assets() {
-		// master-theme assets.
-		$css_creation = filectime( get_template_directory() . '/assets/build/style.min.css' );
-		$js_creation  = filectime( get_template_directory() . '/assets/build/index.js' );
-
-		// CSS files.
-		wp_enqueue_style(
-			'bootstrap',
-			$this->theme_dir . '/assets/build/bootstrap.min.css',
-			[],
-			Loader::theme_file_ver( 'assets/build/bootstrap.min.css' )
-		);
-
-		// This loads a linked style file since the relative images paths are outside the build directory.
-		wp_enqueue_style(
-			'parent-style',
-			$this->theme_dir . '/assets/build/style.min.css',
-			[ 'bootstrap' ],
-			$css_creation
-		);
-
-		$jquery_should_wait = is_plugin_active( 'planet4-plugin-gutenberg-blocks/planet4-gutenberg-blocks.php' ) && ! is_user_logged_in();
-
-		$jquery_deps = $jquery_should_wait ? [ 'planet4-blocks-script' ] : [];
-
-		// JS files.
-		wp_deregister_script( 'jquery' );
-		wp_register_script(
-			'jquery',
-			'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js',
-			$jquery_deps,
-			'3.3.1',
-			true
-		);
-
-		// Variables reflected from PHP to the JS side.
-		$localized_variables = [
-			// The ajaxurl variable is a global js variable defined by WP itself but only for the WP admin
-			// For the frontend we need to define it ourselves and pass it to js.
-			'ajaxurl'           => admin_url( 'admin-ajax.php' ),
-			'show_scroll_times' => Search::SHOW_SCROLL_TIMES,
-		];
-
-		wp_register_script( 'main', $this->theme_dir . '/assets/build/index.js', [ 'jquery' ], $js_creation, true );
-		wp_localize_script( 'main', 'localizations', $localized_variables );
-		wp_enqueue_script( 'main' );
-		wp_enqueue_script( 'youtube', $this->theme_dir . '/assets/build/lite-yt-embed.js', [], 1, true );
 	}
 
 	/**
