@@ -42,8 +42,8 @@ $I->havePageInDatabase(
 $I->amOnPage( '/' . $slug );
 
 // Check the Tasks style
-$I->see( 'Images Columns', '.block-style-image > div > header > h2' );
-$I->see( 'Images Column Block description', '.block-style-image > div > div' );
+$I->see( 'Images Columns', '.block-style-image > header > h2' );
+$I->see( 'Images Column Block description', '.block-style-image > div.page-section-description' );
 
 // Column 1.
 $I->see( 'Column 1', 'h3 > a' );

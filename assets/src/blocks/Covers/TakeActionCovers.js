@@ -18,7 +18,7 @@ export const TakeActionCovers = ({ initialRowsLimit, covers, row, loadMoreCovers
 
   const showLoadMore = !!initialRowsLimit && covers.length > amountPerRow * row;
   return (
-    <div className='container'>
+    <>
       <div className='row'>
         {covers.map((cover, index) => {
           const {
@@ -101,7 +101,6 @@ export const TakeActionCovers = ({ initialRowsLimit, covers, row, loadMoreCovers
           </div>
         </div>
       }
-    </div>
-
+    </>
   );
 };

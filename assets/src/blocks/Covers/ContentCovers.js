@@ -19,7 +19,7 @@ export const ContentCovers = ({ covers, initialRowsLimit, row, loadMoreCovers, i
   const showLoadMore = !!initialRowsLimit && covers.length > amountPerRow * row;
 
   return (
-    <div className='container'>
+    <>
       <div className='row publications-slider'>
         {covers.map((cover, index) => {
           const {
@@ -101,6 +101,6 @@ export const ContentCovers = ({ covers, initialRowsLimit, row, loadMoreCovers, i
           </div>
         </div>
       }
-    </div>
+    </>
   );
 };

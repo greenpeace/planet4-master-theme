@@ -104,22 +104,20 @@ export class CounterFrontend extends Component {
 
     const percent = Math.min(target > 0 ? Math.round(completed / target * 100) : 0, 100);
 
-    let counterClassName = `block container counter-block counter-style-${style} ${className ?? ''}`;
+    let counterClassName = `block counter-block counter-style-${style} ${className ?? ''}`;
     if (isEditing) counterClassName += ` editing`;
 
     return (
       <Fragment>
         <section className={counterClassName}>
-          <div className="container">
-            {title && !isEditing &&
-              <header>
-                <h2 className="page-section-header">{title}</h2>
-              </header>
-            }
-            {description && !isEditing &&
-              <p className="page-section-description" dangerouslySetInnerHTML={{ __html: description }} />
-            }
-          </div>
+          {title && !isEditing &&
+            <header>
+              <h2 className="page-section-header">{title}</h2>
+            </header>
+          }
+          {description && !isEditing &&
+            <p className="page-section-description" dangerouslySetInnerHTML={{ __html: description }} />
+          }
           <div className="content-counter">
             {(style === 'bar' || style === 'en-forms-bar') &&
               <div className="progress-container">

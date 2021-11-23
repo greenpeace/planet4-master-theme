@@ -124,32 +124,30 @@ const renderView = (attributes, setAttributes) => {
 
   return (
     <section className={`block ${GALLERY_BLOCK_CLASSES[layout]} ${className ?? ''}`}>
-      <div className='container'>
-        <header className="articles-title-container">
-          <RichText
-            tagName="h2"
-            className="page-section-header"
-            placeholder={__('Enter title', 'planet4-blocks-backend')}
-            value={gallery_block_title}
-            onChange={toAttribute('gallery_block_title')}
-            withoutInteractiveFormatting
-            multiline="false"
-            allowedFormats={[]}
-          />
-        </header>
+      <header className="articles-title-container">
         <RichText
-          tagName="p"
-          className="page-section-description"
-          placeholder={__('Enter description', 'planet4-blocks-backend')}
-          value={gallery_block_description}
-          onChange={toAttribute('gallery_block_description')}
+          tagName="h2"
+          className="page-section-header"
+          placeholder={__('Enter title', 'planet4-blocks-backend')}
+          value={gallery_block_title}
+          onChange={toAttribute('gallery_block_title')}
           withoutInteractiveFormatting
-          allowedFormats={['core/bold', 'core/italic']}
+          multiline="false"
+          allowedFormats={[]}
         />
-        {layout === 'slider' && <GalleryCarousel images={images || []} isEditing />}
-        {layout === 'three-columns' && <GalleryThreeColumns images={images || []} postType={postType} />}
-        {layout === 'grid' && <GalleryGrid images={images || []} />}
-      </div>
+      </header>
+      <RichText
+        tagName="p"
+        className="page-section-description"
+        placeholder={__('Enter description', 'planet4-blocks-backend')}
+        value={gallery_block_description}
+        onChange={toAttribute('gallery_block_description')}
+        withoutInteractiveFormatting
+        allowedFormats={['core/bold', 'core/italic']}
+      />
+      {layout === 'slider' && <GalleryCarousel images={images || []} isEditing />}
+      {layout === 'three-columns' && <GalleryThreeColumns images={images || []} postType={postType} />}
+      {layout === 'grid' && <GalleryGrid images={images || []} />}
     </section>
   );
 }

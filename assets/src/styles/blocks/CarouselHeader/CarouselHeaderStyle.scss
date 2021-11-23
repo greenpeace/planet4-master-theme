@@ -318,7 +318,7 @@ $medium-image-height: 600px;
       position: relative;
       top: 0;
       left: 0;
-      padding: 16px;
+      padding: 16px 0;
       background: $white;
       height: auto;
       width: 100%;
@@ -622,11 +622,15 @@ $medium-image-height: 600px;
     z-index: 3000;
 
     @include large-and-up {
-      margin-inline-start: 80px;
+      > .container {
+        margin-inline-start: 80px;
+      }
     }
 
     @include x-large-and-up {
-      margin-inline-start: auto;
+      > .container {
+        margin-inline-start: auto;
+      }
     }
 
     .carousel-indicators {
