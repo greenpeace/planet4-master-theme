@@ -28,6 +28,8 @@ class Features {
 
 	public const NEW_DESIGN_COUNTRY_SELECTOR = 'new_design_country_selector';
 
+	public const PURGE_ON_FEATURE_CHANGES = 'purge_on_feature_changes';
+
 	/**
 	 * Get the features options page settings.
 	 *
@@ -75,6 +77,15 @@ class Features {
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::CLOUDFLARE_DEPLOY_PURGE,
+				'type' => 'checkbox',
+			],
+			[
+				'name' => __( 'Purge all HTML on feature changes.', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'Whether to purge all pages from Cloudflare cache when changing features. Only enable on production, on test instances it results in too many purge requests.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::PURGE_ON_FEATURE_CHANGES,
 				'type' => 'checkbox',
 			],
 			[
@@ -173,6 +184,13 @@ class Features {
 	 * @param CMB2_Field $field    This field object.
 	 */
 	public static function on_field_save( $field_id, $updated, $action, $field ) {
+		// This requires a toggle because we may be hitting a sort of rate limit from the deploy purge alone.
+		// For now it's better to leave this off on test instances, to avoid purges failing on production because we hit
+		// the rate limit.
+		if ( ! self::is_active( self::PURGE_ON_FEATURE_CHANGES ) ) {
+			return;
+		}
+
 		if ( self::NEW_DESIGN_COUNTRY_SELECTOR === $field_id ) {
 			if ( 'removed' === $action || 'updated' === $action ) {
 				( new CloudflarePurger() )->purge_all();
