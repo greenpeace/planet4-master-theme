@@ -4,7 +4,7 @@
     flex-wrap: wrap;
   }
 
-  .load-more-covers-button-div-new {
+  .load-more-covers-button-div {
     margin-top: $space-xs;
     text-align: center;
   }
@@ -21,10 +21,6 @@
   font-family: $roboto;
   margin: auto;
   margin-bottom: 24px;
-
-  &.action-card {
-    margin-bottom: $space-lg;
-  }
 
   &:hover {
     box-shadow: 0 1px 14px rgba(0, 0, 0, 0.3);
@@ -134,18 +130,6 @@
 
       .cover-card-heading {
         font-size: 20px;
-      }
-    }
-  }
-
-  @include large-and-up {
-    &.action-card {
-      position: absolute;
-      right: 0;
-
-      html[dir="rtl"] & {
-        right: auto;
-        left: 0;
       }
     }
   }

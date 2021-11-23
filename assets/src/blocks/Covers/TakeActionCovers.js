@@ -94,7 +94,7 @@ export const TakeActionCovers = ({ initialRowsLimit, covers, row, loadMoreCovers
       </div>
       {showLoadMore &&
         <div className='row'>
-          <div className='load-more-covers-button-div-new'>
+          <div className='load-more-covers-button-div'>
             <button onClick={loadMoreCovers} className='btn btn-block btn-secondary'>
               {__( 'Load more', 'planet4-blocks' )}
             </button>

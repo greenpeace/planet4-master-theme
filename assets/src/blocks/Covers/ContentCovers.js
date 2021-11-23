@@ -95,7 +95,7 @@ export const ContentCovers = ({ covers, initialRowsLimit, row, loadMoreCovers, i
       {showLoadMore &&
         <div className='row load-more-posts-button-div'>
           <div className='col-md-12 col-lg-5 col-xl-5'>
-            <button onClick={loadMoreCovers} className='btn btn-block btn-secondary btn-load-more-posts-click'>
+            <button onClick={loadMoreCovers} className='btn btn-block btn-secondary'>
               {__('Load more', 'planet4-blocks')}
             </button>
           </div>
