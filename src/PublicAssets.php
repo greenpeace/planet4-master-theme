@@ -23,11 +23,12 @@ final class PublicAssets {
 			Loader::theme_file_ver( 'assets/build/bootstrap.min.css' )
 		);
 
+		self::conditionally_load_partials();
 		// This loads a linked style file since the relative images paths are outside the build directory.
 		wp_enqueue_style(
 			'parent-style',
 			$theme_dir . '/assets/build/style.min.css',
-			[ 'bootstrap' ],
+			[ 'bootstrap', 'country-selector' ],
 			$css_creation
 		);
 
@@ -69,7 +70,6 @@ final class PublicAssets {
 			1,
 			true
 		);
-		self::conditionally_load_partials();
 	}
 
 	/**
@@ -82,6 +82,6 @@ final class PublicAssets {
 	private static function conditionally_load_partials(): void {
 		$country_selector_version = Features::is_active( Features::NEW_DESIGN_COUNTRY_SELECTOR ) ? 'new' : 'old';
 		$country_selector_file    = '/assets/build/country-selector-' . $country_selector_version . '.min.css';
-		Loader::enqueue_versioned_style( $country_selector_file );
+		Loader::enqueue_versioned_style( $country_selector_file, 'country-selector' );
 	}
 }

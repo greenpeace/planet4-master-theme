@@ -206,19 +206,20 @@ final class Loader {
 	 * Enqueue a style with a version based on the file change time.
 	 *
 	 * @param string $relative_path An existing css file.
+	 * @param null   $handle The handle to enqueue with. Generated from path if empty.
+	 * @param array  $deps Dependencies of this style.
 	 */
-	public static function enqueue_versioned_style( string $relative_path ): void {
-		// Create a supposedly unique handle based on the path.
-		$handle = str_replace( '/[^\w]/', '', $relative_path );
+	public static function enqueue_versioned_style( string $relative_path, $handle = null, array $deps = [] ): void {
 
 		$relative_path = '/' . ltrim( $relative_path, '/' );
 
 		$version = self::get_timestamp( get_template_directory() . $relative_path );
 
 		wp_enqueue_style(
-			$handle,
+			// Fall back to unique handle based on the path.
+			$handle ?? str_replace( '/[^\w]+/g', '', $relative_path ),
 			get_template_directory_uri() . $relative_path,
-			[],
+			$deps,
 			$version
 		);
 	}
