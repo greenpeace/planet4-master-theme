@@ -5,7 +5,7 @@ namespace P4\MasterTheme;
 /**
  * Wrapper class for the enqueue function because we can't autoload functions.
  */
-class PublicAssets {
+final class PublicAssets {
 	/**
 	 * Load styling and behaviour on website pages.
 	 */
@@ -69,5 +69,19 @@ class PublicAssets {
 			1,
 			true
 		);
+		self::conditionally_load_partials();
+	}
+
+	/**
+	 * Load any conditional CSS partials.
+	 * We can further split partials for other things:
+	 * - CSS per post type
+	 * - CSS only loaded based on options (e.g. minimal navigation)
+	 * - CSS specific to a particular page (e.g. search)
+	 */
+	private static function conditionally_load_partials(): void {
+		$country_selector_version = Features::is_active( Features::NEW_DESIGN_COUNTRY_SELECTOR ) ? 'new' : 'old';
+		$country_selector_file    = '/assets/build/country-selector-' . $country_selector_version . '.min.css';
+		Loader::enqueue_versioned_style( $country_selector_file );
 	}
 }

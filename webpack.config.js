@@ -23,6 +23,8 @@ module.exports = {
     style: './assets/src/scss/style.scss',
     editorStyle: './assets/src/scss/editorStyle.scss',
     bootstrap: './assets/src/scss/bootstrap-build.scss',
+    "country-selector-old": './assets/src/scss/partials/country-selector-old.scss',
+    "country-selector-new": './assets/src/scss/partials/country-selector-new.scss',
     archive_picker: './assets/src/js/archive_picker.js',
     "lite-yt-embed": './node_modules/lite-youtube-embed/src/lite-yt-embed.js',
   },
