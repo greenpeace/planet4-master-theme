@@ -72,29 +72,3 @@ $table-header-blue: $dark-blue;
 $table-odd-row-blue: #c9e7fa;
 $table-even-row-blue: #e7f5fe;
 $table-footer-blue: #c3d7e2;
-
-// Allower colors for blocks palette
-$palette: (
-  "grey-80": $grey-80,
-  "grey-60": $grey-60,
-  "grey-40": $grey-40,
-  "grey-20": $grey-20,
-  "grey-10": $grey-10,
-  "grey": $grey,
-  "gp-green": $gp-green,
-  "x-dark-blue": $x-dark-blue,
-  "dark-blue": $dark-blue,
-  "blue": $blue,
-  "orange-hover": $orange-hover,
-  "yellow": $yellow
-);
-
-@each $name, $color in $palette {
-  .has-#{$name}-color {
-    color: $color;
-  }
-
-  .has-#{$name}-background-color {
-    background-color: $color;
-  }
-}
