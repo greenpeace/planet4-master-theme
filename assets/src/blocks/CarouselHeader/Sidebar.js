@@ -1,43 +1,153 @@
+import { useState, useRef, useEffect } from 'react';
 import {
   CheckboxControl,
   PanelBody,
-  PanelRow,
 } from '@wordpress/components';
-import { Fragment } from '@wordpress/element';
-
 import { InspectorControls } from '@wordpress/block-editor';
 import { SidebarSlide } from './SidebarSlide';
-import { useState, useRef } from 'react';
 
 const { __ } = wp.i18n;
 
-const reOrderSlides = (slides, oldIndex, newIndex) => {
-  const movingSlide = slides[oldIndex];
-  return slides.reduce((orderedSlides, slide, index) => {
-    if (index === newIndex) {
-      orderedSlides.push(movingSlide);
-    }
-    if (index !== oldIndex) {
-      orderedSlides.push(slide);
-    }
-    if (index === slides.length -1 && newIndex > index) {
-      orderedSlides.push(movingSlide);
-    }
-    return orderedSlides;
-  }, []);
-}
+const getNode = (index) => (
+  document.querySelector(`.sidebar-slide[data-index="${index}"]`)
+)
 
 export const Sidebar = ({
   carouselAutoplay,
   setAttributes,
   slides,
-  currentSlide,
   changeSlideAttribute,
   goToSlide,
 }) => {
   const [dragTarget, setDragTarget] = useState(null);
   const [draggedSlide, setDraggedSlide] = useState(null);
-  const timeoutRef = useRef(null);
+  const slidesRef = useRef(null);
+
+  const upOrDownHandler = ( evt ) => {
+    evt.stopPropagation();
+
+    if(!slidesRef.current) {
+      return;
+    }
+
+    const currentIndex = parseInt(evt.currentTarget.dataset.index)
+    const currentNode = getNode(currentIndex);
+    let siblingNode, siblingIndex = -1;
+
+    switch(evt.currentTarget.dataset.type) {
+      case 'up':
+        siblingIndex = currentIndex - 1;
+      break;
+      case 'down':
+        siblingIndex = currentIndex + 1;
+      break;
+    }
+
+    siblingNode = getNode(siblingIndex);
+
+    // Get the data-index from sidebar-slide
+    // Set to position absolute and find it sibbling element
+    const currentNodeCloned = currentNode.cloneNode(true);
+    const siblingNodeCloned = siblingNode.cloneNode(true);
+
+    currentNodeCloned.classList.add('cloned-slide');
+    siblingNodeCloned.classList.add('cloned-slide');
+
+    // Append before setting the top
+    slidesRef.current.append(currentNodeCloned);
+    slidesRef.current.append(siblingNodeCloned);
+
+    currentNode.style.opacity = 0;
+    siblingNode.style.opacity = 0;
+
+    currentNodeCloned.style.top = `${currentNode.offsetTop}px`;
+    siblingNodeCloned.style.top = `${siblingNode.offsetTop}px`;
+
+    const timeout = setTimeout(() => {
+      // Switch positions
+      currentNodeCloned.style.top = `${siblingNodeCloned.offsetTop}px`;
+      siblingNodeCloned.style.top = `${currentNodeCloned.offsetTop}px`;
+
+      setTimeout(() => {
+        // Re order slides
+        setAttributes({ slides: slides.reduce((prev, curr, idx) => {
+          if(idx !== currentIndex && idx !== siblingIndex) {
+            if(prev) {
+              return prev.concat(curr)
+            }
+          } else {
+            if(idx === currentIndex) {
+              return prev.concat(slides[siblingIndex]);
+            }
+            if(idx === siblingIndex) {
+              return prev.concat(slides[currentIndex]);
+            }
+            return prev;
+          }
+        }, []) });
+
+        // Add a delay
+        setTimeout(() => {
+          currentNode.style.opacity = 1;
+          siblingNode.style.opacity = 1;
+
+          slidesRef.current.removeChild(currentNodeCloned);
+          slidesRef.current.removeChild(siblingNodeCloned);
+        }, 100)
+      }, 500);
+    });
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }
+
+  const onDragStartHandler = (evt) => {
+    // This is a workaround that avoids to show the `not-allowed` icon on Chrome/Windows
+    evt.dataTransfer.effectAllowed = "move";
+    setDraggedSlide(getNode(parseInt(evt.currentTarget.dataset.index)));
+  }
+
+  const onDragEndHandler = (evt) => {
+    evt.preventDefault();
+
+    if(draggedSlide) {
+      draggedSlide.classList.remove('dragged-slide');
+    }
+
+    setDragTarget(null);
+    setDraggedSlide(null);
+
+    if(slidesRef.current) {
+      setAttributes({
+        slides: Object.values(slidesRef.current.children).map((node) => slides[parseInt(node.dataset.index)])
+      });
+    }
+  }
+
+  const onDragOverHandler = (evt) => {
+    evt.preventDefault();
+    evt.dataTransfer.dropEffect = "move"
+    setDragTarget(getNode(parseInt(evt.currentTarget.dataset.index)));
+  }
+
+  useEffect(() => {
+    if(draggedSlide) {
+      draggedSlide.classList.add('dragged-slide');
+    }
+  }, [ draggedSlide ]);
+
+  useEffect(() => {
+    if(slidesRef.current && draggedSlide && dragTarget) {
+      // Check if it's the last node into the list
+      const lastNode = slidesRef.current.children[slidesRef.current.children.length - 1];
+      if(dragTarget.dataset.index === lastNode.dataset.index) {
+        lastNode.insertAdjacentElement("afterend", draggedSlide);
+      } else {
+        slidesRef.current.insertBefore(draggedSlide, dragTarget);
+      }
+    }
+  }, [ dragTarget ]);
 
   return <InspectorControls>
     <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
@@ -49,76 +159,19 @@ export const Sidebar = ({
         onChange={value => setAttributes({ carousel_autoplay: value })}
       />
     </PanelBody>
-    { slides.map((slide, index) => <div
-      style={ {
-        // When you start dragging an element, what is shown while dragging is a bitmap snapshot of what the element
-        // looked like the moment the drag started. The .01s delay should be plenty to ensure that snapshot is taken
-        // before we hide the element.
-        transform: index === draggedSlide ? 'scaleY(0)' : 'none',
-        transitionDelay: '.01s',
-        transitionProperty: 'transform',
-      } }
-      className={ index === dragTarget ? 'carousel-sidebar-insert-before' : 'carousel-sidebar-slide' }
-      key={ `${ slide.image_srcset }${ index }` }
-      draggable
-      onDragOver={ () => {
-        timeoutRef.current && window.clearTimeout(timeoutRef.current);
-        setDragTarget(index);
-      } }
-      onDragLeave={ () => {
-        // The event fires also when going over descendant elements, then immediately fires on the parent again.
-        // Without this timeout it continuously set and unset the drag target.
-        timeoutRef.current = window.setTimeout(() => {
-          setDragTarget(null);
-        }, 100);
-      } }
-      onDragStart={ () => {
-        setDraggedSlide(index);
-      } }
-      onDragEnd={ () => {
-        setDraggedSlide(null);
-        if (dragTarget === null) {
-          return;
-        }
-        setAttributes({ slides: reOrderSlides(slides, index, dragTarget) });
-        setDragTarget(null);
-      } }
-    >
-      <PanelBody
-        key={ index }
-        title={
-          <Fragment>
-            <img
-              draggable={ false }
-              srcSet={ slide.image_srcset }
-              height={ 50 }
-              alt={ slide.image_alt }
-              style={ { marginRight: '8px', maxHeight: '50px' } }
-            />
-            <span>{ slide.header || <i>{__('No title', 'planet4-blocks-backend')}</i> }</span>
-          </Fragment>
-        }
-        initialOpen={ false }
-        onToggle={ (isOpened) => {
-          if (isOpened) {
-            goToSlide(index);
-          }
-        }}
-      >
-        <PanelRow>
-          <SidebarSlide
-            {...slide}
-            changeSlideAttribute={changeSlideAttribute}
-            index={index}
-            key={index}
-          />
-        </PanelRow>
-      </PanelBody>
-    </div>) }
-    { draggedSlide !== null && draggedSlide !== slides.length - 1 && <div
-      className={slides.length === dragTarget ? 'carousel-sidebar-insert-before' : ''}
-      onDragOver={ () => setDragTarget(slides.length) }
-      onDragLeave={ () => setDragTarget(null)}
-      style={{height: '80px'}}/> }
+    <div ref={slidesRef} className='sidebar-slides'>
+      { slides.map((slide, index) => <SidebarSlide
+        {...slide}
+        index={index}
+        key={ `${ slide.image_srcset }${ index }` }
+        isLastItem={index === slides.length - 1}
+        changeSlideAttribute={changeSlideAttribute}
+        goToSlideHandler={goToSlide}
+        onDragStartHandler={onDragStartHandler}
+        onDragEndHandler={onDragEndHandler}
+        onDragOverHandler={onDragOverHandler}
+        upOrDownHandler={upOrDownHandler}
+      />) }
+    </div>
   </InspectorControls>;
 };

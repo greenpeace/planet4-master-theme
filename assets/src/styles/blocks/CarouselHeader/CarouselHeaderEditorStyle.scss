@@ -1,14 +1,7 @@
 @import "../../master-theme/assets/src/scss/base/colors";
 @import "../../master-theme/assets/src/scss/base/mixins";
 @import "../../master-theme/assets/src/scss/base/variables";
-
-.carousel-sidebar-slide {
-  border-top-width: 3px;
-}
-
-.carousel-sidebar-insert-before {
-  border-top: 3px solid var(--wp-admin-theme-color, blue) !important;
-}
+@import "./SidebarSlidesEditor.scss";
 
 .visually-hidden {
   display: none;
