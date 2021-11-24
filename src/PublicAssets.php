@@ -23,14 +23,14 @@ final class PublicAssets {
 			Loader::theme_file_ver( 'assets/build/bootstrap.min.css' )
 		);
 
-		self::conditionally_load_partials();
 		// This loads a linked style file since the relative images paths are outside the build directory.
 		wp_enqueue_style(
 			'parent-style',
 			$theme_dir . '/assets/build/style.min.css',
-			[ 'bootstrap', 'country-selector' ],
+			[ 'bootstrap' ],
 			$css_creation
 		);
+		self::conditionally_load_partials();
 
 		$jquery_should_wait = is_plugin_active( 'planet4-plugin-gutenberg-blocks/planet4-gutenberg-blocks.php' ) && ! is_user_logged_in();
 
@@ -82,6 +82,6 @@ final class PublicAssets {
 	private static function conditionally_load_partials(): void {
 		$country_selector_version = Features::is_active( Features::NEW_DESIGN_COUNTRY_SELECTOR ) ? 'new' : 'old';
 		$country_selector_file    = '/assets/build/country-selector-' . $country_selector_version . '.min.css';
-		Loader::enqueue_versioned_style( $country_selector_file, 'country-selector' );
+		Loader::enqueue_versioned_style( $country_selector_file, 'country-selector', [ 'parent-style' ] );
 	}
 }
