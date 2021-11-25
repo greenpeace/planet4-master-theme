@@ -13,7 +13,6 @@ const mediaQueryAliases = {
   '(min-width: 768px)': 'medium-and-up',
   '(min-width: 992px)': 'large-and-up',
   '(min-width: 1200px)': 'x-large-and-up',
-  '(min-width: 1600px)': 'xx-large-and-up',
 };
 
 module.exports = {

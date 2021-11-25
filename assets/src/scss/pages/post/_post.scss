@@ -84,14 +84,16 @@
     }
   }
 
-  .post-articles-block .articles-block {
-    border-top: 1px solid transparentize($grey-20, 0.5);
-    padding-top: 16px;
-
-    > .container {
+  div.post-content {
+    .container {
       padding-left: 0;
       padding-right: 0;
     }
+  }
+
+  .post-articles-block .articles-block {
+    border-top: 1px solid transparentize($grey-20, 0.5);
+    padding-top: 16px;
 
     @include medium-and-up {
       padding-top: 24px;
