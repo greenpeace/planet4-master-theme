@@ -31,6 +31,13 @@ class Features {
 	public const PURGE_ON_FEATURE_CHANGES = 'purge_on_feature_changes';
 
 	/**
+	 * Register current options status before processing, to detect any change later.
+	 *
+	 * @var array $preprocess_fields
+	 */
+	public static $preprocess_fields = [];
+
+	/**
 	 * Get the features options page settings.
 	 *
 	 * @return array Settings for the options page.
@@ -168,10 +175,38 @@ class Features {
 	 */
 	public static function hooks() {
 		add_action(
+			'cmb2_options-page_process_fields_' . Settings::METABOX_ID,
+			[ self::class, 'on_pre_process' ],
+			10,
+			2
+		);
+
+		add_action(
 			'cmb2_save_field',
-			__CLASS__ . '::on_field_save',
+			[ self::class, 'on_field_save' ],
 			10,
 			4
+		);
+	}
+
+	/**
+	 * Save options status on preprocess, to be compared later
+	 *
+	 * @param array $cmb       This CMB2 object.
+	 * @param int   $object_id The ID of the current object.
+	 */
+	public static function on_pre_process( $cmb, $object_id ) {
+		if ( Settings::KEY !== $object_id ) {
+			return;
+		}
+
+		self::$preprocess_fields = array_merge(
+			...array_map(
+				function ( $f ) use ( $cmb ) {
+					return [ $f['id'] => $cmb->get_field( $f['id'] )->value() ];
+				},
+				self::get_fields()
+			)
 		);
 	}
 
@@ -192,8 +227,8 @@ class Features {
 		}
 
 		if ( self::NEW_DESIGN_COUNTRY_SELECTOR === $field_id ) {
-			if ( 'removed' === $action || 'updated' === $action ) {
-				( new CloudflarePurger() )->purge_all();
+			if ( $field->value() !== self::$preprocess_fields[ $field_id ] ) {
+				is_plugin_active( 'cloudflare/cloudflare.php' ) && ( new CloudflarePurger() )->purge_all();
 			}
 		}
 	}

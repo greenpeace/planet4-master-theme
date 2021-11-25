@@ -1,0 +1,189 @@
+
+#country-selector {
+  _-- {
+    color: inherit;
+  }
+  font-size: $font-size-sm;
+  margin-bottom: 24px;
+  text-align: start;
+  width: 100%;
+
+  a _-- {
+    color: inherit;
+  }
+
+  button:hover {
+    text-decoration: var(--link--hover--text-decoration, underline);
+  }
+
+  button:focus {
+    border-radius: var(--link--focus--border-radius, 4px);
+    outline: var(--link--focus--border, 2px solid transparentize($white, 0.6));
+    outline-offset: 0;
+  }
+
+  button:focus:not(:focus-visible) {
+    outline: 0;
+  }
+
+  &.open {
+    .country-selector-toggle-container {
+      border-bottom: 1px solid transparentize($white, 1);
+      transition-delay: 0s;
+    }
+
+    .country-control-toggle::after {
+      transform: rotate(-0.25turn);
+    }
+
+    .countries-list {
+      max-height: 5000px;
+      transition: max-height 1s linear 0s;
+    }
+  }
+}
+
+.country-selector-toggle-container {
+  border-bottom: 1px solid transparentize($white, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 24px;
+  transition: border 0s linear 0.5s;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.country-control-toggle {
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  color: var(--site-footer--color, $white);
+  cursor: pointer;
+  text-align: start;
+  white-space: nowrap;
+  width: 100%;
+
+  &::before,
+  &::after {
+    background-color: var(--site-footer--color, $white);
+    content: "";
+    display: inline-block;
+    width: 16px;
+  }
+
+  &::before {
+    height: 20px;
+    margin-inline-end: 8px;
+    mask: url("../../images/gp-g-logo.png") 0 0/16px 20px no-repeat;
+    vertical-align: middle;
+  }
+
+  &::after {
+    height: 12px;
+    margin-inline-start: 8px;
+    mask: url("../../images/chevron.svg") 0 0/16px 12px no-repeat;
+    transform: rotate(0.25turn);
+    transition: transform 300ms cubic-bezier(.86, 0, .07, 1);
+  }
+}
+
+.countries-list {
+  _-- {
+    background: var(--site-footer--background, $active-blue);
+  }
+  font-weight: 500;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0, 1.04, .38, .37) 0s;
+}
+
+.countries-list .container {
+  padding: 24px 24px $space-lg 16px;
+
+  @include medium-and-up {
+    padding: 24px 0 $space-lg;
+  }
+}
+
+.countries {
+  column-count: 1;
+  list-style: none;
+  margin: 0;
+  padding-inline-start: $space-lg;
+
+  @include medium-and-up {
+    column-count: 3;
+  }
+
+  li {
+    font-size: $font-size-sm;
+  }
+
+  .international {
+    margin: 0;
+    padding: 0 0 $space-lg 0;
+  }
+
+  .lang-list {
+    font-weight: 400;
+    line-height: 24px;
+    list-style: none;
+    padding: $space-xxs 0 0 0;
+
+    @include medium-and-up {
+      margin-inline-end: $space-lg;
+    }
+  }
+
+  .lang-list > li {
+    display: inline-block;
+    font-size: $font-size-xxs;
+    line-height: 24px;
+  }
+}
+
+.country-group {
+  .initial {
+    color: inherit;
+    font-size: $font-size-xxxs;
+    font-weight: 700;
+    line-height: 20px;
+    margin-inline-start: -#{$space-lg};
+    opacity: 0.5;
+    position: absolute;
+
+    html[dir="rtl"] & {
+      text-transform: lowercase;
+    }
+  }
+
+  > ul {
+    padding-inline-start: 0;
+  }
+
+  > ul > li {
+    display: inline-block;
+    line-height: 20px;
+    padding-bottom: 16px;
+    width: 100%;
+  }
+}
+
+.country-control-close {
+  _-- {
+    background-color: var(--site-footer--color, $white);
+  }
+
+  background-repeat: no-repeat;
+  border: none;
+  display: block;
+  float: right;
+  height: 16px;
+  mask: url("../../images/cross.svg") 50% 50%/16px 16px no-repeat;
+  width: 16px;
+
+  html[dir="rtl"] & {
+    float: left;
+  }
+}

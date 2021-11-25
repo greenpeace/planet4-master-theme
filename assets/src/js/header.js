@@ -4,6 +4,7 @@ export const setupHeader = function($) {
   $(document).on('click', [
     '.navbar-dropdown-toggle',
     '.country-dropdown-toggle',
+    '.country-selector-toggle',
     '.navbar-search-toggle',
   ].join(), function toggleNavDropdown(evt) {
     evt.preventDefault();
@@ -30,6 +31,7 @@ export const setupHeader = function($) {
 
     // Toggle data-ga-action attribute used in GTM tracking.
     $('.country-dropdown-toggle').attr( 'data-ga-action', $('.country-dropdown-toggle').attr('aria-expanded') === 'false' ? 'Open Country Selector' : 'Close Country Selector' );
+    $('.country-selector-toggle').attr( 'data-ga-action', $('.country-selector-toggle').attr('aria-expanded') === 'false' ? 'Open Country Selector' : 'Close Country Selector' );
     $('.navbar-search-toggle').attr( 'data-ga-action', $('.navbar-search-toggle').attr('aria-expanded') === 'false' ? 'Open Search' : 'Close Search' );
   });
 
