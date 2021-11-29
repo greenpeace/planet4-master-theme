@@ -92,7 +92,7 @@ job-references:
 
   p4_instance_conf: &p4_instance_conf
     docker:
-      - image: greenpeaceinternational/p4-builder:latest
+      - image: greenpeaceinternational/p4-builder:faster-cli-post-update
         auth:
           <<: *docker_auth
     working_directory: /home/circleci/
