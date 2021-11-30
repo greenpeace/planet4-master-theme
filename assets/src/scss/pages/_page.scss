@@ -1,28 +1,4 @@
 div.page-template {
-  width: 540px;
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 16px;
-
-  @include medium-and-up {
-    width: 720px;
-    padding: 0;
-  }
-
-  @include large-and-up {
-    width: 960px;
-  }
-
-  @include x-large-and-up {
-    font-size: 1.125rem;
-    width: 1140px;
-  }
-
-  @include xx-large-and-up {
-    width: 1320px;
-  }
-
   > * {
     position: relative;
     z-index: 2;
