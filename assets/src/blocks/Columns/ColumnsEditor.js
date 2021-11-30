@@ -144,49 +144,47 @@ export const ColumnsEditor = ({ isSelected, attributes, setAttributes }) => {
 
   return (
     <section className={`block columns-block block-style-${columns_block_style} ${className ?? ''}`}>
-      <div className='container'>
-        {renderEdit(attributes, toAttribute, setAttributes, isSelected)}
-        {!isExample &&
-          <header className='articles-title-container'>
-            <RichText
-              tagName='h2'
-              className='page-section-header'
-              placeholder={__('Enter title', 'planet4-blocks-backend')}
-              value={columns_title}
-              onChange={toAttribute('columns_title')}
-              withoutInteractiveFormatting
-              multiline='false'
-              allowedFormats={[]}
-            />
-          </header>
-        }
-        {!isExample &&
+      {renderEdit(attributes, toAttribute, setAttributes, isSelected)}
+      {!isExample &&
+        <header className='articles-title-container'>
           <RichText
-            tagName='p'
-            className='page-section-description'
-            placeholder={__('Enter description', 'planet4-blocks-backend')}
-            value={columns_description}
-            onChange={toAttribute('columns_description')}
+            tagName='h2'
+            className='page-section-header'
+            placeholder={__('Enter title', 'planet4-blocks-backend')}
+            value={columns_title}
+            onChange={toAttribute('columns_title')}
             withoutInteractiveFormatting
-            allowedFormats={['core/bold', 'core/italic']}
+            multiline='false'
+            allowedFormats={[]}
           />
-        }
-        {isExample ?
-          <Columns
-            columns={exampleColumns}
-            isCampaign={postType === 'campaign'}
-            columns_block_style={columns_block_style}
-            isExample
-          /> :
-          <EditableColumns
-            isCampaign={postType === 'campaign'}
-            columns={columns}
-            columns_block_style={columns_block_style}
-            toAttribute={toAttribute}
-            columnImages={columnImages}
-          />
-        }
-      </div>
+        </header>
+      }
+      {!isExample &&
+        <RichText
+          tagName='p'
+          className='page-section-description'
+          placeholder={__('Enter description', 'planet4-blocks-backend')}
+          value={columns_description}
+          onChange={toAttribute('columns_description')}
+          withoutInteractiveFormatting
+          allowedFormats={['core/bold', 'core/italic']}
+        />
+      }
+      {isExample ?
+        <Columns
+          columns={exampleColumns}
+          isCampaign={postType === 'campaign'}
+          columns_block_style={columns_block_style}
+          isExample
+        /> :
+        <EditableColumns
+          isCampaign={postType === 'campaign'}
+          columns={columns}
+          columns_block_style={columns_block_style}
+          toAttribute={toAttribute}
+          columnImages={columnImages}
+        />
+      }
     </section>
   );
 }

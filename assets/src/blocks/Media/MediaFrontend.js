@@ -32,23 +32,21 @@ export const MediaFrontend = ( attributes ) => {
 
   return (
     <section className={`block media-block ${className ?? ''}`}>
-      <div className="container">
-        {
-          video_title &&
-          <header>
-            <h2 className="page-section-header">{ video_title }</h2>
-          </header>
-        }
-        {
-          description &&
-          <div className="page-section-description" dangerouslySetInnerHTML={{ __html: description }} />
-        }
-        {
-          media_url && media_url.endsWith('.mp4')
-          ? <MediaElementVideo videoURL={ media_url } videoPoster={ poster_url } />
-          : <div dangerouslySetInnerHTML={{ __html: wrapEmbedHTML(embed_html) || null }} />
-        }
-      </div>
+      {
+        video_title &&
+        <header>
+          <h2 className="page-section-header">{ video_title }</h2>
+        </header>
+      }
+      {
+        description &&
+        <div className="page-section-description" dangerouslySetInnerHTML={{ __html: description }} />
+      }
+      {
+        media_url && media_url.endsWith('.mp4')
+        ? <MediaElementVideo videoURL={ media_url } videoPoster={ poster_url } />
+        : <div dangerouslySetInnerHTML={{ __html: wrapEmbedHTML(embed_html) || null }} />
+      }
     </section>
   );
 };

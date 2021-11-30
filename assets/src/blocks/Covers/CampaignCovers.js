@@ -6,7 +6,7 @@ export const CampaignCovers = ({ covers, initialRowsLimit, row, loadMoreCovers, 
   const showLoadMore = !!initialRowsLimit && covers.length > amountPerRow * row;
 
   return (
-    <div className='container'>
+    <>
       <div className='thumbnail-largeview-container'>
         {covers.map((cover, index) => {
           const { href, image, alt_text, name, src_set } = cover;
@@ -54,6 +54,6 @@ export const CampaignCovers = ({ covers, initialRowsLimit, row, loadMoreCovers, 
           </div>
         </div>
       }
-    </div>
+    </>
   );
 };

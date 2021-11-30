@@ -31,22 +31,20 @@ export const GalleryFrontend = ({
 
   return (
     <section className={`block ${GALLERY_BLOCK_CLASSES[layout]} ${className ?? ''}`}>
-      <div className='container'>
-        {gallery_block_title &&
-          <header>
-            <h2 className="page-section-header" dangerouslySetInnerHTML={{ __html: gallery_block_title }} />
-          </header>
-        }
+      {gallery_block_title &&
+        <header>
+          <h2 className="page-section-header" dangerouslySetInnerHTML={{ __html: gallery_block_title }} />
+        </header>
+      }
 
-        {gallery_block_description &&
-          <div className="page-section-description" dangerouslySetInnerHTML={{ __html: gallery_block_description }} />
-        }
-        {layout === 'slider' && <GalleryCarousel onImageClick={openLightbox} images={images || []} />}
-        {layout === 'three-columns' && <GalleryThreeColumns onImageClick={openLightbox} images={images || []} postType={postType} />}
-        {layout === 'grid' && <GalleryGrid onImageClick={openLightbox} images={images || []} />}
+      {gallery_block_description &&
+        <div className="page-section-description" dangerouslySetInnerHTML={{ __html: gallery_block_description }} />
+      }
+      {layout === 'slider' && <GalleryCarousel onImageClick={openLightbox} images={images || []} />}
+      {layout === 'three-columns' && <GalleryThreeColumns onImageClick={openLightbox} images={images || []} postType={postType} />}
+      {layout === 'grid' && <GalleryGrid onImageClick={openLightbox} images={images || []} />}
 
-        <Lightbox isOpen={isOpen} index={index} items={items} onClose={closeLightbox} />
-      </div>
+      <Lightbox isOpen={isOpen} index={index} items={items} onClose={closeLightbox} />
     </section>
   );
 }
