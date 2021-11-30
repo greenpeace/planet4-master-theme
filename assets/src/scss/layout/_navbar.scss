@@ -32,24 +32,13 @@ $navbar-default-height: 60px;
     }
   }
 
-  input::placeholder --top-navigation--input-placeholder-- {
+  input::placeholder _-- {
     color: transparentize($white, 0.4);
     opacity: 0.6;
-
-    @include x-large-and-up {
-      //color: inherit;
-    }
   }
 
   button {
-    background: var(--top-navigation--background, inherit);
     border: none;
-    color: $white;
-    cursor: pointer;
-    display: block;
-    font-size: 24px;
-    height: 100%;
-    padding: 0;
 
     .icon {
       _-- {
@@ -61,21 +50,26 @@ $navbar-default-height: 60px;
     }
   }
 
-  .btn-donate --button-donate-- {
-    background: $orange;
-    border: none;
-    box-shadow: none;
-    color: $white;
-    height: 44px;
-    line-height: 40px;
-    min-width: 116px;
-
-    &:hover {
+  .btn-donate {
+    // Changed from --button-donate--, because that is a style that didn't change along with the new navigation bar.
+    // As a result now the donate style button has a different default.
+    // I also excluded the height related properties from the variables.
+    _-- {
       background: $orange;
       border: none;
       box-shadow: none;
       color: $white;
+      min-width: 116px;
+
+      &:hover {
+        background: $orange;
+        border: none;
+        box-shadow: none;
+        color: $white;
+      }
     }
+    height: 44px;
+    line-height: 40px;
   }
 }
 
@@ -94,7 +88,6 @@ $navbar-default-height: 60px;
     flex-grow: 0;
     margin-inline-start: 44px;
     text-align: start;
-    width: auto;
   }
 
   @include x-large-and-up {
@@ -118,7 +111,7 @@ $navbar-default-height: 60px;
       width: 100%;
       z-index: 4;
 
-      nav.nav-menu {
+      .nav-menu {
         display: block;
       }
 
@@ -128,20 +121,20 @@ $navbar-default-height: 60px;
         top: 0;
       }
 
-      button.nav-menu-close {
+      .nav-menu-close {
         display: block;
       }
 
-      nav.nav-languages {
+      .nav-languages {
         display: flex;
       }
 
-      div.nav-search-toggle-container {
+      .nav-search-toggle-container {
         cursor: unset;
         pointer-events: none;
       }
 
-      div.nav-search-toggle-container::before {
+      .nav-search-toggle-container::before {
         border-radius: 4px;
         content: "";
         display: block;
@@ -151,7 +144,7 @@ $navbar-default-height: 60px;
         z-index: 1;
       }
 
-      button.nav-search-toggle {
+      .nav-search-toggle {
         opacity: 0.5;
       }
 
@@ -167,7 +160,7 @@ $navbar-default-height: 60px;
   }
 }
 
-nav.nav-menu {
+.nav-menu {
   background: var(--top-navigation--background, $dark-blue);
   display: none;
   height: 100%;
@@ -272,7 +265,7 @@ nav.nav-menu {
   }
 }
 
-#search_input:placeholder-shown ~ button.nav-search-clear {
+#search_input:placeholder-shown ~ .nav-search-clear {
   visibility: hidden;
 }
 
@@ -283,7 +276,8 @@ nav.nav-menu {
   display: none;
 }
 
-button.nav-menu-toggle {
+.nav-menu-toggle {
+  background: transparent;
   border-radius: 4px;
   //mask: url("../build/sprite.symbol.svg#menu") 50% 50%/24px 24px no-repeat;
   padding: 0 24px;
@@ -297,7 +291,7 @@ button.nav-menu-toggle {
   }
 }
 
-button.nav-menu-close {
+.nav-menu-close {
   background-color: var(--top-navigation--color, $white);
   display: none;
   height: 68px;
@@ -314,7 +308,8 @@ button.nav-menu-close {
   }
 }
 
-button.nav-search-btn {
+.nav-search-btn {
+  background: transparent;
   display: none;
   float: left;
 
@@ -328,7 +323,7 @@ button.nav-search-btn {
   }
 }
 
-button.nav-search-clear {
+.nav-search-clear {
   background-color: $black;
   border: none;
   float: right;
@@ -362,7 +357,8 @@ button.nav-search-clear {
   }
 }
 
-button.nav-search-toggle {
+.nav-search-toggle {
+  background: transparent;
   border-radius: 4px;
   height: 44px;
   width: 44px;
@@ -372,7 +368,8 @@ button.nav-search-toggle {
   }
 }
 
-button.nav-languages-toggle {
+.nav-languages-toggle {
+  background: transparent;
   color: inherit;
   display: none;
   font-size: 1.25rem;
@@ -432,11 +429,11 @@ button.nav-languages-toggle {
     opacity: 0.6;
   }
 
-  li.wpml-ls-current-language {
+  .wpml-ls-current-language {
     opacity: 1;
   }
 
-  li.wpml-ls-current-language::after {
+  .wpml-ls-current-language::after {
     background: none;
     mask: none;
   }
@@ -494,7 +491,7 @@ button.nav-languages-toggle {
       background: rgba(216, 216, 216, 0.4);
     }
 
-    li.wpml-ls-current-language::after {
+    .wpml-ls-current-language::after {
       background-color: $grey-80;
       content: "";
       float: right;
