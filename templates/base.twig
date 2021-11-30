@@ -19,7 +19,7 @@
 		<li><a href="#footer">{{ __( 'Skip to Footer', 'planet4-master-theme' ) }}</a></li>
 	</ul>
 
-	{% set navbar_version = new_design_navigation_bar ? '-new' : '' %}
+	{% set navbar_version = new_design_navigation_bar ? '' : '-old' %}
 	{% if custom_styles.nav_type == 'minimal' %}
 		{% include 'navigation-bar_min' ~ navbar_version ~ '.twig' with data_nav_bar %}
 	{% else %}
