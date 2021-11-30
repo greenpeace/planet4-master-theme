@@ -105,13 +105,8 @@ $navbar-default-height: 60px;
 #nav-main {
   display: flex;
 
-  @include large-and-up {
-    flex-grow: 1;
-    width: 100%;
-  }
-
-  &.open {
-    @include medium-and-less {
+  @include medium-and-less {
+    &.open {
       background: rgba(2, 2, 2, 0.45);
       flex-direction: column-reverse;
       height: 100%;
@@ -165,25 +160,24 @@ $navbar-default-height: 60px;
       }
     }
   }
+
+  @include large-and-up {
+    flex-grow: 1;
+    width: auto;
+  }
 }
 
 nav.nav-menu {
+  background: var(--top-navigation--background, $dark-blue);
   display: none;
-
-  @include small-and-up {
-    width: 100%;
-  }
+  height: 100%;
+  inset-block-start: 0;
+  top: 0;
+  z-index: 4;
+  width: 100%;
 
   @include medium-and-up {
     width: 400px;
-  }
-
-  @include medium-and-less {
-    background: var(--top-navigation--background, $dark-blue);
-    height: 100%;
-    inset-block-start: 0;
-    top: 0;
-    z-index: 4;
   }
 
   @include large-and-up {
@@ -213,49 +207,50 @@ nav.nav-menu {
 
 .nav-item {
   color: $white;
-  font-size: $font-size-md;
+  font-size: $font-size-sm;
   font-weight: 700;
+  padding: 16px 0;
+
+  @include medium-and-up {
+    font-size: $font-size-md;
+  }
 
   @include large-and-up {
     line-height: $menu-height;
     padding: 0 20px;
   }
-
-  @include medium-and-less {
-    font-size: $font-size-md;
-    padding: 16px 0;
-  }
-
-  @include small-and-less {
-    font-size: $font-size-sm;
-  }
 }
 
 .nav-search-form {
   background-color: var(--body--background-color, $white);
+  border-top: 1px solid #c4c4c4;
+  box-shadow: 0 2px 4px transparentize($black, 0.85);
   display: none;
+  height: 56px;
+  inset-inline-start: 0;
+  position: absolute;
+  top: $menu-height;
+  z-index: 3;
+  width: 100%;
+
+  &.open {
+    display: flex;
+  }
 
   @include x-large-and-up {
     background: var(--top-navigation--background, inherit);
     border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+    border-top: none;
     display: inline-block;
     height: 100%;
     inset-inline-end: auto;
     min-width: 25%;
     padding: 0 16px;
-  }
+    position: unset;
+    width: auto;
 
-  &.open {
-    @include large-and-less {
-      border-top: 1px solid #c4c4c4;
-      box-shadow: 0 2px 4px transparentize($black, 0.85);
-      display: flex;
-      height: 56px;
-      inset-inline-start: 0;
-      position: absolute;
-      top: $menu-height;
-      z-index: 3;
-      width: 100%;
+    &.open {
+      display: inline-block;
     }
   }
 }
@@ -410,58 +405,56 @@ button.nav-languages-toggle {
 
 .nav-languages {
   display: none;
+  background: var(--top-navigation--background, $dark-blue);
+  box-shadow: none;
+  position: unset;
+  width: 100%;
+  z-index: 4;
 
-  @include medium-and-less {
-    background: var(--top-navigation--background, $dark-blue);
-    box-shadow: none;
-    position: unset;
-    width: 400px;
-    z-index: 4;
-
-    ul {
-      border-bottom: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
-      display: inline-block;
-      flex-grow: 1;
-      margin-block: 0;
-      margin-inline: 40px;
-      padding-bottom: 36px;
-      padding-top: 40px;
-      padding-inline: 0;
-      width: 100%;
-    }
-
-    li {
-      display: inline-block;
-      font-size: 20px;
-      font-weight: 700;
-      margin: 0;
-      padding: 0;
-      opacity: 0.6;
-    }
-
-    li.wpml-ls-current-language {
-      opacity: 1;
-    }
-
-    li.wpml-ls-current-language::after {
-      background: none;
-      mask: none;
-    }
-
-    li > span[aria-hidden="true"] {
-      opacity: 1;
-    }
-
-    li:last-of-type > span[aria-hidden="true"] {
-      display: none;
-    }
+  ul {
+    border-bottom: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+    display: inline-block;
+    flex-grow: 1;
+    margin-block: 0;
+    margin-inline: 40px;
+    padding-bottom: 36px;
+    padding-top: 40px;
+    padding-inline: 0;
+    width: 100%;
   }
 
-  @include small-and-less {
-    width: 100%;
+  li {
+    display: inline-block;
+    font-size: $font-base-size;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    opacity: 0.6;
+  }
+
+  li.wpml-ls-current-language {
+    opacity: 1;
+  }
+
+  li.wpml-ls-current-language::after {
+    background: none;
+    mask: none;
+  }
+
+  li > span[aria-hidden="true"] {
+    opacity: 1;
+  }
+
+  li:last-of-type > span[aria-hidden="true"] {
+    display: none;
+  }
+
+  @include medium-and-up {
+    font-size: 20px;
+    width: 400px;
 
     li {
-      font-size: $font-base-size;
+      font-size: $font-size-md;
     }
   }
 
@@ -470,10 +463,11 @@ button.nav-languages-toggle {
     border-radius: 4px;
     box-shadow: 0 1px 4px transparentize($black, 0.88);
     inset-inline-end: 8px;
+    min-width: 140px;
     position: absolute;
     text-align: start;
     top: $menu-height + 8px;
-    min-width: 140px;
+    width: unset;
     z-index: 3;
 
     &.open {
@@ -487,6 +481,7 @@ button.nav-languages-toggle {
     }
 
     li {
+      display: block;
       font-size: 16px;
       font-weight: 400;
       line-height: 48px;
