@@ -3,7 +3,7 @@ const { __ } = wp.i18n;
 export const setupExternalLinks = () => {
   const siteURL = window.location.host;
 
-  const linkSelector = ['div.page-template', 'article'].map(sel=>`${sel} a:not(.btn):not(.cover-card-heading):not(.wp-block-button__link):not([href*="${siteURL}"]):not([href*=".pdf"]):not([href^="/"]):not([href^="#"]):not([href^="javascript:"])`).join(', ');
+  const linkSelector = ['.page-content', 'article'].map(sel=>`${sel} a:not(.btn):not(.cover-card-heading):not(.wp-block-button__link):not([href*="${siteURL}"]):not([href*=".pdf"]):not([href^="/"]):not([href^="#"]):not([href^="javascript:"])`).join(', ');
   const links = [...document.querySelectorAll(linkSelector)];
 
   links.forEach(link => {
