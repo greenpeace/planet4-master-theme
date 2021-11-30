@@ -3,7 +3,7 @@ import { generateAnchor } from './generateAnchor';
 const getHeadingLevel = heading => Number(heading.tagName.replace('H', ''));
 
 export const getHeadingsFromDom = (selectedLevels) => {
-  const container = document.querySelector('div.page-template');
+  const container = document.querySelector('.page-content');
   if (!container || !selectedLevels) {
     return [];
   }

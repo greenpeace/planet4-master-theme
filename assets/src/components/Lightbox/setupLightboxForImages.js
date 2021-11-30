@@ -40,9 +40,9 @@ export const setupLightboxForImages = function() {
   const imageBlocks = document.querySelectorAll('.wp-block-image:not(.force-no-lightbox)');
   imageBlocks.forEach(setupImageAndCaption(lightBoxNode, 'img', 'figcaption'));
 
-  const imagesWithCaptions = document.querySelectorAll('.post-content .wp-caption, .page-template .wp-caption');
+  const imagesWithCaptions = document.querySelectorAll('.post-content .wp-caption, .page-content .wp-caption');
   imagesWithCaptions.forEach(setupImageAndCaption(lightBoxNode, 'img', '.wp-caption-text'));
 
-  const imagesInParagraphs = document.querySelectorAll('.post-content p:not(.wp-caption), .page-template p:not(.wp-caption)');
+  const imagesInParagraphs = document.querySelectorAll('.post-content p:not(.wp-caption), .page-content p:not(.wp-caption)');
   imagesInParagraphs.forEach(setupImageAndCaption(lightBoxNode, 'img'));
 }
