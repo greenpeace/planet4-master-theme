@@ -116,6 +116,8 @@ $navbar-default-height: 60px;
       }
 
       .nav-search-toggle-container {
+        cursor: unset;
+        pointer-events: none;
         position: absolute;
         inset-inline-end: 0;
         top: 0;
@@ -127,11 +129,6 @@ $navbar-default-height: 60px;
 
       .nav-languages {
         display: flex;
-      }
-
-      .nav-search-toggle-container {
-        cursor: unset;
-        pointer-events: none;
       }
 
       .nav-search-toggle-container::before {
