@@ -120,7 +120,7 @@ abstract class Base_Block {
 			$to_look_for .= '-beta';
 		}
 
-		if ( ! has_block( $to_look_for ) ) {
+		if ( ! is_preview() && ! has_block( $to_look_for ) ) {
 			return;
 		}
 
