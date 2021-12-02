@@ -17,6 +17,10 @@ $navbar-default-height: 60px;
   }
 
   display: flex;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 5;
 
   @include large-and-up {
     align-items: center;
@@ -32,25 +36,12 @@ $navbar-default-height: 60px;
     }
   }
 
-  input::placeholder --top-navigation--input-placeholder-- {
+  input::placeholder _-- {
     color: transparentize($white, 0.4);
     opacity: 0.6;
-
-    @include x-large-and-up {
-      //color: inherit;
-    }
   }
 
   button {
-    background: var(--top-navigation--background, inherit);
-    border: none;
-    color: $white;
-    cursor: pointer;
-    display: block;
-    font-size: 24px;
-    height: 100%;
-    padding: 0;
-
     .icon {
       _-- {
         fill: var(--top-navigation--color, inherit);
@@ -61,21 +52,25 @@ $navbar-default-height: 60px;
     }
   }
 
-  .btn-donate --button-donate-- {
-    background: $orange;
-    border: none;
-    box-shadow: none;
-    color: $white;
-    height: 44px;
-    line-height: 40px;
-    min-width: 116px;
-
-    &:hover {
+  .btn-donate {
+    _-- {
       background: $orange;
       border: none;
       box-shadow: none;
       color: $white;
+      font-size: inherit;
+      min-width: 116px;
+
+      &:hover {
+        background: $orange;
+        border: none;
+        box-shadow: none;
+        color: $white;
+      }
     }
+
+    height: 44px;
+    line-height: 40px;
   }
 }
 
@@ -92,13 +87,17 @@ $navbar-default-height: 60px;
 
   @include large-and-up {
     flex-grow: 0;
-    margin-inline-start: 44px;
+    margin-inline-start: calc((100vw - 960px) / 2);
     text-align: start;
     width: auto;
   }
 
   @include x-large-and-up {
-    margin-inline-start: 164px;
+    margin-inline-start: calc((100vw - 1140px) / 2);
+  }
+
+  @include xx-large-and-up {
+    margin-inline-start: calc((100vw - 1320px) / 2);
   }
 }
 
@@ -118,30 +117,27 @@ $navbar-default-height: 60px;
       width: 100%;
       z-index: 4;
 
-      nav.nav-menu {
+      .nav-menu {
         display: block;
       }
 
+      .nav-menu-close {
+        display: block;
+      }
+
+      .nav-languages {
+        display: flex;
+      }
+
       .nav-search-toggle-container {
+        cursor: unset;
+        pointer-events: none;
         position: absolute;
         inset-inline-end: 0;
         top: 0;
       }
 
-      button.nav-menu-close {
-        display: block;
-      }
-
-      nav.nav-languages {
-        display: flex;
-      }
-
-      div.nav-search-toggle-container {
-        cursor: unset;
-        pointer-events: none;
-      }
-
-      div.nav-search-toggle-container::before {
+      .nav-search-toggle-container::before {
         border-radius: 4px;
         content: "";
         display: block;
@@ -151,7 +147,7 @@ $navbar-default-height: 60px;
         z-index: 1;
       }
 
-      button.nav-search-toggle {
+      .nav-search-toggle {
         opacity: 0.5;
       }
 
@@ -207,13 +203,9 @@ nav.nav-menu {
 
 .nav-item {
   color: $white;
-  font-size: $font-size-sm;
+  font-size: $font-base-size;
   font-weight: 700;
   padding: 16px 0;
-
-  @include medium-and-up {
-    font-size: $font-size-md;
-  }
 
   @include large-and-up {
     line-height: $menu-height;
@@ -223,6 +215,7 @@ nav.nav-menu {
 
 .nav-search-form {
   background-color: var(--body--background-color, $white);
+  border: none;
   border-top: 1px solid #c4c4c4;
   box-shadow: 0 2px 4px transparentize($black, 0.85);
   display: none;
@@ -241,6 +234,7 @@ nav.nav-menu {
     background: var(--top-navigation--background, inherit);
     border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
     border-top: none;
+    box-shadow: none;
     display: inline-block;
     height: 100%;
     inset-inline-end: auto;
@@ -283,9 +277,10 @@ nav.nav-menu {
   display: none;
 }
 
-button.nav-menu-toggle {
+.nav-menu-toggle {
+  background: transparent;
+  border: none;
   border-radius: 4px;
-  //mask: url("../build/sprite.symbol.svg#menu") 50% 50%/24px 24px no-repeat;
   padding: 0 24px;
 
   @include large-and-up {
@@ -297,8 +292,9 @@ button.nav-menu-toggle {
   }
 }
 
-button.nav-menu-close {
+.nav-menu-close {
   background-color: var(--top-navigation--color, $white);
+  border: none;
   display: none;
   height: 68px;
   inset-inline-end: 0;
@@ -310,13 +306,15 @@ button.nav-menu-close {
 
   @include medium-and-up {
     inset-inline-start: 332px;
-    mask-size: 24px 24px;
   }
 }
 
-button.nav-search-btn {
+.nav-search-btn {
+  background: transparent;
+  border: none;
   display: none;
   float: left;
+  padding: 0;
 
   html[dir="rtl"] & {
     float: right;
@@ -328,7 +326,7 @@ button.nav-search-btn {
   }
 }
 
-button.nav-search-clear {
+.nav-search-clear {
   background-color: $black;
   border: none;
   float: right;
@@ -362,7 +360,9 @@ button.nav-search-clear {
   }
 }
 
-button.nav-search-toggle {
+.nav-search-toggle {
+  background: transparent;
+  border: none;
   border-radius: 4px;
   height: 44px;
   width: 44px;
@@ -372,10 +372,12 @@ button.nav-search-toggle {
   }
 }
 
-button.nav-languages-toggle {
+.nav-languages-toggle {
+  background: transparent;
+  border: none;
   color: inherit;
   display: none;
-  font-size: 1.25rem;
+  font-size: $font-base-size;
   font-weight: 700;
   padding: 0 20px;
 
@@ -394,7 +396,7 @@ button.nav-languages-toggle {
     margin-inline-start: 4px;
     mask: url("../../images/chevron.svg") 0 0/8px 8px;
     transform: rotate(90deg);
-    transition: transform 300ms linear;
+    transition: transform 100ms linear;
     width: 8px;
   }
 
@@ -425,18 +427,17 @@ button.nav-languages-toggle {
 
   li {
     display: inline-block;
-    font-size: $font-base-size;
     font-weight: 700;
     margin: 0;
     padding: 0;
     opacity: 0.6;
   }
 
-  li.wpml-ls-current-language {
+  .wpml-ls-current-language {
     opacity: 1;
   }
 
-  li.wpml-ls-current-language::after {
+  .wpml-ls-current-language::after {
     background: none;
     mask: none;
   }
@@ -450,12 +451,7 @@ button.nav-languages-toggle {
   }
 
   @include medium-and-up {
-    font-size: 20px;
     width: 400px;
-
-    li {
-      font-size: $font-size-md;
-    }
   }
 
   @include large-and-up {
@@ -477,7 +473,7 @@ button.nav-languages-toggle {
     ul {
       list-style: none;
       margin: 0;
-      padding: 8px 0 8px 0;
+      padding: 16px 0;
     }
 
     li {
@@ -494,7 +490,7 @@ button.nav-languages-toggle {
       background: rgba(216, 216, 216, 0.4);
     }
 
-    li.wpml-ls-current-language::after {
+    .wpml-ls-current-language::after {
       background-color: $grey-80;
       content: "";
       float: right;
@@ -518,8 +514,7 @@ button.nav-languages-toggle {
     }
 
     a.nav-link:hover {
-      color: $grey-80;
-      text-decoration: underline;
+      text-decoration: none;
     }
   }
 }
@@ -544,5 +539,5 @@ button.nav-languages-toggle {
 
 // Fix to report in _pages.scss when new navbar deployed
 .navigation-bar_min ~ .page-header-hidden + div.page-template.no-page-title {
-  padding-top: 0;
+  //padding-top: 0;
 }
