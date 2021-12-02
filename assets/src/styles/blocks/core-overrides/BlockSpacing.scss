@@ -1,9 +1,9 @@
 .wp-block-quote,
 .wp-block-file,
 .wp-block-button,
-div.page-template > h2,
-div.page-template > ul > li:last-of-type,
-div.page-template > p,
+.page-content > h2,
+.page-content > ul > li:last-of-type,
+.page-content > p,
 .post-details > h2,
 .post-details > ul > li:last-of-type,
 .post-details > p,
@@ -17,7 +17,7 @@ div.page-template > p,
   }
 }
 
-div.page-template > ul > li,
+.page-content > ul > li,
 .post-details > ul > li {
   margin-top: $space-xs;
   margin-bottom: $space-xs;
@@ -31,12 +31,12 @@ div.page-template > ul > li,
 .wp-block-quote,
 .wp-block-file,
 .wp-block-button,
-div.page-template > h2,
+.page-content > h2,
 .post-details > h2 {
   display: inline-block;
 }
 
-div.page-template > ul,
+.page-content > ul,
 .post-details > ul {
   width: 100%;
 }

@@ -1,10 +1,10 @@
 // Force wide blocks outside the container
 $(document).ready(() => {
   'use strict';
-  let $container = $('div.page-template, div.container').eq(0);
+  let $container = $('.page-content, div.container').eq(0);
 
   if (!$container.length) {
-    $container = $('div.page-template').eq(0);
+    $container = $('.page-content').eq(0);
   }
 
   const $sideStyleForm = $('.enform-wrap.enform-side-style');

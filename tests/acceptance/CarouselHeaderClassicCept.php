@@ -63,4 +63,4 @@ $I->see( 'Header 2', '.carousel-captions-wrapper > h1' );
 $I->click( '.carousel-indicators > li:first-child' );
 $I->waitForElementVisible( '//div[@class="carousel-inner"]/div[contains(@class, "carousel-item") and position()=1]', 10 ); // secs.
 $I->see( 'Header 1', '.carousel-captions-wrapper > h1' );
-$I->scrollTo( '.page-template' );
+$I->scrollTo( '.page-content' );
