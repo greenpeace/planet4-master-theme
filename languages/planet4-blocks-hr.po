@@ -4,8 +4,8 @@ msgstr ""
 "n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-12-02 12:05+0000\n"
-"PO-Revision-Date: 2021-10-13 10:25+0000\n"
-"Last-Translator: Nikos Roussos\n"
+"PO-Revision-Date: 2021-12-02 17:16+0000\n"
+"Last-Translator: \n"
 "Language-Team: Croatian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Language: hr\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.5.4; wp-5.8.1"
+"X-Loco-Version: 2.5.5; wp-5.8.1"
 
 #: classes/blocks/class-happypoint.php:92
 msgid "Background image"
@@ -38,7 +38,7 @@ msgstr ""
 
 #: classes/blocks/class-base-block.php:65
 msgid "Error"
-msgstr ""
+msgstr "Greška"
 
 #: classes/blocks/class-splittwocolumns.php:163
 #: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:82
@@ -100,7 +100,7 @@ msgstr ""
 #: templates/blocks/content_covers.twig:79
 #: assets/src/blocks/Articles/ArticlesBlock.js:44
 msgid "Load more"
-msgstr ""
+msgstr "Više"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:204
 msgid "Loading spreadsheet data..."
@@ -163,7 +163,7 @@ msgstr ""
 #: classes/blocks/class-articles.php:50
 #: assets/src/blocks/Articles/ArticlesBlock.js:21
 msgid "Related Articles"
-msgstr "Povezane Članci"
+msgstr "Povezani članci"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:174
 msgid "Search data"
@@ -180,7 +180,7 @@ msgstr ""
 #: classes/blocks/class-covers.php:345
 #: classes/blocks/class-takeactionboxout.php:185
 msgid "Take action"
-msgstr ""
+msgstr "Djeluj"
 
 #: assets/src/blocks/Counter/CounterBlock.js:73
 msgid "Text Only"
@@ -192,4 +192,4 @@ msgstr ""
 
 #: templates/blocks/take_action_boxout.twig:18
 msgid "Want to do more?"
-msgstr ""
+msgstr "Želiš učiniti više?"
