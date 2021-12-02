@@ -32,11 +32,24 @@ export const setupHeader = function($) {
       return attr === 'false' ? 'true' : 'false';
     });
 
+    // Set same attributes for all search toggles
+    if (evt.currentTarget.classList.contains('nav-search-toggle')) {
+      document.querySelectorAll('.nav-search-toggle').forEach(e => {
+        e.setAttribute('aria-expanded', $button.attr('aria-expanded'));
+        e.setAttribute('data-ga-action', $button.attr('aria-expanded') === 'false' ? 'Open search' : 'Close search');
+        e.classList.toggle('open', $button.hasClass('open'));
+      });
+    }
+
+    // Lock scroll when navigation menu is open
+    if (evt.currentTarget.classList.contains('nav-menu-toggle')) {
+      document.querySelectorAll('body')[0].classList.toggle('no-scroll-nav-open', evt.currentTarget.getAttribute('aria-expanded') === 'true');
+    }
+
     // Toggle data-ga-action attribute used in GTM tracking.
     $('.country-dropdown-toggle').attr( 'data-ga-action', $('.country-dropdown-toggle').attr('aria-expanded') === 'false' ? 'Open Country Selector' : 'Close Country Selector' );
     $('.country-selector-toggle').attr( 'data-ga-action', $('.country-selector-toggle').attr('aria-expanded') === 'false' ? 'Open Country Selector' : 'Close Country Selector' );
     $('.navbar-search-toggle').attr( 'data-ga-action', $('.navbar-search-toggle').attr('aria-expanded') === 'false' ? 'Open Search' : 'Close Search' );
-    $('.nav-search-toggle').attr( 'data-ga-action', $('.navbar-search-toggle').attr('aria-expanded') === 'false' ? 'Open Search' : 'Close Search' );
   });
 
   // Close all menus when clicking somewhere else
@@ -73,7 +86,7 @@ export const setupHeader = function($) {
     $('.navbar-dropdown-toggle').trigger('click');
   });
 
-  //Close the menu if the user clicks the dedicated dropdown close button.
+  //Close the menu if the user clicks the dedicated close menu button.
   $(document).on('click', '.nav-menu-close', (evt) => {
     evt.preventDefault();
     // Proxy to the main navbar close button

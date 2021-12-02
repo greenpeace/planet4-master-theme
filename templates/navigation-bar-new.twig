@@ -99,19 +99,19 @@
 				<span class="visually-hidden">{{ __( 'Clear search', 'planet4-master-theme' ) }}</span>
 			</button>
 		</form>
-		{% if navbar_languages is not empty %}
-			{% set current_lang = navbar_languages|filter(i => 'wpml-ls-current-language' in i.classes)|first %}
+		{% if languages is not empty %}
+			{% set current_lang = languages|filter(i => i.active)|first %}
 			<button class="nav-languages-toggle" type="button"
 				aria-label="{{ __( 'Choose language', 'planet4-master-theme' ) }}"
 				aria-expanded="false"
 				data-bs-toggle="open"
 				data-bs-target="#nav-languages"
-			>{{ current_lang.title|striptags|trim|slice(0,2) }}</button>
+			>{{ current_lang.code|capitalize }}</button>
 			<nav id="nav-languages" class="nav-languages">
 				<ul>
-				{% for key,item in navbar_languages %}
-				<li class="nav-item {{ item.class }}">
-					<a class="nav-link" href="{{ item.get_link }}">{{ item.title|striptags|trim }}</a>
+				{% for key,item in languages %}
+				<li class="nav-item {{ item.active ? 'current-language' : '' }}">
+					<a class="nav-link" href="{{ item.url }}">{{ item.native_name }}</a>
 					<span aria-hidden="true">&nbsp;|&nbsp;</span>
 				</li>
 				{% endfor %}
@@ -128,4 +128,20 @@
 			</span>
 		</button>
 	</div>
+	<div class="nav-search-toggle-container medium-and-less">
+		<button class="nav-search-toggle" type="button"
+			aria-label="{{ data_nav_bar.navbar_search_toggle }}"
+			aria-expanded="false"
+			data-bs-toggle="open"
+			data-bs-target="#search_form"
+			data-ga-category="Menu Navigation"
+			data-ga-action="Open Search"
+			data-ga-label="{{ page_category }}">
+			{{ search_icon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
+			<span class="visually-hidden">
+				{{ __( 'Toggle search form', 'planet4-master-theme' ) }}
+			</span>
+		</button>
+	</div>
+	<div class="top-navigation-overlay"></div>
 </section>

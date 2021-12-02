@@ -480,7 +480,7 @@ class MasterSite extends TimberSite {
 	 * @return mixed
 	 */
 	public function add_to_context( $context ) {
-		global $wp;
+		global $wp, $sitepress;
 		$context['cookies']      = [
 			'text' => planet4_get_option( 'cookies_field' ),
 		];
@@ -501,13 +501,13 @@ class MasterSite extends TimberSite {
 		$menu                         = new TimberMenu( 'navigation-bar-menu' );
 		$menu_items                   = $menu->get_items();
 		$context['navbar_menu']       = $menu;
-		$context['navbar_languages']  = array_filter(
+		$context['navbar_menu_items'] = array_filter(
 			$menu_items,
 			function ( $item ) {
-				return in_array( 'wpml-ls-item', $item->classes ?? [], true );
+				return ! in_array( 'wpml-ls-item', $item->classes ?? [], true );
 			}
 		);
-		$context['navbar_menu_items'] = array_diff( $menu_items, $context['navbar_languages'] );
+		$context['languages']         = $sitepress ? $sitepress->get_ls_languages() : [];
 
 		$context['site']         = $this;
 		$context['current_url']  = home_url( $wp->request );
