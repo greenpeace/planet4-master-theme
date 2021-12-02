@@ -1,4 +1,4 @@
-div.page-template {
+.page-content {
   > * {
     position: relative;
     z-index: 2;
@@ -47,7 +47,7 @@ div.page-template {
 }
 
 .single-campaign {
-  .page-template {
+  .page-content {
     > p:last-child {
       margin-bottom: $space-xxl;
     }
