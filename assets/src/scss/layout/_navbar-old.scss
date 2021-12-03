@@ -107,7 +107,7 @@ $navbar-default-height: 60px;
 .country-dropdown-toggle,
 .nav-item,
 .nav-link {
-  @include padding(0, $n15, 0, $n15);
+  @include padding(0, 15px, 0, 15px);
 
   --navigation-items-- {
     line-height: $menu-height-small;
@@ -360,11 +360,11 @@ $navbar-default-height: 60px;
       box-sizing: border-box;
       width: 100%;
       text-align: left;
-      padding: 0 $n70 0 67px;
+      padding: 0 70px 0 67px;
 
       html[dir="rtl"] & {
         text-align: right;
-        padding: 0 67px 0 $n70;
+        padding: 0 67px 0 70px;
       }
 
       &:before {
@@ -403,14 +403,14 @@ $navbar-default-height: 60px;
     }
 
     .nav-link {
-      padding: 0 $n40 0 $n50;
+      padding: 0 40px 0 50px;
       display: block;
       line-height: 2.8125rem;
       font-size: $font-size-sm;
       margin: 0.5em 0;
 
       html[dir="rtl"] & {
-        padding: 0 $n50 0 $n40;
+        padding: 0 50px 0 40px;
       }
     }
 
@@ -438,7 +438,7 @@ $navbar-default-height: 60px;
       display: block;
       min-width: 200px;
       margin: 1.5em auto;
-      padding: $n5 $n30;
+      padding: 5px 30px;
     }
   }
 
@@ -576,7 +576,7 @@ $navbar-default-height: 60px;
   input.form-control {
     height: 40px;
     border: none;
-    padding: $n5 $n10;
+    padding: 5px 10px;
 
     @include large-and-up {
       margin-top: 9px;
@@ -642,7 +642,7 @@ $navbar-default-height: 60px;
   .nav-item.wpml-ls-item {
     list-style: none;
     padding: 0;
-    margin: 0 0 0 $space-lg;
+    margin: 0 0 0 $sp-4;
     line-height: 1rem;
 
     .nav-link {
@@ -653,7 +653,7 @@ $navbar-default-height: 60px;
   .language-selector-min {
     position: absolute;
     top: 0;
-    right: $space-lg;
+    right: $sp-4;
     @include medium-and-up {
       position: relative;
     }

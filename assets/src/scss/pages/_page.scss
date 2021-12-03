@@ -21,22 +21,22 @@ $min-height: 40px;
     }
 
     & > p:first-child {
-      padding-top: $space-xs;
+      padding-top: $sp-1;
 
       @include small-and-up {
-        padding-top: $space-sm;
+        padding-top: $sp-1x;
       }
 
       @include medium-and-up {
-        padding-top: $space-md;
+        padding-top: $sp-2;
       }
 
       @include large-and-up {
-        padding-top: $space-lg;
+        padding-top: $sp-4;
       }
 
       @include x-large-and-up {
-        padding-top: $space-xl;
+        padding-top: $sp-6;
       }
     }
 
@@ -53,12 +53,12 @@ $min-height: 40px;
 .single-campaign {
   .page-content {
     > p:last-child {
-      margin-bottom: $space-xxl;
+      margin-bottom: $sp-8;
     }
 
     &:not(.no-page-title) {
       section:first-child {
-        margin-top: $n40;
+        margin-top: $sp-5;
       }
     }
   }

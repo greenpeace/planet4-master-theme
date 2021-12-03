@@ -10,28 +10,23 @@ $large-width:             992px;
 $extra-large-width:       1200px;
 $extra-extra-large-width: 1600px;
 
-// Units:
-$au: auto;
-$n5: 5px;
-$n10: 10px;
-$n15: 15px;
-$n20: 20px;
-$n25: 25px;
-$n30: 30px;
-$n35: 35px;
-$n40: 40px;
-$n50: 50px;
-$n60: 60px;
-$n70: 70px;
-$n80: 80px;
-$n90: 90px;
-$n100: 100px;
-
 // Spacing
-$space-xxs: 4px;
-$space-xs:  8px;
-$space-sm:  12px;
-$space-md:  16px;
-$space-lg:  32px;
-$space-xl:  48px;
-$space-xxl: 64px;
+@function space($base) {
+  @return calc(#{$base} * 8px);
+}
+$sp-x: space(0.5);
+$sp-1: space(1);
+$sp-1x: space(1.5);
+$sp-2: space(2);
+$sp-2x: space(2.5);
+$sp-3: space(3);
+$sp-3x: space(3.5);
+$sp-4: space(4);
+$sp-4x: space(4.5);
+$sp-5: space(5);
+$sp-5x: space(5.5);
+$sp-6: space(6);
+$sp-6x: space(6.5);
+$sp-7: space(7);
+$sp-7x: space(7.5);
+$sp-8: space(8);

@@ -88,19 +88,19 @@ $navbar-default-height: 60px;
 
     position: absolute;
     line-height: 1.5;
-    @include margin($left: -$n25);
+    @include margin($left: -25px);
 
     html[dir="rtl"] & {
-      @include margin($left: 0, $right: -$n25);
+      @include margin($left: 0, $right: -25px);
       text-transform: lowercase;
     }
 
     @include large-and-up {
-      margin-left: -#{$n25};
+      margin-left: -25px;
 
       html[dir="rtl"] & {
         margin-left: 0;
-        margin-right: -#{$n25};
+        margin-right: -25px;
       }
     }
   }

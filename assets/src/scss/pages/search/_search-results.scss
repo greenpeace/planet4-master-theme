@@ -112,7 +112,7 @@
     width: auto;
     height: 40px;
     line-height: 40px;
-    padding: 0 $space-md;
+    padding: 0 $sp-2;
     font-size: $font-size-sm;
     font-weight: bold;
     text-align: center;
@@ -123,8 +123,8 @@
 
     &.search-results-alternative-label-mobile {
       display: inline-block;
-      height: $space-lg;
-      line-height: $space-lg;
+      height: $sp-4;
+      line-height: $sp-4;
       margin-bottom: 10px;
 
       @include medium-and-up {
@@ -133,7 +133,7 @@
     }
 
     @include medium-and-up {
-      padding: 0 $space-lg;
+      padding: 0 $sp-4;
       display: block;
       width: auto;
       position: relative;
@@ -205,7 +205,7 @@
   font-size: $font-size-sm;
   font-family: $lora;
   line-height: 1.6;
-  margin: $n10 0 0;
+  margin: $sp-1 0 0;
 
   @include large-and-up {
     font-size: 1.125rem;
@@ -230,7 +230,7 @@
     background: $grey-20;
     color: $white;
     font-weight: bold;
-    padding: 2px $n10;
+    padding: 2px $sp-1;
     text-decoration: none;
     margin-right: 10px;
     display: inline-block;

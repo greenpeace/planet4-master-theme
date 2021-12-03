@@ -55,10 +55,10 @@
 }
 
 // Margins and padding. Use to consistently apply gutters
-// use like this: @include padding($left: $n15, $right: $n15); wich will be compiled as padding-left: 15px; padding-right: 15px;
+// use like this: @include padding($left: $sp-2, $right: $sp-2); wich will be compiled as padding-left: 16px; padding-right: 16px;
 
 // To use as negative numbers interpolate these as follows...
-// @include margin($top: -#{$n10}, $right: $n20, $bottom: $n10, $left: 0); which will be compiled as margin: -10, 20px 10px 0px;
+// @include margin($top: -#{$sp-1}, $right: $sp-2x, $bottom: $sp-1, $left: 0); which will be compiled as margin: -8, 20px 8px 0px;
 
 @mixin padding($top: null, $right: null, $bottom: null, $left: null) {
   padding-top: $top;

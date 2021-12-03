@@ -4,10 +4,10 @@
   }
 
   .modal-body {
-    padding: $n30 15px;
+    padding: $sp-4 15px;
 
     @include small-and-up {
-      padding: $n50;
+      padding: $sp-6x;
     }
   }
 
