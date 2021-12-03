@@ -1,0 +1,137 @@
+.sidebar-slides {
+  position: relative;
+}
+
+.sidebar-slide {
+  pointer-events: none;
+
+  .components-panel__arrow {
+    display: none;
+  }
+
+  .components-panel__body-toggle {
+    pointer-events: none;
+    padding-right: 16px;
+    padding-left: 9px;
+  }
+}
+
+.cloned-slide {
+  transition: top 500ms ease;
+  position: absolute;
+  width: 100%;
+  opacity: 1;
+}
+
+.dragged-slide {
+  opacity: .25;
+}
+
+.opened-slide {
+  pointer-events: auto;
+
+  .slide-item-draggable-button {
+    pointer-events: none;
+  }
+
+  .arrow-button[data-type="up"],
+  .arrow-button[data-type="down"] {
+    pointer-events: none;
+  }
+
+  .arrow-button[data-type="toggle"] {
+    transform: rotate(-90deg);
+  }
+}
+
+.slide-item-wrapper {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+
+  * {
+    display: inline-block;
+  }
+}
+
+.slide-item-draggable-button {
+  pointer-events: auto;
+  flex-basis: 8px;
+  flex-shrink: 0;
+  height: 14px;
+  margin-right: 10px;
+  cursor: grab;
+  display: inline-flex;
+}
+
+.slide-item-order-arrows {
+  flex-direction: column;
+  display: inline-flex;
+  align-items: center;
+  flex-grow: 0;
+  justify-content: center;
+  margin-right: 12px;
+
+  > * {
+    &:not(:last-child) {
+      margin-bottom: 6px;
+    }
+  }
+}
+
+.arrow-button {
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  pointer-events: auto;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: 9px 9px;
+    background-image: url("../../public/images/icons/chevron.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    transform-origin: center;
+  }
+
+  &[data-type="up"] {
+    transform: rotate(-90deg);
+  }
+
+  &[data-type="toggle"] {
+    transition: rotate 250ms ease;
+  }
+
+  &[data-type="down"], &[data-type="toggle"] {
+    transform: rotate(90deg);
+  }
+
+  &.disabled {
+    opacity: .5;
+    pointer-events: none;
+  }
+}
+
+.slide-item-image {
+  background-color: $grey-10;
+  flex: 0 0 50px;
+  width: 50px;
+  // Overriden from block-editor__container img
+  height: 50px !important;
+  margin-right: 12px;
+}
+
+.slide-item-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis "...";
+  width: 100%;
+  margin-right: 14px;
+}
