@@ -183,3 +183,5 @@ add_filter(
 	10,
 	2
 );
+
+simple_value_filter( 'wp_image_resize_identical_dimensions', true );
