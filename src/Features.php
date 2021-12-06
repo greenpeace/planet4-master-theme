@@ -203,7 +203,16 @@ class Features {
 		self::$preprocess_fields = array_merge(
 			...array_map(
 				function ( $f ) use ( $cmb ) {
-					return [ $f['id'] => $cmb->get_field( $f['id'] )->value() ];
+					/**
+					 * @var \CMB2_Field|bool $cmb_field
+					 */
+					$cmb_field = $cmb->get_field( $f['id'] );
+
+					if ( ! $cmb_field ) {
+						return [];
+					}
+
+					return [ $f['id'] => $cmb_field->value() ];
 				},
 				self::get_fields()
 			)
