@@ -11,7 +11,6 @@ export const registerTakeActionBoxoutBlock = () => registerBlockType(BLOCK_NAME,
   icon: 'welcome-widgets-menus',
   category: 'planet4-blocks',
   supports: {
-    multiple: false, // Use the block just once per post.
     html: false, // Disable "Edit as HTMl" block option.
   },
   // This attributes definition mimics the one in the PHP side.
