@@ -7,7 +7,7 @@ export const setupExternalLinks = () => {
   const links = [...document.querySelectorAll(linkSelector)];
 
   links.forEach(link => {
-    if (link.matches('#action-card *')) {
+    if (link.matches('.boxout *')) {
       return;
     }
     // We don't want to show the icon in headings/titles,
