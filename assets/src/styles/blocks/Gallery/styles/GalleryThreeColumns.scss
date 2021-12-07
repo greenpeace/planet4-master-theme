@@ -33,7 +33,7 @@
       cursor: pointer;
 
       @include mobile-only {
-        width: 200px;
+        width: 260px;
       }
 
       @include medium-and-up {
@@ -48,7 +48,11 @@
       @include x-large-and-up {
         left: -30%;
         height: 430px;
-        width: 500px;
+        width: 530px;
+      }
+
+      @include xx-large-and-up {
+        width: 620px;
       }
 
       html[dir="rtl"] & {
@@ -115,11 +119,11 @@
     overflow: hidden;
 
     img {
-      width: 600px;
-
+      width: 660px;
       transform: skew(-25deg);
+
       @include mobile-only {
-        width: 200px;
+        width: 280px;
         left: -50px;
       }
 
