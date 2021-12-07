@@ -14,6 +14,8 @@ use WP_Term;
  */
 class Post extends TimberPost {
 
+	const READING_TIME_WPM = 265;
+
 	/**
 	 * Issues navigation
 	 *
@@ -464,5 +466,18 @@ class Post extends TimberPost {
 		}
 
 		return $is_valid;
+	}
+
+	/**
+	 * Calculates reading time.
+	 *
+	 * @return number
+	 */
+	public function reading_time() {
+		$wpm     = planet4_get_option( 'reading_time_wpm', self::READING_TIME_WPM );
+		$words   = str_word_count( $this->content );
+		$minutes = round( $words / $wpm );
+
+		return $minutes;
 	}
 }

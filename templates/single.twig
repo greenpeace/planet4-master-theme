@@ -76,6 +76,12 @@
 							</address>
 						{% endif %}
 						<time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
+						{% if post.reading_time %}
+							<span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
+							<span class="single-post-meta-readtime">
+								{{ post.reading_time }} {{ __( 'min read', 'planet4-master-theme' ) }}
+							</span>
+						{% endif %}
 						{% if ( show_comments ) %}
 							<span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
 							<a href="#comments" class="comment-link">
