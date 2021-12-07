@@ -163,6 +163,17 @@ class Settings {
 					],
 
 					[
+						'name'       => __( 'Reading time: words per minute', 'planet4-master-theme-backend' ),
+						'id'         => 'reading_time_wpm',
+						'type'       => 'text',
+						'attributes' => [
+							'type' => 'number',
+						],
+						'default'    => '265',
+						'desc'       => __( 'Average reading words per minute (usually between 220 and 320).', 'planet4-master-theme-backend' ),
+					],
+
+					[
 						'name' => __( 'Happy point Subscribe Form URL', 'planet4-master-theme-backend' ),
 						'id'   => 'engaging_network_form_id',
 						'type' => 'text',
