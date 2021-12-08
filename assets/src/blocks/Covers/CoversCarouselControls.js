@@ -7,14 +7,12 @@ const CoversCarouselArrow = ({ handler, direction, disabled = false }) => (
   </button>
 );
 
-
 export const CoversCarouselControls = ({
   totalAmountOfCovers,
   amountOfCoversPerRow,
   slideCovers,
   currentRow,
 }) => {
-
   if (!amountOfCoversPerRow || totalAmountOfCovers <= amountOfCoversPerRow) {
     return null;
   }

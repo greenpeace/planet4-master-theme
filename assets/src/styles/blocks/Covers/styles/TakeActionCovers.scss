@@ -1,5 +1,11 @@
 .take-action-covers-block {
   &.carousel-layout {
+    .covers {
+      // This is needed so that the covers' box-shadow is not cut on the sides
+      padding: 0 5px;
+      margin: 0 -5px;
+    }
+
     .cover {
       min-width: 300px;
 

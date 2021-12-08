@@ -31,7 +31,7 @@ export const ContentCovers = ({
       const contentLink = inEditor ? null : link;
 
       return (
-        <div key={post_title} className='cover'>
+        <div key={post_title} className='post-column cover'>
           <div className='content-covers-block-wrap clearfix'>
             <div className='content-covers-block-info'>
               <div className='content-covers-block-image'>

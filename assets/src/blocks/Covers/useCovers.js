@@ -89,17 +89,22 @@ export const useCovers = ({ post_types, tags, cover_type, initialRowsLimit, post
     }
 
     const isRTL = document.querySelector('html').dir === 'rtl';
-    const initialScrollPosition = covers.scrollLeft;
     // We need to account for the spacing between covers,
-    // in all styles that spacing is 24px.
-    const scrollOffset = (isRTL ? -1 : 1) * (covers.offsetWidth + 24);
+    // in all styles that spacing is 24px for screens >= 992px.
+    let scrollOffset = (isRTL ? -1 : 1) * (covers.offsetWidth + 24);
+
+    // For the Take Action covers because of the box-shadow we had to add
+    // extra padding to the sides (5px each) so we need to account for them.
+    if (cover_type === COVERS_TYPES.takeAction) {
+      scrollOffset += (isRTL ? 1 : -1) * 10;
+    }
 
     if (direction) {
+      const initialScrollPosition = covers.scrollLeft;
       covers.scrollLeft = initialScrollPosition + (direction === 'next' ? scrollOffset : -scrollOffset);
       setRow(direction === 'next' ? row + 1 : row - 1);
-    } else if (rowNumber) {
-      const rowOffset = rowNumber > row ? 1 : -1;
-      covers.scrollLeft = initialScrollPosition + rowOffset * rowNumber * scrollOffset;
+    } else if (rowNumber && rowNumber !== row) {
+      covers.scrollLeft = (rowNumber - 1) * scrollOffset;
       setRow(rowNumber);
     }
   };

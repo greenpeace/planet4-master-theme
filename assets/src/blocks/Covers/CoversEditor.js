@@ -45,7 +45,7 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
           }}
         />
       </PanelBody>
-      <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+      <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
         {layout !== COVERS_LAYOUTS.carousel &&
           <SelectControl
             label='Rows to display'
