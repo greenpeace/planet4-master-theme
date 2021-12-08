@@ -1,26 +1,22 @@
 .take-action-covers-block {
-  &.carousel-layout .covers-container {
-    .covers {
-      justify-content: flex-start;
+  &.carousel-layout {
+    .cover {
+      min-width: 300px;
 
-      .cover-card {
-        min-width: 250px;
+      &:not(:last-child) {
+        margin-inline-end: $sp-2;
+      }
+
+      @include medium-and-up {
+        min-width: 296px;
 
         &:not(:last-child) {
-          margin-inline-end: 16px;
+          margin-inline-end: $sp-3;
         }
+      }
 
-        @include medium-and-up {
-          min-width: 296px;
-
-          &:not(:last-child) {
-            margin-inline-end: 24px;
-          }
-        }
-
-        @include x-large-and-up {
-          min-width: 356px;
-        }
+      @include x-large-and-up {
+        min-width: 356px;
       }
     }
 
@@ -30,146 +26,140 @@
     }
   }
 
-  .covers {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
+  &.grid-layout .covers {
+    @supports (display: grid) {
+      grid-template-columns: 1fr;
 
-  .load-more-btn {
-    margin: $sp-3 auto 0 auto;
-    display: block;
-  }
-}
+      @include medium-and-up {
+        grid-column-gap: $sp-3;
+        grid-template-columns: repeat(2, 1fr);
+      }
 
-.cover-card {
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16);
-  transition: box-shadow 0.2s;
-  min-height: 440px;
-  border-radius: 4px;
-  background: white;
-  cursor: pointer;
-  position: relative;
-  font-family: $roboto;
-  margin-bottom: 24px;
-
-  &:hover {
-    box-shadow: 0 1px 14px rgba(0, 0, 0, 0.3);
-
-    .cover-card-heading {
-      text-decoration: underline;
-    }
-
-    .btn {
-      background: var(--button-primary--hover--background, #ee562d);
-    }
-  }
-
-  img {
-    height: 196px;
-    max-height: 196px;
-    min-height: 196px;
-    width: 100%;
-    object-fit: cover;
-    margin-inline-end: 0;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .cover-card-overlay {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-  }
-
-  .cover-card-content {
-    padding: 24px;
-
-    .cover-card-tag {
-      color: $grey-40;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .cover-card-heading {
-      position: relative;
-      z-index: 1;
-      color: black;
-      font-size: 18px;
-      font-weight: 700;
-      margin: 8px 0;
-      line-height: 1.2;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      /* stylelint-disable property-no-vendor-prefix */
-      /*! autoprefixer: off */
-      -webkit-box-orient: vertical;
-      /*! autoprefixer: on */
-      /* stylelint-enable property-no-vendor-prefix */
-      overflow: hidden;
-    }
-
-    .cover-card-excerpt {
-      font-family: $lora;
-      font-size: 14px;
-      line-height: 1.5;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      margin: 0;
-      /* stylelint-disable property-no-vendor-prefix */
-      /*! autoprefixer: off */
-      -webkit-box-orient: vertical;
-      /*! autoprefixer: on */
-      /* stylelint-enable property-no-vendor-prefix */
-      overflow: hidden;
-    }
-  }
-
-  .cover-card-btn {
-    font-size: 14px;
-    line-height: 1;
-    padding: 10px 20px;
-    right: 24px;
-    bottom: 24px;
-    left: auto;
-    position: absolute;
-    margin: 0;
-    border: none;
-
-    html[dir="rtl"] & {
-      left: 24px;
-      right: auto;
-    }
-  }
-
-  @include medium-and-up {
-    min-height: 490px;
-    width: 336px;
-
-    img {
-      height: 220px;
-      max-height: 220px;
-      min-height: 220px;
-    }
-
-    .cover-card-content {
-      padding-top: 32px;
-
-      .cover-card-heading {
-        font-size: 20px;
+      @include large-and-up {
+        grid-template-columns: repeat(3, 1fr);
       }
     }
   }
 
-  @include large-and-up {
-    width: 296px;
-  }
+  .cover {
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16);
+    transition: box-shadow 0.2s;
+    min-height: 440px;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    position: relative;
+    font-family: $roboto;
 
-  @include x-large-and-up {
-    width: 356px;
+    &:hover {
+      box-shadow: 0 1px 14px rgba(0, 0, 0, 0.3);
+
+      .cover-card-heading {
+        text-decoration: underline;
+      }
+
+      .btn {
+        background: var(--button-primary--hover--background, #ee562d);
+      }
+    }
+
+    img {
+      height: 196px;
+      max-height: 196px;
+      min-height: 196px;
+      width: 100%;
+      object-fit: cover;
+      margin-inline-end: 0;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-card-overlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+    }
+
+    .cover-card-content {
+      padding: $sp-3;
+
+      .cover-card-tag {
+        color: $grey-40;
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .cover-card-heading {
+        position: relative;
+        z-index: 1;
+        color: black;
+        font-size: 18px;
+        font-weight: 700;
+        margin: $sp-1 0;
+        line-height: 1.2;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        /* stylelint-disable property-no-vendor-prefix */
+        /*! autoprefixer: off */
+        -webkit-box-orient: vertical;
+        /*! autoprefixer: on */
+        /* stylelint-enable property-no-vendor-prefix */
+        overflow: hidden;
+      }
+
+      .cover-card-excerpt {
+        font-family: $lora;
+        font-size: 14px;
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        margin: 0;
+        /* stylelint-disable property-no-vendor-prefix */
+        /*! autoprefixer: off */
+        -webkit-box-orient: vertical;
+        /*! autoprefixer: on */
+        /* stylelint-enable property-no-vendor-prefix */
+        overflow: hidden;
+      }
+    }
+
+    .cover-card-btn {
+      font-size: 14px;
+      line-height: 1;
+      padding: 10px 20px;
+      right: $sp-3;
+      bottom: $sp-3;
+      left: auto;
+      position: absolute;
+      margin: 0;
+      border: none;
+
+      html[dir="rtl"] & {
+        left: $sp-3;
+        right: auto;
+      }
+    }
+
+    @include medium-and-up {
+      min-height: 490px;
+
+      img {
+        height: 220px;
+        max-height: 220px;
+        min-height: 220px;
+      }
+
+      .cover-card-content {
+        padding-top: 32px;
+
+        .cover-card-heading {
+          font-size: 20px;
+        }
+      }
+    }
   }
 }

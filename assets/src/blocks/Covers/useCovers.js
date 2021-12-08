@@ -18,7 +18,11 @@ export const useCovers = ({ post_types, tags, cover_type, initialRowsLimit, post
   const updateRowCoversAmount = () => {
     switch (cover_type) {
     case COVERS_TYPES.campaign:
-      setAmountOfCoversPerRow(3);
+      if (layout === COVERS_LAYOUTS.carousel) {
+        setAmountOfCoversPerRow(3);
+      } else {
+        setAmountOfCoversPerRow(isSmallWindow() ? 2 : 3);
+      }
       break;
     case COVERS_TYPES.content:
       if (layout === COVERS_LAYOUTS.carousel) {
@@ -109,7 +113,7 @@ export const useCovers = ({ post_types, tags, cover_type, initialRowsLimit, post
   useEffect(() => {
     updateRowCoversAmount();
 
-    if (layout !== COVERS_LAYOUTS.carousel && cover_type !== COVERS_TYPES.campaign) {
+    if (layout !== COVERS_LAYOUTS.carousel) {
       window.addEventListener('resize', updateRowCoversAmount);
       return () => window.removeEventListener('resize', updateRowCoversAmount);
     }

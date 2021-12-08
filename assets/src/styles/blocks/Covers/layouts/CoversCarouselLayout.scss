@@ -12,6 +12,10 @@
     scrollbar-width: none;
     scroll-behavior: smooth;
 
+    .cover {
+      margin-bottom: 24px;
+    }
+
     &::-webkit-scrollbar {
       display: none;
     }

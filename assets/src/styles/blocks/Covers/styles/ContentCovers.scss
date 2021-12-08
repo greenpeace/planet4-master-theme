@@ -1,36 +1,26 @@
 .content-covers-block {
-  &.carousel-layout .covers-container {
-    .covers {
-      justify-content: flex-start;
+  &.carousel-layout {
+    .cover {
+      min-width: 154px;
 
-      .cover {
-        width: 133px;
-        min-width: 133px;
-        padding: 0;
+      &:not(:last-child) {
+        margin-inline-end: $sp-1;
+      }
 
-        .content-covers-block-image {
-          min-width: 100%;
-        }
+      @include medium-and-up {
+        min-width: 200px;
 
         &:not(:last-child) {
-          margin-inline-end: 8px;
+          margin-inline-end: $sp-3;
         }
+      }
 
-        @include medium-and-up {
-          width: 200px;
+      @include large-and-up {
+        min-width: 216px;
+      }
 
-          &:not(:last-child) {
-            margin-inline-end: 24px;
-          }
-        }
-
-        @include large-and-up {
-          width: 216px;
-        }
-
-        @include x-large-and-up {
-          width: 261px;
-        }
+      @include x-large-and-up {
+        min-width: 261px;
       }
     }
 
@@ -40,37 +30,18 @@
     }
   }
 
-  .covers {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+  &.grid-layout .covers {
+    @supports (display: grid) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-column-gap: $sp-1;
 
-    @include mobile-only {
-      overflow-x: scroll;
-      flex-wrap: nowrap;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-
-      &::-webkit-scrollbar {
-        display: none;
+      @include medium-and-up {
+        grid-column-gap: $sp-3;
+        grid-template-columns: repeat(3, 1fr);
       }
-    }
 
-    @media (max-width: 768px) {
-      .cover {
-        width: calc(50% - 4px);
-      }
-    }
-
-    @include medium-and-up {
-      .cover {
-        width: 216px;
-      }
-    }
-
-    @include x-large-and-up {
-      .cover {
-        width: 261px;
+      @include large-and-up {
+        grid-template-columns: repeat(4, 1fr);
       }
     }
   }
@@ -78,20 +49,12 @@
   .content-covers-block-wrap {
     .content-covers-block-image {
       position: relative;
-      margin-bottom: 8px;
-      height: 180px;
-
-      @include small-and-up {
-        margin: $sp-2 0;
-      }
+      margin-bottom: $sp-1;
+      height: 220px;
 
       @include medium-and-up {
         margin-bottom: $sp-2;
-        height: 300px;
-      }
-
-      @include large-and-up {
-        margin: 0 0 $sp-2 0;
+        height: 320px;
       }
 
       img {
@@ -106,6 +69,14 @@
       h5 {
         padding: 0;
         margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        /* stylelint-disable property-no-vendor-prefix */
+        /*! autoprefixer: off */
+        -webkit-box-orient: vertical;
+        /*! autoprefixer: on */
+        /* stylelint-enable property-no-vendor-prefix */
+        overflow: hidden;
 
         > a {
           color: $grey-80;
@@ -116,7 +87,7 @@
         display: none;
 
         @include medium-and-up {
-          margin-bottom: 24px;
+          margin-bottom: 0;
           display: -webkit-box;
           -webkit-line-clamp: 3;
           /* stylelint-disable property-no-vendor-prefix */
@@ -139,7 +110,7 @@
         font-style: italic;
         font-weight: 300;
         color: $grey-60;
-        margin: 8px 0;
+        margin: $sp-1 0;
 
         @include large-and-up {
           font-size: $font-size-xxs;
@@ -150,10 +121,5 @@
         }
       }
     }
-  }
-
-  .load-more-btn {
-    display: block;
-    margin: 24px auto 0 auto;
   }
 }

@@ -31,7 +31,7 @@ export const TakeActionCovers = ({
       const buttonLink = inEditor ? null : button_link;
 
       return (
-        <div key={title} className='col-lg-4 col-md-6 cover-card cover'>
+        <div key={title} className='cover'>
           <a
             className='cover-card-overlay'
             data-ga-category='Take Action Covers'
