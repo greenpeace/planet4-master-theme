@@ -3,9 +3,12 @@ export const setupHeader = function($) {
 
   $(document).on('click', [
     '.navbar-dropdown-toggle',
+    '.nav-menu-toggle',
     '.country-dropdown-toggle',
     '.country-selector-toggle',
     '.navbar-search-toggle',
+    '.nav-search-toggle',
+    '.nav-languages-toggle',
   ].join(), function toggleNavDropdown(evt) {
     evt.preventDefault();
     evt.stopPropagation();
@@ -28,6 +31,20 @@ export const setupHeader = function($) {
     $button.attr('aria-expanded', (i, attr) => {
       return attr === 'false' ? 'true' : 'false';
     });
+
+    // Set same attributes for all search toggles
+    if (evt.currentTarget.classList.contains('nav-search-toggle')) {
+      document.querySelectorAll('.nav-search-toggle').forEach(e => {
+        e.setAttribute('aria-expanded', $button.attr('aria-expanded'));
+        e.setAttribute('data-ga-action', $button.attr('aria-expanded') === 'false' ? 'Open search' : 'Close search');
+        e.classList.toggle('open', $button.hasClass('open'));
+      });
+    }
+
+    // Lock scroll when navigation menu is open
+    if (evt.currentTarget.classList.contains('nav-menu-toggle')) {
+      document.querySelectorAll('body')[0].classList.toggle('no-scroll-nav-open', evt.currentTarget.getAttribute('aria-expanded') === 'true');
+    }
 
     // Toggle data-ga-action attribute used in GTM tracking.
     $('.country-dropdown-toggle').attr( 'data-ga-action', $('.country-dropdown-toggle').attr('aria-expanded') === 'false' ? 'Open Country Selector' : 'Close Country Selector' );
@@ -55,11 +72,25 @@ export const setupHeader = function($) {
     }
   });
 
+  $(document).on('click', '.nav-search-toggle', (evt) => {
+    evt.preventDefault();
+    if (evt.currentTarget.getAttribute('aria-expanded') === 'true') {
+      $('#search_input').focus();
+    }
+  });
+
   //Close the menu if the user clicks the dedicated dropdown close button.
   $(document).on('click', '.close-navbar-dropdown', (evt) => {
     evt.preventDefault();
     // Proxy to the main navbar close button
     $('.navbar-dropdown-toggle').trigger('click');
+  });
+
+  //Close the menu if the user clicks the dedicated close menu button.
+  $(document).on('click', '.nav-menu-close', (evt) => {
+    evt.preventDefault();
+    // Proxy to the main navbar close button
+    $('.nav-menu-toggle').trigger('click');
   });
 
   // Hide Header on on scroll down

@@ -1,628 +1,580 @@
-$menu-height-small: 3.375rem;
-$menu-height-large: 3.75rem;
+$menu-height: 68px;
+$menu-height-large: 68px;
+$menu-height-small: 68px;
 $min-height: 40px;
 $navbar-default-height: 60px;
 
 .top-navigation {
   _-- {
-    background: transparentize($dark-blue, 0.2);
-    border-bottom-width: 0;
-    border-bottom-color: transparent;
+    background: $dark-blue;
+    border-bottom: 0 transparent;
     box-shadow: none;
-  }
-
-  border-bottom-style: solid;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 5;
-  padding: 0;
-  text-transform: uppercase;
-  display: grid;
-  justify-content: space-between;
-  grid-auto-flow: column;
-  align-items: normal;
-  height: $menu-height-small;
-  font-family: $roboto;
-
-  html[dir="rtl"] & {
-    text-transform: lowercase;
-  }
-
-  @include medium-and-up {
-    height: $menu-height-large;
-  }
-
-  @include large-and-up {
-    display: flex;
-    align-items: center;
-  }
-
-  a.nav-link --nav-link-- {
-    font-weight: 400;
     color: $white;
-
-    &:hover {
-      color: $white;
-    }
-
-    &:focus {
-      border-radius: 4px;
-      text-decoration: none;
-    }
-
-    &:active {
-      border: none;
-    }
+    fill: $white;
+    font-family: $roboto;
+    font-size: $font-base-size;
+    height: $menu-height;
   }
 
-  .donate-nav-item {
-    line-height: 1;
-    height: $navbar-default-height;
-  }
+  display: flex;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 4;
 
-  .btn-donate {
-    margin-top: 10px;
-    height: 40px;
-  }
-
-  // Move header down when WordPress Admin Bar is present
   .admin-bar & {
     top: 46px;
 
-    @media screen and (min-width: 783px) {
+    @media (min-width: 783px) {
       top: 32px;
     }
   }
 
-  a, .btn, input {
-    &:focus {
-      --top-navigation--ui-controls-- {
-        outline-color: rgba(255, 255, 255, 0.4);
+  @include large-and-up {
+    align-items: center;
+  }
+
+  input::placeholder _-- {
+    color: inherit;
+    opacity: 0.5;
+  }
+
+  button {
+    .icon {
+      _-- {
+        fill: var(--top-navigation--color, inherit);
+      }
+      height: 24px;
+      top: 0;
+      width: 24px;
+    }
+  }
+
+  .btn-donate {
+    _-- {
+      background: $orange;
+      border: none;
+      box-shadow: none;
+      color: $white;
+      font-size: inherit;
+      min-width: 116px;
+
+      &:hover {
+        background: $orange-hover;
+        border: none;
+        box-shadow: none;
+        color: $white;
+      }
+    }
+
+    height: 44px;
+    line-height: 40px;
+  }
+
+  .nav-donate {
+    padding: 16px 0;
+
+    @include large-and-up {
+      padding: 0 20px;
+    }
+  }
+}
+
+.site-logo {
+  flex-grow: 1;
+  line-height: $menu-height;
+  padding: 0;
+  position: unset;
+  text-align: center;
+
+  img {
+    height: 26px;
+  }
+
+  @include large-and-up {
+    flex-grow: 0;
+    margin-inline-start: calc((100vw - 960px) / 2);
+    text-align: start;
+    width: auto;
+  }
+
+  @include x-large-and-up {
+    margin-inline-start: calc((100vw - 1140px) / 2);
+  }
+
+  @include xx-large-and-up {
+    margin-inline-start: calc((100vw - 1320px) / 2);
+  }
+}
+
+#nav-main {
+  display: flex;
+
+  @include medium-and-less {
+    flex-direction: column-reverse;
+    height: 100%;
+    inset-inline-start: -400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: fixed;
+    transition: inset-inline-start 0.2s ease-in;
+    top: 0;
+    width: 400px;
+
+    &.open {
+      inset-inline-start: 0;
+      transition: inset-inline-start 0.2s ease-out;
+      z-index: 5;
+
+      ~ .top-navigation-overlay {
+        display: block;
+      }
+    }
+
+    .admin-bar & {
+      padding-bottom: 46px;
+      top: 46px;
+
+      @media (min-width: 783px) {
+        padding-bottom: 32px;
+        top: 32px;
       }
     }
   }
 
-  // Override bootstrap's default form styles because it's not accessible in the navbar.
-  // Instead use the same outline style as buttons, with offset.
-  #search_input:focus {
-    outline-style: solid;
-    outline-width: 2px;
-    outline-offset: 2px;
-
-    &:not(:focus-visible) {
-      outline: 0;
+  @include small-and-less {
+    &.open {
+      width: 100%;
     }
   }
-}
 
-.site-logo,
-.btn-navbar-toggle,
-.navbar-search-toggle,
-.country-dropdown-toggle,
-.nav-item,
-.nav-link {
-  @include padding(0, $n15, 0, $n15);
-
-  --navigation-items-- {
-    line-height: $menu-height-small;
-
-    @include medium-and-up {
-      line-height: $menu-height-large;
-      font-size: $font-size-md;
-    }
+  @include large-and-up {
+    flex-grow: 1;
+    width: auto;
   }
 }
 
-.btn-navbar-toggle,
-.country-dropdown-toggle,
-.nav-link {
-  &.active,
-  &:hover,
-  &:active {
-    text-decoration: none;
-    box-shadow: none;
-    outline: 0;
+.nav-menu {
+  background: var(--top-navigation--background, $dark-blue);
+  display: none;
+  height: 100%;
+  inset-block-start: 0;
+  top: 0;
+  width: auto;
+  z-index: 4;
+
+  @include medium-and-less {
+    display: block;
+    overflow-y: auto;
   }
-}
 
-.btn-navbar-toggle _-- {
-  color: $white;
-  margin: 11px;
-}
-
-.navbar-search-toggle,
-.btn-navbar-toggle {
-  line-height: 2rem;
-  z-index: 1;
-
-  .icon {
-    font-size: $font-size-md;
+  @include large-and-up {
+    background: inherit;
+    display: flex;
+    flex-grow: 1;
+    height: auto;
   }
-}
 
-.navbar-dropdown-toggle {
-  order: -1;
-
-  // When menu is open, turn the button into the background overlay and hide the text
-  &[aria-expanded="true"] {
-    _-- {
-      background: transparentize($grey-80, 0.5);
-    }
-    z-index: 2;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    outline: 0;
-    border: 0;
-    box-shadow: none;
-    padding: 0;
+  ul {
+    list-style-type: none;
     margin: 0;
+    padding-inline: 40px 12px;
+    padding-top: 16px;
+    text-align: start;
 
-    span {
+    @include large-and-up {
+      display: flex;
+      flex-grow: 1;
+      justify-content: end;
+      padding-top: 0;
+      text-align: end;
+    }
+  }
+}
+
+.nav-item {
+  color: inherit;
+  font-size: $font-base-size;
+  font-weight: 700;
+
+  @include large-and-up {
+    line-height: $menu-height;
+  }
+}
+
+a.nav-link --nav-link-- {
+  display: inline-block;
+  color: $white;
+  padding: 16px 0;
+  width: 100%;
+
+  &:hover {
+    color: $white;
+    text-decoration: underline;
+    text-underline-position: auto;
+  }
+
+  @include large-and-up {
+    padding: 0 20px;
+  }
+}
+
+.active a.nav-link --nav-link-active-- {
+  color: var(--nav-link--hover--color, $white);
+  text-decoration: var(--nav-link--hover--text-decoration, underline);
+  text-underline-position: var(--nav-link--hover--text-underline-position, auto);
+}
+
+.nav-search-form {
+  background-color: var(--body--background-color, $white);
+  border: none;
+  border-top: 1px solid #c4c4c4;
+  box-shadow: 0 2px 4px transparentize($black, 0.85);
+  display: none;
+  height: 56px;
+  inset-inline-start: 0;
+  position: fixed;
+  top: $menu-height;
+  z-index: 3;
+  width: 100%;
+
+  .admin-bar & {
+    top: calc(#{$menu-height} + 46px);
+
+    @media (min-width: 783px) {
+      top: calc(#{$menu-height} + 32px);
+    }
+  }
+
+  &.open {
+    display: flex;
+
+    @include medium-and-less {
+      #nav-main.open & {
+        display: none;
+      }
+    }
+  }
+
+  @include x-large-and-up {
+    background: var(--top-navigation--background, inherit);
+    border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+    border-top: none;
+    box-shadow: none;
+    display: inline-block;
+    height: 100%;
+    inset-inline-end: auto;
+    min-width: 25%;
+    padding: 0 16px;
+    position: unset;
+    width: auto;
+
+    &.open {
+      display: inline-block;
+    }
+  }
+}
+
+#search_input {
+  background: transparent;
+  border: none;
+  border-radius: unset;
+  box-shadow: none;
+  color: var(--top-navigation--color, $grey-80);
+  display: inline-block;
+  flex-grow: 1;
+  font-size: $font-base-size;
+  line-height: $menu-height;
+  padding-inline: 12px 8px;
+  width: auto;
+
+  @include x-large-and-up {
+    color: inherit;
+    width: calc(100% - 48px);
+  }
+}
+
+#search_input:placeholder-shown ~ button.nav-search-clear {
+  visibility: hidden;
+}
+
+#search_input::-webkit-search-decoration,
+#search_input::-webkit-search-cancel-button,
+#search_input::-webkit-search-results-button,
+#search_input::-webkit-search-results-decoration {
+  display: none;
+}
+// Hack to hide the input:-internal-autofill-selected style from webkit
+#search_input:-webkit-autofill,
+#search_input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+.nav-menu-toggle {
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  padding: 0 24px;
+
+  @include large-and-up {
+    display: none;
+  }
+}
+
+.nav-menu-close {
+  background-color: var(--top-navigation--color, $white);
+  border: none;
+  display: none;
+  height: 68px;
+  inset-inline-end: 0;
+  mask: url("../../images/cross.svg") 50% 50%/16px 16px no-repeat;
+  position: absolute;
+  top: 0;
+  width: 68px;
+  z-index: 5;
+
+  @include medium-and-less {
+    display: block;
+  }
+
+  @include medium-and-up {
+    inset-inline-start: 332px;
+  }
+}
+
+.nav-search-btn {
+  background: transparent;
+  border: none;
+  display: none;
+  float: left;
+  padding: 0;
+
+  html[dir="rtl"] & {
+    float: right;
+  }
+
+  @include x-large-and-up {
+    display: inline-block;
+    line-height: $menu-height;
+  }
+}
+
+.nav-search-clear {
+  background-color: $black;
+  border: none;
+  float: right;
+  height: 56px;
+  margin-inline-end: 36px;
+  mask: url("../../images/cross-circle.svg") 50% 50%/24px 24px no-repeat;
+  width: 24px;
+
+  html[dir="rtl"] & {
+    float: left;
+  }
+
+  @include x-large-and-up {
+    background-color: var(--top-navigation--color, $white);
+    display: inline-block;
+    height: $menu-height;
+    margin-inline-end: 0;
+  }
+}
+
+.nav-search-toggle-container {
+  display: none;
+  height: $menu-height;
+  padding: 12px;
+
+  &.medium-and-less {
+    display: inline-block;
+    @include large-and-up {
       display: none;
     }
   }
 
   @include large-and-up {
+    display: inline-block;
+    border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+  }
+
+  @include x-large-and-up {
     display: none;
   }
 }
 
-.navbar-search-toggle {
-  _-- {
-    color: $white;
-    margin: 11px;
-  }
-  cursor: pointer;
-  border: 0;
-  mask-image: url("../../images/search.svg");
-  mask-size: 28px;
-  mask-repeat: no-repeat;
-  background-color: $white;
+.nav-search-toggle {
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  height: 44px;
+  width: 44px;
 
-  &.open {
-    outline: 0;
-    mask-image: url("../../images/times.svg");
-    mask-size: 16px;
-    mask-repeat: no-repeat;
-    mask-position: center;
-    background-color: $white;
+  @include medium-and-less {
+    opacity: 0.5;
   }
 
-  html[dir="rtl"] & {
-    margin-left: 11px;
-    margin-right: auto;
-  }
-
-  @include large-and-up {
-    display: none;
+  &.open --top-navigation--search-toggle-- {
+    background: rgba(255, 255, 255, 0.15);
   }
 }
 
-// Logo
-.site-logo {
-  position: absolute;
-  justify-self: center;
-
-  @include large-and-up {
-    position: static;
-    width: auto;
-    text-align: left;
-    line-height: 1;
-  }
-
-  &:focus {
-    box-shadow: none;
-    border: none;
-  }
-
-  img {
-    height: 1.25rem;
-
-    @include small-and-up {
-      height: 1.5rem;
-    }
-
-    @include large-and-up {
-      height: 1.875rem;
-    }
-  }
-}
-
-.navbar-dropdown {
+.nav-languages-toggle {
+  background: transparent;
+  border: none;
+  color: inherit;
   display: none;
-  margin: 0;
-  list-style-type: none;
-  height: 100vh;
-  width: 300px;
-  background-position: right $menu-height-small;
+  font-size: $font-base-size;
+  font-weight: 700;
+  padding: 0 20px;
 
-  html[dir="rtl"] & {
-    left: auto;
-    right: 0;
-
-    .country-dropdown-toggle {
-      text-transform: none;
-    }
+  @include large-and-up {
+    border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+    display: inline-block;
+    line-height: $menu-height;
   }
 
-  @include small-and-up {
-    height: 100vh;
-    width: 375px;
+  &::after {
+    background-color: var(--top-navigation--color, $white);
+    background-repeat: no-repeat;
+    content: "";
+    display: inline-block;
+    height: 8px;
+    margin-inline-start: 4px;
+    mask: url("../../images/chevron.svg") 0 0/8px 8px;
+    transform: rotate(90deg);
+    transition: transform 100ms linear;
+    width: 8px;
+  }
+
+  &[aria-expanded="true"]::after {
+    transform: rotate(-90deg);
+  }
+}
+
+.nav-languages {
+  display: none;
+  background: var(--top-navigation--background, $dark-blue);
+  box-shadow: none;
+  position: unset;
+  width: 100%;
+  z-index: 4;
+
+  a.nav-link {
+    padding: 0;
+    width: auto;
+  }
+
+  ul {
+    border-bottom: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+    display: inline-block;
+    flex-grow: 1;
+    margin-block: 0;
+    margin-inline: 40px;
+    padding-bottom: 36px;
+    padding-top: 40px;
+    padding-inline: 0;
+    width: 100%;
+  }
+
+  li {
+    display: inline-block;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    opacity: 0.6;
+  }
+
+  .current-language {
+    opacity: 1;
+  }
+
+  .current-language::after {
+    background: none;
+    mask: none;
+  }
+
+  li > span[aria-hidden="true"] {
+    opacity: 1;
+  }
+
+  li:last-of-type > span[aria-hidden="true"] {
+    display: none;
+  }
+
+  @include medium-and-less {
+    display: flex;
   }
 
   @include medium-and-up {
     width: 400px;
-    background-position: right $menu-height-large;
   }
 
   @include large-and-up {
-    height: auto;
-    width: auto;
-    background-position: 0% 0%;
-  }
-
-  &.open {
-    display: flex;
-  }
-
-  li:first-child {
-    z-index: 10;
-
-    @include medium-and-up {
-      z-index: 0;
-    }
-  }
-
-  ::-webkit-scrollbar {
-    width: 9px;
-  }
-
-  ::-webkit-scrollbar-track {
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.2);
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.4);
-  }
-
-  ::-webkit-scrollbar-thumb:window-inactive {
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  // All other dropdown styles - This special rule has a 1px offset as it uses max-width instead of min-width
-  @media (max-width: #{$large-width - 1}) {
-    _-- {
-      background: $dark-blue url("../../images/dropdown-gradient.svg") no-repeat;
-    }
-    box-sizing: border-box;
-    flex-direction: column;
-    justify-content: space-between;
+    background: var(--top-navigation--background, $white);
+    border-radius: 4px;
+    box-shadow: 0 1px 4px transparentize($black, 0.88);
+    inset-inline-end: 8px;
+    min-width: 140px;
     position: absolute;
-    top: 0;
-    left: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    z-index: 2;
+    text-align: start;
+    top: $menu-height + 8px;
+    width: unset;
+    z-index: 3;
 
-    .close-navbar-dropdown {
-      cursor: pointer;
-      position: absolute;
-      right: 0;
-      height: $menu-height-small;
-      width: $menu-height-small;
-      mask-image: url("../../images/times.svg");
-      mask-size: 16px;
-      mask-repeat: no-repeat;
-      mask-position: center;
-      background-color: $white;
-      z-index: 2;
+    &.open {
+      display: block;
+    }
+
+    ul {
       border: 0;
-
-      html[dir="rtl"] & {
-        right: auto;
-        left: 0;
-      }
-
-      @include medium-and-up {
-        height: $menu-height-large;
-      }
+      list-style: none;
+      margin: 0;
+      padding: 16px 0;
     }
 
-    &::before {
-      _-- {
-        background: transparentize($grey-80, 0.9);
-      }
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 8px;
-      z-index: 0;
+    li {
+      display: block;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 48px;
+      margin: 0;
+      opacity: 1;
+      padding-block: 0;
+      //padding-inline: 16px 12px;
     }
 
-    .country-dropdown-toggle {
-      box-sizing: border-box;
+    li:hover {
+      background: rgba(216, 216, 216, 0.4);
+    }
+
+    li > span[aria-hidden="true"] {
+      display: none;
+    }
+
+    a.nav-link {
+      color: $grey-80;
+      display: inline-block;
+      padding-inline: 16px 12px;
+      text-decoration: none;
       width: 100%;
-      text-align: left;
-      padding: 0 $n70 0 67px;
-
-      html[dir="rtl"] & {
-        text-align: right;
-        padding: 0 67px 0 $n70;
-      }
-
-      &:before {
-        _-- {
-          background: url("../../images/country-icon.svg") center center no-repeat;
-        }
-        content: "";
-        position: absolute;
-        top: 13px;
-        left: 0;
-        height: 1.75em;
-        width: 50px;
-        display: inline-block;
-        border-right: 1px solid transparentize($white, 0.9);
-        background-size: contain;
-
-        html[dir="rtl"] & {
-          left: auto;
-          right: 0;
-          border-right: none;
-          border-left: 1px solid rgba(255, 255, 255, .1);
-        }
-
-        @include medium-and-up {
-          top: 17px;
-        }
-      }
     }
 
-    .nav-item {
-      z-index: 1;
-
-      &:last-child {
-        flex-basis: 100%;
-      }
+    a.nav-link:hover {
+      text-decoration: none;
     }
 
-    .nav-link {
-      padding: 0 $n40 0 $n50;
-      display: block;
-      line-height: 2.8125rem;
-      font-size: $font-size-sm;
-      margin: 0.5em 0;
-
-      html[dir="rtl"] & {
-        padding: 0 $n50 0 $n40;
-      }
-    }
-
-    .active .nav-link,
-    .nav-link:focus,
-    .nav-link:hover {
-      position: relative;
-      z-index: 2;
-    }
-
-    .active .nav-link::before {
-      _-- {
-        background: $white;
-      }
+    .current-language a::after {
+      background-color: $grey-80;
       content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 8px;
-      margin-left: -50px;
-      z-index: 2;
-    }
-
-    .btn-donate {
-      display: block;
-      min-width: 200px;
-      margin: 1.5em auto;
-      padding: $n5 $n30;
-    }
-  }
-
-  @include large-and-up {
-    display: flex;
-    flex-grow: 1;
-    justify-content: space-between;
-    padding: 0;
-
-    .close-navbar-dropdown {
-      display: none;
-    }
-
-    .nav-link {
-      padding: 0;
-      text-align: center;
-      border-bottom-style: solid;
-
-      --nav-link-- {
-        border-bottom-width: 2px;
-        border-bottom-color: transparent;
-        min-width: 20%;
-
-        &:hover,
-        &:active {
-          border-bottom-color: $white;
-        }
-      }
-
-      &:focus:not(:focus-visible) {
-        border-radius: 0;
-      }
-    }
-
-    .active .nav-link --nav-link-active-- {
-      border-bottom-color: $white;
-    }
-  }
-
-  @include x-large-and-up {
-    padding: 0 15px;
-  }
-
-  .nav-item {
-    margin: 0;
-    padding: 0;
-  }
-
-  .wpml-ls-current-language {
-    display: list-item;
-  }
-}
-
-.nav-search-wrap {
-  display: none;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: 300px;
-  padding: 11px;
-  max-width: 80%;
-
-  _-- {
-    background: transparentize($dark-blue, 0.2);
-  }
-
-  html[dir="rtl"] & {
-    right: auto;
-    left: 0;
-  }
-
-  &.open {
-    display: block;
-  }
-
-  @include large-and-up {
-    height: $navbar-default-height;
-    position: relative;
-    max-width: 20%;
-    width: 400px;
-    display: inline-block;
-    padding: 0 15px;
-    background: none;
-    top: auto;
-    right: auto;
-
-    html[dir="rtl"] & {
-      left: auto;
-    }
-  }
-
-  input::placeholder {
-    color: $grey-40;
-
-    html[dir="rtl"] & {
-      text-transform: lowercase;
-    }
-  }
-
-  .top-nav-search-btn {
-    _-- {
-      background-color: $white;
-      color: $dark-blue;
-      border-radius: 4px;
-    }
-    border: none;
-    position: absolute;
-    right: 12px;
-    font-size: $font-size-md;
-    line-height: 22px;
-    top: 11px;
-
-    html[dir="rtl"] & {
-      left: 12px;
-      right: auto;
-    }
-
-    .icon {
-      vertical-align: middle;
-      font-size: $font-size-lg;
-      top: 5px;
-    }
-
-    @include large-and-up {
-      right: 16px;
-      top: 9px;
+      display: inline-block;
+      float: right;
+      height: 48px;
+      mask: url("../../images/checkmark.svg") 50% 50%/16px 12px no-repeat;
+      width: 16px;
 
       html[dir="rtl"] & {
-        left: 16px;
-        right: auto;
+        float: left;
       }
-    }
-  }
-
-  input.form-control {
-    height: 40px;
-    border: none;
-    padding: $n5 $n10;
-
-    @include large-and-up {
-      margin-top: 9px;
-    }
-
-    &:not(:placeholder-shown):focus ~ .top-nav-search-btn {
-      display: none;
-    }
-  }
-}
-
-.nav-item.wpml-ls-item {
-  @include large-and-up {
-    margin-left: -20px;
-  }
-
-  @include x-large-and-up {
-    margin-left: -60px;
-  }
-
-  .nav-link {
-    _-- {
-      font-weight: normal;
-    }
-    display: inline;
-    font-size: $font-size-xxs;
-    padding: 0;
-
-    html[dir="rtl"] & {
-      padding: 0;
-    }
-
-    &:first-child {
-      padding-left: 50px;
-
-      html[dir="rtl"] & {
-        padding-left: 0;
-        padding-right: 50px;
-      }
-
-      @include large-and-up {
-        padding-left: 0;
-
-        html[dir="rtl"] & {
-          padding-right: 0;
-        }
-      }
-    }
-
-    &:not(:last-child)::after {
-      content: " | ";
     }
   }
 }
@@ -631,99 +583,38 @@ $navbar-default-height: 60px;
   --top-navigation-min-- {
     height: $min-height;
   }
-  align-items: baseline;
-  justify-content: start;
-
-  .nav-item.wpml-ls-item {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 0 $space-lg;
-    line-height: 1rem;
-
-    .nav-link {
-      margin: 0;
-    }
-  }
-
-  .language-selector-min {
-    position: absolute;
-    top: 0;
-    right: $space-lg;
-    @include medium-and-up {
-      position: relative;
-    }
-  }
-
-  .site-logo,
-  .btn-navbar-toggle,
-  .navbar-search-toggle,
-  .country-dropdown-toggle,
-  .nav-item,
-  .nav-link {
-    line-height: 2.25rem;
-    @include padding(0, 0, 0, 0);
-
-    @include medium-and-up {
-      line-height: 2.25rem;
-      font-size: $font-size-md;
-    }
-
-    @include large-and-up {
-      margin-left: 10px;
-    }
-
-    @include x-large-and-up {
-      margin-left: 36px;
-    }
-  }
 
   .site-logo {
-    position: absolute;
-    width: 100%;
-    text-align: center;
-
-    @include large-and-up {
-      position: static;
-      width: auto;
-      text-align: left;
-    }
-
-    &:focus {
-      box-shadow: none;
-    }
+    line-height: $min-height;
 
     img {
-      height: 1.1rem;
+      height: 18px;
+    }
+
+    @include large-and-up {
+      margin-inline-start: 36px;
     }
   }
 }
 
-// Enhanced mobile Donate button
-.btn-donate {
-  &.btn-donate-top {
+.top-navigation-overlay {
+  display: none;
+  background: $black;
+  height: 100%;
+  opacity: 0.5;
+  overflow: hidden;
+  overflow-y: scroll;
+  pointer-events: all;
+  position: fixed;
+  top: 0;
+  width: calc(100% + 20px);
+  z-index: 4;
+}
+
+.no-scroll-nav-open {
+  @include medium-and-less {
+    overflow-y: hidden;
     position: fixed;
-    left: 0;
-    z-index: 4;
     width: 100%;
-    height: 3.3rem;
-    line-height: 3.3rem;
-    top: 3.3rem;
-    transition: top .2s;
-
-    .admin-bar & {
-      top: 6.2rem;
-    }
   }
-
-  &.btn-donate-top-hide {
-    top: -3.3rem;
-
-    .admin-bar & {
-      top: -6.2rem;
-    }
-  }
-}
-
-body.with-donate-on-top {
-  padding-top: 3.3rem;
 }

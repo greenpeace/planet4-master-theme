@@ -80,6 +80,12 @@ final class PublicAssets {
 	 * - CSS specific to a particular page (e.g. search)
 	 */
 	private static function conditionally_load_partials(): void {
+		$navbar_version = Features::is_active( Features::NEW_DESIGN_NAVIGATION_BAR )
+			? planet4_get_option( 'website_navigation_style', 'dark' )
+			: 'old';
+		$navbar_file    = '/assets/build/navigation-bar-' . $navbar_version . '.min.css';
+		Loader::enqueue_versioned_style( $navbar_file, 'navigation-bar', [ 'parent-style' ] );
+
 		$country_selector_version = Features::is_active( Features::NEW_DESIGN_COUNTRY_SELECTOR ) ? 'new' : 'old';
 		$country_selector_file    = '/assets/build/country-selector-' . $country_selector_version . '.min.css';
 		Loader::enqueue_versioned_style( $country_selector_file, 'country-selector', [ 'parent-style' ] );

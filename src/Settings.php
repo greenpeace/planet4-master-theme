@@ -393,6 +393,21 @@ class Settings {
 				],
 			],
 		];
+
+		if ( Features::is_active( Features::NEW_DESIGN_NAVIGATION_BAR ) ) {
+			$this->subpages['planet4_settings_navigation']['fields'][] = [
+				'name'    => __( 'Website Navigation Style', 'planet4-master-theme-backend' ),
+				'desc'    => __( 'Select a style', 'planet4-master-theme-backend' ),
+				'id'      => 'website_navigation_style',
+				'type'    => 'select',
+				'default' => 'dark',
+				'options' => [
+					'dark'  => __( 'Dark', 'planet4-master-theme-backend' ),
+					'light' => __( 'Light', 'planet4-master-theme-backend' ),
+				],
+			];
+		}
+
 		$this->hooks();
 	}
 
