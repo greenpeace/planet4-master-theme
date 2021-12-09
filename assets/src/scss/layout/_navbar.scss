@@ -131,23 +131,6 @@ $navbar-default-height: 60px;
       }
     }
 
-    .nav-menu {
-      display: block;
-      overflow-y: auto;
-    }
-
-    .nav-menu-close {
-      display: block;
-    }
-
-    .nav-languages {
-      display: flex;
-    }
-
-    .nav-search-toggle {
-      opacity: 0.5;
-    }
-
     .admin-bar & {
       padding-bottom: 46px;
       top: 46px;
@@ -171,7 +154,7 @@ $navbar-default-height: 60px;
   }
 }
 
-nav.nav-menu {
+.nav-menu {
   background: var(--top-navigation--background, $dark-blue);
   display: none;
   height: 100%;
@@ -179,6 +162,11 @@ nav.nav-menu {
   top: 0;
   width: auto;
   z-index: 4;
+
+  @include medium-and-less {
+    display: block;
+    overflow-y: auto;
+  }
 
   @include large-and-up {
     background: inherit;
@@ -261,8 +249,10 @@ a.nav-link --nav-link-- {
   &.open {
     display: flex;
 
-    #nav-main.open & {
-      display: none;
+    @include medium-and-less {
+      #nav-main.open & {
+        display: none;
+      }
     }
   }
 
@@ -343,6 +333,10 @@ a.nav-link --nav-link-- {
   width: 68px;
   z-index: 5;
 
+  @include medium-and-less {
+    display: block;
+  }
+
   @include medium-and-up {
     inset-inline-start: 332px;
   }
@@ -414,6 +408,10 @@ a.nav-link --nav-link-- {
   border-radius: 4px;
   height: 44px;
   width: 44px;
+
+  @include medium-and-less {
+    opacity: 0.5;
+  }
 
   &.open --top-navigation--search-toggle-- {
     background: rgba(255, 255, 255, 0.15);
@@ -501,6 +499,10 @@ a.nav-link --nav-link-- {
 
   li:last-of-type > span[aria-hidden="true"] {
     display: none;
+  }
+
+  @include medium-and-less {
+    display: flex;
   }
 
   @include medium-and-up {
