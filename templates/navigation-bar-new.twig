@@ -99,8 +99,8 @@
 				<span class="visually-hidden">{{ __( 'Clear search', 'planet4-master-theme' ) }}</span>
 			</button>
 		</form>
-		{% if languages is not empty %}
-			{% set current_lang = languages|filter(i => i.active)|first %}
+		{% if site_languages is not empty %}
+			{% set current_lang = site_languages|filter(i => i.active)|first %}
 			<button class="nav-languages-toggle" type="button"
 				aria-label="{{ __( 'Choose language', 'planet4-master-theme' ) }}"
 				aria-expanded="false"
@@ -109,7 +109,7 @@
 			>{{ current_lang.code|capitalize }}</button>
 			<nav id="nav-languages" class="nav-languages">
 				<ul>
-				{% for key,item in languages %}
+				{% for key,item in site_languages %}
 				<li class="nav-item {{ item.active ? 'current-language' : '' }}">
 					<a class="nav-link" href="{{ item.url }}">{{ item.native_name }}</a>
 					<span aria-hidden="true">&nbsp;|&nbsp;</span>
