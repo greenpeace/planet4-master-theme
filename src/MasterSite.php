@@ -480,7 +480,7 @@ class MasterSite extends TimberSite {
 	 * @return mixed
 	 */
 	public function add_to_context( $context ) {
-		global $wp, $sitepress;
+		global $wp;
 		$context['cookies']      = [
 			'text' => planet4_get_option( 'cookies_field' ),
 		];
@@ -494,9 +494,6 @@ class MasterSite extends TimberSite {
 		];
 		$context['domain']       = 'planet4-master-theme';
 		$context['foo']          = 'bar';   // For unit test purposes.
-		if ( function_exists( 'icl_get_languages' ) ) {
-			$context['languages'] = count( icl_get_languages() );
-		}
 
 		$menu                         = new TimberMenu( 'navigation-bar-menu' );
 		$menu_items                   = $menu->get_items();
@@ -507,7 +504,10 @@ class MasterSite extends TimberSite {
 				return ! in_array( 'wpml-ls-item', $item->classes ?? [], true );
 			}
 		);
-		$context['languages']         = $sitepress ? $sitepress->get_ls_languages() : [];
+
+		$languages                 = function_exists( 'icl_get_languages' ) ? icl_get_languages() : [];
+		$context['site_languages'] = $languages;
+		$context['languages']      = count( $languages ); // Keep this variable name as long as NRO themes use it.
 
 		$context['site']         = $this;
 		$context['current_url']  = home_url( $wp->request );
