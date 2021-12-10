@@ -52,7 +52,7 @@ final class SmartsheetClient {
 		}
 
 		try {
-			return Smartsheet::from_api_response( json_decode( $response['body'], true ) );
+			return Smartsheet::from_smartsheet_api_response( json_decode( $response['body'], true ) );
 		} catch ( InvalidArgumentException $exception ) {
 			return null;
 		}

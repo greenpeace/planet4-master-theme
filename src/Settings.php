@@ -370,6 +370,12 @@ class Settings {
 						'type' => 'text',
 					],
 					[
+						'name' => __( 'Local Projects Google Sheet ID', 'planet4-master-theme-backend' ),
+						'desc' => __( 'The Google Sheet that is used to get analytics values from local(NRO) smartsheet.', 'planet4-master-theme-backend' ),
+						'id'   => 'analytics_local_google_sheet_id',
+						'type' => 'text',
+					],
+					[
 						'name' => __( 'Enable Google Consent Mode', 'planet4-master-theme-backend' ),
 						'desc' => __( "Enabling the Consent Mode will affect your setup in Google Tag Manager. The Consent Mode will prevent tags with built-in consent checks (eg. Google Analytics) from running before the user's consent is granted.", 'planet4-master-theme-backend' ),
 						'id'   => 'enable_google_consent_mode',
