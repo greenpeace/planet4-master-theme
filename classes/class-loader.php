@@ -337,12 +337,15 @@ final class Loader {
 		$en_active = ! MigrationLog::from_wp_options()->already_ran( M001EnableEnFormFeature::get_id() )
 					|| Features::is_active( Features::ENGAGING_NETWORKS );
 
+		$uses_cdn = is_plugin_active( 'wp-stateless/wp-stateless-media.php' ) && get_option( 'sm_custom_domain' );
+
 		$reflection_vars = [
 			'home'            => P4GBKS_PLUGIN_URL . '/public/',
 			'planet4_options' => $option_values,
 			'features'        => [
 				'feature_engaging_networks' => $en_active,
 			],
+			'uses_cdn'        => $uses_cdn,
 		];
 		wp_localize_script( 'planet4-blocks-editor-script', 'p4ge_vars', $reflection_vars );
 
