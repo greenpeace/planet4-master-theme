@@ -4,7 +4,7 @@
   justify-content: space-between;
 
   --block-articles--article-- {
-    margin-top: $space-lg;
+    margin-top: $sp-4;
     background-color: transparentize($white, .2);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 
@@ -77,7 +77,7 @@
 }
 
 .article-list-item-body {
-  padding: $n15;
+  padding: $sp-2;
 
   @include medium-and-up {
     flex-basis: 68%;
@@ -127,7 +127,7 @@
 
 .article-list-item-bullet {
   display: inline-block;
-  padding: 0 3px 0 $n5;
+  padding: 0 $sp-x;
 }
 
 .article-list-item-content {
@@ -136,7 +136,7 @@
     width: 80%;
   }
   display: none;
-  margin: $space-xs 0 0;
+  margin: $sp-1 0 0;
 
   @include large-and-up {
     display: block;
@@ -177,7 +177,7 @@
 }
 
 .article-load-more {
-  margin-top: $space-lg;
+  margin-top: $sp-4;
 }
 
 .article-list-item-tags .tag-wrap --block-articles--article--tags-- {

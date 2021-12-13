@@ -328,7 +328,7 @@ $medium-image-height: 600px;
       }
 
       @include medium-and-up {
-        padding-top: $n40;
+        padding-top: $sp-5;
       }
 
       @include large-and-up {

@@ -1,6 +1,6 @@
 @mixin campaign-en-block($form-caption-transform: false) {
   .form-caption {
-    padding-bottom: $space-xxl;
+    padding-bottom: $sp-8;
 
     h1, h2, h3 {
       @if $form-caption-transform {

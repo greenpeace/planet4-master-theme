@@ -5,12 +5,12 @@
 
 .block-spreadsheet {
   display: inline-block;
-  margin-top: $space-xs;
-  margin-bottom: $space-md;
+  margin-top: $sp-1;
+  margin-bottom: $sp-2;
 
   @include large-and-up {
-    margin-top: $space-md;
-    margin-bottom: $space-lg;
+    margin-top: $sp-2;
+    margin-bottom: $sp-4;
   }
 }
 
@@ -59,8 +59,8 @@ table.spreadsheet-table {
     top: 0;
 
     svg {
-      width: $space-md;
-      margin-left: $space-xs;
+      width: $sp-2;
+      margin-left: $sp-1;
       // Compensate for a small baseline misalignment
       margin-top: -2px;
       // Use opacity instead of `display: none` to avoid jumpyness on headers
@@ -111,7 +111,7 @@ table.spreadsheet-table {
 }
 
 .spreadsheet-loading {
-  padding: $space-xl;
+  padding: $sp-6;
   text-align: center;
 }
 
@@ -121,7 +121,7 @@ table.spreadsheet-table {
 }
 
 .spreadsheet-empty-message {
-  padding: $space-md;
+  padding: $sp-2;
   font-size: 1.12rem;
   line-height: 1.375rem;
 

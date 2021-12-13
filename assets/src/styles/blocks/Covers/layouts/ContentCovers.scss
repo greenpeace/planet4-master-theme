@@ -1,6 +1,6 @@
 .content-covers-block {
   .load-more-posts-button-div {
-    margin-top: $space-lg;
+    margin-top: $sp-4;
   }
 
   .row {
@@ -26,7 +26,7 @@
   }
 
   .content-covers-block-wrap {
-    margin-top: $space-lg;
+    margin-top: $sp-4;
 
     .content-covers-block-symbol {
       position: relative;
@@ -35,17 +35,17 @@
       height: 180px;
 
       @include small-and-up {
-        margin: $n20 0;
+        margin: $sp-2x 0;
       }
 
       @include medium-and-up {
-        margin: 0 0 $n20 0;
+        margin: 0 0 $sp-2x 0;
         max-width: 210px;
         height: 300px;
       }
 
       @include large-and-up {
-        margin: 0 0 $n20 0;
+        margin: 0 0 $sp-2x 0;
       }
 
       @include x-large-and-up {

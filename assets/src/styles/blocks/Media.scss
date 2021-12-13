@@ -31,26 +31,26 @@
 }
 
 .wp-block-embed-youtube, .wp-block-embed-vimeo, .wp-block-embed-dailymotion, .wp-block-embed-kickstarter {
-  margin-top: $space-xs;
-  margin-bottom: $space-md;
+  margin-top: $sp-1;
+  margin-bottom: $sp-2;
 
   @include large-and-up {
-    margin-top: $space-md;
-    margin-bottom: $space-lg;
+    margin-top: $sp-2;
+    margin-bottom: $sp-4;
   }
 }
 
 .wp-block-embed-twitter, .wp-block-embed-instagram, .wp-block-embed-soundcloud, .wp-block-embed-reddit, .wp-block-embed-flickr {
-  margin-top: $space-xs;
-  margin-bottom: $space-md;
+  margin-top: $sp-1;
+  margin-bottom: $sp-2;
 
   @include medium-and-up {
     width: 510px;
   }
 
   @include large-and-up {
-    margin-top: $space-md;
-    margin-bottom: $space-lg;
+    margin-top: $sp-2;
+    margin-bottom: $sp-4;
     width: 610px;
   }
 

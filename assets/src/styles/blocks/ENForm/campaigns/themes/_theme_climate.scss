@@ -15,12 +15,12 @@ body.theme-climate {
 
       .enform {
         @include large-and-up {
-          padding: $space-lg;
+          padding: $sp-4;
         }
 
         .form-description {
           font-family: var(--headings--font-family, var(--header-primary-font));
-          margin-bottom: $space-md;
+          margin-bottom: $sp-2;
 
           p:first-child {
             font-weight: bold;

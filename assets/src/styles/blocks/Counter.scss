@@ -3,8 +3,8 @@
     font-family: $roboto;
   }
   text-align: center;
-  margin-top: $space-xl;
-  margin-bottom: $space-xl;
+  margin-top: $sp-6;
+  margin-bottom: $sp-6;
 
   &.editing .counter-text {
     cursor: default;
@@ -39,7 +39,7 @@
       color: inherit;
       font-size: 2rem;
       font-weight: bold;
-      margin-bottom: $space-lg;
+      margin-bottom: $sp-4;
     }
     display: inline-block;
     line-height: 1;
@@ -49,7 +49,7 @@
     .counter-target _-- {
       font-size: 3rem;
       font-weight: bold;
-      margin-bottom: $space-lg;
+      margin-bottom: $sp-4;
     }
   }
 
@@ -57,7 +57,7 @@
     _-- {
       background: $grey-20;
       height: 30px;
-      margin-bottom: $space-lg;
+      margin-bottom: $sp-4;
     }
     overflow: hidden;
   }
