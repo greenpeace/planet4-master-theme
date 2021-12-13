@@ -45,7 +45,7 @@
     line-height: 1.1;
 
     @include large-and-up {
-      margin-bottom: $space-lg;
+      margin-bottom: $sp-4;
     }
   }
 
@@ -150,7 +150,7 @@
       button {
         box-sizing: border-box;
         width: 100% !important;
-        margin-top: $space-lg;
+        margin-top: $sp-4;
       }
     }
 
@@ -160,13 +160,13 @@
     }
 
     .enform-legal {
-      margin-top: $space-md;
+      margin-top: $sp-2;
 
       html[dir="rtl"] & {
-        margin-top: $space-xl;
+        margin-top: $sp-6;
 
         @include large-and-up {
-          margin-top: $space-lg;
+          margin-top: $sp-4;
         }
       }
 

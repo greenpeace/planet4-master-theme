@@ -8,23 +8,23 @@
 .post-details > ul > li:last-of-type,
 .post-details > p,
 .post-details > p:first-of-type {
-  margin-top: $space-xs;
-  margin-bottom: $space-md;
+  margin-top: $sp-1;
+  margin-bottom: $sp-2;
 
   @include large-and-up {
-    margin-top: $space-md;
-    margin-bottom: $space-lg;
+    margin-top: $sp-2;
+    margin-bottom: $sp-4;
   }
 }
 
 .page-content > ul > li,
 .post-details > ul > li {
-  margin-top: $space-xs;
-  margin-bottom: $space-xs;
+  margin-top: $sp-1;
+  margin-bottom: $sp-1;
 
   @include large-and-up {
-    margin-top: $space-md;
-    margin-bottom: $space-md;
+    margin-top: $sp-2;
+    margin-bottom: $sp-2;
   }
 }
 

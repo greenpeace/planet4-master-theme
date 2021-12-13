@@ -1,7 +1,7 @@
 .social-media-cards {
   .grid-row {
     text-align: center;
-    margin-top: -$space-md; // Compensate for items margin.
+    margin-top: -$sp-2; // Compensate for items margin.
 
     @include small-and-up {
       text-align: left;
@@ -17,7 +17,7 @@
       text-align: center;
       width: 212px;
       height: 212px;
-      margin: $space-md $space-md 0 0;
+      margin: $sp-2 $sp-2 0 0;
 
       img {
         object-fit: cover;

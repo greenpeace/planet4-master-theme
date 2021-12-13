@@ -37,7 +37,7 @@
   // Columns block, layout no-image.
   &.block-style-no_image {
     .row {
-      margin-top: -$space-xl;
+      margin-top: -$sp-6;
 
       @include large-and-up {
         margin-top: 0;
@@ -48,14 +48,14 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      margin-top: $space-xl;
+      margin-top: $sp-6;
 
       @include large-and-up {
         margin-top: 0;
       }
 
       h3 {
-        margin-bottom: $space-md;
+        margin-bottom: $sp-2;
 
         @include medium-and-up {
           width: 80%;
@@ -75,7 +75,7 @@
 
         @include medium-and-up {
           width: auto;
-          margin-bottom: $space-lg;
+          margin-bottom: $sp-4;
         }
 
         @include large-and-up {
@@ -97,7 +97,7 @@
   // Columns block, layout icons.
   &.block-style-icons {
     .row {
-      margin-bottom: -$space-lg; // Compensate for last row margin
+      margin-bottom: -$sp-4; // Compensate for last row margin
 
       @include large-and-up {
         margin-bottom: 0;
@@ -108,7 +108,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      margin-bottom: $space-xl;
+      margin-bottom: $sp-6;
 
       @include large-and-up {
         margin-bottom: 0;
@@ -127,7 +127,7 @@
         flex-grow: 1;
 
         @include medium-and-up {
-          margin-bottom: $space-lg;
+          margin-bottom: $sp-4;
         }
 
         &:last-child {
@@ -147,7 +147,7 @@
 
       .attachment-container {
         text-align: center;
-        margin-bottom: $space-md;
+        margin-bottom: $sp-2;
 
         @include medium-and-up {
           text-align: inherit;
@@ -187,7 +187,7 @@
         position: relative;
         display: block;
         margin-right: 20px;
-        margin-bottom: $space-xl;
+        margin-bottom: $sp-6;
         width: 126px;
         height: 126px;
         line-height: 114px;
@@ -233,7 +233,7 @@
           height: 210px;
           object-fit: cover;
           object-position: 10% 10%;
-          margin-bottom: $space-lg;
+          margin-bottom: $sp-4;
 
           @include x-large-and-up {
             height: 250px;
@@ -246,7 +246,7 @@
       width: 100%;
 
       .card-accordion {
-        margin-bottom: -$space-sm;
+        margin-bottom: -$sp-1x;
       }
 
       .card {
@@ -265,8 +265,8 @@
           display: block;
           cursor: pointer;
           text-decoration: none;
-          padding: $n10 $n10 $n5 $n10;
-          margin-bottom: $space-sm;
+          padding: $sp-1 $sp-1 $sp-x;
+          margin-bottom: $sp-1x;
           border: none;
 
           &:hover {
@@ -286,7 +286,7 @@
             height: 190px;
             object-fit: cover;
             object-position: 10% 10%;
-            margin-top: $space-lg;
+            margin-top: $sp-4;
 
             @include small-and-up {
               width: 100%;
@@ -303,13 +303,13 @@
 
           .btn-secondary {
             margin-bottom: 0;
-            margin-top: $space-lg;
+            margin-top: $sp-4;
             width: 100%;
           }
         }
 
         .card-block {
-          padding: calc(#{$space-lg} - #{$space-md}) 28px $space-lg 28px;
+          padding: calc(#{$sp-4} - #{$sp-2}) $sp-3x $sp-4;
           border-bottom: none;
 
           p {
@@ -358,7 +358,7 @@
     .column-wrap {
       display: flex;
       flex-direction: column;
-      margin-bottom: $space-lg;
+      margin-bottom: $sp-4;
 
       @include large-and-up {
         margin-bottom: 0;
@@ -377,7 +377,7 @@
         flex-grow: 1;
 
         @include medium-and-up {
-          margin-bottom: $space-lg;
+          margin-bottom: $sp-4;
         }
 
         &:last-child {
@@ -395,7 +395,7 @@
 
       .attachment-container {
         text-align: center;
-        margin-bottom: $space-md;
+        margin-bottom: $sp-2;
 
         @include medium-and-up {
           text-align: inherit;

@@ -164,13 +164,13 @@
 
           h3.tl-headline-date {
             font-size: .875rem;
-            margin-bottom: $space-md;
+            margin-bottom: $sp-2;
           }
 
           h2.tl-headline {
             font-size: 1.5rem;
             line-height: 1.87rem;
-            margin-bottom: $n20;
+            margin-bottom: $sp-2x;
           }
 
           .tl-text-content {
@@ -206,7 +206,7 @@
     h2.tl-headline {
       font-size: 1.5rem;
       line-height: 1.87rem;
-      margin-bottom: $n20;
+      margin-bottom: $sp-2x;
       padding: 0 !important;
     }
 
@@ -253,8 +253,8 @@
               min-width: 0;
 
               @include small-and-up {
-                margin-right: $space-xxl;
-                margin-left: $space-xxl;
+                margin-right: $sp-8;
+                margin-left: $sp-8;
               }
 
               @include medium-and-up {
@@ -285,8 +285,8 @@
               max-width: 100%;
 
               @include small-and-up {
-                margin-right: $space-xxl;
-                margin-left: $space-xxl;
+                margin-right: $sp-8;
+                margin-left: $sp-8;
               }
 
               @include medium-and-up {
@@ -303,7 +303,7 @@
 
               h3.tl-headline-date {
                 font-size: .875rem;
-                margin-bottom: $space-md;
+                margin-bottom: $sp-2;
               }
             }
           }

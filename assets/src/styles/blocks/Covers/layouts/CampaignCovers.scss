@@ -60,8 +60,8 @@
     @supports (display: grid) {
       display: grid;
       grid-template-columns: 1fr;
-      grid-column-gap: $space-sm;
-      grid-row-gap: $space-sm;
+      grid-column-gap: $sp-1x;
+      grid-row-gap: $sp-1x;
 
       @include medium-and-up {
         grid-template-columns: repeat(3, 1fr);
