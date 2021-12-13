@@ -122,7 +122,7 @@ class MasterSite extends TimberSite {
 		// Load the editor scripts only enqueuing editor scripts while in context of the editor.
 		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_editor_assets' ] );
 		// Load main theme assets before any child theme.
-		add_action( 'wp_enqueue_scripts', [ PublicAssets::class, 'enqueue' ] );
+		add_action( 'wp_enqueue_scripts', [ PublicAssets::class, 'enqueue' ], 0 );
 		add_filter( 'safe_style_css', [ $this, 'set_custom_allowed_css_properties' ] );
 		add_filter( 'wp_kses_allowed_html', [ $this, 'set_custom_allowed_attributes_filter' ], 10, 2 );
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_box_search' ] );
