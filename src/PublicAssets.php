@@ -10,27 +10,10 @@ final class PublicAssets {
 	 * Load styling and behaviour on website pages.
 	 */
 	public static function enqueue(): void {
-		$theme_dir = get_template_directory_uri();
 		// master-theme assets.
-		$css_creation = filectime( get_template_directory() . '/assets/build/style.min.css' );
-		$js_creation  = filectime( get_template_directory() . '/assets/build/index.js' );
+		self::enqueue_css();
 
-		// CSS files.
-		wp_enqueue_style(
-			'bootstrap',
-			$theme_dir . '/assets/build/bootstrap.min.css',
-			[],
-			Loader::theme_file_ver( 'assets/build/bootstrap.min.css' )
-		);
-
-		// This loads a linked style file since the relative images paths are outside the build directory.
-		wp_enqueue_style(
-			'parent-style',
-			$theme_dir . '/assets/build/style.min.css',
-			[ 'bootstrap' ],
-			$css_creation
-		);
-		self::conditionally_load_partials();
+		$js_creation = filectime( get_template_directory() . '/assets/build/index.js' );
 
 		$jquery_should_wait = is_plugin_active( 'planet4-plugin-gutenberg-blocks/planet4-gutenberg-blocks.php' ) && ! is_user_logged_in();
 
@@ -46,6 +29,7 @@ final class PublicAssets {
 			true
 		);
 
+		$theme_dir = get_template_directory_uri();
 		// Variables reflected from PHP to the JS side.
 		$localized_variables = [
 			// The ajaxurl variable is a global js variable defined by WP itself but only for the WP admin
@@ -70,6 +54,39 @@ final class PublicAssets {
 			1,
 			true
 		);
+	}
+
+	/**
+	 * Enqueue theme styles.
+	 *
+	 * Drop enqueuing styles if main file is not built.
+	 */
+	private static function enqueue_css() {
+		$css_file = get_template_directory() . '/assets/build/style.min.css';
+		if ( ! file_exists( $css_file ) ) {
+			//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
+			trigger_error( 'File ' . esc_url( $css_file ) . ' does not exist or is not accessible.' );
+			return;
+		}
+
+		$theme_dir = get_template_directory_uri();
+		// CSS files.
+		wp_enqueue_style(
+			'bootstrap',
+			$theme_dir . '/assets/build/bootstrap.min.css',
+			[],
+			Loader::theme_file_ver( 'assets/build/bootstrap.min.css' )
+		);
+
+		// This loads a linked style file since the relative images paths are outside the build directory.
+		wp_enqueue_style(
+			'parent-style',
+			$theme_dir . '/assets/build/style.min.css',
+			[ 'bootstrap' ],
+			filectime( $css_file )
+		);
+
+		self::conditionally_load_partials();
 	}
 
 	/**
