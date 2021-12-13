@@ -1,11 +1,11 @@
 @mixin table {
   .wp-block-table {
-    margin-top: $space-xs;
-    margin-bottom: $space-md;
+    margin-top: $sp-1;
+    margin-bottom: $sp-2;
 
     @include large-and-up {
-      margin-top: $space-md;
-      margin-bottom: $space-lg;
+      margin-top: $sp-2;
+      margin-bottom: $sp-4;
     }
   }
 
@@ -30,7 +30,7 @@
       color: $white;
       height: 36px;
       font-size: $font-size-xs;
-      padding: 6px $n20;
+      padding: 6px $sp-2x;
       box-sizing: border-box;
       @include x-large-and-up {
         font-size: $font-size-md;
@@ -40,7 +40,7 @@
     td {
       min-height: 120px;
       font-size: $font-size-xs;
-      padding: $n20;
+      padding: $sp-2x;
       vertical-align: top;
       color: $table-font-color;
 

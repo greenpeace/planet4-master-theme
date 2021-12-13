@@ -13,7 +13,7 @@
       border: 1px solid $dark-blue;
       border-top: 0;
       border-bottom-width: 4px;
-      padding: 11px $n30;
+      padding: 11px $sp-4;
       text-transform: uppercase;
       text-decoration: none;
       color: $grey-80;
@@ -23,13 +23,13 @@
       margin-bottom: 24px;
 
       @include small-and-up {
-        padding: 13px $n30;
+        padding: 13px $sp-4;
         font-size: 1.125rem;
         margin-bottom: 32px;
       }
 
       @include large-and-up {
-        padding: 11px $n30;
+        padding: 11px $sp-4;
         font-size: $font-size-md;
       }
 
@@ -121,7 +121,7 @@
       width: 130px;
       line-height: 40px;
       background: $orange;
-      padding: 0 $n10;
+      padding: 0 $sp-1;
       color: $white;
 
       svg {
@@ -177,7 +177,7 @@
       .activefilter-tag {
         font-size: 1.125rem;
         border: 1px solid $dark-blue;
-        padding: 0 $n40 0 $n20;
+        padding: 0 $sp-5 0 $sp-2x;
         display: inline-block;
         margin-bottom: 16px;
         line-height: 42px;
@@ -196,7 +196,7 @@
         position: absolute;
         right: 0;
         top: 0;
-        margin-right: $n15;
+        margin-right: $sp-2;
       }
 
       .clearall {

@@ -4,11 +4,11 @@
   font-weight: var(--headings--font-weight, bold);
   font-family: var(--headings--font-family, $roboto);
   font-size: 2.5rem;
-  margin-bottom: $space-md;
+  margin-bottom: $sp-2;
 }
 
 .page-section-description {
-  margin-bottom: $space-xl;
+  margin-bottom: $sp-6;
 
   @include medium-and-up {
     width: 100%;

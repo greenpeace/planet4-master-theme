@@ -71,7 +71,7 @@
   border: 1px solid transparent;
   cursor: pointer;
   line-height: 3;
-  padding: 0 $n30;
+  padding: 0 $sp-4;
   appearance: none;
   transition-property: color, background-color, border-color;
   transition-duration: 150ms;
@@ -85,7 +85,7 @@
     background: transparentize($white, .7);
     border-color: $dark-blue;
     color: $dark-blue;
-    padding: 2px $n30;
+    padding: 2px $sp-4;
   }
 
   box-shadow: none;
@@ -117,7 +117,7 @@
   line-height: 1.65;
   min-width: 180px;
   margin: 0;
-  padding: 2px $n30;
+  padding: 2px $sp-4;
   transition: color background-color font-weight 100ms;
 
   .editor-styles-wrapper & {

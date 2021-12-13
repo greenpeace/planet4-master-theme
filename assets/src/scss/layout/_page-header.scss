@@ -28,7 +28,7 @@
     background: inherit;
     padding-top: 90px;
     padding-bottom: 0;
-    margin-bottom: $space-md;
+    margin-bottom: $sp-2;
 
     @include medium-and-up {
       padding-top: 104px;
@@ -36,7 +36,7 @@
 
     @include large-and-up {
       padding-top: 144px;
-      margin-bottom: $space-lg;
+      margin-bottom: $sp-4;
     }
 
     @include x-large-and-up {
