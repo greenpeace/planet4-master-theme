@@ -26,7 +26,7 @@ const renderEdit = (attributes, toAttribute) => {
 
   return (
     <InspectorControls>
-      <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+      <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
         <SelectControl
           label='Rows to display'
           value={initialRowsLimit}

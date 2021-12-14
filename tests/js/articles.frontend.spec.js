@@ -48,7 +48,7 @@ describe( 'Articles block frontend', () => {
 
     await selectBlockByName( 'planet4-blocks/articles' );
 
-    await openSidebarPanelWithTitle( 'Setting' );
+    await openSidebarPanelWithTitle( 'Settings' );
 
     // Manually add post(without thumbnail img) in articles blocks.
     await typeInDropdownWithLabel( 'Manual override', 'Test Articles with no thumbnail' );

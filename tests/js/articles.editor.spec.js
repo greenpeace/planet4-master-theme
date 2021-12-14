@@ -85,7 +85,7 @@ describe( 'Articles block', () => {
     await typeInInputWithPlaceholderLabel( 'Enter text', 'More News' );
 
     // Add Setting inputs
-    await openSidebarPanelWithTitle( 'Setting' );
+    await openSidebarPanelWithTitle( 'Settings' );
     await clearPreviousTextWithLabel( 'Button Text' );
     await typeInInputWithLabel( 'Button Text', 'Read more' );
     await typeInInputWithLabel( 'Button Link', 'https://www.greenpeace.org' );
@@ -110,7 +110,7 @@ describe( 'Articles block', () => {
   } );
 
   it ( 'should use only the manually chosen posts if any are entered', async () => {
-    await openSidebarPanelWithTitle( 'Setting' );
+    await openSidebarPanelWithTitle( 'Settings' );
 
     // The below posts are added randomly in "Manual override" field,
     // but on frontend it should appear order by publication date.

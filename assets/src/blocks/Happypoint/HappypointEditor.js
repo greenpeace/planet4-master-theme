@@ -89,7 +89,7 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
       {isSelected && (
         <div>
           <InspectorControls>
-            <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+            <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
               <div className="wp-block-master-theme-happypoint__RangeControl">
                 <RangeControl
                   label={__('Opacity', 'planet4-blocks-backend')}

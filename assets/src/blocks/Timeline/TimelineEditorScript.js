@@ -52,7 +52,7 @@ const renderEdit = (
 ) => {
   return (
     <InspectorControls>
-      <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+      <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
         <URLInput
           label={__('Google Sheets URL', 'planet4-blocks-backend')}
           placeholder={__('Enter URL', 'planet4-blocks-backend')}

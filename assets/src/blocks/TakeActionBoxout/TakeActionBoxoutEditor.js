@@ -172,7 +172,7 @@ export const TakeActionBoxoutEditor = ({
   const renderSidebar = () => (
     <Fragment>
       <InspectorControls>
-        <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+        <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
           <SelectControl
             label={__('Select Take Action Page:', 'planet4-blocks-backend')}
             value={take_action_page}

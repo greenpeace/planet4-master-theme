@@ -79,7 +79,7 @@ describe( 'Submenu block', () => {
     await selectStyleByName( 'Long full-width' );
 
     // Add Setting inputs
-    await openSidebarPanelWithTitle( 'Setting' );
+    await openSidebarPanelWithTitle( 'Settings' );
 
     // Add 3 levels inputs of submenu.
     for (let i = 0; i < 3; i++) {
@@ -109,7 +109,7 @@ describe( 'Submenu block', () => {
     await selectStyleByName( 'Short full-width' );
 
     // Add Setting inputs
-    await openSidebarPanelWithTitle( 'Setting' );
+    await openSidebarPanelWithTitle( 'Settings' );
 
     // Add 3 levels inputs of submenu.
     for (let i = 0; i < 3; i++) {
@@ -139,7 +139,7 @@ describe( 'Submenu block', () => {
     await selectStyleByName( 'Short sidebar' );
 
     // Add Setting inputs
-    await openSidebarPanelWithTitle( 'Setting' );
+    await openSidebarPanelWithTitle( 'Settings' );
 
     // Add 3 levels inputs of submenu.
     for (let i = 0; i < 3; i++) {

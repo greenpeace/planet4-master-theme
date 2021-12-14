@@ -78,7 +78,7 @@ const renderEdit = (attributes, setAttributes) => {
       </MediaUploadCheck>
       {hasImages && (
         <InspectorControls>
-          <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+          <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
             <div className="wp-block-master-theme-gallery__FocalPointPicker">
               <p>{__('Select gallery image focal point', 'planet4-blocks-backend')}</p>
               <ul>

@@ -67,7 +67,7 @@ describe( 'Spreadsheet block', () => {
     await selectBlockByName( 'planet4-blocks/spreadsheet' );
 
     // Change background color
-    await openSidebarPanelWithTitle( 'Setting' );
+    await openSidebarPanelWithTitle( 'Settings' );
     await selectColorByName( 'green' );
 
     expect( await getEditedPostContent() ).toMatchSnapshot();
