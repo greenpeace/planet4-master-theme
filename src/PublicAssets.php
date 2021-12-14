@@ -7,12 +7,9 @@ namespace P4\MasterTheme;
  */
 final class PublicAssets {
 	/**
-	 * Load styling and behaviour on website pages.
+	 * Enqueue theme scripts.
 	 */
-	public static function enqueue(): void {
-		// master-theme assets.
-		self::enqueue_css();
-
+	public static function enqueue_js() {
 		$js_creation = filectime( get_template_directory() . '/assets/build/index.js' );
 
 		$jquery_should_wait = is_plugin_active( 'planet4-plugin-gutenberg-blocks/planet4-gutenberg-blocks.php' ) && ! is_user_logged_in();
@@ -61,7 +58,7 @@ final class PublicAssets {
 	 *
 	 * Drop enqueuing styles if main file is not built.
 	 */
-	private static function enqueue_css() {
+	public static function enqueue_css() {
 		$css_file = get_template_directory() . '/assets/build/style.min.css';
 		if ( ! file_exists( $css_file ) ) {
 			//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
