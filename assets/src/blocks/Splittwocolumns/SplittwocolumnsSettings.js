@@ -115,7 +115,7 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
 
   return (
     <InspectorControls>
-      <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+      <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
         <div>
           {issueOptions &&
             <SelectControl

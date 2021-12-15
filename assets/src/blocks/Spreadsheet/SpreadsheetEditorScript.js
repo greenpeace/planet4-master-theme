@@ -74,7 +74,7 @@ export class SpreadsheetEditor extends Component {
     return (
       <Fragment>
         <InspectorControls>
-          <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+          <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
             <ColorPaletteControl
               label={__('Table Color', 'planet4-blocks-backend')}
               value={ attributes.css_variables['block-spreadsheet--odd-row--background'] }

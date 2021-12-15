@@ -51,7 +51,7 @@ describe( 'Counter block', () => {
     await selectStyleByName( 'Text Only' );
 
     // Select the Text only counter style
-    await openSidebarPanelWithTitle( 'Setting' );
+    await openSidebarPanelWithTitle( 'Settings' );
     await typeInInputWithLabel( 'Completed', '60' );
     await typeInInputWithLabel( 'Target', '100' );
     await typeInTextareaWithLabel( 'Text', '%completed% out of %target%, %remaining% remaining' );
@@ -71,7 +71,7 @@ describe( 'Counter block', () => {
     await selectStyleByName( 'Progress Bar' );
 
     // Add Setting inputs
-    await openSidebarPanelWithTitle( 'Setting' );
+    await openSidebarPanelWithTitle( 'Settings' );
     await typeInInputWithLabel( 'Completed', '70' );
     await typeInInputWithLabel( 'Target', '100' );
     await typeInTextareaWithLabel( 'Text', '%completed% out of %target%, %remaining% remaining' );
@@ -94,7 +94,7 @@ describe( 'Counter block', () => {
     await selectStyleByName( 'Progress Dial' );
 
     // Add Setting inputs
-    await openSidebarPanelWithTitle( 'Setting' );
+    await openSidebarPanelWithTitle( 'Settings' );
     await typeInInputWithLabel( 'Completed', '75' );
     await typeInInputWithLabel( 'Target', '100' );
     await typeInTextareaWithLabel( 'Text', '%completed% out of %target%, %remaining% remaining' );
@@ -117,7 +117,7 @@ describe( 'Counter block', () => {
     await selectStyleByName( 'Progress Dial' );
 
     // Add Setting inputs
-    await openSidebarPanelWithTitle( 'Setting' );
+    await openSidebarPanelWithTitle( 'Settings' );
     await typeInInputWithLabel( 'Completed API URL', COUNTER_API_URL );
 
     await typeInInputWithLabel( 'Target', '5000000' );

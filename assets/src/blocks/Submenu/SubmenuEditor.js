@@ -51,7 +51,7 @@ const renderEdit = (attributes, setAttributes) => {
 
   return (
     <InspectorControls>
-      <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+      <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
         {attributes.levels.map((level, i) => (
           <SubmenuLevel
             {...level}

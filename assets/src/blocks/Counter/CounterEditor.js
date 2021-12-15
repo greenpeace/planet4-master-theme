@@ -33,7 +33,7 @@ export class CounterEditor extends Component {
     return (
       <Fragment>
         <InspectorControls>
-          <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+          <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
             <div>
               <TextControl
                 label={__('Completed', 'planet4-blocks-backend')}

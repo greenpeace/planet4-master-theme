@@ -25,7 +25,7 @@ const renderEdit = (attributes, toAttribute) => {
   return (
     <Fragment>
       <InspectorControls>
-        <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+        <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
           <TextControl
             label={__('Button Text', 'planet4-blocks-backend')}
             placeholder={__('Override button text', 'planet4-blocks-backend')}

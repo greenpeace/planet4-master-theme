@@ -43,7 +43,7 @@ const MediaInspectorOptions = ({ attributes, setAttributes }) => {
   }
 
   return <InspectorControls>
-      <PanelBody title={__('Setting', 'planet4-blocks-backend')}>
+      <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
         <TextControl
           label={__('Media URL/ID', 'planet4-blocks-backend')}
           placeholder={__('Enter URL', 'planet4-blocks-backend')}
