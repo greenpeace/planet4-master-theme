@@ -175,17 +175,20 @@ $navbar-default-height: 60px;
   }
 }
 
-a.nav-link --nav-link-- {
+a.nav-link {
+  --nav-link-- {
+    color: $white;
+
+    &:hover {
+      color: $white;
+      text-decoration: underline;
+      text-underline-position: auto;
+    }
+  }
+
   display: inline-block;
-  color: $white;
   padding: 16px 0;
   width: 100%;
-
-  &:hover {
-    color: $white;
-    text-decoration: underline;
-    text-underline-position: auto;
-  }
 
   @include large-and-up {
     padding: 0 20px;
