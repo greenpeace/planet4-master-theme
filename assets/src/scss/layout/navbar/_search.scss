@@ -1,0 +1,160 @@
+.nav-search-form {
+  background-color: var(--body--background-color, $white);
+  border: none;
+  border-top: 1px solid #c4c4c4;
+  box-shadow: 0 2px 4px transparentize($black, 0.85);
+  display: none;
+  height: 56px;
+  inset-inline-start: 0;
+  position: fixed;
+  top: $menu-height;
+  z-index: 3;
+  width: 100%;
+
+  .admin-bar & {
+    top: calc(#{$menu-height} + 46px);
+
+    @media (min-width: 783px) {
+      top: calc(#{$menu-height} + 32px);
+    }
+  }
+
+  &.open {
+    display: flex;
+
+    @include medium-and-less {
+      #nav-main.open & {
+        display: none;
+      }
+    }
+  }
+
+  @include x-large-and-up {
+    background: var(--top-navigation--background, inherit);
+    border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+    border-top: none;
+    box-shadow: none;
+    display: inline-block;
+    height: 100%;
+    inset-inline-end: auto;
+    min-width: 25%;
+    padding: 0 16px;
+    position: unset;
+    width: auto;
+
+    &.open {
+      display: inline-block;
+    }
+  }
+}
+
+#search_input {
+  background: transparent;
+  border: none;
+  border-radius: unset;
+  box-shadow: none;
+  color: var(--top-navigation--color, $grey-80);
+  display: inline-block;
+  flex-grow: 1;
+  font-size: $font-base-size;
+  line-height: $menu-height;
+  padding-inline: 12px 8px;
+  width: auto;
+
+  @include x-large-and-up {
+    color: inherit;
+    width: calc(100% - 48px);
+  }
+}
+
+#search_input:placeholder-shown ~ button.nav-search-clear {
+  visibility: hidden;
+}
+
+#search_input::-webkit-search-decoration,
+#search_input::-webkit-search-cancel-button,
+#search_input::-webkit-search-results-button,
+#search_input::-webkit-search-results-decoration {
+  display: none;
+}
+// Hack to hide the input:-internal-autofill-selected style from webkit
+#search_input:-webkit-autofill,
+#search_input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+.nav-search-btn {
+  background: transparent;
+  border: none;
+  display: none;
+  float: left;
+  padding: 0;
+
+  html[dir="rtl"] & {
+    float: right;
+  }
+
+  @include x-large-and-up {
+    display: inline-block;
+    line-height: $menu-height;
+  }
+}
+
+.nav-search-clear {
+  background-color: $black;
+  border: none;
+  float: right;
+  height: 56px;
+  margin-inline-end: 36px;
+  mask: url("../../images/cross-circle.svg") 50% 50%/24px 24px no-repeat;
+  width: 24px;
+
+  html[dir="rtl"] & {
+    float: left;
+  }
+
+  @include x-large-and-up {
+    background-color: var(--top-navigation--color, $white);
+    display: inline-block;
+    height: $menu-height;
+    margin-inline-end: 0;
+  }
+}
+
+.nav-search-toggle-container {
+  display: none;
+  height: $menu-height;
+  padding: 12px;
+
+  &.medium-and-less {
+    display: inline-block;
+    @include large-and-up {
+      display: none;
+    }
+  }
+
+  @include large-and-up {
+    display: inline-block;
+    border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+  }
+
+  @include x-large-and-up {
+    display: none;
+  }
+}
+
+.nav-search-toggle {
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  height: 44px;
+  width: 44px;
+
+  @include medium-and-less {
+    opacity: 0.5;
+  }
+
+  &.open --top-navigation--search-toggle-- {
+    background: rgba(255, 255, 255, 0.15);
+  }
+}

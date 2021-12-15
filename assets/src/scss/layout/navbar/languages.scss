@@ -1,0 +1,160 @@
+.nav-languages-toggle {
+  background: transparent;
+  border: none;
+  color: inherit;
+  display: none;
+  font-size: $font-base-size;
+  font-weight: 700;
+  padding: 0 20px;
+
+  @include large-and-up {
+    border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+    display: inline-block;
+    line-height: $menu-height;
+  }
+
+  &::after {
+    background-color: var(--top-navigation--color, $white);
+    background-repeat: no-repeat;
+    content: "";
+    display: inline-block;
+    height: 8px;
+    margin-inline-start: 4px;
+    mask: url("../../images/chevron.svg") 0 0/8px 8px;
+    transform: rotate(90deg);
+    transition: transform 100ms linear;
+    width: 8px;
+  }
+
+  &[aria-expanded="true"]::after {
+    transform: rotate(-90deg);
+  }
+}
+
+.nav-languages {
+  display: none;
+  background: var(--top-navigation--background, $dark-blue);
+  box-shadow: none;
+  position: unset;
+  width: 100%;
+  z-index: 4;
+
+  a.nav-link {
+    padding: 0;
+    width: auto;
+  }
+
+  ul {
+    border-bottom: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+    display: inline-block;
+    flex-grow: 1;
+    margin-block: 0;
+    margin-inline: 40px;
+    padding-bottom: 36px;
+    padding-top: 40px;
+    padding-inline: 0;
+    width: 100%;
+  }
+
+  li {
+    display: inline-block;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    opacity: 0.6;
+  }
+
+  .current-language {
+    opacity: 1;
+  }
+
+  .current-language::after {
+    background: none;
+    mask: none;
+  }
+
+  li > span[aria-hidden="true"] {
+    opacity: 1;
+  }
+
+  li:last-of-type > span[aria-hidden="true"] {
+    display: none;
+  }
+
+  @include medium-and-less {
+    display: flex;
+  }
+
+  @include medium-and-up {
+    width: 400px;
+  }
+
+  @include large-and-up {
+    background: var(--top-navigation--background, $white);
+    border-radius: 4px;
+    box-shadow: 0 1px 4px transparentize($black, 0.88);
+    inset-inline-end: 8px;
+    min-width: 140px;
+    position: absolute;
+    text-align: start;
+    top: $menu-height + 8px;
+    width: unset;
+    z-index: 3;
+
+    &.open {
+      display: block;
+    }
+
+    ul {
+      border: 0;
+      list-style: none;
+      margin: 0;
+      padding: 16px 0;
+    }
+
+    li {
+      display: block;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 48px;
+      margin: 0;
+      opacity: 1;
+      padding-block: 0;
+      //padding-inline: 16px 12px;
+    }
+
+    li:hover {
+      background: rgba(216, 216, 216, 0.4);
+    }
+
+    li > span[aria-hidden="true"] {
+      display: none;
+    }
+
+    a.nav-link {
+      color: $grey-80;
+      display: inline-block;
+      padding-inline: 16px 12px;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    a.nav-link:hover {
+      text-decoration: none;
+    }
+
+    .current-language a::after {
+      background-color: $grey-80;
+      content: "";
+      display: inline-block;
+      float: right;
+      height: 48px;
+      mask: url("../../images/checkmark.svg") 50% 50%/16px 12px no-repeat;
+      width: 16px;
+
+      html[dir="rtl"] & {
+        float: left;
+      }
+    }
+  }
+}

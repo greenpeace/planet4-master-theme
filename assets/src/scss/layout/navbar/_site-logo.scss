@@ -1,0 +1,38 @@
+.site-logo {
+  flex-grow: 1;
+  line-height: $menu-height;
+  padding: 0;
+  position: unset;
+  text-align: center;
+
+  img {
+    height: 26px;
+  }
+
+  @include large-and-up {
+    flex-grow: 0;
+    margin-inline-start: calc((100vw - 960px) / 2);
+    text-align: start;
+    width: auto;
+  }
+
+  @include x-large-and-up {
+    margin-inline-start: calc((100vw - 1140px) / 2);
+  }
+
+  @include xx-large-and-up {
+    margin-inline-start: calc((100vw - 1320px) / 2);
+  }
+
+  .navigation-bar_min & {
+    line-height: $min-height;
+
+    img {
+      height: 18px;
+    }
+
+    @include large-and-up {
+      margin-inline-start: 36px;
+    }
+  }
+}
