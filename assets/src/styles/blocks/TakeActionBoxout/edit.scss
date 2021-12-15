@@ -5,6 +5,10 @@
     pointer-events: none;
   }
 
+  .btn {
+    min-width: auto !important;
+  }
+
   // Prevent line clamp on editable stuff, because it's very buggy.
   [contenteditable] {
     -webkit-line-clamp: unset !important;
@@ -15,24 +19,15 @@
 .boxout-image-container {
   position: relative;
   background: $grey-20;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  float: left;
-  width: 120px;
-  height: 120px;
-
-  @include medium-and-up {
-    height: 100%;
-    width: 45%;
-    padding: 0;
-    margin-inline-end: 16px;
-  }
+  height: 100%;
+  width: 336px;
+  padding: 0;
 
   img {
     width: 100%;
-    // Account for different markup in the editor, where it needs a wrapper to work.
-    margin-inline-end: 0;
   }
+}
+
+.sticky-boxout-checkbox .components-base-control__field {
+  display: flex;
 }

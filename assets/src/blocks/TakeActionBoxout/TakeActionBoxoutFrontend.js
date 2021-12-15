@@ -9,8 +9,12 @@ export const TakeActionBoxoutFrontend = ({
   imageUrl,
   imageAlt,
   className,
+  stickyOnMobile,
 }) => (
-  <section className={ `boxout ${ className || '' }` }>
+  <section
+    className={`boxout ${ className || '' }`}
+    {...stickyOnMobile && { id: 'action-card' }}
+  >
     <a
       data-ga-category="Take Action Boxout"
       data-ga-action="Image"
@@ -47,11 +51,6 @@ export const TakeActionBoxoutFrontend = ({
         {...newTab && link && { target: "_blank" }}
       >
         {linkText}
-      </a>
-    }
-    {link && linkText &&
-      <a className="not-now" data-ga-category="Take Action Boxout">
-        ×
       </a>
     }
   </section>

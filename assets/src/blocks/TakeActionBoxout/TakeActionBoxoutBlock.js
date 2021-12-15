@@ -50,6 +50,10 @@ export const registerTakeActionBoxoutBlock = () => registerBlockType(BLOCK_NAME,
       type: 'string',
       default: ''
     },
+    stickyOnMobile: {
+      type: 'boolean',
+      default: false,
+    },
   },
   edit: TakeActionBoxoutEditor,
   save() {
