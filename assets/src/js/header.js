@@ -32,13 +32,9 @@ export const setupHeader = function($) {
       return attr === 'false' ? 'true' : 'false';
     });
 
-    // Set same attributes for all search toggles
+    // Propagate attributes to all search toggles
     if (evt.currentTarget.classList.contains('nav-search-toggle')) {
-      document.querySelectorAll('.nav-search-toggle').forEach(e => {
-        e.setAttribute('aria-expanded', $button.attr('aria-expanded'));
-        e.setAttribute('data-ga-action', $button.attr('aria-expanded') === 'false' ? 'Open search' : 'Close search');
-        e.classList.toggle('open', $button.hasClass('open'));
-      });
+      setSearchToggles($button.attr('aria-expanded') === 'true');
     }
 
     // Lock scroll when navigation menu is open
@@ -54,10 +50,19 @@ export const setupHeader = function($) {
 
   // Close all menus when clicking somewhere else
   $(document).on('click', function closeInactiveMenus(evt) {
+    let searchToggled = false;
     const clickedElement = evt.target;
     $('button[aria-expanded="true"]').each((i, button) => {
       const $button = $(button);
       const buttonTarget = $($button.data('bs-target')).get( 0 );
+
+      if ($button.get(0).classList.contains('nav-search-toggle')) {
+        if (searchToggled) {
+          return;
+        }
+        searchToggled = true;
+      }
+
       if (buttonTarget && ! $.contains(buttonTarget, clickedElement)) {
         // Spoof a click on the open menu's toggle to close that menu.
         $button.trigger('click');
@@ -92,6 +97,20 @@ export const setupHeader = function($) {
     // Proxy to the main navbar close button
     $('.nav-menu-toggle').trigger('click');
   });
+
+  /**
+   * Propagate attributes to all search toggles
+   *
+   * @param {bool} expanded Toggle is expanded
+   */
+  function setSearchToggles(expanded) {
+    let toggles = document.querySelectorAll('.nav-search-toggle');
+    toggles.forEach(e => {
+      e.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      e.setAttribute('data-ga-action', expanded ? 'Close search' : 'Open search');
+      e.classList.toggle('open', ! expanded);
+    });
+  }
 
   // Hide Header on on scroll down
   function hasScrolled(lastScrollTop, delta, navbarHeight) {

@@ -261,6 +261,10 @@ a.nav-link {
   }
 }
 
+.btn-donate-top {
+  display: none;
+}
+
 // I'll include these at the end for now because they depend on CSS order.
 @import "navbar/site-logo";
 @import "navbar/languages";
