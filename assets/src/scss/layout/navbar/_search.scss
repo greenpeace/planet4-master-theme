@@ -12,10 +12,10 @@
   width: 100%;
 
   .admin-bar & {
-    top: calc(#{$menu-height} + 46px);
+    top: $menu-height + 46px;
 
     @media (min-width: 783px) {
-      top: calc(#{$menu-height} + 32px);
+      top: $menu-height + 32px;
     }
   }
 

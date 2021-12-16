@@ -149,7 +149,7 @@
     font-size: $font-size-xxxs;
     font-weight: 700;
     line-height: 20px;
-    margin-inline-start: calc(-1 * #{$sp-4});
+    margin-inline-start: -$sp-4;
     opacity: 0.5;
     position: absolute;
 
