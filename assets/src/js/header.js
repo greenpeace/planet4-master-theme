@@ -98,20 +98,6 @@ export const setupHeader = function($) {
     $('.nav-menu-toggle').trigger('click');
   });
 
-  /**
-   * Propagate attributes to all search toggles
-   *
-   * @param {bool} expanded Toggle is expanded
-   */
-  function setSearchToggles(expanded) {
-    let toggles = document.querySelectorAll('.nav-search-toggle');
-    toggles.forEach(e => {
-      e.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-      e.setAttribute('data-ga-action', expanded ? 'Close search' : 'Open search');
-      e.classList.toggle('open', ! expanded);
-    });
-  }
-
   // Hide Header on on scroll down
   function hasScrolled(lastScrollTop, delta, navbarHeight) {
     const st = $(this).scrollTop();
@@ -175,3 +161,17 @@ export const setupHeader = function($) {
     });
   }
 };
+
+/**
+ * Propagate attributes to all search toggles
+ *
+ * @param {bool} expanded Toggle is expanded
+ */
+function setSearchToggles(expanded) {
+  let toggles = document.querySelectorAll('.nav-search-toggle');
+  toggles.forEach(e => {
+    e.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    e.setAttribute('data-ga-action', expanded ? 'Close search' : 'Open search');
+    e.classList.toggle('open', expanded);
+  });
+}
