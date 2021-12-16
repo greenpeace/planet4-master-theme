@@ -12,7 +12,7 @@ $extra-extra-large-width: 1600px;
 
 // Spacing
 @function space($base) {
-  @return calc(#{$base} * 8px);
+  @return $base * 8px;
 }
 $sp-x: space(0.5);
 $sp-1: space(1);
