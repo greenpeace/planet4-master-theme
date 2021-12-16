@@ -183,3 +183,20 @@ add_filter(
 	10,
 	2
 );
+add_action(
+	'post_updated',
+	function ( $post_id, $post_after, $post_before ) {
+		if (
+			is_plugin_active( 'wp-stateless/wp-stateless-media.php' )
+			&& get_option( 'sm_custom_domain' )
+			&& 'page' === $post_after->post_type
+			&& $post_after->post_content
+			&& strpos( $post_after->post_content, 'wp-content/uploads' )
+			&& ! strpos( $post_before->post_content, 'wp-content/uploads' )
+		) {
+			trigger_error( "Post $post_id updated with a local URL instead of CDN.", E_USER_WARNING ); //phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error,WordPress.Security.EscapeOutput.OutputNotEscaped
+		}
+	},
+	1,
+	3
+);
