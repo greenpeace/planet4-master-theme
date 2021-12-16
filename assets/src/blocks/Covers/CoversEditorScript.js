@@ -65,7 +65,7 @@ const registerCoversBlock = () => {
       },
       layout: {
         type: 'string',
-        default: COVERS_LAYOUTS.carousel,
+        default: COVERS_LAYOUTS.grid,
       },
     },
     edit: CoversEditor,

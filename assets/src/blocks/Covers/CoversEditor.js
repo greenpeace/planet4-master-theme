@@ -147,7 +147,6 @@ const renderView = (attributes, toAttribute) => {
           {isCarouselLayout &&
             <CoversCarouselControls
               currentRow={row}
-              slideCovers={() => {}}
               amountOfCoversPerRow={amountOfCoversPerRow}
               totalAmountOfCovers={covers.length}
             />

@@ -114,8 +114,11 @@
       width: 24px;
       height: 3px;
       margin: 0 4px;
-      cursor: pointer;
       background: rgba(136, 136, 136, 0.5);
+
+      &:not(.disabled) {
+        cursor: pointer;
+      }
 
       &.active {
         background: black;

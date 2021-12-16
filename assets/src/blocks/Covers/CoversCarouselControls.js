@@ -24,20 +24,26 @@ export const CoversCarouselControls = ({
     <>
       <CoversCarouselArrow
         direction='prev'
-        disabled={currentRow === 1}
-        handler={() => slideCovers('prev')}
+        disabled={currentRow === 1 || !slideCovers}
+        {...slideCovers && {
+          handler: () => slideCovers('prev')
+        }}
       />
       <CoversCarouselArrow
         direction='next'
-        disabled={currentRow === amountOfSlides}
-        handler={() => slideCovers('next')}
+        disabled={currentRow === amountOfSlides || !slideCovers}
+        {...slideCovers && {
+          handler: () => slideCovers('next')
+        }}
       />
       <ol className="carousel-indicators">
         {indicators.map(index =>
           <li
             key={`indicator-${index}`}
-            onClick={() => slideCovers('', index + 1)}
-            className={index === currentRow - 1 ? 'active' : ''}
+            className={`${index === currentRow - 1 ? 'active' : ''} ${!slideCovers ? 'disabled' : ''}`}
+            {...slideCovers && {
+              onClick: () => slideCovers('', index + 1)
+            }}
           />
         )}
       </ol>

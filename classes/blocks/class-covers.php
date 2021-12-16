@@ -137,7 +137,7 @@ class Covers extends Base_Block {
 					],
 					'layout'           => [
 						'type'    => 'string',
-						'default' => self::CAROUSEL_LAYOUT,
+						'default' => self::GRID_LAYOUT,
 					],
 				],
 			]
@@ -189,7 +189,7 @@ class Covers extends Base_Block {
 		$tag_ids       = $fields['tags'] ?? [];
 		$options       = get_option( 'planet4_options' );
 		$parent_act_id = $options['act_page'];
-		$layout        = $fields['layout'] ?? self::CAROUSEL_LAYOUT;
+		$layout        = $fields['layout'] ?? self::GRID_LAYOUT;
 
 		if ( 0 !== absint( $parent_act_id ) ) {
 			$args = [
@@ -226,7 +226,7 @@ class Covers extends Base_Block {
 	 */
 	private static function filter_posts_by_ids( $fields ) {
 		$post_ids = $fields['posts'] ?? [];
-		$layout   = $fields['layout'] ?? self::CAROUSEL_LAYOUT;
+		$layout   = $fields['layout'] ?? self::GRID_LAYOUT;
 
 		if ( ! empty( $post_ids ) ) {
 
@@ -263,7 +263,7 @@ class Covers extends Base_Block {
 
 		$tag_ids    = $fields['tags'] ?? [];
 		$post_types = $fields['post_types'] ?? [];
-		$layout     = $fields['layout'] ?? self::CAROUSEL_LAYOUT;
+		$layout     = $fields['layout'] ?? self::GRID_LAYOUT;
 
 		$query_args = [
 			'post_type'      => 'post',
@@ -336,7 +336,7 @@ class Covers extends Base_Block {
 
 		// Get user defined tags from backend.
 		$tag_ids = $fields['tags'] ?? [];
-		$layout  = $fields['layout'] ?? self::CAROUSEL_LAYOUT;
+		$layout  = $fields['layout'] ?? self::GRID_LAYOUT;
 
 		if ( empty( $tag_ids ) ) {
 			return [];
