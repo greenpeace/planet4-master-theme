@@ -43,7 +43,7 @@ export const setupHeader = function($) {
 
     // Lock scroll when navigation menu is open
     if (evt.currentTarget.classList.contains('nav-menu-toggle')) {
-      document.querySelectorAll('body')[0].classList.toggle('no-scroll-nav-open', evt.currentTarget.getAttribute('aria-expanded') === 'true');
+      document.body.classList.toggle('no-scroll-nav-open', evt.currentTarget.getAttribute('aria-expanded') === 'true');
     }
 
     // Toggle data-ga-action attribute used in GTM tracking.
