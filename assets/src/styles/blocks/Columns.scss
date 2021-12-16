@@ -309,7 +309,7 @@
         }
 
         .card-block {
-          padding: calc(#{$sp-4} - #{$sp-2}) $sp-3x $sp-4;
+          padding: $sp-2 $sp-3x $sp-4;
           border-bottom: none;
 
           p {
