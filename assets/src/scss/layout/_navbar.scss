@@ -80,6 +80,21 @@ $navbar-default-height: 60px;
   }
 }
 
+.btn-donate.btn-donate-top {
+  position: fixed;
+  left: 0;
+  z-index: 4;
+  width: 100%;
+  height: 3.3rem;
+  line-height: 3.3rem;
+  top: $menu-height;
+  transition: top .2s;
+
+  .admin-bar & {
+    top: calc(#{$menu-height} + 46px);
+  }
+}
+
 #nav-main {
   display: flex;
 
