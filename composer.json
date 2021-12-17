@@ -36,7 +36,8 @@
     }
   },
   "require": {
-    "alek13/slack": "^2.0"
+    "alek13/slack": "^2.0",
+    "google/apiclient": "^2.12"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.5.8",
