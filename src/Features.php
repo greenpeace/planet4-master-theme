@@ -184,7 +184,11 @@ class Features {
 	public static function is_active( string $name ): bool {
 		$features = get_option( Settings::KEY );
 
-		return isset( $features[ $name ] ) && $features[ $name ];
+		$active = isset( $features[ $name ] ) && $features[ $name ];
+
+		// Filter to allow setting a feature from code, to avoid chicken and egg problem when releasing adaptions to a
+		// new feature.
+		return (bool) apply_filters( "planet4_feature__$name", $active );
 	}
 
 	/**
