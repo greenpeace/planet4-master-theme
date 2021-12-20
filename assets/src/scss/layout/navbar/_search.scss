@@ -4,10 +4,9 @@
   border-top: 1px solid #c4c4c4;
   box-shadow: 0 2px 4px transparentize($black, 0.85);
   display: none;
-  height: 56px;
+  margin: auto;
   inset-inline-start: 0;
   position: fixed;
-  top: $menu-height;
   z-index: 3;
   width: 100%;
 
@@ -23,6 +22,8 @@
     display: flex;
 
     @include medium-and-less {
+      min-height: 56px;
+
       #nav-main.open & {
         display: none;
       }
@@ -57,7 +58,6 @@
   display: inline-block;
   flex-grow: 1;
   font-size: $font-base-size;
-  line-height: $menu-height;
   padding-inline: 12px 8px;
   width: auto;
 
@@ -96,7 +96,6 @@
 
   @include x-large-and-up {
     display: inline-block;
-    line-height: $menu-height;
   }
 }
 
@@ -104,7 +103,6 @@
   background-color: $black;
   border: none;
   float: right;
-  height: 56px;
   margin-inline-end: 36px;
   mask: url("../../images/cross-circle.svg") 50% 50%/24px 24px no-repeat;
   width: 24px;
@@ -116,14 +114,12 @@
   @include x-large-and-up {
     background-color: var(--top-navigation--color, $white);
     display: inline-block;
-    height: $menu-height;
     margin-inline-end: 0;
   }
 }
 
 .nav-search-toggle-container {
   display: none;
-  height: $menu-height;
   padding: 12px;
 
   &.medium-and-less {
