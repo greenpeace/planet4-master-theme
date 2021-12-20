@@ -3,6 +3,7 @@ import { frontendRendered } from '../frontendRendered';
 import { Tooltip } from '@wordpress/components';
 import { coversV1 } from './deprecated/coversV1';
 import { COVERS_TYPES, COVERS_LAYOUTS } from './CoversConstants';
+import { example } from './example.js';
 
 const { __ } = wp.i18n;
 
@@ -67,6 +68,13 @@ const registerCoversBlock = () => {
         type: 'string',
         default: COVERS_LAYOUTS.grid,
       },
+      isExample: {
+        type: 'boolean',
+        default: false,
+      },
+      exampleCovers: { // Used for the block's preview, which can't extract items from anything.
+        type: 'object',
+      }
     },
     edit: CoversEditor,
     save: frontendRendered(BLOCK_NAME),
@@ -97,7 +105,8 @@ const registerCoversBlock = () => {
     ],
     deprecated: [
       coversV1,
-    ]
+    ],
+    example,
   });
 }
 

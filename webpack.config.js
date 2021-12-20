@@ -90,6 +90,7 @@ const cssConfig = {
     SocialMediaStyle: './assets/src/styles/blocks/SocialMedia/SocialMediaStyle.scss',
     SocialMediaEditorStyle: './assets/src/styles/blocks/SocialMedia/SocialMediaEditorStyle.scss',
     CoversStyle: './assets/src/styles/blocks/Covers/CoversStyle.scss',
+    CoversEditorStyle: './assets/src/styles/blocks/Covers/CoversEditorStyle.scss',
     GalleryStyle: './assets/src/styles/blocks/Gallery/GalleryStyle.scss',
     GalleryEditorStyle: './assets/src/styles/blocks/Gallery/GalleryEditorStyle.scss',
     HubspotFormStyle: './assets/src/styles/blocks/HubspotForm/HubspotFormStyles.scss',

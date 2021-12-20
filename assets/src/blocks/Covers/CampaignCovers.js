@@ -1,3 +1,4 @@
+import { CoversImagePlaceholder } from './CoversImagePlaceholder';
 import { IMAGE_SIZES } from './imageSizes';
 
 const { __ } = wp.i18n;
@@ -9,6 +10,7 @@ export const CampaignCovers = ({
   inEditor = false,
   isCarouselLayout,
   amountOfCoversPerRow,
+  isExample,
 }) => (
   <div className='covers'>
     {covers.map((cover, index) => {
@@ -31,7 +33,7 @@ export const CampaignCovers = ({
             aria-label={__('Check our campaign about ' + name, 'planet4-blocks')}
           >
             <div className='thumbnail-large'>
-              {image && image[0] &&
+              {image && image[0] && !isExample &&
                 <img
                   loading='lazy'
                   sizes={IMAGE_SIZES.campaign}
@@ -41,6 +43,7 @@ export const CampaignCovers = ({
                   title={alt_text}
                 />
               }
+              {isExample && <CoversImagePlaceholder height={150} />}
               <span className='yellow-cta'><span aria-label='hashtag'>#</span>{name}</span>
             </div>
           </a>

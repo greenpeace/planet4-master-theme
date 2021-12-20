@@ -1,3 +1,4 @@
+import { CoversImagePlaceholder } from './CoversImagePlaceholder';
 import { IMAGE_SIZES } from './imageSizes';
 
 const { __ } = wp.i18n;
@@ -8,7 +9,8 @@ export const ContentCovers = ({
   row,
   inEditor = false,
   isCarouselLayout,
-  amountOfCoversPerRow
+  amountOfCoversPerRow,
+  isExample,
 }) => (
   <div className='covers'>
     {covers.map((cover, index) => {
@@ -34,8 +36,8 @@ export const ContentCovers = ({
         <div key={post_title} className='post-column cover'>
           <div className='content-covers-block-wrap clearfix'>
             <div className='content-covers-block-info'>
-              <div className='content-covers-block-image'>
-                {thumbnail &&
+              <div className='content-covers-block-image' {...isExample && { style: { height: 120 } }}>
+                {thumbnail && !isExample &&
                   <a
                     href={contentLink}
                     data-ga-category='Content Covers'
@@ -53,6 +55,7 @@ export const ContentCovers = ({
                     />
                   </a>
                 }
+                {isExample && <CoversImagePlaceholder height='100%' />}
               </div>
               <div className='content-covers-block-information'>
                 {post_title &&
