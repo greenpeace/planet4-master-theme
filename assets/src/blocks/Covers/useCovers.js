@@ -8,7 +8,7 @@ const isMobile = () => window.innerWidth < 768;
 const isSmallWindow = () => window.innerWidth < 992;
 const isMediumWindow = () => window.innerWidth >= 768 && window.innerWidth < 992;
 
-export const useCovers = ({ post_types, tags, cover_type, initialRowsLimit, posts, layout }, noLoading, coversContainer) => {
+export const useCovers = ({ post_types, tags, cover_type, initialRowsLimit, posts, layout }, noLoading) => {
   const [covers, setCovers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [row, setRow] = useState(initialRowsLimit);
@@ -58,6 +58,7 @@ export const useCovers = ({ post_types, tags, cover_type, initialRowsLimit, post
       cover_type,
       tags,
       posts,
+      layout,
     };
 
     const path = addQueryArgs('planet4/v1/get-covers', args);
@@ -74,38 +75,6 @@ export const useCovers = ({ post_types, tags, cover_type, initialRowsLimit, post
       setError(e.message);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const slideCovers = (direction, rowNumber) => {
-    if (!coversContainer.current) {
-      return;
-    }
-
-    const covers = coversContainer.current.querySelector('.covers');
-
-    if (!covers) {
-      return;
-    }
-
-    const isRTL = document.querySelector('html').dir === 'rtl';
-    // We need to account for the spacing between covers,
-    // in all styles that spacing is 24px for screens >= 992px.
-    let scrollOffset = (isRTL ? -1 : 1) * (covers.offsetWidth + 24);
-
-    // For the Take Action covers because of the box-shadow we had to add
-    // extra padding to the sides (5px each) so we need to account for them.
-    if (cover_type === COVERS_TYPES.takeAction) {
-      scrollOffset += (isRTL ? 1 : -1) * 10;
-    }
-
-    if (direction) {
-      const initialScrollPosition = covers.scrollLeft;
-      covers.scrollLeft = initialScrollPosition + (direction === 'next' ? scrollOffset : -scrollOffset);
-      setRow(direction === 'next' ? row + 1 : row - 1);
-    } else if (rowNumber && rowNumber !== row) {
-      covers.scrollLeft = (rowNumber - 1) * scrollOffset;
-      setRow(rowNumber);
     }
   };
 
@@ -135,7 +104,7 @@ export const useCovers = ({ post_types, tags, cover_type, initialRowsLimit, post
     loading,
     error,
     showMoreCovers: () => setRow(row + initialRowsLimit),
-    slideCovers,
+    setRow,
     row,
     amountOfCoversPerRow,
   };
