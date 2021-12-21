@@ -1,5 +1,5 @@
 @mixin campaign_covers($overlay, $cta-colour, $cta-colour-hover, $cta-font, $cta-spacing: 10, $cta-left: 28px, $cta-bottom: 30px) {
-  .campaign-card-column {
+  .cover {
     padding-left: 8px;
     padding-right: 8px;
   }
@@ -56,29 +56,57 @@
 }
 
 .campaign-covers-block {
-  .thumbnail-largeview-container {
-    @supports (display: grid) {
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-column-gap: $sp-1x;
-      grid-row-gap: $sp-1x;
+  &.carousel-layout {
+    .cover {
+      min-width: 260px;
+
+      &:not(:last-child) {
+        margin-inline-end: $sp-2;
+      }
 
       @include medium-and-up {
-        grid-template-columns: repeat(3, 1fr);
+        min-width: 276px;
+
+        &:not(:last-child) {
+          margin-inline-end: $sp-3;
+        }
+      }
+
+      @include large-and-up {
+        min-width: 296px;
+      }
+
+      @include x-large-and-up {
+        min-width: 356px;
       }
     }
 
+    .carousel-control-prev,
+    .carousel-control-next {
+      top: 71px;
+    }
+  }
+
+  &.grid-layout .covers {
+    @supports (display: grid) {
+      grid-template-columns: 1fr;
+
+      @include medium-and-up {
+        grid-column-gap: $sp-3;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include large-and-up {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+
+  .covers {
     .thumbnail-large {
-      margin-bottom: 5px;
-      max-height: 70px;
       position: relative;
       overflow: hidden;
       @include background-before-opacity(rgba(22, 22, 22, 0.1));
-
-      @include medium-and-up {
-        margin-bottom: 0;
-        max-height: 100%;
-      }
 
       @include large-and-up {
         @include background-before-opacity(rgba(22, 22, 22, 0.65));
@@ -92,13 +120,8 @@
 
       img {
         width: 100%;
-        height: 260px;
-        margin: -50px 0 -10px 0;
+        height: 190px;
         object-fit: cover;
-
-        @include medium-and-up {
-          margin: 0;
-        }
       }
 
       .yellow-cta {
@@ -112,7 +135,7 @@
         bottom: 0;
         width: 100%;
         z-index: 2;
-        margin-bottom: 18px;
+        margin-bottom: $sp-2;
         text-shadow: 1px 1px $grey-80;
 
         @include medium-and-up {
