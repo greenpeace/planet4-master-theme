@@ -34,25 +34,28 @@ final class AnalyticsValues {
 	 *
 	 * @param Smartsheet      $global_smartsheet Smartsheet containing global projects data.
 	 * @param Smartsheet|null $local_smartsheet Smartsheet containing local projects data.
+	 * @param bool            $uses_google Google sheets have different boolean columns.
 	 *
 	 * @return static
 	 */
 	public static function from_smartsheets(
 		Smartsheet $global_smartsheet,
-		Smartsheet $local_smartsheet = null
+		Smartsheet $local_smartsheet = null,
+		bool $uses_google = false
 	): self {
 		$project_name_column = $global_smartsheet->get_column_index( 'Global Project Standard' );
 		$approved_column     = $global_smartsheet->get_column_index( 'Standard Approved' );
 		$tracking_id_column  = $global_smartsheet->get_column_index( 'Tracking ID' );
 
-		$global_projects = $global_smartsheet->filter_by_column( $approved_column, true )->sort_on_column(
-			$project_name_column
-		)->export_columns(
-			[
-				$project_name_column => 'global_project_name',
-				$tracking_id_column  => 'tracking_id',
-			]
-		);
+		$column_names = [
+			$project_name_column => 'global_project_name',
+			$tracking_id_column  => 'tracking_id',
+		];
+
+		$global_projects = $global_smartsheet
+			->filter_by_column( $approved_column, $uses_google ? 'yes' : true )
+			->sort_on_column( $project_name_column )
+			->export_columns( $column_names );
 
 		$local_projects = null;
 		if ( null !== $local_smartsheet ) {
@@ -60,11 +63,10 @@ final class AnalyticsValues {
 			$project_name_column = $local_smartsheet->get_column_index( 'Local Project Standard' );
 			$approved_column     = $local_smartsheet->get_column_index( 'Local Sync' );
 
-			$local_projects = $local_smartsheet->filter_by_column( $approved_column, true )->sort_on_column( $project_name_column )->export_columns(
-				[
-					$project_name_column => 'local_project_name',
-				]
-			);
+			$local_projects = $local_smartsheet
+				->filter_by_column( $approved_column, $uses_google ? 'yes' : true )
+				->sort_on_column( $project_name_column )
+				->export_columns( [ $project_name_column => 'local_project_name' ] );
 		}
 
 		return new self( $global_projects, $local_projects );
@@ -101,13 +103,37 @@ final class AnalyticsValues {
 		$cache = wp_cache_get( self::CACHE_KEY );
 
 		if ( false !== $cache ) {
+			if ( null === $cache ) {
+				return self::from_hardcoded_values();
+			}
+
 			return self::from_cache_array( $cache );
 		}
 
+		$use_google = Features::is_active( Features::GOOGLE_SHEET_REPLACES_SMARTSHEET );
+
+		$instance = $use_google ? self::using_google() : self::using_smartsheet();
+
+		wp_cache_add(
+			self::CACHE_KEY,
+			! $instance ? null : $instance->to_cache_array(),
+			null,
+			300
+		);
+
+		return $instance ?? self::from_hardcoded_values();
+	}
+
+	/**
+	 * Fetch using Smartsheet.
+	 *
+	 * @return static|null Instance if possible.
+	 */
+	private static function using_smartsheet(): ?self {
 		$api_key = defined( 'SMARTSHEET_API_KEY' ) ? SMARTSHEET_API_KEY : null;
 
 		if ( ! $api_key ) {
-			return self::from_hardcoded_values();
+			return null;
 		}
 
 		$smartsheet_client = SmartsheetClient::from_api_key( $api_key );
@@ -115,26 +141,50 @@ final class AnalyticsValues {
 		$global_sheet_id = $_ENV['ANALYTICS_GLOBAL_SMARTSHEET_ID'] ?? '4212503304529796';
 
 		if ( ! $global_sheet_id ) {
-			return self::from_hardcoded_values();
+			return null;
 		}
 		$global_sheet = $smartsheet_client->get_sheet( $global_sheet_id );
 
 		if ( null === $global_sheet ) {
-			return self::from_hardcoded_values();
+			return null;
 		}
 
-		$local_sheet    = null;
 		$local_sheet_id = planet4_get_option( 'analytics_local_smartsheet_id' ) ?? $_ENV['ANALYTICS_LOCAL_SMARTSHEET_ID'] ?? null;
 
-		if ( $local_sheet_id ) {
-			$local_sheet = $local_sheet_id ? $smartsheet_client->get_sheet( $local_sheet_id ) : null;
+		$local_sheet = $local_sheet_id ? $smartsheet_client->get_sheet( $local_sheet_id ) : null;
+
+		return self::from_smartsheets( $global_sheet, $local_sheet, false );
+	}
+
+	/**
+	 * Fetch using Google Sheets.
+	 *
+	 * @return static|null The instance if possible.
+	 */
+	private static function using_google(): ?self {
+		if ( ! defined( 'GOOGLE_SHEETS_KEY' ) ) {
+			return null;
 		}
 
-		$instance = self::from_smartsheets( $global_sheet, $local_sheet );
+		$google_client = GoogleDocsClient::from_account_config( GOOGLE_SHEETS_KEY );
+		if ( ! $google_client ) {
+			return null;
+		}
+		$global_sheet_id = $_ENV['ANALYTICS_GLOBAL_GOOGLE_SHEET_ID'] ?? '1pDAj0jR7WWzUOzBwviFeMGjV8-ocyrE21HYB75oVfOc';
 
-		wp_cache_add( self::CACHE_KEY, $instance->to_cache_array(), null, 300 );
+		if ( ! $global_sheet_id ) {
+			return null;
+		}
+		$global_sheet = $google_client->get_sheet( $global_sheet_id );
+		if ( ! $global_sheet ) {
+			return null;
+		}
 
-		return $instance;
+		$local_sheet_id = planet4_get_option( 'analytics_local_google_sheet_id' ) ?? $_ENV['analytics_local_google_sheet_id'] ?? null;
+
+		$local_sheet = ! $local_sheet_id ? null : $google_client->get_sheet( $local_sheet_id );
+
+		return self::from_smartsheets( $global_sheet, $local_sheet, true );
 	}
 
 	/**

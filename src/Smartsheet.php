@@ -37,7 +37,7 @@ final class Smartsheet {
 	 * @return static The instance.
 	 * @throws InvalidArgumentException If the data doesn't have the correct keys.
 	 */
-	public static function from_api_response( array $data ): self {
+	public static function from_smartsheet_api_response( array $data ): self {
 		if ( ! isset( $data['columns'], $data['rows'] ) ) {
 			throw new InvalidArgumentException( 'Cannot create from API data as it does not have rows.' );
 		}
@@ -46,18 +46,41 @@ final class Smartsheet {
 	}
 
 	/**
+	 * Create sheet from Google API response. For now this converts it to the format Smartsheet's API returned, so that
+	 * we need to convert less code. When Smartsheet is removed we can decouple it from this structure.
+	 *
+	 * @param array $header Row of values with the headers.
+	 * @param array $rows All the other rows.
+	 *
+	 * @return Smartsheet A sheet with the values.
+	 */
+	public static function from_google_response( array $header, array $rows ): Smartsheet {
+		$columns = array_map( fn( $h ) => [ 'title' => $h ], $header );
+
+		$convert_cell = fn( $c ) => [ 'value' => $c ];
+
+		$convert_row = fn( $r ) => [ 'cells' => array_map( $convert_cell, $r ) ];
+
+		$rows = array_map( $convert_row, $rows );
+
+		return new self( $columns, $rows );
+	}
+
+	/**
 	 * Remove all rows that don't match the value in a specific column.
 	 *
 	 * @param int   $column_index Index of the column to use for filtering.
-	 * @param mixed $column_value The column value to use for filtering.
+	 * @param mixed $expected The column value to use for filtering.
 	 *
-	 * @return Smartsheet
+	 * @return Smartsheet The filtered sheet.
 	 */
-	public function filter_by_column( int $column_index, $column_value ): self {
+	public function filter_by_column( int $column_index, $expected ): self {
 		$rows = array_filter(
 			$this->rows,
-			function ( $row ) use ( $column_index, $column_value ) {
-				return $row['cells'][ $column_index ]['value'] === $column_value;
+			function ( $row ) use ( $column_index, $expected ) {
+				$value = $row['cells'][ $column_index ]['value'];
+
+				return $value === $expected;
 			}
 		);
 
@@ -138,12 +161,8 @@ final class Smartsheet {
 	 * @return int|null The id of the column, or null if no column was found.
 	 */
 	public function get_column_index( string $column_title ): ?int {
-		foreach ( $this->columns as $column ) {
-			if ( $column['title'] === $column_title ) {
-				return $column['index'];
-			}
-		}
+		$index = array_search( $column_title, array_column( $this->columns, 'title' ), true );
 
-		return null;
+		return false === $index ? null : $index;
 	}
 }

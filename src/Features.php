@@ -32,6 +32,7 @@ class Features {
 
 	public const PURGE_ON_FEATURE_CHANGES = 'purge_on_feature_changes';
 
+	public const GOOGLE_SHEET_REPLACES_SMARTSHEET = 'google_sheet_replaces_smartsheet';
 
 	/**
 	 * @var bool Purge Cloudflare cache on save
@@ -155,6 +156,15 @@ class Features {
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::NEW_DESIGN_NAVIGATION_BAR,
+				'type' => 'checkbox',
+			],
+			[
+				'name' => __( 'Google Sheets replaces Smartsheet', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'Toggle whether to use Google Sheets to fetch the list of analytics options.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::GOOGLE_SHEET_REPLACES_SMARTSHEET,
 				'type' => 'checkbox',
 			],
 		];
