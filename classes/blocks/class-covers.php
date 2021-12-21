@@ -434,36 +434,37 @@ class Covers extends Base_Block {
 	 *
 	 * @return array
 	 */
-	private static function populate_posts_for_cfc( &$fields ) {
+	private static function populate_posts_for_cfc( $fields ): array {
 		$post_ids = $fields['posts'] ?? [];
+		$posts    = empty( $post_ids )
+			? self::filter_posts_for_cfc( $fields )
+			: self::filter_posts_by_ids( $fields );
 
-		if ( ! empty( $post_ids ) ) {
-			$posts = self::filter_posts_by_ids( $fields );
-		} else {
-			$posts = self::filter_posts_for_cfc( $fields );
+		if ( empty( $posts ) ) {
+			return [];
 		}
 
 		$posts_array = [];
+		foreach ( $posts as $post ) {
+			$post_data = [
+				'post_title'     => $post->post_title,
+				'post_excerpt'   => $post->post_excerpt,
+				'alt_text'       => '',
+				'thumbnail'      => '',
+				'srcset'         => '',
+				'link'           => get_permalink( $post ),
+				'date_formatted' => get_the_date( '', $post->ID ),
+			];
 
-		if ( ! empty( $posts ) ) {
-
-			foreach ( $posts as $post ) {
-
-				$post->alt_text  = '';
-				$post->thumbnail = '';
-				$post->srcset    = '';
-
-				if ( has_post_thumbnail( $post ) ) {
-					$post->thumbnail = get_the_post_thumbnail_url( $post, 'medium' );
-					$img_id          = get_post_thumbnail_id( $post );
-					$post->srcset    = wp_get_attachment_image_srcset( $img_id, 'full', wp_get_attachment_metadata( $img_id ) ) ?? 'false';
-					$post->alt_text  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
-				}
-
-				$post->link           = get_permalink( $post );
-				$post->date_formatted = get_the_date( '', $post->ID );
-				$posts_array[]        = $post;
+			if ( has_post_thumbnail( $post ) ) {
+				$post_data['thumbnail'] = get_the_post_thumbnail_url( $post, 'medium' );
+				$img_id                 = get_post_thumbnail_id( $post );
+				$srcset                 = wp_get_attachment_image_srcset( $img_id, 'full', wp_get_attachment_metadata( $img_id ) );
+				$post_data['srcset']    = is_string( $srcset ) ? $srcset : 'false';
+				$post_data['alt_text']  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
 			}
+
+			$posts_array[] = $post_data;
 		}
 
 		return $posts_array;
