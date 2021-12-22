@@ -23,4 +23,4 @@ $I->amOnPage('/' . $slug);
 // Check the Tasks style
 $I->see('Ocean Memories', 'h2.page-section-header');
 $I->see('Ice music concert', 'div.page-section-description');
-$I->seeElement('iframe');
+$I->seeElement('iframe,lite-youtube');
