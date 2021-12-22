@@ -23,6 +23,7 @@ export const TakeActionCovers = ({
         alt_text,
         excerpt,
         button_text,
+        id,
       } = cover;
       const hideCover = !isCarouselLayout && !!initialRowsLimit && index >= row * amountOfCoversPerRow;
 
@@ -33,7 +34,7 @@ export const TakeActionCovers = ({
       const buttonLink = inEditor ? null : button_link;
 
       return (
-        <div key={title} className='cover-card cover'>
+        <div key={id} className='cover-card cover'>
           <a
             className='cover-card-overlay'
             data-ga-category='Take Action Covers'
