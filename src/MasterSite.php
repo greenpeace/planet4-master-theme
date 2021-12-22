@@ -178,6 +178,7 @@ class MasterSite extends TimberSite {
 		add_filter( 'comment_form_default_fields', [ $this, 'comment_form_cookie_checkbox_add_class' ] );
 		add_filter( 'comment_form_default_fields', [ $this, 'comment_form_replace_inputs' ] );
 		add_filter( 'embed_oembed_html', [ $this, 'filter_youtube_oembed_nocookie' ], 10, 2 );
+		add_filter( 'oembed_result', [ $this, 'filter_youtube_oembed_nocookie' ], 10, 2 );
 		add_filter(
 			'editable_roles',
 			function( $roles ) {
@@ -769,6 +770,13 @@ class MasterSite extends TimberSite {
 	 */
 	public function enqueue_editor_assets(): void {
 		Loader::enqueue_versioned_style( 'assets/build/editorStyle.min.css' );
+		wp_enqueue_script(
+			'youtube',
+			get_template_directory_uri() . '/assets/build/lite-yt-embed.js',
+			[],
+			1,
+			true
+		);
 	}
 
 	/**
