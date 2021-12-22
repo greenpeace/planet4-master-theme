@@ -1,3 +1,4 @@
+import { CoversImagePlaceholder } from './CoversImagePlaceholder';
 import { IMAGE_SIZES } from './imageSizes';
 
 const { __ } = wp.i18n;
@@ -9,6 +10,7 @@ export const TakeActionCovers = ({
   inEditor = false,
   isCarouselLayout,
   amountOfCoversPerRow,
+  isExample,
 }) => (
   <div className='covers'>
     {covers.map((cover, index) => {
@@ -21,6 +23,7 @@ export const TakeActionCovers = ({
         alt_text,
         excerpt,
         button_text,
+        id,
       } = cover;
       const hideCover = !isCarouselLayout && !!initialRowsLimit && index >= row * amountOfCoversPerRow;
 
@@ -31,7 +34,7 @@ export const TakeActionCovers = ({
       const buttonLink = inEditor ? null : button_link;
 
       return (
-        <div key={title} className='cover-card cover'>
+        <div key={id} className='cover-card cover'>
           <a
             className='cover-card-overlay'
             data-ga-category='Take Action Covers'
@@ -47,12 +50,15 @@ export const TakeActionCovers = ({
             href={buttonLink}
             aria-label={__('Take action cover, link to ' + title, 'planet4-blocks')}
           >
-            <img
-              alt={alt_text}
-              src={image}
-              srcSet={srcset}
-              sizes={IMAGE_SIZES.takeAction}
-            />
+            {isExample ?
+              <CoversImagePlaceholder height={220} /> :
+              <img
+                alt={alt_text}
+                src={image}
+                srcSet={srcset}
+                sizes={IMAGE_SIZES.takeAction}
+              />
+            }
           </a>
           <div className='cover-card-content'>
             {/* Regardless of how many tags there are, we only show the first one */}

@@ -96,49 +96,63 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
 };
 
 const renderView = (attributes, toAttribute) => {
-  const { initialRowsLimit, cover_type, title, description, className, layout } = attributes;
+  const {
+    initialRowsLimit,
+    cover_type,
+    title,
+    description,
+    className,
+    layout,
+    isExample,
+    exampleCovers
+  } = attributes;
 
   const { covers, loading, row, amountOfCoversPerRow } = useCovers(attributes);
 
   const isCarouselLayout = layout === COVERS_LAYOUTS.carousel;
 
   const coversProps = {
-    covers,
+    covers: isExample ? exampleCovers[cover_type] : covers,
     initialRowsLimit,
     row,
     showMoreCovers: () => {},
     cover_type,
     inEditor: true,
     isCarouselLayout,
-    amountOfCoversPerRow
+    amountOfCoversPerRow,
+    isExample,
   };
 
   const showLoadMoreButton = !isCarouselLayout && !!initialRowsLimit && covers.length > (amountOfCoversPerRow * row);
 
   return (
     <section className={`block covers-block ${cover_type}-covers-block ${className ?? ''} ${layout}-layout`}>
-      <header>
-        <RichText
-          tagName='h2'
-          className='page-section-header'
-          placeholder={__('Enter title', 'planet4-blocks-backend')}
-          value={title}
-          onChange={toAttribute('title')}
-          withoutInteractiveFormatting
-          multiline='false'
-          allowedFormats={[]}
-        />
-      </header>
-      <RichText
-        tagName='p'
-        className='page-section-description'
-        placeholder={__('Enter description', 'planet4-blocks-backend')}
-        value={description}
-        onChange={toAttribute('description')}
-        withoutInteractiveFormatting
-        allowedFormats={['core/bold', 'core/italic']}
-      />
-      {!loading && !covers.length ?
+      {!isExample &&
+        <>
+          <header>
+            <RichText
+              tagName='h2'
+              className='page-section-header'
+              placeholder={__('Enter title', 'planet4-blocks-backend')}
+              value={title}
+              onChange={toAttribute('title')}
+              withoutInteractiveFormatting
+              multiline='false'
+              allowedFormats={[]}
+            />
+          </header>
+          <RichText
+            tagName='p'
+            className='page-section-description'
+            placeholder={__('Enter description', 'planet4-blocks-backend')}
+            value={description}
+            onChange={toAttribute('description')}
+            withoutInteractiveFormatting
+            allowedFormats={['core/bold', 'core/italic']}
+          />
+        </>
+      }
+      {!loading && !covers.length && !isExample ?
         <div className='EmptyMessage'>
           {__('Block content is empty. Check the block\'s settings or remove it.', 'planet4-blocks-backend')}
         </div> :
