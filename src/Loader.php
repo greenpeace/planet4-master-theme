@@ -168,7 +168,7 @@ final class Loader {
 			|| ( isset( $_GET['delete_all'] ) ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			|| ! preg_match( '/autosave-v\d+$/', $post->post_name ) ) {
 
-			return null;
+			return $delete;
 		}
 
 		return false;
