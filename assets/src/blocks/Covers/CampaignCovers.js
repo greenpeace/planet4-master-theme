@@ -24,7 +24,7 @@ export const CampaignCovers = ({
       const campaignLink = inEditor ? null : href;
 
       return (
-        <div key={name} className='campaign-card-column cover'>
+        <div key={href} className='campaign-card-column cover'>
           <a
             href={campaignLink}
             data-ga-category='Campaign Covers'
