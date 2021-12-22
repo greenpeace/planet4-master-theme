@@ -14,7 +14,7 @@ export const CampaignCovers = ({
 }) => (
   <div className='covers'>
     {covers.map((cover, index) => {
-      const { href, image, alt_text, name, src_set, id } = cover;
+      const { href, image, alt_text, name, src_set } = cover;
       const hideCover = !isCarouselLayout && !!initialRowsLimit && index >= row * amountOfCoversPerRow;
 
       if (hideCover) {
@@ -24,7 +24,7 @@ export const CampaignCovers = ({
       const campaignLink = inEditor ? null : href;
 
       return (
-        <div key={id} className='campaign-card-column cover'>
+        <div key={name} className='campaign-card-column cover'>
           <a
             href={campaignLink}
             data-ga-category='Campaign Covers'

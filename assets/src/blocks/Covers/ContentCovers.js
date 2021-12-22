@@ -22,7 +22,6 @@ export const ContentCovers = ({
         alt_text,
         date_formatted,
         post_excerpt,
-        id,
       } = cover;
 
       const hideCover = !isCarouselLayout && !!initialRowsLimit && index >= row * amountOfCoversPerRow;
@@ -34,7 +33,7 @@ export const ContentCovers = ({
       const contentLink = inEditor ? null : link;
 
       return (
-        <div key={id} className='post-column cover'>
+        <div key={post_title} className='post-column cover'>
           <div className='content-covers-block-wrap clearfix'>
             <div className='content-covers-block-info'>
               <div className='content-covers-block-image' {...isExample && { style: { height: 120 } }}>

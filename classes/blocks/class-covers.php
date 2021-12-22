@@ -359,7 +359,6 @@ class Covers extends Base_Block {
 				'name' => html_entity_decode( $tag->name ),
 				'slug' => $tag->slug,
 				'href' => get_tag_link( $tag ),
-				'id'   => self::CAMPAIGN_COVER_TYPE . '-' . $tag->term_id,
 			];
 			$attachment_id = get_term_meta( $tag->term_id, 'tag_attachment_id', true );
 
@@ -413,7 +412,6 @@ class Covers extends Base_Block {
 				$img_id = get_post_thumbnail_id( $action );
 
 				$covers[] = [
-					'id'          => self::TAKE_ACTION_COVER_TYPE . '-' . $action->ID,
 					'tags'        => $tags ?? [],
 					'title'       => html_entity_decode( get_the_title( $action ) ),
 					'excerpt'     => $action->post_excerpt,
@@ -449,7 +447,6 @@ class Covers extends Base_Block {
 		$posts_array = [];
 		foreach ( $posts as $post ) {
 			$post_data = [
-				'id'             => self::CONTENT_COVER_TYPE . '-' . $post->ID,
 				'post_title'     => $post->post_title,
 				'post_excerpt'   => $post->post_excerpt,
 				'alt_text'       => '',
