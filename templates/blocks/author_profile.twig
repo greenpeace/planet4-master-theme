@@ -32,10 +32,9 @@
 					{% if ( post.author.description|length <= author_bio_char_limit ) %}
 						{{ post.author.description|raw }}
 					{% else %}
-						{% set post_author_description_teaser = post.author.description|slice(0, author_bio_char_limit)|join(' ') ~ '<span class="collapse show multi-collapse">&hellip;</span>' %}
-						{% set post_author_description_remainder = post.author.description|slice(author_bio_char_limit)|join(' ') %}
-						{{ post_author_description_teaser|raw }}
-						<span class="collapse multi-collapse">{{ post_author_description_remainder|raw }}</span>
+						{% set post_author_description_teaser = post.author.description|slice(0, author_bio_char_limit) ~ '<span class="collapse show multi-collapse">&hellip;</span>' %}
+						{% set post_author_description_remainder = post.author.description|slice(author_bio_char_limit) %}
+						{{ post_author_description_teaser|raw }}<span class="collapse multi-collapse">{{ post_author_description_remainder|raw }}</span>
 						<button
 							class="author-block-description-button"
 							data-bs-toggle="collapse"
