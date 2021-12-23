@@ -15,7 +15,6 @@ export const TakeActionCovers = ({
   <div className='covers'>
     {covers.map((cover, index) => {
       const {
-        button_link,
         title,
         tags,
         image,
@@ -30,10 +29,12 @@ export const TakeActionCovers = ({
         return null;
       }
 
-      const buttonLink = inEditor ? null : button_link;
+      const link = cover.link || cover.button_link;
+
+      const buttonLink = inEditor ? null : link;
 
       return (
-        <div key={button_link} className='cover-card cover'>
+        <div key={link} className='cover-card cover'>
           <a
             className='cover-card-overlay'
             data-ga-category='Take Action Covers'
