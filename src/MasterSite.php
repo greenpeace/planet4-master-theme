@@ -253,11 +253,6 @@ class MasterSite extends TimberSite {
 		// Disable xmlrpc.
 		add_filter( 'xmlrpc_enabled', '__return_false' );
 
-		// WPML plugin & wp-stateless plugin incompatibility fix.
-		if ( function_exists( 'is_plugin_active' ) && is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
-			add_filter( 'wp_stateless_media_synced', [ $this, 'copy_gcs_metadata' ], 10, 4 );
-		}
-
 		$this->register_meta_fields();
 	}
 
@@ -1469,36 +1464,4 @@ class MasterSite extends TimberSite {
 		return $endpoints;
 	}
 
-	/**
-	 * Copy WP-Stateless field (`sm_cloud`) to all WPML translations on a media post upload to GCS.
-	 *
-	 * @param array  $metadata       Metadata for the attachment.
-	 * @param string $attachment_id  Attachment ID.
-	 * @param bool   $force          (optional) Whether to force the sync even the file already exist in GCS.
-	 * @param bool   $args           (optional) Whether to only sync the full size image.
-	 *
-	 * @return array Metadata for the attachment.
-	 */
-	public function copy_gcs_metadata( $metadata, $attachment_id, $force, $args ): array {
-
-		global $sitepress;
-		$trid         = $sitepress->get_element_trid( $attachment_id );
-		$translations = $sitepress->get_element_translations( $trid );
-
-		// Get WP-Stateless field.
-		$cloud_meta = get_post_meta( $attachment_id, 'sm_cloud', true );
-
-		if ( $cloud_meta ) {
-			foreach ( $translations as $translation ) {
-				$translation_post_id = $translation->element_id;
-
-				// Set field in other translations that are not the current one.
-				if ( $translation_post_id !== $attachment_id && ! get_post_meta( $translation_post_id, 'sm_cloud', true ) ) {
-					update_post_meta( $translation_post_id, 'sm_cloud', $cloud_meta );
-				}
-			}
-		}
-
-		return $metadata;
-	}
 }
