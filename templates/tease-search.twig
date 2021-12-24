@@ -1,10 +1,12 @@
 {% set ga_page_type = post.post_type|capitalize %}
+{% set post_link = post.link %}
 {% if ( 'action' == post.content_type ) %}
 	{% set is_action = true %}
 	{% set ga_page_type = 'Take Action' %}
 {% elseif ( 'document' == post.content_type ) %}
 	{% set is_document = true %}
 	{% set ga_page_type = 'Document' %}
+	{% set post_link = fn('wp_get_attachment_url', post.id) %}
 {% elseif ( 'campaign' == post.content_type ) %}
 	{% set is_campaign = true %}
 {% elseif ( 'archive' == post.post_type ) %}
@@ -25,7 +27,9 @@
 			alt="{{ fn('esc_attr', post.thumbnail_alt|default( post.post_title ) )|raw }}"
 			data-ga-category="Search Results"
 			data-ga-action="Image"
-			data-ga-label="{{ ga_page_type }}" />
+			data-ga-label="{{ ga_page_type }}"
+			onclick="window.location.href='{{ post_link }}'"
+		/>
 
 		<div id="tease-{{ post.ID }}" class="search-result-item-body tease tease-{{ post.post_type }}">
 			<div class="search-result-item-flex-title">
@@ -77,7 +81,7 @@
 					{% if ( is_document ) %}
 						{% set title = post.post_title|e('wp_kses_post') %}
 						<a
-							href="{{ fn('wp_get_attachment_url', post.id) }}"
+							href="{{ post_link }}"
 							class="search-result-item-headline"
 							data-ga-category="Search Results"
 							data-ga-action="Title"
@@ -86,7 +90,7 @@
 						</a>
 					{% elseif ( is_archive ) %}
 						<a
-							href="{{ post.link }}"
+							href="{{ post_link }}"
 							target="_blank"
 							class="search-result-item-headline archive"
 							data-ga-category="Search Results"
@@ -96,7 +100,7 @@
 						</a>
 					{% else %}
 						<a
-							href="{{ post.link }}"
+							href="{{ post_link }}"
 							class="search-result-item-headline"
 							data-ga-category="Search Results"
 							data-ga-action="Title"
@@ -113,7 +117,7 @@
 				</div>
 				<div>
 					{% if ( is_document ) %}
-						<a href="{{ fn('wp_get_attachment_url', post.id) }}" download class="btn btn-small btn-secondary">
+						<a href="{{ post_link }}" download class="btn btn-small btn-secondary">
 							{{ __( 'Download', 'planet4-master-theme' ) }}
 						</a>
 					{% elseif ( is_campaign or is_archive ) %}
@@ -138,7 +142,7 @@
 			<div>
 				{%  set link_text = settings['take_action_covers_button_text'] %}
 				<a
-					href="{{ post.link }}"
+					href="{{ post_link }}"
 					class="btn btn-primary btn-small"
 					data-ga-category="Search Results"
 					data-ga-action="Call to Action"
