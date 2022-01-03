@@ -1084,7 +1084,6 @@ abstract class Search {
 			'posts_per_load' => self::POSTS_PER_LOAD,
 			// Translators: %s = number of results per page.
 			'button_text'    => sprintf( __( 'Show %s more results', 'planet4-master-theme' ), self::POSTS_PER_LOAD ),
-			'async'          => true,
 		];
 	}
 
