@@ -343,7 +343,7 @@ abstract class Search {
 	 * Gets the respective Timber Posts, to be used with the twig template.
 	 * If there are not then uses Timber's get_posts to retrieve all of them (up to the limit set).
 	 *
-	 * @param int $paged The number of the page of the results to be shown when using pagination/load_more.
+	 * @param int $paged The number of the page of the results to be shown when using pagination.
 	 *
 	 * @return array The respective Timber Posts.
 	 */
@@ -400,7 +400,7 @@ abstract class Search {
 	/**
 	 * Applies user selected filters to the search if there are any and gets the filtered posts.
 	 *
-	 * @param int $paged The number of the page of the results to be shown when using pagination/load_more.
+	 * @param int $paged The number of the page of the results to be shown when using pagination.
 	 *
 	 * @return array The posts of the search.
 	 */
@@ -438,7 +438,7 @@ abstract class Search {
 	/**
 	 * Sets arguments for the WP_Query that are related to the application.
 	 *
-	 * @param int $paged The number of the page of the results to be shown when using pagination/load_more.
+	 * @param int $paged The number of the page of the results to be shown when using pagination.
 	 *
 	 * @return array
 	 */
