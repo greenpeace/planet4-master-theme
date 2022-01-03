@@ -372,24 +372,7 @@
 										</button>
 								</div>
 							{% endif %}
-							{% if ( pagination ) %}
-								{{ fn( 'the_posts_pagination', pagination ) }}
-							{% endif %}
 						</div>
-						{% if ( suggestions ) %}
-							<div class="suggested-search-terms">
-								<h3>{{ __( 'Suggested search terms', 'planet4-master-theme' ) }}</h3>
-								<div class="suggested-list row">
-									{% for suggestion in suggestions %}
-										<div class="col-md-4">
-											<ul class="list-unstyled">
-												<li><a href="#"> {{ suggestion }}</a></li>
-											</ul>
-										</div>
-									{% endfor %}
-								</div>
-							</div>
-						{% endif %}
 					</div>
 				</div>
 			</div>
