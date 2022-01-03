@@ -1068,11 +1068,9 @@ abstract class Search {
 
 	/**
 	 * Adds a section with a Load more button.
-	 *
-	 * @param array|null $args The array with the data for the pagination.
 	 */
-	public function add_load_more( $args = null ) {
-		$this->context['load_more'] = $args ?? [
+	public function add_load_more() {
+		$this->context['load_more'] = [
 			'posts_per_load' => self::POSTS_PER_LOAD,
 			// Translators: %s = number of results per page.
 			'button_text'    => sprintf( __( 'Show %s more results', 'planet4-master-theme' ), self::POSTS_PER_LOAD ),
