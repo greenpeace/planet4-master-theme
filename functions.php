@@ -80,6 +80,7 @@ function planet4_get_option(string $key = '', $default = null)
 }
 
 use P4\MasterTheme\MediaArchive\Rest;
+use P4\MasterTheme\Api;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Post;
 use Timber\Timber;
@@ -114,6 +115,7 @@ add_action(
     'rest_api_init',
     function (): void {
         Rest::register_endpoints();
+        Api\Settings::register_endpoint();
     }
 );
 
