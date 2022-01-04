@@ -1,136 +1,166 @@
 /* global localizations */
 
+const showHiddenRow = row => {
+  if (!row) {
+    return;
+  }
+  row.classList.remove('row-hidden');
+  row.style.display = 'block';
+};
+
+const addSelectedFiltersToForm = (isModal, idToRemove) => {
+  const searchForm = document.getElementById('search_form');
+  let selectedFilters = [...document.querySelectorAll(
+    `input[name^="f["]${isModal ? '.modal-checkbox' : ':not(.modal-checkbox)'}:checked`
+  )];
+
+  if (idToRemove) {
+    selectedFilters = selectedFilters.filter(selectedFilter => selectedFilter.value !== idToRemove);
+  }
+
+  selectedFilters.forEach(selectedFilter => {
+    const selectedFilterCopy = selectedFilter.cloneNode(true);
+    selectedFilterCopy.style.display = 'none';
+    searchForm.appendChild(selectedFilterCopy);
+  });
+};
+
 // Search page.
-export const setupSearch = function($) {
+export const setupSearch = ($) => {
   const isSearch = !!$('body.search').length;
   if (!isSearch) {
     return;
   }
 
-  const $search_form      = $( '#search_form' );
-  const $load_more_button = $( '.btn-load-more-click-scroll' );
-  let load_more_count   = 0;
-  let loaded_more       = false;
-
-  $( '#search-type button' ).click(function() {
-    $( '#search-type button' ).removeClass( 'active' );
-    $( this ).addClass( 'active' );
-  });
-
-  $( '.btn-filter:not( .disabled )' ).click(() => {
-    $( '#filtermodal' ).modal( 'show' );
-  });
+  // Needed form and inputs
+  const searchForm = document.getElementById('search_form');
+  const orderInput = document.getElementById('orderby');
 
   // Submit form on Sort change event.
-  $( '#select_order' ).off( 'change' ).on( 'change', function() {
-    $( '#orderby', $search_form ).val( $( this ).val() ).parent().submit();
-    return false;
+  const orderSelect = document.getElementById('select_order');
+  if (orderSelect) {
+    orderSelect.onchange = () => {
+      orderInput.value = orderSelect.value;
+      searchForm.submit();
+    };
+  }
+
+  // Submit form on filter click event.
+  const filterInputs = [...document.querySelectorAll('input[name^="f["]:not(.modal-checkbox)')];
+  filterInputs.forEach(filterInput => {
+    filterInput.onclick = () => {
+      addSelectedFiltersToForm(false);
+      searchForm.submit();
+    };
   });
 
-  // Submit form on Filter click event or on Apply button click event.
-  $( 'input[name^="f["]:not(.modal-checkbox), .applybtn' ).off( 'click' ).on( 'click', () => {
-    $search_form.submit();
-  });
-
-  // Add all selected filters to the form submit.
-  $search_form.on( 'submit', () => {
-    let $checkbox;
-    if ( 0 === $('.filter-modal.show').length ) {
-      $( 'input[name^="f["]:not(.modal-checkbox):checked' ).each( function() {
-        $checkbox = $( this ).clone( true );
-        $checkbox.css('display', 'none');
-        $search_form.append( $checkbox );
-      } );
-    } else {
-      $( 'input[name^="f["].modal-checkbox:checked').each( function() {
-        $checkbox = $( this ).clone( true );
-        $checkbox.css('display', 'none');
-        $search_form.append( $checkbox );
-      } );
-    }
-  });
-
-  let $search_results = $( '.multiple-search-result' );
-
-  // Navigate to the page of the search result item when clicking on it's thumbnail image.
-  // Delegate event handler to the dynamically created descendant elements.
-  $search_results.off( 'click', '.search-result-item-image').on( 'click', '.search-result-item-image', function() {
-    window.location.href = $( '.search-result-item-headline', $( this ).parent() ).attr( 'href' );
-  });
+  // Submit form on Apply filters button click event.
+  const applyFiltersButton = document.querySelector('.applybtn');
+  applyFiltersButton.onclick = () => {
+    addSelectedFiltersToForm(true);
+    searchForm.submit();
+  };
 
   // Clear single selected filter.
-  $( '.activefilter-tag' ).off( 'click' ).on( 'click', function() {
-    $( '.p4-custom-control-input[value=' + $( this ).data( 'id' ) + ']' ).prop('checked', false );
-    $search_form.submit();
+  const activeFilterTags = [...document.querySelectorAll('.activefilter-tag')];
+  activeFilterTags.forEach(activeFilterTag => {
+    const filterId = activeFilterTag.dataset.id;
+
+    activeFilterTag.onclick = () => {
+      addSelectedFiltersToForm(false, filterId);
+      searchForm.submit();
+    };
   });
 
   // Clear all selected filters.
-  $( '.clearall' ).off( 'click' ).on( 'click', () => {
-    $( 'input[name^="f["]' ).prop( 'checked', false );
-    $search_form.submit();
-  });
+  const clearAllButton = document.querySelector('.clearall');
+  if (clearAllButton) {
+    clearAllButton.onclick = () => {
+      const selectedFilters = [...document.querySelectorAll('input[name^="f["]:checked')];
+      selectedFilters.forEach(selectedFilter => {
+        selectedFilter.checked = false;
+      });
+      searchForm.submit();
+    };
+  }
 
   // Add click event for load more button in blocks.
-  $load_more_button.off( 'click' ).on( 'click', function() {
-    const total_posts    = $(this).data('total_posts');
-    const posts_per_load = $(this).data('posts_per_load');
-    const next_page      = $(this).data( 'current_page' ) + 1;
-    $(this).data( 'current_page', next_page );
+  const navSearchInput = document.getElementById('search_input');
+  const loadMoreButton = document.querySelector('.btn-load-more-click-scroll');
+  if (loadMoreButton) {
+    loadMoreButton.onclick = () => {
+      const { total_posts, posts_per_load, current_page } = loadMoreButton.dataset;
+      const nextPage = parseInt(current_page) + 1;
+      loadMoreButton.dataset.current_page = nextPage;
 
-    $.ajax({
-      url: localizations.ajaxurl,
-      type: 'GET',
-      data: {
-        action:          'get_paged_posts',
-        'search_query':  $( '#search_input' ).val().trim(),
-        'paged':         next_page,
-        'orderby': $( '#orderby', $search_form ).val(),
-        'query-string':  decodeURIComponent( location.search ).substr( 1 ) // Ignore the ? in the search url (first char).
-      },
-      dataType: 'html'
-    }).done(( response ) => {
-      // Append the response at the bottom of the results and then show it.
-      $( '.multiple-search-result .list-unstyled' ).append( response );
-      $( '.row-hidden:last' ).removeClass( 'row-hidden' ).show( 'fast' );
+      $.ajax({
+        url: localizations.ajaxurl,
+        type: 'GET',
+        data: {
+          action: 'get_paged_posts',
+          search_query: navSearchInput.value.trim(),
+          paged: nextPage,
+          orderby: orderInput.value,
+          'query-string': decodeURIComponent(location.search).substring(1) // Ignore the ? in the search url (first char).
+        },
+        dataType: 'html'
+      }).done((response) => {
+        // Append the response at the bottom of the results and then show it.
+        const searchResults = document.querySelector('.multiple-search-result .list-unstyled');
 
-      if (posts_per_load * next_page > total_posts) {
-        $load_more_button.hide();
-      }
-    }).fail(( jqXHR, textStatus, errorThrown ) => {
-      console.log(errorThrown); //eslint-disable-line no-console
-    });
-  });
+        // The response is an HTML string that we need to convert to a DOM node before appending it.
+        const nodeResponse = document.createRange().createContextualFragment(response);
+        searchResults.appendChild(nodeResponse);
+
+        const hiddenRow = document.querySelector('.row-hidden:last-child');
+        showHiddenRow(hiddenRow);
+
+        if (posts_per_load * nextPage > total_posts) {
+          loadMoreButton.style.display = 'none';
+        }
+      }).fail((jqXHR, textStatus, errorThrown) => {
+        console.log(errorThrown); //eslint-disable-line no-console
+      });
+    };
+  }
 
   // Reveal more results just by scrolling down the first 'show_scroll_times' times.
-  $( window ).scroll(function() {
-    if ($load_more_button.length > 0) {
-      let element_top       = $load_more_button.offset().top,
-        element_height      = $load_more_button.outerHeight(),
-        window_height       = $(window).height(),
-        window_scroll       = $(this).scrollTop(),
-        load_earlier_offset = 250;
-
-      if ( load_more_count < localizations.show_scroll_times ) {
-        // If next page has not loaded then load next page as soon as scrolling
-        // reaches 'load_earlier_offset' pixels before the Load more button.
-        if ( ! loaded_more
-            && window_scroll > ( element_top + element_height - window_height - load_earlier_offset )
-            && ( ( load_more_count + 1 ) * $load_more_button.data('posts_per_load') ) < $load_more_button.data('total_posts' ) ) {
-
-          load_more_count++;
-          $load_more_button.click();
-          loaded_more = true;
-
-          // Add a throttle to avoid multiple scroll events from firing together.
-          setTimeout(() => {
-            loaded_more = false;
-          }, 500);
-        }
-        if (window_scroll > (element_top + element_height - window_height)) {
-          $('.row-hidden').removeClass('row-hidden').show('fast');
-        }
-      }
-      return false;
+  let loadMoreCount = 0;
+  let loadedMore = false;
+  window.onscroll = () => {
+    if (!loadMoreButton) {
+      return;
     }
-  });
+
+    let elementTop = loadMoreButton.offsetTop,
+      elementHeight = loadMoreButton.clientHeight,
+      windowHeight = window.innerHeight,
+      windowScroll = window.scrollY,
+      loadEarlierOffset = 250;
+
+    const { posts_per_load, total_posts } = loadMoreButton.dataset;
+
+    if (loadMoreCount < localizations.show_scroll_times) {
+      // If next page has not loaded then load next page as soon as scrolling
+      // reaches 'loadEarlierOffset' pixels before the Load more button.
+      if (!loadedMore
+        && windowScroll > (elementTop + elementHeight - windowHeight - loadEarlierOffset)
+        && (loadMoreCount + 1) * posts_per_load < total_posts) {
+
+        loadMoreCount += 1;
+        loadMoreButton.click();
+        loadedMore = true;
+
+        // Add a throttle to avoid multiple scroll events from firing together.
+        setTimeout(() => {
+          loadedMore = false;
+        }, 500);
+      }
+      if (windowScroll > (elementTop + elementHeight - windowHeight)) {
+        const hiddenRows = [...document.querySelectorAll('.row-hidden')];
+        hiddenRows.forEach(showHiddenRow);
+      }
+    }
+    return false;
+  };
 };
