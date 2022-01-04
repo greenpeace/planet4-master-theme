@@ -248,44 +248,36 @@ abstract class Search {
 	/**
 	 * Conducts the actual search.
 	 *
-	 * @param string     $search_query The searched term.
-	 * @param string     $selected_sort The selected order_by.
-	 * @param array      $filters The selected filters.
-	 * @param array      $templates An indexed array with template file names. The first to be found will be used.
-	 * @param array|null $context An associative array with all the context needed to render the template found first.
+	 * @param string $search_query The searched term.
+	 * @param string $selected_sort The selected order_by.
+	 * @param array  $filters The selected filters.
 	 */
 	public function load(
 		$search_query,
 		$selected_sort = self::DEFAULT_SORT,
-		$filters = [],
-		$templates = [ 'search.twig', 'archive.twig', 'index.twig' ],
-		$context = null
+		$filters = []
 	) {
 		$this->initialize();
 		$this->search_query = $search_query;
-		$this->templates    = $templates;
+		$this->templates    = [ 'search.twig', 'archive.twig', 'index.twig' ];
 
-		if ( $context ) {
-			$this->context = $context;
-		} else {
-			$this->context = Timber::get_context();
+		$this->context = Timber::get_context();
 
-			// Validate user input (sort, filters, etc).
-			if ( $this->validate( $selected_sort, $filters, $this->context ) ) {
-				$this->selected_sort = $selected_sort;
-				$this->filters       = $filters;
-			}
-
-			$this->posts = $this->get_posts();
-
-			if ( $this->posts ) {
-				$this->paged_posts = array_slice( $this->posts, 0, self::POSTS_PER_LOAD );
-			}
-
-			$this->current_page = ( 0 === get_query_var( 'paged' ) ) ? 1 : get_query_var( 'paged' );
-
-			$this->set_context( $this->context );
+		// Validate user input (sort, filters, etc).
+		if ( $this->validate( $selected_sort, $filters, $this->context ) ) {
+			$this->selected_sort = $selected_sort;
+			$this->filters       = $filters;
 		}
+
+		$this->posts = $this->get_posts();
+
+		if ( $this->posts ) {
+			$this->paged_posts = array_slice( $this->posts, 0, self::POSTS_PER_LOAD );
+		}
+
+		$this->current_page = ( 0 === get_query_var( 'paged' ) ) ? 1 : get_query_var( 'paged' );
+
+		$this->set_context( $this->context );
 	}
 
 	/**
@@ -351,7 +343,7 @@ abstract class Search {
 	 * Gets the respective Timber Posts, to be used with the twig template.
 	 * If there are not then uses Timber's get_posts to retrieve all of them (up to the limit set).
 	 *
-	 * @param int $paged The number of the page of the results to be shown when using pagination/load_more.
+	 * @param int $paged The number of the page of the results to be shown when using pagination.
 	 *
 	 * @return array The respective Timber Posts.
 	 */
@@ -408,7 +400,7 @@ abstract class Search {
 	/**
 	 * Applies user selected filters to the search if there are any and gets the filtered posts.
 	 *
-	 * @param int $paged The number of the page of the results to be shown when using pagination/load_more.
+	 * @param int $paged The number of the page of the results to be shown when using pagination.
 	 *
 	 * @return array The posts of the search.
 	 */
@@ -446,7 +438,7 @@ abstract class Search {
 	/**
 	 * Sets arguments for the WP_Query that are related to the application.
 	 *
-	 * @param int $paged The number of the page of the results to be shown when using pagination/load_more.
+	 * @param int $paged The number of the page of the results to be shown when using pagination.
 	 *
 	 * @return array
 	 */
@@ -1076,15 +1068,12 @@ abstract class Search {
 
 	/**
 	 * Adds a section with a Load more button.
-	 *
-	 * @param array|null $args The array with the data for the pagination.
 	 */
-	public function add_load_more( $args = null ) {
-		$this->context['load_more'] = $args ?? [
+	public function add_load_more() {
+		$this->context['load_more'] = [
 			'posts_per_load' => self::POSTS_PER_LOAD,
 			// Translators: %s = number of results per page.
 			'button_text'    => sprintf( __( 'Show %s more results', 'planet4-master-theme' ), self::POSTS_PER_LOAD ),
-			'async'          => true,
 		];
 	}
 

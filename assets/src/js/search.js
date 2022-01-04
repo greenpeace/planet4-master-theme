@@ -72,43 +72,34 @@ export const setupSearch = function($) {
 
   // Add click event for load more button in blocks.
   $load_more_button.off( 'click' ).on( 'click', function() {
-    if ( $(this).hasClass( 'btn-load-more-async' ) ) {
-      const total_posts    = $(this).data('total_posts');
-      const posts_per_load = $(this).data('posts_per_load');
-      const next_page      = $(this).data( 'current_page' ) + 1;
-      $(this).data( 'current_page', next_page );
+    const total_posts    = $(this).data('total_posts');
+    const posts_per_load = $(this).data('posts_per_load');
+    const next_page      = $(this).data( 'current_page' ) + 1;
+    $(this).data( 'current_page', next_page );
 
-      $.ajax({
-        url: localizations.ajaxurl,
-        type: 'GET',
-        data: {
-          action:          'get_paged_posts',
-          'search-action': 'get_paged_posts',
-          'search_query':  $( '#search_input' ).val().trim(),
-          'paged':         next_page,
-          'orderby': $( '#orderby', $search_form ).val(),
-          'query-string':  decodeURIComponent( location.search ).substr( 1 ) // Ignore the ? in the search url (first char).
-        },
-        dataType: 'html'
-      }).done(( response ) => {
-        // Append the response at the bottom of the results and then show it.
-        $( '.multiple-search-result .list-unstyled' ).append( response );
-        $( '.row-hidden:last' ).removeClass( 'row-hidden' ).show( 'fast' );
+    $.ajax({
+      url: localizations.ajaxurl,
+      type: 'GET',
+      data: {
+        action:          'get_paged_posts',
+        'search-action': 'get_paged_posts',
+        'search_query':  $( '#search_input' ).val().trim(),
+        'paged':         next_page,
+        'orderby': $( '#orderby', $search_form ).val(),
+        'query-string':  decodeURIComponent( location.search ).substr( 1 ) // Ignore the ? in the search url (first char).
+      },
+      dataType: 'html'
+    }).done(( response ) => {
+      // Append the response at the bottom of the results and then show it.
+      $( '.multiple-search-result .list-unstyled' ).append( response );
+      $( '.row-hidden:last' ).removeClass( 'row-hidden' ).show( 'fast' );
 
-        if (posts_per_load * next_page > total_posts) {
-          $load_more_button.hide();
-        }
-      }).fail(( jqXHR, textStatus, errorThrown ) => {
-        console.log(errorThrown); //eslint-disable-line no-console
-      });
-    } else {
-      const $row = $( '.row-hidden', $load_more_button.closest( '.container' ) );
-
-      if ( 1 === $row.length ) {
-        $load_more_button.closest( '.load-more-button-div' ).hide( 'fast' );
+      if (posts_per_load * next_page > total_posts) {
+        $load_more_button.hide();
       }
-      $row.first().show( 'fast' ).removeClass( 'row-hidden' );
-    }
+    }).fail(( jqXHR, textStatus, errorThrown ) => {
+      console.log(errorThrown); //eslint-disable-line no-console
+    });
   });
 
   // Reveal more results just by scrolling down the first 'show_scroll_times' times.

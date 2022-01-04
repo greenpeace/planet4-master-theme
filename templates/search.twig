@@ -353,20 +353,15 @@
 							</div>
 						</div>
 						<div class="multiple-search-result">
-							{% if ( load_more.async ) %}
-								{% set displayed_posts = paged_posts %}
-							{% else %}
-								{% set displayed_posts = posts %}
-							{% endif %}
 							<ul class="list-unstyled">
-								{% for post in displayed_posts %}
+								{% for post in paged_posts %}
 									{% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
 								{% endfor %}
 							</ul>
 							{% if ( load_more and found_posts > paged_posts|length ) %}
 								<div class="col-lg-12 mb-5 load-more-button-div">
 									<button
-										class="btn btn-secondary more-btn {{ load_more.async ? 'btn-load-more-async' : '' }} btn-load-more-click-scroll"
+										class="btn btn-secondary more-btn btn-load-more-click-scroll"
 										data-current_page="{{ current_page }}"
 										data-total_posts="{{ found_posts }}"
 										data-posts_per_load="{{ load_more.posts_per_load }}"
@@ -377,24 +372,7 @@
 										</button>
 								</div>
 							{% endif %}
-							{% if ( pagination ) %}
-								{{ fn( 'the_posts_pagination', pagination ) }}
-							{% endif %}
 						</div>
-						{% if ( suggestions ) %}
-							<div class="suggested-search-terms">
-								<h3>{{ __( 'Suggested search terms', 'planet4-master-theme' ) }}</h3>
-								<div class="suggested-list row">
-									{% for suggestion in suggestions %}
-										<div class="col-md-4">
-											<ul class="list-unstyled">
-												<li><a href="#"> {{ suggestion }}</a></li>
-											</ul>
-										</div>
-									{% endfor %}
-								</div>
-							</div>
-						{% endif %}
 					</div>
 				</div>
 			</div>
