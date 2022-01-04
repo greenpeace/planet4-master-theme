@@ -77,6 +77,7 @@ function planet4_get_option( $key = '', $default = null ) {
 }
 
 use P4\MasterTheme\ImageArchive\Rest;
+use P4\MasterTheme\Api;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Notifications\Slack;
 use Timber\Timber;
@@ -112,6 +113,7 @@ add_action(
 	'rest_api_init',
 	function () {
 		Rest::register_endpoints();
+		Api\Settings::register_endpoint();
 	}
 );
 
