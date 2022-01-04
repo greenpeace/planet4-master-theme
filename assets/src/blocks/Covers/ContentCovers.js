@@ -15,13 +15,10 @@ export const ContentCovers = ({
   <div className='covers'>
     {covers.map((cover, index) => {
       const {
-        thumbnail,
         link,
-        post_title,
         srcset,
         alt_text,
         date_formatted,
-        post_excerpt,
       } = cover;
 
       const hideCover = !isCarouselLayout && !!initialRowsLimit && index >= row * amountOfCoversPerRow;
@@ -30,6 +27,10 @@ export const ContentCovers = ({
         return null;
       }
 
+      const title = cover.title || cover.post_title;
+      const image = cover.image || cover.thumbnail;
+      const excerpt = cover.excerpt || cover.post_excerpt;
+
       const contentLink = inEditor ? null : link;
 
       return (
@@ -37,17 +38,17 @@ export const ContentCovers = ({
           <div className='content-covers-block-wrap clearfix'>
             <div className='content-covers-block-info'>
               <div className='content-covers-block-image' {...isExample && { style: { height: 120 } }}>
-                {thumbnail && !isExample &&
+                {image && !isExample &&
                   <a
                     href={contentLink}
                     data-ga-category='Content Covers'
                     data-ga-action='Image'
                     data-ga-label='n/a'
-                    aria-label={__('Cover image, link to ' + post_title, 'planet4-blocks')}
+                    aria-label={__('Cover image, link to ' + title, 'planet4-blocks')}
                   >
                     <img
                       loading='lazy'
-                      src={thumbnail}
+                      src={image}
                       alt={alt_text}
                       title={alt_text}
                       srcSet={srcset}
@@ -58,7 +59,7 @@ export const ContentCovers = ({
                 {isExample && <CoversImagePlaceholder height='100%' />}
               </div>
               <div className='content-covers-block-information'>
-                {post_title &&
+                {title &&
                   <h5>
                     <a
                       href={contentLink}
@@ -66,15 +67,15 @@ export const ContentCovers = ({
                       data-ga-action='Title'
                       data-ga-label='n/a'
                     >
-                      {post_title}
+                      {title}
                     </a>
                   </h5>
                 }
                 {date_formatted &&
                   <p className='publication-date'>{date_formatted}</p>
                 }
-                {post_excerpt &&
-                  <p className='post-excerpt' dangerouslySetInnerHTML={{ __html: post_excerpt }} />
+                {excerpt &&
+                  <p className='post-excerpt' dangerouslySetInnerHTML={{ __html: excerpt }} />
                 }
               </div>
             </div>

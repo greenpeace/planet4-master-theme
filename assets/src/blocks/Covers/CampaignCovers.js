@@ -14,37 +14,41 @@ export const CampaignCovers = ({
 }) => (
   <div className='covers'>
     {covers.map((cover, index) => {
-      const { href, image, alt_text, name, src_set } = cover;
+      const { image, alt_text } = cover;
       const hideCover = !isCarouselLayout && !!initialRowsLimit && index >= row * amountOfCoversPerRow;
 
       if (hideCover) {
         return null;
       }
 
-      const campaignLink = inEditor ? null : href;
+      const link = cover.link || cover.href;
+      const srcset = cover.srcset || cover.src_set;
+      const title = cover.title || cover.name;
+
+      const campaignLink = inEditor ? null : link;
 
       return (
-        <div key={href} className='campaign-card-column cover'>
+        <div key={link} className='campaign-card-column cover'>
           <a
             href={campaignLink}
             data-ga-category='Campaign Covers'
             data-ga-action='Image'
             data-ga-label='n/a'
-            aria-label={__('Check our campaign about ' + name, 'planet4-blocks')}
+            aria-label={__('Check our campaign about ' + title, 'planet4-blocks')}
           >
             <div className='thumbnail-large'>
               {image && image[0] && !isExample &&
                 <img
                   loading='lazy'
                   sizes={IMAGE_SIZES.campaign}
-                  srcSet={src_set}
+                  srcSet={srcset}
                   src={image[0]}
                   alt={alt_text}
                   title={alt_text}
                 />
               }
               {isExample && <CoversImagePlaceholder height={150} />}
-              <span className='yellow-cta'><span aria-label='hashtag'>#</span>{name}</span>
+              <span className='yellow-cta'><span aria-label='hashtag'>#</span>{title}</span>
             </div>
           </a>
         </div>

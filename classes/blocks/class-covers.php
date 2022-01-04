@@ -356,15 +356,15 @@ class Covers extends Base_Block {
 
 		foreach ( $tags as $tag ) {
 			$tag_remapped  = [
-				'name' => html_entity_decode( $tag->name ),
-				'slug' => $tag->slug,
-				'href' => get_tag_link( $tag ),
+				'title' => html_entity_decode( $tag->name ),
+				'slug'  => $tag->slug,
+				'href'  => get_tag_link( $tag ),
 			];
 			$attachment_id = get_term_meta( $tag->term_id, 'tag_attachment_id', true );
 
 			if ( ! empty( $attachment_id ) ) {
 				$tag_remapped['image']    = wp_get_attachment_image_src( $attachment_id, 'medium_large' );
-				$tag_remapped['src_set']  = wp_get_attachment_image_srcset( $attachment_id, 'medium_large' ) ?? 'false';
+				$tag_remapped['srcset']   = wp_get_attachment_image_srcset( $attachment_id, 'medium_large' ) ?? 'false';
 				$tag_remapped['alt_text'] = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
 			}
 
@@ -419,7 +419,7 @@ class Covers extends Base_Block {
 					'srcset'      => wp_get_attachment_image_srcset( $img_id, 'articles-medium-large' ) ?? 'false',
 					'alt_text'    => get_the_post_thumbnail_url( $action, 'large' ),
 					'button_text' => $cover_button_text,
-					'button_link' => get_permalink( $action->ID ),
+					'link'        => get_permalink( $action->ID ),
 				];
 			}
 		}
@@ -447,21 +447,21 @@ class Covers extends Base_Block {
 		$posts_array = [];
 		foreach ( $posts as $post ) {
 			$post_data = [
-				'post_title'     => $post->post_title,
-				'post_excerpt'   => $post->post_excerpt,
+				'title'          => $post->post_title,
+				'excerpt'        => $post->post_excerpt,
 				'alt_text'       => '',
-				'thumbnail'      => '',
+				'image'          => '',
 				'srcset'         => '',
 				'link'           => get_permalink( $post ),
 				'date_formatted' => get_the_date( '', $post->ID ),
 			];
 
 			if ( has_post_thumbnail( $post ) ) {
-				$post_data['thumbnail'] = get_the_post_thumbnail_url( $post, 'medium' );
-				$img_id                 = get_post_thumbnail_id( $post );
-				$srcset                 = wp_get_attachment_image_srcset( $img_id, 'full', wp_get_attachment_metadata( $img_id ) );
-				$post_data['srcset']    = is_string( $srcset ) ? $srcset : 'false';
-				$post_data['alt_text']  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+				$post_data['image']    = get_the_post_thumbnail_url( $post, 'medium' );
+				$img_id                = get_post_thumbnail_id( $post );
+				$srcset                = wp_get_attachment_image_srcset( $img_id, 'full', wp_get_attachment_metadata( $img_id ) );
+				$post_data['srcset']   = is_string( $srcset ) ? $srcset : 'false';
+				$post_data['alt_text'] = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
 			}
 
 			$posts_array[] = $post_data;
