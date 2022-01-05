@@ -915,7 +915,7 @@ abstract class Search {
 
 				$context['page_types'][ $p4_post_type_id ] = [
 					'term_id' => $p4_post_type_id,
-					'name'    => $p4_post_type->name,
+					'name'    => $p4_post_type->name ?? null,
 					'results' => $p4_post_type_agg['doc_count'],
 				];
 			}
