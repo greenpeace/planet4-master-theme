@@ -1,19 +1,12 @@
 .site-logo {
-  flex-grow: 1;
   line-height: $menu-height;
-  padding: 0;
-  position: unset;
-  text-align: center;
 
   img {
     height: 26px;
   }
 
   @include large-and-up {
-    flex-grow: 0;
     margin-inline-start: calc((100vw - 960px) / 2);
-    text-align: start;
-    width: auto;
   }
 
   @include x-large-and-up {
