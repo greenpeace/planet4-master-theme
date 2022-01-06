@@ -59,6 +59,7 @@ const toggleNavElement = element => {
   const countryDropdownToggle = document.querySelector('.country-dropdown-toggle');
   const countrySelectorToggle = document.querySelector('.country-selector-toggle');
   const navbarSearchToggle = document.querySelector('.navbar-search-toggle');
+  const navMenuToggle = document.querySelector('.nav-menu-toggle');
 
   if (countryDropdownToggle) {
     updateGaAction(countryDropdownToggle, 'Country Selector');
@@ -70,6 +71,10 @@ const toggleNavElement = element => {
 
   if (navbarSearchToggle) {
     updateGaAction(navbarSearchToggle, 'Search');
+  }
+
+  if (navMenuToggle) {
+    updateGaAction(navMenuToggle, 'Menu');
   }
 };
 
