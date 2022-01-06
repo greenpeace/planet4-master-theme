@@ -82,7 +82,6 @@ export const setupSearch = function($) {
       type: 'GET',
       data: {
         action:          'get_paged_posts',
-        'search-action': 'get_paged_posts',
         'search_query':  $( '#search_input' ).val().trim(),
         'paged':         next_page,
         'orderby': $( '#orderby', $search_form ).val(),

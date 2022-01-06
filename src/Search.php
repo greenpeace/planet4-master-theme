@@ -283,60 +283,54 @@ abstract class Search {
 	/**
 	 * Gets the paged posts that belong to the next page/load and are to be used with the twig template.
 	 */
-	public static function get_paged_posts() {
-		// If this is an ajax call.
-		if ( wp_doing_ajax() ) {
-			$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
-			$paged         = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_STRING );
+	public static function get_paged_posts(): void {
+		$paged = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_STRING );
 
-			// Check if call action is correct.
-			if ( 'get_paged_posts' === $search_action ) {
-				$search_async = new static();
-				$search_async->set_context( $search_async->context );
-				$search_async->search_query = urldecode( filter_input( INPUT_GET, 'search_query', FILTER_SANITIZE_STRING ) );
+		$search_async = new static();
+		$search_async->set_context( $search_async->context );
+		$search_async->search_query = urldecode( filter_input( INPUT_GET, 'search_query', FILTER_SANITIZE_STRING ) );
 
-				// Get the decoded url query string and then use it as key for redis.
-				$query_string_full = urldecode( filter_input( INPUT_SERVER, 'QUERY_STRING', FILTER_SANITIZE_STRING ) );
-				$query_string      = str_replace( '&query-string=', '', strstr( $query_string_full, '&query-string=' ) );
+		// Get the decoded url query string and then use it as key for redis.
+		$query_string_full = urldecode( filter_input( INPUT_SERVER, 'QUERY_STRING', FILTER_SANITIZE_STRING ) );
+		$query_string      = str_replace( '&query-string=', '', strstr( $query_string_full, '&query-string=' ) );
 
-				$search_async->current_page = $paged;
+		$search_async->current_page = $paged;
 
-				parse_str( $query_string, $filters_array );
-				$selected_sort    = $filters_array['orderby'] ?? self::DEFAULT_SORT;
-				$selected_filters = $filters_array['f'] ?? [];
-				$filters          = [];
+		parse_str( $query_string, $filters_array );
+		$selected_sort    = $filters_array['orderby'] ?? self::DEFAULT_SORT;
+		$selected_filters = $filters_array['f'] ?? [];
+		$filters          = [];
 
-				// Handle submitted filter options.
-				if ( $selected_filters && is_array( $selected_filters ) ) {
-					foreach ( $selected_filters as $type => $filter_type ) {
-						if ( ! is_array( $filter_type ) ) {
-							continue;
-						}
-						foreach ( $filter_type as $name => $id ) {
-							$filters[ $type ][] = [
-								'id'   => $id,
-								'name' => $name,
-							];
-						}
-					}
+		// Handle submitted filter options.
+		if ( $selected_filters && is_array( $selected_filters ) ) {
+			foreach ( $selected_filters as $type => $filter_type ) {
+				if ( ! is_array( $filter_type ) ) {
+					continue;
 				}
-
-				// Validate user input (sort, filters, etc).
-				if ( $search_async->validate( $selected_sort, $filters, $search_async->context ) ) {
-					$search_async->selected_sort = $selected_sort;
-					$search_async->filters       = $filters;
-				}
-
-				$search_async->paged_posts = $search_async->get_posts( $search_async->current_page );
-
-				// If there are paged results then set their context and send them back to client.
-				if ( $search_async->paged_posts ) {
-					$search_async->set_results_context( $search_async->context );
-					$search_async->view_paged_posts();
+				foreach ( $filter_type as $name => $id ) {
+					$filters[ $type ][] = [
+						'id'   => $id,
+						'name' => $name,
+					];
 				}
 			}
-			wp_die();
 		}
+
+		// Validate user input (sort, filters, etc).
+		if ( $search_async->validate( $selected_sort, $filters, $search_async->context ) ) {
+			$search_async->selected_sort = $selected_sort;
+			$search_async->filters       = $filters;
+		}
+
+		$search_async->paged_posts = $search_async->get_posts( $search_async->current_page );
+
+		// If there are paged results then set their context and send them back to client.
+		if ( $search_async->paged_posts ) {
+			$search_async->set_results_context( $search_async->context );
+			$search_async->view_paged_posts();
+		}
+
+		wp_die();
 	}
 
 	/**
@@ -921,7 +915,7 @@ abstract class Search {
 
 				$context['page_types'][ $p4_post_type_id ] = [
 					'term_id' => $p4_post_type_id,
-					'name'    => $p4_post_type->name,
+					'name'    => $p4_post_type->name ?? null,
 					'results' => $p4_post_type_agg['doc_count'],
 				];
 			}
@@ -1023,9 +1017,7 @@ abstract class Search {
 	public static function edit_search_mime_types( $where ) : string {
 		global $wpdb;
 
-		$search_action = filter_input( INPUT_GET, 'search-action', FILTER_SANITIZE_STRING );
-
-		if ( ( ! is_admin() && is_search() ) || ( wp_doing_ajax() && ( 'get_paged_posts' === $search_action ) ) ) {
+		if ( ( ! is_admin() && is_search() ) || wp_doing_ajax() ) {
 			$mime_types = implode( ',', self::DOCUMENT_TYPES );
 			$where     .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
 		}
