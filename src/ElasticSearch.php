@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use UnexpectedValueException;
+use ElasticPress\ElasticSearch as ElasticPressCient;
 
 /**
  * Class P4\MasterTheme\ElasticSearch
@@ -95,6 +96,7 @@ class ElasticSearch extends Search {
 		simple_value_filter( 'epwr_decay', planet4_get_option( 'epwr_decay', 0.5 ) );
 		simple_value_filter( 'epwr_offset', planet4_get_option( 'epwr_offset', '365d' ) );
 
+		add_filter( 'ep_formatted_args', [ $this, 'ensure_function_score_exists' ], 18, 1 );
 		add_filter( 'ep_formatted_args', [ $this, 'set_full_text_search' ], 19, 1 );
 		add_filter( 'ep_formatted_args', [ $this, 'set_results_weight' ], 20, 1 );
 
@@ -103,6 +105,23 @@ class ElasticSearch extends Search {
 		if ( ! wp_doing_ajax() ) {
 			add_filter( 'ep_formatted_args', [ $this, 'add_aggregations' ], 999, 1 );
 		}
+	}
+
+	/**
+	 * Ensure function_score entry exists in the query arguments.
+	 *
+	 * @param array $formatted_args  The formatted arguments.
+	 *
+	 * @return array Formatted arguments with function_score.
+	 */
+	public function ensure_function_score_exists( $formatted_args ) {
+		if ( ! isset( $formatted_args['query']['function_score'] ) ) {
+			$existing_query = $formatted_args['query'];
+			unset( $formatted_args['query'] );
+			$formatted_args['query']['function_score']['query'] = $existing_query;
+		}
+
+		return $formatted_args;
 	}
 
 	/**
@@ -135,19 +154,16 @@ class ElasticSearch extends Search {
 	 * @return mixed
 	 */
 	public function set_results_weight( $formatted_args ) {
-
-		// Move the existing query.
-		$existing_query = $formatted_args['query'];
-		unset( $formatted_args['query'] );
-		$formatted_args['query']['function_score']['query'] = $existing_query;
-
-		$options = get_option( 'planet4_options' );
+		if ( ! isset( $formatted_args['query']['function_score']['functions'] ) ) {
+			$formatted_args['query']['function_score']['functions'] = [];
+		}
 
 		/**
 		 * Use any combination of filters here, any matched filter will adjust
 		 * the weighted results according to the scoring settings set below.
 		 */
-		$formatted_args['query']['function_score']['functions'] = ( $existing_query['function_score']['functions'] ?? [] ) + [
+		array_push(
+			$formatted_args['query']['function_score']['functions'],
 			[
 				'filter' => [
 					'match' => [
@@ -159,12 +175,12 @@ class ElasticSearch extends Search {
 			[
 				'filter' => [
 					'term' => [
-						'post_parent' => esc_sql( $options['act_page'] ),
+						'post_parent' => esc_sql( planet4_get_option( 'act_page' ) ),
 					],
 				],
 				'weight' => self::DEFAULT_ACTION_WEIGHT,
 			],
-		];
+		);
 
 		// Specify how the computed scores are combined.
 		$formatted_args['query']['function_score']['score_mode'] = 'sum';
@@ -228,7 +244,6 @@ class ElasticSearch extends Search {
 	 * @return array Same args with added filter.
 	 */
 	public function add_mime_type_filter( $formatted_args ) {
-
 		$formatted_args['post_filter']['bool']['must'][] = [
 			'bool' => [
 				'should' => [
@@ -251,5 +266,34 @@ class ElasticSearch extends Search {
 		];
 
 		return $formatted_args;
+	}
+
+	/**
+	 * Debug function to validate a query through elastic server.
+	 * This will return a valid/invalid indication,
+	 * and the Lucene query generated from the arguments given.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-validate.html
+	 *
+	 * @param array $query Query arguments.
+	 *
+	 * @return array Server response.
+	 * @throws \Exception On request error.
+	 */
+	public static function validate_query( array $query ): array {
+		$client  = ElasticPressCient::factory();
+		$request = $client->remote_request(
+			'_validate/query?rewrite=true',
+			[
+				'method' => 'POST',
+				'body'   => wp_json_encode( [ 'query' => $query ] ),
+			],
+		);
+
+		if ( is_wp_error( $request ) ) {
+			throw new \Exception( 'Request error' );
+		}
+
+		return json_decode( wp_remote_retrieve_body( $request ), true );
 	}
 }
