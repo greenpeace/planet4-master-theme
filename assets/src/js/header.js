@@ -1,165 +1,5 @@
-export const setupHeader = function($) {
-  'use strict';
-
-  $(document).on('click', [
-    '.navbar-dropdown-toggle',
-    '.nav-menu-toggle',
-    '.country-dropdown-toggle',
-    '.country-selector-toggle',
-    '.navbar-search-toggle',
-    '.nav-search-toggle',
-    '.nav-languages-toggle',
-  ].join(), function toggleNavDropdown(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-
-    const $button = $(this);
-    const target = $button.data('bs-target');
-    if (!target) {
-      throw new Error('Missing `data-bs-target` attribute: specify the container to be toggled');
-    }
-    const toggleClass = $button.data('bs-toggle');
-    if (!toggleClass) {
-      throw new Error('Missing `data-bs-toggle` attribute: specify the class to toggle');
-    }
-
-    // Toggle visibility of the target specified via data-bs-target.
-    $(target).toggleClass(toggleClass);
-    $(this).toggleClass(toggleClass);
-
-    // Toggle aria-expanded attribute.
-    $button.attr('aria-expanded', (i, attr) => {
-      return attr === 'false' ? 'true' : 'false';
-    });
-
-    // Propagate attributes to all search toggles
-    if (evt.currentTarget.classList.contains('nav-search-toggle')) {
-      setSearchToggles($button.attr('aria-expanded') === 'true');
-    }
-
-    // Lock scroll when navigation menu is open
-    if (evt.currentTarget.classList.contains('nav-menu-toggle')) {
-      document.body.classList.toggle('no-scroll-nav-open', evt.currentTarget.getAttribute('aria-expanded') === 'true');
-    }
-
-    // Toggle data-ga-action attribute used in GTM tracking.
-    $('.country-dropdown-toggle').attr( 'data-ga-action', $('.country-dropdown-toggle').attr('aria-expanded') === 'false' ? 'Open Country Selector' : 'Close Country Selector' );
-    $('.country-selector-toggle').attr( 'data-ga-action', $('.country-selector-toggle').attr('aria-expanded') === 'false' ? 'Open Country Selector' : 'Close Country Selector' );
-    $('.navbar-search-toggle').attr( 'data-ga-action', $('.navbar-search-toggle').attr('aria-expanded') === 'false' ? 'Open Search' : 'Close Search' );
-  });
-
-  // Close all menus when clicking somewhere else
-  $(document).on('click', function closeInactiveMenus(evt) {
-    let searchToggled = false;
-    const clickedElement = evt.target;
-    $('button[aria-expanded="true"]').each((i, button) => {
-      const $button = $(button);
-      const buttonTarget = $($button.data('bs-target')).get( 0 );
-
-      if ($button.get(0).classList.contains('nav-search-toggle')) {
-        if (searchToggled) {
-          return;
-        }
-        searchToggled = true;
-      }
-
-      if (buttonTarget && ! $.contains(buttonTarget, clickedElement)) {
-        // Spoof a click on the open menu's toggle to close that menu.
-        $button.trigger('click');
-      }
-    });
-  });
-
-  // Close all menus on escape pressed
-  $(document).bind('keyup', (event) => {
-    if (event.which === 27) {
-      $(document).trigger('click');
-    }
-  });
-
-  $(document).on('click', '.nav-search-toggle', (evt) => {
-    evt.preventDefault();
-    if (evt.currentTarget.getAttribute('aria-expanded') === 'true') {
-      $('#search_input').focus();
-    }
-  });
-
-  //Close the menu if the user clicks the dedicated dropdown close button.
-  $(document).on('click', '.close-navbar-dropdown', (evt) => {
-    evt.preventDefault();
-    // Proxy to the main navbar close button
-    $('.navbar-dropdown-toggle').trigger('click');
-  });
-
-  //Close the menu if the user clicks the dedicated close menu button.
-  $(document).on('click', '.nav-menu-close', (evt) => {
-    evt.preventDefault();
-    // Proxy to the main navbar close button
-    $('.nav-menu-toggle').trigger('click');
-  });
-
-  // Hide Header on on scroll down
-  function hasScrolled(lastScrollTop, delta, navbarHeight) {
-    const st = $(this).scrollTop();
-    if (Math.abs(lastScrollTop - st) <= delta) {
-      return;
-    }
-    if (st > lastScrollTop && st > navbarHeight){
-      $('.top-navigation').removeClass('nav-down').addClass('nav-up');
-    } else {
-      if(st + $(window).height() < $(document).height()) {
-        $('.top-navigation').removeClass('nav-up').addClass('nav-down');
-      }
-    }
-    lastScrollTop = st;
-  }
-
-  if($( window ).width() <= 768) {
-    let didScroll;
-    let lastScrollTop = 0;
-    const delta = 5;
-    const navbarHeight = $('.top-navigation').outerHeight();
-    $(window).scroll(() => {
-      didScroll = true;
-    });
-    setInterval(() => {
-      if (didScroll) {
-        hasScrolled(lastScrollTop, delta, navbarHeight);
-        didScroll = false;
-      }
-    }, 250);
-
-    const $slider = $('.mobile-menus');
-    $(document).click(() => {
-      if($('.menu').hasClass('active')){
-        //Hide the menus if visible
-        $slider.animate({
-          left: parseInt($slider.css('left'),10) == 0 ? -320 : 0
-        });
-        $('.menu').removeClass('active');
-      }
-      if($('.search-box').hasClass('active')){
-        // Hide the search if visible
-        $searchBox.slideToggle().toggleClass('active');
-      }
-    });
-
-    $('.menu').click(function() {
-      event.stopPropagation();
-      $(this).toggleClass('active');
-      $slider.animate({
-        left: parseInt($slider.css('left'),10) == -320 ? 0 : -320
-      });
-    });
-
-    const $searchBox = $('#search .search-box');
-    const $searchTrigger = $('#search-trigger');
-
-    $searchTrigger.on('click', (event) => {
-      event.stopPropagation();
-      $searchBox.slideToggle().toggleClass('active');
-    });
-  }
+const updateGaAction = (element, elementName) => {
+  element.dataset.gaAction = `${element.getAttribute('aria-expanded') === 'false' ? 'Open' : 'Close'} ${elementName}`;
 };
 
 /**
@@ -167,11 +7,141 @@ export const setupHeader = function($) {
  *
  * @param {bool} expanded Toggle is expanded
  */
-function setSearchToggles(expanded) {
+const setSearchToggles = expanded => {
   let toggles = document.querySelectorAll('.nav-search-toggle');
-  toggles.forEach(e => {
-    e.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-    e.setAttribute('data-ga-action', expanded ? 'Close search' : 'Open search');
-    e.classList.toggle('open', expanded);
+  toggles.forEach(toggle => {
+    toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    updateGaAction(toggle, 'search');
+    toggle.classList.toggle('open', expanded);
   });
-}
+};
+
+const toggleNavElement = element => {
+  const target = element.dataset.bsTarget;
+  const newAriaExpandedValue = element.getAttribute('aria-expanded') === 'true' ? 'false' : 'true';
+
+  if (!target) {
+    throw new Error('Missing `data-bs-target` attribute: specify the container to be toggled');
+  }
+
+  const toggleClass = element.dataset.bsToggle;
+  if (!toggleClass) {
+    throw new Error('Missing `data-bs-toggle` attribute: specify the class to toggle');
+  }
+
+  // Toggle visibility of the target specified via data-bs-target.
+  const targetElement = document.querySelector(target);
+  targetElement.classList.toggle(toggleClass);
+  element.classList.toggle(toggleClass);
+
+  // Toggle aria-expanded attribute
+  element.setAttribute('aria-expanded', newAriaExpandedValue);
+
+  // Propagate attributes to all search toggles
+  if (element.classList.contains('nav-search-toggle')) {
+    setSearchToggles(newAriaExpandedValue === 'true');
+  }
+
+  // We need to focus the search input when showing it
+  const searchInput = document.querySelector('#search_input');
+  if (element.classList.contains('nav-search-toggle') || element.classList.contains('navbar-search-toggle')) {
+    if (newAriaExpandedValue === 'true') {
+      searchInput.focus();
+    }
+  }
+
+  // Lock scroll when navigation menu is open
+  if (element.classList.contains('nav-menu-toggle')) {
+    document.body.classList.toggle('no-scroll-nav-open', newAriaExpandedValue === 'true');
+  }
+
+  // Toggle data-ga-action attribute used in GTM tracking.
+  const countryDropdownToggle = document.querySelector('.country-dropdown-toggle');
+  const countrySelectorToggle = document.querySelector('.country-selector-toggle');
+  const navbarSearchToggle = document.querySelector('.navbar-search-toggle');
+
+  if (countryDropdownToggle) {
+    updateGaAction(countryDropdownToggle, 'Country Selector');
+  }
+
+  if (countrySelectorToggle) {
+    updateGaAction(countrySelectorToggle, 'Country Selector');
+  }
+
+  if (navbarSearchToggle) {
+    updateGaAction(navbarSearchToggle, 'Search');
+  }
+};
+
+const closeInactiveNavElements = event => {
+  let searchToggled = false;
+  const clickedElement = event.target;
+
+  const activeElements = [...document.querySelectorAll('button[aria-expanded="true"]')];
+
+  activeElements.forEach(button => {
+    const buttonTarget = button.dataset && button.dataset.bsTarget;
+    const buttonTargetElement = document.querySelector(buttonTarget);
+
+    if (button.classList.contains('nav-search-toggle')) {
+      if (searchToggled) {
+        return;
+      }
+      searchToggled = true;
+    }
+
+    if (buttonTargetElement && !buttonTargetElement.contains(clickedElement)) {
+      // Spoof a click on the open menu's toggle to close that menu.
+      button.click();
+    }
+  });
+};
+
+const closeElement = (event, buttonClass) => {
+  event.preventDefault();
+  const closeButton = document.querySelector(buttonClass);
+  closeButton.click();
+};
+
+export const setupHeader = () => {
+  const toggleElementClasses = [
+    '.navbar-dropdown-toggle',
+    '.nav-menu-toggle',
+    '.country-dropdown-toggle',
+    '.country-selector-toggle',
+    '.navbar-search-toggle',
+    '.nav-search-toggle',
+    '.nav-languages-toggle'
+  ];
+
+  const toggleElements = [...document.querySelectorAll(toggleElementClasses.join(','))];
+
+  toggleElements.forEach(toggleElement => {
+    toggleElement.onclick = event => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      toggleNavElement(toggleElement);
+    };
+  });
+
+  document.onclick = closeInactiveNavElements;
+
+  // Close all menus on escape pressed
+  document.onkeyup = event => {
+    if (event.key === 'Escape') {
+      document.body.click();
+    }
+  };
+
+  // Close the elements if the user clicks on the corresponding close buttons
+  const closeNavbarButton = document.querySelector('.close-navbar-dropdown');
+  if (closeNavbarButton) {
+    closeNavbarButton.onclick = event => closeElement(event, '.navbar-dropdown-toggle');
+  }
+
+  const closeNavMenuButton = document.querySelector('.nav-menu-close');
+  if (closeNavMenuButton) {
+    closeNavMenuButton.onclick = event => closeElement(event, '.nav-menu-toggle');
+  }
+};

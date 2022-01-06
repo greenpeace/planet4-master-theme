@@ -20,7 +20,7 @@ window.$ = $ || jQuery;
 jQuery(($) => {
   setupCookies();
   setupCountrySelect($);
-  setupHeader($);
+  setupHeader();
   setupLoadMore($);
   setupPDFIcon($);
   setupSearch($);
