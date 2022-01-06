@@ -1,7 +1,10 @@
 <section id="header" class="top-navigation navbar {% if custom_styles.nav_border == 'border' %}navigation-bar_border{% endif %}">
-	{% set data_ga_attrs = 'data-ga-category="Menu Navigation" data-ga-action="Open Menu" data-ga-label="' ~ page_category ~ '"' %}
+	{% set data_ga_attrs = 'data-ga-category="Menu Navigation" data-ga-action="Menu" data-ga-label="' ~ page_category ~ '"' %}
 	<button class="nav-menu-toggle" type="button"
 		aria-label="{{ __( 'Toggle navigation menu', 'planet4-master-theme' ) }}"
+		data-ga-category="Menu Navigation"
+		data-ga-action="Open Menu"
+		data-ga-label="{{ page_category }}"
 		aria-expanded="false"
 		data-bs-toggle="open"
 		data-bs-target="#nav-main">
