@@ -21,6 +21,7 @@ $navbar-default-height: 60px;
   top: 0;
   width: 100%;
   z-index: 4;
+  justify-content: space-between;
 
   .admin-bar & {
     top: 46px;
@@ -236,6 +237,12 @@ a.nav-link {
 .navigation-bar_min {
   --top-navigation-min-- {
     height: $min-height;
+  }
+
+  justify-content: center;
+
+  @include large-and-up {
+    justify-content: flex-start;
   }
 }
 
