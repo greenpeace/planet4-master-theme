@@ -1,4 +1,5 @@
 import {ENFormEditor} from './ENFormEditor';
+import {ENFormV1} from './deprecated/ENFormV1.js';
 import {frontendRendered} from '../frontendRendered';
 
 const { __ } = wp.i18n;
@@ -57,6 +58,9 @@ export const registerENForm = () => {
       let ordered_attrs = Object.fromEntries(Object.entries(props.attributes).sort());
 
       return frontendRendered(BLOCK_NAME)(ordered_attrs, props?.className);
-    }
+    },
+    deprecated: [
+      ENFormV1
+    ]
   });
 }
