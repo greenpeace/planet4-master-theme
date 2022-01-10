@@ -253,6 +253,14 @@ class MasterSite extends TimberSite {
 		// Disable xmlrpc.
 		add_filter( 'xmlrpc_enabled', '__return_false' );
 
+		// Anonymize Comment Authors IP address.
+		add_filter(
+			'pre_comment_user_ip',
+			function () {
+				return '';
+			}
+		);
+
 		$this->register_meta_fields();
 	}
 
