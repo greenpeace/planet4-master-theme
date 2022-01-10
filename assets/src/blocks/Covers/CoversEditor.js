@@ -173,15 +173,13 @@ const renderView = (attributes, toAttribute) => {
 };
 
 export const CoversEditor = ({ attributes, setAttributes, isSelected }) => {
-  const { className, post_types } = attributes;
+  const { className } = attributes;
 
   useEffect(() => {
     const styleClass = getStyleFromClassName(className);
     if (styleClass) {
       setAttributes({
         cover_type: styleClass,
-        posts: [],
-        post_types: className.includes('content') ? post_types : [],
       });
     }
   }, [className]);
