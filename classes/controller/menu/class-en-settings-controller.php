@@ -29,12 +29,12 @@ class En_Settings_Controller extends Controller {
 
 		if ( $feature_is_active && current_user_can( 'manage_options' ) ) {
 			add_menu_page(
-				'EngagingNetworks',
-				'EngagingNetworks',
+				'Engaging Networks',
+				'Engaging Networks',
 				'edit_pages',
 				P4GBKS_EN_SLUG_NAME,
 				'',
-				P4GBKS_ADMIN_DIR . 'images/logo_menu_page_16x16.jpg'
+				P4GBKS_ADMIN_DIR . 'images/en.png'
 			);
 
 			add_submenu_page(
