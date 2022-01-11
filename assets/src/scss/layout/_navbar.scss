@@ -20,7 +20,7 @@ $navbar-default-height: 60px;
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 4;
+  z-index: 99;
   justify-content: space-between;
 
   .admin-bar & {
@@ -98,7 +98,7 @@ $navbar-default-height: 60px;
     &.open {
       inset-inline-start: 0;
       transition: inset-inline-start 0.2s ease-out;
-      z-index: 5;
+      z-index: 99;
 
       ~ .top-navigation-overlay {
         display: block;
