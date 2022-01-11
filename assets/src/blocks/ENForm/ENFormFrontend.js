@@ -25,6 +25,7 @@ export const ENFormFrontend = (attributes) => {
     background_image_sizes,
     background_image_focus,
     campaign_logo,
+    campaign_logo_path,
     className,
   } = attributes;
 
@@ -39,14 +40,11 @@ export const ENFormFrontend = (attributes) => {
     }
   })(en_form_style);
 
-  // todo: get campaign data
-  // todo: get error message
-  const campaign_data = { logo_path: '', template: '' };
 
   const style_has_image = en_form_style === 'full-width-bg' || en_form_style === 'side-style';
   const is_side_style = en_form_style === 'side-style';
 
-  console.log(attributes, en_form_fields);
+  let fields = en_form_fields ?? [];
   let fields = en_form_fields;
   if (fields.length <= 0) {
     const form_post = useSelect((select) => {
@@ -56,7 +54,6 @@ export const ENFormFrontend = (attributes) => {
     });
     fields = form_post?.p4enform_fields ?? [];
   }
-  console.log('fields', fields);
 
   const HeadingTag = content_title_size;
 
@@ -76,7 +73,6 @@ export const ENFormFrontend = (attributes) => {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-    console.log('form', name, value);
     setFormData({...form_data, [name]: value});
   }
 
@@ -104,7 +100,7 @@ export const ENFormFrontend = (attributes) => {
     >
       {style_has_image && background_image_src &&
         <picture>
-          <img src={background_image_src || ''}
+          <img src={background_image_src}
             style={{objectPosition: background_image_focus || {}}}
             border="0"
             srcSet={background_image_srcset || ''}
@@ -122,20 +118,20 @@ export const ENFormFrontend = (attributes) => {
 
             {is_side_style &&
               <div className="form-caption">
-                {campaign_logo &&
-                  <img src={ campaign_data.logo_path }
-                      alt={ campaign_data.template }
+                {campaign_logo && campaign_logo_path &&
+                  <img src={ campaign_logo_path }
+                      alt={ ccontent_title ?? '' }
                       className="campaign-logo" />
                 }
                 <HeadingTag>
                   {content_title ? unescape(content_title) : ''}
                 </HeadingTag>
-                <p dangerouslySetInnerHTML={{ __html: content_description }} />
+                <div dangerouslySetInnerHTML={{ __html: content_description }} />
               </div>
             }
 
             {activeTplId === 'signup' &&
-              <Signup {...{attributes, fields, onInputChange, onBlur, onFormSubmit, error_msg, errors}} />
+              <Signup {...{attributes, fields, form_data, onInputChange, onBlur, onFormSubmit, error_msg, errors}} />
             }
             {activeTplId === 'thankyou' &&
               <ThankYou {...{attributes, error_msg}} />
@@ -147,7 +143,7 @@ export const ENFormFrontend = (attributes) => {
   )
 }
 
-const Signup = ({attributes, fields, onInputChange, onBlur, onFormSubmit, error_msg, errors}) => {
+const Signup = ({attributes, fields, form_data, onInputChange, onBlur, onFormSubmit, error_msg, errors}) => {
   const {
     en_form_style,
     title,
@@ -193,14 +189,14 @@ const Signup = ({attributes, fields, onInputChange, onBlur, onFormSubmit, error_
                 <div className="enform-notice"></div>
                 {en_form_style == 'full-width-bg' &&
                   <div className="enform-legal">
-                    <p>{text_below_button ? unescape(text_below_button) : ''}</p>
+                  <p dangerouslySetInnerHTML={{ __html: text_below_button ? text_below_button : '' }} />
                   </div>
                 }
               </div>
 
               {en_form_style !== 'full-width-bg' &&
                 <div className="enform-legal">
-                  <p>{text_below_button ? unescape(text_below_button) : ''}</p>
+                  <p dangerouslySetInnerHTML={{ __html: text_below_button ? text_below_button : '' }} />
                 </div>
               }
             </div>
@@ -208,8 +204,8 @@ const Signup = ({attributes, fields, onInputChange, onBlur, onFormSubmit, error_
               <span className="enform-error">{ error_msg }</span>
             }
           </form>
+          <div id="form-data" data-postdata={ JSON.stringify(makePostData(form_data, fields)) } />
         </div>
-
       </div>
     </div>
   )
@@ -226,38 +222,13 @@ const submitENForm = (props) => {
     setActiveTplId,
   } = props;
 
-  console.log('form_data', form_data, fields);
-
-  // Normalize
-  let supporter = {
-    questions: {}
-  };
-
-  for (const key in form_data) {
-    let field = fields.find((f) => inputId(f)['name'] === key);
-    if (!field) {
-      continue;
-    }
-
-    if (field.input_type === 'checkbox') {
-      supporter.questions['question.' + field.id] = form_data[key] === true ? 'Y' : 'N';
-    } else {
-      supporter[field.property] = form_data[key] ?? null;
-    }
-  }
-
-  const post_data = {
-    standardFieldNames: true,
-    supporter: supporter
-  };
-  console.log('post data', post_data);
+  const post_data = makePostData(form_data, fields);
 
   // Fetch token
   const token_endpoint = `${p4bk_vars.siteUrl}/wp-json/planet4/v1/get-en-session-token`;
   fetch(token_endpoint)
     .then(response => response.json())
     .then(token_data => {
-      console.log('token_data', token_data);
       const session_token = token_data.token || null;
       if (!session_token) {
         throw new Error('Token not found.');
@@ -307,6 +278,52 @@ const submitENForm = (props) => {
       setErrorMsg(error.message);
     });
 }
+
+/**
+ * Build data to be posted on form submit
+ *
+ * @param  {Object}  form_data  The form data
+ * @param  {Array}   fields     The fields
+ * @return {Object}  Formatted data for EN
+ */
+const makePostData = (form_data, fields) => {
+  let supporter = {
+    questions: {}
+  };
+
+  for (const key in form_data) {
+    let field = fields.find((f) => inputId(f)['name'] === key);
+    if ( ! field ) {
+      continue;
+    }
+
+    // Questions via checkbox or text question
+    if ( key.startsWith('supporter.questions.' )) {
+      let value = typeof form_data[key] === "string" ? form_data[key] : checkboxValue(form_data[key]);
+      supporter.questions['question.' + field.id] = value;
+      continue;
+    }
+
+    // Remove fields without name
+    if ( ! field.property ) {
+      continue;
+    }
+
+    // Basic data & hidden field
+    if ( null !== form_data[key] ) {
+      supporter[field.property] = form_data[key];
+    } else if ( field.input_type === "hidden" ) {
+      supporter[field.property] = field.default_value;
+    }
+  }
+
+  return {
+    standardFieldNames: true,
+    supporter: supporter
+  };
+}
+
+const checkboxValue = (value) => true === value ? 'Y' : 'N';
 
 const validateForm = (form_data, fields, setErrors) => {
   setErrors({});

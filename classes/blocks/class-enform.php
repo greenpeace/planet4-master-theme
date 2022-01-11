@@ -140,6 +140,10 @@ class ENForm extends Base_Block {
 		$form_id = (int) ( $attributes['en_form_id'] ?? 0 );
 		$post    = get_post( $form_id );
 
+		$attributes['content_description'] = isset( $attributes['content_description'] )
+			? wpautop( $attributes['content_description'] )
+			: '';
+
 		if ( empty( $attributes['en_form_fields'] ) && $form_id ) {
 			$attributes['en_form_fields'] = get_post_meta( $form_id, self::FIELDS_META, true );
 		}
@@ -148,6 +152,9 @@ class ENForm extends Base_Block {
 			$attributes = array_merge( $attributes, self::get_background_data( $attributes ) );
 		}
 
+		if ( 'campaign' === get_post_type() && isset( $attributes['campaign_logo'] ) && $attributes['campaign_logo'] ) {
+			$attributes = array_merge( $attributes, self::get_campaign_data( $post ) );
+		}
 		$post_id                       = get_the_ID();
 		$attributes['social_accounts'] = self::get_social_accounts();
 		$attributes['social']          = $post_id ? self::get_shareable_data( $post_id ) : [];
@@ -196,14 +203,42 @@ class ENForm extends Base_Block {
 		}
 		$img_meta = wp_get_attachment_metadata( $image_id );
 
-		$attributes['background_src']    = wp_get_attachment_image_src( $image_id, 'retina-large' );
-		$attributes['background_srcset'] = wp_get_attachment_image_srcset( $image_id, 'retina-large', $img_meta );
-		$attributes['background_sizes']  = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
+		return [
+			'background_image_src'    => wp_get_attachment_image_src( $image_id, 'retina-large' )[0],
+			'background_image_srcset' => wp_get_attachment_image_srcset( $image_id, 'retina-large', $img_meta ),
+			'background_image_sizes'  => wp_calculate_image_sizes( 'retina-large', null, null, $image_id ),
+		];
+	}
+
+	/**
+	 * Get the campaign data.
+	 *
+	 * @param WP_Post $post The post.
+	 *
+	 * @return array The campaign data.
+	 */
+	private static function get_campaign_data( $post ): array {
+		$page_meta_data    = get_post_meta( $post->ID );
+		if ( ! empty( $page_meta_data['theme'] ) ) {
+			$campaign_template = $page_meta_data['theme'];
+		} else {
+			$campaign_template = ! empty( $page_meta_data['_campaign_page_template'][0] )
+				? $page_meta_data['_campaign_page_template'][0]
+				: null;
+		}
+
+		if ( empty( $campaign_template ) ) {
+			return [];
+		}
+
+		$logo_path = get_bloginfo( 'template_directory' ) . '/images/' . $campaign_template . '/logo-light.png';
+		if ( ! file_exists( $logo_path ) ) {
+			return [];
+		}
 
 		return [
-			'background_src'    => wp_get_attachment_image_src( $image_id, 'retina-large' ),
-			'background_srcset' => wp_get_attachment_image_srcset( $image_id, 'retina-large', $img_meta ),
-			'background_sizes'  => wp_calculate_image_sizes( 'retina-large', null, null, $image_id ),
+			'campaign_template'  => $campaign_template,
+			'campaign_logo_path' => $logo_path,
 		];
 	}
 

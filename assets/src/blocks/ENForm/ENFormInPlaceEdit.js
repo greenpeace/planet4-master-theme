@@ -4,6 +4,7 @@ import { RichText, BlockControls } from '@wordpress/block-editor';
 import { ToolbarGroup } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
+import { autop } from '@wordpress/autop';
 
 const { __ } = wp.i18n;
 
@@ -121,7 +122,10 @@ const SideContent = ({attributes, setAttributes}) => {
     content_description,
     content_title_size,
     campaign_logo,
+    campaign_logo_path
   } = attributes;
+
+  const title_size = content_title_size ?? 'h1';
 
   return (
     <>
@@ -129,10 +133,10 @@ const SideContent = ({attributes, setAttributes}) => {
       <ToolbarGroup
         isCollapsed={ true }
         icon="heading"
-        label={content_title_size.toUpperCase()}
+        label={title_size.toUpperCase()}
         controls={
           ['h1', 'h2'].map((size) => {
-            const isActive = content_title_size === size;
+            const isActive = title_size === size;
             return {
               isActive,
               icon: "heading",
@@ -144,13 +148,13 @@ const SideContent = ({attributes, setAttributes}) => {
       />
     </BlockControls>
     <div className="form-caption">
-      {campaign_logo &&
-        <img src={ campaign_logo }
-            alt={ content_title }
+      {campaign_logo && campaign_logo_path &&
+        <img src={ campaign_logo_path }
+            alt={ content_title ?? '' }
             className="campaign-logo" />
       }
       <RichText
-        tagName={content_title_size}
+        tagName={title_size}
         value={content_title}
         onChange={(title) => { setAttributes({content_title: title}) }}
         placeholder={__('Enter title', 'planet4-blocks-backend')}
@@ -159,12 +163,12 @@ const SideContent = ({attributes, setAttributes}) => {
         multiline="false"
       />
       <RichText
-        tagName="p"
-        value={content_description}
+        tagName="div"
+        value={autop(content_description ?? '')}
         onChange={(desc) => { setAttributes({content_description: desc}) }}
         placeholder={__('Enter description', 'planet4-blocks-backend')}
         allowedFormats={['core/bold', 'core/italic']}
-        multiline="false"
+        multiline
       />
     </div>
     </>
@@ -180,14 +184,10 @@ const Signup = ({attributes, setAttributes}) => {
     en_form_fields,
   } = attributes;
 
-  const form_post = useSelect((select) => {
-    return en_form_id
-      ? select('core').getEntityRecord('postType', 'p4en_form', en_form_id)
-      : [];
-  });
-  const fields = en_form_fields.length > 0 ? en_form_fields : (
-    form_post?.p4enform_fields || []
-  );
+  const fields = useSelect((select) => {
+    const enform_post = en_form_id ? select('core').getEntityRecord('postType', 'p4en_form', en_form_id) : {};
+    return enform_post?.p4enform_fields || [];
+  }, [en_form_id]);
 
   return (
     <div className="enform">
@@ -214,7 +214,7 @@ const Signup = ({attributes, setAttributes}) => {
             onChange={(description) => { setAttributes({description}) }}
             placeholder={__('Enter form description', 'planet4-blocks-backend')}
             allowedFormats={['core/bold', 'core/italic']}
-            multiline="false"
+            multiline
           />
         </div>
 
@@ -284,7 +284,7 @@ const ThankYou = ({attributes, setAttributes}) => {
           onChange={toAttribute('thankyou_subtitle')}
           placeholder={__('Enter description', 'planet4-blocks-backend')}
           allowedFormats={[]}
-          multiline="true"
+          multiline
         />
 
         <div className="sub-section formblock-flex">

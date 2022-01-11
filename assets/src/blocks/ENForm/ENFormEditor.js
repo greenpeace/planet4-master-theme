@@ -7,10 +7,13 @@ import { useSelect } from '@wordpress/data';
 
 
 export const ENFormEditor = ({ attributes, setAttributes, isSelected }) => {
+  return (
+    renderEdit({attributes}, setAttributes)
+  );
+}
 
-  const { en_form_style, className } = attributes;
-
-  console.log('1', en_form_style, className);
+const renderEdit = ({attributes}, setAttributes) => {
+  const { en_form_style, className, background, background_image_src } = attributes;
 
   if ( className && className.length > 0 ) {
     setAttributes({
@@ -22,23 +25,7 @@ export const ENFormEditor = ({ attributes, setAttributes, isSelected }) => {
     setAttributes({en_form_style: 'side-style'});
   }
 
-  console.log('2', en_form_style, className);
-
-  return (
-    isSelected
-      ? renderEdit({attributes}, setAttributes)
-      : renderView({attributes})
-  );
-}
-
-const renderView = ({attributes}) => <ENFormFrontend {...attributes} />
-
-const renderEdit = ({attributes}, setAttributes) => {
-  const charLimit = { title: 40, description: 400 };
-  const params = {attributes, charLimit, setAttributes};
-
   // Retrieve background for legacy blocks
-  const { background, background_image_src } = attributes;
   if (background > 0 && background_image_src.length <= 0) {
     setAttributes({
       background_image_src: useSelect((select) => {
@@ -47,6 +34,9 @@ const renderEdit = ({attributes}, setAttributes) => {
       })
     })
   }
+
+  const charLimit = { title: 40, description: 400 };
+  const params = {attributes, charLimit, setAttributes};
 
   return (
     <>
