@@ -245,3 +245,9 @@ input.describe[type=text][data-setting=caption] {
 .btn {
   user-select: auto;
 }
+
+// Adjust CSS Customizer for readability
+.CodeMirror-code {
+  font-size: $font-size-xs;
+  line-height: 1rem;
+}
