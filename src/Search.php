@@ -224,7 +224,6 @@ abstract class Search {
 				2
 			);
 		}
-		add_filter( 'posts_where', [ self::class, 'edit_search_mime_types' ] );
 		remove_filter(
 			'pre_get_posts',
 			[ Features::factory()->get_registered_feature( 'documents' ), 'setup_document_search' ],
@@ -1005,24 +1004,6 @@ abstract class Search {
 		}
 
 		return null;
-	}
-
-	/**
-	 * Customize which mime types we want to search for regarding attachments.
-	 *
-	 * @param string $where The WHERE clause of the query.
-	 *
-	 * @return string The edited WHERE clause.
-	 */
-	public static function edit_search_mime_types( $where ) : string {
-		global $wpdb;
-
-		if ( ( ! is_admin() && is_search() ) || wp_doing_ajax() ) {
-			$mime_types = implode( ',', self::DOCUMENT_TYPES );
-			$where     .= ' AND ' . $wpdb->posts . '.post_mime_type IN("' . $mime_types . '","") ';
-		}
-
-		return $where;
 	}
 
 	/**
