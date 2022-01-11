@@ -26,8 +26,8 @@ const addSelectedFiltersToForm = (isModal, idToRemove) => {
 };
 
 // Search page.
-export const setupSearch = ($) => {
-  const isSearch = !!$('body.search').length;
+export const setupSearch = () => {
+  const isSearch = !!document.querySelector('body.search');
   if (!isSearch) {
     return;
   }
@@ -93,34 +93,29 @@ export const setupSearch = ($) => {
       const nextPage = parseInt(current_page) + 1;
       loadMoreButton.dataset.current_page = nextPage;
 
-      $.ajax({
-        url: localizations.ajaxurl,
-        type: 'GET',
-        data: {
-          action: 'get_paged_posts',
-          search_query: navSearchInput.value.trim(),
-          paged: nextPage,
-          orderby: orderInput.value,
-          'query-string': decodeURIComponent(location.search).substring(1) // Ignore the ? in the search url (first char).
-        },
-        dataType: 'html'
-      }).done((response) => {
-        // Append the response at the bottom of the results and then show it.
-        const searchResults = document.querySelector('.multiple-search-result .list-unstyled');
+      let url = new URL(localizations.ajaxurl);
+      url.searchParams.append('action', 'get_paged_posts');
+      url.searchParams.append('search_query', navSearchInput.value.trim());
+      url.searchParams.append('paged', nextPage);
+      url.searchParams.append('orderby', orderInput.value);
+      url.searchParams.append('query-string', decodeURIComponent(location.search).substring(1)); // Ignore the ? in the search url (first char)
 
-        // The response is an HTML string that we need to convert to a DOM node before appending it.
-        const nodeResponse = document.createRange().createContextualFragment(response);
-        searchResults.appendChild(nodeResponse);
+      fetch(url)
+        .then(response => response.text())
+        .then(html => {
+          // Append the response at the bottom of the results and then show it.
+          const searchResults = document.querySelector('.multiple-search-result .list-unstyled');
+          searchResults.innerHTML += html;
 
-        const hiddenRow = document.querySelector('.row-hidden:last-child');
-        showHiddenRow(hiddenRow);
+          const hiddenRow = document.querySelector('.row-hidden:last-child');
+          showHiddenRow(hiddenRow);
 
-        if (posts_per_load * nextPage > total_posts) {
-          loadMoreButton.style.display = 'none';
-        }
-      }).fail((jqXHR, textStatus, errorThrown) => {
-        console.log(errorThrown); //eslint-disable-line no-console
-      });
+          if (posts_per_load * nextPage > total_posts) {
+            loadMoreButton.style.display = 'none';
+          }
+        }).catch(error => {
+          console.log(error); //eslint-disable-line no-console
+        });
     };
   }
 

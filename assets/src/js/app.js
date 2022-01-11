@@ -23,7 +23,7 @@ jQuery(($) => {
   setupHeader();
   setupLoadMore($);
   setupPDFIcon($);
-  setupSearch($);
+  setupSearch();
   setupExternalLinks($);
   setupEnhancedDonateButton();
 });
