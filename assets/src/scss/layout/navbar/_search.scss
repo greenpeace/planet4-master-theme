@@ -71,6 +71,10 @@
   visibility: hidden;
 }
 
+#search_input:placeholder-shown ~ button.nav-search-btn {
+  pointer-events: none;
+}
+
 #search_input::-webkit-search-decoration,
 #search_input::-webkit-search-cancel-button,
 #search_input::-webkit-search-results-button,
