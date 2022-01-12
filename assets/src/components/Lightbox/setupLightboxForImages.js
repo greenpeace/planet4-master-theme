@@ -37,8 +37,13 @@ export const setupLightboxForImages = function() {
 
   document.body.appendChild(lightBoxNode);
 
-  const imageBlocks = document.querySelectorAll('.wp-block-image:not(.force-no-lightbox)');
-  imageBlocks.forEach(setupImageAndCaption(lightBoxNode, 'img', 'figcaption'));
+  const imageBlocks = [...document.querySelectorAll('.wp-block-image:not(.force-no-lightbox)')];
+  // Images that are links should not have the lightbox
+  const imageBlocksWithoutLinks = imageBlocks.filter(imageBlock => {
+    const image = imageBlock.querySelector('img');
+    return image.parentElement.tagName !== 'A';
+  });
+  imageBlocksWithoutLinks.forEach(setupImageAndCaption(lightBoxNode, 'img', 'figcaption'));
 
   const imagesWithCaptions = document.querySelectorAll('.post-content .wp-caption, .page-content .wp-caption');
   imagesWithCaptions.forEach(setupImageAndCaption(lightBoxNode, 'img', '.wp-caption-text'));
