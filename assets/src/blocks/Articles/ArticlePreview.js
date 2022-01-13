@@ -1,6 +1,7 @@
 import { Component } from '@wordpress/element';
 import { unescape } from '../../functions/unescape';
 import { IMAGE_SIZES } from './imageSizes';
+const { __ } = wp.i18n;
 
 export class ArticlePreview extends Component {
   constructor(props) {
@@ -103,6 +104,7 @@ export class ArticlePreview extends Component {
         post_title,
         post_excerpt,
         date_formatted,
+        reading_time,
       }
     } = this.props;
 
@@ -165,6 +167,16 @@ export class ArticlePreview extends Component {
               <time className="article-list-item-date" dateTime="">
                 {date_formatted}
               </time>
+              }
+
+              {(authorLink || date_formatted) && reading_time &&
+                <span className="article-list-item-bullet" aria-hidden="true">&#8226;</span>
+              }
+
+              {reading_time &&
+                <span className="article-list-item-readtime">
+                  { __( '%d min read', 'planet4-master-theme' ).replace('%d', reading_time) }
+                </span>
               }
             </p>
           </header>
