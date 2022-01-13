@@ -11,9 +11,16 @@ use WP_Term;
  */
 class CustomTaxonomy {
 
-	const TAXONOMY           = 'p4-page-type';
-	const TAXONOMY_PARAMETER = 'p4_page_type';
-	const TAXONOMY_SLUG      = 'page-type';
+	public const TAXONOMY           = 'p4-page-type';
+	public const TAXONOMY_PARAMETER = 'p4_page_type';
+	public const TAXONOMY_SLUG      = 'page-type';
+
+	/**
+	 * Reading time option field name
+	 *
+	 * @var string
+	 */
+	public const READING_TIME_FIELD = 'reading_time';
 
 	/**
 	 * CustomTaxonomy constructor.
@@ -43,6 +50,14 @@ class CustomTaxonomy {
 
 		// Provides a filter element for the taxonomy in the posts list.
 		add_action( 'restrict_manage_posts', [ $this, 'filter_posts_by_page_type' ], 10, 2 );
+
+		// Reading time option.
+		add_action( self::TAXONOMY . '_add_form_fields', [ $this, 'add_taxonomy_form_fields' ], 10 );
+		add_action( self::TAXONOMY . '_edit_form_fields', [ $this, 'add_taxonomy_form_fields' ], 10 );
+		add_action( 'edited_' . self::TAXONOMY, [ $this, 'save_taxonomy_meta' ], 10 );
+		add_action( 'created_' . self::TAXONOMY, [ $this, 'save_taxonomy_meta' ], 10 );
+		add_action( 'manage_edit-' . self::TAXONOMY . '_columns', [ $this, 'add_taxonomy_column' ], 10, 3 );
+		add_action( 'manage_' . self::TAXONOMY . '_custom_column', [ $this, 'add_taxonomy_column_content' ], 10, 3 );
 	}
 
 	/**
@@ -444,5 +459,85 @@ class CustomTaxonomy {
 			?>
 		</select>
 		<?php
+	}
+
+	/**
+	 * Adds a taxonomy column.
+	 *
+	 * @param array $columns The columns.
+	 *
+	 * @return array
+	 */
+	public function add_taxonomy_column( $columns ): array {
+		$columns[ self::READING_TIME_FIELD ] = __( 'Reading time', 'planet4-master-theme-backend' );
+		return $columns;
+	}
+
+	/**
+	 * Adds a taxonomy column content.
+	 *
+	 * @param string $string      Blank string.
+	 * @param string $column_name Name of the column.
+	 * @param int    $term_id     Term ID.
+	 */
+	public function add_taxonomy_column_content( $string, $column_name, $term_id ) {
+		if ( self::READING_TIME_FIELD === $column_name ) {
+			$use_reading_time = get_term_meta( $term_id, self::READING_TIME_FIELD, true );
+			echo esc_html(
+				$use_reading_time
+					? __( 'Yes', 'planet4-master-theme-backend' )
+					: __( 'No', 'planet4-master-theme-backend' )
+			);
+		}
+	}
+
+	/**
+	 * Add "Reading time" option to p4-page-type taxonomy.
+	 *
+	 * @param WP_Term $term Current taxonomy term object.
+	 */
+	public function add_taxonomy_form_fields( $term ): void {
+		$use_reading_time = $term instanceof WP_Term
+			? get_term_meta( $term->term_id, self::READING_TIME_FIELD, true )
+			: false;
+		$checked          = $use_reading_time ? ' checked' : '';
+
+		printf(
+			'<tr class="form-field form-required term-name-wrap">
+			<th scope="row"><label for="' . esc_html( self::READING_TIME_FIELD ) . '">%s</label></th>
+			<td><p class="description">
+				<input name="' . esc_html( self::READING_TIME_FIELD ) . '"
+					id="' . esc_html( self::READING_TIME_FIELD ) . '"
+					type="checkbox" ' . esc_attr( $checked ) . '
+					value="on" />
+				%s<br/>
+				<small>%s <a href="admin.php?page=planet4_settings_defaults_content">Planet 4 > Defaults content</a>.</small>
+			</p></td>
+		</tr>',
+			esc_html( __( 'Reading time', 'planet4-master-theme-backend' ) ),
+			esc_html( __( 'Display an estimated reading time on this content.', 'planet4-master-theme-backend' ) ),
+			esc_html( __( 'You can configure the estimated reading speed in', 'planet4-master-theme-backend' ) )
+		);
+	}
+
+	/**
+	 * Save a p4-page-type reading time.
+	 *
+	 * @param int $term_id The term identifier.
+	 */
+	public function save_taxonomy_meta( int $term_id ): void {
+		switch ( $_POST['action'] ?? '' ) {
+			case 'add-tag':
+				check_admin_referer( 'add-tag', '_wpnonce_add-tag' );
+				break;
+			case 'editedtag':
+				check_admin_referer( 'update-tag_' . $_POST['tag_ID'] );
+				break;
+			default:
+				return;
+		}
+
+		$use_reading_time = ! empty( $_POST[ self::READING_TIME_FIELD ] );
+		update_term_meta( $term_id, self::READING_TIME_FIELD, $use_reading_time );
 	}
 }

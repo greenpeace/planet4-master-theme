@@ -13,7 +13,6 @@ use WP_Term;
  * Add planet4 specific functionality.
  */
 class Post extends TimberPost {
-
 	/**
 	 * Issues navigation
 	 *
@@ -464,5 +463,44 @@ class Post extends TimberPost {
 		}
 
 		return $is_valid;
+	}
+
+	/**
+	 * Calculate post reading time.
+	 * Return 1 at minimum, to not get a "0 min read".
+	 *
+	 * @return null|int Reading time in minutes, null if option not activated on post type.
+	 */
+	public function reading_time(): ?int {
+		$terms_rt_option  = array_map(
+			fn ( $t ) => get_term_meta( $t->term_id, CustomTaxonomy::READING_TIME_FIELD, true ),
+			$this->get_custom_terms()
+		);
+		$use_reading_time = ! empty( array_filter( $terms_rt_option ) );
+		if ( ! $use_reading_time ) {
+			return null;
+		}
+
+		$locale = $this->get_locale();
+		$wpm    = planet4_get_option( 'reading_time_wpm', Post\ReadingTimeCalculator::DEFAULT_WPM );
+		$rt     = new Post\ReadingTimeCalculator( $locale, $wpm );
+		return (int) max( 1, round( $rt->get_time( $this->content ) / 60 ) );
+	}
+
+	/**
+	 * Return Post locale.
+	 *
+	 * @return string The locale.
+	 */
+	public function get_locale(): string {
+		$site_locale = get_locale();
+
+		$site_is_multilingual = is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' );
+		if ( $site_is_multilingual ) {
+			$lang_details = apply_filters( 'wpml_post_language_details', null, $this->ID );
+			$post_locale  = $lang_details['locale'] ?? null;
+		}
+
+		return $post_locale ?? $site_locale;
 	}
 }
