@@ -31,124 +31,124 @@ class ShareButtons extends Base_Block {
 		add_action( 'init', [ $this, 'register_sharebuttons_block' ] );
 	}
 
-/**
+	/**
 	 * Block attributes.
 	 *
 	 * @var array $attributes Block attributes definition.
 	 */
 	private static $attributes = [
-		'url'			=> [
-			'type' => 'string'
+		'url'             => [
+			'type' => 'string',
 		],
-		'gaEvent'			=> [
-			'type' => 'string'
+		'gaEvent'         => [
+			'type' => 'string',
 		],
-		'gaEventCategory'			=> [
-			'type' => 'string'
+		'gaEventCategory' => [
+			'type' => 'string',
 		],
-		'gaCategory'			=> [
-			'type' => 'string'
+		'gaCategory'      => [
+			'type' => 'string',
 		],
-		'gaAction'			=> [
-			'type' => 'string'
+		'gaAction'        => [
+			'type' => 'string',
 		],
-		'gaLabel'			=> [
-			'type' => 'string'
+		'gaLabel'         => [
+			'type' => 'string',
 		],
-		'utmMedium'			=> [
-			'type' => 'string'
+		'utmMedium'       => [
+			'type' => 'string',
 		],
-		'utmContent'			=> [
-			'type' => 'string'
+		'utmContent'      => [
+			'type' => 'string',
 		],
-		'utmCampaign'			=> [
-			'type' => 'string'
+		'utmCampaign'     => [
+			'type' => 'string',
 		],
-		'email'			=> [
-			'type' => 'object',
+		'email'           => [
+			'type'       => 'object',
 			'properties' => [
-				'title'     => [
-					'type' => 'string',
-					'default' => ''
+				'title'        => [
+					'type'    => 'string',
+					'default' => '',
 				],
-				'body'      => [
-					'type' => 'string',
-					'default' => ''
+				'body'         => [
+					'type'    => 'string',
+					'default' => '',
 				],
 				'showInMenu'   => [
-					'type' => 'boolean',
-					'default' => true
+					'type'    => 'boolean',
+					'default' => true,
 				],
 				'openInNewTab' => [
-					'type' => 'boolean',
-					'default' => true
+					'type'    => 'boolean',
+					'default' => true,
 				],
 			],
 		],
-		'whatsapp'			=> [
-			'type' => 'object',
+		'whatsapp'        => [
+			'type'       => 'object',
 			'properties' => [
-				'baseSharedUrl'     => [
-					'type' => 'string',
-					'default' => 'https://wa.me'
+				'baseSharedUrl' => [
+					'type'    => 'string',
+					'default' => 'https://wa.me',
 				],
-				'showInMenu'   => [
-					'type' => 'boolean',
-					'default' => true
+				'showInMenu'    => [
+					'type'    => 'boolean',
+					'default' => true,
 				],
-				'openInNewTab' => [
-					'type' => 'boolean',
-					'default' => true
+				'openInNewTab'  => [
+					'type'    => 'boolean',
+					'default' => true,
 				],
 			],
 		],
-		'facebook'			=> [
-			'type' => 'object',
+		'facebook'        => [
+			'type'       => 'object',
 			'properties' => [
-				'baseSharedUrl'     => [
-					'type' => 'string',
-					'default' => 'https://www.facebook.com/sharer/sharer.php'
+				'baseSharedUrl' => [
+					'type'    => 'string',
+					'default' => 'https://www.facebook.com/sharer/sharer.php',
 				],
-				'showInMenu'   => [
-					'type' => 'boolean',
-					'default' => true
+				'showInMenu'    => [
+					'type'    => 'boolean',
+					'default' => true,
 				],
-				'openInNewTab' => [
-					'type' => 'boolean',
-					'default' => true
+				'openInNewTab'  => [
+					'type'    => 'boolean',
+					'default' => true,
 				],
 			],
 		],
-		'twitter'			=> [
-			'type' => 'object',
+		'twitter'         => [
+			'type'       => 'object',
 			'properties' => [
-				'baseSharedUrl'     => [
-					'type' => 'string',
-					'default' => 'https://twitter.com/share'
+				'baseSharedUrl' => [
+					'type'    => 'string',
+					'default' => 'https://twitter.com/share',
 				],
-				'showInMenu'   => [
-					'type' => 'boolean',
-					'default' => true
+				'showInMenu'    => [
+					'type'    => 'boolean',
+					'default' => true,
 				],
-				'openInNewTab' => [
-					'type' => 'boolean',
-					'default' => true
+				'openInNewTab'  => [
+					'type'    => 'boolean',
+					'default' => true,
 				],
-				'text'     => [
-					'type' => 'string',
-					'default' => ''
+				'text'          => [
+					'type'    => 'string',
+					'default' => '',
 				],
-				'description'     => [
-					'type' => 'string',
-					'default' => ''
+				'description'   => [
+					'type'    => 'string',
+					'default' => '',
 				],
-				'account'     => [
-					'type' => 'string',
-					'default' => ''
+				'account'       => [
+					'type'    => 'string',
+					'default' => '',
 				],
 			],
 		],
-		'version' 						=> [
+		'version'         => [
 			'type' => 'integer',
 		],
 	];
