@@ -25,10 +25,7 @@ export const WhatsappShareFrontend = ({
     data-ga-label={gaLabel}
     { ...openInNewTab && { target: '_blank' } }
   >
-    {/* <SvgIcon {...{name: "whatsapp"}} /> */}
-    <svg viewBox="0 0 32 32">
-      <use xlinkHref={ `${window.p4bk_vars.themeUrl}#whatsapp` } />
-    </svg>
+    <SvgIcon {...{name: "whatsapp"}} />
     <span className="visually-hidden">{__( 'Share on', 'planet4-master-theme' )} Whatsapp</span>
   </a>
 );
