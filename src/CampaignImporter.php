@@ -24,6 +24,15 @@ class CampaignImporter {
 		add_filter( 'wp_import_post_data_processed', [ $this, 'set_imported_campaigns_as_drafts' ], 10, 2 );
 		add_action( 'import_end', [ $this, 'action_import_end' ], 10, 0 );
 		add_filter( 'wp_import_post_meta', [ $this, 'skip_duplicate_postmeta_import' ], 10, 2 );
+
+		add_action(
+			'wp_import_insert_post',
+			function ( $post_id ) {
+				$link  = get_edit_post_link( $post_id );
+				$title = esc_html( get_the_title( $post_id ) );
+				echo "successfully imported <a href=\"$link\">$title</a>\n"; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			}
+		);
 	}
 
 	/**
