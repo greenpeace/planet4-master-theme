@@ -1,0 +1,24 @@
+.planet4_options .cmb-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.planet4_options .cmb-th {
+  float: none;
+  padding: 15px 10px 15px 0;
+}
+
+.planet4_options label {
+  padding: 0;
+}
+
+.planet4_options .cmb-td {
+  float: none;
+}
+
+@media (min-width: 768px) {
+  .planet4_options .cmb-row {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+  }
+}
