@@ -19,12 +19,6 @@ export const registerBlock = () => {
         type: 'string',
         default: document.URL,
       },
-      gaEvent: {
-        type: 'string',
-      },
-      gaEventCategory: {
-        type: 'string',
-      },
       gaCategory: {
         type: 'string',
       },

@@ -1,17 +1,21 @@
-import { WhatsappShare } from './ShareProviders/WhatsappShare';
-import { FacebookShare } from './ShareProviders/FacebookShare';
-import { TwitterShare } from './ShareProviders/TwitterShare';
-import { EmailShare } from './ShareProviders/EmailShare';
+import { ShareButton } from './ShareButton';
 
 const { __ } = wp.i18n;
+
+const parseUtmParams = (utm_source, utm_medium, utm_content, utm_campaign) => {
+  return [
+    utm_source ? `utm_source=${encodeURIComponent(utm_source)}` : null,
+    utm_medium ? `utm_medium=${encodeURIComponent(utm_medium)}` : null,
+    utm_content ? `utm_content=${encodeURIComponent(utm_content)}` : null,
+    utm_campaign ? `utm_campaign=${encodeURIComponent(utm_campaign)}` : null,
+  ].filter(x => x).join('&');
+};
 
 export const ShareButtonsFrontend = ({
   url,
   utmMedium,
   utmContent,
   utmCampaign,
-  gaEvent,
-  gaEventCategory,
   gaCategory,
   gaAction,
   gaLabel,
@@ -21,73 +25,55 @@ export const ShareButtonsFrontend = ({
   email,
 }) => (
   <nav className='share-buttons'>
-    {whatsapp.showInMenu && (
-      <WhatsappShare {...{
-        url,
-        utmMedium,
-        utmContent,
-        utmCampaign,
-        gaEvent,
-        gaEventCategory,
-        gaCategory,
-        gaAction,
-        gaLabel,
-        openInNewTab: whatsapp.openInNewTab,
-        baseSharedUrl: whatsapp.baseSharedUrl,
-      }}
-      />
-    )}
-    {facebook.showInMenu && (
-      <FacebookShare {...{
-        url,
-        utmMedium,
-        utmContent,
-        utmCampaign,
-        gaEvent,
-        gaEventCategory,
-        gaCategory,
-        gaAction,
-        gaLabel,
-        openInNewTab: facebook.openInNewTab,
-        baseSharedUrl: facebook.baseSharedUrl,
-      }}
-      />
-    )}
-    {twitter.showInMenu && (
-      <TwitterShare {...{
-        url,
-        utmMedium,
-        utmContent,
-        utmCampaign,
-        gaEvent,
-        gaEventCategory,
-        gaCategory,
-        gaAction,
-        gaLabel,
-        openInNewTab: twitter.openInNewTab,
-        baseSharedUrl: twitter.baseSharedUrl,
-        text: twitter.text,
-        description: twitter.description,
-        account: twitter.account,
-      }}
-      />
-    )}
-    {email.showInMenu && (
-      <EmailShare {...{
-        url,
-        utmMedium,
-        utmContent,
-        utmCampaign,
-        gaEvent,
-        gaEventCategory,
-        gaCategory,
-        gaAction,
-        gaLabel,
-        openInNewTab: email.openInNewTab,
-        title: email.title,
-        body: email.body,
-      }}
-      />
-    )}
+    {whatsapp.showInMenu && <ShareButton {...{
+      href: `${whatsapp.baseSharedUrl}?text=${encodeURIComponent(url)}&${parseUtmParams('whatsapp', utmMedium, utmContent, utmCampaign)}`,
+      providerName:'whatsapp',
+      icon: 'whatsapp',
+      openInNewTab: whatsapp.openInNewTab,
+      gaCategory,
+      gaAction,
+      gaLabel,
+      hiddenText: __( 'Share on Whatsapp', 'planet4-master-theme' ),
+    }}/>}
+
+    {facebook.showInMenu && <ShareButton {...{
+      href: `${facebook.baseSharedUrl}?u=${encodeURIComponent(url)}&${parseUtmParams('facebook', utmMedium, utmContent, utmCampaign)}`,
+      providerName:'facebook',
+      icon: 'facebook-f',
+      openInNewTab: facebook.openInNewTab,
+      gaCategory,
+      gaAction,
+      gaLabel,
+      hiddenText: __( 'Share on Facebook', 'planet4-master-theme' )
+    }}/>}
+
+    {twitter.showInMenu && <ShareButton {...{
+      href: `
+        ${twitter.baseSharedUrl}
+        ?url=${encodeURIComponent(url)}
+        &text=${encodeURIComponent(twitter.text)}
+        &${parseUtmParams('facebook', utmMedium, utmContent, utmCampaign)}
+        ${(twitter.description ? ` - ${encodeURIComponent(twitter.description)}` : '')}
+        ${(twitter.account ? ` via @${encodeURIComponent(twitter.account)}&related=${encodeURIComponent(twitter.account)}` : '')}
+      `,
+      providerName:'twitter',
+      icon: 'twitter',
+      openInNewTab: twitter.openInNewTab,
+      gaCategory,
+      gaAction,
+      gaLabel,
+      hiddenText: __( 'Share on Twitter', 'planet4-master-theme' )
+    }}/>}
+
+    {email.showInMenu && <ShareButton {...{
+      href: `mailto:?subject=${email.title}&body=${email.body ? encodeURIComponent(email.body) : ''}\n${url}&${parseUtmParams('email', utmMedium, utmContent, utmCampaign)}`,
+      providerName:'email',
+      icon: 'envelope',
+      openInNewTab: email.openInNewTab,
+      gaCategory,
+      gaAction,
+      gaLabel,
+      hiddenText: __( 'Share on Email', 'planet4-master-theme' )
+    }}/>}
   </nav>
 );

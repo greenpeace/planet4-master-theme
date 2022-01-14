@@ -19,8 +19,6 @@ export const Sidebar = ({
   utmMedium,
   utmContent,
   utmCampaign,
-  gaEvent,
-  gaEventCategory,
   gaCategory,
   gaAction,
   gaLabel,
@@ -76,20 +74,6 @@ export const Sidebar = ({
           </PanelRow>
           <PanelRow>
             <PanelRowWrapper labelText={__('Google Analytics', 'planet4-blocks-backend')}>
-              <TextControl
-                placeholder={__('Event', 'planet4-blocks-backend')}
-                value={gaEvent}
-                onChange={(value) => setAttributes({
-                  'gaEvent': value,
-                })}
-              />
-              <TextControl
-                placeholder={__('Event Category', 'planet4-blocks-backend')}
-                value={gaEventCategory}
-                onChange={(value) => setAttributes({
-                  'gaEventCategory': value,
-                })}
-              />
               <TextControl
                 placeholder={__('Category ', 'planet4-blocks-backend')}
                 value={gaCategory}

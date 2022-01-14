@@ -5,8 +5,6 @@ export const ShareButton = ({
   providerName = '',
   icon = '',
   hiddenText = '',
-  gaEvent,
-  gaEventCategory,
   gaCategory,
   gaAction,
   gaLabel,
@@ -14,8 +12,8 @@ export const ShareButton = ({
 }) => (
   <a href={href}
     className={`social-share-button ${providerName}`}
-    data-ga-event={gaEvent}
-    data-ga-event-category={gaEventCategory}
+    data-ga-event='uaevent'
+    data-ga-event-category='Social Share'
     data-ga-category={gaCategory}
     data-ga-action={gaAction}
     data-ga-label={gaLabel}
