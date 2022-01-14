@@ -110,13 +110,6 @@ class Settings {
 							'type' => 'text',
 						],
 					],
-
-					[
-						'name' => __( 'Show donate button below mobile navigation bar', 'planet4-master-theme-backend' ),
-						'desc' => __( 'Enable visibility of the donate button on the homepage. Please check legal restrictions on images associated with this button before using it.', 'planet4-master-theme-backend' ) . ' <a href="https://planet4.greenpeace.org/handbook/admin-setup/#donate-button-visible-on-mobile">' . __( 'Read more', 'planet4-master-theme-backend' ) . '</a>',
-						'id'   => 'donate_btn_visible_on_mobile',
-						'type' => 'checkbox',
-					],
 				],
 			],
 			'planet4_settings_defaults_content' => [

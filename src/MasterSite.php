@@ -556,11 +556,6 @@ class MasterSite extends TimberSite {
 		$context['donatelink']           = $options['donate_button'] ?? '#';
 		$context['donatetext']           = $options['donate_text'] ?? __( 'Donate', 'planet4-master-theme' );
 		$context['website_navbar_title'] = $options['website_navigation_title'] ?? __( 'International (English)', 'planet4-master-theme' );
-		if ( is_front_page() && ! $new_design_navigation_bar && isset( $options['donate_btn_visible_on_mobile'] ) && $options['donate_btn_visible_on_mobile'] ) {
-			$context['enhanced_donate_btn_class'] = 'btn-enhanced-donate';
-		} else {
-			$context['enhanced_donate_btn_class'] = '';
-		}
 
 		$context['act_page_id']     = $options['act_page'] ?? '';
 		$context['explore_page_id'] = $options['explore_page'] ?? '';
