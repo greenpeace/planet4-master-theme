@@ -7,6 +7,8 @@ namespace P4\MasterTheme;
  */
 class Features {
 
+	public const OPTIONS_KEY = 'planet4_features';
+
 	/**
 	 * @var string Media library refactored feature.
 	 */
@@ -54,6 +56,7 @@ class Features {
 	public static function get_options_page(): array {
 		return [
 			'title'       => 'Features',
+			'root_option' => self::OPTIONS_KEY,
 			'fields'      => self::get_fields(),
 			'add_scripts' => static function () {
 				Loader::enqueue_versioned_script( '/admin/js/features_save_redirect.js' );
@@ -66,7 +69,7 @@ class Features {
 	 *
 	 * @return array[] The fields for each feature.
 	 */
-	private static function get_fields(): array {
+	public static function get_fields(): array {
 		$fields = [
 			[
 				'name' => __( 'Greenpeace Image Archive (beta, name subject to change)', 'planet4-master-theme-backend' ),
@@ -192,7 +195,12 @@ class Features {
 	 * @return bool Whether the feature is active.
 	 */
 	public static function is_active( string $name ): bool {
-		$features = get_option( Settings::KEY );
+		$features = get_option( self::OPTIONS_KEY );
+
+		// Temporary fallback to ensure it works before migration runs.
+		if ( ! $features ) {
+			$features = get_option( Settings::KEY );
+		}
 
 		$active = isset( $features[ $name ] ) && $features[ $name ];
 
@@ -222,7 +230,7 @@ class Features {
 		// After all fields are saved.
 		add_action(
 			'cmb2_save_options-page_fields_' . Settings::METABOX_ID,
-			__CLASS__ . '::on_features_saved',
+			[ self::class, 'on_features_saved' ],
 			10,
 			4
 		);
@@ -235,7 +243,7 @@ class Features {
 	 * @param int   $object_id The ID of the current object.
 	 */
 	public static function on_pre_process( $cmb, $object_id ) {
-		if ( Settings::KEY !== $object_id ) {
+		if ( self::OPTIONS_KEY !== $object_id ) {
 			return;
 		}
 

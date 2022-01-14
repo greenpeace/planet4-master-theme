@@ -7,6 +7,7 @@ use P4\MasterTheme\Migrations\M002EnableLazyYoutube;
 use P4\MasterTheme\Migrations\M004UpdateMissingMediaPath;
 use P4\MasterTheme\Migrations\M003UpdateArticlesBlockAttribute;
 use P4\MasterTheme\Migrations\M005TurnBoxoutSettingIntoBlock;
+use P4\MasterTheme\Migrations\M006MoveFeaturesToSeparateOption;
 use P4\MasterTheme\Migrations\M007RemoveEnhancedDonateButtonOption;
 
 /**
@@ -31,6 +32,7 @@ class Migrator {
 			M004UpdateMissingMediaPath::class,
 			M003UpdateArticlesBlockAttribute::class,
 			M005TurnBoxoutSettingIntoBlock::class,
+			M006MoveFeaturesToSeparateOption::class,
 			M007RemoveEnhancedDonateButtonOption::class,
 		];
 

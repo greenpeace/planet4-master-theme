@@ -565,7 +565,11 @@ class Settings {
 	 * @param string $plugin_page The key for the current page.
 	 */
 	public function admin_page_display( string $plugin_page ) {
-		$fields = $this->subpages[ $plugin_page ]['fields'];
+		$page_config = $this->subpages[ $plugin_page ];
+
+		$fields = $page_config['fields'];
+		// Allow storing options in a different database record.
+		$root_option = $page_config['root_option'] ?? self::KEY;
 
 		$add_scripts = $this->subpages[ $plugin_page ]['add_scripts'] ?? null;
 		if ( $add_scripts ) {
@@ -574,7 +578,7 @@ class Settings {
 		?>
 		<div class="wrap <?php echo esc_attr( self::KEY ); ?>">
 			<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
-			<?php cmb2_metabox_form( $this->option_metabox( $fields ), self::KEY ); ?>
+			<?php cmb2_metabox_form( $this->option_metabox( $fields, $root_option ), $root_option ); ?>
 		</div>
 		<?php
 	}
@@ -582,17 +586,18 @@ class Settings {
 	/**
 	 * Defines the theme option metabox and field configuration.
 	 *
-	 * @param array $fields expects the fields (if they exist) of this subpage.
+	 * @param array  $fields expects the fields (if they exist) of this subpage.
+	 * @param string $option_id Key of option to store serialized array in.
 	 *
 	 * @return array
 	 */
-	public function option_metabox( $fields ) {
+	public function option_metabox( array $fields, string $option_id ) {
 		return [
 			'id'         => self::METABOX_ID,
 			'show_on'    => [
 				'key'   => 'options-page',
 				'value' => [
-					self::KEY,
+					$option_id,
 				],
 			],
 			'show_names' => true,
