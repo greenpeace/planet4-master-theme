@@ -16,6 +16,7 @@ const PanelRowWrapper = ({ labelText, helpText, children }) => {
 
 export const Sidebar = ({
   url,
+  openInNewTab,
   utmMedium,
   utmContent,
   utmCampaign,
@@ -37,9 +38,13 @@ export const Sidebar = ({
               <URLInput
                 placeholder={__('Enter the shared URL', 'planet4-blocks-backend')}
                 value={url}
-                onChange={(value) => setAttributes({
-                  'url': value,
-                })}
+                onChange={(value) => setAttributes({ url: value })}
+              />
+              <CheckboxControl
+                label={__('Open in a new tab', 'planet4-blocks-backend')}
+                value={openInNewTab}
+                checked={openInNewTab}
+                onChange={(value) => setAttributes({ openInNewTab: value })}
               />
             </PanelRowWrapper>
           </PanelRow>
@@ -52,23 +57,17 @@ export const Sidebar = ({
               <TextControl
                 placeholder={__('Medium', 'planet4-blocks-backend')}
                 value={utmMedium}
-                onChange={(value) => setAttributes({
-                  utmMedium: value,
-                })}
+                onChange={(value) => setAttributes({ utmMedium: value })}
               />
               <TextControl
                 placeholder={__('Content', 'planet4-blocks-backend')}
                 value={utmContent}
-                onChange={(value) => setAttributes({
-                  'utmContent': value,
-                })}
+                onChange={(value) => setAttributes({ utmContent: value })}
               />
               <TextControl
                 placeholder={__('Campaign', 'planet4-blocks-backend')}
                 value={utmCampaign}
-                onChange={(value) => setAttributes({
-                  'utmCampaign': value,
-                })}
+                onChange={(value) => setAttributes({ utmCampaign: value })}
               />
             </PanelRowWrapper>
           </PanelRow>
@@ -77,23 +76,17 @@ export const Sidebar = ({
               <TextControl
                 placeholder={__('Category ', 'planet4-blocks-backend')}
                 value={gaCategory}
-                onChange={(value) => setAttributes({
-                  'gaCategory': value,
-                })}
+                onChange={(value) => setAttributes({ gaCategory: value })}
               />
               <TextControl
                 placeholder={__('Action', 'planet4-blocks-backend')}
                 value={gaAction}
-                onChange={(value) => setAttributes({
-                  'gaAction': value,
-                })}
+                onChange={(value) => setAttributes({ gaAction: value })}
               />
               <TextControl
                 placeholder={__('Label', 'planet4-blocks-backend')}
                 value={gaLabel}
-                onChange={(value) => setAttributes({
-                  'gaLabel': value,
-                })}
+                onChange={(value) => setAttributes({ gaLabel: value })}
               />
             </PanelRowWrapper>
           </PanelRow>
@@ -107,21 +100,6 @@ export const Sidebar = ({
                 checked={whatsapp.showInMenu}
                 onChange={(value) => {
                   setAttributes({ whatsapp: {...whatsapp, showInMenu: value} })
-                }}
-              />
-              <CheckboxControl
-                label={__('Open in a new tab', 'planet4-blocks-backend')}
-                value={whatsapp.openInNewTab}
-                checked={whatsapp.openInNewTab}
-                onChange={(value) => {
-                  setAttributes({ whatsapp: {...whatsapp, openInNewTab: value} })
-                }}
-              />
-              <TextControl
-                placeholder={__('Shared URL', 'planet4-blocks-backend')}
-                value={whatsapp.baseSharedUrl}
-                onChange={(value) => {
-                  setAttributes({ whatsapp: {...whatsapp, baseSharedUrl: value} })
                 }}
               />
             </PanelRowWrapper>
@@ -138,21 +116,6 @@ export const Sidebar = ({
                   setAttributes({ facebook: {...facebook, showInMenu: value} })
                 }}
               />
-              <CheckboxControl
-                label={__('Open in a new tab', 'planet4-blocks-backend')}
-                value={facebook.openInNewTab}
-                checked={facebook.openInNewTab}
-                onChange={(value) => {
-                  setAttributes({ facebook: {...facebook, openInNewTab: value} })
-                }}
-              />
-              <TextControl
-                placeholder={__('Shared URL', 'planet4-blocks-backend')}
-                value={facebook.baseSharedUrl}
-                onChange={(value) => {
-                  setAttributes({ facebook: {...facebook, baseSharedUrl: value} })
-                }}
-              />
             </PanelRowWrapper>
           </PanelRow>
         </PanelBody>
@@ -165,21 +128,6 @@ export const Sidebar = ({
                 checked={twitter.showInMenu}
                 onChange={(value) => {
                   setAttributes({ twitter: {...twitter, showInMenu: value} })
-                }}
-              />
-              <CheckboxControl
-                label={__('Open in a new tab', 'planet4-blocks-backend')}
-                value={twitter.openInNewTab}
-                checked={twitter.openInNewTab}
-                onChange={(value) => {
-                  setAttributes({ twitter: {...twitter, openInNewTab: value} })
-                }}
-              />
-              <TextControl
-                placeholder={__('Shared URL', 'planet4-blocks-backend')}
-                value={twitter.baseSharedUrl}
-                onChange={(value) => {
-                  setAttributes({ twitter: {...twitter, baseSharedUrl: value} })
                 }}
               />
               <TextControl
@@ -213,31 +161,17 @@ export const Sidebar = ({
                 label={__('Show in menu', 'planet4-blocks-backend')}
                 value={email.showInMenu}
                 checked={email.showInMenu}
-                onChange={(value) => {
-                  setAttributes({ email: {...email, showInMenu: value} })
-                }}
-              />
-              <CheckboxControl
-                label={__('Open in a new tab', 'planet4-blocks-backend')}
-                value={email.openInNewTab}
-                checked={email.openInNewTab}
-                onChange={(value) => {
-                  setAttributes({ email: {...email, openInNewTab: value} })
-                }}
+                onChange={(value) => { setAttributes({ email: {...email, showInMenu: value} }) }}
               />
               <TextControl
                 placeholder={__('Title', 'planet4-blocks-backend')}
                 value={email.title}
-                onChange={(value) => {
-                  setAttributes({ email: {...email, title: value} })
-                }}
+                onChange={(value) => { setAttributes({ email: {...email, title: value} }) }}
               />
               <TextareaControl
                 placeholder={__('Body', 'planet4-blocks-backend')}
                 value={email.body}
-                onChange={(value) => {
-                  setAttributes({ email: {...email, body: value} })
-                }}
+                onChange={(value) => { setAttributes({ email: {...email, body: value} }) }}
               />
             </PanelRowWrapper>
           </PanelRow>

@@ -19,6 +19,10 @@ export const registerBlock = () => {
         type: 'string',
         default: document.URL,
       },
+      openInNewTab: {
+        type: 'boolean',
+        default: true,
+      },
       gaCategory: {
         type: 'string',
       },
@@ -41,17 +45,13 @@ export const registerBlock = () => {
       facebook: {
         type: 'object',
         default: {
-          baseSharedUrl: 'https://www.facebook.com/sharer/sharer.php',
           showInMenu: true,
-          openInNewTab: true,
         },
       },
       twitter: {
         type: 'object',
         default: {
-          baseSharedUrl: 'https://twitter.com/share',
           showInMenu: true,
-          openInNewTab: true,
           text: '',
           description: '',
           account: '',
@@ -60,9 +60,7 @@ export const registerBlock = () => {
       whatsapp: {
         type: 'object',
         default: {
-          baseSharedUrl: 'https://wa.me',
           showInMenu: true,
-          openInNewTab: true,
         },
       },
       email: {
@@ -71,7 +69,6 @@ export const registerBlock = () => {
           title: '',
           body: '',
           showInMenu: true,
-          openInNewTab: true,
         },
       },
       version: {

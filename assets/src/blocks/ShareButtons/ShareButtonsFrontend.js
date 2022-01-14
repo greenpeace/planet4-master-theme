@@ -13,6 +13,7 @@ const parseUtmParams = (utm_source, utm_medium, utm_content, utm_campaign) => {
 
 export const ShareButtonsFrontend = ({
   url,
+  openInNewTab,
   utmMedium,
   utmContent,
   utmCampaign,
@@ -26,10 +27,11 @@ export const ShareButtonsFrontend = ({
 }) => (
   <nav className='share-buttons'>
     {whatsapp.showInMenu && <ShareButton {...{
-      href: `${whatsapp.baseSharedUrl}?text=${encodeURIComponent(url)}&${parseUtmParams('whatsapp', utmMedium, utmContent, utmCampaign)}`,
+      href: `https://wa.me
+      ?text=${encodeURIComponent(url)}&${parseUtmParams('whatsapp', utmMedium, utmContent, utmCampaign)}`,
       providerName:'whatsapp',
       icon: 'whatsapp',
-      openInNewTab: whatsapp.openInNewTab,
+      openInNewTab,
       gaCategory,
       gaAction,
       gaLabel,
@@ -37,10 +39,11 @@ export const ShareButtonsFrontend = ({
     }}/>}
 
     {facebook.showInMenu && <ShareButton {...{
-      href: `${facebook.baseSharedUrl}?u=${encodeURIComponent(url)}&${parseUtmParams('facebook', utmMedium, utmContent, utmCampaign)}`,
+      href: `https://www.facebook.com/sharer/sharer.php
+        ?u=${encodeURIComponent(url)}&${parseUtmParams('facebook', utmMedium, utmContent, utmCampaign)}`,
       providerName:'facebook',
       icon: 'facebook-f',
-      openInNewTab: facebook.openInNewTab,
+      openInNewTab,
       gaCategory,
       gaAction,
       gaLabel,
@@ -48,8 +51,7 @@ export const ShareButtonsFrontend = ({
     }}/>}
 
     {twitter.showInMenu && <ShareButton {...{
-      href: `
-        ${twitter.baseSharedUrl}
+      href: `https://twitter.com/share
         ?url=${encodeURIComponent(url)}
         &text=${encodeURIComponent(twitter.text)}
         &${parseUtmParams('facebook', utmMedium, utmContent, utmCampaign)}
@@ -58,7 +60,7 @@ export const ShareButtonsFrontend = ({
       `,
       providerName:'twitter',
       icon: 'twitter',
-      openInNewTab: twitter.openInNewTab,
+      openInNewTab,
       gaCategory,
       gaAction,
       gaLabel,
@@ -69,7 +71,7 @@ export const ShareButtonsFrontend = ({
       href: `mailto:?subject=${email.title}&body=${email.body ? encodeURIComponent(email.body) : ''}\n${url}&${parseUtmParams('email', utmMedium, utmContent, utmCampaign)}`,
       providerName:'email',
       icon: 'envelope',
-      openInNewTab: email.openInNewTab,
+      openInNewTab,
       gaCategory,
       gaAction,
       gaLabel,
