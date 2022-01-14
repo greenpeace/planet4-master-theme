@@ -12,7 +12,7 @@ const PanelRowWrapper = ({ labelText, helpText, children }) => {
       {children}
     </div>
   )
-}
+};
 
 export const Sidebar = ({
   url,
@@ -23,12 +23,95 @@ export const Sidebar = ({
   gaCategory,
   gaAction,
   gaLabel,
-  whatsapp,
-  facebook,
-  twitter,
-  email,
+  buttons,
   setAttributes,
 }) => {
+  const renderPanelRow = (buttonProps) => {
+    switch (buttonProps.type) {
+      case 'whatsapp':
+       return <PanelRowWrapper labelText={__('Whatsapp', 'planet4-blocks-backend')}>
+          <CheckboxControl
+            label={__('Show in menu', 'planet4-blocks-backend')}
+            value={buttons.whatsapp.showInMenu}
+            checked={buttons.whatsapp.showInMenu}
+            onChange={(value) => {
+              setAttributes({ buttons: {...buttons, whatsapp: { ...buttons.whatsapp, showInMenu: value } }})
+            }}
+          />
+        </PanelRowWrapper>
+      case 'facebook':
+       return <PanelRowWrapper labelText={__('Facebook', 'planet4-blocks-backend')}>
+          <CheckboxControl
+            label={__('Show in menu', 'planet4-blocks-backend')}
+            value={buttons.facebook.showInMenu}
+            checked={buttons.facebook.showInMenu}
+            onChange={(value) => {
+              setAttributes({ buttons: {...buttons, facebook: { ...buttons.facebook, showInMenu: value } }})
+            }}
+          />
+        </PanelRowWrapper>
+      case 'twitter':
+       return <PanelRowWrapper labelText={__('Twitter', 'planet4-blocks-backend')}>
+          <CheckboxControl
+            label={__('Show in menu', 'planet4-blocks-backend')}
+            value={buttons.twitter.showInMenu}
+            checked={buttons.twitter.showInMenu}
+            onChange={(value) => {
+              setAttributes({ buttons: {...buttons, twitter: { ...buttons.twitter, showInMenu: value } }})
+            }}
+          />
+          <TextControl
+            placeholder={__('Text', 'planet4-blocks-backend')}
+            value={buttons.twitter.text}
+            onChange={(value) => {
+              setAttributes({ buttons: {...buttons, twitter: { ...buttons.twitter, text: value } }})
+            }}
+          />
+          <TextareaControl
+            placeholder={__('Description', 'planet4-blocks-backend')}
+            value={buttons.twitter.description}
+            onChange={(value) => {
+              setAttributes({ buttons: {...buttons, twitter: { ...buttons.twitter, description: value } }})
+            }}
+          />
+          <TextControl
+            placeholder={__('Account', 'planet4-blocks-backend')}
+            value={buttons.twitter.account}
+            onChange={(value) => {
+              setAttributes({ buttons: {...buttons, twitter: { ...buttons.twitter, account: value } }})
+            }}
+          />
+        </PanelRowWrapper>
+      case 'email':
+        return <PanelRowWrapper labelText={__('Email', 'planet4-blocks-backend')}>
+          <CheckboxControl
+            label={__('Show in menu', 'planet4-blocks-backend')}
+            value={buttons.email.showInMenu}
+            checked={buttons.email.showInMenu}
+            onChange={(value) => {
+              setAttributes({ buttons: {...buttons, email: { ...buttons.email, showInMenu: value } }})
+            }}
+          />
+          <TextControl
+            placeholder={__('Title', 'planet4-blocks-backend')}
+            value={buttons.email.title}
+            onChange={(value) => {
+              setAttributes({ buttons: {...buttons, email: { ...buttons.email, title: value } }})
+            }}
+          />
+          <TextareaControl
+            placeholder={__('Body', 'planet4-blocks-backend')}
+            value={buttons.email.body}
+            onChange={(value) => {
+              setAttributes({ buttons: {...buttons, email: { ...buttons.email, body: value } }})
+            }}
+          />
+        </PanelRowWrapper>
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <InspectorControls>
@@ -91,90 +174,10 @@ export const Sidebar = ({
             </PanelRowWrapper>
           </PanelRow>
         </PanelBody>
-        <PanelBody title={__('Whatsapp Share', 'planet4-blocks-backend')}>
-          <PanelRow>
-            <PanelRowWrapper labelText={__('Settings', 'planet4-blocks-backend')}>
-              <CheckboxControl
-                label={__('Show in menu', 'planet4-blocks-backend')}
-                value={whatsapp.showInMenu}
-                checked={whatsapp.showInMenu}
-                onChange={(value) => {
-                  setAttributes({ whatsapp: {...whatsapp, showInMenu: value} })
-                }}
-              />
-            </PanelRowWrapper>
-          </PanelRow>
-        </PanelBody>
-        <PanelBody title={__('Facebook Share', 'planet4-blocks-backend')}>
-          <PanelRow>
-            <PanelRowWrapper labelText={__('Settings', 'planet4-blocks-backend')}>
-              <CheckboxControl
-                label={__('Show in menu', 'planet4-blocks-backend')}
-                value={facebook.showInMenu}
-                checked={facebook.showInMenu}
-                onChange={(value) => {
-                  setAttributes({ facebook: {...facebook, showInMenu: value} })
-                }}
-              />
-            </PanelRowWrapper>
-          </PanelRow>
-        </PanelBody>
-        <PanelBody title={__('Twitter Share', 'planet4-blocks-backend')}>
-          <PanelRow>
-            <PanelRowWrapper labelText={__('Settings', 'planet4-blocks-backend')}>
-              <CheckboxControl
-                label={__('Show in menu', 'planet4-blocks-backend')}
-                value={twitter.showInMenu}
-                checked={twitter.showInMenu}
-                onChange={(value) => {
-                  setAttributes({ twitter: {...twitter, showInMenu: value} })
-                }}
-              />
-              <TextControl
-                placeholder={__('Text', 'planet4-blocks-backend')}
-                value={twitter.text}
-                onChange={(value) => {
-                  setAttributes({ twitter: {...twitter, text: value} })
-                }}
-              />
-              <TextareaControl
-                placeholder={__('Description', 'planet4-blocks-backend')}
-                value={twitter.description}
-                onChange={(value) => {
-                  setAttributes({ twitter: {...twitter, description: value} })
-                }}
-              />
-              <TextControl
-                placeholder={__('Account', 'planet4-blocks-backend')}
-                value={twitter.account}
-                onChange={(value) => {
-                  setAttributes({ twitter: {...twitter, account: value} })
-                }}
-              />
-            </PanelRowWrapper>
-          </PanelRow>
-        </PanelBody>
-        <PanelBody title={__('Email Share', 'planet4-blocks-backend')}>
-          <PanelRow>
-            <PanelRowWrapper labelText={__('Settings', 'planet4-blocks-backend')}>
-              <CheckboxControl
-                label={__('Show in menu', 'planet4-blocks-backend')}
-                value={email.showInMenu}
-                checked={email.showInMenu}
-                onChange={(value) => { setAttributes({ email: {...email, showInMenu: value} }) }}
-              />
-              <TextControl
-                placeholder={__('Title', 'planet4-blocks-backend')}
-                value={email.title}
-                onChange={(value) => { setAttributes({ email: {...email, title: value} }) }}
-              />
-              <TextareaControl
-                placeholder={__('Body', 'planet4-blocks-backend')}
-                value={email.body}
-                onChange={(value) => { setAttributes({ email: {...email, body: value} }) }}
-              />
-            </PanelRowWrapper>
-          </PanelRow>
+        <PanelBody title={__('Share Buttons', 'planet4-blocks-backend')}>
+          {Object.values(buttons).map(
+            (buttonProps) => <PanelRow key={buttonProps.type}>{renderPanelRow(buttonProps)}</PanelRow>
+          )}
         </PanelBody>
       </InspectorControls>
     </>

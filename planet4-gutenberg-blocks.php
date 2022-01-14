@@ -116,7 +116,6 @@ const POST_BLOCK_TYPES = [
 	'planet4-blocks/timeline',
 	'leadin/hubspot-form-block',
 	'gravityforms/form',
-	'planet4-blocks/share-buttons',
 ];
 
 // pages allow all block types.

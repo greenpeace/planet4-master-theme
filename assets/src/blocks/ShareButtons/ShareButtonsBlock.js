@@ -42,33 +42,38 @@ export const registerBlock = () => {
       utmCampaign: {
         type: 'string',
       },
-      facebook: {
+      buttons: {
         type: 'object',
         default: {
-          showInMenu: true,
-        },
-      },
-      twitter: {
-        type: 'object',
-        default: {
-          showInMenu: true,
-          text: '',
-          description: '',
-          account: '',
-        },
-      },
-      whatsapp: {
-        type: 'object',
-        default: {
-          showInMenu: true,
-        },
-      },
-      email: {
-        type: 'object',
-        default: {
-          title: '',
-          body: '',
-          showInMenu: true,
+          facebook: {
+            type: 'facebook',
+            iconName: 'facebook-f',
+            hiddenText: __( 'Share on Facebook', 'planet4-master-theme' ),
+            showInMenu: true,
+          },
+          twitter: {
+            type: 'twitter',
+            iconName: 'twitter',
+            hiddenText: __( 'Share on Twitter', 'planet4-master-theme' ),
+            showInMenu: true,
+            text: '',
+            description: '',
+            account: '',
+          },
+          whatsapp: {
+            type: 'whatsapp',
+            iconName: 'whatsapp',
+            hiddenText: __( 'Share on Whatsapp', 'planet4-master-theme' ),
+            showInMenu: true,
+          },
+          email: {
+            type: 'email',
+            iconName: 'envelope',
+            hiddenText: __( 'Share via Email', 'planet4-master-theme' ),
+            showInMenu: true,
+            title: '',
+            body: '',
+          },
         },
       },
       version: {
