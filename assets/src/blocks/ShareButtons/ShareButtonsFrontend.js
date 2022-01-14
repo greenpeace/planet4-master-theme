@@ -1,7 +1,7 @@
-import { WhatsappShareFrontend as WhatsappShare } from './WhatsappShare/WhatsappShareFrontend';
-import { FacebookShareFrontend as FacebookShare } from './FacebookShare/FacebookShareFrontend';
-import { TwitterShareFrontend as TwitterShare } from './TwitterShare/TwitterShareFrontend';
-import { EmailShareFrontend as EmailShare } from './EmailShare/EmailShareFrontend';
+import { WhatsappShare } from './ShareProviders/WhatsappShare';
+import { FacebookShare } from './ShareProviders/FacebookShare';
+import { TwitterShare } from './ShareProviders/TwitterShare';
+import { EmailShare } from './ShareProviders/EmailShare';
 
 const { __ } = wp.i18n;
 
