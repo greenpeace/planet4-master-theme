@@ -432,6 +432,7 @@ class Settings {
 		add_filter( 'cmb2_render_explore_page_dropdown', [ $this, 'p4_render_explore_page_dropdown' ], 10, 2 );
 		add_filter( 'cmb2_render_category_select_taxonomy', [ $this, 'p4_render_category_dropdown' ], 10, 2 );
 		add_filter( 'cmb2_render_pagetype_select_taxonomy', [ $this, 'p4_render_pagetype_dropdown' ], 10, 2 );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 
 		// Make settings multilingual if wpml plugin is installed and activated.
 		if ( function_exists( 'is_plugin_active' ) && is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
@@ -605,5 +606,18 @@ class Settings {
 	 */
 	public function make_settings_multilingual() {
 		do_action( 'wpml_multilingual_options', 'planet4_options' );
+	}
+
+	/**
+	 * Loads options assets.
+	 */
+	public function enqueue_admin_assets() {
+		wp_register_style(
+			'options-style',
+			get_template_directory_uri() . '/admin/css/options.css',
+			[],
+			Loader::theme_file_ver( 'admin/css/options.css' )
+		);
+		wp_enqueue_style( 'options-style' );
 	}
 }
