@@ -68,13 +68,40 @@ if ( 'yes' === $post->include_articles ) {
 		$category_id_array[] = $category->id;
 	}
 
+//	$block_attributes = [
+//		'exclude_post_id' => $post->ID,
+//		'tags'            => $tag_id_array,
+//		'post_categories' => $category_id_array,
+//	];
 	$block_attributes = [
-		'exclude_post_id' => $post->ID,
-		'tags'            => $tag_id_array,
-		'post_categories' => $category_id_array,
+		'query' => [
+			'perPage' => 12,
+			'tagIds' => $tag_id_array,
+			'exclude' => [$post->ID],
+		],
+		'displayLayout' => [
+			'type' => 'flex',
+			'columns' => 4,
+		],
 	];
 
-	$post->articles = '<!-- wp:planet4-blocks/articles ' . wp_json_encode( $block_attributes, JSON_UNESCAPED_SLASHES ) . ' /-->';
+//	$post->articles = '<!-- wp:core/query-loop ' . wp_json_encode( $block_attributes, JSON_UNESCAPED_SLASHES ) . ' /-->';
+	$post->articles = '<!-- wp:query ' . wp_json_encode( $block_attributes, JSON_UNESCAPED_SLASHES ) . ' -->
+<div class="wp-block-query"><!-- wp:post-template -->
+<!-- wp:post-featured-image {"isLink":true} /-->
+
+<!-- wp:post-date /-->
+
+<!-- wp:post-title {"isLink":true,"fontSize":"small"} /-->
+<!-- /wp:post-template --></div>
+<!-- wp:query-pagination -->
+<!-- wp:query-pagination-previous /-->
+
+<!-- wp:query-pagination-numbers /-->
+
+<!-- wp:query-pagination-next /-->
+<!-- /wp:query-pagination -->
+<!-- /wp:query -->';
 }
 
 if ( ! empty( $take_action_page ) && ! has_block( 'planet4-blocks/take-action-boxout' ) ) {
