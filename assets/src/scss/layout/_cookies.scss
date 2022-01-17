@@ -17,11 +17,12 @@
 }
 
 .cookie-notice {
+  font-family: $roboto;
   z-index: 100;
   position: fixed;
   width: 100vw;
   background: white;
-  padding: 24px 24px 32px;
+  padding: $sp-3;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0.5s, opacity 0.5s linear;
@@ -29,6 +30,7 @@
   border-top-right-radius: 4px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
   bottom: 0;
+  color: $grey-80;
   @include slide-from(bottom, 0);
 
   &.shown {
@@ -36,23 +38,27 @@
     visibility: visible;
   }
 
-  > div {
+  .cookies-text {
     font-size: 14px;
     margin-bottom: 24px;
     font-weight: 400;
     color: $grey-80;
-    font-family: $roboto;
     line-height: 1.5rem;
     width: 100%;
   }
 
-  .btn {
+  .cookies-buttons .btn {
     width: 100%;
     line-height: 2.4;
+    font-size: 14px;
+
+    &:first-child {
+      margin-bottom: $sp-2;
+    }
   }
 
   @include medium-and-up {
-    width: 344px;
+    width: auto;
     bottom: 16px;
     right: 16px;
     left: auto;
@@ -60,6 +66,23 @@
     padding: 24px 32px 32px;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
     @include slide-from(right, 16px);
+
+    .cookies-intro {
+      width: 276px;
+    }
+
+    .cookies-buttons {
+      display: flex;
+      justify-content: space-between;
+
+      .btn {
+        width: 130px;
+
+        &:first-child {
+          margin-bottom: 0;
+        }
+      }
+    }
 
     html[dir="rtl"] & {
       right: auto;

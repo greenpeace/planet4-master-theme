@@ -1,0 +1,44 @@
+{% set necessary_cookies_name = settings_copy.necessary_cookies_name %}
+{% set necessary_cookies_description = settings_copy.necessary_cookies_description %}
+{% set analytical_cookies_name = settings_copy.analytical_cookies_name %}
+{% set analytical_cookies_description = settings_copy.analytical_cookies_description %}
+{% set all_cookies_name = settings_copy.all_cookies_name %}
+{% set all_cookies_description = settings_copy.all_cookies_description %}
+
+<div class="d-none cookies-settings">
+	<div class="close-cookies-settings"></div>
+	<div class="cookies-settings-header">
+		<h4>{{__('Manage your cookies preferences', 'planet4-master-theme')}}</h4>
+		<p>{{__('Please select which cookies you are willing to store.', 'planet4-master-theme')}}</p>
+	</div>
+	<div class="cookies-settings-details">
+		{% if necessary_cookies_name is not empty %}
+			<div class="custom-control-description">{{ necessary_cookies_name }} <span class="always-enabled">{{__('Always enabled', 'planet4-master-theme')}}</span></div>
+			{% if necessary_cookies_description is not empty %}
+				<p>{{ necessary_cookies_description }}</p>
+			{% endif %}
+		{% endif %}
+		{% if enable_analytical and analytical_cookies_name is not empty %}
+			<label class="custom-control">
+				<input type="checkbox" name="analytical_cookies" />
+				<span class="custom-control-description">{{ analytical_cookies_name }}</span>
+			</label>
+			{% if analytical_cookies_description is not empty %}
+				<p>{{ analytical_cookies_description }}</p>
+			{% endif %}
+		{% endif %}
+		{% if all_cookies_name is not empty %}
+			<label class="custom-control">
+				<input type="checkbox" name="all_cookies" />
+				<span class="custom-control-description">{{ all_cookies_name }}</span>
+			</label>
+			{% if all_cookies_description is not empty %}
+				<p>{{ all_cookies_description }}</p>
+			{% endif %}
+		{% endif %}
+	</div>
+	<div class="cookies-settings-buttons">
+		<button class="btn btn-secondary allow-all-cookies">{{ __( 'Allow all', 'planet4-master-theme' ) }}</button>
+		<button class="btn btn-primary" id="save-cookies-settings">{{ __( 'Save preferences', 'planet4-master-theme' ) }}</button>
+	</div>
+</div>

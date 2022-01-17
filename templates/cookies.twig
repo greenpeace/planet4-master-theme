@@ -1,8 +1,14 @@
 {% if ( cookies.text ) %}
 	<div class="cookie-notice" id="set-cookie">
-		<div>
-			{{ cookies.text|e('wp_kses_post')|raw }}
+		{% include 'cookies/cookies_settings.twig' with { enable_analytical: cookies.enable_analytical, settings_copy: cookies.settings_copy } %}
+		<div class="cookies-intro">
+			<div class="cookies-text">
+				{{ cookies.text|e('wp_kses_post')|raw }}
+			</div>
+			<div class="cookies-buttons">
+				<button class="btn btn-secondary p-0" id="show-cookies-settings">{{ __( 'Settings', 'planet4-master-theme' ) }}</button>
+				<button class="btn btn-primary p-0 allow-all-cookies">{{ __( 'Accept all cookies', 'planet4-master-theme' ) }}</button>
+			</div>
 		</div>
-		<button class="btn btn-primary p-0" id="hidecookie">{{ __( 'Got it!', 'planet4-master-theme' ) }}</button>
 	</div>
 {% endif %}
