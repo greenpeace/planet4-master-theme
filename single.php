@@ -90,9 +90,9 @@ if ( 'yes' === $post->include_articles ) {
 <div class="wp-block-query"><!-- wp:post-template -->
 <!-- wp:post-featured-image {"isLink":true} /-->
 
-<!-- wp:post-date /-->
+<!-- wp:post-date {"fontSize":"small"} /-->
 
-<!-- wp:post-title {"isLink":true,"fontSize":"small"} /-->
+<!-- wp:post-title {"isLink":true,"textColor":"grey-80","fontSize":"medium"} /-->
 <!-- /wp:post-template --></div>
 <!-- wp:query-pagination -->
 <!-- wp:query-pagination-previous /-->
