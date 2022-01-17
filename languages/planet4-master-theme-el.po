@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2021-11-03 14:09+0000\n"
+"PO-Revision-Date: 2022-01-17 12:47+0000\n"
 "Last-Translator: Nikos Roussos\n"
 "Language-Team: Greek\n"
 "Language: el\n"
@@ -15,15 +15,21 @@ msgstr ""
 "X-Loco-Version: 2.4.0; wp-5.4.1\n"
 
 #. %1$d = Number of results.
-#: src/Search.php:723
+#: src/Search.php:708
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
 msgstr[0] "%1$d αποτέλεσμα για '%2$s' "
 msgstr[1] "%1$d αποτελέσματα για '%2$s'"
 
+#. %d = Number of minutes for reading time.
+#: src/Post/ReadingTimeCalculator.php:132 templates/single.twig:83
+#, php-format
+msgid "%d min read"
+msgstr ""
+
 #. %d = Number of results.
-#: src/Search.php:729
+#: src/Search.php:714
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
@@ -42,19 +48,20 @@ msgstr "404 Σελίδα"
 msgid "About Greenpeace"
 msgstr ""
 
-#: templates/blocks/author_profile.twig:5
-msgid "about the author"
-msgstr "βιογραφικό"
+#: templates/blocks/author_profile.twig:14
+#| msgid "about the author"
+msgid "About the author"
+msgstr "Βιογραφικό"
 
 #: page-templates/sitemap.php:23
 msgid "Act"
 msgstr ""
 
-#: src/Search.php:961 src/Post.php:264
+#: src/Post.php:263 src/Search.php:946
 msgid "ACTION"
 msgstr "ΔΡΑΣΗ"
 
-#: src/Search.php:799
+#: src/Search.php:784
 msgid "Action"
 msgstr "Δράση"
 
@@ -66,8 +73,8 @@ msgstr "ΕΝΕΡΓΑ ΦΙΛΤΡΑ"
 msgid "Apply filters"
 msgstr "Ενεργοποίησε φίλτρα αναζήτησης"
 
-#: src/Search.php:820 src/Search.php:981 templates/tease-search.twig:38
-#: templates/tease-search.twig:124
+#: src/Search.php:805 src/Search.php:966 templates/tease-search.twig:43
+#: templates/tease-search.twig:129
 msgid "Archive"
 msgstr "Αρχείο"
 
@@ -79,12 +86,12 @@ msgstr ""
 msgid "Articles"
 msgstr "Άρθρα"
 
-#: src/Search.php:969 templates/search.twig:172
+#: src/Search.php:954 templates/search.twig:172
 msgid "CAMPAIGN"
 msgstr "ΘΕΜΑ"
 
-#: src/Search.php:803 templates/search.twig:253 templates/tease-search.twig:36
-#: templates/tease-search.twig:122
+#: src/Search.php:788 templates/search.twig:253 templates/tease-search.twig:41
+#: templates/tease-search.twig:127
 msgid "Campaign"
 msgstr "Θέμα"
 
@@ -100,7 +107,7 @@ msgstr "ΚΑΤΗΓΟΡΙΑ"
 msgid "Category"
 msgstr "Κατηγορία"
 
-#: templates/navigation-bar.twig:45
+#: templates/footer_country_selector.twig:11 templates/navigation-bar.twig:46
 msgid "Change Country"
 msgstr "Άλλαξε χώρα"
 
@@ -112,17 +119,25 @@ msgstr "Δοκίμασε την τύχη σου ξανά με το να ψάξε
 msgid "Clear all"
 msgstr "Εκκαθάριση"
 
-#: templates/navigation-bar.twig:32
+#: templates/navigation-bar-new.twig:102
+msgid "Clear search"
+msgstr ""
+
+#: templates/navigation-bar.twig:33
 msgid "Close Menu"
 msgstr "Κλείσε το μενού"
 
-#: templates/comment_form/comment_field.twig:4
-msgid "Comment"
+#: templates/navigation-bar-new.twig:130
+msgid "Close navigation menu"
 msgstr ""
 
-#: templates/single.twig:83 templates/comments_section.twig:2
+#: templates/comment_form/comment_field.twig:4
+msgid "Comment"
+msgstr "Σχόλιο"
+
+#: templates/comments_section.twig:2 templates/single.twig:90
 msgid "Comments"
-msgstr ""
+msgstr "Σχόλια"
 
 #: templates/search.twig:306
 msgid "Content type"
@@ -132,28 +147,28 @@ msgstr "Τύπος περιεχομένου"
 msgid "CONTENT TYPES"
 msgstr "ΤΥΠΟΣ ΠΕΡΙΕΧΟΜΕΝΟΥ"
 
-#: templates/comments_section.twig:8
+#: templates/comments_section.twig:9
 msgid "Discussion"
 msgstr "Συζήτηση"
 
-#: src/Search.php:973 src/Post.php:270
+#: src/Post.php:269 src/Search.php:958
 msgid "DOCUMENT"
 msgstr "ΕΓΓΡΑΦΟ"
 
-#: src/Search.php:807
+#: src/Search.php:792
 msgid "Document"
 msgstr "Έγγραφο"
 
-#: src/MasterSite.php:536
+#: src/MasterSite.php:557
 #| msgid "DONATE"
 msgid "Donate"
 msgstr "Υποστήριξε μας"
 
-#: templates/tease-search.twig:117
+#: templates/tease-search.twig:122
 msgid "Download"
 msgstr "Κατέβασε"
 
-#: templates/comment_form/email_field.twig:4
+#: templates/comment_form/email_field.twig:13
 msgid "Email"
 msgstr "Email"
 
@@ -197,11 +212,11 @@ msgstr ""
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr ""
 
-#: src/MasterSite.php:537
+#: src/MasterSite.php:558
 msgid "International (English)"
 msgstr ""
 
-#: templates/single-password.twig:18 templates/single-page.twig:15
+#: templates/single-page.twig:15 templates/single-password.twig:18
 msgid "Invalid password, please try again"
 msgstr ""
 
@@ -213,15 +228,15 @@ msgstr "ΕΚΣΤΡΑΤΕΙΑ"
 msgid "Issue"
 msgstr "Εκστρατεία"
 
-#: single.php:111
+#: single.php:96
 msgid "Leave your reply"
 msgstr "Πρόσθεσε σχόλιο"
 
-#: templates/taxonomy.twig:42 templates/author.twig:56
+#: templates/author.twig:56 templates/taxonomy.twig:42
 msgid "Load More"
 msgstr ""
 
-#: templates/tease-search.twig:152
+#: templates/tease-search.twig:157
 msgid "Manage"
 msgstr ""
 
@@ -229,39 +244,39 @@ msgstr ""
 msgid "Master theme for the Planet 4 Wordpress project"
 msgstr ""
 
-#: templates/navigation-bar.twig:18
+#: templates/navigation-bar.twig:18 templates/navigation-bar-new.twig:13
 msgid "Menu"
 msgstr "Μενού"
 
-#: src/Search.php:707 src/MasterSite.php:89
+#: src/Search.php:692 src/MasterSite.php:89
 msgid "Most relevant"
 msgstr "Πιο σχετικά"
 
-#: templates/comment_form/author_field.twig:4
+#: templates/comment_form/author_field.twig:13
 msgid "Name"
 msgstr ""
 
-#: src/Search.php:711 src/MasterSite.php:93
+#: src/Search.php:696 src/MasterSite.php:93
 msgid "Newest"
 msgstr ""
 
-#: src/Search.php:715 src/MasterSite.php:97
+#: src/Search.php:700 src/MasterSite.php:97
 msgid "Oldest"
 msgstr ""
 
-#: src/Search.php:964 src/Post.php:266
+#: src/Post.php:265 src/Search.php:949
 msgid "PAGE"
 msgstr "ΣΕΛΙΔΑ"
 
-#: src/Search.php:811
+#: src/Search.php:796
 msgid "Page"
 msgstr "Σελίδα"
 
-#: src/Search.php:977 src/Post.php:273
+#: src/Post.php:272 src/Search.php:962
 msgid "POST"
 msgstr "ΔΗΜΟΣΙΕΥΣΗ"
 
-#: src/Search.php:815
+#: src/Search.php:800
 msgid "Post"
 msgstr "Δημοσίευση"
 
@@ -277,10 +292,6 @@ msgstr "Άρθρα από"
 msgid "Publications"
 msgstr ""
 
-#: templates/blocks/author_profile.twig:11
-msgid "Read More"
-msgstr ""
-
 #: templates/search.twig:68 templates/search.twig:207
 msgid "Refine your search"
 msgstr "Χρησιμοποίησε τα φίλτρα αναζήτησης"
@@ -294,11 +305,11 @@ msgid "Results"
 msgstr "Αποτελέσματα"
 
 #: templates/404.twig:17 templates/search.twig:8 templates/search.twig:45
-#: templates/navigation-bar.twig:7
+#: templates/navigation-bar.twig:7 templates/navigation-bar-new.twig:72
 msgid "Search"
 msgstr "Αναζήτηση"
 
-#: templates/navigation-bar.twig:44
+#: templates/footer_country_selector.twig:11 templates/navigation-bar.twig:45
 msgid "Selected"
 msgstr "Επιλεγμένο"
 
@@ -312,11 +323,19 @@ msgid "Share via"
 msgstr ""
 
 #. %s = number of results per page.
-#: src/Search.php:1086
+#: src/Search.php:1049
 #, php-format
 #| msgid "SHOW %s MORE RESULTS"
 msgid "Show %s more results"
 msgstr "Δείξε %s περισσότερα αποτελέσματα"
+
+#: templates/blocks/author_profile.twig:45
+msgid "Show less"
+msgstr ""
+
+#: templates/blocks/author_profile.twig:44
+msgid "Show more"
+msgstr ""
 
 #. Name of the template
 msgid "Sitemap Page"
@@ -342,15 +361,11 @@ msgstr "Ουπς, κάτι πήγε στραβά!"
 msgid "Sort by"
 msgstr "Ταξινόμηση"
 
-#: templates/single-password.twig:22 templates/single-page.twig:19
+#: templates/single-page.twig:19 templates/single-password.twig:22
 msgid "Submit"
 msgstr ""
 
-#: templates/search.twig:386
-msgid "Suggested search terms"
-msgstr "Προτεινόμενοι όροι αναζήτησης"
-
-#: templates/tease-search.twig:146
+#: templates/tease-search.twig:151
 msgid "Take action"
 msgstr "Πάτα εδώ"
 
@@ -362,7 +377,11 @@ msgstr "Τι μπορείς να κάνεις"
 msgid "This Campaign is not assigned to an Issue"
 msgstr ""
 
-#: templates/single-password.twig:15 templates/single-page.twig:12
+#: assets/src/js/pdf_icon.js:20
+msgid "This link will open a PDF file"
+msgstr ""
+
+#: templates/single-page.twig:12 templates/single-password.twig:15
 msgid "To see the content of this page, please enter your password  below"
 msgstr ""
 
@@ -370,15 +389,16 @@ msgstr ""
 msgid "Toggle navigation menu"
 msgstr ""
 
-#: src/MasterSite.php:490
+#: src/MasterSite.php:498
 msgid "Toggle search box"
 msgstr ""
 
-#: templates/navigation-bar.twig:97
+#: templates/navigation-bar.twig:99 templates/navigation-bar-new.twig:67
+#: templates/navigation-bar-new.twig:145
 msgid "Toggle search form"
 msgstr ""
 
-#: src/MasterSite.php:489
+#: src/MasterSite.php:497
 msgid "Toggle worldwide site selection menu"
 msgstr ""
 
