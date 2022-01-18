@@ -98,16 +98,13 @@ final class Loader {
 				$this->default_services[] = Campaigns::class;
 			}
 
-			// Load `CampaignExporter` class on admin campaign listing page and campaign export only.
-			if ( 'campaign' === filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING ) || 'export_data' === filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING ) ) {
-				$this->default_services[] = CampaignExporter::class;
-			}
+			$this->default_services[] = Exporter::class;
 
-			// Load `CampaignImporter` class on admin campaign import only.
+			// Load `CampaignImporter` class only for WordPress import requests.
 			// phpcs:disable
 			if ( 'wordpress' === filter_input( INPUT_GET, 'import', FILTER_SANITIZE_STRING ) ) {
 				// phpcs:enable
-				$this->default_services[] = CampaignImporter::class;
+				$this->default_services[] = Importer::class;
 			}
 		}
 
