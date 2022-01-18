@@ -101,19 +101,10 @@ const renderPanelRow = (buttonProps, buttons, setAttributes) => {
   }
 };
 
-const renderEdit = ({
-  url,
-  openInNewTab,
-  utmMedium,
-  utmContent,
-  utmCampaign,
-  gaCategory,
-  gaAction,
-  gaLabel,
-  buttons,
-},
-setAttributes
-) => (
+export const ShareButtonsEditor = ({
+  attributes,
+  setAttributes,
+}) => (
   <>
     <InspectorControls>
       <PanelBody title={__('General Settings', 'planet4-blocks-backend')}>
@@ -183,22 +174,8 @@ setAttributes
         )}
       </PanelBody>
     </InspectorControls>
-  </>
-);
-
-const renderView = (attributes) => {
-  return <div style={{ pointerEvents: 'none' }}>
-    <ShareButtonsFrontend {...attributes} />
-  </div>
-};
-
-export const ShareButtonsEditor = ({
-  attributes,
-  setAttributes,
-  isSelected,
-}) => (
-  <>
-    { isSelected && renderEdit(attributes, setAttributes)}
-    { renderView(attributes) }
+    <div style={{ pointerEvents: 'none' }}>
+      <ShareButtonsFrontend {...attributes} />
+    </div>
   </>
 );
