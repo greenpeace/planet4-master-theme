@@ -5,9 +5,9 @@ namespace P4\MasterTheme;
 use WP_Post;
 
 /**
- * Class CampaignExporter.
+ * Adds export related UI.
  */
-class CampaignExporter {
+class Exporter {
 	/**
 	 * AutoLoad Hooks
 	 * */

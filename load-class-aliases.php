@@ -8,8 +8,8 @@
 
 class_alias( \P4\MasterTheme\Activator::class, 'P4_Activator' );
 class_alias( \P4\MasterTheme\AnalyticsValues::class, 'P4_Analytics_Values' );
-class_alias( \P4\MasterTheme\CampaignExporter::class, 'P4_Campaign_Exporter' );
-class_alias( \P4\MasterTheme\CampaignImporter::class, 'P4_Campaign_Importer' );
+class_alias( \P4\MasterTheme\Exporter::class, 'P4_Campaign_Exporter' );
+class_alias( \P4\MasterTheme\Importer::class, 'P4_Campaign_Importer' );
 class_alias( \P4\MasterTheme\Campaigner::class, 'P4_Campaigner' );
 class_alias( \P4\MasterTheme\Campaigns::class, 'P4_Campaigns' );
 class_alias( \P4\MasterTheme\Context::class, 'P4_Context' );

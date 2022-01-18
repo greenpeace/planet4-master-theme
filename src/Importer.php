@@ -3,9 +3,9 @@
 namespace P4\MasterTheme;
 
 /**
- * Class CampaignImporter.
+ * Add missing functionality to WordPress import.
  */
-class CampaignImporter {
+class Importer {
 
 	/**
 	 * Old and new attachment ids mapping var
@@ -18,10 +18,10 @@ class CampaignImporter {
 	 * AutoLoad Hooks
 	 * */
 	public function __construct() {
-		add_action( 'wp_import_insert_post', [ $this, 'update_campaign_attachements' ], 10, 4 );
+		add_action( 'wp_import_insert_post', [ $this, 'update_attachements' ], 10, 4 );
 		add_filter( 'wp_import_post_terms', [ $this, 'filter_wp_import_post_terms' ], 10, 3 );
 		add_filter( 'wp_import_post_meta', [ $this, 'process_campaign_metas' ] );
-		add_filter( 'wp_import_post_data_processed', [ $this, 'set_imported_campaigns_as_drafts' ], 10, 2 );
+		add_filter( 'wp_import_post_data_processed', [ $this, 'set_imported_posts_as_drafts' ], 10, 2 );
 		add_action( 'import_end', [ $this, 'action_import_end' ], 10, 0 );
 		add_filter( 'wp_import_post_meta', [ $this, 'skip_duplicate_postmeta_import' ], 10, 2 );
 
@@ -36,14 +36,14 @@ class CampaignImporter {
 	}
 
 	/**
-	 * Filter the old attachement Ids from Campaign and replace them with the newly imported attachment Ids.
+	 * Filter the old attachement Ids and replace them with the newly imported attachment Ids.
 	 *
 	 * @param integer $post_id Post ID.
 	 * @param integer $original_post_id Original Post ID.
 	 * @param array   $postdata Post data array.
 	 * @param array   $post Post array.
 	 */
-	public function update_campaign_attachements( $post_id, $original_post_id, $postdata, $post ) {
+	public function update_attachements( $post_id, $original_post_id, $postdata, $post ) {
 		$post_content = $post['post_content'];
 		$filter_data  = [];
 
@@ -161,7 +161,7 @@ class CampaignImporter {
 		}
 
 		// Update Page header fields background image in postmeta.
-		$campaign_postmeta = [];
+		$postmeta = [];
 		if ( isset( $post['postmeta'] ) ) {
 			foreach ( $post['postmeta'] as $metakey => $metadata ) {
 				if ( 'background_image_id' === $metadata['key'] ) {
@@ -170,20 +170,20 @@ class CampaignImporter {
 					}
 				}
 			}
-			$campaign_postmeta = $post['postmeta'];
+			$postmeta = $post['postmeta'];
 		}
 
 		$updated_post = [
 			'ID'           => $post_id,
 			'post_title'   => $post['post_title'],
 			'post_content' => $post_content,
-			'postmeta'     => $campaign_postmeta,
+			'postmeta'     => $postmeta,
 		];
 		wp_update_post( wp_slash( $updated_post ) );
 	}
 
 	/**
-	 * Update campaign attachement source ID in attachment metadata for future data mapping purpose.
+	 * Update attachement source ID in attachment metadata for future data mapping purpose.
 	 *
 	 * @param array   $post_terms Post term array.
 	 * @param integer $post_id Post ID.
@@ -205,7 +205,7 @@ class CampaignImporter {
 	}
 
 	/**
-	 * Clean the campaign attachment metadata.
+	 * Clean the imported attachment metadata.
 	 */
 	public function action_import_end() {
 		global $wpdb;
@@ -225,14 +225,14 @@ class CampaignImporter {
 
 	/**
 	 * Filter for wp_import_post_data_processed.
-	 * Set imported campaign posts as drafts.
+	 * Set imported posts as drafts.
 	 *
 	 * @param array $postdata Post data that can be filtered.
 	 * @param array $post     The post array to be inserted.
 	 *
 	 * @return array
 	 */
-	public function set_imported_campaigns_as_drafts( $postdata, $post ) {
+	public function set_imported_posts_as_drafts( $postdata, $post ) {
 		$postdata['post_status'] = 'draft';
 
 		return $postdata;
