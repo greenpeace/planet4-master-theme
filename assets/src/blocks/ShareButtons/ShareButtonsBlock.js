@@ -10,7 +10,7 @@ export const registerBlock = () => {
   return registerBlockType(BLOCK_NAME, {
     title: 'Share Buttons (beta)',
     icon: 'feedback',
-    category: 'planet4-blocks',
+    category: 'planet4-blocks-beta',
     supports: {
       html: false,
     },
