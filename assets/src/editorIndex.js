@@ -19,7 +19,6 @@ import { setupCustomSidebar } from './setupCustomSidebar';
 import { setUpCssVariables } from './connectCssVariables';
 import { SubPagesBlock } from './blocks/SubPages/SubPagesBlock';
 import { blockEditorValidation } from './BlockEditorValidation';
-import { ENFormBlock } from './blocks/OldENForm/ENFormBlock';
 import { registerGuestBookBlock } from './blocks/GuestBook/GuestBookBlock';
 import { registerBlock as registerShareButtonsBlock } from './blocks/ShareButtons/ShareButtonsBlock';
 
@@ -37,7 +36,6 @@ registerSpreadsheetBlock();
 registerSubmenuBlock();
 new SubPagesBlock();
 registerTakeActionBoxoutBlock();
-new ENFormBlock();
 registerTimelineBlock();
 registerGuestBookBlock();
 registerShareButtonsBlock();

@@ -3,7 +3,7 @@ import {ENFormV1} from './deprecated/ENFormV1.js';
 import {frontendRendered} from '../frontendRendered';
 
 const { __ } = wp.i18n;
-const BLOCK_NAME = 'planet4-blocks/enform-beta';
+const BLOCK_NAME = 'planet4-blocks/enform';
 
 const attributes = {
   en_page_id: { type: 'integer', },
@@ -40,9 +40,9 @@ export const registerENForm = () => {
   const { registerBlockType } = wp.blocks;
 
   registerBlockType(BLOCK_NAME, {
-    title: 'EN Form (beta)',
+    title: 'EN Form',
     icon: 'feedback',
-    category: 'planet4-blocks-beta',
+    category: 'planet4-blocks',
     supports: {
       multiple: false,
     },

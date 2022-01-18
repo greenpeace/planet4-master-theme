@@ -95,7 +95,7 @@ class ENForm extends Base_Block {
 	 * Register block.
 	 */
 	public function register_enform_block() {
-		$block_name = self::get_full_block_name() . '-beta';
+		$block_name = self::get_full_block_name();
 		if ( WP_Block_Type_Registry::get_instance()->is_registered( $block_name ) ) {
 			return;
 		}
@@ -218,7 +218,7 @@ class ENForm extends Base_Block {
 	 * @return array The campaign data.
 	 */
 	private static function get_campaign_data( $post ): array {
-		$page_meta_data    = get_post_meta( $post->ID );
+		$page_meta_data = get_post_meta( $post->ID );
 		if ( ! empty( $page_meta_data['theme'] ) ) {
 			$campaign_template = $page_meta_data['theme'];
 		} else {

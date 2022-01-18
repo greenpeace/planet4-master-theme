@@ -1,4 +1,3 @@
-import { ENFormFrontend } from './ENFormFrontend';
 import { ENFormInPlaceEdit } from './ENFormInPlaceEdit';
 import { ENFormSettings } from './ENFormSettings';
 import { getStyleFromClassName } from '../getStyleFromClassName';
@@ -8,11 +7,11 @@ import { useSelect } from '@wordpress/data';
 
 export const ENFormEditor = ({ attributes, setAttributes, isSelected }) => {
   return (
-    renderEdit({attributes}, setAttributes)
+    renderEdit(attributes, setAttributes)
   );
 }
 
-const renderEdit = ({attributes}, setAttributes) => {
+const renderEdit = (attributes, setAttributes) => {
   const { en_form_style, className, background, background_image_src } = attributes;
 
   if ( className && className.length > 0 ) {

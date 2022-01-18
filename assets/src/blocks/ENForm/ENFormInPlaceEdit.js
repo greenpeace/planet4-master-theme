@@ -136,9 +136,8 @@ const SideContent = ({attributes, setAttributes}) => {
         label={title_size.toUpperCase()}
         controls={
           ['h1', 'h2'].map((size) => {
-            const isActive = title_size === size;
             return {
-              isActive,
+              isActive: title_size === size,
               icon: "heading",
               title: size.toUpperCase(),
               onClick: () => { setAttributes({content_title_size: size}) }
@@ -177,11 +176,9 @@ const SideContent = ({attributes, setAttributes}) => {
 
 const Signup = ({attributes, setAttributes}) => {
   const {
-    en_form_style,
     title,
     description,
     en_form_id,
-    en_form_fields,
   } = attributes;
 
   const fields = useSelect((select) => {
@@ -203,10 +200,6 @@ const Signup = ({attributes, setAttributes}) => {
             allowedFormats={[]}
             multiline="false"
           />
-          {en_form_style === 'side-style' &&
-            <div className={'enform-extra-header-placeholder'}></div>
-          }
-
           <RichText
             tagName="div"
             value={description}

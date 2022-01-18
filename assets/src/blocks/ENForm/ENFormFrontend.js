@@ -40,12 +40,10 @@ export const ENFormFrontend = (attributes) => {
     }
   })(en_form_style);
 
-
-  const style_has_image = en_form_style === 'full-width-bg' || en_form_style === 'side-style';
+  const style_has_image = ['full-width-bg', 'side-style'].includes(en_form_style);
   const is_side_style = en_form_style === 'side-style';
 
   let fields = en_form_fields ?? [];
-  let fields = en_form_fields;
   if (fields.length <= 0) {
     const form_post = useSelect((select) => {
       return en_form_id
@@ -153,6 +151,8 @@ const Signup = ({attributes, fields, form_data, onInputChange, onBlur, onFormSub
   } = attributes;
 
   const is_side_style = en_form_style === 'side-style';
+  // Keep extra content between repaints
+  const extra_content = document.querySelector('.enform-extra-header-placeholder')?.innerHTML;
 
   return (
     <div className="enform" id="enform">
@@ -163,7 +163,8 @@ const Signup = ({attributes, fields, form_data, onInputChange, onBlur, onFormSub
             <h2>{title ? title : ''}</h2>
           }
           {is_side_style &&
-            <div className="enform-extra-header-placeholder"></div>
+            <div className="enform-extra-header-placeholder"
+              dangerouslySetInnerHTML={{ __html: extra_content }} />
           }
           <div className="form-description"
             dangerouslySetInnerHTML={{ __html: description }} />
@@ -189,14 +190,14 @@ const Signup = ({attributes, fields, form_data, onInputChange, onBlur, onFormSub
                 <div className="enform-notice"></div>
                 {en_form_style == 'full-width-bg' &&
                   <div className="enform-legal">
-                  <p dangerouslySetInnerHTML={{ __html: text_below_button ? text_below_button : '' }} />
+                  <p dangerouslySetInnerHTML={{ __html: text_below_button || '' }} />
                   </div>
                 }
               </div>
 
               {en_form_style !== 'full-width-bg' &&
                 <div className="enform-legal">
-                  <p dangerouslySetInnerHTML={{ __html: text_below_button ? text_below_button : '' }} />
+                  <p dangerouslySetInnerHTML={{ __html: text_below_button || '' }} />
                 </div>
               }
             </div>
@@ -299,7 +300,7 @@ const makePostData = (form_data, fields) => {
 
     // Questions via checkbox or text question
     if ( key.startsWith('supporter.questions.' )) {
-      let value = typeof form_data[key] === "string" ? form_data[key] : checkboxValue(form_data[key]);
+      const value = typeof form_data[key] === "string" ? form_data[key] : checkboxValue(form_data[key]);
       supporter.questions['question.' + field.id] = value;
       continue;
     }
