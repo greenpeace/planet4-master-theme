@@ -1,10 +1,14 @@
+@import "../../master-theme/assets/src/scss/base/colors";
+
 @mixin sharedStyles($color) {
   background: $color;
 
-  &:hover,
-  &:focus,
-  &:active {
+  &:hover {
     background: darken($color, 20%);
+  }
+
+  &:active {
+    background: darken($color, 10%);
   }
 }
 

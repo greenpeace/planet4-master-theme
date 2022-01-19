@@ -69,6 +69,7 @@ const adminJsConfig = {
     SocialMediaEditorScript: './assets/src/blocks/SocialMedia/SocialMediaEditorScript.js',
     GalleryEditorScript: './assets/src/blocks/Gallery/GalleryEditorScript.js',
     HubspotFormEditorScript: './assets/src/blocks/HubspotForm/HubspotFormEditorScript.js',
+    ShareButtonsEditorScript: './assets/src/blocks/ShareButtons/ShareButtonsEditorScript.js',
   },
 };
 const cssConfig = {
@@ -95,6 +96,7 @@ const cssConfig = {
     GalleryEditorStyle: './assets/src/styles/blocks/Gallery/GalleryEditorStyle.scss',
     HubspotFormStyle: './assets/src/styles/blocks/HubspotForm/HubspotFormStyles.scss',
     HubspotFormEditorStyle: './assets/src/styles/blocks/HubspotForm/HubspotFormEditorStyles.scss',
+    ShareButtonsStyle: './assets/src/styles/blocks/ShareButtons/ShareButtonsStyles.scss',
   },
   output: {
     filename: '[name].js',

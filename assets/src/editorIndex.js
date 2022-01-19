@@ -21,7 +21,6 @@ import { SubPagesBlock } from './blocks/SubPages/SubPagesBlock';
 import { blockEditorValidation } from './BlockEditorValidation';
 import { ENFormBlock } from './blocks/OldENForm/ENFormBlock';
 import { registerGuestBookBlock } from './blocks/GuestBook/GuestBookBlock';
-import { registerBlock as registerShareButtonsBlock } from './blocks/ShareButtons/ShareButtonsBlock';
 
 blockEditorValidation();
 new ArticlesBlock();
