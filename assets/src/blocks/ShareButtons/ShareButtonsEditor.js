@@ -16,6 +16,14 @@ const PanelRowWrapper = ({ labelText, helpText, children }) => {
 };
 
 const ButtonPanelRow = ({ buttonProps, buttons, setAttributes }) => {
+
+  const updateButtons = (key, value) => {
+    return buttons.map((button) => (button.type === buttonProps.type)
+      ? { ...buttonProps, [`${key}`]: value }
+      : button
+    )
+  };
+
   return (
     <>
       {
@@ -23,22 +31,22 @@ const ButtonPanelRow = ({ buttonProps, buttons, setAttributes }) => {
           'whatsapp':
             <PanelRowWrapper labelText={__('Whatsapp', 'planet4-blocks-backend')}>
              <CheckboxControl
-               label={__('Show in menu', 'planet4-blocks-backend')}
-               value={buttons.whatsapp.showInMenu}
-               checked={buttons.whatsapp.showInMenu}
-               onChange={(value) => {
-                 setAttributes({ buttons: {...buttons, whatsapp: { ...buttons.whatsapp, showInMenu: value } }})
-               }}
+                label={__('Show in menu', 'planet4-blocks-backend')}
+                value={buttonProps.showInMenu}
+                checked={buttonProps.showInMenu}
+                onChange={(value) => {
+                  setAttributes({ buttons: updateButtons('showInMenu', value) });
+                }}
              />
             </PanelRowWrapper>,
           'facebook':
             <PanelRowWrapper labelText={__('Facebook', 'planet4-blocks-backend')}>
               <CheckboxControl
                 label={__('Show in menu', 'planet4-blocks-backend')}
-                value={buttons.facebook.showInMenu}
-                checked={buttons.facebook.showInMenu}
+                value={buttonProps.showInMenu}
+                checked={buttonProps.showInMenu}
                 onChange={(value) => {
-                  setAttributes({ buttons: {...buttons, facebook: { ...buttons.facebook, showInMenu: value } }})
+                  setAttributes({ buttons: updateButtons('showInMenu', value) });
                 }}
               />
             </PanelRowWrapper>,
@@ -46,31 +54,31 @@ const ButtonPanelRow = ({ buttonProps, buttons, setAttributes }) => {
             <PanelRowWrapper labelText={__('Twitter', 'planet4-blocks-backend')}>
               <CheckboxControl
                 label={__('Show in menu', 'planet4-blocks-backend')}
-                value={buttons.twitter.showInMenu}
-                checked={buttons.twitter.showInMenu}
+                value={buttonProps.showInMenu}
+                checked={buttonProps.showInMenu}
                 onChange={(value) => {
-                  setAttributes({ buttons: {...buttons, twitter: { ...buttons.twitter, showInMenu: value } }})
+                  setAttributes({ buttons: updateButtons('showInMenu', value) });
                 }}
               />
               <TextControl
                 placeholder={__('Text', 'planet4-blocks-backend')}
-                value={buttons.twitter.text}
+                value={buttonProps.text}
                 onChange={(value) => {
-                  setAttributes({ buttons: {...buttons, twitter: { ...buttons.twitter, text: value } }})
+                  setAttributes({ buttons: updateButtons('text', value) });
                 }}
               />
               <TextareaControl
                 placeholder={__('Description', 'planet4-blocks-backend')}
-                value={buttons.twitter.description}
+                value={buttonProps.description}
                 onChange={(value) => {
-                  setAttributes({ buttons: {...buttons, twitter: { ...buttons.twitter, description: value } }})
+                  setAttributes({ buttons: updateButtons('description', value) });
                 }}
               />
               <TextControl
                 placeholder={__('Account', 'planet4-blocks-backend')}
-                value={buttons.twitter.account}
+                value={buttonProps.account}
                 onChange={(value) => {
-                  setAttributes({ buttons: {...buttons, twitter: { ...buttons.twitter, account: value } }})
+                  setAttributes({ buttons: updateButtons('account', value) });
                 }}
               />
             </PanelRowWrapper>,
@@ -78,24 +86,24 @@ const ButtonPanelRow = ({ buttonProps, buttons, setAttributes }) => {
             <PanelRowWrapper labelText={__('Email', 'planet4-blocks-backend')}>
               <CheckboxControl
                 label={__('Show in menu', 'planet4-blocks-backend')}
-                value={buttons.email.showInMenu}
-                checked={buttons.email.showInMenu}
+                value={buttonProps.showInMenu}
+                checked={buttonProps.showInMenu}
                 onChange={(value) => {
-                  setAttributes({ buttons: {...buttons, email: { ...buttons.email, showInMenu: value } }})
+                  setAttributes({ buttons: updateButtons('showInMenu', value) });
                 }}
               />
               <TextControl
                 placeholder={__('Title', 'planet4-blocks-backend')}
-                value={buttons.email.title}
+                value={buttonProps.title}
                 onChange={(value) => {
-                  setAttributes({ buttons: {...buttons, email: { ...buttons.email, title: value } }})
+                  setAttributes({ buttons: updateButtons('title', value) });
                 }}
               />
               <TextareaControl
                 placeholder={__('Body', 'planet4-blocks-backend')}
-                value={buttons.email.body}
+                value={buttonProps.body}
                 onChange={(value) => {
-                  setAttributes({ buttons: {...buttons, email: { ...buttons.email, body: value } }})
+                  setAttributes({ buttons: updateButtons('body', value) });
                 }}
               />
             </PanelRowWrapper>,
@@ -172,7 +180,7 @@ export const ShareButtonsEditor = ({
           </PanelRow>
         </PanelBody>
         <PanelBody title={__('Share Buttons', 'planet4-blocks-backend')}>
-          {Object.values(attributes.buttons).map(
+          {attributes.buttons.map(
             (buttonProps) => <PanelRow key={buttonProps.type}>
               <ButtonPanelRow
                 buttonProps={buttonProps}

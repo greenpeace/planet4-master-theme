@@ -43,15 +43,13 @@ export const registerBlock = () => {
         type: 'string',
       },
       buttons: {
-        type: 'object',
-        default: {
-          facebook: {
+        type: 'array',
+        default: [{
             type: 'facebook',
             iconName: 'facebook-f',
             hiddenText: __( 'Share on Facebook', 'planet4-master-theme' ),
             showInMenu: true,
-          },
-          twitter: {
+          }, {
             type: 'twitter',
             iconName: 'twitter',
             hiddenText: __( 'Share on Twitter', 'planet4-master-theme' ),
@@ -59,14 +57,12 @@ export const registerBlock = () => {
             text: '',
             description: '',
             account: '',
-          },
-          whatsapp: {
+          }, {
             type: 'whatsapp',
             iconName: 'whatsapp',
             hiddenText: __( 'Share on Whatsapp', 'planet4-master-theme' ),
             showInMenu: true,
-          },
-          email: {
+          }, {
             type: 'email',
             iconName: 'envelope',
             hiddenText: __( 'Share via Email', 'planet4-master-theme' ),
@@ -74,7 +70,7 @@ export const registerBlock = () => {
             title: '',
             body: '',
           },
-        },
+        ],
       },
       version: {
         type: 'integer',

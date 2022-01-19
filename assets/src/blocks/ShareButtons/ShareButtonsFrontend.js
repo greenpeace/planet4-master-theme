@@ -38,7 +38,7 @@ export const ShareButtonsFrontend = ({
   buttons,
 }) => (
   <nav className='share-buttons'>
-    {Object.values(buttons).map((button) => button.showInMenu ? <ShareButton key={button.type} {...{
+    {buttons.map((button) => button.showInMenu ? <ShareButton key={button.type} {...{
       href: `
         ${parseUrl({...button, url})}
         &${parseUtmParams({utmSource: button.type, utmMedium, utmContent, utmCampaign})}`,
