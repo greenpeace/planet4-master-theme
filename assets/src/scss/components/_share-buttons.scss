@@ -26,7 +26,6 @@
     background: $twitter;
 
     &:hover,
-    &:focus,
     &:active {
       background: darken($twitter, 20%);
     }
@@ -36,7 +35,6 @@
     background: $facebook;
 
     &:hover,
-    &:focus,
     &:active {
       background: darken($facebook, 20%);
     }
@@ -46,7 +44,6 @@
     background: $email;
 
     &:hover,
-    &:focus,
     &:active {
       background: darken($email, 20%);
     }
@@ -56,7 +53,6 @@
     background: $whatsapp;
 
     &:hover,
-    &:focus,
     &:active {
       background: darken($whatsapp, 20%);
     }
