@@ -6,10 +6,6 @@
   &:hover {
     background: darken($color, 20%);
   }
-
-  &:active {
-    background: darken($color, 10%);
-  }
 }
 
 .social-share-buttons {
