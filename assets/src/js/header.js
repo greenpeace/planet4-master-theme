@@ -108,29 +108,6 @@ const closeElement = (event, buttonClass) => {
   closeButton.click();
 };
 
-const setupCountrySelectorBanner = () => {
-  const countrySelectorBanner = document.getElementById('country-selector-banner');
-
-  if (!countrySelectorBanner || !countrySelectorBanner.classList.contains('show')) {
-    return;
-  }
-
-  const link = countrySelectorBanner.querySelector('a[href="#country-selector"]');
-  const closeBannerButton = countrySelectorBanner.querySelector('.close-banner');
-  const countrySelectorToggle = document.querySelector('.country-selector-toggle');
-
-  link.onclick = () => {
-    closeBannerButton.click();
-
-    // We need to open the country selector if it's closed
-    if (countrySelectorToggle.getAttribute('aria-expanded') === 'false') {
-      updateGaAction(countrySelectorToggle, 'Country Selector');
-      countrySelectorToggle.setAttribute('aria-expanded', 'true');
-      countrySelectorToggle.classList.add('open');
-    }
-  };
-};
-
 export const setupHeader = () => {
   const toggleElementClasses = [
     '.navbar-dropdown-toggle',
@@ -172,7 +149,4 @@ export const setupHeader = () => {
   if (closeNavMenuButton) {
     closeNavMenuButton.onclick = event => closeElement(event, '.nav-menu-toggle');
   }
-
-  // Set up behaviour for the country selector banner needed for the GPI A/B test
-  setupCountrySelectorBanner();
 };
