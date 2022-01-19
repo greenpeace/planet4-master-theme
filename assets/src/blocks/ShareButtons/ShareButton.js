@@ -9,7 +9,7 @@ export const ShareButton = ({
   openInNewTab,
 }) => (
   <a href={href}
-    className={`social-share-button ${providerName}`}
+    className={`share-btn ${providerName}`}
     data-ga-event='uaevent'
     data-ga-event-category='Social Share'
     data-ga-category={gaCategory}
