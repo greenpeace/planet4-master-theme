@@ -10,8 +10,10 @@ const parseUrl = (attrs) => {
       return `https://twitter.com/share
         ?url=${encodeURIComponent(attrs.url)}
         &text=${encodeURIComponent(attrs.text)}
-        ${(attrs.description ? ` - ${encodeURIComponent(attrs.description)}` : '')}
-        ${(attrs.account ? ` via @${encodeURIComponent(attrs.account)}&related=${encodeURIComponent(attrs.account)}` : '')}`
+        ${(attrs.description ? ' - ' + encodeURIComponent(attrs.description) : '')}
+        ${(attrs.account
+            ? ' via @' + encodeURIComponent(attrs.account) + '&related=' + encodeURIComponent(attrs.account)
+            : '')}`
     case 'email':
       return `mailto:?subject=${attrs.title}&body=${attrs.body ? encodeURIComponent(attrs.body) : ''}`
   }
