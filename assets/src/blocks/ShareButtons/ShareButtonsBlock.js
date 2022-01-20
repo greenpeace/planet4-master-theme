@@ -56,7 +56,7 @@ const attributes = {
         showInMenu: true,
       }, {
         type: 'email',
-        iconName: 'envelope',
+        iconName: 'envelope-outline',
         hiddenText: __( 'Share via Email', 'planet4-master-theme' ),
         showInMenu: true,
         title: '',
