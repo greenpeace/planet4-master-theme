@@ -15,6 +15,19 @@ const PanelRowWrapper = ({ labelText, helpText, children }) => {
   )
 };
 
+const ShowInMenuCheckbox = ({ show, setAttributes, updateButtons }) => {
+  return (
+    <CheckboxControl
+      label={__('Show in menu', 'planet4-blocks-backend')}
+      value={show}
+      checked={show}
+      onChange={(value) => {
+        setAttributes({ buttons: updateButtons('showInMenu', value) });
+      }}
+    />
+  )
+}
+
 const ButtonPanelRow = ({ buttonProps, buttons, setAttributes }) => {
 
   const updateButtons = (key, value) => {
@@ -30,36 +43,21 @@ const ButtonPanelRow = ({ buttonProps, buttons, setAttributes }) => {
         {
           'whatsapp':
             <PanelRowWrapper labelText={__('Whatsapp', 'planet4-blocks-backend')}>
-             <CheckboxControl
-                label={__('Show in menu', 'planet4-blocks-backend')}
-                value={buttonProps.showInMenu}
-                checked={buttonProps.showInMenu}
-                onChange={(value) => {
-                  setAttributes({ buttons: updateButtons('showInMenu', value) });
-                }}
-             />
+              <ShowInMenuCheckbox {
+                ...{ show: buttonProps.showInMenu, setAttributes, updateButtons }
+              }/>
             </PanelRowWrapper>,
           'facebook':
             <PanelRowWrapper labelText={__('Facebook', 'planet4-blocks-backend')}>
-              <CheckboxControl
-                label={__('Show in menu', 'planet4-blocks-backend')}
-                value={buttonProps.showInMenu}
-                checked={buttonProps.showInMenu}
-                onChange={(value) => {
-                  setAttributes({ buttons: updateButtons('showInMenu', value) });
-                }}
-              />
+              <ShowInMenuCheckbox {
+                ...{ show: buttonProps.showInMenu, setAttributes, updateButtons }
+              }/>
             </PanelRowWrapper>,
           'twitter':
             <PanelRowWrapper labelText={__('Twitter', 'planet4-blocks-backend')}>
-              <CheckboxControl
-                label={__('Show in menu', 'planet4-blocks-backend')}
-                value={buttonProps.showInMenu}
-                checked={buttonProps.showInMenu}
-                onChange={(value) => {
-                  setAttributes({ buttons: updateButtons('showInMenu', value) });
-                }}
-              />
+              <ShowInMenuCheckbox {
+                ...{ show: buttonProps.showInMenu, setAttributes, updateButtons }
+              }/>
               <TextControl
                 placeholder={__('Text', 'planet4-blocks-backend')}
                 value={buttonProps.text}
@@ -84,14 +82,9 @@ const ButtonPanelRow = ({ buttonProps, buttons, setAttributes }) => {
             </PanelRowWrapper>,
           'email':
             <PanelRowWrapper labelText={__('Email', 'planet4-blocks-backend')}>
-              <CheckboxControl
-                label={__('Show in menu', 'planet4-blocks-backend')}
-                value={buttonProps.showInMenu}
-                checked={buttonProps.showInMenu}
-                onChange={(value) => {
-                  setAttributes({ buttons: updateButtons('showInMenu', value) });
-                }}
-              />
+              <ShowInMenuCheckbox {
+                ...{ show: buttonProps.showInMenu, setAttributes, updateButtons }
+              }/>
               <TextControl
                 placeholder={__('Title', 'planet4-blocks-backend')}
                 value={buttonProps.title}
