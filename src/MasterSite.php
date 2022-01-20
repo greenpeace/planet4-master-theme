@@ -106,11 +106,13 @@ class MasterSite extends TimberSite {
 	protected function hooks() {
 		add_theme_support( 'post-thumbnails' );
 		add_theme_support( 'menus' );
-		if ( planet4_get_option( FEATURES::WP_TEMPLATE_EDITOR ) ) {
+		if ( Features::is_active( Features::WP_TEMPLATE_EDITOR ) ) {
 			add_theme_support( 'block-templates' );
 		}
-		// Disable wp5.5 Block Patterns.
-		remove_theme_support( 'core-block-patterns' );
+		if ( ! Features::is_active( Features::CORE_BLOCK_PATTERNS ) ) {
+			// Disable wp5.5 Block Patterns.
+			remove_theme_support( 'core-block-patterns' );
+		}
 
 		add_post_type_support( 'page', 'excerpt' );  // Added excerpt option to pages.
 

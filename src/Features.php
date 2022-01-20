@@ -36,6 +36,8 @@ class Features {
 
 	public const GOOGLE_SHEET_REPLACES_SMARTSHEET = 'google_sheet_replaces_smartsheet';
 
+	public const CORE_BLOCK_PATTERNS = 'core_block_patterns';
+
 	/**
 	 * @var bool Purge Cloudflare cache on save
 	 */
@@ -117,30 +119,12 @@ class Features {
 				'type' => 'checkbox',
 			],
 			[
-				'name' => __( 'Theme editor (experimental)', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Enable CSS variables based theme editor for logged in users. Do not use in production yet.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::THEME_EDITOR,
-				'type' => 'checkbox',
-			],
-			[
 				'name' => __( 'Allow beta blocks in post editor', 'planet4-master-theme-backend' ),
 				'desc' => __(
 					'If enabled, you can use early or unstable versions of blocks in the post editor. These will be in the "Planet 4 Blocks - BETA" category.',
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::BETA_BLOCKS,
-				'type' => 'checkbox',
-			],
-			[
-				'name' => __( 'Enable WordPress 5.8 template editor', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'UNSTABLE: Enable the WordPress "template editor" to allow changing the outer template of pages.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::WP_TEMPLATE_EDITOR,
 				'type' => 'checkbox',
 			],
 			[
@@ -170,7 +154,38 @@ class Features {
 				'id'   => self::GOOGLE_SHEET_REPLACES_SMARTSHEET,
 				'type' => 'checkbox',
 			],
+
 		];
+
+		if ( defined( 'WP_APP_ENV' ) && WP_APP_ENV === 'development' ) {
+			$fields[] = [
+				'name' => __( 'Theme editor (experimental)', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'Enable CSS variables based theme editor for logged in users. Do not use in production yet.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::THEME_EDITOR,
+				'type' => 'checkbox',
+			];
+			$fields[] = [
+				'name' => __( 'Enable WordPress 5.8 template editor', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'UNSTABLE: Enable the WordPress "template editor" to allow changing the outer template of pages.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::WP_TEMPLATE_EDITOR,
+				'type' => 'checkbox',
+			];
+			$fields[] = [
+				'name' => __( 'Enable core block patterns', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'Allows using the default block patterns that come with WordPress.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::CORE_BLOCK_PATTERNS,
+				'type' => 'checkbox',
+			];
+		}
 
 		if ( defined( 'ALLOW_EXPERIMENTAL_FEATURES' ) && ALLOW_EXPERIMENTAL_FEATURES ) {
 			$fields[] = [
