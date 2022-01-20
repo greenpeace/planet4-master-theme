@@ -21,8 +21,6 @@ class Cookies extends Base_Block {
 	 * Cookies constructor.
 	 */
 	public function __construct() {
-		// - Register the block for the editor
-		// in the PHP side.
 		register_block_type(
 			self::get_full_block_name(),
 			[
@@ -38,28 +36,22 @@ class Cookies extends Base_Block {
 						'default' => '',
 					],
 					'necessary_cookies_name'         => [
-						'type'    => 'string',
-						'default' => '',
+						'type' => 'string',
 					],
 					'necessary_cookies_description'  => [
-						'type'    => 'string',
-						'default' => '',
+						'type' => 'string',
 					],
 					'all_cookies_name'               => [
-						'type'    => 'string',
-						'default' => '',
+						'type' => 'string',
 					],
 					'all_cookies_description'        => [
-						'type'    => 'string',
-						'default' => '',
+						'type' => 'string',
 					],
 					'analytical_cookies_name'        => [
-						'type'    => 'string',
-						'default' => '',
+						'type' => 'string',
 					],
 					'analytical_cookies_description' => [
-						'type'    => 'string',
-						'default' => '',
+						'type' => 'string',
 					],
 				],
 			]

@@ -360,6 +360,7 @@ final class Loader {
 			'themeUrl'                       => get_template_directory_uri(),
 			'enable_analytical_cookies'      => $option_values['enable_analytical_cookies'] ?? '',
 			'take_action_covers_button_text' => $option_values['take_action_covers_button_text'] ?? '',
+			'cookies_default_copy'           => self::get_cookies_default_copy(),
 		];
 		wp_localize_script( 'planet4-blocks-editor-script', 'p4bk_vars', $reflection_vars );
 
@@ -410,6 +411,7 @@ final class Loader {
 			'themeUrl'                   => get_template_directory_uri(),
 			'enable_analytical_cookies'  => $option_values['enable_analytical_cookies'] ?? '',
 			'enable_google_consent_mode' => $option_values['enable_google_consent_mode'] ?? '',
+			'cookies_default_copy'       => self::get_cookies_default_copy(),
 		];
 		wp_localize_script( 'planet4-blocks-script', 'p4bk_vars', $reflection_vars );
 
@@ -434,6 +436,26 @@ final class Loader {
 				false
 			);
 		}
+	}
+
+	/**
+	 * Get the cookies default copy from the settings (Planet 4 > Cookies)
+	 *
+	 * @return array The various cookies text fields.
+	 */
+	private static function get_cookies_default_copy(): array {
+		$option_values = get_option( 'planet4_options' );
+
+		$cookies_default_copy = [
+			'necessary_cookies_name'         => $option_values['necessary_cookies_name'] ?? '',
+			'necessary_cookies_description'  => $option_values['necessary_cookies_description'] ?? '',
+			'analytical_cookies_name'        => $option_values['analytical_cookies_name'] ?? '',
+			'analytical_cookies_description' => $option_values['analytical_cookies_description'] ?? '',
+			'all_cookies_name'               => $option_values['all_cookies_name'] ?? '',
+			'all_cookies_description'        => $option_values['all_cookies_description'] ?? '',
+		];
+
+		return $cookies_default_copy;
 	}
 
 	/**
