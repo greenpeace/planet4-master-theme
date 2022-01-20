@@ -187,6 +187,16 @@ class Settings {
 						],
 						'desc'       => __( 'Minimum image width should be 1920px', 'planet4-master-theme-backend' ),
 					],
+
+					[
+						'name'    => __( 'Happy Point HubSpot embed code', 'planet4-master-theme-backend' ),
+						'id'      => 'happy_point_embed_code',
+						'type'    => 'wysiwyg',
+						'options' => [
+							'textarea_rows' => 10,
+							'media_buttons' => false,
+						],
+					],
 				],
 			],
 			'planet4_settings_search_content'   => [
