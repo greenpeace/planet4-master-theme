@@ -23,6 +23,83 @@ class Settings {
 
 	public const SLACK_WEBHOOK = 'slack_webhook';
 
+	public const CORE_BLOCKS = 'core_blocks';
+
+	public const AVAILABLE_CORE_BLOCKS = [
+		'archives',
+		'audio',
+		'calendar',
+		'categories',
+		'code',
+		'column',
+		'columns',
+		'comment-author-avatar',
+		'comment-author-name',
+		'comment-content',
+		'comment-date',
+		'comment-edit-link',
+		'comment-reply-link',
+		'comments-pagination',
+		'comments-pagination-next',
+		'comments-pagination-numbers',
+		'comments-pagination-previous',
+		'comments-query-loop',
+		'comment-template',
+		'cover',
+		'gallery',
+		'home-link',
+		'latest-comments',
+		'latest-posts',
+		'list',
+		'loginout',
+		'media-text',
+		'missing',
+		'more',
+		'navigation',
+		'navigation-area',
+		'navigation-link',
+		'navigation-submenu',
+		'nextpage',
+		'page-list',
+		'pattern',
+		'post-author',
+		'post-author-name',
+		'post-comment',
+		'post-comments',
+		'post-comments-count',
+		'post-comments-form',
+		'post-comments-link',
+		'post-content',
+		'post-date',
+		'post-excerpt',
+		'post-featured-image',
+		'post-navigation-link',
+		'post-template',
+		'post-terms',
+		'post-title',
+		'preformatted',
+		'pullquote',
+		'query',
+		'query-pagination',
+		'query-pagination-next',
+		'query-pagination-numbers',
+		'query-pagination-previous',
+		'query-title',
+		'rss',
+		'search',
+		'site-logo',
+		'site-tagline',
+		'site-title',
+		'social-link',
+		'social-links',
+		'table-of-contents',
+		'tag-cloud',
+		'template-part',
+		'term-description',
+		'text-columns',
+		'verse',
+	];
+
 	/**
 	 * Option page slug
 	 *
@@ -402,6 +479,25 @@ class Settings {
 					],
 				],
 			],
+			'planet4_settings_core_blocks'    => [
+				'title'  => 'Core blocks',
+				'fields' => [
+					[
+						'name' => __( 'Core blocks', 'planet4-master-theme-backend' ),
+						'desc' => __(
+							'Allow certain unsupported core blocks in the editor.',
+							'planet4-master-theme-backend'
+						),
+						'id'   => self::CORE_BLOCKS,
+						'type' => 'multicheck_inline',
+						'default' => [],
+						'options' => array_merge ( ...array_map(
+							[ self::class, 'core_block_option' ],
+						self::AVAILABLE_CORE_BLOCKS
+						)),
+					],
+				],
+			],
 		];
 
 		if ( Features::is_active( Features::NEW_DESIGN_NAVIGATION_BAR ) ) {
@@ -419,6 +515,15 @@ class Settings {
 		}
 
 		$this->hooks();
+	}
+
+	private static function core_block_option( $name ) {
+		$link      = 'https://developer.wordpress.org/block-editor/reference-guides/core-blocks/#' . $name;
+		$nice_name = ucwords( str_replace( '-', ' ', $name ) );
+//		$label     = "<a target='_blank' href=\"$link\">$nice_name</a>";
+		$label     = $nice_name;
+
+		return [ "core/$name" => $label ];
 	}
 
 	/**
