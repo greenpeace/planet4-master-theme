@@ -74,9 +74,9 @@ class Features {
 	public static function get_fields(): array {
 		$fields = [
 			[
-				'name' => __( 'Greenpeace Image Archive (beta, name subject to change)', 'planet4-master-theme-backend' ),
+				'name' => __( 'New Image Archive (Beta)', 'planet4-master-theme-backend' ),
 				'desc' => __(
-					'Beta test the new Image Archive. This will replace the GPI Media Library plugin. We are renaming it to avoid confusion with the WordPress Media Library.',
+					'Beta test the new Image Archive. This will replace the GPI Media Library plugin.',
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::IMAGE_ARCHIVE,
@@ -85,25 +85,25 @@ class Features {
 			[
 				'name' => __( 'Engaging Networks integration', 'planet4-master-theme-backend' ),
 				'desc' => __(
-					'Enable the Engaging Networks integration. If turned on you will be able to use the EN Form block, as well as the "Progress Bar inside EN Form" Counter block style.',
+					'Enable the Engaging Networks integration.<br>If turned on you will be able to use the EN Form block, as well as the "Progress Bar inside EN Form" Counter block style.',
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::ENGAGING_NETWORKS,
 				'type' => 'checkbox',
 			],
 			[
-				'name' => __( 'Purge HTML from Cloudflare on deploy.', 'planet4-master-theme-backend' ),
+				'name' => __( 'Purge HTML from Cloudflare on deploy', 'planet4-master-theme-backend' ),
 				'desc' => __(
-					'WARNING: Do not change this setting without checking with Planet4 team. This will purge all URLs from Cloudflare after a deploy. We are still experimenting with the effects of that on Cloudflare performance.',
+					'WARNING: Do not change this setting without checking with the Planet 4 team.<br>This will purge all URLs from Cloudflare cache after a deploy.',
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::CLOUDFLARE_DEPLOY_PURGE,
 				'type' => 'checkbox',
 			],
 			[
-				'name' => __( 'Purge all HTML on feature changes.', 'planet4-master-theme-backend' ),
+				'name' => __( 'Purge all HTML on feature changes', 'planet4-master-theme-backend' ),
 				'desc' => __(
-					'Whether to purge all pages from Cloudflare cache when changing features. Only enable on production, on test instances it results in too many purge requests.',
+					'Whether to purge all pages from Cloudflare cache when changing features.<br>Only enable on production, on test instances it results in too many purge requests.',
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::PURGE_ON_FEATURE_CHANGES,
@@ -116,15 +116,6 @@ class Features {
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::LAZY_YOUTUBE_PLAYER,
-				'type' => 'checkbox',
-			],
-			[
-				'name' => __( 'Allow beta blocks in post editor', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'If enabled, you can use early or unstable versions of blocks in the post editor. These will be in the "Planet 4 Blocks - BETA" category.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::BETA_BLOCKS,
 				'type' => 'checkbox',
 			],
 			[
@@ -157,20 +148,29 @@ class Features {
 
 		];
 
-		if ( defined( 'WP_APP_ENV' ) && WP_APP_ENV === 'development' ) {
+		if ( defined( 'WP_APP_ENV' ) && ( WP_APP_ENV === 'development' || WP_APP_ENV === 'local' ) ) {
+			$fields[] = [
+				'name' => __( 'Allow Beta Blocks in post editor', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'If enabled, you can use early or unstable versions of blocks in the post editor.<br>These will be in the "Planet 4 Blocks - BETA" category.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::BETA_BLOCKS,
+				'type' => 'checkbox',
+			];
 			$fields[] = [
 				'name' => __( 'Theme editor (experimental)', 'planet4-master-theme-backend' ),
 				'desc' => __(
-					'Enable CSS variables based theme editor for logged in users. Do not use in production yet.',
+					'Enable CSS variables based theme editor for logged in users.',
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::THEME_EDITOR,
 				'type' => 'checkbox',
 			];
 			$fields[] = [
-				'name' => __( 'Enable WordPress 5.8 template editor', 'planet4-master-theme-backend' ),
+				'name' => __( 'Enable WordPress template editor', 'planet4-master-theme-backend' ),
 				'desc' => __(
-					'UNSTABLE: Enable the WordPress "template editor" to allow changing the outer template of pages.',
+					'Enable the WordPress "template editor" to allow Full Site Editiong.',
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::WP_TEMPLATE_EDITOR,
@@ -187,11 +187,11 @@ class Features {
 			];
 		}
 
-		if ( defined( 'ALLOW_EXPERIMENTAL_FEATURES' ) && ALLOW_EXPERIMENTAL_FEATURES ) {
+		if ( defined( 'WP_APP_ENV' ) && WP_APP_ENV === 'local' ) {
 			$fields[] = [
-				'name' => __( 'Theme editor non-logged in(experimental)', 'planet4-master-theme-backend' ),
+				'name' => __( 'Theme editor (experimental): non-logged in', 'planet4-master-theme-backend' ),
 				'desc' => __(
-					'Enable CSS variables based theme editor without log in (only available for dev environments).',
+					'Enable CSS variables based theme editor without requiring login.',
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::THEME_EDITOR_NON_LOGGED_IN,
