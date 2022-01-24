@@ -1,3 +1,5 @@
+/* global hj */
+
 const updateGaAction = (element, elementName) => {
   element.dataset.gaAction = `${element.getAttribute('aria-expanded') === 'false' ? 'Open' : 'Close'} ${elementName}`;
 };
@@ -149,4 +151,13 @@ export const setupHeader = () => {
   if (closeNavMenuButton) {
     closeNavMenuButton.onclick = event => closeElement(event, '.nav-menu-toggle');
   }
+
+  let searchFocused = false;
+  const searchInput = document.getElementById('search_input');
+  searchInput && searchInput.addEventListener('focus', () => {
+    if (!searchFocused) {
+      hj && hj('event', 'search');
+      searchFocused = true;
+    }
+  });
 };
