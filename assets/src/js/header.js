@@ -5,7 +5,7 @@ const updateGaAction = (element, elementName) => {
 /**
  * Propagate attributes to all search toggles
  *
- * @param {bool} expanded Toggle is expanded
+ * @param {boolean} expanded Toggle is expanded
  */
 const setSearchToggles = expanded => {
   let toggles = document.querySelectorAll('.nav-search-toggle');
@@ -18,7 +18,7 @@ const setSearchToggles = expanded => {
 
 const toggleNavElement = element => {
   const target = element.dataset.bsTarget;
-  const newAriaExpandedValue = element.getAttribute('aria-expanded') === 'true' ? 'false' : 'true';
+  const wasExpanded = element.getAttribute('aria-expanded') === 'true';
 
   if (!target) {
     throw new Error('Missing `data-bs-target` attribute: specify the container to be toggled');
@@ -35,24 +35,24 @@ const toggleNavElement = element => {
   element.classList.toggle(toggleClass);
 
   // Toggle aria-expanded attribute
-  element.setAttribute('aria-expanded', newAriaExpandedValue);
+  element.setAttribute('aria-expanded', wasExpanded  ? 'false' : 'true');
 
   // Propagate attributes to all search toggles
   if (element.classList.contains('nav-search-toggle')) {
-    setSearchToggles(newAriaExpandedValue === 'true');
+    setSearchToggles(!wasExpanded);
   }
 
   // We need to focus the search input when showing it
   const searchInput = document.querySelector('#search_input');
   if (element.classList.contains('nav-search-toggle') || element.classList.contains('navbar-search-toggle')) {
-    if (newAriaExpandedValue === 'true') {
+    if (wasExpanded) {
       searchInput.focus();
     }
   }
 
   // Lock scroll when navigation menu is open
   if (element.classList.contains('nav-menu-toggle')) {
-    document.body.classList.toggle('no-scroll-nav-open', newAriaExpandedValue === 'true');
+    document.body.classList.toggle('no-scroll-nav-open', !wasExpanded);
   }
 
   // Toggle data-ga-action attribute used in GTM tracking.
