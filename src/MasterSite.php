@@ -107,10 +107,11 @@ class MasterSite extends TimberSite {
 		add_theme_support( 'post-thumbnails' );
 		add_theme_support( 'menus' );
 		if ( Features::is_active( Features::WP_TEMPLATE_EDITOR ) ) {
+			// Enable Full Site Editing.
 			add_theme_support( 'block-templates' );
 		}
 		if ( ! Features::is_active( Features::CORE_BLOCK_PATTERNS ) ) {
-			// Disable wp5.5 Block Patterns.
+			// Disable WP Block Patterns.
 			remove_theme_support( 'core-block-patterns' );
 		}
 
