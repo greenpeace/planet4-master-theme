@@ -450,9 +450,7 @@ final class Loader {
 			return true;
 		}
 
-		return defined( 'ALLOW_EXPERIMENTAL_FEATURES' )
-			&& ALLOW_EXPERIMENTAL_FEATURES
-			&& Features::is_active( Features::THEME_EDITOR_NON_LOGGED_IN );
+		return Features::is_active( Features::THEME_EDITOR_NON_LOGGED_IN );
 	}
 
 	/**
