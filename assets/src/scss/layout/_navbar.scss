@@ -131,10 +131,18 @@ $navbar-default-height: 60px;
   background: var(--top-navigation--background, $dark-blue);
   display: none;
   height: 100%;
-  inset-block-start: 0;
   top: 0;
   width: auto;
   z-index: 4;
+
+  inset-block-start: 0;
+  @supports not (inset-block-start: 0) {
+    left: 0;
+
+    html[dir="rtl"] & {
+      left: 100vw;
+    }
+  }
 
   @include medium-and-less {
     display: block;
