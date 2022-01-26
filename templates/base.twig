@@ -31,9 +31,8 @@
 		{% include 'blocks/header.twig' %}
 	{% endif %}
 
-	{% block content %}
-		Sorry, no content
-	{% endblock %}
+	{% if raw_content %}{{ raw_content|raw }}{% endif %}
+	{% block content  %}{% endblock %}
 
 	{% if sidebar %}
 		<aside class="layout-sidebar">
