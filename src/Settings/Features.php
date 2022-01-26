@@ -8,12 +8,14 @@ use P4\MasterTheme\Features\CloudflareDeployPurge;
 use P4\MasterTheme\Features\Dev\AllowAllBlocks;
 use P4\MasterTheme\Features\Dev\BetaBlocks;
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
+use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Features\Dev\ThemeEditor;
 use P4\MasterTheme\Features\Dev\WPTemplateEditor;
 use P4\MasterTheme\Features\EngagingNetworks;
 use P4\MasterTheme\Features\GoogleSheetReplacesSmartsheet;
 use P4\MasterTheme\Features\ImageArchive;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
+use P4\MasterTheme\Features\Dev\ListingPagePagination;
 use P4\MasterTheme\Features\NewDesignCountrySelector;
 use P4\MasterTheme\Features\NewDesignNavigationBar;
 use P4\MasterTheme\Features\PurgeOnFeatureChanges;
@@ -92,6 +94,7 @@ class Features {
 			NewDesignCountrySelector::class,
 			NewDesignNavigationBar::class,
 			GoogleSheetReplacesSmartsheet::class,
+			ListingPagePagination::class,
 
 			// Dev only.
 			BetaBlocks::class,
@@ -99,6 +102,7 @@ class Features {
 			WPTemplateEditor::class,
 			CoreBlockPatterns::class,
 			AllowAllBlocks::class,
+			ListingPageGridView::class,
 		];
 	}
 

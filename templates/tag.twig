@@ -27,6 +27,7 @@
 	</div>
 
 	<div class="page-content container">
+		{{ query_loop|raw }}
 		{% for name, block in blocks %}
 			{{ fn('do_blocks', block )|raw }}
 		{% endfor %}
