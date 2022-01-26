@@ -117,9 +117,8 @@ $navbar-default-height: 60px;
   }
 
   @include small-and-less {
-    &.open {
-      width: 100%;
-    }
+    width: 100vw;
+    inset-inline-start: -100vw;
   }
 
   @include large-and-up {
@@ -227,6 +226,7 @@ a.nav-link {
 
   @include medium-and-less {
     display: block;
+    right: 0;
   }
 
   @include medium-and-up {
