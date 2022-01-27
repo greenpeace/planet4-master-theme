@@ -1,4 +1,7 @@
 import { useHappypointImageData } from './useHappypointImageData';
+import { HubspotEmbed } from './useHubspotEmbedCode';
+import { useEffect } from '@wordpress/element';
+import { useScript } from '../../components/useScript/useScript';
 
 export const HappypointFrontend = ({
   focus_image,
@@ -37,7 +40,6 @@ export const HappypointFrontend = ({
   }
 
   const url = iframe_url || engaging_network_id;
-  const happypoint_embed_code = embed_code || default_embed_code;
 
   return (
     <section className={`block block-footer block-wide happy-point-block-wrap ${className ?? ''}`}>
@@ -46,9 +48,9 @@ export const HappypointFrontend = ({
       </picture>
       <div className="container">
         <div className="row justify-content-md-center">
-          {(use_embed_code && happypoint_embed_code) ?
-            <div dangerouslySetInnerHTML={{ __html: happypoint_embed_code }} />:
-            <>
+          {use_embed_code
+            ? <div className="col-md-10 mt-5" id="happy-point" />
+            : <>
               {mailing_list_iframe && url && (
                 <div className="col-md-10 happy-point" id="happy-point" data-src={url}>
                   <iframe
@@ -64,6 +66,7 @@ export const HappypointFrontend = ({
               )}
             </>
           }
+          <HubspotEmbed params={{use_embed_code: use_embed_code, embed_code: embed_code || default_embed_code, target: '#happy-point'}} />
         </div>
       </div>
     </section>

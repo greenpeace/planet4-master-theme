@@ -140,6 +140,26 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
                   <MailingListIframeHelp />
                 </div>
               )}
+              <ToggleControl
+                label={__('Use HubSpot embed code', 'planet4-blocks-backend')}
+                value={use_embed_code}
+                checked={use_embed_code}
+                onChange={setCheckbox('use_embed_code')}
+              />
+              {use_embed_code && (
+                <div>
+                  <TextareaControl
+                    label={__('HubSpot embed code', 'planet4-blocks-backend')}
+                    help={__('Enter embed code', 'planet4-blocks-backend')}
+                    value={embedCode}
+                    onChange={code => {
+                      setEmbedCode(code);
+                      debounceEmbedCode(code);
+                    }}
+                  />
+                  <EmbedCodeHelp />
+                </div>
+              )}
               {id && 0 < id &&
                 <div className="wp-block-master-theme-happypoint__FocalPointPicker">
                   <FocalPointPicker
