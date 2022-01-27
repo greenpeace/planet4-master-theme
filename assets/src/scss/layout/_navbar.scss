@@ -88,17 +88,15 @@ $navbar-default-height: 60px;
     flex-direction: column-reverse;
     height: 100%;
     inset-inline-start: -400px;
-    overflow-y: auto;
-    overflow-x: hidden;
     position: fixed;
     transition: inset-inline-start 0.2s ease-in;
     top: 0;
     width: 400px;
+    z-index: 99;
 
     &.open {
       inset-inline-start: 0;
       transition: inset-inline-start 0.2s ease-out;
-      z-index: 99;
 
       ~ .top-navigation-overlay {
         display: block;
@@ -119,6 +117,26 @@ $navbar-default-height: 60px;
   @include small-and-less {
     width: 100vw;
     inset-inline-start: -100vw;
+
+    @supports not (inset-inline-start: -100vw) {
+      transform: translateX(-100vw);
+      transition: transform 0.2s ease-out;
+
+      html[dir="rtl"] & {
+        transform: translateX(100vw);
+      }
+    }
+
+    &.open {
+      @supports not (inset-inline-start: 0) {
+        transform: translateX(0);
+        transition: transform 0.2s ease-out;
+
+        html[dir="rtl"] & {
+          transform: translateX(0);
+        }
+      }
+    }
   }
 
   @include large-and-up {
@@ -134,15 +152,6 @@ $navbar-default-height: 60px;
   top: 0;
   width: auto;
   z-index: 4;
-
-  inset-block-start: 0;
-  @supports not (inset-block-start: 0) {
-    left: 0;
-
-    html[dir="rtl"] & {
-      left: 100vw;
-    }
-  }
 
   @include medium-and-less {
     display: block;
@@ -234,7 +243,20 @@ a.nav-link {
 
   @include medium-and-less {
     display: block;
-    right: 0;
+
+    @supports not (inset-inline-end: 0) {
+      right: 0;
+      left: auto;
+
+      html[dir="rtl"] & {
+        left: 0;
+        right: auto;
+      }
+    }
+  }
+
+  @include small-and-less {
+    opacity: 1;
   }
 
   @include medium-and-up {
