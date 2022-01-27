@@ -27,7 +27,7 @@
 	{% endif %}
 	{% include 'sidebar.twig' with data_nav_bar %}
 
-	{% if not post.password_required %}
+	{% if not post.password_required and not raw_content %}
 		{% include 'blocks/header.twig' %}
 	{% endif %}
 
