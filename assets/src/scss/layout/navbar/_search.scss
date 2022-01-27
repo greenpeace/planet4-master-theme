@@ -23,6 +23,10 @@
     display: flex;
 
     @include medium-and-less {
+      @supports not (inset-inline-start: 0) {
+        left: 0;
+      }
+
       #nav-main.open & {
         display: none;
       }
