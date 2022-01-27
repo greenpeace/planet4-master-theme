@@ -24,7 +24,14 @@
 
     @include medium-and-less {
       @supports not (inset-inline-start: 0) {
-        left: 0;
+        left: 100%;
+        margin: auto;
+        width: 100vw;
+
+        html[dir="rtl"] & {
+          left: auto;
+          right: 100%;
+        }
       }
 
       #nav-main.open & {
