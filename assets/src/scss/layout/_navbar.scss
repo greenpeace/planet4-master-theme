@@ -94,9 +94,27 @@ $navbar-default-height: 60px;
     width: 400px;
     z-index: 99;
 
+    @supports not (inset-inline-start: -400px) {
+      transform: translateX(-400px);
+      transition: transform 0.2s ease-out;
+
+      html[dir="rtl"] & {
+        transform: translateX(400px);
+      }
+    }
+
     &.open {
       inset-inline-start: 0;
       transition: inset-inline-start 0.2s ease-out;
+
+      @supports not (inset-inline-start: 0) {
+        transform: translateX(0);
+        transition: transform 0.2s ease-out;
+
+        html[dir="rtl"] & {
+          transform: translateX(0);
+        }
+      }
 
       ~ .top-navigation-overlay {
         display: block;
