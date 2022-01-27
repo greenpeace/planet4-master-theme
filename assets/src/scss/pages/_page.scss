@@ -97,3 +97,8 @@ $min-height: 40px;
     outline: 0 none;
   }
 }
+
+.wp-block-post-author {
+  // Quick fix for the block being covered by the fixed navbar.
+  margin-top: 80px;
+}
