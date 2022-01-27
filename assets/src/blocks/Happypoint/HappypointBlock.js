@@ -33,7 +33,13 @@ export class HappypointBlock {
         load_iframe: {
           type: 'boolean',
           default: false
-        }
+        },
+        use_embed_code: {
+          type: 'boolean',
+        },
+        embed_code: {
+          type: 'string',
+        },
       },
       edit: HappypointEditor,
       save() {

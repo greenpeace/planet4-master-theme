@@ -6,6 +6,8 @@ export const HappypointFrontend = ({
   mailing_list_iframe,
   iframe_url,
   id,
+  use_embed_code,
+  embed_code,
   className,
 }) => {
   const { imageData } = useHappypointImageData(id);
@@ -16,7 +18,8 @@ export const HappypointFrontend = ({
     background_alt,
     background_sizes,
     default_image,
-    engaging_network_id
+    engaging_network_id,
+    default_embed_code
   } = imageData;
 
   const imgProps = {
@@ -34,6 +37,7 @@ export const HappypointFrontend = ({
   }
 
   const url = iframe_url || engaging_network_id;
+  const happypoint_embed_code = embed_code || default_embed_code;
 
   return (
     <section className={`block block-footer block-wide happy-point-block-wrap ${className ?? ''}`}>
@@ -42,19 +46,24 @@ export const HappypointFrontend = ({
       </picture>
       <div className="container">
         <div className="row justify-content-md-center">
-          {mailing_list_iframe && url && (
-            <div className="col-md-10 happy-point" id="happy-point" data-src={url}>
-              <iframe
-                src={url}
-                cellSpacing={0}
-                allowtransparency="true"
-                frameBorder={0}
-                scrolling="no"
-                width="100%"
-                loading="lazy"
-              />
-            </div>
-          )}
+          {(use_embed_code && happypoint_embed_code) ?
+            <div dangerouslySetInnerHTML={{ __html: happypoint_embed_code }} />:
+            <>
+              {mailing_list_iframe && url && (
+                <div className="col-md-10 happy-point" id="happy-point" data-src={url}>
+                  <iframe
+                    src={url}
+                    cellSpacing={0}
+                    allowtransparency="true"
+                    frameBorder={0}
+                    scrolling="no"
+                    width="100%"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+            </>
+          }
         </div>
       </div>
     </section>
