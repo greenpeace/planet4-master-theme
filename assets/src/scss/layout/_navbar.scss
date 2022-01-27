@@ -96,7 +96,7 @@ $navbar-default-height: 60px;
 
     @supports not (inset-inline-start: -400px) {
       transform: translateX(-400px);
-      transition: transform 0.2s ease-out;
+      transition: transform 0.2s ease-in;
 
       html[dir="rtl"] & {
         transform: translateX(400px);
