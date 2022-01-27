@@ -21,7 +21,7 @@
 					{% endif %}
 
 					{% if ( page_type and (post.issues_nav_data or post.tags) ) %}
-						<span class="tag-wrap-bullet" aria-hidden="true">&#8226;</span>
+						<span class="main-tag-chevron" aria-hidden="true"></span>
 					{% endif %}
 
 					{% if ( post.issues_nav_data ) %}
@@ -35,25 +35,11 @@
 									data-ga-label="n/a">
 										{{ issue.name|e('wp_kses_post')|raw }}
 								</a>
-							{% endfor %}
-						</div>
-					{% endif %}
 
-					{% if ( post.issues_nav_data and post.tags ) %}
-						<span class="tag-wrap-bullet" aria-hidden="true">&#8226;</span>
-					{% endif %}
+								{% if ( loop.last == false ) %}
+									<span class="category-separator" aria-hidden="true">|</span>
+								{% endif %}
 
-					{% if (post.tags) %}
-						<div class="tag-wrap tags">
-							{% for tag in post.tags %}
-								<a
-									class="tag-item tag"
-									href="{{ tag.link }}"
-									data-ga-category="Header"
-									data-ga-action="Navigation Tag"
-									data-ga-label="n/a">
-									<span aria-label="hashtag">#<span>{{ tag.name|e('wp_kses_post')|raw }}
-								</a>
 							{% endfor %}
 						</div>
 					{% endif %}

@@ -8,10 +8,11 @@
     position: relative;
   }
 
+  .category-separator,
   .tag-wrap-bullet {
     pointer-events: none;
     font-weight: 400;
-    margin: 0 8px;
+    margin: 0 $sp-1;
     color: $link-color;
   }
 
@@ -25,19 +26,19 @@
       }
     }
     display: inline-block;
-
-    &:not(:only-child):not(:last-child):not(.page-type) {
-      margin-inline-end: 8px;
-    }
   }
 
-  .tag-item--main {
-    &.page-type {
-      text-transform: uppercase;
-
-      html[dir="rtl"] & {
-        text-transform: lowercase;
-      }
-    }
+  .main-tag-chevron {
+    pointer-events: none;
+    margin: 0 $sp-1;
+    height: 12px;
+    width: 7px;
+    mask-image: url("../../images/chevron.svg");
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-position: center;
+    background-repeat: no-repeat;
+    background-color: $link-color;
+    display: inline-block;
   }
 }
