@@ -201,6 +201,8 @@ function set_allowed_block_types( $allowed_block_types, $post ) {
 		'core/spacer',
 		'core/shortcode',
 		'core/group',
+		'core/columns',
+		'core/column',
 		'core/embed',
 		'core-embed/twitter',
 		'core-embed/youtube',
