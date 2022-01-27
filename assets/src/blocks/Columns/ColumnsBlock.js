@@ -19,7 +19,7 @@ const getStyleLabel = (label, help) => {
 
 export const registerColumnsBlock = () =>
   registerBlockType('planet4-blocks/columns', {
-    title: __('Columns', 'planet4-blocks-backend'),
+    title: __('Planet 4 Columns', 'planet4-blocks-backend'),
     icon: 'grid-view',
     category: 'planet4-blocks',
     attributes: {
