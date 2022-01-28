@@ -10,7 +10,8 @@ try {
 	$I->seeElement('.country-list.open');
 } catch (\Exception $e) {
 	// Try new country selector
-	$I->scrollTo('.country-selector-toggle');
+	$I->scrollTo('.country-selector-toggle-container');
+	$I->waitForElementClickable('.country-selector-toggle', 10);
 	$I->click('.country-selector-toggle');
 	$I->seeElement('.countries-list');
 }
