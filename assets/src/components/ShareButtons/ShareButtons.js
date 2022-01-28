@@ -1,5 +1,6 @@
 import { SvgIcon } from './SvgIcon';
 const { __ } = wp.i18n;
+window.dataLayer = window.dataLayer || [];
 
 export const ShareButtons = ({social_params, social_accounts}) => {
   const {
@@ -11,9 +12,8 @@ export const ShareButtons = ({social_params, social_accounts}) => {
     utm_campaign = '',
   } = social_params;
 
-  const dataLayer = [];
   const share = (action, label) => {
-    dataLayer.push({
+    window.dataLayer.push({
       event: 'uaevent',
       eventCategory: 'Social Share',
       eventAction: action,
