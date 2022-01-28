@@ -55,6 +55,13 @@ class Happypoint extends Base_Block {
 						'type'    => 'boolean',
 						'default' => 'false',
 					],
+					'use_embed_code'      => [
+						'type' => 'boolean',
+					],
+					'embed_code'          => [
+						'type'    => 'string',
+						'default' => '',
+					],
 				],
 			]
 		);
@@ -87,6 +94,7 @@ class Happypoint extends Base_Block {
 		$data['engaging_network_id'] = $options['engaging_network_form_id'] ?? '';
 		$data['default_image']       = get_bloginfo( 'template_directory' ) . '/images/happy-point-block-bg.jpg';
 		$data['background_alt']      = empty( $image_alt ) ? __( 'Background image', 'planet4-blocks' ) : $image_alt;
+		$data['default_embed_code']  = $options['happy_point_embed_code'] ?? '';
 
 		return $data;
 	}

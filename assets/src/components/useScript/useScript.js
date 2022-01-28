@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { addScriptTag } from './addScriptTag';
 
-export const useScript = (src, onScriptLoaded) => {
+export const useScript = (src, onScriptLoaded, deps = []) => {
   // Keeping track of script loaded and error state
   const [state, setState] = useState({
     loaded: false,
@@ -53,8 +53,25 @@ export const useScript = (src, onScriptLoaded) => {
         script.removeEventListener('error', onScriptError);
       };
     },
-    []
+    deps
   );
 
   return [state.loaded, state.error];
 }
+
+export const removeScript = (src, deps = []) => {
+  const [state, setState] = useState({unloaded: false});
+
+  useEffect(
+    () => {
+      [...document.querySelectorAll(`script[src="${src}"]`)].forEach(node => {
+        node.remove();
+      });
+      setState({unloaded: true});
+    },
+    deps
+  );
+
+  return [state.unloaded];
+};
+

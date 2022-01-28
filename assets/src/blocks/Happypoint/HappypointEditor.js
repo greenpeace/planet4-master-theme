@@ -2,6 +2,7 @@ import { Fragment, useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import { HappypointFrontend } from './HappypointFrontend';
 import { MailingListIframeHelp } from './MailingListIframeHelp';
+import { EmbedCodeHelp } from './EmbedCodeHelp';
 
 import { debounce } from 'lodash';
 
@@ -16,6 +17,7 @@ const { __ } = wp.i18n;
 
 import {
   TextControl,
+  TextareaControl,
   FocalPointPicker,
   ToggleControl,
   RangeControl,
@@ -26,8 +28,9 @@ import {
 } from '@wordpress/components';
 
 export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
-  const { focus_image, opacity, mailing_list_iframe, id, iframe_url } = attributes;
+  const { focus_image, opacity, mailing_list_iframe, id, iframe_url, use_embed_code, embed_code } = attributes;
   const [iframeUrl, setIframeUrl] = useState(iframe_url || '');
+  const [embedCode, setEmbedCode] = useState(embed_code || '');
   const dimensions = { width: 400, height: 100 };
 
   const { imageUrl } = useSelect(select => {
@@ -84,6 +87,22 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
     setAttributes({ iframe_url: url });
   }, 300);
 
+  const debounceEmbedCode = debounce(code => {
+    setAttributes({ embed_code: code });
+  }, 300);
+
+  const setCheckbox = attributeName => value => {
+    if ( true === value ) {
+      // Toggle the checkboxes.
+      if ( 'mailing_list_iframe' === attributeName ) {
+        setAttributes({ use_embed_code: false });
+      } else {
+        setAttributes({ mailing_list_iframe: false });
+      }
+    }
+    setAttributes({ [attributeName]: value });
+  };
+
   return (
     <Fragment>
       {isSelected && (
@@ -105,7 +124,7 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
                 label={__('Use mailing list iframe', 'planet4-blocks-backend')}
                 value={mailing_list_iframe}
                 checked={mailing_list_iframe}
-                onChange={toAttribute('mailing_list_iframe')}
+                onChange={setCheckbox('mailing_list_iframe')}
               />
               {mailing_list_iframe && (
                 <div>
@@ -119,6 +138,26 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
                     }}
                   />
                   <MailingListIframeHelp />
+                </div>
+              )}
+              <ToggleControl
+                label={__('Use HubSpot embed code', 'planet4-blocks-backend')}
+                value={use_embed_code}
+                checked={use_embed_code}
+                onChange={setCheckbox('use_embed_code')}
+              />
+              {use_embed_code && (
+                <div>
+                  <TextareaControl
+                    label={__('HubSpot embed code', 'planet4-blocks-backend')}
+                    help={__('Enter embed code', 'planet4-blocks-backend')}
+                    value={embedCode}
+                    onChange={code => {
+                      setEmbedCode(code);
+                      debounceEmbedCode(code);
+                    }}
+                  />
+                  <EmbedCodeHelp />
                 </div>
               )}
               {id && 0 < id &&

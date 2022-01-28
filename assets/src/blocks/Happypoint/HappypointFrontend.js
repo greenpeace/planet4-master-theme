@@ -1,4 +1,7 @@
 import { useHappypointImageData } from './useHappypointImageData';
+import { HubspotEmbed } from './useHubspotEmbedCode';
+import { useEffect } from '@wordpress/element';
+import { useScript } from '../../components/useScript/useScript';
 
 export const HappypointFrontend = ({
   focus_image,
@@ -6,6 +9,8 @@ export const HappypointFrontend = ({
   mailing_list_iframe,
   iframe_url,
   id,
+  use_embed_code,
+  embed_code,
   className,
 }) => {
   const { imageData } = useHappypointImageData(id);
@@ -16,7 +21,8 @@ export const HappypointFrontend = ({
     background_alt,
     background_sizes,
     default_image,
-    engaging_network_id
+    engaging_network_id,
+    default_embed_code
   } = imageData;
 
   const imgProps = {
@@ -42,19 +48,25 @@ export const HappypointFrontend = ({
       </picture>
       <div className="container">
         <div className="row justify-content-md-center">
-          {mailing_list_iframe && url && (
-            <div className="col-md-10 happy-point" id="happy-point" data-src={url}>
-              <iframe
-                src={url}
-                cellSpacing={0}
-                allowtransparency="true"
-                frameBorder={0}
-                scrolling="no"
-                width="100%"
-                loading="lazy"
-              />
-            </div>
-          )}
+          {use_embed_code
+            ? <div className="col-md-10 mt-5" id="happy-point" />
+            : <>
+              {mailing_list_iframe && url && (
+                <div className="col-md-10 happy-point" id="happy-point" data-src={url}>
+                  <iframe
+                    src={url}
+                    cellSpacing={0}
+                    allowtransparency="true"
+                    frameBorder={0}
+                    scrolling="no"
+                    width="100%"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+            </>
+          }
+          <HubspotEmbed params={{use_embed_code: use_embed_code, embed_code: embed_code || default_embed_code, target: '#happy-point'}} />
         </div>
       </div>
     </section>
