@@ -14,7 +14,7 @@
 
 // Mobile to Large (From 576px to 992px)
 @mixin small-to-large {
-  @media (min-width: #{$small-width}) and (max-width: #{$large-width}) {
+  @media (min-width: #{$small-width}) and (max-width: #{$large-width - 1}) {
     @content;
   }
 }
