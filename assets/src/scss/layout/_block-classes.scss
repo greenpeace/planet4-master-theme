@@ -1,5 +1,52 @@
 
 .inline-container > * {
   display: inline;
-  margin-inline-end: 4px;
+}
+
+.circle-separated > *:not(:first-child):before {
+  color: #006DFD;
+  content: "●";
+  margin: auto 4px;
+}
+
+.dash-separated > *:not(:first-child):before {
+  color: #979797;
+  content: "-";
+  margin: auto 4px;
+}
+
+.wp-block-query {
+  font-family: $roboto;
+
+  // This needs to target title inside wp-block-query specifically.
+  .wp-block-post-title {
+    margin-bottom: 4px;
+    a {
+      color: $black;
+    }
+  }
+}
+
+.wp-block-query-pagination {
+  a {
+    color: black;
+    font-weight: bold;
+  }
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.page-numbers {
+  &:not(:last-child) {
+    margin-inline-end: 8px;
+  }
+
+  &.current {
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 8px 12px;
+  }
 }
