@@ -16,15 +16,13 @@ export const useCovers = ({ post_types, tags, cover_type, initialRowsLimit, post
   const [error, setError] = useState(null);
 
   const updateRowCoversAmount = () => {
-    switch (cover_type) {
-    case COVERS_TYPES.campaign:
+    if(cover_type === COVERS_TYPES.campaign || cover_type === COVERS_TYPES.takeAction) {
       if (layout === COVERS_LAYOUTS.carousel) {
         setAmountOfCoversPerRow(3);
       } else {
         setAmountOfCoversPerRow(isSmallWindow() ? 2 : 3);
       }
-      break;
-    case COVERS_TYPES.content:
+    } else {
       if (layout === COVERS_LAYOUTS.carousel) {
         setAmountOfCoversPerRow(4);
       } else {
@@ -34,16 +32,6 @@ export const useCovers = ({ post_types, tags, cover_type, initialRowsLimit, post
           setAmountOfCoversPerRow(isMediumWindow() ? 3 : 4);
         }
       }
-      break;
-    case COVERS_TYPES.takeAction:
-      if (layout === COVERS_LAYOUTS.carousel) {
-        setAmountOfCoversPerRow(4);
-      } else {
-        setAmountOfCoversPerRow(isSmallWindow() ? 2 : 3);
-      }
-      break;
-    default:
-      break;
     }
   };
 
