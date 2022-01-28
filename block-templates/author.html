@@ -2,7 +2,7 @@
 <!-- wp:group {"className":"container"} -->
 <div class="wp-block-group container"><!-- wp:post-author {"avatarSize":96,"showBio":true,"className":"author-pic","fontSize":"medium"} /-->
 
-	<!-- wp:query {"queryId":1,"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","categoryIds":[],"tagIds":[],"order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true},"displayLayout":{"type":"flex","columns":3}} -->
+	<!-- wp:query {"queryId":1,"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","categoryIds":[],"tagIds":[],"order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true},"displayLayout":{"type":"flex","columns":4}} -->
 	<div class="wp-block-query"><!-- wp:query-pagination -->
 		<!-- wp:query-pagination-previous /-->
 
@@ -14,37 +14,19 @@
 		<!-- wp:post-template -->
 		<!-- wp:post-featured-image {"isLink":true} /-->
 
-		<!-- wp:group {"className":"inline-container"} -->
-		<div class="wp-block-group inline-container"><!-- wp:post-terms {"term":"p4-page-type"} /-->
+		<!-- wp:group {"className":"inline-container circle-separated"} -->
+		<div class="wp-block-group inline-container circle-separated"><!-- wp:post-terms {"term":"p4-page-type","style":{"typography":{"fontSize":"14px"}}} /-->
 
-			<!-- wp:paragraph {"style":{"typography":{"fontSize":"11px"}},"textColor":"blue"} -->
-			<p class="has-blue-color has-text-color" style="font-size:11px">●</p>
-			<!-- /wp:paragraph -->
-
-			<!-- wp:post-terms {"term":"post_tag"} /--></div>
+			<!-- wp:post-terms {"term":"post_tag","style":{"typography":{"fontSize":"14px"}}} /--></div>
 		<!-- /wp:group -->
 
-		<!-- wp:columns -->
-		<div class="wp-block-columns"><!-- wp:column {"width":"50%"} -->
-			<div class="wp-block-column" style="flex-basis:50%"></div>
-			<!-- /wp:column -->
+		<!-- wp:post-title {"isLink":true,"style":{"typography":{"fontSize":"16px"}}} /-->
 
-			<!-- wp:column {"width":"50%"} -->
-			<div class="wp-block-column" style="flex-basis:50%"></div>
-			<!-- /wp:column --></div>
-		<!-- /wp:columns -->
+		<!-- wp:group {"className":"inline-container dash-separated"} -->
+		<div class="wp-block-group inline-container dash-separated"><!-- wp:post-date {"format":"M j, Y g:i a","style":{"typography":{"fontSize":"12px"}}} /-->
 
-		<!-- wp:post-title {"isLink":true} /-->
-
-		<!-- wp:group {"className":"inline-container"} -->
-		<div class="wp-block-group inline-container"><!-- wp:post-date {"isLink":true} /-->
-
-			<!-- wp:paragraph -->
-			<p>-</p>
-			<!-- /wp:paragraph -->
-
-			<!-- wp:paragraph -->
-			<p>5 min read</p>
+			<!-- wp:paragraph {"style":{"typography":{"fontSize":"12px"}}} -->
+			<p style="font-size:12px">5 min read</p>
 			<!-- /wp:paragraph --></div>
 		<!-- /wp:group -->
 		<!-- /wp:post-template -->
