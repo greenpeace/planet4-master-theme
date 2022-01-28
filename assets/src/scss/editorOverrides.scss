@@ -19,12 +19,13 @@
   }
 }
 
+.wp-block {
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .edit-post-visual-editor {
-  .wp-block {
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-  }
 
   li {
     font-size: unset;
