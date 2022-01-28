@@ -87,21 +87,9 @@ $navbar-default-height: 60px;
   @include medium-and-less {
     flex-direction: column-reverse;
     height: 100%;
-    inset-inline-start: -400px;
     position: fixed;
-    transition: inset-inline-start 0.2s ease-in;
     top: 0;
-    width: 400px;
     z-index: 99;
-
-    @supports not (inset-inline-start: -400px) {
-      transform: translateX(-400px);
-      transition: transform 0.2s ease-in;
-
-      html[dir="rtl"] & {
-        transform: translateX(400px);
-      }
-    }
 
     &.open {
       inset-inline-start: 0;
@@ -157,6 +145,21 @@ $navbar-default-height: 60px;
     }
   }
 
+  @include small-to-large {
+    inset-inline-start: -400px;
+    transition: inset-inline-start 0.2s ease-in;
+    width: 400px;
+
+    @supports not (inset-inline-start: -400px) {
+      transform: translateX(-400px);
+      transition: transform 0.2s ease-in;
+
+      html[dir="rtl"] & {
+        transform: translateX(400px);
+      }
+    }
+  }
+
   @include large-and-up {
     flex-grow: 1;
     width: auto;
@@ -165,7 +168,6 @@ $navbar-default-height: 60px;
 
 .nav-menu {
   background: var(--top-navigation--background, $dark-blue);
-  display: none;
   height: 100%;
   top: 0;
   width: auto;
@@ -177,6 +179,7 @@ $navbar-default-height: 60px;
   }
 
   @include large-and-up {
+    display: none;
     background: inherit;
     display: flex;
     flex-grow: 1;
@@ -250,7 +253,7 @@ a.nav-link {
 .nav-menu-close {
   background-color: var(--top-navigation--color, $white);
   border: none;
-  display: none;
+  display: block;
   height: 68px;
   inset-inline-end: 0;
   mask: url("../../images/cross.svg") 50% 50%/16px 16px no-repeat;
@@ -260,8 +263,6 @@ a.nav-link {
   z-index: 5;
 
   @include medium-and-less {
-    display: block;
-
     @supports not (inset-inline-end: 0) {
       right: 0;
       left: auto;
@@ -273,12 +274,9 @@ a.nav-link {
     }
   }
 
-  @include small-and-less {
-    opacity: 1;
-  }
-
-  @include medium-and-up {
+  @include large-and-up {
     inset-inline-start: 332px;
+    display: none;
   }
 }
 
