@@ -481,10 +481,21 @@ class Post extends TimberPost {
 			return null;
 		}
 
+		$cache_key = $this->id . '~' . $this->post_modified;
+
+		$from_cache = wp_cache_get( $cache_key );
+		if ( $from_cache ) {
+			return (int) $from_cache;
+		}
+
 		$locale = $this->get_locale();
 		$wpm    = planet4_get_option( 'reading_time_wpm', Post\ReadingTimeCalculator::DEFAULT_WPM );
 		$rt     = new Post\ReadingTimeCalculator( $locale, $wpm );
-		return (int) max( 1, round( $rt->get_time( $this->content ) / 60 ) );
+		$time   = (int) max( 1, round( $rt->get_time( $this->content ) / 60 ) );
+		// Cache for 1 day. This could be infinitely long as the key checks the modified date.
+		wp_cache_add( $cache_key, $time, null, 3600 * 24 );
+
+		return $time;
 	}
 
 	/**
