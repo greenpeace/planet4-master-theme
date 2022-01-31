@@ -1,7 +1,7 @@
-import { Fragment } from '@wordpress/element';
 import { FrontendRichText } from '../../components/FrontendRichText/FrontendRichText';
 import { removeCookie, useCookie, writeCookie } from './useCookie';
 import { useState, useEffect } from 'react';
+import { CookiesFieldResetButton } from './CookiesFieldResetButton';
 
 const { __ } = wp.i18n;
 const CONSENT_COOKIE = 'greenpeace';
@@ -11,6 +11,8 @@ const NECESSARY_ANALYTICAL = '3';
 const NECESSARY_ANALYTICAL_MARKETING = '4';
 
 const dataLayer = window.dataLayer || [];
+
+const COOKIES_DEFAULT_COPY = window.p4bk_vars.cookies_default_copy || {};
 
 function gtag() {
   dataLayer.push(arguments);
@@ -112,196 +114,256 @@ export const CookiesFrontend = props => {
       hideCookieNotice();
     }
   }
-  useEffect(updateActiveConsentChoice, [allCookiesChecked, analyticalCookiesChecked])
+  useEffect(updateActiveConsentChoice, [allCookiesChecked, analyticalCookiesChecked]);
 
-  return <Fragment>
-    <section className={`block cookies-block ${className ?? ''}`}>
-      {(isEditing || title) &&
-      <header>
-        <FrontendRichText
-          tagName="h2"
-          className="page-section-header"
-          placeholder={__('Enter title', 'planet4-blocks-backend')}
-          value={title}
-          onChange={toAttribute('title')}
-          withoutInteractiveFormatting
-          multiline="false"
-          editable={isEditing}
-          allowedFormats={[]}
-        />
-      </header>
-      }
-      {(isEditing || description) &&
-      <FrontendRichText
-        tagName="p"
-        className="page-section-description"
-        placeholder={__('Enter description', 'planet4-blocks-backend')}
-        value={description}
-        onChange={toAttribute('description')}
-        withoutInteractiveFormatting
-        editable={isEditing}
-        allowedFormats={['core/bold', 'core/italic']}
-      />
-      }
-      {(isEditing || (necessary_cookies_name && necessary_cookies_description)) &&
-      <Fragment>
-        <label className="custom-control"
-               style={isSelected ? { pointerEvents: 'none' } : null}>
-          <input
-            type="checkbox"
-            tabIndex={isSelected ? '-1' : null}
-            name="necessary_cookies"
-            onChange={ () => {
-              if (necessaryCookiesChecked) {
-                if (allCookiesChecked) {
-                  updateConsent('ad_storage', false);
-                }
-                if (analyticalCookiesChecked) {
-                  updateConsent('analytics_storage', false);
-                }
-                setUserRevokedNecessary(true);
-                setUserRevokedAllCookies(true);
-                removeConsentCookie();
-              } else {
-                if (ENABLE_ANALYTICAL_COOKIES && analyticalCookiesChecked) {
-                  setConsentCookie(NECESSARY_ANALYTICAL);
-                } else {
-                  setConsentCookie(ONLY_NECESSARY);
-                }
-              }
-            } }
-            checked={necessaryCookiesChecked}
-            className="p4-custom-control-input"
-          />
+  const getFieldValue = fieldName => {
+    if (props[fieldName] === undefined) {
+      return COOKIES_DEFAULT_COPY[fieldName] || '';
+    }
+    return props[fieldName];
+  }
+
+  return (
+    <>
+      <section className={`block cookies-block ${className ?? ''}`}>
+        {(isEditing || title) &&
+        <header>
           <FrontendRichText
-            tagName="span"
-            className="custom-control-description"
-            placeholder={__('Enter necessary cookies name', 'planet4-blocks-backend')}
-            value={necessary_cookies_name}
-            onChange={toAttribute('necessary_cookies_name')}
+            tagName="h2"
+            className="page-section-header"
+            placeholder={__('Enter title', 'planet4-blocks-backend')}
+            value={title}
+            onChange={toAttribute('title')}
             withoutInteractiveFormatting
             multiline="false"
             editable={isEditing}
             allowedFormats={[]}
           />
-        </label>
+        </header>
+        }
+        {(isEditing || description) &&
         <FrontendRichText
           tagName="p"
-          className="cookies-checkbox-description"
-          placeholder={__('Enter necessary cookies description', 'planet4-blocks-backend')}
-          value={necessary_cookies_description}
-          onChange={toAttribute('necessary_cookies_description')}
+          className="page-section-description"
+          placeholder={__('Enter description', 'planet4-blocks-backend')}
+          value={description}
+          onChange={toAttribute('description')}
           withoutInteractiveFormatting
           editable={isEditing}
           allowedFormats={['core/bold', 'core/italic']}
         />
-      </Fragment>
-      }
-      {((ENABLE_ANALYTICAL_COOKIES) && (isEditing || (analytical_cookies_name && analytical_cookies_description))) &&
-      <Fragment>
-        <label className="custom-control"
-              style={isSelected ? { pointerEvents: 'none' } : null}>
-          <input
-            type="checkbox"
-            tabIndex={isSelected ? '-1' : null}
-            name="analytical_cookies"
-            onChange={() => {
-              updateConsent('analytics_storage', !analyticalCookiesChecked);
-              if (analyticalCookiesChecked) {
-                setUserRevokedAnalytical(true);
-                setUserRevokedAllCookies(true);
-                if (allCookiesChecked) {
-                  setConsentCookie(ALL_COOKIES);
-                } else {
-                  setConsentCookie(ONLY_NECESSARY);
-                }
-              } else {
-                if (allCookiesChecked) {
-                  setConsentCookie(NECESSARY_ANALYTICAL_MARKETING);
-                } else {
-                  setConsentCookie(NECESSARY_ANALYTICAL);
-                }
+        }
+        {(isEditing || (necessary_cookies_name !== '' && necessary_cookies_description !== '')) &&
+          <>
+            <div className='d-flex align-items-center'>
+              <label className="custom-control" style={isSelected ? { pointerEvents: 'none' } : null}>
+                <input
+                  type="checkbox"
+                  tabIndex={isSelected ? '-1' : null}
+                  name="necessary_cookies"
+                  onChange={ () => {
+                    if (necessaryCookiesChecked) {
+                      if (allCookiesChecked) {
+                        updateConsent('ad_storage', false);
+                      }
+                      if (analyticalCookiesChecked) {
+                        updateConsent('analytics_storage', false);
+                      }
+                      setUserRevokedNecessary(true);
+                      setUserRevokedAllCookies(true);
+                      removeConsentCookie();
+                    } else {
+                      if (ENABLE_ANALYTICAL_COOKIES && analyticalCookiesChecked) {
+                        setConsentCookie(NECESSARY_ANALYTICAL);
+                      } else {
+                        setConsentCookie(ONLY_NECESSARY);
+                      }
+                    }
+                  } }
+                  checked={necessaryCookiesChecked}
+                  className="p4-custom-control-input"
+                />
+                <FrontendRichText
+                  tagName="span"
+                  className="custom-control-description"
+                  placeholder={__('Enter necessary cookies name', 'planet4-blocks-backend')}
+                  value={getFieldValue('necessary_cookies_name')}
+                  onChange={toAttribute('necessary_cookies_name')}
+                  withoutInteractiveFormatting
+                  multiline="false"
+                  editable={isEditing}
+                  allowedFormats={[]}
+                />
+              </label>
+              {isEditing &&
+                <CookiesFieldResetButton
+                  fieldName='necessary_cookies_name'
+                  currentValue={necessary_cookies_name}
+                  toAttribute={toAttribute}
+                />
               }
-            } }
-            checked={analyticalCookiesChecked}
-            className="p4-custom-control-input"
-          />
-          <FrontendRichText
-            tagName="span"
-            className="custom-control-description"
-            placeholder={__('Enter analytical cookies name', 'planet4-blocks-backend')}
-            value={analytical_cookies_name}
-            onChange={toAttribute('analytical_cookies_name')}
-            withoutInteractiveFormatting
-            multiline="false"
-            editable={isEditing}
-            allowedFormats={[]}
-          />
-        </label>
-        <FrontendRichText
-          tagName="p"
-          className="cookies-checkbox-description"
-          placeholder={__('Enter analytical cookies description', 'planet4-blocks-backend')}
-          value={analytical_cookies_description}
-          onChange={toAttribute('analytical_cookies_description')}
-          withoutInteractiveFormatting
-          editable={isEditing}
-          allowedFormats={['core/bold', 'core/italic']}
-        />
-      </Fragment>
-      }
-      {(isEditing || (all_cookies_name && all_cookies_description)) &&
-      <Fragment>
-        <label className="custom-control"
-               style={isSelected ? { pointerEvents: 'none' } : null}>
-          <input
-            type="checkbox"
-            tabIndex={isSelected ? '-1' : null}
-            onChange={ () => {
-              updateConsent('ad_storage', !allCookiesChecked);
-              if (allCookiesChecked) {
-                setUserRevokedAllCookies(true);
-                if (ENABLE_ANALYTICAL_COOKIES && analyticalCookiesChecked) {
-                  setConsentCookie(NECESSARY_ANALYTICAL);
-                } else {
-                  setConsentCookie(ONLY_NECESSARY);
-                }
-              } else {
-                if (ENABLE_ANALYTICAL_COOKIES && analyticalCookiesChecked) {
-                  setConsentCookie(NECESSARY_ANALYTICAL_MARKETING);
-                } else {
-                  setConsentCookie(ALL_COOKIES);
-                }
+            </div>
+            <div className='d-flex align-items-center'>
+              <FrontendRichText
+                tagName="p"
+                className="cookies-checkbox-description"
+                placeholder={__('Enter necessary cookies description', 'planet4-blocks-backend')}
+                value={getFieldValue('necessary_cookies_description')}
+                onChange={toAttribute('necessary_cookies_description')}
+                withoutInteractiveFormatting
+                editable={isEditing}
+                allowedFormats={['core/bold', 'core/italic']}
+              />
+              {isEditing &&
+                <CookiesFieldResetButton
+                  fieldName='necessary_cookies_description'
+                  currentValue={necessary_cookies_description}
+                  toAttribute={toAttribute}
+                />
               }
-            } }
-            name="all_cookies"
-            checked={allCookiesChecked}
-            className="p4-custom-control-input"
-          />
-          <FrontendRichText
-            tagName="span"
-            className="custom-control-description"
-            placeholder={__('Enter all cookies name', 'planet4-blocks-backend')}
-            value={all_cookies_name}
-            onChange={toAttribute('all_cookies_name')}
-            withoutInteractiveFormatting
-            multiline="false"
-            editable={isEditing}
-            allowedFormats={[]}
-          />
-        </label>
-        <FrontendRichText
-          tagName="p"
-          className="cookies-checkbox-description"
-          placeholder={__('Enter all cookies description', 'planet4-blocks-backend')}
-          value={all_cookies_description}
-          onChange={toAttribute('all_cookies_description')}
-          withoutInteractiveFormatting
-          editable={isEditing}
-          allowedFormats={['core/bold', 'core/italic']}
-        />
-      </Fragment>
-      }
-    </section>
-  </Fragment>;
+            </div>
+          </>
+        }
+        {(ENABLE_ANALYTICAL_COOKIES && (isEditing || (analytical_cookies_name !== '' && analytical_cookies_description !== ''))) &&
+          <>
+            <div className='d-flex align-items-center'>
+              <label className="custom-control" style={isSelected ? { pointerEvents: 'none' } : null}>
+                <input
+                  type="checkbox"
+                  tabIndex={isSelected ? '-1' : null}
+                  name="analytical_cookies"
+                  onChange={() => {
+                    updateConsent('analytics_storage', !analyticalCookiesChecked);
+                    if (analyticalCookiesChecked) {
+                      setUserRevokedAnalytical(true);
+                      setUserRevokedAllCookies(true);
+                      if (allCookiesChecked) {
+                        setConsentCookie(ALL_COOKIES);
+                      } else {
+                        setConsentCookie(ONLY_NECESSARY);
+                      }
+                    } else {
+                      if (allCookiesChecked) {
+                        setConsentCookie(NECESSARY_ANALYTICAL_MARKETING);
+                      } else {
+                        setConsentCookie(NECESSARY_ANALYTICAL);
+                      }
+                    }
+                  } }
+                  checked={analyticalCookiesChecked}
+                  className="p4-custom-control-input"
+                />
+                <FrontendRichText
+                  tagName="span"
+                  className="custom-control-description"
+                  placeholder={__('Enter analytical cookies name', 'planet4-blocks-backend')}
+                  value={getFieldValue('analytical_cookies_name')}
+                  onChange={toAttribute('analytical_cookies_name')}
+                  withoutInteractiveFormatting
+                  multiline="false"
+                  editable={isEditing}
+                  allowedFormats={[]}
+                />
+              </label>
+              {isEditing &&
+                <CookiesFieldResetButton
+                  fieldName='analytical_cookies_name'
+                  currentValue={analytical_cookies_name}
+                  toAttribute={toAttribute}
+                />
+              }
+            </div>
+            <div className='d-flex align-items-center'>
+              <FrontendRichText
+                tagName="p"
+                className="cookies-checkbox-description"
+                placeholder={__('Enter analytical cookies description', 'planet4-blocks-backend')}
+                value={getFieldValue('analytical_cookies_description')}
+                onChange={toAttribute('analytical_cookies_description')}
+                withoutInteractiveFormatting
+                editable={isEditing}
+                allowedFormats={['core/bold', 'core/italic']}
+              />
+              {isEditing &&
+                <CookiesFieldResetButton
+                  fieldName='analytical_cookies_description'
+                  currentValue={analytical_cookies_description}
+                  toAttribute={toAttribute}
+                />
+              }
+            </div>
+          </>
+        }
+        {(isEditing || (all_cookies_name !== '' && all_cookies_description !== '')) &&
+          <>
+            <div className='d-flex align-items-center'>
+              <label className="custom-control" style={isSelected ? { pointerEvents: 'none' } : null}>
+                <input
+                  type="checkbox"
+                  tabIndex={isSelected ? '-1' : null}
+                  onChange={ () => {
+                    updateConsent('ad_storage', !allCookiesChecked);
+                    if (allCookiesChecked) {
+                      setUserRevokedAllCookies(true);
+                      if (ENABLE_ANALYTICAL_COOKIES && analyticalCookiesChecked) {
+                        setConsentCookie(NECESSARY_ANALYTICAL);
+                      } else {
+                        setConsentCookie(ONLY_NECESSARY);
+                      }
+                    } else {
+                      if (ENABLE_ANALYTICAL_COOKIES && analyticalCookiesChecked) {
+                        setConsentCookie(NECESSARY_ANALYTICAL_MARKETING);
+                      } else {
+                        setConsentCookie(ALL_COOKIES);
+                      }
+                    }
+                  } }
+                  name="all_cookies"
+                  checked={allCookiesChecked}
+                  className="p4-custom-control-input"
+                />
+                <FrontendRichText
+                  tagName="span"
+                  className="custom-control-description"
+                  placeholder={__('Enter all cookies name', 'planet4-blocks-backend')}
+                  value={getFieldValue('all_cookies_name')}
+                  onChange={toAttribute('all_cookies_name')}
+                  withoutInteractiveFormatting
+                  multiline="false"
+                  editable={isEditing}
+                  allowedFormats={[]}
+                />
+              </label>
+              {isEditing &&
+                <CookiesFieldResetButton
+                  fieldName='all_cookies_name'
+                  currentValue={all_cookies_name}
+                  toAttribute={toAttribute}
+                />
+              }
+            </div>
+            <div className='d-flex align-items-center'>
+              <FrontendRichText
+                tagName="p"
+                className="cookies-checkbox-description"
+                placeholder={__('Enter all cookies description', 'planet4-blocks-backend')}
+                value={getFieldValue('all_cookies_description')}
+                onChange={toAttribute('all_cookies_description')}
+                withoutInteractiveFormatting
+                editable={isEditing}
+                allowedFormats={['core/bold', 'core/italic']}
+              />
+              {isEditing &&
+                <CookiesFieldResetButton
+                  fieldName='all_cookies_description'
+                  currentValue={all_cookies_description}
+                  toAttribute={toAttribute}
+                />
+              }
+            </div>
+          </>
+        }
+      </section>
+    </>
+  );
 }

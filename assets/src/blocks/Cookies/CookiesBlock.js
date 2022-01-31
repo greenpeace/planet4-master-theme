@@ -24,27 +24,21 @@ export class CookiesBlock {
         },
         necessary_cookies_name: {
           type: 'string',
-          default: ''
         },
         necessary_cookies_description: {
           type: 'string',
-          default: ''
         },
         all_cookies_name: {
           type: 'string',
-          default: ''
         },
         all_cookies_description: {
           type: 'string',
-          default: ''
         },
         analytical_cookies_name: {
           type: 'string',
-          default: ''
         },
         analytical_cookies_description: {
           type: 'string',
-          default: ''
         },
       },
       edit: CookiesEditor,
