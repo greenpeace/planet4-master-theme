@@ -12,8 +12,12 @@
   .tag-wrap-bullet {
     pointer-events: none;
     font-weight: 400;
-    margin: 0 $sp-1;
+    margin-inline-end: $sp-1;
     color: $link-color;
+  }
+
+  .tag-wrap-bullet {
+    margin-inline-start: $sp-1;
   }
 
   .tag-item {
@@ -26,6 +30,10 @@
       }
     }
     display: inline-block;
+
+    &:not(:only-child):not(:last-child):not(.page-type) {
+      margin-inline-end: $sp-1;
+    }
   }
 
   .main-tag-chevron {
