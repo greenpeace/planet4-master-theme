@@ -51,7 +51,7 @@ export const HappypointFrontend = ({
           {use_embed_code
             ? <div className="col-md-10 mt-5" id="happy-point" />
             : <>
-              {mailing_list_iframe && url && (
+              {url && (
                 <div className="col-md-10 happy-point" id="happy-point" data-src={url}>
                   <iframe
                     src={url}
