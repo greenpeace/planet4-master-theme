@@ -237,12 +237,63 @@ class Settings {
 				'title'  => 'Cookies',
 				'fields' => [
 					[
-						'name'    => __( 'Cookies Text', 'planet4-master-theme-backend' ),
+						'name'    => __( 'Cookies Box General Text', 'planet4-master-theme-backend' ),
 						'id'      => 'cookies_field',
 						'type'    => 'wysiwyg',
 						'options' => [
 							'textarea_rows' => 5,
 							'media_buttons' => false,
+						],
+					],
+					[
+						'name' => __( 'Necessary Cookies label', 'planet4-master-theme-backend' ),
+						'id'   => 'necessary_cookies_name',
+						'type' => 'text',
+					],
+					[
+						'name'    => __( 'Necessary Cookies description', 'planet4-master-theme-backend' ),
+						'id'      => 'necessary_cookies_description',
+						'type'    => 'wysiwyg',
+						'options' => [
+							'textarea_rows' => 2,
+							'media_buttons' => false,
+							'quicktags'     => [
+								'buttons' => 'strong,em',
+							],
+						],
+					],
+					[
+						'name' => __( 'Analytical Cookies label', 'planet4-master-theme-backend' ),
+						'id'   => 'analytical_cookies_name',
+						'type' => 'text',
+					],
+					[
+						'name'    => __( 'Analytical Cookies description', 'planet4-master-theme-backend' ),
+						'id'      => 'analytical_cookies_description',
+						'type'    => 'wysiwyg',
+						'options' => [
+							'textarea_rows' => 2,
+							'media_buttons' => false,
+							'quicktags'     => [
+								'buttons' => 'strong,em',
+							],
+						],
+					],
+					[
+						'name' => __( 'All Cookies label', 'planet4-master-theme-backend' ),
+						'id'   => 'all_cookies_name',
+						'type' => 'text',
+					],
+					[
+						'name'    => __( 'All Cookies description', 'planet4-master-theme-backend' ),
+						'id'      => 'all_cookies_description',
+						'type'    => 'wysiwyg',
+						'options' => [
+							'textarea_rows' => 2,
+							'media_buttons' => false,
+							'quicktags'     => [
+								'buttons' => 'strong,em',
+							],
 						],
 					],
 
