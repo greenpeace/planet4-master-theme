@@ -179,7 +179,6 @@ $navbar-default-height: 60px;
   }
 
   @include large-and-up {
-    display: none;
     background: inherit;
     display: flex;
     flex-grow: 1;
