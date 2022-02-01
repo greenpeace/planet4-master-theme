@@ -110,6 +110,74 @@ const closeElement = (event, buttonClass) => {
   closeButton.click();
 };
 
+/**
+ * Set the mobile tabs menu behavior on scroll
+ * Mobile tabs menu should hide when user scrolls down, and reappear when they scroll up
+ */
+const setMobileTabsMenuScroll = () => {
+  const menu = document.getElementById('nav-mobile');
+  if (!menu) {
+    return;
+  }
+
+  const distToClose = 50
+    , distToOpen = 50;
+  let lastScrollDir = null
+    , lastScrollTop = window.pageYOffset || document.documentElement.scrollTop
+    , lastScrollRef = lastScrollTop;
+
+  /**
+   * Get scroll direction, distance from the lastScrollTop, and distance from a reference point
+   *
+   * @return {Object} {scroll direction, top position, distance scrolled, distance scrolled from ref point}
+   */
+  const scrollData = () => {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop === lastScrollTop) {
+      return {};
+    }
+
+    let dir = scrollTop > lastScrollTop ? 'down' : 'up';
+    let dist = Math.abs(scrollTop - lastScrollTop);
+    let ref = Math.abs(scrollTop - lastScrollRef);
+    lastScrollTop = Math.max(0, scrollTop);
+    return {dir: dir, pos: scrollTop, dist: dist, ref: ref};
+  };
+
+  /**
+   * Show/hide tabs menu depending on scroll direction and distance scrolled from ref point
+   * Update reference point and reference direction only on state change
+   */
+  const toggleMobileTabsMenu = () => {
+    const {dir, ref} = scrollData();
+    if (!dir || dir === lastScrollDir) {
+      return;
+    }
+
+    // Hide
+    if (dir === 'down' && ref >= distToClose) {
+      lastScrollDir = dir;
+      lastScrollRef = lastScrollTop;
+      menu.classList.add('mobile-menu-hidden');
+      return;
+    }
+
+    // Show
+    if (dir === 'up' && ref >= distToOpen) {
+      lastScrollDir = dir;
+      lastScrollRef = lastScrollTop;
+      menu.classList.remove('mobile-menu-hidden');
+      return;
+    }
+  };
+
+  ['touchmove', 'scroll'].forEach((eventName) => {
+    document.addEventListener(eventName, () => {
+      toggleMobileTabsMenu();
+    });
+  });
+};
+
 export const setupHeader = () => {
   const toggleElementClasses = [
     '.navbar-dropdown-toggle',
@@ -160,4 +228,6 @@ export const setupHeader = () => {
       searchFocused = true;
     }
   });
+
+  setMobileTabsMenuScroll();
 };
