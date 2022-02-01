@@ -153,6 +153,27 @@ export const setupCookies = () => {
     };
   }
 
+  const rejectAllCookies = () => {
+    createCookie('active_consent_choice', '1', 365);
+    createCookie('greenpeace', ONLY_NECESSARY, 365);
+
+    // Grant ad storage and analytics storage if Google Consent Mode is enabled.
+    updateGoogleConsent('ad_storage', false);
+    if (ENABLE_ANALYTICAL_COOKIES) {
+      updateGoogleConsent('analytics_storage', false);
+    }
+
+    // DataLayer push event on cookies consent.
+    dataLayer.push({
+      'event' : 'cookiesConsent'
+    });
+
+    cookiesBox.classList.remove('shown');
+  };
+
+  const rejectAllCookiesButtons = [...cookiesBox.querySelectorAll('.reject-all-cookies')];
+  rejectAllCookiesButtons.forEach(rejectAllCookiesButton => rejectAllCookiesButton.onclick = rejectAllCookies);
+
   const greenpeace = readCookie('greenpeace');
   const no_track = readCookie('no_track');
   // Make the necessary cookies checked by default on user's first visit.

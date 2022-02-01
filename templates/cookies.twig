@@ -1,13 +1,16 @@
 {% if ( cookies.text ) %}
 	<div class="cookie-notice" id="set-cookie">
-		{% include 'cookies/cookies_settings.twig' with { enable_analytical: cookies.enable_analytical, settings_copy: cookies.settings_copy } %}
+		{% include 'cookies/cookies_settings.twig' %}
 		<div class="cookies-intro">
 			<div class="cookies-text">
 				{{ cookies.text|e('wp_kses_post')|raw }}
 			</div>
-			<div class="cookies-buttons">
+			<div class="cookies-buttons {{ cookies.enable_reject_all_cookies ? 'with-reject-all' : '' }}">
 				<button class="btn btn-secondary p-0" id="show-cookies-settings">{{ __( 'Settings', 'planet4-master-theme' ) }}</button>
 				<button class="btn btn-primary p-0 allow-all-cookies">{{ __( 'Accept all cookies', 'planet4-master-theme' ) }}</button>
+				{% if cookies.enable_reject_all_cookies %}
+					<button class="btn reject-all-cookies">{{ __( 'Reject all cookies', 'planet4-master-theme' ) }}</button>
+				{% endif %}
 			</div>
 		</div>
 	</div>

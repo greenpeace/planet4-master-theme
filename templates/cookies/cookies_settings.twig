@@ -1,9 +1,9 @@
-{% set necessary_cookies_name = settings_copy.necessary_cookies_name %}
-{% set necessary_cookies_description = settings_copy.necessary_cookies_description %}
-{% set analytical_cookies_name = settings_copy.analytical_cookies_name %}
-{% set analytical_cookies_description = settings_copy.analytical_cookies_description %}
-{% set all_cookies_name = settings_copy.all_cookies_name %}
-{% set all_cookies_description = settings_copy.all_cookies_description %}
+{% set necessary_cookies_name = cookies.settings_copy.necessary_cookies_name %}
+{% set necessary_cookies_description = cookies.settings_copy.necessary_cookies_description %}
+{% set analytical_cookies_name = cookies.settings_copy.analytical_cookies_name %}
+{% set analytical_cookies_description = cookies.settings_copy.analytical_cookies_description %}
+{% set all_cookies_name = cookies.settings_copy.all_cookies_name %}
+{% set all_cookies_description = cookies.settings_copy.all_cookies_description %}
 
 <div class="d-none cookies-settings">
 	<div class="close-cookies-settings"></div>
@@ -18,7 +18,7 @@
 				<p>{{ necessary_cookies_description }}</p>
 			{% endif %}
 		{% endif %}
-		{% if enable_analytical and analytical_cookies_name is not empty %}
+		{% if cookies.enable_analytical_cookies and analytical_cookies_name is not empty %}
 			<label class="custom-control">
 				<input type="checkbox" name="analytical_cookies" />
 				<span class="custom-control-description">{{ analytical_cookies_name }}</span>
@@ -37,7 +37,10 @@
 			{% endif %}
 		{% endif %}
 	</div>
-	<div class="cookies-settings-buttons">
+	<div class="cookies-settings-buttons {{ cookies.enable_reject_all_cookies ? 'with-reject-all' : '' }}">
+		{% if cookies.enable_reject_all_cookies %}
+			<button class="btn btn-secondary reject-all-cookies">{{ __( 'Reject all', 'planet4-master-theme' ) }}</button>
+		{% endif %}
 		<button class="btn btn-secondary allow-all-cookies">{{ __( 'Allow all', 'planet4-master-theme' ) }}</button>
 		<button class="btn btn-primary" id="save-cookies-settings">{{ __( 'Save preferences', 'planet4-master-theme' ) }}</button>
 	</div>

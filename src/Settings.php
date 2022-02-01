@@ -328,6 +328,13 @@ class Settings {
 						'id'   => 'enable_analytical_cookies',
 						'type' => 'checkbox',
 					],
+
+					[
+						'name' => __( 'Reject all cookies', 'planet4-master-theme-backend' ),
+						'desc' => __( 'Add the "Reject all" option in the Cookies box', 'planet4-master-theme-backend' ),
+						'id'   => 'enable_reject_all_cookies',
+						'type' => 'checkbox',
+					],
 				],
 			],
 			'planet4_settings_copyright'        => [

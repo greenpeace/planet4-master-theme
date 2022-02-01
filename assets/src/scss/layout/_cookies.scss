@@ -47,13 +47,32 @@
     width: 100%;
   }
 
-  .cookies-buttons .btn {
-    width: 100%;
-    line-height: 2.4;
-    font-size: 14px;
+  .cookies-buttons {
+    &.with-reject-all {
+      .btn-primary {
+        margin-bottom: $sp-2;
+      }
 
-    &:first-child {
-      margin-bottom: $sp-2;
+      .reject-all-cookies {
+        background: none;
+        border: none;
+        color: $grey-40;
+        line-height: 1;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .btn {
+      width: 100%;
+      line-height: 2.4;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      margin-top: $sp-2;
     }
   }
 
@@ -75,12 +94,17 @@
       display: flex;
       justify-content: space-between;
 
-      .btn {
-        width: 130px;
+      .btn-primary {
+        margin: 0;
+      }
 
-        &:first-child {
-          margin-bottom: 0;
-        }
+      &.with-reject-all {
+        flex-wrap: wrap;
+        align-items: baseline;
+      }
+
+      .btn:not(.reject-all-cookies) {
+        width: 130px;
       }
     }
 

@@ -71,6 +71,15 @@
       font-size: 14px;
       padding: 0;
     }
+
+    &.with-reject-all {
+      flex-wrap: wrap;
+
+      .btn-primary {
+        width: 100%;
+        margin-top: 16px;
+      }
+    }
   }
 
   @include medium-and-up {
@@ -88,9 +97,30 @@
       padding-right: $sp-4;
     }
 
-    .cookies-settings-buttons .btn {
-      padding: 0 16px;
-      width: auto;
+    .cookies-settings-buttons {
+      &.with-reject-all {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+
+        .btn-secondary {
+          width: 50%;
+
+          &:first-child {
+            margin-inline-end: $sp-2;
+          }
+        }
+
+        .btn-primary {
+          flex-grow: 1;
+          margin-top: 0;
+          margin-inline-start: $sp-8;
+        }
+      }
+
+      .btn {
+        padding: 0 16px;
+        width: auto;
+      }
     }
   }
 
