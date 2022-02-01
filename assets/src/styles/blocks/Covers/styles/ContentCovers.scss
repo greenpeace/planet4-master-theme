@@ -1,6 +1,7 @@
 .content-covers-block {
   &.carousel-layout {
     .cover {
+      width: 154px;
       min-width: 154px;
 
       &:not(:last-child) {
@@ -8,6 +9,7 @@
       }
 
       @include medium-and-up {
+        width: 200px;
         min-width: 200px;
 
         &:not(:last-child) {
@@ -16,10 +18,12 @@
       }
 
       @include large-and-up {
+        width: 216px;
         min-width: 216px;
       }
 
       @include x-large-and-up {
+        width: 261px;
         min-width: 261px;
       }
     }
