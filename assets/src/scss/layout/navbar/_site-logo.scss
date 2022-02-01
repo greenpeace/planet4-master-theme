@@ -1,5 +1,9 @@
 .site-logo {
-  line-height: $menu-height;
+  line-height: $menu-height-small;
+
+  @include large-and-up {
+    line-height: $menu-height-large;
+  }
 
   img {
     height: 26px;

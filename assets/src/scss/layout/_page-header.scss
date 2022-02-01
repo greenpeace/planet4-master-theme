@@ -78,6 +78,12 @@
   }
 }
 
+.with-mobile-tabs ~ .page-header {
+  @include medium-and-less {
+    padding-top: 140px;
+  }
+}
+
 .page-header-background {
   overflow: hidden;
   position: absolute;

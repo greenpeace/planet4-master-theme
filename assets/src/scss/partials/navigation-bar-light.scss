@@ -14,6 +14,9 @@
   --top-navigation--input--placeholder--color: #{$grey-40};
   --nav-link--color: #{$black};
   --nav-link--hover--color: #{$black};
-  --nav-link--hover--text-decoration: underline 3px #{$gp-green};
-  --nav-link--hover--text-underline-position: under;
+}
+
+#nav-mobile-menu {
+  --nav-link--color: #{$grey-40};
+  --nav-link--opacity: 1;
 }

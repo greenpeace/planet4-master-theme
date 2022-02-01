@@ -1,0 +1,65 @@
+@import "../base/colors";
+
+#nav-mobile {
+  _-- {
+    height: 50px;
+  }
+
+  display: flex;
+  flex: 1 1 100%;
+  flex-grow: 1;
+  justify-content: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  transition: height 0.2s linear;
+
+  @include large-and-up {
+    display: none;
+  }
+
+  &.mobile-menu-hidden {
+    height: 0;
+    transition: height 0.2s linear;
+  }
+}
+
+#nav-mobile::-webkit-scrollbar {
+  display: none;
+}
+
+#nav-mobile-menu {
+  --nav-link--opacity: 0.5;
+  --nav-link--padding: 0;
+  --nav-link-active--text-decoration-line: none;
+  --nav-link--hover--text-decoration-line: none;
+  --nav-link--hover--text-decoration-thickness: 3px;
+
+  display: flex;
+  width: 100%;
+
+  ul {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0;
+    padding-inline: 1rem 1rem;
+  }
+
+  .nav-item {
+    line-height: 50px;
+    margin: 0 20px;
+  }
+
+  a.nav-link {
+    white-space: nowrap;
+  }
+
+  // Underline animation with border-bottom
+  a.nav-link:hover:before,
+  .active a.nav-link:before {
+    transform: scaleX(1);
+    transition: transform 0.25s;
+  }
+}

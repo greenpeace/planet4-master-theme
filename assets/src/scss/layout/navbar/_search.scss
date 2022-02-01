@@ -7,15 +7,15 @@
   height: 56px;
   inset-inline-start: 0;
   position: fixed;
-  top: $menu-height;
+  top: $menu-height-small;
   z-index: 3;
   width: 100%;
 
   .admin-bar & {
-    top: $menu-height + 46px;
+    top: $menu-height-small + 46px;
 
     @media (min-width: 783px) {
-      top: $menu-height + 32px;
+      top: $menu-height-small + 32px;
     }
   }
 
@@ -164,8 +164,8 @@
 
 .nav-search-toggle-container {
   display: none;
-  height: $menu-height;
-  padding: 12px;
+  height: $menu-height-small;
+  padding: 8px 12px;
 
   &.medium-and-less {
     display: inline-block;
@@ -175,8 +175,10 @@
   }
 
   @include large-and-up {
-    display: inline-block;
     border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+    display: inline-block;
+    height: $menu-height-large;
+    padding: 12px;
   }
 
   @include x-large-and-up {
