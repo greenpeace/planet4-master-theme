@@ -30,6 +30,7 @@ module.exports = {
     "navigation-bar-light": './assets/src/scss/partials/navigation-bar-light.scss',
     archive_picker: './assets/src/js/archive_picker.js',
     "lite-yt-embed": './node_modules/lite-youtube-embed/src/lite-yt-embed.js',
+    menu_editor: './assets/src/js/menu_editor.js',
   },
   output: {
     filename: '[name].js',
