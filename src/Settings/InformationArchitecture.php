@@ -46,7 +46,7 @@ class InformationArchitecture {
 				'id'   => self::MOBILE_TABS_MENU,
 				'name' => __( 'Enable mobile tabs menu', 'planet4-master-theme-backend' ),
 				'desc' => __(
-					'Display a sticky tabs menu visible only on mobile size.',
+					'Display a sticky tabs menu visible on screen width smaller than 992px.',
 					'planet4-master-theme-backend'
 				),
 				'type' => 'checkbox',

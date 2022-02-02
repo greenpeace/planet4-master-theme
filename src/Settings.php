@@ -3,7 +3,7 @@
 namespace P4\MasterTheme;
 
 use CMB2_Field;
-use P4\MasterTheme\Settings\InformationArchitecture;
+use P4\MasterTheme\Settings\InformationArchitecture as IA;
 
 /**
  * Class P4\MasterTheme\Settings
@@ -450,7 +450,7 @@ class Settings {
 				],
 			],
 			'planet4_settings_features'         => Features::get_options_page(),
-			'planet4_settings_ia'               => InformationArchitecture::get_options_page(),
+			'planet4_settings_ia'               => IA::get_options_page(),
 			'planet4_settings_notifications'    => [
 				'title'  => 'Notifications',
 				'fields' => [

@@ -217,7 +217,7 @@ $navbar-default-height: 60px;
 :root {
   --nav-link--color: $white;
   --nav-link--opacity: 1;
-  --nav-link--padding: 16px 0;
+  --nav-link--padding: #{$sp-2} 0;
   --nav-link-active--color: var(--nav-link--color, #{$white});
   --nav-link-active--opacity: var(--nav-link--opacity, 1);
   --nav-link-active--text-decoration-color: #{$gp-green};

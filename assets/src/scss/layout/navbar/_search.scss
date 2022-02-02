@@ -165,7 +165,7 @@
 .nav-search-toggle-container {
   display: none;
   height: $menu-height-small;
-  padding: 8px 12px;
+  padding: $sp-1 $sp-1x;
 
   &.medium-and-less {
     display: inline-block;
@@ -178,7 +178,7 @@
     border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
     display: inline-block;
     height: $menu-height-large;
-    padding: 12px;
+    padding: $sp-1x;
   }
 
   @include x-large-and-up {

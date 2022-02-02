@@ -120,11 +120,11 @@ const setMobileTabsMenuScroll = () => {
     return;
   }
 
-  const distToClose = 50
-    , distToOpen = 50;
-  let lastScrollDir = null
-    , lastScrollTop = window.pageYOffset || document.documentElement.scrollTop
-    , lastScrollRef = lastScrollTop;
+  const distToClose = 50;
+  const distToOpen = 50;
+  let lastScrollDir = null;
+  let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  let lastScrollRef = lastScrollTop;
 
   /**
    * Get scroll direction, distance from the lastScrollTop, and distance from a reference point
@@ -132,16 +132,16 @@ const setMobileTabsMenuScroll = () => {
    * @return {Object} {scroll direction, top position, distance scrolled, distance scrolled from ref point}
    */
   const scrollData = () => {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     if (scrollTop === lastScrollTop) {
       return {};
     }
 
-    let dir = scrollTop > lastScrollTop ? 'down' : 'up';
-    let dist = Math.abs(scrollTop - lastScrollTop);
-    let ref = Math.abs(scrollTop - lastScrollRef);
+    const dir = scrollTop > lastScrollTop ? 'down' : 'up';
+    const dist = Math.abs(scrollTop - lastScrollTop);
+    const ref = Math.abs(scrollTop - lastScrollRef);
     lastScrollTop = Math.max(0, scrollTop);
-    return {dir: dir, pos: scrollTop, dist: dist, ref: ref};
+    return { dir, pos: scrollTop, dist, ref };
   };
 
   /**
@@ -172,9 +172,7 @@ const setMobileTabsMenuScroll = () => {
   };
 
   ['touchmove', 'scroll'].forEach((eventName) => {
-    document.addEventListener(eventName, () => {
-      toggleMobileTabsMenu();
-    });
+    document.addEventListener(eventName, toggleMobileTabsMenu);
   });
 };
 
