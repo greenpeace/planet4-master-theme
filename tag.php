@@ -20,11 +20,12 @@ if ( is_tag() ) {
 	$context['tag']  = get_queried_object();
 	$explore_page_id = planet4_get_option( 'explore_page' );
 
-	$redirect_id = get_term_meta( $context['tag']->term_id, 'redirect_page', true );
-	if ( $redirect_id ) {
+	$redirect_id   = get_term_meta( $context['tag']->term_id, 'redirect_page', true );
+	$redirect_page = ! $redirect_id ? null : get_post( $redirect_id );
+
+	if ( $redirect_id && 'publish' === $redirect_page->post_status ) {
 
 		global $wp_query;
-		$redirect_page               = get_post( $redirect_id );
 		$wp_query->queried_object    = $redirect_page;
 		$wp_query->queried_object_id = $redirect_page->ID;
 

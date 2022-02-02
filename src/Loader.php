@@ -64,6 +64,7 @@ final class Loader {
 		$this->default_services = [
 			CustomTaxonomy::class,
 			PostCampaign::class,
+			ListingPage::class,
 			PostArchive::class,
 			Settings::class,
 			Features::class,

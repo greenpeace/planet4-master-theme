@@ -88,9 +88,10 @@ class Campaigns {
 			$dropdown_args = [
 				'show_option_none' => __( 'Select Page', 'planet4-master-theme-backend' ),
 				'hide_empty'       => 0,
-				'hierarchical'     => true,
-				'selected'         => $redirect_page,
+				'selected'         => esc_attr( $redirect_page ),
 				'name'             => 'redirect_page',
+				'post_type'        => ListingPage::POST_TYPE,
+				'post_status'      => [ 'publish', 'draft' ],
 			];
 			?>
 
@@ -99,7 +100,8 @@ class Campaigns {
 					<label><?php esc_html_e( 'Redirect Page', 'planet4-master-theme-backend' ); ?></label>
 				</th>
 				<td>
-					<?php wp_dropdown_pages( array_map( 'esc_attr', $dropdown_args ) ); ?> <a href="post.php?post=<?php echo esc_attr( $redirect_page ); ?>&action=edit" target="_blank"><?php esc_html_e( 'Edit', 'planet4-master-theme-backend' ); ?></a>
+					<?php wp_dropdown_pages( $dropdown_args ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<a href="post.php?post=<?php echo esc_attr( $redirect_page ); ?>&action=edit" target="_blank"><?php esc_html_e( 'Edit', 'planet4-master-theme-backend' ); ?></a>
 					<p class="description"><?php esc_html_e( 'Leave this empty if you want to use the automated Tag page. Otherwise pick a page to redirect this Tag to.', 'planet4-master-theme-backend' ); ?></p>
 				</td>
 			</tr>
@@ -133,7 +135,7 @@ class Campaigns {
 						<?php esc_html_e( 'Select/Upload Image', 'planet4-master-theme-backend' ); ?>
 					</button>
 					<p class="description"><?php esc_html_e( 'Associate this tag with an image.', 'planet4-master-theme-backend' ); ?></p>
-					<img class="attachment-thumbnail size-thumbnail" src="<?php echo esc_url( $attachment_url ); ?>"/>
+					<img style="max-width: 100%" class="attachment-thumbnail size-thumbnail" src="<?php echo esc_url( $attachment_url ); ?>"/>
 					<i class="dashicons dashicons-dismiss <?php echo $image_attributes ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
 				</td>
 			</tr>
