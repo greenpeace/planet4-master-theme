@@ -70,6 +70,10 @@
     margin-top: 0;
     margin-bottom: 0;
 
+    margin-left: calc(((100vw - 100%) / 2) * -1);
+    padding-left: calc(((100vw - 100%) / 2));
+    padding-right: calc(((100vw - 100%) / 2));
+
     @include large-and-up {
       margin-top: 96px;
       margin-bottom: 60px;
@@ -161,47 +165,6 @@
 
     .formblock-flex .en__field {
       width: 100%;
-    }
-
-    .en__field__element {
-      position: relative;
-
-      input[type=text],
-      select,
-      input[type=email],
-      input[type=tel] {
-        border: 1px solid #1a1a1a;
-        border-radius: 0;
-        margin-bottom: 20px;
-
-        &.is-invalid {
-          border: 1px solid #ff3333;
-          margin-bottom: 6px;
-        }
-      }
-    }
-
-    .invalid-feedback {
-      color: #ff3333;
-      font-weight: bold;
-      margin: 0;
-      padding: 0;
-      background: none;
-    }
-  }
-
-  .en__field__top__label {
-    position: absolute;
-    top: -.6rem;
-    background: white;
-    left: $sp-1;
-    padding: 0 8px;
-    font-weight: 600;
-    font-size: .75rem;
-
-    html[dir="rtl"] & {
-      left: auto;
-      right: $sp-1;
     }
   }
 }

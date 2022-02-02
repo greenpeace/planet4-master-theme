@@ -111,9 +111,7 @@ abstract class Base_Block {
 	 */
 	public static function enqueue_frontend_assets() {
 		$full_name   = static::get_full_block_name();
-		$beta_blocks = [
-			'planet4-blocks/enform',
-		];
+		$beta_blocks = [];
 
 		$to_look_for = $full_name;
 		if ( in_array( $full_name, $beta_blocks, true ) ) {

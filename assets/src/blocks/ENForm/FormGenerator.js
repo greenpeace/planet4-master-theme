@@ -29,8 +29,12 @@ const Input = (props) => {
   const {
     field,
     index,
-    onInputChange = null,
-    onBlur = null,
+    onInputChange = () => {
+      // no action by default
+    },
+    onBlur = () => {
+      // no action by default
+    },
     dependent_field,
     errors,
     is_side_style

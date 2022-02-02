@@ -1,8 +1,9 @@
 import {ENFormEditor} from './ENFormEditor';
+import {ENFormV1} from './deprecated/ENFormV1.js';
 import {frontendRendered} from '../frontendRendered';
 
 const { __ } = wp.i18n;
-const BLOCK_NAME = 'planet4-blocks/enform-beta';
+const BLOCK_NAME = 'planet4-blocks/enform';
 
 const attributes = {
   en_page_id: { type: 'integer', },
@@ -39,9 +40,9 @@ export const registerENForm = () => {
   const { registerBlockType } = wp.blocks;
 
   registerBlockType(BLOCK_NAME, {
-    title: 'EN Form (beta)',
+    title: 'EN Form',
     icon: 'feedback',
-    category: 'planet4-blocks-beta',
+    category: 'planet4-blocks',
     supports: {
       multiple: false,
     },
@@ -57,6 +58,9 @@ export const registerENForm = () => {
       let ordered_attrs = Object.fromEntries(Object.entries(props.attributes).sort());
 
       return frontendRendered(BLOCK_NAME)(ordered_attrs, props?.className);
-    }
+    },
+    deprecated: [
+      ENFormV1
+    ]
   });
 }

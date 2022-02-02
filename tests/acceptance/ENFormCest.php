@@ -415,11 +415,14 @@ class ENFormCest {
 		$I->fillField( 'supporter.emailAddress', 'test@example.com' );
 		$user_form_data['supporter']['emailAddress'] = 'test@example.com';
 
-		$json_body = $I->executeJS( 'return JSON.stringify(p4_enform_frontend.getFormData());' );
-		$I->clickWithLeftButton( '.btn-primary' );
+		$json_body = $I->executeJS( "return document.getElementById('form-data').dataset.postdata;" );
 
 		// Assert that the generated json payload contains all fields.
-		$I->assertEquals( json_decode( $json_body, true ), $user_form_data );
+		$expected = $user_form_data;
+		$actual = json_decode( $json_body, true );
+		$this->recursive_ksort($expected);
+		$this->recursive_ksort($actual);
+		$I->assertEquals( $expected, $actual );
 	}
 
 	/**
@@ -529,11 +532,14 @@ class ENFormCest {
 		$I->fillField( 'supporter.emailAddress', 'test@example.com' );
 		$user_form_data['supporter']['emailAddress'] = 'test@example.com';
 
-		$json_body = $I->executeJS( 'return JSON.stringify(p4_enform_frontend.getFormData());' );
-		$I->clickWithLeftButton( '.btn-primary' );
+		$json_body = $I->executeJS( "return document.getElementById('form-data').dataset.postdata;" );
 
 		// Assert that the generated json payload contains all fields.
-		$I->assertEquals( json_decode( $json_body, true ), $user_form_data );
+		$expected = $user_form_data;
+		$actual = json_decode( $json_body, true );
+		$this->recursive_ksort($expected);
+		$this->recursive_ksort($actual);
+		$I->assertEquals( $expected, $actual );
 	}
 
 	/**
@@ -644,10 +650,25 @@ class ENFormCest {
 		$I->fillField( 'supporter.emailAddress', 'test@example.com' );
 		$user_form_data['supporter']['emailAddress'] = 'test@example.com';
 
-		$json_body = $I->executeJS( 'return JSON.stringify(p4_enform_frontend.getFormData());' );
-		$I->clickWithLeftButton( '.btn-primary' );
+		$json_body = $I->executeJS( "return document.getElementById('form-data').dataset.postdata;" );
 
 		// Assert that the generated json payload contains all fields.
-		$I->assertEquals( json_decode( $json_body, true ), $user_form_data );
+		$expected = $user_form_data;
+		$actual = json_decode( $json_body, true );
+		$this->recursive_ksort($expected);
+		$this->recursive_ksort($actual);
+		$I->assertEquals( $expected, $actual );
+	}
+
+	/**
+	 * Recursive sort on array key.
+	 *
+	 * @param array $data The data.
+	 */
+	private function recursive_ksort(array &$data): void {
+		ksort($data);
+		foreach ($data as &$value) {
+			is_array($value) && $this->recursive_ksort($value);
+		}
 	}
 }
