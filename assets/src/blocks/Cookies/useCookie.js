@@ -39,9 +39,6 @@ export const useCookie = name => {
   return [
     value,
     setValue,
-    () => {
-      setValue(null);
-    }
   ];
 };
 

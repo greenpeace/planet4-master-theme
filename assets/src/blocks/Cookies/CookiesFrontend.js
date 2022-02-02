@@ -57,14 +57,12 @@ export const CookiesFrontend = props => {
   } = props;
 
   // Whether consent was revoked by the user since current page load.
-  const [userRevokedNecessary, setUserRevokedNecessary] = useState(false);
   const [userRevokedAllCookies, setUserRevokedAllCookies] = useState(false);
   const [userRevokedAnalytical, setUserRevokedAnalytical] = useState(false);
-  const [consentCookie, setConsentCookie, removeConsentCookie] = useCookie(CONSENT_COOKIE);
-  const necessaryCookiesChecked = [ONLY_NECESSARY, NECESSARY_ANALYTICAL, ALL_COOKIES, NECESSARY_ANALYTICAL_MARKETING].includes(consentCookie);
+  const [consentCookie, setConsentCookie] = useCookie(CONSENT_COOKIE);
   const analyticalCookiesChecked = [NECESSARY_ANALYTICAL, NECESSARY_ANALYTICAL_MARKETING].includes(consentCookie);
   const allCookiesChecked = ALL_COOKIES === consentCookie || NECESSARY_ANALYTICAL_MARKETING === consentCookie;
-  const hasConsent = allCookiesChecked || necessaryCookiesChecked || analyticalCookiesChecked;
+  const hasConsent = allCookiesChecked || analyticalCookiesChecked;
 
   const updateNoTrackCookie = () => {
     if (hasConsent) {
@@ -78,13 +76,9 @@ export const CookiesFrontend = props => {
         writeCookie('active_consent_choice', '1');
         hideCookieNotice();
       }
-    } else if (userRevokedNecessary) {
-      writeCookie('no_track', 'true');
-      removeCookie('active_consent_choice');
-      showCookieNotice();
     }
   };
-  useEffect(updateNoTrackCookie, [hasConsent, userRevokedNecessary, userRevokedAnalytical]);
+  useEffect(updateNoTrackCookie, [hasConsent, userRevokedAnalytical]);
 
   const updateConsent = (key, granted) => {
     if (!ENABLE_GOOGLE_CONSENT_MODE) {
@@ -156,45 +150,18 @@ export const CookiesFrontend = props => {
         {(isEditing || (necessary_cookies_name !== '' && necessary_cookies_description !== '')) &&
           <>
             <div className='d-flex align-items-center'>
-              <label className="custom-control" style={isSelected ? { pointerEvents: 'none' } : null}>
-                <input
-                  type="checkbox"
-                  tabIndex={isSelected ? '-1' : null}
-                  name="necessary_cookies"
-                  onChange={ () => {
-                    if (necessaryCookiesChecked) {
-                      if (allCookiesChecked) {
-                        updateConsent('ad_storage', false);
-                      }
-                      if (analyticalCookiesChecked) {
-                        updateConsent('analytics_storage', false);
-                      }
-                      setUserRevokedNecessary(true);
-                      setUserRevokedAllCookies(true);
-                      removeConsentCookie();
-                    } else {
-                      if (ENABLE_ANALYTICAL_COOKIES && analyticalCookiesChecked) {
-                        setConsentCookie(NECESSARY_ANALYTICAL);
-                      } else {
-                        setConsentCookie(ONLY_NECESSARY);
-                      }
-                    }
-                  } }
-                  checked={necessaryCookiesChecked}
-                  className="p4-custom-control-input"
-                />
-                <FrontendRichText
-                  tagName="span"
-                  className="custom-control-description"
-                  placeholder={__('Enter necessary cookies name', 'planet4-blocks-backend')}
-                  value={getFieldValue('necessary_cookies_name')}
-                  onChange={toAttribute('necessary_cookies_name')}
-                  withoutInteractiveFormatting
-                  multiline="false"
-                  editable={isEditing}
-                  allowedFormats={[]}
-                />
-              </label>
+              <FrontendRichText
+                tagName="span"
+                className="custom-control-description"
+                placeholder={__('Enter necessary cookies name', 'planet4-blocks-backend')}
+                value={getFieldValue('necessary_cookies_name')}
+                onChange={toAttribute('necessary_cookies_name')}
+                withoutInteractiveFormatting
+                multiline="false"
+                editable={isEditing}
+                allowedFormats={[]}
+              />
+              <span className="always-enabled">{__('Always enabled', 'planet4-master-theme')}</span>
               {isEditing &&
                 <CookiesFieldResetButton
                   fieldName='necessary_cookies_name'
