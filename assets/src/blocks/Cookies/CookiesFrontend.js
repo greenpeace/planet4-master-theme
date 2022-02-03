@@ -4,11 +4,6 @@ import { useState, useEffect } from 'react';
 import { CookiesFieldResetButton } from './CookiesFieldResetButton';
 
 const { __ } = wp.i18n;
-const CONSENT_COOKIE = 'greenpeace';
-const ONLY_NECESSARY = '1';
-const ALL_COOKIES = '2';
-const NECESSARY_ANALYTICAL = '3';
-const NECESSARY_ANALYTICAL_MARKETING = '4';
 
 const dataLayer = window.dataLayer || [];
 
@@ -24,19 +19,19 @@ const ENABLE_ANALYTICAL_COOKIES = window.p4bk_vars.enable_analytical_cookies;
 // Planet4 settings (Planet 4 > Analytics > Enable Google Consent Mode).
 const ENABLE_GOOGLE_CONSENT_MODE = window.p4bk_vars.enable_google_consent_mode;
 
-const showCookieNotice = () => {
-  // the .cookie-notice element belongs to the P4 Master Theme
-  const cookieElement = document.querySelector('#set-cookie');
-  if (cookieElement) {
-    cookieElement.classList.add('shown');
-  }
-}
+const CONSENT_COOKIE = 'greenpeace';
+const NO_TRACK_COOKIE = 'no_track';
+const ACTIVE_CONSENT_COOKIE = 'active_consent_choice';
+const ONLY_NECESSARY = '1';
+const NECESSARY_MARKETING = '2';
+const NECESSARY_ANALYTICAL = '3';
+const NECESSARY_ANALYTICAL_MARKETING = '4';
 
-const hideCookieNotice = () => {
+const hideCookiesBox = () => {
   // the .cookie-notice element belongs to the P4 Master Theme
-  const cookieElement = document.querySelector('#set-cookie');
-  if (cookieElement) {
-    cookieElement.classList.remove('shown');
+  const cookiesBox = document.querySelector('#set-cookie');
+  if (cookiesBox) {
+    cookiesBox.classList.remove('shown');
   }
 }
 
@@ -57,30 +52,27 @@ export const CookiesFrontend = props => {
   } = props;
 
   // Whether consent was revoked by the user since current page load.
-  const [userRevokedAllCookies, setUserRevokedAllCookies] = useState(false);
-  const [userRevokedAnalytical, setUserRevokedAnalytical] = useState(false);
+  const [userRevokedMarketingCookies, setUserRevokedMarketingCookies] = useState(false);
+  const [userRevokedAnalyticalCookies, setUserRevokedAnalyticalCookies] = useState(false);
   const [consentCookie, setConsentCookie] = useCookie(CONSENT_COOKIE);
   const analyticalCookiesChecked = [NECESSARY_ANALYTICAL, NECESSARY_ANALYTICAL_MARKETING].includes(consentCookie);
-  const allCookiesChecked = ALL_COOKIES === consentCookie || NECESSARY_ANALYTICAL_MARKETING === consentCookie;
-  const hasConsent = allCookiesChecked || analyticalCookiesChecked;
+  const marketingCookiesChecked = [NECESSARY_MARKETING, NECESSARY_ANALYTICAL_MARKETING].includes(consentCookie);
+  const hasConsent = marketingCookiesChecked || analyticalCookiesChecked;
 
   const updateNoTrackCookie = () => {
     if (hasConsent) {
-      removeCookie('no_track');
-      if (ENABLE_ANALYTICAL_COOKIES) {
-        if (parseInt(consentCookie) === 4) {
-          writeCookie('active_consent_choice', '1');
-          hideCookieNotice();
-        }
-      } else if (parseInt(consentCookie) === 2) {
-        writeCookie('active_consent_choice', '1');
-        hideCookieNotice();
-      }
+      removeCookie(NO_TRACK_COOKIE);
+    } else {
+      writeCookie(NO_TRACK_COOKIE, '1');
     }
   };
-  useEffect(updateNoTrackCookie, [hasConsent, userRevokedAnalytical]);
+  useEffect(updateNoTrackCookie, [userRevokedAnalyticalCookies, userRevokedMarketingCookies]);
 
   const updateConsent = (key, granted) => {
+    dataLayer.push({
+      'event' : 'updateConsent'
+    });
+
     if (!ENABLE_GOOGLE_CONSENT_MODE) {
       return;
     }
@@ -95,20 +87,20 @@ export const CookiesFrontend = props => {
   }
 
   const toggleHubSpotConsent = () => {
-    if (!allCookiesChecked && userRevokedAllCookies) {
+    if (!marketingCookiesChecked && userRevokedMarketingCookies) {
       const _hsp = window._hsp = window._hsp || [];
       _hsp.push(['revokeCookieConsent']);
     }
   }
-  useEffect(toggleHubSpotConsent, [allCookiesChecked, userRevokedAllCookies])
+  useEffect(toggleHubSpotConsent, [marketingCookiesChecked, userRevokedMarketingCookies])
 
   const updateActiveConsentChoice = () => {
-    if (allCookiesChecked || analyticalCookiesChecked) {
-      writeCookie('active_consent_choice', '1');
-      hideCookieNotice();
+    if (hasConsent) {
+      writeCookie(ACTIVE_CONSENT_COOKIE, '1');
+      hideCookiesBox();
     }
   }
-  useEffect(updateActiveConsentChoice, [allCookiesChecked, analyticalCookiesChecked]);
+  useEffect(updateActiveConsentChoice, [marketingCookiesChecked, analyticalCookiesChecked]);
 
   const getFieldValue = fieldName => {
     if (props[fieldName] === undefined) {
@@ -202,21 +194,20 @@ export const CookiesFrontend = props => {
                   onChange={() => {
                     updateConsent('analytics_storage', !analyticalCookiesChecked);
                     if (analyticalCookiesChecked) {
-                      setUserRevokedAnalytical(true);
-                      setUserRevokedAllCookies(true);
-                      if (allCookiesChecked) {
-                        setConsentCookie(ALL_COOKIES);
+                      setUserRevokedAnalyticalCookies(true);
+                      if (marketingCookiesChecked) {
+                        setConsentCookie(NECESSARY_MARKETING);
                       } else {
                         setConsentCookie(ONLY_NECESSARY);
                       }
                     } else {
-                      if (allCookiesChecked) {
+                      if (marketingCookiesChecked) {
                         setConsentCookie(NECESSARY_ANALYTICAL_MARKETING);
                       } else {
                         setConsentCookie(NECESSARY_ANALYTICAL);
                       }
                     }
-                  } }
+                  }}
                   checked={analyticalCookiesChecked}
                   className="p4-custom-control-input"
                 />
@@ -269,9 +260,9 @@ export const CookiesFrontend = props => {
                   type="checkbox"
                   tabIndex={isSelected ? '-1' : null}
                   onChange={ () => {
-                    updateConsent('ad_storage', !allCookiesChecked);
-                    if (allCookiesChecked) {
-                      setUserRevokedAllCookies(true);
+                    updateConsent('ad_storage', !marketingCookiesChecked);
+                    if (marketingCookiesChecked) {
+                      setUserRevokedMarketingCookies(true);
                       if (ENABLE_ANALYTICAL_COOKIES && analyticalCookiesChecked) {
                         setConsentCookie(NECESSARY_ANALYTICAL);
                       } else {
@@ -281,12 +272,12 @@ export const CookiesFrontend = props => {
                       if (ENABLE_ANALYTICAL_COOKIES && analyticalCookiesChecked) {
                         setConsentCookie(NECESSARY_ANALYTICAL_MARKETING);
                       } else {
-                        setConsentCookie(ALL_COOKIES);
+                        setConsentCookie(NECESSARY_MARKETING);
                       }
                     }
-                  } }
+                  }}
                   name="all_cookies"
-                  checked={allCookiesChecked}
+                  checked={marketingCookiesChecked}
                   className="p4-custom-control-input"
                 />
                 <FrontendRichText
