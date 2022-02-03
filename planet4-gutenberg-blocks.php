@@ -202,6 +202,7 @@ function set_allowed_block_types( $allowed_block_types, $post ) {
 		'core/columns',
 		'core/column',
 		'core/embed',
+		'core/media-text',
 		'core-embed/twitter',
 		'core-embed/youtube',
 		'core-embed/facebook',
