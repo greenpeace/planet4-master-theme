@@ -67,7 +67,7 @@ class Settings {
 				'title'  => 'Navigation',
 				'fields' => [
 					[
-						'name' => __( 'Website Navigation Title', 'planet4-master-theme-backend' ),
+						'name' => __( 'NRO Selector Title', 'planet4-master-theme-backend' ),
 						'id'   => 'website_navigation_title',
 						'type' => 'text',
 					],
