@@ -192,3 +192,21 @@ add_action(
 	1,
 	2
 );
+
+/**
+ * This is not a column in WordPress by default, but is added by the Post Type Switcher plugin.
+ * It's not needed for the plugin to work, and needlessly takes up space on pages where everything has the same post
+ * type.
+ *
+ * Showing the field is only somewhat useful when using quick edit to switch a single post from the admin listing page.
+ */
+add_filter(
+	'default_hidden_columns',
+	function ( $hidden ) {
+		$hidden[] = 'post_type';
+
+		return $hidden;
+	},
+	10,
+	1
+);
