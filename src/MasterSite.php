@@ -499,12 +499,12 @@ class MasterSite extends TimberSite {
 			'enable_analytical_cookies' => planet4_get_option( 'enable_analytical_cookies' ),
 			'enable_reject_all_cookies' => planet4_get_option( 'enable_reject_all_cookies' ),
 			'settings_copy'             => [
-				'necessary_cookies_name'         => planet4_get_option( 'necessary_cookies_name' ) ?? '',
-				'necessary_cookies_description'  => planet4_get_option( 'necessary_cookies_description' ) ?? '',
-				'analytical_cookies_name'        => planet4_get_option( 'analytical_cookies_name' ) ?? '',
-				'analytical_cookies_description' => planet4_get_option( 'analytical_cookies_description' ) ?? '',
-				'all_cookies_name'               => planet4_get_option( 'all_cookies_name' ) ?? '',
-				'all_cookies_description'        => planet4_get_option( 'all_cookies_description' ) ?? '',
+				'necessary_cookies_name'         => planet4_get_option( 'necessary_cookies_name', '' ),
+				'necessary_cookies_description'  => planet4_get_option( 'necessary_cookies_description', '' ),
+				'analytical_cookies_name'        => planet4_get_option( 'analytical_cookies_name', '' ),
+				'analytical_cookies_description' => planet4_get_option( 'analytical_cookies_description', '' ),
+				'all_cookies_name'               => planet4_get_option( 'all_cookies_name', '' ),
+				'all_cookies_description'        => planet4_get_option( 'all_cookies_description', '' ),
 			],
 		];
 		$context['theme_uri']    = $this->theme_dir;

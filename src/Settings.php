@@ -293,12 +293,12 @@ class Settings {
 						],
 					],
 					[
-						'name' => __( 'All Cookies label', 'planet4-master-theme-backend' ),
+						'name' => __( 'Marketing Cookies label', 'planet4-master-theme-backend' ),
 						'id'   => 'all_cookies_name',
 						'type' => 'text',
 					],
 					[
-						'name'    => __( 'All Cookies description', 'planet4-master-theme-backend' ),
+						'name'    => __( 'Marketing Cookies description', 'planet4-master-theme-backend' ),
 						'id'      => 'all_cookies_description',
 						'type'    => 'wysiwyg',
 						'options' => [
@@ -324,7 +324,7 @@ class Settings {
 
 					[
 						'name' => __( 'Enable Analytical Cookies', 'planet4-master-theme-backend' ),
-						'desc' => __( 'Enable the Analytical cookies option in Cookies block.', 'planet4-master-theme-backend' ),
+						'desc' => __( 'Enable the Analytical cookies option in Cookies block and box', 'planet4-master-theme-backend' ),
 						'id'   => 'enable_analytical_cookies',
 						'type' => 'checkbox',
 					],

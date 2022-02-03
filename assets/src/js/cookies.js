@@ -6,8 +6,11 @@ export const setupCookies = () => {
 
   // Possible cookie values
   const ONLY_NECESSARY = '1';
-  const ALL_COOKIES = '2';
+  const NECESSARY_MARKETING = '2';
+  const NECESSARY_ANALYTICAL = '3';
   const NECESSARY_ANALYTICAL_MARKETING = '4';
+
+  const ALL_COOKIES = ENABLE_ANALYTICAL_COOKIES ? NECESSARY_ANALYTICAL_MARKETING : NECESSARY_MARKETING;
 
   function gtag() {
     dataLayer.push(arguments);
@@ -66,25 +69,42 @@ export const setupCookies = () => {
     return null;
   };
 
+  const removeCookie = name => createCookie(name, '0', -1);
+
   const cookie = readCookie('active_consent_choice');
   const cookiesBox = document.querySelector('#set-cookie');
   const nro = document.body.dataset.nro;
+  const greenpeace = readCookie('greenpeace');
+  const noTrack = readCookie('no_track');
 
-  if (cookie === null) {
+  const showCookiesBox = () => {
     if (cookiesBox) {
       cookiesBox.classList.add('shown');
     }
+  };
+
+  const hideCookiesBox = () => {
+    if (cookiesBox) {
+      cookiesBox.classList.remove('shown');
+    }
+  };
+
+  // Make the necessary cookies checked by default on user's first visit.
+  // Here if the No cookies set(absence of 'greenpeace' & 'no_track' cookies) consider as first visit of user.
+  if (greenpeace === null && noTrack === null) {
+    createCookie('greenpeace', ONLY_NECESSARY, 365);
+  }
+
+  if (cookie === null) {
+    showCookiesBox();
   } else {
     createCookie('gp_nro', nro, 30);
   }
 
   const allowAllCookies = () => {
     createCookie('active_consent_choice', '1', 365);
-    const newCookieValue = ENABLE_ANALYTICAL_COOKIES ? NECESSARY_ANALYTICAL_MARKETING : ALL_COOKIES;
-    createCookie('greenpeace', newCookieValue, 365);
-
-    // Remove the 'no_track' cookie, if user accept the cookies consent.
-    createCookie('no_track', '0', -1);
+    createCookie('greenpeace', ALL_COOKIES, 365);
+    removeCookie('no_track');
 
     // Create cookie to store last visited nro.
     createCookie('gp_nro', nro, 30);
@@ -100,7 +120,7 @@ export const setupCookies = () => {
       'event' : 'cookiesConsent'
     });
 
-    cookiesBox.classList.remove('shown');
+    hideCookiesBox();
   };
 
   const allowAllCookiesButtons = [...document.querySelectorAll('.allow-all-cookies')];
@@ -113,72 +133,75 @@ export const setupCookies = () => {
     cookiesIntro.classList.toggle('d-none');
   };
 
-  const showCookiesSettingsButton = cookiesBox.querySelector('#show-cookies-settings');
+  const showCookiesSettingsButton = document.querySelector('#show-cookies-settings');
   if (showCookiesSettingsButton) {
     showCookiesSettingsButton.onclick = toggleCookiesSettings;
   }
 
-  const closeCookiesSettingsButton = cookiesBox.querySelector('.close-cookies-settings');
+  const closeCookiesSettingsButton = document.querySelector('.close-cookies-settings');
   if (closeCookiesSettingsButton) {
     closeCookiesSettingsButton.onclick = toggleCookiesSettings;
   }
 
+  // Save cookies settings functionality
   const saveCookiesSettingsButton = document.querySelector('#save-cookies-settings');
   if (saveCookiesSettingsButton) {
     saveCookiesSettingsButton.onclick = () => {
       // Get checked settings
       const analyticalCookiesCheckbox = cookiesBox.querySelector('input[name="analytical_cookies"]');
-      const allCookiesCheckbox = cookiesBox.querySelector('input[name="all_cookies"]');
+      const marketingCookiesCheckbox = cookiesBox.querySelector('input[name="all_cookies"]');
 
       const analyticalCookiesChecked = analyticalCookiesCheckbox ? analyticalCookiesCheckbox.checked : false;
-      const allCookiesChecked = allCookiesCheckbox ? allCookiesCheckbox.checked : false;
+      const marketingCookiesChecked = marketingCookiesCheckbox ? marketingCookiesCheckbox.checked : false;
 
-      let newCookieValue = allCookiesChecked ? ALL_COOKIES : ONLY_NECESSARY;
+      let newCookieValue = marketingCookiesChecked ? NECESSARY_MARKETING : ONLY_NECESSARY;
       if (ENABLE_ANALYTICAL_COOKIES && analyticalCookiesChecked) {
-        newCookieValue = NECESSARY_ANALYTICAL_MARKETING;
+        newCookieValue = marketingCookiesChecked ? NECESSARY_ANALYTICAL_MARKETING : NECESSARY_ANALYTICAL;
       }
 
-      // Update cookie value
+      // Update cookie value and save active consent choice
       createCookie('greenpeace', newCookieValue, 365);
       createCookie('active_consent_choice', '1', 365);
 
+      // Update no track cookie
+      if (newCookieValue !== ONLY_NECESSARY) {
+        removeCookie('no_track');
+      } else {
+        createCookie('no_track', '1', 365);
+      }
+
       // Update ad storage and analytics storage if Google Consent Mode is enabled
-      updateGoogleConsent('ad_storage', allCookiesChecked);
+      updateGoogleConsent('ad_storage', marketingCookiesChecked);
       if (ENABLE_ANALYTICAL_COOKIES) {
         updateGoogleConsent('analytics_storage', analyticalCookiesChecked);
       }
 
-      // Hide cookies box
-      cookiesBox.classList.remove('shown');
+      dataLayer.push({
+        'event' : 'updateConsent'
+      });
+
+      hideCookiesBox();
     };
   }
 
   const rejectAllCookies = () => {
-    createCookie('active_consent_choice', '1', 365);
     createCookie('greenpeace', ONLY_NECESSARY, 365);
+    createCookie('active_consent_choice', '1', 365);
+    createCookie('no_track', '1', 365);
 
-    // Grant ad storage and analytics storage if Google Consent Mode is enabled.
+    // Deny ad storage and analytics storage if Google Consent Mode is enabled.
     updateGoogleConsent('ad_storage', false);
     if (ENABLE_ANALYTICAL_COOKIES) {
       updateGoogleConsent('analytics_storage', false);
     }
 
-    // DataLayer push event on cookies consent.
     dataLayer.push({
-      'event' : 'cookiesConsent'
+      'event' : 'updateConsent'
     });
 
-    cookiesBox.classList.remove('shown');
+    hideCookiesBox();
   };
 
-  const rejectAllCookiesButtons = [...cookiesBox.querySelectorAll('.reject-all-cookies')];
+  const rejectAllCookiesButtons = [...document.querySelectorAll('.reject-all-cookies')];
   rejectAllCookiesButtons.forEach(rejectAllCookiesButton => rejectAllCookiesButton.onclick = rejectAllCookies);
-
-  const greenpeace = readCookie('greenpeace');
-  const no_track = readCookie('no_track');
-  // Make the necessary cookies checked by default on user's first visit.
-  // Here if the No cookies set(absence of 'greenpeace' & 'no_track' cookies) consider as first visit of user.
-  if (ENABLE_ANALYTICAL_COOKIES && greenpeace === null && no_track === null) {
-    createCookie('greenpeace', ONLY_NECESSARY, 365);
-  }
 };

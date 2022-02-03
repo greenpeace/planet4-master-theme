@@ -38,91 +38,88 @@
     visibility: visible;
   }
 
-  .cookies-text {
-    font-size: 14px;
-    margin-bottom: 24px;
-    font-weight: 400;
-    color: $grey-80;
-    line-height: 1.5rem;
-    width: 100%;
-  }
+  .cookies-intro {
+    .cookies-text {
+      font-size: 14px;
+      margin-bottom: $sp-3;
+      font-weight: 400;
+      color: $grey-80;
+      line-height: 1.5rem;
+      width: 100%;
+    }
 
-  .cookies-buttons {
-    &.with-reject-all {
-      .btn-primary {
-        margin-bottom: $sp-2;
+    .cookies-buttons {
+      .btn {
+        width: 100%;
+        line-height: 2.4;
+        font-size: 14px;
       }
 
-      .reject-all-cookies {
-        background: none;
-        border: none;
-        color: $grey-40;
-        line-height: 1;
-
-        &:hover {
-          text-decoration: underline;
-        }
+      .btn-primary {
+        margin-top: $sp-2;
       }
     }
 
-    .btn {
-      width: 100%;
+    .reject-all-cookies {
+      display: block;
+      background: none;
+      border: none;
+      color: $grey-40;
+      margin: $sp-2 auto 0 auto;
       line-height: 2.4;
       font-size: 14px;
-    }
+      padding: 0;
 
-    .btn-primary {
-      margin-top: $sp-2;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
   @include medium-and-up {
     width: auto;
-    bottom: 16px;
-    right: 16px;
+    bottom: $sp-2;
+    right: $sp-2;
     left: auto;
     border-radius: 4px;
-    padding: 24px 32px 32px;
+    padding: $sp-3 $sp-4;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
-    @include slide-from(right, 16px);
+    @include slide-from(right, $sp-2);
 
     .cookies-intro {
-      width: 276px;
-    }
+      width: 308px;
 
-    .cookies-buttons {
-      display: flex;
-      justify-content: space-between;
+      .cookies-buttons {
+        display: flex;
+        justify-content: space-between;
 
-      .btn-primary {
-        margin: 0;
-      }
+        .btn-primary:only-child {
+          width: 100%;
+        }
 
-      &.with-reject-all {
-        flex-wrap: wrap;
-        align-items: baseline;
-      }
-
-      .btn:not(.reject-all-cookies) {
-        width: 130px;
+        .btn-primary,
+        .btn-secondary {
+          width: calc(50% - #{$sp-1});
+          margin-top: 0;
+        }
       }
     }
 
     html[dir="rtl"] & {
       right: auto;
-      left: 16px;
-      @include slide-from(left, 16px);
+      left: $sp-2;
+      @include slide-from(left, $sp-2);
     }
   }
 
   @include large-and-up {
-    bottom: 24px;
-    right: 24px;
-    @include slide-from(right, 24px);
+    bottom: $sp-3;
+    right: $sp-3;
+    @include slide-from(right, $sp-3);
 
     html[dir="rtl"] & {
-      left: 24px;
-      @include slide-from(left, 24px);
+      left: $sp-3;
+      @include slide-from(left, $sp-3);
     }
   }
 }
