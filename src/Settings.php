@@ -166,12 +166,7 @@ class Settings {
 						'desc'       => __( 'Average reading words per minute (usually between 220 and 320).', 'planet4-master-theme-backend' ),
 					],
 
-					[
-						'name' => __( 'Happy point Subscribe Form URL', 'planet4-master-theme-backend' ),
-						'id'   => 'engaging_network_form_id',
-						'type' => 'text',
-					],
-
+					// HappyPoint settings.
 					[
 						'name'       => __( 'Default Happy Point Background Image', 'planet4-master-theme-backend' ),
 						'id'         => 'happy_point_bg_image',
@@ -186,6 +181,23 @@ class Settings {
 							'type' => 'image',
 						],
 						'desc'       => __( 'Minimum image width should be 1920px', 'planet4-master-theme-backend' ),
+					],
+
+					[
+						'name'    => __( 'Default Happy Point Form', 'planet4-master-theme-backend' ),
+						'id'      => 'happy_point_content_provider',
+						'type'    => 'radio',
+						'options' => [
+							'iframe_url' => __( 'URL (for iframe)', 'planet4-master-theme-backend' ),
+							'embed_code' => __( 'Embed code (HubSpot)', 'planet4-master-theme-backend' ),
+						],
+						'default' => 'iframe_url',
+					],
+
+					[
+						'name' => __( 'Happy point Subscribe Form URL', 'planet4-master-theme-backend' ),
+						'id'   => 'engaging_network_form_id',
+						'type' => 'text',
 					],
 
 					[
