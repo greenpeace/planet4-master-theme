@@ -1,8 +1,8 @@
 import { Fragment, useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import { HappypointFrontend } from './HappypointFrontend';
-import { MailingListIframeHelp } from './MailingListIframeHelp';
-import { EmbedCodeHelp } from './EmbedCodeHelp';
+import { OverrideFormHelp } from './OverrideFormHelp';
+import { USE_IFRAME_URL, USE_EMBED_CODE } from './HappyPointConstants';
 
 import { debounce } from 'lodash';
 
@@ -19,7 +19,8 @@ import {
   TextControl,
   TextareaControl,
   FocalPointPicker,
-  ToggleControl,
+  RadioControl,
+  CheckboxControl,
   RangeControl,
   PanelBody,
   Button,
@@ -28,7 +29,17 @@ import {
 } from '@wordpress/components';
 
 export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
-  const { focus_image, opacity, mailing_list_iframe, id, iframe_url, use_embed_code, embed_code } = attributes;
+  const {
+    focus_image,
+    opacity,
+    mailing_list_iframe,
+    id,
+    iframe_url,
+    use_embed_code,
+    embed_code,
+    override_default_content,
+    local_content_provider,
+  } = attributes;
   const [iframeUrl, setIframeUrl] = useState(iframe_url || '');
   const [embedCode, setEmbedCode] = useState(embed_code || '');
   const dimensions = { width: 400, height: 100 };
@@ -120,46 +131,64 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
                   help={__('We use an overlay to fade the image back. Use a number between 1 and 100, the higher the number, the more faded the image will look. If you leave this empty, the default of 30 will be used.', 'planet4-blocks-backend')}
                 />
               </div>
-              <ToggleControl
-                label={__('Use mailing list iframe', 'planet4-blocks-backend')}
-                value={mailing_list_iframe}
-                checked={mailing_list_iframe}
-                onChange={setCheckbox('mailing_list_iframe')}
+              <CheckboxControl
+                label={__('Override default form', 'planet4-blocks-backend')}
+                value={override_default_content}
+                checked={override_default_content}
+                onChange={setCheckbox('override_default_content')}
               />
-              {mailing_list_iframe && (
-                <div>
-                  <TextControl
-                    label={__('Iframe URL', 'planet4-blocks-backend')}
-                    placeholder={__('Enter iframe URL', 'planet4-blocks-backend')}
-                    value={iframeUrl}
-                    onChange={url => {
-                      setIframeUrl(url);
-                      debounceIframeUrl(url);
-                    }}
-                  />
-                  <MailingListIframeHelp />
-                </div>
-              )}
-              <ToggleControl
-                label={__('Use HubSpot embed code', 'planet4-blocks-backend')}
-                value={use_embed_code}
-                checked={use_embed_code}
-                onChange={setCheckbox('use_embed_code')}
-              />
-              {use_embed_code && (
-                <div>
-                  <TextareaControl
-                    label={__('HubSpot embed code', 'planet4-blocks-backend')}
-                    help={__('Enter embed code', 'planet4-blocks-backend')}
-                    value={embedCode}
-                    onChange={code => {
-                      setEmbedCode(code);
-                      debounceEmbedCode(code);
-                    }}
-                  />
-                  <EmbedCodeHelp />
-                </div>
-              )}
+              <OverrideFormHelp />
+              {override_default_content &&
+                <>
+                  <div>
+                    <RadioControl
+                      label="Form type"
+                      selected={ local_content_provider }
+                      options={ [
+                        { label: 'URL (for iframe)', value: USE_IFRAME_URL },
+                        { label: 'Embed code', value: USE_EMBED_CODE },
+                      ] }
+                      onChange={toAttribute('local_content_provider')}
+                    />
+                  </div>
+                  {USE_IFRAME_URL === local_content_provider && (
+                    <div>
+                      <TextControl
+                        label={__('Iframe URL', 'planet4-blocks-backend')}
+                        placeholder={__('Enter iframe URL', 'planet4-blocks-backend')}
+                        value={iframeUrl}
+                        onChange={url => {
+                          setIframeUrl(url);
+                          debounceIframeUrl(url);
+                        }}
+                        help={__(
+                          'By default this block uses the "Happy point Subscribe Form URL" in Planet 4 Settings - Default content. '
+                          + 'If a URL is set here, it will override this setting.',
+                          'planet4-blocks-backend'
+                        )}
+                      />
+                    </div>
+                  )}
+                  {USE_EMBED_CODE === local_content_provider && (
+                    <div>
+                      <TextareaControl
+                        label={__('HubSpot embed code', 'planet4-blocks-backend')}
+                        help={__('Enter embed code', 'planet4-blocks-backend')}
+                        value={embedCode}
+                        onChange={code => {
+                          setEmbedCode(code);
+                          debounceEmbedCode(code);
+                        }}
+                        help={__(
+                          'By default this block uses the "Happy Point HubSpot embed code" in Planet 4 Settings - Default content. '
+                          + 'If an embed code is set here, it will override this setting.',
+                          'planet4-blocks-backend'
+                        )}
+                      />
+                    </div>
+                  )}
+                </>
+              }
               {id && 0 < id &&
                 <div className="wp-block-master-theme-happypoint__FocalPointPicker">
                   <FocalPointPicker

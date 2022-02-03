@@ -40,6 +40,14 @@ export class HappypointBlock {
         embed_code: {
           type: 'string',
         },
+        override_default_content: {
+          type: 'boolean',
+          default: false
+        },
+        local_content_provider: {
+          type: 'string',
+          default: 'iframe_url'
+        }
       },
       edit: HappypointEditor,
       save() {
