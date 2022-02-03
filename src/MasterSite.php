@@ -264,6 +264,9 @@ class MasterSite extends TimberSite {
 			}
 		);
 
+		// Make post tags ordered.
+		add_filter( 'register_taxonomy_args', [ $this, 'set_post_tags_as_ordered' ], 10, 2 );
+
 		$this->register_meta_fields();
 	}
 
@@ -1470,4 +1473,21 @@ class MasterSite extends TimberSite {
 		return $endpoints;
 	}
 
+	/**
+	 * Set post tags options to retain their order on save and return them ordered
+	 *
+	 * @param array  $args     Array of arguments for registering a taxonomy.
+	 * @param string $taxonomy Taxonomy key.
+	 *
+	 * @return array $args Array of arguments for registering a taxonomy.
+	 */
+	public function set_post_tags_as_ordered( array $args, string $taxonomy ): array {
+		if ( 'post_tag' !== $taxonomy ) {
+			return $args;
+		}
+
+		$args['sort'] = true;
+		$args['args'] = [ 'orderby' => 'term_order' ];
+		return $args;
+	}
 }
