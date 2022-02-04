@@ -40,6 +40,34 @@
 						data-ga-label="{{ page_category }}">
 							{{ item.title }}
 					</a>
+
+					{% if item.children is not empty %}
+						<nav class='nav-submenu'>
+							<div class='nav-submenu-wrapper'>
+								<ul>
+								{% for key,item in item.children %}
+									<li>
+										{% if fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == act_page_id %}
+											{% set link_ga_action = 'Act' %}
+										{% elseif fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == explore_page_id %}
+											{% set link_ga_action = 'Explore' %}
+										{% else %}
+											{% set link_ga_action = item.title %}
+										{% endif %}
+										<a
+											class="nav-link"
+											href="{{ item.get_link }}"
+											data-ga-category="Submenu Navigation"
+											data-ga-action="{{ link_ga_action }}"
+											data-ga-label="{{ page_category }}">
+												{{ item.title }}
+										</a>
+									</li>
+								{% endfor %}
+								</ul>
+							</div>
+						</nav>
+					{% endif %}
 				</li>
 				{% endfor %}
 				<li class="nav-item nav-donate">
