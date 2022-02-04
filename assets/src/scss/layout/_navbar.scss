@@ -71,10 +71,27 @@ $navbar-default-height: 60px;
 
     height: 44px;
     line-height: 40px;
+
+    @include large-and-up {
+      &.dropdown {
+        &::after {
+          content: "";
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          margin-inline-start: $sp-x;
+          mask: url("../../images/chevron.svg") 0 0/10px 10px;
+          transform: rotate(90deg);
+          transition: transform 150ms linear;
+          background-color: $white;
+          background-repeat: no-repeat;
+        }
+      }
+    }
   }
 
   .nav-donate {
-    padding: 16px 0;
+    padding: $sp-2 0;
 
     @include large-and-up {
       padding: 0;
@@ -196,7 +213,8 @@ $navbar-default-height: 60px;
     @include large-and-up {
       display: flex;
       flex-grow: 1;
-      justify-content: end;
+      align-items: center;
+      justify-content: flex-end;
       padding-inline-end: 0;
       padding-top: 0;
       text-align: end;
@@ -205,9 +223,11 @@ $navbar-default-height: 60px;
 }
 
 .nav-submenu {
+  _-- {
+    width: 193px;
+  }
   position: fixed;
   display: none;
-  min-width: 193px;
   padding-top: $sp-1;
 
   .nav-submenu-wrapper {
@@ -254,9 +274,7 @@ $navbar-default-height: 60px;
   li {
     width: 100%;
     text-align: left;
-    white-space: nowrap;
     color: $grey-80;
-    height: 48px;
 
     a.nav-link {
       --submenu-nav-link-- {
@@ -274,8 +292,9 @@ $navbar-default-height: 60px;
       height: 100%;
       display: flex;
       align-items: center;
-      padding-right: $sp-3;
-      padding-left: $sp-3;
+      padding: 14px $sp-3;
+      font-size: 16px;
+      line-height: 19px;
 
       &:hover {
         background: $grey-10;
@@ -290,13 +309,24 @@ $navbar-default-height: 60px;
 }
 
 .nav-item {
+  @include large-and-up {
+    margin-inline-start: $sp-2x;
+  }
+}
+
+.nav-donate:hover .dropdown::after {
+  transform: rotate(-90deg);
+}
+
+.nav-item,
+.nav-donate {
   color: inherit;
   font-size: $font-base-size;
   font-weight: 700;
 
   @include large-and-up {
     line-height: $menu-height;
-    margin: 0 20px;
+    margin-inline-end: $sp-2x;
 
     &:hover {
       .nav-submenu {

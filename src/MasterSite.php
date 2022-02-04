@@ -175,6 +175,7 @@ class MasterSite extends TimberSite {
 		register_nav_menus(
 			[
 				'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme-backend' ),
+				'donate-menu'         => __( 'Donate Button', 'planet4-master-theme-backend' ),
 			]
 		);
 
@@ -557,6 +558,23 @@ class MasterSite extends TimberSite {
 				return ! in_array( 'wpml-ls-item', $item->classes ?? [], true );
 			}
 		);
+
+		// Donate button menu dropdown.
+		// If no Donate menu is defined, we use the old settings from Planet 4 > Donate.
+		$donate_menu_items[] = [
+			'link'  => planet4_get_option( 'donate_button', '#' ),
+			'title' => planet4_get_option( 'donate_text', __( 'Donate', 'planet4-master-theme' ) ),
+		];
+
+		if ( has_nav_menu( 'donate-menu' ) ) {
+			$donate_menu = new TimberMenu( 'donate-menu' );
+
+			if ( ! empty( $donate_menu->get_items() ) ) {
+				$donate_menu_items = $donate_menu->get_items();
+			}
+		}
+
+		$context['donate_menu_items'] = $donate_menu_items;
 
 		$languages                 = function_exists( 'icl_get_languages' ) ? icl_get_languages() : [];
 		$context['site_languages'] = $languages;
