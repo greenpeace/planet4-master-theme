@@ -229,3 +229,4 @@ export const setupHeader = () => {
 
   setMobileTabsMenuScroll();
 };
+
