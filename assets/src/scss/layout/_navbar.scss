@@ -204,6 +204,91 @@ $navbar-default-height: 60px;
   }
 }
 
+.nav-submenu {
+  position: fixed;
+  display: none;
+  min-width: 193px;
+  padding-top: $sp-1;
+
+  .nav-submenu-wrapper {
+    border-radius: $sp-1;
+    width: 100%;
+    box-shadow: 0 1px $sp-x rgba(0, 0, 0, 0.12);
+  }
+
+  ul {
+    width: 100%;
+    // The `height` value represents the value of 6 items's height
+    // and this selectors's padding
+    height: auto;
+    max-height: 320px;
+    display: block;
+    flex-direction: column;
+    padding: $sp-2 0;
+    background: $white;
+    border-radius: $sp-1;
+    overflow-y: auto;
+
+    // Only applied to Firefox
+    scrollbar-width: thin;
+    scrollbar-color: transparent;
+
+    &::-webkit-scrollbar {
+      width: $sp-1;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: $sp-x;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: $sp-x;
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  li {
+    width: 100%;
+    text-align: left;
+    white-space: nowrap;
+    color: $grey-80;
+    height: 48px;
+
+    a.nav-link {
+      --submenu-nav-link-- {
+        color: $grey-80;
+        font-size: $sp-2;
+        font-weight: 500;
+
+        &:hover {
+          _-- {
+            color: $grey-80;
+          }
+        }
+      }
+      text-decoration: none;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding-right: $sp-3;
+      padding-left: $sp-3;
+
+      &:hover {
+        background: $grey-10;
+      }
+
+      &:before {
+        // Disable nav-link animation on hover
+        display: none;
+      }
+    }
+  }
+}
+
 .nav-item {
   color: inherit;
   font-size: $font-base-size;
@@ -212,6 +297,13 @@ $navbar-default-height: 60px;
   @include large-and-up {
     line-height: $menu-height;
     margin: 0 20px;
+
+    &:hover {
+      .nav-submenu {
+        display: flex;
+        z-index: 999;
+      }
+    }
   }
 }
 
@@ -221,7 +313,6 @@ a.nav-link {
 
     &:hover {
       color: $white;
-      text-decoration-color: $gp-green;
     }
   }
 
@@ -230,21 +321,10 @@ a.nav-link {
   padding: $sp-2 0;
   position: relative;
   width: 100%;
+  text-decoration: none;
 
   @include large-and-up {
     padding: 0;
-  }
-
-  &:hover {
-    opacity: 1;
-    text-decoration-line: underline;
-    text-decoration-thickness: 3px;
-    text-underline-offset: auto;
-    text-underline-position: under;
-
-    @include large-and-up {
-      text-decoration-line: none;
-    }
   }
 
   // Border-bottom for underline animation
@@ -261,34 +341,33 @@ a.nav-link {
     transform: scaleX(0);
     transition: transform 0.25s;
     z-index: -1;
+
+    @include large-and-up {
+      border-bottom-width: 4px;
+    }
   }
 }
 
 .active a.nav-link {
   --nav-link-active-- {
-    color: var(--nav-link--color, $white);
-    text-decoration-color: $gp-green;
+    color: $white;
+
+    &:hover {
+      color: $white;
+    }
   }
 
-  opacity: 1;
-  text-decoration-line: underline;
-  text-decoration-thickness: 3px;
-  text-underline-offset: auto;
-  text-underline-position: under;
-
-  @include large-and-up {
-    text-decoration-line: none;
-    text-decoration-thickness: 4px;
+  &:before {
+    transform: scaleX(1);
+    border-bottom-color: var(--nav-link--text-decoration-color, $gp-green);
   }
 }
 
 // Underline animation with border-bottom
-a.nav-link:hover:before,
-.active a.nav-link:before {
-  @include large-and-up {
-    transform: scaleX(1);
-    transition: transform 0.25s;
-  }
+.nav-item:hover a.nav-link:before {
+  transform: scaleX(1);
+  transition: transform 0.25s;
+  border-bottom-color: var(--nav-link--text-decoration-color, $gp-green);
 }
 
 .nav-menu-toggle {

@@ -39,7 +39,7 @@ class AdminAssets {
 						'maxChars' => 18,
 					],
 					1 => [
-						'maxItems' => 5,
+						'maxItems' => 10,
 						'maxChars' => 18,
 					],
 				],
