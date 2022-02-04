@@ -24,8 +24,9 @@ class AdminAssets {
 		$theme_dir       = get_template_directory_uri();
 		$menus           = get_nav_menu_locations();
 		$navbar_location = 'navigation-bar-menu';
+		$donate_location = 'donate-menu';
 
-		if ( ! isset( $menus[ $navbar_location ] ) ) {
+		if ( ! isset( $menus[ $navbar_location ] ) || ! isset( $menus[ $donate_location ] ) ) {
 			return;
 		}
 
@@ -36,6 +37,19 @@ class AdminAssets {
 				'depthConf' => [
 					0 => [
 						'maxItems' => 5,
+						'maxChars' => 18,
+					],
+					1 => [
+						'maxItems' => 10,
+						'maxChars' => 18,
+					],
+				],
+			],
+			$donate_location => [
+				'maxDepth'  => 1,
+				'depthConf' => [
+					0 => [
+						'maxItems' => 1,
 						'maxChars' => 18,
 					],
 					1 => [
