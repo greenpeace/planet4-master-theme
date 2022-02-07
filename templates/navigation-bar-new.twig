@@ -21,13 +21,7 @@
 			<ul>
 				{% for key,item in navbar_menu_items %}
 				<li class="nav-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
-					{% if fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == act_page_id %}
-						{% set link_ga_action = 'Act' %}
-					{% elseif fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == explore_page_id %}
-						{% set link_ga_action = 'Explore' %}
-					{% else %}
-						{% set link_ga_action = item.title %}
-					{% endif %}
+					{% set link_ga_action = item.title %}
 					<a
 						class="nav-link"
 						href="{{ item.get_link }}"
