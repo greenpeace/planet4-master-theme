@@ -618,8 +618,8 @@ abstract class Search {
 								case 0:
 									$args['post_type']   = 'page';
 									$args['post_status'] = 'publish';
-									$options             = get_option( 'planet4_options' );
-									$args['post_parent'] = esc_sql( $options['act_page'] );
+									$act_page            = planet4_get_option( 'act_page', 0 );
+									$args['post_parent'] = esc_sql( $act_page );
 									break;
 								case 1:
 									$args['post_type']      = 'attachment';
@@ -629,8 +629,8 @@ abstract class Search {
 								case 2:
 									$args['post_type']             = 'page';
 									$args['post_status']           = 'publish';
-									$options                       = get_option( 'planet4_options' );
-									$args['post_parent__not_in'][] = esc_sql( $options['act_page'] );
+									$act_page                      = planet4_get_option( 'act_page', 0 );
+									$args['post_parent__not_in'][] = esc_sql( $act_page );
 									break;
 								case 3:
 									$args['post_type']   = 'post';
@@ -878,7 +878,7 @@ abstract class Search {
 		if ( ! empty( $this->aggregations ) ) {
 			$aggs = $this->aggregations['with_post_filter'];
 			foreach ( $aggs['post_parent']['buckets'] as $parent_agg ) {
-				if ( $parent_agg['key'] === (int) $options['act_page'] ) {
+				if ( ! empty( $options['act_page'] ) && $parent_agg['key'] === (int) $options['act_page'] ) {
 					$act_page_count                           = $parent_agg['doc_count'];
 					$context['content_types']['0']['results'] = $act_page_count;
 				}
@@ -942,7 +942,7 @@ abstract class Search {
 			// Post Type (+Action) <-> Content Type.
 			switch ( $post->post_type ) {
 				case 'page':
-					if ( $post->post_parent === (int) $options['act_page'] ) {
+					if ( ! empty( $options['act_page'] ) && $post->post_parent === (int) $options['act_page'] ) {
 						$content_type_text = __( 'ACTION', 'planet4-master-theme' );
 						$content_type      = 'action';
 					} else {
