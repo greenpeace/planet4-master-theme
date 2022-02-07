@@ -76,14 +76,15 @@
 					</li>
 				{% endif %}
 			{% endfor %}
+			{% set donate_menu = donate_menu_items[0] ?? {} %}
 			<li class="nav-item donate-nav-item">
 				<a
 					class="btn btn-donate"
-					href="{{ donatelink }}"
+					href="{{ donate_menu.link }}"
 					data-ga-category="Menu Navigation"
 					data-ga-action="Donate"
 					data-ga-label="{{ page_category }}">
-						{{ donatetext }}
+						{{ donate_menu.title }}
 				</a>
 			</li>
 		</ul>

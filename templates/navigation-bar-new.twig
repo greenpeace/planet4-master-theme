@@ -42,16 +42,31 @@
 					</a>
 				</li>
 				{% endfor %}
+				{% set donate_menu = donate_menu_items[0] ?? {} %}
 				<li class="nav-item nav-donate">
 					<a
 						class="btn btn-donate"
-						href="{{ donatelink }}"
+						href="{{ donate_menu.link }}"
 						data-ga-category="Menu Navigation"
 						data-ga-action="Donate"
 						data-ga-label="{{ page_category }}">
-							{{ donatetext }}
+							{{ donate_menu.title }}
+							{% if donate_menu.children %}
+								<span class="chevron"></span>
+							{% endif %}
 					</a>
+					{% if donate_menu.children %}
+						<ul class="donate-dropdown">
+							{% for key, child in donate_menu.children %}
+								<li>
+									<a href="{{ child.link }}">
+										{{ child.title }}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
 				</li>
+				{% endif %}
 			</ul>
 		</nav>
 		{% set search_icon = 'search'|svgicon %}

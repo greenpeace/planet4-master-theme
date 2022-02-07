@@ -170,6 +170,7 @@ class MasterSite extends TimberSite {
 		register_nav_menus(
 			[
 				'navigation-bar-menu' => __( 'Navigation Bar Menu', 'planet4-master-theme-backend' ),
+				'donate-menu'         => __( 'Donate Button', 'planet4-master-theme-backend' ),
 			]
 		);
 
@@ -507,6 +508,7 @@ class MasterSite extends TimberSite {
 		$context['domain']       = 'planet4-master-theme';
 		$context['foo']          = 'bar';   // For unit test purposes.
 
+		// Navigation bar menu.
 		$menu                         = new TimberMenu( 'navigation-bar-menu' );
 		$menu_items                   = $menu->get_items();
 		$context['navbar_menu']       = $menu;
@@ -516,6 +518,23 @@ class MasterSite extends TimberSite {
 				return ! in_array( 'wpml-ls-item', $item->classes ?? [], true );
 			}
 		);
+
+		// Donate button menu dropdown.
+		// If no Donate menu is defined, we use the old settings from Planet 4 > Donate.
+		$donate_menu_items[] = [
+			'link'  => planet4_get_option( 'donate_button' ) ?? '#',
+			'title' => planet4_get_option( 'donate_text' ) ?? __( 'Donate', 'planet4-master-theme' ),
+		];
+
+		if ( has_nav_menu( 'donate-menu' ) ) {
+			$donate_menu = new TimberMenu( 'donate-menu' );
+
+			if ( ! empty( $donate_menu->get_items() ) ) {
+				$donate_menu_items = $donate_menu->get_items();
+			}
+		}
+
+		$context['donate_menu_items'] = $donate_menu_items;
 
 		$languages                 = function_exists( 'icl_get_languages' ) ? icl_get_languages() : [];
 		$context['site_languages'] = $languages;
@@ -560,8 +579,6 @@ class MasterSite extends TimberSite {
 
 		$new_design_navigation_bar = Features::is_active( Features::NEW_DESIGN_NAVIGATION_BAR );
 
-		$context['donatelink']           = $options['donate_button'] ?? '#';
-		$context['donatetext']           = $options['donate_text'] ?? __( 'Donate', 'planet4-master-theme' );
 		$context['website_navbar_title'] = $options['website_navigation_title'] ?? __( 'International (English)', 'planet4-master-theme' );
 
 		$context['act_page_id']     = $options['act_page'] ?? '';
