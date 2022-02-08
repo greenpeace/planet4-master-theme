@@ -168,6 +168,7 @@ class PostCampaign {
 				// Required to expose meta fields in the REST API.
 				'custom-fields',
 			],
+			'allow_switch_type'  => true,
 		];
 
 		register_post_type( self::POST_TYPE, $args );

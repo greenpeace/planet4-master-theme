@@ -210,3 +210,18 @@ add_filter(
 	10,
 	1
 );
+
+add_filter(
+	'register_post_type_args',
+	function ( $args, $name ) {
+		if ( 'page' === $name ) {
+			$args['allow_switch_type'] = true;
+		}
+
+		return $args;
+	},
+	10,
+	4
+);
+
+simple_value_filter( 'pts_post_type_filter', [ 'allow_switch_type' => true ], 1 );
