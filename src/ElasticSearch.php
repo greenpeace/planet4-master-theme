@@ -172,15 +172,22 @@ class ElasticSearch extends Search {
 				],
 				'weight' => self::DEFAULT_PAGE_WEIGHT,
 			],
-			[
-				'filter' => [
-					'term' => [
-						'post_parent' => esc_sql( planet4_get_option( 'act_page' ) ),
-					],
-				],
-				'weight' => self::DEFAULT_ACTION_WEIGHT,
-			],
 		);
+
+		$act_page = planet4_get_option( 'act_page', null );
+		if ( $act_page ) {
+			array_push(
+				$formatted_args['query']['function_score']['functions'],
+				[
+					'filter' => [
+						'term' => [
+							'post_parent' => esc_sql( $act_page ),
+						],
+					],
+					'weight' => self::DEFAULT_ACTION_WEIGHT,
+				],
+			);
+		}
 
 		// Specify how the computed scores are combined.
 		$formatted_args['query']['function_score']['score_mode'] = 'sum';
