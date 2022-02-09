@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use CMB2_Field;
+use P4\MasterTheme\Settings\InformationArchitecture as IA;
 
 /**
  * Class P4\MasterTheme\Settings
@@ -449,6 +450,7 @@ class Settings {
 				],
 			],
 			'planet4_settings_features'         => Features::get_options_page(),
+			'planet4_settings_ia'               => IA::get_options_page(),
 			'planet4_settings_notifications'    => [
 				'title'  => 'Notifications',
 				'fields' => [
@@ -625,23 +627,36 @@ class Settings {
 	 *
 	 * @param string $plugin_page The key for the current page.
 	 */
-	public function admin_page_display( string $plugin_page ) {
+	public function admin_page_display( string $plugin_page ): void {
 		$page_config = $this->subpages[ $plugin_page ];
 
-		$fields = $page_config['fields'];
+		$fields      = $page_config['fields'];
+		$description = $page_config['description'] ?? null;
 		// Allow storing options in a different database record.
 		$root_option = $page_config['root_option'] ?? self::KEY;
 
 		$add_scripts = $this->subpages[ $plugin_page ]['add_scripts'] ?? null;
-		if ( $add_scripts ) {
+		if ( is_callable( $add_scripts ) ) {
 			$add_scripts();
 		}
-		?>
-		<div class="wrap <?php echo esc_attr( self::KEY ); ?>">
-			<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
-			<?php cmb2_metabox_form( $this->option_metabox( $fields, $root_option ), $root_option ); ?>
-		</div>
-		<?php
+
+		$form = cmb2_metabox_form(
+			$this->option_metabox( $fields, $root_option ),
+			$root_option,
+			[ 'echo' => false ]
+		);
+
+		echo sprintf(
+			'<div class="wrap %s">
+				<h2>%s</h2>
+				%s
+				%s
+			</div>',
+			esc_attr( self::KEY ),
+			esc_html( get_admin_page_title() ),
+			wp_kses( $description ? '<div>' . $description . '</div>' : '', 'post' ),
+			$form // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		);
 	}
 
 	/**

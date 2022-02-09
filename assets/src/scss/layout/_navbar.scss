@@ -1,6 +1,6 @@
 $menu-height: 68px;
 $menu-height-large: 68px;
-$menu-height-small: 68px;
+$menu-height-small: 60px;
 $min-height: 40px;
 $navbar-default-height: 60px;
 
@@ -13,15 +13,15 @@ $navbar-default-height: 60px;
     fill: $white;
     font-family: $roboto;
     font-size: $font-base-size;
-    height: $menu-height;
   }
 
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 99;
-  justify-content: space-between;
 
   .admin-bar & {
     top: 46px;
@@ -76,7 +76,7 @@ $navbar-default-height: 60px;
     padding: 16px 0;
 
     @include large-and-up {
-      padding: 0 20px;
+      padding: 0;
     }
   }
 }
@@ -196,6 +196,7 @@ $navbar-default-height: 60px;
       display: flex;
       flex-grow: 1;
       justify-content: end;
+      padding-inline-end: 0;
       padding-top: 0;
       text-align: end;
     }
@@ -209,33 +210,97 @@ $navbar-default-height: 60px;
 
   @include large-and-up {
     line-height: $menu-height;
+    margin: 0 20px;
   }
+}
+
+:root {
+  --nav-link--color: $white;
+  --nav-link--opacity: 1;
+  --nav-link--padding: #{$sp-2} 0;
+  --nav-link-active--color: var(--nav-link--color, #{$white});
+  --nav-link-active--opacity: var(--nav-link--opacity, 1);
+  --nav-link-active--text-decoration-color: #{$gp-green};
+  --nav-link-active--text-decoration-line: underline;
+  --nav-link-active--text-decoration-style: solid;
+  --nav-link-active--text-decoration-thickness: 3px;
+  --nav-link-active--text-underline-offset: auto;
+  --nav-link-active--text-underline-position: under;
+  --nav-link--hover--color: $white;
+  --nav-link--hover--opacity: 1;
+  --nav-link--hover--text-decoration-color: #{$gp-green};
+  --nav-link--hover--text-decoration-line: underline;
+  --nav-link--hover--text-decoration-style: solid;
+  --nav-link--hover--text-decoration-thickness: 3px;
+  --nav-link--hover--text-underline-offset: auto;
+  --nav-link--hover--text-underline-position: under;
 }
 
 a.nav-link {
-  --nav-link-- {
-    color: $white;
-
-    &:hover {
-      color: $white;
-      text-decoration: underline;
-      text-underline-position: auto;
-    }
-  }
-
+  color: var(--nav-link--color);
   display: inline-block;
-  padding: 16px 0;
+  opacity: var(--nav-link--opacity);
+  padding: var(--nav-link--padding);
+  position: relative;
   width: 100%;
 
   @include large-and-up {
-    padding: 0 20px;
+    --nav-link--padding: 0;
+    --nav-link-active--text-decoration-thickness: 4px;
+  }
+
+  &:hover {
+    color: var(--nav-link--hover--color);
+    opacity: var(--nav-link--hover--opacity);
+    text-decoration-color: var(--nav-link--hover--text-decoration-color);
+    text-decoration-line: var(--nav-link--hover--text-decoration-line);
+    text-decoration-thickness: var(--nav-link--hover--text-decoration-thickness);
+    text-underline-offset: var(--nav-link--hover--text-underline-offset);
+    text-underline-position: var(--nav-link--hover--text-underline-position);
+
+    @include large-and-up {
+      --nav-link--hover--text-decoration-line: none;
+    }
+  }
+
+  // Border-bottom for underline animation
+  &:before {
+    border-bottom-color: var(--nav-link--hover--text-decoration-color);
+    border-bottom-style: var(--nav-link--hover--text-decoration-style);
+    border-bottom-width: var(--nav-link--hover--text-decoration-thickness);
+    bottom: 0;
+    content: "";
+    left: 0;
+    opacity: 1;
+    position: absolute;
+    right: 0;
+    transform: scaleX(0);
+    transition: transform 0.25s;
+    z-index: -1;
   }
 }
 
-.active a.nav-link --nav-link-active-- {
-  color: var(--nav-link--hover--color, $white);
-  text-decoration: var(--nav-link--hover--text-decoration, underline);
-  text-underline-position: var(--nav-link--hover--text-underline-position, auto);
+.active a.nav-link {
+  color: var(--nav-link-active--color);
+  opacity: var(--nav-link-active--opacity);
+  text-decoration-color: var(--nav-link-active--text-decoration-color);
+  text-decoration-line: var(--nav-link-active--text-decoration-line);
+  text-decoration-thickness: var(--nav-link-active--text-decoration-thickness);
+  text-underline-offset: var(--nav-link-active--text-underline-offset);
+  text-underline-position: var(--nav-link-active--text-underline-position);
+
+  @include large-and-up {
+    --nav-link-active--text-decoration-line: none;
+  }
+}
+
+// Underline animation with border-bottom
+a.nav-link:hover:before,
+.active a.nav-link:before {
+  @include large-and-up {
+    transform: scaleX(1);
+    transition: transform 0.25s;
+  }
 }
 
 .nav-menu-toggle {
@@ -316,3 +381,4 @@ a.nav-link {
 @import "navbar/site-logo";
 @import "navbar/languages";
 @import "navbar/search";
+@import "navbar/mobile";

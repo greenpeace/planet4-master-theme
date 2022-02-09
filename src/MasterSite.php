@@ -11,6 +11,7 @@ use Twig_SimpleFilter;
 use WP_Error;
 use WP_Post;
 use WP_User;
+use P4\MasterTheme\Settings\InformationArchitecture as IA;
 
 /**
  * Class MasterSite.
@@ -587,6 +588,9 @@ class MasterSite extends TimberSite {
 		// New design country selector, navigation bar.
 		$context['new_design_country_selector'] = Features::is_active( Features::NEW_DESIGN_COUNTRY_SELECTOR );
 		$context['new_design_navigation_bar']   = $new_design_navigation_bar;
+
+		// IA: Tabs menu on mobile.
+		$context['mobile_tabs_menu'] = IA::is_active( IA::MOBILE_TABS_MENU );
 
 		return $context;
 	}

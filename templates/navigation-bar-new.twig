@@ -1,4 +1,8 @@
-<section id="header" class="top-navigation navbar {% if custom_styles.nav_border == 'border' %}navigation-bar_border{% endif %}">
+{% set header_classes = 'top-navigation navbar'
+	~ (custom_styles.nav_border == 'border' ? ' navigation-bar_border' : '')
+	~ (mobile_tabs_menu ? ' with-mobile-tabs' : '')
+%}
+<section id="header" class="{{ header_classes }}">
 	{% set data_ga_attrs = 'data-ga-category="Menu Navigation" data-ga-action="Menu" data-ga-label="' ~ page_category ~ '"' %}
 	<button class="nav-menu-toggle" type="button"
 		aria-label="{{ __( 'Toggle navigation menu', 'planet4-master-theme' ) }}"
@@ -146,6 +150,26 @@
 			</span>
 		</button>
 	</div>
+	{% if mobile_tabs_menu %}
+	<div id="nav-mobile">
+		<nav id="nav-mobile-menu">
+			<ul>
+				{% for key,item in navbar_menu_items %}
+				<li class="nav-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
+					<a
+						class="nav-link"
+						href="{{ item.get_link }}"
+						data-ga-category="Menu Navigation"
+						data-ga-action="{{ item.title }}"
+						data-ga-label="{{ page_category }}">
+							{{ item.title }}
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</nav>
+	</div>
+	{% endif %}
 	<div class="top-navigation-overlay"></div>
 	{% include 'country_selector_banner.twig' ignore missing %}
 </section>
