@@ -224,4 +224,6 @@ add_filter(
 	4
 );
 
+add_action( 'wp_print_scripts', fn() => wp_dequeue_script( 'pts_blockeditor' ), 100 );
+
 simple_value_filter( 'pts_post_type_filter', [ 'allow_switch_type' => true ], 1 );
