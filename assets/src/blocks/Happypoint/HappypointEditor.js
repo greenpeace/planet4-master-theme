@@ -2,7 +2,7 @@ import { Fragment, useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import { HappypointFrontend } from './HappypointFrontend';
 import { OverrideFormHelp } from './OverrideFormHelp';
-import { USE_IFRAME_URL, USE_EMBED_CODE } from './HappyPointConstants';
+import { USE_NONE, USE_IFRAME_URL, USE_EMBED_CODE } from './HappyPointConstants';
 
 import { debounce } from 'lodash';
 
@@ -32,10 +32,8 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
   const {
     focus_image,
     opacity,
-    mailing_list_iframe,
     id,
     iframe_url,
-    use_embed_code,
     embed_code,
     override_default_content,
     local_content_provider,
@@ -103,14 +101,6 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
   }, 300);
 
   const setCheckbox = attributeName => value => {
-    if ( true === value ) {
-      // Toggle the checkboxes.
-      if ( 'mailing_list_iframe' === attributeName ) {
-        setAttributes({ use_embed_code: false });
-      } else {
-        setAttributes({ mailing_list_iframe: false });
-      }
-    }
     setAttributes({ [attributeName]: value });
   };
 
@@ -145,6 +135,7 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
                       label="Form type"
                       selected={ local_content_provider }
                       options={ [
+                        { label: 'None', value: USE_NONE },
                         { label: 'URL (for iframe)', value: USE_IFRAME_URL },
                         { label: 'Embed code', value: USE_EMBED_CODE },
                       ] }

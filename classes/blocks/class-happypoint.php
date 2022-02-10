@@ -34,33 +34,34 @@ class Happypoint extends Base_Block {
 				// todo: Remove when all content is migrated.
 				'render_callback' => [ self::class, 'render_frontend' ],
 				'attributes'      => [
-					'id'                  => [
+					'id'                       => [
 						'type' => 'integer',
 					],
-					'focus_image'         => [
+					'focus_image'              => [
 						'type' => 'string',
 					],
-					'opacity'             => [
+					'opacity'                  => [
 						'type'    => 'integer',
 						'default' => 30,
 					],
-					'mailing_list_iframe' => [
-						'type' => 'boolean',
-					],
-					'iframe_url'          => [
+					'iframe_url'               => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'load_iframe'         => [
+					'use_embed_code'           => [
+						'type' => 'boolean',
+					],
+					'embed_code'               => [
+						'type'    => 'string',
+						'default' => '',
+					],
+					'override_default_content' => [
 						'type'    => 'boolean',
 						'default' => 'false',
 					],
-					'use_embed_code'      => [
-						'type' => 'boolean',
-					],
-					'embed_code'          => [
+					'local_content_provider'   => [
 						'type'    => 'string',
-						'default' => '',
+						'default' => 'none',
 					],
 				],
 			]

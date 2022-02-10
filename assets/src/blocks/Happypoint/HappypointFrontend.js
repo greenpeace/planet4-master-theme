@@ -2,7 +2,7 @@ import { useHappypointImageData } from './useHappypointImageData';
 import { HubspotEmbed } from './useHubspotEmbedCode';
 import { useEffect } from '@wordpress/element';
 import { useScript } from '../../components/useScript/useScript';
-import { USE_IFRAME_URL, USE_EMBED_CODE } from './HappyPointConstants';
+import { USE_IFRAME_URL, USE_EMBED_CODE, USE_NONE } from './HappyPointConstants';
 
 export const HappypointFrontend = ({
   focus_image,
@@ -43,7 +43,10 @@ export const HappypointFrontend = ({
     imgProps.sizes = background_sizes || null;
   }
 
-  const content_provider = override_default_content ? local_content_provider : default_content_provider;
+  const legacy_provider = typeof mailing_list_iframe === 'undefined'
+    ? null : ( mailing_list_iframe ? USE_IFRAME_URL : USE_NONE );
+
+  const content_provider = legacy_provider || (override_default_content ? local_content_provider : default_content_provider);
   const url = iframe_url || engaging_network_id;
   const code = embed_code || default_embed_code;
   const html_code = safeHTML(code || '');
