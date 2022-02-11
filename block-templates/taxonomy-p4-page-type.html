@@ -2,18 +2,13 @@
 <!-- wp:group {"className":"container"} -->
 <div class="wp-block-group container">
 	<!-- wp:term-description /-->
-
-	<!-- wp:query {
-		"query":{
-			"inherit": true
-		},
-		"displayLayout": {
-			"type": "flex",
-			"columns":4
-		}
-	} -->
+	<!-- wp:query { "query":{ "inherit": true }, "displayLayout": { "type": "flex", "columns":4 } } -->
 	<div class="wp-block-query">
-		<!-- wp:template-part {"slug":"full-width-pagination"} /-->
+		<!-- wp:query-pagination -->
+			<!-- wp:query-pagination-previous /-->
+			<!-- wp:query-pagination-numbers /-->
+			<!-- wp:query-pagination-next /-->
+		<!-- /wp:query-pagination -->
 
 		<!-- wp:post-template -->
 			<!-- wp:post-featured-image {"isLink":true} /-->
@@ -28,9 +23,13 @@
 				<!-- wp:planet4-blocks/reading-time /-->
 			</div>
 			<!-- /wp:group -->
-			<!-- /wp:post-template -->
+		<!-- /wp:post-template -->
 
 		<!-- wp:query-pagination -->
+			<!-- wp:query-pagination-previous /-->
+			<!-- wp:query-pagination-numbers /-->
+			<!-- wp:query-pagination-next /-->
+		<!-- /wp:query-pagination -->
 		</div>
 	<!-- /wp:query -->
 </div>
