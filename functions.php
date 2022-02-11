@@ -79,6 +79,7 @@ function planet4_get_option( $key = '', $default = null ) {
 use P4\MasterTheme\ImageArchive\Rest;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Notifications\Slack;
+use P4\MasterTheme\Post;
 use Timber\Timber;
 
 if ( ! class_exists( 'Timber' ) ) {
@@ -210,3 +211,13 @@ add_filter(
 	10,
 	1
 );
+
+// Might move later.
+function register_more_blocks() {
+	register_block_type( 'planet4-blocks/reading-time', [
+		'render_callback' => [ Post::class, 'reading_time_block' ],
+		'uses_context'    => [ 'postId' ],
+	] );
+}
+
+add_action( 'init', 'register_more_blocks' );
