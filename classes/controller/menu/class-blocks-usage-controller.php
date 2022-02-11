@@ -8,8 +8,11 @@
 
 namespace P4GBKS\Controllers\Menu;
 
-use P4\MasterTheme\Exception\SqlInIsEmpty;
 use P4\MasterTheme\SqlParameters;
+use P4\MasterTheme\Exception\SqlInIsEmpty;
+use P4GBKS\Search\Block\BlockUsage;
+use P4GBKS\Search\Block\BlockUsageTable;
+use P4GBKS\Search\Block\Query\Parameters;
 use WP_Block_Type_Registry;
 
 if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
@@ -30,6 +33,8 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 		 * String to use for Post with no title.
 		 */
 		private const NO_TITLE = '(no title)';
+
+		public const ADMIN_PAGE = 'plugin_blocks_report_beta';
 
 
 		/**
@@ -96,7 +101,73 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 					'plugin_blocks_report',
 					[ $this, 'plugin_blocks_report' ]
 				);
+
+				// Experimental block usage page, hidden from menu.
+				add_submenu_page(
+					P4GBKS_PLUGIN_SLUG_NAME,
+					__( 'Report (Beta)', 'planet4-blocks-backend' ),
+					__( 'Report (Beta)', 'planet4-blocks-backend' ),
+					'manage_options',
+					'plugin_blocks_report_beta',
+					[ $this, 'plugin_blocks_report_beta' ]
+				);
 			}
+		}
+
+		/**
+		 * @return string Page URL.
+		 */
+		public static function url(): string {
+			return admin_url( 'admin.php?page=' . self::ADMIN_PAGE );
+		}
+
+		/**
+		 * Beta block usage report page.
+		 *
+		 * @todo before replacing current one:
+		 * - review json report / keep or replace with new search
+		 */
+		public function plugin_blocks_report_beta() {
+			// Nonce verify.
+			if ( isset( $_REQUEST['filter_action'] ) ) {
+				check_admin_referer( 'bulk-blocks' );
+			}
+
+			// Create table.
+			$args  = [
+				'block_usage'    => new BlockUsage(),
+				'block_registry' => WP_Block_Type_Registry::get_instance(),
+			];
+			$table = new BlockUsageTable( $args );
+
+			// Prepare data.
+			$special_filter = isset( $_REQUEST['unregistered'] ) ? 'unregistered'
+				: ( isset( $_REQUEST['unallowed'] ) ? 'unallowed' : null );
+			$table->prepare_items(
+				Parameters::from_request( $_REQUEST ),
+				$_REQUEST['group'] ?? null,
+				$special_filter
+			);
+
+			// Display data.
+			echo '<div class="wrap">
+				<h1 class="wp-heading-inline">Block usage</h1>
+				<hr class="wp-header-end">';
+
+			echo '<form id="blocks-search" method="post">';
+			$table->views();
+			$table->search_box( 'Search in block attributes', 'block-search' );
+			$table->display();
+			echo '</form>';
+
+			$p = $table->get_search_params();
+			echo "<script>
+			const url = new URL(window.location);
+			url.searchParams.set('namespace', '" . esc_js( $p->namespace() ) . "');
+			url.searchParams.set('name', '" . esc_js( $p->name() ) . "');
+			window.history.pushState({}, '', url);
+			</script>";
+			echo '</div>';
 		}
 
 		/**
