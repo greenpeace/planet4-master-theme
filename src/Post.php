@@ -4,6 +4,7 @@ namespace P4\MasterTheme;
 
 use Timber\Post as TimberPost;
 use Timber\Term as TimberTerm;
+use WP_Block;
 use WP_Error;
 use WP_Query;
 use WP_Term;
@@ -496,6 +497,21 @@ class Post extends TimberPost {
 		wp_cache_add( $cache_key, $time, null, 3600 * 24 );
 
 		return $time;
+	}
+
+	/**
+	 * Server side render for the reading time block.
+	 *
+	 * @param $attributes array Block attributes, unused.
+	 * @param $content string Content which apparently no core block uses.
+	 * @param $block WP_Block With all block properties.
+	 *
+	 * @return string Formatted reading time.
+	 */
+	public static function reading_time_block( array $attributes, $content, $block ) {
+		$time = ( new self( $block->context['postId'] ?? null ) )->reading_time();
+
+		return "<p style='font-size:12px'>$time min read</p>";
 	}
 
 	/**
