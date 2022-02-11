@@ -48,7 +48,7 @@ class TaxonomyCampaign {
 				$block_name = 'happypoint';
 			}
 
-			$this->context['blocks'][] = '<!-- wp:planet4-blocks/' . $block_name . ' ' . wp_json_encode( $block_attributes, JSON_UNESCAPED_SLASHES ) . ' /-->';
+			$this->context['blocks'][] = '<!-- wp:' . $block_name . ' ' . wp_json_encode( $block_attributes, JSON_UNESCAPED_SLASHES ) . ' /-->';
 		}
 	}
 

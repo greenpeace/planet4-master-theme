@@ -66,7 +66,7 @@ if ( $redirect_id ) {
 	$campaign = new TaxonomyCampaign( $templates, $context );
 
 	$campaign->add_block(
-		'covers',
+			'planet4-blocks/covers',
 		[
 			'title'       => __( 'Things you can do', 'planet4-master-theme' ),
 			'description' => __( 'We want you to take action because together we\'re strong.', 'planet4-master-theme' ),
@@ -76,7 +76,7 @@ if ( $redirect_id ) {
 	);
 
 	$campaign->add_block(
-		Articles::BLOCK_NAME,
+			'planet4-blocks/articles',
 		[
 			'tags' => [ $context['tag']->term_id ],
 		]
@@ -107,11 +107,11 @@ if ( $redirect_id ) {
 		}
 	}
 
-	$campaign->add_block( 'covers', $cfc_args );
+		$campaign->add_block( 'planet4-blocks/covers', $cfc_args );
 
 	// Convert old CampaignThumbnail block to Covers block[Campaign covers].
 	$campaign->add_block(
-		'covers',
+			'planet4-blocks/covers',
 		[
 			'title'       => __( 'Related Campaigns', 'planet4-master-theme' ),
 			'category_id' => $category->term_id ?? __( 'This Campaign is not assigned to an Issue', 'planet4-master-theme' ),
@@ -125,7 +125,7 @@ if ( $redirect_id ) {
 	$options    = get_option( 'planet4_options' );
 
 	$campaign->add_block(
-		HappyPoint::BLOCK_NAME,
+			'planet4-blocks/covers',
 		[
 			'mailing_list_iframe' => true,
 			'id'                  => $background,
