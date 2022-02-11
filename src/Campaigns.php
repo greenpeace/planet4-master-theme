@@ -318,6 +318,9 @@ class Campaigns {
 	 */
 	public function edit_taxonomy_columns( $columns ) : array {
 		$columns['image'] = __( 'Image', 'planet4-master-theme-backend' );
+
+		$columns['redirect_page'] = __( 'Redirect page', 'planet4-master-theme-backend' );
+
 		return $columns;
 	}
 
@@ -331,10 +334,23 @@ class Campaigns {
 	 * @return string The new html to be applied to each row of the $column.
 	 */
 	public function manage_taxonomy_custom_column( $output, $column, $term_id ) : string {
+		if ( 'redirect_page' === $column ) {
+			$redirect_page = get_term_meta( $term_id, 'redirect_page', true );
+			if ( ! $redirect_page ) {
+				return 'none';
+			}
+
+			$url   = get_edit_post_link( $redirect_page );
+			$title = get_the_title( $redirect_page );
+
+			return "<a href='$url'>$title</a>";
+		}
+
 		if ( 'image' === $column ) {
 			$attachment_id = get_term_meta( $term_id, 'tag_attachment_id', true );
-			$output        = wp_get_attachment_image( $attachment_id );
+			return wp_get_attachment_image( $attachment_id );
 		}
+
 		return $output;
 	}
 
