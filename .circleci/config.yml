@@ -46,6 +46,7 @@ workflows:
             tags:
               only: /^v\p{Digit}+\.\p{Digit}+.*/
 
+
 job-references:
   docker_auth: &docker_auth
     username: $DOCKERHUB_USERNAME
@@ -142,6 +143,7 @@ commands:
           name: Test - Clone planet4-docker-compose
           command: |
             git clone --depth 1 https://github.com/greenpeace/planet4-docker-compose
+
 
   run-tests:
     parameters:
@@ -389,3 +391,19 @@ jobs:
                 -H "Content-Type: application/zip" \
                 --data-binary @/tmp/workspace/planet4-master-theme.zip \
                 "$(cat /tmp/workspace/upload_url)" | jq
+
+  offline-page:
+    <<: *p4_instance_conf
+    steps:
+      - run:
+          name: Create offline page folder
+          command: |
+            if [ -d "/offline-page" ]; then exit; else mkdir /offline-page; fi
+      - run:
+          name: Create symlinks needed for offline page
+          command: |
+            ln -s /home/circleci/planet4-master-theme/assets/src/js/service-worker.js /service-worker.js &&
+            ln -s /home/circleci/planet4-master-theme/offline-page/offline.css /offline-page/offline.css &&
+            ln -s /home/circleci/planet4-master-theme/offline-page/offline.html /offline-page/offline.html &&
+            ln -s /home/circleci/planet4-master-theme/offline-page/offline.jpeg /offline-page/offline.jpeg &&
+            ln -s /home/circleci/planet4-master-theme/offline-page/gp-logo.svg /offline-page/gp-logo.svg

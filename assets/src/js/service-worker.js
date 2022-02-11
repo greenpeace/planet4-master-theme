@@ -2,18 +2,16 @@ const version = 0.05;
 
 const staticCacheName = version + 'staticfiles';
 
-const themePath = 'wp-content/themes/planet4-master-theme/';
-
 // Cache needed files for offline page
 addEventListener('install', event => {
   event.waitUntil(
     caches.open(staticCacheName)
       .then(staticCache => {
         return staticCache.addAll([
-          `${themePath}/offline-page/offline.jpeg`,
-          `${themePath}/offline-page/offline.css`,
-          `${themePath}/offline-page/gp-logo.svg`,
-          `${themePath}/offline-page/offline.html`,
+          '/offline-page/offline.jpeg',
+          '/offline-page/offline.css',
+          '/offline-page/gp-logo.svg',
+          '/offline-page/offline.html',
         ]);
       })
   );
@@ -45,6 +43,7 @@ addEventListener('fetch', event => {
   if (request.url.match(/wp-admin/) || request.url.match(/preview=true/)) {
     return;
   }
+
   event.respondWith(
     caches.match(request)
       .then(responseFromCache => {
@@ -55,7 +54,7 @@ addEventListener('fetch', event => {
       })
       .catch(error => {
         console.log(error);
-        return caches.match('./offline-page/offline.html');
+        return caches.match('/offline-page/offline.html');
       })
-  )
-})
+  );
+});
