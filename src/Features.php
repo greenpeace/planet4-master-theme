@@ -38,6 +38,8 @@ class Features {
 
 	public const CORE_BLOCK_PATTERNS = 'core_block_patterns';
 
+	public const ALLOW_ALL_BLOCKS = 'allow_all_blocks';
+
 	/**
 	 * @var bool Purge Cloudflare cache on save
 	 */
@@ -183,6 +185,15 @@ class Features {
 					'planet4-master-theme-backend'
 				),
 				'id'   => self::CORE_BLOCK_PATTERNS,
+				'type' => 'checkbox',
+			];
+			$fields[] = [
+				'name' => __( 'Allow all blocks', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'Enable all blocks in the editor for all post types.',
+					'planet4-master-theme-backend'
+				),
+				'id'   => self::ALLOW_ALL_BLOCKS,
 				'type' => 'checkbox',
 			];
 		}
