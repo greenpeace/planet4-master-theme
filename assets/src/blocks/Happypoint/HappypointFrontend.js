@@ -2,6 +2,7 @@ import { useHappypointImageData } from './useHappypointImageData';
 import { HubspotEmbed } from './useHubspotEmbedCode';
 import { useEffect } from '@wordpress/element';
 import { useScript } from '../../components/useScript/useScript';
+import { USE_IFRAME_URL, USE_EMBED_CODE, USE_NONE } from './HappyPointConstants';
 
 export const HappypointFrontend = ({
   focus_image,
@@ -11,19 +12,22 @@ export const HappypointFrontend = ({
   id,
   use_embed_code,
   embed_code,
+  override_default_content,
+  local_content_provider,
   className,
 }) => {
-  const { imageData } = useHappypointImageData(id);
-
+  const { imageData: happypointData } = useHappypointImageData(id);
   const {
     background_src,
     background_srcset,
     background_alt,
     background_sizes,
     default_image,
-    engaging_network_id,
-    default_embed_code
-  } = imageData;
+    // Settings from Planet4 > Default content
+    default_content_provider,
+    engaging_network_id,      // default iframe url
+    default_embed_code,       // default embed code
+  } = happypointData;
 
   const imgProps = {
     src: background_src || default_image,
@@ -39,7 +43,20 @@ export const HappypointFrontend = ({
     imgProps.sizes = background_sizes || null;
   }
 
+  const legacy_provider = typeof mailing_list_iframe === 'undefined'
+    ? null : ( mailing_list_iframe ? USE_IFRAME_URL : USE_NONE );
+
+  const content_provider = legacy_provider || (override_default_content ? local_content_provider : default_content_provider);
   const url = iframe_url || engaging_network_id;
+  const code = embed_code || default_embed_code;
+  const html_code = safeHTML(code || '');
+
+  const uniqueId = (prefix) => {
+    const r = Math.floor(Math.random() * 10000);
+    const t = Date.now();
+    return `${prefix}-${t}-${r}`;
+  }
+  const instanceId = uniqueId('happy-point');
 
   return (
     <section className={`block block-footer block-wide happy-point-block-wrap ${className ?? ''}`}>
@@ -48,27 +65,57 @@ export const HappypointFrontend = ({
       </picture>
       <div className="container">
         <div className="row justify-content-md-center">
-          {use_embed_code
-            ? <div className="col-md-10 mt-5" id="happy-point" />
-            : <>
-              {url && (
-                <div className="col-md-10 happy-point" id="happy-point" data-src={url}>
-                  <iframe
-                    src={url}
-                    cellSpacing={0}
-                    allowtransparency="true"
-                    frameBorder={0}
-                    scrolling="no"
-                    width="100%"
-                    loading="lazy"
-                  />
-                </div>
-              )}
-            </>
+          {USE_IFRAME_URL === content_provider && url &&
+            (
+              <div className="col-md-10 happy-point" id={instanceId} data-src={url}>
+                <iframe
+                  src={url}
+                  cellSpacing={0}
+                  allowtransparency="true"
+                  frameBorder={0}
+                  scrolling="no"
+                  width="100%"
+                  loading="lazy"
+                />
+              </div>
+            )
           }
-          <HubspotEmbed params={{use_embed_code: use_embed_code, embed_code: embed_code || default_embed_code, target: '#happy-point'}} />
+          {USE_EMBED_CODE === content_provider &&
+            <div className="col-md-10 mt-5" id={instanceId} dangerouslySetInnerHTML={{ __html: html_code }} />
+          }
+          <HubspotEmbed params={{use_embed_code: USE_EMBED_CODE === content_provider, embed_code: code, target: `#${instanceId}`}} />
         </div>
       </div>
     </section>
   );
 };
+
+/**
+ * cf. https://github.com/WordPress/gutenberg/blob/wp/5.9/packages/dom/src/dom/safe-html.js
+ */
+const safeHTML = ( html ) => {
+  const { body } = document.implementation.createHTMLDocument( '' );
+  body.innerHTML = html;
+  const elements = body.getElementsByTagName( '*' );
+  let elementIndex = elements.length;
+
+  while ( elementIndex-- ) {
+    const element = elements[ elementIndex ];
+
+    if ( element.tagName === 'SCRIPT' ) {
+      element.parentNode.removeChild( element );
+      continue;
+    }
+
+    let attributeIndex = element.attributes.length;
+    while ( attributeIndex-- ) {
+      const { name: key } = element.attributes[ attributeIndex ];
+
+      if ( key.startsWith( 'on' ) ) {
+        element.removeAttribute( key );
+      }
+    }
+  }
+
+  return body.innerHTML;
+}
