@@ -180,9 +180,12 @@ const BETA_CAMPAIGN_BLOCK_TYPES = [
  * @param array  $allowed_block_types array of allowed block types.
  * @param object $context Current editor context.
  *
- * @return array of all blocks allowed.
+ * @return array|bool Array with allowed types, or true if all blocks are allowed.
  */
 function set_allowed_block_types( $allowed_block_types, $context ) {
+	if ( Features::is_active( 'allow_all_blocks' ) ) {
+		return true;
+	}
 	$post_type = $context->post ? $context->post->post_type : null;
 	// https://github.com/WordPress/gutenberg/blob/trunk/lib/blocks.php.
 	$wordpress_blocks = [
