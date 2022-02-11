@@ -178,11 +178,15 @@ const BETA_CAMPAIGN_BLOCK_TYPES = [
  * Allowed block types based on post type
  *
  * @param array  $allowed_block_types array of allowed block types.
- * @param object $post current post.
+ * @param object $context Current editor context.
  *
- * @return array of all blocks allowed.
+ * @return array|bool Array with allowed types, or true if all blocks are allowed.
  */
-function set_allowed_block_types( $allowed_block_types, $post ) {
+function set_allowed_block_types( $allowed_block_types, $context ) {
+	if ( Features::is_active( 'allow_all_blocks' ) ) {
+		return true;
+	}
+	$post_type = $context->post ? $context->post->post_type : null;
 	// https://github.com/WordPress/gutenberg/blob/trunk/lib/blocks.php.
 	$wordpress_blocks = [
 		'core/block',
@@ -251,35 +255,12 @@ function set_allowed_block_types( $allowed_block_types, $post ) {
 		'campaign' => $campaign_block_types,
 	];
 
-	$allowed_p4_block_types = $all_allowed_p4_block_types[ $post->post_type ];
+	$allowed_p4_block_types = $all_allowed_p4_block_types[ $post_type ] ?? $all_allowed_p4_block_types['page'];
 
-	if ( empty( $allowed_p4_block_types ) ) {
-		return $wordpress_blocks;
-	}
-
-	$allowed_block_types = array_merge( $wordpress_blocks, $allowed_p4_block_types );
-
-	return $allowed_block_types;
+	return array_merge( $wordpress_blocks, $allowed_p4_block_types );
 }
 
-/**
- * Allowed block types based on post type
- *
- * @param array  $allowed_block_types array of allowed block types.
- * @param object $context The editor context.
- *
- * @return array of all blocks allowed.
- */
-function set_allowed_block_types_new( $allowed_block_types, $context ) {
-	return set_allowed_block_types( $allowed_block_types, $context->post );
-}
-
-global $wp_version;
-if ( version_compare( $wp_version, '5.8', '>=' ) ) {
-	add_filter( 'allowed_block_types_all', 'set_allowed_block_types_new', 10, 2 );
-} else {
-	add_filter( 'allowed_block_types', 'set_allowed_block_types', 10, 2 );
-}
+add_filter( 'allowed_block_types_all', 'set_allowed_block_types', 10, 2 );
 
 /**
  * @param array $block the block being rendered.
