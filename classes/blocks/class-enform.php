@@ -159,6 +159,10 @@ class ENForm extends Base_Block {
 		$attributes['social_accounts'] = self::get_social_accounts();
 		$attributes['social']          = $post_id ? self::get_shareable_data( $post_id ) : [];
 
+		$attributes['donatelink'] = ! empty( $attributes['custom_donate_url'] )
+			? $attributes['custom_donate_url']
+			: planet4_get_option( 'donate_button', '' );
+
 		return $attributes;
 	}
 

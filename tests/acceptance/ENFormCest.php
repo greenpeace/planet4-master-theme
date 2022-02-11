@@ -583,6 +583,8 @@ class ENFormCest {
 			'post_content' => $generated_enformblock
 		]);
 
+		// Skip cookies box
+		$I->setCookie('greenpeace', '1');
 		// Navigate to the newly created page
 		$I->amOnPage('/' . $slug);
 
