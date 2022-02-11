@@ -18,6 +18,9 @@ class InformationArchitecture {
 	/* @var string Mobile tabs option key **/
 	public const MOBILE_TABS_MENU = 'mobile_tabs_menu';
 
+	/* @var string feature flag of action page type option key **/
+	public const ACTION_POST_TYPE = 'action_post_type';
+
 	/**
 	 * Get the features options page settings.
 	 *
@@ -47,6 +50,15 @@ class InformationArchitecture {
 				'name' => __( 'Enable mobile tabs menu', 'planet4-master-theme-backend' ),
 				'desc' => __(
 					'Display a sticky tabs menu visible on screen width smaller than 992px.',
+					'planet4-master-theme-backend'
+				),
+				'type' => 'checkbox',
+			],
+			[
+				'id'   => self::ACTION_POST_TYPE,
+				'name' => __( 'Action post type', 'planet4-master-theme-backend' ),
+				'desc' => __(
+					'Enable Action post type',
 					'planet4-master-theme-backend'
 				),
 				'type' => 'checkbox',
