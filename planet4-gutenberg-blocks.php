@@ -229,6 +229,7 @@ function set_allowed_block_types( $allowed_block_types, $context ) {
 		'core/html',
 		'core/table',
 		'core/buttons',
+		'core/button',
 		'core/separator',
 		'core/spacer',
 		'core/shortcode',

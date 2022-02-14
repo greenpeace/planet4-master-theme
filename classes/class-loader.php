@@ -82,6 +82,21 @@ final class Loader {
 		new Blocks\ENForm();
 		new Blocks\GuestBook();
 		new Blocks\HubspotForm();
+
+		/**
+		 * Create block patterns category 'Planet 4'.
+		*/
+		if ( ! function_exists( 'register_block_pattern_category' ) ) {
+			return;
+		}
+
+		register_block_pattern_category(
+			'planet4',
+			[ 'label' => __( 'Planet 4', 'planet4-blocks-backend' ) ],
+		);
+
+		// Load block patterns.
+		new Patterns\SideImageWithTextAndCta();
 	}
 
 	/**
