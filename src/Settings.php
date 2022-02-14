@@ -123,30 +123,6 @@ class Settings {
 					],
 
 					[
-						'name' => __( 'Default title for related articles block', 'planet4-master-theme-backend' ),
-						'id'   => 'articles_block_title',
-						'type' => 'text',
-						'desc' => __( 'If no title set for <b>Article Block</b>, the default title will appear.', 'planet4-master-theme-backend' ),
-					],
-
-					[
-						'name' => __( 'Default button title for related articles block', 'planet4-master-theme-backend' ),
-						'id'   => 'articles_block_button_title',
-						'type' => 'text',
-						'desc' => __( 'If no button title set for <b>Article Block</b>, the default button title will appear.', 'planet4-master-theme-backend' ),
-					],
-
-					[
-						'name'       => __( 'Default Number Of Related Articles', 'planet4-master-theme-backend' ),
-						'id'         => 'articles_count',
-						'type'       => 'text',
-						'attributes' => [
-							'type' => 'number',
-						],
-						'desc'       => __( 'If no number of Related Articles set for <b>Article Block</b>, the default number of Related Articles will appear.', 'planet4-master-theme-backend' ),
-					],
-
-					[
 						'name'       => __( 'Take Action Covers default button text', 'planet4-master-theme-backend' ),
 						'id'         => 'take_action_covers_button_text',
 						'type'       => 'text',
