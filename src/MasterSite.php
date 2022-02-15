@@ -268,6 +268,16 @@ class MasterSite extends TimberSite {
 		// Make post tags ordered.
 		add_filter( 'register_taxonomy_args', [ $this, 'set_post_tags_as_ordered' ], 10, 2 );
 
+		// Disable CSS Customizer.
+		add_action(
+			'customize_register',
+			function ( $wp_customize ) {
+				if ( defined( 'WP_APP_ENV' ) && ( 'production' === WP_APP_ENV || 'staging' === WP_APP_ENV ) ) {
+					$wp_customize->remove_control( 'custom_css' );
+				}
+			}
+		);
+
 		$this->register_meta_fields();
 	}
 
