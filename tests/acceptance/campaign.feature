@@ -11,9 +11,6 @@ Background:
     When I add a title "Test campaign title"
     And I add a paragraph "Test campaign paragraph"
     And I publish the campaign
-    Then I see Analytics & Tracking section validation error message
-    And I select global project "Climate Emergency"
-    And I publish the campaign
     Then I see a validation message "Page published."
     And the campaign is visible on the website with title "Test campaign title" and paragraph "Test campaign paragraph"
 
