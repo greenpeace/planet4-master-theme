@@ -1,29 +1,69 @@
 .author {
+  .page-header {
+    display: flex;
+    justify-content: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+
+    @include medium-and-up {
+      flex-wrap: nowrap;
+    }
+  }
+
+  h1 {
+    max-width: 100%;
+  }
+
+  .author-pic {
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  @include mobile-only {
+    h1 {
+      text-align: center;
+    }
+  }
+
+  .wp-block-separator {
+    border-width: 1px;
+    border-bottom-color: #d4d4d4;
+  }
+
   .search-result-list-item {
     font-family: $roboto;
   }
 
-  .author-info {
-    .author-image {
-      width: auto;
+  // Search uses absolutely positioned buttons, for absolutely no reason. The button effectively is
+  // styled to look like a regularly positioned element by giving the next element a large amount of top padding.
+  // @see https://github.com/greenpeace/planet4-master-theme/blob/a4ddd15e9527c4b8fe4f93bd72c423f7bb282992/assets/src/scss/pages/search/_filter-sidebar.scss#L103-L104
+  // @see https://github.com/greenpeace/planet4-master-theme/blob/a4ddd15e9527c4b8fe4f93bd72c423f7bb282992/assets/src/scss/pages/search/_search-results.scss#L17-L19
+  // I avoided changing that code for now.
+  .multiple-search-result {
+    padding-top: 0;
+  }
+}
 
-      @include small-and-up {
-        width: 300px;
-        height: 300px;
-        overflow: hidden;
-      }
+.author-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
-      img {
-        width: auto;
+.author-image {
+  flex-shrink: 0;
+  max-width: 50%;
 
-        @include small-and-up {
-          width: 100%;
-        }
-      }
-    }
+  @include small-and-up {
+    width: 300px;
   }
 
-  .author-bio {
-    margin-top: 32px;
+  @include mobile-only {
+    margin: 0 auto;
+  }
+
+  img {
+    width: 100%;
   }
 }
