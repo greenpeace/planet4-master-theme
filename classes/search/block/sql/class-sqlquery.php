@@ -57,8 +57,8 @@ class SqlQuery implements Block\Query {
 		$order  = [];
 		foreach ( $params_list as $params ) {
 			$regex[] = ( new Regex( $params ) )->__toString();
-			$status  = array_merge( $status, $params->post_status() );
-			$order   = array_merge( $order, $params->order() );
+			$status  = array_merge( $status, $params->post_status() ?? [] );
+			$order   = array_merge( $order, $params->order() ?? [] );
 		}
 		$status = array_unique( array_filter( $status ) );
 		$order  = $this->parse_order( array_unique( array_filter( $order ) ) );
