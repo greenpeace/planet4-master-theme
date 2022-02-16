@@ -174,6 +174,36 @@ const BETA_CAMPAIGN_BLOCK_TYPES = [
 	'planet4-blocks/share-buttons',
 ];
 
+// action page type allow all block types.
+const ACTION_BLOCK_TYPES = [
+	'planet4-blocks/accordion',
+	'planet4-blocks/articles',
+	'planet4-blocks/carousel-header',
+	'planet4-blocks/columns',
+	'planet4-blocks/cookies',
+	'planet4-blocks/counter',
+	'planet4-blocks/covers',
+	'planet4-blocks/gallery',
+	'planet4-blocks/happypoint',
+	'planet4-blocks/media-video',
+	'planet4-blocks/social-media',
+	'planet4-blocks/split-two-columns',
+	'planet4-blocks/spreadsheet',
+	'planet4-blocks/submenu',
+	'planet4-blocks/timeline',
+	'planet4-blocks/enform',
+	'planet4-blocks/guestbook',
+	'leadin/hubspot-form-block',
+	'gravityforms/form',
+	'planet4-blocks/sub-pages',
+];
+
+const BETA_ACTION_BLOCK_TYPES = [
+	'planet4-blocks/social-media-cards',
+	'planet4-blocks/hubspot-form',
+	'planet4-blocks/share-buttons',
+];
+
 /**
  * Allowed block types based on post type
  *
@@ -249,10 +279,17 @@ function set_allowed_block_types( $allowed_block_types, $context ) {
 		! $enform_active ? [] : [ 'planet4-blocks/enform' ],
 	);
 
+	$action_block_types = array_merge(
+		ACTION_BLOCK_TYPES,
+		! Features::is_active( Features::BETA_BLOCKS ) ? [] : BETA_ACTION_BLOCK_TYPES,
+		! $enform_active ? [] : [ 'planet4-blocks/enform' ],
+	);
+
 	$all_allowed_p4_block_types = [
-		'post'     => POST_BLOCK_TYPES,
-		'page'     => $page_block_types,
-		'campaign' => $campaign_block_types,
+		'post'      => POST_BLOCK_TYPES,
+		'page'      => $page_block_types,
+		'campaign'  => $campaign_block_types,
+		'p4_action' => $action_block_types,
 	];
 
 	$allowed_p4_block_types = $all_allowed_p4_block_types[ $post_type ] ?? $all_allowed_p4_block_types['page'];
