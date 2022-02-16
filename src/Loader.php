@@ -72,6 +72,7 @@ final class Loader {
 			DevReport::class,
 			MasterSite::class,
 			HttpHeaders::class,
+			ActionPage::class,
 		];
 
 		if ( is_admin() ) {
