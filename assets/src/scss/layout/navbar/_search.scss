@@ -17,6 +17,10 @@
     @media (min-width: 783px) {
       top: $menu-height-small + 32px;
     }
+
+    @include large-and-up {
+      top: $menu-height + 32px;
+    }
   }
 
   &.open {
@@ -48,6 +52,10 @@
         }
       }
     }
+  }
+
+  @include large-and-up {
+    top: $menu-height;
   }
 
   @include x-large-and-up {
