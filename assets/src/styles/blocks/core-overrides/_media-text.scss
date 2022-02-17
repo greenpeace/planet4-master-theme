@@ -1,0 +1,35 @@
+.wp-block-media-text {
+  @media (max-width: 600px) {
+    .wp-block-media-text__content {
+      padding: 0;
+      margin-top: $sp-2;
+    }
+
+    .wp-block-button,
+    .wp-block-button a {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 601px) {
+    &.has-media-on-the-right .wp-block-media-text__content {
+      padding-inline-start: 0;
+      padding-inline-end: $sp-3;
+    }
+
+    &:not(.has-media-on-the-right) .wp-block-media-text__content {
+      padding-inline-end: 0;
+      padding-inline-start: $sp-3;
+    }
+  }
+
+  @include large-and-up {
+    &.has-media-on-the-right .wp-block-media-text__content {
+      padding-inline-end: $sp-6;
+    }
+
+    &:not(.has-media-on-the-right) .wp-block-media-text__content {
+      padding-inline-start: $sp-6;
+    }
+  }
+}

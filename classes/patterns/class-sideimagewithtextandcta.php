@@ -49,7 +49,7 @@ class SideImageWithTextAndCta extends Base_Pattern {
 								<!-- /wp:paragraph -->
 								<!-- wp:buttons -->
 									<div class="wp-block-buttons">
-										<!-- wp:button {"className":"is-style-cta","placeholder":"Enter CTA text"} /-->
+										<!-- wp:button {"placeholder":"Enter CTA text"} /-->
 									</div>
 								<!-- /wp:buttons -->
 							</div>
