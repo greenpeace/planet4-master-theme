@@ -11,7 +11,7 @@ $I->amOnPage('/');
 $I->see($cookieText, '#set-cookie');
 
 // accept the cookies
-$I->click('Got it!');
+$I->click('Accept all cookies');
 
 // and it's gone
 $I->waitForElementNotVisible('#set-cookie', 5);

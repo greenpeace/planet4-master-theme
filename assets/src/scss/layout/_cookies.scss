@@ -17,11 +17,12 @@
 }
 
 .cookie-notice {
+  font-family: $roboto;
   z-index: 100;
   position: fixed;
   width: 100vw;
   background: white;
-  padding: 24px 24px 32px;
+  padding: $sp-3;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0.5s, opacity 0.5s linear;
@@ -29,6 +30,7 @@
   border-top-right-radius: 4px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
   bottom: 0;
+  color: $grey-80;
   @include slide-from(bottom, 0);
 
   &.shown {
@@ -36,46 +38,88 @@
     visibility: visible;
   }
 
-  > div {
-    font-size: 14px;
-    margin-bottom: 24px;
-    font-weight: 400;
-    color: $grey-80;
-    font-family: $roboto;
-    line-height: 1.5rem;
-    width: 100%;
-  }
+  .cookies-intro {
+    .cookies-text {
+      font-size: 14px;
+      margin-bottom: $sp-3;
+      font-weight: 400;
+      color: $grey-80;
+      line-height: 1.5rem;
+      width: 100%;
+    }
 
-  .btn {
-    width: 100%;
-    line-height: 2.4;
+    .cookies-buttons {
+      .btn {
+        width: 100%;
+        line-height: 2.4;
+        font-size: 14px;
+      }
+
+      .btn-primary {
+        margin-top: $sp-2;
+      }
+    }
+
+    .reject-all-cookies {
+      display: block;
+      background: none;
+      border: none;
+      color: $grey-40;
+      margin: $sp-2 auto 0 auto;
+      line-height: 2.4;
+      font-size: 14px;
+      padding: 0;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   @include medium-and-up {
-    width: 344px;
-    bottom: 16px;
-    right: 16px;
+    width: auto;
+    bottom: $sp-2;
+    right: $sp-2;
     left: auto;
     border-radius: 4px;
-    padding: 24px 32px 32px;
+    padding: $sp-3 $sp-4;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
-    @include slide-from(right, 16px);
+    @include slide-from(right, $sp-2);
+
+    .cookies-intro {
+      width: 308px;
+
+      .cookies-buttons {
+        display: flex;
+        justify-content: space-between;
+
+        .btn-primary:only-child {
+          width: 100%;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+          width: calc(50% - #{$sp-1});
+          margin-top: 0;
+        }
+      }
+    }
 
     html[dir="rtl"] & {
       right: auto;
-      left: 16px;
-      @include slide-from(left, 16px);
+      left: $sp-2;
+      @include slide-from(left, $sp-2);
     }
   }
 
   @include large-and-up {
-    bottom: 24px;
-    right: 24px;
-    @include slide-from(right, 24px);
+    bottom: $sp-3;
+    right: $sp-3;
+    @include slide-from(right, $sp-3);
 
     html[dir="rtl"] & {
-      left: 24px;
-      @include slide-from(left, 24px);
+      left: $sp-3;
+      @include slide-from(left, $sp-3);
     }
   }
 }
