@@ -432,6 +432,7 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				'spacer',
 				'shortcode',
 				'group',
+				'media-text',
 			];
 
 			return array_merge( $p4_block_types, $core_block_types );
