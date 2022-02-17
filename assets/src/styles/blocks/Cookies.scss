@@ -1,9 +1,22 @@
 .cookies-block {
-  .custom-control input[type="checkbox"] + .custom-control-description {
+  .custom-control-description,
+  .custom-control input[type="checkbox"] ~ .custom-control-description {
     font-size: $font-size-sm;
+    font-family: $roboto;
 
     @include x-large-and-up {
       font-size: $font-size-md;
     }
+  }
+
+  .always-enabled {
+    background: $grey-80;
+    color: white;
+    font-weight: 700;
+    border-radius: 4px;
+    padding: $sp-x;
+    font-size: 12px;
+    margin-inline-start: $sp-1;
+    font-family: $roboto;
   }
 }
