@@ -755,6 +755,16 @@ class MasterSite extends TimberSite {
 			'style'   => true,
 		];
 
+		// Allow object tag with some attributes.
+		$allowedposttags['object'] = [
+			'class'      => true,
+			'data'       => true,
+			'id'         => true,
+			'type'       => true,
+			'style'      => true,
+			'aria-label' => true,
+		];
+
 		return $allowedposttags;
 	}
 
