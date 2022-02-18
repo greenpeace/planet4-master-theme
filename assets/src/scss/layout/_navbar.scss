@@ -45,6 +45,7 @@ $navbar-default-height: 60px;
       _-- {
         fill: var(--top-navigation--color, inherit);
       }
+
       height: 24px;
       top: 0;
       width: 24px;
@@ -214,60 +215,43 @@ $navbar-default-height: 60px;
   }
 }
 
-:root {
-  --nav-link--color: $white;
-  --nav-link--opacity: 1;
-  --nav-link--padding: #{$sp-2} 0;
-  --nav-link-active--color: var(--nav-link--color, #{$white});
-  --nav-link-active--opacity: var(--nav-link--opacity, 1);
-  --nav-link-active--text-decoration-color: #{$gp-green};
-  --nav-link-active--text-decoration-line: underline;
-  --nav-link-active--text-decoration-style: solid;
-  --nav-link-active--text-decoration-thickness: 3px;
-  --nav-link-active--text-underline-offset: auto;
-  --nav-link-active--text-underline-position: under;
-  --nav-link--hover--color: $white;
-  --nav-link--hover--opacity: 1;
-  --nav-link--hover--text-decoration-color: #{$gp-green};
-  --nav-link--hover--text-decoration-line: underline;
-  --nav-link--hover--text-decoration-style: solid;
-  --nav-link--hover--text-decoration-thickness: 3px;
-  --nav-link--hover--text-underline-offset: auto;
-  --nav-link--hover--text-underline-position: under;
-}
-
 a.nav-link {
-  color: var(--nav-link--color);
+  --nav-link-- {
+    color: $white;
+
+    &:hover {
+      color: $white;
+      text-decoration-color: $gp-green;
+    }
+  }
+
+  opacity: 1;
   display: inline-block;
-  opacity: var(--nav-link--opacity);
-  padding: var(--nav-link--padding);
+  padding: $sp-2 0;
   position: relative;
   width: 100%;
 
   @include large-and-up {
-    --nav-link--padding: 0;
-    --nav-link-active--text-decoration-thickness: 4px;
+    padding: 0;
   }
 
   &:hover {
-    color: var(--nav-link--hover--color);
-    opacity: var(--nav-link--hover--opacity);
-    text-decoration-color: var(--nav-link--hover--text-decoration-color);
-    text-decoration-line: var(--nav-link--hover--text-decoration-line);
-    text-decoration-thickness: var(--nav-link--hover--text-decoration-thickness);
-    text-underline-offset: var(--nav-link--hover--text-underline-offset);
-    text-underline-position: var(--nav-link--hover--text-underline-position);
+    opacity: 1;
+    text-decoration-line: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: auto;
+    text-underline-position: under;
 
     @include large-and-up {
-      --nav-link--hover--text-decoration-line: none;
+      text-decoration-line: none;
     }
   }
 
   // Border-bottom for underline animation
   &:before {
-    border-bottom-color: var(--nav-link--hover--text-decoration-color);
-    border-bottom-style: var(--nav-link--hover--text-decoration-style);
-    border-bottom-width: var(--nav-link--hover--text-decoration-thickness);
+    border-bottom-color: var(--nav-link--hover--text-decoration-color, $gp-green);
+    border-bottom-style: solid;
+    border-bottom-width: 3px;
     bottom: 0;
     content: "";
     left: 0;
@@ -281,16 +265,20 @@ a.nav-link {
 }
 
 .active a.nav-link {
-  color: var(--nav-link-active--color);
-  opacity: var(--nav-link-active--opacity);
-  text-decoration-color: var(--nav-link-active--text-decoration-color);
-  text-decoration-line: var(--nav-link-active--text-decoration-line);
-  text-decoration-thickness: var(--nav-link-active--text-decoration-thickness);
-  text-underline-offset: var(--nav-link-active--text-underline-offset);
-  text-underline-position: var(--nav-link-active--text-underline-position);
+  --nav-link-active-- {
+    color: var(--nav-link--color, $white);
+    text-decoration-color: $gp-green;
+  }
+
+  opacity: 1;
+  text-decoration-line: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: auto;
+  text-underline-position: under;
 
   @include large-and-up {
-    --nav-link-active--text-decoration-line: none;
+    text-decoration-line: none;
+    text-decoration-thickness: 4px;
   }
 }
 

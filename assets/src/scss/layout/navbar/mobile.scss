@@ -29,12 +29,6 @@
 }
 
 #nav-mobile-menu {
-  --nav-link--opacity: 0.5;
-  --nav-link--padding: 0;
-  --nav-link-active--text-decoration-line: none;
-  --nav-link--hover--text-decoration-line: none;
-  --nav-link--hover--text-decoration-thickness: 3px;
-
   display: flex;
   width: 100%;
 
@@ -52,8 +46,23 @@
     margin: 0 20px;
   }
 
-  a.nav-link {
+  .nav-link {
     white-space: nowrap;
+    padding: 0;
+
+    &:not(:hover) {
+      opacity: 0.5;
+    }
+
+    &:hover {
+      text-decoration-line: none;
+      text-decoration-thickness: 3px;
+    }
+  }
+
+  .active .nav-link {
+    opacity: 1;
+    text-decoration: none;
   }
 
   // Underline animation with border-bottom
