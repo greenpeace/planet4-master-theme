@@ -261,3 +261,31 @@ button.load-more-mt {
     transition: opacity 400ms;
   }
 }
+
+.post-tag-button {
+  _-- {
+    border-color: $link-color;
+    color: $link-color;
+    background-color: $white;
+    font-weight: 500;
+
+    &:visited {
+      color: $link-color;
+    }
+
+    &:hover {
+      background-color: $link-color;
+      color: $white;
+    }
+
+    &:active {
+      background-color: $link-color;
+      color: $white;
+    }
+  }
+  margin-inline-end: $sp-2;
+  margin-bottom: $sp-2;
+  line-height: 2.3;
+  padding: 0 $sp-2;
+  transition-duration: 100ms;
+}
