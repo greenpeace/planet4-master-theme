@@ -19,6 +19,7 @@ export const ENFormSettings = ({attributes, setAttributes}) => {
     background_image_sizes,
     background_image_focus,
     donate_button_checkbox,
+    custom_donate_url,
     thankyou_url,
     campaign_logo,
   } = attributes;
@@ -142,8 +143,18 @@ export const ENFormSettings = ({attributes, setAttributes}) => {
           onChange={toAttribute('donate_button_checkbox')}
         />
 
+        {! donate_button_checkbox &&
+          <URLInput
+            label={ __( 'Donate button URL', 'planet4-engagingnetworks-backend' ) }
+            placeholder={ __( 'Enter "Donate" button url', 'planet4-engagingnetworks-backend' ) }
+            value={custom_donate_url}
+            onChange={toAttribute('custom_donate_url')}
+            help={ __('If left empty, your Donate button link from "Planet4 > Donate button" will be used', 'planet4-engagingnetworks-backend') }
+          />
+        }
+
         <URLInput
-          label={ __( 'Page URL', 'planet4-engagingnetworks-backend' ) }
+          label={ __( 'Thank you page URL', 'planet4-engagingnetworks-backend' ) }
           placeholder={ __( 'Enter "Thank you page" url', 'planet4-engagingnetworks-backend' ) }
           value={thankyou_url}
           onChange={toAttribute('thankyou_url')}
