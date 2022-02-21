@@ -584,6 +584,7 @@ class ENFormCest {
 		]);
 
 		// Skip cookies box
+		$I->setCookie('active_consent_choice', '1');
 		$I->setCookie('greenpeace', '1');
 		// Navigate to the newly created page
 		$I->amOnPage('/' . $slug);
@@ -617,7 +618,7 @@ class ENFormCest {
 			} else if ( 'Checkbox' === $field_type ) {
 				$user_form_data['supporter']['questions'][ 'question.' . $form_field['id'] ] = 'Y';
 				$I->scrollTo('.en__field--' . $form_field['id']);
-				$I->click('.en__field--' . $form_field['id'] . ' .custom-control-description');
+				$I->click('.en__field--' . $form_field['id'] . ' label');
 			}
 		}
 

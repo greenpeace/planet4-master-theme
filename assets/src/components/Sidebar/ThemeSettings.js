@@ -2,6 +2,7 @@ import { useEffect } from '@wordpress/element';
 import { PanelBody, RadioControl, SelectControl } from '@wordpress/components';
 import { getDependencyUpdates, resolveField } from '../fromThemeOptions/fromThemeOptions';
 import ColorPaletteControl from '../ColorPaletteControl/ColorPaletteControl';
+import { NavigationType } from '../NavigationType/NavigationType';
 import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelect } from '@wordpress/data';
 
@@ -66,6 +67,12 @@ export const ThemeSettings = props => {
     editPost({ meta: {[fieldId]: value, ...updatedDeps} });
   }
 
+  const navParams = {
+    value: getValue(LEGACY_FIELDS.navigationType),
+    setValue: updateValueAndDependencies(LEGACY_FIELDS.navigationType),
+    options: getOptions(LEGACY_FIELDS.navigationType),
+  };
+
   return <>
     <div className="components-panel__body is-opened">
       <SelectControl
@@ -81,11 +88,7 @@ export const ThemeSettings = props => {
       title={ __( "Navigation", 'planet4-blocks-backend' ) }
       initialOpen={ true }
     >
-      <RadioControl
-        selected={getValue(LEGACY_FIELDS.navigationType)}
-        options={getOptions(LEGACY_FIELDS.navigationType)}
-        onChange={updateValueAndDependencies(LEGACY_FIELDS.navigationType)}
-      />
+      <NavigationType {...navParams} />
       <ColorPaletteControl
         value={getValue(LEGACY_FIELDS.navigationColor)}
         options={getOptions(LEGACY_FIELDS.navigationColor)}
