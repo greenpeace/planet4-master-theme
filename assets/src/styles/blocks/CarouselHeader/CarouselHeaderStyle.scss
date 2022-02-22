@@ -133,7 +133,7 @@ $medium-image-height: 600px;
       }
 
       .carousel-caption .main-header {
-        h1 {
+        h2 {
           animation-name: initial-header-animation;
           animation-duration: 1s;
           animation-timing-function: ease-in-out;
@@ -209,7 +209,7 @@ $medium-image-height: 600px;
       }
 
       .carousel-caption .main-header {
-        h1, p {
+        h2, p {
           transform: translateX(0);
           transition: unset;
         }
@@ -280,7 +280,7 @@ $medium-image-height: 600px;
       opacity: 1;
 
       .carousel-caption .main-header .carousel-captions-wrapper {
-        h1, p {
+        h2, p {
           animation-name: texts-from-start-animation;
           animation-duration: $slide-transition-speed;
           animation-timing-function: ease-in-out;
@@ -299,7 +299,7 @@ $medium-image-height: 600px;
       opacity: 1;
 
       .carousel-caption .main-header .carousel-captions-wrapper {
-        h1, p {
+        h2, p {
           animation-name: texts-from-end-animation;
           animation-duration: $slide-transition-speed;
           animation-timing-function: ease-in-out;
@@ -392,7 +392,7 @@ $medium-image-height: 600px;
           margin-inline-start: auto;
         }
 
-        h1 {
+        h2 {
           width: 100%;
           color: $grey-80;
           transition: unset;

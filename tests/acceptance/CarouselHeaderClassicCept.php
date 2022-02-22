@@ -44,7 +44,7 @@ $I->havePageInDatabase(
 $I->amOnPage( '/' . $slug );
 
 // Check the Carousel header block.
-$I->see( 'Header 1', '.carousel-captions-wrapper > h1' );
+$I->see( 'Header 1', '.carousel-captions-wrapper > h2' );
 $I->see( 'Image 1 description', '.carousel-captions-wrapper > p' );
 $I->see( 'Act', 'a.btn-primary' );
 // Check open in new tab setting.
@@ -57,10 +57,10 @@ $I->seeNumberOfElements( '.carousel-indicators > li', 2 );
 // Click next button.
 $I->click( '.carousel-control-next' );
 $I->waitForElementVisible( '//div[@class="carousel-inner"]/div[contains(@class, "carousel-item") and position()=2]', 10 ); // secs.
-$I->see( 'Header 2', '.carousel-captions-wrapper > h1' );
+$I->see( 'Header 2', '.carousel-captions-wrapper > h2' );
 
 // Click first indicator.
 $I->click( '.carousel-indicators > li:first-child' );
 $I->waitForElementVisible( '//div[@class="carousel-inner"]/div[contains(@class, "carousel-item") and position()=1]', 10 ); // secs.
-$I->see( 'Header 1', '.carousel-captions-wrapper > h1' );
+$I->see( 'Header 1', '.carousel-captions-wrapper > h2' );
 $I->scrollTo( '.page-content' );
