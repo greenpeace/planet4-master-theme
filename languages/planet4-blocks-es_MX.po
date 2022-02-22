@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin frontend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2021-04-16 13:12+0000\n"
+"PO-Revision-Date: 2022-02-22 17:04+0000\n"
 "Last-Translator: Gabriel Herrera\n"
 "Language-Team: Spanish (Mexico)\n"
 "Language: es_MX\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.5.2; wp-5.6.2"
+"X-Loco-Version: 2.5.8; wp-5.8.3"
 
 #: classes/blocks/class-happypoint.php:92
 msgid "Background image"
@@ -36,7 +36,7 @@ msgstr ""
 #: classes/blocks/class-splittwocolumns.php:163
 #: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:82
 msgid "Get involved"
-msgstr ""
+msgstr "Conoce más"
 
 #. Author of the plugin
 msgid "Greenpeace International"
@@ -73,7 +73,7 @@ msgstr ""
 #: classes/blocks/class-splittwocolumns.php:151
 #: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:64
 msgid "Learn more about this issue"
-msgstr ""
+msgstr "Conoce más sobre este problema"
 
 #: assets/src/blocks/Submenu/SubmenuLevel.js:32
 msgid "Level"
