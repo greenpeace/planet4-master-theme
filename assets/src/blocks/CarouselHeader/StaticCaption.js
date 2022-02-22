@@ -3,9 +3,9 @@ export const StaticCaption = ({ slide }) => (
     <div className='caption-overlay'></div>
     <div className='container main-header'>
       <div className='carousel-captions-wrapper'>
-        <h1>
+        <h2>
           {slide.header}
-        </h1>
+        </h2>
         <p dangerouslySetInnerHTML={{ __html: slide.description }} />
       </div>
       {slide.link_url &&
