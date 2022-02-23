@@ -51,12 +51,7 @@ export const HappypointFrontend = ({
   const code = embed_code || default_embed_code;
   const html_code = safeHTML(code || '');
 
-  const uniqueId = (prefix) => {
-    const r = Math.floor(Math.random() * 10000);
-    const t = Date.now();
-    return `${prefix}-${t}-${r}`;
-  }
-  const instanceId = uniqueId('happy-point');
+  const instanceId = 'happy-point';
 
   return (
     <section className={`block block-footer block-wide happy-point-block-wrap ${className ?? ''}`}>
