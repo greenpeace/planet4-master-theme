@@ -31,11 +31,12 @@ export const HubspotEmbed = ({params}) => {
       region: hbsptParams.region ?? '',
       portalId: hbsptParams.portalId ?? null,
       formId: hbsptParams.formId ?? null,
-      locale: document.getElementsByTagName('html')[0].getAttribute('lang')?.substr(0,2),
-      target: target,
+      locale: document.getElementsByTagName('html')[0].getAttribute('lang')?.substring(0,2),
+      target,
     });
   }
-  const [loaded, error] = useScript(hbsptScript, loadForm, [use_embed_code, embed_code]);
+
+  useScript(hbsptScript, loadForm, [use_embed_code, embed_code]);
 
   return null;
 };
