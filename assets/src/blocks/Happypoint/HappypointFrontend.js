@@ -1,7 +1,5 @@
 import { useHappypointImageData } from './useHappypointImageData';
 import { HubspotEmbed } from './useHubspotEmbedCode';
-import { useEffect } from '@wordpress/element';
-import { useScript } from '../../components/useScript/useScript';
 import { USE_IFRAME_URL, USE_EMBED_CODE, USE_NONE } from './HappyPointConstants';
 
 export const HappypointFrontend = ({
@@ -10,7 +8,6 @@ export const HappypointFrontend = ({
   mailing_list_iframe,
   iframe_url,
   id,
-  use_embed_code,
   embed_code,
   override_default_content,
   local_content_provider,
@@ -51,12 +48,7 @@ export const HappypointFrontend = ({
   const code = embed_code || default_embed_code;
   const html_code = safeHTML(code || '');
 
-  const uniqueId = (prefix) => {
-    const r = Math.floor(Math.random() * 10000);
-    const t = Date.now();
-    return `${prefix}-${t}-${r}`;
-  }
-  const instanceId = uniqueId('happy-point');
+  const instanceId = 'happy-point';
 
   return (
     <section className={`block block-footer block-wide happy-point-block-wrap ${className ?? ''}`}>

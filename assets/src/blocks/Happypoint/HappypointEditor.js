@@ -100,10 +100,6 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
     setAttributes({ embed_code: code });
   }, 300);
 
-  const setCheckbox = attributeName => value => {
-    setAttributes({ [attributeName]: value });
-  };
-
   return (
     <Fragment>
       {isSelected && (
@@ -125,7 +121,12 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
                 label={__('Override default form', 'planet4-blocks-backend')}
                 value={override_default_content}
                 checked={override_default_content}
-                onChange={setCheckbox('override_default_content')}
+                onChange={checked => {
+                  setAttributes({
+                    override_default_content: checked,
+                    embed_code: checked ? embedCode : null,
+                  });
+                }}
               />
               <OverrideFormHelp />
               {override_default_content &&

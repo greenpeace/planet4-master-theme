@@ -21,8 +21,6 @@ export const HappyPointV1 = {
     const override_default_content = true;
     const local_content_provider = attributes.mailing_list_iframe ? USE_IFRAME_URL : USE_NONE;
 
-    console.log('migrate', {override_default_content, local_content_provider});
-
     delete attributes.load_iframe;
     delete attributes.mailing_list_iframe;
 
@@ -30,9 +28,9 @@ export const HappyPointV1 = {
       ...attributes,
       override_default_content,
       local_content_provider,
-    }
+    };
   },
   save() {
     return null;
   }
-}
+};
