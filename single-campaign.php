@@ -70,20 +70,6 @@ if ( $theme_name ) {
 	$context['custom_body_classes'] = 'white-bg theme-' . $theme_name;
 }
 
-// Save custom style settings.
-$custom_styles = [];
-
-$custom_styles['nav_type']            = $campaign_meta['campaign_nav_type'] ?? null;
-$custom_styles['nav_border']          = $campaign_meta['campaign_nav_border'] ?? null;
-$custom_styles['campaign_logo_color'] = 'green';
-$custom_styles['campaign_logo']       = PostCampaign::get_logo( $campaign_meta );
-
-if ( PostCampaign::DEFAULT_NAVBAR_THEME !== $custom_styles['nav_type'] ) {
-	$custom_styles['campaign_logo_color'] = isset( $campaign_meta['campaign_logo_color'] ) && ! empty( $campaign_meta['campaign_logo_color'] )
-		? $campaign_meta['campaign_logo_color']
-		: 'light';
-}
-
 // Set GTM Data Layer values.
 $post->set_data_layer();
 $data_layer = $post->get_data_layer();
@@ -93,12 +79,12 @@ Context::set_background_image( $context );
 Context::set_og_meta_fields( $context, $post );
 Context::set_campaign_datalayer( $context, $campaign_meta );
 Context::set_utm_params( $context, $post );
+Context::set_custom_styles( $context, $campaign_meta, 'campaign' );
 
 $context['post']            = $post;
 $context['social_accounts'] = $post->get_social_accounts( $context['footer_social_menu'] );
 $context['page_category']   = $data_layer['page_category'];
 $context['post_tags']       = implode( ', ', $post->tags() );
-$context['custom_styles']   = $custom_styles;
 $context['css_vars']        = PostCampaign::css_vars( $campaign_meta );
 
 $context['custom_font_families'] = [

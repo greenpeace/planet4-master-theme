@@ -46,6 +46,7 @@ Context::set_background_image( $context );
 Context::set_og_meta_fields( $context, $post );
 Context::set_campaign_datalayer( $context, $page_meta_data );
 Context::set_utm_params( $context, $post );
+Context::set_custom_styles( $context, $page_meta_data );
 
 $context['post']                = $post;
 $context['social_accounts']     = $post->get_social_accounts( $context['footer_social_menu'] );

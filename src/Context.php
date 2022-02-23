@@ -105,4 +105,37 @@ class Context {
 				return 'Global';
 		}
 	}
+
+	/**
+	 * @param array       $context   Context to be set.
+	 * @param array       $meta      Meta data.
+	 * @param string|null $post_type Post type.
+	 */
+	public static function set_custom_styles(
+		array &$context,
+		array $meta,
+		?string $post_type = null
+	): void {
+		if ( 'campaign' === $post_type ) {
+			$custom_styles = [
+				'nav_type'            => $meta['campaign_nav_type'] ?? null,
+				'nav_border'          => $meta['campaign_nav_border'] ?? null,
+				'campaign_logo_color' => 'green',
+				'campaign_logo'       => PostCampaign::get_logo( $meta ),
+			];
+
+			if ( PostCampaign::DEFAULT_NAVBAR_THEME !== $custom_styles['nav_type'] ) {
+				$custom_styles['campaign_logo_color'] = ! empty( $meta['campaign_logo_color'] )
+					? $meta['campaign_logo_color']
+					: 'light';
+			}
+
+			$context['custom_styles'] = $custom_styles;
+			return;
+		}
+
+		$context['custom_styles'] = [
+			'nav_type' => $meta['nav_type'] ?? 'planet4',
+		];
+	}
 }
