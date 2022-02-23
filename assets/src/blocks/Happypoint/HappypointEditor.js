@@ -121,7 +121,12 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
                 label={__('Override default form', 'planet4-blocks-backend')}
                 value={override_default_content}
                 checked={override_default_content}
-                onChange={toAttribute('override_default_content')}
+                onChange={checked => {
+                  setAttributes({
+                    override_default_content: checked,
+                    embed_code: checked ? embedCode : null,
+                  });
+                }}
               />
               <OverrideFormHelp />
               {override_default_content &&
