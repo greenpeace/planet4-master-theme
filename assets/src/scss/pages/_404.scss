@@ -1,12 +1,6 @@
 .page-404-page {
   .page-header {
-    color: $grey-80;
-    min-height: 1200px;
-    padding-top: 80px;
-
-    @include medium-and-up {
-      padding-top: 110px;
-    }
+    min-height: 100vh;
 
     .page-header-subtitle {
       margin-top: 150px;

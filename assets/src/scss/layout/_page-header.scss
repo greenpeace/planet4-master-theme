@@ -78,9 +78,12 @@
   }
 }
 
-.with-mobile-tabs ~ .page-header {
-  @include medium-and-less {
-    padding-top: 140px;
+.with-mobile-tabs {
+  ~ .page-header,
+  ~ article .page-header {
+    @include medium-and-less {
+      padding-top: 140px;
+    }
   }
 }
 
