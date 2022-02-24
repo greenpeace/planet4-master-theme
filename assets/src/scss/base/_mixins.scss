@@ -233,3 +233,26 @@ $nested-comment-left-margin: 50px;
     }
   }
 }
+
+@mixin scrollbar-layout {
+  // Only applied to Firefox
+  scrollbar-width: thin;
+  scrollbar-color: transparent;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+}

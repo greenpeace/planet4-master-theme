@@ -11,7 +11,7 @@
 		data-ga-label="{{ page_category }}"
 		aria-expanded="false"
 		data-bs-toggle="open"
-		data-bs-target="#nav-main">
+		data-bs-target="#burger-menu">
 		{{ 'menu'|svgicon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
 		<span class="visually-hidden">
 			{{ __( 'Menu', 'planet4-master-theme' ) }}
@@ -47,19 +47,22 @@
 				</li>
 				{% endfor %}
 
-				{% set donate_menu = donate_menu_items[0] ?? {} %}
-				<li class="nav-donate">
-					<a
-						class="btn btn-donate {{ donate_menu.children ? 'dropdown' : '' }}"
-						href="{{ donate_menu.link }}"
-						data-ga-category="Menu Navigation"
-						data-ga-action="Donate"
-						data-ga-label="{{ page_category }}">
-							{{ donate_menu.title }}
-					</a>
-					{% if donate_menu.children is not empty %}
-						{% include 'navigation-submenu.twig' with { menu: donate_menu } %}
-					{% endif %}
+				{% if donate_menu_items|first is not null %}
+					{% set donate_menu = donate_menu_items|first %}
+					<li class="nav-donate">
+						<a
+							class="btn btn-donate {{ donate_menu.children ? 'dropdown' : '' }}"
+							href="{{ donate_menu.link }}"
+							data-ga-category="Menu Navigation"
+							data-ga-action="Donate"
+							data-ga-label="{{ page_category }}">
+								{{ donate_menu.title }}
+						</a>
+						{% if donate_menu.children is not empty %}
+							{% include 'navigation-submenu.twig' with { menu: donate_menu } %}
+						{% endif %}
+					</li>
+				{% endif %}
 			</ul>
 		</nav>
 
@@ -81,69 +84,41 @@
 				</span>
 			</button>
 		</div>
-		<form id="search_form" class="form nav-search-form" action="{{ data_nav_bar.home_url }}">
-			{% set search_label = __( 'Search', 'planet4-master-theme' ) %}
-			<input id="{{ search_input_id }}"
-				type="search"
-				name="s"
-				class="form-control"
-				placeholder="{{ search_label }}"
-				value="{{ data_nav_bar.search_query|e('wp_kses_post')|raw }}"
-				aria-label="{{ __( 'Search input', 'planet4-master-theme' ) }}"/>
-			<input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}"/>
-			<button class="nav-search-btn"
-				aria-label="{{ __( 'Press return/enter or click to search', 'planet4-master-theme' ) }}"
-				type="submit"
+	</div>
+	<form id="search_form" class="form nav-search-form" action="{{ data_nav_bar.home_url }}">
+		{% set search_label = __( 'Search', 'planet4-master-theme' ) %}
+		<input id="{{ search_input_id }}"
+			type="search"
+			name="s"
+			class="form-control"
+			placeholder="{{ search_label }}"
+			value="{{ data_nav_bar.search_query|e('wp_kses_post')|raw }}"
+			aria-label="{{ __( 'Search input', 'planet4-master-theme' ) }}"/>
+		<input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}"/>
+		<button class="nav-search-btn"
+			aria-label="{{ __( 'Press return/enter or click to search', 'planet4-master-theme' ) }}"
+			type="submit"
+			data-ga-category="Menu Navigation"
+			data-ga-action="Search"
+			data-ga-label="{{ page_category }}"
+		>
+			{{ search_icon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
+			<span class="visually-hidden"
 				data-ga-category="Menu Navigation"
 				data-ga-action="Search"
 				data-ga-label="{{ page_category }}"
 			>
-				{{ search_icon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
-				<span class="visually-hidden"
-					data-ga-category="Menu Navigation"
-					data-ga-action="Search"
-					data-ga-label="{{ page_category }}"
-				>
-						{{ search_label }}
-				</span>
-			</button>
-			<button class="nav-search-clear"
-				aria-label="{{ __( 'Clear search', 'planet4-master-theme' ) }}"
-				type="button"
-				onclick="document.getElementById('{{ search_input_id }}').value=null;"
-			>
-				<span class="visually-hidden">{{ __( 'Clear search', 'planet4-master-theme' ) }}</span>
-			</button>
-		</form>
-		{% if site_languages is not empty %}
-			{% set current_lang = site_languages|filter(i => i.active)|first %}
-			<button class="nav-languages-toggle" type="button"
-				aria-label="{{ __( 'Choose language', 'planet4-master-theme' ) }}"
-				aria-expanded="false"
-				data-bs-toggle="open"
-				data-bs-target="#nav-languages"
-			>{{ current_lang.code|capitalize }}</button>
-			<nav id="nav-languages" class="nav-languages">
-				<ul>
-				{% for key,item in site_languages %}
-				<li class="nav-item {{ item.active ? 'current-language' : '' }}">
-					<a class="nav-link" href="{{ item.url }}">{{ item.native_name }}</a>
-					<span aria-hidden="true">&nbsp;|&nbsp;</span>
-				</li>
-				{% endfor %}
-				</ul>
-			</nav>
-		{% endif %}
-		<button class="nav-menu-close" type="button"
-			aria-label="{{ __( 'Close navigation menu', 'planet4-master-theme' ) }}"
-			aria-expanded="false"
-			data-bs-toggle="open"
-			data-bs-target="#nav-main">
-			<span class="visually-hidden">
-				{{ __( 'Close navigation menu', 'planet4-master-theme' ) }}
+					{{ search_label }}
 			</span>
 		</button>
-	</div>
+		<button class="nav-search-clear"
+			aria-label="{{ __( 'Clear search', 'planet4-master-theme' ) }}"
+			type="button"
+			onclick="document.getElementById('{{ search_input_id }}').value=null;"
+		>
+			<span class="visually-hidden">{{ __( 'Clear search', 'planet4-master-theme' ) }}</span>
+		</button>
+	</form>
 	<div class="nav-search-toggle-container medium-and-less">
 		<button class="nav-search-toggle" type="button"
 			aria-label="{{ data_nav_bar.navbar_search_toggle }}"
@@ -159,6 +134,25 @@
 			</span>
 		</button>
 	</div>
+	{% if site_languages is not empty %}
+		{% set current_lang = site_languages|filter(i => i.active)|first %}
+		<button class="nav-languages-toggle" type="button"
+			aria-label="{{ __( 'Choose language', 'planet4-master-theme' ) }}"
+			aria-expanded="false"
+			data-bs-toggle="open"
+			data-bs-target="#nav-languages"
+		>{{ current_lang.code|capitalize }}</button>
+		<nav id="nav-languages" class="nav-languages">
+			<ul>
+			{% for key,item in site_languages %}
+			<li class="nav-item {{ item.active ? 'current-language' : '' }}">
+				<a class="nav-link" href="{{ item.url }}">{{ item.native_name }}</a>
+				<span aria-hidden="true">&nbsp;|&nbsp;</span>
+			</li>
+			{% endfor %}
+			</ul>
+		</nav>
+	{% endif %}
 	{% if mobile_tabs_menu %}
 	<div id="nav-mobile">
 		<nav id="nav-mobile-menu">
@@ -179,6 +173,7 @@
 		</nav>
 	</div>
 	{% endif %}
-	<div class="top-navigation-overlay"></div>
 	{% include 'country_selector_banner.twig' ignore missing %}
 </section>
+{% include 'burger-menu.twig' %}
+

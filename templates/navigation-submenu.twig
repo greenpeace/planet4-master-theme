@@ -2,7 +2,7 @@
 	<div class='nav-submenu-wrapper'>
 		<ul>
 		{% for key,item in menu.children %}
-			<li>
+			<li class="nav-item {{ item == item.current ? 'active' : '' }}">
 				{% if fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == act_page_id %}
 					{% set link_ga_action = 'Act' %}
 				{% elseif fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == explore_page_id %}
