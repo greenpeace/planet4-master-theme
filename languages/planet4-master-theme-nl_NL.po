@@ -422,7 +422,7 @@ msgstr "This Campaign is not assigned to an Issue"
 
 #: assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
-msgstr ""
+msgstr "Deze link opent een PDF bestand"
 
 #: templates/single-password.twig:15 templates/single-page.twig:12
 msgid "To see the content of this page, please enter your password  below"
