@@ -32,12 +32,9 @@
 }
 
 .nav-languages {
-  display: none;
-  background: var(--top-navigation--background, $dark-blue);
   box-shadow: none;
   position: unset;
   width: 100%;
-  z-index: 4;
 
   a.nav-link {
     padding: 0;
@@ -45,7 +42,6 @@
   }
 
   ul {
-    border-bottom: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
     display: inline-block;
     flex-grow: 1;
     margin-block: 0;
@@ -79,14 +75,6 @@
 
   li:last-of-type > span[aria-hidden="true"] {
     display: none;
-  }
-
-  @include medium-and-less {
-    display: flex;
-  }
-
-  @include medium-and-up {
-    width: 400px;
   }
 
   @include large-and-up {

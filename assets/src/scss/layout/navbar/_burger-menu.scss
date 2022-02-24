@@ -1,0 +1,260 @@
+#burger-menu {
+  _-- {
+    background: $white;
+    color: $grey-80;
+    font-family: $roboto;
+  }
+
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  top: 0;
+  left: 0;
+  inset-inline-start: -100%;
+  padding: 18px $sp-3;
+  z-index: 99999;
+  overflow: hidden;
+  height: 100%;
+
+  &.open {
+    inset-inline-start: 0;
+    transition: inset-inline-start 0.2s ease-out;
+
+    @supports not (inset-inline-start: 0) {
+      transform: translateX(0);
+      transition: transform 0.2s ease-out;
+
+      html[dir="rtl"] & {
+        transform: translateX(0);
+      }
+    }
+
+    ~ .burger-menu-overlay {
+      display: block;
+
+      @include large-and-up {
+        display: none;
+      }
+    }
+  }
+
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  a.nav-link {
+    color: $grey-80;
+    width: auto;
+  }
+
+  .admin-bar & {
+    @include medium-and-less {
+      top: 46px;
+      height: calc(100% - 46px);
+    }
+
+    @media (min-width: 783px) {
+      top: 32px;
+      height: calc(100% - 32px);
+    }
+  }
+
+  @include small-and-less {
+    width: 100vw;
+    inset-inline-start: -100vw;
+
+    @supports not (inset-inline-start: -100vw) {
+      transform: translateX(-100vw);
+      transition: transform 0.2s ease-in;
+
+      html[dir="rtl"] & {
+        transform: translateX(100vw);
+      }
+    }
+  }
+
+  @include small-to-large {
+    width: 400px;
+    inset-inline-start: -400px;
+    transition: inset-inline-start 0.2s ease-in;
+
+    @supports not (inset-inline-start: -400px) {
+      transform: translateX(-400px);
+      transition: transform 0.2s ease-in;
+
+      html[dir="rtl"] & {
+        transform: translateX(400px);
+      }
+    }
+  }
+
+  @include large-and-up {
+    display: none;
+  }
+}
+
+#burger-menu .burger-menu-header {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-block-end: $sp-2;
+
+  .site-logo {
+    display: block;
+    width: fit-content;
+    margin-inline-start: 0;
+    margin-bottom: $sp-1x;
+    line-height: 1;
+
+    img {
+      height: 23px;
+    }
+  }
+
+  .nav-languages {
+    width: 100%;
+    margin-top: $sp-1x;
+    margin-bottom: $sp-1x;
+
+    ul {
+      margin-inline: 0;
+      padding: 0;
+      margin-bottom: 0;
+    }
+  }
+}
+
+#burger-menu .nav-wrapper {
+  overflow-y: scroll;
+
+  .nav-items {
+    width: 100%;
+    padding: $sp-1x 0 0;
+  }
+
+  @include scrollbar-layout;
+}
+
+#burger-menu .burger-menu-footer {
+  display: flex;
+  justify-self: flex-end;
+  flex-shrink: 0;
+  margin-top: auto;
+  width: 100%;
+  padding: $sp-3 0 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+
+  .btn-donate {
+    width: 100%;
+  }
+}
+
+// All styles related to the menu item
+#burger-menu .burger-menu-item {
+  width: 100%;
+
+  &:not(:first-child) {
+    margin-block-end: $sp-1x;
+  }
+
+  &:not(:last-child) {
+    margin-block-start: $sp-1x;
+  }
+
+  > a.nav-link, > * > a.nav-link {
+    font-size: 20px;
+    padding: 6px 0;
+  }
+
+  .nav-subitems {
+    padding-inline-start: $sp-2;
+    padding-block-start: $sp-1x;
+    padding-block-end: $sp-1x;
+
+    .nav-item.active {
+      pointer-events: none;
+    }
+
+    a.nav-link {
+      font-size: 16px;
+      line-height: 19px;
+      font-weight: 400;
+      width: auto;
+      padding: $sp-1x 0;
+    }
+  }
+
+  .item-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .collapsable-btn {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+
+    &::before {
+      content: "";
+      height: 12px;
+      width: 8px;
+      display: inline-block;
+      mask-image: url("../../images/chevron.svg");
+      mask-repeat: no-repeat;
+      mask-size: contain;
+      mask-position: center;
+      background-repeat: no-repeat;
+      background-color: currentColor;
+      transform: rotate(-90deg);
+      transition: transform 0.3s linear;
+      color: $grey-80;
+    }
+
+    &.collapsed {
+      &::before {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
+
+#burger-menu .nav-menu-close {
+  display: block;
+  position: absolute;
+  top: 16px;
+  inset-inline-end: $sp-3;
+  border: none;
+  height: 16px;
+  width: 16px;
+  mask: url("../../images/cross.svg") 50% 50%/16px 16px no-repeat;
+  background-color: $grey-80;
+  z-index: 5;
+
+  @supports not (inset-inline-end: $sp-3) {
+    right: $sp-3;
+    left: auto;
+
+    html[dir="rtl"] & {
+      left: $sp-3;
+      right: auto;
+    }
+  }
+}
+
+#burger-menu ~ .burger-menu-overlay {
+  display: none;
+  background: var(--burger-menu-overlay--background, $black);
+  opacity: 0.5;
+  height: 100%;
+  pointer-events: all;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 99;
+}
