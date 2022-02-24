@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2022-01-17 12:38+0000\n"
+"POT-Creation-Date: 2022-02-24 08:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -31,7 +31,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. %d = Number of minutes for reading time.
-#: src/Post/ReadingTimeCalculator.php:132 templates/single.twig:83
+#: src/Post/ReadingTimeCalculator.php:132 templates/tease-taxonomy-post.twig:61
+#: templates/single.twig:69 templates/tease-author.twig:52
 #, php-format
 msgid "%d min read"
 msgstr ""
@@ -60,11 +61,15 @@ msgstr ""
 msgid "About the author"
 msgstr ""
 
+#: templates/cookies.twig:26
+msgid "Accept all cookies"
+msgstr ""
+
 #: page-templates/sitemap.php:23
 msgid "Act"
 msgstr ""
 
-#: src/Post.php:263 src/Search.php:946
+#: src/Search.php:946 src/Post.php:263
 msgid "ACTION"
 msgstr ""
 
@@ -74,6 +79,14 @@ msgstr ""
 
 #: templates/search.twig:210
 msgid "ACTIVE FILTERS"
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:55
+msgid "Allow all"
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:16
+msgid "Always enabled"
 msgstr ""
 
 #: templates/search.twig:200
@@ -97,8 +110,8 @@ msgstr ""
 msgid "CAMPAIGN"
 msgstr ""
 
-#: src/Search.php:788 templates/search.twig:253 templates/tease-search.twig:41
-#: templates/tease-search.twig:127
+#: src/Search.php:788 templates/tease-search.twig:41
+#: templates/tease-search.twig:127 templates/search.twig:253
 msgid "Campaign"
 msgstr ""
 
@@ -114,7 +127,7 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: templates/footer_country_selector.twig:11 templates/navigation-bar.twig:46
+#: templates/navigation-bar.twig:46 templates/footer_country_selector.twig:11
 msgid "Change Country"
 msgstr ""
 
@@ -126,7 +139,7 @@ msgstr ""
 msgid "Clear all"
 msgstr ""
 
-#: templates/navigation-bar-new.twig:102
+#: templates/navigation-bar-new.twig:106
 msgid "Clear search"
 msgstr ""
 
@@ -134,7 +147,7 @@ msgstr ""
 msgid "Close Menu"
 msgstr ""
 
-#: templates/navigation-bar-new.twig:130
+#: templates/navigation-bar-new.twig:134
 msgid "Close navigation menu"
 msgstr ""
 
@@ -142,7 +155,7 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-#: templates/comments_section.twig:2 templates/single.twig:90
+#: templates/single.twig:76 templates/comments_section.twig:2
 msgid "Comments"
 msgstr ""
 
@@ -158,7 +171,7 @@ msgstr ""
 msgid "Discussion"
 msgstr ""
 
-#: src/Post.php:269 src/Search.php:958
+#: src/Search.php:958 src/Post.php:269
 msgid "DOCUMENT"
 msgstr ""
 
@@ -166,7 +179,7 @@ msgstr ""
 msgid "Document"
 msgstr ""
 
-#: src/MasterSite.php:557
+#: src/MasterSite.php:588
 msgid "Donate"
 msgstr ""
 
@@ -198,10 +211,6 @@ msgstr ""
 msgid "Follow us"
 msgstr ""
 
-#: templates/cookies.twig:6
-msgid "Got it!"
-msgstr ""
-
 #. Author of the theme
 msgid "Greenpeace International"
 msgstr ""
@@ -218,11 +227,11 @@ msgstr ""
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr ""
 
-#: src/MasterSite.php:558
+#: src/MasterSite.php:589
 msgid "International (English)"
 msgstr ""
 
-#: templates/single-page.twig:15 templates/single-password.twig:18
+#: templates/single-password.twig:18 templates/single-page.twig:15
 msgid "Invalid password, please try again"
 msgstr ""
 
@@ -238,7 +247,7 @@ msgstr ""
 msgid "Leave your reply"
 msgstr ""
 
-#: templates/author.twig:56 templates/taxonomy.twig:42
+#: templates/taxonomy.twig:42 templates/author.twig:56
 msgid "Load More"
 msgstr ""
 
@@ -246,15 +255,19 @@ msgstr ""
 msgid "Manage"
 msgstr ""
 
+#: templates/cookies/cookies_settings.twig:11
+msgid "Manage your cookies preferences"
+msgstr ""
+
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
 msgstr ""
 
-#: templates/navigation-bar.twig:18 templates/navigation-bar-new.twig:13
+#: templates/navigation-bar-new.twig:17 templates/navigation-bar.twig:18
 msgid "Menu"
 msgstr ""
 
-#: src/Search.php:692 src/MasterSite.php:89
+#: src/Search.php:692 src/MasterSite.php:90
 msgid "Most relevant"
 msgstr ""
 
@@ -262,15 +275,15 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: src/Search.php:696 src/MasterSite.php:93
+#: src/Search.php:696 src/MasterSite.php:94
 msgid "Newest"
 msgstr ""
 
-#: src/Search.php:700 src/MasterSite.php:97
+#: src/Search.php:700 src/MasterSite.php:98
 msgid "Oldest"
 msgstr ""
 
-#: src/Post.php:265 src/Search.php:949
+#: src/Search.php:949 src/Post.php:265
 msgid "PAGE"
 msgstr ""
 
@@ -278,7 +291,11 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: src/Post.php:272 src/Search.php:962
+#: templates/cookies/cookies_settings.twig:12
+msgid "Please select which cookies you are willing to store."
+msgstr ""
+
+#: src/Search.php:962 src/Post.php:272
 msgid "POST"
 msgstr ""
 
@@ -302,6 +319,14 @@ msgstr ""
 msgid "Refine your search"
 msgstr ""
 
+#: templates/cookies/cookies_settings.twig:47
+msgid "Reject all"
+msgstr ""
+
+#: templates/cookies.twig:35
+msgid "Reject all cookies"
+msgstr ""
+
 #: tag.php:117
 msgid "Related Campaigns"
 msgstr ""
@@ -310,13 +335,21 @@ msgstr ""
 msgid "Results"
 msgstr ""
 
+#: templates/cookies/cookies_settings.twig:63
+msgid "Save preferences"
+msgstr ""
+
+#: templates/navigation-bar-new.twig:76 templates/navigation-bar.twig:7
 #: templates/404.twig:17 templates/search.twig:8 templates/search.twig:45
-#: templates/navigation-bar.twig:7 templates/navigation-bar-new.twig:72
 msgid "Search"
 msgstr ""
 
-#: templates/footer_country_selector.twig:11 templates/navigation-bar.twig:45
+#: templates/navigation-bar.twig:45 templates/footer_country_selector.twig:11
 msgid "Selected"
+msgstr ""
+
+#: templates/cookies.twig:18
+msgid "Settings"
 msgstr ""
 
 #: templates/blocks/share_buttons.twig:8 templates/blocks/share_buttons.twig:15
@@ -366,7 +399,7 @@ msgstr ""
 msgid "Sort by"
 msgstr ""
 
-#: templates/single-page.twig:19 templates/single-password.twig:22
+#: templates/single-password.twig:22 templates/single-page.twig:19
 msgid "Submit"
 msgstr ""
 
@@ -374,7 +407,7 @@ msgstr ""
 msgid "Take action"
 msgstr ""
 
-#: tag.php:72 src/Campaigns.php:252
+#: tag.php:72
 msgid "Things you can do"
 msgstr ""
 
@@ -386,7 +419,7 @@ msgstr ""
 msgid "This link will open a PDF file"
 msgstr ""
 
-#: templates/single-page.twig:12 templates/single-password.twig:15
+#: templates/single-password.twig:15 templates/single-page.twig:12
 msgid "To see the content of this page, please enter your password  below"
 msgstr ""
 
@@ -394,16 +427,16 @@ msgstr ""
 msgid "Toggle navigation menu"
 msgstr ""
 
-#: src/MasterSite.php:498
+#: src/MasterSite.php:529
 msgid "Toggle search box"
 msgstr ""
 
-#: templates/navigation-bar.twig:99 templates/navigation-bar-new.twig:67
-#: templates/navigation-bar-new.twig:145
+#: templates/navigation-bar-new.twig:71 templates/navigation-bar-new.twig:149
+#: templates/navigation-bar.twig:99
 msgid "Toggle search form"
 msgstr ""
 
-#: src/MasterSite.php:497
+#: src/MasterSite.php:528
 msgid "Toggle worldwide site selection menu"
 msgstr ""
 
@@ -415,7 +448,7 @@ msgstr ""
 msgid "We also included results for "
 msgstr ""
 
-#: tag.php:73 src/Campaigns.php:253
+#: tag.php:73
 msgid "We want you to take action because together we're strong."
 msgstr ""
 
