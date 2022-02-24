@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-02-24 09:18+0000\n"
+"PO-Revision-Date: 2022-02-24 09:21+0000\n"
 "Last-Translator: Dirk Faber\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr[1] "%1$d resultaten voor '%2$s'"
 #: templates/single.twig:69 templates/tease-author.twig:52
 #, php-format
 msgid "%d min read"
-msgstr ""
+msgstr "%d min leestijd"
 
 #. %d = Number of results.
 #: src/Search.php:714
@@ -66,7 +66,7 @@ msgstr "Auteur"
 
 #: templates/cookies.twig:26
 msgid "Accept all cookies"
-msgstr ""
+msgstr "Alle cookies accepteren"
 
 #: page-templates/sitemap.php:23
 msgid "Act"
@@ -86,11 +86,11 @@ msgstr "ACTIEVE FILTERS"
 
 #: templates/cookies/cookies_settings.twig:55
 msgid "Allow all"
-msgstr ""
+msgstr "Alles toestaan"
 
 #: templates/cookies/cookies_settings.twig:16
 msgid "Always enabled"
-msgstr ""
+msgstr "Altijd beschikbaar"
 
 #: templates/search.twig:200
 msgid "Apply filters"
@@ -144,7 +144,7 @@ msgstr "Clear all"
 
 #: templates/navigation-bar-new.twig:106
 msgid "Clear search"
-msgstr ""
+msgstr "Zoekopdracht wissen"
 
 #: templates/navigation-bar.twig:33
 msgid "Close Menu"
@@ -152,7 +152,7 @@ msgstr "Close Menu"
 
 #: templates/navigation-bar-new.twig:134
 msgid "Close navigation menu"
-msgstr ""
+msgstr "Navigatie sluiten"
 
 #: templates/comment_form/comment_field.twig:4
 msgid "Comment"
@@ -213,7 +213,7 @@ msgstr "Filters"
 
 #: templates/footer_social_media.twig:2
 msgid "Follow us"
-msgstr ""
+msgstr "Volg ons"
 
 #. Author of the theme
 msgid "Greenpeace International"
@@ -261,7 +261,7 @@ msgstr "Beheer"
 
 #: templates/cookies/cookies_settings.twig:11
 msgid "Manage your cookies preferences"
-msgstr ""
+msgstr "Beheer je cookievoorkeuren"
 
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
@@ -297,7 +297,7 @@ msgstr "Pagina"
 
 #: templates/cookies/cookies_settings.twig:12
 msgid "Please select which cookies you are willing to store."
-msgstr ""
+msgstr "Welke cookies mogen worden opgeslagen?"
 
 #: src/Search.php:962 src/Post.php:272
 msgid "POST"
@@ -325,11 +325,11 @@ msgstr "Verfijn je zoekopdracht"
 
 #: templates/cookies/cookies_settings.twig:47
 msgid "Reject all"
-msgstr ""
+msgstr "Alles weigeren"
 
 #: templates/cookies.twig:35
 msgid "Reject all cookies"
-msgstr ""
+msgstr "Alle cookies weigeren"
 
 #: tag.php:117
 msgid "Related Campaigns"
@@ -341,7 +341,7 @@ msgstr "Resultaten"
 
 #: templates/cookies/cookies_settings.twig:63
 msgid "Save preferences"
-msgstr ""
+msgstr "Voorkeuren opslaan"
 
 #: templates/navigation-bar-new.twig:76 templates/navigation-bar.twig:7
 #: templates/404.twig:17 templates/search.twig:8 templates/search.twig:45
@@ -354,7 +354,7 @@ msgstr "Geselecteerd"
 
 #: templates/cookies.twig:18
 msgid "Settings"
-msgstr ""
+msgstr "Instellingen"
 
 #: templates/blocks/share_buttons.twig:8 templates/blocks/share_buttons.twig:15
 #: templates/blocks/share_buttons.twig:22
@@ -374,11 +374,11 @@ msgstr "OVERIGE %s RESULTATEN LADEN"
 
 #: templates/blocks/author_profile.twig:45
 msgid "Show less"
-msgstr ""
+msgstr "Minder zien"
 
 #: templates/blocks/author_profile.twig:44
 msgid "Show more"
-msgstr ""
+msgstr "Meer zien"
 
 #. Name of the template
 msgid "Sitemap Page"
