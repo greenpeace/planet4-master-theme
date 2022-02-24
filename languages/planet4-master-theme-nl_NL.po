@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-02-24 09:21+0000\n"
+"PO-Revision-Date: 2022-02-24 09:22+0000\n"
 "Last-Translator: Dirk Faber\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
@@ -237,7 +237,7 @@ msgstr "International (English)"
 
 #: templates/single-password.twig:18 templates/single-page.twig:15
 msgid "Invalid password, please try again"
-msgstr ""
+msgstr "Onjuist wachtwoord, probeer het opnieuw"
 
 #: templates/search.twig:82
 msgid "ISSUE"
