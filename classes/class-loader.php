@@ -12,6 +12,7 @@ use P4\MasterTheme\Features;
 use P4\MasterTheme\MigrationLog;
 use P4\MasterTheme\Migrations\M001EnableEnFormFeature;
 use P4GBKS\Controllers;
+use P4GBKS\Patterns\Block_Pattern;
 use P4GBKS\Views\View;
 use WP_CLI;
 use P4GBKS\Command\Controller;
@@ -96,7 +97,7 @@ final class Loader {
 		);
 
 		// Load block patterns.
-		new Patterns\SideImageWithTextAndCta();
+		Block_Pattern::register_all();
 	}
 
 	/**
