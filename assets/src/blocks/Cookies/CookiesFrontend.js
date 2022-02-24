@@ -106,8 +106,10 @@ export const CookiesFrontend = props => {
     if (props[fieldName] === undefined) {
       return COOKIES_DEFAULT_COPY[fieldName] || '';
     }
-    return props[fieldName];
+    return props[fieldName] || '';
   }
+
+  const isFieldValid = fieldName => getFieldValue(fieldName).trim().length > 0;
 
   return (
     <>
@@ -139,7 +141,7 @@ export const CookiesFrontend = props => {
           allowedFormats={['core/bold', 'core/italic']}
         />
         }
-        {(isEditing || (necessary_cookies_name !== '' && necessary_cookies_description !== '')) &&
+        {(isEditing || (isFieldValid('necessary_cookies_name') && isFieldValid('necessary_cookies_description'))) &&
           <>
             <div className='d-flex align-items-center'>
               <FrontendRichText
@@ -183,7 +185,7 @@ export const CookiesFrontend = props => {
             </div>
           </>
         }
-        {(ENABLE_ANALYTICAL_COOKIES && (isEditing || (analytical_cookies_name !== '' && analytical_cookies_description !== ''))) &&
+        {(ENABLE_ANALYTICAL_COOKIES && (isEditing || (isFieldValid('analytical_cookies_name') && isFieldValid('analytical_cookies_description')))) &&
           <>
             <div className='d-flex align-items-center'>
               <label className="custom-control" style={isSelected ? { pointerEvents: 'none' } : null}>
@@ -252,7 +254,7 @@ export const CookiesFrontend = props => {
             </div>
           </>
         }
-        {(isEditing || (all_cookies_name !== '' && all_cookies_description !== '')) &&
+        {(isEditing || (isFieldValid('all_cookies_name') && isFieldValid('all_cookies_description'))) &&
           <>
             <div className='d-flex align-items-center'>
               <label className="custom-control" style={isSelected ? { pointerEvents: 'none' } : null}>
