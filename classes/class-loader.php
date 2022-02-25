@@ -12,6 +12,7 @@ use P4\MasterTheme\Features;
 use P4\MasterTheme\MigrationLog;
 use P4\MasterTheme\Migrations\M001EnableEnFormFeature;
 use P4GBKS\Controllers;
+use P4GBKS\Patterns\Block_Pattern;
 use P4GBKS\Views\View;
 use WP_CLI;
 use P4GBKS\Command\Controller;
@@ -82,6 +83,21 @@ final class Loader {
 		new Blocks\ENForm();
 		new Blocks\GuestBook();
 		new Blocks\HubspotForm();
+
+		/**
+		 * Create block patterns category 'Planet 4'.
+		*/
+		if ( ! function_exists( 'register_block_pattern_category' ) ) {
+			return;
+		}
+
+		register_block_pattern_category(
+			'planet4',
+			[ 'label' => __( 'Planet 4', 'planet4-blocks-backend' ) ],
+		);
+
+		// Load block patterns.
+		Block_Pattern::register_all();
 	}
 
 	/**
