@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-02-28 10:39+0000\n"
+"PO-Revision-Date: 2022-02-28 10:40+0000\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -352,7 +352,7 @@ msgstr ""
 
 #: templates/cookies.twig:18
 msgid "Settings"
-msgstr "\bCookieの設定"
+msgstr "クッキーの設定を確認する"
 
 #: templates/blocks/share_buttons.twig:8 templates/blocks/share_buttons.twig:15
 #: templates/blocks/share_buttons.twig:22
