@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-02-28 09:32+0000\n"
+"PO-Revision-Date: 2022-02-28 09:34+0000\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -165,7 +165,7 @@ msgstr ""
 
 #: 404.php:17
 msgid "Enter your search term below"
-msgstr "検索キーワードを下に入れる"
+msgstr "検索キーワードを入力する"
 
 #. Name of the template
 msgid "Evergreen Page"
