@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-02-28 09:31+0000\n"
+"PO-Revision-Date: 2022-02-28 09:32+0000\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -265,7 +265,7 @@ msgstr "投稿"
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post comment"
-msgstr ""
+msgstr "コメントを投稿する"
 
 #: templates/author.twig:32
 msgid "Posts by "
