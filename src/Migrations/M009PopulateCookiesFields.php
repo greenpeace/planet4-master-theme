@@ -22,6 +22,11 @@ class M009PopulateCookiesFields extends MigrationScript {
 	 * @return void
 	 */
 	public static function execute( MigrationRecord $record ): void {
+		if ( ! class_exists( 'P4GBKS\Search\BlockSearch' ) ) {
+			echo 'P4 Gutenberg plugin is not available.';
+			return;
+		}
+
 		$search     = new BlockSearch();
 		$parser     = new WP_Block_Parser();
 		$block_name = 'planet4-blocks/cookies';
