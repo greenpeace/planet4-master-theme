@@ -74,6 +74,22 @@ class PostReportController
             'posts-report',
             [ $this, 'render_posts_report_page' ]
         );
+
+        add_posts_page(
+            __( 'Posts Report (beta)', 'planet4-master-theme-backend' ),
+            __( 'Posts Report (beta)', 'planet4-master-theme-backend' ),
+            'read',
+            'posts_report_beta',
+            [ $this, 'render_posts_report_page_beta' ]
+        );
+
+        add_posts_page(
+            __( 'Posts Activity', 'planet4-master-theme-backend' ),
+            __( 'Posts Activity', 'planet4-master-theme-backend' ),
+            'read',
+            'posts_activity',
+            [ $this, 'render_posts_activity' ]
+        );
     }
 
     /**
@@ -119,5 +135,42 @@ class PostReportController
         );
         wp_enqueue_script('posts-report');
         include dirname(__FILE__) . '/../posts-report.php';
+    }
+
+    /**
+     *
+     */
+    public function render_posts_report_page_beta() {
+        $table = new Report\PostReportTable( [] );
+        $table->set_request( $_REQUEST );
+
+        // Prepare data.
+        $table->prepare_items();
+
+        // Display data.
+        echo '<div class="wrap">
+            <h1 class="wp-heading-inline">Post report</h1>
+            <hr class="wp-header-end">';
+        echo '<form id="post-report" method="get">';
+        $table->views();
+        $table->search_box( 'Search in posts', 'post-report' );
+        $table->display();
+        echo '<input type="hidden" name="action"
+            value="' . Report\PostReportTable::ACTION_NAME . '"/>';
+        echo '</form>';
+    }
+
+    /**
+     *
+     */
+    public function render_posts_activity() {
+        $table = new Report\PostActivityTable( [] );
+        $table->set_request( $_REQUEST );
+
+        // Prepare data.
+        $table->prepare_items();
+
+        // Display data.
+        $table->display_page();
     }
 }
