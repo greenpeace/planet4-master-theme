@@ -7,7 +7,7 @@ import { useEffect } from '@wordpress/element';
 
 import { InspectorControls } from '@wordpress/block-editor';
 import TagSelector from '../../components/TagSelector/TagSelector';
-import PostSelector from '../../components/PostSelector/PostSelector';
+import { PostSelector } from '../../components/PostSelector/PostSelector';
 import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector';
 import { Covers } from './Covers';
 import { COVERS_TYPES, COVERS_LAYOUTS, CAROUSEL_LAYOUT_COVERS_LIMIT } from './CoversConstants';
@@ -82,10 +82,11 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
           <div>
             <label>{__('Manual override', 'planet4-blocks-backend')}</label>
             <PostSelector
-              value={posts}
+              label={__('Select articles', 'planet4-blocks-backend')}
+              selected={posts || []}
               onChange={toAttribute('posts')}
-              placeholder={__('Select articles', 'planet4-blocks-backend')}
               postType={cover_type === COVERS_TYPES.content ? 'post' : 'act_page'}
+              placeholder={__('Select articles', 'planet4-blocks-backend')}
               maxLength={layout === COVERS_LAYOUTS.carousel ? CAROUSEL_LAYOUT_COVERS_LIMIT : null}
             />
           </div>

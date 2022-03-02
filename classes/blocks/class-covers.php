@@ -8,6 +8,9 @@
 
 namespace P4GBKS\Blocks;
 
+use P4\MasterTheme\Settings\InformationArchitecture as IA;
+use P4\MasterTheme\ActionPage;
+
 /**
  * Class Covers
  *
@@ -218,6 +221,39 @@ class Covers extends Base_Block {
 	}
 
 	/**
+	 * Get posts that are Action pages (p4_action).
+	 *
+	 * @param array $fields This is the array of fields of this block.
+	 *
+	 * @return \WP_Post[]
+	 */
+	private static function filter_posts_for_action_pages( $fields ): array {
+		$tag_ids = $fields['tags'] ?? [];
+		$layout  = $fields['layout'] ?? self::GRID_LAYOUT;
+
+		$args = [
+			'post_type'        => ActionPage::POST_TYPE,
+			'post_status'      => 'publish',
+			'orderby'          => [
+				'date'  => 'DESC',
+				'title' => 'ASC',
+			],
+			'suppress_filters' => false,
+			'numberposts'      => self::CAROUSEL_LAYOUT === $layout
+				? self::POSTS_LIMIT_CAROUSEL_LAYOUT
+				: self::POSTS_LIMIT,
+		];
+		// If user selected a tag to associate with the Take Action page covers.
+		if ( ! empty( $tag_ids ) ) {
+			$args['tag__in'] = $tag_ids;
+		}
+
+		// Ignore sniffer rule, arguments contain suppress_filters.
+		// phpcs:ignore
+		return get_posts( $args ) ?? [];
+	}
+
+	/**
 	 * Get specific posts.
 	 *
 	 * @param array $fields This is the array of fields of this block.
@@ -241,7 +277,7 @@ class Covers extends Base_Block {
 
 			// If cover type is take action pages set post_type to page.
 			if ( isset( $fields['cover_type'] ) && self::TAKE_ACTION_COVER_TYPE === $fields['cover_type'] ) {
-				$args['post_type'] = 'page';
+				$args['post_type'] = [ 'page', ActionPage::POST_TYPE ];
 			}
 
 			// Ignore sniffer rule, arguments contain suppress_filters.
@@ -389,6 +425,12 @@ class Covers extends Base_Block {
 			$actions = self::filter_posts_by_ids( $fields );
 		} else {
 			$actions = self::filter_posts_for_act_pages( $fields );
+			if ( IA::is_active( IA::ACTION_POST_TYPE ) ) {
+				$actions = array_merge(
+					self::filter_posts_for_action_pages( $fields ),
+					$actions
+				);
+			}
 		}
 
 		$covers = [];

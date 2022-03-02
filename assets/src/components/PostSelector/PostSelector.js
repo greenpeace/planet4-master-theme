@@ -1,103 +1,103 @@
-import { Component } from '@wordpress/element';
-import { compose } from '@wordpress/compose';
-const { apiFetch } = wp;
-const { addQueryArgs } = wp.url;
-import {
-  FormTokenField,
-} from '@wordpress/components';
+import { FormTokenField } from '@wordpress/components';
+import { dispatch, useSelect } from '@wordpress/data';
 
-class PostSelector extends Component {
-  constructor(props) {
-    super(props);
+// Allows to query a custom endpoint with select('core') tools
+dispatch('core').addEntities( [{
+    baseURL: '/planet4/v1/all-published-posts',
+    kind: 'planet4/v1',
+    name: 'all-published-posts',
+    label: 'All published posts',
+}] );
 
-    this.handleChange = this.handleChange.bind(this);
-    this.getValue = this.getValue.bind(this);
-    this.state = {
-      posts: [],
-    };
-  }
+/**
+ * Post selector with autosuggestion
+ * Based on post type
+ */
+export const PostSelector = (attributes) => {
+  const {
+    label,
+    selected,
+    placeholder,
+    postType,
+    onChange,
+    maxLength,
+    maxSuggestions,
+  } = attributes;
 
-  componentDidMount() {
-    let args = {};
-    // If WPML is active then this variable contains the post language.
-    if (typeof icl_this_lang !== 'undefined') {
-      args = { post_language: icl_this_lang };
-    }
-
-    if (this.props.postType === 'post') {
-      apiFetch(
-        {
-          path: addQueryArgs('/planet4/v1/all-published-posts', args)
-        }
-      ).then(posts =>
-        this.setState({ posts })
+  /**
+   * Fetch relevant posts for autosuggestions
+   */
+  const args = { per_page: -1, orderby: 'title', post_status: 'publish' };
+  const act_args = {
+    post_parent: window.p4ge_vars.planet4_options.act_page,
+    ...args,
+  };
+  const posts = useSelect((select) => {
+    if ('post' === postType) {
+      return [].concat(
+        select('core').getEntityRecords('postType', 'post', {'include': selected}) || [],
+        select('core').getEntityRecords('planet4/v1', 'all-published-posts', args) || [],
       );
-    } else if (this.props.postType === 'act_page') {
-      let queryArgs;
-
-      queryArgs = {
-        path: addQueryArgs('/wp/v2/pages', {
-          per_page: -1,
-          post_type: 'page',
-          post_parent: window.p4ge_vars.planet4_options.act_page,
-          orderby: 'title',
-          post_status: 'publish',
-
-        })
-      };
-
-
-      apiFetch(queryArgs)
-        .then(posts => {
-          this.setState({
-            posts: posts.map(post => ({
-              post_title: post.title.rendered,
-              id: post.id,
-            }))
-          }
-          );
-        });
-    }
-  }
-
-  handleChange(value) {
-    const postIds = value.map(token => this.state.posts.find(post => post.post_title === token).id);
-    this.props.onChange(postIds);
-  }
-
-  getValue() {
-    const { value } = this.props;
-    if (!value) {
-      return null;
-    }
-    const posts = value.reduce((accumulator, postId) => {
-      const post = this.state.posts.find(post => Number(post.id) === Number(postId));
-      if (post) {
-        accumulator.push(post);
-      }
-      return accumulator;
-    }, []);
-
-    return posts.map(post => post.post_title);
-  }
-
-  render() {
-    const { onChange, label, placeholder, value, postType, ...ownProps } = this.props;
-
-    if (this.state.posts.length === 0) {
-      return null;
     }
 
-    return <FormTokenField
-      suggestions={this.state.posts.map(post => post.post_title)}
-      label={label || 'Select Posts'}
-      onChange={this.handleChange}
-      placeholder={placeholder || 'Select Posts'}
-      value={this.getValue()}
-      {...ownProps}
-    />;
-  }
-}
+    if ('act_page' === postType) {
+      const selectedPosts = [].concat(
+        select('core').getEntityRecords('postType', 'page', {'include': selected}) || [],
+        select('core').getEntityRecords('postType', 'p4_action', {'include': selected}) || [],
+      );
+      const actions = select('core').getEntityRecords('postType', 'p4_action', args) || [];
+      const pages = select('core').getEntityRecords('postType', 'page', act_args) || [];
+      return [].concat(selectedPosts, actions, pages);
+    }
 
-export default compose(
-)(PostSelector);
+    return [];
+  }, [postType]);
+
+  /**
+   * Convert posts to {id, title}
+   */
+  const options = posts.map(post => ({
+    id: post.id,
+    title: post.title?.raw || post.post_title,
+  }));
+
+  /**
+   * Resolve Titles to IDs for saving values
+   */
+  const setPostsIdsFromTitles = (titles) => {
+    const postIds = titles?.length
+      ? titles.map(token => options.find(option => option.title === token)?.id)
+      : [];
+    onChange(postIds);
+  };
+
+  /**
+   * Resolve IDs to Titles
+   */
+  const getPostsTitlesFromIds = (ids) => {
+    return options?.length && ids?.length
+    ? ids.map(postId => options.find(option => option.id === postId)?.title).filter(t => t)
+    : []
+  };
+
+  /**
+   * Get field initial value
+   */
+  const getValue = () => {
+    return getPostsTitlesFromIds(selected);
+  }
+
+  return (
+    <FormTokenField
+      label={ label || 'Select Posts' }
+      value={ getValue() || null }
+      suggestions={ options.map(post => post.title) }
+      onChange={ value => {
+        setPostsIdsFromTitles(value);
+      } }
+      placeholder={ placeholder || 'Select Posts' }
+      maxLength={ maxLength }
+      maxSuggestions={ maxSuggestions || 50 }
+    />
+  );
+};
