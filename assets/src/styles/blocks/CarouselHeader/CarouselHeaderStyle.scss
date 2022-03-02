@@ -113,6 +113,10 @@ $medium-image-height: 600px;
     opacity: 0;
     z-index: 3500;
 
+    html[dir="rtl"] & {
+      margin-right: auto;
+    }
+
     @include medium-and-up {
       height: $medium-image-height;
     }
