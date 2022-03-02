@@ -239,7 +239,7 @@ msgstr "International (English)"
 
 #: templates/single-password.twig:18 templates/single-page.twig:15
 msgid "Invalid password, please try again"
-msgstr ""
+msgstr "Nesprávné heslo, zkuste to prosím znovu"
 
 #: templates/search.twig:82
 msgid "ISSUE"
