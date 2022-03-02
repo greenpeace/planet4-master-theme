@@ -28,6 +28,7 @@ class ActionPage {
 	 */
 	private function hooks() {
 		add_action( 'init', [ $this, 'register_post_type' ] );
+		add_action( 'init', [ $this, 'register_post_meta' ] );
 		add_action( 'init', [ $this, 'register_taxonomy' ], 2 );
 	}
 
@@ -125,5 +126,18 @@ class ActionPage {
 
 		register_taxonomy( self::TAXONOMY, [ self::TAXONOMY_PARAMETER, self::POST_TYPE ], $args );
 		register_taxonomy_for_object_type( self::TAXONOMY, self::POST_TYPE );
+	}
+
+	/**
+	 * Register Action page post meta data.
+	 */
+	public function register_post_meta() {
+		$args = [
+			'show_in_rest' => true,
+			'type'         => 'string',
+			'single'       => true,
+		];
+
+		register_post_meta( self::POST_TYPE, 'nav_type', $args );
 	}
 }
