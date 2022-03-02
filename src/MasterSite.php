@@ -280,6 +280,9 @@ class MasterSite extends TimberSite {
 
 		// Admin scripts.
 		add_action( 'admin_enqueue_scripts', [ AdminAssets::class, 'enqueue_js' ] );
+		// Post report
+		Report\PostReportTable::set_hooks();
+		Report\PostActivityTable::set_hooks();
 
 		$this->register_meta_fields();
 	}
