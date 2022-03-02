@@ -327,7 +327,7 @@ msgstr "Specifikovat vyhledávání"
 
 #: templates/cookies/cookies_settings.twig:47
 msgid "Reject all"
-msgstr ""
+msgstr "Zamítnout vše"
 
 #: templates/cookies.twig:35
 msgid "Reject all cookies"
