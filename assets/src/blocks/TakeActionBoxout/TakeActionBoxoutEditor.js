@@ -62,7 +62,22 @@ export const TakeActionBoxoutEditor = ({
       post_status: 'publish',
     };
 
-    const actPageList = select('core').getEntityRecords('postType', 'page', args) || [];
+    const actionsArgs = {
+      per_page: -1,
+      sort_order: 'asc',
+      sort_column: 'post_title',
+      post_status: 'publish',
+    };
+
+    const actPageList = [].concat(
+      select('core').getEntityRecords('postType', 'page', args) || [],
+      select('core').getEntityRecords('postType', 'p4_action', actionsArgs) || []
+    ).sort((a , b) => {
+      if (a.title.raw === b.title.raw) {
+        return 0;
+      }
+      return a.title.raw > b.title.raw ? 1 : -1;
+    });
     const actPage = actPageList.find(actPage => take_action_page === actPage.id);
 
     // Because `useSelect` does an API call to fetch data, the actPageList will be empty the first time it's called.
