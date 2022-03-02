@@ -4,7 +4,7 @@ msgstr ""
 "2;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-03-02 10:28+0000\n"
+"PO-Revision-Date: 2022-03-02 10:33+0000\n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -93,7 +93,7 @@ msgstr "Povolit vše"
 
 #: templates/cookies/cookies_settings.twig:16
 msgid "Always enabled"
-msgstr ""
+msgstr "Vždy povolené"
 
 #: templates/search.twig:200
 msgid "Apply filters"
@@ -343,7 +343,7 @@ msgstr "Výsledky"
 
 #: templates/cookies/cookies_settings.twig:63
 msgid "Save preferences"
-msgstr ""
+msgstr "Uložit nastavení"
 
 #: templates/navigation-bar-new.twig:76 templates/navigation-bar.twig:7
 #: templates/404.twig:17 templates/search.twig:8 templates/search.twig:45
