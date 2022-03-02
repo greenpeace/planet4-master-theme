@@ -4,7 +4,7 @@ msgstr ""
 "2;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-03-02 10:43+0000\n"
+"PO-Revision-Date: 2022-03-02 10:44+0000\n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -299,7 +299,12 @@ msgstr "Stránka"
 
 #: templates/cookies/cookies_settings.twig:12
 msgid "Please select which cookies you are willing to store."
-msgstr "Zvolte, které cookies můžeme uchovávat."
+msgstr ""
+"Abychom vás mohli skutečně zapojit do našich kampaní a ochrany přírody, "
+"webové stránky Greenpeace používají cookies. Umožňuje nám to optimalizovat "
+"naše webové stránky, více zapojovat veřejnost do našich projektů a ve "
+"výsledku i efektivněji chránit životní prostředí. Pomozte nám s tím prosím i "
+"vy. Děkujeme!"
 
 #: src/Search.php:962 src/Post.php:272
 msgid "POST"
