@@ -812,13 +812,6 @@ class MasterSite extends TimberSite {
 	 */
 	public function enqueue_editor_assets(): void {
 		Loader::enqueue_versioned_style( 'assets/build/editorStyle.min.css' );
-		wp_enqueue_script(
-			'youtube',
-			get_template_directory_uri() . '/assets/build/lite-yt-embed.js',
-			[],
-			1,
-			true
-		);
 	}
 
 	/**
@@ -1235,6 +1228,10 @@ class MasterSite extends TimberSite {
 	 * @return mixed
 	 */
 	private function new_youtube_filter( $cache, $url ) {
+		if ( is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+			return $cache;
+		}
+
 		if ( ! empty( $url ) ) {
 			if ( strpos( $url, 'youtube.com' ) !== false || strpos( $url, 'youtu.be' ) !== false ) {
 				[ $youtube_id, $query_string ] = self::parse_youtube_url( $url );
