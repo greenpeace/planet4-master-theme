@@ -59,10 +59,9 @@ msgid "About Greenpeace"
 msgstr "Sobre Greenpeace"
 
 #: templates/blocks/author_profile.twig:14
-#, fuzzy
 #| msgid "about the author"
 msgid "About the author"
-msgstr "Sobre el Autor"
+msgstr "Sobre el autor"
 
 #: templates/cookies.twig:26
 msgid "Accept all cookies"
@@ -366,10 +365,10 @@ msgstr "Compartir vía"
 
 #. %s = number of results per page.
 #: src/Search.php:1049
-#, fuzzy, php-format
+#, php-format
 #| msgid "SHOW %s MORE RESULTS"
 msgid "Show %s more results"
-msgstr "MOSTRAR %s MÁS RESULTADOS"
+msgstr "Mostrar %s más resultados"
 
 #: templates/blocks/author_profile.twig:45
 msgid "Show less"
