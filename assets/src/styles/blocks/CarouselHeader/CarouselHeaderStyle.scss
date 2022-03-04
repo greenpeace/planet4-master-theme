@@ -553,7 +553,6 @@ $medium-image-height: 600px;
   }
 
   .carousel-control-prev-icon {
-    display: none;
     text-align: center;
     width: 28px;
     height: 46px;
@@ -607,7 +606,6 @@ $medium-image-height: 600px;
     mask-image: url("../../public/images/icons/chevron.svg");
     mask-size: cover;
     background-color: $white;
-    display: none;
 
     @include large-and-up {
       display: block;
