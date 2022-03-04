@@ -133,10 +133,6 @@ $medium-image-height: 600px;
     opacity: 1;
     transition: unset;
 
-    .carousel-item-mask {
-      width: 100%;
-    }
-
     .carousel-caption .main-header {
       h2 {
         animation-name: initial-header-animation;
@@ -208,10 +204,6 @@ $medium-image-height: 600px;
     opacity: 1;
     transition: unset;
     pointer-events: all;
-
-    .carousel-item-mask {
-      width: 100%;
-    }
 
     .carousel-caption .main-header {
       h2, p {
