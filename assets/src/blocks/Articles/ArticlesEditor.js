@@ -8,7 +8,7 @@ import {
 import { InspectorControls } from '@wordpress/block-editor';
 import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
 import TagSelector from '../../components/TagSelector/TagSelector';
-import PostSelector from '../../components/PostSelector/PostSelector';
+import { PostSelector } from '../../components/PostSelector/PostSelector';
 import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector';
 import { URLInput } from "../../components/URLInput/URLInput";
 import { ArticlesList } from "./ArticlesList";
@@ -83,12 +83,13 @@ const renderEdit = (attributes, toAttribute) => {
               <hr />
               <label>{__('Manual override', 'planet4-blocks-backend')}</label>
               <PostSelector
-                value={attributes.posts}
-                onChange={toAttribute('posts')}
                 label={__('CAUTION: Adding articles individually will override the automatic functionality of this block. For good user experience, please include at least three articles so that spacing and alignment of the design remains intact.', 'planet4-blocks-backend')}
+                selected={attributes.posts || []}
+                onChange={toAttribute('posts')}
+                postType='post'
+                placeholder={__('Select articles', 'planet4-blocks-backend')}
                 maxLength={10}
                 maxSuggestions={20}
-                postType='post'
               />
             </div>
           }

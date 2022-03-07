@@ -8,6 +8,9 @@
 
 namespace P4GBKS\Blocks;
 
+use P4\MasterTheme\Settings\InformationArchitecture as IA;
+use P4\MasterTheme\ActionPage;
+
 /**
  * Class Covers
  *
@@ -202,7 +205,7 @@ class Covers extends Base_Block {
 					'title'      => 'ASC',
 				],
 				'suppress_filters' => false,
-				'numberposts'      => self::CAROUSEL_LAYOUT === $layout ? self::POSTS_LIMIT_CAROUSEL_LAYOUT : self::POSTS_LIMIT,
+				'numberposts'      => self::numberposts( $layout ),
 			];
 			// If user selected a tag to associate with the Take Action page covers.
 			if ( ! empty( $tag_ids ) ) {
@@ -215,6 +218,37 @@ class Covers extends Base_Block {
 		}
 
 		return [];
+	}
+
+	/**
+	 * Get posts that are Action pages (p4_action).
+	 *
+	 * @param array $fields This is the array of fields of this block.
+	 *
+	 * @return \WP_Post[]
+	 */
+	private static function filter_posts_for_action_pages( $fields ): array {
+		$tag_ids = $fields['tags'] ?? [];
+		$layout  = $fields['layout'] ?? self::GRID_LAYOUT;
+
+		$args = [
+			'post_type'        => ActionPage::POST_TYPE,
+			'post_status'      => 'publish',
+			'orderby'          => [
+				'date'  => 'DESC',
+				'title' => 'ASC',
+			],
+			'suppress_filters' => false,
+			'numberposts'      => self::numberposts( $layout ),
+		];
+		// If user selected a tag to associate with the Take Action page covers.
+		if ( ! empty( $tag_ids ) ) {
+			$args['tag__in'] = $tag_ids;
+		}
+
+		// Ignore sniffer rule, arguments contain suppress_filters.
+		// phpcs:ignore
+		return get_posts( $args ) ?? [];
 	}
 
 	/**
@@ -236,12 +270,12 @@ class Covers extends Base_Block {
 				'post_status'      => 'publish',
 				'post__in'         => $post_ids,
 				'suppress_filters' => false,
-				'numberposts'      => self::CAROUSEL_LAYOUT === $layout ? self::POSTS_LIMIT_CAROUSEL_LAYOUT : self::POSTS_LIMIT,
+				'numberposts'      => self::numberposts( $layout ),
 			];
 
 			// If cover type is take action pages set post_type to page.
 			if ( isset( $fields['cover_type'] ) && self::TAKE_ACTION_COVER_TYPE === $fields['cover_type'] ) {
-				$args['post_type'] = 'page';
+				$args['post_type'] = [ 'page', ActionPage::POST_TYPE ];
 			}
 
 			// Ignore sniffer rule, arguments contain suppress_filters.
@@ -272,7 +306,7 @@ class Covers extends Base_Block {
 				'title' => 'ASC',
 			],
 			'no_found_rows'  => true,
-			'posts_per_page' => self::CAROUSEL_LAYOUT === $layout ? self::POSTS_LIMIT_CAROUSEL_LAYOUT : self::POSTS_LIMIT,
+			'posts_per_page' => self::numberposts( $layout ),
 		];
 
 		// Get all posts with the specific tags.
@@ -389,6 +423,19 @@ class Covers extends Base_Block {
 			$actions = self::filter_posts_by_ids( $fields );
 		} else {
 			$actions = self::filter_posts_for_act_pages( $fields );
+			if ( IA::is_active( IA::ACTION_POST_TYPE ) ) {
+				$actions = array_merge(
+					self::filter_posts_for_action_pages( $fields ),
+					$actions
+				);
+				// Sort by published date, recent first.
+				usort(
+					$actions,
+					function ( $a, $b ) {
+						return $b->post_date <=> $a->post_date;
+					}
+				);
+			}
 		}
 
 		$covers = [];
@@ -468,5 +515,18 @@ class Covers extends Base_Block {
 		}
 
 		return $posts_array;
+	}
+
+	/**
+	 * @param string $layout Covers block layout.
+	 *
+	 * @return int Number of posts to fetch.
+	 */
+	private static function numberposts( string $layout ): int {
+		if ( self::CAROUSEL_LAYOUT === $layout ) {
+			return self::POSTS_LIMIT_CAROUSEL_LAYOUT;
+		}
+
+		return self::POSTS_LIMIT;
 	}
 }
