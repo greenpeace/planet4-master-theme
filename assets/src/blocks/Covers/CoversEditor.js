@@ -82,11 +82,11 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
           <div>
             <label>{__('Manual override', 'planet4-blocks-backend')}</label>
             <PostSelector
-              label={__('Select articles', 'planet4-blocks-backend')}
+              label={__('Select pages', 'planet4-blocks-backend')}
               selected={posts || []}
               onChange={toAttribute('posts')}
               postType={cover_type === COVERS_TYPES.content ? 'post' : 'act_page'}
-              placeholder={__('Select articles', 'planet4-blocks-backend')}
+              placeholder={__('Select pages', 'planet4-blocks-backend')}
               maxLength={layout === COVERS_LAYOUTS.carousel ? CAROUSEL_LAYOUT_COVERS_LIMIT : null}
             />
           </div>

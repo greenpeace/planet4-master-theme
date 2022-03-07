@@ -1,5 +1,6 @@
 import { FormTokenField } from '@wordpress/components';
 import { dispatch, useSelect } from '@wordpress/data';
+const { __ } = wp.i18n;
 
 // Allows to query a custom endpoint with select('core') tools
 dispatch('core').addEntities( [{
@@ -27,9 +28,10 @@ export const PostSelector = (attributes) => {
   /**
    * Fetch relevant posts for autosuggestions
    */
+  const act_parent = window.p4ge_vars.planet4_options.act_page || null;
   const args = { per_page: -1, orderby: 'title', post_status: 'publish' };
   const act_args = {
-    post_parent: window.p4ge_vars.planet4_options.act_page,
+    post_parent: act_parent,
     ...args,
   };
   const posts = useSelect((select) => {
@@ -46,7 +48,9 @@ export const PostSelector = (attributes) => {
         select('core').getEntityRecords('postType', 'p4_action', {'include': selected}) || [],
       );
       const actions = select('core').getEntityRecords('postType', 'p4_action', args) || [];
-      const pages = select('core').getEntityRecords('postType', 'page', act_args) || [];
+      const pages = act_parent
+        ? (select('core').getEntityRecords('postType', 'page', act_args) || [])
+        : [];
       return [].concat(selectedPosts, actions, pages);
     }
 
@@ -83,19 +87,17 @@ export const PostSelector = (attributes) => {
   /**
    * Get field initial value
    */
-  const getValue = () => {
-    return getPostsTitlesFromIds(selected);
-  }
+  const getValue = () => getPostsTitlesFromIds(selected);
 
   return (
     <FormTokenField
-      label={ label || 'Select Posts' }
+      label={ label || __('Select posts', 'planet4-blocks-backend') }
       value={ getValue() || null }
       suggestions={ options.map(post => post.title) }
       onChange={ value => {
         setPostsIdsFromTitles(value);
       } }
-      placeholder={ placeholder || 'Select Posts' }
+      placeholder={ placeholder || __('Select posts', 'planet4-blocks-backend') }
       maxLength={ maxLength }
       maxSuggestions={ maxSuggestions || 50 }
     />

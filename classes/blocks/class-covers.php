@@ -205,7 +205,7 @@ class Covers extends Base_Block {
 					'title'      => 'ASC',
 				],
 				'suppress_filters' => false,
-				'numberposts'      => self::CAROUSEL_LAYOUT === $layout ? self::POSTS_LIMIT_CAROUSEL_LAYOUT : self::POSTS_LIMIT,
+				'numberposts'      => self::numberposts( $layout ),
 			];
 			// If user selected a tag to associate with the Take Action page covers.
 			if ( ! empty( $tag_ids ) ) {
@@ -239,9 +239,7 @@ class Covers extends Base_Block {
 				'title' => 'ASC',
 			],
 			'suppress_filters' => false,
-			'numberposts'      => self::CAROUSEL_LAYOUT === $layout
-				? self::POSTS_LIMIT_CAROUSEL_LAYOUT
-				: self::POSTS_LIMIT,
+			'numberposts'      => self::numberposts( $layout ),
 		];
 		// If user selected a tag to associate with the Take Action page covers.
 		if ( ! empty( $tag_ids ) ) {
@@ -272,7 +270,7 @@ class Covers extends Base_Block {
 				'post_status'      => 'publish',
 				'post__in'         => $post_ids,
 				'suppress_filters' => false,
-				'numberposts'      => self::CAROUSEL_LAYOUT === $layout ? self::POSTS_LIMIT_CAROUSEL_LAYOUT : self::POSTS_LIMIT,
+				'numberposts'      => self::numberposts( $layout ),
 			];
 
 			// If cover type is take action pages set post_type to page.
@@ -308,7 +306,7 @@ class Covers extends Base_Block {
 				'title' => 'ASC',
 			],
 			'no_found_rows'  => true,
-			'posts_per_page' => self::CAROUSEL_LAYOUT === $layout ? self::POSTS_LIMIT_CAROUSEL_LAYOUT : self::POSTS_LIMIT,
+			'posts_per_page' => self::numberposts( $layout ),
 		];
 
 		// Get all posts with the specific tags.
@@ -430,6 +428,13 @@ class Covers extends Base_Block {
 					self::filter_posts_for_action_pages( $fields ),
 					$actions
 				);
+				// Sort by published date, recent first.
+				usort(
+					$actions,
+					function ( $a, $b ) {
+						return $b->post_date <=> $a->post_date;
+					}
+				);
 			}
 		}
 
@@ -510,5 +515,18 @@ class Covers extends Base_Block {
 		}
 
 		return $posts_array;
+	}
+
+	/**
+	 * @param string $layout Covers block layout.
+	 *
+	 * @return int Number of posts to fetch.
+	 */
+	private static function numberposts( string $layout ): int {
+		if ( self::CAROUSEL_LAYOUT === $layout ) {
+			return self::POSTS_LIMIT_CAROUSEL_LAYOUT;
+		}
+
+		return self::POSTS_LIMIT;
 	}
 }
