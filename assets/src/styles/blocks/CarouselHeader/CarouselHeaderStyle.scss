@@ -543,25 +543,25 @@ $medium-image-height: 600px;
       left: auto;
     }
   }
+}
 
-  .carousel-control-prev-icon {
-    text-align: center;
-    width: 28px;
-    height: 46px;
-    background-image: none;
-    mask-image: url("../../public/images/icons/chevron.svg");
-    mask-size: cover;
-    background-color: $white;
-    transform: rotate(180deg);
+.carousel-control-prev-icon {
+  text-align: center;
+  width: 28px;
+  height: 46px;
+  background-image: none;
+  mask-image: url("../../public/images/icons/chevron.svg");
+  mask-size: cover;
+  background-color: $white;
+  transform: rotate(180deg);
 
-    @include large-and-up {
-      display: block;
-      margin: auto;
-    }
+  @include large-and-up {
+    display: block;
+    margin: auto;
+  }
 
-    html[dir="rtl"] & {
-      transform: none;
-    }
+  html[dir="rtl"] & {
+    transform: none;
   }
 }
 
@@ -588,25 +588,25 @@ $medium-image-height: 600px;
       left: 0;
     }
   }
+}
 
-  .carousel-control-next-icon {
-    text-align: center;
-    width: 28px;
-    height: 46px;
-    cursor: pointer;
-    background-image: none;
-    mask-image: url("../../public/images/icons/chevron.svg");
-    mask-size: cover;
-    background-color: $white;
+.carousel-control-next-icon {
+  text-align: center;
+  width: 28px;
+  height: 46px;
+  cursor: pointer;
+  background-image: none;
+  mask-image: url("../../public/images/icons/chevron.svg");
+  mask-size: cover;
+  background-color: $white;
 
-    @include large-and-up {
-      display: block;
-      margin: auto;
-    }
+  @include large-and-up {
+    display: block;
+    margin: auto;
+  }
 
-    html[dir="rtl"] & {
-      transform: scaleX(-1);
-    }
+  html[dir="rtl"] & {
+    transform: scaleX(-1);
   }
 }
 
@@ -627,57 +627,57 @@ $medium-image-height: 600px;
       margin-inline-start: auto;
     }
   }
+}
 
-  .carousel-indicators {
-    display: block;
-    position: relative;
-    width: 100%;
-    text-align: center;
-    margin: 0;
-    bottom: 0;
-    height: 44px;
+.carousel-indicators {
+  display: block;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  bottom: 0;
+  height: 44px;
 
-    @include medium-and-up {
-      text-align: right;
-      width: auto;
+  @include medium-and-up {
+    text-align: right;
+    width: auto;
 
-      html[dir="rtl"] & {
-        text-align: left;
-      }
+    html[dir="rtl"] & {
+      text-align: left;
     }
+  }
+
+  @include large-and-up {
+    text-align: left;
+    padding-left: 0;
+    padding-right: 0;
+    width: auto;
+    display: block;
+
+    html[dir="rtl"] & {
+      text-align: right;
+    }
+  }
+
+  li {
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 40px;
+    height: 3px;
+    border-radius: 0;
+    border: unset;
+    margin: 0 3px;
+    cursor: pointer;
+    display: inline-table;
+    right: 0;
 
     @include large-and-up {
-      text-align: left;
-      padding-left: 0;
-      padding-right: 0;
-      width: auto;
-      display: block;
-
-      html[dir="rtl"] & {
-        text-align: right;
-      }
+      background-color: rgba(255, 255, 255, 0.4);
     }
 
-    li {
-      background-color: rgba(0, 0, 0, 0.4);
-      width: 40px;
-      height: 3px;
-      border-radius: 0;
-      border: unset;
-      margin: 0 3px;
-      cursor: pointer;
-      display: inline-table;
-      right: 0;
-
+    &.active {
+      background: black;
       @include large-and-up {
-        background-color: rgba(255, 255, 255, 0.4);
-      }
-
-      &.active {
-        background: black;
-        @include large-and-up {
-          background: $white;
-        }
+        background: $white;
       }
     }
   }
