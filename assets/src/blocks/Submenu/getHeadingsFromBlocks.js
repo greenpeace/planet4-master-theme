@@ -49,7 +49,7 @@ export const getHeadingsFromBlocks = (blocks, selectedLevels) => {
         const blockLevel = parseInt(h.tagName.replace('H', ''));
         const levelConfig = selectedLevels.find(selected => selected.heading === blockLevel);
 
-        const anchor = h.id || generateAnchor(block.attributes.content, headings.map(h => h.anchor));
+        const anchor = h.id || generateAnchor(h.innerText, headings.map(h => h.anchor));
 
         return ({
           level: blockLevel,
