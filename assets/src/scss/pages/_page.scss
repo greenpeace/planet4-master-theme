@@ -85,7 +85,11 @@ $min-height: 40px;
     display: inline-block;
     font-size: 16px;
     padding: 15px 14px 8px;
-    min-width: 400px;
+    width: 100%;
+
+    @include medium-and-up {
+      max-width: 400px;
+    }
   }
 
   .input-text input:hover {
