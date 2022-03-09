@@ -1,6 +1,6 @@
 .btn,
 .wp-block-button a,
-.wp-block-file .wp-block-file__button {
+.wp-block-file a.wp-block-file__button {
   --button-- {
     font-family: $roboto;
     text-align: center;
@@ -106,7 +106,7 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 .btn-secondary,
 .wp-block-button.is-style-secondary a,
 [class="wp-block-button"] a,
-.wp-block-file .wp-block-file__button {
+.wp-block-file a.wp-block-file__button {
   --button-secondary-- {
     background: transparentize($white, .7);
     border-color: $dark-blue;
