@@ -1,4 +1,5 @@
 export const example = {
+  viewportWidth: 992,
   attributes: {
     isExample: true,
     title: 'Covers block',

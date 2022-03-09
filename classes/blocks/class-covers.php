@@ -74,6 +74,8 @@ class Covers extends Base_Block {
 			'planet4-blocks/covers',
 			[  // - Register the block for the editor
 				'editor_script'   => 'planet4-blocks',
+				'style'           => static::get_full_block_name() . '-style',
+				'editor_style'    => static::get_full_block_name() . '-editor-style',
 				'render_callback' => static function ( $attributes ) {
 					if ( isset( $attributes['covers_view'] ) ) {
 						$attributes['initialRowsLimit'] = '3' === $attributes['covers_view'] ? 0 : intval( $attributes['covers_view'] );
