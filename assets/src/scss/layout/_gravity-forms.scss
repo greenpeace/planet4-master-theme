@@ -1,0 +1,164 @@
+.gform_wrapper {
+  font-family: $roboto;
+
+  &.gform_validation_error .gform_validation_errors {
+    color: $dark-orange;
+    background: $white;
+    border-color: $dark-orange;
+    box-shadow: none;
+    width: fit-content;
+
+    > h2 {
+      color: $dark-orange;
+    }
+  }
+
+  .gform_body .gform_fields .gfield {
+    .ginput_container_select,
+    .gfield_time_ampm,
+    .ginput_address_country {
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        mask-image: url("../../images/chevron.svg");
+        mask-repeat: no-repeat;
+        mask-size: contain;
+        mask-position: center;
+        background-repeat: no-repeat;
+        background-color: currentColor;
+        transform: rotate(90deg);
+        width: 12px;
+        height: 12px;
+        right: $sp-2;
+        top: 19px;
+
+        html[dir="rtl"] & {
+          right: auto;
+          left: $sp-2;
+        }
+      }
+
+      select {
+        @extend .form-select;
+        background: transparent;
+        appearance: none;
+        position: relative;
+      }
+    }
+
+    .ginput_container_time {
+      select,
+      input {
+        min-width: 80px;
+      }
+    }
+
+    textarea,
+    input:not([type="file"]) {
+      @extend .form-control;
+    }
+
+    input {
+      height: 48px;
+    }
+
+    .gfield_checkbox,
+    .gfield_radio,
+    .ginput_container {
+      @extend .custom-control;
+
+      input[type="checkbox"] ~ label,
+      input[type="radio"] ~ label {
+        @extend .custom-control-description;
+        font-size: $font-size-sm;
+        line-height: 1.25;
+      }
+
+      .gchoice {
+        margin-bottom: $sp-1;
+        position: relative;
+      }
+
+      button:not(.add_list_item):not(.delete_list_item) {
+        @extend .btn;
+        @extend .btn-secondary;
+        @extend .btn-small;
+      }
+    }
+
+    .gfield_required .gfield_required_text {
+      color: $grey-60;
+      font-style: normal;
+    }
+
+    &.gfield_error {
+      .gfield_label {
+        color: $grey-80;
+      }
+
+      input:not([type="file"]),
+      textarea,
+      select {
+        @extend .is-invalid;
+      }
+
+      .gfield_validation_message {
+        background: $dark-orange;
+        color: $white;
+        border-radius: 4px;
+        font-size: $font-size-xxxs;
+        font-weight: 500;
+        border-color: $dark-orange;
+        padding: $sp-1 $sp-2;
+        width: fit-content;
+        pointer-events: none;
+        position: relative;
+
+        &::after {
+          bottom: 100%;
+          border: solid transparent;
+          content: "";
+          height: 0;
+          width: 0;
+          position: absolute;
+          border-bottom-color: $dark-orange;
+          border-width: 5px;
+          right: auto;
+          left: $sp-2;
+
+          html[dir="rtl"] & {
+            left: auto;
+            right: $sp-2;
+          }
+        }
+      }
+    }
+
+    .ginput_container_fileupload .gform_button_select_files {
+      @extend .btn;
+      @extend .btn-secondary;
+      @extend .btn-small;
+    }
+
+    @include medium-and-up {
+      .gfield_validation_message,
+      .ginput_container,
+      select,
+      textarea,
+      input {
+        max-width: 400px;
+      }
+    }
+  }
+
+  .gform_footer input[type="submit"] {
+    @extend .btn;
+    @extend .btn-primary;
+  }
+}
+
+.ui-datepicker {
+  font-family: $roboto;
+}

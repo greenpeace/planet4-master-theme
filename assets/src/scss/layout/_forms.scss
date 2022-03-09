@@ -138,7 +138,11 @@
     color: $grey-40;
   }
 
-  &:hover {
+  &:disabled {
+    opacity: 0.5;
+  }
+
+  &:not(:disabled):hover {
     border-color: $grey-40;
   }
 
@@ -146,6 +150,7 @@
     box-shadow: 0 0 0 2px rgba(0, 109, 253, 0.4);
     color: $grey-80;
     border-color: transparent;
+    outline: 0;
   }
 }
 
