@@ -31,7 +31,6 @@
   position: relative;
   font-size: $font-size-sm;
   text-decoration: none;
-  color: $white;
   border: 1px solid transparent;
   cursor: pointer;
   line-height: 3;
@@ -40,7 +39,6 @@
   &:hover,
   &:active,
   &:visited {
-    color: $white;
     text-decoration: none;
   }
 
