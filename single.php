@@ -12,6 +12,7 @@
 use P4\MasterTheme\Context;
 use P4\MasterTheme\Post;
 use Timber\Timber;
+use P4\MasterTheme\Settings\Comments;
 
 // Initializing variables.
 $context = Timber::get_context();
@@ -92,7 +93,16 @@ $comments_args = [
 	'comment_notes_before' => '',
 	'comment_notes_after'  => '',
 	'comment_field'        => Timber::compile( 'comment_form/comment_field.twig' ),
-	'submit_button'        => Timber::compile( 'comment_form/submit_button.twig' ),
+	'submit_button'        => Timber::compile(
+		'comment_form/submit_button.twig',
+		[
+			'gdpr_checkbox' => Comments::is_active( Comments::GDPR_CHECKBOX ),
+			'gdpr_label'    => __(
+				'I agree on providing my name, email and content so that my comment can be stored and displayed in the website.',
+				'planet4-master-theme'
+			),
+		]
+	),
 	'title_reply'          => __( 'Leave your reply', 'planet4-master-theme' ),
 ];
 

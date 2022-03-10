@@ -11,6 +11,7 @@ use P4\MasterTheme\Migrations\M006MoveFeaturesToSeparateOption;
 use P4\MasterTheme\Migrations\M007RemoveEnhancedDonateButtonOption;
 use P4\MasterTheme\Migrations\M008RemoveArticlesDefaultOptions;
 use P4\MasterTheme\Migrations\M009PopulateCookiesFields;
+use P4\MasterTheme\Migrations\M010RemoveGdprPluginOptions;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -38,6 +39,7 @@ class Migrator {
 			M007RemoveEnhancedDonateButtonOption::class,
 			M008RemoveArticlesDefaultOptions::class,
 			M009PopulateCookiesFields::class,
+			M010RemoveGdprPluginOptions::class,
 		];
 
 		// Loop migrations and run those that haven't run yet.

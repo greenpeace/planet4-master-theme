@@ -40,15 +40,17 @@
 
 #gdpr-comments-compliance {
   font-family: $roboto;
+  margin-bottom: 8px;
 
-  #gdpr-comments-compliance-text,
-  #gdpr-comments-label,
-  .custom-control-description {
-    font-size: 14px;
+  #gdpr-comments-checkbox {
+    display: inline-block;
+    margin-inline-end: 8px;
+    width: inherit;
   }
 
   #gdpr-comments-label {
-    font-weight: bold;
+    display: inline-block;
+    font-size: 14px;
   }
 }
 
