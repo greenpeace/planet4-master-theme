@@ -1,0 +1,150 @@
+.gform_wrapper {
+  font-family: $roboto;
+
+  &.gform_validation_error .gform_validation_errors {
+    color: $dark-orange;
+    background: $white;
+    border-color: $dark-orange;
+    box-shadow: none;
+    width: fit-content;
+
+    > h2 {
+      color: $dark-orange;
+    }
+  }
+}
+
+.gfield {
+  .ginput_container_select,
+  .gfield_time_ampm,
+  .ginput_address_country {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      mask-image: url("../../images/chevron.svg");
+      mask-repeat: no-repeat;
+      mask-size: contain;
+      mask-position: center;
+      background-repeat: no-repeat;
+      background-color: currentColor;
+      transform: rotate(90deg);
+      width: 12px;
+      height: 12px;
+      right: $sp-2;
+      top: 19px;
+
+      html[dir="rtl"] & {
+        right: auto;
+        left: $sp-2;
+      }
+    }
+  }
+
+  select {
+    appearance: none;
+    position: relative;
+    height: 48px;
+  }
+
+  .ginput_container_time {
+    select,
+    input {
+      min-width: 80px;
+    }
+  }
+
+  input {
+    height: 48px;
+  }
+
+  .gchoice {
+    margin-bottom: $sp-1;
+    position: relative;
+  }
+
+  .gfield_required .gfield_required_text {
+    color: $grey-60;
+    font-style: normal;
+  }
+
+  .ginput_container_multiselect select {
+    min-height: 100px;
+
+    option {
+      padding: $sp-x;
+    }
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  &.gfield_error {
+    .gfield_label {
+      color: $grey-80;
+    }
+
+    input:not([type="file"]):not(:disabled),
+    textarea[aria-invalid="true"],
+    select[aria-invalid="true"] {
+      border-color: $dark-orange;
+      background: $white;
+      background-image: none;
+
+      ~ label {
+        color: $grey-80;
+      }
+
+      &:focus {
+        border-color: $dark-orange;
+      }
+    }
+
+    .validation_message.gfield_validation_message {
+      background: $dark-orange;
+      color: $white;
+      border-radius: 4px;
+      font-size: $font-size-xxxs;
+      font-weight: 500;
+      border-color: $dark-orange;
+      padding: $sp-1 $sp-2;
+      width: fit-content;
+      pointer-events: none;
+      position: relative;
+
+      &::after {
+        bottom: 100%;
+        border: solid transparent;
+        content: "";
+        height: 0;
+        width: 0;
+        position: absolute;
+        border-bottom-color: $dark-orange;
+        border-width: 5px;
+        right: auto;
+        left: $sp-2;
+
+        html[dir="rtl"] & {
+          left: auto;
+          right: $sp-2;
+        }
+      }
+    }
+  }
+
+  @include medium-and-up {
+    .gfield_validation_message,
+    .ginput_container,
+    select,
+    textarea,
+    input {
+      max-width: 400px;
+    }
+  }
+}
+
+.ui-datepicker {
+  font-family: $roboto;
+}

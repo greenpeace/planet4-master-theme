@@ -210,3 +210,25 @@ add_filter(
 	10,
 	1
 );
+
+/**
+ *
+ * Add CSS classes to Gravity Forms fields.
+ */
+add_filter( 'gform_field_css_class', 'custom_class', 10, 3 );
+
+/**
+ *
+ * Add CSS classes to some Gravity Forms fields: checkboxes and radio buttons.
+ *
+ * @param string $classes The existing field classes.
+ * @param string $field The field name.
+ *
+ * @return string The updated field classes.
+ */
+function custom_class( $classes, $field ) {
+	if ( 'checkbox' === $field->type || 'radio' === $field->type || 'consent' === $field->type ) {
+		$classes .= ' custom-control';
+	}
+	return $classes;
+}
