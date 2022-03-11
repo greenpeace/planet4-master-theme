@@ -38,44 +38,6 @@
     visibility: visible;
   }
 
-  .cookies-intro {
-    .cookies-text {
-      font-size: 14px;
-      margin-bottom: $sp-3;
-      font-weight: 400;
-      color: $grey-80;
-      line-height: 1.5rem;
-      width: 100%;
-    }
-
-    .cookies-buttons {
-      .btn {
-        width: 100%;
-        line-height: 2.4;
-        font-size: 14px;
-      }
-
-      .btn-primary {
-        margin-top: $sp-2;
-      }
-    }
-
-    .reject-all-cookies {
-      display: block;
-      background: none;
-      border: none;
-      color: $grey-40;
-      margin: $sp-2 auto 0 auto;
-      line-height: 2.4;
-      font-size: 14px;
-      padding: 0;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
   @include medium-and-up {
     width: auto;
     bottom: $sp-2;
@@ -85,25 +47,6 @@
     padding: $sp-3 $sp-4;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
     @include slide-from(right, $sp-2);
-
-    .cookies-intro {
-      width: 308px;
-
-      .cookies-buttons {
-        display: flex;
-        justify-content: space-between;
-
-        .btn-primary:only-child {
-          width: 100%;
-        }
-
-        .btn-primary,
-        .btn-secondary {
-          width: calc(50% - #{$sp-1});
-          margin-top: 0;
-        }
-      }
-    }
 
     html[dir="rtl"] & {
       right: auto;
@@ -121,5 +64,62 @@
       left: $sp-3;
       @include slide-from(left, $sp-3);
     }
+  }
+}
+
+.cookies-intro {
+  @include medium-and-up {
+    width: 308px;
+  }
+}
+
+.cookies-text {
+  font-size: 14px;
+  margin-bottom: $sp-3;
+  font-weight: 400;
+  color: $grey-80;
+  line-height: 1.5rem;
+  width: 100%;
+}
+
+.cookies-buttons {
+  .btn {
+    width: 100%;
+    line-height: 2.4;
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    margin-top: $sp-2;
+  }
+
+  @include medium-and-up {
+    display: flex;
+    justify-content: space-between;
+
+    .btn-primary:only-child {
+      width: 100%;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      width: calc(50% - #{$sp-1});
+      margin-top: 0;
+    }
+  }
+}
+
+.btn-discrete {
+  display: block;
+  background: none;
+  border: none;
+  color: $grey-40;
+  margin: $sp-2 auto 0 auto;
+  line-height: 2.4;
+  font-size: 14px;
+  padding: 0;
+
+  &:hover {
+    text-decoration: underline;
   }
 }
