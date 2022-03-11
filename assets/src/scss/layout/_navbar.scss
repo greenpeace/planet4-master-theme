@@ -51,21 +51,54 @@ $navbar-default-height: 60px;
       width: 24px;
     }
   }
+
+  .btn-donate {
+    _-- {
+      background: $orange;
+      border: none;
+      box-shadow: none;
+      color: $white;
+      font-size: inherit;
+      min-width: 116px;
+
+      &:hover {
+        background: $orange-hover;
+        border: none;
+        box-shadow: none;
+        color: $white;
+      }
+    }
+
+    height: 44px;
+    line-height: 40px;
+
+    @include large-and-up {
+      &.dropdown {
+        &::after {
+          content: "";
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          margin-inline-start: $sp-x;
+          mask: url("../../images/chevron.svg") 0 0/10px 10px;
+          transform: rotate(90deg);
+          transition: transform 150ms linear;
+          background-color: $white;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+  }
 }
 
-#nav-main {
-  display: none;
-
-  ~ .nav-languages {
-    display: none;
-  }
-
+#nav-main-desktop {
   @include large-and-up {
-    display: flex;
     flex-grow: 1;
     width: auto;
 
-    ~ .nav-languages {
+    .nav-languages {
+      display: none;
+
       &.open {
         display: flex;
       }
@@ -81,6 +114,30 @@ $navbar-default-height: 60px;
   z-index: 4;
   display: none;
 
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin-inline-start: 0;
+      margin-inline-end: 0;
+    }
+  }
+
+  & > ul {
+    padding-inline-end: $sp-2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+
+    & > li:not(:last-child) {
+      margin-inline-start: $sp-2;
+      margin-inline-end: $sp-3;
+    }
+  }
+
   @include medium-and-less {
     overflow-y: auto;
   }
@@ -91,24 +148,6 @@ $navbar-default-height: 60px;
     flex-grow: 1;
     height: auto;
   }
-
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding-inline: 40px 12px;
-    padding-block-start: 16px;
-    text-align: start;
-
-    @include large-and-up {
-      display: flex;
-      flex-grow: 1;
-      align-items: center;
-      justify-content: flex-end;
-      padding-inline-end: 0;
-      padding-block-start: 0;
-      text-align: end;
-    }
-  }
 }
 
 .nav-submenu {
@@ -117,14 +156,6 @@ $navbar-default-height: 60px;
   }
   position: fixed;
   display: none;
-  padding-block-start: $sp-1;
-
-  .nav-submenu-wrapper {
-    width: 100%;
-    border-radius: 4px;
-    background: $white;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
-  }
 
   ul {
     width: 100%;
@@ -136,6 +167,10 @@ $navbar-default-height: 60px;
     flex-direction: column;
     padding: $sp-2 0;
     overflow-y: auto;
+    margin-top: $sp-1;
+    border-radius: 4px;
+    background: $white;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
 
     @include scrollbar-layout;
   }
@@ -235,12 +270,6 @@ a.nav-link:hover:before,
   }
 }
 
-.nav-item {
-  @include large-and-up {
-    margin-inline-start: $sp-2x;
-  }
-}
-
 .nav-donate {
   padding: $sp-2 0;
 
@@ -261,50 +290,11 @@ a.nav-link:hover:before,
 
   @include large-and-up {
     line-height: $menu-height;
-    margin-inline-end: $sp-2x;
 
     &:hover {
       .nav-submenu {
         display: flex;
         z-index: 999;
-      }
-    }
-  }
-}
-
-.btn-donate {
-  _-- {
-    background: $orange;
-    border: none;
-    box-shadow: none;
-    color: $white;
-    font-size: inherit;
-    min-width: 116px;
-
-    &:hover {
-      background: $orange-hover;
-      border: none;
-      box-shadow: none;
-      color: $white;
-    }
-  }
-
-  height: 44px;
-  line-height: 40px;
-
-  @include large-and-up {
-    &.dropdown {
-      &::after {
-        content: "";
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        margin-inline-start: $sp-x;
-        mask: url("../../images/chevron.svg") 0 0/10px 10px;
-        transform: rotate(90deg);
-        transition: transform 150ms linear;
-        background-color: $white;
-        background-repeat: no-repeat;
       }
     }
   }

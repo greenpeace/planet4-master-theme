@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace P4\MasterTheme\Settings;
 
-use P4\MasterTheme\Feature;
 use P4\MasterTheme\Features\ActionPostType;
 use P4\MasterTheme\Features\MobileTabsMenu;
+use P4\MasterTheme\Features\DropdownMenu;
 use P4\MasterTheme\Loader;
 
 /**
@@ -18,7 +18,7 @@ class InformationArchitecture {
 	/** @var string Option key */
 	public const OPTIONS_KEY = 'planet4_ia';
 
-	/* @var string feature flag of action page type option key. Preserved here because plugin uses it. **/
+	/* @var string feature flag of action page type option key **/
 	public const ACTION_POST_TYPE = 'action_post_type';
 
 	/**
@@ -47,6 +47,7 @@ class InformationArchitecture {
 		return [
 			MobileTabsMenu::get_cmb_field(),
 			ActionPostType::get_cmb_field(),
+			DropdownMenu::get_cmb_field(),
 		];
 	}
 

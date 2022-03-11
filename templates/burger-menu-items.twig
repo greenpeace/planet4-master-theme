@@ -12,12 +12,12 @@
 			<a
 				class="nav-link"
 				href="{{ item.get_link }}"
-				data-ga-category="Submenu Navigation"
+				data-ga-category="Menu Navigation"
 				data-ga-action="{{ link_ga_action }}"
 				data-ga-label="{{ page_category }}">
 					{{ item.title }}
 			</a>
-			{% if item.children is not empty %}
+			{% if item.children is not empty and dropdown_menu %}
 				<button
 					class="collapsable-btn accordion-button collapsed"
 					type="button"
@@ -29,7 +29,7 @@
 			{% endif %}
 		</div>
 
-		{% if item.children is not empty %}
+		{% if item.children is not empty and dropdown_menu %}
 		<nav
 			id="menu-{{ targetId }}"
 			class="nav-subitems accordion-collapse collapse"
