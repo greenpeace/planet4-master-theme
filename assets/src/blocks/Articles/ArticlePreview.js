@@ -156,29 +156,6 @@ export class ArticlePreview extends Component {
                 </a>
               </h4>
             }
-            <p className="article-list-item-meta">
-              {authorLink}
-
-              {(authorLink && date_formatted) && (
-                <span className="article-list-item-bullet" aria-hidden="true">&#8226;</span>
-              )}
-
-              {date_formatted &&
-              <time className="article-list-item-date" dateTime="">
-                {date_formatted}
-              </time>
-              }
-
-              {(authorLink || date_formatted) && reading_time &&
-                <span className="article-list-item-bullet" aria-hidden="true">&#8226;</span>
-              }
-
-              {reading_time &&
-                <span className="article-list-item-readtime">
-                  { __( '%d min read', 'planet4-master-theme' ).replace('%d', reading_time) }
-                </span>
-              }
-            </p>
           </header>
 
           {post_excerpt &&
@@ -186,6 +163,30 @@ export class ArticlePreview extends Component {
               {unescape(post_excerpt)}
             </p>
           }
+
+          <p className='article-list-item-meta'>
+            {authorLink}
+
+            {(authorLink && date_formatted) && (
+              <span className='article-list-item-bullet' aria-hidden='true'>&#8226;</span>
+            )}
+
+            {date_formatted &&
+            <time className='article-list-item-date' dateTime=''>
+              {date_formatted}
+            </time>
+            }
+
+            {(authorLink || date_formatted) && reading_time &&
+              <span className='article-list-item-bullet' aria-hidden='true'>&#8226;</span>
+            }
+
+            {reading_time &&
+              <span className='article-list-item-readtime'>
+                { __( '%d min read', 'planet4-master-theme' ).replace('%d', reading_time) }
+              </span>
+            }
+          </p>
         </div>
       </article>
     );

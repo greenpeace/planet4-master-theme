@@ -5,13 +5,6 @@
 
   --block-articles--article-- {
     margin-top: $sp-4;
-    background-color: transparentize($white, .2);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-
-    @include large-and-up {
-      background-color: transparent;
-      box-shadow: none;
-    }
   }
 
   @include medium-and-up {
@@ -55,8 +48,6 @@
 }
 
 .article-list-item-image {
-  order: 2;
-
   a {
     display: block;
   }
@@ -68,24 +59,15 @@
 
   @include medium-and-up {
     flex-basis: 30%;
-    order: 0;
-  }
-
-  @include large-and-up {
-    flex-basis: 30%;
   }
 }
 
 .article-list-item-body {
-  padding: $sp-2;
+  margin-top: $sp-1;
 
   @include medium-and-up {
+    margin-top: 0;
     flex-basis: 68%;
-  }
-
-  @include large-and-up {
-    flex-basis: 68%;
-    padding: 0;
   }
 }
 
@@ -93,7 +75,34 @@
   --block-articles--article--headline-- {
     font-weight: 500;
     color: $grey-80;
-    margin: 4px 0;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  @include mobile-only {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* stylelint-disable property-no-vendor-prefix */
+    /*! autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /*! autoprefixer: on */
+    /* stylelint-enable property-no-vendor-prefix */
+    overflow: hidden;
+  }
+}
+
+.article-list-item-meta {
+  --block-articles--article--meta-- {
+    color: $grey-40;
+    font-family: $roboto;
+    font-size: 14px;
+    margin: 0;
+
+    &:hover {
+      color: $grey-40;
+    }
   }
 
   a {
@@ -101,28 +110,8 @@
   }
 }
 
-.article-list-item-meta {
-  --block-articles--article--meta-- {
-    color: $grey-60;
-    font-family: $roboto;
-    font-style: italic;
-    font-size: 0.875rem;
-    font-weight: 300;
-    margin: 0;
-
-    &:hover {
-      color: $grey-60;
-    }
-
-    @include large-and-up {
-      font-size: 0.9375rem;
-      width: 80%;
-    }
-  }
-
-  a {
-    color: inherit;
-  }
+.article-list-item-author {
+  font-weight: 500;
 }
 
 .article-list-item-bullet {
@@ -133,13 +122,22 @@
 .article-list-item-content {
   --block-articles--article--content-- {
     font-size: inherit;
-    width: 80%;
   }
-  display: none;
-  margin: $sp-1 0 0;
+  margin: $sp-1 0;
+
+  @include mobile-only {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* stylelint-disable property-no-vendor-prefix */
+    /*! autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /*! autoprefixer: on */
+    /* stylelint-enable property-no-vendor-prefix */
+    overflow: hidden;
+  }
 
   @include large-and-up {
-    display: block;
+    width: 80%;
   }
 }
 
