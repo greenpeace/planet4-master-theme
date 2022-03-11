@@ -245,22 +245,9 @@ class CustomTaxonomy {
 			'show_admin_column' => true,
 			'query_var'         => true,
 			'meta_box_cb'       => [ $this, 'create_taxonomy_metabox_markup' ],
-			'show_in_rest'      => true,
 		];
 
 		register_taxonomy( self::TAXONOMY, [ self::TAXONOMY_PARAMETER, 'post' ], $args );
-	}
-
-	/**
-	 * Add each taxonomy term as a rewrite rule.
-	 */
-	public function add_terms_as_rewrite_rules() {
-		// Add a rewrite rule on top of the chain for each slug
-		// of this taxonomy type (e.g.: "publication", "story", etc.).
-		$terms_slugs = $this->get_terms_slugs();
-		foreach ( $terms_slugs as $slug ) {
-			add_rewrite_rule( $slug . '/?$', 'index.php?' . self::TAXONOMY . '=' . $slug, 'top' );
-		}
 	}
 
 	/**
