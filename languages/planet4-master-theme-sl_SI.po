@@ -4,7 +4,7 @@ msgstr ""
 "n%100==3||n%100==4 ? 2 : 3;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-03-14 13:58+0000\n"
+"PO-Revision-Date: 2022-03-14 14:00+0000\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -70,7 +70,7 @@ msgstr "O avtorju"
 
 #: templates/cookies.twig:26
 msgid "Accept all cookies"
-msgstr ""
+msgstr "Sprejmi vse piškotke"
 
 #: page-templates/sitemap.php:23
 msgid "Act"
@@ -90,11 +90,11 @@ msgstr "AKTIVNI FILTRI"
 
 #: templates/cookies/cookies_settings.twig:55
 msgid "Allow all"
-msgstr ""
+msgstr "Dovoli vse"
 
 #: templates/cookies/cookies_settings.twig:16
 msgid "Always enabled"
-msgstr ""
+msgstr "Vedno omogočeno"
 
 #: templates/search.twig:200
 msgid "Apply filters"
@@ -148,7 +148,7 @@ msgstr "Počisti vse"
 
 #: templates/navigation-bar-new.twig:106
 msgid "Clear search"
-msgstr ""
+msgstr "Počisti iskanje"
 
 #: templates/navigation-bar.twig:33
 msgid "Close Menu"
@@ -156,7 +156,7 @@ msgstr "Zapri meni"
 
 #: templates/navigation-bar-new.twig:134
 msgid "Close navigation menu"
-msgstr ""
+msgstr "Zapri navigacijski meni"
 
 #: templates/comment_form/comment_field.twig:4
 msgid "Comment"
@@ -216,7 +216,7 @@ msgstr "Filtri"
 
 #: templates/footer_social_media.twig:2
 msgid "Follow us"
-msgstr ""
+msgstr "Sledite nam"
 
 #. Author of the theme
 msgid "Greenpeace International"
@@ -240,7 +240,7 @@ msgstr "International (English)"
 
 #: templates/single-password.twig:18 templates/single-page.twig:15
 msgid "Invalid password, please try again"
-msgstr ""
+msgstr "Napačno geslo, prosimo poskusite znova"
 
 #: templates/search.twig:82
 msgid "ISSUE"
@@ -264,7 +264,7 @@ msgstr "Uredi"
 
 #: templates/cookies/cookies_settings.twig:11
 msgid "Manage your cookies preferences"
-msgstr ""
+msgstr "Uredi nastavitve piškotkov"
 
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
@@ -300,7 +300,7 @@ msgstr "Stran"
 
 #: templates/cookies/cookies_settings.twig:12
 msgid "Please select which cookies you are willing to store."
-msgstr ""
+msgstr "Prosimo izberite katere piškotke bi želeli sprejeti"
 
 #: src/Search.php:962 src/Post.php:272
 msgid "POST"
@@ -328,11 +328,11 @@ msgstr "Zožaj rezultat iskanja"
 
 #: templates/cookies/cookies_settings.twig:47
 msgid "Reject all"
-msgstr ""
+msgstr "Zavrni vse"
 
 #: templates/cookies.twig:35
 msgid "Reject all cookies"
-msgstr ""
+msgstr "Zavrni vse piškotke"
 
 #: tag.php:117
 msgid "Related Campaigns"
@@ -344,7 +344,7 @@ msgstr "Rezultati"
 
 #: templates/cookies/cookies_settings.twig:63
 msgid "Save preferences"
-msgstr ""
+msgstr "Shrani nastavitve"
 
 #: templates/navigation-bar-new.twig:76 templates/navigation-bar.twig:7
 #: templates/404.twig:17 templates/search.twig:8 templates/search.twig:45
@@ -357,7 +357,7 @@ msgstr "Izbrani"
 
 #: templates/cookies.twig:18
 msgid "Settings"
-msgstr ""
+msgstr "Možnosti"
 
 #: templates/blocks/share_buttons.twig:8 templates/blocks/share_buttons.twig:15
 #: templates/blocks/share_buttons.twig:22
@@ -377,11 +377,11 @@ msgstr "Prikaži naslednjih %s rezultatov"
 
 #: templates/blocks/author_profile.twig:45
 msgid "Show less"
-msgstr ""
+msgstr "Pokaži manj"
 
 #: templates/blocks/author_profile.twig:44
 msgid "Show more"
-msgstr ""
+msgstr "Pokaži več"
 
 #. Name of the template
 msgid "Sitemap Page"
@@ -425,7 +425,7 @@ msgstr "Ta kampanja nima izbrane kategorije"
 
 #: assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
-msgstr ""
+msgstr "Ta povezava bo odprla PDF datoteko"
 
 #: templates/single-password.twig:15 templates/single-page.twig:12
 msgid "To see the content of this page, please enter your password  below"
