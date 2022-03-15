@@ -32,3 +32,27 @@
 // Other
 @import "blocks/WideBlocks";
 @import "blocks/Editor";
+
+.is-style-small-padding {
+  padding: 8px;
+}
+
+.is-style-medium-padding {
+  padding: 16px;
+}
+
+.is-style-large-padding {
+  padding: 32px;
+}
+
+.is-style-space-evenly {
+  & > * {
+    flex-basis: 0;
+    flex-grow: 1;
+    align-self: stretch;
+  }
+}
+
+.is-style-roboto-font-family {
+  font-family: $roboto;
+}
