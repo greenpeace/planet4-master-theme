@@ -811,7 +811,7 @@ class MasterSite extends TimberSite {
 	 * Add resources for the Gutenberg editor.
 	 */
 	public function enqueue_editor_assets(): void {
-		Loader::enqueue_versioned_style( 'assets/build/editorStyle.min.css' );
+		Loader::enqueue_versioned_style( 'assets/build/editorStyle.min.css', 'planet4-editor-style' );
 	}
 
 	/**
