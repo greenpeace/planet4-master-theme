@@ -6,6 +6,7 @@ use Exception;
 use P4\MasterTheme\Capability;
 use P4\MasterTheme\Features;
 use P4\MasterTheme\Exception\RemoteCallFailed;
+use P4\MasterTheme\Features\ImageArchive;
 use WP_Http;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -26,7 +27,7 @@ class Rest {
 	 * Add some REST API endpoints if feature is active.
 	 */
 	public static function register_endpoints(): void {
-		if ( ! Features::is_active( Features::IMAGE_ARCHIVE ) ) {
+		if ( ! ImageArchive::is_active() ) {
 			return;
 		}
 		$fetch_archive_images = static function ( WP_REST_Request $request ) {

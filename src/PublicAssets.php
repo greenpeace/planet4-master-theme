@@ -2,6 +2,9 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\Features\NewDesignCountrySelector;
+use P4\MasterTheme\Features\NewDesignNavigationBar;
+
 /**
  * Wrapper class for the enqueue function because we can't autoload functions.
  */
@@ -94,13 +97,13 @@ final class PublicAssets {
 	 * - CSS specific to a particular page (e.g. search)
 	 */
 	private static function conditionally_load_partials(): void {
-		$navbar_version = Features::is_active( Features::NEW_DESIGN_NAVIGATION_BAR )
+		$navbar_version = NewDesignNavigationBar::is_active()
 			? planet4_get_option( 'website_navigation_style', 'dark' )
 			: 'old';
 		$navbar_file    = '/assets/build/navigation-bar-' . $navbar_version . '.min.css';
 		Loader::enqueue_versioned_style( $navbar_file, 'navigation-bar', [ 'parent-style' ] );
 
-		$country_selector_version = Features::is_active( Features::NEW_DESIGN_COUNTRY_SELECTOR ) ? 'new' : 'old';
+		$country_selector_version = NewDesignCountrySelector::is_active() ? 'new' : 'old';
 		$country_selector_file    = '/assets/build/country-selector-' . $country_selector_version . '.min.css';
 		Loader::enqueue_versioned_style( $country_selector_file, 'country-selector', [ 'parent-style' ] );
 	}

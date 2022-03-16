@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use CMB2_Field;
+use P4\MasterTheme\Features\NewDesignNavigationBar;
 use P4\MasterTheme\Settings\Comments;
 use P4\MasterTheme\Settings\InformationArchitecture as IA;
 
@@ -464,7 +465,7 @@ class Settings {
 			],
 		];
 
-		if ( Features::is_active( Features::NEW_DESIGN_NAVIGATION_BAR ) ) {
+		if ( NewDesignNavigationBar::is_active() ) {
 			$this->subpages['planet4_settings_navigation']['fields'][] = [
 				'name'    => __( 'Website Navigation Style', 'planet4-master-theme-backend' ),
 				'desc'    => __( 'Select a style', 'planet4-master-theme-backend' ),

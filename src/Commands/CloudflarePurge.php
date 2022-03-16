@@ -36,7 +36,7 @@ class CloudflarePurge extends Command {
 	 * @param array|null $assoc_args Named arguments.
 	 */
 	public static function execute( ?array $args, ?array $assoc_args ): void {
-		if ( ! Features::is_active( Features::CLOUDFLARE_DEPLOY_PURGE ) ) {
+		if ( ! Features\CloudflareDeployPurge::is_active() ) {
 			WP_CLI::warning( 'Purge on deploy is not enabled, not purging.' );
 
 			return;

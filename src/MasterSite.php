@@ -2,6 +2,11 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
+use P4\MasterTheme\Features\Dev\WPTemplateEditor;
+use P4\MasterTheme\Features\LazyYoutubePlayer;
+use P4\MasterTheme\Features\NewDesignCountrySelector;
+use P4\MasterTheme\Features\NewDesignNavigationBar;
 use Timber\Timber;
 use Timber\Site as TimberSite;
 use Timber\Menu as TimberMenu;
@@ -107,11 +112,11 @@ class MasterSite extends TimberSite {
 	protected function hooks() {
 		add_theme_support( 'post-thumbnails' );
 		add_theme_support( 'menus' );
-		if ( Features::is_active( Features::WP_TEMPLATE_EDITOR ) ) {
+		if ( WPTemplateEditor::is_active() ) {
 			// Enable Full Site Editing.
 			add_theme_support( 'block-templates' );
 		}
-		if ( ! Features::is_active( Features::CORE_BLOCK_PATTERNS ) ) {
+		if ( ! CoreBlockPatterns::is_active() ) {
 			// Disable WP Block Patterns.
 			remove_theme_support( 'core-block-patterns' );
 		}
@@ -582,8 +587,6 @@ class MasterSite extends TimberSite {
 			$context['p4_visitor_type']    = 'guest';
 		}
 
-		$new_design_navigation_bar = Features::is_active( Features::NEW_DESIGN_NAVIGATION_BAR );
-
 		$context['donatelink']           = $options['donate_button'] ?? '#';
 		$context['donatetext']           = $options['donate_text'] ?? __( 'Donate', 'planet4-master-theme' );
 		$context['website_navbar_title'] = $options['website_navigation_title'] ?? __( 'International (English)', 'planet4-master-theme' );
@@ -610,8 +613,8 @@ class MasterSite extends TimberSite {
 		$context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';
 
 		// New design country selector, navigation bar.
-		$context['new_design_country_selector'] = Features::is_active( Features::NEW_DESIGN_COUNTRY_SELECTOR );
-		$context['new_design_navigation_bar']   = $new_design_navigation_bar;
+		$context['new_design_country_selector'] = NewDesignCountrySelector::is_active();
+		$context['new_design_navigation_bar']   = NewDesignNavigationBar::is_active();
 
 		// IA: Tabs menu on mobile.
 		$context['mobile_tabs_menu'] = IA::is_active( IA::MOBILE_TABS_MENU );
@@ -1209,7 +1212,7 @@ class MasterSite extends TimberSite {
 	 * @return mixed
 	 */
 	public function filter_youtube_oembed_nocookie( $cache, $url ) {
-		if ( Features::is_active( Features::LAZY_YOUTUBE_PLAYER ) ) {
+		if ( LazyYoutubePlayer::is_active() ) {
 			return $this->new_youtube_filter( $cache, $url );
 		}
 
