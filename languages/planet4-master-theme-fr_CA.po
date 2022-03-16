@@ -374,7 +374,7 @@ msgstr "PLUS DE RÉSULTATS"
 
 #: templates/blocks/author_profile.twig:45
 msgid "Show less"
-msgstr ""
+msgstr "Réduire"
 
 #: templates/blocks/author_profile.twig:44
 msgid "Show more"
