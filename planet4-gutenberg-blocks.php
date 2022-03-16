@@ -266,23 +266,23 @@ function set_allowed_block_types( $allowed_block_types, $context ) {
 
 	$migration_ran = MigrationLog::from_wp_options()->already_ran( M001EnableEnFormFeature::get_id() );
 
-	$enform_active = ! $migration_ran || Features::is_active( Features::ENGAGING_NETWORKS );
+	$enform_active = ! $migration_ran || Features::is_active( 'allow_all_blocks' );
 
 	$page_block_types = array_merge(
 		PAGE_BLOCK_TYPES,
-		! Features::is_active( Features::BETA_BLOCKS ) ? [] : BETA_PAGE_BLOCK_TYPES,
+		! Features::is_active( 'beta_blocks' ) ? [] : BETA_PAGE_BLOCK_TYPES,
 		! $enform_active ? [] : [ 'planet4-blocks/enform' ],
 	);
 
 	$campaign_block_types = array_merge(
 		CAMPAIGN_BLOCK_TYPES,
-		! Features::is_active( Features::BETA_BLOCKS ) ? [] : BETA_CAMPAIGN_BLOCK_TYPES,
+		! Features::is_active( 'beta_blocks' ) ? [] : BETA_CAMPAIGN_BLOCK_TYPES,
 		! $enform_active ? [] : [ 'planet4-blocks/enform' ],
 	);
 
 	$action_block_types = array_merge(
 		ACTION_BLOCK_TYPES,
-		! Features::is_active( Features::BETA_BLOCKS ) ? [] : BETA_ACTION_BLOCK_TYPES,
+		! Features::is_active( 'beta_blocks' ) ? [] : BETA_ACTION_BLOCK_TYPES,
 		! $enform_active ? [] : [ 'planet4-blocks/enform' ],
 	);
 
