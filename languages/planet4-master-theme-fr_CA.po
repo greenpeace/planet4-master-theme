@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-03-16 08:58+0000\n"
+"PO-Revision-Date: 2022-03-16 08:59+0000\n"
 "Last-Translator: Lise Bockler\n"
 "Language-Team: French (Canada)\n"
 "MIME-Version: 1.0\n"
@@ -340,7 +340,7 @@ msgstr "Résultats"
 
 #: templates/cookies/cookies_settings.twig:63
 msgid "Save preferences"
-msgstr ""
+msgstr "Enregistrer les préférences"
 
 #: templates/navigation-bar-new.twig:76 templates/navigation-bar.twig:7
 #: templates/404.twig:17 templates/search.twig:8 templates/search.twig:45
@@ -378,7 +378,7 @@ msgstr ""
 
 #: templates/blocks/author_profile.twig:44
 msgid "Show more"
-msgstr ""
+msgstr "Lire plus"
 
 #. Name of the template
 msgid "Sitemap Page"
