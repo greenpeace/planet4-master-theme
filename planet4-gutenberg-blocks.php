@@ -390,6 +390,19 @@ function p4_blocks_en_forms_twig_filters( $twig ) {
 	return $twig;
 }
 
+/**
+ * Adds a block template with 2 blocks(paragraph and articles block) on pagetype post.
+ */
+function p4_register_template() {
+	$post_type_object           = get_post_type_object( 'post' );
+	$post_type_object->template = [
+		[ 'core/paragraph' ],
+		[ 'planet4-blocks/articles' ],
+	];
+}
+
+add_action( 'init', 'p4_register_template' );
+
 /*
 ==========================
 	L O A D  P L U G I N
