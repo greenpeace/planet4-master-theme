@@ -287,3 +287,17 @@ button.load-more-mt {
   padding: 0 $sp-2;
   transition-duration: 100ms;
 }
+
+.wp-block-button.transparent-button a {
+  --transparent-button-- {
+    border-color: $white;
+    color: $white;
+    background: transparent;
+
+    &:hover,
+    &:active {
+      background: $white;
+      color: $grey-80;
+    }
+  }
+}
