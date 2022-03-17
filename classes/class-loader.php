@@ -628,6 +628,11 @@ DEFERREDCSS;
 					'slug'  => 'yellow',
 					'color' => '#ffd204',
 				],
+				[
+					'name'  => __( 'Dark Green', 'planet4-blocks-backend' ),
+					'slug'  => 'dark-green',
+					'color' => '#019433',
+				],
 			]
 		);
 

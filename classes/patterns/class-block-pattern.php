@@ -34,6 +34,7 @@ abstract class Block_Pattern {
 
 		$patterns = [
 			SideImageWithTextAndCta::class,
+			HighlightedCta::class,
 		];
 
 		/**
