@@ -2,43 +2,26 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\Features\CloudflareDeployPurge;
+use P4\MasterTheme\Features\Dev\AllowAllBlocks;
+use P4\MasterTheme\Features\Dev\BetaBlocks;
+use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
+use P4\MasterTheme\Features\Dev\ThemeEditor;
+use P4\MasterTheme\Features\Dev\WPTemplateEditor;
+use P4\MasterTheme\Features\EngagingNetworks;
+use P4\MasterTheme\Features\GoogleSheetReplacesSmartsheet;
+use P4\MasterTheme\Features\ImageArchive;
+use P4\MasterTheme\Features\LazyYoutubePlayer;
+use P4\MasterTheme\Features\NewDesignCountrySelector;
+use P4\MasterTheme\Features\NewDesignNavigationBar;
+use P4\MasterTheme\Features\PurgeOnFeatureChanges;
+
 /**
  * Wrapper class for accessing feature settings and setting up the settings page.
  */
 class Features {
 
 	public const OPTIONS_KEY = 'planet4_features';
-
-	/**
-	 * @var string Media library refactored feature.
-	 */
-	public const IMAGE_ARCHIVE = 'feature_image_archive';
-
-	public const ENGAGING_NETWORKS = 'feature_engaging_networks';
-
-	public const CLOUDFLARE_DEPLOY_PURGE = 'cloudflare_deploy_purge';
-
-	public const LAZY_YOUTUBE_PLAYER = 'lazy_youtube_player';
-
-	public const THEME_EDITOR = 'theme_editor';
-
-	public const THEME_EDITOR_NON_LOGGED_IN = 'theme_editor_non_logged_in';
-
-	public const BETA_BLOCKS = 'beta_blocks';
-
-	public const WP_TEMPLATE_EDITOR = 'wp_template_editor';
-
-	public const NEW_DESIGN_COUNTRY_SELECTOR = 'new_design_country_selector';
-
-	public const NEW_DESIGN_NAVIGATION_BAR = 'new_design_navigation_bar';
-
-	public const PURGE_ON_FEATURE_CHANGES = 'purge_on_feature_changes';
-
-	public const GOOGLE_SHEET_REPLACES_SMARTSHEET = 'google_sheet_replaces_smartsheet';
-
-	public const CORE_BLOCK_PATTERNS = 'core_block_patterns';
-
-	public const ALLOW_ALL_BLOCKS = 'allow_all_blocks';
 
 	/**
 	 * @var bool Purge Cloudflare cache on save
@@ -74,143 +57,45 @@ class Features {
 	 * @return array[] The fields for each feature.
 	 */
 	public static function get_fields(): array {
-		$fields = [
-			[
-				'name' => __( 'New Image Archive (Beta)', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Beta test the new Image Archive. This will replace the GPI Media Library plugin.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::IMAGE_ARCHIVE,
-				'type' => 'checkbox',
-			],
-			[
-				'name' => __( 'Engaging Networks integration', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Enable the Engaging Networks integration.<br>If turned on you will be able to use the EN Form block, as well as the "Progress Bar inside EN Form" Counter block style.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::ENGAGING_NETWORKS,
-				'type' => 'checkbox',
-			],
-			[
-				'name' => __( 'Purge HTML from Cloudflare on deploy', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'WARNING: Do not change this setting without checking with the Planet 4 team.<br>This will purge all URLs from Cloudflare cache after a deploy.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::CLOUDFLARE_DEPLOY_PURGE,
-				'type' => 'checkbox',
-			],
-			[
-				'name' => __( 'Purge all HTML on feature changes', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Whether to purge all pages from Cloudflare cache when changing features.<br>Only enable on production, on test instances it results in too many purge requests.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::PURGE_ON_FEATURE_CHANGES,
-				'type' => 'checkbox',
-			],
-			[
-				'name' => __( 'Lazy YouTube player', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Only load the YouTube player after clicking a video.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::LAZY_YOUTUBE_PLAYER,
-				'type' => 'checkbox',
-			],
-			[
-				'name' => __( 'Enable new Country selector design', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Enable the new Country selector design as described in the <a href="https://p4-designsystem.greenpeace.org/05f6e9516/v/0/p/16a899-footer" target="_blank">design system</a>.<br/>This might break your child theme, depending on how you extended the main templates and CSS.<br/>Changing this option will take a bit of time, as it also attempts to clear the Cloudflare cache.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::NEW_DESIGN_COUNTRY_SELECTOR,
-				'type' => 'checkbox',
-			],
-			[
-				'name' => __( 'Enable new Navigation bar design', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Enable the new Navigation bar design as described in the <a href="https://p4-designsystem.greenpeace.org/05f6e9516/p/106cdb-navigation-bar" target="_blank">design system</a>.<br/>This might break your child theme, depending on how you extended the main templates and CSS.<br/>Changing this option will take a bit of time, as it also attempts to clear the Cloudflare cache.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::NEW_DESIGN_NAVIGATION_BAR,
-				'type' => 'checkbox',
-			],
-			[
-				'name' => __( 'Google Sheets replaces Smartsheet', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Toggle whether to use Google Sheets to fetch the list of analytics options.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::GOOGLE_SHEET_REPLACES_SMARTSHEET,
-				'type' => 'checkbox',
-			],
+		$include_all = in_array( WP_APP_ENV, [ 'local', 'development' ], true );
 
+		$features = $include_all
+			? self::all_features()
+			: array_filter(
+				self::all_features(),
+				fn( string $feature ): bool => $feature::show_toggle_production()
+			);
+
+		return array_map(
+			fn( string $feature ): array => $feature::get_cmb_field(),
+			$features
+		);
+	}
+
+	/**
+	 * @return Feature[]|string[] Actually just a string with the class name, gimme the type hint.
+	 */
+	public static function all_features(): array {
+		// Todo, check a good way to manage menu order.
+		// Perhaps an alphabetical order within a group would make most sense?
+		// That way controlling whether the feature is live is in one place.
+		return [
+			ImageArchive::class,
+			EngagingNetworks::class,
+			CloudflareDeployPurge::class,
+			PurgeOnFeatureChanges::class,
+			LazyYoutubePlayer::class,
+			NewDesignCountrySelector::class,
+			NewDesignNavigationBar::class,
+			GoogleSheetReplacesSmartsheet::class,
+
+			// Dev only.
+			BetaBlocks::class,
+			ThemeEditor::class,
+			WPTemplateEditor::class,
+			CoreBlockPatterns::class,
+			AllowAllBlocks::class,
 		];
-
-		if ( defined( 'WP_APP_ENV' ) && ( WP_APP_ENV === 'development' || WP_APP_ENV === 'local' ) ) {
-			$fields[] = [
-				'name' => __( 'Allow Beta Blocks in post editor', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'If enabled, you can use early or unstable versions of blocks in the post editor.<br>These will be in the "Planet 4 Blocks - BETA" category.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::BETA_BLOCKS,
-				'type' => 'checkbox',
-			];
-			$fields[] = [
-				'name' => __( 'Theme editor (experimental)', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Enable CSS variables based theme editor for logged in users.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::THEME_EDITOR,
-				'type' => 'checkbox',
-			];
-			$fields[] = [
-				'name' => __( 'Enable WordPress template editor', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Enable the WordPress "template editor" to allow Full Site Editiong.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::WP_TEMPLATE_EDITOR,
-				'type' => 'checkbox',
-			];
-			$fields[] = [
-				'name' => __( 'Enable core block patterns', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Allows using the default block patterns that come with WordPress.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::CORE_BLOCK_PATTERNS,
-				'type' => 'checkbox',
-			];
-			$fields[] = [
-				'name' => __( 'Allow all blocks', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Enable all blocks in the editor for all post types.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::ALLOW_ALL_BLOCKS,
-				'type' => 'checkbox',
-			];
-		}
-
-		if ( defined( 'WP_APP_ENV' ) && WP_APP_ENV === 'local' ) {
-			$fields[] = [
-				'name' => __( 'Theme editor (experimental): non-logged in', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Enable CSS variables based theme editor without requiring login.',
-					'planet4-master-theme-backend'
-				),
-				'id'   => self::THEME_EDITOR_NON_LOGGED_IN,
-				'type' => 'checkbox',
-			];
-		}
-
-		return $fields;
 	}
 
 	/**
@@ -304,11 +189,11 @@ class Features {
 		// This requires a toggle because we may be hitting a sort of rate limit from the deploy purge alone.
 		// For now it's better to leave this off on test instances, to avoid purges failing on production because we hit
 		// the rate limit.
-		if ( ! self::is_active( self::PURGE_ON_FEATURE_CHANGES ) ) {
+		if ( ! PurgeOnFeatureChanges::is_active() ) {
 			return;
 		}
 
-		if ( in_array( $field_id, [ self::NEW_DESIGN_COUNTRY_SELECTOR, self::NEW_DESIGN_NAVIGATION_BAR ], true ) ) {
+		if ( in_array( $field_id, [ NewDesignCountrySelector::id(), NewDesignNavigationBar::id() ], true ) ) {
 			if ( $field->value() !== self::$preprocess_fields[ $field_id ] ) {
 				self::$purge_cloudflare = true;
 			}

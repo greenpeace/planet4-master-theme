@@ -22,7 +22,7 @@ class M001EnableEnFormFeature extends MigrationScript {
 	protected static function execute( MigrationRecord $record ): void {
 		$settings = get_option( Settings::KEY, [] );
 
-		$settings[ Features::ENGAGING_NETWORKS ] = 'on';
+		$settings[ Features\EngagingNetworks::id() ] = 'on';
 		update_option( Settings::KEY, $settings );
 	}
 }

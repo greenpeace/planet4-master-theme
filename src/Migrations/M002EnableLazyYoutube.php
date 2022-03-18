@@ -22,7 +22,7 @@ class M002EnableLazyYoutube extends MigrationScript {
 	protected static function execute( MigrationRecord $record ): void {
 		$settings = get_option( Settings::KEY, [] );
 
-		$settings[ Features::LAZY_YOUTUBE_PLAYER ] = 'on';
+		$settings[ Features\LazyYoutubePlayer::id() ] = 'on';
 		update_option( Settings::KEY, $settings );
 	}
 }

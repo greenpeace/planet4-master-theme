@@ -5,6 +5,7 @@ namespace P4\MasterTheme\ImageArchive;
 use P4\MasterTheme\Capability;
 use P4\MasterTheme\Exception\RemoteCallFailed;
 use P4\MasterTheme\Features;
+use P4\MasterTheme\Features\ImageArchive;
 use P4\MasterTheme\Loader;
 
 /**
@@ -22,7 +23,7 @@ class UiIntegration {
 	 * Hook up to WordPress.
 	 */
 	private static function hooks() {
-		if ( ! Features::is_active( Features::IMAGE_ARCHIVE ) ) {
+		if ( ! ImageArchive::is_active() ) {
 			return;
 		}
 		add_action( 'admin_menu', [ self::class, 'picker_page' ], 10 );
