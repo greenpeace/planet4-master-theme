@@ -1,7 +1,9 @@
 <?php
 
-namespace P4\MasterTheme;
+namespace P4\MasterTheme\Settings;
 
+use P4\MasterTheme\CloudflarePurger;
+use P4\MasterTheme\Feature;
 use P4\MasterTheme\Features\CloudflareDeployPurge;
 use P4\MasterTheme\Features\Dev\AllowAllBlocks;
 use P4\MasterTheme\Features\Dev\BetaBlocks;
@@ -15,6 +17,8 @@ use P4\MasterTheme\Features\LazyYoutubePlayer;
 use P4\MasterTheme\Features\NewDesignCountrySelector;
 use P4\MasterTheme\Features\NewDesignNavigationBar;
 use P4\MasterTheme\Features\PurgeOnFeatureChanges;
+use P4\MasterTheme\Loader;
+use P4\MasterTheme\Settings;
 
 /**
  * Wrapper class for accessing feature settings and setting up the settings page.

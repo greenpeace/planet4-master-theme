@@ -2,6 +2,7 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\Settings\Features;
 use RuntimeException;
 
 /**

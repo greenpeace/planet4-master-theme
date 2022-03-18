@@ -4,7 +4,6 @@ namespace P4\MasterTheme\ImageArchive;
 
 use P4\MasterTheme\Capability;
 use P4\MasterTheme\Exception\RemoteCallFailed;
-use P4\MasterTheme\Features;
 use P4\MasterTheme\Features\ImageArchive;
 use P4\MasterTheme\Loader;
 
