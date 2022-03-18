@@ -32,3 +32,5 @@ class_alias( \P4\MasterTheme\Smartsheet::class, 'P4_Smartsheet' );
 class_alias( \P4\MasterTheme\SmartsheetClient::class, 'P4_Smartsheet_Client' );
 class_alias( \P4\MasterTheme\TaxonomyCampaign::class, 'P4_Taxonomy_Campaign' );
 class_alias( \P4\MasterTheme\User::class, 'P4_User' );
+
+class_alias( \P4\MasterTheme\Settings\Features::class, \P4\MasterTheme\Features::class );
