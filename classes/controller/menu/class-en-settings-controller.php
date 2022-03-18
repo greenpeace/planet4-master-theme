@@ -10,6 +10,7 @@
 namespace P4GBKS\Controllers\Menu;
 
 use P4\MasterTheme\Features;
+use P4\MasterTheme\Features\EngagingNetworks;
 use P4\MasterTheme\MigrationLog;
 use P4\MasterTheme\Migrations\M001EnableEnFormFeature;
 
@@ -25,7 +26,7 @@ class En_Settings_Controller extends Controller {
 		// We need to check if the migration already ran, as the EN block is on by default, but we cannot give an option
 		// that was added using CMB2 a default value of 'on', because then it can't be turned off.
 		$migration_ran     = MigrationLog::from_wp_options()->already_ran( M001EnableEnFormFeature::get_id() );
-		$feature_is_active = ! $migration_ran || Features::is_active( Features::ENGAGING_NETWORKS );
+		$feature_is_active = ! $migration_ran || Features::is_active( 'feature_engaging_networks' );
 
 		if ( $feature_is_active && current_user_can( 'manage_options' ) ) {
 			add_menu_page(
@@ -154,18 +155,5 @@ class En_Settings_Controller extends Controller {
 				$settings[ $name ] = sanitize_text_field( $setting );
 			}
 		}
-	}
-
-	/**
-	 * Sets selected language.
-	 *
-	 * @param string $locale Current locale.
-	 *
-	 * @return string The new locale.
-	 */
-	public function set_locale( $locale ) : string {
-		$main_settings = get_option( 'p4en_main_settings' );
-		$locale        = $main_settings['p4en_lang'] ?? '';
-		return $locale;
 	}
 }

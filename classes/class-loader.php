@@ -9,6 +9,8 @@
 namespace P4GBKS;
 
 use P4\MasterTheme\Features;
+use P4\MasterTheme\Features\Dev\ThemeEditor;
+use P4\MasterTheme\Features\EngagingNetworks;
 use P4\MasterTheme\MigrationLog;
 use P4\MasterTheme\Migrations\M001EnableEnFormFeature;
 use P4GBKS\Controllers;
@@ -350,7 +352,7 @@ final class Loader {
 		$option_values = get_option( 'planet4_options' );
 
 		$en_active = ! MigrationLog::from_wp_options()->already_ran( M001EnableEnFormFeature::get_id() )
-					|| Features::is_active( Features::ENGAGING_NETWORKS );
+					|| Features::is_active( 'feature_engaging_networks' );
 
 		$reflection_vars = [
 			'home'            => P4GBKS_PLUGIN_URL . '/public/',
@@ -479,15 +481,8 @@ final class Loader {
 	 * @return bool Whether the theme editor will be included.
 	 */
 	private static function can_include_theme_editor(): bool {
-		if ( ! Features::is_active( Features::THEME_EDITOR ) ) {
-			return false;
-		}
 
-		if ( is_user_logged_in() ) {
-			return true;
-		}
-
-		return Features::is_active( Features::THEME_EDITOR_NON_LOGGED_IN );
+		return Features::is_active( 'theme_editor' ) && is_user_logged_in();
 	}
 
 	/**
