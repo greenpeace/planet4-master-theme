@@ -4,11 +4,13 @@
     opacity: 0;
     pointer-events: none;
 
-    &:not(:disabled) ~ .custom-control-description:hover:before {
+    &:not(:disabled) ~ .custom-control-description:hover:before,
+    &:not(:disabled) ~ label:hover:before {
       border-color: $grey-80;
     }
 
-    & ~ .custom-control-description {
+    & ~ .custom-control-description,
+    & ~ label {
       position: relative;
       cursor: pointer;
       font-family: $roboto;
@@ -41,7 +43,8 @@
       }
     }
 
-    &:checked ~ .custom-control-description {
+    &:checked ~ .custom-control-description,
+    &:checked ~ label {
       &:before {
         border-color: $grey-80;
       }
@@ -64,7 +67,8 @@
       }
     }
 
-    &:disabled ~ .custom-control-description {
+    &:disabled ~ .custom-control-description,
+    &:disabled ~ label {
       cursor: auto;
 
       &:before {
@@ -78,11 +82,13 @@
     pointer-events: none;
     opacity: 0;
 
-    &:not(:disabled) ~ .custom-control-description:hover:before {
+    &:not(:disabled) ~ .custom-control-description:hover:before,
+    &:not(:disabled) ~ label:hover:before {
       border-color: $grey-80;
     }
 
-    & ~ .custom-control-description {
+    & ~ .custom-control-description,
+    & ~ label {
       position: relative;
       cursor: pointer;
       font-family: $roboto;
@@ -114,7 +120,8 @@
       }
     }
 
-    &:checked ~ .custom-control-description:before {
+    &:checked ~ .custom-control-description:before,
+    &:checked ~ label:before {
       background: $grey-80;
       box-shadow: inset 0 0 0 2px $white;
       border-color: $grey-80;
@@ -123,7 +130,13 @@
 }
 
 .form-control,
-.form-select {
+.form-select,
+.ginput_container_select select,
+.gfield_time_ampm select,
+.ginput_address_country select,
+.gfield input:not([type="file"]),
+.gfield textarea,
+.ginput_container_multiselect select {
   border-radius: 4px;
   font-family: $roboto;
   background-color: $white;
@@ -138,7 +151,11 @@
     color: $grey-40;
   }
 
-  &:hover {
+  &:disabled {
+    opacity: 0.5;
+  }
+
+  &:not(:disabled):hover {
     border-color: $grey-40;
   }
 
@@ -146,6 +163,7 @@
     box-shadow: 0 0 0 2px rgba(0, 109, 253, 0.4);
     color: $grey-80;
     border-color: transparent;
+    outline: 0;
   }
 }
 
