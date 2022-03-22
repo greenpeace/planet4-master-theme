@@ -5,6 +5,7 @@ namespace P4\MasterTheme;
 use CMB2_Field;
 use P4\MasterTheme\Features\NewDesignNavigationBar;
 use P4\MasterTheme\Settings\Comments;
+use P4\MasterTheme\Settings\Features;
 use P4\MasterTheme\Settings\InformationArchitecture as IA;
 
 /**

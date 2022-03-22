@@ -8,7 +8,6 @@ namespace P4\MasterTheme\Notifications;
 use BracketSpace\Notification\Interfaces\Triggerable;
 use BracketSpace\Notification\Abstracts;
 use Maknz\Slack\Client;
-use P4\MasterTheme\Features;
 use P4\MasterTheme\Settings;
 
 /**
