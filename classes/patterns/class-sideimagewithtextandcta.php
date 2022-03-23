@@ -28,22 +28,21 @@ class SideImageWithTextAndCta extends Block_Pattern {
 	public static function get_config(): array {
 		return [
 			'title'      => __( 'Side image with text and CTA', 'planet4-blocks-backend' ),
-			'keywords'   => [ 'cta', 'side', 'image' ],
 			'categories' => [ 'planet4' ],
 			'content'    => '
 				<!-- wp:media-text {"className":"block"} -->
 					<div class="wp-block-media-text alignwide is-stacked-on-mobile block">
 						<figure class="wp-block-media-text__media"></figure>
 						<div class="wp-block-media-text__content">
-							<!-- wp:heading {"placeholder":"Enter title"} -->
+							<!-- wp:heading {"placeholder":"' . __( 'Enter title', 'planet4-blocks-backend' ) . '"} -->
 								<h2></h2>
 							<!-- /wp:heading -->
-							<!-- wp:paragraph {"placeholder":"Enter description"} -->
+							<!-- wp:paragraph {"placeholder":"' . __( 'Enter description', 'planet4-blocks-backend' ) . '"} -->
 								<p></p>
 							<!-- /wp:paragraph -->
 							<!-- wp:buttons -->
 								<div class="wp-block-buttons">
-									<!-- wp:button {"placeholder":"Enter CTA text"} /-->
+									<!-- wp:button /-->
 								</div>
 							<!-- /wp:buttons -->
 						</div>
