@@ -12,7 +12,6 @@ $palette: (
   "blue": $blue,
   "orange-hover": $orange-hover,
   "yellow": $yellow,
-  "dark-green": $dark-green,
 );
 
 @each $name, $color in $palette {
