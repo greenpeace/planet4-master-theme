@@ -34,8 +34,8 @@ class HighlightedCta extends Block_Pattern {
 					<div class="wp-block-columns block has-dark-blue-background-color has-text-color has-background has-white-color">
 						<!-- wp:column -->
 							<div class="wp-block-column">
-								<!-- wp:image {"align":"center"} -->
-									<div class="wp-block-image">
+								<!-- wp:image {"align":"center","className":"force-no-lightbox"} -->
+									<div class="wp-block-image force-no-lightbox">
 										<figure class="aligncenter">
 											<img alt=""/>
 										</figure>
