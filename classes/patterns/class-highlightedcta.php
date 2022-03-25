@@ -30,12 +30,12 @@ class HighlightedCta extends Block_Pattern {
 			'title'      => __( 'Highlighted CTA', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],
 			'content'    => '
-				<!-- wp:columns {"className":"block","textColor":"white","backgroundColor":"dark-green"} -->
-					<div class="wp-block-columns block has-dark-green-background-color has-text-color has-background has-white-color">
+				<!-- wp:columns {"className":"block","textColor":"white","backgroundColor":"dark-blue"} -->
+					<div class="wp-block-columns block has-dark-blue-background-color has-text-color has-background has-white-color">
 						<!-- wp:column -->
 							<div class="wp-block-column">
-								<!-- wp:image {"align":"center"} -->
-									<div class="wp-block-image">
+								<!-- wp:image {"align":"center","className":"force-no-lightbox"} -->
+									<div class="wp-block-image force-no-lightbox">
 										<figure class="aligncenter">
 											<img alt=""/>
 										</figure>
