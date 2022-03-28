@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-03-28 11:55+0000\n"
+"PO-Revision-Date: 2022-03-28 11:57+0000\n"
 "Last-Translator: Michiel De Brieder\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
@@ -341,7 +341,7 @@ msgstr "Resultaten"
 
 #: templates/cookies/cookies_settings.twig:63
 msgid "Save preferences"
-msgstr "Voorkeuren opslaan"
+msgstr "Opslaan"
 
 #: templates/navigation-bar-new.twig:76 templates/navigation-bar.twig:7
 #: templates/404.twig:17 templates/search.twig:8 templates/search.twig:45
