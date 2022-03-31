@@ -30,7 +30,7 @@ export const HubspotFormFrontend = ({
   }, [ blockStyle ]);
 
   return (
-    <section className={`hubspot-form block-wide ${styleClass}`} style={{...backgroundImage}}>
+    <section className={`hubspot-form alignfull ${styleClass}`} style={{...backgroundImage}}>
       <div className='container'>
         <div className='block-wrapper'>
           <div className='block-wrapper-inner block-wrapper-text' style={{...backgroundImage}}>

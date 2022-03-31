@@ -30,7 +30,7 @@ export const SplittwocolumnsFrontend = ({
   }
 
   return (
-    <section className={`block-wide split-two-column ${className ?? ''}`}>
+    <section className={`alignfull split-two-column ${className ?? ''}`}>
       <div className="split-two-column-item item--left">
         {issue_image_src &&
           <div className="split-two-column-item-image">

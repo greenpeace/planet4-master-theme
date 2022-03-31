@@ -1,5 +1,5 @@
 {% block enblock %}
-	<section class="block enform-wrap enform-{{ fields.en_form_style }} {% if fields.en_form_style == 'side-style' %}block-header block-wide{% endif %} {%if fields.en_form_style == 'full-width-bg' %}block-footer block-wide{% endif %} {% if campaign_data.template %}campaign-{{ campaign_data.template }}{% endif %}">
+	<section class="block enform-wrap enform-{{ fields.en_form_style }} {% if fields.en_form_style == 'side-style' %}block-header alignfull{% endif %} {%if fields.en_form_style == 'full-width-bg' %}block-footer alignfull{% endif %} {% if campaign_data.template %}campaign-{{ campaign_data.template }}{% endif %}">
 		{% if fields.en_form_style == 'full-width-bg' or fields.en_form_style == 'side-style' %}
 			<picture>
 				<img src="{{ fields.background_src.0|default(fields.default_image) }}"
