@@ -6,7 +6,7 @@ $I->amOnPage('/explore');
 
 $I->see('Justice for people and planet', 'h1');
 
-$I->scrollTo('.split-two-column.block-wide');
+$I->scrollTo('.split-two-column');
 
 $I->see('Energy', 'a');
 $I->see('#renewables', '.split-two-column-item-tag');
