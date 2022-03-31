@@ -91,6 +91,10 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
     border-color: transparent;
     box-shadow: $primary-button-box-shadow;
 
+    &:visited {
+      color: $white;
+    }
+
     &:hover,
     &:active {
       background: $orange-hover;
