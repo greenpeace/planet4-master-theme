@@ -116,17 +116,13 @@
       flex-wrap: nowrap;
 
       .btn-secondary {
-        width: 50%;
-
-        &:first-child {
-          margin-inline-end: $sp-2;
-        }
+        margin-inline-end: $sp-2;
       }
 
       .btn-primary {
         flex-grow: 1;
+        width: auto;
         margin-top: 0;
-        margin-inline-start: $sp-8;
       }
     }
   }
