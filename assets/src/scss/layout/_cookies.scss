@@ -103,8 +103,13 @@
 
     .btn-primary,
     .btn-secondary {
-      width: calc(50% - #{$sp-1});
+      width: auto;
+      flex-grow: 1;
       margin-top: 0;
+
+      &:first-child {
+        margin-inline-end: $sp-2;
+      }
     }
   }
 }
