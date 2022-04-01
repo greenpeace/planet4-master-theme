@@ -42,8 +42,8 @@ class RealityCheck extends Block_Pattern {
 					<!-- wp:paragraph {"align":"center","className":"has-text-align-center","placeholder":"' . __( 'Enter description', 'planet4-blocks-backend' ) . '"} -->
 						<p class="has-text-align-center"></p>
 					<!-- /wp:paragraph -->
-					<!-- wp:spacer {"height":"8px"} -->
-						<div style="height:8px" aria-hidden="true" class="wp-block-spacer"></div>
+					<!-- wp:spacer {"height":"16px"} -->
+						<div style="height:16px" aria-hidden="true" class="wp-block-spacer"></div>
 					<!-- /wp:spacer -->
 				</div>
 			<!-- /wp:column -->
