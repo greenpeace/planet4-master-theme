@@ -21,6 +21,7 @@ module.exports = {
   entry: {
     index: './assets/src/js/app.js',
     style: './assets/src/scss/style.scss',
+    post: './assets/src/scss/post.scss',
     editorStyle: './assets/src/scss/editorStyle.scss',
     bootstrap: './assets/src/scss/bootstrap-build.scss',
     "country-selector-old": './assets/src/scss/partials/country-selector-old.scss',
