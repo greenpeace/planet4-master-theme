@@ -87,8 +87,7 @@ export const ENFormFrontend = (attributes) => {
       return;
     }
 
-    const url = `https://e-activist.com/ens/service/page/${en_page_id}/process`;
-    submitENForm({form_data, fields, url, enform_goal, thankyou_url, setErrorMsg, setActiveTplId});
+    submitENForm({form_data, fields, enform_goal, thankyou_url, setErrorMsg, setActiveTplId, en_page_id});
   }
 
   return (
@@ -216,69 +215,66 @@ const submitENForm = (props) => {
   const {
     form_data,
     fields,
-    url,
     enform_goal,
     thankyou_url,
     setErrorMsg,
     setActiveTplId,
+    en_page_id,
   } = props;
 
   const post_data = makePostData(form_data, fields);
 
-  // Fetch token
-  const token_endpoint = `${p4bk_vars.siteUrl}/wp-json/planet4/v1/get-en-session-token`;
-  fetch(token_endpoint)
-    .then(response => response.json())
-    .then(token_data => {
-      const session_token = token_data.token || null;
-      if (!session_token) {
-        throw new Error('Token not found.');
-      }
+  // Send form
+  const post_url = `${p4bk_vars.siteUrl}/wp-json/planet4/v1/enform/${en_page_id}`;
+  fetch(post_url, {
+      method: 'POST',
+      contentType: 'application/json',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(post_data),
+  })
+  .then((response) => {
+    if (response.status !== 200) {
+      console.log(response, response.json());
+      throw new Error(`Error submitting form: ${response.statusText || 'unknown error'}`);
+    }
+    return response.json();
+  })
+  .then((reponseData) => {
+    // Submit Hotjar success
+    if ( typeof hj === 'function' ) {
+      hj('formSubmitSuccessful'); // eslint-disable-line no-undef
+    }
 
-      // Send
-      return fetch(url, {
-        method: 'POST',
-        contentType: 'application/json',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-          'ens-auth-token': session_token
-        },
-        body: JSON.stringify(post_data),
-      });
-    }).then(() => {
-      // Submit Hotjar success
-      if ( typeof hj === 'function' ) {
-        hj('formSubmitSuccessful'); // eslint-disable-line no-undef
+    // DataLayer push event on successful EN form submission.
+    if ( typeof google_tag_value !== 'undefined' && google_tag_value ) {
+      let dataLayerPayload = {
+        'event' : 'petitionSignup'
+      };
+      if ( enform_goal ) {
+        dataLayerPayload.gGoal = enform_goal;
       }
+      dataLayer.push(dataLayerPayload);
+    }
 
-      // DataLayer push event on successful EN form submission.
-      if ( typeof google_tag_value !== 'undefined' && google_tag_value ) {
-        let dataLayerPayload = {
-          'event' : 'petitionSignup'
-        };
-        if ( enform_goal ) {
-          dataLayerPayload.gGoal = enform_goal;
-        }
-        dataLayer.push(dataLayerPayload);
-      }
-
-      // redirect or thanks
-      if (thankyou_url && urlIsValid(thankyou_url)) {
-        window.location = thankyou_url;
-      } else {
-        setActiveTplId('thankyou');
-      }
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-      // Submit Hotjar failure
-      if ( typeof hj === 'function' ) {
-        hj('formSubmitFailed'); // eslint-disable-line no-undef
-      }
-      setErrorMsg(error.message);
-    });
-}
+    // redirect or thanks
+    if (thankyou_url && urlIsValid(thankyou_url)) {
+      window.location = thankyou_url;
+    } else {
+      setActiveTplId('thankyou');
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    // Submit Hotjar failure
+    if ( typeof hj === 'function' ) {
+      hj('formSubmitFailed'); // eslint-disable-line no-undef
+    }
+    setErrorMsg(error.message);
+  });
+};
 
 /**
  * Build data to be posted on form submit
