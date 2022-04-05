@@ -61,7 +61,7 @@ export const HubspotFormEditor = ({
         hubspotThankyouMessage,
         setAttributes
       }} />
-      <section className={`hubspot-form hubspot-form-editor block-wide ${blockStyle}`} style={{...backgroundImage}}>
+      <section className={`hubspot-form hubspot-form-editor alignfull ${blockStyle}`} style={{...backgroundImage}}>
         <div className='container'>
           <div className='block-wrapper'>
             <div className='block-wrapper-inner block-wrapper-text' style={{...backgroundImage}}>

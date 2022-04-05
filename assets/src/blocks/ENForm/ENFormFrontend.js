@@ -32,9 +32,9 @@ export const ENFormFrontend = (attributes) => {
   const section_style = ((style) => {
     switch (style) {
       case 'side-style':
-        return 'block-header block-wide';
+        return 'block-header alignfull';
       case 'full-width-bg':
-        return 'block-footer block-wide';
+        return 'block-footer alignfull';
       default:
         return '';
     }

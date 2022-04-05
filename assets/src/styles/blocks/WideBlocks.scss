@@ -1,4 +1,6 @@
-.block-wide {
+// .block-wide kept for BC of existing content.
+// Can be removed once no content uses it anymore.
+.alignfull, .block-wide {
   width: 100vw;
   //     Screen width - block width
   //  -  --------------------------

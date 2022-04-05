@@ -84,7 +84,7 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
   }), [needsMigration]);
 
   return (
-    <section className={`block block-header block-wide carousel-header ${className ?? ''}`}>
+    <section className={`block block-header alignfull carousel-header ${className ?? ''}`}>
       <Sidebar
         carouselAutoplay={carousel_autoplay}
         slides={slides}

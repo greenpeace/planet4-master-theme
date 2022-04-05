@@ -15,7 +15,7 @@
   background-position: center center;
   box-shadow: inset 0 0 0 100vw transparentize($grey-80, .45);
 
-  &.block-wide {
+  &.alignfull {
     width: 100vw;
     /* A better way is to add these changes into the WideBlocks stylesheet */
     margin-inline-start: calc(((100vw - 100%) / 2) * -1);

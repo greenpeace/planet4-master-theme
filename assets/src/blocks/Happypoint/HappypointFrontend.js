@@ -51,7 +51,7 @@ export const HappypointFrontend = ({
   const instanceId = 'happy-point';
 
   return (
-    <section className={`block block-footer block-wide happy-point-block-wrap ${className ?? ''}`}>
+    <section className={`block block-footer alignfull happy-point-block-wrap ${className ?? ''}`}>
       <picture>
         <img {...imgProps} loading="lazy" />
       </picture>

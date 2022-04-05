@@ -3,7 +3,7 @@
     {{ text|length > maxLength ? text|slice(0, maxLength) ~ '…' : text }}
 {% endmacro %}
 
-<section class="block block-header block-wide carousel-header_full-width-classic">
+<section class="block block-header alignfull carousel-header_full-width-classic">
 	<div id="carousel-wrapper-header"
 		data-block-style="full-width-classic"
 		data-carousel-autoplay="{{ fields.carousel_autoplay == 1 ? 'true' : '' }}">
