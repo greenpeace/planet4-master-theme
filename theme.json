@@ -36,6 +36,9 @@
           ]
         }
       }
+    },
+    "layout": {
+      "contentSize": "736px"
     }
   }
 }

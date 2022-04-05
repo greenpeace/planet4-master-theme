@@ -1,5 +1,3 @@
-@import "editor/postWidth";
-
 // Moved from another repo, for history please see https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blame/f5c532ed5704738136224cde305e9a0ffe614ceb/assets/src/styles/editorOverrides.scss
 .editor-post-title__block textarea.editor-post-title__input {
   --headings-- {
@@ -19,16 +17,15 @@
   }
 }
 
-.edit-post-visual-editor {
-  .wp-block {
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-  }
+.editor-styles-wrapper {
+  padding: 0 1rem;
+}
 
+.edit-post-visual-editor {
   li {
     font-size: unset;
   }
+
   @include table;
 }
 
@@ -167,6 +164,7 @@
     display: none !important;
   }
 }
+
 // By default the selected color is barely visible because of the white circle with check mark covering it.
 .components-color-palette__item.is-active {
   box-shadow: inset 0 0 0 6px;

@@ -232,3 +232,20 @@ function custom_class( $classes, $field ) {
 	}
 	return $classes;
 }
+
+/**
+ * TODO: Move to editor only area.
+ * Set the editor width per post type.
+ */
+add_filter(
+	'block_editor_settings_all',
+	function ( array $editor_settings, WP_Block_Editor_Context $block_editor_context ) {
+		if ( 'post' !== $block_editor_context->post->post_type ) {
+			$editor_settings['__experimentalFeatures']['layout']['contentSize'] = '1320px';
+		}
+
+		return $editor_settings;
+	},
+	10,
+	2
+);
