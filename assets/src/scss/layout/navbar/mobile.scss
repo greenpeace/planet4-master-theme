@@ -47,12 +47,9 @@
   }
 
   .nav-link {
+    color: var(--nav-link--color, transparentize($white, 0.5));
     white-space: nowrap;
     padding: 0;
-
-    &:not(:hover) {
-      opacity: 0.5;
-    }
 
     &:hover {
       text-decoration-line: none;
@@ -61,6 +58,7 @@
   }
 
   .active .nav-link {
+    color: var(--nav-link--active--color, $white);
     opacity: 1;
     text-decoration: none;
   }
