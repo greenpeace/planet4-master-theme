@@ -90,6 +90,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
 
+  &.has-background {
+    border-color: transparent;
+  }
+
   html[dir="rtl"] & {
     line-height: 2.5;
   }
@@ -101,6 +105,10 @@
     border-color: $orange;
     color: $white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+  }
+
+  &.has-background {
+    border-color: transparent;
   }
 }
 
