@@ -12,7 +12,6 @@ use P4\MasterTheme\Migrations\M007RemoveEnhancedDonateButtonOption;
 use P4\MasterTheme\Migrations\M008RemoveArticlesDefaultOptions;
 use P4\MasterTheme\Migrations\M009PopulateCookiesFields;
 use P4\MasterTheme\Migrations\M010RemoveGdprPluginOptions;
-use P4\MasterTheme\Migrations\M011TurnIncludeArticlesSettingIntoBlock;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -41,7 +40,6 @@ class Migrator {
 			M008RemoveArticlesDefaultOptions::class,
 			M009PopulateCookiesFields::class,
 			M010RemoveGdprPluginOptions::class,
-			M011TurnIncludeArticlesSettingIntoBlock::class,
 		];
 
 		// Loop migrations and run those that haven't run yet.
