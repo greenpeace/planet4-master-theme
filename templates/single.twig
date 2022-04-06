@@ -87,9 +87,6 @@
 			<div class="post-content">
 				<article class="post-details clearfix">
 					{{ post.content|e('wp_kses_post')|raw }}
-					{% if ( post.take_action_boxout ) %}
-						{{ fn('do_blocks', post.take_action_boxout )|raw }}
-					{% endif %}
 				</article>
 			</div>
 			<div class="post-tags">
@@ -111,11 +108,6 @@
 
 		{% include "blocks/author_profile.twig" with {post:post} %}
 
-		{% if ( post.articles ) %}
-			<section class="container post-articles-block">
-				{{ fn('do_blocks', post.articles )|raw }}
-			</section>
-		{% endif %}
 		{% if ( show_comments ) %}
 			{% include "comments_section.twig" with {comments:post.get_comments()} %}
 		{% endif %}

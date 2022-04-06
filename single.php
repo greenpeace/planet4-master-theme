@@ -36,7 +36,6 @@ $page_meta_data                 = array_map( 'reset', $page_meta_data );
 $page_terms_data                = get_the_terms( $post, 'p4-page-type' );
 $page_terms_data                = is_array( $page_terms_data ) ? reset( $page_terms_data ) : null;
 $context['background_image']    = $page_meta_data['p4_background_image_override'] ?? '';
-$take_action_page               = $page_meta_data['p4_take_action_page'] ?? '';
 $context['page_type']           = $page_terms_data->name ?? '';
 $context['page_term_id']        = $page_terms_data->term_id ?? '';
 $context['custom_body_classes'] = 'white-bg';
@@ -57,36 +56,6 @@ $context['filter_url'] = add_query_arg(
 	],
 	get_home_url()
 );
-
-// Build the shortcode for articles block.
-if ( 'yes' === $post->include_articles ) {
-	$tag_id_array = [];
-	foreach ( $post->tags() as $post_tag ) {
-		$tag_id_array[] = $post_tag->id;
-	}
-	$category_id_array = [];
-	foreach ( $post->terms( 'category' ) as $category ) {
-		$category_id_array[] = $category->id;
-	}
-
-	$block_attributes = [
-		'exclude_post_id' => $post->ID,
-		'tags'            => $tag_id_array,
-		'post_categories' => $category_id_array,
-	];
-
-	$post->articles = '<!-- wp:planet4-blocks/articles ' . wp_json_encode( $block_attributes, JSON_UNESCAPED_SLASHES ) . ' /-->';
-}
-
-if ( ! empty( $take_action_page ) && ! has_block( 'planet4-blocks/take-action-boxout' ) ) {
-	$post->take_action_page = $take_action_page;
-
-	$block_attributes = [
-		'take_action_page' => $take_action_page,
-	];
-
-	$post->take_action_boxout = '<!-- wp:planet4-blocks/take-action-boxout ' . wp_json_encode( $block_attributes, JSON_UNESCAPED_SLASHES ) . ' /-->';
-}
 
 // Build an arguments array to customize WordPress comment form.
 $comments_args = [

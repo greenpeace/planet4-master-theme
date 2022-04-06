@@ -173,18 +173,6 @@ class MetaboxRegister {
 
 		$p4_post->add_field(
 			[
-				'name'    => __( 'Include Articles In Post', 'planet4-master-theme-backend' ),
-				'id'      => 'include_articles',
-				'type'    => 'select',
-				'options' => [
-					'yes' => 'Yes',
-					'no'  => 'No',
-				],
-			]
-		);
-
-		$p4_post->add_field(
-			[
 				'name'         => __( 'Background Image Override', 'planet4-master-theme-backend' ),
 				'desc'         => __( 'Upload an image or select one from the media library to override the background image', 'planet4-master-theme-backend' ),
 				'id'           => 'p4_background_image_override',
