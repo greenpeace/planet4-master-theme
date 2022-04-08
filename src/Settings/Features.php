@@ -8,6 +8,7 @@ use P4\MasterTheme\Features\CloudflareDeployPurge;
 use P4\MasterTheme\Features\Dev\AllowAllBlocks;
 use P4\MasterTheme\Features\Dev\BetaBlocks;
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
+use P4\MasterTheme\Features\Dev\DisableTagRedirectPages;
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Features\Dev\ThemeEditor;
 use P4\MasterTheme\Features\Dev\WPTemplateEditor;
@@ -95,6 +96,7 @@ class Features {
 			NewDesignNavigationBar::class,
 			GoogleSheetReplacesSmartsheet::class,
 			ListingPagePagination::class,
+			DisableTagRedirectPages::class,
 
 			// Dev only.
 			BetaBlocks::class,

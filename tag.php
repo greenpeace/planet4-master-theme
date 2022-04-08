@@ -9,6 +9,7 @@
  * @package P4MT
  */
 
+use P4\MasterTheme\Features\Dev\DisableTagRedirectPages;
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Features\Dev\ListingPagePagination;
 use P4\MasterTheme\TaxonomyCampaign;
@@ -23,7 +24,7 @@ if ( is_tag() ) {
 	$explore_page_id = planet4_get_option( 'explore_page' );
 
 	$redirect_id = get_term_meta( $context['tag']->term_id, 'redirect_page', true );
-	if ( $redirect_id ) {
+	if ( ! DisableTagRedirectPages::is_active() && $redirect_id ) {
 
 		global $wp_query;
 		$redirect_page               = get_post( $redirect_id );
