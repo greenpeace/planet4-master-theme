@@ -35,6 +35,29 @@
             }
           ]
         }
+      },
+      "core/table": {
+        "color": {
+          "defaultPalette": false,
+          "text": false,
+          "palette": [
+            {
+              "color": "#f5f7f8",
+              "name": "Grey",
+              "slug": "grey"
+            },
+            {
+              "color": "#eafee7",
+              "name": "Green",
+              "slug": "green"
+            },
+            {
+              "color": "#e7f5fe",
+              "name": "Blue",
+              "slug": "blue"
+            }
+          ]
+        }
       }
     },
     "layout": {
