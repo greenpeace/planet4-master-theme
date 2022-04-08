@@ -3,6 +3,12 @@
 @import "../../master-theme/assets/src/scss/base/variables";
 @import "./SidebarSlidesEditor.scss";
 
+// Fix for the block being inside of a wrapper element.
+// We can remove this fix once this block starts using the v2 block registration API.
+div[data-type="planet4-blocks/carousel-header"] {
+  max-width: 100vw !important;
+}
+
 .visually-hidden {
   display: none;
 }
