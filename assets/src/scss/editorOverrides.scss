@@ -57,7 +57,8 @@
   }
 }
 
-.wp-block-button .wp-block-button__link[role="textbox"] {
+.wp-block-button .wp-block-button__link[role="textbox"],
+.wp-block-file .wp-block-file__button {
   display: inline-block;
   font-family: $roboto;
   text-align: center;
@@ -77,7 +78,8 @@
 
 .wp-block-button .wp-block-button__link[role="textbox"],
 .wp-block-button.is-style-secondary .wp-block-button__link[role="textbox"],
-[class="wp-block-button"] .wp-block-button__link[role="textbox"] {
+[class="wp-block-button"] .wp-block-button__link[role="textbox"],
+.wp-block-file .wp-block-file__button {
   --button-secondary-- {
     background: transparentize($white, .7);
     border-color: $dark-blue;
