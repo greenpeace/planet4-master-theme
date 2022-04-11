@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace P4\MasterTheme\Migrations;
 
+use P4\MasterTheme\Features\GdprCheckbox;
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
 use P4\MasterTheme\Settings\Comments;
@@ -26,7 +27,7 @@ class M010RemoveGdprPluginOptions extends MigrationScript {
 
 		$options = \get_option( Comments::OPTIONS_KEY ) ?? [];
 
-		$options[ Comments::GDPR_CHECKBOX ] = 'on';
+		$options[ GdprCheckbox::id() ] = 'on';
 		\update_option( Comments::OPTIONS_KEY, $options );
 	}
 }

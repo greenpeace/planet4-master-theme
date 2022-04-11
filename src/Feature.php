@@ -34,6 +34,13 @@ abstract class Feature {
 	abstract protected static function description(): string;
 
 	/**
+	 * @return string The options key the feature is stored in.
+	 */
+	protected static function options_key(): string {
+		return self::OPTIONS_KEY;
+	}
+
+	/**
 	 * This determines whether to include the toggle on the feature settings page. It doesn't prevent a feature from
 	 * being active if enabled already.
 	 *
@@ -62,7 +69,7 @@ abstract class Feature {
 		if ( static::is_generally_available() ) {
 			return true;
 		}
-		$features = get_option( self::OPTIONS_KEY );
+		$features = get_option( static::options_key() );
 
 		// Temporary fallback to ensure it works before migration runs.
 		if ( ! $features ) {

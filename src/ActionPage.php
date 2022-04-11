@@ -2,6 +2,7 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\Features\ActionPostType;
 use P4\MasterTheme\Settings\InformationArchitecture as IA;
 
 /**
@@ -38,7 +39,7 @@ class ActionPage {
 	public function register_post_type() {
 
 		// IA: display action page type in admin sidebar.
-		$enable_action_post_type = IA::is_active( IA::ACTION_POST_TYPE ) ? true : false;
+		$enable_action_post_type = ActionPostType::is_active();
 
 		$labels = [
 			'name'               => _x( 'Actions', 'post type general name', 'planet4-master-theme-backend' ),
