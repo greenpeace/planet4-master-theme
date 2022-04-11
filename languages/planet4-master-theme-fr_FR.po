@@ -1,0 +1,479 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
+"POT-Creation-Date: 2018-12-13 11:03+0000\n"
+"PO-Revision-Date: 2022-04-11 08:43+0000\n"
+"Last-Translator: Stefan Duerrenberger\n"
+"Language-Team: French (France)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Language: fr_FR\n"
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.6.1; wp-5.9.2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#. %1$d = Number of results.
+#: src/Search.php:708
+#, php-format
+msgid "%1$d result for '%2$s'"
+msgid_plural "%1$d results for '%2$s'"
+msgstr[0] "%1$d résultat pour '%2$s'"
+msgstr[1] "%1$d résultats pour '%2$s'"
+
+#. %d = Number of minutes for reading time.
+#: src/Post/ReadingTimeCalculator.php:132 templates/tease-taxonomy-post.twig:61
+#: templates/single.twig:69 templates/tease-author.twig:52
+#, php-format
+msgid "%d min read"
+msgstr ""
+
+#. %d = Number of results.
+#: src/Search.php:714
+#, php-format
+msgid "%d result"
+msgid_plural "%d results"
+msgstr[0] "%d résultat"
+msgstr[1] "%d résultats"
+
+#: assets/src/js/country_select.js:47
+msgid "."
+msgstr ""
+
+#: 404.php:18
+msgid "404 Page"
+msgstr "Page 404"
+
+#: page-templates/sitemap.php:25
+msgid "About Greenpeace"
+msgstr "À propos de Greenpeace"
+
+#: templates/blocks/author_profile.twig:14
+#, fuzzy
+#| msgid "about the author"
+msgid "About the author"
+msgstr "à propos de Greenpeace"
+
+#: templates/cookies.twig:26
+msgid "Accept all cookies"
+msgstr "J'accepte les cookies"
+
+#: page-templates/sitemap.php:23
+msgid "Act"
+msgstr "Agir"
+
+#: src/Search.php:946 src/Post.php:263
+msgid "ACTION"
+msgstr "ACTION"
+
+#: src/Search.php:784
+msgid "Action"
+msgstr "Action"
+
+#: templates/search.twig:210
+msgid "ACTIVE FILTERS"
+msgstr "FILTRES ACTIFS"
+
+#: templates/cookies/cookies_settings.twig:55
+msgid "Allow all"
+msgstr "Tout accepter"
+
+#: templates/cookies/cookies_settings.twig:16
+msgid "Always enabled"
+msgstr "Toujours activé"
+
+#: templates/search.twig:200
+msgid "Apply filters"
+msgstr "Appliquer les filtres"
+
+#: src/Search.php:805 src/Search.php:966 templates/tease-search.twig:43
+#: templates/tease-search.twig:129
+msgid "Archive"
+msgstr "Archive"
+
+#: src/PostArchive.php:77
+msgid "Archive URL"
+msgstr "Archiver l'URL"
+
+#: page-templates/sitemap.php:26
+msgid "Articles"
+msgstr "Articles"
+
+#: src/Search.php:954 templates/search.twig:172
+msgid "CAMPAIGN"
+msgstr "CAMPAGNE"
+
+#: src/Search.php:788 templates/tease-search.twig:41
+#: templates/tease-search.twig:127 templates/search.twig:253
+msgid "Campaign"
+msgstr "Campagne"
+
+#: templates/search.twig:199
+msgid "Cancel"
+msgstr "Annuler"
+
+#: templates/search.twig:111
+msgid "CATEGORY"
+msgstr "CATÉGORIE"
+
+#: templates/search.twig:279
+msgid "Category"
+msgstr "Catégorie"
+
+#: templates/navigation-bar.twig:46 templates/footer_country_selector.twig:11
+msgid "Change Country"
+msgstr "Changer de pays"
+
+#: templates/search.twig:21
+msgid "Check for typos, and try your search again"
+msgstr "Vérifiez si votre texte est correct et relancez la recherche"
+
+#: templates/search.twig:219
+msgid "Clear all"
+msgstr "Tout effacer"
+
+#: templates/navigation-bar-new.twig:106
+msgid "Clear search"
+msgstr ""
+
+#: templates/navigation-bar.twig:33
+msgid "Close Menu"
+msgstr "Fermer le menu"
+
+#: templates/navigation-bar-new.twig:134
+msgid "Close navigation menu"
+msgstr ""
+
+#: templates/comment_form/comment_field.twig:4
+msgid "Comment"
+msgstr "Commentaire"
+
+#: templates/single.twig:76 templates/comments_section.twig:2
+msgid "Comments"
+msgstr "Commentaires"
+
+#: templates/search.twig:306
+msgid "Content type"
+msgstr "Type de contenu"
+
+#: templates/search.twig:140
+msgid "CONTENT TYPES"
+msgstr "TYPES DE CONTENUS"
+
+#: templates/comments_section.twig:9
+msgid "Discussion"
+msgstr "Discussion"
+
+#: src/Search.php:958 src/Post.php:269
+msgid "DOCUMENT"
+msgstr "DOCUMENT"
+
+#: src/Search.php:792
+msgid "Document"
+msgstr "Document"
+
+#: src/MasterSite.php:588
+msgid "Donate"
+msgstr "DONNER"
+
+#: templates/tease-search.twig:122
+msgid "Download"
+msgstr "Télécharger"
+
+#: templates/comment_form/email_field.twig:13
+msgid "Email"
+msgstr "Courriel"
+
+#: 404.php:17
+msgid "Enter your search term below"
+msgstr "Entrez votre recherche ci-dessous"
+
+#. Name of the template
+msgid "Evergreen Page"
+msgstr "Page Persistante"
+
+#: page-templates/sitemap.php:24
+msgid "Explore"
+msgstr "Explorer"
+
+#: templates/search.twig:59
+msgid "Filters"
+msgstr "Filtres"
+
+#: templates/footer_social_media.twig:2
+msgid "Follow us"
+msgstr ""
+
+#. Author of the theme
+msgid "Greenpeace International"
+msgstr "Greenpeace International"
+
+#. Name of the theme
+msgid "Greenpeace Planet 4 Master Theme"
+msgstr "Thème principal Planet 4 de Greenpeace"
+
+#. Author URI of the theme
+msgid "https://github.com/greenpeace"
+msgstr "https://github.com/greenpeace"
+
+#. URI of the theme
+msgid "https://github.com/greenpeace/planet4-master-theme"
+msgstr "https://github.com/greenpeace/planet4-master-theme"
+
+#: src/MasterSite.php:589
+msgid "International (English)"
+msgstr "International (English)"
+
+#: templates/single-password.twig:18 templates/single-page.twig:15
+msgid "Invalid password, please try again"
+msgstr ""
+
+#: templates/search.twig:82
+msgid "ISSUE"
+msgstr "ENJEU"
+
+#: templates/search.twig:226
+msgid "Issue"
+msgstr "Enjeu"
+
+#: single.php:96
+msgid "Leave your reply"
+msgstr "Inscrivez votre réponse"
+
+#: templates/taxonomy.twig:42 templates/author.twig:56
+msgid "Load More"
+msgstr "Charger plus"
+
+#: templates/tease-search.twig:157
+msgid "Manage"
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:11
+msgid "Manage your cookies preferences"
+msgstr ""
+
+#. Description of the theme
+msgid "Master theme for the Planet 4 Wordpress project"
+msgstr "Thème principal pour le projet Planet 4 sur Wordpress"
+
+#: templates/navigation-bar-new.twig:17 templates/navigation-bar.twig:18
+msgid "Menu"
+msgstr "Menu"
+
+#: src/Search.php:692 src/MasterSite.php:90
+msgid "Most relevant"
+msgstr "Plus pertinent"
+
+#: templates/comment_form/author_field.twig:13
+msgid "Name"
+msgstr "Nom"
+
+#: src/Search.php:696 src/MasterSite.php:94
+msgid "Newest"
+msgstr ""
+
+#: src/Search.php:700 src/MasterSite.php:98
+msgid "Oldest"
+msgstr ""
+
+#: src/Search.php:949 src/Post.php:265
+msgid "PAGE"
+msgstr "PAGE"
+
+#: src/Search.php:796
+msgid "Page"
+msgstr "Page"
+
+#: templates/cookies/cookies_settings.twig:12
+msgid "Please select which cookies you are willing to store."
+msgstr "Sélectionnez les cookies que vous souhaitez autoriser."
+
+#: src/Search.php:962 src/Post.php:272
+msgid "POST"
+msgstr "ARTICLE"
+
+#: src/Search.php:800
+msgid "Post"
+msgstr "Article"
+
+#: templates/comment_form/submit_button.twig:1
+msgid "Post comment"
+msgstr "Soumettre"
+
+#: templates/author.twig:32
+msgid "Posts by "
+msgstr "Posts par "
+
+#: tag.php:90
+msgid "Publications"
+msgstr ""
+
+#: templates/search.twig:68 templates/search.twig:207
+msgid "Refine your search"
+msgstr "Affinez votre recherche"
+
+#: templates/cookies/cookies_settings.twig:47
+msgid "Reject all"
+msgstr "Tout refuser"
+
+#: templates/cookies.twig:35
+msgid "Reject all cookies"
+msgstr "Tout refuser"
+
+#: tag.php:117
+msgid "Related Campaigns"
+msgstr "Campagnes liées"
+
+#: templates/taxonomy.twig:18
+msgid "Results"
+msgstr "Résultats"
+
+#: templates/cookies/cookies_settings.twig:63
+msgid "Save preferences"
+msgstr "Enregistrer les préférences"
+
+#: templates/navigation-bar-new.twig:76 templates/navigation-bar.twig:7
+#: templates/404.twig:17 templates/search.twig:8 templates/search.twig:45
+msgid "Search"
+msgstr "Rechercher"
+
+# AJOUTER VARIANTE PLURIEL
+#: templates/navigation-bar.twig:45 templates/footer_country_selector.twig:11
+msgid "Selected"
+msgstr "Sélectionné•s"
+
+#: templates/cookies.twig:18
+msgid "Settings"
+msgstr "Réglages"
+
+#: templates/blocks/share_buttons.twig:8 templates/blocks/share_buttons.twig:15
+#: templates/blocks/share_buttons.twig:22
+msgid "Share on"
+msgstr "Partager sur"
+
+#: templates/blocks/share_buttons.twig:29
+msgid "Share via"
+msgstr "Partager via"
+
+#. %s = number of results per page.
+#: src/Search.php:1049
+#, fuzzy, php-format
+#| msgid "SHOW %s MORE RESULTS"
+msgid "Show %s more results"
+msgstr "PLUS DE RÉSULTATS"
+
+#: templates/blocks/author_profile.twig:45
+msgid "Show less"
+msgstr "Réduire"
+
+#: templates/blocks/author_profile.twig:44
+msgid "Show more"
+msgstr "Lire plus"
+
+#. Name of the template
+msgid "Sitemap Page"
+msgstr "Plan du site"
+
+#: templates/base.twig:18
+msgid "Skip to Content"
+msgstr "Aller directement au contenu"
+
+#: templates/base.twig:19
+msgid "Skip to Footer"
+msgstr "Aller directement au pied de page"
+
+#: templates/base.twig:17
+msgid "Skip to Navigation"
+msgstr "Aller directement à la navigation"
+
+#: 404.php:16
+msgid "Sorry, we can't find that page!"
+msgstr "Oups... nous ne trouvons pas cette page !"
+
+#: templates/search.twig:337
+msgid "Sort by"
+msgstr "Trier par"
+
+#: templates/single-password.twig:22 templates/single-page.twig:19
+msgid "Submit"
+msgstr ""
+
+#: templates/tease-search.twig:151
+msgid "Take action"
+msgstr "passer à l'action"
+
+#: tag.php:72
+msgid "Things you can do"
+msgstr "Ce que vous pouvez faire"
+
+#: tag.php:118
+msgid "This Campaign is not assigned to an Issue"
+msgstr "Cette campagne n'est pas liée à un enjeu"
+
+#: assets/src/js/pdf_icon.js:20
+msgid "This link will open a PDF file"
+msgstr ""
+
+#: templates/single-password.twig:15 templates/single-page.twig:12
+msgid "To see the content of this page, please enter your password  below"
+msgstr ""
+
+#: templates/navigation-bar.twig:6
+msgid "Toggle navigation menu"
+msgstr "Basculer vers la navigation accessible"
+
+#: src/MasterSite.php:529
+msgid "Toggle search box"
+msgstr "Basculer vers la recherche"
+
+#: templates/navigation-bar-new.twig:71 templates/navigation-bar-new.twig:149
+#: templates/navigation-bar.twig:99
+msgid "Toggle search form"
+msgstr "Afficher/cacher le formulaire de recherche"
+
+#: src/MasterSite.php:528
+msgid "Toggle worldwide site selection menu"
+msgstr "Basculer vers la liste des sites internationaux"
+
+#: templates/search.twig:22
+msgid "Try searching for somthing else"
+msgstr "Essayez une autre recherche"
+
+#: templates/search.twig:26
+msgid "We also included results for "
+msgstr "Nous avons aussi inclut les résultats pour "
+
+#: tag.php:73
+msgid "We want you to take action because together we're strong."
+msgstr "Ensemble nous pouvons changer les choses. Passez à l'action !"
+
+#: templates/search.twig:19
+msgid "We're sorry we couldn't find any matches for your search term."
+msgstr ""
+"Oups... nous n'avons pas trouvé la page qui correspond à votre recherche."
+
+#: assets/src/js/country_select.js:30
+msgid "Worldwide site list"
+msgstr ""
+
+#: templates/comment_form/comment_field.twig:2
+msgid "Your Comment"
+msgstr "Votre Commentaire"
+
+#: templates/comment_form/email_field.twig:2
+msgid "Your Email"
+msgstr "Votre courriel"
+
+#: templates/comment_form/author_field.twig:2
+msgid "Your Name"
+msgstr "Votre nom"
