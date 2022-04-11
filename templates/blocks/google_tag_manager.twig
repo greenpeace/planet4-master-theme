@@ -9,7 +9,7 @@
   <script>
     var google_tag_value = '{{ google_tag_value }}';
 
-    var dataLayer = window.dataLayer = window.dataLayer || [];
+    window.dataLayer = window.dataLayer || [];
     dataLayer.push({
       'pageType' : '{{ page_category }}',
       'signedIn' : '{{ p4_signedin_status }}',
@@ -45,7 +45,11 @@
       }
     {% endif %}
 
-    var cookie_consent = document.cookie.split(';').filter(function(c) {return c.indexOf('greenpeace=2') >= 0}).length;
+    var cookie_consent = document.cookie.split(';').filter(function(c) {
+      return c.indexOf('greenpeace=2') >= 0
+        || c.indexOf('greenpeace=3') >= 0
+        || c.indexOf('greenpeace=4') >= 0;
+    }).length;
     var enforce_cookies_policy = '{{ enforce_cookies_policy }}';
     var gtm_allow = true;
 
