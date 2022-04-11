@@ -7,7 +7,6 @@ namespace P4\MasterTheme\Migrations;
 use P4\MasterTheme\Features\GdprCheckbox;
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
-use P4\MasterTheme\Settings\Comments;
 
 /**
  * Remove GDPR Comments plugin options
@@ -25,9 +24,6 @@ class M010RemoveGdprPluginOptions extends MigrationScript {
 		\deactivate_plugins( 'gdpr-comments/gdpr-comments.php' );
 		\delete_option( 'gdpr_comments' );
 
-		$options = \get_option( Comments::OPTIONS_KEY ) ?? [];
-
-		$options[ GdprCheckbox::id() ] = 'on';
-		\update_option( Comments::OPTIONS_KEY, $options );
+		GdprCheckbox::enable();
 	}
 }

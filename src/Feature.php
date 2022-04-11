@@ -98,4 +98,16 @@ abstract class Feature {
 			'type' => 'checkbox',
 		];
 	}
+
+	/**
+	 * Enable the feature.
+	 *
+	 * @return void
+	 */
+	public static function enable(): void {
+		$settings = get_option( static::options_key(), [] );
+
+		$settings[ static::id() ] = 'on';
+		update_option( static::options_key(), $settings );
+	}
 }
