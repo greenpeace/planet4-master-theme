@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2020-12-10 09:39+0000\n"
-"PO-Revision-Date: 2021-04-21 11:48+0000\n"
+"PO-Revision-Date: 2022-04-11 06:46+0000\n"
 "Last-Translator: Stefan Duerrenberger\n"
 "Language-Team: German (Switzerland)\n"
 "MIME-Version: 1.0\n"
@@ -21,23 +21,23 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Language: de_CH\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.5.2; wp-5.6.3"
+"X-Loco-Version: 2.6.1; wp-5.9.2"
 
 #. %1$d = Number of results.
 #: src/Search.php:716
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$d Resultat für '%2$s'"
+msgstr[1] "%1$d Resultate für '%2$s'"
 
 #. %d = Number of results.
 #: src/Search.php:722
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d Resultat"
+msgstr[1] "%d Resultate"
 
 #: assets/src/js/country_select.js:47
 msgid "."
@@ -45,141 +45,141 @@ msgstr ""
 
 #: 404.php:18
 msgid "404 Page"
-msgstr ""
+msgstr "404-Seite"
 
 #: page-templates/sitemap.php:25
 msgid "About Greenpeace"
-msgstr ""
+msgstr "Über Greenpeace"
 
 #: templates/blocks/author_profile.twig:5
 msgid "about the author"
-msgstr ""
+msgstr "über den Author"
 
 #: page-templates/sitemap.php:23
 msgid "Act"
-msgstr ""
+msgstr "Handeln"
 
 #: src/Search.php:954 src/Post.php:264
 msgid "ACTION"
-msgstr ""
+msgstr "AKTION"
 
 #: src/Search.php:792
 msgid "Action"
-msgstr ""
+msgstr "Aktion"
 
 #: templates/search.twig:210
 msgid "ACTIVE FILTERS"
-msgstr ""
+msgstr "Aktive Filter"
 
 #: templates/search.twig:200
 msgid "Apply filters"
-msgstr ""
+msgstr "Filter anwenden"
 
 #: src/Search.php:813 src/Search.php:974 templates/tease-search.twig:38
 #: templates/tease-search.twig:120
 msgid "Archive"
-msgstr ""
+msgstr "Archiv"
 
 #: src/PostArchive.php:77
 msgid "Archive URL"
-msgstr ""
+msgstr "Archiv-URL"
 
 #: page-templates/sitemap.php:26
 msgid "Articles"
-msgstr ""
+msgstr "Artikel"
 
 #: src/Search.php:962 templates/search.twig:172
 msgid "CAMPAIGN"
-msgstr ""
+msgstr "KAMPAGNE"
 
 #: src/Search.php:796 templates/search.twig:253 templates/tease-search.twig:36
 #: templates/tease-search.twig:118
 msgid "Campaign"
-msgstr ""
+msgstr "Kampagne"
 
 #: templates/search.twig:199
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: templates/search.twig:111
 msgid "CATEGORY"
-msgstr ""
+msgstr "KATEGORIE"
 
 #: templates/search.twig:279
 msgid "Category"
-msgstr ""
+msgstr "Kategorie"
 
 #: templates/navigation-bar.twig:45
 msgid "Change Country"
-msgstr ""
+msgstr "Land wechseln"
 
 #: templates/search.twig:21
 msgid "Check for typos, and try your search again"
-msgstr ""
+msgstr "Achte auf Schreibfehler und suche nochmals"
 
 #: templates/search.twig:219
 msgid "Clear all"
-msgstr ""
+msgstr "Alle löschen"
 
 #: templates/navigation-bar.twig:32
 msgid "Close Menu"
-msgstr ""
+msgstr "Menu schliessen"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Comment"
-msgstr ""
+msgstr "Kommentieren"
 
 #: templates/single.twig:75 templates/comments_section.twig:2
 msgid "Comments"
-msgstr ""
+msgstr "Kommentare"
 
 #: templates/search.twig:306
 msgid "Content type"
-msgstr ""
+msgstr "Inhaltstyp"
 
 #: templates/search.twig:140
 msgid "CONTENT TYPES"
-msgstr ""
+msgstr "INHALTSTYPEN"
 
 #: templates/comments_section.twig:8
 msgid "Discussion"
-msgstr ""
+msgstr "Diskussion"
 
 #: src/Search.php:966 src/Post.php:270
 msgid "DOCUMENT"
-msgstr ""
+msgstr "DOKUMENT"
 
 #: src/Search.php:800
 msgid "Document"
-msgstr ""
+msgstr "Dokument"
 
 #: src/MasterSite.php:482
 msgid "Donate"
-msgstr ""
+msgstr "Spenden"
 
 #: templates/tease-search.twig:113
 msgid "Download"
-msgstr ""
+msgstr "Herunterladen"
 
 #: templates/comment_form/email_field.twig:2
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: 404.php:17
 msgid "Enter your search term below"
-msgstr ""
+msgstr "Gib deinen Suchbegriff ein"
 
 #. Name of the template
 msgid "Evergreen Page"
-msgstr ""
+msgstr "Evergreen Page"
 
 #: page-templates/sitemap.php:24
 msgid "Explore"
-msgstr ""
+msgstr "Erkunden"
 
 #: templates/search.twig:59
 msgid "Filters"
-msgstr ""
+msgstr "Filter"
 
 #: templates/cookies.twig:6
 msgid "Got it!"
@@ -187,228 +187,228 @@ msgstr "OK"
 
 #. Author of the theme
 msgid "Greenpeace International"
-msgstr ""
+msgstr "Greenpeace International"
 
 #. Name of the theme
 msgid "Greenpeace Planet 4 Master Theme"
-msgstr ""
+msgstr "Greenpeace Planet 4 Master Theme"
 
 #. Author URI of the theme
 msgid "https://github.com/greenpeace"
-msgstr ""
+msgstr "https://github.com/greenpeace"
 
 #. URI of the theme
 msgid "https://github.com/greenpeace/planet4-master-theme"
-msgstr ""
+msgstr "https://github.com/greenpeace/planet4-master-theme"
 
 #: src/MasterSite.php:483
 msgid "International (English)"
-msgstr ""
+msgstr "International (English)"
 
 #: templates/search.twig:82
 msgid "ISSUE"
-msgstr ""
+msgstr "ISSUE"
 
 #: templates/search.twig:226
 msgid "Issue"
-msgstr ""
+msgstr "Issue"
 
 #: single.php:110
 msgid "Leave your reply"
-msgstr ""
+msgstr "Schreib eine Antwort"
 
 #: templates/taxonomy.twig:42 templates/author.twig:56
 msgid "Load More"
-msgstr ""
+msgstr "Mehr laden"
 
 #: templates/tease-search.twig:148
 msgid "Manage"
-msgstr ""
+msgstr "Verwalten"
 
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
-msgstr ""
+msgstr "Master theme for the Planet 4 Wordpress project"
 
 #: templates/navigation-bar.twig:18
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: src/MasterSite.php:82 src/Search.php:700
 msgid "Most relevant"
-msgstr ""
+msgstr "Relevanteste"
 
 #: templates/comment_form/author_field.twig:2
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: src/MasterSite.php:86 src/Search.php:704
 msgid "Newest"
-msgstr ""
+msgstr "Neueste"
 
 #: src/MasterSite.php:90 src/Search.php:708
 msgid "Oldest"
-msgstr ""
+msgstr "Älteste"
 
 #: src/Search.php:957 src/Post.php:266
 msgid "PAGE"
-msgstr ""
+msgstr "SEITE"
 
 #: src/Search.php:804
 msgid "Page"
-msgstr ""
+msgstr "Seite"
 
 #: src/Search.php:970 src/Post.php:273
 msgid "POST"
-msgstr ""
+msgstr "BEITRAG"
 
 #: src/Search.php:808
 msgid "Post"
-msgstr ""
+msgstr "Beitrag"
 
 #: templates/comment_form/submit_button.twig:1
 msgid "Post comment"
-msgstr ""
+msgstr "Beitragskommentar"
 
 #: templates/author.twig:32
 msgid "Posts by "
-msgstr ""
+msgstr "Beiträge von"
 
 #: tag.php:91
 msgid "Publications"
-msgstr ""
+msgstr "Publikationen"
 
 #: templates/blocks/author_profile.twig:11
 msgid "Read More"
-msgstr ""
+msgstr "Weiterlesen"
 
 #: templates/search.twig:68 templates/search.twig:207
 msgid "Refine your search"
-msgstr ""
+msgstr "Suche verfeinern"
 
 #: tag.php:118
 msgid "Related Campaigns"
-msgstr ""
+msgstr "Ähnliche Kampagnen"
 
 #: templates/taxonomy.twig:18
 msgid "Results"
-msgstr ""
+msgstr "Resultate"
 
 #: templates/navigation-bar.twig:7 templates/search.twig:8
 #: templates/search.twig:45 templates/404.twig:17
 msgid "Search"
-msgstr ""
+msgstr "Suche"
 
 #: templates/navigation-bar.twig:44
 msgid "Selected"
-msgstr ""
+msgstr "Ausgewählt"
 
 #: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
 #: templates/blocks/share_buttons.twig:21
 msgid "Share on"
-msgstr ""
+msgstr "Teilen auf"
 
 #: templates/blocks/share_buttons.twig:28
 msgid "Share via"
-msgstr ""
+msgstr "Teilen via"
 
 #. %s = number of results per page.
 #: src/Search.php:1079
 #, php-format
 msgid "Show %s more results"
-msgstr ""
+msgstr "Zeige %s weitere Resultate"
 
 #. Name of the template
 msgid "Sitemap Page"
-msgstr ""
+msgstr "Sitemap-Seite"
 
 #: templates/base.twig:11
 msgid "Skip to Content"
-msgstr ""
+msgstr "Zum Inhalt springen"
 
 #: templates/base.twig:12
 msgid "Skip to Footer"
-msgstr ""
+msgstr "Zum Footer springen"
 
 #: templates/base.twig:10
 msgid "Skip to Navigation"
-msgstr ""
+msgstr "Zur Navigation springen"
 
 #: 404.php:16
 msgid "Sorry, we can't find that page!"
-msgstr ""
+msgstr "Zuz uns leid, wir können diese Seite nicht finden."
 
 #: templates/search.twig:337
 msgid "Sort by"
-msgstr ""
+msgstr "Sortieren nach"
 
 #: templates/single-page.twig:15 templates/single-password.twig:20
 msgid "Submit"
-msgstr ""
+msgstr "Absensen"
 
 #: templates/search.twig:385
 msgid "Suggested search terms"
-msgstr ""
+msgstr "Vorgeschlagene Suchwörter"
 
 #: templates/tease-search.twig:142
 msgid "Take action"
-msgstr ""
+msgstr "Mitmachen"
 
 #: tag.php:73 src/Campaigns.php:252
 msgid "Things you can do"
-msgstr ""
+msgstr "Dinge, die du tun kannst"
 
 #: tag.php:119
 msgid "This Campaign is not assigned to an Issue"
-msgstr ""
+msgstr "Diese Kampagne ist keinem Thema zugeordnet"
 
 #: templates/single-page.twig:12 templates/single-password.twig:17
 msgid "To see the content of this page, please enter your password  below"
-msgstr ""
+msgstr "Bitte gib dein Passwort ein um diese Seite zu sehen"
 
 #: templates/navigation-bar.twig:6
 msgid "Toggle navigation menu"
-msgstr ""
+msgstr "Navigation ein-/ausblenden"
 
 #: src/MasterSite.php:436
 msgid "Toggle search box"
-msgstr ""
+msgstr "Suche ein-/ausblenden"
 
 #: templates/navigation-bar.twig:97
 msgid "Toggle search form"
-msgstr ""
+msgstr "Suche ein-/ausblenden"
 
 #: src/MasterSite.php:435
 msgid "Toggle worldwide site selection menu"
-msgstr ""
+msgstr "Länderwahl ein-/ausblenden"
 
 #: templates/search.twig:22
 msgid "Try searching for somthing else"
-msgstr ""
+msgstr "Versuche, nach etwas anderem zu suchen"
 
 #: templates/search.twig:26
 msgid "We also included results for "
-msgstr ""
+msgstr "Zusätzliche Resultate angezeigt für: "
 
 #: tag.php:74 src/Campaigns.php:253
 msgid "We want you to take action because together we're strong."
-msgstr ""
+msgstr "Beteilige dich! Zusammen sind wir stärker!"
 
 #: templates/search.twig:19
 msgid "We're sorry we couldn't find any matches for your search term."
-msgstr ""
+msgstr "Tut uns leid, wir konnten für deine Suche nichts finden."
 
 #: assets/src/js/country_select.js:30
 msgid "Worldwide site list"
-msgstr ""
+msgstr "Webseiten-Liste"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
-msgstr ""
+msgstr "Dein Kommentar"
 
 #: templates/comment_form/email_field.twig:3
 msgid "Your Email"
-msgstr ""
+msgstr "Deine Email"
 
 #: templates/comment_form/author_field.twig:3
 msgid "Your Name"
-msgstr ""
+msgstr "Dein Name"
