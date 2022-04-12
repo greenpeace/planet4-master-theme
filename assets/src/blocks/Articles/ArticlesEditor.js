@@ -20,8 +20,7 @@ const { __ } = wp.i18n;
 
 const TextControl = withCharacterCounter(BaseTextControl);
 
-const renderEdit = ( { attributes, postType }, toAttribute) => {
-  const showPostTagHelp = postType === 'post' ? 'block' : 'none';
+const renderEdit = (attributes, toAttribute) => {
 
   return (
     <Fragment>
@@ -63,7 +62,6 @@ const renderEdit = ( { attributes, postType }, toAttribute) => {
                 onChange={toAttribute('tags')}
               />
               <p className='FieldHelp'>Associate this block with Actions that have specific Tags</p>
-              <p className='FieldHelp' style={{display: showPostTagHelp}}><b>Note:</b> <br/>- If no tags selected, Articles block use Post tags as a filter.<br/>- By default Post categories are added to filter, To ignore category filter click on "Ignore categories" checkbox.</p>
               <PostTypeSelector
                 label={__('Post Types', 'planet4-blocks-backend')}
                 value={attributes.post_types}
@@ -167,7 +165,7 @@ export const ArticlesEditor = (props) => {
   return (
     <div>
       {
-        isSelected && renderEdit({ attributes, postType }, toAttribute)
+        isSelected && renderEdit(attributes, toAttribute)
       }
       {renderView({ attributes, postType, posts, totalPosts }, toAttribute)}
     </div>

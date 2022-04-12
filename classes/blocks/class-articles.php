@@ -314,23 +314,15 @@ class Articles extends Base_Block {
 		// Get all posts with arguments.
 		$args = self::DEFAULT_POST_ARGS;
 
-		// For post page block, so current main post will exclude.
-		if ( $exclude_post_id ) {
-			$args['post__not_in'] = [ $exclude_post_id ];
-
-			// Get current post tags & categories, if not pass.
-			if ( ! $tags ) {
-				$tags = wp_get_post_tags( $exclude_post_id, [ 'fields' => 'ids' ] );
-			}
-			if ( ! $category_id_array ) {
-				$category_id_array = wp_get_post_categories( $exclude_post_id, [ 'fields' => 'ids' ] );
-			}
-		}
-
 		if ( true !== $ignore_categories ) {
 			if ( $category_id_array ) {
 				$args['category__in'] = $category_id_array;
 			}
+		}
+
+		// For post page block so current main post will exclude.
+		if ( $exclude_post_id ) {
+			$args['post__not_in'] = [ $exclude_post_id ];
 		}
 
 		// Add filter for p4-page-type terms.
