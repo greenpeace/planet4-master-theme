@@ -1,96 +1,90 @@
-.single-post,
-.single-attachment,
-.single-idea {
-  @include large-and-up {
-    .narrow-container {
-      margin-left: auto;
-      margin-right: auto;
-      max-width: 776px;
-      padding: 0;
-    }
+@include large-and-up {
+  .narrow-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 776px;
+    padding: 0;
+  }
+}
+
+@include x-large-and-up {
+  .narrow-container {
+    max-width: 736px;
+  }
+}
+
+.skewed-overlay {
+  mask-image: none;
+}
+
+.page-header-title {
+  color: $grey-80;
+  hyphens: none;
+  max-width: none;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.single-post-meta {
+  color: $grey-40;
+  font-size: 14px;
+  font-family: $roboto;
+  border-bottom: 1px solid transparentize($grey-20, 0.5);
+  padding-bottom: 16px;
+  line-height: 24px;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 8px;
+  align-items: end;
+
+  a {
+    color: inherit;
+  }
+}
+
+.single-post-meta-bullet {
+  margin: 0 8px;
+}
+
+.author-pic {
+  border-radius: 50%;
+  object-fit: cover;
+  max-height: 50px;
+}
+
+.single-post-author {
+  display: block;
+  margin: 0;
+  font-weight: 500;
+}
+
+.single-post-time,
+.comment-link {
+  display: inline-block;
+  margin: 0;
+}
+
+.comment-link {
+  font-weight: 500;
+
+  img {
+    width: 17px;
   }
 
-  @include x-large-and-up {
-    .narrow-container {
-      max-width: 736px;
-    }
+  svg {
+    top: -2px;
   }
+}
 
-  .skewed-overlay {
-    mask-image: none;
+.articles-block {
+  border-top: 1px solid transparentize($grey-20, 0.5);
+  padding-top: 16px;
+
+  @include medium-and-up {
+    padding-top: 24px;
   }
+}
 
-  .page-header {
-    .page-header-title {
-      color: $grey-80;
-      hyphens: none;
-      max-width: none;
-      margin-bottom: 8px;
-      line-height: 1.2;
-    }
-
-    .single-post-meta {
-      color: $grey-40;
-      font-size: 14px;
-      font-family: $roboto;
-      border-bottom: 1px solid transparentize($grey-20, 0.5);
-      padding-bottom: 16px;
-      line-height: 24px;
-      margin-bottom: 16px;
-      display: flex;
-      gap: 8px;
-      align-items: end;
-
-      a {
-        color: inherit;
-      }
-
-      .single-post-meta-bullet {
-        margin: 0 8px;
-      }
-
-      .author-pic {
-        border-radius: 50%;
-        object-fit: cover;
-        max-height: 50px;
-      }
-
-      .single-post-author {
-        display: block;
-        margin: 0;
-        font-weight: 500;
-      }
-
-      .single-post-time,
-      .comment-link {
-        display: inline-block;
-        margin: 0;
-      }
-
-      .comment-link {
-        font-weight: 500;
-
-        img {
-          width: 17px;
-        }
-
-        svg {
-          top: -2px;
-        }
-      }
-    }
-  }
-
-  .post-articles-block .articles-block {
-    border-top: 1px solid transparentize($grey-20, 0.5);
-    padding-top: 16px;
-
-    @include medium-and-up {
-      padding-top: 24px;
-    }
-  }
-
-  .post-tags {
-    margin-bottom: $sp-2;
-  }
+.post-tags {
+  margin-bottom: $sp-2;
 }

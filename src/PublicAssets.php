@@ -106,5 +106,14 @@ final class PublicAssets {
 		$country_selector_version = NewDesignCountrySelector::is_active() ? 'new' : 'old';
 		$country_selector_file    = '/assets/build/country-selector-' . $country_selector_version . '.min.css';
 		Loader::enqueue_versioned_style( $country_selector_file, 'country-selector', [ 'parent-style' ] );
+
+		$post_type = get_post_type();
+		if ( is_single() && in_array( $post_type, [ 'post', 'attachment', 'idea' ], true ) ) {
+			Loader::enqueue_versioned_style(
+				'/assets/build/post.min.css',
+				'post-type--post',
+				[ 'parent-style' ]
+			);
+		}
 	}
 }

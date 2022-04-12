@@ -58,11 +58,6 @@
     }
   }
 
-  blockquote,
-  blockquote > p {
-    @include blockquote;
-  }
-
   p {
     margin: 0 0 18px 0;
     overflow-wrap: break-word;
@@ -218,20 +213,6 @@
 
     br + br {
       display: none;
-    }
-  }
-
-  .more-link {
-    @extend .btn;
-    @extend .btn-secondary;
-    @extend .btn-large;
-  }
-
-  .page-links {
-    a {
-      @extend .btn;
-      @extend .btn-secondary;
-      @extend .btn-small;
     }
   }
 
