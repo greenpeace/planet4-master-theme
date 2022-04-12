@@ -93,10 +93,19 @@ abstract class Feature {
 	public static function get_cmb_field(): array {
 		return [
 			'id'   => static::id(),
-			'name' => static::name(),
-			'desc' => static::description(),
+			'name' => self::dev_prefix( '👷' ) . static::name(),
+			'desc' => self::dev_prefix( '(dev only)' ) . static::description(),
 			'type' => 'checkbox',
 		];
+	}
+
+	/**
+	 * @param string $prefix Prefix to add in case of dev env.
+	 *
+	 * @return string A prefix in case this is a dev only toggle.
+	 */
+	private static function dev_prefix( string $prefix ): string {
+		return static::show_toggle_production() ? '' : "$prefix ";
 	}
 
 	/**
