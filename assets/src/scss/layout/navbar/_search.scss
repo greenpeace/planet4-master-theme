@@ -149,7 +149,6 @@
   background-color: $black;
   border: none;
   float: right;
-  height: 56px;
   margin-inline-end: 36px;
   mask: url("../../images/cross-circle.svg") 50% 50%/24px 24px no-repeat;
   width: 24px;
@@ -165,14 +164,12 @@
   @include x-large-and-up {
     background-color: var(--top-navigation--color, $white);
     display: inline-block;
-    height: $menu-height;
     margin-inline-end: 0;
   }
 }
 
 .nav-search-toggle-container {
   display: none;
-  height: $menu-height-small;
   padding: $sp-1 $sp-1x;
 
   &.medium-and-less {
@@ -185,7 +182,6 @@
   @include large-and-up {
     border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
     display: inline-block;
-    height: $menu-height-large;
     padding: $sp-1x;
   }
 
