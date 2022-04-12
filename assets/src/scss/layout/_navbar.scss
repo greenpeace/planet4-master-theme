@@ -12,7 +12,7 @@ $navbar-default-height: 60px;
     color: $white;
     fill: $white;
     font-family: $roboto;
-    font-size: $font-base-size;
+    font-size: $font-size-sm;
   }
 
   display: flex;
@@ -71,99 +71,38 @@ $navbar-default-height: 60px;
 
     height: 44px;
     line-height: 40px;
-  }
-
-  .nav-donate {
-    padding: 16px 0;
 
     @include large-and-up {
-      padding: 0;
+      &.dropdown {
+        &::after {
+          content: "";
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          margin-inline-start: $sp-x;
+          mask: url("../../images/chevron.svg") 0 0/10px 10px;
+          transform: rotate(90deg);
+          transition: transform 150ms linear;
+          background-color: $white;
+          background-repeat: no-repeat;
+        }
+      }
     }
   }
 }
 
-#nav-main {
-  display: flex;
-
-  @include medium-and-less {
-    flex-direction: column-reverse;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    z-index: 99;
-
-    &.open {
-      inset-inline-start: 0;
-      transition: inset-inline-start 0.2s ease-out;
-
-      @supports not (inset-inline-start: 0) {
-        transform: translateX(0);
-        transition: transform 0.2s ease-out;
-
-        html[dir="rtl"] & {
-          transform: translateX(0);
-        }
-      }
-
-      ~ .top-navigation-overlay {
-        display: block;
-      }
-    }
-
-    .admin-bar & {
-      padding-bottom: 46px;
-      top: 46px;
-
-      @media (min-width: 783px) {
-        padding-bottom: 32px;
-        top: 32px;
-      }
-    }
-  }
-
-  @include small-and-less {
-    width: 100vw;
-    inset-inline-start: -100vw;
-
-    @supports not (inset-inline-start: -100vw) {
-      transform: translateX(-100vw);
-      transition: transform 0.2s ease-out;
-
-      html[dir="rtl"] & {
-        transform: translateX(100vw);
-      }
-    }
-
-    &.open {
-      @supports not (inset-inline-start: 0) {
-        transform: translateX(0);
-        transition: transform 0.2s ease-out;
-
-        html[dir="rtl"] & {
-          transform: translateX(0);
-        }
-      }
-    }
-  }
-
-  @include small-to-large {
-    inset-inline-start: -400px;
-    transition: inset-inline-start 0.2s ease-in;
-    width: 400px;
-
-    @supports not (inset-inline-start: -400px) {
-      transform: translateX(-400px);
-      transition: transform 0.2s ease-in;
-
-      html[dir="rtl"] & {
-        transform: translateX(400px);
-      }
-    }
-  }
-
+#nav-main-desktop {
   @include large-and-up {
     flex-grow: 1;
     width: auto;
+
+    .nav-languages {
+      display: none;
+
+      &.open {
+        display: flex;
+      }
+    }
   }
 }
 
@@ -173,9 +112,33 @@ $navbar-default-height: 60px;
   top: 0;
   width: auto;
   z-index: 4;
+  display: none;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin-inline-start: 0;
+      margin-inline-end: 0;
+    }
+  }
+
+  & > ul {
+    padding-inline-end: $sp-2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+
+    & > li:not(:last-child) {
+      margin-inline-start: $sp-2;
+      margin-inline-end: $sp-3;
+    }
+  }
 
   @include medium-and-less {
-    display: block;
     overflow-y: auto;
   }
 
@@ -185,44 +148,81 @@ $navbar-default-height: 60px;
     flex-grow: 1;
     height: auto;
   }
-
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding-inline: 40px 12px;
-    padding-top: 16px;
-    text-align: start;
-
-    @include large-and-up {
-      display: flex;
-      flex-grow: 1;
-      justify-content: end;
-      padding-inline-end: 0;
-      padding-top: 0;
-      text-align: end;
-    }
-  }
 }
 
-.nav-item {
-  color: inherit;
-  font-size: $font-base-size;
-  font-weight: 700;
+.nav-submenu {
+  _-- {
+    width: 193px;
+  }
+  position: fixed;
+  display: none;
 
-  @include large-and-up {
-    line-height: $menu-height;
-    margin: 0 20px;
+  ul {
+    width: 100%;
+    // The `height` value represents the value of 6 items's height
+    // and this selectors's padding
+    height: auto;
+    max-height: 320px;
+    display: block;
+    flex-direction: column;
+    padding: $sp-2 0;
+    overflow-y: auto;
+    margin-top: $sp-1;
+    border-radius: 4px;
+    background: $white;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+
+    @include scrollbar-layout;
+  }
+
+  .nav-item {
+    width: 100%;
+    text-align: left;
+    color: $grey-80;
+    margin-inline: 0;
+
+    a.nav-link {
+      --submenu-nav-link-- {
+        color: $grey-80;
+        font-size: $font-size-sm;
+        font-weight: 500;
+
+        &:hover {
+          _-- {
+            color: $grey-80;
+          }
+        }
+      }
+      text-decoration: none;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 14px $sp-3;
+      font-size: $font-size-sm;
+      line-height: 19px;
+
+      &:hover {
+        background: $grey-10;
+      }
+
+      &:before {
+        display: none;
+      }
+    }
+
+    &.active {
+      pointer-events: none;
+    }
+
+    &.active a.nav-link {
+      font-weight: bold;
+    }
   }
 }
 
 a.nav-link {
   --nav-link-- {
     color: $white;
-
-    &:hover {
-      color: $white;
-      text-decoration-color: $gp-green;
-    }
   }
 
   opacity: 1;
@@ -230,21 +230,10 @@ a.nav-link {
   padding: $sp-2 0;
   position: relative;
   width: 100%;
+  text-decoration-line: none;
 
   @include large-and-up {
     padding: 0;
-  }
-
-  &:hover {
-    opacity: 1;
-    text-decoration-line: underline;
-    text-decoration-thickness: 3px;
-    text-underline-offset: auto;
-    text-underline-position: under;
-
-    @include large-and-up {
-      text-decoration-line: none;
-    }
   }
 
   // Border-bottom for underline animation
@@ -264,30 +253,50 @@ a.nav-link {
   }
 }
 
-.active a.nav-link {
-  --nav-link-active-- {
-    color: var(--nav-link--color, $white);
-    text-decoration-color: $gp-green;
-  }
-
-  opacity: 1;
-  text-decoration-line: underline;
-  text-decoration-thickness: 3px;
-  text-underline-offset: auto;
-  text-underline-position: under;
+// Underline animation with border-bottom
+// Using > * because there are some cases where
+// there a container, wrapped by the nav-item
+// is wrapping the nav-item
+a.nav-link:hover:before,
+.nav-item:not(.burger-menu-item):hover > a.nav-link:before,
+.active > a.nav-link:before,
+.active > * > a.nav-link:before {
+  transform: scaleX(1);
+  transition: transform 0.25s;
+  z-index: 1;
 
   @include large-and-up {
-    text-decoration-line: none;
-    text-decoration-thickness: 4px;
+    border-bottom-width: 4px;
   }
 }
 
-// Underline animation with border-bottom
-a.nav-link:hover:before,
-.active a.nav-link:before {
+.nav-donate {
+  padding: $sp-2 0;
+
   @include large-and-up {
-    transform: scaleX(1);
-    transition: transform 0.25s;
+    padding: 0;
+  }
+}
+
+.nav-donate:hover .dropdown::after {
+  transform: rotate(-90deg);
+}
+
+.nav-item,
+.nav-donate {
+  color: inherit;
+  font-size: $font-size-sm;
+  font-weight: 700;
+
+  @include large-and-up {
+    line-height: $menu-height;
+
+    &:hover {
+      .nav-submenu {
+        display: flex;
+        z-index: 999;
+      }
+    }
   }
 }
 
@@ -296,35 +305,6 @@ a.nav-link:hover:before,
   border: none;
   border-radius: 4px;
   padding: 0 24px;
-
-  @include large-and-up {
-    display: none;
-  }
-}
-
-.nav-menu-close {
-  background-color: var(--top-navigation--color, $white);
-  border: none;
-  display: block;
-  height: 68px;
-  inset-inline-end: 0;
-  mask: url("../../images/cross.svg") 50% 50%/16px 16px no-repeat;
-  position: absolute;
-  top: 0;
-  width: 68px;
-  z-index: 5;
-
-  @include medium-and-less {
-    @supports not (inset-inline-end: 0) {
-      right: 0;
-      left: auto;
-
-      html[dir="rtl"] & {
-        left: 0;
-        right: auto;
-      }
-    }
-  }
 
   @include large-and-up {
     display: none;
@@ -343,20 +323,6 @@ a.nav-link:hover:before,
   }
 }
 
-.top-navigation-overlay {
-  display: none;
-  background: $black;
-  height: 100%;
-  opacity: 0.5;
-  overflow: hidden;
-  overflow-y: scroll;
-  pointer-events: all;
-  position: fixed;
-  top: 0;
-  width: calc(100% + 20px);
-  z-index: 4;
-}
-
 .no-scroll-nav-open {
   @include medium-and-less {
     overflow-y: hidden;
@@ -370,3 +336,4 @@ a.nav-link:hover:before,
 @import "navbar/languages";
 @import "navbar/search";
 @import "navbar/mobile";
+@import "navbar/burger-menu";

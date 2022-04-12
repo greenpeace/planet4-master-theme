@@ -1,6 +1,7 @@
 {% set header_classes = 'top-navigation navbar'
 	~ (custom_styles.nav_border == 'border' ? ' navigation-bar_border' : '')
 	~ (mobile_tabs_menu ? ' with-mobile-tabs' : '')
+	~ (dropdown_menu ? ' with-dropdown-menu' : '')
 %}
 <section id="header" class="{{ header_classes }}">
 	{% set data_ga_attrs = 'data-ga-category="Menu Navigation" data-ga-action="Menu" data-ga-label="' ~ page_category ~ '"' %}
@@ -20,7 +21,7 @@
 	<a class="site-logo" href="{{ data_nav_bar.home_url }}">
 		{% include 'blocks/site_logo.twig' %}
 	</a>
-	<div id="nav-main">
+	<div id="nav-main-desktop" class="d-none d-lg-flex">
 		<nav id="nav-menu" class="nav-menu">
 			<ul>
 				{% for key,item in navbar_menu_items %}
@@ -40,18 +41,29 @@
 						data-ga-label="{{ page_category }}">
 							{{ item.title }}
 					</a>
+
+					{% if item.children is not empty and dropdown_menu %}
+						{% include 'navigation-submenu.twig' with { menu: item } %}
+					{% endif %}
 				</li>
 				{% endfor %}
-				<li class="nav-item nav-donate">
-					<a
-						class="btn btn-donate"
-						href="{{ donatelink }}"
-						data-ga-category="Menu Navigation"
-						data-ga-action="Donate"
-						data-ga-label="{{ page_category }}">
-							{{ donatetext }}
-					</a>
-				</li>
+
+				{% if donate_menu_items is not empty %}
+					{% set donate_menu = donate_menu_items|first %}
+					<li class="nav-donate">
+						<a
+							class="btn btn-donate {{ donate_menu.children and dropdown_menu ? 'dropdown' : '' }}"
+							href="{{ donate_menu.link }}"
+							data-ga-category="Menu Navigation"
+							data-ga-action="Donate"
+							data-ga-label="{{ page_category }}">
+								{{ donate_menu.title }}
+						</a>
+						{% if donate_menu.children is not empty and dropdown_menu %}
+							{% include 'navigation-submenu.twig' with { menu: donate_menu } %}
+						{% endif %}
+					</li>
+				{% endif %}
 			</ul>
 		</nav>
 		{% set search_icon = 'search'|svgicon %}
@@ -125,15 +137,6 @@
 				</ul>
 			</nav>
 		{% endif %}
-		<button class="nav-menu-close" type="button"
-			aria-label="{{ __( 'Close navigation menu', 'planet4-master-theme' ) }}"
-			aria-expanded="false"
-			data-bs-toggle="open"
-			data-bs-target="#nav-main">
-			<span class="visually-hidden">
-				{{ __( 'Close navigation menu', 'planet4-master-theme' ) }}
-			</span>
-		</button>
 	</div>
 	<div class="nav-search-toggle-container medium-and-less">
 		<button class="nav-search-toggle" type="button"
@@ -170,6 +173,6 @@
 		</nav>
 	</div>
 	{% endif %}
-	<div class="top-navigation-overlay"></div>
 	{% include 'country_selector_banner.twig' ignore missing %}
 </section>
+{% include 'burger-menu.twig' %}

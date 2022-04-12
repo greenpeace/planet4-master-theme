@@ -157,10 +157,10 @@ const menuEditorRestrictions = () => {
    * @return string The current location slug
    */
   const getCurrentLocation = () => {
-    return locations.map(location => {
+    return locations.find(location => {
       return document.querySelector(`input[name="menu-locations[${location}]"]`).checked
         ? location : null;
-    })[0] || null;
+    }) || null;
   };
 
   /**
