@@ -5,6 +5,7 @@ namespace P4\MasterTheme;
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use P4\MasterTheme\Features\Dev\WPTemplateEditor;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
+use P4\MasterTheme\Features\MobileTabsMenu;
 use P4\MasterTheme\Features\NewDesignCountrySelector;
 use P4\MasterTheme\Features\NewDesignNavigationBar;
 use Timber\Timber;
@@ -16,7 +17,6 @@ use Twig_SimpleFilter;
 use WP_Error;
 use WP_Post;
 use WP_User;
-use P4\MasterTheme\Settings\InformationArchitecture as IA;
 
 /**
  * Class MasterSite.
@@ -629,7 +629,7 @@ class MasterSite extends TimberSite {
 		$context['new_design_navigation_bar']   = NewDesignNavigationBar::is_active();
 
 		// IA: Tabs menu on mobile.
-		$context['mobile_tabs_menu'] = IA::is_active( IA::MOBILE_TABS_MENU );
+		$context['mobile_tabs_menu'] = MobileTabsMenu::is_active();
 
 		return $context;
 	}

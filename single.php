@@ -10,6 +10,7 @@
  */
 
 use P4\MasterTheme\Context;
+use P4\MasterTheme\Features\GdprCheckbox;
 use P4\MasterTheme\Post;
 use Timber\Timber;
 use P4\MasterTheme\Settings\Comments;
@@ -96,7 +97,7 @@ $comments_args = [
 	'submit_button'        => Timber::compile(
 		'comment_form/submit_button.twig',
 		[
-			'gdpr_checkbox' => Comments::is_active( Comments::GDPR_CHECKBOX ),
+			'gdpr_checkbox' => GdprCheckbox::is_active(),
 			'gdpr_label'    => __(
 				'I agree on providing my name, email and content so that my comment can be stored and displayed in the website.',
 				'planet4-master-theme'

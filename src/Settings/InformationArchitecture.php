@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace P4\MasterTheme\Settings;
 
+use P4\MasterTheme\Feature;
+use P4\MasterTheme\Features\ActionPostType;
+use P4\MasterTheme\Features\MobileTabsMenu;
 use P4\MasterTheme\Loader;
 
 /**
@@ -15,10 +18,7 @@ class InformationArchitecture {
 	/** @var string Option key */
 	public const OPTIONS_KEY = 'planet4_ia';
 
-	/* @var string Mobile tabs option key **/
-	public const MOBILE_TABS_MENU = 'mobile_tabs_menu';
-
-	/* @var string feature flag of action page type option key **/
+	/* @var string feature flag of action page type option key. Preserved here because plugin uses it. **/
 	public const ACTION_POST_TYPE = 'action_post_type';
 
 	/**
@@ -44,28 +44,10 @@ class InformationArchitecture {
 	 * @return array  The fields.
 	 */
 	public static function get_fields(): array {
-		$fields = [
-			[
-				'id'   => self::MOBILE_TABS_MENU,
-				'name' => __( 'Enable mobile tabs menu', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Display a sticky tabs menu visible on screen width smaller than 992px.',
-					'planet4-master-theme-backend'
-				),
-				'type' => 'checkbox',
-			],
-			[
-				'id'   => self::ACTION_POST_TYPE,
-				'name' => __( 'Action post type', 'planet4-master-theme-backend' ),
-				'desc' => __(
-					'Enable Action post type',
-					'planet4-master-theme-backend'
-				),
-				'type' => 'checkbox',
-			],
+		return [
+			MobileTabsMenu::get_cmb_field(),
+			ActionPostType::get_cmb_field(),
 		];
-
-		return $fields;
 	}
 
 	/**
@@ -76,20 +58,8 @@ class InformationArchitecture {
 	 * @return bool Whether the option is active.
 	 */
 	public static function is_active( string $name ): bool {
-		return ! empty( self::get( $name ) );
-	}
-
-	/**
-	 * Return option value.
-	 *
-	 * @param string $name    Name of the option.
-	 * @param mixed  $default Default value.
-	 *
-	 * @return mixed
-	 */
-	public static function get( string $name, $default = null ) {
 		$options = get_option( self::OPTIONS_KEY );
 
-		return isset( $options[ $name ] ) ? $options[ $name ] : $default;
+		return 'on' === $options[ $name ];
 	}
 }
