@@ -410,6 +410,7 @@ class Rest_Api {
 			);
 		}
 
+		$form     = apply_filters( 'planet4_enform_data', $form, $en_page_id );
 		$request  = [
 			'url'  => 'https://e-activist.com/ens/service/page/' . $en_page_id . '/process',
 			'args' => [
