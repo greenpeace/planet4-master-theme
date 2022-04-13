@@ -8,7 +8,7 @@
 		{% set link_ga_action = item.title %}
 	{% endif %}
 	<li class="burger-menu-item nav-item accordion-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
-		<div class="item-wrapper accordion-header" id="burger-menu-accordion-{{ targetId }}">
+		<div class="burger-menu-item-wrapper accordion-header" id="burger-menu-accordion-{{ targetId }}">
 			<a
 				class="nav-link"
 				href="{{ item.get_link }}"
@@ -24,8 +24,7 @@
 					data-bs-toggle="collapse"
 					data-bs-target="#menu-{{ targetId }}"
 					aria-expanded="false"
-					aria-controls="menu-{{ targetId }}"
-				/>
+					aria-controls="menu-{{ targetId }}"></button>
 			{% endif %}
 		</div>
 
