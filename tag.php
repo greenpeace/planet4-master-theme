@@ -9,6 +9,9 @@
  * @package P4MT
  */
 
+use P4\MasterTheme\Features\Dev\DisableTagRedirectPages;
+use P4\MasterTheme\Features\Dev\ListingPageGridView;
+use P4\MasterTheme\Features\Dev\ListingPagePagination;
 use P4\MasterTheme\TaxonomyCampaign;
 use Timber\Timber;
 use P4GBKS\Blocks\Articles;
@@ -21,7 +24,7 @@ if ( is_tag() ) {
 	$explore_page_id = planet4_get_option( 'explore_page' );
 
 	$redirect_id = get_term_meta( $context['tag']->term_id, 'redirect_page', true );
-	if ( $redirect_id ) {
+	if ( ! DisableTagRedirectPages::is_active() && $redirect_id ) {
 
 		global $wp_query;
 		$redirect_page               = get_post( $redirect_id );
@@ -63,6 +66,20 @@ if ( is_tag() ) {
 			$context['og_image_data'] = wp_get_attachment_image_src( $tag_image_id, 'full' );
 		}
 		$context['page_category'] = 'Tag Page';
+
+		if ( ListingPagePagination::is_active() ) {
+			$view = ListingPageGridView::is_active() ? 'grid' : 'list';
+
+			$query_template = file_get_contents( get_template_directory() . "/parts/query-$view.html" );
+
+			$content = do_blocks( $query_template );
+
+			$context['query_loop'] = $content;
+
+			$campaign = new TaxonomyCampaign( $templates, $context );
+			$campaign->view();
+			exit();
+		}
 
 		$campaign = new TaxonomyCampaign( $templates, $context );
 

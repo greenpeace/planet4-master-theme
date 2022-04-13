@@ -76,9 +76,11 @@ function planet4_get_option( $key = '', $default = null ) {
 	return $options[ $key ] ?? $default;
 }
 
+use P4\MasterTheme\Features\Dev\ListingPagePagination;
 use P4\MasterTheme\ImageArchive\Rest;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Notifications\Slack;
+use P4\MasterTheme\Post;
 use Timber\Timber;
 
 if ( ! class_exists( 'Timber' ) ) {
@@ -245,6 +247,133 @@ add_filter(
 		}
 
 		return $editor_settings;
+	},
+	10,
+	2
+);
+
+/**
+ * I'll move this somewhere else in master theme.
+ *
+ * @return void
+ */
+function register_more_blocks() {
+	register_block_type(
+		'p4/reading-time',
+		[
+			'render_callback' => [ Post::class, 'reading_time_block' ],
+			'uses_context'    => [ 'postId' ],
+		]
+	);
+	register_block_type(
+		'p4/post-author-name',
+		[
+			'render_callback' => function ( array $attributes, $content, $block ) {
+				$author_override = get_post_meta( $block->context['postId'], 'p4_author_override', true );
+				$post_author_id  = get_post_field( 'post_author', $block->context['postId'] );
+
+				$is_override = ! empty( $author_override );
+
+				$name = $is_override ? $author_override : get_the_author_meta( 'display_name', $post_author_id );
+				$link = $is_override ? '#' : get_author_posts_url( $post_author_id );
+
+				$block_content = $author_override ? $name : "<a href='$link'>$name</a>";
+
+				return "<span class='article-list-item-author'>$block_content</span>";
+			},
+			'uses_context'    => [ 'postId' ],
+		]
+	);
+	// Like the core block but with an appropriate sizes attribute.
+	register_block_type(
+		'p4/post-featured-image',
+		[
+			'render_callback' => function ( array $attributes, $content, $block ) {
+				$post_id        = $block->context['postId'];
+				$post_link      = get_permalink( $post_id );
+				$featured_image = get_the_post_thumbnail(
+					$post_id,
+					null,
+					// For now hard coded sizes to the ones from Articles, as it's the single usage.
+					// This can be made a block attribute, or even construct a sizes attr with math based on context.
+					// For example, it could already access displayLayout from Query block to know how many columns are
+					// being rendered. If it then also knows the flex gap and container width, it should have all needed
+					// info to support a large amount of cases.
+					[ 'sizes' => '(min-width: 1600px) 389px, (min-width: 1200px) 335px, (min-width: 1000px) 281px, (min-width: 780px) 209px, (min-width: 580px) 516px, calc(100vw - 24px)' ]
+				);
+
+				return "<a href='$post_link'>$featured_image</a>";
+			},
+			'uses_context'    => [ 'postId' ],
+		]
+	);
+}
+
+add_action( 'init', 'register_more_blocks' );
+
+add_filter(
+	'cloudflare_purge_by_url',
+	function ( $urls, $post_id ) {
+		if ( ! ListingPagePagination::is_active() ) {
+			return $urls;
+		}
+		$new_urls = [];
+		// Most of this logic is copied from the start of \CF\WordPress\Hooks::getPostRelatedLinks.
+		// I had to adapt it to our CS, it used snake case and old arrays.
+		// I only changed the part that creates the pagination URLs.
+		// And for now early return on other taxonomies as only tags need it.
+		$post_type = get_post_type( $post_id );
+
+		// Purge taxonomies terms and feeds URLs.
+		$post_type_taxonomies = get_object_taxonomies( $post_type );
+
+		foreach ( $post_type_taxonomies as $taxonomy ) {
+			// Only do post tags for now, but we'll need this loop when more pages have pagination.
+			if ( 'post_tag' !== $taxonomy ) {
+				continue;
+			}
+			// Only if taxonomy is public.
+			$taxonomy_data = get_taxonomy( $taxonomy );
+			if ( $taxonomy_data instanceof WP_Taxonomy && false === $taxonomy_data->public ) {
+				continue;
+			}
+
+			$terms = get_the_terms( $post_id, $taxonomy );
+
+			if ( empty( $terms ) || is_wp_error( $terms ) ) {
+				continue;
+			}
+
+			foreach ( $terms as $term ) {
+				$term_link = get_term_link( $term );
+
+				if ( ! is_wp_error( $term_link ) ) {
+					$args = [
+						'post_type'      => 'post',
+						'post_status'    => 'publish',
+						'posts_per_page' => - 1,
+						'tax_query'      => [
+							'relation' => 'AND',
+							[
+								'taxonomy' => $taxonomy,
+								'field'    => 'id',
+								'terms'    => [ $term->term_id ],
+							],
+						],
+					];
+
+					$query = new WP_Query( $args );
+					$pages = $query->post_count / get_option( 'posts_per_page', 10 );
+					if ( $pages > 1 ) {
+						$numbers = range( 2, 1 + round( $pages ) );
+
+						$new_urls = array_map( fn( $i ) => "{$term_link}page/{$i}/", $numbers );
+					}
+				}
+			}
+		}
+
+		return array_merge( $urls, $new_urls );
 	},
 	10,
 	2

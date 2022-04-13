@@ -10,8 +10,6 @@ abstract class Feature {
 	public const OPTIONS_KEY = 'planet4_features';
 
 	/**
-	 * Default to using the class name, but allow override to provide BC.
-	 *
 	 * @return string ID primarily used for storing in WP options.
 	 */
 	abstract public static function id(): string;
@@ -82,7 +80,6 @@ abstract class Feature {
 		// Filter to allow setting a feature from code, to avoid chicken and egg problem when releasing adaptions to a
 		// new feature.
 		return (bool) apply_filters( "planet4_feature__$id", $active );
-
 	}
 
 	/**
