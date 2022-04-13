@@ -1,54 +1,58 @@
 <div id="nav-main" class="burger-menu d-lg-none">
-  <button class="nav-menu-close" type="button"
-    aria-label="{{ __( "Close navigation mobile menu", "planet4-master-theme" ) }}"
-    aria-expanded="false"
-    data-bs-toggle="open"
-    data-bs-target="#nav-main">
+	<button
+			class="nav-menu-close"
+			type="button"
+			aria-label="{{ __( "Close navigation mobile menu", "planet4-master-theme" ) }}"
+			aria-expanded="false"
+			data-bs-toggle="open"
+			data-bs-target="#nav-main">
     <span class="visually-hidden">
       {{ __( "Close navigation mobile menu", "planet4-master-theme" ) }}
     </span>
-  </button>
+	</button>
 
-  <div class="burger-menu-header">
-    <a class="site-logo" href="{{ data_nav_bar.home_url }}">
-      {% include "blocks/site_logo.twig" %}
-    </a>
+	<div class="burger-menu-header">
+		<a class="site-logo" href="{{ data_nav_bar.home_url }}">
+			{% include "blocks/site_logo.twig" %}
+		</a>
 		{% if site_languages is not empty %}
 			{% set current_lang = site_languages|filter(i => i.active)|first %}
-			<button class="nav-languages-toggle" type="button"
-				aria-label="{{ __( "Choose language", "planet4-master-theme" ) }}"
-				aria-expanded="false"
-				data-bs-toggle="open"
-				data-bs-target="#nav-languages"
+			<button
+					class="nav-languages-toggle"
+					type="button"
+					aria-label="{{ __( "Choose language", "planet4-master-theme" ) }}"
+					aria-expanded="false"
+					data-bs-toggle="open"
+					data-bs-target="#nav-languages"
 			>{{ current_lang.code|capitalize }}</button>
 			<nav
-				id="nav-languages"
-				class="nav-languages"
-				aria-label="{{ __( 'Languages of the site', 'planet4-master-theme' ) }}"
+					id="nav-languages"
+					class="nav-languages"
+					aria-label="{{ __( 'Languages of the site', 'planet4-master-theme' ) }}"
 			>
 				<ul>
-				{% for key,item in site_languages %}
-				<li class="nav-item {{ item.active ? "current-language" : "" }}">
-					<a class="nav-link" href="{{ item.url }}">{{ item.native_name }}</a>
-					<span aria-hidden="true">&nbsp;|&nbsp;</span>
-				</li>
-				{% endfor %}
+					{% for key,item in site_languages %}
+						<li class="nav-item {{ item.active ? "current-language" : "" }}">
+							<a class="nav-link" href="{{ item.url }}">{{ item.native_name }}</a>
+							<span aria-hidden="true">&nbsp;|&nbsp;</span>
+						</li>
+					{% endfor %}
 				</ul>
 			</nav>
 		{% endif %}
-  </div>
+	</div>
 
 	<div class="nav-wrapper">
 		<nav class="nav-items" aria-label="{{ __( 'Menu items', 'planet4-master-theme' ) }}">
 			<ul id="accordion-list" class="accordion">
 				<li class="burger-menu-item nav-item">
 					<a
-						class="nav-link"
-						href="{{ site.url }}"
-						data-ga-category="Menu Navigation"
-						data-ga-action="Home"
-						data-ga-label="{{ page_category }}">
-							{{ __( "Home", "planet4-master-theme" ) }}
+							class="nav-link"
+							href="{{ site.url }}"
+							data-ga-category="Menu Navigation"
+							data-ga-action="Home"
+							data-ga-label="{{ page_category }}">
+						{{ __( "Home", "planet4-master-theme" ) }}
 					</a>
 				</li>
 
@@ -67,12 +71,12 @@
 		{% set donate_menu = donate_menu_items|first %}
 		<div class="burger-menu-footer">
 			<a
-				class="btn btn-donate"
-				href="{{ donate_menu.link }}"
-				data-ga-category="Menu Navigation"
-				data-ga-action="Donate"
-				data-ga-label="{{ page_category }}">
-					{{ __( "Make a donation", "planet4-master-theme" ) }}
+					class="btn btn-donate"
+					href="{{ donate_menu.link }}"
+					data-ga-category="Menu Navigation"
+					data-ga-action="Donate"
+					data-ga-label="{{ page_category }}">
+				{{ __( "Make a donation", "planet4-master-theme" ) }}
 			</a>
 		</div>
 	{% endif %}
