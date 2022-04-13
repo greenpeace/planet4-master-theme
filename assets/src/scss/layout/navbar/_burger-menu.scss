@@ -32,10 +32,6 @@
 
     ~ .burger-menu-overlay {
       display: block;
-
-      @include large-and-up {
-        display: none;
-      }
     }
   }
 
@@ -255,8 +251,11 @@
 }
 
 .burger-menu-overlay {
+  _-- {
+    background: $black;
+  }
+
   display: none;
-  background: var(--burger-menu-overlay--background, $black);
   opacity: 0.5;
   height: 100%;
   pointer-events: all;
