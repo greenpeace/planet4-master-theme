@@ -52,7 +52,7 @@
 
 .cookies-settings-details {
   max-height: 40vh;
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
   width: calc(100% + 2 * #{$sp-3});
   margin-inline-start: -$sp-3;
