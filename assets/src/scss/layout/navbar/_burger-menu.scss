@@ -1,3 +1,20 @@
+@mixin slide-from-start() {
+  &:not(.open) {
+    transition: transform 0.2s ease-in, visibility;
+    transition-delay: 0s, 0.2s;
+    transform: translateX(-100%);
+    visibility: hidden;
+
+    html[dir="rtl"] & {
+      transform: translateX(100%);
+    }
+  }
+
+  &.open {
+    transition: transform 0.2s ease-out;
+  }
+}
+
 .burger-menu {
   _-- {
     background: $white;
@@ -11,32 +28,15 @@
   justify-content: flex-start;
   top: 0;
   left: 0;
-  inset-inline-start: -100%;
   padding: 18px $sp-3;
   z-index: 9999999999;
   overflow: hidden;
   height: 100%;
 
-  &.open {
-    inset-inline-start: 0;
-    transition: inset-inline-start 0.2s ease-out;
+  @include slide-from-start;
 
-    @supports not (inset-inline-start: 0) {
-      transform: translateX(0);
-      transition: transform 0.2s ease-out;
-
-      html[dir="rtl"] & {
-        transform: translateX(0);
-      }
-    }
-
-    ~ .burger-menu-overlay {
-      display: block;
-
-      @include large-and-up {
-        display: none;
-      }
-    }
+  &.open ~ .burger-menu-overlay {
+    display: block;
   }
 
   ul {
@@ -63,31 +63,10 @@
 
   @include small-and-less {
     width: 100vw;
-    inset-inline-start: -100vw;
-
-    @supports not (inset-inline-start: -100vw) {
-      transform: translateX(-100vw);
-      transition: transform 0.2s ease-in;
-
-      html[dir="rtl"] & {
-        transform: translateX(100vw);
-      }
-    }
   }
 
-  @include small-to-large {
+  @include small-and-up {
     width: 400px;
-    inset-inline-start: -400px;
-    transition: inset-inline-start 0.2s ease-in;
-
-    @supports not (inset-inline-start: -400px) {
-      transform: translateX(-400px);
-      transition: transform 0.2s ease-in;
-
-      html[dir="rtl"] & {
-        transform: translateX(400px);
-      }
-    }
   }
 }
 
@@ -255,8 +234,11 @@
 }
 
 .burger-menu-overlay {
+  _-- {
+    background: $black;
+  }
+
   display: none;
-  background: var(--burger-menu-overlay--background, $black);
   opacity: 0.5;
   height: 100%;
   pointer-events: all;
