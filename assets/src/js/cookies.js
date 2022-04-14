@@ -61,7 +61,8 @@ export const setupCookies = () => {
 
   const cookie = readCookie('active_consent_choice');
   const cookiesBox = document.querySelector('#set-cookie');
-  const nro = document.body.dataset.nro;
+  const currentNRO = document.body.dataset.nro;
+  const previousNRO = readCookie('gp_nro');
   const greenpeace = readCookie('greenpeace');
   const noTrack = readCookie('no_track');
 
@@ -98,24 +99,24 @@ export const setupCookies = () => {
   };
 
   // Make the necessary cookies checked by default on user's first visit.
-  // Here if the No cookies set(absence of 'greenpeace' & 'no_track' cookies) consider as first visit of user.
+  // Here if the No cookies set (absence of 'greenpeace' & 'no_track' cookies) consider as first visit of user.
   if (greenpeace === null && noTrack === null) {
     createCookie('greenpeace', ONLY_NECESSARY, 365);
   }
 
+  // Create/update cookie to store last visited NRO.
+  if (previousNRO !== currentNRO) {
+    createCookie('gp_nro', currentNRO, 30);
+  }
+
   if (cookie === null) {
     showCookiesBox();
-  } else {
-    createCookie('gp_nro', nro, 30);
   }
 
   const allowAllCookies = () => {
     createCookie('active_consent_choice', '1', 365);
     createCookie('greenpeace', ALL_COOKIES, 365);
     removeCookie('no_track');
-
-    // Create cookie to store last visited nro.
-    createCookie('gp_nro', nro, 30);
 
     // Grant ad storage and analytics storage if Google Consent Mode is enabled.
     if (ENABLE_GOOGLE_CONSENT_MODE) {
