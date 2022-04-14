@@ -508,8 +508,12 @@ class Post extends TimberPost {
 	 *
 	 * @return string Formatted reading time.
 	 */
-	public static function reading_time_block( array $attributes, $content, $block ) {
+	public static function reading_time_block( array $attributes, $content, $block ): string {
 		$time = ( new self( $block->context['postId'] ?? null ) )->reading_time();
+
+		if ( ! $time ) {
+			return '';
+		}
 
 		return "<span class='article-list-item-readtime'>$time min read</span>";
 	}
