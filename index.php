@@ -13,11 +13,21 @@
  * @since   Timber 0.1
  */
 
-$context          = Timber::get_context();
-$context['posts'] = Timber::get_posts();
+use P4\MasterTheme\Features\Dev\ListingPageGridView;
+use P4\MasterTheme\Features\Dev\ListingPagePagination;
 
-$templates = [ 'index.twig' ];
-if ( is_home() ) {
-	array_unshift( $templates, 'home.twig' );
+$context = Timber::get_context();
+
+if ( ListingPagePagination::is_active() ) {
+	$view = ListingPageGridView::is_active() ? 'grid' : 'list';
+
+	$query_template = file_get_contents( get_template_directory() . "/parts/query-$view.html" );
+
+	$content = do_blocks( $query_template );
+
+	$context['query_loop'] = $content;
+} else {
+	$context['posts'] = Timber::get_posts();
 }
-Timber::render( $templates, $context );
+
+Timber::render( [ 'index.twig' ], $context );

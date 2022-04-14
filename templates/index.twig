@@ -1,7 +1,18 @@
 {% extends "base.twig" %}
-
 {% block content %}
-	{% for post in posts %}
-		{% include ['tease-'~post.post_type~'.twig', 'tease.twig'] %}
-	{% endfor %}
+	<div class="page-content container">
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		{{ query_loop|raw }}
+		{# Need to check as posts doesn't need to be assigned in context, it's always going to forward to get_posts() #}
+		{% if not query_loop %}
+			{% for post in posts %}
+				{% include ['tease-'~post.post_type~'.twig', 'tease.twig'] %}
+			{% endfor %}
+		{% endif %}
+	</div>
 {% endblock %}
