@@ -50,4 +50,7 @@ export const setupLightboxForImages = function() {
 
   const imagesInParagraphs = document.querySelectorAll('.post-content p:not(.wp-caption), .page-content p:not(.wp-caption)');
   imagesInParagraphs.forEach(setupImageAndCaption(lightBoxNode, 'img'));
+
+  const mediaAndTextImages = document.querySelectorAll('.wp-block-media-text:not(.force-no-lightbox)');
+  mediaAndTextImages.forEach(setupImageAndCaption(lightBoxNode));
 }
