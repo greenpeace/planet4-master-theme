@@ -545,10 +545,11 @@ class MasterSite extends TimberSite {
 		global $wp;
 
 		$context['cookies']      = [
-			'text'                      => planet4_get_option( 'cookies_field' ),
-			'enable_analytical_cookies' => planet4_get_option( 'enable_analytical_cookies' ),
-			'enable_reject_all_cookies' => planet4_get_option( 'enable_reject_all_cookies' ),
-			'settings_copy'             => [
+			'text'                       => planet4_get_option( 'cookies_field' ),
+			'enable_analytical_cookies'  => planet4_get_option( 'enable_analytical_cookies' ),
+			'enable_reject_all_cookies'  => planet4_get_option( 'enable_reject_all_cookies' ),
+			'enable_google_consent_mode' => planet4_get_option( 'enable_google_consent_mode' ),
+			'settings_copy'              => [
 				'necessary_cookies_name'         => planet4_get_option( 'necessary_cookies_name', '' ),
 				'necessary_cookies_description'  => planet4_get_option( 'necessary_cookies_description', '' ),
 				'analytical_cookies_name'        => planet4_get_option( 'analytical_cookies_name', '' ),

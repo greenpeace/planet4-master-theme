@@ -7,9 +7,50 @@
   </style>
   {% endif %}
   <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); };
+
+    var cookie_content = document.cookie.split(';').map(s => s.trim());
+    function cookie_contains(value) {
+      return cookie_content.indexOf(value) !== -1;
+    };
+    var no_track = cookie_contains('no_track=1');
+    var active_consent = cookie_contains('active_consent_choice=1');
+    var marketing_consent = !no_track && active_consent
+      && (cookie_contains('greenpeace=2') || cookie_contains('greenpeace=4'));
+    var analytical_consent = !no_track && active_consent
+      && (cookie_contains('greenpeace=3') || cookie_contains('greenpeace=4'));
+    var cookie_consent = marketing_consent || analytical_consent;
+
+    {#
+      If Google Consent Mode is enabled,
+      set default ad storage and analytics storage to 'denied' as first action on every page until consent is given.
+      If consent given, update consent on every page.
+    #}
+    {% if cookies.enable_google_consent_mode %}
+    if ( cookie_consent ) {
+      var capabilities = {
+        ad_storage: marketing_consent ? 'granted' : 'denied',
+        {% if cookies.enable_analytical_cookies %}
+        ...{'analytics_storage': analytical_consent ? 'granted' : 'denied'}
+        {% endif %}
+      };
+      gtag('consent', 'update', capabilities);
+      dataLayer.push({event: 'updateConsent', ...capabilities});
+    } else {
+      var capabilities = {
+        ad_storage: 'denied',
+        {% if cookies.enable_analytical_cookies %}
+        ...{'analytics_storage': 'denied'}
+        {% endif %}
+      };
+      gtag('consent', 'default', capabilities);
+      dataLayer.push({event: 'defaultConsent', ...capabilities});
+    }
+    {% endif %}
+
     var google_tag_value = '{{ google_tag_value }}';
 
-    window.dataLayer = window.dataLayer || [];
     dataLayer.push({
       'pageType' : '{{ page_category }}',
       'signedIn' : '{{ p4_signedin_status }}',
@@ -45,19 +86,9 @@
       }
     {% endif %}
 
-    var cookie_consent = document.cookie.split(';').filter(function(c) {
-      return c.indexOf('greenpeace=2') >= 0
-        || c.indexOf('greenpeace=3') >= 0
-        || c.indexOf('greenpeace=4') >= 0;
-    }).length;
-    var enforce_cookies_policy = '{{ enforce_cookies_policy }}';
-    var gtm_allow = true;
+    var gtm_allow = '{{ enforce_cookies_policy }}' ? cookie_consent : true;
 
-    if ( enforce_cookies_policy && 1 !== parseInt( cookie_consent ) ) {
-      gtm_allow = false;
-    }
-
-    if ( google_tag_value && gtm_allow) {
+    if ( google_tag_value && gtm_allow ) {
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
         w[l].push({
