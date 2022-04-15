@@ -1,9 +1,11 @@
 @mixin slide-from-start() {
+  $duration: .2s;
+
   &:not(.open) {
-    transition: transform 0.2s ease-in, visibility;
-    transition-delay: 0s, 0.2s;
+    transition: transform $duration ease-in, opacity;
+    transition-delay: 0s, $duration;
     transform: translateX(-100%);
-    visibility: hidden;
+    opacity: 0;
 
     html[dir="rtl"] & {
       transform: translateX(100%);
@@ -11,7 +13,7 @@
   }
 
   &.open {
-    transition: transform 0.2s ease-out;
+    transition: transform $duration ease-out;
   }
 }
 
