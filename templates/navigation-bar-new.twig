@@ -3,7 +3,7 @@
 	~ (mobile_tabs_menu ? ' with-mobile-tabs' : '')
 	~ (dropdown_menu ? ' with-dropdown-menu' : '')
 %}
-<section id="header" class="{{ header_classes }}">
+<header id="header" class="{{ header_classes }}">
 	{% set data_ga_attrs = 'data-ga-category="Menu Navigation" data-ga-action="Menu" data-ga-label="' ~ page_category ~ '"' %}
 	<button class="nav-menu-toggle" type="button"
 		aria-label="{{ __( 'Toggle navigation menu', 'planet4-master-theme' ) }}"
@@ -174,5 +174,5 @@
 	</div>
 	{% endif %}
 	{% include 'country_selector_banner.twig' ignore missing %}
-</section>
+</header>
 {% include 'burger-menu.twig' %}
