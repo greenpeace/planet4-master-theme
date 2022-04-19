@@ -35,6 +35,13 @@ h6 {
   &.has-text-align-left {
     width: 100%;
   }
+
+  a,
+  a:hover,
+  a:active,
+  a:visited {
+    color: inherit;
+  }
 }
 
 h1 {
