@@ -77,10 +77,6 @@
     color: $grey-80;
   }
 
-  a {
-    color: inherit;
-  }
-
   @include mobile-only {
     display: -webkit-box;
     -webkit-line-clamp: 2;
