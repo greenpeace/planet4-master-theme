@@ -23,7 +23,6 @@
 
 // Other
 @import "blocks/WideBlocks";
-@import "blocks/Editor";
 
 .is-style-small-padding {
   padding: 8px;
@@ -58,3 +57,6 @@
 .is-style-roboto-font-family {
   font-family: $roboto;
 }
+
+// Variations
+@import "../variations/stretched-link";

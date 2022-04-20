@@ -15,6 +15,7 @@
 @import "blocks/TakeActionBoxout/edit";
 @import "blocks/CookiesEditor";
 @import "blocks/core-overrides/HeadingEditor";
+@import "../variations/stretched-link/edit";
 
 @import "components/LayoutSelector";
 @import "components/EmptyMessage";
@@ -27,3 +28,8 @@
 @import "components/FormField";
 @import "components/HTMLSidebarHelp";
 @import "editorFonts";
+
+.block-edit-mode-warning {
+  padding: $sp-2;
+  margin: 0;
+}
