@@ -1,9 +1,11 @@
+$transition-duration: .2s;
+
 @mixin slide-from-start() {
   &:not(.open) {
-    transition: transform 0.2s ease-in, visibility;
-    transition-delay: 0s, 0.2s;
+    transition: transform $transition-duration ease-in, opacity;
+    transition-delay: 0s, $transition-duration;
     transform: translateX(-100%);
-    visibility: hidden;
+    opacity: 0;
 
     html[dir="rtl"] & {
       transform: translateX(100%);
@@ -11,7 +13,7 @@
   }
 
   &.open {
-    transition: transform 0.2s ease-out;
+    transition: transform $transition-duration ease-out;
   }
 }
 
@@ -34,10 +36,6 @@
   height: 100%;
 
   @include slide-from-start;
-
-  &.open ~ .burger-menu-overlay {
-    display: block;
-  }
 
   ul {
     padding: 0;
@@ -238,12 +236,22 @@
     background: $black;
   }
 
-  display: none;
-  opacity: 0.5;
+  transition: opacity $transition-duration ease-in, z-index;
+
+  .burger-menu.open ~ & {
+    z-index: 99;
+    opacity: 0.5;
+  }
+
+  .burger-menu:not(.open) ~ & {
+    z-index: -1;
+    opacity: 0;
+    transition: z-index $transition-duration step-end, opacity $transition-duration linear;
+  }
+
   height: 100%;
   pointer-events: all;
   position: fixed;
   top: 0;
   width: 100vw;
-  z-index: 99;
 }
