@@ -160,8 +160,16 @@ const setMobileTabsMenuScroll = () => {
    * Update reference point and reference direction only on state change
    */
   const toggleMobileTabsMenu = () => {
-    const {dir, ref} = scrollData();
+    const {dir, pos, ref} = scrollData();
     if (!dir || dir === lastScrollDir) {
+      return;
+    }
+
+    // Keep open, avoid glitches when scrolling up at max top
+    if (pos < distToOpen) {
+      lastScrollDir = 'up';
+      lastScrollRef = lastScrollTop;
+      menu.classList.remove('mobile-menu-hidden');
       return;
     }
 
