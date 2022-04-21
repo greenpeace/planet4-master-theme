@@ -120,11 +120,22 @@ const setMobileTabsMenuScroll = () => {
     return;
   }
 
-  const distToClose = 50;
+  const distToClose = 100;
   const distToOpen = 50;
   let lastScrollDir = null;
   let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
   let lastScrollRef = lastScrollTop;
+
+  // Check support for eventlistener opts (passive option)
+  // Cf. https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
+  let supportsPassive = false;
+  try {
+    const opts = Object.defineProperty({}, 'passive', {
+      get: function() { supportsPassive = true; } // eslint-disable-line getter-return
+    });
+    window.addEventListener('testPassive', null, opts);
+    window.removeEventListener('testPassive', null, opts);
+  } catch (e) {} // eslint-disable-line no-empty
 
   /**
    * Get scroll direction, distance from the lastScrollTop, and distance from a reference point
@@ -172,7 +183,11 @@ const setMobileTabsMenuScroll = () => {
   };
 
   ['touchmove', 'scroll'].forEach((eventName) => {
-    document.addEventListener(eventName, toggleMobileTabsMenu);
+    document.addEventListener(
+      eventName,
+      toggleMobileTabsMenu,
+      supportsPassive ? {passive: true} : false
+    );
   });
 };
 
