@@ -50,7 +50,7 @@ $min-height: 40px;
   }
 }
 
-.with-mobile-tabs + .page-content {
+.with-mobile-tabs ~ :not(.page-header) + .page-content {
   @include medium-and-less {
     padding-top: calc(#{$menu-height-small} + 50px);
   }
