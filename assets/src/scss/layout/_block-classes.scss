@@ -24,27 +24,32 @@
   }
 }
 
-.wp-block-post-terms {
-  font-weight: 500;
-}
-
-.taxonomy-post_tag a {
-  display: inline-block;
-
-  &:before {
-    content: "#";
-    speak: none;
+// For now only apply on tag pages.
+// Will adjust the selector once there are more types of listing pages.
+// Or perhaps this can be converted to block styles.
+body.tag {
+  .wp-block-post-terms {
+    font-weight: 500;
   }
-}
 
-.wp-block-post {
-  margin-bottom: 32px;
+  .taxonomy-post_tag a {
+    display: inline-block;
 
-  figure {
-    margin-bottom: 0;
+    &:before {
+      content: "#";
+      speak: none;
+    }
   }
-}
 
-.wp-block-post-excerpt__excerpt {
-  font-size: 1rem;
+  .wp-block-post {
+    margin-bottom: 32px;
+
+    figure {
+      margin-bottom: 0;
+    }
+  }
+
+  .wp-block-post-excerpt__excerpt {
+    font-size: 1rem;
+  }
 }
