@@ -224,10 +224,11 @@ class BlockUsageTable extends WP_List_Table {
 			$context = new \WP_Block_Editor_Context(
 				[ 'post' => (object) [ 'post_type' => $type ] ]
 			);
-			$allowed = array_merge(
-				$allowed,
-				array_values( get_allowed_block_types( $context ) )
-			);
+			$on_type = get_allowed_block_types( $context );
+			if ( ! is_array( $on_type ) ) {
+				$on_type = $on_type ? $this->blocks_registered : [];
+			}
+			$allowed = array_merge( $allowed, array_values( $on_type ) );
 		}
 
 		$allowed = array_unique( $allowed );
