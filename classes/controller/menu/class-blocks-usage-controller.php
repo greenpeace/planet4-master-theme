@@ -433,6 +433,8 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				'shortcode',
 				'group',
 				'media-text',
+				'query',
+				'query-pagination',
 			];
 
 			return array_merge( $p4_block_types, $core_block_types );
