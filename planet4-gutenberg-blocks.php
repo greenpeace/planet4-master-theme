@@ -432,11 +432,6 @@ $breakpoints = [
 		'screen' => 600,
 		'width'  => '540px',
 	],
-	[
-		'screen'   => 576,
-		'width'    => '540px',
-		'collapse' => true,
-	],
 ];
 
 add_filter(
@@ -450,16 +445,16 @@ add_filter(
 
 			$sizes = array_map(
 				function ( $breakpoint ) use ( $column_count ) {
-					$screen       = $breakpoint['screen'];
-					$container    = $breakpoint['width'];
-					$column_count = isset( $breakpoint['collapse'] ) ? 1 : $column_count;
+					$screen    = $breakpoint['screen'];
+					$container = $breakpoint['width'];
+					$cols_minus_one = $column_count - 1;
 
-					return "(min-width: ${screen}px) calc(($container / $column_count) - 1.25em * ($column_count - 1))";
+					return "(min-width: ${screen}px) calc($container / $column_count - 1.25em * $cols_minus_one)";
 				},
 				$breakpoints
 			);
 
-			$sizes_attr = 'sizes="' . implode( ', ', $sizes ) . ', calc(100vw - 24px)"';
+			$sizes_attr = 'sizes="' . implode( ', ', array_merge($sizes, ['calc(100vw - 24px)']) ) . '"';
 
 			// Assume all images are full width in a container.
 			$block_content = preg_replace( '/sizes=".*"/', $sizes_attr, $block_content );
