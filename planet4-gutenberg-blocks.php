@@ -465,6 +465,25 @@ add_filter(
 			$block_content = preg_replace( '/sizes=".*"/', $sizes_attr, $block_content );
 		}
 
+		if ( 'core/media-text' === $block['blockName'] && $instance->attributes['mediaId'] ) {
+			$media_id = $instance->attributes['mediaId'];
+			$width    = $instance->attributes['mediaWidth'] ?? 50;
+
+			$srcset = wp_get_attachment_image_srcset( $media_id, 'full' );
+
+			$stack_mobile = ! $instance->attributes['isStackedOnMobile'] ? '' : '(max-width: 600px) 100vw, ';
+
+			$sizes_attr = "sizes=\"{$stack_mobile}{$width}vw\"";
+
+			$image_class_start = "class=\"wp-image-$media_id ";
+
+			$block_content = str_replace(
+				$image_class_start,
+				"$sizes_attr srcset=\"$srcset\" $image_class_start",
+				$block_content
+			);
+		}
+
 		return $block_content;
 	},
 	10,
