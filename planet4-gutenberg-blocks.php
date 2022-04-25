@@ -459,7 +459,7 @@ add_filter(
 				$breakpoints
 			);
 
-			$sizes_attr = 'sizes="' . implode( ', ', $sizes ) . ', 100vw"';
+			$sizes_attr = 'sizes="' . implode( ', ', $sizes ) . ', calc(100vw - 24px)"';
 
 			// Assume all images are full width in a container.
 			$block_content = preg_replace( '/sizes=".*"/', $sizes_attr, $block_content );
