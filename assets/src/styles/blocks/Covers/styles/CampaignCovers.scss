@@ -79,6 +79,10 @@
       @include x-large-and-up {
         min-width: 356px;
       }
+
+      @include xx-large-and-up {
+        min-width: 416px;
+      }
     }
 
     .carousel-control-prev,

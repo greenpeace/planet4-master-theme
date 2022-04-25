@@ -26,6 +26,11 @@
         width: 261px;
         min-width: 261px;
       }
+
+      @include xx-large-and-up {
+        width: 306px;
+        min-width: 306px;
+      }
     }
 
     .carousel-control-prev,
