@@ -454,7 +454,7 @@ add_filter(
 					$container    = $breakpoint['width'];
 					$column_count = isset( $breakpoint['collapse'] ) ? 1 : $column_count;
 
-					return "(min-width: ${screen}px) calc(($container / $column_count) - 1.25em * ($column_count - 1)";
+					return "(min-width: ${screen}px) calc(($container / $column_count) - 1.25em * ($column_count - 1))";
 				},
 				$breakpoints
 			);
