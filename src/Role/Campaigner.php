@@ -1,6 +1,8 @@
 <?php
 
-namespace P4\MasterTheme;
+namespace P4\MasterTheme\Role;
+
+use P4\MasterTheme\Capability;
 
 /**
  * Register custom 'campaigner' role and adds custom capabilities.

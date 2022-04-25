@@ -26,7 +26,8 @@ class Activator {
 	 * Run activation functions.
 	 */
 	public static function run(): void {
-		Campaigner::register_role_and_add_capabilities();
+		Role\Campaigner::register_role_and_add_capabilities();
+		Role\Reviewer::register_role();
 		Migrator::migrate();
 	}
 
