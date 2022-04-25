@@ -410,3 +410,63 @@ $remove_rtl_fix = function (): void {
 };
 $remove_rtl_fix();
 add_action( 'wpml_after_startup', $remove_rtl_fix, 10, 0 );
+
+$breakpoints = [
+	[
+		'screen' => 1600,
+		'width'  => '1320px',
+	],
+	[
+		'screen' => 1200,
+		'width'  => '1140px',
+	],
+	[
+		'screen' => 992,
+		'width'  => '960px',
+	],
+	[
+		'screen' => 768,
+		'width'  => '720px',
+	],
+	[
+		'screen' => 600,
+		'width'  => '540px',
+	],
+	[
+		'screen'   => 576,
+		'width'    => '540px',
+		'collapse' => true,
+	],
+];
+
+add_filter(
+	'render_block',
+	function ( $block_content, $block, WP_Block $instance ) use ( $breakpoints ) {
+		if ( 'core/query' === $block['blockName'] ) {
+			$column_count = $instance->attributes['displayLayout']['columns'] ?? null;
+			if ( ! $column_count || 1 === $column_count ) {
+				return $block_content;
+			}
+
+			$sizes = array_map(
+				function ( $breakpoint ) use ( $column_count ) {
+					$screen       = $breakpoint['screen'];
+					$container    = $breakpoint['width'];
+					$column_count = isset( $breakpoint['collapse'] ) ? 1 : $column_count;
+
+					return "(min-width: ${screen}px) calc(($container / $column_count) - 1.25em + (1.25em / $column_count))";
+				},
+				$breakpoints
+			);
+
+			$sizes_attr = 'sizes="' . implode( ', ', $sizes ) . ', 100vw"';
+
+			// Assume all images are full width in a container.
+			$block_content = preg_replace( '/sizes=".*"/', $sizes_attr, $block_content );
+		}
+
+		return $block_content;
+	},
+	10,
+	3
+);
