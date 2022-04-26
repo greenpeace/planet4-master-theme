@@ -7,6 +7,7 @@ namespace P4\MasterTheme\Settings;
 use P4\MasterTheme\Features\ActionPostType;
 use P4\MasterTheme\Features\MobileTabsMenu;
 use P4\MasterTheme\Features\DropdownMenu;
+use P4\MasterTheme\Features\PostPageCategoryLinks;
 use P4\MasterTheme\Loader;
 
 /**
@@ -48,6 +49,7 @@ class InformationArchitecture {
 			MobileTabsMenu::get_cmb_field(),
 			ActionPostType::get_cmb_field(),
 			DropdownMenu::get_cmb_field(),
+			PostPageCategoryLinks::get_cmb_field(),
 		];
 	}
 
