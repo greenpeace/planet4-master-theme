@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-04-26 13:05+0000\n"
+"PO-Revision-Date: 2022-04-26 13:08+0000\n"
 "Last-Translator: Julia Mente <jmarubay@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
@@ -212,7 +212,7 @@ msgstr "Filtros"
 
 #: templates/footer_social_media.twig:2
 msgid "Follow us"
-msgstr ""
+msgstr "Siga-nos nas redes sociais"
 
 #. Author of the theme
 msgid "Greenpeace International"
@@ -392,7 +392,7 @@ msgstr ""
 
 #: templates/blocks/author_profile.twig:44
 msgid "Show more"
-msgstr ""
+msgstr "Mostrar mais"
 
 #. Name of the template
 msgid "Sitemap Page"
