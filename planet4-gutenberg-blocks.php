@@ -429,7 +429,11 @@ $breakpoints = [
 		'width'  => '720px',
 	],
 	[
-		'screen' => 600,
+		'screen' => 601,
+		'width'  => '540px',
+	],
+	[
+		'screen' => 577,
 		'width'  => '540px',
 	],
 ];
@@ -445,8 +449,8 @@ add_filter(
 
 			$sizes = array_map(
 				function ( $breakpoint ) use ( $column_count ) {
-					$screen    = $breakpoint['screen'];
-					$container = $breakpoint['width'];
+					$screen         = $breakpoint['screen'];
+					$container      = $breakpoint['width'];
 					$cols_minus_one = $column_count - 1;
 
 					return "(min-width: ${screen}px) calc($container / $column_count - 1.25em * $cols_minus_one)";
@@ -454,21 +458,44 @@ add_filter(
 				$breakpoints
 			);
 
-			$sizes_attr = 'sizes="' . implode( ', ', array_merge($sizes, ['calc(100vw - 24px)']) ) . '"';
+			$sizes_attr = 'sizes="' . implode( ', ', array_merge( $sizes, [ 'calc(100vw - 24px)' ] ) ) . '"';
 
 			// Assume all images are full width in a container.
 			$block_content = preg_replace( '/sizes=".*"/', $sizes_attr, $block_content );
 		}
 
 		if ( 'core/media-text' === $block['blockName'] && $instance->attributes['mediaId'] ) {
-			$media_id = $instance->attributes['mediaId'];
-			$width    = $instance->attributes['mediaWidth'] ?? 50;
+			$media_id    = $instance->attributes['mediaId'];
+			$media_width = $instance->attributes['mediaWidth'] ?? 50;
 
 			$srcset = wp_get_attachment_image_srcset( $media_id, 'full' );
 
-			$stack_mobile = ! $instance->attributes['isStackedOnMobile'] ? '' : '(max-width: 600px) 100vw, ';
+			if ( 'full' === $instance->attributes['align'] ) {
+				$sizes = ! $instance->attributes['isStackedOnMobile'] ? "${media_width}vw"
+					: "(min-width: 601px) {$media_width}vw, 100vw";
 
-			$sizes_attr = "sizes=\"{$stack_mobile}{$width}vw\"";
+				$sizes_attr = "sizes=\"{$sizes}\"";
+			} else {
+				$default = ! $instance->attributes['isStackedOnMobile'] ? "calc((100vw - 24px) * $media_width / 100)"
+					: 'calc(100vw - 24px)';
+				$sizes   = implode(
+					',',
+					array_map(
+						function ( $breakpoint ) use ( $instance, $media_width ) {
+							$screen       = $breakpoint['screen'];
+							$container    = $breakpoint['width'];
+							$should_stack = $screen < 600 && $instance->attributes['isStackedOnMobile'];
+							$fraction     = $should_stack ? 1 : round( 100 / $media_width, 4 );
+
+							// Currently, we need to subtract 24px for Bootstrap container.
+							return "(min-width: ${screen}px) calc(($container - 24px) / $fraction)";
+						},
+						$breakpoints
+					)
+				);
+
+				$sizes_attr = "sizes=\"{$sizes}, {$default}\"";
+			}
 
 			$image_class_start = "class=\"wp-image-$media_id ";
 
