@@ -20,6 +20,7 @@ use P4\MasterTheme\Features\Dev\ListingPagePagination;
 use P4\MasterTheme\Features\NewDesignCountrySelector;
 use P4\MasterTheme\Features\NewDesignNavigationBar;
 use P4\MasterTheme\Features\PurgeOnFeatureChanges;
+use P4\MasterTheme\Features\PostPageCategoryLinks;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Settings;
 

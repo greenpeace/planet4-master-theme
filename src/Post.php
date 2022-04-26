@@ -2,6 +2,7 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\Features\PostPageCategoryLinks;
 use Timber\Post as TimberPost;
 use Timber\Term as TimberTerm;
 use WP_Block;
@@ -177,6 +178,17 @@ class Post extends TimberPost {
 		$options         = get_option( 'planet4_options' );
 		$explore_page_id = $options['explore_page'] ?? '';
 		$categories      = get_the_category( $this->ID );
+
+		if ( PostPageCategoryLinks::is_active() ) {
+			$this->issues_nav_data = array_map(
+				fn( $category ) => [
+					'name' => $category->name,
+					'link' => get_term_link( $category ),
+				],
+				array_filter( $categories, fn( $category ) => 'uncategorised' !== $category->slug )
+			);
+			return;
+		}
 
 		// Handle navigation links.
 		if ( $categories ) {
