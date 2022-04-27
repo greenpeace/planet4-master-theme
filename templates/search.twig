@@ -228,6 +228,7 @@
 									<div id="item-issue" class="collapse show" role="tabpanel">
 										<ul class="list-unstyled">
 											{% for category in categories %}
+												{% if ( category.results > 0 ) %}
 												<li>
 													<label class="custom-control">
 														<input
@@ -242,6 +243,7 @@
 														<span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} ({{ category.results }})</span>
 													</label>
 												</li>
+												{% endif %}
 											{% endfor %}
 										</ul>
 									</div>
@@ -255,6 +257,7 @@
 									<div id="item-campaign" class="collapse {{ show }}" role="tabpanel">
 										<ul class="list-unstyled">
 											{% for tag in tags %}
+												{% if ( tag.results > 0 ) %}
 												<li>
 													<label class="custom-control">
 														<input
@@ -268,6 +271,7 @@
 														<span class="custom-control-description">{{ tag.name|e('wp_kses_post')|raw }} ({{ tag.results }})</span>
 													</label>
 												</li>
+												{% endif %}
 											{% endfor %}
 										</ul>
 									</div>
@@ -308,6 +312,7 @@
 									<div id="item-content" class="collapse {{ show }}" role="tabpanel">
 										<ul class="list-unstyled">
 											{% for id, content_type in content_types %}
+												{% if ( content_type.results > 0 ) %}
 												<li>
 													<label class="custom-control">
 														<input
@@ -322,6 +327,7 @@
 														<span class="custom-control-description">{{ content_type.name }} ({{ content_type.results }})</span>
 													</label>
 												</li>
+												{% endif %}
 											{% endfor %}
 										</ul>
 									</div>
