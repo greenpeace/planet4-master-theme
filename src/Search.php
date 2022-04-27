@@ -9,7 +9,7 @@ use Timber\Timber;
 use UnexpectedValueException;
 use WP_Query;
 use WPML_Post_Element;
-
+use P4\MasterTheme\Features\ActionPostType;
 
 /**
  * Abstract Class Search
@@ -613,6 +613,15 @@ abstract class Search {
 								'terms'    => $filter['id'],
 							];
 							break;
+						case 'atype':
+							// This taxonomy is used only for Posts.
+							$args['post_type']   = ActionPage::POST_TYPE;
+							$args['tax_query'][] = [
+								'taxonomy' => ActionPage::TAXONOMY,
+								'field'    => 'term_id',
+								'terms'    => $filter['id'],
+							];
+							break;
 						case 'ctype':
 							switch ( $filter['id'] ) {
 								case 0:
@@ -642,6 +651,10 @@ abstract class Search {
 									break;
 								case 5:
 									$args['post_type'] = 'archive';
+									break;
+								case 6:
+									$args['post_type']   = ActionPage::POST_TYPE;
+									$args['post_status'] = 'publish';
 									break;
 								default:
 									throw new UnexpectedValueException( 'Unexpected content type!' );
@@ -734,6 +747,11 @@ abstract class Search {
 		// Post Types.
 		$context['post_types'] = Search\Filters\PostTypes::get_filters();
 
+		// Action Types.
+		$context['action_types'] = ActionPostType::is_active()
+			? Search\Filters\ActionTypes::get_filters()
+			: [];
+
 		// Content Types.
 		$context['content_types'] = Search\Filters\ContentTypes::get_filters(
 			self::should_include_archive(),
@@ -756,10 +774,13 @@ abstract class Search {
 							$context['tags'][ $filter['id'] ]['checked'] = 'checked';
 							break;
 						case 'ptype':
-							$context['page_types'][ $filter['id'] ]['checked'] = 'checked';
+							$context['post_types'][ $filter['id'] ]['checked'] = 'checked';
 							break;
 						case 'ctype':
 							$context['content_types'][ $filter['id'] ]['checked'] = 'checked';
+							break;
+						case 'atype':
+							$context['action_types'][ $filter['id'] ]['checked'] = 'checked';
 							break;
 						default:
 							throw new UnexpectedValueException( 'Unexpected filter!' );
@@ -800,7 +821,7 @@ abstract class Search {
 
 			foreach ( $aggs['post_type']['buckets'] as $post_type_agg ) {
 				if ( 'page' === $post_type_agg['key'] ) {
-					// We show act pages as a separate item, so subtract there count from the other pages.
+					// We show act pages as a separate item, so subtract their count from the other pages.
 					// But counts can be off in ES so don't use lower than 0.
 					$context['content_types']['2']['results'] = max(
 						0,
@@ -819,6 +840,9 @@ abstract class Search {
 				if ( 'archive' === $post_type_agg['key'] && self::should_include_archive() ) {
 					$context['content_types']['5']['results'] = $post_type_agg['doc_count'];
 				}
+				if ( Search\Filters\ContentTypes::ACTION === $post_type_agg['key'] ) {
+					$context['content_types']['6']['results'] = $post_type_agg['doc_count'];
+				}
 			}
 
 			foreach ( $aggs['p4-page-type']['buckets'] as $p4_post_type_agg ) {
@@ -828,6 +852,11 @@ abstract class Search {
 				$context['post_types'][ $p4_post_type_agg['key'] ]['results'] = $p4_post_type_agg['doc_count'];
 			}
 
+			foreach ( $aggs[ ActionPage::TAXONOMY ]['buckets'] as $p4_action_type_agg ) {
+				if ( ! isset( $context['action_types'][ $p4_action_type_agg['key'] ] ) ) {
+					continue;
+				}
+				$context['action_types'][ $p4_action_type_agg['key'] ]['results'] = $p4_action_type_agg['doc_count'];
 			}
 
 			foreach ( $aggs['categories']['buckets'] as $category_agg ) {

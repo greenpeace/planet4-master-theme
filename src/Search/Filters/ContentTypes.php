@@ -13,6 +13,7 @@ class ContentTypes {
 	public const ACT_PAGE   = 'action';
 	public const POST       = 'post';
 	public const PAGE       = 'page';
+	public const ACTION     = 'p4_action';
 	public const CAMPAIGN   = 'campaign';
 	public const ATTACHMENT = 'attachment';
 	public const ARCHIVE    = 'archive';
@@ -66,6 +67,9 @@ class ContentTypes {
 			if ( self::ARCHIVE === $name && ! $include_archive ) {
 				continue;
 			}
+			if ( self::ACTION === $name && ! $include_action ) {
+				continue;
+			}
 
 			$type_data = $config[ $type->name ] ?? null;
 			if ( ! $type_data ) {
@@ -112,6 +116,10 @@ class ContentTypes {
 			self::ARCHIVE    => [
 				'id'    => 5,
 				'label' => __( 'Archive', 'planet4-master-theme' ),
+			],
+			self::ACTION     => [
+				'id'    => 6,
+				'label' => __( 'Action', 'planet4-master-theme' ),
 			],
 		];
 	}
