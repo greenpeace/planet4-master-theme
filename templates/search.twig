@@ -79,12 +79,12 @@
 													{% if ( categories|length > 0 ) %}
 														<div class="filteritem">
 															<a data-bs-toggle="collapse" href="#item-modal-issue" aria-expanded="true">
-																{{ __( 'ISSUE', 'planet4-master-theme' ) }} <span></span>
+																{{ __( 'Category', 'planet4-master-theme' ) }} <span></span>
 															</a>
 															<div id="item-modal-issue" class="collapse show" role="tabpanel">
 																<ul class="list-unstyled">
 																	{% for category in categories %}
-																		{% if ( category.results >= 0 ) %}
+																		{% if ( category.results > 0 ) %}
 																			<li>
 																				<label class="custom-control">
 																					<input
@@ -108,12 +108,12 @@
 													{% if ( page_types|length > 0 ) %}
 														<div class="filteritem">
 															<a data-bs-toggle="collapse" href="#item-modal-category" aria-expanded="true">
-																{{ __( 'CATEGORY', 'planet4-master-theme' ) }} <span></span>
+																{{ __( 'Post Type', 'planet4-master-theme' ) }} <span></span>
 															</a>
 															<div id="item-modal-category" class="collapse show" role="tabpanel">
 																<ul class="list-unstyled">
 																	{% for page_type in page_types %}
-																		{% if ( page_type.results >= 0 ) %}
+																		{% if ( page_type.results > 0 ) %}
 																			<li>
 																				<label class="custom-control">
 																					<input
@@ -137,12 +137,12 @@
 													{% if ( content_types|length > 0 ) %}
 														<div class="filteritem">
 															<a data-bs-toggle="collapse" href="#item-modal-content" aria-expanded="true">
-																{{ __( 'CONTENT TYPES', 'planet4-master-theme' ) }} <span></span>
+																{{ __( 'Content Type', 'planet4-master-theme' ) }} <span></span>
 															</a>
 															<div id="item-modal-content" class="collapse show" role="tabpanel">
 																<ul class="list-unstyled">
 																	{% for id, content_type in content_types %}
-																		{% if ( content_type.results >= 0 ) %}
+																		{% if ( content_type.results > 0 ) %}
 																			<li>
 																				<label class="custom-control">
 																					<input
@@ -169,11 +169,12 @@
 												{% if ( tags|length > 0 ) %}
 													<div class="filteritem">
 														<a data-bs-toggle="collapse" href="#item-modal-campaign" aria-expanded="true">
-															{{ __( 'CAMPAIGN', 'planet4-master-theme' ) }} <span></span>
+															{{ __( 'Campaign', 'planet4-master-theme' ) }} <span></span>
 														</a>
 														<div id="item-modal-campaign" class="collapse show" role="tabpanel">
 															<ul class="list-unstyled">
 																{% for tag in tags %}
+																	{% if ( tag.results > 0 ) %}
 																	<li>
 																		<label class="custom-control">
 																			<input
@@ -188,6 +189,7 @@
 																			<span class="custom-control-description">{{ tag.name|e('wp_kses_post')|raw }} ({{ tag.results }})</span>
 																		</label>
 																	</li>
+																	{% endif %}
 																{% endfor %}
 															</ul>
 														</div>
@@ -223,11 +225,12 @@
 							{% if ( categories|length > 0 ) %}
 								<div class="filteritem">
 									<a data-bs-toggle="collapse" href="#item-issue" aria-expanded="true">
-										{{ __( 'Issue', 'planet4-master-theme' ) }} <span></span>
+										{{ __( 'Category', 'planet4-master-theme' ) }} <span></span>
 									</a>
 									<div id="item-issue" class="collapse show" role="tabpanel">
 										<ul class="list-unstyled">
 											{% for category in categories %}
+												{% if ( category.results > 0 ) %}
 												<li>
 													<label class="custom-control">
 														<input
@@ -242,6 +245,7 @@
 														<span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} ({{ category.results }})</span>
 													</label>
 												</li>
+												{% endif %}
 											{% endfor %}
 										</ul>
 									</div>
@@ -255,6 +259,7 @@
 									<div id="item-campaign" class="collapse {{ show }}" role="tabpanel">
 										<ul class="list-unstyled">
 											{% for tag in tags %}
+												{% if ( tag.results > 0 ) %}
 												<li>
 													<label class="custom-control">
 														<input
@@ -268,6 +273,7 @@
 														<span class="custom-control-description">{{ tag.name|e('wp_kses_post')|raw }} ({{ tag.results }})</span>
 													</label>
 												</li>
+												{% endif %}
 											{% endfor %}
 										</ul>
 									</div>
@@ -276,7 +282,7 @@
 							{% if ( page_types|length > 0 ) %}
 								<div class="filteritem">
 									<a data-bs-toggle="collapse" href="#item-category" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
-										{{ __( 'Category', 'planet4-master-theme' ) }} <span></span>
+										{{ __( 'Post Type', 'planet4-master-theme' ) }} <span></span>
 									</a>
 									<div id="item-category" class="collapse {{ show }}" role="tabpanel">
 										<ul class="list-unstyled">
@@ -303,11 +309,12 @@
 							{% if ( content_types|length > 0 ) %}
 								<div class="filteritem">
 									<a data-bs-toggle="collapse" href="#item-content" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
-										{{ __( 'Content type', 'planet4-master-theme' ) }} <span></span>
+										{{ __( 'Content Type', 'planet4-master-theme' ) }} <span></span>
 									</a>
 									<div id="item-content" class="collapse {{ show }}" role="tabpanel">
 										<ul class="list-unstyled">
 											{% for id, content_type in content_types %}
+												{% if ( content_type.results > 0 ) %}
 												<li>
 													<label class="custom-control">
 														<input
@@ -322,6 +329,7 @@
 														<span class="custom-control-description">{{ content_type.name }} ({{ content_type.results }})</span>
 													</label>
 												</li>
+												{% endif %}
 											{% endfor %}
 										</ul>
 									</div>
