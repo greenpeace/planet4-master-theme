@@ -277,28 +277,30 @@
 									</div>
 								</div>
 							{% endif %}
-							{% if ( page_types|length > 0 ) %}
+							{% if ( post_types|length > 0 ) %}
 								<div class="filteritem">
 									<a data-bs-toggle="collapse" href="#item-category" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
 										{{ __( 'Post Type', 'planet4-master-theme' ) }} <span></span>
 									</a>
 									<div id="item-category" class="collapse {{ show }}" role="tabpanel">
 										<ul class="list-unstyled">
-											{% for page_type in page_types %}
+											{% for post_type in post_types %}
+												{% if ( post_type.results > 0 ) %}
 												<li>
 													<label class="custom-control">
 														<input
 															type="checkbox"
-															name="f[ptype][{{ page_type.name }}]"
-															value="{{ page_type.term_id }}"
+															name="f[ptype][{{ post_type.name }}]"
+															value="{{ post_type.term_id }}"
 															class="p4-custom-control-input"
 															data-ga-category="Search Page"
 															data-ga-action="Post Type Filter"
-															data-ga-label="{{ page_type.name|e('wp_kses_post')|raw }}"
-															{{ page_type.checked }} {{ page_type.results > 0 ? '' : 'disabled' }} />
-														<span class="custom-control-description">{{ page_type.name|e('wp_kses_post')|raw }} ({{ page_type.results }})</span>
+															data-ga-label="{{ post_type.name|e('wp_kses_post')|raw }}"
+															{{ post_type.checked }} {{ post_type.results > 0 ? '' : 'disabled' }} />
+														<span class="custom-control-description">{{ post_type.name|e('wp_kses_post')|raw }} ({{ post_type.results }})</span>
 													</label>
 												</li>
+												{% endif %}
 											{% endfor %}
 										</ul>
 									</div>
