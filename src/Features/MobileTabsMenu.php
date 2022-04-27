@@ -21,7 +21,7 @@ class MobileTabsMenu extends Feature {
 	 * @inheritDoc
 	 */
 	protected static function name(): string {
-		return __( 'Enable mobile tabs menu', 'planet4-master-theme-backend' );
+		return __( 'Mobile tabs menu', 'planet4-master-theme-backend' );
 	}
 
 	/**

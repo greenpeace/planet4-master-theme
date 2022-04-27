@@ -31,7 +31,7 @@ class ImageArchive extends Feature {
 	 */
 	protected static function description(): string {
 		return __(
-			'Beta test the new Image Archive. This will replace the GPI Media Library plugin.',
+			'Drop-in replacement for the GPI Media Library plugin. If enabled, the plugin can be disabled.',
 			'planet4-master-theme-backend'
 		);
 	}

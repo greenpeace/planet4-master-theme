@@ -20,7 +20,7 @@ class GoogleSheetReplacesSmartsheet extends Feature {
 	 * @inheritDoc
 	 */
 	protected static function name(): string {
-		return __( 'Google Sheets replaces Smartsheet', 'planet4-master-theme-backend' );
+		return __( 'Google Sheets instead of Smartsheet', 'planet4-master-theme-backend' );
 	}
 
 	/**
@@ -28,7 +28,7 @@ class GoogleSheetReplacesSmartsheet extends Feature {
 	 */
 	protected static function description(): string {
 		return __(
-			'Toggle whether to use Google Sheets to fetch the list of analytics options.',
+			'Use Google Sheets to fetch the <a href="https://jira.greenpeace.org/browse/PLANET-6452" target="_blank">local</a> and <a href="https://jira.greenpeace.org/browse/PLANET-6451" target="_blank">global</a> projects.',
 			'planet4-master-theme-backend'
 		);
 	}

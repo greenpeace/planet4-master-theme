@@ -22,7 +22,7 @@ class PostPageCategoryLinks extends Feature {
 	 * @inheritDoc
 	 */
 	protected static function name(): string {
-		return __( 'Post Page Category Links', 'planet4-master-theme-backend' );
+		return __( 'Category links on Posts', 'planet4-master-theme-backend' );
 	}
 
 	/**
@@ -30,7 +30,7 @@ class PostPageCategoryLinks extends Feature {
 	 */
 	protected static function description(): string {
 		return __(
-			'On post pages, link to the categories, instead of a page that has the same category ("issue pages").',
+			'On Posts, link to the catagories, instead of issue pages. (<a href="https://jira.greenpeace.org/browse/PLANET-6747" target="_blank">details</a>)',
 			'planet4-master-theme-backend'
 		);
 	}

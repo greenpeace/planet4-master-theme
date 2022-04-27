@@ -28,7 +28,7 @@ class EngagingNetworks extends Feature {
 	 */
 	protected static function description(): string {
 		return __(
-			'Enable the Engaging Networks integration.<br>If turned on you will be able to use the EN Form block, as well as the "Progress Bar inside EN Form" Counter block style.',
+			'Activate the EN Form block, as well as the "Progress Bar inside EN Form" Counter block style.',
 			'planet4-master-theme-backend'
 		);
 	}

@@ -21,7 +21,7 @@ class DropdownMenu extends Feature {
 	 * @inheritDoc
 	 */
 	protected static function name(): string {
-		return __( 'Enable dropdown menu', 'planet4-master-theme-backend' );
+		return __( 'Dropdown navigation menus', 'planet4-master-theme-backend' );
 	}
 
 	/**
@@ -29,7 +29,7 @@ class DropdownMenu extends Feature {
 	 */
 	protected static function description(): string {
 		return __(
-			'Display subitems through a list.',
+			'Display menu subitems on <a href="https://p4-designsystem.greenpeace.org/05f6e9516/p/106cdb-navigation-bar" target="_blank">top navigation bar</a>.',
 			'planet4-master-theme-backend'
 		);
 	}

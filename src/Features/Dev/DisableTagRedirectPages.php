@@ -27,7 +27,7 @@ class DisableTagRedirectPages extends Feature {
 	 */
 	protected static function description(): string {
 		return __(
-			'Prevent redirect mechanism so that the original auto generated content is always shown. Prevents having to disable many pages to see the auto generated page.',
+			'Use default auto-generated tag listing page.',
 			'planet4-master-theme-backend'
 		);
 	}
