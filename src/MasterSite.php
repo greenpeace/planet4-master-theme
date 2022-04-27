@@ -318,7 +318,12 @@ class MasterSite extends TimberSite {
 			return;
 		}
 
-		\Sentry\captureMessage( 'Large cookies detected' );
+		\Sentry\withScope(
+			function ( \Sentry\State\Scope $scope ): void {
+				$scope->setContext( 'cookie_content', [ 'content' => $_SERVER['HTTP_COOKIE'] ] );
+				\Sentry\captureMessage( 'Large cookies detected' );
+			}
+		);
 	}
 
 	/**
