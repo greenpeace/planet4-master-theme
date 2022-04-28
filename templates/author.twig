@@ -21,32 +21,36 @@
 		<div class="wp-block-separator is-style-wide"></div>
 		<h2>{{ __( 'Posts by ', 'planet4-master-theme' ) }} {{ author.name }}</h2>
 
-		<div class="row">
-			<div class="col-lg-8 multiple-search-result">
-				<ul class="list-unstyled">
-					{% for post in posts %}
-						{% include 'tease-author.twig' %}
-					{% endfor %}
-				</ul>
-			</div>
-		</div>
-
-		{% if posts.pagination.total > 1 %}
+		{% if query_loop %}
+			{{ query_loop|raw }}
+		{% else %}
 			<div class="row">
-				<div class="col-md-12 col-lg-5 col-xl-5 mt-3">
-					<button
-						data-content=".multiple-search-result .list-unstyled"
-						data-page="1"
-						data-total="{{ posts.pagination.total }}"
-						data-url="{{ author.path }}"
-						class="load-more-mt btn btn-small btn-secondary mb-5"
-						data-ga-category="Articles List"
-						data-ga-action="Load More Button"
-						data-ga-label="n/a">
-							{{ __( 'Load More', 'planet4-master-theme' ) }}
-					</button>
+				<div class="col-lg-8 multiple-search-result">
+					<ul class="list-unstyled">
+						{% for post in posts %}
+							{% include 'tease-author.twig' %}
+						{% endfor %}
+					</ul>
 				</div>
 			</div>
+
+			{% if posts.pagination.total > 1 %}
+				<div class="row">
+					<div class="col-md-12 col-lg-5 col-xl-5 mt-3">
+						<button
+								data-content=".multiple-search-result .list-unstyled"
+								data-page="1"
+								data-total="{{ posts.pagination.total }}"
+								data-url="{{ author.path }}"
+								class="load-more-mt btn btn-small btn-secondary mb-5"
+								data-ga-category="Articles List"
+								data-ga-action="Load More Button"
+								data-ga-label="n/a">
+							{{ __( 'Load More', 'planet4-master-theme' ) }}
+						</button>
+					</div>
+				</div>
+			{% endif %}
 		{% endif %}
 	</div>
 {% endblock %}

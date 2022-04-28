@@ -65,6 +65,6 @@ class InformationArchitecture {
 	public static function is_active( string $name ): bool {
 		$options = get_option( self::OPTIONS_KEY );
 
-		return isset( $options[ $name ] ) ? 'on' === $options[ $name ] : false;
+		return 'on' === ( $options[ $name ] ?? null );
 	}
 }

@@ -9,6 +9,8 @@
  * @since    Timber 0.1
  */
 
+use P4\MasterTheme\Features\Dev\ListingPageGridView;
+use P4\MasterTheme\Features\ListingPages\AuthorPagePagination;
 use P4\MasterTheme\User;
 use P4\MasterTheme\Post;
 use Timber\Timber;
@@ -47,6 +49,17 @@ if ( isset( $wp_query->query_vars['author'] ) ) {
 	$author_share_buttons->description = get_the_author_meta( 'description', $author->ID );
 	$author_share_buttons->link        = $author->link;
 	$context['author_share_buttons']   = $author_share_buttons;
+}
+if ( AuthorPagePagination::is_active() ) {
+	$view = ListingPageGridView::is_active() ? 'grid' : 'list';
+
+	$query_template = file_get_contents( get_template_directory() . "/parts/query-$view.html" );
+
+	$content = do_blocks( $query_template );
+
+	$context['query_loop'] = $content;
+	Timber::render( [ 'author.twig', 'archive.twig' ], $context );
+	exit();
 }
 
 if ( get_query_var( 'page' ) ) {
