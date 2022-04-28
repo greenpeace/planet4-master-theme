@@ -91,6 +91,10 @@ class Covers extends Base_Block {
 						$attributes['cover_type'] = self::OLD_COVER_TYPES[ $old_cover_type ];
 					}
 
+					if ( empty( $attributes['readMoreText'] ) ) {
+						$attributes['readMoreText'] = __( 'Load more', 'planet4-blocks' );
+					}
+
 					$attributes['covers'] = self::get_covers( $attributes );
 
 					$json = wp_json_encode( [ 'attributes' => $attributes ] );
@@ -143,6 +147,9 @@ class Covers extends Base_Block {
 					'layout'           => [
 						'type'    => 'string',
 						'default' => self::GRID_LAYOUT,
+					],
+					'readMoreText'     => [
+						'type' => 'string',
 					],
 				],
 			]

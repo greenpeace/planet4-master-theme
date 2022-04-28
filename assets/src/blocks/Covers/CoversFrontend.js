@@ -6,7 +6,7 @@ import { CoversCarouselControls } from './CoversCarouselControls';
 import { CoversGridLoadMoreButton } from './CoversGridLoadMoreButton';
 
 export const CoversFrontend = attributes => {
-  const { initialRowsLimit, cover_type, title, description, covers, className, layout } = attributes;
+  const { initialRowsLimit, cover_type, title, description, covers, className, layout, readMoreText } = attributes;
   const coversContainerRef = useRef(null);
 
   const {
@@ -87,7 +87,7 @@ export const CoversFrontend = attributes => {
             totalAmountOfCovers={covers.length}
           />
         }
-        {showLoadMoreButton && <CoversGridLoadMoreButton showMoreCovers={showMoreCovers} />}
+        {showLoadMoreButton && <CoversGridLoadMoreButton showMoreCovers={showMoreCovers} readMoreText={readMoreText} />}
       </div>
     </section>
   );

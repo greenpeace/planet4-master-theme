@@ -20,7 +20,7 @@ const { RichText } = wp.blockEditor;
 const { __ } = wp.i18n;
 
 const renderEdit = (attributes, toAttribute, setAttributes) => {
-  const { initialRowsLimit, posts, tags, cover_type, post_types, layout } = attributes;
+  const { initialRowsLimit, posts, tags, cover_type, post_types, layout, readMoreText } = attributes;
 
   const rowLimitOptions = [
     { label: __('1 Row', 'planet4-blocks-backend'), value: 1 },
@@ -105,9 +105,9 @@ const renderView = (attributes, toAttribute) => {
     className,
     layout,
     isExample,
-    exampleCovers
+    exampleCovers,
+    readMoreText,
   } = attributes;
-
   const { covers, loading, row, amountOfCoversPerRow } = useCovers(attributes);
 
   const isCarouselLayout = layout === COVERS_LAYOUTS.carousel;
@@ -122,6 +122,7 @@ const renderView = (attributes, toAttribute) => {
     isCarouselLayout,
     amountOfCoversPerRow,
     isExample,
+    readMoreText,
   };
 
   const showLoadMoreButton = !isCarouselLayout && !!initialRowsLimit && covers.length > (amountOfCoversPerRow * row);
@@ -166,7 +167,7 @@ const renderView = (attributes, toAttribute) => {
               totalAmountOfCovers={covers.length}
             />
           }
-          {showLoadMoreButton && <CoversGridLoadMoreButton showMoreCovers={() => {}} />}
+          {showLoadMoreButton && <CoversGridLoadMoreButton showMoreCovers={() => {}} readMoreText={readMoreText} />}
         </div>
       }
     </section>
