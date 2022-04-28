@@ -10,6 +10,8 @@
  * @subpackage  Timber
  */
 
+use P4\MasterTheme\Features\Dev\ListingPageGridView;
+use P4\MasterTheme\Features\ListingPages\PostTypePagePagination;
 use P4\MasterTheme\Post;
 use Timber\Timber;
 
@@ -18,6 +20,18 @@ $templates = [ 'taxonomy.twig', 'index.twig' ];
 $context             = Timber::get_context();
 $context['taxonomy'] = get_queried_object();
 $context['wp_title'] = $context['taxonomy']->name;
+
+if ( PostTypePagePagination::is_active() ) {
+	$view = ListingPageGridView::is_active() ? 'grid' : 'list';
+
+	$query_template = file_get_contents( get_template_directory() . "/parts/query-$view.html" );
+
+	$content = do_blocks( $query_template );
+
+	$context['query_loop'] = $content;
+	Timber::render( $templates, $context );
+	exit();
+}
 
 $post_args = [
 	'posts_per_page' => 10,

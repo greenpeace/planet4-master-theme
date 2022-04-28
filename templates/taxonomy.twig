@@ -14,35 +14,40 @@
 		</div>
 	</header>
 
+
 	<div class="page-content container">
-		<h3>{{ __( 'Results', 'planet4-master-theme' ) }}</h3>
+		{% if query_loop %}
+			{{ query_loop|raw }}
+		{% else %}
+			<h3>{{ __( 'Results', 'planet4-master-theme' ) }}</h3>
 
-		<div class="row">
-			<div class="col-lg-8 multiple-search-result">
-				<ul class="list-unstyled">
-					{% for post in posts %}
-						{% include 'tease-taxonomy-post.twig' %}
-					{% endfor %}
-				</ul>
-			</div>
-		</div>
-
-		{% if posts.pagination.total > 1 %}
 			<div class="row">
-				<div class="col-md-12 col-lg-5 col-xl-5 mt-3">
-					<button
-						data-content=".multiple-search-result .list-unstyled"
-						data-page="1"
-						data-total="{{ posts.pagination.total }}"
-						data-url="{{ fn('get_term_link', taxonomy.term_id ) }}"
-						class="load-more-mt btn btn-small btn-secondary mb-5"
-						data-ga-category="Articles List"
-						data-ga-action="Load More Button"
-						data-ga-label="n/a">
-							{{ __( 'Load More', 'planet4-master-theme' ) }}
-					</button>
+				<div class="col-lg-8 multiple-search-result">
+					<ul class="list-unstyled">
+						{% for post in posts %}
+							{% include 'tease-taxonomy-post.twig' %}
+						{% endfor %}
+					</ul>
 				</div>
 			</div>
+
+			{% if posts.pagination.total > 1 %}
+				<div class="row">
+					<div class="col-md-12 col-lg-5 col-xl-5 mt-3">
+						<button
+								data-content=".multiple-search-result .list-unstyled"
+								data-page="1"
+								data-total="{{ posts.pagination.total }}"
+								data-url="{{ fn('get_term_link', taxonomy.term_id ) }}"
+								class="load-more-mt btn btn-small btn-secondary mb-5"
+								data-ga-category="Articles List"
+								data-ga-action="Load More Button"
+								data-ga-label="n/a">
+							{{ __( 'Load More', 'planet4-master-theme' ) }}
+						</button>
+					</div>
+				</div>
+			{% endif %}
 		{% endif %}
 	</div>
 {% endblock %}
