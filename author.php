@@ -50,7 +50,14 @@ if ( isset( $wp_query->query_vars['author'] ) ) {
 	$author_share_buttons->link        = $author->link;
 	$context['author_share_buttons']   = $author_share_buttons;
 }
+
 if ( AuthorPagePagination::is_active() ) {
+	// Adjust global query to exclude author override.
+	// We can remove this once we convert author overrides to actual users.
+	$wp_query->query_vars['meta_key']     = 'p4_author_override';
+	$wp_query->query_vars['meta_compare'] = 'NOT EXISTS';
+	$wp_query->query_vars['has_password'] = false;
+
 	$view = ListingPageGridView::is_active() ? 'grid' : 'list';
 
 	$query_template = file_get_contents( get_template_directory() . "/parts/query-$view.html" );
