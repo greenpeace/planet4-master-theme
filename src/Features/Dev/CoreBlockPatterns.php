@@ -20,7 +20,7 @@ class CoreBlockPatterns extends Feature {
 	 * @inheritDoc
 	 */
 	protected static function name(): string {
-		return __( 'Enable core block patterns', 'planet4-master-theme-backend' );
+		return __( 'Core block patterns', 'planet4-master-theme-backend' );
 	}
 
 	/**
@@ -28,7 +28,7 @@ class CoreBlockPatterns extends Feature {
 	 */
 	protected static function description(): string {
 		return __(
-			'Allows using the default block patterns that come with WordPress.',
+			'Enable default block patterns that come with WordPress.',
 			'planet4-master-theme-backend'
 		);
 	}

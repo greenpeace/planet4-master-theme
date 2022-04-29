@@ -51,12 +51,29 @@ class Features {
 	public static function get_options_page(): array {
 		return [
 			'title'       => 'Features',
+			'description' => self::get_description(),
 			'root_option' => self::OPTIONS_KEY,
 			'fields'      => self::get_fields(),
 			'add_scripts' => static function () {
 				Loader::enqueue_versioned_script( '/admin/js/features_save_redirect.js' );
 			},
 		];
+	}
+
+	/**
+	 * Get description based on environment.
+	 *
+	 * @return string description string.
+	 */
+	public static function get_description(): string {
+		$description = 'Enable or disable specific Planet 4 features.';
+		$dev_flags   = '<br>Options with the 👷 icon are only available in dev sites.';
+
+		$dev_site = in_array( WP_APP_ENV, [ 'local', 'development' ], true );
+
+		return $dev_site
+			? $description . $dev_flags
+			: $description;
 	}
 
 	/**

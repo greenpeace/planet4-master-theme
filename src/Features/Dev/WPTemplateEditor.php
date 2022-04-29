@@ -20,7 +20,7 @@ class WPTemplateEditor extends Feature {
 	 * @inheritDoc
 	 */
 	protected static function name(): string {
-		return __( 'Enable WordPress template editor', 'planet4-master-theme-backend' );
+		return __( 'WordPress template editor', 'planet4-master-theme-backend' );
 	}
 
 	/**

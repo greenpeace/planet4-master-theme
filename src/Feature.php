@@ -91,7 +91,7 @@ abstract class Feature {
 		return [
 			'id'   => static::id(),
 			'name' => self::dev_prefix( '👷' ) . static::name(),
-			'desc' => self::dev_prefix( '(dev only)' ) . static::description(),
+			'desc' => static::description(),
 			'type' => 'checkbox',
 		];
 	}

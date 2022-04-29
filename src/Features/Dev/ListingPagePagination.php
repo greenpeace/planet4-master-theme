@@ -20,7 +20,7 @@ class ListingPagePagination extends Feature {
 	 * @inheritDoc
 	 */
 	protected static function name(): string {
-		return __( 'Listing Page Pagination', 'planet4-master-theme-backend' );
+		return __( 'Listing pages pagination', 'planet4-master-theme-backend' );
 	}
 
 	/**

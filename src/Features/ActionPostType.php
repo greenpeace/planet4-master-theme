@@ -29,7 +29,7 @@ class ActionPostType extends Feature {
 	 */
 	protected static function description(): string {
 		return __(
-			'Enable Action post type',
+			'Enable <a href="https://jira.greenpeace.org/browse/PLANET-6515" target="_blank">Action post type</a> and Action Type taxonomy. Actions will also be selectable in Take Action Boxout and Covers blocks.',
 			'planet4-master-theme-backend'
 		);
 	}

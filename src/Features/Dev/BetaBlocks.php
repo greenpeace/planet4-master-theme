@@ -20,7 +20,7 @@ class BetaBlocks extends Feature {
 	 * @inheritDoc
 	 */
 	protected static function name(): string {
-		return __( 'Allow Beta Blocks in post editor', 'planet4-master-theme-backend' );
+		return __( 'Beta blocks', 'planet4-master-theme-backend' );
 	}
 
 	/**
@@ -28,7 +28,7 @@ class BetaBlocks extends Feature {
 	 */
 	protected static function description(): string {
 		return __(
-			'If enabled, you can use early or unstable versions of blocks in the post editor.<br>These will be in the "Planet 4 Blocks - BETA" category.',
+			'Enable early or unstable versions of blocks in the editor (grouped under "Planet 4 Blocks - BETA" category).',
 			'planet4-master-theme-backend'
 		);
 	}

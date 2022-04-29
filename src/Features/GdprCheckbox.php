@@ -21,7 +21,7 @@ class GdprCheckbox extends Feature {
 	 * @inheritDoc
 	 */
 	protected static function name(): string {
-		return __( 'Display Opt-in checkbox', 'planet4-master-theme-backend' );
+		return __( 'Comments opt-in checkbox', 'planet4-master-theme-backend' );
 	}
 
 	/**
@@ -29,7 +29,7 @@ class GdprCheckbox extends Feature {
 	 */
 	protected static function description(): string {
 		return __(
-			'This will display an opt-in checkbox in the Comments form which will be mandatory for submitting the form (GDPR requirement).',
+			'Display a mandatory opt-in checkbox in the Comments form (GDPR requirement).',
 			'planet4-master-theme-backend'
 		);
 	}

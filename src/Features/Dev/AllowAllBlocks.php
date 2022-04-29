@@ -20,7 +20,7 @@ class AllowAllBlocks extends Feature {
 	 * @inheritDoc
 	 */
 	protected static function name(): string {
-		return __( 'Allow all blocks', 'planet4-master-theme-backend' );
+		return __( 'All blocks', 'planet4-master-theme-backend' );
 	}
 
 	/**

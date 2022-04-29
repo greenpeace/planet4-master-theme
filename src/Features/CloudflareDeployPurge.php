@@ -20,7 +20,7 @@ class CloudflareDeployPurge extends Feature {
 	 * @inheritDoc
 	 */
 	protected static function name(): string {
-		return __( 'Purge HTML from Cloudflare on deploy', 'planet4-master-theme-backend' );
+		return __( 'Purge Cloudflare HTML cache on deploy', 'planet4-master-theme-backend' );
 	}
 
 	/**
@@ -28,7 +28,7 @@ class CloudflareDeployPurge extends Feature {
 	 */
 	protected static function description(): string {
 		return __(
-			'Whether to purge all pages from Cloudflare cache when changing features.<br>Only enable on production, on test instances it results in too many purge requests.',
+			'Purges all pages from Cloudflare cache on deploy.<br>Only enable on production (in consultation with P4 team).',
 			'planet4-master-theme-backend'
 		);
 	}
