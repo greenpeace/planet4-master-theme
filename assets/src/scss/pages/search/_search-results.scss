@@ -184,7 +184,6 @@
 }
 
 .search-result-item-info {
-  font-style: italic;
   color: $grey-60;
   line-height: normal;
   margin-bottom: 10px;
@@ -200,7 +199,7 @@
   font-size: $font-size-sm;
   font-family: $lora;
   line-height: 1.6;
-  margin: $sp-1 0 0;
+  margin-bottom: $sp-1;
 
   @include large-and-up {
     font-size: 1.125rem;
