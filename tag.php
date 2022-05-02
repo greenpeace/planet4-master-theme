@@ -12,12 +12,15 @@
 use P4\MasterTheme\Features\Dev\DisableTagRedirectPages;
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Features\Dev\ListingPagePagination;
+use P4\MasterTheme\Features\HideListingPagesBackground;
 use P4\MasterTheme\TaxonomyCampaign;
 use Timber\Timber;
 use P4GBKS\Blocks\Articles;
 use P4GBKS\Blocks\HappyPoint;
 
 $context = Timber::get_context();
+
+$context['hide_background'] = HideListingPagesBackground::is_active();
 
 if ( is_tag() ) {
 	$context['tag']  = get_queried_object();

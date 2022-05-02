@@ -1,8 +1,10 @@
 {% if ( header_title ) %}
-	<div class="skewed-overlay"></div>
+	{% if not hide_background %}
+		<div class="skewed-overlay"></div>
+	{% endif %}
 	{% set page_header_show = ( header_subtitle or header_description or not hide_page_title )  %}
 	<div class="page-header {% if not page_header_show %}page-header-hidden{% endif %}">
-		{% if ( background_image ) %}
+		{% if ( background_image and not hide_background ) %}
 			<div class="page-header-background">
 				<img src="{{ background_image }}"
 					{% if ( background_image_srcset ) %}
