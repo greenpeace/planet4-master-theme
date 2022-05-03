@@ -16,6 +16,19 @@
 			{% include "blocks/site_logo.twig" %}
 		</a>
 		{% include 'language-switcher.twig' %}
+
+		{% if site_languages is not empty %}
+			<nav id="nav-languages" class="nav-languages">
+				<ul>
+				{% for key,item in site_languages %}
+				<li class="nav-item {{ item.active ? 'current-language' : '' }}">
+					<a class="nav-link" href="{{ item.url }}">{{ item.native_name }}</a>
+					<span aria-hidden="true">&nbsp;|&nbsp;</span>
+				</li>
+				{% endfor %}
+				</ul>
+			</nav>
+		{% endif %}
 	</div>
 
 	<div class="nav-wrapper">
