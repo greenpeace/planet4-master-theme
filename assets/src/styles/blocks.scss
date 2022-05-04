@@ -47,9 +47,19 @@
 
 .is-style-space-evenly {
   & > * {
-    flex-basis: 0;
     flex-grow: 1;
+    flex-basis: 100%;
     align-self: stretch;
+
+    @include medium-and-up {
+      flex-grow: 0;
+      flex-basis: calc(50% - calc(var(--wp--style--block-gap, 2em) / 2));
+    }
+
+    @include large-and-up {
+      flex-basis: 0;
+      flex-grow: 1;
+    }
   }
 }
 
