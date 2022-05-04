@@ -58,23 +58,5 @@
 				</span>
 		</button>
 	</div>
-	{% if site_languages is not empty %}
-		{% set current_lang = site_languages|filter(i => i.active)|first %}
-		<button class="nav-languages-toggle" type="button"
-				aria-label="{{ __( 'Choose language', 'planet4-master-theme' ) }}"
-				aria-expanded="false"
-				data-bs-toggle="open"
-				data-bs-target="#nav-languages"
-		>{{ current_lang.code|capitalize }}</button>
-		<nav id="nav-languages" class="nav-languages">
-			<ul>
-				{% for key,item in site_languages %}
-					<li class="nav-item {{ item.active ? 'current-language' : '' }}">
-						<a class="nav-link" href="{{ item.url }}">{{ item.native_name }}</a>
-						<span aria-hidden="true">&nbsp;|&nbsp;</span>
-					</li>
-				{% endfor %}
-			</ul>
-		</nav>
-	{% endif %}
+	{% include 'language-switcher.twig' %}
 </div>
