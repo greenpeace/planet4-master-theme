@@ -95,14 +95,14 @@ $navbar-default-height: 60px;
   @include large-and-up {
     flex-grow: 1;
     width: auto;
+  }
+}
 
-    .nav-languages {
-      display: none;
+#header > .nav-languages {
+  display: none;
 
-      &.open {
-        display: flex;
-      }
-    }
+  &.open {
+    display: flex;
   }
 }
 
