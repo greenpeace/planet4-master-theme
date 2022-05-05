@@ -3,10 +3,6 @@ const { unregisterBlockStyle, registerBlockStyle } = wp.blocks;
 const { __ } = wp.i18n;
 
 wp.domReady(() => {
-  // Remove Image block styles
-  unregisterBlockStyle('core/image', 'rounded');
-  unregisterBlockStyle('core/image', 'default');
-
   // Remove Take Action and Campaign covers styles for Covers block in campaigns
   const postType = wp.data.select('core/editor').getCurrentPostType();
   if (postType === 'campaign') {

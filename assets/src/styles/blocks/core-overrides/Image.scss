@@ -5,6 +5,13 @@
   margin-top: $sp-1;
   margin-bottom: $sp-2;
 
+  &.is-style-rounded {
+    figure,
+    img {
+      border-radius: 50%;
+    }
+  }
+
   &:not(.force-no-lightbox) img {
     cursor: pointer;
   }
