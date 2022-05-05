@@ -29,8 +29,8 @@ class Issues extends Block_Pattern {
 	public static function get_media_text_template(): string {
 
 		return '
-			<!-- wp:media-text {"mediaWidth":20,"mediaSizeSlug":"thumbnail","isStackedOnMobile":false,"verticalAlignment":"center","imageFill":false,"backgroundColor":"white","className":"is-style-large-padding"} -->
-			<div class="wp-block-media-text alignwide is-vertically-aligned-center has-white-background-color is-style-large-padding has-background" style="grid-template-columns:20% auto">
+			<!-- wp:media-text {"mediaWidth":15,"mediaSizeSlug":"thumbnail","isStackedOnMobile":false,"verticalAlignment":"center","imageFill":false,"backgroundColor":"white","className":"is-style-large-padding"} -->
+			<div class="wp-block-media-text alignwide is-vertically-aligned-center has-white-background-color is-style-large-padding has-background" style="grid-template-columns:15% auto">
 			<figure class="wp-block-media-text__media"></figure>
 			<div class="wp-block-media-text__content">
 			<!-- wp:paragraph {"align":"left","placeholder":"' . __( 'Enter text', 'planet4-blocks-backend' ) . '","style":{"typography":{"fontSize":"1rem","fontStyle":"normal","fontWeight":"700"}},"className":"is-style-roboto-font-family"} -->
