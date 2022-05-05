@@ -6,9 +6,12 @@ $transition-duration: .2s;
     transition-delay: 0s, $transition-duration;
     transform: translateX(-100%);
     opacity: 0;
+    left: 0;
 
     html[dir="rtl"] & {
       transform: translateX(100%);
+      left: auto;
+      right: 0;
     }
   }
 
@@ -29,7 +32,6 @@ $transition-duration: .2s;
   flex-direction: column;
   justify-content: flex-start;
   top: 0;
-  left: 0;
   padding: 18px $sp-3;
   z-index: 9999999999;
   overflow: hidden;
