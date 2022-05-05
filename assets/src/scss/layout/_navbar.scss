@@ -92,21 +92,9 @@ $navbar-default-height: 60px;
 }
 
 #nav-main-desktop {
-  & ~ .nav-languages {
-    display: none;
-  }
-
   @include large-and-up {
     flex-grow: 1;
     width: auto;
-  }
-}
-
-#header > .nav-languages {
-  display: none;
-
-  &.open {
-    display: flex;
   }
 }
 
