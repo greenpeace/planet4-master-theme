@@ -29,11 +29,11 @@
 				{% set donate_menu = donate_menu_items|first %}
 				<li class="nav-donate">
 					<a
-							class="btn btn-donate {{ donate_menu.children and dropdown_menu ? 'dropdown' : '' }}"
-							href="{{ donate_menu.link }}"
-							data-ga-category="Menu Navigation"
-							data-ga-action="Donate"
-							data-ga-label="{{ page_category }}">
+						class="btn btn-donate {{ donate_menu.children and dropdown_menu ? 'dropdown' : '' }}"
+						href="{{ donate_menu.link }}"
+						data-ga-category="Menu Navigation"
+						data-ga-action="Donate"
+						data-ga-label="{{ page_category }}">
 						{{ donate_menu.title }}
 					</a>
 					{% if donate_menu.children is not empty and dropdown_menu %}

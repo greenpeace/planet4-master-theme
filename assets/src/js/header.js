@@ -207,7 +207,6 @@ export const setupHeader = () => {
     '.country-selector-toggle',
     '.navbar-search-toggle',
     '.nav-search-toggle',
-    '.nav-languages-toggle'
   ];
 
   const toggleElements = [...document.querySelectorAll(toggleElementClasses.join(','))];
