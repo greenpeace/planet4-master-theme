@@ -24,7 +24,6 @@
 		{% include 'blocks/site_logo.twig' %}
 	</a>
 	{% include 'desktop-menu.twig' %}
-
 	<div class="nav-search-toggle-container medium-and-less">
 		<button class="nav-search-toggle" type="button"
 			aria-label="{{ data_nav_bar.navbar_search_toggle }}"
@@ -40,19 +39,8 @@
 			</span>
 		</button>
 	</div>
-
 	{% include 'search-form.twig' %}
-
-	{% if site_languages is not empty %}
-	{% set current_lang = site_languages|filter(i => i.active)|first %}
-		<button
-			class="nav-languages-toggle"
-			type="button"
-		>{{ current_lang.code|capitalize }}
-			{% include 'language-switcher.twig' %}
-		</button>
-	{% endif %}
-
+	{% include 'language-switcher.twig' %}
 	{% if mobile_tabs_menu %}
 	<div id="nav-mobile">
 		<nav id="nav-mobile-menu">

@@ -98,6 +98,14 @@ $navbar-default-height: 60px;
   }
 }
 
+#header > .nav-languages {
+  display: none;
+
+  &.open {
+    display: flex;
+  }
+}
+
 .nav-menu {
   background: var(--top-navigation--background, $dark-blue);
   height: 100%;
