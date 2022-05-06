@@ -15,7 +15,7 @@ wp.domReady(() => {
   unregisterBlockStyle('core/button', 'outline');
 
   // Add our custom Button block styles
-  const styles = [
+  const buttonStyles = [
     {
       name: 'secondary',
       label: __('Secondary', 'planet4-blocks-backend'),
@@ -27,7 +27,7 @@ wp.domReady(() => {
     },
   ];
 
-  registerBlockStyle('core/button', styles);
+  registerBlockStyle('core/button', buttonStyles);
 
   ['core/media-text', 'core/group', 'core/column'].forEach(
     block => registerBlockStyle(block, [
@@ -62,4 +62,14 @@ wp.domReady(() => {
     name: 'mobile-carousel',
     label: __('Mobile carousel', 'planet4-blocks-backend'),
   });
+
+  // Add our custom Heading styles
+  const headingStyles = [
+    {
+      name: 'chevron',
+      label: __('Chevron', 'planet4-blocks-backend')
+    }
+  ];
+
+  registerBlockStyle('core/heading', headingStyles);
 });
