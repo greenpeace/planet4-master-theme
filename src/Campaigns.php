@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use WP_Term;
+use P4\MasterTheme\Features\HideListingPagesBackground;
 
 /**
  * Class Campaigns
@@ -95,6 +96,8 @@ class Campaigns {
 
 			$page           = $redirect_page ? get_post( $redirect_page ) : null;
 			$redirect_title = $page ? $page->post_title : null;
+
+			$hide_background = HideListingPagesBackground::is_active();
 			?>
 
 			<tr class="form-field edit-wrap">
@@ -146,21 +149,23 @@ class Campaigns {
 					</td>
 				</tr>
 			<?php } ?>
-			<tr class="form-field edit-wrap term-image-wrap">
-				<th>
-					<label><?php esc_html_e( 'Image', 'planet4-master-theme-backend' ); ?></label>
-				</th>
-				<td>
-					<input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag-attachment-id field-id" value="<?php echo esc_attr( $attachment_id ); ?>" />
-					<input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url field-url" value="<?php echo esc_url( $attachment_url ); ?>" />
-					<button class="button insert-media add_media" name="insert_image_tag_button" id="insert_image_tag_button" type="button">
-						<?php esc_html_e( 'Select/Upload Image', 'planet4-master-theme-backend' ); ?>
-					</button>
-					<p class="description"><?php esc_html_e( 'Associate this tag with an image.', 'planet4-master-theme-backend' ); ?></p>
-					<img class="attachment-thumbnail size-thumbnail" src="<?php echo esc_url( $attachment_url ); ?>"/>
-					<i class="dashicons dashicons-dismiss <?php echo $image_attributes ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
-				</td>
-			</tr>
+			<?php if ( ! $hide_background ) { ?>
+				<tr class="form-field edit-wrap term-image-wrap">
+					<th>
+						<label><?php esc_html_e( 'Image', 'planet4-master-theme-backend' ); ?></label>
+					</th>
+					<td>
+						<input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag-attachment-id field-id" value="<?php echo esc_attr( $attachment_id ); ?>" />
+						<input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url field-url" value="<?php echo esc_url( $attachment_url ); ?>" />
+						<button class="button insert-media add_media" name="insert_image_tag_button" id="insert_image_tag_button" type="button">
+							<?php esc_html_e( 'Select/Upload Image', 'planet4-master-theme-backend' ); ?>
+						</button>
+						<p class="description"><?php esc_html_e( 'Associate this tag with an image.', 'planet4-master-theme-backend' ); ?></p>
+						<img class="attachment-thumbnail size-thumbnail" src="<?php echo esc_url( $attachment_url ); ?>"/>
+						<i class="dashicons dashicons-dismiss <?php echo $image_attributes ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
+					</td>
+				</tr>
+			<?php } ?>
 			<tr class="form-field edit-wrap term-happypoint-wrap">
 				<th>
 					<label><?php esc_html_e( 'Image Subscribe', 'planet4-master-theme-backend' ); ?></label>
