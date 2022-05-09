@@ -12,16 +12,6 @@
 
 @import "blocks/TakeActionBoxout/style";
 
-// EN Blocks
-@import "blocks/ENForm/components/enform";
-@import "blocks/ENForm/components/enform-full-width-bg";
-@import "blocks/ENForm/components/enform-full-width";
-@import "blocks/ENForm/components/enform-side-style";
-// Campaigns - mixins
-@import "blocks/ENForm/campaigns/mixins";
-// Campaigns - themes
-@import "blocks/ENForm/campaigns/campaign_enform";
-
 // Native Blocks
 @import "blocks/core-overrides/Image";
 @import "blocks/core-overrides/BlockSpacing";
