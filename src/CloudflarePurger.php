@@ -53,8 +53,10 @@ class CloudflarePurger {
 	 * @return Generator [(bool) result, (string[]) urls chunk]
 	 */
 	public function purge( array $urls ): Generator {
-		// 30 is Cloudflare's purge api limit.
-		$chunks = array_chunk( $urls, 30 );
+		// Ensure HTTPS on all URLs.
+		$urls = array_map( fn( $url ) => str_replace( 'http://', 'https://', $url ), $urls );
+		// 30 is Cloudflare's purge API limit.
+		$chunks = array_chunk( array_unique( $urls ), 30 );
 
 		foreach ( $chunks as $chunk ) {
 			yield [
