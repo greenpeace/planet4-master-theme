@@ -26,13 +26,16 @@ class SideImageWithTextAndCta extends Block_Pattern {
 	 * Returns the pattern config.
 	 */
 	public static function get_config(): array {
+		$media_link = esc_url( get_template_directory_uri() ) . '/images/placeholders/placeholder-546x415.jpg';
 		return [
 			'title'      => __( 'Side image with text and CTA', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],
 			'content'    => '
-				<!-- wp:media-text {"className":"block"} -->
+				<!-- wp:media-text {"mediaLink":"' . $media_link . '","mediaType":"image","className":"block"} -->
 					<div class="wp-block-media-text alignwide is-stacked-on-mobile block">
-						<figure class="wp-block-media-text__media"></figure>
+						<figure class="wp-block-media-text__media">
+							<img src="' . $media_link . '" alt="' . __( 'Default image', 'planet4-blocks-backend' ) . '"/>
+						</figure>
 						<div class="wp-block-media-text__content">
 							<!-- wp:heading {"placeholder":"' . __( 'Enter title', 'planet4-blocks-backend' ) . '"} -->
 								<h2></h2>
