@@ -464,7 +464,7 @@ add_filter(
 			$block_content = preg_replace( '/sizes=".*"/', $sizes_attr, $block_content );
 		}
 
-		if ( 'core/media-text' === $block['blockName'] && $instance->attributes['mediaId'] ) {
+		if ( 'core/media-text' === $block['blockName'] && array_key_exists( 'mediaId', $instance->attributes ) ) {
 			$media_id    = $instance->attributes['mediaId'];
 			$media_width = $instance->attributes['mediaWidth'] ?? 50;
 
