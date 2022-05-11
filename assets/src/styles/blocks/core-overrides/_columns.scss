@@ -1,0 +1,19 @@
+.is-style-mobile-carousel {
+  @include mobile-only {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .wp-block-column {
+      min-width: 30vw;
+    }
+
+    &:not(.is-not-stacked-on-mobile) .wp-block-column:not(:last-child) {
+      margin-inline-end: $sp-2;
+    }
+  }
+}
