@@ -16,7 +16,7 @@
 			{% include "blocks/site_logo.twig" %}
 		</a>
 
-		{% if site_languages is not empty %}
+		{% if site_languages is not empty and site_languages|length > 1 %}
 			{% include 'language-switcher.twig' %}
 		{% endif %}
 	</div>
