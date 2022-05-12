@@ -170,6 +170,7 @@
 
     &:hover {
       background: $grey-10;
+      padding-inline-start: 0;
     }
 
     @include medium-and-up {
