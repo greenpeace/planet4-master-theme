@@ -8,6 +8,7 @@ use P4\MasterTheme\Features\CloudflareDeployPurge;
 use P4\MasterTheme\Features\Dev\AllowAllBlocks;
 use P4\MasterTheme\Features\Dev\BetaBlocks;
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
+use P4\MasterTheme\Features\Dev\DisableDataSync;
 use P4\MasterTheme\Features\Dev\DisableTagRedirectPages;
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Features\Dev\ThemeEditor;
@@ -113,15 +114,16 @@ class Features {
 			NewDesignCountrySelector::class,
 			NewDesignNavigationBar::class,
 			GoogleSheetReplacesSmartsheet::class,
-			ListingPagePagination::class,
-			DisableTagRedirectPages::class,
 
 			// Dev only.
+			DisableDataSync::class,
 			BetaBlocks::class,
 			ThemeEditor::class,
 			WPTemplateEditor::class,
 			CoreBlockPatterns::class,
 			AllowAllBlocks::class,
+			DisableTagRedirectPages::class,
+			ListingPagePagination::class,
 			ListingPageGridView::class,
 		];
 	}
