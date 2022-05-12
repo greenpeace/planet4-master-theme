@@ -12,6 +12,14 @@
       color: $dark-orange;
     }
   }
+
+  @include large-and-up {
+    max-width: 600px;
+  }
+
+  @include x-large-and-up {
+    max-width: 800px;
+  }
 }
 
 .gfield {
@@ -131,16 +139,6 @@
           right: $sp-2;
         }
       }
-    }
-  }
-
-  @include medium-and-up {
-    .gfield_validation_message,
-    .ginput_container,
-    select,
-    textarea,
-    input {
-      max-width: 400px;
     }
   }
 }
