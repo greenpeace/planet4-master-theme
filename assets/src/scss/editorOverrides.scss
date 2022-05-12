@@ -133,7 +133,8 @@
   }
 }
 
-.wp-block-button.transparent-button .wp-block-button__link[role="textbox"] {
+.wp-block-button.transparent-button .wp-block-button__link[role="textbox"],
+.wp-block-button.is-style-transparent .wp-block-button__link[role="textbox"] {
   --transparent-button-- {
     border-color: $white;
     color: $white;
@@ -266,4 +267,8 @@ input.describe[type=text][data-setting=caption] {
 .CodeMirror-code {
   font-size: $font-size-xs;
   line-height: 1rem;
+}
+
+.block-editor-block-preview__content-iframe .wp-block-button.is-style-transparent {
+  background: $dark-blue;
 }
