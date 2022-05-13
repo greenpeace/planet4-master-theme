@@ -165,37 +165,6 @@
 													{% endif %}
 												</div>
 											</div>
-											<div class="col-md-6">
-												{% if ( tags|length > 0 ) %}
-													<div class="filteritem">
-														<a data-bs-toggle="collapse" href="#item-modal-campaign" aria-expanded="true">
-															{{ __( 'Campaign', 'planet4-master-theme' ) }} <span></span>
-														</a>
-														<div id="item-modal-campaign" class="collapse show" role="tabpanel">
-															<ul class="list-unstyled">
-																{% for tag in tags %}
-																	{% if ( tag.results > 0 ) %}
-																	<li>
-																		<label class="custom-control">
-																			<input
-																				type="checkbox"
-																				name="f[tag][{{ tag.name }}]"
-																				value="{{ tag.term_id }}"
-																				class="p4-custom-control-input modal-checkbox"
-																				data-ga-category="Search Page"
-																				data-ga-action="Tag Filter"
-																				data-ga-label="{{ tag.name|e('wp_kses_post')|raw }}"
-																				{{ tag.checked }} {{ tag.results > 0 ? '' : 'disabled' }} />
-																			<span class="custom-control-description">{{ tag.name|e('wp_kses_post')|raw }} ({{ tag.results }})</span>
-																		</label>
-																	</li>
-																	{% endif %}
-																{% endfor %}
-															</ul>
-														</div>
-													</div>
-												{% endif %}
-											</div>
 										</div>
 										<div class="btnact">
 											<button type="button" class="btn btn-action btn-small cancelbtn" data-bs-dismiss="modal">{{ __( 'Cancel', 'planet4-master-theme' ) }}</button>
@@ -243,34 +212,6 @@
 																data-ga-label="{{ category.name|e('wp_kses_post')|raw }}"
 																{{ category.checked }} {{ category.results > 0 ? '' : 'disabled' }} />
 														<span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} ({{ category.results }})</span>
-													</label>
-												</li>
-												{% endif %}
-											{% endfor %}
-										</ul>
-									</div>
-								</div>
-							{% endif %}
-							{% if ( tags|length > 0 ) %}
-								<div class="filteritem">
-									<a data-bs-toggle="collapse" href="#item-campaign" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
-										{{ __( 'Campaign', 'planet4-master-theme' ) }} <span></span>
-									</a>
-									<div id="item-campaign" class="collapse {{ show }}" role="tabpanel">
-										<ul class="list-unstyled">
-											{% for tag in tags %}
-												{% if ( tag.results > 0 ) %}
-												<li>
-													<label class="custom-control">
-														<input
-															type="checkbox"
-															name="f[tag][{{ tag.name }}]"
-															value="{{ tag.term_id }}"
-															class="p4-custom-control-input" {{ tag.checked }} {{ tag.results > 0 ? '' : 'disabled' }}
-															data-ga-category="Search Page"
-															data-ga-action="Tag Filter"
-															data-ga-label="{{ tag.name|e('wp_kses_post')|raw }}" />
-														<span class="custom-control-description">{{ tag.name|e('wp_kses_post')|raw }} ({{ tag.results }})</span>
 													</label>
 												</li>
 												{% endif %}
