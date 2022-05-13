@@ -173,10 +173,9 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 
 $donate-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 
-.btn-donate,
-.wp-block-button.is-style-donate a {
+.btn-donate {
   --button-donate-- {
-    background: $aquamarine;
+    background: $orange;
     color: $grey-80;
     min-width: 180px;
     padding: 2px 30px;
@@ -185,7 +184,7 @@ $donate-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
     border-color: transparent;
 
     &:hover {
-      background: $aquamarine;
+      background: $orange-hover;
       color: transparentize($grey-80, 0.2);
       box-shadow: $donate-button-box-shadow;
       border: 1px solid transparent;
