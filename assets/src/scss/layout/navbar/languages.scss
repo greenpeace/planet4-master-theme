@@ -12,11 +12,28 @@
     display: inline-block;
     line-height: $menu-height;
 
+    &::after {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-inline-start: $sp-x;
+      mask: url("../../images/chevron.svg") 0 0/10px 10px;
+      transform: rotate(90deg);
+      transition: transform 150ms linear;
+      background-color: $white;
+      background-repeat: no-repeat;
+    }
+
     .nav-languages {
       display: none;
     }
 
     &:hover {
+      &::after {
+        transform: rotate(-90deg);
+      }
+
       .nav-languages {
         display: block;
       }
