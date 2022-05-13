@@ -166,6 +166,10 @@
     mask-size: contain;
     background-repeat: no-repeat;
     background-color: currentColor;
+
+    html[dir="rtl"] & {
+      rotate: 180deg;
+    }
   }
 }
 
