@@ -47,10 +47,10 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
   }, []);
 
   const onIssueChange = (issue_id) => {
-    const issue = issuesList.find(issue => issue.id === issue_id) || null;
+    const issue = issuesList.find(issue => issue.id === parseInt(issue_id)) || null;
 
     setAttributes({
-      select_issue: issue_id,
+      select_issue: parseInt(issue_id),
       title: edited.title ? title : cleanString(
           issue?.cmb2?.p4_metabox.p4_title || issue?.title.raw || title,
           charLimit.title
@@ -67,10 +67,10 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
   }
 
   const onTagChange = (tag_id) => {
-    const tag = tagsList.find(tag => tag.id === tag_id);
+    const tag = tagsList.find(tag => tag.id === parseInt(tag_id));
 
     setAttributes({
-      select_tag: tag_id,
+      select_tag: parseInt(tag_id),
       tag_name: cleanString(tag?.name || '', charLimit.title),
       tag_description: edited.tag_description ? tag_description : cleanString(
           tag?.description || tag_description,
@@ -220,7 +220,7 @@ const convertFocalStringToObj = (focal_str) => {
   }
   const [x, y] = focal_str.replace(/%/g, '').split(' ');
 
-  return {x: (parseInt(x)/100), y: (parseInt(y)/100)};
+  return {x: ((parseInt(x) || 0)/100), y: ((parseInt(y) || 0)/100)};
 }
 
 /**
