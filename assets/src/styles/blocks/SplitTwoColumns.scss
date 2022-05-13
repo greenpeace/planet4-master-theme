@@ -100,6 +100,10 @@
     text-shadow: 1px 1px 3px $grey-80;
   }
 
+  &:visited {
+    color: $yellow;
+  }
+
   @include medium-and-up {
     font-size: 1.5rem;
     margin-bottom: 15px;
@@ -152,6 +156,10 @@
 
   &:hover {
     text-decoration: underline;
+  }
+
+  &:visited {
+    color: var(--link--color, $link-color);
   }
 
   &:after {
