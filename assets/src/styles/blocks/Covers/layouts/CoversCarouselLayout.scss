@@ -46,6 +46,7 @@
 
     &:not(:disabled):hover {
       background: $grey-10;
+      padding-inline-start: 0;
     }
 
     @include large-and-up {
