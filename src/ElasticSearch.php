@@ -27,6 +27,7 @@ class ElasticSearch extends Search {
 						case 'cat':
 						case 'tag':
 						case 'ptype':
+						case 'atype':
 							break;
 						case 'ctype':
 							switch ( $filter['id'] ) {
@@ -72,6 +73,7 @@ class ElasticSearch extends Search {
 									);
 									break;
 								case 5:
+								case 6:
 									break;
 								default:
 									throw new UnexpectedValueException( 'Unexpected content type!' );
@@ -212,29 +214,34 @@ class ElasticSearch extends Search {
 			'with_post_filter' => [
 				'filter' => $formatted_args['post_filter'],
 				'aggs'   => [
-					'post_type'    => [
+					'post_type'          => [
 						'terms' => [
 							'field' => 'post_type.raw',
 						],
 					],
-					'post_parent'  => [
+					'post_parent'        => [
 						'terms' => [
 							'field' => 'post_parent',
 						],
 					],
-					'categories'   => [
+					'categories'         => [
 						'terms' => [
 							'field' => 'terms.category.term_id',
 						],
 					],
-					'tags'         => [
+					'tags'               => [
 						'terms' => [
 							'field' => 'terms.post_tag.term_id',
 						],
 					],
-					'p4-page-type' => [
+					'p4-page-type'       => [
 						'terms' => [
 							'field' => 'terms.p4-page-type.term_id',
+						],
+					],
+					ActionPage::TAXONOMY => [
+						'terms' => [
+							'field' => 'terms.' . ActionPage::TAXONOMY . '.term_id',
 						],
 					],
 				],

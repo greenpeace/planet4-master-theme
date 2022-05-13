@@ -13,6 +13,7 @@ class ContentTypes {
 	public const ACT_PAGE   = 'action';
 	public const POST       = 'post';
 	public const PAGE       = 'page';
+	public const ACTION     = 'p4_action';
 	public const CAMPAIGN   = 'campaign';
 	public const ATTACHMENT = 'attachment';
 	public const ARCHIVE    = 'archive';
@@ -42,11 +43,13 @@ class ContentTypes {
 
 	/**
 	 * @param bool $include_archive Include archive type.
+	 * @param bool $include_action Include p4_action type.
 	 *
 	 * @return array{string, array{id: int, name: string, results: int}}
 	 */
 	public static function get_filters(
-		bool $include_archive = false
+		bool $include_archive = false,
+		bool $include_action = false
 	): array {
 		$types  = self::get_all();
 		$config = self::get_config();
@@ -62,6 +65,10 @@ class ContentTypes {
 
 		foreach ( $types as $name => $type ) {
 			if ( self::ARCHIVE === $name && ! $include_archive ) {
+				continue;
+			}
+
+			if ( self::ACTION === $name && ! $include_action ) {
 				continue;
 			}
 
@@ -110,6 +117,10 @@ class ContentTypes {
 			self::ARCHIVE    => [
 				'id'    => 5,
 				'label' => __( 'Archive', 'planet4-master-theme' ),
+			],
+			self::ACTION     => [
+				'id'    => 6,
+				'label' => __( 'Action', 'planet4-master-theme' ),
 			],
 		];
 	}

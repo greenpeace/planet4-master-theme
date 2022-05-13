@@ -249,6 +249,35 @@
 									</div>
 								</div>
 							{% endif %}
+							{% if ( action_types|length > 0 ) %}
+								<div class="filteritem">
+									<a data-bs-toggle="collapse" href="#item-content" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
+										{{ __( 'Action Type', 'planet4-master-theme' ) }} <span></span>
+									</a>
+									<div id="item-content" class="collapse {{ show }}" role="tabpanel">
+										<ul class="list-unstyled">
+											{% for id, action_type in action_types %}
+												{% if ( action_type.results > 0 ) %}
+												<li>
+													<label class="custom-control">
+														<input
+															type="checkbox"
+															name="f[atype][{{ action_type.name }}]"
+															value="{{ id }}"
+															class="p4-custom-control-input"
+															data-ga-category="Search Page"
+															data-ga-action="Content Filter"
+															data-ga-label="{{ action_type.name|e('wp_kses_post')|raw }}"
+															{{ action_type.checked }} {{ action_type.results > 0 ? '' : 'disabled' }} />
+														<span class="custom-control-description">{{ action_type.name }} ({{ action_type.results }})</span>
+													</label>
+												</li>
+												{% endif %}
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							{% endif %}
 							{% if ( content_types|length > 0 ) %}
 								<div class="filteritem">
 									<a data-bs-toggle="collapse" href="#item-content" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
