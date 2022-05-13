@@ -57,4 +57,9 @@ wp.domReady(() => {
       label: __('Roboto font family', 'planet4-blocks-backend'),
     });
   });
+
+  registerBlockStyle('core/columns', {
+    name: 'mobile-carousel',
+    label: __('Mobile carousel', 'planet4-blocks-backend'),
+  });
 });
