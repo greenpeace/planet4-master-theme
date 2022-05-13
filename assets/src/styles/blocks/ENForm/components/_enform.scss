@@ -36,8 +36,6 @@
     --block-enform--caption-heading-- {
       color: white;
     }
-
-    font-family: var(--headings--font-family, var(--header-primary-font)) !important;
   }
 
   h1 {
@@ -74,7 +72,6 @@
   p {
     --block-enform--caption--paragraph-- {
       color: white;
-      font-family: $roboto;
       font-size: 1rem;
       line-height: 1.37rem;
     }
