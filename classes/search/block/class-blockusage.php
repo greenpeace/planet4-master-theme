@@ -204,33 +204,49 @@ class BlockUsage {
 		);
 
 		$items = [];
-		foreach ( $block_list as $block ) {
-			$type  = $block['blockName'];
-			$attrs = $block['attrs'];
+		while ( ! empty( $block_list ) ) {
+			$block   = array_shift( $block_list );
+			$items[] = $this->format_block_data( $block, $post );
 
-			$namespace  = strpos( $type, '/' ) !== false
-				? explode( '/', $type )[0] : 'core';
-			$local_name = strpos( '/', $type ) !== false
-				? explode( '/', $type )[1] : $type;
-
-			$items[] = [
-				'post_id'       => $post->ID,
-				'post_title'    => $post->post_title
-					? $post->post_title : __( '(no title)', 'planet4-blocks-backend' ),
-				'post_status'   => $post->post_status,
-				'post_type'     => $post->post_type,
-				'post_date'     => $post->post_date,
-				'post_modified' => $post->post_modified,
-				'post_status'   => $post->post_status,
-				'guid'          => $post->guid,
-				'block_ns'      => $namespace,
-				'block_type'    => $type,
-				'local_name'    => $local_name,
-				'block_attrs'   => $attrs,
-			];
+			if ( ! empty( $block['innerBlocks'] ) ) {
+				$block_list = array_merge( $block_list, $block['innerBlocks'] );
+			}
 		}
 
 		return $items;
+	}
+
+	/**
+	 * Format block information.
+	 *
+	 * @param array  $block A block.
+	 * @param object $post  WP_Post.
+	 * @return array[]
+	 */
+	private function format_block_data( array $block, $post ): array {
+		$type  = $block['blockName'];
+		$attrs = $block['attrs'] ?? [];
+
+		$namespace  = strpos( $type, '/' ) !== false
+			? explode( '/', $type )[0] : 'core';
+		$local_name = strpos( '/', $type ) !== false
+			? explode( '/', $type )[1] : $type;
+
+		return [
+			'post_id'       => $post->ID,
+			'post_title'    => $post->post_title
+				? $post->post_title : __( '(no title)', 'planet4-blocks-backend' ),
+			'post_status'   => $post->post_status,
+			'post_type'     => $post->post_type,
+			'post_date'     => $post->post_date,
+			'post_modified' => $post->post_modified,
+			'post_status'   => $post->post_status,
+			'guid'          => $post->guid,
+			'block_ns'      => $namespace,
+			'block_type'    => $type,
+			'local_name'    => $local_name,
+			'block_attrs'   => $attrs,
+		];
 	}
 
 	/**
