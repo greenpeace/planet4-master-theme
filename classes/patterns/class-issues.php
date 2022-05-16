@@ -27,11 +27,11 @@ class Issues extends Block_Pattern {
 	 * Returns the template for one media-text.
 	 */
 	public static function get_media_text_template(): string {
-
+		$media_link = esc_url( get_template_directory_uri() ) . '/images/placeholders/placeholder-40x40.jpg';
 		return '
-			<!-- wp:media-text {"mediaWidth":15,"mediaSizeSlug":"thumbnail","isStackedOnMobile":false,"verticalAlignment":"center","imageFill":false,"backgroundColor":"white","className":"is-style-large-padding"} -->
+			<!-- wp:media-text {"mediaWidth":15,"mediaLink":"' . $media_link . '","mediaType":"image","mediaSizeSlug":"thumbnail","isStackedOnMobile":false,"verticalAlignment":"center","imageFill":false,"backgroundColor":"white","className":"is-style-large-padding"} -->
 			<div class="wp-block-media-text alignwide is-vertically-aligned-center has-white-background-color is-style-large-padding has-background" style="grid-template-columns:15% auto">
-			<figure class="wp-block-media-text__media"></figure>
+			<figure class="wp-block-media-text__media"><img src="' . $media_link . '" alt="' . __( 'Default image', 'planet4-blocks-backend' ) . '"/></figure>
 			<div class="wp-block-media-text__content">
 			<!-- wp:paragraph {"align":"left","placeholder":"' . __( 'Enter text', 'planet4-blocks-backend' ) . '","style":{"typography":{"fontSize":"1rem","fontStyle":"normal","fontWeight":"700"}},"className":"is-style-roboto-font-family"} -->
 			<p class="has-text-align-left is-style-roboto-font-family" style="font-size:1rem;font-style:normal;font-weight:700"></p>

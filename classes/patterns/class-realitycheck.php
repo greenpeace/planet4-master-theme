@@ -32,7 +32,7 @@ class RealityCheck extends Block_Pattern {
 					<!-- wp:image {"align":"center","className":"mb-0 force-no-lightbox"} -->
 						<div class="wp-block-image mb-0 force-no-lightbox">
 							<figure class="aligncenter">
-								<img alt="" />
+								<img src="' . esc_url( get_template_directory_uri() ) . '/images/placeholders/placeholder-75x75.jpg" alt="' . __( 'Default image', 'planet4-blocks-backend' ) . '"/>
 							</figure>
 						</div>
 					<!-- /wp:image -->
