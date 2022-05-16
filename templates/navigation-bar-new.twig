@@ -43,7 +43,7 @@
 
 	{% include 'search-form.twig' %}
 
-	{% if site_languages is not empty %}
+	{% if site_languages is not empty and site_languages|length > 1 %}
 	{% set current_lang = site_languages|filter(i => i.active)|first %}
 		<button
 			class="nav-languages-toggle"
