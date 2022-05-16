@@ -49,7 +49,7 @@ class HighlightedCta extends Block_Pattern {
 								<!-- /wp:spacer -->
 								<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 									<div class="wp-block-buttons">
-										<!-- wp:button {"className":"transparent-button"} /-->
+										<!-- wp:button {"className":"is-style-transparent"} /-->
 									</div>
 								<!-- /wp:buttons -->
 								<!-- wp:spacer {"height":"16px"} -->

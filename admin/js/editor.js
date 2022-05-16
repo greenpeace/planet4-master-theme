@@ -25,6 +25,10 @@ wp.domReady(() => {
       name: 'cta',
       label: __('Primary', 'planet4-blocks-backend')
     },
+    {
+      name: 'transparent',
+      label: __('Transparent', 'planet4-blocks-backend')
+    }
   ];
 
   registerBlockStyle('core/button', buttonStyles);
