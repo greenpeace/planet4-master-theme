@@ -74,7 +74,11 @@ const registerCoversBlock = () => {
       },
       exampleCovers: { // Used for the block's preview, which can't extract items from anything.
         type: 'object',
-      }
+      },
+      readMoreText: {
+        type: 'string',
+        default: __('Load more', 'planet4-blocks')
+      },
     },
     edit: CoversEditor,
     save: frontendRendered(BLOCK_NAME),
