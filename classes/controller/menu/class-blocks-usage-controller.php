@@ -425,16 +425,17 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 			);
 
 			$core_block_types = [
-				'html',
-				'table',
 				'button',
-				'separator',
-				'spacer',
-				'shortcode',
+				'columns',
 				'group',
+				'html',
 				'media-text',
 				'query',
 				'query-pagination',
+				'separator',
+				'shortcode',
+				'spacer',
+				'table',
 			];
 
 			return array_merge( $p4_block_types, $core_block_types );
