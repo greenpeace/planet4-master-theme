@@ -114,7 +114,7 @@ class ControlPanel {
 	 */
 	public function add_item( $data ) {
 		echo '<div class="cp-item">
-				<div class="welcome-panel"><span><strong>' . esc_html( $data['title'] ) . '</strong></span>';
+				<div><h3>' . esc_html( $data['title'] ) . '</h3>';
 		foreach ( $data['subitems'] as $subitem ) {
 			echo '<div>
 					<a href="' . esc_url( $subitem['url'] ?? '#' ) . '" class="btn btn-cp-action ' . esc_attr( $subitem['action'] ?? '' ) . '" data-action="' . esc_attr( $subitem['action'] ?? '' ) . '" data-confirm="' . esc_attr( $subitem['confirm'] ?? '' ) . '">' . esc_html( $subitem['title'] ) . '</a>
