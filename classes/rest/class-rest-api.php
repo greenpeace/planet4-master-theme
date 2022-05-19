@@ -52,19 +52,13 @@ class Rest_Api {
 						global $wpdb;
 
 						if ( is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
-							// This is public data, no nonce needed.
-							// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-							if ( ! isset( $_GET['post_language'] ) ) {
-								return new \WP_REST_Response(
-									'WPML is active so you need to query posts with the `post_language` query parameter.',
-									400
-								);
-							}
-							// This is public data, no nonce needed.
-							// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-							$query = self::get_wpml_posts_query( $_GET['post_language'] );
+							$lang  = apply_filters( 'wpml_current_language', null );
+							$query = self::get_wpml_posts_query( $lang );
 						} else {
-							$query = "SELECT id, post_title FROM wp_posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC";
+							$query = "SELECT id, post_title
+								FROM wp_posts
+								WHERE post_status = 'publish' AND post_type = 'post'
+								ORDER BY post_date DESC";
 						}
 						// The query is prepared, just not in this line.
 						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
