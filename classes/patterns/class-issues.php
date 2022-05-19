@@ -48,8 +48,8 @@ class Issues extends Block_Pattern {
 			'title'      => __( 'Issues', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],
 			'content'    => '
-				<!-- wp:group {"align":"full","backgroundColor":"grey-10"} -->
-				<div class="wp-block-group alignfull has-grey-10-background-color has-background">
+				<!-- wp:group {"align":"full","backgroundColor":"grey-05"} -->
+				<div class="wp-block-group alignfull has-grey-05-background-color has-background">
 
 					<!-- wp:group {"className":"container"} -->
 					<div class="wp-block-group container">
