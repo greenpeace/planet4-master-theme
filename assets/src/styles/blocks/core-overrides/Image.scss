@@ -10,6 +10,11 @@
     img {
       border-radius: 50%;
     }
+
+    img {
+      object-fit: cover;
+      aspect-ratio: 1;
+    }
   }
 
   &:not(.force-no-lightbox) img {
