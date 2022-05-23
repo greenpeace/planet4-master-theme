@@ -5,6 +5,7 @@
       "custom": false,
       "customGradient": false,
       "defaultGradients": false,
+      "defaultPalette": false,
       "palette": [
         {
           "name": "Grey 80%",
@@ -81,7 +82,6 @@
       },
       "core/table": {
         "color": {
-          "defaultPalette": false,
           "text": false,
           "palette": [
             {
