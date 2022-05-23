@@ -11,6 +11,124 @@ final class AnalyticsValues {
 	private const CACHE_KEY = 'analytics_global_projects';
 
 	/**
+	 * Hardcoded list of Global projects, in case of google sheet unavailability.
+	 */
+	public const GLOBAL_PROJECTS = [
+		[
+			'global_project_name' => 'All Eyes on the Amazon',
+			'tracking_id'         => 'GP85',
+		],
+		[
+			'global_project_name' => 'Amazon Reef',
+			'tracking_id'         => 'ID003',
+		],
+		[
+			'global_project_name' => 'Asia Energy Transition',
+			'tracking_id'         => 'GP110',
+		],
+		[
+			'global_project_name' => 'BrAndino: Hold the Line',
+			'tracking_id'         => 'ID021',
+		],
+		[
+			'global_project_name' => 'Break Free',
+			'tracking_id'         => 'GP148',
+		],
+		[
+			'global_project_name' => 'Climate Emergency',
+			'tracking_id'         => 'ID022',
+		],
+		[
+			'global_project_name' => 'Climate Emergency Response',
+			'tracking_id'         => 'GP192',
+		],
+		[
+			'global_project_name' => 'Climate Justice Liability',
+			'tracking_id'         => 'GP25',
+		],
+		[
+			'global_project_name' => 'Congo Basin Forests',
+			'tracking_id'         => 'GP82',
+		],
+		[
+			'global_project_name' => 'Corporate ICE/ Clean Air Now',
+			'tracking_id'         => 'GP99',
+		],
+		[
+			'global_project_name' => 'Covid-19 Response',
+			'tracking_id'         => 'ID031',
+		],
+		[
+			'global_project_name' => 'Cross-commodities markets campaign',
+			'tracking_id'         => null,
+		],
+		[
+			'global_project_name' => 'Ends of the Earth',
+			'tracking_id'         => 'GP98',
+		],
+		[
+			'global_project_name' => 'European Energy Transition',
+			'tracking_id'         => 'GP44',
+		],
+		[
+			'global_project_name' => 'Greenpeace Fires',
+			'tracking_id'         => 'GP84',
+		],
+		[
+			'global_project_name' => 'Indonesia Forests',
+			'tracking_id'         => 'GP52',
+		],
+		[
+			'global_project_name' => 'Local Campaign',
+			'tracking_id'         => 'ID001',
+		],
+		[
+			'global_project_name' => 'Meat & Dairy',
+			'tracking_id'         => 'GP50',
+		],
+		[
+			'global_project_name' => 'Ocean Sanctuaries',
+			'tracking_id'         => 'GP29',
+		],
+		[
+			'global_project_name' => 'Patagonia',
+			'tracking_id'         => 'ID013',
+		],
+		[
+			'global_project_name' => 'People vs. Oil',
+			'tracking_id'         => 'GP191',
+		],
+		[
+			'global_project_name' => 'Pipelines',
+			'tracking_id'         => 'GP96',
+		],
+		[
+			'global_project_name' => 'Plastics Free Future',
+			'tracking_id'         => 'GP89',
+		],
+		[
+			'global_project_name' => 'Reuse revolution',
+			'tracking_id'         => null,
+		],
+		[
+			'global_project_name' => 'Shifting the trillions',
+			'tracking_id'         => 'GP147',
+		],
+		[
+			'global_project_name' => 'Stolen Fish',
+			'tracking_id'         => 'GP05',
+		],
+		[
+			'global_project_name' => 'The Future of Europe project',
+			'tracking_id'         => 'GP07',
+		],
+		[
+			'global_project_name' => 'Urban Revolution',
+			'tracking_id'         => 'GP90',
+		],
+	];
+
+	/**
 	 * @var string[] List of global projects.
 	 */
 	private $global_projects;
@@ -27,7 +145,9 @@ final class AnalyticsValues {
 	 * @param string[]|null $local_projects A list of the local projects.
 	 */
 	private function __construct( array $global_projects, ?array $local_projects = null ) {
-		$this->global_projects = $global_projects;
+		$this->global_projects = empty( $global_projects )
+			? self::GLOBAL_PROJECTS
+			: $global_projects;
 		$this->local_projects  = $local_projects;
 	}
 
@@ -102,9 +222,10 @@ final class AnalyticsValues {
 	 * @return static The instance.
 	 */
 	public static function from_cache_or_api_or_hardcoded(): self {
-		$cache = wp_cache_get( self::CACHE_KEY );
+		$found = false;
+		$cache = wp_cache_get( self::CACHE_KEY, '', false, $found );
 
-		if ( false !== $cache ) {
+		if ( $found ) {
 			if ( null === $cache ) {
 				return self::from_hardcoded_values();
 			}
@@ -195,122 +316,7 @@ final class AnalyticsValues {
 	 * @return static The instance.
 	 */
 	public static function from_hardcoded_values(): self {
-		$global_projects = [
-			[
-				'global_project_name' => 'All Eyes on the Amazon',
-				'tracking_id'         => 'GP85',
-			],
-			[
-				'global_project_name' => 'Amazon Reef',
-				'tracking_id'         => 'ID003',
-			],
-			[
-				'global_project_name' => 'Asia Energy Transition',
-				'tracking_id'         => 'GP110',
-			],
-			[
-				'global_project_name' => 'BrAndino: Hold the Line',
-				'tracking_id'         => 'ID021',
-			],
-			[
-				'global_project_name' => 'Break Free',
-				'tracking_id'         => 'GP148',
-			],
-			[
-				'global_project_name' => 'Climate Emergency',
-				'tracking_id'         => 'ID022',
-			],
-			[
-				'global_project_name' => 'Climate Emergency Response',
-				'tracking_id'         => 'GP192',
-			],
-			[
-				'global_project_name' => 'Climate Justice Liability',
-				'tracking_id'         => 'GP25',
-			],
-			[
-				'global_project_name' => 'Congo Basin Forests',
-				'tracking_id'         => 'GP82',
-			],
-			[
-				'global_project_name' => 'Corporate ICE/ Clean Air Now',
-				'tracking_id'         => 'GP99',
-			],
-			[
-				'global_project_name' => 'Covid-19 Response',
-				'tracking_id'         => 'ID031',
-			],
-			[
-				'global_project_name' => 'Cross-commodities markets campaign',
-				'tracking_id'         => null,
-			],
-			[
-				'global_project_name' => 'Ends of the Earth',
-				'tracking_id'         => 'GP98',
-			],
-			[
-				'global_project_name' => 'European Energy Transition',
-				'tracking_id'         => 'GP44',
-			],
-			[
-				'global_project_name' => 'Greenpeace Fires',
-				'tracking_id'         => 'GP84',
-			],
-			[
-				'global_project_name' => 'Indonesia Forests',
-				'tracking_id'         => 'GP52',
-			],
-			[
-				'global_project_name' => 'Local Campaign',
-				'tracking_id'         => 'ID001',
-			],
-			[
-				'global_project_name' => 'Meat & Dairy',
-				'tracking_id'         => 'GP50',
-			],
-			[
-				'global_project_name' => 'Ocean Sanctuaries',
-				'tracking_id'         => 'GP29',
-			],
-			[
-				'global_project_name' => 'Patagonia',
-				'tracking_id'         => 'ID013',
-			],
-			[
-				'global_project_name' => 'People vs. Oil',
-				'tracking_id'         => 'GP191',
-			],
-			[
-				'global_project_name' => 'Pipelines',
-				'tracking_id'         => 'GP96',
-			],
-			[
-				'global_project_name' => 'Plastics Free Future',
-				'tracking_id'         => 'GP89',
-			],
-			[
-				'global_project_name' => 'Reuse revolution',
-				'tracking_id'         => null,
-			],
-			[
-				'global_project_name' => 'Shifting the trillions',
-				'tracking_id'         => 'GP147',
-			],
-			[
-				'global_project_name' => 'Stolen Fish',
-				'tracking_id'         => 'GP05',
-			],
-			[
-				'global_project_name' => 'The Future of Europe project',
-				'tracking_id'         => 'GP07',
-			],
-			[
-				'global_project_name' => 'Urban Revolution',
-				'tracking_id'         => 'GP90',
-			],
-		];
-
-		return new self( $global_projects );
+		return new self( self::GLOBAL_PROJECTS );
 	}
 
 	/**
