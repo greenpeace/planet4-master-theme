@@ -71,6 +71,11 @@
           "name": "Yellow",
           "slug": "yellow",
           "color": "#ffd204"
+        },
+        {
+          "name": "White",
+          "slug": "white",
+          "color": "#ffffff"
         }
       ]
     },
