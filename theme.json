@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "settings": {
     "color": {
       "custom": false,
@@ -82,7 +82,7 @@
     "blocks": {
       "core/button": {
         "border": {
-          "customRadius": false
+          "radius": false
         }
       },
       "core/table": {
