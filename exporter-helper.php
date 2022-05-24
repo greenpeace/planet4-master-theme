@@ -23,6 +23,12 @@ function get_attachments_used_in_content( string $content ): array {
 				$attachment_ids[] = $block['attrs']['background'] ?? '';
 				break;
 
+			case 'core/media-text':
+				$attachment_ids[] = $block['attrs']['mediaId'] ?? '';
+				$attachment_ids[] = $block['attrs']['mediaLink'] ?? '';
+				$attachment_ids[] = $block['attrs']['mediaType'] ?? '';
+				break;
+
 			case 'core/image':
 			case 'planet4-blocks/happypoint':
 				$attachment_ids[] = $block['attrs']['id'] ?? '';
