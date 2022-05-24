@@ -185,6 +185,10 @@ final class Loader {
 		$category_filter = version_compare( $wp_version, '5.8', '>=' ) ? 'block_categories_all' : 'block_categories';
 		// Register a block category.
 		add_filter( $category_filter, [ $this, 'register_block_category' ], 10, 2 );
+
+		// Reset block list cache on post modification.
+		add_action( 'save_post', [ Blocks\BlockList::class, 'cache_delete' ], 10, 1 );
+
 		// Provide hook for other plugins.
 		do_action( 'p4gbks_plugin_loaded' );
 	}
