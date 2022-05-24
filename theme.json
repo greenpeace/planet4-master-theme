@@ -3,9 +3,11 @@
   "settings": {
     "color": {
       "custom": false,
+      "customDuotone": false,
       "customGradient": false,
       "defaultGradients": false,
       "defaultPalette": false,
+      "duotone": [],
       "palette": [
         {
           "name": "Grey 80%",
