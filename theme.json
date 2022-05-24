@@ -1,39 +1,82 @@
 {
   "version": 1,
   "settings": {
+    "color": {
+      "custom": false,
+      "customGradient": false,
+      "defaultGradients": false,
+      "palette": [
+        {
+          "name": "Grey 80%",
+          "slug": "grey-80",
+          "color": "#020202"
+        },
+        {
+          "name": "Grey 60%",
+          "slug": "grey-60",
+          "color": "#45494c"
+        },
+        {
+          "name": "Grey 40%",
+          "slug": "grey-40",
+          "color": "#6f7376"
+        },
+        {
+          "name": "Grey 20%",
+          "slug": "grey-20",
+          "color": "#a3a5a7"
+        },
+        {
+          "name": "Grey 10%",
+          "slug": "grey-10",
+          "color": "#ececec"
+        },
+        {
+          "name": "Grey 5%",
+          "slug": "grey-05",
+          "color": "#f5f7f8"
+        },
+        {
+          "name": "Grey",
+          "slug": "grey",
+          "color": "#23292d"
+        },
+        {
+          "name": "GP Green",
+          "slug": "gp-green",
+          "color": "#66cc00"
+        },
+        {
+          "name": "X Dark Blue",
+          "slug": "x-dark-blue",
+          "color": "#042233"
+        },
+        {
+          "name": "Dark Blue",
+          "slug": "dark-blue",
+          "color": "#074365"
+        },
+        {
+          "name": "Blue",
+          "slug": "blue",
+          "color": "#2077bf"
+        },
+        {
+          "name": "Orange",
+          "slug": "orange-hover",
+          "color": "#ee562d"
+        },
+        {
+          "name": "Yellow",
+          "slug": "yellow",
+          "color": "#ffd204"
+        }
+      ]
+    },
     "blocks": {
       "core/button": {
         "border": {
           "customRadius": false
-        },
-        "color": {
-          "palette": [
-            {
-              "name": "Grey 80%",
-              "slug": "grey-80",
-              "color": "#020202"
-            },
-            {
-              "name": "White",
-              "slug": "white",
-              "color": "#ffffff"
-            },
-            {
-              "name": "Orange",
-              "slug": "orange",
-              "color": "#f36d3a"
-            },
-            {
-              "name": "Aquamarine",
-              "slug": "aquamarine",
-              "color": "#68dfde"
-            },
-            {
-              "name": "White",
-              "slug": "white",
-              "color": "#ffffff"
-            }
-          ]
         }
       },
       "core/table": {
