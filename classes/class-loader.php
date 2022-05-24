@@ -181,9 +181,6 @@ final class Loader {
 		// Setup image sizes.
 		add_action( 'admin_init', [ $this, 'setup_image_sizes' ] );
 
-		// Set color palette.
-		add_action( 'admin_init', [ $this, 'set_color_palette' ] );
-
 		global $wp_version;
 		$category_filter = version_compare( $wp_version, '5.8', '>=' ) ? 'block_categories_all' : 'block_categories';
 		// Register a block category.
@@ -558,90 +555,6 @@ DEFERREDCSS;
 		];
 
 		return array_merge( $our_categories, $core_categories );
-	}
-
-
-	/**
-	 * Registers a new color palette for all native blocks
-	 */
-	public function set_color_palette() {
-		add_theme_support(
-			'editor-color-palette',
-			[
-				[
-					'name'  => __( 'Grey 80%', 'planet4-blocks-backend' ),
-					'slug'  => 'grey-80',
-					'color' => '#020202',
-				],
-				[
-					'name'  => __( 'Grey 60%', 'planet4-blocks-backend' ),
-					'slug'  => 'grey-60',
-					'color' => '#666666',
-				],
-				[
-					'name'  => __( 'Grey 40%', 'planet4-blocks-backend' ),
-					'slug'  => 'grey-40',
-					'color' => '#999999',
-				],
-				[
-					'name'  => __( 'Grey 20%', 'planet4-blocks-backend' ),
-					'slug'  => 'grey-20',
-					'color' => '#cccccc',
-				],
-				[
-					'name'  => __( 'Grey 10%', 'planet4-blocks-backend' ),
-					'slug'  => 'grey-10',
-					'color' => '#e5e5e5',
-				],
-				[
-					'name'  => __( 'Grey 5%', 'planet4-blocks-backend' ),
-					'slug'  => 'grey-05',
-					'color' => '#f5f7f8',
-				],
-				[
-					'name'  => __( 'Grey', 'planet4-blocks-backend' ),
-					'slug'  => 'grey',
-					'color' => '#333333',
-				],
-				[
-					'name'  => __( 'GP Green', 'planet4-blocks-backend' ),
-					'slug'  => 'gp-green',
-					'color' => '#66cc00',
-				],
-				[
-					'name'  => __( 'X Dark Blue', 'planet4-blocks-backend' ),
-					'slug'  => 'x-dark-blue',
-					'color' => '#042233',
-				],
-				[
-					'name'  => __( 'Dark Blue', 'planet4-blocks-backend' ),
-					'slug'  => 'dark-blue',
-					'color' => '#074365',
-				],
-				[
-					'name'  => __( 'Blue', 'planet4-blocks-backend' ),
-					'slug'  => 'blue',
-					'color' => '#2077bf',
-				],
-				[
-					'name'  => __( 'Orange Hover', 'planet4-blocks-backend' ),
-					'slug'  => 'orange-hover',
-					'color' => '#ee562d',
-				],
-				[
-					'name'  => __( 'Yellow', 'planet4-blocks-backend' ),
-					'slug'  => 'yellow',
-					'color' => '#ffd204',
-				],
-			]
-		);
-
-		// Disable custom color option.
-		add_theme_support( 'disable-custom-colors' );
-
-		// Disable gradient presets & custom gradients.
-		add_theme_support( 'editor-gradient-presets', [] );
-		add_theme_support( 'disable-custom-gradients' );
 	}
 
 	/**
