@@ -1,10 +1,11 @@
 {
-  "version": 1,
+  "version": 2,
   "settings": {
     "color": {
       "custom": false,
       "customGradient": false,
       "defaultGradients": false,
+      "defaultPalette": false,
       "palette": [
         {
           "name": "Grey 80%",
@@ -70,18 +71,22 @@
           "name": "Yellow",
           "slug": "yellow",
           "color": "#ffd204"
+        },
+        {
+          "name": "White",
+          "slug": "white",
+          "color": "#ffffff"
         }
       ]
     },
     "blocks": {
       "core/button": {
         "border": {
-          "customRadius": false
+          "radius": false
         }
       },
       "core/table": {
         "color": {
-          "defaultPalette": false,
           "text": false,
           "palette": [
             {
