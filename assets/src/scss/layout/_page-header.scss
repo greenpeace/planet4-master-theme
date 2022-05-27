@@ -62,6 +62,10 @@
     @include x-large-and-up {
       max-width: 736px;
     }
+
+    @include xx-large-and-up {
+      max-width: 856px;
+    }
   }
 
   h3 _-- {
