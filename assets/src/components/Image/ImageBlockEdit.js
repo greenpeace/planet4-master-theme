@@ -12,7 +12,7 @@ export const ImageBlockEdit = (BlockEdit) => {
     }
 
     const { attributes, clientId } = props;
-    const { id, caption } = attributes;
+    const { id, caption, className } = attributes;
 
     // Get image data
     const image = useSelect(select => id ? select('core').getMedia(id) : null);
@@ -22,6 +22,14 @@ export const ImageBlockEdit = (BlockEdit) => {
       ? (credits.includes('©') ? credits : `© ${credits}`)
       : null;
     const block_id = clientId ? `block-${clientId}` : null;
+
+    // Update width and height when sized rounded styles are selected
+    if (className && className.includes('is-style-rounded-')) {
+      const classes = className.split(' ');
+      const size = classes.find(c => c.includes('is-style-rounded-')).replace('is-style-rounded-', '');
+      attributes.width = parseInt(size) || 180;
+      attributes.height = parseInt(size) || 180;
+    }
 
     return (
       <>
