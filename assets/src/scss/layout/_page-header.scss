@@ -52,11 +52,15 @@
 
   .container > *:not(.row) {
     @include medium-and-up {
-      max-width: 80%;
+      max-width: 581px;
+    }
+
+    @include large-and-up {
+      max-width: 696px;
     }
 
     @include x-large-and-up {
-      max-width: 60%;
+      max-width: 736px;
     }
   }
 
@@ -68,7 +72,7 @@
     }
 
     @include large-and-up {
-      width: 60%;
+      width: 696px;
     }
 
     @include x-large-and-up {
