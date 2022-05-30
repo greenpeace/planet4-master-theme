@@ -223,7 +223,7 @@ msgstr "Greenpeace Planet 4 Master Theme"
 
 #: templates/burger-menu.twig:55
 msgid "Home"
-msgstr ""
+msgstr "Startseite"
 
 #. Author URI of the theme
 msgid "https://github.com/greenpeace"
