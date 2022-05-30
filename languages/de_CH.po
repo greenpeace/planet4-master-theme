@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2020-12-10 09:39+0000\n"
-"PO-Revision-Date: 2022-05-30 06:58+0000\n"
+"PO-Revision-Date: 2022-05-30 06:59+0000\n"
 "Last-Translator: Stefan Duerrenberger\n"
 "Language-Team: German (Switzerland)\n"
 "MIME-Version: 1.0\n"
@@ -151,7 +151,7 @@ msgstr "Menu schliessen"
 
 #: templates/burger-menu.twig:10
 msgid "Close navigation mobile menu"
-msgstr ""
+msgstr "Menu schliessen"
 
 #: templates/comment_form/comment_field.twig:4
 msgid "Comment"
