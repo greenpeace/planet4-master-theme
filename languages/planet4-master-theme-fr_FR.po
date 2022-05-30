@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-05-30 07:00+0000\n"
+"PO-Revision-Date: 2022-05-30 07:01+0000\n"
 "Last-Translator: Stefan Duerrenberger\n"
 "Language-Team: French (France)\n"
 "MIME-Version: 1.0\n"
@@ -224,7 +224,7 @@ msgstr "Thème principal Planet 4 de Greenpeace"
 
 #: templates/burger-menu.twig:55
 msgid "Home"
-msgstr ""
+msgstr "Page d'accueil"
 
 #. Author URI of the theme
 msgid "https://github.com/greenpeace"
@@ -266,7 +266,7 @@ msgstr "Charger plus"
 
 #: templates/burger-menu.twig:79
 msgid "Make a donation"
-msgstr ""
+msgstr "Dons"
 
 #: templates/tease-search.twig:157
 msgid "Manage"
