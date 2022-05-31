@@ -1,3 +1,16 @@
+@mixin rounded-image-size($size) {
+  figure,
+  img {
+    border-radius: 50%;
+    height: $size;
+    width: $size;
+  }
+
+  img {
+    object-fit: cover;
+  }
+}
+
 .wp-block-image {
   position: relative;
   width: auto;
@@ -5,16 +18,12 @@
   margin-top: $sp-1;
   margin-bottom: $sp-2;
 
-  &.is-style-rounded {
-    figure,
-    img {
-      border-radius: 50%;
-    }
+  &.is-style-rounded-180 {
+    @include rounded-image-size(180px);
+  }
 
-    img {
-      object-fit: cover;
-      aspect-ratio: 1;
-    }
+  &.is-style-rounded-90 {
+    @include rounded-image-size(90px);
   }
 
   &:not(.force-no-lightbox) img {

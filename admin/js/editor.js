@@ -76,4 +76,21 @@ wp.domReady(() => {
   ];
 
   registerBlockStyle('core/heading', headingStyles);
+
+  // Unregister default Rounded Image block style
+  unregisterBlockStyle('core/image', 'rounded');
+
+  // Register our custom Image block styles
+  const imageStyles = [
+    {
+      name: 'rounded-180',
+      label: __('Rounded 180x180', 'planet4-blocks-backend')
+    },
+    {
+      name: 'rounded-90',
+      label: __('Rounded 90x90', 'planet4-blocks-backend')
+    },
+  ];
+
+  registerBlockStyle('core/image', imageStyles);
 });
