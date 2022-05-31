@@ -21,6 +21,10 @@
     cursor: pointer;
   }
 
+  &.force-no-caption figcaption {
+    display: none;
+  }
+
   @include large-and-up {
     margin-top: $sp-2;
     margin-bottom: $sp-4;
