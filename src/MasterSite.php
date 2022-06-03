@@ -301,6 +301,24 @@ class MasterSite extends TimberSite {
 			}
 		);
 
+		add_action( 'the_title', function ( $title ): string {
+			global $post;
+
+			if( 'page' === $post->post_type ) {
+				// Used only for testing
+				wp_register_script(
+					'underscore',
+					'https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js',
+					[],
+					'1.9.1',
+					true
+				);
+				wp_enqueue_script( 'underscore' );
+			}
+
+			return $title;
+		}, 10, 1);
+
 		$this->register_meta_fields();
 	}
 
