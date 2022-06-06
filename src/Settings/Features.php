@@ -22,6 +22,7 @@ use P4\MasterTheme\Features\NewDesignCountrySelector;
 use P4\MasterTheme\Features\NewDesignNavigationBar;
 use P4\MasterTheme\Features\PurgeOnFeatureChanges;
 use P4\MasterTheme\Features\PostPageCategoryLinks;
+use P4\MasterTheme\Features\RedirectRedirectPages;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Settings;
 
@@ -114,6 +115,7 @@ class Features {
 			NewDesignCountrySelector::class,
 			NewDesignNavigationBar::class,
 			GoogleSheetReplacesSmartsheet::class,
+			RedirectRedirectPages::class,
 
 			// Dev only.
 			DisableDataSync::class,
