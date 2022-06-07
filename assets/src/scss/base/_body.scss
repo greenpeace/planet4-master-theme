@@ -26,4 +26,8 @@ body {
 .container > * {
   position: relative;
   z-index: 2;
+
+  p > a {
+    @include links-hover-effect;
+  }
 }
