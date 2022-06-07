@@ -108,6 +108,20 @@ class Importer {
 						$filter_data[] = 'wp-image-' . $block['attrs']['id'];
 					}
 					break;
+
+				case 'core/media-text':
+					if ( isset( $block['attrs']['mediaId'] ) ) {
+						$filter_data[] = 'mediaId":' . $block['attrs']['mediaId'];
+					}
+
+					if ( isset( $block['attrs']['mediaLink'] ) ) {
+						$filter_data[] = 'mediaLink":' . $block['attrs']['mediaLink'];
+					}
+
+					if ( isset( $block['attrs']['mediaType'] ) ) {
+						$filter_data[] = 'mediaType":' . $block['attrs']['mediaType'];
+					}
+					break;
 			}
 		}
 
