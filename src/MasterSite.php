@@ -1345,7 +1345,7 @@ class MasterSite extends TimberSite {
 		$youtube_id = $matches[0][1] ?? null;
 
 		// For now just rel, but we can extract more from the url.
-		$query_string = apply_filter( 'planet4_youtube_embed_parameters', 'rel=0' );
+		$query_string = apply_filters( 'planet4_youtube_embed_parameters', 'rel=0' );
 
 		return [ $youtube_id, $query_string ];
 	}
