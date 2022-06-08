@@ -26,11 +26,11 @@
 			<ul id="accordion-list" class="accordion">
 				<li class="burger-menu-item nav-item">
 					<a
-							class="nav-link"
-							href="{{ site.url }}"
-							data-ga-category="Menu Navigation"
-							data-ga-action="Home"
-							data-ga-label="{{ page_category }}">
+						class="nav-link"
+						href="{{ site.url }}"
+						data-ga-category="Menu Navigation"
+						data-ga-action="Home"
+						data-ga-label="{{ page_category }}">
 						{{ __( 'Home', 'planet4-master-theme' ) }}
 					</a>
 				</li>
@@ -39,25 +39,22 @@
 					{% include "burger-menu-items.twig" with { menu: navbar_menu_items } %}
 				{% endif %}
 
-				{% if donate_menu_items is not empty and donate_menu_items[0].children|length > 1 and dropdown_menu %}
+				{% if donate_menu_items is not empty and donate_menu_items[0].children|length >= 1 and dropdown_menu %}
 					{% include "burger-menu-items.twig" with { menu: donate_menu_items } %}
 				{% endif %}
 			</ul>
 		</nav>
 	</div>
 
-	{% if donate_menu_items|first is not null %}
-		{% set donate_menu = donate_menu_items|first %}
-		<div class="burger-menu-footer">
-			<a
-					class="btn btn-donate"
-					href="{{ donate_menu.link }}"
-					data-ga-category="Menu Navigation"
-					data-ga-action="Donate"
-					data-ga-label="{{ page_category }}">
-				{{ __( 'Make a donation', 'planet4-master-theme' ) }}
-			</a>
-		</div>
-	{% endif %}
+	<div class="burger-menu-footer">
+		<a
+			class="btn btn-donate"
+			href="{{ donate_menu_default[0].link }}"
+			data-ga-category="Menu Navigation"
+			data-ga-action="Donate"
+			data-ga-label="{{ page_category }}">
+			{{ donate_menu_default[0].title }}
+		</a>
+	</div>
 </div>
 <div class="burger-menu-overlay d-lg-none"></div>
