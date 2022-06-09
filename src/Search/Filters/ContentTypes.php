@@ -10,7 +10,6 @@ namespace P4\MasterTheme\Search\Filters;
  * Custom types (p4_action, etc.).
  */
 class ContentTypes {
-	public const ACT_PAGE   = 'action';
 	public const POST       = 'post';
 	public const PAGE       = 'page';
 	public const ACTION     = 'p4_action';
@@ -54,15 +53,6 @@ class ContentTypes {
 		$types  = self::get_all();
 		$config = self::get_config();
 
-		// ACT_PAGE are sub-pages of the Act page and not a real type, adding manually.
-		$filters = [
-			0 => [
-				'id'      => 0,
-				'name'    => __( 'Action', 'planet4-master-theme' ),
-				'results' => 0,
-			],
-		];
-
 		foreach ( $types as $name => $type ) {
 			if ( self::ARCHIVE === $name && ! $include_archive ) {
 				continue;
@@ -94,10 +84,6 @@ class ContentTypes {
 	 */
 	public static function get_config(): array {
 		return [
-			self::ACT_PAGE   => [
-				'id'    => 0,
-				'label' => __( 'Action', 'planet4-master-theme' ),
-			],
 			self::ATTACHMENT => [
 				'id'    => 1,
 				'label' => __( 'Document', 'planet4-master-theme' ),

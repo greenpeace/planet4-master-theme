@@ -625,22 +625,14 @@ abstract class Search {
 							break;
 						case 'ctype':
 							switch ( $filter['id'] ) {
-								case 0:
-									$args['post_type']   = 'page';
-									$args['post_status'] = 'publish';
-									$act_page            = planet4_get_option( 'act_page', 0 );
-									$args['post_parent'] = esc_sql( $act_page );
-									break;
 								case 1:
 									$args['post_type']      = 'attachment';
 									$args['post_status']    = 'inherit';
 									$args['post_mime_type'] = self::DOCUMENT_TYPES;
 									break;
 								case 2:
-									$args['post_type']             = 'page';
-									$args['post_status']           = 'publish';
-									$act_page                      = planet4_get_option( 'act_page', 0 );
-									$args['post_parent__not_in'][] = esc_sql( $act_page );
+									$args['post_type']   = 'page';
+									$args['post_status'] = 'publish';
 									break;
 								case 3:
 									$args['post_type']   = 'post';
@@ -809,36 +801,22 @@ abstract class Search {
 		// Set default thumbnail.
 		$context['dummy_thumbnail'] = get_template_directory_uri() . self::DUMMY_THUMBNAIL;
 
-		$act_page_count = null;
-
 		if ( ! empty( $this->aggregations ) ) {
 			$aggs = $this->aggregations['with_post_filter'];
-			foreach ( $aggs['post_parent']['buckets'] as $parent_agg ) {
-				if ( ! empty( $options['act_page'] ) && $parent_agg['key'] === (int) $options['act_page'] ) {
-					$act_page_count                           = $parent_agg['doc_count'];
-					$context['content_types']['0']['results'] = $act_page_count;
-				}
-			}
-
 			foreach ( $aggs['post_type']['buckets'] as $post_type_agg ) {
-				if ( 'page' === $post_type_agg['key'] ) {
-					// We show act pages as a separate item, so subtract their count from the other pages.
-					// But counts can be off in ES so don't use lower than 0.
-					$context['content_types']['2']['results'] = max(
-						0,
-						$post_type_agg['doc_count'] - $act_page_count
-					);
-				}
 				if ( 'attachment' === $post_type_agg['key'] ) {
 					$context['content_types']['1']['results'] = $post_type_agg['doc_count'];
 				}
-				if ( 'post' === $post_type_agg['key'] ) {
+				if ( Search\Filters\ContentTypes::PAGE === $post_type_agg['key'] ) {
+					$context['content_types']['2']['results'] = $post_type_agg['doc_count'];
+				}
+				if ( Search\Filters\ContentTypes::POST === $post_type_agg['key'] ) {
 					$context['content_types']['3']['results'] = $post_type_agg['doc_count'];
 				}
-				if ( 'campaign' === $post_type_agg['key'] ) {
+				if ( Search\Filters\ContentTypes::CAMPAIGN === $post_type_agg['key'] ) {
 					$context['content_types']['4']['results'] = $post_type_agg['doc_count'];
 				}
-				if ( 'archive' === $post_type_agg['key'] && self::should_include_archive() ) {
+				if ( Search\Filters\ContentTypes::ARCHIVE === $post_type_agg['key'] && self::should_include_archive() ) {
 					$context['content_types']['5']['results'] = $post_type_agg['doc_count'];
 				}
 				if ( Search\Filters\ContentTypes::ACTION === $post_type_agg['key'] ) {
@@ -879,13 +857,8 @@ abstract class Search {
 			// Post Type (+Action) <-> Content Type.
 			switch ( $post->post_type ) {
 				case 'page':
-					if ( ! empty( $options['act_page'] ) && $post->post_parent === (int) $options['act_page'] ) {
-						$content_type_text = __( 'ACTION', 'planet4-master-theme' );
-						$content_type      = 'action';
-					} else {
-						$content_type_text = __( 'PAGE', 'planet4-master-theme' );
-						$content_type      = 'page';
-					}
+					$content_type_text = __( 'PAGE', 'planet4-master-theme' );
+					$content_type      = 'page';
 					break;
 				case 'campaign':
 					$content_type_text = __( 'CAMPAIGN', 'planet4-master-theme' );
