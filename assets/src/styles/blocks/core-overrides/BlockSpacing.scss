@@ -1,11 +1,15 @@
 .wp-block-quote,
 .wp-block-file,
 .wp-block-button,
+.page-content > .wp-block-group,
+.post-details > .wp-block-group,
 .page-content > h2,
 .page-content > ul > li:last-of-type,
+.page-content > ol > li:last-of-type,
 .page-content > p,
 .post-details > h2,
 .post-details > ul > li:last-of-type,
+.post-details > ol > li:last-of-type,
 .post-details > p,
 .post-details > p:first-of-type {
   margin-top: $sp-1;
@@ -18,7 +22,9 @@
 }
 
 .page-content > ul > li,
-.post-details > ul > li {
+.post-details > ul > li,
+.page-content > ol > li,
+.post-details > ol > li {
   margin-top: $sp-1;
   margin-bottom: $sp-1;
 
