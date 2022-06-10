@@ -31,7 +31,7 @@
   }
 
   &.force-no-caption figcaption {
-    display: none;
+    display: none !important;
   }
 
   @include large-and-up {
