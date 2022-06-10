@@ -74,6 +74,10 @@
   transition-duration: 150ms;
   transition-timing-function: linear;
   font-size: $font-size-sm;
+
+  [data-rich-text-placeholder]::after {
+    color: inherit;
+  }
 }
 
 .wp-block-button .wp-block-button__link[role="textbox"],
