@@ -37,6 +37,7 @@ abstract class Block_Pattern {
 			HighlightedCta::class,
 			RealityCheck::class,
 			Issues::class,
+			DeepDive::class,
 		];
 
 		/**
