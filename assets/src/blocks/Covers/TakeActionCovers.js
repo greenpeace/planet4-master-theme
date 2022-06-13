@@ -53,6 +53,7 @@ export const TakeActionCovers = ({
             {isExample ?
               <CoversImagePlaceholder height={220} /> :
               <img
+                loading='lazy'
                 alt={alt_text}
                 src={image}
                 srcSet={srcset}
