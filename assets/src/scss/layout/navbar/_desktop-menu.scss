@@ -1,0 +1,6 @@
+#nav-main-desktop {
+  @include large-and-up {
+    flex-grow: 1;
+    width: auto;
+  }
+}
