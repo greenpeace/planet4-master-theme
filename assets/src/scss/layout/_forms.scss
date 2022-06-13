@@ -201,6 +201,7 @@ textarea.form-control {
     position: relative;
 
     label {
+      pointer-events: none;
       position: absolute;
       left: 0;
       top: 16px;
