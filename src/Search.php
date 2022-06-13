@@ -533,6 +533,10 @@ abstract class Search {
 			$types[] = PostArchive::POST_TYPE;
 		}
 
+		if ( ActionPostType::is_active() ) {
+			$types[] = ActionPage::POST_TYPE;
+		}
+
 		return $types;
 	}
 
@@ -853,32 +857,15 @@ abstract class Search {
 			}
 		}
 
+		$content_types = Search\Filters\ContentTypes::get_filters();
 		foreach ( (array) $posts as $post ) {
-			// Post Type (+Action) <-> Content Type.
-			switch ( $post->post_type ) {
-				case 'page':
-					$content_type_text = __( 'PAGE', 'planet4-master-theme' );
-					$content_type      = 'page';
-					break;
-				case 'campaign':
-					$content_type_text = __( 'CAMPAIGN', 'planet4-master-theme' );
-					$content_type      = 'campaign';
-					break;
-				case 'attachment':
-					$content_type_text = __( 'DOCUMENT', 'planet4-master-theme' );
-					$content_type      = 'document';
-					break;
-				case 'post':
-					$content_type_text = __( 'POST', 'planet4-master-theme' );
-					$content_type      = 'post';
-					break;
-				case PostArchive::POST_TYPE:
-					$content_type_text = __( 'Archive', 'planet4-master-theme' );
-					$content_type      = 'archive';
-					break;
-				default:
-					continue 2;     // Ignore other post_types and continue with next $post.
+			$type = $content_types[ $post->post_type ] ?? null;
+			if ( ! $type ) {
+				continue;
 			}
+
+			$content_type_text = $type ? $type['label'] : $post->post_type;
+			$content_type      = 'attachment' === $post->post_type ? 'document' : $post->post_type;
 
 			if ( ! isset( $post->ID ) ) {
 				$post->ID = $post->link;

@@ -33,25 +33,7 @@ class ElasticSearch extends Search {
 							switch ( $filter['id'] ) {
 								case 0:
 								case 1:
-									break;
 								case 2:
-									// Workaround for making 'post_parent__not_in' to work with ES.
-									add_filter(
-										'ep_formatted_args',
-										function ( $formatted_args ) use ( $args ) {
-											// Make sure it is not an Action page.
-											if ( ! empty( $args['post_parent__not_in'] ) ) {
-												$formatted_args['post_filter']['bool']['must_not'][] = [
-													'terms' => [
-														'post_parent' => array_values( (array) $args['post_parent__not_in'] ),
-													],
-												];
-											}
-											return $formatted_args;
-										},
-										10,
-										1
-									);
 									break;
 								case 3:
 								case 4:
