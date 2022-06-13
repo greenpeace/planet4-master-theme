@@ -91,13 +91,6 @@ $navbar-default-height: 60px;
   }
 }
 
-#nav-main-desktop {
-  @include large-and-up {
-    flex-grow: 1;
-    width: auto;
-  }
-}
-
 .nav-menu {
   background: var(--top-navigation--background, $dark-blue);
   height: 100%;
@@ -329,3 +322,4 @@ a.nav-link:hover:before,
 @import "navbar/search";
 @import "navbar/mobile";
 @import "navbar/burger-menu";
+@import "navbar/desktop-menu";
