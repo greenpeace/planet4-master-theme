@@ -207,6 +207,8 @@
 }
 
 .search-result-item-author {
+  font-weight: 500;
+
   &:after {
     content: "\2022";
     display: inline-block;
