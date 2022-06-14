@@ -65,6 +65,35 @@ const menuEditorRestrictions = () => {
   const disableObserver = () => { observer.disconnect(); };
 
   /**
+   * Show a notice message to inform to editors to prevent
+   * using long texts to menu items
+   */
+  const showInfoNoticeMessage = () => {
+    const menuEditorFooter = document.getElementById('nav-menu-footer');
+
+    const container = document.createElement('div');
+    container.classList.add('notice', 'notice-info', 'custom-notice-info', 'inline');
+
+    const infoText = __(
+      'Avoid using more than 5 items in the navigation menu, and limit the number of items when dealing with long text labels.',
+      'planet4-master-theme-backend'
+    );
+    container.innerHTML = `<p>${infoText}</p>
+    <style>
+      .notice.custom-notice-info {
+        background: transparent;
+        border-top: none;
+        border-right: none;
+        margin-top: 0;
+        margin-left: -10px;
+        width: calc(100% - 8px);
+      }
+    </style>`;
+
+    menuEditorFooter.insertBefore(container, menuEditorFooter.querySelector('div'));
+  }
+
+  /**
    * Toggle rules linked to location selected
    * Reset if no config available
    */
@@ -76,6 +105,8 @@ const menuEditorRestrictions = () => {
       displayErrors([]);
       return;
     }
+
+    showInfoNoticeMessage();
 
     // Define depth limit for editor
     /* global wpNavMenu */
