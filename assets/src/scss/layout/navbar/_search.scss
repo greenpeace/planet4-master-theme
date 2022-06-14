@@ -63,17 +63,13 @@
     border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
     border-top: none;
     box-shadow: none;
-    display: inline-block;
+    display: inline-flex;
     height: 100%;
     inset-inline-end: auto;
     min-width: 25%;
     padding: 0 16px;
     position: unset;
     width: auto;
-
-    &.open {
-      display: inline-block;
-    }
   }
 }
 
