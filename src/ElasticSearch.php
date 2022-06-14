@@ -27,30 +27,13 @@ class ElasticSearch extends Search {
 						case 'cat':
 						case 'tag':
 						case 'ptype':
+						case 'atype':
 							break;
 						case 'ctype':
 							switch ( $filter['id'] ) {
 								case 0:
 								case 1:
-									break;
 								case 2:
-									// Workaround for making 'post_parent__not_in' to work with ES.
-									add_filter(
-										'ep_formatted_args',
-										function ( $formatted_args ) use ( $args ) {
-											// Make sure it is not an Action page.
-											if ( ! empty( $args['post_parent__not_in'] ) ) {
-												$formatted_args['post_filter']['bool']['must_not'][] = [
-													'terms' => [
-														'post_parent' => array_values( (array) $args['post_parent__not_in'] ),
-													],
-												];
-											}
-											return $formatted_args;
-										},
-										10,
-										1
-									);
 									break;
 								case 3:
 								case 4:
@@ -72,6 +55,7 @@ class ElasticSearch extends Search {
 									);
 									break;
 								case 5:
+								case 6:
 									break;
 								default:
 									throw new UnexpectedValueException( 'Unexpected content type!' );
@@ -174,21 +158,6 @@ class ElasticSearch extends Search {
 			],
 		);
 
-		$act_page = planet4_get_option( 'act_page', null );
-		if ( $act_page ) {
-			array_push(
-				$formatted_args['query']['function_score']['functions'],
-				[
-					'filter' => [
-						'term' => [
-							'post_parent' => esc_sql( $act_page ),
-						],
-					],
-					'weight' => self::DEFAULT_ACTION_WEIGHT,
-				],
-			);
-		}
-
 		// Specify how the computed scores are combined.
 		$formatted_args['query']['function_score']['score_mode'] = 'sum';
 
@@ -212,29 +181,34 @@ class ElasticSearch extends Search {
 			'with_post_filter' => [
 				'filter' => $formatted_args['post_filter'],
 				'aggs'   => [
-					'post_type'    => [
+					'post_type'          => [
 						'terms' => [
 							'field' => 'post_type.raw',
 						],
 					],
-					'post_parent'  => [
+					'post_parent'        => [
 						'terms' => [
 							'field' => 'post_parent',
 						],
 					],
-					'categories'   => [
+					'categories'         => [
 						'terms' => [
 							'field' => 'terms.category.term_id',
 						],
 					],
-					'tags'         => [
+					'tags'               => [
 						'terms' => [
 							'field' => 'terms.post_tag.term_id',
 						],
 					],
-					'p4-page-type' => [
+					'p4-page-type'       => [
 						'terms' => [
 							'field' => 'terms.p4-page-type.term_id',
+						],
+					],
+					ActionPage::TAXONOMY => [
+						'terms' => [
+							'field' => 'terms.' . ActionPage::TAXONOMY . '.term_id',
 						],
 					],
 				],

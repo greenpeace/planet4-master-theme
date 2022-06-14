@@ -9,6 +9,7 @@ use Timber\Timber;
 use UnexpectedValueException;
 use WP_Query;
 use WPML_Post_Element;
+use P4\MasterTheme\Features\ActionPostType;
 
 
 /**
@@ -532,6 +533,10 @@ abstract class Search {
 			$types[] = PostArchive::POST_TYPE;
 		}
 
+		if ( ActionPostType::is_active() ) {
+			$types[] = ActionPage::POST_TYPE;
+		}
+
 		return $types;
 	}
 
@@ -613,24 +618,25 @@ abstract class Search {
 								'terms'    => $filter['id'],
 							];
 							break;
+						case 'atype':
+							// This taxonomy is used only for Posts.
+							$args['post_type']   = ActionPage::POST_TYPE;
+							$args['tax_query'][] = [
+								'taxonomy' => ActionPage::TAXONOMY,
+								'field'    => 'term_id',
+								'terms'    => $filter['id'],
+							];
+							break;
 						case 'ctype':
 							switch ( $filter['id'] ) {
-								case 0:
-									$args['post_type']   = 'page';
-									$args['post_status'] = 'publish';
-									$act_page            = planet4_get_option( 'act_page', 0 );
-									$args['post_parent'] = esc_sql( $act_page );
-									break;
 								case 1:
 									$args['post_type']      = 'attachment';
 									$args['post_status']    = 'inherit';
 									$args['post_mime_type'] = self::DOCUMENT_TYPES;
 									break;
 								case 2:
-									$args['post_type']             = 'page';
-									$args['post_status']           = 'publish';
-									$act_page                      = planet4_get_option( 'act_page', 0 );
-									$args['post_parent__not_in'][] = esc_sql( $act_page );
+									$args['post_type']   = 'page';
+									$args['post_status'] = 'publish';
 									break;
 								case 3:
 									$args['post_type']   = 'post';
@@ -642,6 +648,10 @@ abstract class Search {
 									break;
 								case 5:
 									$args['post_type'] = 'archive';
+									break;
+								case 6:
+									$args['post_type']   = ActionPage::POST_TYPE;
+									$args['post_status'] = 'publish';
 									break;
 								default:
 									throw new UnexpectedValueException( 'Unexpected content type!' );
@@ -727,85 +737,27 @@ abstract class Search {
 	 * @throws UnexpectedValueException When filter type is not recognized.
 	 */
 	protected function set_filters_context( &$context ) {
-		// Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
-		$options = get_option( 'planet4_options' );
+		// Categories.
+		$context['categories'] = Search\Filters\Categories::get_filters();
+		uasort( $context['categories'], fn ( $a, $b ) => strcmp( $a['name'], $b['name'] ) );
 
-		// Category <-> Issue.
-		// Consider Issues that have multiple Categories.
-		$categories = get_categories( [ 'child_of' => $options['issues_parent_category'] ] );
-		if ( $categories ) {
-			foreach ( $categories as $category ) {
-				$context['categories'][ $category->term_id ] = [
-					'term_id' => $category->term_id,
-					'name'    => $category->name,
-					'results' => 0,
-				];
-			}
-		}
+		// Post Types.
+		$context['post_types'] = Search\Filters\PostTypes::get_filters();
+
+		// Action Types.
+		$context['action_types'] = ActionPostType::is_active()
+			? Search\Filters\ActionTypes::get_filters()
+			: [];
+
+		// Content Types.
+		$context['content_types'] = Search\Filters\ContentTypes::get_filters(
+			self::should_include_archive(),
+			ActionPostType::is_active()
+		);
 
 		// Tag <-> Campaign.
-		$tags = get_terms(
-			[
-				'taxonomy'   => 'post_tag',
-				'hide_empty' => false,
-			]
-		);
-		if ( $tags ) {
-			foreach ( (array) $tags as $tag ) {
-				// Tag filters.
-				$context['tags'][ $tag->term_id ] = [
-					'term_id' => $tag->term_id,
-					'name'    => $tag->name,
-					'results' => 0,
-				];
-			}
-		}
-
-		// Page Type <-> Category.
-		$page_types = get_terms(
-			[
-				'taxonomy'   => 'p4-page-type',
-				'hide_empty' => false,
-			]
-		);
-		if ( $page_types ) {
-			foreach ( (array) $page_types as $page_type ) {
-				// p4-page-type filters.
-				$context['page_types'][ $page_type->term_id ] = [
-					'term_id' => $page_type->term_id,
-					'name'    => $page_type->name,
-					'results' => 0,
-				];
-			}
-		}
-
-		// Post Type (+Action) <-> Content Type.
-		$context['content_types']['0'] = [
-			'name'    => __( 'Action', 'planet4-master-theme' ),
-			'results' => 0,
-		];
-		$context['content_types']['4'] = [
-			'name'    => __( 'Campaign', 'planet4-master-theme' ),
-			'results' => 0,
-		];
-		$context['content_types']['1'] = [
-			'name'    => __( 'Document', 'planet4-master-theme' ),
-			'results' => 0,
-		];
-		$context['content_types']['2'] = [
-			'name'    => __( 'Page', 'planet4-master-theme' ),
-			'results' => 0,
-		];
-		$context['content_types']['3'] = [
-			'name'    => __( 'Post', 'planet4-master-theme' ),
-			'results' => 0,
-		];
-		if ( self::should_include_archive() ) {
-			$context['content_types']['5'] = [
-				'name'    => __( 'Archive', 'planet4-master-theme' ),
-				'results' => 0,
-			];
-		}
+		$context['tags'] = Search\Filters\Tags::get_filters();
+		uasort( $context['tags'], fn ( $a, $b ) => strcmp( $a['name'], $b['name'] ) );
 
 		// Keep track of which filters are already checked.
 		if ( $this->filters ) {
@@ -819,10 +771,13 @@ abstract class Search {
 							$context['tags'][ $filter['id'] ]['checked'] = 'checked';
 							break;
 						case 'ptype':
-							$context['page_types'][ $filter['id'] ]['checked'] = 'checked';
+							$context['post_types'][ $filter['id'] ]['checked'] = 'checked';
 							break;
 						case 'ctype':
 							$context['content_types'][ $filter['id'] ]['checked'] = 'checked';
+							break;
+						case 'atype':
+							$context['action_types'][ $filter['id'] ]['checked'] = 'checked';
 							break;
 						default:
 							throw new UnexpectedValueException( 'Unexpected filter!' );
@@ -830,33 +785,10 @@ abstract class Search {
 				}
 			}
 		}
-
-		// Sort associative array with filters alphabetically.
-		if ( $context['categories'] ?? false ) {
-			uasort(
-				$context['categories'],
-				function ( $a, $b ) {
-					return strcmp( $a['name'], $b['name'] );
-				}
-			);
-		}
-		if ( $context['tags'] ?? false ) {
-			uasort(
-				$context['tags'],
-				function ( $a, $b ) {
-					return strcmp( $a['name'], $b['name'] );
-				}
-			);
-		}
 	}
 
 	/**
 	 * Sets the context for the results of the Search.
-	 *
-	 * Categories are Issues.
-	 * Tags       are Campaigns.
-	 * Page types are Categories.
-	 * Post_types are Content Types.
 	 *
 	 * @param array $context Associative array with the data to be passed to the view.
 	 */
@@ -873,102 +805,67 @@ abstract class Search {
 		// Set default thumbnail.
 		$context['dummy_thumbnail'] = get_template_directory_uri() . self::DUMMY_THUMBNAIL;
 
-		$act_page_count = null;
-
 		if ( ! empty( $this->aggregations ) ) {
 			$aggs = $this->aggregations['with_post_filter'];
-			foreach ( $aggs['post_parent']['buckets'] as $parent_agg ) {
-				if ( ! empty( $options['act_page'] ) && $parent_agg['key'] === (int) $options['act_page'] ) {
-					$act_page_count                           = $parent_agg['doc_count'];
-					$context['content_types']['0']['results'] = $act_page_count;
-				}
-			}
-
 			foreach ( $aggs['post_type']['buckets'] as $post_type_agg ) {
-				if ( 'page' === $post_type_agg['key'] ) {
-					// We show act pages as a separate item, so subtract there count from the other pages.
-					// But counts can be off in ES so don't use lower than 0.
-					$context['content_types']['2']['results'] = max(
-						0,
-						$post_type_agg['doc_count'] - $act_page_count
-					);
-				}
 				if ( 'attachment' === $post_type_agg['key'] ) {
 					$context['content_types']['1']['results'] = $post_type_agg['doc_count'];
 				}
-				if ( 'post' === $post_type_agg['key'] ) {
+				if ( Search\Filters\ContentTypes::PAGE === $post_type_agg['key'] ) {
+					$context['content_types']['2']['results'] = $post_type_agg['doc_count'];
+				}
+				if ( Search\Filters\ContentTypes::POST === $post_type_agg['key'] ) {
 					$context['content_types']['3']['results'] = $post_type_agg['doc_count'];
 				}
-				if ( 'campaign' === $post_type_agg['key'] ) {
+				if ( Search\Filters\ContentTypes::CAMPAIGN === $post_type_agg['key'] ) {
 					$context['content_types']['4']['results'] = $post_type_agg['doc_count'];
 				}
-				if ( 'archive' === $post_type_agg['key'] && self::should_include_archive() ) {
+				if ( Search\Filters\ContentTypes::ARCHIVE === $post_type_agg['key'] && self::should_include_archive() ) {
 					$context['content_types']['5']['results'] = $post_type_agg['doc_count'];
+				}
+				if ( Search\Filters\ContentTypes::ACTION === $post_type_agg['key'] ) {
+					$context['content_types']['6']['results'] = $post_type_agg['doc_count'];
 				}
 			}
 
 			foreach ( $aggs['p4-page-type']['buckets'] as $p4_post_type_agg ) {
-				$p4_post_type_id = (int) $p4_post_type_agg['key'];
+				if ( ! isset( $context['post_types'][ $p4_post_type_agg['key'] ] ) ) {
+					continue;
+				}
+				$context['post_types'][ $p4_post_type_agg['key'] ]['results'] = $p4_post_type_agg['doc_count'];
+			}
 
-				$p4_post_type = self::get_p4_post_type( $p4_post_type_id );
-
-				$context['page_types'][ $p4_post_type_id ] = [
-					'term_id' => $p4_post_type_id,
-					'name'    => $p4_post_type->name ?? null,
-					'results' => $p4_post_type_agg['doc_count'],
-				];
+			foreach ( $aggs[ ActionPage::TAXONOMY ]['buckets'] as $p4_action_type_agg ) {
+				if ( ! isset( $context['action_types'][ $p4_action_type_agg['key'] ] ) ) {
+					continue;
+				}
+				$context['action_types'][ $p4_action_type_agg['key'] ]['results'] = $p4_action_type_agg['doc_count'];
 			}
 
 			foreach ( $aggs['categories']['buckets'] as $category_agg ) {
-				// TODO get the parent from ES so no fetch is needed here.
-				$category = get_category( $category_agg['key'] );
-
-				// Category <-> Issue.
-				// Consider Issues that have multiple Categories.
-				if ( $category->parent === (int) $options['issues_parent_category'] ) {
-					$context['categories'][ $category->term_id ]['results'] = $category_agg['doc_count'];
+				if ( ! isset( $context['categories'][ $category_agg['key'] ] ) ) {
+					continue;
 				}
+				$context['categories'][ $category_agg['key'] ]['results'] = $category_agg['doc_count'];
 			}
 
 			foreach ( $aggs['tags']['buckets'] as $tag_agg ) {
-				// Tag filters.
-				$tag = get_tag( $tag_agg['key'] );
-
-				$context['tags'][ $tag->term_id ]['results'] = $tag_agg['doc_count'];
+				if ( ! isset( $context['tags'][ $tag_agg['key'] ] ) ) {
+					continue;
+				}
+				$context['tags'][ $tag_agg['key'] ]['results'] = $tag_agg['doc_count'];
 			}
 		}
 
+		$content_types = Search\Filters\ContentTypes::get_filters();
 		foreach ( (array) $posts as $post ) {
-			// Post Type (+Action) <-> Content Type.
-			switch ( $post->post_type ) {
-				case 'page':
-					if ( ! empty( $options['act_page'] ) && $post->post_parent === (int) $options['act_page'] ) {
-						$content_type_text = __( 'ACTION', 'planet4-master-theme' );
-						$content_type      = 'action';
-					} else {
-						$content_type_text = __( 'PAGE', 'planet4-master-theme' );
-						$content_type      = 'page';
-					}
-					break;
-				case 'campaign':
-					$content_type_text = __( 'CAMPAIGN', 'planet4-master-theme' );
-					$content_type      = 'campaign';
-					break;
-				case 'attachment':
-					$content_type_text = __( 'DOCUMENT', 'planet4-master-theme' );
-					$content_type      = 'document';
-					break;
-				case 'post':
-					$content_type_text = __( 'POST', 'planet4-master-theme' );
-					$content_type      = 'post';
-					break;
-				case PostArchive::POST_TYPE:
-					$content_type_text = __( 'Archive', 'planet4-master-theme' );
-					$content_type      = 'archive';
-					break;
-				default:
-					continue 2;     // Ignore other post_types and continue with next $post.
+			$type = $content_types[ $post->post_type ] ?? null;
+			if ( ! $type ) {
+				continue;
 			}
+
+			$content_type_text = $type ? $type['label'] : $post->post_type;
+			$content_type      = 'attachment' === $post->post_type ? 'document' : $post->post_type;
 
 			if ( ! isset( $post->ID ) ) {
 				$post->ID = $post->link;
