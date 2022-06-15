@@ -8,7 +8,7 @@
       "customGradient": false,
       "defaultGradients": false,
       "defaultPalette": false,
-      "duotone": [],
+      "duotone": null,
       "palette": [
         {
           "name": "Grey 80%",
