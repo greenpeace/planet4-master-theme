@@ -35,12 +35,15 @@
 .author-block-image {
   width: 200px;
   height: 200px;
-  margin: auto;
 
   img {
     width: 100%;
     border-radius: 50%;
     object-fit: cover;
+  }
+
+  @include small-and-less {
+    margin: auto;
   }
 }
 
