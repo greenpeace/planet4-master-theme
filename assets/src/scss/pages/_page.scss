@@ -13,7 +13,7 @@ $min-height: 40px;
     height: auto;
   }
 
-  .page-header-hidden + &.no-page-title {
+  &.no-page-title {
     padding-top: $menu-height-small;
 
     @include medium-and-up {
