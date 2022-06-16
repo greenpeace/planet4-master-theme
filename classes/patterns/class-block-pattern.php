@@ -38,6 +38,7 @@ abstract class Block_Pattern {
 			RealityCheck::class,
 			Issues::class,
 			DeepDive::class,
+			QuickLinks::class,
 		];
 
 		/**
