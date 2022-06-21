@@ -5,7 +5,7 @@
   display: none;
   font-size: $font-size-sm;
   font-weight: 700;
-  padding: 0 25px;
+  padding: 0 $sp-2;
 
   @include large-and-up {
     border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
