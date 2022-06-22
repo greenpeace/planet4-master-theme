@@ -66,9 +66,8 @@ export const ContentCovers = ({
                       data-ga-category='Content Covers'
                       data-ga-action='Title'
                       data-ga-label='n/a'
-                    >
-                      {title}
-                    </a>
+                      dangerouslySetInnerHTML={{ __html: title }}
+                    />
                   </h5>
                 }
                 {date_formatted &&

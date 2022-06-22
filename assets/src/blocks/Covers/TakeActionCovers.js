@@ -70,10 +70,9 @@ export const TakeActionCovers = ({
               data-ga-action='Title'
               data-ga-label='n/a'
               href={buttonLink}
-            >
-              {title}
-            </a>
-            <p className="cover-card-excerpt">{excerpt}</p>
+              dangerouslySetInnerHTML={{ __html: title }}
+            />
+            <p className="cover-card-excerpt" dangerouslySetInnerHTML={{ __html: excerpt }} />
           </div>
           <a
             className='btn cover-card-btn btn-primary'

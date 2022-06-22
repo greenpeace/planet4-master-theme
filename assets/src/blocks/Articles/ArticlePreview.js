@@ -151,17 +151,15 @@ export class ArticlePreview extends Component {
                   href={link}
                   data-ga-category="Articles Block"
                   data-ga-action="Title"
-                  data-ga-label="n/a">
-                    {post_title}
-                </a>
+                  data-ga-label="n/a"
+                  dangerouslySetInnerHTML={{ __html: post_title }}
+                />
               </h4>
             }
           </header>
 
           {post_excerpt &&
-            <p className="article-list-item-content">
-              {unescape(post_excerpt)}
-            </p>
+            <p className="article-list-item-content" dangerouslySetInnerHTML={{ __html: post_excerpt }} />
           }
 
           <p className='article-list-item-meta'>

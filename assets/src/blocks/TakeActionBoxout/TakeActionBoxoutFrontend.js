@@ -12,7 +12,7 @@ export const TakeActionBoxoutFrontend = ({
   stickyOnMobile,
 }) => (
   <section
-    className={`boxout ${ className || '' }`}
+    className={`boxout ${className || ''}`}
     {...stickyOnMobile && { id: 'action-card' }}
   >
     <a
@@ -31,14 +31,13 @@ export const TakeActionBoxoutFrontend = ({
           data-ga-category="Take Action Boxout"
           data-ga-action="Title"
           data-ga-label="n/a"
+          dangerouslySetInnerHTML={{ __html: title }}
           href={link}
           {...newTab && link && { target: "_blank" }}
-        >
-          {title}
-        </a>
+        />
       }
       {excerpt &&
-        <p className="boxout-excerpt">{excerpt}</p>
+        <p className="boxout-excerpt" dangerouslySetInnerHTML={{ __html: excerpt }} />
       }
     </div>
     {link && linkText &&
