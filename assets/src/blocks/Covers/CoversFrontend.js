@@ -1,5 +1,5 @@
 import { Covers } from './Covers';
-import { useRef } from '@wordpress/element';
+import { useRef, useEffect } from '@wordpress/element';
 import { COVERS_LAYOUTS, COVERS_TYPES } from './CoversConstants';
 import { useCovers } from './useCovers';
 import { CoversCarouselControls } from './CoversCarouselControls';
@@ -58,13 +58,26 @@ export const CoversFrontend = attributes => {
       const initialScrollPosition = covers.scrollLeft;
       covers.scrollLeft = initialScrollPosition + (direction === 'next' ? scrollOffset : -scrollOffset);
       setRow(direction === 'next' ? row + 1 : row - 1);
-    } else if (rowNumber && rowNumber !== row) {
+    } else if (rowNumber) {
       covers.scrollLeft = (rowNumber - 1) * scrollOffset;
       setRow(rowNumber);
     }
   };
 
   const showLoadMoreButton = !isCarouselLayout && !!initialRowsLimit && covers.length > (amountOfCoversPerRow * row);
+
+  useEffect(() => {
+    if (!isCarouselLayout) {
+      return;
+    }
+
+    const onResizeHandler = () => {
+      slideCovers('', 1);
+    }
+
+    window.addEventListener('resize', onResizeHandler);
+    return () => window.removeEventListener('resize', onResizeHandler);
+  }, []);
 
   return (
     <section
