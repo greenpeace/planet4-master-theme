@@ -120,10 +120,8 @@ export const ENFormFrontend = (attributes) => {
                       alt={ ccontent_title ?? '' }
                       className="campaign-logo" />
                 }
-                <HeadingTag>
-                  {content_title ? unescape(content_title) : ''}
-                </HeadingTag>
-                <div dangerouslySetInnerHTML={{ __html: content_description }} />
+                <HeadingTag dangerouslySetInnerHTML={{ __html: content_title ? unescape(content_title) : ''  }} />
+                <div dangerouslySetInnerHTML={{ __html: unescape(content_description) }} />
               </div>
             }
 
@@ -159,14 +157,14 @@ const Signup = ({attributes, fields, form_data, onInputChange, onBlur, onFormSub
 
         <div className="title-and-description">
           {title &&
-            <h2>{title ? title : ''}</h2>
+            <h2 dangerouslySetInnerHTML={{ __html: title ? unescape(title) : '' }} />
           }
           {is_side_style &&
             <div className="enform-extra-header-placeholder"
-              dangerouslySetInnerHTML={{ __html: extra_content }} />
+              dangerouslySetInnerHTML={{ __html: extra_content ? unescape(extra_content) : '' }} />
           }
           <div className="form-description"
-            dangerouslySetInnerHTML={{ __html: description }} />
+            dangerouslySetInnerHTML={{ __html: unescape(description) }} />
         </div>
 
         <div className="form-container">
@@ -189,14 +187,14 @@ const Signup = ({attributes, fields, form_data, onInputChange, onBlur, onFormSub
                 <div className="enform-notice"></div>
                 {en_form_style == 'full-width-bg' &&
                   <div className="enform-legal">
-                  <p dangerouslySetInnerHTML={{ __html: text_below_button || '' }} />
+                  <p dangerouslySetInnerHTML={{ __html: text_below_button ? unescape(text_below_button) : '' }} />
                   </div>
                 }
               </div>
 
               {en_form_style !== 'full-width-bg' &&
                 <div className="enform-legal">
-                  <p dangerouslySetInnerHTML={{ __html: text_below_button || '' }} />
+                  <p dangerouslySetInnerHTML={{ __html: text_below_button ? unescape(text_below_button) : '' }} />
                 </div>
               }
             </div>
