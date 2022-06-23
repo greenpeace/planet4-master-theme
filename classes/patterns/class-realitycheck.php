@@ -53,8 +53,10 @@ class RealityCheck extends Block_Pattern {
 	/**
 	 * Returns the pattern config.
 	 * We start with 3 columns, but editors can easily remove and/or duplicate them.
+	 *
+	 * @param array $params Optional array of parameters for the config.
 	 */
-	public static function get_config(): array {
+	public static function get_config( $params = [] ): array {
 		return [
 			'title'      => __( 'Reality Check', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],

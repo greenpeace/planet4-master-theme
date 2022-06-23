@@ -21,8 +21,10 @@ abstract class Block_Pattern {
 
 	/**
 	 * Returns the pattern config.
+	 *
+	 * @param array $params Optional array of parameters for the config.
 	 */
-	abstract public static function get_config(): array;
+	abstract public static function get_config( $params = [] ): array;
 
 	/**
 	 * Pattern constructor.

@@ -24,8 +24,10 @@ class SideImageWithTextAndCta extends Block_Pattern {
 
 	/**
 	 * Returns the pattern config.
+	 *
+	 * @param array $params Optional array of parameters for the config.
 	 */
-	public static function get_config(): array {
+	public static function get_config( $params = [] ): array {
 		$media_link = esc_url( get_template_directory_uri() ) . '/images/placeholders/placeholder-546x415.jpg';
 		return [
 			'title'      => __( 'Side image with text and CTA', 'planet4-blocks-backend' ),

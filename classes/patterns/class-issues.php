@@ -42,8 +42,10 @@ class Issues extends Block_Pattern {
 
 	/**
 	 * Returns the pattern config.
+	 *
+	 * @param array $params Optional array of parameters for the config.
 	 */
-	public static function get_config(): array {
+	public static function get_config( $params = [] ): array {
 		return [
 			'title'      => __( 'Issues', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],
