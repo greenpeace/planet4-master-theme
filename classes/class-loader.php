@@ -85,6 +85,7 @@ final class Loader {
 		new Blocks\ENForm();
 		new Blocks\GuestBook();
 		new Blocks\HubspotForm();
+		new Blocks\ActionPageDummy();
 
 		/**
 		 * Create Planet 4 block patterns categories.
