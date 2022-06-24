@@ -378,3 +378,41 @@ add_filter(
 	10,
 	2
 );
+
+// Calls attachment metadata update on importer job.
+// This triggers the wp-stateless hook (if it exists),
+// which sets the sm_cloud metadata for the uploaded file.
+// Wp-stateless is then able to find the file on GCS on step 2,
+// instead of looking for it in the local uploads folder.
+add_action(
+	'add_attachment',
+	function ( $post_id ): void {
+		if (
+			! defined( 'WP_IMPORTING' )
+			|| ! WP_IMPORTING
+			|| ! isset( $_GET['step'] ) // phpcs:ignore WordPress.Security.NonceVerification
+			|| '1' !== $_GET['step'] // phpcs:ignore WordPress.Security.NonceVerification
+			|| ! class_exists( 'wpCloud\StatelessMedia\Bootstrap' )
+		) {
+			return;
+		}
+
+		if ( version_compare( \wpCloud\StatelessMedia\Bootstrap::$version, '3.0', '<' ) ) {
+			return;
+		}
+
+		$post = get_post( $post_id );
+		if ( ! $post || 'attachment' !== $post->post_type ) {
+			return;
+		}
+
+		$cloud_meta = get_post_meta( $post_id, 'sm_cloud', true );
+		if ( ! empty( $cloud_meta ) ) {
+			return;
+		}
+
+		$metadata = wp_get_attachment_metadata( $post_id );
+		wp_update_attachment_metadata( $post_id, $metadata );
+	},
+	99
+);
