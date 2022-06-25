@@ -37,6 +37,17 @@
 		{% endfor %}
 	{% endif %}
 
+	{% if common_external_domains %}
+		<script>
+			const commonExternalDomains = (() => {
+				const domains ={{ common_external_domains | json_encode | raw }}
+				return domains.map(domain => {
+					return new URL(domain).hostname;
+				})
+			})();
+		</script>
+	{% endif %}
+
 	{% if css_vars %}
 		{% include 'css-variables.twig' %}
 	{% endif %}
