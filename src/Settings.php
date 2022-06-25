@@ -367,6 +367,15 @@ class Settings {
 							'type' => 'text',
 						],
 					],
+					[
+						'name'       => __( 'Commonly used external domains', 'planet4-master-theme-backend' ),
+						'desc'       => __( 'Links for these domains will not open in a new tab and will hide the external link icon.', 'planet4-master-theme-backend' ),
+						'id'         => 'common_external_domains',
+						'type'       => 'textarea',
+						'attributes' => [
+							'type' => 'text',
+						],
+					],
 				],
 			],
 			'planet4_settings_404_page'         => [
