@@ -13,7 +13,7 @@ export const setupExternalLinks = () => {
     // We don't want to show the icon in headings/titles,
     // or in links that are images
     const text = link.textContent || link.innerText;
-    if (['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(link.parentElement.nodeName) || text.trim().length === 0) {
+    if (['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(link.parentElement.nodeName) || text.trim().length === 0 || commonExternalDomains.includes(link.hostname)) {
       return;
     }
 
