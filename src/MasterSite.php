@@ -632,6 +632,16 @@ class MasterSite extends TimberSite {
 			$context['preconnect_domains'] = $preconnect_domains;
 		}
 
+		$context['common_external_domains']     = [];
+
+		if ( ! empty( $options['common_external_domains'] ) ) {
+			$common_external_domains = explode( "\n", $options['common_external_domains'] );
+			$common_external_domains = array_map( 'trim', $common_external_domains );
+			$common_external_domains = array_filter( $common_external_domains );
+
+			$context['common_external_domains'] = $common_external_domains;
+		}
+
 		// hreflang metadata.
 		if ( is_front_page() ) {
 			$context['hreflang'] = self::generate_hreflang_meta();
