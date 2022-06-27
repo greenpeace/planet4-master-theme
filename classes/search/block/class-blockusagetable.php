@@ -13,14 +13,22 @@ use WP_Block_Type_Registry;
 use P4GBKS\Search\Block\Query\Parameters;
 use P4GBKS\Controllers\Menu\Blocks_Usage_Controller;
 
+if ( ! class_exists( 'WP_List_Table' ) ) {
+	require_once ABSPATH . '/wp-admin/includes/class-wp-list-table.php';
+}
+
 /**
  * Show block usage, using native WordPress table
  */
 class BlockUsageTable extends WP_List_Table {
 
+	public const ACTION_NAME = 'block_usage';
+
 	public const DEFAULT_GROUP_BY = 'block_type';
 
 	public const DEFAULT_POST_STATUS = [ 'publish', 'private', 'draft', 'pending', 'future' ];
+
+	public const PLURAL = 'blocks';
 
 	/**
 	 * @var BlockUsage
@@ -93,7 +101,7 @@ class BlockUsageTable extends WP_List_Table {
 	 * @see WP_List_Table::__construct()
 	 */
 	public function __construct( $args = [] ) {
-		$args['plural'] = 'blocks';
+		$args['plural'] = self::PLURAL;
 		parent::__construct( $args );
 
 		$this->block_usage    = $args['block_usage'] ?? null;
@@ -131,15 +139,28 @@ class BlockUsageTable extends WP_List_Table {
 			->with_post_status( self::DEFAULT_POST_STATUS )
 			->with_order( array_merge( [ $this->group_by ], $this->sort_by ) );
 
-		$this->items = $this->block_usage->get_blocks( $this->search_params );
+		$items = $this->block_usage->get_blocks( $this->search_params );
 
 		$this->special = $special;
 		if ( 'unregistered' === $this->special ) {
-			$this->items = $this->filter_for_unregistered( $this->items );
+			$items = $this->filter_for_unregistered( $items );
 		}
 		if ( 'unallowed' === $this->special ) {
-			$this->items = $this->filter_for_unallowed( $this->items );
+			$items = $this->filter_for_unallowed( $items );
 		}
+
+		// Pagination handling.
+		$total_items  = count( $items );
+		$per_page     = 50;
+		$current_page = $this->get_pagenum();
+		$this->items  = array_slice( $items, ( ( $current_page - 1 ) * $per_page ), $per_page );
+		$this->set_pagination_args(
+			[
+				'total_items' => $total_items,
+				'per_page'    => $per_page,
+				'total_pages' => ceil( $total_items / $per_page ),
+			]
+		);
 
 		$this->set_block_filters();
 		$this->_column_headers = $this->get_column_headers();
@@ -247,6 +268,7 @@ class BlockUsageTable extends WP_List_Table {
 		$default_columns = [
 			'post_title'    => 'Title',
 			'block_type'    => 'Block',
+			'block_styles'  => 'Style',
 			'block_attrs'   => 'Attributes',
 			'post_date'     => 'Created',
 			'post_modified' => 'Modified',
@@ -311,15 +333,15 @@ class BlockUsageTable extends WP_List_Table {
 			'unregistered' => sprintf(
 				'unregistered' === $this->special ? $active_link_tpl : $link_tpl,
 				'unregistered' === $this->special
-					? Blocks_Usage_Controller::url()
-					: add_query_arg( [ 'unregistered' => '' ], Blocks_Usage_Controller::url() ),
+					? self::url()
+					: add_query_arg( [ 'unregistered' => '' ], self::url() ),
 				'Not registered'
 			),
 			'unallowed'    => sprintf(
 				'unallowed' === $this->special ? $active_link_tpl : $link_tpl,
 				'unallowed' === $this->special
-					? Blocks_Usage_Controller::url()
-					: add_query_arg( [ 'unallowed' => '' ], Blocks_Usage_Controller::url() ),
+					? self::url()
+					: add_query_arg( [ 'unallowed' => '' ], self::url() ),
 				'Not allowed'
 			),
 		];
@@ -416,13 +438,7 @@ class BlockUsageTable extends WP_List_Table {
 	 * @param string $which Tablenav identifier.
 	 */
 	protected function pagination( $which ) {
-		echo sprintf(
-			'<div class="tablenav-pages">
-			<span class="displaying-num">%d blocks, %d posts</span>
-			</div>',
-			esc_html( $this->block_count() ),
-			esc_html( $this->post_count() )
-		);
+		echo esc_html( parent::pagination( 'top' ) );
 	}
 
 	/**
@@ -461,6 +477,19 @@ class BlockUsageTable extends WP_List_Table {
 				? substr( $content, 0, 30 ) . '...'
 				: $content
 			)
+		);
+	}
+
+	/**
+	 * Block styles display.
+	 *
+	 * @param array $item Item.
+	 * @return string
+	 */
+	public function column_block_styles( $item ): string {
+		return sprintf(
+			'%s',
+			implode( ',', $item['block_styles'] )
 		);
 	}
 
@@ -597,6 +626,9 @@ class BlockUsageTable extends WP_List_Table {
 	 */
 	protected function display_tablenav( $which ) {
 		if ( 'bottom' === $which ) {
+			echo '<div class="tablenav bottom">';
+			echo esc_html( parent::pagination( $which ) );
+			echo '</div>';
 			return;
 		}
 		parent::display_tablenav( $which );
@@ -632,5 +664,43 @@ class BlockUsageTable extends WP_List_Table {
 	 */
 	public function get_search_params(): Parameters {
 		return $this->search_params;
+	}
+
+	/**
+	 * Table URL
+	 */
+	public static function url(): string {
+		return admin_url( 'admin.php?page=plugin_blocks_report_beta' );
+	}
+
+	/**
+	 * Set table hooks
+	 */
+	public static function set_hooks(): void {
+		// Add redirection for filter action.
+		add_action(
+			'admin_action_' . self::ACTION_NAME,
+			function () {
+				$nonce = $_GET['_wpnonce'] ?? null;
+				if ( ! wp_verify_nonce( $nonce, 'bulk-' . self::PLURAL ) ) {
+					wp_safe_redirect( self::url() );
+					exit;
+				}
+
+				$redirect_query = remove_query_arg(
+					[ '_wp_http_referer', '_wpnonce', 'action', 'filter_action' ],
+					\wp_parse_url( $_SERVER['REQUEST_URI'], PHP_URL_QUERY )
+				);
+				\parse_str( $redirect_query, $args );
+				$args = array_filter(
+					$args,
+					fn( $e ) => ! empty( $e ) && '0' !== $e
+				);
+
+				wp_safe_redirect( add_query_arg( $args, self::url() ) );
+				exit;
+			},
+			10
+		);
 	}
 }

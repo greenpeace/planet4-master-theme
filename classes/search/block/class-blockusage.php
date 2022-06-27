@@ -92,7 +92,7 @@ class BlockUsage {
 	private function fetch_blocks( array $posts_ids, Parameters $params ): void {
 		$posts_args = [
 			'include'     => $posts_ids,
-			'orderby'     => array_fill_keys( $params->order(), 'ASC' ),
+			'orderby'     => empty( $params->order() ) ? null : array_fill_keys( $params->order(), 'ASC' ),
 			'post_status' => $params->post_status(),
 			'post_type'   => [ 'post', 'page', 'campaign' ],
 		];
@@ -224,13 +224,21 @@ class BlockUsage {
 	 * @return array[]
 	 */
 	private function format_block_data( array $block, $post ): array {
-		$type  = $block['blockName'];
-		$attrs = $block['attrs'] ?? [];
+		$type   = $block['blockName'];
+		$attrs  = $block['attrs'] ?? [];
+		$has_ns = strpos( $type, '/' ) !== false;
 
-		$namespace  = strpos( $type, '/' ) !== false
-			? explode( '/', $type )[0] : 'core';
-		$local_name = strpos( '/', $type ) !== false
-			? explode( '/', $type )[1] : $type;
+		[ $namespace, $local_name ] = $has_ns ? explode( '/', $type ) : [ 'core', $type ];
+
+		$classes = empty( $attrs['className'] ) ? [] : explode( ' ', $attrs['className'] );
+		$styles  = array_filter(
+			array_map(
+				function ( $c ): ?string {
+					return 'is-style-' === substr( $c, 0, 9 ) ? substr( $c, 9 ) : null;
+				},
+				$classes
+			)
+		);
 
 		return [
 			'post_id'       => $post->ID,
@@ -246,6 +254,7 @@ class BlockUsage {
 			'block_type'    => $type,
 			'local_name'    => $local_name,
 			'block_attrs'   => $attrs,
+			'block_styles'  => $styles,
 		];
 	}
 

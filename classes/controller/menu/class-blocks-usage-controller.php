@@ -12,6 +12,7 @@ use P4\MasterTheme\SqlParameters;
 use P4\MasterTheme\Exception\SqlInIsEmpty;
 use P4GBKS\Search\Block\BlockUsage;
 use P4GBKS\Search\Block\BlockUsageTable;
+use P4GBKS\Search\Block\BlockUsageApi;
 use P4GBKS\Search\Block\Query\Parameters;
 use WP_Block_Type_Registry;
 
@@ -34,8 +35,6 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 		 */
 		private const NO_TITLE = '(no title)';
 
-		public const ADMIN_PAGE = 'plugin_blocks_report_beta';
-
 
 		/**
 		 * Blocks_Usage_Controller constructor.
@@ -52,6 +51,7 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 		 */
 		private function hooks() {
 			add_action( 'rest_api_init', [ $this, 'plugin_blocks_report_register_rest_route' ] );
+			BlockUsageTable::set_hooks();
 		}
 
 		/**
@@ -64,9 +64,16 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				[
 					'methods'             => 'GET',
 					'callback'            => [ $this, 'plugin_blocks_report_json' ],
-					'permission_callback' => function () {
-						return true;
-					},
+					'permission_callback' => '__return_true',
+				]
+			);
+			register_rest_route(
+				'plugin_blocks/v3',
+				'/plugin_blocks_report/',
+				[
+					'methods'             => 'GET',
+					'callback'            => [ $this, 'plugin_blocks_report_rest_api' ],
+					'permission_callback' => '__return_true',
 				]
 			);
 		}
@@ -81,6 +88,47 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				$report = $this->plugin_blocks_report( 'json' );
 				wp_cache_add( $cache_key, $report, '', 3600 );
 			}
+
+			return $report;
+		}
+
+		/**
+		 * Generates blocks/pages report.
+		 */
+		public function plugin_blocks_report_rest_api() {
+			global $wpdb;
+
+			$types = \get_post_types(
+				[
+					'public'              => true,
+					'exclude_from_search' => false,
+				]
+			);
+
+			// Get posts types counts.
+			$params  = new SqlParameters();
+			$sql     = 'SELECT post_type, count(ID) AS post_count
+				FROM ' . $params->identifier( $wpdb->posts ) . '
+				WHERE post_status = ' . $params->string( 'publish' ) . '
+					AND post_type IN ' . $params->string_list( $types ) . '
+				GROUP BY post_type';
+			$results = $wpdb->get_results(
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+				$wpdb->prepare( $sql, $params->get_values() ),
+				\ARRAY_A
+			);
+
+			$post_types = array_combine(
+				array_column( $results, 'post_type' ),
+				array_map( 'intval', array_column( $results, 'post_count' ) )
+			);
+
+			// Group results.
+			$api    = new BlockUsageApi();
+			$report = [
+				'block_types' => $api->get_count(),
+				'post_types'  => $post_types,
+			];
 
 			return $report;
 		}
@@ -112,13 +160,6 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 					[ $this, 'plugin_blocks_report_beta' ]
 				);
 			}
-		}
-
-		/**
-		 * @return string Page URL.
-		 */
-		public static function url(): string {
-			return admin_url( 'admin.php?page=' . self::ADMIN_PAGE );
 		}
 
 		/**
@@ -154,20 +195,13 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				<h1 class="wp-heading-inline">Block usage</h1>
 				<hr class="wp-header-end">';
 
-			echo '<form id="blocks-search" method="post">';
+			echo '<form id="blocks-report" method="get">';
 			$table->views();
-			$table->search_box( 'Search in block attributes', 'block-search' );
+			$table->search_box( 'Search in block attributes', 'blocks-report' );
 			$table->display();
+			echo '<input type="hidden" name="action"
+				value="' . esc_attr( BlockUsageTable::ACTION_NAME ) . '"/>';
 			echo '</form>';
-
-			$p = $table->get_search_params();
-			echo "<script>
-			const url = new URL(window.location);
-			url.searchParams.set('namespace', '" . esc_js( $p->namespace() ) . "');
-			url.searchParams.set('name', '" . esc_js( $p->name() ) . "');
-			window.history.pushState({}, '', url);
-			</script>";
-			echo '</div>';
 		}
 
 		/**
