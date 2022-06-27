@@ -285,6 +285,8 @@ class Covers extends Base_Block {
 			// If cover type is take action pages set post_type to page.
 			if ( isset( $fields['cover_type'] ) && self::TAKE_ACTION_COVER_TYPE === $fields['cover_type'] ) {
 				$args['post_type'] = [ 'page', ActionPage::POST_TYPE ];
+			} else {
+				$args['post_type'] = [ 'post', 'page' ];
 			}
 
 			// Ignore sniffer rule, arguments contain suppress_filters.

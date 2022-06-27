@@ -4,10 +4,10 @@ const { __ } = wp.i18n;
 
 // Allows to query a custom endpoint with select('core') tools
 dispatch('core').addEntities( [{
-    baseURL: '/planet4/v1/all-published-posts',
+    baseURL: '/planet4/v1/published',
     kind: 'planet4/v1',
-    name: 'all-published-posts',
-    label: 'All published posts',
+    name: 'published',
+    label: 'All published of post_type',
 }] );
 
 /**
@@ -30,26 +30,30 @@ export const PostSelector = (attributes) => {
    */
   const act_parent = window.p4ge_vars.planet4_options.act_page || null;
   const args = { per_page: -1, orderby: 'title', post_status: 'publish' };
-  const act_args = {
-    post_parent: act_parent,
-    ...args,
-  };
   const posts = useSelect((select) => {
     if ('post' === postType) {
-      return [].concat(
-        select('core').getEntityRecords('postType', 'post', {'include': selected}) || [],
-        select('core').getEntityRecords('planet4/v1', 'all-published-posts', args) || [],
-      );
+      return [
+        ...select('core').getEntityRecords('postType', 'post', {'include': selected}) || [],
+        ...select('core').getEntityRecords('planet4/v1', 'published', {post_type: postType, ...args}) || [],
+      ];
+    }
+
+    if ('post,page' === postType) {
+      return [
+        ...select('core').getEntityRecords('postType', 'post', {'include': selected}) || [],
+        ...select('core').getEntityRecords('postType', 'page', {'include': selected}) || [],
+        ...select('core').getEntityRecords('planet4/v1', 'published', {post_type: postType, ...args}) || [],
+      ];
     }
 
     if ('act_page' === postType) {
-      const selectedPosts = [].concat(
-        select('core').getEntityRecords('postType', 'page', {'include': selected}) || [],
-        select('core').getEntityRecords('postType', 'p4_action', {'include': selected}) || [],
-      );
+      const selectedPosts = [
+        ...select('core').getEntityRecords('postType', 'page', {'include': selected}) || [],
+        ...select('core').getEntityRecords('postType', 'p4_action', {'include': selected}) || [],
+      ];
       const actions = select('core').getEntityRecords('postType', 'p4_action', args) || [];
       const pages = act_parent
-        ? (select('core').getEntityRecords('postType', 'page', act_args) || [])
+        ? (select('core').getEntityRecords('postType', 'page', {post_parent: act_parent, ...args}) || [])
         : [];
       return [].concat(selectedPosts, actions, pages);
     }
@@ -61,7 +65,7 @@ export const PostSelector = (attributes) => {
    * Convert posts to {id, title}
    */
   const options = posts.map(post => ({
-    id: post.id,
+    id: parseInt(post.id),
     title: post.title?.raw || post.post_title,
   }));
 
@@ -80,7 +84,7 @@ export const PostSelector = (attributes) => {
    */
   const getPostsTitlesFromIds = (ids) => {
     return options?.length && ids?.length
-    ? ids.map(postId => options.find(option => option.id === postId)?.title).filter(t => t)
+    ? ids.map(postId => options.find(option => option.id === parseInt(postId))?.title).filter(t => t)
     : []
   };
 

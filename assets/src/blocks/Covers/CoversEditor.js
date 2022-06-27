@@ -85,7 +85,7 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
               label={__('Select pages', 'planet4-blocks-backend')}
               selected={posts || []}
               onChange={toAttribute('posts')}
-              postType={cover_type === COVERS_TYPES.content ? 'post' : 'act_page'}
+              postType={cover_type === COVERS_TYPES.content ? 'post,page' : 'act_page'}
               placeholder={__('Select pages', 'planet4-blocks-backend')}
               maxLength={layout === COVERS_LAYOUTS.carousel ? CAROUSEL_LAYOUT_COVERS_LIMIT : null}
             />

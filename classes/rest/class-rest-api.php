@@ -41,34 +41,19 @@ class Rest_Api {
 		 */
 		register_rest_route(
 			self::REST_NAMESPACE,
-			'/all-published-posts',
+			'/published',
 			[
 				[
-					'permission_callback' => static function () {
-						return current_user_can( 'edit_pages' ) || current_user_can( 'edit_campaigns' );
-					},
-					'methods'             => WP_REST_Server::READABLE,
-					'callback'            => static function () {
-						global $wpdb;
-
-						if ( is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
-							$lang  = apply_filters( 'wpml_current_language', null );
-							$query = self::get_wpml_posts_query( $lang );
-						} else {
-							$query = "SELECT id, post_title
-								FROM wp_posts
-								WHERE post_status = 'publish' AND post_type = 'post'
-								ORDER BY post_date DESC";
-						}
-						// The query is prepared, just not in this line.
-						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-						$result = $wpdb->get_results( $query );
-
-						return rest_ensure_response( $result );
+					'permission_callback' => [ Published::class, 'permission' ],
+					'methods'             => Published::methods(),
+					'callback'            => static function ( $request ) {
+						$api = new Published( $request );
+						return $api->response();
 					},
 				],
 			]
 		);
+
 		/**
 		 * Save meta to the preview of the current user.
 		 */
@@ -470,28 +455,6 @@ class Rest_Api {
 				}
 				\Sentry\captureMessage( $message );
 			}
-		);
-	}
-
-	/**
-	 * Create a query for all posts with a certain language code.
-	 *
-	 * @param string $language_code Return posts with this language code.
-	 * @return string The prepared query.
-	 */
-	private static function get_wpml_posts_query( string $language_code ): string {
-		global $wpdb;
-
-		return $wpdb->prepare(
-			"SELECT p.id,p.post_title
-				FROM wp_posts p
-         		JOIN wp_icl_translations t
-              		ON p.ID = t.element_id AND t.element_type = 'post_post'
-				WHERE p.post_type = 'post'
-  					AND p.post_status = 'publish'
-  					AND t.language_code = %s
-				ORDER BY p.post_date DESC; ",
-			$language_code
 		);
 	}
 }
