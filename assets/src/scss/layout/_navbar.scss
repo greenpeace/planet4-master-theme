@@ -60,6 +60,7 @@ $navbar-default-height: 60px;
       color: $white;
       font-size: inherit;
       min-width: 116px;
+      padding: 2px 17px;
 
       &:hover {
         background: $orange-hover;
@@ -119,7 +120,11 @@ $navbar-default-height: 60px;
 
     & > li:not(:last-child) {
       margin-inline-start: $sp-2;
-      margin-inline-end: $sp-3;
+      margin-inline-end: $sp-2;
+
+      @include xx-large-and-up {
+        margin-inline-end: $sp-3;
+      }
     }
   }
 
