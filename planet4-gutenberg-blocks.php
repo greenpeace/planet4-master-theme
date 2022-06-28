@@ -108,6 +108,7 @@ require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 const POST_BLOCK_TYPES = [
 	'planet4-blocks/accordion',
+	'planet4-blocks/articles',
 	'planet4-blocks/counter',
 	'planet4-blocks/gallery',
 	'planet4-blocks/social-media',
