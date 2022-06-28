@@ -1,4 +1,5 @@
 import { Button, ButtonGroup, PanelBody } from '@wordpress/components';
+import { InspectorControls } from '@wordpress/block-editor';
 import assign from 'lodash.assign';
 
 const { addFilter } = wp.hooks;
@@ -64,7 +65,6 @@ const addExtraAttributes = function() {
 const addExtraControls = function() {
   const { createHigherOrderComponent } = wp.compose;
   const { Fragment } = wp.element;
-  const { InspectorControls } = wp.editor;
 
   const withCaptionStyle = createHigherOrderComponent( ( BlockEdit ) => {
     return ( props ) => {

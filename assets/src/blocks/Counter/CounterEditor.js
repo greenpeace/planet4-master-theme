@@ -10,7 +10,7 @@ import { URLInput } from "../../components/URLInput/URLInput";
 
 import { CounterFrontend } from './CounterFrontend';
 
-const { RichText } = wp.editor;
+const { RichText } = wp.blockEditor;
 const { __ } = wp.i18n;
 
 export class CounterEditor extends Component {
