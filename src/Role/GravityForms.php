@@ -1,16 +1,16 @@
 <?php
 
-namespace P4\MasterTheme;
+namespace P4\MasterTheme\Role;
 
 /**
- * Abstract Class GravityFormsSettings
+ * Abstract Class GravityForms
  */
-abstract class GravityFormsSettings {
+abstract class GravityForms {
 
 	/**
 	 * Add capabilities to user roles
 	 */
-	public static function user_capaibilities() {
+	public static function add_capaibilities_to_user_roles() {
 		// We will potentially add more roles.
 		$roles        = [ 'editor' ];
 		$capabilities = [];
