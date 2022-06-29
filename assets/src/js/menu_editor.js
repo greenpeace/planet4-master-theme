@@ -91,7 +91,7 @@ const menuEditorRestrictions = () => {
     </style>`;
 
     menuEditorFooter.insertBefore(container, menuEditorFooter.querySelector('div'));
-  }
+  };
 
   /**
    * Toggle rules linked to location selected
