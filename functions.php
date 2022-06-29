@@ -416,3 +416,19 @@ add_action(
 	},
 	99
 );
+
+// WP Stateless plugin short-circuits the image_downsize() process
+// with wpCloud\StatelessMedia\Bootstrap::image_downsize().
+// Contrary to the native function, it will return attachment data
+// even if the attachment is not an image.
+// The attachment is then treated as an image by the function
+// wp_get_attachment_link() generating the link, even for a PDF.
+// We overrule wp-stateless response if file is not an image.
+add_filter(
+	'image_downsize',
+	function ( $downsize, $id, $size ) {
+		return wp_attachment_is_image( $id ) ? $downsize : false;
+	},
+	100,
+	3
+);
