@@ -10,7 +10,7 @@ abstract class GravityForms {
 	/**
 	 * Add capabilities to user roles
 	 */
-	public static function add_capaibilities_to_user_roles() {
+	public static function add_capabilities_to_user_roles() {
 		// We will potentially add more roles.
 		$roles        = [ 'editor' ];
 		$capabilities = [];
@@ -23,7 +23,7 @@ abstract class GravityForms {
 					$capabilities = [
 						'gform_full_access'           => false,
 						'gravityforms_create_form'    => true,
-						'gravityforms_create_form'    => true,
+						'gravityforms_delete_form'    => true,
 						'gravityforms_edit_forms'     => true,
 						'gravityforms_preview_forms'  => true,
 						'gravityforms_view_entries'   => true,

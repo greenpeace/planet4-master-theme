@@ -28,7 +28,7 @@ class Activator {
 	public static function run(): void {
 		Role\Campaigner::register_role_and_add_capabilities();
 		Role\Reviewer::register_role();
-		Role\GravityForms::add_capaibilities_to_user_roles();
+		Role\GravityForms::add_capabilities_to_user_roles();
 		Migrator::migrate();
 	}
 
