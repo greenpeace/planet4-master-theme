@@ -21,5 +21,11 @@
   "scripts": {
     "fixes": "vendor/bin/phpcbf",
     "sniffs": "vendor/bin/phpcs"
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   }
 }
