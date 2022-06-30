@@ -148,8 +148,16 @@ class Covers extends Base_Block {
 						'type'    => 'string',
 						'default' => self::GRID_LAYOUT,
 					],
+					'isExample'        => [
+						'type'    => 'boolean',
+						'default' => false,
+					],
+					'exampleCovers'    => [
+						'type' => 'object',
+					],
 					'readMoreText'     => [
-						'type' => 'string',
+						'type'    => 'string',
+						'default' => __( 'Load more', 'planet4-blocks' ),
 					],
 				],
 			]

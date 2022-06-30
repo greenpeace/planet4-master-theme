@@ -2,6 +2,7 @@ import { CoversEditor } from './CoversEditor.js';
 import { frontendRendered } from '../frontendRendered';
 import { Tooltip } from '@wordpress/components';
 import { coversV1 } from './deprecated/coversV1';
+import { coversV2 } from './deprecated/coversV2';
 import { COVERS_TYPES, COVERS_LAYOUTS } from './CoversConstants';
 import { example } from './example.js';
 
@@ -109,6 +110,7 @@ const registerCoversBlock = () => {
     ],
     deprecated: [
       coversV1,
+      coversV2,
     ],
     example,
   });
