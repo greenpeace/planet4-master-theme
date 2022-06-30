@@ -1,13 +1,8 @@
 {% if google_tag_value %}
-  {% if ab_hide_selector %}
-  <style>
-    .google-optimize-loading {{ ab_hide_selector }} {
-      opacity: 0 !important;
-    }
-  </style>
-  {% endif %}
   <script>
+    var google_tag_value = '{{ google_tag_value }}';
     window.dataLayer = window.dataLayer || [];
+
     function gtag() { dataLayer.push(arguments); };
 
     var cookie_content = document.cookie.split(';').map(s => s.trim());
@@ -49,8 +44,6 @@
     }
     {% endif %}
 
-    var google_tag_value = '{{ google_tag_value }}';
-
     dataLayer.push({
       'pageType' : '{{ page_category }}',
       'signedIn' : '{{ p4_signedin_status }}',
@@ -59,12 +52,6 @@
       'post_tags': '{{ post_tags }}',
       'gPlatform': 'Planet 4'
     });
-
-    (function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
-    h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
-    (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
-    })(window,document.documentElement,'google-optimize-loading','dataLayer',4000,
-    {'{{ google_tag_value }}':true});
 
     {% if not post.password_required %}
       var cf_campaign_name = '{% if cf_campaign_name is defined and cf_campaign_name is not null %}{{ cf_campaign_name|raw }}{% endif %}';
@@ -91,10 +78,7 @@
     if ( google_tag_value && gtm_allow ) {
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
-        w[l].push({
-          'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-        });
+        w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
         var f = d.getElementsByTagName(s)[0],
             j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
         j.async = true;
