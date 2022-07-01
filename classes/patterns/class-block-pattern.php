@@ -35,6 +35,7 @@ abstract class Block_Pattern {
 		}
 
 		$patterns = [
+			BlankPage::class,
 			SideImageWithTextAndCta::class,
 			HighlightedCta::class,
 			RealityCheck::class,
