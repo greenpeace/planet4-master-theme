@@ -29,7 +29,9 @@ class SideImageWithTextAndCta extends Block_Pattern {
 	 */
 	public static function get_config( $params = [] ): array {
 		$media_link           = esc_url( get_template_directory_uri() ) . '/images/placeholders/placeholder-546x415.jpg';
-		$media_position_class = ! empty( $params ) && 'right' === $params['media_position'] ? 'has-media-on-the-right' : '';
+		$media_position_class = array_key_exists( 'media_position', $params ) && 'right' === $params['media_position'] ? 'has-media-on-the-right' : '';
+		$title_placeholder    = $params['title_placeholder'] ?? '';
+
 		return [
 			'title'      => __( 'Side image with text and CTA', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],
@@ -41,7 +43,7 @@ class SideImageWithTextAndCta extends Block_Pattern {
 						</figure>
 						<div class="wp-block-media-text__content">
 							<!-- wp:heading {"placeholder":"' . __( 'Enter title', 'planet4-blocks-backend' ) . '"} -->
-								<h2></h2>
+								<h2>' . $title_placeholder . '</h2>
 							<!-- /wp:heading -->
 							<!-- wp:paragraph {"placeholder":"' . __( 'Enter description', 'planet4-blocks-backend' ) . '"} -->
 								<p></p>

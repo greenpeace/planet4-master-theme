@@ -67,6 +67,8 @@ class QuickLinks extends Block_Pattern {
 	 * @param array $params Optional array of parameters for the config.
 	 */
 	public static function get_config( $params = [] ): array {
+		$title_placeholder = $params['title_placeholder'] ?? '';
+
 		return [
 			'title'      => __( 'Quick Links', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],
@@ -79,7 +81,7 @@ class QuickLinks extends Block_Pattern {
 									<div style="height:24px" aria-hidden="true" class="wp-block-spacer"></div>
 								<!-- /wp:spacer -->
 								<!-- wp:heading {"level":4,"placeholder":"' . __( 'Enter title', 'planet4-blocks-backend' ) . '"} -->
-									<h4></h4>
+									<h4>' . $title_placeholder . '</h4>
 								<!-- /wp:heading -->
 								<!-- wp:columns {"isStackedOnMobile":false,"className":"is-style-mobile-carousel"} -->
 									<div class="wp-block-columns is-not-stacked-on-mobile is-style-mobile-carousel">

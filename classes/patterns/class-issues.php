@@ -46,6 +46,8 @@ class Issues extends Block_Pattern {
 	 * @param array $params Optional array of parameters for the config.
 	 */
 	public static function get_config( $params = [] ): array {
+		$title_placeholder = $params['title_placeholder'] ?? '';
+
 		return [
 			'title'      => __( 'Issues', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],
@@ -61,7 +63,7 @@ class Issues extends Block_Pattern {
 						<!-- /wp:spacer -->
 
 						<!-- wp:heading {"textAlign":"center","level":1, "placeholder":"' . __( 'Enter title', 'planet4-blocks-backend' ) . '"} -->
-						<h1 class="has-text-align-center"></h1>
+						<h1 class="has-text-align-center">' . $title_placeholder . '</h1>
 						<!-- /wp:heading -->
 
 						<!-- wp:paragraph {"align":"center", "placeholder":"' . __( 'Enter description', 'planet4-blocks-backend' ) . '"} -->
