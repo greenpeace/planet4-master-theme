@@ -11,7 +11,7 @@
  */
 
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
-use P4\MasterTheme\Features\ListingPages\PostTypePagePagination;
+use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\Post;
 use Timber\Timber;
 
@@ -21,7 +21,7 @@ $context             = Timber::get_context();
 $context['taxonomy'] = get_queried_object();
 $context['wp_title'] = $context['taxonomy']->name;
 
-if ( PostTypePagePagination::is_active() ) {
+if ( ListingPagePagination::is_active() ) {
 	$view = ListingPageGridView::is_active() ? 'grid' : 'list';
 
 	$query_template = file_get_contents( get_template_directory() . "/parts/query-$view.html" );

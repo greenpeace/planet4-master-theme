@@ -28,7 +28,7 @@ class ListingPageGridView extends Feature {
 	 */
 	protected static function description(): string {
 		return __(
-			'Display the list of posts as a grid view.',
+			'Display the list of posts as a grid view on paginated listing page',
 			'planet4-master-theme-backend'
 		);
 	}
