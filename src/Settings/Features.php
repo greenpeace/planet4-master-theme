@@ -17,14 +17,10 @@ use P4\MasterTheme\Features\EngagingNetworks;
 use P4\MasterTheme\Features\GoogleSheetReplacesSmartsheet;
 use P4\MasterTheme\Features\ImageArchive;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
-use P4\MasterTheme\Features\ListingPages\AuthorPagePagination;
-use P4\MasterTheme\Features\ListingPages\CategoryPagePagination;
-use P4\MasterTheme\Features\ListingPages\PostTypePagePagination;
-use P4\MasterTheme\Features\ListingPages\TagPagePagination;
+use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\Features\NewDesignCountrySelector;
 use P4\MasterTheme\Features\NewDesignNavigationBar;
 use P4\MasterTheme\Features\PurgeOnFeatureChanges;
-use P4\MasterTheme\Features\PostPageCategoryLinks;
 use P4\MasterTheme\Features\RedirectRedirectPages;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Settings;
@@ -119,10 +115,6 @@ class Features {
 			NewDesignNavigationBar::class,
 			GoogleSheetReplacesSmartsheet::class,
 			RedirectRedirectPages::class,
-			TagPagePagination::class,
-			CategoryPagePagination::class,
-			AuthorPagePagination::class,
-			PostTypePagePagination::class,
 			DisableTagRedirectPages::class,
 
 			// Dev only.
@@ -133,6 +125,7 @@ class Features {
 			CoreBlockPatterns::class,
 			AllowAllBlocks::class,
 			DisableTagRedirectPages::class,
+			ListingPagePagination::class,
 			ListingPageGridView::class,
 		];
 	}

@@ -10,7 +10,7 @@
  */
 
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
-use P4\MasterTheme\Features\ListingPages\AuthorPagePagination;
+use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\User;
 use P4\MasterTheme\Post;
 use Timber\Timber;
@@ -51,7 +51,7 @@ if ( isset( $wp_query->query_vars['author'] ) ) {
 	$context['author_share_buttons']   = $author_share_buttons;
 }
 
-if ( AuthorPagePagination::is_active() ) {
+if ( ListingPagePagination::is_active() ) {
 	// Adjust global query to exclude author override.
 	// We can remove this once we convert author overrides to actual users.
 	$wp_query->query_vars['meta_key']     = 'p4_author_override';
