@@ -308,19 +308,20 @@ class MasterSite extends TimberSite {
 	 * Log large cookies event to sentry.
 	 */
 	public function log_large_cookies(): void {
-		if ( ! function_exists( '\\Sentry\\captureMessage' ) ) {
-			return;
-		}
-
-		if ( empty( $_SERVER['HTTP_COOKIE'] )
-			|| strlen( $_SERVER['HTTP_COOKIE'] ) <= 4096
+		if ( ! function_exists( '\\Sentry\\captureMessage' )
+			|| empty( $_SERVER['HTTP_COOKIE'] )
+			|| strlen( $_SERVER['HTTP_COOKIE'] ) <= 6144
 		) {
 			return;
 		}
 
+		$cookies = array_combine(
+			array_keys( $_COOKIE ),
+			array_map( fn ( $val ) => strlen( $val ), $_COOKIE )
+		);
 		\Sentry\withScope(
-			function ( \Sentry\State\Scope $scope ): void {
-				$scope->setContext( 'cookie_content', [ 'content' => $_SERVER['HTTP_COOKIE'] ] );
+			function ( \Sentry\State\Scope $scope ) use ( $cookies ): void {
+				$scope->setContext( 'cookies', $cookies );
 				\Sentry\captureMessage( 'Large cookies detected' );
 			}
 		);
