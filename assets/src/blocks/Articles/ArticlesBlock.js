@@ -64,9 +64,11 @@ export class ArticlesBlock {
           attributes: {
             article_heading: {
               type: 'string',
+              default: __( 'Related Articles', 'planet4-blocks' ),
             },
             articles_description: {
               type: 'string',
+              default: '',
             },
             article_count: {
               type: 'integer',
@@ -86,6 +88,7 @@ export class ArticlesBlock {
             },
             read_more_text: {
               type: 'string',
+              default: __( 'Load more', 'planet4-blocks' ),
             },
             read_more_link: {
               type: 'string',

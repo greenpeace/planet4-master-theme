@@ -13,7 +13,7 @@ import { MediaPlaceholder, MediaUploadCheck } from "@wordpress/blockEditor";
 const { RichText } = wp.blockEditor;
 const { __ } = wp.i18n;
 
-const renderEdit = (attributes, setAttributes) => {
+const renderEdit = (attributes, setAttributes, isSelected) => {
   const { image_data, className, gallery_block_style } = attributes;
 
   const layout = getGalleryLayout(className, gallery_block_style);
@@ -62,20 +62,22 @@ const renderEdit = (attributes, setAttributes) => {
 
   return (
     <Fragment>
-      <MediaUploadCheck>
-        <MediaPlaceholder
-          addToGallery={hasImages}
-          labels={{
-            title: __('Select Gallery Images', 'planet4-blocks-backend'),
-            instructions: __('Upload an JPEG image or select one from the media library.', 'planet4-blocks-backend'),
-          }}
-          onSelect={onSelectImage}
-          allowedTypes={["image"]}
-          accept={['image/jpg','image/jpeg']}
-          multiple
-          value={hasImages ? image_data : undefined}
-        />
-      </MediaUploadCheck>
+      {(isSelected || !hasImages) &&
+        <MediaUploadCheck>
+          <MediaPlaceholder
+            addToGallery={hasImages}
+            labels={{
+              title: __('Select Gallery Images', 'planet4-blocks-backend'),
+              instructions: __('Upload an JPEG image or select one from the media library.', 'planet4-blocks-backend'),
+            }}
+            onSelect={onSelectImage}
+            allowedTypes={["image"]}
+            accept={['image/jpg','image/jpeg']}
+            multiple
+            value={hasImages ? image_data : undefined}
+          />
+        </MediaUploadCheck>
+      }
       {hasImages && (
         <InspectorControls>
           <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
@@ -199,7 +201,7 @@ export const GalleryEditor = ({ isSelected, attributes, setAttributes }) => {
 
   return (
     <Fragment>
-      {isSelected && renderEdit(attributes, setAttributes)}
+      {renderEdit(attributes, setAttributes, isSelected)}
       {renderView(attributes, setAttributes)}
     </Fragment>
   );

@@ -42,6 +42,7 @@ abstract class Block_Pattern {
 			Issues::class,
 			DeepDive::class,
 			QuickLinks::class,
+			GetInformed::class,
 		];
 
 		/**

@@ -55,48 +55,53 @@ class Articles extends Base_Block {
 				},
 				'attributes'      => [
 					'article_heading'      => [
-						'type' => 'string',
-					],
-					'article_count'        => [
-						'type'    => 'integer',
-						'default' => 3,
-					],
-					'read_more_text'       => [
-						'type' => 'string',
-					],
-					'read_more_link'       => [
 						'type'    => 'string',
-						'default' => '',
+						'default' => __( 'Related Articles', 'planet4-blocks' ),
 					],
 					'articles_description' => [
 						'type'    => 'string',
 						'default' => '',
 					],
+					'article_count'        => [
+						'type'    => 'integer',
+						'default' => 3,
+					],
 					'tags'                 => [
-						'type'  => 'array',
-						'items' => [
+						'type'    => 'array',
+						'default' => [],
+						'items'   => [
 							'type' => 'integer', // Array definitions require an item type.
 						],
 					],
-					'post_types'           => [
-						'type'  => 'array',
-						'items' => [
+					'posts'                => [
+						'type'    => 'array',
+						'default' => [],
+						'items'   => [
 							'type' => 'integer',
 						],
 					],
-					'ignore_categories'    => [
-						'type'    => 'boolean',
-						'default' => false,
+					'post_types'           => [
+						'type'    => 'array',
+						'default' => [],
+						'items'   => [
+							'type' => 'integer',
+						],
+					],
+					'read_more_text'       => [
+						'type'    => 'string',
+						'default' => __( 'Load more', 'planet4-blocks' ),
+					],
+					'read_more_link'       => [
+						'type'    => 'string',
+						'default' => '',
 					],
 					'button_link_new_tab'  => [
 						'type'    => 'boolean',
 						'default' => false,
 					],
-					'posts'                => [
-						'type'  => 'array',
-						'items' => [
-							'type' => 'integer',
-						],
+					'ignore_categories'    => [
+						'type'    => 'boolean',
+						'default' => false,
 					],
 				],
 			]
