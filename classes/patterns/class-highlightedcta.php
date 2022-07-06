@@ -36,8 +36,8 @@ class HighlightedCta extends Block_Pattern {
 					<div class="wp-block-columns block has-dark-blue-background-color has-text-color has-background has-white-color">
 						<!-- wp:column -->
 							<div class="wp-block-column">
-								<!-- wp:image {"align":"center","className":"force-no-lightbox"} -->
-									<div class="wp-block-image force-no-lightbox">
+								<!-- wp:image {"align":"center","className":"force-no-lightbox force-no-caption"} -->
+									<div class="wp-block-image force-no-lightbox force-no-caption">
 										<figure class="aligncenter">
 											<img src="' . esc_url( get_template_directory_uri() ) . '/images/placeholders/placeholder-80x80.jpg" alt="' . __( 'Default image', 'planet4-blocks-backend' ) . '"/>
 										</figure>
