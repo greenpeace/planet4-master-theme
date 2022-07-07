@@ -26,7 +26,9 @@ class AdminAssets {
 		$navbar_location = 'navigation-bar-menu';
 		$donate_location = 'donate-menu';
 
-		if ( ! isset( $menus[ $navbar_location ] ) || ! isset( $menus[ $donate_location ] ) ) {
+		if ( ! isset( $menus[ $navbar_location ] )
+			&& ! isset( $menus[ $donate_location ] )
+		) {
 			return;
 		}
 
