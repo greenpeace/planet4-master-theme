@@ -1,6 +1,21 @@
 .group-stretched-link {
   position: relative;
 
+  [class*="is-style-rounded-"].force-no-caption {
+    overflow: hidden;
+    border-radius: 50%;
+
+    img {
+      transition: all .2s ease-in-out;
+    }
+  }
+
+  &:hover {
+    [class*="is-style-rounded-"] img {
+      transform: scale(1.3);
+    }
+  }
+
   // Ensure it's only applying to the first link.
   a:first-of-type {
     &:before {
