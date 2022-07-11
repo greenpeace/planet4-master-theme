@@ -1,19 +1,10 @@
 import ReactDOMServer from 'react-dom/server';
-import { Tooltip } from '@wordpress/components';
 import { HubspotFormEditor } from './HubspotFormEditor';
 import { HubspotFormFrontend } from './HubspotFormFrontend';
 const { registerBlockType } = wp.blocks;
 const { __ } = wp.i18n;
 
 const BLOCK_NAME = 'planet4-blocks/hubspot-form';
-
-const getStyleLabel = (label, help) => (
-  (help)
-    ? <Tooltip text={help}>
-        <span>{label}</span>
-      </Tooltip>
-    : label
-);
 
 export const registerHubspotFormBlock = () => {
   return registerBlockType(BLOCK_NAME, {
@@ -76,10 +67,7 @@ export const registerHubspotFormBlock = () => {
     styles: [
       {
         name: 'image-full-width',
-        label: getStyleLabel(
-          __('Image full width', 'planet4-blocks-backend'),
-          __('https://p4-designsystem.greenpeace.org/05f6e9516/p/213df0-hubspot-forms/b/99e047', 'planet4-blocks-backend'),
-        ),
+        label: __('Image full width', 'planet4-blocks-backend'),
         isDefault: true,
       },
     ],

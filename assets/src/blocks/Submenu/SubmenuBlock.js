@@ -1,21 +1,11 @@
 import { SubmenuEditor } from './SubmenuEditor.js';
-import { Tooltip } from '@wordpress/components';
 import {example} from './example';
+import { getStyleLabel } from '../../functions/getStyleLabel';
 
 const { __ } = wp.i18n;
 
 const BLOCK_NAME = 'planet4-blocks/submenu';
 
-const getStyleLabel = (label, help) => {
-  if (help) {
-    return (
-      <Tooltip text={ help }>
-        <span>{label}</span>
-      </Tooltip>
-    );
-  }
-  return label;
-}
 export const registerSubmenuBlock = () => {
   const { registerBlockType } = wp.blocks;
 

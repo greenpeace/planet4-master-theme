@@ -1,21 +1,10 @@
 import { ColumnsEditor } from './ColumnsEditor.js';
-import { Tooltip } from '@wordpress/components';
 import { LAYOUT_NO_IMAGE, LAYOUT_IMAGES, LAYOUT_ICONS, LAYOUT_TASKS } from './ColumnConstants.js';
 import { example } from './example';
+import { getStyleLabel } from '../../functions/getStyleLabel';
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
-
-const getStyleLabel = (label, help) => {
-  if (help) {
-    return (
-      <Tooltip text={help}>
-        <span>{label}</span>
-      </Tooltip>
-    );
-  }
-  return label;
-};
 
 export const registerColumnsBlock = () =>
   registerBlockType('planet4-blocks/columns', {

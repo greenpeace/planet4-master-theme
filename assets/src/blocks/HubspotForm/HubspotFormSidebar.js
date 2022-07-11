@@ -102,6 +102,11 @@ export const Sidebar = ({
           />}
         </PanelRowWrapper>
       </PanelRow>
+      <PanelRow>
+        <PanelRowWrapper>
+          <p className='FieldHelp'><a target='_blank' href='https://p4-designsystem.greenpeace.org/05f6e9516/p/213df0-hubspot-forms/b/99e047'>{__('Read more about Hubspot form styles.', 'planet4-blocks-backend')}</a></p>
+        </PanelRowWrapper>
+      </PanelRow>
     </PanelBody>
   </InspectorControls>
 };

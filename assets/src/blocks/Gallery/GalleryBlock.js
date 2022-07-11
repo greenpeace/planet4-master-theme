@@ -1,22 +1,11 @@
 import { GalleryEditor } from './GalleryEditor';
-import { Tooltip } from '@wordpress/components';
 import { frontendRendered } from '../frontendRendered';
+import { getStyleLabel } from '../../functions/getStyleLabel';
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 
 const BLOCK_NAME = 'planet4-blocks/gallery';
-
-const getStyleLabel = (label, help) => {
-  if (help) {
-    return (
-      <Tooltip text={help}>
-        <span>{label}</span>
-      </Tooltip>
-    );
-  }
-  return label;
-};
 
 const attributes = {
   gallery_block_style: { // Needed for existing blocks conversion

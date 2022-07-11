@@ -1,26 +1,15 @@
 import { CoversEditor } from './CoversEditor.js';
 import { frontendRendered } from '../frontendRendered';
-import { Tooltip } from '@wordpress/components';
 import { coversV1 } from './deprecated/coversV1';
 import { coversV2 } from './deprecated/coversV2';
 import { COVERS_TYPES, COVERS_LAYOUTS } from './CoversConstants';
 import { example } from './example.js';
+import { getStyleLabel } from '../../functions/getStyleLabel';
 
 const { __ } = wp.i18n;
 
 const BLOCK_NAME = 'planet4-blocks/covers';
 const VERSION = 2;
-
-const getStyleLabel = (label, help) => {
-  if (help) {
-    return (
-      <Tooltip text={help}>
-        <span>{label}</span>
-      </Tooltip>
-    );
-  }
-  return label;
-};
 
 const registerCoversBlock = () => {
   const { registerBlockType } = wp.blocks;
