@@ -42,6 +42,9 @@ final class GoogleDocsClient {
 
 			return $instance;
 		} catch ( \Exception $e ) {
+			if ( function_exists( '\Sentry\captureException' ) ) {
+				\Sentry\captureException( $exception );
+			}
 			return null;
 		}
 	}
@@ -50,9 +53,9 @@ final class GoogleDocsClient {
 	 *
 	 * @param string $sheet_id The id of the sheet to fetch.
 	 *
-	 * @return Smartsheet|null The sheet if found, otherwise null.
+	 * @return Spreadsheet|null The sheet if found, otherwise null.
 	 */
-	public function get_sheet( string $sheet_id ): ?Smartsheet {
+	public function get_sheet( string $sheet_id ): ?Spreadsheet {
 		try {
 			$sheets = new Sheets( $this->client );
 			// Currently, it only needs until F, but we can fetch a bit more to be sure.
@@ -64,8 +67,11 @@ final class GoogleDocsClient {
 				return null;
 			}
 
-			return Smartsheet::from_google_response( $rows[0], array_slice( $rows['values'], 1 ) );
+			return Spreadsheet::from_google_response( $rows[0], array_slice( $rows['values'], 1 ) );
 		} catch ( \Exception $exception ) {
+			if ( function_exists( '\Sentry\captureException' ) ) {
+				\Sentry\captureException( $exception );
+			}
 			return null;
 		}
 	}
