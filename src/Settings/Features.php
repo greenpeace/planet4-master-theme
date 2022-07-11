@@ -14,7 +14,6 @@ use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Features\Dev\ThemeEditor;
 use P4\MasterTheme\Features\Dev\WPTemplateEditor;
 use P4\MasterTheme\Features\EngagingNetworks;
-use P4\MasterTheme\Features\GoogleSheetReplacesSmartsheet;
 use P4\MasterTheme\Features\ImageArchive;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
 use P4\MasterTheme\Features\ListingPagePagination;
@@ -113,7 +112,6 @@ class Features {
 			LazyYoutubePlayer::class,
 			NewDesignCountrySelector::class,
 			NewDesignNavigationBar::class,
-			GoogleSheetReplacesSmartsheet::class,
 			RedirectRedirectPages::class,
 			DisableTagRedirectPages::class,
 

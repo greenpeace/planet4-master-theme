@@ -2,8 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\Features\GoogleSheetReplacesSmartsheet;
-
 /**
  * Data class for post editor analytics values.
  */
@@ -233,9 +231,7 @@ final class AnalyticsValues {
 			return self::from_cache_array( $cache );
 		}
 
-		$use_google = GoogleSheetReplacesSmartsheet::is_active();
-
-		$instance = $use_google ? self::using_google() : self::using_smartsheet();
+		$instance = self::using_google();
 
 		wp_cache_add(
 			self::CACHE_KEY,
