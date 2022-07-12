@@ -19,7 +19,7 @@ class BlankPage extends Block_Pattern {
 	 * @inheritDoc
 	 */
 	public static function get_name(): string {
-		return 'p4/blank-page';
+		return 'p4/blank-page-pattern-layout';
 	}
 
 	/**
@@ -31,7 +31,7 @@ class BlankPage extends Block_Pattern {
 		return [
 			'title'      => __( 'Blank page', 'planet4-blocks-backend' ),
 			'blockTypes' => [ 'core/post-content' ],
-			'categories' => [ 'pages' ],
+			'categories' => [ 'layouts' ],
 			'content'    => '
 				<!-- wp:paragraph {"placeholder":"' . __( 'Enter text', 'planet4-blocks-backend' ) . '"} -->
 				<p></p>

@@ -99,8 +99,8 @@ final class Loader {
 		);
 
 		register_block_pattern_category(
-			'pages',
-			[ 'label' => __( 'Pages', 'planet4-blocks-backend' ) ],
+			'layouts',
+			[ 'label' => __( 'Layouts', 'planet4-blocks-backend' ) ],
 		);
 
 		// Load block patterns.

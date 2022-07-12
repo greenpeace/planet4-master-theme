@@ -19,7 +19,7 @@ class GetInformed extends Block_Pattern {
 	 * Returns the pattern name.
 	 */
 	public static function get_name(): string {
-		return 'p4/get-informed';
+		return 'p4/get-informed-pattern-layout';
 	}
 
 	/**
@@ -31,7 +31,7 @@ class GetInformed extends Block_Pattern {
 		return [
 			'title'      => __( 'Get Informed', 'planet4-blocks-backend' ),
 			'blockTypes' => [ 'core/post-content' ],
-			'categories' => [ 'pages' ],
+			'categories' => [ 'layouts' ],
 			'content'    => '
 				<!-- wp:group {"className":"block"} -->
 					<div class="wp-block-group">
