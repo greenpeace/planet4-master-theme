@@ -98,8 +98,8 @@ const registerCoversBlock = () => {
       }
     ],
     deprecated: [
-      coversV1,
       coversV2,
+      coversV1,
     ],
     example,
   });
