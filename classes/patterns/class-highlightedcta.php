@@ -28,12 +28,13 @@ class HighlightedCta extends Block_Pattern {
 	 * @param array $params Optional array of parameters for the config.
 	 */
 	public static function get_config( $params = [] ): array {
+		$classname = self::get_classname();
 		return [
 			'title'      => __( 'Highlighted CTA', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],
 			'content'    => '
-				<!-- wp:columns {"className":"block","textColor":"white","backgroundColor":"dark-blue"} -->
-					<div class="wp-block-columns block has-dark-blue-background-color has-text-color has-background has-white-color">
+				<!-- wp:columns {"className":"block ' . $classname . '","textColor":"white","backgroundColor":"dark-blue"} -->
+					<div class="wp-block-columns block ' . $classname . ' has-dark-blue-background-color has-text-color has-background has-white-color">
 						<!-- wp:column -->
 							<div class="wp-block-column">
 								<!-- wp:image {"align":"center","className":"force-no-lightbox force-no-caption"} -->

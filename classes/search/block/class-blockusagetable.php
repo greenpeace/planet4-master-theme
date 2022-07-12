@@ -10,6 +10,7 @@ namespace P4GBKS\Search\Block;
 use InvalidArgumentException;
 use WP_List_Table;
 use WP_Block_Type_Registry;
+use P4GBKS\Search\RowActions;
 use P4GBKS\Search\Block\Query\Parameters;
 use P4GBKS\Controllers\Menu\Blocks_Usage_Controller;
 
@@ -137,6 +138,12 @@ class BlockUsageTable extends WP_List_Table {
 
 		$this->search_params = $search_params
 			->with_post_status( self::DEFAULT_POST_STATUS )
+			->with_post_type(
+				array_filter(
+					\get_post_types( [ 'show_in_rest' => true ] ),
+					fn ( $t ) => \post_type_supports( $t, 'editor' )
+				)
+			)
 			->with_order( array_merge( [ $this->group_by ], $this->sort_by ) );
 
 		$items = $this->block_usage->get_blocks( $this->search_params );
@@ -215,7 +222,6 @@ class BlockUsageTable extends WP_List_Table {
 				)
 			)
 		);
-		// @todo WP 5.? : parse blocks variations when available
 		sort( $namespaces );
 		$this->blocks_ns = $namespaces;
 	}
@@ -566,57 +572,9 @@ class BlockUsageTable extends WP_List_Table {
 	 * phpcs:disable WordPress.WP.I18n.TextDomainMismatch
 	 */
 	protected function handle_row_actions( $item, $column_name, $primary ) {
-		if ( $column_name !== $primary ) {
-			return '';
-		}
-
-		$actions = [];
-		$id      = (int) $item['post_id'];
-		$title   = $item['post_title'];
-
-		$actions['edit'] = sprintf(
-			'<a href="%s" aria-label="%s">%s</a>',
-			get_edit_post_link( $item['post_id'] ),
-			/* translators: %s: Post title. */
-			esc_attr( sprintf( __( 'Edit &#8220;%s&#8221;', 'default' ), $title ) ),
-			__( 'Edit', 'default' )
+		return $this->row_actions(
+			( new RowActions() )->get_post_actions( $item, $column_name, $primary )
 		);
-
-		if ( in_array( $item['post_status'], [ 'pending', 'draft', 'future' ], true ) ) {
-			$preview_link    = get_preview_post_link( $id );
-			$actions['view'] = sprintf(
-				'<a href="%s" rel="bookmark" aria-label="%s">%s</a>',
-				esc_url( $preview_link ),
-				/* translators: %s: Post title. */
-				esc_attr( sprintf( __( 'Preview &#8220;%s&#8221;', 'default' ), $title ) ),
-				__( 'Preview', 'default' )
-			);
-		} elseif ( 'trash' !== $item['post_status'] ) {
-			$actions['view'] = sprintf(
-				'<a href="%s" rel="bookmark" aria-label="%s">%s</a>',
-				get_permalink( $item['post_id'] ),
-				/* translators: %s: Post title. */
-				esc_attr( sprintf( __( 'View &#8220;%s&#8221;', 'default' ), $title ) ),
-				__( 'View', 'default' )
-			);
-		}
-
-		$actions['clone'] = '<a href="' . duplicate_post_get_clone_post_link( $id, 'display', false ) .
-			'" aria-label="' . esc_attr(
-			/* translators: %s: Post title. */
-				sprintf( __( 'Clone &#8220;%s&#8221;', 'duplicate-post' ), $title )
-			) . '">' .
-			esc_html_x( 'Clone', 'verb', 'duplicate-post' ) . '</a>';
-
-		$actions['edit_as_new_draft'] = '<a href="' . duplicate_post_get_clone_post_link( $id ) .
-			'" aria-label="' . esc_attr(
-			/* translators: %s: Post title. */
-				sprintf( __( 'New draft of &#8220;%s&#8221;', 'duplicate-post' ), $title )
-			) . '">' .
-			esc_html__( 'New Draft', 'duplicate-post' ) .
-			'</a>';
-
-		return $this->row_actions( $actions );
 	}
 
 	/**
@@ -632,31 +590,6 @@ class BlockUsageTable extends WP_List_Table {
 			return;
 		}
 		parent::display_tablenav( $which );
-	}
-
-	/**
-	 * Block count in search result.
-	 *
-	 * @return int
-	 */
-	public function block_count(): int {
-		return count( $this->items );
-	}
-
-	/**
-	 * Post count in search result.
-	 *
-	 * @return int
-	 */
-	public function post_count(): int {
-		return count(
-			array_unique(
-				array_column(
-					$this->items,
-					'post_id'
-				)
-			)
-		);
 	}
 
 	/**

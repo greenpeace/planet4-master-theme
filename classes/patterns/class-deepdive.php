@@ -58,12 +58,13 @@ class DeepDive extends Block_Pattern {
 	 * @param array $params Optional array of parameters for the config.
 	 */
 	public static function get_config( $params = [] ): array {
+		$classname = self::get_classname();
 		return [
 			'title'      => __( 'Deep Dive', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],
 			'content'    => '
-				<!-- wp:group {"className":"block","align":"full","backgroundColor":"grey-05"} -->
-					<div class="wp-block-group alignfull block has-grey-05-background-color has-background">
+				<!-- wp:group {"className":"block ' . $classname . '","align":"full","backgroundColor":"grey-05"} -->
+					<div class="wp-block-group alignfull block ' . $classname . ' has-grey-05-background-color has-background">
 						<!-- wp:group {"className":"container"} -->
 							<div class="wp-block-group container">
 								<!-- wp:spacer {"height":"24px"} -->

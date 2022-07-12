@@ -2,7 +2,7 @@
 /**
  * Block search
  *
- * @package P4BKS\Controllers
+ * @package P4BKS\Search
  */
 
 namespace P4GBKS\Search;

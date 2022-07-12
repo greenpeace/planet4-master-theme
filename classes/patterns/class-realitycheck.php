@@ -57,12 +57,14 @@ class RealityCheck extends Block_Pattern {
 	 * @param array $params Optional array of parameters for the config.
 	 */
 	public static function get_config( $params = [] ): array {
+		$classname = self::get_classname();
+
 		return [
 			'title'      => __( 'Reality Check', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],
 			'content'    => '
-				<!-- wp:columns {"className":"block"} -->
-					<div class="wp-block-columns block">
+				<!-- wp:columns {"className":"block ' . $classname . '"} -->
+					<div class="wp-block-columns block ' . $classname . '">
 						' . self::get_column_template() . '
 						' . self::get_column_template() . '
 						' . self::get_column_template() . '

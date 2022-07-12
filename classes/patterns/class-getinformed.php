@@ -28,13 +28,14 @@ class GetInformed extends Block_Pattern {
 	 * @param array $params Optional array of parameters for the config.
 	 */
 	public static function get_config( $params = [] ): array {
+		$classname = self::get_classname();
 		return [
 			'title'      => __( 'Get Informed', 'planet4-blocks-backend' ),
 			'blockTypes' => [ 'core/post-content' ],
 			'categories' => [ 'layouts' ],
 			'content'    => '
-				<!-- wp:group {"className":"block"} -->
-					<div class="wp-block-group">
+				<!-- wp:group {"className":"block ' . $classname . '"} -->
+					<div class="wp-block-group block ' . $classname . '">
 						' . QuickLinks::get_config( [ 'title_placeholder' => __( 'Explore by topic', 'planet4-blocks' ) ] )['content'] . '
 						' . SideImageWithTextAndCta::get_config( [ 'title_placeholder' => __( 'Topic 1', 'planet4-blocks' ) ] )['content'] . '
 						' . SideImageWithTextAndCta::get_config(

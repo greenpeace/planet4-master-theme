@@ -46,14 +46,15 @@ class Issues extends Block_Pattern {
 	 * @param array $params Optional array of parameters for the config.
 	 */
 	public static function get_config( $params = [] ): array {
+		$classname         = self::get_classname();
 		$title_placeholder = $params['title_placeholder'] ?? '';
 
 		return [
 			'title'      => __( 'Issues', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],
 			'content'    => '
-				<!-- wp:group {"align":"full","backgroundColor":"grey-05"} -->
-				<div class="wp-block-group alignfull has-grey-05-background-color has-background">
+				<!-- wp:group {"className":"' . $classname . '","align":"full","backgroundColor":"grey-05"} -->
+				<div class="wp-block-group ' . $classname . ' alignfull has-grey-05-background-color has-background">
 
 					<!-- wp:group {"className":"container"} -->
 					<div class="wp-block-group container">
