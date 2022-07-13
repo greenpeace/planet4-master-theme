@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html {{ fn('language_attributes', 'html') }} data-base="{{ data_nav_bar.home_url }}">
 <head>
+	{% include 'blocks/google_antiflicker.twig' %}
+	{% include 'blocks/google_tag_manager.twig' %}
+
 	<meta charset="{{ site.charset }}">
 	{% include 'blocks/title.twig' %}
 
 	{% include 'blocks/meta_fields.twig' %}
-
-	{% include 'blocks/google_tag_manager.twig' %}
 
 	{% if hubspot_active %}
 		{% include 'head/hubspot.twig' %}
