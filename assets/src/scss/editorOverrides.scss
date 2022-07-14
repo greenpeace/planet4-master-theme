@@ -276,3 +276,14 @@ input.describe[type=text][data-setting=caption] {
 .block-editor-block-preview__content-iframe .wp-block-button.is-style-transparent {
   background: $dark-blue;
 }
+
+.block-editor-block-patterns-list__item {
+  display: flex;
+  flex-direction: column-reverse;
+
+  .block-editor-block-patterns-list__item-title {
+    color: $grey-80;
+    font-weight: bold;
+    margin-bottom: $sp-1;
+  }
+}
