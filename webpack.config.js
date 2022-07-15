@@ -59,7 +59,6 @@ const adminJsConfig = {
   },
   entry: {
     editorIndex: './assets/src/editorIndex.js',
-    themeEditor: './assets/src/themeEditorIndex.js',
     AccordionEditorScript: './assets/src/blocks/Accordion/AccordionEditorScript.js',
     CoversEditorScript: './assets/src/blocks/Covers/CoversEditorScript.js',
     CarouselHeaderEditorScript: './assets/src/blocks/CarouselHeader/CarouselHeaderEditorScript.js',
@@ -77,7 +76,6 @@ const cssConfig = {
     style: './assets/src/styles/style.scss',
     editorStyle: './assets/src/styles/editorStyle.scss',
     lightbox: './assets/src/styles/lightbox.scss',
-    themeEditorStyle: './assets/src/styles/themeEditor.scss',
     AccordionStyle: './assets/src/styles/blocks/Accordion/AccordionStyle.scss',
     AccordionEditorStyle: './assets/src/styles/blocks/Accordion/AccordionEditorStyle.scss',
     CarouselHeaderStyle: './assets/src/styles/blocks/CarouselHeader/CarouselHeaderStyle.scss',

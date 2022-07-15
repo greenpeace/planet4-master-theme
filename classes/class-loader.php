@@ -461,25 +461,6 @@ final class Loader {
 
 		// Sets translated strings for a JS script.
 		wp_set_script_translations( 'planet4-blocks-script', 'planet4-blocks', P4GBKS_PLUGIN_DIR . '/languages' );
-
-		if ( self::can_include_theme_editor() ) {
-			wp_enqueue_style(
-				'theme-editor',
-				P4GBKS_PLUGIN_URL . 'assets/build/themeEditorStyle.min.css',
-				[ 'wp-components' ],
-				self::file_ver( P4GBKS_PLUGIN_DIR . '/assets/build/themeEditorStyle.min.css' )
-			);
-			self::enqueue_local_script(
-				'theme-editor',
-				'assets/build/themeEditor.js',
-				[
-					'wp-components',
-					'wp-url',
-					'wp-api-fetch',
-				],
-				false
-			);
-		}
 	}
 
 	/**
@@ -500,16 +481,6 @@ final class Loader {
 		];
 
 		return $cookies_default_copy;
-	}
-
-	/**
-	 * Check whether we can include the theme editor.
-	 *
-	 * @return bool Whether the theme editor will be included.
-	 */
-	private static function can_include_theme_editor(): bool {
-
-		return Features::is_active( 'theme_editor' ) && is_user_logged_in();
 	}
 
 	/**
