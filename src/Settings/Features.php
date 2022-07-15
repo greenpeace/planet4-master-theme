@@ -11,7 +11,6 @@ use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use P4\MasterTheme\Features\Dev\DisableDataSync;
 use P4\MasterTheme\Features\Dev\DisableTagRedirectPages;
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
-use P4\MasterTheme\Features\Dev\ThemeEditor;
 use P4\MasterTheme\Features\Dev\WPTemplateEditor;
 use P4\MasterTheme\Features\EngagingNetworks;
 use P4\MasterTheme\Features\ImageArchive;
@@ -112,7 +111,6 @@ class Features {
 			// Dev only.
 			DisableDataSync::class,
 			BetaBlocks::class,
-			ThemeEditor::class,
 			WPTemplateEditor::class,
 			CoreBlockPatterns::class,
 			AllowAllBlocks::class,
