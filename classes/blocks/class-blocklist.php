@@ -55,7 +55,7 @@ class BlockList {
 		if ( ! $found || ! is_array( $block_list ) ) {
 			$post       = $post ?? get_post( $post_id );
 			$content    = $post->post_content ?? '';
-			$block_list = self::parse_block_list( $content, $reusable );
+			$block_list = self::parse_block_list( $content, $reusable, $post_id );
 			self::cache_set( $post_id, $block_list );
 		}
 
@@ -65,18 +65,22 @@ class BlockList {
 	/**
 	 * List blocks included in post.
 	 *
-	 * @param string $content  Post content.
-	 * @param array  $reusable Reusable blocks already parsed.
+	 * @param string $content Post content.
+	 * @param array  $seen    Reusable blocks already parsed.
+	 * @param int    $post_id Post ID parsed.
 	 *
 	 * @return string[] List of unique block names.
 	 */
-	public static function parse_block_list( string $content, &$reusable = [] ): array {
+	public static function parse_block_list( string $content, &$seen = [], $post_id = 0 ): array {
 		if ( ! has_blocks( $content ) ) {
 			return [];
 		}
 
 		$blocks = ( new WP_Block_Parser() )->parse( $content );
 		$parsed = array_filter( $blocks, fn ( $b ) => ! empty( $b['blockName'] ) );
+		if ( ! isset( $seen[ $post_id ] ) ) {
+			$seen[ $post_id ] = [];
+		}
 
 		$list = [];
 		while ( ! empty( $parsed ) ) {
@@ -89,14 +93,24 @@ class BlockList {
 					continue;
 				}
 
-				// Reusable block loop detection.
-				if ( in_array( $ref_id, $reusable, true ) ) {
-					self::report_reusable_loop( $ref_id, $content );
+				// Block pasted multiple times in same post.
+				if ( in_array( $ref_id, $seen[ $post_id ], true ) ) {
 					continue;
 				}
 
-				$reusable[] = $ref_id;
-				$list       = array_merge( $list, self::get_block_list( $ref_id, $reusable ) );
+				// Block loop detection.
+				// If the reusable block is the same as the post currently parsed,
+				// or if it has been parsed previously in this process,
+				// this means it eventually loops back to itself.
+				$seen[ $post_id ][] = $ref_id;
+				if ( $ref_id === $post_id
+					|| isset( $seen[ $ref_id ] )
+				) {
+					self::report_reusable_loop( $ref_id, $post_id, $seen );
+					continue;
+				}
+
+				$list = array_merge( $list, self::get_block_list( $ref_id, $seen ) );
 			}
 
 			if ( ! empty( $block['innerBlocks'] ) ) {
@@ -113,21 +127,23 @@ class BlockList {
 	}
 
 	/**
-	 * @param int    $ref_id  Reusable block ID.
-	 * @param string $content Content parsed.
+	 * @param int   $ref_id  Block ID.
+	 * @param int   $post_id Current post ID.
+	 * @param array $seen    Reusable blocks already parsed.
 	 */
-	private static function report_reusable_loop( int $ref_id, string $content ): void {
+	private static function report_reusable_loop( int $ref_id, int $post_id, array $seen ): void {
 		if ( ! function_exists( '\\Sentry\\withScope' ) ) {
 			return;
 		}
 
 		\Sentry\withScope(
-			function ( \Sentry\State\Scope $scope ) use ( $ref_id, $content ): void {
+			function ( \Sentry\State\Scope $scope ) use ( $ref_id, $post_id, $seen ): void {
 				$scope->setContext(
 					'block loop',
 					[
 						'ref_id'  => $ref_id,
-						'content' => $content,
+						'post_id' => $post_id,
+						'seen'    => $seen,
 					]
 				);
 				\Sentry\captureMessage( 'Reusable block loop' );
