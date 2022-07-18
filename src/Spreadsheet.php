@@ -5,9 +5,9 @@ namespace P4\MasterTheme;
 use InvalidArgumentException;
 
 /**
- * A data object for SmartSheet API responses.
+ * A data object for Spreadsheet API responses.
  */
-final class Smartsheet {
+final class Spreadsheet {
 	/**
 	 * @var array The columns of the sheet.
 	 */
@@ -19,7 +19,7 @@ final class Smartsheet {
 	private $rows;
 
 	/**
-	 * Smartsheet constructor.
+	 * Spreadsheet constructor.
 	 *
 	 * @param array $columns The columns of the sheet.
 	 * @param array $rows The rows of the sheet.
@@ -30,31 +30,14 @@ final class Smartsheet {
 	}
 
 	/**
-	 * Create an instance from data from the SmartSheet API.
-	 *
-	 * @param array $data The data from the SmartSheet API.
-	 *
-	 * @return static The instance.
-	 * @throws InvalidArgumentException If the data doesn't have the correct keys.
-	 */
-	public static function from_smartsheet_api_response( array $data ): self {
-		if ( ! isset( $data['columns'], $data['rows'] ) ) {
-			throw new InvalidArgumentException( 'Cannot create from API data as it does not have rows.' );
-		}
-
-		return new self( $data['columns'], $data['rows'] );
-	}
-
-	/**
-	 * Create sheet from Google API response. For now this converts it to the format Smartsheet's API returned, so that
-	 * we need to convert less code. When Smartsheet is removed we can decouple it from this structure.
+	 * Create sheet from Google API response.
 	 *
 	 * @param array $header Row of values with the headers.
 	 * @param array $rows All the other rows.
 	 *
-	 * @return Smartsheet A sheet with the values.
+	 * @return Spreadsheet A sheet with the values.
 	 */
-	public static function from_google_response( array $header, array $rows ): Smartsheet {
+	public static function from_google_response( array $header, array $rows ): Spreadsheet {
 		$columns = array_map( fn( $h ) => [ 'title' => $h ], $header );
 
 		$convert_cell = fn( $c ) => [ 'value' => $c ];
@@ -72,7 +55,7 @@ final class Smartsheet {
 	 * @param int   $column_index Index of the column to use for filtering.
 	 * @param mixed $expected The column value to use for filtering.
 	 *
-	 * @return Smartsheet The filtered sheet.
+	 * @return Spreadsheet The filtered sheet.
 	 */
 	public function filter_by_column( int $column_index, $expected ): self {
 		$rows = array_filter(
@@ -93,7 +76,7 @@ final class Smartsheet {
 	 *
 	 * @param int $column_index The column to sort on.
 	 *
-	 * @return Smartsheet
+	 * @return Spreadsheet
 	 */
 	public function sort_on_column( int $column_index ): self {
 		$rows = $this->rows;

@@ -432,14 +432,8 @@ class Settings {
 						'type' => 'text',
 					],
 					[
-						'name' => __( 'Local Projects Smartsheet ID', 'planet4-master-theme-backend' ),
-						'desc' => __( 'The smartsheet that is used to get analytics values from local(NRO) smartsheet.', 'planet4-master-theme-backend' ),
-						'id'   => 'analytics_local_smartsheet_id',
-						'type' => 'text',
-					],
-					[
 						'name' => __( 'Local Projects Google Sheet ID', 'planet4-master-theme-backend' ),
-						'desc' => __( 'The Google Sheet that is used to get analytics values from local(NRO) smartsheet.', 'planet4-master-theme-backend' ),
+						'desc' => __( 'The Google Sheet that is used to get analytics values from local(NRO) spreadsheet.', 'planet4-master-theme-backend' ),
 						'id'   => 'analytics_local_google_sheet_id',
 						'type' => 'text',
 					],

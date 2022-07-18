@@ -28,8 +28,6 @@ class_alias( \P4\MasterTheme\PostReportController::class, 'P4_Post_Report_Contro
 class_alias( \P4\MasterTheme\Search::class, 'P4_Search' );
 class_alias( \P4\MasterTheme\Settings::class, 'P4_Settings' );
 class_alias( \P4\MasterTheme\Sitemap::class, 'P4_Sitemap' );
-class_alias( \P4\MasterTheme\Smartsheet::class, 'P4_Smartsheet' );
-class_alias( \P4\MasterTheme\SmartsheetClient::class, 'P4_Smartsheet_Client' );
 class_alias( \P4\MasterTheme\TaxonomyCampaign::class, 'P4_Taxonomy_Campaign' );
 class_alias( \P4\MasterTheme\User::class, 'P4_User' );
 

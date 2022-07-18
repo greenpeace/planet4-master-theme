@@ -2,8 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\Features\GoogleSheetReplacesSmartsheet;
-
 /**
  * Data class for post editor analytics values.
  */
@@ -152,49 +150,6 @@ final class AnalyticsValues {
 	}
 
 	/**
-	 * Extract values from smartsheets.
-	 *
-	 * @param Smartsheet      $global_smartsheet Smartsheet containing global projects data.
-	 * @param Smartsheet|null $local_smartsheet Smartsheet containing local projects data.
-	 * @param bool            $uses_google Google sheets have different boolean columns.
-	 *
-	 * @return static
-	 */
-	public static function from_smartsheets(
-		Smartsheet $global_smartsheet,
-		Smartsheet $local_smartsheet = null,
-		bool $uses_google = false
-	): self {
-		$project_name_column = $global_smartsheet->get_column_index( 'Global Project Standard' );
-		$approved_column     = $global_smartsheet->get_column_index( 'Standard Approved' );
-		$tracking_id_column  = $global_smartsheet->get_column_index( 'Tracking ID' );
-
-		$column_names = [
-			$project_name_column => 'global_project_name',
-			$tracking_id_column  => 'tracking_id',
-		];
-
-		$global_projects = $global_smartsheet
-			->filter_by_column( $approved_column, $uses_google ? 'yes' : true )
-			->sort_on_column( $project_name_column )
-			->export_columns( $column_names );
-
-		$local_projects = null;
-		if ( null !== $local_smartsheet ) {
-			// Fetch local (NRO) smartsheet data.
-			$project_name_column = $local_smartsheet->get_column_index( 'Local Project Standard' );
-			$approved_column     = $local_smartsheet->get_column_index( 'Local Sync' );
-
-			$local_projects = $local_smartsheet
-				->filter_by_column( $approved_column, $uses_google ? 'yes' : true )
-				->sort_on_column( $project_name_column )
-				->export_columns( [ $project_name_column => 'local_project_name' ] );
-		}
-
-		return new self( $global_projects, $local_projects );
-	}
-
-	/**
 	 * Extract values from cache array.
 	 *
 	 * @param array $cache_array The cache array.
@@ -233,9 +188,7 @@ final class AnalyticsValues {
 			return self::from_cache_array( $cache );
 		}
 
-		$use_google = GoogleSheetReplacesSmartsheet::is_active();
-
-		$instance = $use_google ? self::using_google() : self::using_smartsheet();
+		$instance = self::using_google();
 
 		wp_cache_add(
 			self::CACHE_KEY,
@@ -245,38 +198,6 @@ final class AnalyticsValues {
 		);
 
 		return $instance ?? self::from_hardcoded_values();
-	}
-
-	/**
-	 * Fetch using Smartsheet.
-	 *
-	 * @return static|null Instance if possible.
-	 */
-	private static function using_smartsheet(): ?self {
-		$api_key = defined( 'SMARTSHEET_API_KEY' ) ? SMARTSHEET_API_KEY : null;
-
-		if ( ! $api_key ) {
-			return null;
-		}
-
-		$smartsheet_client = SmartsheetClient::from_api_key( $api_key );
-
-		$global_sheet_id = $_ENV['ANALYTICS_GLOBAL_SMARTSHEET_ID'] ?? '4212503304529796';
-
-		if ( ! $global_sheet_id ) {
-			return null;
-		}
-		$global_sheet = $smartsheet_client->get_sheet( $global_sheet_id );
-
-		if ( null === $global_sheet ) {
-			return null;
-		}
-
-		$local_sheet_id = planet4_get_option( 'analytics_local_smartsheet_id' ) ?? $_ENV['ANALYTICS_LOCAL_SMARTSHEET_ID'] ?? null;
-
-		$local_sheet = $local_sheet_id ? $smartsheet_client->get_sheet( $local_sheet_id ) : null;
-
-		return self::from_smartsheets( $global_sheet, $local_sheet, false );
 	}
 
 	/**
@@ -307,7 +228,50 @@ final class AnalyticsValues {
 
 		$local_sheet = ! $local_sheet_id ? null : $google_client->get_sheet( $local_sheet_id );
 
-		return self::from_smartsheets( $global_sheet, $local_sheet, true );
+		return self::from_spreadsheets( $global_sheet, $local_sheet, true );
+	}
+
+	/**
+	 * Extract values from from_spreadsheets.
+	 *
+	 * @param Spreadsheet      $global_spreadsheet Spreadsheet containing global projects data.
+	 * @param Spreadsheet|null $local_spreadsheet  Spreadsheet containing local projects data.
+	 * @param bool             $uses_google Google sheets have different boolean columns.
+	 *
+	 * @return static
+	 */
+	public static function from_spreadsheets(
+		Spreadsheet $global_spreadsheet,
+		Spreadsheet $local_spreadsheet = null,
+		bool $uses_google = false
+	): self {
+		$project_name_column = $global_spreadsheet->get_column_index( 'Global Project Standard' );
+		$approved_column     = $global_spreadsheet->get_column_index( 'Standard Approved' );
+		$tracking_id_column  = $global_spreadsheet->get_column_index( 'Tracking ID' );
+
+		$column_names = [
+			$project_name_column => 'global_project_name',
+			$tracking_id_column  => 'tracking_id',
+		];
+
+		$global_projects = $global_spreadsheet
+			->filter_by_column( $approved_column, $uses_google ? 'yes' : true )
+			->sort_on_column( $project_name_column )
+			->export_columns( $column_names );
+
+		$local_projects = null;
+		if ( null !== $local_spreadsheet ) {
+			// Fetch local (NRO) spreadsheet data.
+			$project_name_column = $local_spreadsheet->get_column_index( 'Local Project Standard' );
+			$approved_column     = $local_spreadsheet->get_column_index( 'Local Sync' );
+
+			$local_projects = $local_spreadsheet
+				->filter_by_column( $approved_column, $uses_google ? 'yes' : true )
+				->sort_on_column( $project_name_column )
+				->export_columns( [ $project_name_column => 'local_project_name' ] );
+		}
+
+		return new self( $global_projects, $local_projects );
 	}
 
 	/**
@@ -336,7 +300,7 @@ final class AnalyticsValues {
 	}
 
 	/**
-	 * Returns local(NRO) project smartsheet options.
+	 * Returns local(NRO) project spreadsheet options.
 	 *
 	 * @return array
 	 */
