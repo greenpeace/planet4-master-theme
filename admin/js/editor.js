@@ -49,10 +49,16 @@ wp.domReady(() => {
   );
 
   ['core/group'].forEach(block => {
-    registerBlockStyle(block, {
-      name: 'space-evenly',
-      label: __('Space evenly', 'planet4-blocks-backend'),
-    });
+    registerBlockStyle(block, [
+      {
+        name: 'space-evenly',
+        label: __('Space evenly', 'planet4-blocks-backend'),
+      },
+      {
+        name: 'reset-margin',
+        label: __('Reset margin', 'planet4-blocks-backend'),
+      }
+    ]);
   });
 
   ['core/paragraph'].forEach(block => {
