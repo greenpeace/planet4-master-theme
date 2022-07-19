@@ -12,15 +12,26 @@
   margin-bottom: 16px;
 }
 
+.wp-block-query-pagination-next,
+.page-numbers {
+  border-radius: 4px;
+  padding: $sp-1 $sp-1x;
+  background: $grey-20;
+  border: 1px solid $grey-20;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 .page-numbers {
   &:not(:last-child) {
     margin-inline-end: 8px;
   }
 
   &.current {
-    border: 1px solid black;
-    border-radius: 4px;
-    padding: 8px 12px;
+    background: transparent;
+    border-color: black;
   }
 }
 
