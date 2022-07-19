@@ -1,26 +1,90 @@
 .wp-block-query-pagination {
+  a,
+  .page-numbers {
+    color: $black;
+    padding: $sp-1 $sp-1x;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
   a {
-    color: black;
-    font-weight: bold;
+    &:hover {
+      text-decoration: none;
+      background-color: $grey-10;
+      transition-property: background-color, border-color;
+      transition-duration: 250ms;
+      transition-timing-function: linear;
+    }
   }
 
   font-family: $roboto;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: $sp-2;
+
+  @include large-and-up {
+    justify-content: center;
+  }
 }
 
-.page-numbers {
-  &:not(:last-child) {
-    margin-inline-end: 8px;
+.wp-block-query-pagination-previous,
+.wp-block-query-pagination-next {
+  margin: 0 !important;
+
+  &.disabled {
+    pointer-events: none;
+  }
+}
+
+.wp-block-query-pagination-previous:before,
+.wp-block-query-pagination-next:after {
+  content: "";
+  height: 12px;
+  width: 8px;
+  display: inline-block;
+  mask-image: url("../../images/chevron.svg");
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  mask-position: center;
+  background-repeat: no-repeat;
+  background-color: currentColor;
+  color: $black;
+}
+
+.wp-block-query-pagination-previous {
+  &:before {
+    margin-inline-end: 6px;
+    transform: rotate(-180deg);
+
+    html[dir="rtl"] & {
+      transform: rotate(0);
+    }
+  }
+}
+
+.wp-block-query-pagination-next {
+  &:after {
+    margin-inline-start: 6px;
+
+    html[dir="rtl"] & {
+      transform: rotate(-180deg);
+    }
+  }
+}
+
+.wp-block-query-pagination-numbers {
+  margin: 0 !important;
+
+  .page-numbers.current {
+    border-color: $black;
   }
 
-  &.current {
-    border: 1px solid black;
-    border-radius: 4px;
-    padding: 8px 12px;
+  @include large-and-up {
+    margin: 0 $sp-5 0 !important;
   }
 }
 
@@ -38,7 +102,7 @@
 }
 
 .wp-block-post {
-  margin-bottom: 32px;
+  margin-bottom: $sp-4;
 
   figure {
     margin-bottom: 0;
@@ -46,5 +110,5 @@
 }
 
 .wp-block-post-excerpt__excerpt {
-  font-size: 1rem;
+  font-size: $font-size-sm;
 }
