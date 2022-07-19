@@ -9,13 +9,10 @@
  * @package P4MT
  */
 
-use P4\MasterTheme\Features\Dev\DisableTagRedirectPages;
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Features\HideListingPagesBackground;
-use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\TaxonomyCampaign;
 use Timber\Timber;
-use P4GBKS\Blocks\Articles;
 use P4GBKS\Blocks\HappyPoint;
 
 $context = Timber::get_context();
@@ -27,7 +24,7 @@ if ( is_tag() ) {
 	$explore_page_id = planet4_get_option( 'explore_page' );
 
 	$redirect_id = get_term_meta( $context['tag']->term_id, 'redirect_page', true );
-	if ( ! DisableTagRedirectPages::is_active() && $redirect_id ) {
+	if ( $redirect_id ) {
 
 		global $wp_query;
 		$redirect_page               = get_post( $redirect_id );
@@ -70,19 +67,12 @@ if ( is_tag() ) {
 		}
 		$context['page_category'] = 'Tag Page';
 
-		if ( ListingPagePagination::is_active() ) {
-			$view = ListingPageGridView::is_active() ? 'grid' : 'list';
+		$view = ListingPageGridView::is_active() ? 'grid' : 'list';
 
-			$query_template = file_get_contents( get_template_directory() . "/parts/query-$view.html" );
+		$query_template = file_get_contents( get_template_directory() . "/parts/query-$view.html" );
 
-			$content = do_blocks( $query_template );
-
-			$context['query_loop'] = $content;
-
-			$campaign = new TaxonomyCampaign( $templates, $context );
-			$campaign->view();
-			exit();
-		}
+		$content               = do_blocks( $query_template );
+		$context['query_loop'] = $content;
 
 		$campaign = new TaxonomyCampaign( $templates, $context );
 
@@ -93,13 +83,6 @@ if ( is_tag() ) {
 				'description' => __( 'We want you to take action because together we\'re strong.', 'planet4-master-theme' ),
 				'tags'        => [ $context['tag']->term_id ],
 				'cover_type'  => '1',   // Show Take Action Cover.
-			]
-		);
-
-		$campaign->add_block(
-			Articles::BLOCK_NAME,
-			[
-				'tags' => [ $context['tag']->term_id ],
 			]
 		);
 
