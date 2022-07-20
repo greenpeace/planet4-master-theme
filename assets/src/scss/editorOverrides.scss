@@ -118,25 +118,6 @@
   }
 }
 
-.wp-block-button.is-style-donate .wp-block-button__link[role="textbox"] {
-  --button-donate-- {
-    background: $aquamarine;
-    color: $grey;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-  }
-
-  line-height: 1.65;
-  min-width: 180px;
-  margin: 0;
-  padding: 2px $sp-4;
-  transition: color background-color font-weight 100ms;
-
-  .editor-styles-wrapper & {
-    min-width: auto;
-    line-height: 3;
-  }
-}
-
 .wp-block-button.transparent-button .wp-block-button__link[role="textbox"],
 .wp-block-button.is-style-transparent .wp-block-button__link[role="textbox"] {
   --transparent-button-- {
