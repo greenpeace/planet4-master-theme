@@ -135,12 +135,12 @@ class Articles extends Base_Block {
 		// 4) issue page - Get posts based on page's tags.
 		if ( empty( $fields['posts'] ) && empty( $fields['post_types'] ) && ! empty( $fields['tags'] ) && is_tag() ) {
 			$args = self::filter_posts_for_tag_page( $fields );
+		} elseif ( ! empty( $fields['posts'] ) ) {
+			$args = self::filter_posts_by_ids( $fields );
 		} elseif ( ! empty( $fields['post_types'] ) ||
 				! empty( $fields['tags'] ) ||
 				! empty( $fields['exclude_post_id'] ) ) {
 			$args = self::filter_posts_by_page_types_or_tags( $fields );
-		} elseif ( ! empty( $fields['posts'] ) ) {
-			$args = self::filter_posts_by_ids( $fields );
 		} else {
 			$args = self::filter_posts_by_pages_tags( $fields );
 		}
