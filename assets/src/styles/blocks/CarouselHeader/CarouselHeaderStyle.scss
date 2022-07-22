@@ -78,6 +78,16 @@ $medium-image-height: 600px;
 .carousel-header {
   position: relative;
   width: 100vw;
+
+  &.is-style-fit-height-to-content {
+    &.block {
+      display: block;
+    }
+
+    &.block-header {
+      margin-bottom: 0;
+    }
+  }
 }
 
 .carousel-inner {

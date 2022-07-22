@@ -46,6 +46,13 @@ export const registerCarouselHeaderBlock = () =>
       html: false, // Disable "Edit as HTMl" block option.
     },
     attributes,
+    styles: [
+      {
+        name: 'fit-height-to-content',
+        label: __('Fit height to content', 'planet4-blocks-backend'),
+        isDefault: false,
+      },
+    ],
     edit: CarouselHeaderEditor,
     save: ({ attributes }) => {
       const markup = ReactDOMServer.renderToString(<div
