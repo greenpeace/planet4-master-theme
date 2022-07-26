@@ -28,7 +28,9 @@ class HighlightedCta extends Block_Pattern {
 	 * @param array $params Optional array of parameters for the config.
 	 */
 	public static function get_config( $params = [] ): array {
-		$classname = self::get_classname();
+		$classname         = self::get_classname();
+		$title_placeholder = $params['title_placeholder'] ?? '';
+
 		return [
 			'title'      => __( 'Highlighted CTA', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],
@@ -45,7 +47,7 @@ class HighlightedCta extends Block_Pattern {
 									</div>
 								<!-- /wp:image -->
 								<!-- wp:heading {"placeholder":"' . __( 'Enter text', 'planet4-blocks-backend' ) . '","align":"center","className":"has-text-align-center","level":3} -->
-									<h3 class="has-text-align-center"></h3>
+									<h3 class="has-text-align-center">' . $title_placeholder . '</h3>
 								<!-- /wp:heading -->
 								<!-- wp:spacer {"height":"16px"} -->
 									<div style="height:16px" aria-hidden="true" class="wp-block-spacer"></div>

@@ -58,7 +58,9 @@ class DeepDive extends Block_Pattern {
 	 * @param array $params Optional array of parameters for the config.
 	 */
 	public static function get_config( $params = [] ): array {
-		$classname = self::get_classname();
+		$classname         = self::get_classname();
+		$title_placeholder = $params['title_placeholder'] ?? '';
+
 		return [
 			'title'      => __( 'Deep Dive', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],
@@ -71,7 +73,7 @@ class DeepDive extends Block_Pattern {
 									<div style="height:24px" aria-hidden="true" class="wp-block-spacer"></div>
 								<!-- /wp:spacer -->
 								<!-- wp:heading {"textAlign":"center","placeholder":"' . __( 'Enter title', 'planet4-blocks-backend' ) . '"} -->
-									<h2 class="has-text-align-center"></h2>
+									<h2 class="has-text-align-center">' . $title_placeholder . '</h2>
 								<!-- /wp:heading -->
 								<!-- wp:columns -->
 									<div class="wp-block-columns">
