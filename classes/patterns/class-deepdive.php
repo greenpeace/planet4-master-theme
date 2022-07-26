@@ -54,19 +54,21 @@ class DeepDive extends Block_Pattern {
 	/**
 	 * Returns the pattern config.
 	 * We start with 4 columns, but editors can easily remove and/or duplicate them.
+	 * This pattern should have grey 5% background by default.
 	 *
 	 * @param array $params Optional array of parameters for the config.
 	 */
 	public static function get_config( $params = [] ): array {
 		$classname         = self::get_classname();
 		$title_placeholder = $params['title_placeholder'] ?? '';
+		$background_color  = $params['background_color'] ?? 'grey-05';
 
 		return [
 			'title'      => __( 'Deep Dive', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],
 			'content'    => '
-				<!-- wp:group {"className":"block ' . $classname . '","align":"full","backgroundColor":"grey-05"} -->
-					<div class="wp-block-group alignfull block ' . $classname . ' has-grey-05-background-color has-background">
+				<!-- wp:group {"className":"block ' . $classname . '","align":"full","backgroundColor":"' . $background_color . '"} -->
+					<div class="wp-block-group alignfull block ' . $classname . ' has-' . $background_color . '-background-color has-background">
 						<!-- wp:group {"className":"container"} -->
 							<div class="wp-block-group container">
 								<!-- wp:spacer {"height":"24px"} -->
