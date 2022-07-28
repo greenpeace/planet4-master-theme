@@ -1,0 +1,71 @@
+<?php
+/**
+ * Gravity Form reusable pattern class.
+ *
+ * @package P4GBKS
+ * @since 0.1
+ */
+
+namespace P4GBKS\Patterns\Templates;
+
+use P4GBKS\Patterns\Templates\TemplatePattern;
+
+/**
+ * This class is used for returning a blank page with a default content.
+ *
+ * @package P4GBKS\Patterns\Templates
+ */
+class TwoColumnsGravityForms extends TemplatePattern {
+
+	/**
+	 * @inheritDoc
+	 *
+	 * @param array $params Optional array of parameters for the content.
+	 */
+	public static function get_content( $params = [] ): string {
+		return '<!-- wp:group {"align":"full","backgroundColor":"grey-05"} -->
+			<div class="wp-block-group alignfull has-grey-05-background-color has-background">
+				<!-- wp:spacer {"height":"80px"} -->
+				<div style="height:80px" aria-hidden="true" class="wp-block-spacer"></div>
+				<!-- /wp:spacer -->
+
+				<!-- wp:group {"className":"container"} -->
+				<div class="wp-block-group container">
+
+				<!-- wp:columns -->
+				<div class="wp-block-columns">
+
+					<!-- wp:column -->
+					<div class="wp-block-column">
+
+						<!-- wp:heading {"style":{"typography":{"fontSize":"40px"}},"placeholder":"' . __( 'Enter title', 'planet4-blocks-backend' ) . '"} -->
+						<h2 style="font-size:40px;"></h2>
+						<!-- /wp:heading -->
+
+						<!-- wp:paragraph {"placeholder":"' . __( 'Enter description', 'planet4-blocks-backend' ) . '"} -->
+						<p></p>
+						<!-- /wp:paragraph -->
+
+					</div>
+					<!-- /wp:column -->
+
+					<!-- wp:column -->
+					<div class="wp-block-column">
+						<!-- wp:TwoColumnsGravityForms/form {"title":false,"description":false} /-->
+					</div>
+					<!-- /wp:column -->
+
+				</div>
+				<!-- /wp:columns -->
+
+				</div>
+				<!-- /wp:group -->
+
+				<!-- wp:spacer {"height":"50px"} -->
+				<div style="height:50px" aria-hidden="true" class="wp-block-spacer"></div>
+				<!-- /wp:spacer -->
+			</div>
+			<!-- /wp:group -->
+		';
+	}
+}
