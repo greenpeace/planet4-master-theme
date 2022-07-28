@@ -51,7 +51,7 @@ class TwoColumnsGravityForms extends TemplatePattern {
 
 					<!-- wp:column -->
 					<div class="wp-block-column">
-						<!-- wp:TwoColumnsGravityForms/form {"title":false,"description":false} /-->
+						<!-- wp:gravityforms/form {"title":false,"description":false} /-->
 					</div>
 					<!-- /wp:column -->
 
