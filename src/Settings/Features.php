@@ -16,7 +16,6 @@ use P4\MasterTheme\Features\Dev\WPTemplateEditor;
 use P4\MasterTheme\Features\EngagingNetworks;
 use P4\MasterTheme\Features\ImageArchive;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
-use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\Features\NewDesignCountrySelector;
 use P4\MasterTheme\Features\NewDesignNavigationBar;
 use P4\MasterTheme\Features\PurgeOnFeatureChanges;
@@ -123,7 +122,6 @@ class Features {
 			CoreBlockPatterns::class,
 			AllowAllBlocks::class,
 			DisableTagRedirectPages::class,
-			ListingPagePagination::class,
 			ListingPageGridView::class,
 		];
 	}
