@@ -87,6 +87,7 @@ final class PublicAssets {
 		);
 
 		self::conditionally_load_partials();
+		self::load_blocks_assets();
 	}
 
 	/**
@@ -115,5 +116,41 @@ final class PublicAssets {
 				[ 'parent-style' ]
 			);
 		}
+	}
+
+	/**
+	 * Load assets based on block presence in current page.
+	 * If class \P4GBKS\Blocks\BlockList is not active, load everything.
+	 *
+	 * @todo Move \P4GBKS\Blocks\BlockList class to master-theme
+	 */
+	private static function load_blocks_assets(): void {
+		$blocks_assets = [
+			'gravityforms/form' => [
+				[ 'gravity-forms-style', 'gravity-forms.min.css' ],
+			],
+		];
+
+		// If possible, filter to keep only assets from blocks on page.
+		if ( class_exists( '\P4GBKS\Blocks\BlockList' ) ) {
+			$block_list    = \P4GBKS\Blocks\BlockList::get_block_list();
+			$blocks_assets = array_intersect_key(
+				$blocks_assets,
+				array_fill_keys( $block_list, null )
+			);
+		}
+
+		$assets = array_merge( ...array_values( $blocks_assets ) );
+
+		array_walk(
+			$assets,
+			function ( $asset_data ): void {
+				$handle = $asset_data[0];
+				$file   = '/assets/build/' . $asset_data[1];
+				'js' === pathinfo( $filename, \PATHINFO_EXTENSION )
+					? Loader::enqueue_versioned_script( $file, $handle )
+					: Loader::enqueue_versioned_style( $file, $handle );
+			}
+		);
 	}
 }
