@@ -112,7 +112,6 @@ class Features {
 			NewDesignCountrySelector::class,
 			NewDesignNavigationBar::class,
 			RedirectRedirectPages::class,
-			DisableTagRedirectPages::class,
 
 			// Dev only.
 			DisableDataSync::class,
@@ -121,7 +120,6 @@ class Features {
 			WPTemplateEditor::class,
 			CoreBlockPatterns::class,
 			AllowAllBlocks::class,
-			DisableTagRedirectPages::class,
 			ListingPageGridView::class,
 		];
 	}
