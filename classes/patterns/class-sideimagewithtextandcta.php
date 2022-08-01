@@ -34,13 +34,16 @@ class SideImageWithTextAndCta extends Block_Pattern {
 		$background_color     = $params['background_color'] ?? null;
 		$background_attribute = $background_color ? ',"backgroundColor":"' . $background_color . '"' : '';
 		$background_classes   = $background_color ? 'has-' . $background_color . '-background-color has-background' : '';
+		$alignfull            = $params['alignfull'] ?? false;
+		$alignment_class      = $alignfull ? 'alignfull' : '';
+		$alignment_attribute  = $alignfull ? ',"align":"full"' : '';
 
 		return [
 			'title'      => __( 'Side image with text and CTA', 'planet4-blocks-backend' ),
 			'categories' => [ 'planet4' ],
 			'content'    => '
-				<!-- wp:media-text {"mediaLink":"' . $media_link . '","mediaType":"image","className":"block ' . $media_position_class . '"' . $background_attribute . '} -->
-					<div class="wp-block-media-text alignwide is-stacked-on-mobile block ' . $media_position_class . ' ' . $background_classes . '">
+				<!-- wp:media-text {"mediaLink":"' . $media_link . '","mediaType":"image","className":"block ' . $media_position_class . '"' . $background_attribute . $alignment_attribute . '} -->
+					<div class="wp-block-media-text ' . $alignment_class . ' is-stacked-on-mobile block ' . $media_position_class . ' ' . $background_classes . '">
 						<figure class="wp-block-media-text__media">
 							<img src="' . $media_link . '" alt="' . __( 'Default image', 'planet4-blocks-backend' ) . '"/>
 						</figure>
