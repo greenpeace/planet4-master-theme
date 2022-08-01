@@ -10,7 +10,6 @@
  */
 
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
-use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\User;
 use P4\MasterTheme\Post;
 use Timber\Timber;
@@ -51,23 +50,19 @@ if ( isset( $wp_query->query_vars['author'] ) ) {
 	$context['author_share_buttons']   = $author_share_buttons;
 }
 
-if ( ListingPagePagination::is_active() ) {
-	// Adjust global query to exclude author override.
-	// We can remove this once we convert author overrides to actual users.
-	$wp_query->query_vars['meta_key']     = 'p4_author_override';
-	$wp_query->query_vars['meta_compare'] = 'NOT EXISTS';
-	$wp_query->query_vars['has_password'] = false;
+// Adjust global query to exclude author override.
+// We can remove this once we convert author overrides to actual users.
+$wp_query->query_vars['meta_key']     = 'p4_author_override';
+$wp_query->query_vars['meta_compare'] = 'NOT EXISTS';
+$wp_query->query_vars['has_password'] = false;
 
-	$view = ListingPageGridView::is_active() ? 'grid' : 'list';
+$view = ListingPageGridView::is_active() ? 'grid' : 'list';
 
-	$query_template = file_get_contents( get_template_directory() . "/parts/query-$view.html" );
+$query_template = file_get_contents( get_template_directory() . "/parts/query-$view.html" );
 
-	$content = do_blocks( $query_template );
+$content = do_blocks( $query_template );
 
-	$context['query_loop'] = $content;
-	Timber::render( [ 'author.twig', 'archive.twig' ], $context );
-	exit();
-}
+$context['query_loop'] = $content;
 
 if ( get_query_var( 'page' ) ) {
 	$templates          = [ 'tease-author.twig' ];
