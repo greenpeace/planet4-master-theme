@@ -37,4 +37,11 @@ class ListingPagePagination extends Feature {
 	protected static function options_key(): string {
 		return InformationArchitecture::OPTIONS_KEY;
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public static function show_toggle_production(): bool {
+		return true;
+	}
 }
