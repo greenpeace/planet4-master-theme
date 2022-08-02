@@ -11,6 +11,7 @@
  */
 
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
+use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\Post;
 use Timber\Timber;
 
@@ -20,13 +21,17 @@ $context             = Timber::get_context();
 $context['taxonomy'] = get_queried_object();
 $context['wp_title'] = $context['taxonomy']->name;
 
-$view = ListingPageGridView::is_active() ? 'grid' : 'list';
+if ( ListingPagePagination::is_active() ) {
+	$view = ListingPageGridView::is_active() ? 'grid' : 'list';
 
-$query_template = file_get_contents( get_template_directory() . "/parts/query-$view.html" );
+	$query_template = file_get_contents( get_template_directory() . "/parts/query-$view.html" );
 
-$content = do_blocks( $query_template );
+	$content = do_blocks( $query_template );
 
-$context['query_loop'] = $content;
+	$context['query_loop'] = $content;
+	Timber::render( $templates, $context );
+	exit();
+}
 
 $post_args = [
 	'posts_per_page' => 10,

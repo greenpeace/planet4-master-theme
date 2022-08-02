@@ -11,6 +11,7 @@
 
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Features\HideListingPagesBackground;
+use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\TaxonomyCampaign;
 use Timber\Timber;
 use P4GBKS\Blocks\HappyPoint;
@@ -67,12 +68,18 @@ if ( is_tag() ) {
 		}
 		$context['page_category'] = 'Tag Page';
 
-		$view = ListingPageGridView::is_active() ? 'grid' : 'list';
+		if ( ListingPagePagination::is_active() ) {
+			$view = ListingPageGridView::is_active() ? 'grid' : 'list';
 
-		$query_template = file_get_contents( get_template_directory() . "/parts/query-$view.html" );
+			$query_template = file_get_contents( get_template_directory() . "/parts/query-$view.html" );
 
-		$content               = do_blocks( $query_template );
-		$context['query_loop'] = $content;
+			$content               = do_blocks( $query_template );
+			$context['query_loop'] = $content;
+
+			$campaign = new TaxonomyCampaign( $templates, $context );
+			$campaign->view();
+			exit();
+		}
 
 		$campaign = new TaxonomyCampaign( $templates, $context );
 

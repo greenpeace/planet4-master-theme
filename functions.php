@@ -76,6 +76,7 @@ function planet4_get_option( $key = '', $default = null ) {
 	return $options[ $key ] ?? $default;
 }
 
+use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\ImageArchive\Rest;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Notifications\Slack;
@@ -313,6 +314,9 @@ add_action( 'init', 'register_more_blocks' );
 add_filter(
 	'cloudflare_purge_by_url',
 	function ( $urls, $post_id ) {
+		if ( ! ListingPagePagination::is_active() ) {
+			return $urls;
+		}
 		$new_urls = [];
 		// Most of this logic is copied from the start of \CF\WordPress\Hooks::getPostRelatedLinks.
 		// I had to adapt it to our CS, it used snake case and old arrays.
