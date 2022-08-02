@@ -440,6 +440,48 @@ $breakpoints = [
 ];
 
 add_filter(
+	'render_block_core/query-pagination-previous',
+	function ( $content, $parsed, $block ) {
+		$button_label = __( 'Prev', 'planet4-blocks' );
+
+		if ( ! array_key_exists( 'label', $block->attributes ) ) {
+			$block->attributes['label'] = $button_label;
+			return $block->render();
+		}
+
+		// Check if the button isn't rendered, then return it.
+		if ( empty( $content ) ) {
+			return '<a href="/" class="wp-block-query-pagination-previous disabled">' . $button_label . '</a>';
+		}
+
+		return $content;
+	},
+	10,
+	3
+);
+
+add_filter(
+	'render_block_core/query-pagination-next',
+	function ( $content, $parsed, $block ) {
+		$button_label = __( 'Next', 'planet4-blocks' );
+
+		if ( ! array_key_exists( 'label', $block->attributes ) ) {
+			$block->attributes['label'] = $button_label;
+			return $block->render();
+		}
+
+		// Check if the button isn't rendered, then return it.
+		if ( empty( $content ) ) {
+			return '<a href="/" class="wp-block-query-pagination-next disabled">' . $button_label . '</a>';
+		}
+
+		return $content;
+	},
+	10,
+	3
+);
+
+add_filter(
 	'render_block',
 	function ( $block_content, $block, WP_Block $instance ) use ( $breakpoints ) {
 		if ( 'core/query' === $block['blockName'] ) {
