@@ -24,7 +24,7 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: $sp-2;
+  margin-bottom: $sp-6;
 
   @include large-and-up {
     justify-content: center;
@@ -37,6 +37,7 @@
 
   &.disabled {
     pointer-events: none;
+    opacity: .5;
   }
 }
 
