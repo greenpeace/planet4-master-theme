@@ -88,6 +88,6 @@
     "no-invalid-double-slash-comments": true,
     "no-missing-end-of-source-newline": true,
     "max-empty-lines": 1,
-    "property-no-vendor-prefix": true
+    "property-no-vendor-prefix": [true, {"ignoreProperties": ["box-orient","line-clamp"]}]
   }
 }

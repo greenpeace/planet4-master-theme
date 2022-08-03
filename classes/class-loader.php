@@ -97,6 +97,10 @@ final class Loader {
 			'planet4',
 			[ 'label' => __( 'Planet 4', 'planet4-blocks-backend' ) ],
 		);
+		register_block_pattern_category(
+			'page-headers',
+			[ 'label' => __( 'Page Headers', 'planet4-blocks-backend' ) ],
+		);
 
 		register_block_pattern_category(
 			'layouts',
