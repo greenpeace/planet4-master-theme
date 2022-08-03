@@ -74,6 +74,7 @@ final class Loader {
 			MasterSite::class,
 			HttpHeaders::class,
 			ActionPage::class,
+			GravityFormsExtensions::class,
 		];
 
 		if ( is_admin() ) {
