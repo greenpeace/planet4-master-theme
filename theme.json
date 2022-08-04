@@ -88,6 +88,11 @@
           "radius": false
         }
       },
+      "core/heading": {
+        "spacing": {
+          "margin": true
+        }
+      },
       "core/group": {
         "spacing": {
           "padding": true
