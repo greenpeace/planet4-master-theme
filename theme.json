@@ -96,6 +96,9 @@
       "core/group": {
         "spacing": {
           "padding": true
+        },
+        "border": {
+          "radius": true
         }
       },
       "core/table": {
