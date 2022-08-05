@@ -1,0 +1,40 @@
+body.dark-mode {
+  background-color: #1d2327;
+
+  p,
+  span,
+  a,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .page-section-description,
+  .single-post-time {
+    color: white !important;
+  }
+
+  svg {
+    fill: white !important;
+  }
+
+  .btn {
+    &.btn-secondary {
+      color: white !important;
+      border-color: white !important;
+      background: transparent;
+    }
+  }
+
+  .comment-respond {
+    background: $grey-10 !important;
+
+    .comment-reply-title,
+    .required-field-message,
+    p,
+    a {
+      color: black !important;
+    }
+  }
+}

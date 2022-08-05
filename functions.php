@@ -432,3 +432,34 @@ add_filter(
 	100,
 	3
 );
+
+/*
+	This action adds the JS switch theme function
+*/
+add_action(
+	'wp_head',
+	function () {
+		?>
+				<script>
+					function switch_theme(colorScheme = '') {
+						if(document.body) {
+							const colorSchemeClass = `${colorScheme}-mode`;
+
+							if(colorScheme === 'light') {
+								document.body.classList.remove(`dark-mode`);
+								return;
+							}
+
+							document.body.classList.add(colorSchemeClass);
+						}
+					}
+
+					window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+						const newColorScheme = e.matches ? "dark" : "light";
+						switch_theme(newColorScheme);
+					});
+				</script>
+		<?php
+	},
+	100
+);

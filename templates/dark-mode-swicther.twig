@@ -1,0 +1,41 @@
+<style>
+	#dark-mode-switcher {
+		background-color: white;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		z-index: 999999999;
+		padding: 30px;
+	}
+
+	#dark-mode-switcher button {
+		padding: 10px;
+		border: none;
+	}
+
+	#dark-mode-switcher button:not(:last-child) {
+		margin-right: 10px;
+	}
+
+	.btn-light-mode {
+		background: white;
+		color: black;
+	}
+
+	.btn-dark-mode {
+		background: black;
+		color: white;
+	}
+</style>
+
+<div id='dark-mode-switcher'>
+	<button class='btn-light-mode' onclick="switch_theme('light')">Light mode</button>
+	<button class='btn-dark-mode' onclick="switch_theme('dark')">Dark mode</button>
+</div>
+
+<script>
+	if(window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		document.body.classList.add('dark-mode');
+	}
+</script>
+
