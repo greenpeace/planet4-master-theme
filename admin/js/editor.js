@@ -33,21 +33,6 @@ wp.domReady(() => {
 
   registerBlockStyle('core/button', buttonStyles);
 
-  ['core/media-text', 'core/group', 'core/column'].forEach(
-    block => registerBlockStyle(block, [
-      {
-        name: 'small-padding',
-        label: __('Small padding', 'planet4-blocks-backend'),
-      }, {
-        name: 'medium-padding',
-        label: __('Medium padding', 'planet4-blocks-backend'),
-      }, {
-        name: 'large-padding',
-        label: __('Large padding', 'planet4-blocks-backend'),
-      },
-    ]),
-  );
-
   ['core/group'].forEach(block => {
     registerBlockStyle(block, [
       {
