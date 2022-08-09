@@ -9,7 +9,7 @@
 namespace P4GBKS\Patterns;
 
 use P4GBKS\Patterns\Templates\Covers;
-use P4GBKS\Patterns\Templates\TwoColumnsGravityForms;
+use P4GBKS\Patterns\Templates\GravityFormWithText;
 
 /**
  * Class High-Level Topic.
@@ -71,7 +71,7 @@ class HighLevelTopic extends Block_Pattern {
 						' . Covers::get_content( [ 'cover_type' => 'take-action' ] ) . '
 						<!-- wp:planet4-blocks/articles {"article_heading":"' . __( 'Latest news & stories', 'planet4-blocks' ) . '"} /-->
 						' . Covers::get_content( [ 'cover_type' => 'content' ] ) . '
-						' . TwoColumnsGravityForms::get_content() . '
+						' . GravityFormWithText::get_content() . '
 						' . QuickLinks::get_config(
 							[
 								'title_placeholder' => __( 'Explore by topics', 'planet4-blocks' ),
