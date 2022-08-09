@@ -11,11 +11,11 @@ namespace P4GBKS\Patterns\Templates;
 use P4GBKS\Patterns\Templates\TemplatePattern;
 
 /**
- * This class is used for returning a blank page with a default content.
+ * This class is used to return a Gravity Form block with text on the side.
  *
  * @package P4GBKS\Patterns\Templates
  */
-class TwoColumnsGravityForms extends TemplatePattern {
+class GravityFormWithText extends TemplatePattern {
 
 	/**
 	 * @inheritDoc
@@ -23,11 +23,8 @@ class TwoColumnsGravityForms extends TemplatePattern {
 	 * @param array $params Optional array of parameters for the content.
 	 */
 	public static function get_content( $params = [] ): string {
-		return '<!-- wp:group {"align":"full","backgroundColor":"grey-05"} -->
-			<div class="wp-block-group alignfull has-grey-05-background-color has-background">
-				<!-- wp:spacer {"height":"80px"} -->
-				<div style="height:80px" aria-hidden="true" class="wp-block-spacer"></div>
-				<!-- /wp:spacer -->
+		return '<!-- wp:group {"align":"full","backgroundColor":"grey-05","style":{"spacing":{"padding":{"top":"80px","bottom":"50px"}}}} -->
+			<div class="wp-block-group alignfull has-grey-05-background-color has-background" style="padding-top:80px;padding-bottom:50px;">
 
 				<!-- wp:group {"className":"container"} -->
 				<div class="wp-block-group container">
@@ -60,10 +57,6 @@ class TwoColumnsGravityForms extends TemplatePattern {
 
 				</div>
 				<!-- /wp:group -->
-
-				<!-- wp:spacer {"height":"50px"} -->
-				<div style="height:50px" aria-hidden="true" class="wp-block-spacer"></div>
-				<!-- /wp:spacer -->
 			</div>
 			<!-- /wp:group -->
 		';

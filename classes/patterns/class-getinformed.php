@@ -8,7 +8,7 @@
 
 namespace P4GBKS\Patterns;
 
-use P4GBKS\Patterns\Templates\TwoColumnsGravityForms;
+use P4GBKS\Patterns\Templates\GravityFormWithText;
 
 /**
  * Class Get Informed.
@@ -54,7 +54,7 @@ class GetInformed extends Block_Pattern {
 							"gallery_block_title":"' . __( 'Our latest actions around the world', 'planet4-blocks' ) . '"
 						} /-->
 						<!-- wp:planet4-blocks/articles {"article_heading":"' . __( 'Latest news & stories', 'planet4-blocks' ) . '"} /-->
-						' . TwoColumnsGravityForms::get_content() . '
+						' . GravityFormWithText::get_content() . '
 					</div>
 				<!-- /wp:group -->
 			',

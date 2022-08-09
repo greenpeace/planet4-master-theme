@@ -10,7 +10,7 @@ namespace P4GBKS\Patterns;
 
 use P4GBKS\Patterns\Templates\CarouselHeader;
 use P4GBKS\Patterns\Templates\Covers;
-use P4GBKS\Patterns\Templates\TwoColumnsGravityForms;
+use P4GBKS\Patterns\Templates\GravityFormWithText;
 
 /**
  * This class is used for returning a homepage pattern layout template.
@@ -82,7 +82,7 @@ class Homepage extends Block_Pattern {
 				<div style="height:72px" aria-hidden="true" class="wp-block-spacer"></div>
 				<!-- /wp:spacer -->
 
-				' . TwoColumnsGravityForms::get_content() . '
+				' . GravityFormWithText::get_content() . '
 
 			</div>
 			<!-- /wp:group -->
