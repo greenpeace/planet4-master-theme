@@ -41,7 +41,7 @@ class HighLevelTopic extends Block_Pattern {
 			'content'    => '
 				<!-- wp:group {"className":"block ' . $classname . '"} -->
 					<div class="wp-block-group ' . $classname . '">
-						' . PageHeader::get_config()['content'] . '
+						' . PageHeader::get_config( [ 'title_placeholder' => __( 'Page header title', 'planet4-blocks' ) ] )['content'] . '
 						<!-- wp:spacer {"height":"64px"} -->
 							<div style="height:64px" aria-hidden="true" class="wp-block-spacer"></div>
 						<!-- /wp:spacer -->

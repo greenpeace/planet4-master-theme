@@ -38,10 +38,11 @@ class PageHeader extends Block_Pattern {
 	 * @param array $params Optional array of parameters for the config.
 	 */
 	public static function get_config( $params = [] ): array {
-		$classname  = 'is-pattern-p4-page-header';
-		$media_link = esc_url( get_template_directory_uri() ) . '/images/placeholders/placeholder-546x415.jpg';
-		$pos_class  = 'left' === static::$media_position ? ''
+		$classname         = 'is-pattern-p4-page-header';
+		$media_link        = esc_url( get_template_directory_uri() ) . '/images/placeholders/placeholder-546x415.jpg';
+		$pos_class         = 'left' === static::$media_position ? ''
 			: 'has-media-on-the-' . static::$media_position;
+		$title_placeholder = $params['title_placeholder'] ?? '';
 
 		return [
 			'title'      => __( static::$title, 'planet4-blocks-backend' ), // phpcs:ignore
@@ -58,7 +59,7 @@ class PageHeader extends Block_Pattern {
 						<!-- wp:group -->
 						<div class="wp-block-group">
 							<!-- wp:heading {"level":1,"placeholder":"' . __( 'Enter title', 'planet4-blocks-backend' ) . '","backgroundColor":"white"} -->
-							<h1 class="has-white-background-color has-background"></h1>
+							<h1 class="has-white-background-color has-background">' . $title_placeholder . '</h1>
 							<!-- /wp:heading -->
 						</div>
 						<!-- /wp:group -->
