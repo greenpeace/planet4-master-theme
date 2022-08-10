@@ -22,15 +22,18 @@ class Covers extends TemplatePattern {
 	 *
 	 * @param array $params Optional array of parameters for the content.
 	 */
-	public static function get_content( $params ): string {
+	public static function get_content( $params = [] ): string {
+		$title_placeholder = $params['title_placeholder'] ?? '';
+
 		return '<!-- wp:planet4-blocks/covers {
 			"cover_type":"' . $params['cover_type'] . '",
-			"className":"is-style-' . $params['cover_type'] . '"
+			"className":"is-style-' . $params['cover_type'] . '",
+			"title":"' . $title_placeholder . '"
 		} -->
 		<div
 			class="wp-block-planet4-blocks-covers is-style-' . $params['cover_type'] . '"
 			data-render="planet4-blocks/covers"
-			data-attributes="{&quot;attributes&quot;:{&quot;cover_type&quot;:&quot;' . $params['cover_type'] . '&quot;,&quot;initialRowsLimit&quot;:1,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;tags&quot;:[],&quot;post_types&quot;:[],&quot;posts&quot;:[],&quot;version&quot;:2,&quot;layout&quot;:&quot;grid&quot;,&quot;isExample&quot;:false,&quot;readMoreText&quot;:&quot;Load more&quot;,&quot;className&quot;:&quot;is-style-' . $params['cover_type'] . '&quot;},&quot;innerBlocks&quot;:[]}"></div>
+			data-attributes="{&quot;attributes&quot;:{&quot;cover_type&quot;:&quot;' . $params['cover_type'] . '&quot;,&quot;initialRowsLimit&quot;:1,&quot;title&quot;:&quot;' . $title_placeholder . '&quot;,&quot;description&quot;:&quot;&quot;,&quot;tags&quot;:[],&quot;post_types&quot;:[],&quot;posts&quot;:[],&quot;version&quot;:2,&quot;layout&quot;:&quot;grid&quot;,&quot;isExample&quot;:false,&quot;readMoreText&quot;:&quot;Load more&quot;,&quot;className&quot;:&quot;is-style-' . $params['cover_type'] . '&quot;},&quot;innerBlocks&quot;:[]}"></div>
 		<!-- /wp:planet4-blocks/covers -->';
 	}
 }

@@ -68,9 +68,19 @@ class HighLevelTopic extends Block_Pattern {
 							]
 						)['content'] . '
 						' . HighlightedCta::get_config( [ 'title_placeholder' => __( 'Featured action title', 'planet4-blocks' ) ] )['content'] . '
-						' . Covers::get_content( [ 'cover_type' => 'take-action' ] ) . '
+						' . Covers::get_content(
+							[
+								'cover_type'        => 'take-action',
+								'title_placeholder' => __( 'How you can help', 'planet4-blocks' ),
+							]
+						) . '
 						<!-- wp:planet4-blocks/articles {"article_heading":"' . __( 'Latest news & stories', 'planet4-blocks' ) . '"} /-->
-						' . Covers::get_content( [ 'cover_type' => 'content' ] ) . '
+						' . Covers::get_content(
+							[
+								'cover_type'        => 'content',
+								'title_placeholder' => __( 'Latest investigations', 'planet4-blocks' ),
+							]
+						) . '
 						' . GravityFormWithText::get_content() . '
 						' . QuickLinks::get_config(
 							[
