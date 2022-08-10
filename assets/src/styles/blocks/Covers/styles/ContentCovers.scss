@@ -1,44 +1,4 @@
 .content-covers-block {
-  &.carousel-layout {
-    .cover {
-      width: 154px;
-      min-width: 154px;
-
-      &:not(:last-child) {
-        margin-inline-end: $sp-1;
-      }
-
-      @include medium-and-up {
-        width: 200px;
-        min-width: 200px;
-
-        &:not(:last-child) {
-          margin-inline-end: $sp-3;
-        }
-      }
-
-      @include large-and-up {
-        width: 216px;
-        min-width: 216px;
-      }
-
-      @include x-large-and-up {
-        width: 261px;
-        min-width: 261px;
-      }
-
-      @include xx-large-and-up {
-        width: 306px;
-        min-width: 306px;
-      }
-    }
-
-    .carousel-control-prev,
-    .carousel-control-next {
-      top: 136px;
-    }
-  }
-
   &.grid-layout .covers {
     @supports (display: grid) {
       grid-template-columns: repeat(2, 1fr);

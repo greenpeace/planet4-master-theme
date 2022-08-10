@@ -56,41 +56,6 @@
 }
 
 .campaign-covers-block {
-  &.carousel-layout {
-    .cover {
-      min-width: 260px;
-
-      &:not(:last-child) {
-        margin-inline-end: $sp-2;
-      }
-
-      @include medium-and-up {
-        min-width: 276px;
-
-        &:not(:last-child) {
-          margin-inline-end: $sp-3;
-        }
-      }
-
-      @include large-and-up {
-        min-width: 296px;
-      }
-
-      @include x-large-and-up {
-        min-width: 356px;
-      }
-
-      @include xx-large-and-up {
-        min-width: 416px;
-      }
-    }
-
-    .carousel-control-prev,
-    .carousel-control-next {
-      top: 71px;
-    }
-  }
-
   &.grid-layout .covers {
     @supports (display: grid) {
       grid-template-columns: 1fr;

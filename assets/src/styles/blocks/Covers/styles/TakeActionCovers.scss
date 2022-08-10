@@ -1,45 +1,4 @@
 .take-action-covers-block {
-  &.carousel-layout {
-    .covers {
-      // This is needed so that the covers' box-shadow is not cut on the sides
-      padding: 0 5px;
-      margin: 0 -5px;
-    }
-
-    .cover {
-      width: 300px;
-      min-width: 300px;
-
-      &:not(:last-child) {
-        margin-inline-end: $sp-2;
-      }
-
-      @include medium-and-up {
-        width: 296px;
-        min-width: 296px;
-
-        &:not(:last-child) {
-          margin-inline-end: $sp-3;
-        }
-      }
-
-      @include x-large-and-up {
-        width: 356px;
-        min-width: 356px;
-      }
-
-      @include xx-large-and-up {
-        width: 416px;
-        min-width: 416px;
-      }
-    }
-
-    .carousel-control-prev,
-    .carousel-control-next {
-      top: 221px;
-    }
-  }
-
   &.grid-layout .covers {
     @supports (display: grid) {
       grid-template-columns: 1fr;

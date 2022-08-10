@@ -12,9 +12,9 @@ import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector
 import { Covers } from './Covers';
 import { COVERS_TYPES, COVERS_LAYOUTS, CAROUSEL_LAYOUT_COVERS_LIMIT } from './CoversConstants';
 import { useCovers } from './useCovers';
-import { CoversCarouselControls } from './CoversCarouselControls';
 import { getStyleFromClassName } from '../getStyleFromClassName';
 import { CoversGridLoadMoreButton } from './CoversGridLoadMoreButton';
+import { CoversCarouselLayout } from './CoversCarouselLayout';
 
 const { RichText } = wp.blockEditor;
 const { __ } = wp.i18n;
@@ -108,7 +108,7 @@ const renderView = (attributes, toAttribute) => {
     exampleCovers,
     readMoreText,
   } = attributes;
-  const { covers, loading, row, amountOfCoversPerRow } = useCovers(attributes);
+  const { covers, loading, row, amountOfCoversPerRow, isSmallWindow } = useCovers(attributes);
 
   const isCarouselLayout = layout === COVERS_LAYOUTS.carousel;
 
@@ -158,17 +158,10 @@ const renderView = (attributes, toAttribute) => {
         <div className='EmptyMessage'>
           {__('Block content is empty. Check the block\'s settings or remove it.', 'planet4-blocks-backend')}
         </div> :
-        <div className='covers-container'>
-          <Covers {...coversProps} />
-          {isCarouselLayout &&
-            <CoversCarouselControls
-              currentRow={row}
-              amountOfCoversPerRow={amountOfCoversPerRow}
-              totalAmountOfCovers={covers.length}
-            />
-          }
+        <>
+          {isCarouselLayout && !isSmallWindow ? <CoversCarouselLayout {...coversProps} /> : <Covers {...coversProps} />}
           {showLoadMoreButton && <CoversGridLoadMoreButton showMoreCovers={() => {}} readMoreText={readMoreText} />}
-        </div>
+        </>
       }
     </section>
   );
