@@ -76,7 +76,7 @@ class Homepage extends Block_Pattern {
 				<div style="height:56px" aria-hidden="true" class="wp-block-spacer"></div>
 				<!-- /wp:spacer -->
 
-				' . Covers::get_content( [ 'cover_type' => 'take-action' ] ) . '
+				' . Covers::get_content() . '
 
 				<!-- wp:spacer {"height":"72px"} -->
 				<div style="height:72px" aria-hidden="true" class="wp-block-spacer"></div>

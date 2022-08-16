@@ -54,7 +54,7 @@ class Action extends Block_Pattern {
 								<!-- /wp:group -->
 							</div>
 						<!-- /wp:group -->
-						' . Covers::get_content( [ 'cover_type' => 'take-action' ] ) . '
+						' . Covers::get_content() . '
 						<!-- wp:separator {"backgroundColor":"grey-20","className":"has-text-color has-grey-20-color has-grey-20-background-color has-background is-style-wide"} -->
 						<hr class="wp-block-separator has-text-color has-grey-20-color has-alpha-channel-opacity has-grey-20-background-color has-background is-style-wide"/>
 						<!-- /wp:separator -->
