@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-08-17 12:55+0000\n"
+"PO-Revision-Date: 2022-08-17 12:57+0000\n"
 "Last-Translator: Rickson Figueira\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +86,7 @@ msgstr "FILTROS ATIVOS"
 
 #: templates/cookies/cookies_settings.twig:55
 msgid "Allow all"
-msgstr ""
+msgstr "Permitir todos"
 
 #: templates/cookies/cookies_settings.twig:16
 msgid "Always enabled"
@@ -144,7 +144,7 @@ msgstr "Limpar tudo"
 
 #: templates/navigation-bar-new.twig:153
 msgid "Clear search"
-msgstr ""
+msgstr "Limpar busca"
 
 #: templates/navigation-bar.twig:33
 msgid "Close Menu"
@@ -272,11 +272,11 @@ msgstr "Faça uma doação"
 
 #: templates/tease-search.twig:157
 msgid "Manage"
-msgstr ""
+msgstr "Gerenciar"
 
 #: templates/cookies/cookies_settings.twig:11
 msgid "Manage your cookies preferences"
-msgstr ""
+msgstr "Gerenciar as preferências de cookies"
 
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
@@ -340,11 +340,11 @@ msgstr "Refine a sua busca"
 
 #: templates/cookies/cookies_settings.twig:47
 msgid "Reject all"
-msgstr ""
+msgstr "Rejeitar todos"
 
 #: templates/cookies.twig:35
 msgid "Reject all cookies"
-msgstr ""
+msgstr "Rejeitar todos os cookies"
 
 #: tag.php:134
 msgid "Related Campaigns"
@@ -356,7 +356,7 @@ msgstr "Resultados"
 
 #: templates/cookies/cookies_settings.twig:63
 msgid "Save preferences"
-msgstr ""
+msgstr "Salvar as preferências"
 
 #: templates/404.twig:17 templates/navigation-bar-new.twig:123
 #: templates/search.twig:8 templates/search.twig:45
@@ -370,7 +370,7 @@ msgstr "Selecionado"
 
 #: templates/cookies.twig:18
 msgid "Settings"
-msgstr ""
+msgstr "Configurações"
 
 #: templates/blocks/share_buttons.twig:8 templates/blocks/share_buttons.twig:15
 #: templates/blocks/share_buttons.twig:22
@@ -383,10 +383,10 @@ msgstr "Compartilhe por"
 
 #. %s = number of results per page.
 #: src/Search.php:1049
-#, fuzzy, php-format
+#, php-format
 #| msgid "SHOW %s MORE RESULTS"
 msgid "Show %s more results"
-msgstr "MOSTRAR MAIS %s RESULTADOS"
+msgstr "Mostrar mais %s resultados"
 
 #: templates/blocks/author_profile.twig:45
 msgid "Show less"
@@ -422,7 +422,7 @@ msgstr "Organizar por"
 
 #: templates/single-page.twig:19 templates/single-password.twig:22
 msgid "Submit"
-msgstr ""
+msgstr "Enviar"
 
 #: templates/tease-search.twig:151
 msgid "Take action"
@@ -438,7 +438,7 @@ msgstr "Este tópico não está associado a nenhuma categoria"
 
 #: assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
-msgstr ""
+msgstr "Esse link irá abrir um arquivo PDF"
 
 #: templates/single-page.twig:12 templates/single-password.twig:15
 msgid "To see the content of this page, please enter your password  below"
