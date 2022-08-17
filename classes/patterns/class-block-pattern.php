@@ -54,6 +54,7 @@ abstract class Block_Pattern {
 			SideImageWithTextAndCta::class,
 			Action::class,
 			HighLevelTopic::class,
+			Campaign::class,
 		];
 	}
 
