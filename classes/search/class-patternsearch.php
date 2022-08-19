@@ -23,9 +23,18 @@ class PatternSearch {
 
 	/**
 	 * @param Parameters $params Query parameters.
+	 * @param array      $opts   Search Options.
 	 * @return int[] list of posts IDs.
 	 */
-	public function get_posts( Parameters $params ): array {
+	public function get_posts( Parameters $params, array $opts = [] ): array {
+		$opts = array_merge(
+			[
+				'use_struct' => true,
+				'use_class'  => true,
+			],
+			$opts
+		);
+
 		$patterns = array_map(
 			fn ( $pattern ) => PatternData::from_name( $pattern ),
 			$params->name()
@@ -34,8 +43,8 @@ class PatternSearch {
 		return array_unique(
 			array_filter(
 				array_merge(
-					$this->query_by_pattern_classname( $params, ...$patterns ),
-					$this->query_by_pattern_blocks( $params, ...$patterns )
+					$opts['use_class'] ? $this->query_by_pattern_classname( $params, ...$patterns ) : [],
+					$opts['use_struct'] ? $this->query_by_pattern_blocks( $params, ...$patterns ) : []
 				)
 			)
 		);

@@ -47,20 +47,34 @@ class PatternUsage {
 
 	/**
 	 * @param Parameters $params Search parameters.
+	 * @param array      $opts   Options.
 	 * @return array
 	 */
-	public function get_patterns( Parameters $params ): array {
-		$posts_ids = $this->search->get_posts( $params );
+	public function get_patterns( Parameters $params, array $opts = [] ): array {
+		$opts = array_merge(
+			[
+				'use_struct' => true,
+				'use_class'  => true,
+			],
+			$opts
+		);
 
-		return $this->get_filtered_patterns( $posts_ids, $params );
+		$posts_ids = $this->search->get_posts( $params, $opts );
+
+		return $this->get_filtered_patterns( $posts_ids, $params, $opts );
 	}
 
 	/**
 	 * @param int[]      $posts_ids Posts ids.
 	 * @param Parameters $params    Search parameters.
+	 * @param array      $opts      Parsing options.
 	 * @return array
 	 */
-	private function get_filtered_patterns( array $posts_ids, Parameters $params ): array {
+	private function get_filtered_patterns(
+		array $posts_ids,
+		Parameters $params,
+		array $opts
+	): array {
 		$chunks = array_chunk( $posts_ids, 50 );
 
 		$post_args = [
@@ -82,30 +96,34 @@ class PatternUsage {
 					$pattern = PatternData::from_name( $pattern_name );
 
 					// struct matches.
-					$struct_occ = substr_count(
-						$post_struct->get_content_signature(),
-						$pattern->signature
-					);
-					if ( $struct_occ > 0 ) {
-						$patterns[] = $this->format_pattern_data(
-							$pattern,
-							$post,
-							$struct_occ,
-							'structure'
+					if ( $opts['use_struct'] ) {
+						$struct_occ = substr_count(
+							$post_struct->get_content_signature(),
+							$pattern->signature
 						);
+						if ( $struct_occ > 0 ) {
+							$patterns[] = $this->format_pattern_data(
+								$pattern,
+								$post,
+								$struct_occ,
+								'structure'
+							);
+						}
 					}
 
 					// class matches.
-					$class_occ = round(
-						substr_count( $post->post_content, $pattern->classname ) / 2
-					);
-					if ( $class_occ > 0 ) {
-						$patterns[] = $this->format_pattern_data(
-							$pattern,
-							$post,
-							$class_occ,
-							'classname'
+					if ( $opts['use_class'] ) {
+						$class_occ = round(
+							substr_count( $post->post_content, $pattern->classname ) / 2
 						);
+						if ( $class_occ > 0 ) {
+							$patterns[] = $this->format_pattern_data(
+								$pattern,
+								$post,
+								$class_occ,
+								'classname'
+							);
+						}
 					}
 				}
 			}

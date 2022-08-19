@@ -67,7 +67,10 @@ class PatternUsageApi {
 	 * Fetch parsed blocks
 	 */
 	private function fetch_items(): void {
-		$this->items = $this->usage->get_patterns( $this->params );
+		$this->items = $this->usage->get_patterns(
+			$this->params,
+			[ 'use_struct' => false ]
+		);
 	}
 
 	/**
