@@ -1,0 +1,18 @@
+<div class="gform_p4_confirmation">
+	{% if form_title %}
+		<h2>{{ form_title }}</h2>
+	{% endif %}
+	{% if form_description %}
+		<p>{{ form_description }}</p>
+	{% endif %}
+	{% if form_title or form_description %}
+		<hr>
+	{% endif %}
+	{% if first_name %}
+		<h3>{{ __( first_name ~ ', thanks for signing!', 'planet4-master-theme', first_name ) }}</h3>
+	{% else %}
+		<h3>{{ __( 'Thanks for signing!', 'planet4-master-theme' ) }}</h3>
+	{% endif %}
+	<p>{{ __( 'Share this petition to increase your global impact', 'planet4-master-theme' ) }}</p>
+	{% include "blocks/share_buttons.twig" with { social: post.share_meta } %}
+</div>
