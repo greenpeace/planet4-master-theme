@@ -73,7 +73,7 @@ class QuickLinks extends Block_Pattern {
 		$background_color  = $params['background_color'] ?? 'grey-05';
 
 		return [
-			'title'      => __( 'Quick Links', 'planet4-blocks-backend' ),
+			'title'      => 'Quick Links',
 			'categories' => [ 'planet4' ],
 			'content'    => '
 				<!-- wp:group {"className":"block ' . $classname . '","align":"full","backgroundColor":"' . $background_color . '"} -->

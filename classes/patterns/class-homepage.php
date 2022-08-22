@@ -33,7 +33,7 @@ class Homepage extends Block_Pattern {
 	 */
 	public static function get_config( $params = [] ): array {
 		return [
-			'title'      => __( 'Homepage pattern layout', 'planet4-blocks-backend' ),
+			'title'      => 'Homepage',
 			'blockTypes' => [ 'core/post-content' ],
 			'categories' => [ 'layouts' ],
 			'content'    => '

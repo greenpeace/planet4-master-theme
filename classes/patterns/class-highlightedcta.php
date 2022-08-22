@@ -32,7 +32,7 @@ class HighlightedCta extends Block_Pattern {
 		$title_placeholder = $params['title_placeholder'] ?? '';
 
 		return [
-			'title'      => __( 'Highlighted CTA', 'planet4-blocks-backend' ),
+			'title'      => 'Highlighted CTA',
 			'categories' => [ 'planet4' ],
 			'content'    => '
 				<!-- wp:columns {"className":"block ' . $classname . '","textColor":"white","backgroundColor":"dark-blue"} -->

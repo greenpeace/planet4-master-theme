@@ -32,7 +32,7 @@ class GetInformed extends Block_Pattern {
 	public static function get_config( $params = [] ): array {
 		$classname = self::get_classname();
 		return [
-			'title'      => __( 'Get Informed', 'planet4-blocks-backend' ),
+			'title'      => 'Get Informed',
 			'blockTypes' => [ 'core/post-content' ],
 			'categories' => [ 'layouts' ],
 			'content'    => '

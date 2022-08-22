@@ -60,7 +60,7 @@ class RealityCheck extends Block_Pattern {
 		$classname = self::get_classname();
 
 		return [
-			'title'      => __( 'Reality Check', 'planet4-blocks-backend' ),
+			'title'      => 'Reality Check',
 			'categories' => [ 'planet4' ],
 			'content'    => '
 				<!-- wp:columns {"className":"block ' . $classname . '"} -->

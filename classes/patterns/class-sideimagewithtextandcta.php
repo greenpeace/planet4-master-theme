@@ -41,7 +41,7 @@ class SideImageWithTextAndCta extends Block_Pattern {
 		$alignment_attribute      = $alignfull ? ',"align":"full"' : '';
 
 		return [
-			'title'      => __( 'Side image with text and CTA', 'planet4-blocks-backend' ),
+			'title'      => 'Side image with text and CTA',
 			'categories' => [ 'planet4' ],
 			'content'    => '
 				<!-- wp:media-text {"mediaLink":"' . $media_link . '","mediaType":"image","className":"block ' . $media_position_class . '"' . $background_attribute . $alignment_attribute . $media_position_attribute . '} -->

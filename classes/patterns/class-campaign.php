@@ -34,7 +34,7 @@ class Campaign extends Block_Pattern {
 		$classname = self::get_classname();
 
 		return [
-			'title'      => __( 'Campaign', 'planet4-blocks-backend' ),
+			'title'      => 'Campaign',
 			'blockTypes' => [ 'core/post-content' ],
 			'categories' => [ 'layouts' ],
 			'content'    => '

@@ -35,7 +35,7 @@ class HighLevelTopic extends Block_Pattern {
 		$classname = self::get_classname();
 
 		return [
-			'title'      => __( 'High-Level Topic', 'planet4-blocks-backend' ),
+			'title'      => 'High-Level Topic',
 			'categories' => [ 'layouts' ],
 			'blockTypes' => [ 'core/post-content' ],
 			'content'    => '

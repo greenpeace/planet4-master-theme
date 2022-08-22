@@ -54,7 +54,7 @@ class Issues extends Block_Pattern {
 		$title_placeholder = $params['title_placeholder'] ?? '';
 
 		return [
-			'title'      => __( 'Issues', 'planet4-blocks-backend' ),
+			'title'      => 'Issues',
 			'categories' => [ 'planet4' ],
 			'content'    => '
 				<!-- wp:group {"className":"' . $classname . '","align":"full","backgroundColor":"grey-05","style":{"spacing":{"padding":{"top":"80px","bottom":"80px"}}}} -->

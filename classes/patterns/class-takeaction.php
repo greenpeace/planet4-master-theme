@@ -33,7 +33,7 @@ class TakeAction extends Block_Pattern {
 		$classname = self::get_classname();
 
 		return [
-			'title'      => __( 'Take Action', 'planet4-blocks-backend' ),
+			'title'      => 'Take Action',
 			'categories' => [ 'layouts' ],
 			'blockTypes' => [ 'core/post-content' ],
 			'content'    => '

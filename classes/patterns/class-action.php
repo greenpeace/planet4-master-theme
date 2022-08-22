@@ -34,7 +34,7 @@ class Action extends Block_Pattern {
 		$classname = self::get_classname();
 
 		return [
-			'title'      => __( 'Action', 'planet4-blocks-backend' ),
+			'title'      => 'Action',
 			'categories' => [ 'layouts' ],
 			'content'    => '
 				<!-- wp:group {"className":"block ' . $classname . '"} -->

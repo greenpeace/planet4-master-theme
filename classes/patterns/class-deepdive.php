@@ -64,7 +64,7 @@ class DeepDive extends Block_Pattern {
 		$background_color  = $params['background_color'] ?? 'grey-05';
 
 		return [
-			'title'      => __( 'Deep Dive', 'planet4-blocks-backend' ),
+			'title'      => 'Deep Dive',
 			'categories' => [ 'planet4' ],
 			'content'    => '
 				<!-- wp:group {"className":"block ' . $classname . '","align":"full","backgroundColor":"' . $background_color . '"} -->

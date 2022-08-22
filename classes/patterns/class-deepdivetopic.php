@@ -32,7 +32,7 @@ class DeepDiveTopic extends Block_Pattern {
 		$classname = self::get_classname();
 
 		return [
-			'title'      => __( 'Deep Dive Topic', 'planet4-blocks-backend' ),
+			'title'      => 'Deep Dive Topic',
 			'categories' => [ 'layouts' ],
 			'blockTypes' => [ 'core/post-content' ],
 			'content'    => '

@@ -29,7 +29,7 @@ class BlankPage extends Block_Pattern {
 	 */
 	public static function get_config( $params = [] ): array {
 		return [
-			'title'      => __( 'Blank page', 'planet4-blocks-backend' ),
+			'title'      => 'Blank page',
 			'blockTypes' => [ 'core/post-content' ],
 			'categories' => [ 'layouts' ],
 			'content'    => '
