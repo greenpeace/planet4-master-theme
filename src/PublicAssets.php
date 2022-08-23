@@ -147,7 +147,7 @@ final class PublicAssets {
 			function ( $asset_data ): void {
 				$handle = $asset_data[0];
 				$file   = '/assets/build/' . $asset_data[1];
-				'js' === pathinfo( $filename, \PATHINFO_EXTENSION )
+				'js' === pathinfo( $file, \PATHINFO_EXTENSION )
 					? Loader::enqueue_versioned_script( $file, $handle )
 					: Loader::enqueue_versioned_style( $file, $handle );
 			}
