@@ -29,7 +29,7 @@ export const ShareButtons = ({social_params, social_accounts}) => {
         className="share-btn whatsapp"
       >
         <SvgIcon {...{name: "whatsapp"}} />
-        <span className="visually-hidden">{__( 'Share on', 'planet4-master-theme' )} Whatsapp</span>
+        <span className="visually-hidden">{__( 'Share on', 'planet4-blocks' )} Whatsapp</span>
       </a>
 
       <a href={ `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}&${utm('facebook', utm_medium, utm_content, utm_campaign)}` }
@@ -38,7 +38,7 @@ export const ShareButtons = ({social_params, social_accounts}) => {
         className="share-btn facebook"
       >
         <SvgIcon {...{name: "facebook-f"}} />
-        <span className="visually-hidden">{__( 'Share on', 'planet4-master-theme' )} Facebook</span>
+        <span className="visually-hidden">{__( 'Share on', 'planet4-blocks' )} Facebook</span>
       </a>
 
       <a href={ `${twitterUrl(link, title, description, social_accounts.twitter)}&${utm('twitter', utm_medium, utm_content, utm_campaign)}` }
@@ -47,7 +47,7 @@ export const ShareButtons = ({social_params, social_accounts}) => {
         className="share-btn twitter"
       >
         <SvgIcon {...{name: "twitter"}} />
-        <span className="visually-hidden">{__( 'Share on', 'planet4-master-theme' )} Twitter</span>
+        <span className="visually-hidden">{__( 'Share on', 'planet4-blocks' )} Twitter</span>
       </a>
 
       <a href={ `mailto:?subject=${title}&body=${description ? encodeURIComponent(description) : ''}${link}&${utm('email', utm_medium, utm_content, utm_campaign)}` }
@@ -56,7 +56,7 @@ export const ShareButtons = ({social_params, social_accounts}) => {
         className="share-btn email"
       >
         <SvgIcon {...{name: "envelope"}} />
-        <span className="visually-hidden">{__( 'Share via', 'planet4-master-theme' )} Email</span>
+        <span className="visually-hidden">{__( 'Share via', 'planet4-blocks' )} Email</span>
       </a>
     </div>
   )

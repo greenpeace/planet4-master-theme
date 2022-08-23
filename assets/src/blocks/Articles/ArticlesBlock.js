@@ -9,7 +9,7 @@ export class ArticlesBlock {
     const { __ } = wp.i18n;
 
     registerBlockType(BLOCK_NAME, {
-      title: __('Articles', 'planet4-blocks-backend'),
+      title: 'Articles',
       icon: 'excerpt-view',
       category: 'planet4-blocks',
       supports: {

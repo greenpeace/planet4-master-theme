@@ -16,7 +16,7 @@ const attributes = {
 export const registerSpreadsheetBlock = () => {
   const { registerBlockType } = wp.blocks;
   registerBlockType( BLOCK_NAME, {
-    title: __( 'Spreadsheet', 'planet4-blocks-backend' ),
+    title: 'Spreadsheet',
     icon: 'editor-table',
     category: 'planet4-blocks',
     attributes,

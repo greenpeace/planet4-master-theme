@@ -155,7 +155,7 @@ export const CookiesFrontend = props => {
                 editable={isEditing}
                 allowedFormats={[]}
               />
-              <span className="always-enabled">{__('Always enabled', 'planet4-master-theme')}</span>
+              <span className="always-enabled">{__('Always enabled', 'planet4-blocks')}</span>
               {isEditing &&
                 <CookiesFieldResetButton
                   fieldName='necessary_cookies_name'

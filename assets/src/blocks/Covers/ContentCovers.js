@@ -44,7 +44,7 @@ export const ContentCovers = ({
                     data-ga-category='Content Covers'
                     data-ga-action='Image'
                     data-ga-label='n/a'
-                    aria-label={__('Cover image, link to ' + title, 'planet4-blocks')}
+                    aria-label={__('Cover image, link to ', 'planet4-blocks') + title}
                   >
                     <img
                       loading='lazy'

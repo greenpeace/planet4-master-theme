@@ -6,7 +6,7 @@ const BLOCK_NAME = 'planet4-blocks/guestbook';
 
 export const registerGuestBookBlock = () =>
   registerBlockType(BLOCK_NAME, {
-    title: __('50 Years GuestBook', 'planet4-blocks-backend'),
+    title: '50 Years GuestBook',
     icon: 'admin-site-alt2',
     category: 'planet4-blocks',
     supports: {

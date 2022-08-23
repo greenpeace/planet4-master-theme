@@ -39,12 +39,12 @@ const attributes = {
     default: [{
         type: 'facebook',
         iconName: 'facebook-f',
-        hiddenText: __( 'Share on Facebook', 'planet4-master-theme' ),
+        hiddenText: __( 'Share on Facebook', 'planet4-blocks' ),
         showInMenu: true,
       }, {
         type: 'twitter',
         iconName: 'twitter',
-        hiddenText: __( 'Share on Twitter', 'planet4-master-theme' ),
+        hiddenText: __( 'Share on Twitter', 'planet4-blocks' ),
         showInMenu: true,
         text: '',
         description: '',
@@ -52,12 +52,12 @@ const attributes = {
       }, {
         type: 'whatsapp',
         iconName: 'whatsapp',
-        hiddenText: __( 'Share on Whatsapp', 'planet4-master-theme' ),
+        hiddenText: __( 'Share on Whatsapp', 'planet4-blocks' ),
         showInMenu: true,
       }, {
         type: 'email',
         iconName: 'envelope-outline',
-        hiddenText: __( 'Share via Email', 'planet4-master-theme' ),
+        hiddenText: __( 'Share via Email', 'planet4-blocks' ),
         showInMenu: true,
         title: '',
         body: '',

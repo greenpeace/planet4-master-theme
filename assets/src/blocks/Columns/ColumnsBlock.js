@@ -8,7 +8,7 @@ const { registerBlockType } = wp.blocks;
 
 export const registerColumnsBlock = () =>
   registerBlockType('planet4-blocks/columns', {
-    title: __('Planet 4 Columns', 'planet4-blocks-backend'),
+    title: 'Planet 4 Columns',
     icon: 'grid-view',
     category: 'planet4-blocks',
     attributes: {
@@ -61,7 +61,7 @@ export const registerColumnsBlock = () =>
       {
         name: LAYOUT_NO_IMAGE,
         label: getStyleLabel(
-          __('No Image', 'planet4-blocks-backend'),
+          'No Image',
           __('Optional headers, description text and buttons in a column display.', 'planet4-blocks-backend')
         ),
         isDefault: true,
@@ -69,21 +69,21 @@ export const registerColumnsBlock = () =>
       {
         name: LAYOUT_TASKS,
         label: getStyleLabel(
-          __('Tasks', 'planet4-blocks-backend'),
+          'Tasks',
           __('Used on Take Action pages, this display has ordered tasks, and call to action buttons.', 'planet4-blocks-backend')
         ),
       },
       {
         name: LAYOUT_ICONS,
         label: getStyleLabel(
-          __('Icons', 'planet4-blocks-backend'),
+          'Icons',
           __('For more static content, this display has an icon, header, description and text link.', 'planet4-blocks-backend')
         ),
       },
       {
         name: LAYOUT_IMAGES,
         label: getStyleLabel(
-          __('Images', 'planet4-blocks-backend'),
+          'Images',
           __('For more static content, this display has an image, header, description and text link.', 'planet4-blocks-backend')
         ),
       },

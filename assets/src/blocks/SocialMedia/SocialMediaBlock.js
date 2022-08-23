@@ -9,7 +9,7 @@ const { __ } = wp.i18n;
 const BLOCK_NAME = 'planet4-blocks/social-media';
 
 export const registerSocialMediaBlock = () => registerBlockType(BLOCK_NAME, {
-  title: __('Social Media', 'planet4-blocks-backend'),
+  title: 'Social Media',
   icon: 'share',
   category: 'planet4-blocks',
   attributes: {

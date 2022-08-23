@@ -35,7 +35,7 @@ export const registerTimelineBlock = () => {
   const {registerBlockType} = wp.blocks;
 
   registerBlockType(BLOCK_NAME, {
-    title: __('Timeline', 'p4ge'),
+    title: 'Timeline',
     icon: 'clock',
     category: 'planet4-blocks',
     supports: {

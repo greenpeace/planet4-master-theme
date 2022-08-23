@@ -23,23 +23,23 @@ const attributes = {
 const styles = [
   {
     name: 'dark',
-    label: __('Dark', 'planet4-blocks-backend'),
+    label: 'Dark',
     isDefault: true
   },
   {
     name: 'light',
-    label: __('Light', 'planet4-blocks-backend')
+    label: 'Light'
   },
 ];
 
 registerBlockType(BLOCK_NAME, {
-  title: __('Accordion', 'planet4-blocks-backend'),
+  title: 'Accordion',
   icon: 'menu',
   category: 'planet4-blocks',
   keywords: [
-    __('accordion'),
-    __('faq'),
-    __('collapsible')
+    'accordion',
+    'faq',
+    'collapsible'
   ],
   supports: {
     html: false, // Disable "Edit as HTMl" block option.

@@ -124,7 +124,7 @@ const renderView = (attributes, toAttribute, scriptLoaded, stylesLoaded) => {
       />
       {!attributes.google_sheets_url &&
         <div className="block-edit-mode-warning components-notice is-warning">
-          { __( 'Please include a Sheet URL.', 'planet4-blocks' ) }
+          { __( 'Please include a Sheet URL.', 'planet4-blocks-backend' ) }
         </div>
       }
       {attributes.google_sheets_url && scriptLoaded && stylesLoaded &&

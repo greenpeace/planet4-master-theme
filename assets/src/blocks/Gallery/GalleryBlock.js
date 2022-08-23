@@ -36,7 +36,7 @@ const attributes = {
 
 export const registerGalleryBlock = () => {
   registerBlockType(BLOCK_NAME, {
-    title: __('Gallery', 'planet4-blocks-backend'),
+    title: 'Gallery',
     icon: 'format-gallery',
     category: 'planet4-blocks',
     attributes,
@@ -50,7 +50,7 @@ export const registerGalleryBlock = () => {
       {
         name: 'slider',
         label: getStyleLabel(
-          __('Slider', 'planet4-blocks-backend'),
+          'Slider',
           __('The slider is a carousel of images. For more than 5 images, consider using a grid.', 'planet4-blocks-backend'),
         ),
         isDefault: true
@@ -58,14 +58,14 @@ export const registerGalleryBlock = () => {
       {
         name: 'three-columns',
         label: getStyleLabel(
-          __('3 Columns', 'planet4-blocks-backend'),
+          '3 Columns',
           __('The 3 columns image display is great for accentuating text, and telling a visual story.', 'planet4-blocks-backend'),
         ),
       },
       {
         name: 'grid',
         label: getStyleLabel(
-          __('Grid', 'planet4-blocks-backend'),
+          'Grid',
           __('The grid shows thumbnails of lots of images. Good to use when showing lots of activity.', 'planet4-blocks-backend'),
         ),
       }

@@ -70,16 +70,16 @@ export class CounterBlock {
     const styles = [
         {
           name: 'plain',
-          label: __( 'Text Only', 'planet4-blocks' ),
+          label: 'Text Only',
           isDefault: true
         },
         {
           name: 'bar',
-          label: __( 'Progress Bar', 'planet4-blocks' )
+          label: 'Progress Bar'
         },
         {
           name: 'arc',
-          label: __( 'Progress Dial', 'planet4-blocks' )
+          label: 'Progress Dial'
         },
 
       ]
@@ -87,7 +87,7 @@ export class CounterBlock {
     if (window.p4ge_vars.features.feature_engaging_networks) {
       styles.push({
         name: 'en-forms-bar',
-        label: __('Progress Bar inside EN Form', 'planet4-blocks')
+        label: __('Progress Bar inside EN Form', 'planet4-blocks-backend')
       });
     }
     // Add our custom styles

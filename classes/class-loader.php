@@ -96,16 +96,16 @@ final class Loader {
 
 		register_block_pattern_category(
 			'planet4',
-			[ 'label' => __( 'Planet 4', 'planet4-blocks-backend' ) ],
+			[ 'label' => 'Planet 4' ],
 		);
 		register_block_pattern_category(
 			'page-headers',
-			[ 'label' => __( 'Page Headers', 'planet4-blocks-backend' ) ],
+			[ 'label' => 'Page Headers' ],
 		);
 
 		register_block_pattern_category(
 			'layouts',
-			[ 'label' => __( 'Layouts', 'planet4-blocks-backend' ) ],
+			[ 'label' => 'Layouts' ],
 		);
 
 		// Load block patterns.
@@ -559,12 +559,12 @@ DEFERREDCSS;
 		$our_categories = [
 			[
 				'slug'  => 'planet4-blocks',
-				'title' => __( 'Planet 4 Blocks', 'planet4-blocks' ),
+				'title' => 'Planet 4 Blocks',
 			],
 
 			[
 				'slug'  => 'planet4-blocks-beta',
-				'title' => __( 'Planet 4 Blocks - BETA', 'planet4-blocks' ),
+				'title' => 'Planet 4 Blocks - BETA',
 			],
 		];
 
