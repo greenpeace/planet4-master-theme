@@ -252,25 +252,31 @@ add_filter( 'gform_confirmation', 'gform_custom_confirmation', 10, 3 );
  * @return string The custom confirmation message.
  */
 function gform_custom_confirmation( $confirmation, $form, $entry ) {
-	$first_name_field = array_filter(
-		$form['fields'],
-		function( $field ) {
-			return 'name' === $field->type;
-		}
-	)[0];
+	$form_confirmation_option = $form['p4_gf_confirmation'] ?? 'planet4';
 
-	$first_name = rgar( $entry, '' . $first_name_field->id . '.3' );
+	if ( 'planet4' === $form_confirmation_option ) {
+		$first_name_field = array_filter(
+			$form['fields'],
+			function( $field ) {
+				return 'name' === $field->type;
+			}
+		)[0];
 
-	$post = Timber::query_post( false, Post::class );
+		$first_name = rgar( $entry, '' . $first_name_field->id . '.3' );
 
-	$confirmation_fields = [
-		'first_name'       => $first_name ?? '',
-		'post'             => $post,
-		'form_title'       => $form['title'] ?? '',
-		'form_description' => $form['description'] ?? '',
-	];
+		$post = Timber::query_post( false, Post::class );
 
-	return Timber::compile( [ 'gravity_forms_confirmation.twig' ], $confirmation_fields );
+		$confirmation_fields = [
+			'first_name'       => $first_name ?? '',
+			'post'             => $post,
+			'form_title'       => $form['title'] ?? '',
+			'form_description' => $form['description'] ?? '',
+		];
+
+		return Timber::compile( [ 'gravity_forms_confirmation.twig' ], $confirmation_fields );
+	} else {
+		return $confirmation;
+	}
 }
 
 /**
