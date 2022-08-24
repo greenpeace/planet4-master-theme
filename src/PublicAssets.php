@@ -54,6 +54,9 @@ final class PublicAssets {
 			1,
 			true
 		);
+
+		// Sets translated strings for a JS script.
+		wp_set_script_translations( 'main', 'planet4-master-theme', get_template_directory() . '/languages' );
 	}
 
 	/**
