@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-09 09:25+0000\n"
+"POT-Creation-Date: 2022-08-24 09:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "Language: "
 
-#: classes/class-loader.php:239
+#: classes/class-loader.php:244
 msgid " requires a newer version of PHP."
 msgstr ""
 
@@ -154,10 +154,6 @@ msgstr ""
 msgid "Begin at the end of the timeline"
 msgstr ""
 
-#: classes/patterns/class-blankpage.php:32
-msgid "Blank page"
-msgstr ""
-
 #: assets/src/blocks/Covers/CoversEditor.js:159
 msgid "Block content is empty. Check the block's settings or remove it."
 msgstr ""
@@ -267,7 +263,7 @@ msgstr ""
 msgid "Change the campaign logo color (if not default)"
 msgstr ""
 
-#: admin/js/editor.js:80
+#: admin/js/editor.js:65
 msgid "Chevron"
 msgstr ""
 
@@ -322,7 +318,7 @@ msgstr ""
 msgid "Counter"
 msgstr ""
 
-#: classes/class-loader.php:301
+#: classes/class-loader.php:306
 msgid "Current version "
 msgstr ""
 
@@ -338,16 +334,13 @@ msgstr ""
 msgid "Dark"
 msgstr ""
 
-#: classes/patterns/class-deepdive.php:67
-msgid "Deep Dive"
-msgstr ""
-
 #: classes/patterns/class-realitycheck.php:35
 #: classes/patterns/class-quicklinks.php:39
 #: classes/patterns/class-deepdive.php:37
-#: classes/patterns/class-sideimagewithtextandcta.php:48
+#: classes/patterns/class-sideimagewithtextandcta.php:50
 #: classes/patterns/class-highlightedcta.php:45
-#: classes/patterns/class-issues.php:34
+#: classes/patterns/class-issues.php:37
+#: classes/patterns/templates/class-gravityformwithimage.php:35
 msgid "Default image"
 msgstr ""
 
@@ -471,15 +464,17 @@ msgid "Enter Description"
 msgstr ""
 
 #: classes/patterns/class-realitycheck.php:42
-#: classes/patterns/class-sideimagewithtextandcta.php:54
+#: classes/patterns/class-sideimagewithtextandcta.php:56
+#: classes/patterns/class-pageheader.php:72
 #: classes/patterns/class-issues.php:70
-#: classes/patterns/templates/class-twocolumnsgravityforms.php:45
+#: classes/patterns/templates/class-gravityformwithtext.php:42
 #: assets/src/blocks/HubspotForm/HubspotFormEditor.js:83
 #: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:174
 #: assets/src/blocks/Articles/ArticlesEditor.js:125
 #: assets/src/blocks/Covers/CoversEditor.js:149
 #: assets/src/blocks/Counter/CounterEditor.js:105
 #: assets/src/blocks/Media/MediaEditor.js:96
+#: assets/src/blocks/PageHeader/PageHeaderBlock.js:27
 #: assets/src/blocks/Timeline/TimelineEditorScript.js:118
 #: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:168
 #: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:278
@@ -553,8 +548,8 @@ msgid "Enter social media message"
 msgstr ""
 
 #: classes/patterns/class-highlightedcta.php:49
-#: classes/patterns/class-blankpage.php:36 classes/patterns/class-issues.php:36
-#: classes/patterns/class-issues.php:91
+#: classes/patterns/class-blankpage.php:36 classes/patterns/class-issues.php:40
+#: classes/patterns/class-issues.php:83
 #: assets/src/blocks/Articles/ArticlesEditor.js:137
 #: assets/src/blocks/Accordion/AccordionEditor.js:77
 msgid "Enter text"
@@ -580,15 +575,17 @@ msgstr ""
 #: classes/patterns/class-realitycheck.php:39
 #: classes/patterns/class-quicklinks.php:86
 #: classes/patterns/class-deepdive.php:77
-#: classes/patterns/class-sideimagewithtextandcta.php:51
+#: classes/patterns/class-sideimagewithtextandcta.php:53
+#: classes/patterns/class-pageheader.php:66
 #: classes/patterns/class-issues.php:66
-#: classes/patterns/templates/class-twocolumnsgravityforms.php:41
+#: classes/patterns/templates/class-gravityformwithtext.php:38
 #: assets/src/blocks/HubspotForm/HubspotFormEditor.js:72
 #: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:163
 #: assets/src/blocks/Articles/ArticlesEditor.js:113
 #: assets/src/blocks/Covers/CoversEditor.js:138
 #: assets/src/blocks/Counter/CounterEditor.js:94
 #: assets/src/blocks/Media/MediaEditor.js:85
+#: assets/src/blocks/PageHeader/PageHeaderBlock.js:23
 #: assets/src/blocks/Timeline/TimelineEditorScript.js:105
 #: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:159
 #: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:267
@@ -683,8 +680,8 @@ msgstr ""
 msgid "General Settings"
 msgstr ""
 
-#: classes/patterns/class-getinformed.php:35
-msgid "Get Informed"
+#: classes/patterns/class-homepage.php:59
+msgid "Get to know us"
 msgstr ""
 
 #: assets/src/blocks/ShareButtons/ShareButtonsEditor.js:156
@@ -718,10 +715,6 @@ msgstr ""
 
 #: assets/src/components/Sidebar/ThemeSettings.js:129
 msgid "Header Primary Font"
-msgstr ""
-
-#: classes/patterns/class-highlightedcta.php:35
-msgid "Highlighted CTA"
 msgstr ""
 
 #: assets/src/blocks/Happypoint/HappypointEditor.js:167
@@ -786,10 +779,6 @@ msgstr ""
 msgid "Issue link path"
 msgstr ""
 
-#: classes/patterns/class-issues.php:53
-msgid "Issues"
-msgstr ""
-
 #: assets/src/blocks/Accordion/AccordionEditor.js:135
 msgid "Item"
 msgstr ""
@@ -802,15 +791,11 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: admin/js/editor.js:46
-msgid "Large padding"
-msgstr ""
-
 #: assets/src/blocks/Covers/CoversEditor.js:33
 msgid "Layout"
 msgstr ""
 
-#: classes/class-loader.php:103
+#: classes/class-loader.php:108
 msgid "Layouts"
 msgstr ""
 
@@ -846,7 +831,7 @@ msgstr ""
 msgid "Make block stick to the bottom of the page on mobile"
 msgstr ""
 
-#: assets/src/editorIndex.js:57
+#: assets/src/editorIndex.js:61
 msgid "Make the entire block contents clickable, using the first link inside."
 msgstr ""
 
@@ -871,10 +856,6 @@ msgstr ""
 msgid "Medium"
 msgstr ""
 
-#: admin/js/editor.js:43
-msgid "Medium padding"
-msgstr ""
-
 #: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:206
 msgid "Messages"
 msgstr ""
@@ -887,15 +868,15 @@ msgstr ""
 msgid "Minimal Navigation"
 msgstr ""
 
-#: classes/class-loader.php:240
+#: classes/class-loader.php:245
 msgid "Minimum required version of PHP: "
 msgstr ""
 
-#: classes/class-loader.php:298
+#: classes/class-loader.php:303
 msgid "Minimum version "
 msgstr ""
 
-#: admin/js/editor.js:73
+#: admin/js/editor.js:58
 msgid "Mobile carousel"
 msgstr ""
 
@@ -1014,6 +995,10 @@ msgstr ""
 msgid "Override default form"
 msgstr ""
 
+#: classes/class-loader.php:103
+msgid "Page Headers"
+msgstr ""
+
 #: classes/controller/menu/class-blocks-usage-controller.php:454
 msgid "Page type"
 msgstr ""
@@ -1027,11 +1012,11 @@ msgstr ""
 msgid "Pattern Report (Beta)"
 msgstr ""
 
-#: classes/class-loader.php:235
+#: classes/class-loader.php:240
 msgid "PHP Requirements Error"
 msgstr ""
 
-#: classes/class-loader.php:98
+#: classes/class-loader.php:99
 msgid "Planet 4"
 msgstr ""
 
@@ -1049,7 +1034,7 @@ msgid ""
 "icon and you have chosen columns style icons. "
 msgstr ""
 
-#: classes/class-loader.php:291
+#: classes/class-loader.php:296
 msgid "plugin needs to be installed and activated."
 msgstr ""
 
@@ -1070,16 +1055,8 @@ msgstr ""
 msgid "Primary"
 msgstr ""
 
-#: classes/patterns/class-quicklinks.php:76
-msgid "Quick Links"
-msgstr ""
-
 #: assets/src/blocks/HubspotForm/HubspotFormSidebar.js:107
 msgid "Read more about Hubspot form styles."
-msgstr ""
-
-#: classes/patterns/class-realitycheck.php:63
-msgid "Reality Check"
 msgstr ""
 
 #. %d = The duplicate postmeta count.
@@ -1115,11 +1092,11 @@ msgstr ""
 msgid "Report (Beta)"
 msgstr ""
 
-#: classes/class-loader.php:285
+#: classes/class-loader.php:290
 msgid "Requirements Error(s)"
 msgstr ""
 
-#: admin/js/editor.js:59
+#: admin/js/editor.js:44
 msgid "Reset margin"
 msgstr ""
 
@@ -1127,19 +1104,19 @@ msgstr ""
 msgid "Right"
 msgstr ""
 
-#: admin/js/editor.js:67
+#: admin/js/editor.js:52
 msgid "Roboto font family"
 msgstr ""
 
-#: admin/js/editor.js:93
+#: admin/js/editor.js:78
 msgid "Rounded 180x180"
 msgstr ""
 
-#: admin/js/editor.js:97
+#: admin/js/editor.js:82
 msgid "Rounded 90x90"
 msgstr ""
 
-#: classes/class-loader.php:243
+#: classes/class-loader.php:248
 msgid "Running version of PHP: "
 msgstr ""
 
@@ -1289,10 +1266,6 @@ msgstr ""
 msgid "Show in menu"
 msgstr ""
 
-#: classes/patterns/class-sideimagewithtextandcta.php:42
-msgid "Side image with text and CTA"
-msgstr ""
-
 #: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:359
 msgid "Sign"
 msgstr ""
@@ -1303,10 +1276,6 @@ msgstr ""
 
 #: assets/src/blocks/Gallery/GalleryBlock.js:53
 msgid "Slider"
-msgstr ""
-
-#: admin/js/editor.js:40
-msgid "Small padding"
 msgstr ""
 
 #: assets/src/blocks/SocialMedia/SocialMediaBlock.js:12
@@ -1325,7 +1294,7 @@ msgstr ""
 msgid "Social URL"
 msgstr ""
 
-#: admin/js/editor.js:55
+#: admin/js/editor.js:40
 msgid "Space evenly"
 msgstr ""
 
@@ -1345,7 +1314,7 @@ msgstr ""
 msgid "Start at end"
 msgstr ""
 
-#: assets/src/editorIndex.js:56
+#: assets/src/editorIndex.js:60
 msgid "Stretched Link"
 msgstr ""
 
@@ -1415,6 +1384,10 @@ msgstr ""
 msgid ""
 "The grid shows thumbnails of lots of images. Good to use when showing lots "
 "of activity."
+msgstr ""
+
+#: classes/patterns/class-homepage.php:45
+msgid "The issues we work on"
 msgstr ""
 
 #: assets/src/blocks/Media/MediaBlock.js:44
@@ -1557,6 +1530,10 @@ msgid ""
 "We use an overlay to fade the image back. Use a number between 1 and 100, "
 "the higher the number, the more faded the image will look. If you leave this "
 "empty, the default of 30 will be used."
+msgstr ""
+
+#: classes/patterns/class-homepage.php:68
+msgid "We win campaigns"
 msgstr ""
 
 #: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:199
