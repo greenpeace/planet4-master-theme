@@ -5,6 +5,7 @@ import { setupLoadMore } from './load_more';
 import { setupPDFIcon } from './pdf_icon';
 import { setupSearch } from './search';
 import { setupExternalLinks } from './external_links';
+import { setupPageHeaderParallax } from './page_header_parallax';
 
 import 'bootstrap';
 
@@ -24,4 +25,5 @@ jQuery(($) => {
   setupPDFIcon($);
   setupSearch();
   setupExternalLinks($);
+  setupPageHeaderParallax();
 });
