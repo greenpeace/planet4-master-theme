@@ -13,9 +13,17 @@
   line-height: 0;
 
   a _-- {
-    color: inherit;
+    color: $white;
+
+    &:visited {
+      color: $white;
+    }
 
     &:hover {
+      color: $white;
+    }
+
+    &:active {
       color: $white;
     }
   }
