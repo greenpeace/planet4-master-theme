@@ -2,8 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\Features\NewDesignCountrySelector;
-
 /**
  * Wrapper class for the enqueue function because we can't autoload functions.
  */
@@ -104,8 +102,7 @@ final class PublicAssets {
 		$navbar_file    = '/assets/build/navigation-bar-' . $navbar_version . '.min.css';
 		Loader::enqueue_versioned_style( $navbar_file, 'navigation-bar', [ 'parent-style' ] );
 
-		$country_selector_version = NewDesignCountrySelector::is_active() ? 'new' : 'old';
-		$country_selector_file    = '/assets/build/country-selector-' . $country_selector_version . '.min.css';
+		$country_selector_file = '/assets/build/country-selector.min.css';
 		Loader::enqueue_versioned_style( $country_selector_file, 'country-selector', [ 'parent-style' ] );
 
 		$post_type = get_post_type();
