@@ -37,6 +37,29 @@ if ( is_home() ) {
 		Timber::render( $templates, $context );
 		exit();
 	}
+
+	$post_args = [
+		'posts_per_page' => 10,
+		'post_type'      => 'post',
+		'paged'          => 1,
+		'has_password'   => false,  // Skip password protected content.
+	];
+
+	if ( get_query_var( 'page' ) ) {
+		$templates          = [ 'tease-taxonomy-post.twig' ];
+		$post_args['paged'] = get_query_var( 'page' );
+		$pagetype_posts     = new \Timber\PostQuery( $post_args, Post::class );
+		foreach ( $pagetype_posts as $pagetype_post ) {
+			$context['post'] = $pagetype_post;
+			Timber::render( $templates, $context );
+		}
+	} else {
+		$pagetype_posts   = new \Timber\PostQuery( $post_args, Post::class );
+		$context['posts'] = $pagetype_posts;
+		$context['url']   = home_url( $wp->request );
+		Timber::render( $templates, $context );
+	}
+} else {
+	Timber::render( $templates, $context );
 }
 
-Timber::render( $templates, $context );
