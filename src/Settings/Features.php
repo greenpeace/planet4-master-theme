@@ -17,7 +17,6 @@ use P4\MasterTheme\Features\EngagingNetworks;
 use P4\MasterTheme\Features\ImageArchive;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
 use P4\MasterTheme\Features\NewDesignCountrySelector;
-use P4\MasterTheme\Features\NewDesignNavigationBar;
 use P4\MasterTheme\Features\PurgeOnFeatureChanges;
 use P4\MasterTheme\Features\RedirectRedirectPages;
 use P4\MasterTheme\Loader;
@@ -110,7 +109,6 @@ class Features {
 			PurgeOnFeatureChanges::class,
 			LazyYoutubePlayer::class,
 			NewDesignCountrySelector::class,
-			NewDesignNavigationBar::class,
 			RedirectRedirectPages::class,
 
 			// Dev only.
@@ -219,12 +217,12 @@ class Features {
 			return;
 		}
 
-		if ( in_array( $field_id, [ NewDesignCountrySelector::id(), NewDesignNavigationBar::id() ], true ) ) {
-			if ( $field->value() !== self::$preprocess_fields[ $field_id ] ) {
-				self::$purge_cloudflare = true;
+		if ( in_array( $field_id, [ NewDesignCountrySelector::id() ], true ) ) {
+				if ( $field->value() !== self::$preprocess_fields[ $field_id ] ) {
+					self::$purge_cloudflare = true;
+				}
 			}
 		}
-	}
 
 	/**
 	 * Hook running after all features are saved
