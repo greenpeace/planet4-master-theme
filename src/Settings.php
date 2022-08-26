@@ -3,7 +3,6 @@
 namespace P4\MasterTheme;
 
 use CMB2_Field;
-use P4\MasterTheme\Features\NewDesignNavigationBar;
 use P4\MasterTheme\Settings\Comments;
 use P4\MasterTheme\Settings\Features;
 use P4\MasterTheme\Settings\InformationArchitecture as IA;
@@ -91,6 +90,17 @@ class Settings {
 						'name' => __( 'Select Issues Parent Category', 'planet4-master-theme-backend' ),
 						'id'   => 'issues_parent_category',
 						'type' => 'category_select_taxonomy',
+					],
+					[
+						'name'    => __( 'Website Navigation Style', 'planet4-master-theme-backend' ),
+						'desc'    => __( 'Select a style', 'planet4-master-theme-backend' ),
+						'id'      => 'website_navigation_style',
+						'type'    => 'select',
+						'default' => 'dark',
+						'options' => [
+							'dark'  => __( 'Dark', 'planet4-master-theme-backend' ),
+							'light' => __( 'Light', 'planet4-master-theme-backend' ),
+						],
 					],
 				],
 			],
@@ -463,20 +473,6 @@ class Settings {
 				],
 			],
 		];
-
-		if ( NewDesignNavigationBar::is_active() ) {
-			$this->subpages['planet4_settings_navigation']['fields'][] = [
-				'name'    => __( 'Website Navigation Style', 'planet4-master-theme-backend' ),
-				'desc'    => __( 'Select a style', 'planet4-master-theme-backend' ),
-				'id'      => 'website_navigation_style',
-				'type'    => 'select',
-				'default' => 'dark',
-				'options' => [
-					'dark'  => __( 'Dark', 'planet4-master-theme-backend' ),
-					'light' => __( 'Light', 'planet4-master-theme-backend' ),
-				],
-			];
-		}
 
 		$this->hooks();
 	}

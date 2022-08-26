@@ -26,7 +26,7 @@ module.exports = {
     bootstrap: './assets/src/scss/bootstrap-build.scss',
     "country-selector-old": './assets/src/scss/partials/country-selector-old.scss',
     "country-selector-new": './assets/src/scss/partials/country-selector-new.scss',
-    "navigation-bar-old": './assets/src/scss/layout/_navbar-old.scss',
+    "navigation-bar": './assets/src/scss/partials/navigation-bar.scss',
     "navigation-bar-dark": './assets/src/scss/partials/navigation-bar-dark.scss',
     "navigation-bar-light": './assets/src/scss/partials/navigation-bar-light.scss',
     "gravity-forms": './assets/src/scss/layout/_gravity-forms.scss',
