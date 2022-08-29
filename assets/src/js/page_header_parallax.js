@@ -1,27 +1,28 @@
 const isSmallWindow = () => window.innerWidth < 992;
 
-const addPageHeaderParallax = pageHeaderImages => {
-  const scrollPosition = window.scrollY;
+const addPageHeaderParallax = pageHeaders => {
+  pageHeaders.forEach(pageHeader => {
+    const pageHeaderImage = pageHeader.querySelector('.wp-block-media-text__media > img');
+    const pageHeaderRect = pageHeader.getBoundingClientRect();
 
-  pageHeaderImages.forEach(pageHeaderImage => {
-    const pageHeaderPosition = pageHeaderImage.scrollHeight;
-
-    if (scrollPosition > pageHeaderPosition) {
-      pageHeaderImage.style.transform = `translateY(${(scrollPosition - pageHeaderPosition) * 0.6}px)`;
+    // 100 to take into account the navbar + a bit of extra spacing
+    if (pageHeaderRect.top < 100) {
+      pageHeaderImage.style.transform = `translateY(${(100 - pageHeaderRect.top) * 0.6}px)`;
     }
   });
 };
 
-const removePageHeaderParallax = pageHeaderImages => {
-  pageHeaderImages.forEach(pageHeaderImage => {
+const removePageHeaderParallax = pageHeaders => {
+  pageHeaders.forEach(pageHeader => {
+    const pageHeaderImage = pageHeader.querySelector('.wp-block-media-text__media > img');
     pageHeaderImage.style.transform = 'none';
   });
 };
 
 export const setupPageHeaderParallax = () => {
-  const pageHeaderImages = document.querySelectorAll('.is-pattern-p4-page-header > .wp-block-media-text__media > img');
+  const pageHeaders = document.querySelectorAll('.is-pattern-p4-page-header');
 
-  const pageHeaderParallax = () => addPageHeaderParallax(pageHeaderImages);
+  const pageHeaderParallax = () => addPageHeaderParallax(pageHeaders);
 
   if (!isSmallWindow()) {
     window.addEventListener('scroll', pageHeaderParallax);
@@ -30,7 +31,7 @@ export const setupPageHeaderParallax = () => {
   window.addEventListener('resize', () => {
     if (isSmallWindow()) {
       window.removeEventListener('scroll', pageHeaderParallax);
-      removePageHeaderParallax(pageHeaderImages);
+      removePageHeaderParallax(pageHeaders);
     } else {
       window.addEventListener('scroll', pageHeaderParallax);
     }
