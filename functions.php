@@ -476,3 +476,38 @@ add_filter(
 	100,
 	3
 );
+
+// This action overrides the [WordPress functionality for adding a notice message](https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-admin/edit-form-blocks.php#L303-L305)
+// When it's a page for posts.
+add_action(
+	'admin_enqueue_scripts',
+	function() {
+		global $post;
+
+		if ( $post && (int) get_option( 'page_for_posts' ) === $post->ID ) {
+			// Adding this style, it works as a workaround for editors
+			// To disable the ability to edit the content of the listing page.
+			echo '<style>
+			.edit-post-header-toolbar,
+			.block-list-appender {
+				pointer-events: none;
+				opacity: 0;
+			}
+
+			.block-editor-block-list__layout {
+				display: none;
+			}
+		</style>';
+
+			wp_add_inline_script(
+				'wp-notices',
+				sprintf(
+					'wp.data.dispatch( "core/notices" ).createWarningNotice( "%s", { isDismissible: false } )',
+					__( 'Custom P4 message', 'planet4-master-theme' )
+				),
+				'after'
+			);
+		}
+	},
+	100
+);
