@@ -18,11 +18,9 @@ export const setupExternalLinks = () => {
     }
 
     link.target = link.target ? link.target : '';
+    link.target = '_blank';
     if (!commonExternalDomains.includes(link.hostname)){
       link.classList.add('external-link');
-    }
-    else {
-      link.target = '_blank';
     }
 
     const url = new URL(link.href);
