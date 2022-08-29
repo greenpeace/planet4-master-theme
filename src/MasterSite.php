@@ -128,7 +128,6 @@ class MasterSite extends TimberSite {
 		add_filter( 'get_twig', [ $this, 'add_to_twig' ] );
 		add_action( 'init', [ $this, 'register_taxonomies' ], 2 );
 		add_action( 'init', [ $this, 'register_oembed_provider' ] );
-		add_action( 'init', [ $this, 'log_large_cookies' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 		// Load the editor scripts only enqueuing editor scripts while in context of the editor.
 		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_editor_assets' ] );
@@ -302,29 +301,6 @@ class MasterSite extends TimberSite {
 		);
 
 		$this->register_meta_fields();
-	}
-
-	/**
-	 * Log large cookies event to sentry.
-	 */
-	public function log_large_cookies(): void {
-		if ( ! function_exists( '\\Sentry\\captureMessage' )
-			|| empty( $_SERVER['HTTP_COOKIE'] )
-			|| strlen( $_SERVER['HTTP_COOKIE'] ) <= 6144
-		) {
-			return;
-		}
-
-		$cookies = array_combine(
-			array_keys( $_COOKIE ),
-			array_map( fn ( $val ) => strlen( $val ), $_COOKIE )
-		);
-		\Sentry\withScope(
-			function ( \Sentry\State\Scope $scope ) use ( $cookies ): void {
-				$scope->setContext( 'cookies', $cookies );
-				\Sentry\captureMessage( 'Large cookies detected' );
-			}
-		);
 	}
 
 	/**
