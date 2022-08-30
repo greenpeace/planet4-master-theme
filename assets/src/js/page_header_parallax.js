@@ -13,5 +13,5 @@ export const setupPageHeaderParallax = () => {
     });
   };
 
-  window.addEventListener('scroll', addPageHeaderParallax);
+  window.addEventListener('scroll', () => setTimeout(addPageHeaderParallax, 100));
 };
