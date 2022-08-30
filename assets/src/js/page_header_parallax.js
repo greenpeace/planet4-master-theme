@@ -1,8 +1,6 @@
 export const setupPageHeaderParallax = () => {
   const pageHeaders = document.querySelectorAll('.is-pattern-p4-page-header');
 
-  const isSmallWindow = () => window.innerWidth < 992;
-
   const addPageHeaderParallax = () => {
     pageHeaders.forEach(pageHeader => {
       const pageHeaderImage = pageHeader.querySelector('.wp-block-media-text__media > img');
@@ -15,23 +13,5 @@ export const setupPageHeaderParallax = () => {
     });
   };
 
-  const removePageHeaderParallax = () => {
-    pageHeaders.forEach(pageHeader => {
-      const pageHeaderImage = pageHeader.querySelector('.wp-block-media-text__media > img');
-      pageHeaderImage.style.transform = 'none';
-    });
-  };
-
-  if (!isSmallWindow()) {
-    window.addEventListener('scroll', addPageHeaderParallax);
-  }
-
-  window.addEventListener('resize', () => {
-    if (isSmallWindow()) {
-      window.removeEventListener('scroll', addPageHeaderParallax);
-      removePageHeaderParallax();
-    } else {
-      window.addEventListener('scroll', addPageHeaderParallax);
-    }
-  });
+  window.addEventListener('scroll', addPageHeaderParallax);
 };
