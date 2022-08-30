@@ -477,7 +477,8 @@ add_filter(
 	3
 );
 
-// This action overrides the [WordPress functionality for adding a notice message](https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-admin/edit-form-blocks.php#L303-L305)
+// This action overrides the WordPress functionality for adding a notice message
+// https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-admin/edit-form-blocks.php#L303-L305
 // When it's a page for posts.
 add_action(
 	'admin_enqueue_scripts',
