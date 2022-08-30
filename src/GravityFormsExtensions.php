@@ -87,6 +87,7 @@ class GravityFormsExtensions {
 			'type'           => 'select',
 			'name'           => 'p4_gf_type',
 			'label'          => __( 'Form Type', 'planet4-master-theme-backend' ),
+			'tooltip'        => __( 'Please select a form type below so you can track and analyze each form type separately', 'planet4-master-theme-backend' ),
 			'required'       => true,
 			'default_value ' => self::DEFAULT_GF_TYPE,
 			'choices'        => self::P4_GF_TYPES,
