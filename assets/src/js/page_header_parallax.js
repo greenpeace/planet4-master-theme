@@ -8,7 +8,7 @@ export const setupPageHeaderParallax = () => {
 
       // 100 to take into account the navbar + a bit of extra spacing
       if (pageHeaderRect.top < 100) {
-        pageHeaderImage.style.transform = `translateY(${(100 - pageHeaderRect.top) * 0.6}px)`;
+        pageHeaderImage.style.transform = `translateY(${(100 - pageHeaderRect.top) * 0.3}px)`;
       }
     });
   };
