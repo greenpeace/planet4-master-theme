@@ -7,12 +7,9 @@ export const setupPageHeaderParallax = () => {
       const pageHeaderRect = pageHeader.getBoundingClientRect();
 
       // 100 to take into account the navbar + a bit of extra spacing
-      const pageHeaderTopPosition = Math.round(pageHeaderRect.top);
-      if (pageHeaderTopPosition < 100) {
-        pageHeaderImage.style.transform = `translate3d(0px, ${(100 - pageHeaderTopPosition) * 0.3}px, 0px)`;
-      }
+      pageHeaderImage.style.transform = `translate3d(0px, ${(pageHeaderRect.top > 100 ? 0 : -(pageHeaderRect.top - 100)) * 0.3}px, 0px)`;
     });
   };
 
-  window.addEventListener('scroll', () => setTimeout(addPageHeaderParallax, 100));
+  window.addEventListener('scroll', addPageHeaderParallax);
 };
