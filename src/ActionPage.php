@@ -140,5 +140,6 @@ class ActionPage {
 		];
 
 		register_post_meta( self::POST_TYPE, 'nav_type', $args );
+		register_post_meta( self::POST_TYPE, 'p4_hide_page_title_checkbox', $args );
 	}
 }
