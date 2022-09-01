@@ -7,9 +7,10 @@ export const setupMediaAndTextParallax = () => {
       const blockRect = block.getBoundingClientRect();
 
       // 100 to take into account the navbar + a bit of extra spacing
-      blockImage.style.transform = `translate3d(0px, ${(blockRect.top > 100 ? 0 : -(blockRect.top - 100)) * 0.3}px, 0px)`;
+      blockImage.style.transform = `translate3d(0px, ${-(blockRect.top - 100) * 0.1}px, 0px)`;
     });
   };
 
+  addParallax();
   window.addEventListener('scroll', addParallax);
 };
