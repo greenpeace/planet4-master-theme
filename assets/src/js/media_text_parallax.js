@@ -1,6 +1,10 @@
 export const setupMediaAndTextParallax = () => {
   const blocks = document.querySelectorAll('.wp-block-media-text.is-style-parallax');
 
+  if (blocks.length === 0) {
+    return;
+  }
+
   const addParallax = () => {
     blocks.forEach(block => {
       const blockImage = block.querySelector('.wp-block-media-text__media > img');
