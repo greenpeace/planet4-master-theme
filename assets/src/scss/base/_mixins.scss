@@ -54,6 +54,13 @@
   }
 }
 
+// Mobile, small, medium and large width (less than 1200px)
+@mixin large-and-less {
+  @media (max-width: #{$extra-large-width - 1}) {
+    @content;
+  }
+}
+
 // Margins and padding. Use to consistently apply gutters
 // use like this: @include padding($left: $sp-2, $right: $sp-2); wich will be compiled as padding-left: 16px; padding-right: 16px;
 
