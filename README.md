@@ -23,3 +23,7 @@ You can use the theme in Wordpress directly, by including it at your `composer.j
     ...
 },
 ```
+
+---
+
+_This project is tested with [BrowserStack](https://www.browserstack.com/)._
