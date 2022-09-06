@@ -35,6 +35,8 @@ class OpenGraphTest extends P4_TestCase {
 		$permalink = get_permalink( $post_id );
 		$this->go_to( $permalink );
 
+		\Timber\Timber::$context_cache = [];
+
 		$output = TimberHelper::ob_function(
 			function () use ( $template ) {
 					include get_template_directory() . '/' . $template;
@@ -44,10 +46,10 @@ class OpenGraphTest extends P4_TestCase {
 		$this->assertHasElementWithAttributes(
 			[
 				'property' => 'og:title',
-				'content'  => $post_data['meta_input']['p4_og_title'],
+				'content'  => $post_data['meta_input']['p4_og_title'] . ' - ' . get_bloginfo( 'name' ),
 			],
 			$output,
-			'Did not find og:title meta.'
+			'Did not find og:title meta with expected content.'
 		);
 
 		$this->assertHasElementWithAttributes(
@@ -56,7 +58,7 @@ class OpenGraphTest extends P4_TestCase {
 				'content'  => wp_strip_all_tags( $post_data['meta_input']['p4_og_description'] ),
 			],
 			$output,
-			'Did not find og:description meta.'
+			'Did not find og:description meta with expected content.'
 		);
 
 		$this->assertHasElementWithAttributes(
@@ -65,7 +67,7 @@ class OpenGraphTest extends P4_TestCase {
 				'content'  => wp_get_attachment_url( $attachment_id ),
 			],
 			$output,
-			'Did not find og:image meta.'
+			'Did not find og:image meta with expected content.'
 		);
 
 		$this->assertHasElementWithAttributes(
@@ -73,7 +75,7 @@ class OpenGraphTest extends P4_TestCase {
 				'property' => 'og:image:width',
 			],
 			$output,
-			'Did not find og:image:width meta.'
+			'Did not find og:image:width meta with expected content.'
 		);
 	}
 
@@ -97,6 +99,8 @@ class OpenGraphTest extends P4_TestCase {
 		$permalink = get_permalink( $post_id );
 		$this->go_to( $permalink );
 
+		\Timber\Timber::$context_cache = [];
+
 		$output = TimberHelper::ob_function(
 			function () use ( $template ) {
 					include get_template_directory() . '/' . $template;
@@ -109,7 +113,7 @@ class OpenGraphTest extends P4_TestCase {
 				'content'  => $post_data['post_title'] . ' - ' . get_bloginfo( 'name' ),
 			],
 			$output,
-			'Did not find og:title meta.'
+			'Did not find og:title meta with expected content.'
 		);
 
 		$this->assertHasElementWithAttributes(
@@ -118,7 +122,7 @@ class OpenGraphTest extends P4_TestCase {
 				'content'  => $post_data['post_excerpt'],
 			],
 			$output,
-			'Did not find og:description meta.'
+			'Did not find og:description meta with expected content.'
 		);
 	}
 

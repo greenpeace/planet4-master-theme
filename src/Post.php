@@ -302,16 +302,7 @@ class Post extends TimberPost {
 	 * @return string
 	 */
 	public function get_og_title() {
-		$og_title = get_post_meta( $this->id, 'p4_og_title', true );
-		if ( '' === $og_title ) {
-			if ( '' !== $this->post_title ) {
-				return $this->post_title . ' - ' . get_bloginfo( 'name' );
-			} else {
-				return get_bloginfo( 'name' );
-			}
-		}
-
-		return $og_title;
+		return get_post_meta( $this->id, 'p4_og_title', true );
 	}
 
 	/**

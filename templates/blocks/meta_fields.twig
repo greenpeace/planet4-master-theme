@@ -15,15 +15,16 @@
 
 	<meta name="description" content="{{ meta_description }}">
 
-	{% if not (og_title is defined) %}
-		{% if (wp_title) %}
-			{% set og_title = wp_title|raw~' - '~site.name %}
-		{% else %}
-			{% set og_title = site.name %}
-		{% endif %}
+	{% if og_title %}
+		{% set title = og_title|raw~' - '~site.name %}
+	{% elseif wp_title %}
+		{% set title = wp_title|raw~' - '~site.name %}
+	{% else %}
+		{% set title = site.name %}
 	{% endif %}
-	<meta name="title" content="{{ og_title|e('html_attr')|raw }}"/>
-	<meta property="og:title" content="{{ og_title|e('html_attr')|raw }}" />
+
+	<meta name="title" content="{{ title|e('html_attr')|raw }}"/>
+	<meta property="og:title" content="{{ title|e('html_attr')|raw }}" />
 	<meta property="og:type" content="article" />
 	<meta property="og:url" content="{{ current_url }}" />
 	{% if (og_description) %}
@@ -42,7 +43,7 @@
 
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="{{ site.name }}" />
-	<meta name="twitter:title" content="{{ og_title|e('html_attr')|raw }}">
+	<meta name="twitter:title" content="{{ title|e('html_attr')|raw }}">
 	{% if (og_description) %}
 		<meta name="twitter:description" content="{{ og_description|e('html_attr')|raw }}">
 	{% endif %}
