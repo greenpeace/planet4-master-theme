@@ -226,6 +226,7 @@ jobs:
 
   acceptance-tests:
     <<: *p4_instance_conf
+    resource_class: large
     steps:
       - install-instance
       - run-tests:
