@@ -61,4 +61,13 @@
       font-size: 1.5rem;
     }
   }
+
+  .native {
+    background: $orange;
+    display: none;
+
+    &:active {
+      background: darken($orange, 20%);
+    }
+  }
 }
