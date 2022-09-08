@@ -512,3 +512,14 @@ add_action(
 	},
 	100
 );
+
+// The new `pagenum` query_var is used ONLY trough the default listing pages (index.php),
+// when the Load more feature is enabled.
+// Also added in replacement of the `page` query_var since that param is returning always zero.
+add_filter(
+	'query_vars',
+	function( $vars ) {
+		$vars[] = 'page_num';
+		return $vars;
+	}
+);

@@ -36,6 +36,11 @@ if ( is_home() ) {
 		$context['query_loop'] = $content;
 		Timber::render( $templates, $context );
 		exit();
+	} else {
+		// Only applied to the "Load More" feature.
+		if ( null !== get_query_var( 'page_num' ) ) {
+			$wp_query->query_vars['page'] = get_query_var( 'page_num' );
+		}
 	}
 
 	$post_args = [
@@ -62,4 +67,3 @@ if ( is_home() ) {
 } else {
 	Timber::render( $templates, $context );
 }
-
