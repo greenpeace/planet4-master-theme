@@ -231,7 +231,11 @@ jobs:
       - install-instance
       - run-tests:
           test-name: Test - Run acceptance tests
-          test-command: make -C planet4-docker-compose test
+          test-command: |
+              cd planet4-docker-compose
+              docker-compose exec php-fpm rsync -a --delete public/wp-content/themes/planet4-master-theme/tests/acceptance/ public/wp-content/plugins/planet4-plugin-gutenberg-blocks/tests/acceptance/ tests/acceptance/
+              docker-compose exec php-fpm rsync -a --delete public/wp-content/themes/planet4-master-theme/tests/data/ tests/_data/
+              docker-compose exec php-fpm tests/vendor/bin/codecept run acceptance --no-redirect --xml=junit.xml --html
           extract-command: make -C planet4-docker-compose ci-extract-artifacts
 
   a11y-tests:
