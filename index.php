@@ -15,15 +15,19 @@
 
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Features\ListingPagePagination;
+use P4\MasterTheme\Post;
 use Timber\Timber;
 
-$context          = Timber::get_context();
-$context['posts'] = Timber::get_posts();
-$context['title'] = html_entity_decode( $context['wp_title'] );
-
+$context   = Timber::get_context();
 $templates = [ 'index.twig' ];
 
 if ( is_home() ) {
+	$post             = new Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+	$page_meta_data   = get_post_meta( $post->ID );
+	$page_meta_data   = array_map( 'reset', $page_meta_data );
+	$context['posts'] = Timber::get_posts();
+	$context['title'] = ( $page_meta_data['p4_title'] ?? '' ) ? ( $page_meta_data['p4_title'] ?? '' ) : html_entity_decode( $context['wp_title'] ?? '' );
+
 	array_unshift( $templates, 'all-posts.twig' );
 
 	if ( ListingPagePagination::is_active() ) {

@@ -489,24 +489,29 @@ add_action(
 			// Adding this style, it works as a workaround for editors
 			// To disable the ability to edit the content of the listing page.
 			echo '<style>
-			.edit-post-header-toolbar,
-			.block-list-appender {
-				pointer-events: none;
-				opacity: 0;
-			}
+				.edit-post-header-toolbar,
+				.block-list-appender {
+					pointer-events: none;
+					opacity: 0;
+				}
 
-			.block-editor-block-list__layout {
-				display: none;
-			}
-		</style>';
+				.block-editor-block-list__layout {
+					display: none;
+				}
+
+				.components-notice__actions {
+					display: inline-flex !important;
+					margin-left: 5px;
+				}
+			</style>';
 
 			wp_add_inline_script(
 				'wp-notices',
 				sprintf(
-					'wp.data.dispatch( "core/notices" ).createWarningNotice( "%s", { isDismissible: false } )',
-					__( 'Custom P4 message', 'planet4-master-theme' )
-				),
-				'after'
+					'wp.data.dispatch( "core/notices" ).createNotice("warning", "%s" , { isDismissible: false, actions: [ { label: "%s", url: "/wp-admin/options-reading.php"} ] } )',
+					__( 'The content on this page is hidden because this page is being used as your \"All Posts\" listing page. You can disable this by un-setting the \"Posts page\"', 'planet4-master-theme' ),
+					__( 'here', 'planet4-master-theme' )
+				)
 			);
 		}
 	},
