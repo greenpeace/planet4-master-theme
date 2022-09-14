@@ -13,6 +13,7 @@
  * @since   Timber 0.1
  */
 
+use P4\MasterTheme\Context;
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\Post;
@@ -22,11 +23,21 @@ $context   = Timber::get_context();
 $templates = [ 'index.twig' ];
 
 if ( is_home() ) {
-	$post             = new Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-	$page_meta_data   = get_post_meta( $post->ID );
-	$page_meta_data   = array_map( 'reset', $page_meta_data );
-	$context['posts'] = Timber::get_posts();
+	$post = new Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+	$post->set_data_layer();
+	$data_layer = $post->get_data_layer();
+
+	$page_meta_data = get_post_meta( $post->ID );
+	$page_meta_data = array_map( 'reset', $page_meta_data );
+
 	$context['title'] = ( $page_meta_data['p4_title'] ?? '' ) ? ( $page_meta_data['p4_title'] ?? '' ) : html_entity_decode( $context['wp_title'] ?? '' );
+	$context['posts'] = Timber::get_posts();
+
+	Context::set_header( $context, $page_meta_data, $context['title'] );
+	Context::set_background_image( $context );
+	Context::set_og_meta_fields( $context, $post );
+	Context::set_campaign_datalayer( $context, $page_meta_data );
+	Context::set_utm_params( $context, $post );
 
 	array_unshift( $templates, 'all-posts.twig' );
 
