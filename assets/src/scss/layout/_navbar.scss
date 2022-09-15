@@ -313,14 +313,6 @@ a.nav-link:hover:before,
   }
 }
 
-.no-scroll-nav-open {
-  @include medium-and-less {
-    overflow-y: hidden;
-    position: fixed;
-    width: 100%;
-  }
-}
-
 // I'll include these at the end for now because they depend on CSS order.
 @import "navbar/site-logo";
 @import "navbar/languages";
