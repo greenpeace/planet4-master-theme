@@ -225,6 +225,15 @@ abstract class Search {
 				2
 			);
 		}
+		// Only invoked if the page for posts is set.
+		if ( null !== get_option( 'page_for_posts' ) ) {
+			add_filter(
+				'pre_get_posts',
+				[ self::class, 'exclude_page_for_posts' ],
+				10,
+				1
+			);
+		}
 		remove_filter(
 			'pre_get_posts',
 			[ Features::factory()->get_registered_feature( 'documents' ), 'setup_document_search' ],
@@ -1001,6 +1010,23 @@ abstract class Search {
 		$args['post__not_in'] = $unwanted_attachment_ids;
 
 		return $args;
+	}
+
+	/**
+	 * Exclude the page for posts set through the Settings > Reading page.
+	 *
+	 * @param query $query The Query ElasticPress will use to fetch the ids of posts.
+	 *
+	 * @return query The Query with exclusion of the page for posts.
+	 */
+	public static function exclude_page_for_posts( $query ) {
+		$page_for_posts = get_option( 'page_for_posts' );
+
+		if ( $page_for_posts ) {
+			$query->set( 'post__not_in', [ $page_for_posts ] );
+		}
+
+		return $query;
 	}
 
 	/**
