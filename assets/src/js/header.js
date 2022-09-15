@@ -54,7 +54,8 @@ const toggleNavElement = element => {
 
   // Lock scroll when navigation menu is open
   if (element.classList.contains('nav-menu-toggle')) {
-    document.body.classList.toggle('no-scroll-nav-open', !wasExpanded);
+    const htmlElement = document.getElementsByTagName('html')[0];
+    htmlElement.style.overflowY = wasExpanded ? 'auto' : 'hidden';
   }
 
   // Toggle data-ga-action attribute used in GTM tracking.
