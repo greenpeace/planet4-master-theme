@@ -53,8 +53,8 @@ class PageHeader extends Block_Pattern {
 					<div class="wp-block-group alignfull has-' . $background_color . '-background-color has-background" style="padding-top:56px;padding-bottom:56px;">
 						<!-- wp:group {"className":"container"} -->
 							<div class="wp-block-group container">
-								<!-- wp:media-text {"align":"full","mediaPosition":"' . static::$media_position . '","mediaType":"image","imageFill":false,"className":"' . $classname . '"} -->
-								<div class="wp-block-media-text alignfull ' . $pos_class . ' is-stacked-on-mobile ' . $classname . '">
+								<!-- wp:media-text {"align":"full","mediaPosition":"' . static::$media_position . '","mediaType":"image","imageFill":false,"className":"' . $classname . ' is-style-parallax"} -->
+								<div class="wp-block-media-text alignfull ' . $pos_class . ' is-stacked-on-mobile ' . $classname . ' is-style-parallax">
 
 									<figure class="wp-block-media-text__media">
 										<img src="' . $media_link . '" alt=""/>

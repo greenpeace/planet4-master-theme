@@ -84,4 +84,12 @@ wp.domReady(() => {
   ];
 
   registerBlockStyle('core/image', imageStyles);
+
+  // Register our custom Media & Test block styles
+  registerBlockStyle('core/media-text', [
+    {
+      name: 'parallax',
+      label: __('Parallax - add a parallax effect to the image when scrolling the page', 'planet4-blocks-backend')
+    }
+  ]);
 });

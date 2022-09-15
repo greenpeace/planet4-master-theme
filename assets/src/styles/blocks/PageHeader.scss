@@ -28,6 +28,12 @@ $text-column-padding-in: 24px;
     margin: -$sp-5x $sp-3 $sp-3;
     padding-inline-start: 0;
     padding-inline-end: 0;
+    z-index: 1;
+
+    .wp-block-button,
+    .wp-block-button a {
+      width: auto;
+    }
   }
 
   .wp-block-group:first-child {

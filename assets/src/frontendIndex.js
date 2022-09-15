@@ -10,6 +10,7 @@ import { GuestBookFrontend } from './blocks/GuestBook/GuestBookFrontend';
 import { setupMediaElementJS } from './blocks/Media/setupMediaElementJS';
 import { setupLightboxForImages } from './components/Lightbox/setupLightboxForImages';
 import { ENFormFrontend } from './blocks/ENForm/ENFormFrontend';
+import { setupParallax } from './components/Parallax/setupParallax';
 
 // Render React components
 const COMPONENTS = {
@@ -44,4 +45,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setupMediaElementJS();
   setupLightboxForImages();
+  setupParallax();
 });

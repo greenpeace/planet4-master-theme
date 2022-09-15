@@ -11,6 +11,10 @@
     cursor: pointer;
   }
 
+  &.is-style-parallax .wp-block-media-text__media {
+    overflow: hidden;
+  }
+
   // 601px is when the block is no longer stacked
   @media (max-width: 600px) {
     &.alignfull .wp-block-media-text__content {
