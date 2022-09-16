@@ -1,6 +1,6 @@
 {% set ga_page_type = post.post_type|capitalize %}
 {% set post_link = post.link %}
-{% if ( 'action' == post.post_type ) %}
+{% if ( 'p4_action' == post.post_type ) %}
 	{% set is_action = true %}
 	{% set ga_page_type = 'Take Action' %}
 {% elseif ( 'attachment' == post.post_type ) %}
@@ -112,7 +112,7 @@
 				</div>
 				<div>
 					{% if ( is_document ) %}
-						<a href="{{ post_link }}" download class="btn btn-small btn-secondary pdf-link" title={{__('This link will open a PDF file', 'planet4-master-theme')}}>
+						<a href="{{ post_link }}" download class="btn btn-small btn-secondary pdf-link" title="{{__('This link will open a PDF file', 'planet4-master-theme')}}">
 							{{ __( 'Download', 'planet4-master-theme' ) }}
 						</a>
 					{% elseif ( is_campaign or is_archive ) %}
