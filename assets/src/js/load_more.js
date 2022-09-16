@@ -14,7 +14,7 @@ function handler(e) {
   const content_elt = document.querySelector( this.dataset.content );
   const next_page = parseInt( this.dataset.page, 10 ) + 1;
   const total_pages = parseInt( this.dataset.total, 10 );
-  const url = this.dataset.url + `?page=${ next_page }`;
+  const url = this.dataset.url + `?page=${ next_page }&page_num=${ next_page }`;
   this.dataset.page = next_page;
 
   fetch(url)

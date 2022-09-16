@@ -476,3 +476,55 @@ add_filter(
 	100,
 	3
 );
+
+// This action overrides the WordPress functionality for adding a notice message
+// https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-admin/edit-form-blocks.php#L303-L305
+// When it's a page for posts.
+add_action(
+	'admin_enqueue_scripts',
+	function() {
+		global $post;
+
+		if ( $post && (int) get_option( 'page_for_posts' ) === $post->ID ) {
+			// Adding this style, it works as a workaround for editors
+			// To disable the ability to edit the content of the listing page.
+			echo '<style>
+				.edit-post-header-toolbar,
+				.block-list-appender {
+					pointer-events: none;
+					opacity: 0;
+				}
+
+				.block-editor-block-list__layout {
+					display: none;
+				}
+
+				.components-notice__actions {
+					display: inline-flex !important;
+					margin-left: 5px;
+				}
+			</style>';
+
+			wp_add_inline_script(
+				'wp-notices',
+				sprintf(
+					'wp.data.dispatch( "core/notices" ).createNotice("warning", "%s" , { isDismissible: false, actions: [ { label: "%s", url: "/wp-admin/options-reading.php"} ] } )',
+					__( 'The content on this page is hidden because this page is being used as your \"All Posts\" listing page. You can disable this by un-setting the \"Posts page\"', 'planet4-master-theme' ),
+					__( 'here', 'planet4-master-theme' )
+				)
+			);
+		}
+	},
+	100
+);
+
+// The new `pagenum` query_var is used ONLY trough the default listing pages (index.php),
+// when the Load more feature is enabled.
+// Also added in replacement of the `page` query_var since that param is returning always zero.
+add_filter(
+	'query_vars',
+	function( $vars ) {
+		$vars[] = 'page_num';
+		return $vars;
+	}
+);
