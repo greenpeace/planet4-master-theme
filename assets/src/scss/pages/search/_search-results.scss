@@ -47,14 +47,6 @@
         }
       }
 
-      .btn {
-        margin-top: 24px;
-
-        @include small-and-up {
-          width: max-content;
-        }
-      }
-
       .search-result-item-image:hover ~ * .search-result-item-headline {
         text-decoration: underline;
       }
@@ -82,23 +74,23 @@
     }
   }
 
-  .btn-secondary {
+  .btn {
+    margin-top: $sp-3;
     width: 100%;
 
     @include medium-and-up {
       width: auto;
-      position: relative;
-      top: 5px;
-      padding: 0 15px;
-      margin-left: 12px;
     }
 
-    i {
-      font-size: $font-size-sm;
-      font-weight: bold;
-      margin-right: 10px;
-      float: left;
-      line-height: 2.2rem;
+    &.btn-secondary {
+      margin-bottom: $sp-3;
+      white-space: nowrap;
+
+      @include medium-and-up {
+        padding: 0 $sp-2;
+        margin-left: $sp-2;
+        margin-top: 0;
+      }
     }
   }
 
