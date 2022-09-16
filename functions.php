@@ -247,71 +247,41 @@ add_filter( 'gform_confirmation', 'gform_custom_confirmation', 10, 3 );
  *
  * @param string $confirmation The default confirmation message.
  * @param array  $form The form properties.
- * @param array  $entry The form data.
  *
  * @return string The custom confirmation message.
  */
-function gform_custom_confirmation( $confirmation, $form, $entry ) {
-	$form_confirmation_option = $form['p4_gf_confirmation'] ?? 'planet4';
+function gform_custom_confirmation( $confirmation, $form ) {
+	// If the $confirmation object is an array, it means that it's a redirect page so we can directly use it.
+	if ( is_array( $confirmation ) ) {
+		return $confirmation;
+	}
 
 	$post = Timber::query_post( false, Post::class );
 
-	if ( 'planet4' === $form_confirmation_option ) {
-		$first_name_field = array_filter(
-			$form['fields'],
-			function( $field ) {
-				return 'name' === $field->type;
-			}
-		)[0];
-
-		$first_name = rgar( $entry, '' . $first_name_field->id . '.3' );
-
-		$confirmation_fields = [
-			'first_name'       => $first_name ?? '',
-			'post'             => $post,
-			'form_title'       => $form['title'] ?? '',
-			'form_description' => $form['description'] ?? '',
-			'share_platforms'  => [
-				'facebook' => true,
-				'twitter'  => true,
-				'whatsapp' => true,
-				'native'   => true,
-				'email'    => true,
-			],
-		];
-
-		return Timber::compile( [ 'gravity_forms_p4_confirmation.twig' ], $confirmation_fields );
-	} else {
-		// If the $confirmation object is an array, it means that it's a redirect page so we can directly use it.
-		if ( is_array( $confirmation ) ) {
-			return $confirmation;
+	$default_confirmation_array = array_filter(
+		$form['confirmations'],
+		function ( $conf ) use ( $confirmation ) {
+			return str_contains( $confirmation, $conf['message'] );
 		}
+	);
 
-		$default_confirmation_array = array_filter(
-			$form['confirmations'],
-			function ( $conf ) use ( $confirmation ) {
-				return str_contains( $confirmation, $conf['message'] );
-			}
-		);
+	$default_confirmation = reset( $default_confirmation_array );
 
-		$default_confirmation = reset( $default_confirmation_array );
+	$confirmation_fields = [
+		'confirmation'    => $default_confirmation['message'],
+		'share_platforms' => [
+			'facebook' => '1' === $default_confirmation['facebook'] ?? false,
+			'twitter'  => '1' === $default_confirmation['twitter'] ?? false,
+			'whatsapp' => '1' === $default_confirmation['whatsapp'] ?? false,
+			'native'   => '1' === $default_confirmation['native'] ?? false,
+			'email'    => '1' === $default_confirmation['email'] ?? false,
+		],
+		'share_text'      => $default_confirmation['p4_gf_share_text_override'] ?? '',
+		'share_url'       => $default_confirmation['p4_gf_share_url_override'] ?? '',
+		'post'            => $post,
+	];
 
-		$confirmation_fields = [
-			'confirmation'    => $default_confirmation['message'],
-			'share_platforms' => [
-				'facebook' => '1' === $default_confirmation['facebook'] ?? false,
-				'twitter'  => '1' === $default_confirmation['twitter'] ?? false,
-				'whatsapp' => '1' === $default_confirmation['whatsapp'] ?? false,
-				'native'   => '1' === $default_confirmation['native'] ?? false,
-				'email'    => '1' === $default_confirmation['email'] ?? false,
-			],
-			'share_text'      => $default_confirmation['p4_gf_share_text_override'] ?? '',
-			'share_url'       => $default_confirmation['p4_gf_share_url_override'] ?? '',
-			'post'            => $post,
-		];
-
-		return Timber::compile( [ 'gravity_forms_custom_confirmation.twig' ], $confirmation_fields );
-	}
+	return Timber::compile( [ 'gravity_forms_confirmation.twig' ], $confirmation_fields );
 }
 
 /**

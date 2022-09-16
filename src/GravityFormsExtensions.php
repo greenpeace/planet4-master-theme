@@ -53,25 +53,6 @@ class GravityFormsExtensions {
 	];
 
 	/**
-	 * @var string The default gravity form confirmation message.
-	 */
-	public const DEFAULT_GF_CONFIRMATION = 'planet4';
-
-	/**
-	 * @var array The Planet4 Gravity form confirmation messages.
-	 */
-	public const P4_GF_CONFIRMATIONS = [
-		[
-			'label' => 'Planet 4 message',
-			'value' => 'planet4',
-		],
-		[
-			'label' => 'Custom message',
-			'value' => 'custom',
-		],
-	];
-
-	/**
 	 * @var array The Planet4 Gravity Forms share buttons options.
 	 */
 	public const P4_SHARE_BUTTONS = [
@@ -120,7 +101,7 @@ class GravityFormsExtensions {
 	}
 
 	/**
-	 * Add form settings to Gravity Forms: one to set the type of form, one to choose the confirmation message.
+	 * Add form setting to Gravity Forms to set the form type.
 	 *
 	 * @param array $fields The form settings fields.
 	 *
@@ -145,16 +126,6 @@ class GravityFormsExtensions {
 			'required'       => true,
 			'default_value ' => self::DEFAULT_GF_TYPE,
 			'choices'        => self::P4_GF_TYPES,
-		];
-
-		$fields['p4_options']['fields'][] = [
-			'type'           => 'select',
-			'name'           => 'p4_gf_confirmation',
-			'label'          => __( 'Confirmation message', 'planet4-master-theme-backend' ),
-			'tooltip'        => __( 'If you use the Planet 4 confirmation message, you will not be able to see it and edit it via the Confirmations menu item', 'planet4-master-theme-backend' ),
-			'required'       => true,
-			'default_value ' => self::DEFAULT_GF_CONFIRMATION,
-			'choices'        => self::P4_GF_CONFIRMATIONS,
 		];
 
 		return $fields;
@@ -207,12 +178,10 @@ class GravityFormsExtensions {
 	 * Add confirmation settings to Gravity Forms: the ability to add share buttons.
 	 *
 	 * @param array $fields The general confirmation settings fields.
-	 * @param array $confirmation The current form's confirmation settings.
-	 * @param array $form The current form's settings.
 	 *
 	 * @return array The new fields array.
 	 */
-	public function p4_gf_confirmation_settings( $fields, $confirmation, $form ) {
+	public function p4_gf_confirmation_settings( $fields ) {
 		echo '
 			<style>
 				.hidden {
@@ -220,32 +189,6 @@ class GravityFormsExtensions {
 				}
 			</style>
 		';
-
-		// This bit of code is to hide the confirmation settings if the P4 default message option is selected in the form's settings.
-		if ( self::DEFAULT_GF_CONFIRMATION === $form['p4_gf_confirmation'] ) {
-			echo '
-				<script>
-					addEventListener("DOMContentLoaded", () => {
-						const saveButton = document.querySelector(".gform-settings-save-container");
-						const settingsSection = document.querySelector(".gform-settings__content");
-
-						saveButton.classList.add("hidden");
-
-						const handbookLink = document.createElement("a");
-						handbookLink.target = "_blank";
-						handbookLink.innerText = "P4 handbook";
-						handbookLink.href = "https://planet4.greenpeace.org/manage/integrate/form-builder/build-a-form-in-gravity-forms/#confirmation-settings--thank-you-page-";
-
-						const explanation = document.createElement("div");
-						explanation.innerText = "You cannot edit confirmation messages here since this form uses our P4 default message. If you want to change this, you can do so in the form\'s general settings. You can find more information about this in the ";
-						explanation.appendChild(handbookLink);
-
-						settingsSection.appendChild(explanation);
-					});
-				</script>
-			';
-			return [];
-		}
 
 		// This bit of code is to hide the "Share Buttons" section if editors select "Page" or "Redirect" as confirmation message.
 		echo '
