@@ -2,7 +2,7 @@ const { __ } = wp.i18n;
 
 // Add pdf icon to pdf links
 export const setupPDFIcon = () => {
-  const links = [...document.querySelectorAll('a[href*=".pdf"]:not(.search-result-item-headline):not(.cover-card-heading)')];
+  const links = [...document.querySelectorAll('a[href*=".pdf"]:not(.search-result-item-headline):not(.cover-card-heading):not(.pdf-link)')];
 
   links.forEach(link => {
     // We don't want to show the icon in headings/titles,

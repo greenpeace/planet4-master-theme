@@ -864,14 +864,9 @@ abstract class Search {
 				continue;
 			}
 
-			$content_type_text = $type ? $type['label'] : $post->post_type;
-			$content_type      = 'attachment' === $post->post_type ? 'document' : $post->post_type;
-
 			if ( ! isset( $post->ID ) ) {
 				$post->ID = $post->link;
 			}
-			$post->content_type_text = $content_type_text;
-			$post->content_type      = $content_type;
 
 			// Page Type <-> Category. This taxonomy is used only for Posts.
 			if ( 'post' === $post->post_type && ! empty( $post->terms['p4-page-type'] ) ) {
