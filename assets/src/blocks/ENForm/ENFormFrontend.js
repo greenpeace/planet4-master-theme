@@ -163,8 +163,9 @@ const Signup = ({attributes, fields, form_data, onInputChange, onBlur, onFormSub
             <div className="enform-extra-header-placeholder"
               dangerouslySetInnerHTML={{ __html: extra_content ? unescape(extra_content) : '' }} />
           }
-          <div className="form-description"
-            dangerouslySetInnerHTML={{ __html: unescape(description) }} />
+          {description &&
+            <div className="form-description" dangerouslySetInnerHTML={{ __html: unescape(description) }} />
+          }
         </div>
 
         <div className="form-container">
