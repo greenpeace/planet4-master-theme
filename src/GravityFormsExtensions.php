@@ -2,6 +2,8 @@
 
 namespace P4\MasterTheme;
 
+use GFAPI;
+
 /**
  * Class P4\MasterTheme\GravityFormsExtensions
  * The Gravity form plugin extension, use to add custom functionality like Planet4 form type.
@@ -82,6 +84,7 @@ class GravityFormsExtensions {
 	private function hooks() {
 		add_filter( 'gform_form_settings_fields', [ $this, 'p4_gf_settings' ], 5, 2 );
 		add_filter( 'gform_secure_file_download_url', [ $this, 'p4_gf_file_download_url' ], 10, 2 );
+		add_action( 'gform_after_save_form', [ $this, 'p4_gf_custom_initial_settings' ], 10, 2 );
 	}
 
 	/**
@@ -148,5 +151,24 @@ class GravityFormsExtensions {
 		}
 
 		return $file_path;
+	}
+
+	/**
+	 * Update initial settings for Gravity Forms (sub-label and description placement).
+	 *
+	 * @param array $form The form settings.
+	 * @param bool  $is_new Whether the form is newly created or not.
+	 */
+	public function p4_gf_custom_initial_settings( $form, $is_new ) {
+		if ( $is_new ) {
+			// Update sub-label and description placement initial settings.
+			$form['subLabelPlacement']    = 'above';
+			$form['descriptionPlacement'] = 'above';
+
+			// Make form active immediately.
+			$form['is_active'] = '1';
+
+			GFAPI::update_form( $form );
+		}
 	}
 }
