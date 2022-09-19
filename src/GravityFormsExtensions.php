@@ -81,6 +81,7 @@ class GravityFormsExtensions {
 	 */
 	private function hooks() {
 		add_filter( 'gform_form_settings_fields', [ $this, 'p4_gf_settings' ], 5, 2 );
+		add_filter( 'gform_secure_file_download_url', [ $this, 'p4_gf_file_download_url' ], 10, 2 );
 	}
 
 	/**
@@ -123,5 +124,29 @@ class GravityFormsExtensions {
 		];
 
 		return $fields;
+	}
+
+	/**
+	 * Update Gravity form file path before output.
+	 *
+	 * @param string $file_path The file path of the download file.
+	 * @param object $field     The field object for further context.
+	 *
+	 * @return string The new file path.
+	 */
+	public function p4_gf_file_download_url( $file_path, $field ) {
+		if ( strpos( $file_path, '/gravity_forms/' ) !== false ) {
+			// The default gravity form uploaded files path gives error.
+			// eg. https://www.greenpeace.org/static/planet4-test-titan-stateless-develop/gravity_forms/8-23c5dc88bb5af48eb293c4c780a5ed0a/2022/09/e26f3fe9-2022_08_gravity_forms_3-1b36ac6eddacf20087d29746b297b384_2022_08_99ef18e1-predator.jpg
+			// By updating a part[/year/month/] of file path('/gravity_forms/' => '/2022/09/gravity_forms/') fix the issue.
+
+			// Extract year and month from file path.
+			$year_month = array_slice( explode( '/', $file_path ), -3, 2 );
+
+			// Update the gravity form file download path with year and month.
+			return str_replace( '/gravity_forms/', '/' . implode( '/', $year_month ) . '/gravity_forms/', $file_path );
+		}
+
+		return $file_path;
 	}
 }
