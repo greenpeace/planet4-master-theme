@@ -691,6 +691,10 @@ class MasterSite extends TimberSite {
 		$allowedproperties[] = '--spreadsheet-header-background';
 		$allowedproperties[] = '--spreadsheet-even-row-background';
 		$allowedproperties[] = '--spreadsheet-odd-row-background';
+		$allowedproperties[] = 'display';
+		$allowedproperties[] = 'visibility';
+		$allowedproperties[] = 'position';
+		$allowedproperties[] = 'z-index';
 
 		return $allowedproperties;
 	}
@@ -715,20 +719,22 @@ class MasterSite extends TimberSite {
 		// Allow iframes and the following attributes.
 		$allowedposttags['style']  = [];
 		$allowedposttags['iframe'] = [
-			'align'           => true,
-			'width'           => true,
-			'height'          => true,
-			'frameborder'     => true,
-			'name'            => true,
-			'src'             => true,
-			'srcdoc'          => true,
-			'id'              => true,
-			'class'           => true,
-			'style'           => true,
-			'scrolling'       => true,
-			'marginwidth'     => true,
-			'marginheight'    => true,
-			'allowfullscreen' => true,
+			'align'             => true,
+			'width'             => true,
+			'height'            => true,
+			'frameborder'       => true,
+			'name'              => true,
+			'src'               => true,
+			'srcdoc'            => true,
+			'id'                => true,
+			'class'             => true,
+			'style'             => true,
+			'scrolling'         => true,
+			'marginwidth'       => true,
+			'marginheight'      => true,
+			'allowfullscreen'   => true,
+			'allowtransparency' => true,
+			'title'             => true,
 		];
 
 		// Allow blockquote and the following attributes. (trigger: allow instagram embeds).
@@ -777,12 +783,93 @@ class MasterSite extends TimberSite {
 		$allowedposttags['a']['data-bs-slide']     = true;
 		$allowedposttags['span']['aria-hidden']    = true;
 
-		// Allow below tags for spreadsheet block.
+		// Allow below tags for Spreadsheet block and Gravity Forms.
 		$allowedposttags['input'] = [
-			'class'       => true,
-			'type'        => true,
-			'placeholder' => true,
+			'class'                    => true,
+			'type'                     => true,
+			'placeholder'              => true,
+			'id'                       => true,
+			'name'                     => true,
+			'value'                    => true,
+			'onchange'                 => true,
+			'disabled'                 => true,
+			'aria-label'               => true,
+			'aria-required'            => true,
+			'onclick'                  => true,
+			'onkeypress'               => true,
+			'aria-describedby'         => true,
+			'aria-invalid'             => true,
+			'data-aria-label-template' => true,
+			'maxlength'                => true,
+			'step'                     => true,
+			'min'                      => true,
+			'max'                      => true,
+			'readonly'                 => true,
 		];
+
+		// Allow below tags for Gravity Forms.
+		$allowedposttags['textarea']     = [
+			'cols'          => true,
+			'rows'          => true,
+			'name'          => true,
+			'maxlength'     => true,
+			'aria-invalid'  => true,
+			'aria-required' => true,
+			'value'         => true,
+			'type'          => true,
+			'placeholder'   => true,
+			'id'            => true,
+		];
+		$allowedposttags['label']        = [
+			'class' => true,
+			'for'   => true,
+			'id'    => true,
+		];
+		$allowedposttags['select']       = [
+			'name'          => true,
+			'id'            => true,
+			'size'          => true,
+			'multiple'      => true,
+			'aria-invalid'  => true,
+			'class'         => true,
+			'aria-required' => true,
+		];
+		$allowedposttags['option']       = [
+			'value' => true,
+		];
+		$allowedposttags['p']            = [
+			'style' => true,
+		];
+		$allowedposttags['button']       = [
+			'onclick'                  => true,
+			'id'                       => true,
+			'type'                     => true,
+			'data-checked'             => true,
+			'data-label-select'        => true,
+			'data-label-deselect'      => true,
+			'aria-label'               => true,
+			'class'                    => true,
+			'style'                    => true,
+			'data-aria-label-template' => true,
+			'aria-describedby'         => true,
+			'style'                    => true,
+		];
+		$allowedposttags['link']         = [
+			'rel'   => true,
+			'id'    => true,
+			'href'  => true,
+			'type'  => true,
+			'media' => true,
+		];
+		$allowedposttags['svg']          = [
+			'viewBox' => true,
+			'class'   => true,
+		];
+		$allowedposttags['use']          = [
+			'xlink:href' => true,
+		];
+		$allowedposttags['div']['style'] = true;
+		$allowedposttags['a']['onclick'] = true;
 
 		$allowedposttags['lite-youtube'] = [
 			'videoid' => true,
