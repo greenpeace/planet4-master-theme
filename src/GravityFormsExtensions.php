@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use GFAPI;
+use Timber\Timber;
 
 /**
  * Class P4\MasterTheme\GravityFormsExtensions
@@ -98,6 +99,8 @@ class GravityFormsExtensions {
 		add_filter( 'gform_secure_file_download_url', [ $this, 'p4_gf_file_download_url' ], 10, 2 );
 		add_action( 'gform_after_save_form', [ $this, 'p4_gf_custom_initial_settings' ], 10, 2 );
 		add_filter( 'gform_confirmation_settings_fields', [ $this, 'p4_gf_confirmation_settings' ], 10, 3 );
+		add_filter( 'gform_confirmation', [ $this, 'p4_gf_custom_confirmation' ], 10, 3 );
+		add_filter( 'gform_field_css_class', [ $this, 'p4_gf_custom_field_class' ], 10, 3 );
 	}
 
 	/**
@@ -244,5 +247,64 @@ class GravityFormsExtensions {
 		];
 
 		return $fields;
+	}
+
+	/**
+	 *
+	 * Return custom confirmation message for Gravity Forms.
+	 *
+	 * @param string $confirmation The default confirmation message.
+	 * @param array  $form The form properties.
+	 *
+	 * @return string The custom confirmation message.
+	 */
+	public function p4_gf_custom_confirmation( $confirmation, $form ) {
+		// If the $confirmation object is an array, it means that it's a redirect page so we can directly use it.
+		if ( is_array( $confirmation ) ) {
+			return $confirmation;
+		}
+
+		$post = Timber::query_post( false, Post::class );
+
+		$default_confirmation_array = array_filter(
+			$form['confirmations'],
+			function ( $conf ) use ( $confirmation ) {
+				return str_contains( $confirmation, $conf['message'] );
+			}
+		);
+
+		$default_confirmation = reset( $default_confirmation_array );
+
+		$confirmation_fields = [
+			'confirmation'    => $default_confirmation['message'],
+			'share_platforms' => [
+				'facebook' => '1' === $default_confirmation['facebook'] ?? false,
+				'twitter'  => '1' === $default_confirmation['twitter'] ?? false,
+				'whatsapp' => '1' === $default_confirmation['whatsapp'] ?? false,
+				'native'   => '1' === $default_confirmation['native'] ?? false,
+				'email'    => '1' === $default_confirmation['email'] ?? false,
+			],
+			'share_text'      => $default_confirmation['p4_gf_share_text_override'] ?? '',
+			'share_url'       => $default_confirmation['p4_gf_share_url_override'] ?? '',
+			'post'            => $post,
+		];
+
+		return Timber::compile( [ 'gravity_forms_confirmation.twig' ], $confirmation_fields );
+	}
+
+	/**
+	 *
+	 * Add CSS classes to some Gravity Forms fields: checkboxes and radio buttons.
+	 *
+	 * @param string $classes The existing field classes.
+	 * @param object $field The field.
+	 *
+	 * @return string The updated field classes.
+	 */
+	public function p4_gf_custom_field_class( $classes, $field ) {
+		if ( 'checkbox' === $field->type || 'radio' === $field->type || 'consent' === $field->type ) {
+			$classes .= ' custom-control';
+		}
+		return $classes;
 	}
 }
