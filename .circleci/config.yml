@@ -190,7 +190,7 @@ jobs:
       - image: greenpeaceinternational/p4-unit-tests:php7.4
         auth:
           <<: *docker_auth
-      - image: circleci/mysql:5.7.26
+      - image: cimg/mysql:5.7
         auth:
           <<: *docker_auth
 
