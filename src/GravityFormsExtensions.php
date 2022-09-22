@@ -95,7 +95,7 @@ class GravityFormsExtensions {
 	 * Class hooks.
 	 */
 	private function hooks() {
-		add_filter( 'gform_form_settings_fields', [ $this, 'p4_gf_settings' ], 5, 2 );
+		add_filter( 'gform_form_settings_fields', [ $this, 'p4_gf_form_settings' ], 5, 2 );
 		add_filter( 'gform_secure_file_download_url', [ $this, 'p4_gf_file_download_url' ], 10, 2 );
 		add_action( 'gform_after_save_form', [ $this, 'p4_gf_custom_initial_settings' ], 10, 2 );
 		add_filter( 'gform_confirmation_settings_fields', [ $this, 'p4_gf_confirmation_settings' ], 10, 3 );
