@@ -278,11 +278,11 @@ class GravityFormsExtensions {
 		$confirmation_fields = [
 			'confirmation'    => $default_confirmation['message'],
 			'share_platforms' => [
-				'facebook' => '1' === $default_confirmation['facebook'] ?? false,
-				'twitter'  => '1' === $default_confirmation['twitter'] ?? false,
-				'whatsapp' => '1' === $default_confirmation['whatsapp'] ?? false,
-				'native'   => '1' === $default_confirmation['native'] ?? false,
-				'email'    => '1' === $default_confirmation['email'] ?? false,
+				'facebook' => $default_confirmation['facebook'] ?? true,
+				'twitter'  => $default_confirmation['twitter'] ?? true,
+				'whatsapp' => $default_confirmation['whatsapp'] ?? true,
+				'native'   => $default_confirmation['native'] ?? true,
+				'email'    => $default_confirmation['email'] ?? true,
 			],
 			'share_text'      => $default_confirmation['p4_gf_share_text_override'] ?? '',
 			'share_url'       => $default_confirmation['p4_gf_share_url_override'] ?? '',
