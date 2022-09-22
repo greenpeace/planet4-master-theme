@@ -88,12 +88,7 @@ class QuickLinks extends Block_Pattern {
 								<!-- /wp:heading -->
 								<!-- wp:columns {"isStackedOnMobile":false,"className":"is-style-mobile-carousel"} -->
 									<div class="wp-block-columns is-not-stacked-on-mobile is-style-mobile-carousel">
-											' . self::get_column_template() . '
-											' . self::get_column_template() . '
-											' . self::get_column_template() . '
-											' . self::get_column_template() . '
-											' . self::get_column_template() . '
-											' . self::get_column_template() . '
+											' . str_repeat( self::get_column_template(), 9 ) . '
 									</div>
 								<!-- /wp:columns -->
 							</div>
