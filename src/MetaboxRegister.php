@@ -209,7 +209,7 @@ class MetaboxRegister {
 			[
 				'id'           => 'p4_metabox_og',
 				'title'        => __( 'Open Graph/Social Fields', 'planet4-master-theme-backend' ),
-				'object_types' => [ 'page', 'post', 'campaign' ],
+				'object_types' => [ 'page', 'post', 'campaign', 'p4_action' ],
 				'closed'       => true,  // Keep the metabox closed by default.
 			]
 		);
