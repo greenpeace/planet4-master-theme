@@ -29,36 +29,7 @@
 }
 
 .gfield {
-  .ginput_container_select,
-  .gfield_time_ampm,
-  .ginput_address_country {
-    position: relative;
-
-    &::after {
-      content: "";
-      position: absolute;
-      mask-image: url("../../images/chevron.svg");
-      mask-repeat: no-repeat;
-      mask-size: contain;
-      mask-position: center;
-      background-repeat: no-repeat;
-      background-color: currentColor;
-      transform: rotate(90deg);
-      width: 12px;
-      height: 12px;
-      right: $sp-2;
-      top: 19px;
-
-      html[dir="rtl"] & {
-        right: auto;
-        left: $sp-2;
-      }
-    }
-  }
-
   select {
-    appearance: none;
-    position: relative;
     height: 48px;
   }
 
