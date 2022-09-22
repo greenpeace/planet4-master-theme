@@ -1,7 +1,7 @@
 .btn,
 .wp-block-button a,
 .wp-block-file a.wp-block-file__button,
-.gfield button:not(.add_list_item):not(.delete_list_item),
+.gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
 .gform_button_select_files,
 .gform_footer input[type="submit"] {
   --button-- {
@@ -67,7 +67,7 @@
 }
 
 .btn-small,
-.gfield button:not(.add_list_item):not(.delete_list_item),
+.gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
 .gform_button_select_files {
   font-size: $font-size-xxs;
   line-height: 2.8;
@@ -115,7 +115,7 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 .wp-block-button.is-style-secondary a,
 [class="wp-block-button"] a,
 .wp-block-file a.wp-block-file__button,
-.gfield button:not(.add_list_item):not(.delete_list_item),
+.gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
 .gform_button_select_files {
   --button-secondary-- {
     background: transparentize($white, .7);
