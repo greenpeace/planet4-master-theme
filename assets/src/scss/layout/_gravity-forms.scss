@@ -30,7 +30,16 @@
 
 .gfield {
   select {
+    appearance: none;
+    background-image: url("../../images/select-arrow.svg");
     height: 48px;
+    background-repeat: no-repeat;
+    background-size: 12px;
+    background-position: right $sp-1 top 50%;
+
+    html[dir="rtl"] & {
+      background-position: left $sp-1 top 50%;
+    }
   }
 
   .ginput_container_time {
