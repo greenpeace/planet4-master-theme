@@ -86,7 +86,7 @@
 		<div class="container narrow-container">
 			<div class="post-content">
 				<article class="post-details clearfix">
-					{{ post.content|e('wp_kses_post')|raw }}
+					{{ post.content|raw }}
 					{% if ( post.take_action_boxout ) %}
 						{{ fn('do_blocks', post.take_action_boxout )|raw }}
 					{% endif %}
