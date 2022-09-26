@@ -29,6 +29,12 @@ class PostCampaign {
 		'campaign_body_font',
 		'campaign_footer_theme',
 		'footer_links_color',
+		'p4_hide_page_title_checkbox',
+		'p4_title',
+		'p4_subtitle',
+		'p4_description',
+		'background_image_id',
+		'background_image',
 	];
 
 	public const LEGACY_THEMES = [
