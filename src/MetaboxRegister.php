@@ -3,7 +3,6 @@
 namespace P4\MasterTheme;
 
 use CMB2_Field;
-use WP_REST_Server;
 
 /**
  * Class MetaboxRegister
@@ -35,118 +34,9 @@ class MetaboxRegister {
 	 * Register P4 meta box.
 	 */
 	public function register_p4_meta_box() {
-		$this->register_meta_box_header();
 		$this->register_meta_box_post();
 		$this->register_meta_box_open_graph();
 		$this->register_meta_box_campaign();
-	}
-
-	/**
-	 * Register Page Header meta box.
-	 */
-	public function register_meta_box_header() {
-
-		$p4_header = new_cmb2_box(
-			[
-				'id'           => 'p4_metabox',
-				'title'        => __( 'Page Header Fields', 'planet4-master-theme-backend' ),
-				'object_types' => [ 'page', 'campaign' ], // Post type.
-				'show_in_rest' => WP_REST_Server::READABLE,
-			]
-		);
-
-		$p4_header->add_field(
-			[
-				'name'         => __( 'Header Title', 'planet4-master-theme-backend' ),
-				'desc'         => __( 'Header title comes here', 'planet4-master-theme-backend' ),
-				'id'           => 'p4_title',
-				'type'         => 'text_medium',
-				'show_in_rest' => WP_REST_Server::READABLE,
-			]
-		);
-
-		$p4_header->add_field(
-			[
-				'name'         => __( 'Header Subtitle', 'planet4-master-theme-backend' ),
-				'desc'         => __( 'Header subtitle comes here', 'planet4-master-theme-backend' ),
-				'id'           => 'p4_subtitle',
-				'type'         => 'text_medium',
-				'show_in_rest' => WP_REST_Server::READABLE,
-			]
-		);
-
-		$p4_header->add_field(
-			[
-				'name'         => __( 'Header Description', 'planet4-master-theme-backend' ),
-				'desc'         => __( 'Header description comes here', 'planet4-master-theme-backend' ),
-				'id'           => 'p4_description',
-				'type'         => 'wysiwyg',
-				'options'      => [
-					'textarea_rows' => 5,
-					'media_buttons' => false,
-				],
-				'show_in_rest' => WP_REST_Server::READABLE,
-			]
-		);
-
-		$p4_header->add_field(
-			[
-				'name'       => __( 'Header Button Title', 'planet4-master-theme-backend' ),
-				'desc'       => __( 'Header button title comes here', 'planet4-master-theme-backend' ),
-				'id'         => 'p4_button_title',
-				'type'       => 'text_medium',
-				'show_on_cb' => [ $this, 'is_not_campaign_post' ],
-			]
-		);
-
-		$p4_header->add_field(
-			[
-				'name'       => __( 'Header Button Link', 'planet4-master-theme-backend' ),
-				'desc'       => __( 'Header button link comes here', 'planet4-master-theme-backend' ),
-				'id'         => 'p4_button_link',
-				'type'       => 'text_medium',
-				'show_on_cb' => [ $this, 'is_not_campaign_post' ],
-			]
-		);
-
-		$p4_header->add_field(
-			[
-				'name'       => __( 'New Tab', 'planet4-master-theme-backend' ),
-				'desc'       => __( 'Open header button link in new tab', 'planet4-master-theme-backend' ),
-				'id'         => 'p4_button_link_checkbox',
-				'type'       => 'checkbox',
-				'show_on_cb' => [ $this, 'is_not_campaign_post' ],
-			]
-		);
-
-		$p4_header->add_field(
-			[
-				'name'         => __( 'Background override', 'planet4-master-theme-backend' ),
-				'desc'         => __( 'Upload an image', 'planet4-master-theme-backend' ),
-				'id'           => 'background_image',
-				'type'         => 'file',
-				// Optional.
-				'options'      => [
-					'url' => false,
-				],
-				'text'         => [
-					'add_upload_file_text' => __( 'Add Background Image', 'planet4-master-theme-backend' ),
-				],
-				'query_args'   => [
-					'type' => 'image',
-				],
-				'preview_size' => 'large',
-			]
-		);
-
-		$p4_header->add_field(
-			[
-				'name' => __( 'Hide page title', 'planet4-master-theme-backend' ),
-				'desc' => __( 'Hide page title on frontend page.', 'planet4-master-theme-backend' ),
-				'id'   => 'p4_hide_page_title_checkbox',
-				'type' => 'checkbox',
-			]
-		);
 	}
 
 	/**
@@ -327,15 +217,6 @@ class MetaboxRegister {
 				],
 			]
 		);
-	}
-
-	/**
-	 * Checks if current post is not of campaign post type.
-	 *
-	 * @return bool
-	 */
-	public function is_not_campaign_post() {
-		return PostCampaign::POST_TYPE !== get_post_type();
 	}
 
 	/**

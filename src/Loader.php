@@ -74,6 +74,7 @@ final class Loader {
 			MasterSite::class,
 			HttpHeaders::class,
 			ActionPage::class,
+			Page::class,
 			GravityFormsExtensions::class,
 		];
 
