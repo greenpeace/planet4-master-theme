@@ -1,12 +1,9 @@
 import { CheckboxControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
-/**
- * Hide page title sidebar setting.
- */
-export const HidePageTitle = ({ value, setValue }) => (
+export const CheckboxSidebarField = ({ value, setValue, label }) => (
   <CheckboxControl
-    label={__( 'Hide page title', 'planet4-blocks-backend' )}
+    label={label}
     checked={value === 'on'}
     value={value === 'on'}
     onChange={checked => setValue(checked ? 'on' : '')}

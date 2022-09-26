@@ -57,9 +57,9 @@ const gotInvalidated = (field, options, meta) => {
   return !(resolvedField.options.some( option => option.value === currentValue) );
 }
 
-export class CampaignSidebar extends Component {
+export class CampaignThemeSidebar extends Component {
   static getId() {
-    return 'planet4-campaign-sidebar';
+    return 'planet4-campaign-theme-sidebar';
   }
 
   static getIcon() {
@@ -147,12 +147,12 @@ export class CampaignSidebar extends Component {
     return (
       <>
         <PluginSidebarMoreMenuItem
-          target={ CampaignSidebar.getId() }
-          icon={ CampaignSidebar.getIcon() }>
+          target={ CampaignThemeSidebar.getId() }
+          icon={ CampaignThemeSidebar.getIcon() }>
           { __('Theme Options', 'planet4-blocks-backend') }
         </PluginSidebarMoreMenuItem>
         <PluginSidebar
-          name={ CampaignSidebar.getId() }
+          name={ CampaignThemeSidebar.getId() }
           title={ __('Theme Options', 'planet4-blocks-backend') }
         >
           { !!parent && <PostParentLink parent={ parent }/> }
