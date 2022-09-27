@@ -74,6 +74,8 @@ if ( 'yes' === $post->include_articles ) {
 		'exclude_post_id' => $post->ID,
 		'tags'            => $tag_id_array,
 		'post_categories' => $category_id_array,
+		'article_heading' => __( 'Related Articles', 'planet4-master-theme' ),
+		'read_more_text'  => __( 'Load More', 'planet4-master-theme' ),
 	];
 
 	$post->articles = '<!-- wp:planet4-blocks/articles ' . wp_json_encode( $block_attributes, JSON_UNESCAPED_SLASHES ) . ' /-->';
