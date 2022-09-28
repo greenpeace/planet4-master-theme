@@ -275,6 +275,11 @@ class GravityFormsExtensions {
 
 		$default_confirmation = reset( $default_confirmation_array );
 
+		// In case we don't find the corresponding confirmation, we return the current one.
+		if ( ! $default_confirmation ) {
+			return $confirmation;
+		}
+
 		$confirmation_fields = [
 			'confirmation'    => $default_confirmation['message'],
 			'share_platforms' => [
