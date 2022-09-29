@@ -1,5 +1,6 @@
 import { useState, useEffect } from '@wordpress/element';
 import { addQueryArgs } from '../../functions/addQueryArgs';
+import { getAbortController } from '../../functions/getAbortController';
 import { COVERS_TYPES, COVERS_LAYOUTS } from './CoversConstants';
 
 const { apiFetch } = wp;
@@ -7,13 +8,14 @@ const { apiFetch } = wp;
 const isMobile = () => window.innerWidth < 768;
 const isMediumWindow = () => window.innerWidth >= 768 && window.innerWidth < 992;
 
-export const useCovers = ({ post_types, tags, cover_type, initialRowsLimit, posts, layout }, noLoading) => {
+export const useCovers = ({ post_types, tags, cover_type, initialRowsLimit, posts, layout }, noLoading = false) => {
   const [covers, setCovers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [row, setRow] = useState(initialRowsLimit);
   const [isSmallWindow, setIsSmallWindow] = useState(window.innerWidth < 992);
   const [amountOfCoversPerRow, setAmountOfCoversPerRow] = useState(null);
   const [error, setError] = useState(null);
+  const [controller, setController] = useState();
 
   const updateRowCoversAmount = () => {
     setIsSmallWindow(window.innerWidth < 992);
@@ -53,25 +55,36 @@ export const useCovers = ({ post_types, tags, cover_type, initialRowsLimit, post
     const path = addQueryArgs('planet4/v1/get-covers', args);
 
     try {
-      const loadedCovers = await apiFetch({ path });
+      const loadedCovers = await apiFetch( { path, signal: controller.signal } );
 
-      if (loadedCovers) {
+      if(loadedCovers) {
         setCovers(loadedCovers);
       }
-
-    } catch (e) {
-      console.log(e);
-      setError(e.message);
-    } finally {
-      setLoading(false);
+    } catch (err) {
+      setError(err.message);
     }
+
+    setLoading(false);
   };
 
   useEffect(() => {
     if (!noLoading) {
+      setController(getAbortController());
+    }
+  }, [cover_type, post_types, tags, posts, layout, noLoading]);
+
+  useEffect(() => {
+    if(controller) {
       loadCovers();
     }
-  }, [cover_type, post_types, tags, posts, layout]);
+
+    return () => {
+      if(controller) {
+        setLoading(false);
+        setController(null);
+      }
+    }
+  }, [ controller ]);
 
   useEffect(() => {
     updateRowCoversAmount();

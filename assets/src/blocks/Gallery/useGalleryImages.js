@@ -1,6 +1,7 @@
 import { useState, useEffect } from '@wordpress/element';
 import { fetchJson } from '../../functions/fetchJson';
 import { addQueryArgs } from '../../functions/addQueryArgs';
+import { getAbortController } from '../../functions/getAbortController';
 
 const { apiFetch } = wp;
 
@@ -12,6 +13,7 @@ const GALLERY_IMAGE_SIZES = {
 
 export const useGalleryImages = ({ multiple_image, gallery_block_focus_points }, layout, baseUrl = null) => {
   const [images, setImages] = useState([]);
+  const [controller, setController] = useState();
 
   const imageSize = GALLERY_IMAGE_SIZES[layout];
 
@@ -35,8 +37,21 @@ export const useGalleryImages = ({ multiple_image, gallery_block_focus_points },
 
   useEffect(() => {
     setImages([]);
-    loadPage();
+    setController(getAbortController());
   }, [multiple_image, gallery_block_focus_points]);
+
+  useEffect(() => {
+    if(controller) {
+      loadPage();
+    }
+
+    return () => {
+      if(controller) {
+        controller.abort();
+        setController(null);
+      }
+    }
+  }, [ controller ]);
 
   return { images };
 };
