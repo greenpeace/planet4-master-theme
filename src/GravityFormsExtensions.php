@@ -266,31 +266,32 @@ class GravityFormsExtensions {
 
 		$post = Timber::query_post( false, Post::class );
 
-		$default_confirmation_array = array_filter(
+		$current_confirmation_array = array_filter(
 			$form['confirmations'],
 			function ( $conf ) use ( $confirmation ) {
-				return str_contains( $confirmation, $conf['message'] );
+				// We need to strip all HTML tags for proper comparison.
+				return wp_strip_all_tags( $confirmation ) === wp_strip_all_tags( $conf['message'] );
 			}
 		);
 
-		$default_confirmation = reset( $default_confirmation_array );
+		$current_confirmation = reset( $current_confirmation_array );
 
-		// In case we don't find the corresponding confirmation, we return the current one.
-		if ( ! $default_confirmation ) {
+		// In case we don't find the current confirmation object, we return the $confirmation param.
+		if ( ! $current_confirmation ) {
 			return $confirmation;
 		}
 
 		$confirmation_fields = [
-			'confirmation'    => $default_confirmation['message'],
+			'confirmation'    => $confirmation,
 			'share_platforms' => [
-				'facebook' => $default_confirmation['facebook'] ?? true,
-				'twitter'  => $default_confirmation['twitter'] ?? true,
-				'whatsapp' => $default_confirmation['whatsapp'] ?? true,
-				'native'   => $default_confirmation['native'] ?? true,
-				'email'    => $default_confirmation['email'] ?? true,
+				'facebook' => $current_confirmation['facebook'] ?? true,
+				'twitter'  => $current_confirmation['twitter'] ?? true,
+				'whatsapp' => $current_confirmation['whatsapp'] ?? true,
+				'native'   => $current_confirmation['native'] ?? true,
+				'email'    => $current_confirmation['email'] ?? true,
 			],
-			'share_text'      => $default_confirmation['p4_gf_share_text_override'] ?? '',
-			'share_url'       => $default_confirmation['p4_gf_share_url_override'] ?? '',
+			'share_text'      => $current_confirmation['p4_gf_share_text_override'] ?? '',
+			'share_url'       => $current_confirmation['p4_gf_share_url_override'] ?? '',
 			'post'            => $post,
 		];
 
