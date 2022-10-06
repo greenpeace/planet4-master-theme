@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-08-17 12:57+0000\n"
+"PO-Revision-Date: 2022-10-06 17:49+0000\n"
 "Last-Translator: Rickson Figueira\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #. %1$d = Number of results.
-#: src/Search.php:708
+#: src/Search.php:718
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
@@ -33,13 +33,13 @@ msgstr[1] "%1$d resultados para '%2$s'"
 
 #. %d = Number of minutes for reading time.
 #: src/Post/ReadingTimeCalculator.php:132 templates/single.twig:69
-#: templates/tease-taxonomy-post.twig:61 templates/tease-author.twig:52
+#: templates/tease-taxonomy-post.twig:63 templates/tease-author.twig:54
 #, php-format
 msgid "%d min read"
 msgstr ""
 
 #. %d = Number of results.
-#: src/Search.php:714
+#: src/Search.php:724
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
@@ -66,21 +66,25 @@ msgstr "sobre o(a) autor(a)"
 
 #: templates/cookies.twig:26
 msgid "Accept all cookies"
-msgstr ""
+msgstr "Aceitar todos os cookies"
 
 #: page-templates/sitemap.php:23
 msgid "Act"
 msgstr "Participe"
 
-#: src/Post.php:264 src/Search.php:946
+#: src/Post.php:276
 msgid "ACTION"
 msgstr "AÇÃO"
 
-#: src/Search.php:784
+#: src/Search/Filters/ContentTypes.php:109
 msgid "Action"
 msgstr "Ação"
 
-#: templates/search.twig:210
+#: templates/search.twig:255
+msgid "Action Type"
+msgstr ""
+
+#: templates/search.twig:181
 msgid "ACTIVE FILTERS"
 msgstr "FILTROS ATIVOS"
 
@@ -92,12 +96,12 @@ msgstr "Permitir todos"
 msgid "Always enabled"
 msgstr ""
 
-#: templates/search.twig:200
+#: templates/search.twig:171
 msgid "Apply filters"
 msgstr "Aplicar Filtros"
 
-#: src/Search.php:805 src/Search.php:966 templates/tease-search.twig:43
-#: templates/tease-search.twig:129
+#: src/Search/Filters/ContentTypes.php:105 templates/tease-search.twig:43
+#: templates/tease-search.twig:123
 msgid "Archive"
 msgstr "Arquivos"
 
@@ -109,24 +113,16 @@ msgstr ""
 msgid "Articles"
 msgstr "Artigos"
 
-#: src/Search.php:954 templates/search.twig:172
-msgid "CAMPAIGN"
-msgstr "TÓPICO"
-
-#: src/Search.php:788 templates/search.twig:253 templates/tease-search.twig:41
-#: templates/tease-search.twig:127
+#: src/Search/Filters/ContentTypes.php:101 templates/tease-search.twig:41
+#: templates/tease-search.twig:121
 msgid "Campaign"
 msgstr "Tópico"
 
-#: templates/search.twig:199
+#: templates/search.twig:170
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: templates/search.twig:111
-msgid "CATEGORY"
-msgstr "CATEGORIA"
-
-#: templates/search.twig:279
+#: templates/search.twig:82 templates/search.twig:197
 msgid "Category"
 msgstr "Categoria"
 
@@ -138,11 +134,11 @@ msgstr "Mudar País"
 msgid "Check for typos, and try your search again"
 msgstr "Confira o texto e busque novamente"
 
-#: templates/search.twig:219
+#: templates/search.twig:190
 msgid "Clear all"
 msgstr "Limpar tudo"
 
-#: templates/navigation-bar-new.twig:153
+#: templates/search-form.twig:32
 msgid "Clear search"
 msgstr "Limpar busca"
 
@@ -162,31 +158,29 @@ msgstr "Comentário"
 msgid "Comments"
 msgstr "Comentários"
 
-#: templates/search.twig:306
-msgid "Content type"
+#: templates/search.twig:140 templates/search.twig:284
+#, fuzzy
+#| msgid "Content type"
+msgid "Content Type"
 msgstr "Tipo de conteúdo"
-
-#: templates/search.twig:140
-msgid "CONTENT TYPES"
-msgstr "TIPOS DE CONTEÚDO"
 
 #: templates/comments_section.twig:9
 msgid "Discussion"
 msgstr "Discussão"
 
-#: src/Post.php:270 src/Search.php:958
+#: src/Post.php:282
 msgid "DOCUMENT"
 msgstr "DOCUMENTO"
 
-#: src/Search.php:792
+#: src/Search/Filters/ContentTypes.php:89
 msgid "Document"
 msgstr "Documento"
 
-#: src/MasterSite.php:585 src/MasterSite.php:640
+#: src/MasterSite.php:590 src/MasterSite.php:652
 msgid "Donate"
 msgstr "DOAR"
 
-#: templates/tease-search.twig:122
+#: templates/tease-search.twig:116
 msgid "Download"
 msgstr "Baixar"
 
@@ -222,9 +216,9 @@ msgstr "Greenpeace Internacional"
 msgid "Greenpeace Planet 4 Master Theme"
 msgstr "Greenpeace Planet 4 Tema Master"
 
-#: templates/burger-menu.twig:55
+#: templates/burger-menu.twig:34
 msgid "Home"
-msgstr ""
+msgstr "Página inicial"
 
 #. Author URI of the theme
 msgid "https://github.com/greenpeace"
@@ -242,7 +236,7 @@ msgstr ""
 "Concordo em fornecer meu nome, e-mail e conteúdo para que meu comentário "
 "possa ser armazenado e exibido no site."
 
-#: src/MasterSite.php:641
+#: src/MasterSite.php:653
 msgid "International (English)"
 msgstr "Internacional (Inglês)"
 
@@ -250,25 +244,13 @@ msgstr "Internacional (Inglês)"
 msgid "Invalid password, please try again"
 msgstr ""
 
-#: templates/search.twig:82
-msgid "ISSUE"
-msgstr "CATEGORIA"
-
-#: templates/search.twig:226
-msgid "Issue"
-msgstr "Categoria"
-
 #: single.php:107
 msgid "Leave your reply"
 msgstr "Deixe um comentário"
 
-#: templates/taxonomy.twig:42 templates/author.twig:46
+#: templates/taxonomy.twig:46 templates/author.twig:49
 msgid "Load More"
 msgstr "Leia mais"
-
-#: templates/burger-menu.twig:79
-msgid "Make a donation"
-msgstr "Faça uma doação"
 
 #: templates/tease-search.twig:157
 msgid "Manage"
@@ -282,11 +264,11 @@ msgstr "Gerenciar as preferências de cookies"
 msgid "Master theme for the Planet 4 Wordpress project"
 msgstr "Tema principal para o projeto Plant 4 Wordpress"
 
-#: templates/navigation-bar-new.twig:18 templates/navigation-bar.twig:18
+#: templates/navigation-bar-new.twig:20 templates/navigation-bar.twig:18
 msgid "Menu"
 msgstr "Menu"
 
-#: src/MasterSite.php:96 src/Search.php:692
+#: src/MasterSite.php:96 src/Search.php:702
 msgid "Most relevant"
 msgstr "Mais relevantes"
 
@@ -294,19 +276,19 @@ msgstr "Mais relevantes"
 msgid "Name"
 msgstr "Nome"
 
-#: src/MasterSite.php:100 src/Search.php:696
+#: src/MasterSite.php:100 src/Search.php:706
 msgid "Newest"
-msgstr ""
+msgstr "Recentes"
 
-#: src/MasterSite.php:104 src/Search.php:700
+#: src/MasterSite.php:104 src/Search.php:710
 msgid "Oldest"
-msgstr ""
+msgstr "Mais antigos"
 
-#: src/Post.php:266 src/Search.php:949
+#: src/Post.php:278
 msgid "PAGE"
 msgstr "PÁGINA"
 
-#: src/Search.php:796
+#: src/Search/Filters/ContentTypes.php:93
 msgid "Page"
 msgstr "Página"
 
@@ -314,11 +296,11 @@ msgstr "Página"
 msgid "Please select which cookies you are willing to store."
 msgstr ""
 
-#: src/Post.php:273 src/Search.php:962
+#: src/Post.php:285
 msgid "POST"
 msgstr "POST"
 
-#: src/Search.php:800
+#: src/Search/Filters/ContentTypes.php:97
 msgid "Post"
 msgstr "Post"
 
@@ -326,15 +308,19 @@ msgstr "Post"
 msgid "Post comment"
 msgstr "Envie seu comentário"
 
+#: templates/search.twig:111 templates/search.twig:226
+msgid "Post Type"
+msgstr ""
+
 #: templates/author.twig:22
 msgid "Posts by "
 msgstr "Posts por"
 
-#: tag.php:107
+#: tag.php:100
 msgid "Publications"
 msgstr ""
 
-#: templates/search.twig:68 templates/search.twig:207
+#: templates/search.twig:68 templates/search.twig:178
 msgid "Refine your search"
 msgstr "Refine a sua busca"
 
@@ -346,11 +332,11 @@ msgstr "Rejeitar todos"
 msgid "Reject all cookies"
 msgstr "Rejeitar todos os cookies"
 
-#: tag.php:134
+#: tag.php:127
 msgid "Related Campaigns"
 msgstr "Tópicos relacionadas"
 
-#: templates/taxonomy.twig:18
+#: templates/taxonomy.twig:22
 msgid "Results"
 msgstr "Resultados"
 
@@ -358,9 +344,8 @@ msgstr "Resultados"
 msgid "Save preferences"
 msgstr "Salvar as preferências"
 
-#: templates/404.twig:17 templates/navigation-bar-new.twig:123
-#: templates/search.twig:8 templates/search.twig:45
-#: templates/navigation-bar.twig:7
+#: templates/404.twig:17 templates/search-form.twig:2 templates/search.twig:8
+#: templates/search.twig:45 templates/navigation-bar.twig:7
 msgid "Search"
 msgstr "Busca"
 
@@ -382,7 +367,7 @@ msgid "Share via"
 msgstr "Compartilhe por"
 
 #. %s = number of results per page.
-#: src/Search.php:1049
+#: src/Search.php:946
 #, php-format
 #| msgid "SHOW %s MORE RESULTS"
 msgid "Show %s more results"
@@ -416,7 +401,7 @@ msgstr "Pular para a navegação"
 msgid "Sorry, we can't find that page!"
 msgstr "Desculpe, não conseguimos encontrar essa página!"
 
-#: templates/search.twig:337
+#: templates/search.twig:317
 msgid "Sort by"
 msgstr "Organizar por"
 
@@ -432,7 +417,7 @@ msgstr "Participe já"
 msgid "Things you can do"
 msgstr "O que você pode fazer"
 
-#: tag.php:135
+#: tag.php:128
 msgid "This Campaign is not assigned to an Issue"
 msgstr "Este tópico não está associado a nenhuma categoria"
 
@@ -448,16 +433,16 @@ msgstr ""
 msgid "Toggle navigation menu"
 msgstr "Abra o menu de navegação"
 
-#: src/MasterSite.php:566
+#: src/MasterSite.php:573
 msgid "Toggle search box"
 msgstr "Abra a caixa de busca"
 
-#: templates/navigation-bar-new.twig:83 templates/navigation-bar-new.twig:118
+#: templates/desktop-menu.twig:57 templates/navigation-bar-new.twig:39
 #: templates/navigation-bar.twig:99
 msgid "Toggle search form"
 msgstr "Mudar formulário de busca"
 
-#: src/MasterSite.php:565
+#: src/MasterSite.php:572
 msgid "Toggle worldwide site selection menu"
 msgstr "Abra a lista de sites globais"
 
