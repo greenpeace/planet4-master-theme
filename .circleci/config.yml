@@ -15,7 +15,6 @@ workflows:
           context: org-global
       - commitlint:
           context: org-global
-      #- a11y-tests
       - create-zip:
           context: org-global
           filters:
@@ -31,6 +30,9 @@ workflows:
             - request-instance
       - comment-pr:
           context: org-global
+          requires:
+            - instance-ready
+      - a11y-tests:
           requires:
             - instance-ready
       - lighthouse:
@@ -230,7 +232,7 @@ jobs:
     steps:
       - install-instance
       - run-tests:
-          test-name: Test - Run acceptance tests
+          test-name: Acceptance tests
           test-command: |
               cd planet4-docker-compose
               docker-compose exec php-fpm rsync -a --delete public/wp-content/themes/planet4-master-theme/tests/acceptance/ public/wp-content/plugins/planet4-plugin-gutenberg-blocks/tests/acceptance/ tests/acceptance/
@@ -239,16 +241,23 @@ jobs:
           extract-command: make -C planet4-docker-compose ci-extract-artifacts
 
   a11y-tests:
-    <<: *p4_instance_conf
+    docker:
+      - image: greenpeaceinternational/p4-unit-tests:nodelts
+        auth:
+          <<: *docker_auth
+    working_directory: /home/circleci/
     steps:
-      - install-instance
-      - run-tests:
-          test-name: Test - Run accessibility tests
-          test-command: make -C planet4-docker-compose test-pa11y-ci
-          extract-command: |
-            make -C planet4-docker-compose ci-extract-a11y-artifacts
-            errors=$(jq '.errors' planet4-docker-compose/artifacts/pa11y/pa11y-ci-results.json)
-            if [ "$errors" -gt 0 ]; then echo "$errors errors found, see report in artifacts."; else echo "No errors, report available in artifacts."; fi
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Accessibility tests
+          command: |
+            home="https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/"
+            search="https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/?s="
+            curl -s https://raw.githubusercontent.com/greenpeace/planet4-base/main/pa11y/.pa11yci | jq ' .urls = ["'"$home"'", "'"$search"'"]' > pa11y.json
+            pa11y-ci -c pa11y.json -T 1000 --reporter=pa11y-ci-reporter-html
+      - store_artifacts:
+          path: /home/circleci/pa11y-ci-report
 
   request-instance:
     environment:
