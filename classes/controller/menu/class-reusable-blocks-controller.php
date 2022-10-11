@@ -26,8 +26,7 @@ if ( ! class_exists( 'Reusable_Blocks_Controller' ) ) {
 
 			$current_user = wp_get_current_user();
 
-			if ( in_array( 'administrator', $current_user->roles, true ) && current_user_can( 'manage_options' ) ) {
-
+			if ( ( in_array( 'administrator', $current_user->roles, true ) || in_array( 'editor', $current_user->roles, true ) ) && current_user_can( 'edit_posts' ) ) {
 				add_submenu_page(
 					P4GBKS_PLUGIN_SLUG_NAME,
 					__( 'All Reusable blocks', 'planet4-blocks-backend' ),
