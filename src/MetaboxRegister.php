@@ -35,7 +35,6 @@ class MetaboxRegister {
 	 */
 	public function register_p4_meta_box() {
 		$this->register_meta_box_post();
-		$this->register_meta_box_open_graph();
 		$this->register_meta_box_campaign();
 	}
 
@@ -84,58 +83,6 @@ class MetaboxRegister {
 				],
 				'text'         => [
 					'add_upload_file_text' => __( 'Add Image', 'planet4-master-theme-backend' ),
-				],
-				'preview_size' => 'large',
-			]
-		);
-	}
-
-	/**
-	 * Register Open Graph meta box.
-	 */
-	public function register_meta_box_open_graph() {
-
-		$p4_open_graph = new_cmb2_box(
-			[
-				'id'           => 'p4_metabox_og',
-				'title'        => __( 'Open Graph/Social Fields', 'planet4-master-theme-backend' ),
-				'object_types' => [ 'page', 'post', 'campaign', 'p4_action' ],
-				'closed'       => true,  // Keep the metabox closed by default.
-			]
-		);
-
-		$p4_open_graph->add_field(
-			[
-				'name' => __( 'Title', 'planet4-master-theme-backend' ),
-				'desc' => __( 'Enter title if you want to override the open graph title', 'planet4-master-theme-backend' ),
-				'id'   => 'p4_og_title',
-				'type' => 'text_medium',
-			]
-		);
-
-		$p4_open_graph->add_field(
-			[
-				'name' => __( 'Description', 'planet4-master-theme-backend' ),
-				'desc' => __( 'Enter description if you want to override the open graph description', 'planet4-master-theme-backend' ),
-				'id'   => 'p4_og_description',
-				'type' => 'textarea_small',
-			]
-		);
-
-		$p4_open_graph->add_field(
-			[
-				'name'         => __( 'Image Override', 'planet4-master-theme-backend' ),
-				'desc'         => __( 'Upload an image or select one from the media library to override the open graph image', 'planet4-master-theme-backend' ),
-				'id'           => 'p4_og_image',
-				'type'         => 'file',
-				'options'      => [
-					'url' => false,
-				],
-				'text'         => [
-					'add_upload_file_text' => __( 'Add Image', 'planet4-master-theme-backend' ),
-				],
-				'query_args'   => [
-					'type' => 'image',
 				],
 				'preview_size' => 'large',
 			]
