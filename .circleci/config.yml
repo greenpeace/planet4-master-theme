@@ -198,7 +198,7 @@ jobs:
 
   frontend-tests:
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:nodelts
+      - image: greenpeaceinternational/p4-unit-tests:node14.19.3
         auth:
           <<: *docker_auth
     steps:
@@ -222,7 +222,7 @@ jobs:
 
   commitlint:
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:nodelts
+      - image: greenpeaceinternational/p4-unit-tests:node14.19.3
         auth:
           <<: *docker_auth
     steps:
@@ -242,7 +242,7 @@ jobs:
 
   a11y-tests:
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:nodelts
+      - image: greenpeaceinternational/p4-unit-tests:node14.19.3
         auth:
           <<: *docker_auth
     working_directory: /home/circleci/
@@ -343,7 +343,7 @@ jobs:
           command: git log --format=%B -n 1 $CIRCLE_SHA1 > /tmp/workspace/commit-message
       - run:
           name: Install npm dependencies
-          command: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
+          command: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci --unsafe-perm=true
       - run:
           name: Build assets
           command: npm run build
