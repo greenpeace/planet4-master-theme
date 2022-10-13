@@ -513,8 +513,7 @@ class Post extends TimberPost {
 	 */
 	public static function reading_time_block( array $attributes, $content, $block ) {
 		$time = ( new self( $block->context['postId'] ?? null ) )->reading_time();
-
-		return "<span class='article-list-item-readtime'>$time min read</span>";
+		return $time ? '<span class="article-list-item-readtime">$time min read</span>' : '';
 	}
 
 	/**

@@ -14,6 +14,8 @@
  * @since   Timber 0.2
  */
 
+use Timber\Timber;
+
 $templates = [ 'archive.twig', 'index.twig' ];
 
 $context = Timber::get_context();
