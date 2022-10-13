@@ -198,7 +198,7 @@ jobs:
 
   frontend-tests:
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:nodelts
+      - image: greenpeaceinternational/p4-unit-tests:node14.19.3
         auth:
           <<: *docker_auth
     steps:
@@ -208,7 +208,7 @@ jobs:
           command: stylelint "assets/src/scss/**/*.scss"
       - run:
           name: Install eslint react plugin
-          command: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install eslint-plugin-react
+          command: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install eslint-plugin-react --unsafe-perm=true
       - run:
           name: Lint JS
           command: eslint assets/**/*.js
@@ -217,7 +217,7 @@ jobs:
 
   commitlint:
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:nodelts
+      - image: greenpeaceinternational/p4-unit-tests:node14.19.3
         auth:
           <<: *docker_auth
     steps:
@@ -242,7 +242,7 @@ jobs:
 
   a11y-tests:
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:nodelts
+      - image: greenpeaceinternational/p4-unit-tests:node14.19.3
         auth:
           <<: *docker_auth
     working_directory: /home/circleci/
