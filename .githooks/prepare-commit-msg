@@ -21,7 +21,7 @@ fi
 
 # Customize which branches should be skipped when
 # prepending commit message.
-BRANCHES_TO_SKIP=(master develop)
+BRANCHES_TO_SKIP=(main)
 
 # Get current branch, exit if there is no branch
 # (for rebasing and other situations).

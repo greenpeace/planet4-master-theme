@@ -136,7 +136,7 @@ commands:
               echo "Plugin gutenberg blocks branch is ${CIRCLE_BRANCH}"
             fi
             PLUGIN_GUTENBERG_BLOCKS_BRANCH=dev-${BRANCH}#${CIRCLE_SHA1} \
-            MASTER_THEME_BRANCH=dev-master \
+            MASTER_THEME_BRANCH=dev-main \
             MERGE_SOURCE=git@github.com:greenpeace/planet4-base.git \
             MERGE_REF=main \
             make ci
@@ -212,7 +212,7 @@ jobs:
           when: always
           # For now lint only changed files to avoid bulk fixing.
           command: |
-            changed_files=$(git diff --name-only master...HEAD -- {public/js,tests/js,assets/src}/**/*.js)
+            changed_files=$(git diff --name-only main...HEAD -- {public/js,tests/js,assets/src}/**/*.js)
             echo "Changed files:"
             echo $changed_files | tr " " "\n"
             if [ -z "$changed_files" ]; then exit 0; fi
@@ -229,7 +229,7 @@ jobs:
       - checkout
       - run:
           name: Lint commit messages
-          command: npx commitlint -V --from master --to ${CIRCLE_SHA1}
+          command: npx commitlint -V --from main --to ${CIRCLE_SHA1}
 
   acceptance-tests:
     <<: *p4_instance_conf
