@@ -40,6 +40,7 @@ class ActionPage {
 
 		// IA: display action page type in admin sidebar.
 		$enable_action_post_type = ActionPostType::is_active();
+		$action_slug             = $_ENV['P4_ACTION_POSTTYPE_SLUG'] ?? self::POST_TYPE_SLUG;
 
 		$labels = [
 			'name'               => _x( 'Actions', 'post type general name', 'planet4-master-theme-backend' ),
@@ -67,7 +68,7 @@ class ActionPage {
 			'show_in_menu'       => $enable_action_post_type,
 			'query_var'          => true,
 			'rewrite'            => [
-				'slug'       => self::POST_TYPE_SLUG,
+				'slug'       => $action_slug,
 				'with_front' => false,
 			],
 			'has_archive'        => true,
