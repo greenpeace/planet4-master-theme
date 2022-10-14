@@ -136,7 +136,7 @@ commands:
               echo "Master theme branch is ${CIRCLE_BRANCH}"
             fi
             MASTER_THEME_BRANCH=dev-${BRANCH}#${CIRCLE_SHA1} \
-            PLUGIN_GUTENBERG_BLOCKS_BRANCH=dev-master \
+            PLUGIN_GUTENBERG_BLOCKS_BRANCH=dev-main \
             MERGE_SOURCE=git@github.com:greenpeace/planet4-base.git \
             MERGE_REF=main \
             make ci
@@ -224,7 +224,7 @@ jobs:
       - checkout
       - run:
           name: Lint commit messages
-          command: npx commitlint -V --from master --to ${CIRCLE_SHA1}
+          command: npx commitlint -V --from main --to ${CIRCLE_SHA1}
 
   acceptance-tests:
     <<: *p4_instance_conf
