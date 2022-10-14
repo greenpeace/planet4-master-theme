@@ -14,6 +14,9 @@
  * @since   Timber 0.2
  */
 
+use P4\MasterTheme\ListingPage;
+use Timber\Timber;
+
 $templates = [ 'archive.twig', 'index.twig' ];
 
 $context = Timber::get_context();
@@ -31,8 +34,15 @@ if ( is_day() ) {
 	$context['title'] = single_cat_title( '', false );
 	array_unshift( $templates, 'archive-' . get_query_var( 'cat' ) . '.twig' );
 } elseif ( is_post_type_archive() ) {
-	$context['title'] = post_type_archive_title( '', false );
-	array_unshift( $templates, 'archive-' . get_post_type() . '.twig' );
+	// $context['title'] = post_type_archive_title( '', false );
+	// array_unshift( $templates, 'archive-' . get_post_type() . '.twig' );
+	$context['header_title'] = post_type_archive_title( '', false );
+	// array_unshift( $templates, 'all-actions.twig' );
+	// echo get_template_directory();
+	// die();
+	// $templates = [ get_template_directory() . '/all-actions.twig', get_template_directory() . '/archive.twig' , get_template_directory() . '/index.twig' ];
+	$templates = [ 'all-actions.twig', 'archive.twig', '/index.twig' ];
+	new ListingPage( $context, 'p4_action', $templates );
 }
 
 $context['posts'] = Timber::get_posts();
