@@ -3,9 +3,9 @@
 namespace P4\MasterTheme;
 
 /**
- * Class P4\MasterTheme\Page
+ * Class P4\MasterTheme\PageMeta
  */
-class Page {
+class PageMeta {
 
 	public const POST_TYPE = 'page';
 
@@ -19,6 +19,10 @@ class Page {
 		'p4_button_title',
 		'p4_button_link',
 		'p4_button_link_checkbox',
+		'p4_og_title',
+		'p4_og_description',
+		'p4_og_image',
+		'p4_og_image_id',
 	];
 
 	/**
