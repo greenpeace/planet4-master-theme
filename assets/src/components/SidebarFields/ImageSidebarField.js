@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 
 export const ImageSidebarField = ({ value, setValue, label }) => (
   <div className="components-base-control mb-3">
-    <label className="components-base-control__label mb-2">
+    <label className="components-base-control__label mb-2 d-block">
       {label}
     </label>
     <MediaUploadCheck>

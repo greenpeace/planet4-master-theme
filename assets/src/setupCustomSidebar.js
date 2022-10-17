@@ -2,6 +2,7 @@ import { registerPlugin } from '@wordpress/plugins';
 import { PageHeaderSidebar } from './components/Sidebar/PageHeaderSidebar';
 import { CampaignThemeSidebar } from './components/Sidebar/CampaignThemeSidebar';
 import { ActionSidebar } from './components/Sidebar/ActionSidebar';
+import { OpenGraphSidebar } from './components/Sidebar/OpenGraphSidebar';
 
 const sidebarsForPostType = postType => {
   switch (postType) {
@@ -13,14 +14,21 @@ const sidebarsForPostType = postType => {
         getIcon: CampaignThemeSidebar.getIcon,
         render: CampaignThemeSidebar,
       },
+      OpenGraphSidebar,
     ];
   case 'p4_action':
     return [
       ActionSidebar,
+      OpenGraphSidebar,
     ];
   case 'page':
     return [
       PageHeaderSidebar,
+      OpenGraphSidebar,
+    ];
+  case 'post':
+    return [
+      OpenGraphSidebar,
     ];
   default:
     return null;

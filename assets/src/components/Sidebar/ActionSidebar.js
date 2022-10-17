@@ -1,9 +1,9 @@
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
-import { useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { NavigationType } from '../NavigationType/NavigationType';
 import { CheckboxSidebarField } from '../SidebarFields/CheckboxSidebarField';
 import { TextSidebarField } from '../SidebarFields/TextSidebarField';
+import { getSidebarFunctions } from './getSidebarFunctions';
 
 const FIELD_NAVTYPE = 'nav_type';
 const HIDE_PAGE_TITLE = 'p4_hide_page_title_checkbox';
@@ -15,24 +15,7 @@ const BUTTON_TEXT = 'action_button_text';
 export const ActionSidebar = {
   getId: () => 'planet4-action-sidebar',
   render: () => {
-    const meta = useSelect(select => select('core/editor').getEditedPostAttribute('meta'),[]);
-    const { editPost } = useDispatch('core/editor');
-    const updateValueAndDependencies = fieldId => value => editPost({ meta: {[fieldId]: value} });
-
-    const navParams = {
-      value: meta[FIELD_NAVTYPE] || null,
-      setValue: updateValueAndDependencies(FIELD_NAVTYPE),
-    };
-
-    const hidePageTitleParams = {
-      value: meta[HIDE_PAGE_TITLE] || '',
-      setValue: updateValueAndDependencies(HIDE_PAGE_TITLE),
-    }
-
-    const buttonTextParams = {
-      value: meta[BUTTON_TEXT],
-      setValue: updateValueAndDependencies(BUTTON_TEXT),
-    }
+    const { getParams } = getSidebarFunctions();
 
     return (
       <>
@@ -40,7 +23,7 @@ export const ActionSidebar = {
           name='page-header-panel'
           title={ __( 'Page header', 'planet4-blocks-backend' ) }
         >
-          <CheckboxSidebarField label={__( 'Hide page title', 'planet4-blocks-backend' )} {...hidePageTitleParams} />
+          <CheckboxSidebarField label={__( 'Hide page title', 'planet4-blocks-backend' )} {...getParams(HIDE_PAGE_TITLE)} />
         </PluginDocumentSettingPanel>
         <PluginDocumentSettingPanel
           name='button-text-panel'
@@ -48,7 +31,7 @@ export const ActionSidebar = {
         >
           <TextSidebarField
             label={__( 'Edit the button text shown on the Action covers block', 'planet4-blocks-backend' )}
-            {...buttonTextParams}
+            {...getParams(BUTTON_TEXT)}
           />
         </PluginDocumentSettingPanel>
         <PluginDocumentSettingPanel
@@ -56,7 +39,7 @@ export const ActionSidebar = {
           title={ __( 'Navigation', 'planet4-blocks-backend' ) }
           className='navigation-panel'
         >
-          <NavigationType {...navParams} />
+          <NavigationType {...getParams(FIELD_NAVTYPE)} />
         </PluginDocumentSettingPanel>
       </>
     );
