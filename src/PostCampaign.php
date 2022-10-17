@@ -35,6 +35,10 @@ class PostCampaign {
 		'p4_description',
 		'background_image_id',
 		'background_image',
+		'p4_og_title',
+		'p4_og_description',
+		'p4_og_image',
+		'p4_og_image_id',
 	];
 
 	public const LEGACY_THEMES = [

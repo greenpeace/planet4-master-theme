@@ -3,7 +3,6 @@
 namespace P4\MasterTheme;
 
 use P4\MasterTheme\Features\ActionPostType;
-use P4\MasterTheme\Settings\InformationArchitecture as IA;
 
 /**
  * Class P4\MasterTheme\ActionPage
@@ -16,6 +15,15 @@ class ActionPage {
 	public const TAXONOMY           = 'action-type';
 	public const TAXONOMY_PARAMETER = 'action_type';
 	public const TAXONOMY_SLUG      = 'action-type';
+
+	public const META_FIELDS = [
+		'nav_type',
+		'p4_hide_page_title_checkbox',
+		'p4_og_title',
+		'p4_og_description',
+		'p4_og_image',
+		'p4_og_image_id',
+	];
 
 	/**
 	 * The constructor.
@@ -141,12 +149,14 @@ class ActionPage {
 
 		$options = get_option( 'planet4_options' );
 
-		register_post_meta( self::POST_TYPE, 'nav_type', $args );
-		register_post_meta( self::POST_TYPE, 'p4_hide_page_title_checkbox', $args );
 		register_post_meta(
 			self::POST_TYPE,
 			'action_button_text',
 			array_merge( $args, [ 'default' => $options['take_action_covers_button_text'] ?? __( 'Take action', 'planet4-master-theme' ) ] )
 		);
+
+		foreach ( self::META_FIELDS as $field ) {
+			register_post_meta( self::POST_TYPE, $field, $args );
+		}
 	}
 }
