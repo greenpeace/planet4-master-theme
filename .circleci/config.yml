@@ -275,18 +275,22 @@ jobs:
       - run:
           name: Book instance
           command: |
-            JIRA_USERNAME=planet4 book-test-instance.py \
-            --pr-url $(cat /tmp/workspace/pr) \
-            --results /tmp/workspace/booking.json >/tmp/workspace/test-instance
-            echo "https://app.circleci.com/pipelines/github/greenpeace/planet4-test-$(cat /tmp/workspace/test-instance)/"
+            if [ "$is_merge_commit" != true ]; then
+              JIRA_USERNAME=planet4 book-test-instance.py \
+              --pr-url $(cat /tmp/workspace/pr) \
+              --results /tmp/workspace/booking.json >/tmp/workspace/test-instance
+              echo "https://app.circleci.com/pipelines/github/greenpeace/planet4-test-$(cat /tmp/workspace/test-instance)/"
+            fi
       - run: activate-gcloud-account.sh
       - run:
           name: Put zip in cloud storage
           command: |
-            filename="planet4-master-theme.zip"
-            echo "planet4-packages/planet4-master-theme/${CIRCLE_SHA1}.zip" > /tmp/workspace/zip-path
-            gs_path="gs://$(cat /tmp/workspace/zip-path)"
-            gsutil -q stat "$gs_path" || gsutil cp "/tmp/workspace/$filename" "$gs_path"
+            if [ "$is_merge_commit" != true ]; then
+              filename="planet4-master-theme.zip"
+              echo "planet4-packages/planet4-master-theme/${CIRCLE_SHA1}.zip" > /tmp/workspace/zip-path
+              gs_path="gs://$(cat /tmp/workspace/zip-path)"
+              gsutil -q stat "$gs_path" || gsutil cp "/tmp/workspace/$filename" "$gs_path"
+            fi
       - run:
           name: Commit to test instance repo
           command: trigger_test_instance.sh planet4-master-theme $(cat /tmp/workspace/is_merge_commit)
