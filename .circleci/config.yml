@@ -275,6 +275,7 @@ jobs:
       - run:
           name: Book instance
           command: |
+            is_merge_commit="$(cat /tmp/workspace/is_merge_commit)"
             if [ "$is_merge_commit" != true ]; then
               JIRA_USERNAME=planet4 book-test-instance.py \
               --pr-url $(cat /tmp/workspace/pr) \
@@ -285,6 +286,7 @@ jobs:
       - run:
           name: Put zip in cloud storage
           command: |
+            is_merge_commit="$(cat /tmp/workspace/is_merge_commit)"
             if [ "$is_merge_commit" != true ]; then
               filename="planet4-master-theme.zip"
               echo "planet4-packages/planet4-master-theme/${CIRCLE_SHA1}.zip" > /tmp/workspace/zip-path
