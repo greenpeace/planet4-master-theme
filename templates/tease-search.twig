@@ -141,14 +141,13 @@
 
 			{% if ( is_action ) %}
 			<div>
-				{%  set link_text = settings['take_action_covers_button_text'] %}
 				<a
 					href="{{ post_link }}"
 					class="btn btn-primary btn-small"
 					data-ga-category="Search Results"
 					data-ga-action="Call to Action"
 					data-ga-label="{{ ga_page_type }}">
-						{{ link_text ?: __( 'Take action', 'planet4-master-theme' ) }}
+						{{ post.button_text }}
 				</a>
 			</div>
 			{% endif %}
