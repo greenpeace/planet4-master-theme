@@ -139,7 +139,14 @@ class ActionPage {
 			'single'       => true,
 		];
 
+		$options = get_option( 'planet4_options' );
+
 		register_post_meta( self::POST_TYPE, 'nav_type', $args );
 		register_post_meta( self::POST_TYPE, 'p4_hide_page_title_checkbox', $args );
+		register_post_meta(
+			self::POST_TYPE,
+			'action_button_text',
+			array_merge( $args, [ 'default' => $options['take_action_covers_button_text'] ?? __( 'Take action', 'planet4-master-theme' ) ] )
+		);
 	}
 }

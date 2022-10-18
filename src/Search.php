@@ -393,6 +393,17 @@ abstract class Search {
 				$template_post->tags          = self::filter_existing_terms( $tags );
 				$template_post->p4_page_types = self::filter_existing_terms( $p4_page_types );
 
+				if ( 'p4_action' === $post->post_type ) {
+					$options   = get_option( 'planet4_options' );
+					$post_meta = get_post_meta( $post->ID );
+
+					if ( isset( $post_meta['action_button_text'] ) && $post_meta['action_button_text'][0] ) {
+						$template_post->button_text = $post_meta['action_button_text'][0];
+					} else {
+						$template_post->button_text = $options['take_action_covers_button_text'] ?? __( 'Take action', 'planet4-master-theme' );
+					}
+				}
+
 				$template_posts[] = $template_post;
 			}
 		}
@@ -964,8 +975,6 @@ abstract class Search {
 	public function view_paged_posts() {
 		// TODO - The $paged_context related code should be transferred to set_results_context method for better separation of concerns.
 		if ( $this->paged_posts ) {
-			$paged_context['settings'] = get_option( 'planet4_options' );
-
 			$paged_context['dummy_thumbnail'] = get_template_directory_uri() . self::DUMMY_THUMBNAIL;
 
 			foreach ( $this->paged_posts as $index => $post ) {
