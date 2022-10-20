@@ -275,17 +275,23 @@ jobs:
       - run:
           name: Book instance
           command: |
-            JIRA_USERNAME=planet4 book-test-instance.py \
-            --pr-url $(cat /tmp/workspace/pr) \
-            --results /tmp/workspace/booking.json >/tmp/workspace/test-instance
+            is_merge_commit="$(cat /tmp/workspace/is_merge_commit)"
+            if [ "$is_merge_commit" != true ]; then
+              JIRA_USERNAME=planet4 book-test-instance.py \
+              --pr-url $(cat /tmp/workspace/pr) \
+              --results /tmp/workspace/booking.json >/tmp/workspace/test-instance
+            fi
       - run: activate-gcloud-account.sh
       - run:
           name: Put zip in cloud storage
           command: |
-            filename="planet4-plugin-gutenberg-blocks.zip"
-            echo "planet4-packages/planet4-plugin-gutenberg-blocks/${CIRCLE_SHA1}.zip" > /tmp/workspace/zip-path
-            gs_path="gs://$(cat /tmp/workspace/zip-path)"
-            gsutil -q stat "$gs_path" || gsutil cp "/tmp/workspace/$filename" "$gs_path"
+            is_merge_commit="$(cat /tmp/workspace/is_merge_commit)"
+            if [ "$is_merge_commit" != true ]; then
+              filename="planet4-plugin-gutenberg-blocks.zip"
+              echo "planet4-packages/planet4-plugin-gutenberg-blocks/${CIRCLE_SHA1}.zip" > /tmp/workspace/zip-path
+              gs_path="gs://$(cat /tmp/workspace/zip-path)"
+              gsutil -q stat "$gs_path" || gsutil cp "/tmp/workspace/$filename" "$gs_path"
+            fi
       - run:
           name: Commit to test instance repo
           command: trigger_test_instance.sh planet4-plugin-gutenberg-blocks $(cat /tmp/workspace/is_merge_commit)
@@ -304,6 +310,12 @@ jobs:
     steps:
       - attach_workspace:
           at: /tmp/workspace
+      - run:
+          name: Check if there is a PR
+          command: |
+            if [ ! -f /tmp/workspace/pr ]; then
+              circleci-agent step halt
+            fi
       - run:
           name: Post comment to PR
           command: |
