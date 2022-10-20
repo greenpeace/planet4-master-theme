@@ -32,7 +32,7 @@ class CarouselHeader extends TemplatePattern {
 									<div class="carousel-item active">
 										<div class="carousel-item-mask">
 											<div class="background-holder">
-												<img style="object-position:NaN% NaN%"/>
+												<img style="object-position:50% 50%"/>
 											</div>
 											<div class="carousel-caption">
 												<div class="caption-overlay"></div>

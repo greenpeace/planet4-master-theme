@@ -4,7 +4,7 @@ export const SlideBackground = ({ slide }) => {
     <div className='background-holder'>
       <img
         src={image_url}
-        style={{ objectPosition: `${focal_points?.x * 100}% ${focal_points?.y * 100}%` }}
+        style={{ objectPosition: `${(focal_points?.x || .5) * 100}% ${(focal_points?.y || .5) * 100}%` }}
         srcSet={image_srcset}
         alt={image_alt}
       />
