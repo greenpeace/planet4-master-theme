@@ -16,7 +16,7 @@ import { ImagePlaceholder } from './ImagePlaceholder';
 import { ImageHoverControls } from '../../components/ImageHoverControls';
 
 // Planet 4 settings (Planet 4 >> Defaults content >> Take Action Covers default button text).
-const DEFAULT_BUTTON_TEXT = window.p4bk_vars.take_action_covers_button_text;
+const DEFAULT_BUTTON_TEXT = window.p4bk_vars.take_action_covers_button_text || __('Take action', 'planet4-blocks');
 
 const {
   RichText,
@@ -93,7 +93,8 @@ export const TakeActionBoxoutEditor = ({
     const title = !take_action_page ? customTitle : actPage.title.raw;
     const excerpt = !take_action_page ? customExcerpt : actPage.excerpt.raw;
     const link = !take_action_page ? customLink : actPage.link;
-    const linkText = !take_action_page ? customLinkText : DEFAULT_BUTTON_TEXT || __('Take action', 'planet4-blocks');
+
+    let linkText = !take_action_page ? customLinkText : actPage?.meta?.action_button_text || DEFAULT_BUTTON_TEXT;
 
     const imageId = !take_action_page ? customImageId : actPageImageId;
     const imageUrl = !take_action_page ? customImageFromId : select('core').getMedia(actPageImageId)?.source_url;

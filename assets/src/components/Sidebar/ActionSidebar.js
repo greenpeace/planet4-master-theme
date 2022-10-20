@@ -3,9 +3,11 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { NavigationType } from '../NavigationType/NavigationType';
 import { CheckboxSidebarField } from '../SidebarFields/CheckboxSidebarField';
+import { TextSidebarField } from '../SidebarFields/TextSidebarField';
 
 const FIELD_NAVTYPE = 'nav_type';
 const HIDE_PAGE_TITLE = 'p4_hide_page_title_checkbox';
+const BUTTON_TEXT = 'action_button_text';
 
 /**
  * Add settings to Action pages
@@ -27,6 +29,11 @@ export const ActionSidebar = {
       setValue: updateValueAndDependencies(HIDE_PAGE_TITLE),
     }
 
+    const buttonTextParams = {
+      value: meta[BUTTON_TEXT],
+      setValue: updateValueAndDependencies(BUTTON_TEXT),
+    }
+
     return (
       <>
         <PluginDocumentSettingPanel
@@ -34,6 +41,15 @@ export const ActionSidebar = {
           title={ __( 'Page header', 'planet4-blocks-backend' ) }
         >
           <CheckboxSidebarField label={__( 'Hide page title', 'planet4-blocks-backend' )} {...hidePageTitleParams} />
+        </PluginDocumentSettingPanel>
+        <PluginDocumentSettingPanel
+          name='button-text-panel'
+          title={ __( 'Covers block button text', 'planet4-blocks-backend' ) }
+        >
+          <TextSidebarField
+            label={__( 'Edit the button text shown on the Action covers block', 'planet4-blocks-backend' )}
+            {...buttonTextParams}
+          />
         </PluginDocumentSettingPanel>
         <PluginDocumentSettingPanel
           name='navigation-panel'

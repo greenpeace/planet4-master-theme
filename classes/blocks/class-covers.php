@@ -460,8 +460,6 @@ class Covers extends Base_Block {
 		$covers = [];
 
 		if ( $actions ) {
-			$cover_button_text = $options['take_action_covers_button_text'] ?? __( 'Take action', 'planet4-blocks' );
-
 			foreach ( $actions as $action ) {
 				$tags    = [];
 				$wp_tags = wp_get_post_tags( $action->ID );
@@ -476,6 +474,14 @@ class Covers extends Base_Block {
 				}
 
 				$img_id = get_post_thumbnail_id( $action );
+
+				// Get the button text from the meta data (for Actions), the P4 settings, or use the default value.
+				$meta = get_post_meta( $action->ID );
+				if ( isset( $meta['action_button_text'] ) && $meta['action_button_text'][0] ) {
+					$cover_button_text = $meta['action_button_text'][0];
+				} else {
+					$cover_button_text = $options['take_action_covers_button_text'] ?? __( 'Take action', 'planet4-blocks' );
+				}
 
 				$covers[] = [
 					'tags'        => $tags ?? [],

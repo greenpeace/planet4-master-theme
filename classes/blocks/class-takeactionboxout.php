@@ -141,13 +141,20 @@ class TakeActionBoxout extends Base_Block {
 			$image_alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
 		}
 
+		$meta = get_post_meta( $page_id );
+		if ( isset( $meta['action_button_text'] ) && $meta['action_button_text'][0] ) {
+			$cover_button_text = $meta['action_button_text'][0];
+		} else {
+			$cover_button_text = $options['take_action_covers_button_text'] ?? __( 'Take action', 'planet4-blocks' );
+		}
+
 		return [
 			'boxout' => [
 				'title'        => null === $page ? '' : $page->post_title,
 				'excerpt'      => null === $page ? '' : $page->post_excerpt,
 				'link'         => null === $page ? '' : get_permalink( $page ),
 				'new_tab'      => false,
-				'link_text'    => $options['take_action_covers_button_text'] ?? __( 'Take action', 'planet4-blocks' ),
+				'link_text'    => $cover_button_text,
 				'image'        => $image ?? '',
 				'image_alt'    => $image_alt ?? '',
 				'image_srcset' => $src_set ?? '',
