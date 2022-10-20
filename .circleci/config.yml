@@ -312,6 +312,12 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - run:
+          name: Check if there is a PR
+          command: |
+            if [ ! -f /tmp/workspace/pr ]; then
+              circleci-agent step halt
+            fi
+      - run:
           name: Post comment to PR
           command: |
             post-comment-to-pr.py \
