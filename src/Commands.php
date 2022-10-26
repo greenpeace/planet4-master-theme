@@ -37,5 +37,13 @@ class Commands {
 			},
 			[ 'shortdesc' => 'Updates missing media path after WPML activation.' ]
 		);
+
+		\WP_CLI::add_command(
+			'p4 update-s2c',
+			function () {
+				$record = MigrationRecord::start( static::class );
+				Migrations\M014UpdateSplitTwoColumnsContent::execute( $record );
+			}
+		);
 	}
 }
