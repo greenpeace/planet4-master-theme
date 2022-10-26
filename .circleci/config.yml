@@ -1,9 +1,6 @@
 ---
 version: 2.1
 
-orbs:
-  lighthouse-check: foo-software/lighthouse-check@0.0.8
-
 workflows:
   branch:
     jobs:
@@ -33,9 +30,6 @@ workflows:
           requires:
             - instance-ready
       - a11y-tests:
-          requires:
-            - instance-ready
-      - lighthouse:
           requires:
             - instance-ready
       - publish-zip:
@@ -323,23 +317,6 @@ jobs:
             post-comment-to-pr.py \
             --pr-url $(cat /tmp/workspace/pr) \
             --test-instance $(cat /tmp/workspace/test-instance)
-
-  lighthouse:
-    executor: lighthouse-check/default
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - lighthouse-check/audit:
-          urls: |
-            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/,\
-            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/,\
-            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/,\
-            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/act/,\
-            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/act/,\
-            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/act/,\
-            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/explore/,\
-            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/explore/,\
-            https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/explore/\
 
   create-zip:
     docker:
