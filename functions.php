@@ -462,3 +462,12 @@ add_filter(
 		return $vars;
 	}
 );
+
+// Action to filter P4 settings menu.
+add_action(
+	'admin_head',
+	function() {
+		global $submenu;
+		uasort( $submenu['planet4_settings_navigation'], fn ( $a, $b ) => $a[0] <=> $b[0] );
+	}
+);
