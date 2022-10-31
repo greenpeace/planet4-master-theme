@@ -213,6 +213,10 @@ $navbar-default-height: 60px;
 a.nav-link {
   --nav-link-- {
     color: $white;
+
+    &:visited {
+      color: $white;
+    }
   }
 
   opacity: 1;
