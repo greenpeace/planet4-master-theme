@@ -1,46 +1,66 @@
 ---
 version: 2.1
 
+workflow_definitions:
+  on_pr: &on_pr
+    context: org-global
+    filters:
+      branches:
+        ignore: main
+  on_main: &on_main
+    context: org-global
+    filters:
+      branches:
+        only: main
+  on_tag: &on_tag
+    context: org-global
+    filters:
+      branches:
+        ignore: /.*/
+      tags:
+        only: /^v\p{Digit}+\.\p{Digit}+.*/
+
 workflows:
   branch:
     jobs:
       - php74-tests:
-          context: org-global
+          <<: *on_pr
       - frontend-tests:
-          context: org-global
+          <<: *on_pr
       - acceptance-tests:
-          context: org-global
+          <<: *on_pr
       - commitlint:
-          context: org-global
+          <<: *on_pr
       - create-zip:
           context: org-global
           filters:
+            branches:
+              ignore: main
             tags:
               only: /^v\p{Digit}+\.\p{Digit}+.*/
       - request-instance:
-          context: org-global
+          <<: *on_pr
           requires:
             - create-zip
       - instance-ready:
+          <<: *on_pr
           type: approval
           requires:
             - request-instance
       - comment-pr:
-          context: org-global
+          <<: *on_pr
           requires:
             - instance-ready
       - a11y-tests:
+          <<: *on_pr
           requires:
             - instance-ready
       - publish-zip:
-          context: org-global
+          <<: *on_tag
           requires:
             - create-zip
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v\p{Digit}+\.\p{Digit}+.*/
+      - reset-instance:
+          <<: *on_main
 
 job-references:
   docker_auth: &docker_auth
@@ -269,27 +289,21 @@ jobs:
       - run:
           name: Book instance
           command: |
-            is_merge_commit="$(cat /tmp/workspace/is_merge_commit)"
-            if [ "$is_merge_commit" != true ]; then
-              JIRA_USERNAME=planet4 book-test-instance.py \
-              --pr-url $(cat /tmp/workspace/pr) \
-              --results /tmp/workspace/booking.json >/tmp/workspace/test-instance
-              echo "https://app.circleci.com/pipelines/github/greenpeace/planet4-test-$(cat /tmp/workspace/test-instance)/"
-            fi
+            JIRA_USERNAME=planet4 book-test-instance.py \
+            --pr-url $(cat /tmp/workspace/pr) \
+            --results /tmp/workspace/booking.json >/tmp/workspace/test-instance
+            echo "https://app.circleci.com/pipelines/github/greenpeace/planet4-test-$(cat /tmp/workspace/test-instance)/"
       - run: activate-gcloud-account.sh
       - run:
           name: Put zip in cloud storage
           command: |
-            is_merge_commit="$(cat /tmp/workspace/is_merge_commit)"
-            if [ "$is_merge_commit" != true ]; then
-              filename="planet4-master-theme.zip"
-              echo "planet4-packages/planet4-master-theme/${CIRCLE_SHA1}.zip" > /tmp/workspace/zip-path
-              gs_path="gs://$(cat /tmp/workspace/zip-path)"
-              gsutil -q stat "$gs_path" || gsutil cp "/tmp/workspace/$filename" "$gs_path"
-            fi
+            filename="planet4-master-theme.zip"
+            echo "planet4-packages/planet4-master-theme/${CIRCLE_SHA1}.zip" > /tmp/workspace/zip-path
+            gs_path="gs://$(cat /tmp/workspace/zip-path)"
+            gsutil -q stat "$gs_path" || gsutil cp "/tmp/workspace/$filename" "$gs_path"
       - run:
           name: Commit to test instance repo
-          command: trigger_test_instance.sh planet4-master-theme $(cat /tmp/workspace/is_merge_commit)
+          command: trigger_test_instance.sh planet4-master-theme false
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
@@ -392,3 +406,23 @@ jobs:
                 -H "Content-Type: application/zip" \
                 --data-binary @/tmp/workspace/planet4-master-theme.zip \
                 "$(cat /tmp/workspace/upload_url)" | jq
+
+  reset-instance:
+    environment:
+      GOOGLE_PROJECT_ID: planet-4-151612
+    docker:
+      - image: greenpeaceinternational/circleci-base:latest
+        auth:
+          <<: *docker_auth
+    steps:
+      - run:
+          name: Get merge commit test instance
+          command: |
+            instance=$(find-commit-test-instance.py)
+            echo "$instance" >/tmp/workspace/test-instance
+      - run:
+          name: Activate gcloud
+          command: activate-gcloud-account.sh
+      - run:
+          name: Commit to test instance repo
+          command: trigger_test_instance.sh planet4-master-theme true
