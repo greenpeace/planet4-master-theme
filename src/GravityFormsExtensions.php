@@ -266,20 +266,7 @@ class GravityFormsExtensions {
 
 		$post = Timber::query_post( false, Post::class );
 
-		$current_confirmation_array = array_filter(
-			$form['confirmations'],
-			function ( $conf ) use ( $confirmation ) {
-				// We need to strip all HTML tags for proper comparison.
-				return wp_strip_all_tags( $confirmation ) === wp_strip_all_tags( $conf['message'] );
-			}
-		);
-
-		$current_confirmation = reset( $current_confirmation_array );
-
-		// In case we don't find the current confirmation object, we return the $confirmation param.
-		if ( ! $current_confirmation ) {
-			return $confirmation;
-		}
+		$current_confirmation = $form['confirmation'];
 
 		$confirmation_fields = [
 			'confirmation'    => $confirmation,
