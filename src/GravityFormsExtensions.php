@@ -264,7 +264,8 @@ class GravityFormsExtensions {
 			return $confirmation;
 		}
 
-		$post = Timber::query_post( false, Post::class );
+		$context = Timber::get_context();
+		$post    = Timber::query_post( false, Post::class );
 
 		$current_confirmation = $form['confirmation'];
 
@@ -277,10 +278,18 @@ class GravityFormsExtensions {
 				'native'   => $current_confirmation['native'] ?? true,
 				'email'    => $current_confirmation['email'] ?? true,
 			],
-			'share_text'      => $current_confirmation['p4_gf_share_text_override'] ?? '',
-			'share_url'       => $current_confirmation['p4_gf_share_url_override'] ?? '',
 			'post'            => $post,
+			'social_accounts' => $post->get_social_accounts( $context['footer_social_menu'] ),
+			'utm_medium'      => 'gf-share',
 		];
+
+		if ( isset( $current_confirmation['p4_gf_share_text_override'] ) && $current_confirmation['p4_gf_share_text_override'] ) {
+			$confirmation_fields['share_text'] = $current_confirmation['p4_gf_share_text_override'];
+		}
+
+		if ( isset( $current_confirmation['p4_gf_share_url_override'] ) && $current_confirmation['p4_gf_share_url_override'] ) {
+			$confirmation_fields['share_url'] = $current_confirmation['p4_gf_share_url_override'];
+		}
 
 		return Timber::compile( [ 'gravity_forms_confirmation.twig' ], $confirmation_fields );
 	}
