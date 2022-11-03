@@ -214,7 +214,15 @@ a.nav-link {
   --nav-link-- {
     color: $white;
 
+    &:hover {
+      color: $white;
+    }
+
     &:visited {
+      color: $white;
+    }
+
+    &:active {
       color: $white;
     }
   }
@@ -224,7 +232,7 @@ a.nav-link {
   padding: $sp-2 0;
   position: relative;
   width: 100%;
-  text-decoration-line: none;
+  text-decoration: none !important;
 
   @include large-and-up {
     padding: 0;
