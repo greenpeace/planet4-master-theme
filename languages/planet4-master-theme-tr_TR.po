@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-11-04 15:00+0000\n"
+"PO-Revision-Date: 2022-11-04 15:02+0000\n"
 "Language-Team: Turkish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #. %1$d = Number of results.
-#: src/Search.php:727
+#: src/Search.php:738
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
@@ -39,7 +39,7 @@ msgid "%d min read"
 msgstr ""
 
 #. %d = Number of results.
-#: src/Search.php:733
+#: src/Search.php:744
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
@@ -229,7 +229,7 @@ msgstr ""
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr ""
 
-#: single.php:101
+#: single.php:103
 msgid ""
 "I agree on providing my name, email and content so that my comment can be "
 "stored and displayed in the website."
@@ -243,16 +243,16 @@ msgstr "International"
 msgid "Invalid password, please try again"
 msgstr ""
 
-#: single.php:107
+#: single.php:109
 msgid "Leave your reply"
 msgstr "Yorumunu bırak"
 
-#: templates/all-posts.twig:35 templates/author.twig:49
+#: single.php:78 templates/all-posts.twig:35 templates/author.twig:49
 #: templates/taxonomy.twig:46
 msgid "Load More"
 msgstr "Daha fazlası"
 
-#: templates/tease-search.twig:157
+#: templates/tease-search.twig:156
 msgid "Manage"
 msgstr ""
 
@@ -268,7 +268,7 @@ msgstr ""
 msgid "Menu"
 msgstr "Menü"
 
-#: src/MasterSite.php:94 src/Search.php:711
+#: src/MasterSite.php:94 src/Search.php:722
 msgid "Most relevant"
 msgstr "En ilgili"
 
@@ -276,11 +276,11 @@ msgstr "En ilgili"
 msgid "Name"
 msgstr "İsim"
 
-#: src/MasterSite.php:98 src/Search.php:715
+#: src/MasterSite.php:98 src/Search.php:726
 msgid "Newest"
 msgstr ""
 
-#: src/MasterSite.php:102 src/Search.php:719
+#: src/MasterSite.php:102 src/Search.php:730
 msgid "Oldest"
 msgstr ""
 
@@ -332,6 +332,10 @@ msgstr ""
 msgid "Reject all cookies"
 msgstr ""
 
+#: single.php:77
+msgid "Related Articles"
+msgstr ""
+
 #: tag.php:127
 msgid "Related Campaigns"
 msgstr "İlgili Kampanyalar"
@@ -369,7 +373,7 @@ msgid "Share via"
 msgstr "Paylaş"
 
 #. %s = number of results per page.
-#: src/Search.php:950
+#: src/Search.php:961
 #, php-format
 #| msgid "SHOW %s MORE RESULTS"
 msgid "Show %s more results"
@@ -411,7 +415,7 @@ msgstr "Sırala"
 msgid "Submit"
 msgstr ""
 
-#: templates/tease-search.twig:151
+#: src/ActionPage.php:155 src/Search.php:403
 msgid "Take action"
 msgstr "Şimdi harekete geç"
 
@@ -430,7 +434,7 @@ msgstr "Yapabileceklerin"
 msgid "This Campaign is not assigned to an Issue"
 msgstr "Bu kampanya bir kategoriye atanmamış"
 
-#: templates/tease-search.twig:115 assets/src/js/pdf_icon.js:20
+#: assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
 msgstr ""
 

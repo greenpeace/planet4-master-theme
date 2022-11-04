@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2022-10-11 04:10+0000\n"
+"POT-Creation-Date: 2022-11-04 15:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -23,7 +23,7 @@ msgstr ""
 "Language: "
 
 #. %1$d = Number of results.
-#: src/Search.php:727
+#: src/Search.php:738
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
@@ -38,7 +38,7 @@ msgid "%d min read"
 msgstr ""
 
 #. %d = Number of results.
-#: src/Search.php:733
+#: src/Search.php:744
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
@@ -223,7 +223,7 @@ msgstr ""
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr ""
 
-#: single.php:101
+#: single.php:103
 msgid ""
 "I agree on providing my name, email and content so that my comment can be "
 "stored and displayed in the website."
@@ -237,16 +237,16 @@ msgstr ""
 msgid "Invalid password, please try again"
 msgstr ""
 
-#: single.php:107
+#: single.php:109
 msgid "Leave your reply"
 msgstr ""
 
-#: templates/all-posts.twig:35 templates/author.twig:49
+#: single.php:78 templates/all-posts.twig:35 templates/author.twig:49
 #: templates/taxonomy.twig:46
 msgid "Load More"
 msgstr ""
 
-#: templates/tease-search.twig:157
+#: templates/tease-search.twig:156
 msgid "Manage"
 msgstr ""
 
@@ -262,7 +262,7 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: src/MasterSite.php:94 src/Search.php:711
+#: src/MasterSite.php:94 src/Search.php:722
 msgid "Most relevant"
 msgstr ""
 
@@ -270,11 +270,11 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: src/MasterSite.php:98 src/Search.php:715
+#: src/MasterSite.php:98 src/Search.php:726
 msgid "Newest"
 msgstr ""
 
-#: src/MasterSite.php:102 src/Search.php:719
+#: src/MasterSite.php:102 src/Search.php:730
 msgid "Oldest"
 msgstr ""
 
@@ -326,6 +326,10 @@ msgstr ""
 msgid "Reject all cookies"
 msgstr ""
 
+#: single.php:77
+msgid "Related Articles"
+msgstr ""
+
 #: tag.php:127
 msgid "Related Campaigns"
 msgstr ""
@@ -363,7 +367,7 @@ msgid "Share via"
 msgstr ""
 
 #. %s = number of results per page.
-#: src/Search.php:950
+#: src/Search.php:961
 #, php-format
 msgid "Show %s more results"
 msgstr ""
@@ -404,7 +408,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: templates/tease-search.twig:151
+#: src/ActionPage.php:155 src/Search.php:403
 msgid "Take action"
 msgstr ""
 
@@ -423,7 +427,7 @@ msgstr ""
 msgid "This Campaign is not assigned to an Issue"
 msgstr ""
 
-#: templates/tease-search.twig:115 assets/src/js/pdf_icon.js:20
+#: assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
 msgstr ""
 
