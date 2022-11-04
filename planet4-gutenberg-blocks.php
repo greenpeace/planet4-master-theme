@@ -441,6 +441,23 @@ $breakpoints = [
 ];
 
 add_filter(
+	'render_block_core/query-pagination',
+	function ( $content ) {
+		// Check if prev and next buttons are disabled.
+		if (
+			str_contains( $content, 'wp-block-query-pagination-previous disabled' )
+			&& str_contains( $content, 'wp-block-query-pagination-next disabled' )
+		) {
+			return null;
+		}
+
+		return $content;
+	},
+	10,
+	3
+);
+
+add_filter(
 	'render_block_core/query-pagination-previous',
 	function ( $content, $parsed, $block ) {
 		$button_label = __( 'Prev', 'planet4-blocks' );
