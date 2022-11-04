@@ -154,7 +154,7 @@ $transition-duration: .2s;
   padding-block-end: $sp-1x;
 
   .nav-item.active {
-    pointer-events: none;
+    pointer-events: inherit;
 
     a.nav-link {
       font-weight: bold;
