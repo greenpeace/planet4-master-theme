@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-07-27 12:34+0000\n"
+"PO-Revision-Date: 2022-11-04 15:00+0000\n"
 "Language-Team: Turkish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #. %1$d = Number of results.
-#: src/Search.php:708
+#: src/Search.php:727
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
@@ -32,14 +32,14 @@ msgstr[0] "'%2$s' için %1$d result"
 msgstr[1] ""
 
 #. %d = Number of minutes for reading time.
-#: src/Post/ReadingTimeCalculator.php:132 templates/tease-taxonomy-post.twig:61
-#: templates/single.twig:69 templates/tease-author.twig:52
+#: src/Post/ReadingTimeCalculator.php:132 templates/tease-taxonomy-post.twig:63
+#: templates/tease-author.twig:54 templates/single.twig:69
 #, php-format
 msgid "%d min read"
 msgstr ""
 
 #. %d = Number of results.
-#: src/Search.php:714
+#: src/Search.php:733
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
@@ -72,15 +72,19 @@ msgstr "Kabul et"
 msgid "Act"
 msgstr "Harekete Geç"
 
-#: src/Search.php:946 src/Post.php:263
+#: src/Post.php:276
 msgid "ACTION"
 msgstr "EYLEM"
 
-#: src/Search.php:784
+#: src/Search/Filters/ContentTypes.php:109
 msgid "Action"
 msgstr "Eylem"
 
-#: templates/search.twig:210
+#: templates/search.twig:255
+msgid "Action Type"
+msgstr ""
+
+#: templates/search.twig:181
 msgid "ACTIVE FILTERS"
 msgstr "AKTİF FİLTRELER"
 
@@ -92,12 +96,12 @@ msgstr "Tümüne izin ver"
 msgid "Always enabled"
 msgstr ""
 
-#: templates/search.twig:200
+#: templates/search.twig:171
 msgid "Apply filters"
 msgstr "Filtre Uygula"
 
-#: src/Search.php:805 src/Search.php:966 templates/tease-search.twig:43
-#: templates/tease-search.twig:129
+#: src/Search/Filters/ContentTypes.php:105 templates/tease-search.twig:43
+#: templates/tease-search.twig:123
 msgid "Archive"
 msgstr "Arşiv"
 
@@ -109,28 +113,20 @@ msgstr ""
 msgid "Articles"
 msgstr "Yazılar"
 
-#: src/Search.php:954 templates/search.twig:172
-msgid "CAMPAIGN"
-msgstr "KAMPANYA"
-
-#: src/Search.php:788 templates/tease-search.twig:41
-#: templates/tease-search.twig:127 templates/search.twig:253
+#: src/Search/Filters/ContentTypes.php:101 templates/tease-search.twig:41
+#: templates/tease-search.twig:121
 msgid "Campaign"
 msgstr "Kampanya"
 
-#: templates/search.twig:199
+#: templates/search.twig:170
 msgid "Cancel"
 msgstr "İptal"
 
-#: templates/search.twig:111
-msgid "CATEGORY"
-msgstr "KATEGORİ"
-
-#: templates/search.twig:279
+#: templates/search.twig:82 templates/search.twig:197
 msgid "Category"
 msgstr "Kategori"
 
-#: templates/navigation-bar.twig:46 templates/footer_country_selector.twig:11
+#: templates/footer_country_selector.twig:11
 msgid "Change Country"
 msgstr "Ülkeyi Değiştir"
 
@@ -138,56 +134,50 @@ msgstr "Ülkeyi Değiştir"
 msgid "Check for typos, and try your search again"
 msgstr "Yazımı kontrol et veya yeniden arama yap"
 
-#: templates/search.twig:219
+#: templates/search.twig:190
 msgid "Clear all"
 msgstr "Hepsini Temizle"
 
-#: templates/navigation-bar-new.twig:106
+#: templates/search-form.twig:32
 msgid "Clear search"
 msgstr ""
 
-#: templates/navigation-bar.twig:33
-msgid "Close Menu"
-msgstr "Menüyü Kapat"
-
-#: templates/navigation-bar-new.twig:134
-msgid "Close navigation menu"
+#: templates/burger-menu.twig:10
+msgid "Close navigation mobile menu"
 msgstr ""
 
 #: templates/comment_form/comment_field.twig:4
 msgid "Comment"
 msgstr "Yorum"
 
-#: templates/single.twig:76 templates/comments_section.twig:2
+#: templates/comments_section.twig:2 templates/single.twig:76
 msgid "Comments"
 msgstr "Yorumlar"
 
-#: templates/search.twig:306
-msgid "Content type"
+#: templates/search.twig:140 templates/search.twig:284
+#, fuzzy
+#| msgid "Content type"
+msgid "Content Type"
 msgstr "İçerik Çeşidi"
-
-#: templates/search.twig:140
-msgid "CONTENT TYPES"
-msgstr "İÇERİK ÇEŞİTLERİ"
 
 #: templates/comments_section.twig:9
 msgid "Discussion"
 msgstr "Tartışma"
 
-#: src/Search.php:958 src/Post.php:269
+#: src/Post.php:282
 msgid "DOCUMENT"
 msgstr "DOSYA"
 
-#: src/Search.php:792
+#: src/Search/Filters/ContentTypes.php:89
 msgid "Document"
 msgstr "Dosya"
 
-#: src/MasterSite.php:588
+#: src/MasterSite.php:564 src/MasterSite.php:626
 #| msgid "DONATE"
 msgid "Donate"
 msgstr "Dergi Abonesi Ol"
 
-#: templates/tease-search.twig:122
+#: templates/tease-search.twig:116
 msgid "Download"
 msgstr "İndir"
 
@@ -223,6 +213,14 @@ msgstr "Greenpeace International"
 msgid "Greenpeace Planet 4 Master Theme"
 msgstr ""
 
+#: functions.php:447
+msgid "here"
+msgstr ""
+
+#: templates/burger-menu.twig:34
+msgid "Home"
+msgstr ""
+
 #. Author URI of the theme
 msgid "https://github.com/greenpeace"
 msgstr ""
@@ -231,27 +229,26 @@ msgstr ""
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr ""
 
-#: src/MasterSite.php:589
+#: single.php:101
+msgid ""
+"I agree on providing my name, email and content so that my comment can be "
+"stored and displayed in the website."
+msgstr ""
+
+#: src/MasterSite.php:627
 msgid "International (English)"
 msgstr "International"
 
-#: templates/single-password.twig:18 templates/single-page.twig:15
+#: templates/single-page.twig:15 templates/single-password.twig:18
 msgid "Invalid password, please try again"
 msgstr ""
 
-#: templates/search.twig:82
-msgid "ISSUE"
-msgstr "ÇALIŞTIĞIMIZ ALAN"
-
-#: templates/search.twig:226
-msgid "Issue"
-msgstr "Çalıştığımız Alan"
-
-#: single.php:96
+#: single.php:107
 msgid "Leave your reply"
 msgstr "Yorumunu bırak"
 
-#: templates/taxonomy.twig:42 templates/author.twig:56
+#: templates/all-posts.twig:35 templates/author.twig:49
+#: templates/taxonomy.twig:46
 msgid "Load More"
 msgstr "Daha fazlası"
 
@@ -267,11 +264,11 @@ msgstr "Çerez ayarlarınızı yönetin"
 msgid "Master theme for the Planet 4 Wordpress project"
 msgstr ""
 
-#: templates/navigation-bar-new.twig:17 templates/navigation-bar.twig:18
+#: templates/navigation-bar.twig:20
 msgid "Menu"
 msgstr "Menü"
 
-#: src/Search.php:692 src/MasterSite.php:90
+#: src/MasterSite.php:94 src/Search.php:711
 msgid "Most relevant"
 msgstr "En ilgili"
 
@@ -279,19 +276,19 @@ msgstr "En ilgili"
 msgid "Name"
 msgstr "İsim"
 
-#: src/Search.php:696 src/MasterSite.php:94
+#: src/MasterSite.php:98 src/Search.php:715
 msgid "Newest"
 msgstr ""
 
-#: src/Search.php:700 src/MasterSite.php:98
+#: src/MasterSite.php:102 src/Search.php:719
 msgid "Oldest"
 msgstr ""
 
-#: src/Search.php:949 src/Post.php:265
+#: src/Post.php:278
 msgid "PAGE"
 msgstr "SAYFA"
 
-#: src/Search.php:796
+#: src/Search/Filters/ContentTypes.php:93
 msgid "Page"
 msgstr "Sayfa"
 
@@ -299,27 +296,31 @@ msgstr "Sayfa"
 msgid "Please select which cookies you are willing to store."
 msgstr "Lütfen hangi çerezleri saklamak istediğinizi seçin."
 
-#: src/Search.php:962 src/Post.php:272
+#: src/Post.php:285
 msgid "POST"
 msgstr "İÇERİK"
 
-#: src/Search.php:800
+#: src/Search/Filters/ContentTypes.php:97
 msgid "Post"
 msgstr "İçerik"
 
-#: templates/comment_form/submit_button.twig:1
+#: templates/comment_form/submit_button.twig:23
 msgid "Post comment"
 msgstr "İçerik Yorumu"
 
-#: templates/author.twig:32
+#: templates/search.twig:111 templates/search.twig:226
+msgid "Post Type"
+msgstr ""
+
+#: templates/author.twig:22
 msgid "Posts by "
 msgstr "İçerikler"
 
-#: tag.php:90
+#: tag.php:100
 msgid "Publications"
 msgstr ""
 
-#: templates/search.twig:68 templates/search.twig:207
+#: templates/search.twig:68 templates/search.twig:178
 msgid "Refine your search"
 msgstr "Arama sonuçlarını daralt"
 
@@ -331,11 +332,11 @@ msgstr ""
 msgid "Reject all cookies"
 msgstr ""
 
-#: tag.php:117
+#: tag.php:127
 msgid "Related Campaigns"
 msgstr "İlgili Kampanyalar"
 
-#: templates/taxonomy.twig:18
+#: templates/all-posts.twig:11 templates/taxonomy.twig:22
 msgid "Results"
 msgstr "Sonuçlar"
 
@@ -343,12 +344,12 @@ msgstr "Sonuçlar"
 msgid "Save preferences"
 msgstr "Tercihleri kaydet"
 
-#: templates/navigation-bar-new.twig:76 templates/navigation-bar.twig:7
-#: templates/404.twig:17 templates/search.twig:8 templates/search.twig:45
+#: templates/search-form.twig:2 templates/404.twig:17 templates/search.twig:8
+#: templates/search.twig:45
 msgid "Search"
 msgstr "Sitede Ara"
 
-#: templates/navigation-bar.twig:45 templates/footer_country_selector.twig:11
+#: templates/footer_country_selector.twig:11
 msgid "Selected"
 msgstr "Seçili"
 
@@ -356,17 +357,19 @@ msgstr "Seçili"
 msgid "Settings"
 msgstr "Tercihler"
 
-#: templates/blocks/share_buttons.twig:8 templates/blocks/share_buttons.twig:15
-#: templates/blocks/share_buttons.twig:22
+#: templates/blocks/share_buttons.twig:44
+#: templates/blocks/share_buttons.twig:53
+#: templates/blocks/share_buttons.twig:62
 msgid "Share on"
 msgstr "Paylaş"
 
-#: templates/blocks/share_buttons.twig:29
+#: templates/blocks/share_buttons.twig:71
+#: templates/blocks/share_buttons.twig:81
 msgid "Share via"
 msgstr "Paylaş"
 
 #. %s = number of results per page.
-#: src/Search.php:1049
+#: src/Search.php:950
 #, php-format
 #| msgid "SHOW %s MORE RESULTS"
 msgid "Show %s more results"
@@ -400,11 +403,11 @@ msgstr "Navigasyona geç"
 msgid "Sorry, we can't find that page!"
 msgstr "Üzgünüz, bu sayfayı bulamıyoruz!"
 
-#: templates/search.twig:337
+#: templates/search.twig:317
 msgid "Sort by"
 msgstr "Sırala"
 
-#: templates/single-password.twig:22 templates/single-page.twig:19
+#: templates/single-page.twig:19 templates/single-password.twig:22
 msgid "Submit"
 msgstr ""
 
@@ -412,36 +415,38 @@ msgstr ""
 msgid "Take action"
 msgstr "Şimdi harekete geç"
 
-#: tag.php:72
+#: functions.php:446
+msgid ""
+"The content on this page is hidden because this page is being used as your "
+"\\\"All Posts\\\" listing page. You can disable this by un-setting the "
+"\\\"Posts page\\\""
+msgstr ""
+
+#: tag.php:89
 msgid "Things you can do"
 msgstr "Yapabileceklerin"
 
-#: tag.php:118
+#: tag.php:128
 msgid "This Campaign is not assigned to an Issue"
 msgstr "Bu kampanya bir kategoriye atanmamış"
 
-#: assets/src/js/pdf_icon.js:20
+#: templates/tease-search.twig:115 assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
 msgstr ""
 
-#: templates/single-password.twig:15 templates/single-page.twig:12
+#: templates/single-page.twig:12 templates/single-password.twig:15
 msgid "To see the content of this page, please enter your password  below"
 msgstr ""
 
-#: templates/navigation-bar.twig:6
-msgid "Toggle navigation menu"
-msgstr ""
-
-#: src/MasterSite.php:529
+#: src/MasterSite.php:547
 msgid "Toggle search box"
 msgstr ""
 
-#: templates/navigation-bar-new.twig:71 templates/navigation-bar-new.twig:149
-#: templates/navigation-bar.twig:99
+#: templates/desktop-menu.twig:57 templates/navigation-bar.twig:39
 msgid "Toggle search form"
 msgstr ""
 
-#: src/MasterSite.php:528
+#: src/MasterSite.php:546
 msgid "Toggle worldwide site selection menu"
 msgstr ""
 
@@ -453,7 +458,7 @@ msgstr "Başka bir şey aramayı dene"
 msgid "We also included results for "
 msgstr "Şu sonuçları da ekledik"
 
-#: tag.php:73
+#: tag.php:90
 msgid "We want you to take action because together we're strong."
 msgstr "Harekete geçmeni istiyoruz çünkü birlikte güçlüyüz."
 
