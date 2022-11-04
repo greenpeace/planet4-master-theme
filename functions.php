@@ -468,6 +468,9 @@ add_action(
 	'admin_head',
 	function() {
 		global $submenu;
-		uasort( $submenu['planet4_settings_navigation'], fn ( $a, $b ) => $a[0] <=> $b[0] );
+
+		if ( isset( $submenu['planet4_settings_navigation'] ) ) {
+			uasort( $submenu['planet4_settings_navigation'], fn ( $a, $b ) => $a[0] <=> $b[0] );
+		}
 	}
 );
