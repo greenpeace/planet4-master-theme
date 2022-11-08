@@ -419,6 +419,7 @@ jobs:
           name: Get merge commit test instance
           command: |
             instance=$(find-commit-test-instance.py)
+            mkdir -p /tmp/workspace/
             echo "$instance" >/tmp/workspace/test-instance
       - run:
           name: Activate gcloud
