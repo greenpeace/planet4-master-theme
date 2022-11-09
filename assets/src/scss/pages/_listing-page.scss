@@ -80,7 +80,7 @@
   }
 
   // Firefox
-  .wrapper-action-type:not(:-moz-only-whitespace) {
+  .wrapper-post-term:not(:-moz-only-whitespace) {
     display: flex;
 
     & ~ .wrapper-post-tag:not(:-moz-only-whitespace) {

@@ -1,32 +1,35 @@
 <!-- wp:query { "query":{ "inherit": true } } -->
 <div class="wp-block-query wp-block-query--list">
 	<!-- wp:post-template -->
-	    <article class="article-list-item">
-			<div class="article-list-item-image article-list-item-image-max-width">
-				<!-- wp:p4/post-featured-image /-->
-			</div>
-			<div class="article-list-item-body">
-				<div class="top-page-tags d-flex">
+	<article class="query-list-item">
+		<div class="query-list-item-image query-list-item-image-max-width">
+			<!-- wp:p4/post-featured-image /-->
+		</div>
+		<div class="query-list-item-body">
+
+			<div class="query-list-item-post-terms">
+				<div class="wrapper-post-term">
 					<!-- wp:post-terms {"term":"p4-page-type"} /-->
-					<span class="tag-wrap-bullet" aria-hidden="true">•</span>
-					<!-- wp:post-terms {"term":"post_tag", "separator": "  "} /-->
 				</div>
-
-				<header>
-					<!-- wp:post-title {"isLink":true, "level":4, "className": "article-list-item-headline"} /-->
-				</header>
-				<!-- wp:post-excerpt {"className": "article-list-item-content"} /-->
-
-				<div class="article-list-item-meta d-flex">
-					<!-- wp:p4/post-author-name /-->
-					<span class="article-list-item-bullet" aria-hidden="true">•</span>
-					<!-- wp:post-date /-->
-					<span class="article-list-item-bullet" aria-hidden="true">•</span>
-					<!-- wp:p4/reading-time /-->
+				<div class="wrapper-post-tag">
+					<!-- wp:post-terms {"term":"post_tag"} /-->
 				</div>
 			</div>
-		</article>
-	<!-- /wp:post-template -->
+
+			<header>
+				<!-- wp:post-title {"isLink":true, "level":4, "className": "query-list-item-headline"} /-->
+			</header>
+			<!-- wp:post-excerpt {"className": "query-list-item-content"} /-->
+
+			<div class="query-list-item-meta d-flex">
+				<!-- wp:p4/post-author-name /-->
+				<span class="query-list-item-bullet" aria-hidden="true">•</span>
+				<!-- wp:post-date /-->
+				<!-- wp:p4/reading-time /-->
+			</div>
+		</div>
+	</article>
+<!-- /wp:post-template -->
 
 	<!-- wp:query-pagination -->
 		<!-- wp:query-pagination-previous /-->
