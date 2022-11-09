@@ -44,14 +44,16 @@ class Campaign extends Block_Pattern {
 						<!-- wp:spacer {"height":"64px"} -->
 							<div style="height:64px" aria-hidden="true" class="wp-block-spacer"></div>
 						<!-- /wp:spacer -->
-						' . SideImageWithTextAndCta::get_config( [ 'title_placeholder' => __( 'The problem', 'planet4-blocks' ) ] )['content'] . '
+						' . SideImageWithTextAndCta::get_config(
+							[ 'title' => __( 'The problem', 'planet4-blocks' ) ]
+						)['content'] . '
 						<!-- wp:spacer {"height":"32px"} -->
 							<div style="height:32px" aria-hidden="true" class="wp-block-spacer"></div>
 						<!-- /wp:spacer -->
 						' . SideImageWithTextAndCta::get_config(
 							[
-								'title_placeholder' => __( 'The solution', 'planet4-blocks' ),
-								'media_position'    => 'right',
+								'title'         => __( 'The solution', 'planet4-blocks' ),
+								'mediaPosition' => 'right',
 							]
 						)['content'] . '
 						<!-- wp:spacer {"height":"32px"} -->

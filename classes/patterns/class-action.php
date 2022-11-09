@@ -46,8 +46,8 @@ class Action extends Block_Pattern {
 									<div class="wp-block-group container">
 						' . SideImageWithTextAndCta::get_config(
 							[
-								'media_position'    => 'right',
-								'title_placeholder' => __( 'The problem', 'planet4-blocks' ),
+								'title'         => __( 'The problem', 'planet4-blocks' ),
+								'mediaPosition' => 'right',
 							]
 						)['content'] . '
 									</div>

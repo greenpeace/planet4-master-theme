@@ -45,14 +45,12 @@ class DeepDiveTopic extends Block_Pattern {
 						<div style="height:64px" aria-hidden="true" class="wp-block-spacer"></div>
 					<!-- /wp:spacer -->
 					' . SideImageWithTextAndCta::get_config(
-						[
-							'title_placeholder' => __( 'The problem', 'planet4-blocks' ),
-						]
+						[ 'title' => __( 'The problem', 'planet4-blocks' ) ]
 					)['content'] . '
 					' . SideImageWithTextAndCta::get_config(
 						[
-							'title_placeholder' => __( 'What can be done', 'planet4-blocks' ),
-							'media_position'    => 'right',
+							'title'         => __( 'What can be done', 'planet4-blocks' ),
+							'mediaPosition' => 'right',
 						]
 					)['content'] . '
 					' . Covers::get_content(

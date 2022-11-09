@@ -56,21 +56,22 @@ class Homepage extends Block_Pattern {
 				<div style="height:56px" aria-hidden="true" class="wp-block-spacer"></div>
 				<!-- /wp:spacer -->
 
-				' . SideImageWithTextAndCta::get_config( [ 'title_placeholder' => __( 'Get to know us', 'planet4-blocks-backend' ) ] )['content'] . '
+				' . SideImageWithTextAndCta::get_config(
+						[
+							'title'         => __( 'Get to know us', 'planet4-blocks' ),
+							'mediaPosition' => 'right',
+						]
+					)['content'] . '
 
 				<!-- wp:spacer {"height":"30px"} -->
 				<div style="height:30px" aria-hidden="true" class="wp-block-spacer"></div>
 				<!-- /wp:spacer -->
-
 				' . SideImageWithTextAndCta::get_config(
-					[
-						'media_position'    => 'right',
-						'title_placeholder' => __(
-							'We win campaigns',
-							'planet4-blocks-backend'
-						),
-					]
-				)['content'] . '
+						[
+							'title'         => __( 'We win campaigns', 'planet4-blocks' ),
+							'mediaPosition' => 'right',
+						]
+					)['content'] . '
 
 				<!-- wp:spacer {"height":"56px"} -->
 				<div style="height:56px" aria-hidden="true" class="wp-block-spacer"></div>

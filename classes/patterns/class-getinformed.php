@@ -39,14 +39,18 @@ class GetInformed extends Block_Pattern {
 				<!-- wp:group {"className":"block ' . $classname . '"} -->
 					<div class="wp-block-group block ' . $classname . '">
 						' . QuickLinks::get_config( [ 'title_placeholder' => __( 'Explore by topic', 'planet4-blocks' ) ] )['content'] . '
-						' . SideImageWithTextAndCta::get_config( [ 'title_placeholder' => __( 'Topic 1', 'planet4-blocks' ) ] )['content'] . '
+						' . SideImageWithTextAndCta::get_config(
+							[ 'title' => __( 'Topic 1', 'planet4-blocks' ) ]
+						)['content'] . '
 						' . SideImageWithTextAndCta::get_config(
 							[
-								'media_position'    => 'right',
-								'title_placeholder' => __( 'Topic 2', 'planet4-blocks' ),
+								'title'         => __( 'Topic 2', 'planet4-blocks' ),
+								'mediaPosition' => 'right',
 							]
 						)['content'] . '
-						' . SideImageWithTextAndCta::get_config( [ 'title_placeholder' => __( 'Topic 3', 'planet4-blocks' ) ] )['content'] . '
+						' . SideImageWithTextAndCta::get_config(
+							[ 'title' => __( 'Topic 3', 'planet4-blocks' ) ]
+						)['content'] . '
 						' . Issues::get_config( [ 'title_placeholder' => __( 'Issues we work on', 'planet4-blocks' ) ] )['content'] . '
 						<!-- wp:planet4-blocks/articles {"article_heading":"' . __( 'Our recent victories', 'planet4-blocks' ) . '"} /-->
 						<!-- wp:planet4-blocks/gallery {
