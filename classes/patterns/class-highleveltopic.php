@@ -55,8 +55,8 @@ class HighLevelTopic extends Block_Pattern {
 						)['content'] . '
 						' . DeepDive::get_config(
 							[
-								'title_placeholder' => __( 'Better understand the issues [deep dive topics]', 'planet4-blocks' ),
-								'background_color'  => 'white',
+								'title'            => __( 'Better understand the issues [deep dive topics]', 'planet4-blocks' ),
+								'background_color' => 'white',
 							]
 						)['content'] . '
 						' . SideImageWithTextAndCta::get_config(

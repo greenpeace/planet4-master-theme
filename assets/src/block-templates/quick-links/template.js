@@ -13,7 +13,7 @@ const category = ['core/column', {}, [
       level: 5,
       style: {typography: {fontSize: '1rem'}},
       textAlign: 'center',
-      placeholder: 'Category'
+      placeholder: __('Category', 'planet4-blocks-backend')
     }]
   ]]
 ]];
@@ -23,7 +23,7 @@ const template = ({
   backgroundColor = 'grey-05',
 }) => ([
   ['core/group', {
-    className: `block ${metadata.classname}`,
+    className: 'block',
     align: 'full',
     backgroundColor
   }, [

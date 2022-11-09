@@ -59,9 +59,7 @@ class DeepDiveTopic extends Block_Pattern {
 						]
 					) . '
 					<!-- wp:planet4-blocks/articles {"article_heading":"' . __( 'Latest news & stories', 'planet4-blocks' ) . '"} /-->
-					' . DeepDive::get_config(
-						[ 'title_placeholder' => __( 'Keep learning about', 'planet4-blocks' ) ]
-					)['content'] . '
+					' . DeepDive::get_config( [ 'title' => __( 'Keep learning about', 'planet4-blocks' ) ] )['content'] . '
 					' . QuickLinks::get_config(
 						[
 							'title'            => __( 'Explore other topics', 'planet4-blocks' ),

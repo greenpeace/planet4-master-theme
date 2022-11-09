@@ -63,7 +63,7 @@ class TakeAction extends Block_Pattern {
 										<!-- wp:spacer {"height":"32px"} -->
 											<div style="height:32px" aria-hidden="true" class="wp-block-spacer"></div>
 										<!-- /wp:spacer -->
-										' . DeepDive::get_config( [ 'title_placeholder' => __( 'Raise awareness in your community', 'planet4-blocks' ) ] )['content'] . '
+										' . DeepDive::get_config( [ 'title' => __( 'Raise awareness in your community', 'planet4-blocks' ) ] )['content'] . '
 										<!-- wp:spacer {"height":"32px"} -->
 											<div style="height:32px" aria-hidden="true" class="wp-block-spacer"></div>
 										<!-- /wp:spacer -->
