@@ -208,6 +208,7 @@ const BETA_ACTION_BLOCK_TYPES = [
 
 const BLOCK_TEMPLATES = [
 	'planet4-block-templates/side-image-with-text-and-cta',
+	'planet4-block-templates/quick-links',
 ];
 
 /**

@@ -60,8 +60,8 @@ class Action extends Block_Pattern {
 						<!-- /wp:separator -->
 						' . QuickLinks::get_config(
 							[
-								'background_color'  => 'white',
-								'title_placeholder' => __( 'Explore by topics', 'planet4-blocks' ),
+								'background_color' => 'white',
+								'title'            => __( 'Explore by topics', 'planet4-blocks' ),
 							]
 						)['content'] . '
 					</div>

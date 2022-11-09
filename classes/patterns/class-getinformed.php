@@ -38,7 +38,7 @@ class GetInformed extends Block_Pattern {
 			'content'    => '
 				<!-- wp:group {"className":"block ' . $classname . '"} -->
 					<div class="wp-block-group block ' . $classname . '">
-						' . QuickLinks::get_config( [ 'title_placeholder' => __( 'Explore by topic', 'planet4-blocks' ) ] )['content'] . '
+						' . QuickLinks::get_config( [ 'title' => __( 'Explore by topic', 'planet4-blocks' ) ] )['content'] . '
 						' . SideImageWithTextAndCta::get_config(
 							[ 'title' => __( 'Topic 1', 'planet4-blocks' ) ]
 						)['content'] . '

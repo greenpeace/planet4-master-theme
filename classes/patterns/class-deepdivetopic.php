@@ -64,8 +64,8 @@ class DeepDiveTopic extends Block_Pattern {
 					)['content'] . '
 					' . QuickLinks::get_config(
 						[
-							'title_placeholder' => __( 'Explore other topics', 'planet4-blocks' ),
-							'background_color'  => 'white',
+							'title'            => __( 'Explore other topics', 'planet4-blocks' ),
+							'background_color' => 'white',
 						]
 					)['content'] . '
 					</div>

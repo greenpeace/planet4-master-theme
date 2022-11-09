@@ -84,8 +84,8 @@ class HighLevelTopic extends Block_Pattern {
 						' . GravityFormWithText::get_content() . '
 						' . QuickLinks::get_config(
 							[
-								'title_placeholder' => __( 'Explore by topics', 'planet4-blocks' ),
-								'background_color'  => 'white',
+								'title'            => __( 'Explore by topics', 'planet4-blocks' ),
+								'background_color' => 'white',
 							]
 						)['content'] . '
 					</div>
