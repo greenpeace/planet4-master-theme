@@ -39,6 +39,7 @@ class ActionPage {
 		add_action( 'init', [ $this, 'register_post_type' ] );
 		add_action( 'init', [ $this, 'register_post_meta' ] );
 		add_action( 'init', [ $this, 'register_taxonomy' ], 2 );
+		add_action( 'load-options-permalink.php', [ $this, 'p4_load_permalinks' ] );
 	}
 
 	/**
@@ -48,6 +49,11 @@ class ActionPage {
 
 		// IA: display action page type in admin sidebar.
 		$enable_action_post_type = ActionPostType::is_active();
+		// Use a custom action slug if added on permalink page, else use a default.
+		$action_slug = get_option( 'p4_action_posttype_slug' );
+		if ( ! $action_slug ) {
+			$action_slug = self::POST_TYPE_SLUG;
+		}
 
 		$labels = [
 			'name'               => _x( 'Actions', 'post type general name', 'planet4-master-theme-backend' ),
@@ -75,7 +81,7 @@ class ActionPage {
 			'show_in_menu'       => $enable_action_post_type,
 			'query_var'          => true,
 			'rewrite'            => [
-				'slug'       => self::POST_TYPE_SLUG,
+				'slug'       => $action_slug,
 				'with_front' => false,
 			],
 			'has_archive'        => true,
@@ -158,5 +164,28 @@ class ActionPage {
 		foreach ( self::META_FIELDS as $field ) {
 			register_post_meta( self::POST_TYPE, $field, $args );
 		}
+	}
+
+	/**
+	 * On load of permalinks page, add a action slug setting field.
+	 */
+	public function p4_load_permalinks() {
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( isset( $_POST['p4_action_posttype_slug'] ) ) {
+			update_option( 'p4_action_posttype_slug', sanitize_title_with_dashes( $_POST['p4_action_posttype_slug'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		}
+
+		// Add a settings field to the permalink page.
+		add_settings_field( 'p4_action_posttype_slug', __( 'Action post type slug', 'planet4-master-theme-backend' ), [ $this, 'add_action_slug_field' ], 'permalink', 'optional' );
+	}
+
+	/**
+	 * Add Action slug text field on permalinks page.
+	 */
+	public function add_action_slug_field() {
+
+		$value = get_option( 'p4_action_posttype_slug' );
+		echo '<input type="text" value="' . esc_attr( $value ) . '" name="p4_action_posttype_slug" id="p4_action_posttype_slug" class="regular-text" /><p>' . esc_html__( 'The default Action post type slug is "action".', 'planet4-master-theme-backend' ) . '</p>';
 	}
 }
