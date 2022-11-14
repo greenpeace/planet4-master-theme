@@ -1,6 +1,25 @@
 {
   "$schema": "https://schemas.wp.org/trunk/theme.json",
   "version": 2,
+  "styles": {
+		"elements": {
+			"link": {
+				"typography": {
+					"textDecoration": "none"
+				},
+				":hover": {
+					"typography": {
+						"textDecoration": "underline"
+					}
+				},
+				":active": {
+					"typography": {
+						"textDecoration": "underline"
+					}
+				}
+			}
+		}
+	},
   "settings": {
     "color": {
       "custom": false,
