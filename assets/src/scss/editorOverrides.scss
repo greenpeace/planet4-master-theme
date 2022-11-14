@@ -18,7 +18,7 @@
 }
 
 .editor-styles-wrapper {
-  padding: 0 1rem;
+  padding: 0 1rem !important;
 }
 
 .edit-post-visual-editor {
@@ -176,6 +176,7 @@
 
     .components-base-control__label {
       font-weight: bold;
+      text-transform: none;
     }
   }
 }

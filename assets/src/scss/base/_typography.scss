@@ -106,7 +106,6 @@ h6 {
 
 a --link-- {
   color: $link-color;
-  text-decoration: none;
 
   &:focus {
     outline: 2px solid rgba(0, 106, 255, 0.4);
@@ -117,7 +116,6 @@ a --link-- {
   &:hover,
   &:active {
     color: $link-color;
-    text-decoration: underline;
   }
 
   &:visited {
