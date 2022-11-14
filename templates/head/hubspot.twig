@@ -7,13 +7,4 @@
 	if (getCookieValue('greenpeace') !== '2') {
 		(window._hsp = window._hsp || []).push(['revokeCookieConsent']);
 	}
-
-	window.addEventListener('message', event => {
-		if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {
-			window.dataLayer.push({
-				'event': 'formSubmission',
-				'hs-form-guid': event.data.id
-			});
-		}
-	});
 </script>

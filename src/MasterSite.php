@@ -642,7 +642,7 @@ class MasterSite extends TimberSite {
 			\JSON_OBJECT_AS_ARRAY
 		);
 		// HubSpot.
-		$context['hubspot_active'] = is_plugin_active( 'leadin/leadin.php' );
+		$context['hubspot_active'] = is_plugin_active( 'gravityformshubspot/hubspot.php' );
 
 		// Dummy thumbnail.
 		$context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';
