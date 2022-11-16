@@ -13,6 +13,8 @@
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\Post;
+use P4\MasterTheme\ActionPage;
+use P4\MasterTheme\Features\ActionPostType;
 use Timber\Timber;
 
 $templates = [ 'taxonomy.twig', 'index.twig' ];
@@ -33,15 +35,30 @@ if ( ListingPagePagination::is_active() ) {
 	exit();
 }
 
-$post_args = [
-	'posts_per_page' => 10,
-	'post_type'      => 'post',
-	'paged'          => 1,
-	'p4-page-type'   => $context['taxonomy']->slug,
-	'has_password'   => false,  // Skip password protected content.
+$allowed_post_types = [
+	'post',
+	'page',
+	'campaign',
+	'attachment',
+	ActionPostType::is_active() ? ActionPage::POST_TYPE : null,
 ];
 
-$context['page_category'] = 'Post Type Page';
+$post_args = [
+	'posts_per_page' => 10,
+	'post_type'      => $allowed_post_types,
+	'paged'          => 1,
+	'has_password'   => false,  // Skip password protected content.
+	'tax_query'      => [
+		[
+			'taxonomy' => $context['taxonomy']->taxonomy,
+			'field'    => 'slug',
+			'terms'    => $context['taxonomy']->slug,
+		],
+	],
+];
+
+$context['page_category']       = 'Post Type Page';
+$context['custom_body_classes'] = 'tax-p4-page-type';
 
 if ( get_query_var( 'page' ) ) {
 	$templates          = [ 'tease-taxonomy-post.twig' ];
