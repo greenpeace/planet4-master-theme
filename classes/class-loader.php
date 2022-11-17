@@ -548,10 +548,13 @@ DEFERREDCSS;
 				'slug'  => 'planet4-blocks',
 				'title' => 'Planet 4 Blocks',
 			],
-
 			[
 				'slug'  => 'planet4-blocks-beta',
 				'title' => 'Planet 4 Blocks - BETA',
+			],
+			[
+				'slug'  => 'planet4-block-templates',
+				'title' => 'Planet 4 Block Templates',
 			],
 		];
 
