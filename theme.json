@@ -2,20 +2,47 @@
   "$schema": "https://schemas.wp.org/trunk/theme.json",
   "version": 2,
   "styles": {
+    "color": {
+      "background": "#ffffff",
+      "text": "#020202"
+    },
+    "typography": {
+      "fontFamily": "Lora, serif"
+    },
 		"elements": {
+      "heading": {
+        "typography": {
+          "fontFamily": "Roboto, sans-serif",
+          "fontWeight": "bold"
+        }
+      },
 			"link": {
+        "color": {
+          "text": "#006dfd"
+        },
 				"typography": {
 					"textDecoration": "none"
 				},
 				":hover": {
+          "color": {
+            "text": "#006dfd"
+          },
 					"typography": {
 						"textDecoration": "underline"
 					}
 				},
 				":active": {
+          "color": {
+            "text": "#006dfd"
+          },
 					"typography": {
 						"textDecoration": "underline"
 					}
+				},
+				":visited": {
+          "color": {
+            "text": "#68009e"
+          }
 				}
 			}
 		}

@@ -25,11 +25,6 @@ h3,
 h4,
 h5,
 h6 {
-  --headings-- {
-    font-family: $roboto;
-    font-weight: bold;
-  }
-
   &.has-text-align-center,
   &.has-text-align-right,
   &.has-text-align-left {
@@ -105,21 +100,10 @@ h6 {
 }
 
 a --link-- {
-  color: $link-color;
-
   &:focus {
     outline: 2px solid rgba(0, 106, 255, 0.4);
     outline-offset: 2px;
     border-radius: 4px;
-  }
-
-  &:hover,
-  &:active {
-    color: $link-color;
-  }
-
-  &:visited {
-    color: $link-color-visited;
   }
 }
 
