@@ -37,9 +37,9 @@ class Issues extends Block_Pattern {
 				<img src="' . $media_link . '" alt="' . __( 'Default image', 'planet4-blocks-backend' ) . '"/>
 			</figure>
 			<div class="wp-block-media-text__content">
-			<!-- wp:paragraph {"className":"mb-0 lh-sm","align":"left","placeholder":"' . __( 'Enter text', 'planet4-blocks-backend' ) . '","style":{"typography":{"fontSize":"1rem","fontStyle":"normal","fontWeight":"700"}},"className":"is-style-roboto-font-family"} -->
-			<p class="mb-0 lh-sm has-text-align-left is-style-roboto-font-family" style="font-size:1rem;font-style:normal;font-weight:700"></p>
-			<!-- /wp:paragraph --></div></div>
+			<!-- wp:heading {"level":4,"className":"mb-0","placeholder":"' . __( 'Enter text', 'planet4-blocks-backend' ) . '","style":{"typography":{"fontSize":"1rem"}}} -->
+			<h4 class="mb-0" style="font-size:1rem"></h4>
+			<!-- /wp:heading --></div></div>
 			<!-- /wp:media-text --></div>
 		<!-- /wp:group -->';
 	}
