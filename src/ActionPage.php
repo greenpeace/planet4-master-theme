@@ -41,6 +41,16 @@ class ActionPage {
 		add_action( 'init', [ $this, 'register_post_meta' ] );
 		add_action( 'init', [ $this, 'register_taxonomy' ], 2 );
 		add_action( 'load-options-permalink.php', [ $this, 'p4_load_permalinks' ] );
+
+		// Flush and regenerate rewrite rules on taxonomy change.
+		add_action( 'created_term', [ $this, 'trigger_rewrite_rules' ], 10, 3 );
+		add_action( 'edited_term', [ $this, 'trigger_rewrite_rules' ], 10, 3 );
+		add_action( 'delete_term', [ $this, 'trigger_rewrite_rules' ], 10, 3 );
+
+		// Rewrites the permalink to this taxonomy's page.
+		add_filter( 'term_link', [ $this, 'filter_term_permalink' ], 10, 3 );
+		add_filter( 'post_rewrite_rules', [ $this, 'replace_taxonomy_terms_in_rewrite_rules' ], 10, 1 );
+		add_filter( 'root_rewrite_rules', [ $this, 'add_terms_rewrite_rules' ], 10, 1 );
 	}
 
 	/**
@@ -188,5 +198,169 @@ class ActionPage {
 
 		$value = get_option( 'p4_action_posttype_slug' );
 		echo '<input type="text" value="' . esc_attr( $value ) . '" name="p4_action_posttype_slug" id="p4_action_posttype_slug" class="regular-text" /><p>' . esc_html__( 'The default Action post type slug is "action".', 'planet4-master-theme-backend' ) . '</p>';
+	}
+
+	/**
+	 * Filter for term_link.
+	 *
+	 * @param string $link     The link value.
+	 * @param string $term     The term passed to the filter (unused).
+	 * @param string $taxonomy Taxonomy of the given link.
+	 *
+	 * @return string The filtered permalink for this taxonomy.
+	 */
+	public function filter_term_permalink( $link, $term, $taxonomy ) {
+		if ( self::TAXONOMY !== $taxonomy ) {
+			return $link;
+		}
+
+		return str_replace( self::TAXONOMY_SLUG . '/', '', $link );
+	}
+
+	/**
+	 * Filter for post_rewrite_rules.
+	 *
+	 * @param array $rules   Post rewrite rules passed by WordPress.
+	 *
+	 * @return array        The filtered post rewrite rules.
+	 */
+	public function replace_taxonomy_terms_in_rewrite_rules( $rules ) {
+		// Get planet4 page type taxonomy terms.
+		$term_slugs = $this->get_terms_slugs();
+
+		if ( $term_slugs ) {
+			$terms_slugs_regex = implode( '|', $term_slugs );
+
+			$new_rules = [];
+			foreach ( $rules as $match => $rule ) {
+				$new_match               = str_replace( '%' . self::TAXONOMY_PARAMETER . '%', "($terms_slugs_regex)", $match );
+				$new_rule                = str_replace( '%' . self::TAXONOMY_PARAMETER . '%', self::TAXONOMY . '=', $rule );
+				$new_rules[ $new_match ] = $new_rule;
+			}
+
+			return $new_rules;
+		}
+
+		return $rules;
+	}
+
+	/**
+	 * Add each taxonomy term as a root rewrite rule.
+	 * Filter hook for root_rewrite_rules.
+	 *
+	 * @param array $rules  Root rewrite rules passed by WordPress.
+	 *
+	 * @return array        The filtered root rewrite rules.
+	 */
+	public function add_terms_rewrite_rules( $rules ) {
+		// Add a rewrite rule for each slug of this taxonomy type (e.g.: "petition", "event", etc.)
+		// for action type pages.
+		// e.g | petition/?$ | index.php?action-type=petition | .
+		$terms_slugs = $this->get_terms_slugs();
+
+		if ( $terms_slugs ) {
+			foreach ( $terms_slugs as $slug ) {
+				$rules[ $slug . '/?$' ] = 'index.php?' . self::TAXONOMY . '=' . $slug;
+			}
+		}
+
+		return $rules;
+	}
+
+	/**
+	 * Get the slugs for all terms in this taxonomy.
+	 *
+	 * @return array Flat array containing the slug for every term.
+	 */
+	private function get_terms_slugs() : array {
+		// Get planet4 action type taxonomy terms.
+		$terms = $this->get_all_terms();
+
+		if ( ! is_wp_error( $terms ) ) {
+			$term_slugs = [];
+			if ( ! empty( $terms ) ) {
+				foreach ( $terms as $term ) {
+					$term_slugs[] = $term->slug;
+				}
+			}
+
+			return $term_slugs;
+		}
+
+		return [];
+	}
+
+	/**
+	 * Get all taxonomy's terms, despite if wpml plugin is activated.
+	 *
+	 * @return array|int|WP_Error
+	 */
+	public function get_all_terms() {
+		// Get taxonomy terms if wpml plugin is installed and activated.
+		if ( function_exists( 'is_plugin_active' ) && is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
+			return $this->get_multilingual_terms();
+		}
+		return $this->get_terms();
+	}
+
+	/**
+	 * Get all taxonomy's terms (for all languages available) if wpml is enabled.
+	 *
+	 * @return WP_Term[]
+	 */
+	public function get_multilingual_terms() {
+
+		$all_terms           = [];
+		$current_lang        = apply_filters( 'wpml_current_language', null );
+		$available_languages = apply_filters( 'wpml_active_languages', null, 'orderby=id&order=desc' );
+
+		foreach ( $available_languages as $lang ) {
+			do_action( 'wpml_switch_language', $lang['language_code'] );
+			$terms = get_terms(
+				[
+					'fields'     => 'all',
+					'hide_empty' => false,
+					'taxonomy'   => self::TAXONOMY,
+				]
+			);
+			if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+				$all_terms = array_merge( $all_terms, $terms );
+			}
+		}
+
+		do_action( 'wpml_switch_language', $current_lang );
+
+		return $all_terms;
+	}
+
+	/**
+	 * Get taxonomy's terms.
+	 *
+	 * @return array|int|WP_Error
+	 */
+	public function get_terms() {
+		// Get planet4 action type taxonomy terms.
+		return get_terms(
+			[
+				'fields'     => 'all',
+				'hide_empty' => false,
+				'taxonomy'   => self::TAXONOMY,
+			]
+		);
+	}
+
+	/**
+	 * Flush and regenerate rewrite rules when a new action_type is created/edited/deleted.
+	 *
+	 * @param int    $term_id  Term ID.
+	 * @param int    $tt_id    Term taxonomy ID.
+	 * @param string $taxonomy Taxonomy slug.
+	 */
+	public function trigger_rewrite_rules( $term_id, $tt_id, $taxonomy ) {
+		if ( self::TAXONOMY !== $taxonomy ) {
+			return;
+		}
+
+		flush_rewrite_rules();
 	}
 }
