@@ -141,6 +141,17 @@
             }
           ]
         }
+      },
+      "core/paragraph": {
+        "typography": {
+          "fontFamilies": [
+            {
+              "name": "Roboto",
+              "fontFamily": "Roboto, sans-serif",
+              "slug": "roboto"
+            }
+          ]
+        }
       }
     },
     "layout": {
