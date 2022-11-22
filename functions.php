@@ -220,7 +220,7 @@ add_filter(
 add_filter(
 	'block_editor_settings_all',
 	function ( array $editor_settings, WP_Block_Editor_Context $block_editor_context ) {
-		if ( 'post' !== $block_editor_context->post->post_type ) {
+		if ( isset( $block_editor_context->post ) && 'post' !== $block_editor_context->post->post_type ) {
 			$editor_settings['__experimentalFeatures']['layout']['contentSize'] = '1320px';
 		}
 
