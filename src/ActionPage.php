@@ -49,8 +49,30 @@ class ActionPage {
 
 		// Rewrites the permalink to this taxonomy's page.
 		add_filter( 'term_link', [ $this, 'filter_term_permalink' ], 10, 3 );
-		add_filter( 'post_rewrite_rules', [ $this, 'replace_taxonomy_terms_in_rewrite_rules' ], 10, 1 );
+		// TODO: Test if this filter is needed or not.
+		//add_filter( 'post_rewrite_rules', [ $this, 'replace_taxonomy_terms_in_rewrite_rules' ], 10, 1 );
 		add_filter( 'root_rewrite_rules', [ $this, 'add_terms_rewrite_rules' ], 10, 1 );
+
+		// Provides a filter element for the taxonomy in the action list.
+		add_action( 'restrict_manage_posts', [ $this, 'filter_actions_by_action_type' ], 10, 2 );
+
+		// Rewrites the permalink to a actions belonging to this taxonomy.
+		add_filter( 'post_type_link', [ $this, 'filter_permalink' ], 10, 2 );
+	}
+
+	/**
+	 * Get Action post type slug.
+	 *
+	 * @return string
+	 */
+	public function get_action_slug() : string {
+		// Check for "Action post type slug" setting, if added in Permalink Settings >> Optional section.
+		$action_slug = get_option( 'p4_action_posttype_slug' );
+		if ( ! $action_slug ) {
+			$action_slug = self::POST_TYPE_SLUG;
+		}
+
+		return $action_slug;
 	}
 
 	/**
@@ -60,11 +82,6 @@ class ActionPage {
 
 		// IA: display action page type in admin sidebar.
 		$enable_action_post_type = ActionPostType::is_active();
-		// Use a custom action slug if added on permalink page, else use a default.
-		$action_slug = get_option( 'p4_action_posttype_slug' );
-		if ( ! $action_slug ) {
-			$action_slug = self::POST_TYPE_SLUG;
-		}
 
 		$labels = [
 			'name'               => _x( 'Actions', 'post type general name', 'planet4-master-theme-backend' ),
@@ -92,7 +109,7 @@ class ActionPage {
 			'show_in_menu'       => $enable_action_post_type,
 			'query_var'          => true,
 			'rewrite'            => [
-				'slug'       => $action_slug,
+				'slug'       => '%' . self::TAXONOMY . '%/' . $this->get_action_slug(),
 				'with_front' => false,
 			],
 			'has_archive'        => true,
@@ -362,5 +379,70 @@ class ActionPage {
 		}
 
 		flush_rewrite_rules();
+	}
+
+	/**
+	 * Add a filter element to the actions list that allows filtering by the custom(action type) taxonomy terms.
+	 * Action for restrict_manage_posts.
+	 *
+	 * @param string $post_type WordPress post type slug.
+	 * @param string $which The location of the extra table nav markup ('top' or 'bottom').
+	 */
+	public function filter_actions_by_action_type( $post_type, $which ) {
+		// Apply filter only for action post type.
+		if ( self::POST_TYPE !== $post_type ) {
+			return;
+		}
+
+		// Retrieve taxonomy terms.
+		$terms = get_terms( self::TAXONOMY );
+
+		// Display filter HTML.
+		?>
+		<select name="<?php echo esc_attr( self::TAXONOMY ); ?>" id="<?php echo esc_attr( self::TAXONOMY ); ?>" class="postform">
+			<option value=""><?php echo esc_html__( 'All Action Types', 'planet4-master-theme-backend' ); ?></option>
+
+			<?php
+			foreach ( $terms as $term ) {
+				printf(
+					'<option value="%1$s" %2$s>%3$s</option>',
+					esc_html( $term->slug ),
+					( ( isset( $_GET[ self::TAXONOMY ] ) && ( $_GET[ self::TAXONOMY ] === $term->slug ) ) ? ' selected="selected"' : '' ),  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					esc_html( $term->name )
+				);
+			}
+			?>
+		</select>
+		<?php
+	}
+
+	/**
+	 * Replace action-type placeholder with the action_type term for actions permalinks.
+	 * Filter for post_type_link.
+	 *
+	 * @param string  $permalink The post's permalink.
+	 * @param WP_Post $post      The post in question.
+	 *
+	 * @return string   The filtered permalink.
+	 */
+	public function filter_permalink( $permalink, $post ) {
+
+		// Apply filter only for action post type.
+		if ( self::POST_TYPE !== $post->post_type ) {
+			return $permalink;
+		}
+
+		// Get action's taxonomy terms.
+		$terms = wp_get_object_terms( $post->ID, self::TAXONOMY );
+
+		$action_slug = $this->get_action_slug();
+
+		if ( ! is_wp_error( $terms ) && ! empty( $terms ) && is_object( $terms[0] ) ) {
+			$taxonomy_slug = $terms[0]->slug;
+			return str_replace( '%' . self::TAXONOMY . '%', $taxonomy_slug, $permalink );
+		}
+
+		// Replace the default action slug in permalink, if no action type selected.
+		return str_replace( '%' . self::TAXONOMY . '%', $action_slug, $permalink );
 	}
 }
