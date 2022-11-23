@@ -18,45 +18,6 @@ use WP_CLI;
 class Controller {
 
 	/**
-	 * Sub command that converts shortcodes to Gutenberg html comments
-	 *
-	 * @param array $args Sub-command parameters.
-	 *
-	 * @throws WP_CLI\ExitException The thrown exception.
-	 */
-	public function convert_to_gutenberg( $args ) {
-
-		$start = microtime( true );
-
-		// Supply a post ID as first argument to update a single, specific post.
-		$post_id = $args[0] ?? null;
-
-		try {
-			WP_CLI::log( 'Converting shortcake shortcodes to gutenberg blocks...' );
-
-			$converter = new Shortcode_To_Gutenberg();
-			$converted = $converter->replace_all( $post_id );
-
-			if ( $post_id ) {
-				if ( $converted ) {
-					WP_CLI::success( "Replaced shortcodes in post $post_id" );
-				} else {
-					WP_CLI::log( "No shortcodes replaced in post $post_id" );
-				}
-			} else {
-				WP_CLI::success( "Replaced shortcodes in $converted posts" );
-			}
-		} catch ( \Error $e ) {
-			WP_CLI::error( $e->getMessage() );
-		} catch ( \Exception $e ) {
-			WP_CLI::log( 'Exception: ' . $e->getMessage() );
-		}
-
-		$seconds_elapsed = microtime( true ) - $start;
-		WP_CLI::log( 'Conversion duration: ' . round( $seconds_elapsed ) . ' seconds' );
-	}
-
-	/**
 	 * Sub command that removes duplicate postmeta records
 	 *
 	 * @throws WP_CLI\ExitException The thrown exception.
