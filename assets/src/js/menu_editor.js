@@ -132,7 +132,7 @@ const menuEditorRestrictions = () => {
 
     // Pull back menu items to the limited depth
     items.forEach((item) => {
-      normalizeDepth(item, conf.maxDepth);
+      checkDepth(item, conf.maxDepth, errors);
     });
 
     // Check root level
@@ -260,21 +260,27 @@ const menuEditorRestrictions = () => {
   };
 
   /**
-   * Change item depth, using nav-menu.js API
+   * Check menu items' depth and show an error message if needed
    *
    * @param NodeElement item The menu item
+   * @param int         maxDepth The maximum allowed depth
+   * @param array       errors The errors to be displayed
    */
-  const normalizeDepth = (item, maxDepth) => {
-    const obj = jQuery(`#${item.id}`);
-    // API not ready
-    if (!obj.menuItemDepth) {
-      return;
-    }
-
-    const depth = obj.menuItemDepth();
+  const checkDepth = (item, maxDepth, errors) => {
+    const depth = getItemDepth(item);
     if (depth > maxDepth) {
-      obj.updateDepthClass(maxDepth, depth)
-        .updateParentMenuItemDBId();
+      const itemDiv = item.querySelector('.menu-item-title');
+      const title = itemDiv ? itemDiv.textContent : '';
+      errors.push({
+        target: item.id,
+        message: sprintf(
+          __(
+            'Menus should have a depth of maximum 1 (currently item "%1$s" is at depth %2$s and therefore will not be displayed).',
+            'planet4-master-theme-backend'
+          ),
+          title, depth
+        )
+      });
     }
   };
 
