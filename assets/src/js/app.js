@@ -1,5 +1,4 @@
 import { setupCookies } from './cookies';
-import { setupCountrySelect } from './country_select';
 import { setupHeader } from './header';
 import { setupLoadMore } from './load_more';
 import { setupPDFIcon } from './pdf_icon';
@@ -14,14 +13,9 @@ function requireAll(r) {
 
 requireAll(require.context('../images/icons/', true, /\.svg$/));
 
-window.$ = $ || jQuery;
-
-jQuery(($) => {
-  setupCookies();
-  setupCountrySelect($);
-  setupHeader();
-  setupLoadMore($);
-  setupPDFIcon($);
-  setupSearch();
-  setupExternalLinks($);
-});
+setupCookies();
+setupHeader();
+setupLoadMore();
+setupPDFIcon();
+setupSearch();
+setupExternalLinks();
