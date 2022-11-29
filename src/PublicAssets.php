@@ -26,7 +26,7 @@ final class PublicAssets
         wp_register_script(
             'main',
             $theme_dir . '/assets/build/index.js',
-            [ 'jquery' ],
+            [],
             $js_creation,
             true
         );
