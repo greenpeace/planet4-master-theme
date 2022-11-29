@@ -12,20 +12,6 @@ final class PublicAssets {
 	public static function enqueue_js() {
 		$js_creation = filectime( get_template_directory() . '/assets/build/index.js' );
 
-		$jquery_should_wait = is_plugin_active( 'planet4-plugin-gutenberg-blocks/planet4-gutenberg-blocks.php' ) && ! is_user_logged_in();
-
-		$jquery_deps = $jquery_should_wait ? [ 'planet4-blocks-script' ] : [];
-
-		// JS files.
-		wp_deregister_script( 'jquery' );
-		wp_register_script(
-			'jquery',
-			'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js',
-			$jquery_deps,
-			'3.3.1',
-			true
-		);
-
 		$theme_dir = get_template_directory_uri();
 		// Variables reflected from PHP to the JS side.
 		$localized_variables = [
