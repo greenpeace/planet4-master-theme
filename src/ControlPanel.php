@@ -117,7 +117,7 @@ class ControlPanel {
 				<div><h3>' . esc_html( $data['title'] ) . '</h3>';
 		foreach ( $data['subitems'] as $subitem ) {
 			echo '<div>
-					<a href="' . esc_url( $subitem['url'] ?? '#' ) . '" class="btn btn-cp-action ' . esc_attr( $subitem['action'] ?? '' ) . '" data-action="' . esc_attr( $subitem['action'] ?? '' ) . '" data-confirm="' . esc_attr( $subitem['confirm'] ?? '' ) . '">' . esc_html( $subitem['title'] ) . '</a>
+				<a data-ajaxurl="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '" href="' . esc_url( $subitem['url'] ?? '#' ) . '" class="btn btn-cp-action ' . esc_attr( $subitem['action'] ?? '' ) . '" data-action="' . esc_attr( $subitem['action'] ?? '' ) . '" data-confirm="' . esc_attr( $subitem['confirm'] ?? '' ) . '">' . esc_html( $subitem['title'] ) . '</a>
 					<span class="cp-subitem-response"></span>
 				</div>';
 		}
@@ -292,7 +292,7 @@ class ControlPanel {
 		wp_enqueue_script(
 			'dashboard-script',
 			"$theme_uri/admin/js/dashboard.js",
-			[ 'jquery' ],
+			[],
 			Loader::theme_file_ver( 'admin/js/dashboard.js' ),
 			true
 		);

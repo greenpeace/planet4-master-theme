@@ -1,44 +1,52 @@
-/* global ajaxurl */
-
-$ = jQuery; // eslint-disable-line no-global-assign
-
 // Dashboard page.
-$(function() {
-  $('.btn-cp-action').off('click').on('click', function (event) {
-    if ( $(this).data('action') ) {  // Added this check in order to allow to do a usual page navigation instead of an ajax request.
-      event.preventDefault();
+const onClickActionButton = actionButton => {
+  const confirmationText = actionButton.dataset.confirm;
+  let answer = confirmationText;
 
-      const $btn = $(this);
-      const $response = $('.cp-subitem-response', $btn.parent());
-      const confirmation_text = $btn.data('confirm');
-      let answer;
-
-      if (confirmation_text) {
-        answer = confirm(confirmation_text);
-        if ( ! answer) {
-          return;
-        }
-      }
-
-      $.ajax({
-        url: ajaxurl,
-        type: 'GET',
-        data: {
-          action: $btn.data('action'),
-          'cp-action': $btn.data('action'),
-          '_wpnonce': $('#_wpnonce').val()
-        },
-        dataType: 'json'
-      }).done(function (response) {
-        if (response.message) {
-          $response.hide().removeClass('cp-error cp-success');
-          $response.text(response.message);
-          if (response.class) {
-            $response.addClass(response.class);
-          }
-          $response.show('slow');
-        }
-      });
+  if (confirmationText) {
+    answer = confirm(confirmationText);
+    if (!answer) {
+      return;
     }
-  });
+  }
+
+  const action = actionButton.dataset.action;
+  const responseSpan = actionButton.nextElementSibling;
+  responseSpan.style.display = 'none';
+  const ajaxurl = actionButton.dataset.ajaxurl;
+
+  const url = new URL(ajaxurl);
+  url.searchParams.append('action', action);
+  url.searchParams.append('cp-action', action);
+  url.searchParams.append('_wpnonce', document.querySelector('#_wpnonce').value);
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      if (!data.message) {
+        return;
+      }
+      responseSpan.classList.remove('cp-error', 'cp-success');
+      responseSpan.textContent = data.message;
+      if (data.class) {
+        responseSpan.classList.add(data.class);
+      }
+      responseSpan.style.display = 'block';
+    }).catch(error => {
+      console.log(error); //eslint-disable-line no-console
+    });
+};
+
+const actionButtons = document.querySelectorAll('.btn-cp-action');
+
+actionButtons.forEach(actionButton => {
+  const action = actionButton.dataset.action;
+  if (!action) {
+    return;
+  }
+
+  actionButton.onclick = event => {
+    event.preventDefault();
+    onClickActionButton(actionButton);
+  };
 });
