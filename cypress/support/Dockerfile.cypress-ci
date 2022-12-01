@@ -1,0 +1,7 @@
+FROM cypress/included:12.1.0 as cypress-ci
+
+ARG theme_branch=main
+ARG plugin_branch=main
+
+RUN git clone -b $theme_branch --single-branch https://github.com/greenpeace/planet4-master-theme
+RUN git clone -b $plugin_branch --single-branch https://github.com/greenpeace/planet4-plugin-gutenberg-blocks

@@ -260,11 +260,22 @@ jobs:
       - run-tests:
           test-name: Acceptance tests
           test-command: |
-              cd planet4-docker-compose
-              docker-compose exec php-fpm rsync -a --delete public/wp-content/themes/planet4-master-theme/tests/acceptance/ public/wp-content/plugins/planet4-plugin-gutenberg-blocks/tests/acceptance/ tests/acceptance/
-              docker-compose exec php-fpm rsync -a --delete public/wp-content/themes/planet4-master-theme/tests/data/ tests/_data/
-              docker-compose exec php-fpm tests/vendor/bin/codecept run acceptance --no-redirect --xml=junit.xml --html
-          extract-command: make -C planet4-docker-compose ci-extract-artifacts
+              COMMIT_MSG=$(git -C /home/circleci/checkout/planet4-master-theme/ log --oneline --format=%s -n 1 HEAD)
+              if [[ $COMMIT_MSG == *"[ci video]"* ]]; then CYPRESS_VIDEO=true; else CYPRESS_VIDEO=false; fi
+              cp /home/circleci/checkout/planet4-master-theme/cypress/support/Dockerfile.cypress-ci ./
+              cat Dockerfile.cypress-ci
+              docker build -t cypress-ci:latest --build-arg theme_branch="${CIRCLE_BRANCH}" - < Dockerfile.cypress-ci
+              docker run -it -w /planet4-master-theme \
+              -e DEBUG=xvfb,xvfb-process \
+              -e CYPRESS_BASE_URL=http://www.planet4.test \
+              -e CYPRESS_VIDEO=${CYPRESS_VIDEO} \
+              --network=planet4dockercompose_proxy \
+              --entrypoint cypress \
+              cypress-ci:latest \
+              run --headless --browser chrome
+          extract-command: |
+              mkdir -p planet4-docker-compose/artifacts/cypress
+              docker cp $(docker ps -aq --filter ancestor="cypress-ci:latest"):/planet4-master-theme/cypress/. planet4-docker-compose/artifacts/cypress
 
   a11y-tests:
     docker:
