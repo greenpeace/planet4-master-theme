@@ -128,11 +128,6 @@ class Features {
 	public static function is_active( string $name ): bool {
 		$features = get_option( self::OPTIONS_KEY );
 
-		// Temporary fallback to ensure it works before migration runs.
-		if ( ! $features ) {
-			$features = get_option( Settings::KEY );
-		}
-
 		$active = isset( $features[ $name ] ) && $features[ $name ];
 
 		// Filter to allow setting a feature from code, to avoid chicken and egg problem when releasing adaptions to a
