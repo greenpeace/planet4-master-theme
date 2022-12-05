@@ -145,8 +145,6 @@ function hide_wp_update_nag() {
 
 add_action( 'admin_menu', 'hide_wp_update_nag' );
 
-require_once 'load-class-aliases.php';
-
 Loader::get_instance();
 
 add_action(
