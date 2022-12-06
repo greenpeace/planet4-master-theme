@@ -201,7 +201,7 @@ $navbar-default-height: 60px;
     }
 
     &.active {
-      pointer-events: none;
+      pointer-events: inherit;
     }
 
     &.active a.nav-link {
