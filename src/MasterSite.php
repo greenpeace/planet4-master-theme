@@ -139,8 +139,6 @@ class MasterSite extends TimberSite {
 		add_action( 'save_post', [ $this, 'set_featured_image' ], 10, 3 );
 		add_action( 'post_updated', [ $this, 'clean_post_cache' ], 10, 3 );
 		add_action( 'after_setup_theme', [ $this, 'p4_master_theme_setup' ] );
-		add_action( 'admin_menu', [ $this, 'add_restricted_tags_box' ] );
-		add_action( 'do_meta_boxes', [ $this, 'remove_default_tags_box' ] );
 		add_action( 'pre_insert_term', [ $this, 'disallow_insert_term' ], 1, 2 );
 		add_filter( 'wp_dropdown_users_args', [ $this, 'filter_authors' ], 10, 1 );
 		add_filter( 'wp_image_editors', [ $this, 'allowedEditors' ] );
@@ -1029,24 +1027,6 @@ class MasterSite extends TimberSite {
 	}
 
 	/**
-	 * Add restricted tags box for all roles besides administrator.
-	 * A list of checkboxes representing the tags will be rendered.
-	 */
-	public function add_restricted_tags_box() {
-
-		if ( current_user_can( 'administrator' ) ) {
-			return;
-		}
-		add_meta_box(
-			'restricted_tags_box',
-			__( 'Tags', 'planet4-master-theme-backend' ),
-			[ $this, 'print_restricted_tags_box' ],
-			[ 'post', 'page' ],
-			'side'
-		);
-	}
-
-	/**
 	 * Auto generate excerpt for post.
 	 *
 	 * @param int     $post_id Id of the saved post.
@@ -1105,55 +1085,6 @@ class MasterSite extends TimberSite {
 		}
 
 		return $term;
-	}
-
-	/**
-	 * Fetch all tags and find which are assinged to the post and pass them as arguments to tags box template.
-	 *
-	 * @param WP_Post $post Post object.
-	 */
-	public function print_restricted_tags_box( $post ) {
-		$all_post_tags = get_terms( 'post_tag', [ 'get' => 'all' ] );
-		$assigned_tags = wp_get_object_terms( $post->ID, 'post_tag' );
-
-		$assigned_ids = [];
-		foreach ( $assigned_tags as $assigned_tag ) {
-			$assigned_ids[] = $assigned_tag->term_id;
-		}
-
-		$this->render_partial(
-			'partials/tags-box',
-			[
-				'tags'          => $all_post_tags,
-				'assigned_tags' => $assigned_ids,
-			]
-		);
-	}
-
-	/**
-	 * Remove default WordPress tags selection box for all roles besides administrator.
-	 */
-	public function remove_default_tags_box() {
-
-		if ( current_user_can( 'administrator' ) ) {
-			return;
-		}
-
-		remove_meta_box( 'tagsdiv-post_tag', [ 'post', 'page' ], 'normal' );
-		remove_meta_box( 'tagsdiv-post_tag', [ 'post', 'page' ], 'side' );
-	}
-
-	/**
-	 * Load a partial template and pass variables to it.
-	 *
-	 * @param string $path  path to template file, minus .php (eg. `content-page`, `partial/template-name`).
-	 * @param array  $args  array of variables to load into scope.
-	 */
-	private function render_partial( $path, $args = [] ) {
-		if ( ! empty( $args ) ) {
-			extract( $args, EXTR_OVERWRITE ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
-		}
-		include locate_template( $path . '.php' );
 	}
 
 	/**
