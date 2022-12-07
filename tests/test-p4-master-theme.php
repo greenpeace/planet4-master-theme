@@ -15,14 +15,14 @@ class P4MasterThemeTest extends P4_TestCase {
 	/**
 	 * Setup test
 	 */
-	public function setUp() { // phpcs:ignore
+	public function setUp(): void { // phpcs:ignore
 		parent::setUp();
 	}
 
 	/**
 	 * Tear down
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		switch_theme( 'planet4-master-theme' );
 	}
 

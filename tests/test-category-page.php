@@ -115,6 +115,7 @@ class CategoryPageTest extends P4_TestCase {
 		$this->assertFalse( is_404() );
 		$this->assertTrue( is_category() );
 
+		wp_styles();
 		$output = TimberHelper::ob_function(
 			function () {
 					include get_template_directory() . '/category.php';

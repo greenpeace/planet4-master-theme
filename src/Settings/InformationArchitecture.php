@@ -33,7 +33,7 @@ class InformationArchitecture {
 		$description = 'These options are related to the new <a href="https://jira.greenpeace.org/browse/PLANET-6467" target="_blank">Information architecture development</a>.';
 		$dev_flags   = '<br>Options with the 👷 icon are only available in dev sites.';
 
-		$dev_site = in_array( WP_APP_ENV, [ 'local', 'development' ], true );
+		$dev_site = defined( 'WP_APP_ENV' ) && in_array( WP_APP_ENV, [ 'local', 'development' ], true );
 
 		return $dev_site
 			? $description . $dev_flags

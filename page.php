@@ -35,7 +35,7 @@ use Timber\Timber;
 $context        = Timber::get_context();
 $post           = new Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $page_meta_data = get_post_meta( $post->ID );
-$page_meta_data = array_map( 'reset', $page_meta_data );
+reset( $page_meta_data );
 
 // Ensure redirect is only performed if we're not already on a tag URL. Because tag.php includes this file.
 if ( ! is_tag() && RedirectRedirectPages::is_active() ) {

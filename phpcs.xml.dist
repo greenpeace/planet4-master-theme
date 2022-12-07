@@ -38,6 +38,13 @@
         <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
     </rule>
 
+    <!-- Disable erroneous and deprecated tests -->
+    <rule ref="WordPress.WP">
+		<exclude name="WordPress.WP.PostsPerPage.posts_per_page_numberposts"/>
+		<exclude name="WordPress.WP.PostsPerPage.posts_per_page_posts_per_page"/>
+		<exclude name="WordPress.WP.TimezoneChange"/>
+	</rule>
+
 	<!-- All files in src are classes so already have a required comment before the declaration. The rule also forced
 	to include an @package annotation, which is redundant if there is a namespace. -->
 	<rule ref="Squiz.Commenting.FileComment">

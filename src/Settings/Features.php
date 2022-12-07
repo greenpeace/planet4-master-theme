@@ -65,7 +65,7 @@ class Features {
 		$description = 'Enable or disable specific Planet 4 features.';
 		$dev_flags   = '<br>Options with the 👷 icon are only available in dev sites.';
 
-		$dev_site = in_array( WP_APP_ENV, [ 'local', 'development' ], true );
+		$dev_site = defined( 'WP_APP_ENV' ) && in_array( WP_APP_ENV, [ 'local', 'development' ], true );
 
 		return $dev_site
 			? $description . $dev_flags
@@ -78,7 +78,7 @@ class Features {
 	 * @return array[] The fields for each feature.
 	 */
 	public static function get_fields(): array {
-		$include_all = in_array( WP_APP_ENV, [ 'local', 'development' ], true );
+		$include_all = defined( 'WP_APP_ENV' ) && in_array( WP_APP_ENV, [ 'local', 'development' ], true );
 
 		$features = $include_all
 			? self::all_features()

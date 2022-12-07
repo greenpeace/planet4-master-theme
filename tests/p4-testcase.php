@@ -13,7 +13,7 @@ class P4_TestCase extends WP_UnitTestCase {
 	/**
 	 * Setup test
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->initialize_planet4_data();
 		require_once get_template_directory() . '/functions.php';
