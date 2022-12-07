@@ -6,7 +6,6 @@
  */
 
 use P4\MasterTheme\Post;
-use SteveGrunwell\PHPUnit_Markup_Assertions\MarkupAssertionsTrait;
 
 /**
  * Class CategoryPageTest.
