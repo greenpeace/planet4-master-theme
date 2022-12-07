@@ -32,8 +32,8 @@ $post->set_issues_links();
 // Articles block parameters to populate the articles block
 // p4_take_action_page parameter to populate the take action boxout block
 // Author override parameter. If this is set then the author profile section will not be displayed.
-$page_meta_data = get_post_meta( $post->ID );
-reset( $page_meta_data );
+$page_meta_data                 = get_post_meta( $post->ID );
+$page_meta_data                 = array_map( fn( $v ) => reset( $v ), $page_meta_data );
 $page_terms_data                = get_the_terms( $post, 'p4-page-type' );
 $page_terms_data                = is_array( $page_terms_data ) ? reset( $page_terms_data ) : null;
 $context['background_image']    = $page_meta_data['p4_background_image_override'] ?? '';
