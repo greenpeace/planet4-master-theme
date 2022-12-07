@@ -25,6 +25,8 @@ workflows:
     jobs:
       - php74-tests:
           <<: *on_pr
+      - php81-tests:
+          <<: *on_pr
       - frontend-tests:
           <<: *on_pr
       - acceptance-tests:
@@ -90,7 +92,7 @@ job-references:
           command: |
             mkdir -p /tmp/test-results/phpcs
             vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs
-            vendor/bin/phpcs --report=junit --report-file=/tmp/test-results/phpcs/$CIRCLE_STAGE.xml
+            vendor/bin/phpcs -d error_reporting="E_ALL&~E_DEPRECATED" --report=junit --report-file=/tmp/test-results/phpcs/$CIRCLE_STAGE.xml
       - run:
           name: phpunit
           when: always
@@ -100,7 +102,7 @@ job-references:
             base=$(curl -s https://raw.githubusercontent.com/greenpeace/planet4-base/main/composer.json)
             WP_VERSION=$(jq -r '.extra["wp-version"] // empty' \<<< "${base}")
             bash bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 $WP_VERSION
-            XDEBUG_MODE=coverage vendor/bin/phpunit --log-junit /tmp/test-results/phpunit/$CIRCLE_STAGE.xml --coverage-html /tmp/coverage-report --coverage-text
+            vendor/bin/phpunit --log-junit /tmp/test-results/phpunit/$CIRCLE_STAGE.xml
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
@@ -204,6 +206,16 @@ jobs:
     <<: *php_job
     docker:
       - image: greenpeaceinternational/p4-unit-tests:php7.4
+        auth:
+          <<: *docker_auth
+      - image: cimg/mysql:5.7
+        auth:
+          <<: *docker_auth
+
+  php81-tests:
+    <<: *php_job
+    docker:
+      - image: greenpeaceinternational/p4-unit-tests:php8.1
         auth:
           <<: *docker_auth
       - image: cimg/mysql:5.7
