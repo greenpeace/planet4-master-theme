@@ -134,13 +134,15 @@
      loading,
      availableTerms,
      taxonomy,
+     isUserAdmin,
    } = useSelect(
      ( select ) => {
        const { getCurrentPost, getEditedPostAttribute } = select( 'core/editor' );
-       const { getTaxonomy, getEntityRecords, isResolving } = select( coreStore );
+       const { getTaxonomy, getEntityRecords, isResolving, canUser } = select( coreStore );
        const _taxonomy = getTaxonomy( slug );
 
        return {
+        isUserAdmin: canUser( 'create', 'users' ) ?? false,
          hasCreateAction: _taxonomy
            ? get(
                getCurrentPost(),
@@ -359,7 +361,8 @@
            '' !== filterValue ? filteredTermsTree : availableTermsTree
          ) }
        </div>
-       { ! loading && hasCreateAction && (
+       {/* Only admins should be allowed to create new tags */}
+       { ! loading && hasCreateAction && (isUserAdmin || slug !== 'post_tag') && (
          <Button
            onClick={ onToggleForm }
            className="editor-post-taxonomies__hierarchical-terms-add"
@@ -369,6 +372,7 @@
            { newTermButtonLabel }
          </Button>
        ) }
+       {!isUserAdmin && slug === 'post_tag' && <p>{__( 'New tags can only be created by an administrator', 'planet4-blocks-backend' )}</p>}
        { showForm && (
          <form onSubmit={ onAddTerm }>
            <TextControl
