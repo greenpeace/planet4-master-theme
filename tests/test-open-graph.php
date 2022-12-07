@@ -5,8 +5,6 @@
  * @package P4MT
  */
 
-use SteveGrunwell\PHPUnit_Markup_Assertions\MarkupAssertionsTrait;
-
 /**
  * Class OpenGraphTest.
  */
