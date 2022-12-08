@@ -17,7 +17,7 @@ class M004UpdateMissingMediaPath extends MigrationScript {
 	 *
 	 * @return void
 	 */
-	protected static function execute( MigrationRecord $record ): void {
+	public static function execute( MigrationRecord $record ): void {
 
 		// Check if WPML plugin is active.
 		if ( function_exists( 'is_plugin_active' ) && ! is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
