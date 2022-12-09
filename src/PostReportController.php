@@ -87,12 +87,10 @@ class PostReportController {
 	 * Callback function to render posts report page.
 	 */
 	public function render_posts_report_page() {
-		wp_enqueue_script( 'jquery-ui-core' );
 		wp_register_script(
 			'posts-report',
 			$this->theme_dir . '/admin/js/posts_report.js',
 			[
-				'jquery',
 				'wp-api',
 				'wp-backbone',
 			],
