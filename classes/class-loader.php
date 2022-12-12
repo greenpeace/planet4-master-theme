@@ -84,7 +84,6 @@ final class Loader {
 		new Blocks\SocialMediaCards();
 		new Blocks\ENForm();
 		new Blocks\GuestBook();
-		new Blocks\HubspotForm();
 		new Blocks\ActionPageDummy();
 
 		/**
