@@ -1,55 +1,75 @@
 /* global localizations */
 
-jQuery(function($) {
-
-  /**
-  * Taxonomy_Image
-  */
-  $('.insert-media').off('click').on('click', function () {
-    if ( typeof wp !== 'undefined' ) {
-      const field      = $(this).closest('.form-field');
-      const add_field  = $(this).closest('.add-wrap');
-      const edit_field = $(this).closest('.edit-wrap');
-
-      const media_modal = wp.media({
-        title: localizations.media_title,
-        library: {
-          type: 'image'
-        },
-        multiple: false
-      });
-
-      media_modal.on('select', function () {
-        const $selected_image = media_modal.state().get('selection').first().toJSON();
-        $('.field-id', field).val($selected_image.id);
-        $('.field-url', field).val($selected_image.url);
-        $('.attachment-thumbnail', add_field).attr('src', $selected_image.sizes.thumbnail.url);
-        $('.attachment-thumbnail', edit_field).attr('src', $selected_image.url);
-        $('.dashicons-dismiss:hidden', field).show();
-      }).open();
+document.addEventListener('DOMContentLoaded', () => {
+  // Open media modal when clicking on the insert media buttons
+  document.querySelectorAll('.insert-media').forEach(button => button.onclick = (event) => {
+    if (typeof wp === 'undefined') {
+      return false;
     }
 
-    return false;
+    // These are needed to avoid having 2 modals open.
+    event.preventDefault();
+    event.stopPropagation();
+
+    const field = button.closest('.form-field');
+    const addField = button.closest('.add-wrap');
+    const editField = button.closest('.edit-wrap');
+
+    const mediaModal = wp.media({
+      title: localizations.media_title,
+      library: {
+        type: 'image'
+      },
+      multiple: false
+    });
+
+    mediaModal.on('select', () => {
+      const { id, url, sizes } = mediaModal.state().get('selection').first().toJSON();
+      field.querySelector('.field-id').value = id;
+      field.querySelector('.field-url').value = url;
+      if (addField) {
+        addField.querySelector('.attachment-thumbnail').src = sizes.thumbnail.url;
+      }
+      if (editField) {
+        editField.querySelector('.attachment-thumbnail').src = url;
+      }
+      const hiddenDismissIcon = field.querySelector('.dashicons-dismiss.hidden');
+      if (hiddenDismissIcon) {
+        hiddenDismissIcon.classList.remove('hidden');
+      }
+    }).open();
   });
 
-  $('.form-field .attachment-thumbnail').off('click').on('click', function () {
-    $('.insert-media', $(this).parent()).click();
+  // Open media modal when clicking on the thumbnail images
+  document.querySelectorAll('.form-field').forEach(field => {
+    const thumbnail = field.querySelector('.attachment-thumbnail');
+    if (!thumbnail) {
+      return;
+    }
+    const relatedButton = field.querySelector('.insert-media');
+    thumbnail.onclick = () => relatedButton.click();
   });
 
   // Clean up the custom fields, since the taxonomy save is made via ajax and the taxonomy page does not reload.
-  $('#submit', $('#addtag')).off('click').on('click', function () {
-    setTimeout(function () {
-      $('#tag_attachment_id, #tag_attachment').val('');
-      $('.form-field .attachment-thumbnail').attr('src', '');
-    }, 300);
+  const addTagForm = document.querySelector('#addtag');
+  if (addTagForm) {
+    addTagForm.querySelector('#submit').onclick = () => {
+      HTMLFormElement.prototype.submit.call(addTagForm);
+      setTimeout(() => {
+        document.querySelector('#tag_attachment_id').value = '';
+        document.querySelector('#tag_attachment').value = '';
+        document.querySelector('.form-field .attachment-thumbnail').src = '';
+        document.querySelector('.dashicons-dismiss').classList.add('hidden');
+      }, 300);
+    };
+  }
+
+  // Add dismiss dashicons behaviour
+  document.querySelectorAll('.dashicons-dismiss').forEach(icon => icon.onclick = () => {
+    const field = icon.closest('.form-field');
+    field.querySelector('.field-id').value = 0;
+    field.querySelector('.field-url').value = '';
+    field.querySelector('.attachment-thumbnail').src = '';
+    icon.classList.add('hidden');
   });
-
-  $('.dashicons-dismiss').off('click').on('click', function () {
-    const field = $(this).closest('.form-field');
-
-    $('.field-id', field).val(0);
-    $('.field-url', field).val('');
-    $('.attachment-thumbnail', field).attr('src', '');
-    $(this).hide();
-  } );
-} );
+});
