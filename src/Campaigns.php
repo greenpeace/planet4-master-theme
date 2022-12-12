@@ -247,10 +247,6 @@ class Campaigns {
 		if ( $this->validate( $attachment_id ) ) {
 			update_term_meta( $term_id, $field_id, $attachment_id );
 			update_term_meta( $term_id, $field_url, $attachment_url );
-			$tag_attachment_id  = $attachment_id;
-			$tag_attachment_url = $attachment_url;
-		} else {
-			$tag_attachment_id = '';
 		}
 
 		$field_id       = 'happypoint_attachment_id';
@@ -261,9 +257,6 @@ class Campaigns {
 		if ( $this->validate( $attachment_id ) ) {
 			update_term_meta( $term_id, $field_id, $attachment_id );
 			update_term_meta( $term_id, $field_url, $attachment_url );
-			$happy_background_code = $attachment_id;
-		} else {
-			$happy_background_code = '';
 		}
 
 		$field_id              = 'happypoint_bg_opacity';
@@ -408,10 +401,16 @@ class Campaigns {
 		if ( ! is_admin() || strpos( get_current_screen()->taxonomy, $this->taxonomy ) === false ) {
 			return;
 		}
+		wp_enqueue_style(
+			'custom-login',
+			get_template_directory_uri() . '/admin/css/post_tag.css',
+			[],
+			Loader::theme_file_ver( 'admin/css/post_tag.css' )
+		);
 		wp_register_script(
 			$this->taxonomy,
 			get_template_directory_uri() . "/admin/js/$this->taxonomy.js",
-			[ 'jquery' ],
+			[],
 			Loader::theme_file_ver( "admin/js/$this->taxonomy.js" ),
 			true
 		);
