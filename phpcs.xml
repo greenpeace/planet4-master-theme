@@ -43,6 +43,13 @@
         <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
     </rule>
 
+    <!-- Disable erroneous and deprecated tests -->
+    <rule ref="WordPress.WP">
+      <exclude name="WordPress.WP.PostsPerPage.posts_per_page_numberposts"/>
+      <exclude name="WordPress.WP.PostsPerPage.posts_per_page_posts_per_page"/>
+      <exclude name="WordPress.WP.TimezoneChange"/>
+    </rule>
+
     <!-- Check all PHP files in directory tree by default. -->
     <arg name="extensions" value="php"/>
     <file>.</file>
