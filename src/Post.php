@@ -350,6 +350,7 @@ class Post extends TimberPost {
 		return [];
 	}
 
+
 	/**
 	 * Get values for share buttons content.
 	 *

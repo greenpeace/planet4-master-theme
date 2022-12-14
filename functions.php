@@ -474,3 +474,16 @@ add_action(
 		}
 	}
 );
+
+/**
+ * Adds the canonical link from the sidebar menu to the post head
+ */
+function add_meta_tags() {
+	global $post;
+	if ( isset( $post->p4_seo_canonical_url ) ) {
+		$url = $post->p4_seo_canonical_url;
+		echo '<link rel="canonical" href="' . $url . '">'; // phpcs:ignore
+	}
+}
+
+add_action( 'wp_head', 'add_meta_tags', 10 );

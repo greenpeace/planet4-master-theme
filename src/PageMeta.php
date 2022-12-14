@@ -23,6 +23,7 @@ class PageMeta {
 		'p4_og_description',
 		'p4_og_image',
 		'p4_og_image_id',
+		'p4_seo_canonical_url',
 	];
 
 	/**
