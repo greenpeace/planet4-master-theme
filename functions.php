@@ -480,7 +480,7 @@ add_action(
  */
 function add_meta_tags() {
 	global $post;
-	if ( isset( $post->p4_seo_canonical_url ) ) {
+	if ( isset( $post->p4_seo_canonical_url ) && '' !== $post->p4_seo_canonical_url ) {
 		$url = $post->p4_seo_canonical_url;
 		echo '<link rel="canonical" href="' . $url . '">'; // phpcs:ignore
 	}
