@@ -22,10 +22,10 @@ class M013RemoveDuplicatedOptions extends MigrationScript {
 
 		foreach ( array_keys( $features ) as $feature ) {
 			if ( array_key_exists( $feature, $options ) ) {
-				unset( $features[ $feature ] );
+				unset( $options[ $feature ] );
 			}
 		}
 
-		update_option( 'planet4_features', $features );
+		update_option( 'planet4_options', $options );
 	}
 }
