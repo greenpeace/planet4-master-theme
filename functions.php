@@ -475,15 +475,16 @@ add_action(
 	}
 );
 
-/**
- * Adds the canonical link from the sidebar menu to the post head
- */
-function add_meta_tags() {
-	global $post;
-	if ( isset( $post->p4_seo_canonical_url ) && '' !== $post->p4_seo_canonical_url ) {
-		$url = $post->p4_seo_canonical_url;
-		echo '<link rel="canonical" href="' . $url . '">'; // phpcs:ignore
-	}
-}
-
-add_action( 'wp_head', 'add_meta_tags', 10 );
+// This filter replaces the default Canonical URL with what is set in the Sidebar Options.
+// If no URL is set for the Canonical link, the default WP url is used.
+add_filter(
+	'get_canonical_url',
+	function( $canonical_url, $post ) {
+		if ( isset( $post->p4_seo_canonical_url ) && '' !== $post->p4_seo_canonical_url ) {
+			$canonical_url = $post->p4_seo_canonical_url;
+		}
+		return $canonical_url;
+	},
+	10,
+	2
+);
