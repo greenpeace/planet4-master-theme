@@ -67,15 +67,10 @@ abstract class Feature {
 		if ( static::is_generally_available() ) {
 			return true;
 		}
+
 		$features = get_option( static::options_key() );
-
-		// Temporary fallback to ensure it works before migration runs.
-		if ( ! $features ) {
-			$features = get_option( Settings::KEY );
-		}
-
-		$id     = static::id();
-		$active = isset( $features[ $id ] ) && $features[ $id ];
+		$id       = static::id();
+		$active   = isset( $features[ $id ] ) && $features[ $id ];
 
 		// Filter to allow setting a feature from code, to avoid chicken and egg problem when releasing adaptions to a
 		// new feature.

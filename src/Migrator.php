@@ -14,6 +14,7 @@ use P4\MasterTheme\Migrations\M009PopulateCookiesFields;
 use P4\MasterTheme\Migrations\M010RemoveGdprPluginOptions;
 use P4\MasterTheme\Migrations\M011RemoveSmartsheetOption;
 use P4\MasterTheme\Migrations\M012RemoveThemeEditorOption;
+use P4\MasterTheme\Migrations\M013RemoveDuplicatedOptions;
 
 
 /**
@@ -45,6 +46,7 @@ class Migrator {
 			M010RemoveGdprPluginOptions::class,
 			M011RemoveSmartsheetOption::class,
 			M012RemoveThemeEditorOption::class,
+			M013RemoveDuplicatedOptions::class,
 		];
 
 		// Loop migrations and run those that haven't run yet.
