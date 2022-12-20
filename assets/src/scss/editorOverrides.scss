@@ -170,6 +170,11 @@
     display: none;
   }
 
+  .components-form-token-field__label {
+    font-weight: bold;
+    text-transform: none;
+  }
+
   // By default all but the first .component-base-control have margin-bottom, causing weird spacing.
   .components-base-control {
     margin-bottom: 0;
