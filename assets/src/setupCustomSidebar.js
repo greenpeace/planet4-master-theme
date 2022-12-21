@@ -3,6 +3,7 @@ import { PageHeaderSidebar } from './components/Sidebar/PageHeaderSidebar';
 import { CampaignThemeSidebar } from './components/Sidebar/CampaignThemeSidebar';
 import { ActionSidebar } from './components/Sidebar/ActionSidebar';
 import { OpenGraphSidebar } from './components/Sidebar/OpenGraphSidebar';
+import { SearchEngineOptimizationsSidebar } from './components/Sidebar/SearchEngineOptimizationsSidebar';
 
 const sidebarsForPostType = postType => {
   switch (postType) {
@@ -15,20 +16,24 @@ const sidebarsForPostType = postType => {
         render: CampaignThemeSidebar,
       },
       OpenGraphSidebar,
+      SearchEngineOptimizationsSidebar,
     ];
   case 'p4_action':
     return [
       ActionSidebar,
       OpenGraphSidebar,
+      SearchEngineOptimizationsSidebar,
     ];
   case 'page':
     return [
       PageHeaderSidebar,
       OpenGraphSidebar,
+      SearchEngineOptimizationsSidebar,
     ];
   case 'post':
     return [
       OpenGraphSidebar,
+      SearchEngineOptimizationsSidebar,
     ];
   default:
     return null;
