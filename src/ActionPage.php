@@ -40,7 +40,13 @@ class ActionPage {
 		add_action( 'init', [ $this, 'register_post_type' ] );
 		add_action( 'init', [ $this, 'register_post_meta' ] );
 		add_action( 'init', [ $this, 'register_taxonomy' ], 2 );
+		add_action( 'admin_init', [ $this, 'register_p4_setting_field' ] );
+
+		// Add action slug setting field on permalink settings page.
 		add_action( 'load-options-permalink.php', [ $this, 'p4_load_permalinks' ] );
+
+		// Add default action type setting field on writing settings page.
+		add_action( 'load-options-writing.php', [ $this, 'p4_load_writings' ] );
 
 		// Flush and regenerate rewrite rules on taxonomy change.
 		add_action( 'created_term', [ $this, 'trigger_rewrite_rules' ], 10, 3 );
@@ -49,15 +55,14 @@ class ActionPage {
 
 		// Rewrites the permalink to this taxonomy's page.
 		add_filter( 'term_link', [ $this, 'filter_term_permalink' ], 10, 3 );
-		// TODO: Test if this filter is needed or not.
-		//add_filter( 'post_rewrite_rules', [ $this, 'replace_taxonomy_terms_in_rewrite_rules' ], 10, 1 );
+		add_filter( 'rewrite_rules_array', [ $this, 'replace_taxonomy_terms_in_rewrite_rules' ], 10, 1 );
 		add_filter( 'root_rewrite_rules', [ $this, 'add_terms_rewrite_rules' ], 10, 1 );
 
 		// Provides a filter element for the taxonomy in the action list.
 		add_action( 'restrict_manage_posts', [ $this, 'filter_actions_by_action_type' ], 10, 2 );
 
 		// Rewrites the permalink to a actions belonging to this taxonomy.
-		add_filter( 'post_type_link', [ $this, 'filter_permalink' ], 10, 2 );
+		add_filter( 'post_type_link', [ $this, 'filter_action_permalink' ], 10, 2 );
 	}
 
 	/**
@@ -109,7 +114,7 @@ class ActionPage {
 			'show_in_menu'       => $enable_action_post_type,
 			'query_var'          => true,
 			'rewrite'            => [
-				'slug'       => '%' . self::TAXONOMY . '%/' . $this->get_action_slug(),
+				'slug'       => '%' . self::TAXONOMY_PARAMETER . '%',
 				'with_front' => false,
 			],
 			'has_archive'        => true,
@@ -199,6 +204,11 @@ class ActionPage {
 	 */
 	public function p4_load_permalinks() {
 
+		// Show action slug setting field, only if action post type is active.
+		if ( ! ActionPostType::is_active() ) {
+			return;
+		}
+
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		if ( isset( $_POST['p4_action_posttype_slug'] ) ) {
 			update_option( 'p4_action_posttype_slug', sanitize_title_with_dashes( $_POST['p4_action_posttype_slug'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -218,6 +228,54 @@ class ActionPage {
 	}
 
 	/**
+	 * Register P4 setting field to WP.
+	 */
+	public function register_p4_setting_field() {
+		register_setting(
+			'writing',
+			'p4_default_action_type',
+			[
+				'type'              => 'number',
+				'sanitize_callback' => 'esc_attr',
+			]
+		);
+	}
+
+	/**
+	 * On load of writings page(wp-admin/options-writing.php), add a default action type setting field.
+	 */
+	public function p4_load_writings() {
+		// Show default action type setting field, only if action post type is active.
+		if ( ! ActionPostType::is_active() ) {
+			return;
+		}
+
+		// Add a 'Default Action Type' settings field to the writings page.
+		add_settings_field(
+			'p4_default_action_type',
+			__( 'Default Action Type', 'planet4-master-theme-backend' ),
+			[ $this, 'add_default_action_type_field' ],
+			'writing'
+		);
+	}
+
+	/**
+	 * Add Default Action Type dropdown field on writing's page.
+	 */
+	public function add_default_action_type_field() {
+		$value = get_option( 'p4_default_action_type' );
+		wp_dropdown_categories(
+			[
+				'hide_empty' => 0,
+				'taxonomy'   => 'action-type',
+				'selected'   => $value,
+				'name'       => 'p4_default_action_type',
+				'id'         => 'p4_default_action_type',
+			]
+		);
+	}
+
+	/**
 	 * Filter for term_link.
 	 *
 	 * @param string $link     The link value.
@@ -226,7 +284,7 @@ class ActionPage {
 	 *
 	 * @return string The filtered permalink for this taxonomy.
 	 */
-	public function filter_term_permalink( $link, $term, $taxonomy ) {
+	public function filter_term_permalink( $link, $term, $taxonomy ) : string {
 		if ( self::TAXONOMY !== $taxonomy ) {
 			return $link;
 		}
@@ -235,14 +293,14 @@ class ActionPage {
 	}
 
 	/**
-	 * Filter for post_rewrite_rules.
+	 * Filter for post type rewrite rules.
 	 *
 	 * @param array $rules   Post rewrite rules passed by WordPress.
 	 *
 	 * @return array        The filtered post rewrite rules.
 	 */
-	public function replace_taxonomy_terms_in_rewrite_rules( $rules ) {
-		// Get planet4 page type taxonomy terms.
+	public function replace_taxonomy_terms_in_rewrite_rules( $rules ) : array {
+		// Get planet4 action type taxonomy terms.
 		$term_slugs = $this->get_terms_slugs();
 
 		if ( $term_slugs ) {
@@ -269,7 +327,7 @@ class ActionPage {
 	 *
 	 * @return array        The filtered root rewrite rules.
 	 */
-	public function add_terms_rewrite_rules( $rules ) {
+	public function add_terms_rewrite_rules( $rules ) : array {
 		// Add a rewrite rule for each slug of this taxonomy type (e.g.: "petition", "event", etc.)
 		// for action type pages.
 		// e.g | petition/?$ | index.php?action-type=petition | .
@@ -317,7 +375,7 @@ class ActionPage {
 		if ( function_exists( 'is_plugin_active' ) && is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
 			return $this->get_multilingual_terms();
 		}
-		return $this->get_terms();
+		return $this->get_action_terms();
 	}
 
 	/**
@@ -355,7 +413,7 @@ class ActionPage {
 	 *
 	 * @return array|int|WP_Error
 	 */
-	public function get_terms() {
+	public function get_action_terms() {
 		// Get planet4 action type taxonomy terms.
 		return get_terms(
 			[
@@ -417,6 +475,23 @@ class ActionPage {
 	}
 
 	/**
+	 * Get Default Action Type slug.
+	 *
+	 * @return string
+	 */
+	public function get_default_action_type_slug() : string {
+		// Check for "Default Action Type" setting, if added on "Writing Settings" page(wp-admin/options-writing.php).
+		$term_id          = get_option( 'p4_default_action_type' );
+		$term_object      = get_term( $term_id );
+		$action_type_slug = self::TAXONOMY_SLUG;  // In case no action type taxonomy added(fallback condition).
+		if ( ! is_wp_error( $term_object ) && ! empty( $term_object ) && is_object( $term_object ) ) {
+			$action_type_slug = $term_object->slug;
+		}
+
+		return $action_type_slug;
+	}
+
+	/**
 	 * Replace action-type placeholder with the action_type term for actions permalinks.
 	 * Filter for post_type_link.
 	 *
@@ -425,7 +500,7 @@ class ActionPage {
 	 *
 	 * @return string   The filtered permalink.
 	 */
-	public function filter_permalink( $permalink, $post ) {
+	public function filter_action_permalink( $permalink, $post ) : string {
 
 		// Apply filter only for action post type.
 		if ( self::POST_TYPE !== $post->post_type ) {
@@ -435,14 +510,14 @@ class ActionPage {
 		// Get action's taxonomy terms.
 		$terms = wp_get_object_terms( $post->ID, self::TAXONOMY );
 
-		$action_slug = $this->get_action_slug();
-
 		if ( ! is_wp_error( $terms ) && ! empty( $terms ) && is_object( $terms[0] ) ) {
 			$taxonomy_slug = $terms[0]->slug;
-			return str_replace( '%' . self::TAXONOMY . '%', $taxonomy_slug, $permalink );
+			return str_replace( '%' . self::TAXONOMY_PARAMETER . '%', $taxonomy_slug, $permalink );
 		}
 
+		$action_type_slug = $this->get_default_action_type_slug();
+
 		// Replace the default action slug in permalink, if no action type selected.
-		return str_replace( '%' . self::TAXONOMY . '%', $action_slug, $permalink );
+		return str_replace( '%' . self::TAXONOMY_PARAMETER . '%', $action_type_slug, $permalink );
 	}
 }
