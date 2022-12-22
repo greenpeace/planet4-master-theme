@@ -9,44 +9,44 @@
     "typography": {
       "fontFamily": "Lora, serif"
     },
-		"elements": {
+    "elements": {
       "heading": {
         "typography": {
           "fontFamily": "Roboto, sans-serif",
           "fontWeight": "bold"
         }
       },
-			"link": {
+      "link": {
         "color": {
           "text": "#006dfd"
         },
-				"typography": {
-					"textDecoration": "none"
-				},
-				":hover": {
+        "typography": {
+          "textDecoration": "none"
+        },
+        ":hover": {
           "color": {
             "text": "#006dfd"
           },
-					"typography": {
-						"textDecoration": "underline"
-					}
-				},
-				":active": {
+          "typography": {
+            "textDecoration": "underline"
+          }
+        },
+        ":active": {
           "color": {
             "text": "#006dfd"
           },
-					"typography": {
-						"textDecoration": "underline"
-					}
-				},
-				":visited": {
+          "typography": {
+            "textDecoration": "underline"
+          }
+        },
+        ":visited": {
           "color": {
             "text": "#68009e"
           }
-				}
-			}
-		}
-	},
+        }
+      }
+    }
+  },
   "settings": {
     "color": {
       "custom": false,
