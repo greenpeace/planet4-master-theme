@@ -50,11 +50,12 @@
   "settings": {
     "color": {
       "custom": false,
+      "duotone": [],
       "customDuotone": false,
       "customGradient": false,
+      "defaultDuotone": false,
       "defaultGradients": false,
       "defaultPalette": false,
-      "duotone": null,
       "palette": [
         {
           "name": "Grey 80%",
