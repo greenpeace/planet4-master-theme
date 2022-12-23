@@ -169,7 +169,12 @@
             }
           ]
         }
-      }
+      },
+      "core/image": {
+        "border": {
+          "radius": true
+        }
+      },
     },
     "layout": {
       "contentSize": "736px"
