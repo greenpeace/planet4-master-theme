@@ -6,3 +6,9 @@ tests/backstop/
 
 # Built css and js assets
 assets/build/*
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/playwright-results/
