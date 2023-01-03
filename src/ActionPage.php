@@ -63,6 +63,11 @@ class ActionPage {
 
 		// Rewrites the permalink to a actions belonging to this taxonomy.
 		add_filter( 'post_type_link', [ $this, 'filter_action_permalink' ], 10, 2 );
+
+		// Update action type on quick edit of action.
+		add_action( 'save_post_' . self::POST_TYPE, [ $this, 'save_taxonomy_action_type_on_quick_edit' ], 10, 2 );
+		// Update action type on add/edit of action.
+		add_action( 'rest_after_insert_' . self::POST_TYPE, [ $this, 'save_taxonomy_action_type_on_edit' ], 10, 3 );
 	}
 
 	/**
@@ -406,6 +411,89 @@ class ActionPage {
 		do_action( 'wpml_switch_language', $current_lang );
 
 		return $all_terms;
+	}
+
+	/**
+	 * Hook into quick edit action post type.
+	 *
+	 * @param int     $post_id Id of the saved post.
+	 * @param WP_Post $post    Post object.
+	 */
+	public function save_taxonomy_action_type_on_quick_edit( $post_id, $post ) {
+
+		// Ignore autosave.
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		// Check user's capabilities.
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+
+		$this->save_taxonomy_action_type( $post );
+	}
+
+	/**
+	 * Hook into add/edit action post type.
+	 *
+	 * @param WP_Post         $post    Post object.
+	 * @param WP_REST_Request $request  Request object.
+	 * @param bool            $creating True when creating a post, false when updating.
+	 */
+	public function save_taxonomy_action_type_on_edit( $post, $request, $creating ) {
+
+		$this->save_taxonomy_action_type( $post );
+	}
+
+	/**
+	 * Add default term of the taxonomy to the action if the action has not any taxonomy's terms assigned to it.
+	 * Assign only the first term, if more than one terms are assigned to the action.
+	 *
+	 * @param WP_Post $post    Post object.
+	 */
+	public function save_taxonomy_action_type( $post ) {
+		// Check if post type is Action.
+		if ( self::POST_TYPE !== $post->post_type ) {
+			return;
+		}
+
+		// Check if Action has a action type term assigned to it and if none assigned, assign the default p4 action type term.
+		$terms = wp_get_object_terms( $post->ID, self::TAXONOMY );
+		if ( is_wp_error( $terms ) ) {
+			return;
+		}
+
+		$default_action_type = $this->get_default_action_type();
+
+		// Assign default actiontype, if no term is assigned to action.
+		if ( empty( $terms ) ) {
+			if ( $default_action_type instanceof \WP_Term ) {
+				wp_set_post_terms( $post->ID, [ $default_action_type->term_id ], self::TAXONOMY );
+			}
+		} elseif ( count( $terms ) > 1 && $terms[0] instanceof \WP_Term ) {
+			// Assign the first term, if more than one terms are assigned.
+			wp_set_post_terms( $post->ID, [ $terms[0]->term_id ], self::TAXONOMY, false );
+		}
+	}
+
+	/**
+	 * Get default P4 action-type.
+	 *
+	 * @return WP_term|int|WP_Error
+	 */
+	public function get_default_action_type() {
+		$default_action_type = get_option( 'p4_default_action_type', 0 );
+
+		if ( 0 === $default_action_type ) {
+			// If default action type setting not found, use taxonomy's first term.
+			$all_terms           = $this->get_action_terms();
+			$default_action_type = $all_terms[0] ?? 0;
+		} else {
+			$default_action_type = get_term( $default_action_type, self::TAXONOMY );
+		}
+
+		return $default_action_type;
 	}
 
 	/**
