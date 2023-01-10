@@ -414,7 +414,7 @@ jobs:
           command: |
             curl \
                 --fail \
-                -H "Authorization: token ${GITHUB_RELEASES_TOKEN}" \
+                -H "Authorization: token ${GITHUB_OAUTH_TOKEN}" \
                 -H "Content-Type: application/zip" \
                 --data-binary @/tmp/workspace/planet4-master-theme.zip \
                 "$(cat /tmp/workspace/upload_url)" | jq
