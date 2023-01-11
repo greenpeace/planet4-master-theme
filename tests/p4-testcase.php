@@ -123,6 +123,29 @@ class P4_TestCase extends WP_UnitTestCase {
 			]
 		);
 
+		// Create action-type terms.
+		$this->factory->term->create(
+			[
+				'name'     => 'Event',
+				'taxonomy' => 'action-type',
+				'slug'     => 'event',
+			]
+		);
+		$this->factory->term->create(
+			[
+				'name'     => 'Petition',
+				'taxonomy' => 'action-type',
+				'slug'     => 'petion',
+			]
+		);
+		$this->factory->term->create(
+			[
+				'name'     => 'Contest',
+				'taxonomy' => 'action-type',
+				'slug'     => 'contest',
+			]
+		);
+
 		wp_set_current_user( 0 );
 	}
 }
