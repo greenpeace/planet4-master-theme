@@ -3,45 +3,45 @@
   "version": 2,
   "styles": {
     "color": {
-      "background": "#ffffff",
-      "text": "#020202"
+      "background": "var(--body--background-color, #ffffff)",
+      "text": "var(--body--color, #020202)"
     },
     "typography": {
-      "fontFamily": "Lora, serif"
+      "fontFamily": "var(--body--font-family, Lora, serif)"
     },
     "elements": {
       "heading": {
         "typography": {
-          "fontFamily": "Roboto, sans-serif",
-          "fontWeight": "bold"
+          "fontFamily": "var(--headings--font-family, Roboto, sans-serif)",
+          "fontWeight": "var(--headings--font-weight, bold)"
         }
       },
       "link": {
         "color": {
-          "text": "#006dfd"
+          "text": "var(--link--color, #006dfd)"
         },
         "typography": {
-          "textDecoration": "none"
+          "textDecoration": "var(--link--text-decoration, none)"
         },
         ":hover": {
           "color": {
-            "text": "#006dfd"
+            "text": "var(--link--hover--color, #006dfd)"
           },
           "typography": {
-            "textDecoration": "underline"
+            "textDecoration": "var(--link--hover--text-decoration, underline)"
           }
         },
         ":active": {
           "color": {
-            "text": "#006dfd"
+            "text": "var(--link--hover--color, #006dfd)"
           },
           "typography": {
-            "textDecoration": "underline"
+            "textDecoration": "var(--link--hover--text-decoration, underline)"
           }
         },
         ":visited": {
           "color": {
-            "text": "#68009e"
+            "text": "var(--link--visited--color, #68009e)"
           }
         }
       }
