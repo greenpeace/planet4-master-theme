@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Clean up the custom fields, since the taxonomy save is made via ajax and the taxonomy page does not reload.
   const addTagForm = document.querySelector('#addtag');
   if (addTagForm) {
-    addTagForm.querySelector('#submit').onclick = () => {
+    addTagForm.querySelector('#addtag').onclick = () => {
       HTMLFormElement.prototype.submit.call(addTagForm);
       setTimeout(() => {
         document.querySelector('#tag_attachment_id').value = '';
