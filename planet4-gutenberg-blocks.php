@@ -208,6 +208,7 @@ const BLOCK_TEMPLATES = [
 	'planet4-block-templates/quick-links',
 	'planet4-block-templates/deep-dive',
 	'planet4-block-templates/reality-check',
+	'planet4-block-templates/issues',
 ];
 
 /**

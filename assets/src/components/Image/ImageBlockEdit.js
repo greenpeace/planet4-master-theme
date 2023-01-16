@@ -12,7 +12,7 @@ export const ImageBlockEdit = (BlockEdit) => {
     }
 
     const { attributes, clientId } = props;
-    const { id, caption, className } = attributes;
+    const { id, caption, className = '' } = attributes;
 
     // Get image data
     const image = useSelect(select => id ? select('core').getMedia(id) : null);
@@ -24,11 +24,18 @@ export const ImageBlockEdit = (BlockEdit) => {
     const block_id = clientId ? `block-${clientId}` : null;
 
     // Update width and height when sized rounded styles are selected
-    if (className && className.includes('is-style-rounded-')) {
+    if (className.includes('is-style-rounded-')) {
       const classes = className.split(' ');
-      const size = classes.find(c => c.includes('is-style-rounded-')).replace('is-style-rounded-', '');
-      attributes.width = parseInt(size) || 180;
-      attributes.height = parseInt(size) || 180;
+      const size = classes.find(c => c.includes('is-style-rounded-')).replace('is-style-rounded-', '') || 180;
+      attributes.width = parseInt(size);
+      attributes.height = parseInt(size);
+    }
+
+    // Force to use square images when the class `square-*` is added
+    if (className.includes('square-')) {
+      const size = className.slice(className.search('square-') + 'square-'.length).split(' ')[0] || 180;
+      attributes.width = parseInt(size);
+      attributes.height = parseInt(size);
     }
 
     return (
