@@ -221,6 +221,9 @@ class Campaigns {
 				<p class="description"><?php esc_html_e( 'Associate this tag with an image.', 'planet4-master-theme-backend' ); ?></p>
 				<img class="attachment-thumbnail size-thumbnail" src="" />
 				<i class="dashicons dashicons-dismiss hidden" style="cursor: pointer;"></i>
+				<p class="submit">
+					<input name="submit" id="addtag" type="submit" class="button button-primary" value="<?php esc_html_e( 'Add new tag', 'planet4-master-theme-backend' ); ?>" />
+				</p>
 			</div>
 			<?php
 		}
