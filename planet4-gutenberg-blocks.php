@@ -209,6 +209,7 @@ const BLOCK_TEMPLATES = [
 	'planet4-block-templates/deep-dive',
 	'planet4-block-templates/reality-check',
 	'planet4-block-templates/issues',
+	'planet4-block-templates/page-header',
 ];
 
 /**
