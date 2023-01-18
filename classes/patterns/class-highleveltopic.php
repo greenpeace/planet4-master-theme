@@ -67,7 +67,7 @@ class HighLevelTopic extends Block_Pattern {
 								'mediaPosition'   => 'right',
 							]
 						)['content'] . '
-						' . HighlightedCta::get_config( [ 'title_placeholder' => __( 'Featured action title', 'planet4-blocks' ) ] )['content'] . '
+						' . HighlightedCta::get_config( [ 'titlePlaceholder' => __( 'Featured action title', 'planet4-blocks' ) ] )['content'] . '
 						' . Covers::get_content(
 							[
 								'cover_type'        => 'take-action',

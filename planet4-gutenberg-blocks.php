@@ -204,12 +204,13 @@ const BETA_ACTION_BLOCK_TYPES = [
 ];
 
 const BLOCK_TEMPLATES = [
-	'planet4-block-templates/side-image-with-text-and-cta',
-	'planet4-block-templates/quick-links',
 	'planet4-block-templates/deep-dive',
+	'planet4-block-templates/highlighted-cta',
+	'planet4-block-templates/quick-links',
 	'planet4-block-templates/reality-check',
 	'planet4-block-templates/issues',
 	'planet4-block-templates/page-header',
+	'planet4-block-templates/side-image-with-text-and-cta',
 ];
 
 /**
