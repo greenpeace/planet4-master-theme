@@ -13,7 +13,7 @@
     & ~ label {
       position: relative;
       cursor: pointer;
-      font-family: $roboto;
+      font-family: var(--headings--font-family);
       font-size: $font-size-xxxs;
       line-height: 1rem;
       color: $grey-80;
@@ -91,7 +91,7 @@
     & ~ label {
       position: relative;
       cursor: pointer;
-      font-family: $roboto;
+      font-family: var(--headings--font-family);
       font-size: $font-size-sm;
       line-height: 1.25rem;
       color: $grey-80;
@@ -139,7 +139,7 @@
 .gfield textarea,
 .ginput_container_multiselect select {
   border-radius: 4px;
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   background-color: $white;
   border: 1px solid $grey-20;
   color: $grey-80;
@@ -210,7 +210,7 @@ textarea.form-control {
       color: $grey-40;
       padding-inline-start: 16px;
       font-size: 11px;
-      font-family: $roboto;
+      font-family: var(--headings--font-family);
       opacity: 0;
       transition: all .3s ease;
       margin-bottom: 0;
@@ -254,7 +254,7 @@ select {
     position: relative;
     pointer-events: none;
     margin-top: 6px;
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
 
     &:after {
       bottom: 100%;

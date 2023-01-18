@@ -10,7 +10,7 @@ body {
   overflow-y: hidden;
 
   &.search {
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
   }
 
   .mejs-container {

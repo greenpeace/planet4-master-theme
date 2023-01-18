@@ -1,6 +1,6 @@
 .site-footer {
   _-- {
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
     background: $dark-blue;
     color: $white;
   }

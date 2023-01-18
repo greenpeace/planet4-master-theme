@@ -11,7 +11,7 @@
 
   table {
     margin-bottom: 15px;
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
     width: 100%;
 
     @include mobile-only {

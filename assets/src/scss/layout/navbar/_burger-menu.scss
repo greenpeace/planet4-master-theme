@@ -24,7 +24,7 @@ $transition-duration: .2s;
   _-- {
     background: $white;
     color: $grey-80;
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
   }
 
   position: fixed;

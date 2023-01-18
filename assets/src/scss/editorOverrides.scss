@@ -1,7 +1,7 @@
 // Moved from another repo, for history please see https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blame/f5c532ed5704738136224cde305e9a0ffe614ceb/assets/src/styles/editorOverrides.scss
 .editor-post-title__block textarea.editor-post-title__input {
   --headings-- {
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
   }
 
   font-size: $font-size-xl;
@@ -60,7 +60,7 @@
 .wp-block-button .wp-block-button__link[role="textbox"],
 .wp-block-file .wp-block-file__button {
   display: inline-block;
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   text-align: center;
   text-decoration: none;
   font-weight: bold;
@@ -194,7 +194,7 @@
 
   h1, h2, h3, h4, h5 {
     --headings-- {
-      font-family: $roboto;
+      font-family: var(--headings--font-family);
     }
   }
 }
@@ -234,7 +234,7 @@ input.describe[type=text][data-setting=caption] {
 }
 
 .input_error {
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   font-size: 13px;
   color: red;
 }

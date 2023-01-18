@@ -28,7 +28,7 @@
 .single-post-meta {
   color: $grey-40;
   font-size: 14px;
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   border-bottom: 1px solid transparentize($grey-20, 0.5);
   padding-bottom: 16px;
   line-height: 24px;

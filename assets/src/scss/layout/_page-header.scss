@@ -140,7 +140,7 @@
 }
 
 .page-header-title _-- {
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   font-weight: bold;
   text-transform: none;
   max-width: 80%;

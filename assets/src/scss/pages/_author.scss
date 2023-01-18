@@ -31,7 +31,7 @@
   }
 
   .search-result-list-item {
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
   }
 
   // Search uses absolutely positioned buttons, for absolutely no reason. The button effectively is

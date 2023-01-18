@@ -1,7 +1,7 @@
 .top-page-tags {
   font-size: 16px;
   margin-bottom: $sp-1;
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
 
   .tag-wrap {
     display: inline;

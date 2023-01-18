@@ -1,7 +1,7 @@
 .search-info {
   font-size: $font-size-xxs;
   margin-bottom: 0;
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   font-style: italic;
   color: $grey-60;
   line-height: normal;
