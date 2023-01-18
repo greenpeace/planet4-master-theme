@@ -287,6 +287,7 @@ function set_allowed_block_types( $allowed_block_types, $context ) {
 		CAMPAIGN_BLOCK_TYPES,
 		! Features::is_active( 'beta_blocks' ) ? [] : BETA_CAMPAIGN_BLOCK_TYPES,
 		! $enform_active ? [] : [ 'planet4-blocks/enform' ],
+		BLOCK_TEMPLATES,
 	);
 
 	$action_block_types = array_merge(

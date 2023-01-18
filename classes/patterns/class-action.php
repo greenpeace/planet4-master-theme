@@ -36,6 +36,8 @@ class Action extends Block_Pattern {
 		return [
 			'title'      => 'Action',
 			'categories' => [ 'layouts' ],
+			'blockTypes' => [ 'core/post-content' ],
+			'postTypes'  => [ 'page', 'p4_action', 'campaign' ],
 			'content'    => '
 				<!-- wp:group {"className":"block ' . $classname . '"} -->
 					<div class="wp-block-group block ' . $classname . '">
