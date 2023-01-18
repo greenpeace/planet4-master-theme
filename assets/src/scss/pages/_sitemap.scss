@@ -3,7 +3,7 @@
 
   a {
     color: $grey-80;
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
 
     &:visited {
       color: $link-color-visited;

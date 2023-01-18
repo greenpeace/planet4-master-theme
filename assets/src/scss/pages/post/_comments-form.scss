@@ -39,7 +39,7 @@
 }
 
 #gdpr-comments-compliance {
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   margin-bottom: 8px;
 
   #gdpr-comments-checkbox {
@@ -60,7 +60,7 @@
 
 .logged-in-as {
   font-size: 14px;
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
 }
 
 #cancel-comment-reply-link {

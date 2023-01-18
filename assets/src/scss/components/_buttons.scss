@@ -5,7 +5,7 @@
 .gform_button_select_files,
 .gform_footer input[type="submit"] {
   --button-- {
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
     text-align: center;
     font-weight: bold;
     border-radius: 4px;

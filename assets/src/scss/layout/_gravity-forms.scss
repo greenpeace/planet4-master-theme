@@ -5,7 +5,7 @@
 @import "../base/typography";
 
 .gform_wrapper {
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
 
   &.gform_validation_error .gform_validation_errors {
     color: $dark-orange;
@@ -130,7 +130,7 @@
 }
 
 .ui-datepicker {
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
 }
 
 .gform_p4_confirmation {

@@ -189,7 +189,7 @@
 .search-result-item-content {
   color: $grey-80;
   font-size: $font-size-sm;
-  font-family: $lora;
+  font-family: var(--body--font-family);
   line-height: 1.6;
   margin-bottom: $sp-1;
 

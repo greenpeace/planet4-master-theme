@@ -72,7 +72,7 @@
 .query-list-item-post-terms {
   display: flex;
   font-size: $font-size-sm;
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   line-height: 25px;
 
   .wrapper-post-tag {
@@ -143,7 +143,7 @@
 }
 
 .query-list-item-meta {
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   font-size: $font-size-xxs;
   color: $grey-40;
   line-height: 22px;
@@ -237,7 +237,7 @@
     }
   }
 
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
