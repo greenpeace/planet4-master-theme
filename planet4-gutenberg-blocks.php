@@ -195,7 +195,6 @@ const ACTION_BLOCK_TYPES = [
 	'leadin/hubspot-form-block',
 	'gravityforms/form',
 	'planet4-blocks/sub-pages',
-	'planet4-blocks/action-page-dummy',
 ];
 
 const BETA_ACTION_BLOCK_TYPES = [

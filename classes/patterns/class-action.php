@@ -65,7 +65,6 @@ class Action extends Block_Pattern {
 							]
 						)['content'] . '
 					</div>
-					<!-- wp:planet4-blocks/action-page-dummy /-->
 				<!-- /wp:group -->
 			',
 		];
