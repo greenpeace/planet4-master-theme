@@ -91,6 +91,8 @@ table.spreadsheet-table {
       padding: 5px 20px;
       font-size: $font-size-xs;
 
+      white-space: pre-wrap;
+
       @include x-large-and-up {
         font-size: $font-size-xs;
       }
