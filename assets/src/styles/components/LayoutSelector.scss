@@ -15,7 +15,7 @@
   }
 
   .help {
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
     font-size: 10pt;
     margin-top: 10px;
   }

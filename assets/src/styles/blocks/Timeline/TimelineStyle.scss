@@ -92,7 +92,7 @@
   .tl-text .tl-headline-date,
   .tl-text h3.tl-headline-date,
   .tl-text .tl-text-date {
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
   }
 
   .tl-skinny .tl-slide .tl-slide-content-container .tl-slide-content .tl-text .tl-text-content-container {
@@ -192,12 +192,12 @@
   }
 
   .tl-text .tl-text-content p {
-    font-family: $lora;
+    font-family: var(--body--font-family);
   }
 
   .tl-timeline blockquote,
   .tl-timeline blockquote p {
-    font-family: $lora;
+    font-family: var(--body--font-family);
   }
 }
 

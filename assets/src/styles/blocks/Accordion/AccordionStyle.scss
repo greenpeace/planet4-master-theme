@@ -4,7 +4,7 @@
 @import "../../master-theme/assets/src/scss/base/fonts";
 
 .accordion-block {
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
 
   &.is-style-light .accordion-content .accordion-headline {
     border-color: $grey-20;
@@ -92,7 +92,7 @@
 
     .accordion-text {
       margin: 0;
-      font-family: $lora;
+      font-family: var(--body--font-family);
       font-weight: 400;
     }
 

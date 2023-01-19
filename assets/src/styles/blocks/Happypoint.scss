@@ -113,7 +113,7 @@
   }
 
   p {
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
     font-size: 0.8125rem;
     line-height: 18px;
     color: $grey-60;

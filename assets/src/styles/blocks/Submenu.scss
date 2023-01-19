@@ -11,7 +11,7 @@ div[data-render="planet4-blocks/submenu"] {
   h2 {
     padding-inline-start: 16px;
     color: $grey-60;
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
   }
 
   .submenu-menu {
@@ -28,7 +28,7 @@ div[data-render="planet4-blocks/submenu"] {
 
     a {
       color: $grey-80;
-      font-family: $roboto;
+      font-family: var(--headings--font-family);
     }
 
     ul {

@@ -1,5 +1,5 @@
 .ValidationMessage {
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   padding: $sp-4;
   background: $peach;
 }

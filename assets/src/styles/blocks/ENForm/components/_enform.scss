@@ -89,7 +89,7 @@
 
 .enform {
   margin-top: 36px;
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   height: inherit;
   background: $dark-blue;
   width: 100%;
@@ -159,7 +159,7 @@
 
       p {
         font-size: .75rem;
-        font-family: $roboto !important;
+        font-family: var(--headings--font-family) !important;
         line-height: 1rem;
         margin-bottom: 0;
         float: none;

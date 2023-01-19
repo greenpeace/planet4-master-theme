@@ -2,7 +2,7 @@
   .custom-control-description,
   .custom-control input[type="checkbox"] ~ .custom-control-description {
     font-size: $font-size-sm;
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
 
     @include x-large-and-up {
       font-size: $font-size-md;
@@ -17,6 +17,6 @@
     padding: $sp-x;
     font-size: 12px;
     margin-inline-start: $sp-1;
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
   }
 }

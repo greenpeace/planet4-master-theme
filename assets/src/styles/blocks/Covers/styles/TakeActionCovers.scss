@@ -22,7 +22,7 @@
     background: white;
     cursor: pointer;
     position: relative;
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
 
     &:hover {
       box-shadow: 0 1px 14px rgba(0, 0, 0, 0.3);
@@ -85,7 +85,7 @@
       }
 
       .cover-card-excerpt {
-        font-family: $lora;
+        font-family: var(--body--font-family);
         font-size: 14px;
         line-height: 1.5;
         display: -webkit-box;

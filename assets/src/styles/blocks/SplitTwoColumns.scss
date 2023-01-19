@@ -85,7 +85,7 @@
 }
 
 .split-two-column-item-tag {
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   font-size: $font-size-xl;
   font-weight: 700;
   color: $yellow;
@@ -122,7 +122,7 @@
 
 .split-two-column-item-subtitle,
 .split-two-column-item-link {
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   font-weight: 500;
   font-size: $font-size-sm;
   line-height: 1.75;

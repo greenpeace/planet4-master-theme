@@ -73,7 +73,7 @@
       }
 
       .publication-date --block-covers--publication-date-- {
-        font-family: $roboto;
+        font-family: var(--headings--font-family);
         font-size: $font-size-xxs;
         line-height: 1.6;
         font-style: italic;

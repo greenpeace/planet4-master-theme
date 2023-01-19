@@ -1,6 +1,6 @@
 .counter-block {
   _-- {
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
   }
   text-align: center;
   margin-top: $sp-6;

@@ -52,7 +52,7 @@
   }
 
   .boxout-heading {
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
     color: $grey-80;
     font-size: 16px;
     font-weight: 700;

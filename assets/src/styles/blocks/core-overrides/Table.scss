@@ -50,7 +50,7 @@
   figcaption {
     text-align: center;
     font-size: $font-size-xxs;
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
     color: $grey-60;
     line-height: 1.4;
   }

@@ -7,7 +7,7 @@
     display: inline-block;
     color: $link-color;
     margin-inline-start: 16px;
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
     font-size: 14px;
     vertical-align: middle;
     white-space: nowrap;

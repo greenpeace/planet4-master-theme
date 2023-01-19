@@ -96,7 +96,7 @@
       .yellow-cta {
         text-align: center;
         font-size: $font-size-md;
-        font-family: $roboto;
+        font-family: var(--headings--font-family);
         color: $yellow;
         font-weight: 500;
         position: absolute;

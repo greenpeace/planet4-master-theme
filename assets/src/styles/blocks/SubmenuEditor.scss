@@ -10,7 +10,7 @@
   .submenu-block h2 {
     padding-left: 16px;
     color: $grey-60;
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
   }
 
   // Needed to make it easily selectable in the editor

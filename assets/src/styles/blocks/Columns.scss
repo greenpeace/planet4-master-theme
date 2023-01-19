@@ -14,7 +14,7 @@
 
     --block-columns--column-heading-- {
       font-size: $font-size-lg;
-      font-family: $roboto;
+      font-family: var(--headings--font-family);
       font-weight: 700;
       color: $grey-80;
       margin-bottom: .5rem;
@@ -131,13 +131,13 @@
         }
 
         a --block-columns--paragraph-- {
-          font-family: $lora;
+          font-family: var(--body--font-family);
         }
       }
 
       a {
         --block-columns--link-- {
-          font-family: $roboto;
+          font-family: var(--headings--font-family);
         }
       }
 
@@ -201,7 +201,7 @@
             background: $dark-blue;
             border-color: $white;
             border-width: 2px;
-            font-family: $roboto;
+            font-family: var(--headings--font-family);
           }
           position: absolute;
           border-style: solid;
@@ -254,7 +254,7 @@
           --block-columns--card-header-- {
             font-weight: 400;
             font-size: $font-size-xs;
-            font-family: $roboto;
+            font-family: var(--headings--font-family);
             background: $dark-blue;
             color: $white;
           }
@@ -319,7 +319,7 @@
         }
 
         .step-number {
-          font-family: $roboto;
+          font-family: var(--headings--font-family);
           font-size: $font-size-sm;
           font-weight: 900;
           color: $white;
@@ -339,7 +339,7 @@
       h5 {
         line-height: 1.6rem;
         font-size: $font-size-lg;
-        font-family: $roboto;
+        font-family: var(--headings--font-family);
         font-weight: 700;
 
         @include large-and-up {
@@ -381,12 +381,12 @@
         }
 
         a {
-          font-family: $lora;
+          font-family: var(--body--font-family);
         }
       }
 
       a {
-        font-family: $roboto;
+        font-family: var(--headings--font-family);
       }
 
       .attachment-container {

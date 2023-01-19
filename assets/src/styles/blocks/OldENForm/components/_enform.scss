@@ -74,7 +74,7 @@
   p {
     --block-enform--caption--paragraph-- {
       color: white;
-      font-family: $roboto;
+      font-family: var(--headings--font-family);
       font-size: 1rem;
       line-height: 1.37rem;
     }
@@ -94,13 +94,13 @@
   font-weight: inherit;
   font-size: 1rem;
   text-transform: none;
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   margin-bottom: auto;
 }
 
 .enform {
   _-- {
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
     background: $dark-blue;
   }
   margin-top: 36px;

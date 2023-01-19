@@ -448,7 +448,7 @@ $medium-image-height: 600px;
     p {
       display: block;
       color: $grey-80;
-      font-family: $roboto;
+      font-family: var(--headings--font-family);
       font-size: .875rem;
       font-weight: 500;
       line-height: 22px;
@@ -490,7 +490,7 @@ $medium-image-height: 600px;
       left: 0;
       right: 0;
       position: relative;
-      font-family: $roboto;
+      font-family: var(--headings--font-family);
       width: 100%;
       bottom: inherit;
       margin-bottom: 24px;

@@ -92,7 +92,7 @@
 .article-list-item-meta {
   --block-articles--article--meta-- {
     color: $grey-40;
-    font-family: $roboto;
+    font-family: var(--headings--font-family);
     font-size: 14px;
     margin: 0;
 

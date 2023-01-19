@@ -1,5 +1,5 @@
 .EmptyMessage {
-  font-family: $roboto;
+  font-family: var(--headings--font-family);
   padding: $sp-4;
   background: $gp-green-20;
 }
