@@ -6,7 +6,6 @@ namespace P4\MasterTheme\Settings;
 
 use P4\MasterTheme\Features\ActionPostType;
 use P4\MasterTheme\Features\MobileTabsMenu;
-use P4\MasterTheme\Features\DropdownMenu;
 use P4\MasterTheme\Features\PostPageCategoryLinks;
 use P4\MasterTheme\Features\HideListingPagesBackground;
 use P4\MasterTheme\Features\ListingPagePagination;
@@ -66,7 +65,6 @@ class InformationArchitecture {
 		return [
 			MobileTabsMenu::get_cmb_field(),
 			ActionPostType::get_cmb_field(),
-			DropdownMenu::get_cmb_field(),
 			PostPageCategoryLinks::get_cmb_field(),
 			HideListingPagesBackground::get_cmb_field(),
 			ListingPagePagination::get_cmb_field(),
