@@ -6,7 +6,6 @@ use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use P4\MasterTheme\Features\Dev\WPTemplateEditor;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
 use P4\MasterTheme\Features\MobileTabsMenu;
-use P4\MasterTheme\Features\DropdownMenu;
 use Timber\Timber;
 use Timber\Site as TimberSite;
 use Timber\Menu as TimberMenu;
@@ -647,7 +646,6 @@ class MasterSite extends TimberSite {
 
 		// IA: Tabs menu on mobile.
 		$context['mobile_tabs_menu'] = MobileTabsMenu::is_active();
-		$context['dropdown_menu']    = DropdownMenu::is_active();
 
 		return $context;
 	}

@@ -17,7 +17,7 @@
 				data-ga-label="{{ page_category }}">
 					{{ item.title }}
 			</a>
-			{% if item.children is not empty and dropdown_menu %}
+			{% if item.children is not empty %}
 				<button
 					class="collapsable-btn accordion-button collapsed"
 					type="button"
@@ -28,7 +28,7 @@
 			{% endif %}
 		</div>
 
-		{% if item.children is not empty and dropdown_menu %}
+		{% if item.children is not empty %}
 		<nav
 			id="menu-{{ targetId }}"
 			class="nav-subitems accordion-collapse collapse"
