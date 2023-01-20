@@ -1,15 +1,7 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	{% if not hide_background %}
-		<div class="skewed-overlay"></div>
-	{% endif %}
 	<div class="page-header">
-		{% if ( tag_image and not hide_background ) %}
-			<div class="page-header-background">
-				<img src="{{ tag_image }}" class="page-header-image">
-			</div>
-		{% endif %}
 		<div class="container">
 			<div class="left">
 				<div class="top-page-tags">
