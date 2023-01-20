@@ -16,6 +16,7 @@ use P4\MasterTheme\Migrations\M011RemoveSmartsheetOption;
 use P4\MasterTheme\Migrations\M012RemoveThemeEditorOption;
 use P4\MasterTheme\Migrations\M013RemoveDuplicatedOptions;
 use P4\MasterTheme\Migrations\M014RemoveDropdownNavigationMenusOption;
+use P4\MasterTheme\Migrations\M015RemoveListingPagesBackgroundImages;
 
 
 /**
@@ -49,6 +50,7 @@ class Migrator {
 			M012RemoveThemeEditorOption::class,
 			M013RemoveDuplicatedOptions::class,
 			M014RemoveDropdownNavigationMenusOption::class,
+			M015RemoveListingPagesBackgroundImages::class,
 		];
 
 		// Loop migrations and run those that haven't run yet.

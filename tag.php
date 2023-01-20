@@ -10,15 +10,12 @@
  */
 
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
-use P4\MasterTheme\Features\HideListingPagesBackground;
 use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\TaxonomyCampaign;
 use Timber\Timber;
 use P4GBKS\Blocks\HappyPoint;
 
 $context = Timber::get_context();
-
-$context['hide_background'] = HideListingPagesBackground::is_active();
 
 if ( is_tag() ) {
 	$context['tag']  = get_queried_object();
@@ -43,7 +40,6 @@ if ( is_tag() ) {
 
 		$context['tag_name']        = single_tag_title( '', false );
 		$context['tag_description'] = wpautop( $context['tag']->description );
-		$context['tag_image']       = get_term_meta( $context['tag']->term_id, 'tag_attachment', true );
 		$tag_image_id               = get_term_meta( $context['tag']->term_id, 'tag_attachment_id', true );
 
 		$context['og_description'] = $context['tag_description'];
