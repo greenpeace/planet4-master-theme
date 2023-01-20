@@ -1,4 +1,4 @@
-{% if ((post and (1 != fn('post_password_required', post))) or author is defined) %}
+{% if ((post and (1 != fn('post_password_required', post))) or author is defined) or tag_name is defined %}
 	{% if (author.description is defined and author.description) %}
 		{% set meta_description = author.description|striptags %}
 	{% elseif (post.post_excerpt is defined and post.post_excerpt) %}

@@ -44,7 +44,13 @@ if ( is_tag() ) {
 
 		$context['og_description'] = $context['tag_description'];
 		if ( $tag_image_id ) {
-			$context['og_image_data'] = wp_get_attachment_image_src( $tag_image_id, 'full' );
+			$tag_image = wp_get_attachment_image_src( $tag_image_id, 'full' );
+
+			$context['og_image_data'] = [
+				'url'    => $tag_image[0],
+				'width'  => $tag_image[1],
+				'height' => $tag_image[2],
+			];
 		}
 		$context['page_category'] = 'Tag Page';
 
