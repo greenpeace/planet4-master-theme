@@ -792,10 +792,6 @@ msgstr ""
 msgid "Listing page pagination"
 msgstr ""
 
-#: src/Features/HideListingPagesBackground.php:25
-msgid "Listing pages background"
-msgstr ""
-
 #: assets/src/js/Components/ArchivePicker.js:74
 msgid "Loading..."
 msgstr ""
@@ -1149,10 +1145,6 @@ msgstr ""
 
 #: src/Settings.php:316
 msgid "Reject all cookies"
-msgstr ""
-
-#: src/Features/HideListingPagesBackground.php:32
-msgid "Remove background image and skewed overlay on all listing pages."
 msgstr ""
 
 #: src/Role/Reviewer.php:17
