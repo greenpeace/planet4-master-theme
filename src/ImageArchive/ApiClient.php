@@ -27,7 +27,7 @@ class ApiClient {
 
 	private const DEFAULT_PARAMS = [
 		'query'        => '(Mediatype:Image)',
-		'fields'       => 'MediaEncryptedIdentifier,Title,Caption,copyright,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier,original-language-title,original-language-description,original-language,restrictions,copyright,MediaDate,CreatedDate,EditDate',
+		'fields'       => 'MediaEncryptedIdentifier,Title,Caption,CoreField.Copyright,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier,original-language-title,original-language-description,original-language,restrictions,MediaDate,CreatedDate,EditDate',
 		'countperpage' => self::MEDIAS_PER_PAGE,
 		'format'       => 'json',
 		'pagenumber'   => 1,

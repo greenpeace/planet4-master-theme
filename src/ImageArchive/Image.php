@@ -94,7 +94,7 @@ class Image implements JsonSerializable {
 		$image->archive_id   = $data['SystemIdentifier'];
 		$image->title        = $data['Title'];
 		$image->caption      = $data['Caption'];
-		$image->credit       = trim( $data['copyright'] ?? '' );
+		$image->credit       = trim( $data['CoreField.Copyright'] ?? '' );
 		$image->restrictions = $data['restrictions'] ?? [];
 		$image->sizes        = ImageSize::all_from_api_response( $data );
 
