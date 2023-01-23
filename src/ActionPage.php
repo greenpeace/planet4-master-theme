@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use P4\MasterTheme\Features\ActionPostType;
+use WP_Post;
 
 /**
  * Class P4\MasterTheme\ActionPage
@@ -294,12 +295,12 @@ class ActionPage
      * Filter for term_link.
      *
      * @param string $link     The link value.
-     * @param string $term     The term passed to the filter (unused).
+     * @param mixed  $term     The term passed to the filter (unused).
      * @param string $taxonomy Taxonomy of the given link.
      *
      * @return string The filtered permalink for this taxonomy.
      */
-    public function filter_term_permalink(string $link, string $term, string $taxonomy): string
+    public function filter_term_permalink(string $link, $term, string $taxonomy): string
     {
         if (self::TAXONOMY !== $taxonomy) {
             return $link;

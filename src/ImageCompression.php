@@ -33,7 +33,8 @@ class ImageCompression extends WP_Image_Editor_Imagick
      * @return bool|WP_Error
      * @since 1.9
      */
-    protected function thumbnail_image(int $dst_w, int $dst_h, string $filter_name = 'FILTER_TRIANGLE', bool $strip_meta = true)
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.ParameterTypeHint -- compatible with parent class
+    protected function thumbnail_image($dst_w, $dst_h, $filter_name = 'FILTER_TRIANGLE', $strip_meta = true)
     {
         if ($this->filter) {
             $filter_name = $this->filter;

@@ -10,7 +10,7 @@ use Timber\Timber;
 use Timber\Site as TimberSite;
 use Timber\Menu as TimberMenu;
 use Twig_Extension_StringLoader;
-use Twig_ExtensionInterface;
+use Twig_Environment;
 use Twig_SimpleFilter;
 use WP_Error;
 use WP_Post;
@@ -130,7 +130,7 @@ class MasterSite extends TimberSite
         add_action('wp_enqueue_scripts', [ PublicAssets::class, 'enqueue_js' ]);
         add_filter('safe_style_css', [ $this, 'set_custom_allowed_css_properties' ]);
         add_filter('wp_kses_allowed_html', [ $this, 'set_custom_allowed_attributes_filter' ], 10, 2);
-        add_action('add_meta_boxes', [ $this, 'add_meta_box_search' ]);
+        add_action('add_meta_boxes', [ $this, 'add_meta_box_search' ], 10, 2);
         add_action('save_post', [ $this, 'save_meta_box_search' ], 10, 2);
         add_action('save_post', [ $this, 'set_featured_image' ], 10, 3);
         add_action('post_updated', [ $this, 'clean_post_cache' ], 10, 3);
@@ -460,19 +460,19 @@ class MasterSite extends TimberSite
         global $wpdb, $nginx_purger;
 
         // Search for those posts, who use TAB($post_id) from "Take Action Page Selector" dropdown.
-		// phpcs:disable
-		$sql          = 'SELECT post_id FROM %1$s WHERE meta_key = \'p4_take_action_page\' AND meta_value = %2$d';
-		$prepared_sql = $wpdb->prepare( $sql, $wpdb->postmeta, $post_id );
-		$boxout_posts = $wpdb->get_col( $prepared_sql );
-		// phpcs:enable
+        // phpcs:disable
+        $sql          = 'SELECT post_id FROM %1$s WHERE meta_key = \'p4_take_action_page\' AND meta_value = %2$d';
+        $prepared_sql = $wpdb->prepare( $sql, $wpdb->postmeta, $post_id );
+        $boxout_posts = $wpdb->get_col( $prepared_sql );
+        // phpcs:enable
 
         // Search for those posts, who use TAB($post_id) as a block inside block editor.
         $take_action_boxout_block = '%<!-- wp:planet4-blocks/take-action-boxout {"take_action_page":' . $post_id . '} /-->%';
-		// phpcs:disable
-		$sql          = 'SELECT ID FROM %1$s WHERE post_type = \'post\' AND post_status = \'publish\' AND post_content LIKE \'%2$s\'';
-		$prepared_sql = $wpdb->prepare( $sql, $wpdb->posts, $take_action_boxout_block );
-		$result       = $wpdb->get_col( $prepared_sql );
-		// phpcs:enable
+        // phpcs:disable
+        $sql          = 'SELECT ID FROM %1$s WHERE post_type = \'post\' AND post_status = \'publish\' AND post_content LIKE \'%2$s\'';
+        $prepared_sql = $wpdb->prepare( $sql, $wpdb->posts, $take_action_boxout_block );
+        $result       = $wpdb->get_col( $prepared_sql );
+        // phpcs:enable
 
         $boxout_posts = array_merge($boxout_posts, $result);
 
@@ -666,7 +666,7 @@ class MasterSite extends TimberSite
      *
      * @return mixed
      */
-    public function add_to_twig(Twig_ExtensionInterface $twig)
+    public function add_to_twig(Twig_Environment $twig)
     {
         $twig->addExtension(new Twig_Extension_StringLoader());
         $twig->addFilter(new Twig_SimpleFilter('svgicon', [ $this, 'svgicon' ]));
@@ -865,11 +865,12 @@ class MasterSite extends TimberSite
      * Creates a Metabox on the side of the Add/Edit Post/Page
      * that is used for applying weight to the current Post/Page in search results.
      *
-     * @param WP_Post $post The currently Added/Edited post.
+     * @param string  $post_type Post type.
+     * @param WP_Post $post      Post object.
      */
-    public function add_meta_box_search(WP_Post $post): void
+    public function add_meta_box_search(string $post_type, WP_Post $post): void
     {
-        add_meta_box('meta-box-search', 'Search', [ $this, 'view_meta_box_search' ], [ 'post', 'page' ], 'side', 'default', $post);
+        add_meta_box('meta-box-search', 'Search', [ $this, 'view_meta_box_search' ], [ 'post', 'page' ], 'side', 'default', [$post]);
     }
 
     /**
@@ -883,7 +884,7 @@ class MasterSite extends TimberSite
         $options = get_option('planet4_options');
 
         echo '<label for="my_meta_box_text">' . esc_html__('Weight', 'planet4-master-theme-backend') . ' (1-' . esc_attr(Search::DEFAULT_MAX_WEIGHT) . ')</label>
-				<input id="weight" type="text" name="weight" value="' . esc_attr($weight) . '" />';
+                <input id="weight" type="text" name="weight" value="' . esc_attr($weight) . '" />';
         ?><script>
             $ = jQuery;
             $( '#parent_id' ).off('change').on( 'change', function () {
@@ -1429,13 +1430,13 @@ class MasterSite extends TimberSite
             . wp_kses_post($message)
             . '</div>'
             . "<script>(function() {
-				jQuery('#p4-notice').on('click', '.notice-dismiss', () => {
-					jQuery.post(ajaxurl, {'action': 'dismiss_dashboard_notice'}, function(response) {
-						jQuery('#p4-notice').hide();
-					});
-				});
-			})();</script>
-			";
+                jQuery('#p4-notice').on('click', '.notice-dismiss', () => {
+                    jQuery.post(ajaxurl, {'action': 'dismiss_dashboard_notice'}, function(response) {
+                        jQuery('#p4-notice').hide();
+                    });
+                });
+            })();</script>
+            ";
     }
 
     /**
@@ -1454,16 +1455,16 @@ class MasterSite extends TimberSite
     private function p4_message(): string
     {
         return '<h2>Welcome to the new P4 message board!</h2>
-			<p>New to the Planet 4 platform? Here are some self - paced courses that can help you get up to speed. 👇
-				<ul>
-					<li><span style="margin-right: 3px;">
-						<a href="https://greenpeace.studytube.nl/courses/22122">Planet 4 Fundamentals</a> 🌏</span>
-						learn the very basic of Planet 4.</li>
-					<li><span style="margin-right: 3px;">
-						<a href="https://greenpeace.studytube.nl/courses/23208/planet-4">Planet 4 Power User</a> 🚀</span>
-						a more in-depth course to understand how to manage a P4 website and how to make best use of its engagement features.</li>
-				</ul>
-			</p>';
+            <p>New to the Planet 4 platform? Here are some self - paced courses that can help you get up to speed. 👇
+                <ul>
+                    <li><span style="margin-right: 3px;">
+                        <a href="https://greenpeace.studytube.nl/courses/22122">Planet 4 Fundamentals</a> 🌏</span>
+                        learn the very basic of Planet 4.</li>
+                    <li><span style="margin-right: 3px;">
+                        <a href="https://greenpeace.studytube.nl/courses/23208/planet-4">Planet 4 Power User</a> 🚀</span>
+                        a more in-depth course to understand how to manage a P4 website and how to make best use of its engagement features.</li>
+                </ul>
+            </p>';
     }
 
     /**

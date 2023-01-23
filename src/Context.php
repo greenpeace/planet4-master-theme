@@ -12,9 +12,9 @@ class Context
      *
      * @param array  $context To be set.
      * @param array  $page_meta_data  meta data of page.
-     * @param String $post_title the title of the post.
+     * @param string $post_title the title of the post.
      */
-    public static function set_header(array &$context, array $page_meta_data, String $post_title): void
+    public static function set_header(array &$context, array $page_meta_data, string $post_title): void
     {
         $meta_data_title = $page_meta_data['p4_title'] ?? '';
         $post_title_to_show = $meta_data_title ? $meta_data_title : $post_title;
@@ -84,9 +84,9 @@ class Context
     /**
      * Parse the utm_campaign param. It's not needed to add if the value is equal to `not set`.
      *
-     * @param array $cf_local_project It comes from meta p4_global_project_tracking_id value.
+     * @param string $cf_local_project It comes from meta p4_global_project_tracking_id value.
      */
-    public static function parse_utm_campaign_param(array $cf_local_project): string
+    public static function parse_utm_campaign_param(string $cf_local_project): string
     {
         if ('not set' !== $cf_local_project) {
             return '&utm_campaign=' . $cf_local_project;

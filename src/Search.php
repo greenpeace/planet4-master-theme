@@ -52,7 +52,6 @@ abstract class Search
 
     /**
      * Selected sort criteria
-     *
      */
     protected string $selected_sort;
 
