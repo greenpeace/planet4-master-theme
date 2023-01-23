@@ -420,9 +420,11 @@ class ActionPage
                     'taxonomy' => self::TAXONOMY,
                 ]
             );
-            if (! is_wp_error($terms) && ! empty($terms)) {
-                $all_terms = array_merge($all_terms, $terms);
+            if (is_wp_error($terms) || empty($terms)) {
+                continue;
             }
+
+            $all_terms = array_merge($all_terms, $terms);
         }
 
         do_action('wpml_switch_language', $current_lang);

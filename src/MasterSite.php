@@ -271,9 +271,11 @@ class MasterSite extends TimberSite
         add_action(
             'customize_register',
             function ($wp_customize): void {
-                if (defined('WP_APP_ENV') && ( 'production' === WP_APP_ENV || 'staging' === WP_APP_ENV )) {
-                    $wp_customize->remove_control('custom_css');
+                if (!defined('WP_APP_ENV') || ( 'production' !== WP_APP_ENV && 'staging' !== WP_APP_ENV )) {
+                    return;
                 }
+
+                $wp_customize->remove_control('custom_css');
             }
         );
 
@@ -310,10 +312,12 @@ class MasterSite extends TimberSite
             return;
         }
 
-        if ($_SERVER['HTTP_HOST'] !== $_SERVER['SERVER_NAME']) {
-            if (wp_safe_redirect(str_replace(sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST'])), sanitize_text_field(wp_unslash($_SERVER['SERVER_NAME'])), get_admin_url()))) {
-                exit;
-            }
+        if ($_SERVER['HTTP_HOST'] === $_SERVER['SERVER_NAME']) {
+            return;
+        }
+
+        if (wp_safe_redirect(str_replace(sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST'])), sanitize_text_field(wp_unslash($_SERVER['SERVER_NAME'])), get_admin_url()))) {
+            exit;
         }
     }
 
@@ -368,13 +372,17 @@ class MasterSite extends TimberSite
         $user_set_featured_image = get_post_meta($post_id, '_thumbnail_id', true);
 
         // Apply this behavior to a Post and only if it does not already a featured image.
-        if ('post' === $post->post_type && ! $user_set_featured_image) {
-            // Find all matches of <img> html tags within the post's content and get the id of the image from the elements class name.
-            preg_match_all('/<img.+wp-image-(\d+).*>/i', $post->post_content, $matches);
-            if (isset($matches[1][0]) && is_numeric($matches[1][0])) {
-                set_post_thumbnail($post_id, $matches[1][0]);
-            }
+        if ('post' !== $post->post_type || $user_set_featured_image) {
+            return;
         }
+
+        // Find all matches of <img> html tags within the post's content and get the id of the image from the elements class name.
+        preg_match_all('/<img.+wp-image-(\d+).*>/i', $post->post_content, $matches);
+        if (!isset($matches[1][0]) || !is_numeric($matches[1][0])) {
+            return;
+        }
+
+        set_post_thumbnail($post_id, $matches[1][0]);
     }
 
     /**
@@ -403,10 +411,12 @@ class MasterSite extends TimberSite
             foreach ($letter as $country) {
                 $lang = $country['lang'];
                 foreach ($lang as $item) {
-                    if (isset($item['locale'])) {
-                        foreach ($item['locale'] as $code) {
-                            $metadata[ $code ] = $item['url'];
-                        }
+                    if (!isset($item['locale'])) {
+                        continue;
+                    }
+
+                    foreach ($item['locale'] as $code) {
+                        $metadata[ $code ] = $item['url'];
                     }
                 }
             }
@@ -930,7 +940,9 @@ class MasterSite extends TimberSite
 
         if (empty($username) || empty($password)) {
             return $user;
-        } elseif (strpos($username, '@')) {
+        }
+
+        if (strpos($username, '@')) {
             $user_data = get_user_by('email', trim(wp_unslash($username)));
         } else {
             $login = trim($username);
@@ -1058,33 +1070,35 @@ class MasterSite extends TimberSite
      */
     public function p4_auto_generate_excerpt(int $post_id, WP_Post $post): void
     {
-        if ('' === $post->post_excerpt && 'post' === $post->post_type) {
-            // Unhook save_post function so it doesn't loop infinitely.
-            remove_action('save_post', [ $this, 'p4_auto_generate_excerpt' ], 10);
-
-            // Generate excerpt text.
-            $post_excerpt = strip_shortcodes($post->post_content);
-
-            preg_match('/<p>(.*?)<\/p>/', $post_excerpt, $match_paragraph);
-
-            $post_excerpt = $match_paragraph[1] ?? $post_excerpt;
-            $post_excerpt = apply_filters('the_content', $post_excerpt);
-            $post_excerpt = str_replace(']]>', ']]&gt;', $post_excerpt);
-            $excerpt_length = apply_filters('excerpt_length', 30);
-            $excerpt_more = apply_filters('excerpt_more', '&hellip;');
-            $post_excerpt = wp_trim_words($post_excerpt, $excerpt_length, $excerpt_more);
-
-            // Update the post, which calls save_post again.
-            wp_update_post(
-                [
-                    'ID' => $post_id,
-                    'post_excerpt' => $post_excerpt,
-                ]
-            );
-
-            // re-hook save_post function.
-            add_action('save_post', [ $this, 'p4_auto_generate_excerpt' ], 10, 2);
+        if ('' !== $post->post_excerpt || 'post' !== $post->post_type) {
+            return;
         }
+
+        // Unhook save_post function so it doesn't loop infinitely.
+        remove_action('save_post', [ $this, 'p4_auto_generate_excerpt' ], 10);
+
+        // Generate excerpt text.
+        $post_excerpt = strip_shortcodes($post->post_content);
+
+        preg_match('/<p>(.*?)<\/p>/', $post_excerpt, $match_paragraph);
+
+        $post_excerpt = $match_paragraph[1] ?? $post_excerpt;
+        $post_excerpt = apply_filters('the_content', $post_excerpt);
+        $post_excerpt = str_replace(']]>', ']]&gt;', $post_excerpt);
+        $excerpt_length = apply_filters('excerpt_length', 30);
+        $excerpt_more = apply_filters('excerpt_more', '&hellip;');
+        $post_excerpt = wp_trim_words($post_excerpt, $excerpt_length, $excerpt_more);
+
+        // Update the post, which calls save_post again.
+        wp_update_post(
+            [
+                'ID' => $post_id,
+                'post_excerpt' => $post_excerpt,
+            ]
+        );
+
+        // re-hook save_post function.
+        add_action('save_post', [ $this, 'p4_auto_generate_excerpt' ], 10, 2);
     }
 
     /**
@@ -1115,14 +1129,16 @@ class MasterSite extends TimberSite
      */
     public function add_help_sidebar(): void
     {
-        if (get_current_screen()) {
-            $screen = get_current_screen();
-            $sidebar = $screen->get_help_sidebar();
-
-            $sidebar .= '<p><a target="_blank" href="https://planet4.greenpeace.org/">Planet 4 Handbook</a></p>';
-
-            $screen->set_help_sidebar($sidebar);
+        if (!get_current_screen()) {
+            return;
         }
+
+        $screen = get_current_screen();
+        $sidebar = $screen->get_help_sidebar();
+
+        $sidebar .= '<p><a target="_blank" href="https://planet4.greenpeace.org/">Planet 4 Handbook</a></p>';
+
+        $screen->set_help_sidebar($sidebar);
     }
 
     /**

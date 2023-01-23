@@ -329,29 +329,33 @@ add_filter(
             foreach ($terms as $term) {
                 $term_link = get_term_link($term);
 
-                if (! is_wp_error($term_link)) {
-                    $args = [
-                        'post_type' => 'post',
-                        'post_status' => 'publish',
-                        'posts_per_page' => - 1,
-                        'tax_query' => [
-                            'relation' => 'AND',
-                            [
-                                'taxonomy' => $taxonomy,
-                                'field' => 'id',
-                                'terms' => [ $term->term_id ],
-                            ],
-                        ],
-                    ];
-
-                    $query = new WP_Query($args);
-                    $pages = $query->post_count / get_option('posts_per_page', 10);
-                    if ($pages > 1) {
-                        $numbers = range(2, 1 + round($pages));
-
-                        $new_urls = array_map(fn($i) => "{$term_link}page/{$i}/", $numbers);
-                    }
+                if (is_wp_error($term_link)) {
+                    continue;
                 }
+
+                $args = [
+                    'post_type' => 'post',
+                    'post_status' => 'publish',
+                    'posts_per_page' => - 1,
+                    'tax_query' => [
+                        'relation' => 'AND',
+                        [
+                            'taxonomy' => $taxonomy,
+                            'field' => 'id',
+                            'terms' => [ $term->term_id ],
+                        ],
+                    ],
+                ];
+
+                $query = new WP_Query($args);
+                $pages = $query->post_count / get_option('posts_per_page', 10);
+                if ($pages <= 1) {
+                    continue;
+                }
+
+                $numbers = range(2, 1 + round($pages));
+
+                $new_urls = array_map(fn($i) => "{$term_link}page/{$i}/", $numbers);
             }
         }
 
@@ -423,35 +427,37 @@ add_action(
     function (): void {
         global $post;
 
-        if ($post && (int) get_option('page_for_posts') === $post->ID) {
-            // Adding this style, it works as a workaround for editors
-            // To disable the ability to edit the content of the listing page.
-            echo '<style>
-				.edit-post-header-toolbar,
-				.block-list-appender {
-					pointer-events: none;
-					opacity: 0;
-				}
-
-				.block-editor-block-list__layout {
-					display: none;
-				}
-
-				.components-notice__actions {
-					display: inline-flex !important;
-					margin-left: 5px;
-				}
-			</style>';
-
-            wp_add_inline_script(
-                'wp-notices',
-                sprintf(
-                    'wp.data.dispatch( "core/notices" ).createNotice("warning", "%s" , { isDismissible: false, actions: [ { label: "%s", url: "/wp-admin/options-reading.php"} ] } )',
-                    __('The content on this page is hidden because this page is being used as your \"All Posts\" listing page. You can disable this by un-setting the \"Posts page\"', 'planet4-master-theme'),
-                    __('here', 'planet4-master-theme')
-                )
-            );
+        if (!$post || (int) get_option('page_for_posts') !== $post->ID) {
+            return;
         }
+
+        // Adding this style, it works as a workaround for editors
+        // To disable the ability to edit the content of the listing page.
+        echo '<style>
+            .edit-post-header-toolbar,
+            .block-list-appender {
+                pointer-events: none;
+                opacity: 0;
+            }
+
+            .block-editor-block-list__layout {
+                display: none;
+            }
+
+            .components-notice__actions {
+                display: inline-flex !important;
+                margin-left: 5px;
+            }
+        </style>';
+
+        wp_add_inline_script(
+            'wp-notices',
+            sprintf(
+                'wp.data.dispatch( "core/notices" ).createNotice("warning", "%s" , { isDismissible: false, actions: [ { label: "%s", url: "/wp-admin/options-reading.php"} ] } )',
+                __('The content on this page is hidden because this page is being used as your \"All Posts\" listing page. You can disable this by un-setting the \"Posts page\"', 'planet4-master-theme'),
+                __('here', 'planet4-master-theme')
+            )
+        );
     },
     100
 );
@@ -473,9 +479,11 @@ add_action(
     function (): void {
         global $submenu;
 
-        if (isset($submenu['planet4_settings_navigation'])) {
-            uasort($submenu['planet4_settings_navigation'], fn ($a, $b) => $a[0] <=> $b[0]);
+        if (!isset($submenu['planet4_settings_navigation'])) {
+            return;
         }
+
+        uasort($submenu['planet4_settings_navigation'], fn ($a, $b) => $a[0] <=> $b[0]);
     }
 );
 

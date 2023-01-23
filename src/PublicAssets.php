@@ -96,13 +96,15 @@ final class PublicAssets
         Loader::enqueue_versioned_style($country_selector_file, 'country-selector', [ 'parent-style' ]);
 
         $post_type = get_post_type();
-        if (is_single() && in_array($post_type, [ 'post', 'attachment', 'idea' ], true)) {
-            Loader::enqueue_versioned_style(
-                '/assets/build/post.min.css',
-                'post-type--post',
-                [ 'parent-style' ]
-            );
+        if (!is_single() || !in_array($post_type, [ 'post', 'attachment', 'idea' ], true)) {
+            return;
         }
+
+        Loader::enqueue_versioned_style(
+            '/assets/build/post.min.css',
+            'post-type--post',
+            [ 'parent-style' ]
+        );
     }
 
     /**

@@ -350,10 +350,7 @@ class Campaigns
      */
     public function validate(int $id): bool
     {
-        if ($id < 0) {
-            return false;
-        }
-        return true;
+        return $id >= 0;
     }
 
     /**
@@ -376,9 +373,11 @@ class Campaigns
 
         if ($this->page_types) {
             foreach ($this->page_types as $page_type) {
-                if ($page_type instanceof WP_Term) {
-                    $page_types_slugs[] = $page_type->slug;
+                if (!($page_type instanceof WP_Term)) {
+                    continue;
                 }
+
+                $page_types_slugs[] = $page_type->slug;
             }
         }
 

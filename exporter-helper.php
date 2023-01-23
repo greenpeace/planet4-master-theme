@@ -189,9 +189,9 @@ function p4_px_single_post_site_url()
 {
     if (is_multisite()) {
         return network_home_url();
-    } else {
-        return get_bloginfo_rss('url');
     }
+
+    return get_bloginfo_rss('url');
 }
 
 /**

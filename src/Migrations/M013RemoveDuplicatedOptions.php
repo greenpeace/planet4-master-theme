@@ -22,9 +22,11 @@ class M013RemoveDuplicatedOptions extends MigrationScript
         $options = get_option('planet4_options');
 
         foreach (array_keys($features) as $feature) {
-            if (array_key_exists($feature, $options)) {
-                unset($options[ $feature ]);
+            if (!array_key_exists($feature, $options)) {
+                continue;
             }
+
+            unset($options[ $feature ]);
         }
 
         update_option('planet4_options', $options);

@@ -51,10 +51,12 @@ class CloudflarePurge extends Command
 
         foreach ($cf->purge($urls) as $i => [$result, $chunk]) {
             WP_CLI::log('Chunk ' . $i . ': ' . ( $result ? 'ok' : 'failed' ));
-            if (true !== $result) {
-                $joined = implode("\n", $chunk);
-                WP_CLI::warning("Chunk $i failed, one or more of these didn't work out: \n$joined");
+            if (true === $result) {
+                continue;
             }
+
+            $joined = implode("\n", $chunk);
+            WP_CLI::warning("Chunk $i failed, one or more of these didn't work out: \n$joined");
         }
     }
 

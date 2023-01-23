@@ -193,34 +193,42 @@ class Post extends TimberPost
         }
 
         // Handle navigation links.
-        if ($categories) {
-            $categories_ids = [];
+        if (!$categories) {
+            return;
+        }
 
-            foreach ($categories as $category) {
-                $categories_ids[] = $category->term_id;
+        $categories_ids = [];
+
+        foreach ($categories as $category) {
+            $categories_ids[] = $category->term_id;
+        }
+        // Get the Issue pages that are relevant to the Categories of the current Post.
+        if (!$categories_ids || !$explore_page_id) {
+            return;
+        }
+
+        $args = [
+            'post_parent' => $explore_page_id,
+            'post_type' => 'page',
+            'post_status' => 'publish',
+        ];
+
+        $args['category__in'] = $categories_ids;
+        $issues = ( new WP_Query($args) )->posts;
+
+        if (!$issues) {
+            return;
+        }
+
+        foreach ($issues as $issue) {
+            if (!$issue || $this->post_parent === (int) $explore_page_id) {
+                continue;
             }
-            // Get the Issue pages that are relevant to the Categories of the current Post.
-            if ($categories_ids && $explore_page_id) {
-                $args = [
-                    'post_parent' => $explore_page_id,
-                    'post_type' => 'page',
-                    'post_status' => 'publish',
-                ];
 
-                $args['category__in'] = $categories_ids;
-                $issues = ( new WP_Query($args) )->posts;
-
-                if ($issues) {
-                    foreach ($issues as $issue) {
-                        if ($issue && $this->post_parent !== (int) $explore_page_id) {
-                            $this->issues_nav_data[] = [
-                                'name' => $issue->post_title,
-                                'link' => get_permalink($issue),
-                            ];
-                        }
-                    }
-                }
-            }
+            $this->issues_nav_data[] = [
+                'name' => $issue->post_title,
+                'link' => get_permalink($issue),
+            ];
         }
     }
 
@@ -258,9 +266,11 @@ class Post extends TimberPost
     {
         $taxonomies = $this->get_terms(CustomTaxonomy::TAXONOMY);
 
-        if ($taxonomies && ! is_wp_error($taxonomies)) {
-            $this->page_types = $taxonomies;
+        if (!$taxonomies || is_wp_error($taxonomies)) {
+            return;
         }
+
+        $this->page_types = $taxonomies;
     }
 
     /**
@@ -436,9 +446,11 @@ class Post extends TimberPost
             foreach ($social_menu as $social_menu_item) {
                 $url_parts = explode('/', rtrim($social_menu_item->url, '/'));
                 foreach ($brands as $brand) {
-                    if (false !== strpos($social_menu_item->url, $brand)) {
-                        $social_accounts[ $brand ] = count($url_parts) > 0 ? $url_parts[ count($url_parts) - 1 ] : '';
+                    if (false === strpos($social_menu_item->url, $brand)) {
+                        continue;
                     }
+
+                    $social_accounts[ $brand ] = count($url_parts) > 0 ? $url_parts[ count($url_parts) - 1 ] : '';
                 }
             }
         }

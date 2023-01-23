@@ -160,10 +160,12 @@ abstract class Search
                  * @var SitePress
                  */
                 global $sitepress;
-                if ($sitepress) {
-                    $lang_code = ( new WPML_Post_Element($post->ID, $sitepress) )->get_language_code();
-                    $sitepress->switch_lang($lang_code);
+                if (!$sitepress) {
+                    return;
                 }
+
+                $lang_code = ( new WPML_Post_Element($post->ID, $sitepress) )->get_language_code();
+                $sitepress->switch_lang($lang_code);
             },
             20,
             3
@@ -615,75 +617,77 @@ abstract class Search
      */
     public function set_filters_args(array &$args): void
     {
-        if ($this->filters) {
-            foreach ($this->filters as $type => $filter_type) {
-                foreach ($filter_type as $filter) {
-                    switch ($type) {
-                        case 'cat':
-                            $args['tax_query'][] = [
-                                'taxonomy' => 'category',
-                                'field' => 'term_id',
-                                'terms' => $filter['id'],
-                            ];
-                            break;
-                        case 'tag':
-                            $args['tax_query'][] = [
-                                'taxonomy' => 'post_tag',
-                                'field' => 'term_id',
-                                'terms' => $filter['id'],
-                            ];
-                            break;
-                        case 'ptype':
-                            // This taxonomy is used only for Posts.
-                            $args['post_type'] = 'post';
-                            $args['tax_query'][] = [
-                                'taxonomy' => 'p4-page-type',
-                                'field' => 'term_id',
-                                'terms' => $filter['id'],
-                            ];
-                            break;
-                        case 'atype':
-                            // This taxonomy is used only for Posts.
-                            $args['post_type'] = ActionPage::POST_TYPE;
-                            $args['tax_query'][] = [
-                                'taxonomy' => ActionPage::TAXONOMY,
-                                'field' => 'term_id',
-                                'terms' => $filter['id'],
-                            ];
-                            break;
-                        case 'ctype':
-                            switch ($filter['id']) {
-                                case 1:
-                                    $args['post_type'] = 'attachment';
-                                    $args['post_status'] = 'inherit';
-                                    $args['post_mime_type'] = self::DOCUMENT_TYPES;
-                                    break;
-                                case 2:
-                                    $args['post_type'] = 'page';
-                                    $args['post_status'] = 'publish';
-                                    break;
-                                case 3:
-                                    $args['post_type'] = 'post';
-                                    $args['post_status'] = 'publish';
-                                    break;
-                                case 4:
-                                    $args['post_type'] = 'campaign';
-                                    $args['post_status'] = 'publish';
-                                    break;
-                                case 5:
-                                    $args['post_type'] = 'archive';
-                                    break;
-                                case 6:
-                                    $args['post_type'] = ActionPage::POST_TYPE;
-                                    $args['post_status'] = 'publish';
-                                    break;
-                                default:
-                                    throw new UnexpectedValueException('Unexpected content type!');
-                            }
-                            break;
-                        default:
-                            throw new UnexpectedValueException('Unexpected filter!');
-                    }
+        if (!$this->filters) {
+            return;
+        }
+
+        foreach ($this->filters as $type => $filter_type) {
+            foreach ($filter_type as $filter) {
+                switch ($type) {
+                    case 'cat':
+                        $args['tax_query'][] = [
+                            'taxonomy' => 'category',
+                            'field' => 'term_id',
+                            'terms' => $filter['id'],
+                        ];
+                        break;
+                    case 'tag':
+                        $args['tax_query'][] = [
+                            'taxonomy' => 'post_tag',
+                            'field' => 'term_id',
+                            'terms' => $filter['id'],
+                        ];
+                        break;
+                    case 'ptype':
+                        // This taxonomy is used only for Posts.
+                        $args['post_type'] = 'post';
+                        $args['tax_query'][] = [
+                            'taxonomy' => 'p4-page-type',
+                            'field' => 'term_id',
+                            'terms' => $filter['id'],
+                        ];
+                        break;
+                    case 'atype':
+                        // This taxonomy is used only for Posts.
+                        $args['post_type'] = ActionPage::POST_TYPE;
+                        $args['tax_query'][] = [
+                            'taxonomy' => ActionPage::TAXONOMY,
+                            'field' => 'term_id',
+                            'terms' => $filter['id'],
+                        ];
+                        break;
+                    case 'ctype':
+                        switch ($filter['id']) {
+                            case 1:
+                                $args['post_type'] = 'attachment';
+                                $args['post_status'] = 'inherit';
+                                $args['post_mime_type'] = self::DOCUMENT_TYPES;
+                                break;
+                            case 2:
+                                $args['post_type'] = 'page';
+                                $args['post_status'] = 'publish';
+                                break;
+                            case 3:
+                                $args['post_type'] = 'post';
+                                $args['post_status'] = 'publish';
+                                break;
+                            case 4:
+                                $args['post_type'] = 'campaign';
+                                $args['post_status'] = 'publish';
+                                break;
+                            case 5:
+                                $args['post_type'] = 'archive';
+                                break;
+                            case 6:
+                                $args['post_type'] = ActionPage::POST_TYPE;
+                                $args['post_status'] = 'publish';
+                                break;
+                            default:
+                                throw new UnexpectedValueException('Unexpected content type!');
+                        }
+                        break;
+                    default:
+                        throw new UnexpectedValueException('Unexpected filter!');
                 }
             }
         }
@@ -750,9 +754,11 @@ abstract class Search
             $context['page_title'] = sprintf(_n('%d result', '%d results', $context['found_posts'], 'planet4-master-theme'), $context['found_posts']);
         }
 
-        if (is_user_logged_in()) {
-            $context['query_time'] = $this->query_time ?? 0;
+        if (!is_user_logged_in()) {
+            return;
         }
+
+        $context['query_time'] = $this->query_time ?? 0;
     }
 
     /**
@@ -787,28 +793,30 @@ abstract class Search
         uasort($context['tags'], fn ($a, $b) => strcmp($a['name'], $b['name']));
 
         // Keep track of which filters are already checked.
-        if ($this->filters) {
-            foreach ($this->filters as $type => $filter_type) {
-                foreach ($filter_type as $filter) {
-                    switch ($type) {
-                        case 'cat':
-                            $context['categories'][ $filter['id'] ]['checked'] = 'checked';
-                            break;
-                        case 'tag':
-                            $context['tags'][ $filter['id'] ]['checked'] = 'checked';
-                            break;
-                        case 'ptype':
-                            $context['post_types'][ $filter['id'] ]['checked'] = 'checked';
-                            break;
-                        case 'ctype':
-                            $context['content_types'][ $filter['id'] ]['checked'] = 'checked';
-                            break;
-                        case 'atype':
-                            $context['action_types'][ $filter['id'] ]['checked'] = 'checked';
-                            break;
-                        default:
-                            throw new UnexpectedValueException('Unexpected filter!');
-                    }
+        if (!$this->filters) {
+            return;
+        }
+
+        foreach ($this->filters as $type => $filter_type) {
+            foreach ($filter_type as $filter) {
+                switch ($type) {
+                    case 'cat':
+                        $context['categories'][ $filter['id'] ]['checked'] = 'checked';
+                        break;
+                    case 'tag':
+                        $context['tags'][ $filter['id'] ]['checked'] = 'checked';
+                        break;
+                    case 'ptype':
+                        $context['post_types'][ $filter['id'] ]['checked'] = 'checked';
+                        break;
+                    case 'ctype':
+                        $context['content_types'][ $filter['id'] ]['checked'] = 'checked';
+                        break;
+                    case 'atype':
+                        $context['action_types'][ $filter['id'] ]['checked'] = 'checked';
+                        break;
+                    default:
+                        throw new UnexpectedValueException('Unexpected filter!');
                 }
             }
         }
@@ -851,9 +859,11 @@ abstract class Search
                 if (Search\Filters\ContentTypes::ARCHIVE === $post_type_agg['key'] && self::should_include_archive()) {
                     $context['content_types']['5']['results'] = $post_type_agg['doc_count'];
                 }
-                if (Search\Filters\ContentTypes::ACTION === $post_type_agg['key']) {
-                    $context['content_types']['6']['results'] = $post_type_agg['doc_count'];
+                if (Search\Filters\ContentTypes::ACTION !== $post_type_agg['key']) {
+                    continue;
                 }
+
+                $context['content_types']['6']['results'] = $post_type_agg['doc_count'];
             }
 
             foreach ($aggs['p4-page-type']['buckets'] as $p4_post_type_agg) {
@@ -897,13 +907,15 @@ abstract class Search
             }
 
             // Page Type <-> Category. This taxonomy is used only for Posts.
-            if ('post' === $post->post_type && ! empty($post->terms['p4-page-type'])) {
-                $post->page_types = [
-                    self::get_p4_post_type(
-                        $post->terms['p4-page-type'][0]
-                    ),
-                ];
+            if ('post' !== $post->post_type || empty($post->terms['p4-page-type'])) {
+                continue;
             }
+
+            $post->page_types = [
+                self::get_p4_post_type(
+                    $post->terms['p4-page-type'][0]
+                ),
+            ];
         }
     }
 
@@ -987,18 +999,20 @@ abstract class Search
     public function view_paged_posts(): void
     {
         // TODO - The $paged_context related code should be transferred to set_results_context method for better separation of concerns.
-        if ($this->paged_posts) {
-            $paged_context['dummy_thumbnail'] = get_template_directory_uri() . self::DUMMY_THUMBNAIL;
+        if (!$this->paged_posts) {
+            return;
+        }
 
-            foreach ($this->paged_posts as $index => $post) {
-                $paged_context['post'] = $post;
-                if (0 === $index % self::POSTS_PER_LOAD) {
-                    $paged_context['first_of_the_page'] = true;
-                } else {
-                    $paged_context['first_of_the_page'] = false;
-                }
-                Timber::render([ 'tease-search.twig' ], $paged_context, self::DEFAULT_CACHE_TTL, \Timber\Loader::CACHE_OBJECT);
+        $paged_context['dummy_thumbnail'] = get_template_directory_uri() . self::DUMMY_THUMBNAIL;
+
+        foreach ($this->paged_posts as $index => $post) {
+            $paged_context['post'] = $post;
+            if (0 === $index % self::POSTS_PER_LOAD) {
+                $paged_context['first_of_the_page'] = true;
+            } else {
+                $paged_context['first_of_the_page'] = false;
             }
+            Timber::render([ 'tease-search.twig' ], $paged_context, self::DEFAULT_CACHE_TTL, \Timber\Loader::CACHE_OBJECT);
         }
     }
 

@@ -29,9 +29,11 @@ class M006MoveFeaturesToSeparateOption extends MigrationScript
             $id = $field['id'];
 
             $value = $settings[ $id ] ?? null;
-            if ($value) {
-                $feature_values[ $id ] = $value;
+            if (!$value) {
+                continue;
             }
+
+            $feature_values[ $id ] = $value;
         }
         update_option(Features::OPTIONS_KEY, $feature_values);
         $record->add_log('Successfully migrated feature settings: ' . "\n" . print_r($feature_values, true)); //phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r

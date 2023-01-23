@@ -44,13 +44,15 @@ class TaxonomyCampaign
     public function add_block(string $block_name, array $block_attributes): void
     {
 
-        if ($block_name && $block_attributes) {
-            if ('happy_point' === $block_name) {
-                $block_name = 'happypoint';
-            }
-
-            $this->context['blocks'][] = '<!-- wp:planet4-blocks/' . $block_name . ' ' . wp_json_encode($block_attributes, JSON_UNESCAPED_SLASHES) . ' /-->';
+        if (!$block_name || !$block_attributes) {
+            return;
         }
+
+        if ('happy_point' === $block_name) {
+            $block_name = 'happypoint';
+        }
+
+        $this->context['blocks'][] = '<!-- wp:planet4-blocks/' . $block_name . ' ' . wp_json_encode($block_attributes, JSON_UNESCAPED_SLASHES) . ' /-->';
     }
 
     /**

@@ -153,17 +153,21 @@ class Importer
                 preg_match_all('#(\d+)#', $new_filter_str, $matches, PREG_SET_ORDER);
 
                 foreach ($matches as $old_id) {
-                    if (isset($this->attachment_mapping[ $old_id[0] ])) {
-                        $new_filter_str = str_replace($old_id[0], $this->attachment_mapping[ $old_id[0] ], $new_filter_str);
+                    if (!isset($this->attachment_mapping[ $old_id[0] ])) {
+                        continue;
                     }
+
+                    $new_filter_str = str_replace($old_id[0], $this->attachment_mapping[ $old_id[0] ], $new_filter_str);
                 }
                 $filter_data_mapping[] = [ $filter_str, $new_filter_str ];
             } else {
                 foreach ($this->attachment_mapping as $old_id => $new_id) {
                     $updated_str = str_replace($old_id, $new_id, $filter_str);
-                    if ($updated_str !== $filter_str) {
-                        $filter_data_mapping[] = [ $filter_str, $updated_str ];
+                    if ($updated_str === $filter_str) {
+                        continue;
                     }
+
+                    $filter_data_mapping[] = [ $filter_str, $updated_str ];
                 }
             }
         }
@@ -177,11 +181,15 @@ class Importer
         $postmeta = [];
         if (isset($post['postmeta'])) {
             foreach ($post['postmeta'] as $metakey => $metadata) {
-                if ('background_image_id' === $metadata['key']) {
-                    if (isset($this->attachment_mapping[ $metadata['value'] ])) {
-                        $post['postmeta'][ $metakey ]['value'] = $this->attachment_mapping[ $metadata['value'] ];
-                    }
+                if ('background_image_id' !== $metadata['key']) {
+                    continue;
                 }
+
+                if (!isset($this->attachment_mapping[ $metadata['value'] ])) {
+                    continue;
+                }
+
+                $post['postmeta'][ $metakey ]['value'] = $this->attachment_mapping[ $metadata['value'] ];
             }
             $postmeta = $post['postmeta'];
         }
@@ -274,9 +282,11 @@ class Importer
             // Also exclude the old attribute as the code still falls back to it.
             $excluded_keys = array_merge(PostCampaign::META_FIELDS, [ '_campaign_page_template' ]);
             foreach ($post_meta as $index => $meta) {
-                if (in_array($meta['key'], $excluded_keys, true)) {
-                    unset($post_meta[ $index ]);
+                if (!in_array($meta['key'], $excluded_keys, true)) {
+                    continue;
                 }
+
+                unset($post_meta[ $index ]);
             }
         } else {
             // 2. Populate the new `theme` field and unset the old `_campaign_page_template if the new doesn't exist.

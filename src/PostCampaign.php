@@ -103,10 +103,12 @@ class PostCampaign
 
                 $orderby = $query->get('orderby');
 
-                if ('theme' === $orderby) {
-                    $query->set('meta_key', 'theme');
-                    $query->set('orderby', 'meta_value');
+                if ('theme' !== $orderby) {
+                    return;
                 }
+
+                $query->set('meta_key', 'theme');
+                $query->set('orderby', 'meta_value');
             }
         );
     }

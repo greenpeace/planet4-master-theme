@@ -226,8 +226,10 @@ class Features
      */
     public static function on_features_saved(int $object_id, string $updated, array $cmb): void
     {
-        if (self::$purge_cloudflare) {
-            is_plugin_active('cloudflare/cloudflare.php') && ( new CloudflarePurger() )->purge_all();
+        if (!self::$purge_cloudflare) {
+            return;
         }
+
+        is_plugin_active('cloudflare/cloudflare.php') && ( new CloudflarePurger() )->purge_all();
     }
 }
