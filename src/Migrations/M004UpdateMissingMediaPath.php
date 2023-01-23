@@ -44,16 +44,20 @@ class M004UpdateMissingMediaPath extends MigrationScript
             $trid = apply_filters('wpml_element_trid', null, $attachment_id, 'post_attachment');
             $translations = apply_filters('wpml_get_element_translations', [], $trid, 'post_attachment');
 
-            if ($cloud_meta) {
-                foreach ($translations as $translation) {
-                    $translation_post_id = $translation->element_id;
+            if (!$cloud_meta) {
+                continue;
+            }
 
-                    // Set sm_cloud field in other translations, if missing.
-                    if ($translation_post_id !== $attachment_id && ! get_post_meta($translation_post_id, 'sm_cloud', true)) {
-                        update_post_meta($translation_post_id, 'sm_cloud', $cloud_meta);
-                        $updated_post_ids[] = $translation_post_id;
-                    }
+            foreach ($translations as $translation) {
+                $translation_post_id = $translation->element_id;
+
+                // Set sm_cloud field in other translations, if missing.
+                if ($translation_post_id === $attachment_id || get_post_meta($translation_post_id, 'sm_cloud', true)) {
+                    continue;
                 }
+
+                update_post_meta($translation_post_id, 'sm_cloud', $cloud_meta);
+                $updated_post_ids[] = $translation_post_id;
             }
         }
 

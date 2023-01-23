@@ -163,16 +163,18 @@ class GravityFormsExtensions
      */
     public function p4_gf_custom_initial_settings(array $form, bool $is_new): void
     {
-        if ($is_new) {
-            // Update sub-label and description placement initial settings.
-            $form['subLabelPlacement'] = 'above';
-            $form['descriptionPlacement'] = 'above';
-
-            // Make form active immediately.
-            $form['is_active'] = '1';
-
-            GFAPI::update_form($form);
+        if (!$is_new) {
+            return;
         }
+
+        // Update sub-label and description placement initial settings.
+        $form['subLabelPlacement'] = 'above';
+        $form['descriptionPlacement'] = 'above';
+
+        // Make form active immediately.
+        $form['is_active'] = '1';
+
+        GFAPI::update_form($form);
     }
 
     /**

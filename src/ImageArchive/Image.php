@@ -106,10 +106,12 @@ class Image implements JsonSerializable
 
         $largest_size = 0;
         foreach ($image->sizes as $size) {
-            if ($size->get_width() > $largest_size) {
-                $largest_size = $size->get_width();
-                $image->original = $size;
+            if ($size->get_width() <= $largest_size) {
+                continue;
             }
+
+            $largest_size = $size->get_width();
+            $image->original = $size;
         }
 
         $image->wordpress_id = $images_in_wordpress[ $image->archive_id ] ?? null;

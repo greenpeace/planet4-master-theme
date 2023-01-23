@@ -130,9 +130,11 @@ if (is_tag()) {
         if (isset($selected_page_types[0]) && $selected_page_types[0]) {
             foreach ($selected_page_types[0] as $selected_page_type) {
                 $p4_page_type = get_term_by('name', $selected_page_type, 'p4-page-type');
-                if ($p4_page_type instanceof \WP_Term) {
-                    $cfc_args['post_types'] = $p4_page_type->term_id;
+                if (!($p4_page_type instanceof \WP_Term)) {
+                    continue;
                 }
+
+                $cfc_args['post_types'] = $p4_page_type->term_id;
             }
         } else {
             // If none is selected, then display Publications by default (for backwards compatibility).

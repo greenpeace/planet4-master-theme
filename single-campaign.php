@@ -102,13 +102,17 @@ $context['social_overrides'] = [];
 foreach (range(1, 5) as $i) {
     $footer_item_key = 'campaign_footer_item' . $i;
 
-    if (isset($campaign_meta[ $footer_item_key ])) {
-        $campaign_footer_item = maybe_unserialize($campaign_meta[ $footer_item_key ]);
-        if ($campaign_footer_item['url'] && $campaign_footer_item['icon']) {
-            $context['social_overrides'][ $i ]['url'] = $campaign_footer_item['url'];
-            $context['social_overrides'][ $i ]['icon'] = $campaign_footer_item['icon'];
-        }
+    if (!isset($campaign_meta[ $footer_item_key ])) {
+        continue;
     }
+
+    $campaign_footer_item = maybe_unserialize($campaign_meta[ $footer_item_key ]);
+    if (!$campaign_footer_item['url'] || !$campaign_footer_item['icon']) {
+        continue;
+    }
+
+    $context['social_overrides'][ $i ]['url'] = $campaign_footer_item['url'];
+    $context['social_overrides'][ $i ]['icon'] = $campaign_footer_item['icon'];
 }
 
 if (post_password_required($post->ID)) {

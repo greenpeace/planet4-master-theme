@@ -125,10 +125,12 @@ final class Loader
         }
 
         $services = array_merge($services, $this->default_services);
-        if ($services) {
-            foreach ($services as $service) {
-                $this->services[ $service ] = new $service();
-            }
+        if (!$services) {
+            return;
+        }
+
+        foreach ($services as $service) {
+            $this->services[ $service ] = new $service();
         }
     }
 

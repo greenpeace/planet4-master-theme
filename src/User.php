@@ -41,9 +41,9 @@ class User extends Timber\User
     {
         if ($this->is_fake) {
             return '#';
-        } else {
-            return parent::link();
         }
+
+        return parent::link();
     }
 
     /**
@@ -54,9 +54,9 @@ class User extends Timber\User
     {
         if ($this->is_fake) {
             return '#';
-        } else {
-            return parent::path();
         }
+
+        return parent::path();
     }
 
     /**
@@ -67,9 +67,9 @@ class User extends Timber\User
     {
         if ($this->is_fake) {
             return (string) $this->display_name;
-        } else {
-            return parent::name();
         }
+
+        return parent::name();
     }
 
     /**
@@ -79,8 +79,8 @@ class User extends Timber\User
     {
         if ($this->is_fake) {
             return $this->name();
-        } else {
-            return parent::__toString();
         }
+
+        return parent::__toString();
     }
 }

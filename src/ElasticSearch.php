@@ -21,50 +21,52 @@ class ElasticSearch extends Search
     {
         parent::set_filters_args($args);
 
-        if ($this->filters) {
-            foreach ($this->filters as $type => $filter_type) {
-                foreach ($filter_type as $filter) {
-                    switch ($type) {
-                        case 'cat':
-                        case 'tag':
-                        case 'ptype':
-                        case 'atype':
-                            break;
-                        case 'ctype':
-                            switch ($filter['id']) {
-                                case 0:
-                                case 1:
-                                case 2:
-                                    break;
-                                case 3:
-                                case 4:
-                                    add_filter(
-                                        'ep_formatted_args',
-                                        function ($formatted_args) use ($args) {
-                                            // Make sure it is a Post.
-                                            if (! empty($args['post_type'])) {
-                                                $formatted_args['post_filter']['bool']['must'][] = [
-                                                    'terms' => [
-                                                        'post_type' => array_values((array) $args['post_type']),
-                                                    ],
-                                                ];
-                                            }
-                                            return $formatted_args;
-                                        },
-                                        10,
-                                        1
-                                    );
-                                    break;
-                                case 5:
-                                case 6:
-                                    break;
-                                default:
-                                    throw new UnexpectedValueException('Unexpected content type!');
-                            }
-                            break;
-                        default:
-                            throw new UnexpectedValueException('Unexpected filter!');
-                    }
+        if (!$this->filters) {
+            return;
+        }
+
+        foreach ($this->filters as $type => $filter_type) {
+            foreach ($filter_type as $filter) {
+                switch ($type) {
+                    case 'cat':
+                    case 'tag':
+                    case 'ptype':
+                    case 'atype':
+                        break;
+                    case 'ctype':
+                        switch ($filter['id']) {
+                            case 0:
+                            case 1:
+                            case 2:
+                                break;
+                            case 3:
+                            case 4:
+                                add_filter(
+                                    'ep_formatted_args',
+                                    function ($formatted_args) use ($args) {
+                                        // Make sure it is a Post.
+                                        if (! empty($args['post_type'])) {
+                                            $formatted_args['post_filter']['bool']['must'][] = [
+                                                'terms' => [
+                                                    'post_type' => array_values((array) $args['post_type']),
+                                                ],
+                                            ];
+                                        }
+                                        return $formatted_args;
+                                    },
+                                    10,
+                                    1
+                                );
+                                break;
+                            case 5:
+                            case 6:
+                                break;
+                            default:
+                                throw new UnexpectedValueException('Unexpected content type!');
+                        }
+                        break;
+                    default:
+                        throw new UnexpectedValueException('Unexpected filter!');
                 }
             }
         }
@@ -88,9 +90,11 @@ class ElasticSearch extends Search
 
         add_filter('ep_formatted_args', [ $this, 'add_mime_type_filter' ], 21, 1);
 
-        if (! wp_doing_ajax()) {
-            add_filter('ep_formatted_args', [ $this, 'add_aggregations' ], 999, 1);
+        if (wp_doing_ajax()) {
+            return;
         }
+
+        add_filter('ep_formatted_args', [ $this, 'add_aggregations' ], 999, 1);
     }
 
     /**

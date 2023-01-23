@@ -40,14 +40,16 @@ class Exporter
      */
     public function single_post_export_bulk(): void
     {
-        if (current_user_can('edit_posts')) { ?>
-        <script type="text/javascript">
-            jQuery(function ($) {
-                jQuery('<option>').val('export').text('<?php esc_html_e('Export', 'planet4-master-theme-backend'); ?>').appendTo("select[name='action']");
-            });
-        </script>
-            <?php
+        if (!current_user_can('edit_posts')) {
+            return;
         }
+        ?>
+    <script type="text/javascript">
+        jQuery(function ($) {
+            jQuery('<option>').val('export').text('<?php esc_html_e('Export', 'planet4-master-theme-backend'); ?>').appendTo("select[name='action']");
+        });
+    </script>
+        <?php
     }
 
     /**

@@ -14,9 +14,11 @@ class AdminAssets
      */
     public static function enqueue_js(): void
     {
-        if (get_current_screen()->id === 'nav-menus') {
-            self::enqueue_menu_editor_script();
+        if (get_current_screen()->id !== 'nav-menus') {
+            return;
         }
+
+        self::enqueue_menu_editor_script();
     }
 
     /**

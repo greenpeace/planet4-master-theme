@@ -339,9 +339,11 @@ final class AnalyticsValues
     {
         $matching_project = null;
         foreach ($this->global_projects as $global_project) {
-            if ($global_project['global_project_name'] === $global_project_name) {
-                $matching_project = $global_project;
+            if ($global_project['global_project_name'] !== $global_project_name) {
+                continue;
             }
+
+            $matching_project = $global_project;
         }
         if (empty($matching_project)) {
             return null;

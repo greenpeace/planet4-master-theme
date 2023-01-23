@@ -64,25 +64,27 @@ class DevReport
         echo '<h1>P4 Dev report</h1>' . "\n";
         $gp_packages = get_option('greenpeace_packages');
 
-        if ($gp_packages) {
-            foreach ($gp_packages as $gp_package) {
-                $url = $gp_package[2]['url'];
-                if ('.git' === substr($url, -4)) {
-                    $url = substr($url, 0, -4);
-                }
-                if ('dev-' === substr($gp_package[1], 0, 4)) {
-                    $branch = substr($gp_package[1], 4);
-                } else {
-                    $branch = $gp_package[1];
-                }
-                $branch_history_url = $url . '/commits/' . $branch;
-                $commit_url = $url . '/commit/' . $gp_package[2]['reference'];
+        if (!$gp_packages) {
+            return;
+        }
 
-                echo '<h3>' . esc_html($gp_package[0]) . "</h3>\n";
-                echo "<p>Version (tag/branch): <a href='" . esc_url($branch_history_url) . "'>" . esc_html($branch) . "</a></p>\n";
-                echo "<p>Source repo: <a href='" . esc_url($gp_package[2]['url']) . "'>" . esc_html($gp_package[2]['url']) . "</a></p>\n";
-                echo "<p>Source hash: <a href='" . esc_url($commit_url) . "'>" . esc_html($gp_package[2]['reference']) . "</a></p>\n";
+        foreach ($gp_packages as $gp_package) {
+            $url = $gp_package[2]['url'];
+            if ('.git' === substr($url, -4)) {
+                $url = substr($url, 0, -4);
             }
+            if ('dev-' === substr($gp_package[1], 0, 4)) {
+                $branch = substr($gp_package[1], 4);
+            } else {
+                $branch = $gp_package[1];
+            }
+            $branch_history_url = $url . '/commits/' . $branch;
+            $commit_url = $url . '/commit/' . $gp_package[2]['reference'];
+
+            echo '<h3>' . esc_html($gp_package[0]) . "</h3>\n";
+            echo "<p>Version (tag/branch): <a href='" . esc_url($branch_history_url) . "'>" . esc_html($branch) . "</a></p>\n";
+            echo "<p>Source repo: <a href='" . esc_url($gp_package[2]['url']) . "'>" . esc_html($gp_package[2]['url']) . "</a></p>\n";
+            echo "<p>Source hash: <a href='" . esc_url($commit_url) . "'>" . esc_html($gp_package[2]['reference']) . "</a></p>\n";
         }
     }
 }
