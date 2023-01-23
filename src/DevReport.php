@@ -10,9 +10,8 @@ class DevReport
     /**
      * Option key, and option page slug
      *
-     * @var string
      */
-    private $key = 'planet4_dev_report';
+    private string $key = 'planet4_dev_report';
 
     /**
      * Constructor
@@ -28,7 +27,7 @@ class DevReport
     /**
      * Register our setting to WP.
      */
-    public function init()
+    public function init(): void
     {
         register_setting($this->key, $this->key);
     }
@@ -36,7 +35,7 @@ class DevReport
     /**
      * Initiate our hooks
      */
-    public function hooks()
+    public function hooks(): void
     {
         add_action('admin_init', [ $this, 'init' ]);
         add_action('admin_menu', [ $this, 'add_options_page' ], 99);
@@ -45,7 +44,7 @@ class DevReport
     /**
      * Add menu options page.
      */
-    public function add_options_page()
+    public function add_options_page(): void
     {
         add_submenu_page(
             'planet4_settings_navigation',
@@ -60,7 +59,7 @@ class DevReport
     /**
      * Admin page markup. Mostly handled by CMB2.
      */
-    public function admin_page_display()
+    public function admin_page_display(): void
     {
         echo '<h1>P4 Dev report</h1>' . "\n";
         $gp_packages = get_option('greenpeace_packages');

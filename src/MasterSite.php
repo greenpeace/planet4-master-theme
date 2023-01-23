@@ -25,51 +25,45 @@ class MasterSite extends TimberSite
     /**
      * Key of notice seen by user
      *
-     * @var string
      */
     private const DASHBOARD_MESSAGE_KEY = 'last_p4_notice';
 
     /**
      * Version of notice
      *
-     * @var string
      */
     private const DASHBOARD_MESSAGE_VERSION = '0.2';
 
     /**
      * Credit meta field key
      *
-     * @var string
      */
     public const CREDIT_META_FIELD = '_credit_text';
 
     /**
      * Theme directory
      *
-     * @var string $theme_dir
      */
-    protected $theme_dir;
+    protected string $theme_dir;
 
     /**
      * Theme images directory
      *
-     * @var string $theme_images_dir
      */
-    protected $theme_images_dir;
+    protected string $theme_images_dir;
 
     /**
      * Sort options
      *
      * @var array $sort_options
      */
-    protected $sort_options;
+    protected array $sort_options;
 
     /**
      * Variable that lets us know if the user has or hasn't used google to log in
      *
-     * @var boolean $google_login_error
      */
-    protected $google_login_error = false;
+    protected bool $google_login_error = false;
 
     /**
      * MasterSite constructor.
@@ -84,7 +78,7 @@ class MasterSite extends TimberSite
     /**
      * Define settings for the Planet4 Master Theme.
      */
-    protected function settings()
+    protected function settings(): void
     {
         Timber::$autoescape = true;
         Timber::$dirname = [ 'templates', 'views' ];
@@ -109,7 +103,7 @@ class MasterSite extends TimberSite
     /**
      * Hooks the theme.
      */
-    protected function hooks()
+    protected function hooks(): void
     {
         add_theme_support('post-thumbnails');
         add_theme_support('menus');
@@ -276,7 +270,7 @@ class MasterSite extends TimberSite
         // Disable CSS Customizer.
         add_action(
             'customize_register',
-            function ($wp_customize) {
+            function ($wp_customize): void {
                 if (defined('WP_APP_ENV') && ( 'production' === WP_APP_ENV || 'staging' === WP_APP_ENV )) {
                     $wp_customize->remove_control('custom_css');
                 }
@@ -304,7 +298,7 @@ class MasterSite extends TimberSite
     /**
      * Detects and redirects login from non-canonical domain to preferred domain
      */
-    public function login_redirect()
+    public function login_redirect(): void
     {
         if (! isset($GLOBALS['pagenow']) || 'wp-login.php' !== $GLOBALS['pagenow']) {
             // Not on the login page, as you were.
@@ -342,7 +336,7 @@ class MasterSite extends TimberSite
     /**
      * Sets a custom stylesheet for the login page.
      */
-    public function add_login_stylesheet()
+    public function add_login_stylesheet(): void
     {
         wp_enqueue_style(
             'custom-login',
@@ -359,7 +353,7 @@ class MasterSite extends TimberSite
      * @param WP_Post $post The current Post.
      * @param bool    $update Whether this is an existing post being updated or not.
      */
-    public function set_featured_image($post_id, $post, $update)
+    public function set_featured_image(int $post_id, WP_Post $post, bool $update): void
     {
 
         // Ignore autosave.
@@ -428,7 +422,7 @@ class MasterSite extends TimberSite
      * @param WP_Post $post_after The current Post.
      * @param WP_Post $post_before Whether this is an existing post being updated or not.
      */
-    public function clean_post_cache($post_id, $post_after, $post_before)
+    public function clean_post_cache(int $post_id, WP_Post $post_after, WP_Post $post_before): void
     {
 
         // Ignore autosave.
@@ -448,7 +442,7 @@ class MasterSite extends TimberSite
      * @param WP_Post $post_after The current Post.
      * @param WP_Post $post_before Whether this is an existing post being updated or not.
      */
-    private function clean_boxout_posts_cache($post_id, $post_after, $post_before): void
+    private function clean_boxout_posts_cache(int $post_id, WP_Post $post_after, WP_Post $post_before): void
     {
         $parent_act_id = (int) planet4_get_option('act_page');
         if ('page' !== $post_after->post_type || $parent_act_id !== $post_after->post_parent) {
@@ -494,7 +488,7 @@ class MasterSite extends TimberSite
     /**
      * Add extra image sizes as needed.
      */
-    public function add_image_sizes()
+    public function add_image_sizes(): void
     {
         add_image_size('retina-large', 2048, 1366, false);
         add_image_size('articles-medium-large', 510, 340, false);
@@ -511,7 +505,7 @@ class MasterSite extends TimberSite
     /**
      * Load translations for master theme
      */
-    public function p4_master_theme_setup()
+    public function p4_master_theme_setup(): void
     {
         $domains = [
             'planet4-master-theme',
@@ -532,7 +526,7 @@ class MasterSite extends TimberSite
      *
      * @return mixed
      */
-    public function add_to_context($context)
+    public function add_to_context(array $context)
     {
         global $wp;
 
@@ -672,7 +666,7 @@ class MasterSite extends TimberSite
      *
      * @return mixed
      */
-    public function add_to_twig($twig)
+    public function add_to_twig(Twig_ExtensionInterface $twig)
     {
         $twig->addExtension(new Twig_Extension_StringLoader());
         $twig->addFilter(new Twig_SimpleFilter('svgicon', [ $this, 'svgicon' ]));
@@ -685,7 +679,7 @@ class MasterSite extends TimberSite
      *
      * @param string $name Icon name.
      */
-    public function svgicon($name)
+    public function svgicon(string $name)
     {
         $svg_icon_template = '<svg viewBox="0 0 32 32" class="icon"><use xlink:href="' . $this->theme_dir . '/assets/build/sprite.symbol.svg#' . $name . '"></use></svg>';
         return new \Twig_Markup($svg_icon_template, 'UTF-8');
@@ -699,7 +693,7 @@ class MasterSite extends TimberSite
      *
      * @return array
      */
-    public function set_custom_allowed_css_properties($allowedproperties)
+    public function set_custom_allowed_css_properties(array $allowedproperties): array
     {
         $allowedproperties[] = 'object-position';
         $allowedproperties[] = '--spreadsheet-header-background';
@@ -721,7 +715,7 @@ class MasterSite extends TimberSite
      *
      * @return array
      */
-    public function set_custom_allowed_attributes_filter($allowedposttags, $context)
+    public function set_custom_allowed_attributes_filter(array $allowedposttags, string $context): array
     {
         if ('post' !== $context) {
             return $allowedposttags;
@@ -825,7 +819,7 @@ class MasterSite extends TimberSite
      *
      * @return string The sanitized setting.
      */
-    public function sanitize($setting): string
+    public function sanitize(string $setting): string
     {
         $allowed = [
             'ul' => [],
@@ -853,7 +847,7 @@ class MasterSite extends TimberSite
      *
      * @param string $hook Hook.
      */
-    public function enqueue_admin_assets($hook)
+    public function enqueue_admin_assets(string $hook): void
     {
         // Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
         wp_register_script('jquery-3', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', [], '3.3.1', true);
@@ -873,7 +867,7 @@ class MasterSite extends TimberSite
      *
      * @param WP_Post $post The currently Added/Edited post.
      */
-    public function add_meta_box_search($post)
+    public function add_meta_box_search(WP_Post $post): void
     {
         add_meta_box('meta-box-search', 'Search', [ $this, 'view_meta_box_search' ], [ 'post', 'page' ], 'side', 'default', $post);
     }
@@ -883,7 +877,7 @@ class MasterSite extends TimberSite
      *
      * @param WP_Post $post The currently Added/Edited post.
      */
-    public function view_meta_box_search($post)
+    public function view_meta_box_search(WP_Post $post): void
     {
         $weight = get_post_meta($post->ID, 'weight', true);
         $options = get_option('planet4_options');
@@ -907,9 +901,9 @@ class MasterSite extends TimberSite
     /**
      * Applies filters for list of users in dropdown
      *
-     * @param null|Array $args The filter options and values.
+     * @param Array|null $args The filter options and values.
      */
-    public function filter_authors($args)
+    public function filter_authors(?array $args)
     {
         if (isset($args['who'])) {
             $args['role__in'] = [ 'administrator', 'author', 'campaigner', 'contributor', 'editor' ];
@@ -921,12 +915,12 @@ class MasterSite extends TimberSite
     /**
      * Forces a user to login using Google Auth if they have a greenpeace.org email
      *
-     * @param null|WP_User|WP_Error $user The current user logging in.
-     * @param null|String           $username The username of the user.
-     * @param null|String           $password The password of the user.
-     * @return null|WP_User|WP_Error
+     * @param WP_User|WP_Error|null $user The current user logging in.
+     * @param String|null $username The username of the user.
+     * @param String|null $password The password of the user.
+     * @return WP_User|WP_Error|null
      */
-    public function enforce_google_signon($user, $username = null, $password = null)
+    public function enforce_google_signon($user, ?string $username = null, ?string $password = null)
     {
 
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
@@ -964,12 +958,12 @@ class MasterSite extends TimberSite
     /**
      * Checks if we have set a google login error earlier on so we can prevent login if google login wasn't used
      *
-     * @param null|WP_User|WP_Error $user The current user logging in.
-     * @param null|String           $username The username of the user.
-     * @param null|String           $password The password of the user.
-     * @return null|WP_User|WP_Error
+     * @param WP_User|WP_Error|null $user The current user logging in.
+     * @param String|null $username The username of the user.
+     * @param String|null $password The password of the user.
+     * @return WP_User|WP_Error|null
      */
-    public function check_google_login_error($user, $username = null, $password = null)
+    public function check_google_login_error($user, ?string $username = null, ?string $password = null)
     {
         if ($this->google_login_error) {
             $this->google_login_error = false;
@@ -985,7 +979,7 @@ class MasterSite extends TimberSite
      * @param int     $post_id The ID of the current Post.
      * @param WP_Post $post The current Post.
      */
-    public function save_meta_box_search($post_id, $post)
+    public function save_meta_box_search(int $post_id, WP_Post $post): void
     {
         global $pagenow;
 
@@ -1024,7 +1018,7 @@ class MasterSite extends TimberSite
     /**
      * Registers taxonomies.
      */
-    public function register_taxonomies()
+    public function register_taxonomies(): void
     {
         register_taxonomy_for_object_type('post_tag', 'page');
         register_taxonomy_for_object_type('category', 'page');
@@ -1050,7 +1044,7 @@ class MasterSite extends TimberSite
     /**
      * Registers oembed provider for Carto map.
      */
-    public function register_oembed_provider()
+    public function register_oembed_provider(): void
     {
         wp_oembed_add_provider('#https?://(?:www\.)?[^/^\.]+\.carto(db)?\.com/\S+#i', 'https://services.carto.com/oembed', true);
     }
@@ -1061,7 +1055,7 @@ class MasterSite extends TimberSite
      * @param int     $post_id Id of the saved post.
      * @param WP_Post $post Post object.
      */
-    public function p4_auto_generate_excerpt($post_id, $post)
+    public function p4_auto_generate_excerpt(int $post_id, WP_Post $post): void
     {
         if ('' === $post->post_excerpt && 'post' === $post->post_type) {
             // Unhook save_post function so it doesn't loop infinitely.
@@ -1100,7 +1094,7 @@ class MasterSite extends TimberSite
      *
      * @return WP_Error|string
      */
-    public function disallow_insert_term($term, $taxonomy)
+    public function disallow_insert_term(string $term, string $taxonomy)
     {
 
         $user = wp_get_current_user();
@@ -1118,7 +1112,7 @@ class MasterSite extends TimberSite
     /**
      * Add a help link to the Help sidebars.
      */
-    public function add_help_sidebar()
+    public function add_help_sidebar(): void
     {
         if (get_current_screen()) {
             $screen = get_current_screen();
@@ -1138,7 +1132,7 @@ class MasterSite extends TimberSite
      *
      * @return string HTML content of comment form submit field.
      */
-    public function gdpr_cc_comment_form_add_class($submit_field, $args)
+    public function gdpr_cc_comment_form_add_class(string $submit_field, array $args): string
     {
 
         $pattern[0] = '/(for=["\']gdpr-comments-checkbox["\'])/';
@@ -1160,7 +1154,7 @@ class MasterSite extends TimberSite
      *
      * @return array the new fields.
      */
-    public function comment_form_cookie_checkbox_add_class($fields)
+    public function comment_form_cookie_checkbox_add_class(array $fields): array
     {
 
         if (isset($fields['cookies'])) {
@@ -1183,7 +1177,7 @@ class MasterSite extends TimberSite
      *
      * @return array the new fields.
      */
-    public function comment_form_replace_inputs($fields)
+    public function comment_form_replace_inputs(array $fields): array
     {
 
         $fields['author'] = Timber::compile('comment_form/author_field.twig');
@@ -1206,7 +1200,7 @@ class MasterSite extends TimberSite
      *
      * @return mixed
      */
-    public function filter_youtube_oembed_nocookie($cache, $url)
+    public function filter_youtube_oembed_nocookie($cache, string $url)
     {
         if (LazyYoutubePlayer::is_active()) {
             return $this->new_youtube_filter($cache, $url);
@@ -1226,7 +1220,7 @@ class MasterSite extends TimberSite
      *
      * @return mixed
      */
-    private function new_youtube_filter($cache, $url)
+    private function new_youtube_filter($cache, string $url)
     {
         if (is_admin() || ( defined('REST_REQUEST') && REST_REQUEST )) {
             return $cache;
@@ -1256,7 +1250,7 @@ class MasterSite extends TimberSite
      *
      * @return mixed
      */
-    private function old_youtube_filter($cache, $url)
+    private function old_youtube_filter($cache, string $url)
     {
         if (! empty($url)) {
             if (strpos($url, 'youtube.com') !== false || strpos($url, 'youtu.be') !== false) {
@@ -1300,7 +1294,7 @@ class MasterSite extends TimberSite
      *
      * @return array Final array of form fields to use.
      */
-    public function add_image_attachment_fields_to_edit($form_fields, $post)
+    public function add_image_attachment_fields_to_edit(array $form_fields, \WP_Post $post): array
     {
 
         // Add a Credit field.
@@ -1322,7 +1316,7 @@ class MasterSite extends TimberSite
      *
      * @return \WP_Post $post
      */
-    public function add_image_attachment_fields_to_save($post, $attachment)
+    public function add_image_attachment_fields_to_save(\WP_Post $post, array $attachment): \WP_Post
     {
         if (isset($attachment['credit_text'])) {
             update_post_meta($post['ID'], self::CREDIT_META_FIELD, $attachment['credit_text']);
@@ -1339,7 +1333,7 @@ class MasterSite extends TimberSite
      *
      * @return string HTML content of image element with credit field in caption and alt text in image title.
      */
-    public function p4_core_image_block_render($attributes, $content)
+    public function p4_core_image_block_render(array $attributes, string $content): string
     {
         $image_id = isset($attributes['id']) ? trim(str_replace('attachment_', '', $attributes['id'])) : '';
         $img_post_meta = $image_id ? get_post_meta($image_id) : [];
@@ -1383,7 +1377,7 @@ class MasterSite extends TimberSite
     /**
      * Add callback function to Gutenberg core/image block.
      */
-    public function p4_register_core_image_block()
+    public function p4_register_core_image_block(): void
     {
         unregister_block_type('core/image');
         register_block_type(
@@ -1456,7 +1450,6 @@ class MasterSite extends TimberSite
      *
      * @todo Remove party message after over_date (PLANET-5782).
      *
-     * @return string
      */
     private function p4_message(): string
     {

@@ -10,17 +10,17 @@ class ImageSize implements \JsonSerializable
     /**
      * @var string The media url.
      */
-    private $url;
+    private string $url;
 
     /**
      * @var int The width in pixels.
      */
-    private $width;
+    private int $width;
 
     /**
      * @var int The heigth in pixels.
      */
-    private $height;
+    private int $height;
 
     /**
      * Extract all available sizes from the media API data for an image.
@@ -29,7 +29,7 @@ class ImageSize implements \JsonSerializable
      *
      * @return self[] All available sizes from the data.
      */
-    public static function all_from_api_response($data): array
+    public static function all_from_api_response(array $data): array
     {
         $keys = [
             'Path_TR7',
@@ -89,7 +89,7 @@ class ImageSize implements \JsonSerializable
      *
      * @return int The width.
      */
-    public function get_width()
+    public function get_width(): int
     {
         return $this->width;
     }

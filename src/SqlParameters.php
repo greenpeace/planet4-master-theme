@@ -20,7 +20,7 @@ class SqlParameters
     /**
      * @var mixed[] The values of the parameters in the order they were added.
      */
-    private $values = [];
+    private array $values = [];
 
     /**
      * Add a parameter for a SQL identifier (mainly table but works for other things too).

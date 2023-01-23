@@ -12,7 +12,7 @@ class Importer
      *
      * @var array $attachment_mapping
      */
-    private $attachment_mapping = [];
+    private array $attachment_mapping = [];
 
     /**
      * AutoLoad Hooks
@@ -28,7 +28,7 @@ class Importer
 
         add_action(
             'wp_import_insert_post',
-            function ($post_id) {
+            function ($post_id): void {
                 $link = get_edit_post_link($post_id);
                 $title = esc_html(get_the_title($post_id));
                 echo "successfully imported <a href=\"$link\">$title</a>\n"; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -39,12 +39,12 @@ class Importer
     /**
      * Filter the old attachement Ids and replace them with the newly imported attachment Ids.
      *
-     * @param integer $post_id Post ID.
-     * @param integer $original_post_id Original Post ID.
+     * @param int $post_id Post ID.
+     * @param int $original_post_id Original Post ID.
      * @param array   $postdata Post data array.
      * @param array   $post Post array.
      */
-    public function update_attachements($post_id, $original_post_id, $postdata, $post)
+    public function update_attachements(int $post_id, int $original_post_id, array $postdata, array $post): void
     {
         $post_content = $post['post_content'];
         $filter_data = [];
@@ -199,11 +199,11 @@ class Importer
      * Update attachement source ID in attachment metadata for future data mapping purpose.
      *
      * @param array   $post_terms Post term array.
-     * @param integer $post_id Post ID.
+     * @param int $post_id Post ID.
      * @param object  $post Post object.
      * @return array  $post_terms Post term array.
      */
-    public function filter_wp_import_post_terms($post_terms, $post_id, $post)
+    public function filter_wp_import_post_terms(array $post_terms, int $post_id, object $post): array
     {
         if ('attachment' === $post['post_type']) {
             $attachment_metadata = wp_get_attachment_metadata($post_id);
@@ -221,7 +221,7 @@ class Importer
     /**
      * Clean the imported attachment metadata.
      */
-    public function action_import_end()
+    public function action_import_end(): void
     {
         global $wpdb;
 
@@ -247,7 +247,7 @@ class Importer
      *
      * @return array
      */
-    public function set_imported_posts_as_drafts($postdata, $post)
+    public function set_imported_posts_as_drafts(array $postdata, array $post): array
     {
         $postdata['post_status'] = 'draft';
 
@@ -263,7 +263,7 @@ class Importer
      *
      * @return array The normalized post meta fields.
      */
-    public function process_campaign_metas($post_meta)
+    public function process_campaign_metas(array $post_meta): array
     {
         $p4_options = get_option('planet4_options');
         // 1. Exclude style fields the option for that is set or if it's passed in the form data.
@@ -303,11 +303,11 @@ class Importer
      * Skip already existing postmeta data from import.
      *
      * @param array   $postmeta The to be imported post meta fields.
-     * @param integer $post_id Post ID.
+     * @param int $post_id Post ID.
      *
      * @return array The cleaned post meta fields.
      */
-    public function skip_duplicate_postmeta_import($postmeta, $post_id)
+    public function skip_duplicate_postmeta_import(array $postmeta, int $post_id): array
     {
         $existing_postmeta = get_post_meta($post_id);
 

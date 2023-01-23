@@ -14,7 +14,7 @@ class Context
      * @param array  $page_meta_data  meta data of page.
      * @param String $post_title the title of the post.
      */
-    public static function set_header(&$context, $page_meta_data, $post_title)
+    public static function set_header(array &$context, array $page_meta_data, String $post_title): void
     {
         $meta_data_title = $page_meta_data['p4_title'] ?? '';
         $post_title_to_show = $meta_data_title ? $meta_data_title : $post_title;
@@ -33,7 +33,7 @@ class Context
      *
      * @param array $context To be set.
      */
-    public static function set_background_image(&$context)
+    public static function set_background_image(array &$context): void
     {
         $background_image_id = get_post_meta(get_the_ID(), 'background_image_id', 1);
         $context['background_image'] = wp_get_attachment_url($background_image_id);
@@ -46,7 +46,7 @@ class Context
      * @param array  $context To be set.
      * @param object $post That the context refers to.
      */
-    public static function set_og_meta_fields(&$context, $post)
+    public static function set_og_meta_fields(array &$context, object $post): void
     {
         $context['og_title'] = $post->get_og_title();
         $context['og_description'] = $post->get_og_description();
@@ -59,7 +59,7 @@ class Context
      * @param array $context Context to be set.
      * @param array $meta Meta data of the page.
      */
-    public static function set_campaign_datalayer(&$context, $meta)
+    public static function set_campaign_datalayer(array &$context, array $meta): void
     {
         $context['cf_campaign_name'] = $meta['p4_campaign_name'] ?? '';
         $context['cf_basket_name'] = $meta['p4_basket_name'] ?? '';
@@ -75,7 +75,7 @@ class Context
      * @param array  $context Context to be set.
      * @param object $post That the context refers to.
      */
-    public static function set_utm_params(&$context, $post)
+    public static function set_utm_params(array &$context, object $post): void
     {
         $context['utm_campaign_param'] = self::parse_utm_campaign_param($context['cf_local_project']);
         $context['utm_content_param'] = '&utm_content=postid-' . $post->id;
@@ -86,7 +86,7 @@ class Context
      *
      * @param array $cf_local_project It comes from meta p4_global_project_tracking_id value.
      */
-    public static function parse_utm_campaign_param($cf_local_project): string
+    public static function parse_utm_campaign_param(array $cf_local_project): string
     {
         if ('not set' !== $cf_local_project) {
             return '&utm_campaign=' . $cf_local_project;
@@ -104,7 +104,7 @@ class Context
      * @param string $global_project The Global Project value.
      * @return string The campaign scope.
      */
-    private static function get_campaign_scope($global_project)
+    private static function get_campaign_scope(string $global_project): string
     {
         switch ($global_project) {
             case 'Local Campaign':

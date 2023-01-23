@@ -10,10 +10,7 @@ use Google\Service\Sheets;
  */
 final class GoogleDocsClient
 {
-    /**
-     * @var Client
-     */
-    private $client;
+    private Client $client;
 
     /**
      * Create from JSON config.

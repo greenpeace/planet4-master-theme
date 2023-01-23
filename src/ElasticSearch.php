@@ -17,7 +17,7 @@ class ElasticSearch extends Search
      *
      * @throws UnexpectedValueException When filter type is not recognized.
      */
-    public function set_filters_args(&$args)
+    public function set_filters_args(array &$args): void
     {
         parent::set_filters_args($args);
 
@@ -75,7 +75,7 @@ class ElasticSearch extends Search
      *
      * @param array $args The array with the arguments that will be passed to WP_Query.
      */
-    public function set_engines_args(&$args)
+    public function set_engines_args(array &$args): void
     {
         $args['ep_integrate'] = true;
         simple_value_filter('epwr_scale', planet4_get_option('epwr_scale', '28d'));
@@ -100,7 +100,7 @@ class ElasticSearch extends Search
      *
      * @return array Formatted arguments with function_score.
      */
-    public function ensure_function_score_exists($formatted_args)
+    public function ensure_function_score_exists(array $formatted_args): array
     {
         if (! isset($formatted_args['query']['function_score'])) {
             $existing_query = $formatted_args['query'];
@@ -181,7 +181,7 @@ class ElasticSearch extends Search
      * @param  array $formatted_args The query that is going to ES.
      * @return array The same query, but with added aggregations.
      */
-    public function add_aggregations($formatted_args)
+    public function add_aggregations(array $formatted_args): array
     {
         $formatted_args['aggs'] = [
             'with_post_filter' => [
@@ -230,7 +230,7 @@ class ElasticSearch extends Search
      * @param array $formatted_args The args that are going to ES.
      * @return array Same args with added filter.
      */
-    public function add_mime_type_filter($formatted_args)
+    public function add_mime_type_filter(array $formatted_args): array
     {
         $formatted_args['post_filter']['bool']['must'][] = [
             'bool' => [

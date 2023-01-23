@@ -24,11 +24,10 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
  *
  * @param string   $filter_name The WordPress filter.
  * @param mixed    $value The value to be returned by the filter.
- * @param int|null $priority The priority for the fitler.
+ * @param int|null $priority The priority for the filter.
  *
- * @return void
  */
-function simple_value_filter(string $filter_name, $value, $priority = null): void
+function simple_value_filter(string $filter_name, $value, ?int $priority = null): void
 {
     add_filter(
         $filter_name,
@@ -51,7 +50,7 @@ function simple_value_filter(string $filter_name, $value, $priority = null): voi
  *
  * @return string The generated placeholders string.
  */
-function generate_list_placeholders(array $items, int $start_index, $type = 'd'): string
+function generate_list_placeholders(array $items, int $start_index, string $type = 'd'): string
 {
     $placeholders = [];
     foreach (range($start_index, count($items) + $start_index - 1) as $i) {
@@ -70,10 +69,10 @@ function generate_list_placeholders(array $items, int $start_index, $type = 'd')
  * Wrapper function around cmb2_get_option.
  *
  * @param string $key Options array key.
- * @param bool   $default The default value to use if the options is not set.
+ * @param mixed  $default The default value to use if the options is not set.
  * @return mixed Option value.
  */
-function planet4_get_option($key = '', $default = null)
+function planet4_get_option(string $key = '', $default = null)
 {
     $options = get_option('planet4_options');
 
@@ -90,7 +89,7 @@ use Timber\Timber;
 if (! class_exists('Timber')) {
     add_action(
         'admin_notices',
-        function () {
+        function (): void {
             printf(
                 '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="%s">Plugins menu</a></p></div>',
                 esc_url(admin_url('plugins.php#timber'))
@@ -116,7 +115,7 @@ if (! class_exists('Timber')) {
 }
 add_action(
     'rest_api_init',
-    function () {
+    function (): void {
         Rest::register_endpoints();
     }
 );
@@ -126,14 +125,14 @@ simple_value_filter('cloudflare_purge_everything_actions', []);
 // Remove the menu item to the Cloudflare page.
 add_action(
     'admin_menu',
-    function () {
+    function (): void {
         remove_submenu_page('options-general.php', 'cloudflare');
     }
 );
 // remove_submenu_page does not prevent accessing the page. Add a higher prio action that dies instead.
 add_action(
     'settings_page_cloudflare',
-    function () {
+    function (): void {
         die('This page is blocked to prevent excessive cache purging.');
     },
     1
@@ -142,7 +141,7 @@ add_action(
 /**
  * Hide core updates notification in the dashboard, to avoid confusion while an upgrade is already in progress.
  */
-function hide_wp_update_nag()
+function hide_wp_update_nag(): void
 {
     remove_action('admin_notices', 'update_nag', 3);
     remove_filter('update_footer', 'core_update_footer');
@@ -156,7 +155,7 @@ Loader::get_instance();
 
 add_action(
     'notification/elements',
-    static function () {
+    static function (): void {
         notification_register_carrier(new Slack('slack', 'Slack'));
     }
 );
@@ -192,7 +191,7 @@ add_filter(
 );
 add_action(
     'wpml_after_update_attachment_texts',
-    function ($original_attachment_id, $translation) {
+    function ($original_attachment_id, $translation): void {
         $original_sm_cloud = get_post_meta($original_attachment_id, 'sm_cloud', true);
         update_post_meta($translation->element_id, 'sm_cloud', $original_sm_cloud);
     },
@@ -238,9 +237,8 @@ add_filter(
 /**
  * I'll move this somewhere else in master theme.
  *
- * @return void
  */
-function register_more_blocks()
+function register_more_blocks(): void
 {
     register_block_type(
         'p4/reading-time',
@@ -422,7 +420,7 @@ add_filter(
 // When it's a page for posts.
 add_action(
     'admin_enqueue_scripts',
-    function () {
+    function (): void {
         global $post;
 
         if ($post && (int) get_option('page_for_posts') === $post->ID) {
@@ -472,7 +470,7 @@ add_filter(
 // Action to filter P4 settings menu.
 add_action(
     'admin_head',
-    function () {
+    function (): void {
         global $submenu;
 
         if (isset($submenu['planet4_settings_navigation'])) {

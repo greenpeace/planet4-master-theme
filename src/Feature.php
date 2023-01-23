@@ -109,7 +109,6 @@ abstract class Feature
     /**
      * Enable the feature.
      *
-     * @return void
      */
     public static function enable(): void
     {

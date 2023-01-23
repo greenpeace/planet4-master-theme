@@ -12,7 +12,6 @@ use P4\MasterTheme\Loader;
  */
 class Comments
 {
-    /** @var string Option key */
     public const OPTIONS_KEY = 'planet4_comments';
 
     /**
@@ -27,7 +26,7 @@ class Comments
             'description' => 'Options related to comments.',
             'root_option' => self::OPTIONS_KEY,
             'fields' => self::get_fields(),
-            'add_scripts' => static function () {
+            'add_scripts' => static function (): void {
                 Loader::enqueue_versioned_script('/admin/js/features_save_redirect.js');
             },
         ];

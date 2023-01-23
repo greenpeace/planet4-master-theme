@@ -29,14 +29,14 @@ class Features
     /**
      * @var bool Purge Cloudflare cache on save
      */
-    public static $purge_cloudflare = false;
+    public static bool $purge_cloudflare = false;
 
     /**
      * Register current options status before processing, to detect any change later.
      *
      * @var array $preprocess_fields
      */
-    public static $preprocess_fields = [];
+    public static array $preprocess_fields = [];
 
     /**
      * Get the features options page settings.
@@ -50,7 +50,7 @@ class Features
             'description' => self::get_description(),
             'root_option' => self::OPTIONS_KEY,
             'fields' => self::get_fields(),
-            'add_scripts' => static function () {
+            'add_scripts' => static function (): void {
                 Loader::enqueue_versioned_script('/admin/js/features_save_redirect.js');
             },
         ];
@@ -142,7 +142,7 @@ class Features
     /**
      * Add hooks related to Features activation
      */
-    public static function hooks()
+    public static function hooks(): void
     {
         // On field save.
         add_action(
@@ -173,7 +173,7 @@ class Features
      * @param array $cmb       This CMB2 object.
      * @param int   $object_id The ID of the current object.
      */
-    public static function on_pre_process($cmb, $object_id)
+    public static function on_pre_process(array $cmb, int $object_id): void
     {
         if (self::OPTIONS_KEY !== $object_id) {
             return;
@@ -206,7 +206,7 @@ class Features
      * @param string     $action   Action performed. Could be "repeatable", "updated", or "removed".
      * @param CMB2_Field $field    This field object.
      */
-    public static function on_field_save($field_id, $updated, $action, $field)
+    public static function on_field_save(string $field_id, bool $updated, string $action, CMB2_Field $field): void
     {
         // This requires a toggle because we may be hitting a sort of rate limit from the deploy purge alone.
         // For now it's better to leave this off on test instances, to avoid purges failing on production because we hit
@@ -224,7 +224,7 @@ class Features
      *                            Will only include field ids that had values change.
      * @param array  $cmb         This CMB2 object.
      */
-    public static function on_features_saved($object_id, $updated, $cmb)
+    public static function on_features_saved(int $object_id, string $updated, array $cmb): void
     {
         if (self::$purge_cloudflare) {
             is_plugin_active('cloudflare/cloudflare.php') && ( new CloudflarePurger() )->purge_all();

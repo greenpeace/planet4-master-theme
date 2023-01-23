@@ -18,9 +18,6 @@ use WP_REST_Server;
  */
 class Rest
 {
-    /**
-     * @var string The API path.
-     */
     private const REST_NAMESPACE = 'planet4/v1';
 
     /**

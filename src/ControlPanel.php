@@ -22,7 +22,7 @@ class ControlPanel
     /**
      * Hooks actions and filters.
      */
-    public function hooks()
+    public function hooks(): void
     {
         // Display the Control Panel only to Administrators.
         if (current_user_can('manage_options') || current_user_can('editor')) {
@@ -40,7 +40,7 @@ class ControlPanel
     /**
      * Adds a new Dashboard widget.
      */
-    public function add_dashboard_widgets()
+    public function add_dashboard_widgets(): void
     {
         wp_add_dashboard_widget(
             'planet4_control_panel',
@@ -52,7 +52,7 @@ class ControlPanel
     /**
      * Adds items to the Control Panel.
      */
-    public function add_items()
+    public function add_items(): void
     {
         wp_nonce_field('cp-action');
 
@@ -116,7 +116,7 @@ class ControlPanel
      *
      * @param array $data Associative array with all the data needed to add a new item in the Control Panel.
      */
-    public function add_item($data)
+    public function add_item(array $data): void
     {
         echo '<div class="cp-item">
 				<div><h3>' . esc_html($data['title']) . '</h3>';
@@ -133,7 +133,7 @@ class ControlPanel
     /**
      * Adds a flush cache button to delete all keys in Redis database.
      */
-    public function flush_cache()
+    public function flush_cache(): void
     {
         if (! current_user_can('manage_options') && ! current_user_can('editor')) {
             return;
@@ -169,7 +169,7 @@ class ControlPanel
     /**
      * Adds a check cache button to check connectivity to the Redis server.
      */
-    public function check_cache()
+    public function check_cache(): void
     {
         if (! current_user_can('manage_options') && ! current_user_can('editor')) {
             return;
@@ -207,7 +207,7 @@ class ControlPanel
     /**
      * Adds a check cache button to check the ENS API.
      */
-    public function check_engaging_networks()
+    public function check_engaging_networks(): void
     {
         // If this is an ajax call.
         if (wp_doing_ajax()) {
@@ -250,7 +250,7 @@ class ControlPanel
     /**
      * Adds a check button to check communication to the ES cluster.
      */
-    public function check_elasticsearch()
+    public function check_elasticsearch(): void
     {
         // If this is an ajax call.
         if (wp_doing_ajax()) {
@@ -285,7 +285,7 @@ class ControlPanel
     /**
      * Load assets.
      */
-    public function enqueue_admin_assets()
+    public function enqueue_admin_assets(): void
     {
         // Load these assets only in Dashboard.
         if (! is_admin() || 'dashboard' !== get_current_screen()->base) {

@@ -130,12 +130,12 @@ final class AnalyticsValues
     /**
      * @var string[] List of global projects.
      */
-    private $global_projects;
+    private array $global_projects;
 
     /**
-     * @var string[] List of local projects.
+     * @var string[]|null List of local projects.
      */
-    private $local_projects;
+    private ?array $local_projects;
 
     /**
      * AnalyticsValues constructor.
@@ -248,7 +248,7 @@ final class AnalyticsValues
      */
     public static function from_spreadsheets(
         Spreadsheet $global_spreadsheet,
-        Spreadsheet $local_spreadsheet = null,
+        ?Spreadsheet $local_spreadsheet = null,
         bool $uses_google = false
     ): self {
         $project_name_column = $global_spreadsheet->get_column_index('Global Project Standard');

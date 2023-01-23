@@ -13,21 +13,20 @@ class Campaigns
     /**
      * Taxonomy
      *
-     * @var string $taxonomy
      */
-    private $taxonomy = 'post_tag';
+    private string $taxonomy = 'post_tag';
     /**
      * Page Types
      *
      * @var array $page_types
      */
-    public $page_types = [];
+    public array $page_types = [];
     /**
      * Localizations
      *
      * @var array $localizations
      */
-    public $localizations = [];
+    public array $localizations = [];
 
     /**
      * Taxonomy_Image constructor.
@@ -43,7 +42,7 @@ class Campaigns
     /**
      * Class hooks.
      */
-    private function hooks()
+    private function hooks(): void
     {
         add_action('post_tag_add_form_fields', [ $this, 'add_taxonomy_form_fields' ]);
         add_action('post_tag_edit_form_fields', [ $this, 'add_taxonomy_form_fields' ]);
@@ -61,7 +60,7 @@ class Campaigns
      *
      * @param WP_Term $wp_tag The object passed to the callback when on Edit Tag page.
      */
-    public function add_taxonomy_form_fields($wp_tag)
+    public function add_taxonomy_form_fields(WP_Term $wp_tag): void
     {
         $this->page_types = get_terms(
             [
@@ -236,7 +235,7 @@ class Campaigns
      *
      * @param int $term_id The ID of the WP_Term object that is added or edited.
      */
-    public function save_taxonomy_meta($term_id)
+    public function save_taxonomy_meta(int $term_id): void
     {
         // Save the selected page types for this campaign.
         $selected_page_types = $_POST['p4_page_type'] ?? []; // phpcs:ignore
@@ -289,7 +288,7 @@ class Campaigns
      *
      * @return array Associative array with the columns of the taxonomy.
      */
-    public function edit_taxonomy_columns($columns): array
+    public function edit_taxonomy_columns(array $columns): array
     {
         $columns['image'] = __('Image', 'planet4-master-theme-backend');
 
@@ -307,7 +306,7 @@ class Campaigns
      *
      * @return string The new html to be applied to each row of the $column.
      */
-    public function manage_taxonomy_custom_column($output, $column, $term_id): string
+    public function manage_taxonomy_custom_column(string $output, string $column, int $term_id): string
     {
         if ('redirect_page' === $column) {
             $redirect_page = get_term_meta($term_id, 'redirect_page', true);
@@ -336,7 +335,7 @@ class Campaigns
      *
      * @return array Associative array with the columns of the taxonomy.
      */
-    public function manage_taxonomy_custom_sortable_column($columns): array
+    public function manage_taxonomy_custom_sortable_column(array $columns): array
     {
         $columns['image'] = 'image';
         return $columns;
@@ -349,7 +348,7 @@ class Campaigns
      *
      * @return bool True if validation is ok, false if validation fails.
      */
-    public function validate($id): bool
+    public function validate(int $id): bool
     {
         if ($id < 0) {
             return false;
@@ -364,7 +363,7 @@ class Campaigns
      *
      * @return bool True if validation is ok, false if validation fails.
      */
-    public function validate_page_types($selected_page_types): bool
+    public function validate_page_types(array $selected_page_types): bool
     {
         $page_types_slugs = [];
         $this->page_types = get_terms(
@@ -399,9 +398,8 @@ class Campaigns
      * @param string $block_name Gutenberg block name.
      * @param array  $block_attributes block attribute array.
      *
-     * @return string
      */
-    protected function make_gutenberg_comment($block_name, $block_attributes)
+    protected function make_gutenberg_comment(string $block_name, array $block_attributes): string
     {
         return '<!-- wp:' . $block_name . ' ' . wp_json_encode($block_attributes, JSON_UNESCAPED_SLASHES) . ' /-->';
     }
@@ -409,7 +407,7 @@ class Campaigns
     /**
      * Load assets.
      */
-    public function enqueue_admin_assets()
+    public function enqueue_admin_assets(): void
     {
         if (! is_admin() || strpos(get_current_screen()->taxonomy, $this->taxonomy) === false) {
             return;

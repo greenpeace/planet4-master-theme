@@ -37,7 +37,7 @@ class PageMeta
     /**
      * Class hooks.
      */
-    private function hooks()
+    private function hooks(): void
     {
         add_action('init', [ $this, 'register_post_meta' ]);
     }
@@ -45,7 +45,7 @@ class PageMeta
     /**
      * Register page meta data.
      */
-    public function register_post_meta()
+    public function register_post_meta(): void
     {
         $args = [
             'show_in_rest' => true,

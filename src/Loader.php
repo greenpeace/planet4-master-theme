@@ -14,21 +14,20 @@ final class Loader
     /**
      * A static instance of Loader.
      *
-     * @var Loader $instance
      */
-    private static $instance;
+    private static Loader $instance;
     /**
      * Indexed array of all the classes/services that are needed.
      *
      * @var array $services
      */
-    private $services;
+    private array $services;
     /**
      * Indexed array of all the classes/services that are used by Planet4.
      *
      * @var array $default_services
      */
-    private $default_services;
+    private array $default_services;
 
     /**
      * Singleton creational pattern.
@@ -36,9 +35,8 @@ final class Loader
      *
      * @param array $services The Controller services to inject.
      *
-     * @return Loader
      */
-    public static function get_instance($services = []): Loader
+    public static function get_instance(array $services = []): Loader
     {
         if (! isset(self::$instance)) {
             self::$instance = new self($services);
@@ -51,7 +49,7 @@ final class Loader
      *
      * @param array $services The dependencies to inject.
      */
-    private function __construct($services)
+    private function __construct(array $services)
     {
         $this->load_services($services);
         $this->add_filters();
@@ -63,7 +61,7 @@ final class Loader
      *
      * @param array $services The dependencies to inject.
      */
-    private function load_services($services)
+    private function load_services(array $services): void
     {
 
         $this->default_services = [
@@ -147,7 +145,6 @@ final class Loader
     /**
      * Add some filters.
      *
-     * @return void
      */
     private function add_filters(): void
     {
@@ -243,7 +240,7 @@ final class Loader
      * @param array  $deps Dependencies of the script.
      * @param bool   $in_footer Whether the script should be loaded in the footer.
      */
-    public static function enqueue_versioned_script(string $relative_path, array $deps = [], $in_footer = false): void
+    public static function enqueue_versioned_script(string $relative_path, array $deps = [], bool $in_footer = false): void
     {
         // Create a supposedly unique handle based on the path.
         $handle = str_replace('/[^\w]/', '', $relative_path);

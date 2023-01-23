@@ -14,9 +14,8 @@ class User extends Timber\User
     /**
      * Is a fake user flag
      *
-     * @var bool $is_fake
      */
-    public $is_fake = false;
+    public bool $is_fake = false;
 
     /**
      * User constructor.
@@ -24,7 +23,7 @@ class User extends Timber\User
      * @param object|int|bool $uid The User id.
      * @param string          $author_override The author override display name.
      */
-    public function __construct($uid = false, $author_override = '')
+    public function __construct($uid = false, string $author_override = '')
     {
         if (! $author_override) {
             parent::__construct($uid);
@@ -37,7 +36,6 @@ class User extends Timber\User
     /**
      * The User profile page url.
      *
-     * @return string
      */
     public function link(): string
     {
@@ -51,7 +49,6 @@ class User extends Timber\User
     /**
      * The relative path of the User profile page.
      *
-     * @return string
      */
     public function path(): string
     {
@@ -65,7 +62,6 @@ class User extends Timber\User
     /**
      * Author display name.
      *
-     * @return string
      */
     public function name(): ?string
     {
@@ -79,9 +75,8 @@ class User extends Timber\User
     /**
      * Stringifies the User object.
      *
-     * @return null|string
      */
-    public function __toString()
+    public function __toString(): ?string
     {
         if ($this->is_fake) {
             return $this->name();

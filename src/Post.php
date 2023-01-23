@@ -20,35 +20,33 @@ class Post extends TimberPost
      *
      * @var array $issues_nav_data
      */
-    protected $issues_nav_data;
+    protected array $issues_nav_data;
 
     /**
      * Content type
      *
-     * @var string $content_type
      */
-    protected $content_type;
+    protected string $content_type;
 
     /**
      * Page types
      *
      * @var TimberTerm[] $page_types
      */
-    protected $page_types;
+    protected array $page_types;
 
     /**
      * Author
      *
-     * @var User $author
      */
-    protected $author;
+    protected User $author;
 
     /**
      * Associative array with the values to be passed to GTM Data Layer.
      *
      * @var array $datalayer
      */
-    protected $data_layer;
+    protected array $data_layer;
 
     /**
      * Post constructor.
@@ -65,7 +63,7 @@ class Post extends TimberPost
     /**
      * Sets the GTM Data Layer values of current P4 Post.
      */
-    public function set_data_layer()
+    public function set_data_layer(): void
     {
         if (is_front_page()) {
             $this->data_layer['page_category'] = 'Homepage';
@@ -97,7 +95,6 @@ class Post extends TimberPost
     /**
      * Checks if post is the Act page.
      *
-     * @return bool
      */
     public function is_act_page(): bool
     {
@@ -109,7 +106,6 @@ class Post extends TimberPost
     /**
      * Checks if post is the Explore page.
      *
-     * @return bool
      */
     public function is_explore_page(): bool
     {
@@ -121,7 +117,6 @@ class Post extends TimberPost
     /**
      * Checks if post is a Take Action page (child of act page).
      *
-     * @return bool
      */
     public function is_take_action_page(): bool
     {
@@ -146,7 +141,6 @@ class Post extends TimberPost
     /**
      * Checks if post is an Issue page (child of explore page).
      *
-     * @return bool
      */
     public function is_issue_page(): bool
     {
@@ -171,7 +165,6 @@ class Post extends TimberPost
     /**
      * Checks if post is Campaign page.
      *
-     * @return bool
      */
     public function is_campaign_page(): bool
     {
@@ -181,7 +174,7 @@ class Post extends TimberPost
     /**
      * Loads in context information on the navigation links for Issue pages relevant to current Post's categories.
      */
-    public function set_issues_links()
+    public function set_issues_links(): void
     {
         // Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
         $options = get_option('planet4_options');
@@ -238,7 +231,7 @@ class Post extends TimberPost
      *
      * @return array Associative array with the social media accounts.
      */
-    public function get_social_accounts($social_menu): array
+    public function get_social_accounts(array $social_menu): array
     {
         return self::filter_social_accounts($social_menu);
     }
@@ -248,7 +241,7 @@ class Post extends TimberPost
      *
      * @return WP_Term[]
      */
-    public function get_custom_terms()
+    public function get_custom_terms(): array
     {
         $terms = get_the_terms($this->id, CustomTaxonomy::TAXONOMY);
         if (false !== $terms && ! $terms instanceof WP_Error) {
@@ -261,7 +254,7 @@ class Post extends TimberPost
     /**
      * Sets the page types for this Post.
      */
-    public function set_page_types()
+    public function set_page_types(): void
     {
         $taxonomies = $this->get_terms(CustomTaxonomy::TAXONOMY);
 
@@ -282,7 +275,7 @@ class Post extends TimberPost
      * Sets post/page custom planet4 type.
      * ACTION, DOCUMENT, PAGE, POST
      */
-    public function set_content_type()
+    public function set_content_type(): void
     {
         switch ($this->post_type) {
             case 'page':
@@ -304,9 +297,8 @@ class Post extends TimberPost
      * Get post/page custom planet4 type.
      * ACTION, DOCUMENT, PAGE, POST
      *
-     * @return string
      */
-    public function get_content_type()
+    public function get_content_type(): string
     {
         return $this->content_type;
     }
@@ -314,9 +306,8 @@ class Post extends TimberPost
     /**
      * Get value for open graph title meta.
      *
-     * @return string
      */
-    public function get_og_title()
+    public function get_og_title(): string
     {
         return get_post_meta($this->id, 'p4_og_title', true);
     }
@@ -324,9 +315,8 @@ class Post extends TimberPost
     /**
      * Get value for open graph description meta.
      *
-     * @return string
      */
-    public function get_og_description()
+    public function get_og_description(): string
     {
         $og_desc = get_post_meta($this->id, 'p4_og_description', true);
         if ('' === $og_desc) {
@@ -341,7 +331,7 @@ class Post extends TimberPost
      *
      * @return array
      */
-    public function get_og_image()
+    public function get_og_image(): array
     {
         $meta = get_post_meta($this->id);
         $image_id = null;
@@ -373,7 +363,7 @@ class Post extends TimberPost
      *
      * @return string[]
      */
-    public function share_meta()
+    public function share_meta(): array
     {
         $og_title = get_post_meta($this->id, 'p4_og_title', true);
         $og_description = get_post_meta($this->id, 'p4_og_description', true);
@@ -393,9 +383,8 @@ class Post extends TimberPost
     /**
      * Get post's author override status.
      *
-     * @return bool
      */
-    public function get_author_override()
+    public function get_author_override(): bool
     {
         $author_override = get_post_meta($this->id, 'p4_author_override', true);
         if ($author_override) {
@@ -408,7 +397,7 @@ class Post extends TimberPost
     /**
      * Sets the User author of this Post.
      */
-    public function set_author()
+    public function set_author(): void
     {
         $author_override = get_post_meta($this->id, 'p4_author_override', true);
         if ('' !== $author_override) {
@@ -421,9 +410,8 @@ class Post extends TimberPost
     /**
      * Gets the User author of this Post.
      *
-     * @return User
      */
-    public function get_author()
+    public function get_author(): User
     {
         return $this->author;
     }
@@ -435,7 +423,7 @@ class Post extends TimberPost
      *
      * @return array Associative array with the social media accounts.
      */
-    public static function filter_social_accounts($social_menu): array
+    public static function filter_social_accounts(array $social_menu): array
     {
         $social_accounts = [];
         if (isset($social_menu) && is_iterable($social_menu)) {
@@ -496,7 +484,7 @@ class Post extends TimberPost
      * Calculate post reading time.
      * Return 1 at minimum, to not get a "0 min read".
      *
-     * @return null|int Reading time in minutes, null if option not activated on post type.
+     * @return int|null Reading time in minutes, null if option not activated on post type.
      */
     public function reading_time(): ?int
     {
@@ -535,7 +523,7 @@ class Post extends TimberPost
      *
      * @return string Formatted reading time.
      */
-    public static function reading_time_block(array $attributes, $content, $block)
+    public static function reading_time_block(array $attributes, string $content, WP_Block $block): string
     {
         $time = ( new self($block->context['postId'] ?? null) )->reading_time();
         return $time ? '<span class="article-list-item-readtime">' . $time . ' min read</span>' : '';

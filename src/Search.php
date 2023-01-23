@@ -33,9 +33,8 @@ abstract class Search
     /**
      * Search Query
      *
-     * @var string $search_query
      */
-    protected $search_query;
+    protected string $search_query;
 
     /**
      * Posts
@@ -54,57 +53,55 @@ abstract class Search
     /**
      * Selected sort criteria
      *
-     * @var array $selected_sort
      */
-    protected $selected_sort;
+    protected string $selected_sort;
 
     /**
      * FIlters
      *
      * @var array $filters
      */
-    protected $filters;
+    protected array $filters;
 
     /**
      * @var int|null The total number of matches.
      */
-    protected $total_matches;
+    protected ?int $total_matches = null;
 
     /**
      * Templates
      *
      * @var array $templates
      */
-    public $templates;
+    public array $templates;
 
     /**
      * Context
      *
      * @var array $context
      */
-    public $context;
+    public array $context;
 
     /**
      * Current Page
      *
-     * @var int $current_page
      */
-    public $current_page;
+    public int $current_page;
 
     /**
      * @var array|null Aggregations on the complete result set.
      */
-    protected $aggregations;
+    protected ?array $aggregations = null;
 
     /**
      * @var int The time it took ElasticSearch to execute the query.
      */
-    protected $query_time;
+    protected int $query_time;
 
     /**
      * Initialize the class. Hook necessary actions and filters.
      */
-    protected function initialize()
+    protected function initialize(): void
     {
         self::add_general_filters();
     }
@@ -159,7 +156,7 @@ abstract class Search
         // language in time that has the post available.
         add_filter(
             'ep_ignore_invalid_dates',
-            function ($ignore, $post_id, $post) {
+            function ($ignore, $post_id, $post): void {
                 /**
                  * @var SitePress
                  */
@@ -262,10 +259,10 @@ abstract class Search
      * @param array  $filters The selected filters.
      */
     public function load(
-        $search_query,
-        $selected_sort = self::DEFAULT_SORT,
-        $filters = []
-    ) {
+        string $search_query,
+        string $selected_sort = self::DEFAULT_SORT,
+        array $filters = []
+    ): void {
         $this->initialize();
         $this->search_query = $search_query;
         $this->templates = [ 'search.twig', 'archive.twig', 'index.twig' ];
@@ -351,7 +348,7 @@ abstract class Search
      *
      * @return array The respective Timber Posts.
      */
-    protected function get_posts($paged = 1): array
+    protected function get_posts(int $paged = 1): array
     {
         $template_posts = [];
 
@@ -420,7 +417,7 @@ abstract class Search
      *
      * @return array The posts of the search.
      */
-    public function query_posts($paged = 1): array
+    public function query_posts(int $paged = 1): array
     {
         // Set General Query arguments.
         $args = $this->get_general_args($paged);
@@ -438,7 +435,7 @@ abstract class Search
         $this->set_engines_args($args);
         add_action(
             'ep_valid_response',
-            function ($response) {
+            function ($response): void {
                 $this->aggregations = $response['aggregations'];
                 $this->query_time = $response['took'];
             }
@@ -459,7 +456,7 @@ abstract class Search
      *
      * @return array
      */
-    protected function get_general_args($paged): array
+    protected function get_general_args(int $paged): array
     {
         $args = [
             'posts_per_page' => self::POSTS_PER_LOAD,
@@ -545,7 +542,7 @@ abstract class Search
      *
      * @return array The post types that should be in search.
      */
-    private static function get_post_types()
+    private static function get_post_types(): array
     {
         $types = [
             'page',
@@ -608,7 +605,7 @@ abstract class Search
      *
      * @param array $args The search query args.
      */
-    abstract public function set_engines_args(&$args);
+    abstract public function set_engines_args(array &$args): void;
 
     /**
      * Applies user selected filters to the search if there are any and gets the filtered posts.
@@ -617,7 +614,7 @@ abstract class Search
      *
      * @throws UnexpectedValueException When filter type is not recognized.
      */
-    public function set_filters_args(&$args)
+    public function set_filters_args(array &$args): void
     {
         if ($this->filters) {
             foreach ($this->filters as $type => $filter_type) {
@@ -698,7 +695,7 @@ abstract class Search
      *
      * @param array $context Associative array with the data to be passed to the view.
      */
-    protected function set_context(&$context)
+    protected function set_context(array &$context): void
     {
         $this->set_general_context($context);
         try {
@@ -714,7 +711,7 @@ abstract class Search
      *
      * @param array $context Associative array with the data to be passed to the view.
      */
-    protected function set_general_context(&$context)
+    protected function set_general_context(array &$context): void
     {
 
         // Search context.
@@ -755,7 +752,7 @@ abstract class Search
         }
 
         if (is_user_logged_in()) {
-            $context['query_time'] = $this->query_time;
+            $context['query_time'] = $this->query_time ?? 0;
         }
     }
 
@@ -766,7 +763,7 @@ abstract class Search
      *
      * @throws UnexpectedValueException When filter type is not recognized.
      */
-    protected function set_filters_context(&$context)
+    protected function set_filters_context(&$context): void
     {
         // Categories.
         $context['categories'] = Search\Filters\Categories::get_filters();
@@ -823,7 +820,7 @@ abstract class Search
      *
      * @param array $context Associative array with the data to be passed to the view.
      */
-    protected function set_results_context(&$context)
+    protected function set_results_context(array &$context): void
     {
 
         $posts = $this->posts ?? $this->paged_posts;
@@ -940,7 +937,7 @@ abstract class Search
      *
      * @return bool True if validation is ok, false if validation fails.
      */
-    public function validate(&$selected_sort, &$filters, $context): bool
+    public function validate(string &$selected_sort, array &$filters, array $context): bool
     {
         $selected_sort = filter_var($selected_sort, FILTER_SANITIZE_STRING);
 
@@ -968,7 +965,7 @@ abstract class Search
     /**
      * Adds a section with a Load more button.
      */
-    public function add_load_more()
+    public function add_load_more(): void
     {
         $this->context['load_more'] = [
             'posts_per_load' => self::POSTS_PER_LOAD,
@@ -980,7 +977,7 @@ abstract class Search
     /**
      * View the Search page template.
      */
-    public function view()
+    public function view(): void
     {
         Timber::render($this->templates, $this->context, self::DEFAULT_CACHE_TTL, \Timber\Loader::CACHE_OBJECT);
     }
@@ -988,7 +985,7 @@ abstract class Search
     /**
      * View the paged posts of the next page/load.
      */
-    public function view_paged_posts()
+    public function view_paged_posts(): void
     {
         // TODO - The $paged_context related code should be transferred to set_results_context method for better separation of concerns.
         if ($this->paged_posts) {
@@ -1015,7 +1012,7 @@ abstract class Search
      * @return mixed The args with exclusion of unwanted ids.
      * @throws Exception\SqlInIsEmpty Well it really won't unless we make self::DOCUMENT_TYPES into an empty array.
      */
-    public static function exclude_unwanted_attachments($args)
+    public static function exclude_unwanted_attachments(array $args)
     {
         global $wpdb;
 
@@ -1037,11 +1034,11 @@ abstract class Search
     /**
      * Exclude the page for posts set through the Settings > Reading page.
      *
-     * @param query $query The Query ElasticPress will use to fetch the ids of posts.
+     * @param WP_Query $query The Query ElasticPress will use to fetch the ids of posts.
      *
-     * @return query The Query with exclusion of the page for posts.
+     * @return WP_Query The Query with exclusion of the page for posts.
      */
-    public static function exclude_page_for_posts($query)
+    public static function exclude_page_for_posts(WP_Query $query): WP_Query
     {
         $page_for_posts = get_option('page_for_posts');
 
@@ -1059,7 +1056,7 @@ abstract class Search
      *
      * @return mixed The args with exclusion of password protected content.
      */
-    public static function hide_password_protected_content($args)
+    public static function hide_password_protected_content(array $args)
     {
         $args['has_password'] = false;
 

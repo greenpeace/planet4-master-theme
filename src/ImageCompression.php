@@ -19,9 +19,8 @@ class ImageCompression extends WP_Image_Editor_Imagick
     /**
      * Image compression filter.
      *
-     * @var string $filter
      */
-    protected $filter = 'FILTER_LANCZOS';
+    protected string $filter = 'FILTER_LANCZOS';
 
     /**
      * Override default imagick compression and use progressive compression instead.
@@ -34,7 +33,7 @@ class ImageCompression extends WP_Image_Editor_Imagick
      * @return bool|WP_Error
      * @since 1.9
      */
-    protected function thumbnail_image($dst_w, $dst_h, $filter_name = 'FILTER_TRIANGLE', $strip_meta = true)
+    protected function thumbnail_image(int $dst_w, int $dst_h, string $filter_name = 'FILTER_TRIANGLE', bool $strip_meta = true)
     {
         if ($this->filter) {
             $filter_name = $this->filter;
