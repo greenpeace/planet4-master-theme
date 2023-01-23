@@ -18,9 +18,9 @@ class Post extends TimberPost
     /**
      * Issues navigation
      *
-     * @var array $issues_nav_data
+     * @var array|null $issues_nav_data
      */
-    protected array $issues_nav_data;
+    protected ?array $issues_nav_data = null;
 
     /**
      * Content type

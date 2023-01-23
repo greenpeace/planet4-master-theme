@@ -74,9 +74,8 @@ class User extends Timber\User
 
     /**
      * Stringifies the User object.
-     *
      */
-    public function __toString(): ?string
+    public function __toString(): string
     {
         if ($this->is_fake) {
             return $this->name();

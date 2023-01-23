@@ -279,7 +279,7 @@ class GravityFormsExtensions
                 'email' => $current_confirmation['email'] ?? true,
             ],
             'post' => $post,
-            'social_accounts' => $post->get_social_accounts($context['footer_social_menu']),
+            'social_accounts' => $post->get_social_accounts($context['footer_social_menu'] ?: []),
             'utm_medium' => 'gf-share',
         ];
 
