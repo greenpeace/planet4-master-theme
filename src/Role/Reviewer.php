@@ -12,7 +12,7 @@ class Reviewer
     /**
      * Add Reviewer role.
      */
-    public static function register_role()
+    public static function register_role(): void
     {
         add_role(
             'reviewer',

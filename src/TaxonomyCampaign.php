@@ -14,14 +14,14 @@ class TaxonomyCampaign
      *
      * @var array $context
      */
-    public $context = [];
+    public array $context = [];
 
     /**
      * Templates
      *
      * @var array $templates
      */
-    protected $templates = [];
+    protected array $templates = [];
 
     /**
      * TaxonomyCampaign constructor.
@@ -29,7 +29,7 @@ class TaxonomyCampaign
      * @param array $templates An indexed array with template file names. The first to be found will be used.
      * @param array $context An associative array with all the context needed to render the template found first.
      */
-    public function __construct($templates = [ 'archive.twig', 'index.twig' ], $context = [])
+    public function __construct(array $templates = [ 'archive.twig', 'index.twig' ], array $context = [])
     {
         $this->templates = $templates;
         $this->context = $context;
@@ -41,7 +41,7 @@ class TaxonomyCampaign
      * @param string $block_name The name of the block to be added.
      * @param array  $block_attributes An associative array with data needed by the block.
      */
-    public function add_block($block_name, $block_attributes)
+    public function add_block(string $block_name, array $block_attributes): void
     {
 
         if ($block_name && $block_attributes) {
@@ -56,7 +56,7 @@ class TaxonomyCampaign
     /**
      * View the Campaign template.
      */
-    public function view()
+    public function view(): void
     {
         Timber::render($this->templates, $this->context);
     }

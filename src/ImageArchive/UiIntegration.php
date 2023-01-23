@@ -23,7 +23,7 @@ class UiIntegration
     /**
      * Hook up to WordPress.
      */
-    private static function hooks()
+    private static function hooks(): void
     {
         if (! ImageArchive::is_active()) {
             return;

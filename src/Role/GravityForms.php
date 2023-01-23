@@ -10,7 +10,7 @@ abstract class GravityForms
     /**
      * Add capabilities to user roles
      */
-    public static function add_capabilities_to_user_roles()
+    public static function add_capabilities_to_user_roles(): void
     {
         // We will potentially add more roles.
         $roles = [ 'editor' ];

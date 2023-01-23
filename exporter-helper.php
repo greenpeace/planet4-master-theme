@@ -91,7 +91,7 @@ function get_attachments_used_in_content(string $content): array
  * @param array $post_ids Post IDs.
  * @return array  $post_ids Post IDs.
  */
-function get_campaign_attachments($post_ids)
+function get_campaign_attachments(array $post_ids): array
 {
 
     global $wpdb;
@@ -172,7 +172,7 @@ function get_campaign_attachments($post_ids)
  *
  * @param string $str String to replace.
  */
-function p4_px_single_post_cdata($str)
+function p4_px_single_post_cdata(string $str)
 {
     if (seems_utf8($str) === false) {
         $str = utf8_encode($str);
@@ -199,7 +199,7 @@ function p4_px_single_post_site_url()
  *
  * @param array $post_ids Tag object.
  */
-function p4_px_single_post_authors_list($post_ids)
+function p4_px_single_post_authors_list(array $post_ids): void
 {
     global $wpdb;
 

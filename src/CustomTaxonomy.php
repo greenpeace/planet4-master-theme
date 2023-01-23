@@ -18,7 +18,6 @@ class CustomTaxonomy
     /**
      * Reading time option field name
      *
-     * @var string
      */
     public const READING_TIME_FIELD = 'reading_time';
 
@@ -33,7 +32,7 @@ class CustomTaxonomy
     /**
      * Register actions for WordPress hooks and filters.
      */
-    private function hooks()
+    private function hooks(): void
     {
         add_action('init', [ $this, 'register_taxonomy' ], 2);
         add_action('created_term', [ $this, 'trigger_rewrite_rules' ], 10, 3);
@@ -70,7 +69,7 @@ class CustomTaxonomy
      *
      * @return mixed
      */
-    public function add_taxonomy_as_permalink_structure($tags)
+    public function add_taxonomy_as_permalink_structure(array $tags)
     {
         $tags[ self::TAXONOMY_PARAMETER ] = __('P4 page type (A p4 page type term.)', 'planet4-master-theme-backend');
 
@@ -82,7 +81,7 @@ class CustomTaxonomy
      *
      * @param WP_Post $post The WordPress that will be filtered/edited.
      */
-    public function create_taxonomy_metabox_markup(WP_Post $post)
+    public function create_taxonomy_metabox_markup(WP_Post $post): void
     {
         $attached_type = get_the_terms($post, self::TAXONOMY);
         $current_type = ( is_array($attached_type) ) ? $attached_type[0]->term_id : - 1;
@@ -116,7 +115,7 @@ class CustomTaxonomy
      *
      * @return string   The filtered permalink.
      */
-    public function filter_permalink($permalink, $post, $leavename)
+    public function filter_permalink(string $permalink, WP_Post $post, bool $leavename): string
     {
 
         if (strpos($permalink, '%' . self::TAXONOMY_PARAMETER . '%') === false) {
@@ -176,7 +175,7 @@ class CustomTaxonomy
      *
      * @return WP_Term[]
      */
-    public function get_multilingual_terms()
+    public function get_multilingual_terms(): array
     {
 
         $all_terms = [];
@@ -226,7 +225,7 @@ class CustomTaxonomy
     /**
      * Register a custom taxonomy for planet4 post types.
      */
-    public function register_taxonomy()
+    public function register_taxonomy(): void
     {
 
         $p4_page_type = [
@@ -269,7 +268,7 @@ class CustomTaxonomy
      *
      * @return string The filtered permalink for this taxonomy.
      */
-    public function filter_term_permalink($link, $term, $taxonomy)
+    public function filter_term_permalink(string $link, string $term, string $taxonomy): string
     {
         if (self::TAXONOMY !== $taxonomy) {
             return $link;
@@ -312,7 +311,7 @@ class CustomTaxonomy
      *
      * @return array        The filtered post rewrite rules.
      */
-    public function replace_taxonomy_terms_in_rewrite_rules($rules)
+    public function replace_taxonomy_terms_in_rewrite_rules(array $rules): array
     {
         // Get planet4 page type taxonomy terms.
         $term_slugs = $this->get_terms_slugs();
@@ -341,7 +340,7 @@ class CustomTaxonomy
      *
      * @return array        The filtered root rewrite rules.
      */
-    public function add_terms_rewrite_rules($rules)
+    public function add_terms_rewrite_rules(array $rules): array
     {
         // Add a rewrite rule for each slug of this taxonomy type (e.g.: "publication", "story", etc.)
         // for p4 page type pages.
@@ -364,7 +363,7 @@ class CustomTaxonomy
      * @param int    $tt_id    Term taxonomy ID.
      * @param string $taxonomy Taxonomy slug.
      */
-    public function trigger_rewrite_rules($term_id, $tt_id, $taxonomy)
+    public function trigger_rewrite_rules(int $term_id, int $tt_id, string $taxonomy): void
     {
         if (self::TAXONOMY !== $taxonomy) {
             return;
@@ -380,7 +379,7 @@ class CustomTaxonomy
      * @param int     $post_id Id of the saved post.
      * @param WP_Post $post    Post object.
      */
-    public function save_taxonomy_page_type($post_id, $post)
+    public function save_taxonomy_page_type(int $post_id, WP_Post $post): void
     {
 
         // Ignore autosave.
@@ -435,7 +434,7 @@ class CustomTaxonomy
      * @param string $post_type WordPress post type slug.
      * @param string $which The location of the extra table nav markup ('top' or 'bottom').
      */
-    public function filter_posts_by_page_type($post_type, $which)
+    public function filter_posts_by_page_type(string $post_type, string $which): void
     {
         // Apply this only to a specific post type.
         if ('post' !== $post_type) {
@@ -471,7 +470,7 @@ class CustomTaxonomy
      *
      * @return array
      */
-    public function add_taxonomy_column($columns): array
+    public function add_taxonomy_column(array $columns): array
     {
         $columns[ self::READING_TIME_FIELD ] = __('Reading time', 'planet4-master-theme-backend');
         return $columns;
@@ -484,7 +483,7 @@ class CustomTaxonomy
      * @param string $column_name Name of the column.
      * @param int    $term_id     Term ID.
      */
-    public function add_taxonomy_column_content($string, $column_name, $term_id)
+    public function add_taxonomy_column_content(string $string, string $column_name, int $term_id): void
     {
         if (self::READING_TIME_FIELD === $column_name) {
             $use_reading_time = get_term_meta($term_id, self::READING_TIME_FIELD, true);
@@ -501,7 +500,7 @@ class CustomTaxonomy
      *
      * @param WP_Term $term Current taxonomy term object.
      */
-    public function add_taxonomy_form_fields($term): void
+    public function add_taxonomy_form_fields(WP_Term $term): void
     {
         $use_reading_time = $term instanceof WP_Term
             ? get_term_meta($term->term_id, self::READING_TIME_FIELD, true)

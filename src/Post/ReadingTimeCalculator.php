@@ -14,7 +14,6 @@ class ReadingTimeCalculator
     /**
      * Default Word per minute reading speed.
      *
-     * @var int
      */
     public const DEFAULT_WPM = 265;
 
@@ -23,7 +22,6 @@ class ReadingTimeCalculator
      * With progression from max to min.
      * Based on https://blog.medium.com/read-time-and-you-bc2048ab620c#c072.
      *
-     * @var array
      */
     public const IMAGE_TIME = [
         'max' => 12,

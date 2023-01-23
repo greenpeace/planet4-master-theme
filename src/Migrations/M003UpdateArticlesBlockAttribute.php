@@ -15,7 +15,6 @@ class M003UpdateArticlesBlockAttribute extends MigrationScript
      *
      * @param MigrationRecord $record Information on the execution, can be used to add logs.
      *
-     * @return void
      */
     protected static function execute(MigrationRecord $record): void
     {

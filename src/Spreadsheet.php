@@ -12,12 +12,12 @@ final class Spreadsheet
     /**
      * @var array The columns of the sheet.
      */
-    private $columns;
+    private array $columns;
 
     /**
      * @var array The current rows of the sheet.
      */
-    private $rows;
+    private array $rows;
 
     /**
      * Spreadsheet constructor.

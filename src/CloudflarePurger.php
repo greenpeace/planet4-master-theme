@@ -15,15 +15,9 @@ use Generator;
  */
 class CloudflarePurger
 {
-    /**
-     * @var WordPressClientAPI
-     */
-    private $api;
+    private WordPressClientAPI $api;
 
-    /**
-     * @var ?string
-     */
-    private $zone_id;
+    private ?string $zone_id = null;
 
     /**
      * Initiate api.
@@ -73,7 +67,7 @@ class CloudflarePurger
      *
      * @return array [result, chunk][]
      */
-    public function purge_all()
+    public function purge_all(): array
     {
         $urls = self::get_all_urls();
         return iterator_to_array($this->purge($urls));

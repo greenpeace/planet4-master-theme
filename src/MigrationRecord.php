@@ -12,27 +12,27 @@ final class MigrationRecord
     /**
      * @var string The id of the script.
      */
-    private $migration_id;
+    private string $migration_id;
 
     /**
      * @var DateTime The time the script started.
      */
-    private $start_time;
+    private DateTime $start_time;
 
     /**
      * @var DateTime The time the script completed.
      */
-    private $end_time;
+    private DateTime $end_time;
 
     /**
      * @var bool Whether the script succeeded.
      */
-    private $success;
+    private bool $success;
 
     /**
      * @var string[] Log messages which can be added by the running script.
      */
-    private $logs = [];
+    private array $logs = [];
 
     /**
      * Get a new record with the current time as start time, to be called just before starting the run.

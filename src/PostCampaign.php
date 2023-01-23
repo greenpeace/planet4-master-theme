@@ -61,7 +61,7 @@ class PostCampaign
     /**
      * Class hooks.
      */
-    private function hooks()
+    private function hooks(): void
     {
         add_action('init', [ $this, 'register_campaigns_cpt' ]);
         add_action('cmb2_admin_init', [ $this, 'register_campaigns_metaboxes' ]);
@@ -80,7 +80,7 @@ class PostCampaign
 
         add_action(
             'manage_campaign_posts_custom_column',
-            function ($column_key, $post_id) {
+            function ($column_key, $post_id): void {
                 echo esc_html(get_post_meta($post_id, 'theme', true));
             },
             10,
@@ -96,7 +96,7 @@ class PostCampaign
         );
         add_action(
             'pre_get_posts',
-            function ($query) {
+            function ($query): void {
                 if (! is_admin()) {
                     return;
                 }
@@ -120,7 +120,7 @@ class PostCampaign
      *
      * @return int The amount of pages that will be used.
      */
-    public function set_default_items_per_page($result, $option, $user)
+    public function set_default_items_per_page(?int $result, string $option, object $user): int
     {
         if ((int) $result < 1) {
             return 200;
@@ -132,7 +132,7 @@ class PostCampaign
     /**
      * Register campaigns cpt
      */
-    public function register_campaigns_cpt()
+    public function register_campaigns_cpt(): void
     {
 
         $labels = [
@@ -195,7 +195,7 @@ class PostCampaign
     /**
      * Register Color Picker Metabox for navigation
      */
-    public function register_campaigns_metaboxes()
+    public function register_campaigns_metaboxes(): void
     {
         $cmb = new_cmb2_box(
             [
@@ -261,7 +261,7 @@ class PostCampaign
     /**
      * Load assets.
      */
-    public function enqueue_admin_assets()
+    public function enqueue_admin_assets(): void
     {
         wp_register_style(
             'cmb-style',
@@ -282,12 +282,12 @@ class PostCampaign
      * @param array $field_type Instance of the `cmb2_Meta_Box_types` object.
      */
     public function cmb2_render_sidebar_link_field_callback(
-        $field,
-        $value,
-        $object_id,
-        $object_type,
-        $field_type
-    ) {
+        array $field,
+        array $value,
+        array $object_id,
+        array $object_type,
+        array $field_type
+    ): void {
         ?>
         <a
             href="#" onclick="openSidebar()"
@@ -316,7 +316,7 @@ class PostCampaign
      * @param array $object_type The type of object.
      * @param array $field_type Instance of the `cmb2_Meta_Box_types` object.
      */
-    public function cmb2_render_footer_icon_link_field_callback($field, $value, $object_id, $object_type, $field_type)
+    public function cmb2_render_footer_icon_link_field_callback(array $field, array $value, array $object_id, array $object_type, array $field_type): void
     {
         $value = wp_parse_args(
             $value,
@@ -414,7 +414,7 @@ class PostCampaign
      * @param array $field A field from the JSON theme file.
      * @return string Default value
      */
-    private static function get_field_default($field)
+    private static function get_field_default(array $field): string
     {
         if (isset($field['configurations']) && isset($field['configurations']['default'])) {
             $default_configuration = $field['configurations']['default'];
@@ -507,7 +507,7 @@ class PostCampaign
      * @param array $meta The meta containing the style settings.
      * @return string The body font.
      */
-    public static function get_body_font($css_vars, $meta): array
+    public static function get_body_font(array $css_vars, array $meta): array
     {
         // Temporary fix for old campaigns having "campaign_body_font" as a "campaign".
         if (isset($css_vars['campaign_body_font']) && 'campaign' === $css_vars['campaign_body_font']) {

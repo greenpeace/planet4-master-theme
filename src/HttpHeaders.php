@@ -20,7 +20,7 @@ class HttpHeaders
      *
      * @param string[] $headers Associative array of headers to be sent.
      */
-    public function send_content_security_policy_header($headers): array
+    public function send_content_security_policy_header(array $headers): array
     {
         $default_allowed_frame_ancestors = [ '\'self\'' ];
 

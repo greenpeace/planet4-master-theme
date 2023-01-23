@@ -15,7 +15,6 @@ class M004UpdateMissingMediaPath extends MigrationScript
      *
      * @param MigrationRecord $record Information on the execution, can be used to add logs.
      *
-     * @return void
      */
     public static function execute(MigrationRecord $record): void
     {

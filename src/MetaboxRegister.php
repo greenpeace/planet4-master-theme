@@ -27,7 +27,7 @@ class MetaboxRegister
     /**
      * Class hooks.
      */
-    private function hooks()
+    private function hooks(): void
     {
         add_action('cmb2_init', [ $this, 'register_p4_meta_box' ]);
     }
@@ -35,7 +35,7 @@ class MetaboxRegister
     /**
      * Register P4 meta box.
      */
-    public function register_p4_meta_box()
+    public function register_p4_meta_box(): void
     {
         $this->register_meta_box_post();
         $this->register_meta_box_campaign();
@@ -44,7 +44,7 @@ class MetaboxRegister
     /**
      * Register Post meta box.
      */
-    public function register_meta_box_post()
+    public function register_meta_box_post(): void
     {
 
         $p4_post = new_cmb2_box(
@@ -96,7 +96,7 @@ class MetaboxRegister
     /**
      * Register Campaign Information meta box.
      */
-    public function register_meta_box_campaign()
+    public function register_meta_box_campaign(): void
     {
         $post_types = [ 'page', 'campaign', 'post' ];
         $analytics_values = AnalyticsValues::from_cache_or_api_or_hardcoded();
@@ -178,7 +178,7 @@ class MetaboxRegister
      * @param string     $action The action being performed on the field.
      * @param CMB2_Field $field The field being updated.
      */
-    public static function save_global_project_id($updated, $action, CMB2_Field $field)
+    public static function save_global_project_id(bool $updated, string $action, CMB2_Field $field): void
     {
         if (! $updated) {
             return;
@@ -201,7 +201,7 @@ class MetaboxRegister
      * @param string $field_name The meta field name.
      * @return array The list with maybe the current post value.
      */
-    private static function maybe_add_current_post_value(array $options_array, $field_name): array
+    private static function maybe_add_current_post_value(array $options_array, string $field_name): array
     {
         // Not pretty but will work for now.
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended

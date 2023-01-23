@@ -37,7 +37,7 @@ class ActionPage
     /**
      * Class hooks.
      */
-    private function hooks()
+    private function hooks(): void
     {
         add_action('init', [ $this, 'register_post_type' ]);
         add_action('init', [ $this, 'register_post_meta' ]);
@@ -75,7 +75,6 @@ class ActionPage
     /**
      * Get Action post type slug.
      *
-     * @return string
      */
     public function get_action_slug(): string
     {
@@ -91,7 +90,7 @@ class ActionPage
     /**
      * Register Action page post type.
      */
-    public function register_post_type()
+    public function register_post_type(): void
     {
 
         // IA: display action page type in admin sidebar.
@@ -152,7 +151,7 @@ class ActionPage
     /**
      * Register a custom taxonomy for Action page post types.
      */
-    public function register_taxonomy()
+    public function register_taxonomy(): void
     {
 
         $labels = [
@@ -189,7 +188,7 @@ class ActionPage
     /**
      * Register Action page post meta data.
      */
-    public function register_post_meta()
+    public function register_post_meta(): void
     {
         $args = [
             'show_in_rest' => true,
@@ -213,7 +212,7 @@ class ActionPage
     /**
      * On load of permalinks page, add a action slug setting field.
      */
-    public function p4_load_permalinks()
+    public function p4_load_permalinks(): void
     {
 
         // Show action slug setting field, only if action post type is active.
@@ -233,7 +232,7 @@ class ActionPage
     /**
      * Add Action slug text field on permalinks page.
      */
-    public function add_action_slug_field()
+    public function add_action_slug_field(): void
     {
 
         $value = get_option('p4_action_posttype_slug');
@@ -243,7 +242,7 @@ class ActionPage
     /**
      * Register P4 setting field to WP.
      */
-    public function register_p4_setting_field()
+    public function register_p4_setting_field(): void
     {
         register_setting(
             'writing',
@@ -258,7 +257,7 @@ class ActionPage
     /**
      * On load of writings page(wp-admin/options-writing.php), add a default action type setting field.
      */
-    public function p4_load_writings()
+    public function p4_load_writings(): void
     {
         // Show default action type setting field, only if action post type is active.
         if (! ActionPostType::is_active()) {
@@ -277,7 +276,7 @@ class ActionPage
     /**
      * Add Default Action Type dropdown field on writing's page.
      */
-    public function add_default_action_type_field()
+    public function add_default_action_type_field(): void
     {
         $value = get_option('p4_default_action_type');
         wp_dropdown_categories(
@@ -300,7 +299,7 @@ class ActionPage
      *
      * @return string The filtered permalink for this taxonomy.
      */
-    public function filter_term_permalink($link, $term, $taxonomy): string
+    public function filter_term_permalink(string $link, string $term, string $taxonomy): string
     {
         if (self::TAXONOMY !== $taxonomy) {
             return $link;
@@ -316,7 +315,7 @@ class ActionPage
      *
      * @return array        The filtered post rewrite rules.
      */
-    public function replace_taxonomy_terms_in_rewrite_rules($rules): array
+    public function replace_taxonomy_terms_in_rewrite_rules(array $rules): array
     {
         // Get planet4 action type taxonomy terms.
         $term_slugs = $this->get_terms_slugs();
@@ -345,7 +344,7 @@ class ActionPage
      *
      * @return array        The filtered root rewrite rules.
      */
-    public function add_terms_rewrite_rules($rules): array
+    public function add_terms_rewrite_rules(array $rules): array
     {
         // Add a rewrite rule for each slug of this taxonomy type (e.g.: "petition", "event", etc.)
         // for action type pages.
@@ -404,7 +403,7 @@ class ActionPage
      *
      * @return WP_Term[]
      */
-    public function get_multilingual_terms()
+    public function get_multilingual_terms(): array
     {
 
         $all_terms = [];
@@ -436,7 +435,7 @@ class ActionPage
      * @param int     $post_id Id of the saved post.
      * @param WP_Post $post    Post object.
      */
-    public function save_taxonomy_action_type_on_quick_edit($post_id, $post)
+    public function save_taxonomy_action_type_on_quick_edit(int $post_id, WP_Post $post): void
     {
 
         // Ignore autosave.
@@ -459,7 +458,7 @@ class ActionPage
      * @param WP_REST_Request $request  Request object.
      * @param bool            $creating True when creating a post, false when updating.
      */
-    public function save_taxonomy_action_type_on_edit($post, $request, $creating)
+    public function save_taxonomy_action_type_on_edit(WP_Post $post, WP_REST_Request $request, bool $creating): void
     {
 
         $this->save_taxonomy_action_type($post);
@@ -471,7 +470,7 @@ class ActionPage
      *
      * @param WP_Post $post    Post object.
      */
-    public function save_taxonomy_action_type($post)
+    public function save_taxonomy_action_type(WP_Post $post): void
     {
         // Check if post type is Action.
         if (self::POST_TYPE !== $post->post_type) {
@@ -541,7 +540,7 @@ class ActionPage
      * @param int    $tt_id    Term taxonomy ID.
      * @param string $taxonomy Taxonomy slug.
      */
-    public function trigger_rewrite_rules($term_id, $tt_id, $taxonomy)
+    public function trigger_rewrite_rules(int $term_id, int $tt_id, string $taxonomy): void
     {
         if (self::TAXONOMY !== $taxonomy) {
             return;
@@ -557,7 +556,7 @@ class ActionPage
      * @param string $post_type WordPress post type slug.
      * @param string $which The location of the extra table nav markup ('top' or 'bottom').
      */
-    public function filter_actions_by_action_type($post_type, $which)
+    public function filter_actions_by_action_type(string $post_type, string $which): void
     {
         // Apply filter only for action post type.
         if (self::POST_TYPE !== $post_type) {
@@ -589,7 +588,6 @@ class ActionPage
     /**
      * Get Default Action Type slug.
      *
-     * @return string
      */
     public function get_default_action_type_slug(): string
     {
@@ -613,7 +611,7 @@ class ActionPage
      *
      * @return string   The filtered permalink.
      */
-    public function filter_action_permalink($permalink, $post): string
+    public function filter_action_permalink(string $permalink, WP_Post $post): string
     {
 
         // Apply filter only for action post type.

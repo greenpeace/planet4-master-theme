@@ -10,7 +10,7 @@ final class PublicAssets
     /**
      * Enqueue theme scripts.
      */
-    public static function enqueue_js()
+    public static function enqueue_js(): void
     {
         $js_creation = filectime(get_template_directory() . '/assets/build/index.js');
 
@@ -49,7 +49,7 @@ final class PublicAssets
      *
      * Drop enqueuing styles if main file is not built.
      */
-    public static function enqueue_css()
+    public static function enqueue_css(): void
     {
         $css_file = get_template_directory() . '/assets/build/style.min.css';
         if (! file_exists($css_file)) {

@@ -20,7 +20,6 @@ class Settings
     /**
      * Option key
      *
-     * @var string
      */
     public const KEY = 'planet4_options';
 
@@ -29,23 +28,20 @@ class Settings
     /**
      * Option page slug
      *
-     * @var string
      */
-    private $slug = 'planet4_settings_navigation';
+    private string $slug = 'planet4_settings_navigation';
 
     /**
      * Options Page title
      *
-     * @var string
      */
-    protected $title = '';
+    protected string $title = '';
 
     /**
      * Options Page hook
      *
-     * @var string
      */
-    protected $options_page = '';
+    protected string $options_page = '';
 
     /**
      * Subpages
@@ -53,7 +49,7 @@ class Settings
      * @var array
      * Includes arrays with the title and fields of each subpage
      */
-    protected $subpages = [];
+    protected array $subpages = [];
 
     /**
      * Constructor
@@ -481,7 +477,7 @@ class Settings
     /**
      * Initiate our hooks
      */
-    public function hooks()
+    public function hooks(): void
     {
         add_action('admin_init', [ $this, 'init' ]);
         add_action('admin_menu', [ $this, 'add_options_pages' ]);
@@ -503,7 +499,7 @@ class Settings
     /**
      * Register our setting to WP.
      */
-    public function init()
+    public function init(): void
     {
         register_setting(self::KEY, self::KEY);
     }
@@ -511,9 +507,9 @@ class Settings
     /**
      * Add menu options page.
      */
-    public function add_options_pages()
+    public function add_options_pages(): void
     {
-        $this->options_page = add_menu_page($this->title, $this->title, 'manage_options', $this->slug, function () {
+        $this->options_page = add_menu_page($this->title, $this->title, 'manage_options', $this->slug, function (): void {
         }, 'dashicons-admin-site-alt');
         foreach ($this->subpages as $path => $subpage) {
             add_submenu_page(
@@ -522,7 +518,7 @@ class Settings
                 $subpage['title'],
                 'manage_options',
                 $path,
-                function () use ($path) {
+                function () use ($path): void {
                     $this->admin_page_display($path);
                 }
             );
@@ -550,7 +546,7 @@ class Settings
      * @param array  $field_args Field arguments.
      * @param string $value Value.
      */
-    public function p4_render_act_page_dropdown($field_args, $value)
+    public function p4_render_act_page_dropdown(array $field_args, string $value): void
     {
         wp_dropdown_pages(
             [
@@ -569,7 +565,7 @@ class Settings
      * @param array  $field_args Field arguments.
      * @param string $value Value.
      */
-    public function p4_render_explore_page_dropdown($field_args, $value)
+    public function p4_render_explore_page_dropdown(array $field_args, string $value): void
     {
         wp_dropdown_pages(
             [
@@ -588,7 +584,7 @@ class Settings
      * @param array  $field_args Field arguments.
      * @param string $value Value.
      */
-    public function p4_render_category_dropdown($field_args, $value)
+    public function p4_render_category_dropdown(array $field_args, string $value): void
     {
 
         wp_dropdown_categories(
@@ -609,7 +605,7 @@ class Settings
      * @param CMB2_Field $field_args CMB2 field Object.
      * @param int        $value Pagetype taxonomy ID.
      */
-    public function p4_render_pagetype_dropdown($field_args, $value)
+    public function p4_render_pagetype_dropdown(CMB2_Field $field_args, int $value): void
     {
 
         wp_dropdown_categories(
@@ -677,7 +673,6 @@ class Settings
     /**
      * Show notice to inform users that the Donate button settings are now in Appearance > Menus.
      *
-     * @return string
      */
     private function show_donate_menu_notice(): string
     {
@@ -695,7 +690,7 @@ class Settings
      *
      * @return array
      */
-    public function option_metabox(array $fields, string $option_id)
+    public function option_metabox(array $fields, string $option_id): array
     {
         return [
             'id' => self::METABOX_ID,
@@ -714,7 +709,7 @@ class Settings
      * Hook for wpml plugin.
      * Enables the possibility to save a different value per language for the theme options using WPML language switcher.
      */
-    public function make_settings_multilingual()
+    public function make_settings_multilingual(): void
     {
         do_action('wpml_multilingual_options', 'planet4_options');
     }
@@ -722,7 +717,7 @@ class Settings
     /**
      * Loads options assets.
      */
-    public function enqueue_admin_assets()
+    public function enqueue_admin_assets(): void
     {
         wp_register_style(
             'options-style',

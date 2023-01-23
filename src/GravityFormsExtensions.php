@@ -11,14 +11,8 @@ use Timber\Timber;
  */
 class GravityFormsExtensions
 {
-    /**
-     * @var string The default gravity form type.
-     */
     public const DEFAULT_GF_TYPE = 'other';
 
-    /**
-     * @var array The Planet4 Gravity form types.
-     */
     public const P4_GF_TYPES = [
         [
             'label' => 'Other',
@@ -54,9 +48,6 @@ class GravityFormsExtensions
         ],
     ];
 
-    /**
-     * @var array The Planet4 Gravity Forms share buttons options.
-     */
     public const P4_SHARE_BUTTONS = [
         [
             'label' => 'WhatsApp',
@@ -96,7 +87,7 @@ class GravityFormsExtensions
     /**
      * Class hooks.
      */
-    private function hooks()
+    private function hooks(): void
     {
         add_filter('gform_form_settings_fields', [ $this, 'p4_gf_form_settings' ], 5, 2);
         add_filter('gform_secure_file_download_url', [ $this, 'p4_gf_file_download_url' ], 10, 2);
@@ -114,7 +105,7 @@ class GravityFormsExtensions
      *
      * @return array The new fields array.
      */
-    public function p4_gf_form_settings($fields)
+    public function p4_gf_form_settings(array $fields): array
     {
 
         if (! array_key_exists('p4_options', $fields)) {
@@ -147,7 +138,7 @@ class GravityFormsExtensions
      *
      * @return string The new file path.
      */
-    public function p4_gf_file_download_url($file_path, $field)
+    public function p4_gf_file_download_url(string $file_path, object $field): string
     {
         if (strpos($file_path, '/gravity_forms/') !== false) {
             // The default gravity form uploaded files path gives error.
@@ -170,7 +161,7 @@ class GravityFormsExtensions
      * @param array $form The form settings.
      * @param bool  $is_new Whether the form is newly created or not.
      */
-    public function p4_gf_custom_initial_settings($form, $is_new)
+    public function p4_gf_custom_initial_settings(array $form, bool $is_new): void
     {
         if ($is_new) {
             // Update sub-label and description placement initial settings.
@@ -191,7 +182,7 @@ class GravityFormsExtensions
      *
      * @return array The new fields array.
      */
-    public function p4_gf_confirmation_settings($fields)
+    public function p4_gf_confirmation_settings(array $fields): array
     {
         echo '
 			<style>
@@ -266,7 +257,7 @@ class GravityFormsExtensions
      *
      * @return string The custom confirmation message.
      */
-    public function p4_gf_custom_confirmation($confirmation, $form)
+    public function p4_gf_custom_confirmation(string $confirmation, array $form): string
     {
         // If the $confirmation object is an array, it means that it's a redirect page so we can directly use it.
         if (is_array($confirmation)) {
@@ -312,7 +303,7 @@ class GravityFormsExtensions
      *
      * @return string The updated field classes.
      */
-    public function p4_gf_custom_field_class($classes, $field)
+    public function p4_gf_custom_field_class(string $classes, object $field): string
     {
         if ('checkbox' === $field->type || 'radio' === $field->type || 'consent' === $field->type) {
             $classes .= ' custom-control';

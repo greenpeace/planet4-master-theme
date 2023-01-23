@@ -25,7 +25,7 @@ class Exporter
     /**
      * Main function
      */
-    public function single_post_export_data()
+    public function single_post_export_data(): void
     {
         $post_id = filter_input(INPUT_GET, 'post', FILTER_SANITIZE_NUMBER_INT) ?? filter_input(INPUT_POST, 'post', FILTER_SANITIZE_NUMBER_INT);
         if (! empty($post_id) && 'export_data' === filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING)) {
@@ -38,7 +38,7 @@ class Exporter
     /**
      * Export multiple data
      */
-    public function single_post_export_bulk()
+    public function single_post_export_bulk(): void
     {
         if (current_user_can('edit_posts')) { ?>
         <script type="text/javascript">
@@ -88,7 +88,7 @@ class Exporter
      * @param WP_Post $post object.
      * @return array  $actions array.
      */
-    public function single_post_export($actions, $post): array
+    public function single_post_export(array $actions, WP_Post $post): array
     {
         if (current_user_can('edit_posts')) {
             $export_url = esc_url(admin_url('admin.php?action=export_data&amp;post=' . $post->ID));
@@ -101,7 +101,7 @@ class Exporter
     /**
      * Add Import Button
      */
-    public function add_import_button()
+    public function add_import_button(): void
     {
 		// phpcs:disable WordPress.WP.CapitalPDangit.Misspelled
         ?>

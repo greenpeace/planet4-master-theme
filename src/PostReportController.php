@@ -12,7 +12,7 @@ class PostReportController
      *
      * @var string $theme_dir Theme's base directory.
      */
-    protected $theme_dir;
+    protected string $theme_dir;
 
     /**
      * PostReportController constructor.
@@ -26,7 +26,7 @@ class PostReportController
     /**
      * Register actions for WordPress hooks and filters.
      */
-    private function hooks()
+    private function hooks(): void
     {
         add_action('admin_menu', [ $this, 'add_posts_report_admin_menu_item' ]);
         add_filter('rest_post_query', [ $this, 'add_posts_param_to_endpoint' ], 10, 2);
@@ -43,7 +43,7 @@ class PostReportController
      *
      * @return mixed
      */
-    public function add_posts_param_to_endpoint($args, $request)
+    public function add_posts_param_to_endpoint(array $args, array $request)
     {
         if (! isset($request['before']) && ! isset($request['after'])) {
             return $args;
@@ -59,7 +59,7 @@ class PostReportController
     /**
      * Add post report submenu item.
      */
-    public function add_posts_report_admin_menu_item()
+    public function add_posts_report_admin_menu_item(): void
     {
         add_posts_page(
             __('Posts Report', 'planet4-master-theme-backend'),
@@ -77,7 +77,7 @@ class PostReportController
      *
      * @return mixed
      */
-    public function filter_post_params_endpoint($query_params)
+    public function filter_post_params_endpoint(array $query_params)
     {
         $query_params['date_query_column'] = [
             'description' => __('The date query column.', 'planet4-master-theme-backend'),
@@ -91,7 +91,7 @@ class PostReportController
     /**
      * Callback function to render posts report page.
      */
-    public function render_posts_report_page()
+    public function render_posts_report_page(): void
     {
         wp_register_script(
             'posts-report',

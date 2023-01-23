@@ -17,7 +17,6 @@ use P4\MasterTheme\Loader;
  */
 class InformationArchitecture
 {
-    /** @var string Option key */
     public const OPTIONS_KEY = 'planet4_ia';
 
     /* @var string feature flag of action page type option key **/
@@ -52,7 +51,7 @@ class InformationArchitecture
             'description' => self::get_description(),
             'root_option' => self::OPTIONS_KEY,
             'fields' => self::get_fields(),
-            'add_scripts' => static function () {
+            'add_scripts' => static function (): void {
                 Loader::enqueue_versioned_script('/admin/js/features_save_redirect.js');
             },
         ];

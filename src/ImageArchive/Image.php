@@ -65,17 +65,17 @@ class Image implements JsonSerializable
     /**
      * @var string|null The original language description.
      */
-    private $original_language_description;
+    private ?string $original_language_description = null;
 
     /**
      * @var ImageSize[] Different available sizes for this image.
      */
-    private $sizes = [];
+    private array $sizes = [];
 
     /**
      * @var ImageSize The image size which is the original (i.e. largest).
      */
-    private $original;
+    private ImageSize $original;
 
     /**
      * Image constructor. Private to force use of meaningfully named static creation functions. That's also were the

@@ -37,7 +37,7 @@ class ApiClient
     /**
      * @var string The temporary authentication token.
      */
-    private $token;
+    private string $token;
 
     /**
      * ApiClient constructor.

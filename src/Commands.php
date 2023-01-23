@@ -21,7 +21,7 @@ class Commands
     /**
      * Add some WP_CLI commands if we're in CLI.
      */
-    public static function load()
+    public static function load(): void
     {
         if (! defined('WP_CLI') || ! WP_CLI) {
             return;
@@ -34,7 +34,7 @@ class Commands
 
         \WP_CLI::add_command(
             'p4-update-missing-media-path',
-            function () {
+            function (): void {
                 $record = MigrationRecord::start(static::class);
                 Migrations\M004UpdateMissingMediaPath::execute($record);
             },
