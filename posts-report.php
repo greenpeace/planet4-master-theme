@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Renders posts reports template
  *
@@ -7,6 +8,6 @@
 
 use Timber\Timber;
 
-Timber::render( [ 'posts_report.twig' ], [] );
+Timber::render([ 'posts_report.twig' ], []);
 
-require dirname( __FILE__ ) . '/underscore_templates/posts_reports.tpl.php';
+require dirname(__FILE__) . '/underscore_templates/posts_reports.tpl.php';

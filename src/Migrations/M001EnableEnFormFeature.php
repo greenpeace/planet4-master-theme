@@ -9,16 +9,17 @@ use P4\MasterTheme\MigrationScript;
 /**
  * Turn on the EN form feature everywhere.
  */
-class M001EnableEnFormFeature extends MigrationScript {
-
-	/**
-	 * Perform the actual migration.
-	 *
-	 * @param MigrationRecord $record Information on the execution, can be used to add logs.
-	 *
-	 * @return void
-	 */
-	protected static function execute( MigrationRecord $record ): void {
-		Features\EngagingNetworks::enable();
-	}
+class M001EnableEnFormFeature extends MigrationScript
+{
+    /**
+     * Perform the actual migration.
+     *
+     * @param MigrationRecord $record Information on the execution, can be used to add logs.
+     *
+     * @return void
+     */
+    protected static function execute(MigrationRecord $record): void
+    {
+        Features\EngagingNetworks::enable();
+    }
 }

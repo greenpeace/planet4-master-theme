@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Search results page
  *
@@ -16,30 +17,30 @@ use P4\MasterTheme\ElasticSearch;
  */
 
 // Limit access to GET method.
-if ( 'GET' !== filter_input( INPUT_SERVER, 'REQUEST_METHOD' ) ) {
-	return;
+if ('GET' !== filter_input(INPUT_SERVER, 'REQUEST_METHOD')) {
+    return;
 }
 
-$selected_sort    = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_STRING );
+$selected_sort = filter_input(INPUT_GET, 'orderby', FILTER_SANITIZE_STRING);
 $selected_filters = $_GET['f'] ?? ''; // phpcs:ignore
-$filters          = [];
+$filters = [];
 
 // Handle submitted filter options.
-if ( $selected_filters && is_array( $selected_filters ) ) {
-	foreach ( $selected_filters as $type_name => $filter_type ) {
-		if ( ! is_array( $filter_type ) ) {
-			continue;
-		}
-		foreach ( $filter_type as $name => $filter_id ) {
-			$filters[ $type_name ][] = [
-				'id'   => $filter_id,
-				'name' => $name,
-			];
-		}
-	}
+if ($selected_filters && is_array($selected_filters)) {
+    foreach ($selected_filters as $type_name => $filter_type) {
+        if (! is_array($filter_type)) {
+            continue;
+        }
+        foreach ($filter_type as $name => $filter_id) {
+            $filters[ $type_name ][] = [
+                'id' => $filter_id,
+                'name' => $name,
+            ];
+        }
+    }
 }
 
 $p4_search = new ElasticSearch();
-$p4_search->load( trim( get_search_query() ), $selected_sort, $filters );
+$p4_search->load(trim(get_search_query()), $selected_sort, $filters);
 $p4_search->add_load_more();
 $p4_search->view();

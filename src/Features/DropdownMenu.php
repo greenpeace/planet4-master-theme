@@ -3,18 +3,19 @@
 namespace P4\MasterTheme\Features;
 
 use P4\MasterTheme\Feature;
+use P4\MasterTheme\Settings\InformationArchitecture;
 
 /**
  * @see description().
  */
-class CloudflareDeployPurge extends Feature
+class DropdownMenu extends Feature
 {
     /**
      * @inheritDoc
      */
     public static function id(): string
     {
-        return 'cloudflare_deploy_purge';
+        return 'dropdown_menu';
     }
 
     /**
@@ -22,7 +23,7 @@ class CloudflareDeployPurge extends Feature
      */
     protected static function name(): string
     {
-        return __('Purge Cloudflare HTML cache on deploy', 'planet4-master-theme-backend');
+        return __('Dropdown navigation menus', 'planet4-master-theme-backend');
     }
 
     /**
@@ -31,9 +32,17 @@ class CloudflareDeployPurge extends Feature
     protected static function description(): string
     {
         return __(
-            'Purges all pages from Cloudflare cache on deploy.<br>Only enable on production (in consultation with P4 team).',
+            'Display menu subitems on <a href="https://p4-designsystem.greenpeace.org/05f6e9516/p/106cdb-navigation-bar" target="_blank">top navigation bar</a>.',
             'planet4-master-theme-backend'
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected static function options_key(): string
+    {
+        return InformationArchitecture::OPTIONS_KEY;
     }
 
     /**
