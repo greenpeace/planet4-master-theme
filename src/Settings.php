@@ -543,10 +543,11 @@ class Settings
     /**
      * Render act page dropdown.
      *
-     * @param array  $field_args Field arguments.
-     * @param string $value Value.
+     * @param CMB2_Field $field_args Field arguments.
+     * @param mixed $value Value.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_filter callback
      */
-    public function p4_render_act_page_dropdown(array $field_args, string $value): void
+    public function p4_render_act_page_dropdown(CMB2_Field $field_args, $value): void
     {
         wp_dropdown_pages(
             [
@@ -558,14 +559,16 @@ class Settings
             ]
         );
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Render explore page dropdown.
      *
-     * @param array  $field_args Field arguments.
-     * @param string $value Value.
+     * @param CMB2_Field $field_args Field arguments.
+     * @param mixed $value Value.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_filter callback
      */
-    public function p4_render_explore_page_dropdown(array $field_args, string $value): void
+    public function p4_render_explore_page_dropdown(CMB2_Field $field_args, $value): void
     {
         wp_dropdown_pages(
             [
@@ -577,14 +580,16 @@ class Settings
             ]
         );
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Render category dropdown.
      *
-     * @param array  $field_args Field arguments.
-     * @param string $value Value.
+     * @param CMB2_Field $field_args Field arguments.
+     * @param mixed $value Value.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_filter callback
      */
-    public function p4_render_category_dropdown(array $field_args, string $value): void
+    public function p4_render_category_dropdown(CMB2_Field $field_args, $value): void
     {
 
         wp_dropdown_categories(
@@ -598,14 +603,16 @@ class Settings
             ]
         );
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Render p4-pagetype dropdown.
      *
      * @param CMB2_Field $field_args CMB2 field Object.
-     * @param int        $value Pagetype taxonomy ID.
+     * @param mixed $value Pagetype taxonomy ID.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_filter callback
      */
-    public function p4_render_pagetype_dropdown(CMB2_Field $field_args, int $value): void
+    public function p4_render_pagetype_dropdown(CMB2_Field $field_args, $value): void
     {
 
         wp_dropdown_categories(
@@ -619,6 +626,7 @@ class Settings
             ]
         );
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Admin page markup. Mostly handled by CMB2.

@@ -36,6 +36,7 @@ class CloudflarePurge extends Command
      *
      * @param array|null $args Positional arguments.
      * @param array|null $assoc_args Named arguments.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      */
     public static function execute(?array $args, ?array $assoc_args): void
     {
@@ -59,6 +60,7 @@ class CloudflarePurge extends Command
             WP_CLI::warning("Chunk $i failed, one or more of these didn't work out: \n$joined");
         }
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Determine which urls to purge. Throws error if right args were not passed.

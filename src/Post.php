@@ -527,12 +527,17 @@ class Post extends TimberPost
      * @param WP_Block $block With all block properties.
      *
      * @return string Formatted reading time.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- block render_callback
      */
-    public static function reading_time_block(array $attributes, string $content, WP_Block $block): string
-    {
+    public static function reading_time_block(
+        array $attributes,
+        string $content,
+        WP_Block $block
+    ): string {
         $time = ( new self($block->context['postId'] ?? null) )->reading_time();
         return $time ? '<span class="article-list-item-readtime">' . $time . ' min read</span>' : '';
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Return Post locale.

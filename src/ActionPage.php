@@ -62,7 +62,7 @@ class ActionPage
         add_filter('root_rewrite_rules', [ $this, 'add_terms_rewrite_rules' ], 10, 1);
 
         // Provides a filter element for the taxonomy in the action list.
-        add_action('restrict_manage_posts', [ $this, 'filter_actions_by_action_type' ], 10, 2);
+        add_action('restrict_manage_posts', [ $this, 'filter_actions_by_action_type' ], 10, 1);
 
         // Rewrites the permalink to a actions belonging to this taxonomy.
         add_filter('post_type_link', [ $this, 'filter_action_permalink' ], 10, 2);
@@ -70,7 +70,7 @@ class ActionPage
         // Update action type on quick edit of action.
         add_action('save_post_' . self::POST_TYPE, [ $this, 'save_taxonomy_action_type_on_quick_edit' ], 10, 2);
         // Update action type on add/edit of action.
-        add_action('rest_after_insert_' . self::POST_TYPE, [ $this, 'save_taxonomy_action_type_on_edit' ], 10, 3);
+        add_action('rest_after_insert_' . self::POST_TYPE, [ $this, 'save_taxonomy_action_type_on_edit' ], 10, 1);
     }
 
     /**
@@ -299,6 +299,7 @@ class ActionPage
      * @param string $taxonomy Taxonomy of the given link.
      *
      * @return string The filtered permalink for this taxonomy.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_filter callback
      */
     public function filter_term_permalink(string $link, $term, string $taxonomy): string
     {
@@ -308,6 +309,7 @@ class ActionPage
 
         return str_replace(self::TAXONOMY_SLUG . '/', '', $link);
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Filter for post type rewrite rules.
@@ -457,13 +459,10 @@ class ActionPage
     /**
      * Hook into add/edit action post type.
      *
-     * @param WP_Post         $post    Post object.
-     * @param WP_REST_Request $request  Request object.
-     * @param bool            $creating True when creating a post, false when updating.
+     * @param WP_Post $post Post object.
      */
-    public function save_taxonomy_action_type_on_edit(WP_Post $post, WP_REST_Request $request, bool $creating): void
+    public function save_taxonomy_action_type_on_edit(WP_Post $post): void
     {
-
         $this->save_taxonomy_action_type($post);
     }
 
@@ -542,6 +541,7 @@ class ActionPage
      * @param int    $term_id  Term ID.
      * @param int    $tt_id    Term taxonomy ID.
      * @param string $taxonomy Taxonomy slug.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_action callback
      */
     public function trigger_rewrite_rules(int $term_id, int $tt_id, string $taxonomy): void
     {
@@ -551,15 +551,15 @@ class ActionPage
 
         flush_rewrite_rules();
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Add a filter element to the actions list that allows filtering by the custom(action type) taxonomy terms.
      * Action for restrict_manage_posts.
      *
      * @param string $post_type WordPress post type slug.
-     * @param string $which The location of the extra table nav markup ('top' or 'bottom').
      */
-    public function filter_actions_by_action_type(string $post_type, string $which): void
+    public function filter_actions_by_action_type(string $post_type): void
     {
         // Apply filter only for action post type.
         if (self::POST_TYPE !== $post_type) {

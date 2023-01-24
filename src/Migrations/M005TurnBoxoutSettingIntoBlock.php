@@ -17,7 +17,7 @@ class M005TurnBoxoutSettingIntoBlock extends MigrationScript
      * Perform the actual migration.
      *
      * @param MigrationRecord $record Information on the execution, can be used to add logs.
-     *
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      */
     protected static function execute(MigrationRecord $record): void
     {
@@ -43,6 +43,7 @@ class M005TurnBoxoutSettingIntoBlock extends MigrationScript
             delete_post_meta($tab_post->ID, self::BOXOUT_META_KEY);
         }
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Add the Take Action Boxout block that is in the meta to the end of the post content.

@@ -41,7 +41,7 @@ class CustomTaxonomy
         add_filter('available_permalink_structure_tags', [ $this, 'add_taxonomy_as_permalink_structure' ], 10, 1);
 
         // Rewrites the permalink to a post belonging to this taxonomy.
-        add_filter('post_link', [ $this, 'filter_permalink' ], 10, 3);
+        add_filter('post_link', [ $this, 'filter_permalink' ], 10, 2);
 
         // Rewrites the permalink to this taxonomy's page.
         add_filter('term_link', [ $this, 'filter_term_permalink' ], 10, 3);
@@ -49,7 +49,7 @@ class CustomTaxonomy
         add_filter('root_rewrite_rules', [ $this, 'add_terms_rewrite_rules' ], 10, 1);
 
         // Provides a filter element for the taxonomy in the posts list.
-        add_action('restrict_manage_posts', [ $this, 'filter_posts_by_page_type' ], 10, 2);
+        add_action('restrict_manage_posts', [ $this, 'filter_posts_by_page_type' ], 10, 1);
 
         // Reading time option.
         add_action(self::TAXONOMY . '_add_form_fields', [ $this, 'add_taxonomy_form_fields' ], 10);
@@ -110,11 +110,10 @@ class CustomTaxonomy
      *
      * @param string  $permalink The post's permalink.
      * @param WP_Post $post      The post in question.
-     * @param bool    $leavename Whether to keep the post name.
      *
      * @return string   The filtered permalink.
      */
-    public function filter_permalink(string $permalink, WP_Post $post, bool $leavename): string
+    public function filter_permalink(string $permalink, WP_Post $post): string
     {
 
         if (strpos($permalink, '%' . self::TAXONOMY_PARAMETER . '%') === false) {
@@ -268,6 +267,7 @@ class CustomTaxonomy
      * @param string $taxonomy Taxonomy of the given link.
      *
      * @return string The filtered permalink for this taxonomy.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_filter callback
      */
     public function filter_term_permalink(string $link, $term, string $taxonomy): string
     {
@@ -277,6 +277,7 @@ class CustomTaxonomy
 
         return str_replace(self::TAXONOMY_SLUG . '/', '', $link);
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Get the slugs for all terms in this taxonomy.
@@ -363,6 +364,7 @@ class CustomTaxonomy
      * @param int    $term_id  Term ID.
      * @param int    $tt_id    Term taxonomy ID.
      * @param string $taxonomy Taxonomy slug.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_action callback
      */
     public function trigger_rewrite_rules(int $term_id, int $tt_id, string $taxonomy): void
     {
@@ -372,6 +374,7 @@ class CustomTaxonomy
 
         flush_rewrite_rules();
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Add first term of the taxonomy to the post if the post has not any taxonomy's terms assigned to it.
@@ -437,9 +440,8 @@ class CustomTaxonomy
      * Action for restrict_manage_posts.
      *
      * @param string $post_type WordPress post type slug.
-     * @param string $which The location of the extra table nav markup ('top' or 'bottom').
      */
-    public function filter_posts_by_page_type(string $post_type, string $which): void
+    public function filter_posts_by_page_type(string $post_type): void
     {
         // Apply this only to a specific post type.
         if ('post' !== $post_type) {
@@ -487,6 +489,7 @@ class CustomTaxonomy
      * @param string $string      Blank string.
      * @param string $column_name Name of the column.
      * @param int    $term_id     Term ID.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_action callback
      */
     public function add_taxonomy_column_content(string $string, string $column_name, int $term_id): void
     {
@@ -501,6 +504,7 @@ class CustomTaxonomy
                 : __('No', 'planet4-master-theme-backend')
         );
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Add "Reading time" option to p4-page-type taxonomy.

@@ -19,7 +19,7 @@ class M009PopulateCookiesFields extends MigrationScript
      * Extract cookies data from Cookis block to update planet4_options settings.
      *
      * @param MigrationRecord $record Information on the execution, can be used to add logs.
-     *
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      */
     public static function execute(MigrationRecord $record): void
     {
@@ -134,6 +134,7 @@ class M009PopulateCookiesFields extends MigrationScript
             }
         }
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Update cookies settings in planet4_options settings.

@@ -131,7 +131,7 @@ abstract class Search
         // when syncing ElasticSearch. We don't need `sm_cloud` in ES and we only need one of `_wp_attachment_image_alt`.
         add_filter(
             'ep_prepare_meta_data',
-            function ($meta, $post) {
+            function ($meta) {
                 if (isset($meta['sm_cloud'])) {
                     unset($meta['sm_cloud']);
                 }
@@ -142,7 +142,7 @@ abstract class Search
                 return $meta;
             },
             20,
-            2
+            1
         );
         // Switch the language to the language of the current post while doing a sync of a post.
         // This is needed because otherwise WPML black magic will translate some parts of synced data for this post
@@ -154,6 +154,7 @@ abstract class Search
         // language in time that has the post available.
         add_filter(
             'ep_ignore_invalid_dates',
+            // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter
             function ($ignore, $post_id, $post): void {
                 /**
                  * @var SitePress
@@ -172,7 +173,7 @@ abstract class Search
         // Specify which fields to fetch so that we don't need to fetch the post content.
         add_filter(
             'ep_formatted_args',
-            function ($formatted_args, $args) {
+            function ($formatted_args) {
                 $formatted_args['_source'] = [
                     'post_id',
                     'ID',
@@ -201,7 +202,7 @@ abstract class Search
                 return $formatted_args;
             },
             10,
-            2
+            1
         );
         // Make it return the post guid as that's where we put the external url for the archive post type.
         add_filter(

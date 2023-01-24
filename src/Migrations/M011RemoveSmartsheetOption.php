@@ -16,7 +16,7 @@ class M011RemoveSmartsheetOption extends MigrationScript
      * Perform the actual migration.
      *
      * @param MigrationRecord $record Information on the execution, can be used to add logs.
-     *
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      */
     protected static function execute(MigrationRecord $record): void
     {
@@ -31,4 +31,5 @@ class M011RemoveSmartsheetOption extends MigrationScript
         unset($options['google_sheet_replaces_smartsheet']);
         update_option(Settings::KEY, $options);
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 }

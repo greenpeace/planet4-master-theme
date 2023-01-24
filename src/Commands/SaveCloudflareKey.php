@@ -36,6 +36,7 @@ class SaveCloudflareKey extends Command
      * @param array|null $assoc_args Named arguments.
      *
      * @throws WP_CLI\ExitException If no hostname or Cloudflare key is not present.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      */
     public static function execute(?array $args, ?array $assoc_args): void
     {
@@ -55,4 +56,5 @@ class SaveCloudflareKey extends Command
         update_option('automatic_platform_optimization', [ 'value' => 1 ]);
         update_option('cloudflare_cached_domain_name', $root_domain);
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 }
