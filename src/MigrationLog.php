@@ -15,7 +15,7 @@ class MigrationLog
     /**
      * @var array[] An entry for each done migration.
      */
-    private array $done_migrations;
+    private array $done_migrations = [];
 
     /**
      * Get the log from the WP options.
@@ -44,7 +44,7 @@ class MigrationLog
      */
     public function already_ran(string $migration_id): bool
     {
-        if (! $this->done_migrations) {
+        if (empty($this->done_migrations)) {
             return false;
         }
 

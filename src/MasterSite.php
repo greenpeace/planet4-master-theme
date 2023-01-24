@@ -654,6 +654,8 @@ class MasterSite extends TimberSite
 
         $context['countries_by_initials'] = json_decode(
             file_get_contents(get_template_directory() . '/templates/countries.json'),
+            true,
+            512,
             \JSON_OBJECT_AS_ARRAY
         );
         // HubSpot.

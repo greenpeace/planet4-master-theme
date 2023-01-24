@@ -215,12 +215,12 @@ class Importer
     /**
      * Update attachement source ID in attachment metadata for future data mapping purpose.
      *
-     * @param array   $post_terms Post term array.
+     * @param array $post_terms Post term array.
      * @param int $post_id Post ID.
-     * @param object  $post Post object.
-     * @return array  $post_terms Post term array.
+     * @param array $post Post object.
+     * @return array $post_terms Post term array.
      */
-    public function filter_wp_import_post_terms(array $post_terms, int $post_id, object $post): array
+    public function filter_wp_import_post_terms(array $post_terms, int $post_id, array $post): array
     {
         if ('attachment' === $post['post_type']) {
             $attachment_metadata = wp_get_attachment_metadata($post_id);
