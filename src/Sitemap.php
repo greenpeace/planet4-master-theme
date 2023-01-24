@@ -10,7 +10,7 @@ class Sitemap
     /**
      * Limit the number of evergreen pages
      */
-    const MAX_EVERGREEN_PAGES = 100;
+    public const MAX_EVERGREEN_PAGES = 100;
 
     /**
      * Gets data for the Action pages.

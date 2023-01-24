@@ -10,9 +10,9 @@ class PostCampaign
     /**
      * Post Type
      */
-    const POST_TYPE = 'campaign';
+    public const POST_TYPE = 'campaign';
 
-    const DEFAULT_NAVBAR_THEME = 'planet4';
+    public const DEFAULT_NAVBAR_THEME = 'planet4';
 
     public const META_FIELDS = [
         'p4_campaign_name',

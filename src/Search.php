@@ -15,17 +15,17 @@ use P4\MasterTheme\Features\ActionPostType;
  */
 abstract class Search
 {
-    const POSTS_PER_LOAD = 5;
-    const SHOW_SCROLL_TIMES = 2;
-    const DEFAULT_SORT = '_score';
-    const DEFAULT_MIN_WEIGHT = 1;
-    const DEFAULT_PAGE_WEIGHT = 100;
-    const DEFAULT_ACTION_WEIGHT = 2000;
-    const DEFAULT_MAX_WEIGHT = 3000;
-    const DEFAULT_CACHE_TTL = 600;
-    const DUMMY_THUMBNAIL = '/images/dummy-thumbnail.png';
-    const EXCLUDE_FROM_SEARCH = 'p4_do_not_index';
-    const DOCUMENT_TYPES = [
+    public const POSTS_PER_LOAD = 5;
+    public const SHOW_SCROLL_TIMES = 2;
+    public const DEFAULT_SORT = '_score';
+    public const DEFAULT_MIN_WEIGHT = 1;
+    public const DEFAULT_PAGE_WEIGHT = 100;
+    public const DEFAULT_ACTION_WEIGHT = 2000;
+    public const DEFAULT_MAX_WEIGHT = 3000;
+    public const DEFAULT_CACHE_TTL = 600;
+    public const DUMMY_THUMBNAIL = '/images/dummy-thumbnail.png';
+    public const EXCLUDE_FROM_SEARCH = 'p4_do_not_index';
+    public const DOCUMENT_TYPES = [
         'application/pdf',
     ];
 
