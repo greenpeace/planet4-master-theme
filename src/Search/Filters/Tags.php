@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace P4\MasterTheme\Search\Filters;
 
-use WP_Term;
-
 /**
  * Tags used for search.
  */

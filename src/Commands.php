@@ -11,7 +11,6 @@ use P4\MasterTheme\Commands\RunActivator;
 use P4\MasterTheme\Commands\SaveCloudflareKey;
 use P4\MasterTheme\Commands\FixOrphans;
 use P4\MasterTheme\Commands\GFAddonsDisconnect;
-use P4\MasterTheme\Migrations;
 
 /**
  * Class with a static function just because PHP can't autoload functions.
