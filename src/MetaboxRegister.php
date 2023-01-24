@@ -14,7 +14,7 @@ class MetaboxRegister
      *
      * @const int MAX_TAKE_ACTION_PAGES
      */
-    const MAX_TAKE_ACTION_PAGES = 100;
+    public const MAX_TAKE_ACTION_PAGES = 100;
 
     /**
      * MetaboxRegister constructor.
