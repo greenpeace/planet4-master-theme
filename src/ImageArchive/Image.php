@@ -18,49 +18,49 @@ class Image implements JsonSerializable
      *
      * @var $archive_id
      */
-    private $archive_id;
+    private $archive_id; // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint
 
     /**
      * Image Title.
      *
      * @var $title
      */
-    private $title;
+    private $title; // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint
 
     /**
      * Image Caption.
      *
      * @var $caption
      */
-    private $caption;
+    private $caption; // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint
 
     /**
      * Image Credit.
      *
      * @var $credit
      */
-    private $credit;
+    private $credit; // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint
 
     /**
      * Image restrictions.
      *
      * @var $restrictions
      */
-    private $restrictions;
+    private $restrictions; // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint
 
     /**
      * The attachment id if the image is stored in WordPress db.
      *
      * @var $wordpress_id
      */
-    private $wordpress_id;
+    private $wordpress_id; // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint
 
     /**
      * The Original language title of attachment.
      *
      * @var $original_language_title
      */
-    private $original_language_title;
+    private $original_language_title; // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint
 
     /**
      * @var string|null The original language description.

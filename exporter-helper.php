@@ -172,7 +172,7 @@ function get_campaign_attachments(array $post_ids): array
  *
  * @param string $str String to replace.
  */
-function p4_px_single_post_cdata(string $str)
+function p4_px_single_post_cdata(string $str): string
 {
     if (seems_utf8($str) === false) {
         $str = utf8_encode($str);
@@ -185,7 +185,7 @@ function p4_px_single_post_cdata(string $str)
 /**
  * Get the site url.
  */
-function p4_px_single_post_site_url()
+function p4_px_single_post_site_url(): string
 {
     if (is_multisite()) {
         return network_home_url();

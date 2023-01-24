@@ -11,6 +11,7 @@ use Timber\Site as TimberSite;
 use Timber\Menu as TimberMenu;
 use Twig_Extension_StringLoader;
 use Twig_Environment;
+use Twig_Markup;
 use Twig_SimpleFilter;
 use WP_Error;
 use WP_Post;
@@ -313,7 +314,7 @@ class MasterSite extends TimberSite
     /**
      * Sets the URL for the logo link in the login page.
      */
-    public function add_login_logo_url()
+    public function add_login_logo_url(): string
     {
         return home_url();
     }
@@ -321,7 +322,7 @@ class MasterSite extends TimberSite
     /**
      * Sets the title for the logo link in the login page.
      */
-    public function add_login_logo_url_title()
+    public function add_login_logo_url_title(): string
     {
         return get_bloginfo('name');
     }
@@ -495,7 +496,7 @@ class MasterSite extends TimberSite
     /**
      * Force WordPress to use ImageCompression as image manipulation editor.
      */
-    public function allowedEditors()
+    public function allowedEditors(): array
     {
         return [ ImageCompression::class ];
     }
@@ -677,10 +678,10 @@ class MasterSite extends TimberSite
      *
      * @param string $name Icon name.
      */
-    public function svgicon(string $name)
+    public function svgicon(string $name): Twig_Markup
     {
         $svg_icon_template = '<svg viewBox="0 0 32 32" class="icon"><use xlink:href="' . $this->theme_dir . '/assets/build/sprite.symbol.svg#' . $name . '"></use></svg>';
-        return new \Twig_Markup($svg_icon_template, 'UTF-8');
+        return new Twig_Markup($svg_icon_template, 'UTF-8');
     }
 
     /**
@@ -902,7 +903,7 @@ class MasterSite extends TimberSite
      *
      * @param Array|null $args The filter options and values.
      */
-    public function filter_authors(?array $args)
+    public function filter_authors(?array $args): ?array
     {
         if (isset($args['who'])) {
             $args['role__in'] = [ 'administrator', 'author', 'campaigner', 'contributor', 'editor' ];
