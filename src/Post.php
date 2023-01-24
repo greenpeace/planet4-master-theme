@@ -394,12 +394,7 @@ class Post extends TimberPost
      */
     public function get_author_override(): bool
     {
-        $author_override = get_post_meta($this->id, 'p4_author_override', true);
-        if ($author_override) {
-            return true;
-        }
-
-        return false;
+        return !empty(get_post_meta($this->id, 'p4_author_override', true));
     }
 
     /**
