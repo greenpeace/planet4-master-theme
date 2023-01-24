@@ -4,11 +4,9 @@ namespace P4\MasterTheme;
 
 use P4\MasterTheme\Features\PostPageCategoryLinks;
 use Timber\Post as TimberPost;
-use Timber\Term as TimberTerm;
 use WP_Block;
 use WP_Error;
 use WP_Query;
-use WP_Term;
 
 /**
  * Add planet4 specific functionality.

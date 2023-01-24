@@ -2,7 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use WP_Error;
 use WP_Post;
 use WP_Term;
 

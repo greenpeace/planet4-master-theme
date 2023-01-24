@@ -14,7 +14,6 @@ use Twig_Environment;
 use Twig_SimpleFilter;
 use WP_Error;
 use WP_Post;
-use WP_User;
 
 /**
  * Class MasterSite.

@@ -3,7 +3,6 @@
 namespace P4\MasterTheme;
 
 use ElasticPress\Features;
-use SitePress;
 use stdClass;
 use Timber\Timber;
 use UnexpectedValueException;

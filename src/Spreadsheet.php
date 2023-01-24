@@ -2,8 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use InvalidArgumentException;
-
 /**
  * A data object for Spreadsheet API responses.
  */

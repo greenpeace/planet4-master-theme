@@ -14,7 +14,6 @@ use P4\MasterTheme\Context;
 use P4\MasterTheme\Features\GdprCheckbox;
 use P4\MasterTheme\Post;
 use Timber\Timber;
-use P4\MasterTheme\Settings\Comments;
 
 // Initializing variables.
 $context = Timber::get_context();

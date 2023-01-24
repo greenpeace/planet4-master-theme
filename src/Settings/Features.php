@@ -3,7 +3,6 @@
 namespace P4\MasterTheme\Settings;
 
 use P4\MasterTheme\CloudflarePurger;
-use P4\MasterTheme\Feature;
 use P4\MasterTheme\Features\CloudflareDeployPurge;
 use P4\MasterTheme\Features\Dev\AllowAllBlocks;
 use P4\MasterTheme\Features\Dev\BetaBlocks;
