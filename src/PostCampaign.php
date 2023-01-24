@@ -434,7 +434,7 @@ class PostCampaign
      *
      * @param mixed $theme_json The JSON theme file.
      */
-    private static function get_theme_defaults($theme_json)
+    private static function get_theme_defaults($theme_json): array
     {
         $defaults = [];
         foreach ($theme_json['fields'] as $field) {

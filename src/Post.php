@@ -85,7 +85,7 @@ class Post extends TimberPost
     /**
      * Get the array for the GTM Data Layer.
      */
-    public function get_data_layer()
+    public function get_data_layer(): array
     {
         return $this->data_layer;
     }
@@ -274,7 +274,7 @@ class Post extends TimberPost
     /**
      * Gets the page types of this Post.
      */
-    public function get_page_types()
+    public function get_page_types(): array
     {
         return $this->page_types;
     }

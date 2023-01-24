@@ -55,7 +55,7 @@ class Exporter
     /**
      * Export Bulk Action
      */
-    public function single_post_export_bulk_action()
+    public function single_post_export_bulk_action(): ?bool
     {
         $wp_list_table = _get_list_table('WP_Posts_List_Table');
         $action = $wp_list_table->current_action();
