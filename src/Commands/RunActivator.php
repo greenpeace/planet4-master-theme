@@ -34,9 +34,11 @@ class RunActivator extends Command
      *
      * @param array|null $args Positional arguments.
      * @param array|null $assoc_args Named arguments.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      */
     public static function execute(?array $args, ?array $assoc_args): void
     {
         Activator::run();
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 }

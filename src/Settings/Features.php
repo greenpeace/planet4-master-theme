@@ -199,13 +199,8 @@ class Features
 
     /**
      * Hook running after field is saved
-     *
-     * @param string     $field_id The current field id paramater.
-     * @param bool       $updated  Whether the metadata update action occurred.
-     * @param string     $action   Action performed. Could be "repeatable", "updated", or "removed".
-     * @param CMB2_Field $field    This field object.
      */
-    public static function on_field_save(string $field_id, bool $updated, string $action, CMB2_Field $field): void
+    public static function on_field_save(): void
     {
         // This requires a toggle because we may be hitting a sort of rate limit from the deploy purge alone.
         // For now it's better to leave this off on test instances, to avoid purges failing on production because we hit
@@ -217,13 +212,8 @@ class Features
 
     /**
      * Hook running after all features are saved
-     *
-     * @param int    $object_id   The ID of the current object.
-     * @param string $updated     Array of field ids that were updated.
-     *                            Will only include field ids that had values change.
-     * @param array  $cmb         This CMB2 object.
      */
-    public static function on_features_saved(int $object_id, string $updated, array $cmb): void
+    public static function on_features_saved(): void
     {
         if (!self::$purge_cloudflare) {
             return;

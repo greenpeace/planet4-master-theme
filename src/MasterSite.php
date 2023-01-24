@@ -131,24 +131,14 @@ class MasterSite extends TimberSite
         add_filter('wp_kses_allowed_html', [ $this, 'set_custom_allowed_attributes_filter' ], 10, 2);
         add_action('add_meta_boxes', [ $this, 'add_meta_box_search' ], 10, 2);
         add_action('save_post', [ $this, 'save_meta_box_search' ], 10, 2);
-        add_action('save_post', [ $this, 'set_featured_image' ], 10, 3);
+        add_action('save_post', [ $this, 'set_featured_image' ], 10, 2);
         add_action('post_updated', [ $this, 'clean_post_cache' ], 10, 3);
         add_action('after_setup_theme', [ $this, 'p4_master_theme_setup' ]);
         add_action('pre_insert_term', [ $this, 'disallow_insert_term' ], 1, 2);
         add_filter('wp_dropdown_users_args', [ $this, 'filter_authors' ], 10, 1);
         add_filter('wp_image_editors', [ $this, 'allowedEditors' ]);
-        add_filter(
-            'jpeg_quality',
-            function ($arg) {
-                return 60;
-            }
-        );
-        add_filter(
-            'http_request_timeout',
-            function ($timeout) {
-                return 10;
-            }
-        );
+        add_filter('jpeg_quality', fn() => 60);
+        add_filter('http_request_timeout', fn() => 10);
         add_action('after_setup_theme', [ $this, 'add_image_sizes' ]);
         add_action('save_post', [ $this, 'p4_auto_generate_excerpt' ], 10, 2);
 
@@ -172,11 +162,11 @@ class MasterSite extends TimberSite
         );
 
         add_filter('authenticate', [ $this, 'enforce_google_signon' ], 4, 3);
-        add_filter('authenticate', [ $this, 'check_google_login_error' ], 30, 3);
+        add_filter('authenticate', [ $this, 'check_google_login_error' ], 30, 1);
         add_filter('login_headerurl', [ $this, 'add_login_logo_url' ]);
         add_filter('login_headertext', [ $this, 'add_login_logo_url_title' ]);
         add_action('login_enqueue_scripts', [ $this, 'add_login_stylesheet' ]);
-        add_filter('comment_form_submit_field', [ $this, 'gdpr_cc_comment_form_add_class' ], 150, 2);
+        add_filter('comment_form_submit_field', [ $this, 'gdpr_cc_comment_form_add_class' ], 150, 1);
         add_filter('comment_form_default_fields', [ $this, 'comment_form_cookie_checkbox_add_class' ]);
         add_filter('comment_form_default_fields', [ $this, 'comment_form_replace_inputs' ]);
         add_filter('embed_oembed_html', [ $this, 'filter_youtube_oembed_nocookie' ], 10, 2);
@@ -354,9 +344,8 @@ class MasterSite extends TimberSite
      *
      * @param int     $post_id The ID of the current Post.
      * @param WP_Post $post The current Post.
-     * @param bool    $update Whether this is an existing post being updated or not.
      */
-    public function set_featured_image(int $post_id, WP_Post $post, bool $update): void
+    public function set_featured_image(int $post_id, WP_Post $post): void
     {
 
         // Ignore autosave.
@@ -853,10 +842,8 @@ class MasterSite extends TimberSite
 
     /**
      * Load styling and behaviour on admin pages.
-     *
-     * @param string $hook Hook.
      */
-    public function enqueue_admin_assets(string $hook): void
+    public function enqueue_admin_assets(): void
     {
         // Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
         wp_register_script('jquery-3', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', [], '3.3.1', true);
@@ -876,11 +863,13 @@ class MasterSite extends TimberSite
      *
      * @param string  $post_type Post type.
      * @param WP_Post $post      Post object.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_meta_boxes callback
      */
     public function add_meta_box_search(string $post_type, WP_Post $post): void
     {
         add_meta_box('meta-box-search', 'Search', [ $this, 'view_meta_box_search' ], [ 'post', 'page' ], 'side', 'default', [$post]);
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Renders a Metabox on the side of the Add/Edit Post/Page.
@@ -971,11 +960,10 @@ class MasterSite extends TimberSite
      * Checks if we have set a google login error earlier on so we can prevent login if google login wasn't used
      *
      * @param WP_User|WP_Error|null $user The current user logging in.
-     * @param String|null $username The username of the user.
-     * @param String|null $password The password of the user.
+     *
      * @return WP_User|WP_Error|null
      */
-    public function check_google_login_error($user, ?string $username = null, ?string $password = null)
+    public function check_google_login_error($user)
     {
         if ($this->google_login_error) {
             $this->google_login_error = false;
@@ -1144,11 +1132,10 @@ class MasterSite extends TimberSite
      * Filter and add class to GDPR consent checkbox label after the GDPR fields appended to comment form submit field.
      *
      * @param string $submit_field The HTML content of comment form submit field.
-     * @param array  $args         The arguments array.
      *
      * @return string HTML content of comment form submit field.
      */
-    public function gdpr_cc_comment_form_add_class(string $submit_field, array $args): string
+    public function gdpr_cc_comment_form_add_class(string $submit_field): string
     {
 
         $pattern[0] = '/(for=["\']gdpr-comments-checkbox["\'])/';

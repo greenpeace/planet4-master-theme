@@ -2,6 +2,9 @@
 
 namespace P4\MasterTheme;
 
+use CMB2_Field;
+use CMB2_Types;
+
 /**
  * Class P4\MasterTheme\PostCampaign
  */
@@ -69,7 +72,7 @@ class PostCampaign
         add_action('cmb2_render_sidebar_link', [ $this, 'cmb2_render_sidebar_link_field_callback' ], 10, 5);
         add_action('cmb2_render_footer_icon_link', [ $this, 'cmb2_render_footer_icon_link_field_callback' ], 10, 5);
 
-        add_filter('get_user_option_edit_campaign_per_page', [ $this, 'set_default_items_per_page' ], 10, 3);
+        add_filter('get_user_option_edit_campaign_per_page', [ $this, 'set_default_items_per_page' ], 10, 1);
 
         add_filter(
             'manage_campaign_posts_columns',
@@ -80,6 +83,7 @@ class PostCampaign
 
         add_action(
             'manage_campaign_posts_custom_column',
+            // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter -- add_action callback
             function ($column_key, $post_id): void {
                 echo esc_html(get_post_meta($post_id, 'theme', true));
             },
@@ -117,12 +121,10 @@ class PostCampaign
      * Increase the maximum number of items displayed so that there are enough items to collapse any child pages.
      *
      * @param int|null $result Possibly value chosen by the current user.
-     * @param string   $option The name of the option.
-     * @param object   $user The current user.
      *
      * @return int The amount of pages that will be used.
      */
-    public function set_default_items_per_page(?int $result, string $option, object $user): int
+    public function set_default_items_per_page(?int $result): int
     {
         if ((int) $result < 1) {
             return 200;
@@ -276,20 +278,9 @@ class PostCampaign
 
     /**
      * CMB2 custom field(sidebar_link) callback function.
-     *
-     * @param array $field The CMB2 field array.
-     * @param array $value The CMB2 field Value.
-     * @param array $object_id The id of the object.
-     * @param array $object_type The type of object.
-     * @param array $field_type Instance of the `cmb2_Meta_Box_types` object.
      */
-    public function cmb2_render_sidebar_link_field_callback(
-        array $field,
-        array $value,
-        array $object_id,
-        array $object_type,
-        array $field_type
-    ): void {
+    public function cmb2_render_sidebar_link_field_callback(): void
+    {
         ?>
         <a
             href="#" onclick="openSidebar()"
@@ -312,14 +303,20 @@ class PostCampaign
     /**
      * CMB2 custom field(footer_icon_link) callback function.
      *
-     * @param array $field The CMB2 field array.
-     * @param array $value The CMB2 field Value.
-     * @param array $object_id The id of the object.
-     * @param array $object_type The type of object.
-     * @param array $field_type Instance of the `cmb2_Meta_Box_types` object.
+     * @param CMB2_Field $field The CMB2 field array.
+     * @param mixed $value The CMB2 field Value.
+     * @param int $object_id The id of the object.
+     * @param string $object_type The type of object.
+     * @param CMB2_Types $field_type Instance of the `cmb2_Meta_Box_types` object.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_action callback
      */
-    public function cmb2_render_footer_icon_link_field_callback(array $field, array $value, array $object_id, array $object_type, array $field_type): void
-    {
+    public function cmb2_render_footer_icon_link_field_callback(
+        CMB2_Field $field,
+        $value,
+        int $object_id,
+        string $object_type,
+        CMB2_Types $field_type
+    ): void {
         $value = wp_parse_args(
             $value,
             [
@@ -385,6 +382,7 @@ class PostCampaign
         <div class="alignleft"> <?php esc_html_e('In the “Footer icon name” field add the name of the icon you want from the', 'planet4-master-theme-backend'); ?> <a target="_blank" href="https://github.com/greenpeace/planet4-master-theme/tree/master/assets/src/images/icons"><?php esc_html_e('list of icons in the CSS styleguide', 'planet4-master-theme-backend'); ?></a>. e.g. twitter-square</div>
         <?php
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Register a key as a post_meta with the argument `show_in_rest` that is needed on all fields so they can be

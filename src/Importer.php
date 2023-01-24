@@ -22,7 +22,7 @@ class Importer
         add_action('wp_import_insert_post', [ $this, 'update_attachements' ], 10, 4);
         add_filter('wp_import_post_terms', [ $this, 'filter_wp_import_post_terms' ], 10, 3);
         add_filter('wp_import_post_meta', [ $this, 'process_campaign_metas' ]);
-        add_filter('wp_import_post_data_processed', [ $this, 'set_imported_posts_as_drafts' ], 10, 2);
+        add_filter('wp_import_post_data_processed', [ $this, 'set_imported_posts_as_drafts' ], 10, 1);
         add_action('import_end', [ $this, 'action_import_end' ], 10, 0);
         add_filter('wp_import_post_meta', [ $this, 'skip_duplicate_postmeta_import' ], 10, 2);
 
@@ -43,6 +43,7 @@ class Importer
      * @param int $original_post_id Original Post ID.
      * @param array   $postdata Post data array.
      * @param array   $post Post array.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_action callback
      */
     public function update_attachements(int $post_id, int $original_post_id, array $postdata, array $post): void
     {
@@ -202,6 +203,7 @@ class Importer
         ];
         wp_update_post(wp_slash($updated_post));
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Update attachement source ID in attachment metadata for future data mapping purpose.
@@ -251,11 +253,10 @@ class Importer
      * Set imported posts as drafts.
      *
      * @param array $postdata Post data that can be filtered.
-     * @param array $post     The post array to be inserted.
      *
      * @return array
      */
-    public function set_imported_posts_as_drafts(array $postdata, array $post): array
+    public function set_imported_posts_as_drafts(array $postdata): array
     {
         $postdata['post_status'] = 'draft';
 

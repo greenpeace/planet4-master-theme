@@ -18,7 +18,7 @@ class M010RemoveGdprPluginOptions extends MigrationScript
      * Activate new option by default.
      *
      * @param MigrationRecord $record Information on the execution, can be used to add logs.
-     *
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      */
     protected static function execute(MigrationRecord $record): void
     {
@@ -27,4 +27,5 @@ class M010RemoveGdprPluginOptions extends MigrationScript
 
         GdprCheckbox::enable();
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 }

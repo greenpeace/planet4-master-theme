@@ -38,6 +38,7 @@ class GFAddonsDisconnect extends Command
      *
      * @param array|null $args Positional arguments.
      * @param array|null $assoc_args Named arguments.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      */
     public static function execute(?array $args, ?array $assoc_args): void
     {
@@ -48,6 +49,7 @@ class GFAddonsDisconnect extends Command
 
         WP_CLI::success('Job done.');
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Disconnect Hubspot addon

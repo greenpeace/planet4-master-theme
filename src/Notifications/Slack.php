@@ -64,11 +64,9 @@ class Slack extends Abstracts\Carrier
     /**
      * Get the message to send.
      *
-     * @param Triggerable $trigger What triggered this notification.
-     *
      * @return mixed The message, for now just the body that was entered.
      */
-    private function get_message(Triggerable $trigger)
+    private function get_message()
     {
         return $this->data['body'];
     }

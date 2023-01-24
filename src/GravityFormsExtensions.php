@@ -90,7 +90,7 @@ class GravityFormsExtensions
     private function hooks(): void
     {
         add_filter('gform_form_settings_fields', [ $this, 'p4_gf_form_settings' ], 5, 2);
-        add_filter('gform_secure_file_download_url', [ $this, 'p4_gf_file_download_url' ], 10, 2);
+        add_filter('gform_secure_file_download_url', [ $this, 'p4_gf_file_download_url' ], 10, 1);
         add_action('gform_after_save_form', [ $this, 'p4_gf_custom_initial_settings' ], 10, 2);
         add_filter('gform_confirmation_settings_fields', [ $this, 'p4_gf_confirmation_settings' ], 10, 3);
         add_filter('gform_confirmation', [ $this, 'p4_gf_custom_confirmation' ], 10, 3);
@@ -134,11 +134,10 @@ class GravityFormsExtensions
      * Update Gravity form file path before output.
      *
      * @param string $file_path The file path of the download file.
-     * @param object $field     The field object for further context.
      *
      * @return string The new file path.
      */
-    public function p4_gf_file_download_url(string $file_path, object $field): string
+    public function p4_gf_file_download_url(string $file_path): string
     {
         if (strpos($file_path, '/gravity_forms/') !== false) {
             // The default gravity form uploaded files path gives error.

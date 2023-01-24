@@ -36,6 +36,7 @@ class FixOrphans extends Command
      *
      * @param array|null $args Positional arguments.
      * @param array|null $assoc_args Named arguments.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      */
     public static function execute(?array $args, ?array $assoc_args): void
     {
@@ -59,4 +60,5 @@ class FixOrphans extends Command
 
         WP_CLI::success('Job done, ' . $wpdb->rows_affected . ' objects were updated.');
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 }
