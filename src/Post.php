@@ -31,7 +31,7 @@ class Post extends TimberPost
      *
      * @var TimberTerm[] $page_types
      */
-    protected array $page_types;
+    protected array $page_types = [];
 
     /**
      * Author

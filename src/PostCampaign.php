@@ -414,9 +414,9 @@ class PostCampaign
      * Gets the default for a field.
      *
      * @param array $field A field from the JSON theme file.
-     * @return string Default value
+     * @return string|null Default value
      */
-    private static function get_field_default(array $field): string
+    private static function get_field_default(array $field): ?string
     {
         if (isset($field['configurations']) && isset($field['configurations']['default'])) {
             $default_configuration = $field['configurations']['default'];
