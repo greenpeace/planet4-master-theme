@@ -41,26 +41,10 @@ if ( is_tag() ) {
 
 		$templates = [ 'tag.twig', 'archive.twig', 'index.twig' ];
 
-		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-		$posts = get_posts(
-			[
-				'posts_per_page'   => 1,
-				'offset'           => 0,
-				'post_parent'      => $explore_page_id,
-				'post_type'        => 'page',
-				'post_status'      => 'publish',
-				'suppress_filters' => false,
-				'tag_slug__in'     => [ $context['tag']->slug ],
-			]
-		);
-
-		$context['custom_body_classes'] = 'white-bg page-issue-page';
-		$context['category_name']       = $posts[0]->post_title ?? '';
-		$context['category_link']       = isset( $posts[0] ) ? get_permalink( $posts[0] ) : '';
-		$context['tag_name']            = single_tag_title( '', false );
-		$context['tag_description']     = wpautop( $context['tag']->description );
-		$context['tag_image']           = get_term_meta( $context['tag']->term_id, 'tag_attachment', true );
-		$tag_image_id                   = get_term_meta( $context['tag']->term_id, 'tag_attachment_id', true );
+		$context['tag_name']        = single_tag_title( '', false );
+		$context['tag_description'] = wpautop( $context['tag']->description );
+		$context['tag_image']       = get_term_meta( $context['tag']->term_id, 'tag_attachment', true );
+		$tag_image_id               = get_term_meta( $context['tag']->term_id, 'tag_attachment_id', true );
 
 		$context['og_description'] = $context['tag_description'];
 		if ( $tag_image_id ) {
@@ -80,6 +64,23 @@ if ( is_tag() ) {
 			$campaign->view();
 			exit();
 		}
+
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		$posts = get_posts(
+			[
+				'posts_per_page'   => 1,
+				'offset'           => 0,
+				'post_parent'      => $explore_page_id,
+				'post_type'        => 'page',
+				'post_status'      => 'publish',
+				'suppress_filters' => false,
+				'tag_slug__in'     => [ $context['tag']->slug ],
+			]
+		);
+
+		$context['custom_body_classes'] = 'white-bg page-issue-page';
+		$context['category_name']       = $posts[0]->post_title ?? '';
+		$context['category_link']       = isset( $posts[0] ) ? get_permalink( $posts[0] ) : '';
 
 		$campaign = new TaxonomyCampaign( $templates, $context );
 
