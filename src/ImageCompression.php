@@ -1,5 +1,4 @@
-<?php
-// phpcs:ignoreFile PSR1.Files.SideEffects.FoundWithSymbols
+<?php // phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
 
 namespace P4\MasterTheme;
 
