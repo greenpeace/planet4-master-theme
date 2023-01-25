@@ -1,5 +1,4 @@
-<?php
-// phpcs:ignoreFile PSR1.Files.SideEffects.FoundWithSymbols
+<?php // phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
 
 /**
  * Functions
@@ -92,7 +91,7 @@ if (! class_exists('Timber')) {
         'admin_notices',
         function (): void {
             printf(
-                '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="%s">Plugins menu</a></p></div>',
+                '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="%s">Plugins menu</a></p></div>', // phpcs:ignore Generic.Files.LineLength.MaxExceeded
                 esc_url(admin_url('plugins.php#timber'))
             );
         }
@@ -100,9 +99,7 @@ if (! class_exists('Timber')) {
 
     add_filter(
         'template_include',
-        function ($template) {
-            return get_stylesheet_directory() . '/static/no-timber.html';
-        }
+        fn() => get_stylesheet_directory() . '/static/no-timber.html'
     );
 
     return;
@@ -177,7 +174,8 @@ add_filter(
         // See https://github.com/WordPress/WordPress/blob/a5293aa581802197b0dd7c42813ba137708ad0e1/wp-includes/kses.php#L2438.
         $gradient_regex = '/(repeating-)?(linear|radial|conic)-gradient\(([^()]|rgb[a]?\([^()]*\))*\)/';
 
-        // Check if a gradient is still present. The only case where $css_test_string can still have this present is if it
+        // Check if a gradient is still present.
+        // The only case where $css_test_string can still have this present is if it
         // was missed by the faulty WP regex.
         if (! preg_match($gradient_regex, $css_test_string)) {
             return $allow_css;
@@ -251,6 +249,7 @@ function register_more_blocks(): void
     register_block_type(
         'p4/post-author-name',
         [
+            // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter -- register_block_type callback
             'render_callback' => function (array $attributes, $content, $block) {
                 $author_override = get_post_meta($block->context['postId'], 'p4_author_override', true);
                 $post_author_id = get_post_field('post_author', $block->context['postId']);
@@ -271,6 +270,7 @@ function register_more_blocks(): void
     register_block_type(
         'p4/post-featured-image',
         [
+            // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter -- register_block_type callback
             'render_callback' => function (array $attributes, $content, $block) {
                 $post_id = $block->context['postId'];
                 $post_link = get_permalink($post_id);
@@ -282,7 +282,7 @@ function register_more_blocks(): void
                     // For example, it could already access displayLayout from Query block to know how many columns are
                     // being rendered. If it then also knows the flex gap and container width, it should have all needed
                     // info to support a large amount of cases.
-                    [ 'sizes' => '(min-width: 1600px) 389px, (min-width: 1200px) 335px, (min-width: 1000px) 281px, (min-width: 780px) 209px, (min-width: 580px) 516px, calc(100vw - 24px)' ]
+                    [ 'sizes' => '(min-width: 1600px) 389px, (min-width: 1200px) 335px, (min-width: 1000px) 281px, (min-width: 780px) 209px, (min-width: 580px) 516px, calc(100vw - 24px)' ] // phpcs:ignore Generic.Files.LineLength.MaxExceeded
                 );
 
                 return "<a href='$post_link'>$featured_image</a>";
@@ -413,11 +413,11 @@ add_action(
 // We overrule wp-stateless response if file is not an image.
 add_filter(
     'image_downsize',
-    function ($downsize, $id, $size) {
+    function ($downsize, $id) {
         return wp_attachment_is_image($id) ? $downsize : false;
     },
     100,
-    3
+    2
 );
 
 // This action overrides the WordPress functionality for adding a notice message
@@ -454,8 +454,8 @@ add_action(
         wp_add_inline_script(
             'wp-notices',
             sprintf(
-                'wp.data.dispatch( "core/notices" ).createNotice("warning", "%s" , { isDismissible: false, actions: [ { label: "%s", url: "/wp-admin/options-reading.php"} ] } )',
-                __('The content on this page is hidden because this page is being used as your \"All Posts\" listing page. You can disable this by un-setting the \"Posts page\"', 'planet4-master-theme'),
+                'wp.data.dispatch( "core/notices" ).createNotice("warning", "%s" , { isDismissible: false, actions: [ { label: "%s", url: "/wp-admin/options-reading.php"} ] } )', // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+                __('The content on this page is hidden because this page is being used as your \"All Posts\" listing page. You can disable this by un-setting the \"Posts page\"', 'planet4-master-theme'), // phpcs:ignore Generic.Files.LineLength.MaxExceeded
                 __('here', 'planet4-master-theme')
             )
         );
