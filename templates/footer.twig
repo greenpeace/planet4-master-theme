@@ -1,51 +1,51 @@
 <footer id="footer" class="site-footer site-footer--{{ nav_type }}">
-	{% if nav_type != 'minimal' %}
-	<div id="country-selector" class="footer-country-selector">
-		{% include 'footer_country_selector.twig' %}
-	</div>
-	{% endif %}
-	<div class="container d-flex flex-column flex-lg-row-reverse">
-		{% if (social_overrides is defined and social_overrides|length) or footer_social_menu|length %}
-			{% include 'footer_social_media.twig' %}
-		{% endif %}
-		{% if nav_type != 'minimal' %}
-			<nav class="footer-menu">
-				<ul class="list-unstyled">
-					{% for primary in footer_primary_menu %}
-						<li>
-							<a href="{{ primary.url }}"
-								data-ga-category="Footer Navigation"
-								data-ga-action="Footer Links"
-								data-ga-label="{{ primary.title }}">
-								{{ primary.title }}
-							</a>
-						</li>
-					{% endfor %}
+    {% if nav_type != 'minimal' %}
+    <div id="country-selector" class="footer-country-selector">
+        {% include 'footer_country_selector.twig' %}
+    </div>
+    {% endif %}
+    <div class="container d-flex flex-column flex-lg-row-reverse">
+        {% if (social_overrides is defined and social_overrides|length) or footer_social_menu|length %}
+            {% include 'footer_social_media.twig' %}
+        {% endif %}
+        {% if nav_type != 'minimal' %}
+            <nav class="footer-menu">
+                <ul class="list-unstyled">
+                    {% for primary in footer_primary_menu %}
+                        <li>
+                            <a href="{{ primary.url }}"
+                                data-ga-category="Footer Navigation"
+                                data-ga-action="Footer Links"
+                                data-ga-label="{{ primary.title }}">
+                                {{ primary.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
 
-					{% for secondary in footer_secondary_menu %}
-						<li>
-							<a href="{{ secondary.url }}"
-								data-ga-category="Footer Navigation"
-								data-ga-action="Footer Links"
-								data-ga-label="{{ secondary.title }}">
-								{{ secondary.title }}
-							</a>
-						</li>
-					{% endfor %}
-				</ul>
-			</nav>
-		{% endif %}
-	</div>
+                    {% for secondary in footer_secondary_menu %}
+                        <li>
+                            <a href="{{ secondary.url }}"
+                                data-ga-category="Footer Navigation"
+                                data-ga-action="Footer Links"
+                                data-ga-label="{{ secondary.title }}">
+                                {{ secondary.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
 
-	<div class="copyright">
-		<div class="container d-flex flex-column flex-xl-row">
-			<span role="text">
-				{{ 'creative-commons'|svgicon }}
-				{{ copyright_text_line2|e('wp_kses_post')|raw }} {{"now"|date('Y')}}
-			</span>
-			<span role="text">
-				{{ copyright_text_line1|e('wp_kses_post')|raw }}
-			</span>
-		</div>
-	</div>
+    <div class="copyright">
+        <div class="container d-flex flex-column flex-xl-row">
+            <span role="text">
+                {{ 'creative-commons'|svgicon }}
+                {{ copyright_text_line2|e('wp_kses_post')|raw }} {{"now"|date('Y')}}
+            </span>
+            <span role="text">
+                {{ copyright_text_line1|e('wp_kses_post')|raw }}
+            </span>
+        </div>
+    </div>
 </footer>

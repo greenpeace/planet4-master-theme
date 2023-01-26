@@ -1,162 +1,162 @@
 {% set ga_page_type = post.post_type|capitalize %}
 {% set post_link = post.link %}
 {% if ( 'p4_action' == post.post_type ) %}
-	{% set is_action = true %}
-	{% set ga_page_type = 'Take Action' %}
+    {% set is_action = true %}
+    {% set ga_page_type = 'Take Action' %}
 {% elseif ( 'attachment' == post.post_type ) %}
-	{% set is_document = true %}
-	{% set ga_page_type = 'Document' %}
-	{% set post_link = fn('wp_get_attachment_url', post.id) %}
+    {% set is_document = true %}
+    {% set ga_page_type = 'Document' %}
+    {% set post_link = fn('wp_get_attachment_url', post.id) %}
 {% elseif ( 'campaign' == post.post_type ) %}
-	{% set is_campaign = true %}
+    {% set is_campaign = true %}
 {% elseif ( 'archive' == post.post_type ) %}
-	{% set is_archive = true %}
+    {% set is_archive = true %}
 {% endif %}
 
 {% if ( current_page == 1 and loop.index0 == 0 ) %}
-	<div class="search-results-load">
+    <div class="search-results-load">
 {% elseif ( first_of_the_page and loop.index0 is divisible by(5) ) %}
-	<div class="search-results-load row-hidden" style="display: none;">
+    <div class="search-results-load row-hidden" style="display: none;">
 {% endif %}
-		<li id="result-row-{{ post.ID }}" class="d-flex search-result-list-item">
+        <li id="result-row-{{ post.ID }}" class="d-flex search-result-list-item">
 
-			<a
-				class="d-flex search-result-item-image"
-				href="{{ post_link }}"
-				data-ga-category="Search Results"
-				data-ga-action="Image"
-				data-ga-label="{{ ga_page_type }}">
-				<img
-					src="{{ post.thumbnail ?: dummy_thumbnail }}"
-					loading="lazy"
-					alt="{{ fn('esc_attr', post.thumbnail_alt|default( post.post_title ) )|raw }}" />
-			</a>
+            <a
+                class="d-flex search-result-item-image"
+                href="{{ post_link }}"
+                data-ga-category="Search Results"
+                data-ga-action="Image"
+                data-ga-label="{{ ga_page_type }}">
+                <img
+                    src="{{ post.thumbnail ?: dummy_thumbnail }}"
+                    loading="lazy"
+                    alt="{{ fn('esc_attr', post.thumbnail_alt|default( post.post_title ) )|raw }}" />
+            </a>
 
-		<div id="tease-{{ post.ID }}" class="search-result-item-body tease tease-{{ post.post_type }}">
-			<div class="search-result-item-flex-title">
-				<div>
-					{% if ( is_archive or is_campaign ) %}
-						<div class="search-results-alternative-label search-results-alternative-label-mobile">
-							{% if ( is_campaign ) %}
-								{{ __( 'Campaign', 'planet4-master-theme' ) }}
-							{% elseif ( is_archive ) %}
-								{{ __( 'Archive', 'planet4-master-theme' ) }}
-							{% endif %}
-						</div>
-					{% endif %}
+        <div id="tease-{{ post.ID }}" class="search-result-item-body tease tease-{{ post.post_type }}">
+            <div class="search-result-item-flex-title">
+                <div>
+                    {% if ( is_archive or is_campaign ) %}
+                        <div class="search-results-alternative-label search-results-alternative-label-mobile">
+                            {% if ( is_campaign ) %}
+                                {{ __( 'Campaign', 'planet4-master-theme' ) }}
+                            {% elseif ( is_archive ) %}
+                                {{ __( 'Archive', 'planet4-master-theme' ) }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
 
-					{% if ( post.p4_page_types or post.tags ) %}
-					<div class="search-result-tags top-page-tags">
-						{% for page_type in post.p4_page_types %}
-							<a
-								class="search-result-item-head no-btn tag-item tag-item--main page-type"
-								href="{{ page_type.link }}"
-								data-ga-category="Search Results"
-								data-ga-action="Post Type Tag"
-								data-ga-label="{{ ga_page_type }}">
-									{{ page_type.name|e('wp_kses_post')|raw }}
-							</a>
-						{% endfor %}
+                    {% if ( post.p4_page_types or post.tags ) %}
+                    <div class="search-result-tags top-page-tags">
+                        {% for page_type in post.p4_page_types %}
+                            <a
+                                class="search-result-item-head no-btn tag-item tag-item--main page-type"
+                                href="{{ page_type.link }}"
+                                data-ga-category="Search Results"
+                                data-ga-action="Post Type Tag"
+                                data-ga-label="{{ ga_page_type }}">
+                                    {{ page_type.name|e('wp_kses_post')|raw }}
+                            </a>
+                        {% endfor %}
 
-						{% if ( post.p4_page_types and post.tags ) %}
-							<span class="tag-wrap-bullet" aria-hidden="true">&#8226;</span>
-						{% endif %}
+                        {% if ( post.p4_page_types and post.tags ) %}
+                            <span class="tag-wrap-bullet" aria-hidden="true">&#8226;</span>
+                        {% endif %}
 
-						{% if (post.tags) %}
-							<div class="tag-wrap tags">
-								{% for tag in post.tags %}
-									<a
-										href="{{ tag.link }}"
-										class="search-result-item-tag tag-item tag"
-										data-ga-category="Search Results"
-										data-ga-action="Navigation Tag"
-										data-ga-label="{{ ga_page_type }}">
-											<span aria-label="hashtag">#</span>{{ tag.name|e('wp_kses_post')|raw }}
-									</a>
-								{% endfor %}
-							</div>
-						{% endif %}
-					</div>
-					{% endif %}
+                        {% if (post.tags) %}
+                            <div class="tag-wrap tags">
+                                {% for tag in post.tags %}
+                                    <a
+                                        href="{{ tag.link }}"
+                                        class="search-result-item-tag tag-item tag"
+                                        data-ga-category="Search Results"
+                                        data-ga-action="Navigation Tag"
+                                        data-ga-label="{{ ga_page_type }}">
+                                            <span aria-label="hashtag">#</span>{{ tag.name|e('wp_kses_post')|raw }}
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
 
-					{% if ( is_document ) %}
-						{% set title = post.post_title|e('wp_kses_post') %}
-						<a
-							href="{{ post_link }}"
-							class="search-result-item-headline"
-							data-ga-category="Search Results"
-							data-ga-action="Title"
-							data-ga-label="{{ ga_page_type }}">
-								{{ title|raw|length > 30 ? ( title|striptags|slice(0, 30) ~ '...' )|raw  : title|raw }}
-						</a>
-					{% elseif ( is_archive ) %}
-						<a
-							href="{{ post_link }}"
-							target="_blank"
-							class="search-result-item-headline archive"
-							data-ga-category="Search Results"
-							data-ga-action="Title"
-							data-ga-label="{{ ga_page_type }}">
-								{{ post.post_title|e('wp_kses_post')|raw }}
-						</a>
-					{% else %}
-						<a
-							href="{{ post_link }}"
-							class="search-result-item-headline"
-							data-ga-category="Search Results"
-							data-ga-action="Title"
-							data-ga-label="{{ ga_page_type }}">
-								{{ post.post_title|e('wp_kses_post')|raw }}
-						</a>
-					{% endif %}
-				</div>
-				<div>
-					{% if ( is_document ) %}
-						<a href="{{ post_link }}" download class="btn btn-small btn-secondary pdf-link" title="{{__('This link will open a PDF file', 'planet4-master-theme')}}">
-							{{ __( 'Download', 'planet4-master-theme' ) }}
-						</a>
-					{% elseif ( is_campaign or is_archive ) %}
-						<div class="search-results-alternative-label">
-							{% if is_campaign %}
-								{{ __( 'Campaign', 'planet4-master-theme' ) }}
-							{% elseif is_archive %}
-								{{ __( 'Archive', 'planet4-master-theme' ) }}
-							{% endif %}
-						</div>
-					{% endif %}
-				</div>
-			</div>
+                    {% if ( is_document ) %}
+                        {% set title = post.post_title|e('wp_kses_post') %}
+                        <a
+                            href="{{ post_link }}"
+                            class="search-result-item-headline"
+                            data-ga-category="Search Results"
+                            data-ga-action="Title"
+                            data-ga-label="{{ ga_page_type }}">
+                                {{ title|raw|length > 30 ? ( title|striptags|slice(0, 30) ~ '...' )|raw  : title|raw }}
+                        </a>
+                    {% elseif ( is_archive ) %}
+                        <a
+                            href="{{ post_link }}"
+                            target="_blank"
+                            class="search-result-item-headline archive"
+                            data-ga-category="Search Results"
+                            data-ga-action="Title"
+                            data-ga-label="{{ ga_page_type }}">
+                                {{ post.post_title|e('wp_kses_post')|raw }}
+                        </a>
+                    {% else %}
+                        <a
+                            href="{{ post_link }}"
+                            class="search-result-item-headline"
+                            data-ga-category="Search Results"
+                            data-ga-action="Title"
+                            data-ga-label="{{ ga_page_type }}">
+                                {{ post.post_title|e('wp_kses_post')|raw }}
+                        </a>
+                    {% endif %}
+                </div>
+                <div>
+                    {% if ( is_document ) %}
+                        <a href="{{ post_link }}" download class="btn btn-small btn-secondary pdf-link" title="{{__('This link will open a PDF file', 'planet4-master-theme')}}">
+                            {{ __( 'Download', 'planet4-master-theme' ) }}
+                        </a>
+                    {% elseif ( is_campaign or is_archive ) %}
+                        <div class="search-results-alternative-label">
+                            {% if is_campaign %}
+                                {{ __( 'Campaign', 'planet4-master-theme' ) }}
+                            {% elseif is_archive %}
+                                {{ __( 'Archive', 'planet4-master-theme' ) }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
 
-			{% if ( post.post_excerpt|striptags|trim ) %}
-			<p class="search-result-item-content">
-				{{ post.post_excerpt|default(post.post_content)|excerpt( 30 )|raw }}
-			</p>
-			{% endif %}
+            {% if ( post.post_excerpt|striptags|trim ) %}
+            <p class="search-result-item-content">
+                {{ post.post_excerpt|default(post.post_content)|excerpt( 30 )|raw }}
+            </p>
+            {% endif %}
 
-			{% if ( 'page' != post.post_type ) %}
-				<div class="search-result-item-info">
-					<span class="search-result-item-date">{{ post.post_date|date('d/m/Y') }}</span>
-				</div>
-			{% endif %}
+            {% if ( 'page' != post.post_type ) %}
+                <div class="search-result-item-info">
+                    <span class="search-result-item-date">{{ post.post_date|date('d/m/Y') }}</span>
+                </div>
+            {% endif %}
 
-			{% if ( is_action ) %}
-			<div>
-				<a
-					href="{{ post_link }}"
-					class="btn btn-primary btn-small"
-					data-ga-category="Search Results"
-					data-ga-action="Call to Action"
-					data-ga-label="{{ ga_page_type }}">
-						{{ post.button_text }}
-				</a>
-			</div>
-			{% endif %}
+            {% if ( is_action ) %}
+            <div>
+                <a
+                    href="{{ post_link }}"
+                    class="btn btn-primary btn-small"
+                    data-ga-category="Search Results"
+                    data-ga-action="Call to Action"
+                    data-ga-label="{{ ga_page_type }}">
+                        {{ post.button_text }}
+                </a>
+            </div>
+            {% endif %}
 
-			{% if post.edit_link %}
-				<a href="{{ post.edit_link|raw }}">{{ __('Manage', 'planet4-master-theme') }}</a>
-			{% endif %}
-		</div>
-	</li>
+            {% if post.edit_link %}
+                <a href="{{ post.edit_link|raw }}">{{ __('Manage', 'planet4-master-theme') }}</a>
+            {% endif %}
+        </div>
+    </li>
 {% if ( ( loop.index0 % 5 == 4 ) or loop.last ) %}
-	</div>
+    </div>
 {% endif %}

@@ -5,49 +5,49 @@
 {% endblock %}
 
 <body class="{{ body_class }} {{ custom_body_classes|default("") }}" data-nro="{{ site.link }}" data-post-type="{{ fn( 'get_post_type' ) }}">
-	{% if google_tag_value %}
-		<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ google_tag_value }}"
-						  height="0" width="0" style="display:none;visibility:hidden"></iframe>
-		</noscript>
-		<!-- End Google Tag Manager (noscript) -->
-	{% endif %}
+    {% if google_tag_value %}
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ google_tag_value }}"
+                          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+        <!-- End Google Tag Manager (noscript) -->
+    {% endif %}
 
-	<ul class="skip-links" aria-hidden="true">
-		<li><a href="#header">{{ __( 'Skip to Navigation', 'planet4-master-theme' ) }}</a></li>
-		<li><a href="#content">{{ __( 'Skip to Content', 'planet4-master-theme' ) }}</a></li>
-		<li><a href="#footer">{{ __( 'Skip to Footer', 'planet4-master-theme' ) }}</a></li>
-	</ul>
+    <ul class="skip-links" aria-hidden="true">
+        <li><a href="#header">{{ __( 'Skip to Navigation', 'planet4-master-theme' ) }}</a></li>
+        <li><a href="#content">{{ __( 'Skip to Content', 'planet4-master-theme' ) }}</a></li>
+        <li><a href="#footer">{{ __( 'Skip to Footer', 'planet4-master-theme' ) }}</a></li>
+    </ul>
 
-	{% if custom_styles.nav_type == 'minimal' %}
-		{% include 'navigation-bar_min.twig' with data_nav_bar %}
-	{% else %}
-		{% include 'navigation-bar.twig' with data_nav_bar %}
-	{% endif %}
-	{% include 'sidebar.twig' with data_nav_bar %}
+    {% if custom_styles.nav_type == 'minimal' %}
+        {% include 'navigation-bar_min.twig' with data_nav_bar %}
+    {% else %}
+        {% include 'navigation-bar.twig' with data_nav_bar %}
+    {% endif %}
+    {% include 'sidebar.twig' with data_nav_bar %}
 
-	{% if not post.password_required %}
-		{% include 'blocks/header.twig' %}
-	{% endif %}
+    {% if not post.password_required %}
+        {% include 'blocks/header.twig' %}
+    {% endif %}
 
-	{% block content %}
-		Sorry, no content
-	{% endblock %}
+    {% block content %}
+        Sorry, no content
+    {% endblock %}
 
-	{% if sidebar %}
-		<aside class="layout-sidebar">
-			{{sidebar}}
-		</aside>
-	{% endif %}
+    {% if sidebar %}
+        <aside class="layout-sidebar">
+            {{sidebar}}
+        </aside>
+    {% endif %}
 
-	{% block footer %}
-		{% include 'footer.twig' with { 'nav_type' : custom_styles.nav_type } %}
+    {% block footer %}
+        {% include 'footer.twig' with { 'nav_type' : custom_styles.nav_type } %}
 
-		{% block cookies %}
-			{% include 'cookies.twig' %}
-		{% endblock %}
+        {% block cookies %}
+            {% include 'cookies.twig' %}
+        {% endblock %}
 
-		{{ function('wp_footer') }}
-	{% endblock %}
+        {{ function('wp_footer') }}
+    {% endblock %}
 </body>
 </html>

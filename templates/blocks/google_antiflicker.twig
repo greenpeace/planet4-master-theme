@@ -7,14 +7,14 @@
   If this duration is >= to the timeout configured, then Optimize probably wasn't triggered.
 #}
 {% if google_tag_value and ab_hide_selector %}
-	<style>.google-optimize-loading {{ ab_hide_selector }} { opacity: 0 !important; }</style>
-	<script>
-		var antiflickerConf = {'{{ google_tag_value }}':true};
-		(function(a,s,y,n,c,h,i,d,e){
-			s.className+=' '+y; h.start=1*new Date; h.end=i=function(){
-				s.className=s.className.replace(RegExp(' ?'+y),'');
-				h.duration=h.duration || (1*new Date)-h.start;
-			}; (a[n]=a[n]||[]).hide=h; setTimeout(function(){i();h.end=null},c); h.timeout=c;
-		})(window, document.documentElement, 'google-optimize-loading', 'dataLayer', 4000, antiflickerConf);
-	</script>
+    <style>.google-optimize-loading {{ ab_hide_selector }} { opacity: 0 !important; }</style>
+    <script>
+        var antiflickerConf = {'{{ google_tag_value }}':true};
+        (function(a,s,y,n,c,h,i,d,e){
+            s.className+=' '+y; h.start=1*new Date; h.end=i=function(){
+                s.className=s.className.replace(RegExp(' ?'+y),'');
+                h.duration=h.duration || (1*new Date)-h.start;
+            }; (a[n]=a[n]||[]).hide=h; setTimeout(function(){i();h.end=null},c); h.timeout=c;
+        })(window, document.documentElement, 'google-optimize-loading', 'dataLayer', 4000, antiflickerConf);
+    </script>
 {% endif %}

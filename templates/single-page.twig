@@ -1,23 +1,23 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	<div class="page-header">
-		<div class="page-header-background"></div>
-	</div>
+    <div class="page-header">
+        <div class="page-header-background"></div>
+    </div>
 
-	<div class="page-content container">
+    <div class="page-content container">
 
-		<form id="password-form" class="password-form" action="{{login_url}}?action=postpass" method="post">
-			<div class="mb-3">
-				<label for="pwbox-{{post.ID}}" class="form-label"><h6>{{ __( 'To see the content of this page, please enter your password  below', 'planet4-master-theme' ) }}</h6></label>
-				<div class="input-text">
-					<input name="post_password" id="pwbox-{{post.ID}}" type="password" {% if not is_password_valid %}class="is-invalid"{% endif %}>
-					{% if not is_password_valid %} <div class="invalid-feedback">{{ __( 'Invalid password, please try again', 'planet4-master-theme' ) }}</div>{% endif %}
-				</div>
-			</div>
-			<div class="mb-3">
-				<button class="btn btn-primary" type="submit">{{ __( 'Submit', 'planet4-master-theme' ) }}</button>
-			</div>
-		</form>
-	</div>
+        <form id="password-form" class="password-form" action="{{login_url}}?action=postpass" method="post">
+            <div class="mb-3">
+                <label for="pwbox-{{post.ID}}" class="form-label"><h6>{{ __( 'To see the content of this page, please enter your password  below', 'planet4-master-theme' ) }}</h6></label>
+                <div class="input-text">
+                    <input name="post_password" id="pwbox-{{post.ID}}" type="password" {% if not is_password_valid %}class="is-invalid"{% endif %}>
+                    {% if not is_password_valid %} <div class="invalid-feedback">{{ __( 'Invalid password, please try again', 'planet4-master-theme' ) }}</div>{% endif %}
+                </div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit">{{ __( 'Submit', 'planet4-master-theme' ) }}</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}

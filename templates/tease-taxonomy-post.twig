@@ -1,69 +1,69 @@
 <li id="result-row-{{ post.ID }}" class="d-flex search-result-list-item">
-	{% include "blocks/image.twig" with {post:post, dummy_thumbnail:dummy_thumbnail} %}
+    {% include "blocks/image.twig" with {post:post, dummy_thumbnail:dummy_thumbnail} %}
 
-	<div id="tease-{{ post.ID }}" class="search-result-item-body tease tease-{{ post.post_type }}">
-		<div class="search-result-tags top-page-tags">
-			{% if (post.page_types is not empty) %}
-				<a
-					href="{{ fn('get_term_link', post.page_types.0.term_id) }}"
-					class="search-result-item-head no-btn tag-item tag-item--main page-type"
-					data-ga-category="Articles List"
-					data-ga-action="Post Type Tag"
-					data-ga-label="n/a">
-						{{ post.get_page_types.0.name|e('wp_kses_post')|raw }}
-				</a>
-			{% endif %}
+    <div id="tease-{{ post.ID }}" class="search-result-item-body tease tease-{{ post.post_type }}">
+        <div class="search-result-tags top-page-tags">
+            {% if (post.page_types is not empty) %}
+                <a
+                    href="{{ fn('get_term_link', post.page_types.0.term_id) }}"
+                    class="search-result-item-head no-btn tag-item tag-item--main page-type"
+                    data-ga-category="Articles List"
+                    data-ga-action="Post Type Tag"
+                    data-ga-label="n/a">
+                        {{ post.get_page_types.0.name|e('wp_kses_post')|raw }}
+                </a>
+            {% endif %}
 
-			{% if ( (post.page_types is not empty) and post.tags ) %}
-				<span class="tag-wrap-bullet" aria-hidden="true">&#8226;</span>
-			{% endif %}
+            {% if ( (post.page_types is not empty) and post.tags ) %}
+                <span class="tag-wrap-bullet" aria-hidden="true">&#8226;</span>
+            {% endif %}
 
-			{% if (post.tags) %}
-				<div class="tag-wrap tags">
-					{% for tag in post.tags %}
-						<a
-							href="{{ tag.link }}"
-							class="search-result-item-tag tag-item tag"
-							data-ga-category="Articles List"
-							data-ga-action="Navigation Tag"
-							data-ga-label="n/a">
-							<span aria-label="hashtag">#</span>{{ tag.name|e('wp_kses_post')|raw }}
-						</a>
-					{% endfor %}
-				</div>
-			{% endif %}
-		</div>
+            {% if (post.tags) %}
+                <div class="tag-wrap tags">
+                    {% for tag in post.tags %}
+                        <a
+                            href="{{ tag.link }}"
+                            class="search-result-item-tag tag-item tag"
+                            data-ga-category="Articles List"
+                            data-ga-action="Navigation Tag"
+                            data-ga-label="n/a">
+                            <span aria-label="hashtag">#</span>{{ tag.name|e('wp_kses_post')|raw }}
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
 
-		<a
-			href="{{ post.link() }}"
-			class="search-result-item-headline"
-			data-ga-category="Articles List"
-			data-ga-action="Title"
-			data-ga-label="n/a">
-				{{ post.title|e('wp_kses_post')|raw }}
-		</a>
+        <a
+            href="{{ post.link() }}"
+            class="search-result-item-headline"
+            data-ga-category="Articles List"
+            data-ga-action="Title"
+            data-ga-label="n/a">
+                {{ post.title|e('wp_kses_post')|raw }}
+        </a>
 
-		<p class="search-result-item-content">{{ post.post_excerpt|excerpt( 30 )|e('wp_kses_post')|raw }}</p>
+        <p class="search-result-item-content">{{ post.post_excerpt|excerpt( 30 )|e('wp_kses_post')|raw }}</p>
 
-		<div class="search-result-item-info">
-			{% if ( post.author ) %}
-				<span class="search-result-item-author">
-					{% if not ( post.get_author_override ) %}
-						<a href="{{ post.author.path }}">{{ post.author }}</a>
-					{% else %}
-						{{ post.author.name }}
-					{% endif %}
-				</span>
-			{% endif %}
-			<span class="search-result-item-date">{{ post.post_date|date }}</span>
-			{% set reading_time = post.reading_time %}
-			{% if reading_time %}
-				<span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
-				<span class="single-post-meta-readtime">
-					{{ __( '%d min read', 'planet4-master-theme' )|format(reading_time) }}
-				</span>
-			{% endif %}
-		</div>
+        <div class="search-result-item-info">
+            {% if ( post.author ) %}
+                <span class="search-result-item-author">
+                    {% if not ( post.get_author_override ) %}
+                        <a href="{{ post.author.path }}">{{ post.author }}</a>
+                    {% else %}
+                        {{ post.author.name }}
+                    {% endif %}
+                </span>
+            {% endif %}
+            <span class="search-result-item-date">{{ post.post_date|date }}</span>
+            {% set reading_time = post.reading_time %}
+            {% if reading_time %}
+                <span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
+                <span class="single-post-meta-readtime">
+                    {{ __( '%d min read', 'planet4-master-theme' )|format(reading_time) }}
+                </span>
+            {% endif %}
+        </div>
 
-	</div>
+    </div>
 </li>
