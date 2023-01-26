@@ -1,27 +1,27 @@
 {% set logo = custom_styles.campaign_logo %}
 {% set logo_color = custom_styles.campaign_logo_color %}
 {% if (logo) and (logo_color) %}
-	{% if logo == 'greenpeace' %}
-		<img
-			src="{{ data_nav_bar.images }}gp-logo-{{ logo_color }}.svg"
-			alt="Greenpeace"
-			data-ga-category="Menu Navigation"
-			data-ga-action="Greenpeace Logo"
-			data-ga-label="{{ page_category }}">
-	{% else %}
-		{% set color = logo_color == 'green' ? 'light' : logo_color %}
-		<img
-			src="{{ data_nav_bar.images }}{{ logo }}/logo-{{ color }}.png"
-			alt="Greenpeace"
-			data-ga-category="Menu Navigation"
-			data-ga-action="Greenpeace Logo"
-			data-ga-label="{{ page_category }}">
-	{% endif %}
+    {% if logo == 'greenpeace' %}
+        <img
+            src="{{ data_nav_bar.images }}gp-logo-{{ logo_color }}.svg"
+            alt="Greenpeace"
+            data-ga-category="Menu Navigation"
+            data-ga-action="Greenpeace Logo"
+            data-ga-label="{{ page_category }}">
+    {% else %}
+        {% set color = logo_color == 'green' ? 'light' : logo_color %}
+        <img
+            src="{{ data_nav_bar.images }}{{ logo }}/logo-{{ color }}.png"
+            alt="Greenpeace"
+            data-ga-category="Menu Navigation"
+            data-ga-action="Greenpeace Logo"
+            data-ga-label="{{ page_category }}">
+    {% endif %}
 {% else %}
-	<img
-		src="{{ data_nav_bar.images }}gp-logo.svg"
-		alt="Greenpeace"
-		data-ga-category="Menu Navigation"
-		data-ga-action="Greenpeace Logo"
-		data-ga-label="{{ page_category }}">
+    <img
+        src="{{ data_nav_bar.images }}gp-logo.svg"
+        alt="Greenpeace"
+        data-ga-category="Menu Navigation"
+        data-ga-action="Greenpeace Logo"
+        data-ga-label="{{ page_category }}">
 {% endif %}

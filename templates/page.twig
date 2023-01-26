@@ -1,7 +1,7 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	<div class="page-content container {% if hide_page_title or not header_title %}no-page-title{% endif %}">
-		{{ post.content|raw }}
-	</div>
+    <div class="page-content container {% if hide_page_title or not header_title %}no-page-title{% endif %}">
+        {{ post.content|raw }}
+    </div>
 {% endblock %}

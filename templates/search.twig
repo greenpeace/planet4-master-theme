@@ -1,361 +1,361 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	{% set disabled  = posts ? '' : 'disabled' %}
-	{% set collapsed = posts ? '' : 'collapsed' %}
-	{% set show      = posts ? 'show' : '' %}
-	{% set expanded  = posts ? true : false %}
-	{% set search_label = __( 'Search', 'planet4-master-theme' ) %}
+    {% set disabled  = posts ? '' : 'disabled' %}
+    {% set collapsed = posts ? '' : 'collapsed' %}
+    {% set show      = posts ? 'show' : '' %}
+    {% set expanded  = posts ? true : false %}
+    {% set search_label = __( 'Search', 'planet4-master-theme' ) %}
 
-	<div class="search-block">
-		<div class="container">
-			<div class="without-search-result row clearfix">
-				<div class="col-md-12">
-					<h1 class="result-statement">{{ page_title|e('wp_kses_post')|raw }}</h1>
-					{% if query_time %}
-					<i> in {{ query_time }} ms</i>
-					{% endif %}
-					{% if ( not posts ) %}
-						<p class="search-info">{{ exception ?? __( 'We\'re sorry we couldn\'t find any matches for your search term.', 'planet4-master-theme' ) }}</p>
-						<ul class="search-help-info">
-							<li>{{ __( 'Check for typos, and try your search again', 'planet4-master-theme' ) }}</li>
-							<li>{{ __( 'Try searching for somthing else', 'planet4-master-theme' ) }}</li>
-						</ul>
-					{% endif %}
-					{% if ( corrected_term ) %}
-						<p class="search-info">{{ __( 'We also included results for ', 'planet4-master-theme' ) }} <span class="btn btn-filter-item">{{ corrected_term }} <i class="icon-cross">{{ 'times'|svgicon }}</i></span></p>
-					{% endif %}
-				</div>
-				<div class="col-md-12">
-					<div class="search-bar">
-						<form id="search_form_inner" role="search" class="form" action="{{ data_nav_bar.home_url }}">
-							<div class="row">
-								<div class="col-md-9">
-									<input type="search" class="form-control mb-2 mb-sm-0" placeholder="{{ search_label }}" value="{{ search_query|e('wp_kses_post')|raw }}" name="s" aria-label="Search">
-									<input type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}" />
-								</div>
-								<div class="col-md-3">
-									<button
-										type="submit"
-										class="btn btn-primary search-btn btn-block"
-										data-ga-category="Search Page"
-										data-ga-action="Search Button"
-										data-ga-label="n/a" >
-										{{ 'search'|svgicon }}
-										{{ __('Search', 'planet4-master-theme' ) }}
-									</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			<div class="search-filter-results row clearfix">
-				<div class="col-lg-4">
-					<div class="filter-sidebar">
-						<div class="filter-button d-lg-none">
-							<button class="btn btn-filter {{ disabled }}" data-bs-toggle="modal" data-bs-target="#filtermodal">
-								{{ 'filter'|svgicon }}
-							 	{{ __( 'Filters', 'planet4-master-theme' ) }}
-							 </button>
-						</div>
-						<div class="modal fade filter-modal" id="filtermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog modal-lg" role="document">
-								<div class="modal-content">
-									<div class="modal-body">
-										<div class="row">
-											<div class="col-9">
-												<h4 class="modal-title">{{ __( 'Refine your search', 'planet4-master-theme' ) }}</h4>
-											</div>
-											<div class="col-3 text-end">
-												<button type="button" class="closebtn" data-bs-dismiss="modal">
-													{{ 'times'|svgicon }}
-												</button>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6">
-												<div id="filter-sidebar-options-modal">
-													{% if ( categories|length > 0 ) %}
-														<div class="filteritem">
-															<a data-bs-toggle="collapse" href="#item-modal-issue" aria-expanded="true">
-																{{ __( 'Category', 'planet4-master-theme' ) }} <span></span>
-															</a>
-															<div id="item-modal-issue" class="collapse show" role="tabpanel">
-																<ul class="list-unstyled">
-																	{% for category in categories %}
-																		{% if ( category.results > 0 ) %}
-																			<li>
-																				<label class="custom-control">
-																					<input
-																						type="checkbox"
-																						name="f[cat][{{ category.name }}]"
-																						value="{{ category.term_id }}"
-																						class="p4-custom-control-input modal-checkbox"
-																						data-ga-category="Search Page"
-																						data-ga-action="Category Filter"
-																						data-ga-label="{{ category.name|e('wp_kses_post')|raw }}"
-																						{{ category.checked }} {{ category.results > 0 ? '' : 'disabled' }} />
-																					<span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} ({{ category.results }})</span>
-																				</label>
-																			</li>
-																		{% endif %}
-																	{% endfor %}
-																</ul>
-															</div>
-														</div>
-													{% endif %}
-													{% if ( page_types|length > 0 ) %}
-														<div class="filteritem">
-															<a data-bs-toggle="collapse" href="#item-modal-category" aria-expanded="true">
-																{{ __( 'Post Type', 'planet4-master-theme' ) }} <span></span>
-															</a>
-															<div id="item-modal-category" class="collapse show" role="tabpanel">
-																<ul class="list-unstyled">
-																	{% for page_type in page_types %}
-																		{% if ( page_type.results > 0 ) %}
-																			<li>
-																				<label class="custom-control">
-																					<input
-																						type="checkbox"
-																						name="f[ptype][{{ page_type.name }}]"
-																						value="{{ page_type.term_id }}"
-																						class="p4-custom-control-input modal-checkbox"
-																						data-ga-category="Search Page"
-																						data-ga-action="Post Type Filter"
-																						data-ga-label="{{ page_type.name|e('wp_kses_post')|raw }}"
-																						{{ page_type.checked }} {{ page_type.results > 0 ? '' : 'disabled' }} />
-																					<span class="custom-control-description">{{ page_type.name }} ({{ page_type.results }})</span>
-																				</label>
-																			</li>
-																		{% endif %}
-																	{% endfor %}
-																</ul>
-															</div>
-														</div>
-													{% endif %}
-													{% if ( content_types|length > 0 ) %}
-														<div class="filteritem">
-															<a data-bs-toggle="collapse" href="#item-modal-content" aria-expanded="true">
-																{{ __( 'Content Type', 'planet4-master-theme' ) }} <span></span>
-															</a>
-															<div id="item-modal-content" class="collapse show" role="tabpanel">
-																<ul class="list-unstyled">
-																	{% for id, content_type in content_types %}
-																		{% if ( content_type.results > 0 ) %}
-																			<li>
-																				<label class="custom-control">
-																					<input
-																						type="checkbox"
-																						name="f[ctype][{{ content_type.name }}]"
-																						value="{{ id }}"
-																						class="p4-custom-control-input modal-checkbox"
-																						data-ga-category="Search Page"
-																						data-ga-action="Content Filter"
-																						data-ga-label="{{ content_type.name|e('wp_kses_post')|raw }}"
-																						{{ content_type.checked }} {{ content_type.results > 0 ? '' : 'disabled' }} />
-																					<span class="custom-control-description">{{ content_type.name }} ({{ content_type.results }})</span>
-																				</label>
-																			</li>
-																		{% endif %}
-																	{% endfor %}
-																</ul>
-															</div>
-														</div>
-													{% endif %}
-												</div>
-											</div>
-										</div>
-										<div class="btnact">
-											<button type="button" class="btn btn-action btn-small cancelbtn" data-bs-dismiss="modal">{{ __( 'Cancel', 'planet4-master-theme' ) }}</button>
-											<button type="button" class="btn btn-primary btn-small applybtn">{{ __( 'Apply filters', 'planet4-master-theme' ) }}</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div id="filter-sidebar-options" class="d-none d-lg-block">
-							<h4>{{ __( 'Refine your search', 'planet4-master-theme' ) }}</h4>
-							{% if ( filters ) %}
-								<div class="active-filter">
-									<h5>{{ __( 'ACTIVE FILTERS', 'planet4-master-theme' ) }}</h5>
-									<div class="activefilter-list">
-										{% for filter_type in filters %}
-											{% for filter in filter_type %}
-												<button class="activefilter-tag" data-id="{{ filter.id }}">
-													{{ filter.name|e('wp_kses_post')|raw }} <i class="icon-cross">{{ 'times'|svgicon }}</i>
-												</button>
-											{% endfor %}
-										{% endfor %}
-										<button class="btn clearall">{{ __( 'Clear all', 'planet4-master-theme' ) }} <i class="icon-cross"></i></button>
-									</div>
-								</div>
-							{% endif %}
-							{% if ( categories|length > 0 ) %}
-								<div class="filteritem">
-									<a data-bs-toggle="collapse" href="#item-issue" aria-expanded="true">
-										{{ __( 'Category', 'planet4-master-theme' ) }} <span></span>
-									</a>
-									<div id="item-issue" class="collapse show" role="tabpanel">
-										<ul class="list-unstyled">
-											{% for category in categories %}
-												{% if ( category.results > 0 ) %}
-												<li>
-													<label class="custom-control">
-														<input
-																type="checkbox"
-																name="f[cat][{{ category.name }}]"
-																value="{{ category.term_id }}"
-																class="p4-custom-control-input"
-																data-ga-category="Search Page"
-																data-ga-action="Category Filter"
-																data-ga-label="{{ category.name|e('wp_kses_post')|raw }}"
-																{{ category.checked }} {{ category.results > 0 ? '' : 'disabled' }} />
-														<span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} ({{ category.results }})</span>
-													</label>
-												</li>
-												{% endif %}
-											{% endfor %}
-										</ul>
-									</div>
-								</div>
-							{% endif %}
-							{% if ( post_types|length > 0 ) %}
-								<div class="filteritem">
-									<a data-bs-toggle="collapse" href="#item-category" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
-										{{ __( 'Post Type', 'planet4-master-theme' ) }} <span></span>
-									</a>
-									<div id="item-category" class="collapse {{ show }}" role="tabpanel">
-										<ul class="list-unstyled">
-											{% for post_type in post_types %}
-												{% if ( post_type.results > 0 ) %}
-												<li>
-													<label class="custom-control">
-														<input
-															type="checkbox"
-															name="f[ptype][{{ post_type.name }}]"
-															value="{{ post_type.term_id }}"
-															class="p4-custom-control-input"
-															data-ga-category="Search Page"
-															data-ga-action="Post Type Filter"
-															data-ga-label="{{ post_type.name|e('wp_kses_post')|raw }}"
-															{{ post_type.checked }} {{ post_type.results > 0 ? '' : 'disabled' }} />
-														<span class="custom-control-description">{{ post_type.name|e('wp_kses_post')|raw }} ({{ post_type.results }})</span>
-													</label>
-												</li>
-												{% endif %}
-											{% endfor %}
-										</ul>
-									</div>
-								</div>
-							{% endif %}
-							{% if ( action_types|length > 0 ) %}
-								<div class="filteritem">
-									<a data-bs-toggle="collapse" href="#item-content" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
-										{{ __( 'Action Type', 'planet4-master-theme' ) }} <span></span>
-									</a>
-									<div id="item-content" class="collapse {{ show }}" role="tabpanel">
-										<ul class="list-unstyled">
-											{% for id, action_type in action_types %}
-												{% if ( action_type.results > 0 ) %}
-												<li>
-													<label class="custom-control">
-														<input
-															type="checkbox"
-															name="f[atype][{{ action_type.name }}]"
-															value="{{ id }}"
-															class="p4-custom-control-input"
-															data-ga-category="Search Page"
-															data-ga-action="Content Filter"
-															data-ga-label="{{ action_type.name|e('wp_kses_post')|raw }}"
-															{{ action_type.checked }} {{ action_type.results > 0 ? '' : 'disabled' }} />
-														<span class="custom-control-description">{{ action_type.name }} ({{ action_type.results }})</span>
-													</label>
-												</li>
-												{% endif %}
-											{% endfor %}
-										</ul>
-									</div>
-								</div>
-							{% endif %}
-							{% if ( content_types|length > 0 ) %}
-								<div class="filteritem">
-									<a data-bs-toggle="collapse" href="#item-content" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
-										{{ __( 'Content Type', 'planet4-master-theme' ) }} <span></span>
-									</a>
-									<div id="item-content" class="collapse {{ show }}" role="tabpanel">
-										<ul class="list-unstyled">
-											{% for id, content_type in content_types %}
-												{% if ( content_type.results > 0 ) %}
-												<li>
-													<label class="custom-control">
-														<input
-															type="checkbox"
-															name="f[ctype][{{ content_type.name }}]"
-															value="{{ id }}"
-															class="p4-custom-control-input"
-															data-ga-category="Search Page"
-															data-ga-action="Content Filter"
-															data-ga-label="{{ content_type.name|e('wp_kses_post')|raw }}"
-															{{ content_type.checked }} {{ content_type.results > 0 ? '' : 'disabled' }} />
-														<span class="custom-control-description">{{ content_type.name }} ({{ content_type.results }})</span>
-													</label>
-												</li>
-												{% endif %}
-											{% endfor %}
-										</ul>
-									</div>
-								</div>
-							{% endif %}
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-8">
-					<div class="result-area">
-						<div class="sort-filter clearfix">
-							<div class="select-container">
-								<label for="select_order">{{ __('Sort by', 'planet4-master-theme' ) }}</label>
-								<select
-										id="select_order"
-										class="form-select"
-										name="select_order"
-										data-ga-category="Search Page"
-										data-ga-action="Sort By Filter"
-										data-ga-label="{% if selected_sort == '_score' %}Most Relevant{% elseif selected_sort == 'post_date' %}Newest{% else %}Oldest{% endif %}">
-									{% for key, sort_option in sort_options %}
-										{% if key == selected_sort %}
-											<option value="{{ key }}" {{ not search_query and key == '_score' ? 'disabled' : 'selected' }}>{{ __( sort_option.name, 'planet4-master-theme' ) }}</option>
-										{% else %}
-											<option value="{{ key }}" {{ not search_query and key == '_score' ? 'disabled' : '' }}>{{ __( sort_option.name, 'planet4-master-theme' ) }}</option>
-										{% endif %}
-									{% endfor %}
-								</select>
-							</div>
-						</div>
-						<div class="multiple-search-result">
-							<ul class="list-unstyled">
-								{% for post in paged_posts %}
-									{% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
-								{% endfor %}
-							</ul>
-							{% if ( load_more and found_posts > paged_posts|length ) %}
-								<div class="col-lg-12 mb-5 load-more-button-div">
-									<button
-										class="btn btn-secondary more-btn btn-load-more-click-scroll"
-										data-current_page="{{ current_page }}"
-										data-total_posts="{{ found_posts }}"
-										data-posts_per_load="{{ load_more.posts_per_load }}"
-										data-ga-category="Search Page"
-										data-ga-action="Load More Button"
-										data-ga-label="n/a">
-											{{ load_more.button_text }}
-										</button>
-								</div>
-							{% endif %}
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="search-block">
+        <div class="container">
+            <div class="without-search-result row clearfix">
+                <div class="col-md-12">
+                    <h1 class="result-statement">{{ page_title|e('wp_kses_post')|raw }}</h1>
+                    {% if query_time %}
+                    <i> in {{ query_time }} ms</i>
+                    {% endif %}
+                    {% if ( not posts ) %}
+                        <p class="search-info">{{ exception ?? __( 'We\'re sorry we couldn\'t find any matches for your search term.', 'planet4-master-theme' ) }}</p>
+                        <ul class="search-help-info">
+                            <li>{{ __( 'Check for typos, and try your search again', 'planet4-master-theme' ) }}</li>
+                            <li>{{ __( 'Try searching for somthing else', 'planet4-master-theme' ) }}</li>
+                        </ul>
+                    {% endif %}
+                    {% if ( corrected_term ) %}
+                        <p class="search-info">{{ __( 'We also included results for ', 'planet4-master-theme' ) }} <span class="btn btn-filter-item">{{ corrected_term }} <i class="icon-cross">{{ 'times'|svgicon }}</i></span></p>
+                    {% endif %}
+                </div>
+                <div class="col-md-12">
+                    <div class="search-bar">
+                        <form id="search_form_inner" role="search" class="form" action="{{ data_nav_bar.home_url }}">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <input type="search" class="form-control mb-2 mb-sm-0" placeholder="{{ search_label }}" value="{{ search_query|e('wp_kses_post')|raw }}" name="s" aria-label="Search">
+                                    <input type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}" />
+                                </div>
+                                <div class="col-md-3">
+                                    <button
+                                        type="submit"
+                                        class="btn btn-primary search-btn btn-block"
+                                        data-ga-category="Search Page"
+                                        data-ga-action="Search Button"
+                                        data-ga-label="n/a" >
+                                        {{ 'search'|svgicon }}
+                                        {{ __('Search', 'planet4-master-theme' ) }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="search-filter-results row clearfix">
+                <div class="col-lg-4">
+                    <div class="filter-sidebar">
+                        <div class="filter-button d-lg-none">
+                            <button class="btn btn-filter {{ disabled }}" data-bs-toggle="modal" data-bs-target="#filtermodal">
+                                {{ 'filter'|svgicon }}
+                                 {{ __( 'Filters', 'planet4-master-theme' ) }}
+                             </button>
+                        </div>
+                        <div class="modal fade filter-modal" id="filtermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <h4 class="modal-title">{{ __( 'Refine your search', 'planet4-master-theme' ) }}</h4>
+                                            </div>
+                                            <div class="col-3 text-end">
+                                                <button type="button" class="closebtn" data-bs-dismiss="modal">
+                                                    {{ 'times'|svgicon }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div id="filter-sidebar-options-modal">
+                                                    {% if ( categories|length > 0 ) %}
+                                                        <div class="filteritem">
+                                                            <a data-bs-toggle="collapse" href="#item-modal-issue" aria-expanded="true">
+                                                                {{ __( 'Category', 'planet4-master-theme' ) }} <span></span>
+                                                            </a>
+                                                            <div id="item-modal-issue" class="collapse show" role="tabpanel">
+                                                                <ul class="list-unstyled">
+                                                                    {% for category in categories %}
+                                                                        {% if ( category.results > 0 ) %}
+                                                                            <li>
+                                                                                <label class="custom-control">
+                                                                                    <input
+                                                                                        type="checkbox"
+                                                                                        name="f[cat][{{ category.name }}]"
+                                                                                        value="{{ category.term_id }}"
+                                                                                        class="p4-custom-control-input modal-checkbox"
+                                                                                        data-ga-category="Search Page"
+                                                                                        data-ga-action="Category Filter"
+                                                                                        data-ga-label="{{ category.name|e('wp_kses_post')|raw }}"
+                                                                                        {{ category.checked }} {{ category.results > 0 ? '' : 'disabled' }} />
+                                                                                    <span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} ({{ category.results }})</span>
+                                                                                </label>
+                                                                            </li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if ( page_types|length > 0 ) %}
+                                                        <div class="filteritem">
+                                                            <a data-bs-toggle="collapse" href="#item-modal-category" aria-expanded="true">
+                                                                {{ __( 'Post Type', 'planet4-master-theme' ) }} <span></span>
+                                                            </a>
+                                                            <div id="item-modal-category" class="collapse show" role="tabpanel">
+                                                                <ul class="list-unstyled">
+                                                                    {% for page_type in page_types %}
+                                                                        {% if ( page_type.results > 0 ) %}
+                                                                            <li>
+                                                                                <label class="custom-control">
+                                                                                    <input
+                                                                                        type="checkbox"
+                                                                                        name="f[ptype][{{ page_type.name }}]"
+                                                                                        value="{{ page_type.term_id }}"
+                                                                                        class="p4-custom-control-input modal-checkbox"
+                                                                                        data-ga-category="Search Page"
+                                                                                        data-ga-action="Post Type Filter"
+                                                                                        data-ga-label="{{ page_type.name|e('wp_kses_post')|raw }}"
+                                                                                        {{ page_type.checked }} {{ page_type.results > 0 ? '' : 'disabled' }} />
+                                                                                    <span class="custom-control-description">{{ page_type.name }} ({{ page_type.results }})</span>
+                                                                                </label>
+                                                                            </li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if ( content_types|length > 0 ) %}
+                                                        <div class="filteritem">
+                                                            <a data-bs-toggle="collapse" href="#item-modal-content" aria-expanded="true">
+                                                                {{ __( 'Content Type', 'planet4-master-theme' ) }} <span></span>
+                                                            </a>
+                                                            <div id="item-modal-content" class="collapse show" role="tabpanel">
+                                                                <ul class="list-unstyled">
+                                                                    {% for id, content_type in content_types %}
+                                                                        {% if ( content_type.results > 0 ) %}
+                                                                            <li>
+                                                                                <label class="custom-control">
+                                                                                    <input
+                                                                                        type="checkbox"
+                                                                                        name="f[ctype][{{ content_type.name }}]"
+                                                                                        value="{{ id }}"
+                                                                                        class="p4-custom-control-input modal-checkbox"
+                                                                                        data-ga-category="Search Page"
+                                                                                        data-ga-action="Content Filter"
+                                                                                        data-ga-label="{{ content_type.name|e('wp_kses_post')|raw }}"
+                                                                                        {{ content_type.checked }} {{ content_type.results > 0 ? '' : 'disabled' }} />
+                                                                                    <span class="custom-control-description">{{ content_type.name }} ({{ content_type.results }})</span>
+                                                                                </label>
+                                                                            </li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="btnact">
+                                            <button type="button" class="btn btn-action btn-small cancelbtn" data-bs-dismiss="modal">{{ __( 'Cancel', 'planet4-master-theme' ) }}</button>
+                                            <button type="button" class="btn btn-primary btn-small applybtn">{{ __( 'Apply filters', 'planet4-master-theme' ) }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="filter-sidebar-options" class="d-none d-lg-block">
+                            <h4>{{ __( 'Refine your search', 'planet4-master-theme' ) }}</h4>
+                            {% if ( filters ) %}
+                                <div class="active-filter">
+                                    <h5>{{ __( 'ACTIVE FILTERS', 'planet4-master-theme' ) }}</h5>
+                                    <div class="activefilter-list">
+                                        {% for filter_type in filters %}
+                                            {% for filter in filter_type %}
+                                                <button class="activefilter-tag" data-id="{{ filter.id }}">
+                                                    {{ filter.name|e('wp_kses_post')|raw }} <i class="icon-cross">{{ 'times'|svgicon }}</i>
+                                                </button>
+                                            {% endfor %}
+                                        {% endfor %}
+                                        <button class="btn clearall">{{ __( 'Clear all', 'planet4-master-theme' ) }} <i class="icon-cross"></i></button>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if ( categories|length > 0 ) %}
+                                <div class="filteritem">
+                                    <a data-bs-toggle="collapse" href="#item-issue" aria-expanded="true">
+                                        {{ __( 'Category', 'planet4-master-theme' ) }} <span></span>
+                                    </a>
+                                    <div id="item-issue" class="collapse show" role="tabpanel">
+                                        <ul class="list-unstyled">
+                                            {% for category in categories %}
+                                                {% if ( category.results > 0 ) %}
+                                                <li>
+                                                    <label class="custom-control">
+                                                        <input
+                                                                type="checkbox"
+                                                                name="f[cat][{{ category.name }}]"
+                                                                value="{{ category.term_id }}"
+                                                                class="p4-custom-control-input"
+                                                                data-ga-category="Search Page"
+                                                                data-ga-action="Category Filter"
+                                                                data-ga-label="{{ category.name|e('wp_kses_post')|raw }}"
+                                                                {{ category.checked }} {{ category.results > 0 ? '' : 'disabled' }} />
+                                                        <span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} ({{ category.results }})</span>
+                                                    </label>
+                                                </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if ( post_types|length > 0 ) %}
+                                <div class="filteritem">
+                                    <a data-bs-toggle="collapse" href="#item-category" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
+                                        {{ __( 'Post Type', 'planet4-master-theme' ) }} <span></span>
+                                    </a>
+                                    <div id="item-category" class="collapse {{ show }}" role="tabpanel">
+                                        <ul class="list-unstyled">
+                                            {% for post_type in post_types %}
+                                                {% if ( post_type.results > 0 ) %}
+                                                <li>
+                                                    <label class="custom-control">
+                                                        <input
+                                                            type="checkbox"
+                                                            name="f[ptype][{{ post_type.name }}]"
+                                                            value="{{ post_type.term_id }}"
+                                                            class="p4-custom-control-input"
+                                                            data-ga-category="Search Page"
+                                                            data-ga-action="Post Type Filter"
+                                                            data-ga-label="{{ post_type.name|e('wp_kses_post')|raw }}"
+                                                            {{ post_type.checked }} {{ post_type.results > 0 ? '' : 'disabled' }} />
+                                                        <span class="custom-control-description">{{ post_type.name|e('wp_kses_post')|raw }} ({{ post_type.results }})</span>
+                                                    </label>
+                                                </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if ( action_types|length > 0 ) %}
+                                <div class="filteritem">
+                                    <a data-bs-toggle="collapse" href="#item-content" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
+                                        {{ __( 'Action Type', 'planet4-master-theme' ) }} <span></span>
+                                    </a>
+                                    <div id="item-content" class="collapse {{ show }}" role="tabpanel">
+                                        <ul class="list-unstyled">
+                                            {% for id, action_type in action_types %}
+                                                {% if ( action_type.results > 0 ) %}
+                                                <li>
+                                                    <label class="custom-control">
+                                                        <input
+                                                            type="checkbox"
+                                                            name="f[atype][{{ action_type.name }}]"
+                                                            value="{{ id }}"
+                                                            class="p4-custom-control-input"
+                                                            data-ga-category="Search Page"
+                                                            data-ga-action="Content Filter"
+                                                            data-ga-label="{{ action_type.name|e('wp_kses_post')|raw }}"
+                                                            {{ action_type.checked }} {{ action_type.results > 0 ? '' : 'disabled' }} />
+                                                        <span class="custom-control-description">{{ action_type.name }} ({{ action_type.results }})</span>
+                                                    </label>
+                                                </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if ( content_types|length > 0 ) %}
+                                <div class="filteritem">
+                                    <a data-bs-toggle="collapse" href="#item-content" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
+                                        {{ __( 'Content Type', 'planet4-master-theme' ) }} <span></span>
+                                    </a>
+                                    <div id="item-content" class="collapse {{ show }}" role="tabpanel">
+                                        <ul class="list-unstyled">
+                                            {% for id, content_type in content_types %}
+                                                {% if ( content_type.results > 0 ) %}
+                                                <li>
+                                                    <label class="custom-control">
+                                                        <input
+                                                            type="checkbox"
+                                                            name="f[ctype][{{ content_type.name }}]"
+                                                            value="{{ id }}"
+                                                            class="p4-custom-control-input"
+                                                            data-ga-category="Search Page"
+                                                            data-ga-action="Content Filter"
+                                                            data-ga-label="{{ content_type.name|e('wp_kses_post')|raw }}"
+                                                            {{ content_type.checked }} {{ content_type.results > 0 ? '' : 'disabled' }} />
+                                                        <span class="custom-control-description">{{ content_type.name }} ({{ content_type.results }})</span>
+                                                    </label>
+                                                </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="result-area">
+                        <div class="sort-filter clearfix">
+                            <div class="select-container">
+                                <label for="select_order">{{ __('Sort by', 'planet4-master-theme' ) }}</label>
+                                <select
+                                        id="select_order"
+                                        class="form-select"
+                                        name="select_order"
+                                        data-ga-category="Search Page"
+                                        data-ga-action="Sort By Filter"
+                                        data-ga-label="{% if selected_sort == '_score' %}Most Relevant{% elseif selected_sort == 'post_date' %}Newest{% else %}Oldest{% endif %}">
+                                    {% for key, sort_option in sort_options %}
+                                        {% if key == selected_sort %}
+                                            <option value="{{ key }}" {{ not search_query and key == '_score' ? 'disabled' : 'selected' }}>{{ __( sort_option.name, 'planet4-master-theme' ) }}</option>
+                                        {% else %}
+                                            <option value="{{ key }}" {{ not search_query and key == '_score' ? 'disabled' : '' }}>{{ __( sort_option.name, 'planet4-master-theme' ) }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="multiple-search-result">
+                            <ul class="list-unstyled">
+                                {% for post in paged_posts %}
+                                    {% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
+                                {% endfor %}
+                            </ul>
+                            {% if ( load_more and found_posts > paged_posts|length ) %}
+                                <div class="col-lg-12 mb-5 load-more-button-div">
+                                    <button
+                                        class="btn btn-secondary more-btn btn-load-more-click-scroll"
+                                        data-current_page="{{ current_page }}"
+                                        data-total_posts="{{ found_posts }}"
+                                        data-posts_per_load="{{ load_more.posts_per_load }}"
+                                        data-ga-category="Search Page"
+                                        data-ga-action="Load More Button"
+                                        data-ga-label="n/a">
+                                            {{ load_more.button_text }}
+                                        </button>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

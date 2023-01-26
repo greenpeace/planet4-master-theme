@@ -2,122 +2,122 @@
 
 {% block content %}
 
-	<div class="clearfix"></div>
+    <div class="clearfix"></div>
 
-	<article id="post-{{ post.ID }}">
+    <article id="post-{{ post.ID }}">
 
-		<div class="container narrow-container">
-			<header class="page-header">
-				<div class="top-page-tags">
-					{% if ( page_type ) %}
-						<a
-							class="tag-item tag-item--main page-type"
-							href="{{ fn('get_term_link', page_term_id) }}"
-							data-ga-category="Header"
-							data-ga-action="Post Type Tag"
-							data-ga-label="n/a">
-								{{ page_type|e('wp_kses_post')|raw }}
-						</a>
-					{% endif %}
+        <div class="container narrow-container">
+            <header class="page-header">
+                <div class="top-page-tags">
+                    {% if ( page_type ) %}
+                        <a
+                            class="tag-item tag-item--main page-type"
+                            href="{{ fn('get_term_link', page_term_id) }}"
+                            data-ga-category="Header"
+                            data-ga-action="Post Type Tag"
+                            data-ga-label="n/a">
+                                {{ page_type|e('wp_kses_post')|raw }}
+                        </a>
+                    {% endif %}
 
-					{% if ( page_type and post.issues_nav_data ) %}
-						<span class="main-tag-chevron" aria-hidden="true"></span>
-					{% endif %}
+                    {% if ( page_type and post.issues_nav_data ) %}
+                        <span class="main-tag-chevron" aria-hidden="true"></span>
+                    {% endif %}
 
-					{% if ( post.issues_nav_data ) %}
-						<div class="tag-wrap issues">
-							{% for issue in post.issues_nav_data %}
-								<a
-									class="tag-item tag-item--main"
-									href="{{ issue.link|default('#') }}"
-									data-ga-category="Header"
-									data-ga-action="Category Tag"
-									data-ga-label="n/a">
-										{{ issue.name|e('wp_kses_post')|raw }}
-								</a>
+                    {% if ( post.issues_nav_data ) %}
+                        <div class="tag-wrap issues">
+                            {% for issue in post.issues_nav_data %}
+                                <a
+                                    class="tag-item tag-item--main"
+                                    href="{{ issue.link|default('#') }}"
+                                    data-ga-category="Header"
+                                    data-ga-action="Category Tag"
+                                    data-ga-label="n/a">
+                                        {{ issue.name|e('wp_kses_post')|raw }}
+                                </a>
 
-								{% if ( loop.last == false ) %}
-									<span class="category-separator" aria-hidden="true">|</span>
-								{% endif %}
+                                {% if ( loop.last == false ) %}
+                                    <span class="category-separator" aria-hidden="true">|</span>
+                                {% endif %}
 
-							{% endfor %}
-						</div>
-					{% endif %}
-				</div>
-				<h1 class="page-header-title">{{ post.title|raw }}</h1>
-				<div class="single-post-meta">
-					{% if not post.get_author_override and post.author.avatar %}
-						<img itemprop="image" class="author-pic"
-							src="{{ fn('get_avatar_url', post.author.id, {'size' : 50, 'default': 'mm'}) }}"
-							alt="{{ post.author.avatar }}">
-					{% endif %}
-					<div class="d-inline-block">
-						{% if post.author.name %}
-							<address class="single-post-author">
-								{% if not ( post.get_author_override ) %}
-									<a href="{{ post.author.path }}">{{ post.author.name }}</a>
-								{% else %}
-									{{ post.author.name }}
-								{% endif %}
-							</address>
-						{% endif %}
-						<time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
-						{% set reading_time = post.reading_time %}
-						{% if reading_time %}
-							<span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
-							<span class="single-post-meta-readtime">
-								{{ __( '%d min read', 'planet4-master-theme' )|format(reading_time) }}
-							</span>
-						{% endif %}
-						{% if ( show_comments ) %}
-							<span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
-							<a href="#comments" class="comment-link">
-									{{ 'comments'|svgicon }}
-									<span class="quantity"> {{ post_comments_count }} <span class="display-text">{{ __( 'Comments', 'planet4-master-theme' ) }}</span>
-							</a>
-						{% endif %}
-					</div>
-				</div>
-				{% include "blocks/share_buttons.twig" with {social:post.share_meta, utm_medium: 'share'} %}
-			</header>
-		</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <h1 class="page-header-title">{{ post.title|raw }}</h1>
+                <div class="single-post-meta">
+                    {% if not post.get_author_override and post.author.avatar %}
+                        <img itemprop="image" class="author-pic"
+                            src="{{ fn('get_avatar_url', post.author.id, {'size' : 50, 'default': 'mm'}) }}"
+                            alt="{{ post.author.avatar }}">
+                    {% endif %}
+                    <div class="d-inline-block">
+                        {% if post.author.name %}
+                            <address class="single-post-author">
+                                {% if not ( post.get_author_override ) %}
+                                    <a href="{{ post.author.path }}">{{ post.author.name }}</a>
+                                {% else %}
+                                    {{ post.author.name }}
+                                {% endif %}
+                            </address>
+                        {% endif %}
+                        <time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
+                        {% set reading_time = post.reading_time %}
+                        {% if reading_time %}
+                            <span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
+                            <span class="single-post-meta-readtime">
+                                {{ __( '%d min read', 'planet4-master-theme' )|format(reading_time) }}
+                            </span>
+                        {% endif %}
+                        {% if ( show_comments ) %}
+                            <span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
+                            <a href="#comments" class="comment-link">
+                                    {{ 'comments'|svgicon }}
+                                    <span class="quantity"> {{ post_comments_count }} <span class="display-text">{{ __( 'Comments', 'planet4-master-theme' ) }}</span>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% include "blocks/share_buttons.twig" with {social:post.share_meta, utm_medium: 'share'} %}
+            </header>
+        </div>
 
-		<!-- Post Block Start -->
-		<div class="container narrow-container">
-			<div class="post-content">
-				<article class="post-details clearfix">
-					{{ post.content|raw }}
-					{% if ( post.take_action_boxout ) %}
-						{{ fn('do_blocks', post.take_action_boxout )|raw }}
-					{% endif %}
-				</article>
-			</div>
-			<div class="post-tags">
-				{% if ( post.tags ) %}
-					{% for tag in post.tags %}
-						<a
-							class="btn post-tag-button"
-							href="{{ tag.link }}"
-							data-ga-category="Post"
-							data-ga-action="Navigation Tag"
-						>
-							<span aria-label="hashtag">#</span><span>{{ tag.name|e('wp_kses_post')|raw }}</span>
-						</a>
-					{% endfor %}
-				{% endif %}
-			</div>
-		</div>
-		<!-- Post Page Block End -->
+        <!-- Post Block Start -->
+        <div class="container narrow-container">
+            <div class="post-content">
+                <article class="post-details clearfix">
+                    {{ post.content|raw }}
+                    {% if ( post.take_action_boxout ) %}
+                        {{ fn('do_blocks', post.take_action_boxout )|raw }}
+                    {% endif %}
+                </article>
+            </div>
+            <div class="post-tags">
+                {% if ( post.tags ) %}
+                    {% for tag in post.tags %}
+                        <a
+                            class="btn post-tag-button"
+                            href="{{ tag.link }}"
+                            data-ga-category="Post"
+                            data-ga-action="Navigation Tag"
+                        >
+                            <span aria-label="hashtag">#</span><span>{{ tag.name|e('wp_kses_post')|raw }}</span>
+                        </a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <!-- Post Page Block End -->
 
-		{% include "blocks/author_profile.twig" with {post:post} %}
+        {% include "blocks/author_profile.twig" with {post:post} %}
 
-		{% if ( post.articles ) %}
-			<section class="container post-articles-block">
-				{{ fn('do_blocks', post.articles )|raw }}
-			</section>
-		{% endif %}
-		{% if ( show_comments ) %}
-			{% include "comments_section.twig" with {comments:post.get_comments()} %}
-		{% endif %}
-	</article>
+        {% if ( post.articles ) %}
+            <section class="container post-articles-block">
+                {{ fn('do_blocks', post.articles )|raw }}
+            </section>
+        {% endif %}
+        {% if ( show_comments ) %}
+            {% include "comments_section.twig" with {comments:post.get_comments()} %}
+        {% endif %}
+    </article>
 {% endblock %}

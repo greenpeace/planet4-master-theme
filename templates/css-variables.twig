@@ -1,7 +1,7 @@
 <style>
-	:root {
-		{% for key, value in css_vars %}
-			--{{ key|trim('--', 'left') }}: {{ value|raw }};
-		{% endfor %}
-	}
+    :root {
+        {% for key, value in css_vars %}
+            --{{ key|trim('--', 'left') }}: {{ value|raw }};
+        {% endfor %}
+    }
 </style>

@@ -1,14 +1,14 @@
 <div class="form-group animated-label comment-email">
-	{% set placeholder = __( 'Your Email', 'planet4-master-theme' ) %}
-	{% set commenter_email = function('wp_get_current_commenter').comment_author_email ?? '' %}
-	<input
-		value="{{ commenter_email }}"
-		type="email"
-		class="form-control"
-		id="comments-email-input"
-		name="email"
-		placeholder="{{ placeholder }}"
-		required
-	/>
-	<label for="comments-email-input">{{ __( 'Email', 'planet4-master-theme' ) }}*</label>
+    {% set placeholder = __( 'Your Email', 'planet4-master-theme' ) %}
+    {% set commenter_email = function('wp_get_current_commenter').comment_author_email ?? '' %}
+    <input
+        value="{{ commenter_email }}"
+        type="email"
+        class="form-control"
+        id="comments-email-input"
+        name="email"
+        placeholder="{{ placeholder }}"
+        required
+    />
+    <label for="comments-email-input">{{ __( 'Email', 'planet4-master-theme' ) }}*</label>
 </div>

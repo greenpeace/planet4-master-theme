@@ -1,29 +1,29 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	<div class="page-header">
-		<div class="container">
-			<div class="left">
-				<div class="top-page-tags">
-					{% if ( category_name ) %}
-						<a class="tag-item tag-item--main" href="{{ category_link|default('#') }}">{{ category_name|e('wp_kses_post')|raw }}</a>
-					{% endif %}
-				</div>
-				<h1 class="page-header-title">
-					<span aria-label="hashtag">#</span>{{ tag_name|e('wp_kses_post')|raw }}
-				</h1>
-				<div class="page-header-content">{{ tag_description|e('wp_kses_post')|raw }}</div>
-			</div>
-			<div class="pull-right d-none d-md-block">
-				<div class="sharethis-inline-share-buttons"></div>
-			</div>
-		</div>
-	</div>
+    <div class="page-header">
+        <div class="container">
+            <div class="left">
+                <div class="top-page-tags">
+                    {% if ( category_name ) %}
+                        <a class="tag-item tag-item--main" href="{{ category_link|default('#') }}">{{ category_name|e('wp_kses_post')|raw }}</a>
+                    {% endif %}
+                </div>
+                <h1 class="page-header-title">
+                    <span aria-label="hashtag">#</span>{{ tag_name|e('wp_kses_post')|raw }}
+                </h1>
+                <div class="page-header-content">{{ tag_description|e('wp_kses_post')|raw }}</div>
+            </div>
+            <div class="pull-right d-none d-md-block">
+                <div class="sharethis-inline-share-buttons"></div>
+            </div>
+        </div>
+    </div>
 
-	<div class="page-content container">
-		{{ query_loop|raw }}
-		{% for name, block in blocks %}
-			{{ fn('do_blocks', block )|raw }}
-		{% endfor %}
-	</div>
+    <div class="page-content container">
+        {{ query_loop|raw }}
+        {% for name, block in blocks %}
+            {{ fn('do_blocks', block )|raw }}
+        {% endfor %}
+    </div>
 {% endblock %}

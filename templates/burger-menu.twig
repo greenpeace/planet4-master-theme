@@ -1,60 +1,60 @@
 <div id="nav-main" class="burger-menu d-lg-none">
-	<button
-			class="nav-menu-close"
-			type="button"
-			aria-label="{{ __( 'Close navigation mobile menu', 'planet4-master-theme' ) }}"
-			aria-expanded="false"
-			data-bs-toggle="open"
-			data-bs-target="#nav-main">
+    <button
+            class="nav-menu-close"
+            type="button"
+            aria-label="{{ __( 'Close navigation mobile menu', 'planet4-master-theme' ) }}"
+            aria-expanded="false"
+            data-bs-toggle="open"
+            data-bs-target="#nav-main">
     <span class="visually-hidden">
       {{ __( 'Close navigation mobile menu', 'planet4-master-theme' ) }}
     </span>
-	</button>
+    </button>
 
-	<div class="burger-menu-header">
-		<a class="site-logo" href="{{ data_nav_bar.home_url }}">
-			{% include "blocks/site_logo.twig" %}
-		</a>
+    <div class="burger-menu-header">
+        <a class="site-logo" href="{{ data_nav_bar.home_url }}">
+            {% include "blocks/site_logo.twig" %}
+        </a>
 
-		{% if site_languages is not empty and site_languages|length > 1 %}
-			{% include 'language-switcher.twig' %}
-		{% endif %}
-	</div>
+        {% if site_languages is not empty and site_languages|length > 1 %}
+            {% include 'language-switcher.twig' %}
+        {% endif %}
+    </div>
 
-	<div class="nav-wrapper">
-		<nav class="nav-items" aria-label="{{ __( 'Menu items', 'planet4-master-theme' ) }}">
-			<ul id="accordion-list" class="accordion">
-				<li class="burger-menu-item nav-item">
-					<a
-						class="nav-link"
-						href="{{ site.url }}"
-						data-ga-category="Menu Navigation"
-						data-ga-action="Home"
-						data-ga-label="{{ page_category }}">
-						{{ __( 'Home', 'planet4-master-theme' ) }}
-					</a>
-				</li>
+    <div class="nav-wrapper">
+        <nav class="nav-items" aria-label="{{ __( 'Menu items', 'planet4-master-theme' ) }}">
+            <ul id="accordion-list" class="accordion">
+                <li class="burger-menu-item nav-item">
+                    <a
+                        class="nav-link"
+                        href="{{ site.url }}"
+                        data-ga-category="Menu Navigation"
+                        data-ga-action="Home"
+                        data-ga-label="{{ page_category }}">
+                        {{ __( 'Home', 'planet4-master-theme' ) }}
+                    </a>
+                </li>
 
-				{% if navbar_menu_items is not empty %}
-					{% include "burger-menu-items.twig" with { menu: navbar_menu_items } %}
-				{% endif %}
+                {% if navbar_menu_items is not empty %}
+                    {% include "burger-menu-items.twig" with { menu: navbar_menu_items } %}
+                {% endif %}
 
-				{% if donate_menu_items is not empty and donate_menu_items[0].children|length >= 1 %}
-					{% include "burger-menu-items.twig" with { menu: donate_menu_items } %}
-				{% endif %}
-			</ul>
-		</nav>
-	</div>
+                {% if donate_menu_items is not empty and donate_menu_items[0].children|length >= 1 %}
+                    {% include "burger-menu-items.twig" with { menu: donate_menu_items } %}
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
 
-	<div class="burger-menu-footer">
-		<a
-			class="btn btn-donate"
-			href="{{ donate_menu_default[0].link }}"
-			data-ga-category="Menu Navigation"
-			data-ga-action="Donate"
-			data-ga-label="{{ page_category }}">
-			{{ donate_menu_default[0].title }}
-		</a>
-	</div>
+    <div class="burger-menu-footer">
+        <a
+            class="btn btn-donate"
+            href="{{ donate_menu_default[0].link }}"
+            data-ga-category="Menu Navigation"
+            data-ga-action="Donate"
+            data-ga-label="{{ page_category }}">
+            {{ donate_menu_default[0].title }}
+        </a>
+    </div>
 </div>
 <div class="burger-menu-overlay d-lg-none"></div>

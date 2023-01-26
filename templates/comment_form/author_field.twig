@@ -1,14 +1,14 @@
 <div class="form-group animated-label comment-author">
-	{% set placeholder = __( 'Your Name', 'planet4-master-theme' ) %}
-	{% set commenter_name = function('wp_get_current_commenter').comment_author ?? '' %}
-	<input
-		value="{{ commenter_name }}"
-		type="text"
-		class="form-control"
-		id="comments-name-input"
-		name="author"
-		placeholder="{{ placeholder }}"
-		required
-	/>
-	<label for="comments-name-input">{{ __( 'Name', 'planet4-master-theme' )  }}*</label>
+    {% set placeholder = __( 'Your Name', 'planet4-master-theme' ) %}
+    {% set commenter_name = function('wp_get_current_commenter').comment_author ?? '' %}
+    <input
+        value="{{ commenter_name }}"
+        type="text"
+        class="form-control"
+        id="comments-name-input"
+        name="author"
+        placeholder="{{ placeholder }}"
+        required
+    />
+    <label for="comments-name-input">{{ __( 'Name', 'planet4-master-theme' )  }}*</label>
 </div>

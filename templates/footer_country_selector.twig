@@ -1,62 +1,62 @@
 <div class="container">
-	<div class="country-selector-toggle-container">
-		<button
-			class="country-selector-toggle country-control-toggle"
-			data-bs-toggle="open"
-			data-bs-target="#country-selector"
-			aria-expanded="false"
-			aria-label="{{ data_nav_bar.country_dropdown_toggle }}"
-			data-ga-category="Menu Navigation"
-			data-ga-action="Open Country Selector"
-			data-ga-label="{{ page_category }}"><span class="visually-hidden">{{ __( 'Selected', 'planet4-master-theme' ) }}:</span>{{ website_navbar_title }}<span class="visually-hidden">{{ __( 'Change Country', 'planet4-master-theme' ) }}</span></button>
-	</div>
+    <div class="country-selector-toggle-container">
+        <button
+            class="country-selector-toggle country-control-toggle"
+            data-bs-toggle="open"
+            data-bs-target="#country-selector"
+            aria-expanded="false"
+            aria-label="{{ data_nav_bar.country_dropdown_toggle }}"
+            data-ga-category="Menu Navigation"
+            data-ga-action="Open Country Selector"
+            data-ga-label="{{ page_category }}"><span class="visually-hidden">{{ __( 'Selected', 'planet4-master-theme' ) }}:</span>{{ website_navbar_title }}<span class="visually-hidden">{{ __( 'Change Country', 'planet4-master-theme' ) }}</span></button>
+    </div>
 </div>
 <div class="countries-list">
 {% if countries_by_initials is not empty %}
-	{% set international = countries_by_initials|first|first %}
-	<div class="container">
-	<button class="country-selector-toggle country-control-close"
-		data-bs-toggle="open"
-		data-bs-target="#country-selector"
-		aria-expanded="false"
-		aria-label="{{ __( 'Close country selector', 'planet4-master-theme' ) }}">
-	</button>
-	<ul class="countries" aria-label="{{ __('Worldwide site list', 'planet4-master-theme') }}">
-		<li class="international"><a href="{{ international.url }}">{{ international.name }}</a></li>
-		{% for initial, countries in countries_by_initials[1:] %}
-		<li class="country-group">
-			<span class="initial">{{ initial }}</span>
-			<ul aria-label="{{ __('Sites starting with the letter .' ~ initial ~ '.', 'planet4-master-theme') }}" role="list">
-				{% for country in countries %}
-				{% set main_lang, lang_count = country.lang|first, country.lang|length %}
-				<li>
-					<a href="{{ main_lang.url }}"
-						hreflang="{{ main_lang.locale[0] }}"
-						data-ga-category="Country Selector"
-						data-ga-action="{{ country.name ~ ' | ' ~ main_lang.name }}"
-						data-ga-label="n/a"
-					>{{ country.name }}</a>
-					{% if lang_count > 1  %}
-					<ul class="lang-list" role="list">
-						{% for k, lang in country.lang %}
-						<li>
-							<a href="{{ lang.url }}"
-								hreflang="{{ lang.locale[0] }}"
-								data-ga-category="Country Selector"
-								data-ga-action="{{ country.name ~ ' | ' ~ lang.name }}"
-								data-ga-label="n/a"
-							>{{ lang.name }}</a>
-							{{ k + 1 < lang_count ? '<span aria-hidden="true"> • </span>' : '' }}
-						</li>
-						{% endfor %}
-					</ul>
-					{% endif %}
-				</li>
-				{% endfor %}
-			</ul>
-		</li>
-		{% endfor %}
-	</ul>
-	</div>
+    {% set international = countries_by_initials|first|first %}
+    <div class="container">
+    <button class="country-selector-toggle country-control-close"
+        data-bs-toggle="open"
+        data-bs-target="#country-selector"
+        aria-expanded="false"
+        aria-label="{{ __( 'Close country selector', 'planet4-master-theme' ) }}">
+    </button>
+    <ul class="countries" aria-label="{{ __('Worldwide site list', 'planet4-master-theme') }}">
+        <li class="international"><a href="{{ international.url }}">{{ international.name }}</a></li>
+        {% for initial, countries in countries_by_initials[1:] %}
+        <li class="country-group">
+            <span class="initial">{{ initial }}</span>
+            <ul aria-label="{{ __('Sites starting with the letter .' ~ initial ~ '.', 'planet4-master-theme') }}" role="list">
+                {% for country in countries %}
+                {% set main_lang, lang_count = country.lang|first, country.lang|length %}
+                <li>
+                    <a href="{{ main_lang.url }}"
+                        hreflang="{{ main_lang.locale[0] }}"
+                        data-ga-category="Country Selector"
+                        data-ga-action="{{ country.name ~ ' | ' ~ main_lang.name }}"
+                        data-ga-label="n/a"
+                    >{{ country.name }}</a>
+                    {% if lang_count > 1  %}
+                    <ul class="lang-list" role="list">
+                        {% for k, lang in country.lang %}
+                        <li>
+                            <a href="{{ lang.url }}"
+                                hreflang="{{ lang.locale[0] }}"
+                                data-ga-category="Country Selector"
+                                data-ga-action="{{ country.name ~ ' | ' ~ lang.name }}"
+                                data-ga-label="n/a"
+                            >{{ lang.name }}</a>
+                            {{ k + 1 < lang_count ? '<span aria-hidden="true"> • </span>' : '' }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+    </div>
 {% endif %}
 </div>

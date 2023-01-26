@@ -1,52 +1,52 @@
 {% if ( post.author.name and post.author.description ) %}
-	<div class="container narrow-container clearfix">
-		<div class="author-block" itemscope itemtype="http://schema.org/Person">
-			{% if ( post.author.avatar ) %}
-				<figure class="author-block-image d-none d-sm-none d-md-block">
-					<img
-						itemprop="image"
-						src="{{ fn('get_avatar_url', post.author.id, {'size' : 294 }) }}"
-						alt="{{ post.author.name }}"
-					/>
-				</figure>
-			{% endif %}
-			<div class="author-block-info">
-				<h2 class="author-block-info-title">{{ __( 'About the author', 'planet4-master-theme' ) }}</h2>
-				{% if ( post.author.avatar ) %}
-					<figure class="author-block-image d-block d-sm-block d-md-none">
-						<img
-							itemprop="image"
-							src="{{ fn('get_avatar_url', post.author.id, {'size' : 294 }) }}"
-							alt="{{ post.author.name }}"
-						/>
-					</figure>
-				{% endif %}
-				<h5 rel="author" class="author-block-info-name">
-					<a href="{{ post.author.link }}" itemprop="name">{{ post.author.name }}</a>
-				</h5>
+    <div class="container narrow-container clearfix">
+        <div class="author-block" itemscope itemtype="http://schema.org/Person">
+            {% if ( post.author.avatar ) %}
+                <figure class="author-block-image d-none d-sm-none d-md-block">
+                    <img
+                        itemprop="image"
+                        src="{{ fn('get_avatar_url', post.author.id, {'size' : 294 }) }}"
+                        alt="{{ post.author.name }}"
+                    />
+                </figure>
+            {% endif %}
+            <div class="author-block-info">
+                <h2 class="author-block-info-title">{{ __( 'About the author', 'planet4-master-theme' ) }}</h2>
+                {% if ( post.author.avatar ) %}
+                    <figure class="author-block-image d-block d-sm-block d-md-none">
+                        <img
+                            itemprop="image"
+                            src="{{ fn('get_avatar_url', post.author.id, {'size' : 294 }) }}"
+                            alt="{{ post.author.name }}"
+                        />
+                    </figure>
+                {% endif %}
+                <h5 rel="author" class="author-block-info-name">
+                    <a href="{{ post.author.link }}" itemprop="name">{{ post.author.name }}</a>
+                </h5>
 
-				{% set author_bio_char_limit = 180 %}
+                {% set author_bio_char_limit = 180 %}
 
-				<div itemprop="description">
-					{# If needed, we first show a truncated version of the description, with an ellipsis and a "Show more" button #}
-					{% if ( post.author.description|length <= author_bio_char_limit ) %}
-						{{ post.author.description|raw }}
-					{% else %}
-						{% set post_author_description_teaser = post.author.description|slice(0, author_bio_char_limit) ~ '<span class="collapse show multi-collapse">&hellip;</span>' %}
-						{% set post_author_description_remainder = post.author.description|slice(author_bio_char_limit) %}
-						{{ post_author_description_teaser|raw }}<span class="collapse multi-collapse">{{ post_author_description_remainder|raw }}</span>
-						<button
-							class="author-block-description-button"
-							data-bs-toggle="collapse"
-							data-bs-target=".multi-collapse"
-							aria-expanded="false"
-						>
-							<span class="show-more">{{ __('Show more', 'planet4-master-theme') }}</span>
-							<span class="show-less">{{ __('Show less', 'planet4-master-theme') }}</span>
-						</button>
-					{% endif %}
-				</div>
-			</div>
-		</div>
+                <div itemprop="description">
+                    {# If needed, we first show a truncated version of the description, with an ellipsis and a "Show more" button #}
+                    {% if ( post.author.description|length <= author_bio_char_limit ) %}
+                        {{ post.author.description|raw }}
+                    {% else %}
+                        {% set post_author_description_teaser = post.author.description|slice(0, author_bio_char_limit) ~ '<span class="collapse show multi-collapse">&hellip;</span>' %}
+                        {% set post_author_description_remainder = post.author.description|slice(author_bio_char_limit) %}
+                        {{ post_author_description_teaser|raw }}<span class="collapse multi-collapse">{{ post_author_description_remainder|raw }}</span>
+                        <button
+                            class="author-block-description-button"
+                            data-bs-toggle="collapse"
+                            data-bs-target=".multi-collapse"
+                            aria-expanded="false"
+                        >
+                            <span class="show-more">{{ __('Show more', 'planet4-master-theme') }}</span>
+                            <span class="show-less">{{ __('Show less', 'planet4-master-theme') }}</span>
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
 </div>
 {% endif %}

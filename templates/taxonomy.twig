@@ -2,52 +2,52 @@
 
 {% block content %}
 
-	<div class="clearfix"></div>
-	<div class="skewed-overlay"></div>
+    <div class="clearfix"></div>
+    <div class="skewed-overlay"></div>
 
-	<header class="page-header">
-		<div class="container">
-			<h1 class="page-header-title">{{ taxonomy.name }}</h1>
-			<div class="page-header-content">
-				<p>{{ taxonomy.description|e('wp_kses_post')|raw }}</p>
-			</div>
-		</div>
-	</header>
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-header-title">{{ taxonomy.name }}</h1>
+            <div class="page-header-content">
+                <p>{{ taxonomy.description|e('wp_kses_post')|raw }}</p>
+            </div>
+        </div>
+    </header>
 
 
-	<div class="page-content container">
-		{% if query_loop %}
-			{{ query_loop|raw }}
-		{% else %}
-			<h3>{{ __( 'Results', 'planet4-master-theme' ) }}</h3>
+    <div class="page-content container">
+        {% if query_loop %}
+            {{ query_loop|raw }}
+        {% else %}
+            <h3>{{ __( 'Results', 'planet4-master-theme' ) }}</h3>
 
-			<div class="row">
-				<div class="col-lg-8 multiple-search-result">
-					<ul class="list-unstyled">
-						{% for post in posts %}
-							{% include 'tease-taxonomy-post.twig' %}
-						{% endfor %}
-					</ul>
-				</div>
-			</div>
+            <div class="row">
+                <div class="col-lg-8 multiple-search-result">
+                    <ul class="list-unstyled">
+                        {% for post in posts %}
+                            {% include 'tease-taxonomy-post.twig' %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
 
-			{% if posts.pagination.total > 1 %}
-				<div class="row">
-					<div class="col-md-12 col-lg-5 col-xl-5 mt-3">
-						<button
-								data-content=".multiple-search-result .list-unstyled"
-								data-page="1"
-								data-total="{{ posts.pagination.total }}"
-								data-url="{{ fn('get_term_link', taxonomy.term_id ) }}"
-								class="load-more-mt btn btn-small btn-secondary mb-5"
-								data-ga-category="Articles List"
-								data-ga-action="Load More Button"
-								data-ga-label="n/a">
-							{{ __( 'Load More', 'planet4-master-theme' ) }}
-						</button>
-					</div>
-				</div>
-			{% endif %}
-		{% endif %}
-	</div>
+            {% if posts.pagination.total > 1 %}
+                <div class="row">
+                    <div class="col-md-12 col-lg-5 col-xl-5 mt-3">
+                        <button
+                                data-content=".multiple-search-result .list-unstyled"
+                                data-page="1"
+                                data-total="{{ posts.pagination.total }}"
+                                data-url="{{ fn('get_term_link', taxonomy.term_id ) }}"
+                                class="load-more-mt btn btn-small btn-secondary mb-5"
+                                data-ga-category="Articles List"
+                                data-ga-action="Load More Button"
+                                data-ga-label="n/a">
+                            {{ __( 'Load More', 'planet4-master-theme' ) }}
+                        </button>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
 {% endblock %}

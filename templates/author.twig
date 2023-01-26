@@ -1,56 +1,56 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	<header class="page-header container">
-		{% if ( author.avatar ) %}
-			<figure class="author-image" aria-label="{{ __( 'Picture of ' ~ author.name , 'planet4-master-theme' ) }}">
-				<img itemprop="image" class="author-pic"
-					 src="{{ fn('get_avatar_url', author.id, {'size' : 300}) }}"
-					 alt="{{ author.name }}">
-			</figure>
-		{% endif %}
-		<div class="author-details">
-			<h1 class="page-header-title">{{ author.name }}</h1>
-			{% if ( author.description ) %}
-				<p class="d-md-block author-bio" aria-label="{{ __( 'Author bio', 'planet4-master-theme' ) }}">{{ fn('wpautop', fn('the_author_meta', 'description', author.id))|e('wp_kses_post')|raw }}</p>
-			{% endif %}
-		</div>
-	</header>
+    <header class="page-header container">
+        {% if ( author.avatar ) %}
+            <figure class="author-image" aria-label="{{ __( 'Picture of ' ~ author.name , 'planet4-master-theme' ) }}">
+                <img itemprop="image" class="author-pic"
+                     src="{{ fn('get_avatar_url', author.id, {'size' : 300}) }}"
+                     alt="{{ author.name }}">
+            </figure>
+        {% endif %}
+        <div class="author-details">
+            <h1 class="page-header-title">{{ author.name }}</h1>
+            {% if ( author.description ) %}
+                <p class="d-md-block author-bio" aria-label="{{ __( 'Author bio', 'planet4-master-theme' ) }}">{{ fn('wpautop', fn('the_author_meta', 'description', author.id))|e('wp_kses_post')|raw }}</p>
+            {% endif %}
+        </div>
+    </header>
 
-	<div class="page-content container">
-		<div class="wp-block-separator is-style-wide"></div>
-		<h2>{{ __( 'Posts by ', 'planet4-master-theme' ) }} {{ author.name }}</h2>
+    <div class="page-content container">
+        <div class="wp-block-separator is-style-wide"></div>
+        <h2>{{ __( 'Posts by ', 'planet4-master-theme' ) }} {{ author.name }}</h2>
 
-		{% if query_loop %}
-			{{ query_loop|raw }}
-		{% else %}
-			<div class="row">
-				<div class="col-lg-8 multiple-search-result">
-					<ul class="list-unstyled">
-						{% for post in posts %}
-							{% include 'tease-author.twig' %}
-						{% endfor %}
-					</ul>
-				</div>
-			</div>
+        {% if query_loop %}
+            {{ query_loop|raw }}
+        {% else %}
+            <div class="row">
+                <div class="col-lg-8 multiple-search-result">
+                    <ul class="list-unstyled">
+                        {% for post in posts %}
+                            {% include 'tease-author.twig' %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
 
-			{% if posts.pagination.total > 1 %}
-				<div class="row">
-					<div class="col-md-12 col-lg-5 col-xl-5 mt-3">
-						<button
-								data-content=".multiple-search-result .list-unstyled"
-								data-page="1"
-								data-total="{{ posts.pagination.total }}"
-								data-url="{{ author.path }}"
-								class="load-more-mt btn btn-small btn-secondary mb-5"
-								data-ga-category="Articles List"
-								data-ga-action="Load More Button"
-								data-ga-label="n/a">
-							{{ __( 'Load More', 'planet4-master-theme' ) }}
-						</button>
-					</div>
-				</div>
-			{% endif %}
-		{% endif %}
-	</div>
+            {% if posts.pagination.total > 1 %}
+                <div class="row">
+                    <div class="col-md-12 col-lg-5 col-xl-5 mt-3">
+                        <button
+                                data-content=".multiple-search-result .list-unstyled"
+                                data-page="1"
+                                data-total="{{ posts.pagination.total }}"
+                                data-url="{{ author.path }}"
+                                class="load-more-mt btn btn-small btn-secondary mb-5"
+                                data-ga-category="Articles List"
+                                data-ga-action="Load More Button"
+                                data-ga-label="n/a">
+                            {{ __( 'Load More', 'planet4-master-theme' ) }}
+                        </button>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
 {% endblock %}

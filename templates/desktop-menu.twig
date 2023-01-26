@@ -1,61 +1,61 @@
 <div id="nav-main-desktop" class="d-none d-lg-flex">
-	<nav id="nav-menu" class="nav-menu">
-		<ul>
-			{% for key,item in navbar_menu_items %}
-				<li class="nav-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
-					{% if fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == act_page_id %}
-						{% set link_ga_action = 'Act' %}
-					{% elseif fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == explore_page_id %}
-						{% set link_ga_action = 'Explore' %}
-					{% else %}
-						{% set link_ga_action = item.title %}
-					{% endif %}
-					<a
-							class="nav-link"
-							href="{{ item.get_link }}"
-							data-ga-category="Menu Navigation"
-							data-ga-action="{{ link_ga_action }}"
-							data-ga-label="{{ page_category }}">
-						{{ item.title }}
-					</a>
+    <nav id="nav-menu" class="nav-menu">
+        <ul>
+            {% for key,item in navbar_menu_items %}
+                <li class="nav-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
+                    {% if fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == act_page_id %}
+                        {% set link_ga_action = 'Act' %}
+                    {% elseif fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == explore_page_id %}
+                        {% set link_ga_action = 'Explore' %}
+                    {% else %}
+                        {% set link_ga_action = item.title %}
+                    {% endif %}
+                    <a
+                            class="nav-link"
+                            href="{{ item.get_link }}"
+                            data-ga-category="Menu Navigation"
+                            data-ga-action="{{ link_ga_action }}"
+                            data-ga-label="{{ page_category }}">
+                        {{ item.title }}
+                    </a>
 
-					{% if item.children is not empty %}
-						{% include 'navigation-submenu.twig' with { menu: item } %}
-					{% endif %}
-				</li>
-			{% endfor %}
+                    {% if item.children is not empty %}
+                        {% include 'navigation-submenu.twig' with { menu: item } %}
+                    {% endif %}
+                </li>
+            {% endfor %}
 
-			{% if donate_menu_items is not empty %}
-				{% set donate_menu = donate_menu_items|first %}
-				<li class="nav-donate">
-					<a
-						class="btn btn-donate {{ donate_menu.children ? 'dropdown' : '' }}"
-						href="{{ donate_menu.link }}"
-						data-ga-category="Menu Navigation"
-						data-ga-action="Donate"
-						data-ga-label="{{ page_category }}">
-						{{ donate_menu.title }}
-					</a>
-					{% if donate_menu.children is not empty %}
-						{% include 'navigation-submenu.twig' with { menu: donate_menu } %}
-					{% endif %}
-				</li>
-			{% endif %}
-		</ul>
-	</nav>
-	<div class="nav-search-toggle-container">
-		<button class="nav-search-toggle" type="button"
-				aria-label="{{ data_nav_bar.navbar_search_toggle }}"
-				aria-expanded="false"
-				data-bs-toggle="open"
-				data-bs-target="#search_form"
-				data-ga-category="Menu Navigation"
-				data-ga-action="Open Search"
-				data-ga-label="{{ page_category }}">
-			{{ search_icon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
-			<span class="visually-hidden">
-					{{ __( 'Toggle search form', 'planet4-master-theme' ) }}
-				</span>
-		</button>
-	</div>
+            {% if donate_menu_items is not empty %}
+                {% set donate_menu = donate_menu_items|first %}
+                <li class="nav-donate">
+                    <a
+                        class="btn btn-donate {{ donate_menu.children ? 'dropdown' : '' }}"
+                        href="{{ donate_menu.link }}"
+                        data-ga-category="Menu Navigation"
+                        data-ga-action="Donate"
+                        data-ga-label="{{ page_category }}">
+                        {{ donate_menu.title }}
+                    </a>
+                    {% if donate_menu.children is not empty %}
+                        {% include 'navigation-submenu.twig' with { menu: donate_menu } %}
+                    {% endif %}
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="nav-search-toggle-container">
+        <button class="nav-search-toggle" type="button"
+                aria-label="{{ data_nav_bar.navbar_search_toggle }}"
+                aria-expanded="false"
+                data-bs-toggle="open"
+                data-bs-target="#search_form"
+                data-ga-category="Menu Navigation"
+                data-ga-action="Open Search"
+                data-ga-label="{{ page_category }}">
+            {{ search_icon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
+            <span class="visually-hidden">
+                    {{ __( 'Toggle search form', 'planet4-master-theme' ) }}
+                </span>
+        </button>
+    </div>
 </div>

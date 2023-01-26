@@ -1,62 +1,62 @@
 {% for key,item in menu %}
-	{% set targetId = item.ID %}
-	{% if fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == act_page_id %}
-		{% set link_ga_action = 'Act' %}
-	{% elseif fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == explore_page_id %}
-		{% set link_ga_action = 'Explore' %}
-	{% else %}
-		{% set link_ga_action = item.title %}
-	{% endif %}
-	<li class="burger-menu-item nav-item accordion-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
-		<div class="burger-menu-item-wrapper accordion-header" id="burger-menu-accordion-{{ targetId }}">
-			<a
-				class="nav-link"
-				href="{{ item.get_link }}"
-				data-ga-category="Menu Navigation"
-				data-ga-action="{{ link_ga_action }}"
-				data-ga-label="{{ page_category }}">
-					{{ item.title }}
-			</a>
-			{% if item.children is not empty %}
-				<button
-					class="collapsable-btn accordion-button collapsed"
-					type="button"
-					data-bs-toggle="collapse"
-					data-bs-target="#menu-{{ targetId }}"
-					aria-expanded="false"
-					aria-controls="menu-{{ targetId }}"></button>
-			{% endif %}
-		</div>
+    {% set targetId = item.ID %}
+    {% if fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == act_page_id %}
+        {% set link_ga_action = 'Act' %}
+    {% elseif fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == explore_page_id %}
+        {% set link_ga_action = 'Explore' %}
+    {% else %}
+        {% set link_ga_action = item.title %}
+    {% endif %}
+    <li class="burger-menu-item nav-item accordion-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
+        <div class="burger-menu-item-wrapper accordion-header" id="burger-menu-accordion-{{ targetId }}">
+            <a
+                class="nav-link"
+                href="{{ item.get_link }}"
+                data-ga-category="Menu Navigation"
+                data-ga-action="{{ link_ga_action }}"
+                data-ga-label="{{ page_category }}">
+                    {{ item.title }}
+            </a>
+            {% if item.children is not empty %}
+                <button
+                    class="collapsable-btn accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#menu-{{ targetId }}"
+                    aria-expanded="false"
+                    aria-controls="menu-{{ targetId }}"></button>
+            {% endif %}
+        </div>
 
-		{% if item.children is not empty %}
-		<nav
-			id="menu-{{ targetId }}"
-			class="nav-subitems accordion-collapse collapse"
-			aria-labelledby="burger-menu-accordion-{{ targetId }}"
-			data-bs-parent="#accordion-list"
-		>
-			<ul>
-			{% for key,item in item.children %}
-				<li class="nav-item accordion-body {{ item == item.current ? 'active' : '' }}">
-					{% if fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == act_page_id %}
-						{% set link_ga_action = 'Act' %}
-					{% elseif fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == explore_page_id %}
-						{% set link_ga_action = 'Explore' %}
-					{% else %}
-						{% set link_ga_action = item.title %}
-					{% endif %}
-					<a
-						class="nav-link"
-						href="{{ item.get_link }}"
-						data-ga-category="Submenu Navigation"
-						data-ga-action="{{ link_ga_action }}"
-						data-ga-label="{{ page_category }}">
-							{{ item.title }}
-					</a>
-				</li>
-			{% endfor %}
-			</ul>
-		</nav>
-		{% endif %}
-	</li>
+        {% if item.children is not empty %}
+        <nav
+            id="menu-{{ targetId }}"
+            class="nav-subitems accordion-collapse collapse"
+            aria-labelledby="burger-menu-accordion-{{ targetId }}"
+            data-bs-parent="#accordion-list"
+        >
+            <ul>
+            {% for key,item in item.children %}
+                <li class="nav-item accordion-body {{ item == item.current ? 'active' : '' }}">
+                    {% if fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == act_page_id %}
+                        {% set link_ga_action = 'Act' %}
+                    {% elseif fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == explore_page_id %}
+                        {% set link_ga_action = 'Explore' %}
+                    {% else %}
+                        {% set link_ga_action = item.title %}
+                    {% endif %}
+                    <a
+                        class="nav-link"
+                        href="{{ item.get_link }}"
+                        data-ga-category="Submenu Navigation"
+                        data-ga-action="{{ link_ga_action }}"
+                        data-ga-label="{{ page_category }}">
+                            {{ item.title }}
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </nav>
+        {% endif %}
+    </li>
 {% endfor %}
