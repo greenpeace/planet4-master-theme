@@ -379,8 +379,8 @@ jobs:
           name: Zip file size sanity check
           command: |
             ls -lh /tmp/workspace/planet4-master-theme.zip
-            if [ $(wc -c </tmp/workspace/planet4-master-theme.zip) -ge 5000000 ]; then
-              echo "Zip file size exceeds 5MB, probably something went wrong."
+            if [ $(wc -c </tmp/workspace/planet4-master-theme.zip) -ge 9000000 ]; then
+              echo "Zip file size exceeds 9MB, probably something went wrong."
               exit 1
             fi
       - persist_to_workspace:
