@@ -1,0 +1,11 @@
+FROM mcr.microsoft.com/playwright:v1.30.0 as playwright-ci
+
+ARG theme_branch=main
+ARG plugin_branch=main
+
+WORKDIR /usr/app
+RUN npm install @playwright/test
+RUN npx playwright install --with-deps
+RUN git clone -b $theme_branch --single-branch https://github.com/greenpeace/planet4-master-theme
+RUN git clone -b $plugin_branch --single-branch https://github.com/greenpeace/planet4-plugin-gutenberg-blocks
+RUN ls -alh

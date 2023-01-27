@@ -260,11 +260,18 @@ jobs:
       - run-tests:
           test-name: Acceptance tests
           test-command: |
-              cd planet4-docker-compose
-              docker-compose exec php-fpm rsync -a --delete public/wp-content/themes/planet4-master-theme/tests/acceptance/ public/wp-content/plugins/planet4-plugin-gutenberg-blocks/tests/acceptance/ tests/acceptance/
-              docker-compose exec php-fpm rsync -a --delete public/wp-content/themes/planet4-master-theme/tests/data/ tests/_data/
-              docker-compose exec php-fpm tests/vendor/bin/codecept run acceptance --no-redirect --xml=junit.xml --html
-          extract-command: make -C planet4-docker-compose ci-extract-artifacts
+              cp /home/circleci/checkout/planet4-master-theme/playwright/Dockerfile.playwright-ci ./
+              cat Dockerfile.playwright-ci
+              docker build -t playwright-ci:latest --build-arg theme_branch="${CIRCLE_BRANCH}" - < Dockerfile.playwright-ci
+              docker run -it -w /usr/app/planet4-master-theme \
+                --network=planet4dockercompose_proxy \
+                --entrypoint npx \
+                playwright-ci:latest \
+                playwright test
+          extract-command: |
+              mkdir -p planet4-docker-compose/artifacts/playwright/results planet4-docker-compose/artifacts/playwright/report
+              docker cp $(docker ps -aq --filter ancestor="playwright-ci:latest"):/usr/app/planet4-master-theme/playwright-results/. planet4-docker-compose/artifacts/playwright/results
+              docker cp $(docker ps -aq --filter ancestor="playwright-ci:latest"):/usr/app/planet4-master-theme/playwright-report/. planet4-docker-compose/artifacts/playwright/report
 
   a11y-tests:
     docker:
