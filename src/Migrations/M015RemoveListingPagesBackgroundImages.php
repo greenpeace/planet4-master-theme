@@ -7,9 +7,9 @@ use P4\MasterTheme\MigrationScript;
 use P4\MasterTheme\Settings\InformationArchitecture;
 
 /**
- * Remove the Dropdown navigation menus feature flag from Planet 4 Information Architecture settings.
+ * Remove the Listing Pages Background Image feature flag from Planet 4 Information Architecture settings.
  */
-class M015RemoveListingPagesBackgroundImages extends MigrationScript {
+class M015RemoveListingPagesBackgroundImage extends MigrationScript {
 	/**
 	 * Perform the actual migration.
 	 *
