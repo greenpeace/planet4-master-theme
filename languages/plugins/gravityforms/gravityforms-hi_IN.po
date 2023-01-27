@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the RocketGenius - Gravity Forms package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-01-27 06:55+0000\n"
+"PO-Revision-Date: 2023-01-27 11:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -7612,7 +7612,7 @@ msgstr "बड़ी कार्रवाई"
 
 #: entry_detail.php:820
 msgid " Bulk action"
-msgstr "बड़ी कार्रवाई"
+msgstr "बड़ी कार्रवाई "
 
 #: entry_detail.php:735
 msgid "Details"
