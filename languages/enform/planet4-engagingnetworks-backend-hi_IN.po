@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 - EngagingNetworks\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-04 13:53+0000\n"
-"PO-Revision-Date: 2023-01-27 07:39+0000\n"
+"PO-Revision-Date: 2023-01-27 07:41+0000\n"
 "Last-Translator: Sagar Deshmuk\n"
 "Language-Team: Hindi\n"
 "Language: hi_IN\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: classes/class-loader.php:165
 msgid " requires a newer version of the following plugin."
-msgstr "requires a newer version of the following plugin."
+msgstr ""
 
 #: classes/class-loader.php:166
 msgid "Minimum required version of "
