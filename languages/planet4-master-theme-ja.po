@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-06-07 09:48+0000\n"
+"PO-Revision-Date: 2023-01-31 04:52+0000\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Last-Translator: Ken Shimada\n"
 "Language: ja\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.5.8; wp-5.8.3\n"
+"X-Loco-Version: 2.6.3; wp-6.1.1\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -35,7 +35,7 @@ msgstr[0] "'%2$s'の検索結果は、%1$d 件です"
 #: templates/tease-taxonomy-post.twig:61 templates/tease-author.twig:52
 #, php-format
 msgid "%d min read"
-msgstr ""
+msgstr "この記事は約%d分で読めます"
 
 #. %d = Number of results.
 #: src/Search.php:714
@@ -87,7 +87,7 @@ msgstr ""
 
 #: templates/cookies/cookies_settings.twig:16
 msgid "Always enabled"
-msgstr ""
+msgstr "Cookieの設定を管理する"
 
 #: templates/search.twig:200
 msgid "Apply filters"
