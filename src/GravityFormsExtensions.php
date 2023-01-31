@@ -101,6 +101,7 @@ class GravityFormsExtensions {
 		add_filter( 'gform_confirmation_settings_fields', [ $this, 'p4_gf_confirmation_settings' ], 10, 3 );
 		add_filter( 'gform_confirmation', [ $this, 'p4_gf_custom_confirmation' ], 10, 3 );
 		add_filter( 'gform_field_css_class', [ $this, 'p4_gf_custom_field_class' ], 10, 3 );
+		add_filter( 'gform_form_args', [ $this, 'p4_gf_enforce_ajax' ], 10, 3 );
 	}
 
 	/**
@@ -308,5 +309,19 @@ class GravityFormsExtensions {
 			$classes .= ' custom-control';
 		}
 		return $classes;
+	}
+
+	/**
+	 *
+	 * Enforces Ajax submission on all forms.
+	 *
+	 * @param array $form_args form arguments when adding it to a page/post.
+	 *
+	 * @return array The updated form arguments.
+	 */
+	public function p4_gf_enforce_ajax( $form_args ) {
+		$form_args['ajax'] = true;
+
+		return $form_args;
 	}
 }
