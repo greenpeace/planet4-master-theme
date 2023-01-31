@@ -272,7 +272,7 @@ class ActionPage {
 		wp_dropdown_categories(
 			[
 				'hide_empty' => 0,
-				'taxonomy'   => 'action-type',
+				'taxonomy'   => self::TAXONOMY,
 				'selected'   => $value,
 				'name'       => 'p4_default_action_type',
 				'id'         => 'p4_default_action_type',
