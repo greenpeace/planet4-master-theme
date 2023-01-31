@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MasterThemeTest Class
  *
@@ -10,38 +11,42 @@ use P4\MasterTheme\MasterSite;
 /**
  * Class P4MasterThemeTest
  */
-class P4MasterThemeTest extends P4_TestCase {
-
-	/**
-	 * Setup test
-	 */
+// phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace
+class P4MasterThemeTest extends P4TestCase
+{
+    /**
+     * Setup test
+     */
 	public function setUp(): void { // phpcs:ignore
-		parent::setUp();
-	}
+        parent::setUp();
+    }
 
-	/**
-	 * Tear down
-	 */
-	public function tearDown(): void {
-		switch_theme( 'planet4-master-theme' );
-	}
+    /**
+     * Tear down
+     */
+    public function tearDown(): void
+    {
+        switch_theme('planet4-master-theme');
+    }
 
-	/**
-	 * Test functions
-	 */
-	public function testFunctionsPHP() {
-		$context = Timber::get_context();
-		$this->assertEquals( MasterSite::class, get_class( $context['site'] ) );
-		$this->assertTrue( current_theme_supports( 'post-thumbnails' ) );
-		$this->assertEquals( 'bar', $context['foo'] );
-	}
+    /**
+     * Test functions
+     */
+    public function testFunctionsPHP(): void
+    {
+        $context = Timber::get_context();
+        $this->assertEquals(MasterSite::class, get_class($context['site']));
+        $this->assertTrue(current_theme_supports('post-thumbnails'));
+        $this->assertEquals('bar', $context['foo']);
+    }
 
-	/**
-	 * Test loading
-	 */
-	public function testLoading() {
-		$str = Timber::compile( 'tease.twig' );
-		$this->assertStringStartsWith( '<article class="tease tease-" id="tease-">', $str );
-		$this->assertStringEndsWith( '</article>', $str );
-	}
+    /**
+     * Test loading
+     */
+    public function testLoading(): void
+    {
+        $str = Timber::compile('tease.twig');
+        $this->assertStringStartsWith('<article class="tease tease-" id="tease-">', $str);
+        $this->assertStringEndsWith('</article>', $str);
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 $I = new AcceptanceTester($scenario);
 $I->wantTo('check Custom Taxonomy page');
 
@@ -16,17 +17,17 @@ $I->see('Nikos', 'h1');
 $slug = $I->generateRandomSlug();
 
 $postID = $I->havePostInDatabase([
-	'post_name'    => $slug,
-	'post_status'  => 'publish',
-	'post_content' => 'This is a test post',
-	'post_type'    => 'post',
-	'tax_input'   => [
-		'p4-page-type' => [ 'story' ],
-		'category'     => [ 'people' ]
-	],
-	'meta_input'  => [
-		'p4_author_override' => 'FooBarAuthor'
-	]
+    'post_name' => $slug,
+    'post_status' => 'publish',
+    'post_content' => 'This is a test post',
+    'post_type' => 'post',
+    'tax_input' => [
+        'p4-page-type' => [ 'story' ],
+        'category' => [ 'people' ],
+    ],
+    'meta_input' => [
+        'p4_author_override' => 'FooBarAuthor',
+    ],
 ]);
 
 // Navigate to the newly created post

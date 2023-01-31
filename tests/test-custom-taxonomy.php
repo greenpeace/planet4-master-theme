@@ -1,73 +1,75 @@
 <?php
+
 /**
  * Test p4_page_type custom taxonomy.
  *
  * @package P4MT
  */
 
-use P4\MasterTheme\CustomTaxonomy;
 
 /**
  * Class CustomTaxonomyTest
  */
-class CustomTaxonomyTest extends P4_TestCase {
+// phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace
+class CustomTaxonomyTest extends P4TestCase
+{
+    /**
+     * Test that a post has always a p4-page-type term assigned to it.
+     *
+     * @covers P4\MasterTheme\CustomTaxonomy::save_taxonomy_page_type
+     */
+    public function test_post_has_a_taxonomy_term_assigned(): void
+    {
 
-	/**
-	 * Test that a post has always a p4-page-type term assigned to it.
-	 *
-	 * @covers P4\MasterTheme\CustomTaxonomy::save_taxonomy_page_type
-	 */
-	public function test_post_has_a_taxonomy_term_assigned() {
+        // Get editor user.
+        $user = get_user_by('login', 'p4_editor');
+        wp_set_current_user($user->ID);
 
-		// Get editor user.
-		$user = get_user_by( 'login', 'p4_editor' );
-		wp_set_current_user( $user->ID );
+        // Create a sample post without assigning a p4-page-type story term to it.
+        $post_id = $this->factory->post->create(
+            [
+                'post_type' => 'post',
+                'post_title' => 'The name of the place is Babylon',
+                'post_name' => 'test-taxonomy-url',
+                'post_content' => 'test content',
+            ]
+        );
 
-		// Create a sample post without assigning a p4-page-type story term to it.
-		$post_id = $this->factory->post->create(
-			[
-				'post_type'    => 'post',
-				'post_title'   => 'The name of the place is Babylon',
-				'post_name'    => 'test-taxonomy-url',
-				'post_content' => 'test content',
-			]
-		);
+        $terms = wp_get_object_terms($post_id, 'p4-page-type');
 
-		$terms = wp_get_object_terms( $post_id, 'p4-page-type' );
+        // Assert that the post has been assigned with a p4-page-type term.
+        $this->assertEquals(1, count($terms));
+        $this->assertInstanceOf('WP_Term', $terms[0]);
+    }
 
-		// Assert that the post has been assigned with a p4-page-type term.
-		$this->assertEquals( 1, count( $terms ) );
-		$this->assertInstanceOf( 'WP_Term', $terms[0] );
+    /**
+     * Test that a post has always a single p4-page-type term assigned to it.
+     *
+     * @covers P4\MasterTheme\CustomTaxonomy::save_taxonomy_page_type
+     */
+    public function test_post_has_a_single_taxonomy_term_assigned(): void
+    {
 
-	}
+        // Get editor user.
+        $user = get_user_by('login', 'p4_editor');
+        wp_set_current_user($user->ID);
 
-	/**
-	 * Test that a post has always a single p4-page-type term assigned to it.
-	 *
-	 * @covers P4\MasterTheme\CustomTaxonomy::save_taxonomy_page_type
-	 */
-	public function test_post_has_a_single_taxonomy_term_assigned() {
+        // Create a sample post and assing p4-page-type story term to it.
+        $post_id = $this->factory->post->create(
+            [
+                'post_type' => 'post',
+                'post_title' => 'The name of the place is Babylon.',
+                'post_name' => 'test-taxonomy-url',
+                'post_content' => 'test content',
+                'tax_input' => [
+                    'p4-page-type' => [ 'story', 'publication' ],
+                ],
+            ]
+        );
 
-		// Get editor user.
-		$user = get_user_by( 'login', 'p4_editor' );
-		wp_set_current_user( $user->ID );
-
-		// Create a sample post and assing p4-page-type story term to it.
-		$post_id = $this->factory->post->create(
-			[
-				'post_type'    => 'post',
-				'post_title'   => 'The name of the place is Babylon.',
-				'post_name'    => 'test-taxonomy-url',
-				'post_content' => 'test content',
-				'tax_input'    => [
-					'p4-page-type' => [ 'story', 'publication' ],
-				],
-			]
-		);
-
-		$terms = wp_get_object_terms( $post_id, 'p4-page-type' );
-		// Assert that the post has been assigned with a single p4-page-type term.
-		$this->assertEquals( 1, count( $terms ) );
-		$this->assertEquals( 'publication', $terms[0]->slug );
-	}
+        $terms = wp_get_object_terms($post_id, 'p4-page-type');
+        // Assert that the post has been assigned with a single p4-page-type term.
+        $this->assertEquals(1, count($terms));
+        $this->assertEquals('publication', $terms[0]->slug);
+    }
 }
