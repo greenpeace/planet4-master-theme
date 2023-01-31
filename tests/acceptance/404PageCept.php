@@ -1,5 +1,6 @@
 <?php
-$I = new AcceptanceTester( $scenario );
+
+$I = new AcceptanceTester($scenario);
 $I->wantTo('check the 404 page looks nice');
 
 $html = $I->getP4Option('404_page_text');
