@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2023-01-31 05:04+0000\n"
+"PO-Revision-Date: 2023-01-31 05:05+0000\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +35,7 @@ msgstr[0] "'%2$s'の検索結果は、%1$d 件です"
 #: templates/tease-taxonomy-post.twig:61 templates/tease-author.twig:52
 #, php-format
 msgid "%d min read"
-msgstr "この記事は約%d分で読めます"
+msgstr "この記事は約 %d 分で読めます"
 
 #. %d = Number of results.
 #: src/Search.php:714
