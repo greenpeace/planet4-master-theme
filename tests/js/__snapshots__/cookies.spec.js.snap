@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Cookies block is inserted into the Editor 1`] = `"<!-- wp:planet4-blocks/cookies /-->"`;
-
-exports[`Cookies block should work with all inputs 1`] = `"<!-- wp:planet4-blocks/cookies {\\"title\\":\\"Cookies block\\",\\"description\\":\\"Test description\\",\\"necessary_cookies_name\\":\\"Necessary cookies\\",\\"necessary_cookies_description\\":\\"Lorem Ipsum is simply dummy text of the printing and typesetting industry.\\",\\"all_cookies_name\\":\\"Other Cookies\\",\\"all_cookies_description\\":\\"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\\"} /-->"`;
