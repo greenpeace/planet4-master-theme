@@ -31,9 +31,8 @@ abstract class Search
 
     /**
      * Search Query
-     *
      */
-    protected string $search_query;
+    protected ?string $search_query = null;
 
     /**
      * Posts
@@ -52,14 +51,14 @@ abstract class Search
     /**
      * Selected sort criteria
      */
-    protected string $selected_sort;
+    protected ?string $selected_sort = null;
 
     /**
      * FIlters
      *
-     * @var array $filters
+     * @var array|null $filters
      */
-    protected array $filters;
+    protected ?array $filters = null;
 
     /**
      * @var int|null The total number of matches.
@@ -78,13 +77,13 @@ abstract class Search
      *
      * @var array $context
      */
-    public array $context;
+    public array $context = [];
 
     /**
      * Current Page
      *
      */
-    public int $current_page;
+    public int $current_page = 1;
 
     /**
      * @var array|null Aggregations on the complete result set.
@@ -260,12 +259,12 @@ abstract class Search
      * Conducts the actual search.
      *
      * @param string $search_query The searched term.
-     * @param string $selected_sort The selected order_by.
+     * @param string|null $selected_sort The selected order_by.
      * @param array  $filters The selected filters.
      */
     public function load(
         string $search_query,
-        string $selected_sort = self::DEFAULT_SORT,
+        ?string $selected_sort = self::DEFAULT_SORT,
         array $filters = []
     ): void {
         $this->initialize();
@@ -273,6 +272,9 @@ abstract class Search
         $this->templates = [ 'search.twig', 'archive.twig', 'index.twig' ];
 
         $this->context = Timber::get_context();
+        if (empty($selected_sort)) {
+            $selected_sort = self::DEFAULT_SORT;
+        }
 
         // Validate user input (sort, filters, etc).
         if ($this->validate($selected_sort, $filters, $this->context)) {
@@ -442,7 +444,7 @@ abstract class Search
         add_action(
             'ep_valid_response',
             function ($response): void {
-                $this->aggregations = $response['aggregations'];
+                $this->aggregations = $response['aggregations'] ?? null;
                 $this->query_time = $response['took'];
             }
         );

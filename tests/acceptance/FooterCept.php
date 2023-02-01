@@ -22,7 +22,7 @@ function seePostPagesLinks(AcceptanceTester $I): void
     $I->seeLink('Copyright', 'http://www.planet4.test/copyright/');
     $I->seeLink(
         'Search the Archive',
-        'http://www.greenpeace.org/international/en/System-templates/Search-results/?adv=true'
+        'http://www.greenpeace.org/international/en/System-templates/Search-results/?adv=true' //NOSONAR
     );
 }
 

@@ -17,6 +17,7 @@ use P4\MasterTheme\Features\PurgeOnFeatureChanges;
 use P4\MasterTheme\Features\RedirectRedirectPages;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Settings;
+use CMB2;
 
 /**
  * Wrapper class for accessing feature settings and setting up the settings page.
@@ -169,10 +170,10 @@ class Features
     /**
      * Save options status on preprocess, to be compared later
      *
-     * @param array $cmb       This CMB2 object.
-     * @param int   $object_id The ID of the current object.
+     * @param CMB2   $cmb       This CMB2 object.
+     * @param string $object_id The ID of the current object.
      */
-    public static function on_pre_process(array $cmb, int $object_id): void
+    public static function on_pre_process(CMB2 $cmb, string $object_id): void
     {
         if (self::OPTIONS_KEY !== $object_id) {
             return;
