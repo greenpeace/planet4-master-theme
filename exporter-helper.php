@@ -172,9 +172,9 @@ function get_campaign_attachments(array $post_ids): array
 /**
  * Wrap strings in nested CDATA tags.
  *
- * @param string $str String to replace.
+ * @param string|null $str String to replace.
  */
-function p4_px_single_post_cdata(string $str): string
+function p4_px_single_post_cdata(?string $str): string
 {
     if (seems_utf8($str) === false) {
         $str = utf8_encode($str);

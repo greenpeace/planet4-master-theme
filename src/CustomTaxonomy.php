@@ -175,10 +175,9 @@ class CustomTaxonomy
      */
     public function get_multilingual_terms(): array
     {
-
         $all_terms = [];
         $current_lang = apply_filters('wpml_current_language', null);
-        $available_languages = apply_filters('wpml_active_languages', null, 'orderby=id&order=desc');
+        $available_languages = apply_filters('wpml_active_languages', null, 'orderby=id&order=desc') ?? [];
 
         foreach ($available_languages as $lang) {
             do_action('wpml_switch_language', $lang['language_code']);

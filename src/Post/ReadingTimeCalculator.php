@@ -158,7 +158,7 @@ class ReadingTimeCalculator
      */
     private function extract_images(string $content): array
     {
-        if (! $this->options['count_images']) {
+        if (! $this->options['count_images'] || empty($content)) {
             return [];
         }
 
