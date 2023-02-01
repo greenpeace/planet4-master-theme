@@ -333,7 +333,7 @@ class GravityFormsExtensions
     *
     * @return array The updated form arguments.
     */
-    public function p4_gf_enforce_ajax($form_args)
+    public function p4_gf_enforce_ajax(array $form_args): array
     {
         $form_args['ajax'] = true;
 

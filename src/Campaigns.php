@@ -3,7 +3,6 @@
 namespace P4\MasterTheme;
 
 use WP_Term;
-use P4\MasterTheme\Features\HideListingPagesBackground;
 
 /**
  * Class Campaigns
@@ -100,7 +99,7 @@ class Campaigns
             $page = $redirect_page ? get_post($redirect_page) : null;
             $redirect_title = $page ? $page->post_title : null;
 
-            $page = $redirect_page ? get_post( $redirect_page ) : null;
+            $page = $redirect_page ? get_post($redirect_page) : null;
             $redirect_title = $page ? $page->post_title : null;
             ?>
 

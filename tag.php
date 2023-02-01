@@ -36,31 +36,31 @@ if (is_tag()) {
     } else {
         $templates = [ 'tag.twig', 'archive.twig', 'index.twig' ];
 
-        $context['tag_name']        = single_tag_title( '', false );
-        $context['tag_description'] = wpautop( $context['tag']->description );
-        $tag_image_id               = get_term_meta( $context['tag']->term_id, 'tag_attachment_id', true );
+        $context['tag_name'] = single_tag_title('', false);
+        $context['tag_description'] = wpautop($context['tag']->description);
+        $tag_image_id = get_term_meta($context['tag']->term_id, 'tag_attachment_id', true);
 
         $context['og_description'] = $context['tag_description'];
-        if ( $tag_image_id ) {
-            $tag_image = wp_get_attachment_image_src( $tag_image_id, 'full' );
+        if ($tag_image_id) {
+            $tag_image = wp_get_attachment_image_src($tag_image_id, 'full');
 
             $context['og_image_data'] = [
-                'url'    => $tag_image[0],
-                'width'  => $tag_image[1],
+                'url' => $tag_image[0],
+                'width' => $tag_image[1],
                 'height' => $tag_image[2],
             ];
         }
         $context['page_category'] = 'Tag Page';
 
-        if ( ListingPagePagination::is_active() ) {
+        if (ListingPagePagination::is_active()) {
             $view = ListingPageGridView::is_active() ? 'grid' : 'list';
 
-            $query_template = file_get_contents( get_template_directory() . "/parts/query-$view.html" );
+            $query_template = file_get_contents(get_template_directory() . "/parts/query-$view.html");
 
-            $content               = do_blocks( $query_template );
+            $content = do_blocks($query_template);
             $context['query_loop'] = $content;
 
-            $campaign = new TaxonomyCampaign( $templates, $context );
+            $campaign = new TaxonomyCampaign($templates, $context);
             $campaign->view();
             exit();
         }
