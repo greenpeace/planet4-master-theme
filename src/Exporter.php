@@ -27,7 +27,8 @@ class Exporter
      */
     public function single_post_export_data(): void
     {
-        $post_id = filter_input(INPUT_GET, 'post', FILTER_SANITIZE_NUMBER_INT) ?? filter_input(INPUT_POST, 'post', FILTER_SANITIZE_NUMBER_INT);
+        $post_id = filter_input(INPUT_GET, 'post', FILTER_SANITIZE_NUMBER_INT)
+            ?? filter_input(INPUT_POST, 'post', FILTER_SANITIZE_NUMBER_INT);
         if (! empty($post_id) && 'export_data' === filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING)) {
             include get_template_directory() . '/exporter.php';
         } else {
@@ -46,7 +47,9 @@ class Exporter
         ?>
     <script type="text/javascript">
         jQuery(function ($) {
-            jQuery('<option>').val('export').text('<?php esc_html_e('Export', 'planet4-master-theme-backend'); ?>').appendTo("select[name='action']");
+            jQuery('<option>').val('export')
+                .text('<?php esc_html_e('Export', 'planet4-master-theme-backend'); ?>')
+                .appendTo("select[name='action']");
         });
     </script>
         <?php
@@ -94,7 +97,9 @@ class Exporter
     {
         if (current_user_can('edit_posts')) {
             $export_url = esc_url(admin_url('admin.php?action=export_data&amp;post=' . $post->ID));
-            $actions['export'] = '<a href="' . $export_url . '" title="' . __('Export', 'planet4-master-theme-backend') . '" rel="permalink">' . __('Export', 'planet4-master-theme-backend') . '</a>';
+            $actions['export'] = '<a href="' . $export_url . '" title="'
+                . __('Export', 'planet4-master-theme-backend') . '" rel="permalink">'
+                . __('Export', 'planet4-master-theme-backend') . '</a>';
         }
 
         return $actions;
@@ -102,17 +107,19 @@ class Exporter
 
     /**
      * Add Import Button
+     *
+     * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
     public function add_import_button(): void
     {
-		// phpcs:disable WordPress.WP.CapitalPDangit.Misspelled
         ?>
         <script>
             jQuery(function(){
-                jQuery(".wrap .page-title-action").after('<a href="admin.php?import=wordpress" class="page-title-action"><?php esc_html_e('Import', 'planet4-master-theme-backend'); ?></a>');
+                jQuery(".wrap .page-title-action")
+                    .after('<a href="admin.php?import=wordpress" class="page-title-action"><?php esc_html_e('Import', 'planet4-master-theme-backend'); ?></a>');
             });
         </script>
         <?php
-		// phpcs:enable
     }
+    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 }

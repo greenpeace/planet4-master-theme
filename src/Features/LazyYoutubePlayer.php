@@ -31,6 +31,7 @@ class LazyYoutubePlayer extends Feature
     protected static function description(): string
     {
         return __(
+            // phpcs:ignore Generic.Files.LineLength.MaxExceeded
             'Only load the YouTube player after clicking on a video (<a href="https://jira.greenpeace.org/browse/PLANET-5959" target="_blank">details</a>).<br>Disabling it will have a big performance impact.',
             'planet4-master-theme-backend'
         );

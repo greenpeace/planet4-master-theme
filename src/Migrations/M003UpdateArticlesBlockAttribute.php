@@ -30,7 +30,8 @@ class M003UpdateArticlesBlockAttribute extends MigrationScript
 			WHERE post_type IN(' . generate_list_placeholders($post_types, 2, 's') . ')
 			AND post_content REGEXP \'wp\:planet4\-blocks\/articles \{.*\"articles_description\"\:.*}\'';
 
-        $prepared_sql = $wpdb->prepare($sql, array_merge([ $wpdb->posts ], $post_types)); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $prepared_sql = $wpdb->prepare($sql, array_merge([ $wpdb->posts ], $post_types));
         $results = $wpdb->get_results($prepared_sql); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
         // Iterate posts.
@@ -49,10 +50,12 @@ class M003UpdateArticlesBlockAttribute extends MigrationScript
                 $inner_html = $block['innerHTML'];
 
                 /**
-                 * Check if articles description attribute added in the end. The last attribute ends with closing curly brace.
+                 * Check if articles description attribute added in the end.
+                 * The last attribute ends with closing curly brace.
                  * eg.
                  * <!-- wp:planet4-blocks/articles {"articles_description":"test description"} -->
-                 * <div class="wp-block-planet4-blocks-articles" data-render="planet4-blocks/articles" data-attributes="{&quot;attributes&quot;:{&quot;article_heading&quot;:&quot;Related Articles&quot;,&quot;article_count&quot;:3,&quot;tags&quot;:[],&quot;posts&quot;:[],&quot;post_types&quot;:[],&quot;read_more_text&quot;:&quot;Load more&quot;,&quot;read_more_link&quot;:&quot;&quot;,&quot;button_link_new_tab&quot;:false,&quot;ignore_categories&quot;:false,&quot;articles_description&quot;:&quot;test description&quot;},&quot;innerBlocks&quot;:[]}"></div>
+                 * <div class="wp-block-planet4-blocks-articles" data-render="planet4-blocks/articles"
+                 *      data-attributes="{&quot;attributes&quot;:{...},&quot;innerBlocks&quot;:[]}"></div>
                  * <!-- /wp:planet4-blocks/articles -->
                  */
                 $articles_desc_substring = '&quot;articles_description&quot;:&quot;' . $article_description . '&quot;';
@@ -88,6 +91,7 @@ class M003UpdateArticlesBlockAttribute extends MigrationScript
         }
 
         $record->add_log(implode(',', $updated_post_ids));
-        echo 'Updated post IDs:' . implode(',', $updated_post_ids); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo 'Updated post IDs:' . implode(',', $updated_post_ids);
     }
 }

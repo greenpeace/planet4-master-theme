@@ -230,7 +230,8 @@ final class AnalyticsValues
             return null;
         }
 
-        $local_sheet_id = planet4_get_option('analytics_local_google_sheet_id') ?? $_ENV['analytics_local_google_sheet_id'] ?? null;
+        $local_sheet_id = planet4_get_option('analytics_local_google_sheet_id')
+            ?? $_ENV['analytics_local_google_sheet_id'] ?? null;
 
         $local_sheet = ! $local_sheet_id ? null : $google_client->get_sheet($local_sheet_id);
 
@@ -304,7 +305,9 @@ final class AnalyticsValues
             $this->global_projects
         );
 
-        return [ 'not set' => __('- Select Global Project -', 'planet4-master-theme-backend') ] + array_combine($names, $names);
+        return [
+            'not set' => __('- Select Global Project -', 'planet4-master-theme-backend'),
+        ] + array_combine($names, $names);
     }
 
     /**
@@ -326,7 +329,9 @@ final class AnalyticsValues
             $local_projects_options = array_combine($names, $names);
         }
 
-        return [ 'not set' => __('- Select Local Project -', 'planet4-master-theme-backend') ] + $local_projects_options;
+        return [
+            'not set' => __('- Select Local Project -', 'planet4-master-theme-backend'),
+        ] + $local_projects_options;
     }
 
     /**

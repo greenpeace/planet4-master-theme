@@ -28,7 +28,7 @@ class ApiClient
 
     private const DEFAULT_PARAMS = [
         'query' => '(Mediatype:Image)',
-        'fields' => 'MediaEncryptedIdentifier,Title,Caption,CoreField.Copyright,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier,original-language-title,original-language-description,original-language,restrictions,copyright,MediaDate,CreatedDate,EditDate',
+        'fields' => 'MediaEncryptedIdentifier,Title,Caption,CoreField.Copyright,Path_TR1,Path_TR1_COMP_SMALL,Path_TR7,Path_TR4,Path_TR1_COMP,Path_TR2,Path_TR3,SystemIdentifier,original-language-title,original-language-description,original-language,restrictions,copyright,MediaDate,CreatedDate,EditDate', // phpcs:ignore Generic.Files.LineLength.MaxExceeded
         'countperpage' => self::MEDIAS_PER_PAGE,
         'format' => 'json',
         'pagenumber' => 1,
@@ -258,11 +258,13 @@ class ApiClient
         $sql = '
 SELECT p.id, m.meta_value
 FROM %1$s p JOIN %2$s m ON m.post_id = p.id
-WHERE m.meta_key = "' . Image::ARCHIVE_ID_META_KEY . '" AND m.meta_value IN (' . generate_list_placeholders($ids, 3, 's') . ')';
+WHERE m.meta_key = "' . Image::ARCHIVE_ID_META_KEY . '"
+    AND m.meta_value IN (' . generate_list_placeholders($ids, 3, 's') . ')';
 
-        $prepared = $wpdb->prepare($sql, array_merge([ $wpdb->posts, $wpdb->postmeta ], $ids)); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-
-        $results = $wpdb->get_results($prepared, ARRAY_A);//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $prepared = $wpdb->prepare($sql, array_merge([ $wpdb->posts, $wpdb->postmeta ], $ids));
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $results = $wpdb->get_results($prepared, ARRAY_A);
 
         // Return as indexed array to make lookups easier.
         $indexed = [];

@@ -147,10 +147,11 @@ function get_campaign_attachments(array $post_ids): array
 			SELECT post_content
 			FROM %1$s
 			WHERE ID IN(' . generate_list_placeholders($post_ids, 2) . ')
-			AND post_content REGEXP \'((wp-image-|wp-att-)[0-9][0-9]*)|gallery_block_style|wp\:planet4\-blocks|href=|src=\'';
-
-    $prepared_sql = $wpdb->prepare($sql, array_merge([ $wpdb->posts ], $post_ids)); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-    $results = $wpdb->get_results($prepared_sql); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			AND post_content REGEXP \'((wp-image-|wp-att-)[0-9][0-9]*)|gallery_block_style|wp\:planet4\-blocks|href=|src=\'';// phpcs:ignore Generic.Files.LineLength.MaxExceeded
+    // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+    $prepared_sql = $wpdb->prepare($sql, array_merge([ $wpdb->posts ], $post_ids));
+    // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+    $results = $wpdb->get_results($prepared_sql);
 
     foreach ((array) $results as $text) {
         $text = $text->post_content;
@@ -160,7 +161,8 @@ function get_campaign_attachments(array $post_ids): array
     $attachment_ids = array_unique($attachment_ids);
     sort($attachment_ids);
 
-    // The post ids are reordered as sort all attachment ids first and then append the post id to array.(Added for simplification of import process).
+    // The post ids are reordered as sort all attachment ids first
+    // and then append the post id to array.(Added for simplification of import process).
     $attachment_ids = array_diff($attachment_ids, $post_ids);
     $post_ids = array_merge($attachment_ids, $post_ids);
 
@@ -211,9 +213,10 @@ function p4_px_single_post_authors_list(array $post_ids): void
     $sql = 'SELECT DISTINCT post_author
 			FROM %1$s
 			WHERE ID IN(' . generate_list_placeholders($post_ids, 2) . ') AND post_status != \'auto-draft\'';
-
-    $prepared_sql = $wpdb->prepare($sql, array_merge([ $wpdb->posts ], $post_ids)); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-    $results = $wpdb->get_results($prepared_sql); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+    // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+    $prepared_sql = $wpdb->prepare($sql, array_merge([ $wpdb->posts ], $post_ids));
+    // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+    $results = $wpdb->get_results($prepared_sql);
 
     foreach ((array) $results as $result) {
         $authors[] = get_userdata($result->post_author);

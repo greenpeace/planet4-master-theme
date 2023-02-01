@@ -162,18 +162,21 @@ final class Loader
      *
      * @see https://core.trac.wordpress.org/ticket/49532
      *
-     * @param null $delete Whether to go forward with the delete (sic, see original filter where it is null initally, not used here).
+     * @param null $delete Whether to go forward with the delete
+     *                     (sic, see original filter where it is null initally, not used here).
      * @param null $post Post object.
-     * @param null $force_delete Is true when post is not trashed but deleted permanently (always false for revisions but they are deleted anyway).
+     * @param null $force_delete Is true when post is not trashed but deleted permanently
+     *                           (always false for revisions but they are deleted anyway).
      *
      * @return bool|null If the filter returns anything else than null the post is not deleted.
+     * phpcs:disable WordPress.Security.NonceVerification.Recommended
      */
     public function do_not_delete_autosave($delete = null, $post = null, $force_delete = null): ?bool
     {
         if (
             $force_delete
-            || ( isset($_GET['action']) && 'delete' === $_GET['action'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-            || ( isset($_GET['delete_all']) ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            || ( isset($_GET['action']) && 'delete' === $_GET['action'] )
+            || ( isset($_GET['delete_all']) )
             || ! preg_match('/autosave-v\d+$/', $post->post_name)
         ) {
             return $delete;
@@ -181,6 +184,7 @@ final class Loader
 
         return false;
     }
+    // phpcs:enable WordPress.Security.NonceVerification.Recommended
 
     /**
      * @param string $rel_path Relative path to the file.
@@ -242,8 +246,11 @@ final class Loader
      * @param array  $deps Dependencies of the script.
      * @param bool   $in_footer Whether the script should be loaded in the footer.
      */
-    public static function enqueue_versioned_script(string $relative_path, array $deps = [], bool $in_footer = false): void
-    {
+    public static function enqueue_versioned_script(
+        string $relative_path,
+        array $deps = [],
+        bool $in_footer = false
+    ): void {
         // Create a supposedly unique handle based on the path.
         $handle = str_replace('/[^\w]/', '', $relative_path);
 

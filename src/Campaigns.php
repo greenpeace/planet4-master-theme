@@ -58,7 +58,8 @@ class Campaigns
     /**
      * Add custom field(s) to taxonomy form.
      *
-     * @param WP_Term $wp_tag The object passed to the callback when on Edit Tag page.
+     * @param WP_Term $wp_tag The object passed to the callback when on Edit Tag page.*
+     * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
     public function add_taxonomy_form_fields(WP_Term $wp_tag): void
     {
@@ -229,6 +230,7 @@ class Campaigns
             <?php
         }
     }
+    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
     /**
      * Save taxonomy custom field(s).

@@ -111,7 +111,10 @@ if (is_tag()) {
             'covers',
             [
                 'title' => __('Things you can do', 'planet4-master-theme'),
-                'description' => __('We want you to take action because together we\'re strong.', 'planet4-master-theme'),
+                'description' => __(
+                    'We want you to take action because together we\'re strong.',
+                    'planet4-master-theme'
+                ),
                 'tags' => [ $context['tag']->term_id ],
                 'cover_type' => '1', // Show Take Action Cover.
             ]
@@ -124,7 +127,8 @@ if (is_tag()) {
             'title' => __('Publications', 'planet4-master-theme'),
         ];
 
-        // Get the selected page types for this campaign so that we add posts in the CFC block only for those page types.
+        // Get the selected page types for this campaign so that we add posts in the CFC block
+        // only for those page types.
         $selected_page_types = get_term_meta($context['tag']->term_id, 'selected_page_types');
 
         if (isset($selected_page_types[0]) && $selected_page_types[0]) {
@@ -151,7 +155,8 @@ if (is_tag()) {
             'covers',
             [
                 'title' => __('Related Campaigns', 'planet4-master-theme'),
-                'category_id' => $category->term_id ?? __('This Campaign is not assigned to an Issue', 'planet4-master-theme'),
+                'category_id' => $category->term_id
+                    ?? __('This Campaign is not assigned to an Issue', 'planet4-master-theme'),
                 'cover_type' => '2', // Show Campaign covers.
             ]
         );

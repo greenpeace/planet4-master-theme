@@ -126,12 +126,13 @@ class ElasticSearch extends Search
     {
         if (isset($formatted_args['query']['function_score']['query']['bool'])) {
             // Create/change the bool query from should to must.
-            $formatted_args['query']['function_score']['query']['bool']['must'] = $formatted_args['query']['function_score']['query']['bool']['should'];
+            $formatted_args['query']['function_score']['query']['bool']['must'] = $formatted_args['query']['function_score']['query']['bool']['should']; // phpcs:ignore Generic.Files.LineLength.MaxExceeded
             // Add the operator AND to the new bool query.
             $formatted_args['query']['function_score']['query']['bool']['must'][0]['multi_match']['operator'] = 'AND';
             // Erase the old should query.
             unset($formatted_args['query']['function_score']['query']['bool']['should']);
-            // Erase the phrase matching (to make sure we get results that include both 'courageous' AND 'act' instead of only those with 'courageous act'.
+            // Erase the phrase matching (to make sure we get results that include both 'courageous' AND 'act'
+            // instead of only those with 'courageous act'.
             unset($formatted_args['query']['function_score']['query']['bool']['must'][0]['multi_match']['type']);
         }
 

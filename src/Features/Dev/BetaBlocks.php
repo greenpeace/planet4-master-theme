@@ -31,6 +31,7 @@ class BetaBlocks extends Feature
     protected static function description(): string
     {
         return __(
+            // phpcs:ignore Generic.Files.LineLength.MaxExceeded
             'Enable early or unstable versions of blocks in the editor (grouped under "Planet 4 Blocks - BETA" category).',
             'planet4-master-theme-backend'
         );

@@ -121,7 +121,10 @@ class GravityFormsExtensions
             'type' => 'select',
             'name' => 'p4_gf_type',
             'label' => __('Form Type', 'planet4-master-theme-backend'),
-            'tooltip' => __('Please select a form type below so you can track and analyze each form type separately', 'planet4-master-theme-backend'),
+            'tooltip' => __(
+                'Please select a form type below so you can track and analyze each form type separately',
+                'planet4-master-theme-backend'
+            ),
             'required' => true,
             'default_value ' => self::DEFAULT_GF_TYPE,
             'choices' => self::P4_GF_TYPES,
@@ -142,7 +145,8 @@ class GravityFormsExtensions
         if (strpos($file_path, '/gravity_forms/') !== false) {
             // The default gravity form uploaded files path gives error.
             // eg. https://www.greenpeace.org/static/planet4-test-titan-stateless-develop/gravity_forms/8-23c5dc88bb5af48eb293c4c780a5ed0a/2022/09/e26f3fe9-2022_08_gravity_forms_3-1b36ac6eddacf20087d29746b297b384_2022_08_99ef18e1-predator.jpg
-            // By updating a part[/year/month/] of file path('/gravity_forms/' => '/2022/09/gravity_forms/') fix the issue.
+            // By updating a part[/year/month/] of file path('/gravity_forms/' => '/2022/09/gravity_forms/')
+            // fix the issue.
 
             // Extract year and month from file path.
             $year_month = array_slice(explode('/', $file_path), -3, 2);
@@ -193,7 +197,9 @@ class GravityFormsExtensions
 			</style>
 		';
 
-        // This bit of code is to hide the "Share Buttons" section if editors select "Page" or "Redirect" as confirmation message.
+        // This bit of code is to hide the "Share Buttons" section
+        // if editors select "Page" or "Redirect" as confirmation message.
+        // phpcs:disable Generic.Files.LineLength.MaxExceeded
         echo '
 			<script>
 				addEventListener("DOMContentLoaded", () => {
@@ -215,6 +221,7 @@ class GravityFormsExtensions
 				});
 			</script>
 		';
+        // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
         if (! array_key_exists('p4_share_buttons', $fields)) {
             $share_buttons['p4_share_buttons'] = [
@@ -236,14 +243,14 @@ class GravityFormsExtensions
             'type' => 'text',
             'name' => 'p4_gf_share_text_override',
             'label' => __('Share text', 'planet4-master-theme-backend'),
-            'tooltip' => __('This is the text that will be shared when a user clicks a share button (if the platform supports share text)', 'planet4-master-theme-backend'),
+            'tooltip' => __('This is the text that will be shared when a user clicks a share button (if the platform supports share text)', 'planet4-master-theme-backend'), // phpcs:ignore Generic.Files.LineLength.MaxExceeded
         ];
 
         $fields['p4_share_buttons']['fields'][] = [
             'type' => 'text',
             'name' => 'p4_gf_share_url_override',
             'label' => __('Override share URL', 'planet4-master-theme-backend'),
-            'tooltip' => __('By default, share buttons will share the URL of the page that the form was submitted on. Use this field to override with a different URL.', 'planet4-master-theme-backend'),
+            'tooltip' => __('By default, share buttons will share the URL of the page that the form was submitted on. Use this field to override with a different URL.', 'planet4-master-theme-backend'), // phpcs:ignore Generic.Files.LineLength.MaxExceeded
         ];
 
         return $fields;
@@ -284,11 +291,17 @@ class GravityFormsExtensions
             'utm_medium' => 'gf-share',
         ];
 
-        if (isset($current_confirmation['p4_gf_share_text_override']) && $current_confirmation['p4_gf_share_text_override']) {
+        if (
+            isset($current_confirmation['p4_gf_share_text_override'])
+            && $current_confirmation['p4_gf_share_text_override']
+        ) {
             $confirmation_fields['share_text'] = $current_confirmation['p4_gf_share_text_override'];
         }
 
-        if (isset($current_confirmation['p4_gf_share_url_override']) && $current_confirmation['p4_gf_share_url_override']) {
+        if (
+            isset($current_confirmation['p4_gf_share_url_override'])
+            && $current_confirmation['p4_gf_share_url_override']
+        ) {
             $confirmation_fields['share_url'] = $current_confirmation['p4_gf_share_url_override'];
         }
 

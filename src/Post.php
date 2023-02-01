@@ -49,7 +49,8 @@ class Post extends TimberPost
     /**
      * Post constructor.
      *
-     * @param mixed $pid The post id. If left null it will try to figure out the current post id based on being inside The_Loop.
+     * @param mixed $pid The post id.
+     * If left null it will try to figure out the current post id based on being inside The_Loop.
      */
     public function __construct($pid = null)
     {
@@ -476,7 +477,11 @@ class Post extends TimberPost
         if (isset($_COOKIE[ 'wp-postpass_' . COOKIEHASH ])) {
             $old_cookie = get_transient('p4-postpass_' . $custom_hash);
             $current_cookie = wp_unslash($_COOKIE[ 'wp-postpass_' . COOKIEHASH ]);
-            set_transient('p4-postpass_' . $custom_hash, $current_cookie, $expiration = 60 * 5); // Transient cache expires in 5 mins.
+            set_transient(
+                'p4-postpass_' . $custom_hash,
+                $current_cookie,
+                $expiration = 60 * 5 // Transient cache expires in 5 mins.
+            );
             if (false !== $old_cookie && $current_cookie !== $old_cookie) {
                 $is_valid = false;
             }

@@ -306,7 +306,12 @@ class MasterSite extends TimberSite
             return;
         }
 
-        if (wp_safe_redirect(str_replace(sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST'])), sanitize_text_field(wp_unslash($_SERVER['SERVER_NAME'])), get_admin_url()))) {
+        $adminUrl = str_replace(
+            sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST'])),
+            sanitize_text_field(wp_unslash($_SERVER['SERVER_NAME'])),
+            get_admin_url()
+        );
+        if (wp_safe_redirect($adminUrl)) {
             exit;
         }
     }
@@ -365,7 +370,8 @@ class MasterSite extends TimberSite
             return;
         }
 
-        // Find all matches of <img> html tags within the post's content and get the id of the image from the elements class name.
+        // Find all matches of <img> html tags within the post's content
+        // and get the id of the image from the elements class name.
         preg_match_all('/<img.+wp-image-(\d+).*>/i', $post->post_content, $matches);
         if (!isset($matches[1][0]) || !is_numeric($matches[1][0])) {
             return;
@@ -466,7 +472,8 @@ class MasterSite extends TimberSite
         // phpcs:enable
 
         // Search for those posts, who use TAB($post_id) as a block inside block editor.
-        $take_action_boxout_block = '%<!-- wp:planet4-blocks/take-action-boxout {"take_action_page":' . $post_id . '} /-->%';
+        $take_action_boxout_block = '%<!-- wp:planet4-blocks/take-action-boxout {"take_action_page":'
+            . $post_id . '} /-->%';
         // phpcs:disable
         $sql          = 'SELECT ID FROM %1$s WHERE post_type = \'post\' AND post_status = \'publish\' AND post_content LIKE \'%2$s\'';
         $prepared_sql = $wpdb->prepare( $sql, $wpdb->posts, $take_action_boxout_block );
@@ -597,7 +604,8 @@ class MasterSite extends TimberSite
 
         $options = get_option('planet4_options');
 
-        // Do not embed google tag manager js if 'greenpeace' cookie is not set or enforce_cookies_policy setting is not enabled.
+        // Do not embed google tag manager js if 'greenpeace' cookie is not set
+        // or enforce_cookies_policy setting is not enabled.
         $context['enforce_cookies_policy'] = isset($options['enforce_cookies_policy']) ? true : false;
         $context['google_tag_value'] = $options['google_tag_manager_identifier'] ?? '';
         $context['ab_hide_selector'] = $options['ab_hide_selector'] ?? null;
@@ -629,7 +637,8 @@ class MasterSite extends TimberSite
 
         $context['donatelink'] = $options['donate_button'] ?? '#';
         $context['donatetext'] = $options['donate_text'] ?? __('Donate', 'planet4-master-theme');
-        $context['website_navbar_title'] = $options['website_navigation_title'] ?? __('International (English)', 'planet4-master-theme');
+        $context['website_navbar_title'] = $options['website_navigation_title']
+            ?? __('International (English)', 'planet4-master-theme');
 
         $context['act_page_id'] = $options['act_page'] ?? '';
         $context['explore_page_id'] = $options['explore_page'] ?? '';
@@ -640,7 +649,8 @@ class MasterSite extends TimberSite
         $context['footer_social_menu'] = wp_get_nav_menu_items('Footer Social');
         $context['footer_primary_menu'] = wp_get_nav_menu_items('Footer Primary');
         $context['footer_secondary_menu'] = wp_get_nav_menu_items('Footer Secondary');
-        $context['p4_comments_depth'] = get_option('thread_comments_depth') ?? 1; // Default depth level set to 1 if not selected from admin.
+        // Default depth level set to 1 if not selected from admin.
+        $context['p4_comments_depth'] = get_option('thread_comments_depth') ?? 1;
 
         $context['countries_by_initials'] = json_decode(
             file_get_contents(get_template_directory() . '/templates/countries.json'),
@@ -680,7 +690,9 @@ class MasterSite extends TimberSite
      */
     public function svgicon(string $name): Twig_Markup
     {
-        $svg_icon_template = '<svg viewBox="0 0 32 32" class="icon"><use xlink:href="' . $this->theme_dir . '/assets/build/sprite.symbol.svg#' . $name . '"></use></svg>';
+        $svg_icon_template = '<svg viewBox="0 0 32 32" class="icon"><use xlink:href="'
+            . $this->theme_dir . '/assets/build/sprite.symbol.svg#'
+            . $name . '"></use></svg>';
         return new Twig_Markup($svg_icon_template, 'UTF-8');
     }
 
@@ -847,7 +859,13 @@ class MasterSite extends TimberSite
     public function enqueue_admin_assets(): void
     {
         // Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
-        wp_register_script('jquery-3', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', [], '3.3.1', true);
+        wp_register_script(
+            'jquery-3',
+            'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js',
+            [],
+            '3.3.1',
+            true
+        );
     }
 
     /**
@@ -868,7 +886,15 @@ class MasterSite extends TimberSite
      */
     public function add_meta_box_search(string $post_type, WP_Post $post): void
     {
-        add_meta_box('meta-box-search', 'Search', [ $this, 'view_meta_box_search' ], [ 'post', 'page' ], 'side', 'default', [$post]);
+        add_meta_box(
+            'meta-box-search',
+            'Search',
+            [ $this, 'view_meta_box_search' ],
+            [ 'post', 'page' ],
+            'side',
+            'default',
+            [$post]
+        );
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
@@ -882,7 +908,9 @@ class MasterSite extends TimberSite
         $weight = get_post_meta($post->ID, 'weight', true);
         $options = get_option('planet4_options');
 
-        echo '<label for="my_meta_box_text">' . esc_html__('Weight', 'planet4-master-theme-backend') . ' (1-' . esc_attr(Search::DEFAULT_MAX_WEIGHT) . ')</label>
+        echo '<label for="my_meta_box_text">'
+            . esc_html__('Weight', 'planet4-master-theme-backend')
+            . ' (1-' . esc_attr(Search::DEFAULT_MAX_WEIGHT) . ')</label>
                 <input id="weight" type="text" name="weight" value="' . esc_attr($weight) . '" />';
         ?><script>
             $ = jQuery;
@@ -968,7 +996,13 @@ class MasterSite extends TimberSite
     {
         if ($this->google_login_error) {
             $this->google_login_error = false;
-            return new WP_Error('google_login', __('You are trying to login with a Greenpeace email. Please use the Google login button instead.', 'planet4-master-theme-backend'));
+            return new WP_Error(
+                'google_login',
+                __(
+                    'You are trying to login with a Greenpeace email. Please use the Google login button instead.',
+                    'planet4-master-theme-backend'
+                )
+            );
         }
 
         return $user;
@@ -1047,7 +1081,11 @@ class MasterSite extends TimberSite
      */
     public function register_oembed_provider(): void
     {
-        wp_oembed_add_provider('#https?://(?:www\.)?[^/^\.]+\.carto(db)?\.com/\S+#i', 'https://services.carto.com/oembed', true);
+        wp_oembed_add_provider(
+            '#https?://(?:www\.)?[^/^\.]+\.carto(db)?\.com/\S+#i',
+            'https://services.carto.com/oembed',
+            true
+        );
     }
 
     /**
@@ -1236,7 +1274,8 @@ class MasterSite extends TimberSite
 
                 $style = "background-image: url('https://i.ytimg.com/vi/$youtube_id/hqdefault.jpg');";
 
-                return '<lite-youtube style="' . $style . '" videoid="' . $youtube_id . '" params="' . $query_string . '"></lite-youtube>';
+                return '<lite-youtube style="' . $style . '" videoid="' . $youtube_id
+                    . '" params="' . $query_string . '"></lite-youtube>';
             }
         }
 
@@ -1280,6 +1319,7 @@ class MasterSite extends TimberSite
     private static function parse_youtube_url(string $url): ?array
     {
         // @see https://stackoverflow.com/questions/3392993/php-regex-to-get-youtube-video-id
+        // phpcs:ignore Generic.Files.LineLength.MaxExceeded
         $re = '/(?im)\b(?:https?:\/\/)?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)\/(?:(?:\??v=?i?=?\/?)|watch\?vi?=|watch\?.*?&v=|embed\/|)([A-Z0-9_-]{11})\S*(?=\s|$)/';
         preg_match_all($re, $url, $matches, PREG_SET_ORDER);
         $youtube_id = $matches[0][1] ?? null;
@@ -1330,7 +1370,8 @@ class MasterSite extends TimberSite
     }
 
     /**
-     * Override the Gutenberg core/image block render method output, To add credit field in it's caption text & image alt text as title.
+     * Override the Gutenberg core/image block render method output,
+     * to add credit field in it's caption text & image alt text as title.
      *
      * @param array  $attributes    Attributes of the Gutenberg core/image block.
      * @param string $content The image element HTML.
@@ -1452,8 +1493,7 @@ class MasterSite extends TimberSite
      * Version number DASHBOARD_MESSAGE_VERSION has to be incremented
      * each time we add a new message.
      *
-     * @todo Remove party message after over_date (PLANET-5782).
-     *
+     * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
     private function p4_message(): string
     {
@@ -1469,6 +1509,7 @@ class MasterSite extends TimberSite
                 </ul>
             </p>';
     }
+    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
     /**
      * Dismiss P4 notice of dashboard, by saving the last version read in user meta field.

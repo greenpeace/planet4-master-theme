@@ -31,7 +31,10 @@ class ListingPagePagination extends Feature
      */
     protected static function description(): string
     {
-        return __('Use the new paginated tag, category, author, post & action type listing pages.', 'planet4-master-theme-backend');
+        return __(
+            'Use the new paginated tag, category, author, post & action type listing pages.',
+            'planet4-master-theme-backend'
+        );
     }
 
     /**

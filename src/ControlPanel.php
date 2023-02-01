@@ -70,7 +70,10 @@ class ControlPanel
                         [
                             'title' => __('Flush Object Cache', 'planet4-master-theme-backend'),
                             'action' => 'flush_cache',
-                            'confirm' => __('Are you sure you want to delete all Object Cache keys?', 'planet4-master-theme-backend'),
+                            'confirm' => __(
+                                'Are you sure you want to delete all Object Cache keys?',
+                                'planet4-master-theme-backend'
+                            ),
                         ],
                         [
                             'title' => __('Check Object Cache', 'planet4-master-theme-backend'),
@@ -105,7 +108,9 @@ class ControlPanel
                 'subitems' => [
                     [
                         'title' => __('Sync Elasticsearch', 'planet4-master-theme-backend'),
-                        'url' => 'admin.php?page=elasticpress&do_sync', // If we give 'url' key instead of 'action' then we will do usual request instead of ajax request.
+                        // If we give 'url' key instead of 'action'
+                        // then we will do usual request instead of ajax request.
+                        'url' => 'admin.php?page=elasticpress&do_sync',
                         // 'action' => 'ep_index', // Could use this EP action to perform sync asynchronously.
                     ],
                     [
@@ -121,6 +126,7 @@ class ControlPanel
      * Adds a new item in the Control Panel and all of its subitems.
      *
      * @param array $data Associative array with all the data needed to add a new item in the Control Panel.
+     * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
     public function add_item(array $data): void
     {
@@ -135,6 +141,7 @@ class ControlPanel
         echo '</div>
 			</div>';
     }
+    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
     /**
      * Adds a flush cache button to delete all keys in Redis database.
@@ -241,14 +248,20 @@ class ControlPanel
                 $ens_api = new ENS_API($ens_private_token);
 
                 if ($ens_api->is_authenticated()) {
-                    $response['message'] = __('Planet4 is connected to EngagingNetworks', 'planet4-master-theme-backend');
+                    $response['message'] = __(
+                        'Planet4 is connected to EngagingNetworks',
+                        'planet4-master-theme-backend'
+                    );
                     $response['class'] = 'cp-success';
                 } else {
-                    $response['message'] = __('Planet4 is not connected to EngagingNetworks. Please, make sure you have registered your IP address for the ENS API key you have supplied in plugin settings page.', 'planet4-master-theme-backend');
+                    $response['message'] = __('Planet4 is not connected to EngagingNetworks. Please, make sure you have registered your IP address for the ENS API key you have supplied in plugin settings page.', 'planet4-master-theme-backend'); // phpcs:ignore Generic.Files.LineLength.MaxExceeded
                     $response['class'] = 'cp-error';
                 }
             } else {
-                $response['message'] = __('Please check your EngagingNetworks plugin settings', 'planet4-master-theme-backend');
+                $response['message'] = __(
+                    'Please check your EngagingNetworks plugin settings',
+                    'planet4-master-theme-backend'
+                );
                 $response['class'] = 'cp-error';
             }
 
@@ -280,8 +293,8 @@ class ControlPanel
         // CSRF check and action check.
         if (wp_verify_nonce($cp_nonce, 'cp-action') && 'check_elasticsearch' === $cp_action) {
             $response = [];
-
-            if (( new ES() )->get_elasticsearch_version()) { // For version up to 2.8.* we can call ep_elasticsearch_can_connect() to check connection.
+            // For version up to 2.8.* we can call ep_elasticsearch_can_connect() to check connection.
+            if (( new ES() )->get_elasticsearch_version()) {
                 $response['message'] = __('Planet4 is connected to Elasticsearch', 'planet4-master-theme-backend');
                 $response['class'] = 'cp-success';
             } else {

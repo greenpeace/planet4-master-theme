@@ -190,7 +190,8 @@ class Image implements JsonSerializable
         $context = stream_context_create();
 
         // Upload file into WP upload dir.
-        $upload_file = wp_upload_bits($filename, null, file_get_contents($url, false, $context)); //phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+        // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+        $upload_file = wp_upload_bits($filename, null, file_get_contents($url, false, $context));
 
         if (! empty($upload_file['error'])) {
             throw new UploadFailed('File upload failed: ' . $upload_file['error']);
