@@ -31,6 +31,7 @@ class PurgeOnFeatureChanges extends Feature
     protected static function description(): string
     {
         return __(
+            // phpcs:ignore Generic.Files.LineLength.MaxExceeded
             'Purges all pages from Cloudflare cache on feature changes.<br>Only enable on production (in consultation with P4 team).',
             'planet4-master-theme-backend'
         );

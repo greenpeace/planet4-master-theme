@@ -33,14 +33,16 @@ class M004UpdateMissingMediaPath extends MigrationScript
 			SELECT p.id, m.meta_value
 			FROM %1$s p JOIN %2$s m ON m.post_id = p.id
 			WHERE m.meta_key = "sm_cloud" AND p.post_type = "attachment"';
-
-        $prepared_sql = $wpdb->prepare($sql, [ $wpdb->posts, $wpdb->postmeta ]); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-        $results = $wpdb->get_results($prepared_sql); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $prepared_sql = $wpdb->prepare($sql, [ $wpdb->posts, $wpdb->postmeta ]);
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $results = $wpdb->get_results($prepared_sql);
 
         // Iterate posts.
         foreach ((array) $results as $post) {
             $attachment_id = $post->id;
-            $cloud_meta = unserialize($post->meta_value); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
+            // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
+            $cloud_meta = unserialize($post->meta_value);
             $trid = apply_filters('wpml_element_trid', null, $attachment_id, 'post_attachment');
             $translations = apply_filters('wpml_get_element_translations', [], $trid, 'post_attachment');
 
@@ -62,6 +64,7 @@ class M004UpdateMissingMediaPath extends MigrationScript
         }
 
         $record->add_log(implode(',', $updated_post_ids));
-        echo 'Updated attachment IDs:' . implode(',', $updated_post_ids); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo 'Updated attachment IDs:' . implode(',', $updated_post_ids);
     }
 }

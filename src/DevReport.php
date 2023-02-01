@@ -82,9 +82,12 @@ class DevReport
             $commit_url = $url . '/commit/' . $gp_package[2]['reference'];
 
             echo '<h3>' . esc_html($gp_package[0]) . "</h3>\n";
-            echo "<p>Version (tag/branch): <a href='" . esc_url($branch_history_url) . "'>" . esc_html($branch) . "</a></p>\n";
-            echo "<p>Source repo: <a href='" . esc_url($gp_package[2]['url']) . "'>" . esc_html($gp_package[2]['url']) . "</a></p>\n";
-            echo "<p>Source hash: <a href='" . esc_url($commit_url) . "'>" . esc_html($gp_package[2]['reference']) . "</a></p>\n";
+            echo "<p>Version (tag/branch): <a href='" . esc_url($branch_history_url) . "'>"
+                . esc_html($branch) . "</a></p>\n";
+            echo "<p>Source repo: <a href='" . esc_url($gp_package[2]['url']) . "'>"
+                . esc_html($gp_package[2]['url']) . "</a></p>\n";
+            echo "<p>Source hash: <a href='" . esc_url($commit_url) . "'>"
+                . esc_html($gp_package[2]['reference']) . "</a></p>\n";
         }
     }
 }

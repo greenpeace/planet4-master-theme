@@ -116,7 +116,7 @@ class ActionPage
 
         $args = [
             'labels' => $labels,
-            'description' => __('Use Actions to inspire your website\'s users to take action on issues and campaigns they care about!', 'planet4-master-theme-backend'),
+            'description' => __('Use Actions to inspire your website\'s users to take action on issues and campaigns they care about!', 'planet4-master-theme-backend'), // phpcs:ignore Generic.Files.LineLength.MaxExceeded
             'public' => true,
             'publicly_queryable' => true,
             'show_ui' => true,
@@ -202,7 +202,10 @@ class ActionPage
         register_post_meta(
             self::POST_TYPE,
             'action_button_text',
-            array_merge($args, [ 'default' => $options['take_action_covers_button_text'] ?? __('Take action', 'planet4-master-theme') ])
+            array_merge(
+                $args,
+                [ 'default' => $options['take_action_covers_button_text'] ?? __('Take action', 'planet4-master-theme') ]
+            )
         );
 
         foreach (self::META_FIELDS as $field) {
@@ -223,15 +226,26 @@ class ActionPage
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
         if (isset($_POST['p4_action_posttype_slug'])) {
-            update_option('p4_action_posttype_slug', sanitize_title_with_dashes($_POST['p4_action_posttype_slug'])); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+            update_option(
+                'p4_action_posttype_slug',
+                // phpcs:ignore WordPress.Security.NonceVerification.Missing
+                sanitize_title_with_dashes($_POST['p4_action_posttype_slug'])
+            );
         }
 
         // Add a settings field to the permalink page.
-        add_settings_field('p4_action_posttype_slug', __('Action post type slug', 'planet4-master-theme-backend'), [ $this, 'add_action_slug_field' ], 'permalink', 'optional');
+        add_settings_field(
+            'p4_action_posttype_slug',
+            __('Action post type slug', 'planet4-master-theme-backend'),
+            [$this, 'add_action_slug_field'],
+            'permalink',
+            'optional'
+        );
     }
 
     /**
      * Add Action slug text field on permalinks page.
+     * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
     public function add_action_slug_field(): void
     {
@@ -239,6 +253,7 @@ class ActionPage
         $value = get_option('p4_action_posttype_slug');
         echo '<input type="text" value="' . esc_attr($value) . '" name="p4_action_posttype_slug" id="p4_action_posttype_slug" class="regular-text" /><p>' . esc_html__('The default Action post type slug is "action".', 'planet4-master-theme-backend') . '</p>';
     }
+    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
     /**
      * Register P4 setting field to WP.
@@ -408,7 +423,6 @@ class ActionPage
      */
     public function get_multilingual_terms(): array
     {
-
         $all_terms = [];
         $current_lang = apply_filters('wpml_current_language', null);
         $available_languages = apply_filters('wpml_active_languages', null, 'orderby=id&order=desc');
@@ -442,7 +456,6 @@ class ActionPage
      */
     public function save_taxonomy_action_type_on_quick_edit(int $post_id, WP_Post $post): void
     {
-
         // Ignore autosave.
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
             return;
@@ -479,7 +492,8 @@ class ActionPage
             return;
         }
 
-        // Check if Action has a action type term assigned to it and if none assigned, assign the default p4 action type term.
+        // Check if Action has a action type term assigned to it and if none assigned,
+        // assign the default p4 action type term.
         $terms = wp_get_object_terms($post->ID, self::TAXONOMY);
         if (is_wp_error($terms)) {
             return;
@@ -558,6 +572,7 @@ class ActionPage
      * Action for restrict_manage_posts.
      *
      * @param string $post_type WordPress post type slug.
+     * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
     public function filter_actions_by_action_type(string $post_type): void
     {
@@ -587,6 +602,7 @@ class ActionPage
         </select>
         <?php
     }
+    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
     /**
      * Get Default Action Type slug.

@@ -62,6 +62,7 @@ class Settings
 
         // Set our subpages.
         // Each subpage has a title and a path and the fields.
+        // phpcs:disable Generic.Files.LineLength.MaxExceeded
         $this->subpages = [
             'planet4_settings_navigation' => [
                 'title' => 'Navigation',
@@ -150,7 +151,10 @@ class Settings
                             'type' => 'number',
                         ],
                         'default' => Post\ReadingTimeCalculator::DEFAULT_WPM,
-                        'desc' => __('Average reading words per minute (usually between 220 and 320).', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'Average reading words per minute (usually between 220 and 320).',
+                            'planet4-master-theme-backend'
+                        ),
                     ],
 
                     // HappyPoint settings.
@@ -162,7 +166,10 @@ class Settings
                             'url' => false,
                         ],
                         'text' => [
-                            'add_upload_file_text' => __('Add Default Happy Point Background Image', 'planet4-master-theme-backend'),
+                            'add_upload_file_text' => __(
+                                'Add Default Happy Point Background Image',
+                                'planet4-master-theme-backend'
+                            ),
                         ],
                         'query_args' => [
                             'type' => 'image',
@@ -224,13 +231,19 @@ class Settings
                     ],
                     [
                         'name' => __('Search content decay scale', 'planet4-master-theme-backend'),
-                        'desc' => __('Timescale for lowering the relevance of older results. See image above.', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'Timescale for lowering the relevance of older results. See image above.',
+                            'planet4-master-theme-backend'
+                        ),
                         'id' => 'epwr_scale',
                         'type' => 'text',
                     ],
                     [
                         'name' => __('Search content decay offset', 'planet4-master-theme-backend'),
-                        'desc' => __('How old should a post be before relevance is lowered. See image above.', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'How old should a post be before relevance is lowered. See image above.',
+                            'planet4-master-theme-backend'
+                        ),
                         'id' => 'epwr_offset',
                         'type' => 'text',
                     ],
@@ -304,8 +317,8 @@ class Settings
                         'name' => __('Enforce Cookies Policy', 'planet4-master-theme-backend'),
                         'desc' => __(
                             'GDPR related setting. By enabling this option specific content will be blocked and will require user consent to be shown.<br>
-							<b>WARNING:</b> If the setting is checked this will prevent Google Tag Manager container from being fired unless the user has accepted the cookies policy (giving consent in the cookies bar).<br>
-							This might affect the data collected with Google Analytics. For more information please see the documentation in the  <a href="https://planet4.greenpeace.org/handbook/block-cookies/">Planet 4 Handbook</a>.',
+                            <b>WARNING:</b> If the setting is checked this will prevent Google Tag Manager container from being fired unless the user has accepted the cookies policy (giving consent in the cookies bar).<br>
+                            This might affect the data collected with Google Analytics. For more information please see the documentation in the  <a href="https://planet4.greenpeace.org/handbook/block-cookies/">Planet 4 Handbook</a>.',
                             'planet4-master-theme-backend'
                         ),
                         'id' => 'enforce_cookies_policy',
@@ -314,7 +327,10 @@ class Settings
 
                     [
                         'name' => __('Enable Analytical Cookies', 'planet4-master-theme-backend'),
-                        'desc' => __('Enable the Analytical cookies option in Cookies block and box', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'Enable the Analytical cookies option in Cookies block and box',
+                            'planet4-master-theme-backend'
+                        ),
                         'id' => 'enable_analytical_cookies',
                         'type' => 'checkbox',
                     ],
@@ -387,7 +403,10 @@ class Settings
                             'url' => false,
                         ],
                         'text' => [
-                            'add_upload_file_text' => __('Add 404 Page Background Image', 'planet4-master-theme-backend'),
+                            'add_upload_file_text' => __(
+                                'Add 404 Page Background Image',
+                                'planet4-master-theme-backend'
+                            ),
                         ],
                         'query_args' => [
                             'type' => 'image',
@@ -440,7 +459,10 @@ class Settings
                     ],
                     [
                         'name' => __('Local Projects Google Sheet ID', 'planet4-master-theme-backend'),
-                        'desc' => __('The Google Sheet that is used to get analytics values from local(NRO) spreadsheet.', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'The Google Sheet that is used to get analytics values from local(NRO) spreadsheet.',
+                            'planet4-master-theme-backend'
+                        ),
                         'id' => 'analytics_local_google_sheet_id',
                         'type' => 'text',
                     ],
@@ -470,6 +492,7 @@ class Settings
                 ],
             ],
         ];
+        // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
         $this->hooks();
     }
@@ -509,8 +532,14 @@ class Settings
      */
     public function add_options_pages(): void
     {
-        $this->options_page = add_menu_page($this->title, $this->title, 'manage_options', $this->slug, function (): void {
-        }, 'dashicons-admin-site-alt');
+        $this->options_page = add_menu_page(
+            $this->title,
+            $this->title,
+            'manage_options',
+            $this->slug,
+            null,
+            'dashicons-admin-site-alt'
+        );
         foreach ($this->subpages as $path => $subpage) {
             add_submenu_page(
                 $this->slug,
@@ -518,9 +547,7 @@ class Settings
                 $subpage['title'],
                 'manage_options',
                 $path,
-                function () use ($path): void {
-                    $this->admin_page_display($path);
-                }
+                fn() => $this->admin_page_display($path)
             );
         }
     }
@@ -534,7 +561,12 @@ class Settings
     public function add_notifications(): void
     {
         if (! count(get_settings_errors())) {
-            add_settings_error('general', 'settings_updated', __('Settings saved.', 'planet4-master-theme-backend'), 'success');
+            add_settings_error(
+                'general',
+                'settings_updated',
+                __('Settings saved.', 'planet4-master-theme-backend'),
+                'success'
+            );
         }
 
         settings_errors();
@@ -681,6 +713,7 @@ class Settings
     /**
      * Show notice to inform users that the Donate button settings are now in Appearance > Menus.
      *
+     * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
     private function show_donate_menu_notice(): string
     {
@@ -689,6 +722,7 @@ class Settings
 			There you can add a custom link with your text and link for the Donate button,
 			and you will also be able to define dropdown menu items if you want to.</p>';
     }
+    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
     /**
      * Defines the theme option metabox and field configuration.
@@ -715,7 +749,8 @@ class Settings
 
     /**
      * Hook for wpml plugin.
-     * Enables the possibility to save a different value per language for the theme options using WPML language switcher.
+     * Enables the possibility to save a different value per language
+     * for the theme options using WPML language switcher.
      */
     public function make_settings_multilingual(): void
     {

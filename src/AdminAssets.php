@@ -88,6 +88,10 @@ class AdminAssets
         );
 
         // Sets translated strings for a JS script.
-        wp_set_script_translations('menu-editor', 'planet4-master-theme-backend', get_template_directory() . '/languages');
+        wp_set_script_translations(
+            'menu-editor',
+            'planet4-master-theme-backend',
+            get_template_directory() . '/languages'
+        );
     }
 }

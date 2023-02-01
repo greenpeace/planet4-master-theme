@@ -55,7 +55,8 @@ class M005TurnBoxoutSettingIntoBlock extends MigrationScript
         $attrs = [
             'take_action_page' => (int) get_post_meta($post->ID, self::BOXOUT_META_KEY, true),
         ];
-        $boxout = '<!-- wp:planet4-blocks/take-action-boxout ' . wp_json_encode($attrs, JSON_UNESCAPED_SLASHES) . ' /-->';
+        $boxout = '<!-- wp:planet4-blocks/take-action-boxout '
+            . wp_json_encode($attrs, JSON_UNESCAPED_SLASHES) . ' /-->';
 
         $args = [
             'ID' => $post->ID,

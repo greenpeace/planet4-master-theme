@@ -79,7 +79,8 @@ class PostArchive
             'archive-url',
             __('Archive URL', 'planet4-master-theme'),
             function ($post): void {
-                echo "<a target=\"_blank\" href=\"{$post->guid}\">{$post->guid}</a>"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                echo "<a target=\"_blank\" href=\"{$post->guid}\">{$post->guid}</a>";
             },
             null,
             'side',

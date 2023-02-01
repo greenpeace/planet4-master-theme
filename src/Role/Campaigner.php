@@ -41,9 +41,10 @@ class Campaigner
             'edit_private_campaigns',
             'delete_private_campaigns',
 
-            // Needed to allow the editor rule to change the author of a post in the document sidebar. The users data for that
-            // control is fetched using the REST API, where WordPress by default doesn't perform a permissions check, however
-            // the Wordfence plugin adds this check in `\wordfence::jsonAPIAuthorFilter`.
+            // Needed to allow the editor rule to change the author of a post in the document sidebar.
+            // The users data for that control is fetched using the REST API,
+            // where WordPress by default doesn't perform a permissions check,
+            // however the Wordfence plugin adds this check in `\wordfence::jsonAPIAuthorFilter`.
             'list_users',
             Capability::USE_IMAGE_ARCHIVE_PICKER,
         ],

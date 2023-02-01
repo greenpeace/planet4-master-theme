@@ -25,7 +25,8 @@ class Context
         $context['header_button_title'] = $page_meta_data['p4_button_title'] ?? '';
         $context['header_button_link'] = $page_meta_data['p4_button_link'] ?? '';
         $context['header_button_link_checkbox'] = $page_meta_data['p4_button_link_checkbox'] ?? '';
-        $context['hide_page_title'] = 'on' === ( $page_meta_data['p4_hide_page_title_checkbox'] ?? null ) || has_block('post-title');
+        $context['hide_page_title'] = 'on' === ( $page_meta_data['p4_hide_page_title_checkbox'] ?? null )
+            || has_block('post-title');
     }
 
     /**

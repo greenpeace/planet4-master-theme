@@ -78,7 +78,9 @@ if ('yes' === $post->include_articles) {
         'read_more_text' => __('Load more', 'planet4-blocks'),
     ];
 
-    $post->articles = '<!-- wp:planet4-blocks/articles ' . wp_json_encode($block_attributes, JSON_UNESCAPED_SLASHES) . ' /-->';
+    $post->articles = '<!-- wp:planet4-blocks/articles '
+        . wp_json_encode($block_attributes, JSON_UNESCAPED_SLASHES)
+        . ' /-->';
 }
 
 if (! empty($take_action_page) && ! has_block('planet4-blocks/take-action-boxout')) {
@@ -88,7 +90,9 @@ if (! empty($take_action_page) && ! has_block('planet4-blocks/take-action-boxout
         'take_action_page' => $take_action_page,
     ];
 
-    $post->take_action_boxout = '<!-- wp:planet4-blocks/take-action-boxout ' . wp_json_encode($block_attributes, JSON_UNESCAPED_SLASHES) . ' /-->';
+    $post->take_action_boxout = '<!-- wp:planet4-blocks/take-action-boxout '
+    . wp_json_encode($block_attributes, JSON_UNESCAPED_SLASHES)
+    . ' /-->';
 }
 
 // Build an arguments array to customize WordPress comment form.
@@ -101,6 +105,7 @@ $comments_args = [
         [
             'gdpr_checkbox' => GdprCheckbox::is_active(),
             'gdpr_label' => __(
+                // phpcs:ignore Generic.Files.LineLength.MaxExceeded
                 'I agree on providing my name, email and content so that my comment can be stored and displayed in the website.',
                 'planet4-master-theme'
             ),
@@ -131,5 +136,8 @@ if (post_password_required($post->ID)) {
 
     Timber::render('single-password.twig', $context);
 } else {
-    Timber::render([ 'single-' . $post->ID . '.twig', 'single-' . $post->post_type . '.twig', 'single.twig' ], $context);
+    Timber::render(
+        [ 'single-' . $post->ID . '.twig', 'single-' . $post->post_type . '.twig', 'single.twig' ],
+        $context
+    );
 }

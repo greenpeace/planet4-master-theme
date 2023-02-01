@@ -32,7 +32,10 @@ class HttpHeaders
         $additional_allowed_frame_ancestors = apply_filters('planet4_csp_allowed_frame_ancestors', []);
 
         if (is_array($additional_allowed_frame_ancestors)) {
-            $allowed_frame_ancestors = array_merge($default_allowed_frame_ancestors, $additional_allowed_frame_ancestors);
+            $allowed_frame_ancestors = array_merge(
+                $default_allowed_frame_ancestors,
+                $additional_allowed_frame_ancestors
+            );
         }
 
         $directives = [
@@ -45,7 +48,8 @@ class HttpHeaders
 
         $headers['Content-Security-Policy'] = $csp_header;
 
-        // In addition, send the "X-Frame-Options" header when no other trusted frame ancestors were added through the filter.
+        // In addition, send the "X-Frame-Options" header
+        // when no other trusted frame ancestors were added through the filter.
         if ($allowed_frame_ancestors === $default_allowed_frame_ancestors) {
             $headers['X-Frame-Options'] = 'SAMEORIGIN';
         }

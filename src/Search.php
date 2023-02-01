@@ -127,8 +127,9 @@ abstract class Search
             },
             20
         );
-        // Certain attachments could have these meta keys many times over with the same value, which can cause OOM
-        // when syncing ElasticSearch. We don't need `sm_cloud` in ES and we only need one of `_wp_attachment_image_alt`.
+        // Certain attachments could have these meta keys many times over with the same value,
+        // which can cause OOM when syncing ElasticSearch.
+        // We don't need `sm_cloud` in ES and we only need one of `_wp_attachment_image_alt`.
         add_filter(
             'ep_prepare_meta_data',
             function ($meta) {
@@ -216,7 +217,10 @@ abstract class Search
         );
         // Because of how the search is currently set up (using admin-ajax) this ElasticPress filter was not being
         // applied for subsequent page loads, only for the initial one.
-        if (( ! isset($_GET['orderby']) || '_score' === $_GET['orderby'] ) && wp_doing_ajax()) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        if (
+            ( ! isset($_GET['orderby']) || '_score' === $_GET['orderby'] )
+            && wp_doing_ajax()
+        ) {
             add_filter(
                 'ep_formatted_args',
                 [ new \ElasticPress\Feature\Search\Search(), 'weight_recent' ],
@@ -400,7 +404,8 @@ abstract class Search
                     if (isset($post_meta['action_button_text']) && $post_meta['action_button_text'][0]) {
                         $template_post->button_text = $post_meta['action_button_text'][0];
                     } else {
-                        $template_post->button_text = $options['take_action_covers_button_text'] ?? __('Take action', 'planet4-master-theme');
+                        $template_post->button_text = $options['take_action_covers_button_text']
+                            ?? __('Take action', 'planet4-master-theme');
                     }
                 }
 
@@ -481,7 +486,8 @@ abstract class Search
             ];
         } else {
             $args2 = [
-                'orderby' => 'meta_value date', // If we search for everything then order first by 'weight' and then by 'post_date'.
+                // If we search for everything then order first by 'weight' and then by 'post_date'.
+                'orderby' => 'meta_value date',
                 'order' => 'DESC DESC',
                 'meta_query' => [
                     'relation' => 'AND',
@@ -745,13 +751,21 @@ abstract class Search
         if ($this->search_query) {
             $context['page_title'] = sprintf(
                 // translators: %1$d = Number of results.
-                _n('%1$d result for \'%2$s\'', '%1$d results for \'%2$s\'', $context['found_posts'], 'planet4-master-theme'),
+                _n(
+                    '%1$d result for \'%2$s\'',
+                    '%1$d results for \'%2$s\'',
+                    $context['found_posts'],
+                    'planet4-master-theme'
+                ),
                 $context['found_posts'],
                 $this->search_query
             );
         } else {
-            // translators: %d = Number of results.
-            $context['page_title'] = sprintf(_n('%d result', '%d results', $context['found_posts'], 'planet4-master-theme'), $context['found_posts']);
+            $context['page_title'] = sprintf(
+                // translators: %d = Number of results.
+                _n('%d result', '%d results', $context['found_posts'], 'planet4-master-theme'),
+                $context['found_posts']
+            );
         }
 
         if (!is_user_logged_in()) {
@@ -998,7 +1012,8 @@ abstract class Search
      */
     public function view_paged_posts(): void
     {
-        // TODO - The $paged_context related code should be transferred to set_results_context method for better separation of concerns.
+        // TODO - The $paged_context related code should be transferred to set_results_context method
+        // for better separation of concerns.
         if (!$this->paged_posts) {
             return;
         }
@@ -1012,7 +1027,12 @@ abstract class Search
             } else {
                 $paged_context['first_of_the_page'] = false;
             }
-            Timber::render([ 'tease-search.twig' ], $paged_context, self::DEFAULT_CACHE_TTL, \Timber\Loader::CACHE_OBJECT);
+            Timber::render(
+                ['tease-search.twig'],
+                $paged_context,
+                self::DEFAULT_CACHE_TTL,
+                \Timber\Loader::CACHE_OBJECT
+            );
         }
     }
 

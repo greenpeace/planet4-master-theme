@@ -31,7 +31,9 @@ if (is_home()) {
     $page_meta_data = get_post_meta($post->ID);
     $page_meta_data = array_map('reset', $page_meta_data);
 
-    $context['title'] = ( $page_meta_data['p4_title'] ?? '' ) ? ( $page_meta_data['p4_title'] ?? '' ) : html_entity_decode($context['wp_title'] ?? '');
+    $context['title'] = ( $page_meta_data['p4_title'] ?? '' )
+        ? ( $page_meta_data['p4_title'] ?? '' )
+        : html_entity_decode($context['wp_title'] ?? '');
     $context['posts'] = Timber::get_posts();
 
     Context::set_header($context, $page_meta_data, $context['title']);

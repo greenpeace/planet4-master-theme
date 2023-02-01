@@ -31,7 +31,8 @@ class Importer
             function ($post_id): void {
                 $link = get_edit_post_link($post_id);
                 $title = esc_html(get_the_title($post_id));
-                echo "successfully imported <a href=\"$link\">$title</a>\n"; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                echo "successfully imported <a href=\"$link\">$title</a>\n";
             }
         );
     }
@@ -55,7 +56,8 @@ class Importer
             // Fetch the attachement id/s from block fields.
             switch ($block['blockName']) {
                 case 'planet4-blocks/enform':
-                    $filter_data[] = isset($block['attrs']['background']) ? 'background":' . $block['attrs']['background'] : '';
+                    $filter_data[] = isset($block['attrs']['background'])
+                        ? 'background":' . $block['attrs']['background'] : '';
                     break;
 
                 case 'planet4-blocks/happypoint':
@@ -63,11 +65,13 @@ class Importer
                     break;
 
                 case 'planet4-blocks/media-video':
-                    $filter_data[] = isset($block['attrs']['video_poster_img']) ? 'video_poster_img":' . $block['attrs']['video_poster_img'] : '';
+                    $filter_data[] = isset($block['attrs']['video_poster_img'])
+                        ? 'video_poster_img":' . $block['attrs']['video_poster_img'] : '';
                     break;
 
                 case 'planet4-blocks/gallery':
-                    $filter_data[] = isset($block['attrs']['multiple_image']) ? 'multiple_image":"' . $block['attrs']['multiple_image'] : '';
+                    $filter_data[] = isset($block['attrs']['multiple_image'])
+                        ? 'multiple_image":"' . $block['attrs']['multiple_image'] : '';
                     break;
 
                 case 'planet4-blocks/carousel-header':
@@ -79,8 +83,10 @@ class Importer
                     break;
 
                 case 'planet4-blocks/split-two-columns':
-                    $filter_data[] = isset($block['attrs']['issue_image']) ? 'issue_image":' . $block['attrs']['issue_image'] : '';
-                    $filter_data[] = isset($block['attrs']['tag_image']) ? 'tag_image":' . $block['attrs']['tag_image'] : '';
+                    $filter_data[] = isset($block['attrs']['issue_image'])
+                        ? 'issue_image":' . $block['attrs']['issue_image'] : '';
+                    $filter_data[] = isset($block['attrs']['tag_image'])
+                        ? 'tag_image":' . $block['attrs']['tag_image'] : '';
                     break;
 
                 case 'planet4-blocks/columns':
@@ -100,7 +106,8 @@ class Importer
                     break;
 
                 case 'planet4-blocks/take-action-boxout':
-                    $filter_data[] = isset($block['attrs']['background_image']) ? 'background_image":' . $block['attrs']['background_image'] : '';
+                    $filter_data[] = isset($block['attrs']['background_image'])
+                        ? 'background_image":' . $block['attrs']['background_image'] : '';
                     break;
 
                 case 'core/image':
@@ -278,7 +285,8 @@ class Importer
         // 1. Exclude style fields the option for that is set or if it's passed in the form data.
         if (
             ! empty($p4_options['campaigns_import_exclude_style'])
-            || ! empty($_POST['campaigns_import_exclude_style']) //phpcs:ignore WordPress.Security.NonceVerification.Missing
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
+            || ! empty($_POST['campaigns_import_exclude_style'])
         ) {
             // Also exclude the old attribute as the code still falls back to it.
             $excluded_keys = array_merge(PostCampaign::META_FIELDS, [ '_campaign_page_template' ]);

@@ -309,6 +309,7 @@ class PostCampaign
      * @param string $object_type The type of object.
      * @param CMB2_Types $field_type Instance of the `cmb2_Meta_Box_types` object.
      * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_action callback
+     * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
     public function cmb2_render_footer_icon_link_field_callback(
         CMB2_Field $field,
@@ -379,10 +380,11 @@ class PostCampaign
             );
         ?>
         </div>
-        <div class="alignleft"> <?php esc_html_e('In the “Footer icon name” field add the name of the icon you want from the', 'planet4-master-theme-backend'); ?> <a target="_blank" href="https://github.com/greenpeace/planet4-master-theme/tree/master/assets/src/images/icons"><?php esc_html_e('list of icons in the CSS styleguide', 'planet4-master-theme-backend'); ?></a>. e.g. twitter-square</div>
+        <div class="alignleft"><?php esc_html_e('In the “Footer icon name” field add the name of the icon you want from the', 'planet4-master-theme-backend'); ?> <a target="_blank" href="https://github.com/greenpeace/planet4-master-theme/tree/master/assets/src/images/icons"><?php esc_html_e('list of icons in the CSS styleguide', 'planet4-master-theme-backend'); ?></a>. e.g. twitter-square</div>
         <?php
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
+    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
     /**
      * Register a key as a post_meta with the argument `show_in_rest` that is needed on all fields so they can be
@@ -461,7 +463,8 @@ class PostCampaign
         $new_theme_json_path = __DIR__ . '/../themes/' . $potential_new_version . '.json';
 
         if (file_exists($new_theme_json_path)) {
-            $new_theme = json_decode(file_get_contents($new_theme_json_path), true, 512, JSON_THROW_ON_ERROR); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+            $new_theme = json_decode(file_get_contents($new_theme_json_path), true, 512, JSON_THROW_ON_ERROR);
         } else {
             $themes = json_decode(get_option('planet4_themes', '[]'), true);
 
@@ -479,7 +482,8 @@ class PostCampaign
         // TODO: Handle errors.
         $theme_json = json_decode(
             // Ignoring the PHPCS error in the next line because it's a local file, not a remote request.
-            file_get_contents(__DIR__ . '/../theme_options/' . $theme . '.json'), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+            file_get_contents(__DIR__ . '/../theme_options/' . $theme . '.json'),
             true
         );
 
@@ -537,11 +541,19 @@ class PostCampaign
     {
         // TODO: Remove these special cases.
         if (isset($css_vars['campaign_header_primary'])) {
-            $css_vars['campaign_header_primary'] = str_replace('Montserrat_Light', 'Montserrat', $css_vars['campaign_header_primary']);
+            $css_vars['campaign_header_primary'] = str_replace(
+                'Montserrat_Light',
+                'Montserrat',
+                $css_vars['campaign_header_primary']
+            );
         }
 
         if (isset($css_vars['campaign_body_font'])) {
-            $css_vars['campaign_body_font'] = str_replace('Montserrat_Light', 'Montserrat', $css_vars['campaign_body_font']);
+            $css_vars['campaign_body_font'] = str_replace(
+                'Montserrat_Light',
+                'Montserrat',
+                $css_vars['campaign_body_font']
+            );
         }
 
         return $css_vars;
@@ -623,7 +635,9 @@ class PostCampaign
         $default_footer_links_color = $css_vars['campaign_nav_color'] ? $css_vars['campaign_nav_color'] : '#1A1A1A';
 
         if ('white' === $footer_theme) {
-            $css_vars['footer_links_color'] = $css_vars['footer_links_color'] ? $css_vars['footer_links_color'] : $default_footer_links_color;
+            $css_vars['footer_links_color'] = $css_vars['footer_links_color']
+                ? $css_vars['footer_links_color']
+                : $default_footer_links_color;
             $css_vars['--site-footer--background'] = '#FFFFFF';
             $css_vars['--site-footer--copyright--background'] = '#FFFFFF';
         } elseif (self::DEFAULT_NAVBAR_THEME === $css_vars['campaign_nav_type']) {
@@ -662,7 +676,8 @@ class PostCampaign
     }
 
     /**
-     * Get the logo based on the meta settings. Ensures that no other campaign logo will be used even if that's the value stored.
+     * Get the logo based on the meta settings.
+     * Ensures that no other campaign logo will be used even if that's the value stored.
      *
      * @param array $meta The meta containing the style settings.
      *

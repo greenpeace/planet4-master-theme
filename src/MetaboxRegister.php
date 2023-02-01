@@ -79,7 +79,10 @@ class MetaboxRegister
         $p4_post->add_field(
             [
                 'name' => __('Background Image Override', 'planet4-master-theme-backend'),
-                'desc' => __('Upload an image or select one from the media library to override the background image', 'planet4-master-theme-backend'),
+                'desc' => __(
+                    'Upload an image or select one from the media library to override the background image',
+                    'planet4-master-theme-backend'
+                ),
                 'id' => 'p4_background_image_override',
                 'type' => 'file',
                 'options' => [
@@ -114,7 +117,10 @@ class MetaboxRegister
             ]
         );
 
-        $global_project_options = self::maybe_add_current_post_value($analytics_values->global_projects_options(), 'p4_campaign_name');
+        $global_project_options = self::maybe_add_current_post_value(
+            $analytics_values->global_projects_options(),
+            'p4_campaign_name'
+        );
 
         $p4_campaign_fields->add_field(
             [
@@ -128,7 +134,10 @@ class MetaboxRegister
             ]
         );
 
-        $local_projects_options = self::maybe_add_current_post_value($analytics_values->local_projects_options(), 'p4_local_project');
+        $local_projects_options = self::maybe_add_current_post_value(
+            $analytics_values->local_projects_options(),
+            'p4_local_project'
+        );
         $p4_campaign_fields->add_field(
             [
                 'name' => __('Local Projects', 'planet4-master-theme-backend'),
@@ -219,7 +228,10 @@ class MetaboxRegister
                 $options_array
             ) )
         ) {
-            $options_array = [ $current_post_meta_value[0] => __('[DEPRECATED] ', 'planet4-master-theme-backend') . $current_post_meta_value[0] ] + $options_array;
+            $options_array = [
+                $current_post_meta_value[0] => __('[DEPRECATED] ', 'planet4-master-theme-backend')
+                    . $current_post_meta_value[0],
+            ] + $options_array;
         }
 
         return $options_array;

@@ -412,7 +412,8 @@ class CustomTaxonomy
         }
 
         // Check if post type is POST.
-        // Check if post has a p4 page type term assigned to it and if none if assigned, assign the default p4 page type term.
+        // Check if post has a p4 page type term assigned to it and if none if assigned,
+        // assign the default p4 page type term.
         if ('post' !== $post->post_type) {
             return;
         }
@@ -430,7 +431,8 @@ class CustomTaxonomy
             if ($default_p4_pagetype instanceof \WP_Term) {
                 wp_set_post_terms($post_id, [ $default_p4_pagetype->term_id ], self::TAXONOMY);
             }
-        } elseif (count($terms) > 1 && $terms[0] instanceof \WP_Term) { // Assign the first term, if more than one terms are assigned.
+        // Assign the first term, if more than one terms are assigned.
+        } elseif (count($terms) > 1 && $terms[0] instanceof \WP_Term) {
             wp_set_post_terms($post_id, [ $terms[0]->term_id ], self::TAXONOMY);
         }
     }
@@ -440,6 +442,7 @@ class CustomTaxonomy
      * Action for restrict_manage_posts.
      *
      * @param string $post_type WordPress post type slug.
+     * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
     public function filter_posts_by_page_type(string $post_type): void
     {
@@ -469,6 +472,7 @@ class CustomTaxonomy
         </select>
         <?php
     }
+    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
     /**
      * Adds a taxonomy column.
@@ -510,6 +514,7 @@ class CustomTaxonomy
      * Add "Reading time" option to p4-page-type taxonomy.
      *
      * @param WP_Term $term Current taxonomy term object.
+     * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
     public function add_taxonomy_form_fields(WP_Term $term): void
     {
@@ -535,6 +540,7 @@ class CustomTaxonomy
             esc_html(__('You can configure the estimated reading speed in', 'planet4-master-theme-backend'))
         );
     }
+    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
     /**
      * Save a p4-page-type reading time.

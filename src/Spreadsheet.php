@@ -111,7 +111,8 @@ final class Spreadsheet
     /**
      * Export a subset of the columns defined in $columns.
      *
-     * @param array $columns The columns to be exported where the key is the column name and the value is the exported name.
+     * @param array $columns The columns to be exported where the key is the column name
+     *                       and the value is the exported name.
      *
      * @return array The exported columns with the indexes provided in $columns.
      */
