@@ -1,10 +1,10 @@
 const { test, expect } = require('@playwright/test');
 
-test('check the login functionality', async ({ page, httpCredentials }) => {
+test('check the login functionality', async ({ page }) => {
   await page.goto('/wp-admin/');
 
-  await page.type('#user_login', httpCredentials.username);
-  await page.type('#user_pass', httpCredentials.password);
+  await page.type('#user_login', 'admin');
+  await page.type('#user_pass', 'admin');
   await page.getByText('Log In').click();
 
   await expect(page.locator('#wpadminbar')).toBeVisible();
