@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the RocketGenius - Gravity Forms package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-01-27 11:47+0000\n"
+"PO-Revision-Date: 2023-02-01 14:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2910,7 +2910,7 @@ msgstr "अपडेट प्रबंधित करें"
 
 #: gravityforms.php:1558
 msgid "Edit Plugin Settings"
-msgstr "प्लगइन सेटिंग्स संपादित करें"
+msgstr "प्लगइन सेटिंग्स संपादित करें "
 
 #: gravityforms.php:1557
 msgid "View Plugin Settings"
