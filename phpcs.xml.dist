@@ -1,64 +1,136 @@
 <?xml version="1.0"?>
-<ruleset name="WordPress Coding Standards for Plugins">
-    <description>Generally-applicable sniffs for WordPress plugins</description>
+<ruleset name="Planet4 Coding Standards">
+  <description>Generally-applicable sniffs for Planet4</description>
 
-    <rule ref="WordPress-Core" />
-    <rule ref="WordPress-Docs">
-        <exclude name="Generic.Commenting.DocComment.MissingShort"/>
-    </rule>
-    <rule ref="WordPress-Extra"/>
+  <!-- Show sniffs, progress -->
+  <arg value="sp"/>
+  <arg name="extensions" value="php"/>
+  <arg name="tab-width" value="4"/>
+  <config name="encoding" value="utf-8"/>
 
-    <rule ref="WordPress.NamingConventions.ValidVariableName">
-        <properties>
-            <property name="customPropertiesWhitelist" type="array" value="nextSibling,nodeName,nodeValue"/>
-        </properties>
-    </rule>
+  <!-- @todo: Temporary exclusions for 1st PR on 6967 -->
+  <rule ref="PSR12">
+    <exclude name="PSR1.Methods.CamelCapsMethodName"/>
+  </rule>
+  <rule ref="Squiz.NamingConventions">
+    <exclude name="Squiz.NamingConventions.ValidFunctionName"/>
+    <exclude name="Squiz.NamingConventions.ValidVariableName"/>
+  </rule>
 
-    <!-- Add rule for theme's textdomains -->
-    <rule ref="WordPress.WP.I18n">
-        <properties>
-            <property name="text_domain" type="array" value="planet4-master-theme,planet4-master-theme-backend,planet4-blocks"/>
-        </properties>
-    </rule>
+  <!-- Deprecated WP features -->
+  <config name="minimum_supported_wp_version" value="6.1"/>
+  <rule ref="WordPress.WP.DeprecatedFunctions"/>
+  <rule ref="WordPress.WP.DeprecatedClasses"/>
+  <rule ref="WordPress.WP.DeprecatedParameters"/>
+  <rule ref="WordPress.WP.DeprecatedParameterValues"/>
 
-    <!-- Whitelist p4 test classes for filename sniffs. -->
-    <rule ref="WordPress.Files.FileName">
-		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
-        <properties>
-			<property name="strict_class_file_names" value="false"/>
-            <property name="custom_test_class_whitelist" type="array" value="P4_TestCase"/>
-        </properties>
-    </rule>
+  <!-- Add rule for theme's textdomains -->
+  <rule ref="WordPress.WP.I18n">
+    <properties>
+      <property name="text_domain" type="array" value="planet4-master-theme,planet4-master-theme-backend,planet4-blocks,planet4-blocks-backend"/>
+    </properties>
+  </rule>
 
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax.Found">
-        <type>error</type>
-    </rule>
+  <rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces">
+    <properties>
+      <property name="ignoreSpacesInComment" value="true"/>
+    </properties>
+  </rule>
 
-    <rule ref="Generic.Arrays">
-        <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
-    </rule>
+  <rule ref="Generic.Files.LineLength">
+    <properties>
+      <!-- <property name="lineLimit" value="80"/> -->
+      <property name="absoluteLineLimit" value="120"/>
+    </properties>
+  </rule>
 
-    <!-- Disable erroneous and deprecated tests -->
-    <rule ref="WordPress.WP">
-		<exclude name="WordPress.WP.PostsPerPage.posts_per_page_numberposts"/>
-		<exclude name="WordPress.WP.PostsPerPage.posts_per_page_posts_per_page"/>
-		<exclude name="WordPress.WP.TimezoneChange"/>
-	</rule>
+  <rule ref="Generic.PHP.CharacterBeforePHPOpeningTag"/>
+  <rule ref="Generic.PHP.DisallowShortOpenTag"/>
+  <rule ref="Generic.PHP.DeprecatedFunctions"/>
+  <rule ref="Squiz.PHP.DiscouragedFunctions"/>
 
-	<!-- All files in src are classes so already have a required comment before the declaration. The rule also forced
-	to include an @package annotation, which is redundant if there is a namespace. -->
-	<rule ref="Squiz.Commenting.FileComment">
-		<exclude-pattern>src/*</exclude-pattern>
-	</rule>
+  <!-- Functional -->
+  <rule ref="SlevomatCodingStandard.TypeHints">
+    <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification"/>
+    <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification"/>
+    <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification"/>
+    <exclude name="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint"/>
+    <exclude name="SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax"/>
+    <!-- @todo: Temporary exclusions for 1st PR on 6967 -->
+    <exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes"/>
+  </rule>
+  <!-- <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
+    <properties>
+      <property name="declareOnFirstLine" value="false"/>
+      <property name="newlinesCountBetweenOpenTagAndDeclare" value="2"/>
+      <property name="spacesCountAroundEqualsSign" value="0"/>
+    </properties>
+  </rule> -->
+  <rule ref="SlevomatCodingStandard.Classes.ClassStructure">
+    <exclude name="SlevomatCodingStandard.Classes.ClassStructure.IncorrectGroupOrder"/>
+  </rule>
+  <rule ref="SlevomatCodingStandard.Classes.UselessLateStaticBinding"/>
+  <rule ref="SlevomatCodingStandard.Classes.MethodSpacing"/>
+  <rule ref="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces">
+    <properties>
+      <property name="linesCountAfterOpeningBrace" value="0"/>
+      <property name="linesCountBeforeClosingBrace" value="0"/>
+    </properties>
+  </rule>
+  <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
+  <rule ref="SlevomatCodingStandard.ControlStructures.NewWithParentheses"/>
+  <rule ref="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn"/>
+  <rule ref="Generic.CodeAnalysis.JumbledIncrementer"/>
+  <rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators"/>
 
-    <!-- Check all PHP files in directory tree by default. -->
-    <arg name="extensions" value="php"/>
-    <file>.</file>
+  <!-- Clean code -->
+  <rule ref="SlevomatCodingStandard.PHP">
+    <exclude name="SlevomatCodingStandard.PHP.DisallowReference"/>
+    <exclude name="SlevomatCodingStandard.PHP.RequireExplicitAssertion"/>
+    <exclude name="SlevomatCodingStandard.PHP.UselessParentheses"/>
+  </rule>
+  <rule ref="SlevomatCodingStandard.Namespaces.UseFromSameNamespace"/>
+  <rule ref="SlevomatCodingStandard.Namespaces.UselessAlias"/>
+  <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses"/>
+  <rule ref="SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure"/>
+  <rule ref="SlevomatCodingStandard.Functions.UnusedParameter"/>
+  <rule ref="SlevomatCodingStandard.Functions.UselessParameterDefaultValue"/>
 
-    <!-- Show progress and sniff codes in all reports -->
-    <arg value="ps"/>
+  <!-- Formatting -->
+  <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
+  <rule ref="SlevomatCodingStandard.Commenting.UselessFunctionDocComment"/>
+  <rule ref="Squiz.Strings.ConcatenationSpacing">
+    <properties>
+      <property name="spacing" value="1"/>
+      <property name="ignoreNewlines" value="true"/>
+    </properties>
+  </rule>
 
-    <exclude-pattern>*/node_modules/*</exclude-pattern>
-    <exclude-pattern>*/vendor/*</exclude-pattern>
-    <exclude-pattern>*/tests/*</exclude-pattern>
+  <!-- exclude vendor dirs -->
+  <exclude-pattern>*/node_modules/*</exclude-pattern>
+  <exclude-pattern>*/vendor/*</exclude-pattern>
+
+  <!-- @todo: Temporary exclude those rules for php8 job until php8.1 migration -->
+  <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
+    <properties>
+      <property name="enableMixedTypeHint" value="false"/>
+      <property name="enableUnionTypeHint" value="false"/>
+      <property name="enableIntersectionTypeHint" value="false"/>
+    </properties>
+  </rule>
+  <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
+    <properties>
+      <property name="enableMixedTypeHint" value="false"/>
+      <property name="enableUnionTypeHint" value="false"/>
+      <property name="enableIntersectionTypeHint" value="false"/>
+    </properties>
+  </rule>
+  <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
+    <properties>
+      <property name="enableMixedTypeHint" value="false"/>
+      <property name="enableUnionTypeHint" value="false"/>
+      <property name="enableIntersectionTypeHint" value="false"/>
+      <property name="enableNeverTypeHint" value="false"/>
+    </properties>
+  </rule>
 </ruleset>

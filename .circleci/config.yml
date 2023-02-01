@@ -91,8 +91,11 @@ job-references:
           name: phpcs
           command: |
             mkdir -p /tmp/test-results/phpcs
-            vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs
-            vendor/bin/phpcs -d error_reporting="E_ALL&~E_DEPRECATED" --report=junit --report-file=/tmp/test-results/phpcs/$CIRCLE_STAGE.xml
+            vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs,vendor/slevomat/coding-standard
+            vendor/bin/phpcs -i
+            vendor/bin/phpcs -d error_reporting="E_ALL&~E_DEPRECATED" \
+              --report=junit --report-file=/tmp/test-results/phpcs/$CIRCLE_STAGE.xml \
+              src/ page-templates/ tests/ *.php
       - run:
           name: phpunit
           when: always
