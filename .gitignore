@@ -12,3 +12,8 @@ node_modules/
 
 # Built css and js assets
 assets/build/*
+
+# Playwright
+/e2e-results/
+/playwright-report/
+/playwright/.cache/
