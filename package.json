@@ -5,7 +5,6 @@
   "author": "Greenpeace International",
   "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "wp-scripts start --config webpack.config.js",
     "build": "wp-scripts build --config webpack.config.js --mode production",
     "lint:css": "wp-scripts lint-style"
@@ -13,6 +12,7 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.1",
     "@greenpeace/dashdash": "^1.1.2",
+    "@playwright/test": "^1.30.0",
     "@wordpress/components": "^8.3.2",
     "@wordpress/scripts": "3.3.0",
     "autoprefixer": "^9.6.1",
