@@ -50,6 +50,10 @@
     &-40 {
       @include square-image-size(40px);
     }
+
+    &-80 {
+      @include square-image-size(80px);
+    }
   }
 
   @include large-and-up {
