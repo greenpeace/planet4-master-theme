@@ -2,7 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\Features\PostPageCategoryLinks;
 use Timber\Post as TimberPost;
 use WP_Block;
 use WP_Error;
@@ -180,7 +179,7 @@ class Post extends TimberPost
         $explore_page_id = $options['explore_page'] ?? '';
         $categories = get_the_category($this->ID);
 
-        if (PostPageCategoryLinks::is_active()) {
+        if (!empty(planet4_get_option('new_ia'))) {
             $this->issues_nav_data = array_map(
                 fn($category) => [
                     'name' => $category->name,

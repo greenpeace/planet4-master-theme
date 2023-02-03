@@ -5,7 +5,6 @@ namespace P4\MasterTheme;
 use CMB2_Field;
 use P4\MasterTheme\Settings\Comments;
 use P4\MasterTheme\Settings\Features;
-use P4\MasterTheme\Settings\InformationArchitecture as IA;
 
 /**
  * Class P4\MasterTheme\Settings
@@ -89,6 +88,7 @@ class Settings
                         'id' => 'issues_parent_category',
                         'type' => 'category_select_taxonomy',
                     ],
+
                     [
                         'name' => __('Website Navigation Style', 'planet4-master-theme-backend'),
                         'desc' => __('Select a style', 'planet4-master-theme-backend'),
@@ -99,6 +99,13 @@ class Settings
                             'dark' => __('Dark', 'planet4-master-theme-backend'),
                             'light' => __('Light', 'planet4-master-theme-backend'),
                         ],
+                    ],
+
+                    [
+                        'name' => __('New Information Architecture', 'planet4-master-theme-backend'),
+                        'desc' => __('Enables all features supporting new IA and navigation functionality (<a href="https://planet4.greenpeace.org/manage/information-architecture/" target="_blank">read more</a>)<br>(eg. Actions post type, listing pages pagination, mobile tabs, etc).', 'planet4-master-theme-backend'),
+                        'id' => 'new_ia',
+                        'type' => 'checkbox',
                     ],
                 ],
             ],
@@ -476,7 +483,6 @@ class Settings
             ],
             'planet4_settings_comments' => Comments::get_options_page(),
             'planet4_settings_features' => Features::get_options_page(),
-            'planet4_settings_ia' => IA::get_options_page(),
             'planet4_settings_notifications' => [
                 'title' => 'Notifications',
                 'fields' => [

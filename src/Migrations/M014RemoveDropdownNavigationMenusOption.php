@@ -6,7 +6,6 @@ namespace P4\MasterTheme\Migrations;
 
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
-use P4\MasterTheme\Settings\InformationArchitecture;
 
 /**
  * Remove the Dropdown navigation menus feature flag from Planet 4 Information Architecture settings.
@@ -22,9 +21,8 @@ class M014RemoveDropdownNavigationMenusOption extends MigrationScript
     protected static function execute(MigrationRecord $record): void
     {
         // Dropdown navigation menus feature flag.
-        $options = get_option(InformationArchitecture::OPTIONS_KEY);
-        unset($options['dropdown_menu']);
-        update_option(InformationArchitecture::OPTIONS_KEY, $options);
+        $planet4_ia = get_option('planet4_ia');
+        unset($planet4_ia['dropdown_menu']);
+        update_option('planet4_ia', $planet4_ia);
     }
-    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 }

@@ -18,6 +18,7 @@ use P4\MasterTheme\Migrations\M013RemoveDuplicatedOptions;
 use P4\MasterTheme\Migrations\M014RemoveDropdownNavigationMenusOption;
 use P4\MasterTheme\Migrations\M015RemoveListingPagesBackgroundImage;
 use P4\MasterTheme\Migrations\M016CreateDefaultActionType;
+use P4\MasterTheme\Migrations\M017NewIAToggle;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -53,6 +54,7 @@ class Migrator
             M014RemoveDropdownNavigationMenusOption::class,
             M015RemoveListingPagesBackgroundImage::class,
             M016CreateDefaultActionType::class,
+            M017NewIAToggle::class,
         ];
 
         // Loop migrations and run those that haven't run yet.

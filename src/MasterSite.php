@@ -5,7 +5,6 @@ namespace P4\MasterTheme;
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use P4\MasterTheme\Features\Dev\WPTemplateEditor;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
-use P4\MasterTheme\Features\MobileTabsMenu;
 use Timber\Timber;
 use Timber\Site as TimberSite;
 use Timber\Menu as TimberMenu;
@@ -665,7 +664,7 @@ class MasterSite extends TimberSite
         $context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';
 
         // IA: Tabs menu on mobile.
-        $context['mobile_tabs_menu'] = MobileTabsMenu::is_active();
+        $context['mobile_tabs_menu'] = (bool) planet4_get_option('new_ia');
 
         return $context;
     }

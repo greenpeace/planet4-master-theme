@@ -12,10 +12,8 @@
  */
 
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
-use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\Post;
 use P4\MasterTheme\ActionPage;
-use P4\MasterTheme\Features\ActionPostType;
 use Timber\Timber;
 
 $templates = [ 'taxonomy.twig', 'index.twig' ];
@@ -24,7 +22,7 @@ $context = Timber::get_context();
 $context['taxonomy'] = get_queried_object();
 $context['wp_title'] = $context['taxonomy']->name;
 
-if (ListingPagePagination::is_active()) {
+if (!empty(planet4_get_option('new_ia'))) {
     $view = ListingPageGridView::is_active() ? 'grid' : 'list';
 
     $query_template = file_get_contents(get_template_directory() . "/parts/query-$view.html");
@@ -41,7 +39,7 @@ $allowed_post_types = [
     'page',
     'campaign',
     'attachment',
-    ActionPostType::is_active() ? ActionPage::POST_TYPE : null,
+    (bool) planet4_get_option('new_ia') ? ActionPage::POST_TYPE : null,
 ];
 
 $post_args = [

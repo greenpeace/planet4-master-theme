@@ -16,7 +16,6 @@
 
 use P4\MasterTheme\Context;
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
-use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\Post;
 use Timber\Timber;
 
@@ -44,7 +43,7 @@ if (is_home()) {
 
     array_unshift($templates, 'all-posts.twig');
 
-    if (ListingPagePagination::is_active()) {
+    if (!empty(planet4_get_option('new_ia'))) {
         $view = ListingPageGridView::is_active() ? 'grid' : 'list';
 
         $query_template = file_get_contents(get_template_directory() . "/parts/query-$view.html");

@@ -2,7 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\Features\ActionPostType;
 use WP_Post;
 
 /**
@@ -93,9 +92,8 @@ class ActionPage
      */
     public function register_post_type(): void
     {
-
         // IA: display action page type in admin sidebar.
-        $enable_action_post_type = ActionPostType::is_active();
+        $enable_action_post_type = (bool) planet4_get_option('new_ia');
 
         $labels = [
             'name' => _x('Actions', 'post type general name', 'planet4-master-theme-backend'),
@@ -219,8 +217,8 @@ class ActionPage
     public function p4_load_permalinks(): void
     {
 
-        // Show action slug setting field, only if action post type is active.
-        if (! ActionPostType::is_active()) {
+        // Show action slug setting field, only if new IA is active.
+        if (empty(planet4_get_option('new_ia'))) {
             return;
         }
 
@@ -275,8 +273,8 @@ class ActionPage
      */
     public function p4_load_writings(): void
     {
-        // Show default action type setting field, only if action post type is active.
-        if (! ActionPostType::is_active()) {
+        // Show default action type setting field, only if new IA is active.
+        if (empty(planet4_get_option('new_ia'))) {
             return;
         }
 
