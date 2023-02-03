@@ -1,7 +1,6 @@
 {% extends "base.twig" %}
 
 {% block content %}
-
     <div class="clearfix"></div>
     <div class="skewed-overlay"></div>
 
@@ -22,8 +21,8 @@
             <h3>{{ __( 'Results', 'planet4-master-theme' ) }}</h3>
 
             <div class="row">
-                <div class="col-lg-8 multiple-search-result">
-                    <ul class="list-unstyled">
+                <div class="is-layout-flow wp-block-query wp-block-query--list">
+                    <ul class="is-layout-flow wp-block-post-template">
                         {% for post in posts %}
                             {% include 'tease-taxonomy-post.twig' %}
                         {% endfor %}

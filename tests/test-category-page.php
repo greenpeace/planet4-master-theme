@@ -55,7 +55,7 @@ class CategoryPageTest extends P4TestCase
 
         // Test tag markup.
         $this->assertContainsSelector(
-            'a.search-result-item-tag',
+            '.taxonomy-post_tag > a',
             $output,
             'The template does not contain tag markup'
         );
@@ -63,7 +63,7 @@ class CategoryPageTest extends P4TestCase
         // Test page type markup.
         $this->assertElementContains(
             'Story',
-            'a.page-type',
+            '.taxonomy-p4-page-type > a',
             $output,
             'The template does not contain page type markup'
         );
@@ -92,14 +92,18 @@ class CategoryPageTest extends P4TestCase
 
         // Test tag markup.
         $this->assertContainsSelector(
-            'a.search-result-item-tag',
+            '.taxonomy-post_tag > a',
             $output,
             'The template does not contain tag markup'
         );
 
         // Test page type markup.
         // Should assert true, every post gets a p4 page type term assigned to it.
-        $this->assertContainsSelector('a.page-type', $output, 'Did not find an image in the page body.');
+        $this->assertContainsSelector(
+            '.taxonomy-p4-page-type a',
+            $output,
+            'Did not find a page type in the page body.'
+        );
     }
 
     /**
@@ -131,7 +135,7 @@ class CategoryPageTest extends P4TestCase
         );
 
         // Test that contains 10 posts in the markup.
-        $this->assertSelectorCount(10, 'li.search-result-list-item', $output);
+        $this->assertSelectorCount(10, 'li.wp-block-post', $output);
     }
 
     /**
@@ -143,7 +147,6 @@ class CategoryPageTest extends P4TestCase
     {
 
         return [
-
             'post_with_category_tag_custom_term' => [
                 'post_type' => 'post',
                 'post_title' => 'The name of the place is Babylon',
