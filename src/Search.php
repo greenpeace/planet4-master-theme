@@ -8,7 +8,6 @@ use Timber\Timber;
 use UnexpectedValueException;
 use WP_Query;
 use WPML_Post_Element;
-use P4\MasterTheme\Features\ActionPostType;
 
 /**
  * Abstract Class Search
@@ -564,7 +563,7 @@ abstract class Search
             $types[] = PostArchive::POST_TYPE;
         }
 
-        if (ActionPostType::is_active()) {
+        if (!empty(planet4_get_option('new_ia'))) {
             $types[] = ActionPage::POST_TYPE;
         }
 
@@ -794,14 +793,14 @@ abstract class Search
         $context['post_types'] = Search\Filters\PostTypes::get_filters();
 
         // Action Types.
-        $context['action_types'] = ActionPostType::is_active()
+        $context['action_types'] = (bool) planet4_get_option('new_ia')
             ? Search\Filters\ActionTypes::get_filters()
             : [];
 
         // Content Types.
         $context['content_types'] = Search\Filters\ContentTypes::get_filters(
             self::should_include_archive(),
-            ActionPostType::is_active()
+            (bool) planet4_get_option('new_ia')
         );
 
         // Tag <-> Campaign.

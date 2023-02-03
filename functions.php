@@ -79,7 +79,6 @@ function planet4_get_option(string $key = '', $default = null)
     return $options[ $key ] ?? $default;
 }
 
-use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\ImageArchive\Rest;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Notifications\Slack;
@@ -297,7 +296,8 @@ add_action('init', 'register_more_blocks');
 add_filter(
     'cloudflare_purge_by_url',
     function ($urls, $post_id) {
-        if (! ListingPagePagination::is_active()) {
+        // If new IA is not active return early since pagination is not being used.
+        if (empty(planet4_get_option('new_ia'))) {
             return $urls;
         }
         $new_urls = [];

@@ -11,7 +11,6 @@
  */
 
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
-use P4\MasterTheme\Features\ListingPagePagination;
 use P4\MasterTheme\TaxonomyCampaign;
 use Timber\Timber;
 use P4GBKS\Blocks\HappyPoint;
@@ -52,7 +51,7 @@ if (is_tag()) {
         }
         $context['page_category'] = 'Tag Page';
 
-        if (ListingPagePagination::is_active()) {
+        if (!empty(planet4_get_option('new_ia'))) {
             $view = ListingPageGridView::is_active() ? 'grid' : 'list';
 
             $query_template = file_get_contents(get_template_directory() . "/parts/query-$view.html");
@@ -92,7 +91,7 @@ if (is_tag()) {
         }
         $context['page_category'] = 'Tag Page';
 
-        if (ListingPagePagination::is_active()) {
+        if (!empty(planet4_get_option('new_ia'))) {
             $view = ListingPageGridView::is_active() ? 'grid' : 'list';
 
             $query_template = file_get_contents(get_template_directory() . "/parts/query-$view.html");
