@@ -454,6 +454,9 @@ final class Loader {
 			'enable_analytical_cookies'  => $option_values['enable_analytical_cookies'] ?? '',
 			'enable_google_consent_mode' => $option_values['enable_google_consent_mode'] ?? '',
 			'cookies_default_copy'       => self::get_cookies_default_copy(),
+			'cookies_field'              => $option_values['cookies_field'],
+			'page_text_404'              => $option_values['404_page_text'],
+			'page_bg_image_404'          => $option_values['404_page_bg_image'],
 		];
 		wp_localize_script( 'planet4-blocks-script', 'p4bk_vars', $reflection_vars );
 

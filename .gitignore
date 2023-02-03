@@ -15,5 +15,5 @@ assets/build/*
 
 # Playwright
 /e2e-results/
-/playwright-report/
+/e2e-report/
 /playwright/.cache/
