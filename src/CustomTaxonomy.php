@@ -512,10 +512,10 @@ class CustomTaxonomy
     /**
      * Add "Reading time" option to p4-page-type taxonomy.
      *
-     * @param WP_Term $term Current taxonomy term object.
+     * @param WP_Term|string $term Current taxonomy term object.
      * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
-    public function add_taxonomy_form_fields(WP_Term $term): void
+    public function add_taxonomy_form_fields($term): void
     {
         $use_reading_time = $term instanceof WP_Term
             ? get_term_meta($term->term_id, self::READING_TIME_FIELD, true)
