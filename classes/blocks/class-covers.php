@@ -8,7 +8,6 @@
 
 namespace P4GBKS\Blocks;
 
-use P4\MasterTheme\Settings\InformationArchitecture as IA;
 use P4\MasterTheme\ActionPage;
 
 /**
@@ -442,7 +441,7 @@ class Covers extends Base_Block {
 			$actions = self::filter_posts_by_ids( $fields );
 		} else {
 			$actions = self::filter_posts_for_act_pages( $fields );
-			if ( IA::is_active( IA::ACTION_POST_TYPE ) ) {
+			if ( ! empty( $options['new_ia'] ) ) {
 				$actions = array_merge(
 					self::filter_posts_for_action_pages( $fields ),
 					$actions
