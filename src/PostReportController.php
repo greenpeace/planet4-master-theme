@@ -2,6 +2,8 @@
 
 namespace P4\MasterTheme;
 
+use WP_REST_Request;
+
 /**
  * Class PostReportController
  */
@@ -38,12 +40,12 @@ class PostReportController
     /**
      * Add extra date column in post rest endpoint.
      *
-     * @param array $args Arguments array passed to endpoint.
-     * @param array $request Initial request parameters to the endpoint.
+     * @param array           $args    Array of arguments for WP_Query.
+     * @param WP_REST_Request $request The REST API request.
      *
      * @return mixed
      */
-    public function add_posts_param_to_endpoint(array $args, array $request)
+    public function add_posts_param_to_endpoint(array $args, WP_REST_Request $request)
     {
         if (! isset($request['before']) && ! isset($request['after'])) {
             return $args;
