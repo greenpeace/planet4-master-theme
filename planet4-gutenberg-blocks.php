@@ -232,6 +232,7 @@ function set_allowed_block_types( $allowed_block_types, $context ) {
 		'core/heading',
 		'core/image',
 		'core/list',
+		'core/list-item',
 		'core/quote',
 		'core/file',
 		'core/html',
