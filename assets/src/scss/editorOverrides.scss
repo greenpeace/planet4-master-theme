@@ -175,6 +175,12 @@
     text-transform: none;
   }
 
+  .components-input-control__label {
+    font-size: 13px !important;
+    font-weight: bold !important;
+    text-transform: none !important;
+  }
+
   // By default all but the first .component-base-control have margin-bottom, causing weird spacing.
   .components-base-control {
     margin-bottom: 0;
