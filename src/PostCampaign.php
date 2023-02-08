@@ -19,6 +19,9 @@ class PostCampaign
 
     public const META_FIELDS = [
         'p4_campaign_name',
+        'p4_local_project',
+        'p4_basket_name',
+        'p4_department',
         'theme',
         'campaign_logo',
         'campaign_logo_color',

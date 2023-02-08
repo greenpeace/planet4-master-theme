@@ -335,6 +335,24 @@ final class AnalyticsValues
     }
 
     /**
+     * Analytics baskets
+     */
+    public function basket_options(): array
+    {
+        return [
+            'not set' => __('- Select Basket -', 'planet4-master-theme-backend'),
+            'Forests' => 'Forests',
+            'Oceans' => 'Oceans',
+            'Good Life' => 'Good Life',
+            'Food' => 'Food',
+            'Climate &amp; Energy' => 'Climate & Energy',
+            'Oil' => 'Oil',
+            'Plastics' => 'Plastics',
+            'Political &amp; Business' => 'Political & Business',
+        ];
+    }
+
+    /**
      * Look up a project by its name and get its ID.
      *
      * @param string $global_project_name The unique name of the project.
