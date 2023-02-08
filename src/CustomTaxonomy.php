@@ -350,7 +350,9 @@ class CustomTaxonomy
 
         if ($terms_slugs) {
             foreach ($terms_slugs as $slug) {
-                $rules[ $slug . '/?$' ] = 'index.php?' . self::TAXONOMY . '=' . $slug;
+                $rules[ $slug . '(/page/([0-9]+)?)?/?$' ] = 'index.php?'
+                    . self::TAXONOMY . '=' . $slug
+                    . '&paged=$matches[2]';
             }
         }
 
