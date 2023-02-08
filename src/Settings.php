@@ -516,6 +516,7 @@ class Settings
         add_filter('cmb2_render_category_select_taxonomy', [ $this, 'p4_render_category_dropdown' ], 10, 2);
         add_filter('cmb2_render_pagetype_select_taxonomy', [ $this, 'p4_render_pagetype_dropdown' ], 10, 2);
         add_action('admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ]);
+        add_action('admin_init', [$this, 'add_new_identity_styles_toggle_value']);
 
         // Make settings multilingual if wpml plugin is installed and activated.
         if (function_exists('is_plugin_active') && is_plugin_active('sitepress-multilingual-cms/sitepress.php')) {
@@ -775,5 +776,18 @@ class Settings
             Loader::theme_file_ver('admin/css/options.css')
         );
         wp_enqueue_style('options-style');
+    }
+
+    /**
+     * Add new identity styles toggle value.
+     */
+    public function add_new_identity_styles_toggle_value(): void
+    {
+        $settings = get_option(self::KEY);
+
+        update_option(
+            self::KEY,
+            array_merge($settings, ['new_identity_styles' => get_theme_mod('new_identity_styles')])
+        );
     }
 }

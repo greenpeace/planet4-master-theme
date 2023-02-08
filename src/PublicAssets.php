@@ -77,6 +77,7 @@ final class PublicAssets
 
         self::conditionally_load_partials();
         self::load_blocks_assets();
+        self::load_new_identity_styles();
     }
 
     /**
@@ -141,6 +142,23 @@ final class PublicAssets
                     ? Loader::enqueue_versioned_script($file, $handle)
                     : Loader::enqueue_versioned_style($file, $handle);
             }
+        );
+    }
+
+    /**
+     * Load any CSS for the new identity styles if the corresponding setting is on.
+     */
+    private static function load_new_identity_styles(): void
+    {
+        $new_identity_styles = get_theme_mod('new_identity_styles');
+        if (!$new_identity_styles) {
+            return;
+        }
+
+        Loader::enqueue_versioned_style(
+            '/assets/build/new_identity_styles.min.css',
+            'new_identity_styles',
+            []
         );
     }
 }

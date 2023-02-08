@@ -279,3 +279,7 @@ input.describe[type=text][data-setting=caption] {
     margin-bottom: $sp-1;
   }
 }
+
+.customize-control[id*="new_identity_styles"] label {
+  display: inline;
+}
