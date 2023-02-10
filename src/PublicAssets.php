@@ -2,6 +2,8 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\Features\NewIdentityStyles;
+
 /**
  * Wrapper class for the enqueue function because we can't autoload functions.
  */
@@ -77,6 +79,7 @@ final class PublicAssets
 
         self::conditionally_load_partials();
         self::load_blocks_assets();
+        self::load_new_identity_styles();
     }
 
     /**
@@ -103,6 +106,23 @@ final class PublicAssets
         Loader::enqueue_versioned_style(
             '/assets/build/post.min.css',
             'post-type--post',
+            [ 'parent-style' ]
+        );
+    }
+
+    /**
+     * Load any CSS for the new identity styles if the corresponding setting is on.
+     */
+    private static function load_new_identity_styles(): void
+    {
+        $new_identity_styles = NewIdentityStyles::is_active();
+        if (!$new_identity_styles) {
+            return;
+        }
+
+        Loader::enqueue_versioned_style(
+            '/assets/build/new_identity_styles.min.css',
+            'new_identity_styles',
             [ 'parent-style' ]
         );
     }
