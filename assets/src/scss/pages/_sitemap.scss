@@ -5,8 +5,10 @@
     color: $grey-80;
     font-family: var(--headings--font-family);
 
-    &:visited {
-      color: $link-color-visited;
+    &:visited,
+    &:active,
+    &:hover {
+      color: inherit;
     }
   }
 
