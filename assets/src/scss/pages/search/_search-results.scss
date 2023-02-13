@@ -105,7 +105,7 @@
     text-align: center;
     background: #97ed90;
     border-radius: 8px;
-    color: $grey-80;
+    color: var(--body--color);
     word-break: keep-all;
 
     &.search-results-alternative-label-mobile {
@@ -153,7 +153,7 @@
 
 .search-result-item-headline {
   font-size: 1.125rem;
-  color: $grey-80;
+  color: var(--body--color);
   text-decoration: none;
   font-weight: 500;
   display: block;
@@ -171,7 +171,7 @@
   &:visited,
   &:hover,
   &:active {
-    color: $grey-80;
+    color: inherit;
   }
 }
 
@@ -187,7 +187,6 @@
 }
 
 .search-result-item-content {
-  color: $grey-80;
   font-size: $font-size-sm;
   font-family: var(--body--font-family);
   line-height: 1.6;

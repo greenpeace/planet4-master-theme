@@ -13,7 +13,7 @@
   }
 
   button:hover {
-    text-decoration: var(--link--hover--text-decoration, underline);
+    text-decoration: var(--link--hover--text-decoration);
   }
 
   button:focus {

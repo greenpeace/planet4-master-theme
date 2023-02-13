@@ -23,7 +23,7 @@ $transition-duration: .2s;
 .burger-menu {
   _-- {
     background: $white;
-    color: $grey-80;
+    color: var(--body--color);
     font-family: var(--headings--font-family);
   }
 
@@ -45,7 +45,7 @@ $transition-duration: .2s;
   }
 
   a.nav-link {
-    color: $grey-80;
+    color: var(--body--color);
     width: auto;
   }
 
@@ -126,8 +126,6 @@ $transition-duration: .2s;
     width: 100%;
     padding-top: $sp-1x;
     padding-bottom: $sp-1x;
-    background: $orange;
-    color: $white;
   }
 }
 
@@ -200,7 +198,7 @@ $transition-duration: .2s;
     background-color: currentColor;
     transform: rotate(-90deg);
     transition: transform 0.3s linear;
-    color: $grey-80;
+    color: var(--body--color);
   }
 
   &.collapsed {
@@ -219,7 +217,7 @@ $transition-duration: .2s;
   height: 16px;
   width: 16px;
   mask: url("../../images/cross.svg") 50% 50%/16px 16px no-repeat;
-  background-color: $grey-80;
+  background-color: var(--body--color);
   z-index: 5;
 
   @supports not (inset-inline-end: $sp-3) {

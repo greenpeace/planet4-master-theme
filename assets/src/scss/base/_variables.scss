@@ -33,14 +33,14 @@ $sp-8: space(8);
 
 // Variables
 :root {
-  --body--font-family: $lora;
-  --headings--font-family: $roboto;
+  --body--font-family: #{$lora};
+  --headings--font-family: #{$roboto};
   --headings--font-weight: bold;
-  --body--background-color: $white;
-  --body--color: $grey-80;
-  --link--color: $link-color;
-  --link--hover--color: $link-color;
+  --body--background-color: #{$white};
+  --body--color: #{$grey-80};
+  --link--color: #{$link-color};
+  --link--hover--color: #{$link-color};
   --link--text-decoration: none;
   --link--hover--text-decoration: underline;
-  --link--visited--color: $link-color-visited;
+  --link--visited--color: #{$link-color-visited};
 }

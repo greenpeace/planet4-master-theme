@@ -24,7 +24,7 @@
 
 .page-header {
   _-- {
-    color: $grey-80;
+    color: var(--body--color);
     background: inherit;
     padding-top: 90px;
     padding-bottom: 0;

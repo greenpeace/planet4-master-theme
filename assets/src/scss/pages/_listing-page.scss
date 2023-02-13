@@ -76,7 +76,7 @@
   line-height: 25px;
 
   .wrapper-post-tag {
-    color: $link-color;
+    color: var(--link--color);
 
     a {
       display: inline-block;

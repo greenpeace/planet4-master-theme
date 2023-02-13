@@ -176,7 +176,7 @@ $donate-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 .btn-donate {
   --button-donate-- {
     background: $orange;
-    color: $grey-80;
+    color: $white;
     min-width: 180px;
     padding: 2px 30px;
     box-shadow: $donate-button-box-shadow;
@@ -185,7 +185,7 @@ $donate-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 
     &:hover {
       background: $orange-hover;
-      color: transparentize($grey-80, 0.2);
+      color: $white;
       box-shadow: $donate-button-box-shadow;
       border: 1px solid transparent;
     }
@@ -269,22 +269,22 @@ button.load-more-mt {
 
 .post-tag-button {
   _-- {
-    border-color: $link-color;
-    color: $link-color;
+    border-color: var(--link--color);
+    color: var(--link--color);
     background-color: $white;
     font-weight: 500;
 
     &:visited {
-      color: $link-color;
+      color: var(--link--color);
     }
 
     &:hover {
-      background-color: $link-color;
+      background-color: var(--link--color);
       color: $white;
     }
 
     &:active {
-      background-color: $link-color;
+      background-color: var(--link--color);
       color: $white;
     }
   }
@@ -304,7 +304,7 @@ button.load-more-mt {
     &:hover,
     &:active {
       background: $white;
-      color: $grey-80;
+      color: var(--body--color);
     }
   }
 }

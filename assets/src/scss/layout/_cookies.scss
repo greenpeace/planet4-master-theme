@@ -12,7 +12,6 @@
   border-top-right-radius: 4px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
   bottom: 0;
-  color: $grey-80;
 
   &.shown {
     opacity: 1;
@@ -54,7 +53,6 @@
   font-size: 14px;
   margin-bottom: $sp-3;
   font-weight: 400;
-  color: $grey-80;
   line-height: 1.5rem;
   width: 100%;
 }
