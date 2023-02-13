@@ -35,7 +35,7 @@ if (isset($wp_query->query_vars['author'])) {
 
     $context['page_category'] = 'Author Page';
 
-    $context['social_accounts'] = Post::filter_social_accounts($context['footer_social_menu']);
+    $context['social_accounts'] = Post::filter_social_accounts($context['footer_social_menu'] ?: []);
     $context['og_title'] = $author->name;
     $context['og_description'] = get_the_author_meta('description', $author->ID);
     $context['og_image_data'] = [
