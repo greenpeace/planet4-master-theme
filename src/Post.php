@@ -345,7 +345,7 @@ class Post extends TimberPost
         $image_id = null;
         $image_metas = [ 'p4_og_image_id', '_thumbnail_id', 'background_image_id' ];
         foreach ($image_metas as $image_meta) {
-            if (isset($meta[ $image_meta ][0])) {
+            if (!empty($meta[ $image_meta ][0])) {
                 $image_id = $meta[ $image_meta ][0];
                 break;
             }
