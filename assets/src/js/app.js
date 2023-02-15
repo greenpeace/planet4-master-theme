@@ -4,6 +4,7 @@ import { setupLoadMore } from './load_more';
 import { setupPDFIcon } from './pdf_icon';
 import { setupSearch } from './search';
 import { setupExternalLinks } from './external_links';
+import { setupQueryCovers } from './cover_query_loop';
 
 import 'bootstrap';
 
@@ -19,3 +20,4 @@ setupLoadMore();
 setupPDFIcon();
 setupSearch();
 setupExternalLinks();
+setupQueryCovers();

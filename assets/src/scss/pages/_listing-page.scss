@@ -186,21 +186,21 @@
 
   &:not(.wp-block-query--list) {
     // Only applied to "grid" layout
-    .wp-block-post-template {
-      li {
-        @include small-and-up {
-          width: calc((100% / 2) - 1.25em + (1.25em / 2)) !important;
-        }
+    // .wp-block-post-template {
+    //   li {
+    //     @include small-and-up {
+    //       width: calc((100% / 2) - 1.25em + (1.25em / 2)) !important;
+    //     }
 
-        @include large-and-up {
-          width: calc((100% / 3) - 1.25em + (1.25em / 3)) !important;
-        }
+    //     @include large-and-up {
+    //       width: calc((100% / 3) - 1.25em + (1.25em / 3)) !important;
+    //     }
 
-        @include x-large-and-up {
-          width: calc((100% / 4) - 1.25em + (1.25em / 4)) !important;
-        }
-      }
-    }
+    //     @include x-large-and-up {
+    //       width: calc((100% / 4) - 1.25em + (1.25em / 4)) !important;
+    //     }
+    //   }
+    // }
 
     .query-list-item-meta {
       @include small-and-up {

@@ -501,3 +501,24 @@ add_filter(
     10,
     2
 );
+
+add_filter(
+	'render_block',
+	function ( $block_content, $block ) {
+		if ( 'core/query' === $block['blockName'] && strpos($block_content, 'query-loop-cover') > 0) {
+			$container_end = strpos( $block_content, '>' );
+			$query_id      = $block['attrs']['queryId'];
+			$paged         = absint( $_GET[ 'query-' . $query_id . '-page' ] ?? 1 );
+			$block_content = substr_replace( $block_content, ' data-paged="' . esc_attr( $paged ) . '" data-queryid="' . esc_attr( $query_id ) . '"', $container_end, 0 );
+		}
+	
+		if ( 'core/query-pagination' === $block['blockName'] ) {
+			$total_pages   = substr_count($block_content, 'page-numbers');
+			$block_content = sprintf( '<button class="btn btn-block btn-secondary load-more-btn btn-view-more-query-loop" data-total="' . $total_pages . '">%s</button>', esc_html__( 'Load More' ) );
+		}
+	
+		return $block_content;
+	},
+	10,
+	2
+);
