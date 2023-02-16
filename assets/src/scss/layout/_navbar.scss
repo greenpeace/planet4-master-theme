@@ -54,19 +54,15 @@ $navbar-default-height: 60px;
 
   .btn-donate {
     _-- {
-      background: $orange;
       border: none;
       box-shadow: none;
-      color: $white;
       font-size: inherit;
       min-width: 116px;
       padding: 2px 17px;
 
       &:hover {
-        background: $orange-hover;
         border: none;
         box-shadow: none;
-        color: $white;
       }
     }
 
@@ -168,19 +164,16 @@ $navbar-default-height: 60px;
   .nav-item {
     width: 100%;
     text-align: left;
-    color: $grey-80;
     margin-inline: 0;
 
     a.nav-link {
       --submenu-nav-link-- {
-        color: $grey-80;
+        color: var(--body--color);
         font-size: $font-size-sm;
         font-weight: 500;
 
         &:hover {
-          _-- {
-            color: $grey-80;
-          }
+          color: var(--body--color);
         }
       }
       text-decoration: none;

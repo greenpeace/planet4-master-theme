@@ -13,7 +13,7 @@
     pointer-events: none;
     font-weight: 400;
     margin-inline-end: $sp-1;
-    color: $link-color;
+    color: var(--top-page-tags--tag-item--color, var(--link--color));
   }
 
   .tag-wrap-bullet {
@@ -22,11 +22,11 @@
 
   .tag-item {
     _-- {
-      color: $link-color;
+      color: var(--link--color);
       font-weight: 500;
 
       &:visited {
-        color: $link-color-visited;
+        color: var(--link--visited--color);
       }
     }
     display: inline-block;
@@ -46,7 +46,7 @@
     mask-size: contain;
     mask-position: center;
     background-repeat: no-repeat;
-    background-color: $link-color;
+    background-color: var(--top-page-tags--tag-item--color, var(--link--color));
     display: inline-block;
   }
 }

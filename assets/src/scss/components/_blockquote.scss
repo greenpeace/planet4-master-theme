@@ -24,7 +24,6 @@ blockquote > p {
 blockquote > h5 {
   @include blockquote;
   font-family: var(--body--font-family);
-  color: $grey-80;
   font-size: $font-size-xxl;
 
   @include medium-and-up {
@@ -35,7 +34,6 @@ blockquote > h5 {
 blockquote > h6 {
   @include blockquote;
   font-family: var(--body--font-family);
-  color: $grey-80;
   font-size: $font-size-xl;
 
   @include medium-and-up {

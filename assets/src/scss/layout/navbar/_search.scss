@@ -1,5 +1,5 @@
 .nav-search-form {
-  background-color: var(--body--background-color, $white);
+  background-color: var(--body--background-color);
   border: none;
   border-top: 1px solid #c4c4c4;
   box-shadow: 0 2px 4px transparentize($black, 0.85);
@@ -78,7 +78,7 @@
   border: none;
   border-radius: unset;
   box-shadow: none;
-  color: var(--top-navigation--color, $grey-80);
+  color: var(--top-navigation--color, var(--body--color));
   display: inline-block;
   flex-grow: 1;
   font-size: $font-size-sm;

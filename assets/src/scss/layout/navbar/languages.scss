@@ -128,7 +128,7 @@
     }
 
     a.nav-link {
-      color: $grey-80;
+      color: var(--body--color);
       display: inline-block;
       padding-inline: 16px 12px;
       text-decoration: none;
@@ -140,7 +140,7 @@
     }
 
     .current-language a::after {
-      background-color: $grey-80;
+      background-color: var(--body--color);
       content: "";
       float: right;
       height: 48px;
