@@ -57,6 +57,19 @@ workflows:
           <<: *on_pr
           requires:
             - instance-ready
+      - request-test-user:
+          <<: *on_pr
+          requires:
+            - instance-ready
+      - test-user-ready:
+          <<: *on_pr
+          type: approval
+          requires:
+            - request-test-user
+      - e2e-tests:
+          <<: *on_pr
+          requires:
+            - test-user-ready
       - publish-zip:
           <<: *on_tag
           requires:
@@ -325,6 +338,79 @@ jobs:
             - test-instance
             - booking.json
             - pr
+
+  request-test-user:
+    docker:
+      - image: cimg/base:2023.02
+        auth:
+          <<: *docker_auth
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Create test user
+          command: |
+            instance_repo="planet4-test-$(cat /tmp/workspace/test-instance)"
+            echo $instance_repo
+            echo $CIRCLE_WORKFLOW_ID
+            curl -vvv --request POST \
+              --url https://circleci.com/api/v2/project/github/greenpeace/${instance_repo}/pipeline \
+              --header "Circle-Token: ${CIRCLE_TOKEN}" \
+              --header "content-type: application/json" \
+              --data "{\"parameters\":{\"run_develop\":false, \"run_create_test_user\":true, \"run_delete_test_user\":false, \"unhold\":\"${CIRCLE_WORKFLOW_ID}\"}}"
+
+  e2e-tests:
+    docker:
+      - image: cimg/base:2023.02
+        auth:
+          <<: *docker_auth
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - checkout:
+          path: /home/circleci/checkout/planet4-master-theme
+      - setup_remote_docker:
+          version: 20.10.18
+      - run:
+          name: End-to-end tests
+          command: |
+            export TICKET=$(head -c 11 /tmp/workspace/commit-message)
+            export BASE_URL="https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/"
+            export WP_TEST_USERNAME="p4_test_user"
+            export WP_TEST_PASSWORD="${WP_TEST_USER}"
+            docker build -t playwright-ci:latest --build-arg theme_branch="${CIRCLE_BRANCH}" - < /home/circleci/checkout/planet4-master-theme/tests/e2e/tools/Dockerfile.playwright-ci
+            docker run -it -w /usr/app/planet4-master-theme \
+              -e CI \
+              -e BASE_URL \
+              -e TICKET \
+              -e WP_TEST_USERNAME \
+              -e WP_TEST_PASSWORD \
+              --network=host \
+              --entrypoint npx \
+              playwright-ci:latest \
+              playwright test
+      - run:
+          name: Delete test user
+          when: always
+          command: |
+            instance_repo="planet4-test-$(cat /tmp/workspace/test-instance)"
+            curl -vvv --request POST \
+              --url https://circleci.com/api/v2/project/github/greenpeace/${instance_repo}/pipeline \
+              --header "Circle-Token: ${CIRCLE_TOKEN}" \
+              --header 'content-type: application/json' \
+              --data '{"parameters":{"run_develop":false, "run_create_test_user":false, "run_delete_test_user":true}}'
+      - run:
+          name: Extract tests artifacts
+          when: always
+          command: |
+            mkdir -p /home/circleci/artifacts/playwright/results /home/circleci/artifacts/playwright/report
+            docker cp $(docker ps -alq --filter ancestor="playwright-ci:latest"):/usr/app/planet4-master-theme/e2e-results/. /home/circleci/artifacts/playwright/results
+            docker cp $(docker ps -alq --filter ancestor="playwright-ci:latest"):/usr/app/planet4-master-theme/e2e-report/. /home/circleci/artifacts/playwright/report
+            docker cp $(docker ps -alq --filter ancestor="playwright-ci:latest"):/usr/app/planet4-master-theme/results.xml /home/circleci/artifacts/playwright/
+      - store_test_results:
+          path: /home/circleci/artifacts
+      - store_artifacts:
+          path: /home/circleci/artifacts
 
   comment-pr:
     docker:
