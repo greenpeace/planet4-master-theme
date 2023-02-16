@@ -18,6 +18,7 @@ use P4GBKS\Blocks\Happypoint;
 use P4GBKS\Blocks\Gallery;
 use P4GBKS\Blocks\Covers;
 use P4GBKS\Blocks\SocialMedia;
+use P4\MasterTheme\AnalyticsValues;
 
 /**
  * This class is just a place for add_endpoints to live.
@@ -368,6 +369,57 @@ class Rest_Api {
 					},
 				],
 			]
+		);
+
+		register_rest_route(
+			self::REST_NAMESPACE,
+			'/analytics-values',
+			[
+				[
+					'methods'             => WP_REST_Server::READABLE,
+					'permission_callback' => static function () {
+						return current_user_can( 'edit_posts' );
+					},
+					'callback'            => static function ( $request ) {
+						$analytics_values = AnalyticsValues::from_cache_or_api_or_hardcoded();
+
+						$global_options = $analytics_values->global_projects_options();
+						$local_options  = $analytics_values->local_projects_options();
+						$basket_options = $analytics_values->basket_options();
+
+						return rest_ensure_response(
+							[
+								[
+									'global_projects' => array_map(
+										fn ( $k, $v ) => [
+											'label' => $v,
+											'value' => $k,
+										],
+										array_keys( $global_options ),
+										array_values( $global_options )
+									),
+									'local_projects'  => array_map(
+										fn ( $k, $v ) => [
+											'label' => $v,
+											'value' => $k,
+										],
+										array_keys( $local_options ),
+										array_values( $local_options )
+									),
+									'baskets'         => array_map(
+										fn ( $k, $v ) => [
+											'label' => $v,
+											'value' => $k,
+										],
+										array_keys( $basket_options ),
+										array_values( $basket_options )
+									),
+								],
+							]
+						);
+					},
+				],
+			],
 		);
 	}
 
