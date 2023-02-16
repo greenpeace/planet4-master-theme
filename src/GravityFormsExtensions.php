@@ -96,6 +96,7 @@ class GravityFormsExtensions
         add_filter('gform_confirmation', [ $this, 'p4_gf_custom_confirmation' ], 10, 3);
         add_filter('gform_field_css_class', [ $this, 'p4_gf_custom_field_class' ], 10, 3);
         add_filter('gform_form_args', [ $this, 'p4_gf_enforce_ajax' ], 10, 3);
+        add_action('gform_after_save_form', [ $this, 'p4_gf_clear_page_caches' ], 10, 2);
     }
 
     /**
@@ -338,5 +339,128 @@ class GravityFormsExtensions
         $form_args['ajax'] = true;
 
         return $form_args;
+    }
+
+    /**
+     * Purges the caches of pages that contain a form.
+     *
+     * @param array $form The form to look for when purging page caches
+     * @param bool $is_new Form is new
+     *
+     */
+    public function p4_gf_clear_page_caches(array $form, bool $is_new = false): void
+    {
+        if ($is_new) {
+            return;
+        }
+
+        /**
+         * Filter hook to change post types that are cleared from cache if they contain a form that has changed
+         *
+         * @param array $post_types Array of post types to consider for cache clearing after form update
+         */
+        $post_types = apply_filters('planet4_form_cache_purge_post_types', [ 'page', 'post', 'campaign' ]);
+
+        // Get IDs of posts that contain the forms
+        $posts_to_clear = $this->get_posts_by_gf_id($form['id'], $post_types);
+
+        // Get IDs of reusable blocks that contain the forms
+        $reusable_blocks = $this->get_posts_by_gf_id($form['id'], [ 'wp_block' ]);
+
+        foreach ($reusable_blocks as $block_id) {
+            // Find posts that contain the reusable blocks
+            $args = [
+                's' => '<!-- wp:block {"ref":' . $block_id . '}',
+                "numberposts" => - 1,
+                'post_type' => $post_types,
+                'post_status' => [ 'publish', 'private' ],
+            ];
+
+            $posts = get_posts($args);
+
+            foreach ($posts as $post) {
+                $posts_to_clear[] = $post->ID;
+            }
+        }
+
+        $posts_to_clear = array_unique($posts_to_clear);
+
+        foreach ($posts_to_clear as $post_id) {
+            // Updating the post triggers clearing the cache without making any changes to the post itself.
+            wp_update_post([
+                'ID' => $post_id,
+            ], false, true);
+        }
+    }
+
+    /**
+     * Find all posts that contain a form.
+     *
+     * @param int $form_id The ID of the form to look for
+     * @param array $post_types Post types that are searched
+     *
+     * @return array
+     */
+    private function get_posts_by_gf_id(int $form_id, array $post_types = [ 'post', 'page' ]): array
+    {
+        $args = [
+            's' => '<!-- wp:gravityforms/form ',
+            "numberposts" => - 1,
+            'post_type' => $post_types,
+            'post_status' => [ 'publish', 'private' ],
+        ];
+
+        $posts = get_posts($args);
+
+        $post_ids = [];
+
+        foreach ($posts as $post) {
+            $blocks = parse_blocks(get_the_content(null, null, $post));
+
+            $gf_blocks = $this->find_nested_blocks('gravityforms/form', $blocks);
+
+            foreach ($gf_blocks as $gf_block) {
+                if (intval($gf_block['attrs']['formId']) === $form_id) {
+                    $post_ids[] = $post->ID;
+
+                    break;
+                }
+            }
+        }
+
+        return $post_ids;
+    }
+
+    /**
+     * Recursively search blocks array for block with $block_name and return as flat array.
+     *
+     * @param string $block_name Block name to find
+     * @param array $blocks Blocks to search for nested blocks
+     *
+     * @return array
+     */
+    private function find_nested_blocks(string $block_name, array $blocks): array
+    {
+        $matching_blocks = [];
+
+        foreach ($blocks as $block) {
+            if (isset($block['blockName']) && $block['blockName'] === $block_name) {
+                $matching_blocks[] = $block;
+            }
+
+            if (!is_array($block['innerBlocks'])) {
+                continue;
+            }
+
+            $inner_blocks = $this->find_nested_blocks($block_name, $block['innerBlocks']);
+
+            if (count($inner_blocks) <= 0) {
+                continue;
+            }
+
+            $matching_blocks = array_merge($matching_blocks, $inner_blocks);
+        }
+
+        return $matching_blocks;
     }
 }
