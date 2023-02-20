@@ -3,62 +3,57 @@
 
   .share-btn {
     border: none;
-    color: $white;
     font-size: $font-size-md;
     opacity: 0.9;
-    width: 4rem;
+    width: 3rem;
     text-align: center;
     line-height: 2.7rem;
-    height: 2.7rem;
-    border-radius: 4px;
+    height: 3rem;
+    border-radius: 50%;
     margin-bottom: 0;
+    background: $share-buttons-bg-color;
 
     &:not(:last-child) {
       margin-inline-end: 8px;
     }
 
     .icon {
-      top: -2px;
+      top: -1px;
+    }
+
+    &:hover,
+    &:active {
+      background: $share-buttons-bg-color__hover;
     }
   }
 
   .twitter {
-    background: $twitter;
-
-    &:hover,
-    &:active {
-      background: darken($twitter, 20%);
-    }
+    color: $twitter;
   }
 
   .facebook {
-    background: $facebook;
-
-    &:hover,
-    &:active {
-      background: darken($facebook, 20%);
-    }
+    color: $facebook;
   }
 
   .email {
-    background: $email;
-
-    &:hover,
-    &:active {
-      background: darken($email, 20%);
+    .icon {
+      fill: none;
+      stroke: $email;
+      stroke-width: 35;
     }
   }
 
   .whatsapp {
-    background: $whatsapp;
-
-    &:hover,
-    &:active {
-      background: darken($whatsapp, 20%);
-    }
+    color: $whatsapp;
 
     .icon {
       font-size: 1.5rem;
+    }
+  }
+
+  .twitter, .facebook, .email {
+    .icon {
+      top: 1px;
     }
   }
 
