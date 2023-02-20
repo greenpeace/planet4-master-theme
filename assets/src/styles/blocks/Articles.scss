@@ -74,7 +74,7 @@
 .article-list-item-headline {
   --block-articles--article--headline-- {
     font-weight: 500;
-    color: $grey-80;
+    color: var(--body--color);
   }
 
   @include mobile-only {

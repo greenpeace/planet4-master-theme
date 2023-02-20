@@ -10,7 +10,7 @@
   }
 
   .always-enabled {
-    background: $grey-80;
+    background: var(--body--color);
     color: white;
     font-weight: 700;
     border-radius: 4px;

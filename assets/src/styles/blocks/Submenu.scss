@@ -27,7 +27,7 @@ div[data-render="planet4-blocks/submenu"] {
     }
 
     a {
-      color: $grey-80;
+      color: var(--body--color);
       font-family: var(--headings--font-family);
     }
 

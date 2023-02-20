@@ -16,7 +16,7 @@
       font-size: $font-size-lg;
       font-family: var(--headings--font-family);
       font-weight: 700;
-      color: $grey-80;
+      color: var(--body--color);
       margin-bottom: .5rem;
       text-transform: none;
 
@@ -215,7 +215,7 @@
 
       .step-info {
         h5 > a _-- {
-          color: $grey-80;
+          color: var(--body--color);
         }
 
         p {
@@ -309,7 +309,7 @@
           border-bottom: none;
 
           p {
-            color: $grey-80;
+            color: var(--body--color);
             font-size: $font-size-xxs;
             line-height: 22px;
             margin-left: 0;

@@ -1,6 +1,6 @@
 @import "../../master-theme/assets/src/scss/base/mixins";
-@import "../../master-theme/assets/src/scss/base/variables";
 @import "../../master-theme/assets/src/scss/base/colors";
+@import "../../master-theme/assets/src/scss/base/variables";
 @import "../../master-theme/assets/src/scss/base/fonts";
 
 // $slide-transition-speed should match SLIDE_TRANSITION_SPEED in carousel-header.js
@@ -408,7 +408,7 @@ $medium-image-height: 600px;
 
     h2 {
       width: 100%;
-      color: $grey-80;
+      color: var(--body--color);
       transition: unset;
       transform: translateX($text-slide-offset);
       font-size: 1.62rem;
@@ -447,7 +447,7 @@ $medium-image-height: 600px;
 
     p {
       display: block;
-      color: $grey-80;
+      color: var(--body--color);
       font-family: var(--headings--font-family);
       font-size: .875rem;
       font-weight: 500;

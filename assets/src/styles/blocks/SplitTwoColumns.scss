@@ -159,7 +159,7 @@
   }
 
   &:visited {
-    color: var(--link--color, $link-color);
+    color: var(--link--color);
   }
 
   &:after {

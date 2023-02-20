@@ -1,5 +1,5 @@
-@import "../../master-theme/assets/src/scss/base/variables";
 @import "../../master-theme/assets/src/scss/base/colors";
+@import "../../master-theme/assets/src/scss/base/variables";
 @import "../../master-theme/assets/src/scss/base/mixins";
 @import "../../master-theme/assets/src/scss/base/fonts";
 
@@ -78,7 +78,6 @@
     .panel {
       padding: 0 16px 24px 16px;
       background-color: white;
-      color: $grey-80;
       overflow: hidden;
       transition: display 1s, opacity 1s, height 1s ease-in-out;
 

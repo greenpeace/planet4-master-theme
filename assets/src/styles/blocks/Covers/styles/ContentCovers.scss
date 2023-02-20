@@ -46,10 +46,6 @@
         /*! autoprefixer: on */
         /* stylelint-enable property-no-vendor-prefix */
         overflow: hidden;
-
-        > a {
-          color: $grey-80;
-        }
       }
 
       .post-excerpt {

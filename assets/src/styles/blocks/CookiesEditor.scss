@@ -5,7 +5,7 @@
 
   .field-reset-button {
     display: inline-block;
-    color: $link-color;
+    color: var(--link--color);
     margin-inline-start: 16px;
     font-family: var(--headings--font-family);
     font-size: 14px;
@@ -27,7 +27,7 @@
       height: 18px;
       display: inline-block;
       text-align: center;
-      border: solid 1px $link-color;
+      border: solid 1px var(--link--color);
     }
   }
 }
