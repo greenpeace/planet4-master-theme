@@ -359,7 +359,7 @@ class GravityFormsExtensions
          *
          * @param array $post_types Array of post types to consider for cache clearing after form update
          */
-        $post_types = apply_filters('planet4_form_cache_purge_post_types', [ 'page', 'post', 'campaign' ]);
+        $post_types = apply_filters('planet4_form_cache_purge_post_types', [ 'page', 'post', 'campaign', 'p4_action' ]);
 
         // Get IDs of posts that contain the forms
         $posts_to_clear = $this->get_posts_by_gf_id($form['id'], $post_types);
