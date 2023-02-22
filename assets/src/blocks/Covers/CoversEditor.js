@@ -2,6 +2,8 @@ import {
   SelectControl,
   PanelBody,
   RadioControl,
+  TextControl,
+  Tooltip
 } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
 
@@ -13,7 +15,6 @@ import { Covers } from './Covers';
 import { COVERS_TYPES, COVERS_LAYOUTS, CAROUSEL_LAYOUT_COVERS_LIMIT } from './CoversConstants';
 import { useCovers } from './useCovers';
 import { getStyleFromClassName } from '../getStyleFromClassName';
-import { CoversGridLoadMoreButton } from './CoversGridLoadMoreButton';
 import { CoversCarouselLayout } from './CoversCarouselLayout';
 
 const { RichText } = wp.blockEditor;
@@ -91,6 +92,15 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
             />
           </div>
         }
+        {layout !== COVERS_LAYOUTS.carousel &&
+          <TextControl
+            label={__('Button Text', 'planet4-blocks-backend')}
+            placeholder={__('Override button text', 'planet4-blocks-backend')}
+            help={__('Your default is set to [ Load more ]', 'planet4-blocks-backend')}
+            value={readMoreText}
+            onChange={toAttribute('readMoreText')}
+          />
+        }
       </PanelBody>
     </InspectorControls>
   );
@@ -160,7 +170,22 @@ const renderView = (attributes, toAttribute) => {
         </div> :
         <>
           {isCarouselLayout && !isSmallWindow ? <CoversCarouselLayout {...coversProps} /> : <Covers {...coversProps} />}
-          {showLoadMoreButton && <CoversGridLoadMoreButton showMoreCovers={() => {}} readMoreText={readMoreText} />}
+          {showLoadMoreButton && (
+            <Tooltip text={__('Edit text', 'planet4-blocks-backend')}>
+              <button className="btn btn-block btn-secondary load-more-btn">
+                <RichText
+                  tagName="div"
+                  placeholder={__('Enter text', 'planet4-blocks-backend')}
+                  value={readMoreText}
+                  onChange={toAttribute('readMoreText')}
+                  withoutInteractiveFormatting
+                  multiline="false"
+                  allowedFormats={[]}
+                />
+              </button>
+              </Tooltip>
+            )
+          }
         </>
       }
     </section>
