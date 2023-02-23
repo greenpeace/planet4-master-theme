@@ -48,7 +48,7 @@ msgstr[1] "%d resultat"
 
 #: assets/src/js/country_select.js:47
 msgid "."
-msgstr ""
+msgstr "."
 
 #: 404.php:18
 msgid "404 Page"
