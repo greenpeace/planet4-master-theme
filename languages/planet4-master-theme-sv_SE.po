@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2023-02-21 15:18+0000\n"
+"PO-Revision-Date: 2023-02-23 15:23+0000\n"
 "Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,11 +90,11 @@ msgstr "AKTIVA FILTER"
 
 #: templates/cookies/cookies_settings.twig:55
 msgid "Allow all"
-msgstr ""
+msgstr "Tillåt alla"
 
 #: templates/cookies/cookies_settings.twig:16
 msgid "Always enabled"
-msgstr ""
+msgstr "Tillåt alltid"
 
 #: templates/search.twig:171
 msgid "Apply filters"
@@ -140,11 +140,11 @@ msgstr "Rensa alla"
 
 #: templates/search-form.twig:32
 msgid "Clear search"
-msgstr ""
+msgstr "Rensa sökning"
 
 #: templates/burger-menu.twig:10
 msgid "Close navigation mobile menu"
-msgstr ""
+msgstr "Stäng meny"
 
 #: templates/comment_form/comment_field.twig:4
 msgid "Comment"
@@ -214,7 +214,7 @@ msgstr "Greenpeace Planet 4 Master Theme"
 
 #: functions.php:447
 msgid "here"
-msgstr ""
+msgstr "här"
 
 #: templates/burger-menu.twig:34
 msgid "Home"
@@ -233,6 +233,8 @@ msgid ""
 "I agree on providing my name, email and content so that my comment can be "
 "stored and displayed in the website."
 msgstr ""
+"Jag godkänner att mitt namn, min e-post, och innehåll sparas så att min "
+"kommentar kan lagras och visas på hemsidan."
 
 #: src/MasterSite.php:627
 msgid "International (English)"
@@ -240,7 +242,7 @@ msgstr "International (English)"
 
 #: templates/single-page.twig:15 templates/single-password.twig:18
 msgid "Invalid password, please try again"
-msgstr ""
+msgstr "Ogiltigt lösenord, var god försök igen"
 
 #: single.php:107
 msgid "Leave your reply"
@@ -253,11 +255,11 @@ msgstr "Se mer"
 
 #: templates/tease-search.twig:157
 msgid "Manage"
-msgstr ""
+msgstr "Hantera"
 
 #: templates/cookies/cookies_settings.twig:11
 msgid "Manage your cookies preferences"
-msgstr ""
+msgstr "Hantera dina inställningar för cookies "
 
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
@@ -277,11 +279,11 @@ msgstr "Namn"
 
 #: src/MasterSite.php:98 src/Search.php:715
 msgid "Newest"
-msgstr ""
+msgstr "Nyast"
 
 #: src/MasterSite.php:102 src/Search.php:719
 msgid "Oldest"
-msgstr ""
+msgstr "Äldst "
 
 #: src/Post.php:278
 msgid "PAGE"
@@ -293,7 +295,7 @@ msgstr "Sida"
 
 #: templates/cookies/cookies_settings.twig:12
 msgid "Please select which cookies you are willing to store."
-msgstr ""
+msgstr "Vänligen välj vilka cookies som får lagras"
 
 #: src/Post.php:285
 msgid "POST"
@@ -309,7 +311,7 @@ msgstr "Skicka kommentar"
 
 #: templates/search.twig:111 templates/search.twig:226
 msgid "Post Type"
-msgstr ""
+msgstr "Inläggstyp"
 
 #: templates/author.twig:22
 msgid "Posts by "
@@ -317,7 +319,7 @@ msgstr "Inlägg av"
 
 #: tag.php:100
 msgid "Publications"
-msgstr ""
+msgstr "Publikationer"
 
 #: templates/search.twig:68 templates/search.twig:178
 msgid "Refine your search"
@@ -325,11 +327,11 @@ msgstr "Förfina din sökning"
 
 #: templates/cookies/cookies_settings.twig:47
 msgid "Reject all"
-msgstr ""
+msgstr "Avvisa allt"
 
 #: templates/cookies.twig:35
 msgid "Reject all cookies"
-msgstr ""
+msgstr "Avvisa alla cookies "
 
 #: tag.php:127
 msgid "Related Campaigns"
@@ -341,7 +343,7 @@ msgstr "Resultat"
 
 #: templates/cookies/cookies_settings.twig:63
 msgid "Save preferences"
-msgstr ""
+msgstr "Spara inställningar"
 
 #: templates/search-form.twig:2 templates/404.twig:17 templates/search.twig:8
 #: templates/search.twig:45
@@ -354,7 +356,7 @@ msgstr "Valda"
 
 #: templates/cookies.twig:18
 msgid "Settings"
-msgstr ""
+msgstr "Inställningar"
 
 #: templates/blocks/share_buttons.twig:44
 #: templates/blocks/share_buttons.twig:53
@@ -376,11 +378,11 @@ msgstr "VISA %s FLER RESULTAT"
 
 #: templates/blocks/author_profile.twig:45
 msgid "Show less"
-msgstr ""
+msgstr "Visa färre"
 
 #: templates/blocks/author_profile.twig:44
 msgid "Show more"
-msgstr ""
+msgstr "Visa fler"
 
 #. Name of the template
 msgid "Sitemap Page"
@@ -408,11 +410,11 @@ msgstr "Sortera"
 
 #: templates/single-page.twig:19 templates/single-password.twig:22
 msgid "Submit"
-msgstr ""
+msgstr "Skicka"
 
 #: templates/tease-search.twig:151
 msgid "Take action"
-msgstr "engagera dig"
+msgstr "Engagera dig"
 
 #: functions.php:446
 msgid ""
@@ -420,6 +422,9 @@ msgid ""
 "\\\"All Posts\\\" listing page. You can disable this by un-setting the "
 "\\\"Posts page\\\""
 msgstr ""
+"Innehållet på den här sidan är dolt för att sidan används som din  \\\"All "
+"Posts\\\" listsida. Du kan ta bort detta genom att stänga av inställningen "
+"\\\"Posts page\\\""
 
 #: tag.php:89
 msgid "Things you can do"
@@ -431,11 +436,11 @@ msgstr "Den här kampanjen hör inte till ett särskilt fokusområde."
 
 #: templates/tease-search.twig:115 assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
-msgstr ""
+msgstr "Den här länken öppnar en PDF-fil"
 
 #: templates/single-page.twig:12 templates/single-password.twig:15
 msgid "To see the content of this page, please enter your password  below"
-msgstr ""
+msgstr "Ange ditt lösenord nedan för att se innehållet på den här sidan "
 
 #: src/MasterSite.php:547
 msgid "Toggle search box"
@@ -451,7 +456,7 @@ msgstr "Öppna menyn för våra kontor världen över"
 
 #: templates/search.twig:22
 msgid "Try searching for somthing else"
-msgstr "Prova att använda andra sökord"
+msgstr "Testa att använda andra sökord"
 
 #: templates/search.twig:26
 msgid "We also included results for "
@@ -467,7 +472,7 @@ msgstr "Ledsen, vi hittade inget som matchar ditt sökord."
 
 #: assets/src/js/country_select.js:30
 msgid "Worldwide site list"
-msgstr ""
+msgstr "Se listan över våra kontor världen över"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Your Comment"
