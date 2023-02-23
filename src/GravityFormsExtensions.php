@@ -179,6 +179,31 @@ class GravityFormsExtensions
         $form['is_active'] = '1';
 
         GFAPI::update_form($form);
+
+        // Default analytics feed meta.
+        $feed_meta = [
+            "feedName" => "Google Analytics",
+            "gaeventgoalid_thickbox" => "",
+            "gaeventgoal_thickbox" => "Submission: " . $form['title'],
+            "gaeventcategory_thickbox" => "",
+            "gaeventaction_thickbox" => "",
+            "gaeventlabel_thickbox" => "{form_title} ID: {form_id}",
+            "gaeventgoalid" => "",
+            "gaeventgoal" => "Submission: " . $form['title'],
+            "gaeventcategory" => "",
+            "gaeventaction" => "",
+            "gaeventlabel" => "{form_title} ID: {form_id}",
+            "gaeventvalue" => "",
+            "feed_condition_conditional_logic_object" => [],
+            "feed_condition_conditional_logic" => "0",
+            "select_goal" => "",
+            "feed_event_category" => "",
+            "feed_event_action" => "",
+            "feed_event_label" => "",
+            "conditionalLogic" => "",
+        ];
+
+        GFAPI::add_feed($form_id = $form['id'], $feed_meta, $addon_slug = 'gravityformsgoogleanalytics');
     }
 
     /**
