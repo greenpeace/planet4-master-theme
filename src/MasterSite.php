@@ -1348,12 +1348,12 @@ class MasterSite extends TimberSite
     /**
      * Save custom media metadata fields
      *
-     * @param \WP_Post $post        The $post data for the attachment.
-     * @param array    $attachment  The $attachment part of the form $_POST ($_POST[attachments][postID]).
+     * @param array $post        The $post data for the attachment.
+     * @param array $attachment  The $attachment part of the form $_POST ($_POST[attachments][postID]).
      *
-     * @return \WP_Post $post
+     * @return array $post
      */
-    public function add_image_attachment_fields_to_save(\WP_Post $post, array $attachment): \WP_Post
+    public function add_image_attachment_fields_to_save(array $post, array $attachment): array
     {
         if (isset($attachment['credit_text'])) {
             update_post_meta($post['ID'], self::CREDIT_META_FIELD, $attachment['credit_text']);
