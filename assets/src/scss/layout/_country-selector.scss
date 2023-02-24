@@ -18,7 +18,7 @@
 
   button:focus {
     border-radius: var(--link--focus--border-radius, 4px);
-    outline: var(--link--focus--border, 2px solid transparentize($white, 0.6));
+    outline: var(--link--focus--border, 2px solid rgba(var(--white), 0.6));
     outline-offset: 0;
   }
 
@@ -28,7 +28,7 @@
 
   &.open {
     .country-selector-toggle-container {
-      border-bottom: 1px solid transparentize($white, 1);
+      border-bottom: 1px solid rgba(var(--white), 1);
       transition-delay: 0s;
     }
 
@@ -44,7 +44,7 @@
 }
 
 .country-selector-toggle-container {
-  border-bottom: 1px solid transparentize($white, 0.5);
+  border-bottom: 1px solid rgba(var(--white), 0.5);
   display: flex;
   flex-direction: column;
   justify-content: center;

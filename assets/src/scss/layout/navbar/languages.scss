@@ -8,7 +8,7 @@
   padding: 0 $sp-2;
 
   @include large-and-up {
-    border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+    border-inline-start: var(--top-navigation--separation, 1px solid rgba(var(--white), 0.5));
     display: inline-block;
     line-height: $menu-height;
 

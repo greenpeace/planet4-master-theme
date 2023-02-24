@@ -60,7 +60,7 @@
 
   @include x-large-and-up {
     background: var(--top-navigation--background, inherit);
-    border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+    border-inline-start: var(--top-navigation--separation, 1px solid rgba(var(--white), 0.5));
     border-top: none;
     box-shadow: none;
     display: inline-flex;
@@ -176,7 +176,7 @@
   }
 
   @include large-and-up {
-    border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+    border-inline-start: var(--top-navigation--separation, 1px solid rgba(var(--white), 0.5));
     display: inline-block;
     padding: $sp-1x;
   }

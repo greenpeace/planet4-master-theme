@@ -45,7 +45,7 @@
   }
 
   .nav-link {
-    color: var(--nav-link--color, transparentize($white, 0.5));
+    color: var(--nav-link--color, rgba(var(--white), 0.5));
     white-space: nowrap;
     padding: 0;
 

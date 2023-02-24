@@ -118,7 +118,7 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 .gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
 .gform_button_select_files {
   --button-secondary-- {
-    background: transparentize($white, .7);
+    background: rgba(var(--white), .7);
     border-color: $dark-blue;
     color: $dark-blue;
     box-shadow: none;
@@ -156,7 +156,7 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 }
 
 .btn-action {
-  background-color: transparentize($white, .8);
+  background-color: rgba(var(--white), .8);
   border-color: $white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 

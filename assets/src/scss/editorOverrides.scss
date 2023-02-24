@@ -85,7 +85,7 @@
 [class="wp-block-button"] .wp-block-button__link[role="textbox"],
 .wp-block-file .wp-block-file__button {
   --button-secondary-- {
-    background: transparentize($white, .7);
+    background: rgba(var(--white), .7);
     border-color: $dark-blue;
     color: $dark-blue;
     padding: 2px $sp-4;

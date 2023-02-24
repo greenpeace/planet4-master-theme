@@ -28,7 +28,7 @@
   color: $grey-40;
   font-size: 14px;
   font-family: var(--headings--font-family);
-  border-bottom: 1px solid transparentize($grey-20, 0.5);
+  border-bottom: 1px solid rgba(var(--grey-50), 0.5);
   padding-bottom: 16px;
   line-height: 24px;
   margin-bottom: 16px;
@@ -82,7 +82,7 @@
 }
 
 .articles-block {
-  border-top: 1px solid transparentize($grey-20, 0.5);
+  border-top: 1px solid rgba(var(--grey-50), 0.5);
   padding-top: 16px;
 
   @include medium-and-up {

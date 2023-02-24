@@ -1,19 +1,19 @@
 // Allow colors for blocks palette
 $palette: (
   "grey-80": $grey-80,
-  "grey-60": $grey-60,
-  "grey-40": $grey-40,
-  "grey-20": $grey-20,
-  "grey-10": $grey-10,
-  "grey-05": $grey-05,
+  "grey-60": var(--grey-800),
+  "grey-40": var(--grey-600),
+  "grey-20": var(--grey-500),
+  "grey-10": var(--grey-200),
+  "grey-05": var(--grey-100),
   "grey": $grey,
-  "gp-green": $gp-green,
+  "gp-green": var(--gp-green-500),
   "x-dark-blue": $x-dark-blue,
   "dark-blue": $dark-blue,
   "blue": $blue,
   "orange-hover": $orange-hover,
   "yellow": $yellow,
-  "white": $white,
+  "white": var(--white),
 );
 
 @each $name, $color in $palette {

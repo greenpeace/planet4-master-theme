@@ -2,8 +2,8 @@
   --body--font-family: #{$lora};
   --headings--font-family: #{$roboto};
   --headings--font-weight: bold;
-  --body--background-color: #{$white};
-  --body--color: #{$grey-80};
+  --body--background-color: var(--white);
+  --body--color: var(--color-text-body);
   --link--color: #{$link-color};
   --link--hover--color: #{$link-color};
   --link--text-decoration: none;

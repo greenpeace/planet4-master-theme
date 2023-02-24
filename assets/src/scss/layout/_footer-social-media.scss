@@ -23,7 +23,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     padding-bottom: 9px;
-    border-bottom: 1px solid transparentize($white, .5);
+    border-bottom: 1px solid rgba(var(--white), .5);
 
     @include large-and-up {
       border-bottom: none;
@@ -43,7 +43,7 @@
     transition: color 100ms linear;
 
     &:hover {
-      color: transparentize($white, .8);
+      color: rgba(var(--white), .8);
     }
   }
 

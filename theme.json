@@ -65,27 +65,27 @@
         {
           "name": "Grey 60%",
           "slug": "grey-60",
-          "color": "#45494c"
+          "color": "var(--grey-800)"
         },
         {
           "name": "Grey 40%",
           "slug": "grey-40",
-          "color": "#6f7376"
+          "color": "var(--grey-600)"
         },
         {
           "name": "Grey 20%",
           "slug": "grey-20",
-          "color": "#a3a5a7"
+          "color": "var(--grey-500)"
         },
         {
           "name": "Grey 10%",
           "slug": "grey-10",
-          "color": "#ececec"
+          "color": "var(--grey-200)"
         },
         {
           "name": "Grey 5%",
           "slug": "grey-05",
-          "color": "#f5f7f8"
+          "color": "var(--grey-100)"
         },
         {
           "name": "Grey",
@@ -95,7 +95,7 @@
         {
           "name": "GP Green",
           "slug": "gp-green",
-          "color": "#66cc00"
+          "color": "var(--gp-green-500)"
         },
         {
           "name": "X Dark Blue",
@@ -125,7 +125,7 @@
         {
           "name": "White",
           "slug": "white",
-          "color": "#ffffff"
+          "color": "var(--white)"
         }
       ]
     },
@@ -153,9 +153,9 @@
           "text": false,
           "palette": [
             {
-              "color": "#f5f7f8",
               "name": "Grey",
-              "slug": "grey"
+              "slug": "grey",
+              "color": "var(--grey-100)"
             },
             {
               "color": "#eafee7",
