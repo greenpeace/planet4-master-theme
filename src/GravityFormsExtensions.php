@@ -264,9 +264,9 @@ class GravityFormsExtensions
      * @param string|array $confirmation The default confirmation message.
      * @param mixed        $form         The form properties.
      *
-     * @return string The custom confirmation message.
+     * @return string|array The custom confirmation message.
      */
-    public function p4_gf_custom_confirmation($confirmation, $form): string
+    public function p4_gf_custom_confirmation($confirmation, $form)
     {
         // If the $confirmation object is an array, it means that it's a redirect page so we can directly use it.
         if (is_array($confirmation)) {
