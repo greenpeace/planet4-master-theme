@@ -53,8 +53,8 @@ class TakeAction extends Block_Pattern {
 						<!-- wp:spacer {"height":"48px"} -->
 							<div style="height:48px" aria-hidden="true" class="wp-block-spacer"></div>
 						<!-- /wp:spacer -->
-						<!-- wp:group {"backgroundColor":"grey-05","align":"full","style":{"spacing":{"padding":{"top":"64px","bottom":"64px"}}}} -->
-							<div class="wp-block-group alignfull has-grey-05-background-color has-background" style="padding-top:64px;padding-bottom:64px;">
+						<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"64px","bottom":"64px"}}}} -->
+							<div class="wp-block-group alignfull" style="padding-top:64px;padding-bottom:64px;">
 								<!-- wp:group {"className":"container"} -->
 									<div class="wp-block-group container">
 										<!-- wp:planet4-blocks/articles {

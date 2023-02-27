@@ -63,7 +63,7 @@ class Campaign extends Block_Pattern {
 						<!-- wp:spacer {"height":"48px"} -->
 							<div style="height:48px" aria-hidden="true" class="wp-block-spacer"></div>
 						<!-- /wp:spacer -->
-						' . GravityFormWithImage::get_content( [ 'background_color' => 'grey-05' ] ) . '
+						' . GravityFormWithImage::get_content() . '
 					</div>
 				<!-- /wp:group -->
 			',

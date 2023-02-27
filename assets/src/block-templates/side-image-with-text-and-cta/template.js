@@ -4,7 +4,6 @@ const { __ } = wp.i18n;
 
 const template = ({
   title = '',
-  backgroundColor = '',
   alignFull = false,
   mediaPosition = 'left'
 }) => ([
@@ -13,7 +12,6 @@ const template = ({
     mediaPosition,
     mediaUrl: `${mainThemeUrl}/images/placeholders/placeholder-546x415.jpg`,
     isStackedOnMobile: true,
-    backgroundColor,
     alignFull
   }, [
     ['core/heading', {level: 2, placeholder: __('Enter title', 'planet4-blocks-backend'), content: title}],

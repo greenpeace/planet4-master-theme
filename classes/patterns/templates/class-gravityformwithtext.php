@@ -23,8 +23,8 @@ class GravityFormWithText extends TemplatePattern {
 	 * @param array $params Optional array of parameters for the content.
 	 */
 	public static function get_content( $params = [] ): string {
-		return '<!-- wp:group {"align":"full","backgroundColor":"grey-05","style":{"spacing":{"padding":{"top":"80px","bottom":"50px"}}}} -->
-			<div class="wp-block-group alignfull has-grey-05-background-color has-background" style="padding-top:80px;padding-bottom:50px;">
+		return '<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"80px","bottom":"50px"}}}} -->
+			<div class="wp-block-group alignfull" style="padding-top:80px;padding-bottom:50px;">
 
 				<!-- wp:group {"className":"container"} -->
 				<div class="wp-block-group container">

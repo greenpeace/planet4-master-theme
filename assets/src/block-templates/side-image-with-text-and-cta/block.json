@@ -7,7 +7,6 @@
   "textdomain": "planet4-blocks-backend",
   "attributes": {
     "title": { "type": "string" },
-    "backgroundColor": { "type": "string" },
     "alignFull": { "type": "boolean" },
     "mediaPosition": { "type": "string", "enum": [ "left", "right" ] }
   }

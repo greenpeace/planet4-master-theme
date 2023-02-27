@@ -5,8 +5,5 @@
   "title": "Issues",
   "category": "planet4-block-templates",
   "icon": "editor-table",
-  "textdomain": "planet4-blocks-backend",
-  "attributes": {
-    "backgroundColor": { "type": "string" }
-  }
+  "textdomain": "planet4-blocks-backend"
 }
