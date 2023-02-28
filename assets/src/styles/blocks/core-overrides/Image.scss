@@ -2,20 +2,20 @@
   figure,
   img {
     border-radius: 50%;
-    height: $size;
-    width: $size;
+    max-height: $size;
   }
 
   img {
     object-fit: cover;
+    aspect-ratio: 1;
   }
 }
 
 @mixin square-image-size($size) {
   figure,
   img {
-    height: #{$size};
-    width: #{$size};
+    height: $size;
+    width: $size;
   }
 
   img {
@@ -46,14 +46,12 @@
     display: none !important;
   }
 
-  &.square {
-    &-40 {
-      @include square-image-size(40px);
-    }
+  &.square-40 {
+    @include square-image-size(40px);
+  }
 
-    &-80 {
-      @include square-image-size(80px);
-    }
+  &.square-80 {
+    @include square-image-size(80px);
   }
 
   @include large-and-up {
