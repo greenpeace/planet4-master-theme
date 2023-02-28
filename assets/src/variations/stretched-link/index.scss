@@ -4,9 +4,10 @@
   [class*="is-style-rounded-"].force-no-caption {
     overflow: hidden;
     border-radius: 50%;
+    transform: translateZ(0); // This is needed for Safari, otherwise the animation looks off.
 
     img {
-      transition: all .2s ease-in-out;
+      transition: transform .2s ease-in-out;
     }
   }
 
