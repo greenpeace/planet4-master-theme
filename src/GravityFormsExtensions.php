@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use GFAPI;
+use GFCommon;
 use Timber\Timber;
 
 /**
@@ -97,6 +98,10 @@ class GravityFormsExtensions
         add_filter('gform_field_css_class', [ $this, 'p4_gf_custom_field_class' ], 10, 3);
         add_filter('gform_form_args', [ $this, 'p4_gf_enforce_ajax' ], 10, 3);
         add_action('gform_after_save_form', [ $this, 'p4_gf_clear_page_caches' ], 10, 2);
+
+        // Suppress the redirect in forms to use custom redirect handling.
+        add_filter('gform_suppress_confirmation_redirect', '__return_true');
+        add_filter('gform_confirmation', [ $this, 'p4_gf_custom_confirmation_redirect' ], 11, 2);
     }
 
     /**
@@ -303,6 +308,19 @@ class GravityFormsExtensions
 
         $current_confirmation = $form['confirmation'];
 
+        $script = '<script type="text/javascript">
+                        window.dataLayer = window.dataLayer || [];
+                        window.dataLayer.push({
+                            "event": "formSubmission",
+                            "formID": "' . $form['id'] . '",
+                            "formPlugin": "Gravity Form",
+                            "gGoal":  "' . ($form['p4_gf_type'] ?? self::DEFAULT_GF_TYPE) . '",
+                            "formTitle": "' . $form['title'] . '"
+                        });
+                   </script>';
+        // Append a datalayer event script to $confirmation html.
+        $confirmation .= $script;
+
         $confirmation_fields = [
             'confirmation' => $confirmation,
             'share_platforms' => [
@@ -487,5 +505,66 @@ class GravityFormsExtensions
         }
 
         return $matching_blocks;
+    }
+
+    /**
+     * Redirect using Javascript after form submission instead of sending a header.
+     * Makes it possible to send tag manager events before redirecting.
+     *
+     * @param string|array $confirmation The default confirmation message.
+     * @param mixed        $form         The form properties.
+     *
+     * @return string|array The custom confirmation message.
+     */
+    public function p4_gf_custom_confirmation_redirect($confirmation, $form)
+    {
+        GFCommon::log_debug(__METHOD__ . '(): running.');
+        if (isset($confirmation['redirect'])) {
+            $url = esc_url_raw($confirmation['redirect']);
+            GFCommon::log_debug(__METHOD__ . '(): Redirect to URL: ' . $url);
+
+            $html = sprintf(
+                '<p><b>%s</b></p><p>%s <a href="' . $url . '">%s</a> %s</p>',
+                __('Thank you!', 'planet4-master-theme'),
+                __('Please', 'planet4-master-theme'),
+                __('click here', 'planet4-master-theme'),
+                __('if you aren\'t redirected within a few seconds.', 'planet4-master-theme')
+            );
+
+            // Get the tag manager data layer ID from master theme settings
+            $options = get_option('planet4_options');
+            $gtm_id = $options['google_tag_manager_identifier'];
+
+            $script = '<script type="text/javascript">
+
+                if (window["google_tag_manager"]) {
+                    window.dataLayer = window.dataLayer || [];
+                    dataLayer.push({
+                        "event": "formSubmission",
+                        "formID": "' . $form['id'] . '",
+                        "formPlugin": "Gravity Form",
+                        "gGoal":  "' . ($form['p4_gf_type'] ?? self::DEFAULT_GF_TYPE) . '",
+                        "formTitle": "' . $form['title'] . '",
+                        "eventCallback" : function(id) {
+                            // There might be multiple gtm containers, make sure we only redirect for our main container
+                            if ( id == "' . $gtm_id . '") {
+                                window.top.location.href = "' . $url . '";
+                            }
+                        },
+                        "eventTimeout" : 2000
+                    });
+                } else {
+                    // Redirect latest after two seconds.
+                    // This is a failsafe in case the request to tag manager is blocked.
+                    setTimeout(function() {
+                        window.top.location.href = "' . $url . '";
+                    }, 2000);
+                }
+                </script>';
+
+            $confirmation = $html . $script;
+        }
+
+        return $confirmation;
     }
 }
