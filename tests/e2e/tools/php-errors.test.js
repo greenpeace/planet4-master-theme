@@ -14,7 +14,7 @@ test('check admin PHP errors', async ({ page }) => {
   await expect(page.locator('#wpadminbar')).toBeVisible();
 
   const allLinks = await page.evaluate(() => [...new Set(Array.from(document.querySelectorAll('#adminmenu a[href]'))
-    .filter(n => n?.href && n.href.startsWith('http://www.planet4.test/'))
+    .filter(n => n?.href && n.href.startsWith('http://www.planet4.test/')) //NOSONAR
     .map(n => n.href))]);
 
   for (let i=0; i<allLinks.length; i++) {
@@ -42,7 +42,7 @@ test('check rest PHP errors', async ({ page, request }) => {
 
   await expect(page.locator('#wpadminbar')).toBeVisible();
 
-  const jsonApi = await request.get('http://www.planet4.test/wp-json');
+  const jsonApi = await request.get('http://www.planet4.test/wp-json'); //NOSONAR
   const data = await jsonApi.json();
   const routes = data.routes;
 

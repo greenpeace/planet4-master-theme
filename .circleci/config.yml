@@ -360,35 +360,30 @@ jobs:
               --data "{\"parameters\":{\"run_develop\":false, \"run_create_test_user\":true, \"run_delete_test_user\":false, \"unhold\":\"${CIRCLE_WORKFLOW_ID}\"}}"
 
   e2e-tests:
+    working_directory: /usr/app/
     docker:
-      - image: cimg/base:2023.02
+      - image: mcr.microsoft.com/playwright:v1.30.0
         auth:
           <<: *docker_auth
     steps:
       - attach_workspace:
           at: /tmp/workspace
       - checkout:
-          path: /home/circleci/checkout/planet4-master-theme
-      - setup_remote_docker:
-          version: 20.10.18
+          path: /usr/app/planet4-master-theme
+      - run:
+          name: Install dependencies
+          command: |
+            npm install @playwright/test
+            npx playwright install --with-deps
       - run:
           name: End-to-end tests
           command: |
+            cd /usr/app/planet4-master-theme
             export TICKET=$(head -c 11 /tmp/workspace/commit-message)
             export BASE_URL="https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/"
             export WP_TEST_USERNAME="p4_test_user"
             export WP_TEST_PASSWORD="${WP_TEST_USER}"
-            docker build -t playwright-ci:latest --build-arg theme_branch="${CIRCLE_BRANCH}" - < /home/circleci/checkout/planet4-master-theme/tests/e2e/tools/Dockerfile.playwright-ci
-            docker run -it -w /usr/app/planet4-master-theme \
-              -e CI \
-              -e BASE_URL \
-              -e TICKET \
-              -e WP_TEST_USERNAME \
-              -e WP_TEST_PASSWORD \
-              --network=host \
-              --entrypoint npx \
-              playwright-ci:latest \
-              playwright test
+            npx playwright test
       - run:
           name: Delete test user
           when: always
@@ -403,14 +398,14 @@ jobs:
           name: Extract tests artifacts
           when: always
           command: |
-            mkdir -p /home/circleci/artifacts/playwright/results /home/circleci/artifacts/playwright/report
-            docker cp $(docker ps -alq --filter ancestor="playwright-ci:latest"):/usr/app/planet4-master-theme/e2e-results/. /home/circleci/artifacts/playwright/results
-            docker cp $(docker ps -alq --filter ancestor="playwright-ci:latest"):/usr/app/planet4-master-theme/e2e-report/. /home/circleci/artifacts/playwright/report
-            docker cp $(docker ps -alq --filter ancestor="playwright-ci:latest"):/usr/app/planet4-master-theme/results.xml /home/circleci/artifacts/playwright/
+            mkdir -p /usr/artifacts/playwright/results /usr/artifacts/playwright/report
+            cp -r /usr/app/planet4-master-theme/e2e-results/* /usr/artifacts/playwright/results || true
+            cp -r /usr/app/planet4-master-theme/e2e-report/* /usr/artifacts/playwright/report || true
+            cp /usr/app/planet4-master-theme/results.xml /usr/artifacts/playwright/ || true
       - store_test_results:
-          path: /home/circleci/artifacts
+          path: /usr/artifacts
       - store_artifacts:
-          path: /home/circleci/artifacts
+          path: /usr/artifacts
 
   comment-pr:
     docker:
