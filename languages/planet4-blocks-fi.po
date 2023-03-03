@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin frontend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2020-12-02 12:30+0000\n"
-"Last-Translator: Nikos Roussos\n"
+"PO-Revision-Date: 2023-03-03 10:10+0000\n"
+"Last-Translator: Juuso Janhunen\n"
 "Language-Team: Finnish\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -15,11 +15,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.4.6; wp-5.4.2"
+"X-Loco-Version: 2.6.3; wp-6.1.1"
 
 #: classes/blocks/class-happypoint.php:92
 msgid "Background image"
-msgstr ""
+msgstr "Taustakuva"
 
 #: assets/src/blocks/Submenu/SubmenuLevel.js:53
 msgid "Bullet"
@@ -31,12 +31,12 @@ msgstr ""
 
 #: classes/blocks/class-base-block.php:65
 msgid "Error"
-msgstr ""
+msgstr "Virhe"
 
 #: classes/blocks/class-splittwocolumns.php:163
 #: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:82
 msgid "Get involved"
-msgstr ""
+msgstr "Tule mukaan"
 
 #. Author of the plugin
 msgid "Greenpeace International"
@@ -93,7 +93,7 @@ msgstr ""
 #: templates/blocks/content_covers.twig:79
 #: assets/src/blocks/Articles/ArticlesBlock.js:44
 msgid "Load more"
-msgstr ""
+msgstr "Lataa lisää"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:204
 msgid "Loading spreadsheet data..."
@@ -101,11 +101,11 @@ msgstr ""
 
 #: assets/src/blocks/Gallery/GalleryCarousel.js:114
 msgid "Next"
-msgstr ""
+msgstr "Seuraava"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:140
 msgid "No data matching your search."
-msgstr ""
+msgstr "Ei hakuasi vastaavaa sisältöä"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:129
 msgid ""
@@ -139,7 +139,7 @@ msgstr ""
 
 #: assets/src/blocks/Gallery/GalleryCarousel.js:85
 msgid "Previous"
-msgstr ""
+msgstr "Edellinen"
 
 #: assets/src/blocks/Counter/CounterBlock.js:78
 msgid "Progress Bar"
@@ -156,7 +156,7 @@ msgstr ""
 #: classes/blocks/class-articles.php:50
 #: assets/src/blocks/Articles/ArticlesBlock.js:21
 msgid "Related Articles"
-msgstr ""
+msgstr "Aiheeseen liittyvää"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:174
 msgid "Search data"
@@ -164,7 +164,7 @@ msgstr ""
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:191
 msgid "Sort by"
-msgstr ""
+msgstr "Lajittele"
 
 #: assets/src/blocks/Submenu/SubmenuLevel.js:34
 msgid "Submenu item"
@@ -173,7 +173,7 @@ msgstr ""
 #: classes/blocks/class-covers.php:345
 #: classes/blocks/class-takeactionboxout.php:185
 msgid "Take action"
-msgstr ""
+msgstr "Toimi nyt"
 
 #: assets/src/blocks/Counter/CounterBlock.js:73
 msgid "Text Only"
