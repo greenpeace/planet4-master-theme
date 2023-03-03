@@ -310,12 +310,26 @@ class ControlPanel
     }
 
     /**
-     * Load assets.
+     * Load admin assets.
      */
     public function enqueue_admin_assets(): void
     {
-        // Load these assets only in Dashboard.
-        if (! is_admin() || 'dashboard' !== get_current_screen()->base) {
+        if (!is_admin()) {
+            return;
+        }
+
+        $this->load_dashboard_assets();
+        $this->load_wpml_assets();
+    }
+
+    /**
+     * Load Dashboard assets.
+     */
+    public function load_dashboard_assets(): void
+    {
+        $is_dashboard = 'dashboard' === get_current_screen()->base;
+
+        if (!$is_dashboard) {
             return;
         }
 
@@ -332,6 +346,26 @@ class ControlPanel
             [],
             Loader::theme_file_ver('admin/js/dashboard.js'),
             true
+        );
+    }
+
+    /**
+     * Load WPML assets.
+     */
+    public function load_wpml_assets(): void
+    {
+        $is_wpml_active = is_plugin_active('sitepress-multilingual-cms/sitepress.php');
+
+        if (!$is_wpml_active) {
+            return;
+        }
+
+        $theme_uri = get_template_directory_uri();
+        wp_enqueue_style(
+            'wpml-style',
+            "$theme_uri/admin/css/wpml.css",
+            [],
+            Loader::theme_file_ver('admin/css/wpml.css')
         );
     }
 }
