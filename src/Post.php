@@ -327,9 +327,6 @@ class Post extends TimberPost
     public function get_og_description(): string
     {
         $og_desc = get_post_meta($this->id, 'p4_og_description', true);
-        if ('' === $og_desc) {
-            return $this->post_excerpt;
-        }
 
         return wp_strip_all_tags($og_desc);
     }
@@ -373,18 +370,21 @@ class Post extends TimberPost
      */
     public function share_meta(): array
     {
-        $og_title = get_post_meta($this->id, 'p4_og_title', true);
-        $og_description = get_post_meta($this->id, 'p4_og_description', true);
-        $link = get_permalink($this->id);
+        $title = $this->get_og_title();
+        $description = $this->get_og_description();
 
-        if (( '' === $og_title ) && '' !== $this->post_title) {
-            $og_title = $this->post_title;
+        if ('' === $title && '' !== $this->post_title) {
+            $title = $this->post_title;
+        }
+
+        if ('' === $description && '' !== $this->post_excerpt) {
+            $description = wp_strip_all_tags($this->post_excerpt);
         }
 
         return [
-            'title' => $og_title,
-            'description' => wp_strip_all_tags($og_description),
-            'link' => $link,
+            'title' => $title,
+            'description' => $description,
+            'link' => get_permalink($this->id),
         ];
     }
 
