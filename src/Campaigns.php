@@ -250,7 +250,7 @@ class Campaigns
         $attachment_id = filter_input(INPUT_POST, $field_id, FILTER_VALIDATE_INT);
         $attachment_url = filter_input(INPUT_POST, $field_url, FILTER_VALIDATE_URL);
 
-        if ($this->validate($attachment_id)) {
+        if ($attachment_id && $this->validate($attachment_id)) {
             update_term_meta($term_id, $field_id, $attachment_id);
             update_term_meta($term_id, $field_url, $attachment_url);
         }
@@ -260,7 +260,7 @@ class Campaigns
         $attachment_id = filter_input(INPUT_POST, $field_id, FILTER_VALIDATE_INT);
         $attachment_url = filter_input(INPUT_POST, $field_url, FILTER_VALIDATE_URL);
 
-        if ($this->validate($attachment_id)) {
+        if ($attachment_id && $this->validate($attachment_id)) {
             update_term_meta($term_id, $field_id, $attachment_id);
             update_term_meta($term_id, $field_url, $attachment_url);
         }
@@ -268,7 +268,7 @@ class Campaigns
         $field_id = 'happypoint_bg_opacity';
         $happypoint_bg_opacity = filter_input(INPUT_POST, $field_id, FILTER_VALIDATE_INT);
 
-        if ($this->validate($happypoint_bg_opacity)) {
+        if ($happypoint_bg_opacity && $this->validate($happypoint_bg_opacity)) {
             update_term_meta($term_id, $field_id, $happypoint_bg_opacity);
         } else {
             $happypoint_bg_opacity = 30;
