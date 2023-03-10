@@ -617,3 +617,14 @@ add_filter(
         return $theme_json->update_with($new_color_palette);
     }
 );
+// This filter overrides the default revisions value which by default it is set to 1.
+// That means that all revisions are stored and the db storage it's growing unnecessarily.
+add_filter(
+    'wp_revisions_to_keep',
+    function () {
+        $revisions_to_keep = planet4_get_option('revisions_to_keep', 5);
+        return $revisions_to_keep;
+    },
+    10,
+    2
+);

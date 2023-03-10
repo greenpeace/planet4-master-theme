@@ -23,6 +23,7 @@ use P4\MasterTheme\Migrations\M018MigrateDonateButtonSetting;
 use P4\MasterTheme\Migrations\M019MigrateReadingTime;
 use P4\MasterTheme\Migrations\M020MigrateCommentsSettings;
 use P4\MasterTheme\Migrations\M021MigrateDefaultPostType;
+use P4\MasterTheme\Migrations\M022UpdatePostRevisions;
 
 /**
  * Run any new migration scripts and record results in the log.
