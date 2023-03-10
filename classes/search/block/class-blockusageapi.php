@@ -7,11 +7,7 @@
 
 namespace P4GBKS\Search\Block;
 
-use InvalidArgumentException;
-use WP_List_Table;
-use WP_Block_Type_Registry;
 use P4GBKS\Search\Block\Query\Parameters;
-use P4GBKS\Controllers\Menu\Blocks_Usage_Controller;
 
 /**
  * Block usage API

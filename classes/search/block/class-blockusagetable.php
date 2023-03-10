@@ -12,7 +12,6 @@ use WP_List_Table;
 use WP_Block_Type_Registry;
 use P4GBKS\Search\RowActions;
 use P4GBKS\Search\Block\Query\Parameters;
-use P4GBKS\Controllers\Menu\Blocks_Usage_Controller;
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once ABSPATH . '/wp-admin/includes/class-wp-list-table.php';
@@ -603,7 +602,7 @@ class BlockUsageTable extends WP_List_Table {
 	 * Table URL
 	 */
 	public static function url(): string {
-		return admin_url( 'admin.php?page=plugin_blocks_report_beta' );
+		return admin_url( 'admin.php?page=plugin_blocks_report' );
 	}
 
 	/**
