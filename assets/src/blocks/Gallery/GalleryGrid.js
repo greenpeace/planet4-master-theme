@@ -12,9 +12,8 @@ export const GalleryGrid = ({ images, onImageClick }) => (
           style={{ objectPosition: image.focus_image }}
           alt={image.alt_text}
           title={image.alt_text}
-          onClick={() => {
-            onImageClick(index);
-          }}
+          data-index={index}
+          onClick={onImageClick}
         />
       </div>
     ))}

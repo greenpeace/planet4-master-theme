@@ -54,7 +54,7 @@ export const Lightbox = ({ index, isOpen, items, onClose = () => {} }) => {
 
     photoSwipe.init();
 
-  }, [items]);
+  }, [items, isOpen, index]);
 
   return wp.element.createPortal(
     <div
@@ -72,7 +72,7 @@ export const Lightbox = ({ index, isOpen, items, onClose = () => {} }) => {
           <div className="pswp__item" />
           <div className="pswp__item" />
           <div className="pswp__item" />
-        </div>      
+        </div>
 
         <div className="pswp__ui pswp__ui--hidden">
           <div className="pswp__top-bar">
@@ -101,7 +101,7 @@ export const Lightbox = ({ index, isOpen, items, onClose = () => {} }) => {
           <div className="p4-caption-and-indicators">
             <div className="p4-photoswipe-indicators-wrapper">
               {
-                items.length > 1 && items.map((item, index) => 
+                items.length > 1 && items.map((item, index) =>
                   <span className={ `p4-photoswipe-indicator-click-area ${ index == currentIndex ? 'active' : ''}` } key={ index }>
                     <span className="p4-photoswipe-indicator-bar" />
                   </span>

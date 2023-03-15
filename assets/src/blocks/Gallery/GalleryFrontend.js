@@ -1,3 +1,4 @@
+import { useEffect, useState } from '@wordpress/element';
 import { GalleryCarousel } from './GalleryCarousel';
 import { GalleryThreeColumns } from './GalleryThreeColumns';
 import { GalleryGrid } from './GalleryGrid';
@@ -16,35 +17,49 @@ const imagesToItems = images => images.map(
 );
 
 export const GalleryFrontend = ({
-  gallery_block_title,
-  gallery_block_description,
-  className,
-  gallery_block_style,
-  images,
+  attributes = {},
+  renderLightbox = false,
 }) => {
-  const layout = getGalleryLayout(className, gallery_block_style);
+  const [ images, setImages ] = useState([]);
+  const [ items, setItems ] = useState([]);
+  const { isOpen, index, openLightbox, closeLightbox } = useLightbox();
+  const className = attributes.className ?? '';
+  const layout = getGalleryLayout(className, attributes.gallery_block_style ?? '');
   const postType = document.body.getAttribute('data-post-type');
 
-  const { isOpen, index, openLightbox, closeLightbox } = useLightbox();
+  useEffect(() => {
+    setItems(imagesToItems(images));
+  }, [ images ]);
 
-  const items = imagesToItems(images);
+  useEffect(() => {
+    if(attributes.image_data.length && attributes.images.length) {
+      setImages(attributes.images);
+    }
+
+    if (attributes.image_data.length && !attributes.images.length) {
+      setImages(attributes.image_data);
+    }
+  }, [ attributes ]);
 
   return (
-    <section className={`block ${GALLERY_BLOCK_CLASSES[layout]} ${className ?? ''}`}>
-      {gallery_block_title &&
+    <section className={`block ${GALLERY_BLOCK_CLASSES[layout]} ${className}`}>
+      {attributes.gallery_block_title &&
         <header>
-          <h2 className="page-section-header" dangerouslySetInnerHTML={{ __html: gallery_block_title }} />
+          <h2 className="page-section-header" dangerouslySetInnerHTML={{ __html: attributes.gallery_block_title }} />
         </header>
       }
-
-      {gallery_block_description &&
-        <div className="page-section-description" dangerouslySetInnerHTML={{ __html: gallery_block_description }} />
+      {attributes.gallery_block_description &&
+        <div className="page-section-description" dangerouslySetInnerHTML={{ __html: attributes.gallery_block_description }} />
       }
-      {layout === 'slider' && <GalleryCarousel onImageClick={openLightbox} images={images || []} />}
-      {layout === 'three-columns' && <GalleryThreeColumns onImageClick={openLightbox} images={images || []} postType={postType} />}
-      {layout === 'grid' && <GalleryGrid onImageClick={openLightbox} images={images || []} />}
 
-      <Lightbox isOpen={isOpen} index={index} items={items} onClose={closeLightbox} />
+      {layout === 'slider' && <GalleryCarousel onImageClick={openLightbox} images={images} />}
+      {layout === 'three-columns' && <GalleryThreeColumns onImageClick={openLightbox} images={images} postType={postType} />}
+      {layout === 'grid' && <GalleryGrid onImageClick={openLightbox} images={images} />}
+
+      {(renderLightbox && items.length)
+        ? <Lightbox isOpen={isOpen} index={index} items={items} onClose={closeLightbox} />
+        : null
+      }
     </section>
   );
 }

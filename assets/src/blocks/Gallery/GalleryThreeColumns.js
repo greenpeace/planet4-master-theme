@@ -17,9 +17,8 @@ export const GalleryThreeColumns = ({ images, postType, onImageClick }) => (
               alt={image.alt_text}
               title={image.alt_text}
               className={`img_${postType}`}
-              onClick={() => {
-                onImageClick(index);
-              }}
+              data-index={index}
+              onClick={onImageClick}
             />
           }
         </div>

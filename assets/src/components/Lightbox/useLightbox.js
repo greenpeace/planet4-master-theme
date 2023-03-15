@@ -4,9 +4,10 @@ export const useLightbox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
-  const openLightbox = index => {
+  const openLightbox = evt => {
+    evt.preventDefault();
     setIsOpen(true);
-    setIndex(index);
+    setIndex(parseInt(evt.currentTarget.dataset.index));
   };
 
   const closeLightbox = () => {

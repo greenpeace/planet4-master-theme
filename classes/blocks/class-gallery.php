@@ -50,10 +50,10 @@ class Gallery extends Base_Block {
 			[
 				'editor_script'   => 'planet4-blocks',
 				// todo: Remove when all content is migrated.
-				'render_callback' => static function ( $attributes ) {
+				'render_callback' => static function ( $attributes, $content ) {
 					$attributes['images'] = self::get_images( $attributes );
 
-					return self::render_frontend( $attributes );
+					return self::hydrate_frontend( $attributes, $content );
 				},
 				'attributes'      => [
 					'gallery_block_style'        => [ // Needed for existing blocks conversion.
@@ -93,6 +93,10 @@ class Gallery extends Base_Block {
 								],
 							],
 						],
+					],
+					'images'                     => [
+						'type'    => 'array',
+						'default' => [],
 					],
 				],
 			]
