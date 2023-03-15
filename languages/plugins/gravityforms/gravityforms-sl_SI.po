@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2023-01-11T19:56:21+00:00\n"
-"PO-Revision-Date: 2023-03-15 17:44+0000\n"
+"PO-Revision-Date: 2023-03-15 17:46+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: gravityforms\n"
 "Language: sl_SI\n"
@@ -2125,7 +2125,7 @@ msgstr ""
 
 #: includes/fields/class-gf-field-email.php:151 js.php:1098
 msgid "Confirm Email"
-msgstr ""
+msgstr "Potrdi e-mail"
 
 #: includes/fields/class-gf-field-password.php:215 js.php:1110
 msgid "Confirm Password"
@@ -3548,7 +3548,7 @@ msgstr ""
 #: includes/fields/class-gf-field-email.php:149 js.php:1093
 #: notification.php:212
 msgid "Enter Email"
-msgstr ""
+msgstr "Vnesi svoj e-mail naslov"
 
 #: form_detail.php:1651
 msgid "Enter name"
