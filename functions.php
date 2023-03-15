@@ -622,9 +622,35 @@ add_filter(
 add_filter(
     'wp_revisions_to_keep',
     function () {
-        $revisions_to_keep = planet4_get_option('revisions_to_keep', 5);
-        return $revisions_to_keep;
-    },
+        register_setting(
+            'writing',
+            'revisions_to_keep',
+        );
+
+        add_settings_section(
+            'post-revisions-section',
+            '',
+            function () {
+                echo '';
+            },
+            'writing'
+        );
+
+        add_settings_field(
+            'my-settings-field-id',
+            'Post Revisions',
+            function (){
+                echo '
+                    <label for="limit-post-revisions">
+                        <input id="limit-post-revisions" type="number" name="revisions_to_keep" value=' . get_option('revisions_to_keep') . '>  '
+                        . __('Maximum number of revisions to store for each post.', 'planet4-master-theme-backend') .
+                    '</label>';
+            },
+            'writing',
+            'post-revisions-section'
+        );
+    }
+    ,
     10,
-    2
+    1
 );

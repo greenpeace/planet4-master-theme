@@ -125,20 +125,6 @@ class Settings
                         ),
                     ],
 
-                    [
-                        'name' => __('Post Revisions', 'planet4-master-theme-backend'),
-                        'id' => 'revisions_to_keep',
-                        'type' => 'text',
-                        'attributes' => [
-                            'type' => 'number',
-                        ],
-                        'default' => 5,
-                        'desc' => __(
-                            'This is the maximum of revisions to store into the database.',
-                            'planet4-master-theme-backend'
-                        ),
-                    ],
-
                     // HappyPoint settings.
                     [
                         'name' => __('Default Happy Point Background Image', 'planet4-master-theme-backend'),

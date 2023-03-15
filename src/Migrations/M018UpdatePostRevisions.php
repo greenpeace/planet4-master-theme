@@ -21,8 +21,7 @@ class M018UpdatePostRevisions extends MigrationScript
     {
         global $wpdb;
 
-        $settings = get_option(Settings::KEY);
-        $MAX_REVISIONS = (int) $settings['revisions_to_keep'];
+        $MAX_REVISIONS = (int) get_option('revisions_to_keep');
 
         $sql = '
             SELECT count(ID) AS total_revisions, ID, post_parent
@@ -35,7 +34,6 @@ class M018UpdatePostRevisions extends MigrationScript
         $prepared_sql = $wpdb->prepare($sql);
         $results = $wpdb->get_results($prepared_sql); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
-        echo "\n";
         foreach ((array) $results as $post) {
             if ((int) $post->total_revisions <= $MAX_REVISIONS) {
                 continue;
