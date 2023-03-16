@@ -90,7 +90,7 @@
 
 .countries-list {
   _-- {
-    background: var(--site-footer--background, $active-blue);
+    background: $active-blue;
   }
   font-weight: 500;
   max-height: 0;
