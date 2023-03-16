@@ -108,7 +108,7 @@
 .wp-block-button.is-style-cta .wp-block-button__link[role="textbox"] {
   --button-primary-- {
     background: $orange;
-    border-color: $orange;
+    border-color: transparent;
     color: $white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
   }
