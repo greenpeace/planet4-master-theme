@@ -120,18 +120,11 @@
       height: 40px;
       width: 130px;
       line-height: 40px;
-      background: $orange;
       padding: 0 $sp-1;
-      color: $white;
 
       svg {
         margin-right: 4px;
         vertical-align: baseline;
-      }
-
-      &:hover {
-        background: $orange-hover;
-        cursor: pointer;
       }
 
       .icon-cross {
@@ -144,15 +137,6 @@
         height: 48px;
         width: 150px;
         line-height: 48px;
-      }
-
-      &.disabled {
-        background: $grey-40;
-
-        &:hover {
-          color: $white;
-          cursor: not-allowed;
-        }
       }
     }
   }
