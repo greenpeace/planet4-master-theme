@@ -252,12 +252,13 @@
 
         .card-header {
           --block-columns--card-header-- {
-            font-weight: 400;
+            font-weight: 700;
             font-size: $font-size-xs;
             font-family: var(--headings--font-family);
             background: $dark-blue;
             color: $white;
           }
+          border-radius: 4px;
           display: block;
           cursor: pointer;
           text-decoration: none;
@@ -267,6 +268,34 @@
 
           &:hover {
             text-decoration: none;
+          }
+
+          &:not(.collapsed):after {
+            transform: rotate(-90deg);
+          }
+
+          &:after {
+            content: "";
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            left: auto;
+            pointer-events: none;
+            height: 1rem;
+            width: 0.5rem;
+            display: inline-block;
+            transition: transform 300ms linear;
+            transform: rotate(90deg);
+            mask-image: url("../../public/images/icons/chevron.svg");
+            mask-repeat: no-repeat;
+            mask-size: contain;
+            background-repeat: no-repeat;
+            background-color: currentColor;
+
+            html[dir="rtl"] & {
+              right: auto;
+              left: 16px;
+            }
           }
         }
 
@@ -297,10 +326,9 @@
             }
           }
 
-          .btn-secondary {
-            margin-bottom: 0;
+          a {
             margin-top: $sp-4;
-            width: 100%;
+            display: inline-block;
           }
         }
 

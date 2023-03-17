@@ -60,7 +60,7 @@
         height: 1rem;
         width: 0.5rem;
         display: inline-block;
-        transition: transform 0.8s ease;
+        transition: transform 300ms linear;
         transform: rotate(90deg);
         mask-image: url("../../public/images/icons/chevron.svg");
         mask-repeat: no-repeat;
