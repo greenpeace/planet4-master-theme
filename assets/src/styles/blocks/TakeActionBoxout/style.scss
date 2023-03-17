@@ -25,7 +25,7 @@
     }
 
     .btn {
-      background-color: $orange-hover;
+      background-color: var(--button-primary--hover--background, $orange-hover);
     }
   }
 
@@ -53,7 +53,7 @@
 
   .boxout-heading {
     font-family: var(--headings--font-family);
-    color: inherit;
+    color: var(--body--color);
     font-size: 16px;
     font-weight: 700;
     line-height: 1.25;
@@ -73,8 +73,8 @@
     font-size: 12px;
     line-height: 1;
     padding: $sp-1 $sp-2;
-    background-color: $orange;
-    color: $white;
+    background-color: var(--button-primary--background, $orange);
+    color: var(--button-primary--color, $white);
     border: none;
     white-space: nowrap;
     position: absolute;
@@ -98,7 +98,7 @@
     }
 
     .boxout-excerpt {
-      color: $grey;
+      color: var(--body--color);
       line-height: 1.5;
       font-size: 14px;
       display: -webkit-box;
