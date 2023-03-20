@@ -1,10 +1,12 @@
+@import "../base/tokens";
+
 :root {
-  --body--color: #1c1c1c;
-  --site-footer--background: #1f4912;
-  --countries-list--background: #1a3c10;
-  --site-footer--copyright--background: #1a3c10;
-  --block-columns--step-number--inner--background: #d9f1c5;
-  --block-columns--step-number--background: #d9f1c5;
-  --block-columns--step-number--color: #1c1c1c;
-  --block-columns--card-header--background: #1f4912;
+  --body--color: var(--grey-900);
+  --site-footer--background: var(--p4-dark-green-800);
+  --countries-list--background: var(--p4-dark-green-900);
+  --site-footer--copyright--background: var(--p4-dark-green-900);
+  --block-columns--step-number--inner--background: var(--gp-green-100);
+  --block-columns--step-number--background: var(--gp-green-100);
+  --block-columns--step-number--color: var(--grey-900);
+  --block-columns--card-header--background: var(--p4-dark-green-800);
 }
