@@ -52,6 +52,7 @@ $context['social_accounts'] = $post->get_social_accounts($context['footer_social
 Context::set_header($context, $page_meta_data, $post->title);
 Context::set_background_image($context);
 Context::set_og_meta_fields($context, $post);
+Context::set_p4_blocks_datalayer($context, $post);
 
 if (post_password_required($post->ID)) {
     $context['login_url'] = wp_login_url();
