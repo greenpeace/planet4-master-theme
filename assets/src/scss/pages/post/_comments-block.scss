@@ -55,6 +55,8 @@
     .comment-reply-link {
       float: right;
       margin-top: 0;
+      color: var(--comment-reply-link--color, var(--link--color));
+      border-bottom: var(--comment-reply-link--border-bottom, none);
 
       html[dir="rtl"] & {
         float: left;
