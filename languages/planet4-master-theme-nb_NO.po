@@ -94,7 +94,7 @@ msgstr "Godkjenn alle"
 
 #: templates/cookies/cookies_settings.twig:16
 msgid "Always enabled"
-msgstr ""
+msgstr "Alltid på"
 
 #: templates/search.twig:171
 msgid "Apply filters"
