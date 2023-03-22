@@ -1,6 +1,8 @@
 .author-block {
+  _-- {
+    background: $grey-10;
+  }
   overflow: hidden;
-  background: $grey-10;
   padding: 24px 16px;
   border-radius: 4px;
   margin-bottom: 24px;
@@ -74,11 +76,18 @@
 }
 
 .author-block-description-button {
+  _-- {
+    color: var(--link--color);
+
+    &:hover {
+      color: var(--link--hover--color);
+    }
+  }
+  background: none;
   outline: none;
   border: none;
   padding: 0;
   display: block;
-  color: var(--link--color);
 
   .show-less {
     display: none;
@@ -88,14 +97,25 @@
     display: inline-block;
   }
 
+  &:hover {
+    span {
+      text-decoration: underline;
+    }
+  }
+
   &:after {
     content: "";
-    background-image: url("../../images/blue-chevron.svg");
+    height: 10px;
+    width: 8px;
     display: inline-block;
-    vertical-align: middle;
-    margin-inline-start: 8px;
-    width: 10px;
-    height: 6px;
+    mask-image: url("../../images/chevron.svg");
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-position: center;
+    background-repeat: no-repeat;
+    background-color: currentColor;
+    transform: rotate(90deg);
+    margin-inline-start: $sp-x;
   }
 
   &[aria-expanded="true"] {
@@ -108,15 +128,7 @@
     }
 
     &:after {
-      transform: rotate(180deg);
-    }
-  }
-
-  &:hover {
-    color: var(--link--hover--color);
-
-    span {
-      text-decoration: underline;
+      transform: rotate(-90deg);
     }
   }
 }
