@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2023-03-22 13:13+0000\n"
+"PO-Revision-Date: 2023-03-22 14:47+0000\n"
 "Language-Team: Norwegian (Bokmål)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -233,14 +233,16 @@ msgid ""
 "I agree on providing my name, email and content so that my comment can be "
 "stored and displayed in the website."
 msgstr ""
+"Jeg samtykker til å oppgi navn, e-post og innhold slik at kommentaren min "
+"kan lagres og vises på nettsiden."
 
 #: src/MasterSite.php:627
 msgid "International (English)"
-msgstr ""
+msgstr "Internasjonal (engelsk)"
 
 #: templates/single-page.twig:15 templates/single-password.twig:18
 msgid "Invalid password, please try again"
-msgstr ""
+msgstr "Ugyldig passord, vennligst prøv igjen"
 
 #: single.php:107
 msgid "Leave your reply"
