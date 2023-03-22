@@ -222,7 +222,7 @@ msgstr "Hjem"
 
 #. Author URI of the theme
 msgid "https://github.com/greenpeace"
-msgstr ""
+msgstr "https://github.com/greenpeace"
 
 #. URI of the theme
 msgid "https://github.com/greenpeace/planet4-master-theme"
