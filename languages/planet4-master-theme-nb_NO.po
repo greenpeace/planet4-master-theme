@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2023-03-22 14:51+0000\n"
+"PO-Revision-Date: 2023-03-22 14:53+0000\n"
 "Language-Team: Norwegian (Bokmål)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -378,11 +378,11 @@ msgstr "Vis %s flere resultater"
 
 #: templates/blocks/author_profile.twig:45
 msgid "Show less"
-msgstr ""
+msgstr "Vis mindre"
 
 #: templates/blocks/author_profile.twig:44
 msgid "Show more"
-msgstr ""
+msgstr "Vis mer"
 
 #. Name of the template
 msgid "Sitemap Page"
@@ -410,7 +410,7 @@ msgstr "Sorter etter"
 
 #: templates/single-page.twig:19 templates/single-password.twig:22
 msgid "Submit"
-msgstr ""
+msgstr "Send inn"
 
 #: templates/tease-search.twig:151
 msgid "Take action"
@@ -422,6 +422,8 @@ msgid ""
 "\\\"All Posts\\\" listing page. You can disable this by un-setting the "
 "\\\"Posts page\\\""
 msgstr ""
+"Innholdet på denne siden er skjult fordi siden brukes som oppføringssiden "
+"for \\\"All Posts\\\". Deaktiver ved å deaktivere \\\"Posts page\\\""
 
 #: tag.php:89
 msgid "Things you can do"
