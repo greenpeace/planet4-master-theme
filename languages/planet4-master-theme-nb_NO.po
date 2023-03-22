@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-04-21 08:09+0000\n"
+"PO-Revision-Date: 2023-03-22 13:09+0000\n"
 "Language-Team: Norwegian (Bokmål)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,10 +16,10 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: jsharp <jsharp@greenpeace.org>\n"
+"Last-Translator: Hanne Marie Jalborg\n"
 "Language: nb_NO\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.2.2; wp-5.1.1\n"
+"X-Loco-Version: 2.6.4; wp-6.1.1\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -36,7 +36,7 @@ msgstr[1] "%1$d resultater for '%2$s'"
 #: templates/tease-taxonomy-post.twig:61 templates/tease-author.twig:52
 #, php-format
 msgid "%d min read"
-msgstr ""
+msgstr "%d min lesetid"
 
 #. %d = Number of results.
 #: src/Search.php:714
@@ -66,7 +66,7 @@ msgstr "om forfatteren"
 
 #: templates/cookies.twig:26
 msgid "Accept all cookies"
-msgstr ""
+msgstr "Godkjenn alle informasjonskapsler"
 
 #: page-templates/sitemap.php:23
 msgid "Act"
