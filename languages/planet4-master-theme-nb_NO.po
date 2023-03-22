@@ -206,7 +206,7 @@ msgstr "Bli med oss på:"
 
 #. Author of the theme
 msgid "Greenpeace International"
-msgstr ""
+msgstr "Greenpeace International"
 
 #. Name of the theme
 msgid "Greenpeace Planet 4 Master Theme"
