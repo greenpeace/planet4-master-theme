@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2023-03-22 13:09+0000\n"
+"PO-Revision-Date: 2023-03-22 13:10+0000\n"
 "Language-Team: Norwegian (Bokmål)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -82,7 +82,7 @@ msgstr "Valg"
 
 #: templates/search.twig:255
 msgid "Action Type"
-msgstr ""
+msgstr "Handlingstype"
 
 #: templates/search.twig:181
 msgid "ACTIVE FILTERS"
@@ -90,7 +90,7 @@ msgstr "Aktive filtre"
 
 #: templates/cookies/cookies_settings.twig:55
 msgid "Allow all"
-msgstr ""
+msgstr "Godkjenn alle"
 
 #: templates/cookies/cookies_settings.twig:16
 msgid "Always enabled"
