@@ -210,11 +210,11 @@ msgstr "Greenpeace International"
 
 #. Name of the theme
 msgid "Greenpeace Planet 4 Master Theme"
-msgstr ""
+msgstr "Greenpeace Planet 4 Master-tema"
 
 #: functions.php:447
 msgid "here"
-msgstr ""
+msgstr "her"
 
 #: templates/burger-menu.twig:34
 msgid "Home"
