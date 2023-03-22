@@ -74,10 +74,22 @@
   font-size: $font-size-sm;
   font-family: var(--headings--font-family);
   line-height: 25px;
+  color: var(--top-page-tags--tag-item--color, var(--link--color));
+
+  a {
+    color: inherit;
+
+    &:visited {
+      color: var(--top-page-tags--tag-item--visited--color, var(--link--visited--color));
+    }
+
+    &:hover,
+    &:active {
+      color: var(--top-page-tags--tag-item--color, var(--link--hover--color));
+    }
+  }
 
   .wrapper-post-tag {
-    color: var(--link--color);
-
     a {
       display: inline-block;
 
