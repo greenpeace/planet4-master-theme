@@ -78,8 +78,6 @@
   line-height: 3.1;
 }
 
-$primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-
 .btn-primary,
 .wp-block-button.is-style-cta a,
 .gform_footer input[type="submit"] {
@@ -89,7 +87,6 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
     // Adding this here so that the variable exists, though technically not needed.
     // This allows for the hover variable to be previewed.
     border-color: transparent;
-    box-shadow: $primary-button-box-shadow;
 
     &:visited {
       color: $white;
@@ -100,7 +97,6 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
       background: $orange-hover;
       color: $white;
       border: 1px solid transparent;
-      box-shadow: $primary-button-box-shadow;
     }
 
     &:disabled,
@@ -121,7 +117,6 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
     background: transparentize($white, .7);
     border-color: $dark-blue;
     color: $dark-blue;
-    box-shadow: none;
 
     &:visited {
       color: $dark-blue;
@@ -158,7 +153,6 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 .btn-action {
   background-color: transparentize($white, .8);
   border-color: $white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 
   &:hover {
     background-color: $orange;
@@ -171,22 +165,18 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
   }
 }
 
-$donate-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-
 .btn-donate {
   --button-donate-- {
     background: $orange;
     color: $white;
     min-width: 180px;
     padding: 2px 30px;
-    box-shadow: $donate-button-box-shadow;
     border-width: 1px;
     border-color: transparent;
 
     &:hover {
       background: $orange-hover;
       color: $white;
-      box-shadow: $donate-button-box-shadow;
       border: 1px solid transparent;
     }
 
