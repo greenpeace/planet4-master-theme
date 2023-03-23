@@ -353,7 +353,6 @@ jobs:
         auth:
           <<: *docker_auth
     steps:
-      - run: apk add zip git openssh-client python2 make g++
       - checkout
       - run: git submodule init && git submodule update
       - run: mkdir -p /tmp/workspace/
@@ -372,7 +371,6 @@ jobs:
       - run:
           name: Inject version to composer
           command: |
-            apk add jq
             cat composer.json | jq --arg version ${CIRCLE_TAG} '. + {version: $version}' > tmp.json
             mv -f tmp.json composer.json
       - run:
@@ -404,7 +402,6 @@ jobs:
     steps:
       - attach_workspace:
           at: /tmp/workspace
-      - run: apk add curl jq
       - run:
           name: Get upload url for this tag
           command: |
