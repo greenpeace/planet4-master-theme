@@ -64,7 +64,7 @@
     font-size: 14px;
   }
 
-  .btn-primary {
+  .btn-donate {
     margin-top: $sp-2;
   }
 
@@ -72,11 +72,11 @@
     display: flex;
     justify-content: space-between;
 
-    .btn-primary:only-child {
+    .btn-donate:only-child {
       width: 100%;
     }
 
-    .btn-primary,
+    .btn-donate,
     .btn-secondary {
       width: auto;
       flex-grow: 1;
