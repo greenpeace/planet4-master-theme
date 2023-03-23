@@ -81,7 +81,6 @@ Context::set_og_meta_fields($context, $post);
 Context::set_campaign_datalayer($context, $campaign_meta);
 Context::set_utm_params($context, $post);
 Context::set_custom_styles($context, $campaign_meta, 'campaign');
-Context::set_p4_blocks_datalayer($context, $post);
 
 $context['post'] = $post;
 $context['social_accounts'] = $post->get_social_accounts($context['footer_social_menu'] ?: []);
@@ -115,6 +114,8 @@ foreach (range(1, 5) as $i) {
     $context['social_overrides'][ $i ]['url'] = $campaign_footer_item['url'];
     $context['social_overrides'][ $i ]['icon'] = $campaign_footer_item['icon'];
 }
+
+Context::set_p4_blocks_datalayer($context, $post);
 
 if (post_password_required($post->ID)) {
     // Password protected form validation.

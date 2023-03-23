@@ -49,7 +49,6 @@ $context['post_tags'] = implode(', ', $post->tags());
 Context::set_og_meta_fields($context, $post);
 Context::set_campaign_datalayer($context, $page_meta_data);
 Context::set_utm_params($context, $post);
-Context::set_p4_blocks_datalayer($context, $post);
 
 $context['filter_url'] = add_query_arg(
     [
@@ -125,6 +124,8 @@ $context['post_comments_count'] = get_comments(
         'count' => true,
     ]
 );
+
+Context::set_p4_blocks_datalayer($context, $post);
 
 if (post_password_required($post->ID)) {
     // Password protected form validation.

@@ -103,7 +103,17 @@ class Context
      */
     public static function set_p4_blocks_datalayer(array &$context, object $post): void
     {
-        preg_match_all('/wp:planet4-blocks\/(\S+)|wp:gravityforms\/(\S+)*/', $post->post_content, $matches);
+        $post_content = $post->post_content;
+
+        if (isset($post->articles)) {
+            $post_content .= $post->articles;
+        }
+
+        if (isset($post->take_action_boxout)) {
+            $post_content .= $post->take_action_boxout;
+        }
+
+        preg_match_all('/wp:planet4-blocks\/(\S+)|wp:gravityforms\/(\S+)*/', $post_content, $matches);
 
         $p4_blocks = array_map(
             function ($block) {
