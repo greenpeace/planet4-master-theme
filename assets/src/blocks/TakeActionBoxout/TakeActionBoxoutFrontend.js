@@ -1,5 +1,3 @@
-const { __ } = wp.i18n;
-
 export const TakeActionBoxoutFrontend = ({
   title,
   excerpt,
@@ -13,15 +11,16 @@ export const TakeActionBoxoutFrontend = ({
 }) => (
   <section
     className={`boxout ${className || ''}`}
-    {...stickyOnMobile && { id: 'action-card' }}
+    {...stickyOnMobile && {id: 'action-card'}}
   >
+    {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
     <a
       data-ga-category="Take Action Boxout"
       data-ga-action="Image"
       data-ga-label="n/a"
       className="cover-card-overlay"
       href={link}
-      {...newTab && link && { target: "_blank" }}
+      {...newTab && {rel: 'noreferrer', target: '_blank'}}
     />
     <img src={imageUrl} alt={imageAlt} />
     <div className="boxout-content">
@@ -31,13 +30,13 @@ export const TakeActionBoxoutFrontend = ({
           data-ga-category="Take Action Boxout"
           data-ga-action="Title"
           data-ga-label="n/a"
-          dangerouslySetInnerHTML={{ __html: title }}
+          dangerouslySetInnerHTML={{__html: title}}
           href={link}
-          {...newTab && link && { target: "_blank" }}
+          {...newTab && {rel: 'noreferrer', target: '_blank'}}
         />
       }
       {excerpt &&
-        <p className="boxout-excerpt" dangerouslySetInnerHTML={{ __html: excerpt }} />
+        <p className="boxout-excerpt" dangerouslySetInnerHTML={{__html: excerpt}} />
       }
     </div>
     {link && linkText &&
@@ -47,7 +46,7 @@ export const TakeActionBoxoutFrontend = ({
         data-ga-action="Call to Action"
         data-ga-label="n/a"
         href={link}
-        {...newTab && link && { target: "_blank" }}
+        {...newTab && {rel: 'noreferrer', target: '_blank'}}
       >
         {linkText}
       </a>

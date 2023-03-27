@@ -1,27 +1,26 @@
-import { Fragment } from '@wordpress/element';
+import {Fragment} from '@wordpress/element';
 import {
   CheckboxControl,
   TextControl as BaseTextControl,
   PanelBody,
-  Tooltip
+  Tooltip,
 } from '@wordpress/components';
-import { InspectorControls } from '@wordpress/block-editor';
+import {InspectorControls} from '@wordpress/block-editor';
 import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
 import TagSelector from '../../components/TagSelector/TagSelector';
-import { PostSelector } from '../../components/PostSelector/PostSelector';
+import {PostSelector} from '../../components/PostSelector/PostSelector';
 import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector';
-import { URLInput } from "../../components/URLInput/URLInput";
-import { ArticlesList } from "./ArticlesList";
-import { useArticlesFetch } from './useArticlesFetch';
-import { useSelect } from '@wordpress/data';
+import {URLInput} from '../../components/URLInput/URLInput';
+import {ArticlesList} from './ArticlesList';
+import {useArticlesFetch} from './useArticlesFetch';
+import {useSelect} from '@wordpress/data';
 
-const { RichText } = wp.blockEditor;
-const { __ } = wp.i18n;
+const {RichText} = wp.blockEditor;
+const {__} = wp.i18n;
 
 const TextControl = withCharacterCounter(BaseTextControl);
 
 const renderEdit = (attributes, toAttribute) => {
-
   return (
     <Fragment>
       <InspectorControls>
@@ -52,8 +51,7 @@ const renderEdit = (attributes, toAttribute) => {
             min={1}
             value={attributes.article_count}
             onChange={value =>
-              toAttribute('article_count')(Number(value))
-            }
+              toAttribute('article_count')(Number(value))}
           />
           {attributes.posts !== 'undefined' && attributes.posts.length === 0 &&
             <Fragment>
@@ -61,7 +59,7 @@ const renderEdit = (attributes, toAttribute) => {
                 value={attributes.tags}
                 onChange={toAttribute('tags')}
               />
-              <p className='FieldHelp'>Associate this block with Actions that have specific Tags</p>
+              <p className="FieldHelp">Associate this block with Actions that have specific Tags</p>
               <PostTypeSelector
                 label={__('Post Types', 'planet4-blocks-backend')}
                 value={attributes.post_types}
@@ -81,12 +79,12 @@ const renderEdit = (attributes, toAttribute) => {
           {attributes.tags.length === 0 && attributes.post_types.length === 0 &&
             <div>
               <hr />
-              <label>{__('Manual override', 'planet4-blocks-backend')}</label>
+              <p>{__('Manual override', 'planet4-blocks-backend')}</p>
               <PostSelector
                 label={__('CAUTION: Adding articles individually will override the automatic functionality of this block. For good user experience, please include at least three articles so that spacing and alignment of the design remains intact.', 'planet4-blocks-backend')}
                 selected={attributes.posts || []}
                 onChange={toAttribute('posts')}
-                postType='post'
+                postType="post"
                 placeholder={__('Select articles', 'planet4-blocks-backend')}
                 maxLength={10}
                 maxSuggestions={20}
@@ -97,10 +95,9 @@ const renderEdit = (attributes, toAttribute) => {
       </InspectorControls>
     </Fragment>
   );
-}
+};
 
-const renderView = ({ attributes, postType, posts, totalPosts }, toAttribute) => {
-
+const renderView = ({attributes, postType, posts, totalPosts}, toAttribute) => {
   const hasMultiplePages = totalPosts > attributes.article_count;
 
   return (
@@ -147,27 +144,27 @@ const renderView = ({ attributes, postType, posts, totalPosts }, toAttribute) =>
       }
     </Fragment>
   );
-}
+};
 
-export const ArticlesEditor = (props) => {
-  const { isSelected, attributes, setAttributes } = props;
+export const ArticlesEditor = props => {
+  const {isSelected, attributes, setAttributes} = props;
 
-  const { postType, postId } = useSelect((select) => ({
+  const {postType, postId} = useSelect(select => ({
     postType: select('core/editor').getCurrentPostType(),
-    postId: select('core/editor').getCurrentPostId()
+    postId: select('core/editor').getCurrentPostId(),
   })
-    , []);
+  , []);
 
-  const { posts, totalPosts } = useArticlesFetch(attributes, postType, postId);
+  const {posts, totalPosts} = useArticlesFetch(attributes, postType, postId);
 
-  const toAttribute = attributeName => value => setAttributes({ [attributeName]: value });
+  const toAttribute = attributeName => value => setAttributes({[attributeName]: value});
 
   return (
     <div>
       {
         isSelected && renderEdit(attributes, toAttribute)
       }
-      {renderView({ attributes, postType, posts, totalPosts }, toAttribute)}
+      {renderView({attributes, postType, posts, totalPosts}, toAttribute)}
     </div>
   );
-}
+};

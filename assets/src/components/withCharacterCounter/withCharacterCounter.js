@@ -1,36 +1,36 @@
-import { Component } from '@wordpress/element';
+import {Component} from '@wordpress/element';
 import classNames from 'classnames';
 
-const withCharacterCounter = ( WrappedComponent ) => {
+const withCharacterCounter = WrappedComponent => {
   class WrappingComponent extends Component {
-    constructor( props ) {
-      super( props );
+    constructor(props) {
+      super(props);
 
       this.state = {
         charactersUsed: props.value ? props.value.length : 0,
       };
 
-      this.handleChange = this.handleChange.bind( this );
-      this.updateCharactersUsed = this.updateCharactersUsed.bind( this );
+      this.handleChange = this.handleChange.bind(this);
+      this.updateCharactersUsed = this.updateCharactersUsed.bind(this);
     }
 
-    updateCharactersUsed( value ) {
-      this.setState( () => {
-        return { charactersUsed: value.length };
-      } );
+    updateCharactersUsed(value) {
+      this.setState(() => {
+        return {charactersUsed: value.length};
+      });
     }
 
-    handleChange( value ) {
-      if ( this.props.onChange ) {
-        this.props.onChange( value );
+    handleChange(value) {
+      if (this.props.onChange) {
+        this.props.onChange(value);
       }
-      this.updateCharactersUsed( value );
+      this.updateCharactersUsed(value);
     }
 
     shouldShowWarning() {
-      return this.props.characterLimit
-        && !this.exceededLimit()
-        && this.props.characterLimit - this.state.charactersUsed < this.warningThreshold();
+      return this.props.characterLimit &&
+        !this.exceededLimit() &&
+        this.props.characterLimit - this.state.charactersUsed < this.warningThreshold();
     }
 
     warningThreshold() {
@@ -39,7 +39,7 @@ const withCharacterCounter = ( WrappedComponent ) => {
       // round down to nearest 10
       const roundTo = 5;
 
-      return Math.ceil( tenthOfLimit / roundTo ) * roundTo;
+      return Math.ceil(tenthOfLimit / roundTo) * roundTo;
     }
 
     exceededLimit() {
@@ -52,7 +52,7 @@ const withCharacterCounter = ( WrappedComponent ) => {
     }
 
     render() {
-      const { characterLimit, warningThreshold, onChange, ...passThroughProps } = this.props;
+      const {characterLimit, warningThreshold, onChange, ...passThroughProps} = this.props;
 
       const getClassnames = () => classNames(
         'character-counter',
@@ -65,11 +65,11 @@ const withCharacterCounter = ( WrappedComponent ) => {
       return (
         <div className="counted-field-wrapper">
           <WrappedComponent
-            onChange={ this.handleChange }
-            { ...passThroughProps }
+            onChange={this.handleChange}
+            {...passThroughProps}
           />
           { this.showCounter() &&
-          <div className={ getClassnames() }>
+          <div className={getClassnames()}>
             <span>{ this.state.charactersUsed }</span>
             <span>/{ characterLimit }</span>
           </div>

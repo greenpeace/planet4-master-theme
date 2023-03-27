@@ -1,21 +1,20 @@
 // useScript implementation from: https://usehooks.com/useScript/
-import { useEffect, useState } from 'react';
-import { addScriptTag } from './addScriptTag';
+import {useEffect, useState} from '@wordpress/element';
+import {addScriptTag} from './addScriptTag';
 
 export const useScript = (src, onScriptLoaded, deps = []) => {
   // Keeping track of script loaded and error state
   const [state, setState] = useState({
     loaded: false,
-    error: false
+    error: false,
   });
 
   useEffect(
     () => {
-
       if (!!document.querySelector(`script[src="${src}"]`)) {
         setState({
           loaded: true,
-          error: false
+          error: false,
         });
 
         return;
@@ -25,7 +24,7 @@ export const useScript = (src, onScriptLoaded, deps = []) => {
       const onScriptLoad = () => {
         setState({
           loaded: true,
-          error: false
+          error: false,
         });
 
         if (typeof onScriptLoaded === 'function') {
@@ -36,7 +35,7 @@ export const useScript = (src, onScriptLoaded, deps = []) => {
       const onScriptError = () => {
         setState({
           loaded: true,
-          error: true
+          error: true,
         });
       };
 
@@ -44,7 +43,7 @@ export const useScript = (src, onScriptLoaded, deps = []) => {
         src,
         async: true,
         onLoad: onScriptLoad,
-        onError: onScriptError
+        onError: onScriptError,
       });
 
       // Remove event listeners on cleanup
@@ -57,7 +56,7 @@ export const useScript = (src, onScriptLoaded, deps = []) => {
   );
 
   return [state.loaded, state.error];
-}
+};
 
 export const removeScript = (src, deps = []) => {
   const [state, setState] = useState({unloaded: false});

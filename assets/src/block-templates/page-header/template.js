@@ -1,6 +1,6 @@
 import mainThemeUrl from '../main-theme-url';
 
-const { __ } = wp.i18n;
+const {__} = wp.i18n;
 
 const template = ({
   mediaPosition = '',
@@ -12,11 +12,11 @@ const template = ({
       style: {
         spacing: {
           padding: {
-            top:'56px',
-            bottom:'56px',
-          }
+            top: '56px',
+            bottom: '56px',
+          },
         },
-      }
+      },
     },
     [
       ['core/group', {className: 'container'}, [
@@ -27,25 +27,25 @@ const template = ({
           className: 'is-pattern-p4-page-header is-style-parallax',
           mediaUrl: `${mainThemeUrl}/images/placeholders/placeholder-546x415.jpg`,
           isStackedOnMobile: true,
-          align: 'full'
-        },[
+          align: 'full',
+        }, [
           ['core/group', {}, [
             ['core/heading', {
               level: 1,
-              placeholder: __('Enter title', 'planet4-blocks-backend')
-            }]
+              placeholder: __('Enter title', 'planet4-blocks-backend'),
+            }],
           ]],
           ['core/paragraph', {
             placeholder: __('Enter description', 'planet4-blocks-backend'),
-            style: { typography: { fontSize: '1.25rem'} }
+            style: {typography: {fontSize: '1.25rem'}},
           }],
           ['core/buttons', {}, [
-            ['core/button', { className: 'is-style-cta' }]
+            ['core/button', {className: 'is-style-cta'}],
           ]],
         ]],
-      ]]
-    ]
-  ]
+      ]],
+    ],
+  ],
 ]);
 
 export default template;

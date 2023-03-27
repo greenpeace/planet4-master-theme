@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import {useEffect, useRef, useState} from '@wordpress/element';
 
 import PhotoSwipe from '../../../../node_modules/photoswipe/dist/photoswipe.js';
 import PhotoSwipeUI_Default from '../../../../node_modules/photoswipe/dist/photoswipe-ui-default.js';
@@ -6,7 +6,7 @@ import PhotoSwipeUI_Default from '../../../../node_modules/photoswipe/dist/photo
 // `items` should be an array of object with this shape:
 // [{ src, w, h, title }, ...]
 // See: https://photoswipe.com/documentation/getting-started.html
-export const Lightbox = ({ index, isOpen, items, onClose = () => {} }) => {
+export const Lightbox = ({index, isOpen, items, onClose = () => {}}) => {
   let photoSwipeElement = useRef(null);
 
   const photoSwipeOptions = {
@@ -28,13 +28,14 @@ export const Lightbox = ({ index, isOpen, items, onClose = () => {} }) => {
 
     const photoSwipe = new PhotoSwipe(photoSwipeElement, PhotoSwipeUI_Default, items, photoSwipeOptions);
 
-    photoSwipe.listen('gettingData', function (index, galleryItem) {
+    // eslint-disable-next-line no-shadow
+    photoSwipe.listen('gettingData', (index, galleryItem) => {
       if (galleryItem.w < 1 || galleryItem.h < 1) {
-        var imageSizeHandler = new Image();
-        imageSizeHandler.onload = function () {
-            galleryItem.w = this.width;
-            galleryItem.h = this.height;
-            photoSwipe.updateSize(true);
+        const imageSizeHandler = new Image();
+        imageSizeHandler.onload = function() {
+          galleryItem.w = this.width;
+          galleryItem.h = this.height;
+          photoSwipe.updateSize(true);
         };
         imageSizeHandler.src = galleryItem.src;
       }
@@ -53,7 +54,6 @@ export const Lightbox = ({ index, isOpen, items, onClose = () => {} }) => {
     });
 
     photoSwipe.init();
-
   }, [items, isOpen, index]);
 
   return wp.element.createPortal(
@@ -101,8 +101,8 @@ export const Lightbox = ({ index, isOpen, items, onClose = () => {} }) => {
           <div className="p4-caption-and-indicators">
             <div className="p4-photoswipe-indicators-wrapper">
               {
-                items.length > 1 && items.map((item, index) =>
-                  <span className={ `p4-photoswipe-indicator-click-area ${ index == currentIndex ? 'active' : ''}` } key={ index }>
+                items.length > 1 && items.map((item, idx) =>
+                  <span className={`p4-photoswipe-indicator-click-area ${idx === currentIndex ? 'active' : ''}`} key={idx}>
                     <span className="p4-photoswipe-indicator-bar" />
                   </span>
                 )

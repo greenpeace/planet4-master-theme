@@ -1,3 +1,3 @@
-import { registerENForm } from './ENFormBlock';
+import {registerENForm} from './ENFormBlock';
 
 registerENForm();

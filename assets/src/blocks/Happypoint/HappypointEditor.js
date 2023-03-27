@@ -1,19 +1,19 @@
-import { Fragment, useState } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { HappypointFrontend } from './HappypointFrontend';
-import { OverrideFormHelp } from './OverrideFormHelp';
-import { USE_NONE, USE_IFRAME_URL, USE_EMBED_CODE } from './HappyPointConstants';
+import {Fragment, useState} from '@wordpress/element';
+import {useSelect} from '@wordpress/data';
+import {HappypointFrontend} from './HappypointFrontend';
+import {OverrideFormHelp} from './OverrideFormHelp';
+import {USE_NONE, USE_IFRAME_URL, USE_EMBED_CODE} from './HappyPointConstants';
 
-import { debounce } from 'lodash';
+import {debounce} from 'lodash';
 
 const {
   InspectorControls,
   BlockControls,
   MediaUpload,
-  MediaUploadCheck
+  MediaUploadCheck,
 } = wp.blockEditor;
 
-const { __ } = wp.i18n;
+const {__} = wp.i18n;
 
 import {
   TextControl,
@@ -28,7 +28,7 @@ import {
   ToolbarButton,
 } from '@wordpress/components';
 
-export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
+export const HappypointEditor = ({attributes, setAttributes, isSelected}) => {
   const {
     focus_image,
     opacity,
@@ -40,25 +40,26 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
   } = attributes;
   const [iframeUrl, setIframeUrl] = useState(iframe_url || '');
   const [embedCode, setEmbedCode] = useState(embed_code || '');
-  const dimensions = { width: 400, height: 100 };
+  const dimensions = {width: 400, height: 100};
 
-  const { imageUrl } = useSelect(select => {
+  const {imageUrl} = useSelect(select => {
+    // eslint-disable-next-line no-shadow
     let imageUrl = '';
     if (id && id > 0) {
       const imageDetails = select('core').getMedia(id);
       imageUrl = (imageDetails && imageDetails.source_url) || '';
     }
-    return { imageUrl };
+    return {imageUrl};
   }, [id]);
 
-  let focal_point_params = { x: '', y: '' };
+  let focal_point_params = {x: '', y: ''};
 
   if (focus_image) {
-    let focus_image_str = focus_image.replace(/%/g, '');
-    let [x, y] = focus_image_str.split(' ');
-    focal_point_params = { x: x / 100, y: y / 100 };
+    const focus_image_str = focus_image.replace(/%/g, '');
+    const [x, y] = focus_image_str.split(' ');
+    focal_point_params = {x: x / 100, y: y / 100};
   } else {
-    focal_point_params = { x: 0.5, y: 0.5 };
+    focal_point_params = {x: 0.5, y: 0.5};
   }
 
   const getImageOrButton = openEvent => {
@@ -66,10 +67,10 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
       return <HappypointFrontend {...attributes} />;
     } else if (isSelected) {
       return (
-        <div style={{ marginBottom: 10 }}>
+        <div style={{marginBottom: 10}}>
           <Button
             onClick={openEvent}
-            className='button'>
+            className="button">
             + {__('Select Background Image', 'planet4-blocks-backend')}
           </Button>
         </div>
@@ -79,25 +80,26 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
   };
 
   const toAttribute = attributeName => value => setAttributes({
-    [attributeName]: value
+    [attributeName]: value,
   });
 
-  const onFocalPointChange = ({ x, y }) => {
+  const onFocalPointChange = ({x, y}) => {
     const floatX = parseFloat(x).toFixed(2);
     const floatY = parseFloat(y).toFixed(2);
-    setAttributes({ focus_image: `${floatX * 100}% ${floatY * 100}%` });
-  }
+    setAttributes({focus_image: `${floatX * 100}% ${floatY * 100}%`});
+  };
 
-  const onRemoveImages = () => setAttributes({ id: '', focus_image: '' });
+  const onRemoveImages = () => setAttributes({id: '', focus_image: ''});
 
-  const selectImage = ({ id }) => setAttributes({ id });
+  // eslint-disable-next-line no-shadow
+  const selectImage = ({id}) => setAttributes({id});
 
   const debounceIframeUrl = debounce(url => {
-    setAttributes({ iframe_url: url });
+    setAttributes({iframe_url: url});
   }, 300);
 
   const debounceEmbedCode = debounce(code => {
-    setAttributes({ embed_code: code });
+    setAttributes({embed_code: code});
   }, 300);
 
   return (
@@ -134,12 +136,12 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
                   <div>
                     <RadioControl
                       label="Form type"
-                      selected={ local_content_provider }
-                      options={ [
-                        { label: 'None', value: USE_NONE },
-                        { label: 'URL (for iframe)', value: USE_IFRAME_URL },
-                        { label: 'Embed code', value: USE_EMBED_CODE },
-                      ] }
+                      selected={local_content_provider}
+                      options={[
+                        {label: 'None', value: USE_NONE},
+                        {label: 'URL (for iframe)', value: USE_IFRAME_URL},
+                        {label: 'Embed code', value: USE_EMBED_CODE},
+                      ]}
                       onChange={toAttribute('local_content_provider')}
                     />
                   </div>
@@ -154,8 +156,8 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
                           debounceIframeUrl(url);
                         }}
                         help={__(
-                          'By default this block uses the "Happy point Subscribe Form URL" in Planet 4 Settings - Default content. '
-                          + 'If a URL is set here, it will override this setting.',
+                          'By default this block uses the "Happy point Subscribe Form URL" in Planet 4 Settings - Default content. ' +
+                          'If a URL is set here, it will override this setting.',
                           'planet4-blocks-backend'
                         )}
                       />
@@ -165,15 +167,14 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
                     <div>
                       <TextareaControl
                         label={__('HubSpot embed code', 'planet4-blocks-backend')}
-                        help={__('Enter embed code', 'planet4-blocks-backend')}
                         value={embedCode}
                         onChange={code => {
                           setEmbedCode(code);
                           debounceEmbedCode(code);
                         }}
                         help={__(
-                          'By default this block uses the "Happy Point HubSpot embed code" in Planet 4 Settings - Default content. '
-                          + 'If an embed code is set here, it will override this setting.',
+                          'By default this block uses the "Happy Point HubSpot embed code" in Planet 4 Settings - Default content. ' +
+                          'If an embed code is set here, it will override this setting.',
                           'planet4-blocks-backend'
                         )}
                       />
@@ -202,22 +203,22 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
                     onSelect={selectImage}
                     allowedTypes={['image']}
                     value={id}
-                    type='image'
-                    render={({ open }) => (
+                    type="image"
+                    render={({open}) => (
                       <ToolbarButton
-                        className='components-icon-button components-toolbar__control'
+                        className="components-icon-button components-toolbar__control"
                         label={__('Edit Image', 'planet4-blocks-backend')}
                         onClick={open}
-                        icon='edit'
+                        icon="edit"
                       />
                     )}
                   />
                 </MediaUploadCheck>
                 <ToolbarButton
-                  className='components-icon-button components-toolbar__control'
+                  className="components-icon-button components-toolbar__control"
                   label={__('Remove Image', 'planet4-blocks-backend')}
                   onClick={onRemoveImages}
-                  icon='trash'
+                  icon="trash"
                 />
               </ToolbarGroup>
             )}
@@ -227,14 +228,14 @@ export const HappypointEditor = ({ attributes, setAttributes, isSelected }) => {
       <MediaUploadCheck>
         <MediaUpload
           title={__('Select Background Image', 'planet4-blocks-backend')}
-          type='image'
+          type="image"
           onSelect={selectImage}
           value={id}
           allowedTypes={['image']}
-          render={({ open }) => getImageOrButton(open)}
+          render={({open}) => getImageOrButton(open)}
         />
       </MediaUploadCheck>
       {(!id || id < 0) && <HappypointFrontend {...attributes} />}
     </Fragment>
   );
-}
+};

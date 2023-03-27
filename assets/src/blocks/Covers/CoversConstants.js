@@ -1,7 +1,7 @@
 export const COVERS_TYPES = {
   takeAction: 'take-action',
   campaign: 'campaign',
-  content: 'content'
+  content: 'content',
 };
 
 export const COVERS_LAYOUTS = {

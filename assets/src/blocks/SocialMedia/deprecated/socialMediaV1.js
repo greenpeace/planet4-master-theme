@@ -10,28 +10,29 @@ export const socialMediaV1 = {
     },
     embed_type: {
       type: 'string',
-      default: 'oembed'
+      default: 'oembed',
     },
     facebook_page_tab: {
       type: 'string',
-      default: 'timeline'
+      default: 'timeline',
     },
     social_media_url: {
       type: 'string',
-      default: ''
+      default: '',
     },
     alignment_class: {
       type: 'string',
-      default: ''
+      default: '',
     },
   },
-  isEligible({ facebook_page_url }) {
+  isEligible({facebook_page_url}) {
     return !!facebook_page_url;
   },
-  migrate( { facebook_page_url, ...attributes } ) {
+  // eslint-disable-next-line no-unused-vars
+  migrate({facebook_page_url, ...attributes}) {
     return attributes;
   },
   save() {
     return null;
-  }
+  },
 };

@@ -1,9 +1,9 @@
-import { COVERS_LAYOUTS } from '../CoversConstants';
+import {COVERS_LAYOUTS} from '../CoversConstants';
 
 const OLD_COVER_TYPES = {
-  '1': 'take-action',
-  '2': 'campaign',
-  '3': 'content',
+  1: 'take-action',
+  2: 'campaign',
+  3: 'content',
 };
 
 export const coversV1 = {
@@ -16,28 +16,28 @@ export const coversV1 = {
     },
     tags: {
       type: 'array',
-      default: []
+      default: [],
     },
     posts: {
       type: 'array',
-      default: []
+      default: [],
     },
     post_types: {
       type: 'array',
-      default: []
+      default: [],
     },
     covers_view: {
       type: 'string',
-      default: '1'
+      default: '1',
     },
     cover_type: {
       type: 'string',
     },
   },
-  isEligible({ covers_view, cover_type, layout }) {
+  isEligible({covers_view, cover_type, layout}) {
     return covers_view || !isNaN(cover_type) || !layout;
   },
-  migrate( { covers_view, cover_type, layout, ...attributes } ) {
+  migrate({covers_view, cover_type, layout, ...attributes}) {
     attributes.version = 1;
     attributes.initialRowsLimit = covers_view === '3' ? 0 : Number(covers_view);
 
@@ -53,5 +53,5 @@ export const coversV1 = {
 
     return attributes;
   },
-  save: () => null
+  save: () => null,
 };

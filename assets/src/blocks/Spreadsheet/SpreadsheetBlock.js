@@ -1,8 +1,7 @@
-import { SpreadsheetEditor } from './SpreadsheetEditorScript';
-import { CSS_VARIABLES_ATTRIBUTE } from '../CssVariablesAttribute';
-import { frontendRendered } from '../frontendRendered';
+import {SpreadsheetEditor} from './SpreadsheetEditorScript';
+import {CSS_VARIABLES_ATTRIBUTE} from '../CssVariablesAttribute';
+import {frontendRendered} from '../frontendRendered';
 
-const {__} = wp.i18n;
 const BLOCK_NAME = 'planet4-blocks/spreadsheet';
 
 const attributes = {
@@ -14,8 +13,8 @@ const attributes = {
 };
 
 export const registerSpreadsheetBlock = () => {
-  const { registerBlockType } = wp.blocks;
-  registerBlockType( BLOCK_NAME, {
+  const {registerBlockType} = wp.blocks;
+  registerBlockType(BLOCK_NAME, {
     title: 'Spreadsheet',
     icon: 'editor-table',
     category: 'planet4-blocks',
@@ -26,9 +25,9 @@ export const registerSpreadsheetBlock = () => {
         save() {
           return null;
         },
-      }
+      },
     ],
     edit: SpreadsheetEditor,
-    save: frontendRendered( BLOCK_NAME )
+    save: frontendRendered(BLOCK_NAME),
   });
-}
+};

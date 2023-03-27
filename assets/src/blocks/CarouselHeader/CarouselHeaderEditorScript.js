@@ -1,3 +1,3 @@
-import { registerCarouselHeaderBlock } from './CarouselHeaderBlock';
+import {registerCarouselHeaderBlock} from './CarouselHeaderBlock';
 
 registerCarouselHeaderBlock();

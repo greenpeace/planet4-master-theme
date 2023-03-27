@@ -1,5 +1,5 @@
-import { generateAnchor } from './generateAnchor';
-import { unescape } from '../../functions/unescape';
+import {generateAnchor} from './generateAnchor';
+import {unescape} from '../../functions/unescape';
 
 // We can put the other blocks that can have a heading inside in here along with the attribute containing the heading text.
 // Then we can also filter those to include them in the menu.
@@ -40,7 +40,7 @@ export const getHeadingsFromBlocks = (blocks, selectedLevels) => {
 
     if (block.name === 'core/freeform') {
       const parser = new DOMParser();
-      const selector = selectedLevels.map(({heading})=>`h${heading}`).join();
+      const selector = selectedLevels.map(({heading}) => `h${heading}`).join();
       const doc = parser.parseFromString(block.attributes.content, 'text/html');
 
       const classicHeadings = doc.querySelectorAll(selector);
@@ -49,7 +49,7 @@ export const getHeadingsFromBlocks = (blocks, selectedLevels) => {
         const blockLevel = parseInt(h.tagName.replace('H', ''));
         const levelConfig = selectedLevels.find(selected => selected.heading === blockLevel);
 
-        const anchor = h.id || generateAnchor(h.innerText, headings.map(h => h.anchor));
+        const anchor = h.id || generateAnchor(h.innerText, headings.map(hh => hh.anchor));
 
         return ({
           level: blockLevel,
@@ -63,10 +63,10 @@ export const getHeadingsFromBlocks = (blocks, selectedLevels) => {
       return;
     }
 
-    const blockType = blockTypesWithHeadings.find(({ name }) => name === block.name);
+    const blockType = blockTypesWithHeadings.find(({name}) => name === block.name);
 
     if (blockType) {
-      const { fieldName, level } = blockType;
+      const {fieldName, level} = blockType;
       const levelConfig = selectedLevels.find(selected => selected.heading === level);
 
       if (!levelConfig) {
@@ -80,5 +80,5 @@ export const getHeadingsFromBlocks = (blocks, selectedLevels) => {
   });
 
   return headings;
-}
+};
 

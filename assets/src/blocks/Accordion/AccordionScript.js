@@ -1,6 +1,6 @@
 /* global dataLayer */
 
-document.addEventListener( 'DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   function getAnalyticsText(item) {
     const headline = item.innerText || item.textContent;
     return headline.length > 50 ? `${headline.substring(0, 50)}...` : headline;
@@ -9,7 +9,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
   function handleReadMoreClick(textToSend) {
     dataLayer.push({
       event: 'Read More FAQ',
-      Question: textToSend
+      Question: textToSend,
     });
   }
 
@@ -51,7 +51,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
       dataLayer.push({
         event: 'Close FAQ',
-        Question: textToSend
+        Question: textToSend,
       });
     } else {
       openItem(item);
@@ -65,7 +65,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
       dataLayer.push({
         event: 'Expand FAQ',
-        Question: textToSend
+        Question: textToSend,
       });
     }
   }

@@ -1,10 +1,9 @@
-import { SocialMediaEditor } from './SocialMediaEditorScript.js';
-import { socialMediaV1 } from './deprecated/socialMediaV1';
-import { OEMBED_EMBED_TYPE, FACEBOOK_PAGE_TAB_TIMELINE } from './SocialMediaConstants.js';
-import { SocialMediaFrontend } from './SocialMediaFrontend.js';
+import {SocialMediaEditor} from './SocialMediaEditorScript.js';
+import {socialMediaV1} from './deprecated/socialMediaV1';
+import {OEMBED_EMBED_TYPE, FACEBOOK_PAGE_TAB_TIMELINE} from './SocialMediaConstants.js';
+import {SocialMediaFrontend} from './SocialMediaFrontend.js';
 
-const { registerBlockType } = wp.blocks;
-const { __ } = wp.i18n;
+const {registerBlockType} = wp.blocks;
 
 const BLOCK_NAME = 'planet4-blocks/social-media';
 
@@ -31,11 +30,11 @@ export const registerSocialMediaBlock = () => registerBlockType(BLOCK_NAME, {
     },
     social_media_url: {
       type: 'string',
-      default: ''
+      default: '',
     },
     alignment_class: {
       type: 'string',
-      default: ''
+      default: '',
     },
     embed_code: {
       type: 'string',
@@ -43,7 +42,7 @@ export const registerSocialMediaBlock = () => registerBlockType(BLOCK_NAME, {
     },
   },
   edit: SocialMediaEditor,
-  save: ({ attributes }) => <SocialMediaFrontend {...attributes} />,
+  save: ({attributes}) => <SocialMediaFrontend {...attributes} />,
   deprecated: [
     socialMediaV1,
   ],

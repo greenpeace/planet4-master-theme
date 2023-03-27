@@ -1,7 +1,6 @@
-import { CheckboxControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import {CheckboxControl} from '@wordpress/components';
 
-export const CheckboxSidebarField = ({ value, setValue, label }) => (
+export const CheckboxSidebarField = ({value, setValue, label}) => (
   <CheckboxControl
     label={label}
     checked={value === 'on'}

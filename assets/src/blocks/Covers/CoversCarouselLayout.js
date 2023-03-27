@@ -1,8 +1,9 @@
-import { v4 as uuid } from 'uuid';
-import { Covers } from "./Covers";
-const { __ } = wp.i18n;
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {v4 as uuid} from 'uuid';
+import {Covers} from './Covers';
+const {__} = wp.i18n;
 
-export const CoversCarouselLayout = ({ covers, amountOfCoversPerRow, ...props }) => {
+export const CoversCarouselLayout = ({covers, amountOfCoversPerRow, ...props}) => {
   const uniqueId = `covers-${uuid()}`;
   return (
     <div id={uniqueId} className="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
@@ -10,7 +11,7 @@ export const CoversCarouselLayout = ({ covers, amountOfCoversPerRow, ...props })
         <ol className="carousel-indicators">
           {covers.map((cover, index) => {
             if (index % amountOfCoversPerRow !== 0) {
-              return;
+              return null;
             }
 
             return (
@@ -18,7 +19,7 @@ export const CoversCarouselLayout = ({ covers, amountOfCoversPerRow, ...props })
                 key={`indicator-${index / amountOfCoversPerRow}`}
                 data-bs-target={`#${uniqueId}`}
                 data-bs-slide-to={index / amountOfCoversPerRow}
-                {...index === 0 && { className: "active", 'aria-current': "true" }}
+                {...index === 0 && {className: 'active', 'aria-current': 'true'}}
               />
             );
           })}
@@ -27,7 +28,7 @@ export const CoversCarouselLayout = ({ covers, amountOfCoversPerRow, ...props })
       <div className="carousel-inner">
         {covers.map((cover, index) => {
           if (index % amountOfCoversPerRow !== 0) {
-            return;
+            return null;
           }
 
           return (
@@ -51,4 +52,4 @@ export const CoversCarouselLayout = ({ covers, amountOfCoversPerRow, ...props })
       }
     </div>
   );
-}
+};

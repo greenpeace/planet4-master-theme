@@ -1,10 +1,10 @@
-import { HappypointEditor } from './HappypointEditor';
-import { HappyPointV1 } from './deprecated/HappyPointV1.js';
+import {HappypointEditor} from './HappypointEditor';
+import {HappyPointV1} from './deprecated/HappyPointV1.js';
 
 export class HappypointBlock {
   constructor() {
-    const { registerBlockType } = wp.blocks;
-    const { __ } = wp.i18n;
+    const {registerBlockType} = wp.blocks;
+    const {__} = wp.i18n;
 
     registerBlockType('planet4-blocks/happypoint', {
       title: __('Happypoint', 'planet4-blocks-backend'),
@@ -20,7 +20,7 @@ export class HappypointBlock {
         },
         opacity: {
           type: 'number',
-          default: 30
+          default: 30,
         },
         mailing_list_iframe: {
           type: 'boolean',
@@ -42,20 +42,20 @@ export class HappypointBlock {
         },
         override_default_content: {
           type: 'boolean',
-          default: false
+          default: false,
         },
         local_content_provider: {
           type: 'string',
-          default: 'none'
-        }
+          default: 'none',
+        },
       },
       edit: HappypointEditor,
       save() {
         return null;
       },
       deprecated: [
-        HappyPointV1
-      ]
+        HappyPointV1,
+      ],
     });
   }
 }

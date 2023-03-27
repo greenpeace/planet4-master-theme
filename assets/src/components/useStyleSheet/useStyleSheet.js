@@ -1,13 +1,12 @@
 // useScript implementation from: https://usehooks.com/useScript/
-import { useEffect, useState } from 'react';
-import { addLinkTag } from './addLinkTag';
+import {useEffect, useState} from '@wordpress/element';
+import {addLinkTag} from './addLinkTag';
 
-export const useStyleSheet = (href) => {
-
+export const useStyleSheet = href => {
   // Keeping track of script loaded and error state
   const [state, setState] = useState({
     loaded: false,
-    error: false
+    error: false,
   });
 
   useEffect(
@@ -15,7 +14,7 @@ export const useStyleSheet = (href) => {
       if (!!document.querySelector(`link[href="${href}"]`)) {
         setState({
           loaded: true,
-          error: false
+          error: false,
         });
 
         return;
@@ -25,7 +24,7 @@ export const useStyleSheet = (href) => {
       const onStyleSheetLoad = () => {
         setState({
           loaded: true,
-          error: false
+          error: false,
         });
       };
 
@@ -34,7 +33,7 @@ export const useStyleSheet = (href) => {
 
         setState({
           loaded: true,
-          error: true
+          error: true,
         });
       };
 
@@ -42,7 +41,7 @@ export const useStyleSheet = (href) => {
       const linkElement = addLinkTag({
         href,
         onLoad: onStyleSheetLoad,
-        onError: onStyleSheetError
+        onError: onStyleSheetError,
       });
 
       // Remove event listeners on cleanup
@@ -55,4 +54,4 @@ export const useStyleSheet = (href) => {
   );
 
   return [state.loaded, state.error];
-}
+};

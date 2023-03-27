@@ -1,4 +1,4 @@
-export const getCaptionWithCredits = (image) => {
+export const getCaptionWithCredits = image => {
   const caption = image.caption || '';
   const credits = getCredits(image, caption);
   return `${caption}  ${credits}`.trim();
@@ -10,4 +10,4 @@ const getCredits = (image, caption) => {
   }
 
   return `© ${image.credits.replace(/^©\s*/, '')}`;
-}
+};

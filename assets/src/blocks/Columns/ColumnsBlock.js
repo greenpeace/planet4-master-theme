@@ -1,10 +1,10 @@
-import { ColumnsEditor } from './ColumnsEditor.js';
-import { LAYOUT_NO_IMAGE, LAYOUT_IMAGES, LAYOUT_ICONS, LAYOUT_TASKS } from './ColumnConstants.js';
-import { example } from './example';
-import { getStyleLabel } from '../../functions/getStyleLabel';
+import {ColumnsEditor} from './ColumnsEditor.js';
+import {LAYOUT_NO_IMAGE, LAYOUT_IMAGES, LAYOUT_ICONS, LAYOUT_TASKS} from './ColumnConstants.js';
+import {example} from './example';
+import {getStyleLabel} from '../../functions/getStyleLabel';
 
-const { __ } = wp.i18n;
-const { registerBlockType } = wp.blocks;
+const {__} = wp.i18n;
+const {registerBlockType} = wp.blocks;
 
 export const registerColumnsBlock = () =>
   registerBlockType('planet4-blocks/columns', {
@@ -17,32 +17,32 @@ export const registerColumnsBlock = () =>
         default: LAYOUT_NO_IMAGE,
       },
       columns_title: {
-        type: 'string'
+        type: 'string',
       },
       columns_description: {
-        type: 'string'
+        type: 'string',
       },
       columns: {
         type: 'array',
         default: [{}, {}, {}],
         title: {
-          type: 'string'
+          type: 'string',
         },
         description: {
-          type: 'string'
+          type: 'string',
         },
         attachment: {
           type: 'integer',
-          default: 0
+          default: 0,
         },
         cta_link: {
-          type: 'string'
+          type: 'string',
         },
         link_new_tab: {
-          type: 'boolean'
+          type: 'boolean',
         },
         cta_text: {
-          type: 'string'
+          type: 'string',
         },
       },
       isExample: {

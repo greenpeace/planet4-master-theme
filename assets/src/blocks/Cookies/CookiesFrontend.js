@@ -1,9 +1,9 @@
-import { FrontendRichText } from '../../components/FrontendRichText/FrontendRichText';
-import { removeCookie, useCookie, writeCookie } from './useCookie';
-import { useState, useEffect } from 'react';
-import { CookiesFieldResetButton } from './CookiesFieldResetButton';
+import {FrontendRichText} from '../../components/FrontendRichText/FrontendRichText';
+import {removeCookie, useCookie, writeCookie} from './useCookie';
+import {useState, useEffect} from '@wordpress/element';
+import {CookiesFieldResetButton} from './CookiesFieldResetButton';
 
-const { __ } = wp.i18n;
+const {__} = wp.i18n;
 
 const dataLayer = window.dataLayer || [];
 
@@ -11,7 +11,7 @@ const COOKIES_DEFAULT_COPY = window.p4bk_vars.cookies_default_copy || {};
 
 function gtag() {
   dataLayer.push(arguments);
-};
+}
 
 // Planet4 settings(Planet 4 > Cookies > Enable Analytical Cookies).
 const ENABLE_ANALYTICAL_COOKIES = window.p4bk_vars.enable_analytical_cookies;
@@ -33,7 +33,7 @@ const hideCookiesBox = () => {
   if (cookiesBox) {
     cookiesBox.classList.remove('shown');
   }
-}
+};
 
 export const CookiesFrontend = props => {
   const {
@@ -70,7 +70,7 @@ export const CookiesFrontend = props => {
 
   const updateConsent = (key, granted) => {
     dataLayer.push({
-      'event' : 'updateConsent'
+      event: 'updateConsent',
     });
 
     if (!ENABLE_GOOGLE_CONSENT_MODE) {
@@ -81,25 +81,25 @@ export const CookiesFrontend = props => {
       [key]: granted ? 'granted' : 'denied',
     });
     dataLayer.push({
-      'event': 'updateConsent',
+      event: 'updateConsent',
       [key]: granted ? 'granted' : 'denied',
     });
-  }
+  };
 
   const toggleHubSpotConsent = () => {
     if (!marketingCookiesChecked && userRevokedMarketingCookies) {
       const _hsp = window._hsp = window._hsp || [];
       _hsp.push(['revokeCookieConsent']);
     }
-  }
-  useEffect(toggleHubSpotConsent, [marketingCookiesChecked, userRevokedMarketingCookies])
+  };
+  useEffect(toggleHubSpotConsent, [marketingCookiesChecked, userRevokedMarketingCookies]);
 
   const updateActiveConsentChoice = () => {
     if (hasConsent) {
       writeCookie(ACTIVE_CONSENT_COOKIE, '1');
       hideCookiesBox();
     }
-  }
+  };
   useEffect(updateActiveConsentChoice, [marketingCookiesChecked, analyticalCookiesChecked]);
 
   const getFieldValue = fieldName => {
@@ -107,7 +107,7 @@ export const CookiesFrontend = props => {
       return COOKIES_DEFAULT_COPY[fieldName] || '';
     }
     return props[fieldName] || '';
-  }
+  };
 
   const isFieldValid = fieldName => getFieldValue(fieldName).trim().length > 0;
 
@@ -143,7 +143,7 @@ export const CookiesFrontend = props => {
         }
         {(isEditing || (isFieldValid('necessary_cookies_name') && isFieldValid('necessary_cookies_description'))) &&
           <>
-            <div className='d-flex align-items-center'>
+            <div className="d-flex align-items-center">
               <FrontendRichText
                 tagName="span"
                 className="custom-control-description"
@@ -158,13 +158,13 @@ export const CookiesFrontend = props => {
               <span className="always-enabled">{__('Always enabled', 'planet4-blocks')}</span>
               {isEditing &&
                 <CookiesFieldResetButton
-                  fieldName='necessary_cookies_name'
+                  fieldName="necessary_cookies_name"
                   currentValue={necessary_cookies_name}
                   toAttribute={toAttribute}
                 />
               }
             </div>
-            <div className='d-flex align-items-center'>
+            <div className="d-flex align-items-center">
               <FrontendRichText
                 tagName="p"
                 className="cookies-checkbox-description"
@@ -177,7 +177,7 @@ export const CookiesFrontend = props => {
               />
               {isEditing &&
                 <CookiesFieldResetButton
-                  fieldName='necessary_cookies_description'
+                  fieldName="necessary_cookies_description"
                   currentValue={necessary_cookies_description}
                   toAttribute={toAttribute}
                 />
@@ -187,9 +187,10 @@ export const CookiesFrontend = props => {
         }
         {(ENABLE_ANALYTICAL_COOKIES && (isEditing || (isFieldValid('analytical_cookies_name') && isFieldValid('analytical_cookies_description')))) &&
           <>
-            <div className='d-flex align-items-center'>
-              <label className="custom-control" style={isSelected ? { pointerEvents: 'none' } : null}>
+            <div className="d-flex align-items-center">
+              <label className="custom-control" style={isSelected ? {pointerEvents: 'none'} : null} htmlFor="analytical-cookies__control">
                 <input
+                  id="analytical-cookies__control"
                   type="checkbox"
                   tabIndex={isSelected ? '-1' : null}
                   name="analytical_cookies"
@@ -202,12 +203,10 @@ export const CookiesFrontend = props => {
                       } else {
                         setConsentCookie(ONLY_NECESSARY);
                       }
+                    } else if (marketingCookiesChecked) {
+                      setConsentCookie(NECESSARY_ANALYTICAL_MARKETING);
                     } else {
-                      if (marketingCookiesChecked) {
-                        setConsentCookie(NECESSARY_ANALYTICAL_MARKETING);
-                      } else {
-                        setConsentCookie(NECESSARY_ANALYTICAL);
-                      }
+                      setConsentCookie(NECESSARY_ANALYTICAL);
                     }
                   }}
                   checked={analyticalCookiesChecked}
@@ -227,13 +226,13 @@ export const CookiesFrontend = props => {
               </label>
               {isEditing &&
                 <CookiesFieldResetButton
-                  fieldName='analytical_cookies_name'
+                  fieldName="analytical_cookies_name"
                   currentValue={analytical_cookies_name}
                   toAttribute={toAttribute}
                 />
               }
             </div>
-            <div className='d-flex align-items-center'>
+            <div className="d-flex align-items-center">
               <FrontendRichText
                 tagName="p"
                 className="cookies-checkbox-description"
@@ -246,7 +245,7 @@ export const CookiesFrontend = props => {
               />
               {isEditing &&
                 <CookiesFieldResetButton
-                  fieldName='analytical_cookies_description'
+                  fieldName="analytical_cookies_description"
                   currentValue={analytical_cookies_description}
                   toAttribute={toAttribute}
                 />
@@ -256,12 +255,13 @@ export const CookiesFrontend = props => {
         }
         {(isEditing || (isFieldValid('all_cookies_name') && isFieldValid('all_cookies_description'))) &&
           <>
-            <div className='d-flex align-items-center'>
-              <label className="custom-control" style={isSelected ? { pointerEvents: 'none' } : null}>
+            <div className="d-flex align-items-center">
+              <label className="custom-control" style={isSelected ? {pointerEvents: 'none'} : null} htmlFor="all-cookies__control">
                 <input
+                  id="all-cookies__control"
                   type="checkbox"
                   tabIndex={isSelected ? '-1' : null}
-                  onChange={ () => {
+                  onChange={() => {
                     updateConsent('ad_storage', !marketingCookiesChecked);
                     if (marketingCookiesChecked) {
                       setUserRevokedMarketingCookies(true);
@@ -270,12 +270,10 @@ export const CookiesFrontend = props => {
                       } else {
                         setConsentCookie(ONLY_NECESSARY);
                       }
+                    } else if (ENABLE_ANALYTICAL_COOKIES && analyticalCookiesChecked) {
+                      setConsentCookie(NECESSARY_ANALYTICAL_MARKETING);
                     } else {
-                      if (ENABLE_ANALYTICAL_COOKIES && analyticalCookiesChecked) {
-                        setConsentCookie(NECESSARY_ANALYTICAL_MARKETING);
-                      } else {
-                        setConsentCookie(NECESSARY_MARKETING);
-                      }
+                      setConsentCookie(NECESSARY_MARKETING);
                     }
                   }}
                   name="all_cookies"
@@ -296,13 +294,13 @@ export const CookiesFrontend = props => {
               </label>
               {isEditing &&
                 <CookiesFieldResetButton
-                  fieldName='all_cookies_name'
+                  fieldName="all_cookies_name"
                   currentValue={all_cookies_name}
                   toAttribute={toAttribute}
                 />
               }
             </div>
-            <div className='d-flex align-items-center'>
+            <div className="d-flex align-items-center">
               <FrontendRichText
                 tagName="p"
                 className="cookies-checkbox-description"
@@ -315,7 +313,7 @@ export const CookiesFrontend = props => {
               />
               {isEditing &&
                 <CookiesFieldResetButton
-                  fieldName='all_cookies_description'
+                  fieldName="all_cookies_description"
                   currentValue={all_cookies_description}
                   toAttribute={toAttribute}
                 />
@@ -326,4 +324,4 @@ export const CookiesFrontend = props => {
       </section>
     </>
   );
-}
+};

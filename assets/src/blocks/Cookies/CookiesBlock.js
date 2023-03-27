@@ -1,10 +1,10 @@
-import { CookiesEditor } from './CookiesEditor.js';
+import {CookiesEditor} from './CookiesEditor.js';
 
 const BLOCK_NAME = 'planet4-blocks/cookies';
 
 export class CookiesBlock {
   constructor() {
-    const { registerBlockType } = wp.blocks;
+    const {registerBlockType} = wp.blocks;
 
     registerBlockType(BLOCK_NAME, {
       title: 'Cookies',
@@ -16,11 +16,11 @@ export class CookiesBlock {
       attributes: {
         title: {
           type: 'string',
-          default: ''
+          default: '',
         },
         description: {
           type: 'string',
-          default: ''
+          default: '',
         },
         necessary_cookies_name: {
           type: 'string',

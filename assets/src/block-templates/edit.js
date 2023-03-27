@@ -1,14 +1,14 @@
-import { useBlockProps } from '@wordpress/block-editor';
+import {useBlockProps} from '@wordpress/block-editor';
 
-export default function ( template, templateLock = false ) {
-  return ( props ) => {
+export default function(template, templateLock = false) {
+  return props => {
     return (
-      <div { ...useBlockProps() }>
+      <div {...useBlockProps()}>
         {
-          wp.element.createElement( wp.blockEditor.InnerBlocks, {
-            template: template( props.attributes ?? {} ),
-            templateLock
-          } )
+          wp.element.createElement(wp.blockEditor.InnerBlocks, {
+            template: template(props.attributes ?? {}),
+            templateLock,
+          })
         }
       </div>
     );

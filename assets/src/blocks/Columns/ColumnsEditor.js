@@ -1,24 +1,23 @@
 import {
   CheckboxControl,
   PanelBody,
-  RangeControl
+  RangeControl,
 } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
-import { InspectorControls } from '@wordpress/block-editor';
+import {useSelect} from '@wordpress/data';
+import {useEffect} from '@wordpress/element';
+import {InspectorControls} from '@wordpress/block-editor';
 
-import { URLInput } from '../../components/URLInput/URLInput';
-import { EditableColumns } from './EditableColumns';
-import { Columns } from './Columns';
-import { MAX_COLUMNS_AMOUNT, MIN_COLUMNS_AMOUNT } from './ColumnConstants';
-import { getStyleFromClassName } from '../getStyleFromClassName';
+import {URLInput} from '../../components/URLInput/URLInput';
+import {EditableColumns} from './EditableColumns';
+import {Columns} from './Columns';
+import {MAX_COLUMNS_AMOUNT, MIN_COLUMNS_AMOUNT} from './ColumnConstants';
+import {getStyleFromClassName} from '../getStyleFromClassName';
 
-
-const { __ } = wp.i18n;
-const { RichText } = wp.blockEditor;
+const {__} = wp.i18n;
+const {RichText} = wp.blockEditor;
 
 const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
-  const { columns } = attributes;
+  const {columns} = attributes;
 
   const addColumn = () =>
     setAttributes({
@@ -31,11 +30,11 @@ const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
           cta_link: '',
           cta_text: '',
           link_new_tab: false,
-        }
-      ]
+        },
+      ],
     });
 
-  const removeColumn = () => setAttributes({ columns: columns.slice(0, -1) });
+  const removeColumn = () => setAttributes({columns: columns.slice(0, -1)});
 
   if (!isSelected) {
     return null;
@@ -59,11 +58,13 @@ const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
             max={MAX_COLUMNS_AMOUNT}
           />
           {columns.map((column, index) => {
-            const { cta_link, link_new_tab } = column;
+            const {cta_link, link_new_tab} = column;
             return (
               <div key={`column-${index}`}>
                 <URLInput
+                  // eslint-disable-next-line @wordpress/i18n-translator-comments
                   label={__('Column %s link', 'planet4-blocks-backend').replace('%s', index + 1)}
+                  // eslint-disable-next-line @wordpress/i18n-translator-comments
                   placeholder={__('Enter link for column %s', 'planet4-blocks-backend').replace('%s', index + 1)}
                   value={cta_link}
                   onChange={toAttribute('cta_link', index)}
@@ -83,7 +84,7 @@ const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
   );
 };
 
-export const ColumnsEditor = ({ isSelected, attributes, setAttributes }) => {
+export const ColumnsEditor = ({isSelected, attributes, setAttributes}) => {
   const {
     columns,
     className,
@@ -98,7 +99,7 @@ export const ColumnsEditor = ({ isSelected, attributes, setAttributes }) => {
   useEffect(() => {
     if (columns_block_style && !className) {
       setAttributes({
-        className: `is-style-${columns_block_style}`
+        className: `is-style-${columns_block_style}`,
       });
     }
   }, []);
@@ -108,17 +109,18 @@ export const ColumnsEditor = ({ isSelected, attributes, setAttributes }) => {
     const styleClass = getStyleFromClassName(className);
     if (styleClass) {
       setAttributes({
-        columns_block_style: styleClass
+        columns_block_style: styleClass,
       });
     }
   }, [className]);
 
-  const { postType } = useSelect(select => ({
-    postType: select('core/editor').getCurrentPostType()
+  const {postType} = useSelect(select => ({
+    postType: select('core/editor').getCurrentPostType(),
   }), []);
 
-  const { columnImages } = useSelect(select => {
-    let columnImages = [];
+  const {columnImages} = useSelect(select => {
+    // eslint-disable-next-line no-shadow
+    const columnImages = [];
     columns.forEach(column => {
       if (column.attachment && column.attachment > 0) {
         const media_details = select('core').getMedia(column.attachment);
@@ -127,42 +129,43 @@ export const ColumnsEditor = ({ isSelected, attributes, setAttributes }) => {
         }
       }
     });
-    return { columnImages };
+    return {columnImages};
   }, [columns]);
 
   const toAttribute = (attributeName, index) => value => {
     if (['columns_title', 'columns_description'].includes(attributeName)) {
       setAttributes({
-        [attributeName]: value
+        [attributeName]: value,
       });
     } else {
-      let columns = JSON.parse(JSON.stringify(attributes.columns));
+      // eslint-disable-next-line no-shadow
+      const columns = JSON.parse(JSON.stringify(attributes.columns));
       columns[index][attributeName] = value;
-      setAttributes({ columns });
+      setAttributes({columns});
     }
-  }
+  };
 
   return (
     <section className={`block columns-block block-style-${columns_block_style} ${className ?? ''}`}>
       {renderEdit(attributes, toAttribute, setAttributes, isSelected)}
       {!isExample &&
-        <header className='articles-title-container'>
+        <header className="articles-title-container">
           <RichText
-            tagName='h2'
-            className='page-section-header'
+            tagName="h2"
+            className="page-section-header"
             placeholder={__('Enter title', 'planet4-blocks-backend')}
             value={columns_title}
             onChange={toAttribute('columns_title')}
             withoutInteractiveFormatting
-            multiline='false'
+            multiline="false"
             allowedFormats={[]}
           />
         </header>
       }
       {!isExample &&
         <RichText
-          tagName='p'
-          className='page-section-description'
+          tagName="p"
+          className="page-section-description"
           placeholder={__('Enter description', 'planet4-blocks-backend')}
           value={columns_description}
           onChange={toAttribute('columns_description')}
@@ -187,4 +190,4 @@ export const ColumnsEditor = ({ isSelected, attributes, setAttributes }) => {
       }
     </section>
   );
-}
+};

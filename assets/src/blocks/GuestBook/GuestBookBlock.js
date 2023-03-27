@@ -1,6 +1,6 @@
-import { frontendRendered } from '../frontendRendered';
-const { registerBlockType } = wp.blocks;
-const { __ } = wp.i18n;
+import {frontendRendered} from '../frontendRendered';
+const {registerBlockType} = wp.blocks;
+const {__} = wp.i18n;
 
 const BLOCK_NAME = 'planet4-blocks/guestbook';
 
@@ -14,7 +14,7 @@ export const registerGuestBookBlock = () =>
       multiple: false, // Use the block just once per post.
     },
     edit: () => (
-      <p className='EmptyMessage'>
+      <p className="EmptyMessage">
         {__('This block only renders in the frontend', 'planet4-blocks-backend')}
       </p>
     ),

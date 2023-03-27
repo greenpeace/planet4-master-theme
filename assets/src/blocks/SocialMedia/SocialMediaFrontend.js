@@ -1,4 +1,4 @@
-import { SocialMediaEmbed } from './SocialMediaEmbed';
+import {SocialMediaEmbed} from './SocialMediaEmbed';
 
 export const SocialMediaFrontend = ({
   title,
@@ -13,11 +13,11 @@ export const SocialMediaFrontend = ({
   <section className={`block social-media-block ${className ?? ''}`}>
     {!!title &&
       <header>
-        <h2 className='page-section-header'>{title}</h2>
+        <h2 className="page-section-header">{title}</h2>
       </header>
     }
     {!!description &&
-      <div className='page-section-description' dangerouslySetInnerHTML={{ __html: description }} />
+      <div className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
     }
     <SocialMediaEmbed
       embedCode={embed_code}

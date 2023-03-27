@@ -33,7 +33,7 @@ export const example = {
                 children: [],
                 level: 4,
                 shouldLink: false,
-              }
+              },
             ],
           },
           {
@@ -58,7 +58,7 @@ export const example = {
                 level: 4,
                 shouldLink: false,
                 children: [],
-              }
+              },
             ],
           },
           {
@@ -83,7 +83,7 @@ export const example = {
                 level: 4,
                 shouldLink: false,
                 children: [],
-              }
+              },
             ],
           },
           {
@@ -93,7 +93,7 @@ export const example = {
             shouldLink: true,
             children: [],
             level: 3,
-          }
+          },
         ],
       },
       {
@@ -110,9 +110,9 @@ export const example = {
             level: 3,
             shouldLink: true,
             children: [],
-          }
+          },
         ],
-      }
+      },
     ],
-  }
+  },
 };

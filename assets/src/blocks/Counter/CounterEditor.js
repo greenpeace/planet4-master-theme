@@ -1,17 +1,17 @@
-import { Component, Fragment } from '@wordpress/element';
-import { InspectorControls } from '@wordpress/block-editor';
+import {Component, Fragment} from '@wordpress/element';
+import {InspectorControls} from '@wordpress/block-editor';
 import {
   TextControl,
   TextareaControl,
-  PanelBody
+  PanelBody,
 } from '@wordpress/components';
 
-import { URLInput } from "../../components/URLInput/URLInput";
+import {URLInput} from '../../components/URLInput/URLInput';
 
-import { CounterFrontend } from './CounterFrontend';
+import {CounterFrontend} from './CounterFrontend';
 
-const { RichText } = wp.blockEditor;
-const { __ } = wp.i18n;
+const {RichText} = wp.blockEditor;
+const {__} = wp.i18n;
 
 export class CounterEditor extends Component {
   constructor(props) {
@@ -21,14 +21,14 @@ export class CounterEditor extends Component {
   }
 
   toAttribute(attributeName) {
-    const { setAttributes } = this.props;
+    const {setAttributes} = this.props;
     return value => {
-      setAttributes({ [attributeName]: value });
-    }
+      setAttributes({[attributeName]: value});
+    };
   }
 
   renderEdit() {
-    const { attributes } = this.props;
+    const {attributes} = this.props;
 
     return (
       <Fragment>
@@ -83,7 +83,7 @@ export class CounterEditor extends Component {
   }
 
   renderView() {
-    const { attributes } = this.props;
+    const {attributes} = this.props;
 
     return <Fragment>
       <div className="counter-block">
@@ -117,9 +117,9 @@ export class CounterEditor extends Component {
     return (
       <Fragment>
         {
-          this.props.isSelected
-            ? this.renderEdit()
-            : null
+          this.props.isSelected ?
+            this.renderEdit() :
+            null
         }
         {this.renderView()}
       </Fragment>

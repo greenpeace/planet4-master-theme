@@ -1,6 +1,6 @@
 window.dataLayer = window.dataLayer || [];
 
-export const AccordionFrontend = ({ title, description, tabs, className }) => (
+export const AccordionFrontend = ({title, description, tabs, className}) => (
   <section className={`block accordion-block ${className ?? ''}`}>
     {title &&
       <header>
@@ -8,10 +8,10 @@ export const AccordionFrontend = ({ title, description, tabs, className }) => (
       </header>
     }
     {description &&
-      <p className="page-section-description" dangerouslySetInnerHTML={{ __html: description }} />
+      <p className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
     }
-    {tabs.map(({ headline, text, button }, index) => {
-      const { button_text, button_url, button_new_tab } = button || {};
+    {tabs.map(({headline, text, button}, index) => {
+      const {button_text, button_url, button_new_tab} = button || {};
       const buttonProps = {};
       if (button_new_tab) {
         buttonProps.target = '_blank';
@@ -19,18 +19,18 @@ export const AccordionFrontend = ({ title, description, tabs, className }) => (
       }
 
       return (
-        <div key={`accordion-content-${index}`} className='accordion-content'>
+        <div key={`accordion-content-${index}`} className="accordion-content">
           {headline &&
             <div
-              className='accordion-headline'
+              className="accordion-headline"
               name={headline}
             >
               {headline}
             </div>
           }
-          <div className='panel panel-hidden'>
+          <div className="panel panel-hidden">
             {text &&
-              <p className="accordion-text" dangerouslySetInnerHTML={{ __html: text }} />
+              <p className="accordion-text" dangerouslySetInnerHTML={{__html: text}} />
             }
             {button_text &&
               <a

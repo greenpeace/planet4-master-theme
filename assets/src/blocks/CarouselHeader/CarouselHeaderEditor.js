@@ -1,32 +1,31 @@
-import { useRef } from '@wordpress/element';
+import {useRef} from '@wordpress/element';
 
 // Carousel Header
-import { Slide } from './Slide';
-import { Caption } from './Caption';
-import { useSlides } from './useSlides';
-import { CarouselControls } from './CarouselControls';
+import {Slide} from './Slide';
+import {Caption} from './Caption';
+import {useSlides} from './useSlides';
+import {CarouselControls} from './CarouselControls';
 
 // Carousel Header Editor
-import { Sidebar } from './Sidebar';
-import { EditableBackground } from './EditableBackground';
-import { useSelect } from '@wordpress/data';
+import {Sidebar} from './Sidebar';
+import {EditableBackground} from './EditableBackground';
+import {useSelect} from '@wordpress/data';
 
 export const toSrcSet = sizes => {
-
-  return sizes.map( size => `${ size.url || size.source_url } ${ size.width }w` ).join();
+  return sizes.map(size => `${size.url || size.source_url} ${size.width}w`).join();
 };
 
-export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
-  const { carousel_autoplay, slides, className } = attributes;
+export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
+  const {carousel_autoplay, slides, className} = attributes;
   const slidesRef = useRef([]);
 
-  const { currentSlide, goToSlide, goToNextSlide, goToPrevSlide } = useSlides(slidesRef, slides.length - 1);
+  const {currentSlide, goToSlide, goToNextSlide, goToPrevSlide} = useSlides(slidesRef, slides.length - 1);
 
   const changeSlideAttribute = (slideAttributeName, index) => value => {
     const newSlides = JSON.parse(JSON.stringify(slides));
     newSlides[index][slideAttributeName] = value;
-    setAttributes({ slides: newSlides });
-  }
+    setAttributes({slides: newSlides});
+  };
 
   const changeSlideImage = (index, imageId, imageUrl, imageAlt, srcSet) => {
     const newSlides = [...slides];
@@ -34,8 +33,8 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
     newSlides[index].image_url = imageUrl;
     newSlides[index].image_alt = imageAlt;
     newSlides[index].image_srcset = srcSet;
-    setAttributes({ slides: newSlides });
-  }
+    setAttributes({slides: newSlides});
+  };
 
   const addSlide = () => {
     const newSlides = slides.concat({
@@ -47,26 +46,26 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
       link_url: '',
       link_url_new_tab: false,
     });
-    setAttributes({ slides: newSlides });
+    setAttributes({slides: newSlides});
     const lastSlide = newSlides.length - 1;
     // There is no callback to setAttributes so we use timeout instead
     setTimeout(() => goToSlide(lastSlide), 0);
-  }
+  };
 
   const removeSlide = () => {
     const newSlides = [
       ...slides.slice(0, currentSlide),
-      ...slides.slice(currentSlide + 1)
+      ...slides.slice(currentSlide + 1),
     ];
     const lastSlide = newSlides.length - 1;
-    setAttributes({ slides: newSlides });
+    setAttributes({slides: newSlides});
     goToSlide(currentSlide > lastSlide ? 0 : currentSlide, true);
-  }
+  };
 
-  const needsMigration = slides.some(slide => !!slide.image && !slide.image_srcset)
-  const migratedSlides = useSelect(select=> slides && slides.map(slide => {
+  const needsMigration = slides.some(slide => !!slide.image && !slide.image_srcset);
+  const migratedSlides = useSelect(select => slides && slides.map(slide => {
     if (!needsMigration) {
-      return;
+      return null;
     }
     let attempt = 0;
     let image;
@@ -76,11 +75,10 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
     }
     // Didn't see this case occur but catch it anyway.
     if (!image) {
-      console.log('Failed fetching');
       return slide;
     }
-    const image_srcset = toSrcSet(Object.values(image.media_details.sizes))
-    return ({ ...slide, image_url: image.source_url, image_srcset, image_alt: image.alt_text });
+    const image_srcset = toSrcSet(Object.values(image.media_details.sizes));
+    return ({...slide, image_url: image.source_url, image_srcset, image_alt: image.alt_text});
   }), [needsMigration]);
 
   return (
@@ -95,12 +93,12 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
       />
       { needsMigration && <button
         title={'This block was created before WYSIWYG, press this to fetch data the new version uses.'}
-        onClick={ () => {
-          setAttributes({ slides: migratedSlides });
-        } }
+        onClick={() => {
+          setAttributes({slides: migratedSlides});
+        }}
       >Migrate image data</button>}
-      <div className='carousel-wrapper-header'>
-        <div className='carousel-inner' role='listbox'>
+      <div className="carousel-wrapper-header">
+        <div className="carousel-inner" role="listbox">
           {slides?.map((slide, index) => (
             <Slide
               key={index}
@@ -136,4 +134,4 @@ export const CarouselHeaderEditor = ({ setAttributes, attributes }) => {
       </div>
     </section>
   );
-}
+};

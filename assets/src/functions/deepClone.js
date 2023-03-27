@@ -3,7 +3,7 @@
 let global;
 try {
   global = Function('return this')();
-} catch(e) {
+} catch (e) {
   global = window;
 }
 
@@ -22,7 +22,6 @@ const _deepClone = (value, ancestors = [], clones = []) => {
     return value;
   }
   if (ancestors.includes(value)) {
-
     return clones[ancestors.indexOf(value)];
   }
   if (Array.isArray(value)) {
@@ -48,7 +47,7 @@ const _deepClone = (value, ancestors = [], clones = []) => {
   // the same value. Needed for Date, also makes Boolean objects work (even though you shouldn't use them).
   const param = typeof valueOf === 'object' ? null : valueOf;
   // Don't try to construct custom objects, use Object instead, which behaves the same as the JSON approach.
-  let constructor = global[value.constructor.name] || Object;
+  const constructor = global[value.constructor.name] || Object;
   const newObject = new constructor(param);
 
   ancestors.push(value);

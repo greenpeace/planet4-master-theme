@@ -1,13 +1,13 @@
 const root = document.documentElement;
 
-const readCssVariable = name => root.style.getPropertyValue( name );
+const readCssVariable = name => root.style.getPropertyValue(name);
 
-const setCssVariable = ( name, value ) => {
-  root.style.setProperty( name, value );
+const setCssVariable = (name, value) => {
+  root.style.setProperty(name, value);
 };
 
 const getMeta = () => {
-  return wp.data.select( 'core/editor' ).getEditedPostAttribute( 'meta' );
+  return wp.data.select('core/editor').getEditedPostAttribute('meta');
 };
 
 const metaToVariableMapping = [
@@ -18,12 +18,12 @@ const metaToVariableMapping = [
   {
     metaKey: 'campaign_header_primary',
     cssVariable: '--header-primary-font',
-    transform( value ) {
-      if ( value === 'Montserrat_Light' ) {
+    transform(value) {
+      if (value === 'Montserrat_Light') {
         return 'Montserrat';
       }
 
-      if ( value ) {
+      if (value) {
         return value;
       }
 
@@ -38,39 +38,40 @@ const metaToVariableMapping = [
         plastic: '"Montserrat", sans-serif',
       };
 
-      return campaignDefaults[ getMeta()[ 'theme' ] || 'default' ];
-    }
+      return campaignDefaults[getMeta().theme || 'default'];
+    },
   },
 ];
 
 export const setUpCssVariables = () => {
-  document.addEventListener( 'DOMContentLoaded', ( event ) => {
-    const postType = wp.data.select( 'core/editor' ).getCurrentPostType();
+  document.addEventListener('DOMContentLoaded', () => {
+    const postType = wp.data.select('core/editor').getCurrentPostType();
 
-    if ( postType !== 'campaign' ) {
+    if (postType !== 'campaign') {
       return;
     }
 
-    metaToVariableMapping.forEach( mapping => {
-      wp.data.subscribe( () => {
+    metaToVariableMapping.forEach(mapping => {
+      wp.data.subscribe(() => {
         const postMeta = getMeta();
 
         // wp.data starts dispatching before meta is available.
-        if ( !postMeta ) {
+        if (!postMeta) {
           return;
         }
 
         const transform = mapping.transform || (value => value);
 
-        const metaValue = transform( postMeta[ mapping.metaKey ] );
+        const metaValue = transform(postMeta[mapping.metaKey]);
 
-        const currentValue = readCssVariable( mapping.cssVariable );
+        const currentValue = readCssVariable(mapping.cssVariable);
 
-        if ( currentValue !== metaValue ) {
-          setCssVariable( mapping.cssVariable, metaValue );
-          console.log( `Set css variable "${ mapping.cssVariable }" to "${ metaValue }"` );
+        if (currentValue !== metaValue) {
+          setCssVariable(mapping.cssVariable, metaValue);
+          // eslint-disable-next-line no-console
+          console.log(`Set css variable "${mapping.cssVariable}" to "${metaValue}"`);
         }
-      } );
-    } );
-  } );
+      });
+    });
+  });
 };

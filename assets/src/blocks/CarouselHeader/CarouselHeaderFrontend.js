@@ -1,9 +1,9 @@
-import { useRef, useEffect, useState } from '@wordpress/element';
-import { useSlides } from './useSlides';
-import { Slide } from './Slide';
-import { CarouselControls } from './CarouselControls';
-import { SlideBackground } from './SlideBackground';
-import { StaticCaption } from './StaticCaption';
+import {useRef, useEffect, useState} from '@wordpress/element';
+import {useSlides} from './useSlides';
+import {Slide} from './Slide';
+import {CarouselControls} from './CarouselControls';
+import {SlideBackground} from './SlideBackground';
+import {StaticCaption} from './StaticCaption';
 
 const isRTL = document.querySelector('html').dir === 'rtl';
 
@@ -11,15 +11,15 @@ const usePageLoaded = () => {
   const [pageLoaded, setPageLoaded] = useState(false);
 
   useEffect(() => {
-    window.addEventListener('load', (event) => {
+    window.addEventListener('load', () => {
       setPageLoaded(true);
     });
   }, []);
 
   return pageLoaded;
-}
+};
 
-export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className }) => {
+export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className}) => {
   const pageLoaded = usePageLoaded();
   const [autoplayPaused, setAutoplayPaused] = useState(false);
   const slidesRef = useRef([]);
@@ -30,7 +30,7 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className })
     goToNextSlide,
     goToPrevSlide,
     setCarouselHeight,
-    autoplayCancelled
+    autoplayCancelled,
   } = useSlides(slidesRef, slides.length - 1, containerRef);
 
   useEffect(() => {
@@ -39,11 +39,11 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className })
     }
 
     const carouselElement = containerRef.current;
-    const carouselHeadHammer = new Hammer(carouselElement, { recognizers: [] });
-    const hammer = new Hammer.Manager(carouselHeadHammer.element);
-    const swipe = new Hammer.Swipe();
+    const carouselHeadHammer = new Hammer(carouselElement, {recognizers: []}); // eslint-disable-line no-undef
+    const hammer = new Hammer.Manager(carouselHeadHammer.element); // eslint-disable-line no-undef
+    const swipe = new Hammer.Swipe(); // eslint-disable-line no-undef
     // Only allow horizontal swiping (not vertical swiping)
-    swipe.set({ direction: Hammer.DIRECTION_HORIZONTAL });
+    swipe.set({direction: Hammer.DIRECTION_HORIZONTAL}); // eslint-disable-line no-undef
     hammer.add(swipe);
 
     hammer.on('swipeleft', isRTL ? goToPrevSlide : goToNextSlide);
@@ -52,7 +52,7 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className })
     return () => {
       hammer.off('swipeleft', isRTL ? goToPrevSlide : goToNextSlide);
       hammer.off('swiperight', isRTL ? goToNextSlide : goToPrevSlide);
-    }
+    };
   }, [currentSlide]);
 
   useEffect(() => {
@@ -94,12 +94,12 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className })
       onMouseEnter={() => setAutoplayPaused(true)}
       onMouseLeave={() => setAutoplayPaused(false)}
     >
-      <div className='carousel-wrapper-header'>
-        <div className='carousel-inner' role='listbox'>
+      <div className="carousel-wrapper-header">
+        <div className="carousel-inner" role="listbox">
           {slides.map((slide, index) => (
             <Slide
               key={index}
-              active={currentSlide == index}
+              active={currentSlide === index}
               ref={element => slidesRef ? slidesRef.current[index] = element : null}
             >
               <SlideBackground slide={pageLoaded ? slide : slides[0]} />
@@ -117,4 +117,4 @@ export const CarouselHeaderFrontend = ({ slides, carousel_autoplay, className })
       </div>
     </section>
   );
-}
+};

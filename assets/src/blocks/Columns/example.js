@@ -18,5 +18,5 @@ export const example = {
         attachment: 0,
       },
     ],
-  }
+  },
 };

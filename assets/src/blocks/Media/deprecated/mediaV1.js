@@ -1,27 +1,27 @@
 export const mediaV1 = {
   attributes: {
     video_title: {
-      type: 'string'
+      type: 'string',
     },
     description: {
-      type: 'string'
+      type: 'string',
     },
     video_poster_img: {
-      type: 'integer'
+      type: 'integer',
     },
     youtube_id: {
       type: 'string',
-      default: ''
+      default: '',
     },
   },
   isEligible({youtube_id}) {
     return !!youtube_id;
   },
-  migrate( { youtube_id, ...attributes } ) {
+  migrate({youtube_id, ...attributes}) {
     return {
       ...attributes,
-      media_url: youtube_id
+      media_url: youtube_id,
     };
   },
-  save: () => null
+  save: () => null,
 };

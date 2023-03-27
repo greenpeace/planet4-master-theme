@@ -1,12 +1,11 @@
-import { RichText } from '@wordpress/block-editor';
-import { debounce } from 'lodash';
+import {RichText} from '@wordpress/block-editor';
+import {debounce} from 'lodash';
 
-const { __ } = wp.i18n;
+const {__} = wp.i18n;
 
-/**
- * WYSIWYG in-place editor
- */
-export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes}) => {
+// WYSIWYG in-place editor
+
+export const SplittwocolumnsInPlaceEdit = ({attributes, setAttributes}) => {
   const {
     title,
     issue_description,
@@ -26,13 +25,13 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
     className,
   } = attributes;
 
-  const onTextChange = (field_name) => debounce(content => {
+  const onTextChange = field_name => debounce(content => {
     setAttributes({
       [field_name]: content,
       edited: {
         ...edited,
-        [field_name]: content.length > 0
-      }
+        [field_name]: content.length > 0,
+      },
     });
   }, 400);
 
@@ -59,7 +58,7 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             multiline="false"
             withoutInteractiveFormatting
             allowedFormats={[]}
-            />
+          />
           <RichText
             tagName="p"
             className="split-two-column-item-subtitle"
@@ -68,7 +67,7 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             onChange={onTextChange('issue_description')}
             multiline="false"
             allowedFormats={['core/bold', 'core/italic']}
-            />
+          />
           {issue_link_path &&
             <RichText
               tagName="a"
@@ -79,7 +78,7 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
               multiline="false"
               withoutInteractiveFormatting
               allowedFormats={[]}
-              />
+            />
           }
         </div>
       </div>
@@ -108,7 +107,7 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             onChange={onTextChange('tag_description')}
             multiline="false"
             allowedFormats={['core/bold', 'core/italic']}
-            />
+          />
           <RichText
             tagName="a"
             className="btn btn-primary btn-block split-two-column-item-button"
@@ -118,9 +117,9 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, charLimit, setAttributes
             multiline="false"
             withoutInteractiveFormatting
             allowedFormats={[]}
-            />
+          />
         </div>
       </div>
     </section>
-  )
-}
+  );
+};

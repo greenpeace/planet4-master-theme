@@ -1,7 +1,6 @@
-import { TextareaControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import {TextareaControl} from '@wordpress/components';
 
-export const TextareaSidebarField = ({ value, setValue, label }) => (
+export const TextareaSidebarField = ({value, setValue, label}) => (
   <TextareaControl
     label={label}
     value={value}

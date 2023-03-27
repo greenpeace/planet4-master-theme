@@ -1,4 +1,4 @@
-import { useState } from '@wordpress/element';
+import {useState} from '@wordpress/element';
 
 export const useLightbox = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,5 +14,5 @@ export const useLightbox = () => {
     setIsOpen(false);
   };
 
-  return { isOpen, index, openLightbox, closeLightbox };
-}
+  return {isOpen, index, openLightbox, closeLightbox};
+};

@@ -3,7 +3,7 @@
     "browser": true,
     "es6": true
   },
-  "extends": "eslint:recommended",
+  "extends": [ "plugin:@wordpress/eslint-plugin/recommended" ],
   "globals": {
     "page": true,
     "browser": true,
@@ -30,6 +30,13 @@
       "error",
       "all"
     ],
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "never"
+    }],
     "one-var-declaration-per-line": [
       "error",
       "always"
@@ -39,13 +46,66 @@
         "allowNamedFunctions": true
       }
     ],
+    "jsx-quotes": [
+      "error",
+      "prefer-double"
+    ],
+    "camelcase": "off",
     "new-cap": "error",
     "no-var": 1,
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error"
+    "react/jsx-indent": "off",
+    "react/jsx-indent-props": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "@wordpress/dependency-group": "off",
+    "operator-linebreak": [
+      "error",
+      "after"
+    ],
+    "computed-property-spacing": [
+      "error",
+      "never"
+    ],
+    "space-in-parens": [
+      "error",
+      "never"
+    ],
+    "react/jsx-curly-spacing": [
+      "error",
+      {
+        "when": "never",
+        "allowMultiline": false
+      }
+    ],
+    "space-unary-ops": [
+      "error", {
+        "words": true,
+        "nonwords": false
+      }
+    ],
+    "object-curly-spacing": [
+      "error",
+      "never"
+    ],
+    "array-bracket-spacing": [
+      "error",
+      "never"
+    ],
+    "template-curly-spacing": [
+      "error",
+      "never"
+    ],
+    "computed-property-spacing": [
+      "error",
+      "never"
+    ],
+    "arrow-parens": [
+      "error",
+      "as-needed"
+    ]
   },
   "parserOptions": {
     "ecmaVersion": 11,
+    "requireConfigFile": false,
     "ecmaFeatures": {
       "jsx": true,
       "modules": true

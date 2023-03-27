@@ -1,10 +1,9 @@
-import { Timeline } from './Timeline';
+import {Timeline} from './Timeline';
 
-export const TimelineFrontend = (props) => {
+export const TimelineFrontend = props => {
   const {
     timeline_title,
     description,
-    isSelected,
     className,
     ...nodeProps
   } = props;
@@ -17,9 +16,9 @@ export const TimelineFrontend = (props) => {
         </header>
       }
       {!!description &&
-        <div className="page-section-description" dangerouslySetInnerHTML={{ __html: description }} />
+        <div className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
       }
-      <Timeline { ...nodeProps } />
+      <Timeline {...nodeProps} />
     </section>
-  )
-}
+  );
+};

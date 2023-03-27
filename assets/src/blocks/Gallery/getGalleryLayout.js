@@ -1,11 +1,11 @@
-import { getStyleFromClassName } from '../getStyleFromClassName'
+import {getStyleFromClassName} from '../getStyleFromClassName';
 
 const GALLERY_LAYOUTS = ['slider', 'three-columns', 'grid'];
 
 export const GALLERY_BLOCK_CLASSES = {
-  'slider': 'carousel-wrap',
+  slider: 'carousel-wrap',
   'three-columns': 'split-three-column',
-  'grid': 'gallery-grid'
+  grid: 'gallery-grid',
 };
 
 export const getGalleryLayout = (className, style) => {

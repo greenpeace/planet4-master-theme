@@ -1,8 +1,8 @@
-import { useEffect } from '@wordpress/element';
-import { LAYOUT_TASKS } from './ColumnConstants';
-import { Columns } from './Columns';
+import {useEffect} from '@wordpress/element';
+import {LAYOUT_TASKS} from './ColumnConstants';
+import {Columns} from './Columns';
 
-export const ColumnsFrontend = ({ columns_block_style, columns_title, columns_description, columns, className }) => {
+export const ColumnsFrontend = ({columns_block_style, columns_title, columns_description, columns, className}) => {
   const postType = document.body.getAttribute('data-post-type');
 
   // This function updates the headings' height so that they align
@@ -23,7 +23,7 @@ export const ColumnsFrontend = ({ columns_block_style, columns_title, columns_de
 
       headings.forEach(heading => heading.style.minHeight = `${highestHeadingHeight}px`);
     });
-  }
+  };
 
   // Align column headers,
   useEffect(() => {
@@ -33,18 +33,18 @@ export const ColumnsFrontend = ({ columns_block_style, columns_title, columns_de
     return () => {
       window.removeEventListener('resize', alignColumnHeaders);
       window.removeEventListener('load', alignColumnHeaders);
-    }
+    };
   }, []);
 
   return (
     <section className={`block columns-block block-style-${columns_block_style} ${className ?? ''}`}>
       {columns_title &&
         <header>
-          <h2 className='page-section-header' dangerouslySetInnerHTML={{ __html: columns_title }} />
+          <h2 className="page-section-header" dangerouslySetInnerHTML={{__html: columns_title}} />
         </header>
       }
       {columns_description &&
-        <div className='page-section-description' dangerouslySetInnerHTML={{ __html: columns_description }} />
+        <div className="page-section-description" dangerouslySetInnerHTML={{__html: columns_description}} />
       }
       <Columns
         columns_block_style={columns_block_style}
@@ -53,4 +53,4 @@ export const ColumnsFrontend = ({ columns_block_style, columns_title, columns_de
       />
     </section>
   );
-}
+};

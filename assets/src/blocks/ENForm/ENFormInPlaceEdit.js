@@ -1,12 +1,12 @@
-import { FormGenerator } from './FormGenerator';
-import { ShareButtons } from '../../components/ShareButtons/ShareButtons';
-import { RichText, BlockControls } from '@wordpress/block-editor';
-import { ToolbarGroup } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { useState } from '@wordpress/element';
-import { autop } from '@wordpress/autop';
+import {FormGenerator} from './FormGenerator';
+import {ShareButtons} from '../../components/ShareButtons/ShareButtons';
+import {RichText, BlockControls} from '@wordpress/block-editor';
+import {ToolbarGroup} from '@wordpress/components';
+import {useSelect} from '@wordpress/data';
+import {useState} from '@wordpress/element';
+import {autop} from '@wordpress/autop';
 
-const { __ } = wp.i18n;
+const {__} = wp.i18n;
 
 export const ENFormInPlaceEdit = ({attributes, setAttributes}) => {
   const {
@@ -17,78 +17,76 @@ export const ENFormInPlaceEdit = ({attributes, setAttributes}) => {
   // Switch between signup form and thank you message
   const templates = [
     {
-      id: "signup",
-      icon: "format-aside",
+      id: 'signup',
+      icon: 'format-aside',
       title: __('Signup form', 'planet4-blocks-backend'),
     },
     {
-      id: "thankyou",
-      icon: "awards",
+      id: 'thankyou',
+      icon: 'awards',
       title: __('Thank you message', 'planet4-blocks-backend'),
-    }
+    },
   ];
   const [activeTplId, setActiveTplId] = useState('signup');
-  const activeTpl = templates.find((tpl) => {return tpl.id === activeTplId});
+  const activeTpl = templates.find(tpl => tpl.id === activeTplId);
 
   // Style specific params
   const is_side_style = en_form_style === 'side-style';
   const style_has_image = en_form_style === 'full-width-bg' || en_form_style === 'side-style';
-  const section_style = ((style) => {
+  const section_style = (style => {
     switch (style) {
-      case 'side-style':
-        return 'block-header alignfull';
-      case 'full-width-bg':
-        return 'block-footer alignfull';
-      default:
-        return '';
+    case 'side-style':
+      return 'block-header alignfull';
+    case 'full-width-bg':
+      return 'block-footer alignfull';
+    default:
+      return '';
     }
   })(en_form_style);
 
   return (
     <>
-    <BlockControls>
-      <ToolbarGroup
-        isCollapsed={ true }
-        icon={ activeTpl.icon }
-        label={ activeTpl.title }
-        controls={
-          templates.map((tpl) => {
+      <BlockControls>
+        <ToolbarGroup
+          isCollapsed={true}
+          icon={activeTpl.icon}
+          label={activeTpl.title}
+          controls={templates.map(tpl => {
             return {
               icon: tpl.icon,
               title: tpl.title,
               isActive: activeTplId === tpl.id,
-              onClick: () => { setActiveTplId(tpl.id) }
-            }
-          })
-        }
-      />
-    </BlockControls>
+              onClick: () => setActiveTplId(tpl.id),
+            };
+          })}
+        />
+      </BlockControls>
 
-    <section
-      className={`block enform-wrap enform-${en_form_style} ${section_style} ${className ?? ''}`}
-    >
-      {style_has_image &&
+      <section
+        className={`block enform-wrap enform-${en_form_style} ${section_style} ${className ?? ''}`}
+      >
+        {style_has_image &&
         <BackgroundImage {...{attributes}} />
-      }
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            {is_side_style &&
+        }
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              {is_side_style &&
               <SideContent {...{attributes, setAttributes}} />
-            }
-            {activeTplId === 'signup' &&
+              }
+              {activeTplId === 'signup' &&
               <Signup {...{attributes, setAttributes}} />
-            }
-            {activeTplId === 'thankyou' &&
+              }
+              {activeTplId === 'thankyou' &&
               <ThankYou {...{attributes, setAttributes}} />
-            }
+              }
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
     </>
-  )
-}
+  );
+};
 
 const BackgroundImage = ({attributes}) => {
   const {
@@ -99,22 +97,23 @@ const BackgroundImage = ({attributes}) => {
     background_image_focus,
   } = attributes;
 
-  if (! background) {
+  if (!background) {
     return null;
   }
 
   return (
     <picture>
-      <img src={ background_image_src || ''}
+      <img src={background_image_src || ''}
         style={{objectPosition: background_image_focus || {}}}
         border="0"
         srcSet={background_image_srcset || ''}
         sizes={background_image_sizes || ''}
-        className={ background > 0 ? `wp-image-${background}` : ''}
+        className={background > 0 ? `wp-image-${background}` : ''}
+        alt=""
       />
     </picture>
   );
-}
+};
 
 const SideContent = ({attributes, setAttributes}) => {
   const {
@@ -122,54 +121,52 @@ const SideContent = ({attributes, setAttributes}) => {
     content_description,
     content_title_size,
     campaign_logo,
-    campaign_logo_path
+    campaign_logo_path,
   } = attributes;
 
   const title_size = content_title_size ?? 'h1';
 
   return (
     <>
-    <BlockControls>
-      <ToolbarGroup
-        isCollapsed={ true }
-        icon="heading"
-        label={title_size.toUpperCase()}
-        controls={
-          ['h1', 'h2'].map((size) => {
+      <BlockControls>
+        <ToolbarGroup
+          isCollapsed={true}
+          icon="heading"
+          label={title_size.toUpperCase()}
+          controls={['h1', 'h2'].map(size => {
             return {
               isActive: title_size === size,
-              icon: "heading",
+              icon: 'heading',
               title: size.toUpperCase(),
-              onClick: () => { setAttributes({content_title_size: size}) }
-            }
-          })
+              onClick: () => setAttributes({content_title_size: size}),
+            };
+          })}
+        />
+      </BlockControls>
+      <div className="form-caption">
+        {campaign_logo && campaign_logo_path &&
+        <img src={campaign_logo_path}
+          alt={content_title ?? ''}
+          className="campaign-logo" />
         }
-      />
-    </BlockControls>
-    <div className="form-caption">
-      {campaign_logo && campaign_logo_path &&
-        <img src={ campaign_logo_path }
-            alt={ content_title ?? '' }
-            className="campaign-logo" />
-      }
-      <RichText
-        tagName={title_size}
-        value={content_title}
-        onChange={(title) => { setAttributes({content_title: title}) }}
-        placeholder={__('Enter title', 'planet4-blocks-backend')}
-        withoutInteractiveFormatting
-        allowedFormats={[]}
-        multiline="false"
-      />
-      <RichText
-        tagName="div"
-        value={autop(content_description ?? '')}
-        onChange={(desc) => { setAttributes({content_description: desc}) }}
-        placeholder={__('Enter description', 'planet4-blocks-backend')}
-        allowedFormats={['core/bold', 'core/italic']}
-        multiline
-      />
-    </div>
+        <RichText
+          tagName={title_size}
+          value={content_title}
+          onChange={title => setAttributes({content_title: title})}
+          placeholder={__('Enter title', 'planet4-blocks-backend')}
+          withoutInteractiveFormatting
+          allowedFormats={[]}
+          multiline="false"
+        />
+        <RichText
+          tagName="div"
+          value={autop(content_description ?? '')}
+          onChange={desc => setAttributes({content_description: desc})}
+          placeholder={__('Enter description', 'planet4-blocks-backend')}
+          allowedFormats={['core/bold', 'core/italic']}
+          multiline
+        />
+      </div>
     </>
   );
 };
@@ -181,7 +178,7 @@ const Signup = ({attributes, setAttributes}) => {
     en_form_id,
   } = attributes;
 
-  const fields = useSelect((select) => {
+  const fields = useSelect(select => {
     const enform_post = en_form_id ? select('core').getEntityRecord('postType', 'p4en_form', en_form_id) : {};
     return enform_post?.p4enform_fields || [];
   }, [en_form_id]);
@@ -194,7 +191,7 @@ const Signup = ({attributes, setAttributes}) => {
           <RichText
             tagName="h2"
             value={title}
-            onChange={(title) => { setAttributes({title}) }}
+            onChange={titl => setAttributes({title: titl})}
             placeholder={__('Enter form title', 'planet4-blocks-backend')}
             withoutInteractiveFormatting
             allowedFormats={[]}
@@ -204,7 +201,7 @@ const Signup = ({attributes, setAttributes}) => {
             tagName="div"
             value={description}
             className="form-description"
-            onChange={(description) => { setAttributes({description}) }}
+            onChange={des => setAttributes({description: des})}
             placeholder={__('Enter form description', 'planet4-blocks-backend')}
             allowedFormats={['core/bold', 'core/italic']}
             multiline
@@ -212,13 +209,13 @@ const Signup = ({attributes, setAttributes}) => {
         </div>
 
         <div className="form-container">
-          <FormContent {...{attributes, setAttributes, fields}}/>
+          <FormContent {...{attributes, setAttributes, fields}} />
         </div>
 
       </div>
     </div>
-  )
-}
+  );
+};
 
 const ThankYou = ({attributes, setAttributes}) => {
   const {
@@ -234,15 +231,15 @@ const ThankYou = ({attributes, setAttributes}) => {
     social_accounts,
   } = attributes;
 
-  let social_params = {...social, utm_medium: 'thank-you'};
+  const social_params = {...social, utm_medium: 'thank-you'};
 
-  const toAttribute = (attributeName) => {
+  const toAttribute = attributeName => {
     return value => {
-      setAttributes({ [attributeName]: value });
-    }
-  }
+      setAttributes({[attributeName]: value});
+    };
+  };
 
-  const container_class = `thankyou ${en_form_style != 'side-style' ? 'full-width': ''}`;
+  const container_class = `thankyou ${en_form_style !== 'side-style' ? 'full-width' : ''}`;
 
   const error = '';
   if (error) {
@@ -252,7 +249,7 @@ const ThankYou = ({attributes, setAttributes}) => {
           <span className="enform-error">{ error }</span>
         }
       </div>
-    )
+    );
   }
 
   return (
@@ -262,7 +259,7 @@ const ThankYou = ({attributes, setAttributes}) => {
           <RichText
             tagName="h2"
             className="page-section-header"
-            value={ thankyou_title }
+            value={thankyou_title}
             onChange={toAttribute('thankyou_title')}
             placeholder={__('Enter title', 'planet4-blocks-backend')}
             withoutInteractiveFormatting
@@ -273,7 +270,7 @@ const ThankYou = ({attributes, setAttributes}) => {
         <RichText
           tagName="p"
           className="page-section-description"
-          value={ thankyou_subtitle }
+          value={thankyou_subtitle}
           onChange={toAttribute('thankyou_subtitle')}
           placeholder={__('Enter description', 'planet4-blocks-backend')}
           allowedFormats={[]}
@@ -285,7 +282,7 @@ const ThankYou = ({attributes, setAttributes}) => {
             <RichText
               tagName="h5"
               className="page-section-header"
-              value={ thankyou_social_media_message }
+              value={thankyou_social_media_message}
               onChange={toAttribute('thankyou_social_media_message')}
               placeholder={__('Enter social media message', 'planet4-blocks-backend')}
               withoutInteractiveFormatting
@@ -298,13 +295,13 @@ const ThankYou = ({attributes, setAttributes}) => {
             <ShareButtons {...{social_params, social_accounts}} />
           </div>
 
-          {! donate_button_checkbox &&
+          {!donate_button_checkbox &&
             <>
               <div className="form-group">
                 <RichText
                   tagName="h5"
                   className="page-section-header"
-                  value={ thankyou_donate_message }
+                  value={thankyou_donate_message}
                   onChange={toAttribute('thankyou_donate_message')}
                   placeholder={__('Enter donate message', 'planet4-blocks-backend')}
                   allowedFormats={['core/bold', 'core/italic', 'core/link']}
@@ -315,7 +312,7 @@ const ThankYou = ({attributes, setAttributes}) => {
               <div className="form-group">
                 <RichText
                   tagName="a"
-                  href={ donatelink }
+                  href={donatelink}
                   className="btn btn-primary btn-block"
                   value={donate_text}
                   onChange={toAttribute('donate_text')}
@@ -330,8 +327,8 @@ const ThankYou = ({attributes, setAttributes}) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const FormContent = ({attributes, setAttributes, fields}) => {
   const {
@@ -354,8 +351,8 @@ const FormContent = ({attributes, setAttributes, fields}) => {
             tag="button"
             id="p4en_form_save_button"
             className={'btn btn-primary btn-block' + (fwbg ? ' w-auto' : '')}
-            value={ button_text || __( 'Sign', 'planet4-engagingnetworks' ) }
-            onChange={(text) => {setAttributes({button_text: text})}}
+            value={button_text || __('Sign', 'planet4-engagingnetworks')}
+            onChange={text => setAttributes({button_text: text})}
             placeholder={__('Sign', 'planet4-blocks-backend')}
           />
           {fwbg &&
@@ -365,23 +362,23 @@ const FormContent = ({attributes, setAttributes, fields}) => {
                 value={text_below_button}
                 placeholder={__('Text below button', 'planet4-blocks-backend')}
                 allowedFormats={[]}
-                onChange={(text) => {setAttributes({text_below_button: text})}}
+                onChange={text => setAttributes({text_below_button: text})}
               />
             </div>
           }
         </div>
-        {! fwbg &&
+        {!fwbg &&
           <div className="enform-legal">
             <RichText
               tagName="p"
               value={text_below_button}
               placeholder={__('Text below button', 'planet4-blocks-backend')}
               allowedFormats={[]}
-              onChange={(text) => {setAttributes({text_below_button: text})}}
+              onChange={text => setAttributes({text_below_button: text})}
             />
           </div>
         }
       </div>
     </form>
-  )
-}
+  );
+};

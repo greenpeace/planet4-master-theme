@@ -1,13 +1,13 @@
-import { useEffect } from '@wordpress/element';
-import { InspectorControls } from '@wordpress/block-editor';
+import {useEffect} from '@wordpress/element';
+import {InspectorControls} from '@wordpress/block-editor';
 import {
   RadioControl,
   SelectControl,
   PanelBody,
 } from '@wordpress/components';
-import { SocialMediaEmbed } from './SocialMediaEmbed';
-import { URLInput } from '../../components/URLInput/URLInput';
-import { HTMLSidebarHelp } from '../../components/HTMLSidebarHelp/HTMLSidebarHelp';
+import {SocialMediaEmbed} from './SocialMediaEmbed';
+import {URLInput} from '../../components/URLInput/URLInput';
+import {HTMLSidebarHelp} from '../../components/HTMLSidebarHelp/HTMLSidebarHelp';
 import {
   OEMBED_EMBED_TYPE,
   FACEBOOK_EMBED_TYPE,
@@ -17,14 +17,15 @@ import {
   ALLOWED_OEMBED_PROVIDERS,
 } from './SocialMediaConstants.js';
 
-const { RichText } = wp.blockEditor;
-const { __ } = wp.i18n;
-const { apiFetch } = wp;
-const { addQueryArgs } = wp.url;
+const {RichText} = wp.blockEditor;
+const {__} = wp.i18n;
+const {apiFetch} = wp;
+const {addQueryArgs} = wp.url;
 
 const loadScriptAsync = uri => {
+  // eslint-disable-next-line no-unused-vars
   return new Promise((resolve, reject) => {
-    let tag = document.createElement('script');
+    const tag = document.createElement('script');
     tag.src = uri;
     tag.async = true;
     tag.onload = () => {
@@ -41,7 +42,7 @@ const initializeTwitterEmbeds = () => {
       window.twttr.widgets.load();
     }
   }, 2000);
-}
+};
 
 const initializeInstagramEmbeds = () => {
   setTimeout(() => {
@@ -49,7 +50,7 @@ const initializeInstagramEmbeds = () => {
       window.instgrm.Embeds.process();
     }
   }, 3000);
-}
+};
 
 const initializeFacebookEmbeds = () => {
   setTimeout(() => {
@@ -57,7 +58,7 @@ const initializeFacebookEmbeds = () => {
       window.FB.XFBML.parse();
     }
   }, 3000);
-}
+};
 
 const PROVIDER_SCRIPT_DATA = {
   twitter: {
@@ -91,12 +92,14 @@ export const SocialMediaEditor = ({
   } = attributes;
 
   const toAttribute = attributeName => value => setAttributes({
-    [attributeName]: value
+    [attributeName]: value,
   });
 
   /**
    * Check if social media corresponding embeds script is loaded and initiliaze it.
    * Can be used for Facebook, Twitter and Instagram depending on the parameter.
+   *
+   * @param {Object} provider
    */
   const checkProviderScript = async provider => {
     const providerData = PROVIDER_SCRIPT_DATA[provider];
@@ -105,40 +108,39 @@ export const SocialMediaEditor = ({
       await loadScriptAsync(providerData.script);
     }
     providerData.initFunction();
-  }
+  };
 
   const updateEmbed = async (url, provider) => {
     if (!url) {
-      setAttributes({ embed_code: '' });
+      setAttributes({embed_code: ''});
       return;
     }
 
     let embedCode;
     try {
       if (provider === 'twitter') {
-        const twitterEmbedData = await apiFetch({ path: addQueryArgs('/oembed/1.0/proxy', { url }) });
+        const twitterEmbedData = await apiFetch({path: addQueryArgs('/oembed/1.0/proxy', {url})});
         embedCode = twitterEmbedData ? twitterEmbedData.html : '';
       } else if (provider === 'instagram') {
-        const instagramEmbedData = await apiFetch({ path: addQueryArgs('planet4/v1/get-instagram-embed', { url }) });
+        const instagramEmbedData = await apiFetch({path: addQueryArgs('planet4/v1/get-instagram-embed', {url})});
 
         if (instagramEmbedData) {
-
           // WordPress automatically adds rel="noopener" to links that have _blank target.
           // The Instagram embed HTML doesn't, so in order to avoid block validation errors we need to add it ourselves.
-          embedCode = instagramEmbedData.replaceAll(`target="_blank"`, `target="_blank" rel="noopener noreferrer"`);
+          embedCode = instagramEmbedData.replaceAll('target="_blank"', 'target="_blank" rel="noopener noreferrer"');
         }
       }
     } catch (error) {
       embedCode = '';
     }
-    setAttributes({ embed_code: embedCode });
+    setAttributes({embed_code: embedCode});
   };
 
   useEffect(() => {
     const provider = ALLOWED_OEMBED_PROVIDERS.find(allowedProvider => social_media_url.includes(allowedProvider));
 
     if (!provider) {
-      setAttributes({ embed_code: '' });
+      setAttributes({embed_code: ''});
       return;
     }
 
@@ -158,19 +160,19 @@ export const SocialMediaEditor = ({
     <>
       <header>
         <RichText
-          tagName='h2'
-          className='page-section-header'
+          tagName="h2"
+          className="page-section-header"
           placeholder={__('Enter title', 'planet4-blocks-backend')}
           value={title}
           onChange={toAttribute('title')}
           withoutInteractiveFormatting
-          multiline='false'
+          multiline="false"
           allowedFormats={[]}
         />
       </header>
       <RichText
-        tagName='p'
-        className='page-section-description'
+        tagName="p"
+        className="page-section-description"
         placeholder={__('Enter description', 'planet4-blocks-backend')}
         value={description}
         onChange={toAttribute('description')}
@@ -186,8 +188,8 @@ export const SocialMediaEditor = ({
         <RadioControl
           label={__('Embed type', 'planet4-blocks-backend')}
           options={[
-            { label: __('oEmbed', 'planet4-blocks-backend'), value: OEMBED_EMBED_TYPE },
-            { label: __('Facebook page', 'planet4-blocks-backend'), value: FACEBOOK_EMBED_TYPE },
+            {label: __('oEmbed', 'planet4-blocks-backend'), value: OEMBED_EMBED_TYPE},
+            {label: __('Facebook page', 'planet4-blocks-backend'), value: FACEBOOK_EMBED_TYPE},
           ]}
           selected={embed_type}
           onChange={toAttribute('embed_type')}
@@ -195,15 +197,16 @@ export const SocialMediaEditor = ({
         <HTMLSidebarHelp>{embed_type_help}</HTMLSidebarHelp>
         {embed_type === FACEBOOK_EMBED_TYPE &&
           <>
-            <label>
+            <label htmlFor="render-siderbar__control">
               {__('What Facebook page content would you like to display?', 'planet4-blocks-backend')}
             </label>
             <SelectControl
+              id="render-siderbar__control"
               value={facebook_page_tab}
               options={[
-                { label: __('Timeline', 'planet4-blocks-backend'), value: FACEBOOK_PAGE_TAB_TIMELINE },
-                { label: __('Events', 'planet4-blocks-backend'), value: FACEBOOK_PAGE_TAB_EVENTS },
-                { label: __('Messages', 'planet4-blocks-backend'), value: FACEBOOK_PAGE_TAB_MESSAGES },
+                {label: __('Timeline', 'planet4-blocks-backend'), value: FACEBOOK_PAGE_TAB_TIMELINE},
+                {label: __('Events', 'planet4-blocks-backend'), value: FACEBOOK_PAGE_TAB_EVENTS},
+                {label: __('Messages', 'planet4-blocks-backend'), value: FACEBOOK_PAGE_TAB_MESSAGES},
               ]}
               onChange={toAttribute('facebook_page_tab')}
             />
@@ -219,10 +222,10 @@ export const SocialMediaEditor = ({
           label={__('Alignment', 'planet4-blocks-backend')}
           value={alignment_class}
           options={[
-            { label: __('None', 'planet4-blocks-backend'), value: '' },
-            { label: __('Left', 'planet4-blocks-backend'), value: 'alignleft' },
-            { label: __('Center', 'planet4-blocks-backend'), value: 'aligncenter' },
-            { label: __('Right', 'planet4-blocks-backend'), value: 'alignright' },
+            {label: __('None', 'planet4-blocks-backend'), value: ''},
+            {label: __('Left', 'planet4-blocks-backend'), value: 'alignleft'},
+            {label: __('Center', 'planet4-blocks-backend'), value: 'aligncenter'},
+            {label: __('Right', 'planet4-blocks-backend'), value: 'alignright'},
           ]}
           onChange={toAttribute('alignment_class')}
         />
@@ -243,4 +246,4 @@ export const SocialMediaEditor = ({
       />
     </section>
   );
-}
+};

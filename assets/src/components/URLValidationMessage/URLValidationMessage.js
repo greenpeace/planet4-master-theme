@@ -1,16 +1,12 @@
 import {Component} from '@wordpress/element';
 
 export class URLValidationMessage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  isValid( url ) {
-    if ( !url ) {
+  isValid(url) {
+    if (!url) {
       return true;
     }
 
-    if ( ! url.toLowerCase().startsWith('https://') ) {
+    if (!url.toLowerCase().startsWith('https://')) {
       return false;
     }
 
@@ -18,16 +14,15 @@ export class URLValidationMessage extends Component {
   }
 
   render() {
-
     const {__} = wp.i18n;
-    const { url } = this.props
+    const {url} = this.props;
 
-    if ( this.isValid( url ) ) {
-        return null;
+    if (this.isValid(url)) {
+      return null;
     }
 
     return (
-        <span className='input_error'>{ __('The URL must start with "https://"', 'planet4-blocks-backend') }</span>
-    )
+      <span className="input_error">{ __('The URL must start with "https://"', 'planet4-blocks-backend') }</span>
+    );
   }
 }

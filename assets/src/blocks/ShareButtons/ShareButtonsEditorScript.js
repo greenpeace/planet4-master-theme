@@ -1,3 +1,3 @@
-import { registerBlock } from './ShareButtonsBlock';
+import {registerBlock} from './ShareButtonsBlock';
 
 registerBlock();

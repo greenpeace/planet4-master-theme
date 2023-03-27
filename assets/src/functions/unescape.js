@@ -1,4 +1,4 @@
-export const unescape = (input) => {
+export const unescape = input => {
   const e = document.createElement('textarea');
   e.innerHTML = input;
   // handle case of empty input

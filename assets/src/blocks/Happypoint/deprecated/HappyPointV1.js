@@ -1,20 +1,20 @@
-import { USE_NONE, USE_IFRAME_URL } from '../HappyPointConstants';
+import {USE_NONE, USE_IFRAME_URL} from '../HappyPointConstants';
 
 export const HappyPointV1 = {
   attributes: {
-    focus_image: { type: 'string', },
-    opacity: { type: 'number', default: 30 },
-    mailing_list_iframe: { type: 'boolean', },
-    iframe_url: { type: 'string', },
-    id: { type: 'number', },
-    load_iframe: { type: 'boolean', default: false, },
-    use_embed_code: { type: 'boolean', },
-    embed_code: { type: 'string', },
+    focus_image: {type: 'string'},
+    opacity: {type: 'number', default: 30},
+    mailing_list_iframe: {type: 'boolean'},
+    iframe_url: {type: 'string'},
+    id: {type: 'number'},
+    load_iframe: {type: 'boolean', default: false},
+    use_embed_code: {type: 'boolean'},
+    embed_code: {type: 'string'},
   },
-  isEligible( attributes ) {
+  isEligible(attributes) {
     return typeof attributes.override_default_content === 'undefined';
   },
-  migrate( attributes ) {
+  migrate(attributes) {
     // Case 1: Load iframe and local url configured -> block with form from local url
     // Case 2: Unchecked mailing_list_iframe -> empty block
     // The case of load mailing_list_iframe + default content url is handled only by default content in next version
@@ -32,5 +32,5 @@ export const HappyPointV1 = {
   },
   save() {
     return null;
-  }
+  },
 };

@@ -1,4 +1,4 @@
-import { MediaElementVideo } from './MediaElementVideo';
+import {MediaElementVideo} from './MediaElementVideo';
 
 const wrapEmbedHTML = embed_html => {
   const wrapperDiv = document.createElement('div');
@@ -8,15 +8,15 @@ const wrapEmbedHTML = embed_html => {
   }
 
   wrapperDiv.className = 'embed-container';
-  if ( wrapperDiv.firstChild?.removeAttribute) {
+  if (wrapperDiv.firstChild?.removeAttribute) {
     wrapperDiv.firstChild.removeAttribute('width');
     wrapperDiv.firstChild.removeAttribute('height');
   }
 
   return wrapperDiv.outerHTML;
-}
+};
 
-export const MediaFrontend = ( attributes ) => {
+export const MediaFrontend = attributes => {
   const {
     video_title,
     description,
@@ -26,7 +26,7 @@ export const MediaFrontend = ( attributes ) => {
     className,
   } = attributes;
 
-  if ( !media_url ) {
+  if (!media_url) {
     return '';
   }
 
@@ -40,12 +40,12 @@ export const MediaFrontend = ( attributes ) => {
       }
       {
         description &&
-        <div className="page-section-description" dangerouslySetInnerHTML={{ __html: description }} />
+        <div className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
       }
       {
-        media_url && media_url.endsWith('.mp4')
-        ? <MediaElementVideo videoURL={ media_url } videoPoster={ poster_url } />
-        : <div dangerouslySetInnerHTML={{ __html: wrapEmbedHTML(embed_html) || null }} />
+        media_url && media_url.endsWith('.mp4') ?
+          <MediaElementVideo videoURL={media_url} videoPoster={poster_url} /> :
+          <div dangerouslySetInnerHTML={{__html: wrapEmbedHTML(embed_html) || null}} />
       }
     </section>
   );

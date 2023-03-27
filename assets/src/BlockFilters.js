@@ -1,6 +1,6 @@
-const { addFilter } = wp.hooks;
+const {addFilter} = wp.hooks;
 
-import { ImageBlockEdit } from './components/Image/ImageBlockEdit';
+import {ImageBlockEdit} from './components/Image/ImageBlockEdit';
 
 export const addBlockFilters = () => {
   addFileBlockFilter();
@@ -10,12 +10,11 @@ export const addBlockFilters = () => {
 
 const addFileBlockFilter = () => {
   const setDownloadButtonToggleDefualtFalse = (settings, name) => {
-
     if ('core/file' !== name) {
       return settings;
     }
 
-    settings.attributes['showDownloadButton']['default'] = false;
+    settings.attributes.showDownloadButton.default = false;
 
     return settings;
   };
@@ -28,12 +27,11 @@ const addImageBlockFilter = () => addFilter('editor.BlockEdit', 'core/image/edit
 // Enforce "AJAX" toggle setting enabled by default, on Gravity form block.
 const addGravityFormsBlockFilter = () => {
   const setAJAXToggleDefaultTrue = (settings, name) => {
-
     if ('gravityforms/form' !== name) {
       return settings;
     }
 
-    settings.attributes['ajax']['default'] = true;
+    settings.attributes.ajax.default = true;
 
     return settings;
   };

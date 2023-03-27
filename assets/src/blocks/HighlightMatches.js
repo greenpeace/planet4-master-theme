@@ -1,13 +1,13 @@
-import { Fragment } from 'react'; // eslint-disable-line no-unused-vars
+import {Fragment} from '@wordpress/element';
 
 export const HighlightMatches = (cellValue, searchText, className = 'highlighted-text') => {
-  let reg = new RegExp('(' + searchText.trim() + ')', 'gi');
-  let parts = cellValue.split(reg);
+  const reg = new RegExp('(' + searchText.trim() + ')', 'gi');
+  const parts = cellValue.split(reg);
 
   // Skips the first empty value and the intermediate parts
   for (let i = 1; i < parts.length; i += 2) {
     parts[i] = (
-      <span key={ i } className={ className }>
+      <span key={i} className={className}>
         { parts[i] }
       </span>
     );

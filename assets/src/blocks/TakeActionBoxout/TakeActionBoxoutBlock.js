@@ -1,8 +1,8 @@
-import { TakeActionBoxoutEditor } from './TakeActionBoxoutEditor.js';
-import { takeActionBoxoutV1 } from './deprecated/takeActionBoxoutV1';
+import {TakeActionBoxoutEditor} from './TakeActionBoxoutEditor.js';
+import {takeActionBoxoutV1} from './deprecated/takeActionBoxoutV1';
 
-const { registerBlockType } = wp.blocks;
-const { __ } = wp.i18n;
+const {registerBlockType} = wp.blocks;
+const {__} = wp.i18n;
 
 const BLOCK_NAME = 'planet4-blocks/take-action-boxout';
 
@@ -32,23 +32,23 @@ export const registerTakeActionBoxoutBlock = () => registerBlockType(BLOCK_NAME,
     },
     newTab: {
       type: 'boolean',
-      default: false
+      default: false,
     },
     tag_ids: {
       type: 'array',
-      default: []
+      default: [],
     },
     imageId: {
       type: 'number',
-      default: ''
+      default: '',
     },
     imageUrl: {
       type: 'string',
-      default: ''
+      default: '',
     },
     imageAlt: {
       type: 'string',
-      default: ''
+      default: '',
     },
     stickyOnMobile: {
       type: 'boolean',

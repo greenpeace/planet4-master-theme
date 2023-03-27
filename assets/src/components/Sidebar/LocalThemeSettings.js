@@ -1,10 +1,11 @@
-import { SelectControl } from '@wordpress/components';
-import { useState, useEffect } from 'react';
-import { p4ServerThemes } from '../../theme/p4ServerThemes';
-import { __ } from '@wordpress/i18n';
-import { useDispatch } from '@wordpress/data';
+import {SelectControl} from '@wordpress/components';
+import {useState, useEffect} from '@wordpress/element';
+import {p4ServerThemes} from '../../theme/p4ServerThemes';
+import {useDispatch} from '@wordpress/data';
 
-const keysAsLabel = obj => Object.keys(obj).map(k => ({ label: k, value: k }));
+const {__} = wp.i18n;
+
+const keysAsLabel = obj => Object.keys(obj).map(k => ({label: k, value: k}));
 
 const refactoredThemes = ['climate-new', 'forest-new', 'oceans-new', 'plastic-new'];
 
@@ -27,17 +28,17 @@ const useServerThemes = () => {
 const getAllDefinedProps = () => Object.values(document.documentElement.style).filter(k => {
   return 'string' === typeof k && k.match(/^--/);
 });
-const baseUrl = window.location.href.split( '/wp-admin' )[ 0 ];
-export const themeJsonUrl = `${ baseUrl }/wp-content/themes/planet4-master-theme/themes/`;
+const baseUrl = window.location.href.split('/wp-admin')[0];
+export const themeJsonUrl = `${baseUrl}/wp-content/themes/planet4-master-theme/themes/`;
 
 const collectTheme = async (a, t) => {
-  const response = await fetch(`${ themeJsonUrl + t.replace('-new', '') }.json`);
+  const response = await fetch(`${themeJsonUrl + t.replace('-new', '')}.json`);
 
   return {
     ...await a,
     [t]: await response.json(),
   };
-}
+};
 
 const useJsonThemes = () => {
   const [jsonThemes, setJsonThemes] = useState({});
@@ -49,7 +50,7 @@ const useJsonThemes = () => {
   }, []);
 
   return jsonThemes;
-}
+};
 
 export const applyChangesToDom = (theme, initialVars) => {
   if (!theme) {
@@ -73,7 +74,7 @@ export const applyChangesToDom = (theme, initialVars) => {
 const useAppliedCssVariables = (serverThemes, currentTheme) => {
   const [initialVars] = useState(() => getAllDefinedProps(), []);
   const jsonThemes = useJsonThemes();
-  const allThemes = { ...serverThemes, ...jsonThemes };
+  const allThemes = {...serverThemes, ...jsonThemes};
 
   useEffect(() => {
     applyChangesToDom(allThemes[currentTheme] || {}, initialVars);
@@ -81,12 +82,12 @@ const useAppliedCssVariables = (serverThemes, currentTheme) => {
 };
 
 const excludeNewVersions = (themes, [name, theme]) => {
-  return refactoredThemes.includes(name) ? themes : ({ ...themes, [name]: theme });
+  return refactoredThemes.includes(name) ? themes : ({...themes, [name]: theme});
 };
 
 const withoutNewVersionsOfThemes = themes => Object.entries(themes).reduce(excludeNewVersions, {});
 
-export const LocalThemeSettings = ({ onChange, currentTheme }) => {
+export const LocalThemeSettings = ({onChange, currentTheme}) => {
   const [selectedTheme, setSelectedTheme] = useState(currentTheme);
   const {editPost} = useDispatch('core/editor');
   const allServerThemes = useServerThemes();
@@ -94,7 +95,7 @@ export const LocalThemeSettings = ({ onChange, currentTheme }) => {
 
   const emitOnChange = () => {
     if (selectedTheme !== null) {
-      const meta = { theme: selectedTheme };
+      const meta = {theme: selectedTheme};
       onChange(selectedTheme);
       editPost({meta});
     }
@@ -112,11 +113,11 @@ export const LocalThemeSettings = ({ onChange, currentTheme }) => {
       { __('Choose from one of the themes created on this site (BETA).', 'planet4-blocks-backend') }
     </span>
     <SelectControl
-      label={ __('Local theme', 'planet4-blocks-backend') }
-      title={ __('Choose from one of the themes created on this site (BETA).', 'planet4-blocks-backend') }
-      options={ [{ label: 'None', value: '' }, ...keysAsLabel(serverThemes)] }
-      onChange={ setSelectedTheme }
-      value={ selectedTheme || '' }
+      label={__('Local theme', 'planet4-blocks-backend')}
+      title={__('Choose from one of the themes created on this site (BETA).', 'planet4-blocks-backend')}
+      options={[{label: 'None', value: ''}, ...keysAsLabel(serverThemes)]}
+      onChange={setSelectedTheme}
+      value={selectedTheme || ''}
     />
   </div>;
 };

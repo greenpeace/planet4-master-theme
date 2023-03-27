@@ -3,30 +3,30 @@ import {
   PanelBody,
   RadioControl,
   TextControl,
-  Tooltip
+  Tooltip,
 } from '@wordpress/components';
-import { useEffect } from '@wordpress/element';
+import {useEffect} from '@wordpress/element';
 
-import { InspectorControls } from '@wordpress/block-editor';
+import {InspectorControls} from '@wordpress/block-editor';
 import TagSelector from '../../components/TagSelector/TagSelector';
-import { PostSelector } from '../../components/PostSelector/PostSelector';
+import {PostSelector} from '../../components/PostSelector/PostSelector';
 import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector';
-import { Covers } from './Covers';
-import { COVERS_TYPES, COVERS_LAYOUTS, CAROUSEL_LAYOUT_COVERS_LIMIT } from './CoversConstants';
-import { useCovers } from './useCovers';
-import { getStyleFromClassName } from '../getStyleFromClassName';
-import { CoversCarouselLayout } from './CoversCarouselLayout';
+import {Covers} from './Covers';
+import {COVERS_TYPES, COVERS_LAYOUTS, CAROUSEL_LAYOUT_COVERS_LIMIT} from './CoversConstants';
+import {useCovers} from './useCovers';
+import {getStyleFromClassName} from '../getStyleFromClassName';
+import {CoversCarouselLayout} from './CoversCarouselLayout';
 
-const { RichText } = wp.blockEditor;
-const { __ } = wp.i18n;
+const {RichText} = wp.blockEditor;
+const {__} = wp.i18n;
 
 const renderEdit = (attributes, toAttribute, setAttributes) => {
-  const { initialRowsLimit, posts, tags, cover_type, post_types, layout, readMoreText } = attributes;
+  const {initialRowsLimit, posts, tags, cover_type, post_types, layout, readMoreText} = attributes;
 
   const rowLimitOptions = [
-    { label: __('1 Row', 'planet4-blocks-backend'), value: 1 },
-    { label: __('2 Rows', 'planet4-blocks-backend'), value: 2 },
-    { label: __('All rows', 'planet4-blocks-backend'), value: 0 },
+    {label: __('1 Row', 'planet4-blocks-backend'), value: 1},
+    {label: __('2 Rows', 'planet4-blocks-backend'), value: 2},
+    {label: __('All rows', 'planet4-blocks-backend'), value: 0},
   ];
 
   return (
@@ -34,8 +34,8 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
       <PanelBody title={__('Layout', 'planet4-blocks-backend')}>
         <RadioControl
           options={[
-            { label: __('Carousel', 'planet4-blocks-backend'), value: COVERS_LAYOUTS.carousel },
-            { label: __('Grid', 'planet4-blocks-backend'), value: COVERS_LAYOUTS.grid },
+            {label: __('Carousel', 'planet4-blocks-backend'), value: COVERS_LAYOUTS.carousel},
+            {label: __('Grid', 'planet4-blocks-backend'), value: COVERS_LAYOUTS.grid},
           ]}
           selected={layout}
           onChange={value => {
@@ -49,7 +49,7 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
       <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
         {layout !== COVERS_LAYOUTS.carousel &&
           <SelectControl
-            label='Rows to display'
+            label="Rows to display"
             value={initialRowsLimit}
             options={rowLimitOptions}
             onChange={value => toAttribute('initialRowsLimit')(Number(value))}
@@ -63,10 +63,9 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
               onChange={toAttribute('tags')}
               maxLength={layout === COVERS_LAYOUTS.carousel && cover_type === COVERS_TYPES.campaign ?
                 CAROUSEL_LAYOUT_COVERS_LIMIT :
-                null
-              }
+                null}
             />
-            <p className='FieldHelp'>
+            <p className="FieldHelp">
               {__('Associate this block with Actions that have specific Tags', 'planet4-blocks-backend')}
             </p>
           </div>
@@ -81,8 +80,9 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
 
         {cover_type !== COVERS_TYPES.campaign && !tags.length && !post_types.length &&
           <div>
-            <label>{__('Manual override', 'planet4-blocks-backend')}</label>
+            <label htmlFor="post-selector__control">{__('Manual override', 'planet4-blocks-backend')}</label>
             <PostSelector
+              id="post-selector__control"
               label={__('Select pages', 'planet4-blocks-backend')}
               selected={posts || []}
               onChange={toAttribute('posts')}
@@ -118,7 +118,7 @@ const renderView = (attributes, toAttribute) => {
     exampleCovers,
     readMoreText,
   } = attributes;
-  const { covers, loading, row, amountOfCoversPerRow, isSmallWindow } = useCovers(attributes);
+  const {covers, loading, row, amountOfCoversPerRow, isSmallWindow} = useCovers(attributes);
 
   const isCarouselLayout = layout === COVERS_LAYOUTS.carousel;
 
@@ -143,19 +143,19 @@ const renderView = (attributes, toAttribute) => {
         <>
           <header>
             <RichText
-              tagName='h2'
-              className='page-section-header'
+              tagName="h2"
+              className="page-section-header"
               placeholder={__('Enter title', 'planet4-blocks-backend')}
               value={title}
               onChange={toAttribute('title')}
               withoutInteractiveFormatting
-              multiline='false'
+              multiline="false"
               allowedFormats={[]}
             />
           </header>
           <RichText
-            tagName='p'
-            className='page-section-description'
+            tagName="p"
+            className="page-section-description"
             placeholder={__('Enter description', 'planet4-blocks-backend')}
             value={description}
             onChange={toAttribute('description')}
@@ -165,7 +165,7 @@ const renderView = (attributes, toAttribute) => {
         </>
       }
       {!loading && !covers.length && !isExample ?
-        <div className='EmptyMessage'>
+        <div className="EmptyMessage">
           {__('Block content is empty. Check the block\'s settings or remove it.', 'planet4-blocks-backend')}
         </div> :
         <>
@@ -183,8 +183,8 @@ const renderView = (attributes, toAttribute) => {
                   allowedFormats={[]}
                 />
               </button>
-              </Tooltip>
-            )
+            </Tooltip>
+          )
           }
         </>
       }
@@ -192,8 +192,8 @@ const renderView = (attributes, toAttribute) => {
   );
 };
 
-export const CoversEditor = ({ attributes, setAttributes, isSelected }) => {
-  const { className } = attributes;
+export const CoversEditor = ({attributes, setAttributes, isSelected}) => {
+  const {className} = attributes;
 
   useEffect(() => {
     const styleClass = getStyleFromClassName(className);
@@ -204,7 +204,7 @@ export const CoversEditor = ({ attributes, setAttributes, isSelected }) => {
     }
   }, [className]);
 
-  const toAttribute = attributeName => value => setAttributes({ [attributeName]: value });
+  const toAttribute = attributeName => value => setAttributes({[attributeName]: value});
 
   return (
     <>

@@ -1,12 +1,12 @@
-import { useState, useEffect } from '@wordpress/element';
-import { fetchJson } from '../../functions/fetchJson';
-import { addQueryArgs } from '../../functions/addQueryArgs';
-import { getAbortController } from '../../functions/getAbortController';
+import {useState, useEffect} from '@wordpress/element';
+import {fetchJson} from '../../functions/fetchJson';
+import {addQueryArgs} from '../../functions/addQueryArgs';
+import {getAbortController} from '../../functions/getAbortController';
 
-const { apiFetch } = wp;
+const {apiFetch} = wp;
 
 export const useArticlesFetch = (attributes, postType, postId, baseUrl = null, postCategories = []) => {
-  const { article_count, post_types, posts, tags, ignore_categories } = attributes;
+  const {article_count, post_types, posts, tags, ignore_categories} = attributes;
 
   const [totalPosts, setTotalPosts] = useState(null);
   const [displayedPosts, setDisplayedPosts] = useState([]);
@@ -39,9 +39,9 @@ export const useArticlesFetch = (attributes, postType, postId, baseUrl = null, p
     const path = addQueryArgs('planet4/v1/get-posts', args);
 
     try {
-      const response = baseUrl
-        ? await fetchJson(`${ baseUrl }/wp-json/${ path }`)
-        : await apiFetch({ path });
+      const response = baseUrl ?
+        await fetchJson(`${baseUrl}/wp-json/${path}`) :
+        await apiFetch({path});
 
       const newPosts = [...prevPosts, ...response.recent_posts];
 
@@ -50,9 +50,7 @@ export const useArticlesFetch = (attributes, postType, postId, baseUrl = null, p
       if (response.total_posts !== undefined && response.total_posts !== totalPosts) {
         setTotalPosts(response.total_posts);
       }
-
     } catch (e) {
-      console.log(e);
       setError(e.message);
     } finally {
       setLoading(false);
@@ -62,21 +60,21 @@ export const useArticlesFetch = (attributes, postType, postId, baseUrl = null, p
   useEffect(() => {
     setDisplayedPosts([]);
     setController(getAbortController());
-  }, [ article_count, post_types, posts, tags, ignore_categories ]);
+  }, [article_count, post_types, posts, tags, ignore_categories]);
 
   useEffect(() => {
-    if(controller) {
+    if (controller) {
       loadPage(true);
     }
 
     return () => {
-      if(controller) {
+      if (controller) {
         setLoading(false);
         controller.abort();
         setController(null);
       }
-    }
-  }, [ controller ]);
+    };
+  }, [controller]);
 
   return {
     posts: displayedPosts,

@@ -17,21 +17,21 @@ export const takeActionBoxoutV1 = {
     },
     custom_link_new_tab: {
       type: 'boolean',
-      default: false
+      default: false,
     },
     tag_ids: {
       type: 'array',
-      default: []
+      default: [],
     },
     background_image: {
       type: 'number',
-      default: ''
+      default: '',
     },
   },
-  isEligible({ custom_excerpt, custom_link, custom_link_text, custom_link_new_tab, custom_title, background_image }) {
+  isEligible({custom_excerpt, custom_link, custom_link_text, custom_link_new_tab, custom_title, background_image}) {
     return custom_link || custom_excerpt || custom_link_new_tab || custom_link_text || custom_title || background_image;
   },
-  migrate({ custom_excerpt, custom_link, custom_link_text, custom_link_new_tab, custom_title, background_image, ...attributes }) {
+  migrate({custom_excerpt, custom_link, custom_link_text, custom_link_new_tab, custom_title, background_image, ...attributes}) {
     attributes.title = custom_title;
     attributes.link = custom_link;
     attributes.linkText = custom_link_text;
@@ -43,5 +43,5 @@ export const takeActionBoxoutV1 = {
   },
   save() {
     return null;
-  }
+  },
 };

@@ -1,11 +1,11 @@
-import { useDispatch, useSelect } from '@wordpress/data';
+import {useDispatch, useSelect} from '@wordpress/data';
 
 export const getSidebarFunctions = () => {
-  const meta = useSelect(select => select('core/editor').getEditedPostAttribute('meta'),[]);
+  const meta = useSelect(select => select('core/editor').getEditedPostAttribute('meta'), []);
 
-  const { editPost } = useDispatch('core/editor');
+  const {editPost} = useDispatch('core/editor');
 
-  const updateValueAndDependencies = fieldId => value => editPost({ meta: {[fieldId]: value} });
+  const updateValueAndDependencies = fieldId => value => editPost({meta: {[fieldId]: value}});
 
   const getParams = name => ({
     value: meta[name] || '',
@@ -20,7 +20,7 @@ export const getSidebarFunctions = () => {
     setValue: (id, url) => {
       updateValueAndDependencies(idField)(id);
       updateValueAndDependencies(urlField)(url);
-    }
+    },
   });
 
   return {

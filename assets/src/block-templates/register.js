@@ -2,11 +2,11 @@ import edit from './edit';
 import save from './save';
 import templateList from './template-list';
 
-const { registerBlockType } = wp.blocks;
-const { getCurrentPostType } = wp.data.select('core/editor');
+const {registerBlockType} = wp.blocks;
+const {getCurrentPostType} = wp.data.select('core/editor');
 
-const setSupport = ( metadata ) => {
-  if ( ! metadata.supports ) {
+const setSupport = metadata => {
+  if (!metadata.supports) {
     metadata.supports = {};
   }
 
@@ -18,22 +18,23 @@ const setSupport = ( metadata ) => {
   return metadata;
 };
 
-export const registerBlockTemplates = ( blockTemplates ) => {
+export const registerBlockTemplates = blockTemplates => {
   const templates = blockTemplates || templateList;
   const postType = getCurrentPostType();
 
-  templates.map( ( blockTemplate ) => {
-    let { metadata, template, templateLock = false } = blockTemplate;
+  templates.forEach(blockTemplate => {
+    // eslint-disable-next-line prefer-const
+    let {metadata, template, templateLock = false} = blockTemplate;
 
-    if ( metadata.postTypes && ! metadata.postTypes.includes(postType) ) {
+    if (metadata.postTypes && !metadata.postTypes.includes(postType)) {
       return null;
     }
 
-    metadata = setSupport( metadata );
+    metadata = setSupport(metadata);
 
-    registerBlockType( metadata, {
-      edit: edit( template, templateLock ),
+    registerBlockType(metadata, {
+      edit: edit(template, templateLock),
       save,
-    } );
-  } );
+    });
+  });
 };

@@ -1,7 +1,7 @@
-import { CoversImagePlaceholder } from './CoversImagePlaceholder';
-import { IMAGE_SIZES } from './imageSizes';
+import {CoversImagePlaceholder} from './CoversImagePlaceholder';
+import {IMAGE_SIZES} from './imageSizes';
 
-const { __ } = wp.i18n;
+const {__} = wp.i18n;
 
 export const TakeActionCovers = ({
   initialRowsLimit,
@@ -12,7 +12,7 @@ export const TakeActionCovers = ({
   amountOfCoversPerRow,
   isExample,
 }) => (
-  <div className='covers'>
+  <div className="covers">
     {covers.map((cover, index) => {
       const {
         title,
@@ -34,26 +34,29 @@ export const TakeActionCovers = ({
       const buttonLink = inEditor ? null : link;
 
       return (
-        <div key={link} className='cover-card cover'>
+        <div key={link} className="cover-card cover">
+          {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
           <a
-            className='cover-card-overlay'
-            data-ga-category='Take Action Covers'
-            data-ga-action='Card'
-            data-ga-label='n/a'
+            className="cover-card-overlay"
+            data-ga-category="Take Action Covers"
+            data-ga-action="Card"
+            data-ga-label="n/a"
             href={buttonLink}
+            // eslint-disable-next-line @wordpress/i18n-no-variables
             aria-label={__('Take action cover, link to ' + title, 'planet4-blocks')}
           />
           <a
-            data-ga-category='Take Action Covers'
-            data-ga-action='Image'
-            data-ga-label='n/a'
+            data-ga-category="Take Action Covers"
+            data-ga-action="Image"
+            data-ga-label="n/a"
             href={buttonLink}
+            // eslint-disable-next-line @wordpress/i18n-no-variables
             aria-label={__('Take action cover, link to ' + title, 'planet4-blocks')}
           >
             {isExample ?
               <CoversImagePlaceholder height={220} /> :
               <img
-                loading='lazy'
+                loading="lazy"
                 alt={alt_text || undefined}
                 src={image || undefined}
                 srcSet={srcset || undefined}
@@ -61,24 +64,24 @@ export const TakeActionCovers = ({
               />
             }
           </a>
-          <div className='cover-card-content'>
+          <div className="cover-card-content">
             {/* Regardless of how many tags there are, we only show the first one */}
-            {tags && tags.length > 0 && <span className='cover-card-tag'>{tags[0].name}</span>}
+            {tags && tags.length > 0 && <span className="cover-card-tag">{tags[0].name}</span>}
             <a
-              className='cover-card-heading'
-              data-ga-category='Take Action Covers'
-              data-ga-action='Title'
-              data-ga-label='n/a'
+              className="cover-card-heading"
+              data-ga-category="Take Action Covers"
+              data-ga-action="Title"
+              data-ga-label="n/a"
               href={buttonLink}
-              dangerouslySetInnerHTML={{ __html: title }}
+              dangerouslySetInnerHTML={{__html: title}}
             />
-            <p className="cover-card-excerpt" dangerouslySetInnerHTML={{ __html: excerpt }} />
+            <p className="cover-card-excerpt" dangerouslySetInnerHTML={{__html: excerpt}} />
           </div>
           <a
-            className='btn cover-card-btn btn-primary'
-            data-ga-category='Take Action Covers'
-            data-ga-action='Call to Action'
-            data-ga-label='n/a'
+            className="btn cover-card-btn btn-primary"
+            data-ga-category="Take Action Covers"
+            data-ga-action="Call to Action"
+            data-ga-label="n/a"
             href={buttonLink}
           >
             {button_text}

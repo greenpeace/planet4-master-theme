@@ -1,4 +1,4 @@
-export const SvgIcon = (props) => {
+export const SvgIcon = props => {
   const theme_dir = window.p4bk_vars.themeUrl;
   const {
     name,
@@ -7,8 +7,8 @@ export const SvgIcon = (props) => {
   } = props;
 
   return (
-    <svg viewBox="0 0 32 32" className={ class_name }>
-      <use xlinkHref={ `${sprite}#${name}` } />
+    <svg viewBox="0 0 32 32" className={class_name}>
+      <use xlinkHref={`${sprite}#${name}`} />
     </svg>
-  )
-}
+  );
+};

@@ -1,7 +1,6 @@
-import { TextControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import {TextControl} from '@wordpress/components';
 
-export const TextSidebarField = ({ value, setValue, label }) => (
+export const TextSidebarField = ({value, setValue, label}) => (
   <TextControl
     label={label}
     value={value}

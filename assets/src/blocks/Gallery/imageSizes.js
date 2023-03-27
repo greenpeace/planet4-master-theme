@@ -23,4 +23,4 @@ export const IMAGE_SIZES = {
   (min-width: 780px) 218px,
   (min-width: 580px) 249px,
   calc(46.15vw - 9px)`,
-}
+};

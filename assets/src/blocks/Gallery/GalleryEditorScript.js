@@ -1,3 +1,3 @@
-import { registerGalleryBlock } from './GalleryBlock';
+import {registerGalleryBlock} from './GalleryBlock';
 
 registerGalleryBlock();

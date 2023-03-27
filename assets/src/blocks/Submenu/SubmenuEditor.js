@@ -1,52 +1,52 @@
-import { Fragment } from '@wordpress/element';
-import { Button, PanelBody } from '@wordpress/components';
-import { SubmenuLevel } from './SubmenuLevel';
-import { SubmenuItems } from './SubmenuItems';
-import { InspectorControls } from '@wordpress/block-editor';
-import { getSubmenuStyle } from './getSubmenuStyle';
-import { makeHierarchical } from './makeHierarchical';
-import { getHeadingsFromBlocks} from './getHeadingsFromBlocks';
-import { useSelect } from '@wordpress/data';
-import { deepClone } from '../../functions/deepClone';
+import {Fragment} from '@wordpress/element';
+import {Button, PanelBody} from '@wordpress/components';
+import {SubmenuLevel} from './SubmenuLevel';
+import {SubmenuItems} from './SubmenuItems';
+import {InspectorControls} from '@wordpress/block-editor';
+import {getSubmenuStyle} from './getSubmenuStyle';
+import {makeHierarchical} from './makeHierarchical';
+import {getHeadingsFromBlocks} from './getHeadingsFromBlocks';
+import {useSelect} from '@wordpress/data';
+import {deepClone} from '../../functions/deepClone';
 
-const { __ } = wp.i18n;
-const { RichText } = wp.blockEditor;
+const {__} = wp.i18n;
+const {RichText} = wp.blockEditor;
 
 const renderEdit = (attributes, setAttributes) => {
   function addLevel() {
     const [previousLastLevel] = attributes.levels.slice(-1);
     const newLevel = previousLastLevel.heading + 1;
-    setAttributes({ levels: attributes.levels.concat({ heading: newLevel, link: false, style: 'none' }) });
+    setAttributes({levels: attributes.levels.concat({heading: newLevel, link: false, style: 'none'})});
   }
 
   function onHeadingChange(index, value) {
     const levels = deepClone(attributes.levels);
     levels[index].heading = Number(value);
-    setAttributes({ levels });
+    setAttributes({levels});
   }
 
   function onLinkChange(index, value) {
     const levels = deepClone(attributes.levels);
     levels[index].link = value;
-    setAttributes({ levels });
+    setAttributes({levels});
   }
 
   function onStyleChange(index, value) {
     const levels = deepClone(attributes.levels);
     levels[index].style = value; // Possible values: "none", "bullet", "number"
-    setAttributes({ levels });
+    setAttributes({levels});
   }
 
   function removeLevel() {
-    setAttributes({ levels: attributes.levels.slice(0, -1) });
+    setAttributes({levels: attributes.levels.slice(0, -1)});
   }
 
-  function getMinLevel(attributes, index) {
+  function getMinLevel(attr, index) {
     if (index === 0) {
       return null;
     }
 
-    return attributes.levels[index-1].heading;
+    return attr.levels[index - 1].heading;
   }
 
   return (
@@ -67,7 +67,7 @@ const renderEdit = (attributes, setAttributes) => {
           isPrimary
           onClick={addLevel}
           disabled={attributes.levels.length >= 3 || attributes.levels.slice(-1)[0].heading === 0}
-          style={{ marginRight: 5 }}
+          style={{marginRight: 5}}
         >
           {__('Add level', 'planet4-blocks-backend')}
         </Button>
@@ -81,7 +81,7 @@ const renderEdit = (attributes, setAttributes) => {
       </PanelBody>
     </InspectorControls>
   );
-}
+};
 
 const renderView = (attributes, setAttributes, className) => {
   const {
@@ -106,22 +106,22 @@ const renderView = (attributes, setAttributes, className) => {
         tagName="h2"
         placeholder={__('Enter title', 'planet4-blocks-backend')}
         value={title}
-        onChange={title => setAttributes({ title })}
+        onChange={titl => setAttributes({title: titl})}
         withoutInteractiveFormatting
         multiline="false"
         allowedFormats={[]}
       />
       {menuItems.length > 0 ?
         <SubmenuItems menuItems={menuItems} /> :
-        <div className='EmptyMessage'>
+        <div className="EmptyMessage">
           {__('The submenu block produces no output on the editor.', 'planet4-blocks-backend')}
         </div>
       }
     </section>
   );
-}
+};
 
-export const SubmenuEditor = ({ attributes, setAttributes, isSelected, className }) => (
+export const SubmenuEditor = ({attributes, setAttributes, isSelected, className}) => (
   <Fragment>
     {isSelected && renderEdit(attributes, setAttributes)}
     {renderView(attributes, setAttributes, className)}

@@ -1,8 +1,8 @@
-import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { ImagePlaceholder } from './ImagePlaceholder';
-import { Button, Dropdown } from '@wordpress/components';
-import { toSrcSet } from './CarouselHeaderEditor';
-const { __ } = wp.i18n;
+import {MediaUpload, MediaUploadCheck} from '@wordpress/block-editor';
+import {ImagePlaceholder} from './ImagePlaceholder';
+import {Button, Dropdown} from '@wordpress/components';
+import {toSrcSet} from './CarouselHeaderEditor';
+const {__} = wp.i18n;
 
 export const EditableBackground = ({
   image_url,
@@ -19,39 +19,39 @@ export const EditableBackground = ({
   <MediaUploadCheck>
     <MediaUpload
       onSelect={image => {
-        const { id, alt_text, url, sizes } = image;
+        const {id, alt_text, url, sizes} = image;
         changeSlideImage(index, id, url, alt_text, toSrcSet(Object.values(sizes)));
       }}
-      allowedTypes={['image/jpg','image/jpeg']}
+      allowedTypes={['image/jpg', 'image/jpeg']}
       value={image_id}
-      title={"Select or Upload Photo (only jpg/jpeg)"}
+      title={'Select or Upload Photo (only jpg/jpeg)'}
       render={mediaUploadInstance => (
         <>
-          <div className='background-holder'>
+          <div className="background-holder">
             {!image_url ?
               <ImagePlaceholder /> :
               <img
                 alt={image_alt}
                 src={image_url}
                 srcSet={image_srcset}
-                style={{ objectPosition: `${focalPoints?.x * 100}% ${focalPoints?.y * 100}%` }}
+                style={{objectPosition: `${focalPoints?.x * 100}% ${focalPoints?.y * 100}%`}}
               />
             }
           </div>
           <Dropdown
-            position='bottom left'
-            className='carousel-header-editor-controls'
-            renderToggle={({ onToggle }) => (
+            position="bottom left"
+            className="carousel-header-editor-controls"
+            renderToggle={({onToggle}) => (
               <Button
                 isPrimary
-                icon='edit'
+                icon="edit"
                 onClick={onToggle}
               >
                 {__('Edit', 'planet4-blocks-backend')}
               </Button>
             )}
-            renderContent={({ onToggle }) => (
-              <div className='carousel-header-editor-controls-menu'>
+            renderContent={({onToggle}) => (
+              <div className="carousel-header-editor-controls-menu">
                 <Button
                   icon={image_url ? 'edit' : 'plus-alt2'}
                   onClick={() => {
@@ -66,7 +66,7 @@ export const EditableBackground = ({
                 </Button>
                 {image_url && (
                   <Button
-                    icon='trash'
+                    icon="trash"
                     onClick={() => {
                       changeSlideImage(index, null, '', '');
                       onToggle();
@@ -77,7 +77,7 @@ export const EditableBackground = ({
                 )}
                 {slides.length < 4 && (
                   <Button
-                    icon='plus-alt2'
+                    icon="plus-alt2"
                     onClick={() => {
                       addSlide();
                       onToggle();
@@ -88,7 +88,7 @@ export const EditableBackground = ({
                 )}
                 {slides.length > 1 &&
                   <Button
-                    icon='trash'
+                    icon="trash"
                     onClick={() => {
                       removeSlide();
                       onToggle();

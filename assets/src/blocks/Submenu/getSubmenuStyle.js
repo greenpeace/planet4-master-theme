@@ -1,10 +1,10 @@
-import { getStyleFromClassName } from '../getStyleFromClassName';
+import {getStyleFromClassName} from '../getStyleFromClassName';
 
 // Map for old attribute 'submenu_style'
 const SUBMENU_STYLES = {
   1: 'long',
   2: 'short',
-  3: 'sidebar'
+  3: 'sidebar',
 };
 
 export const getSubmenuStyle = (className, submenu_style) => {

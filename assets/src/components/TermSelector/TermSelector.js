@@ -4,395 +4,396 @@
 /**
  * External dependencies
  */
- import { find, get, unescape as unescapeString } from 'lodash';
+import {find, get, unescape as unescapeString} from 'lodash';
 
- /**
-  * WordPress dependencies
-  */
- import { __, _n, _x, sprintf } from '@wordpress/i18n';
- import { useMemo, useState } from '@wordpress/element';
- import {
-   Button,
-   CheckboxControl,
-   TextControl,
-   withFilters,
- } from '@wordpress/components';
- import { useDispatch, useSelect } from '@wordpress/data';
- import { useDebounce } from '@wordpress/compose';
- import { store as coreStore } from '@wordpress/core-data';
- import { speak } from '@wordpress/a11y';
+/**
+ * WordPress dependencies
+ */
+import {useMemo, useState} from '@wordpress/element';
+import {
+  Button,
+  CheckboxControl,
+  TextControl,
+  withFilters,
+} from '@wordpress/components';
+import {useDispatch, useSelect} from '@wordpress/data';
+import {useDebounce} from '@wordpress/compose';
+import {store as coreStore} from '@wordpress/core-data';
 
- /**
-  * Module Constants
-  */
- const DEFAULT_QUERY = {
-   per_page: -1,
-   orderby: 'name',
-   order: 'asc',
-   _fields: 'id,name',
-   context: 'view',
- };
+const {__, _n, _x, sprintf} = wp.i18n;
+const {speak} = wp.a11y;
 
- const MIN_TERMS_COUNT_FOR_FILTER = 8;
+/**
+ * Module Constants
+ */
+const DEFAULT_QUERY = {
+  per_page: -1,
+  orderby: 'name',
+  order: 'asc',
+  _fields: 'id,name',
+  context: 'view',
+};
 
- const EMPTY_ARRAY = [];
+const MIN_TERMS_COUNT_FOR_FILTER = 8;
 
- /**
-  * Sort Terms by Selected.
-  *
-  * @param {Object[]} termsTree Array of terms in tree format.
-  * @param {number[]} terms     Selected terms.
-  *
-  * @return {Object[]} Sorted array of terms.
-  */
- export function sortBySelected( termsTree, terms ) {
-   const treeHasSelection = ( termTree ) => {
-     return terms.indexOf( termTree.id ) !== -1;
-   };
+const EMPTY_ARRAY = [];
 
-   const termIsSelected = ( termA, termB ) => {
-     const termASelected = treeHasSelection( termA );
-     const termBSelected = treeHasSelection( termB );
+/**
+ * Sort Terms by Selected.
+ *
+ * @param {Object[]} termsTree Array of terms in tree format.
+ * @param {number[]} terms     Selected terms.
+ *
+ * @return {Object[]} Sorted array of terms.
+ */
+export function sortBySelected(termsTree, terms) {
+  const treeHasSelection = termTree => {
+    return terms.indexOf(termTree.id) !== -1;
+  };
 
-     if ( termASelected === termBSelected ) {
-       return 0;
-     }
+  const termIsSelected = (termA, termB) => {
+    const termASelected = treeHasSelection(termA);
+    const termBSelected = treeHasSelection(termB);
 
-     if ( termASelected && ! termBSelected ) {
-       return -1;
-     }
+    if (termASelected === termBSelected) {
+      return 0;
+    }
 
-     if ( ! termASelected && termBSelected ) {
-       return 1;
-     }
+    if (termASelected && !termBSelected) {
+      return -1;
+    }
 
-     return 0;
-   };
-   const newTermTree = [ ...termsTree ];
-   newTermTree.sort( termIsSelected );
-   return newTermTree;
- }
+    if (!termASelected && termBSelected) {
+      return 1;
+    }
 
- /**
-  * Find term by name.
-  *
-  * @param {Object[]} terms  Array of Terms.
-  * @param {string}   name   Term name.
-  *
-  * @return {Object} Term object.
-  */
- export function findTerm( terms, name ) {
-   return find( terms, ( term ) => term.name.toLowerCase() === name.toLowerCase() );
- }
+    return 0;
+  };
+  const newTermTree = [...termsTree];
+  newTermTree.sort(termIsSelected);
+  return newTermTree;
+}
 
- /**
-  * Get filter matcher function.
-  *
-  * @param {string} filterValue Filter value.
-  * @return {(function(Object): (Object|boolean))} Matcher function.
-  */
- export function getFilterMatcher( filterValue ) {
-   const matchTermsForFilter = ( originalTerm ) => {
-     if ( '' === filterValue ) {
-       return originalTerm;
-     }
+/**
+ * Find term by name.
+ *
+ * @param {Object[]} terms Array of Terms.
+ * @param {string}   name  Term name.
+ *
+ * @return {Object} Term object.
+ */
+export function findTerm(terms, name) {
+  return find(terms, term => term.name.toLowerCase() === name.toLowerCase());
+}
 
-     // If the term's name contains the filterValue then return it.
-     if ( -1 !== originalTerm.name.toLowerCase().indexOf( filterValue.toLowerCase() )) {
+/**
+ * Get filter matcher function.
+ *
+ * @param {string} filterValue Filter value.
+ * @return {(function(Object): (Object|boolean))} Matcher function.
+ */
+export function getFilterMatcher(filterValue) {
+  const matchTermsForFilter = originalTerm => {
+    if ('' === filterValue) {
       return originalTerm;
-     }
+    }
 
-     // Otherwise, return false. After mapping, the list of terms will need
-     // to have false values filtered out.
-     return false;
-   };
-   return matchTermsForFilter;
- }
+    // If the term's name contains the filterValue then return it.
+    if (-1 !== originalTerm.name.toLowerCase().indexOf(filterValue.toLowerCase())) {
+      return originalTerm;
+    }
 
- /**
-  * Term selector.
-  *
-  * @param {Object} props      Component props.
-  * @param {string} props.slug Taxonomy slug.
-  * @return {WPElement}        Term selector component.
-  */
- export function TermSelector( { slug } ) {
-   const [ adding, setAdding ] = useState( false );
-   const [ formName, setFormName ] = useState( '' );
-   /**
-    * @type {[number|'', Function]}
-    */
-   const [ showForm, setShowForm ] = useState( false );
-   const [ filterValue, setFilterValue ] = useState( '' );
-   const [ filteredTermsTree, setFilteredTermsTree ] = useState( [] );
-   const debouncedSpeak = useDebounce( speak, 500 );
+    // Otherwise, return false. After mapping, the list of terms will need
+    // to have false values filtered out.
+    return false;
+  };
+  return matchTermsForFilter;
+}
 
-   const {
-     hasCreateAction,
-     hasAssignAction,
-     terms,
-     loading,
-     availableTerms,
-     taxonomy,
-     isUserAdmin,
-   } = useSelect(
-     ( select ) => {
-       const { getCurrentPost, getEditedPostAttribute } = select( 'core/editor' );
-       const { getTaxonomy, getEntityRecords, isResolving, canUser } = select( coreStore );
-       const _taxonomy = getTaxonomy( slug );
+/**
+ * Term selector.
+ *
+ * @param {Object} props      Component props.
+ * @param {string} props.slug Taxonomy slug.
+ * @return {WPElement}        Term selector component.
+ */
+export function TermSelector({slug}) {
+  const [adding, setAdding] = useState(false);
+  const [formName, setFormName] = useState('');
+  /**
+   * @type {*}
+   */
+  const [showForm, setShowForm] = useState(false);
+  const [filterValue, setFilterValue] = useState('');
+  const [filteredTermsTree, setFilteredTermsTree] = useState([]);
+  const debouncedSpeak = useDebounce(speak, 500);
 
-       return {
-        isUserAdmin: canUser( 'create', 'users' ) ?? false,
-         hasCreateAction: _taxonomy
-           ? get(
-               getCurrentPost(),
-               [
-                 '_links',
-                 'wp:action-create-' + _taxonomy.rest_base,
-               ],
-               false
-             )
-           : false,
-         hasAssignAction: _taxonomy
-           ? get(
-               getCurrentPost(),
-               [
-                 '_links',
-                 'wp:action-assign-' + _taxonomy.rest_base,
-               ],
-               false
-             )
-           : false,
-         terms: _taxonomy
-           ? getEditedPostAttribute( _taxonomy.rest_base )
-           : EMPTY_ARRAY,
-         loading: isResolving( 'getEntityRecords', [
-           'taxonomy',
-           slug,
-           DEFAULT_QUERY,
-         ] ),
-         availableTerms:
-           getEntityRecords( 'taxonomy', slug, DEFAULT_QUERY ) ||
+  const {
+    hasCreateAction,
+    hasAssignAction,
+    terms,
+    loading,
+    availableTerms,
+    taxonomy,
+    isUserAdmin,
+  } = useSelect(
+    select => {
+      const {getCurrentPost, getEditedPostAttribute} = select('core/editor');
+      const {getTaxonomy, getEntityRecords, isResolving, canUser} = select(coreStore);
+      const _taxonomy = getTaxonomy(slug);
+
+      return {
+        isUserAdmin: canUser('create', 'users') ?? false,
+        hasCreateAction: _taxonomy ?
+          get(
+            getCurrentPost(),
+            [
+              '_links',
+              'wp:action-create-' + _taxonomy.rest_base,
+            ],
+            false
+          ) :
+          false,
+        hasAssignAction: _taxonomy ?
+          get(
+            getCurrentPost(),
+            [
+              '_links',
+              'wp:action-assign-' + _taxonomy.rest_base,
+            ],
+            false
+          ) :
+          false,
+        terms: _taxonomy ?
+          getEditedPostAttribute(_taxonomy.rest_base) :
+          EMPTY_ARRAY,
+        loading: isResolving('getEntityRecords', [
+          'taxonomy',
+          slug,
+          DEFAULT_QUERY,
+        ]),
+        availableTerms:
+           getEntityRecords('taxonomy', slug, DEFAULT_QUERY) ||
            EMPTY_ARRAY,
-         taxonomy: _taxonomy,
-       };
-     },
-     [ slug ]
-   );
+        taxonomy: _taxonomy,
+      };
+    },
+    [slug]
+  );
 
-   const { saveEntityRecord } = useDispatch( coreStore );
-   const { editPost } = useDispatch('core/editor');
+  const {saveEntityRecord} = useDispatch(coreStore);
+  const {editPost} = useDispatch('core/editor');
 
-   const availableTermsTree = useMemo(
-     () => sortBySelected( availableTerms, terms ),
-     // Remove `terms` from the dependency list to avoid reordering every time
-     // checking or unchecking a term.
-     [ availableTerms ]
-   );
+  const availableTermsTree = useMemo(
+    () => sortBySelected(availableTerms, terms),
+    // Remove `terms` from the dependency list to avoid reordering every time
+    // checking or unchecking a term.
+    [availableTerms]
+  );
 
-   if ( ! hasAssignAction ) {
-     return null;
-   }
+  if (!hasAssignAction) {
+    return null;
+  }
 
-   /**
-    * Append new term.
-    *
-    * @param {Object} term Term object.
-    * @return {Promise} A promise that resolves to save term object.
-    */
-   const addTerm = ( term ) => {
-     return saveEntityRecord( 'taxonomy', slug, term );
-   };
+  /**
+   * Append new term.
+   *
+   * @param {Object} term Term object.
+   * @return {Promise} A promise that resolves to save term object.
+   */
+  const addTerm = term => {
+    return saveEntityRecord('taxonomy', slug, term);
+  };
 
-   /**
-    * Update terms for post.
-    *
-    * @param {number[]} termIds Term ids.
-    */
-   const onUpdateTerms = ( termIds ) => {
-    editPost( { [ taxonomy.rest_base ]: termIds } );
-   };
+  /**
+   * Update terms for post.
+   *
+   * @param {number[]} termIds Term ids.
+   */
+  const onUpdateTerms = termIds => {
+    editPost({[taxonomy.rest_base]: termIds});
+  };
 
-   /**
-    * Handler for checking term.
-    *
-    * @param {number} termId
-    */
-   const onChange = ( termId ) => {
-     const hasTerm = terms.includes( termId );
-     const newTerms = hasTerm
-       ? terms.filter( ( id ) => id !== termId )
-       : [ ...terms, termId ];
-     onUpdateTerms( newTerms );
-   };
+  /**
+   * Handler for checking term.
+   *
+   * @param {number} termId
+   */
+  const onChange = termId => {
+    const hasTerm = terms.includes(termId);
+    const newTerms = hasTerm ?
+      terms.filter(id => id !== termId) :
+      [...terms, termId];
+    onUpdateTerms(newTerms);
+  };
 
-   const onChangeFormName = ( value ) => {
-     setFormName( value );
-   };
+  const onChangeFormName = value => {
+    setFormName(value);
+  };
 
-   const onToggleForm = () => {
-     setShowForm( ! showForm );
-   };
+  const onToggleForm = () => {
+    setShowForm(!showForm);
+  };
 
-   const onAddTerm = async ( event ) => {
-     event.preventDefault();
-     if ( formName === '' || adding ) {
-       return;
-     }
+  const onAddTerm = async event => {
+    event.preventDefault();
+    if (formName === '' || adding) {
+      return;
+    }
 
-     // Check if the term we are adding already exists.
-     const existingTerm = findTerm( availableTerms, formName );
-     if ( existingTerm ) {
-       // If the term we are adding exists but is not selected select it.
-       if ( ! terms.some( ( term ) => term === existingTerm.id ) ) {
-         onUpdateTerms( [ ...terms, existingTerm.id ] );
-       }
+    // Check if the term we are adding already exists.
+    const existingTerm = findTerm(availableTerms, formName);
+    if (existingTerm) {
+      // If the term we are adding exists but is not selected select it.
+      if (!terms.some(term => term === existingTerm.id)) {
+        onUpdateTerms([...terms, existingTerm.id]);
+      }
 
-       setFormName( '' );
+      setFormName('');
 
-       return;
-     }
-     setAdding( true );
+      return;
+    }
+    setAdding(true);
 
-     const newTerm = await addTerm( {
-       name: formName,
-     } );
+    const newTerm = await addTerm({
+      name: formName,
+    });
 
-     const termAddedMessage = sprintf(
-       /* translators: %s: taxonomy name */
-       _x( '%s added', 'term' ),
-       get(
-         taxonomy,
-         [ 'labels', 'singular_name' ],
-         slug === 'post_tag' ? __( 'Tag' ) : __( 'Term' )
-       )
-     );
-     speak( termAddedMessage, 'assertive' );
-     setAdding( false );
-     setFormName( '' );
-     onUpdateTerms( [ ...terms, newTerm.id ] );
-   };
+    const termAddedMessage = sprintf(
+      /* translators: %s: taxonomy name */
+      _x('%s added', 'term'),
+      get(
+        taxonomy,
+        ['labels', 'singular_name'],
+        slug === 'post_tag' ? __('Tag') : __('Term')
+      )
+    );
+    speak(termAddedMessage, 'assertive');
+    setAdding(false);
+    setFormName('');
+    onUpdateTerms([...terms, newTerm.id]);
+  };
 
-   const setFilter = ( value ) => {
-     const newFilteredTermsTree = availableTermsTree
-       .map( getFilterMatcher( value ) )
-       .filter( ( term ) => term );
+  const setFilter = value => {
+    const newFilteredTermsTree = availableTermsTree
+      .map(getFilterMatcher(value))
+      .filter(term => term);
 
-     setFilterValue( value );
-     setFilteredTermsTree( newFilteredTermsTree );
+    setFilterValue(value);
+    setFilteredTermsTree(newFilteredTermsTree);
 
-     const resultCount = newFilteredTermsTree.length;
-     const resultsFoundMessage = sprintf(
-       /* translators: %d: number of results */
-       _n( '%d result found.', '%d results found.', resultCount ),
-       resultCount
-     );
+    const resultCount = newFilteredTermsTree.length;
+    const resultsFoundMessage = sprintf(
+      /* translators: %d: number of results */
+      _n('%d result found.', '%d results found.', resultCount),
+      resultCount
+    );
 
-     debouncedSpeak( resultsFoundMessage, 'assertive' );
-   };
+    debouncedSpeak(resultsFoundMessage, 'assertive');
+  };
 
-   const renderTerms = ( renderedTerms ) => {
-     return renderedTerms.map( ( term ) => {
-       return (
-         <div
-           key={ term.id }
-           className="editor-post-taxonomies__hierarchical-terms-choice"
-         >
-           <CheckboxControl
-             __nextHasNoMarginBottom
-             checked={ terms.indexOf( term.id ) !== -1 }
-             onChange={ () => {
-               const termId = parseInt( term.id, 10 );
-               onChange( termId );
-             } }
-             label={ unescapeString( term.name ) }
-           />
-         </div>
-       );
-     } );
-   };
+  const renderTerms = renderedTerms => {
+    return renderedTerms.map(term => {
+      return (
+        <div
+          key={term.id}
+          className="editor-post-taxonomies__hierarchical-terms-choice"
+        >
+          <CheckboxControl
+            __nextHasNoMarginBottom
+            checked={terms.indexOf(term.id) !== -1}
+            onChange={() => {
+              const termId = parseInt(term.id, 10);
+              onChange(termId);
+            }}
+            label={unescapeString(term.name)}
+          />
+        </div>
+      );
+    });
+  };
 
-   const labelWithFallback = (
-     labelProperty,
-     fallbackIsTag,
-     fallbackIsNotTag
-   ) =>
-     get(
-       taxonomy,
-       [ 'labels', labelProperty ],
-       slug === 'post_tag' ? fallbackIsTag : fallbackIsNotTag
-     );
-   const newTermButtonLabel = labelWithFallback(
-     'add_new_item',
-     __( 'Add new tag' ),
-     __( 'Add new term' )
-   );
-   const newTermLabel = labelWithFallback(
-     'new_item_name',
-     __( 'Add new tag' ),
-     __( 'Add new term' )
-   );
-   const newTermSubmitLabel = newTermButtonLabel;
-   const filterLabel = get(
-     taxonomy,
-     [ 'labels', 'search_items' ],
-     __( 'Search Terms' )
-   );
-   const groupLabel = get( taxonomy, [ 'name' ], __( 'Terms' ) );
-   const showFilter = availableTerms.length >= MIN_TERMS_COUNT_FOR_FILTER;
+  const labelWithFallback = (
+    labelProperty,
+    fallbackIsTag,
+    fallbackIsNotTag
+  ) =>
+    get(
+      taxonomy,
+      ['labels', labelProperty],
+      slug === 'post_tag' ? fallbackIsTag : fallbackIsNotTag
+    );
+  const newTermButtonLabel = labelWithFallback(
+    'add_new_item',
+    __('Add new tag'),
+    __('Add new term')
+  );
+  const newTermLabel = labelWithFallback(
+    'new_item_name',
+    __('Add new tag'),
+    __('Add new term')
+  );
+  const newTermSubmitLabel = newTermButtonLabel;
+  const filterLabel = get(
+    taxonomy,
+    ['labels', 'search_items'],
+    __('Search Terms')
+  );
+  const groupLabel = get(taxonomy, ['name'], __('Terms'));
+  const showFilter = availableTerms.length >= MIN_TERMS_COUNT_FOR_FILTER;
 
-   return (
-     <>
-       { showFilter && (
-         <TextControl
-           className="editor-post-taxonomies__hierarchical-terms-filter"
-           label={ filterLabel }
-           value={ filterValue }
-           onChange={ setFilter }
-         />
-       ) }
-       <div
-         className="editor-post-taxonomies__hierarchical-terms-list"
-         tabIndex="0"
-         role="group"
-         aria-label={ groupLabel }
-       >
-         { renderTerms(
-           '' !== filterValue ? filteredTermsTree : availableTermsTree
-         ) }
-       </div>
-       {/* Only admins should be allowed to create new tags */}
-       { ! loading && hasCreateAction && (isUserAdmin || slug !== 'post_tag') && (
-         <Button
-           onClick={ onToggleForm }
-           className="editor-post-taxonomies__hierarchical-terms-add"
-           aria-expanded={ showForm }
-           variant="link"
-         >
-           { newTermButtonLabel }
-         </Button>
-       ) }
-       {!isUserAdmin && slug === 'post_tag' && <p>{__( 'New tags can only be created by an administrator', 'planet4-blocks-backend' )}</p>}
-       { showForm && (
-         <form onSubmit={ onAddTerm }>
-           <TextControl
-             className="editor-post-taxonomies__hierarchical-terms-input"
-             label={ newTermLabel }
-             value={ formName }
-             onChange={ onChangeFormName }
-             required
-           />
-           <Button
-             variant="secondary"
-             type="submit"
-             className="editor-post-taxonomies__hierarchical-terms-submit"
-           >
-             { newTermSubmitLabel }
-           </Button>
-         </form>
-       ) }
-     </>
-   );
- }
+  return (
+    <>
+      { showFilter && (
+        <TextControl
+          className="editor-post-taxonomies__hierarchical-terms-filter"
+          label={filterLabel}
+          value={filterValue}
+          onChange={setFilter}
+        />
+      ) }
+      <div
+        className="editor-post-taxonomies__hierarchical-terms-list"
+        tabIndex="0"
+        role="group"
+        aria-label={groupLabel}
+      >
+        { renderTerms(
+          '' !== filterValue ? filteredTermsTree : availableTermsTree
+        ) }
+      </div>
+      {/* Only admins should be allowed to create new tags */}
+      { !loading && hasCreateAction && (isUserAdmin || slug !== 'post_tag') && (
+        <Button
+          onClick={onToggleForm}
+          className="editor-post-taxonomies__hierarchical-terms-add"
+          aria-expanded={showForm}
+          variant="link"
+        >
+          { newTermButtonLabel }
+        </Button>
+      ) }
+      {!isUserAdmin && slug === 'post_tag' && <p>{__('New tags can only be created by an administrator', 'planet4-blocks-backend')}</p>}
+      { showForm && (
+        <form onSubmit={onAddTerm}>
+          <TextControl
+            className="editor-post-taxonomies__hierarchical-terms-input"
+            label={newTermLabel}
+            value={formName}
+            onChange={onChangeFormName}
+            required
+          />
+          <Button
+            variant="secondary"
+            type="submit"
+            className="editor-post-taxonomies__hierarchical-terms-submit"
+          >
+            { newTermSubmitLabel }
+          </Button>
+        </form>
+      ) }
+    </>
+  );
+}
 
- export default withFilters( 'editor.PostTaxonomyType' )( TermSelector );
+export default withFilters('editor.PostTaxonomyType')(TermSelector);

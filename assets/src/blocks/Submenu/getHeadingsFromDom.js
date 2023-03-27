@@ -1,8 +1,8 @@
-import { generateAnchor } from './generateAnchor';
+import {generateAnchor} from './generateAnchor';
 
 const getHeadingLevel = heading => Number(heading.tagName.replace('H', ''));
 
-export const getHeadingsFromDom = (selectedLevels) => {
+export const getHeadingsFromDom = selectedLevels => {
   const container = document.querySelector('.page-content');
   if (!container || !selectedLevels) {
     return [];
@@ -13,8 +13,8 @@ export const getHeadingsFromDom = (selectedLevels) => {
 
   const usedAnchors = [];
 
-  return [...container.querySelectorAll(headingsSelector)].map(heading=> {
-    const levelConfig = selectedLevels.find((selected) => selected.heading === getHeadingLevel(heading))
+  return [...container.querySelectorAll(headingsSelector)].map(heading => {
+    const levelConfig = selectedLevels.find(selected => selected.heading === getHeadingLevel(heading));
 
     if (!heading.id) {
       heading.id = generateAnchor(heading.textContent, usedAnchors);
@@ -30,5 +30,5 @@ export const getHeadingsFromDom = (selectedLevels) => {
       anchor: heading.id,
     });
   });
-}
+};
 

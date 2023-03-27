@@ -62,7 +62,7 @@ export const example = {
           excerpt: 'Etiam et turpis et tortor congue interdum quis in leo. Donec vel eros eget mauris aliquam commodo.',
           button_text: 'Take action',
           tags: [{
-            name: 'Tag1'
+            name: 'Tag1',
           }],
         },
         {
@@ -72,7 +72,7 @@ export const example = {
           excerpt: 'Cras suscipit velit nec gravida auctor. Suspendisse et enim a ex feugiat interdum laoreet vel lorem.',
           button_text: 'Take action',
           tags: [{
-            name: 'Tag2'
+            name: 'Tag2',
           }],
         },
         {
@@ -82,10 +82,10 @@ export const example = {
           excerpt: 'In egestas mollis leo. Suspendisse in iaculis mauris. Duis sagittis arcu vel sodales bibendum.',
           button_text: 'Take action',
           tags: [{
-            name: 'Tag3'
+            name: 'Tag3',
           }],
         },
       ],
-    }
+    },
   },
 };

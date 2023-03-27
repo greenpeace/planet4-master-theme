@@ -1,16 +1,14 @@
-export const SubmenuItems = ({ menuItems }) => {
-
-  const renderMenuItems = (items) => {
-    return items.map(({ anchor, text, style, shouldLink, children }) => (
-      <li key={anchor} className={`list-style-${style || 'none'} ${shouldLink ? "list-link" : "list-heading"}`}>
+export const SubmenuItems = ({menuItems}) => {
+  const renderMenuItems = items => {
+    return items.map(({anchor, text, style, shouldLink, children}) => (
+      <li key={anchor} className={`list-style-${style || 'none'} ${shouldLink ? 'list-link' : 'list-heading'}`}>
         {shouldLink ?
           <a
             className="icon-link submenu-link"
             href={`#${anchor}`}
           >
             {text}
-          </a>
-          :
+          </a> :
           <span className="submenu-heading">{text}</span>
         }
         {children && children.length > 0 &&
@@ -20,7 +18,7 @@ export const SubmenuItems = ({ menuItems }) => {
         }
       </li>
     ));
-  }
+  };
 
   return menuItems.length > 0 && (
     <div className="submenu-menu">
@@ -29,4 +27,4 @@ export const SubmenuItems = ({ menuItems }) => {
       </ul>
     </div>
   );
-}
+};

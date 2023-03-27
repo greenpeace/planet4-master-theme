@@ -11,8 +11,10 @@
  * document.body.dataset.nro, which has the language suffix, so will cause the API to use that language.
  *
  * 3) It's yet another blocking script to load.
+ *
+ * @param {string} url
  */
-export const fetchJson = async(url) => {
+export const fetchJson = async url => {
   const response = await fetch(url);
   return response.json();
 };

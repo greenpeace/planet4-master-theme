@@ -1,25 +1,25 @@
-import { ShareButton } from './ShareButton';
+import {ShareButton} from './ShareButton';
 
-const parseUrl = (attrs) => {
+const parseUrl = attrs => {
   switch (attrs.type) {
-    case 'whatsapp':
-      return `https://wa.me?text=${encodeURIComponent(attrs.url)}`
-    case 'facebook':
-      return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(attrs.url)}`
-    case 'twitter':
-      return `https://twitter.com/share
+  case 'whatsapp':
+    return `https://wa.me?text=${encodeURIComponent(attrs.url)}`;
+  case 'facebook':
+    return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(attrs.url)}`;
+  case 'twitter':
+    return `https://twitter.com/share
         ?url=${encodeURIComponent(attrs.url)}
         &text=${encodeURIComponent(attrs.text)}
         ${(attrs.description ? ' - ' + encodeURIComponent(attrs.description) : '')}
-        ${(attrs.account
-            ? ' via @' + encodeURIComponent(attrs.account) + '&related=' + encodeURIComponent(attrs.account)
-            : '')}`
-    case 'email':
-      return `mailto:?subject=${attrs.title}&body=${attrs.body ? encodeURIComponent(attrs.body) : ''}`
+        ${(attrs.account ?
+    ' via @' + encodeURIComponent(attrs.account) + '&related=' + encodeURIComponent(attrs.account) :
+    '')}`;
+  case 'email':
+    return `mailto:?subject=${attrs.title}&body=${attrs.body ? encodeURIComponent(attrs.body) : ''}`;
   }
 };
 
-const parseUtmParams = ({ utmSource, utmMedium, utmContent, utmCampaign }) => (
+const parseUtmParams = ({utmSource, utmMedium, utmContent, utmCampaign}) => (
   [
     utmSource ? `utm_source=${encodeURIComponent(utmSource)}` : null,
     utmMedium ? `utm_medium=${encodeURIComponent(utmMedium)}` : null,
@@ -39,8 +39,8 @@ export const ShareButtonsFrontend = ({
   gaLabel,
   buttons,
 }) => (
-  <nav className='share-buttons'>
-    {buttons.map((button) => button.showInMenu ? <ShareButton key={button.type} {...{
+  <nav className="share-buttons">
+    {buttons.map(button => button.showInMenu ? <ShareButton key={button.type} {...{
       href: `
         ${parseUrl({...button, url})}
         &${parseUtmParams({utmSource: button.type, utmMedium, utmContent, utmCampaign})}`,
@@ -51,6 +51,6 @@ export const ShareButtonsFrontend = ({
       gaAction,
       gaLabel,
       hiddenText: button.hiddenText,
-    }}/> : null)}
+    }} /> : null)}
   </nav>
 );

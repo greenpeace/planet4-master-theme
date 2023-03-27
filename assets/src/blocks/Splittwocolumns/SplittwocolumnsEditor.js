@@ -1,17 +1,17 @@
-import { Fragment } from '@wordpress/element';
-import { BLOCK_NAME, VERSION } from './register';
-import { SplittwocolumnsFrontend } from './SplittwocolumnsFrontend';
-import { SplittwocolumnsSettings } from './SplittwocolumnsSettings';
-import { SplittwocolumnsInPlaceEdit } from './SplittwocolumnsInPlaceEdit';
+import {Fragment} from '@wordpress/element';
+import {BLOCK_NAME, VERSION} from './register';
+import {SplittwocolumnsFrontend} from './SplittwocolumnsFrontend';
+import {SplittwocolumnsSettings} from './SplittwocolumnsSettings';
+import {SplittwocolumnsInPlaceEdit} from './SplittwocolumnsInPlaceEdit';
 
-const { apiFetch } = wp;
-const { useSelect } = wp.data;
+const {apiFetch} = wp;
+const {useSelect} = wp.data;
 
 const useImage = (image_id, url) => {
-  return useSelect(select => !image_id ? { url } : select('core').getMedia(image_id));
+  return useSelect(select => !image_id ? {url} : select('core').getMedia(image_id));
 };
 
-export const SplittwocolumnsEditor = ({ attributes, setAttributes, isSelected }) => {
+export const SplittwocolumnsEditor = ({attributes, setAttributes, isSelected}) => {
   // Todo: Never directly change things in a render, this will cause issues. Render should only render or attach listeners.
   updateDeprecatedData(attributes, setAttributes, BLOCK_NAME, VERSION);
 
@@ -19,7 +19,7 @@ export const SplittwocolumnsEditor = ({ attributes, setAttributes, isSelected })
     issue_image_id,
     issue_image_src,
     tag_image_id,
-    tag_image_src
+    tag_image_src,
   } = attributes;
 
   const issue_image = useImage(issue_image_id, issue_image_src);
@@ -34,24 +34,24 @@ export const SplittwocolumnsEditor = ({ attributes, setAttributes, isSelected })
   });
 
   return (
-    isSelected
-      ? renderEdit({attributes}, setAttributes)
-      : renderView({attributes})
+    isSelected ?
+      renderEdit({attributes}, setAttributes) :
+      renderView({attributes})
   );
-}
+};
 
-const renderView = ({attributes}) => <SplittwocolumnsFrontend {...attributes} />
+const renderView = ({attributes}) => <SplittwocolumnsFrontend {...attributes} />;
 const renderEdit = ({attributes}, setAttributes) => {
-  const charLimit = { title: 40, description: 400 };
+  const charLimit = {title: 40, description: 400};
   const params = {attributes, charLimit, setAttributes};
 
   return (
     <Fragment>
       <SplittwocolumnsInPlaceEdit {...params} />
-      <SplittwocolumnsSettings  {...params} />
+      <SplittwocolumnsSettings {...params} />
     </Fragment>
   );
-}
+};
 
 // Query an updated version of attributes when version is deprecated
 const updateDeprecatedData = (attributes, setAttributes, blockName, version) => {
@@ -62,6 +62,6 @@ const updateDeprecatedData = (attributes, setAttributes, blockName, version) => 
   apiFetch({
     path: 'planet4/v1/update_block/' + blockName,
     method: 'POST',
-    data: attributes
+    data: attributes,
   }).then(data => setAttributes(data));
-}
+};

@@ -1,7 +1,7 @@
-import { CoversImagePlaceholder } from './CoversImagePlaceholder';
-import { IMAGE_SIZES } from './imageSizes';
+import {CoversImagePlaceholder} from './CoversImagePlaceholder';
+import {IMAGE_SIZES} from './imageSizes';
 
-const { __ } = wp.i18n;
+const {__} = wp.i18n;
 
 export const CampaignCovers = ({
   covers,
@@ -12,9 +12,9 @@ export const CampaignCovers = ({
   amountOfCoversPerRow,
   isExample,
 }) => (
-  <div className='covers'>
+  <div className="covers">
     {covers.map((cover, index) => {
-      const { image, alt_text } = cover;
+      const {image, alt_text} = cover;
       const hideCover = !isCarouselLayout && !!initialRowsLimit && index >= row * amountOfCoversPerRow;
 
       if (hideCover) {
@@ -28,18 +28,19 @@ export const CampaignCovers = ({
       const campaignLink = inEditor ? null : link;
 
       return (
-        <div key={link} className='campaign-card-column cover'>
+        <div key={link} className="campaign-card-column cover">
           <a
             href={campaignLink}
-            data-ga-category='Campaign Covers'
-            data-ga-action='Image'
-            data-ga-label='n/a'
+            data-ga-category="Campaign Covers"
+            data-ga-action="Image"
+            data-ga-label="n/a"
+            // eslint-disable-next-line @wordpress/i18n-no-variables
             aria-label={__('Check our campaign about ' + title, 'planet4-blocks')}
           >
-            <div className='thumbnail-large'>
+            <div className="thumbnail-large">
               {image && image[0] && !isExample &&
                 <img
-                  loading='lazy'
+                  loading="lazy"
                   sizes={IMAGE_SIZES.campaign}
                   srcSet={srcset}
                   src={image[0]}
@@ -48,7 +49,7 @@ export const CampaignCovers = ({
                 />
               }
               {isExample && <CoversImagePlaceholder height={150} />}
-              <span className='yellow-cta'><span aria-label='hashtag'>#</span>{title}</span>
+              <span className="yellow-cta"><span aria-label="hashtag">#</span>{title}</span>
             </div>
           </a>
         </div>

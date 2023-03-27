@@ -1,6 +1,6 @@
-import { MediaEditor } from './MediaEditor';
-import { MediaFrontend } from './MediaFrontend';
-import { mediaV1 } from './deprecated/mediaV1';
+import {MediaEditor} from './MediaEditor';
+import {MediaFrontend} from './MediaFrontend';
+import {mediaV1} from './deprecated/mediaV1';
 
 const {__} = wp.i18n;
 
@@ -25,33 +25,33 @@ export const registerMediaBlock = () => {
     category: 'planet4-blocks',
     attributes: {
       video_title: {
-        type: 'string'
+        type: 'string',
       },
       description: {
-        type: 'string'
+        type: 'string',
       },
       video_poster_img: {
-        type: 'integer'
+        type: 'integer',
       },
       embed_html: {
         type: 'string',
-        default: ''
+        default: '',
       },
       media_url: {
         type: 'string',
         validation: media_url => {
-          const isValid  = media_url ? 1 : 0;
-          const messages = media_url ? [] : [ __('The Media Block video URL could not be empty.', 'planet4-blocks-backend') ];
+          const isValid = media_url ? 1 : 0;
+          const messages = media_url ? [] : [__('The Media Block video URL could not be empty.', 'planet4-blocks-backend')];
 
-          return { isValid, messages };
-        }
+          return {isValid, messages};
+        },
       },
       poster_url: {
         type: 'string',
-        default: ''
+        default: '',
       },
     },
-    save: ({ attributes }) => {
+    save: ({attributes}) => {
       if (lacksAttributes(attributes)) {
         return null;
       }

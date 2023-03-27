@@ -11,11 +11,11 @@ export const addQueryArgs = (path, args) => {
     }
     if (Array.isArray(value)) {
       value.forEach((v, i) => {
-        args[`${ k }[${ i }]`] = v;
+        args[`${k}[${i}]`] = v;
       });
       delete args[k];
     }
   });
 
-  return `${ path }?${ new URLSearchParams(args) }`;
+  return `${path}?${new URLSearchParams(args)}`;
 };

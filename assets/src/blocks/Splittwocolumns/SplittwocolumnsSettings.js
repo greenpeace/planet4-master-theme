@@ -1,14 +1,12 @@
-import { FocalPointPicker, PanelBody, SelectControl } from '@wordpress/components';
-import { InspectorControls } from '@wordpress/block-editor';
-import { ImageOrButton } from '../../components/ImageOrButton/ImageOrButton';
-import { URLInput } from "../../components/URLInput/URLInput";
+import {FocalPointPicker, PanelBody, SelectControl} from '@wordpress/components';
+import {InspectorControls} from '@wordpress/block-editor';
+import {ImageOrButton} from '../../components/ImageOrButton/ImageOrButton';
+import {URLInput} from '../../components/URLInput/URLInput';
 
-const { useSelect } = wp.data;
-const { __ } = wp.i18n;
+const {useSelect} = wp.data;
+const {__} = wp.i18n;
 
-/**
- * Sidebar settings
- */
+// Sidebar settings
 export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) => {
   const {
     title,
@@ -26,10 +24,10 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
     tag_image_id,
     tag_image_src,
     focus_tag_image,
-    edited
+    edited,
   } = attributes;
 
-  const issuesList = useSelect((select) => {
+  const issuesList = useSelect(select => {
     const parent_page = window.p4ge_vars.planet4_options.explore_page;
     const issue_page_args = {
       per_page: -1,
@@ -41,48 +39,48 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
     return select('core').getEntityRecords('postType', 'page', issue_page_args) || [];
   }, []);
 
-  const tagsList = useSelect((select) => {
+  const tagsList = useSelect(select => {
     const taxonomy_args = {hide_empty: false, per_page: 50};
     return select('core').getEntityRecords('taxonomy', 'post_tag', taxonomy_args) || [];
   }, []);
 
-  const onIssueChange = (issue_id) => {
-    const issue = issuesList.find(issue => issue.id === parseInt(issue_id)) || null;
+  const onIssueChange = issue_id => {
+    const issue = issuesList.find(issueFound => issueFound.id === parseInt(issue_id)) || null;
 
     setAttributes({
       select_issue: parseInt(issue_id),
       title: edited.title ? title : cleanString(
-          issue?.cmb2?.p4_metabox.p4_title || issue?.title.raw || title,
-          charLimit.title
-        ),
+        issue?.cmb2?.p4_metabox.p4_title || issue?.title.raw || title,
+        charLimit.title
+      ),
       issue_description: edited.issue_description ? issue_description : cleanString(
-          issue?.cmb2?.p4_metabox.p4_description ?? issue_description,
-          charLimit.description
-        ),
-      issue_link_text: edited.issue_link_text ? issue_link_text
-        : issue_link_text || __('Learn more about this issue', 'planet4-blocks'),
+        issue?.cmb2?.p4_metabox.p4_description ?? issue_description,
+        charLimit.description
+      ),
+      issue_link_text: edited.issue_link_text ? issue_link_text :
+        issue_link_text || __('Learn more about this issue', 'planet4-blocks'),
       issue_link_path: issue?.link || '',
-      issue_image_id: edited.issue_image_id ? issue_image_id : (issue?.featured_media ?? 0)
+      issue_image_id: edited.issue_image_id ? issue_image_id : (issue?.featured_media ?? 0),
     });
-  }
+  };
 
-  const onTagChange = (tag_id) => {
-    const tag = tagsList.find(tag => tag.id === parseInt(tag_id));
+  const onTagChange = tag_id => {
+    const tag = tagsList.find(tagFound => tagFound.id === parseInt(tag_id));
 
     setAttributes({
       select_tag: parseInt(tag_id),
       tag_name: cleanString(tag?.name || '', charLimit.title),
       tag_description: edited.tag_description ? tag_description : cleanString(
-          tag?.description || tag_description,
-          charLimit.description
-        ),
-      button_text: edited.button_text ? button_text
-        : button_text || __( 'Get involved', 'planet4-blocks' ),
+        tag?.description || tag_description,
+        charLimit.description
+      ),
+      button_text: edited.button_text ? button_text :
+        button_text || __('Get involved', 'planet4-blocks'),
       tag_link: tag?.link || '',
       button_link: button_link || tag?.link || '',
-      tag_image_id: edited.tag_image_id ? tag_image_id : (tag?.meta?.tag_attachment_id ?? 0)
+      tag_image_id: edited.tag_image_id ? tag_image_id : (tag?.meta?.tag_attachment_id ?? 0),
     });
-  }
+  };
 
   const onImageChange = (image_type, image) => {
     setAttributes({
@@ -91,22 +89,22 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
       [`${image_type}_title`]: image?.title?.raw ?? image?.title ?? '',
       edited: {
         ...edited,
-        [`${ image_type }_id`]: true,
+        [`${image_type}_id`]: true,
       },
     });
-  }
+  };
 
-  const onFocalChange = (focal_name, {x,y}) => {
-    setAttributes({ [focal_name]: `${ x * 100 }% ${ y * 100 }%` });
-  }
+  const onFocalChange = (focal_name, {x, y}) => {
+    setAttributes({[focal_name]: `${x * 100}% ${y * 100}%`});
+  };
 
   const issueOptions = [
-    { label: '--Select Issue--', value: 0 },
-    ...issuesList.map((issue) => ({ label: issue.title.raw, value: issue.id })),
+    {label: '--Select Issue--', value: 0},
+    ...issuesList.map(issue => ({label: issue.title.raw, value: issue.id})),
   ];
   const tagOptions = [
-    { label: '--Select Tag--', value: 0 },
-    ...tagsList.map((tag) => ({ label: tag.name, value: tag.id })),
+    {label: '--Select Tag--', value: 0},
+    ...tagsList.map(tag => ({label: tag.name, value: tag.id})),
   ];
 
   const focus_issue_image_obj = convertFocalStringToObj(focus_issue_image);
@@ -124,7 +122,7 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
               options={issueOptions}
               onChange={onIssueChange}
             />
-            }
+          }
         </div>
         <div>
           <URLInput
@@ -139,12 +137,14 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
           {__('Issue Image', 'planet4-blocks-backend')}
           <ImageOrButton
             title={__('Select Image for Issue', 'planet4-blocks-backend')}
-            onSelectImage={(image) => {onImageChange('issue_image', image)}}
+            onSelectImage={image => {
+              onImageChange('issue_image', image);
+            }}
             imageId={issue_image_id}
             imageUrl={issue_image_src}
             buttonLabel={__('+ Select Image for Issue', 'planet4-blocks-backend')}
             help={__('(Optional)', 'planet4-blocks-backend')}
-            imgClass='splittwocolumns-block-issue-imgs'
+            imgClass="splittwocolumns-block-issue-imgs"
             disabled={false}
           />
         </div>
@@ -155,12 +155,14 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
             url={issue_image_src}
             dimensions={focal_picker_dimensions}
             value={focus_issue_image_obj}
-            onChange={(focus) => {onFocalChange('focus_issue_image', focus)}}
+            onChange={focus => {
+              onFocalChange('focus_issue_image', focus);
+            }}
           />
           {__('(Optional)', 'planet4-blocks-backend')}
         </div>
         }
-        <hr/>
+        <hr />
         <div>
           {tagOptions &&
             <SelectControl
@@ -176,7 +178,7 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
             label={__('Campaign button link', 'planet4-blocks-backend')}
             placeholder={__('Enter button link', 'planet4-blocks-backend')}
             value={button_link}
-            onChange={(value) => setAttributes({'button_link': value})}
+            onChange={value => setAttributes({button_link: value})}
             help={__('(Optional)', 'planet4-blocks-backend')}
           />
         </div>
@@ -184,12 +186,14 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
           {__('Campaign Image', 'planet4-blocks-backend')}
           <ImageOrButton
             title={__('Select Image for Campaign', 'planet4-blocks-backend')}
-            onSelectImage={(image) => {onImageChange('tag_image', image)}}
+            onSelectImage={image => {
+              onImageChange('tag_image', image);
+            }}
             imageId={tag_image_id}
             imageUrl={tag_image_src}
             buttonLabel={__('+ Select Image for Campaign', 'planet4-blocks-backend')}
             help={__('(Optional)', 'planet4-blocks-backend')}
-            imgClass='splittwocolumns-block-tag_imgs'
+            imgClass="splittwocolumns-block-tag_imgs"
             disabled={false}
           />
           {tag_image_src &&
@@ -199,7 +203,9 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
               url={tag_image_src}
               dimensions={focal_picker_dimensions}
               value={focus_tag_image_obj}
-              onChange={(focus) => {onFocalChange('focus_tag_image', focus)}}
+              onChange={focus => {
+                onFocalChange('focus_tag_image', focus);
+              }}
             />
             {__('(Optional)', 'planet4-blocks-backend')}
           </div>
@@ -208,26 +214,32 @@ export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) 
       </PanelBody>
     </InspectorControls>
   );
-}
+};
 
 /**
  * Convert focal point values from : 10% 80% => {x:0.1, y:0.8}
+ *
  * @param {string} focal_str
+ * @return {Object} vector points
  */
-const convertFocalStringToObj = (focal_str) => {
+const convertFocalStringToObj = focal_str => {
   if (!focal_str) {
-    return {x: 0.5,y: 0.5};
+    return {x: 0.5, y: 0.5};
   }
   const [x, y] = focal_str.replace(/%/g, '').split(' ');
 
-  return {x: ((parseInt(x) || 0)/100), y: ((parseInt(y) || 0)/100)};
-}
+  return {x: ((parseInt(x) || 0) / 100), y: ((parseInt(y) || 0) / 100)};
+};
 
 /**
  * Remove tags, line breaks, and cut to limit
+ *
+ * @param {string} str
+ * @param {number} limit
+ * @return {string} cleanString
  */
 const cleanString = (str, limit) => {
   return str.replace(/<[^>]+>/g, '')
     .replace(/(\r\n\t|\n|\r\t)/gm, '')
     .substr(0, limit);
-}
+};

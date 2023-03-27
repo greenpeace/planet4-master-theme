@@ -1,4 +1,4 @@
-import { useState, useEffect } from '@wordpress/element';
+import {useState} from '@wordpress/element';
 
 /**
  * Takes an array of refs to the slides
@@ -8,8 +8,11 @@ import { useState, useEffect } from '@wordpress/element';
  * - Adds an *exit* transition class for the `active` element
  * - Adds a listener for `ontransitionend` to the `active` element
  *
- * @param {Array} slidesRef
+ * @param {Array}  slidesRef
+ * @param {*}      lastSlide
+ * @param {*}      containerRef
  * @param {Object} options
+ * @return {*} functions for the carousel header slides
  */
 export const useSlides = (slidesRef, lastSlide, containerRef, options = {
   // Following Bootstrap's approach for RTL:
@@ -18,12 +21,12 @@ export const useSlides = (slidesRef, lastSlide, containerRef, options = {
   // these could have the same class for both directions.
   enterTransitionClasses: {
     next: 'enter-from-end',
-    prev: 'enter-from-start'
+    prev: 'enter-from-start',
   },
   exitTransitionClasses: {
     next: 'exit-to-start',
-    prev: 'exit-to-end'
-  }
+    prev: 'exit-to-end',
+  },
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [autoplayCancelled, setAutoplayCancelled] = useState(false);
@@ -41,6 +44,7 @@ export const useSlides = (slidesRef, lastSlide, containerRef, options = {
     setAutoplayCancelled(true);
   };
 
+  // eslint-disable-next-line no-shadow
   const getOrder = (currentSlide, newSlide, lastSlide) => {
     let order = newSlide < currentSlide ? 'prev' : 'next';
     if (newSlide === lastSlide && currentSlide === 0 && order !== 'prev') {

@@ -1,12 +1,11 @@
-import { CookiesFrontend } from './CookiesFrontend';
+import {CookiesFrontend} from './CookiesFrontend';
 
-export const CookiesEditor = ({ attributes, isSelected, setAttributes }) => {
-
+export const CookiesEditor = ({attributes, isSelected, setAttributes}) => {
   const toAttribute = attributeName => value => {
     if (isSelected) {
-      setAttributes({ [attributeName]: value });
+      setAttributes({[attributeName]: value});
     }
-  }
+  };
 
   return (
     <CookiesFrontend
@@ -16,4 +15,4 @@ export const CookiesEditor = ({ attributes, isSelected, setAttributes }) => {
       isSelected={isSelected}
     />
   );
-}
+};
