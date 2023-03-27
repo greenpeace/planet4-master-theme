@@ -188,4 +188,8 @@ $palette: (
       background: var(--grey-100);
     }
   }
+
+  // TODO: Review these fallback variables after we'll merge the new identity colors
+  --comments-block--form-section--comment-respond--background: var(--color-background-comments_block);
+  // End TODO
 }
