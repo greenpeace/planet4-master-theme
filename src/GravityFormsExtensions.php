@@ -4,6 +4,7 @@ namespace P4\MasterTheme;
 
 use GFAPI;
 use GFCommon;
+use DOMDocument;
 use Timber\Timber;
 
 /**
@@ -98,10 +99,10 @@ class GravityFormsExtensions
         add_filter('gform_field_css_class', [ $this, 'p4_gf_custom_field_class' ], 10, 3);
         add_filter('gform_form_args', [ $this, 'p4_gf_enforce_ajax' ], 10, 3);
         add_action('gform_after_save_form', [ $this, 'p4_gf_clear_page_caches' ], 10, 2);
-
         // Suppress the redirect in forms to use custom redirect handling.
         add_filter('gform_suppress_confirmation_redirect', '__return_true');
         add_filter('gform_confirmation', [ $this, 'p4_gf_custom_confirmation_redirect' ], 11, 2);
+        add_filter('gform_pre_render', [ $this, 'p4_client_side_gravityforms_prefill' ], 10, 1);
     }
 
     /**
@@ -434,6 +435,56 @@ class GravityFormsExtensions
                 'ID' => $post_id,
             ], false, true);
         }
+    }
+
+    /**
+     * Client side dynamic population of form fields
+     *
+     * @param array $form The different form fields present
+     *
+     * @return mixed
+     */
+    public function p4_client_side_gravityforms_prefill(array $form): array
+    {
+        $supported_field_types = ['GF_Field_Hidden'];
+
+        $gf_fronted_populate = [];
+
+        foreach ($form['fields'] as $field) {
+            if (!$field->allowsPrepopulate || !in_array(get_class($field), $supported_field_types)) {
+                continue;
+            }
+
+            // The object doesn't contain the id attribute of the html field in the frontend.
+            // Workaround: Render the field and grab the ID from the resulting HTML.
+            $dom = new DOMDocument();
+            $dom->loadHTML($field->get_field_input($form));
+
+            $dom_field = $dom->getElementsByTagName('input');
+
+            $field_id = $dom_field[0]->getAttribute('id');
+
+            $gf_fronted_populate[] = [
+                'parameter' => $field->inputName,
+                'fieldId' => $field_id,
+                'fieldType' => get_class($field),
+            ];
+        }
+
+        $gf_fronted_config['populate'] = $gf_fronted_populate;
+
+        // Enqueue the script needed to populate fields
+        wp_enqueue_script(
+            'p4-gf-client-side',
+            get_stylesheet_directory_uri() . '/assets/src/js/gravityforms-client-side.js',
+            array(),
+            filemtime(get_stylesheet_directory() . '/assets/src/js/gravityforms-client-side.js'),
+            true
+        );
+
+        wp_localize_script('p4-gf-client-side', 'p4GfClientSideConfig', $gf_fronted_config);
+
+        return $form;
     }
 
     /**
