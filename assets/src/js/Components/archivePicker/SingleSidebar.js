@@ -1,7 +1,7 @@
-import { Fragment } from '@wordpress/element';
-import { toSrcSet } from './sizeFunctions';
+import {Fragment} from '@wordpress/element';
+import {toSrcSet} from './sizeFunctions';
 
-const { __ } = wp.i18n;
+const {__} = wp.i18n;
 
 const PREVIEW_MAX_SIZE = 1300;
 
@@ -14,13 +14,13 @@ const renderDefinition = (key, value) => (
   </div>
 );
 
-export const SingleSidebar = ({ image, processingError, processingImages, includeInWp }) => {
+export const SingleSidebar = ({image, processingError, processingImages, includeInWp}) => {
   const original = image ? image.original : {};
 
   const renderImage = () => (
     <img
       key={original.url}
-      srcSet={toSrcSet(image.sizes, { maxWidth: PREVIEW_MAX_SIZE })}
+      srcSet={toSrcSet(image.sizes, {maxWidth: PREVIEW_MAX_SIZE})}
       title={image.title}
       alt={image.title}
     />
@@ -73,11 +73,11 @@ export const SingleSidebar = ({ image, processingError, processingImages, includ
         )}
         {renderDefinition(
           __('Original language title', 'planet4-master-theme-backend'),
-          image.original_language_title,
+          image.original_language_title
         )}
         {renderDefinition(
           __('Original language description', 'planet4-master-theme-backend'),
-          image.original_language_description,
+          image.original_language_description
         )}
       </dl>
     </Fragment>

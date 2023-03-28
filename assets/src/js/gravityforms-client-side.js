@@ -5,7 +5,7 @@
     p4GfClientSideConfig.populate.forEach(field => {
       const value = urlParams.get(field.parameter);
 
-      if(value !== null) {
+      if (value !== null) {
         document.getElementById(field.fieldId).value = value;
       }
     });

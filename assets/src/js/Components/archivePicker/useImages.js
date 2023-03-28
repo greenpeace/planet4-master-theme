@@ -1,7 +1,7 @@
-import { useState } from '@wordpress/element';
+import {useState} from '@wordpress/element';
 
-const { apiFetch } = wp;
-const { addQueryArgs } = wp.url;
+const {apiFetch} = wp;
+const {addQueryArgs} = wp.url;
 
 export const useImages = () => {
   const [images, setImages] = useState([]);
@@ -21,14 +21,14 @@ export const useImages = () => {
         path: addQueryArgs('/planet4/v1/image-archive/fetch', {
           page: pageIndex,
           search_text: searchedText,
-        })
+        }),
       });
       setImages([
         ...(pageIndex === 1 ? [] : images),
-        ...nextImages
+        ...nextImages,
       ]);
-    } catch (error) {
-      setError(error);
+    } catch (err) {
+      setError(err);
     } finally {
       setLoading(false);
     }
@@ -41,9 +41,9 @@ export const useImages = () => {
         method: 'POST',
         path: '/planet4/v1/image-archive/transfer',
         data: {
-          ids: ids,
+          ids,
           use_original_language: false,
-        }
+        },
       });
       updateFromUploadedResponse(updatedImages);
     } catch (e) {

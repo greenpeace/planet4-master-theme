@@ -26,11 +26,11 @@ export const setupCookies = () => {
   };
 
   const createCookie = (name, value, days) => {
-    let date = new Date();
+    const date = new Date();
     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    const secureMode = document.location.protocol === 'http:'
-      ? ';SameSite=Lax'
-      : ';SameSite=None;Secure';
+    const secureMode = document.location.protocol === 'http:' ?
+      ';SameSite=Lax' :
+      ';SameSite=None;Secure';
     document.cookie = encodeURI(name) + '=' + encodeURI(value) + ';domain=.' + document.domain + ';path=/;' + '; expires=' + date.toGMTString() + secureMode;
   };
 
@@ -91,14 +91,14 @@ export const setupCookies = () => {
     // Grant ad storage and analytics storage if Google Consent Mode is enabled.
     if (ENABLE_GOOGLE_CONSENT_MODE) {
       updateGoogleConsent({
-        'ad_storage': 'granted',
-        ...ENABLE_ANALYTICAL_COOKIES && {'analytics_storage': 'granted'}
+        ad_storage: 'granted',
+        ...ENABLE_ANALYTICAL_COOKIES && {analytics_storage: 'granted'},
       });
     }
 
     // DataLayer push event on cookies consent.
     dataLayer.push({
-      'event' : 'cookiesConsent'
+      event: 'cookiesConsent',
     });
 
     hideCookiesBox();
@@ -154,13 +154,13 @@ export const setupCookies = () => {
       // Update ad storage and analytics storage if Google Consent Mode is enabled
       if (ENABLE_GOOGLE_CONSENT_MODE) {
         updateGoogleConsent({
-          'ad_storage': marketingCookiesChecked ? 'granted' : 'denied',
-          ...ENABLE_ANALYTICAL_COOKIES && {'analytics_storage': analyticalCookiesChecked ? 'granted' : 'denied'}
+          ad_storage: marketingCookiesChecked ? 'granted' : 'denied',
+          ...ENABLE_ANALYTICAL_COOKIES && {analytics_storage: analyticalCookiesChecked ? 'granted' : 'denied'},
         });
       }
 
       dataLayer.push({
-        'event' : 'updateConsent'
+        event: 'updateConsent',
       });
 
       hideCookiesBox();
@@ -175,13 +175,13 @@ export const setupCookies = () => {
     // Deny ad storage and analytics storage if Google Consent Mode is enabled.
     if (ENABLE_GOOGLE_CONSENT_MODE) {
       updateGoogleConsent({
-        'ad_storage': 'denied',
-        ...ENABLE_ANALYTICAL_COOKIES && {'analytics_storage': 'denied'}
+        ad_storage: 'denied',
+        ...ENABLE_ANALYTICAL_COOKIES && {analytics_storage: 'denied'},
       });
     }
 
     dataLayer.push({
-      'event' : 'updateConsent'
+      event: 'updateConsent',
     });
 
     hideCookiesBox();
