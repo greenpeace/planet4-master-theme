@@ -1,4 +1,4 @@
-const { __, sprintf } = wp.i18n;
+const {__, sprintf} = wp.i18n;
 
 /**
  * Check main navigation menu for restrictions on:
@@ -49,9 +49,11 @@ const menuEditorRestrictions = () => {
    */
   const locationsInputs = document.querySelectorAll('input[name^="menu-locations["]');
   locationsInputs.forEach(input => {
-    input.addEventListener('change', () => { toggleMenuRules(); });
+    input.addEventListener('change', () => {
+      toggleMenuRules();
+    });
   });
-  const locations = Array.from(locationsInputs).map((input) => {
+  const locations = Array.from(locationsInputs).map(input => {
     return input.getAttribute('name').match(/menu-locations\[(.*)\]/)[1];
   });
 
@@ -60,17 +62,19 @@ const menuEditorRestrictions = () => {
    * title changes, adding, removing, changing level and reordering of items
    */
   const observer = new MutationObserver(() => checkNavMenu(getCurrentConf()));
-  const observerOpts = { subtree: true, childList: true, attributes: false, };
-  const enableObserver = () => { observer.observe(menuContent, observerOpts); };
-  const disableObserver = () => { observer.disconnect(); };
+  const observerOpts = {subtree: true, childList: true, attributes: false};
+  const enableObserver = () => {
+    observer.observe(menuContent, observerOpts);
+  };
+  const disableObserver = () => {
+    observer.disconnect();
+  };
 
   /**
    * Show a notice message to inform to editors to prevent
    * using long texts to menu items
    */
   const showInfoNoticeMessage = () => {
-    const menuEditorFooter = document.getElementById('nav-menu-footer');
-
     const container = document.createElement('div');
     container.classList.add('notice', 'notice-info', 'custom-notice-info', 'inline');
 
@@ -118,8 +122,9 @@ const menuEditorRestrictions = () => {
   /**
    * Check restrictions
    * Show errors on menu editor interface
+   * @param {Object} conf
    */
-  const checkNavMenu = (conf) => {
+  const checkNavMenu = conf => {
     const errors = [];
     if (!conf) {
       displayErrors(errors);
@@ -131,7 +136,7 @@ const menuEditorRestrictions = () => {
     );
 
     // Pull back menu items to the limited depth
-    items.forEach((item) => {
+    items.forEach(item => {
       checkDepth(item, conf.maxDepth, errors);
     });
 
@@ -143,7 +148,7 @@ const menuEditorRestrictions = () => {
     }
 
     // Check each item for submenus and titles too long
-    items.forEach((item) => {
+    items.forEach(item => {
       const depth = getItemDepth(item);
       const children = getItemChildren(item);
       const depthConf = getDepthConf(conf, depth);
@@ -152,8 +157,8 @@ const menuEditorRestrictions = () => {
       const title = itemDiv ? itemDiv.textContent : '';
 
       // Too many children for the given item
-      const subLevelConf = getDepthConf(conf, depth+1);
-      if ( children && children.length > subLevelConf.maxItems ) {
+      const subLevelConf = getDepthConf(conf, depth + 1);
+      if (children && children.length > subLevelConf.maxItems) {
         markItemsOverflow(
           errors,
           children,
@@ -173,7 +178,7 @@ const menuEditorRestrictions = () => {
               'planet4-master-theme-backend'
             ),
             title, depthConf.maxChars, titleCharsCount
-          )
+          ),
         });
       }
     });
@@ -185,19 +190,19 @@ const menuEditorRestrictions = () => {
   /**
    * Get first checked location
    *
-   * @return string The current location slug
+   * @return {string} The current location slug
    */
   const getCurrentLocation = () => {
     return locations.find(location => {
-      return document.querySelector(`input[name="menu-locations[${location}]"]`).checked
-        ? location : null;
+      return document.querySelector(`input[name="menu-locations[${location}]"]`).checked ?
+        location : null;
     }) || null;
   };
 
   /**
    * Gets the current conf.
    *
-   * @return Object The current conf
+   * @return {Object} The current conf
    */
   const getCurrentConf = () => {
     const location = getCurrentLocation();
@@ -206,16 +211,16 @@ const menuEditorRestrictions = () => {
       return;
     }
 
-    return {...{ maxItems: 5, maxChars: 18, maxDepth: 1, }, ...conf};
+    return {...{maxItems: 5, maxChars: 18, maxDepth: 1}, ...conf};
   };
 
   /**
    * Get item children
    *
-   * @param NodeElement item The item
-   * @return NodeElement[]|null Children list of this item
+   * @param {NodeElement} item
+   * @return {NodeElement[]|null} Children list of this item
    */
-  const getItemChildren = (item) => {
+  const getItemChildren = item => {
     const depth = getItemDepth(item);
     const itemsAfter = menuContent.querySelectorAll(
       `#${item.id} ~ li.menu-item:not(.sortable-placeholder)`
@@ -224,7 +229,7 @@ const menuEditorRestrictions = () => {
     const children = [];
     for (const child of [...itemsAfter]) {
       const childDepth = getItemDepth(child);
-      if (childDepth > depth+1) { // sub-item, skipping
+      if (childDepth > depth + 1) { // sub-item, skipping
         continue;
       }
       if (childDepth <= depth) { // reached new same level item
@@ -239,10 +244,10 @@ const menuEditorRestrictions = () => {
   /**
    * Get the depth of the item
    *
-   * @param NodeElement item The item
-   * @return int Depth of the item in the menu
+   * @param {NodeElement} item The item
+   * @return {number} Depth of the item in the menu
    */
-  const getItemDepth = (item) => {
+  const getItemDepth = item => {
     const depthClass = [...item.classList]
       .find(c => c.startsWith('menu-item-depth-'));
     return parseInt(depthClass.substr(-1, 1));
@@ -252,8 +257,9 @@ const menuEditorRestrictions = () => {
    * Get the depth configuration (maxItems, maxChars)
    * Defaults to global conf
    *
-   * @param int depth The depth
-   * @return Object The depth conf
+   * @param {Object} conf
+   * @param {number} depth The depth
+   * @return {Object} The depth conf
    */
   const getDepthConf = (conf, depth) => {
     return (conf.depthConf && conf.depthConf[depth]) ? conf.depthConf[depth] : conf;
@@ -262,9 +268,9 @@ const menuEditorRestrictions = () => {
   /**
    * Check menu items' depth and show an error message if needed
    *
-   * @param NodeElement item The menu item
-   * @param int         maxDepth The maximum allowed depth
-   * @param array       errors The errors to be displayed
+   * @param {NodeElement} item The menu item
+   * @param {number}      maxDepth The maximum allowed depth
+   * @param {Array}       errors The errors to be displayed
    */
   const checkDepth = (item, maxDepth, errors) => {
     const depth = getItemDepth(item);
@@ -279,18 +285,18 @@ const menuEditorRestrictions = () => {
             'planet4-master-theme-backend'
           ),
           title, depth
-        )
+        ),
       });
     }
   };
 
-
   /**
    * Mark errors for too many items in a menu/submenu
    *
-   * @param NodeList items     Items
-   * @param int      maxItems  Max number of items
-   * @param string   menuName  Menu name for the message
+   * @param {Array} errors    Errors
+   * @param {NodeList} items     Items
+   * @param {number}   maxItems  Max number of items
+   * @param {string}   menuName  Menu name for the message
    */
   const markItemsOverflow = (errors, items, maxItems, menuName) => {
     errors.push({message: sprintf(
@@ -310,9 +316,9 @@ const menuEditorRestrictions = () => {
   /**
    * Shows errors in interface
    *
-   * @param NodeList items Menu items
+   * @param {Array} errors
    */
-  const displayErrors = (errors) => {
+  const displayErrors = errors => {
     // Reset error markers
     menuContent.querySelectorAll('.menu-error').forEach(item => {
       item.classList.remove('menu-error');
@@ -325,7 +331,7 @@ const menuEditorRestrictions = () => {
     }
 
     // Mark error targets with error class
-    errors.filter((err) => err.target).map((err) => {
+    errors.filter(err => err.target).forEach(err => {
       const menuItem = document.getElementById(err.target);
       if (menuItem) {
         menuItem.classList.add('menu-error');
@@ -333,8 +339,8 @@ const menuEditorRestrictions = () => {
     });
 
     // List of error messages
-    const errorList = errors.filter((err) => err.message)
-      .map((err) => err.message ? `<li>${err.message}</li>` : null);
+    const errorList = errors.filter(err => err.message)
+      .map(err => err.message ? `<li>${err.message}</li>` : null);
     const containerTitle = __('Menu configuration issues:', 'planet4-master-theme-backend');
     errorsContainer.innerHTML = `<strong>${containerTitle}</strong>
     <ul>
@@ -364,7 +370,7 @@ const menuEditorRestrictions = () => {
   /**
    * Get the errors container, create it if needed
    *
-   * @return NodeElement The errors container
+   * @return {NodeElement} The errors container
    */
   const getErrorsContainer = () => {
     let errorsContainer = menuEditorFooter.querySelector('.errors-list');

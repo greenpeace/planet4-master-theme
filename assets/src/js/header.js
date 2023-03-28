@@ -10,7 +10,7 @@ const updateGaAction = (element, elementName) => {
  * @param {boolean} expanded Toggle is expanded
  */
 const setSearchToggles = expanded => {
-  let toggles = document.querySelectorAll('.nav-search-toggle');
+  const toggles = document.querySelectorAll('.nav-search-toggle');
   toggles.forEach(toggle => {
     toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     updateGaAction(toggle, 'search');
@@ -37,7 +37,7 @@ const toggleNavElement = element => {
   element.classList.toggle(toggleClass);
 
   // Toggle aria-expanded attribute
-  element.setAttribute('aria-expanded', wasExpanded  ? 'false' : 'true');
+  element.setAttribute('aria-expanded', wasExpanded ? 'false' : 'true');
 
   // Propagate attributes to all search toggles
   if (element.classList.contains('nav-search-toggle')) {
@@ -89,7 +89,6 @@ const closeInactiveNavElements = event => {
 
   activeElements.forEach(button => {
     const buttonTarget = button.dataset && button.dataset.bsTarget;
-    const buttonTargetElement = document.querySelector(buttonTarget);
 
     if (button.classList.contains('nav-search-toggle')) {
       if (searchToggled) {
@@ -97,6 +96,8 @@ const closeInactiveNavElements = event => {
       }
       searchToggled = true;
     }
+
+    const buttonTargetElement = document.querySelector(buttonTarget);
 
     if (buttonTargetElement && !buttonTargetElement.contains(clickedElement)) {
       // Spoof a click on the open menu's toggle to close that menu.
@@ -132,7 +133,10 @@ const setMobileTabsMenuScroll = () => {
   let supportsPassive = false;
   try {
     const opts = Object.defineProperty({}, 'passive', {
-      get: function() { supportsPassive = true; } // eslint-disable-line getter-return
+      get: () => {
+        supportsPassive = true;
+        return supportsPassive;
+      },
     });
     window.addEventListener('testPassive', null, opts);
     window.removeEventListener('testPassive', null, opts);
@@ -153,7 +157,7 @@ const setMobileTabsMenuScroll = () => {
     const dist = Math.abs(scrollTop - lastScrollTop);
     const ref = Math.abs(scrollTop - lastScrollRef);
     lastScrollTop = Math.max(0, scrollTop);
-    return { dir, pos: scrollTop, dist, ref };
+    return {dir, pos: scrollTop, dist, ref};
   };
 
   /**
@@ -187,11 +191,10 @@ const setMobileTabsMenuScroll = () => {
       lastScrollDir = dir;
       lastScrollRef = lastScrollTop;
       menu.classList.remove('mobile-menu-hidden');
-      return;
     }
   };
 
-  ['touchmove', 'scroll'].forEach((eventName) => {
+  ['touchmove', 'scroll'].forEach(eventName => {
     document.addEventListener(
       eventName,
       toggleMobileTabsMenu,
@@ -243,12 +246,16 @@ export const setupHeader = () => {
 
   let searchFocused = false;
   const searchInput = document.getElementById('search_input');
-  searchInput && searchInput.addEventListener('focus', () => {
-    if (!searchFocused) {
-      hj && hj('event', 'search');
-      searchFocused = true;
-    }
-  });
+  if (searchInput) {
+    searchInput.addEventListener('focus', () => {
+      if (!searchFocused) {
+        if (hj) {
+          hj('event', 'search');
+        }
+        searchFocused = true;
+      }
+    });
+  }
 
   setMobileTabsMenuScroll();
 };
