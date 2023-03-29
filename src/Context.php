@@ -96,6 +96,41 @@ class Context
     }
 
     /**
+     * Set p4_blocks datalayer value
+     *
+     * @param array  $context Context to be set.
+     * @param object $post That the context refers to.
+     */
+    public static function set_p4_blocks_datalayer(array &$context, object $post): void
+    {
+        $post_content = $post->post_content;
+
+        if (isset($post->articles)) {
+            $post_content .= $post->articles;
+        }
+
+        if (isset($post->take_action_boxout)) {
+            $post_content .= $post->take_action_boxout;
+        }
+
+        preg_match_all('/wp:planet4-blocks\/(\S+)|wp:gravityforms\/(\S+)*/', $post_content, $matches);
+
+        $p4_blocks = array_map(
+            function ($block) {
+                if (str_contains($block, 'gravityforms')) {
+                    $start = stripos($block, ':');
+                    $end = stripos($block, '/');
+                    return substr($block, $start + 1, $end - strlen($block));
+                }
+
+                return substr($block, (stripos($block, '/') + 1) - strlen($block));
+            },
+            array_unique($matches[0])
+        );
+        $context['p4_blocks'] = implode(', ', $p4_blocks);
+    }
+
+    /**
      * Get campaign scope from value selected in the Global Projects dropdown.
      * Conditions:
      * - If Global Project equals "Local Campaign" then Scope is Local.

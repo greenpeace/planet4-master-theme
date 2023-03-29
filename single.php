@@ -125,6 +125,8 @@ $context['post_comments_count'] = get_comments(
     ]
 );
 
+Context::set_p4_blocks_datalayer($context, $post);
+
 if (post_password_required($post->ID)) {
     // Password protected form validation.
     $context['is_password_valid'] = $post->is_password_valid();

@@ -115,6 +115,8 @@ foreach (range(1, 5) as $i) {
     $context['social_overrides'][ $i ]['icon'] = $campaign_footer_item['icon'];
 }
 
+Context::set_p4_blocks_datalayer($context, $post);
+
 if (post_password_required($post->ID)) {
     // Password protected form validation.
     $context['is_password_valid'] = $post->is_password_valid();
