@@ -31,9 +31,9 @@
     "lodash": "^4.17.21",
     "lodash.assign": "^4.2.0",
     "mini-css-extract-plugin": "^0.7.0",
-    "node-sass": "^4.14.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
+    "sass": "^1.57.1",
     "sass-loader": "^7.3.1",
     "terser-webpack-plugin": "^1.4.1",
     "webpack-fix-style-only-entries": "^0.3.1"
@@ -42,6 +42,11 @@
     "classnames": "^2.2.6",
     "eslint": "^5.16.0",
     "photoswipe": "^4.1.3",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "uuid": "^9.0.0"
+  },
+  "engines": {
+    "npm": "<10.0.0",
+    "node": ">=16.0.0 <17.0.0"
   }
 }

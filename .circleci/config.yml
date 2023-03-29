@@ -224,7 +224,7 @@ jobs:
 
   frontend-tests:
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:node14.19.3
+      - image: greenpeaceinternational/p4-unit-tests:node16.19.0
         auth:
           <<: *docker_auth
     steps:
@@ -248,7 +248,7 @@ jobs:
 
   commitlint:
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:node14.19.3
+      - image: greenpeaceinternational/p4-unit-tests:node16.19.0
         auth:
           <<: *docker_auth
     steps:
@@ -268,7 +268,7 @@ jobs:
 
   a11y-tests:
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:node14.19.3
+      - image: greenpeaceinternational/p4-unit-tests:node16.19.0
         auth:
           <<: *docker_auth
     working_directory: /home/circleci/
@@ -346,11 +346,10 @@ jobs:
 
   create-zip:
     docker:
-      - image: mhart/alpine-node:14
+      - image: cimg/node:16.19
         auth:
           <<: *docker_auth
     steps:
-      - run: apk add zip git openssh-client python2 make g++
       - checkout
       - run: git submodule init && git submodule update
       - run: mkdir -p /tmp/workspace/
@@ -369,7 +368,6 @@ jobs:
       - run:
           name: Inject version to composer
           command: |
-            apk add jq
             cat composer.json | jq --arg version ${CIRCLE_TAG} '. + {version: $version}' > tmp.json
             mv -f tmp.json composer.json
       - run:
@@ -395,13 +393,12 @@ jobs:
 
   publish-zip:
     docker:
-      - image: mhart/alpine-node:14
+      - image: cimg/node:16.19
         auth:
           <<: *docker_auth
     steps:
       - attach_workspace:
           at: /tmp/workspace
-      - run: apk add curl jq
       - run:
           name: Get upload url for this tag
           command: |
