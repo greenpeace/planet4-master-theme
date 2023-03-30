@@ -165,7 +165,7 @@ export class SpreadsheetFrontend extends Component {
 
     return (
       <Fragment>
-        <section className={`block block-spreadsheet ${this.props.className ?? ''}`} style={{cssText: toDeclarations(this.props.css_variables)}}>
+        <section className={`block block-spreadsheet ${this.props.className ?? ''}`}>
           <input className="spreadsheet-search form-control"
             type="text"
             value={this.state.searchText}
@@ -173,7 +173,7 @@ export class SpreadsheetFrontend extends Component {
             placeholder={__('Search data', 'planet4-blocks')}
           />
           <div className="table-wrapper">
-            <table className="spreadsheet-table">
+            <table className={`spreadsheet-table is-color-${this.props.color ?? 'grey'}`}>
               <thead>
                 <tr>
                   {

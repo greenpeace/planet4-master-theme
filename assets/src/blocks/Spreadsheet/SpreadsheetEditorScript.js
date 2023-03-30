@@ -4,6 +4,8 @@ import ColorPaletteControl from '../../components/ColorPaletteControl/ColorPalet
 
 import {debounce} from 'lodash';
 
+const {__} = wp.i18n;
+
 import {
   TextControl,
   PanelBody,
@@ -16,27 +18,6 @@ const colors = [
   {name: 'green', color: '#d0fac9'},
   {name: 'grey', color: '#ececec'},
 ];
-
-const colors_variables_map = {
-  // Grey variables (default)
-  '#ececec': {
-    'block-spreadsheet--header--background-color': '#45494c',
-    'block-spreadsheet--even-row--background': '#f5f7f8',
-    'block-spreadsheet--odd-row--background': '#ececec',
-  },
-  // Green variables
-  '#d0fac9': {
-    'block-spreadsheet--header--background-color': '#073d14',
-    'block-spreadsheet--even-row--background': '#eafee7',
-    'block-spreadsheet--odd-row--background': '#d0fac9',
-  },
-  // Blue variables
-  '#c9e7fa': {
-    'block-spreadsheet--header--background-color': '#074365',
-    'block-spreadsheet--even-row--background': '#e7f5fe',
-    'block-spreadsheet--odd-row--background': '#c9e7fa',
-  },
-};
 
 export class SpreadsheetEditor extends Component {
   constructor(props) {
@@ -60,15 +41,11 @@ export class SpreadsheetEditor extends Component {
   }
 
   renderEdit() {
-    const {__} = wp.i18n;
-
     const {attributes, setAttributes} = this.props;
 
-    const toCssVariables = value => {
-      setAttributes({
-        css_variables: colors_variables_map[value] ?? {},
-      });
-    };
+    const toColorName = code => colors.find(color => color.color === code).name;
+
+    const toColorCode = name => colors.find(color => color.name === name).color;
 
     return (
       <Fragment>
@@ -76,8 +53,8 @@ export class SpreadsheetEditor extends Component {
           <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
             <ColorPaletteControl
               label={__('Table Color', 'planet4-blocks-backend')}
-              value={attributes.css_variables['block-spreadsheet--odd-row--background']}
-              onChange={toCssVariables}
+              value={toColorCode(attributes.color)}
+              onChange={value => setAttributes({color: toColorName(value)})}
               disableCustomColors
               clearable={false}
               options={colors}

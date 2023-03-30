@@ -32,19 +32,81 @@
 
 table.spreadsheet-table {
   min-width: 100%;
-
   margin-bottom: 0;
 
   @include mobile-only {
     overflow: visible;
   }
 
-  th {
-    --block-spreadsheet--header-- {
-      background-color: $table-header-grey;
-      border-bottom-color: $table-header-grey;
+  // Grey is the default color.
+  th --block-spreadsheet-grey-header-- {
+    background: $table-header-grey;
+  }
+
+  tr {
+    td {
+      --block-spreadsheet-- {
+        color: $table-font-color;
+      }
+      padding: 5px 20px;
+      font-size: $font-size-xs;
+      white-space: pre-wrap;
+
+      @include x-large-and-up {
+        font-size: $font-size-xs;
+      }
+
+      .highlighted-text {
+        font-weight: bold;
+      }
     }
 
+    td --block-spreadsheet-grey-even-row-- {
+      background: $table-even-row-grey;
+    }
+
+    &:nth-child(odd) td --block-spreadsheet-grey-odd-row-- {
+      background: $table-odd-row-grey;
+    }
+  }
+
+  &.is-color-green {
+    th --block-spreadsheet-green-header-- {
+      background: $table-header-green;
+    }
+
+    tr {
+      td --block-spreadsheet-green-even-row-- {
+        background: $table-even-row-green;
+      }
+
+      &:nth-child(odd) {
+        td --block-spreadsheet-green-odd-row-- {
+          background: $table-odd-row-green;
+        }
+      }
+    }
+  }
+
+  &.is-color-blue {
+    th --block-spreadsheet-blue-header-- {
+      background: $table-header-blue;
+    }
+
+    tr {
+      td --block-spreadsheet-blue-even-row-- {
+        background: $table-even-row-blue;
+      }
+
+      &:nth-child(odd) {
+        td --block-spreadsheet-blue-odd-row-- {
+          background: $table-odd-row-blue;
+        }
+      }
+    }
+  }
+
+  th {
     button {
       background-color: inherit;
       color: inherit;
@@ -52,7 +114,6 @@ table.spreadsheet-table {
     }
 
     color: $white;
-    border-bottom: 1px solid;
     cursor: pointer;
     font-size: $font-size-sm;
     position: sticky;
@@ -76,36 +137,6 @@ table.spreadsheet-table {
       &.sort-desc {
         svg {
           transform: rotate(180deg);
-        }
-      }
-    }
-  }
-
-  tr {
-    color: $table-font-color;
-
-    td {
-      --block-spreadsheet--even-row-- {
-        background: $table-even-row-grey;
-      }
-      padding: 5px 20px;
-      font-size: $font-size-xs;
-
-      white-space: pre-wrap;
-
-      @include x-large-and-up {
-        font-size: $font-size-xs;
-      }
-
-      .highlighted-text {
-        font-weight: bold;
-      }
-    }
-
-    &:nth-child(odd) {
-      td {
-        --block-spreadsheet--odd-row-- {
-          background: $table-odd-row-grey;
         }
       }
     }

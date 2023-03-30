@@ -37,11 +37,14 @@ class Spreadsheet extends Base_Block {
 			[
 				'editor_script' => 'planet4-blocks',
 				'attributes'    => [
-					'url'           => [
+					'url'   => [
 						'type'    => 'string',
 						'default' => '',
 					],
-					'css_variables' => self::CSS_VARIABLES_ATTRIBUTE,
+					'color' => [
+						'type'    => 'string',
+						'default' => 'grey',
+					],
 				],
 			]
 		);
