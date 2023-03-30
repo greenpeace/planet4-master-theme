@@ -42,4 +42,33 @@
   --button-secondary--hover--background: var(--p4-dark-green-800);
   --button-secondary--hover--border-color: var(--p4-dark-green-800);
   --button-secondary--hover--color: var(--white);
+  --block-spreadsheet--color: var(--grey-900);
+  --block-spreadsheet-grey-header--background: var(--grey-800);
+  --block-spreadsheet-grey-odd-row--background: #eaedee;
+  --block-spreadsheet-grey-even-row--background: var(--grey-100);
+  --block-spreadsheet-green-header--background: var(--gp-green-800);
+  --block-spreadsheet-green-odd-row--background: var(--beige-200);
+  --block-spreadsheet-green-even-row--background: var(--beige-100);
+  --block-spreadsheet-blue-header--background: #167f82;
+  --block-spreadsheet-blue-odd-row--background: var(--beige-200);
+  --block-spreadsheet-blue-even-row--background: var(--beige-100);
+}
+
+// Spreadsheet block new color.
+table.spreadsheet-table.is-color-dark-green {
+  th --block-spreadsheet-dark-green-header-- {
+    background: var(--p4-dark-green-800);
+  }
+
+  tr {
+    td --block-spreadsheet-dark-green-even-row-- {
+      background: var(--beige-200);
+    }
+
+    &:nth-child(odd) {
+      td --block-spreadsheet-dark-green-odd-row-- {
+        background: var(--beige-100);
+      }
+    }
+  }
 }
