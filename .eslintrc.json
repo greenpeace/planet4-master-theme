@@ -94,14 +94,11 @@
       "error",
       "never"
     ],
-    "computed-property-spacing": [
-      "error",
-      "never"
-    ],
     "arrow-parens": [
       "error",
       "as-needed"
-    ]
+    ],
+    "prettier/prettier": "off"
   },
   "parserOptions": {
     "ecmaVersion": 11,
