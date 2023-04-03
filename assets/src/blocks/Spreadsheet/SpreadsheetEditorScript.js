@@ -4,6 +4,8 @@ import ColorPaletteControl from '../../components/ColorPaletteControl/ColorPalet
 
 import {debounce} from 'lodash';
 
+const isNewIdentity = window.p4ge_vars.planet4_options.new_identity_styles || false;
+
 const {__} = wp.i18n;
 
 import {
@@ -18,6 +20,13 @@ const colors = [
   {name: 'green', color: '#d0fac9'},
   {name: 'grey', color: '#ececec'},
 ];
+
+if (isNewIdentity) {
+  colors.push({
+    name: 'dark-green',
+    color: '#1f4912'
+  });
+}
 
 export class SpreadsheetEditor extends Component {
   constructor(props) {
