@@ -10,7 +10,7 @@
   @include large-and-up {
     border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
     display: inline-block;
-    line-height: $menu-height;
+    line-height: var(--navbar-menu-height);
 
     &::after {
       content: "";

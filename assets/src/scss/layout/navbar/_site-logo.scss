@@ -1,8 +1,8 @@
 .site-logo {
-  line-height: $menu-height-small;
+  line-height: var(--navbar-menu-height--small);
 
   @include large-and-up {
-    line-height: $menu-height-large;
+    line-height: var(--navbar-menu-height--large);
   }
 
   img {
@@ -22,7 +22,7 @@
   }
 
   .navigation-bar_min & {
-    line-height: $min-height;
+    line-height: var(--navbar-menu-min-height);
 
     img {
       height: 18px;
