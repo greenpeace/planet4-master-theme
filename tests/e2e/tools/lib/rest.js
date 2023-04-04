@@ -1,6 +1,6 @@
 import { nonce } from './nonce';
 
-async function rest(page, context, options) {
+async function rest(context, options) {
   const { path, ...fetchOptions } = options;
 
   try {

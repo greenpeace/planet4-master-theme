@@ -341,7 +341,7 @@ jobs:
 
   request-test-user:
     docker:
-      - image: cimg/base:2023.02
+      - image: greenpeaceinternational/circleci-base:latest
         auth:
           <<: *docker_auth
     steps:
@@ -349,20 +349,12 @@ jobs:
           at: /tmp/workspace
       - run:
           name: Create test user
-          command: |
-            instance_repo="planet4-test-$(cat /tmp/workspace/test-instance)"
-            echo $instance_repo
-            echo $CIRCLE_WORKFLOW_ID
-            curl -vvv --request POST \
-              --url https://circleci.com/api/v2/project/github/greenpeace/${instance_repo}/pipeline \
-              --header "Circle-Token: ${CIRCLE_TOKEN}" \
-              --header "content-type: application/json" \
-              --data "{\"parameters\":{\"run_develop\":false, \"run_create_test_user\":true, \"run_delete_test_user\":false, \"unhold\":\"${CIRCLE_WORKFLOW_ID}\"}}"
+          command: /usr/local/bin/test-user.py --create --test-instance=$(cat /tmp/workspace/test-instance)
 
   e2e-tests:
     working_directory: /usr/app/
     docker:
-      - image: mcr.microsoft.com/playwright:v1.30.0
+      - image: mcr.microsoft.com/playwright:v1.32.2
         auth:
           <<: *docker_auth
     steps:

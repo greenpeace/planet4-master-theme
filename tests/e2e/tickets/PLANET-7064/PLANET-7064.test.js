@@ -10,7 +10,7 @@ test('PLANET-7064 - run ticket specific test', async ({ page, context }) => {
 
   console.log(`Nonce: ${nonce}`);
 
-  const json = await rest(page, context, {
+  const json = await rest(context, {
     path: './wp-json/wp/v2/posts',
     method: 'POST',
     data: {

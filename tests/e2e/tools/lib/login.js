@@ -1,4 +1,3 @@
-const { test, expect } = require('@playwright/test');
 import { nonce } from './nonce';
 
 async function login( page, context ) {
