@@ -38,16 +38,9 @@ table.spreadsheet-table {
     overflow: visible;
   }
 
-  // Grey is the default color.
-  th --block-spreadsheet-grey-header-- {
-    background: $table-header-grey;
-  }
-
   tr {
     td {
-      --block-spreadsheet-- {
-        color: $table-font-color;
-      }
+      color: var(--body--color);
       padding: 5px 20px;
       font-size: $font-size-xs;
       white-space: pre-wrap;
@@ -61,52 +54,44 @@ table.spreadsheet-table {
       }
     }
 
-    td --block-spreadsheet-grey-even-row-- {
-      background: $table-even-row-grey;
-    }
+    background-color: var(--table-even-row-grey--background, $table-even-row-grey);
+  }
 
-    &:nth-child(odd) td --block-spreadsheet-grey-odd-row-- {
-      background: $table-odd-row-grey;
-    }
+  tr:nth-child(odd) {
+    background-color: var(--table-odd-row-grey--background, $table-odd-row-grey);
   }
 
   &.is-color-green {
-    th --block-spreadsheet-green-header-- {
-      background: $table-header-green;
+    th {
+      background-color: var(--table-header-green--background, $table-header-green);
     }
 
     tr {
-      td --block-spreadsheet-green-even-row-- {
-        background: $table-even-row-green;
-      }
+      background-color: var(--table-even-row-green--background, $table-even-row-green);
+    }
 
-      &:nth-child(odd) {
-        td --block-spreadsheet-green-odd-row-- {
-          background: $table-odd-row-green;
-        }
-      }
+    tr:nth-child(odd) {
+      background-color: var(--table-odd-row-green--background, $table-odd-row-green);
     }
   }
 
   &.is-color-blue {
-    th --block-spreadsheet-blue-header-- {
-      background: $table-header-blue;
+    th {
+      background-color: var(--table-header-blue--background, $table-header-blue);
     }
 
     tr {
-      td --block-spreadsheet-blue-even-row-- {
-        background: $table-even-row-blue;
-      }
+      background-color: var(--table-even-row-blue--background, $table-even-row-blue);
+    }
 
-      &:nth-child(odd) {
-        td --block-spreadsheet-blue-odd-row-- {
-          background: $table-odd-row-blue;
-        }
-      }
+    tr:nth-child(odd) {
+      background-color: var(--table-odd-row-blue--background, $table-odd-row-blue);
     }
   }
 
   th {
+    background-color: var(--table-header-grey--background, $table-header-grey);
+
     button {
       background-color: inherit;
       color: inherit;

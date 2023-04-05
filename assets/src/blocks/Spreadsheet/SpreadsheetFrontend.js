@@ -1,6 +1,5 @@
 import {Component, Fragment} from '@wordpress/element';
 import {ArrowIcon} from './ArrowIcon';
-import {toDeclarations} from '../toDeclarations';
 import {HighlightMatches} from '../HighlightMatches';
 import {fetchJson} from '../../functions/fetchJson';
 import {addQueryArgs} from '../../functions/addQueryArgs';

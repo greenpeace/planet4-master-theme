@@ -15,17 +15,19 @@ import {
 
 import {SpreadsheetFrontend} from './SpreadsheetFrontend';
 
-const colors = [
+let colors = [
   {name: 'blue', color: '#c9e7fa'},
   {name: 'green', color: '#d0fac9'},
   {name: 'grey', color: '#ececec'},
 ];
 
 if (isNewIdentity) {
-  colors.push({
-    name: 'dark-green',
-    color: '#1f4912'
-  });
+  colors = [
+    {name: 'blue', color: '#167f82'},
+    {name: 'green', color: '#1f4912'},
+    {name: 'grey', color: '#45494c'},
+    {name: 'gp-green',color: '#198700'},
+  ];
 }
 
 export class SpreadsheetEditor extends Component {
@@ -52,9 +54,9 @@ export class SpreadsheetEditor extends Component {
   renderEdit() {
     const {attributes, setAttributes} = this.props;
 
-    const toColorName = code => colors.find(color => color.color === code).name;
+    const toColorName = code => colors.find(color => color.color === code)?.name || 'grey';
 
-    const toColorCode = name => colors.find(color => color.name === name).color;
+    const toColorCode = name => colors.find(color => color.name === name)?.color || '#ececec';
 
     return (
       <Fragment>
@@ -106,7 +108,6 @@ export class SpreadsheetEditor extends Component {
   }
 
   renderView() {
-    const {__} = wp.i18n;
     const {attributes} = this.props;
 
     return <Fragment>

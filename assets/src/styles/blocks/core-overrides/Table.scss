@@ -4,44 +4,45 @@
   table {
     // Grey background (defaut)
     th {
-      background-color: $table-header-grey;
+      background-color: var(--table-header-grey--background, $table-header-grey);
     }
 
     tr {
-      background-color: $table-even-row-grey;
+      background-color: var(--table-even-row-grey--background, $table-even-row-grey);
     }
 
     tfoot td {
-      background-color: $table-footer-grey;
+      background-color: var(--table-footer-grey--background, $table-footer-grey);
+      font-weight: bold;
     }
 
     // Green background
     &.has-green-background-color {
       th {
-        background-color: $table-header-green;
+        background-color: var(--table-header-green--background, $table-header-green);
       }
 
       tr {
-        background-color: $table-even-row-green;
+        background-color: var(--table-even-row-green--background, $table-even-row-green);
       }
 
       tfoot td {
-        background-color: $table-footer-green;
+        background-color: var(--table-footer-green--background, $table-footer-green);
       }
     }
 
     // Blue background
     &.has-blue-background-color {
       th {
-        background-color: $table-header-blue;
+        background-color: var(--table-header-blue--background, $table-header-blue);
       }
 
       tr {
-        background-color: $table-even-row-blue;
+        background-color: var(--table-even-row-blue--background, $table-even-row-blue);
       }
 
       tfoot td {
-        background-color: $table-footer-blue;
+        background-color: var(--table-footer-blue--background, $table-footer-blue);
       }
     }
   }
@@ -58,17 +59,17 @@
   &.is-style-stripes table {
     // Grey background (defaut)
     tr:nth-child(odd) {
-      background-color: $table-odd-row-grey;
+      background-color: var(--table-odd-row-grey--background, $table-odd-row-grey);
     }
 
     // Green background
     &.has-green-background-color tr:nth-child(odd) {
-      background-color: $table-odd-row-green;
+      background-color: var(--table-odd-row-green--background, $table-odd-row-green);
     }
 
     // Blue background
     &.has-blue-background-color tr:nth-child(odd) {
-      background-color: $table-odd-row-blue;
+      background-color: var(--table-odd-row-blue--background, $table-odd-row-blue);
     }
   }
 
